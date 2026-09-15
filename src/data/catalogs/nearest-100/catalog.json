@@ -1,0 +1,32 @@
+{
+  "schemaVersion": 1,
+  "id": "nearest-100",
+  "label": "Nearest 100 objects",
+  "description": "100 individual stellar/substellar objects from the frozen 2023 10pc census, audited against corrected CNS5, plus Sun. Tentative candidates excluded except explicitly preserved EZ Aquarii B/C default membership; photometry and physical properties are incomplete.",
+  "epoch": 2000,
+  "objectCount": 101,
+  "sources": [
+    {
+      "name": "10pc census, Reyle et al., tablea1 update 2023-08-25",
+      "url": "https://cdsarc.cds.unistra.fr/ftp/J/A+A/650/A201/ReadMe"
+    },
+    {
+      "name": "CNS5, Golovin et al., corrected 2023-12-13; membership audit",
+      "url": "https://cdsarc.cds.unistra.fr/ftp/J/A+A/670/A19/ReadMe"
+    },
+    {
+      "name": "Pecaut & Mamajek 2013, dwarf sequence version 2022.04.16; estimated temperatures",
+      "url": "https://www.pas.rochester.edu/~emamajek/EEM_dwarf_UBVIJHK_colors_Teff.txt"
+    },
+    {
+      "name": "NASA Sun Fact Sheet, 2024-05-09",
+      "url": "https://nssdc.gsfc.nasa.gov/planetary/factsheet/sunfact.html"
+    },
+    {
+      "name": "Astropy 7.1.1, IAU constellations using Roman 1987 boundaries",
+      "url": "https://docs.astropy.org/en/stable/api/astropy.coordinates.get_constellation.html"
+    }
+  ],
+  "cutoffPolicy": "Exclude Planet rows, aggregate system rows and source ObjType endings '?'. The only approved exceptions are Seq 27/28 (EZ Aquarii B/C): preserve vetted default membership and every default field, while retaining raw LM? classifications explicitly; this is not a new classification measurement. Keep all tentative buffer records for audit. Rank eligible individual non-Sun objects by unrounded adopted J2000 distance, then ASCII stable ID for exact ties; retain exactly 100 plus Sun. Rank 100 is GJ 229 A; nearby one-sigma distance intervals overlap, so membership is not statistically secure. Frozen 2023 source releases with preserved neighbor overrides; no 2026 completeness claim.",
+  "snapshot": "J2000.0; 10pc 2023-08-25 / CNS5 corrected 2023-12-13; preserved neighbor measurements; frozen 2026-09-15; confirmed-membership-v2"
+}

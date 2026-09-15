@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" href="data:," />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="theme-color" content="#202224" />
+    <meta name="description" content="A Sun-centered map of nearby stellar and substellar objects." />
+    <title>Star View</title>
+  </head>
+  <body>
+    <div id="app">
+      <header class="app-header">
+        <div class="brand"><span id="brand-icon" aria-hidden="true"></span><h1>Star View</h1></div>
+        <div class="header-context"><span class="status-dot" aria-hidden="true"></span><span>Local catalog</span><span id="object-count">Loading</span></div>
+      </header>
+      <main class="workspace">
+        <section class="scene-wrap" aria-label="3D nearby-object viewer">
+          <div id="scene" class="scene"></div>
+          <div class="scene-heading" data-scene-obstacle>
+            <p class="eyebrow">NEARBY SPACE</p>
+            <h2>Solar neighborhood</h2>
+            <p class="scene-reference">Sun-centered Galactic frame</p>
+          </div>
+          <div class="scene-toolbar" role="group" aria-label="Map view controls" data-scene-obstacle>
+            <button id="reset-view" class="icon-button" type="button" aria-label="Reset view" disabled><span id="reset-icon"></span><span class="tooltip">Reset view</span></button>
+            <button id="toggle-grid" class="icon-button" type="button" aria-label="Grid" aria-pressed="true" aria-controls="scene" disabled><span id="grid-icon"></span><span id="grid-tooltip" class="tooltip">Hide grid</span></button>
+            <span class="toolbar-divider"></span>
+            <button id="zoom-in" class="icon-button" type="button" aria-label="Zoom in" disabled><span id="zoom-in-icon"></span><span class="tooltip">Zoom in</span></button>
+            <button id="zoom-out" class="icon-button" type="button" aria-label="Zoom out" disabled><span id="zoom-out-icon"></span><span class="tooltip">Zoom out</span></button>
+          </div>
+          <div class="scene-legend" data-scene-obstacle>
+            <span id="grid-legend" class="grid-legend"><span class="grid-symbol" aria-hidden="true"></span><span id="grid-spacing">0.5 pc grid</span><span class="legend-divider"></span></span>
+            <span id="scene-epoch">J2000.0</span>
+          </div>
+          <div id="plane-key" class="plane-key" data-scene-obstacle><span></span>Sun's reference plane</div>
+          <div id="scene-status" class="scene-status" role="status">Loading nearby-object map...</div>
+        </section>
+        <aside id="inspector" class="inspector" aria-label="Selected object">
+          <section class="display-settings" aria-label="Catalog and display settings">
+            <div class="catalog-choice"><label for="catalog-select">Catalog</label><select id="catalog-select"></select></div>
+            <div class="display-preferences">
+              <fieldset id="distance-units"><legend>Distances</legend><div class="unit-options"><label><input id="unit-pc" type="radio" name="distance-unit" value="pc" checked><span>pc</span></label><label><input id="unit-ly" type="radio" name="distance-unit" value="ly"><span>ly</span></label></div></fieldset>
+              <label class="magnitude-choice" for="magnitude-limit">V magnitude limit<input id="magnitude-limit" type="number" min="0" max="12" step="0.5" value="7"></label>
+            </div>
+            <p class="visibility-observer">Visibility from <strong id="visibility-base">Sirius A</strong></p>
+          </section>
+          <details class="catalog" aria-labelledby="catalog-heading">
+            <summary><span id="catalog-heading">Objects</span><span id="catalog-count"></span></summary>
+            <div id="star-list" class="star-list" role="group" aria-label="Nearby objects"></div>
+          </details>
+          <p id="catalog-error" class="catalog-error" role="alert" hidden></p>
+          <p id="selection-empty" class="selection-summary" hidden>No object selected</p>
+          <div id="star-details" hidden>
+            <section class="selection-summary" aria-labelledby="star-name">
+              <div class="identity">
+                <p class="eyebrow"><span id="selected-swatch" class="star-swatch"></span>SELECTED OBJECT</p>
+                <h2 id="star-name"></h2>
+                <p id="star-id" class="star-id"></p>
+              </div>
+              <div class="summary-metrics">
+                <div class="metric distance-metric">
+                  <h3>Distance from Sun</h3>
+                  <p class="metric-value"><span id="distance-value"></span><span id="distance-unit" class="metric-unit"> pc</span></p>
+                </div>
+              </div>
+            </section>
+            <section class="properties-section" aria-label="Object properties">
+              <dl class="properties">
+                <div><dt>Object type</dt><dd id="object-type"></dd></div>
+                <div><dt>Constellation (Earth)</dt><dd id="constellation"></dd></div>
+                <div><dt>Spectral type</dt><dd id="spectral-type"></dd></div>
+                <div><dt>Temperature</dt><dd id="temperature"></dd></div>
+                <div><dt>Mass</dt><dd id="mass"></dd></div>
+                <div><dt>Absolute mag. (V)</dt><dd id="absolute-mag"></dd></div>
+              </dl>
+            </section>
+            <details class="source-details">
+              <summary>Coordinates &amp; source</summary>
+              <dl class="properties coordinate-properties">
+                <div><dt>X</dt><dd id="coordinate-x"></dd></div>
+                <div><dt>Y</dt><dd id="coordinate-y"></dd></div>
+                <div><dt>Z</dt><dd id="coordinate-z"></dd></div>
+                <div><dt>In-plane distance</dt><dd id="plane-distance"></dd></div>
+                <div><dt>Epoch</dt><dd id="epoch"></dd></div>
+                <div><dt>Velocity X</dt><dd id="velocity-x"></dd></div>
+                <div><dt>Velocity Y</dt><dd id="velocity-y"></dd></div>
+                <div><dt>Velocity Z</dt><dd id="velocity-z"></dd></div>
+                <div id="luminosity-row"><dt>Bolometric luminosity</dt><dd id="luminosity"></dd></div>
+              </dl>
+              <p id="star-notes" class="star-notes"></p>
+            </details>
+          </div>
+          <p class="catalog-footer">HELIOCENTRIC &middot; GALACTIC-ALIGNED</p>
+        </aside>
+      </main>
+      <p id="selection-announcement" class="sr-only" aria-live="polite" aria-atomic="true"></p>
+    </div>
+    <noscript>This nearby-object viewer requires JavaScript.</noscript>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>
