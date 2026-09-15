@@ -21,6 +21,9 @@ function homeCamera(stars: readonly Star[], bounds: { width: number; height: num
 async function starPoint(page: Page, id: string) {
   const anchor = page.locator(`.map-anchor[data-star-id="${id}"]`)
   await expect(anchor).toBeVisible()
+  // Camera changes are rendered on the next frame; sample the updated label
+  // before using its coordinates for screenshots or pointer input.
+  await page.evaluate(() => new Promise<void>((resolve) => requestAnimationFrame(() => resolve())))
   return anchor.evaluate((element) => {
     const rectangle = element.getBoundingClientRect()
     return { x: rectangle.left, y: rectangle.top }
@@ -64,7 +67,7 @@ async function sceneFits(page: Page) {
     for (const label of labels) {
       const bounds = label.getBoundingClientRect()
       if (bounds.left < scene.left || bounds.right > scene.right || bounds.top < scene.top || bounds.bottom > scene.bottom) failures.push(`clipped label ${label.textContent}`)
-      for (const obstacle of label.matches('.is-selected .star-label') ? [] : document.querySelectorAll<HTMLElement>('[data-scene-obstacle]')) {
+      for (const obstacle of label.matches('.is-selected .star-label, .distance-label') ? [] : document.querySelectorAll<HTMLElement>('[data-scene-obstacle]')) {
         if (!obstacle.checkVisibility()) continue
         const other = obstacle.getBoundingClientRect()
         if (bounds.left < other.right && bounds.right > other.left && bounds.top < other.bottom && bounds.bottom > other.top) failures.push(`label overlaps ${obstacle.className}`)
@@ -125,7 +128,7 @@ test('converts every distance without moving the camera and remembers units', as
   await expect(page.locator('#distance-value')).toHaveText('8.61')
   await expect(page.locator('#grid-spacing')).toHaveText('1.63 ly grid')
   await expect(page.locator('.distance-label')).toHaveText('8.61 ly')
-  await expect(page.locator('.height-label')).toContainText('ly below')
+  await expect(page.locator('.height-label')).toHaveCount(0)
   await expect(page.locator('#coordinate-x')).toHaveText(/ ly$/)
   await expect(page.locator('#plane-distance')).toHaveText(/ ly$/)
   await expect(page.locator('#selection-announcement')).toContainText('8.61 ly from the Sun')
@@ -254,9 +257,9 @@ test('renders temperature-colored objects, measurements, and a responsive interf
   await expect(page.locator('#object-count')).toHaveText('22 objects')
   await expect(page.locator('.catalog-entry')).toHaveCount(22)
   await expect(page.locator('.map-anchor[data-star-id]')).toHaveCount(22)
-  await expect(page.locator('.dimension-label')).toHaveCount(2)
+  await expect(page.locator('.dimension-label')).toHaveCount(1)
+  await expect(page.locator('.height-label')).toHaveCount(0)
   if (!isMobile) {
-    await expect(page.locator('.height-label')).toBeVisible()
     await expect(page.locator('.distance-label')).toBeVisible()
   }
   await expect(page.locator('#brand-icon svg')).toBeVisible()
@@ -265,7 +268,12 @@ test('renders temperature-colored objects, measurements, and a responsive interf
 
   const canvas = page.locator('#scene canvas')
   const bounds = (await canvas.boundingBox())!
-  const screenshot = await canvas.screenshot({ scale: 'css', path: testInfo.outputPath('canvas.png') })
+  const screenshot = await canvas.screenshot({
+    scale: 'css', path: testInfo.outputPath('canvas.png'),
+    // Foreground labels may intentionally overlap dots. Sample the WebGL cores
+    // without text overlays, then capture the complete interface below.
+    style: '.projected-labels, .projected-axes { visibility: hidden !important; }',
+  })
   const image = PNG.sync.read(screenshot)
   let blackPixels = 0
   for (let offset = 0; offset < image.data.length; offset += 4) {
@@ -497,7 +505,7 @@ test('toggles the grid below reset without moving stars or changing selection', 
   await expect(page.locator('.axis-label:visible')).toHaveCount(0)
   await expect(page.locator('#scene-epoch')).toBeVisible()
   await expect(page.locator('#star-name')).toHaveText('Sirius A')
-  await expect(page.locator('.dimension-label')).toHaveCount(2)
+  await expect(page.locator('.dimension-label')).toHaveCount(1)
   await expect(page.locator('.motion-arrow:visible')).toHaveCount(3)
   expect(await starPoint(page, 'sun')).toEqual(sunBefore)
   const gridOff = await canvas.screenshot(screenshotOptions)
@@ -1162,8 +1170,9 @@ test('keeps the selected name in front even at collisions and scene edges', asyn
   await expect(label).toBeVisible()
 })
 
-test('keeps star names at a fixed offset during camera rotation', async ({ page }) => {
+test('keeps star names steady and foreground distance clear of both stars during rotation', async ({ page }) => {
   await openViewer(page)
+  await expect(page.locator('.distance-label').locator('..')).toHaveCSS('z-index', '2')
   const bounds = (await page.locator('#scene canvas').boundingBox())!
   await page.mouse.move(bounds.x + bounds.width * 0.4, bounds.y + bounds.height * 0.7)
   await page.mouse.down()
@@ -1171,18 +1180,30 @@ test('keeps star names at a fixed offset during camera rotation', async ({ page 
     await page.mouse.move(bounds.x + bounds.width * 0.4 + step * 8, bounds.y + bounds.height * 0.7 - step * 3)
     const offsets = await page.evaluate(async () => {
       await new Promise(requestAnimationFrame)
-      return [...document.querySelectorAll<HTMLElement>('.star-label')]
+      return [...document.querySelectorAll<HTMLElement>('.star-label, .distance-label')]
         .filter((label) => label.checkVisibility())
         .map((label) => {
           const text = label.getBoundingClientRect()
           const anchor = label.parentElement!.getBoundingClientRect()
-          return { x: text.left - anchor.left, y: text.top + text.height / 2 - anchor.top }
+          const distance = label.matches('.distance-label')
+          const endpointsClear = !distance || ['sun', 'sirius-a'].every((id) => {
+            const star = document.querySelector<HTMLElement>(`[data-star-id="${id}"]`)!
+            if (star.hidden) return true
+            const point = star.getBoundingClientRect()
+            return text.right <= point.left - 30 || text.left >= point.left + 30 ||
+              text.bottom <= point.top - 30 || text.top >= point.top + 30
+          })
+          return { x: text.left - anchor.left, y: text.top + text.height / 2 - anchor.top, distance, endpointsClear }
         })
     })
     expect(offsets.length).toBeGreaterThan(0)
+    expect(offsets.some((offset) => offset.distance)).toBe(true)
     for (const offset of offsets) {
-      expect(offset.x).toBeCloseTo(22, 0)
-      expect(offset.y).toBeCloseTo(0, 0)
+      expect(offset.endpointsClear).toBe(true)
+      if (!offset.distance) {
+        expect(offset.x).toBeCloseTo(22, 0)
+        expect(offset.y).toBeCloseTo(0, 0)
+      }
     }
   }
   await page.mouse.up()

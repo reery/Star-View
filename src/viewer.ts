@@ -1,5 +1,5 @@
 import {
-  AdditiveBlending, Box3, BufferGeometry, Camera, CanvasTexture, Float32BufferAttribute,
+  AdditiveBlending, Box3, BufferGeometry, Camera, CanvasTexture, Color, Float32BufferAttribute,
   GridHelper, Group, LessDepth, Line, LineBasicMaterial, LineDashedMaterial, LineSegments, NoBlending, Object3D,
   PerspectiveCamera, Points, PointsMaterial, Scene, ShaderMaterial, Sphere, SRGBColorSpace,
   Vector3, Vector4, WebGLRenderer,
@@ -56,6 +56,8 @@ interface MapLabel {
   anchor: HTMLDivElement
   text: HTMLDivElement
   position: Vector3
+  width: number
+  height: number
   starId?: string
   measurement?: { distancePc: number; suffix: string }
   motion?: { element: HTMLSpanElement; velocity: Vector3; length: number }
@@ -91,6 +93,14 @@ function lineBetween(points: Vector3[], color: number, dashed = false): Line {
 function overlaps(first: LabelRect, second: LabelRect, gap = 6): boolean {
   return first.left < second.right + gap && first.right + gap > second.left &&
     first.top < second.bottom + gap && first.bottom + gap > second.top
+}
+
+function setHidden(element: HTMLElement, hidden: boolean): void {
+  if (element.hidden !== hidden) element.hidden = hidden
+}
+
+function setTransform(element: HTMLElement, transform: string): void {
+  if (element.style.transform !== transform) element.style.transform = transform
 }
 
 export function createStarViewer(container: HTMLElement, stars: readonly Star[], options: ViewerOptions): StarViewer {
@@ -169,6 +179,10 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
   const haloGeometry = new BufferGeometry()
   haloGeometry.setAttribute('position', starGeometry.getAttribute('position').clone())
   haloGeometry.setAttribute('color', starGeometry.getAttribute('color').clone())
+  // Reuse a fixed-capacity index buffer; zero-opacity halos should never reach
+  // the rasterizer. The visible subset only changes with selection/settings.
+  haloGeometry.setIndex(stars.map((_, index) => index))
+  const haloIndices = haloGeometry.getIndex()!
   const haloOpacities = new Float32BufferAttribute(stars.map((star) => starHaloOpacity(star.absolute_mag)), 1)
   haloGeometry.setAttribute('haloOpacity', haloOpacities)
   haloGeometry.setAttribute('haloDiameter', new Float32BufferAttribute(stars.map((star) => starHaloDiameter(star.absolute_mag)), 1))
@@ -221,14 +235,14 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
     { position: new Vector3(0, 0, -axisLength), text: '+Y', color: 0x9c8976 },
     { position: new Vector3(0, axisLength, 0), text: '+Z north', color: 0x899ca3 },
   ]
-  const axisLines = new Group()
-  axes.forEach((axis) => {
-    const line = lineBetween([origin, axis.position], axis.color)
-    const material = line.material as LineBasicMaterial
-    material.transparent = true
-    material.opacity = 0.55
-    axisLines.add(line)
-  })
+  const axisGeometry = new BufferGeometry().setFromPoints(axes.flatMap((axis) => [origin, axis.position]))
+  axisGeometry.setAttribute('color', new Float32BufferAttribute(axes.flatMap((axis) => {
+    const color = new Color(axis.color).toArray()
+    return [...color, ...color]
+  }), 3))
+  const axisLines = new LineSegments(axisGeometry, new LineBasicMaterial({
+    vertexColors: true, transparent: true, opacity: 0.55, depthWrite: false,
+  }))
   scene.add(axisLines)
 
   const axisLayer = document.createElement('div')
@@ -254,7 +268,7 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
     }
     anchor.append(text)
     labelLayer.append(anchor)
-    return { anchor, text, position, starId }
+    return { anchor, text, position, starId, width: 0, height: 0 }
   }
 
   const starLabels = stars.map((star, index) => {
@@ -294,25 +308,52 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
   let distanceUnit: DistanceUnit = 'pc'
   const tiers = new Map<string, ReturnType<typeof visibilityTier>>()
   let disposed = false
+  let contextLost = false
+  let pendingFrame: number | null = null
   let home = true
   let focusTransition: { from: Vector3; to: Vector3; position: Vector3; started: number } | null = null
   const focusTarget = new Vector3()
+  let labelSizesDirty = true
+  let distanceNormal = { x: 0, y: -1 }
+  let distanceSide = 1
+
+  function invalidateLabelSizes(): void {
+    labelSizesDirty = true
+    requestRender()
+  }
+
+  // The catalog is static. Coalesce changes into a single frame, and only keep
+  // scheduling frames while focus animation or OrbitControls damping is active.
+  function requestRender(): void {
+    if (disposed || contextLost || document.hidden || pendingFrame !== null) return
+    pendingFrame = requestAnimationFrame(render)
+  }
+
+  function cancelRender(): void {
+    if (pendingFrame !== null) cancelAnimationFrame(pendingFrame)
+    pendingFrame = null
+  }
 
   function updatePresentation(): void {
+    let haloCount = 0
     stars.forEach((star, index) => {
       const tier = visibilityTier(star, visibilityBase, magnitudeLimit)
       tiers.set(star.id, tier)
       coreDiameters.setX(index, tier === 'background' ? 3 : STAR_DIAMETER_PX)
       haloOpacities.setX(index, tier === 'background' ? 0 : starHaloOpacity(star.absolute_mag, star.id === selectedId))
+      if (tier !== 'background') haloIndices.setX(haloCount++, index)
       starLabels[index]!.anchor.dataset.visibility = tier
     })
     coreDiameters.needsUpdate = true
     haloOpacities.needsUpdate = true
+    haloIndices.needsUpdate = true
+    haloGeometry.setDrawRange(0, haloCount)
   }
 
   function makeMeasurement(position: Vector3, distancePc: number, className: string, suffix = ''): MapLabel {
     const label = makeLabel(position, `${formatDistance(distancePc, distanceUnit)}${suffix}`, className)
     label.measurement = { distancePc, suffix }
+    label.anchor.style.zIndex = '2'
     return label
   }
 
@@ -329,42 +370,56 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
   }
 
   function updateLabels(): void {
+    if (labelSizesDirty) {
+      const labels = [...axisLabels, ...starLabels, ...measurementLabels]
+      // Hidden labels have zero dimensions. Reveal them together, read all
+      // sizes in one layout pass, then place/hide them below before painting.
+      for (const label of labels) {
+        setHidden(label.anchor, false)
+        setHidden(label.text, false)
+      }
+      for (const label of labels) {
+        label.width = label.text.offsetWidth
+        label.height = label.text.offsetHeight
+      }
+      labelSizesDirty = false
+    }
     const viewport = canvas.getBoundingClientRect()
+    const projections = new Map(pickable.map((star) => [star.id, projectWorldPoint(star.position, camera, viewport)]))
     const blocked: LabelRect[] = [...container.parentElement!.querySelectorAll<HTMLElement>('[data-scene-obstacle]')]
       .filter((element) => !element.hidden)
       .map((element) => element.getBoundingClientRect())
     for (const label of axisLabels) {
       const projected = grid.visible ? projectWorldPoint(label.position, camera, viewport) : null
-      label.anchor.hidden = !projected
+      setHidden(label.anchor, !projected)
       if (!projected) continue
-      label.anchor.style.transform = `translate(${projected.x - viewport.left}px, ${projected.y - viewport.top}px)`
-      label.text.hidden = false
-      const width = label.text.offsetWidth
-      const height = label.text.offsetHeight
-      label.text.style.transform = `translate(18px, ${-height / 2}px)`
+      setTransform(label.anchor, `translate(${projected.x - viewport.left}px, ${projected.y - viewport.top}px)`)
+      const { width, height } = label
+      setTransform(label.text, `translate(18px, ${-height / 2}px)`)
       const rectangle = { left: projected.x + 18, right: projected.x + 18 + width, top: projected.y - height / 2, bottom: projected.y + height / 2 }
-      label.text.hidden = rectangle.left < viewport.left + 12 || rectangle.right > viewport.right - 12 ||
+      setHidden(label.text, rectangle.left < viewport.left + 12 || rectangle.right > viewport.right - 12 ||
         rectangle.top < viewport.top + 12 || rectangle.bottom > viewport.bottom - 12 ||
-        blocked.some((obstacle) => overlaps(rectangle, obstacle))
+        blocked.some((obstacle) => overlaps(rectangle, obstacle)))
     }
     const starObstacles = pickable.flatMap((star) => {
-      const projected = projectWorldPoint(star.position, camera, viewport)
+      const projected = projections.get(star.id)
       if (!projected) return []
       const radius = (tiers.get(star.id) === 'background' ? 3 : STAR_DIAMETER_PX) / 2
       return [{ depth: projected.depth, bounds: { left: projected.x - radius, right: projected.x + radius, top: projected.y - radius, bottom: projected.y + radius } }]
     })
     const selectedLabels = starLabels.filter((label) => label.starId === selectedId)
     const otherStarLabels = starLabels.filter((label) => label.starId !== selectedId)
-      .sort((first, second) => (projectWorldPoint(first.position, camera, viewport)?.depth ?? Infinity) -
-        (projectWorldPoint(second.position, camera, viewport)?.depth ?? Infinity))
+      .sort((first, second) => (projections.get(first.starId!)?.depth ?? Infinity) -
+        (projections.get(second.starId!)?.depth ?? Infinity))
     for (const [index, label] of [...selectedLabels, ...otherStarLabels].entries()) {
-      label.anchor.style.zIndex = label.starId === selectedId ? '1' : `${-index - 1}`
+      const zIndex = label.starId === selectedId ? '1' : `${-index - 1}`
+      if (label.anchor.style.zIndex !== zIndex) label.anchor.style.zIndex = zIndex
       if (!label.motion) continue
       const { element, velocity, length } = label.motion
-      element.hidden = true
-      if (tiers.get(label.starId!) === 'background') continue
-      const projected = projectWorldPoint(label.position, camera, viewport)
-      const direction = projectMotionDirection(label.position, velocity, camera, viewport)
+      const projected = projections.get(label.starId!)
+      const direction = projected && tiers.get(label.starId!) !== 'background'
+        ? projectMotionDirection(label.position, velocity, camera, viewport) : null
+      setHidden(element, !direction)
       if (!projected || !direction) continue
       const offsetX = direction.x * (STAR_DIAMETER_PX / 2 + length / 2)
       const offsetY = direction.y * (STAR_DIAMETER_PX / 2 + length / 2)
@@ -375,50 +430,85 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
       const centerX = projected.x + offsetX
       const centerY = projected.y + offsetY
       const bounds = { left: centerX - halfWidth, right: centerX + halfWidth, top: centerY - halfHeight, bottom: centerY + halfHeight }
-      element.style.transform = `translate(${offsetX}px, ${offsetY}px) rotate(${Math.atan2(direction.y, direction.x)}rad)`
-      element.hidden = false
+      setTransform(element, `translate(${offsetX}px, ${offsetY}px) rotate(${Math.atan2(direction.y, direction.x)}rad)`)
       starObstacles.push({ depth: projected.depth, bounds })
     }
     for (const label of [...selectedLabels, ...measurementLabels, ...otherStarLabels]) {
-      const projected = projectWorldPoint(label.position, camera, viewport)
+      const projected = label.starId ? projections.get(label.starId) : projectWorldPoint(label.position, camera, viewport)
       const selected = label.starId === selectedId
-      const anchor = projected ?? (selected ? projectSelectedAnchor(label.position, camera, viewport) : null)
-      label.anchor.hidden = !anchor
-      label.anchor.classList.toggle('is-clipped', !projected)
+      const foreground = selected || Boolean(label.measurement)
+      const anchor = projected ?? (foreground ? projectSelectedAnchor(label.position, camera, viewport) : null)
+      setHidden(label.anchor, !anchor)
+      if (label.anchor.classList.contains('is-clipped') !== !projected) label.anchor.classList.toggle('is-clipped', !projected)
       if (!anchor) continue
-      label.anchor.style.transform = `translate(${anchor.x - viewport.left}px, ${anchor.y - viewport.top}px)`
+      setTransform(label.anchor, `translate(${anchor.x - viewport.left}px, ${anchor.y - viewport.top}px)`)
       if (label.starId && tiers.get(label.starId) === 'background') {
-        label.text.hidden = true
+        setHidden(label.text, true)
         continue
       }
-      label.text.hidden = false
-      const width = label.text.offsetWidth
-      const height = label.text.offsetHeight
-      if (selected) {
+      const { width, height } = label
+      if (label.measurement) {
+        const start = projections.get(sun!.id)
+        const end = projections.get(selectedId!)
+        if (start && end) {
+          const dx = end.x - start.x
+          const dy = end.y - start.y
+          const length = Math.hypot(dx, dy)
+          if (length > 1) distanceNormal = { x: dy / length, y: -dx / length }
+        }
+        const radius = Math.max(starHaloDiameter(sun!.absolute_mag), starHaloDiameter(visibilityBase.absolute_mag)) / 2 + 6
+        const endpoints = [start, end].filter((point) => point != null)
+          .map((point) => ({ left: point.x - radius, right: point.x + radius, top: point.y - radius, bottom: point.y + radius }))
+        // Offset perpendicular to the line far enough that the whole label
+        // clears both endpoint halos, even when the line is foreshortened.
+        const offset = Math.abs(distanceNormal.x) * (width / 2 + radius) + Math.abs(distanceNormal.y) * (height / 2 + radius)
+        const clamp = (left: number, top: number) => {
+          left = Math.max(viewport.left + 12, Math.min(left, viewport.right - width - 12))
+          top = Math.max(viewport.top + 12, Math.min(top, viewport.bottom - height - 12))
+          return { left, top, right: left + width, bottom: top + height }
+        }
+        const candidates = [distanceSide, -distanceSide].map((side) => ({
+          ...clamp(anchor.x + distanceNormal.x * offset * side - width / 2, anchor.y + distanceNormal.y * offset * side - height / 2), side,
+        }))
+        let placement = candidates.find((candidate) => endpoints.every((endpoint) => !overlaps(candidate, endpoint, 0)))
+        if (placement) distanceSide = placement.side
+        else {
+          // At the viewport edge, use the closest clear corner instead of
+          // clamping the label back on top of a star.
+          const corners = [viewport.left + 12, viewport.right - width - 12].flatMap((left) =>
+            [viewport.top + 12, viewport.bottom - height - 12].map((top) => ({ ...clamp(left, top), side: distanceSide })))
+          placement = corners.filter((candidate) => endpoints.every((endpoint) => !overlaps(candidate, endpoint, 0)))
+            .sort((a, b) => Math.hypot(a.left + width / 2 - anchor.x, a.top + height / 2 - anchor.y) -
+              Math.hypot(b.left + width / 2 - anchor.x, b.top + height / 2 - anchor.y))[0]
+        }
+        setHidden(label.text, !placement)
+        if (placement) {
+          setTransform(label.text, `translate(${placement.left - anchor.x}px, ${placement.top - anchor.y}px)`)
+          blocked.push(placement)
+        }
+        continue
+      }
+      if (foreground) {
         const left = Math.max(viewport.left + 12, Math.min(anchor.x + 22, viewport.left + viewport.width - width - 12))
         const top = Math.max(viewport.top + 12, Math.min(anchor.y - height / 2, viewport.top + viewport.height - height - 12))
-        label.text.style.transform = `translate(${left - anchor.x}px, ${top - anchor.y}px)`
+        setTransform(label.text, `translate(${left - anchor.x}px, ${top - anchor.y}px)`)
+        setHidden(label.text, false)
         blocked.push({ left, top, right: left + width, bottom: top + height })
         continue
       }
-      const offsets = label.starId
-        ? [[22, -height / 2]]
-        : [[18, -height / 2], [18, 14], [-width - 18, -height / 2], [-width / 2, -height - 18], [-width - 18, 14]]
-      if (label.text.classList.contains('dimension-label')) {
-        offsets.push([32, -height / 2], [32, 28], [-width - 32, -height / 2], [-width / 2, -height - 32], [-width - 32, 28], [-width / 2, 32])
-      }
+      const offsets = [[22, -height / 2]]
       let placed = false
       for (const [offsetX, offsetY] of offsets) {
         const rectangle = { left: anchor.x + offsetX!, top: anchor.y + offsetY!, right: anchor.x + offsetX! + width, bottom: anchor.y + offsetY! + height }
         if (rectangle.left < viewport.left + 12 || rectangle.right > viewport.right - 12 || rectangle.top < viewport.top + 12 || rectangle.bottom > viewport.bottom - 12) continue
         if (blocked.some((obstacle) => overlaps(rectangle, obstacle))) continue
         if (starObstacles.some((obstacle) => (!label.starId || obstacle.depth <= projected!.depth) && overlaps(rectangle, obstacle.bounds))) continue
-        label.text.style.transform = `translate(${offsetX}px, ${offsetY}px)`
+        setTransform(label.text, `translate(${offsetX}px, ${offsetY}px)`)
         blocked.push(rectangle)
         placed = true
         break
       }
-      label.text.hidden = !placed
+      setHidden(label.text, !placed)
     }
   }
 
@@ -427,6 +517,8 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
     if (id !== null && !star) return
     focusTransition = null
     selectedId = id
+    distanceSide = 1
+    distanceNormal = { x: 0, y: -1 }
     if (star) visibilityBase = star
     updatePresentation()
     starLabels.forEach((label) => label.anchor.classList.toggle('is-selected', label.starId === id))
@@ -434,8 +526,9 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
     guides.clear()
     measurementLabels.forEach((label) => label.anchor.remove())
     measurementLabels = []
+    invalidateLabelSizes()
     if (!star) {
-      updateLabels()
+      requestRender()
       return
     }
     const metrics = sunRelativeMetrics(star, sun!)
@@ -454,7 +547,6 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
           foot.clone().add(new Vector3(-markerSize, 0, markerSize)),
           foot.clone().add(new Vector3(-markerSize, 0, -markerSize)),
         ], 0xe7a05b))
-        measurementLabels.push(makeMeasurement(position.clone().lerp(foot, 0.5), Math.abs(metrics.heightPc), 'dimension-label height-label', ` ${metrics.side}`))
       }
       measurementLabels.push(makeMeasurement(origin.clone().lerp(position, 0.5), metrics.distancePc, 'dimension-label distance-label'))
     }
@@ -467,7 +559,7 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
       else focusTransition = { from, to, position, started: performance.now() }
       home = false
     }
-    updateLabels()
+    requestRender()
   }
 
   function fitHome(): void {
@@ -486,18 +578,25 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
     focusTransition = null
     controls.reset()
     fitHome()
+    requestRender()
   }
 
+  let renderWidth = 0
+  let renderHeight = 0
   function resize(): void {
     const width = container.clientWidth
     const height = container.clientHeight
     if (!width || !height) return
     const pixelRatio = Math.min(window.devicePixelRatio || 1, 2)
+    if (width === renderWidth && height === renderHeight && renderer.getPixelRatio() === pixelRatio) return
+    renderWidth = width
+    renderHeight = height
     renderer.setPixelRatio(pixelRatio)
     renderer.setSize(width, height)
     camera.aspect = width / height
     camera.updateProjectionMatrix()
     if (home) fitHome()
+    invalidateLabelSizes()
   }
 
   const events = new AbortController()
@@ -523,22 +622,25 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
     focusTransition = null
     home = false
   })
+  controls.addEventListener('change', requestRender)
   reducedMotion.addEventListener('change', () => {
     if (reducedMotion.matches && focusTransition) {
       applyFocusTarget(focusTransition.to, focusTransition.position)
       focusTransition = null
     }
     controls.enableDamping = !reducedMotion.matches
+    requestRender()
   }, { signal: events.signal })
 
   function render(time: number): void {
-    if (disposed) return
-    if (renderer.getPixelRatio() !== Math.min(window.devicePixelRatio || 1, 2)) resize()
+    pendingFrame = null
+    if (disposed || contextLost || document.hidden) return
     if (focusTransition) {
       const progress = focusProgress(time - focusTransition.started)
       focusTarget.lerpVectors(focusTransition.from, focusTransition.to, progress)
       applyFocusTarget(focusTarget, focusTransition.position)
       if (progress === 1) focusTransition = null
+      else requestRender()
     } else controls.update()
     camera.updateMatrixWorld()
     renderer.render(scene, camera)
@@ -548,20 +650,54 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
   canvas.addEventListener('webglcontextlost', (event) => {
     event.preventDefault()
     focusTransition = null
-    renderer.setAnimationLoop(null)
+    contextLost = true
+    cancelRender()
     options.onStatus('The 3D view lost its graphics context. Star details are still available.')
   }, { signal: events.signal })
   canvas.addEventListener('webglcontextrestored', () => {
+    contextLost = false
     options.onStatus(null)
     resize()
-    renderer.setAnimationLoop(render)
+    requestRender()
   }, { signal: events.signal })
+
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden) cancelRender()
+    else {
+      resize()
+      requestRender()
+    }
+  }, { signal: events.signal })
+  window.addEventListener('resize', () => {
+    resize()
+    invalidateLabelSizes()
+  }, { signal: events.signal })
+  // Moving between displays or changing browser zoom can change DPR without
+  // changing the scene's CSS dimensions. Watch it without polling every frame.
+  let pixelRatioQuery: MediaQueryList
+  function watchPixelRatio(): void {
+    pixelRatioQuery?.removeEventListener('change', onPixelRatioChange)
+    pixelRatioQuery = matchMedia(`(resolution: ${window.devicePixelRatio || 1}dppx)`)
+    pixelRatioQuery.addEventListener('change', onPixelRatioChange, { signal: events.signal })
+  }
+  function onPixelRatioChange(): void {
+    watchPixelRatio()
+    resize()
+  }
+  watchPixelRatio()
+  document.fonts.ready.then(invalidateLabelSizes)
+  document.fonts.addEventListener('loadingdone', invalidateLabelSizes, { signal: events.signal })
 
   const observer = new ResizeObserver(resize)
   observer.observe(container)
+  // Font loading, unit changes, and hiding the grid legend can change the
+  // rectangles that labels must avoid, even when the canvas size stays fixed.
+  const obstacleObserver = new ResizeObserver(requestRender)
+  container.parentElement!.querySelectorAll<HTMLElement>('[data-scene-obstacle]')
+    .forEach((element) => obstacleObserver.observe(element))
   updatePresentation()
   resize()
-  renderer.setAnimationLoop(render)
+  requestRender()
   container.dataset.ready = 'true'
 
   return {
@@ -573,7 +709,7 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
       visibilityBase = base
       magnitudeLimit = limit
       updatePresentation()
-      updateLabels()
+      requestRender()
     },
     setDistanceUnit(unit) {
       distanceUnit = unit
@@ -581,11 +717,12 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
         const { distancePc, suffix } = label.measurement!
         label.text.textContent = `${formatDistance(distancePc, unit)}${suffix}`
       })
-      updateLabels()
+      invalidateLabelSizes()
     },
     setGridVisible(visible) {
       grid.visible = visible
       axisLines.visible = visible
+      requestRender()
     },
     zoom(direction) {
       focusTransition = null
@@ -593,13 +730,16 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
       if (direction === 'in') controls.dollyIn(1 / 1.3)
       else controls.dollyOut(1 / 1.3)
       controls.update()
+      requestRender()
     },
     dispose() {
       disposed = true
       focusTransition = null
-      renderer.setAnimationLoop(null)
+      cancelRender()
       events.abort()
       observer.disconnect()
+      obstacleObserver.disconnect()
+      controls.removeEventListener('change', requestRender)
       controls.dispose()
       disposeGeometry(scene)
       dotTexture.dispose()

@@ -24,6 +24,16 @@ npm run preview
 
 The production output is in `dist`. Three.js accounts for most of the approximately 168 kB gzipped JavaScript bundle; Vite reports a non-blocking uncompressed chunk-size warning. Builds validate every project catalog first. Normal builds never download astronomy data or require Python.
 
+### Rendering efficiency
+
+The static star map renders on demand. Camera input, selection, display settings, resizing, pixel-density changes and font loading request a frame; requests within a frame are combined. Smooth focus and orbit damping keep rendering only until motion settles. An idle view performs no recurring WebGL draws or label updates, and hidden tabs suspend rendering until visible again. Antialiasing and the existing Retina resolution cap remain enabled.
+
+During rotation, label dimensions are cached instead of measured every frame. Selection, units, fonts and viewport changes refresh all dimensions in a single batch. Label placement still follows the camera every frame, while unchanged visibility, stacking and text offsets avoid redundant DOM writes. Rotation regression tests check that neither catalog remeasures labels during motion and record browser layout and main-thread timing metrics.
+
+Only the visibility base and eligible objects submit halo points to the GPU; background dots keep their cores but do not draw transparent halos. A reusable index buffer updates this subset when visibility settings or selection change. The three colored axes share one draw call. Browser tests count point submissions and draw calls alongside the visual regression checks.
+
+To compare power use in Safari, use `npm run build && npm run preview`, leave the map untouched for a few seconds, and observe Safari's CPU usage in Activity Monitor. Expect brief activity during interaction. The browser regression suite checks that WebGL draws and label mutations stop while idle in both catalogs and resume after changes; this measures rendering work, not a hardware-specific CPU percentage.
+
 ## Browse
 
 - Select a catalog with the dropdown. The Objects disclosure starts closed; open it to use the object buttons, which also work with a keyboard. Every object remains listed, even when faint or coincident with another point. The list scrolls independently and opens independently of Coordinates & source.
@@ -64,6 +74,8 @@ The reference plane is `z_pc = 0`, passing through the Sun. It is not a claim ab
 The renderer maps `(x_pc, y_pc, z_pc)` to Three.js Y-up coordinates `(x_pc, z_pc, -y_pc)`. One scene unit equals one parsec on every axis, with no height exaggeration. A parsec is approximately 3.26156 light-years. The grid spacing is 0.5 pc.
 
 A selected object has a direct Sun-to-object line and, when off the plane, a dashed perpendicular height line to a square projection marker. The faint dashed in-plane line completes the spatial triangle. The square is a measurement marker, not another object. Selecting the Sun removes the zero-length guides.
+
+Only the Sun-distance text is shown on the map; the height text (such as “0.40 pc below”) is omitted. The distance label stays in the foreground beside the direct line's midpoint, with clearance around the Sun and selected star's halos. It follows the line smoothly and ignores other label collisions. At a screen edge it can change sides or move to a clear corner; it hides only if no tested position fits without covering an endpoint.
 
 ## CSV Data
 
