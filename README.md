@@ -1,6 +1,8 @@
+<img src="starview_v01.png" alt="Star View v0.1 screenshot" width="800">
+
 # Star View
 
-A Sun-centered 3D browser for nearby stellar and substellar objects, built with TypeScript, Three.js, plain HTML/CSS, and Vite. Choose **Nearest neighbors** (21 objects plus Sun, the default) or **Nearest 100 objects** (100 individual stellar/substellar objects plus Sun). Both are bundled; no backend or runtime catalog service is required. The larger catalog uses audited frozen 2023 source releases, not a claim of complete 2026 membership. See the [offline sourcing and custom-catalog guide](docs/catalog-sourcing.md).
+A Sun-centered 3D browser for nearby stellar and substellar objects, built with TypeScript, Three.js, plain HTML/CSS, and Vite. Choose **Nearest neighbors** (21 objects plus Sun, the default), **Nearest 100 objects**, or **Nearest 1000 objects**. All are bundled; no backend or runtime catalog service is required. The larger catalogs use audited frozen source releases, not a claim of complete 2026 membership. See the [offline sourcing and custom-catalog guide](docs/catalog-sourcing.md).
 
 ## Run
 
@@ -24,18 +26,29 @@ npm run preview
 
 The production output is in `dist`. Three.js accounts for most of the approximately 168 kB gzipped JavaScript bundle; Vite reports a non-blocking uncompressed chunk-size warning. Builds validate every project catalog first. Normal builds never download astronomy data or require Python.
 
+### Rendering efficiency
+
+The static star map renders on demand. Camera input, selection, display settings, resizing, pixel-density changes and font loading request a frame; requests within a frame are combined. Smooth focus and orbit damping keep rendering only until motion settles. An idle view performs no recurring WebGL draws or label updates, and hidden tabs suspend rendering until visible again. Antialiasing and the existing Retina resolution cap remain enabled.
+
+During rotation, label dimensions are cached instead of measured every frame. Selection, units, fonts and viewport changes refresh all dimensions in a single batch. Label placement still follows the camera every frame, while unchanged visibility, stacking and text offsets avoid redundant DOM writes. Rotation regression tests check that neither catalog remeasures labels during motion and record browser layout and main-thread timing metrics.
+
+Only the visibility base and eligible objects submit halo points to the GPU; background dots keep their cores but do not draw transparent halos. A reusable index buffer updates this subset when visibility settings or selection change. The three colored axes share one draw call. Browser tests count point submissions and draw calls alongside the visual regression checks.
+
+To compare power use in Safari, use `npm run build && npm run preview`, leave the map untouched for a few seconds, and observe Safari's CPU usage in Activity Monitor. Expect brief activity during interaction. The browser regression suite checks that WebGL draws and label mutations stop while idle in both catalogs and resume after changes; this measures rendering work, not a hardware-specific CPU percentage.
+
 ## Browse
 
-- Select a catalog with the dropdown. The Objects disclosure starts closed; open it to use the object buttons, which also work with a keyboard. Every object remains listed, even when faint or coincident with another point. The list scrolls independently and opens independently of Coordinates & source.
-- Catalog switching preserves common object selection, the visibility base, units, magnitude limit, grid and disclosure settings, and fits the new catalog. A missing selected object clears selection; a missing visibility base falls back to Sun. Only one scene is active at a time.
-- Choose pc or ly for all distance readouts: summary, object list, coordinates, in-plane distance, map guides, grid legend and announcements. The preference is remembered on this browser when storage is available. Geometry remains in parsecs and all measurements remain Sun-relative; changing units does not move the camera. Source notes are unchanged.
+- Select a catalog with the dropdown. The Objects disclosure starts closed; open it to search or use the object buttons, which also work with a keyboard. Every object remains searchable, even when faint or coincident with another point. Large result sets use a virtual viewport instead of creating every row at once.
+- Catalog switching preserves common object selection, the visibility base, units, filter limits, object types, grid and disclosure settings, and fits the new catalog. A missing selected object clears selection; a missing visibility base falls back to Sun. Only one scene is active at a time.
+- Choose pc or ly for all distance readouts; ly is the default. The preference is remembered on this browser when storage is available. Geometry remains in parsecs and all measurements remain Sun-relative; changing units does not move the camera. Source notes are unchanged.
+- Object visibility distance is a Sun-centered, map-only filter from 5 to 100 ly and defaults to 100 ly. The complete catalog remains in Objects, while the selected object and visibility base remain visible as exceptions. Object types open in their own dropdown for individual selection.
 - Click or tap empty sky to clear selection, its measurement guides, and inspector details without moving the camera. The last selected object stays the visibility base. Orbit drags, pinches, and toolbar actions do not clear selection. Select another dot or catalog entry to restore details and change the base.
 - Selection centers the object by easing the orbit/zoom target over 300 ms while preserving the camera's position. A new selection replaces the transition; direct pointer input, zoom buttons, reset, or deselection interrupt it immediately. Reduced-motion preferences use instant focus and disable the selection pulse; enabling reduced motion during focus completes it immediately. Drag with the primary mouse button or one finger to orbit. Use the wheel or two-finger pinch to zoom; right-drag or a two-finger drag pans.
 - The toolbar provides reset-view, grid, zoom-in, and zoom-out buttons. The grid toggle sits directly below reset and starts enabled; it hides the grid, all three axis lines and their labels, and the grid legend, leaving stars, measurements, and the camera unchanged. Reset restores the all-catalog framing and preserves selection and grid visibility. Startup selects Sirius A without leaving that all-catalog view.
 - The inspector shows a conservative plain-language object type, Earth-view constellation, spectral class, temperature, mass, absolute Johnson V magnitude and Sun distance. Unsupported spectra fall back to a broad object type instead of guessing. Coordinates & source contains epoch, velocities, available bolometric luminosity and source notes. Height measurement guides remain in the map.
 - On narrow screens, the inspector scrolls below the scene, without covering it. Compact heading spacing leaves more sky visible; toolbar hover tooltips appear only for fine, hover-capable pointers, while keyboard-focus tooltips and 44 px targets remain available on all devices.
 
-Visibility uses apparent Johnson V magnitude from the selected or last-selected object's position: `m_V = M_V + 5 log10(distance_pc / 10)`. The adjustable limit defaults to +7, approximately one magnitude beyond dark-sky naked-eye +6, and ranges from 0 to 12. The unrounded inclusive threshold decides eligibility, not halo size/intensity. Higher limits include fainter objects. Only the loaded catalog is considered, not the complete sky from that location; extinction and variability are not modeled.
+Visibility uses apparent Johnson V magnitude from the selected or last-selected object's position: `m_V = M_V + 5 log10(distance_pc / 10)`. The Filter slider defaults to +7, approximately one magnitude beyond dark-sky naked-eye +6, and ranges from 0 to 25. The unrounded inclusive threshold decides eligibility, not halo size/intensity. Higher limits include fainter objects. Only the loaded catalog is considered, not the complete sky from that location; extinction and variability are not modeled.
 
 The visibility base and eligible objects retain approximately 10 CSS px crisp cores. Other objects are 3 CSS px temperature-colored dots with no halo, name or motion arrow, but unchanged generous mouse/touch hit targets. Missing V photometry and distinct objects at the same stored position are background, never assumed bright. Selecting any object makes it the base and keeps it prominent even without photometry; deselection removes only its selection boost, ring and guides. Approximate co-located binary coordinates are not a physical zero separation or a license to invent component brightness.
 
@@ -47,7 +60,7 @@ The interface uses night-light orange text and accents on charcoal panels, retai
 
 Supporting graphics stay secondary: unselected motion arrows use 50% opacity and the selected arrow uses full opacity, without changing any dimensions or visibility rules. The grid fades from 40% opacity near the center to transparent at its outer radius; axes use 55% opacity. Axis captions retain a fixed 18 CSS pixel right offset from their projected endpoints and render behind the transparent canvas, so stars cover them. They never dodge stars or star names; only viewport and interface clipping can hide them. The scene background remains black. Selected measurement guides retain their original emphasis. These effects do not fade stars or their labels.
 
-Small arrows on eligible objects indicate projected motion in an approximate Galactic rest frame, including the Sun's motion around the Milky Way's center. Only the shaft length scales with full three-dimensional Galactic speed: `clamp(speedKms / 10, 12, 40)` CSS px. Arrowheads and strokes retain the original 16 CSS px icon styling. Zoom and camera angle do not change their dimensions; this is not a travel distance. Each arrow matches its object's temperature color and stays attached to the core edge even when its name is collision-hidden. Overlap does not hide otherwise eligible arrows; scene edges clip them naturally. Stellar arrows require all three finite velocities; unknown, incomplete, zero-after-conversion, camera-aligned, offscreen or background-tier motion is omitted. Arrows do not intercept clicks. Positions remain static.
+Small arrows on eligible objects indicate projected motion. Solid arrows use complete three-dimensional motion in the existing approximate Galactic-rest frame. Dashed shafts indicate Sun-relative transverse motion derived from parallax and proper motion when radial velocity is unavailable or withheld; no zero RV or solar velocity is inserted. Only shaft length scales with speed: `clamp(speedKms / 10, 12, 40)` CSS px. Arrowheads and strokes retain the original 16 CSS px styling. Zoom and camera angle do not change their dimensions; this is not a travel distance. Arrows do not intercept clicks, and positions remain static.
 
 ## Coordinate Convention
 
@@ -65,15 +78,23 @@ The renderer maps `(x_pc, y_pc, z_pc)` to Three.js Y-up coordinates `(x_pc, z_pc
 
 A selected object has a direct Sun-to-object line and, when off the plane, a dashed perpendicular height line to a square projection marker. The faint dashed in-plane line completes the spatial triangle. The square is a measurement marker, not another object. Selecting the Sun removes the zero-length guides.
 
+Only the Sun-distance text is shown on the map; the height text (such as “0.40 pc below”) is omitted. The distance label stays in the foreground beside the direct line's midpoint, with clearance around the Sun and selected star's halos. It follows the line smoothly and ignores other label collisions. At a screen edge it can change sides or move to a clear corner; it hides only if no tested position fits without covering an endpoint.
+
 ## CSV Data
 
 The default data stays in [src/data/stars.csv](src/data/stars.csv). Other packages have sibling `catalog.json` and `stars.csv` files under `src/data/catalogs/<id>/` and are automatically discovered by Vite. Rebuild production after adding or editing project catalogs. This version has no browser-upload UI. For repeatable multi-source research, frozen inputs, native authoring, provenance and validation commands, see [docs/catalog-sourcing.md](docs/catalog-sourcing.md).
 
-All original 16 headers must occur exactly once; `constellation` is optional for legacy/custom files and present in both bundled catalogs. Unknown/duplicate headers are rejected. The supplied order is:
+All original 16 headers must occur exactly once; `constellation` is optional for legacy/custom files. Enriched files may append the complete raw-astrometry group below. A partial raw group and unknown/duplicate headers are rejected.
 
 ```csv
 type,id,name,spectral_type,x_pc,y_pc,z_pc,vx_kms,vy_kms,vz_kms,temperature_k,mass_solar,luminosity_solar,absolute_mag,epoch,notes,constellation
 ```
+
+```csv
+ra_deg,dec_deg,astrometry_epoch,parallax_mas,parallax_error_mas,pm_ra_cosdec_masyr,pm_ra_error_masyr,pm_dec_masyr,pm_dec_error_masyr,radial_velocity_kms,radial_velocity_error_kms,astrometry_ref,radial_velocity_ref
+```
+
+Raw astrometry is source-epoch ICRS data. `pm_ra_cosdec_masyr` includes `cos(dec)`. Parallax must be positive; uncertainties are nonnegative. Radial velocity and its source may be blank, but are never replaced by zero. The common Cartesian `epoch` remains the static J2000 map snapshot and is distinct from `astrometry_epoch`.
 
 | Field | Meaning |
 | --- | --- |
@@ -95,11 +116,11 @@ The Sun must be present at `(0, 0, 0)`, with velocities zero or blank. All rows 
 
 The epoch describes the astrometric snapshot, not the observation date of every physical parameter. Positions are static; neither proper motion nor binary orbits are propagated to the current date. A radial velocity is not interchangeable with a Cartesian velocity component.
 
-Constellations are the Earth-view IAU regions at the adopted snapshot, assigned offline from sky directions using Astropy's Roman/Delporte boundary table. They do not change with visibility observer, units or camera orientation. Every non-Sun object in both bundled catalogs has one, even without V photometry. Sun displays Not applicable; a legacy/custom unknown displays Not available. Boundary-frame transformation is not physical motion propagation to 1875.
+Constellations are the Earth-view IAU regions at the adopted snapshot, assigned offline from sky directions using Astropy's Roman/Delporte boundary table. They do not change with visibility observer, units or camera orientation. Every non-Sun object in all three bundled catalogs has one, even without V photometry. Sun displays Not applicable; a legacy/custom unknown displays Not available. Boundary-frame transformation is not physical motion propagation to 1875.
 
 ### Catalog Policy And Provenance
 
-The default sample ranks individual stellar and substellar objects beyond the Sun, rather than systems. It includes hydrogen-fusing stars, Sirius B, the Luhman 16 brown dwarfs, and WISE 0855-0714. The nominal rank-20 boundary cuts through the co-distant EZ Aquarii triple, so all three components are retained: 21 objects beyond the Sun, 22 rows total. Its historical row order is preserved. The larger package keeps those rows identically, then uses the audited 10pc census with CNS5 crosschecks. Its nominal cutoff is GJ 229 A; uncertainty, tentative-candidate exclusions, preserved default exceptions and source age are explicitly recorded in the [sourcing guide](docs/catalog-sourcing.md).
+The default sample ranks individual stellar and substellar objects beyond the Sun, rather than systems. It includes hydrogen-fusing stars, Sirius B, the Luhman 16 brown dwarfs, and WISE 0855-0714. The nominal rank-20 boundary cuts through the co-distant EZ Aquarii triple, so all three components are retained: 21 objects beyond the Sun, 22 rows total. Its historical row order is preserved. Nearest-100 keeps those rows as curated overrides over an audited 10pc census with CNS5 crosschecks. Nearest-1000 uses CNS5 membership with exact SIMBAD and Gaia DR3 enrichment and keeps all nearest-100 rows as higher-curation overrides. Cutoffs, exclusions, uncertainties, and frozen source versions are recorded in the [sourcing guide](docs/catalog-sourcing.md).
 
 Positions combine J2000 Galactic directions from [SIMBAD](https://simbad.cds.unistra.fr/simbad/) with selected parallaxes. Gaia EDR3/CNS5 values are used where suitable; dedicated measurements are retained for systems Gaia does not resolve cleanly or objects it does not measure well. Those sources include Akeson et al. (2021) for Alpha Centauri AB, Bedin et al. (2024) for Luhman 16, Kirkpatrick et al. (2021) for WISE 0855-0714, [Bond et al. (2017)](https://arxiv.org/html/1703.10625) for Sirius, the GRAVITY Collaboration (2024) for Luyten 726-8, and Torres et al. (2010) for EZ Aquarii. Each CSV row names its adopted source.
 
@@ -143,7 +164,7 @@ rotation = [ -0.0548755604  -0.8734370902  -0.4838350155
 
 This is the conventional ICRS-to-Galactic rotation. No local-standard-of-rest or solar Galactic-orbit correction is added to the CSV values. Components are rounded to 0.001 km/s for storage, not as an uncertainty claim. Apart from the explicit Sirius correction, published spectroscopic radial velocities are used as space-motion estimates; source epochs and spectroscopic systematics are not homogenized. These are illustrative headings for the static snapshot, not precision epoch-propagated velocities. The unit tests invert the rotation and recover each adopted proper motion and RV within storage-rounding tolerance.
 
-Alpha Centauri AB, Luyten 726-8 AB, and EZ Aquarii ABC remain blank because this source set has no adopted, consistently paired systemic astrometric/RV solution for them. Luhman 16 and WISE 0855-0714 lack radial velocities in the queried system records. This is not a claim that no measurements exist elsewhere. Unverified component values are not substituted or averaged; the Sun retains its zero reference vector.
+Alpha Centauri AB, Luyten 726-8 AB, and EZ Aquarii ABC retain no adopted full Cartesian velocity because this source set has no consistently paired systemic astrometric/RV solution for them. Luhman 16 and WISE 0855-0714 lack radial velocities in the queried system records, so their raw proper motions produce dashed transverse arrows. This is not a claim that no measurements exist elsewhere. Unverified component values are not substituted or averaged; the Sun retains its zero reference vector.
 
 ### Arrow Reference Frame
 
@@ -183,10 +204,15 @@ Visual-polish regressions additionally sample the gap-free core-to-halo falloff,
 - [src/registry.ts](src/registry.ts): build-time project catalog discovery, isolated package errors.
 - [scripts/catalogs.ts](scripts/catalogs.ts): offline native build/validation CLI.
 - [src/astronomy.ts](src/astronomy.ts): frame mapping, distances, and temperature colors.
-- [src/viewer.ts](src/viewer.ts): Three.js scene, camera, measurement guides, label placement, picking, and teardown.
+- [src/viewer.ts](src/viewer.ts): Three.js scene, camera, measurement guides, budgeted label placement, picking, and teardown.
+- [src/object-list.ts](src/object-list.ts): normalized search and fixed-row virtual object list.
 - [src/main.ts](src/main.ts): selected-object state and semantic DOM inspector.
 - [src/style.css](src/style.css): responsive, unframed map and inspector layout.
 
-This draft targets a small catalog. Projected-point picking and DOM labels are deliberately simple and would need spatial indexing and stricter label budgeting for a large survey. On dense mobile views, measurement or object labels can be suppressed when no collision-free position exists. Modern WebGL2 support is required for the 3D view; the catalog and inspector remain available if graphics initialization fails.
+All points remain rendered and pickable in the 1,001-row package. Ordinary map names are priority-budgeted to 120 on desktop and 60 on coarse-pointer/mobile views; selected and visibility-base labels remain eligible. On dense views, labels can still be suppressed when no collision-free position exists. Modern WebGL2 support is required for the 3D view; the catalog and inspector remain available if graphics initialization fails.
 
-Deferred: calibrated photometric rendering, time controls, motion propagation, local CSV import, nebulae and other object types, large-catalog search, and Tauri. The output is a static frontend suitable for a later Tauri wrapper, but this project currently contains no Tauri/Rust dependencies or desktop integration.
+Deferred: calibrated photometric rendering, time controls, motion propagation, local CSV import, nebulae and other object types, and Tauri. The output is a static frontend suitable for a later Tauri wrapper, but this project currently contains no Tauri/Rust dependencies or desktop integration.
+
+## License
+
+See [LICENSE](LICENSE).

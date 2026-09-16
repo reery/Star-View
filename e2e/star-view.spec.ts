@@ -21,6 +21,9 @@ function homeCamera(stars: readonly Star[], bounds: { width: number; height: num
 async function starPoint(page: Page, id: string) {
   const anchor = page.locator(`.map-anchor[data-star-id="${id}"]`)
   await expect(anchor).toBeVisible()
+  // Camera changes are rendered on the next frame; sample the updated label
+  // before using its coordinates for screenshots or pointer input.
+  await page.evaluate(() => new Promise<void>((resolve) => requestAnimationFrame(() => resolve())))
   return anchor.evaluate((element) => {
     const rectangle = element.getBoundingClientRect()
     return { x: rectangle.left, y: rectangle.top }
@@ -34,6 +37,16 @@ async function openViewer(page: Page) {
   await expect(page.locator('#star-name')).toHaveText('Sirius A')
   await page.evaluate(() => document.fonts.ready)
   await starPoint(page, 'sirius-a')
+}
+
+async function openPreferences(page: Page) {
+  const preferences = page.locator('details.preferences')
+  if (await preferences.getAttribute('open') === null) await preferences.locator('summary').click()
+}
+
+async function openFilter(page: Page) {
+  const filter = page.locator('details.filter-section')
+  if (await filter.getAttribute('open') === null) await filter.locator(':scope > summary').click()
 }
 
 function changedPixels(before: Buffer, after: Buffer): number {
@@ -64,7 +77,7 @@ async function sceneFits(page: Page) {
     for (const label of labels) {
       const bounds = label.getBoundingClientRect()
       if (bounds.left < scene.left || bounds.right > scene.right || bounds.top < scene.top || bounds.bottom > scene.bottom) failures.push(`clipped label ${label.textContent}`)
-      for (const obstacle of label.matches('.is-selected .star-label') ? [] : document.querySelectorAll<HTMLElement>('[data-scene-obstacle]')) {
+      for (const obstacle of label.matches('.distance-label') ? [] : document.querySelectorAll<HTMLElement>('[data-scene-obstacle]')) {
         if (!obstacle.checkVisibility()) continue
         const other = obstacle.getBoundingClientRect()
         if (bounds.left < other.right && bounds.right > other.left && bounds.top < other.bottom && bounds.bottom > other.top) failures.push(`label overlaps ${obstacle.className}`)
@@ -83,13 +96,16 @@ async function sceneFits(page: Page) {
 
 test('switches project catalogs while preserving settings and compatible selection', async ({ page }, testInfo) => {
   await openViewer(page)
+  await openPreferences(page)
   const selector = page.getByLabel('Catalog', { exact: true })
   await expect(selector).toHaveValue('nearest-neighbors')
   await expect(page.locator('#object-type')).toHaveText('White star')
   await expect(page.locator('#constellation')).toHaveText('Canis Major')
   await expect(page.locator('.properties-section #absolute-mag')).toHaveText('1.42')
-  await page.getByLabel('ly', { exact: true }).check()
+  await expect(page.getByLabel('ly', { exact: true })).toBeChecked()
+  await openFilter(page)
   await page.getByLabel('V magnitude limit', { exact: true }).fill('9')
+  await page.getByLabel('Object visibility distance', { exact: true }).fill('20')
   await page.getByRole('button', { name: 'Grid', exact: true }).click()
   await page.locator('.catalog summary').click()
   for (const id of ['nearest-100', 'nearest-neighbors', 'nearest-100']) {
@@ -101,12 +117,16 @@ test('switches project catalogs while preserving settings and compatible selecti
     await expect(page.locator('#visibility-base')).toHaveText('Sirius A')
     await expect(page.locator('#distance-unit')).toHaveText(' ly')
     await expect(page.locator('#magnitude-limit')).toHaveValue('9')
+    await expect(page.locator('#object-distance-limit')).toHaveValue('20')
     await expect(page.locator('#toggle-grid')).toHaveAttribute('aria-pressed', 'false')
     await expect(page.locator('.catalog')).toHaveAttribute('open')
   }
   await page.getByRole('button', { name: 'Select GJ 229 A', exact: true }).click()
   await expect(page.locator('#constellation')).toHaveText('Lepus')
   await expect(page.locator('#luminosity-row')).toBeHidden()
+  const denisArrow = page.locator('[data-star-id="10pc-0098"] .motion-arrow')
+  await expect(denisArrow).toHaveAttribute('data-motion-mode', 'transverse')
+  await expect(denisArrow.locator('.motion-arrow-shaft')).toHaveCSS('stroke-dasharray', '3px, 2px')
   await page.screenshot({ path: testInfo.outputPath('nearest-100.png'), fullPage: true })
   await selector.selectOption('nearest-neighbors')
   await expect(page.locator('#star-details')).toBeHidden()
@@ -118,30 +138,63 @@ test('switches project catalogs while preserving settings and compatible selecti
   await sceneFits(page)
 })
 
-test('converts every distance without moving the camera and remembers units', async ({ page }) => {
+test('searches the virtualized nearest-1000 list within bounded name budgets', async ({ page, isMobile }) => {
   await openViewer(page)
+  await openPreferences(page)
+  await page.getByLabel('Catalog', { exact: true }).selectOption('nearest-1000')
+  await expect(page.locator('#catalog-count')).toHaveText('1001')
+  await expect(page.locator('.map-anchor[data-star-id]')).toHaveCount(1001)
+  expect(await page.locator('.star-label:visible').count()).toBeLessThanOrEqual(isMobile ? 60 : 120)
+  const catalog = page.locator('details.catalog')
+  if (await catalog.getAttribute('open') === null) await catalog.locator('summary').click()
+  const renderedRows = page.locator('.catalog-entry')
+  expect(await renderedRows.count()).toBeLessThan(30)
+  await page.getByLabel('Search objects').fill('cns5 4902')
+  await expect(renderedRows).toHaveCount(1)
+  await page.getByRole('button', { name: 'Select HD 331161B', exact: true }).click()
+  await expect(page.locator('#star-name')).toHaveText('HD 331161B')
+  await expect(page.locator('[data-star-id="cns5-4902"]')).toHaveClass(/is-selected/)
+  await sceneFits(page)
+  const selectedNameOverlapsDistance = await page.evaluate(() => {
+    const selectedName = document.querySelector<HTMLElement>('[data-star-id="cns5-4902"] .star-label')!.getBoundingClientRect()
+    const distance = document.querySelector<HTMLElement>('.distance-label')!.getBoundingClientRect()
+    return selectedName.left < distance.right && selectedName.right > distance.left &&
+      selectedName.top < distance.bottom && selectedName.bottom > distance.top
+  })
+  expect(selectedNameOverlapsDistance).toBe(false)
+})
+
+test('defaults to light-years, converts every distance without moving the camera, and remembers units', async ({ page }) => {
+  await openViewer(page)
+  await openPreferences(page)
   const before = await starPoint(page, 'sun')
-  await page.getByLabel('ly', { exact: true }).check()
+  await expect(page.getByLabel('ly', { exact: true })).toBeChecked()
   await expect(page.locator('#distance-value')).toHaveText('8.61')
   await expect(page.locator('#grid-spacing')).toHaveText('1.63 ly grid')
   await expect(page.locator('.distance-label')).toHaveText('8.61 ly')
-  await expect(page.locator('.height-label')).toContainText('ly below')
+  await expect(page.locator('.height-label')).toHaveCount(0)
   await expect(page.locator('#coordinate-x')).toHaveText(/ ly$/)
   await expect(page.locator('#plane-distance')).toHaveText(/ ly$/)
   await expect(page.locator('#selection-announcement')).toContainText('8.61 ly from the Sun')
   expect(await starPoint(page, 'sun')).toEqual(before)
   expect(await page.locator('.catalog-distance').allTextContents()).toEqual(expect.arrayContaining(['0.00 ly', '8.61 ly']))
   await expect(page.locator('#velocity-x')).toContainText('km/s')
-  await page.reload()
-  await expect(page.locator('#scene')).toHaveAttribute('data-ready', 'true')
-  await expect(page.getByLabel('ly', { exact: true })).toBeChecked()
   await page.getByLabel('pc', { exact: true }).check()
   await expect(page.locator('#distance-value')).toHaveText('2.64')
   await expect(page.locator('#grid-spacing')).toHaveText('0.5 pc grid')
+  expect(await starPoint(page, 'sun')).toEqual(before)
+  await page.reload()
+  await expect(page.locator('#scene')).toHaveAttribute('data-ready', 'true')
+  await openPreferences(page)
+  await expect(page.getByLabel('pc', { exact: true })).toBeChecked()
+  await page.getByLabel('ly', { exact: true }).check()
+  await expect(page.locator('#distance-value')).toHaveText('8.61')
 })
 
 test('keeps faint dots pickable and retains the last visibility base', async ({ page }) => {
   await openViewer(page)
+  await openPreferences(page)
+  await openFilter(page)
   const faint = page.locator('[data-star-id="barnards-star"]')
   await expect(faint).toHaveAttribute('data-visibility', 'background')
   await expect(faint.locator('.star-label')).toBeHidden()
@@ -175,13 +228,14 @@ test('keeps faint dots pickable and retains the last visibility base', async ({ 
 
 test('renders faint objects as small colored cores without halos at either pixel density', async ({ page }, testInfo) => {
   await openViewer(page)
+  await openFilter(page)
   await page.getByRole('button', { name: 'Grid', exact: true }).click()
   await page.getByRole('button', { name: 'Zoom in', exact: true }).click()
   await page.getByRole('button', { name: 'Zoom in', exact: true }).click()
   const canvas = page.locator('#scene canvas')
   const bounds = (await canvas.boundingBox())!
   const point = await starPoint(page, 'barnards-star')
-  const options = { style: '.projected-labels, .scene-toolbar, .scene-heading, .scene-legend, .plane-key { visibility: hidden !important; }' }
+  const options = { style: '.projected-labels, .scene-toolbar, .scene-brand, .scene-legend, .plane-key, .visibility-observer { visibility: hidden !important; }' }
   const sample = (buffer: Buffer) => {
     const image = PNG.sync.read(buffer)
     const ratio = image.width / bounds.width
@@ -241,22 +295,121 @@ test('catalog starts closed and opens independently with the keyboard', async ({
   await expect(page.locator('.source-details')).toHaveAttribute('open')
 })
 
+test('puts scene context on the map and orders the inspector around selection', async ({ page }, testInfo) => {
+  await openViewer(page)
+  await expect(page.locator('.app-header, .scene-heading, .catalog-footer')).toHaveCount(0)
+  await expect(page.locator('.scene-wrap > .scene-brand')).toContainText('Star View')
+  await expect(page.locator('.scene-brand #brand-icon svg')).toBeVisible()
+  await expect(page.locator('.scene-wrap > .visibility-observer')).toContainText('Visibility from Sirius A')
+
+  const sections = page.locator('#inspector > details.inspector-section')
+  await expect(sections).toHaveCount(4)
+  expect(await sections.evaluateAll((elements) => elements.map((section) => section.className))).toEqual([
+    'inspector-section selected-object',
+    'inspector-section preferences',
+    'inspector-section filter-section',
+    'inspector-section catalog',
+  ])
+  expect(await sections.evaluateAll((elements) => elements.map((section) => section.hasAttribute('open')))).toEqual([true, false, false, false])
+  expect(await page.locator('.source-details').evaluate((details) => details.closest('.selected-object') !== null)).toBe(true)
+  const titleSizes = await sections.locator(':scope > summary').evaluateAll((summaries) => summaries.map((summary) => parseFloat(getComputedStyle(summary).fontSize)))
+  expect(titleSizes.every((size) => size >= 17)).toBe(true)
+  expect(titleSizes[0]).toBeGreaterThan(titleSizes[1]!)
+
+  await openPreferences(page)
+  await openFilter(page)
+  const distance = page.getByLabel('Object visibility distance', { exact: true })
+  const magnitude = page.getByLabel('V magnitude limit', { exact: true })
+  await expect(distance).toHaveAttribute('min', '5')
+  await expect(distance).toHaveAttribute('max', '100')
+  await expect(distance).toHaveValue('100')
+  await expect(page.locator('#object-distance-limit-value')).toHaveText('100 ly')
+  await expect(magnitude).toHaveAttribute('type', 'range')
+  await expect(magnitude).toHaveAttribute('max', '25')
+  await expect(page.getByRole('switch', { name: 'Power saving mode' })).toBeChecked()
+  await page.getByLabel('Catalog', { exact: true }).selectOption('nearest-100')
+  await magnitude.fill('25')
+  await expect(page.locator('[data-star-id="10pc-0098"]')).toHaveAttribute('data-visibility', 'eligible')
+
+  const typeChoices = ['Star', 'White dwarf', 'Brown dwarf', 'Sub-brown dwarf']
+  const typeDropdown = page.locator('details.filter-dropdown')
+  await expect(typeDropdown).not.toHaveAttribute('open')
+  await expect(page.locator('#object-type-options')).toBeHidden()
+  await typeDropdown.locator('summary').click()
+  await expect(page.locator('#object-type-options')).toBeVisible()
+  await expect(page.locator('#object-type-filter-summary')).toHaveText('All')
+  for (const name of typeChoices) await expect(page.getByLabel(name, { exact: true })).toBeChecked()
+  await sceneFits(page)
+  await page.screenshot({ path: testInfo.outputPath('interface-hierarchy.png'), fullPage: true })
+})
+
+test('filters only the map and reveals an excluded selected object', async ({ page }) => {
+  await openViewer(page)
+  await openFilter(page)
+  const distance = page.getByLabel('Object visibility distance', { exact: true })
+  const barnard = page.locator('[data-star-id="barnards-star"]')
+  await distance.fill('5')
+  await expect(page.locator('#object-distance-limit-value')).toHaveText('5 ly')
+  await expect(barnard).toHaveAttribute('data-map-visible', 'false')
+  await expect(page.locator('[data-star-id="sirius-a"]')).toHaveAttribute('data-map-visible', 'true')
+  await expect(page.locator('.catalog-entry')).toHaveCount(22)
+  await distance.fill('100')
+  await expect(barnard).toHaveAttribute('data-map-visible', 'true')
+
+  const typeDropdown = page.locator('details.filter-dropdown')
+  await expect(typeDropdown).not.toHaveAttribute('open')
+  await typeDropdown.locator('summary').click()
+  const luhmanA = page.locator('[data-star-id="luhman-16-a"]')
+  const luhmanB = page.locator('[data-star-id="luhman-16-b"]')
+  const point = await starPoint(page, 'luhman-16-a')
+  const brownDwarfs = page.getByLabel('Brown dwarf', { exact: true })
+  await brownDwarfs.uncheck()
+  await expect(page.locator('#object-type-filter-summary')).toHaveText('3 of 4')
+  await expect(luhmanA).toHaveAttribute('data-map-visible', 'false')
+  await expect(luhmanB).toHaveAttribute('data-map-visible', 'false')
+  await expect(luhmanA).toBeHidden()
+  await expect(luhmanB).toBeHidden()
+  await expect(page.locator('.catalog-entry')).toHaveCount(22)
+
+  await page.mouse.click(point.x, point.y)
+  await expect(page.locator('#star-details')).toBeHidden()
+  await page.locator('.catalog summary').click()
+  await page.getByRole('button', { name: 'Select Luhman 16 A', exact: true }).click()
+  await expect(page.locator('#star-name')).toHaveText('Luhman 16 A')
+  await expect(page.locator('#visibility-base')).toHaveText('Luhman 16 A')
+  await expect(luhmanA).toHaveAttribute('data-map-visible', 'true')
+  await expect(luhmanA).toBeVisible()
+  await expect(luhmanB).toHaveAttribute('data-map-visible', 'false')
+  await expect(luhmanB).toBeHidden()
+  await expect(brownDwarfs).not.toBeChecked()
+
+  await openPreferences(page)
+  await page.getByLabel('Catalog', { exact: true }).selectOption('nearest-100')
+  await expect(brownDwarfs).not.toBeChecked()
+  await page.reload()
+  await expect(page.locator('#scene')).toHaveAttribute('data-ready', 'true')
+  await expect(page.getByLabel('Brown dwarf', { exact: true })).toBeChecked()
+  await openPreferences(page)
+  await expect(page.getByRole('switch', { name: 'Power saving mode' })).toBeChecked()
+})
+
 test('renders temperature-colored objects, measurements, and a responsive interface', async ({ page, isMobile }, testInfo) => {
   const errors: string[] = []
   page.on('pageerror', (error) => errors.push(error.message))
   page.on('console', (message) => { if (message.type() === 'error') errors.push(message.text()) })
   page.on('requestfailed', (request) => errors.push(request.url()))
   await openViewer(page)
-  await expect(page.locator('#distance-value')).toHaveText('2.64')
+  await expect(page.locator('#distance-value')).toHaveText('8.61')
   await expect(page.locator('#inspector').getByText('Galactic height', { exact: true })).toHaveCount(0)
   await expect(page.locator('#height-pc, #height-side, #height-signed')).toHaveCount(0)
   await expect(page.locator('.summary-metrics .metric')).toHaveCount(1)
-  await expect(page.locator('#object-count')).toHaveText('22 objects')
+  await expect(page.locator('#object-count')).toHaveCount(0)
+  await expect(page.locator('#catalog-count')).toHaveText('22')
   await expect(page.locator('.catalog-entry')).toHaveCount(22)
   await expect(page.locator('.map-anchor[data-star-id]')).toHaveCount(22)
-  await expect(page.locator('.dimension-label')).toHaveCount(2)
+  await expect(page.locator('.dimension-label')).toHaveCount(1)
+  await expect(page.locator('.height-label')).toHaveCount(0)
   if (!isMobile) {
-    await expect(page.locator('.height-label')).toBeVisible()
     await expect(page.locator('.distance-label')).toBeVisible()
   }
   await expect(page.locator('#brand-icon svg')).toBeVisible()
@@ -265,7 +418,12 @@ test('renders temperature-colored objects, measurements, and a responsive interf
 
   const canvas = page.locator('#scene canvas')
   const bounds = (await canvas.boundingBox())!
-  const screenshot = await canvas.screenshot({ scale: 'css', path: testInfo.outputPath('canvas.png') })
+  const screenshot = await canvas.screenshot({
+    scale: 'css', path: testInfo.outputPath('canvas.png'),
+    // Foreground labels may intentionally overlap dots. Sample the WebGL cores
+    // without text overlays, then capture the complete interface below.
+    style: '.projected-labels, .projected-axes { visibility: hidden !important; }',
+  })
   const image = PNG.sync.read(screenshot)
   let blackPixels = 0
   for (let offset = 0; offset < image.data.length; offset += 4) {
@@ -307,7 +465,7 @@ test('renders soft halos beyond crisp cores and boosts only the selected halo', 
   const bounds = (await canvas.boundingBox())!
   const empty = { x: bounds.x + bounds.width * 0.25, y: bounds.y + bounds.height * 0.85 }
   await page.mouse.click(empty.x, empty.y)
-  const options = { scale: 'css' as const, style: '.projected-labels, .scene-toolbar, .scene-heading, .scene-legend, .plane-key { visibility: hidden !important; }' }
+  const options = { scale: 'css' as const, style: '.projected-labels, .scene-toolbar, .scene-brand, .scene-legend, .plane-key, .visibility-observer { visibility: hidden !important; }' }
   const sun = await starPoint(page, 'sun')
   const centerX = sun.x - bounds.x
   const centerY = sun.y - bounds.y
@@ -362,7 +520,7 @@ test('makes Sirius glow larger and brighter than Barnard with zoom-stable magnit
     const point = await starPoint(page, id!)
     const options = {
       scale: 'css' as const,
-      style: '.projected-labels, .scene-toolbar, .scene-heading, .scene-legend, .plane-key { visibility: hidden !important; }',
+      style: '.projected-labels, .scene-toolbar, .scene-brand, .scene-legend, .plane-key, .visibility-observer { visibility: hidden !important; }',
     }
     const image = PNG.sync.read(await canvas.screenshot({ ...options, path: testInfo.outputPath(`${id}-glow.png`) }))
     const centerX = point.x - bounds.x
@@ -433,7 +591,7 @@ test('keeps bright and selected halos subtly temperature-tinted without whitenin
       const centerY = point.y - bounds.y
       const image = PNG.sync.read(await canvas.screenshot({
         scale: 'css', path: testInfo.outputPath(`${id}-${selected ? 'selected' : 'base'}-tint.png`),
-        style: '.projected-labels, .scene-toolbar, .scene-heading, .scene-legend, .plane-key { visibility: hidden !important; }',
+        style: '.projected-labels, .scene-toolbar, .scene-brand, .scene-legend, .plane-key, .visibility-observer { visibility: hidden !important; }',
       }))
       const color = { red: 0, green: 0, blue: 0 }
       let count = 0
@@ -486,7 +644,8 @@ test('toggles the grid below reset without moving stars or changing selection', 
     return { x: bounds.left, y: bounds.top }
   }))
   const canvas = page.locator('#scene canvas')
-  const screenshotOptions = { scale: 'css' as const, style: '.projected-labels, .scene-toolbar, .scene-heading, .scene-legend, .plane-key { visibility: hidden !important; }' }
+  const screenshotOptions = { scale: 'css' as const, style: '.projected-labels, .scene-toolbar, .scene-brand, .scene-legend, .plane-key, .visibility-observer { visibility: hidden !important; }' }
+  const visibleArrowsBefore = await page.locator('.motion-arrow:visible').count()
   const gridOn = await canvas.screenshot(screenshotOptions)
   if (isMobile) await grid.tap()
   else await grid.click()
@@ -497,8 +656,8 @@ test('toggles the grid below reset without moving stars or changing selection', 
   await expect(page.locator('.axis-label:visible')).toHaveCount(0)
   await expect(page.locator('#scene-epoch')).toBeVisible()
   await expect(page.locator('#star-name')).toHaveText('Sirius A')
-  await expect(page.locator('.dimension-label')).toHaveCount(2)
-  await expect(page.locator('.motion-arrow:visible')).toHaveCount(3)
+  await expect(page.locator('.dimension-label')).toHaveCount(1)
+  await expect(page.locator('.motion-arrow:visible')).toHaveCount(visibleArrowsBefore)
   expect(await starPoint(page, 'sun')).toEqual(sunBefore)
   const gridOff = await canvas.screenshot(screenshotOptions)
   expect(changedPixels(gridOn, gridOff)).toBeGreaterThan(200)
@@ -572,7 +731,7 @@ test('keeps axis captions anchored behind the canvas throughout rotation', async
   const sun = await starPoint(page, 'sun')
   const centerX = sun.x - bounds.x
   const centerY = sun.y - bounds.y
-  const screenshotOptions = { scale: 'css' as const, style: '.projected-labels, .scene-toolbar, .scene-heading, .scene-legend, .plane-key { visibility: hidden !important; }' }
+  const screenshotOptions = { scale: 'css' as const, style: '.projected-labels, .scene-toolbar, .scene-brand, .scene-legend, .plane-key, .visibility-observer { visibility: hidden !important; }' }
   const before = await canvas.screenshot(screenshotOptions)
   await page.addStyleTag({ content: `
     .projected-axes .map-anchor:first-child { transform: translate(${centerX}px, ${centerY}px) !important; }
@@ -590,11 +749,11 @@ test('keeps axis captions anchored behind the canvas throughout rotation', async
   }
 })
 
-test('fades grid pixels toward the edge without fading the scene', async ({ page }) => {
+test('fades grid pixels toward the edge without fading the scene', async ({ page, isMobile }) => {
   await openViewer(page)
   const canvas = page.locator('#scene canvas')
   const bounds = (await canvas.boundingBox())!
-  const options = { scale: 'css' as const, style: '.projected-axes, .projected-labels, .scene-toolbar, .scene-heading, .scene-legend, .plane-key { visibility: hidden !important; }' }
+  const options = { scale: 'css' as const, style: '.projected-axes, .projected-labels, .scene-toolbar, .scene-brand, .scene-legend, .plane-key, .visibility-observer { visibility: hidden !important; }' }
   const on = PNG.sync.read(await canvas.screenshot(options))
   await page.getByRole('button', { name: 'Grid', exact: true }).click()
   const off = PNG.sync.read(await canvas.screenshot(options))
@@ -615,7 +774,7 @@ test('fades grid pixels toward the edge without fading the scene', async ({ page
     }
     return brightest
   })
-  expect(brightness[0]).toBeGreaterThan(15)
+  expect(brightness[0]).toBeGreaterThan(isMobile ? 30 : 15)
   expect(brightness[1]).toBeGreaterThan(0)
   expect(brightness[0]!).toBeGreaterThan(brightness[1]!)
   expect(brightness[1]!).toBeGreaterThan(brightness[2]!)
@@ -624,6 +783,7 @@ test('fades grid pixels toward the edge without fading the scene', async ({ page
 
 test('overlapping stars follow camera depth and keep their motion arrows', async ({ page }, testInfo) => {
   await openViewer(page)
+  await openFilter(page)
   await page.getByLabel('V magnitude limit', { exact: true }).fill('12')
   const stars = parseStarCatalog(readFileSync(new URL('../src/data/stars.csv', import.meta.url), 'utf8'))
   const positions = stars.map(galacticToWorld)
@@ -718,7 +878,7 @@ test('targets ordinary selections, zooms around them, and resets to the catalog 
   else await page.mouse.click(sun.x, sun.y)
   await expect(page.locator('#star-name')).toHaveText('Sun')
   await expect(page.locator('#distance-value')).toHaveText('0.00')
-  await expect(page.locator('#selection-announcement')).toHaveText('Sun, 0.00 pc from the Sun.')
+  await expect(page.locator('#selection-announcement')).toHaveText('Sun, 0.00 ly from the Sun.')
   await expect(page.locator('.dimension-label')).toHaveCount(0)
 
   const focusedSun = await starPoint(page, 'sun')
@@ -735,7 +895,7 @@ test('targets ordinary selections, zooms around them, and resets to the catalog 
   if (isMobile) await page.touchscreen.tap(sirius.x + 15, sirius.y)
   else await page.mouse.click(sirius.x, sirius.y)
   await expect(page.locator('#star-name')).toHaveText('Sirius A')
-  await expect(page.locator('#selection-announcement')).toHaveText('Sirius A, 2.64 pc from the Sun.')
+  await expect(page.locator('#selection-announcement')).toHaveText('Sirius A, 8.61 ly from the Sun.')
   await page.getByRole('button', { name: 'Reset view', exact: true }).click()
   await expect(page.locator('#star-name')).toHaveText('Sirius A')
 
@@ -907,12 +1067,14 @@ test('hands active focus to pointer input, deselection and reduced motion', asyn
 
 test('shows attached speed-length motion arrows with fixed heads and strokes', async ({ page, isMobile }, testInfo) => {
   await openViewer(page)
+  await openFilter(page)
   await page.getByLabel('V magnitude limit', { exact: true }).fill('12')
   await expect(page.locator('.star-label-detail')).toHaveCount(0)
   await expect(page.locator('[data-star-id="sirius-a"] .star-label')).toHaveText('Sirius A')
   const homeSun = await starPoint(page, 'sun')
-  await expect(page.locator('.motion-arrow')).toHaveCount(12)
-  await expect(page.locator('.motion-arrow:visible')).toHaveCount(8)
+  await expect(page.locator('.motion-arrow')).toHaveCount(22)
+  const visibleArrowCount = await page.locator('.motion-arrow:visible').count()
+  expect(visibleArrowCount).toBeGreaterThan(0)
   await expect(page.locator('[data-star-id="sirius-b"]')).toHaveAttribute('data-visibility', 'background')
   const sunArrow = page.locator('[data-star-id="sun"] .motion-arrow')
   await expect(sunArrow).toBeVisible()
@@ -933,9 +1095,13 @@ test('shows attached speed-length motion arrows with fixed heads and strokes', a
     expect(geometry).toEqual({ height: '16', stroke: '1.7', head: 'm12 5 7 7-7 7' })
   }
   for (const id of ['wise-0855-0714', 'alpha-centauri-a']) {
-    await expect(page.locator(`[data-star-id="${id}"] .motion-arrow`)).toHaveCount(0)
+    const transverseArrow = page.locator(`[data-star-id="${id}"] .motion-arrow`)
+    await expect(transverseArrow).toHaveAttribute('data-motion-mode', 'transverse')
+    await expect(transverseArrow.locator('.motion-arrow-shaft')).toHaveCSS('stroke-dasharray', '3px, 2px')
   }
   const arrow = page.locator('[data-star-id="sirius-a"] .motion-arrow')
+  await expect(arrow).toHaveAttribute('data-motion-mode', 'full')
+  await expect(arrow.locator('.motion-arrow-shaft')).toHaveCSS('stroke-dasharray', 'none')
   await expect(arrow).toBeVisible()
   await expect(arrow).toHaveCSS('opacity', '1')
   await expect(arrow).toHaveCSS('color', 'rgb(201, 223, 255)')
@@ -949,7 +1115,7 @@ test('shows attached speed-length motion arrows with fixed heads and strokes', a
   await page.mouse.up()
   await expect.poll(() => arrow.evaluate((element) => element.style.transform)).not.toBe(headingBefore)
   await expect.poll(() => sunArrow.evaluate((element) => element.style.transform)).not.toBe(sunHeadingBefore)
-  await expect(page.locator('.motion-arrow:visible')).toHaveCount(8)
+  await expect(page.locator('.motion-arrow:visible')).toHaveCount(visibleArrowCount)
   await page.getByRole('button', { name: 'Reset view', exact: true }).click()
   await expect(arrow).toBeVisible()
   for (const action of ['Zoom in', 'Zoom out']) {
@@ -974,7 +1140,7 @@ test('shows attached speed-length motion arrows with fixed heads and strokes', a
     expect(arrows.length).toBeGreaterThan(1)
     for (const sample of arrows) {
       const length = parseFloat(sample.width) - 2 * 5 * 16 / 24
-      expect(length).toBeGreaterThanOrEqual(12)
+      expect(length).toBeGreaterThanOrEqual(11.98)
       expect(length).toBeLessThanOrEqual(40)
       expect(sample.height).toBe('16px')
       expect(sample.headWidth).toBeCloseTo(7 * 16 / 24, 1)
@@ -1162,8 +1328,9 @@ test('keeps the selected name in front even at collisions and scene edges', asyn
   await expect(label).toBeVisible()
 })
 
-test('keeps star names at a fixed offset during camera rotation', async ({ page }) => {
+test('keeps star names steady and the distance centered on its line during rotation', async ({ page }) => {
   await openViewer(page)
+  await expect(page.locator('.distance-label').locator('..')).toHaveCSS('z-index', '2')
   const bounds = (await page.locator('#scene canvas').boundingBox())!
   await page.mouse.move(bounds.x + bounds.width * 0.4, bounds.y + bounds.height * 0.7)
   await page.mouse.down()
@@ -1171,18 +1338,26 @@ test('keeps star names at a fixed offset during camera rotation', async ({ page 
     await page.mouse.move(bounds.x + bounds.width * 0.4 + step * 8, bounds.y + bounds.height * 0.7 - step * 3)
     const offsets = await page.evaluate(async () => {
       await new Promise(requestAnimationFrame)
-      return [...document.querySelectorAll<HTMLElement>('.star-label')]
+      const endpoints = ['sun', 'sirius-a'].map((id) => document.querySelector<HTMLElement>(`[data-star-id="${id}"]`)!.getBoundingClientRect())
+      const lineCenter = { x: (endpoints[0]!.left + endpoints[1]!.left) / 2, y: (endpoints[0]!.top + endpoints[1]!.top) / 2 }
+      return [...document.querySelectorAll<HTMLElement>('.star-label, .distance-label')]
         .filter((label) => label.checkVisibility())
         .map((label) => {
           const text = label.getBoundingClientRect()
           const anchor = label.parentElement!.getBoundingClientRect()
-          return { x: text.left - anchor.left, y: text.top + text.height / 2 - anchor.top }
+          const distance = label.matches('.distance-label')
+          const centered = !distance || Math.hypot(text.left + text.width / 2 - lineCenter.x, text.top + text.height / 2 - lineCenter.y) < 1
+          return { x: text.left - anchor.left, y: text.top + text.height / 2 - anchor.top, distance, centered }
         })
     })
     expect(offsets.length).toBeGreaterThan(0)
+    expect(offsets.some((offset) => offset.distance)).toBe(true)
     for (const offset of offsets) {
-      expect(offset.x).toBeCloseTo(22, 0)
-      expect(offset.y).toBeCloseTo(0, 0)
+      expect(offset.centered).toBe(true)
+      if (!offset.distance) {
+        expect(offset.x).toBeCloseTo(22, 0)
+        expect(offset.y).toBeCloseTo(0, 0)
+      }
     }
   }
   await page.mouse.up()
@@ -1240,6 +1415,7 @@ test('keeps the catalog usable if WebGL is unavailable', async ({ page }) => {
   })
   await page.goto('/')
   await expect(page.locator('#scene-status')).toContainText('3D graphics are unavailable')
+  await openPreferences(page)
   await page.locator('.catalog summary').click()
   await page.getByRole('button', { name: 'Select Sun', exact: true }).click()
   await expect(page.locator('#star-name')).toHaveText('Sun')

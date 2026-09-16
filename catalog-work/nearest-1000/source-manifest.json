@@ -1,0 +1,28 @@
+{
+  "bufferSize": 1100,
+  "checksumsSha256": {
+    "cns5.ReadMe": "425176a492a28c2da2d72cf9c56c002c7afb69c98dcc29761ee053cab1fa45bb",
+    "cns5.dat": "7e8c1a2ce4a2afcd70cdf40340c9685b1ec90e8e5085a81812dfa98c5c8adbbf",
+    "gaia.adql": "52dd21ac5b4f3d7fca45f4d83a9ed0af985b17804141019d1d1b0a0ca1d03a01",
+    "gaia.csv": "0429d228028aebd81082bc5b8578a024b37913f260182ceed81f059b202b944e",
+    "simbad.adql": "9601182834f1dfd6257793c529cae87f124eba8d0fbb5752ca910f0cee342e6d",
+    "simbad.csv": "debefdb1d6a138726daef53de347b4be1b6a6949598c5db9e1ba23674fa85842"
+  },
+  "retrieved": "2026-09-15",
+  "schemaVersion": 1,
+  "sources": {
+    "cns5": {
+      "release": "corrected 2023-12-13",
+      "url": "https://cdsarc.cds.unistra.fr/ftp/J/A+A/670/A19/ReadMe"
+    },
+    "gaia": {
+      "queryFile": "gaia.adql",
+      "release": "DR3",
+      "url": "https://gea.esac.esa.int/tap-server/tap/sync"
+    },
+    "simbad": {
+      "queryFile": "simbad.adql",
+      "url": "https://simbad.cds.unistra.fr/simbad/sim-tap/sync"
+    }
+  }
+}

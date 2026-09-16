@@ -3,11 +3,12 @@ import '@fontsource/ibm-plex-sans/latin-400.css'
 import '@fontsource/ibm-plex-sans/latin-500.css'
 import '@fontsource/ibm-plex-sans/latin-600.css'
 import { Focus, Grid2X2, Orbit, ZoomIn, ZoomOut, createElement, type IconNode } from 'lucide'
-import { describeObject, type Star } from './catalog'
+import { describeObject, OBJECT_TYPES, objectTypeLabel, type ObjectType, type Star } from './catalog'
 import { catalogSelection, loadCatalog } from './catalogs'
 import { catalogs, catalogErrors } from './registry'
 import { formatDistance, sunRelativeMetrics, temperatureToColor, type DistanceUnit } from './astronomy'
 import { createStarViewer, type StarViewer } from './viewer'
+import { ObjectList } from './object-list'
 
 function element<ElementType extends HTMLElement = HTMLElement>(id: string): ElementType {
   const found = document.getElementById(id)
@@ -28,6 +29,13 @@ function quantity(value: number | null, unit = '', maximumFractionDigits = 3): s
   return `${value.toLocaleString('en-US', { maximumFractionDigits })}${unit ? ` ${unit}` : ''}`
 }
 
+function measurement(value: number | null, error: number | null, unit: string, maximumFractionDigits = 3): string {
+  if (value === null) return 'Not available'
+  const formatted = value.toLocaleString('en-US', { maximumFractionDigits })
+  const uncertainty = error === null ? '' : ` +/- ${error.toLocaleString('en-US', { maximumFractionDigits })}`
+  return `${formatted}${uncertainty} ${unit}`
+}
+
 icon('brand-icon', Orbit)
 icon('reset-icon', Focus)
 icon('grid-icon', Grid2X2)
@@ -41,10 +49,13 @@ let activeCatalogId = ''
 let selectedId: string | null = 'sirius-a'
 let observerId = 'sirius-a'
 let magnitudeLimit = 7
+let objectDistanceLimitLy = 100
 let gridVisible = true
-let distanceUnit: DistanceUnit = 'pc'
+let powerSavingMode = true
+const selectedTypes = new Set<ObjectType>(OBJECT_TYPES)
+let distanceUnit: DistanceUnit = 'ly'
 try {
-  if (localStorage.getItem('star-view-distance-unit') === 'ly') distanceUnit = 'ly'
+  if (localStorage.getItem('star-view-distance-unit') === 'pc') distanceUnit = 'pc'
 } catch {}
 const viewButtons = ['reset-view', 'toggle-grid', 'zoom-in', 'zoom-out'].map((id) => element<HTMLButtonElement>(id))
 
@@ -61,11 +72,7 @@ function renderSelection(): void {
   text('visibility-base', stars.find((candidate) => candidate.id === observerId)?.name ?? 'Sun')
   element('star-details').hidden = !star
   element('selection-empty').hidden = Boolean(star)
-  for (const button of element('star-list').querySelectorAll<HTMLButtonElement>('button')) {
-    const selected = button.dataset.star === selectedId
-    button.classList.toggle('is-selected', selected)
-    button.setAttribute('aria-pressed', String(selected))
-  }
+  objectList.setSelected(selectedId)
   if (!star) {
     delete element('inspector').dataset.selectedStar
     element('inspector').style.removeProperty('--selected-star-color')
@@ -95,6 +102,17 @@ function renderSelection(): void {
   text('velocity-x', quantity(star.vx_kms, 'km/s'))
   text('velocity-y', quantity(star.vy_kms, 'km/s'))
   text('velocity-z', quantity(star.vz_kms, 'km/s'))
+  const raw = star.raw_astrometry
+  const fullVelocity = [star.vx_kms, star.vy_kms, star.vz_kms].every((value) => value !== null) || (raw !== null && raw.radial_velocity_kms !== null)
+  text('motion-data', fullVelocity ? 'Full space motion' : raw ? 'Transverse only; radial velocity unavailable' : 'Not available')
+  text('right-ascension', raw ? `${raw.ra_deg.toLocaleString('en-US', { maximumFractionDigits: 9 })} deg` : 'Not available')
+  text('declination', raw ? `${raw.dec_deg.toLocaleString('en-US', { maximumFractionDigits: 9 })} deg` : 'Not available')
+  text('astrometry-epoch', raw ? `J${raw.epoch.toFixed(1)}` : 'Not available')
+  text('parallax', raw ? measurement(raw.parallax_mas, raw.parallax_error_mas, 'mas', 6) : 'Not available')
+  text('proper-motion-ra', raw ? measurement(raw.pm_ra_cosdec_masyr, raw.pm_ra_error_masyr, 'mas/yr', 6) : 'Not available')
+  text('proper-motion-dec', raw ? measurement(raw.pm_dec_masyr, raw.pm_dec_error_masyr, 'mas/yr', 6) : 'Not available')
+  text('radial-velocity', raw ? measurement(raw.radial_velocity_kms, raw.radial_velocity_error_kms, 'km/s', 6) : 'Not available')
+  text('astrometry-source', raw?.astrometry_ref ?? 'Not available')
   text('absolute-mag', quantity(star.absolute_mag))
   text('star-notes', star.notes || 'No source notes available.')
   text('selection-announcement', `${star.name}, ${formatDistance(metrics.distancePc, distanceUnit)} from the Sun.`)
@@ -110,13 +128,9 @@ function selectStar(id: string | null): void {
 }
 
 function renderDistances(): void {
-  const sun = stars.find((star) => star.id === 'sun')!
   element<HTMLInputElement>(`unit-${distanceUnit}`).checked = true
   text('grid-spacing', `${formatDistance(0.5, distanceUnit, distanceUnit === 'pc' ? 1 : 2)} grid`)
-  for (const button of element('star-list').querySelectorAll<HTMLButtonElement>('button')) {
-    const star = stars.find((candidate) => candidate.id === button.dataset.star)!
-    button.querySelector('.catalog-distance')!.textContent = formatDistance(sunRelativeMetrics(star, sun).distancePc, distanceUnit)
-  }
+  objectList.setDistanceUnit(distanceUnit)
   renderSelection()
 }
 
@@ -132,37 +146,21 @@ function switchCatalog(id: string): void {
   activeCatalogId = id
   selectedId = retained.selectedId
   observerId = retained.observerId
-  const list = element('star-list')
-  list.replaceChildren()
-  text('object-count', `${stars.length} objects`)
   text('catalog-count', stars.length.toString().padStart(2, '0'))
   text('scene-epoch', `J${definition.manifest.epoch.toFixed(1)}`)
   element<HTMLSelectElement>('catalog-select').value = id
   element('catalog-select').title = `${definition.manifest.description} ${definition.manifest.snapshot}`
-  for (const star of stars) {
-    const button = document.createElement('button')
-    button.type = 'button'
-    button.className = 'catalog-entry'
-    button.dataset.star = star.id
-    button.setAttribute('aria-label', `Select ${star.name}`)
-    const swatch = document.createElement('span')
-    swatch.className = 'star-swatch'
-    swatch.style.background = temperatureToColor(star.temperature_k).getStyle()
-    swatch.setAttribute('aria-hidden', 'true')
-    const name = document.createElement('span')
-    name.className = 'catalog-name'
-    name.textContent = star.name
-    const distance = document.createElement('span')
-    distance.className = 'catalog-distance'
-    button.append(swatch, name, distance)
-    list.append(button)
-  }
+  element<HTMLInputElement>('object-search').value = ''
+  objectList.setStars(stars, distanceUnit, selectedId)
   renderDistances()
   try {
     viewer = createStarViewer(element('scene'), stars, { onSelect: selectStar, onStatus: sceneStatus })
     viewer.setDistanceUnit(distanceUnit)
     viewer.select(selectedId, false)
     viewer.setVisibility(observerId, magnitudeLimit)
+    viewer.setObjectDistanceLimit(objectDistanceLimitLy)
+    viewer.setObjectTypeFilter([...selectedTypes])
+    viewer.setPowerSavingMode(powerSavingMode)
     viewer.setGridVisible(gridVisible)
     sceneStatus(null)
   } catch {
@@ -175,6 +173,28 @@ function catalogError(error: unknown): void {
   element('catalog-error').hidden = false
 }
 
+const typeOptions = element('object-type-options')
+function renderObjectTypeSummary(): void {
+  text('object-type-filter-summary', selectedTypes.size === OBJECT_TYPES.length ? 'All' : `${selectedTypes.size} of ${OBJECT_TYPES.length}`)
+}
+
+for (const type of OBJECT_TYPES) {
+  const label = document.createElement('label')
+  label.className = 'object-type-option'
+  const input = document.createElement('input')
+  input.type = 'checkbox'
+  input.name = 'object-type'
+  input.dataset.objectType = type
+  input.checked = true
+  const name = document.createElement('span')
+  name.textContent = objectTypeLabel(type)
+  label.append(input, name)
+  typeOptions.append(label)
+}
+renderObjectTypeSummary()
+
+const objectList = new ObjectList(element('star-list'), selectStar)
+
 for (const { manifest } of catalogs) {
   element<HTMLSelectElement>('catalog-select').add(new Option(manifest.label, manifest.id))
 }
@@ -186,10 +206,7 @@ try {
   sceneStatus('The nearby-object catalog could not be loaded.')
 }
 
-element('star-list').addEventListener('click', (event) => {
-  const button = (event.target as HTMLElement).closest<HTMLButtonElement>('button[data-star]')
-  if (button) selectStar(button.dataset.star!)
-}, { signal: events.signal })
+element('object-search').addEventListener('input', () => objectList.setQuery(element<HTMLInputElement>('object-search').value), { signal: events.signal })
 element('catalog-select').addEventListener('change', () => {
   try {
     switchCatalog(element<HTMLSelectElement>('catalog-select').value)
@@ -208,10 +225,32 @@ element('magnitude-limit').addEventListener('input', () => {
   const input = element<HTMLInputElement>('magnitude-limit')
   if (!input.validity.valid || !Number.isFinite(input.valueAsNumber)) return
   magnitudeLimit = input.valueAsNumber
+  text('magnitude-limit-value', String(magnitudeLimit))
   viewer?.setVisibility(observerId, magnitudeLimit)
 }, { signal: events.signal })
 element('magnitude-limit').addEventListener('change', () => {
   element<HTMLInputElement>('magnitude-limit').value = String(magnitudeLimit)
+}, { signal: events.signal })
+element('object-distance-limit').addEventListener('input', () => {
+  const input = element<HTMLInputElement>('object-distance-limit')
+  if (!input.validity.valid || !Number.isFinite(input.valueAsNumber)) return
+  objectDistanceLimitLy = input.valueAsNumber
+  text('object-distance-limit-value', `${objectDistanceLimitLy} ly`)
+  viewer?.setObjectDistanceLimit(objectDistanceLimitLy)
+}, { signal: events.signal })
+element('power-saving-mode').addEventListener('change', () => {
+  powerSavingMode = element<HTMLInputElement>('power-saving-mode').checked
+  viewer?.setPowerSavingMode(powerSavingMode)
+}, { signal: events.signal })
+element('object-type-filter').addEventListener('change', (event) => {
+  const input = event.target
+  if (!(input instanceof HTMLInputElement)) return
+  const type = input.dataset.objectType as ObjectType | undefined
+  if (!type || !OBJECT_TYPES.includes(type)) return
+  if (input.checked) selectedTypes.add(type)
+  else selectedTypes.delete(type)
+  renderObjectTypeSummary()
+  viewer?.setObjectTypeFilter([...selectedTypes])
 }, { signal: events.signal })
 element('reset-view').addEventListener('click', () => viewer?.reset(), { signal: events.signal })
 element('toggle-grid').addEventListener('click', () => {

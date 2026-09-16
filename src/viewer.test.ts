@@ -1,12 +1,54 @@
 import { describe, expect, it } from 'vitest'
 import { PerspectiveCamera, Vector3 } from 'three'
-import { focusProgress, motionArrowLength, pickStarAtScreenPoint, projectMotionDirection, projectSelectedAnchor, projectWorldPoint, starHaloDiameter, starHaloOpacity, starHaloStrength, TapGesture } from './viewer'
+import { focusProgress, isObjectMapVisible, mapLabelBudget, motionArrowLength, pickStarAtScreenPoint, projectMotionDirection, projectSelectedAnchor, projectWorldPoint, renderPixelRatio, starHaloDiameter, starHaloOpacity, starHaloStrength, TapGesture } from './viewer'
 
 const viewport = { left: 110, top: 90, width: 400, height: 300 }
+
+it('budgets ordinary map names by pointer density', () => {
+  expect(mapLabelBudget(false)).toBe(120)
+  expect(mapLabelBudget(true)).toBe(60)
+})
 
 describe('camera focus easing', () => {
   it.each([[-10, 0], [0, 0], [75, 0.15625], [150, 0.5], [225, 0.84375], [300, 1], [1000, 1]])('eases %s ms to %s', (elapsed, expected) => {
     expect(focusProgress(elapsed)).toBe(expected)
+  })
+})
+
+describe('movement render quality', () => {
+  it.each([
+    [2, false, false, 2],
+    [2, false, true, 2],
+    [2, true, false, 2],
+    [2, true, true, 1.5],
+    [1.25, true, true, 1.25],
+    [3, true, false, 2],
+    [3, true, true, 1.5],
+  ])('maps DPR %s with power saving %s and movement %s to %s', (ratio, enabled, moving, expected) => {
+    expect(renderPixelRatio(ratio, enabled, moving)).toBe(expected)
+  })
+
+  it.each([0, -1, NaN, Infinity])('falls back safely for invalid DPR %s', (ratio) => {
+    expect(renderPixelRatio(ratio, true, true)).toBe(1)
+  })
+})
+
+describe('object map filtering', () => {
+  const star = { id: 'target', type: 'white_dwarf' as const }
+
+  it('uses canonical object types for ordinary visibility', () => {
+    expect(isObjectMapVisible(star, new Set(['white_dwarf']), null, 'sun')).toBe(true)
+    expect(isObjectMapVisible(star, new Set(['star']), null, 'sun')).toBe(false)
+  })
+
+  it('limits ordinary objects by their distance from the Sun', () => {
+    expect(isObjectMapVisible(star, new Set(['white_dwarf']), null, 'sun', 8, 5)).toBe(false)
+    expect(isObjectMapVisible(star, new Set(['white_dwarf']), null, 'sun', 8, 100)).toBe(true)
+  })
+
+  it('keeps the selected object and visibility base visible as exceptions', () => {
+    expect(isObjectMapVisible(star, new Set(), 'target', 'sun', 101, 5)).toBe(true)
+    expect(isObjectMapVisible(star, new Set(), null, 'target', 101, 5)).toBe(true)
   })
 })
 

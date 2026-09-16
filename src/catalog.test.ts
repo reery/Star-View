@@ -2,7 +2,7 @@ import { describe, expect, it } from 'vitest'
 import Papa from 'papaparse'
 import { Matrix3, Vector3 } from 'three'
 import csv from './data/stars.csv?raw'
-import { CATALOG_HEADERS, CONSTELLATIONS, describeObject, objectTypeLabel, parseStarCatalog } from './catalog'
+import { CONSTELLATIONS, RAW_ASTROMETRY_HEADERS, describeObject, objectTypeLabel, parseStarCatalog } from './catalog'
 
 const rawRows = Papa.parse<Record<string, string>>(csv, { header: true, skipEmptyLines: true }).data
 const siriusRow = rawRows.find((row) => row.id === 'sirius-a')!
@@ -13,14 +13,45 @@ function changeSirius(fields: Record<string, string>): string {
 
 describe('object catalog', () => {
   it('accepts legacy columns, unknown temperatures, and optional constellation metadata', () => {
-    const legacy = rawRows.map((row) => Object.fromEntries(Object.entries(row).filter(([field]) => field !== 'constellation')))
-    expect(parseStarCatalog(Papa.unparse(legacy))[1]!.constellation).toBeNull()
+    const legacy = rawRows.map((row) => Object.fromEntries(Object.entries(row).filter(([field]) => field !== 'constellation' && !RAW_ASTROMETRY_HEADERS.includes(field as typeof RAW_ASTROMETRY_HEADERS[number]))))
+    expect(parseStarCatalog(Papa.unparse(legacy))[1]).toMatchObject({ constellation: null, raw_astrometry: null })
     const extended = [{ ...rawRows[0], constellation: '' }, { ...siriusRow, temperature_k: '', constellation: ' Canis Major ' }]
     expect(parseStarCatalog(Papa.unparse(extended))[1]).toMatchObject({ temperature_k: null, constellation: 'Canis Major' })
     expect(() => parseStarCatalog(Papa.unparse([{ ...extended[0], constellation: 'Leo' }, extended[1]!]))).toThrow('no fixed constellation')
     expect(() => parseStarCatalog(Papa.unparse([extended[0]!, { ...extended[1], constellation: 'Unknown' }]))).toThrow('IAU')
     expect(CONSTELLATIONS).toHaveLength(88)
     expect(new Set(CONSTELLATIONS).size).toBe(88)
+  })
+
+  it('retains raw proper motion without inventing a radial velocity', () => {
+    const astrometry = Object.fromEntries(RAW_ASTROMETRY_HEADERS.map((field) => [field, '']))
+    const rows = [
+      { ...rawRows[0], ...astrometry },
+      {
+        ...siriusRow,
+        ...astrometry,
+        ra_deg: '43.771985935', dec_deg: '-47.016728356', astrometry_epoch: '2016.0',
+        parallax_mas: '205.4251', parallax_error_mas: '0.1857',
+        pm_ra_cosdec_masyr: '1012.444720371', pm_ra_error_masyr: '0.18216792',
+        pm_dec_masyr: '-554.030838673', pm_dec_error_masyr: '0.24066855',
+        astrometry_ref: 'Gaia EDR3',
+      },
+    ]
+    expect(parseStarCatalog(Papa.unparse(rows))[1]!.raw_astrometry).toEqual({
+      ra_deg: 43.771985935,
+      dec_deg: -47.016728356,
+      epoch: 2016,
+      parallax_mas: 205.4251,
+      parallax_error_mas: 0.1857,
+      pm_ra_cosdec_masyr: 1012.444720371,
+      pm_ra_error_masyr: 0.18216792,
+      pm_dec_masyr: -554.030838673,
+      pm_dec_error_masyr: 0.24066855,
+      radial_velocity_kms: null,
+      radial_velocity_error_kms: null,
+      astrometry_ref: 'Gaia EDR3',
+      radial_velocity_ref: null,
+    })
   })
 
   it.each([
@@ -143,6 +174,6 @@ describe('object catalog', () => {
     expect(() => parseStarCatalog(csv.replace('spectral_type,', 'name,'))).toThrow('headers')
     expect(() => parseStarCatalog(csv.replace('5772,', '5772,extra,'))).toThrow('CSV record')
     expect(() => parseStarCatalog(csv + 'star,"unterminated')).toThrow('CSV record')
-    expect(() => parseStarCatalog(CATALOG_HEADERS.join(','))).toThrow('empty')
+    expect(() => parseStarCatalog(Object.keys(rawRows[0]!).join(','))).toThrow('empty')
   })
 })
