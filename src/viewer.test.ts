@@ -1,8 +1,13 @@
 import { describe, expect, it } from 'vitest'
 import { PerspectiveCamera, Vector3 } from 'three'
-import { focusProgress, isObjectMapVisible, motionArrowLength, pickStarAtScreenPoint, projectMotionDirection, projectSelectedAnchor, projectWorldPoint, renderPixelRatio, starHaloDiameter, starHaloOpacity, starHaloStrength, TapGesture } from './viewer'
+import { focusProgress, isObjectMapVisible, mapLabelBudget, motionArrowLength, pickStarAtScreenPoint, projectMotionDirection, projectSelectedAnchor, projectWorldPoint, renderPixelRatio, starHaloDiameter, starHaloOpacity, starHaloStrength, TapGesture } from './viewer'
 
 const viewport = { left: 110, top: 90, width: 400, height: 300 }
+
+it('budgets ordinary map names by pointer density', () => {
+  expect(mapLabelBudget(false)).toBe(120)
+  expect(mapLabelBudget(true)).toBe(60)
+})
 
 describe('camera focus easing', () => {
   it.each([[-10, 0], [0, 0], [75, 0.15625], [150, 0.5], [225, 0.84375], [300, 1], [1000, 1]])('eases %s ms to %s', (elapsed, expected) => {

@@ -7,9 +7,13 @@ import {
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js'
 import { ArrowRight, createElement } from 'lucide'
 import { OBJECT_TYPES, type ObjectType, type Star } from './catalog'
-import { formatDistance, galacticToWorld, galactocentricVelocityToWorld, sunRelativeMetrics, temperatureToColor, visibilityTier, type DistanceUnit } from './astronomy'
+import { apparentVisualMagnitude, displayMotionForStar, formatDistance, galacticToWorld, sunRelativeMetrics, temperatureToColor, visibilityTier, type DistanceUnit, type MotionMode } from './astronomy'
 
 export const STAR_DIAMETER_PX = 10
+
+export function mapLabelBudget(coarsePointer: boolean): number {
+  return coarsePointer ? 60 : 120
+}
 
 export function renderPixelRatio(devicePixelRatio: number, powerSavingMode: boolean, moving: boolean): number {
   const ratio = Number.isFinite(devicePixelRatio) && devicePixelRatio > 0 ? devicePixelRatio : 1
@@ -80,7 +84,7 @@ interface MapLabel {
   height: number
   starId?: string
   measurement?: { distancePc: number; suffix: string }
-  motion?: { element: HTMLSpanElement; velocity: Vector3; length: number }
+  motion?: { element: HTMLSpanElement; velocity: Vector3; length: number; mode: MotionMode }
 }
 
 interface LabelRect {
@@ -147,6 +151,7 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
   controls.screenSpacePanning = true
 
   const pickable = stars.map((star) => ({ id: star.id, position: galacticToWorld(star) }))
+  const starsById = new Map(stars.map((star, index) => [star.id, { star, index }]))
   const starBounds = new Box3().setFromPoints(pickable.map((star) => star.position))
   const sphere = starBounds.getBoundingSphere(new Sphere())
   sphere.radius = Math.max(sphere.radius, 0.75)
@@ -299,12 +304,13 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
   const starLabels = stars.map((star, index) => {
     const label = makeLabel(pickable[index]!.position, star.name, 'star-label', star.id)
     label.anchor.style.setProperty('--star-color', temperatureToColor(star.temperature_k).getStyle())
-    const velocity = galactocentricVelocityToWorld(star)
-    if (velocity) {
-      const length = motionArrowLength(velocity.length())
+    const motion = displayMotionForStar(star)
+    if (motion) {
+      const length = motionArrowLength(motion.velocity.length())
       const width = length + 2 * 5 * 16 / 24
       const arrow = document.createElement('span')
       arrow.className = 'motion-arrow'
+      arrow.dataset.motionMode = motion.mode
       arrow.hidden = true
       arrow.style.color = temperatureToColor(star.temperature_k).getStyle()
       arrow.style.width = `${width}px`
@@ -315,10 +321,11 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
       const [shaft, head] = icon.querySelectorAll('path')
       const tip = 5 + length * 24 / 16
       shaft!.setAttribute('d', `M5 12H${tip}`)
+      shaft!.classList.add('motion-arrow-shaft')
       head!.setAttribute('transform', `translate(${tip - 19} 0)`)
       arrow.append(icon)
       label.anchor.append(arrow)
-      label.motion = { element: arrow, velocity, length }
+      label.motion = { element: arrow, velocity: motion.velocity, length, mode: motion.mode }
     }
     return label
   })
@@ -413,29 +420,71 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
   }
 
   function updateLabels(): void {
+    const viewport = canvas.getBoundingClientRect()
+    const projections = new Map(pickable.map((star) => [star.id, projectWorldPoint(star.position, camera, viewport)]))
+    const ordinaryBudget = mapLabelBudget(matchMedia('(pointer: coarse)').matches || viewport.width <= 720)
+    const budgetedNames = new Set(starLabels
+      .filter((label) => label.starId && mapVisibility.get(label.starId) && tiers.get(label.starId) !== 'background')
+      .sort((first, second) => {
+        const firstEntry = starsById.get(first.starId!)!
+        const secondEntry = starsById.get(second.starId!)!
+        const priority = (label: MapLabel, entry: { star: Star; index: number }) => [
+          label.starId === selectedId ? 0 : label.starId === visibilityBase.id ? 1 : 2,
+          apparentVisualMagnitude(entry.star.absolute_mag, sunRelativeMetrics(entry.star, visibilityBase).distancePc) ?? Infinity,
+          projections.get(label.starId!)?.depth ?? Infinity,
+          entry.index,
+        ]
+        const firstPriority = priority(first, firstEntry)
+        const secondPriority = priority(second, secondEntry)
+        for (let index = 0; index < firstPriority.length; index++) {
+          if (firstPriority[index] !== secondPriority[index]) return firstPriority[index]! - secondPriority[index]!
+        }
+        return 0
+      })
+      .slice(0, ordinaryBudget)
+      .map((label) => label.starId!))
+    labelLayer.dataset.nameBudget = String(ordinaryBudget)
     if (labelSizesDirty) {
-      const labels = [...axisLabels, ...starLabels, ...measurementLabels]
-      // Hidden labels have zero dimensions. Reveal them together, read all
-      // sizes in one layout pass, then place/hide them below before painting.
-      for (const label of labels) {
-        setHidden(label.anchor, false)
-        setHidden(label.text, false)
-      }
-      for (const label of labels) {
-        label.width = label.text.offsetWidth
-        label.height = label.text.offsetHeight
+      for (const label of [...axisLabels, ...starLabels, ...measurementLabels]) {
+        label.width = 0
+        label.height = 0
       }
       labelSizesDirty = false
     }
-    const viewport = canvas.getBoundingClientRect()
-    const projections = new Map(pickable.map((star) => [star.id, projectWorldPoint(star.position, camera, viewport)]))
+    const labelsToMeasure = [...axisLabels, ...measurementLabels, ...starLabels.filter((label) => budgetedNames.has(label.starId!))]
+    if (labelsToMeasure.some((label) => label.width === 0 || label.height === 0)) {
+      for (const label of labelsToMeasure) {
+        setHidden(label.anchor, false)
+        setHidden(label.text, false)
+      }
+      for (const label of labelsToMeasure) {
+        label.width = label.text.offsetWidth
+        label.height = label.text.offsetHeight
+      }
+    }
     const obstacles = [...container.parentElement!.querySelectorAll<HTMLElement>('[data-scene-obstacle]')]
       .filter((element) => !element.hidden)
       .map((element) => ({ element, bounds: element.getBoundingClientRect() }))
     const blocked: LabelRect[] = obstacles.map((obstacle) => obstacle.bounds)
-    const selectedLabelObstacles = obstacles
-      .filter(({ element }) => element.matches('.scene-brand, .scene-toolbar, .scene-legend, .plane-key, .visibility-observer'))
-      .map((obstacle) => obstacle.bounds)
+    const measurementObstacles = measurementLabels.flatMap((label) => {
+      const start = projections.get(sun!.id)
+      const end = selectedId ? projections.get(selectedId) : undefined
+      if (!start || !end) return []
+      const centerX = (start.x + end.x) / 2
+      const centerY = (start.y + end.y) / 2
+      return [{
+        left: centerX - label.width / 2,
+        top: centerY - label.height / 2,
+        right: centerX + label.width / 2,
+        bottom: centerY + label.height / 2,
+      }]
+    })
+    const selectedLabelObstacles: LabelRect[] = [
+      ...obstacles
+        .filter(({ element }) => element.matches('.scene-brand, .scene-toolbar, .scene-legend, .plane-key, .visibility-observer'))
+        .map((obstacle) => obstacle.bounds),
+      ...measurementObstacles,
+    ]
     for (const label of axisLabels) {
       const projected = grid.visible ? projectWorldPoint(label.position, camera, viewport) : null
       setHidden(label.anchor, !projected)
@@ -518,6 +567,10 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
       if (label.anchor.classList.contains('is-clipped') !== !projected) label.anchor.classList.toggle('is-clipped', !projected)
       if (!anchor) continue
       setTransform(label.anchor, `translate(${anchor.x - viewport.left}px, ${anchor.y - viewport.top}px)`)
+      if (label.starId && !budgetedNames.has(label.starId)) {
+        setHidden(label.text, true)
+        continue
+      }
       if (label.starId && tiers.get(label.starId) === 'background') {
         setHidden(label.text, true)
         continue

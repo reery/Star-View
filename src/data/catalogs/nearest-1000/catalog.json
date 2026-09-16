@@ -1,0 +1,32 @@
+{
+  "cutoffPolicy": "Exclude SIMBAD aggregate systems (**) and tentative brown-dwarf candidates (BD?); replace mapped CNS5 records with curated nearest-100 components; rank nominal adopted J2000 distance then stable ID. Rank 1000 is HD 331161B (cns5-4902) at 13.943979464811 pc; next is WISE J032337.53-602554.5 at 13.947001394700 pc. Linearized parallax intervals overlap; nominal ranking is retained.",
+  "description": "1000 individual stellar/substellar objects from corrected CNS5 with exact SIMBAD/Gaia enrichment and curated nearest-100 overrides, plus Sun.",
+  "epoch": 2000,
+  "id": "nearest-1000",
+  "label": "Nearest 1000 objects",
+  "objectCount": 1001,
+  "schemaVersion": 1,
+  "snapshot": "J2000.0; CNS5 corrected 2023-12-13; SIMBAD and Gaia DR3 TAP frozen 2026-09-15; source-defined snapshot, not a 2026 completeness claim.",
+  "sources": [
+    {
+      "name": "CNS5, Golovin et al., corrected 2023-12-13; membership and adopted astrometry",
+      "url": "https://cdsarc.cds.unistra.fr/ftp/J/A+A/670/A19/ReadMe"
+    },
+    {
+      "name": "SIMBAD TAP snapshot; exact CNS5 identity, classification, spectrum and compiled Johnson V",
+      "url": "https://simbad.cds.unistra.fr/simbad/sim-tap/sync"
+    },
+    {
+      "name": "Gaia DR3 TAP snapshot; exact-ID GSP-Phot/FLAME physical estimates",
+      "url": "https://gea.esac.esa.int/tap-server/tap/sync"
+    },
+    {
+      "name": "Nearest 100 audited release; higher-curation shared-object overrides",
+      "url": "https://cdsarc.cds.unistra.fr/ftp/J/A+A/650/A201/ReadMe"
+    },
+    {
+      "name": "Astropy 7.1.1, IAU constellations using Roman 1987 boundaries",
+      "url": "https://docs.astropy.org/en/stable/api/astropy.coordinates.get_constellation.html"
+    }
+  ]
+}

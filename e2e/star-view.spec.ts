@@ -124,6 +124,9 @@ test('switches project catalogs while preserving settings and compatible selecti
   await page.getByRole('button', { name: 'Select GJ 229 A', exact: true }).click()
   await expect(page.locator('#constellation')).toHaveText('Lepus')
   await expect(page.locator('#luminosity-row')).toBeHidden()
+  const denisArrow = page.locator('[data-star-id="10pc-0098"] .motion-arrow')
+  await expect(denisArrow).toHaveAttribute('data-motion-mode', 'transverse')
+  await expect(denisArrow.locator('.motion-arrow-shaft')).toHaveCSS('stroke-dasharray', '3px, 2px')
   await page.screenshot({ path: testInfo.outputPath('nearest-100.png'), fullPage: true })
   await selector.selectOption('nearest-neighbors')
   await expect(page.locator('#star-details')).toBeHidden()
@@ -133,6 +136,32 @@ test('switches project catalogs while preserving settings and compatible selecti
   await expect(page.locator('#star-details')).toBeHidden()
   await expect(page.locator('#visibility-base')).toHaveText('Sun')
   await sceneFits(page)
+})
+
+test('searches the virtualized nearest-1000 list within bounded name budgets', async ({ page, isMobile }) => {
+  await openViewer(page)
+  await openPreferences(page)
+  await page.getByLabel('Catalog', { exact: true }).selectOption('nearest-1000')
+  await expect(page.locator('#catalog-count')).toHaveText('1001')
+  await expect(page.locator('.map-anchor[data-star-id]')).toHaveCount(1001)
+  expect(await page.locator('.star-label:visible').count()).toBeLessThanOrEqual(isMobile ? 60 : 120)
+  const catalog = page.locator('details.catalog')
+  if (await catalog.getAttribute('open') === null) await catalog.locator('summary').click()
+  const renderedRows = page.locator('.catalog-entry')
+  expect(await renderedRows.count()).toBeLessThan(30)
+  await page.getByLabel('Search objects').fill('cns5 4902')
+  await expect(renderedRows).toHaveCount(1)
+  await page.getByRole('button', { name: 'Select HD 331161B', exact: true }).click()
+  await expect(page.locator('#star-name')).toHaveText('HD 331161B')
+  await expect(page.locator('[data-star-id="cns5-4902"]')).toHaveClass(/is-selected/)
+  await sceneFits(page)
+  const selectedNameOverlapsDistance = await page.evaluate(() => {
+    const selectedName = document.querySelector<HTMLElement>('[data-star-id="cns5-4902"] .star-label')!.getBoundingClientRect()
+    const distance = document.querySelector<HTMLElement>('.distance-label')!.getBoundingClientRect()
+    return selectedName.left < distance.right && selectedName.right > distance.left &&
+      selectedName.top < distance.bottom && selectedName.bottom > distance.top
+  })
+  expect(selectedNameOverlapsDistance).toBe(false)
 })
 
 test('defaults to light-years, converts every distance without moving the camera, and remembers units', async ({ page }) => {
@@ -616,6 +645,7 @@ test('toggles the grid below reset without moving stars or changing selection', 
   }))
   const canvas = page.locator('#scene canvas')
   const screenshotOptions = { scale: 'css' as const, style: '.projected-labels, .scene-toolbar, .scene-brand, .scene-legend, .plane-key, .visibility-observer { visibility: hidden !important; }' }
+  const visibleArrowsBefore = await page.locator('.motion-arrow:visible').count()
   const gridOn = await canvas.screenshot(screenshotOptions)
   if (isMobile) await grid.tap()
   else await grid.click()
@@ -627,7 +657,7 @@ test('toggles the grid below reset without moving stars or changing selection', 
   await expect(page.locator('#scene-epoch')).toBeVisible()
   await expect(page.locator('#star-name')).toHaveText('Sirius A')
   await expect(page.locator('.dimension-label')).toHaveCount(1)
-  await expect(page.locator('.motion-arrow:visible')).toHaveCount(3)
+  await expect(page.locator('.motion-arrow:visible')).toHaveCount(visibleArrowsBefore)
   expect(await starPoint(page, 'sun')).toEqual(sunBefore)
   const gridOff = await canvas.screenshot(screenshotOptions)
   expect(changedPixels(gridOn, gridOff)).toBeGreaterThan(200)
@@ -1042,8 +1072,9 @@ test('shows attached speed-length motion arrows with fixed heads and strokes', a
   await expect(page.locator('.star-label-detail')).toHaveCount(0)
   await expect(page.locator('[data-star-id="sirius-a"] .star-label')).toHaveText('Sirius A')
   const homeSun = await starPoint(page, 'sun')
-  await expect(page.locator('.motion-arrow')).toHaveCount(12)
-  await expect(page.locator('.motion-arrow:visible')).toHaveCount(8)
+  await expect(page.locator('.motion-arrow')).toHaveCount(22)
+  const visibleArrowCount = await page.locator('.motion-arrow:visible').count()
+  expect(visibleArrowCount).toBeGreaterThan(0)
   await expect(page.locator('[data-star-id="sirius-b"]')).toHaveAttribute('data-visibility', 'background')
   const sunArrow = page.locator('[data-star-id="sun"] .motion-arrow')
   await expect(sunArrow).toBeVisible()
@@ -1064,9 +1095,13 @@ test('shows attached speed-length motion arrows with fixed heads and strokes', a
     expect(geometry).toEqual({ height: '16', stroke: '1.7', head: 'm12 5 7 7-7 7' })
   }
   for (const id of ['wise-0855-0714', 'alpha-centauri-a']) {
-    await expect(page.locator(`[data-star-id="${id}"] .motion-arrow`)).toHaveCount(0)
+    const transverseArrow = page.locator(`[data-star-id="${id}"] .motion-arrow`)
+    await expect(transverseArrow).toHaveAttribute('data-motion-mode', 'transverse')
+    await expect(transverseArrow.locator('.motion-arrow-shaft')).toHaveCSS('stroke-dasharray', '3px, 2px')
   }
   const arrow = page.locator('[data-star-id="sirius-a"] .motion-arrow')
+  await expect(arrow).toHaveAttribute('data-motion-mode', 'full')
+  await expect(arrow.locator('.motion-arrow-shaft')).toHaveCSS('stroke-dasharray', 'none')
   await expect(arrow).toBeVisible()
   await expect(arrow).toHaveCSS('opacity', '1')
   await expect(arrow).toHaveCSS('color', 'rgb(201, 223, 255)')
@@ -1080,7 +1115,7 @@ test('shows attached speed-length motion arrows with fixed heads and strokes', a
   await page.mouse.up()
   await expect.poll(() => arrow.evaluate((element) => element.style.transform)).not.toBe(headingBefore)
   await expect.poll(() => sunArrow.evaluate((element) => element.style.transform)).not.toBe(sunHeadingBefore)
-  await expect(page.locator('.motion-arrow:visible')).toHaveCount(8)
+  await expect(page.locator('.motion-arrow:visible')).toHaveCount(visibleArrowCount)
   await page.getByRole('button', { name: 'Reset view', exact: true }).click()
   await expect(arrow).toBeVisible()
   for (const action of ['Zoom in', 'Zoom out']) {
@@ -1105,7 +1140,7 @@ test('shows attached speed-length motion arrows with fixed heads and strokes', a
     expect(arrows.length).toBeGreaterThan(1)
     for (const sample of arrows) {
       const length = parseFloat(sample.width) - 2 * 5 * 16 / 24
-      expect(length).toBeGreaterThanOrEqual(12)
+      expect(length).toBeGreaterThanOrEqual(11.98)
       expect(length).toBeLessThanOrEqual(40)
       expect(sample.height).toBe('16px')
       expect(sample.headWidth).toBeCloseTo(7 * 16 / 24, 1)

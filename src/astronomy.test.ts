@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest'
 import csv from './data/stars.csv?raw'
 import { parseStarCatalog } from './catalog'
-import { galacticToWorld, galacticVelocityToWorld, galactocentricVelocityToWorld, SOLAR_GALACTIC_VELOCITY_KMS, sunRelativeMetrics, temperatureToColor } from './astronomy'
+import { displayMotionForStar, galacticToWorld, galacticVelocityToWorld, galactocentricVelocityToWorld, rawAstrometryVelocityToWorld, SOLAR_GALACTIC_VELOCITY_KMS, sunRelativeMetrics, temperatureToColor } from './astronomy'
 
 const stars = parseStarCatalog(csv)
 const sun = stars.find((star) => star.id === 'sun')!
@@ -88,6 +88,34 @@ describe('Galactic rest-frame motion', () => {
       vy_kms: -SOLAR_GALACTIC_VELOCITY_KMS.vy_kms,
       vz_kms: -SOLAR_GALACTIC_VELOCITY_KMS.vz_kms,
     })).toBeNull()
+  })
+
+  it('uses raw proper motion as transverse-only motion when radial velocity is unavailable', () => {
+    const raw = {
+      ra_deg: 43.771985935, dec_deg: -47.016728356, epoch: 2016,
+      parallax_mas: 205.4251, parallax_error_mas: 0.1857,
+      pm_ra_cosdec_masyr: 1012.444720371, pm_ra_error_masyr: 0.18216792,
+      pm_dec_masyr: -554.030838673, pm_dec_error_masyr: 0.24066855,
+      radial_velocity_kms: null, radial_velocity_error_kms: null,
+      astrometry_ref: 'Gaia EDR3', radial_velocity_ref: null,
+    }
+    const velocity = rawAstrometryVelocityToWorld(raw)!
+    const expectedSpeed = 4.74047 / raw.parallax_mas * Math.hypot(raw.pm_ra_cosdec_masyr, raw.pm_dec_masyr)
+    expect(velocity.length()).toBeCloseTo(expectedSpeed, 8)
+    expect(displayMotionForStar({ id: 'denis', vx_kms: null, vy_kms: null, vz_kms: null, raw_astrometry: raw })).toMatchObject({ mode: 'transverse' })
+  })
+
+  it('prefers stored full velocity and derives full motion from raw radial velocity as a fallback', () => {
+    expect(displayMotionForStar(sirius)).toEqual({ velocity: galactocentricVelocityToWorld(sirius), mode: 'full' })
+    const raw = {
+      ra_deg: 0, dec_deg: 0, epoch: 2016, parallax_mas: 100, parallax_error_mas: null,
+      pm_ra_cosdec_masyr: 0, pm_ra_error_masyr: null, pm_dec_masyr: 0, pm_dec_error_masyr: null,
+      radial_velocity_kms: 10, radial_velocity_error_kms: null,
+      astrometry_ref: 'fixture', radial_velocity_ref: 'fixture',
+    }
+    const motion = displayMotionForStar({ id: 'raw-full', vx_kms: null, vy_kms: null, vz_kms: null, raw_astrometry: raw })!
+    expect(motion.mode).toBe('full')
+    expect(motion.velocity.clone().sub(galacticVelocityToWorld(SOLAR_GALACTIC_VELOCITY_KMS)!).length()).toBeCloseTo(10)
   })
 })
 

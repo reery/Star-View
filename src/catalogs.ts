@@ -73,6 +73,45 @@ export function catalogCoverage(stars: readonly Star[]) {
     masses: objects.filter((star) => star.mass_solar !== null).length,
     luminosities: objects.filter((star) => star.luminosity_solar !== null).length,
     velocities: objects.filter((star) => [star.vx_kms, star.vy_kms, star.vz_kms].every((value) => value !== null)).length,
+    rawAstrometry: objects.filter((star) => star.raw_astrometry !== null).length,
+    radialVelocities: objects.filter((star) => star.raw_astrometry?.radial_velocity_kms !== null && star.raw_astrometry?.radial_velocity_kms !== undefined).length,
+    transverseOnly: objects.filter((star) => star.raw_astrometry !== null && star.raw_astrometry.radial_velocity_kms === null).length,
+  }
+}
+
+function catalogRecord(star: Star): Record<typeof CATALOG_HEADERS[number], string | number | null> {
+  const raw = star.raw_astrometry
+  return {
+    type: star.type,
+    id: star.id,
+    name: star.name,
+    spectral_type: star.spectral_type,
+    x_pc: star.x_pc,
+    y_pc: star.y_pc,
+    z_pc: star.z_pc,
+    vx_kms: star.vx_kms,
+    vy_kms: star.vy_kms,
+    vz_kms: star.vz_kms,
+    temperature_k: star.temperature_k,
+    mass_solar: star.mass_solar,
+    luminosity_solar: star.luminosity_solar,
+    absolute_mag: star.absolute_mag,
+    epoch: star.epoch,
+    notes: star.notes,
+    constellation: star.constellation,
+    ra_deg: raw?.ra_deg ?? null,
+    dec_deg: raw?.dec_deg ?? null,
+    astrometry_epoch: raw?.epoch ?? null,
+    parallax_mas: raw?.parallax_mas ?? null,
+    parallax_error_mas: raw?.parallax_error_mas ?? null,
+    pm_ra_cosdec_masyr: raw?.pm_ra_cosdec_masyr ?? null,
+    pm_ra_error_masyr: raw?.pm_ra_error_masyr ?? null,
+    pm_dec_masyr: raw?.pm_dec_masyr ?? null,
+    pm_dec_error_masyr: raw?.pm_dec_error_masyr ?? null,
+    radial_velocity_kms: raw?.radial_velocity_kms ?? null,
+    radial_velocity_error_kms: raw?.radial_velocity_error_kms ?? null,
+    astrometry_ref: raw?.astrometry_ref ?? null,
+    radial_velocity_ref: raw?.radial_velocity_ref ?? null,
   }
 }
 
@@ -93,7 +132,7 @@ export function buildCatalog(manifest: CatalogManifest, candidatesCsv: string, p
       throw new Error(`Missing object provenance: ${star.id}`)
     }
   }
-  const csv = Papa.unparse({ fields: [...CATALOG_HEADERS], data: selected.map((star) => CATALOG_HEADERS.map((field) => star[field])) }, { newline: '\n' }) + '\n'
+  const csv = Papa.unparse({ fields: [...CATALOG_HEADERS], data: selected.map(catalogRecord) }, { newline: '\n' }) + '\n'
   loadCatalog({ manifest, csv })
   return {
     manifest,

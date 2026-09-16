@@ -8,6 +8,7 @@ import { catalogSelection, loadCatalog } from './catalogs'
 import { catalogs, catalogErrors } from './registry'
 import { formatDistance, sunRelativeMetrics, temperatureToColor, type DistanceUnit } from './astronomy'
 import { createStarViewer, type StarViewer } from './viewer'
+import { ObjectList } from './object-list'
 
 function element<ElementType extends HTMLElement = HTMLElement>(id: string): ElementType {
   const found = document.getElementById(id)
@@ -26,6 +27,13 @@ function icon(id: string, shape: IconNode): void {
 function quantity(value: number | null, unit = '', maximumFractionDigits = 3): string {
   if (value === null) return 'Not available'
   return `${value.toLocaleString('en-US', { maximumFractionDigits })}${unit ? ` ${unit}` : ''}`
+}
+
+function measurement(value: number | null, error: number | null, unit: string, maximumFractionDigits = 3): string {
+  if (value === null) return 'Not available'
+  const formatted = value.toLocaleString('en-US', { maximumFractionDigits })
+  const uncertainty = error === null ? '' : ` +/- ${error.toLocaleString('en-US', { maximumFractionDigits })}`
+  return `${formatted}${uncertainty} ${unit}`
 }
 
 icon('brand-icon', Orbit)
@@ -64,11 +72,7 @@ function renderSelection(): void {
   text('visibility-base', stars.find((candidate) => candidate.id === observerId)?.name ?? 'Sun')
   element('star-details').hidden = !star
   element('selection-empty').hidden = Boolean(star)
-  for (const button of element('star-list').querySelectorAll<HTMLButtonElement>('button')) {
-    const selected = button.dataset.star === selectedId
-    button.classList.toggle('is-selected', selected)
-    button.setAttribute('aria-pressed', String(selected))
-  }
+  objectList.setSelected(selectedId)
   if (!star) {
     delete element('inspector').dataset.selectedStar
     element('inspector').style.removeProperty('--selected-star-color')
@@ -98,6 +102,17 @@ function renderSelection(): void {
   text('velocity-x', quantity(star.vx_kms, 'km/s'))
   text('velocity-y', quantity(star.vy_kms, 'km/s'))
   text('velocity-z', quantity(star.vz_kms, 'km/s'))
+  const raw = star.raw_astrometry
+  const fullVelocity = [star.vx_kms, star.vy_kms, star.vz_kms].every((value) => value !== null) || (raw !== null && raw.radial_velocity_kms !== null)
+  text('motion-data', fullVelocity ? 'Full space motion' : raw ? 'Transverse only; radial velocity unavailable' : 'Not available')
+  text('right-ascension', raw ? `${raw.ra_deg.toLocaleString('en-US', { maximumFractionDigits: 9 })} deg` : 'Not available')
+  text('declination', raw ? `${raw.dec_deg.toLocaleString('en-US', { maximumFractionDigits: 9 })} deg` : 'Not available')
+  text('astrometry-epoch', raw ? `J${raw.epoch.toFixed(1)}` : 'Not available')
+  text('parallax', raw ? measurement(raw.parallax_mas, raw.parallax_error_mas, 'mas', 6) : 'Not available')
+  text('proper-motion-ra', raw ? measurement(raw.pm_ra_cosdec_masyr, raw.pm_ra_error_masyr, 'mas/yr', 6) : 'Not available')
+  text('proper-motion-dec', raw ? measurement(raw.pm_dec_masyr, raw.pm_dec_error_masyr, 'mas/yr', 6) : 'Not available')
+  text('radial-velocity', raw ? measurement(raw.radial_velocity_kms, raw.radial_velocity_error_kms, 'km/s', 6) : 'Not available')
+  text('astrometry-source', raw?.astrometry_ref ?? 'Not available')
   text('absolute-mag', quantity(star.absolute_mag))
   text('star-notes', star.notes || 'No source notes available.')
   text('selection-announcement', `${star.name}, ${formatDistance(metrics.distancePc, distanceUnit)} from the Sun.`)
@@ -113,13 +128,9 @@ function selectStar(id: string | null): void {
 }
 
 function renderDistances(): void {
-  const sun = stars.find((star) => star.id === 'sun')!
   element<HTMLInputElement>(`unit-${distanceUnit}`).checked = true
   text('grid-spacing', `${formatDistance(0.5, distanceUnit, distanceUnit === 'pc' ? 1 : 2)} grid`)
-  for (const button of element('star-list').querySelectorAll<HTMLButtonElement>('button')) {
-    const star = stars.find((candidate) => candidate.id === button.dataset.star)!
-    button.querySelector('.catalog-distance')!.textContent = formatDistance(sunRelativeMetrics(star, sun).distancePc, distanceUnit)
-  }
+  objectList.setDistanceUnit(distanceUnit)
   renderSelection()
 }
 
@@ -135,30 +146,12 @@ function switchCatalog(id: string): void {
   activeCatalogId = id
   selectedId = retained.selectedId
   observerId = retained.observerId
-  const list = element('star-list')
-  list.replaceChildren()
   text('catalog-count', stars.length.toString().padStart(2, '0'))
   text('scene-epoch', `J${definition.manifest.epoch.toFixed(1)}`)
   element<HTMLSelectElement>('catalog-select').value = id
   element('catalog-select').title = `${definition.manifest.description} ${definition.manifest.snapshot}`
-  for (const star of stars) {
-    const button = document.createElement('button')
-    button.type = 'button'
-    button.className = 'catalog-entry'
-    button.dataset.star = star.id
-    button.setAttribute('aria-label', `Select ${star.name}`)
-    const swatch = document.createElement('span')
-    swatch.className = 'star-swatch'
-    swatch.style.background = temperatureToColor(star.temperature_k).getStyle()
-    swatch.setAttribute('aria-hidden', 'true')
-    const name = document.createElement('span')
-    name.className = 'catalog-name'
-    name.textContent = star.name
-    const distance = document.createElement('span')
-    distance.className = 'catalog-distance'
-    button.append(swatch, name, distance)
-    list.append(button)
-  }
+  element<HTMLInputElement>('object-search').value = ''
+  objectList.setStars(stars, distanceUnit, selectedId)
   renderDistances()
   try {
     viewer = createStarViewer(element('scene'), stars, { onSelect: selectStar, onStatus: sceneStatus })
@@ -200,6 +193,8 @@ for (const type of OBJECT_TYPES) {
 }
 renderObjectTypeSummary()
 
+const objectList = new ObjectList(element('star-list'), selectStar)
+
 for (const { manifest } of catalogs) {
   element<HTMLSelectElement>('catalog-select').add(new Option(manifest.label, manifest.id))
 }
@@ -211,10 +206,7 @@ try {
   sceneStatus('The nearby-object catalog could not be loaded.')
 }
 
-element('star-list').addEventListener('click', (event) => {
-  const button = (event.target as HTMLElement).closest<HTMLButtonElement>('button[data-star]')
-  if (button) selectStar(button.dataset.star!)
-}, { signal: events.signal })
+element('object-search').addEventListener('input', () => objectList.setQuery(element<HTMLInputElement>('object-search').value), { signal: events.signal })
 element('catalog-select').addEventListener('change', () => {
   try {
     switchCatalog(element<HTMLSelectElement>('catalog-select').value)

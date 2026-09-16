@@ -7,6 +7,9 @@ import { fileURLToPath } from 'node:url'
 import csv from './data/stars.csv?raw'
 import largeCsv from './data/catalogs/nearest-100/stars.csv?raw'
 import manifest from './data/catalogs/nearest-100/catalog.json?raw'
+import nearest1000Csv from './data/catalogs/nearest-1000/stars.csv?raw'
+import nearest1000Manifest from './data/catalogs/nearest-1000/catalog.json?raw'
+import nearest1000Provenance from './data/catalogs/nearest-1000/provenance.json?raw'
 import { buildCatalog, catalogCoverage, catalogSelection, loadCatalog, parseCatalogManifest } from './catalogs'
 import { parseStarCatalog } from './catalog'
 import { apparentVisualMagnitude, formatDistance, temperatureToColor, visibilityTier } from './astronomy'
@@ -14,6 +17,7 @@ import { apparentVisualMagnitude, formatDistance, temperatureToColor, visibility
 describe('catalog packages and display settings', () => {
   const small = parseStarCatalog(csv)
   const large = loadCatalog({ manifest: parseCatalogManifest(manifest), csv: largeCsv })
+  const nearest1000 = loadCatalog({ manifest: parseCatalogManifest(nearest1000Manifest), csv: nearest1000Csv })
 
   it('validates both real catalogs and shared object metadata', () => {
     expect(small).toHaveLength(22)
@@ -24,6 +28,28 @@ describe('catalog packages and display settings', () => {
     expect(small[0]).toMatchObject({ constellation: null, absolute_mag: 4.83 })
     expect(small.find((star) => star.id === 'sirius-a')!.constellation).toBe('Canis Major')
     expect(small.find((star) => star.id === 'barnards-star')!.constellation).toBe('Ophiuchus')
+    expect(large.find((star) => star.id === '10pc-0059')).toMatchObject({ mass_solar: 0.281 })
+    expect(large.find((star) => star.id === '10pc-0098')).toMatchObject({
+      vx_kms: null,
+      vy_kms: null,
+      vz_kms: null,
+      raw_astrometry: { pm_ra_cosdec_masyr: 1012.444720371, pm_dec_masyr: -554.030838673, radial_velocity_kms: null },
+    })
+    expect(catalogCoverage(large)).toMatchObject({ rawAstrometry: 100, radialVelocities: 68, transverseOnly: 32 })
+  })
+
+  it('validates the nearest-1000 release and preserves every curated shared row', () => {
+    expect(nearest1000).toHaveLength(1001)
+    expect(catalogCoverage(nearest1000)).toMatchObject({
+      objects: 1000,
+      constellations: 1000,
+      rawAstrometry: 1000,
+      radialVelocities: 326,
+      transverseOnly: 674,
+    })
+    for (const star of large) expect(nearest1000.find((candidate) => candidate.id === star.id)).toEqual(star)
+    const provenance = JSON.parse(nearest1000Provenance)
+    expect(provenance.cutoff).toMatchObject({ rank: 1000, id: 'cns5-4902', oneSigmaIntervalsOverlap: true })
   })
 
   it('rejects malformed packages and preserves nullable selection', () => {

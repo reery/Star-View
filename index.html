@@ -71,6 +71,15 @@
                     <div><dt>Velocity X</dt><dd id="velocity-x"></dd></div>
                     <div><dt>Velocity Y</dt><dd id="velocity-y"></dd></div>
                     <div><dt>Velocity Z</dt><dd id="velocity-z"></dd></div>
+                    <div><dt>Motion data</dt><dd id="motion-data"></dd></div>
+                    <div><dt>Right ascension</dt><dd id="right-ascension"></dd></div>
+                    <div><dt>Declination</dt><dd id="declination"></dd></div>
+                    <div><dt>Astrometry epoch</dt><dd id="astrometry-epoch"></dd></div>
+                    <div><dt>Parallax</dt><dd id="parallax"></dd></div>
+                    <div><dt>RA proper motion</dt><dd id="proper-motion-ra"></dd></div>
+                    <div><dt>Dec proper motion</dt><dd id="proper-motion-dec"></dd></div>
+                    <div><dt>Radial velocity</dt><dd id="radial-velocity"></dd></div>
+                    <div><dt>Astrometry source</dt><dd id="astrometry-source"></dd></div>
                     <div id="luminosity-row"><dt>Bolometric luminosity</dt><dd id="luminosity"></dd></div>
                   </dl>
                   <p id="star-notes" class="star-notes"></p>
@@ -114,6 +123,10 @@
           </details>
           <details class="inspector-section catalog" aria-labelledby="catalog-heading">
             <summary><span id="catalog-heading">Objects</span><span id="catalog-count"></span></summary>
+            <div class="object-search">
+              <label class="sr-only" for="object-search">Search objects</label>
+              <input id="object-search" type="search" placeholder="Search objects" autocomplete="off" />
+            </div>
             <div id="star-list" class="star-list" role="group" aria-label="Nearby objects"></div>
           </details>
         </aside>
