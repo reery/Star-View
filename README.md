@@ -1,5 +1,59 @@
 # Star View
 
+Star View is an interactive 3D map of nearby stars, white dwarfs, brown dwarfs, and sub-brown dwarfs. It runs entirely in the browser with bundled catalog data.
+
+## Using The App
+
+- Drag to orbit the map. Scroll or pinch to zoom.
+- Select an object on the map or from the Objects list to inspect it.
+- Use Preferences to change the catalog, distance units, or power-saving mode.
+- Use Filter to limit map distance, apparent magnitude, or object types.
+- Use the map buttons to reset the view, toggle the grid, and zoom.
+
+Power saving mode starts on and lowers the 3D rendering resolution only while the camera is moving. The view returns to full quality when movement stops.
+
+## Run Locally
+
+Requires Node.js 24 and npm.
+
+```sh
+npm ci
+npm run dev
+```
+
+Open the local URL printed by Vite.
+
+## Build
+
+```sh
+npm run build
+npm run preview
+```
+
+The production files are written to `dist`.
+
+## Test
+
+```sh
+npm run typecheck
+npm test
+npm run test:e2e
+```
+
+To run the browser tests with an installed Google Chrome:
+
+```sh
+PLAYWRIGHT_CHANNEL=chrome npm run test:e2e
+```
+
+## Catalog Data
+
+The included catalogs are fixed snapshots, not a complete or live sky database. See [Catalog sourcing](docs/catalog-sourcing.md) for sources and catalog details.
+
+## License
+
+See [LICENSE](LICENSE).# Star View
+
 A Sun-centered 3D browser for nearby stellar and substellar objects, built with TypeScript, Three.js, plain HTML/CSS, and Vite. Choose **Nearest neighbors** (21 objects plus Sun, the default) or **Nearest 100 objects** (100 individual stellar/substellar objects plus Sun). Both are bundled; no backend or runtime catalog service is required. The larger catalog uses audited frozen 2023 source releases, not a claim of complete 2026 membership. See the [offline sourcing and custom-catalog guide](docs/catalog-sourcing.md).
 
 ## Run
@@ -37,15 +91,16 @@ To compare power use in Safari, use `npm run build && npm run preview`, leave th
 ## Browse
 
 - Select a catalog with the dropdown. The Objects disclosure starts closed; open it to use the object buttons, which also work with a keyboard. Every object remains listed, even when faint or coincident with another point. The list scrolls independently and opens independently of Coordinates & source.
-- Catalog switching preserves common object selection, the visibility base, units, magnitude limit, grid and disclosure settings, and fits the new catalog. A missing selected object clears selection; a missing visibility base falls back to Sun. Only one scene is active at a time.
-- Choose pc or ly for all distance readouts: summary, object list, coordinates, in-plane distance, map guides, grid legend and announcements. The preference is remembered on this browser when storage is available. Geometry remains in parsecs and all measurements remain Sun-relative; changing units does not move the camera. Source notes are unchanged.
+- Catalog switching preserves common object selection, the visibility base, units, filter limits, object types, grid and disclosure settings, and fits the new catalog. A missing selected object clears selection; a missing visibility base falls back to Sun. Only one scene is active at a time.
+- Choose pc or ly for all distance readouts; ly is the default. The preference is remembered on this browser when storage is available. Geometry remains in parsecs and all measurements remain Sun-relative; changing units does not move the camera. Source notes are unchanged.
+- Object visibility distance is a Sun-centered, map-only filter from 5 to 100 ly and defaults to 100 ly. The complete catalog remains in Objects, while the selected object and visibility base remain visible as exceptions. Object types open in their own dropdown for individual selection.
 - Click or tap empty sky to clear selection, its measurement guides, and inspector details without moving the camera. The last selected object stays the visibility base. Orbit drags, pinches, and toolbar actions do not clear selection. Select another dot or catalog entry to restore details and change the base.
 - Selection centers the object by easing the orbit/zoom target over 300 ms while preserving the camera's position. A new selection replaces the transition; direct pointer input, zoom buttons, reset, or deselection interrupt it immediately. Reduced-motion preferences use instant focus and disable the selection pulse; enabling reduced motion during focus completes it immediately. Drag with the primary mouse button or one finger to orbit. Use the wheel or two-finger pinch to zoom; right-drag or a two-finger drag pans.
 - The toolbar provides reset-view, grid, zoom-in, and zoom-out buttons. The grid toggle sits directly below reset and starts enabled; it hides the grid, all three axis lines and their labels, and the grid legend, leaving stars, measurements, and the camera unchanged. Reset restores the all-catalog framing and preserves selection and grid visibility. Startup selects Sirius A without leaving that all-catalog view.
 - The inspector shows a conservative plain-language object type, Earth-view constellation, spectral class, temperature, mass, absolute Johnson V magnitude and Sun distance. Unsupported spectra fall back to a broad object type instead of guessing. Coordinates & source contains epoch, velocities, available bolometric luminosity and source notes. Height measurement guides remain in the map.
 - On narrow screens, the inspector scrolls below the scene, without covering it. Compact heading spacing leaves more sky visible; toolbar hover tooltips appear only for fine, hover-capable pointers, while keyboard-focus tooltips and 44 px targets remain available on all devices.
 
-Visibility uses apparent Johnson V magnitude from the selected or last-selected object's position: `m_V = M_V + 5 log10(distance_pc / 10)`. The adjustable limit defaults to +7, approximately one magnitude beyond dark-sky naked-eye +6, and ranges from 0 to 12. The unrounded inclusive threshold decides eligibility, not halo size/intensity. Higher limits include fainter objects. Only the loaded catalog is considered, not the complete sky from that location; extinction and variability are not modeled.
+Visibility uses apparent Johnson V magnitude from the selected or last-selected object's position: `m_V = M_V + 5 log10(distance_pc / 10)`. The Filter slider defaults to +7, approximately one magnitude beyond dark-sky naked-eye +6, and ranges from 0 to 25. The unrounded inclusive threshold decides eligibility, not halo size/intensity. Higher limits include fainter objects. Only the loaded catalog is considered, not the complete sky from that location; extinction and variability are not modeled.
 
 The visibility base and eligible objects retain approximately 10 CSS px crisp cores. Other objects are 3 CSS px temperature-colored dots with no halo, name or motion arrow, but unchanged generous mouse/touch hit targets. Missing V photometry and distinct objects at the same stored position are background, never assumed bright. Selecting any object makes it the base and keeps it prominent even without photometry; deselection removes only its selection boost, ring and guides. Approximate co-located binary coordinates are not a physical zero separation or a license to invent component brightness.
 

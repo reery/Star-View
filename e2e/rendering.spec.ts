@@ -51,9 +51,28 @@ async function stats(page: Page) {
   }).renderStats!)
 }
 
+async function openPreferences(page: Page) {
+  const preferences = page.locator('details.preferences')
+  if (await preferences.getAttribute('open') === null) await preferences.locator('summary').click()
+}
+
+async function openFilter(page: Page) {
+  const filter = page.locator('details.filter-section')
+  if (await filter.getAttribute('open') === null) await filter.locator(':scope > summary').click()
+}
+
+async function canvasPixelRatio(page: Page) {
+  return page.locator('#scene canvas').evaluate((element) => {
+    const canvas = element as HTMLCanvasElement
+    return canvas.width / canvas.getBoundingClientRect().width
+  })
+}
+
 for (const catalog of ['nearest-neighbors', 'nearest-100']) {
   test(`submits only visible halos and batches axes for ${catalog}`, async ({ page }) => {
     await trackRendering(page)
+    await openPreferences(page)
+    await openFilter(page)
     await page.getByLabel('Catalog', { exact: true }).selectOption(catalog)
     await expectIdle(page)
     console.log(`${catalog} default GPU submissions: ${JSON.stringify(await stats(page))}`)
@@ -79,6 +98,8 @@ for (const catalog of ['nearest-neighbors', 'nearest-100']) {
   test(`rotates ${catalog} without remeasuring label sizes`, async ({ page, context }, testInfo) => {
     await page.emulateMedia({ reducedMotion: 'no-preference' })
     await trackRendering(page)
+    await openPreferences(page)
+    await openFilter(page)
     await page.getByLabel('Catalog', { exact: true }).selectOption(catalog)
     await page.getByLabel('V magnitude limit', { exact: true }).fill('12')
     await expectIdle(page)
@@ -124,6 +145,8 @@ test('sleeps when idle and redraws after interactions in both catalogs', async (
   test.setTimeout(45_000)
   await page.emulateMedia({ reducedMotion: 'no-preference' })
   await trackRendering(page)
+  await openPreferences(page)
+  await openFilter(page)
   await expectIdle(page)
   for (const catalog of ['nearest-neighbors', 'nearest-100']) {
     await page.getByLabel('Catalog', { exact: true }).selectOption(catalog)
@@ -134,7 +157,7 @@ test('sleeps when idle and redraws after interactions in both catalogs', async (
       () => page.getByRole('button', { name: 'Reset view', exact: true }).click(),
       () => page.getByLabel('V magnitude limit', { exact: true }).fill('12'),
       () => page.locator('[data-star="sun"]').evaluate((button: HTMLButtonElement) => button.click()),
-      () => page.getByLabel('ly', { exact: true }).check(),
+      () => page.getByLabel('pc', { exact: true }).check(),
       async () => {
         const bounds = (await page.locator('#scene canvas').boundingBox())!
         await page.mouse.move(bounds.x + bounds.width / 2, bounds.y + bounds.height / 2)
@@ -148,7 +171,7 @@ test('sleeps when idle and redraws after interactions in both catalogs', async (
       await expect.poll(async () => (await stats(page)).draws).toBeGreaterThan(before.draws)
       await expectIdle(page)
     }
-    await page.getByLabel('pc', { exact: true }).check()
+    await page.getByLabel('ly', { exact: true }).check()
     await page.getByLabel('V magnitude limit', { exact: true }).fill('7')
   }
 })
@@ -171,16 +194,83 @@ test('redraws after viewport and font changes, then settles again', async ({ pag
 
 test('refreshes label sizes after selection and unit changes', async ({ page }) => {
   await trackRendering(page)
+  await openPreferences(page)
   await expectIdle(page)
   const before = await stats(page)
   await page.locator('[data-star="barnards-star"]').evaluate((button: HTMLButtonElement) => button.click())
   await expect.poll(async () => (await stats(page)).labelSizeReads).toBeGreaterThan(before.labelSizeReads)
   await expect(page.locator('[data-star-id="barnards-star"] .star-label')).toBeVisible()
   const selected = await stats(page)
-  await page.getByLabel('ly', { exact: true }).check()
-  await expect(page.locator('.distance-label')).toContainText('ly')
+  await page.getByLabel('pc', { exact: true }).check()
+  await expect(page.locator('.distance-label')).toContainText('pc')
   await expect.poll(async () => (await stats(page)).labelSizeReads).toBeGreaterThan(selected.labelSizeReads)
   await expectIdle(page)
+})
+
+test('omits filtered cores and halos from GPU point submissions', async ({ page }) => {
+  await trackRendering(page)
+  await openFilter(page)
+  await expectIdle(page)
+  const expectedPointVertices = async () => {
+    const cores = await page.locator('[data-star-id][data-map-visible="true"]').count()
+    const halos = await page.locator('[data-star-id][data-map-visible="true"]:not([data-visibility="background"])').count()
+    return cores + halos
+  }
+  await expect.poll(async () => (await stats(page)).framePointVertices).toBe(await expectedPointVertices())
+  await page.getByLabel('Object visibility distance', { exact: true }).fill('5')
+  await expect(page.locator('[data-star-id="barnards-star"]')).toHaveAttribute('data-map-visible', 'false')
+  await expect.poll(async () => (await stats(page)).framePointVertices).toBe(await expectedPointVertices())
+  await page.getByLabel('Object visibility distance', { exact: true }).fill('100')
+  await expect(page.locator('[data-star-id="barnards-star"]')).toHaveAttribute('data-map-visible', 'true')
+  await page.locator('details.filter-dropdown > summary').click()
+  await page.getByLabel('Brown dwarf', { exact: true }).uncheck()
+  await expect(page.locator('[data-star-id="luhman-16-a"]')).toHaveAttribute('data-map-visible', 'false')
+  await expect.poll(async () => (await stats(page)).framePointVertices).toBe(await expectedPointVertices())
+  await expect(page.locator('.catalog-entry')).toHaveCount(22)
+  await page.locator('[data-star="luhman-16-a"]').evaluate((button: HTMLButtonElement) => button.click())
+  await expect(page.locator('[data-star-id="luhman-16-a"]')).toHaveAttribute('data-map-visible', 'true')
+  await expect(page.locator('[data-star-id="luhman-16-b"]')).toHaveAttribute('data-map-visible', 'false')
+  await expect.poll(async () => (await stats(page)).framePointVertices).toBe(await expectedPointVertices())
+})
+
+test('uses reduced renderer resolution only while power-saving movement is active', async ({ page, isMobile }) => {
+  test.skip(!isMobile, 'The mobile project provides the DPR 2 viewport needed for this check.')
+  await page.emulateMedia({ reducedMotion: 'no-preference' })
+  await page.goto('/')
+  await expect(page.locator('#scene')).toHaveAttribute('data-ready', 'true')
+  await openPreferences(page)
+  const powerSaving = page.getByRole('switch', { name: 'Power saving mode' })
+  await expect(powerSaving).toBeChecked()
+  await expect.poll(() => canvasPixelRatio(page)).toBeCloseTo(2, 1)
+  const canvas = page.locator('#scene canvas')
+  const bounds = (await canvas.boundingBox())!
+  const start = { x: bounds.x + bounds.width * 0.45, y: bounds.y + bounds.height * 0.55 }
+
+  await page.mouse.move(start.x, start.y)
+  await page.mouse.down()
+  await page.mouse.move(start.x + 60, start.y - 20, { steps: 5 })
+  await expect.poll(() => canvasPixelRatio(page)).toBeCloseTo(1.5, 1)
+  await page.mouse.up()
+  await expect.poll(() => canvasPixelRatio(page)).toBeCloseTo(2, 1)
+
+  await powerSaving.uncheck()
+  await page.getByLabel('Catalog', { exact: true }).selectOption('nearest-100')
+  await expect(powerSaving).not.toBeChecked()
+  await page.mouse.move(start.x, start.y)
+  await page.mouse.down()
+  await page.mouse.move(start.x + 60, start.y - 20, { steps: 5 })
+  await expect.poll(() => canvasPixelRatio(page)).toBeCloseTo(2, 1)
+  await page.mouse.up()
+
+  await powerSaving.check()
+  await page.locator('[data-star="sun"]').evaluate((button: HTMLButtonElement) => button.click())
+  await expect.poll(() => canvasPixelRatio(page)).toBeCloseTo(1.5, 1)
+  await expect.poll(() => canvasPixelRatio(page)).toBeCloseTo(2, 1)
+  await page.reload()
+  await expect(page.locator('#scene')).toHaveAttribute('data-ready', 'true')
+  await openPreferences(page)
+  await expect(page.getByRole('switch', { name: 'Power saving mode' })).toBeChecked()
+  await expect.poll(() => canvasPixelRatio(page)).toBeCloseTo(2, 1)
 })
 
 test('resumes rendering after graphics context restoration', async ({ page }) => {

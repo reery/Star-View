@@ -3,7 +3,7 @@ import '@fontsource/ibm-plex-sans/latin-400.css'
 import '@fontsource/ibm-plex-sans/latin-500.css'
 import '@fontsource/ibm-plex-sans/latin-600.css'
 import { Focus, Grid2X2, Orbit, ZoomIn, ZoomOut, createElement, type IconNode } from 'lucide'
-import { describeObject, type Star } from './catalog'
+import { describeObject, OBJECT_TYPES, objectTypeLabel, type ObjectType, type Star } from './catalog'
 import { catalogSelection, loadCatalog } from './catalogs'
 import { catalogs, catalogErrors } from './registry'
 import { formatDistance, sunRelativeMetrics, temperatureToColor, type DistanceUnit } from './astronomy'
@@ -41,10 +41,13 @@ let activeCatalogId = ''
 let selectedId: string | null = 'sirius-a'
 let observerId = 'sirius-a'
 let magnitudeLimit = 7
+let objectDistanceLimitLy = 100
 let gridVisible = true
-let distanceUnit: DistanceUnit = 'pc'
+let powerSavingMode = true
+const selectedTypes = new Set<ObjectType>(OBJECT_TYPES)
+let distanceUnit: DistanceUnit = 'ly'
 try {
-  if (localStorage.getItem('star-view-distance-unit') === 'ly') distanceUnit = 'ly'
+  if (localStorage.getItem('star-view-distance-unit') === 'pc') distanceUnit = 'pc'
 } catch {}
 const viewButtons = ['reset-view', 'toggle-grid', 'zoom-in', 'zoom-out'].map((id) => element<HTMLButtonElement>(id))
 
@@ -134,7 +137,6 @@ function switchCatalog(id: string): void {
   observerId = retained.observerId
   const list = element('star-list')
   list.replaceChildren()
-  text('object-count', `${stars.length} objects`)
   text('catalog-count', stars.length.toString().padStart(2, '0'))
   text('scene-epoch', `J${definition.manifest.epoch.toFixed(1)}`)
   element<HTMLSelectElement>('catalog-select').value = id
@@ -163,6 +165,9 @@ function switchCatalog(id: string): void {
     viewer.setDistanceUnit(distanceUnit)
     viewer.select(selectedId, false)
     viewer.setVisibility(observerId, magnitudeLimit)
+    viewer.setObjectDistanceLimit(objectDistanceLimitLy)
+    viewer.setObjectTypeFilter([...selectedTypes])
+    viewer.setPowerSavingMode(powerSavingMode)
     viewer.setGridVisible(gridVisible)
     sceneStatus(null)
   } catch {
@@ -174,6 +179,26 @@ function catalogError(error: unknown): void {
   text('catalog-error', error instanceof Error ? error.message : String(error))
   element('catalog-error').hidden = false
 }
+
+const typeOptions = element('object-type-options')
+function renderObjectTypeSummary(): void {
+  text('object-type-filter-summary', selectedTypes.size === OBJECT_TYPES.length ? 'All' : `${selectedTypes.size} of ${OBJECT_TYPES.length}`)
+}
+
+for (const type of OBJECT_TYPES) {
+  const label = document.createElement('label')
+  label.className = 'object-type-option'
+  const input = document.createElement('input')
+  input.type = 'checkbox'
+  input.name = 'object-type'
+  input.dataset.objectType = type
+  input.checked = true
+  const name = document.createElement('span')
+  name.textContent = objectTypeLabel(type)
+  label.append(input, name)
+  typeOptions.append(label)
+}
+renderObjectTypeSummary()
 
 for (const { manifest } of catalogs) {
   element<HTMLSelectElement>('catalog-select').add(new Option(manifest.label, manifest.id))
@@ -208,10 +233,32 @@ element('magnitude-limit').addEventListener('input', () => {
   const input = element<HTMLInputElement>('magnitude-limit')
   if (!input.validity.valid || !Number.isFinite(input.valueAsNumber)) return
   magnitudeLimit = input.valueAsNumber
+  text('magnitude-limit-value', String(magnitudeLimit))
   viewer?.setVisibility(observerId, magnitudeLimit)
 }, { signal: events.signal })
 element('magnitude-limit').addEventListener('change', () => {
   element<HTMLInputElement>('magnitude-limit').value = String(magnitudeLimit)
+}, { signal: events.signal })
+element('object-distance-limit').addEventListener('input', () => {
+  const input = element<HTMLInputElement>('object-distance-limit')
+  if (!input.validity.valid || !Number.isFinite(input.valueAsNumber)) return
+  objectDistanceLimitLy = input.valueAsNumber
+  text('object-distance-limit-value', `${objectDistanceLimitLy} ly`)
+  viewer?.setObjectDistanceLimit(objectDistanceLimitLy)
+}, { signal: events.signal })
+element('power-saving-mode').addEventListener('change', () => {
+  powerSavingMode = element<HTMLInputElement>('power-saving-mode').checked
+  viewer?.setPowerSavingMode(powerSavingMode)
+}, { signal: events.signal })
+element('object-type-filter').addEventListener('change', (event) => {
+  const input = event.target
+  if (!(input instanceof HTMLInputElement)) return
+  const type = input.dataset.objectType as ObjectType | undefined
+  if (!type || !OBJECT_TYPES.includes(type)) return
+  if (input.checked) selectedTypes.add(type)
+  else selectedTypes.delete(type)
+  renderObjectTypeSummary()
+  viewer?.setObjectTypeFilter([...selectedTypes])
 }, { signal: events.signal })
 element('reset-view').addEventListener('click', () => viewer?.reset(), { signal: events.signal })
 element('toggle-grid').addEventListener('click', () => {

@@ -6,10 +6,27 @@ import {
 } from 'three'
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js'
 import { ArrowRight, createElement } from 'lucide'
-import type { Star } from './catalog'
+import { OBJECT_TYPES, type ObjectType, type Star } from './catalog'
 import { formatDistance, galacticToWorld, galactocentricVelocityToWorld, sunRelativeMetrics, temperatureToColor, visibilityTier, type DistanceUnit } from './astronomy'
 
 export const STAR_DIAMETER_PX = 10
+
+export function renderPixelRatio(devicePixelRatio: number, powerSavingMode: boolean, moving: boolean): number {
+  const ratio = Number.isFinite(devicePixelRatio) && devicePixelRatio > 0 ? devicePixelRatio : 1
+  return Math.min(ratio, powerSavingMode && moving ? 1.5 : 2)
+}
+
+export function isObjectMapVisible(
+  star: Pick<Star, 'id' | 'type'>,
+  selectedTypes: ReadonlySet<ObjectType>,
+  selectedId: string | null,
+  observerId: string,
+  distanceLy = 0,
+  distanceLimitLy = Infinity,
+): boolean {
+  return star.id === selectedId || star.id === observerId ||
+    selectedTypes.has(star.type) && distanceLy <= distanceLimitLy
+}
 
 export function focusProgress(elapsedMs: number): number {
   const progress = Math.max(0, Math.min(1, elapsedMs / 300))
@@ -41,6 +58,9 @@ export interface StarViewer {
   select(id: string | null, focus?: boolean): void
   reset(): void
   setGridVisible(visible: boolean): void
+  setObjectDistanceLimit(distanceLy: number): void
+  setObjectTypeFilter(types: readonly ObjectType[]): void
+  setPowerSavingMode(enabled: boolean): void
   setVisibility(observerId: string, limit: number): void
   setDistanceUnit(unit: DistanceUnit): void
   zoom(direction: 'in' | 'out'): void
@@ -120,7 +140,7 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
   const controls = new OrbitControls(camera, canvas)
   const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)')
   controls.enableDamping = !reducedMotion.matches
-  controls.dampingFactor = 0.1
+  controls.dampingFactor = 0.2
   controls.minPolarAngle = 0.08
   controls.maxPolarAngle = Math.PI - 0.08
   controls.rotateSpeed = 0.65
@@ -147,6 +167,8 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
   const starGeometry = new BufferGeometry()
   starGeometry.setAttribute('position', new Float32BufferAttribute(pickable.flatMap((star) => star.position.toArray()), 3))
   starGeometry.setAttribute('color', new Float32BufferAttribute(stars.flatMap((star) => temperatureToColor(star.temperature_k).toArray()), 3))
+  starGeometry.setIndex(stars.map((_, index) => index))
+  const coreIndices = starGeometry.getIndex()!
   const coreDiameters = new Float32BufferAttribute(stars.map(() => STAR_DIAMETER_PX), 1)
   starGeometry.setAttribute('coreDiameter', coreDiameters)
   const starMaterial = new PointsMaterial({
@@ -203,8 +225,9 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
 
   const gridHalfSize = Math.max(3, Math.ceil(Math.max(...pickable.map((star) => star.position.length())) + 1))
   const gridHelper = new GridHelper(gridHalfSize * 2, gridHalfSize * 4, 0x65615c, 0x393939)
+  const gridOpacity = { value: 0.4 }
   const grid = new LineSegments(gridHelper.geometry, new ShaderMaterial({
-    uniforms: { radius: { value: gridHalfSize } },
+    uniforms: { radius: { value: gridHalfSize }, opacity: gridOpacity },
     vertexColors: true, transparent: true, depthWrite: false, toneMapped: false,
     vertexShader: `
       varying vec2 gridPosition;
@@ -217,11 +240,12 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
     `,
     fragmentShader: `
       uniform float radius;
+      uniform float opacity;
       varying vec2 gridPosition;
       varying vec3 gridColor;
       void main() {
         float fade = 1.0 - smoothstep(radius * 0.55, radius, length(gridPosition));
-        gl_FragColor = vec4(gridColor, 0.4 * fade);
+        gl_FragColor = vec4(gridColor, opacity * fade);
         #include <colorspace_fragment>
       }
     `,
@@ -240,9 +264,10 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
     const color = new Color(axis.color).toArray()
     return [...color, ...color]
   }), 3))
-  const axisLines = new LineSegments(axisGeometry, new LineBasicMaterial({
+  const axisMaterial = new LineBasicMaterial({
     vertexColors: true, transparent: true, opacity: 0.55, depthWrite: false,
-  }))
+  })
+  const axisLines = new LineSegments(axisGeometry, axisMaterial)
   scene.add(axisLines)
 
   const axisLayer = document.createElement('div')
@@ -305,17 +330,21 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
   let selectedId: string | null = null
   let visibilityBase = sun
   let magnitudeLimit = 7
+  let objectDistanceLimitLy = 100
+  let selectedTypes = new Set<ObjectType>(OBJECT_TYPES)
   let distanceUnit: DistanceUnit = 'pc'
   const tiers = new Map<string, ReturnType<typeof visibilityTier>>()
+  const mapVisibility = new Map<string, boolean>()
   let disposed = false
   let contextLost = false
   let pendingFrame: number | null = null
   let home = true
   let focusTransition: { from: Vector3; to: Vector3; position: Vector3; started: number } | null = null
+  let powerSavingMode = false
+  let controlsInteracting = false
+  let controlsSettling = false
   const focusTarget = new Vector3()
   let labelSizesDirty = true
-  let distanceNormal = { x: 0, y: -1 }
-  let distanceSide = 1
 
   function invalidateLabelSizes(): void {
     labelSizesDirty = true
@@ -335,18 +364,32 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
   }
 
   function updatePresentation(): void {
+    let coreCount = 0
     let haloCount = 0
     stars.forEach((star, index) => {
       const tier = visibilityTier(star, visibilityBase, magnitudeLimit)
+      const mapVisible = isObjectMapVisible(
+        star,
+        selectedTypes,
+        selectedId,
+        visibilityBase.id,
+        sunRelativeMetrics(star, sun!).distanceLy,
+        objectDistanceLimitLy,
+      )
       tiers.set(star.id, tier)
+      mapVisibility.set(star.id, mapVisible)
       coreDiameters.setX(index, tier === 'background' ? 3 : STAR_DIAMETER_PX)
       haloOpacities.setX(index, tier === 'background' ? 0 : starHaloOpacity(star.absolute_mag, star.id === selectedId))
-      if (tier !== 'background') haloIndices.setX(haloCount++, index)
+      if (mapVisible) coreIndices.setX(coreCount++, index)
+      if (mapVisible && tier !== 'background') haloIndices.setX(haloCount++, index)
       starLabels[index]!.anchor.dataset.visibility = tier
+      starLabels[index]!.anchor.dataset.mapVisible = String(mapVisible)
     })
+    coreIndices.needsUpdate = true
     coreDiameters.needsUpdate = true
     haloOpacities.needsUpdate = true
     haloIndices.needsUpdate = true
+    starGeometry.setDrawRange(0, coreCount)
     haloGeometry.setDrawRange(0, haloCount)
   }
 
@@ -386,9 +429,13 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
     }
     const viewport = canvas.getBoundingClientRect()
     const projections = new Map(pickable.map((star) => [star.id, projectWorldPoint(star.position, camera, viewport)]))
-    const blocked: LabelRect[] = [...container.parentElement!.querySelectorAll<HTMLElement>('[data-scene-obstacle]')]
+    const obstacles = [...container.parentElement!.querySelectorAll<HTMLElement>('[data-scene-obstacle]')]
       .filter((element) => !element.hidden)
-      .map((element) => element.getBoundingClientRect())
+      .map((element) => ({ element, bounds: element.getBoundingClientRect() }))
+    const blocked: LabelRect[] = obstacles.map((obstacle) => obstacle.bounds)
+    const selectedLabelObstacles = obstacles
+      .filter(({ element }) => element.matches('.scene-brand, .scene-toolbar, .scene-legend, .plane-key, .visibility-observer'))
+      .map((obstacle) => obstacle.bounds)
     for (const label of axisLabels) {
       const projected = grid.visible ? projectWorldPoint(label.position, camera, viewport) : null
       setHidden(label.anchor, !projected)
@@ -402,6 +449,7 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
         blocked.some((obstacle) => overlaps(rectangle, obstacle)))
     }
     const starObstacles = pickable.flatMap((star) => {
+      if (!mapVisibility.get(star.id)) return []
       const projected = projections.get(star.id)
       if (!projected) return []
       const radius = (tiers.get(star.id) === 'background' ? 3 : STAR_DIAMETER_PX) / 2
@@ -416,6 +464,10 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
       if (label.anchor.style.zIndex !== zIndex) label.anchor.style.zIndex = zIndex
       if (!label.motion) continue
       const { element, velocity, length } = label.motion
+      if (!mapVisibility.get(label.starId!)) {
+        setHidden(element, true)
+        continue
+      }
       const projected = projections.get(label.starId!)
       const direction = projected && tiers.get(label.starId!) !== 'background'
         ? projectMotionDirection(label.position, velocity, camera, viewport) : null
@@ -434,9 +486,33 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
       starObstacles.push({ depth: projected.depth, bounds })
     }
     for (const label of [...selectedLabels, ...measurementLabels, ...otherStarLabels]) {
+      if (label.starId && !mapVisibility.get(label.starId)) {
+        setHidden(label.anchor, true)
+        continue
+      }
+      if (label.measurement) {
+        const start = projections.get(sun!.id)
+        const end = selectedId ? projections.get(selectedId) : undefined
+        setHidden(label.anchor, !start || !end)
+        if (!start || !end) continue
+        const centerX = (start.x + end.x) / 2
+        const centerY = (start.y + end.y) / 2
+        const { width, height } = label
+        const rectangle = {
+          left: centerX - width / 2,
+          top: centerY - height / 2,
+          right: centerX + width / 2,
+          bottom: centerY + height / 2,
+        }
+        setTransform(label.anchor, `translate(${centerX - viewport.left}px, ${centerY - viewport.top}px)`)
+        setTransform(label.text, `translate(${-width / 2}px, ${-height / 2}px)`)
+        setHidden(label.text, false)
+        blocked.push(rectangle)
+        continue
+      }
       const projected = label.starId ? projections.get(label.starId) : projectWorldPoint(label.position, camera, viewport)
       const selected = label.starId === selectedId
-      const foreground = selected || Boolean(label.measurement)
+      const foreground = selected
       const anchor = projected ?? (foreground ? projectSelectedAnchor(label.position, camera, viewport) : null)
       setHidden(label.anchor, !anchor)
       if (label.anchor.classList.contains('is-clipped') !== !projected) label.anchor.classList.toggle('is-clipped', !projected)
@@ -447,53 +523,22 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
         continue
       }
       const { width, height } = label
-      if (label.measurement) {
-        const start = projections.get(sun!.id)
-        const end = projections.get(selectedId!)
-        if (start && end) {
-          const dx = end.x - start.x
-          const dy = end.y - start.y
-          const length = Math.hypot(dx, dy)
-          if (length > 1) distanceNormal = { x: dy / length, y: -dx / length }
-        }
-        const radius = Math.max(starHaloDiameter(sun!.absolute_mag), starHaloDiameter(visibilityBase.absolute_mag)) / 2 + 6
-        const endpoints = [start, end].filter((point) => point != null)
-          .map((point) => ({ left: point.x - radius, right: point.x + radius, top: point.y - radius, bottom: point.y + radius }))
-        // Offset perpendicular to the line far enough that the whole label
-        // clears both endpoint halos, even when the line is foreshortened.
-        const offset = Math.abs(distanceNormal.x) * (width / 2 + radius) + Math.abs(distanceNormal.y) * (height / 2 + radius)
-        const clamp = (left: number, top: number) => {
+      if (foreground) {
+        const clamp = (left: number, top: number): LabelRect => {
           left = Math.max(viewport.left + 12, Math.min(left, viewport.right - width - 12))
           top = Math.max(viewport.top + 12, Math.min(top, viewport.bottom - height - 12))
           return { left, top, right: left + width, bottom: top + height }
         }
-        const candidates = [distanceSide, -distanceSide].map((side) => ({
-          ...clamp(anchor.x + distanceNormal.x * offset * side - width / 2, anchor.y + distanceNormal.y * offset * side - height / 2), side,
-        }))
-        let placement = candidates.find((candidate) => endpoints.every((endpoint) => !overlaps(candidate, endpoint, 0)))
-        if (placement) distanceSide = placement.side
-        else {
-          // At the viewport edge, use the closest clear corner instead of
-          // clamping the label back on top of a star.
-          const corners = [viewport.left + 12, viewport.right - width - 12].flatMap((left) =>
-            [viewport.top + 12, viewport.bottom - height - 12].map((top) => ({ ...clamp(left, top), side: distanceSide })))
-          placement = corners.filter((candidate) => endpoints.every((endpoint) => !overlaps(candidate, endpoint, 0)))
-            .sort((a, b) => Math.hypot(a.left + width / 2 - anchor.x, a.top + height / 2 - anchor.y) -
-              Math.hypot(b.left + width / 2 - anchor.x, b.top + height / 2 - anchor.y))[0]
-        }
-        setHidden(label.text, !placement)
-        if (placement) {
-          setTransform(label.text, `translate(${placement.left - anchor.x}px, ${placement.top - anchor.y}px)`)
-          blocked.push(placement)
-        }
-        continue
-      }
-      if (foreground) {
-        const left = Math.max(viewport.left + 12, Math.min(anchor.x + 22, viewport.left + viewport.width - width - 12))
-        const top = Math.max(viewport.top + 12, Math.min(anchor.y - height / 2, viewport.top + viewport.height - height - 12))
-        setTransform(label.text, `translate(${left - anchor.x}px, ${top - anchor.y}px)`)
+        const candidates = [
+          clamp(anchor.x + 22, anchor.y - height / 2),
+          clamp(anchor.x - width - 22, anchor.y - height / 2),
+          clamp(anchor.x - width / 2, anchor.y + 22),
+          clamp(anchor.x - width / 2, anchor.y - height - 22),
+        ]
+        const placement = candidates.find((candidate) => selectedLabelObstacles.every((obstacle) => !overlaps(candidate, obstacle))) ?? candidates[0]!
+        setTransform(label.text, `translate(${placement.left - anchor.x}px, ${placement.top - anchor.y}px)`)
         setHidden(label.text, false)
-        blocked.push({ left, top, right: left + width, bottom: top + height })
+        blocked.push(placement)
         continue
       }
       const offsets = [[22, -height / 2]]
@@ -516,9 +561,9 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
     const star = stars.find((candidate) => candidate.id === id)
     if (id !== null && !star) return
     focusTransition = null
+    controlsInteracting = false
+    controlsSettling = false
     selectedId = id
-    distanceSide = 1
-    distanceNormal = { x: 0, y: -1 }
     if (star) visibilityBase = star
     updatePresentation()
     starLabels.forEach((label) => label.anchor.classList.toggle('is-selected', label.starId === id))
@@ -559,6 +604,7 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
       else focusTransition = { from, to, position, started: performance.now() }
       home = false
     }
+    resize()
     requestRender()
   }
 
@@ -576,23 +622,34 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
 
   function reset(): void {
     focusTransition = null
+    controlsInteracting = false
+    controlsSettling = false
     controls.reset()
     fitHome()
+    resize()
     requestRender()
   }
 
   let renderWidth = 0
   let renderHeight = 0
+  function viewerMoving(): boolean {
+    return focusTransition !== null || controlsInteracting || controlsSettling
+  }
+
   function resize(): void {
     const width = container.clientWidth
     const height = container.clientHeight
     if (!width || !height) return
-    const pixelRatio = Math.min(window.devicePixelRatio || 1, 2)
-    if (width === renderWidth && height === renderHeight && renderer.getPixelRatio() === pixelRatio) return
+    const pixelRatio = renderPixelRatio(window.devicePixelRatio || 1, powerSavingMode, viewerMoving())
+    const sizeChanged = width !== renderWidth || height !== renderHeight
+    if (!sizeChanged && renderer.getPixelRatio() === pixelRatio) return
     renderWidth = width
     renderHeight = height
     renderer.setPixelRatio(pixelRatio)
     renderer.setSize(width, height)
+    gridOpacity.value = Math.min(1, 0.4 * pixelRatio)
+    axisMaterial.opacity = Math.min(1, 0.55 * pixelRatio)
+    if (!sizeChanged) return
     camera.aspect = width / height
     camera.updateProjectionMatrix()
     if (home) fitHome()
@@ -603,7 +660,13 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
   const gesture = new TapGesture()
   function pick(event: PointerEvent): string | null {
     camera.updateMatrixWorld()
-    return pickStarAtScreenPoint(pickable, camera, canvas.getBoundingClientRect(), event, event.pointerType === 'touch' ? 24 : 16)
+    return pickStarAtScreenPoint(
+      pickable.filter((star) => mapVisibility.get(star.id)),
+      camera,
+      canvas.getBoundingClientRect(),
+      event,
+      event.pointerType === 'touch' ? 24 : 16,
+    )
   }
   canvas.addEventListener('pointerdown', (event) => gesture.begin(event), { signal: events.signal })
   canvas.addEventListener('pointermove', (event) => {
@@ -618,10 +681,21 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
   }, { signal: events.signal })
   canvas.addEventListener('pointercancel', (event) => gesture.cancel(event.pointerId), { signal: events.signal })
   canvas.addEventListener('lostpointercapture', (event) => gesture.cancel(event.pointerId), { signal: events.signal })
-  controls.addEventListener('start', () => {
+  function onControlsStart(): void {
     focusTransition = null
     home = false
-  })
+    controlsInteracting = true
+    controlsSettling = true
+    resize()
+    requestRender()
+  }
+  function onControlsEnd(): void {
+    controlsInteracting = false
+    controlsSettling = true
+    requestRender()
+  }
+  controls.addEventListener('start', onControlsStart)
+  controls.addEventListener('end', onControlsEnd)
   controls.addEventListener('change', requestRender)
   reducedMotion.addEventListener('change', () => {
     if (reducedMotion.matches && focusTransition) {
@@ -629,6 +703,11 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
       focusTransition = null
     }
     controls.enableDamping = !reducedMotion.matches
+    if (reducedMotion.matches) {
+      controlsInteracting = false
+      controlsSettling = false
+    }
+    resize()
     requestRender()
   }, { signal: events.signal })
 
@@ -639,9 +718,21 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
       const progress = focusProgress(time - focusTransition.started)
       focusTarget.lerpVectors(focusTransition.from, focusTransition.to, progress)
       applyFocusTarget(focusTarget, focusTransition.position)
-      if (progress === 1) focusTransition = null
+      if (progress === 1) {
+        focusTransition = null
+        resize()
+      }
       else requestRender()
-    } else controls.update()
+    } else {
+      const changed = controls.update()
+      if (controlsInteracting || changed) {
+        controlsSettling = true
+        requestRender()
+      } else if (controlsSettling) {
+        controlsSettling = false
+        resize()
+      }
+    }
     camera.updateMatrixWorld()
     renderer.render(scene, camera)
     updateLabels()
@@ -703,9 +794,25 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
   return {
     select,
     reset,
+    setObjectDistanceLimit(distanceLy) {
+      if (!Number.isFinite(distanceLy) || distanceLy < 5 || distanceLy > 100) return
+      objectDistanceLimitLy = distanceLy
+      updatePresentation()
+      requestRender()
+    },
+    setObjectTypeFilter(types) {
+      selectedTypes = new Set(types.filter((type) => OBJECT_TYPES.includes(type)))
+      updatePresentation()
+      requestRender()
+    },
+    setPowerSavingMode(enabled) {
+      powerSavingMode = enabled
+      resize()
+      requestRender()
+    },
     setVisibility(observerId, limit) {
       const base = stars.find((star) => star.id === observerId)
-      if (!base || !Number.isFinite(limit) || limit < 0 || limit > 12) return
+      if (!base || !Number.isFinite(limit) || limit < 0 || limit > 25) return
       visibilityBase = base
       magnitudeLimit = limit
       updatePresentation()
@@ -726,10 +833,13 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
     },
     zoom(direction) {
       focusTransition = null
+      controlsInteracting = false
+      controlsSettling = false
       home = false
       if (direction === 'in') controls.dollyIn(1 / 1.3)
       else controls.dollyOut(1 / 1.3)
       controls.update()
+      resize()
       requestRender()
     },
     dispose() {
@@ -739,6 +849,8 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
       events.abort()
       observer.disconnect()
       obstacleObserver.disconnect()
+      controls.removeEventListener('start', onControlsStart)
+      controls.removeEventListener('end', onControlsEnd)
       controls.removeEventListener('change', requestRender)
       controls.dispose()
       disposeGeometry(scene)
