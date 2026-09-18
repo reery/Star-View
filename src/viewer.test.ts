@@ -1,12 +1,59 @@
 import { describe, expect, it } from 'vitest'
 import { PerspectiveCamera, Vector3 } from 'three'
-import { focusProgress, isObjectMapVisible, mapLabelBudget, motionArrowLength, pickStarAtScreenPoint, projectMotionDirection, projectSelectedAnchor, projectWorldPoint, renderPixelRatio, starHaloDiameter, starHaloOpacity, starHaloStrength, TapGesture } from './viewer'
+import { budgetVisibleLabelIndices, chooseOrdinaryLabelPlacement, focusProgress, isObjectMapVisible, mapLabelBudget, motionArrowLength, motionForeshortening, ordinaryLabelCandidates, pickProjectedStarAtScreenPoint, pickStarAtScreenPoint, projectMotionDirection, projectSelectedAnchor, projectWorldPoint, renderPixelRatio, ScreenSpaceGrid, starBlocksLabels, starHaloDiameter, starHaloOpacity, starHaloStrength, TapGesture, type ProjectedPickable } from './viewer'
 
 const viewport = { left: 110, top: 90, width: 400, height: 300 }
 
 it('budgets ordinary map names by pointer density', () => {
   expect(mapLabelBudget(false)).toBe(120)
   expect(mapLabelBudget(true)).toBe(60)
+})
+
+it('spends the map name budget only on camera-visible stars', () => {
+  const groups = [{ indices: [0] }, { indices: [1, 2, 3] }, { indices: [4] }]
+  const projections = [
+    { visible: false, depth: 1 },
+    { visible: true, depth: 8 },
+    { visible: false, depth: 1 },
+    { visible: true, depth: 2 },
+    { visible: true, depth: 4 },
+  ]
+  expect(budgetVisibleLabelIndices(groups, projections, 3)).toEqual([3, 1, 4])
+  expect(budgetVisibleLabelIndices(groups, projections, 2)).toEqual([3, 1])
+  expect(budgetVisibleLabelIndices(groups, projections, 0)).toEqual([])
+})
+
+describe('ordinary label placement', () => {
+  const candidates = ordinaryLabelCandidates({ x: 100, y: 80 }, 40, 16)
+
+  it('offers deterministic positions on every side of the star', () => {
+    expect(candidates).toEqual([
+      { placement: 'right', left: 122, top: 72, right: 162, bottom: 88 },
+      { placement: 'left', left: 38, top: 72, right: 78, bottom: 88 },
+      { placement: 'below', left: 80, top: 102, right: 120, bottom: 118 },
+      { placement: 'above', left: 80, top: 42, right: 120, bottom: 58 },
+    ])
+  })
+
+  it('uses a clear alternate when the right side is blocked', () => {
+    expect(chooseOrdinaryLabelPlacement(candidates, undefined, (candidate) => candidate.placement === 'right')?.placement).toBe('left')
+  })
+
+  it('keeps a previous placement with a smaller exit gap', () => {
+    const gaps: number[] = []
+    const placement = chooseOrdinaryLabelPlacement(candidates, 'above', (candidate, gap) => {
+      gaps.push(gap)
+      return candidate.placement === 'right'
+    })
+    expect(placement?.placement).toBe('above')
+    expect(gaps).toEqual([2])
+  })
+})
+
+it('ignores magnitude-filtered background dots as label obstacles', () => {
+  expect(starBlocksLabels('background')).toBe(false)
+  expect(starBlocksLabels('eligible')).toBe(true)
+  expect(starBlocksLabels('base')).toBe(true)
 })
 
 describe('camera focus easing', () => {
@@ -17,19 +64,18 @@ describe('camera focus easing', () => {
 
 describe('movement render quality', () => {
   it.each([
-    [2, false, false, 2],
-    [2, false, true, 2],
-    [2, true, false, 2],
-    [2, true, true, 1.5],
-    [1.25, true, true, 1.25],
-    [3, true, false, 2],
-    [3, true, true, 1.5],
-  ])('maps DPR %s with power saving %s and movement %s to %s', (ratio, enabled, moving, expected) => {
-    expect(renderPixelRatio(ratio, enabled, moving)).toBe(expected)
+    [2, false, 1],
+    [2, true, 0.5],
+    [0.75, false, 0.75],
+    [0.4, true, 0.4],
+    [3, false, 1],
+    [3, true, 0.5],
+  ])('maps DPR %s with power saving %s to %s', (ratio, enabled, expected) => {
+    expect(renderPixelRatio(ratio, enabled)).toBe(expected)
   })
 
   it.each([0, -1, NaN, Infinity])('falls back safely for invalid DPR %s', (ratio) => {
-    expect(renderPixelRatio(ratio, true, true)).toBe(1)
+    expect(renderPixelRatio(ratio, true)).toBe(0.5)
   })
 })
 
@@ -157,6 +203,20 @@ describe('projected star picking', () => {
     ]
     expect(pickStarAtScreenPoint(stars, makeCamera(), viewport, { clientX: 310, clientY: 240 }, 16)).toBe('near')
   })
+
+  it('queries nearby grid cells while preserving distance and depth ordering', () => {
+    const stars: ProjectedPickable[] = [
+      { id: 'far-away', x: 480, y: 360, depth: 1 },
+      { id: 'far-depth', x: 310, y: 240, depth: 8 },
+      { id: 'near-depth', x: 310, y: 240, depth: 4 },
+      { id: 'closer-screen', x: 307, y: 240, depth: 20 },
+    ]
+    const grid = new ScreenSpaceGrid<ProjectedPickable>(32)
+    for (const star of stars) grid.insert({ left: star.x, right: star.x, top: star.y, bottom: star.y }, star)
+    expect(pickProjectedStarAtScreenPoint(grid, viewport, { clientX: 310, clientY: 240 }, 16)).toBe('near-depth')
+    expect(pickProjectedStarAtScreenPoint(grid, viewport, { clientX: 306, clientY: 240 }, 16)).toBe('closer-screen')
+    expect(pickProjectedStarAtScreenPoint(grid, viewport, { clientX: 100, clientY: 240 }, 500)).toBeNull()
+  })
 })
 
 describe('selected offscreen labels', () => {
@@ -185,6 +245,22 @@ describe('motion arrow speed scale', () => {
 })
 
 describe('projected motion direction', () => {
+  describe('motion foreshortening', () => {
+    it('collapses camera-aligned motion and preserves transverse motion', () => {
+      const position = new Vector3(0, 0, -5)
+      expect(motionForeshortening(position, new Vector3(0, 0, 1))).toBe(0)
+      expect(motionForeshortening(position, new Vector3(0, 0, -1))).toBe(0)
+      expect(motionForeshortening(position, new Vector3(1, 0, 0))).toBe(1)
+    })
+
+    it('changes continuously with viewing angle', () => {
+      const position = new Vector3(0, 0, -5)
+      const velocityAt = (degrees: number) => new Vector3(Math.sin(degrees * Math.PI / 180), 0, Math.cos(degrees * Math.PI / 180))
+      expect(motionForeshortening(position, velocityAt(7))).toBeCloseTo(Math.sin(7 * Math.PI / 180))
+      expect(motionForeshortening(position, velocityAt(45))).toBeCloseTo(Math.SQRT1_2)
+      expect(motionForeshortening(position, new Vector3())).toBe(0)
+    })
+  })
   it.each([1e-12, 1, 1000])('keeps a fixed direction for velocity scale %s', (scale) => {
     expect(projectMotionDirection(new Vector3(), new Vector3(scale, 0, 0), makeCamera(), viewport)).toEqual({ x: 1, y: -0 })
     expect(projectMotionDirection(new Vector3(), new Vector3(0, scale, 0), makeCamera(), viewport)).toEqual({ x: 0, y: -1 })

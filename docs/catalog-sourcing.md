@@ -216,9 +216,14 @@ This is a schema example, not a ready dataset: replace the placeholder source, i
 npm run catalog:build -- catalog-work/my-catalog/adopted.json src/data/catalogs/my-catalog
 npm run catalog:validate -- src/data/catalogs/my-catalog
 npm run catalog:validate
+npm run catalog:generate
 npm run build
 ```
 
 The builder emits deterministic `stars.csv`, `catalog.json` and `provenance.json`. It validates the entire candidate table, sorts non-Sun rows by the unrounded norm of the supplied parsec vector then lexical stable ID, takes exactly `objectCount - 1`, and prepends Sun. It retains all candidate ranks and provenance, including the unselected buffer. This native rank uses supplied precision; use the source-specific high-precision Python recipe to reproduce the audited nearest-100 release exactly. No clocks or network queries affect output.
 
-Existing output directories are refused. An intentional regeneration requires `--force` as the final argument; only the three generated sibling files are replaced. Keep authored originals and adopted inputs separate. Do not run the builder over the preserved default catalog. Validation reports per-catalog counts and non-Sun coverage; production builds validate all packages and require full constellation coverage in the three shipped catalogs. Legacy custom packages may omit constellations. No hand-maintained registry edit is required: the new package appears in the dropdown after rebuilding.
+Existing output directories are refused. An intentional regeneration requires `--force` as the final argument; only the three generated sibling files are replaced. Recipe candidate paths must remain beneath the recipe directory. Catalog tools reject symlinked output roots and managed files, and publish generated files through atomic sibling replacements. Keep authored originals and adopted inputs separate. Do not run the builder over the preserved default catalog. Validation reports per-catalog counts and non-Sun coverage; production builds validate all packages and require full constellation coverage in the three shipped catalogs. Legacy custom packages may omit constellations. No hand-maintained registry edit is required: the new package appears in the dropdown after rebuilding.
+
+`catalog:generate` converts every validated CSV package into deterministic browser JSON. Those derived files are ignored and regenerated before `npm run dev` or `npm run build`; CSV, manifests and provenance remain the tracked source of truth. Runtime catalog payloads are emitted as separate content-hashed assets and loaded once on first selection.
+
+Network-backed refreshes use a 60-second per-operation timeout by default. Override it with `--timeout SECONDS` when necessary; the value must be positive. Downloads and generated metadata are staged and atomically replaced so an interrupted request does not publish a partial managed file.

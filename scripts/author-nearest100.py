@@ -16,6 +16,8 @@ from astropy.io import ascii
 from astropy.time import Time
 from astropy.utils import iers
 
+from catalog_sources.filesystem import atomic_write_text, safe_output_directory, write_managed_files
+
 iers.conf.auto_download = False
 ROOT = Path(__file__).resolve().parents[1]
 NAME_CORRECTIONS = {"Bo\u00f6tes": "Bootes", "Chamaleon": "Chamaeleon", "Ophiucus": "Ophiuchus", "Pisces Austrinus": "Piscis Austrinus"}
@@ -69,8 +71,7 @@ def checksum(path):
 
 
 def write_json(path, value):
-    path.parent.mkdir(parents=True, exist_ok=True)
-    path.write_text(json.dumps(value, indent=2, ensure_ascii=True, allow_nan=False) + "\n")
+    atomic_write_text(path, json.dumps(value, indent=2, ensure_ascii=True, allow_nan=False) + "\n")
 
 
 def normalized_position(row):
@@ -150,7 +151,7 @@ def freeze_sources(folder, force=False):
     assert len(candidates) == 160 and len(audit_rows) == len(matches) == 141
     assert set(data["excludedTentativeSequences"]) == {"146", "161", "198", "199", "1001"}
     write_json(target, data)
-    (FROZEN / "source-input.sha256").write_text(checksum(target) + "  source-input.json\n")
+    atomic_write_text(FROZEN / "source-input.sha256", checksum(target) + "  source-input.json\n")
     print(json.dumps({"frozenCandidates": len(candidates), "auditedCNS5": len(matches), "sha256": checksum(target)}, indent=2))
 
 
@@ -292,6 +293,7 @@ def release_eligible(source):
 
 
 def build_catalog(output, force=False, check=False):
+    output = safe_output_directory(output)
     input_path = FROZEN / "source-input.json"
     assert checksum(input_path) == (FROZEN / "source-input.sha256").read_text().split()[0]
     frozen = json.loads(input_path.read_text())
@@ -371,11 +373,7 @@ def build_catalog(output, force=False, check=False):
         for filename, text in files.items():
             assert (output / filename).read_text() == text, f"Reproduction mismatch: {filename}"
     else:
-        if not force and any((output / filename).exists() for filename in files):
-            raise FileExistsError("Catalog exists; use --force for an intentional rebuild, or --check to verify.")
-        output.mkdir(parents=True, exist_ok=True)
-        for filename, text in files.items():
-            (output / filename).write_text(text)
+        write_managed_files(output, files, force)
     print(json.dumps({"objects": len(rows), "coverage": coverage, "eligibleCandidates": len(eligible), "excludedTentativeSequences": frozen["excludedTentativeSequences"], "preservedTentativeSequences": frozen["preservedTentativeSequences"], "cutoff": next(item for item in rankings if item["rank"] == 100), "next": next(item for item in rankings if item["rank"] == 101), "reproduced": check}, indent=2))
 
 
@@ -422,7 +420,7 @@ def default_catalog(write=False):
     writer.writeheader()
     writer.writerows(enriched)
     if write:
-        path.write_text(generated.getvalue())
+        atomic_write_text(path, generated.getvalue())
     elif set(rows[0]) == set(BASE_HEADERS + RAW_ASTROMETRY_HEADERS):
         assert text == generated.getvalue()
     print(json.dumps({"defaultRows": len(rows), "constellations": assignments, "boundaryProbeArcsec": 1}, indent=2))

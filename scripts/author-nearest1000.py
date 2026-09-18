@@ -15,6 +15,7 @@ from astropy.time import Time
 from astropy.utils import iers
 
 from catalog_sources.adapters import read_cns5, read_gaia_tap, read_simbad_tap
+from catalog_sources.filesystem import write_managed_files
 from catalog_sources.snapshots import canonical_json, sha256, verify_sha256
 
 iers.conf.auto_download = False
@@ -280,6 +281,8 @@ def main():
     parser.add_argument("--force", action="store_true")
     parser.add_argument("--check", action="store_true")
     arguments = parser.parse_args()
+    if arguments.output.is_symlink():
+        raise ValueError("Output directory must not be a symbolic link")
     package = build_package()
     if arguments.check:
         if any(not (arguments.output / name).exists() or (arguments.output / name).read_text() != content for name, content in package.items()):
@@ -288,9 +291,7 @@ def main():
         return
     if arguments.output.exists() and not arguments.force:
         raise FileExistsError("Output exists; use --force for an intentional regeneration")
-    arguments.output.mkdir(parents=True, exist_ok=True)
-    for name, content in package.items():
-        (arguments.output / name).write_text(content)
+    write_managed_files(arguments.output, package, arguments.force)
     print(json.dumps(json.loads(package["provenance.json"])["coverage"] | {"objects": 1001}, indent=2))
 
 

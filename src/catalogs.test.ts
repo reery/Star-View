@@ -1,6 +1,6 @@
-import { describe, expect, it } from 'vitest'
+import { describe, expect, it, vi } from 'vitest'
 import { execFileSync, spawnSync } from 'node:child_process'
-import { mkdtempSync, readFileSync, rmSync, writeFileSync } from 'node:fs'
+import { mkdirSync, mkdtempSync, readFileSync, rmSync, symlinkSync, writeFileSync } from 'node:fs'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import { fileURLToPath } from 'node:url'
@@ -10,9 +10,10 @@ import manifest from './data/catalogs/nearest-100/catalog.json?raw'
 import nearest1000Csv from './data/catalogs/nearest-1000/stars.csv?raw'
 import nearest1000Manifest from './data/catalogs/nearest-1000/catalog.json?raw'
 import nearest1000Provenance from './data/catalogs/nearest-1000/provenance.json?raw'
-import { buildCatalog, catalogCoverage, catalogSelection, loadCatalog, parseCatalogManifest } from './catalogs'
+import { buildCatalog, catalogCoverage, catalogSelection, DEFAULT_CATALOG_MANIFEST, loadCatalog, parseCatalogManifest } from './catalogs'
 import { parseStarCatalog } from './catalog'
 import { apparentVisualMagnitude, formatDistance, temperatureToColor, visibilityTier } from './astronomy'
+import { catalogLoader } from './catalog-runtime'
 
 describe('catalog packages and display settings', () => {
   const small = parseStarCatalog(csv)
@@ -59,6 +60,19 @@ describe('catalog packages and display settings', () => {
     expect(catalogSelection(small, 'absent', 'absent')).toEqual({ selectedId: null, observerId: 'sun' })
   })
 
+  it('fetches and parses each browser catalog payload once', async () => {
+    const manifest = { ...DEFAULT_CATALOG_MANIFEST, objectCount: 22 }
+    const stars = parseStarCatalog(csv)
+    const fetcher = vi.fn(async () => new Response(JSON.stringify({ schemaVersion: 1, catalogId: manifest.id, stars })))
+    const load = catalogLoader(manifest, '/assets/nearest-neighbors.json', fetcher)
+    const first = load()
+    const second = load()
+    expect(second).toBe(first)
+    expect(await first).toEqual(stars)
+    expect(await load()).toBe(await first)
+    expect(fetcher).toHaveBeenCalledOnce()
+  })
+
   it('builds deterministic native subsets and rejects incomplete adopted inputs', () => {
     const definition = { ...parseCatalogManifest(manifest), id: 'custom-sample', objectCount: 4 }
     const provenance = Object.fromEntries(small.map((star) => [star.id, { source: star.notes }]))
@@ -90,6 +104,30 @@ describe('catalog packages and display settings', () => {
       execFileSync(process.execPath, [script, 'build', input, output, '--force'])
       expect(readFileSync(join(output, 'stars.csv'), 'utf8')).toBe(before)
       expect(execFileSync(process.execPath, [script, 'validate', output], { encoding: 'utf8' })).toContain('4 rows')
+    } finally {
+      rmSync(directory, { recursive: true, force: true })
+    }
+  })
+
+  it('keeps authoring inputs contained and refuses symlinked outputs', () => {
+    const directory = mkdtempSync(join(tmpdir(), 'star-view-catalog-security-'))
+    const recipeDirectory = join(directory, 'recipe')
+    const input = join(recipeDirectory, 'adopted.json')
+    const script = fileURLToPath(new URL('../scripts/catalogs.ts', import.meta.url))
+    const definition = { ...parseCatalogManifest(manifest), id: 'custom-secure', objectCount: 4 }
+    const provenance = Object.fromEntries(parseStarCatalog(csv).map((star) => [star.id, { source: star.notes }]))
+    try {
+      mkdirSync(recipeDirectory)
+      writeFileSync(join(directory, 'outside.csv'), csv)
+      const recipe = (candidatesCsv: string) => JSON.stringify({ manifest: definition, candidatesCsv, provenance })
+      writeFileSync(input, recipe('../outside.csv'))
+      expect(spawnSync(process.execPath, [script, 'build', input, join(directory, 'escaped')], { encoding: 'utf8' }).stderr).toContain('stay inside')
+      writeFileSync(input, recipe(join(directory, 'outside.csv')))
+      expect(spawnSync(process.execPath, [script, 'build', input, join(directory, 'absolute')], { encoding: 'utf8' }).stderr).toContain('must be relative')
+      writeFileSync(join(recipeDirectory, 'candidates.csv'), csv)
+      writeFileSync(input, recipe('candidates.csv'))
+      symlinkSync(join(directory, 'real-output'), join(directory, 'linked-output'))
+      expect(spawnSync(process.execPath, [script, 'build', input, join(directory, 'linked-output'), '--force'], { encoding: 'utf8' }).stderr).toContain('symbolic link')
     } finally {
       rmSync(directory, { recursive: true, force: true })
     }

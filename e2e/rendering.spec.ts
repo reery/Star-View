@@ -1,8 +1,9 @@
 import { expect, test, type Page } from '@playwright/test'
+import { PNG } from 'pngjs'
 
 async function trackRendering(page: Page) {
   await page.addInitScript(() => {
-    const stats = { draws: 0, labelMutations: 0, labelSizeReads: 0, frameDrawCalls: 0, framePointVertices: 0 }
+    const stats = { draws: 0, drawTimes: [] as number[], labelMutations: 0, labelSizeReads: 0, frameDrawCalls: 0, framePointVertices: 0 }
     Object.assign(window, { renderStats: stats })
     for (const property of ['offsetWidth', 'offsetHeight']) {
       const descriptor = Object.getOwnPropertyDescriptor(HTMLElement.prototype, property)!
@@ -17,6 +18,7 @@ async function trackRendering(page: Page) {
     const clear = WebGL2RenderingContext.prototype.clear
     WebGL2RenderingContext.prototype.clear = function (mask) {
       stats.draws++
+      stats.drawTimes.push(performance.now())
       stats.frameDrawCalls = 0
       stats.framePointVertices = 0
       return clear.call(this, mask)
@@ -47,7 +49,7 @@ async function trackRendering(page: Page) {
 
 async function stats(page: Page) {
   return page.evaluate(() => (window as Window & {
-    renderStats?: { draws: number; labelMutations: number; labelSizeReads: number; frameDrawCalls: number; framePointVertices: number }
+    renderStats?: { draws: number; drawTimes: number[]; labelMutations: number; labelSizeReads: number; frameDrawCalls: number; framePointVertices: number }
   }).renderStats!)
 }
 
@@ -68,25 +70,26 @@ async function canvasPixelRatio(page: Page) {
   })
 }
 
-for (const catalog of ['nearest-neighbors', 'nearest-100']) {
+async function expectedPointVertices(page: Page) {
+  return page.locator('.projected-labels').evaluate((layer: HTMLElement) =>
+    Number(layer.dataset.coreCount) + Number(layer.dataset.haloCount))
+}
+
+for (const catalog of ['nearest-neighbors', 'nearest-100', 'nearest-1000']) {
   test(`submits only visible halos and batches axes for ${catalog}`, async ({ page }) => {
     await trackRendering(page)
-    await openPreferences(page)
     await openFilter(page)
     await page.getByLabel('Catalog', { exact: true }).selectOption(catalog)
     await expectIdle(page)
     console.log(`${catalog} default GPU submissions: ${JSON.stringify(await stats(page))}`)
-    const cores = await page.locator('.map-anchor[data-star-id]').count()
     for (const limit of ['0', '7', '12']) {
       await page.getByLabel('V magnitude limit', { exact: true }).fill(limit)
-      const halos = await page.locator('.map-anchor[data-star-id]:not([data-visibility="background"])').count()
-      await expect.poll(async () => (await stats(page)).framePointVertices).toBe(cores + halos)
+      await expect.poll(async () => (await stats(page)).framePointVertices).toBe(await expectedPointVertices(page))
     }
     const beforeSelection = await stats(page)
     await page.locator('[data-star="wise-0855-0714"]').evaluate((button: HTMLButtonElement) => button.click())
     await expect.poll(async () => (await stats(page)).draws).toBeGreaterThan(beforeSelection.draws)
-    const selectedHalos = await page.locator('.map-anchor[data-star-id]:not([data-visibility="background"])').count()
-    await expect.poll(async () => (await stats(page)).framePointVertices).toBe(cores + selectedHalos)
+    await expect.poll(async () => (await stats(page)).framePointVertices).toBe(await expectedPointVertices(page))
     const withGrid = await stats(page)
     await page.getByRole('button', { name: 'Grid', exact: true }).click()
     await expect.poll(async () => (await stats(page)).frameDrawCalls).toBe(withGrid.frameDrawCalls - 2)
@@ -98,7 +101,6 @@ for (const catalog of ['nearest-neighbors', 'nearest-100']) {
   test(`rotates ${catalog} without remeasuring label sizes`, async ({ page, context }, testInfo) => {
     await page.emulateMedia({ reducedMotion: 'no-preference' })
     await trackRendering(page)
-    await openPreferences(page)
     await openFilter(page)
     await page.getByLabel('Catalog', { exact: true }).selectOption(catalog)
     await page.getByLabel('V magnitude limit', { exact: true }).fill('12')
@@ -211,37 +213,31 @@ test('omits filtered cores and halos from GPU point submissions', async ({ page 
   await trackRendering(page)
   await openFilter(page)
   await expectIdle(page)
-  const expectedPointVertices = async () => {
-    const cores = await page.locator('[data-star-id][data-map-visible="true"]').count()
-    const halos = await page.locator('[data-star-id][data-map-visible="true"]:not([data-visibility="background"])').count()
-    return cores + halos
-  }
-  await expect.poll(async () => (await stats(page)).framePointVertices).toBe(await expectedPointVertices())
+  await expect.poll(async () => (await stats(page)).framePointVertices).toBe(await expectedPointVertices(page))
   await page.getByLabel('Object visibility distance', { exact: true }).fill('5')
-  await expect(page.locator('[data-star-id="barnards-star"]')).toHaveAttribute('data-map-visible', 'false')
-  await expect.poll(async () => (await stats(page)).framePointVertices).toBe(await expectedPointVertices())
+  await expect(page.locator('[data-star-id="barnards-star"]')).toHaveCount(0)
+  await expect.poll(async () => (await stats(page)).framePointVertices).toBe(await expectedPointVertices(page))
   await page.getByLabel('Object visibility distance', { exact: true }).fill('100')
-  await expect(page.locator('[data-star-id="barnards-star"]')).toHaveAttribute('data-map-visible', 'true')
   await page.locator('details.filter-dropdown > summary').click()
   await page.getByLabel('Brown dwarf', { exact: true }).uncheck()
-  await expect(page.locator('[data-star-id="luhman-16-a"]')).toHaveAttribute('data-map-visible', 'false')
-  await expect.poll(async () => (await stats(page)).framePointVertices).toBe(await expectedPointVertices())
+  await expect(page.locator('[data-star-id="luhman-16-a"]')).toHaveCount(0)
+  await expect.poll(async () => (await stats(page)).framePointVertices).toBe(await expectedPointVertices(page))
   await expect(page.locator('.catalog-entry')).toHaveCount(22)
   await page.locator('[data-star="luhman-16-a"]').evaluate((button: HTMLButtonElement) => button.click())
   await expect(page.locator('[data-star-id="luhman-16-a"]')).toHaveAttribute('data-map-visible', 'true')
-  await expect(page.locator('[data-star-id="luhman-16-b"]')).toHaveAttribute('data-map-visible', 'false')
-  await expect.poll(async () => (await stats(page)).framePointVertices).toBe(await expectedPointVertices())
+  await expect(page.locator('[data-star-id="luhman-16-b"]')).toHaveCount(0)
+  await expect.poll(async () => (await stats(page)).framePointVertices).toBe(await expectedPointVertices(page))
 })
 
-test('uses reduced renderer resolution only while power-saving movement is active', async ({ page, isMobile }) => {
+test('uses the selected renderer resolution cap', async ({ page, isMobile }) => {
   test.skip(!isMobile, 'The mobile project provides the DPR 2 viewport needed for this check.')
   await page.emulateMedia({ reducedMotion: 'no-preference' })
   await page.goto('/')
   await expect(page.locator('#scene')).toHaveAttribute('data-ready', 'true')
   await openPreferences(page)
   const powerSaving = page.getByRole('switch', { name: 'Power saving mode' })
-  await expect(powerSaving).toBeChecked()
-  await expect.poll(() => canvasPixelRatio(page)).toBeCloseTo(2, 1)
+  await expect(powerSaving).not.toBeChecked()
+  await expect.poll(() => canvasPixelRatio(page)).toBeCloseTo(1, 1)
   const canvas = page.locator('#scene canvas')
   const bounds = (await canvas.boundingBox())!
   const start = { x: bounds.x + bounds.width * 0.45, y: bounds.y + bounds.height * 0.55 }
@@ -249,28 +245,49 @@ test('uses reduced renderer resolution only while power-saving movement is activ
   await page.mouse.move(start.x, start.y)
   await page.mouse.down()
   await page.mouse.move(start.x + 60, start.y - 20, { steps: 5 })
-  await expect.poll(() => canvasPixelRatio(page)).toBeCloseTo(1.5, 1)
+  await expect.poll(() => canvasPixelRatio(page)).toBeCloseTo(1, 1)
   await page.mouse.up()
-  await expect.poll(() => canvasPixelRatio(page)).toBeCloseTo(2, 1)
+  await expect.poll(() => canvasPixelRatio(page)).toBeCloseTo(1, 1)
 
-  await powerSaving.uncheck()
+  await powerSaving.check()
+  await openFilter(page)
   await page.getByLabel('Catalog', { exact: true }).selectOption('nearest-100')
-  await expect(powerSaving).not.toBeChecked()
+  await expect(powerSaving).toBeChecked()
   await page.mouse.move(start.x, start.y)
   await page.mouse.down()
   await page.mouse.move(start.x + 60, start.y - 20, { steps: 5 })
-  await expect.poll(() => canvasPixelRatio(page)).toBeCloseTo(2, 1)
+  await expect.poll(() => canvasPixelRatio(page)).toBeCloseTo(0.5, 1)
   await page.mouse.up()
 
-  await powerSaving.check()
   await page.locator('[data-star="sun"]').evaluate((button: HTMLButtonElement) => button.click())
-  await expect.poll(() => canvasPixelRatio(page)).toBeCloseTo(1.5, 1)
-  await expect.poll(() => canvasPixelRatio(page)).toBeCloseTo(2, 1)
+  await expect.poll(() => canvasPixelRatio(page)).toBeCloseTo(0.5, 1)
+  const powerFrame = PNG.sync.read(await canvas.screenshot({ scale: 'css' }))
+  let visiblePixels = 0
+  for (let offset = 0; offset < powerFrame.data.length; offset += 4) {
+    if (powerFrame.data[offset]! + powerFrame.data[offset + 1]! + powerFrame.data[offset + 2]! > 30) visiblePixels++
+  }
+  expect(visiblePixels).toBeGreaterThan(100)
   await page.reload()
   await expect(page.locator('#scene')).toHaveAttribute('data-ready', 'true')
   await openPreferences(page)
-  await expect(page.getByRole('switch', { name: 'Power saving mode' })).toBeChecked()
-  await expect.poll(() => canvasPixelRatio(page)).toBeCloseTo(2, 1)
+  await expect(page.getByRole('switch', { name: 'Power saving mode' })).not.toBeChecked()
+  await expect.poll(() => canvasPixelRatio(page)).toBeCloseTo(1, 1)
+})
+
+test('caps sustained power-saving animation draws at 30 FPS', async ({ page }) => {
+  await page.emulateMedia({ reducedMotion: 'no-preference' })
+  await trackRendering(page)
+  await openPreferences(page)
+  await page.getByRole('switch', { name: 'Power saving mode' }).check()
+  await expectIdle(page)
+  const before = (await stats(page)).drawTimes.length
+  await page.locator('[data-star="sun"]').evaluate((button: HTMLButtonElement) => button.click())
+  await expect.poll(async () => (await stats(page)).drawTimes.length - before).toBeGreaterThanOrEqual(6)
+  await expectIdle(page)
+  const drawTimes = (await stats(page)).drawTimes.slice(before)
+  const sustainedIntervals = drawTimes.slice(2).map((time, index) => time - drawTimes[index + 1]!)
+  expect(sustainedIntervals.length).toBeGreaterThanOrEqual(4)
+  for (const interval of sustainedIntervals) expect(interval).toBeGreaterThanOrEqual(28)
 })
 
 test('resumes rendering after graphics context restoration', async ({ page }) => {

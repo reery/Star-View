@@ -1,10 +1,13 @@
 import csv
+import io
 import tempfile
 import unittest
 from pathlib import Path
+from unittest.mock import patch
 
 from scripts.catalog_sources.adapters import _text, read_gaia_tap, read_simbad_tap
-from scripts.catalog_sources.acquisition import gaia_query, simbad_query
+from scripts.catalog_sources.acquisition import _download, _tap_query, gaia_query, simbad_query
+from scripts.catalog_sources.filesystem import atomic_write_text, safe_output_directory, write_managed_files
 from scripts.catalog_sources.identity import positional_candidate, resolve_identity
 from scripts.catalog_sources.models import IdentityRecord, NormalizedSourceRecord, PhysicalObservation
 from scripts.catalog_sources.resolution import resolve_physical_field
@@ -91,6 +94,64 @@ class CatalogSourceTests(unittest.TestCase):
         self.assertIn("source_id IN (6305165514134625024)", gaia_query(["6305165514134625024"]))
         with self.assertRaisesRegex(ValueError, "only digits"):
             gaia_query(["6e18"])
+
+    def test_network_acquisition_passes_explicit_timeouts(self):
+        responses = [io.BytesIO(b"catalog"), io.BytesIO(b"value\n")]
+        with patch("scripts.catalog_sources.acquisition.urllib.request.urlopen", side_effect=responses) as urlopen:
+            _download("https://example.test/catalog", self.folder / "catalog.dat", timeout=12.5)
+            _tap_query("https://example.test/tap", "SELECT 1", self.folder / "tap.csv", timeout=7.25)
+        self.assertEqual(urlopen.call_args_list[0].kwargs["timeout"], 12.5)
+        self.assertEqual(urlopen.call_args_list[1].kwargs["timeout"], 7.25)
+        self.assertEqual((self.folder / "catalog.dat").read_bytes(), b"catalog")
+        self.assertEqual((self.folder / "tap.csv").read_bytes(), b"value\n")
+
+    def test_atomic_outputs_reject_symlinks(self):
+        target = self.folder / "snapshot.json"
+        target.write_text("previous")
+        atomic_write_text(target, "replacement")
+        self.assertEqual(target.read_text(), "replacement")
+        linked_file = self.folder / "linked.json"
+        linked_file.symlink_to(target)
+        with self.assertRaisesRegex(ValueError, "symbolic link"):
+            atomic_write_text(linked_file, "blocked")
+        linked_folder = self.folder / "linked-folder"
+        linked_folder.symlink_to(self.folder / "real-folder")
+        with self.assertRaisesRegex(ValueError, "symbolic link"):
+            safe_output_directory(linked_folder)
+
+    def test_failed_download_preserves_existing_output(self):
+        class FailingResponse(io.BytesIO):
+            def read(self, size=-1):
+                if self.tell() > 0:
+                    raise TimeoutError("stalled")
+                return super().read(3 if size < 0 else min(size, 3))
+
+        target = self.folder / "catalog.dat"
+        target.write_bytes(b"previous")
+        with patch("scripts.catalog_sources.acquisition.urllib.request.urlopen", return_value=FailingResponse(b"partial-data")):
+            with self.assertRaises(TimeoutError):
+                _download("https://example.test/catalog", target, timeout=1)
+        self.assertEqual(target.read_bytes(), b"previous")
+
+    def test_failed_package_publish_restores_every_original(self):
+        first = self.folder / "first.txt"
+        second = self.folder / "second.txt"
+        first.write_text("old first")
+        second.write_text("old second")
+        real_replace = __import__("os").replace
+        resolved_second = second.resolve()
+
+        def fail_second_backup(source, destination):
+            source = Path(source)
+            if source.resolve() == resolved_second:
+                raise OSError("injected publish failure")
+            return real_replace(source, destination)
+
+        with patch("scripts.catalog_sources.filesystem.os.replace", side_effect=fail_second_backup):
+            with self.assertRaisesRegex(OSError, "injected publish failure"):
+                write_managed_files(self.folder, {"first.txt": "new first", "second.txt": "new second"}, True)
+        self.assertEqual(first.read_text(), "old first")
+        self.assertEqual(second.read_text(), "old second")
 
 
 if __name__ == "__main__":

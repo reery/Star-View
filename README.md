@@ -24,13 +24,19 @@ npm run test:e2e
 npm run preview
 ```
 
-The production output is in `dist`. Three.js accounts for most of the approximately 168 kB gzipped JavaScript bundle; Vite reports a non-blocking uncompressed chunk-size warning. Builds validate every project catalog first. Normal builds never download astronomy data or require Python.
+The production output is in `dist`. Builds validate every project catalog, generate deterministic browser-ready JSON from the authored CSV, and emit each catalog as a separate hashed asset. Catalogs load only when selected and each payload is fetched and parsed at most once per page session. Papa Parse remains an authoring/test dependency and is not shipped in the browser bundle. Normal builds never download astronomy data or require Python.
+
+Vite also emits Brotli sidecars for compressible production assets. The local preview server negotiates those files and gives hashed `/assets/` responses a one-year immutable cache policy while keeping HTML revalidated. Production hosting must provide the equivalent `Content-Encoding: br`, `Vary: Accept-Encoding`, `Content-Type`, and `Cache-Control` behavior; copying `.br` files alone is not sufficient.
 
 ### Rendering efficiency
 
-The static star map renders on demand. Camera input, selection, display settings, resizing, pixel-density changes and font loading request a frame; requests within a frame are combined. Smooth focus and orbit damping keep rendering only until motion settles. An idle view performs no recurring WebGL draws or label updates, and hidden tabs suspend rendering until visible again. Antialiasing and the existing Retina resolution cap remain enabled.
+The static star map renders on demand. Camera input, selection, display settings, resizing, pixel-density changes and font loading request a frame; requests within a frame are combined. Smooth focus and orbit damping keep rendering only until motion settles. An idle view performs no recurring WebGL draws or label updates, and hidden tabs suspend rendering until visible again. MSAA remains enabled.
 
-During rotation, label dimensions are cached instead of measured every frame. Selection, units, fonts and viewport changes refresh all dimensions in a single batch. Label placement still follows the camera every frame, while unchanged visibility, stacking and text offsets avoid redundant DOM writes. Rotation regression tests check that neither catalog remeasures labels during motion and record browser layout and main-thread timing metrics.
+Normal rendering caps the WebGL canvas at device-pixel ratio 1 and at 60 frames per second. A short `requestAnimationFrame` cadence sample promotes the cap to 120 FPS on displays measured at 100 Hz or faster. The optional session-only power-saving mode is off by default; it caps the canvas at device-pixel ratio 0.5 and sustained rendering at 30 FPS. The first dirty frame after an idle period may render immediately for input responsiveness. Orbit damping remains enabled, with its factor adjusted for elapsed time so settling takes approximately the same time at every cap.
+
+These limits reduce canvas pixels and bound repeated projection, label-layout and draw work while the camera moves. Automated browser tests verify the selected backing resolution, draw spacing and complete suspension while idle. They do not prove lower hardware power on every browser or GPU; compare modes using the same scripted interaction over repeated, warmed-up runs and total energy rather than isolated watt spikes.
+
+During rotation, each visible object is projected once into reusable storage shared by labels, arrows, collisions and picking. A screen-space grid bounds collision and pointer searches. Only budgeted names, the selected/observer labels and currently relevant arrows own pooled DOM anchors instead of creating one subtree per catalog row. Label dimensions are cached and refreshed in a single batch after selection, units, fonts or viewport changes. Rotation regression tests cover all three catalogs, including nearest-1000, and record browser layout and main-thread timing metrics.
 
 Only the visibility base and eligible objects submit halo points to the GPU; background dots keep their cores but do not draw transparent halos. A reusable index buffer updates this subset when visibility settings or selection change. The three colored axes share one draw call. Browser tests count point submissions and draw calls alongside the visual regression checks.
 
@@ -82,7 +88,7 @@ Only the Sun-distance text is shown on the map; the height text (such as “0.40
 
 ## CSV Data
 
-The default data stays in [src/data/stars.csv](src/data/stars.csv). Other packages have sibling `catalog.json` and `stars.csv` files under `src/data/catalogs/<id>/` and are automatically discovered by Vite. Rebuild production after adding or editing project catalogs. This version has no browser-upload UI. For repeatable multi-source research, frozen inputs, native authoring, provenance and validation commands, see [docs/catalog-sourcing.md](docs/catalog-sourcing.md).
+The default data stays in [src/data/stars.csv](src/data/stars.csv). Other packages have sibling `catalog.json` and `stars.csv` files under `src/data/catalogs/<id>/`. `npm run catalog:generate` validates those tracked sources and creates ignored runtime JSON under `src/data/generated/`; development and production builds run it automatically. This version has no browser-upload UI. For repeatable multi-source research, frozen inputs, native authoring, provenance and validation commands, see [docs/catalog-sourcing.md](docs/catalog-sourcing.md).
 
 All original 16 headers must occur exactly once; `constellation` is optional for legacy/custom files. Enriched files may append the complete raw-astrometry group below. A partial raw group and unknown/duplicate headers are rejected.
 

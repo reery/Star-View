@@ -1,5 +1,5 @@
 import { Color, Matrix3, Vector3 } from 'three'
-import type { RawAstrometry, Star } from './catalog'
+import type { RawAstrometry, Star } from './catalog-model'
 
 export const LIGHT_YEARS_PER_PARSEC = 3.261563777
 export const SOLAR_GALACTIC_VELOCITY_KMS = Object.freeze({ vx_kms: 12.9, vy_kms: 245.6, vz_kms: 7.78 })

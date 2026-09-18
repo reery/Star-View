@@ -1,23 +1,69 @@
 import {
   AdditiveBlending, Box3, BufferGeometry, Camera, CanvasTexture, Color, Float32BufferAttribute,
-  GridHelper, Group, LessDepth, Line, LineBasicMaterial, LineDashedMaterial, LineSegments, NoBlending, Object3D,
+  GridHelper, Group, LessDepth, Line, LineBasicMaterial, LineDashedMaterial, LineSegments, Matrix4, NoBlending, Object3D,
   PerspectiveCamera, Points, PointsMaterial, Scene, ShaderMaterial, Sphere, SRGBColorSpace,
   Vector3, Vector4, WebGLRenderer,
 } from 'three'
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js'
 import { ArrowRight, createElement } from 'lucide'
-import { OBJECT_TYPES, type ObjectType, type Star } from './catalog'
+import { OBJECT_TYPES, type ObjectType, type Star } from './catalog-model'
 import { apparentVisualMagnitude, displayMotionForStar, formatDistance, galacticToWorld, sunRelativeMetrics, temperatureToColor, visibilityTier, type DistanceUnit, type MotionMode } from './astronomy'
+import { advanceFrameDeadline, effectiveDampingFactor, estimateRefreshRate, renderPixelRatio, targetRenderFps } from './render-scheduling'
+
+export { renderPixelRatio } from './render-scheduling'
 
 export const STAR_DIAMETER_PX = 10
+
+export type OrdinaryLabelPlacement = 'right' | 'left' | 'below' | 'above'
+
+export interface OrdinaryLabelCandidate extends LabelRect {
+  placement: OrdinaryLabelPlacement
+}
+
+export function ordinaryLabelCandidates(anchor: { x: number; y: number }, width: number, height: number): OrdinaryLabelCandidate[] {
+  return [
+    { placement: 'right', left: anchor.x + 22, top: anchor.y - height / 2, right: anchor.x + 22 + width, bottom: anchor.y + height / 2 },
+    { placement: 'left', left: anchor.x - width - 22, top: anchor.y - height / 2, right: anchor.x - 22, bottom: anchor.y + height / 2 },
+    { placement: 'below', left: anchor.x - width / 2, top: anchor.y + 22, right: anchor.x + width / 2, bottom: anchor.y + 22 + height },
+    { placement: 'above', left: anchor.x - width / 2, top: anchor.y - height - 22, right: anchor.x + width / 2, bottom: anchor.y - 22 },
+  ]
+}
+
+export function chooseOrdinaryLabelPlacement(
+  candidates: readonly OrdinaryLabelCandidate[],
+  previous: OrdinaryLabelPlacement | undefined,
+  blocked: (candidate: OrdinaryLabelCandidate, gap: number) => boolean,
+): OrdinaryLabelCandidate | null {
+  const ordered = previous
+    ? [...candidates.filter((candidate) => candidate.placement === previous), ...candidates.filter((candidate) => candidate.placement !== previous)]
+    : candidates
+  return ordered.find((candidate) => !blocked(candidate, candidate.placement === previous ? 2 : 6)) ?? null
+}
 
 export function mapLabelBudget(coarsePointer: boolean): number {
   return coarsePointer ? 60 : 120
 }
 
-export function renderPixelRatio(devicePixelRatio: number, powerSavingMode: boolean, moving: boolean): number {
-  const ratio = Number.isFinite(devicePixelRatio) && devicePixelRatio > 0 ? devicePixelRatio : 1
-  return Math.min(ratio, powerSavingMode && moving ? 1.5 : 2)
+export function budgetVisibleLabelIndices(
+  groups: readonly { indices: readonly number[] }[],
+  projections: readonly { visible: boolean; depth: number }[],
+  budget: number,
+): number[] {
+  if (budget <= 0) return []
+  const selected: number[] = []
+  for (const group of groups) {
+    const visible = group.indices.filter((index) => projections[index]?.visible)
+      .sort((first, second) => projections[first]!.depth - projections[second]!.depth || first - second)
+    for (const index of visible) {
+      selected.push(index)
+      if (selected.length >= budget) return selected
+    }
+  }
+  return selected
+}
+
+export function starBlocksLabels(tier: ReturnType<typeof visibilityTier>): boolean {
+  return tier !== 'background'
 }
 
 export function isObjectMapVisible(
@@ -58,6 +104,22 @@ export function motionArrowLength(speedKms: number): number {
   return Math.max(12, Math.min(40, speedKms / 10))
 }
 
+export function motionForeshortening(
+  positionFromCamera: Pick<Vector3, 'x' | 'y' | 'z'>,
+  velocityInCameraSpace: Pick<Vector3, 'x' | 'y' | 'z'>,
+): number {
+  const positionLength = Math.hypot(positionFromCamera.x, positionFromCamera.y, positionFromCamera.z)
+  const velocityLength = Math.hypot(velocityInCameraSpace.x, velocityInCameraSpace.y, velocityInCameraSpace.z)
+  if (!Number.isFinite(positionLength) || !Number.isFinite(velocityLength) || positionLength === 0 || velocityLength === 0) return 0
+  const alignment = (
+    positionFromCamera.x * velocityInCameraSpace.x +
+    positionFromCamera.y * velocityInCameraSpace.y +
+    positionFromCamera.z * velocityInCameraSpace.z
+  ) / (positionLength * velocityLength)
+  if (!Number.isFinite(alignment)) return 0
+  return Math.sqrt(Math.max(0, 1 - Math.min(1, Math.abs(alignment)) ** 2))
+}
+
 export interface StarViewer {
   select(id: string | null, focus?: boolean): void
   reset(): void
@@ -84,7 +146,8 @@ interface MapLabel {
   height: number
   starId?: string
   measurement?: { distancePc: number; suffix: string }
-  motion?: { element: HTMLSpanElement; velocity: Vector3; length: number; mode: MotionMode }
+  motion?: { element: HTMLSpanElement; icon: SVGElement; shaft: SVGPathElement; head: SVGPathElement; velocity: Vector3; length: number; mode: MotionMode }
+  placement?: OrdinaryLabelPlacement
 }
 
 interface LabelRect {
@@ -92,6 +155,83 @@ interface LabelRect {
   top: number
   right: number
   bottom: number
+}
+
+export interface ProjectedPickable {
+  id: string
+  x: number
+  y: number
+  depth: number
+}
+
+export class ScreenSpaceGrid<T> {
+  private readonly buckets = new Map<string, T[]>()
+  private readonly cellSize: number
+
+  constructor(cellSize = 32) {
+    this.cellSize = cellSize
+  }
+
+  clear(): void {
+    this.buckets.clear()
+  }
+
+  insert(bounds: LabelRect, value: T): void {
+    const minColumn = Math.floor(bounds.left / this.cellSize)
+    const maxColumn = Math.floor(bounds.right / this.cellSize)
+    const minRow = Math.floor(bounds.top / this.cellSize)
+    const maxRow = Math.floor(bounds.bottom / this.cellSize)
+    for (let row = minRow; row <= maxRow; row++) {
+      for (let column = minColumn; column <= maxColumn; column++) {
+        const key = `${column}:${row}`
+        const bucket = this.buckets.get(key)
+        if (bucket) bucket.push(value)
+        else this.buckets.set(key, [value])
+      }
+    }
+  }
+
+  query(bounds: LabelRect): T[] {
+    const matches = new Set<T>()
+    const minColumn = Math.floor(bounds.left / this.cellSize)
+    const maxColumn = Math.floor(bounds.right / this.cellSize)
+    const minRow = Math.floor(bounds.top / this.cellSize)
+    const maxRow = Math.floor(bounds.bottom / this.cellSize)
+    for (let row = minRow; row <= maxRow; row++) {
+      for (let column = minColumn; column <= maxColumn; column++) {
+        for (const value of this.buckets.get(`${column}:${row}`) ?? []) matches.add(value)
+      }
+    }
+    return [...matches]
+  }
+}
+
+export function pickProjectedStarAtScreenPoint(
+  grid: ScreenSpaceGrid<ProjectedPickable>, viewport: Viewport, pointer: PointerPosition, radius: number,
+): string | null {
+  if (
+    pointer.clientX < viewport.left || pointer.clientX > viewport.left + viewport.width ||
+    pointer.clientY < viewport.top || pointer.clientY > viewport.top + viewport.height
+  ) return null
+  let selected: string | null = null
+  let nearestDistance = radius
+  let nearestDepth = Infinity
+  const query = {
+    left: pointer.clientX - radius,
+    right: pointer.clientX + radius,
+    top: pointer.clientY - radius,
+    bottom: pointer.clientY + radius,
+  }
+  for (const star of grid.query(query)) {
+    const distance = Math.hypot(pointer.clientX - star.x, pointer.clientY - star.y)
+    if (distance > radius) continue
+    if (distance < nearestDistance - 1e-6 || (Math.abs(distance - nearestDistance) < 1e-6 && star.depth < nearestDepth)) {
+      selected = star.id
+      nearestDistance = distance
+      nearestDepth = star.depth
+    }
+  }
+  return selected
 }
 
 function disposeGeometry(root: Object3D): void {
@@ -133,7 +273,7 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
   const renderer = new WebGLRenderer({ antialias: true, alpha: true })
   renderer.outputColorSpace = SRGBColorSpace
   renderer.setClearColor(0x000000, 0)
-  renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2))
+  renderer.setPixelRatio(renderPixelRatio(window.devicePixelRatio || 1, false))
   const canvas = renderer.domElement
   canvas.setAttribute('aria-label', 'Sun-centered 3D nearby-object map')
   canvas.setAttribute('role', 'img')
@@ -151,6 +291,8 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
   controls.screenSpacePanning = true
 
   const pickable = stars.map((star) => ({ id: star.id, position: galacticToWorld(star) }))
+  const motions = stars.map(displayMotionForStar)
+  const sunDistancesLy = stars.map((star) => sunRelativeMetrics(star, sun).distanceLy)
   const starsById = new Map(stars.map((star, index) => [star.id, { star, index }]))
   const starBounds = new Box3().setFromPoints(pickable.map((star) => star.position))
   const sphere = starBounds.getBoundingSphere(new Sphere())
@@ -301,34 +443,9 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
     return { anchor, text, position, starId, width: 0, height: 0 }
   }
 
-  const starLabels = stars.map((star, index) => {
-    const label = makeLabel(pickable[index]!.position, star.name, 'star-label', star.id)
-    label.anchor.style.setProperty('--star-color', temperatureToColor(star.temperature_k).getStyle())
-    const motion = displayMotionForStar(star)
-    if (motion) {
-      const length = motionArrowLength(motion.velocity.length())
-      const width = length + 2 * 5 * 16 / 24
-      const arrow = document.createElement('span')
-      arrow.className = 'motion-arrow'
-      arrow.dataset.motionMode = motion.mode
-      arrow.hidden = true
-      arrow.style.color = temperatureToColor(star.temperature_k).getStyle()
-      arrow.style.width = `${width}px`
-      arrow.style.height = '16px'
-      arrow.style.left = `${-width / 2}px`
-      arrow.style.top = '-8px'
-      const icon = createElement(ArrowRight, { width, height: 16, viewBox: `0 0 ${width * 24 / 16} 24`, 'stroke-width': 1.7 })
-      const [shaft, head] = icon.querySelectorAll('path')
-      const tip = 5 + length * 24 / 16
-      shaft!.setAttribute('d', `M5 12H${tip}`)
-      shaft!.classList.add('motion-arrow-shaft')
-      head!.setAttribute('transform', `translate(${tip - 19} 0)`)
-      arrow.append(icon)
-      label.anchor.append(arrow)
-      label.motion = { element: arrow, velocity: motion.velocity, length, mode: motion.mode }
-    }
-    return label
-  })
+  const starLabelPool: MapLabel[] = []
+  const freeStarLabels: MapLabel[] = []
+  const activeStarLabels = new Map<number, MapLabel>()
   const axisLabels = axes.map((axis) => makeLabel(axis.position, axis.text, 'axis-label'))
   axisLabels.forEach((label) => axisLayer.append(label.anchor))
   const guides = new Group()
@@ -342,9 +459,20 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
   let distanceUnit: DistanceUnit = 'pc'
   const tiers = new Map<string, ReturnType<typeof visibilityTier>>()
   const mapVisibility = new Map<string, boolean>()
+  let rankedNameGroups: Array<{ priority: number; magnitude: number; indices: number[] }> = []
   let disposed = false
   let contextLost = false
   let pendingFrame: number | null = null
+  let renderLoopActive = false
+  let sceneDirty = false
+  let forceNextFrame = false
+  let nextRenderDeadline = 0
+  let lastRenderTime = 0
+  let previousRafTime = 0
+  let refreshSamples: number[] = []
+  let refreshSamplesRemaining = 20
+  let measuredRefreshRate: number | null = null
+  let updatingControls = false
   let home = true
   let focusTransition: { from: Vector3; to: Vector3; position: Vector3; started: number } | null = null
   let powerSavingMode = false
@@ -352,6 +480,119 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
   let controlsSettling = false
   const focusTarget = new Vector3()
   let labelSizesDirty = true
+  interface CachedProjection extends ProjectedPickable {
+    index: number
+    visible: boolean
+    motionX: number
+    motionY: number
+    motionVisible: boolean
+    motionScale: number
+  }
+  const projections = stars.map((star, index): CachedProjection => ({
+    id: star.id,
+    index,
+    x: 0,
+    y: 0,
+    depth: Infinity,
+    visible: false,
+    motionX: 0,
+    motionY: 0,
+    motionVisible: false,
+    motionScale: 0,
+  }))
+  const projectedPickables: CachedProjection[] = []
+  const projectionGrid = new ScreenSpaceGrid<CachedProjection>()
+  const viewProjection = new Matrix4()
+  const clipPoint = new Vector4()
+  const clipTangent = new Vector4()
+  const viewPoint = new Vector4()
+  const viewVelocity = new Vector4()
+  let projectionViewport: DOMRect | null = null
+  let projectionDirty = true
+
+  function invalidateProjection(): void {
+    projectionDirty = true
+  }
+
+  function createPooledStarLabel(): MapLabel {
+    const label = makeLabel(new Vector3(), '', 'star-label')
+    const ring = document.createElement('span')
+    ring.className = 'selection-ring'
+    label.anchor.prepend(ring)
+    label.anchor.remove()
+    starLabelPool.push(label)
+    return label
+  }
+
+  function bindStarLabel(label: MapLabel, index: number, arrowEligible: boolean): void {
+    const star = stars[index]!
+    const motion = motions[index]
+    label.position = pickable[index]!.position
+    label.starId = star.id
+    label.text.textContent = star.name
+    label.placement = undefined
+    label.anchor.dataset.starId = star.id
+    label.anchor.dataset.visibility = tiers.get(star.id)
+    label.anchor.dataset.mapVisible = String(mapVisibility.get(star.id))
+    label.anchor.classList.remove('is-clipped')
+    label.anchor.classList.toggle('is-selected', star.id === selectedId)
+    label.anchor.style.setProperty('--star-color', temperatureToColor(star.temperature_k).getStyle())
+    label.width = 0
+    label.height = 0
+    label.motion?.element.remove()
+    delete label.motion
+    if (motion && arrowEligible) {
+      const length = motionArrowLength(motion.velocity.length())
+      const width = length + 2 * 5 * 16 / 24
+      const arrow = document.createElement('span')
+      arrow.className = 'motion-arrow'
+      arrow.dataset.motionMode = motion.mode
+      arrow.dataset.maxLength = String(length)
+      arrow.style.color = temperatureToColor(star.temperature_k).getStyle()
+      arrow.style.width = `${width}px`
+      arrow.style.height = '16px'
+      arrow.style.left = `${-width / 2}px`
+      arrow.style.top = '-8px'
+      const icon = createElement(ArrowRight, { width, height: 16, viewBox: `0 0 ${width * 24 / 16} 24`, 'stroke-width': 1.7 })
+      icon.classList.add('motion-arrow-icon')
+      const [shaft, head] = icon.querySelectorAll('path')
+      const tip = 5 + length * 24 / 16
+      shaft!.setAttribute('d', `M5 12H${tip}`)
+      shaft!.classList.add('motion-arrow-shaft')
+      head!.setAttribute('transform', `translate(${tip - 19} 0)`)
+      arrow.append(icon)
+      label.anchor.append(arrow)
+      label.motion = { element: arrow, icon, shaft: shaft!, head: head!, velocity: motion.velocity, length, mode: motion.mode }
+    }
+    labelLayer.append(label.anchor)
+  }
+
+  function syncStarLabels(nameIndices: ReadonlySet<number>, arrowIndices: ReadonlySet<number>): MapLabel[] {
+    const needed = new Set([...nameIndices, ...arrowIndices])
+    for (const [index, label] of activeStarLabels) {
+      if (needed.has(index)) continue
+      activeStarLabels.delete(index)
+      label.anchor.remove()
+      freeStarLabels.push(label)
+    }
+    for (const index of needed) {
+      const arrowEligible = arrowIndices.has(index)
+      let label = activeStarLabels.get(index)
+      if (!label) {
+        label = freeStarLabels.pop() ?? createPooledStarLabel()
+        activeStarLabels.set(index, label)
+        bindStarLabel(label, index, arrowEligible)
+      } else if ((label.motion !== undefined) !== arrowEligible) {
+        bindStarLabel(label, index, arrowEligible)
+      } else {
+        const star = stars[index]!
+        label.anchor.dataset.visibility = tiers.get(star.id)
+        label.anchor.dataset.mapVisible = String(mapVisibility.get(star.id))
+        label.anchor.classList.toggle('is-selected', star.id === selectedId)
+      }
+    }
+    return [...activeStarLabels.values()]
+  }
 
   function invalidateLabelSizes(): void {
     labelSizesDirty = true
@@ -360,14 +601,36 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
 
   // The catalog is static. Coalesce changes into a single frame, and only keep
   // scheduling frames while focus animation or OrbitControls damping is active.
-  function requestRender(): void {
-    if (disposed || contextLost || document.hidden || pendingFrame !== null) return
+  function requestRender(force = true): void {
+    if (disposed || contextLost || document.hidden) return
+    if (force) {
+      sceneDirty = true
+      if (lastRenderTime === 0) forceNextFrame = true
+    }
+    if (!renderLoopActive) {
+      renderLoopActive = true
+    }
+    if (pendingFrame !== null) return
     pendingFrame = requestAnimationFrame(render)
   }
 
   function cancelRender(): void {
     if (pendingFrame !== null) cancelAnimationFrame(pendingFrame)
     pendingFrame = null
+    renderLoopActive = false
+    sceneDirty = false
+    forceNextFrame = false
+    nextRenderDeadline = 0
+    lastRenderTime = 0
+    previousRafTime = 0
+  }
+
+  function resetCadenceSamples(): void {
+    refreshSamples = []
+    refreshSamplesRemaining = 20
+    measuredRefreshRate = null
+    previousRafTime = 0
+    nextRenderDeadline = 0
   }
 
   function updatePresentation(): void {
@@ -380,7 +643,7 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
         selectedTypes,
         selectedId,
         visibilityBase.id,
-        sunRelativeMetrics(star, sun!).distanceLy,
+        sunDistancesLy[index]!,
         objectDistanceLimitLy,
       )
       tiers.set(star.id, tier)
@@ -389,8 +652,6 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
       haloOpacities.setX(index, tier === 'background' ? 0 : starHaloOpacity(star.absolute_mag, star.id === selectedId))
       if (mapVisible) coreIndices.setX(coreCount++, index)
       if (mapVisible && tier !== 'background') haloIndices.setX(haloCount++, index)
-      starLabels[index]!.anchor.dataset.visibility = tier
-      starLabels[index]!.anchor.dataset.mapVisible = String(mapVisible)
     })
     coreIndices.needsUpdate = true
     coreDiameters.needsUpdate = true
@@ -398,6 +659,22 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
     haloIndices.needsUpdate = true
     starGeometry.setDrawRange(0, coreCount)
     haloGeometry.setDrawRange(0, haloCount)
+    labelLayer.dataset.coreCount = String(coreCount)
+    labelLayer.dataset.haloCount = String(haloCount)
+    const ranked = stars.map((star, index) => ({
+      index,
+      priority: star.id === selectedId ? 0 : star.id === visibilityBase.id ? 1 : 2,
+      magnitude: apparentVisualMagnitude(star.absolute_mag, sunRelativeMetrics(star, visibilityBase).distancePc) ?? Infinity,
+    })).filter(({ index }) => mapVisibility.get(stars[index]!.id) && tiers.get(stars[index]!.id) !== 'background')
+      .sort((first, second) => first.priority - second.priority || first.magnitude - second.magnitude || first.index - second.index)
+    rankedNameGroups = []
+    for (const candidate of ranked) {
+      const group = rankedNameGroups.at(-1)
+      if (!group || candidate.priority !== group.priority || candidate.magnitude !== group.magnitude) {
+        rankedNameGroups.push({ priority: candidate.priority, magnitude: candidate.magnitude, indices: [candidate.index] })
+      } else group.indices.push(candidate.index)
+    }
+    invalidateProjection()
   }
 
   function makeMeasurement(position: Vector3, distancePc: number, className: string, suffix = ''): MapLabel {
@@ -411,41 +688,91 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
     controls.enableDamping = false
     controls.target.copy(target)
     camera.position.copy(position)
-    controls.update()
+    updatingControls = true
+    try {
+      controls.update()
+    } finally {
+      updatingControls = false
+    }
     controls.target.copy(target)
     camera.position.copy(position)
     camera.lookAt(target)
     camera.updateMatrixWorld()
     controls.enableDamping = !reducedMotion.matches
+    invalidateProjection()
+  }
+
+  function refreshProjectionCache(): void {
+    camera.updateMatrixWorld()
+    const viewport = canvas.getBoundingClientRect()
+    projectionViewport = viewport
+    projectionGrid.clear()
+    projectedPickables.length = 0
+    viewProjection.multiplyMatrices(camera.projectionMatrix, camera.matrixWorldInverse)
+    for (const projected of projections) {
+      projected.visible = false
+      projected.motionVisible = false
+      projected.motionScale = 0
+      const star = stars[projected.index]!
+      if (!mapVisibility.get(star.id)) continue
+      const position = pickable[projected.index]!.position
+      clipPoint.set(position.x, position.y, position.z, 1).applyMatrix4(viewProjection)
+      if (clipPoint.w <= 0) continue
+      const normalizedX = clipPoint.x / clipPoint.w
+      const normalizedY = clipPoint.y / clipPoint.w
+      const normalizedZ = clipPoint.z / clipPoint.w
+      if (![normalizedX, normalizedY, normalizedZ].every(Number.isFinite) ||
+        Math.abs(normalizedX) > 1 || Math.abs(normalizedY) > 1 || Math.abs(normalizedZ) > 1) continue
+      projected.x = viewport.left + (normalizedX + 1) * viewport.width / 2
+      projected.y = viewport.top + (1 - normalizedY) * viewport.height / 2
+      projected.depth = clipPoint.w
+      projected.visible = true
+      projectedPickables.push(projected)
+      projectionGrid.insert({ left: projected.x, right: projected.x, top: projected.y, bottom: projected.y }, projected)
+      const motion = motions[projected.index]
+      if (!motion || tiers.get(star.id) === 'background') continue
+      const speed = motion.velocity.length()
+      if (!Number.isFinite(speed) || speed === 0) continue
+      viewPoint.set(position.x, position.y, position.z, 1).applyMatrix4(camera.matrixWorldInverse)
+      viewVelocity.set(motion.velocity.x / speed, motion.velocity.y / speed, motion.velocity.z / speed, 0)
+        .applyMatrix4(camera.matrixWorldInverse)
+      projected.motionScale = motionForeshortening(viewPoint, viewVelocity)
+      if (projected.motionScale < 1e-6) continue
+      clipTangent.copy(viewVelocity).applyMatrix4(camera.projectionMatrix)
+      const horizontal = clipTangent.x - normalizedX * clipTangent.w
+      const vertical = clipTangent.y - normalizedY * clipTangent.w
+      if (Math.hypot(horizontal, vertical) < 1e-6 * clipTangent.length()) continue
+      const screenX = horizontal * viewport.width
+      const screenY = -vertical * viewport.height
+      const length = Math.hypot(screenX, screenY)
+      if (!Number.isFinite(length) || length === 0) continue
+      projected.motionX = screenX / length
+      projected.motionY = screenY / length
+      projected.motionVisible = true
+    }
+    projectionDirty = false
   }
 
   function updateLabels(): void {
-    const viewport = canvas.getBoundingClientRect()
-    const projections = new Map(pickable.map((star) => [star.id, projectWorldPoint(star.position, camera, viewport)]))
+    if (projectionDirty) refreshProjectionCache()
+    const viewport = projectionViewport!
     const ordinaryBudget = mapLabelBudget(matchMedia('(pointer: coarse)').matches || viewport.width <= 720)
-    const budgetedNames = new Set(starLabels
-      .filter((label) => label.starId && mapVisibility.get(label.starId) && tiers.get(label.starId) !== 'background')
-      .sort((first, second) => {
-        const firstEntry = starsById.get(first.starId!)!
-        const secondEntry = starsById.get(second.starId!)!
-        const priority = (label: MapLabel, entry: { star: Star; index: number }) => [
-          label.starId === selectedId ? 0 : label.starId === visibilityBase.id ? 1 : 2,
-          apparentVisualMagnitude(entry.star.absolute_mag, sunRelativeMetrics(entry.star, visibilityBase).distancePc) ?? Infinity,
-          projections.get(label.starId!)?.depth ?? Infinity,
-          entry.index,
-        ]
-        const firstPriority = priority(first, firstEntry)
-        const secondPriority = priority(second, secondEntry)
-        for (let index = 0; index < firstPriority.length; index++) {
-          if (firstPriority[index] !== secondPriority[index]) return firstPriority[index]! - secondPriority[index]!
-        }
-        return 0
-      })
-      .slice(0, ordinaryBudget)
-      .map((label) => label.starId!))
+    const selectedIndex = selectedId ? starsById.get(selectedId)!.index : -1
+    const observerIndex = starsById.get(visibilityBase.id)!.index
+    const ordinaryGroups = rankedNameGroups.map((group) => ({
+      indices: group.indices.filter((index) => index !== selectedIndex && index !== observerIndex),
+    })).filter((group) => group.indices.length > 0)
+    const budgetedNameIndices = new Set(budgetVisibleLabelIndices(ordinaryGroups, projections, ordinaryBudget))
+    if (selectedIndex >= 0) budgetedNameIndices.add(selectedIndex)
+    budgetedNameIndices.add(observerIndex)
+    const budgetedNames = new Set([...budgetedNameIndices].map((index) => stars[index]!.id))
+    const arrowIndices = new Set(projectedPickables
+      .filter((projected) => projected.motionVisible)
+      .map((projected) => projected.index))
+    const starLabels = syncStarLabels(budgetedNameIndices, arrowIndices)
     labelLayer.dataset.nameBudget = String(ordinaryBudget)
     if (labelSizesDirty) {
-      for (const label of [...axisLabels, ...starLabels, ...measurementLabels]) {
+      for (const label of [...axisLabels, ...starLabelPool, ...measurementLabels]) {
         label.width = 0
         label.height = 0
       }
@@ -465,11 +792,12 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
     const obstacles = [...container.parentElement!.querySelectorAll<HTMLElement>('[data-scene-obstacle]')]
       .filter((element) => !element.hidden)
       .map((element) => ({ element, bounds: element.getBoundingClientRect() }))
-    const blocked: LabelRect[] = obstacles.map((obstacle) => obstacle.bounds)
+    const blocked = new ScreenSpaceGrid<LabelRect>()
+    for (const obstacle of obstacles) blocked.insert(obstacle.bounds, obstacle.bounds)
     const measurementObstacles = measurementLabels.flatMap((label) => {
-      const start = projections.get(sun!.id)
-      const end = selectedId ? projections.get(selectedId) : undefined
-      if (!start || !end) return []
+      const start = projections[starsById.get(sun!.id)!.index]!
+      const end = selectedId ? projections[starsById.get(selectedId)!.index]! : undefined
+      if (!start.visible || !end?.visible) return []
       const centerX = (start.x + end.x) / 2
       const centerY = (start.y + end.y) / 2
       return [{
@@ -495,55 +823,64 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
       const rectangle = { left: projected.x + 18, right: projected.x + 18 + width, top: projected.y - height / 2, bottom: projected.y + height / 2 }
       setHidden(label.text, rectangle.left < viewport.left + 12 || rectangle.right > viewport.right - 12 ||
         rectangle.top < viewport.top + 12 || rectangle.bottom > viewport.bottom - 12 ||
-        blocked.some((obstacle) => overlaps(rectangle, obstacle)))
+        blocked.query(rectangle).some((obstacle) => overlaps(rectangle, obstacle)))
     }
-    const starObstacles = pickable.flatMap((star) => {
-      if (!mapVisibility.get(star.id)) return []
-      const projected = projections.get(star.id)
-      if (!projected) return []
-      const radius = (tiers.get(star.id) === 'background' ? 3 : STAR_DIAMETER_PX) / 2
-      return [{ depth: projected.depth, bounds: { left: projected.x - radius, right: projected.x + radius, top: projected.y - radius, bottom: projected.y + radius } }]
-    })
+    const starObstacles = new ScreenSpaceGrid<{ depth: number; bounds: LabelRect }>()
+    for (const projected of projectedPickables) {
+      if (!starBlocksLabels(tiers.get(projected.id)!)) continue
+      const radius = STAR_DIAMETER_PX / 2
+      const obstacle = { depth: projected.depth, bounds: { left: projected.x - radius, right: projected.x + radius, top: projected.y - radius, bottom: projected.y + radius } }
+      starObstacles.insert(obstacle.bounds, obstacle)
+    }
     const selectedLabels = starLabels.filter((label) => label.starId === selectedId)
+    const projectedSelectedLabels = selectedLabels.filter((label) => projections[starsById.get(label.starId!)!.index]!.visible)
+    const clippedSelectedLabels = selectedLabels.filter((label) => !projections[starsById.get(label.starId!)!.index]!.visible)
     const otherStarLabels = starLabels.filter((label) => label.starId !== selectedId)
-      .sort((first, second) => (projections.get(first.starId!)?.depth ?? Infinity) -
-        (projections.get(second.starId!)?.depth ?? Infinity))
+      .sort((first, second) => projections[starsById.get(first.starId!)!.index]!.depth -
+        projections[starsById.get(second.starId!)!.index]!.depth)
     for (const [index, label] of [...selectedLabels, ...otherStarLabels].entries()) {
       const zIndex = label.starId === selectedId ? '1' : `${-index - 1}`
       if (label.anchor.style.zIndex !== zIndex) label.anchor.style.zIndex = zIndex
       if (!label.motion) continue
-      const { element, velocity, length } = label.motion
+      const { element, icon, shaft, head, length } = label.motion
       if (!mapVisibility.get(label.starId!)) {
         setHidden(element, true)
         continue
       }
-      const projected = projections.get(label.starId!)
-      const direction = projected && tiers.get(label.starId!) !== 'background'
-        ? projectMotionDirection(label.position, velocity, camera, viewport) : null
-      setHidden(element, !direction)
-      if (!projected || !direction) continue
-      const offsetX = direction.x * (STAR_DIAMETER_PX / 2 + length / 2)
-      const offsetY = direction.y * (STAR_DIAMETER_PX / 2 + length / 2)
+      const projected = projections[starsById.get(label.starId!)!.index]!
+      setHidden(element, !projected.motionVisible)
+      if (!projected.motionVisible) continue
+      const projectedLength = length * projected.motionScale
+      const width = projectedLength + 2 * 5 * 16 / 24
+      const tip = 5 + projectedLength * 24 / 16
+      element.style.width = `${width}px`
+      element.style.left = `${-width / 2}px`
+      icon.setAttribute('width', `${width}`)
+      icon.setAttribute('viewBox', `0 0 ${width * 24 / 16} 24`)
+      shaft.setAttribute('d', `M5 12H${tip}`)
+      head.setAttribute('transform', `translate(${tip - 19} 0)`)
+      const offsetX = projected.motionX * (STAR_DIAMETER_PX / 2 + projectedLength / 2)
+      const offsetY = projected.motionY * (STAR_DIAMETER_PX / 2 + projectedLength / 2)
       const headHalfHeight = 7 * 16 / 24
       const strokeRadius = 1.7 / 2 * 16 / 24
-      const halfWidth = length / 2 * Math.abs(direction.x) + headHalfHeight * Math.abs(direction.y) + strokeRadius
-      const halfHeight = length / 2 * Math.abs(direction.y) + headHalfHeight * Math.abs(direction.x) + strokeRadius
+      const halfWidth = projectedLength / 2 * Math.abs(projected.motionX) + headHalfHeight * Math.abs(projected.motionY) + strokeRadius
+      const halfHeight = projectedLength / 2 * Math.abs(projected.motionY) + headHalfHeight * Math.abs(projected.motionX) + strokeRadius
       const centerX = projected.x + offsetX
       const centerY = projected.y + offsetY
       const bounds = { left: centerX - halfWidth, right: centerX + halfWidth, top: centerY - halfHeight, bottom: centerY + halfHeight }
-      setTransform(element, `translate(${offsetX}px, ${offsetY}px) rotate(${Math.atan2(direction.y, direction.x)}rad)`)
-      starObstacles.push({ depth: projected.depth, bounds })
+      setTransform(element, `translate(${offsetX}px, ${offsetY}px) rotate(${Math.atan2(projected.motionY, projected.motionX)}rad)`)
+      starObstacles.insert(bounds, { depth: projected.depth, bounds })
     }
-    for (const label of [...selectedLabels, ...measurementLabels, ...otherStarLabels]) {
+    for (const label of [...projectedSelectedLabels, ...measurementLabels, ...otherStarLabels, ...clippedSelectedLabels]) {
       if (label.starId && !mapVisibility.get(label.starId)) {
         setHidden(label.anchor, true)
         continue
       }
       if (label.measurement) {
-        const start = projections.get(sun!.id)
-        const end = selectedId ? projections.get(selectedId) : undefined
-        setHidden(label.anchor, !start || !end)
-        if (!start || !end) continue
+        const start = projections[starsById.get(sun!.id)!.index]!
+        const end = selectedId ? projections[starsById.get(selectedId)!.index]! : undefined
+        setHidden(label.anchor, !start.visible || !end?.visible)
+        if (!start.visible || !end?.visible) continue
         const centerX = (start.x + end.x) / 2
         const centerY = (start.y + end.y) / 2
         const { width, height } = label
@@ -556,12 +893,14 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
         setTransform(label.anchor, `translate(${centerX - viewport.left}px, ${centerY - viewport.top}px)`)
         setTransform(label.text, `translate(${-width / 2}px, ${-height / 2}px)`)
         setHidden(label.text, false)
-        blocked.push(rectangle)
+        blocked.insert(rectangle, rectangle)
         continue
       }
-      const projected = label.starId ? projections.get(label.starId) : projectWorldPoint(label.position, camera, viewport)
+      const cached = label.starId ? projections[starsById.get(label.starId)!.index]! : null
+      const projected = cached?.visible ? cached : label.starId ? null : projectWorldPoint(label.position, camera, viewport)
       const selected = label.starId === selectedId
       const foreground = selected
+      const clippedForeground = foreground && !projected
       const anchor = projected ?? (foreground ? projectSelectedAnchor(label.position, camera, viewport) : null)
       setHidden(label.anchor, !anchor)
       if (label.anchor.classList.contains('is-clipped') !== !projected) label.anchor.classList.toggle('is-clipped', !projected)
@@ -588,25 +927,30 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
           clamp(anchor.x - width / 2, anchor.y + 22),
           clamp(anchor.x - width / 2, anchor.y - height - 22),
         ]
-        const placement = candidates.find((candidate) => selectedLabelObstacles.every((obstacle) => !overlaps(candidate, obstacle))) ?? candidates[0]!
+        const placement = candidates.find((candidate) =>
+          selectedLabelObstacles.every((obstacle) => !overlaps(candidate, obstacle)) &&
+          (!clippedForeground || !blocked.query(candidate).some((obstacle) => overlaps(candidate, obstacle)))) ?? candidates[0]!
         setTransform(label.text, `translate(${placement.left - anchor.x}px, ${placement.top - anchor.y}px)`)
         setHidden(label.text, false)
-        blocked.push(placement)
+        if (!clippedForeground) blocked.insert(placement, placement)
         continue
       }
-      const offsets = [[22, -height / 2]]
-      let placed = false
-      for (const [offsetX, offsetY] of offsets) {
-        const rectangle = { left: anchor.x + offsetX!, top: anchor.y + offsetY!, right: anchor.x + offsetX! + width, bottom: anchor.y + offsetY! + height }
-        if (rectangle.left < viewport.left + 12 || rectangle.right > viewport.right - 12 || rectangle.top < viewport.top + 12 || rectangle.bottom > viewport.bottom - 12) continue
-        if (blocked.some((obstacle) => overlaps(rectangle, obstacle))) continue
-        if (starObstacles.some((obstacle) => (!label.starId || obstacle.depth <= projected!.depth) && overlaps(rectangle, obstacle.bounds))) continue
-        setTransform(label.text, `translate(${offsetX}px, ${offsetY}px)`)
-        blocked.push(rectangle)
-        placed = true
-        break
+      const placement = chooseOrdinaryLabelPlacement(
+        ordinaryLabelCandidates(anchor, width, height),
+        label.placement,
+        (rectangle, gap) =>
+          rectangle.left < viewport.left + 12 || rectangle.right > viewport.right - 12 ||
+          rectangle.top < viewport.top + 12 || rectangle.bottom > viewport.bottom - 12 ||
+          blocked.query(rectangle).some((obstacle) => overlaps(rectangle, obstacle, gap)) ||
+          starObstacles.query(rectangle).some((obstacle) =>
+            (!label.starId || obstacle.depth <= projected!.depth) && overlaps(rectangle, obstacle.bounds, gap)),
+      )
+      if (placement) {
+        label.placement = placement.placement
+        setTransform(label.text, `translate(${placement.left - anchor.x}px, ${placement.top - anchor.y}px)`)
+        blocked.insert(placement, placement)
       }
-      setHidden(label.text, !placed)
+      setHidden(label.text, !placement)
     }
   }
 
@@ -619,7 +963,6 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
     selectedId = id
     if (star) visibilityBase = star
     updatePresentation()
-    starLabels.forEach((label) => label.anchor.classList.toggle('is-selected', label.starId === id))
     disposeGeometry(guides)
     guides.clear()
     measurementLabels.forEach((label) => label.anchor.remove())
@@ -671,6 +1014,7 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
     controls.update()
     controls.saveState()
     home = true
+    invalidateProjection()
   }
 
   function reset(): void {
@@ -685,15 +1029,11 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
 
   let renderWidth = 0
   let renderHeight = 0
-  function viewerMoving(): boolean {
-    return focusTransition !== null || controlsInteracting || controlsSettling
-  }
-
   function resize(): void {
     const width = container.clientWidth
     const height = container.clientHeight
     if (!width || !height) return
-    const pixelRatio = renderPixelRatio(window.devicePixelRatio || 1, powerSavingMode, viewerMoving())
+    const pixelRatio = renderPixelRatio(window.devicePixelRatio || 1, powerSavingMode)
     const sizeChanged = width !== renderWidth || height !== renderHeight
     if (!sizeChanged && renderer.getPixelRatio() === pixelRatio) return
     renderWidth = width
@@ -705,32 +1045,37 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
     if (!sizeChanged) return
     camera.aspect = width / height
     camera.updateProjectionMatrix()
+    invalidateProjection()
     if (home) fitHome()
     invalidateLabelSizes()
   }
 
   const events = new AbortController()
   const gesture = new TapGesture()
-  function pick(event: PointerEvent): string | null {
-    camera.updateMatrixWorld()
-    return pickStarAtScreenPoint(
-      pickable.filter((star) => mapVisibility.get(star.id)),
-      camera,
-      canvas.getBoundingClientRect(),
-      event,
-      event.pointerType === 'touch' ? 24 : 16,
-    )
+  function pick(event: PointerEvent, refreshStale: boolean): string | null {
+    if (refreshStale && projectionDirty) refreshProjectionCache()
+    if (!projectionViewport || projectionDirty) return null
+    return pickProjectedStarAtScreenPoint(projectionGrid, projectionViewport, event, event.pointerType === 'touch' ? 24 : 16)
   }
+  let hoverFrame: number | null = null
+  let hoverEvent: PointerEvent | null = null
   canvas.addEventListener('pointerdown', (event) => gesture.begin(event), { signal: events.signal })
   canvas.addEventListener('pointermove', (event) => {
     gesture.move(event)
-    if (event.buttons === 0 && event.pointerType !== 'touch') canvas.style.cursor = pick(event) ? 'pointer' : 'grab'
+    if (event.buttons !== 0 || event.pointerType === 'touch') return
+    hoverEvent = event
+    if (hoverFrame !== null) return
+    hoverFrame = requestAnimationFrame(() => {
+      hoverFrame = null
+      if (hoverEvent) canvas.style.cursor = pick(hoverEvent, false) ? 'pointer' : 'grab'
+      hoverEvent = null
+    })
   }, { signal: events.signal })
   canvas.addEventListener('pointerup', (event) => {
     if (!gesture.end(event)) return
     const bounds = canvas.getBoundingClientRect()
     if (event.clientX < bounds.left || event.clientX > bounds.right || event.clientY < bounds.top || event.clientY > bounds.bottom) return
-    options.onSelect(pick(event))
+    options.onSelect(pick(event, true))
   }, { signal: events.signal })
   canvas.addEventListener('pointercancel', (event) => gesture.cancel(event.pointerId), { signal: events.signal })
   canvas.addEventListener('lostpointercapture', (event) => gesture.cancel(event.pointerId), { signal: events.signal })
@@ -739,6 +1084,7 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
     home = false
     controlsInteracting = true
     controlsSettling = true
+    invalidateProjection()
     resize()
     requestRender()
   }
@@ -749,7 +1095,11 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
   }
   controls.addEventListener('start', onControlsStart)
   controls.addEventListener('end', onControlsEnd)
-  controls.addEventListener('change', requestRender)
+  function onControlsChange(): void {
+    invalidateProjection()
+    requestRender(!updatingControls)
+  }
+  controls.addEventListener('change', onControlsChange)
   reducedMotion.addEventListener('change', () => {
     if (reducedMotion.matches && focusTransition) {
       applyFocusTarget(focusTransition.to, focusTransition.position)
@@ -767,6 +1117,39 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
   function render(time: number): void {
     pendingFrame = null
     if (disposed || contextLost || document.hidden) return
+    if (previousRafTime > 0 && refreshSamplesRemaining > 0) {
+      refreshSamples.push(time - previousRafTime)
+      if (refreshSamples.length > 30) refreshSamples.shift()
+      refreshSamplesRemaining--
+      const estimate = estimateRefreshRate(refreshSamples)
+      if (estimate !== null && targetRenderFps(false, measuredRefreshRate) !== targetRenderFps(false, estimate)) {
+        nextRenderDeadline = 0
+      }
+      measuredRefreshRate = estimate
+    }
+    previousRafTime = time
+    const sceneNeedsFrame = sceneDirty || focusTransition !== null || controlsInteracting || controlsSettling
+    if (!sceneNeedsFrame) {
+      if (refreshSamplesRemaining > 0) requestRender(false)
+      else {
+        renderLoopActive = false
+        previousRafTime = 0
+        lastRenderTime = 0
+      }
+      return
+    }
+    const fps = targetRenderFps(powerSavingMode, measuredRefreshRate)
+    const deadline = advanceFrameDeadline(time, nextRenderDeadline, fps, forceNextFrame)
+    nextRenderDeadline = deadline.next
+    if (!deadline.due) {
+      requestRender(false)
+      return
+    }
+    forceNextFrame = false
+    sceneDirty = false
+    const elapsedMs = lastRenderTime > 0 ? time - lastRenderTime : 1000 / 60
+    lastRenderTime = time
+    let continueRendering = false
     if (focusTransition) {
       const progress = focusProgress(time - focusTransition.started)
       focusTarget.lerpVectors(focusTransition.from, focusTransition.to, progress)
@@ -775,12 +1158,21 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
         focusTransition = null
         resize()
       }
-      else requestRender()
+      else continueRendering = true
     } else {
-      const changed = controls.update()
+      const dampingFactor = controls.dampingFactor
+      if (controls.enableDamping) controls.dampingFactor = effectiveDampingFactor(dampingFactor, elapsedMs)
+      updatingControls = true
+      let changed: boolean
+      try {
+        changed = controls.update()
+      } finally {
+        updatingControls = false
+        controls.dampingFactor = dampingFactor
+      }
       if (controlsInteracting || changed) {
         controlsSettling = true
-        requestRender()
+        continueRendering = true
       } else if (controlsSettling) {
         controlsSettling = false
         resize()
@@ -789,6 +1181,12 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
     camera.updateMatrixWorld()
     renderer.render(scene, camera)
     updateLabels()
+    if (continueRendering || refreshSamplesRemaining > 0) requestRender(false)
+    else {
+      renderLoopActive = false
+      previousRafTime = 0
+      lastRenderTime = 0
+    }
   }
 
   canvas.addEventListener('webglcontextlost', (event) => {
@@ -801,6 +1199,7 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
   canvas.addEventListener('webglcontextrestored', () => {
     contextLost = false
     options.onStatus(null)
+    resetCadenceSamples()
     resize()
     requestRender()
   }, { signal: events.signal })
@@ -808,13 +1207,19 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
   document.addEventListener('visibilitychange', () => {
     if (document.hidden) cancelRender()
     else {
+      resetCadenceSamples()
       resize()
       requestRender()
     }
   }, { signal: events.signal })
   window.addEventListener('resize', () => {
+    resetCadenceSamples()
     resize()
     invalidateLabelSizes()
+  }, { signal: events.signal })
+  window.addEventListener('focus', () => {
+    resetCadenceSamples()
+    requestRender()
   }, { signal: events.signal })
   // Moving between displays or changing browser zoom can change DPR without
   // changing the scene's CSS dimensions. Watch it without polling every frame.
@@ -826,7 +1231,9 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
   }
   function onPixelRatioChange(): void {
     watchPixelRatio()
+    resetCadenceSamples()
     resize()
+    requestRender()
   }
   watchPixelRatio()
   document.fonts.ready.then(invalidateLabelSizes)
@@ -836,7 +1243,7 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
   observer.observe(container)
   // Font loading, unit changes, and hiding the grid legend can change the
   // rectangles that labels must avoid, even when the canvas size stays fixed.
-  const obstacleObserver = new ResizeObserver(requestRender)
+  const obstacleObserver = new ResizeObserver(() => requestRender())
   container.parentElement!.querySelectorAll<HTMLElement>('[data-scene-obstacle]')
     .forEach((element) => obstacleObserver.observe(element))
   updatePresentation()
@@ -860,6 +1267,7 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
     },
     setPowerSavingMode(enabled) {
       powerSavingMode = enabled
+      resetCadenceSamples()
       resize()
       requestRender()
     },
@@ -899,12 +1307,13 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
       disposed = true
       focusTransition = null
       cancelRender()
+      if (hoverFrame !== null) cancelAnimationFrame(hoverFrame)
       events.abort()
       observer.disconnect()
       obstacleObserver.disconnect()
       controls.removeEventListener('start', onControlsStart)
       controls.removeEventListener('end', onControlsEnd)
-      controls.removeEventListener('change', requestRender)
+      controls.removeEventListener('change', onControlsChange)
       controls.dispose()
       disposeGeometry(scene)
       dotTexture.dispose()
@@ -979,10 +1388,11 @@ export function projectMotionDirection(position: Vector3, velocity: Vector3, cam
   if (!Number.isFinite(speed) || speed === 0) return null
   const clip = new Vector4(position.x, position.y, position.z, 1)
     .applyMatrix4(camera.matrixWorldInverse)
-    .applyMatrix4(camera.projectionMatrix)
-  const tangent = new Vector4(velocity.x / speed, velocity.y / speed, velocity.z / speed, 0)
+  const viewVelocity = new Vector4(velocity.x / speed, velocity.y / speed, velocity.z / speed, 0)
     .applyMatrix4(camera.matrixWorldInverse)
-    .applyMatrix4(camera.projectionMatrix)
+  if (motionForeshortening(clip, viewVelocity) < 1e-6) return null
+  clip.applyMatrix4(camera.projectionMatrix)
+  const tangent = viewVelocity.applyMatrix4(camera.projectionMatrix)
   const horizontal = tangent.x - clip.x / clip.w * tangent.w
   const vertical = tangent.y - clip.y / clip.w * tangent.w
   if (Math.hypot(horizontal, vertical) < 1e-6 * Math.hypot(tangent.x, tangent.y, tangent.z, tangent.w)) return null
@@ -996,25 +1406,16 @@ export function projectMotionDirection(position: Vector3, velocity: Vector3, cam
 export function pickStarAtScreenPoint(
   stars: readonly PickableStar[], camera: Camera, viewport: Viewport, pointer: PointerPosition, radius: number,
 ): string | null {
-  if (
-    pointer.clientX < viewport.left || pointer.clientX > viewport.left + viewport.width ||
-    pointer.clientY < viewport.top || pointer.clientY > viewport.top + viewport.height
-  ) return null
-  let selected: string | null = null
-  let nearestDistance = radius
-  let nearestDepth = Infinity
+  const projected: ProjectedPickable[] = []
+  const grid = new ScreenSpaceGrid<ProjectedPickable>()
   for (const star of stars) {
-    const projected = projectWorldPoint(star.position, camera, viewport)
-    if (!projected) continue
-    const distance = Math.hypot(pointer.clientX - projected.x, pointer.clientY - projected.y)
-    if (distance > radius) continue
-    if (distance < nearestDistance - 1e-6 || (Math.abs(distance - nearestDistance) < 1e-6 && projected.depth < nearestDepth)) {
-      selected = star.id
-      nearestDistance = distance
-      nearestDepth = projected.depth
-    }
+    const point = projectWorldPoint(star.position, camera, viewport)
+    if (!point) continue
+    const entry = { id: star.id, ...point }
+    projected.push(entry)
+    grid.insert({ left: entry.x, right: entry.x, top: entry.y, bottom: entry.y }, entry)
   }
-  return selected
+  return pickProjectedStarAtScreenPoint(grid, viewport, pointer, radius)
 }
 
 export class TapGesture {

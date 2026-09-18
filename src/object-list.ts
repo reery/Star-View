@@ -1,4 +1,4 @@
-import type { Star } from './catalog'
+import type { Star } from './catalog-model'
 import { formatDistance, sunRelativeMetrics, temperatureToColor, type DistanceUnit } from './astronomy'
 
 const VIRTUAL_THRESHOLD = 200

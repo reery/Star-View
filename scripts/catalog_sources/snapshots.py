@@ -5,6 +5,8 @@ import json
 from pathlib import Path
 from typing import Any
 
+from .filesystem import atomic_write_text
+
 
 def sha256(path: Path) -> str:
     return hashlib.sha256(path.read_bytes()).hexdigest()
@@ -21,5 +23,4 @@ def canonical_json(value: Any) -> str:
 
 
 def write_canonical_json(path: Path, value: Any) -> None:
-    path.parent.mkdir(parents=True, exist_ok=True)
-    path.write_text(canonical_json(value))
+    atomic_write_text(path, canonical_json(value))

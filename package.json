@@ -4,12 +4,13 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
+    "dev": "npm run catalog:generate && vite",
     "typecheck": "tsc --noEmit",
     "test": "vitest run src",
     "test:e2e": "npm run build && playwright test",
-    "build": "npm run catalog:validate && tsc && vite build",
+    "build": "npm run catalog:validate && npm run catalog:generate && tsc && vite build",
     "catalog:validate": "node scripts/catalogs.ts validate",
+    "catalog:generate": "node scripts/catalogs.ts generate",
     "catalog:build": "node scripts/catalogs.ts build",
     "preview": "vite preview"
   },
@@ -19,6 +20,7 @@
     "@types/papaparse": "^5.5.2",
     "@types/pngjs": "^6.0.5",
     "@types/three": "^0.186.0",
+    "papaparse": "^5.7.0",
     "pngjs": "^7.0.0",
     "typescript": "~6.0.2",
     "vite": "^8.3.0",
@@ -27,7 +29,6 @@
   "dependencies": {
     "@fontsource/ibm-plex-sans": "^5.3.0",
     "lucide": "^1.46.0",
-    "papaparse": "^5.7.0",
     "three": "^0.186.0"
   }
 }

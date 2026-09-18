@@ -3,8 +3,8 @@ import '@fontsource/ibm-plex-sans/latin-400.css'
 import '@fontsource/ibm-plex-sans/latin-500.css'
 import '@fontsource/ibm-plex-sans/latin-600.css'
 import { Focus, Grid2X2, Orbit, ZoomIn, ZoomOut, createElement, type IconNode } from 'lucide'
-import { describeObject, OBJECT_TYPES, objectTypeLabel, type ObjectType, type Star } from './catalog'
-import { catalogSelection, loadCatalog } from './catalogs'
+import { describeObject, OBJECT_TYPES, objectTypeLabel, type ObjectType, type Star } from './catalog-model'
+import { catalogSelection } from './catalog-runtime'
 import { catalogs, catalogErrors } from './registry'
 import { formatDistance, sunRelativeMetrics, temperatureToColor, type DistanceUnit } from './astronomy'
 import { createStarViewer, type StarViewer } from './viewer'
@@ -51,7 +51,8 @@ let observerId = 'sirius-a'
 let magnitudeLimit = 7
 let objectDistanceLimitLy = 100
 let gridVisible = true
-let powerSavingMode = true
+let powerSavingMode = false
+let catalogRequest = 0
 const selectedTypes = new Set<ObjectType>(OBJECT_TYPES)
 let distanceUnit: DistanceUnit = 'ly'
 try {
@@ -134,11 +135,23 @@ function renderDistances(): void {
   renderSelection()
 }
 
-function switchCatalog(id: string): void {
+async function switchCatalog(id: string): Promise<void> {
   if (id === activeCatalogId) return
   const definition = catalogs.find((catalog) => catalog.manifest.id === id)
   if (!definition) return
-  const nextStars = loadCatalog(definition)
+  const request = ++catalogRequest
+  sceneStatus(`Loading ${definition.manifest.label}...`)
+  let nextStars: Star[]
+  try {
+    nextStars = await definition.load()
+  } catch (error) {
+    if (request !== catalogRequest) return
+    catalogError(error)
+    element<HTMLSelectElement>('catalog-select').value = activeCatalogId
+    sceneStatus(viewer ? null : 'The nearby-object catalog could not be loaded.')
+    return
+  }
+  if (request !== catalogRequest) return
   const retained = catalogSelection(nextStars, selectedId, observerId)
   viewer?.dispose()
   viewer = undefined
@@ -198,22 +211,12 @@ const objectList = new ObjectList(element('star-list'), selectStar)
 for (const { manifest } of catalogs) {
   element<HTMLSelectElement>('catalog-select').add(new Option(manifest.label, manifest.id))
 }
-try {
-  switchCatalog('nearest-neighbors')
-  if (catalogErrors.length) catalogError(catalogErrors.join('\n'))
-} catch (error) {
-  catalogError(error)
-  sceneStatus('The nearby-object catalog could not be loaded.')
-}
+void switchCatalog('nearest-neighbors')
+if (catalogErrors.length) catalogError(catalogErrors.join('\n'))
 
 element('object-search').addEventListener('input', () => objectList.setQuery(element<HTMLInputElement>('object-search').value), { signal: events.signal })
 element('catalog-select').addEventListener('change', () => {
-  try {
-    switchCatalog(element<HTMLSelectElement>('catalog-select').value)
-  } catch (error) {
-    catalogError(error)
-    element<HTMLSelectElement>('catalog-select').value = activeCatalogId
-  }
+  void switchCatalog(element<HTMLSelectElement>('catalog-select').value)
 }, { signal: events.signal })
 element('distance-units').addEventListener('change', () => {
   distanceUnit = element<HTMLInputElement>('unit-ly').checked ? 'ly' : 'pc'
