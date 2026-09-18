@@ -3,7 +3,7 @@ import { PNG } from 'pngjs'
 
 async function trackRendering(page: Page) {
   await page.addInitScript(() => {
-    const stats = { draws: 0, drawTimes: [] as number[], labelMutations: 0, labelSizeReads: 0, frameDrawCalls: 0, framePointVertices: 0 }
+    const stats = { draws: 0, drawTimes: [] as number[], labelMutations: 0, labelSizeReads: 0, obstacleBoundsReads: 0, frameDrawCalls: 0, framePointVertices: 0 }
     Object.assign(window, { renderStats: stats })
     for (const property of ['offsetWidth', 'offsetHeight']) {
       const descriptor = Object.getOwnPropertyDescriptor(HTMLElement.prototype, property)!
@@ -14,6 +14,11 @@ async function trackRendering(page: Page) {
           return descriptor.get!.call(this)
         },
       })
+    }
+    const getBoundingClientRect = Element.prototype.getBoundingClientRect
+    Element.prototype.getBoundingClientRect = function () {
+      if (this.matches('[data-scene-obstacle]')) stats.obstacleBoundsReads++
+      return getBoundingClientRect.call(this)
     }
     const clear = WebGL2RenderingContext.prototype.clear
     WebGL2RenderingContext.prototype.clear = function (mask) {
@@ -49,7 +54,7 @@ async function trackRendering(page: Page) {
 
 async function stats(page: Page) {
   return page.evaluate(() => (window as Window & {
-    renderStats?: { draws: number; drawTimes: number[]; labelMutations: number; labelSizeReads: number; frameDrawCalls: number; framePointVertices: number }
+      renderStats?: { draws: number; drawTimes: number[]; labelMutations: number; labelSizeReads: number; obstacleBoundsReads: number; frameDrawCalls: number; framePointVertices: number }
   }).renderStats!)
 }
 
@@ -121,6 +126,7 @@ for (const catalog of ['nearest-neighbors', 'nearest-100', 'nearest-1000']) {
     const measurement = {
       draws,
       labelSizeReads: after.labelSizeReads - before.labelSizeReads,
+      obstacleBoundsReads: after.obstacleBoundsReads - before.obstacleBoundsReads,
       labelMutations: after.labelMutations - before.labelMutations,
       ...Object.fromEntries(['LayoutCount', 'LayoutDuration', 'RecalcStyleDuration', 'TaskDuration'].map((name) => [name,
         finalMetrics.metrics.find((metric) => metric.name === name)!.value -
@@ -131,6 +137,7 @@ for (const catalog of ['nearest-neighbors', 'nearest-100', 'nearest-1000']) {
     await testInfo.attach('rotation-metrics', { body: JSON.stringify(measurement, null, 2), contentType: 'application/json' })
     expect(draws).toBeGreaterThan(10)
     expect(measurement.labelSizeReads).toBe(0)
+    expect(measurement.obstacleBoundsReads).toBe(0)
     await expectIdle(page)
   })
 }

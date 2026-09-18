@@ -1,6 +1,14 @@
 import { describe, expect, it } from 'vitest'
-import { PerspectiveCamera, Vector3 } from 'three'
-import { budgetVisibleLabelIndices, chooseOrdinaryLabelPlacement, focusProgress, isObjectMapVisible, mapLabelBudget, motionArrowLength, motionForeshortening, ordinaryLabelCandidates, pickProjectedStarAtScreenPoint, pickStarAtScreenPoint, projectMotionDirection, projectSelectedAnchor, projectWorldPoint, renderPixelRatio, ScreenSpaceGrid, starBlocksLabels, starHaloDiameter, starHaloOpacity, starHaloStrength, TapGesture, type ProjectedPickable } from './viewer'
+import { PerspectiveCamera, Vector3, type Camera } from 'three'
+import { chooseOrdinaryLabelPlacement, ordinaryLabelCandidates } from './label-layout'
+import { renderPixelRatio } from './render-scheduling'
+import {
+  ScreenSpaceGrid, TapGesture, budgetVisibleLabelIndices, focusProgress, isObjectMapVisible,
+  mapLabelBudget, motionArrowLength, motionForeshortening, pickProjectedStarAtScreenPoint,
+  projectMotionDirection, projectSelectedAnchor, projectWorldPoint, starBlocksLabels,
+  starHaloDiameter, starHaloOpacity, starHaloStrength, type PointerPosition,
+  type ProjectedPickable, type Viewport,
+} from './viewer-primitives'
 
 const viewport = { left: 110, top: 90, width: 400, height: 300 }
 
@@ -171,6 +179,23 @@ function makeCamera(distance = 5) {
   camera.lookAt(0, 0, 0)
   camera.updateMatrixWorld()
   return camera
+}
+
+function pickStarAtScreenPoint(
+  stars: readonly { id: string; position: Vector3 }[],
+  camera: Camera,
+  view: Viewport,
+  pointer: PointerPosition,
+  radius: number,
+): string | null {
+  const grid = new ScreenSpaceGrid<ProjectedPickable>()
+  for (const star of stars) {
+    const point = projectWorldPoint(star.position, camera, view)
+    if (!point) continue
+    const projected = { id: star.id, ...point }
+    grid.insert({ left: projected.x, right: projected.x, top: projected.y, bottom: projected.y }, projected)
+  }
+  return pickProjectedStarAtScreenPoint(grid, view, pointer, radius)
 }
 
 describe('projected star picking', () => {

@@ -59,11 +59,13 @@ export class ObjectList {
   }
 
   setDistanceUnit(unit: DistanceUnit): void {
+    if (unit === this.unit) return
     this.unit = unit
     this.render()
   }
 
   setSelected(id: string | null, reveal = false): void {
+    if (id === this.selectedId && !reveal) return
     this.selectedId = id
     if (reveal && id) {
       const index = this.filtered.findIndex((item) => item.star.id === id)

@@ -1,6 +1,8 @@
 import { OBJECT_TYPES, type Star } from './catalog-model'
 import type { CatalogManifest } from './catalog-manifest'
 
+export { catalogSelection } from './catalog-selection'
+
 export interface CatalogDefinition {
   manifest: CatalogManifest
   load(): Promise<Star[]>
@@ -31,15 +33,9 @@ export function parseCatalogPayload(value: unknown, manifest: CatalogManifest): 
 export function catalogLoader(manifest: CatalogManifest, url: string | (() => Promise<string>), fetcher: typeof fetch = fetch): () => Promise<Star[]> {
   let cached: Promise<Star[]> | undefined
   const loadUrl = typeof url === 'string' ? () => Promise.resolve(url) : url
-  return () => cached ??= loadUrl().then((resolvedUrl) => fetcher(resolvedUrl).then(async (response) => {
-      if (!response.ok) throw new Error(`Could not load ${manifest.label} (${response.status}).`)
-      return parseCatalogPayload(await response.json(), manifest)
-    }))
-}
-
-export function catalogSelection(stars: readonly Star[], selectedId: string | null, observerId: string) {
-  return {
-    selectedId: stars.some((star) => star.id === selectedId) ? selectedId : null,
-    observerId: stars.some((star) => star.id === observerId) ? observerId : 'sun',
-  }
+  return () => cached ??= (async () => {
+    const response = await fetcher(await loadUrl())
+    if (!response.ok) throw new Error(`Could not load ${manifest.label} (${response.status}).`)
+    return parseCatalogPayload(await response.json(), manifest)
+  })()
 }

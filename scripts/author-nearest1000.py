@@ -114,6 +114,7 @@ def normalize(record, simbad, gaia):
     velocity = original.galactic.velocity.d_xyz.to_value(units.km / units.s) if use_rv else None
     identifier = f"cns5-{int(record.identity.source_record_id):04d}"
     name = raw.get("main_id") or next((alias for alias in record.identity.aliases if alias.startswith("GJ ")), identifier)
+    constellation = get_constellation(direction, short_name=False, constellation_list="iau").strip()
     row = {header: "" for header in HEADERS}
     row.update({
         "type": object_type,
@@ -125,7 +126,7 @@ def normalize(record, simbad, gaia):
         "z_pc": f"{position[2]:.9f}",
         "epoch": "2000.0",
         "notes": f"Corrected CNS5 {record.identity.source_record_id}; J2000 Sun-relative Galactic position. SIMBAD exact CNS5 identity. {'Full source space motion.' if use_rv else 'Transverse-only source motion; radial velocity unavailable or withheld.'}",
-        "constellation": NAME_CORRECTIONS.get(get_constellation(direction, short_name=False, constellation_list="iau").strip(), get_constellation(direction, short_name=False, constellation_list="iau").strip()),
+        "constellation": NAME_CORRECTIONS.get(constellation, constellation),
         "ra_deg": str(astrometry.ra_deg),
         "dec_deg": str(astrometry.dec_deg),
         "astrometry_epoch": str(astrometry.epoch),

@@ -3,6 +3,7 @@ import { CATALOG_HEADERS, parseStarCatalog, type Star } from './catalog.ts'
 import { DEFAULT_CATALOG_MANIFEST, type CatalogManifest } from './catalog-manifest.ts'
 
 export { DEFAULT_CATALOG_MANIFEST, parseCatalogManifest, type CatalogManifest } from './catalog-manifest.ts'
+export { catalogSelection } from './catalog-selection.ts'
 
 export interface CatalogDefinition {
   manifest: CatalogManifest
@@ -14,13 +15,6 @@ export function loadCatalog(definition: CatalogDefinition): Star[] {
   if (stars.length !== definition.manifest.objectCount) throw new Error('Catalog objectCount does not match CSV rows.')
   if (stars.some((star) => star.epoch !== definition.manifest.epoch)) throw new Error('Catalog manifest epoch does not match CSV.')
   return stars
-}
-
-export function catalogSelection(stars: readonly Star[], selectedId: string | null, observerId: string) {
-  return {
-    selectedId: stars.some((star) => star.id === selectedId) ? selectedId : null,
-    observerId: stars.some((star) => star.id === observerId) ? observerId : 'sun',
-  }
 }
 
 export function catalogCoverage(stars: readonly Star[]) {
