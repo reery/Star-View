@@ -9,6 +9,19 @@ export function mapLabelBudget(coarsePointer: boolean): number {
   return coarsePointer ? 60 : 120
 }
 
+export const ORDINARY_LABEL_LAYOUT_INTERVAL_MS = 1000 / 30
+
+export function shouldRunOrdinaryLabelLayout(
+  timeMs: number,
+  lastLayoutTimeMs: number,
+  motionActive: boolean,
+  layoutDirty: boolean,
+): boolean {
+  if (layoutDirty || !motionActive) return true
+  if (!Number.isFinite(timeMs) || !Number.isFinite(lastLayoutTimeMs) || timeMs < lastLayoutTimeMs) return true
+  return timeMs - lastLayoutTimeMs >= ORDINARY_LABEL_LAYOUT_INTERVAL_MS
+}
+
 export function budgetVisibleLabelIndices(
   groups: readonly { indices: readonly number[] }[],
   projections: readonly { visible: boolean; depth: number }[],

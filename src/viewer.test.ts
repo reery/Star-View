@@ -6,7 +6,7 @@ import {
   ScreenSpaceGrid, TapGesture, budgetVisibleLabelIndices, focusProgress, isObjectMapVisible,
   mapLabelBudget, motionArrowLength, motionForeshortening, pickProjectedStarAtScreenPoint,
   projectMotionDirection, projectSelectedAnchor, projectWorldPoint, starBlocksLabels,
-  starHaloDiameter, starHaloOpacity, starHaloStrength, type PointerPosition,
+  shouldRunOrdinaryLabelLayout, starHaloDiameter, starHaloOpacity, starHaloStrength, type PointerPosition,
   type ProjectedPickable, type Viewport,
 } from './viewer-primitives'
 
@@ -15,6 +15,21 @@ const viewport = { left: 110, top: 90, width: 400, height: 300 }
 it('budgets ordinary map names by pointer density', () => {
   expect(mapLabelBudget(false)).toBe(120)
   expect(mapLabelBudget(true)).toBe(60)
+})
+
+describe('ordinary label layout cadence', () => {
+  it('runs immediately for dirty, inactive, or invalid frame state', () => {
+    expect(shouldRunOrdinaryLabelLayout(10, 10, true, true)).toBe(true)
+    expect(shouldRunOrdinaryLabelLayout(10, 10, false, false)).toBe(true)
+    expect(shouldRunOrdinaryLabelLayout(10, -Infinity, true, false)).toBe(true)
+    expect(shouldRunOrdinaryLabelLayout(10, 20, true, false)).toBe(true)
+  })
+
+  it('uses a time interval instead of a frame count during motion', () => {
+    expect(shouldRunOrdinaryLabelLayout(10 + 1000 / 60, 10, true, false)).toBe(false)
+    expect(shouldRunOrdinaryLabelLayout(10 + 1000 / 30, 10, true, false)).toBe(true)
+    expect(shouldRunOrdinaryLabelLayout(10 + 1000 / 120, 10, true, false)).toBe(false)
+  })
 })
 
 it('spends the map name budget only on camera-visible stars', () => {

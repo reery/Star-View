@@ -1,9 +1,20 @@
 import { expect, test, type Page } from '@playwright/test'
 import { PNG } from 'pngjs'
 
+interface RenderingStats {
+  draws: number
+  drawTimes: number[]
+  labelMutations: number
+  labelSizeReads: number
+  obstacleBoundsReads: number
+  frameDrawCalls: number
+  framePointVertices: number
+  listReplacements: number
+}
+
 async function trackRendering(page: Page) {
   await page.addInitScript(() => {
-    const stats = { draws: 0, drawTimes: [] as number[], labelMutations: 0, labelSizeReads: 0, obstacleBoundsReads: 0, frameDrawCalls: 0, framePointVertices: 0 }
+    const stats = { draws: 0, drawTimes: [] as number[], labelMutations: 0, labelSizeReads: 0, obstacleBoundsReads: 0, frameDrawCalls: 0, framePointVertices: 0, listReplacements: 0 }
     Object.assign(window, { renderStats: stats })
     for (const property of ['offsetWidth', 'offsetHeight']) {
       const descriptor = Object.getOwnPropertyDescriptor(HTMLElement.prototype, property)!
@@ -19,6 +30,11 @@ async function trackRendering(page: Page) {
     Element.prototype.getBoundingClientRect = function () {
       if (this.matches('[data-scene-obstacle]')) stats.obstacleBoundsReads++
       return getBoundingClientRect.call(this)
+    }
+    const replaceChildren = Element.prototype.replaceChildren
+    Element.prototype.replaceChildren = function (this: Element, ...nodes: (Node | string)[]) {
+      if (this.id === 'star-list') stats.listReplacements++
+      return replaceChildren.call(this, ...nodes)
     }
     const clear = WebGL2RenderingContext.prototype.clear
     WebGL2RenderingContext.prototype.clear = function (mask) {
@@ -53,9 +69,14 @@ async function trackRendering(page: Page) {
 }
 
 async function stats(page: Page) {
-  return page.evaluate(() => (window as Window & {
-      renderStats?: { draws: number; drawTimes: number[]; labelMutations: number; labelSizeReads: number; obstacleBoundsReads: number; frameDrawCalls: number; framePointVertices: number }
-  }).renderStats!)
+  return page.evaluate(() => {
+    const renderStats = (window as Window & { renderStats?: RenderingStats }).renderStats
+    if (!renderStats) throw new Error('Rendering instrumentation is unavailable.')
+    return {
+      ...renderStats,
+      ordinaryLayoutPasses: Number(document.querySelector<HTMLElement>('.projected-labels')!.dataset.ordinaryLayoutPasses ?? 0),
+    }
+  })
 }
 
 async function openPreferences(page: Page) {
@@ -78,6 +99,12 @@ async function canvasPixelRatio(page: Page) {
 async function expectedPointVertices(page: Page) {
   return page.locator('.projected-labels').evaluate((layer: HTMLElement) =>
     Number(layer.dataset.coreCount) + Number(layer.dataset.haloCount))
+}
+
+function percentile(values: readonly number[], percent: number): number | null {
+  if (values.length === 0) return null
+  const sorted = [...values].sort((first, second) => first - second)
+  return sorted[Math.min(sorted.length - 1, Math.floor((sorted.length - 1) * percent))]!
 }
 
 for (const catalog of ['nearest-neighbors', 'nearest-100', 'nearest-1000']) {
@@ -141,6 +168,76 @@ for (const catalog of ['nearest-neighbors', 'nearest-100', 'nearest-1000']) {
     await expectIdle(page)
   })
 }
+
+test('records high-density nearest-1000 rotation evidence', async ({ page, context }, testInfo) => {
+  await page.emulateMedia({ reducedMotion: 'no-preference' })
+  await trackRendering(page)
+  await openFilter(page)
+  await page.getByLabel('Catalog', { exact: true }).selectOption('nearest-1000')
+  await page.getByLabel('V magnitude limit', { exact: true }).fill('25')
+  await expectIdle(page)
+  const session = await context.newCDPSession(page)
+  await session.send('Performance.enable')
+  const bounds = (await page.locator('#scene canvas').boundingBox())!
+  await page.mouse.move(bounds.x + bounds.width * 0.35, bounds.y + bounds.height * 0.6)
+  await page.mouse.down()
+  const before = await stats(page)
+  const initialMetrics = await session.send('Performance.getMetrics')
+  await page.mouse.move(bounds.x + bounds.width * 0.65, bounds.y + bounds.height * 0.4, { steps: 90 })
+  await page.mouse.up()
+  await page.evaluate(() => new Promise(requestAnimationFrame))
+  const after = await stats(page)
+  const finalMetrics = await session.send('Performance.getMetrics')
+  const drawTimes = after.drawTimes.slice(before.drawTimes.length)
+  const frameIntervals = drawTimes.slice(1).map((time, index) => time - drawTimes[index]!)
+  const measurement = {
+    draws: after.draws - before.draws,
+    ordinaryLayoutPasses: after.ordinaryLayoutPasses - before.ordinaryLayoutPasses,
+    frameIntervalP50: percentile(frameIntervals, 0.5),
+    frameIntervalP95: percentile(frameIntervals, 0.95),
+    labelSizeReads: after.labelSizeReads - before.labelSizeReads,
+    obstacleBoundsReads: after.obstacleBoundsReads - before.obstacleBoundsReads,
+    labelMutations: after.labelMutations - before.labelMutations,
+    ...Object.fromEntries(['LayoutCount', 'LayoutDuration', 'RecalcStyleDuration', 'TaskDuration'].map((name) => [name,
+      finalMetrics.metrics.find((metric) => metric.name === name)!.value -
+      initialMetrics.metrics.find((metric) => metric.name === name)!.value,
+    ])),
+  }
+  console.log(`nearest-1000 V=25 rotation: ${JSON.stringify(measurement)}`)
+  await testInfo.attach('nearest-1000-v25-rotation-metrics', { body: JSON.stringify(measurement, null, 2), contentType: 'application/json' })
+  expect(measurement.draws).toBeGreaterThan(10)
+  expect(measurement.ordinaryLayoutPasses).toBeLessThan(measurement.draws)
+  expect(measurement.labelSizeReads).toBe(0)
+  expect(measurement.obstacleBoundsReads).toBe(0)
+  await expectIdle(page)
+})
+
+test('coalesces virtual-list scroll renders and skips unchanged ranges', async ({ page }) => {
+  await trackRendering(page)
+  await openFilter(page)
+  await page.getByLabel('Catalog', { exact: true }).selectOption('nearest-1000')
+  await expectIdle(page)
+  const catalog = page.locator('details.catalog')
+  if (await catalog.getAttribute('open') === null) await catalog.locator('summary').click()
+  const list = page.locator('#star-list')
+  const before = await stats(page)
+  await list.evaluate(async (element) => {
+    for (let scrollTop = 0; scrollTop <= 4800; scrollTop += 96) {
+      element.scrollTop = scrollTop
+      element.dispatchEvent(new Event('scroll'))
+    }
+    await new Promise<void>((resolve) => requestAnimationFrame(() => requestAnimationFrame(() => resolve())))
+  })
+  const afterBurst = await stats(page)
+  expect(afterBurst.listReplacements - before.listReplacements).toBe(1)
+  expect(await list.locator('.catalog-entry').first().evaluate((element) => (element as HTMLElement).style.transform)).toBe('translateY(4608px)')
+  await list.evaluate(async (element) => {
+    element.dispatchEvent(new Event('scroll'))
+    await new Promise<void>((resolve) => requestAnimationFrame(() => requestAnimationFrame(() => resolve())))
+  })
+  const afterDuplicate = await stats(page)
+  expect(afterDuplicate.listReplacements - afterBurst.listReplacements).toBe(0)
+})
 
 async function expectIdle(page: Page) {
   // Allow the finite focus animation and orbit damping to finish first.

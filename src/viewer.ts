@@ -14,7 +14,7 @@ import {
   STAR_DIAMETER_PX, ScreenSpaceGrid, TapGesture, budgetVisibleLabelIndices, focusProgress,
   isObjectMapVisible, mapLabelBudget, motionArrowLength, pickProjectedStarAtScreenPoint,
   projectMotionDirectionInto, projectSelectedAnchor, projectWorldPoint, projectWorldPointInto,
-  starBlocksLabels, starHaloDiameter, starHaloOpacity, type ProjectedPickable,
+  shouldRunOrdinaryLabelLayout, starBlocksLabels, starHaloDiameter, starHaloOpacity, type ProjectedPickable,
 } from './viewer-primitives'
 
 export interface StarViewer {
@@ -73,6 +73,12 @@ function setHidden(element: HTMLElement, hidden: boolean): void {
 
 function setTransform(element: HTMLElement, transform: string): void {
   if (element.style.transform !== transform) element.style.transform = transform
+}
+
+function sameIndexSet(first: ReadonlySet<number>, second: ReadonlySet<number>): boolean {
+  if (first.size !== second.size) return false
+  for (const index of first) if (!second.has(index)) return false
+  return true
 }
 
 export function createStarViewer(container: HTMLElement, stars: readonly Star[], options: ViewerOptions): StarViewer {
@@ -269,6 +275,20 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
   const tiers = new Map<string, ReturnType<typeof visibilityTier>>()
   const mapVisibility = new Map<string, boolean>()
   let rankedNameGroups: Array<{ priority: number; magnitude: number; indices: number[] }> = []
+  // Frame-scoped label layout containers, reused by updateLabels() so camera
+  // motion frames don't churn garbage. The group pool mirrors rankedNameGroups
+  // and is rebuilt only when that list's identity changes.
+  let ordinaryGroupSource: typeof rankedNameGroups | null = null
+  const ordinaryGroupPool: Array<{ indices: number[] }> = []
+  const ordinaryGroups: Array<{ indices: number[] }> = []
+  const budgetedNameIndices = new Set<number>()
+  const ordinaryNameIndices = new Set<number>()
+  const committedOrdinaryNameIndices = new Set<number>()
+  const budgetedNames = new Set<string>()
+  const arrowIndices = new Set<number>()
+  const starLabels: MapLabel[] = []
+  const measurementPlacements = new Map<MapLabel, LabelRect | null>()
+  const selectedLabelObstacles: LabelRect[] = []
   let disposed = false
   let contextLost = false
   let pendingFrame: number | null = null
@@ -288,6 +308,9 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
   let controlsSettling = false
   const focusTarget = new Vector3()
   let labelSizesDirty = true
+  let ordinaryLayoutDirty = true
+  let lastOrdinaryLayoutTime = -Infinity
+  let ordinaryLayoutPasses = 0
   let distanceNormal = { x: 0, y: -1 }
   let distanceSide = 1
   const sceneObstacleElements = [...container.parentElement!.querySelectorAll<HTMLElement>('[data-scene-obstacle]')]
@@ -315,6 +338,9 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
   }))
   const projectedPickables: CachedProjection[] = []
   const projectionGrid = new ScreenSpaceGrid<CachedProjection>()
+  // Label avoidance grids, cleared and refilled in place once per frame by updateLabels().
+  const blocked = new ScreenSpaceGrid<LabelRect>()
+  const starObstacles = new ScreenSpaceGrid<{ depth: number; bounds: LabelRect }>()
   const viewProjection = new Matrix4()
   const clipPoint = new Vector4()
   const clipTangent = new Vector4()
@@ -331,6 +357,7 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
   function invalidateViewport(): void {
     viewportDirty = true
     obstacleBoundsDirty = true
+    ordinaryLayoutDirty = true
     invalidateProjection()
   }
 
@@ -387,13 +414,15 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
     labelLayer.append(label.anchor)
   }
 
-  function syncStarLabels(nameIndices: ReadonlySet<number>, arrowIndices: ReadonlySet<number>): MapLabel[] {
+  function syncStarLabels(nameIndices: ReadonlySet<number>, arrowIndices: ReadonlySet<number>, out: MapLabel[]): boolean {
+    let changed = false
     const needed = new Set([...nameIndices, ...arrowIndices])
     for (const [index, label] of activeStarLabels) {
       if (needed.has(index)) continue
       activeStarLabels.delete(index)
       label.anchor.remove()
       freeStarLabels.push(label)
+      changed = true
     }
     for (const index of needed) {
       const arrowEligible = arrowIndices.has(index)
@@ -402,8 +431,10 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
         label = freeStarLabels.pop() ?? createPooledStarLabel()
         activeStarLabels.set(index, label)
         bindStarLabel(label, index, arrowEligible)
+        changed = true
       } else if ((label.motion !== undefined) !== arrowEligible) {
         bindStarLabel(label, index, arrowEligible)
+        changed = true
       } else {
         const star = stars[index]!
         label.anchor.dataset.visibility = tiers.get(star.id)
@@ -411,11 +442,14 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
         label.anchor.classList.toggle('is-selected', star.id === selectedId)
       }
     }
-    return [...activeStarLabels.values()]
+    out.length = 0
+    for (const label of activeStarLabels.values()) out.push(label)
+    return changed
   }
 
   function invalidateLabelSizes(): void {
     labelSizesDirty = true
+    ordinaryLayoutDirty = true
     requestRender()
   }
 
@@ -450,6 +484,7 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
   }
 
   function updatePresentation(): void {
+    ordinaryLayoutDirty = true
     let coreCount = 0
     let haloCount = 0
     stars.forEach((star, index) => {
@@ -546,30 +581,51 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
     projectionDirty = false
   }
 
-  function updateLabels(): void {
+  function updateLabels(time: number): void {
     if (projectionDirty) refreshProjectionCache()
     const viewport = projectionViewport!
     const ordinaryBudget = mapLabelBudget(coarsePointer.matches || viewport.width <= 720)
     const selectedIndex = selectedId ? starsById.get(selectedId)!.index : -1
     const observerIndex = starsById.get(visibilityBase.id)!.index
-    const ordinaryGroups = rankedNameGroups.map((group) => ({
-      indices: group.indices.filter((index) => index !== selectedIndex && index !== observerIndex),
-    })).filter((group) => group.indices.length > 0)
-    const budgetedNameIndices = new Set(budgetVisibleLabelIndices(ordinaryGroups, projections, ordinaryBudget))
+    if (ordinaryGroupSource !== rankedNameGroups) {
+      ordinaryGroupSource = rankedNameGroups
+      ordinaryGroupPool.length = 0
+      for (let i = 0; i < rankedNameGroups.length; i++) ordinaryGroupPool.push({ indices: [] })
+    }
+    ordinaryGroups.length = 0
+    for (let groupIndex = 0; groupIndex < rankedNameGroups.length; groupIndex++) {
+      const entry = ordinaryGroupPool[groupIndex]!
+      const indices = entry.indices
+      indices.length = 0
+      for (const index of rankedNameGroups[groupIndex]!.indices) {
+        if (index !== selectedIndex && index !== observerIndex) indices.push(index)
+      }
+      if (indices.length > 0) ordinaryGroups.push(entry)
+    }
+    budgetedNameIndices.clear()
+    ordinaryNameIndices.clear()
+    for (const index of budgetVisibleLabelIndices(ordinaryGroups, projections, ordinaryBudget)) {
+      ordinaryNameIndices.add(index)
+      budgetedNameIndices.add(index)
+    }
     if (selectedIndex >= 0) budgetedNameIndices.add(selectedIndex)
     budgetedNameIndices.add(observerIndex)
-    const budgetedNames = new Set([...budgetedNameIndices].map((index) => stars[index]!.id))
-    const arrowIndices = new Set(projectedPickables
-      .filter((projected) => projected.motionVisible)
-      .map((projected) => projected.index))
-    const starLabels = syncStarLabels(budgetedNameIndices, arrowIndices)
+    budgetedNames.clear()
+    for (const index of budgetedNameIndices) budgetedNames.add(stars[index]!.id)
+    arrowIndices.clear()
+    for (const projected of projectedPickables) {
+      if (projected.motionVisible) arrowIndices.add(projected.index)
+    }
+    const labelsChanged = syncStarLabels(budgetedNameIndices, arrowIndices, starLabels)
     labelLayer.dataset.nameBudget = String(ordinaryBudget)
+    let labelSizesChanged = false
     if (labelSizesDirty) {
       for (const label of [...axisLabels, ...starLabelPool, ...measurementLabels]) {
         label.width = 0
         label.height = 0
       }
       labelSizesDirty = false
+      labelSizesChanged = true
     }
     const labelsToMeasure = [...axisLabels, ...measurementLabels, ...starLabels.filter((label) => budgetedNames.has(label.starId!))]
     if (labelsToMeasure.some((label) => label.width === 0 || label.height === 0)) {
@@ -581,7 +637,9 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
         label.width = label.text.offsetWidth
         label.height = label.text.offsetHeight
       }
+      labelSizesChanged = true
     }
+    const obstacleBoundsChanged = obstacleBoundsDirty
     if (obstacleBoundsDirty) {
       obstacleBounds = sceneObstacleElements
         .filter((element) => !element.hidden)
@@ -589,9 +647,16 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
       obstacleBoundsDirty = false
     }
     const obstacles = obstacleBounds
-    const blocked = new ScreenSpaceGrid<LabelRect>()
+    const layoutOrdinaryLabels = shouldRunOrdinaryLabelLayout(
+      time,
+      lastOrdinaryLayoutTime,
+      controlsInteracting || controlsSettling || focusTransition !== null,
+      ordinaryLayoutDirty || labelsChanged || labelSizesChanged || obstacleBoundsChanged ||
+        !sameIndexSet(ordinaryNameIndices, committedOrdinaryNameIndices),
+    )
+    blocked.clear()
     for (const obstacle of obstacles) blocked.insert(obstacle.bounds, obstacle.bounds)
-    const measurementPlacements = new Map<MapLabel, LabelRect | null>()
+    measurementPlacements.clear()
     for (const label of measurementLabels) {
       const start = projections[starsById.get(sun!.id)!.index]!
       const end = selectedId ? projections[starsById.get(selectedId)!.index]! : undefined
@@ -620,12 +685,15 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
       }
       measurementPlacements.set(label, placement?.bounds ?? null)
     }
-    const selectedLabelObstacles: LabelRect[] = [
-      ...obstacles
-        .filter(({ element }) => element.matches('.scene-brand, .scene-toolbar, .scene-legend, .plane-key, .visibility-observer'))
-        .map((obstacle) => obstacle.bounds),
-      ...[...measurementPlacements.values()].filter((placement): placement is LabelRect => placement !== null),
-    ]
+    selectedLabelObstacles.length = 0
+    for (const obstacle of obstacles) {
+      if (obstacle.element.matches('.scene-brand, .scene-toolbar, .scene-legend, .plane-key, .visibility-observer')) {
+        selectedLabelObstacles.push(obstacle.bounds)
+      }
+    }
+    for (const placement of measurementPlacements.values()) {
+      if (placement !== null) selectedLabelObstacles.push(placement)
+    }
     for (const label of axisLabels) {
       const projected = grid.visible ? projectWorldPoint(label.position, camera, viewport) : null
       setHidden(label.anchor, !projected)
@@ -638,7 +706,7 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
         rectangle.top < viewport.top + 12 || rectangle.bottom > viewport.bottom - 12 ||
         blocked.queryAny(rectangle, (obstacle) => overlaps(rectangle, obstacle)))
     }
-    const starObstacles = new ScreenSpaceGrid<{ depth: number; bounds: LabelRect }>()
+    starObstacles.clear()
     for (const projected of projectedPickables) {
       if (!starBlocksLabels(tiers.get(projected.id)!)) continue
       const radius = STAR_DIAMETER_PX / 2
@@ -721,6 +789,7 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
         setHidden(label.text, true)
         continue
       }
+      if (!layoutOrdinaryLabels && !foreground) continue
       const { width, height } = label
       if (foreground) {
         const clamp = (left: number, top: number): LabelRect => {
@@ -758,6 +827,14 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
         blocked.insert(placement, placement)
       }
       setHidden(label.text, !placement)
+    }
+    if (layoutOrdinaryLabels) {
+      lastOrdinaryLayoutTime = time
+      ordinaryLayoutDirty = false
+      committedOrdinaryNameIndices.clear()
+      for (const index of ordinaryNameIndices) committedOrdinaryNameIndices.add(index)
+      ordinaryLayoutPasses++
+      labelLayer.dataset.ordinaryLayoutPasses = String(ordinaryLayoutPasses)
     }
   }
 
@@ -986,7 +1063,7 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
     }
     camera.updateMatrixWorld()
     renderer.render(scene, camera)
-    updateLabels()
+    updateLabels(time)
     if (continueRendering || refreshSamplesRemaining > 0) requestRender(false)
     else {
       previousRafTime = 0
@@ -1051,6 +1128,7 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
   // rectangles that labels must avoid, even when the canvas size stays fixed.
   const obstacleObserver = new ResizeObserver(() => {
     obstacleBoundsDirty = true
+    ordinaryLayoutDirty = true
     requestRender()
   })
   sceneObstacleElements.forEach((element) => obstacleObserver.observe(element))
