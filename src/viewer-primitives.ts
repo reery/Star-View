@@ -100,7 +100,10 @@ export interface PointerPosition {
 }
 
 export class ScreenSpaceGrid<T> {
-  private readonly buckets = new Map<string, T[]>()
+  // Cell coordinates are packed into a 32-bit key (16 bits per axis), which is
+  // collision-free for coordinates in [-32768, 32767] per axis — about
+  // ±1,048,576 px at the default 32 px cell size, far beyond any viewport.
+  private readonly buckets = new Map<number, T[]>()
   private readonly cellSize: number
 
   constructor(cellSize = 32) {
@@ -111,6 +114,10 @@ export class ScreenSpaceGrid<T> {
     this.buckets.clear()
   }
 
+  private cellKey(column: number, row: number): number {
+    return ((column & 0xffff) << 16) | (row & 0xffff)
+  }
+
   insert(bounds: LabelRect, value: T): void {
     const minColumn = Math.floor(bounds.left / this.cellSize)
     const maxColumn = Math.floor(bounds.right / this.cellSize)
@@ -118,7 +125,7 @@ export class ScreenSpaceGrid<T> {
     const maxRow = Math.floor(bounds.bottom / this.cellSize)
     for (let row = minRow; row <= maxRow; row++) {
       for (let column = minColumn; column <= maxColumn; column++) {
-        const key = `${column}:${row}`
+        const key = this.cellKey(column, row)
         const bucket = this.buckets.get(key)
         if (bucket) bucket.push(value)
         else this.buckets.set(key, [value])
@@ -134,10 +141,30 @@ export class ScreenSpaceGrid<T> {
     const maxRow = Math.floor(bounds.bottom / this.cellSize)
     for (let row = minRow; row <= maxRow; row++) {
       for (let column = minColumn; column <= maxColumn; column++) {
-        for (const value of this.buckets.get(`${column}:${row}`) ?? []) matches.add(value)
+        const bucket = this.buckets.get(this.cellKey(column, row))
+        if (!bucket) continue
+        for (const value of bucket) matches.add(value)
       }
     }
     return [...matches]
+  }
+
+  // Allocation-free short-circuit for "is any candidate blocked?" checks. The
+  // predicate may run more than once for a value occupying several queried
+  // cells, so it must be pure; callers needing every match use query().
+  queryAny(bounds: LabelRect, predicate: (value: T) => boolean): boolean {
+    const minColumn = Math.floor(bounds.left / this.cellSize)
+    const maxColumn = Math.floor(bounds.right / this.cellSize)
+    const minRow = Math.floor(bounds.top / this.cellSize)
+    const maxRow = Math.floor(bounds.bottom / this.cellSize)
+    for (let row = minRow; row <= maxRow; row++) {
+      for (let column = minColumn; column <= maxColumn; column++) {
+        const bucket = this.buckets.get(this.cellKey(column, row))
+        if (!bucket) continue
+        for (const value of bucket) if (predicate(value)) return true
+      }
+    }
+    return false
   }
 }
 

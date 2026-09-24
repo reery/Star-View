@@ -636,7 +636,7 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
       const rectangle = { left: projected.x + 18, right: projected.x + 18 + width, top: projected.y - height / 2, bottom: projected.y + height / 2 }
       setHidden(label.text, rectangle.left < viewport.left + 12 || rectangle.right > viewport.right - 12 ||
         rectangle.top < viewport.top + 12 || rectangle.bottom > viewport.bottom - 12 ||
-        blocked.query(rectangle).some((obstacle) => overlaps(rectangle, obstacle)))
+        blocked.queryAny(rectangle, (obstacle) => overlaps(rectangle, obstacle)))
     }
     const starObstacles = new ScreenSpaceGrid<{ depth: number; bounds: LabelRect }>()
     for (const projected of projectedPickables) {
@@ -736,7 +736,7 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
         ]
         const placement = candidates.find((candidate) =>
           selectedLabelObstacles.every((obstacle) => !overlaps(candidate, obstacle)) &&
-          (!clippedForeground || !blocked.query(candidate).some((obstacle) => overlaps(candidate, obstacle)))) ?? candidates[0]!
+          (!clippedForeground || !blocked.queryAny(candidate, (obstacle) => overlaps(candidate, obstacle)))) ?? candidates[0]!
         setTransform(label.text, `translate(${placement.left - anchor.x}px, ${placement.top - anchor.y}px)`)
         setHidden(label.text, false)
         if (!clippedForeground) blocked.insert(placement, placement)
@@ -748,8 +748,8 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
         (rectangle, gap) =>
           rectangle.left < viewport.left + 12 || rectangle.right > viewport.right - 12 ||
           rectangle.top < viewport.top + 12 || rectangle.bottom > viewport.bottom - 12 ||
-          blocked.query(rectangle).some((obstacle) => overlaps(rectangle, obstacle, gap)) ||
-          starObstacles.query(rectangle).some((obstacle) =>
+          blocked.queryAny(rectangle, (obstacle) => overlaps(rectangle, obstacle, gap)) ||
+          starObstacles.queryAny(rectangle, (obstacle) =>
             (!label.starId || obstacle.depth <= projected!.depth) && overlaps(rectangle, obstacle.bounds, gap)),
       )
       if (placement) {

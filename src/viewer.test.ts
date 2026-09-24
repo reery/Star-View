@@ -58,6 +58,62 @@ describe('ordinary label placement', () => {
   })
 })
 
+describe('screen-space grid cell keys', () => {
+  it('round-trips points at negative coordinates', () => {
+    const grid = new ScreenSpaceGrid<number>()
+    grid.insert({ left: -40, right: -40, top: -40, bottom: -40 }, 1)
+    expect(grid.query({ left: -50, right: -30, top: -50, bottom: -30 })).toEqual([1])
+    expect(grid.query({ left: -20, right: 0, top: -20, bottom: 0 })).toEqual([])
+  })
+
+  it('does not leak negative-cell entries into positive cells', () => {
+    const grid = new ScreenSpaceGrid<number>()
+    grid.insert({ left: -32, right: -32, top: 0, bottom: 0 }, 1)
+    expect(grid.query({ left: 0, right: 32, top: 0, bottom: 32 })).toEqual([])
+    expect(grid.query({ left: -64, right: 0, top: -32, bottom: 32 })).toEqual([1])
+  })
+
+  it('matches multi-cell bounds spanning the negative/positive boundary', () => {
+    const grid = new ScreenSpaceGrid<number>()
+    grid.insert({ left: -48, right: 48, top: -16, bottom: 16 }, 1)
+    expect(grid.query({ left: 20, right: 40, top: 0, bottom: 10 })).toEqual([1])
+    expect(grid.query({ left: -40, right: -20, top: -10, bottom: 0 })).toEqual([1])
+    expect(grid.query({ left: 64, right: 80, top: 0, bottom: 10 })).toEqual([])
+  })
+
+  it('deduplicates values inserted into overlapping cells', () => {
+    const grid = new ScreenSpaceGrid<number>()
+    grid.insert({ left: -40, right: 40, top: -40, bottom: 40 }, 1)
+    expect(grid.query({ left: -40, right: 40, top: -40, bottom: 40 })).toEqual([1])
+  })
+})
+
+describe('screen-space grid queryAny', () => {
+  it('reports matches and respects the predicate', () => {
+    const grid = new ScreenSpaceGrid<number>()
+    grid.insert({ left: 40, right: 40, top: 40, bottom: 40 }, 1)
+    expect(grid.queryAny({ left: 30, right: 50, top: 30, bottom: 50 }, (value) => value === 1)).toBe(true)
+    expect(grid.queryAny({ left: 30, right: 50, top: 30, bottom: 50 }, (value) => value === 2)).toBe(false)
+    expect(grid.queryAny({ left: 100, right: 120, top: 100, bottom: 120 }, () => true)).toBe(false)
+  })
+
+  it('works at negative coordinates', () => {
+    const grid = new ScreenSpaceGrid<number>()
+    grid.insert({ left: -40, right: -40, top: -40, bottom: -40 }, 1)
+    expect(grid.queryAny({ left: -50, right: -30, top: -50, bottom: -30 }, (value) => value === 1)).toBe(true)
+    expect(grid.queryAny({ left: -20, right: 0, top: -20, bottom: 0 }, () => true)).toBe(false)
+  })
+
+  it('short-circuits on the first matching value', () => {
+    const grid = new ScreenSpaceGrid<number>()
+    grid.insert({ left: 40, right: 40, top: 40, bottom: 40 }, 1)
+    grid.insert({ left: 100, right: 100, top: 100, bottom: 100 }, 2)
+    let calls = 0
+    expect(grid.queryAny({ left: 0, right: 128, top: 0, bottom: 128 }, () => { calls += 1; return true })).toBe(true)
+    expect(calls).toBe(1)
+  })
+})
+
 it('ignores magnitude-filtered background dots as label obstacles', () => {
   expect(starBlocksLabels('background')).toBe(false)
   expect(starBlocksLabels('eligible')).toBe(true)
