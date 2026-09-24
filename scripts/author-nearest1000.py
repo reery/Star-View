@@ -15,6 +15,7 @@ from astropy.time import Time
 from astropy.utils import iers
 
 from catalog_sources.adapters import read_cns5, read_gaia_tap, read_simbad_tap
+from catalog_sources.filesystem import write_managed_files
 from catalog_sources.snapshots import canonical_json, sha256, verify_sha256
 
 iers.conf.auto_download = False
@@ -113,6 +114,7 @@ def normalize(record, simbad, gaia):
     velocity = original.galactic.velocity.d_xyz.to_value(units.km / units.s) if use_rv else None
     identifier = f"cns5-{int(record.identity.source_record_id):04d}"
     name = raw.get("main_id") or next((alias for alias in record.identity.aliases if alias.startswith("GJ ")), identifier)
+    constellation = get_constellation(direction, short_name=False, constellation_list="iau").strip()
     row = {header: "" for header in HEADERS}
     row.update({
         "type": object_type,
@@ -124,7 +126,7 @@ def normalize(record, simbad, gaia):
         "z_pc": f"{position[2]:.9f}",
         "epoch": "2000.0",
         "notes": f"Corrected CNS5 {record.identity.source_record_id}; J2000 Sun-relative Galactic position. SIMBAD exact CNS5 identity. {'Full source space motion.' if use_rv else 'Transverse-only source motion; radial velocity unavailable or withheld.'}",
-        "constellation": NAME_CORRECTIONS.get(get_constellation(direction, short_name=False, constellation_list="iau").strip(), get_constellation(direction, short_name=False, constellation_list="iau").strip()),
+        "constellation": NAME_CORRECTIONS.get(constellation, constellation),
         "ra_deg": str(astrometry.ra_deg),
         "dec_deg": str(astrometry.dec_deg),
         "astrometry_epoch": str(astrometry.epoch),
@@ -280,6 +282,8 @@ def main():
     parser.add_argument("--force", action="store_true")
     parser.add_argument("--check", action="store_true")
     arguments = parser.parse_args()
+    if arguments.output.is_symlink():
+        raise ValueError("Output directory must not be a symbolic link")
     package = build_package()
     if arguments.check:
         if any(not (arguments.output / name).exists() or (arguments.output / name).read_text() != content for name, content in package.items()):
@@ -288,9 +292,7 @@ def main():
         return
     if arguments.output.exists() and not arguments.force:
         raise FileExistsError("Output exists; use --force for an intentional regeneration")
-    arguments.output.mkdir(parents=True, exist_ok=True)
-    for name, content in package.items():
-        (arguments.output / name).write_text(content)
+    write_managed_files(arguments.output, package, arguments.force)
     print(json.dumps(json.loads(package["provenance.json"])["coverage"] | {"objects": 1001}, indent=2))
 
 

@@ -81,9 +81,6 @@ button, p, h2, dd { overflow-wrap: anywhere; }
 .is-selected .star-label { color: color-mix(in srgb, var(--star-color) 45%, white); font-weight: 600; text-decoration: underline 2px var(--star-color); text-underline-offset: 4px; background: #000000e6; padding: 2px 0 5px; z-index: 1; }
 .selection-ring { display: none; position: absolute; width: 26px; height: 26px; left: -13px; top: -13px; border: 1px solid var(--star-color); border-radius: 50%; box-shadow: 0 0 9px color-mix(in srgb, var(--star-color) 40%, transparent), inset 0 0 5px color-mix(in srgb, var(--star-color) 20%, transparent); }
 .is-selected:not(.is-clipped) .selection-ring { display: block; }
-.motion-arrow { position: absolute; pointer-events: none; opacity: 0.5; }
-.motion-arrow[data-motion-mode="transverse"] .motion-arrow-shaft { stroke-dasharray: 3 2; }
-.is-selected .motion-arrow { opacity: 1; }
 @media (prefers-reduced-motion: no-preference) {
   .is-selected .selection-ring { animation: selection-emphasis 350ms ease-out; }
 }
@@ -148,18 +145,13 @@ select:focus-visible, input:focus-visible { outline: 2px solid var(--accent); ou
 .star-swatch { display: inline-block; width: 9px; height: 9px; border-radius: 50%; border: 1px solid #ffffff40; flex-shrink: 0; }
 .catalog-name { font-size: 13px; font-weight: 500; min-width: 0; }
 .catalog-distance { color: var(--muted); font-size: 11px; white-space: nowrap; font-variant-numeric: tabular-nums; }
-.selection-summary { padding: 18px 24px 22px; border-bottom: 1px solid var(--line); }
+.selection-summary { padding: 18px 24px 12px; }
 .identity { border-left: 2px solid var(--selected-star-color, var(--accent)); padding-left: 12px; }
 #selected-swatch { box-shadow: 0 0 8px color-mix(in srgb, var(--selected-star-color, var(--accent)) 55%, transparent); }
 .identity-heading { display: flex; align-items: center; gap: 9px; }
 .identity h2 { font-size: 28px; font-weight: 500; line-height: 1.2; }
 .star-id { font-size: 11px; color: var(--muted); margin-top: 6px; }
-.summary-metrics { display: grid; gap: 24px; margin-top: 26px; }
-.metric h3 { font-size: 11px; color: var(--muted); font-weight: 400; margin-bottom: 4px; }
-.metric-value { font-size: 36px; font-weight: 500; font-variant-numeric: tabular-nums; line-height: 1.2; }
-.metric-unit { font-size: 17px; color: var(--muted); font-weight: 400; }
-.metric-sub { font-size: 11px; color: var(--muted); margin-top: 5px; font-variant-numeric: tabular-nums; }
-.properties-section { padding: 16px 24px; border-bottom: 1px solid var(--line); }
+.properties-section { padding: 4px 24px 10px; }
 .properties > div { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 12px; align-items: baseline; padding: 8px 0; font-size: 12px; }
 .properties dt { color: var(--muted); }
 .properties dd { text-align: right; font-weight: 500; font-variant-numeric: tabular-nums; }
@@ -194,15 +186,12 @@ select:focus-visible, input:focus-visible { outline: 2px solid var(--accent); ou
   .catalog-entry { padding: 8px; gap: 7px; }
   .catalog-name { font-size: 12px; }
   .catalog-distance { font-size: 10px; }
-  .selection-summary { padding: 16px 18px; }
+  .selection-summary { padding: 16px 18px 10px; }
   .identity { position: relative; }
   .identity h2 { font-size: 22px; }
   .star-id { font-size: 10px; }
   .display-settings { padding: 12px 18px; }
   .filter-controls { padding-left: 18px; padding-right: 18px; }
-  .summary-metrics { margin-top: 16px; }
-  .metric-value { font-size: 30px; }
-  .metric-unit { font-size: 15px; }
   .properties-section, .source-details { padding-left: 18px; padding-right: 18px; }
   .catalog-footer { padding-left: 18px; }
 }

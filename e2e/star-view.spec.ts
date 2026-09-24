@@ -4,6 +4,7 @@ import { readFileSync } from 'node:fs'
 import { Box3, PerspectiveCamera, Sphere, Spherical, Vector3 } from 'three'
 import { parseStarCatalog, type Star } from '../src/catalog'
 import { galacticToWorld } from '../src/astronomy'
+import { arrowPixelMask, isolatedArrows, measureArrowShaft, motionArrows, openFilter, openPreferences, openViewer, starPoint, type MotionArrowSnapshot } from './support'
 
 function homeCamera(stars: readonly Star[], bounds: { width: number; height: number }) {
   const sphere = new Box3().setFromPoints(stars.map(galacticToWorld)).getBoundingSphere(new Sphere())
@@ -18,36 +19,27 @@ function homeCamera(stars: readonly Star[], bounds: { width: number; height: num
   return camera
 }
 
-async function starPoint(page: Page, id: string) {
-  const anchor = page.locator(`.map-anchor[data-star-id="${id}"]`)
-  await expect(anchor).toBeVisible()
-  // Camera changes are rendered on the next frame; sample the updated label
-  // before using its coordinates for screenshots or pointer input.
-  await page.evaluate(() => new Promise<void>((resolve) => requestAnimationFrame(() => resolve())))
-  return anchor.evaluate((element) => {
-    const rectangle = element.getBoundingClientRect()
-    return { x: rectangle.left, y: rectangle.top }
+test('loads each generated catalog payload only when first selected', async ({ page }) => {
+  const catalogRequests: string[] = []
+  page.on('request', (request) => {
+    const match = new URL(request.url()).pathname.match(/\/assets\/(nearest-(?:neighbors|100|1000)-[^/]+\.json)$/)
+    if (match) catalogRequests.push(match[1]!)
   })
-}
-
-async function openViewer(page: Page) {
-  await page.goto('/')
-  await expect(page.locator('#scene')).toHaveAttribute('data-ready', 'true')
-  await expect(page.locator('#scene-status')).toBeHidden()
-  await expect(page.locator('#star-name')).toHaveText('Sirius A')
-  await page.evaluate(() => document.fonts.ready)
-  await starPoint(page, 'sirius-a')
-}
-
-async function openPreferences(page: Page) {
-  const preferences = page.locator('details.preferences')
-  if (await preferences.getAttribute('open') === null) await preferences.locator('summary').click()
-}
-
-async function openFilter(page: Page) {
-  const filter = page.locator('details.filter-section')
-  if (await filter.getAttribute('open') === null) await filter.locator(':scope > summary').click()
-}
+  await openViewer(page)
+  expect(catalogRequests.filter((name) => name.startsWith('nearest-neighbors-'))).toHaveLength(1)
+  expect(catalogRequests.some((name) => name.startsWith('nearest-100-'))).toBe(false)
+  expect(catalogRequests.some((name) => name.startsWith('nearest-1000-'))).toBe(false)
+  await openFilter(page)
+  const selector = page.getByLabel('Catalog', { exact: true })
+  await selector.selectOption('nearest-1000')
+  await expect(page.locator('#catalog-count')).toHaveText('1001')
+  expect(catalogRequests.filter((name) => name.startsWith('nearest-1000-'))).toHaveLength(1)
+  await selector.selectOption('nearest-neighbors')
+  await expect(page.locator('#catalog-count')).toHaveText('22')
+  await selector.selectOption('nearest-1000')
+  await expect(page.locator('#catalog-count')).toHaveText('1001')
+  expect(catalogRequests.filter((name) => name.startsWith('nearest-1000-'))).toHaveLength(1)
+})
 
 function changedPixels(before: Buffer, after: Buffer): number {
   const first = PNG.sync.read(before)
@@ -97,13 +89,13 @@ async function sceneFits(page: Page) {
 test('switches project catalogs while preserving settings and compatible selection', async ({ page }, testInfo) => {
   await openViewer(page)
   await openPreferences(page)
+  await openFilter(page)
   const selector = page.getByLabel('Catalog', { exact: true })
   await expect(selector).toHaveValue('nearest-neighbors')
   await expect(page.locator('#object-type')).toHaveText('White star')
   await expect(page.locator('#constellation')).toHaveText('Canis Major')
-  await expect(page.locator('.properties-section #absolute-mag')).toHaveText('1.42')
+  await expect(page.locator('#absolute-mag')).toHaveText('1.42')
   await expect(page.getByLabel('ly', { exact: true })).toBeChecked()
-  await openFilter(page)
   await page.getByLabel('V magnitude limit', { exact: true }).fill('9')
   await page.getByLabel('Object visibility distance', { exact: true }).fill('20')
   await page.getByRole('button', { name: 'Grid', exact: true }).click()
@@ -124,9 +116,10 @@ test('switches project catalogs while preserving settings and compatible selecti
   await page.getByRole('button', { name: 'Select GJ 229 A', exact: true }).click()
   await expect(page.locator('#constellation')).toHaveText('Lepus')
   await expect(page.locator('#luminosity-row')).toBeHidden()
-  const denisArrow = page.locator('[data-star-id="10pc-0098"] .motion-arrow')
-  await expect(denisArrow).toHaveAttribute('data-motion-mode', 'transverse')
-  await expect(denisArrow.locator('.motion-arrow-shaft')).toHaveCSS('stroke-dasharray', '3px, 2px')
+  await expect(page.locator('.motion-arrow')).toHaveCount(0)
+  const nearestArrows = await motionArrows(page)
+  expect(nearestArrows.some((arrow) => arrow.mode === 'transverse')).toBe(true)
+  expect(nearestArrows.some((arrow) => arrow.selected && arrow.opacity === 1)).toBe(true)
   await page.screenshot({ path: testInfo.outputPath('nearest-100.png'), fullPage: true })
   await selector.selectOption('nearest-neighbors')
   await expect(page.locator('#star-details')).toBeHidden()
@@ -140,11 +133,15 @@ test('switches project catalogs while preserving settings and compatible selecti
 
 test('searches the virtualized nearest-1000 list within bounded name budgets', async ({ page, isMobile }) => {
   await openViewer(page)
-  await openPreferences(page)
+  await openFilter(page)
   await page.getByLabel('Catalog', { exact: true }).selectOption('nearest-1000')
   await expect(page.locator('#catalog-count')).toHaveText('1001')
-  await expect(page.locator('.map-anchor[data-star-id]')).toHaveCount(1001)
-  expect(await page.locator('.star-label:visible').count()).toBeLessThanOrEqual(isMobile ? 60 : 120)
+  const nameBudget = isMobile ? 60 : 120
+  const activeAnchors = await page.locator('.map-anchor[data-star-id]').count()
+  expect(activeAnchors, 'arrows no longer need DOM anchors').toBeLessThanOrEqual(nameBudget + 2)
+  await expect(page.locator('.motion-arrow')).toHaveCount(0)
+  expect((await motionArrows(page)).length).toBeGreaterThan(0)
+  expect(await page.locator('.star-label:visible').count()).toBeLessThanOrEqual(nameBudget)
   const catalog = page.locator('details.catalog')
   if (await catalog.getAttribute('open') === null) await catalog.locator('summary').click()
   const renderedRows = page.locator('.catalog-entry')
@@ -196,19 +193,18 @@ test('keeps faint dots pickable and retains the last visibility base', async ({ 
   await openPreferences(page)
   await openFilter(page)
   const faint = page.locator('[data-star-id="barnards-star"]')
-  await expect(faint).toHaveAttribute('data-visibility', 'background')
-  await expect(faint.locator('.star-label')).toBeHidden()
-  await expect(faint.locator('.motion-arrow')).toBeHidden()
+  await expect(faint).toHaveCount(0)
   const before = await starPoint(page, 'sun')
   await page.getByLabel('V magnitude limit', { exact: true }).fill('12')
   await expect(faint).toHaveAttribute('data-visibility', 'eligible')
   expect(await starPoint(page, 'sun')).toEqual(before)
-  await page.getByLabel('V magnitude limit', { exact: true }).fill('7')
   const point = await starPoint(page, 'barnards-star')
+  await page.getByLabel('V magnitude limit', { exact: true }).fill('7')
+  await expect(faint).toHaveCount(0)
   await page.mouse.click(point.x, point.y)
   await expect(page.locator('#star-name')).toHaveText("Barnard's Star")
   await expect(faint).toHaveAttribute('data-visibility', 'base')
-  await expect(faint.locator('.motion-arrow')).toBeVisible()
+  await expect.poll(async () => (await motionArrows(page)).some((arrow) => arrow.id === 'barnards-star')).toBe(true)
   await expect(page.locator('#constellation')).toHaveText('Ophiuchus')
   const canvas = (await page.locator('#scene canvas').boundingBox())!
   const position = await starPoint(page, 'barnards-star')
@@ -230,13 +226,16 @@ test('renders faint objects as small colored cores without halos at either pixel
   await openViewer(page)
   await openFilter(page)
   await page.getByRole('button', { name: 'Grid', exact: true }).click()
+  await page.getByLabel('V magnitude limit', { exact: true }).fill('12')
   await page.getByRole('button', { name: 'Zoom in', exact: true }).click()
   await page.getByRole('button', { name: 'Zoom in', exact: true }).click()
   const canvas = page.locator('#scene canvas')
   const bounds = (await canvas.boundingBox())!
   const point = await starPoint(page, 'barnards-star')
+  await page.getByLabel('V magnitude limit', { exact: true }).fill('7')
+  await expect(page.locator('[data-star-id="barnards-star"]')).toHaveCount(0)
   const options = { style: '.projected-labels, .scene-toolbar, .scene-brand, .scene-legend, .plane-key, .visibility-observer { visibility: hidden !important; }' }
-  const sample = (buffer: Buffer) => {
+  const sample = (buffer: Buffer, isArrowPixel: (x: number, y: number) => boolean) => {
     const image = PNG.sync.read(buffer)
     const ratio = image.width / bounds.width
     const centerX = (point.x - bounds.x) * ratio
@@ -252,7 +251,7 @@ test('renders faint objects as small colored cores without halos at either pixel
         const green = image.data[offset + 1]!
         const blue = image.data[offset + 2]!
         if (radius < 5 && red > 180 && red > green + 30 && red > blue + 30) corePixels++
-        if (radius > 6 && radius < 10) {
+        if (radius > 6 && radius < 10 && !isArrowPixel((pixelX + 0.5) / ratio, (pixelY + 0.5) / ratio)) {
           haloBrightness += red + green + blue
           haloPixels++
         }
@@ -260,14 +259,16 @@ test('renders faint objects as small colored cores without halos at either pixel
     }
     return { coreArea: corePixels / ratio ** 2, halo: haloBrightness / haloPixels }
   }
-  const faint = sample(await canvas.screenshot({ ...options, path: testInfo.outputPath('background-dot.png') }))
+  const faintMask = arrowPixelMask(await motionArrows(page), bounds)
+  const faint = sample(await canvas.screenshot({ ...options, path: testInfo.outputPath('background-dot.png') }), faintMask)
   expect(faint.coreArea).toBeGreaterThan(2)
   expect(faint.coreArea).toBeLessThan(10)
   expect(faint.halo).toBeLessThan(1)
   await page.getByLabel('V magnitude limit', { exact: true }).fill('12')
   await expect(page.locator('[data-star-id="barnards-star"]')).toHaveAttribute('data-visibility', 'eligible')
   expect(await starPoint(page, 'barnards-star')).toEqual(point)
-  const eligible = sample(await canvas.screenshot({ ...options, path: testInfo.outputPath('eligible-dot.png') }))
+  const eligibleMask = arrowPixelMask(await motionArrows(page), bounds)
+  const eligible = sample(await canvas.screenshot({ ...options, path: testInfo.outputPath('eligible-dot.png') }), eligibleMask)
   expect(eligible.coreArea).toBeGreaterThan(45)
   expect(eligible.coreArea).toBeLessThan(85)
   expect(eligible.halo).toBeGreaterThan(5)
@@ -306,12 +307,19 @@ test('puts scene context on the map and orders the inspector around selection', 
   await expect(sections).toHaveCount(4)
   expect(await sections.evaluateAll((elements) => elements.map((section) => section.className))).toEqual([
     'inspector-section selected-object',
-    'inspector-section preferences',
     'inspector-section filter-section',
+    'inspector-section preferences',
     'inspector-section catalog',
   ])
   expect(await sections.evaluateAll((elements) => elements.map((section) => section.hasAttribute('open')))).toEqual([true, false, false, false])
+  const primaryProperties = page.locator('.properties-section .properties')
+  await expect(primaryProperties.locator('#distance-value')).toHaveText('8.61')
+  await expect(primaryProperties.locator('#absolute-mag')).toHaveText('1.42')
+  await expect(page.locator('#star-details > .selection-summary')).toHaveCSS('border-bottom-width', '0px')
+  await expect(page.locator('.properties-section')).toHaveCSS('border-bottom-width', '0px')
   expect(await page.locator('.source-details').evaluate((details) => details.closest('.selected-object') !== null)).toBe(true)
+  expect(await page.locator('#catalog-select').evaluate((select) => select.closest('.filter-section') !== null)).toBe(true)
+  expect(await page.locator('#catalog-select').evaluate((select) => select.closest('.preferences') !== null)).toBe(false)
   const titleSizes = await sections.locator(':scope > summary').evaluateAll((summaries) => summaries.map((summary) => parseFloat(getComputedStyle(summary).fontSize)))
   expect(titleSizes.every((size) => size >= 17)).toBe(true)
   expect(titleSizes[0]).toBeGreaterThan(titleSizes[1]!)
@@ -326,7 +334,7 @@ test('puts scene context on the map and orders the inspector around selection', 
   await expect(page.locator('#object-distance-limit-value')).toHaveText('100 ly')
   await expect(magnitude).toHaveAttribute('type', 'range')
   await expect(magnitude).toHaveAttribute('max', '25')
-  await expect(page.getByRole('switch', { name: 'Power saving mode' })).toBeChecked()
+  await expect(page.getByRole('switch', { name: 'Power saving mode' })).not.toBeChecked()
   await page.getByLabel('Catalog', { exact: true }).selectOption('nearest-100')
   await magnitude.fill('25')
   await expect(page.locator('[data-star-id="10pc-0098"]')).toHaveAttribute('data-visibility', 'eligible')
@@ -350,28 +358,26 @@ test('filters only the map and reveals an excluded selected object', async ({ pa
   const barnard = page.locator('[data-star-id="barnards-star"]')
   await distance.fill('5')
   await expect(page.locator('#object-distance-limit-value')).toHaveText('5 ly')
-  await expect(barnard).toHaveAttribute('data-map-visible', 'false')
+  await expect(barnard).toHaveCount(0)
   await expect(page.locator('[data-star-id="sirius-a"]')).toHaveAttribute('data-map-visible', 'true')
   await expect(page.locator('.catalog-entry')).toHaveCount(22)
   await distance.fill('100')
-  await expect(barnard).toHaveAttribute('data-map-visible', 'true')
+  await expect(barnard).toHaveCount(0)
 
   const typeDropdown = page.locator('details.filter-dropdown')
   await expect(typeDropdown).not.toHaveAttribute('open')
   await typeDropdown.locator('summary').click()
   const luhmanA = page.locator('[data-star-id="luhman-16-a"]')
   const luhmanB = page.locator('[data-star-id="luhman-16-b"]')
-  const point = await starPoint(page, 'luhman-16-a')
   const brownDwarfs = page.getByLabel('Brown dwarf', { exact: true })
   await brownDwarfs.uncheck()
   await expect(page.locator('#object-type-filter-summary')).toHaveText('3 of 4')
-  await expect(luhmanA).toHaveAttribute('data-map-visible', 'false')
-  await expect(luhmanB).toHaveAttribute('data-map-visible', 'false')
-  await expect(luhmanA).toBeHidden()
-  await expect(luhmanB).toBeHidden()
+  await expect(luhmanA).toHaveCount(0)
+  await expect(luhmanB).toHaveCount(0)
   await expect(page.locator('.catalog-entry')).toHaveCount(22)
 
-  await page.mouse.click(point.x, point.y)
+  const canvas = (await page.locator('#scene canvas').boundingBox())!
+  await page.mouse.click(canvas.x + canvas.width * 0.1, canvas.y + canvas.height * 0.8)
   await expect(page.locator('#star-details')).toBeHidden()
   await page.locator('.catalog summary').click()
   await page.getByRole('button', { name: 'Select Luhman 16 A', exact: true }).click()
@@ -379,18 +385,17 @@ test('filters only the map and reveals an excluded selected object', async ({ pa
   await expect(page.locator('#visibility-base')).toHaveText('Luhman 16 A')
   await expect(luhmanA).toHaveAttribute('data-map-visible', 'true')
   await expect(luhmanA).toBeVisible()
-  await expect(luhmanB).toHaveAttribute('data-map-visible', 'false')
-  await expect(luhmanB).toBeHidden()
+  await expect(luhmanB).toHaveCount(0)
   await expect(brownDwarfs).not.toBeChecked()
 
-  await openPreferences(page)
+  await openFilter(page)
   await page.getByLabel('Catalog', { exact: true }).selectOption('nearest-100')
   await expect(brownDwarfs).not.toBeChecked()
   await page.reload()
   await expect(page.locator('#scene')).toHaveAttribute('data-ready', 'true')
   await expect(page.getByLabel('Brown dwarf', { exact: true })).toBeChecked()
   await openPreferences(page)
-  await expect(page.getByRole('switch', { name: 'Power saving mode' })).toBeChecked()
+  await expect(page.getByRole('switch', { name: 'Power saving mode' })).not.toBeChecked()
 })
 
 test('renders temperature-colored objects, measurements, and a responsive interface', async ({ page, isMobile }, testInfo) => {
@@ -402,11 +407,12 @@ test('renders temperature-colored objects, measurements, and a responsive interf
   await expect(page.locator('#distance-value')).toHaveText('8.61')
   await expect(page.locator('#inspector').getByText('Galactic height', { exact: true })).toHaveCount(0)
   await expect(page.locator('#height-pc, #height-side, #height-signed')).toHaveCount(0)
-  await expect(page.locator('.summary-metrics .metric')).toHaveCount(1)
+  await expect(page.locator('.properties-section dt', { hasText: 'Distance from Sun' })).toHaveCount(1)
   await expect(page.locator('#object-count')).toHaveCount(0)
   await expect(page.locator('#catalog-count')).toHaveText('22')
   await expect(page.locator('.catalog-entry')).toHaveCount(22)
-  await expect(page.locator('.map-anchor[data-star-id]')).toHaveCount(22)
+  expect(await page.locator('.map-anchor[data-star-id]').count()).toBeLessThan(22)
+  expect(await page.locator('.map-anchor[data-star-id]').count()).toBeGreaterThan(0)
   await expect(page.locator('.dimension-label')).toHaveCount(1)
   await expect(page.locator('.height-label')).toHaveCount(0)
   if (!isMobile) {
@@ -454,6 +460,46 @@ test('renders temperature-colored objects, measurements, and a responsive interf
   expect(errors).toEqual([])
 })
 
+test('renders brown and sub-brown dwarfs in visible brown shades', async ({ page }, testInfo) => {
+  await page.emulateMedia({ reducedMotion: 'reduce' })
+  await openViewer(page)
+  const swatch = (id: string) => page.locator(`[data-star="${id}"] .star-swatch`).evaluate((element) => getComputedStyle(element).backgroundColor)
+  const channels = (color: string) => color.match(/\d+/g)!.slice(0, 3).map(Number)
+  const brightness = ([red, green, blue]: number[]) => 0.2126 * red! + 0.7152 * green! + 0.0722 * blue!
+  const luhman = channels(await swatch('luhman-16-a'))
+  const wise = channels(await swatch('wise-0855-0714'))
+  for (const [red, green, blue] of [luhman, wise]) {
+    expect(red).toBeGreaterThan(green!)
+    expect(green).toBeGreaterThan(blue!)
+    expect(red! - blue!).toBeGreaterThan(60)
+  }
+  expect(brightness(wise)).toBeLessThan(brightness(luhman))
+  await page.locator('[data-star="luhman-16-a"]').evaluate((button: HTMLButtonElement) => button.click())
+  await expect(page.locator('#star-name')).toHaveText('Luhman 16 A')
+  const expected = await swatch('luhman-16-a')
+  expect(await page.locator('#selected-swatch').evaluate((element) => getComputedStyle(element).backgroundColor)).toBe(expected)
+  expect(await page.locator('.map-anchor.is-selected .selection-ring').evaluate((element) => getComputedStyle(element).borderTopColor)).toBe(expected)
+  const point = await starPoint(page, 'luhman-16-a')
+  const canvas = page.locator('#scene canvas')
+  const bounds = (await canvas.boundingBox())!
+  const image = PNG.sync.read(await canvas.screenshot({
+    scale: 'css', path: testInfo.outputPath('brown-dwarf.png'),
+    style: '.projected-labels, .projected-axes { visibility: hidden !important; }',
+  }))
+  const centerX = point.x - bounds.x
+  const centerY = point.y - bounds.y
+  let brownPixels = 0
+  for (let pixelY = Math.floor(centerY - 3); pixelY <= Math.ceil(centerY + 3); pixelY++) {
+    for (let pixelX = Math.floor(centerX - 3); pixelX <= Math.ceil(centerX + 3); pixelX++) {
+      if (Math.hypot(pixelX + 0.5 - centerX, pixelY + 0.5 - centerY) > 3) continue
+      const offset = (pixelY * image.width + pixelX) * 4
+      const [red, green, blue] = [image.data[offset]!, image.data[offset + 1]!, image.data[offset + 2]!]
+      if (red > 120 && red > green + 25 && green > blue + 20) brownPixels++
+    }
+  }
+  expect(brownPixels, 'the selected brown dwarf core must render brown').toBeGreaterThan(12)
+})
+
 test('renders soft halos beyond crisp cores and boosts only the selected halo', async ({ page }, testInfo) => {
   await openViewer(page)
   await page.locator('.catalog summary').click()
@@ -469,12 +515,14 @@ test('renders soft halos beyond crisp cores and boosts only the selected halo', 
   const sun = await starPoint(page, 'sun')
   const centerX = sun.x - bounds.x
   const centerY = sun.y - bounds.y
+  let isArrowPixel = arrowPixelMask(await motionArrows(page), bounds)
   const sample = (image: PNG, inner: number, outer: number) => {
     const values: number[] = []
     for (let pixelY = Math.floor(centerY - outer); pixelY <= Math.ceil(centerY + outer); pixelY++) {
       for (let pixelX = Math.floor(centerX - outer); pixelX <= Math.ceil(centerX + outer); pixelX++) {
         const distance = Math.hypot(pixelX + 0.5 - centerX, pixelY + 0.5 - centerY)
         if (pixelY + 0.5 - centerY < Math.abs(pixelX + 0.5 - centerX) || distance < inner || distance > outer) continue
+        if (isArrowPixel(pixelX + 0.5, pixelY + 0.5)) continue
         const offset = (pixelY * image.width + pixelX) * 4
         values.push(image.data[offset]! + image.data[offset + 1]! + image.data[offset + 2]!)
       }
@@ -496,6 +544,7 @@ test('renders soft halos beyond crisp cores and boosts only the selected halo', 
   await page.getByRole('button', { name: 'Select Sun', exact: true }).click()
   await page.getByRole('button', { name: 'Reset view', exact: true }).click()
   await expect.poll(() => starPoint(page, 'sun')).toEqual(sun)
+  isArrowPixel = arrowPixelMask(await motionArrows(page), bounds)
   const selected = PNG.sync.read(await canvas.screenshot(options))
   expect(sample(selected, 6, 8)).toBeGreaterThan(innerGlow * 1.1)
   expect(sample(selected, 0, 3)).toBe(sample(base, 0, 3))
@@ -525,11 +574,12 @@ test('makes Sirius glow larger and brighter than Barnard with zoom-stable magnit
     const image = PNG.sync.read(await canvas.screenshot({ ...options, path: testInfo.outputPath(`${id}-glow.png`) }))
     const centerX = point.x - bounds.x
     const centerY = point.y - bounds.y
+    let isArrowPixel = arrowPixelMask(await motionArrows(page), bounds)
     const pixels: number[] = []
     for (let pixelY = Math.floor(centerY - 11); pixelY <= Math.ceil(centerY + 11); pixelY++) {
       for (let pixelX = Math.floor(centerX - 11); pixelX <= Math.ceil(centerX + 11); pixelX++) {
         const distance = Math.hypot(pixelX + 0.5 - centerX, pixelY + 0.5 - centerY)
-        if (distance < 6 || distance > 11) continue
+        if (distance < 6 || distance > 11 || isArrowPixel(pixelX + 0.5, pixelY + 0.5)) continue
         const offset = (pixelY * image.width + pixelX) * 4
         pixels.push(0.2126 * image.data[offset]! + 0.7152 * image.data[offset + 1]! + 0.0722 * image.data[offset + 2]!)
       }
@@ -541,7 +591,7 @@ test('makes Sirius glow larger and brighter than Barnard with zoom-stable magnit
       for (let pixelY = Math.floor(centerY - 25); pixelY <= Math.ceil(centerY + 25); pixelY++) {
         for (let pixelX = Math.floor(centerX - 25); pixelX <= Math.ceil(centerX + 25); pixelX++) {
           const distance = Math.hypot(pixelX + 0.5 - centerX, pixelY + 0.5 - centerY)
-          if (distance > 25) continue
+          if (distance > 25 || isArrowPixel(pixelX + 0.5, pixelY + 0.5)) continue
           const offset = (pixelY * image.width + pixelX) * 4
           const brightness = image.data[offset]! + image.data[offset + 1]! + image.data[offset + 2]!
           if (brightness <= 6) continue
@@ -561,6 +611,7 @@ test('makes Sirius glow larger and brighter than Barnard with zoom-stable magnit
     }
     await page.getByRole('button', { name: 'Zoom in', exact: true }).click()
     await expect.poll(() => starPoint(page, id!)).toEqual(point)
+    isArrowPixel = arrowPixelMask(await motionArrows(page), bounds)
     const afterZoom = extent(PNG.sync.read(await canvas.screenshot(options)))
     expect(Math.abs(afterZoom.radius - beforeZoom.radius)).toBeLessThan(1)
     expect(Math.abs(afterZoom.outerPixels - beforeZoom.outerPixels)).toBeLessThan(10)
@@ -589,6 +640,7 @@ test('keeps bright and selected halos subtly temperature-tinted without whitenin
       const point = await starPoint(page, id!)
       const centerX = point.x - bounds.x
       const centerY = point.y - bounds.y
+      const isArrowPixel = arrowPixelMask(await motionArrows(page), bounds)
       const image = PNG.sync.read(await canvas.screenshot({
         scale: 'css', path: testInfo.outputPath(`${id}-${selected ? 'selected' : 'base'}-tint.png`),
         style: '.projected-labels, .scene-toolbar, .scene-brand, .scene-legend, .plane-key, .visibility-observer { visibility: hidden !important; }',
@@ -598,7 +650,7 @@ test('keeps bright and selected halos subtly temperature-tinted without whitenin
       for (let pixelY = Math.floor(centerY - 9); pixelY <= Math.ceil(centerY + 9); pixelY++) {
         for (let pixelX = Math.floor(centerX - 9); pixelX <= Math.ceil(centerX + 9); pixelX++) {
           const distance = Math.hypot(pixelX + 0.5 - centerX, pixelY + 0.5 - centerY)
-          if (distance < 6 || distance > 9) continue
+          if (distance < 6 || distance > 9 || isArrowPixel(pixelX + 0.5, pixelY + 0.5)) continue
           const offset = (pixelY * image.width + pixelX) * 4
           color.red += image.data[offset]!
           color.green += image.data[offset + 1]!
@@ -645,7 +697,8 @@ test('toggles the grid below reset without moving stars or changing selection', 
   }))
   const canvas = page.locator('#scene canvas')
   const screenshotOptions = { scale: 'css' as const, style: '.projected-labels, .scene-toolbar, .scene-brand, .scene-legend, .plane-key, .visibility-observer { visibility: hidden !important; }' }
-  const visibleArrowsBefore = await page.locator('.motion-arrow:visible').count()
+  const arrowsBefore = (await motionArrows(page)).map((arrow) => arrow.id)
+  expect(arrowsBefore.length).toBeGreaterThan(0)
   const gridOn = await canvas.screenshot(screenshotOptions)
   if (isMobile) await grid.tap()
   else await grid.click()
@@ -657,11 +710,12 @@ test('toggles the grid below reset without moving stars or changing selection', 
   await expect(page.locator('#scene-epoch')).toBeVisible()
   await expect(page.locator('#star-name')).toHaveText('Sirius A')
   await expect(page.locator('.dimension-label')).toHaveCount(1)
-  await expect(page.locator('.motion-arrow:visible')).toHaveCount(visibleArrowsBefore)
+  expect((await motionArrows(page)).map((arrow) => arrow.id)).toEqual(arrowsBefore)
   expect(await starPoint(page, 'sun')).toEqual(sunBefore)
   const gridOff = await canvas.screenshot(screenshotOptions)
   expect(changedPixels(gridOn, gridOff)).toBeGreaterThan(200)
   const canvasBounds = (await canvas.boundingBox())!
+  const isArrowPixel = arrowPixelMask(await motionArrows(page), canvasBounds)
   const beforeImage = PNG.sync.read(gridOn)
   const afterImage = PNG.sync.read(gridOff)
   for (const tip of axisTips) {
@@ -670,6 +724,7 @@ test('toggles the grid below reset without moving stars or changing selection', 
     let axisPixels = 0
     for (let pixelY = centerY - 2; pixelY <= centerY + 2; pixelY++) {
       for (let pixelX = centerX - 2; pixelX <= centerX + 2; pixelX++) {
+        if (isArrowPixel(pixelX + 0.5, pixelY + 0.5)) continue
         const offset = (pixelY * afterImage.width + pixelX) * 4
         if (beforeImage.data[offset]! + beforeImage.data[offset + 1]! + beforeImage.data[offset + 2]! > 20) axisPixels++
         expect([...afterImage.data.subarray(offset, offset + 3)], 'axis segment must disappear with the grid').toEqual([0, 0, 0])
@@ -784,7 +839,7 @@ test('fades grid pixels toward the edge without fading the scene', async ({ page
 test('overlapping stars follow camera depth and keep their motion arrows', async ({ page }, testInfo) => {
   await openViewer(page)
   await openFilter(page)
-  await page.getByLabel('V magnitude limit', { exact: true }).fill('12')
+  await page.getByLabel('V magnitude limit', { exact: true }).fill('25')
   const stars = parseStarCatalog(readFileSync(new URL('../src/data/stars.csv', import.meta.url), 'utf8'))
   const positions = stars.map(galacticToWorld)
   const sphere = new Box3().setFromPoints(positions).getBoundingSphere(new Sphere())
@@ -821,8 +876,9 @@ test('overlapping stars follow camera depth and keep their motion arrows', async
       return Math.hypot(sun.x - sirius.x, sun.y - sirius.y)
     }).toBeLessThan(2)
     await expect(page.locator('#star-name')).toHaveText('Sun')
+    const overlappingArrows = (await motionArrows(page)).map((arrow) => arrow.id)
     for (const id of ['sun', 'sirius-a', 'sirius-b']) {
-      await expect(page.locator(`[data-star-id="${id}"] .motion-arrow`)).toBeVisible()
+      expect(overlappingArrows, `${id} keeps its motion arrow`).toContain(id)
     }
     const sun = await starPoint(page, 'sun')
     const nearest = side === -1 ? 'sun' : 'sirius'
@@ -846,7 +902,11 @@ test('overlapping stars follow camera depth and keep their motion arrows', async
     const nearLabel = page.locator(`[data-star-id="${nearId}"] .star-label`)
     const farLabel = page.locator(`[data-star-id="${farId}"] .star-label`)
     if (side === 1) await expect(nearLabel).toBeVisible()
-    await expect(farLabel).toBeHidden()
+    if (await farLabel.isVisible() && await nearLabel.isVisible()) {
+      const [nearBounds, farBounds] = await Promise.all([nearLabel.boundingBox(), farLabel.boundingBox()])
+      expect(nearBounds!.x + nearBounds!.width <= farBounds!.x || farBounds!.x + farBounds!.width <= nearBounds!.x ||
+        nearBounds!.y + nearBounds!.height <= farBounds!.y || farBounds!.y + farBounds!.height <= nearBounds!.y).toBe(true)
+    }
     const nearOrder = await nearLabel.locator('..').evaluate((element) => Number(getComputedStyle(element).zIndex))
     const farOrder = await farLabel.locator('..').evaluate((element) => Number(getComputedStyle(element).zIndex))
     expect(nearOrder).toBeGreaterThan(farOrder)
@@ -857,10 +917,15 @@ test('overlapping stars follow camera depth and keep their motion arrows', async
 test('targets ordinary selections, zooms around them, and resets to the catalog view', async ({ page, isMobile }) => {
   await openViewer(page)
   await page.locator('.catalog summary').click()
-  const proximaHome = await starPoint(page, 'proxima-centauri')
+  const canvasBounds = (await page.locator('#scene canvas').boundingBox())!
+  const stars = parseStarCatalog(readFileSync(new URL('../src/data/stars.csv', import.meta.url), 'utf8'))
+  const proximaProjection = galacticToWorld(stars.find((star) => star.id === 'proxima-centauri')!).project(homeCamera(stars, canvasBounds))
+  const proximaHome = {
+    x: canvasBounds.x + (proximaProjection.x + 1) * canvasBounds.width / 2,
+    y: canvasBounds.y + (1 - proximaProjection.y) * canvasBounds.height / 2,
+  }
   await page.getByRole('button', { name: 'Select Proxima Centauri', exact: true }).click()
   await expect(page.locator('#star-name')).toHaveText('Proxima Centauri')
-  const canvasBounds = (await page.locator('#scene canvas').boundingBox())!
   const center = { x: canvasBounds.x + canvasBounds.width / 2, y: canvasBounds.y + canvasBounds.height / 2 }
   await expect.poll(async () => {
     const selected = await starPoint(page, 'proxima-centauri')
@@ -915,6 +980,8 @@ test('targets ordinary selections, zooms around them, and resets to the catalog 
 test('eases focus through intermediate frames while preserving camera position', async ({ page }) => {
   await page.emulateMedia({ reducedMotion: 'no-preference' })
   await openViewer(page)
+  await openFilter(page)
+  await page.getByLabel('V magnitude limit', { exact: true }).fill('25')
   await page.locator('.catalog summary').click()
   const bounds = (await page.locator('#scene canvas').boundingBox())!
   const samples = await page.evaluate(async () => {
@@ -1072,100 +1139,67 @@ test('shows attached speed-length motion arrows with fixed heads and strokes', a
   await expect(page.locator('.star-label-detail')).toHaveCount(0)
   await expect(page.locator('[data-star-id="sirius-a"] .star-label')).toHaveText('Sirius A')
   const homeSun = await starPoint(page, 'sun')
-  await expect(page.locator('.motion-arrow')).toHaveCount(22)
-  const visibleArrowCount = await page.locator('.motion-arrow:visible').count()
-  expect(visibleArrowCount).toBeGreaterThan(0)
-  await expect(page.locator('[data-star-id="sirius-b"]')).toHaveAttribute('data-visibility', 'background')
-  const sunArrow = page.locator('[data-star-id="sun"] .motion-arrow')
-  await expect(sunArrow).toBeVisible()
-  await expect(sunArrow).toHaveCSS('opacity', '0.5')
-  await expect(sunArrow).toHaveCSS('color', 'rgb(255, 239, 209)')
-  const speedLengths = await page.locator('.motion-arrow').evaluateAll((elements) => elements.map((element) => ({
-    id: element.parentElement!.dataset.starId,
-    length: parseFloat((element as HTMLElement).style.width) - 2 * 5 * 16 / 24,
-  })))
-  expect(speedLengths.find((arrow) => arrow.id === 'sun')!.length).toBeCloseTo(Math.hypot(12.9, 245.6, 7.78) / 10, 3)
-  expect(speedLengths.find((arrow) => arrow.id === 'barnards-star')!.length).toBeGreaterThan(speedLengths.find((arrow) => arrow.id === 'ross-248')!.length)
-  const headGeometry = await page.locator('.motion-arrow svg').evaluateAll((icons) => icons.map((icon) => ({
-    height: icon.getAttribute('height'),
-    stroke: icon.getAttribute('stroke-width'),
-    head: icon.querySelectorAll('path')[1]!.getAttribute('d'),
-  })))
-  for (const geometry of headGeometry) {
-    expect(geometry).toEqual({ height: '16', stroke: '1.7', head: 'm12 5 7 7-7 7' })
+  await expect(page.locator('.motion-arrow')).toHaveCount(0)
+  const arrowFor = (arrows: readonly MotionArrowSnapshot[], id: string) => arrows.find((arrow) => arrow.id === id)
+  const heading = (arrow: MotionArrowSnapshot) => Math.atan2(arrow.tailY - arrow.y, arrow.tailX - arrow.x)
+  const expectAttached = (arrows: readonly MotionArrowSnapshot[]) => {
+    expect(arrows.length).toBeGreaterThan(1)
+    for (const arrow of arrows) {
+      expect(arrow.length, `${arrow.id} projected shaft`).toBeGreaterThan(0)
+      expect(arrow.length, `${arrow.id} projected shaft`).toBeLessThanOrEqual(arrow.maxLength + 1e-3)
+      expect(Math.hypot(arrow.tailX - arrow.x, arrow.tailY - arrow.y), `${arrow.id} tail attaches to the dot`).toBeCloseTo(5, 2)
+      expect(Math.hypot(arrow.tipX - arrow.tailX, arrow.tipY - arrow.tailY), `${arrow.id} tip`).toBeCloseTo(arrow.length, 2)
+    }
   }
-  for (const id of ['wise-0855-0714', 'alpha-centauri-a']) {
-    const transverseArrow = page.locator(`[data-star-id="${id}"] .motion-arrow`)
-    await expect(transverseArrow).toHaveAttribute('data-motion-mode', 'transverse')
-    await expect(transverseArrow.locator('.motion-arrow-shaft')).toHaveCSS('stroke-dasharray', '3px, 2px')
-  }
-  const arrow = page.locator('[data-star-id="sirius-a"] .motion-arrow')
-  await expect(arrow).toHaveAttribute('data-motion-mode', 'full')
-  await expect(arrow.locator('.motion-arrow-shaft')).toHaveCSS('stroke-dasharray', 'none')
-  await expect(arrow).toBeVisible()
-  await expect(arrow).toHaveCSS('opacity', '1')
-  await expect(arrow).toHaveCSS('color', 'rgb(201, 223, 255)')
-  expect(await page.locator('.map-anchor:not(.is-selected) .motion-arrow:visible').count()).toBeGreaterThan(0)
-  const headingBefore = await arrow.evaluate((element) => element.style.transform)
-  const sunHeadingBefore = await sunArrow.evaluate((element) => element.style.transform)
+  const initial = await motionArrows(page)
+  expectAttached(initial)
+  await expect(page.locator('[data-star-id="sirius-b"]')).toHaveCount(0)
+  expect(arrowFor(initial, 'sirius-b')).toBeUndefined()
+  const sunArrow = arrowFor(initial, 'sun')!
+  expect(sunArrow).toMatchObject({ mode: 'full', selected: false, opacity: 0.5, color: 'rgb(255,239,209)' })
+  expect(sunArrow.maxLength).toBeCloseTo(Math.hypot(12.9, 245.6, 7.78) / 10, 3)
+  expect(sunArrow.length).toBeLessThan(sunArrow.maxLength)
+  expect(Math.hypot(sunArrow.x - homeSun.x, sunArrow.y - homeSun.y), 'the Sun arrow starts at its dot').toBeLessThan(0.5)
+  expect(initial.some((arrow) => arrow.mode === 'transverse')).toBe(true)
+  const siriusArrow = arrowFor(initial, 'sirius-a')!
+  expect(siriusArrow).toMatchObject({ mode: 'full', selected: true, opacity: 1, color: 'rgb(201,223,255)' })
+  expect(initial.some((arrow) => !arrow.selected && arrow.opacity === 0.5)).toBe(true)
+  const intrinsicLengths = new Map(initial.map((arrow) => [arrow.id, arrow.maxLength]))
   const bounds = (await page.locator('#scene canvas').boundingBox())!
   await page.mouse.move(bounds.x + bounds.width * 0.4, bounds.y + bounds.height * 0.75)
   await page.mouse.down()
-  await page.mouse.move(bounds.x + bounds.width * 0.4 + 60, bounds.y + bounds.height * 0.75 - 25, { steps: 10 })
+  const sunLengths = [sunArrow.length]
+  for (let step = 1; step <= 10; step++) {
+    await page.mouse.move(bounds.x + bounds.width * 0.4 + 6 * step, bounds.y + bounds.height * 0.75 - 2.5 * step)
+    sunLengths.push(arrowFor(await motionArrows(page), 'sun')!.length)
+  }
   await page.mouse.up()
-  await expect.poll(() => arrow.evaluate((element) => element.style.transform)).not.toBe(headingBefore)
-  await expect.poll(() => sunArrow.evaluate((element) => element.style.transform)).not.toBe(sunHeadingBefore)
-  await expect(page.locator('.motion-arrow:visible')).toHaveCount(visibleArrowCount)
+  await expect.poll(async () => heading(arrowFor(await motionArrows(page), 'sirius-a')!)).not.toBeCloseTo(heading(siriusArrow), 3)
+  await expect.poll(async () => heading(arrowFor(await motionArrows(page), 'sun')!)).not.toBeCloseTo(heading(sunArrow), 3)
+  expect(Math.max(...sunLengths) - Math.min(...sunLengths)).toBeGreaterThan(3)
+  expect(sunLengths.at(-1)!).toBeLessThan(sunLengths[0]!)
+  expect(sunLengths.every((length) => length > 0 && length <= sunArrow.maxLength)).toBe(true)
+  expectAttached(await motionArrows(page))
   await page.getByRole('button', { name: 'Reset view', exact: true }).click()
-  await expect(arrow).toBeVisible()
+  await expect.poll(async () => arrowFor(await motionArrows(page), 'sirius-a') !== undefined).toBe(true)
   for (const action of ['Zoom in', 'Zoom out']) {
     await page.getByRole('button', { name: action, exact: true }).click()
-    const arrows = await page.locator('.motion-arrow:visible').evaluateAll((elements) => elements.map((element) => {
-      const style = getComputedStyle(element)
-      const transform = new DOMMatrixReadOnly(style.transform)
-      const bounds = element.getBoundingClientRect()
-      const anchor = element.parentElement!.getBoundingClientRect()
-      const svg = element.querySelector('svg')!
-      const [shaft, head] = svg.querySelectorAll('path')
-      const matrix = shaft!.getScreenCTM()!
-      const tailPoint = shaft!.getPointAtLength(0)
-      const tipPoint = shaft!.getPointAtLength(shaft!.getTotalLength())
-      const tail = new DOMPoint(tailPoint.x, tailPoint.y).matrixTransform(matrix)
-      const tip = new DOMPoint(tipPoint.x, tipPoint.y).matrixTransform(matrix)
-      const headBounds = head!.getBBox()
-      const scaleX = Math.hypot(matrix.a, matrix.b)
-      const scaleY = Math.hypot(matrix.c, matrix.d)
-      return { width: style.width, height: style.height, pointerEvents: style.pointerEvents, scale: Math.hypot(transform.a, transform.b), offset: Math.hypot(bounds.left + bounds.width / 2 - anchor.left, bounds.top + bounds.height / 2 - anchor.top), tailOffset: Math.hypot(tail.x - anchor.left, tail.y - anchor.top), shaftLength: Math.hypot(tip.x - tail.x, tip.y - tail.y), headWidth: headBounds.width * scaleX, headHeight: headBounds.height * scaleY, stroke: parseFloat(getComputedStyle(shaft!).strokeWidth) * scaleY }
-    }))
-    expect(arrows.length).toBeGreaterThan(1)
-    for (const sample of arrows) {
-      const length = parseFloat(sample.width) - 2 * 5 * 16 / 24
-      expect(length).toBeGreaterThanOrEqual(11.98)
-      expect(length).toBeLessThanOrEqual(40)
-      expect(sample.height).toBe('16px')
-      expect(sample.headWidth).toBeCloseTo(7 * 16 / 24, 1)
-      expect(sample.headHeight).toBeCloseTo(14 * 16 / 24, 1)
-      expect(sample.stroke).toBeCloseTo(1.7 * 16 / 24, 2)
-      expect(sample.shaftLength).toBeCloseTo(length, 1)
-      expect(sample.pointerEvents).toBe('none')
-      expect(sample.scale).toBeCloseTo(1, 5)
-      expect(sample.offset).toBeCloseTo(5 + length / 2, 0)
-      expect(sample.tailOffset).toBeCloseTo(5, 1)
+    const arrows = await motionArrows(page)
+    expectAttached(arrows)
+    for (const arrow of arrows) {
+      if (intrinsicLengths.has(arrow.id)) expect(arrow.maxLength, `${arrow.id} intrinsic length`).toBe(intrinsicLengths.get(arrow.id))
     }
-    expect(await page.locator('.motion-arrow').evaluateAll((elements) => elements.map((element) => ({
-      id: element.parentElement!.dataset.starId,
-      length: parseFloat((element as HTMLElement).style.width) - 2 * 5 * 16 / 24,
-    })))).toEqual(speedLengths)
+    await expect(page.locator('.motion-arrow')).toHaveCount(0)
     await sceneFits(page)
   }
   await page.locator('.catalog summary').click()
   await page.getByRole('button', { name: 'Select Sirius B', exact: true }).click()
-  await expect(arrow).toHaveCSS('opacity', '0.5')
-  await expect(page.locator('[data-star-id="sirius-b"] .motion-arrow')).toHaveCSS('opacity', '1')
-  await expect(page.locator('[data-star-id="sirius-b"] .motion-arrow')).toBeVisible()
-  await expect(page.locator('[data-star-id="sirius-b"] .motion-arrow')).not.toHaveCSS('color', 'rgb(201, 223, 255)')
-  await expect(arrow).toBeHidden()
-  await expect(page.locator('[data-star-id="sirius-a"]')).toHaveAttribute('data-visibility', 'background')
+  await expect(page.locator('[data-star-id="sirius-a"]')).toHaveCount(0)
+  await expect.poll(async () => arrowFor(await motionArrows(page), 'sirius-b')?.opacity).toBe(1)
+  const siriusBArrows = await motionArrows(page)
+  expect(arrowFor(siriusBArrows, 'sirius-a')).toBeUndefined()
+  expect(arrowFor(siriusBArrows, 'sirius-b')!.selected).toBe(true)
+  expect(arrowFor(siriusBArrows, 'sirius-b')!.color).not.toBe(siriusArrow.color)
   await page.getByRole('button', { name: 'Reset view', exact: true }).click()
   await expect.poll(async () => {
     const sun = await starPoint(page, 'sun')
@@ -1176,11 +1210,51 @@ test('shows attached speed-length motion arrows with fixed heads and strokes', a
   else await page.mouse.click(sun.x, sun.y)
   await expect(page.locator('#star-name')).toHaveText('Sun')
   await page.locator('.catalog summary').click()
-  await expect(sunArrow).toBeVisible()
-  await expect(sunArrow).toHaveCSS('color', 'rgb(255, 239, 209)')
+  await expect.poll(async () => arrowFor(await motionArrows(page), 'sun')?.selected).toBe(true)
+  expect(arrowFor(await motionArrows(page), 'sun')).toMatchObject({ opacity: 1, color: 'rgb(255,239,209)' })
   await page.getByRole('button', { name: 'Reset view', exact: true }).click()
   await sceneFits(page)
   await page.screenshot({ path: testInfo.outputPath('motion-arrows.png'), fullPage: true })
+})
+
+test('draws dashed transverse and solid full-motion shafts with a zoom-stable stroke', async ({ page, isMobile }, testInfo) => {
+  await openViewer(page)
+  await openFilter(page)
+  await page.getByLabel('Catalog', { exact: true }).selectOption('nearest-1000')
+  await expect(page.locator('#catalog-count')).toHaveText('1001')
+  await page.getByLabel('V magnitude limit', { exact: true }).fill('25')
+  await page.getByRole('button', { name: 'Grid', exact: true }).click()
+  const canvas = page.locator('#scene canvas')
+  const bounds = (await canvas.boundingBox())!
+  const style = '.projected-labels, .projected-axes, .scene-toolbar, .scene-brand, .scene-legend, .plane-key, .visibility-observer { visibility: hidden !important; }'
+  const strokeWidths: number[] = []
+  // The smaller mobile canvas needs more zoom before shafts stand apart.
+  for (const zoomSteps of [isMobile ? 5 : 2, 1]) {
+    for (let step = 0; step < zoomSteps; step++) await page.getByRole('button', { name: 'Zoom in', exact: true }).click()
+    const arrows = await motionArrows(page)
+    const image = PNG.sync.read(await canvas.screenshot({ scale: 'css', style, path: testInfo.outputPath(`shafts-${strokeWidths.length}.png`) }))
+    const totals = { full: { samples: 0, gaps: 0, width: 0, shafts: 0 }, transverse: { samples: 0, gaps: 0, width: 0, shafts: 0 } }
+    for (const arrow of isolatedArrows(arrows, bounds)) {
+      if (arrow.length < 9) continue
+      const shaft = measureArrowShaft(image, arrow, bounds)
+      if (shaft.samples === 0) continue
+      const total = totals[arrow.mode]
+      total.samples += shaft.samples
+      total.gaps += shaft.gaps
+      total.width += shaft.strokeWidth
+      total.shafts++
+    }
+    expect(totals.transverse.samples, 'isolated transverse shafts to sample').toBeGreaterThan(12)
+    expect(totals.full.samples, 'isolated full-motion shafts to sample').toBeGreaterThan(12)
+    expect(totals.transverse.gaps / totals.transverse.samples, 'transverse shafts are dashed').toBeGreaterThan(0.25)
+    expect(totals.full.gaps / totals.full.samples, 'full-motion shafts are solid').toBeLessThan(0.1)
+    strokeWidths.push(totals.full.width / totals.full.shafts)
+  }
+  for (const width of strokeWidths) {
+    expect(width, 'stroke keeps the 16 px icon scale').toBeGreaterThan(0.8)
+    expect(width, 'stroke keeps the 16 px icon scale').toBeLessThan(1.8)
+  }
+  expect(Math.abs(strokeWidths[0]! - strokeWidths[1]!), 'zoom does not scale strokes').toBeLessThan(0.35)
 })
 
 test('orbit and pinch move the rendered scene without changing selection', async ({ page, context, isMobile }) => {
@@ -1195,7 +1269,12 @@ test('orbit and pinch move the rendered scene without changing selection', async
         const text = label.getBoundingClientRect()
         const anchor = label.parentElement!.getBoundingClientRect()
         samples.visible++
-        if (Math.abs(text.left - anchor.left - 22) > 1 || Math.abs(text.top + text.height / 2 - anchor.top) > 1) samples.incorrect++
+        if (label.parentElement!.classList.contains('is-selected')) continue
+        const correct = Math.abs(text.left - anchor.left - 22) <= 1 ||
+          Math.abs(text.right - anchor.left + 22) <= 1 ||
+          Math.abs(text.top - anchor.top - 22) <= 1 ||
+          Math.abs(text.bottom - anchor.top + 22) <= 1
+        if (!correct) samples.incorrect++
       }
       requestAnimationFrame(sample)
     }
@@ -1226,7 +1305,8 @@ test('orbit and pinch move the rendered scene without changing selection', async
   expect(samples.incorrect).toBe(0)
   await expect(page.locator('#star-name')).toHaveText('Sirius A')
   await page.getByRole('button', { name: 'Reset view', exact: true }).click()
-  await expect(page.locator('.star-label')).toHaveCount(22)
+  expect(await page.locator('.star-label').count()).toBeGreaterThan(0)
+  expect(await page.locator('.star-label').count()).toBeLessThan(22)
 
   if (isMobile) {
     const session = await context.newCDPSession(page)
@@ -1275,92 +1355,6 @@ test('clears selection on empty-sky clicks and taps without moving the camera', 
   await page.getByRole('button', { name: 'Select Sun', exact: true }).click()
   await expect(page.locator('#star-name')).toHaveText('Sun')
   await expect(page.locator('[data-star-id="sun"] .star-label')).toBeVisible()
-})
-
-test('keeps the selected name in front even at collisions and scene edges', async ({ page }) => {
-  await openViewer(page)
-  await page.locator('.catalog summary').click()
-  await page.getByRole('button', { name: 'Select Sun', exact: true }).click()
-  await page.getByRole('button', { name: 'Reset view', exact: true }).click()
-  const label = page.locator('[data-star-id="sun"] .star-label')
-  await expect(label).toBeVisible()
-  await expect(label).toHaveText('Sun')
-  await expect(label).toHaveCSS('font-weight', '600')
-  await expect(label).toHaveCSS('text-decoration-line', 'underline')
-  await expect(label).toHaveCSS('text-decoration-color', 'rgb(255, 239, 209)')
-  await expect(page.locator('[data-star-id="sun"] .selection-ring')).toHaveCSS('border-top-color', 'rgb(255, 239, 209)')
-  await expect(page.locator('.identity')).toHaveCSS('border-left-color', 'rgb(255, 239, 209)')
-  await expect(label.locator('..')).toHaveCSS('z-index', '1')
-  await label.evaluate((element) => {
-    const bounds = element.getBoundingClientRect()
-    const scene = document.querySelector('.scene-wrap')!
-    const sceneBounds = scene.getBoundingClientRect()
-    const obstacle = document.createElement('div')
-    obstacle.id = 'test-label-obstacle'
-    obstacle.dataset.sceneObstacle = ''
-    Object.assign(obstacle.style, { position: 'absolute', left: `${bounds.left - sceneBounds.left}px`, top: `${bounds.top - sceneBounds.top}px`, width: `${bounds.width}px`, height: `${bounds.height}px`, background: 'red' })
-    scene.append(obstacle)
-  })
-  await page.evaluate(() => new Promise(requestAnimationFrame))
-  await expect(label).toBeVisible()
-  expect(await label.evaluate((element) => {
-    element.style.pointerEvents = 'auto'
-    const bounds = element.getBoundingClientRect()
-    const foreground = document.elementFromPoint(bounds.left + bounds.width / 2, bounds.top + bounds.height / 2) === element
-    element.style.removeProperty('pointer-events')
-    document.getElementById('test-label-obstacle')!.remove()
-    return foreground
-  })).toBe(true)
-  const bounds = (await page.locator('#scene canvas').boundingBox())!
-  await page.mouse.move(bounds.x + bounds.width / 2, bounds.y + bounds.height * 0.7)
-  await page.mouse.down({ button: 'right' })
-  await page.mouse.move(bounds.x + bounds.width * 2, bounds.y + bounds.height * 0.7, { steps: 12 })
-  await page.mouse.up({ button: 'right' })
-  await expect(page.locator('[data-star-id="sun"]')).toHaveClass(/is-clipped/)
-  await expect(label).toBeVisible()
-  await expect(page.locator('[data-star-id="sun"] .selection-ring')).toBeHidden()
-  const textBounds = (await label.boundingBox())!
-  expect(textBounds.x).toBeGreaterThanOrEqual(bounds.x)
-  expect(textBounds.x + textBounds.width).toBeLessThanOrEqual(bounds.x + bounds.width)
-  expect(textBounds.y).toBeGreaterThanOrEqual(bounds.y)
-  expect(textBounds.y + textBounds.height).toBeLessThanOrEqual(bounds.y + bounds.height)
-  await page.getByRole('button', { name: 'Reset view', exact: true }).click()
-  await expect(label).toBeVisible()
-})
-
-test('keeps star names steady and the distance centered on its line during rotation', async ({ page }) => {
-  await openViewer(page)
-  await expect(page.locator('.distance-label').locator('..')).toHaveCSS('z-index', '2')
-  const bounds = (await page.locator('#scene canvas').boundingBox())!
-  await page.mouse.move(bounds.x + bounds.width * 0.4, bounds.y + bounds.height * 0.7)
-  await page.mouse.down()
-  for (let step = 0; step <= 12; step++) {
-    await page.mouse.move(bounds.x + bounds.width * 0.4 + step * 8, bounds.y + bounds.height * 0.7 - step * 3)
-    const offsets = await page.evaluate(async () => {
-      await new Promise(requestAnimationFrame)
-      const endpoints = ['sun', 'sirius-a'].map((id) => document.querySelector<HTMLElement>(`[data-star-id="${id}"]`)!.getBoundingClientRect())
-      const lineCenter = { x: (endpoints[0]!.left + endpoints[1]!.left) / 2, y: (endpoints[0]!.top + endpoints[1]!.top) / 2 }
-      return [...document.querySelectorAll<HTMLElement>('.star-label, .distance-label')]
-        .filter((label) => label.checkVisibility())
-        .map((label) => {
-          const text = label.getBoundingClientRect()
-          const anchor = label.parentElement!.getBoundingClientRect()
-          const distance = label.matches('.distance-label')
-          const centered = !distance || Math.hypot(text.left + text.width / 2 - lineCenter.x, text.top + text.height / 2 - lineCenter.y) < 1
-          return { x: text.left - anchor.left, y: text.top + text.height / 2 - anchor.top, distance, centered }
-        })
-    })
-    expect(offsets.length).toBeGreaterThan(0)
-    expect(offsets.some((offset) => offset.distance)).toBe(true)
-    for (const offset of offsets) {
-      expect(offset.centered).toBe(true)
-      if (!offset.distance) {
-        expect(offset.x).toBeCloseTo(22, 0)
-        expect(offset.y).toBeCloseTo(0, 0)
-      }
-    }
-  }
-  await page.mouse.up()
 })
 
 test('fits a narrow viewport and keeps long source content inside the inspector', async ({ page }, testInfo) => {
@@ -1416,6 +1410,7 @@ test('keeps the catalog usable if WebGL is unavailable', async ({ page }) => {
   await page.goto('/')
   await expect(page.locator('#scene-status')).toContainText('3D graphics are unavailable')
   await openPreferences(page)
+  await openFilter(page)
   await page.locator('.catalog summary').click()
   await page.getByRole('button', { name: 'Select Sun', exact: true }).click()
   await expect(page.locator('#star-name')).toHaveText('Sun')

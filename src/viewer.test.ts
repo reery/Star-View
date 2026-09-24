@@ -1,12 +1,139 @@
 import { describe, expect, it } from 'vitest'
-import { PerspectiveCamera, Vector3 } from 'three'
-import { focusProgress, isObjectMapVisible, mapLabelBudget, motionArrowLength, pickStarAtScreenPoint, projectMotionDirection, projectSelectedAnchor, projectWorldPoint, renderPixelRatio, starHaloDiameter, starHaloOpacity, starHaloStrength, TapGesture } from './viewer'
+import { PerspectiveCamera, Vector3, type Camera } from 'three'
+import { chooseOrdinaryLabelPlacement, ordinaryLabelCandidates } from './label-layout'
+import { renderPixelRatio } from './render-scheduling'
+import {
+  MOTION_ARROW_HEAD_PX, MOTION_ARROW_STROKE_PX, MOTION_ARROW_TAIL_OFFSET_PX,
+  ScreenSpaceGrid, TapGesture, budgetVisibleLabelIndices, focusProgress, isObjectMapVisible,
+  mapLabelBudget, motionArrowGeometryInto, motionArrowLength, motionForeshortening, pickProjectedStarAtScreenPoint,
+  projectMotionDirection, projectSelectedAnchor, projectWorldPoint, starBlocksLabels,
+  shouldRunOrdinaryLabelLayout, starHaloDiameter, starHaloOpacity, starHaloStrength, type MotionArrowGeometry,
+  type PointerPosition, type ProjectedPickable, type Viewport,
+} from './viewer-primitives'
 
 const viewport = { left: 110, top: 90, width: 400, height: 300 }
 
 it('budgets ordinary map names by pointer density', () => {
   expect(mapLabelBudget(false)).toBe(120)
   expect(mapLabelBudget(true)).toBe(60)
+})
+
+describe('ordinary label layout cadence', () => {
+  it('runs immediately for dirty, inactive, or invalid frame state', () => {
+    expect(shouldRunOrdinaryLabelLayout(10, 10, true, true)).toBe(true)
+    expect(shouldRunOrdinaryLabelLayout(10, 10, false, false)).toBe(true)
+    expect(shouldRunOrdinaryLabelLayout(10, -Infinity, true, false)).toBe(true)
+    expect(shouldRunOrdinaryLabelLayout(10, 20, true, false)).toBe(true)
+  })
+
+  it('uses a time interval instead of a frame count during motion', () => {
+    expect(shouldRunOrdinaryLabelLayout(10 + 1000 / 60, 10, true, false)).toBe(false)
+    expect(shouldRunOrdinaryLabelLayout(10 + 1000 / 30, 10, true, false)).toBe(true)
+    expect(shouldRunOrdinaryLabelLayout(10 + 1000 / 120, 10, true, false)).toBe(false)
+  })
+})
+
+it('spends the map name budget only on camera-visible stars', () => {
+  const groups = [{ indices: [0] }, { indices: [1, 2, 3] }, { indices: [4] }]
+  const projections = [
+    { visible: false, depth: 1 },
+    { visible: true, depth: 8 },
+    { visible: false, depth: 1 },
+    { visible: true, depth: 2 },
+    { visible: true, depth: 4 },
+  ]
+  expect(budgetVisibleLabelIndices(groups, projections, 3)).toEqual([3, 1, 4])
+  expect(budgetVisibleLabelIndices(groups, projections, 2)).toEqual([3, 1])
+  expect(budgetVisibleLabelIndices(groups, projections, 0)).toEqual([])
+})
+
+describe('ordinary label placement', () => {
+  const candidates = ordinaryLabelCandidates({ x: 100, y: 80 }, 40, 16)
+
+  it('offers deterministic positions on every side of the star', () => {
+    expect(candidates).toEqual([
+      { placement: 'right', left: 122, top: 72, right: 162, bottom: 88 },
+      { placement: 'left', left: 38, top: 72, right: 78, bottom: 88 },
+      { placement: 'below', left: 80, top: 102, right: 120, bottom: 118 },
+      { placement: 'above', left: 80, top: 42, right: 120, bottom: 58 },
+    ])
+  })
+
+  it('uses a clear alternate when the right side is blocked', () => {
+    expect(chooseOrdinaryLabelPlacement(candidates, undefined, (candidate) => candidate.placement === 'right')?.placement).toBe('left')
+  })
+
+  it('keeps a previous placement with a smaller exit gap', () => {
+    const gaps: number[] = []
+    const placement = chooseOrdinaryLabelPlacement(candidates, 'above', (candidate, gap) => {
+      gaps.push(gap)
+      return candidate.placement === 'right'
+    })
+    expect(placement?.placement).toBe('above')
+    expect(gaps).toEqual([2])
+  })
+})
+
+describe('screen-space grid cell keys', () => {
+  it('round-trips points at negative coordinates', () => {
+    const grid = new ScreenSpaceGrid<number>()
+    grid.insert({ left: -40, right: -40, top: -40, bottom: -40 }, 1)
+    expect(grid.query({ left: -50, right: -30, top: -50, bottom: -30 })).toEqual([1])
+    expect(grid.query({ left: -20, right: 0, top: -20, bottom: 0 })).toEqual([])
+  })
+
+  it('does not leak negative-cell entries into positive cells', () => {
+    const grid = new ScreenSpaceGrid<number>()
+    grid.insert({ left: -32, right: -32, top: 0, bottom: 0 }, 1)
+    expect(grid.query({ left: 0, right: 32, top: 0, bottom: 32 })).toEqual([])
+    expect(grid.query({ left: -64, right: 0, top: -32, bottom: 32 })).toEqual([1])
+  })
+
+  it('matches multi-cell bounds spanning the negative/positive boundary', () => {
+    const grid = new ScreenSpaceGrid<number>()
+    grid.insert({ left: -48, right: 48, top: -16, bottom: 16 }, 1)
+    expect(grid.query({ left: 20, right: 40, top: 0, bottom: 10 })).toEqual([1])
+    expect(grid.query({ left: -40, right: -20, top: -10, bottom: 0 })).toEqual([1])
+    expect(grid.query({ left: 64, right: 80, top: 0, bottom: 10 })).toEqual([])
+  })
+
+  it('deduplicates values inserted into overlapping cells', () => {
+    const grid = new ScreenSpaceGrid<number>()
+    grid.insert({ left: -40, right: 40, top: -40, bottom: 40 }, 1)
+    expect(grid.query({ left: -40, right: 40, top: -40, bottom: 40 })).toEqual([1])
+  })
+})
+
+describe('screen-space grid queryAny', () => {
+  it('reports matches and respects the predicate', () => {
+    const grid = new ScreenSpaceGrid<number>()
+    grid.insert({ left: 40, right: 40, top: 40, bottom: 40 }, 1)
+    expect(grid.queryAny({ left: 30, right: 50, top: 30, bottom: 50 }, (value) => value === 1)).toBe(true)
+    expect(grid.queryAny({ left: 30, right: 50, top: 30, bottom: 50 }, (value) => value === 2)).toBe(false)
+    expect(grid.queryAny({ left: 100, right: 120, top: 100, bottom: 120 }, () => true)).toBe(false)
+  })
+
+  it('works at negative coordinates', () => {
+    const grid = new ScreenSpaceGrid<number>()
+    grid.insert({ left: -40, right: -40, top: -40, bottom: -40 }, 1)
+    expect(grid.queryAny({ left: -50, right: -30, top: -50, bottom: -30 }, (value) => value === 1)).toBe(true)
+    expect(grid.queryAny({ left: -20, right: 0, top: -20, bottom: 0 }, () => true)).toBe(false)
+  })
+
+  it('short-circuits on the first matching value', () => {
+    const grid = new ScreenSpaceGrid<number>()
+    grid.insert({ left: 40, right: 40, top: 40, bottom: 40 }, 1)
+    grid.insert({ left: 100, right: 100, top: 100, bottom: 100 }, 2)
+    let calls = 0
+    expect(grid.queryAny({ left: 0, right: 128, top: 0, bottom: 128 }, () => { calls += 1; return true })).toBe(true)
+    expect(calls).toBe(1)
+  })
+})
+
+it('ignores magnitude-filtered background dots as label obstacles', () => {
+  expect(starBlocksLabels('background')).toBe(false)
+  expect(starBlocksLabels('eligible')).toBe(true)
+  expect(starBlocksLabels('base')).toBe(true)
 })
 
 describe('camera focus easing', () => {
@@ -17,19 +144,18 @@ describe('camera focus easing', () => {
 
 describe('movement render quality', () => {
   it.each([
-    [2, false, false, 2],
-    [2, false, true, 2],
-    [2, true, false, 2],
-    [2, true, true, 1.5],
-    [1.25, true, true, 1.25],
-    [3, true, false, 2],
-    [3, true, true, 1.5],
-  ])('maps DPR %s with power saving %s and movement %s to %s', (ratio, enabled, moving, expected) => {
-    expect(renderPixelRatio(ratio, enabled, moving)).toBe(expected)
+    [2, false, 1],
+    [2, true, 0.5],
+    [0.75, false, 0.75],
+    [0.4, true, 0.4],
+    [3, false, 1],
+    [3, true, 0.5],
+  ])('maps DPR %s with power saving %s to %s', (ratio, enabled, expected) => {
+    expect(renderPixelRatio(ratio, enabled)).toBe(expected)
   })
 
   it.each([0, -1, NaN, Infinity])('falls back safely for invalid DPR %s', (ratio) => {
-    expect(renderPixelRatio(ratio, true, true)).toBe(1)
+    expect(renderPixelRatio(ratio, true)).toBe(0.5)
   })
 })
 
@@ -127,6 +253,23 @@ function makeCamera(distance = 5) {
   return camera
 }
 
+function pickStarAtScreenPoint(
+  stars: readonly { id: string; position: Vector3 }[],
+  camera: Camera,
+  view: Viewport,
+  pointer: PointerPosition,
+  radius: number,
+): string | null {
+  const grid = new ScreenSpaceGrid<ProjectedPickable>()
+  for (const star of stars) {
+    const point = projectWorldPoint(star.position, camera, view)
+    if (!point) continue
+    const projected = { id: star.id, ...point }
+    grid.insert({ left: projected.x, right: projected.x, top: projected.y, bottom: projected.y }, projected)
+  }
+  return pickProjectedStarAtScreenPoint(grid, view, pointer, radius)
+}
+
 describe('projected star picking', () => {
   it('uses the actual canvas offset and CSS dimensions', () => {
     expect(projectWorldPoint(new Vector3(), makeCamera(), viewport)).toEqual({ x: 310, y: 240, depth: 5 })
@@ -157,6 +300,20 @@ describe('projected star picking', () => {
     ]
     expect(pickStarAtScreenPoint(stars, makeCamera(), viewport, { clientX: 310, clientY: 240 }, 16)).toBe('near')
   })
+
+  it('queries nearby grid cells while preserving distance and depth ordering', () => {
+    const stars: ProjectedPickable[] = [
+      { id: 'far-away', x: 480, y: 360, depth: 1 },
+      { id: 'far-depth', x: 310, y: 240, depth: 8 },
+      { id: 'near-depth', x: 310, y: 240, depth: 4 },
+      { id: 'closer-screen', x: 307, y: 240, depth: 20 },
+    ]
+    const grid = new ScreenSpaceGrid<ProjectedPickable>(32)
+    for (const star of stars) grid.insert({ left: star.x, right: star.x, top: star.y, bottom: star.y }, star)
+    expect(pickProjectedStarAtScreenPoint(grid, viewport, { clientX: 310, clientY: 240 }, 16)).toBe('near-depth')
+    expect(pickProjectedStarAtScreenPoint(grid, viewport, { clientX: 306, clientY: 240 }, 16)).toBe('closer-screen')
+    expect(pickProjectedStarAtScreenPoint(grid, viewport, { clientX: 100, clientY: 240 }, 500)).toBeNull()
+  })
 })
 
 describe('selected offscreen labels', () => {
@@ -184,7 +341,67 @@ describe('motion arrow speed scale', () => {
   })
 })
 
+describe('motion arrow geometry', () => {
+  const geometry = (motionX: number, motionY: number, length: number) =>
+    motionArrowGeometryInto(100, 50, motionX, motionY, length, {} as MotionArrowGeometry)
+
+  it('keeps the original 16 CSS px icon proportions', () => {
+    expect(MOTION_ARROW_TAIL_OFFSET_PX).toBe(5)
+    expect(MOTION_ARROW_STROKE_PX).toBeCloseTo(1.7 * 16 / 24)
+    expect(MOTION_ARROW_HEAD_PX).toBeCloseTo(7 * 16 / 24)
+  })
+
+  it('attaches the tail to the dot edge and extends the shaft by the projected length', () => {
+    const arrow = geometry(0.6, -0.8, 25)
+    expect(arrow.tailX).toBeCloseTo(103)
+    expect(arrow.tailY).toBeCloseTo(46)
+    expect(Math.hypot(arrow.tipX - arrow.tailX, arrow.tipY - arrow.tailY)).toBeCloseTo(25)
+    expect(arrow.tipX).toBeCloseTo(118)
+    expect(arrow.tipY).toBeCloseTo(26)
+  })
+
+  it('bounds the shaft, arrowhead and stroke radius', () => {
+    const radius = MOTION_ARROW_STROKE_PX / 2
+    const horizontal = geometry(1, 0, 20)
+    expect(horizontal.left).toBeCloseTo(105 - radius)
+    expect(horizontal.right).toBeCloseTo(125 + radius)
+    expect(horizontal.top).toBeCloseTo(50 - MOTION_ARROW_HEAD_PX - radius)
+    expect(horizontal.bottom).toBeCloseTo(50 + MOTION_ARROW_HEAD_PX + radius)
+    const diagonal = geometry(Math.SQRT1_2, Math.SQRT1_2, 20)
+    for (const [x, y] of [[diagonal.tailX, diagonal.tailY], [diagonal.tipX, diagonal.tipY]]) {
+      expect(x).toBeGreaterThan(diagonal.left)
+      expect(x).toBeLessThan(diagonal.right)
+      expect(y).toBeGreaterThan(diagonal.top)
+      expect(y).toBeLessThan(diagonal.bottom)
+    }
+    expect(diagonal.right - diagonal.left).toBeCloseTo(diagonal.bottom - diagonal.top)
+  })
+
+  it('collapses a fully foreshortened shaft onto the tail', () => {
+    const arrow = geometry(0, 1, 0)
+    expect(arrow.tipX).toBe(arrow.tailX)
+    expect(arrow.tipY).toBe(arrow.tailY)
+    expect(arrow.right - arrow.left).toBeCloseTo(2 * (MOTION_ARROW_HEAD_PX + MOTION_ARROW_STROKE_PX / 2))
+  })
+})
+
 describe('projected motion direction', () => {
+  describe('motion foreshortening', () => {
+    it('collapses camera-aligned motion and preserves transverse motion', () => {
+      const position = new Vector3(0, 0, -5)
+      expect(motionForeshortening(position, new Vector3(0, 0, 1))).toBe(0)
+      expect(motionForeshortening(position, new Vector3(0, 0, -1))).toBe(0)
+      expect(motionForeshortening(position, new Vector3(1, 0, 0))).toBe(1)
+    })
+
+    it('changes continuously with viewing angle', () => {
+      const position = new Vector3(0, 0, -5)
+      const velocityAt = (degrees: number) => new Vector3(Math.sin(degrees * Math.PI / 180), 0, Math.cos(degrees * Math.PI / 180))
+      expect(motionForeshortening(position, velocityAt(7))).toBeCloseTo(Math.sin(7 * Math.PI / 180))
+      expect(motionForeshortening(position, velocityAt(45))).toBeCloseTo(Math.SQRT1_2)
+      expect(motionForeshortening(position, new Vector3())).toBe(0)
+    })
+  })
   it.each([1e-12, 1, 1000])('keeps a fixed direction for velocity scale %s', (scale) => {
     expect(projectMotionDirection(new Vector3(), new Vector3(scale, 0, 0), makeCamera(), viewport)).toEqual({ x: 1, y: -0 })
     expect(projectMotionDirection(new Vector3(), new Vector3(0, scale, 0), makeCamera(), viewport)).toEqual({ x: 0, y: -1 })

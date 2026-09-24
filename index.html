@@ -43,15 +43,10 @@
                     <div class="identity-heading"><span id="selected-swatch" class="star-swatch"></span><h2 id="star-name"></h2></div>
                     <p id="star-id" class="star-id"></p>
                   </div>
-                  <div class="summary-metrics">
-                    <div class="metric distance-metric">
-                      <h3>Distance from Sun</h3>
-                      <p class="metric-value"><span id="distance-value"></span><span id="distance-unit" class="metric-unit"> ly</span></p>
-                    </div>
-                  </div>
                 </section>
                 <section class="properties-section" aria-label="Object properties">
                   <dl class="properties">
+                    <div><dt>Distance from Sun</dt><dd><span id="distance-value"></span><span id="distance-unit"> ly</span></dd></div>
                     <div><dt>Object type</dt><dd id="object-type"></dd></div>
                     <div><dt>Constellation</dt><dd id="constellation"></dd></div>
                     <div><dt>Spectral type</dt><dd id="spectral-type"></dd></div>
@@ -87,21 +82,11 @@
               </div>
             </div>
           </details>
-          <details class="inspector-section preferences">
-            <summary>Preferences</summary>
-            <section class="display-settings" aria-label="Catalog and display settings">
-              <div class="catalog-choice"><label for="catalog-select">Catalog</label><select id="catalog-select"></select></div>
-              <fieldset id="distance-units"><legend>Distances</legend><div class="unit-options"><label><input id="unit-pc" type="radio" name="distance-unit" value="pc"><span>pc</span></label><label><input id="unit-ly" type="radio" name="distance-unit" value="ly" checked><span>ly</span></label></div></fieldset>
-              <label class="power-saving-choice" for="power-saving-mode">
-                <span>Power saving mode</span>
-                <span class="switch-control"><input id="power-saving-mode" type="checkbox" role="switch" checked><span class="switch-track" aria-hidden="true"></span></span>
-              </label>
-              <p id="catalog-error" class="catalog-error" role="alert" hidden></p>
-            </section>
-          </details>
           <details class="inspector-section filter-section">
             <summary>Filter</summary>
             <div class="filter-controls">
+              <div class="catalog-choice"><label for="catalog-select">Catalog</label><select id="catalog-select"></select></div>
+              <p id="catalog-error" class="catalog-error" role="alert" hidden></p>
               <div class="range-filter">
                 <div class="range-heading"><label for="object-distance-limit">Object visibility distance</label><output id="object-distance-limit-value" for="object-distance-limit">100 ly</output></div>
                 <input id="object-distance-limit" type="range" min="5" max="100" step="1" value="100">
@@ -120,6 +105,16 @@
                 </fieldset>
               </details>
             </div>
+          </details>
+          <details class="inspector-section preferences">
+            <summary>Preferences</summary>
+            <section class="display-settings" aria-label="Display settings">
+              <fieldset id="distance-units"><legend>Distances</legend><div class="unit-options"><label><input id="unit-pc" type="radio" name="distance-unit" value="pc"><span>pc</span></label><label><input id="unit-ly" type="radio" name="distance-unit" value="ly" checked><span>ly</span></label></div></fieldset>
+              <label class="power-saving-choice" for="power-saving-mode">
+                <span>Power saving mode</span>
+                <span class="switch-control"><input id="power-saving-mode" type="checkbox" role="switch"><span class="switch-track" aria-hidden="true"></span></span>
+              </label>
+            </section>
           </details>
           <details class="inspector-section catalog" aria-labelledby="catalog-heading">
             <summary><span id="catalog-heading">Objects</span><span id="catalog-count"></span></summary>
