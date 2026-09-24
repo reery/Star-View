@@ -19,12 +19,25 @@ function placement(start = { x: 100, y: 160 }, end = { x: 400, y: 160 }) {
 }
 
 describe('distance label placement', () => {
-  it('places the label beside the projected line and clears both endpoint halos', () => {
+  it('centers the label on the projected line midpoint when it clears both endpoint halos', () => {
     const result = placement()!
+    expect(result.bounds).toEqual({ left: 210, top: 150, right: 290, bottom: 170 })
     expect(result.side).toBe(1)
-    expect(result.normal).toEqual({ x: 0, y: -1 })
     expect(overlaps(result.bounds, { left: 64, right: 136, top: 124, bottom: 196 }, 0)).toBe(false)
     expect(overlaps(result.bounds, { left: 374, right: 426, top: 134, bottom: 186 }, 0)).toBe(false)
+  })
+
+  it('follows the midpoint of a diagonal line', () => {
+    const result = placement({ x: 100, y: 60 }, { x: 400, y: 260 })!
+    expect((result.bounds.left + result.bounds.right) / 2).toBe(250)
+    expect((result.bounds.top + result.bounds.bottom) / 2).toBe(160)
+  })
+
+  it('moves beside the line when a centered label would cover an endpoint halo', () => {
+    const result = placement({ x: 200, y: 160 }, { x: 300, y: 160 })!
+    expect(result.side).toBe(1)
+    expect(result.normal).toEqual({ x: 0, y: -1 })
+    expect(result.bounds.bottom).toBeLessThanOrEqual(124)
   })
 
   it('keeps clearance when the projected endpoints nearly coincide', () => {

@@ -1,20 +1,20 @@
 import {
-  AdditiveBlending, Box3, BufferGeometry, CanvasTexture, Color, Float32BufferAttribute,
-  GridHelper, Group, LessDepth, Line, LineBasicMaterial, LineDashedMaterial, LineSegments, Matrix4, NoBlending, Object3D,
-  PerspectiveCamera, Points, PointsMaterial, Scene, ShaderMaterial, Sphere, SRGBColorSpace,
-  Vector3, Vector4, WebGLRenderer,
+  AdditiveBlending, Box3, BufferGeometry, CanvasTexture, Color, DoubleSide, DynamicDrawUsage, Float32BufferAttribute,
+  GridHelper, Group, InstancedBufferAttribute, InstancedBufferGeometry, LessDepth, Line, LineBasicMaterial, LineDashedMaterial,
+  LineSegments, Matrix4, Mesh, NoBlending, Object3D, PerspectiveCamera, Points, PointsMaterial, Scene, ShaderMaterial, Sphere,
+  SRGBColorSpace, Vector2, Vector3, Vector4, WebGLRenderer,
 } from 'three'
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js'
-import { ArrowRight, createElement } from 'lucide'
 import { OBJECT_TYPES, type ObjectType, type Star } from './catalog-model'
-import { apparentVisualMagnitude, displayMotionForStar, formatDistance, galacticToWorld, sunRelativeMetrics, temperatureToColor, visibilityTier, type DistanceUnit, type MotionMode } from './astronomy'
+import { apparentVisualMagnitude, displayMotionForStar, formatDistance, galacticToWorld, starDisplayColor, sunRelativeMetrics, visibilityTier, type DistanceUnit, type MotionMode } from './astronomy'
 import { advanceFrameDeadline, effectiveDampingFactor, estimateRefreshRate, renderPixelRatio, targetRenderFps } from './render-scheduling'
 import { chooseDistanceLabelPlacement, chooseOrdinaryLabelPlacement, ordinaryLabelCandidates, overlaps, type LabelRect, type OrdinaryLabelPlacement } from './label-layout'
 import {
+  MOTION_ARROW_DASH_PX, MOTION_ARROW_GAP_PX, MOTION_ARROW_HEAD_PX, MOTION_ARROW_STROKE_PX,
   STAR_DIAMETER_PX, ScreenSpaceGrid, TapGesture, budgetVisibleLabelIndices, focusProgress,
-  isObjectMapVisible, mapLabelBudget, motionArrowLength, pickProjectedStarAtScreenPoint,
+  isObjectMapVisible, mapLabelBudget, motionArrowGeometryInto, motionArrowLength, pickProjectedStarAtScreenPoint,
   projectMotionDirectionInto, projectSelectedAnchor, projectWorldPoint, projectWorldPointInto,
-  shouldRunOrdinaryLabelLayout, starBlocksLabels, starHaloDiameter, starHaloOpacity, type ProjectedPickable,
+  shouldRunOrdinaryLabelLayout, starBlocksLabels, starHaloDiameter, starHaloOpacity, type MotionArrowGeometry, type ProjectedPickable,
 } from './viewer-primitives'
 
 export interface StarViewer {
@@ -35,15 +35,33 @@ interface ViewerOptions {
   onStatus(message: string | null): void
 }
 
+// Last drawn motion arrow in client CSS px, returned by the label layer's motionArrowSnapshot() test hook.
+export interface MotionArrowSnapshot {
+  id: string
+  mode: MotionMode
+  selected: boolean
+  opacity: number
+  color: string
+  maxLength: number
+  length: number
+  x: number
+  y: number
+  tailX: number
+  tailY: number
+  tipX: number
+  tipY: number
+  bounds: LabelRect
+}
+
 interface MapLabel {
   anchor: HTMLDivElement
   text: HTMLDivElement
   position: Vector3
   width: number
   height: number
+  index?: number
   starId?: string
   measurement?: { distancePc: number; suffix: string }
-  motion?: { element: HTMLSpanElement; icon: SVGElement; shaft: SVGPathElement; head: SVGPathElement; velocity: Vector3; length: number; mode: MotionMode }
   placement?: OrdinaryLabelPlacement
 }
 
@@ -73,6 +91,10 @@ function setHidden(element: HTMLElement, hidden: boolean): void {
 
 function setTransform(element: HTMLElement, transform: string): void {
   if (element.style.transform !== transform) element.style.transform = transform
+}
+
+function setData(element: HTMLElement, key: string, value: string): void {
+  if (element.dataset[key] !== value) element.dataset[key] = value
 }
 
 function sameIndexSet(first: ReadonlySet<number>, second: ReadonlySet<number>): boolean {
@@ -109,6 +131,8 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
   const motions = stars.map(displayMotionForStar)
   const sunDistancesLy = stars.map((star) => sunRelativeMetrics(star, sun).distanceLy)
   const starsById = new Map(stars.map((star, index) => [star.id, { star, index }]))
+  const starColors = stars.map(starDisplayColor)
+  const starColorStyles = starColors.map((color) => color.getStyle())
   const starBounds = new Box3().setFromPoints(pickable.map((star) => star.position))
   const sphere = starBounds.getBoundingSphere(new Sphere())
   sphere.radius = Math.max(sphere.radius, 0.75)
@@ -128,7 +152,7 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
   dotTexture.colorSpace = SRGBColorSpace
   const starGeometry = new BufferGeometry()
   starGeometry.setAttribute('position', new Float32BufferAttribute(pickable.flatMap((star) => star.position.toArray()), 3))
-  starGeometry.setAttribute('color', new Float32BufferAttribute(stars.flatMap((star) => temperatureToColor(star.temperature_k).toArray()), 3))
+  starGeometry.setAttribute('color', new Float32BufferAttribute(starColors.flatMap((color) => color.toArray()), 3))
   starGeometry.setIndex(stars.map((_, index) => index))
   const coreIndices = starGeometry.getIndex()!
   const coreDiameters = new Float32BufferAttribute(stars.map(() => STAR_DIAMETER_PX), 1)
@@ -184,6 +208,103 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
   const halos = new Points(haloGeometry, haloMaterial)
   halos.renderOrder = 3
   scene.add(halos)
+
+  // Screen-space motion arrows: one instanced quad per arrow, positioned in canvas CSS px each frame.
+  const arrowCapacity = Math.max(1, motions.filter(Boolean).length)
+  const arrowGeometry = new InstancedBufferGeometry()
+  arrowGeometry.setAttribute('position', new Float32BufferAttribute([0, -1, 0, 1, -1, 0, 1, 1, 0, 0, 1, 0], 3))
+  arrowGeometry.setIndex([0, 1, 2, 0, 2, 3])
+  const arrowPlacements = new InstancedBufferAttribute(new Float32Array(arrowCapacity * 4), 4).setUsage(DynamicDrawUsage)
+  const arrowShapes = new InstancedBufferAttribute(new Float32Array(arrowCapacity * 2), 2).setUsage(DynamicDrawUsage)
+  const arrowColors = new InstancedBufferAttribute(new Float32Array(arrowCapacity * 4), 4).setUsage(DynamicDrawUsage)
+  arrowGeometry.setAttribute('arrowPlacement', arrowPlacements)
+  arrowGeometry.setAttribute('arrowShape', arrowShapes)
+  arrowGeometry.setAttribute('arrowColor', arrowColors)
+  arrowGeometry.instanceCount = 0
+  const arrowUniforms = {
+    viewportSize: { value: new Vector2(1, 1) },
+    pixelRatio: { value: 1 },
+    strokeRadius: { value: MOTION_ARROW_STROKE_PX / 2 },
+    headSize: { value: MOTION_ARROW_HEAD_PX },
+    dashLength: { value: MOTION_ARROW_DASH_PX },
+    gapLength: { value: MOTION_ARROW_GAP_PX },
+  }
+  const arrowMaterial = new ShaderMaterial({
+    uniforms: arrowUniforms,
+    // The CSS-to-clip-space y flip reverses the quad winding.
+    side: DoubleSide,
+    transparent: true, depthTest: false, depthWrite: false, toneMapped: false,
+    vertexShader: `
+      attribute vec4 arrowPlacement;
+      attribute vec2 arrowShape;
+      attribute vec4 arrowColor;
+      uniform vec2 viewportSize;
+      uniform float pixelRatio;
+      uniform float strokeRadius;
+      uniform float headSize;
+      varying vec2 arrowPoint;
+      varying float arrowLength;
+      varying float arrowDashed;
+      varying vec4 arrowRgba;
+      void main() {
+        float pad = strokeRadius + 1.0 / pixelRatio;
+        arrowLength = arrowShape.x;
+        arrowDashed = arrowShape.y;
+        arrowRgba = arrowColor;
+        // x runs from the tail (0) to the tip (arrowLength); y spans the arrowhead.
+        float start = min(0.0, arrowLength - headSize) - pad;
+        arrowPoint = vec2(mix(start, arrowLength + pad, position.x), position.y * (headSize + pad));
+        vec2 along = arrowPlacement.zw;
+        vec2 across = vec2(-along.y, along.x);
+        vec2 screenPoint = arrowPlacement.xy + along * arrowPoint.x + across * arrowPoint.y;
+        gl_Position = vec4(screenPoint.x / viewportSize.x * 2.0 - 1.0, 1.0 - screenPoint.y / viewportSize.y * 2.0, 0.0, 1.0);
+      }
+    `,
+    fragmentShader: `
+      uniform float pixelRatio;
+      uniform float strokeRadius;
+      uniform float headSize;
+      uniform float dashLength;
+      uniform float gapLength;
+      varying vec2 arrowPoint;
+      varying float arrowLength;
+      varying float arrowDashed;
+      varying vec4 arrowRgba;
+      float segmentDistance(vec2 point, vec2 start, vec2 end) {
+        vec2 segment = end - start;
+        float along = clamp(dot(point - start, segment) / max(dot(segment, segment), 1e-6), 0.0, 1.0);
+        return length(point - start - segment * along);
+      }
+      float strokeCoverage(float offset) {
+        return clamp((strokeRadius - offset) * pixelRatio + 0.5, 0.0, 1.0);
+      }
+      void main() {
+        vec2 tip = vec2(arrowLength, 0.0);
+        float coverage = strokeCoverage(min(
+          segmentDistance(arrowPoint, tip, tip + vec2(-headSize, headSize)),
+          segmentDistance(arrowPoint, tip, tip + vec2(-headSize, -headSize))));
+        float shaft = strokeCoverage(segmentDistance(arrowPoint, vec2(0.0), tip));
+        if (arrowDashed > 0.5 && arrowPoint.x > 0.0 && arrowPoint.x < arrowLength) {
+          // Butt-capped dashes; the first dash keeps the round tail cap.
+          float period = dashLength + gapLength;
+          float phase = mod(arrowPoint.x, period);
+          float inside = phase <= dashLength
+            ? min(arrowPoint.x < dashLength ? dashLength : phase, dashLength - phase)
+            : -min(phase - dashLength, period - phase);
+          shaft *= clamp(inside * pixelRatio + 0.5, 0.0, 1.0);
+        }
+        coverage = max(coverage, shaft);
+        if (coverage <= 0.0) discard;
+        gl_FragColor = vec4(arrowRgba.rgb, arrowRgba.a * coverage);
+        #include <colorspace_fragment>
+      }
+    `,
+  })
+  const arrows = new Mesh(arrowGeometry, arrowMaterial)
+  arrows.frustumCulled = false
+  arrows.renderOrder = 4
+  arrows.visible = false
+  scene.add(arrows)
 
   const gridHalfSize = Math.max(3, Math.ceil(Math.max(...pickable.map((star) => star.position.length())) + 1))
   const gridHelper = new GridHelper(gridHalfSize * 2, gridHalfSize * 4, 0x65615c, 0x393939)
@@ -261,6 +382,10 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
   const starLabelPool: MapLabel[] = []
   const freeStarLabels: MapLabel[] = []
   const activeStarLabels = new Map<number, MapLabel>()
+  // Name sizes survive pool rebinding; 0 means not measured yet.
+  const starLabelWidths = new Float32Array(stars.length)
+  const starLabelHeights = new Float32Array(stars.length)
+  const labelsToMeasure: MapLabel[] = []
   const axisLabels = axes.map((axis) => makeLabel(axis.position, axis.text, 'axis-label'))
   axisLabels.forEach((label) => axisLayer.append(label.anchor))
   const guides = new Group()
@@ -285,10 +410,15 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
   const ordinaryNameIndices = new Set<number>()
   const committedOrdinaryNameIndices = new Set<number>()
   const budgetedNames = new Set<string>()
-  const arrowIndices = new Set<number>()
   const starLabels: MapLabel[] = []
   const measurementPlacements = new Map<MapLabel, LabelRect | null>()
   const selectedLabelObstacles: LabelRect[] = []
+  const motionLengths = motions.map((motion) => motion ? motionArrowLength(motion.velocity.length()) : 0)
+  const arrowScratch: MotionArrowGeometry = { tailX: 0, tailY: 0, tipX: 0, tipY: 0, left: 0, top: 0, right: 0, bottom: 0 }
+  const arrowStarIndices = new Int32Array(arrowCapacity)
+  const arrowObstacles = Array.from({ length: arrowCapacity }, () => ({ depth: 0, bounds: { left: 0, top: 0, right: 0, bottom: 0 } }))
+  let arrowCount = 0
+  const arrowOrigin = { left: 0, top: 0 }
   let disposed = false
   let contextLost = false
   let pendingFrame: number | null = null
@@ -371,9 +501,8 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
     return label
   }
 
-  function bindStarLabel(label: MapLabel, index: number, arrowEligible: boolean): void {
+  function bindStarLabel(label: MapLabel, index: number): void {
     const star = stars[index]!
-    const motion = motions[index]
     label.position = pickable[index]!.position
     label.starId = star.id
     label.text.textContent = star.name
@@ -383,62 +512,33 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
     label.anchor.dataset.mapVisible = String(mapVisibility.get(star.id))
     label.anchor.classList.remove('is-clipped')
     label.anchor.classList.toggle('is-selected', star.id === selectedId)
-    label.anchor.style.setProperty('--star-color', temperatureToColor(star.temperature_k).getStyle())
-    label.width = 0
-    label.height = 0
-    label.motion?.element.remove()
-    delete label.motion
-    if (motion && arrowEligible) {
-      const length = motionArrowLength(motion.velocity.length())
-      const width = length + 2 * 5 * 16 / 24
-      const arrow = document.createElement('span')
-      arrow.className = 'motion-arrow'
-      arrow.dataset.motionMode = motion.mode
-      arrow.dataset.maxLength = String(length)
-      arrow.style.color = temperatureToColor(star.temperature_k).getStyle()
-      arrow.style.width = `${width}px`
-      arrow.style.height = '16px'
-      arrow.style.left = `${-width / 2}px`
-      arrow.style.top = '-8px'
-      const icon = createElement(ArrowRight, { width, height: 16, viewBox: `0 0 ${width * 24 / 16} 24`, 'stroke-width': 1.7 })
-      icon.classList.add('motion-arrow-icon')
-      const [shaft, head] = icon.querySelectorAll('path')
-      const tip = 5 + length * 24 / 16
-      shaft!.setAttribute('d', `M5 12H${tip}`)
-      shaft!.classList.add('motion-arrow-shaft')
-      head!.setAttribute('transform', `translate(${tip - 19} 0)`)
-      arrow.append(icon)
-      label.anchor.append(arrow)
-      label.motion = { element: arrow, icon, shaft: shaft!, head: head!, velocity: motion.velocity, length, mode: motion.mode }
-    }
+    label.anchor.style.setProperty('--star-color', starColorStyles[index]!)
+    label.index = index
+    label.width = starLabelWidths[index]!
+    label.height = starLabelHeights[index]!
     labelLayer.append(label.anchor)
   }
 
-  function syncStarLabels(nameIndices: ReadonlySet<number>, arrowIndices: ReadonlySet<number>, out: MapLabel[]): boolean {
+  function syncStarLabels(nameIndices: ReadonlySet<number>, out: MapLabel[]): boolean {
     let changed = false
-    const needed = new Set([...nameIndices, ...arrowIndices])
     for (const [index, label] of activeStarLabels) {
-      if (needed.has(index)) continue
+      if (nameIndices.has(index)) continue
       activeStarLabels.delete(index)
       label.anchor.remove()
       freeStarLabels.push(label)
       changed = true
     }
-    for (const index of needed) {
-      const arrowEligible = arrowIndices.has(index)
+    for (const index of nameIndices) {
       let label = activeStarLabels.get(index)
       if (!label) {
         label = freeStarLabels.pop() ?? createPooledStarLabel()
         activeStarLabels.set(index, label)
-        bindStarLabel(label, index, arrowEligible)
-        changed = true
-      } else if ((label.motion !== undefined) !== arrowEligible) {
-        bindStarLabel(label, index, arrowEligible)
+        bindStarLabel(label, index)
         changed = true
       } else {
         const star = stars[index]!
-        label.anchor.dataset.visibility = tiers.get(star.id)
-        label.anchor.dataset.mapVisible = String(mapVisibility.get(star.id))
+        setData(label.anchor, 'visibility', tiers.get(star.id)!)
+        setData(label.anchor, 'mapVisible', String(mapVisibility.get(star.id)))
         label.anchor.classList.toggle('is-selected', star.id === selectedId)
       }
     }
@@ -451,6 +551,15 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
     labelSizesDirty = true
     ordinaryLayoutDirty = true
     requestRender()
+  }
+
+  function invalidateStarLabelSize(index: number): void {
+    starLabelWidths[index] = 0
+    starLabelHeights[index] = 0
+    const label = activeStarLabels.get(index)
+    if (!label) return
+    label.width = 0
+    label.height = 0
   }
 
   // The catalog is static. Coalesce changes into a single frame, and only keep
@@ -581,6 +690,82 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
     projectionDirty = false
   }
 
+  function updateMotionArrows(): void {
+    if (projectionDirty) refreshProjectionCache()
+    const viewport = projectionViewport!
+    const selectedIndex = selectedId ? starsById.get(selectedId)!.index : -1
+    const placements = arrowPlacements.array as Float32Array
+    const shapes = arrowShapes.array as Float32Array
+    const colors = arrowColors.array as Float32Array
+    arrowCount = 0
+    for (const projected of projectedPickables) {
+      if (!projected.motionVisible) continue
+      const index = projected.index
+      const length = motionLengths[index]! * projected.motionScale
+      const arrow = motionArrowGeometryInto(projected.x, projected.y, projected.motionX, projected.motionY, length, arrowScratch)
+      const slot = arrowCount++
+      placements[slot * 4] = arrow.tailX - viewport.left
+      placements[slot * 4 + 1] = arrow.tailY - viewport.top
+      placements[slot * 4 + 2] = projected.motionX
+      placements[slot * 4 + 3] = projected.motionY
+      shapes[slot * 2] = length
+      shapes[slot * 2 + 1] = motions[index]!.mode === 'transverse' ? 1 : 0
+      const color = starColors[index]!
+      colors[slot * 4] = color.r
+      colors[slot * 4 + 1] = color.g
+      colors[slot * 4 + 2] = color.b
+      colors[slot * 4 + 3] = index === selectedIndex ? 1 : 0.5
+      arrowStarIndices[slot] = index
+      const obstacle = arrowObstacles[slot]!
+      obstacle.depth = projected.depth
+      obstacle.bounds.left = arrow.left
+      obstacle.bounds.top = arrow.top
+      obstacle.bounds.right = arrow.right
+      obstacle.bounds.bottom = arrow.bottom
+    }
+    arrowOrigin.left = viewport.left
+    arrowOrigin.top = viewport.top
+    arrowGeometry.instanceCount = arrowCount
+    arrowPlacements.needsUpdate = true
+    arrowShapes.needsUpdate = true
+    arrowColors.needsUpdate = true
+    arrowUniforms.viewportSize.value.set(viewport.width, viewport.height)
+    arrows.visible = arrowCount > 0
+  }
+
+  Object.defineProperty(labelLayer, 'motionArrowSnapshot', {
+    configurable: true,
+    value: (): MotionArrowSnapshot[] => {
+      const placements = arrowPlacements.array
+      const shapes = arrowShapes.array
+      const colors = arrowColors.array
+      return Array.from({ length: arrowCount }, (_, slot) => {
+        const index = arrowStarIndices[slot]!
+        const tailX = placements[slot * 4]! + arrowOrigin.left
+        const tailY = placements[slot * 4 + 1]! + arrowOrigin.top
+        const directionX = placements[slot * 4 + 2]!
+        const directionY = placements[slot * 4 + 3]!
+        const length = shapes[slot * 2]!
+        return {
+          id: stars[index]!.id,
+          mode: motions[index]!.mode,
+          selected: index === (selectedId ? starsById.get(selectedId)!.index : -1),
+          opacity: colors[slot * 4 + 3]!,
+          color: starColorStyles[index]!,
+          maxLength: motionLengths[index]!,
+          length,
+          x: tailX - directionX * STAR_DIAMETER_PX / 2,
+          y: tailY - directionY * STAR_DIAMETER_PX / 2,
+          tailX,
+          tailY,
+          tipX: tailX + directionX * length,
+          tipY: tailY + directionY * length,
+          bounds: { ...arrowObstacles[slot]!.bounds },
+        }
+      })
+    },
+  })
+
   function updateLabels(time: number): void {
     if (projectionDirty) refreshProjectionCache()
     const viewport = projectionViewport!
@@ -612,23 +797,26 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
     budgetedNameIndices.add(observerIndex)
     budgetedNames.clear()
     for (const index of budgetedNameIndices) budgetedNames.add(stars[index]!.id)
-    arrowIndices.clear()
-    for (const projected of projectedPickables) {
-      if (projected.motionVisible) arrowIndices.add(projected.index)
-    }
-    const labelsChanged = syncStarLabels(budgetedNameIndices, arrowIndices, starLabels)
-    labelLayer.dataset.nameBudget = String(ordinaryBudget)
+    const labelsChanged = syncStarLabels(budgetedNameIndices, starLabels)
+    setData(labelLayer, 'nameBudget', String(ordinaryBudget))
     let labelSizesChanged = false
     if (labelSizesDirty) {
       for (const label of [...axisLabels, ...starLabelPool, ...measurementLabels]) {
         label.width = 0
         label.height = 0
       }
+      starLabelWidths.fill(0)
+      starLabelHeights.fill(0)
       labelSizesDirty = false
       labelSizesChanged = true
     }
-    const labelsToMeasure = [...axisLabels, ...measurementLabels, ...starLabels.filter((label) => budgetedNames.has(label.starId!))]
-    if (labelsToMeasure.some((label) => label.width === 0 || label.height === 0)) {
+    labelsToMeasure.length = 0
+    for (const label of axisLabels) if (label.width === 0 || label.height === 0) labelsToMeasure.push(label)
+    for (const label of measurementLabels) if (label.width === 0 || label.height === 0) labelsToMeasure.push(label)
+    for (const label of starLabels) {
+      if (budgetedNames.has(label.starId!) && (label.width === 0 || label.height === 0)) labelsToMeasure.push(label)
+    }
+    if (labelsToMeasure.length > 0) {
       for (const label of labelsToMeasure) {
         setHidden(label.anchor, false)
         setHidden(label.text, false)
@@ -636,6 +824,9 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
       for (const label of labelsToMeasure) {
         label.width = label.text.offsetWidth
         label.height = label.text.offsetHeight
+        if (label.index === undefined) continue
+        starLabelWidths[label.index] = label.width
+        starLabelHeights[label.index] = label.height
       }
       labelSizesChanged = true
     }
@@ -713,6 +904,7 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
       const obstacle = { depth: projected.depth, bounds: { left: projected.x - radius, right: projected.x + radius, top: projected.y - radius, bottom: projected.y + radius } }
       starObstacles.insert(obstacle.bounds, obstacle)
     }
+    for (let slot = 0; slot < arrowCount; slot++) starObstacles.insert(arrowObstacles[slot]!.bounds, arrowObstacles[slot]!)
     const selectedLabels = starLabels.filter((label) => label.starId === selectedId)
     const projectedSelectedLabels = selectedLabels.filter((label) => projections[starsById.get(label.starId!)!.index]!.visible)
     const clippedSelectedLabels = selectedLabels.filter((label) => !projections[starsById.get(label.starId!)!.index]!.visible)
@@ -722,35 +914,6 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
     for (const [index, label] of [...selectedLabels, ...otherStarLabels].entries()) {
       const zIndex = label.starId === selectedId ? '1' : `${-index - 1}`
       if (label.anchor.style.zIndex !== zIndex) label.anchor.style.zIndex = zIndex
-      if (!label.motion) continue
-      const { element, icon, shaft, head, length } = label.motion
-      if (!mapVisibility.get(label.starId!)) {
-        setHidden(element, true)
-        continue
-      }
-      const projected = projections[starsById.get(label.starId!)!.index]!
-      setHidden(element, !projected.motionVisible)
-      if (!projected.motionVisible) continue
-      const projectedLength = length * projected.motionScale
-      const width = projectedLength + 2 * 5 * 16 / 24
-      const tip = 5 + projectedLength * 24 / 16
-      element.style.width = `${width}px`
-      element.style.left = `${-width / 2}px`
-      icon.setAttribute('width', `${width}`)
-      icon.setAttribute('viewBox', `0 0 ${width * 24 / 16} 24`)
-      shaft.setAttribute('d', `M5 12H${tip}`)
-      head.setAttribute('transform', `translate(${tip - 19} 0)`)
-      const offsetX = projected.motionX * (STAR_DIAMETER_PX / 2 + projectedLength / 2)
-      const offsetY = projected.motionY * (STAR_DIAMETER_PX / 2 + projectedLength / 2)
-      const headHalfHeight = 7 * 16 / 24
-      const strokeRadius = 1.7 / 2 * 16 / 24
-      const halfWidth = projectedLength / 2 * Math.abs(projected.motionX) + headHalfHeight * Math.abs(projected.motionY) + strokeRadius
-      const halfHeight = projectedLength / 2 * Math.abs(projected.motionY) + headHalfHeight * Math.abs(projected.motionX) + strokeRadius
-      const centerX = projected.x + offsetX
-      const centerY = projected.y + offsetY
-      const bounds = { left: centerX - halfWidth, right: centerX + halfWidth, top: centerY - halfHeight, bottom: centerY + halfHeight }
-      setTransform(element, `translate(${offsetX}px, ${offsetY}px) rotate(${Math.atan2(projected.motionY, projected.motionX)}rad)`)
-      starObstacles.insert(bounds, { depth: projected.depth, bounds })
     }
     for (const label of [...projectedSelectedLabels, ...measurementLabels, ...otherStarLabels, ...clippedSelectedLabels]) {
       if (label.starId && !mapVisibility.get(label.starId)) {
@@ -844,6 +1007,7 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
     focusTransition = null
     controlsInteracting = false
     controlsSettling = false
+    const previousSelectedId = selectedId
     selectedId = id
     obstacleBoundsDirty = true
     distanceNormal = { x: 0, y: -1 }
@@ -854,7 +1018,11 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
     guides.clear()
     measurementLabels.forEach((label) => label.anchor.remove())
     measurementLabels = []
-    invalidateLabelSizes()
+    // Only the selected name's heavier style changes a label size.
+    for (const changedId of [previousSelectedId, id]) {
+      if (changedId !== null) invalidateStarLabelSize(starsById.get(changedId)!.index)
+    }
+    requestRender()
     if (!star) return
     const metrics = sunRelativeMetrics(star, sun!)
     if (metrics.distancePc > 1e-9) {
@@ -925,12 +1093,13 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
     renderer.setSize(width, height)
     gridOpacity.value = Math.min(1, 0.4 * pixelRatio)
     axisMaterial.opacity = Math.min(1, 0.55 * pixelRatio)
+    arrowUniforms.pixelRatio.value = pixelRatio
     if (!sizeChanged) return
     camera.aspect = width / height
     camera.updateProjectionMatrix()
     invalidateViewport()
     if (home) fitHome()
-    invalidateLabelSizes()
+    requestRender()
   }
 
   const events = new AbortController()
@@ -1062,6 +1231,7 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
       }
     }
     camera.updateMatrixWorld()
+    updateMotionArrows()
     renderer.render(scene, camera)
     updateLabels(time)
     if (continueRendering || refreshSamplesRemaining > 0) requestRender(false)
@@ -1171,8 +1341,11 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
       measurementLabels.forEach((label) => {
         const { distancePc, suffix } = label.measurement!
         label.text.textContent = `${formatDistance(distancePc, unit)}${suffix}`
+        label.width = 0
+        label.height = 0
       })
-      invalidateLabelSizes()
+      ordinaryLayoutDirty = true
+      requestRender()
     },
     setGridVisible(visible) {
       grid.visible = visible
@@ -1203,6 +1376,8 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
       controls.removeEventListener('change', onControlsChange)
       controls.dispose()
       disposeGeometry(scene)
+      arrowGeometry.dispose()
+      arrowMaterial.dispose()
       dotTexture.dispose()
       haloTexture.dispose()
       renderer.dispose()

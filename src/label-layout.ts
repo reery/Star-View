@@ -82,6 +82,10 @@ export function chooseDistanceLabelPlacement(options: DistanceLabelOptions): Dis
     top = Math.max(viewport.top + 12, Math.min(top, viewportBottom - height - 12))
     return { left, top, right: left + width, bottom: top + height }
   }
+  const clearsEndpoints = (bounds: LabelRect) => endpoints.every((endpoint) => !overlaps(bounds, endpoint, 0))
+  const centered = clamp(anchor.x - width / 2, anchor.y - height / 2)
+  if (clearsEndpoints(centered)) return { bounds: centered, normal, side: previousSide }
+
   const offset = Math.abs(normal.x) * (width / 2 + maximumRadius) +
     Math.abs(normal.y) * (height / 2 + maximumRadius)
   const candidates = [previousSide, -previousSide].map((side) => ({
@@ -89,7 +93,7 @@ export function chooseDistanceLabelPlacement(options: DistanceLabelOptions): Dis
     normal,
     side,
   }))
-  const besideLine = candidates.find((candidate) => endpoints.every((endpoint) => !overlaps(candidate.bounds, endpoint, 0)))
+  const besideLine = candidates.find((candidate) => clearsEndpoints(candidate.bounds))
   if (besideLine) return besideLine
 
   const corners = [viewport.left + 12, viewportRight - width - 12].flatMap((left) =>
@@ -99,7 +103,7 @@ export function chooseDistanceLabelPlacement(options: DistanceLabelOptions): Dis
       side: previousSide,
     })))
   return corners
-    .filter((candidate) => endpoints.every((endpoint) => !overlaps(candidate.bounds, endpoint, 0)))
+    .filter((candidate) => clearsEndpoints(candidate.bounds))
     .sort((first, second) =>
       Math.hypot(first.bounds.left + width / 2 - anchor.x, first.bounds.top + height / 2 - anchor.y) -
       Math.hypot(second.bounds.left + width / 2 - anchor.x, second.bounds.top + height / 2 - anchor.y))[0] ?? null

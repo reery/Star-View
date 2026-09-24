@@ -3,11 +3,12 @@ import { PerspectiveCamera, Vector3, type Camera } from 'three'
 import { chooseOrdinaryLabelPlacement, ordinaryLabelCandidates } from './label-layout'
 import { renderPixelRatio } from './render-scheduling'
 import {
+  MOTION_ARROW_HEAD_PX, MOTION_ARROW_STROKE_PX, MOTION_ARROW_TAIL_OFFSET_PX,
   ScreenSpaceGrid, TapGesture, budgetVisibleLabelIndices, focusProgress, isObjectMapVisible,
-  mapLabelBudget, motionArrowLength, motionForeshortening, pickProjectedStarAtScreenPoint,
+  mapLabelBudget, motionArrowGeometryInto, motionArrowLength, motionForeshortening, pickProjectedStarAtScreenPoint,
   projectMotionDirection, projectSelectedAnchor, projectWorldPoint, starBlocksLabels,
-  shouldRunOrdinaryLabelLayout, starHaloDiameter, starHaloOpacity, starHaloStrength, type PointerPosition,
-  type ProjectedPickable, type Viewport,
+  shouldRunOrdinaryLabelLayout, starHaloDiameter, starHaloOpacity, starHaloStrength, type MotionArrowGeometry,
+  type PointerPosition, type ProjectedPickable, type Viewport,
 } from './viewer-primitives'
 
 const viewport = { left: 110, top: 90, width: 400, height: 300 }
@@ -337,6 +338,50 @@ describe('motion arrow speed scale', () => {
 
   it.each([0, -1, NaN, Infinity])('does not give undefined motion %s a length', (speed) => {
     expect(motionArrowLength(speed)).toBe(0)
+  })
+})
+
+describe('motion arrow geometry', () => {
+  const geometry = (motionX: number, motionY: number, length: number) =>
+    motionArrowGeometryInto(100, 50, motionX, motionY, length, {} as MotionArrowGeometry)
+
+  it('keeps the original 16 CSS px icon proportions', () => {
+    expect(MOTION_ARROW_TAIL_OFFSET_PX).toBe(5)
+    expect(MOTION_ARROW_STROKE_PX).toBeCloseTo(1.7 * 16 / 24)
+    expect(MOTION_ARROW_HEAD_PX).toBeCloseTo(7 * 16 / 24)
+  })
+
+  it('attaches the tail to the dot edge and extends the shaft by the projected length', () => {
+    const arrow = geometry(0.6, -0.8, 25)
+    expect(arrow.tailX).toBeCloseTo(103)
+    expect(arrow.tailY).toBeCloseTo(46)
+    expect(Math.hypot(arrow.tipX - arrow.tailX, arrow.tipY - arrow.tailY)).toBeCloseTo(25)
+    expect(arrow.tipX).toBeCloseTo(118)
+    expect(arrow.tipY).toBeCloseTo(26)
+  })
+
+  it('bounds the shaft, arrowhead and stroke radius', () => {
+    const radius = MOTION_ARROW_STROKE_PX / 2
+    const horizontal = geometry(1, 0, 20)
+    expect(horizontal.left).toBeCloseTo(105 - radius)
+    expect(horizontal.right).toBeCloseTo(125 + radius)
+    expect(horizontal.top).toBeCloseTo(50 - MOTION_ARROW_HEAD_PX - radius)
+    expect(horizontal.bottom).toBeCloseTo(50 + MOTION_ARROW_HEAD_PX + radius)
+    const diagonal = geometry(Math.SQRT1_2, Math.SQRT1_2, 20)
+    for (const [x, y] of [[diagonal.tailX, diagonal.tailY], [diagonal.tipX, diagonal.tipY]]) {
+      expect(x).toBeGreaterThan(diagonal.left)
+      expect(x).toBeLessThan(diagonal.right)
+      expect(y).toBeGreaterThan(diagonal.top)
+      expect(y).toBeLessThan(diagonal.bottom)
+    }
+    expect(diagonal.right - diagonal.left).toBeCloseTo(diagonal.bottom - diagonal.top)
+  })
+
+  it('collapses a fully foreshortened shaft onto the tail', () => {
+    const arrow = geometry(0, 1, 0)
+    expect(arrow.tipX).toBe(arrow.tailX)
+    expect(arrow.tipY).toBe(arrow.tailY)
+    expect(arrow.right - arrow.left).toBeCloseTo(2 * (MOTION_ARROW_HEAD_PX + MOTION_ARROW_STROKE_PX / 2))
   })
 })
 

@@ -82,6 +82,44 @@ export function motionArrowLength(speedKms: number): number {
   return Math.max(12, Math.min(40, speedKms / 10))
 }
 
+export const MOTION_ARROW_TAIL_OFFSET_PX = STAR_DIAMETER_PX / 2
+// Sizes keep the original 16 CSS px Lucide ArrowRight styling (24-unit icon at 16/24 scale).
+export const MOTION_ARROW_STROKE_PX = 1.7 * 16 / 24
+export const MOTION_ARROW_HEAD_PX = 7 * 16 / 24
+export const MOTION_ARROW_DASH_PX = 3 * 16 / 24
+export const MOTION_ARROW_GAP_PX = 2 * 16 / 24
+
+export interface MotionArrowGeometry extends LabelRect {
+  tailX: number
+  tailY: number
+  tipX: number
+  tipY: number
+}
+
+export function motionArrowGeometryInto(
+  x: number,
+  y: number,
+  motionX: number,
+  motionY: number,
+  length: number,
+  target: MotionArrowGeometry,
+): MotionArrowGeometry {
+  target.tailX = x + motionX * MOTION_ARROW_TAIL_OFFSET_PX
+  target.tailY = y + motionY * MOTION_ARROW_TAIL_OFFSET_PX
+  target.tipX = target.tailX + motionX * length
+  target.tipY = target.tailY + motionY * length
+  const centerX = (target.tailX + target.tipX) / 2
+  const centerY = (target.tailY + target.tipY) / 2
+  const strokeRadius = MOTION_ARROW_STROKE_PX / 2
+  const halfWidth = length / 2 * Math.abs(motionX) + MOTION_ARROW_HEAD_PX * Math.abs(motionY) + strokeRadius
+  const halfHeight = length / 2 * Math.abs(motionY) + MOTION_ARROW_HEAD_PX * Math.abs(motionX) + strokeRadius
+  target.left = centerX - halfWidth
+  target.right = centerX + halfWidth
+  target.top = centerY - halfHeight
+  target.bottom = centerY + halfHeight
+  return target
+}
+
 export function motionForeshortening(
   positionFromCamera: Pick<Vector3, 'x' | 'y' | 'z'>,
   velocityInCameraSpace: Pick<Vector3, 'x' | 'y' | 'z'>,

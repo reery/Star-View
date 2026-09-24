@@ -81,9 +81,6 @@ button, p, h2, dd { overflow-wrap: anywhere; }
 .is-selected .star-label { color: color-mix(in srgb, var(--star-color) 45%, white); font-weight: 600; text-decoration: underline 2px var(--star-color); text-underline-offset: 4px; background: #000000e6; padding: 2px 0 5px; z-index: 1; }
 .selection-ring { display: none; position: absolute; width: 26px; height: 26px; left: -13px; top: -13px; border: 1px solid var(--star-color); border-radius: 50%; box-shadow: 0 0 9px color-mix(in srgb, var(--star-color) 40%, transparent), inset 0 0 5px color-mix(in srgb, var(--star-color) 20%, transparent); }
 .is-selected:not(.is-clipped) .selection-ring { display: block; }
-.motion-arrow { position: absolute; pointer-events: none; opacity: 0.5; }
-.motion-arrow[data-motion-mode="transverse"] .motion-arrow-shaft { stroke-dasharray: 3 2; }
-.is-selected .motion-arrow { opacity: 1; }
 @media (prefers-reduced-motion: no-preference) {
   .is-selected .selection-ring { animation: selection-emphasis 350ms ease-out; }
 }

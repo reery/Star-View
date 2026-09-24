@@ -6,7 +6,7 @@ import { Focus, Grid2X2, Orbit, ZoomIn, ZoomOut, createElement, type IconNode } 
 import { describeObject, OBJECT_TYPES, objectTypeLabel, type ObjectType, type Star } from './catalog-model'
 import { catalogSelection } from './catalog-runtime'
 import { catalogs, catalogErrors } from './registry'
-import { formatDistance, sunRelativeMetrics, temperatureToColor, type DistanceUnit } from './astronomy'
+import { formatDistance, starDisplayColor, sunRelativeMetrics, type DistanceUnit } from './astronomy'
 import { createStarViewer, type StarViewer } from './viewer'
 import { ObjectList } from './object-list'
 
@@ -81,11 +81,12 @@ function renderSelection(): void {
     return
   }
   const metrics = sunRelativeMetrics(star, sun)
+  const color = starDisplayColor(star).getStyle()
   element('inspector').dataset.selectedStar = star.id
-  element('inspector').style.setProperty('--selected-star-color', temperatureToColor(star.temperature_k).getStyle())
+  element('inspector').style.setProperty('--selected-star-color', color)
   text('star-name', star.name)
   text('star-id', star.id)
-  element('selected-swatch').style.background = temperatureToColor(star.temperature_k).getStyle()
+  element('selected-swatch').style.background = color
   text('distance-value', formatDistance(metrics.distancePc, distanceUnit).split(' ')[0]!)
   text('distance-unit', ` ${distanceUnit}`)
   text('object-type', describeObject(star))

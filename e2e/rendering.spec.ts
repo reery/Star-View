@@ -6,6 +6,7 @@ interface RenderingStats {
   drawTimes: number[]
   labelMutations: number
   labelSizeReads: number
+  labelSizeReadsByStar: Record<string, number>
   obstacleBoundsReads: number
   frameDrawCalls: number
   framePointVertices: number
@@ -14,14 +15,18 @@ interface RenderingStats {
 
 async function trackRendering(page: Page) {
   await page.addInitScript(() => {
-    const stats = { draws: 0, drawTimes: [] as number[], labelMutations: 0, labelSizeReads: 0, obstacleBoundsReads: 0, frameDrawCalls: 0, framePointVertices: 0, listReplacements: 0 }
+    const stats = { draws: 0, drawTimes: [] as number[], labelMutations: 0, labelSizeReads: 0, labelSizeReadsByStar: {} as Record<string, number>, obstacleBoundsReads: 0, frameDrawCalls: 0, framePointVertices: 0, listReplacements: 0 }
     Object.assign(window, { renderStats: stats })
     for (const property of ['offsetWidth', 'offsetHeight']) {
       const descriptor = Object.getOwnPropertyDescriptor(HTMLElement.prototype, property)!
       Object.defineProperty(HTMLElement.prototype, property, {
         ...descriptor,
         get(this: HTMLElement) {
-          if (this.classList.contains('map-label')) stats.labelSizeReads++
+          if (this.classList.contains('map-label')) {
+            stats.labelSizeReads++
+            const id = this.closest<HTMLElement>('.map-anchor')?.dataset.starId
+            if (id) stats.labelSizeReadsByStar[id] = (stats.labelSizeReadsByStar[id] ?? 0) + 1
+          }
           return descriptor.get!.call(this)
         },
       })
@@ -77,6 +82,16 @@ async function stats(page: Page) {
       ordinaryLayoutPasses: Number(document.querySelector<HTMLElement>('.projected-labels')!.dataset.ordinaryLayoutPasses ?? 0),
     }
   })
+}
+
+function starReadDeltas(before: RenderingStats, after: RenderingStats): Record<string, number> {
+  return Object.fromEntries(Object.entries(after.labelSizeReadsByStar)
+    .map(([id, reads]) => [id, reads - (before.labelSizeReadsByStar[id] ?? 0)] as const)
+    .filter(([, delta]) => delta !== 0))
+}
+
+function remeasuredStars(before: RenderingStats, after: RenderingStats, allowed: readonly string[] = []): string[] {
+  return Object.keys(starReadDeltas(before, after)).filter((id) => before.labelSizeReadsByStar[id] && !allowed.includes(id))
 }
 
 async function openPreferences(page: Page) {
@@ -190,8 +205,13 @@ test('records high-density nearest-1000 rotation evidence', async ({ page, conte
   const finalMetrics = await session.send('Performance.getMetrics')
   const drawTimes = after.drawTimes.slice(before.drawTimes.length)
   const frameIntervals = drawTimes.slice(1).map((time, index) => time - drawTimes[index]!)
+  const arrows = await page.locator('.projected-labels').evaluate((layer) =>
+    (layer as HTMLElement & { motionArrowSnapshot(): unknown[] }).motionArrowSnapshot().length)
+  const anchors = await page.locator('.map-anchor').count()
   const measurement = {
     draws: after.draws - before.draws,
+    arrows,
+    anchors,
     ordinaryLayoutPasses: after.ordinaryLayoutPasses - before.ordinaryLayoutPasses,
     frameIntervalP50: percentile(frameIntervals, 0.5),
     frameIntervalP95: percentile(frameIntervals, 0.95),
@@ -206,9 +226,12 @@ test('records high-density nearest-1000 rotation evidence', async ({ page, conte
   console.log(`nearest-1000 V=25 rotation: ${JSON.stringify(measurement)}`)
   await testInfo.attach('nearest-1000-v25-rotation-metrics', { body: JSON.stringify(measurement, null, 2), contentType: 'application/json' })
   expect(measurement.draws).toBeGreaterThan(10)
+  expect(measurement.arrows, 'arrows are drawn in WebGL').toBeGreaterThan(100)
+  await expect(page.locator('.motion-arrow')).toHaveCount(0)
   expect(measurement.ordinaryLayoutPasses).toBeLessThan(measurement.draws)
   expect(measurement.labelSizeReads).toBe(0)
   expect(measurement.obstacleBoundsReads).toBe(0)
+  expect(measurement.labelMutations / measurement.draws, 'at most two label writes per anchor per frame').toBeLessThan(anchors * 2)
   await expectIdle(page)
 })
 
@@ -289,9 +312,9 @@ test('redraws after viewport and font changes, then settles again', async ({ pag
   const viewport = page.viewportSize()!
   await page.setViewportSize({ width: viewport.width - 30, height: viewport.height - 30 })
   await expect.poll(async () => (await stats(page)).draws).toBeGreaterThan(before.draws)
-  await expect.poll(async () => (await stats(page)).labelSizeReads).toBeGreaterThan(before.labelSizeReads)
   await expectIdle(page)
   const resized = await stats(page)
+  expect(remeasuredStars(before, resized), 'label sizes do not depend on the viewport').toEqual([])
   await page.evaluate(() => document.fonts.dispatchEvent(new Event('loadingdone')))
   await expect.poll(async () => (await stats(page)).labelMutations).toBeGreaterThan(resized.labelMutations)
   await expect.poll(async () => (await stats(page)).labelSizeReads).toBeGreaterThan(resized.labelSizeReads)
@@ -306,11 +329,38 @@ test('refreshes label sizes after selection and unit changes', async ({ page }) 
   await page.locator('[data-star="barnards-star"]').evaluate((button: HTMLButtonElement) => button.click())
   await expect.poll(async () => (await stats(page)).labelSizeReads).toBeGreaterThan(before.labelSizeReads)
   await expect(page.locator('[data-star-id="barnards-star"] .star-label')).toBeVisible()
+  await expectIdle(page)
   const selected = await stats(page)
+  expect(starReadDeltas(before, selected)['barnards-star']).toBeGreaterThan(0)
+  expect(remeasuredStars(before, selected, ['barnards-star', 'sirius-a']), 'only selection changes restyle names').toEqual([])
   await page.getByLabel('pc', { exact: true }).check()
   await expect(page.locator('.distance-label')).toContainText('pc')
   await expect.poll(async () => (await stats(page)).labelSizeReads).toBeGreaterThan(selected.labelSizeReads)
   await expectIdle(page)
+  expect(starReadDeltas(selected, await stats(page)), 'unit changes only remeasure the distance label').toEqual({})
+})
+
+test('measures each star name once while rotating zoomed in', async ({ page }) => {
+  await page.emulateMedia({ reducedMotion: 'no-preference' })
+  await trackRendering(page)
+  await openFilter(page)
+  await page.getByLabel('Catalog', { exact: true }).selectOption('nearest-1000')
+  await page.getByLabel('V magnitude limit', { exact: true }).fill('25')
+  for (let step = 0; step < 6; step++) await page.getByRole('button', { name: 'Zoom in', exact: true }).click()
+  await expectIdle(page)
+  const before = await stats(page)
+  const bounds = (await page.locator('#scene canvas').boundingBox())!
+  await page.mouse.move(bounds.x + bounds.width * 0.2, bounds.y + bounds.height * 0.5)
+  await page.mouse.down()
+  await page.mouse.move(bounds.x + bounds.width * 0.8, bounds.y + bounds.height * 0.5, { steps: 60 })
+  await page.mouse.move(bounds.x + bounds.width * 0.2, bounds.y + bounds.height * 0.5, { steps: 60 })
+  await page.mouse.up()
+  await expectIdle(page)
+  const after = await stats(page)
+  const deltas = starReadDeltas(before, after)
+  expect(Object.keys(deltas).length, 'rotation must bring new names into the budget').toBeGreaterThan(0)
+  for (const [id, reads] of Object.entries(deltas)) expect(reads, `${id} is measured once (width and height)`).toBeLessThanOrEqual(2)
+  expect(remeasuredStars(before, after), 'names measured before rotating keep their cached sizes').toEqual([])
 })
 
 test('omits filtered cores and halos from GPU point submissions', async ({ page }) => {

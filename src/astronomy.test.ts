@@ -1,7 +1,9 @@
+import type { Color } from 'three'
 import { describe, expect, it } from 'vitest'
 import csv from './data/stars.csv?raw'
 import { parseStarCatalog } from './catalog'
-import { displayMotionForStar, galacticToWorld, galacticVelocityToWorld, galactocentricVelocityToWorld, rawAstrometryVelocityToWorld, SOLAR_GALACTIC_VELOCITY_KMS, sunRelativeMetrics, temperatureToColor } from './astronomy'
+import type { ObjectType } from './catalog-model'
+import { displayMotionForStar, galacticToWorld, galacticVelocityToWorld, galactocentricVelocityToWorld, rawAstrometryVelocityToWorld, SOLAR_GALACTIC_VELOCITY_KMS, starDisplayColor, sunRelativeMetrics, temperatureToColor } from './astronomy'
 
 const stars = parseStarCatalog(csv)
 const sun = stars.find((star) => star.id === 'sun')!
@@ -148,5 +150,61 @@ describe('temperature color', () => {
     const altered = { ...sirius!, absolute_mag: -10, luminosity_solar: 100000, vx_kms: 100 }
     expect(galacticToWorld(altered).equals(galacticToWorld(sirius!))).toBe(true)
     expect(temperatureToColor(altered.temperature_k).equals(temperatureToColor(sirius!.temperature_k))).toBe(true)
+  })
+})
+
+describe('star display color', () => {
+  const brownDwarf = (temperature_k: number | null, spectral_type: string | null, type: ObjectType = 'brown_dwarf') =>
+    starDisplayColor({ type, temperature_k, spectral_type })
+  const luminance = (color: Color) => 0.2126 * color.r + 0.7152 * color.g + 0.0722 * color.b
+  const srgb = (color: Color) => {
+    const hex = color.getHex()
+    return { r: hex >> 16 & 255, g: hex >> 8 & 255, b: hex & 255 }
+  }
+
+  it('keeps temperature colors for stars and white dwarfs', () => {
+    const ordinary = stars.filter((star) => star.type === 'star' || star.type === 'white_dwarf')
+    expect(ordinary.length).toBeGreaterThan(10)
+    for (const star of ordinary) expect(starDisplayColor(star).equals(temperatureToColor(star.temperature_k))).toBe(true)
+    expect(starDisplayColor({ type: 'star', temperature_k: null, spectral_type: 'M9' }).equals(temperatureToColor(null))).toBe(true)
+  })
+
+  it.each([
+    [100, null], [250, 'Y4'], [950, 'T6'], [1420, 'L8+/-1'], [2400, 'M9'], [5000, 'M9'],
+    [null, 'M9.5Ve'], [null, 'L9'], [null, 'T7.5'], [null, 'Y0pec'], [null, '> T9'], [null, 'sdM3'], [null, null], [null, 'unknown'],
+  ])('renders %s K %s brown dwarfs in a visible brown', (temperature, spectralType) => {
+    const color = brownDwarf(temperature, spectralType)
+    const { r, g, b } = srgb(color)
+    expect(r).toBeGreaterThan(g)
+    expect(g).toBeGreaterThan(b)
+    expect(r - b).toBeGreaterThanOrEqual(64)
+    expect((luminance(color) + 0.05) / 0.05).toBeGreaterThanOrEqual(4.5)
+  })
+
+  it('darkens cooler brown dwarfs and uses spectral class only when the temperature is blank', () => {
+    expect(luminance(brownDwarf(250, null))).toBeLessThan(luminance(brownDwarf(1420, null)))
+    const byClass = ['Y1', 'T6', 'L5', 'M9'].map((spectralType) => luminance(brownDwarf(null, spectralType)))
+    expect(byClass.every((value, index) => index === 0 || value > byClass[index - 1]!)).toBe(true)
+    expect(brownDwarf(1420, 'Y4').equals(brownDwarf(1420, 'M9'))).toBe(true)
+    expect(brownDwarf(1420, 'Y4').equals(brownDwarf(null, 'Y4'))).toBe(false)
+  })
+
+  it('reads the primary spectral class through prefixes and suffixes', () => {
+    expect(brownDwarf(null, '> T9').equals(brownDwarf(null, 'T6'))).toBe(true)
+    expect(brownDwarf(null, 'sdM3').equals(brownDwarf(null, 'M9.5Ve'))).toBe(true)
+    expect(brownDwarf(null, 'M9.5+T5').equals(brownDwarf(null, 'M8'))).toBe(true)
+    expect(brownDwarf(null, 'Y0pec').equals(brownDwarf(null, 'Y4'))).toBe(true)
+    expect(brownDwarf(null, null).equals(brownDwarf(1300, null))).toBe(true)
+    expect(brownDwarf(null, 'unknown').equals(brownDwarf(1300, null))).toBe(true)
+  })
+
+  it('colors bundled brown and sub-brown dwarfs brown instead of gray or red', () => {
+    const substellar = stars.filter((star) => star.type === 'brown_dwarf' || star.type === 'sub_brown_dwarf')
+    expect(substellar.map((star) => star.id)).toEqual(['luhman-16-a', 'luhman-16-b', 'wise-0855-0714'])
+    for (const star of substellar) {
+      expect(starDisplayColor(star).equals(brownDwarf(star.temperature_k, star.spectral_type))).toBe(true)
+      expect(starDisplayColor(star).equals(temperatureToColor(star.temperature_k))).toBe(false)
+    }
+    expect(brownDwarf(null, 'T6', 'sub_brown_dwarf').equals(brownDwarf(null, 'T6'))).toBe(true)
   })
 })

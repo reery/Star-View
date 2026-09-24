@@ -1,5 +1,5 @@
 import type { Star } from './catalog-model'
-import { formatDistance, sunRelativeMetrics, temperatureToColor, type DistanceUnit } from './astronomy'
+import { formatDistance, starDisplayColor, sunRelativeMetrics, type DistanceUnit } from './astronomy'
 
 const VIRTUAL_THRESHOLD = 200
 const ROW_HEIGHT = 48
@@ -19,6 +19,7 @@ interface ObjectListItem {
   star: Star
   distancePc: number
   search: string
+  color: string
 }
 
 export class ObjectList {
@@ -47,6 +48,7 @@ export class ObjectList {
       star,
       distancePc: sunRelativeMetrics(star, sun).distancePc,
       search: normalizeObjectSearch(`${star.name} ${star.id} ${star.spectral_type ?? ''}`),
+      color: starDisplayColor(star).getStyle(),
     }))
     this.filtered = this.items
     this.unit = unit
@@ -97,7 +99,7 @@ export class ObjectList {
     }
     const swatch = document.createElement('span')
     swatch.className = 'star-swatch'
-    swatch.style.background = temperatureToColor(item.star.temperature_k).getStyle()
+    swatch.style.background = item.color
     swatch.setAttribute('aria-hidden', 'true')
     const name = document.createElement('span')
     name.className = 'catalog-name'

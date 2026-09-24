@@ -1,5 +1,5 @@
 import { expect, test } from '@playwright/test'
-import { openFilter, openViewer } from './support'
+import { motionArrows, openFilter, openViewer, type MotionArrowSnapshot } from './support'
 
 test('keeps the selected name in front even at collisions and scene edges', async ({ page }) => {
   await openViewer(page)
@@ -124,10 +124,9 @@ test('keeps the Sirius name visible behind the Sun in the nearest-1000 view', as
 
   const siriusAnchor = page.locator('[data-star-id="sirius-a"]')
   const siriusName = siriusAnchor.locator('.star-label')
-  const siriusArrow = siriusAnchor.locator('.motion-arrow')
   await expect(siriusAnchor).toBeVisible()
   await expect(siriusName).toBeVisible()
-  await expect(siriusArrow).toBeVisible()
+  await expect.poll(async () => (await motionArrows(page)).some((arrow) => arrow.id === 'sirius-a')).toBe(true)
 
   const rotationStart = { x: start.x - 100, y: start.y }
   await page.mouse.move(rotationStart.x, rotationStart.y)
@@ -138,7 +137,8 @@ test('keeps the Sirius name visible behind the Sun in the nearest-1000 view', as
     expect(await siriusName.isVisible(), `Sirius name hidden during rotation step ${step}`).toBe(true)
     const overlap = await page.evaluate(() => {
       const name = document.querySelector<HTMLElement>('[data-star-id="sirius-a"] .star-label')!.getBoundingClientRect()
-      const arrow = document.querySelector<HTMLElement>('[data-star-id="sirius-a"] .motion-arrow')!.getBoundingClientRect()
+      const layer = document.querySelector('.projected-labels') as HTMLElement & { motionArrowSnapshot(): MotionArrowSnapshot[] }
+      const arrow = layer.motionArrowSnapshot().find((candidate) => candidate.id === 'sirius-a')!.bounds
       return name.left < arrow.right && name.right > arrow.left && name.top < arrow.bottom && name.bottom > arrow.top
     })
     expect(overlap, `Sirius name overlaps its arrow during rotation step ${step}`).toBe(false)
@@ -183,4 +183,26 @@ test('keeps star names steady and foreground distance clear of both stars during
     }
   }
   await page.mouse.up()
+})
+
+test('centers the distance label on the midpoint of the Sun line', async ({ page }) => {
+  await openViewer(page)
+  await page.locator('.catalog summary').click()
+  await page.getByRole('button', { name: 'Select Sirius A', exact: true }).click()
+  const labelOffset = () => page.evaluate(async () => {
+    await new Promise(requestAnimationFrame)
+    const point = (id: string) => document.querySelector<HTMLElement>(`[data-star-id="${id}"]`)?.getBoundingClientRect()
+    const sun = point('sun')
+    const sirius = point('sirius-a')
+    const label = document.querySelector<HTMLElement>('.distance-label')!.getBoundingClientRect()
+    if (!sun || !sirius) return Infinity
+    return Math.hypot(label.left + label.width / 2 - (sun.left + sirius.left) / 2, label.top + label.height / 2 - (sun.top + sirius.top) / 2)
+  })
+  // Short projected lines keep the label beside the midpoint; zooming around Sirius lengthens the line.
+  let offset = await labelOffset()
+  for (let step = 0; step < 4 && offset >= 1; step++) {
+    await page.getByRole('button', { name: 'Zoom in', exact: true }).click()
+    offset = await labelOffset()
+  }
+  expect(offset, 'distance label center to line midpoint').toBeLessThan(1)
 })
