@@ -147,9 +147,9 @@ test('keeps the Sirius name visible behind the Sun in the nearest-1000 view', as
   await page.screenshot({ path: testInfo.outputPath('sun-sirius-label.png'), fullPage: true })
 })
 
-test('keeps star names steady and foreground distance clear of both stars during rotation', async ({ page }) => {
+test('keeps star names steady and the foreground distance centered during rotation', async ({ page }) => {
   await openViewer(page)
-  await expect(page.locator('.distance-label').locator('..')).toHaveCSS('z-index', '2')
+  await expect(page.locator('.distance-label').locator('..')).toHaveCSS('z-index', '3')
   const bounds = (await page.locator('#scene canvas').boundingBox())!
   await page.mouse.move(bounds.x + bounds.width * 0.4, bounds.y + bounds.height * 0.7)
   await page.mouse.down()
@@ -164,22 +164,23 @@ test('keeps star names steady and foreground distance clear of both stars during
           const text = label.getBoundingClientRect()
           const anchor = label.parentElement!.getBoundingClientRect()
           const distance = label.matches('.distance-label')
-          const endpointsClear = !distance || endpoints.every((point) =>
-            text.right <= point.left - 30 || text.left >= point.left + 30 ||
-            text.bottom <= point.top - 30 || text.top >= point.top + 30)
+          const midpointOffset = distance ? Math.hypot(
+            text.left + text.width / 2 - (endpoints[0]!.left + endpoints[1]!.left) / 2,
+            text.top + text.height / 2 - (endpoints[0]!.top + endpoints[1]!.top) / 2,
+          ) : 0
           const placement = Math.abs(text.left - anchor.right - 22) < 1 ? 'right'
             : Math.abs(text.right - anchor.left + 22) < 1 ? 'left'
               : Math.abs(text.top - anchor.bottom - 22) < 1 ? 'below'
                 : Math.abs(text.bottom - anchor.top + 22) < 1 ? 'above'
                   : 'foreground'
-          return { distance, endpointsClear, placement }
+          return { distance, midpointOffset, placement }
         })
     })
     expect(labels.length).toBeGreaterThan(0)
     expect(labels.some((label) => label.distance)).toBe(true)
     for (const label of labels) {
-      expect(label.endpointsClear).toBe(true)
-      if (!label.distance) expect(['right', 'left', 'below', 'above', 'foreground']).toContain(label.placement)
+      if (label.distance) expect(label.midpointOffset).toBeLessThan(1)
+      else expect(['right', 'left', 'below', 'above', 'foreground']).toContain(label.placement)
     }
   }
   await page.mouse.up()
@@ -198,11 +199,5 @@ test('centers the distance label on the midpoint of the Sun line', async ({ page
     if (!sun || !sirius) return Infinity
     return Math.hypot(label.left + label.width / 2 - (sun.left + sirius.left) / 2, label.top + label.height / 2 - (sun.top + sirius.top) / 2)
   })
-  // Short projected lines keep the label beside the midpoint; zooming around Sirius lengthens the line.
-  let offset = await labelOffset()
-  for (let step = 0; step < 4 && offset >= 1; step++) {
-    await page.getByRole('button', { name: 'Zoom in', exact: true }).click()
-    offset = await labelOffset()
-  }
-  expect(offset, 'distance label center to line midpoint').toBeLessThan(1)
+  expect(await labelOffset(), 'distance label center to line midpoint').toBeLessThan(1)
 })

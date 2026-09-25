@@ -122,7 +122,7 @@ function percentile(values: readonly number[], percent: number): number | null {
   return sorted[Math.min(sorted.length - 1, Math.floor((sorted.length - 1) * percent))]!
 }
 
-for (const catalog of ['nearest-neighbors', 'nearest-100', 'nearest-1000']) {
+for (const catalog of ['nearest-neighbors', 'bright-stars', 'nearest-100', 'nearest-1000']) {
   test(`submits only visible halos and batches axes for ${catalog}`, async ({ page }) => {
     await trackRendering(page)
     await openFilter(page)
@@ -134,7 +134,8 @@ for (const catalog of ['nearest-neighbors', 'nearest-100', 'nearest-1000']) {
       await expect.poll(async () => (await stats(page)).framePointVertices).toBe(await expectedPointVertices(page))
     }
     const beforeSelection = await stats(page)
-    await page.locator('[data-star="wise-0855-0714"]').evaluate((button: HTMLButtonElement) => button.click())
+    const selection = catalog === 'bright-stars' ? 'bright-rigel' : 'wise-0855-0714'
+    await page.locator(`[data-star="${selection}"]`).evaluate((button: HTMLButtonElement) => button.click())
     await expect.poll(async () => (await stats(page)).draws).toBeGreaterThan(beforeSelection.draws)
     await expect.poll(async () => (await stats(page)).framePointVertices).toBe(await expectedPointVertices(page))
     const withGrid = await stats(page)
@@ -368,10 +369,10 @@ test('omits filtered cores and halos from GPU point submissions', async ({ page 
   await openFilter(page)
   await expectIdle(page)
   await expect.poll(async () => (await stats(page)).framePointVertices).toBe(await expectedPointVertices(page))
-  await page.getByLabel('Object visibility distance', { exact: true }).fill('5')
+  await page.getByLabel('Object visibility distance', { exact: true }).fill('0')
   await expect(page.locator('[data-star-id="barnards-star"]')).toHaveCount(0)
   await expect.poll(async () => (await stats(page)).framePointVertices).toBe(await expectedPointVertices(page))
-  await page.getByLabel('Object visibility distance', { exact: true }).fill('100')
+  await page.getByLabel('Object visibility distance', { exact: true }).fill('14')
   await page.locator('details.filter-dropdown > summary').click()
   await page.getByLabel('Brown dwarf', { exact: true }).uncheck()
   await expect(page.locator('[data-star-id="luhman-16-a"]')).toHaveCount(0)

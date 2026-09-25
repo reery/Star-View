@@ -9,13 +9,17 @@ export const BASE_CATALOG_HEADERS = [
   'luminosity_solar', 'absolute_mag', 'epoch', 'notes', 'constellation',
 ] as const
 
+export const PHYSICAL_CATALOG_HEADERS = [
+  'radius_solar', 'metallicity_dex', 'age_gyr',
+] as const
+
 export const RAW_ASTROMETRY_HEADERS = [
   'ra_deg', 'dec_deg', 'astrometry_epoch', 'parallax_mas', 'parallax_error_mas',
   'pm_ra_cosdec_masyr', 'pm_ra_error_masyr', 'pm_dec_masyr', 'pm_dec_error_masyr',
   'radial_velocity_kms', 'radial_velocity_error_kms', 'astrometry_ref', 'radial_velocity_ref',
 ] as const
 
-export const CATALOG_HEADERS = [...BASE_CATALOG_HEADERS, ...RAW_ASTROMETRY_HEADERS] as const
+export const CATALOG_HEADERS = [...BASE_CATALOG_HEADERS, ...PHYSICAL_CATALOG_HEADERS, ...RAW_ASTROMETRY_HEADERS] as const
 
 export const CONSTELLATIONS = [
   'Andromeda', 'Antlia', 'Apus', 'Aquarius', 'Aquila', 'Ara', 'Aries', 'Auriga',
@@ -75,7 +79,7 @@ export function parseStarCatalog(csv: string): Star[] {
     new Set(headers).size !== headers.length ||
     headers.some((header) => !expected.has(header))
   ) {
-    throw new Error(`CSV headers must contain each required field exactly once: ${BASE_CATALOG_HEADERS.filter((header) => header !== 'constellation').join(', ')}. Optional groups: constellation; ${RAW_ASTROMETRY_HEADERS.join(', ')}.`)
+    throw new Error(`CSV headers must contain each required field exactly once: ${BASE_CATALOG_HEADERS.filter((header) => header !== 'constellation').join(', ')}. Optional fields: constellation; ${PHYSICAL_CATALOG_HEADERS.join(', ')}. Optional complete group: ${RAW_ASTROMETRY_HEADERS.join(', ')}.`)
   }
   const firstError = result.errors[0]
   if (firstError) {
@@ -153,6 +157,9 @@ export function parseStarCatalog(csv: string): Star[] {
       temperature_k: numeric(row.temperature_k, 'temperature_k', record, true),
       mass_solar: numeric(row.mass_solar, 'mass_solar', record, true),
       luminosity_solar: numeric(row.luminosity_solar, 'luminosity_solar', record, true),
+      radius_solar: numeric(row.radius_solar, 'radius_solar', record, true),
+      metallicity_dex: numeric(row.metallicity_dex, 'metallicity_dex', record, true),
+      age_gyr: numeric(row.age_gyr, 'age_gyr', record, true),
       absolute_mag: numeric(row.absolute_mag, 'absolute_mag', record, true),
       epoch: numeric(row.epoch, 'epoch', record),
       notes: row.notes?.trim() ?? '',
@@ -162,7 +169,7 @@ export function parseStarCatalog(csv: string): Star[] {
       invalid(record, 'constellation', 'expected a full IAU constellation name or blank.')
     }
     if (id === 'sun' && star.constellation !== null) invalid(record, 'constellation', 'the Sun has no fixed constellation.')
-    for (const field of ['temperature_k', 'mass_solar', 'luminosity_solar'] as const) {
+    for (const field of ['temperature_k', 'mass_solar', 'luminosity_solar', 'radius_solar', 'age_gyr'] as const) {
       if (star[field] !== null && star[field] <= 0) invalid(record, field, 'must be positive.')
     }
     return star

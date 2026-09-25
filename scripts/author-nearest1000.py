@@ -5,6 +5,7 @@ import csv
 import io
 import json
 import math
+import re
 import shutil
 from pathlib import Path
 
@@ -29,8 +30,18 @@ NAME_CORRECTIONS = {"Bo\u00f6tes": "Bootes", "Chamaleon": "Chamaeleon", "Ophiucu
 BASE_HEADERS = [
     "type", "id", "name", "spectral_type", "x_pc", "y_pc", "z_pc",
     "vx_kms", "vy_kms", "vz_kms", "temperature_k", "mass_solar",
-    "luminosity_solar", "absolute_mag", "epoch", "notes", "constellation",
+    "luminosity_solar", "radius_solar", "metallicity_dex", "age_gyr",
+    "absolute_mag", "epoch", "notes", "constellation",
 ]
+
+GREEK_DESIGNATIONS = {
+    "alf": "Alpha", "bet": "Beta", "gam": "Gamma", "del": "Delta",
+    "eps": "Epsilon", "zet": "Zeta", "eta": "Eta", "tet": "Theta",
+    "iot": "Iota", "kap": "Kappa", "lam": "Lambda", "mu.": "Mu",
+    "nu.": "Nu", "ksi": "Xi", "omi": "Omicron", "pi.": "Pi",
+    "rho": "Rho", "sig": "Sigma", "tau": "Tau", "ups": "Upsilon",
+    "phi": "Phi", "chi": "Chi", "psi": "Psi", "ome": "Omega",
+}
 RAW_HEADERS = [
     "ra_deg", "dec_deg", "astrometry_epoch", "parallax_mas", "parallax_error_mas",
     "pm_ra_cosdec_masyr", "pm_ra_error_masyr", "pm_dec_masyr", "pm_dec_error_masyr",
@@ -92,6 +103,25 @@ def source_type(simbad_type):
     return "star"
 
 
+def display_name(simbad):
+    raw = simbad.raw or {}
+    main_id = raw.get("main_id") or simbad.identity.simbad_id
+    common_names = sorted(
+        alias.removeprefix("NAME ").strip()
+        for alias in simbad.identity.aliases
+        if alias.startswith("NAME ") and alias.removeprefix("NAME ").strip()
+    )
+    if common_names:
+        return min(common_names, key=lambda name: (len(name), name.casefold()))
+    name = re.sub(r"^(?:V\*|\*\*|\*)\s+", "", main_id.removeprefix("NAME ")).strip()
+    match = re.match(r"^(alf|bet|gam|del|eps|zet|eta|tet|iot|kap|lam|mu\.|nu\.|ksi|omi|pi\.|rho|sig|tau|ups|phi|chi|psi|ome)(\d{2})?\s+(.+)$", name)
+    if match:
+        greek, component, remainder = match.groups()
+        suffix = str(int(component)) if component else ""
+        return f"{GREEK_DESIGNATIONS[greek]}{suffix} {remainder}"
+    return re.sub(r"\s+", " ", name)
+
+
 def normalize(record, simbad, gaia):
     astrometry = record.astrometry
     raw = simbad.raw or {}
@@ -113,7 +143,7 @@ def normalize(record, simbad, gaia):
     position = direction.galactic.cartesian.xyz.to_value(units.pc)
     velocity = original.galactic.velocity.d_xyz.to_value(units.km / units.s) if use_rv else None
     identifier = f"cns5-{int(record.identity.source_record_id):04d}"
-    name = raw.get("main_id") or next((alias for alias in record.identity.aliases if alias.startswith("GJ ")), identifier)
+    name = display_name(simbad)
     constellation = get_constellation(direction, short_name=False, constellation_list="iau").strip()
     row = {header: "" for header in HEADERS}
     row.update({
@@ -149,16 +179,18 @@ def normalize(record, simbad, gaia):
     physical = []
     if gaia is not None and object_type == "star":
         def eligible_physical(item):
-            if not math.isfinite(item.value) or item.value <= 0:
+            if not math.isfinite(item.value) or (item.field != "metallicity_dex" and item.value <= 0):
                 return False
             if item.field == "temperature_k":
+                return True
+            if item.field == "metallicity_dex":
                 return True
             flag = item.quality_flags[0] if item.quality_flags else ""
             if len(flag) != 2:
                 return False
-            if item.field == "mass_solar":
+            if item.field in {"mass_solar", "age_gyr"}:
                 return flag[0] == "0"
-            return item.field == "luminosity_solar" and flag[1] in {"0", "2"}
+            return item.field in {"luminosity_solar", "radius_solar"} and flag[1] in {"0", "2"}
         by_field = {item.field: item for item in gaia.physical if eligible_physical(item)}
         if "temperature_k" in by_field:
             row["temperature_k"] = str(round(by_field["temperature_k"].value))
@@ -166,6 +198,12 @@ def normalize(record, simbad, gaia):
             row["mass_solar"] = str(by_field["mass_solar"].value)
         if "luminosity_solar" in by_field:
             row["luminosity_solar"] = str(by_field["luminosity_solar"].value)
+        if "radius_solar" in by_field:
+            row["radius_solar"] = str(by_field["radius_solar"].value)
+        if "metallicity_dex" in by_field:
+            row["metallicity_dex"] = str(by_field["metallicity_dex"].value)
+        if "age_gyr" in by_field:
+            row["age_gyr"] = str(by_field["age_gyr"].value)
         physical = [item.to_dict() for item in by_field.values()]
     provenance = {
         "id": identifier,
@@ -180,6 +218,9 @@ def normalize(record, simbad, gaia):
             "temperature_k": "model-derived" if row["temperature_k"] else "unknown",
             "mass_solar": "model-derived" if row["mass_solar"] else "unknown",
             "luminosity_solar": "model-derived" if row["luminosity_solar"] else "unknown",
+            "radius_solar": "model-derived" if row["radius_solar"] else "unknown",
+            "metallicity_dex": "model-derived" if row["metallicity_dex"] else "unknown",
+            "age_gyr": "model-derived" if row["age_gyr"] else "unknown",
             "absolute_mag": "derived-from-compiled-Johnson-V" if row["absolute_mag"] else "unknown",
             "radial_velocity_kms": "compiled" if use_rv else "withheld" if astrometry.radial_velocity_kms is not None else "unknown",
         },
@@ -255,7 +296,7 @@ def build_package():
         "objectCount": 1001,
         "sources": SOURCES,
         "cutoffPolicy": f"Exclude SIMBAD aggregate systems (**) and tentative brown-dwarf candidates (BD?); replace mapped CNS5 records with curated nearest-100 components; rank nominal adopted J2000 distance then stable ID. Rank 1000 is {cutoff[2]['name']} ({cutoff[1]}) at {cutoff[0]:.12f} pc; next is {next_candidate[2]['name']} at {next_candidate[0]:.12f} pc. Linearized parallax intervals {'overlap' if uncertainty_overlap else 'do not overlap'}; nominal ranking is retained.",
-        "snapshot": "J2000.0; CNS5 corrected 2023-12-13; SIMBAD and Gaia DR3 TAP frozen 2026-09-15; source-defined snapshot, not a 2026 completeness claim.",
+        "snapshot": f"J2000.0; CNS5 corrected 2023-12-13; SIMBAD and Gaia DR3 TAP frozen {manifest_input['retrieved']}; source-defined snapshot, not a 2026 completeness claim.",
     }
     provenance = {
         "schemaVersion": 1,
@@ -263,7 +304,7 @@ def build_package():
         "policyRevision": "cns5-individuals-v1",
         "sourceManifestSha256": sha256(FROZEN / "source-manifest.json"),
         "sources": SOURCES,
-        "coverage": {field: sum(bool(row[field]) for row in rows if row["id"] != "sun") for field in ("constellation", "spectral_type", "temperature_k", "mass_solar", "luminosity_solar", "absolute_mag", "radial_velocity_kms")},
+        "coverage": {field: sum(bool(row.get(field)) for row in rows if row["id"] != "sun") for field in ("constellation", "spectral_type", "temperature_k", "mass_solar", "luminosity_solar", "radius_solar", "metallicity_dex", "age_gyr", "absolute_mag", "radial_velocity_kms")},
         "cutoff": {"rank": 1000, "id": cutoff[1], "name": cutoff[2]["name"], "distancePc": cutoff[0], "distanceSigmaPcLinearized": cutoff_sigma, "nextId": next_candidate[1], "nextDistancePc": next_candidate[0], "nextDistanceSigmaPcLinearized": next_sigma, "oneSigmaIntervalsOverlap": uncertainty_overlap},
         "audit": candidate_audit,
         "objects": [{"id": "sun", "status": "shared override"}] + [item[3] for item in selected],

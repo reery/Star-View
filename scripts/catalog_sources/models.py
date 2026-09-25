@@ -110,7 +110,14 @@ class AstrometryObservation(JsonRecord):
 class PhysicalObservation(JsonRecord):
     source_id: str
     source_record_id: str
-    field: Literal["mass_solar", "temperature_k", "luminosity_solar"]
+    field: Literal[
+        "mass_solar",
+        "temperature_k",
+        "luminosity_solar",
+        "radius_solar",
+        "metallicity_dex",
+        "age_gyr",
+    ]
     value: float
     uncertainty: float | None
     status: FieldStatus
@@ -121,8 +128,10 @@ class PhysicalObservation(JsonRecord):
         _require_identifier(self.source_id, "source_id")
         _require_identifier(self.source_record_id, "source_record_id")
         _require_identifier(self.reference, "reference")
-        if self.value <= 0 or self.uncertainty is not None and self.uncertainty < 0:
-            raise ValueError("physical values must be positive and uncertainties non-negative")
+        if self.field != "metallicity_dex" and self.value <= 0:
+            raise ValueError("physical values other than metallicity must be positive")
+        if self.uncertainty is not None and self.uncertainty < 0:
+            raise ValueError("physical uncertainties must be non-negative")
 
 
 @dataclass(frozen=True)

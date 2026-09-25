@@ -4,10 +4,10 @@ import '@fontsource/ibm-plex-sans/latin-500.css'
 import '@fontsource/ibm-plex-sans/latin-600.css'
 import { Focus, Grid2X2, Orbit, ZoomIn, ZoomOut, createElement, type IconNode } from 'lucide'
 import { describeObject, OBJECT_TYPES, objectTypeLabel, type ObjectType, type Star } from './catalog-model'
-import { catalogSelection } from './catalog-runtime'
+import { catalogSelection, mergeCatalogStars } from './catalog-runtime'
 import { catalogs, catalogErrors } from './registry'
-import { formatDistance, starDisplayColor, sunRelativeMetrics, type DistanceUnit } from './astronomy'
-import { createStarViewer, type StarViewer } from './viewer'
+import { formatDistance, gridSpacingPc, starDisplayColor, sunRelativeMetrics, type DistanceUnit } from './astronomy'
+import { createStarViewer, type StarViewer, type ViewerViewState } from './viewer'
 import { ObjectList } from './object-list'
 
 function element<ElementType extends HTMLElement = HTMLElement>(id: string): ElementType {
@@ -50,11 +50,14 @@ let selectedId: string | null = 'sirius-a'
 let observerId = 'sirius-a'
 let magnitudeLimit = 7
 let objectDistanceLimitLy = 100
+let showAlwaysBright = false
 let gridVisible = true
 let powerSavingMode = false
 let catalogRequest = 0
 const selectedTypes = new Set<ObjectType>(OBJECT_TYPES)
 let distanceUnit: DistanceUnit = 'ly'
+const BRIGHT_CATALOG_ID = 'bright-stars'
+const OBJECT_DISTANCE_STEPS_LY = [5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 60, 70, 80, 90, 100, 150, 200, 300, 500, 1000] as const
 try {
   if (localStorage.getItem('star-view-distance-unit') === 'pc') distanceUnit = 'pc'
 } catch {}
@@ -94,6 +97,9 @@ function renderSelection(): void {
   text('spectral-type', star.spectral_type ?? 'Not available')
   text('temperature', quantity(star.temperature_k, 'K', 0))
   text('mass', quantity(star.mass_solar, 'solar'))
+  text('radius', quantity(star.radius_solar, 'solar'))
+  text('metallicity', quantity(star.metallicity_dex, 'dex'))
+  text('age', quantity(star.age_gyr, 'Gyr'))
   text('luminosity', quantity(star.luminosity_solar, 'solar'))
   element('luminosity-row').hidden = star.luminosity_solar === null
   text('coordinate-x', formatDistance(star.x_pc, distanceUnit, 3))
@@ -126,25 +132,30 @@ function selectStar(id: string | null): void {
   if (id !== null) observerId = id
   renderSelection()
   viewer?.select(id)
-  viewer?.setVisibility(observerId, magnitudeLimit)
 }
 
 function renderDistances(): void {
   element<HTMLInputElement>(`unit-${distanceUnit}`).checked = true
-  text('grid-spacing', `${formatDistance(0.5, distanceUnit, distanceUnit === 'pc' ? 1 : 2)} grid`)
+  text('grid-spacing', `${formatDistance(gridSpacingPc(objectDistanceLimitLy), distanceUnit, distanceUnit === 'pc' ? 1 : 2)} grid`)
   objectList.setDistanceUnit(distanceUnit)
   renderSelection()
 }
 
-async function switchCatalog(id: string): Promise<void> {
-  if (id === activeCatalogId) return
+async function switchCatalog(id: string, refresh = false): Promise<void> {
+  if (id === activeCatalogId && !refresh) return
   const definition = catalogs.find((catalog) => catalog.manifest.id === id)
   if (!definition) return
   const request = ++catalogRequest
   sceneStatus(`Loading ${definition.manifest.label}...`)
   let nextStars: Star[]
+  let gridHalfSizePc: number
   try {
-    nextStars = await definition.load()
+    const selectedCatalog = await definition.load()
+    const brightCatalog = showAlwaysBright && id !== BRIGHT_CATALOG_ID
+      ? await catalogs.find((catalog) => catalog.manifest.id === BRIGHT_CATALOG_ID)!.load()
+      : []
+    nextStars = mergeCatalogStars(selectedCatalog, brightCatalog)
+    gridHalfSizePc = Math.max(3, Math.ceil(Math.max(...selectedCatalog.map((star) => Math.hypot(star.x_pc, star.y_pc, star.z_pc))) + 1))
   } catch (error) {
     if (request !== catalogRequest) return
     catalogError(error)
@@ -153,6 +164,8 @@ async function switchCatalog(id: string): Promise<void> {
     return
   }
   if (request !== catalogRequest) return
+  const retainedView: ViewerViewState | undefined = viewer?.getViewState()
+  const changingCatalog = activeCatalogId !== '' && id !== activeCatalogId
   const retained = catalogSelection(nextStars, selectedId, observerId)
   viewer?.dispose()
   viewer = undefined
@@ -168,18 +181,23 @@ async function switchCatalog(id: string): Promise<void> {
   objectList.setStars(stars, distanceUnit, selectedId)
   renderDistances()
   try {
-    viewer = createStarViewer(element('scene'), stars, { onSelect: selectStar, onStatus: sceneStatus })
-    viewer.setDistanceUnit(distanceUnit)
-    viewer.select(selectedId, false)
-    viewer.setVisibility(observerId, magnitudeLimit)
-    viewer.setObjectDistanceLimit(objectDistanceLimitLy)
-    viewer.setObjectTypeFilter([...selectedTypes])
-    viewer.setPowerSavingMode(powerSavingMode)
-    viewer.setGridVisible(gridVisible)
-    sceneStatus(null)
-  } catch {
+    viewer = createStarViewer(element('scene'), stars, { onSelect: selectStar, onStatus: sceneStatus, gridHalfSizePc })
+  } catch (error) {
+    console.error('Could not create the 3D viewer.', error)
     sceneStatus('3D graphics are unavailable on this device. The object catalog and details are still available.')
+    return
   }
+  viewer.setDistanceUnit(distanceUnit)
+  viewer.select(selectedId, false)
+  viewer.setVisibility(observerId, magnitudeLimit)
+  viewer.setObjectDistanceLimit(objectDistanceLimitLy)
+  viewer.setObjectTypeFilter([...selectedTypes])
+  viewer.setPowerSavingMode(powerSavingMode)
+  viewer.setGridVisible(gridVisible)
+  if (retainedView && (!changingCatalog || !retainedView.home)) {
+    viewer.setViewState({ ...retainedView, home: changingCatalog ? false : retainedView.home })
+  }
+  sceneStatus(null)
 }
 
 function catalogError(error: unknown): void {
@@ -219,6 +237,10 @@ element('object-search').addEventListener('input', () => objectList.setQuery(ele
 element('catalog-select').addEventListener('change', () => {
   void switchCatalog(element<HTMLSelectElement>('catalog-select').value)
 }, { signal: events.signal })
+element('show-always-bright').addEventListener('change', () => {
+  showAlwaysBright = element<HTMLInputElement>('show-always-bright').checked
+  if (activeCatalogId !== BRIGHT_CATALOG_ID) void switchCatalog(activeCatalogId, true)
+}, { signal: events.signal })
 element('distance-units').addEventListener('change', () => {
   distanceUnit = element<HTMLInputElement>('unit-ly').checked ? 'ly' : 'pc'
   try { localStorage.setItem('star-view-distance-unit', distanceUnit) } catch {}
@@ -238,8 +260,10 @@ element('magnitude-limit').addEventListener('change', () => {
 element('object-distance-limit').addEventListener('input', () => {
   const input = element<HTMLInputElement>('object-distance-limit')
   if (!input.validity.valid || !Number.isFinite(input.valueAsNumber)) return
-  objectDistanceLimitLy = input.valueAsNumber
+  objectDistanceLimitLy = OBJECT_DISTANCE_STEPS_LY[input.valueAsNumber] ?? objectDistanceLimitLy
+  input.setAttribute('aria-valuetext', `${objectDistanceLimitLy} light-years`)
   text('object-distance-limit-value', `${objectDistanceLimitLy} ly`)
+  text('grid-spacing', `${formatDistance(gridSpacingPc(objectDistanceLimitLy), distanceUnit, distanceUnit === 'pc' ? 1 : 2)} grid`)
   viewer?.setObjectDistanceLimit(objectDistanceLimitLy)
 }, { signal: events.signal })
 element('power-saving-mode').addEventListener('change', () => {

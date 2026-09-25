@@ -18,6 +18,15 @@ export interface DisplayMotion {
 
 export type DistanceUnit = 'pc' | 'ly'
 
+export function gridSpacingPc(distanceLy: number): number {
+  if (distanceLy <= 100) return 0.5
+  if (distanceLy <= 150) return 1
+  if (distanceLy <= 200) return 2
+  if (distanceLy <= 300) return 5
+  if (distanceLy <= 500) return 10
+  return 20
+}
+
 export function formatDistance(distancePc: number, unit: DistanceUnit, digits = 2): string {
   const converted = distancePc * (unit === 'ly' ? LIGHT_YEARS_PER_PARSEC : 1)
   const value = Math.abs(converted) < 0.5 * 10 ** -digits ? 0 : converted
@@ -124,6 +133,7 @@ const BROWN_DWARF_COLORS = [
 
 // Color-only stand-ins for blank brown dwarf temperatures; never shown as data.
 const BROWN_DWARF_CLASS_KELVIN = { M: 2400, L: 1800, T: 1000, Y: 350 } as const
+const STAR_CLASS_KELVIN = { O: 30000, B: 15000, A: 8500, F: 6500, G: 5500, K: 4500, M: 3500 } as const
 
 function interpolateColor(stops: readonly { kelvin: number; color: number }[], kelvin: number): Color {
   if (kelvin <= stops[0]!.kelvin) return new Color(stops[0]!.color)
@@ -145,7 +155,10 @@ export function temperatureToColor(kelvin: number | null): Color {
 }
 
 export function starDisplayColor(star: Pick<Star, 'type' | 'temperature_k' | 'spectral_type'>): Color {
-  if (star.type !== 'brown_dwarf' && star.type !== 'sub_brown_dwarf') return temperatureToColor(star.temperature_k)
+  if (star.type !== 'brown_dwarf' && star.type !== 'sub_brown_dwarf') {
+    const spectralClass = star.type === 'star' ? star.spectral_type?.match(/([OBAFGKM])/)?.[1] as keyof typeof STAR_CLASS_KELVIN | undefined : undefined
+    return temperatureToColor(star.temperature_k ?? (spectralClass ? STAR_CLASS_KELVIN[spectralClass] : null))
+  }
   const temperature = star.temperature_k
   if (temperature !== null && Number.isFinite(temperature) && temperature > 0) return interpolateColor(BROWN_DWARF_COLORS, temperature)
   const spectralClass = star.spectral_type?.match(/([MLTY])\d/)?.[1] as keyof typeof BROWN_DWARF_CLASS_KELVIN | undefined

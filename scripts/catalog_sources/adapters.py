@@ -108,8 +108,11 @@ def read_gaia_tap(path: Path) -> list[NormalizedSourceRecord]:
         flame_flags = tuple(filter(None, (_text(row.get("flags_flame")),)))
         for field, column, lower, upper, flags in (
             ("temperature_k", "teff_gspphot", "teff_gspphot_lower", "teff_gspphot_upper", ()),
+            ("metallicity_dex", "mh_gspphot", "mh_gspphot_lower", "mh_gspphot_upper", ()),
             ("mass_solar", "mass_flame", "mass_flame_lower", "mass_flame_upper", flame_flags),
             ("luminosity_solar", "lum_flame", "lum_flame_lower", "lum_flame_upper", flame_flags),
+            ("radius_solar", "radius_flame", "radius_flame_lower", "radius_flame_upper", flame_flags),
+            ("age_gyr", "age_flame", "age_flame_lower", "age_flame_upper", flame_flags),
         ):
             value = _number(row.get(column))
             if value is not None:
@@ -140,7 +143,7 @@ def read_cifuentes(path: Path) -> list[NormalizedSourceRecord]:
         if identifier is None:
             raise ValueError("Cifuentes row has no usable identifier")
         physical = []
-        for field, names in (("temperature_k", ("Teff", "temperature_k")), ("mass_solar", ("Mass", "mass_solar")), ("luminosity_solar", ("Lum", "luminosity_solar"))):
+        for field, names in (("temperature_k", ("Teff", "temperature_k")), ("mass_solar", ("Mass", "mass_solar")), ("luminosity_solar", ("Lum", "luminosity_solar")), ("radius_solar", ("Radius", "radius_solar")), ("metallicity_dex", ("FeH", "metallicity_dex")), ("age_gyr", ("Age", "age_gyr"))):
             value = next((_number(row.get(name)) for name in names if _number(row.get(name)) is not None), None)
             if value is not None:
                 physical.append(PhysicalObservation("cifuentes-2020", identifier, field, value, None, "model-derived", "2020A&A...642A.115C"))
