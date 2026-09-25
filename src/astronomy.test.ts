@@ -11,7 +11,7 @@ const sirius = stars.find((star) => star.id === 'sirius-a')!
 
 describe('adaptive grid spacing', () => {
   it.each([
-    [5, 0.5], [100, 0.5], [150, 1], [200, 2], [300, 5], [500, 10], [1000, 20],
+    [5, 0.5], [100, 0.5], [150, 1], [200, 2], [300, 5], [500, 10], [1000, 20], [1500, 30], [2000, 40],
   ])('uses %d ly visibility with %d pc cells', (distance, spacing) => {
     expect(gridSpacingPc(distance)).toBe(spacing)
   })
@@ -126,6 +126,12 @@ describe('Galactic rest-frame motion', () => {
     const motion = displayMotionForStar({ id: 'raw-full', vx_kms: null, vy_kms: null, vz_kms: null, raw_astrometry: raw })!
     expect(motion.mode).toBe('full')
     expect(motion.velocity.clone().sub(galacticVelocityToWorld(SOLAR_GALACTIC_VELOCITY_KMS)!).length()).toBeCloseTo(10)
+  })
+
+  it('switches full motion between Galactic and Solar reference frames', () => {
+    expect(displayMotionForStar(sun, 'solar')).toBeNull()
+    expect(displayMotionForStar(sirius, 'solar')).toEqual({ velocity: galacticVelocityToWorld(sirius), mode: 'full' })
+    expect(displayMotionForStar(sirius, 'galactic')).toEqual({ velocity: galactocentricVelocityToWorld(sirius), mode: 'full' })
   })
 })
 

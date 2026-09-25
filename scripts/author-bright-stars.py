@@ -34,17 +34,28 @@ ICRS_TO_GALACTIC = (
 )
 CONSTELLATIONS = {
     "Achernar": "Eridanus", "Acrux": "Crux", "Adhara": "Canis Major",
-    "Aldebaran": "Taurus", "Alhena": "Gemini", "Alioth": "Ursa Major",
-    "Alkaid": "Ursa Major", "Alnair": "Grus", "Altair": "Aquila",
-    "Antares": "Scorpius", "Arcturus": "Bootes", "Atria": "Triangulum Australe",
-    "Avior": "Carina", "Bellatrix": "Orion", "Betelgeuse": "Orion",
-    "Canopus": "Carina", "Capella": "Auriga", "Castor": "Gemini",
-    "Dubhe": "Ursa Major", "Elnath": "Taurus", "Fomalhaut": "Piscis Austrinus",
-    "Gacrux": "Crux", "Hadar": "Centaurus", "Kaus Australis": "Sagittarius",
-    "Menkalinan": "Auriga", "Miaplacidus": "Carina", "Mimosa": "Crux",
-    "Mirfak": "Perseus", "Peacock": "Pavo", "Pollux": "Gemini",
-    "Regulus": "Leo", "Rigel": "Orion", "Sargas": "Scorpius",
-    "Shaula": "Scorpius", "Spica": "Virgo", "Vega": "Lyra",
+    "Aldebaran": "Taurus", "Alhena": "Gemini", "Alioth": "Ursa Major", "Alkaid": "Ursa Major",
+    "Almach": "Andromeda", "Alnair": "Grus", "Alnilam": "Orion", "Alnitak": "Orion",
+    "Alpha Lupi": "Lupus", "Alphard": "Hydra", "Alphecca": "Corona Borealis",
+    "Alpheratz": "Andromeda", "Algol": "Perseus", "Altair": "Aquila", "Ankaa": "Phoenix",
+    "Antares": "Scorpius", "Arcturus": "Bootes", "Aspidiske": "Carina",
+    "Atria": "Triangulum Australe", "Avior": "Carina", "Bellatrix": "Orion",
+    "Beta Gruis": "Grus", "Betelgeuse": "Orion", "Canopus": "Carina", "Caph": "Cassiopeia",
+    "Capella": "Auriga", "Castor": "Gemini", "Deneb": "Cygnus", "Denebola": "Leo",
+    "Diphda": "Cetus", "Dschubba": "Scorpius", "Dubhe": "Ursa Major", "Elnath": "Taurus",
+    "Eltanin": "Draco", "Enif": "Pegasus", "Epsilon Centauri": "Centaurus",
+    "Epsilon Scorpii": "Scorpius", "Eta Centauri": "Centaurus", "Fomalhaut": "Piscis Austrinus",
+    "Gacrux": "Crux", "Gamma Cassiopeiae": "Cassiopeia", "Gamma Centauri": "Centaurus",
+    "Hadar": "Centaurus", "Hamal": "Aries", "Kappa Scorpii": "Scorpius",
+    "Kaus Australis": "Sagittarius", "Kochab": "Ursa Minor", "Menkalinan": "Auriga",
+    "Menkent": "Centaurus", "Merak": "Ursa Major", "Miaplacidus": "Carina", "Mimosa": "Crux",
+    "Mintaka": "Orion", "Mirach": "Andromeda", "Mirfak": "Perseus", "Mirzam": "Canis Major",
+    "Mizar A": "Ursa Major", "Naos": "Puppis", "Nunki": "Sagittarius", "Peacock": "Pavo",
+    "Polaris": "Ursa Minor", "Pollux": "Gemini", "Procyon": "Canis Minor",
+    "Rasalhague": "Ophiuchus", "Regor": "Vela", "Regulus": "Leo", "Rigel": "Orion",
+    "Sadr": "Cygnus", "Saiph": "Orion", "Sargas": "Scorpius", "Schedar": "Cassiopeia",
+    "Shaula": "Scorpius", "Spica": "Virgo", "Suhail": "Vela", "Vega": "Lyra",
+    "Wezen": "Canis Major",
 }
 SYSTEM_TYPES = {"**", "SB*", "bC*", "s*b"}
 SOLAR_RADIUS_KM = 695700
@@ -130,11 +141,12 @@ def source_row(source, parameters, diameters, fundamental, sed, primary):
 def render():
     defaults = {row["id"]: row for row in csv.DictReader(DEFAULT_CATALOG.read_text().splitlines())}
     inherited = []
-    for identifier in ("sun", "sirius-a"):
+    for identifier in ("sun", "sirius-a", "alpha-centauri-a", "alpha-centauri-b"):
         source = defaults[identifier]
         inherited.append({header: source.get(header, "") or "" for header in HEADERS})
     with SOURCE.open(newline="") as handle:
         source_rows = list(csv.DictReader(handle))
+    source_by_id = {row["id"]: row for row in source_rows}
     with PARAMETERS.open(newline="") as handle:
         parameters = {row["main_id"]: row for row in csv.DictReader(handle)}
     with DIAMETERS.open(newline="") as handle:
@@ -145,14 +157,14 @@ def render():
         sed = {row["main_id"]: row for row in csv.DictReader(handle)}
     with PRIMARY.open(newline="") as handle:
         primary = {row["main_id"]: row for row in csv.DictReader(handle)}
-    if len(source_rows) != 36 or len({row["id"] for row in source_rows}) != 36 or len({row["name"] for row in source_rows}) != 36:
-        raise ValueError("Bright-star source must contain 36 unique named landmarks")
+    if len(source_rows) != 79 or len({row["id"] for row in source_rows}) != 79 or len({row["name"] for row in source_rows}) != 79:
+        raise ValueError("Bright-star source must contain 79 unique named landmarks")
     authored = [source_row(row, parameters, diameters, fundamental, sed, primary) for row in source_rows]
-    for row in authored:
+    for source, row in zip(source_rows, authored, strict=True):
         distance_ly = math.hypot(float(row["x_pc"]), float(row["y_pc"]), float(row["z_pc"])) * 3.261563777
-        if distance_ly > 1000 or float(row["absolute_mag"]) > 2.21:
+        if distance_ly > 2000 or float(source["V"]) > 2.41:
             raise ValueError(f"Bright-star policy violation: {row['name']}")
-    rows = [inherited[0], *sorted([inherited[1], *authored], key=lambda row: math.hypot(float(row["x_pc"]), float(row["y_pc"]), float(row["z_pc"])))]
+    rows = [inherited[0], *sorted([*inherited[1:], *authored], key=lambda row: math.hypot(float(row["x_pc"]), float(row["y_pc"]), float(row["z_pc"])))]
     output = io.StringIO()
     writer = csv.DictWriter(output, fieldnames=HEADERS, lineterminator="\n")
     writer.writeheader()
@@ -160,11 +172,11 @@ def render():
     provenance = {
         "schemaVersion": 1,
         "catalogId": "bright-stars",
-        "policy": "Curated familiar named landmarks within 1000 ly and approximately absolute V <= +2; Altair retained at +2.21. Not a complete magnitude-limited sample.",
+        "policy": "All frozen SIMBAD stellar entries within 2000 ly with compiled Johnson V <= 2.41, deduplicating the Alpha Centauri system in favor of A/B components; Acrux uses the Bright Star Catalogue combined V=0.76. Includes Sun as the map origin.",
         "objects": {
-            row["id"]: ({"source": "nearest-neighbors", "adoptedWithoutChange": True} if row["id"] in {"sun", "sirius-a"} else {
+            row["id"]: ({"source": "nearest-neighbors", "adoptedWithoutChange": True} if row["id"] in {"sun", "sirius-a", "alpha-centauri-a", "alpha-centauri-b"} else {
                 "source": "SIMBAD TAP snapshot 2026-09-25",
-                "queryId": f"NAME {row['name']}",
+                "queryId": source_by_id[row["id"]]["main_id"],
                 "absoluteMagnitudeMethod": "Johnson V and inverse-parallax distance; no extinction correction",
                 "physicalParameters": "SIMBAD mesFe_h/mesDiameter ranked measurements, Allende Prieto & Lambert 1999 evolutionary models, McDonald et al. 2012 SED models, and reviewed primary papers; see row notes",
                 "luminosityMethod": "McDonald et al. 2012 SED luminosity where available; otherwise Stefan-Boltzmann scaling R^2 (T/5772 K)^4 when both inputs are adopted",

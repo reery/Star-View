@@ -6,8 +6,8 @@ import { Focus, Grid2X2, Orbit, ZoomIn, ZoomOut, createElement, type IconNode } 
 import { describeObject, OBJECT_TYPES, objectTypeLabel, type ObjectType, type Star } from './catalog-model'
 import { catalogSelection, mergeCatalogStars } from './catalog-runtime'
 import { catalogs, catalogErrors } from './registry'
-import { formatDistance, gridSpacingPc, starDisplayColor, sunRelativeMetrics, type DistanceUnit } from './astronomy'
-import { createStarViewer, type StarViewer, type ViewerViewState } from './viewer'
+import { formatDistance, gridSpacingPc, starDisplayColor, sunRelativeMetrics, type DistanceUnit, type MotionFrame } from './astronomy'
+import { MOTION_YEAR_OPTIONS, createStarViewer, type MotionYears, type StarViewer, type ViewerViewState } from './viewer'
 import { ObjectList } from './object-list'
 
 function element<ElementType extends HTMLElement = HTMLElement>(id: string): ElementType {
@@ -53,11 +53,13 @@ let objectDistanceLimitLy = 100
 let showAlwaysBright = false
 let gridVisible = true
 let powerSavingMode = false
+let motionFrame: MotionFrame = 'galactic'
+let motionYears: MotionYears = 1_000
 let catalogRequest = 0
 const selectedTypes = new Set<ObjectType>(OBJECT_TYPES)
 let distanceUnit: DistanceUnit = 'ly'
 const BRIGHT_CATALOG_ID = 'bright-stars'
-const OBJECT_DISTANCE_STEPS_LY = [5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 60, 70, 80, 90, 100, 150, 200, 300, 500, 1000] as const
+const OBJECT_DISTANCE_STEPS_LY = [5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 60, 70, 80, 90, 100, 150, 200, 300, 500, 1000, 1500, 2000] as const
 try {
   if (localStorage.getItem('star-view-distance-unit') === 'pc') distanceUnit = 'pc'
 } catch {}
@@ -192,6 +194,8 @@ async function switchCatalog(id: string, refresh = false): Promise<void> {
   viewer.setVisibility(observerId, magnitudeLimit)
   viewer.setObjectDistanceLimit(objectDistanceLimitLy)
   viewer.setObjectTypeFilter([...selectedTypes])
+  viewer.setMotionFrame(motionFrame)
+  viewer.setMotionYears(motionYears)
   viewer.setPowerSavingMode(powerSavingMode)
   viewer.setGridVisible(gridVisible)
   if (retainedView && (!changingCatalog || !retainedView.home)) {
@@ -269,6 +273,16 @@ element('object-distance-limit').addEventListener('input', () => {
 element('power-saving-mode').addEventListener('change', () => {
   powerSavingMode = element<HTMLInputElement>('power-saving-mode').checked
   viewer?.setPowerSavingMode(powerSavingMode)
+}, { signal: events.signal })
+element('motion-years').addEventListener('change', () => {
+  const years = Number(element<HTMLSelectElement>('motion-years').value) as MotionYears
+  if (!MOTION_YEAR_OPTIONS.includes(years)) return
+  motionYears = years
+  viewer?.setMotionYears(years)
+}, { signal: events.signal })
+element('motion-frame').addEventListener('change', () => {
+  motionFrame = element<HTMLInputElement>('motion-frame-solar').checked ? 'solar' : 'galactic'
+  viewer?.setMotionFrame(motionFrame)
 }, { signal: events.signal })
 element('object-type-filter').addEventListener('change', (event) => {
   const input = event.target

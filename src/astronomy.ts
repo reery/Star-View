@@ -10,6 +10,7 @@ const ICRS_TO_GALACTIC = new Matrix3().set(
 )
 export type Position = Pick<Star, 'x_pc' | 'y_pc' | 'z_pc'>
 export type MotionMode = 'full' | 'transverse'
+export type MotionFrame = 'galactic' | 'solar'
 
 export interface DisplayMotion {
   velocity: Vector3
@@ -24,7 +25,9 @@ export function gridSpacingPc(distanceLy: number): number {
   if (distanceLy <= 200) return 2
   if (distanceLy <= 300) return 5
   if (distanceLy <= 500) return 10
-  return 20
+  if (distanceLy <= 1000) return 20
+  if (distanceLy <= 1500) return 30
+  return 40
 }
 
 export function formatDistance(distancePc: number, unit: DistanceUnit, digits = 2): string {
@@ -89,14 +92,19 @@ export function rawAstrometryVelocityToWorld(raw: RawAstrometry, includeRadial =
 
 export function displayMotionForStar(
   star: Pick<Star, 'id' | 'vx_kms' | 'vy_kms' | 'vz_kms' | 'raw_astrometry'>,
+  frame: MotionFrame = 'galactic',
 ): DisplayMotion | null {
-  const stored = galactocentricVelocityToWorld(star)
-  if (stored) return { velocity: stored, mode: 'full' }
+  const hasStoredMotion = [star.vx_kms, star.vy_kms, star.vz_kms]
+    .every((value) => value !== null && Number.isFinite(value))
+  if (hasStoredMotion) {
+    const stored = frame === 'galactic' ? galactocentricVelocityToWorld(star) : galacticVelocityToWorld(star)
+    return stored ? { velocity: stored, mode: 'full' } : null
+  }
   const raw = star.raw_astrometry
   if (!raw) return null
   const velocity = rawAstrometryVelocityToWorld(raw)
   if (!velocity) return null
-  if (raw.radial_velocity_kms === null) return { velocity, mode: 'transverse' }
+  if (raw.radial_velocity_kms === null || frame === 'solar') return { velocity, mode: raw.radial_velocity_kms === null ? 'transverse' : 'full' }
   const solar = galacticVelocityToWorld(SOLAR_GALACTIC_VELOCITY_KMS)
   if (!solar) return null
   velocity.add(solar)
@@ -117,12 +125,12 @@ const TEMPERATURE_COLORS = [
   { kelvin: 250, color: 0xff3d22 },
   { kelvin: 600, color: 0xff4c29 },
   { kelvin: 1000, color: 0xff6038 },
-  { kelvin: 3000, color: 0xffba77 },
-  { kelvin: 5772, color: 0xffefd1 },
-  { kelvin: 7000, color: 0xf4f5ff },
-  { kelvin: 9845, color: 0xc9dfff },
-  { kelvin: 20000, color: 0xa1bdff },
-  { kelvin: 40000, color: 0x8daeff },
+  { kelvin: 3000, color: 0xffac63 },
+  { kelvin: 5772, color: 0xffe6bc },
+  { kelvin: 7000, color: 0xeff3ff },
+  { kelvin: 9845, color: 0xbad6ff },
+  { kelvin: 20000, color: 0x94b5ff },
+  { kelvin: 40000, color: 0x82a8ff },
 ] as const
 
 const BROWN_DWARF_COLORS = [

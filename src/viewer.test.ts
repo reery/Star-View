@@ -1,11 +1,10 @@
 import { describe, expect, it } from 'vitest'
 import { PerspectiveCamera, Vector3, type Camera } from 'three'
 import { chooseOrdinaryLabelPlacement, ordinaryLabelCandidates } from './label-layout'
-import { renderPixelRatio } from './render-scheduling'
 import {
   MOTION_ARROW_HEAD_PX, MOTION_ARROW_STROKE_PX, MOTION_ARROW_TAIL_OFFSET_PX,
   ScreenSpaceGrid, TapGesture, budgetVisibleLabelIndices, focusProgress, isObjectMapVisible,
-  mapLabelBudget, motionArrowGeometryInto, motionArrowLength, motionForeshortening, pickProjectedStarAtScreenPoint,
+  mapLabelBudget, motionArrowGeometryInto, motionTravelDistancePc, pickProjectedStarAtScreenPoint,
   projectMotionDirection, projectSelectedAnchor, projectWorldPoint, starBlocksLabels,
   shouldRunOrdinaryLabelLayout, starHaloDiameter, starHaloOpacity, starHaloStrength, type MotionArrowGeometry,
   type PointerPosition, type ProjectedPickable, type Viewport,
@@ -142,23 +141,6 @@ describe('camera focus easing', () => {
   })
 })
 
-describe('movement render quality', () => {
-  it.each([
-    [2, false, 1],
-    [2, true, 0.5],
-    [0.75, false, 0.75],
-    [0.4, true, 0.4],
-    [3, false, 1],
-    [3, true, 0.5],
-  ])('maps DPR %s with power saving %s to %s', (ratio, enabled, expected) => {
-    expect(renderPixelRatio(ratio, enabled)).toBe(expected)
-  })
-
-  it.each([0, -1, NaN, Infinity])('falls back safely for invalid DPR %s', (ratio) => {
-    expect(renderPixelRatio(ratio, true)).toBe(0.5)
-  })
-})
-
 describe('object map filtering', () => {
   const star = { id: 'target', type: 'white_dwarf' as const }
 
@@ -226,20 +208,20 @@ describe('bounded halo opacity', () => {
 
 describe('magnitude-sized halos', () => {
   it.each([null, NaN, Infinity, -Infinity])('retains the neutral diameter for %s', (magnitude) => {
-    expect(starHaloDiameter(magnitude)).toBe(26)
+    expect(starHaloDiameter(magnitude)).toBe(30)
   })
 
   it('gives Sirius a substantially larger glow than Barnard', () => {
-    expect(starHaloDiameter(1.42)).toBeCloseTo(55.74)
-    expect(starHaloDiameter(13.22)).toBeCloseTo(20.34)
-    expect(starHaloDiameter(1.42)).toBeGreaterThan(starHaloDiameter(13.22) * 2.5)
+    expect(starHaloDiameter(1.42)).toBeCloseTo(61.965)
+    expect(starHaloDiameter(13.22)).toBe(20)
+    expect(starHaloDiameter(1.42)).toBeGreaterThan(starHaloDiameter(13.22) * 3)
   })
 
   it('bounds sizes and supports zero and negative magnitudes', () => {
-    expect(starHaloDiameter(0)).toBe(60)
-    expect(starHaloDiameter(-1)).toBe(63)
-    expect(starHaloDiameter(-Number.MAX_VALUE)).toBe(64)
-    expect(starHaloDiameter(Number.MAX_VALUE)).toBe(18)
+    expect(starHaloDiameter(0)).toBe(68)
+    expect(starHaloDiameter(-1)).toBe(72.25)
+    expect(starHaloDiameter(-Number.MAX_VALUE)).toBe(80)
+    expect(starHaloDiameter(Number.MAX_VALUE)).toBe(20)
     const sizes = [-2, 0, 5, 10, 15, 20].map(starHaloDiameter)
     expect(sizes).toEqual([...sizes].sort((first, second) => second - first))
   })
@@ -331,13 +313,14 @@ describe('selected offscreen labels', () => {
   })
 })
 
-describe('motion arrow speed scale', () => {
-  it.each([[1, 12], [120, 12], [180, 18], [250, 25], [300, 30], [400, 40], [1000, 40]])('maps %s km/s to a %s CSS pixel shaft', (speed, length) => {
-    expect(motionArrowLength(speed)).toBe(length)
+describe('motion travel distance', () => {
+  it('converts speed and Julian years to parsecs', () => {
+    expect(motionTravelDistancePc(20, 100_000)).toBeCloseTo(2.04542433)
+    expect(motionTravelDistancePc(20, 1_000_000)).toBeCloseTo(20.4542433)
   })
 
-  it.each([0, -1, NaN, Infinity])('does not give undefined motion %s a length', (speed) => {
-    expect(motionArrowLength(speed)).toBe(0)
+  it.each([[0, 100_000], [-1, 100_000], [NaN, 100_000], [20, 0], [20, Infinity]])('rejects invalid travel inputs %j', (speed, years) => {
+    expect(motionTravelDistancePc(speed, years)).toBe(0)
   })
 })
 
@@ -386,26 +369,10 @@ describe('motion arrow geometry', () => {
 })
 
 describe('projected motion direction', () => {
-  describe('motion foreshortening', () => {
-    it('collapses camera-aligned motion and preserves transverse motion', () => {
-      const position = new Vector3(0, 0, -5)
-      expect(motionForeshortening(position, new Vector3(0, 0, 1))).toBe(0)
-      expect(motionForeshortening(position, new Vector3(0, 0, -1))).toBe(0)
-      expect(motionForeshortening(position, new Vector3(1, 0, 0))).toBe(1)
-    })
-
-    it('changes continuously with viewing angle', () => {
-      const position = new Vector3(0, 0, -5)
-      const velocityAt = (degrees: number) => new Vector3(Math.sin(degrees * Math.PI / 180), 0, Math.cos(degrees * Math.PI / 180))
-      expect(motionForeshortening(position, velocityAt(7))).toBeCloseTo(Math.sin(7 * Math.PI / 180))
-      expect(motionForeshortening(position, velocityAt(45))).toBeCloseTo(Math.SQRT1_2)
-      expect(motionForeshortening(position, new Vector3())).toBe(0)
-    })
-  })
   it.each([1e-12, 1, 1000])('keeps a fixed direction for velocity scale %s', (scale) => {
-    expect(projectMotionDirection(new Vector3(), new Vector3(scale, 0, 0), makeCamera(), viewport)).toEqual({ x: 1, y: -0 })
-    expect(projectMotionDirection(new Vector3(), new Vector3(0, scale, 0), makeCamera(), viewport)).toEqual({ x: 0, y: -1 })
-    expect(projectMotionDirection(new Vector3(), new Vector3(-scale, 0, 0), makeCamera(), viewport)).toEqual({ x: -1, y: -0 })
+    expect(projectMotionDirection(new Vector3(), new Vector3(scale, 0, 0), makeCamera(), viewport)).toMatchObject({ x: 1, y: -0 })
+    expect(projectMotionDirection(new Vector3(), new Vector3(0, scale, 0), makeCamera(), viewport)).toMatchObject({ x: 0, y: -1 })
+    expect(projectMotionDirection(new Vector3(), new Vector3(-scale, 0, 0), makeCamera(), viewport)).toMatchObject({ x: -1, y: -0 })
   })
 
   it.each([0, 0.5, 1.5])('matches a small world displacement with camera rotation %s', (angle) => {
@@ -421,6 +388,7 @@ describe('projected motion direction', () => {
     const heading = projectMotionDirection(position, velocity, camera, viewport)!
     expect(heading.x).toBeCloseTo((end.x - start.x) / length, 6)
     expect(heading.y).toBeCloseTo((end.y - start.y) / length, 6)
+    expect(heading.pixelsPerPc).toBeCloseTo(length / (velocity.length() * 1e-5), 3)
     expect(projectMotionDirection(position, velocity, camera, { ...viewport, left: 0, top: 0 })).toEqual(heading)
   })
 

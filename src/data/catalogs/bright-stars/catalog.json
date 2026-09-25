@@ -2,9 +2,9 @@
   "schemaVersion": 1,
   "id": "bright-stars",
   "label": "Bright stars",
-  "description": "A curated set of familiar, intrinsically bright stellar landmarks within 1000 light-years, plus the Sun.",
+  "description": "All frozen qualifying bright stellar entries within 2000 light-years, plus the Sun.",
   "epoch": 2000,
-  "objectCount": 38,
+  "objectCount": 83,
   "sources": [
     {
       "name": "SIMBAD TAP snapshot; named-star identity, astrometry, classification, compiled Johnson V and radial velocity",
@@ -35,6 +35,6 @@
       "url": "https://cdsarc.cds.unistra.fr/viz-bin/cat/V/50"
     }
   ],
-  "cutoffPolicy": "Curated recognizable landmarks from the visually brightest named stars: distance no greater than 1000 light-years and absolute visual magnitude approximately +2 or brighter. Altair at +2.21 is retained as a boundary landmark. This is intentionally representative, not a complete magnitude-limited census.",
-  "snapshot": "J2000.0; SIMBAD TAP queried 2026-09-25; physical sources frozen 2026-09-25; 36 named landmarks plus Sirius A and Sun."
+  "cutoffPolicy": "Every frozen SIMBAD stellar entry no farther than 2000 light-years with compiled Johnson V no fainter than Mintaka (V=2.41). The aggregate Alpha Centauri system row is replaced by its qualifying A and B components. Acrux uses the Bright Star Catalogue combined V=0.76. Sun is included only as the map origin.",
+  "snapshot": "J2000.0; SIMBAD TAP queried 2026-09-25; physical sources frozen 2026-09-25; 82 qualifying bright stars plus Sun."
 }

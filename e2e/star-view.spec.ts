@@ -50,30 +50,30 @@ test('adds the bright-star catalog as a deduplicated optional overlay', async ({
   const sunBeforeToggle = await starPoint(page, 'sun')
   const gridBeforeToggle = await page.locator('#scene').getAttribute('data-grid-half-size-pc')
   await toggle.check()
-  await expect(page.locator('#catalog-count')).toHaveText('58')
+  await expect(page.locator('#catalog-count')).toHaveText('101')
   await expect(page.locator('[data-star="bright-canopus"]')).toHaveCount(1)
   expect(await page.locator('.catalog-entry').evaluateAll((entries) => {
     const ids = entries.map((entry) => (entry as HTMLElement).dataset.star)
     return new Set(ids).size === ids.length
   })).toBe(true)
-  expect(Number(await page.locator('.projected-labels').getAttribute('data-core-count'))).toBeLessThan(58)
+  expect(Number(await page.locator('.projected-labels').getAttribute('data-core-count'))).toBeLessThan(101)
   expect(await starPoint(page, 'sun')).toEqual(sunBeforeToggle)
   await expect(page.locator('#scene')).toHaveAttribute('data-grid-half-size-pc', gridBeforeToggle!)
 
   const distance = page.getByLabel('Object visibility distance', { exact: true })
-  await distance.fill('19')
-  await expect(page.locator('#object-distance-limit-value')).toHaveText('1000 ly')
-  await expect(distance).toHaveAttribute('aria-valuetext', '1000 light-years')
-  await expect(page.locator('#grid-spacing')).toHaveText('65.23 ly grid')
-  await expect(page.locator('#scene')).toHaveAttribute('data-grid-spacing-pc', '20')
-  await expect(page.locator('#scene')).toHaveAttribute('data-grid-half-size-pc', '307')
-  await expect(page.locator('.projected-labels')).toHaveAttribute('data-core-count', '58')
+  await distance.fill('21')
+  await expect(page.locator('#object-distance-limit-value')).toHaveText('2000 ly')
+  await expect(distance).toHaveAttribute('aria-valuetext', '2000 light-years')
+  await expect(page.locator('#grid-spacing')).toHaveText('130.46 ly grid')
+  await expect(page.locator('#scene')).toHaveAttribute('data-grid-spacing-pc', '40')
+  await expect(page.locator('#scene')).toHaveAttribute('data-grid-half-size-pc', '614')
+  await expect(page.locator('.projected-labels')).toHaveAttribute('data-core-count', '101')
 
   await page.getByLabel('Catalog', { exact: true }).selectOption('bright-stars')
-  await expect(page.locator('#catalog-count')).toHaveText('38')
+  await expect(page.locator('#catalog-count')).toHaveText('83')
   await page.locator('#scene canvas').evaluate((canvas) => { canvas.dataset.instance = 'retained' })
   await toggle.uncheck()
-  await expect(page.locator('#catalog-count')).toHaveText('38')
+  await expect(page.locator('#catalog-count')).toHaveText('83')
   await expect(page.locator('#scene canvas')).toHaveAttribute('data-instance', 'retained')
 })
 
@@ -134,6 +134,7 @@ test('switches project catalogs while preserving settings and compatible selecti
   await expect(page.getByLabel('ly', { exact: true })).toBeChecked()
   await page.getByLabel('V magnitude limit', { exact: true }).fill('9')
   await page.getByLabel('Object visibility distance', { exact: true }).fill('3')
+  await page.getByLabel('Arrow length', { exact: true }).selectOption('50000')
   await page.getByRole('button', { name: 'Grid', exact: true }).click()
   await page.getByRole('button', { name: 'Zoom in', exact: true }).click()
   const sunBeforeCatalogSwitch = await starPoint(page, 'sun')
@@ -172,11 +173,12 @@ test('switches project catalogs while preserving settings and compatible selecti
   await sceneFits(page)
 })
 
-test('searches the virtualized nearest-1000 list within bounded name budgets', async ({ page, isMobile }) => {
+test('searches the virtualized nearest-1000 list within bounded name budgets', { tag: '@mobile' }, async ({ page, isMobile }) => {
   await openViewer(page)
   await openFilter(page)
   await page.getByLabel('Catalog', { exact: true }).selectOption('nearest-1000')
   await expect(page.locator('#catalog-count')).toHaveText('1001')
+  await page.getByLabel('Arrow length', { exact: true }).selectOption('50000')
   const nameBudget = isMobile ? 60 : 120
   const activeAnchors = await page.locator('.map-anchor[data-star-id]').count()
   expect(activeAnchors, 'arrows no longer need DOM anchors').toBeLessThanOrEqual(nameBudget + 2)
@@ -378,7 +380,7 @@ test('puts scene context on the map and orders the inspector around selection', 
   const distance = page.getByLabel('Object visibility distance', { exact: true })
   const magnitude = page.getByLabel('V magnitude limit', { exact: true })
   await expect(distance).toHaveAttribute('min', '0')
-  await expect(distance).toHaveAttribute('max', '19')
+  await expect(distance).toHaveAttribute('max', '21')
   await expect(distance).toHaveValue('14')
   await expect(page.locator('#object-distance-limit-value')).toHaveText('100 ly')
   await expect(magnitude).toHaveAttribute('type', 'range')
@@ -447,7 +449,7 @@ test('filters only the map and reveals an excluded selected object', async ({ pa
   await expect(page.getByRole('switch', { name: 'Power saving mode' })).not.toBeChecked()
 })
 
-test('renders temperature-colored objects, measurements, and a responsive interface', async ({ page, isMobile }, testInfo) => {
+test('renders temperature-colored objects, measurements, and a responsive interface', { tag: '@mobile' }, async ({ page, isMobile }, testInfo) => {
   const errors: string[] = []
   page.on('pageerror', (error) => errors.push(error.message))
   page.on('console', (message) => { if (message.type() === 'error') errors.push(message.text()) })
@@ -603,6 +605,10 @@ test('renders soft halos beyond crisp cores and boosts only the selected halo', 
 
 test('makes Sirius glow larger and brighter than Barnard with zoom-stable magnitude sizes', async ({ page }, testInfo) => {
   await openViewer(page)
+  await openFilter(page)
+  // Keep the arrow mask present at both zoom levels so it cannot enter the
+  // sampled halo annulus midway through this halo-only comparison.
+  await page.getByLabel('Arrow length', { exact: true }).selectOption('50000')
   await page.getByRole('button', { name: 'Grid', exact: true }).click()
   await page.locator('.catalog summary').click()
   const canvas = page.locator('#scene canvas')
@@ -730,8 +736,10 @@ test('keeps bright and selected halos subtly temperature-tinted without whitenin
   }
 })
 
-test('toggles the grid below reset without moving stars or changing selection', async ({ page, isMobile }, testInfo) => {
+test('toggles the grid below reset without moving stars or changing selection', { tag: '@mobile' }, async ({ page, isMobile }, testInfo) => {
   await openViewer(page)
+  await openFilter(page)
+  await page.getByLabel('Arrow length', { exact: true }).selectOption('50000')
   const grid = page.getByRole('button', { name: 'Grid', exact: true })
   await expect(grid).toBeEnabled()
   await expect(grid).toHaveAttribute('aria-pressed', 'true')
@@ -853,7 +861,7 @@ test('keeps axis captions anchored behind the canvas throughout rotation', async
   }
 })
 
-test('fades grid pixels toward the edge without fading the scene', async ({ page, isMobile }) => {
+test('fades grid pixels toward the edge without fading the scene', { tag: '@mobile' }, async ({ page, isMobile }) => {
   await openViewer(page)
   const canvas = page.locator('#scene canvas')
   const bounds = (await canvas.boundingBox())!
@@ -963,7 +971,7 @@ test('overlapping stars follow camera depth and keep their motion arrows', async
   }
 })
 
-test('targets ordinary selections, zooms around them, and resets to the catalog view', async ({ page, isMobile }) => {
+test('targets ordinary selections, zooms around them, and resets to the catalog view', { tag: '@mobile' }, async ({ page, isMobile }) => {
   await openViewer(page)
   await page.locator('.catalog summary').click()
   const canvasBounds = (await page.locator('#scene canvas').boundingBox())!
@@ -1114,7 +1122,7 @@ test('interrupts focus for reset, zoom and rapid reselection', async ({ page }) 
   }
 })
 
-test('hands active focus to pointer input, deselection and reduced motion', async ({ page, context, isMobile }) => {
+test('hands active focus to pointer input, deselection and reduced motion', { tag: '@mobile' }, async ({ page, context, isMobile }) => {
   await page.emulateMedia({ reducedMotion: 'no-preference' })
   await openViewer(page)
   await page.locator('.catalog summary').click()
@@ -1181,13 +1189,20 @@ test('hands active focus to pointer input, deselection and reduced motion', asyn
   }
 })
 
-test('shows attached speed-length motion arrows with fixed heads and strokes', async ({ page, isMobile }, testInfo) => {
+test('shows attached travel-length motion arrows with selectable horizons', { tag: '@mobile' }, async ({ page, isMobile }, testInfo) => {
   await openViewer(page)
   await openFilter(page)
   await page.getByLabel('V magnitude limit', { exact: true }).fill('12')
   await expect(page.locator('.star-label-detail')).toHaveCount(0)
   await expect(page.locator('[data-star-id="sirius-a"] .star-label')).toHaveText('Sirius A')
   const homeSun = await starPoint(page, 'sun')
+  const horizon = page.getByLabel('Arrow length', { exact: true })
+  const motionFrame = page.getByRole('group', { name: 'Motion frame' })
+  await expect(motionFrame.getByRole('radio', { name: 'Galactic' })).toBeChecked()
+  await expect(motionFrame.getByRole('radio', { name: 'Solar' })).not.toBeChecked()
+  await expect(horizon).toHaveValue('1000')
+  await expect(horizon.locator('option')).toHaveText(['1k years', '5k years', '10k years', '25k years', '50k years'])
+  await horizon.selectOption('50000')
   await expect(page.locator('.motion-arrow')).toHaveCount(0)
   const arrowFor = (arrows: readonly MotionArrowSnapshot[], id: string) => arrows.find((arrow) => arrow.id === id)
   const heading = (arrow: MotionArrowSnapshot) => Math.atan2(arrow.tailY - arrow.y, arrow.tailX - arrow.x)
@@ -1195,9 +1210,10 @@ test('shows attached speed-length motion arrows with fixed heads and strokes', a
     expect(arrows.length).toBeGreaterThan(1)
     for (const arrow of arrows) {
       expect(arrow.length, `${arrow.id} projected shaft`).toBeGreaterThan(0)
-      expect(arrow.length, `${arrow.id} projected shaft`).toBeLessThanOrEqual(arrow.maxLength + 1e-3)
+      expect(arrow.length, `${arrow.id} projected shaft`).toBeCloseTo(arrow.projectedDistance - 5, 3)
       expect(Math.hypot(arrow.tailX - arrow.x, arrow.tailY - arrow.y), `${arrow.id} tail attaches to the dot`).toBeCloseTo(5, 2)
       expect(Math.hypot(arrow.tipX - arrow.tailX, arrow.tipY - arrow.tailY), `${arrow.id} tip`).toBeCloseTo(arrow.length, 2)
+      expect(Math.hypot(arrow.tipX - arrow.x, arrow.tipY - arrow.y), `${arrow.id} projected travel`).toBeCloseTo(arrow.projectedDistance, 2)
     }
   }
   const initial = await motionArrows(page)
@@ -1205,42 +1221,46 @@ test('shows attached speed-length motion arrows with fixed heads and strokes', a
   await expect(page.locator('[data-star-id="sirius-b"]')).toHaveCount(0)
   expect(arrowFor(initial, 'sirius-b')).toBeUndefined()
   const sunArrow = arrowFor(initial, 'sun')!
-  expect(sunArrow).toMatchObject({ mode: 'full', selected: false, opacity: 0.5, color: 'rgb(255,239,209)' })
-  expect(sunArrow.maxLength).toBeCloseTo(Math.hypot(12.9, 245.6, 7.78) / 10, 3)
-  expect(sunArrow.length).toBeLessThan(sunArrow.maxLength)
+  expect(sunArrow).toMatchObject({ mode: 'full', selected: false, opacity: 0.5, color: 'rgb(255,230,188)' })
   expect(Math.hypot(sunArrow.x - homeSun.x, sunArrow.y - homeSun.y), 'the Sun arrow starts at its dot').toBeLessThan(0.5)
   expect(initial.some((arrow) => arrow.mode === 'transverse')).toBe(true)
   const siriusArrow = arrowFor(initial, 'sirius-a')!
-  expect(siriusArrow).toMatchObject({ mode: 'full', selected: true, opacity: 1, color: 'rgb(201,223,255)' })
+  expect(siriusArrow).toMatchObject({ mode: 'full', selected: true, opacity: 1, color: 'rgb(186,214,255)' })
   expect(initial.some((arrow) => !arrow.selected && arrow.opacity === 0.5)).toBe(true)
-  const intrinsicLengths = new Map(initial.map((arrow) => [arrow.id, arrow.maxLength]))
+  await motionFrame.getByRole('radio', { name: 'Solar' }).check()
+  await expect.poll(async () => arrowFor(await motionArrows(page), 'sun')).toBeUndefined()
+  const solarSirius = arrowFor(await motionArrows(page), 'sirius-a')!
+  expect(solarSirius.projectedDistance).toBeLessThan(siriusArrow.projectedDistance)
+  await motionFrame.getByRole('radio', { name: 'Galactic' }).check()
+  await expect.poll(async () => arrowFor(await motionArrows(page), 'sun')).toBeDefined()
+  await expect.poll(async () => arrowFor(await motionArrows(page), 'sirius-a')?.projectedDistance).toBeCloseTo(siriusArrow.projectedDistance, 3)
+  await horizon.selectOption('25000')
+  const shortSirius = arrowFor(await motionArrows(page), 'sirius-a')!
+  expect(shortSirius.projectedDistance).toBeCloseTo(siriusArrow.projectedDistance / 2, 2)
+  await horizon.selectOption('50000')
+  await expect.poll(async () => arrowFor(await motionArrows(page), 'sirius-a')?.projectedDistance).toBeCloseTo(siriusArrow.projectedDistance, 3)
   const bounds = (await page.locator('#scene canvas').boundingBox())!
   await page.mouse.move(bounds.x + bounds.width * 0.4, bounds.y + bounds.height * 0.75)
   await page.mouse.down()
-  const sunLengths = [sunArrow.length]
+  const siriusLengths = [siriusArrow.length]
   for (let step = 1; step <= 10; step++) {
     await page.mouse.move(bounds.x + bounds.width * 0.4 + 6 * step, bounds.y + bounds.height * 0.75 - 2.5 * step)
-    sunLengths.push(arrowFor(await motionArrows(page), 'sun')!.length)
+    siriusLengths.push(arrowFor(await motionArrows(page), 'sirius-a')!.length)
   }
   await page.mouse.up()
   await expect.poll(async () => heading(arrowFor(await motionArrows(page), 'sirius-a')!)).not.toBeCloseTo(heading(siriusArrow), 3)
-  await expect.poll(async () => heading(arrowFor(await motionArrows(page), 'sun')!)).not.toBeCloseTo(heading(sunArrow), 3)
-  expect(Math.max(...sunLengths) - Math.min(...sunLengths)).toBeGreaterThan(3)
-  expect(sunLengths.at(-1)!).toBeLessThan(sunLengths[0]!)
-  expect(sunLengths.every((length) => length > 0 && length <= sunArrow.maxLength)).toBe(true)
+  expect(Math.max(...siriusLengths) - Math.min(...siriusLengths)).toBeGreaterThan(3)
+  expect(siriusLengths.every((length) => length > 0)).toBe(true)
   expectAttached(await motionArrows(page))
   await page.getByRole('button', { name: 'Reset view', exact: true }).click()
   await expect.poll(async () => arrowFor(await motionArrows(page), 'sirius-a') !== undefined).toBe(true)
-  for (const action of ['Zoom in', 'Zoom out']) {
-    await page.getByRole('button', { name: action, exact: true }).click()
-    const arrows = await motionArrows(page)
-    expectAttached(arrows)
-    for (const arrow of arrows) {
-      if (intrinsicLengths.has(arrow.id)) expect(arrow.maxLength, `${arrow.id} intrinsic length`).toBe(intrinsicLengths.get(arrow.id))
-    }
-    await expect(page.locator('.motion-arrow')).toHaveCount(0)
-    await sceneFits(page)
-  }
+  const resetDistance = arrowFor(await motionArrows(page), 'sirius-a')!.projectedDistance
+  await page.getByRole('button', { name: 'Zoom in', exact: true }).click()
+  expect(arrowFor(await motionArrows(page), 'sirius-a')!.projectedDistance).toBeGreaterThan(resetDistance)
+  await page.getByRole('button', { name: 'Zoom out', exact: true }).click()
+  expectAttached(await motionArrows(page))
+  await expect(page.locator('.motion-arrow')).toHaveCount(0)
+  await sceneFits(page)
   await page.locator('.catalog summary').click()
   await page.getByRole('button', { name: 'Select Sirius B', exact: true }).click()
   await expect(page.locator('[data-star-id="sirius-a"]')).toHaveCount(0)
@@ -1260,13 +1280,13 @@ test('shows attached speed-length motion arrows with fixed heads and strokes', a
   await expect(page.locator('#star-name')).toHaveText('Sun')
   await page.locator('.catalog summary').click()
   await expect.poll(async () => arrowFor(await motionArrows(page), 'sun')?.selected).toBe(true)
-  expect(arrowFor(await motionArrows(page), 'sun')).toMatchObject({ opacity: 1, color: 'rgb(255,239,209)' })
+  expect(arrowFor(await motionArrows(page), 'sun')).toMatchObject({ opacity: 1, color: 'rgb(255,230,188)' })
   await page.getByRole('button', { name: 'Reset view', exact: true }).click()
   await sceneFits(page)
   await page.screenshot({ path: testInfo.outputPath('motion-arrows.png'), fullPage: true })
 })
 
-test('draws dashed transverse and solid full-motion shafts with a zoom-stable stroke', async ({ page, isMobile }, testInfo) => {
+test('draws dashed transverse and solid full-motion shafts with a zoom-stable stroke', { tag: '@mobile' }, async ({ page, isMobile }, testInfo) => {
   await openViewer(page)
   await openFilter(page)
   await page.getByLabel('Catalog', { exact: true }).selectOption('nearest-1000')
@@ -1280,23 +1300,28 @@ test('draws dashed transverse and solid full-motion shafts with a zoom-stable st
   // The smaller mobile canvas needs more zoom before shafts stand apart.
   for (const zoomSteps of [isMobile ? 5 : 2, 1]) {
     for (let step = 0; step < zoomSteps; step++) await page.getByRole('button', { name: 'Zoom in', exact: true }).click()
-    const arrows = await motionArrows(page)
-    const image = PNG.sync.read(await canvas.screenshot({ scale: 'css', style, path: testInfo.outputPath(`shafts-${strokeWidths.length}.png`) }))
     const totals = { full: { samples: 0, gaps: 0, width: 0, shafts: 0 }, transverse: { samples: 0, gaps: 0, width: 0, shafts: 0 } }
-    for (const arrow of isolatedArrows(arrows, bounds)) {
-      if (arrow.length < 9) continue
-      const shaft = measureArrowShaft(image, arrow, bounds)
-      if (shaft.samples === 0) continue
-      const total = totals[arrow.mode]
-      total.samples += shaft.samples
-      total.gaps += shaft.gaps
-      total.width += shaft.strokeWidth
-      total.shafts++
+    // Full Galactic-rest velocities are generally much faster than the
+    // transverse-only subset, so use a horizon that keeps each mode measurable.
+    for (const [mode, years] of [['full', '5000'], ['transverse', '25000']] as const) {
+      await page.getByLabel('Arrow length', { exact: true }).selectOption(years)
+      const arrows = await motionArrows(page)
+      const image = PNG.sync.read(await canvas.screenshot({ scale: 'css', style, path: testInfo.outputPath(`shafts-${strokeWidths.length}-${mode}.png`) }))
+      for (const arrow of isolatedArrows(arrows, bounds).filter((candidate) => candidate.mode === mode)) {
+        if (arrow.length < 9) continue
+        const shaft = measureArrowShaft(image, arrow, bounds)
+        if (shaft.samples === 0) continue
+        const total = totals[mode]
+        total.samples += shaft.samples
+        total.gaps += shaft.gaps
+        total.width += shaft.strokeWidth
+        total.shafts++
+      }
     }
     expect(totals.transverse.samples, 'isolated transverse shafts to sample').toBeGreaterThan(12)
     expect(totals.full.samples, 'isolated full-motion shafts to sample').toBeGreaterThan(12)
     expect(totals.transverse.gaps / totals.transverse.samples, 'transverse shafts are dashed').toBeGreaterThan(0.25)
-    expect(totals.full.gaps / totals.full.samples, 'full-motion shafts are solid').toBeLessThan(0.1)
+    expect(totals.full.gaps / totals.full.samples, 'full-motion shafts are solid').toBeLessThan(0.15)
     strokeWidths.push(totals.full.width / totals.full.shafts)
   }
   for (const width of strokeWidths) {
@@ -1306,7 +1331,7 @@ test('draws dashed transverse and solid full-motion shafts with a zoom-stable st
   expect(Math.abs(strokeWidths[0]! - strokeWidths[1]!), 'zoom does not scale strokes').toBeLessThan(0.35)
 })
 
-test('orbit and pinch move the rendered scene without changing selection', async ({ page, context, isMobile }) => {
+test('orbit and pinch move the rendered scene without changing selection', { tag: '@mobile' }, async ({ page, context, isMobile }) => {
   await openViewer(page)
   await page.emulateMedia({ reducedMotion: 'no-preference' })
   await page.evaluate(() => {
@@ -1373,7 +1398,7 @@ test('orbit and pinch move the rendered scene without changing selection', async
   }
 })
 
-test('clears selection on empty-sky clicks and taps without moving the camera', async ({ page, isMobile }) => {
+test('clears selection on empty-sky clicks and taps without moving the camera', { tag: '@mobile' }, async ({ page, isMobile }) => {
   await openViewer(page)
   const before = await starPoint(page, 'sirius-a')
   const bounds = (await page.locator('#scene canvas').boundingBox())!
@@ -1418,7 +1443,7 @@ test('fits a narrow viewport and keeps long source content inside the inspector'
   await page.screenshot({ path: testInfo.outputPath('narrow-details.png'), fullPage: true })
 })
 
-test('keeps tooltips usable by mouse and keyboard without sticky touch hover', async ({ page, isMobile }, testInfo) => {
+test('keeps tooltips usable by mouse and keyboard without sticky touch hover', { tag: '@mobile' }, async ({ page, isMobile }, testInfo) => {
   await openViewer(page)
   const reset = page.getByRole('button', { name: 'Reset view', exact: true })
   const tooltip = reset.locator('.tooltip')

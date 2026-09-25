@@ -1,7 +1,7 @@
 import { expect, test } from '@playwright/test'
-import { motionArrows, openFilter, openViewer, type MotionArrowSnapshot } from './support'
+import { arrowIntersectsRect, motionArrows, openFilter, openViewer } from './support'
 
-test('keeps the selected name in front even at collisions and scene edges', async ({ page }) => {
+test('keeps the selected name in front even at collisions and scene edges', { tag: '@mobile' }, async ({ page }) => {
   await openViewer(page)
   await page.locator('.catalog summary').click()
   await page.getByRole('button', { name: 'Select Sun', exact: true }).click()
@@ -11,9 +11,9 @@ test('keeps the selected name in front even at collisions and scene edges', asyn
   await expect(label).toHaveText('Sun')
   await expect(label).toHaveCSS('font-weight', '600')
   await expect(label).toHaveCSS('text-decoration-line', 'underline')
-  await expect(label).toHaveCSS('text-decoration-color', 'rgb(255, 239, 209)')
-  await expect(page.locator('[data-star-id="sun"] .selection-ring')).toHaveCSS('border-top-color', 'rgb(255, 239, 209)')
-  await expect(page.locator('.identity')).toHaveCSS('border-left-color', 'rgb(255, 239, 209)')
+  await expect(label).toHaveCSS('text-decoration-color', 'rgb(255, 230, 188)')
+  await expect(page.locator('[data-star-id="sun"] .selection-ring')).toHaveCSS('border-top-color', 'rgb(255, 230, 188)')
+  await expect(page.locator('.identity')).toHaveCSS('border-left-color', 'rgb(255, 230, 188)')
   await expect(label.locator('..')).toHaveCSS('z-index', '1')
   await label.evaluate((element) => {
     const bounds = element.getBoundingClientRect()
@@ -52,7 +52,7 @@ test('keeps the selected name in front even at collisions and scene edges', asyn
   await expect(label).toBeVisible()
 })
 
-test('keeps front-camera names stable when the selected star moves behind the camera', async ({ page, isMobile }, testInfo) => {
+test('keeps front-camera names stable when the selected star moves behind the camera', { tag: '@mobile' }, async ({ page, isMobile }, testInfo) => {
   await openViewer(page)
   await openFilter(page)
   await page.getByLabel('Catalog', { exact: true }).selectOption('nearest-1000')
@@ -135,19 +135,14 @@ test('keeps the Sirius name visible behind the Sun in the nearest-1000 view', as
     await page.mouse.move(rotationStart.x - step * 2, rotationStart.y - step)
     await page.evaluate(() => new Promise(requestAnimationFrame))
     expect(await siriusName.isVisible(), `Sirius name hidden during rotation step ${step}`).toBe(true)
-    const overlap = await page.evaluate(() => {
-      const name = document.querySelector<HTMLElement>('[data-star-id="sirius-a"] .star-label')!.getBoundingClientRect()
-      const layer = document.querySelector('.projected-labels') as HTMLElement & { motionArrowSnapshot(): MotionArrowSnapshot[] }
-      const arrow = layer.motionArrowSnapshot().find((candidate) => candidate.id === 'sirius-a')!.bounds
-      return name.left < arrow.right && name.right > arrow.left && name.top < arrow.bottom && name.bottom > arrow.top
-    })
-    expect(overlap, `Sirius name overlaps its arrow during rotation step ${step}`).toBe(false)
+    const arrow = (await motionArrows(page)).find((candidate) => candidate.id === 'sirius-a')!
+    expect(arrowIntersectsRect(arrow, (await siriusName.boundingBox())!), `Sirius name overlaps its arrow during rotation step ${step}`).toBe(false)
   }
   await page.mouse.up()
   await page.screenshot({ path: testInfo.outputPath('sun-sirius-label.png'), fullPage: true })
 })
 
-test('keeps star names steady and the foreground distance centered during rotation', async ({ page }) => {
+test('keeps star names steady and the foreground distance centered during rotation', { tag: '@mobile' }, async ({ page }) => {
   await openViewer(page)
   await expect(page.locator('.distance-label').locator('..')).toHaveCSS('z-index', '3')
   const bounds = (await page.locator('#scene canvas').boundingBox())!
