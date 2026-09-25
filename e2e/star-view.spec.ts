@@ -1197,6 +1197,9 @@ test('shows attached travel-length motion arrows with selectable horizons', { ta
   await expect(page.locator('[data-star-id="sirius-a"] .star-label')).toHaveText('Sirius A')
   const homeSun = await starPoint(page, 'sun')
   const horizon = page.getByLabel('Arrow length', { exact: true })
+  const motionFrame = page.getByRole('group', { name: 'Motion frame' })
+  await expect(motionFrame.getByRole('radio', { name: 'Galactic' })).toBeChecked()
+  await expect(motionFrame.getByRole('radio', { name: 'Solar' })).not.toBeChecked()
   await expect(horizon).toHaveValue('1000')
   await expect(horizon.locator('option')).toHaveText(['1k years', '5k years', '10k years', '25k years', '50k years'])
   await horizon.selectOption('50000')
@@ -1224,6 +1227,13 @@ test('shows attached travel-length motion arrows with selectable horizons', { ta
   const siriusArrow = arrowFor(initial, 'sirius-a')!
   expect(siriusArrow).toMatchObject({ mode: 'full', selected: true, opacity: 1, color: 'rgb(186,214,255)' })
   expect(initial.some((arrow) => !arrow.selected && arrow.opacity === 0.5)).toBe(true)
+  await motionFrame.getByRole('radio', { name: 'Solar' }).check()
+  await expect.poll(async () => arrowFor(await motionArrows(page), 'sun')).toBeUndefined()
+  const solarSirius = arrowFor(await motionArrows(page), 'sirius-a')!
+  expect(solarSirius.projectedDistance).toBeLessThan(siriusArrow.projectedDistance)
+  await motionFrame.getByRole('radio', { name: 'Galactic' }).check()
+  await expect.poll(async () => arrowFor(await motionArrows(page), 'sun')).toBeDefined()
+  await expect.poll(async () => arrowFor(await motionArrows(page), 'sirius-a')?.projectedDistance).toBeCloseTo(siriusArrow.projectedDistance, 3)
   await horizon.selectOption('25000')
   const shortSirius = arrowFor(await motionArrows(page), 'sirius-a')!
   expect(shortSirius.projectedDistance).toBeCloseTo(siriusArrow.projectedDistance / 2, 2)

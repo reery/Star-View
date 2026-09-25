@@ -127,6 +127,12 @@ describe('Galactic rest-frame motion', () => {
     expect(motion.mode).toBe('full')
     expect(motion.velocity.clone().sub(galacticVelocityToWorld(SOLAR_GALACTIC_VELOCITY_KMS)!).length()).toBeCloseTo(10)
   })
+
+  it('switches full motion between Galactic and Solar reference frames', () => {
+    expect(displayMotionForStar(sun, 'solar')).toBeNull()
+    expect(displayMotionForStar(sirius, 'solar')).toEqual({ velocity: galacticVelocityToWorld(sirius), mode: 'full' })
+    expect(displayMotionForStar(sirius, 'galactic')).toEqual({ velocity: galactocentricVelocityToWorld(sirius), mode: 'full' })
+  })
 })
 
 describe('temperature color', () => {

@@ -106,6 +106,7 @@
                 <div class="range-bounds" aria-hidden="true"><span>0</span><span>25</span></div>
               </div>
               <div class="catalog-choice"><label for="motion-years">Arrow length</label><select id="motion-years"><option value="1000" selected>1k years</option><option value="5000">5k years</option><option value="10000">10k years</option><option value="25000">25k years</option><option value="50000">50k years</option></select></div>
+              <fieldset id="motion-frame" class="segmented-choice"><legend>Motion frame</legend><div class="unit-options"><label><input id="motion-frame-galactic" type="radio" name="motion-frame" value="galactic" checked><span>Galactic</span></label><label><input id="motion-frame-solar" type="radio" name="motion-frame" value="solar"><span>Solar</span></label></div></fieldset>
               <details class="filter-dropdown">
                 <summary><span>Object type</span><span id="object-type-filter-summary">All</span></summary>
                 <fieldset id="object-type-filter" class="type-filter">
@@ -118,7 +119,7 @@
           <details class="inspector-section preferences">
             <summary>Preferences</summary>
             <section class="display-settings" aria-label="Display settings">
-              <fieldset id="distance-units"><legend>Distances</legend><div class="unit-options"><label><input id="unit-pc" type="radio" name="distance-unit" value="pc"><span>pc</span></label><label><input id="unit-ly" type="radio" name="distance-unit" value="ly" checked><span>ly</span></label></div></fieldset>
+              <fieldset id="distance-units" class="segmented-choice"><legend>Distances</legend><div class="unit-options"><label><input id="unit-pc" type="radio" name="distance-unit" value="pc"><span>pc</span></label><label><input id="unit-ly" type="radio" name="distance-unit" value="ly" checked><span>ly</span></label></div></fieldset>
               <label class="power-saving-choice" for="power-saving-mode">
                 <span>Power saving mode</span>
                 <span class="switch-control"><input id="power-saving-mode" type="checkbox" role="switch"><span class="switch-track" aria-hidden="true"></span></span>

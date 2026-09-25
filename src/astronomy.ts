@@ -10,6 +10,7 @@ const ICRS_TO_GALACTIC = new Matrix3().set(
 )
 export type Position = Pick<Star, 'x_pc' | 'y_pc' | 'z_pc'>
 export type MotionMode = 'full' | 'transverse'
+export type MotionFrame = 'galactic' | 'solar'
 
 export interface DisplayMotion {
   velocity: Vector3
@@ -91,14 +92,19 @@ export function rawAstrometryVelocityToWorld(raw: RawAstrometry, includeRadial =
 
 export function displayMotionForStar(
   star: Pick<Star, 'id' | 'vx_kms' | 'vy_kms' | 'vz_kms' | 'raw_astrometry'>,
+  frame: MotionFrame = 'galactic',
 ): DisplayMotion | null {
-  const stored = galactocentricVelocityToWorld(star)
-  if (stored) return { velocity: stored, mode: 'full' }
+  const hasStoredMotion = [star.vx_kms, star.vy_kms, star.vz_kms]
+    .every((value) => value !== null && Number.isFinite(value))
+  if (hasStoredMotion) {
+    const stored = frame === 'galactic' ? galactocentricVelocityToWorld(star) : galacticVelocityToWorld(star)
+    return stored ? { velocity: stored, mode: 'full' } : null
+  }
   const raw = star.raw_astrometry
   if (!raw) return null
   const velocity = rawAstrometryVelocityToWorld(raw)
   if (!velocity) return null
-  if (raw.radial_velocity_kms === null) return { velocity, mode: 'transverse' }
+  if (raw.radial_velocity_kms === null || frame === 'solar') return { velocity, mode: raw.radial_velocity_kms === null ? 'transverse' : 'full' }
   const solar = galacticVelocityToWorld(SOLAR_GALACTIC_VELOCITY_KMS)
   if (!solar) return null
   velocity.add(solar)

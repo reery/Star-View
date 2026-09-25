@@ -6,7 +6,7 @@ import { Focus, Grid2X2, Orbit, ZoomIn, ZoomOut, createElement, type IconNode } 
 import { describeObject, OBJECT_TYPES, objectTypeLabel, type ObjectType, type Star } from './catalog-model'
 import { catalogSelection, mergeCatalogStars } from './catalog-runtime'
 import { catalogs, catalogErrors } from './registry'
-import { formatDistance, gridSpacingPc, starDisplayColor, sunRelativeMetrics, type DistanceUnit } from './astronomy'
+import { formatDistance, gridSpacingPc, starDisplayColor, sunRelativeMetrics, type DistanceUnit, type MotionFrame } from './astronomy'
 import { MOTION_YEAR_OPTIONS, createStarViewer, type MotionYears, type StarViewer, type ViewerViewState } from './viewer'
 import { ObjectList } from './object-list'
 
@@ -53,6 +53,7 @@ let objectDistanceLimitLy = 100
 let showAlwaysBright = false
 let gridVisible = true
 let powerSavingMode = false
+let motionFrame: MotionFrame = 'galactic'
 let motionYears: MotionYears = 1_000
 let catalogRequest = 0
 const selectedTypes = new Set<ObjectType>(OBJECT_TYPES)
@@ -193,6 +194,7 @@ async function switchCatalog(id: string, refresh = false): Promise<void> {
   viewer.setVisibility(observerId, magnitudeLimit)
   viewer.setObjectDistanceLimit(objectDistanceLimitLy)
   viewer.setObjectTypeFilter([...selectedTypes])
+  viewer.setMotionFrame(motionFrame)
   viewer.setMotionYears(motionYears)
   viewer.setPowerSavingMode(powerSavingMode)
   viewer.setGridVisible(gridVisible)
@@ -277,6 +279,10 @@ element('motion-years').addEventListener('change', () => {
   if (!MOTION_YEAR_OPTIONS.includes(years)) return
   motionYears = years
   viewer?.setMotionYears(years)
+}, { signal: events.signal })
+element('motion-frame').addEventListener('change', () => {
+  motionFrame = element<HTMLInputElement>('motion-frame-solar').checked ? 'solar' : 'galactic'
+  viewer?.setMotionFrame(motionFrame)
 }, { signal: events.signal })
 element('object-type-filter').addEventListener('change', (event) => {
   const input = event.target

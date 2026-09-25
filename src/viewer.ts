@@ -6,7 +6,7 @@ import {
 } from 'three'
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js'
 import { OBJECT_TYPES, type ObjectType, type Star } from './catalog-model'
-import { apparentVisualMagnitude, displayMotionForStar, formatDistance, galacticToWorld, gridSpacingPc, LIGHT_YEARS_PER_PARSEC, starDisplayColor, sunRelativeMetrics, type DistanceUnit, type MotionMode } from './astronomy'
+import { apparentVisualMagnitude, displayMotionForStar, formatDistance, galacticToWorld, gridSpacingPc, LIGHT_YEARS_PER_PARSEC, starDisplayColor, sunRelativeMetrics, type DistanceUnit, type MotionFrame, type MotionMode } from './astronomy'
 import { advanceFrameDeadline, effectiveDampingFactor, estimateRefreshRate, renderPixelRatio, targetRenderFps } from './render-scheduling'
 import { centeredForegroundLabelBounds, chooseOrdinaryLabelPlacement, ordinaryLabelCandidates, overlaps, type LabelRect, type OrdinaryLabelPlacement } from './label-layout'
 import {
@@ -25,6 +25,7 @@ export interface StarViewer {
   setViewState(state: ViewerViewState): void
   setObjectDistanceLimit(distanceLy: number): void
   setObjectTypeFilter(types: readonly ObjectType[]): void
+  setMotionFrame(frame: MotionFrame): void
   setMotionYears(years: MotionYears): void
   setPowerSavingMode(enabled: boolean): void
   setVisibility(observerId: string, limit: number): void
@@ -141,7 +142,7 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
   controls.screenSpacePanning = true
 
   const pickable = stars.map((star) => ({ id: star.id, position: galacticToWorld(star) }))
-  const motions = stars.map(displayMotionForStar)
+  let motions = stars.map((star) => displayMotionForStar(star))
   const sunDistancesLy = stars.map((star) => sunRelativeMetrics(star, sun).distanceLy)
   const starsById = new Map(stars.map((star, index) => [star.id, { star, index }]))
   const starColors = stars.map(starDisplayColor)
@@ -430,6 +431,7 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
   let magnitudeLimit = 7
   let objectDistanceLimitLy = 100
   let selectedTypes = new Set<ObjectType>(OBJECT_TYPES)
+  let motionFrame: MotionFrame = 'galactic'
   let motionYears: MotionYears = 1_000
   let distanceUnit: DistanceUnit = 'pc'
   const tiers = new Map<string, 'base' | 'eligible' | 'background'>()
@@ -452,7 +454,7 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
   const starLabels: MapLabel[] = []
   const measurementPlacements = new Map<MapLabel, LabelRect | null>()
   const selectedLabelObstacles: LabelRect[] = []
-  const yearlyMotionDistances = motions.map((motion) => motion ? motionTravelDistancePc(motion.velocity.length(), 1) : 0)
+  let yearlyMotionDistances = motions.map((motion) => motion ? motionTravelDistancePc(motion.velocity.length(), 1) : 0)
   const arrowScratch: MotionArrowGeometry = { tailX: 0, tailY: 0, tipX: 0, tipY: 0, left: 0, top: 0, right: 0, bottom: 0 }
   const arrowObstacleScratch: MotionArrowGeometry = { ...arrowScratch }
   const arrowStarIndices = new Int32Array(arrowCapacity)
@@ -1408,6 +1410,15 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
       if (nextTypes.size === selectedTypes.size && [...nextTypes].every((type) => selectedTypes.has(type))) return
       selectedTypes = nextTypes
       updatePresentation()
+      requestRender()
+    },
+    setMotionFrame(frame) {
+      if ((frame !== 'galactic' && frame !== 'solar') || frame === motionFrame) return
+      motionFrame = frame
+      motions = stars.map((star) => displayMotionForStar(star, frame))
+      yearlyMotionDistances = motions.map((motion) => motion ? motionTravelDistancePc(motion.velocity.length(), 1) : 0)
+      invalidateProjection()
+      ordinaryLayoutDirty = true
       requestRender()
     },
     setMotionYears(years) {
