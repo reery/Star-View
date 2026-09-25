@@ -1,7 +1,7 @@
 import { expect, test } from '@playwright/test'
 import { motionArrows, openFilter, openViewer, type MotionArrowSnapshot } from './support'
 
-test('keeps the selected name in front even at collisions and scene edges', async ({ page }) => {
+test('keeps the selected name in front even at collisions and scene edges', { tag: '@mobile' }, async ({ page }) => {
   await openViewer(page)
   await page.locator('.catalog summary').click()
   await page.getByRole('button', { name: 'Select Sun', exact: true }).click()
@@ -52,7 +52,7 @@ test('keeps the selected name in front even at collisions and scene edges', asyn
   await expect(label).toBeVisible()
 })
 
-test('keeps front-camera names stable when the selected star moves behind the camera', async ({ page, isMobile }, testInfo) => {
+test('keeps front-camera names stable when the selected star moves behind the camera', { tag: '@mobile' }, async ({ page, isMobile }, testInfo) => {
   await openViewer(page)
   await openFilter(page)
   await page.getByLabel('Catalog', { exact: true }).selectOption('nearest-1000')
@@ -147,7 +147,7 @@ test('keeps the Sirius name visible behind the Sun in the nearest-1000 view', as
   await page.screenshot({ path: testInfo.outputPath('sun-sirius-label.png'), fullPage: true })
 })
 
-test('keeps star names steady and the foreground distance centered during rotation', async ({ page }) => {
+test('keeps star names steady and the foreground distance centered during rotation', { tag: '@mobile' }, async ({ page }) => {
   await openViewer(page)
   await expect(page.locator('.distance-label').locator('..')).toHaveCSS('z-index', '3')
   const bounds = (await page.locator('#scene canvas').boundingBox())!

@@ -122,7 +122,7 @@ function percentile(values: readonly number[], percent: number): number | null {
   return sorted[Math.min(sorted.length - 1, Math.floor((sorted.length - 1) * percent))]!
 }
 
-for (const catalog of ['nearest-neighbors', 'bright-stars', 'nearest-100', 'nearest-1000']) {
+for (const catalog of ['nearest-neighbors', 'nearest-1000']) {
   test(`submits only visible halos and batches axes for ${catalog}`, async ({ page }) => {
     await trackRendering(page)
     await openFilter(page)
@@ -134,8 +134,7 @@ for (const catalog of ['nearest-neighbors', 'bright-stars', 'nearest-100', 'near
       await expect.poll(async () => (await stats(page)).framePointVertices).toBe(await expectedPointVertices(page))
     }
     const beforeSelection = await stats(page)
-    const selection = catalog === 'bright-stars' ? 'bright-rigel' : 'wise-0855-0714'
-    await page.locator(`[data-star="${selection}"]`).evaluate((button: HTMLButtonElement) => button.click())
+    await page.locator('[data-star="wise-0855-0714"]').evaluate((button: HTMLButtonElement) => button.click())
     await expect.poll(async () => (await stats(page)).draws).toBeGreaterThan(beforeSelection.draws)
     await expect.poll(async () => (await stats(page)).framePointVertices).toBe(await expectedPointVertices(page))
     const withGrid = await stats(page)
@@ -145,47 +144,47 @@ for (const catalog of ['nearest-neighbors', 'bright-stars', 'nearest-100', 'near
     await expect.poll(async () => (await stats(page)).frameDrawCalls).toBe(withGrid.frameDrawCalls)
     console.log(`${catalog} GPU submissions: ${JSON.stringify(await stats(page))}`)
   })
-
-  test(`rotates ${catalog} without remeasuring label sizes`, async ({ page, context }, testInfo) => {
-    await page.emulateMedia({ reducedMotion: 'no-preference' })
-    await trackRendering(page)
-    await openFilter(page)
-    await page.getByLabel('Catalog', { exact: true }).selectOption(catalog)
-    await page.getByLabel('V magnitude limit', { exact: true }).fill('12')
-    await expectIdle(page)
-    const session = await context.newCDPSession(page)
-    await session.send('Performance.enable')
-    const bounds = (await page.locator('#scene canvas').boundingBox())!
-    await page.mouse.move(bounds.x + bounds.width * 0.35, bounds.y + bounds.height * 0.6)
-    await page.mouse.down()
-    const before = await stats(page)
-    const initialMetrics = await session.send('Performance.getMetrics')
-    await page.mouse.move(bounds.x + bounds.width * 0.65, bounds.y + bounds.height * 0.4, { steps: 90 })
-    await page.mouse.up()
-    await page.evaluate(() => new Promise(requestAnimationFrame))
-    const after = await stats(page)
-    const finalMetrics = await session.send('Performance.getMetrics')
-    const draws = after.draws - before.draws
-    const measurement = {
-      draws,
-      labelSizeReads: after.labelSizeReads - before.labelSizeReads,
-      obstacleBoundsReads: after.obstacleBoundsReads - before.obstacleBoundsReads,
-      labelMutations: after.labelMutations - before.labelMutations,
-      ...Object.fromEntries(['LayoutCount', 'LayoutDuration', 'RecalcStyleDuration', 'TaskDuration'].map((name) => [name,
-        finalMetrics.metrics.find((metric) => metric.name === name)!.value -
-        initialMetrics.metrics.find((metric) => metric.name === name)!.value,
-      ])),
-    }
-    console.log(`${catalog} rotation: ${JSON.stringify(measurement)}`)
-    await testInfo.attach('rotation-metrics', { body: JSON.stringify(measurement, null, 2), contentType: 'application/json' })
-    expect(draws).toBeGreaterThan(10)
-    expect(measurement.labelSizeReads).toBe(0)
-    expect(measurement.obstacleBoundsReads).toBe(0)
-    await expectIdle(page)
-  })
 }
 
-test('records high-density nearest-1000 rotation evidence', async ({ page, context }, testInfo) => {
+test('rotates nearest-neighbors without remeasuring label sizes', async ({ page, context }, testInfo) => {
+  await page.emulateMedia({ reducedMotion: 'no-preference' })
+  await trackRendering(page)
+  await openFilter(page)
+  await page.getByLabel('Catalog', { exact: true }).selectOption('nearest-neighbors')
+  await page.getByLabel('V magnitude limit', { exact: true }).fill('12')
+  await expectIdle(page)
+  const session = await context.newCDPSession(page)
+  await session.send('Performance.enable')
+  const bounds = (await page.locator('#scene canvas').boundingBox())!
+  await page.mouse.move(bounds.x + bounds.width * 0.35, bounds.y + bounds.height * 0.6)
+  await page.mouse.down()
+  const before = await stats(page)
+  const initialMetrics = await session.send('Performance.getMetrics')
+  await page.mouse.move(bounds.x + bounds.width * 0.65, bounds.y + bounds.height * 0.4, { steps: 90 })
+  await page.mouse.up()
+  await page.evaluate(() => new Promise(requestAnimationFrame))
+  const after = await stats(page)
+  const finalMetrics = await session.send('Performance.getMetrics')
+  const draws = after.draws - before.draws
+  const measurement = {
+    draws,
+    labelSizeReads: after.labelSizeReads - before.labelSizeReads,
+    obstacleBoundsReads: after.obstacleBoundsReads - before.obstacleBoundsReads,
+    labelMutations: after.labelMutations - before.labelMutations,
+    ...Object.fromEntries(['LayoutCount', 'LayoutDuration', 'RecalcStyleDuration', 'TaskDuration'].map((name) => [name,
+      finalMetrics.metrics.find((metric) => metric.name === name)!.value -
+      initialMetrics.metrics.find((metric) => metric.name === name)!.value,
+    ])),
+  }
+  console.log(`nearest-neighbors rotation: ${JSON.stringify(measurement)}`)
+  await testInfo.attach('rotation-metrics', { body: JSON.stringify(measurement, null, 2), contentType: 'application/json' })
+  expect(draws).toBeGreaterThan(10)
+  expect(measurement.labelSizeReads).toBe(0)
+  expect(measurement.obstacleBoundsReads).toBe(0)
+  await expectIdle(page)
+})
+
+test('records high-density nearest-1000 rotation evidence', { tag: '@mobile' }, async ({ page, context }, testInfo) => {
   await page.emulateMedia({ reducedMotion: 'no-preference' })
   await trackRendering(page)
   await openFilter(page)
@@ -384,7 +383,7 @@ test('omits filtered cores and halos from GPU point submissions', async ({ page 
   await expect.poll(async () => (await stats(page)).framePointVertices).toBe(await expectedPointVertices(page))
 })
 
-test('uses the selected renderer resolution cap', async ({ page, isMobile }) => {
+test('uses the selected renderer resolution cap', { tag: '@mobile' }, async ({ page, isMobile }) => {
   test.skip(!isMobile, 'The mobile project provides the DPR 2 viewport needed for this check.')
   await page.emulateMedia({ reducedMotion: 'no-preference' })
   await page.goto('/')

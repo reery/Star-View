@@ -8,6 +8,7 @@ describe('renderer quality policy', () => {
     [0.75, false, 0.75],
     [0.4, true, 0.4],
     [NaN, false, 1],
+    [NaN, true, 0.5],
   ])('maps DPR %s with power saving %s to %s', (ratio, powerSaving, expected) => {
     expect(renderPixelRatio(ratio, powerSaving)).toBe(expected)
   })

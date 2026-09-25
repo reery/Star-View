@@ -154,7 +154,7 @@ select:focus-visible, input:focus-visible { outline: 2px solid var(--accent); ou
 .identity h2 { font-size: 28px; font-weight: 500; line-height: 1.2; }
 .star-id { font-size: 11px; color: var(--muted); margin-top: 6px; }
 .properties-section { padding: 4px 24px 10px; }
-.properties > div { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 12px; align-items: baseline; padding: 8px 0; font-size: 12px; }
+.properties > div { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 12px; align-items: baseline; padding: 5px 0; font-size: 13px; }
 .properties dt { color: var(--muted); }
 .properties dd { text-align: right; font-weight: 500; font-variant-numeric: tabular-nums; }
 .source-details { padding: 4px 24px 12px; }

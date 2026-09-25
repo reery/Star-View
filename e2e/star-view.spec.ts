@@ -172,7 +172,7 @@ test('switches project catalogs while preserving settings and compatible selecti
   await sceneFits(page)
 })
 
-test('searches the virtualized nearest-1000 list within bounded name budgets', async ({ page, isMobile }) => {
+test('searches the virtualized nearest-1000 list within bounded name budgets', { tag: '@mobile' }, async ({ page, isMobile }) => {
   await openViewer(page)
   await openFilter(page)
   await page.getByLabel('Catalog', { exact: true }).selectOption('nearest-1000')
@@ -447,7 +447,7 @@ test('filters only the map and reveals an excluded selected object', async ({ pa
   await expect(page.getByRole('switch', { name: 'Power saving mode' })).not.toBeChecked()
 })
 
-test('renders temperature-colored objects, measurements, and a responsive interface', async ({ page, isMobile }, testInfo) => {
+test('renders temperature-colored objects, measurements, and a responsive interface', { tag: '@mobile' }, async ({ page, isMobile }, testInfo) => {
   const errors: string[] = []
   page.on('pageerror', (error) => errors.push(error.message))
   page.on('console', (message) => { if (message.type() === 'error') errors.push(message.text()) })
@@ -730,7 +730,7 @@ test('keeps bright and selected halos subtly temperature-tinted without whitenin
   }
 })
 
-test('toggles the grid below reset without moving stars or changing selection', async ({ page, isMobile }, testInfo) => {
+test('toggles the grid below reset without moving stars or changing selection', { tag: '@mobile' }, async ({ page, isMobile }, testInfo) => {
   await openViewer(page)
   const grid = page.getByRole('button', { name: 'Grid', exact: true })
   await expect(grid).toBeEnabled()
@@ -853,7 +853,7 @@ test('keeps axis captions anchored behind the canvas throughout rotation', async
   }
 })
 
-test('fades grid pixels toward the edge without fading the scene', async ({ page, isMobile }) => {
+test('fades grid pixels toward the edge without fading the scene', { tag: '@mobile' }, async ({ page, isMobile }) => {
   await openViewer(page)
   const canvas = page.locator('#scene canvas')
   const bounds = (await canvas.boundingBox())!
@@ -963,7 +963,7 @@ test('overlapping stars follow camera depth and keep their motion arrows', async
   }
 })
 
-test('targets ordinary selections, zooms around them, and resets to the catalog view', async ({ page, isMobile }) => {
+test('targets ordinary selections, zooms around them, and resets to the catalog view', { tag: '@mobile' }, async ({ page, isMobile }) => {
   await openViewer(page)
   await page.locator('.catalog summary').click()
   const canvasBounds = (await page.locator('#scene canvas').boundingBox())!
@@ -1114,7 +1114,7 @@ test('interrupts focus for reset, zoom and rapid reselection', async ({ page }) 
   }
 })
 
-test('hands active focus to pointer input, deselection and reduced motion', async ({ page, context, isMobile }) => {
+test('hands active focus to pointer input, deselection and reduced motion', { tag: '@mobile' }, async ({ page, context, isMobile }) => {
   await page.emulateMedia({ reducedMotion: 'no-preference' })
   await openViewer(page)
   await page.locator('.catalog summary').click()
@@ -1181,7 +1181,7 @@ test('hands active focus to pointer input, deselection and reduced motion', asyn
   }
 })
 
-test('shows attached speed-length motion arrows with fixed heads and strokes', async ({ page, isMobile }, testInfo) => {
+test('shows attached speed-length motion arrows with fixed heads and strokes', { tag: '@mobile' }, async ({ page, isMobile }, testInfo) => {
   await openViewer(page)
   await openFilter(page)
   await page.getByLabel('V magnitude limit', { exact: true }).fill('12')
@@ -1266,7 +1266,7 @@ test('shows attached speed-length motion arrows with fixed heads and strokes', a
   await page.screenshot({ path: testInfo.outputPath('motion-arrows.png'), fullPage: true })
 })
 
-test('draws dashed transverse and solid full-motion shafts with a zoom-stable stroke', async ({ page, isMobile }, testInfo) => {
+test('draws dashed transverse and solid full-motion shafts with a zoom-stable stroke', { tag: '@mobile' }, async ({ page, isMobile }, testInfo) => {
   await openViewer(page)
   await openFilter(page)
   await page.getByLabel('Catalog', { exact: true }).selectOption('nearest-1000')
@@ -1306,7 +1306,7 @@ test('draws dashed transverse and solid full-motion shafts with a zoom-stable st
   expect(Math.abs(strokeWidths[0]! - strokeWidths[1]!), 'zoom does not scale strokes').toBeLessThan(0.35)
 })
 
-test('orbit and pinch move the rendered scene without changing selection', async ({ page, context, isMobile }) => {
+test('orbit and pinch move the rendered scene without changing selection', { tag: '@mobile' }, async ({ page, context, isMobile }) => {
   await openViewer(page)
   await page.emulateMedia({ reducedMotion: 'no-preference' })
   await page.evaluate(() => {
@@ -1373,7 +1373,7 @@ test('orbit and pinch move the rendered scene without changing selection', async
   }
 })
 
-test('clears selection on empty-sky clicks and taps without moving the camera', async ({ page, isMobile }) => {
+test('clears selection on empty-sky clicks and taps without moving the camera', { tag: '@mobile' }, async ({ page, isMobile }) => {
   await openViewer(page)
   const before = await starPoint(page, 'sirius-a')
   const bounds = (await page.locator('#scene canvas').boundingBox())!
@@ -1418,7 +1418,7 @@ test('fits a narrow viewport and keeps long source content inside the inspector'
   await page.screenshot({ path: testInfo.outputPath('narrow-details.png'), fullPage: true })
 })
 
-test('keeps tooltips usable by mouse and keyboard without sticky touch hover', async ({ page, isMobile }, testInfo) => {
+test('keeps tooltips usable by mouse and keyboard without sticky touch hover', { tag: '@mobile' }, async ({ page, isMobile }, testInfo) => {
   await openViewer(page)
   const reset = page.getByRole('button', { name: 'Reset view', exact: true })
   const tooltip = reset.locator('.tooltip')

@@ -1,7 +1,6 @@
 import { describe, expect, it } from 'vitest'
 import { PerspectiveCamera, Vector3, type Camera } from 'three'
 import { chooseOrdinaryLabelPlacement, ordinaryLabelCandidates } from './label-layout'
-import { renderPixelRatio } from './render-scheduling'
 import {
   MOTION_ARROW_HEAD_PX, MOTION_ARROW_STROKE_PX, MOTION_ARROW_TAIL_OFFSET_PX,
   ScreenSpaceGrid, TapGesture, budgetVisibleLabelIndices, focusProgress, isObjectMapVisible,
@@ -139,23 +138,6 @@ it('ignores magnitude-filtered background dots as label obstacles', () => {
 describe('camera focus easing', () => {
   it.each([[-10, 0], [0, 0], [75, 0.15625], [150, 0.5], [225, 0.84375], [300, 1], [1000, 1]])('eases %s ms to %s', (elapsed, expected) => {
     expect(focusProgress(elapsed)).toBe(expected)
-  })
-})
-
-describe('movement render quality', () => {
-  it.each([
-    [2, false, 1],
-    [2, true, 0.5],
-    [0.75, false, 0.75],
-    [0.4, true, 0.4],
-    [3, false, 1],
-    [3, true, 0.5],
-  ])('maps DPR %s with power saving %s to %s', (ratio, enabled, expected) => {
-    expect(renderPixelRatio(ratio, enabled)).toBe(expected)
-  })
-
-  it.each([0, -1, NaN, Infinity])('falls back safely for invalid DPR %s', (ratio) => {
-    expect(renderPixelRatio(ratio, true)).toBe(0.5)
   })
 })
 
