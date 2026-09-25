@@ -77,9 +77,12 @@ export function starHaloOpacity(absoluteMagnitude: number | null, selected = fal
   return 0.9 * (1 - Math.exp(-1.4 * starHaloStrength(absoluteMagnitude, selected)))
 }
 
-export function motionArrowLength(speedKms: number): number {
-  if (!Number.isFinite(speedKms) || speedKms <= 0) return 0
-  return Math.max(12, Math.min(40, speedKms / 10))
+const SECONDS_PER_JULIAN_YEAR = 31_557_600
+const KILOMETERS_PER_PARSEC = 30_856_775_814_913.673
+
+export function motionTravelDistancePc(speedKms: number, years: number): number {
+  if (!Number.isFinite(speedKms) || !Number.isFinite(years) || speedKms <= 0 || years <= 0) return 0
+  return speedKms * years * SECONDS_PER_JULIAN_YEAR / KILOMETERS_PER_PARSEC
 }
 
 export const MOTION_ARROW_TAIL_OFFSET_PX = STAR_DIAMETER_PX / 2
@@ -118,22 +121,6 @@ export function motionArrowGeometryInto(
   target.top = centerY - halfHeight
   target.bottom = centerY + halfHeight
   return target
-}
-
-export function motionForeshortening(
-  positionFromCamera: Pick<Vector3, 'x' | 'y' | 'z'>,
-  velocityInCameraSpace: Pick<Vector3, 'x' | 'y' | 'z'>,
-): number {
-  const positionLength = Math.hypot(positionFromCamera.x, positionFromCamera.y, positionFromCamera.z)
-  const velocityLength = Math.hypot(velocityInCameraSpace.x, velocityInCameraSpace.y, velocityInCameraSpace.z)
-  if (!Number.isFinite(positionLength) || !Number.isFinite(velocityLength) || positionLength === 0 || velocityLength === 0) return 0
-  const alignment = (
-    positionFromCamera.x * velocityInCameraSpace.x +
-    positionFromCamera.y * velocityInCameraSpace.y +
-    positionFromCamera.z * velocityInCameraSpace.z
-  ) / (positionLength * velocityLength)
-  if (!Number.isFinite(alignment)) return 0
-  return Math.sqrt(Math.max(0, 1 - Math.min(1, Math.abs(alignment)) ** 2))
 }
 
 export interface Viewport extends LayoutViewport {}
@@ -305,7 +292,23 @@ export interface MotionProjectionTarget {
   motionX: number
   motionY: number
   motionScale: number
+  motionDepthScale: number
   motionVisible: boolean
+}
+
+function motionDepthScale(
+  positionFromCamera: Pick<Vector3, 'x' | 'y' | 'z'>,
+  velocityInCameraSpace: Pick<Vector3, 'x' | 'y' | 'z'>,
+): number {
+  const positionLength = Math.hypot(positionFromCamera.x, positionFromCamera.y, positionFromCamera.z)
+  const velocityLength = Math.hypot(velocityInCameraSpace.x, velocityInCameraSpace.y, velocityInCameraSpace.z)
+  if (!Number.isFinite(positionLength) || !Number.isFinite(velocityLength) || positionLength === 0 || velocityLength === 0) return 0
+  const alignment = (
+    positionFromCamera.x * velocityInCameraSpace.x +
+    positionFromCamera.y * velocityInCameraSpace.y +
+    positionFromCamera.z * velocityInCameraSpace.z
+  ) / (positionLength * velocityLength)
+  return Number.isFinite(alignment) ? Math.sqrt(Math.max(0, 1 - Math.min(1, Math.abs(alignment)) ** 2)) : 0
 }
 
 export function projectMotionDirectionInto(
@@ -321,33 +324,35 @@ export function projectMotionDirectionInto(
 ): void {
   target.motionVisible = false
   target.motionScale = 0
+  target.motionDepthScale = 0
   const speed = velocity.length()
   if (!Number.isFinite(speed) || speed === 0 || clipPoint.w <= 0) return
   viewPoint.set(position.x, position.y, position.z, 1).applyMatrix4(camera.matrixWorldInverse)
   viewVelocity.set(velocity.x / speed, velocity.y / speed, velocity.z / speed, 0)
     .applyMatrix4(camera.matrixWorldInverse)
-  target.motionScale = motionForeshortening(viewPoint, viewVelocity)
-  if (target.motionScale < 1e-6) return
+  target.motionDepthScale = motionDepthScale(viewPoint, viewVelocity)
+  if (target.motionDepthScale < 1e-6) return
   clipTangent.copy(viewVelocity).applyMatrix4(camera.projectionMatrix)
   const horizontal = clipTangent.x - clipPoint.x / clipPoint.w * clipTangent.w
   const vertical = clipTangent.y - clipPoint.y / clipPoint.w * clipTangent.w
   if (Math.hypot(horizontal, vertical) < 1e-6 * clipTangent.length()) return
-  const screenX = horizontal * viewport.width
-  const screenY = -vertical * viewport.height
+  const screenX = horizontal / clipPoint.w * viewport.width / 2
+  const screenY = -vertical / clipPoint.w * viewport.height / 2
   const length = Math.hypot(screenX, screenY)
   if (!Number.isFinite(length) || length === 0) return
   target.motionX = screenX / length
   target.motionY = screenY / length
+  target.motionScale = length
   target.motionVisible = true
 }
 
 export function projectMotionDirection(position: Vector3, velocity: Vector3, camera: Camera, viewport: Viewport) {
   const clipPoint = new Vector4()
-  const projected = { x: 0, y: 0, depth: 0, motionX: 0, motionY: 0, motionScale: 0, motionVisible: false }
+  const projected = { x: 0, y: 0, depth: 0, motionX: 0, motionY: 0, motionScale: 0, motionDepthScale: 0, motionVisible: false }
   const viewProjection = new Matrix4().multiplyMatrices(camera.projectionMatrix, camera.matrixWorldInverse)
   if (!projectWorldPointInto(position, viewProjection, viewport, clipPoint, projected)) return null
   projectMotionDirectionInto(position, velocity, camera, viewport, clipPoint, new Vector4(), new Vector4(), new Vector4(), projected)
-  return projected.motionVisible ? { x: projected.motionX, y: projected.motionY } : null
+  return projected.motionVisible ? { x: projected.motionX, y: projected.motionY, pixelsPerPc: projected.motionScale } : null
 }
 
 type GesturePointer = PointerPosition & { pointerId: number; button: number }

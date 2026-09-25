@@ -4,7 +4,7 @@ import { chooseOrdinaryLabelPlacement, ordinaryLabelCandidates } from './label-l
 import {
   MOTION_ARROW_HEAD_PX, MOTION_ARROW_STROKE_PX, MOTION_ARROW_TAIL_OFFSET_PX,
   ScreenSpaceGrid, TapGesture, budgetVisibleLabelIndices, focusProgress, isObjectMapVisible,
-  mapLabelBudget, motionArrowGeometryInto, motionArrowLength, motionForeshortening, pickProjectedStarAtScreenPoint,
+  mapLabelBudget, motionArrowGeometryInto, motionTravelDistancePc, pickProjectedStarAtScreenPoint,
   projectMotionDirection, projectSelectedAnchor, projectWorldPoint, starBlocksLabels,
   shouldRunOrdinaryLabelLayout, starHaloDiameter, starHaloOpacity, starHaloStrength, type MotionArrowGeometry,
   type PointerPosition, type ProjectedPickable, type Viewport,
@@ -313,13 +313,14 @@ describe('selected offscreen labels', () => {
   })
 })
 
-describe('motion arrow speed scale', () => {
-  it.each([[1, 12], [120, 12], [180, 18], [250, 25], [300, 30], [400, 40], [1000, 40]])('maps %s km/s to a %s CSS pixel shaft', (speed, length) => {
-    expect(motionArrowLength(speed)).toBe(length)
+describe('motion travel distance', () => {
+  it('converts speed and Julian years to parsecs', () => {
+    expect(motionTravelDistancePc(20, 100_000)).toBeCloseTo(2.04542433)
+    expect(motionTravelDistancePc(20, 1_000_000)).toBeCloseTo(20.4542433)
   })
 
-  it.each([0, -1, NaN, Infinity])('does not give undefined motion %s a length', (speed) => {
-    expect(motionArrowLength(speed)).toBe(0)
+  it.each([[0, 100_000], [-1, 100_000], [NaN, 100_000], [20, 0], [20, Infinity]])('rejects invalid travel inputs %j', (speed, years) => {
+    expect(motionTravelDistancePc(speed, years)).toBe(0)
   })
 })
 
@@ -368,26 +369,10 @@ describe('motion arrow geometry', () => {
 })
 
 describe('projected motion direction', () => {
-  describe('motion foreshortening', () => {
-    it('collapses camera-aligned motion and preserves transverse motion', () => {
-      const position = new Vector3(0, 0, -5)
-      expect(motionForeshortening(position, new Vector3(0, 0, 1))).toBe(0)
-      expect(motionForeshortening(position, new Vector3(0, 0, -1))).toBe(0)
-      expect(motionForeshortening(position, new Vector3(1, 0, 0))).toBe(1)
-    })
-
-    it('changes continuously with viewing angle', () => {
-      const position = new Vector3(0, 0, -5)
-      const velocityAt = (degrees: number) => new Vector3(Math.sin(degrees * Math.PI / 180), 0, Math.cos(degrees * Math.PI / 180))
-      expect(motionForeshortening(position, velocityAt(7))).toBeCloseTo(Math.sin(7 * Math.PI / 180))
-      expect(motionForeshortening(position, velocityAt(45))).toBeCloseTo(Math.SQRT1_2)
-      expect(motionForeshortening(position, new Vector3())).toBe(0)
-    })
-  })
   it.each([1e-12, 1, 1000])('keeps a fixed direction for velocity scale %s', (scale) => {
-    expect(projectMotionDirection(new Vector3(), new Vector3(scale, 0, 0), makeCamera(), viewport)).toEqual({ x: 1, y: -0 })
-    expect(projectMotionDirection(new Vector3(), new Vector3(0, scale, 0), makeCamera(), viewport)).toEqual({ x: 0, y: -1 })
-    expect(projectMotionDirection(new Vector3(), new Vector3(-scale, 0, 0), makeCamera(), viewport)).toEqual({ x: -1, y: -0 })
+    expect(projectMotionDirection(new Vector3(), new Vector3(scale, 0, 0), makeCamera(), viewport)).toMatchObject({ x: 1, y: -0 })
+    expect(projectMotionDirection(new Vector3(), new Vector3(0, scale, 0), makeCamera(), viewport)).toMatchObject({ x: 0, y: -1 })
+    expect(projectMotionDirection(new Vector3(), new Vector3(-scale, 0, 0), makeCamera(), viewport)).toMatchObject({ x: -1, y: -0 })
   })
 
   it.each([0, 0.5, 1.5])('matches a small world displacement with camera rotation %s', (angle) => {
@@ -403,6 +388,7 @@ describe('projected motion direction', () => {
     const heading = projectMotionDirection(position, velocity, camera, viewport)!
     expect(heading.x).toBeCloseTo((end.x - start.x) / length, 6)
     expect(heading.y).toBeCloseTo((end.y - start.y) / length, 6)
+    expect(heading.pixelsPerPc).toBeCloseTo(length / (velocity.length() * 1e-5), 3)
     expect(projectMotionDirection(position, velocity, camera, { ...viewport, left: 0, top: 0 })).toEqual(heading)
   })
 

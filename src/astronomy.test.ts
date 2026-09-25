@@ -11,7 +11,7 @@ const sirius = stars.find((star) => star.id === 'sirius-a')!
 
 describe('adaptive grid spacing', () => {
   it.each([
-    [5, 0.5], [100, 0.5], [150, 1], [200, 2], [300, 5], [500, 10], [1000, 20],
+    [5, 0.5], [100, 0.5], [150, 1], [200, 2], [300, 5], [500, 10], [1000, 20], [1500, 30], [2000, 40],
   ])('uses %d ly visibility with %d pc cells', (distance, spacing) => {
     expect(gridSpacingPc(distance)).toBe(spacing)
   })

@@ -10,9 +10,9 @@ import { apparentVisualMagnitude, displayMotionForStar, formatDistance, galactic
 import { advanceFrameDeadline, effectiveDampingFactor, estimateRefreshRate, renderPixelRatio, targetRenderFps } from './render-scheduling'
 import { centeredForegroundLabelBounds, chooseOrdinaryLabelPlacement, ordinaryLabelCandidates, overlaps, type LabelRect, type OrdinaryLabelPlacement } from './label-layout'
 import {
-  MOTION_ARROW_DASH_PX, MOTION_ARROW_GAP_PX, MOTION_ARROW_HEAD_PX, MOTION_ARROW_STROKE_PX,
+  MOTION_ARROW_DASH_PX, MOTION_ARROW_GAP_PX, MOTION_ARROW_HEAD_PX, MOTION_ARROW_STROKE_PX, MOTION_ARROW_TAIL_OFFSET_PX,
   STAR_DIAMETER_PX, ScreenSpaceGrid, TapGesture, budgetVisibleLabelIndices, focusProgress,
-  isObjectMapVisible, mapLabelBudget, motionArrowGeometryInto, motionArrowLength, pickProjectedStarAtScreenPoint,
+  isObjectMapVisible, mapLabelBudget, motionArrowGeometryInto, motionTravelDistancePc, pickProjectedStarAtScreenPoint,
   projectMotionDirectionInto, projectSelectedAnchor, projectWorldPoint, projectWorldPointInto,
   shouldRunOrdinaryLabelLayout, starBlocksLabels, starHaloDiameter, starHaloOpacity, type MotionArrowGeometry, type ProjectedPickable,
 } from './viewer-primitives'
@@ -25,12 +25,16 @@ export interface StarViewer {
   setViewState(state: ViewerViewState): void
   setObjectDistanceLimit(distanceLy: number): void
   setObjectTypeFilter(types: readonly ObjectType[]): void
+  setMotionYears(years: MotionYears): void
   setPowerSavingMode(enabled: boolean): void
   setVisibility(observerId: string, limit: number): void
   setDistanceUnit(unit: DistanceUnit): void
   zoom(direction: 'in' | 'out'): void
   dispose(): void
 }
+
+export const MOTION_YEAR_OPTIONS = [1_000, 5_000, 10_000, 25_000, 50_000] as const
+export type MotionYears = typeof MOTION_YEAR_OPTIONS[number]
 
 export interface ViewerViewState {
   position: readonly [number, number, number]
@@ -51,7 +55,7 @@ export interface MotionArrowSnapshot {
   selected: boolean
   opacity: number
   color: string
-  maxLength: number
+  projectedDistance: number
   length: number
   x: number
   y: number
@@ -426,6 +430,7 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
   let magnitudeLimit = 7
   let objectDistanceLimitLy = 100
   let selectedTypes = new Set<ObjectType>(OBJECT_TYPES)
+  let motionYears: MotionYears = 1_000
   let distanceUnit: DistanceUnit = 'pc'
   const tiers = new Map<string, 'base' | 'eligible' | 'background'>()
   const mapVisibility = new Map<string, boolean>()
@@ -447,9 +452,11 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
   const starLabels: MapLabel[] = []
   const measurementPlacements = new Map<MapLabel, LabelRect | null>()
   const selectedLabelObstacles: LabelRect[] = []
-  const motionLengths = motions.map((motion) => motion ? motionArrowLength(motion.velocity.length()) : 0)
+  const yearlyMotionDistances = motions.map((motion) => motion ? motionTravelDistancePc(motion.velocity.length(), 1) : 0)
   const arrowScratch: MotionArrowGeometry = { tailX: 0, tailY: 0, tipX: 0, tipY: 0, left: 0, top: 0, right: 0, bottom: 0 }
+  const arrowObstacleScratch: MotionArrowGeometry = { ...arrowScratch }
   const arrowStarIndices = new Int32Array(arrowCapacity)
+  const arrowBounds = Array.from({ length: arrowCapacity }, () => ({ left: 0, top: 0, right: 0, bottom: 0 }))
   const arrowObstacles = Array.from({ length: arrowCapacity }, () => ({ depth: 0, bounds: { left: 0, top: 0, right: 0, bottom: 0 } }))
   let arrowCount = 0
   const arrowOrigin = { left: 0, top: 0 }
@@ -485,6 +492,7 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
     motionY: number
     motionVisible: boolean
     motionScale: number
+    motionDepthScale: number
   }
   const projections = stars.map((star, index): CachedProjection => ({
     id: star.id,
@@ -497,6 +505,7 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
     motionY: 0,
     motionVisible: false,
     motionScale: 0,
+    motionDepthScale: 0,
   }))
   const projectedPickables: CachedProjection[] = []
   const projectionGrid = new ScreenSpaceGrid<CachedProjection>()
@@ -725,6 +734,7 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
       projected.visible = false
       projected.motionVisible = false
       projected.motionScale = 0
+      projected.motionDepthScale = 0
       const star = stars[projected.index]!
       if (!mapVisibility.get(star.id)) continue
       const position = pickable[projected.index]!.position
@@ -750,7 +760,9 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
     for (const projected of projectedPickables) {
       if (!projected.motionVisible) continue
       const index = projected.index
-      const length = motionLengths[index]! * projected.motionScale
+      const projectedDistance = yearlyMotionDistances[index]! * motionYears * projected.motionScale
+      const length = projectedDistance - MOTION_ARROW_TAIL_OFFSET_PX
+      if (length <= 0) continue
       const arrow = motionArrowGeometryInto(projected.x, projected.y, projected.motionX, projected.motionY, length, arrowScratch)
       const slot = arrowCount++
       placements[slot * 4] = arrow.tailX - viewport.left
@@ -765,12 +777,24 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
       colors[slot * 4 + 2] = color.b
       colors[slot * 4 + 3] = index === selectedIndex ? 1 : 0.5
       arrowStarIndices[slot] = index
+      const renderedBounds = arrowBounds[slot]!
+      renderedBounds.left = arrow.left
+      renderedBounds.top = arrow.top
+      renderedBounds.right = arrow.right
+      renderedBounds.bottom = arrow.bottom
+      // Long physical vectors may cross most of the map. Preserve the former
+      // speed-scaled and foreshortened label-clearance reach so their bounding
+      // boxes do not hide names far from the star or flood the spatial grid.
+      const oldScreenLength = Math.max(12, Math.min(40, motions[index]!.velocity.length() / 10)) * projected.motionDepthScale
+      const obstacleArrow = length <= oldScreenLength ? arrow : motionArrowGeometryInto(
+        projected.x, projected.y, projected.motionX, projected.motionY, oldScreenLength, arrowObstacleScratch,
+      )
       const obstacle = arrowObstacles[slot]!
       obstacle.depth = projected.depth
-      obstacle.bounds.left = arrow.left
-      obstacle.bounds.top = arrow.top
-      obstacle.bounds.right = arrow.right
-      obstacle.bounds.bottom = arrow.bottom
+      obstacle.bounds.left = obstacleArrow.left
+      obstacle.bounds.top = obstacleArrow.top
+      obstacle.bounds.right = obstacleArrow.right
+      obstacle.bounds.bottom = obstacleArrow.bottom
     }
     arrowOrigin.left = viewport.left
     arrowOrigin.top = viewport.top
@@ -801,7 +825,7 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
           selected: index === (selectedId ? starsById.get(selectedId)!.index : -1),
           opacity: colors[slot * 4 + 3]!,
           color: starColorStyles[index]!,
-          maxLength: motionLengths[index]!,
+          projectedDistance: length + MOTION_ARROW_TAIL_OFFSET_PX,
           length,
           x: tailX - directionX * STAR_DIAMETER_PX / 2,
           y: tailY - directionY * STAR_DIAMETER_PX / 2,
@@ -809,7 +833,7 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
           tailY,
           tipX: tailX + directionX * length,
           tipY: tailY + directionY * length,
-          bounds: { ...arrowObstacles[slot]!.bounds },
+          bounds: { ...arrowBounds[slot]! },
         }
       })
     },
@@ -1360,7 +1384,7 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
     select,
     reset,
     setObjectDistanceLimit(distanceLy) {
-      if (!Number.isFinite(distanceLy) || distanceLy < 5 || distanceLy > 1000) return
+      if (!Number.isFinite(distanceLy) || distanceLy < 5 || distanceLy > 2000) return
       if (distanceLy === objectDistanceLimitLy) return
       objectDistanceLimitLy = distanceLy
       const nextGridSpacing = gridSpacingPc(distanceLy)
@@ -1384,6 +1408,12 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
       if (nextTypes.size === selectedTypes.size && [...nextTypes].every((type) => selectedTypes.has(type))) return
       selectedTypes = nextTypes
       updatePresentation()
+      requestRender()
+    },
+    setMotionYears(years) {
+      if (!MOTION_YEAR_OPTIONS.includes(years) || years === motionYears) return
+      motionYears = years
+      ordinaryLayoutDirty = true
       requestRender()
     },
     setPowerSavingMode(enabled) {

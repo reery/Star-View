@@ -55,16 +55,40 @@ function segmentsDistance(first: Segment, second: Segment): number {
   return Math.min(segmentDistance(ax, ay, second), segmentDistance(bx, by, second), segmentDistance(cx, cy, first), segmentDistance(dx, dy, first))
 }
 
-// Arrows whose shafts keep `gap` CSS px from other arrows, other dots and the canvas edges.
+export function arrowIntersectsRect(arrow: MotionArrowSnapshot, rect: { x: number; y: number; width: number; height: number }, margin = 1.5) {
+  const reach = MOTION_ARROW_STROKE_PX / 2 + margin
+  const left = rect.x
+  const right = rect.x + rect.width
+  const top = rect.y
+  const bottom = rect.y + rect.height
+  const edges: Segment[] = [
+    [left, top, right, top], [right, top, right, bottom],
+    [right, bottom, left, bottom], [left, bottom, left, top],
+  ]
+  const inside = (x: number, y: number) => x >= left - reach && x <= right + reach && y >= top - reach && y <= bottom + reach
+  return arrowSegments(arrow, { x: 0, y: 0 }).some((segment) =>
+    inside(segment[0], segment[1]) || inside(segment[2], segment[3]) ||
+    edges.some((edge) => segmentsDistance(segment, edge) <= reach))
+}
+
+// Arrows whose first 60 CSS px keep `gap` from other arrows, dots and canvas edges.
+// Long physical vectors can continue offscreen; the local shaft is sufficient for pixel QA.
 export function isolatedArrows(arrows: readonly MotionArrowSnapshot[], canvas: Point & { width: number; height: number }, gap = 4.5) {
   const origin = { x: 0, y: 0 }
   return arrows.filter((arrow) => {
-    const [shaft] = arrowSegments(arrow, origin)
-    return arrow.bounds.left > canvas.x + 8 && arrow.bounds.right < canvas.x + canvas.width - 8 &&
-      arrow.bounds.top > canvas.y + 8 && arrow.bounds.bottom < canvas.y + canvas.height - 8 &&
+    const directionX = (arrow.tailX - arrow.x) / MOTION_ARROW_TAIL_OFFSET_PX
+    const directionY = (arrow.tailY - arrow.y) / MOTION_ARROW_TAIL_OFFSET_PX
+    const sampleLength = Math.min(60, arrow.length)
+    const shaft: Segment = [arrow.tailX, arrow.tailY, arrow.tailX + directionX * sampleLength, arrow.tailY + directionY * sampleLength]
+    const sampleLeft = Math.min(shaft[0], shaft[2])
+    const sampleRight = Math.max(shaft[0], shaft[2])
+    const sampleTop = Math.min(shaft[1], shaft[3])
+    const sampleBottom = Math.max(shaft[1], shaft[3])
+    return sampleLeft > canvas.x + 8 && sampleRight < canvas.x + canvas.width - 8 &&
+      sampleTop > canvas.y + 8 && sampleBottom < canvas.y + canvas.height - 8 &&
       arrows.every((other) => other === arrow || (
-        segmentDistance(other.x, other.y, shaft!) > MOTION_ARROW_TAIL_OFFSET_PX + gap &&
-        arrowSegments(other, origin).every((segment) => segmentsDistance(segment, shaft!) > gap)))
+        segmentDistance(other.x, other.y, shaft) > MOTION_ARROW_TAIL_OFFSET_PX + gap &&
+        arrowSegments(other, origin).every((segment) => segmentsDistance(segment, shaft) > gap)))
   })
 }
 
@@ -75,12 +99,14 @@ export function measureArrowShaft(image: PNG, arrow: MotionArrowSnapshot, origin
   const directionX = (arrow.tailX - arrow.x) / MOTION_ARROW_TAIL_OFFSET_PX
   const directionY = (arrow.tailY - arrow.y) / MOTION_ARROW_TAIL_OFFSET_PX
   // Beyond this point the arrowhead strokes approach the centerline.
-  const end = arrow.length - 2.2
+  const end = Math.min(arrow.length - 2.2, 60)
+  const sampleTipX = tailX + directionX * end
+  const sampleTipY = tailY + directionY * end
   const centerline: { along: number; value: number }[] = []
   const body: { along: number; value: number }[] = []
   const background: { along: number; value: number }[] = []
-  for (let pixelY = Math.floor(arrow.bounds.top - origin.y - 4); pixelY <= Math.ceil(arrow.bounds.bottom - origin.y + 4); pixelY++) {
-    for (let pixelX = Math.floor(arrow.bounds.left - origin.x - 4); pixelX <= Math.ceil(arrow.bounds.right - origin.x + 4); pixelX++) {
+  for (let pixelY = Math.floor(Math.min(tailY, sampleTipY) - 4); pixelY <= Math.ceil(Math.max(tailY, sampleTipY) + 4); pixelY++) {
+    for (let pixelX = Math.floor(Math.min(tailX, sampleTipX) - 4); pixelX <= Math.ceil(Math.max(tailX, sampleTipX) + 4); pixelX++) {
       if (pixelX < 0 || pixelY < 0 || pixelX >= image.width || pixelY >= image.height) continue
       const offsetX = pixelX + 0.5 - tailX
       const offsetY = pixelY + 0.5 - tailY

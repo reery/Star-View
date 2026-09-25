@@ -1,0 +1,18 @@
+SELECT
+  b.main_id,
+  b.ra,
+  b.dec,
+  b.otype,
+  b.sp_type,
+  b.plx_value,
+  b.plx_err,
+  b.pmra,
+  b.pmdec,
+  b.rvz_radvel,
+  f.flux AS V
+FROM basic AS b
+JOIN flux AS f ON b.oid = f.oidref
+WHERE f.filter = 'V'
+  AND f.flux < 2.42
+  AND b.plx_value >= 1.6307818885
+ORDER BY V

@@ -190,6 +190,7 @@ test('records high-density nearest-1000 rotation evidence', { tag: '@mobile' }, 
   await openFilter(page)
   await page.getByLabel('Catalog', { exact: true }).selectOption('nearest-1000')
   await page.getByLabel('V magnitude limit', { exact: true }).fill('25')
+  await page.getByLabel('Arrow length', { exact: true }).selectOption('50000')
   await expectIdle(page)
   const session = await context.newCDPSession(page)
   await session.send('Performance.enable')
