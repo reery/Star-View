@@ -71,8 +71,10 @@ test('adds the bright-star catalog as a deduplicated optional overlay', async ({
 
   await page.getByLabel('Catalog', { exact: true }).selectOption('bright-stars')
   await expect(page.locator('#catalog-count')).toHaveText('38')
+  await page.locator('#scene canvas').evaluate((canvas) => { canvas.dataset.instance = 'retained' })
   await toggle.uncheck()
   await expect(page.locator('#catalog-count')).toHaveText('38')
+  await expect(page.locator('#scene canvas')).toHaveAttribute('data-instance', 'retained')
 })
 
 function changedPixels(before: Buffer, after: Buffer): number {
@@ -133,6 +135,9 @@ test('switches project catalogs while preserving settings and compatible selecti
   await page.getByLabel('V magnitude limit', { exact: true }).fill('9')
   await page.getByLabel('Object visibility distance', { exact: true }).fill('3')
   await page.getByRole('button', { name: 'Grid', exact: true }).click()
+  await page.getByRole('button', { name: 'Zoom in', exact: true }).click()
+  const sunBeforeCatalogSwitch = await starPoint(page, 'sun')
+  const siriusBeforeCatalogSwitch = await starPoint(page, 'sirius-a')
   await page.locator('.catalog summary').click()
   for (const id of ['nearest-100', 'nearest-neighbors', 'nearest-100']) {
     await selector.selectOption(id)
@@ -146,6 +151,8 @@ test('switches project catalogs while preserving settings and compatible selecti
     await expect(page.locator('#object-distance-limit-value')).toHaveText('20 ly')
     await expect(page.locator('#toggle-grid')).toHaveAttribute('aria-pressed', 'false')
     await expect(page.locator('.catalog')).toHaveAttribute('open')
+    expect(await starPoint(page, 'sun')).toEqual(sunBeforeCatalogSwitch)
+    expect(await starPoint(page, 'sirius-a')).toEqual(siriusBeforeCatalogSwitch)
   }
   await page.getByRole('button', { name: 'Select GJ 229 A', exact: true }).click()
   await expect(page.locator('#constellation')).toHaveText('Lepus')

@@ -132,7 +132,6 @@ function selectStar(id: string | null): void {
   if (id !== null) observerId = id
   renderSelection()
   viewer?.select(id)
-  viewer?.setVisibility(observerId, magnitudeLimit)
 }
 
 function renderDistances(): void {
@@ -165,7 +164,8 @@ async function switchCatalog(id: string, refresh = false): Promise<void> {
     return
   }
   if (request !== catalogRequest) return
-  const retainedView: ViewerViewState | undefined = refresh ? viewer?.getViewState() : undefined
+  const retainedView: ViewerViewState | undefined = viewer?.getViewState()
+  const changingCatalog = activeCatalogId !== '' && id !== activeCatalogId
   const retained = catalogSelection(nextStars, selectedId, observerId)
   viewer?.dispose()
   viewer = undefined
@@ -182,18 +182,22 @@ async function switchCatalog(id: string, refresh = false): Promise<void> {
   renderDistances()
   try {
     viewer = createStarViewer(element('scene'), stars, { onSelect: selectStar, onStatus: sceneStatus, gridHalfSizePc })
-    viewer.setDistanceUnit(distanceUnit)
-    viewer.select(selectedId, false)
-    viewer.setVisibility(observerId, magnitudeLimit)
-    viewer.setObjectDistanceLimit(objectDistanceLimitLy)
-    viewer.setObjectTypeFilter([...selectedTypes])
-    viewer.setPowerSavingMode(powerSavingMode)
-    viewer.setGridVisible(gridVisible)
-    if (retainedView) viewer.setViewState(retainedView)
-    sceneStatus(null)
-  } catch {
+  } catch (error) {
+    console.error('Could not create the 3D viewer.', error)
     sceneStatus('3D graphics are unavailable on this device. The object catalog and details are still available.')
+    return
   }
+  viewer.setDistanceUnit(distanceUnit)
+  viewer.select(selectedId, false)
+  viewer.setVisibility(observerId, magnitudeLimit)
+  viewer.setObjectDistanceLimit(objectDistanceLimitLy)
+  viewer.setObjectTypeFilter([...selectedTypes])
+  viewer.setPowerSavingMode(powerSavingMode)
+  viewer.setGridVisible(gridVisible)
+  if (retainedView && (!changingCatalog || !retainedView.home)) {
+    viewer.setViewState({ ...retainedView, home: changingCatalog ? false : retainedView.home })
+  }
+  sceneStatus(null)
 }
 
 function catalogError(error: unknown): void {
@@ -235,7 +239,7 @@ element('catalog-select').addEventListener('change', () => {
 }, { signal: events.signal })
 element('show-always-bright').addEventListener('change', () => {
   showAlwaysBright = element<HTMLInputElement>('show-always-bright').checked
-  void switchCatalog(activeCatalogId, true)
+  if (activeCatalogId !== BRIGHT_CATALOG_ID) void switchCatalog(activeCatalogId, true)
 }, { signal: events.signal })
 element('distance-units').addEventListener('change', () => {
   distanceUnit = element<HTMLInputElement>('unit-ly').checked ? 'ly' : 'pc'

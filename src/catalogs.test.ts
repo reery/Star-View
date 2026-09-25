@@ -77,6 +77,8 @@ describe('catalog packages and display settings', () => {
       id: '10pc-0117', temperature_k: 7760, mass_solar: 1.6, radius_solar: 1.8183, metallicity_dex: 0.19,
     })
     expect(large.find((star) => star.name === 'Altair')).toMatchObject({ mass_solar: null, radius_solar: null })
+    const sirius = bright.find((star) => star.id === 'sirius-a')!
+    expect(mergeCatalogStars([sirius], [{ ...sirius, id: 'sirius-companion' }])).toHaveLength(2)
     const largestMerged = mergeCatalogStars(nearest1000, bright)
     expect(largestMerged).toHaveLength(1031)
     expect(new Set(largestMerged.map((star) => star.id)).size).toBe(largestMerged.length)

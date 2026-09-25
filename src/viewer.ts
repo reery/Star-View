@@ -6,9 +6,9 @@ import {
 } from 'three'
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js'
 import { OBJECT_TYPES, type ObjectType, type Star } from './catalog-model'
-import { apparentVisualMagnitude, displayMotionForStar, formatDistance, galacticToWorld, gridSpacingPc, LIGHT_YEARS_PER_PARSEC, starDisplayColor, sunRelativeMetrics, visibilityTier, type DistanceUnit, type MotionMode } from './astronomy'
+import { apparentVisualMagnitude, displayMotionForStar, formatDistance, galacticToWorld, gridSpacingPc, LIGHT_YEARS_PER_PARSEC, starDisplayColor, sunRelativeMetrics, type DistanceUnit, type MotionMode } from './astronomy'
 import { advanceFrameDeadline, effectiveDampingFactor, estimateRefreshRate, renderPixelRatio, targetRenderFps } from './render-scheduling'
-import { chooseDistanceLabelPlacement, chooseOrdinaryLabelPlacement, ordinaryLabelCandidates, overlaps, type LabelRect, type OrdinaryLabelPlacement } from './label-layout'
+import { centeredForegroundLabelBounds, chooseOrdinaryLabelPlacement, ordinaryLabelCandidates, overlaps, type LabelRect, type OrdinaryLabelPlacement } from './label-layout'
 import {
   MOTION_ARROW_DASH_PX, MOTION_ARROW_GAP_PX, MOTION_ARROW_HEAD_PX, MOTION_ARROW_STROKE_PX,
   STAR_DIAMETER_PX, ScreenSpaceGrid, TapGesture, budgetVisibleLabelIndices, focusProgress,
@@ -417,8 +417,12 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
   let objectDistanceLimitLy = 100
   let selectedTypes = new Set<ObjectType>(OBJECT_TYPES)
   let distanceUnit: DistanceUnit = 'pc'
-  const tiers = new Map<string, ReturnType<typeof visibilityTier>>()
+  const tiers = new Map<string, 'base' | 'eligible' | 'background'>()
   const mapVisibility = new Map<string, boolean>()
+  const apparentMagnitudes = new Float64Array(stars.length)
+  let rankedBaseId = ''
+  let rankedSelection: string | null | undefined
+  let rankedCandidates: Array<{ index: number; priority: number; magnitude: number }> = []
   let rankedNameGroups: Array<{ priority: number; magnitude: number; indices: number[] }> = []
   // Frame-scoped label layout containers, reused by updateLabels() so camera
   // motion frames don't churn garbage. The group pool mirrors rankedNameGroups
@@ -461,8 +465,6 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
   let ordinaryLayoutDirty = true
   let lastOrdinaryLayoutTime = -Infinity
   let ordinaryLayoutPasses = 0
-  let distanceNormal = { x: 0, y: -1 }
-  let distanceSide = 1
   const sceneObstacleElements = [...container.parentElement!.querySelectorAll<HTMLElement>('[data-scene-obstacle]')]
   let obstacleBounds: Array<{ element: HTMLElement; bounds: DOMRect }> = []
   let obstacleBoundsDirty = true
@@ -614,10 +616,32 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
 
   function updatePresentation(): void {
     ordinaryLayoutDirty = true
+    const baseChanged = rankedBaseId !== visibilityBase.id
+    const rankingChanged = baseChanged || rankedSelection !== selectedId
+    if (baseChanged) {
+      stars.forEach((star, index) => {
+        const distancePc = Math.hypot(
+          star.x_pc - visibilityBase.x_pc,
+          star.y_pc - visibilityBase.y_pc,
+          star.z_pc - visibilityBase.z_pc,
+        )
+        apparentMagnitudes[index] = apparentVisualMagnitude(star.absolute_mag, distancePc) ?? Infinity
+      })
+    }
+    if (rankingChanged) {
+      rankedCandidates = stars.map((star, index) => ({
+        index,
+        priority: star.id === selectedId ? 0 : star.id === visibilityBase.id ? 1 : 2,
+        magnitude: apparentMagnitudes[index]!,
+      })).sort((first, second) => first.priority - second.priority || first.magnitude - second.magnitude || first.index - second.index)
+      rankedBaseId = visibilityBase.id
+      rankedSelection = selectedId
+    }
     let coreCount = 0
     let haloCount = 0
     stars.forEach((star, index) => {
-      const tier = visibilityTier(star, visibilityBase, magnitudeLimit)
+      const magnitude = apparentMagnitudes[index]!
+      const tier = star.id === visibilityBase.id ? 'base' : magnitude <= magnitudeLimit ? 'eligible' : 'background'
       const mapVisible = isObjectMapVisible(
         star,
         selectedTypes,
@@ -641,14 +665,9 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
     haloGeometry.setDrawRange(0, haloCount)
     labelLayer.dataset.coreCount = String(coreCount)
     labelLayer.dataset.haloCount = String(haloCount)
-    const ranked = stars.map((star, index) => ({
-      index,
-      priority: star.id === selectedId ? 0 : star.id === visibilityBase.id ? 1 : 2,
-      magnitude: apparentVisualMagnitude(star.absolute_mag, sunRelativeMetrics(star, visibilityBase).distancePc) ?? Infinity,
-    })).filter(({ index }) => mapVisibility.get(stars[index]!.id) && tiers.get(stars[index]!.id) !== 'background')
-      .sort((first, second) => first.priority - second.priority || first.magnitude - second.magnitude || first.index - second.index)
     rankedNameGroups = []
-    for (const candidate of ranked) {
+    for (const candidate of rankedCandidates) {
+      if (!mapVisibility.get(stars[candidate.index]!.id) || tiers.get(stars[candidate.index]!.id) === 'background') continue
       const group = rankedNameGroups.at(-1)
       if (!group || candidate.priority !== group.priority || candidate.magnitude !== group.magnitude) {
         rankedNameGroups.push({ priority: candidate.priority, magnitude: candidate.magnitude, indices: [candidate.index] })
@@ -660,7 +679,7 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
   function makeMeasurement(position: Vector3, distancePc: number, className: string, suffix = ''): MapLabel {
     const label = makeLabel(position, `${formatDistance(distancePc, distanceUnit)}${suffix}`, className)
     label.measurement = { distancePc, suffix }
-    label.anchor.style.zIndex = '2'
+    label.anchor.style.zIndex = '3'
     return label
   }
 
@@ -871,30 +890,15 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
     for (const label of measurementLabels) {
       const start = projections[starsById.get(sun!.id)!.index]!
       const end = selectedId ? projections[starsById.get(selectedId)!.index]! : undefined
-      const selectedStar = selectedId ? starsById.get(selectedId)!.star : undefined
-      if (!start.visible || !end?.visible || !selectedStar) {
+      if (!start.visible || !end?.visible) {
         measurementPlacements.set(label, null)
         continue
       }
       const centerX = (start.x + end.x) / 2
       const centerY = (start.y + end.y) / 2
-      const placement = chooseDistanceLabelPlacement({
-        anchor: { x: centerX, y: centerY },
-        start,
-        end,
-        startDiameter: starHaloDiameter(sun!.absolute_mag),
-        endDiameter: starHaloDiameter(selectedStar.absolute_mag),
-        width: label.width,
-        height: label.height,
-        viewport,
-        previousNormal: distanceNormal,
-        previousSide: distanceSide,
-      })
-      if (placement) {
-        distanceNormal = placement.normal
-        distanceSide = placement.side
-      }
-      measurementPlacements.set(label, placement?.bounds ?? null)
+      measurementPlacements.set(label, centeredForegroundLabelBounds(
+        { x: centerX, y: centerY }, label.width, label.height, viewport,
+      ))
     }
     selectedLabelObstacles.length = 0
     for (const obstacle of obstacles) {
@@ -1022,7 +1026,7 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
   }
 
   function select(id: string | null, focus = true): void {
-    const star = stars.find((candidate) => candidate.id === id)
+    const star = id === null ? undefined : starsById.get(id)?.star
     if (id !== null && !star) return
     focusTransition = null
     controlsInteracting = false
@@ -1030,8 +1034,6 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
     const previousSelectedId = selectedId
     selectedId = id
     obstacleBoundsDirty = true
-    distanceNormal = { x: 0, y: -1 }
-    distanceSide = 1
     if (star) visibilityBase = star
     updatePresentation()
     disposeGeometry(guides)
@@ -1072,7 +1074,8 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
       else focusTransition = { from, to, position, started: performance.now() }
       home = false
     }
-    resize()
+    if (home && !focus) fitHome()
+    else resize()
   }
 
   const homeBounds = new Box3()
@@ -1348,6 +1351,7 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
     reset,
     setObjectDistanceLimit(distanceLy) {
       if (!Number.isFinite(distanceLy) || distanceLy < 5 || distanceLy > 1000) return
+      if (distanceLy === objectDistanceLimitLy) return
       objectDistanceLimitLy = distanceLy
       const nextGridSpacing = gridSpacingPc(distanceLy)
       const nextGridHalfSize = gridHalfSizeForDistance(distanceLy)
@@ -1366,25 +1370,30 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
       requestRender()
     },
     setObjectTypeFilter(types) {
-      selectedTypes = new Set(types.filter((type) => OBJECT_TYPES.includes(type)))
+      const nextTypes = new Set(types.filter((type) => OBJECT_TYPES.includes(type)))
+      if (nextTypes.size === selectedTypes.size && [...nextTypes].every((type) => selectedTypes.has(type))) return
+      selectedTypes = nextTypes
       updatePresentation()
       requestRender()
     },
     setPowerSavingMode(enabled) {
+      if (enabled === powerSavingMode) return
       powerSavingMode = enabled
       resetCadenceSamples()
       resize()
       requestRender()
     },
     setVisibility(observerId, limit) {
-      const base = stars.find((star) => star.id === observerId)
+      const base = starsById.get(observerId)?.star
       if (!base || !Number.isFinite(limit) || limit < 0 || limit > 25) return
+      if (base === visibilityBase && limit === magnitudeLimit) return
       visibilityBase = base
       magnitudeLimit = limit
       updatePresentation()
       requestRender()
     },
     setDistanceUnit(unit) {
+      if (unit === distanceUnit) return
       distanceUnit = unit
       obstacleBoundsDirty = true
       measurementLabels.forEach((label) => {
@@ -1397,6 +1406,7 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
       requestRender()
     },
     setGridVisible(visible) {
+      if (visible === grid.visible) return
       grid.visible = visible
       axisLines.visible = visible
       requestRender()

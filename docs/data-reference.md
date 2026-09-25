@@ -16,7 +16,7 @@ The renderer maps `(x_pc, y_pc, z_pc)` to Three.js Y-up coordinates `(x_pc, z_pc
 
 A selected object has a direct Sun-to-object line and, when off the plane, a dashed perpendicular height line to a square projection marker. The faint dashed in-plane line completes the spatial triangle. The square is a measurement marker, not another object. Selecting the Sun removes the zero-length guides.
 
-Only the Sun-distance text is shown on the map; the height text (such as “0.40 pc below”) is omitted. The distance label stays in the foreground centered on the direct line's midpoint, its dark backing interrupting the line, with clearance around the Sun and selected star's halos. When the projected line is too short for that clearance, it moves beside the midpoint instead. It follows the line smoothly and ignores other label collisions. At a screen edge it can change sides or move to a clear corner; it hides only if no tested position fits without covering an endpoint.
+Only the Sun-distance text is shown on the map; the height text (such as “0.40 pc below”) is omitted. The distance label stays in the foreground centered on the direct line's midpoint, with its dark backing interrupting the line. It remains on the line even when the projected endpoints are close, clamps only at the scene edge, and reserves its bounds so ordinary object names yield to it.
 
 ## CSV Data
 

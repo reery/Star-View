@@ -24,13 +24,14 @@ function supplementPhysicalFields(primary: Star, additional: Star): Star {
 
 export function mergeCatalogStars(primary: readonly Star[], additional: readonly Star[]): Star[] {
   const merged = [...primary]
+  const indices = new Map(merged.map((star, index) => [star.id, index]))
   for (const star of additional) {
-    const duplicate = merged.findIndex((candidate) => candidate.id === star.id ||
-      Math.hypot(candidate.x_pc - star.x_pc, candidate.y_pc - star.y_pc, candidate.z_pc - star.z_pc) < 0.01)
-    if (duplicate >= 0) {
+    const duplicate = indices.get(star.id)
+    if (duplicate !== undefined) {
       merged[duplicate] = supplementPhysicalFields(merged[duplicate]!, star)
       continue
     }
+    indices.set(star.id, merged.length)
     merged.push(star)
   }
   return merged
