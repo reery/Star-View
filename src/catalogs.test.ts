@@ -10,15 +10,18 @@ import manifest from './data/catalogs/nearest-100/catalog.json?raw'
 import nearest1000Csv from './data/catalogs/nearest-1000/stars.csv?raw'
 import nearest1000Manifest from './data/catalogs/nearest-1000/catalog.json?raw'
 import nearest1000Provenance from './data/catalogs/nearest-1000/provenance.json?raw'
+import brightCsv from './data/catalogs/bright-stars/stars.csv?raw'
+import brightManifest from './data/catalogs/bright-stars/catalog.json?raw'
 import { buildCatalog, catalogCoverage, catalogSelection, DEFAULT_CATALOG_MANIFEST, loadCatalog, parseCatalogManifest } from './catalogs'
 import { parseStarCatalog } from './catalog'
 import { apparentVisualMagnitude, formatDistance, temperatureToColor, visibilityTier } from './astronomy'
-import { catalogLoader } from './catalog-runtime'
+import { catalogLoader, mergeCatalogStars } from './catalog-runtime'
 
 describe('catalog packages and display settings', () => {
   const small = parseStarCatalog(csv)
   const large = loadCatalog({ manifest: parseCatalogManifest(manifest), csv: largeCsv })
   const nearest1000 = loadCatalog({ manifest: parseCatalogManifest(nearest1000Manifest), csv: nearest1000Csv })
+  const bright = loadCatalog({ manifest: parseCatalogManifest(brightManifest), csv: brightCsv })
 
   it('validates both real catalogs and shared object metadata', () => {
     expect(small).toHaveLength(22)
@@ -50,7 +53,33 @@ describe('catalog packages and display settings', () => {
     })
     for (const star of large) expect(nearest1000.find((candidate) => candidate.id === star.id)).toEqual(star)
     const provenance = JSON.parse(nearest1000Provenance)
-    expect(provenance.cutoff).toMatchObject({ rank: 1000, id: 'cns5-4902', oneSigmaIntervalsOverlap: true })
+    expect(provenance.cutoff).toMatchObject({ rank: 1000, id: 'cns5-0864', nextId: 'cns5-2673', oneSigmaIntervalsOverlap: true })
+    expect(nearest1000.find((star) => star.id === 'cns5-3517')?.name).toBe('Arcturus')
+    expect(catalogCoverage(nearest1000)).toMatchObject({ radii: 350, metallicities: 350, ages: 68 })
+  })
+
+  it('keeps the bright landmark catalog bounded and merges it without duplicates', () => {
+    expect(bright).toHaveLength(38)
+    expect(bright.at(-1)?.name).toBe('Rigel')
+    expect(catalogCoverage(bright)).toMatchObject({ temperatures: 36, masses: 16, luminosities: 34, radii: 33, metallicities: 19, ages: 1 })
+    expect(bright.find((star) => star.name === 'Rigel')).toMatchObject({
+      temperature_k: 11968, radius_solar: 74.0262, luminosity_solar: 83226.2, metallicity_dex: -0.159,
+    })
+    expect(bright.find((star) => star.name === 'Antares')).toMatchObject({
+      temperature_k: 3548, mass_solar: 15, radius_solar: 682.1352, luminosity_solar: 66430.9, age_gyr: 0.013,
+    })
+    expect(Math.max(...bright.map((star) => Math.hypot(star.x_pc, star.y_pc, star.z_pc) * 3.261563777))).toBeLessThan(1000)
+    expect(Math.max(...bright.filter((star) => star.id !== 'sun').map((star) => star.absolute_mag!))).toBeLessThanOrEqual(2.21)
+    const merged = mergeCatalogStars(large, bright)
+    expect(merged).toHaveLength(136)
+    expect(new Set(merged.map((star) => star.id)).size).toBe(merged.length)
+    expect(merged.find((star) => star.name === 'Altair')).toMatchObject({
+      id: '10pc-0117', temperature_k: 7760, mass_solar: 1.6, radius_solar: 1.8183, metallicity_dex: 0.19,
+    })
+    expect(large.find((star) => star.name === 'Altair')).toMatchObject({ mass_solar: null, radius_solar: null })
+    const largestMerged = mergeCatalogStars(nearest1000, bright)
+    expect(largestMerged).toHaveLength(1031)
+    expect(new Set(largestMerged.map((star) => star.id)).size).toBe(largestMerged.length)
   })
 
   it('rejects malformed packages and preserves nullable selection', () => {

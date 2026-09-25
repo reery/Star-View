@@ -1,0 +1,40 @@
+{
+  "schemaVersion": 1,
+  "id": "bright-stars",
+  "label": "Bright stars",
+  "description": "A curated set of familiar, intrinsically bright stellar landmarks within 1000 light-years, plus the Sun.",
+  "epoch": 2000,
+  "objectCount": 38,
+  "sources": [
+    {
+      "name": "SIMBAD TAP snapshot; named-star identity, astrometry, classification, compiled Johnson V and radial velocity",
+      "url": "https://simbad.cds.unistra.fr/simbad/sim-tap/sync"
+    },
+    {
+      "name": "SIMBAD bibliographic parameter and diameter measurements; mesFe_h and mesDiameter ranked rows",
+      "url": "https://simbad.cds.unistra.fr/simbad/sim-tap/sync"
+    },
+    {
+      "name": "Allende Prieto & Lambert (1999); Hipparcos model masses, radii and temperatures",
+      "url": "https://cdsarc.cds.unistra.fr/viz-bin/cat/J/A+A/352/555"
+    },
+    {
+      "name": "McDonald et al. (2012); Hipparcos SED temperatures and luminosities",
+      "url": "https://cdsarc.cds.unistra.fr/viz-bin/cat/J/MNRAS/427/343"
+    },
+    {
+      "name": "Ohnaka et al. (2013); Antares A mass and age range",
+      "url": "https://doi.org/10.1051/0004-6361/201321063"
+    },
+    {
+      "name": "Tango et al. (2006); Shaula A component mass",
+      "url": "https://academic.oup.com/mnras/article/370/2/884/968867"
+    },
+    {
+      "name": "Bright Star Catalogue, 5th Revised Ed.; combined visual magnitude for Acrux",
+      "url": "https://cdsarc.cds.unistra.fr/viz-bin/cat/V/50"
+    }
+  ],
+  "cutoffPolicy": "Curated recognizable landmarks from the visually brightest named stars: distance no greater than 1000 light-years and absolute visual magnitude approximately +2 or brighter. Altair at +2.21 is retained as a boundary landmark. This is intentionally representative, not a complete magnitude-limited census.",
+  "snapshot": "J2000.0; SIMBAD TAP queried 2026-09-25; physical sources frozen 2026-09-25; 36 named landmarks plus Sirius A and Sun."
+}

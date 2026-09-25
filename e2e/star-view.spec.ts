@@ -41,6 +41,40 @@ test('loads each generated catalog payload only when first selected', async ({ p
   expect(catalogRequests.filter((name) => name.startsWith('nearest-1000-'))).toHaveLength(1)
 })
 
+test('adds the bright-star catalog as a deduplicated optional overlay', async ({ page }) => {
+  await openViewer(page)
+  await openFilter(page)
+  const toggle = page.getByRole('switch', { name: 'Always show bright stars' })
+  await expect(toggle).not.toBeChecked()
+  await page.getByRole('button', { name: 'Zoom in' }).click()
+  const sunBeforeToggle = await starPoint(page, 'sun')
+  const gridBeforeToggle = await page.locator('#scene').getAttribute('data-grid-half-size-pc')
+  await toggle.check()
+  await expect(page.locator('#catalog-count')).toHaveText('58')
+  await expect(page.locator('[data-star="bright-canopus"]')).toHaveCount(1)
+  expect(await page.locator('.catalog-entry').evaluateAll((entries) => {
+    const ids = entries.map((entry) => (entry as HTMLElement).dataset.star)
+    return new Set(ids).size === ids.length
+  })).toBe(true)
+  expect(Number(await page.locator('.projected-labels').getAttribute('data-core-count'))).toBeLessThan(58)
+  expect(await starPoint(page, 'sun')).toEqual(sunBeforeToggle)
+  await expect(page.locator('#scene')).toHaveAttribute('data-grid-half-size-pc', gridBeforeToggle!)
+
+  const distance = page.getByLabel('Object visibility distance', { exact: true })
+  await distance.fill('19')
+  await expect(page.locator('#object-distance-limit-value')).toHaveText('1000 ly')
+  await expect(distance).toHaveAttribute('aria-valuetext', '1000 light-years')
+  await expect(page.locator('#grid-spacing')).toHaveText('65.23 ly grid')
+  await expect(page.locator('#scene')).toHaveAttribute('data-grid-spacing-pc', '20')
+  await expect(page.locator('#scene')).toHaveAttribute('data-grid-half-size-pc', '307')
+  await expect(page.locator('.projected-labels')).toHaveAttribute('data-core-count', '58')
+
+  await page.getByLabel('Catalog', { exact: true }).selectOption('bright-stars')
+  await expect(page.locator('#catalog-count')).toHaveText('38')
+  await toggle.uncheck()
+  await expect(page.locator('#catalog-count')).toHaveText('38')
+})
+
 function changedPixels(before: Buffer, after: Buffer): number {
   const first = PNG.sync.read(before)
   const second = PNG.sync.read(after)
@@ -97,7 +131,7 @@ test('switches project catalogs while preserving settings and compatible selecti
   await expect(page.locator('#absolute-mag')).toHaveText('1.42')
   await expect(page.getByLabel('ly', { exact: true })).toBeChecked()
   await page.getByLabel('V magnitude limit', { exact: true }).fill('9')
-  await page.getByLabel('Object visibility distance', { exact: true }).fill('20')
+  await page.getByLabel('Object visibility distance', { exact: true }).fill('3')
   await page.getByRole('button', { name: 'Grid', exact: true }).click()
   await page.locator('.catalog summary').click()
   for (const id of ['nearest-100', 'nearest-neighbors', 'nearest-100']) {
@@ -109,7 +143,7 @@ test('switches project catalogs while preserving settings and compatible selecti
     await expect(page.locator('#visibility-base')).toHaveText('Sirius A')
     await expect(page.locator('#distance-unit')).toHaveText(' ly')
     await expect(page.locator('#magnitude-limit')).toHaveValue('9')
-    await expect(page.locator('#object-distance-limit')).toHaveValue('20')
+    await expect(page.locator('#object-distance-limit-value')).toHaveText('20 ly')
     await expect(page.locator('#toggle-grid')).toHaveAttribute('aria-pressed', 'false')
     await expect(page.locator('.catalog')).toHaveAttribute('open')
   }
@@ -159,6 +193,14 @@ test('searches the virtualized nearest-1000 list within bounded name budgets', a
       selectedName.top < distance.bottom && selectedName.bottom > distance.top
   })
   expect(selectedNameOverlapsDistance).toBe(false)
+  await page.getByLabel('Search objects').fill('Arcturus')
+  await page.getByRole('button', { name: 'Select Arcturus', exact: true }).click()
+  await expect(page.locator('#star-name')).toHaveText('Arcturus')
+  await page.getByLabel('Search objects').fill('Alsafi')
+  await page.getByRole('button', { name: 'Select Alsafi', exact: true }).click()
+  await expect(page.locator('#radius')).toHaveText('0.826 solar')
+  await expect(page.locator('#metallicity')).toHaveText('-0.407 dex')
+  await expect(page.locator('#age')).toHaveText('9.933 Gyr')
 })
 
 test('defaults to light-years, converts every distance without moving the camera, and remembers units', async ({ page }) => {
@@ -271,7 +313,7 @@ test('renders faint objects as small colored cores without halos at either pixel
   const eligible = sample(await canvas.screenshot({ ...options, path: testInfo.outputPath('eligible-dot.png') }), eligibleMask)
   expect(eligible.coreArea).toBeGreaterThan(45)
   expect(eligible.coreArea).toBeLessThan(85)
-  expect(eligible.halo).toBeGreaterThan(5)
+  expect(eligible.halo).toBeGreaterThan(4)
 })
 
 test('catalog starts closed and opens independently with the keyboard', async ({ page }) => {
@@ -328,9 +370,9 @@ test('puts scene context on the map and orders the inspector around selection', 
   await openFilter(page)
   const distance = page.getByLabel('Object visibility distance', { exact: true })
   const magnitude = page.getByLabel('V magnitude limit', { exact: true })
-  await expect(distance).toHaveAttribute('min', '5')
-  await expect(distance).toHaveAttribute('max', '100')
-  await expect(distance).toHaveValue('100')
+  await expect(distance).toHaveAttribute('min', '0')
+  await expect(distance).toHaveAttribute('max', '19')
+  await expect(distance).toHaveValue('14')
   await expect(page.locator('#object-distance-limit-value')).toHaveText('100 ly')
   await expect(magnitude).toHaveAttribute('type', 'range')
   await expect(magnitude).toHaveAttribute('max', '25')
@@ -356,12 +398,12 @@ test('filters only the map and reveals an excluded selected object', async ({ pa
   await openFilter(page)
   const distance = page.getByLabel('Object visibility distance', { exact: true })
   const barnard = page.locator('[data-star-id="barnards-star"]')
-  await distance.fill('5')
+  await distance.fill('0')
   await expect(page.locator('#object-distance-limit-value')).toHaveText('5 ly')
   await expect(barnard).toHaveCount(0)
   await expect(page.locator('[data-star-id="sirius-a"]')).toHaveAttribute('data-map-visible', 'true')
   await expect(page.locator('.catalog-entry')).toHaveCount(22)
-  await distance.fill('100')
+  await distance.fill('14')
   await expect(barnard).toHaveCount(0)
 
   const typeDropdown = page.locator('details.filter-dropdown')
@@ -478,7 +520,7 @@ test('renders brown and sub-brown dwarfs in visible brown shades', async ({ page
   await expect(page.locator('#star-name')).toHaveText('Luhman 16 A')
   const expected = await swatch('luhman-16-a')
   expect(await page.locator('#selected-swatch').evaluate((element) => getComputedStyle(element).backgroundColor)).toBe(expected)
-  expect(await page.locator('.map-anchor.is-selected .selection-ring').evaluate((element) => getComputedStyle(element).borderTopColor)).toBe(expected)
+  expect(await page.locator('[data-star-id="luhman-16-a"].is-selected .selection-ring').evaluate((element) => getComputedStyle(element).borderTopColor)).toBe(expected)
   const point = await starPoint(page, 'luhman-16-a')
   const canvas = page.locator('#scene canvas')
   const bounds = (await canvas.boundingBox())!

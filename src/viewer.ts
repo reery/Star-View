@@ -6,7 +6,7 @@ import {
 } from 'three'
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js'
 import { OBJECT_TYPES, type ObjectType, type Star } from './catalog-model'
-import { apparentVisualMagnitude, displayMotionForStar, formatDistance, galacticToWorld, starDisplayColor, sunRelativeMetrics, visibilityTier, type DistanceUnit, type MotionMode } from './astronomy'
+import { apparentVisualMagnitude, displayMotionForStar, formatDistance, galacticToWorld, gridSpacingPc, LIGHT_YEARS_PER_PARSEC, starDisplayColor, sunRelativeMetrics, visibilityTier, type DistanceUnit, type MotionMode } from './astronomy'
 import { advanceFrameDeadline, effectiveDampingFactor, estimateRefreshRate, renderPixelRatio, targetRenderFps } from './render-scheduling'
 import { chooseDistanceLabelPlacement, chooseOrdinaryLabelPlacement, ordinaryLabelCandidates, overlaps, type LabelRect, type OrdinaryLabelPlacement } from './label-layout'
 import {
@@ -18,9 +18,11 @@ import {
 } from './viewer-primitives'
 
 export interface StarViewer {
+  getViewState(): ViewerViewState
   select(id: string | null, focus?: boolean): void
   reset(): void
   setGridVisible(visible: boolean): void
+  setViewState(state: ViewerViewState): void
   setObjectDistanceLimit(distanceLy: number): void
   setObjectTypeFilter(types: readonly ObjectType[]): void
   setPowerSavingMode(enabled: boolean): void
@@ -30,9 +32,16 @@ export interface StarViewer {
   dispose(): void
 }
 
+export interface ViewerViewState {
+  position: readonly [number, number, number]
+  target: readonly [number, number, number]
+  home: boolean
+}
+
 interface ViewerOptions {
   onSelect(id: string | null): void
   onStatus(message: string | null): void
+  gridHalfSizePc?: number
 }
 
 // Last drawn motion arrow in client CSS px, returned by the label layer's motionArrowSnapshot() test hook.
@@ -134,11 +143,11 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
   const starColors = stars.map(starDisplayColor)
   const starColorStyles = starColors.map((color) => color.getStyle())
   const starBounds = new Box3().setFromPoints(pickable.map((star) => star.position))
-  const sphere = starBounds.getBoundingSphere(new Sphere())
-  sphere.radius = Math.max(sphere.radius, 0.75)
+  const catalogSphere = starBounds.getBoundingSphere(new Sphere())
+  catalogSphere.radius = Math.max(catalogSphere.radius, 0.75)
   const homeDirection = new Vector3(-4.8, 3.8, -6.2).normalize()
   controls.minDistance = 0.08
-  controls.maxDistance = Math.max(30, sphere.radius * 24)
+  controls.maxDistance = Math.max(30, catalogSphere.radius * 24)
   camera.far = controls.maxDistance * 5
 
   const textureCanvas = document.createElement('canvas')
@@ -306,11 +315,21 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
   arrows.visible = false
   scene.add(arrows)
 
-  const gridHalfSize = Math.max(3, Math.ceil(Math.max(...pickable.map((star) => star.position.length())) + 1))
-  const gridHelper = new GridHelper(gridHalfSize * 2, gridHalfSize * 4, 0x65615c, 0x393939)
+  const baseGridHalfSize = options.gridHalfSizePc ?? Math.max(3, Math.ceil(Math.max(...pickable.map((star) => star.position.length())) + 1))
+  function gridHalfSizeForDistance(distanceLy: number): number {
+    return distanceLy <= 100 ? baseGridHalfSize : Math.max(baseGridHalfSize, Math.ceil(distanceLy / LIGHT_YEARS_PER_PARSEC))
+  }
+  function makeGridGeometry(spacingPc: number, halfSizePc: number): BufferGeometry {
+    const helper = new GridHelper(halfSizePc * 2, Math.max(2, Math.round(halfSizePc * 2 / spacingPc)), 0x65615c, 0x393939)
+    helper.material.dispose()
+    return helper.geometry
+  }
+  let gridSpacing = gridSpacingPc(100)
+  let gridHalfSize = gridHalfSizeForDistance(100)
   const gridOpacity = { value: 0.4 }
-  const grid = new LineSegments(gridHelper.geometry, new ShaderMaterial({
-    uniforms: { radius: { value: gridHalfSize }, opacity: gridOpacity },
+  const gridRadius = { value: gridHalfSize }
+  const grid = new LineSegments(makeGridGeometry(gridSpacing, gridHalfSize), new ShaderMaterial({
+    uniforms: { radius: gridRadius, opacity: gridOpacity },
     vertexColors: true, transparent: true, depthWrite: false, toneMapped: false,
     vertexShader: `
       varying vec2 gridPosition;
@@ -333,10 +352,11 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
       }
     `,
   }))
-  gridHelper.material.dispose()
   scene.add(grid)
+  container.dataset.gridSpacingPc = String(gridSpacing)
+  container.dataset.gridHalfSizePc = String(gridHalfSize)
   const origin = galacticToWorld(sun)
-  const axisLength = Math.max(1.2, sphere.radius)
+  const axisLength = Math.max(1.2, catalogSphere.radius)
   const axes = [
     { position: new Vector3(axisLength, 0, 0), text: '+X', color: 0x8d786f },
     { position: new Vector3(0, 0, -axisLength), text: '+Y', color: 0x9c8976 },
@@ -1055,12 +1075,21 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
     resize()
   }
 
+  const homeBounds = new Box3()
+  const homeSphere = new Sphere()
   function fitHome(): void {
+    homeBounds.makeEmpty()
+    stars.forEach((star, index) => {
+      if (mapVisibility.get(star.id)) homeBounds.expandByPoint(pickable[index]!.position)
+    })
+    if (homeBounds.isEmpty()) homeBounds.expandByPoint(origin)
+    homeBounds.getBoundingSphere(homeSphere)
+    homeSphere.radius = Math.max(homeSphere.radius, 0.75)
     const verticalAngle = camera.fov * Math.PI / 360
     const fitAngle = Math.min(verticalAngle, Math.atan(Math.tan(verticalAngle) * camera.aspect))
-    const distance = Math.min(controls.maxDistance, sphere.radius / Math.sin(fitAngle) * 1.6)
-    controls.target.copy(sphere.center)
-    camera.position.copy(sphere.center).addScaledVector(homeDirection, distance)
+    const distance = Math.min(controls.maxDistance, homeSphere.radius / Math.sin(fitAngle) * 1.6)
+    controls.target.copy(homeSphere.center)
+    camera.position.copy(homeSphere.center).addScaledVector(homeDirection, distance)
     camera.lookAt(controls.target)
     controls.update()
     controls.saveState()
@@ -1308,12 +1337,32 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
   container.dataset.ready = 'true'
 
   return {
+    getViewState() {
+      return {
+        position: camera.position.toArray() as [number, number, number],
+        target: controls.target.toArray() as [number, number, number],
+        home,
+      }
+    },
     select,
     reset,
     setObjectDistanceLimit(distanceLy) {
-      if (!Number.isFinite(distanceLy) || distanceLy < 5 || distanceLy > 100) return
+      if (!Number.isFinite(distanceLy) || distanceLy < 5 || distanceLy > 1000) return
       objectDistanceLimitLy = distanceLy
+      const nextGridSpacing = gridSpacingPc(distanceLy)
+      const nextGridHalfSize = gridHalfSizeForDistance(distanceLy)
+      if (nextGridSpacing !== gridSpacing || nextGridHalfSize !== gridHalfSize) {
+        const previousGeometry = grid.geometry
+        grid.geometry = makeGridGeometry(nextGridSpacing, nextGridHalfSize)
+        previousGeometry.dispose()
+        gridSpacing = nextGridSpacing
+        gridHalfSize = nextGridHalfSize
+        gridRadius.value = gridHalfSize
+        container.dataset.gridSpacingPc = String(gridSpacing)
+        container.dataset.gridHalfSizePc = String(gridHalfSize)
+      }
       updatePresentation()
+      if (home) fitHome()
       requestRender()
     },
     setObjectTypeFilter(types) {
@@ -1352,6 +1401,24 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
       axisLines.visible = visible
       requestRender()
     },
+    setViewState(state) {
+      const values = [...state.position, ...state.target]
+      if (values.some((value) => !Number.isFinite(value))) return
+      focusTransition = null
+      controlsInteracting = false
+      controlsSettling = false
+      camera.position.fromArray(state.position)
+      controls.target.fromArray(state.target)
+      const distance = camera.position.distanceTo(controls.target)
+      controls.maxDistance = Math.max(controls.maxDistance, distance * 1.05)
+      camera.far = Math.max(camera.far, controls.maxDistance * 5)
+      camera.updateProjectionMatrix()
+      camera.lookAt(controls.target)
+      controls.update()
+      home = state.home
+      invalidateProjection()
+      requestRender()
+    },
     zoom(direction) {
       focusTransition = null
       controlsInteracting = false
@@ -1385,6 +1452,8 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
       axisLayer.remove()
       labelLayer.remove()
       delete container.dataset.ready
+      delete container.dataset.gridSpacingPc
+      delete container.dataset.gridHalfSizePc
     },
   }
 }

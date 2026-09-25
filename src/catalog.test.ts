@@ -2,13 +2,14 @@ import { describe, expect, it } from 'vitest'
 import Papa from 'papaparse'
 import { Matrix3, Vector3 } from 'three'
 import csv from './data/stars.csv?raw'
-import { CONSTELLATIONS, RAW_ASTROMETRY_HEADERS, describeObject, objectTypeLabel, parseStarCatalog } from './catalog'
+import { CONSTELLATIONS, PHYSICAL_CATALOG_HEADERS, RAW_ASTROMETRY_HEADERS, describeObject, objectTypeLabel, parseStarCatalog } from './catalog'
 
 const rawRows = Papa.parse<Record<string, string>>(csv, { header: true, skipEmptyLines: true }).data
 const siriusRow = rawRows.find((row) => row.id === 'sirius-a')!
 
 function changeSirius(fields: Record<string, string>): string {
-  return Papa.unparse([rawRows[0]!, { ...siriusRow, ...fields }])
+  const physical = Object.fromEntries(PHYSICAL_CATALOG_HEADERS.map((field) => [field, '']))
+  return Papa.unparse([{ ...rawRows[0], ...physical }, { ...siriusRow, ...physical, ...fields }])
 }
 
 describe('object catalog', () => {
@@ -21,6 +22,7 @@ describe('object catalog', () => {
     expect(() => parseStarCatalog(Papa.unparse([extended[0]!, { ...extended[1], constellation: 'Unknown' }]))).toThrow('IAU')
     expect(CONSTELLATIONS).toHaveLength(88)
     expect(new Set(CONSTELLATIONS).size).toBe(88)
+    expect(PHYSICAL_CATALOG_HEADERS).toEqual(['radius_solar', 'metallicity_dex', 'age_gyr'])
   })
 
   it('retains raw proper motion without inventing a radial velocity', () => {
@@ -131,7 +133,8 @@ describe('object catalog', () => {
   })
 
   it('accepts negative magnitude and velocity as metadata', () => {
-    expect(parseStarCatalog(changeSirius({ absolute_mag: '-1.5', vx_kms: '-5.2' }))[1]).toMatchObject({ absolute_mag: -1.5, vx_kms: -5.2 })
+    const input = changeSirius({ absolute_mag: '-1.5', vx_kms: '-5.2', radius_solar: '1.7', metallicity_dex: '-0.4', age_gyr: '0.24' })
+    expect(parseStarCatalog(input)[1]).toMatchObject({ absolute_mag: -1.5, vx_kms: -5.2, radius_solar: 1.7, metallicity_dex: -0.4, age_gyr: 0.24 })
   })
 
   it.each([
@@ -152,6 +155,8 @@ describe('object catalog', () => {
     [{ temperature_k: '-10' }, 'temperature_k'],
     [{ mass_solar: '-1' }, 'mass_solar'],
     [{ luminosity_solar: '0' }, 'luminosity_solar'],
+    [{ radius_solar: '0' }, 'radius_solar'],
+    [{ age_gyr: '-1' }, 'age_gyr'],
     [{ vx_kms: 'unknown' }, 'vx_kms'],
     [{ type: 'nebula' }, 'type'],
     [{ id: 'sun' }, 'duplicate ID'],

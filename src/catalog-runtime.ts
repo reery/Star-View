@@ -8,6 +8,34 @@ export interface CatalogDefinition {
   load(): Promise<Star[]>
 }
 
+const OVERLAY_PHYSICAL_FIELDS = [
+  'temperature_k', 'mass_solar', 'luminosity_solar', 'radius_solar', 'metallicity_dex', 'age_gyr',
+] as const
+
+function supplementPhysicalFields(primary: Star, additional: Star): Star {
+  const supplemented = { ...primary }
+  const fields = OVERLAY_PHYSICAL_FIELDS.filter((field) => primary[field] === null && additional[field] !== null)
+  for (const field of fields) supplemented[field] = additional[field]
+  if (fields.length) {
+    supplemented.notes = `${primary.notes} Bright-star overlay supplements ${fields.join(', ')}. ${additional.notes}`.trim()
+  }
+  return supplemented
+}
+
+export function mergeCatalogStars(primary: readonly Star[], additional: readonly Star[]): Star[] {
+  const merged = [...primary]
+  for (const star of additional) {
+    const duplicate = merged.findIndex((candidate) => candidate.id === star.id ||
+      Math.hypot(candidate.x_pc - star.x_pc, candidate.y_pc - star.y_pc, candidate.z_pc - star.z_pc) < 0.01)
+    if (duplicate >= 0) {
+      merged[duplicate] = supplementPhysicalFields(merged[duplicate]!, star)
+      continue
+    }
+    merged.push(star)
+  }
+  return merged
+}
+
 export function parseCatalogPayload(value: unknown, manifest: CatalogManifest): Star[] {
   if (!value || typeof value !== 'object') throw new Error('Catalog payload must be an object.')
   const payload = value as Record<string, unknown>

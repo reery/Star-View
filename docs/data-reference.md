@@ -12,7 +12,7 @@ Positions use a **right-handed, Sun-centered, Galactic-aligned Cartesian frame**
 
 The reference plane is `z_pc = 0`, passing through the Sun. It is not a claim about the physical Galactic midplane or the Sun's offset from it. This is not a Galactocentric frame.
 
-The renderer maps `(x_pc, y_pc, z_pc)` to Three.js Y-up coordinates `(x_pc, z_pc, -y_pc)`. One scene unit equals one parsec on every axis, with no height exaggeration. A parsec is approximately 3.26156 light-years. The grid spacing is 0.5 pc.
+The renderer maps `(x_pc, y_pc, z_pc)` to Three.js Y-up coordinates `(x_pc, z_pc, -y_pc)`. One scene unit equals one parsec on every axis, with no height exaggeration. A parsec is approximately 3.26156 light-years. Grid spacing follows the visibility-distance band: 0.5 pc through 100 ly, then 1, 2, 5, 10, and 20 pc at 150, 200, 300, 500, and 1000 ly.
 
 A selected object has a direct Sun-to-object line and, when off the plane, a dashed perpendicular height line to a square projection marker. The faint dashed in-plane line completes the spatial triangle. The square is a measurement marker, not another object. Selecting the Sun removes the zero-length guides.
 
@@ -32,6 +32,12 @@ type,id,name,spectral_type,x_pc,y_pc,z_pc,vx_kms,vy_kms,vz_kms,temperature_k,mas
 ra_deg,dec_deg,astrometry_epoch,parallax_mas,parallax_error_mas,pm_ra_cosdec_masyr,pm_ra_error_masyr,pm_dec_masyr,pm_dec_error_masyr,radial_velocity_kms,radial_velocity_error_kms,astrometry_ref,radial_velocity_ref
 ```
 
+Optional physical-property columns may also be appended independently:
+
+```csv
+radius_solar,metallicity_dex,age_gyr
+```
+
 Raw astrometry is source-epoch ICRS data. `pm_ra_cosdec_masyr` includes `cos(dec)`. Parallax must be positive; uncertainties are nonnegative. Radial velocity and its source may be blank, but are never replaced by zero. The common Cartesian `epoch` remains the static J2000 map snapshot and is distinct from `astrometry_epoch`.
 
 | Field | Meaning |
@@ -45,6 +51,9 @@ Raw astrometry is source-epoch ICRS data. `pm_ra_cosdec_masyr` includes `cos(dec
 | `temperature_k` | Optional, positive effective temperature in kelvin; estimates distinguished in source notes |
 | `mass_solar` | Optional, positive mass relative to the Sun |
 | `luminosity_solar` | Optional, positive bolometric luminosity relative to the Sun |
+| `radius_solar` | Optional, positive radius relative to the Sun |
+| `metallicity_dex` | Optional stellar metallicity in dex; bundled Gaia values are GSP-Phot `[M/H]` model estimates |
+| `age_gyr` | Optional, positive age in billions of years |
 | `absolute_mag` | Optional Johnson V absolute magnitude, not bolometric magnitude |
 | `epoch` | Required decimal Julian year of the coordinate snapshot; initially `2000.0` |
 | `notes` | Optional source and object notes; quote cells containing commas or newlines |
@@ -54,15 +63,15 @@ The Sun must be present at `(0, 0, 0)`, with velocities zero or blank. All rows 
 
 The epoch describes the astrometric snapshot, not the observation date of every physical parameter. Positions are static; neither proper motion nor binary orbits are propagated to the current date. A radial velocity is not interchangeable with a Cartesian velocity component.
 
-Constellations are the Earth-view IAU regions at the adopted snapshot, assigned offline from sky directions using Astropy's Roman/Delporte boundary table. They do not change with visibility observer, units or camera orientation. Every non-Sun object in all three bundled catalogs has one, even without V photometry. Sun displays Not applicable; a legacy/custom unknown displays Not available. Boundary-frame transformation is not physical motion propagation to 1875.
+Constellations are the Earth-view IAU regions at the adopted snapshot, assigned offline from sky directions using the IAU Roman/Delporte boundaries. They do not change with visibility observer, units or camera orientation. Every non-Sun object in all four bundled catalogs has one, even without V photometry. Sun displays Not applicable; a legacy/custom unknown displays Not available. Boundary-frame transformation is not physical motion propagation to 1875.
 
 ## Catalog Policy And Provenance
 
-The default sample ranks individual stellar and substellar objects beyond the Sun, rather than systems. It includes hydrogen-fusing stars, Sirius B, the Luhman 16 brown dwarfs, and WISE 0855-0714. The nominal rank-20 boundary cuts through the co-distant EZ Aquarii triple, so all three components are retained: 21 objects beyond the Sun, 22 rows total. Its historical row order is preserved. Nearest-100 keeps those rows as curated overrides over an audited 10pc census with CNS5 crosschecks. Nearest-1000 uses CNS5 membership with exact SIMBAD and Gaia DR3 enrichment and keeps all nearest-100 rows as higher-curation overrides. Cutoffs, exclusions, uncertainties, and frozen source versions are recorded in the [sourcing guide](catalog-sourcing.md).
+The default sample ranks individual stellar and substellar objects beyond the Sun, rather than systems. It includes hydrogen-fusing stars, Sirius B, the Luhman 16 brown dwarfs, and WISE 0855-0714. The nominal rank-20 boundary cuts through the co-distant EZ Aquarii triple, so all three components are retained: 21 objects beyond the Sun, 22 rows total. Its historical row order is preserved. Nearest-100 keeps those rows as curated overrides over an audited 10pc census with CNS5 crosschecks. Nearest-1000 uses CNS5 membership with exact SIMBAD and Gaia DR3 enrichment and keeps all nearest-100 rows as higher-curation overrides. Bright stars is a representative landmark set rather than a complete census: it retains familiar named stars within 1000 light-years at approximately absolute Johnson V +2 or brighter, with Altair (+2.21) as a deliberate boundary exception. Cutoffs, exclusions, uncertainties, and frozen source versions are recorded in the [sourcing guide](catalog-sourcing.md).
 
 Positions combine J2000 Galactic directions from [SIMBAD](https://simbad.cds.unistra.fr/simbad/) with selected parallaxes. Gaia EDR3/CNS5 values are used where suitable; dedicated measurements are retained for systems Gaia does not resolve cleanly or objects it does not measure well. Those sources include Akeson et al. (2021) for Alpha Centauri AB, Bedin et al. (2024) for Luhman 16, Kirkpatrick et al. (2021) for WISE 0855-0714, [Bond et al. (2017)](https://arxiv.org/html/1703.10625) for Sirius, the GRAVITY Collaboration (2024) for Luyten 726-8, and Torres et al. (2010) for EZ Aquarii. Each CSV row names its adopted source.
 
-Temperatures use directly published values where available and spectral-class estimates otherwise. The Sun uses [NASA Sun facts](https://science.nasa.gov/sun/facts/) and the nominal effective temperature associated with [IAU 2015 Resolution B3](https://arxiv.org/abs/1510.07674). Main-sequence class estimates follow the [Pecaut-Mamajek dwarf sequence](https://www.pas.rochester.edu/~emamajek/EEM_dwarf_UBVIJHK_colors_Teff.txt). Blank optional fields mean the source set did not justify a value.
+Temperatures use directly published values where available and spectral-class estimates otherwise. The Sun uses [NASA Sun facts](https://science.nasa.gov/sun/facts/) and the nominal effective temperature associated with [IAU 2015 Resolution B3](https://arxiv.org/abs/1510.07674). Main-sequence class estimates follow the [Pecaut-Mamajek dwarf sequence](https://www.pas.rochester.edu/~emamajek/EEM_dwarf_UBVIJHK_colors_Teff.txt). Nearest-1000 radii, metallicities and ages use Gaia DR3 model outputs when they pass the documented source policy. Bright-stars physical values use frozen SIMBAD bibliographic measurements, the Allende Prieto–Lambert Hipparcos model catalog, McDonald et al. Hipparcos SED models, and two component-specific primary papers. Blank optional fields mean the source set did not justify a value.
 
 Coordinates are derived as `d = 1 / parallax`, `x = d cos(b) cos(l)`, `y = d cos(b) sin(l)`, and `z = d sin(b)`. Close components share a system position when their physical separation is below this catalog's spatial precision; separation is not exaggerated for display. The app derives all distance and height readouts from the loaded coordinates. Positions are a curated static snapshot, source uncertainties are not modeled, and the catalog is not a precision ephemeris.
 

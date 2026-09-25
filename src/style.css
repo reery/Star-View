@@ -109,7 +109,9 @@ select:focus-visible, input:focus-visible { outline: 2px solid var(--accent); ou
 .unit-options span { display: grid; place-items: center; min-width: 44px; height: 44px; border: 1px solid var(--line); }
 .unit-options input:checked + span { background: var(--panel-selected); color: var(--accent-strong); border-color: #ac8059; }
 .unit-options input:focus-visible + span { outline: 2px solid var(--accent); outline-offset: 2px; }
-.power-saving-choice { display: flex; align-items: center; justify-content: space-between; gap: 16px; min-height: 44px; margin-top: 14px; color: var(--ink); cursor: pointer; }
+.power-saving-choice, .filter-toggle { display: flex; align-items: center; justify-content: space-between; gap: 16px; min-height: 44px; color: var(--ink); cursor: pointer; }
+.power-saving-choice { margin-top: 14px; }
+.filter-toggle { font-size: 13px; }
 .switch-control { position: relative; width: 44px; height: 24px; flex: 0 0 44px; }
 .switch-control input { position: absolute; inset: 0; z-index: 1; width: 100%; height: 100%; margin: 0; opacity: 0; cursor: pointer; }
 .switch-track { display: block; width: 100%; height: 100%; border: 1px solid var(--line); border-radius: 12px; background: #171819; transition: background 120ms ease, border-color 120ms ease; }

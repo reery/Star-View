@@ -52,6 +52,9 @@
                     <div><dt>Spectral type</dt><dd id="spectral-type"></dd></div>
                     <div><dt>Temperature</dt><dd id="temperature"></dd></div>
                     <div><dt>Mass</dt><dd id="mass"></dd></div>
+                    <div><dt>Radius</dt><dd id="radius"></dd></div>
+                    <div><dt>Metallicity [M/H]</dt><dd id="metallicity"></dd></div>
+                    <div><dt>Age</dt><dd id="age"></dd></div>
                     <div><dt>Absolute mag. (V)</dt><dd id="absolute-mag"></dd></div>
                   </dl>
                 </section>
@@ -87,10 +90,15 @@
             <div class="filter-controls">
               <div class="catalog-choice"><label for="catalog-select">Catalog</label><select id="catalog-select"></select></div>
               <p id="catalog-error" class="catalog-error" role="alert" hidden></p>
+              <label class="filter-toggle" for="show-always-bright">
+                <span>Always show bright stars</span>
+                <span class="switch-control"><input id="show-always-bright" type="checkbox" role="switch"><span class="switch-track" aria-hidden="true"></span></span>
+              </label>
               <div class="range-filter">
                 <div class="range-heading"><label for="object-distance-limit">Object visibility distance</label><output id="object-distance-limit-value" for="object-distance-limit">100 ly</output></div>
-                <input id="object-distance-limit" type="range" min="5" max="100" step="1" value="100">
-                <div class="range-bounds" aria-hidden="true"><span>5 ly</span><span>100 ly</span></div>
+                <input id="object-distance-limit" type="range" min="0" max="19" step="1" value="14" aria-valuetext="100 light-years" aria-describedby="object-distance-steps">
+                <div class="range-bounds" aria-hidden="true"><span>5 ly</span><span>1000 ly</span></div>
+                <span id="object-distance-steps" class="sr-only">Distance steps above 100 light-years are 150, 200, 300, 500, and 1000 light-years.</span>
               </div>
               <div class="range-filter">
                 <div class="range-heading"><label for="magnitude-limit">V magnitude limit</label><output id="magnitude-limit-value" for="magnitude-limit">7</output></div>

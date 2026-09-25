@@ -32,6 +32,9 @@ export interface Star {
   temperature_k: number | null
   mass_solar: number | null
   luminosity_solar: number | null
+  radius_solar: number | null
+  metallicity_dex: number | null
+  age_gyr: number | null
   absolute_mag: number | null
   epoch: number
   notes: string

@@ -2,11 +2,17 @@
 
 ## This Release
 
-The project now ships three snapshots. **Nearest 1000 objects** contains 1000 non-Sun individuals plus Sun. Corrected CNS5 (13-Dec-2023) defines its membership backbone; exact CNS5 identifiers enrich through a frozen SIMBAD TAP export and exact Gaia DR3 identifiers enrich through a frozen Gaia TAP export. All 101 nearest-100 rows are retained field-for-field as higher-curation overrides.
+The project now ships four snapshots. **Nearest 1000 objects** contains 1000 non-Sun individuals plus Sun. Corrected CNS5 (13-Dec-2023) defines its membership backbone; exact CNS5 identifiers enrich through a frozen SIMBAD TAP export and exact Gaia DR3 identifiers enrich through a frozen Gaia TAP export. All 101 nearest-100 rows are retained field-for-field as higher-curation overrides.
 
-The policy-aware rank-1000 object is **HD 331161B** (`cns5-4902`) at **13.943979464811 pc**; the next eligible object is at 13.947001394700 pc. Their linearized parallax-only one-sigma intervals overlap, so nominal ranking is retained without claiming statistically secure membership. The audited 1100-row buffer excludes 46 aggregate SIMBAD `**` records and nine tentative `BD?` records before selecting 1000 individuals.
+**Bright stars** contains 36 familiar named landmarks selected to be within 1000 light-years and approximately absolute Johnson V +2 or brighter, plus the inherited Sirius A and Sun rows. Altair at +2.21 is the documented boundary exception. This is a deliberately compact orientation layer, not a complete magnitude-limited census. System-level names remain system-level where SIMBAD identifies an unresolved or spectroscopic system. Excluding Sun, its current physical coverage is 36 temperatures, 16 masses, 34 luminosities, 33 radii, 19 metallicities and one age. No age is adopted without a source that resolves the represented component or system and publishes a compatible estimate.
 
-Nearest-1000 non-Sun coverage is: 1000 raw astrometry records and constellations, 957 spectra, 545 absolute Johnson V magnitudes, 441 temperatures, 103 masses, 351 bolometric luminosities, 326 raw radial velocities, and 674 transverse-only motions. Gaia values are model-derived, not direct measurements. GSP-Phot temperature and FLAME percentile bounds are retained in provenance. FLAME mass is adopted only when the first `flags_flame` digit is `0`; luminosity may remain valid when mass/age is unavailable (`A=2`), and uses parallax-backed `B=0` in this snapshot. Brown dwarfs and white dwarfs do not receive generic Gaia stellar-model properties.
+Bright-star temperatures and metallicities come from frozen `mesFe_h` ranked bibliographic measurements. Linear diameter measurements from `mesDiameter` become radii using the IAU nominal solar-radius scale. Eligible single-star masses, radii and temperatures use the 17,219-star Hipparcos evolutionary-model catalog of Allende Prieto & Lambert (1999); its masses are withheld for unresolved systems and for stars whose adopted metallicity falls outside ±0.3 dex. The McDonald et al. (2012) 107,619-star Hipparcos SED catalog supplies fallback temperatures and luminosities, with Stefan–Boltzmann radii derived when no stronger radius exists. Reviewed primary papers add Antares A's mass and age-range midpoint and Shaula A's component mass. The row notes and provenance retain the contributing bibcodes; unavailable fields remain blank.
+
+The policy-aware rank-1000 object is **WISE J032337.53-602554.5** (`cns5-0864`) at **13.947001394700 pc**; the next eligible object, WISE J105553.59-165216.3, has the same nominal distance and sorts after it by stable ID. Their linearized parallax-only one-sigma intervals overlap, so nominal ranking is retained without claiming statistically secure membership. The audited 1100-row buffer excludes 47 aggregate SIMBAD `**` records and nine tentative `BD?` records before selecting 1000 individuals.
+
+Nearest-1000 non-Sun coverage is: 1000 raw astrometry records and constellations, 957 spectra, 544 absolute Johnson V magnitudes, 441 temperatures, 103 masses, 351 bolometric luminosities, 350 radii, 350 metallicities, 68 ages, 326 raw radial velocities, and 674 transverse-only motions. Gaia values are model-derived, not direct measurements. GSP-Phot temperature and `[M/H]` metallicity plus FLAME percentile bounds are retained in provenance. FLAME mass and age are adopted only when the first `flags_flame` digit is `0`; luminosity and radius may remain valid when mass/age is unavailable (`A=2`), and use the accepted distance/parallax flag policy. Brown dwarfs and white dwarfs do not receive generic Gaia stellar-model properties.
+
+Display names prefer a frozen SIMBAD `NAME` alias when one exists, so machine identifiers such as `* alf Boo` become `Arcturus`. Remaining SIMBAD object-class prefixes are removed, repeated whitespace is collapsed, and Bayer abbreviations are expanded (`* bet Hyi` becomes `Beta Hyi`). Stable Star View IDs do not change, and the original SIMBAD `main_id` remains in provenance.
 
 The Nearest 100 objects package contains exactly **100 individual non-Sun objects plus Sun**, ranked by adopted nominal J2000 distance. It is a frozen source-based catalog, not a complete or continuously current 2026 census. Stars, white dwarfs, brown dwarfs and sub-brown dwarfs are eligible; planet rows, aggregate system rows and tentative source `ObjType` endings `?` are excluded. The only explicitly approved exceptions are the vetted default members **EZ Aquarii B/C (Seq 27/28)**, whose raw `LM?` classifications remain recorded unchanged. Preserving these two existing rows is not a new classification measurement.
 
@@ -16,11 +22,12 @@ The default catalog retains its 22 objects, IDs, positions, and curated physical
 
 ## Files and Sources
 
-- Runtime packages: [nearest-100](../src/data/catalogs/nearest-100/) and [nearest-1000](../src/data/catalogs/nearest-1000/).
+- Runtime packages: [bright-stars](../src/data/catalogs/bright-stars/), [nearest-100](../src/data/catalogs/nearest-100/), and [nearest-1000](../src/data/catalogs/nearest-1000/).
 - Per-object field statuses, raw classifications/measurement references/errors, epoch assumptions, complete 160-candidate buffer audit, 155 eligible ranks, five explicit exclusions, two approved default exceptions and CNS5 crossmatches: [provenance.json](../src/data/catalogs/nearest-100/provenance.json). This is authoring metadata, not browser geometry input.
 - Frozen adopted source subset, default-row overrides and extracted temperature calibration: [source-input.json](../catalog-work/nearest-100/source-input.json), checked by [source-input.sha256](../catalog-work/nearest-100/source-input.sha256).
 - Executable authoring recipe: [author-nearest100.py](../scripts/author-nearest100.py); optional pinned environment: [catalog-requirements.txt](../scripts/catalog-requirements.txt).
 - Nearest-1000 frozen CNS5/SIMBAD/Gaia inputs, ADQL, manifest, and checksums: [catalog-work/nearest-1000](../catalog-work/nearest-1000/); executable recipe: [author-nearest1000.py](../scripts/author-nearest1000.py).
+- Bright-stars frozen named-object SIMBAD snapshot: [catalog-work/bright-stars](../catalog-work/bright-stars/); executable recipe: [author-bright-stars.py](../scripts/author-bright-stars.py).
 
 | Source | Frozen Version | Use |
 | --- | --- | --- |
@@ -28,9 +35,10 @@ The default catalog retains its 22 objects, IDs, positions, and curated physical
 | [Golovin et al., CNS5](https://cdsarc.cds.unistra.fr/ftp/J/A+A/670/A19/ReadMe), 2023A&A...670A..19G | Corrected 13-Dec-2023; 5,909 actual records | Independent membership, identity and parallax audit |
 | [Pecaut & Mamajek](https://www.pas.rochester.edu/~emamajek/EEM_dwarf_UBVIJHK_colors_Teff.txt), 2013ApJS..208....9P | Online dwarf sequence 2022.04.16 | Mean class temperature estimates only |
 | [NASA Sun Fact Sheet](https://nssdc.gsfc.nasa.gov/planetary/factsheet/sunfact.html) | 9-May-2024 | Solar absolute visual magnitude +4.83, not bolometric magnitude |
+| [SIMBAD](https://simbad.cds.unistra.fr/simbad/) and [Bright Star Catalogue V/50](https://cdsarc.cds.unistra.fr/viz-bin/cat/V/50) | TAP snapshot 25-Sep-2026; BSC5 combined V for Acrux | Bright-star identities, astrometry, spectra, Johnson V and radial velocities |
 | [Astropy get_constellation](https://docs.astropy.org/en/stable/api/astropy.coordinates.get_constellation.html) | Astropy 7.1.1; Roman 1987 [VI/42](https://cdsarc.cds.unistra.fr/viz-bin/cat/VI/42) | Offline IAU boundary assignment |
 
-Acquisition date: 2026-09-15. SHA-256 hashes of the original ReadMe files, decompressed CDS tables and complete temperature reference are retained inside the frozen input. Counts are verified against downloaded records, not the older paper abstracts. The original full survey downloads are temporary authoring inputs and are **not** checked into the browser source tree. Cite the source catalogs, individual bibliography in their records, CDS/VizieR and the temperature-table author when reusing these data; review their current redistribution terms for republication. No new upstream license is asserted here.
+The nearest-1000 CNS5/SIMBAD/Gaia snapshot was refreshed on 2026-09-25; the nearest-100 frozen inputs were acquired on 2026-09-15. SHA-256 hashes of the original ReadMe files, decompressed CDS tables and complete temperature reference are retained inside the frozen inputs. Counts are verified against downloaded records, not the older paper abstracts. The original full survey downloads are temporary authoring inputs and are **not** checked into the browser source tree. Cite the source catalogs, individual bibliography in their records, CDS/VizieR and the temperature-table author when reusing these data; review their current redistribution terms for republication. No new upstream license is asserted here.
 
 ## Membership and Cutoff Audit
 
@@ -92,6 +100,7 @@ With dependencies already installed, these commands are offline and make no chan
 /tmp/star-view-catalog-venv/bin/python scripts/author-nearest100.py build --check
 /tmp/star-view-catalog-venv/bin/python -m unittest scripts.tests.test_catalog_sources
 /tmp/star-view-catalog-venv/bin/python scripts/author-nearest1000.py build --check
+python3 scripts/author-bright-stars.py
 ```
 
 To generate the same three package files into a fresh authoring directory:
@@ -163,7 +172,15 @@ The original 16 headers are required exactly once; constellation is optional for
 ra_deg,dec_deg,astrometry_epoch,parallax_mas,parallax_error_mas,pm_ra_cosdec_masyr,pm_ra_error_masyr,pm_dec_masyr,pm_dec_error_masyr,radial_velocity_kms,radial_velocity_error_kms,astrometry_ref,radial_velocity_ref
 ```
 
+Optional physical columns may be appended independently:
+
+```csv
+radius_solar,metallicity_dex,age_gyr
+```
+
 No other columns or partial raw groups are accepted. Every row must use one common Cartesian epoch and finite coordinates. Include exactly one `sun` at zero position, with zero or blank velocity and blank constellation. Use unique stable object IDs and names, reuse existing IDs for shared objects, and use one of `star`, `white_dwarf`, `brown_dwarf`, `sub_brown_dwarf`. Put only full canonical IAU names in constellation. Supply positive finite temperatures/masses/luminosities when known; leave unknown optional values empty. Each Cartesian velocity component may be independently blank. Complete raw proper motion and positive parallax can produce a dashed transverse arrow without radial velocity; adding a finite radial velocity produces full motion. Quote CSV cells containing commas with standard CSV quoting. A native subset of the supplied data plus Sun is supported; do not invent missing measurements to improve coverage.
+
+Radius and age must be positive; metallicity may be negative, zero or positive. In the bundled nearest-1000 package, `metallicity_dex` stores Gaia GSP-Phot `[M/H]`, a model-derived metallicity estimate rather than a high-resolution spectroscopic `[Fe/H]` measurement.
 
 The manifest has this shape; set its count to the actual total including Sun:
 
@@ -222,7 +239,7 @@ npm run build
 
 The builder emits deterministic `stars.csv`, `catalog.json` and `provenance.json`. It validates the entire candidate table, sorts non-Sun rows by the unrounded norm of the supplied parsec vector then lexical stable ID, takes exactly `objectCount - 1`, and prepends Sun. It retains all candidate ranks and provenance, including the unselected buffer. This native rank uses supplied precision; use the source-specific high-precision Python recipe to reproduce the audited nearest-100 release exactly. No clocks or network queries affect output.
 
-Existing output directories are refused. An intentional regeneration requires `--force` as the final argument; only the three generated sibling files are replaced. Recipe candidate paths must remain beneath the recipe directory. Catalog tools reject symlinked output roots and managed files, and publish generated files through atomic sibling replacements. Keep authored originals and adopted inputs separate. Do not run the builder over the preserved default catalog. Validation reports per-catalog counts and non-Sun coverage; production builds validate all packages and require full constellation coverage in the three shipped catalogs. Legacy custom packages may omit constellations. No hand-maintained registry edit is required: the new package appears in the dropdown after rebuilding.
+Existing output directories are refused. An intentional regeneration requires `--force` as the final argument; only the three generated sibling files are replaced. Recipe candidate paths must remain beneath the recipe directory. Catalog tools reject symlinked output roots and managed files, and publish generated files through atomic sibling replacements. Keep authored originals and adopted inputs separate. Do not run the builder over the preserved default catalog. Validation reports per-catalog counts and non-Sun coverage; production builds validate all packages and require full constellation coverage in the four shipped catalogs. Legacy custom packages may omit constellations. No hand-maintained registry edit is required: the new package appears in the dropdown after rebuilding.
 
 `catalog:generate` converts every validated CSV package into deterministic browser JSON. Those derived files are ignored and regenerated before `npm run dev` or `npm run build`; CSV, manifests and provenance remain the tracked source of truth. Runtime catalog payloads are emitted as separate content-hashed assets and loaded once on first selection.
 

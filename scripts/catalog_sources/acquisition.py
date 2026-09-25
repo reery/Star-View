@@ -47,8 +47,11 @@ def gaia_query(gaia_ids: list[str]) -> str:
         "SELECT s.source_id,s.ra,s.dec,s.ref_epoch,s.parallax,s.parallax_error,s.pmra," 
         "s.pmra_error,s.pmdec,s.pmdec_error,s.radial_velocity,s.radial_velocity_error," 
         "s.duplicated_source,ap.teff_gspphot,ap.teff_gspphot_lower,ap.teff_gspphot_upper,"
+        "ap.mh_gspphot,ap.mh_gspphot_lower,ap.mh_gspphot_upper,"
         "ap.mass_flame,ap.mass_flame_lower,ap.mass_flame_upper,ap.lum_flame,"
-        "ap.lum_flame_lower,ap.lum_flame_upper,ap.flags_flame FROM "
+        "ap.lum_flame_lower,ap.lum_flame_upper,ap.radius_flame,ap.radius_flame_lower,"
+        "ap.radius_flame_upper,ap.age_flame,ap.age_flame_lower,ap.age_flame_upper,"
+        "ap.flags_flame FROM "
         "gaiadr3.gaia_source AS s LEFT OUTER JOIN gaiadr3.astrophysical_parameters AS ap "
         f"ON s.source_id=ap.source_id WHERE s.source_id IN ({','.join(gaia_ids)}) ORDER BY s.source_id"
     )

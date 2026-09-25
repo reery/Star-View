@@ -48,10 +48,14 @@ class CatalogSourceTests(unittest.TestCase):
             read_gaia_tap(broken)
 
     def test_gaia_physical_bounds_and_flame_flags_are_retained(self):
-        path = self.write_csv("gaia-physical.csv", [{"source_id": "1", "ra": "10", "dec": "-20", "parallax": "100", "pmra": "3", "pmdec": "4", "mass_flame": "0.8", "mass_flame_lower": "0.7", "mass_flame_upper": "0.95", "flags_flame": "10"}])
-        mass = read_gaia_tap(path)[0].physical[0]
+        path = self.write_csv("gaia-physical.csv", [{"source_id": "1", "ra": "10", "dec": "-20", "parallax": "100", "pmra": "3", "pmdec": "4", "mh_gspphot": "-0.25", "mass_flame": "0.8", "mass_flame_lower": "0.7", "mass_flame_upper": "0.95", "radius_flame": "0.9", "age_flame": "4.2", "flags_flame": "10"}])
+        physical = {item.field: item for item in read_gaia_tap(path)[0].physical}
+        mass = physical["mass_solar"]
         self.assertAlmostEqual(mass.uncertainty, 0.15)
         self.assertEqual(mass.quality_flags, ("10",))
+        self.assertEqual(physical["metallicity_dex"].value, -0.25)
+        self.assertEqual(physical["radius_solar"].value, 0.9)
+        self.assertEqual(physical["age_gyr"].value, 4.2)
 
     def test_exact_identifier_wins_and_ambiguous_alias_is_rejected(self):
         exact = NormalizedSourceRecord(IdentityRecord("gaia-dr3", "1", gaia_dr3_id="1"))
@@ -92,6 +96,9 @@ class CatalogSourceTests(unittest.TestCase):
     def test_queries_use_exact_string_identifiers(self):
         self.assertIn("ident.id IN ('CNS5 7','CNS5 8')", simbad_query(["7", "8"]))
         self.assertIn("source_id IN (6305165514134625024)", gaia_query(["6305165514134625024"]))
+        self.assertIn("ap.radius_flame", gaia_query(["6305165514134625024"]))
+        self.assertIn("ap.mh_gspphot", gaia_query(["6305165514134625024"]))
+        self.assertIn("ap.age_flame", gaia_query(["6305165514134625024"]))
         with self.assertRaisesRegex(ValueError, "only digits"):
             gaia_query(["6e18"])
 

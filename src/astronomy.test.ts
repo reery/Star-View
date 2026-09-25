@@ -3,11 +3,19 @@ import { describe, expect, it } from 'vitest'
 import csv from './data/stars.csv?raw'
 import { parseStarCatalog } from './catalog'
 import type { ObjectType } from './catalog-model'
-import { displayMotionForStar, galacticToWorld, galacticVelocityToWorld, galactocentricVelocityToWorld, rawAstrometryVelocityToWorld, SOLAR_GALACTIC_VELOCITY_KMS, starDisplayColor, sunRelativeMetrics, temperatureToColor } from './astronomy'
+import { displayMotionForStar, galacticToWorld, galacticVelocityToWorld, galactocentricVelocityToWorld, gridSpacingPc, rawAstrometryVelocityToWorld, SOLAR_GALACTIC_VELOCITY_KMS, starDisplayColor, sunRelativeMetrics, temperatureToColor } from './astronomy'
 
 const stars = parseStarCatalog(csv)
 const sun = stars.find((star) => star.id === 'sun')!
 const sirius = stars.find((star) => star.id === 'sirius-a')!
+
+describe('adaptive grid spacing', () => {
+  it.each([
+    [5, 0.5], [100, 0.5], [150, 1], [200, 2], [300, 5], [500, 10], [1000, 20],
+  ])('uses %d ly visibility with %d pc cells', (distance, spacing) => {
+    expect(gridSpacingPc(distance)).toBe(spacing)
+  })
+})
 
 describe('Sun-centered Galactic coordinates', () => {
   it('preserves the right-handed basis and distances', () => {
@@ -162,11 +170,13 @@ describe('star display color', () => {
     return { r: hex >> 16 & 255, g: hex >> 8 & 255, b: hex & 255 }
   }
 
-  it('keeps temperature colors for stars and white dwarfs', () => {
+  it('keeps measured temperature colors and uses stellar class only as a display fallback', () => {
     const ordinary = stars.filter((star) => star.type === 'star' || star.type === 'white_dwarf')
     expect(ordinary.length).toBeGreaterThan(10)
     for (const star of ordinary) expect(starDisplayColor(star).equals(temperatureToColor(star.temperature_k))).toBe(true)
-    expect(starDisplayColor({ type: 'star', temperature_k: null, spectral_type: 'M9' }).equals(temperatureToColor(null))).toBe(true)
+    expect(starDisplayColor({ type: 'star', temperature_k: null, spectral_type: 'M9' }).equals(temperatureToColor(3500))).toBe(true)
+    expect(starDisplayColor({ type: 'star', temperature_k: null, spectral_type: null }).equals(temperatureToColor(null))).toBe(true)
+    expect(starDisplayColor({ type: 'white_dwarf', temperature_k: null, spectral_type: 'DA7' }).equals(temperatureToColor(null))).toBe(true)
   })
 
   it.each([
