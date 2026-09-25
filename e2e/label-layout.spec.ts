@@ -11,9 +11,9 @@ test('keeps the selected name in front even at collisions and scene edges', asyn
   await expect(label).toHaveText('Sun')
   await expect(label).toHaveCSS('font-weight', '600')
   await expect(label).toHaveCSS('text-decoration-line', 'underline')
-  await expect(label).toHaveCSS('text-decoration-color', 'rgb(255, 239, 209)')
-  await expect(page.locator('[data-star-id="sun"] .selection-ring')).toHaveCSS('border-top-color', 'rgb(255, 239, 209)')
-  await expect(page.locator('.identity')).toHaveCSS('border-left-color', 'rgb(255, 239, 209)')
+  await expect(label).toHaveCSS('text-decoration-color', 'rgb(255, 230, 188)')
+  await expect(page.locator('[data-star-id="sun"] .selection-ring')).toHaveCSS('border-top-color', 'rgb(255, 230, 188)')
+  await expect(page.locator('.identity')).toHaveCSS('border-left-color', 'rgb(255, 230, 188)')
   await expect(label.locator('..')).toHaveCSS('z-index', '1')
   await label.evaluate((element) => {
     const bounds = element.getBoundingClientRect()

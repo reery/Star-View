@@ -1205,13 +1205,13 @@ test('shows attached speed-length motion arrows with fixed heads and strokes', a
   await expect(page.locator('[data-star-id="sirius-b"]')).toHaveCount(0)
   expect(arrowFor(initial, 'sirius-b')).toBeUndefined()
   const sunArrow = arrowFor(initial, 'sun')!
-  expect(sunArrow).toMatchObject({ mode: 'full', selected: false, opacity: 0.5, color: 'rgb(255,239,209)' })
+  expect(sunArrow).toMatchObject({ mode: 'full', selected: false, opacity: 0.5, color: 'rgb(255,230,188)' })
   expect(sunArrow.maxLength).toBeCloseTo(Math.hypot(12.9, 245.6, 7.78) / 10, 3)
   expect(sunArrow.length).toBeLessThan(sunArrow.maxLength)
   expect(Math.hypot(sunArrow.x - homeSun.x, sunArrow.y - homeSun.y), 'the Sun arrow starts at its dot').toBeLessThan(0.5)
   expect(initial.some((arrow) => arrow.mode === 'transverse')).toBe(true)
   const siriusArrow = arrowFor(initial, 'sirius-a')!
-  expect(siriusArrow).toMatchObject({ mode: 'full', selected: true, opacity: 1, color: 'rgb(201,223,255)' })
+  expect(siriusArrow).toMatchObject({ mode: 'full', selected: true, opacity: 1, color: 'rgb(186,214,255)' })
   expect(initial.some((arrow) => !arrow.selected && arrow.opacity === 0.5)).toBe(true)
   const intrinsicLengths = new Map(initial.map((arrow) => [arrow.id, arrow.maxLength]))
   const bounds = (await page.locator('#scene canvas').boundingBox())!
@@ -1260,7 +1260,7 @@ test('shows attached speed-length motion arrows with fixed heads and strokes', a
   await expect(page.locator('#star-name')).toHaveText('Sun')
   await page.locator('.catalog summary').click()
   await expect.poll(async () => arrowFor(await motionArrows(page), 'sun')?.selected).toBe(true)
-  expect(arrowFor(await motionArrows(page), 'sun')).toMatchObject({ opacity: 1, color: 'rgb(255,239,209)' })
+  expect(arrowFor(await motionArrows(page), 'sun')).toMatchObject({ opacity: 1, color: 'rgb(255,230,188)' })
   await page.getByRole('button', { name: 'Reset view', exact: true }).click()
   await sceneFits(page)
   await page.screenshot({ path: testInfo.outputPath('motion-arrows.png'), fullPage: true })

@@ -153,10 +153,14 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
   const textureCanvas = document.createElement('canvas')
   textureCanvas.width = textureCanvas.height = 64
   const context = textureCanvas.getContext('2d')!
-  context.fillStyle = '#ffffff'
-  context.beginPath()
-  context.arc(32, 32, 29, 0, Math.PI * 2)
-  context.fill()
+  const coreGradient = context.createRadialGradient(32, 32, 0, 32, 32, 32)
+  coreGradient.addColorStop(0, '#ffffffff')
+  coreGradient.addColorStop(0.30, '#ffffffff')
+  coreGradient.addColorStop(0.52, '#fffffff2')
+  coreGradient.addColorStop(0.72, '#ffffff66')
+  coreGradient.addColorStop(0.90, '#ffffff00')
+  context.fillStyle = coreGradient
+  context.fillRect(0, 0, 64, 64)
   const dotTexture = new CanvasTexture(textureCanvas)
   dotTexture.colorSpace = SRGBColorSpace
   const starGeometry = new BufferGeometry()
@@ -168,12 +172,18 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
   starGeometry.setAttribute('coreDiameter', coreDiameters)
   const starMaterial = new PointsMaterial({
     size: 1, sizeAttenuation: false, map: dotTexture,
-    vertexColors: true, alphaTest: 0.5, depthTest: true, depthWrite: true, toneMapped: false,
+    vertexColors: true, alphaTest: 0.2, depthTest: true, depthWrite: true, toneMapped: false,
     transparent: true, blending: NoBlending,
   })
   starMaterial.onBeforeCompile = (shader) => {
     shader.vertexShader = `attribute float coreDiameter;\n${shader.vertexShader}`
       .replace('gl_PointSize = size;', 'gl_PointSize = size * coreDiameter;')
+    shader.fragmentShader = shader.fragmentShader.replace(
+      '#include <map_particle_fragment>',
+      `#include <map_particle_fragment>
+      float coreRadius = length(gl_PointCoord - vec2(0.5)) * 2.0;
+      diffuseColor.rgb = mix(vec3(1.0), diffuseColor.rgb, smoothstep(0.16, 0.68, coreRadius));`,
+    )
   }
   const starPoints = new Points(starGeometry, starMaterial)
   starPoints.renderOrder = 2
@@ -184,10 +194,10 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
   const haloContext = haloCanvas.getContext('2d')!
   const haloGradient = haloContext.createRadialGradient(64, 64, 0, 64, 64, 64)
   haloGradient.addColorStop(0, '#ffffffff')
-  haloGradient.addColorStop(0.35, '#ffffffe6')
-  haloGradient.addColorStop(0.40, '#ffffffb3')
-  haloGradient.addColorStop(0.55, '#ffffff4d')
-  haloGradient.addColorStop(0.78, '#ffffff0f')
+  haloGradient.addColorStop(0.12, '#fffffff2')
+  haloGradient.addColorStop(0.28, '#ffffffa3')
+  haloGradient.addColorStop(0.48, '#ffffff4d')
+  haloGradient.addColorStop(0.72, '#ffffff24')
   haloGradient.addColorStop(1, '#ffffff00')
   haloContext.fillStyle = haloGradient
   haloContext.fillRect(0, 0, 128, 128)

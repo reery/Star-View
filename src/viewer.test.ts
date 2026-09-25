@@ -226,20 +226,20 @@ describe('bounded halo opacity', () => {
 
 describe('magnitude-sized halos', () => {
   it.each([null, NaN, Infinity, -Infinity])('retains the neutral diameter for %s', (magnitude) => {
-    expect(starHaloDiameter(magnitude)).toBe(26)
+    expect(starHaloDiameter(magnitude)).toBe(30)
   })
 
   it('gives Sirius a substantially larger glow than Barnard', () => {
-    expect(starHaloDiameter(1.42)).toBeCloseTo(55.74)
-    expect(starHaloDiameter(13.22)).toBeCloseTo(20.34)
-    expect(starHaloDiameter(1.42)).toBeGreaterThan(starHaloDiameter(13.22) * 2.5)
+    expect(starHaloDiameter(1.42)).toBeCloseTo(61.965)
+    expect(starHaloDiameter(13.22)).toBe(20)
+    expect(starHaloDiameter(1.42)).toBeGreaterThan(starHaloDiameter(13.22) * 3)
   })
 
   it('bounds sizes and supports zero and negative magnitudes', () => {
-    expect(starHaloDiameter(0)).toBe(60)
-    expect(starHaloDiameter(-1)).toBe(63)
-    expect(starHaloDiameter(-Number.MAX_VALUE)).toBe(64)
-    expect(starHaloDiameter(Number.MAX_VALUE)).toBe(18)
+    expect(starHaloDiameter(0)).toBe(68)
+    expect(starHaloDiameter(-1)).toBe(72.25)
+    expect(starHaloDiameter(-Number.MAX_VALUE)).toBe(80)
+    expect(starHaloDiameter(Number.MAX_VALUE)).toBe(20)
     const sizes = [-2, 0, 5, 10, 15, 20].map(starHaloDiameter)
     expect(sizes).toEqual([...sizes].sort((first, second) => second - first))
   })

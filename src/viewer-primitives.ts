@@ -69,8 +69,8 @@ export function starHaloStrength(absoluteMagnitude: number | null, selected = fa
 }
 
 export function starHaloDiameter(absoluteMagnitude: number | null): number {
-  if (absoluteMagnitude === null || !Number.isFinite(absoluteMagnitude)) return 26
-  return Math.max(18, Math.min(64, 60 - 3 * absoluteMagnitude))
+  if (absoluteMagnitude === null || !Number.isFinite(absoluteMagnitude)) return 30
+  return Math.max(20, Math.min(80, 68 - 4.25 * absoluteMagnitude))
 }
 
 export function starHaloOpacity(absoluteMagnitude: number | null, selected = false): number {

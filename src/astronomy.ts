@@ -117,12 +117,12 @@ const TEMPERATURE_COLORS = [
   { kelvin: 250, color: 0xff3d22 },
   { kelvin: 600, color: 0xff4c29 },
   { kelvin: 1000, color: 0xff6038 },
-  { kelvin: 3000, color: 0xffba77 },
-  { kelvin: 5772, color: 0xffefd1 },
-  { kelvin: 7000, color: 0xf4f5ff },
-  { kelvin: 9845, color: 0xc9dfff },
-  { kelvin: 20000, color: 0xa1bdff },
-  { kelvin: 40000, color: 0x8daeff },
+  { kelvin: 3000, color: 0xffac63 },
+  { kelvin: 5772, color: 0xffe6bc },
+  { kelvin: 7000, color: 0xeff3ff },
+  { kelvin: 9845, color: 0xbad6ff },
+  { kelvin: 20000, color: 0x94b5ff },
+  { kelvin: 40000, color: 0x82a8ff },
 ] as const
 
 const BROWN_DWARF_COLORS = [
