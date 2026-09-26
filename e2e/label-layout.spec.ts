@@ -3,7 +3,7 @@ import { arrowIntersectsRect, motionArrows, openFilter, openViewer } from './sup
 
 test('keeps the selected name in front even at collisions and scene edges', { tag: '@mobile' }, async ({ page }) => {
   await openViewer(page)
-  await page.locator('.catalog summary').click()
+  await page.getByRole('button', { name: 'Objects', exact: true }).click()
   await page.getByRole('button', { name: 'Select Sun', exact: true }).click()
   await page.getByRole('button', { name: 'Reset view', exact: true }).click()
   const label = page.locator('[data-star-id="sun"] .star-label')
@@ -57,8 +57,8 @@ test('keeps front-camera names stable when the selected star moves behind the ca
   await openFilter(page)
   await page.getByLabel('Catalog', { exact: true }).selectOption('nearest-1000')
   await page.getByLabel('V magnitude limit', { exact: true }).fill('25')
-  await page.locator('.catalog summary').click()
-  await page.getByRole('button', { name: 'Select Sun', exact: true }).click()
+  await page.getByRole('button', { name: 'Objects', exact: true }).click()
+  await page.getByRole('button', { name: 'Select Sun', exact: true }).evaluate((button: HTMLButtonElement) => button.click())
   await page.getByRole('button', { name: 'Reset view', exact: true }).click()
 
   const foregroundName = page.locator('[data-star-id="cns5-5794"] .star-label')
@@ -110,7 +110,7 @@ test('keeps the Sirius name visible behind the Sun in the nearest-1000 view', as
   await openFilter(page)
   await page.getByLabel('Catalog', { exact: true }).selectOption('nearest-1000')
   await page.getByLabel('V magnitude limit', { exact: true }).fill('25')
-  await page.locator('.catalog summary').click()
+  await page.getByRole('button', { name: 'Objects', exact: true }).click()
   await page.getByRole('button', { name: 'Select Sun', exact: true }).click()
   for (let click = 0; click < 4; click++) await page.getByRole('button', { name: 'Zoom in', exact: true }).click()
 
@@ -183,7 +183,7 @@ test('keeps star names steady and the foreground distance centered during rotati
 
 test('centers the distance label on the midpoint of the Sun line', async ({ page }) => {
   await openViewer(page)
-  await page.locator('.catalog summary').click()
+  await page.getByRole('button', { name: 'Objects', exact: true }).click()
   await page.getByRole('button', { name: 'Select Sirius A', exact: true }).click()
   const labelOffset = () => page.evaluate(async () => {
     await new Promise(requestAnimationFrame)

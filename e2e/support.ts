@@ -158,11 +158,11 @@ export async function openViewer(page: Page) {
 }
 
 export async function openPreferences(page: Page) {
-  const preferences = page.locator('details.preferences')
-  if (await preferences.getAttribute('open') === null) await preferences.locator('summary').click()
+  const button = page.getByRole('button', { name: 'Preferences', exact: true })
+  if (await button.getAttribute('aria-expanded') === 'false') await button.click()
 }
 
 export async function openFilter(page: Page) {
-  const filter = page.locator('details.filter-section')
-  if (await filter.getAttribute('open') === null) await filter.locator(':scope > summary').click()
+  const button = page.getByRole('button', { name: 'Filter', exact: true })
+  if (await button.getAttribute('aria-expanded') === 'false') await button.click()
 }

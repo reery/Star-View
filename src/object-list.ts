@@ -2,7 +2,7 @@ import type { Star } from './catalog-model'
 import { formatDistance, starDisplayColor, sunRelativeMetrics, type DistanceUnit } from './astronomy'
 
 const VIRTUAL_THRESHOLD = 200
-const ROW_HEIGHT = 48
+const ROW_HEIGHT = 36
 const OVERSCAN = 4
 
 export function normalizeObjectSearch(value: string): string {
