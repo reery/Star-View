@@ -3,8 +3,8 @@ import { PerspectiveCamera, Vector3, type Camera } from 'three'
 import { chooseOrdinaryLabelPlacement, ordinaryLabelCandidates } from './label-layout'
 import {
   MOTION_ARROW_HEAD_PX, MOTION_ARROW_STROKE_PX, MOTION_ARROW_TAIL_OFFSET_PX,
-  ScreenSpaceGrid, TapGesture, budgetVisibleLabelIndices, focusProgress, isObjectMapVisible,
-  mapLabelBudget, motionArrowGeometryInto, motionTravelDistancePc, pickProjectedStarAtScreenPoint,
+  ScreenSpaceGrid, TapGesture, budgetVisibleLabelIndices, compareMapLabelCandidates, focusProgress, isObjectMapVisible,
+  motionArrowGeometryInto, motionTravelDistancePc, pickProjectedStarAtScreenPoint,
   projectMotionDirection, projectSelectedAnchor, projectWorldPoint, starBlocksLabels,
   shouldRunOrdinaryLabelLayout, starHaloDiameter, starHaloOpacity, starHaloStrength, type MotionArrowGeometry,
   type PointerPosition, type ProjectedPickable, type Viewport,
@@ -12,9 +12,14 @@ import {
 
 const viewport = { left: 110, top: 90, width: 400, height: 300 }
 
-it('budgets ordinary map names by pointer density', () => {
-  expect(mapLabelBudget(false)).toBe(120)
-  expect(mapLabelBudget(true)).toBe(60)
+it('ranks map labels by selection, apparent magnitude, then stable catalog order', () => {
+  const candidates = [
+    { index: 2, priority: 1, magnitude: 8 },
+    { index: 1, priority: 1, magnitude: 2 },
+    { index: 0, priority: 0, magnitude: 12 },
+    { index: 3, priority: 1, magnitude: 2 },
+  ]
+  expect(candidates.sort(compareMapLabelCandidates).map(({ index }) => index)).toEqual([0, 1, 3, 2])
 })
 
 describe('ordinary label layout cadence', () => {
@@ -154,9 +159,10 @@ describe('object map filtering', () => {
     expect(isObjectMapVisible(star, new Set(['white_dwarf']), null, 'sun', 8, 100)).toBe(true)
   })
 
-  it('keeps the selected object and visibility base visible as exceptions', () => {
-    expect(isObjectMapVisible(star, new Set(), 'target', 'sun', 101, 5)).toBe(true)
-    expect(isObjectMapVisible(star, new Set(), null, 'target', 101, 5)).toBe(true)
+  it('lets selection bypass distance but never a disabled object type', () => {
+    expect(isObjectMapVisible(star, new Set(['white_dwarf']), 'target', 'sun', 101, 5)).toBe(true)
+    expect(isObjectMapVisible(star, new Set(), 'target', 'sun', 101, 5)).toBe(false)
+    expect(isObjectMapVisible(star, new Set(), null, 'target', 101, 5)).toBe(false)
   })
 })
 

@@ -52,6 +52,8 @@ let objectDistanceLimitLy = 100
 let showAlwaysBright = false
 let gridVisible = true
 let powerSavingMode = false
+let labelLimit = 40
+let motionArrowsVisible = true
 let motionFrame: MotionFrame = 'galactic'
 let motionYears: MotionYears = 1_000
 let catalogRequest = 0
@@ -61,7 +63,14 @@ const BRIGHT_CATALOG_ID = 'bright-stars'
 const OBJECT_DISTANCE_STEPS_LY = [5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 60, 70, 80, 90, 100, 150, 200, 300, 500, 1000, 1500, 2000] as const
 try {
   if (localStorage.getItem('star-view-distance-unit') === 'pc') distanceUnit = 'pc'
+  const storedLabelLimit = localStorage.getItem('star-view-label-limit')
+  const parsedLabelLimit = Number(storedLabelLimit)
+  if (storedLabelLimit !== null && parsedLabelLimit >= 0 && parsedLabelLimit <= 140 && parsedLabelLimit % 20 === 0) labelLimit = parsedLabelLimit
 } catch {}
+const labelLimitInput = element<HTMLInputElement>('label-limit')
+labelLimitInput.value = String(labelLimit)
+labelLimitInput.setAttribute('aria-valuetext', labelLimit === 0 ? 'Off' : `${labelLimit} labels`)
+text('label-limit-value', labelLimit === 0 ? 'Off' : String(labelLimit))
 const viewButtons = ['reset-view', 'toggle-grid', 'zoom-in', 'zoom-out'].map((id) => element<HTMLButtonElement>(id))
 const panelNames = ['filter', 'preferences', 'objects'] as const
 
@@ -208,6 +217,8 @@ async function switchCatalog(id: string, refresh = false): Promise<void> {
   viewer.setVisibility(observerId, magnitudeLimit)
   viewer.setObjectDistanceLimit(objectDistanceLimitLy)
   viewer.setObjectTypeFilter([...selectedTypes])
+  viewer.setLabelLimit(labelLimit)
+  viewer.setMotionArrowsVisible(motionArrowsVisible)
   viewer.setMotionFrame(motionFrame)
   viewer.setMotionYears(motionYears)
   viewer.setPowerSavingMode(powerSavingMode)
@@ -287,6 +298,19 @@ element('object-distance-limit').addEventListener('input', () => {
 element('power-saving-mode').addEventListener('change', () => {
   powerSavingMode = element<HTMLInputElement>('power-saving-mode').checked
   viewer?.setPowerSavingMode(powerSavingMode)
+}, { signal: events.signal })
+element('label-limit').addEventListener('input', () => {
+  const input = element<HTMLInputElement>('label-limit')
+  if (!input.validity.valid || !Number.isFinite(input.valueAsNumber)) return
+  labelLimit = input.valueAsNumber
+  input.setAttribute('aria-valuetext', labelLimit === 0 ? 'Off' : `${labelLimit} labels`)
+  text('label-limit-value', labelLimit === 0 ? 'Off' : String(labelLimit))
+  try { localStorage.setItem('star-view-label-limit', String(labelLimit)) } catch {}
+  viewer?.setLabelLimit(labelLimit)
+}, { signal: events.signal })
+element('motion-arrows-visible').addEventListener('change', () => {
+  motionArrowsVisible = element<HTMLInputElement>('motion-arrows-visible').checked
+  viewer?.setMotionArrowsVisible(motionArrowsVisible)
 }, { signal: events.signal })
 element('motion-years').addEventListener('change', () => {
   const years = Number(element<HTMLSelectElement>('motion-years').value) as MotionYears

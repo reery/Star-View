@@ -5,8 +5,11 @@ import type { LabelRect, LayoutViewport } from './label-layout'
 
 export const STAR_DIAMETER_PX = 10
 
-export function mapLabelBudget(coarsePointer: boolean): number {
-  return coarsePointer ? 60 : 120
+export function compareMapLabelCandidates(
+  first: { index: number; priority: number; magnitude: number },
+  second: { index: number; priority: number; magnitude: number },
+): number {
+  return first.priority - second.priority || first.magnitude - second.magnitude || first.index - second.index
 }
 
 export const ORDINARY_LABEL_LAYOUT_INTERVAL_MS = 1000 / 30
@@ -52,8 +55,9 @@ export function isObjectMapVisible(
   distanceLy = 0,
   distanceLimitLy = Infinity,
 ): boolean {
-  return star.id === selectedId || star.id === observerId ||
-    selectedTypes.has(star.type) && distanceLy <= distanceLimitLy
+  return selectedTypes.has(star.type) && (
+    star.id === selectedId || star.id === observerId || distanceLy <= distanceLimitLy
+  )
 }
 
 export function focusProgress(elapsedMs: number): number {
