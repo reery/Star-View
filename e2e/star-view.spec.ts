@@ -1125,6 +1125,36 @@ test('targets ordinary selections, zooms around them, and resets to the catalog 
   await expect(page.locator('#velocity-x')).toHaveText('Not available')
 })
 
+test('navigates backward and forward through selection history', { tag: '@mobile' }, async ({ page }) => {
+  await openViewer(page)
+  const back = page.getByRole('button', { name: 'Previous selection', exact: true })
+  const forward = page.getByRole('button', { name: 'Next selection', exact: true })
+  await expect(back).toBeDisabled()
+  await expect(forward).toBeDisabled()
+
+  await page.getByRole('button', { name: 'Objects', exact: true }).click()
+  await page.getByRole('button', { name: 'Select Sun', exact: true }).click()
+  await page.getByRole('button', { name: 'Select Proxima Centauri', exact: true }).click()
+  await expect(back).toBeEnabled()
+  await expect(forward).toBeDisabled()
+
+  await back.click()
+  await expect(page.locator('#star-name')).toHaveText('Sun')
+  await expect(forward).toBeEnabled()
+  await back.click()
+  await expect(page.locator('#star-name')).toHaveText('Sirius A')
+  await expect(back).toBeDisabled()
+
+  await forward.click()
+  await expect(page.locator('#star-name')).toHaveText('Sun')
+  await page.getByRole('button', { name: "Select Barnard's Star", exact: true }).click()
+  await expect(forward).toBeDisabled()
+  await back.click()
+  await expect(page.locator('#star-name')).toHaveText('Sun')
+  await forward.click()
+  await expect(page.locator('#star-name')).toHaveText("Barnard's Star")
+})
+
 test('eases focus through intermediate frames while preserving camera position', async ({ page }) => {
   await page.emulateMedia({ reducedMotion: 'no-preference' })
   await openViewer(page)

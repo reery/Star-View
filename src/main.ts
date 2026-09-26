@@ -1,11 +1,12 @@
 import './style.css'
-import { CircleHelp, Filter, Focus, Grid2X2, List, Orbit, Settings2, ZoomIn, ZoomOut, createElement, type IconNode } from 'lucide'
+import { ArrowLeft, ArrowRight, CircleHelp, Filter, Focus, Grid2X2, List, Orbit, Settings2, ZoomIn, ZoomOut, createElement, type IconNode } from 'lucide'
 import { describeObject, OBJECT_TYPES, objectTypeLabel, type ObjectType, type Star } from './catalog-model'
 import { catalogSelection, mergeCatalogStars } from './catalog-runtime'
 import { catalogs, catalogErrors } from './registry'
 import { formatDistance, gridSpacingPc, starDisplayColor, sunRelativeMetrics, type DistanceUnit, type MotionFrame } from './astronomy'
 import { MOTION_YEAR_OPTIONS, createStarViewer, type MotionYears, type StarViewer, type ViewerViewState } from './viewer'
 import { ObjectList } from './object-list'
+import { SelectionHistory } from './selection-history'
 
 function element<ElementType extends HTMLElement = HTMLElement>(id: string): ElementType {
   const found = document.getElementById(id)
@@ -37,6 +38,8 @@ icon('reset-icon', Focus)
 icon('grid-icon', Grid2X2)
 icon('zoom-in-icon', ZoomIn)
 icon('zoom-out-icon', ZoomOut)
+icon('selection-back-icon', ArrowLeft)
+icon('selection-forward-icon', ArrowRight)
 icon('filter-icon', Filter)
 icon('preferences-icon', Settings2)
 icon('objects-icon', List)
@@ -59,6 +62,7 @@ let motionArrowsVisible = true
 let motionFrame: MotionFrame = 'galactic'
 let motionYears: MotionYears = 1_000
 let catalogRequest = 0
+let sceneBusy = true
 const selectedTypes = new Set<ObjectType>(OBJECT_TYPES)
 let distanceUnit: DistanceUnit = 'ly'
 const BRIGHT_CATALOG_ID = 'bright-stars'
@@ -74,7 +78,17 @@ labelLimitInput.value = String(labelLimit)
 labelLimitInput.setAttribute('aria-valuetext', labelLimit === 0 ? 'Off' : `${labelLimit} labels`)
 text('label-limit-value', labelLimit === 0 ? 'Off' : String(labelLimit))
 const viewButtons = ['reset-view', 'toggle-grid', 'zoom-in', 'zoom-out'].map((id) => element<HTMLButtonElement>(id))
+const selectionHistory = new SelectionHistory(selectedId)
 const panelNames = ['filter', 'preferences', 'objects', 'info'] as const
+
+function selectedStarAvailable(id: string): boolean {
+  return stars.some((star) => star.id === id)
+}
+
+function updateSelectionHistoryControls(): void {
+  element<HTMLButtonElement>('selection-back').disabled = sceneBusy || !selectionHistory.canGoBack(selectedStarAvailable)
+  element<HTMLButtonElement>('selection-forward').disabled = sceneBusy || !selectionHistory.canGoForward(selectedStarAvailable)
+}
 
 function togglePanel(name: typeof panelNames[number]): void {
   const opening = element<HTMLButtonElement>(`${name}-toggle`).getAttribute('aria-expanded') !== 'true'
@@ -94,7 +108,9 @@ function sceneStatus(message: string | null): void {
   const status = element('scene-status')
   status.textContent = message
   status.hidden = message === null
-  viewButtons.forEach((button) => { button.disabled = message !== null })
+  sceneBusy = message !== null
+  viewButtons.forEach((button) => { button.disabled = sceneBusy })
+  updateSelectionHistoryControls()
 }
 
 function renderSelection(): void {
@@ -153,12 +169,19 @@ function renderSelection(): void {
   text('selection-announcement', `${star.name}, ${formatDistance(metrics.distancePc, distanceUnit)} from the Sun.`)
 }
 
-function selectStar(id: string | null): void {
+function selectStar(id: string | null, recordHistory = true): void {
   if (id !== null && !stars.some((star) => star.id === id)) return
+  if (id !== null && recordHistory) selectionHistory.record(id)
   selectedId = id
   if (id !== null) observerId = id
   renderSelection()
   viewer?.select(id)
+  updateSelectionHistoryControls()
+}
+
+function navigateSelectionHistory(direction: 'back' | 'forward'): void {
+  const id = selectionHistory[direction](selectedStarAvailable)
+  if (id !== null) selectStar(id, false)
 }
 
 function renderDistances(): void {
@@ -356,6 +379,8 @@ element('toggle-grid').addEventListener('click', () => {
 }, { signal: events.signal })
 element('zoom-in').addEventListener('click', () => viewer?.zoom('in'), { signal: events.signal })
 element('zoom-out').addEventListener('click', () => viewer?.zoom('out'), { signal: events.signal })
+element('selection-back').addEventListener('click', () => navigateSelectionHistory('back'), { signal: events.signal })
+element('selection-forward').addEventListener('click', () => navigateSelectionHistory('forward'), { signal: events.signal })
 
 import.meta.hot?.dispose(() => {
   events.abort()
