@@ -1,5 +1,5 @@
 import { expect, test } from '@playwright/test'
-import { arrowIntersectsRect, motionArrows, openFilter, openViewer } from './support'
+import { arrowIntersectsRect, motionArrows, openFilter, openPreferences, openViewer } from './support'
 
 test('keeps the selected name in front even at collisions and scene edges', { tag: '@mobile' }, async ({ page }) => {
   await openViewer(page)
@@ -54,11 +54,14 @@ test('keeps the selected name in front even at collisions and scene edges', { ta
 
 test('keeps front-camera names stable when the selected star moves behind the camera', { tag: '@mobile' }, async ({ page, isMobile }, testInfo) => {
   await openViewer(page)
+  await openPreferences(page)
+  await page.getByLabel('Star labels', { exact: true }).fill(isMobile ? '80' : '140')
   await openFilter(page)
   await page.getByLabel('Catalog', { exact: true }).selectOption('nearest-1000')
   await page.getByLabel('V magnitude limit', { exact: true }).fill('25')
   await page.getByRole('button', { name: 'Objects', exact: true }).click()
   await page.getByRole('button', { name: 'Select Sun', exact: true }).evaluate((button: HTMLButtonElement) => button.click())
+  await page.getByRole('button', { name: 'Objects', exact: true }).click()
   await page.getByRole('button', { name: 'Reset view', exact: true }).click()
 
   const foregroundName = page.locator('[data-star-id="cns5-5794"] .star-label')
@@ -107,11 +110,14 @@ test('keeps front-camera names stable when the selected star moves behind the ca
 test('keeps the Sirius name visible behind the Sun in the nearest-1000 view', async ({ page, isMobile }, testInfo) => {
   test.skip(isMobile, 'The supplied clear-space composition is a desktop viewport regression.')
   await openViewer(page)
+  await openPreferences(page)
+  await page.getByLabel('Star labels', { exact: true }).fill('140')
   await openFilter(page)
   await page.getByLabel('Catalog', { exact: true }).selectOption('nearest-1000')
   await page.getByLabel('V magnitude limit', { exact: true }).fill('25')
   await page.getByRole('button', { name: 'Objects', exact: true }).click()
-  await page.getByRole('button', { name: 'Select Sun', exact: true }).click()
+  await page.getByRole('button', { name: 'Select Sun', exact: true }).evaluate((button: HTMLButtonElement) => button.click())
+  await page.getByRole('button', { name: 'Objects', exact: true }).click()
   for (let click = 0; click < 4; click++) await page.getByRole('button', { name: 'Zoom in', exact: true }).click()
 
   const canvas = page.locator('#scene canvas')

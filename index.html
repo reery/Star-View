@@ -80,12 +80,16 @@
               <span class="toolbar-divider"></span>
               <button id="zoom-in" class="icon-button" type="button" aria-label="Zoom in" disabled><span id="zoom-in-icon"></span><span class="tooltip">Zoom in</span></button>
               <button id="zoom-out" class="icon-button" type="button" aria-label="Zoom out" disabled><span id="zoom-out-icon"></span><span class="tooltip">Zoom out</span></button>
+              <span class="toolbar-divider"></span>
+              <button id="selection-back" class="icon-button" type="button" aria-label="Previous selection" disabled><span id="selection-back-icon"></span><span class="tooltip">Previous selection</span></button>
+              <button id="selection-forward" class="icon-button" type="button" aria-label="Next selection" disabled><span id="selection-forward-icon"></span><span class="tooltip">Next selection</span></button>
             </div>
             <div id="control-dock" class="control-dock" data-scene-obstacle>
               <div class="dock-rail" role="group" aria-label="Map and information controls">
                 <button id="filter-toggle" class="icon-button panel-button" type="button" aria-label="Filter" aria-controls="filter-panel" aria-expanded="false"><span id="filter-icon"></span><span class="tooltip">Filter</span></button>
                 <button id="preferences-toggle" class="icon-button panel-button" type="button" aria-label="Preferences" aria-controls="preferences-panel" aria-expanded="false"><span id="preferences-icon"></span><span class="tooltip">Preferences</span></button>
                 <button id="objects-toggle" class="icon-button panel-button" type="button" aria-label="Objects" aria-controls="objects-panel" aria-expanded="false"><span id="objects-icon"></span><span class="tooltip">Objects</span></button>
+                <button id="info-toggle" class="icon-button panel-button" type="button" aria-label="Info" aria-controls="info-panel" aria-expanded="false"><span id="info-icon"></span><span class="tooltip">Info</span></button>
               </div>
               <section id="filter-panel" class="dock-card filter-section" aria-labelledby="filter-heading" hidden>
                 <h2 id="filter-heading" class="panel-heading">Filter</h2>
@@ -107,8 +111,12 @@
                     <input id="magnitude-limit" type="range" min="0" max="25" step="0.5" value="7">
                     <div class="range-bounds" aria-hidden="true"><span>0</span><span>25</span></div>
                   </div>
+                  <label class="filter-toggle" for="motion-arrows-visible">
+                    <span>Motion arrows</span>
+                    <span class="switch-control"><input id="motion-arrows-visible" type="checkbox" role="switch" checked><span class="switch-track" aria-hidden="true"></span></span>
+                  </label>
                   <div class="catalog-choice"><label for="motion-years">Arrow length</label><select id="motion-years"><option value="1000" selected>1k years</option><option value="5000">5k years</option><option value="10000">10k years</option><option value="25000">25k years</option><option value="50000">50k years</option></select></div>
-                  <fieldset id="motion-frame" class="segmented-choice"><legend>Motion frame</legend><div class="unit-options"><label><input id="motion-frame-galactic" type="radio" name="motion-frame" value="galactic" checked><span>Galactic</span></label><label><input id="motion-frame-solar" type="radio" name="motion-frame" value="solar"><span>Solar</span></label></div></fieldset>
+                  <div id="motion-frame" class="segmented-choice" role="group" aria-labelledby="motion-frame-label"><span id="motion-frame-label">Motion frame</span><div class="unit-options"><label><input id="motion-frame-galactic" type="radio" name="motion-frame" value="galactic" checked><span>Galactic</span></label><label><input id="motion-frame-solar" type="radio" name="motion-frame" value="solar"><span>Solar</span></label></div></div>
                   <details class="filter-dropdown">
                     <summary><span>Object type</span><span id="object-type-filter-summary">All</span></summary>
                     <fieldset id="object-type-filter" class="type-filter">
@@ -121,7 +129,12 @@
               <section id="preferences-panel" class="dock-card preferences" aria-labelledby="preferences-heading" hidden>
                 <h2 id="preferences-heading" class="panel-heading">Preferences</h2>
                 <div class="display-settings" aria-label="Display settings">
-                  <fieldset id="distance-units" class="segmented-choice"><legend>Distances</legend><div class="unit-options"><label><input id="unit-pc" type="radio" name="distance-unit" value="pc"><span>pc</span></label><label><input id="unit-ly" type="radio" name="distance-unit" value="ly" checked><span>ly</span></label></div></fieldset>
+                  <div id="distance-units" class="segmented-choice" role="group" aria-labelledby="distance-units-label"><span id="distance-units-label">Distances</span><div class="unit-options"><label><input id="unit-pc" type="radio" name="distance-unit" value="pc"><span>pc</span></label><label><input id="unit-ly" type="radio" name="distance-unit" value="ly" checked><span>ly</span></label></div></div>
+                  <div class="range-filter">
+                    <div class="range-heading"><label for="label-limit">Star labels</label><output id="label-limit-value" for="label-limit">40</output></div>
+                    <input id="label-limit" type="range" min="0" max="140" step="20" value="40" aria-valuetext="40 labels">
+                    <div class="range-bounds" aria-hidden="true"><span>Off</span><span>140</span></div>
+                  </div>
                   <label class="power-saving-choice" for="power-saving-mode">
                     <span>Power saving mode</span>
                     <span class="switch-control"><input id="power-saving-mode" type="checkbox" role="switch"><span class="switch-track" aria-hidden="true"></span></span>
@@ -135,6 +148,17 @@
                   <input id="object-search" type="search" placeholder="Search objects" autocomplete="off" />
                 </div>
                 <div id="star-list" class="star-list" role="group" aria-label="Nearby objects"></div>
+              </section>
+              <section id="info-panel" class="dock-card info-card" aria-labelledby="info-heading" hidden>
+                <div class="info-brand">
+                  <span id="info-brand-icon" class="info-brand-icon"></span>
+                  <div><h2 id="info-heading">Star View</h2><p>Explore our stellar neighborhood.</p></div>
+                </div>
+                <dl class="info-meta">
+                  <div><dt>Repository</dt><dd><a href="https://github.com/reery/Star-View" target="_blank" rel="noreferrer">GitHub</a></dd></div>
+                  <div><dt>License</dt><dd>MIT</dd></div>
+                  <div><dt>Version</dt><dd>v0.1</dd></div>
+                </dl>
               </section>
             </div>
           </aside>

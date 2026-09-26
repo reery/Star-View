@@ -1,4 +1,4 @@
-<img src="starview_v03.png" alt="Star View v0.1 screenshot" width="800">
+<img src="starview_v04.png" alt="Star View v0.1 screenshot" width="800">
 
 # Star View
 
@@ -51,7 +51,7 @@ Before the first browser test run, install Chromium with `npx playwright install
 | Select and center | Click an object | Tap an object |
 | Clear selection | Click empty sky | Tap empty sky |
 
-The toolbar has reset view, grid toggle, zoom in and zoom out buttons. The Objects list supports search and keyboard selection.
+The toolbar has reset view, grid toggle, zoom controls, and back/forward navigation through the 20 most recent star selections. The Objects list supports search and keyboard selection.
 
 ## Data
 

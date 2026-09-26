@@ -11,8 +11,8 @@ import { advanceFrameDeadline, effectiveDampingFactor, estimateRefreshRate, rend
 import { centeredForegroundLabelBounds, chooseOrdinaryLabelPlacement, ordinaryLabelCandidates, overlaps, type LabelRect, type OrdinaryLabelPlacement } from './label-layout'
 import {
   MOTION_ARROW_DASH_PX, MOTION_ARROW_GAP_PX, MOTION_ARROW_HEAD_PX, MOTION_ARROW_STROKE_PX, MOTION_ARROW_TAIL_OFFSET_PX,
-  STAR_DIAMETER_PX, ScreenSpaceGrid, TapGesture, budgetVisibleLabelIndices, focusProgress,
-  isObjectMapVisible, mapLabelBudget, motionArrowGeometryInto, motionTravelDistancePc, pickProjectedStarAtScreenPoint,
+  STAR_DIAMETER_PX, ScreenSpaceGrid, TapGesture, budgetVisibleLabelIndices, compareMapLabelCandidates, focusProgress,
+  isObjectMapVisible, motionArrowGeometryInto, motionTravelDistancePc, pickProjectedStarAtScreenPoint,
   projectMotionDirectionInto, projectSelectedAnchor, projectWorldPoint, projectWorldPointInto,
   shouldRunOrdinaryLabelLayout, starBlocksLabels, starHaloDiameter, starHaloOpacity, type MotionArrowGeometry, type ProjectedPickable,
 } from './viewer-primitives'
@@ -25,6 +25,8 @@ export interface StarViewer {
   setViewState(state: ViewerViewState): void
   setObjectDistanceLimit(distanceLy: number): void
   setObjectTypeFilter(types: readonly ObjectType[]): void
+  setLabelLimit(limit: number): void
+  setMotionArrowsVisible(visible: boolean): void
   setMotionFrame(frame: MotionFrame): void
   setMotionYears(years: MotionYears): void
   setPowerSavingMode(enabled: boolean): void
@@ -133,7 +135,6 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
   const camera = new PerspectiveCamera(44, 1, 0.01, 1000)
   const controls = new OrbitControls(camera, canvas)
   const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)')
-  const coarsePointer = matchMedia('(pointer: coarse)')
   controls.enableDamping = !reducedMotion.matches
   controls.dampingFactor = 0.2
   controls.minPolarAngle = 0.08
@@ -431,6 +432,8 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
   let magnitudeLimit = 7
   let objectDistanceLimitLy = 100
   let selectedTypes = new Set<ObjectType>(OBJECT_TYPES)
+  let labelLimit = 40
+  let motionArrowsVisible = true
   let motionFrame: MotionFrame = 'galactic'
   let motionYears: MotionYears = 1_000
   let distanceUnit: DistanceUnit = 'pc'
@@ -652,9 +655,9 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
     if (rankingChanged) {
       rankedCandidates = stars.map((star, index) => ({
         index,
-        priority: star.id === selectedId ? 0 : star.id === visibilityBase.id ? 1 : 2,
+        priority: star.id === selectedId ? 0 : 1,
         magnitude: apparentMagnitudes[index]!,
-      })).sort((first, second) => first.priority - second.priority || first.magnitude - second.magnitude || first.index - second.index)
+      })).sort(compareMapLabelCandidates)
       rankedBaseId = visibilityBase.id
       rankedSelection = selectedId
     }
@@ -684,6 +687,7 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
     haloIndices.needsUpdate = true
     starGeometry.setDrawRange(0, coreCount)
     haloGeometry.setDrawRange(0, haloCount)
+    guides.visible = selectedId !== null && mapVisibility.get(selectedId) === true
     labelLayer.dataset.coreCount = String(coreCount)
     labelLayer.dataset.haloCount = String(haloCount)
     rankedNameGroups = []
@@ -752,6 +756,12 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
   }
 
   function updateMotionArrows(): void {
+    if (!motionArrowsVisible) {
+      arrowCount = 0
+      arrowGeometry.instanceCount = 0
+      arrows.visible = false
+      return
+    }
     if (projectionDirty) refreshProjectionCache()
     const viewport = projectionViewport!
     const selectedIndex = selectedId ? starsById.get(selectedId)!.index : -1
@@ -844,9 +854,8 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
   function updateLabels(time: number): void {
     if (projectionDirty) refreshProjectionCache()
     const viewport = projectionViewport!
-    const ordinaryBudget = mapLabelBudget(coarsePointer.matches || viewport.width <= 720)
     const selectedIndex = selectedId ? starsById.get(selectedId)!.index : -1
-    const observerIndex = starsById.get(visibilityBase.id)!.index
+    const ordinaryBudget = Math.max(0, labelLimit - (selectedIndex >= 0 && labelLimit > 0 ? 1 : 0))
     if (ordinaryGroupSource !== rankedNameGroups) {
       ordinaryGroupSource = rankedNameGroups
       ordinaryGroupPool.length = 0
@@ -858,7 +867,7 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
       const indices = entry.indices
       indices.length = 0
       for (const index of rankedNameGroups[groupIndex]!.indices) {
-        if (index !== selectedIndex && index !== observerIndex) indices.push(index)
+        if (index !== selectedIndex) indices.push(index)
       }
       if (indices.length > 0) ordinaryGroups.push(entry)
     }
@@ -869,11 +878,12 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
       budgetedNameIndices.add(index)
     }
     if (selectedIndex >= 0) budgetedNameIndices.add(selectedIndex)
-    budgetedNameIndices.add(observerIndex)
     budgetedNames.clear()
-    for (const index of budgetedNameIndices) budgetedNames.add(stars[index]!.id)
+    if (labelLimit > 0) {
+      for (const index of budgetedNameIndices) budgetedNames.add(stars[index]!.id)
+    }
     const labelsChanged = syncStarLabels(budgetedNameIndices, starLabels)
-    setData(labelLayer, 'nameBudget', String(ordinaryBudget))
+    setData(labelLayer, 'nameBudget', String(labelLimit))
     let labelSizesChanged = false
     if (labelSizesDirty) {
       for (const label of [...axisLabels, ...starLabelPool, ...measurementLabels]) {
@@ -1233,8 +1243,6 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
     resize()
     requestRender()
   }, { signal: events.signal })
-  coarsePointer.addEventListener('change', () => requestRender(), { signal: events.signal })
-
   function render(time: number): void {
     pendingFrame = null
     if (disposed || contextLost || document.hidden) return
@@ -1410,6 +1418,18 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
       if (nextTypes.size === selectedTypes.size && [...nextTypes].every((type) => selectedTypes.has(type))) return
       selectedTypes = nextTypes
       updatePresentation()
+      requestRender()
+    },
+    setLabelLimit(limit) {
+      if (!Number.isFinite(limit) || limit < 0 || limit > 140 || limit % 20 !== 0 || limit === labelLimit) return
+      labelLimit = limit
+      ordinaryLayoutDirty = true
+      requestRender()
+    },
+    setMotionArrowsVisible(visible) {
+      if (visible === motionArrowsVisible) return
+      motionArrowsVisible = visible
+      ordinaryLayoutDirty = true
       requestRender()
     },
     setMotionFrame(frame) {
