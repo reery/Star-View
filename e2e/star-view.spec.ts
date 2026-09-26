@@ -573,28 +573,56 @@ test('renders temperature-colored objects, measurements, and a responsive interf
     if (image.data[offset] === 0 && image.data[offset + 1] === 0 && image.data[offset + 2] === 0) blackPixels++
   }
   expect(blackPixels / (image.width * image.height)).toBeGreaterThan(0.75)
-  const coloredCounts: number[] = []
+  const hotCenterCounts: number[] = []
   for (const id of ['sun', 'sirius-a']) {
     const position = await starPoint(page, id)
     const centerX = Math.round(position.x - bounds.x)
     const centerY = Math.round(position.y - bounds.y)
+    let hotCenterPixels = 0
     let coloredPixels = 0
-    for (let pixelY = centerY - 6; pixelY <= centerY + 6; pixelY++) {
-      for (let pixelX = centerX - 6; pixelX <= centerX + 6; pixelX++) {
-        if (Math.hypot(pixelX + 0.5 - (position.x - bounds.x), pixelY + 0.5 - (position.y - bounds.y)) > 4) continue
+    for (let pixelY = centerY - 9; pixelY <= centerY + 9; pixelY++) {
+      for (let pixelX = centerX - 9; pixelX <= centerX + 9; pixelX++) {
+        const distance = Math.hypot(pixelX + 0.5 - (position.x - bounds.x), pixelY + 0.5 - (position.y - bounds.y))
+        if (distance > 8) continue
         const offset = (pixelY * image.width + pixelX) * 4
         const red = image.data[offset] ?? 0
         const green = image.data[offset + 1] ?? 0
         const blue = image.data[offset + 2] ?? 0
-        if (red > 140 && green > 170 && blue > 150 && (id === 'sun' ? red > blue + 8 : blue > red + 8)) coloredPixels++
+        if (distance <= 2.6 && Math.min(red, green, blue) > 210 && Math.max(red, green, blue) - Math.min(red, green, blue) < 35) hotCenterPixels++
+        if (distance >= 4 && red + green + blue > 50 && (id === 'sun' ? red > blue + 12 : blue > red + 12)) coloredPixels++
       }
     }
-    expect(coloredPixels, `${id} must contain actual colored WebGL star pixels`).toBeGreaterThan(12)
-    coloredCounts.push(coloredPixels)
+    expect(hotCenterPixels, `${id} must contain a visible hot-white center`).toBeGreaterThan(4)
+    expect(coloredPixels, `${id} must retain a colored bloom outside its white center`).toBeGreaterThan(8)
+    hotCenterCounts.push(hotCenterPixels)
   }
-  expect(Math.abs(coloredCounts[0]! - coloredCounts[1]!)).toBeLessThan(22)
+  expect(Math.abs(hotCenterCounts[0]! - hotCenterCounts[1]!)).toBeLessThan(10)
   await page.screenshot({ path: testInfo.outputPath('overview.png'), fullPage: true })
   expect(errors).toEqual([])
+})
+
+test('switches between real and exaggerated star colors and remembers the preference', async ({ page }) => {
+  await openViewer(page)
+  await openPreferences(page)
+  const exaggerated = page.getByRole('radio', { name: 'Exaggerated', exact: true })
+  const real = page.getByRole('radio', { name: 'Real', exact: true })
+  await expect(exaggerated).toBeChecked()
+  await expect(page.locator('#selected-swatch')).toHaveCSS('background-color', 'rgb(117, 169, 255)')
+  const canvas = page.locator('#scene canvas')
+  const vividPixels = await canvas.screenshot({ scale: 'css' })
+
+  await real.check()
+  await expect(page.locator('#selected-swatch')).toHaveCSS('background-color', 'rgb(186, 214, 255)')
+  await expect(page.locator('[data-star="sirius-a"] .star-swatch')).toHaveCSS('background-color', 'rgb(186, 214, 255)')
+  await expect(page.locator('[data-star-id="sirius-a"]')).toHaveCSS('--star-color', 'rgb(186,214,255)')
+  expect((await motionArrows(page)).find((arrow) => arrow.id === 'sirius-a')?.color).toBe('rgb(186,214,255)')
+  expect(changedPixels(vividPixels, await canvas.screenshot({ scale: 'css' }))).toBeGreaterThan(20)
+
+  await page.reload()
+  await expect(page.locator('#scene')).toHaveAttribute('data-ready', 'true')
+  await openPreferences(page)
+  await expect(real).toBeChecked()
+  await expect(page.locator('#selected-swatch')).toHaveCSS('background-color', 'rgb(186, 214, 255)')
 })
 
 test('renders brown and sub-brown dwarfs in visible brown shades', async ({ page }, testInfo) => {
@@ -679,6 +707,7 @@ test('renders soft halos beyond crisp cores and boosts only the selected halo', 
   expect(sample(base, 24, 26)).toBe(0)
   await page.getByRole('button', { name: 'Objects', exact: true }).click()
   await page.getByRole('button', { name: 'Select Sun', exact: true }).click()
+  await page.getByRole('button', { name: 'Objects', exact: true }).click()
   await page.getByRole('button', { name: 'Reset view', exact: true }).click()
   await expect.poll(() => starPoint(page, 'sun')).toEqual(sun)
   isArrowPixel = arrowPixelMask(await motionArrows(page), bounds)
@@ -686,6 +715,8 @@ test('renders soft halos beyond crisp cores and boosts only the selected halo', 
   expect(sample(selected, 6, 8)).toBeGreaterThan(innerGlow * 1.1)
   expect(sample(selected, 0, 3)).toBe(sample(base, 0, 3))
   await page.mouse.click(empty.x, empty.y)
+  await expect(page.locator('.map-anchor.is-selected')).toHaveCount(0)
+  await page.evaluate(() => new Promise<void>((resolve) => requestAnimationFrame(() => resolve())))
   expect(changedPixels(PNG.sync.write(base), await canvas.screenshot(options))).toBe(0)
 })
 
@@ -761,7 +792,7 @@ test('makes Sirius glow larger and brighter than Barnard with zoom-stable magnit
   expect(glow[0]!).toBeGreaterThan(glow[1]! * 3)
 })
 
-test('keeps bright and selected halos subtly temperature-tinted without whitening', async ({ page }, testInfo) => {
+test('keeps bright and selected halos strongly temperature-tinted without clipping', async ({ page }, testInfo) => {
   await openViewer(page)
   await page.getByRole('button', { name: 'Grid', exact: true }).click()
   await page.getByRole('button', { name: 'Objects', exact: true }).click()
@@ -807,18 +838,18 @@ test('keeps bright and selected halos subtly temperature-tinted without whitenin
         expect(color.blue - color.red).toBeGreaterThan(15)
         expect(color.blue).toBeGreaterThan(color.green)
         expect(color.green).toBeGreaterThan(color.red)
-        expect(color.red / color.blue).toBeGreaterThan(0.7)
-        expect(color.green / color.blue).toBeGreaterThan(0.82)
+        expect(color.red / color.blue).toBeGreaterThan(0.4)
+        expect(color.green / color.blue).toBeGreaterThan(0.6)
       } else {
         expect(color.red - color.blue).toBeGreaterThan(10)
         expect(color.red).toBeGreaterThan(color.green)
         expect(color.green).toBeGreaterThan(color.blue)
-        expect(color.blue / color.red).toBeGreaterThan(0.5)
+        expect(color.blue / color.red).toBeGreaterThan(0.22)
       }
       colors.push(color)
     }
     expect(colors[1]!.red + colors[1]!.green + colors[1]!.blue).toBeGreaterThan(colors[0]!.red + colors[0]!.green + colors[0]!.blue)
-    expect(Math.abs(colors[1]!.red / colors[1]!.blue - colors[0]!.red / colors[0]!.blue)).toBeLessThan(0.04)
+    expect(Math.abs(colors[1]!.red / colors[1]!.blue - colors[0]!.red / colors[0]!.blue)).toBeLessThan(0.18)
   }
 })
 
@@ -1029,15 +1060,17 @@ test('overlapping stars follow camera depth and keep their motion arrows', async
     const centerX = Math.round(sun.x - bounds.x)
     const centerY = Math.round(sun.y - bounds.y)
     let matchingPixels = 0
-    for (let pixelY = centerY - 1; pixelY <= centerY + 1; pixelY++) {
-      for (let pixelX = centerX - 1; pixelX <= centerX + 1; pixelX++) {
+    for (let pixelY = centerY - 5; pixelY <= centerY + 5; pixelY++) {
+      for (let pixelX = centerX - 5; pixelX <= centerX + 5; pixelX++) {
+        const distance = Math.hypot(pixelX + 0.5 - (sun.x - bounds.x), pixelY + 0.5 - (sun.y - bounds.y))
+        if (distance < 2.5 || distance > 4.5) continue
         const offset = (pixelY * image.width + pixelX) * 4
         const red = image.data[offset]!
         const blue = image.data[offset + 2]!
-        if (side === -1 ? red > 200 && red > blue + 8 : blue > 200 && blue > red + 8) matchingPixels++
+        if (side === -1 ? red > 120 && red > blue + 25 : blue > 120 && blue > red + 25) matchingPixels++
       }
     }
-    expect(matchingPixels, `${nearest} must occlude the farther star even while Sun stays selected`).toBeGreaterThanOrEqual(7)
+    expect(matchingPixels, `${nearest} must occlude the farther star even while Sun stays selected`).toBeGreaterThanOrEqual(8)
     await page.mouse.click(bounds.x + bounds.width * 0.15, bounds.y + bounds.height * 0.85)
     await expect(page.locator('.map-anchor.is-selected')).toHaveCount(0)
     const nearId = side === -1 ? 'sun' : 'sirius-a'
@@ -1348,11 +1381,11 @@ test('shows attached travel-length motion arrows with selectable horizons', { ta
   await expect(page.locator('[data-star-id="sirius-b"]')).toHaveCount(0)
   expect(arrowFor(initial, 'sirius-b')).toBeUndefined()
   const sunArrow = arrowFor(initial, 'sun')!
-  expect(sunArrow).toMatchObject({ mode: 'full', selected: false, opacity: 0.5, color: 'rgb(255,230,188)' })
+  expect(sunArrow).toMatchObject({ mode: 'full', selected: false, opacity: 0.5, color: 'rgb(255,204,79)' })
   expect(Math.hypot(sunArrow.x - homeSun.x, sunArrow.y - homeSun.y), 'the Sun arrow starts at its dot').toBeLessThan(0.5)
   expect(initial.some((arrow) => arrow.mode === 'transverse')).toBe(true)
   const siriusArrow = arrowFor(initial, 'sirius-a')!
-  expect(siriusArrow).toMatchObject({ mode: 'full', selected: true, opacity: 1, color: 'rgb(186,214,255)' })
+  expect(siriusArrow).toMatchObject({ mode: 'full', selected: true, opacity: 1, color: 'rgb(117,169,255)' })
   expect(initial.some((arrow) => !arrow.selected && arrow.opacity === 0.5)).toBe(true)
   await motionFrame.getByRole('radio', { name: 'Solar' }).check()
   await expect.poll(async () => arrowFor(await motionArrows(page), 'sun')).toBeUndefined()
@@ -1407,7 +1440,7 @@ test('shows attached travel-length motion arrows with selectable horizons', { ta
   else await page.mouse.click(sun.x, sun.y)
   await expect(page.locator('#star-name')).toHaveText('Sun')
   await expect.poll(async () => arrowFor(await motionArrows(page), 'sun')?.selected).toBe(true)
-  expect(arrowFor(await motionArrows(page), 'sun')).toMatchObject({ opacity: 1, color: 'rgb(255,230,188)' })
+  expect(arrowFor(await motionArrows(page), 'sun')).toMatchObject({ opacity: 1, color: 'rgb(255,204,79)' })
   await page.getByRole('button', { name: 'Reset view', exact: true }).click()
   await sceneFits(page)
   await page.screenshot({ path: testInfo.outputPath('motion-arrows.png'), fullPage: true })

@@ -1,5 +1,5 @@
 import type { Star } from './catalog-model'
-import { formatDistance, starDisplayColor, sunRelativeMetrics, type DistanceUnit } from './astronomy'
+import { formatDistance, starDisplayColor, sunRelativeMetrics, type DistanceUnit, type StarColorMode } from './astronomy'
 
 const VIRTUAL_THRESHOLD = 200
 const ROW_HEIGHT = 36
@@ -28,6 +28,7 @@ export class ObjectList {
   private filtered: ObjectListItem[] = []
   private selectedId: string | null = null
   private unit: DistanceUnit = 'ly'
+  private colorMode: StarColorMode = 'real'
   private scrollFrame: number | null = null
   private renderedVirtualItems: ObjectListItem[] | null = null
   private renderedVirtualStart = -1
@@ -48,7 +49,7 @@ export class ObjectList {
       star,
       distancePc: sunRelativeMetrics(star, sun).distancePc,
       search: normalizeObjectSearch(`${star.name} ${star.id} ${star.spectral_type ?? ''}`),
-      color: starDisplayColor(star).getStyle(),
+      color: starDisplayColor(star, this.colorMode).getStyle(),
     }))
     this.filtered = this.items
     this.unit = unit
@@ -67,6 +68,13 @@ export class ObjectList {
   setDistanceUnit(unit: DistanceUnit): void {
     if (unit === this.unit) return
     this.unit = unit
+    this.render(true)
+  }
+
+  setColorMode(mode: StarColorMode): void {
+    if (mode === this.colorMode) return
+    this.colorMode = mode
+    for (const item of this.items) item.color = starDisplayColor(item.star, mode).getStyle()
     this.render(true)
   }
 
