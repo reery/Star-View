@@ -86,6 +86,7 @@
                 <button id="filter-toggle" class="icon-button panel-button" type="button" aria-label="Filter" aria-controls="filter-panel" aria-expanded="false"><span id="filter-icon"></span><span class="tooltip">Filter</span></button>
                 <button id="preferences-toggle" class="icon-button panel-button" type="button" aria-label="Preferences" aria-controls="preferences-panel" aria-expanded="false"><span id="preferences-icon"></span><span class="tooltip">Preferences</span></button>
                 <button id="objects-toggle" class="icon-button panel-button" type="button" aria-label="Objects" aria-controls="objects-panel" aria-expanded="false"><span id="objects-icon"></span><span class="tooltip">Objects</span></button>
+                <button id="info-toggle" class="icon-button panel-button" type="button" aria-label="Info" aria-controls="info-panel" aria-expanded="false"><span id="info-icon"></span><span class="tooltip">Info</span></button>
               </div>
               <section id="filter-panel" class="dock-card filter-section" aria-labelledby="filter-heading" hidden>
                 <h2 id="filter-heading" class="panel-heading">Filter</h2>
@@ -144,6 +145,17 @@
                   <input id="object-search" type="search" placeholder="Search objects" autocomplete="off" />
                 </div>
                 <div id="star-list" class="star-list" role="group" aria-label="Nearby objects"></div>
+              </section>
+              <section id="info-panel" class="dock-card info-card" aria-labelledby="info-heading" hidden>
+                <div class="info-brand">
+                  <span id="info-brand-icon" class="info-brand-icon"></span>
+                  <div><h2 id="info-heading">Star View</h2><p>Explore our stellar neighborhood.</p></div>
+                </div>
+                <dl class="info-meta">
+                  <div><dt>Repository</dt><dd><a href="https://github.com/reery/Star-View" target="_blank" rel="noreferrer">GitHub</a></dd></div>
+                  <div><dt>License</dt><dd>MIT</dd></div>
+                  <div><dt>Version</dt><dd>v0.1</dd></div>
+                </dl>
               </section>
             </div>
           </aside>

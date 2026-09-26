@@ -1,5 +1,5 @@
 import './style.css'
-import { Filter, Focus, Grid2X2, List, Settings2, ZoomIn, ZoomOut, createElement, type IconNode } from 'lucide'
+import { CircleHelp, Filter, Focus, Grid2X2, List, Orbit, Settings2, ZoomIn, ZoomOut, createElement, type IconNode } from 'lucide'
 import { describeObject, OBJECT_TYPES, objectTypeLabel, type ObjectType, type Star } from './catalog-model'
 import { catalogSelection, mergeCatalogStars } from './catalog-runtime'
 import { catalogs, catalogErrors } from './registry'
@@ -40,6 +40,8 @@ icon('zoom-out-icon', ZoomOut)
 icon('filter-icon', Filter)
 icon('preferences-icon', Settings2)
 icon('objects-icon', List)
+icon('info-icon', CircleHelp)
+icon('info-brand-icon', Orbit)
 
 const events = new AbortController()
 let viewer: StarViewer | undefined
@@ -72,7 +74,7 @@ labelLimitInput.value = String(labelLimit)
 labelLimitInput.setAttribute('aria-valuetext', labelLimit === 0 ? 'Off' : `${labelLimit} labels`)
 text('label-limit-value', labelLimit === 0 ? 'Off' : String(labelLimit))
 const viewButtons = ['reset-view', 'toggle-grid', 'zoom-in', 'zoom-out'].map((id) => element<HTMLButtonElement>(id))
-const panelNames = ['filter', 'preferences', 'objects'] as const
+const panelNames = ['filter', 'preferences', 'objects', 'info'] as const
 
 function togglePanel(name: typeof panelNames[number]): void {
   const opening = element<HTMLButtonElement>(`${name}-toggle`).getAttribute('aria-expanded') !== 'true'
