@@ -3,7 +3,7 @@ import { ArrowLeft, ArrowRight, CircleHelp, Filter, Focus, Grid2X2, List, Orbit,
 import { describeObject, OBJECT_TYPES, objectTypeLabel, type ObjectType, type Star } from './catalog-model'
 import { catalogSelection, mergeCatalogStars } from './catalog-runtime'
 import { catalogs, catalogErrors } from './registry'
-import { formatDistance, gridSpacingPc, starDisplayColor, sunRelativeMetrics, type DistanceUnit, type MotionFrame } from './astronomy'
+import { formatDistance, gridSpacingPc, starDisplayColor, sunRelativeMetrics, type DistanceUnit, type MotionFrame, type StarColorMode } from './astronomy'
 import { MOTION_YEAR_OPTIONS, createStarViewer, type MotionYears, type StarViewer, type ViewerViewState } from './viewer'
 import { ObjectList } from './object-list'
 import { SelectionHistory } from './selection-history'
@@ -65,14 +65,17 @@ let catalogRequest = 0
 let sceneBusy = true
 const selectedTypes = new Set<ObjectType>(OBJECT_TYPES)
 let distanceUnit: DistanceUnit = 'ly'
+let starColorMode: StarColorMode = 'exaggerated'
 const BRIGHT_CATALOG_ID = 'bright-stars'
 const OBJECT_DISTANCE_STEPS_LY = [5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 60, 70, 80, 90, 100, 150, 200, 300, 500, 1000, 1500, 2000] as const
 try {
   if (localStorage.getItem('star-view-distance-unit') === 'pc') distanceUnit = 'pc'
+  if (localStorage.getItem('star-view-color-mode') === 'real') starColorMode = 'real'
   const storedLabelLimit = localStorage.getItem('star-view-label-limit')
   const parsedLabelLimit = Number(storedLabelLimit)
   if (storedLabelLimit !== null && parsedLabelLimit >= 0 && parsedLabelLimit <= 140 && parsedLabelLimit % 20 === 0) labelLimit = parsedLabelLimit
 } catch {}
+element<HTMLInputElement>(`star-colors-${starColorMode}`).checked = true
 const labelLimitInput = element<HTMLInputElement>('label-limit')
 labelLimitInput.value = String(labelLimit)
 labelLimitInput.setAttribute('aria-valuetext', labelLimit === 0 ? 'Off' : `${labelLimit} labels`)
@@ -127,7 +130,7 @@ function renderSelection(): void {
     return
   }
   const metrics = sunRelativeMetrics(star, sun)
-  const color = starDisplayColor(star).getStyle()
+  const color = starDisplayColor(star, starColorMode).getStyle()
   element('inspector').dataset.selectedStar = star.id
   element('inspector').style.setProperty('--selected-star-color', color)
   text('star-name', star.name)
@@ -231,7 +234,7 @@ async function switchCatalog(id: string, refresh = false): Promise<void> {
   objectList.setStars(stars, distanceUnit, selectedId)
   renderDistances()
   try {
-    viewer = createStarViewer(element('scene'), stars, { onSelect: selectStar, onStatus: sceneStatus, gridHalfSizePc })
+    viewer = createStarViewer(element('scene'), stars, { onSelect: selectStar, onStatus: sceneStatus, colorMode: starColorMode, gridHalfSizePc })
   } catch (error) {
     console.error('Could not create the 3D viewer.', error)
     sceneStatus('3D graphics are unavailable on this device. The object catalog and details are still available.')
@@ -280,6 +283,7 @@ for (const type of OBJECT_TYPES) {
 renderObjectTypeSummary()
 
 const objectList = new ObjectList(element('star-list'), selectStar)
+objectList.setColorMode(starColorMode)
 
 for (const { manifest } of catalogs) {
   element<HTMLSelectElement>('catalog-select').add(new Option(manifest.label, manifest.id))
@@ -300,6 +304,13 @@ element('distance-units').addEventListener('change', () => {
   try { localStorage.setItem('star-view-distance-unit', distanceUnit) } catch {}
   renderDistances()
   viewer?.setDistanceUnit(distanceUnit)
+}, { signal: events.signal })
+element('star-colors').addEventListener('change', () => {
+  starColorMode = element<HTMLInputElement>('star-colors-exaggerated').checked ? 'exaggerated' : 'real'
+  try { localStorage.setItem('star-view-color-mode', starColorMode) } catch {}
+  objectList.setColorMode(starColorMode)
+  renderSelection()
+  viewer?.setStarColorMode(starColorMode)
 }, { signal: events.signal })
 element('magnitude-limit').addEventListener('input', () => {
   const input = element<HTMLInputElement>('magnitude-limit')

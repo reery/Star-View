@@ -121,7 +121,9 @@ export function sunRelativeMetrics(star: Position, sun: Position) {
   return { distancePc, distanceLy: distancePc * LIGHT_YEARS_PER_PARSEC, planeDistancePc, heightPc, side }
 }
 
-const TEMPERATURE_COLORS = [
+export type StarColorMode = 'real' | 'exaggerated'
+
+const REAL_TEMPERATURE_COLORS = [
   { kelvin: 250, color: 0xff3d22 },
   { kelvin: 600, color: 0xff4c29 },
   { kelvin: 1000, color: 0xff6038 },
@@ -131,6 +133,18 @@ const TEMPERATURE_COLORS = [
   { kelvin: 9845, color: 0xbad6ff },
   { kelvin: 20000, color: 0x94b5ff },
   { kelvin: 40000, color: 0x82a8ff },
+] as const
+
+const EXAGGERATED_TEMPERATURE_COLORS = [
+  { kelvin: 250, color: 0xff280f },
+  { kelvin: 600, color: 0xff3518 },
+  { kelvin: 1000, color: 0xff4822 },
+  { kelvin: 3000, color: 0xff7f32 },
+  { kelvin: 5772, color: 0xffcc4f },
+  { kelvin: 7000, color: 0xd9e8ff },
+  { kelvin: 9845, color: 0x75a9ff },
+  { kelvin: 20000, color: 0x568cff },
+  { kelvin: 40000, color: 0x4778ff },
 ] as const
 
 const BROWN_DWARF_COLORS = [
@@ -156,16 +170,19 @@ function interpolateColor(stops: readonly { kelvin: number; color: number }[], k
   return new Color(stops.at(-1)!.color)
 }
 
-export function temperatureToColor(kelvin: number | null): Color {
+export function temperatureToColor(kelvin: number | null, mode: StarColorMode = 'real'): Color {
   if (kelvin === null) return new Color(0xb8b8b8)
   if (!Number.isFinite(kelvin) || kelvin <= 0) throw new RangeError('Temperature must be positive and finite.')
-  return interpolateColor(TEMPERATURE_COLORS, kelvin)
+  return interpolateColor(mode === 'exaggerated' ? EXAGGERATED_TEMPERATURE_COLORS : REAL_TEMPERATURE_COLORS, kelvin)
 }
 
-export function starDisplayColor(star: Pick<Star, 'type' | 'temperature_k' | 'spectral_type'>): Color {
+export function starDisplayColor(
+  star: Pick<Star, 'type' | 'temperature_k' | 'spectral_type'>,
+  mode: StarColorMode = 'real',
+): Color {
   if (star.type !== 'brown_dwarf' && star.type !== 'sub_brown_dwarf') {
     const spectralClass = star.type === 'star' ? star.spectral_type?.match(/([OBAFGKM])/)?.[1] as keyof typeof STAR_CLASS_KELVIN | undefined : undefined
-    return temperatureToColor(star.temperature_k ?? (spectralClass ? STAR_CLASS_KELVIN[spectralClass] : null))
+    return temperatureToColor(star.temperature_k ?? (spectralClass ? STAR_CLASS_KELVIN[spectralClass] : null), mode)
   }
   const temperature = star.temperature_k
   if (temperature !== null && Number.isFinite(temperature) && temperature > 0) return interpolateColor(BROWN_DWARF_COLORS, temperature)

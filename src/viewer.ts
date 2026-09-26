@@ -6,7 +6,7 @@ import {
 } from 'three'
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js'
 import { OBJECT_TYPES, type ObjectType, type Star } from './catalog-model'
-import { apparentVisualMagnitude, displayMotionForStar, formatDistance, galacticToWorld, gridSpacingPc, LIGHT_YEARS_PER_PARSEC, starDisplayColor, sunRelativeMetrics, type DistanceUnit, type MotionFrame, type MotionMode } from './astronomy'
+import { apparentVisualMagnitude, displayMotionForStar, formatDistance, galacticToWorld, gridSpacingPc, LIGHT_YEARS_PER_PARSEC, starDisplayColor, sunRelativeMetrics, type DistanceUnit, type MotionFrame, type MotionMode, type StarColorMode } from './astronomy'
 import { advanceFrameDeadline, effectiveDampingFactor, estimateRefreshRate, renderPixelRatio, targetRenderFps } from './render-scheduling'
 import { centeredForegroundLabelBounds, chooseOrdinaryLabelPlacement, ordinaryLabelCandidates, overlaps, type LabelRect, type OrdinaryLabelPlacement } from './label-layout'
 import {
@@ -14,7 +14,8 @@ import {
   STAR_DIAMETER_PX, ScreenSpaceGrid, TapGesture, budgetVisibleLabelIndices, compareMapLabelCandidates, focusProgress,
   isObjectMapVisible, motionArrowGeometryInto, motionTravelDistancePc, pickProjectedStarAtScreenPoint,
   projectMotionDirectionInto, projectSelectedAnchor, projectWorldPoint, projectWorldPointInto,
-  shouldRunOrdinaryLabelLayout, starBlocksLabels, starHaloDiameter, starHaloOpacity, type MotionArrowGeometry, type ProjectedPickable,
+  shouldRunOrdinaryLabelLayout, starBlocksLabels, starCoreWhiteStrength, starHaloDiameter, starHaloOpacity,
+  type MotionArrowGeometry, type ProjectedPickable,
 } from './viewer-primitives'
 
 export interface StarViewer {
@@ -30,6 +31,7 @@ export interface StarViewer {
   setMotionFrame(frame: MotionFrame): void
   setMotionYears(years: MotionYears): void
   setPowerSavingMode(enabled: boolean): void
+  setStarColorMode(mode: StarColorMode): void
   setVisibility(observerId: string, limit: number): void
   setDistanceUnit(unit: DistanceUnit): void
   zoom(direction: 'in' | 'out'): void
@@ -48,6 +50,7 @@ export interface ViewerViewState {
 interface ViewerOptions {
   onSelect(id: string | null): void
   onStatus(message: string | null): void
+  colorMode: StarColorMode
   gridHalfSizePc?: number
 }
 
@@ -146,7 +149,8 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
   let motions = stars.map((star) => displayMotionForStar(star))
   const sunDistancesLy = stars.map((star) => sunRelativeMetrics(star, sun).distanceLy)
   const starsById = new Map(stars.map((star, index) => [star.id, { star, index }]))
-  const starColors = stars.map(starDisplayColor)
+  let starColorMode = options.colorMode
+  const starColors = stars.map((star) => starDisplayColor(star, starColorMode))
   const starColorStyles = starColors.map((color) => color.getStyle())
   const starBounds = new Box3().setFromPoints(pickable.map((star) => star.position))
   const catalogSphere = starBounds.getBoundingSphere(new Sphere())
@@ -171,24 +175,27 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
   dotTexture.colorSpace = SRGBColorSpace
   const starGeometry = new BufferGeometry()
   starGeometry.setAttribute('position', new Float32BufferAttribute(pickable.flatMap((star) => star.position.toArray()), 3))
-  starGeometry.setAttribute('color', new Float32BufferAttribute(starColors.flatMap((color) => color.toArray()), 3))
+  const starColorAttribute = new Float32BufferAttribute(starColors.flatMap((color) => color.toArray()), 3)
+  starGeometry.setAttribute('color', starColorAttribute)
   starGeometry.setIndex(stars.map((_, index) => index))
   const coreIndices = starGeometry.getIndex()!
   const coreDiameters = new Float32BufferAttribute(stars.map(() => STAR_DIAMETER_PX), 1)
   starGeometry.setAttribute('coreDiameter', coreDiameters)
+  starGeometry.setAttribute('coreWhiteStrength', new Float32BufferAttribute(stars.map(starCoreWhiteStrength), 1))
   const starMaterial = new PointsMaterial({
     size: 1, sizeAttenuation: false, map: dotTexture,
     vertexColors: true, alphaTest: 0.2, depthTest: true, depthWrite: true, toneMapped: false,
     transparent: true, blending: NoBlending,
   })
   starMaterial.onBeforeCompile = (shader) => {
-    shader.vertexShader = `attribute float coreDiameter;\n${shader.vertexShader}`
-      .replace('gl_PointSize = size;', 'gl_PointSize = size * coreDiameter;')
-    shader.fragmentShader = shader.fragmentShader.replace(
-      '#include <map_particle_fragment>',
-      `#include <map_particle_fragment>
+    shader.vertexShader = `attribute float coreDiameter;\nattribute float coreWhiteStrength;\nvarying float vCoreDiameter;\nvarying float vCoreWhiteStrength;\n${shader.vertexShader}`
+      .replace('gl_PointSize = size;', 'gl_PointSize = size * coreDiameter;\nvCoreDiameter = coreDiameter;\nvCoreWhiteStrength = coreWhiteStrength;')
+    shader.fragmentShader = `varying float vCoreDiameter;\nvarying float vCoreWhiteStrength;\n${shader.fragmentShader}`.replace(
+      '#include <color_fragment>',
+      `#include <color_fragment>
       float coreRadius = length(gl_PointCoord - vec2(0.5)) * 2.0;
-      diffuseColor.rgb = mix(vec3(1.0), diffuseColor.rgb, smoothstep(0.16, 0.68, coreRadius));`,
+      float hotCenter = 1.0 - smoothstep(vCoreDiameter > 3.0 ? 0.28 : 0.06, vCoreDiameter > 3.0 ? 0.74 : 0.42, coreRadius);
+      diffuseColor.rgb = mix(diffuseColor.rgb, vec3(1.0), hotCenter * vCoreWhiteStrength);`,
     )
   }
   const starPoints = new Points(starGeometry, starMaterial)
@@ -200,18 +207,43 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
   const haloContext = haloCanvas.getContext('2d')!
   const haloGradient = haloContext.createRadialGradient(64, 64, 0, 64, 64, 64)
   haloGradient.addColorStop(0, '#ffffffff')
-  haloGradient.addColorStop(0.12, '#fffffff2')
-  haloGradient.addColorStop(0.28, '#ffffffa3')
-  haloGradient.addColorStop(0.48, '#ffffff4d')
-  haloGradient.addColorStop(0.72, '#ffffff24')
+  haloGradient.addColorStop(0.08, '#ffffffff')
+  haloGradient.addColorStop(0.20, '#ffffffc7')
+  haloGradient.addColorStop(0.40, '#ffffff69')
+  haloGradient.addColorStop(0.68, '#ffffff26')
   haloGradient.addColorStop(1, '#ffffff00')
   haloContext.fillStyle = haloGradient
   haloContext.fillRect(0, 0, 128, 128)
+  haloContext.globalCompositeOperation = 'lighter'
+  const drawSpike = (angle: number, length: number, width: number, alpha: string) => {
+    haloContext.save()
+    haloContext.translate(64, 64)
+    haloContext.rotate(angle)
+    const spikeGradient = haloContext.createLinearGradient(-length, 0, length, 0)
+    spikeGradient.addColorStop(0, '#ffffff00')
+    spikeGradient.addColorStop(0.32, '#ffffff12')
+    spikeGradient.addColorStop(0.5, alpha)
+    spikeGradient.addColorStop(0.68, '#ffffff12')
+    spikeGradient.addColorStop(1, '#ffffff00')
+    haloContext.fillStyle = spikeGradient
+    haloContext.beginPath()
+    haloContext.moveTo(-length, 0)
+    haloContext.lineTo(0, -width)
+    haloContext.lineTo(length, 0)
+    haloContext.lineTo(0, width)
+    haloContext.fill()
+    haloContext.restore()
+  }
+  drawSpike(Math.PI / 4, 60, 1.7, '#ffffffa8')
+  drawSpike(-Math.PI / 4, 56, 1.55, '#ffffff90')
+  drawSpike(0, 40, 0.8, '#ffffff44')
+  drawSpike(Math.PI / 2, 44, 0.9, '#ffffff50')
   const haloTexture = new CanvasTexture(haloCanvas)
   haloTexture.colorSpace = SRGBColorSpace
   const haloGeometry = new BufferGeometry()
   haloGeometry.setAttribute('position', starGeometry.getAttribute('position').clone())
-  haloGeometry.setAttribute('color', starGeometry.getAttribute('color').clone())
+  const haloColorAttribute = starColorAttribute.clone()
+  haloGeometry.setAttribute('color', haloColorAttribute)
   // Reuse a fixed-capacity index buffer; zero-opacity halos should never reach
   // the rasterizer. The visible subset only changes with selection/settings.
   haloGeometry.setIndex(stars.map((_, index) => index))
@@ -1452,6 +1484,21 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
       powerSavingMode = enabled
       resetCadenceSamples()
       resize()
+      requestRender()
+    },
+    setStarColorMode(mode) {
+      if ((mode !== 'real' && mode !== 'exaggerated') || mode === starColorMode) return
+      starColorMode = mode
+      stars.forEach((star, index) => {
+        const color = starDisplayColor(star, mode)
+        starColors[index] = color
+        starColorStyles[index] = color.getStyle()
+        starColorAttribute.setXYZ(index, color.r, color.g, color.b)
+        haloColorAttribute.setXYZ(index, color.r, color.g, color.b)
+      })
+      starColorAttribute.needsUpdate = true
+      haloColorAttribute.needsUpdate = true
+      for (const [index, label] of activeStarLabels) label.anchor.style.setProperty('--star-color', starColorStyles[index]!)
       requestRender()
     },
     setVisibility(observerId, limit) {

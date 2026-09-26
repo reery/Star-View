@@ -6,7 +6,7 @@ import {
   ScreenSpaceGrid, TapGesture, budgetVisibleLabelIndices, compareMapLabelCandidates, focusProgress, isObjectMapVisible,
   motionArrowGeometryInto, motionTravelDistancePc, pickProjectedStarAtScreenPoint,
   projectMotionDirection, projectSelectedAnchor, projectWorldPoint, starBlocksLabels,
-  shouldRunOrdinaryLabelLayout, starHaloDiameter, starHaloOpacity, starHaloStrength, type MotionArrowGeometry,
+  shouldRunOrdinaryLabelLayout, starCoreWhiteStrength, starHaloDiameter, starHaloOpacity, starHaloStrength, type MotionArrowGeometry,
   type PointerPosition, type ProjectedPickable, type Viewport,
 } from './viewer-primitives'
 
@@ -163,6 +163,23 @@ describe('object map filtering', () => {
     expect(isObjectMapVisible(star, new Set(['white_dwarf']), 'target', 'sun', 101, 5)).toBe(true)
     expect(isObjectMapVisible(star, new Set(), 'target', 'sun', 101, 5)).toBe(false)
     expect(isObjectMapVisible(star, new Set(), null, 'target', 101, 5)).toBe(false)
+  })
+})
+
+describe('temperature-aware white cores', () => {
+  it('keeps hot and solar stars white while retaining more color in cool stars', () => {
+    expect(starCoreWhiteStrength({ type: 'star', temperature_k: 9845, spectral_type: 'A1V' })).toBe(1)
+    expect(starCoreWhiteStrength({ type: 'star', temperature_k: 5772, spectral_type: 'G2V' })).toBe(1)
+    expect(starCoreWhiteStrength({ type: 'star', temperature_k: 4000, spectral_type: 'K7V' })).toBe(0.4)
+    expect(starCoreWhiteStrength({ type: 'star', temperature_k: 3000, spectral_type: 'M5V' })).toBeCloseTo(0.233)
+    expect(starCoreWhiteStrength({ type: 'star', temperature_k: null, spectral_type: 'M4V' })).toBeCloseTo(0.317)
+  })
+
+  it('gives brown dwarfs only a small white lift and handles missing temperatures conservatively', () => {
+    expect(starCoreWhiteStrength({ type: 'brown_dwarf', temperature_k: 1400, spectral_type: 'L8' })).toBe(0.08)
+    expect(starCoreWhiteStrength({ type: 'sub_brown_dwarf', temperature_k: null, spectral_type: 'Y1' })).toBe(0.08)
+    expect(starCoreWhiteStrength({ type: 'white_dwarf', temperature_k: null, spectral_type: 'DA7' })).toBe(1)
+    expect(starCoreWhiteStrength({ type: 'star', temperature_k: null, spectral_type: null })).toBe(1)
   })
 })
 

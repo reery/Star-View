@@ -47,6 +47,17 @@ export function starBlocksLabels(tier: ReturnType<typeof visibilityTier>): boole
   return tier !== 'background'
 }
 
+export function starCoreWhiteStrength(star: Pick<Star, 'type' | 'temperature_k' | 'spectral_type'>): number {
+  if (star.type === 'brown_dwarf' || star.type === 'sub_brown_dwarf') return 0.08
+  const spectralClass = star.type === 'star' ? star.spectral_type?.match(/([OBAFGKM])/)?.[1] : undefined
+  const temperature = star.temperature_k ?? (spectralClass === 'M' ? 3500 : null)
+  if (temperature === null || !Number.isFinite(temperature) || temperature >= 5000) return 1
+  if (temperature <= 4000) {
+    return 0.15 + 0.25 * Math.max(0, Math.min(1, (temperature - 2500) / 1500))
+  }
+  return 0.4 + 0.6 * (temperature - 4000) / 1000
+}
+
 export function isObjectMapVisible(
   star: Pick<Star, 'id' | 'type'>,
   selectedTypes: ReadonlySet<ObjectType>,

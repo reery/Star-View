@@ -144,6 +144,15 @@ describe('temperature color', () => {
     expect(cool.getHex()).not.toBe(warm.getHex())
   })
 
+  it('offers a stronger display palette without changing the real temperature mapping', () => {
+    expect(temperatureToColor(5772).getHex()).toBe(0xffe6bc)
+    expect(temperatureToColor(5772, 'exaggerated').getHex()).toBe(0xffcc4f)
+    expect(temperatureToColor(9845).getHex()).toBe(0xbad6ff)
+    expect(temperatureToColor(9845, 'exaggerated').getHex()).toBe(0x75a9ff)
+    expect(starDisplayColor(sun!, 'exaggerated').equals(temperatureToColor(5772, 'exaggerated'))).toBe(true)
+    expect(starDisplayColor(sirius!, 'exaggerated').equals(temperatureToColor(9845, 'exaggerated'))).toBe(true)
+  })
+
   it.each([200, 250, 500, 1000, 3000, 5772, 6500, 9845, 20000, 40000, 100000])('returns finite in-range RGB for %s K', (temperature) => {
     for (const channel of temperatureToColor(temperature).toArray()) {
       expect(channel).toBeGreaterThanOrEqual(0)
