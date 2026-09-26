@@ -1,5 +1,5 @@
 import './style.css'
-import { Focus, Grid2X2, Orbit, ZoomIn, ZoomOut, createElement, type IconNode } from 'lucide'
+import { Filter, Focus, Grid2X2, List, Settings2, ZoomIn, ZoomOut, createElement, type IconNode } from 'lucide'
 import { describeObject, OBJECT_TYPES, objectTypeLabel, type ObjectType, type Star } from './catalog-model'
 import { catalogSelection, mergeCatalogStars } from './catalog-runtime'
 import { catalogs, catalogErrors } from './registry'
@@ -33,11 +33,13 @@ function measurement(value: number | null, error: number | null, unit: string, m
   return `${formatted}${uncertainty} ${unit}`
 }
 
-icon('brand-icon', Orbit)
 icon('reset-icon', Focus)
 icon('grid-icon', Grid2X2)
 icon('zoom-in-icon', ZoomIn)
 icon('zoom-out-icon', ZoomOut)
+icon('filter-icon', Filter)
+icon('preferences-icon', Settings2)
+icon('objects-icon', List)
 
 const events = new AbortController()
 let viewer: StarViewer | undefined
@@ -61,6 +63,21 @@ try {
   if (localStorage.getItem('star-view-distance-unit') === 'pc') distanceUnit = 'pc'
 } catch {}
 const viewButtons = ['reset-view', 'toggle-grid', 'zoom-in', 'zoom-out'].map((id) => element<HTMLButtonElement>(id))
+const panelNames = ['filter', 'preferences', 'objects'] as const
+
+function togglePanel(name: typeof panelNames[number]): void {
+  const opening = element<HTMLButtonElement>(`${name}-toggle`).getAttribute('aria-expanded') !== 'true'
+  for (const candidate of panelNames) {
+    const active = opening && candidate === name
+    element<HTMLButtonElement>(`${candidate}-toggle`).setAttribute('aria-expanded', String(active))
+    element(`${candidate}-panel`).hidden = !active
+  }
+  if (opening) {
+    element<HTMLDetailsElement>('object-card-details').open = false
+    element('control-dock').dataset.open = name
+  }
+  else delete element('control-dock').dataset.open
+}
 
 function sceneStatus(message: string | null): void {
   const status = element('scene-status')
@@ -73,8 +90,8 @@ function renderSelection(): void {
   const sun = stars.find((star) => star.id === 'sun')!
   const star = stars.find((candidate) => candidate.id === selectedId)
   text('visibility-base', stars.find((candidate) => candidate.id === observerId)?.name ?? 'Sun')
+  element('selected-object-card').hidden = !star
   element('star-details').hidden = !star
-  element('selection-empty').hidden = Boolean(star)
   objectList.setSelected(selectedId)
   if (!star) {
     delete element('inspector').dataset.selectedStar
@@ -291,6 +308,16 @@ element('object-type-filter').addEventListener('change', (event) => {
   renderObjectTypeSummary()
   viewer?.setObjectTypeFilter([...selectedTypes])
 }, { signal: events.signal })
+for (const name of panelNames) {
+  element(`${name}-toggle`).addEventListener('click', () => togglePanel(name), { signal: events.signal })
+}
+document.addEventListener('keydown', (event) => {
+  if (event.key !== 'Escape') return
+  const open = panelNames.find((name) => element(`${name}-toggle`).getAttribute('aria-expanded') === 'true')
+  if (!open) return
+  togglePanel(open)
+  element(`${open}-toggle`).focus()
+}, { signal: events.signal })
 element('reset-view').addEventListener('click', () => viewer?.reset(), { signal: events.signal })
 element('toggle-grid').addEventListener('click', () => {
   if (!viewer) return
@@ -300,7 +327,6 @@ element('toggle-grid').addEventListener('click', () => {
   button.setAttribute('aria-pressed', String(gridVisible))
   text('grid-tooltip', gridVisible ? 'Hide grid' : 'Show grid')
   element('grid-legend').hidden = !gridVisible
-  element('plane-key').hidden = !gridVisible
 }, { signal: events.signal })
 element('zoom-in').addEventListener('click', () => viewer?.zoom('in'), { signal: events.signal })
 element('zoom-out').addEventListener('click', () => viewer?.zoom('out'), { signal: events.signal })

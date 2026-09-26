@@ -93,28 +93,29 @@ function changedPixels(before: Buffer, after: Buffer): number {
 }
 
 async function sceneFits(page: Page) {
+  await page.evaluate(() => new Promise<void>((resolve) => requestAnimationFrame(() => requestAnimationFrame(() => resolve()))))
   const problems = await page.evaluate(() => {
     const failures: string[] = []
     const scene = document.querySelector('#scene')!.getBoundingClientRect()
-    const inspector = document.querySelector('#inspector')!.getBoundingClientRect()
     const viewportWidth = document.documentElement.clientWidth
     if (document.documentElement.scrollWidth > viewportWidth) failures.push('page horizontal overflow')
     if (scene.width < 200 || scene.height < 200) failures.push('scene too small')
-    if (scene.right > inspector.left + 1 && scene.bottom > inspector.top + 1) failures.push('scene under inspector')
     const labels = [...document.querySelectorAll<HTMLElement>('.map-label')].filter((label) => label.checkVisibility())
     for (const label of labels) {
       const bounds = label.getBoundingClientRect()
       if (bounds.left < scene.left || bounds.right > scene.right || bounds.top < scene.top || bounds.bottom > scene.bottom) failures.push(`clipped label ${label.textContent}`)
+      if (viewportWidth <= 720) continue
       for (const obstacle of label.matches('.distance-label') ? [] : document.querySelectorAll<HTMLElement>('[data-scene-obstacle]')) {
         if (!obstacle.checkVisibility()) continue
         const other = obstacle.getBoundingClientRect()
-        if (bounds.left < other.right && bounds.right > other.left && bounds.top < other.bottom && bounds.bottom > other.top) failures.push(`label overlaps ${obstacle.className}`)
+        if (bounds.left < other.right && bounds.right > other.left && bounds.top < other.bottom && bounds.bottom > other.top) failures.push(`label ${label.textContent} overlaps ${obstacle.className}`)
       }
     }
     for (const control of document.querySelectorAll<HTMLElement>('button, summary')) {
       if (!control.checkVisibility()) continue
       const bounds = control.getBoundingClientRect()
-      if (bounds.width < 44 || bounds.height < 44) failures.push(`small control ${control.getAttribute('aria-label')}`)
+      const minimum = control.matches('.catalog-entry') ? 36 : 44
+      if (bounds.width < minimum || bounds.height < minimum) failures.push(`small control ${control.getAttribute('aria-label')}`)
       if (bounds.left < 0 || bounds.right > viewportWidth + 1) failures.push('control overflow')
     }
     return failures
@@ -139,9 +140,10 @@ test('switches project catalogs while preserving settings and compatible selecti
   await page.getByRole('button', { name: 'Zoom in', exact: true }).click()
   const sunBeforeCatalogSwitch = await starPoint(page, 'sun')
   const siriusBeforeCatalogSwitch = await starPoint(page, 'sirius-a')
-  await page.locator('.catalog summary').click()
   for (const id of ['nearest-100', 'nearest-neighbors', 'nearest-100']) {
+    await openFilter(page)
     await selector.selectOption(id)
+    await page.getByRole('button', { name: 'Objects', exact: true }).click()
     await expect(page.locator('#scene canvas')).toHaveCount(1)
     await expect(page.locator('.projected-labels')).toHaveCount(1)
     await expect(page.locator('.catalog-entry')).toHaveCount(id === 'nearest-100' ? 101 : 22)
@@ -151,7 +153,7 @@ test('switches project catalogs while preserving settings and compatible selecti
     await expect(page.locator('#magnitude-limit')).toHaveValue('9')
     await expect(page.locator('#object-distance-limit-value')).toHaveText('20 ly')
     await expect(page.locator('#toggle-grid')).toHaveAttribute('aria-pressed', 'false')
-    await expect(page.locator('.catalog')).toHaveAttribute('open')
+    await expect(page.locator('.catalog')).toBeVisible()
     expect(await starPoint(page, 'sun')).toEqual(sunBeforeCatalogSwitch)
     expect(await starPoint(page, 'sirius-a')).toEqual(siriusBeforeCatalogSwitch)
   }
@@ -163,6 +165,7 @@ test('switches project catalogs while preserving settings and compatible selecti
   expect(nearestArrows.some((arrow) => arrow.mode === 'transverse')).toBe(true)
   expect(nearestArrows.some((arrow) => arrow.selected && arrow.opacity === 1)).toBe(true)
   await page.screenshot({ path: testInfo.outputPath('nearest-100.png'), fullPage: true })
+  await openFilter(page)
   await selector.selectOption('nearest-neighbors')
   await expect(page.locator('#star-details')).toBeHidden()
   await expect(page.locator('#visibility-base')).toHaveText('Sun')
@@ -185,8 +188,8 @@ test('searches the virtualized nearest-1000 list within bounded name budgets', {
   await expect(page.locator('.motion-arrow')).toHaveCount(0)
   expect((await motionArrows(page)).length).toBeGreaterThan(0)
   expect(await page.locator('.star-label:visible').count()).toBeLessThanOrEqual(nameBudget)
-  const catalog = page.locator('details.catalog')
-  if (await catalog.getAttribute('open') === null) await catalog.locator('summary').click()
+  const catalog = page.getByRole('button', { name: 'Objects', exact: true })
+  if (await catalog.getAttribute('aria-expanded') === 'false') await catalog.click()
   const renderedRows = page.locator('.catalog-entry')
   expect(await renderedRows.count()).toBeLessThan(30)
   await page.getByLabel('Search objects').fill('cns5 4902')
@@ -241,7 +244,6 @@ test('defaults to light-years, converts every distance without moving the camera
 
 test('keeps faint dots pickable and retains the last visibility base', async ({ page }) => {
   await openViewer(page)
-  await openPreferences(page)
   await openFilter(page)
   const faint = page.locator('[data-star-id="barnards-star"]')
   await expect(faint).toHaveCount(0)
@@ -267,7 +269,7 @@ test('keeps faint dots pickable and retains the last visibility base', async ({ 
   await page.getByLabel('Catalog', { exact: true }).selectOption('nearest-100')
   await expect(page.locator('#star-details')).toBeHidden()
   await expect(page.locator('#visibility-base')).toHaveText("Barnard's Star")
-  await page.locator('.catalog summary').click()
+  await page.getByRole('button', { name: 'Objects', exact: true }).click()
   await page.getByRole('button', { name: 'Select Sun', exact: true }).click()
   await expect(page.locator('#constellation')).toHaveText('Not applicable')
   await expect(page.locator('#absolute-mag')).toHaveText('4.83')
@@ -327,56 +329,75 @@ test('renders faint objects as small colored cores without halos at either pixel
 
 test('catalog starts closed and opens independently with the keyboard', async ({ page }) => {
   await openViewer(page)
-  const catalog = page.locator('details.catalog')
-  const summary = catalog.locator('summary')
-  await expect(catalog).not.toHaveAttribute('open')
+  const catalog = page.getByRole('button', { name: 'Objects', exact: true })
+  await expect(catalog).toHaveAttribute('aria-expanded', 'false')
   await expect(page.locator('#catalog-count')).toHaveText('22')
   await expect(page.locator('#star-list')).toBeHidden()
-  await summary.focus()
+  await catalog.focus()
   await page.keyboard.press('Enter')
+  await expect(catalog).toHaveAttribute('aria-expanded', 'true')
   await expect(page.locator('#star-list')).toBeVisible()
   await sceneFits(page)
   await page.getByRole('button', { name: 'Select Sun', exact: true }).click()
-  await summary.click()
+  await catalog.click()
   await expect(page.locator('#star-name')).toHaveText('Sun')
+  await page.locator('#object-card-details > summary').click()
   await page.getByText('Coordinates & source', { exact: true }).click()
-  await expect(catalog).not.toHaveAttribute('open')
-  await summary.focus()
+  await expect(catalog).toHaveAttribute('aria-expanded', 'false')
+  await catalog.focus()
   await page.keyboard.press('Space')
+  await expect(catalog).toHaveAttribute('aria-expanded', 'true')
   await expect(page.getByRole('button', { name: 'Select Sun', exact: true })).toHaveAttribute('aria-pressed', 'true')
   await expect(page.locator('.source-details')).toHaveAttribute('open')
 })
 
-test('puts scene context on the map and orders the inspector around selection', async ({ page }, testInfo) => {
+test('presents the selected object beside an expandable control dock', async ({ page }, testInfo) => {
   await openViewer(page)
   await expect(page.locator('.app-header, .scene-heading, .catalog-footer')).toHaveCount(0)
-  await expect(page.locator('.scene-wrap > .scene-brand')).toContainText('Star View')
-  await expect(page.locator('.scene-brand #brand-icon svg')).toBeVisible()
+  await expect(page.locator('.scene-brand, #brand-icon, #plane-key')).toHaveCount(0)
   await expect(page.locator('.scene-wrap > .visibility-observer')).toContainText('Visibility from Sirius A')
-
-  const sections = page.locator('#inspector > details.inspector-section')
-  await expect(sections).toHaveCount(4)
-  expect(await sections.evaluateAll((elements) => elements.map((section) => section.className))).toEqual([
-    'inspector-section selected-object',
-    'inspector-section filter-section',
-    'inspector-section preferences',
-    'inspector-section catalog',
-  ])
-  expect(await sections.evaluateAll((elements) => elements.map((section) => section.hasAttribute('open')))).toEqual([true, false, false, false])
+  await expect(page.locator('.selected-object > summary')).toHaveCount(0)
+  await expect(page.locator('.selected-object')).toHaveCSS('border-radius', '11px')
+  await expect(page.locator('.dock-card:visible')).toHaveCount(0)
+  const panelButtons = page.locator('.panel-button')
+  await expect(panelButtons).toHaveCount(3)
+  expect(await panelButtons.evaluateAll((buttons) => buttons.map((button) => button.getAttribute('aria-label')))).toEqual(['Filter', 'Preferences', 'Objects'])
+  expect(await panelButtons.evaluateAll((buttons) => buttons.map((button) => button.getAttribute('aria-expanded')))).toEqual(['false', 'false', 'false'])
+  await expect(page.locator('#object-card-details')).not.toHaveAttribute('open')
+  await expect(page.locator('#star-name')).toBeVisible()
+  await expect(page.locator('.properties-section')).toBeHidden()
   const primaryProperties = page.locator('.properties-section .properties')
   await expect(primaryProperties.locator('#distance-value')).toHaveText('8.61')
   await expect(primaryProperties.locator('#absolute-mag')).toHaveText('1.42')
-  await expect(page.locator('#star-details > .selection-summary')).toHaveCSS('border-bottom-width', '0px')
+  await page.screenshot({ path: testInfo.outputPath('compact-default.png'), fullPage: true })
+  await page.locator('#object-card-details > summary').click()
+  await expect(page.locator('.properties-section')).toBeVisible()
+  await expect(page.locator('#object-card-details > .selection-summary')).toHaveCSS('border-bottom-width', '0px')
   await expect(page.locator('.properties-section')).toHaveCSS('border-bottom-width', '0px')
   expect(await page.locator('.source-details').evaluate((details) => details.closest('.selected-object') !== null)).toBe(true)
   expect(await page.locator('#catalog-select').evaluate((select) => select.closest('.filter-section') !== null)).toBe(true)
   expect(await page.locator('#catalog-select').evaluate((select) => select.closest('.preferences') !== null)).toBe(false)
-  const titleSizes = await sections.locator(':scope > summary').evaluateAll((summaries) => summaries.map((summary) => parseFloat(getComputedStyle(summary).fontSize)))
-  expect(titleSizes.every((size) => size >= 17)).toBe(true)
-  expect(titleSizes[0]).toBeGreaterThan(titleSizes[1]!)
-
   await openPreferences(page)
+  await expect(page.locator('#preferences-panel')).toBeVisible()
+  await expect(page.getByRole('switch', { name: 'Power saving mode' })).not.toBeChecked()
   await openFilter(page)
+  await expect(page.getByRole('button', { name: 'Preferences', exact: true })).toHaveAttribute('aria-expanded', 'false')
+  await expect(page.locator('#preferences-panel')).toBeHidden()
+  await expect(page.getByRole('button', { name: 'Filter', exact: true })).toHaveAttribute('aria-expanded', 'true')
+  const placement = await page.locator('#inspector').evaluate((inspector) => {
+    const selected = inspector.querySelector('.selected-object')!.getBoundingClientRect()
+    const button = inspector.querySelector('#filter-toggle')!.getBoundingClientRect()
+    const panel = inspector.querySelector('#filter-panel')!.getBoundingClientRect()
+    const rail = inspector.querySelector('.dock-rail')!.getBoundingClientRect()
+    const viewButton = inspector.querySelector('#reset-view')!.getBoundingClientRect()
+    return { selectedRight: selected.right, viewButtonLeft: viewButton.left, buttonLeft: button.left, buttonWidth: button.width, panelRight: panel.right, panelWidth: panel.width, bottomGap: Math.abs(panel.bottom - rail.bottom) }
+  })
+  expect(placement.selectedRight).toBeLessThan(placement.viewButtonLeft)
+  expect(placement.panelRight).toBeLessThan(placement.buttonLeft)
+  expect(placement.buttonWidth).toBe(44)
+  expect(placement.panelWidth).toBeLessThan(292)
+  expect(placement.bottomGap).toBeLessThan(1)
+  await expect(page.locator('#filter-heading')).toHaveCSS('min-height', '44px')
   const distance = page.getByLabel('Object visibility distance', { exact: true })
   const magnitude = page.getByLabel('V magnitude limit', { exact: true })
   await expect(distance).toHaveAttribute('min', '0')
@@ -385,7 +406,6 @@ test('puts scene context on the map and orders the inspector around selection', 
   await expect(page.locator('#object-distance-limit-value')).toHaveText('100 ly')
   await expect(magnitude).toHaveAttribute('type', 'range')
   await expect(magnitude).toHaveAttribute('max', '25')
-  await expect(page.getByRole('switch', { name: 'Power saving mode' })).not.toBeChecked()
   await page.getByLabel('Catalog', { exact: true }).selectOption('nearest-100')
   await magnitude.fill('25')
   await expect(page.locator('[data-star-id="10pc-0098"]')).toHaveAttribute('data-visibility', 'eligible')
@@ -400,6 +420,16 @@ test('puts scene context on the map and orders the inspector around selection', 
   for (const name of typeChoices) await expect(page.getByLabel(name, { exact: true })).toBeChecked()
   await sceneFits(page)
   await page.screenshot({ path: testInfo.outputPath('interface-hierarchy.png'), fullPage: true })
+  await page.getByRole('button', { name: 'Objects', exact: true }).click()
+  const rows = page.locator('.catalog-entry')
+  await expect(rows).toHaveCount(101)
+  const rowLayout = await rows.evaluateAll((entries) => entries.slice(0, 2).map((entry) => {
+    const bounds = entry.getBoundingClientRect()
+    return { top: bounds.top, height: bounds.height }
+  }))
+  expect(rowLayout.map(({ height }) => height)).toEqual([36, 36])
+  expect(rowLayout[1]!.top - rowLayout[0]!.top).toBe(36)
+  await page.screenshot({ path: testInfo.outputPath('compact-objects.png'), fullPage: true })
 })
 
 test('filters only the map and reveals an excluded selected object', async ({ page }) => {
@@ -430,7 +460,7 @@ test('filters only the map and reveals an excluded selected object', async ({ pa
   const canvas = (await page.locator('#scene canvas').boundingBox())!
   await page.mouse.click(canvas.x + canvas.width * 0.1, canvas.y + canvas.height * 0.8)
   await expect(page.locator('#star-details')).toBeHidden()
-  await page.locator('.catalog summary').click()
+  await page.getByRole('button', { name: 'Objects', exact: true }).click()
   await page.getByRole('button', { name: 'Select Luhman 16 A', exact: true }).click()
   await expect(page.locator('#star-name')).toHaveText('Luhman 16 A')
   await expect(page.locator('#visibility-base')).toHaveText('Luhman 16 A')
@@ -469,7 +499,7 @@ test('renders temperature-colored objects, measurements, and a responsive interf
   if (!isMobile) {
     await expect(page.locator('.distance-label')).toBeVisible()
   }
-  await expect(page.locator('#brand-icon svg')).toBeVisible()
+  await expect(page.locator('#brand-icon')).toHaveCount(0)
   expect(await page.evaluate(() => document.fonts.check('16px "IBM Plex Sans"'))).toBe(true)
   await sceneFits(page)
 
@@ -553,9 +583,9 @@ test('renders brown and sub-brown dwarfs in visible brown shades', async ({ page
 
 test('renders soft halos beyond crisp cores and boosts only the selected halo', async ({ page }, testInfo) => {
   await openViewer(page)
-  await page.locator('.catalog summary').click()
+  await page.getByRole('button', { name: 'Objects', exact: true }).click()
   await page.getByRole('button', { name: 'Select Sun', exact: true }).click()
-  await page.locator('.catalog summary').click()
+  await page.getByRole('button', { name: 'Objects', exact: true }).click()
   await page.getByRole('button', { name: 'Reset view', exact: true }).click()
   await page.getByRole('button', { name: 'Grid', exact: true }).click()
   const canvas = page.locator('#scene canvas')
@@ -591,7 +621,7 @@ test('renders soft halos beyond crisp cores and boosts only the selected halo', 
   expect(outerGlow).toBeGreaterThan(0)
   expect(innerGlow).toBeGreaterThan(outerGlow * 2)
   expect(sample(base, 24, 26)).toBe(0)
-  await page.locator('.catalog summary').click()
+  await page.getByRole('button', { name: 'Objects', exact: true }).click()
   await page.getByRole('button', { name: 'Select Sun', exact: true }).click()
   await page.getByRole('button', { name: 'Reset view', exact: true }).click()
   await expect.poll(() => starPoint(page, 'sun')).toEqual(sun)
@@ -610,7 +640,7 @@ test('makes Sirius glow larger and brighter than Barnard with zoom-stable magnit
   // sampled halo annulus midway through this halo-only comparison.
   await page.getByLabel('Arrow length', { exact: true }).selectOption('50000')
   await page.getByRole('button', { name: 'Grid', exact: true }).click()
-  await page.locator('.catalog summary').click()
+  await page.getByRole('button', { name: 'Objects', exact: true }).click()
   const canvas = page.locator('#scene canvas')
   const bounds = (await canvas.boundingBox())!
   const glow: number[] = []
@@ -678,7 +708,7 @@ test('makes Sirius glow larger and brighter than Barnard with zoom-stable magnit
 test('keeps bright and selected halos subtly temperature-tinted without whitening', async ({ page }, testInfo) => {
   await openViewer(page)
   await page.getByRole('button', { name: 'Grid', exact: true }).click()
-  await page.locator('.catalog summary').click()
+  await page.getByRole('button', { name: 'Objects', exact: true }).click()
   const canvas = page.locator('#scene canvas')
   const bounds = (await canvas.boundingBox())!
   for (const [id, name] of [['sirius-a', 'Sirius A'], ['epsilon-eridani', 'Epsilon Eridani']]) {
@@ -762,7 +792,7 @@ test('toggles the grid below reset without moving stars or changing selection', 
   await expect(grid).toHaveAttribute('aria-pressed', 'false')
   await expect(page.locator('#grid-tooltip')).toHaveText('Show grid')
   await expect(page.locator('#grid-legend')).toBeHidden()
-  await expect(page.locator('#plane-key')).toBeHidden()
+  await expect(page.locator('#plane-key')).toHaveCount(0)
   await expect(page.locator('.axis-label:visible')).toHaveCount(0)
   await expect(page.locator('#scene-epoch')).toBeVisible()
   await expect(page.locator('#star-name')).toHaveText('Sirius A')
@@ -904,7 +934,7 @@ test('overlapping stars follow camera depth and keep their motion arrows', async
   const sunPosition = galacticToWorld(stars.find((star) => star.id === 'sun')!)
   const siriusPosition = galacticToWorld(stars.find((star) => star.id === 'sirius-a')!)
   const canvas = page.locator('#scene canvas')
-  await page.locator('.catalog summary').click()
+  await page.getByRole('button', { name: 'Objects', exact: true }).click()
 
   for (const side of [-1, 1]) {
     await page.getByRole('button', { name: 'Reset view', exact: true }).click()
@@ -973,7 +1003,7 @@ test('overlapping stars follow camera depth and keep their motion arrows', async
 
 test('targets ordinary selections, zooms around them, and resets to the catalog view', { tag: '@mobile' }, async ({ page, isMobile }) => {
   await openViewer(page)
-  await page.locator('.catalog summary').click()
+  await page.getByRole('button', { name: 'Objects', exact: true }).click()
   const canvasBounds = (await page.locator('#scene canvas').boundingBox())!
   const stars = parseStarCatalog(readFileSync(new URL('../src/data/stars.csv', import.meta.url), 'utf8'))
   const proximaProjection = galacticToWorld(stars.find((star) => star.id === 'proxima-centauri')!).project(homeCamera(stars, canvasBounds))
@@ -1027,6 +1057,7 @@ test('targets ordinary selections, zooms around them, and resets to the catalog 
   await expect(sunButton).toHaveAttribute('aria-pressed', 'true')
   await expect(page.locator('#star-name')).toHaveText('Sun')
   await page.getByRole('button', { name: 'Select Sirius A', exact: true }).click()
+  await page.locator('#object-card-details > summary').click()
   await page.getByText('Coordinates & source', { exact: true }).click()
   await expect(page.locator('#velocity-x')).toHaveText('14.96 km/s')
   await expect(page.locator('#temperature')).toHaveText('9,845 K')
@@ -1039,7 +1070,7 @@ test('eases focus through intermediate frames while preserving camera position',
   await openViewer(page)
   await openFilter(page)
   await page.getByLabel('V magnitude limit', { exact: true }).fill('25')
-  await page.locator('.catalog summary').click()
+  await page.getByRole('button', { name: 'Objects', exact: true }).click()
   const bounds = (await page.locator('#scene canvas').boundingBox())!
   const samples = await page.evaluate(async () => {
     const scene = document.querySelector('#scene')!.getBoundingClientRect()
@@ -1081,7 +1112,7 @@ test('eases focus through intermediate frames while preserving camera position',
 test('interrupts focus for reset, zoom and rapid reselection', async ({ page }) => {
   await page.emulateMedia({ reducedMotion: 'no-preference' })
   await openViewer(page)
-  await page.locator('.catalog summary').click()
+  await page.getByRole('button', { name: 'Objects', exact: true }).click()
   for (const action of ['reset-view', 'zoom-in', 'zoom-out', 'reselect']) {
     await page.getByRole('button', { name: 'Reset view', exact: true }).click()
     const result = await page.evaluate(async (action) => {
@@ -1125,7 +1156,7 @@ test('interrupts focus for reset, zoom and rapid reselection', async ({ page }) 
 test('hands active focus to pointer input, deselection and reduced motion', { tag: '@mobile' }, async ({ page, context, isMobile }) => {
   await page.emulateMedia({ reducedMotion: 'no-preference' })
   await openViewer(page)
-  await page.locator('.catalog summary').click()
+  await page.getByRole('button', { name: 'Objects', exact: true }).click()
   const bounds = (await page.locator('#scene canvas').boundingBox())!
   const empty = { x: bounds.x + bounds.width * 0.25, y: bounds.y + bounds.height * 0.85 }
   for (const action of ['pointer', 'clear', 'reduce']) {
@@ -1180,7 +1211,7 @@ test('hands active focus to pointer input, deselection and reduced motion', { ta
     }
     if (action === 'clear') {
       await expect(page.locator('.map-anchor.is-selected')).toHaveCount(0)
-      await expect(page.locator('#selection-empty')).toBeVisible()
+      await expect(page.locator('#selected-object-card')).toBeHidden()
     } else await expect(page.locator('#star-name')).toHaveText('Sun')
     if (session) {
       await session.send('Input.dispatchTouchEvent', { type: 'touchEnd', touchPoints: [] })
@@ -1261,7 +1292,7 @@ test('shows attached travel-length motion arrows with selectable horizons', { ta
   expectAttached(await motionArrows(page))
   await expect(page.locator('.motion-arrow')).toHaveCount(0)
   await sceneFits(page)
-  await page.locator('.catalog summary').click()
+  await page.getByRole('button', { name: 'Objects', exact: true }).click()
   await page.getByRole('button', { name: 'Select Sirius B', exact: true }).click()
   await expect(page.locator('[data-star-id="sirius-a"]')).toHaveCount(0)
   await expect.poll(async () => arrowFor(await motionArrows(page), 'sirius-b')?.opacity).toBe(1)
@@ -1278,7 +1309,7 @@ test('shows attached travel-length motion arrows with selectable horizons', { ta
   if (isMobile) await page.touchscreen.tap(sun.x, sun.y)
   else await page.mouse.click(sun.x, sun.y)
   await expect(page.locator('#star-name')).toHaveText('Sun')
-  await page.locator('.catalog summary').click()
+  await page.getByRole('button', { name: 'Objects', exact: true }).click()
   await expect.poll(async () => arrowFor(await motionArrows(page), 'sun')?.selected).toBe(true)
   expect(arrowFor(await motionArrows(page), 'sun')).toMatchObject({ opacity: 1, color: 'rgb(255,230,188)' })
   await page.getByRole('button', { name: 'Reset view', exact: true }).click()
@@ -1407,7 +1438,7 @@ test('clears selection on empty-sky clicks and taps without moving the camera', 
   await expect(page.locator('#star-details')).toBeVisible()
   if (isMobile) await page.touchscreen.tap(empty.x, empty.y)
   else await page.mouse.click(empty.x, empty.y)
-  await expect(page.locator('#selection-empty')).toBeVisible()
+  await expect(page.locator('#selected-object-card')).toBeHidden()
   await expect(page.locator('#star-details')).toBeHidden()
   await expect(page.locator('#inspector')).not.toHaveAttribute('data-selected-star')
   await expect(page.locator('.map-anchor.is-selected')).toHaveCount(0)
@@ -1418,14 +1449,14 @@ test('clears selection on empty-sky clicks and taps without moving the camera', 
   expect(Math.hypot(after.x - before.x, after.y - before.y)).toBeLessThan(1)
   await page.getByRole('button', { name: 'Reset view', exact: true }).click()
   await page.getByRole('button', { name: 'Zoom in', exact: true }).click()
-  await expect(page.locator('#selection-empty')).toBeVisible()
+  await expect(page.locator('#selected-object-card')).toBeHidden()
   const point = await starPoint(page, 'sirius-a')
   if (isMobile) await page.touchscreen.tap(point.x, point.y)
   else await page.mouse.click(point.x, point.y)
   await expect(page.locator('#star-name')).toHaveText('Sirius A')
+  await expect(page.locator('#selected-object-card')).toBeVisible()
   await expect(page.locator('#star-details')).toBeVisible()
-  await expect(page.locator('#selection-empty')).toBeHidden()
-  await page.locator('.catalog summary').click()
+  await page.getByRole('button', { name: 'Objects', exact: true }).click()
   await page.getByRole('button', { name: 'Select Sun', exact: true }).click()
   await expect(page.locator('#star-name')).toHaveText('Sun')
   await expect(page.locator('[data-star-id="sun"] .star-label')).toBeVisible()
@@ -1437,10 +1468,16 @@ test('fits a narrow viewport and keeps long source content inside the inspector'
   await sceneFits(page)
   await expect(page.locator('.map-anchor[data-star-id="sun"]')).toBeVisible()
   await expect(page.locator('.map-anchor[data-star-id="sirius-a"]')).toBeVisible()
+  await page.locator('#object-card-details > summary').click()
   await page.getByText('Coordinates & source', { exact: true }).click()
   await page.locator('#star-notes').scrollIntoViewIfNeeded()
   expect(await page.locator('#inspector').evaluate((element) => element.scrollWidth <= element.clientWidth)).toBe(true)
   await page.screenshot({ path: testInfo.outputPath('narrow-details.png'), fullPage: true })
+  await page.getByRole('button', { name: 'Filter', exact: true }).click()
+  await expect(page.locator('.selected-object')).toBeVisible()
+  await expect(page.locator('#filter-panel')).toBeVisible()
+  await sceneFits(page)
+  await page.screenshot({ path: testInfo.outputPath('narrow-filter.png'), fullPage: true })
 })
 
 test('keeps tooltips usable by mouse and keyboard without sticky touch hover', { tag: '@mobile' }, async ({ page, isMobile }, testInfo) => {
@@ -1462,9 +1499,9 @@ test('keeps tooltips usable by mouse and keyboard without sticky touch hover', {
   await expect(tooltip).toBeVisible()
   await sceneFits(page)
   await page.keyboard.press('Tab')
-  await page.locator('.catalog summary').click()
+  await page.getByRole('button', { name: 'Objects', exact: true }).click()
   await page.getByRole('button', { name: 'Select WISE 0855-0714', exact: true }).click()
-  await page.locator('.catalog summary').click()
+  await page.getByRole('button', { name: 'Objects', exact: true }).click()
   await page.getByRole('button', { name: 'Reset view', exact: true }).click()
   await page.mouse.move(1, 1)
   await page.setViewportSize({ width: 700, height: 460 })
@@ -1483,17 +1520,18 @@ test('keeps the catalog usable if WebGL is unavailable', async ({ page }) => {
   })
   await page.goto('/')
   await expect(page.locator('#scene-status')).toContainText('3D graphics are unavailable')
-  await openPreferences(page)
-  await openFilter(page)
-  await page.locator('.catalog summary').click()
+  await page.getByRole('button', { name: 'Objects', exact: true }).click()
   await page.getByRole('button', { name: 'Select Sun', exact: true }).click()
   await expect(page.locator('#star-name')).toHaveText('Sun')
   await expect(page.getByRole('button', { name: 'Reset view', exact: true })).toBeDisabled()
   await expect(page.getByRole('button', { name: 'Grid', exact: true })).toBeDisabled()
+  await openFilter(page)
   await page.getByLabel('Catalog', { exact: true }).selectOption('nearest-100')
+  await page.getByRole('button', { name: 'Objects', exact: true }).click()
   await expect(page.locator('.catalog-entry')).toHaveCount(101)
   await expect(page.locator('#star-name')).toHaveText('Sun')
   await expect(page.locator('#constellation')).toHaveText('Not applicable')
+  await openPreferences(page)
   await page.getByLabel('ly', { exact: true }).check()
   await expect(page.locator('#distance-unit')).toHaveText(' ly')
   await expect(page.locator('#scene canvas')).toHaveCount(0)

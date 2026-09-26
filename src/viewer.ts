@@ -938,7 +938,7 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
     }
     selectedLabelObstacles.length = 0
     for (const obstacle of obstacles) {
-      if (obstacle.element.matches('.scene-brand, .scene-toolbar, .scene-legend, .plane-key, .visibility-observer')) {
+      if (obstacle.element.matches('.selected-object, .scene-toolbar, .control-dock, .scene-legend, .visibility-observer')) {
         selectedLabelObstacles.push(obstacle.bounds)
       }
     }

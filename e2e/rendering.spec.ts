@@ -95,13 +95,13 @@ function remeasuredStars(before: RenderingStats, after: RenderingStats, allowed:
 }
 
 async function openPreferences(page: Page) {
-  const preferences = page.locator('details.preferences')
-  if (await preferences.getAttribute('open') === null) await preferences.locator('summary').click()
+  const button = page.getByRole('button', { name: 'Preferences', exact: true })
+  if (await button.getAttribute('aria-expanded') === 'false') await button.click()
 }
 
 async function openFilter(page: Page) {
-  const filter = page.locator('details.filter-section')
-  if (await filter.getAttribute('open') === null) await filter.locator(':scope > summary').click()
+  const button = page.getByRole('button', { name: 'Filter', exact: true })
+  if (await button.getAttribute('aria-expanded') === 'false') await button.click()
 }
 
 async function canvasPixelRatio(page: Page) {
@@ -241,8 +241,8 @@ test('coalesces virtual-list scroll renders and skips unchanged ranges', async (
   await openFilter(page)
   await page.getByLabel('Catalog', { exact: true }).selectOption('nearest-1000')
   await expectIdle(page)
-  const catalog = page.locator('details.catalog')
-  if (await catalog.getAttribute('open') === null) await catalog.locator('summary').click()
+  const catalog = page.getByRole('button', { name: 'Objects', exact: true })
+  if (await catalog.getAttribute('aria-expanded') === 'false') await catalog.click()
   const list = page.locator('#star-list')
   const before = await stats(page)
   await list.evaluate(async (element) => {
@@ -254,7 +254,7 @@ test('coalesces virtual-list scroll renders and skips unchanged ranges', async (
   })
   const afterBurst = await stats(page)
   expect(afterBurst.listReplacements - before.listReplacements).toBe(1)
-  expect(await list.locator('.catalog-entry').first().evaluate((element) => (element as HTMLElement).style.transform)).toBe('translateY(4608px)')
+  expect(await list.locator('.catalog-entry').first().evaluate((element) => (element as HTMLElement).style.transform)).toBe('translateY(4644px)')
   await list.evaluate(async (element) => {
     element.dispatchEvent(new Event('scroll'))
     await new Promise<void>((resolve) => requestAnimationFrame(() => requestAnimationFrame(() => resolve())))
@@ -275,10 +275,10 @@ test('sleeps when idle and redraws after interactions in both catalogs', async (
   test.setTimeout(45_000)
   await page.emulateMedia({ reducedMotion: 'no-preference' })
   await trackRendering(page)
-  await openPreferences(page)
   await openFilter(page)
   await expectIdle(page)
   for (const catalog of ['nearest-neighbors', 'nearest-100']) {
+    await openFilter(page)
     await page.getByLabel('Catalog', { exact: true }).selectOption(catalog)
     await expectIdle(page)
     for (const action of [
@@ -287,7 +287,11 @@ test('sleeps when idle and redraws after interactions in both catalogs', async (
       () => page.getByRole('button', { name: 'Reset view', exact: true }).click(),
       () => page.getByLabel('V magnitude limit', { exact: true }).fill('12'),
       () => page.locator('[data-star="sun"]').evaluate((button: HTMLButtonElement) => button.click()),
-      () => page.getByLabel('pc', { exact: true }).check(),
+      async () => {
+        await openPreferences(page)
+        await page.getByLabel('pc', { exact: true }).check()
+        await openFilter(page)
+      },
       async () => {
         const bounds = (await page.locator('#scene canvas').boundingBox())!
         await page.mouse.move(bounds.x + bounds.width / 2, bounds.y + bounds.height / 2)
@@ -301,7 +305,9 @@ test('sleeps when idle and redraws after interactions in both catalogs', async (
       await expect.poll(async () => (await stats(page)).draws).toBeGreaterThan(before.draws)
       await expectIdle(page)
     }
+    await openPreferences(page)
     await page.getByLabel('ly', { exact: true }).check()
+    await openFilter(page)
     await page.getByLabel('V magnitude limit', { exact: true }).fill('7')
   }
 })
