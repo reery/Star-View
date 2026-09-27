@@ -5,6 +5,7 @@ import { catalogSelection, mergeCatalogStars } from './catalog-runtime'
 import { catalogs, catalogErrors } from './registry'
 import { formatDistance, gridSpacingPc, starDisplayColor, sunRelativeMetrics, type DistanceUnit, type MotionFrame, type StarColorMode } from './astronomy'
 import { MOTION_YEAR_OPTIONS, createStarViewer, type MotionYears, type StarViewer, type ViewerViewState } from './viewer'
+import { isObjectMapVisible } from './viewer-primitives'
 import { ObjectList } from './object-list'
 import { SelectionHistory } from './selection-history'
 
@@ -193,11 +194,21 @@ function renderSelection(): void {
   text('selection-announcement', `${star.name}, ${formatDistance(metrics.distancePc, distanceUnit)} from the Sun.`)
 }
 
+function updateObjectListFilter(): void {
+  const sun = stars.find((star) => star.id === 'sun')
+  if (!sun) return
+  objectList.setFilter((star) => {
+    const distanceLy = sunRelativeMetrics(star, sun).distanceLy
+    return isObjectMapVisible(star, selectedTypes, selectedId, observerId, distanceLy, objectDistanceLimitLy, sunVisible)
+  })
+}
+
 function selectStar(id: string | null, recordHistory = true): void {
   if (id !== null && !stars.some((star) => star.id === id)) return
   if (id !== null && recordHistory) selectionHistory.record(id)
   selectedId = id
   if (id !== null) observerId = id
+  updateObjectListFilter()
   renderSelection()
   viewer?.select(id)
   updateSelectionHistoryControls()
@@ -247,12 +258,12 @@ async function switchCatalog(id: string, refresh = false): Promise<void> {
   activeCatalogId = id
   selectedId = retained.selectedId
   observerId = retained.observerId
-  text('catalog-count', stars.length.toString().padStart(2, '0'))
   text('scene-epoch', `J${definition.manifest.epoch.toFixed(1)}`)
   element<HTMLSelectElement>('catalog-select').value = id
   element('catalog-select').title = `${definition.manifest.description} ${definition.manifest.snapshot}`
   element<HTMLInputElement>('object-search').value = ''
   objectList.setStars(stars, distanceUnit, selectedId)
+  updateObjectListFilter()
   renderDistances()
   try {
     viewer = createStarViewer(element('scene'), stars, { onInteraction: dismissOpenPanel, onSelect: selectStar, onStatus: sceneStatus, colorMode: starColorMode, gridHalfSizePc })
@@ -310,7 +321,7 @@ appendObjectTypeOption('Sun')
 for (const type of OBJECT_TYPES) appendObjectTypeOption(objectTypeLabel(type), type)
 renderObjectTypeSummary()
 
-const objectList = new ObjectList(element('star-list'), selectStar)
+const objectList = new ObjectList(element('star-list'), selectStar, (shown, total) => text('catalog-count', `${shown}/${total}`))
 objectList.setColorMode(starColorMode)
 
 for (const { manifest } of catalogs) {
@@ -357,6 +368,7 @@ element('object-distance-limit').addEventListener('input', () => {
   input.setAttribute('aria-valuetext', `${objectDistanceLimitLy} light-years`)
   text('object-distance-limit-value', `${objectDistanceLimitLy} ly`)
   text('grid-spacing', `${formatDistance(gridSpacingPc(objectDistanceLimitLy), distanceUnit, distanceUnit === 'pc' ? 1 : 2)} grid`)
+  updateObjectListFilter()
   viewer?.setObjectDistanceLimit(objectDistanceLimitLy)
 }, { signal: events.signal })
 element('power-saving-mode').addEventListener('change', () => {
@@ -392,6 +404,7 @@ element('object-type-filter').addEventListener('change', (event) => {
   if (input.dataset.objectId === 'sun') {
     sunVisible = input.checked
     renderObjectTypeSummary()
+    updateObjectListFilter()
     viewer?.setSunVisible(sunVisible)
     return
   }
@@ -400,6 +413,7 @@ element('object-type-filter').addEventListener('change', (event) => {
   if (input.checked) selectedTypes.add(type)
   else selectedTypes.delete(type)
   renderObjectTypeSummary()
+  updateObjectListFilter()
   viewer?.setObjectTypeFilter([...selectedTypes])
 }, { signal: events.signal })
 for (const name of panelNames) {

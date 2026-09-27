@@ -24,8 +24,13 @@ interface ObjectListItem {
 
 export class ObjectList {
   private readonly container: HTMLElement
+  private readonly onCountChange: (shown: number, total: number) => void
   private items: ObjectListItem[] = []
   private filtered: ObjectListItem[] = []
+  private query = ''
+  private filter: (star: Star) => boolean = () => true
+  private countedShown = -1
+  private countedTotal = -1
   private selectedId: string | null = null
   private unit: DistanceUnit = 'ly'
   private colorMode: StarColorMode = 'real'
@@ -34,8 +39,9 @@ export class ObjectList {
   private renderedVirtualStart = -1
   private renderedVirtualEnd = -1
 
-  constructor(container: HTMLElement, onSelect: (id: string) => void) {
+  constructor(container: HTMLElement, onSelect: (id: string) => void, onCountChange: (shown: number, total: number) => void) {
     this.container = container
+    this.onCountChange = onCountChange
     container.addEventListener('scroll', () => this.scheduleScrollRender(), { passive: true })
     container.addEventListener('click', (event) => {
       const button = (event.target as HTMLElement).closest<HTMLButtonElement>('button[data-star]')
@@ -51,16 +57,31 @@ export class ObjectList {
       search: normalizeObjectSearch(`${star.name} ${star.id} ${star.spectral_type ?? ''}`),
       color: starDisplayColor(star, this.colorMode).getStyle(),
     }))
-    this.filtered = this.items
+    this.query = ''
     this.unit = unit
     this.selectedId = selectedId
-    this.container.scrollTop = 0
-    this.render(true)
+    this.refresh()
   }
 
   setQuery(query: string): void {
-    const normalized = normalizeObjectSearch(query)
-    this.filtered = normalized ? this.items.filter((item) => item.search.includes(normalized)) : this.items
+    this.query = normalizeObjectSearch(query)
+    this.refresh()
+  }
+
+  setFilter(filter: (star: Star) => boolean): void {
+    this.filter = filter
+    this.refresh()
+  }
+
+  private refresh(): void {
+    const filtered = this.items.filter((item) => this.filter(item.star) && (!this.query || item.search.includes(this.query)))
+    if (filtered.length !== this.countedShown || this.items.length !== this.countedTotal) {
+      this.countedShown = filtered.length
+      this.countedTotal = this.items.length
+      this.onCountChange(filtered.length, this.items.length)
+    }
+    if (filtered.length === this.filtered.length && filtered.every((item, index) => item === this.filtered[index])) return
+    this.filtered = filtered
     this.container.scrollTop = 0
     this.render(true)
   }

@@ -147,7 +147,7 @@ select:focus-visible, input:focus-visible { outline: 2px solid var(--accent); ou
 .object-search input { width: 100%; min-height: 38px; padding: 7px 9px; color: var(--ink); background: #18191a; border: 1px solid var(--line); border-radius: 6px; }
 .star-list { display: grid; gap: 0; max-height: min(340px, calc(100dvh - 122px)); overflow-y: auto; overscroll-behavior: contain; padding: 0 14px 10px; scrollbar-width: thin; }
 .star-list.is-virtualized { display: block; position: relative; padding-top: 2px; }
-.star-list.is-virtualized .catalog-entry { left: 14px; right: 14px; width: calc(100% - 28px); height: 36px; }
+.star-list.is-virtualized .catalog-entry { top: 2px; left: 14px; right: 14px; width: calc(100% - 28px); height: 36px; }
 .catalog-virtual-spacer { width: 1px; pointer-events: none; }
 .catalog-entry { display: grid; grid-template-columns: 8px minmax(0, 1fr) auto; align-items: center; gap: 8px; text-align: left; width: 100%; min-height: 36px; padding: 5px 8px; background: transparent; border: 1px solid transparent; border-radius: 5px; color: var(--ink); }
 .catalog-entry:hover { background: var(--panel-hover); }
