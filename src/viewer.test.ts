@@ -148,6 +148,7 @@ describe('camera focus easing', () => {
 
 describe('object map filtering', () => {
   const star = { id: 'target', type: 'white_dwarf' as const }
+  const sun = { id: 'sun', type: 'star' as const }
 
   it('uses canonical object types for ordinary visibility', () => {
     expect(isObjectMapVisible(star, new Set(['white_dwarf']), null, 'sun')).toBe(true)
@@ -163,6 +164,11 @@ describe('object map filtering', () => {
     expect(isObjectMapVisible(star, new Set(['white_dwarf']), 'target', 'sun', 101, 5)).toBe(true)
     expect(isObjectMapVisible(star, new Set(), 'target', 'sun', 101, 5)).toBe(false)
     expect(isObjectMapVisible(star, new Set(), null, 'target', 101, 5)).toBe(false)
+  })
+
+  it('controls the Sun independently from the star object type', () => {
+    expect(isObjectMapVisible(sun, new Set(), null, 'target')).toBe(true)
+    expect(isObjectMapVisible(sun, new Set(['star']), 'sun', 'sun', 0, Infinity, false)).toBe(false)
   })
 })
 

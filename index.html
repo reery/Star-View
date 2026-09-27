@@ -27,7 +27,7 @@
                     <summary class="selection-summary" aria-labelledby="star-name">
                       <span class="identity">
                         <span class="identity-heading"><span id="selected-swatch" class="star-swatch"></span><span id="star-name" class="star-name"></span></span>
-                        <span id="star-id" class="star-id"></span>
+                        <span id="star-distance" class="star-distance"></span>
                       </span>
                     </summary>
                     <div class="object-card-body">
@@ -92,7 +92,7 @@
                 <button id="info-toggle" class="icon-button panel-button" type="button" aria-label="Info" aria-controls="info-panel" aria-expanded="false"><span id="info-icon"></span><span class="tooltip">Info</span></button>
               </div>
               <section id="filter-panel" class="dock-card filter-section" aria-labelledby="filter-heading" hidden>
-                <h2 id="filter-heading" class="panel-heading">Filter</h2>
+                <div class="panel-heading"><h2 id="filter-heading">Filter</h2><button id="filter-lock" class="panel-lock" type="button" aria-label="Keep Filter open" aria-pressed="false"><span id="filter-lock-icon"></span></button></div>
                 <div class="filter-controls">
                   <div class="catalog-choice"><label for="catalog-select">Catalog</label><select id="catalog-select"></select></div>
                   <p id="catalog-error" class="catalog-error" role="alert" hidden></p>
@@ -127,7 +127,7 @@
                 </div>
               </section>
               <section id="preferences-panel" class="dock-card preferences" aria-labelledby="preferences-heading" hidden>
-                <h2 id="preferences-heading" class="panel-heading">Preferences</h2>
+                <div class="panel-heading"><h2 id="preferences-heading">Preferences</h2><button id="preferences-lock" class="panel-lock" type="button" aria-label="Keep Preferences open" aria-pressed="false"><span id="preferences-lock-icon"></span></button></div>
                 <div class="display-settings" aria-label="Display settings">
                   <div id="distance-units" class="segmented-choice" role="group" aria-labelledby="distance-units-label"><span id="distance-units-label">Distances</span><div class="unit-options"><label><input id="unit-pc" type="radio" name="distance-unit" value="pc"><span>pc</span></label><label><input id="unit-ly" type="radio" name="distance-unit" value="ly" checked><span>ly</span></label></div></div>
                   <div id="star-colors" class="segmented-choice" role="group" aria-labelledby="star-colors-label"><span id="star-colors-label">Star colors</span><div class="unit-options"><label><input id="star-colors-real" type="radio" name="star-color-mode" value="real"><span>Real</span></label><label><input id="star-colors-exaggerated" type="radio" name="star-color-mode" value="exaggerated" checked><span>Exaggerated</span></label></div></div>
@@ -143,7 +143,7 @@
                 </div>
               </section>
               <section id="objects-panel" class="dock-card catalog" aria-labelledby="catalog-heading" hidden>
-                <h2 class="panel-heading"><span id="catalog-heading">Objects</span><span id="catalog-count"></span></h2>
+                <div class="panel-heading"><h2 id="catalog-heading">Objects <span id="catalog-count"></span></h2><button id="objects-lock" class="panel-lock" type="button" aria-label="Keep Objects open" aria-pressed="false"><span id="objects-lock-icon"></span></button></div>
                 <div class="object-search">
                   <label class="sr-only" for="object-search">Search objects</label>
                   <input id="object-search" type="search" placeholder="Search objects" autocomplete="off" />

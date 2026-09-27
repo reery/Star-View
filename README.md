@@ -9,7 +9,7 @@ A Sun-centered 3D map of nearby stars and brown dwarfs that runs in the browser.
 - Four bundled catalogs: **Nearest neighbors** (21 objects plus the Sun, default), **Nearest 100**, **Nearest 1000**, and magnitude-limited **Bright stars** within 2000 light-years
 - Orbit, zoom and pan with mouse or touch; selecting an object centers it
 - Inspector with type, constellation, spectral class, temperature, mass, radius, metallicity, age, magnitude, distance and source notes
-- Searchable list of every object in the catalog
+- Searchable list of objects matching the active distance and object-type filters
 - Map filters for brightness as seen from the selected star, distance from the Sun (to 2000 light-years), object type, and an optional deduplicated bright-star overlay
 - Real or exaggerated temperature colors, magnitude-based glow and motion arrows
 - Distance and height guides relative to the Sun
