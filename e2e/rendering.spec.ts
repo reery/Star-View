@@ -414,6 +414,7 @@ test('uses the selected renderer resolution cap', { tag: '@mobile' }, async ({ p
   await powerSaving.check()
   await openFilter(page)
   await page.getByLabel('Catalog', { exact: true }).selectOption('nearest-100')
+  await openPreferences(page)
   await expect(powerSaving).toBeChecked()
   await page.mouse.move(start.x, start.y)
   await page.mouse.down()

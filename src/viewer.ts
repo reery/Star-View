@@ -26,6 +26,7 @@ export interface StarViewer {
   setViewState(state: ViewerViewState): void
   setObjectDistanceLimit(distanceLy: number): void
   setObjectTypeFilter(types: readonly ObjectType[]): void
+  setSunVisible(visible: boolean): void
   setLabelLimit(limit: number): void
   setMotionArrowsVisible(visible: boolean): void
   setMotionFrame(frame: MotionFrame): void
@@ -48,6 +49,7 @@ export interface ViewerViewState {
 }
 
 interface ViewerOptions {
+  onInteraction(): void
   onSelect(id: string | null): void
   onStatus(message: string | null): void
   colorMode: StarColorMode
@@ -464,6 +466,7 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
   let magnitudeLimit = 7
   let objectDistanceLimitLy = 100
   let selectedTypes = new Set<ObjectType>(OBJECT_TYPES)
+  let sunVisible = true
   let labelLimit = 40
   let motionArrowsVisible = true
   let motionFrame: MotionFrame = 'galactic'
@@ -705,6 +708,7 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
         visibilityBase.id,
         sunDistancesLy[index]!,
         objectDistanceLimitLy,
+        sunVisible,
       )
       tiers.set(star.id, tier)
       mapVisibility.set(star.id, mapVisible)
@@ -1221,7 +1225,10 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
   }
   let hoverFrame: number | null = null
   let hoverEvent: PointerEvent | null = null
-  canvas.addEventListener('pointerdown', (event) => gesture.begin(event), { signal: events.signal })
+  canvas.addEventListener('pointerdown', (event) => {
+    options.onInteraction()
+    gesture.begin(event)
+  }, { signal: events.signal })
   canvas.addEventListener('pointermove', (event) => {
     gesture.move(event)
     if (event.buttons !== 0 || event.pointerType === 'touch') return
@@ -1449,6 +1456,12 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
       const nextTypes = new Set(types.filter((type) => OBJECT_TYPES.includes(type)))
       if (nextTypes.size === selectedTypes.size && [...nextTypes].every((type) => selectedTypes.has(type))) return
       selectedTypes = nextTypes
+      updatePresentation()
+      requestRender()
+    },
+    setSunVisible(visible) {
+      if (visible === sunVisible) return
+      sunVisible = visible
       updatePresentation()
       requestRender()
     },

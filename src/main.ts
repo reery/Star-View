@@ -1,5 +1,5 @@
 import './style.css'
-import { ArrowLeft, ArrowRight, CircleHelp, Filter, Focus, Grid2X2, List, Orbit, Settings2, ZoomIn, ZoomOut, createElement, type IconNode } from 'lucide'
+import { ArrowLeft, ArrowRight, CircleHelp, Filter, Focus, Grid2X2, List, Lock, Orbit, Settings2, ZoomIn, ZoomOut, createElement, type IconNode } from 'lucide'
 import { describeObject, OBJECT_TYPES, objectTypeLabel, type ObjectType, type Star } from './catalog-model'
 import { catalogSelection, mergeCatalogStars } from './catalog-runtime'
 import { catalogs, catalogErrors } from './registry'
@@ -45,6 +45,9 @@ icon('preferences-icon', Settings2)
 icon('objects-icon', List)
 icon('info-icon', CircleHelp)
 icon('info-brand-icon', Orbit)
+icon('filter-lock-icon', Lock)
+icon('preferences-lock-icon', Lock)
+icon('objects-lock-icon', Lock)
 
 const events = new AbortController()
 let viewer: StarViewer | undefined
@@ -64,6 +67,7 @@ let motionYears: MotionYears = 1_000
 let catalogRequest = 0
 let sceneBusy = true
 const selectedTypes = new Set<ObjectType>(OBJECT_TYPES)
+let sunVisible = true
 let distanceUnit: DistanceUnit = 'ly'
 let starColorMode: StarColorMode = 'exaggerated'
 const BRIGHT_CATALOG_ID = 'bright-stars'
@@ -83,6 +87,8 @@ text('label-limit-value', labelLimit === 0 ? 'Off' : String(labelLimit))
 const viewButtons = ['reset-view', 'toggle-grid', 'zoom-in', 'zoom-out'].map((id) => element<HTMLButtonElement>(id))
 const selectionHistory = new SelectionHistory(selectedId)
 const panelNames = ['filter', 'preferences', 'objects', 'info'] as const
+const lockablePanelNames = ['filter', 'preferences', 'objects'] as const
+const lockedPanels = new Set<typeof lockablePanelNames[number]>()
 
 function selectedStarAvailable(id: string): boolean {
   return stars.some((star) => star.id === id)
@@ -105,6 +111,21 @@ function togglePanel(name: typeof panelNames[number]): void {
     element('control-dock').dataset.open = name
   }
   else delete element('control-dock').dataset.open
+}
+
+function dismissOpenPanel(): void {
+  const open = panelNames.find((name) => element(`${name}-toggle`).getAttribute('aria-expanded') === 'true')
+  if (!open) return
+  const lockable = lockablePanelNames.find((name) => name === open)
+  if (!lockable || !lockedPanels.has(lockable)) togglePanel(open)
+}
+
+function togglePanelLock(name: typeof lockablePanelNames[number]): void {
+  const button = element<HTMLButtonElement>(`${name}-lock`)
+  const locked = !lockedPanels.has(name)
+  if (locked) lockedPanels.add(name)
+  else lockedPanels.delete(name)
+  button.setAttribute('aria-pressed', String(locked))
 }
 
 function sceneStatus(message: string | null): void {
@@ -134,7 +155,7 @@ function renderSelection(): void {
   element('inspector').dataset.selectedStar = star.id
   element('inspector').style.setProperty('--selected-star-color', color)
   text('star-name', star.name)
-  text('star-id', star.id)
+  text('star-distance', formatDistance(metrics.distancePc, distanceUnit))
   element('selected-swatch').style.background = color
   text('distance-value', formatDistance(metrics.distancePc, distanceUnit).split(' ')[0]!)
   text('distance-unit', ` ${distanceUnit}`)
@@ -234,7 +255,7 @@ async function switchCatalog(id: string, refresh = false): Promise<void> {
   objectList.setStars(stars, distanceUnit, selectedId)
   renderDistances()
   try {
-    viewer = createStarViewer(element('scene'), stars, { onSelect: selectStar, onStatus: sceneStatus, colorMode: starColorMode, gridHalfSizePc })
+    viewer = createStarViewer(element('scene'), stars, { onInteraction: dismissOpenPanel, onSelect: selectStar, onStatus: sceneStatus, colorMode: starColorMode, gridHalfSizePc })
   } catch (error) {
     console.error('Could not create the 3D viewer.', error)
     sceneStatus('3D graphics are unavailable on this device. The object catalog and details are still available.')
@@ -245,6 +266,7 @@ async function switchCatalog(id: string, refresh = false): Promise<void> {
   viewer.setVisibility(observerId, magnitudeLimit)
   viewer.setObjectDistanceLimit(objectDistanceLimitLy)
   viewer.setObjectTypeFilter([...selectedTypes])
+  viewer.setSunVisible(sunVisible)
   viewer.setLabelLimit(labelLimit)
   viewer.setMotionArrowsVisible(motionArrowsVisible)
   viewer.setMotionFrame(motionFrame)
@@ -264,22 +286,28 @@ function catalogError(error: unknown): void {
 
 const typeOptions = element('object-type-options')
 function renderObjectTypeSummary(): void {
-  text('object-type-filter-summary', selectedTypes.size === OBJECT_TYPES.length ? 'All' : `${selectedTypes.size} of ${OBJECT_TYPES.length}`)
+  const selectedCount = selectedTypes.size + Number(sunVisible)
+  const optionCount = OBJECT_TYPES.length + 1
+  text('object-type-filter-summary', selectedCount === optionCount ? 'All' : `${selectedCount} of ${optionCount}`)
 }
 
-for (const type of OBJECT_TYPES) {
+function appendObjectTypeOption(nameText: string, type?: ObjectType): void {
   const label = document.createElement('label')
   label.className = 'object-type-option'
   const input = document.createElement('input')
   input.type = 'checkbox'
   input.name = 'object-type'
-  input.dataset.objectType = type
+  if (type) input.dataset.objectType = type
+  else input.dataset.objectId = 'sun'
   input.checked = true
   const name = document.createElement('span')
-  name.textContent = objectTypeLabel(type)
+  name.textContent = nameText
   label.append(input, name)
   typeOptions.append(label)
 }
+
+appendObjectTypeOption('Sun')
+for (const type of OBJECT_TYPES) appendObjectTypeOption(objectTypeLabel(type), type)
 renderObjectTypeSummary()
 
 const objectList = new ObjectList(element('star-list'), selectStar)
@@ -361,6 +389,12 @@ element('motion-frame').addEventListener('change', () => {
 element('object-type-filter').addEventListener('change', (event) => {
   const input = event.target
   if (!(input instanceof HTMLInputElement)) return
+  if (input.dataset.objectId === 'sun') {
+    sunVisible = input.checked
+    renderObjectTypeSummary()
+    viewer?.setSunVisible(sunVisible)
+    return
+  }
   const type = input.dataset.objectType as ObjectType | undefined
   if (!type || !OBJECT_TYPES.includes(type)) return
   if (input.checked) selectedTypes.add(type)
@@ -370,6 +404,9 @@ element('object-type-filter').addEventListener('change', (event) => {
 }, { signal: events.signal })
 for (const name of panelNames) {
   element(`${name}-toggle`).addEventListener('click', () => togglePanel(name), { signal: events.signal })
+}
+for (const name of lockablePanelNames) {
+  element(`${name}-lock`).addEventListener('click', () => togglePanelLock(name), { signal: events.signal })
 }
 document.addEventListener('keydown', (event) => {
   if (event.key !== 'Escape') return

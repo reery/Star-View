@@ -65,7 +65,9 @@ export function isObjectMapVisible(
   observerId: string,
   distanceLy = 0,
   distanceLimitLy = Infinity,
+  sunVisible = true,
 ): boolean {
+  if (star.id === 'sun') return sunVisible
   return selectedTypes.has(star.type) && (
     star.id === selectedId || star.id === observerId || distanceLy <= distanceLimitLy
   )

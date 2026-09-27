@@ -224,6 +224,7 @@ test('defaults to light-years, converts every distance without moving the camera
   const before = await starPoint(page, 'sun')
   await expect(page.getByLabel('ly', { exact: true })).toBeChecked()
   await expect(page.locator('#distance-value')).toHaveText('8.61')
+  await expect(page.locator('#star-distance')).toHaveText('8.61 ly')
   await expect(page.locator('#grid-spacing')).toHaveText('1.63 ly grid')
   await expect(page.locator('.distance-label')).toHaveText('8.61 ly')
   await expect(page.locator('.height-label')).toHaveCount(0)
@@ -235,6 +236,7 @@ test('defaults to light-years, converts every distance without moving the camera
   await expect(page.locator('#velocity-x')).toContainText('km/s')
   await page.getByLabel('pc', { exact: true }).check()
   await expect(page.locator('#distance-value')).toHaveText('2.64')
+  await expect(page.locator('#star-distance')).toHaveText('2.64 pc')
   await expect(page.locator('#grid-spacing')).toHaveText('0.5 pc grid')
   expect(await starPoint(page, 'sun')).toEqual(before)
   await page.reload()
@@ -248,6 +250,7 @@ test('defaults to light-years, converts every distance without moving the camera
 test('keeps faint dots pickable and retains the last visibility base', async ({ page }) => {
   await openViewer(page)
   await openFilter(page)
+  await page.locator('#filter-lock').click()
   const faint = page.locator('[data-star-id="barnards-star"]')
   await expect(faint).toHaveCount(0)
   const before = await starPoint(page, 'sun')
@@ -437,7 +440,7 @@ test('presents the selected object beside an expandable control dock', async ({ 
   expect(placement.buttonWidth).toBe(44)
   expect(placement.panelWidth).toBeLessThan(292)
   expect(placement.bottomGap).toBeLessThan(1)
-  await expect(page.locator('#filter-heading')).toHaveCSS('min-height', '44px')
+  await expect(page.locator('#filter-heading').locator('..')).toHaveCSS('min-height', '44px')
   await expect(page.getByLabel('Catalog', { exact: true })).toHaveCSS('font-size', '13px')
   await expect(page.locator('.filter-toggle').first()).toHaveCSS('font-size', '14px')
   await expect(page.locator('#motion-frame-label')).toHaveCSS('font-size', '14px')
@@ -454,19 +457,21 @@ test('presents the selected object beside an expandable control dock', async ({ 
   await magnitude.fill('25')
   await expect(page.locator('[data-star-id="10pc-0098"]')).toHaveAttribute('data-visibility', 'eligible')
 
-  const typeChoices = ['Star', 'White dwarf', 'Brown dwarf', 'Sub-brown dwarf']
+  const typeChoices = ['Sun', 'Star', 'White dwarf', 'Brown dwarf', 'Sub-brown dwarf']
   const typeDropdown = page.locator('details.filter-dropdown')
   await expect(typeDropdown).not.toHaveAttribute('open')
   await expect(page.locator('#object-type-options')).toBeHidden()
   await typeDropdown.locator('summary').click()
   await expect(page.locator('#object-type-options')).toBeVisible()
   await expect(page.locator('#object-type-filter-summary')).toHaveText('All')
+  await expect(page.locator('.object-type-option')).toHaveText(typeChoices)
   for (const name of typeChoices) await expect(page.getByLabel(name, { exact: true })).toBeChecked()
   await sceneFits(page)
   await page.screenshot({ path: testInfo.outputPath('interface-hierarchy.png'), fullPage: true })
   await page.getByRole('button', { name: 'Objects', exact: true }).click()
   const rows = page.locator('.catalog-entry')
   await expect(rows).toHaveCount(101)
+  await expect(page.locator('.star-list')).toHaveCSS('max-height', '340px')
   const rowLayout = await rows.evaluateAll((entries) => entries.slice(0, 2).map((entry) => {
     const bounds = entry.getBoundingClientRect()
     return { top: bounds.top, height: bounds.height }
@@ -488,6 +493,51 @@ test('presents the selected object beside an expandable control dock', async ({ 
   await page.screenshot({ path: testInfo.outputPath('compact-info.png'), fullPage: true })
 })
 
+test('dismisses unlocked control cards on every scene interaction while locked cards stay open', async ({ page }) => {
+  await openViewer(page)
+  const canvas = page.locator('#scene canvas')
+  await expect(page.locator('.panel-lock')).toHaveCount(3)
+  await expect(page.locator('#info-panel .panel-lock')).toHaveCount(0)
+
+  await openPreferences(page)
+  const sunBeforeRotation = await starPoint(page, 'sun')
+  const bounds = (await canvas.boundingBox())!
+  await page.mouse.move(bounds.x + bounds.width * 0.35, bounds.y + bounds.height * 0.7)
+  await page.mouse.down()
+  await expect(page.locator('#preferences-panel')).toBeHidden()
+  await page.mouse.move(bounds.x + bounds.width * 0.45, bounds.y + bounds.height * 0.62, { steps: 8 })
+  await page.mouse.up()
+  await expect(page.locator('#selected-object-card')).toBeVisible()
+  const sunAfterRotation = await starPoint(page, 'sun')
+  expect(Math.hypot(sunAfterRotation.x - sunBeforeRotation.x, sunAfterRotation.y - sunBeforeRotation.y)).toBeGreaterThan(2)
+
+  for (const name of ['Filter', 'Objects', 'Info']) {
+    const toggle = page.getByRole('button', { name, exact: true })
+    await toggle.click()
+    await expect(page.locator(`#${name.toLowerCase()}-panel`)).toBeVisible()
+    await canvas.click({ position: { x: 2, y: 2 } })
+    await expect(toggle).toHaveAttribute('aria-expanded', 'false')
+  }
+
+  await openFilter(page)
+  const filterLock = page.locator('#filter-lock')
+  await expect(filterLock).toHaveAccessibleName('Keep Filter open')
+  await expect(filterLock).toHaveCSS('color', 'rgb(237, 198, 155)')
+  await filterLock.click()
+  await expect(filterLock).toHaveAttribute('aria-pressed', 'true')
+  await expect(filterLock).toHaveAccessibleName('Keep Filter open')
+  await expect(filterLock).toHaveCSS('color', 'rgb(255, 138, 42)')
+  await page.mouse.move(bounds.x + bounds.width * 0.35, bounds.y + bounds.height * 0.7)
+  await page.mouse.down()
+  await page.mouse.move(bounds.x + bounds.width * 0.4, bounds.y + bounds.height * 0.65, { steps: 4 })
+  await page.mouse.up()
+  await expect(page.locator('#filter-panel')).toBeVisible()
+  const point = await starPoint(page, 'sun')
+  await page.mouse.click(point.x, point.y)
+  await expect(page.locator('#filter-panel')).toBeVisible()
+  await expect(page.locator('#selected-object-card')).toBeVisible()
+})
+
 test('filters the map by type even when an excluded object is selected', async ({ page }) => {
   await openViewer(page)
   await openFilter(page)
@@ -506,9 +556,24 @@ test('filters the map by type even when an excluded object is selected', async (
   await typeDropdown.locator('summary').click()
   const luhmanA = page.locator('[data-star-id="luhman-16-a"]')
   const luhmanB = page.locator('[data-star-id="luhman-16-b"]')
+  const sun = page.locator('[data-star-id="sun"]')
+  const stars = page.getByLabel('Star', { exact: true })
+  const sunChoice = page.getByLabel('Sun', { exact: true })
   const brownDwarfs = page.getByLabel('Brown dwarf', { exact: true })
+  await stars.uncheck()
+  await expect(page.locator('#object-type-filter-summary')).toHaveText('4 of 5')
+  await expect(sun).toHaveAttribute('data-map-visible', 'true')
+  await expect(sun).toBeVisible()
+  await sunChoice.uncheck()
+  await expect(page.locator('#object-type-filter-summary')).toHaveText('3 of 5')
+  await expect(sun).toHaveCount(0)
+  await stars.check()
+  await expect(sun).toHaveCount(0)
+  await sunChoice.check()
+  await expect(sun).toHaveAttribute('data-map-visible', 'true')
+  await expect(sun).toBeVisible()
   await brownDwarfs.uncheck()
-  await expect(page.locator('#object-type-filter-summary')).toHaveText('3 of 4')
+  await expect(page.locator('#object-type-filter-summary')).toHaveText('4 of 5')
   await expect(luhmanA).toHaveCount(0)
   await expect(luhmanB).toHaveCount(0)
   await expect(page.locator('.catalog-entry')).toHaveCount(22)
@@ -728,6 +793,7 @@ test('makes Sirius glow larger and brighter than Barnard with zoom-stable magnit
   await page.getByLabel('Arrow length', { exact: true }).selectOption('50000')
   await page.getByRole('button', { name: 'Grid', exact: true }).click()
   await page.getByRole('button', { name: 'Objects', exact: true }).click()
+  await page.locator('#objects-lock').click()
   const canvas = page.locator('#scene canvas')
   const bounds = (await canvas.boundingBox())!
   const glow: number[] = []
@@ -796,6 +862,7 @@ test('keeps bright and selected halos strongly temperature-tinted without clippi
   await openViewer(page)
   await page.getByRole('button', { name: 'Grid', exact: true }).click()
   await page.getByRole('button', { name: 'Objects', exact: true }).click()
+  await page.locator('#objects-lock').click()
   const canvas = page.locator('#scene canvas')
   const bounds = (await canvas.boundingBox())!
   for (const [id, name] of [['sirius-a', 'Sirius A'], ['epsilon-eridani', 'Epsilon Eridani']]) {
@@ -1022,6 +1089,7 @@ test('overlapping stars follow camera depth and keep their motion arrows', async
   const siriusPosition = galacticToWorld(stars.find((star) => star.id === 'sirius-a')!)
   const canvas = page.locator('#scene canvas')
   await page.getByRole('button', { name: 'Objects', exact: true }).click()
+  await page.locator('#objects-lock').click()
 
   for (const side of [-1, 1]) {
     await page.getByRole('button', { name: 'Reset view', exact: true }).click()
