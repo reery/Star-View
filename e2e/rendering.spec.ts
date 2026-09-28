@@ -152,6 +152,7 @@ test('rotates nearest-neighbors without remeasuring label sizes', async ({ page,
   await openFilter(page)
   await page.getByLabel('Catalog', { exact: true }).selectOption('nearest-neighbors')
   await page.getByLabel('V magnitude limit', { exact: true }).fill('12')
+  await page.getByRole('button', { name: 'Filter', exact: true }).click()
   await expectIdle(page)
   const session = await context.newCDPSession(page)
   await session.send('Performance.enable')
@@ -191,6 +192,7 @@ test('records high-density nearest-1000 rotation evidence', { tag: '@mobile' }, 
   await page.getByLabel('Catalog', { exact: true }).selectOption('nearest-1000')
   await page.getByLabel('V magnitude limit', { exact: true }).fill('25')
   await page.getByLabel('Arrow length', { exact: true }).selectOption('50000')
+  await page.getByRole('button', { name: 'Filter', exact: true }).click()
   await expectIdle(page)
   const session = await context.newCDPSession(page)
   await session.send('Performance.enable')
@@ -412,6 +414,7 @@ test('uses the selected renderer resolution cap', { tag: '@mobile' }, async ({ p
   await page.mouse.up()
   await expect.poll(() => canvasPixelRatio(page)).toBeCloseTo(1, 1)
 
+  await openPreferences(page)
   await powerSaving.check()
   await openFilter(page)
   await page.getByLabel('Catalog', { exact: true }).selectOption('nearest-100')

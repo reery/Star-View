@@ -928,6 +928,7 @@ test('toggles the grid below reset without moving stars or changing selection', 
   await openViewer(page)
   await openFilter(page)
   await page.getByLabel('Arrow length', { exact: true }).selectOption('50000')
+  await page.getByRole('button', { name: 'Filter', exact: true }).click()
   const grid = page.getByRole('button', { name: 'Grid', exact: true })
   await expect(grid).toBeEnabled()
   await expect(grid).toHaveAttribute('aria-pressed', 'true')
@@ -941,7 +942,7 @@ test('toggles the grid below reset without moving stars or changing selection', 
     return { x: bounds.left, y: bounds.top }
   }))
   const canvas = page.locator('#scene canvas')
-  const screenshotOptions = { scale: 'css' as const, style: '.projected-labels, .scene-toolbar, .scene-brand, .scene-legend, .plane-key, .visibility-observer { visibility: hidden !important; }' }
+  const screenshotOptions = { scale: 'css' as const, style: '.projected-labels, .scene-toolbar, .control-dock, .scene-brand, .scene-legend, .plane-key, .visibility-observer, .tooltip { visibility: hidden !important; }' }
   const arrowsBefore = (await motionArrows(page)).map((arrow) => arrow.id)
   expect(arrowsBefore.length).toBeGreaterThan(0)
   const gridOn = await canvas.screenshot(screenshotOptions)
@@ -980,16 +981,17 @@ test('toggles the grid below reset without moving stars or changing selection', 
   await sceneFits(page)
   await page.screenshot({ path: testInfo.outputPath('grid-off.png'), fullPage: true })
   await page.getByRole('button', { name: 'Reset view', exact: true }).click()
+  expect(await starPoint(page, 'sun')).toEqual(sunBefore)
   await expect(grid).toHaveAttribute('aria-pressed', 'false')
   await expect(page.locator('.axis-label:visible')).toHaveCount(0)
-  expect(changedPixels(gridOff, await canvas.screenshot(screenshotOptions))).toBeLessThan(5)
+  await expect.poll(async () => changedPixels(gridOff, await canvas.screenshot(screenshotOptions))).toBeLessThan(5)
   await grid.focus()
   await page.keyboard.press('Enter')
   await expect(grid).toHaveAttribute('aria-pressed', 'true')
   await expect(page.locator('.axis-label:visible')).toHaveCount(3)
   await expect(page.locator('#grid-legend')).toBeVisible()
   await expect(page.locator('#grid-tooltip')).toHaveText('Hide grid')
-  expect(changedPixels(gridOn, await canvas.screenshot(screenshotOptions))).toBeLessThan(5)
+  await expect.poll(async () => changedPixels(gridOn, await canvas.screenshot(screenshotOptions))).toBeLessThan(5)
   await grid.focus()
   await page.keyboard.press('Space')
   await expect(grid).toHaveAttribute('aria-pressed', 'false')
@@ -1352,6 +1354,7 @@ test('hands active focus to pointer input, deselection and reduced motion', { ta
   await page.emulateMedia({ reducedMotion: 'no-preference' })
   await openViewer(page)
   await page.getByRole('button', { name: 'Objects', exact: true }).click()
+  await page.getByRole('button', { name: 'Objects', exact: true }).click()
   const bounds = (await page.locator('#scene canvas').boundingBox())!
   const empty = { x: bounds.x + bounds.width * 0.25, y: bounds.y + bounds.height * 0.85 }
   for (const action of ['pointer', 'clear', 'reduce']) {
@@ -1524,10 +1527,11 @@ test('draws dashed transverse and solid full-motion shafts with a zoom-stable st
   await page.getByLabel('Catalog', { exact: true }).selectOption('nearest-1000')
   await expect(page.locator('#catalog-count')).toHaveText(/\/1001$/)
   await page.getByLabel('V magnitude limit', { exact: true }).fill('25')
+  await page.getByRole('button', { name: 'Filter', exact: true }).click()
   await page.getByRole('button', { name: 'Grid', exact: true }).click()
   const canvas = page.locator('#scene canvas')
   const bounds = (await canvas.boundingBox())!
-  const style = '.projected-labels, .projected-axes, .scene-toolbar, .scene-brand, .scene-legend, .plane-key, .visibility-observer { visibility: hidden !important; }'
+  const style = '.projected-labels, .projected-axes, .scene-toolbar, .control-dock, .scene-brand, .scene-legend, .plane-key, .visibility-observer { visibility: hidden !important; }'
   const strokeWidths: number[] = []
   // The smaller mobile canvas needs more zoom before shafts stand apart.
   for (const zoomSteps of [isMobile ? 5 : 2, 1]) {
@@ -1536,7 +1540,9 @@ test('draws dashed transverse and solid full-motion shafts with a zoom-stable st
     // Full Galactic-rest velocities are generally much faster than the
     // transverse-only subset, so use a horizon that keeps each mode measurable.
     for (const [mode, years] of [['full', '5000'], ['transverse', '25000']] as const) {
+      await openFilter(page)
       await page.getByLabel('Arrow length', { exact: true }).selectOption(years)
+      await page.getByRole('button', { name: 'Filter', exact: true }).click()
       const arrows = await motionArrows(page)
       const image = PNG.sync.read(await canvas.screenshot({ scale: 'css', style, path: testInfo.outputPath(`shafts-${strokeWidths.length}-${mode}.png`) }))
       for (const arrow of isolatedArrows(arrows, bounds).filter((candidate) => candidate.mode === mode)) {
