@@ -17,6 +17,7 @@ from astropy.time import Time
 from astropy.utils import iers
 
 from catalog_sources.filesystem import atomic_write_text, safe_output_directory, write_managed_files
+from catalog_sources.mdwarf import SUPPLEMENT_FIELDS, enrich_curated_row, load_supplements
 
 iers.conf.auto_download = False
 ROOT = Path(__file__).resolve().parents[1]
@@ -35,6 +36,10 @@ RAW_ASTROMETRY_HEADERS = [
     "pm_ra_cosdec_masyr", "pm_ra_error_masyr", "pm_dec_masyr", "pm_dec_error_masyr",
     "radial_velocity_kms", "radial_velocity_error_kms", "astrometry_ref", "radial_velocity_ref",
 ]
+PHYSICAL_HEADERS = ["radius_solar", "metallicity_dex", "age_gyr"]
+OUTPUT_HEADERS = BASE_HEADERS[:13] + PHYSICAL_HEADERS + BASE_HEADERS[13:] + RAW_ASTROMETRY_HEADERS
+SUPPLEMENTS = ROOT / "catalog-work/physical-supplements"
+CNS5_DATA = ROOT / "catalog-work/nearest-1000/cns5.dat"
 LEGACY_IDS = {
     "1": "proxima-centauri", "3": "alpha-centauri-a", "4": "alpha-centauri-b",
     "5": "barnards-star", "6": "luhman-16-a", "7": "luhman-16-b",
@@ -63,6 +68,12 @@ SOURCES = [
     {"name": "NASA Sun Fact Sheet, 2024-05-09", "url": "https://nssdc.gsfc.nasa.gov/planetary/factsheet/sunfact.html"},
     {"name": "Guinan et al. 2016, Kapteyn's Star properties; Table 1 mass attributed to Segransan et al. 2003", "url": "https://ui.adsabs.harvard.edu/abs/2016ApJ...821...81G/abstract"},
     {"name": "Astropy 7.1.1, IAU constellations using Roman 1987 boundaries", "url": "https://docs.astropy.org/en/stable/api/astropy.coordinates.get_constellation.html"},
+]
+SUPPLEMENT_SOURCES = [
+    {"name": "Cifuentes et al. 2020, CARMENES M-dwarf luminosities, temperatures, radii and masses (J/A+A/642/A115); fills blank fields only", "url": "https://cdsarc.cds.unistra.fr/ftp/J/A+A/642/A115/ReadMe"},
+    {"name": "Mann et al. 2019, absolute-Ks mass relation (2019ApJ...871...63M); fills blank masses only", "url": "https://ui.adsabs.harvard.edu/abs/2019ApJ...871...63M/abstract"},
+    {"name": "Mann et al. 2015, absolute-Ks radius relation (2015ApJ...804...64M); fills blank radii only", "url": "https://ui.adsabs.harvard.edu/abs/2015ApJ...804...64M/abstract"},
+    {"name": "2MASS All-Sky Point Source Catalog Ks photometry (VizieR II/246)", "url": "https://cdsarc.cds.unistra.fr/viz-bin/cat/II/246"},
 ]
 
 
@@ -203,7 +214,7 @@ def raw_astrometry(source, allow_rv=True):
     }
 
 
-def adopt_object(source, frozen, system_counts):
+def adopt_object(source, frozen, system_counts, supplements):
     identifier = LEGACY_IDS.get(source["Seq"], f"10pc-{int(source['Seq']):04d}")
     if source["Seq"] == "1001":
         identifier = "gaia-dr3-6305165514134625024"
@@ -271,13 +282,21 @@ def adopt_object(source, frozen, system_counts):
         fields["mass_solar"] = field_source("adopted", "2016ApJ...821...81G:Table1", "0.281 +/- 0.014 solar masses; Table 1 attributes the value to 2003A&A...397L...5S.")
     fields["constellation"] = field_source("derived", "astropy:7.1.1:Roman1987", "ICRS snapshot direction transformed to B1875 boundary coordinates; no physical motion to 1875. Canonical spelling normalization applied.")
     fields["epoch"] = field_source("adopted", None, "Static J2000.0 snapshot; source decimal years treated as Julian years TT.")
+    for key in PHYSICAL_HEADERS:
+        row.setdefault(key, "")
+        fields[key] = field_source("unknown", None)
+    supplemented, supplement_audit = enrich_curated_row(row, supplements)
+    for key, observation in supplemented.items():
+        fields[key] = field_source(observation.status, f"{observation.reference}:{observation.source_record_id}", f"{observation.source_id}; uncertainty {observation.uncertainty}; fills a blank field only.")
     provenance = {
         "id": identifier, "sourceRow": source["Seq"], "systemId": source["Sys"], "sourceObjectName": source["ObjName"], "sourceObjectType": source["ObjType"],
         "identifiers": {key: source[key] for key in ("GaiaEDR3", "GaiaDR2", "SIMBAD", "GJ", "HIP")},
         "sourceMeasurements": {key: source[key] for key in ("RAdeg", "DEdeg", "Epoch", "plx", "e_plx", "r_plx", "pmRA", "e_pmRA", "pmDE", "e_pmDE", "r_pmDE", "RV", "e_RV", "r_RV", "SpType", "r_SpType", "SpMethod", "Vmag", "r_Sys", "Com")},
         "adoptedJ2000": {"frame": "ICRS", "raDeg": float(direction.ra.deg), "decDeg": float(direction.dec.deg), "distancePc": float(direction.distance.to_value(units.pc)), "method": mode},
-        "fields": fields, "overrides": ["All existing neighbor fields preserved, including unknowns; new source measurements are audit-only."] if legacy else [],
+        "fields": fields, "overrides": ["All existing neighbor values preserved; blank physical fields may be filled by the documented supplements; new source measurements are audit-only."] if legacy else [],
     }
+    if supplement_audit:
+        provenance["physicalSupplements"] = supplement_audit
     if source["Seq"] in LEGACY_TENTATIVE_EXCEPTIONS:
         assert legacy and source["ObjType"] == "LM?" and row["type"] == "star"
         provenance["overrides"].append("Explicit approved membership exception: preserve vetted EZ Aquarii B/C default row despite raw 10pc LM?; source classification unchanged, not newly measured or reclassified.")
@@ -299,11 +318,12 @@ def build_catalog(output, force=False, check=False):
     frozen = json.loads(input_path.read_text())
     assert astropy.__version__ == "7.1.1", "Use the pinned authoring environment."
     assert frozen["policyRevision"] == POLICY_REVISION and frozen["decisions"]["membership"] == MEMBERSHIP_POLICY
-    current_default = list(csv.DictReader(io.StringIO((ROOT / "src/data/stars.csv").read_text())))
-    assert frozen["legacyRows"] == [{key: row[key] for key in BASE_HEADERS} for row in current_default]
+    current_default = {row["id"]: row for row in csv.DictReader(io.StringIO((ROOT / "src/data/stars.csv").read_text()))}
+    assert list(current_default) == [row["id"] for row in frozen["legacyRows"]]
+    supplements = load_supplements(SUPPLEMENTS, CNS5_DATA)
     system_counts = frozen["fullCensusSystemMemberCounts"]
     source_by_seq = {source["Seq"]: source for source in frozen["candidates"]}
-    adopted = [adopt_object(source, frozen, system_counts) for source in frozen["candidates"]]
+    adopted = [adopt_object(source, frozen, system_counts, supplements) for source in frozen["candidates"]]
     adopted.sort(key=lambda item: (item[1]["adoptedJ2000"]["distancePc"], item[0]["id"]))
     eligible = [item for item in adopted if release_eligible(source_by_seq[item[1]["sourceRow"]])]
     excluded = [item for item in adopted if not release_eligible(source_by_seq[item[1]["sourceRow"]])]
@@ -327,13 +347,16 @@ def build_catalog(output, force=False, check=False):
         for bearing in range(0, 360, 45):
             assert constellation(direction.directional_offset_by(bearing * units.deg, 1 * units.arcsec)) == row["constellation"]
     sun = dict(next(row for row in frozen["legacyRows"] if row["id"] == "sun"))
-    sun.update({key: "" for key in RAW_ASTROMETRY_HEADERS})
-    rows = [sun] + [row for row, _ in selected]
-    headers = BASE_HEADERS + RAW_ASTROMETRY_HEADERS
-    assert list(sun) == headers
+    sun.update({key: "" for key in PHYSICAL_HEADERS + RAW_ASTROMETRY_HEADERS})
+    sun = {key: sun[key] for key in OUTPUT_HEADERS}
+    rows = [sun] + [{key: row[key] for key in OUTPUT_HEADERS} for row, _ in selected]
+    headers = OUTPUT_HEADERS
+    for row in rows:
+        if row["id"] in current_default:
+            assert row == {key: current_default[row["id"]].get(key, "") for key in headers}, f"Default row drifted from frozen legacy plus supplements: {row['id']}"
     cutoff_policy = MEMBERSHIP_POLICY + " Rank eligible individual non-Sun objects by unrounded adopted J2000 distance, then ASCII stable ID for exact ties; retain exactly 100 plus Sun. Rank 100 is GJ 229 A; nearby one-sigma distance intervals overlap, so membership is not statistically secure. Frozen 2023 source releases with preserved neighbor overrides; no 2026 completeness claim."
-    manifest = {"schemaVersion": 1, "id": "nearest-100", "label": "Nearest 100 objects", "description": "100 individual stellar/substellar objects from the frozen 2023 10pc census, audited against corrected CNS5, plus Sun. Tentative candidates excluded except explicitly preserved EZ Aquarii B/C default membership; photometry and physical properties are incomplete.", "epoch": 2000, "objectCount": 101, "sources": SOURCES, "cutoffPolicy": cutoff_policy, "snapshot": "J2000.0; 10pc 2023-08-25 / CNS5 corrected 2023-12-13; preserved neighbor measurements; frozen 2026-09-15; " + POLICY_REVISION}
-    coverage = {field: sum(row[field] != "" for row in rows) for field in ("constellation", "spectral_type", "temperature_k", "mass_solar", "luminosity_solar", "absolute_mag")}
+    manifest = {"schemaVersion": 1, "id": "nearest-100", "label": "Nearest 100 objects", "description": "100 individual stellar/substellar objects from the frozen 2023 10pc census, audited against corrected CNS5, plus Sun. Tentative candidates excluded except explicitly preserved EZ Aquarii B/C default membership; photometry and physical properties are incomplete.", "epoch": 2000, "objectCount": 101, "sources": SOURCES + SUPPLEMENT_SOURCES, "cutoffPolicy": cutoff_policy, "snapshot": "J2000.0; 10pc 2023-08-25 / CNS5 corrected 2023-12-13; preserved neighbor measurements; frozen 2026-09-15; " + POLICY_REVISION}
+    coverage = {field: sum(row[field] != "" for row in rows) for field in ("constellation", "spectral_type", "temperature_k", "mass_solar", "luminosity_solar", "radius_solar", "absolute_mag")}
     coverage["fullVelocity"] = sum(all(row[key] != "" for key in ("vx_kms", "vy_kms", "vz_kms")) for row in rows)
     coverage["rawAstrometry"] = sum(all(row[key] != "" for key in ("ra_deg", "dec_deg", "astrometry_epoch", "parallax_mas", "pm_ra_cosdec_masyr", "pm_dec_masyr")) for row in rows)
     coverage["radialVelocity"] = sum(row["radial_velocity_kms"] != "" for row in rows)
@@ -357,12 +380,13 @@ def build_catalog(output, force=False, check=False):
         positions.setdefault(key, []).append(row["id"])
     provenance = {
         "schemaVersion": 1, "catalogId": "nearest-100", "sourceRelease": frozen["release"], "policyRevision": frozen["policyRevision"], "inputSha256": checksum(input_path),
-        "sources": SOURCES, "sourceChecksumsSha256": frozen["sourceChecksumsSha256"],
+        "supplementManifestSha256": supplements.manifest_sha256,
+        "sources": SOURCES + SUPPLEMENT_SOURCES, "sourceChecksumsSha256": frozen["sourceChecksumsSha256"],
         "tools": {"astropy": astropy.__version__, "boundary": "Roman 1987, VI/42 via Astropy", "constellationSpellingCorrections": NAME_CORRECTIONS},
         "conventions": {"position": "Sun-relative Galactic x toward Galactic center, y toward Galactic longitude 90 deg, z toward north Galactic pole; pc", "epoch": "J2000.0 Julian years TT; linear Astropy apply_space_motion, no binary orbit model. Source epoch precision is retained as published, including 0.1-year rounding.", "velocity": "Sun-relative Galactic km/s; no solar Galactic offset. Missing/withheld RV is used only as a transverse-only propagation approximation, never exported as measured velocity.", "constellation": "Earth-view IAU region from high-precision adopted snapshot direction before Cartesian rounding. Existing vectors are preserved and inverted. Sun has no fixed region. No physical propagation to B1875.", "photometry": "Johnson V only, MV=V-5log10(d/10), local extinction neglected; no G/IR/bolometric substitutions. No time-variable photometry or unresolved flux aggregation.", "uncertainty": "Raw source measurement errors retained. Rank uses nominal adopted distance; linearized parallax-only distance sigma is an audit, not a covariance-aware posterior or a guarantee of order. Existing row source errors are audit-only when astrometry is overridden."},
         "decisions": frozen["decisions"], "coverage": coverage,
         "audit": {"sourceCounts": frozen["sourceCounts"], "bufferPolicy": frozen["bufferPolicy"], "candidateCount": len(adopted), "eligibleCandidateCount": len(eligible), "excludedTentativeSequences": frozen["excludedTentativeSequences"], "excludedPlanetSequences": frozen["excludedPlanetSequences"], "preservedTentativeSequences": frozen["preservedTentativeSequences"], "rankingPolicy": "bufferRank covers all 160 frozen candidates; rank covers only the 155 eligible objects and is null for explicit exclusions. Uncertainty flags on excluded rows are diagnostic only, not eligibility.", "cns5RowsChecked": len(frozen["cns5Matches"]), "unmatchedCNS5Rows": 0, "rankings": rankings, "cns5Matches": frozen["cns5Matches"], "coincidentGroups": [members for members in positions.values() if len(members) > 1], "constellationBoundaryProbeArcsec": 1, "boundaryFixtures": boundary_fixtures, "boundaryFixtureMethod": "Synthetic B1875 directions RA=0h, Dec=88deg +/-1arcsec transformed to ICRS with Astropy PrecessedGeocentric; no physical proper motion.", "cutoffTie": [row["id"] for row, item in eligible if item["adoptedJ2000"]["distancePc"] == cutoff_distance], "splitCutoffTie": any(item["adoptedJ2000"]["distancePc"] == cutoff_distance for _, item in eligible[100:])},
-        "objects": [{"id": "sun", "fields": {key: field_source("not-applicable" if key == "constellation" else "adopted", "NASA:sunfact:2024-05-09" if key == "absolute_mag" else "legacy-neighbors:sun") for key in sun}}] + [item for _, item in selected],
+        "objects": [{"id": "sun", "fields": {key: field_source("not-applicable" if key == "constellation" else "unknown" if key in PHYSICAL_HEADERS else "adopted", "NASA:sunfact:2024-05-09" if key == "absolute_mag" else None if key in PHYSICAL_HEADERS else "legacy-neighbors:sun") for key in sun}}] + [item for _, item in selected],
     }
     csv_text = io.StringIO(newline="")
     writer = csv.DictWriter(csv_text, fieldnames=headers, lineterminator="\n")
@@ -409,21 +433,28 @@ def default_catalog(write=False):
     assert all(row["constellation"] == assignments[row["id"]] for row in rows)
     frozen = json.loads((FROZEN / "source-input.json").read_text())
     source_by_id = {LEGACY_IDS[source["Seq"]]: source for source in frozen["candidates"] if source["Seq"] in LEGACY_IDS}
+    supplements = load_supplements(SUPPLEMENTS, CNS5_DATA)
     enriched = []
+    supplemented = {}
     for row in rows:
-        output = {key: row.get(key, "") for key in BASE_HEADERS + RAW_ASTROMETRY_HEADERS}
+        output = {key: row.get(key, "") for key in OUTPUT_HEADERS}
         if row["id"] != "sun":
             output.update(raw_astrometry(source_by_id[row["id"]], all(row[key] != "" for key in ("vx_kms", "vy_kms", "vz_kms"))))
+            before = {key: output[key] for key in OUTPUT_HEADERS}
+            adopted, _ = enrich_curated_row(output, supplements)
+            assert all(before[key] == output[key] or (key in adopted and before[key] == "") or (key == "notes" and output[key].startswith(before[key])) for key in OUTPUT_HEADERS)
+            if adopted:
+                supplemented[row["id"]] = sorted(adopted)
         enriched.append(output)
     generated = io.StringIO(newline="")
-    writer = csv.DictWriter(generated, fieldnames=BASE_HEADERS + RAW_ASTROMETRY_HEADERS, lineterminator="\n")
+    writer = csv.DictWriter(generated, fieldnames=OUTPUT_HEADERS, lineterminator="\n")
     writer.writeheader()
     writer.writerows(enriched)
     if write:
         atomic_write_text(path, generated.getvalue())
-    elif set(rows[0]) == set(BASE_HEADERS + RAW_ASTROMETRY_HEADERS):
+    elif set(rows[0]) == set(OUTPUT_HEADERS):
         assert text == generated.getvalue()
-    print(json.dumps({"defaultRows": len(rows), "constellations": assignments, "boundaryProbeArcsec": 1}, indent=2))
+    print(json.dumps({"defaultRows": len(rows), "constellations": assignments, "boundaryProbeArcsec": 1, "supplementedFields": supplemented}, indent=2))
 
 
 def read_cds(folder, filename, readme):

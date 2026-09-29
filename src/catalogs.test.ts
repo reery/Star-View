@@ -55,7 +55,10 @@ describe('catalog packages and display settings', () => {
     const provenance = JSON.parse(nearest1000Provenance)
     expect(provenance.cutoff).toMatchObject({ rank: 1000, id: 'cns5-0864', nextId: 'cns5-2673', oneSigmaIntervalsOverlap: true })
     expect(nearest1000.find((star) => star.id === 'cns5-3517')?.name).toBe('Arcturus')
-    expect(catalogCoverage(nearest1000)).toMatchObject({ radii: 350, metallicities: 350, ages: 68 })
+    expect(catalogCoverage(nearest1000)).toMatchObject({ radii: 568, metallicities: 350, ages: 68, masses: 526, luminosities: 505, temperatures: 558 })
+    expect(catalogCoverage(large)).toMatchObject({ masses: 54, luminosities: 38, radii: 40 })
+    expect(small.find((star) => star.id === 'barnards-star')).toMatchObject({ mass_solar: 0.144, radius_solar: 0.1931, luminosity_solar: 0.0035225088 })
+    expect(nearest1000.find((star) => star.id === 'cns5-5672')).toMatchObject({ mass_solar: 0.6116, radius_solar: 0.6299 })
   })
 
   it('keeps the bright landmark catalog bounded and merges it without duplicates', () => {

@@ -4,6 +4,7 @@
   "sourceRelease": "reyle-2023-08-25+cns5-2023-12-13+preserved-neighbors-v1",
   "policyRevision": "confirmed-membership-v2",
   "inputSha256": "c71b24d763503795ad85083873094f1f4ee62d88cbdb19c6a7752a8b7aedf089",
+  "supplementManifestSha256": "92cb2daae1b7319401890f4e1de7f904d1d1b0375b3ac2dc93c8c41c5ecd0073",
   "sources": [
     {
       "name": "10pc census, Reyle et al., tablea1 update 2023-08-25",
@@ -28,6 +29,22 @@
     {
       "name": "Astropy 7.1.1, IAU constellations using Roman 1987 boundaries",
       "url": "https://docs.astropy.org/en/stable/api/astropy.coordinates.get_constellation.html"
+    },
+    {
+      "name": "Cifuentes et al. 2020, CARMENES M-dwarf luminosities, temperatures, radii and masses (J/A+A/642/A115); fills blank fields only",
+      "url": "https://cdsarc.cds.unistra.fr/ftp/J/A+A/642/A115/ReadMe"
+    },
+    {
+      "name": "Mann et al. 2019, absolute-Ks mass relation (2019ApJ...871...63M); fills blank masses only",
+      "url": "https://ui.adsabs.harvard.edu/abs/2019ApJ...871...63M/abstract"
+    },
+    {
+      "name": "Mann et al. 2015, absolute-Ks radius relation (2015ApJ...804...64M); fills blank radii only",
+      "url": "https://ui.adsabs.harvard.edu/abs/2015ApJ...804...64M/abstract"
+    },
+    {
+      "name": "2MASS All-Sky Point Source Catalog Ks photometry (VizieR II/246)",
+      "url": "https://cdsarc.cds.unistra.fr/viz-bin/cat/II/246"
     }
   ],
   "sourceChecksumsSha256": {
@@ -70,8 +87,9 @@
     "constellation": 100,
     "spectral_type": 101,
     "temperature_k": 92,
-    "mass_solar": 22,
-    "luminosity_solar": 2,
+    "mass_solar": 55,
+    "luminosity_solar": 39,
+    "radius_solar": 40,
     "absolute_mag": 48,
     "fullVelocity": 70,
     "rawAstrometry": 100,
@@ -4771,6 +4789,18 @@
             "legacy-neighbors:sun"
           ]
         },
+        "radius_solar": {
+          "status": "unknown",
+          "sourceRefs": []
+        },
+        "metallicity_dex": {
+          "status": "unknown",
+          "sourceRefs": []
+        },
+        "age_gyr": {
+          "status": "unknown",
+          "sourceRefs": []
+        },
         "absolute_mag": {
           "status": "adopted",
           "sourceRefs": [
@@ -4991,10 +5021,11 @@
           ]
         },
         "luminosity_solar": {
-          "status": "unknown",
+          "status": "measured",
           "sourceRefs": [
-            "legacy-neighbors:proxima-centauri"
-          ]
+            "2020A&A...642A.115C:J14294-6240"
+          ],
+          "detail": "cifuentes-2020; uncertainty 4.737831e-05; fills a blank field only."
         },
         "absolute_mag": {
           "status": "adopted-existing",
@@ -5098,11 +5129,55 @@
           "sourceRefs": [
             "10pc:tablea1:Seq=1:r_RV"
           ]
+        },
+        "radius_solar": {
+          "status": "derived",
+          "sourceRefs": [
+            "2020A&A...642A.115C:J14294-6240"
+          ],
+          "detail": "cifuentes-2020; uncertainty 0.0057; fills a blank field only."
+        },
+        "metallicity_dex": {
+          "status": "unknown",
+          "sourceRefs": []
+        },
+        "age_gyr": {
+          "status": "unknown",
+          "sourceRefs": []
         }
       },
       "overrides": [
-        "All existing neighbor fields preserved, including unknowns; new source measurements are audit-only."
-      ]
+        "All existing neighbor values preserved; blank physical fields may be filled by the documented supplements; new source measurements are audit-only."
+      ],
+      "physicalSupplements": {
+        "identity": {
+          "cns5_id": "3591",
+          "simbad_id": "NAME Proxima Centauri",
+          "twomass": "14294291-6240465",
+          "gaia_dr2": "5853498713160606720",
+          "identity_method": "nearest-100 source row; frozen CNS5 match; exact SIMBAD CNS5 identity"
+        },
+        "cifuentes2020": {
+          "record": "J14294-6240",
+          "matchedBy": "Gaia DR2",
+          "distancePc": 1.301236,
+          "status": "adopted",
+          "fields": [
+            "temperature_k",
+            "luminosity_solar",
+            "radius_solar",
+            "mass_solar"
+          ],
+          "reasons": []
+        },
+        "mann": {
+          "twomass": "14294291-6240465",
+          "status": "withheld",
+          "reasons": [
+            "2MASS Ks quality, blend or contamination flag not clean (requires Q=A/B, B=1, C=0)"
+          ]
+        }
+      }
     },
     {
       "id": "alpha-centauri-b",
@@ -5327,11 +5402,29 @@
           "sourceRefs": [
             "10pc:tablea1:Seq=4:r_RV"
           ]
+        },
+        "radius_solar": {
+          "status": "unknown",
+          "sourceRefs": []
+        },
+        "metallicity_dex": {
+          "status": "unknown",
+          "sourceRefs": []
+        },
+        "age_gyr": {
+          "status": "unknown",
+          "sourceRefs": []
         }
       },
       "overrides": [
-        "All existing neighbor fields preserved, including unknowns; new source measurements are audit-only."
-      ]
+        "All existing neighbor values preserved; blank physical fields may be filled by the documented supplements; new source measurements are audit-only."
+      ],
+      "physicalSupplements": {
+        "identity": {
+          "identity_method": "10pc Gaia DR2 identifier only; CNS5 identity shared by several components or absent"
+        },
+        "eligibility": "Not a parsed K5-M9.5 dwarf spectral type (no subdwarf, giant, composite or peculiar class); supplements not applied."
+      }
     },
     {
       "id": "alpha-centauri-a",
@@ -5556,11 +5649,29 @@
           "sourceRefs": [
             "10pc:tablea1:Seq=3:r_RV"
           ]
+        },
+        "radius_solar": {
+          "status": "unknown",
+          "sourceRefs": []
+        },
+        "metallicity_dex": {
+          "status": "unknown",
+          "sourceRefs": []
+        },
+        "age_gyr": {
+          "status": "unknown",
+          "sourceRefs": []
         }
       },
       "overrides": [
-        "All existing neighbor fields preserved, including unknowns; new source measurements are audit-only."
-      ]
+        "All existing neighbor values preserved; blank physical fields may be filled by the documented supplements; new source measurements are audit-only."
+      ],
+      "physicalSupplements": {
+        "identity": {
+          "identity_method": "10pc Gaia DR2 identifier only; CNS5 identity shared by several components or absent"
+        },
+        "eligibility": "Not a parsed K5-M9.5 dwarf spectral type (no subdwarf, giant, composite or peculiar class); supplements not applied."
+      }
     },
     {
       "id": "barnards-star",
@@ -5678,10 +5789,11 @@
           ]
         },
         "luminosity_solar": {
-          "status": "unknown",
+          "status": "measured",
           "sourceRefs": [
-            "legacy-neighbors:barnards-star"
-          ]
+            "2020A&A...642A.115C:J17578+046"
+          ],
+          "detail": "cifuentes-2020; uncertainty 9.057033e-05; fills a blank field only."
         },
         "absolute_mag": {
           "status": "adopted-existing",
@@ -5785,11 +5897,62 @@
           "sourceRefs": [
             "10pc:tablea1:Seq=5:r_RV"
           ]
+        },
+        "radius_solar": {
+          "status": "derived",
+          "sourceRefs": [
+            "2020A&A...642A.115C:J17578+046"
+          ],
+          "detail": "cifuentes-2020; uncertainty 0.0065; fills a blank field only."
+        },
+        "metallicity_dex": {
+          "status": "unknown",
+          "sourceRefs": []
+        },
+        "age_gyr": {
+          "status": "unknown",
+          "sourceRefs": []
         }
       },
       "overrides": [
-        "All existing neighbor fields preserved, including unknowns; new source measurements are audit-only."
-      ]
+        "All existing neighbor values preserved; blank physical fields may be filled by the documented supplements; new source measurements are audit-only."
+      ],
+      "physicalSupplements": {
+        "identity": {
+          "cns5_id": "4449",
+          "simbad_id": "NAME Barnard's star",
+          "twomass": "17574849+0441405",
+          "karmn": "J17578+046",
+          "gaia_dr2": "4472832130942575872",
+          "identity_method": "nearest-100 source row; frozen CNS5 match; exact SIMBAD CNS5 identity"
+        },
+        "cifuentes2020": {
+          "record": "J17578+046",
+          "matchedBy": "Karmn",
+          "distancePc": 1.826649,
+          "status": "adopted",
+          "fields": [
+            "temperature_k",
+            "luminosity_solar",
+            "radius_solar",
+            "mass_solar"
+          ],
+          "reasons": []
+        },
+        "mann": {
+          "twomass": "17574849+0441405",
+          "ksMag": 4.524,
+          "ksErrorMag": 0.02,
+          "absoluteKs": 8.2138,
+          "absoluteKsError": 0.02,
+          "fields": [
+            "mass_solar",
+            "radius_solar"
+          ],
+          "reasons": [],
+          "status": "adopted"
+        }
+      }
     },
     {
       "id": "luhman-16-a",
@@ -6014,11 +6177,30 @@
           "sourceRefs": [
             "10pc:tablea1:Seq=6:r_RV"
           ]
+        },
+        "radius_solar": {
+          "status": "unknown",
+          "sourceRefs": []
+        },
+        "metallicity_dex": {
+          "status": "unknown",
+          "sourceRefs": []
+        },
+        "age_gyr": {
+          "status": "unknown",
+          "sourceRefs": []
         }
       },
       "overrides": [
-        "All existing neighbor fields preserved, including unknowns; new source measurements are audit-only."
-      ]
+        "All existing neighbor values preserved; blank physical fields may be filled by the documented supplements; new source measurements are audit-only."
+      ],
+      "physicalSupplements": {
+        "identity": {
+          "gaia_dr2": "5353626573555863424",
+          "identity_method": "10pc Gaia DR2 identifier only; CNS5 identity shared by several components or absent"
+        },
+        "eligibility": "Not a parsed K5-M9.5 dwarf spectral type (no subdwarf, giant, composite or peculiar class); supplements not applied."
+      }
     },
     {
       "id": "luhman-16-b",
@@ -6243,11 +6425,30 @@
           "sourceRefs": [
             "10pc:tablea1:Seq=7:r_RV"
           ]
+        },
+        "radius_solar": {
+          "status": "unknown",
+          "sourceRefs": []
+        },
+        "metallicity_dex": {
+          "status": "unknown",
+          "sourceRefs": []
+        },
+        "age_gyr": {
+          "status": "unknown",
+          "sourceRefs": []
         }
       },
       "overrides": [
-        "All existing neighbor fields preserved, including unknowns; new source measurements are audit-only."
-      ]
+        "All existing neighbor values preserved; blank physical fields may be filled by the documented supplements; new source measurements are audit-only."
+      ],
+      "physicalSupplements": {
+        "identity": {
+          "gaia_dr2": "5353626573562355584",
+          "identity_method": "10pc Gaia DR2 identifier only; CNS5 identity shared by several components or absent"
+        },
+        "eligibility": "Not a parsed K5-M9.5 dwarf spectral type (no subdwarf, giant, composite or peculiar class); supplements not applied."
+      }
     },
     {
       "id": "wise-0855-0714",
@@ -6472,11 +6673,31 @@
           "sourceRefs": [
             "10pc:tablea1:Seq=8:r_RV"
           ]
+        },
+        "radius_solar": {
+          "status": "unknown",
+          "sourceRefs": []
+        },
+        "metallicity_dex": {
+          "status": "unknown",
+          "sourceRefs": []
+        },
+        "age_gyr": {
+          "status": "unknown",
+          "sourceRefs": []
         }
       },
       "overrides": [
-        "All existing neighbor fields preserved, including unknowns; new source measurements are audit-only."
-      ]
+        "All existing neighbor values preserved; blank physical fields may be filled by the documented supplements; new source measurements are audit-only."
+      ],
+      "physicalSupplements": {
+        "identity": {
+          "cns5_id": "2194",
+          "simbad_id": "WISEA J085510.74-071442.5",
+          "identity_method": "nearest-100 source row; frozen CNS5 match; exact SIMBAD CNS5 identity"
+        },
+        "eligibility": "Not a parsed K5-M9.5 dwarf spectral type (no subdwarf, giant, composite or peculiar class); supplements not applied."
+      }
     },
     {
       "id": "wolf-359",
@@ -6594,10 +6815,11 @@
           ]
         },
         "luminosity_solar": {
-          "status": "unknown",
+          "status": "measured",
           "sourceRefs": [
-            "legacy-neighbors:wolf-359"
-          ]
+            "2020A&A...642A.115C:J10564+070"
+          ],
+          "detail": "cifuentes-2020; uncertainty 2.3087146e-05; fills a blank field only."
         },
         "absolute_mag": {
           "status": "adopted-existing",
@@ -6701,11 +6923,61 @@
           "sourceRefs": [
             "10pc:tablea1:Seq=9:r_RV"
           ]
+        },
+        "radius_solar": {
+          "status": "derived",
+          "sourceRefs": [
+            "2020A&A...642A.115C:J10564+070"
+          ],
+          "detail": "cifuentes-2020; uncertainty 0.0053; fills a blank field only."
+        },
+        "metallicity_dex": {
+          "status": "unknown",
+          "sourceRefs": []
+        },
+        "age_gyr": {
+          "status": "unknown",
+          "sourceRefs": []
         }
       },
       "overrides": [
-        "All existing neighbor fields preserved, including unknowns; new source measurements are audit-only."
-      ]
+        "All existing neighbor values preserved; blank physical fields may be filled by the documented supplements; new source measurements are audit-only."
+      ],
+      "physicalSupplements": {
+        "identity": {
+          "cns5_id": "2674",
+          "simbad_id": "Wolf  359",
+          "twomass": "10562886+0700527",
+          "karmn": "J10564+070",
+          "identity_method": "nearest-100 source row; frozen CNS5 match; exact SIMBAD CNS5 identity"
+        },
+        "cifuentes2020": {
+          "record": "J10564+070",
+          "matchedBy": "Karmn",
+          "distancePc": 2.42,
+          "status": "adopted",
+          "fields": [
+            "temperature_k",
+            "luminosity_solar",
+            "radius_solar",
+            "mass_solar"
+          ],
+          "reasons": []
+        },
+        "mann": {
+          "twomass": "10562886+0700527",
+          "ksMag": 6.084,
+          "ksErrorMag": 0.017,
+          "absoluteKs": 9.1752,
+          "absoluteKsError": 0.017,
+          "fields": [
+            "mass_solar",
+            "radius_solar"
+          ],
+          "reasons": [],
+          "status": "adopted"
+        }
+      }
     },
     {
       "id": "lalande-21185",
@@ -6823,10 +7095,11 @@
           ]
         },
         "luminosity_solar": {
-          "status": "unknown",
+          "status": "measured",
           "sourceRefs": [
-            "legacy-neighbors:lalande-21185"
-          ]
+            "2020A&A...642A.115C:J11033+359"
+          ],
+          "detail": "cifuentes-2020; uncertainty 0.0013054019; fills a blank field only."
         },
         "absolute_mag": {
           "status": "adopted-existing",
@@ -6930,11 +7203,54 @@
           "sourceRefs": [
             "10pc:tablea1:Seq=10:r_RV"
           ]
+        },
+        "radius_solar": {
+          "status": "derived",
+          "sourceRefs": [
+            "2020A&A...642A.115C:J11033+359"
+          ],
+          "detail": "cifuentes-2020; uncertainty 0.0167; fills a blank field only."
+        },
+        "metallicity_dex": {
+          "status": "unknown",
+          "sourceRefs": []
+        },
+        "age_gyr": {
+          "status": "unknown",
+          "sourceRefs": []
         }
       },
       "overrides": [
-        "All existing neighbor fields preserved, including unknowns; new source measurements are audit-only."
-      ]
+        "All existing neighbor values preserved; blank physical fields may be filled by the documented supplements; new source measurements are audit-only."
+      ],
+      "physicalSupplements": {
+        "identity": {
+          "cns5_id": "2696",
+          "simbad_id": "HD  95735",
+          "karmn": "J11033+359",
+          "identity_method": "nearest-100 source row; frozen CNS5 match; exact SIMBAD CNS5 identity"
+        },
+        "cifuentes2020": {
+          "record": "J11033+359",
+          "matchedBy": "Karmn",
+          "distancePc": 2.55,
+          "status": "adopted",
+          "fields": [
+            "temperature_k",
+            "luminosity_solar",
+            "radius_solar",
+            "mass_solar"
+          ],
+          "reasons": []
+        },
+        "mann": {
+          "twomass": null,
+          "status": "withheld",
+          "reasons": [
+            "No unique 2MASS identifier"
+          ]
+        }
+      }
     },
     {
       "id": "sirius-a",
@@ -7159,11 +7475,32 @@
           "sourceRefs": [
             "10pc:tablea1:Seq=13:r_RV"
           ]
+        },
+        "radius_solar": {
+          "status": "unknown",
+          "sourceRefs": []
+        },
+        "metallicity_dex": {
+          "status": "unknown",
+          "sourceRefs": []
+        },
+        "age_gyr": {
+          "status": "unknown",
+          "sourceRefs": []
         }
       },
       "overrides": [
-        "All existing neighbor fields preserved, including unknowns; new source measurements are audit-only."
-      ]
+        "All existing neighbor values preserved; blank physical fields may be filled by the documented supplements; new source measurements are audit-only."
+      ],
+      "physicalSupplements": {
+        "identity": {
+          "cns5_id": "1676",
+          "simbad_id": "* alf CMa",
+          "twomass": "06450887-1642566",
+          "identity_method": "nearest-100 source row; frozen CNS5 match; exact SIMBAD CNS5 identity"
+        },
+        "eligibility": "Not a parsed K5-M9.5 dwarf spectral type (no subdwarf, giant, composite or peculiar class); supplements not applied."
+      }
     },
     {
       "id": "sirius-b",
@@ -7388,11 +7725,32 @@
           "sourceRefs": [
             "10pc:tablea1:Seq=14:r_RV"
           ]
+        },
+        "radius_solar": {
+          "status": "unknown",
+          "sourceRefs": []
+        },
+        "metallicity_dex": {
+          "status": "unknown",
+          "sourceRefs": []
+        },
+        "age_gyr": {
+          "status": "unknown",
+          "sourceRefs": []
         }
       },
       "overrides": [
-        "All existing neighbor fields preserved, including unknowns; new source measurements are audit-only."
-      ]
+        "All existing neighbor values preserved; blank physical fields may be filled by the documented supplements; new source measurements are audit-only."
+      ],
+      "physicalSupplements": {
+        "identity": {
+          "cns5_id": "1675",
+          "simbad_id": "* alf CMa B",
+          "gaia_dr2": "2947050466531873024",
+          "identity_method": "nearest-100 source row; frozen CNS5 match; exact SIMBAD CNS5 identity"
+        },
+        "eligibility": "Not a parsed K5-M9.5 dwarf spectral type (no subdwarf, giant, composite or peculiar class); supplements not applied."
+      }
     },
     {
       "id": "luyten-726-8-a",
@@ -7617,11 +7975,49 @@
           "sourceRefs": [
             "10pc:tablea1:Seq=15:r_RV"
           ]
+        },
+        "radius_solar": {
+          "status": "unknown",
+          "sourceRefs": []
+        },
+        "metallicity_dex": {
+          "status": "unknown",
+          "sourceRefs": []
+        },
+        "age_gyr": {
+          "status": "unknown",
+          "sourceRefs": []
         }
       },
       "overrides": [
-        "All existing neighbor fields preserved, including unknowns; new source measurements are audit-only."
-      ]
+        "All existing neighbor values preserved; blank physical fields may be filled by the documented supplements; new source measurements are audit-only."
+      ],
+      "physicalSupplements": {
+        "identity": {
+          "cns5_id": "424",
+          "simbad_id": "G 272-61A",
+          "gaia_dr2": "5140693571158739840",
+          "identity_method": "nearest-100 source row; frozen CNS5 match; exact SIMBAD CNS5 identity"
+        },
+        "cifuentes2020": {
+          "record": "J01390-179",
+          "matchedBy": "Gaia DR2",
+          "distancePc": 2.703201,
+          "status": "withheld",
+          "fields": [],
+          "reasons": [
+            "Cifuentes close multiple (<5 arcsec)",
+            "Gaia DR2 RUWE>1.41 flag; possible unresolved binary"
+          ]
+        },
+        "mann": {
+          "twomass": null,
+          "status": "withheld",
+          "reasons": [
+            "No unique 2MASS identifier"
+          ]
+        }
+      }
     },
     {
       "id": "luyten-726-8-b",
@@ -7846,11 +8242,41 @@
           "sourceRefs": [
             "10pc:tablea1:Seq=16:r_RV"
           ]
+        },
+        "radius_solar": {
+          "status": "unknown",
+          "sourceRefs": []
+        },
+        "metallicity_dex": {
+          "status": "unknown",
+          "sourceRefs": []
+        },
+        "age_gyr": {
+          "status": "unknown",
+          "sourceRefs": []
         }
       },
       "overrides": [
-        "All existing neighbor fields preserved, including unknowns; new source measurements are audit-only."
-      ]
+        "All existing neighbor values preserved; blank physical fields may be filled by the documented supplements; new source measurements are audit-only."
+      ],
+      "physicalSupplements": {
+        "identity": {
+          "cns5_id": "425",
+          "simbad_id": "G 272-61B",
+          "gaia_dr2": "5140693571158739712",
+          "identity_method": "nearest-100 source row; frozen CNS5 match; exact SIMBAD CNS5 identity"
+        },
+        "cifuentes2020": {
+          "status": "no exact identifier match"
+        },
+        "mann": {
+          "twomass": null,
+          "status": "withheld",
+          "reasons": [
+            "No unique 2MASS identifier"
+          ]
+        }
+      }
     },
     {
       "id": "ross-154",
@@ -7968,10 +8394,11 @@
           ]
         },
         "luminosity_solar": {
-          "status": "unknown",
+          "status": "measured",
           "sourceRefs": [
-            "legacy-neighbors:ross-154"
-          ]
+            "2020A&A...642A.115C:J18498-238"
+          ],
+          "detail": "cifuentes-2020; uncertainty 6.248052e-05; fills a blank field only."
         },
         "absolute_mag": {
           "status": "adopted-existing",
@@ -8075,11 +8502,62 @@
           "sourceRefs": [
             "10pc:tablea1:Seq=17:r_RV"
           ]
+        },
+        "radius_solar": {
+          "status": "derived",
+          "sourceRefs": [
+            "2020A&A...642A.115C:J18498-238"
+          ],
+          "detail": "cifuentes-2020; uncertainty 0.0066; fills a blank field only."
+        },
+        "metallicity_dex": {
+          "status": "unknown",
+          "sourceRefs": []
+        },
+        "age_gyr": {
+          "status": "unknown",
+          "sourceRefs": []
         }
       },
       "overrides": [
-        "All existing neighbor fields preserved, including unknowns; new source measurements are audit-only."
-      ]
+        "All existing neighbor values preserved; blank physical fields may be filled by the documented supplements; new source measurements are audit-only."
+      ],
+      "physicalSupplements": {
+        "identity": {
+          "cns5_id": "4678",
+          "simbad_id": "CD-23 14742",
+          "twomass": "18494929-2350101",
+          "karmn": "J18498-238",
+          "gaia_dr2": "4075141768785646848",
+          "identity_method": "nearest-100 source row; frozen CNS5 match; exact SIMBAD CNS5 identity"
+        },
+        "cifuentes2020": {
+          "record": "J18498-238",
+          "matchedBy": "Karmn",
+          "distancePc": 2.975103,
+          "status": "adopted",
+          "fields": [
+            "temperature_k",
+            "luminosity_solar",
+            "radius_solar",
+            "mass_solar"
+          ],
+          "reasons": []
+        },
+        "mann": {
+          "twomass": "18494929-2350101",
+          "ksMag": 5.37,
+          "ksErrorMag": 0.016,
+          "absoluteKs": 8.0019,
+          "absoluteKsError": 0.016,
+          "fields": [
+            "mass_solar",
+            "radius_solar"
+          ],
+          "reasons": [],
+          "status": "adopted"
+        }
+      }
     },
     {
       "id": "ross-248",
@@ -8197,10 +8675,11 @@
           ]
         },
         "luminosity_solar": {
-          "status": "unknown",
+          "status": "measured",
           "sourceRefs": [
-            "legacy-neighbors:ross-248"
-          ]
+            "2020A&A...642A.115C:J23419+441"
+          ],
+          "detail": "cifuentes-2020; uncertainty 3.1603133e-05; fills a blank field only."
         },
         "absolute_mag": {
           "status": "adopted-existing",
@@ -8304,11 +8783,62 @@
           "sourceRefs": [
             "10pc:tablea1:Seq=18:r_RV"
           ]
+        },
+        "radius_solar": {
+          "status": "derived",
+          "sourceRefs": [
+            "2020A&A...642A.115C:J23419+441"
+          ],
+          "detail": "cifuentes-2020; uncertainty 0.0059; fills a blank field only."
+        },
+        "metallicity_dex": {
+          "status": "unknown",
+          "sourceRefs": []
+        },
+        "age_gyr": {
+          "status": "unknown",
+          "sourceRefs": []
         }
       },
       "overrides": [
-        "All existing neighbor fields preserved, including unknowns; new source measurements are audit-only."
-      ]
+        "All existing neighbor values preserved; blank physical fields may be filled by the documented supplements; new source measurements are audit-only."
+      ],
+      "physicalSupplements": {
+        "identity": {
+          "cns5_id": "5844",
+          "simbad_id": "Ross  248",
+          "twomass": "23415498+4410407",
+          "karmn": "J23419+441",
+          "gaia_dr2": "1926461164913660160",
+          "identity_method": "nearest-100 source row; frozen CNS5 match; exact SIMBAD CNS5 identity"
+        },
+        "cifuentes2020": {
+          "record": "J23419+441",
+          "matchedBy": "Karmn",
+          "distancePc": 3.155014,
+          "status": "adopted",
+          "fields": [
+            "temperature_k",
+            "luminosity_solar",
+            "radius_solar",
+            "mass_solar"
+          ],
+          "reasons": []
+        },
+        "mann": {
+          "twomass": "23415498+4410407",
+          "ksMag": 5.929,
+          "ksErrorMag": 0.02,
+          "absoluteKs": 8.4307,
+          "absoluteKsError": 0.02,
+          "fields": [
+            "mass_solar",
+            "radius_solar"
+          ],
+          "reasons": [],
+          "status": "adopted"
+        }
+      }
     },
     {
       "id": "epsilon-eridani",
@@ -8533,11 +9063,33 @@
           "sourceRefs": [
             "10pc:tablea1:Seq=19:r_RV"
           ]
+        },
+        "radius_solar": {
+          "status": "unknown",
+          "sourceRefs": []
+        },
+        "metallicity_dex": {
+          "status": "unknown",
+          "sourceRefs": []
+        },
+        "age_gyr": {
+          "status": "unknown",
+          "sourceRefs": []
         }
       },
       "overrides": [
-        "All existing neighbor fields preserved, including unknowns; new source measurements are audit-only."
-      ]
+        "All existing neighbor values preserved; blank physical fields may be filled by the documented supplements; new source measurements are audit-only."
+      ],
+      "physicalSupplements": {
+        "identity": {
+          "cns5_id": "905",
+          "simbad_id": "* eps Eri",
+          "twomass": "03325591-0927298",
+          "gaia_dr2": "5164707970261630080",
+          "identity_method": "nearest-100 source row; frozen CNS5 match; exact SIMBAD CNS5 identity"
+        },
+        "eligibility": "Not a parsed K5-M9.5 dwarf spectral type (no subdwarf, giant, composite or peculiar class); supplements not applied."
+      }
     },
     {
       "id": "lacaille-9352",
@@ -8762,11 +9314,42 @@
           "sourceRefs": [
             "10pc:tablea1:Seq=21:r_RV"
           ]
+        },
+        "radius_solar": {
+          "status": "unknown",
+          "sourceRefs": []
+        },
+        "metallicity_dex": {
+          "status": "unknown",
+          "sourceRefs": []
+        },
+        "age_gyr": {
+          "status": "unknown",
+          "sourceRefs": []
         }
       },
       "overrides": [
-        "All existing neighbor fields preserved, including unknowns; new source measurements are audit-only."
-      ]
+        "All existing neighbor values preserved; blank physical fields may be filled by the documented supplements; new source measurements are audit-only."
+      ],
+      "physicalSupplements": {
+        "identity": {
+          "cns5_id": "5688",
+          "simbad_id": "HD 217987",
+          "twomass": "23055131-3551130",
+          "gaia_dr2": "6553614253923452800",
+          "identity_method": "nearest-100 source row; frozen CNS5 match; exact SIMBAD CNS5 identity"
+        },
+        "cifuentes2020": {
+          "status": "no exact identifier match"
+        },
+        "mann": {
+          "twomass": "23055131-3551130",
+          "status": "withheld",
+          "reasons": [
+            "2MASS Ks quality, blend or contamination flag not clean (requires Q=A/B, B=1, C=0)"
+          ]
+        }
+      }
     },
     {
       "id": "ross-128",
@@ -8884,10 +9467,11 @@
           ]
         },
         "luminosity_solar": {
-          "status": "unknown",
+          "status": "measured",
           "sourceRefs": [
-            "legacy-neighbors:ross-128"
-          ]
+            "2020A&A...642A.115C:J11477+008"
+          ],
+          "detail": "cifuentes-2020; uncertainty 7.1494804e-05; fills a blank field only."
         },
         "absolute_mag": {
           "status": "adopted-existing",
@@ -8991,11 +9575,62 @@
           "sourceRefs": [
             "10pc:tablea1:Seq=24:r_RV"
           ]
+        },
+        "radius_solar": {
+          "status": "derived",
+          "sourceRefs": [
+            "2020A&A...642A.115C:J11477+008"
+          ],
+          "detail": "cifuentes-2020; uncertainty 0.0072; fills a blank field only."
+        },
+        "metallicity_dex": {
+          "status": "unknown",
+          "sourceRefs": []
+        },
+        "age_gyr": {
+          "status": "unknown",
+          "sourceRefs": []
         }
       },
       "overrides": [
-        "All existing neighbor fields preserved, including unknowns; new source measurements are audit-only."
-      ]
+        "All existing neighbor values preserved; blank physical fields may be filled by the documented supplements; new source measurements are audit-only."
+      ],
+      "physicalSupplements": {
+        "identity": {
+          "cns5_id": "2890",
+          "simbad_id": "Ross  128",
+          "twomass": "11474440+0048164",
+          "karmn": "J11477+008",
+          "gaia_dr2": "3796072592206250624",
+          "identity_method": "nearest-100 source row; frozen CNS5 match; exact SIMBAD CNS5 identity"
+        },
+        "cifuentes2020": {
+          "record": "J11477+008",
+          "matchedBy": "Karmn",
+          "distancePc": 3.374875,
+          "status": "adopted",
+          "fields": [
+            "temperature_k",
+            "luminosity_solar",
+            "radius_solar",
+            "mass_solar"
+          ],
+          "reasons": []
+        },
+        "mann": {
+          "twomass": "11474440+0048164",
+          "ksMag": 5.654,
+          "ksErrorMag": 0.024,
+          "absoluteKs": 8.0127,
+          "absoluteKsError": 0.024,
+          "fields": [
+            "mass_solar",
+            "radius_solar"
+          ],
+          "reasons": [],
+          "status": "adopted"
+        }
+      }
     },
     {
       "id": "ez-aquarii-a",
@@ -9220,11 +9855,39 @@
           "sourceRefs": [
             "10pc:tablea1:Seq=26:r_RV"
           ]
+        },
+        "radius_solar": {
+          "status": "unknown",
+          "sourceRefs": []
+        },
+        "metallicity_dex": {
+          "status": "unknown",
+          "sourceRefs": []
+        },
+        "age_gyr": {
+          "status": "unknown",
+          "sourceRefs": []
         }
       },
       "overrides": [
-        "All existing neighbor fields preserved, including unknowns; new source measurements are audit-only."
-      ]
+        "All existing neighbor values preserved; blank physical fields may be filled by the documented supplements; new source measurements are audit-only."
+      ],
+      "physicalSupplements": {
+        "identity": {
+          "gaia_dr2": "2596740426912781696",
+          "identity_method": "10pc Gaia DR2 identifier only; CNS5 identity shared by several components or absent"
+        },
+        "cifuentes2020": {
+          "status": "no exact identifier match"
+        },
+        "mann": {
+          "twomass": null,
+          "status": "withheld",
+          "reasons": [
+            "No unique 2MASS identifier"
+          ]
+        }
+      }
     },
     {
       "id": "ez-aquarii-b",
@@ -9449,12 +10112,30 @@
           "sourceRefs": [
             "10pc:tablea1:Seq=27:r_RV"
           ]
+        },
+        "radius_solar": {
+          "status": "unknown",
+          "sourceRefs": []
+        },
+        "metallicity_dex": {
+          "status": "unknown",
+          "sourceRefs": []
+        },
+        "age_gyr": {
+          "status": "unknown",
+          "sourceRefs": []
         }
       },
       "overrides": [
-        "All existing neighbor fields preserved, including unknowns; new source measurements are audit-only.",
+        "All existing neighbor values preserved; blank physical fields may be filled by the documented supplements; new source measurements are audit-only.",
         "Explicit approved membership exception: preserve vetted EZ Aquarii B/C default row despite raw 10pc LM?; source classification unchanged, not newly measured or reclassified."
-      ]
+      ],
+      "physicalSupplements": {
+        "identity": {
+          "identity_method": "10pc Gaia DR2 identifier only; CNS5 identity shared by several components or absent"
+        },
+        "eligibility": "Not a parsed K5-M9.5 dwarf spectral type (no subdwarf, giant, composite or peculiar class); supplements not applied."
+      }
     },
     {
       "id": "ez-aquarii-c",
@@ -9679,12 +10360,30 @@
           "sourceRefs": [
             "10pc:tablea1:Seq=28:r_RV"
           ]
+        },
+        "radius_solar": {
+          "status": "unknown",
+          "sourceRefs": []
+        },
+        "metallicity_dex": {
+          "status": "unknown",
+          "sourceRefs": []
+        },
+        "age_gyr": {
+          "status": "unknown",
+          "sourceRefs": []
         }
       },
       "overrides": [
-        "All existing neighbor fields preserved, including unknowns; new source measurements are audit-only.",
+        "All existing neighbor values preserved; blank physical fields may be filled by the documented supplements; new source measurements are audit-only.",
         "Explicit approved membership exception: preserve vetted EZ Aquarii B/C default row despite raw 10pc LM?; source classification unchanged, not newly measured or reclassified."
-      ]
+      ],
+      "physicalSupplements": {
+        "identity": {
+          "identity_method": "10pc Gaia DR2 identifier only; CNS5 identity shared by several components or absent"
+        },
+        "eligibility": "Not a parsed K5-M9.5 dwarf spectral type (no subdwarf, giant, composite or peculiar class); supplements not applied."
+      }
     },
     {
       "id": "10pc-0030",
@@ -9916,9 +10615,41 @@
           "sourceRefs": [
             "10pc:tablea1:Seq=30:r_RV"
           ]
+        },
+        "radius_solar": {
+          "status": "unknown",
+          "sourceRefs": []
+        },
+        "metallicity_dex": {
+          "status": "unknown",
+          "sourceRefs": []
+        },
+        "age_gyr": {
+          "status": "unknown",
+          "sourceRefs": []
         }
       },
-      "overrides": []
+      "overrides": [],
+      "physicalSupplements": {
+        "identity": {
+          "cns5_id": "5218",
+          "simbad_id": "*  61 Cyg B",
+          "twomass": "21065473+3844265",
+          "karmn": "J21069+387",
+          "gaia_dr2": "1872046574983497216",
+          "identity_method": "nearest-100 source row; frozen CNS5 match; exact SIMBAD CNS5 identity"
+        },
+        "cifuentes2020": {
+          "status": "no exact identifier match"
+        },
+        "mann": {
+          "twomass": "21065473+3844265",
+          "status": "withheld",
+          "reasons": [
+            "2MASS Ks quality, blend or contamination flag not clean (requires Q=A/B, B=1, C=0)"
+          ]
+        }
+      }
     },
     {
       "id": "10pc-0029",
@@ -10150,9 +10881,41 @@
           "sourceRefs": [
             "10pc:tablea1:Seq=29:r_RV"
           ]
+        },
+        "radius_solar": {
+          "status": "unknown",
+          "sourceRefs": []
+        },
+        "metallicity_dex": {
+          "status": "unknown",
+          "sourceRefs": []
+        },
+        "age_gyr": {
+          "status": "unknown",
+          "sourceRefs": []
         }
       },
-      "overrides": []
+      "overrides": [],
+      "physicalSupplements": {
+        "identity": {
+          "cns5_id": "5217",
+          "simbad_id": "*  61 Cyg A",
+          "twomass": "21065341+3844529",
+          "karmn": "J21068+387",
+          "gaia_dr2": "1872046574983507456",
+          "identity_method": "nearest-100 source row; frozen CNS5 match; exact SIMBAD CNS5 identity"
+        },
+        "cifuentes2020": {
+          "status": "no exact identifier match"
+        },
+        "mann": {
+          "twomass": "21065341+3844529",
+          "status": "withheld",
+          "reasons": [
+            "2MASS Ks quality, blend or contamination flag not clean (requires Q=A/B, B=1, C=0)"
+          ]
+        }
+      }
     },
     {
       "id": "10pc-0032",
@@ -10382,9 +11145,27 @@
           "sourceRefs": [
             "10pc:tablea1:Seq=32:r_RV"
           ]
+        },
+        "radius_solar": {
+          "status": "unknown",
+          "sourceRefs": []
+        },
+        "metallicity_dex": {
+          "status": "unknown",
+          "sourceRefs": []
+        },
+        "age_gyr": {
+          "status": "unknown",
+          "sourceRefs": []
         }
       },
-      "overrides": []
+      "overrides": [],
+      "physicalSupplements": {
+        "identity": {
+          "identity_method": "10pc Gaia DR2 identifier only; CNS5 identity shared by several components or absent"
+        },
+        "eligibility": "Not a parsed K5-M9.5 dwarf spectral type (no subdwarf, giant, composite or peculiar class); supplements not applied."
+      }
     },
     {
       "id": "10pc-0031",
@@ -10614,9 +11395,30 @@
           "sourceRefs": [
             "10pc:tablea1:Seq=31:r_RV"
           ]
+        },
+        "radius_solar": {
+          "status": "unknown",
+          "sourceRefs": []
+        },
+        "metallicity_dex": {
+          "status": "unknown",
+          "sourceRefs": []
+        },
+        "age_gyr": {
+          "status": "unknown",
+          "sourceRefs": []
         }
       },
-      "overrides": []
+      "overrides": [],
+      "physicalSupplements": {
+        "identity": {
+          "cns5_id": "1895",
+          "simbad_id": "* alf CMi",
+          "twomass": "07391805+0513298",
+          "identity_method": "nearest-100 source row; frozen CNS5 match; exact SIMBAD CNS5 identity"
+        },
+        "eligibility": "Not a parsed K5-M9.5 dwarf spectral type (no subdwarf, giant, composite or peculiar class); supplements not applied."
+      }
     },
     {
       "id": "10pc-0034",
@@ -10848,9 +11650,48 @@
           "sourceRefs": [
             "10pc:tablea1:Seq=34:r_RV"
           ]
+        },
+        "radius_solar": {
+          "status": "unknown",
+          "sourceRefs": []
+        },
+        "metallicity_dex": {
+          "status": "unknown",
+          "sourceRefs": []
+        },
+        "age_gyr": {
+          "status": "unknown",
+          "sourceRefs": []
         }
       },
-      "overrides": []
+      "overrides": [],
+      "physicalSupplements": {
+        "identity": {
+          "cns5_id": "4634",
+          "simbad_id": "HD 173740",
+          "twomass": "18424688+5937374",
+          "karmn": "J18427+596S",
+          "gaia_dr2": "2154880616772528384",
+          "identity_method": "nearest-100 source row; frozen CNS5 match; exact SIMBAD CNS5 identity"
+        },
+        "cifuentes2020": {
+          "record": "J18427+596S",
+          "matchedBy": "Karmn",
+          "distancePc": 3.522833,
+          "status": "withheld",
+          "fields": [],
+          "reasons": [
+            "Cifuentes close multiple (<5 arcsec)"
+          ]
+        },
+        "mann": {
+          "twomass": "18424688+5937374",
+          "status": "withheld",
+          "reasons": [
+            "Cifuentes flags multiple; single main-sequence relation not applied"
+          ]
+        }
+      }
     },
     {
       "id": "10pc-0033",
@@ -11082,9 +11923,48 @@
           "sourceRefs": [
             "10pc:tablea1:Seq=33:r_RV"
           ]
+        },
+        "radius_solar": {
+          "status": "unknown",
+          "sourceRefs": []
+        },
+        "metallicity_dex": {
+          "status": "unknown",
+          "sourceRefs": []
+        },
+        "age_gyr": {
+          "status": "unknown",
+          "sourceRefs": []
         }
       },
-      "overrides": []
+      "overrides": [],
+      "physicalSupplements": {
+        "identity": {
+          "cns5_id": "4633",
+          "simbad_id": "HD 173739",
+          "twomass": "18424666+5937499",
+          "karmn": "J18427+596N",
+          "gaia_dr2": "2154880616773521408",
+          "identity_method": "nearest-100 source row; frozen CNS5 match; exact SIMBAD CNS5 identity"
+        },
+        "cifuentes2020": {
+          "record": "J18427+596N",
+          "matchedBy": "Karmn",
+          "distancePc": 3.52176,
+          "status": "withheld",
+          "fields": [],
+          "reasons": [
+            "Cifuentes close multiple (<5 arcsec)"
+          ]
+        },
+        "mann": {
+          "twomass": "18424666+5937499",
+          "status": "withheld",
+          "reasons": [
+            "Cifuentes flags multiple; single main-sequence relation not applied"
+          ]
+        }
+      }
     },
     {
       "id": "10pc-0035",
@@ -11205,14 +12085,18 @@
           "detail": "Estimated: Pecaut-Mamajek 2022.04.16 M1V mean dwarf class, not a measured temperature."
         },
         "mass_solar": {
-          "status": "unknown",
-          "sourceRefs": [],
-          "detail": "No vetted component measurement adopted; mean-sequence values are not substituted."
+          "status": "empirical-relation",
+          "sourceRefs": [
+            "2020A&A...642A.115C:J00183+440"
+          ],
+          "detail": "cifuentes-2020; uncertainty 0.0187; fills a blank field only."
         },
         "luminosity_solar": {
-          "status": "unknown",
-          "sourceRefs": [],
-          "detail": "No vetted component measurement adopted; mean-sequence values are not substituted."
+          "status": "measured",
+          "sourceRefs": [
+            "2020A&A...642A.115C:J00183+440"
+          ],
+          "detail": "cifuentes-2020; uncertainty 0.000836135; fills a blank field only."
         },
         "absolute_mag": {
           "status": "unknown",
@@ -11316,9 +12200,54 @@
           "sourceRefs": [
             "10pc:tablea1:Seq=35:r_RV"
           ]
+        },
+        "radius_solar": {
+          "status": "derived",
+          "sourceRefs": [
+            "2020A&A...642A.115C:J00183+440"
+          ],
+          "detail": "cifuentes-2020; uncertainty 0.0145; fills a blank field only."
+        },
+        "metallicity_dex": {
+          "status": "unknown",
+          "sourceRefs": []
+        },
+        "age_gyr": {
+          "status": "unknown",
+          "sourceRefs": []
         }
       },
-      "overrides": []
+      "overrides": [],
+      "physicalSupplements": {
+        "identity": {
+          "cns5_id": "89",
+          "simbad_id": "HD   1326",
+          "twomass": "00182256+4401222",
+          "karmn": "J00183+440",
+          "gaia_dr2": "385334230892516480",
+          "identity_method": "nearest-100 source row; frozen CNS5 match; exact SIMBAD CNS5 identity"
+        },
+        "cifuentes2020": {
+          "record": "J00183+440",
+          "matchedBy": "Karmn",
+          "distancePc": 3.562646,
+          "status": "adopted",
+          "fields": [
+            "temperature_k",
+            "luminosity_solar",
+            "radius_solar",
+            "mass_solar"
+          ],
+          "reasons": []
+        },
+        "mann": {
+          "twomass": "00182256+4401222",
+          "status": "withheld",
+          "reasons": [
+            "2MASS Ks quality, blend or contamination flag not clean (requires Q=A/B, B=1, C=0)"
+          ]
+        }
+      }
     },
     {
       "id": "10pc-0038",
@@ -11439,14 +12368,18 @@
           "detail": "Estimated: Pecaut-Mamajek 2022.04.16 M3.5V mean dwarf class, not a measured temperature."
         },
         "mass_solar": {
-          "status": "unknown",
-          "sourceRefs": [],
-          "detail": "No vetted component measurement adopted; mean-sequence values are not substituted."
+          "status": "empirical-relation",
+          "sourceRefs": [
+            "2019ApJ...871...63M:00182549+4401376"
+          ],
+          "detail": "mann-2019; uncertainty 0.0038; fills a blank field only."
         },
         "luminosity_solar": {
-          "status": "unknown",
-          "sourceRefs": [],
-          "detail": "No vetted component measurement adopted; mean-sequence values are not substituted."
+          "status": "measured",
+          "sourceRefs": [
+            "2020A&A...642A.115C:J00184+440"
+          ],
+          "detail": "cifuentes-2020; uncertainty 4.0244067e-05; fills a blank field only."
         },
         "absolute_mag": {
           "status": "unknown",
@@ -11550,9 +12483,60 @@
           "sourceRefs": [
             "10pc:tablea1:Seq=38:r_RV"
           ]
+        },
+        "radius_solar": {
+          "status": "derived",
+          "sourceRefs": [
+            "2020A&A...642A.115C:J00184+440"
+          ],
+          "detail": "cifuentes-2020; uncertainty 0.0061; fills a blank field only."
+        },
+        "metallicity_dex": {
+          "status": "unknown",
+          "sourceRefs": []
+        },
+        "age_gyr": {
+          "status": "unknown",
+          "sourceRefs": []
         }
       },
-      "overrides": []
+      "overrides": [],
+      "physicalSupplements": {
+        "identity": {
+          "cns5_id": "90",
+          "simbad_id": "HD   1326B",
+          "twomass": "00182549+4401376",
+          "karmn": "J00184+440",
+          "gaia_dr2": "385334196532776576",
+          "identity_method": "nearest-100 source row; frozen CNS5 match; exact SIMBAD CNS5 identity"
+        },
+        "cifuentes2020": {
+          "record": "J00184+440",
+          "matchedBy": "Karmn",
+          "distancePc": 3.561424,
+          "status": "adopted",
+          "fields": [
+            "temperature_k",
+            "luminosity_solar",
+            "radius_solar",
+            "mass_solar"
+          ],
+          "reasons": []
+        },
+        "mann": {
+          "twomass": "00182549+4401376",
+          "ksMag": 5.948,
+          "ksErrorMag": 0.024,
+          "absoluteKs": 8.1893,
+          "absoluteKsError": 0.024,
+          "fields": [
+            "mass_solar",
+            "radius_solar"
+          ],
+          "reasons": [],
+          "status": "adopted"
+        }
+      }
     },
     {
       "id": "10pc-0039",
@@ -11673,14 +12657,18 @@
           "detail": "Estimated: Pecaut-Mamajek 2022.04.16 M6.5V mean dwarf class, not a measured temperature."
         },
         "mass_solar": {
-          "status": "unknown",
-          "sourceRefs": [],
-          "detail": "No vetted component measurement adopted; mean-sequence values are not substituted."
+          "status": "empirical-relation",
+          "sourceRefs": [
+            "2019ApJ...871...63M:08294949+2646348"
+          ],
+          "detail": "mann-2019; uncertainty 0.0021; fills a blank field only."
         },
         "luminosity_solar": {
-          "status": "unknown",
-          "sourceRefs": [],
-          "detail": "No vetted component measurement adopted; mean-sequence values are not substituted."
+          "status": "measured",
+          "sourceRefs": [
+            "2020A&A...642A.115C:J08298+267"
+          ],
+          "detail": "cifuentes-2020; uncertainty 7.2798457e-06; fills a blank field only."
         },
         "absolute_mag": {
           "status": "unknown",
@@ -11784,9 +12772,60 @@
           "sourceRefs": [
             "10pc:tablea1:Seq=39:r_RV"
           ]
+        },
+        "radius_solar": {
+          "status": "derived",
+          "sourceRefs": [
+            "2020A&A...642A.115C:J08298+267"
+          ],
+          "detail": "cifuentes-2020; uncertainty 0.0046; fills a blank field only."
+        },
+        "metallicity_dex": {
+          "status": "unknown",
+          "sourceRefs": []
+        },
+        "age_gyr": {
+          "status": "unknown",
+          "sourceRefs": []
         }
       },
-      "overrides": []
+      "overrides": [],
+      "physicalSupplements": {
+        "identity": {
+          "cns5_id": "2093",
+          "simbad_id": "G  51-15",
+          "twomass": "08294949+2646348",
+          "karmn": "J08298+267",
+          "gaia_dr2": "703790044252850688",
+          "identity_method": "nearest-100 source row; frozen CNS5 match; exact SIMBAD CNS5 identity"
+        },
+        "cifuentes2020": {
+          "record": "J08298+267",
+          "matchedBy": "Karmn",
+          "distancePc": 3.580506,
+          "status": "adopted",
+          "fields": [
+            "temperature_k",
+            "luminosity_solar",
+            "radius_solar",
+            "mass_solar"
+          ],
+          "reasons": []
+        },
+        "mann": {
+          "twomass": "08294949+2646348",
+          "ksMag": 7.26,
+          "ksErrorMag": 0.024,
+          "absoluteKs": 9.4901,
+          "absoluteKsError": 0.024,
+          "fields": [
+            "mass_solar",
+            "radius_solar"
+          ],
+          "reasons": [],
+          "status": "adopted"
+        }
+      }
     },
     {
       "id": "10pc-0040",
@@ -12018,9 +13057,40 @@
           "sourceRefs": [
             "10pc:tablea1:Seq=40:r_RV"
           ]
+        },
+        "radius_solar": {
+          "status": "unknown",
+          "sourceRefs": []
+        },
+        "metallicity_dex": {
+          "status": "unknown",
+          "sourceRefs": []
+        },
+        "age_gyr": {
+          "status": "unknown",
+          "sourceRefs": []
         }
       },
-      "overrides": []
+      "overrides": [],
+      "physicalSupplements": {
+        "identity": {
+          "cns5_id": "5449",
+          "simbad_id": "* eps Ind",
+          "twomass": "22032156-5647093",
+          "gaia_dr2": "6412595290592307840",
+          "identity_method": "nearest-100 source row; frozen CNS5 match; exact SIMBAD CNS5 identity"
+        },
+        "cifuentes2020": {
+          "status": "no exact identifier match"
+        },
+        "mann": {
+          "twomass": "22032156-5647093",
+          "status": "withheld",
+          "reasons": [
+            "2MASS Ks quality, blend or contamination flag not clean (requires Q=A/B, B=1, C=0)"
+          ]
+        }
+      }
     },
     {
       "id": "10pc-0044",
@@ -12252,9 +13322,31 @@
           "sourceRefs": [
             "10pc:tablea1:Seq=44:r_RV"
           ]
+        },
+        "radius_solar": {
+          "status": "unknown",
+          "sourceRefs": []
+        },
+        "metallicity_dex": {
+          "status": "unknown",
+          "sourceRefs": []
+        },
+        "age_gyr": {
+          "status": "unknown",
+          "sourceRefs": []
         }
       },
-      "overrides": []
+      "overrides": [],
+      "physicalSupplements": {
+        "identity": {
+          "cns5_id": "448",
+          "simbad_id": "* tau Cet",
+          "twomass": "01440402-1556141",
+          "gaia_dr2": "2452378776434276992",
+          "identity_method": "nearest-100 source row; frozen CNS5 match; exact SIMBAD CNS5 identity"
+        },
+        "eligibility": "Not a parsed K5-M9.5 dwarf spectral type (no subdwarf, giant, composite or peculiar class); supplements not applied."
+      }
     },
     {
       "id": "10pc-0045",
@@ -12375,14 +13467,18 @@
           "detail": "Estimated: Pecaut-Mamajek 2022.04.16 M5.5V mean dwarf class, not a measured temperature."
         },
         "mass_solar": {
-          "status": "unknown",
-          "sourceRefs": [],
-          "detail": "No vetted component measurement adopted; mean-sequence values are not substituted."
+          "status": "empirical-relation",
+          "sourceRefs": [
+            "2019ApJ...871...63M:03355969-4430453"
+          ],
+          "detail": "mann-2019; uncertainty 0.0028; fills a blank field only."
         },
         "luminosity_solar": {
-          "status": "unknown",
-          "sourceRefs": [],
-          "detail": "No vetted component measurement adopted; mean-sequence values are not substituted."
+          "status": "measured",
+          "sourceRefs": [
+            "2020A&A...642A.115C:J03355-4430"
+          ],
+          "detail": "cifuentes-2020; uncertainty 3.0998777e-05; fills a blank field only."
         },
         "absolute_mag": {
           "status": "derived",
@@ -12486,9 +13582,59 @@
           "sourceRefs": [
             "10pc:tablea1:Seq=45:r_RV"
           ]
+        },
+        "radius_solar": {
+          "status": "derived",
+          "sourceRefs": [
+            "2020A&A...642A.115C:J03355-4430"
+          ],
+          "detail": "cifuentes-2020; uncertainty 0.0058; fills a blank field only."
+        },
+        "metallicity_dex": {
+          "status": "unknown",
+          "sourceRefs": []
+        },
+        "age_gyr": {
+          "status": "unknown",
+          "sourceRefs": []
         }
       },
-      "overrides": []
+      "overrides": [],
+      "physicalSupplements": {
+        "identity": {
+          "cns5_id": "919",
+          "simbad_id": "L  372-58",
+          "twomass": "03355969-4430453",
+          "gaia_dr2": "4848140361962951552",
+          "identity_method": "nearest-100 source row; frozen CNS5 match; exact SIMBAD CNS5 identity"
+        },
+        "cifuentes2020": {
+          "record": "J03355-4430",
+          "matchedBy": "Gaia DR2",
+          "distancePc": 3.673167,
+          "status": "adopted",
+          "fields": [
+            "temperature_k",
+            "luminosity_solar",
+            "radius_solar",
+            "mass_solar"
+          ],
+          "reasons": []
+        },
+        "mann": {
+          "twomass": "03355969-4430453",
+          "ksMag": 6.61,
+          "ksErrorMag": 0.021,
+          "absoluteKs": 8.7843,
+          "absoluteKsError": 0.021,
+          "fields": [
+            "mass_solar",
+            "radius_solar"
+          ],
+          "reasons": [],
+          "status": "adopted"
+        }
+      }
     },
     {
       "id": "10pc-0042",
@@ -12720,9 +13866,31 @@
           "sourceRefs": [
             "10pc:tablea1:Seq=42:r_RV"
           ]
+        },
+        "radius_solar": {
+          "status": "unknown",
+          "sourceRefs": []
+        },
+        "metallicity_dex": {
+          "status": "unknown",
+          "sourceRefs": []
+        },
+        "age_gyr": {
+          "status": "unknown",
+          "sourceRefs": []
         }
       },
-      "overrides": []
+      "overrides": [],
+      "physicalSupplements": {
+        "identity": {
+          "cns5_id": "5452",
+          "simbad_id": "* eps Ind B",
+          "twomass": "22041052-5646577",
+          "gaia_dr2": "6412596012146094848",
+          "identity_method": "nearest-100 source row; frozen CNS5 match; exact SIMBAD CNS5 identity"
+        },
+        "eligibility": "Not a parsed K5-M9.5 dwarf spectral type (no subdwarf, giant, composite or peculiar class); supplements not applied."
+      }
     },
     {
       "id": "10pc-0043",
@@ -12954,9 +14122,27 @@
           "sourceRefs": [
             "10pc:tablea1:Seq=43:r_RV"
           ]
+        },
+        "radius_solar": {
+          "status": "unknown",
+          "sourceRefs": []
+        },
+        "metallicity_dex": {
+          "status": "unknown",
+          "sourceRefs": []
+        },
+        "age_gyr": {
+          "status": "unknown",
+          "sourceRefs": []
         }
       },
-      "overrides": []
+      "overrides": [],
+      "physicalSupplements": {
+        "identity": {
+          "identity_method": "10pc Gaia DR2 identifier only; CNS5 identity shared by several components or absent"
+        },
+        "eligibility": "Not a parsed K5-M9.5 dwarf spectral type (no subdwarf, giant, composite or peculiar class); supplements not applied."
+      }
     },
     {
       "id": "10pc-0049",
@@ -13077,14 +14263,18 @@
           "detail": "Estimated: Pecaut-Mamajek 2022.04.16 M4V mean dwarf class, not a measured temperature."
         },
         "mass_solar": {
-          "status": "unknown",
-          "sourceRefs": [],
-          "detail": "No vetted component measurement adopted; mean-sequence values are not substituted."
+          "status": "empirical-relation",
+          "sourceRefs": [
+            "2019ApJ...871...63M:01123052-1659570"
+          ],
+          "detail": "mann-2019; uncertainty 0.003; fills a blank field only."
         },
         "luminosity_solar": {
-          "status": "unknown",
-          "sourceRefs": [],
-          "detail": "No vetted component measurement adopted; mean-sequence values are not substituted."
+          "status": "measured",
+          "sourceRefs": [
+            "2020A&A...642A.115C:J01125-169"
+          ],
+          "detail": "cifuentes-2020; uncertainty 4.9288774e-05; fills a blank field only."
         },
         "absolute_mag": {
           "status": "derived",
@@ -13188,9 +14378,60 @@
           "sourceRefs": [
             "10pc:tablea1:Seq=49:r_RV"
           ]
+        },
+        "radius_solar": {
+          "status": "derived",
+          "sourceRefs": [
+            "2020A&A...642A.115C:J01125-169"
+          ],
+          "detail": "cifuentes-2020; uncertainty 0.0056; fills a blank field only."
+        },
+        "metallicity_dex": {
+          "status": "unknown",
+          "sourceRefs": []
+        },
+        "age_gyr": {
+          "status": "unknown",
+          "sourceRefs": []
         }
       },
-      "overrides": []
+      "overrides": [],
+      "physicalSupplements": {
+        "identity": {
+          "cns5_id": "334",
+          "simbad_id": "V* YZ Cet",
+          "twomass": "01123052-1659570",
+          "karmn": "J01125-169",
+          "gaia_dr2": "2358524597030794112",
+          "identity_method": "nearest-100 source row; frozen CNS5 match; exact SIMBAD CNS5 identity"
+        },
+        "cifuentes2020": {
+          "record": "J01125-169",
+          "matchedBy": "Karmn",
+          "distancePc": 3.712465,
+          "status": "adopted",
+          "fields": [
+            "temperature_k",
+            "luminosity_solar",
+            "radius_solar",
+            "mass_solar"
+          ],
+          "reasons": []
+        },
+        "mann": {
+          "twomass": "01123052-1659570",
+          "ksMag": 6.42,
+          "ksErrorMag": 0.017,
+          "absoluteKs": 8.5695,
+          "absoluteKsError": 0.017,
+          "fields": [
+            "mass_solar",
+            "radius_solar"
+          ],
+          "reasons": [],
+          "status": "adopted"
+        }
+      }
     },
     {
       "id": "10pc-0053",
@@ -13311,14 +14552,18 @@
           "detail": "Estimated: Pecaut-Mamajek 2022.04.16 M3.5V mean dwarf class, not a measured temperature."
         },
         "mass_solar": {
-          "status": "unknown",
-          "sourceRefs": [],
-          "detail": "No vetted component measurement adopted; mean-sequence values are not substituted."
+          "status": "empirical-relation",
+          "sourceRefs": [
+            "2019ApJ...871...63M:07272450+0513329"
+          ],
+          "detail": "mann-2019; uncertainty 0.0066; fills a blank field only."
         },
         "luminosity_solar": {
-          "status": "unknown",
-          "sourceRefs": [],
-          "detail": "No vetted component measurement adopted; mean-sequence values are not substituted."
+          "status": "measured",
+          "sourceRefs": [
+            "2020A&A...642A.115C:J07274+052"
+          ],
+          "detail": "cifuentes-2020; uncertainty 0.00028652282; fills a blank field only."
         },
         "absolute_mag": {
           "status": "derived",
@@ -13422,9 +14667,60 @@
           "sourceRefs": [
             "10pc:tablea1:Seq=53:r_RV"
           ]
+        },
+        "radius_solar": {
+          "status": "derived",
+          "sourceRefs": [
+            "2020A&A...642A.115C:J07274+052"
+          ],
+          "detail": "cifuentes-2020; uncertainty 0.0112; fills a blank field only."
+        },
+        "metallicity_dex": {
+          "status": "unknown",
+          "sourceRefs": []
+        },
+        "age_gyr": {
+          "status": "unknown",
+          "sourceRefs": []
         }
       },
-      "overrides": []
+      "overrides": [],
+      "physicalSupplements": {
+        "identity": {
+          "cns5_id": "1843",
+          "simbad_id": "BD+05  1668",
+          "twomass": "07272450+0513329",
+          "karmn": "J07274+052",
+          "gaia_dr2": "3139847906304421632",
+          "identity_method": "nearest-100 source row; frozen CNS5 match; exact SIMBAD CNS5 identity"
+        },
+        "cifuentes2020": {
+          "record": "J07274+052",
+          "matchedBy": "Karmn",
+          "distancePc": 3.8,
+          "status": "adopted",
+          "fields": [
+            "temperature_k",
+            "luminosity_solar",
+            "radius_solar",
+            "mass_solar"
+          ],
+          "reasons": []
+        },
+        "mann": {
+          "twomass": "07272450+0513329",
+          "ksMag": 4.857,
+          "ksErrorMag": 0.023,
+          "absoluteKs": 6.9662,
+          "absoluteKsError": 0.023,
+          "fields": [
+            "mass_solar",
+            "radius_solar"
+          ],
+          "reasons": [],
+          "status": "adopted"
+        }
+      }
     },
     {
       "id": "10pc-0056",
@@ -13545,14 +14841,18 @@
           "detail": "Estimated: Pecaut-Mamajek 2022.04.16 M6V mean dwarf class, not a measured temperature."
         },
         "mass_solar": {
-          "status": "unknown",
-          "sourceRefs": [],
-          "detail": "No vetted component measurement adopted; mean-sequence values are not substituted."
+          "status": "empirical-relation",
+          "sourceRefs": [
+            "2019ApJ...871...63M:02530084+1652532"
+          ],
+          "detail": "mann-2019; uncertainty 0.0022; fills a blank field only."
         },
         "luminosity_solar": {
-          "status": "unknown",
-          "sourceRefs": [],
-          "detail": "No vetted component measurement adopted; mean-sequence values are not substituted."
+          "status": "measured",
+          "sourceRefs": [
+            "2020A&A...642A.115C:J02530+168"
+          ],
+          "detail": "cifuentes-2020; uncertainty 1.1834145e-05; fills a blank field only."
         },
         "absolute_mag": {
           "status": "unknown",
@@ -13656,9 +14956,60 @@
           "sourceRefs": [
             "10pc:tablea1:Seq=56:r_RV"
           ]
+        },
+        "radius_solar": {
+          "status": "derived",
+          "sourceRefs": [
+            "2020A&A...642A.115C:J02530+168"
+          ],
+          "detail": "cifuentes-2020; uncertainty 0.0041; fills a blank field only."
+        },
+        "metallicity_dex": {
+          "status": "unknown",
+          "sourceRefs": []
+        },
+        "age_gyr": {
+          "status": "unknown",
+          "sourceRefs": []
         }
       },
-      "overrides": []
+      "overrides": [],
+      "physicalSupplements": {
+        "identity": {
+          "cns5_id": "723",
+          "simbad_id": "NAME Teegarden's Star",
+          "twomass": "02530084+1652532",
+          "karmn": "J02530+168",
+          "gaia_dr2": "35227046884571776",
+          "identity_method": "nearest-100 source row; frozen CNS5 match; exact SIMBAD CNS5 identity"
+        },
+        "cifuentes2020": {
+          "record": "J02530+168",
+          "matchedBy": "Karmn",
+          "distancePc": 3.831202,
+          "status": "adopted",
+          "fields": [
+            "temperature_k",
+            "luminosity_solar",
+            "radius_solar",
+            "mass_solar"
+          ],
+          "reasons": []
+        },
+        "mann": {
+          "twomass": "02530084+1652532",
+          "ksMag": 7.585,
+          "ksErrorMag": 0.046,
+          "absoluteKs": 9.6687,
+          "absoluteKsError": 0.046,
+          "fields": [
+            "mass_solar",
+            "radius_solar"
+          ],
+          "reasons": [],
+          "status": "adopted"
+        }
+      }
     },
     {
       "id": "10pc-0059",
@@ -13890,9 +15241,31 @@
           "sourceRefs": [
             "10pc:tablea1:Seq=59:r_RV"
           ]
+        },
+        "radius_solar": {
+          "status": "unknown",
+          "sourceRefs": []
+        },
+        "metallicity_dex": {
+          "status": "unknown",
+          "sourceRefs": []
+        },
+        "age_gyr": {
+          "status": "unknown",
+          "sourceRefs": []
         }
       },
-      "overrides": []
+      "overrides": [],
+      "physicalSupplements": {
+        "identity": {
+          "cns5_id": "1304",
+          "simbad_id": "HD  33793",
+          "twomass": "05114046-4501051",
+          "gaia_dr2": "4810594479417465600",
+          "identity_method": "nearest-100 source row; frozen CNS5 match; exact SIMBAD CNS5 identity"
+        },
+        "eligibility": "Not a parsed K5-M9.5 dwarf spectral type (no subdwarf, giant, composite or peculiar class); supplements not applied."
+      }
     },
     {
       "id": "10pc-0060",
@@ -14124,9 +15497,40 @@
           "sourceRefs": [
             "10pc:tablea1:Seq=60:r_RV"
           ]
+        },
+        "radius_solar": {
+          "status": "unknown",
+          "sourceRefs": []
+        },
+        "metallicity_dex": {
+          "status": "unknown",
+          "sourceRefs": []
+        },
+        "age_gyr": {
+          "status": "unknown",
+          "sourceRefs": []
         }
       },
-      "overrides": []
+      "overrides": [],
+      "physicalSupplements": {
+        "identity": {
+          "cns5_id": "5246",
+          "simbad_id": "V* AX Mic",
+          "twomass": "21171534-3852022",
+          "gaia_dr2": "6583272171335359360",
+          "identity_method": "nearest-100 source row; frozen CNS5 match; exact SIMBAD CNS5 identity"
+        },
+        "cifuentes2020": {
+          "status": "no exact identifier match"
+        },
+        "mann": {
+          "twomass": "21171534-3852022",
+          "status": "withheld",
+          "reasons": [
+            "2MASS Ks quality, blend or contamination flag not clean (requires Q=A/B, B=1, C=0)"
+          ]
+        }
+      }
     },
     {
       "id": "10pc-0062",
@@ -14358,9 +15762,37 @@
           "sourceRefs": [
             "10pc:tablea1:Seq=62:r_RV"
           ]
+        },
+        "radius_solar": {
+          "status": "unknown",
+          "sourceRefs": []
+        },
+        "metallicity_dex": {
+          "status": "unknown",
+          "sourceRefs": []
+        },
+        "age_gyr": {
+          "status": "unknown",
+          "sourceRefs": []
         }
       },
-      "overrides": []
+      "overrides": [],
+      "physicalSupplements": {
+        "identity": {
+          "gaia_dr2": "2007876324472098432",
+          "identity_method": "10pc Gaia DR2 identifier only; CNS5 identity shared by several components or absent"
+        },
+        "cifuentes2020": {
+          "status": "no exact identifier match"
+        },
+        "mann": {
+          "twomass": null,
+          "status": "withheld",
+          "reasons": [
+            "No unique 2MASS identifier"
+          ]
+        }
+      }
     },
     {
       "id": "10pc-0064",
@@ -14592,9 +16024,27 @@
           "sourceRefs": [
             "10pc:tablea1:Seq=64:r_RV"
           ]
+        },
+        "radius_solar": {
+          "status": "unknown",
+          "sourceRefs": []
+        },
+        "metallicity_dex": {
+          "status": "unknown",
+          "sourceRefs": []
+        },
+        "age_gyr": {
+          "status": "unknown",
+          "sourceRefs": []
         }
       },
-      "overrides": []
+      "overrides": [],
+      "physicalSupplements": {
+        "identity": {
+          "identity_method": "10pc Gaia DR2 identifier only; CNS5 identity shared by several components or absent"
+        },
+        "eligibility": "Not a parsed K5-M9.5 dwarf spectral type (no subdwarf, giant, composite or peculiar class); supplements not applied."
+      }
     },
     {
       "id": "10pc-0063",
@@ -14715,14 +16165,18 @@
           "detail": "Estimated: Pecaut-Mamajek 2022.04.16 M8V mean dwarf class, not a measured temperature."
         },
         "mass_solar": {
-          "status": "unknown",
-          "sourceRefs": [],
-          "detail": "No vetted component measurement adopted; mean-sequence values are not substituted."
+          "status": "empirical-relation",
+          "sourceRefs": [
+            "2019ApJ...871...63M:18450541-6357475"
+          ],
+          "detail": "mann-2019; uncertainty 0.0016; fills a blank field only."
         },
         "luminosity_solar": {
-          "status": "unknown",
-          "sourceRefs": [],
-          "detail": "No vetted component measurement adopted; mean-sequence values are not substituted."
+          "status": "measured",
+          "sourceRefs": [
+            "2020A&A...642A.115C:J18845-6357"
+          ],
+          "detail": "cifuentes-2020; uncertainty 2.5920785e-06; fills a blank field only."
         },
         "absolute_mag": {
           "status": "unknown",
@@ -14826,9 +16280,60 @@
           "sourceRefs": [
             "10pc:tablea1:Seq=63:r_RV"
           ]
+        },
+        "radius_solar": {
+          "status": "derived",
+          "sourceRefs": [
+            "2020A&A...642A.115C:J18845-6357"
+          ],
+          "detail": "cifuentes-2020; uncertainty 0.0039; fills a blank field only."
+        },
+        "metallicity_dex": {
+          "status": "unknown",
+          "sourceRefs": []
+        },
+        "age_gyr": {
+          "status": "unknown",
+          "sourceRefs": []
         }
       },
-      "overrides": []
+      "overrides": [],
+      "physicalSupplements": {
+        "identity": {
+          "cns5_id": "4651",
+          "simbad_id": "SCR J1845-6357",
+          "twomass": "18450541-6357475",
+          "gaia_dr2": "6439125097425259776",
+          "identity_method": "nearest-100 source row; frozen CNS5 match; exact SIMBAD CNS5 identity"
+        },
+        "cifuentes2020": {
+          "record": "J18845-6357",
+          "matchedBy": "Gaia DR2",
+          "distancePc": 4.001302,
+          "status": "adopted",
+          "fields": [
+            "temperature_k",
+            "luminosity_solar",
+            "radius_solar",
+            "mass_solar"
+          ],
+          "reasons": []
+        },
+        "mann": {
+          "twomass": "18450541-6357475",
+          "ksMag": 8.508,
+          "ksErrorMag": 0.02,
+          "absoluteKs": 10.4946,
+          "absoluteKsError": 0.02,
+          "fields": [
+            "mass_solar"
+          ],
+          "reasons": [
+            "Spectral type outside Mann 2015 K7-M7 calibration"
+          ],
+          "status": "adopted"
+        }
+      }
     },
     {
       "id": "10pc-0061",
@@ -15060,9 +16565,44 @@
           "sourceRefs": [
             "10pc:tablea1:Seq=61:r_RV"
           ]
+        },
+        "radius_solar": {
+          "status": "unknown",
+          "sourceRefs": []
+        },
+        "metallicity_dex": {
+          "status": "unknown",
+          "sourceRefs": []
+        },
+        "age_gyr": {
+          "status": "unknown",
+          "sourceRefs": []
         }
       },
-      "overrides": []
+      "overrides": [],
+      "physicalSupplements": {
+        "identity": {
+          "gaia_dr2": "2007876324466455424",
+          "identity_method": "10pc Gaia DR2 identifier only; CNS5 identity shared by several components or absent"
+        },
+        "cifuentes2020": {
+          "record": "J22279+576",
+          "matchedBy": "Gaia DR2",
+          "distancePc": 4.009742,
+          "status": "withheld",
+          "fields": [],
+          "reasons": [
+            "Cifuentes close multiple (<5 arcsec)"
+          ]
+        },
+        "mann": {
+          "twomass": null,
+          "status": "withheld",
+          "reasons": [
+            "No unique 2MASS identifier"
+          ]
+        }
+      }
     },
     {
       "id": "10pc-0065",
@@ -15183,14 +16723,18 @@
           "detail": "Estimated: Pecaut-Mamajek 2022.04.16 M9V mean dwarf class, not a measured temperature."
         },
         "mass_solar": {
-          "status": "unknown",
-          "sourceRefs": [],
-          "detail": "No vetted component measurement adopted; mean-sequence values are not substituted."
+          "status": "empirical-relation",
+          "sourceRefs": [
+            "2019ApJ...871...63M:10481463-3956062"
+          ],
+          "detail": "mann-2019; uncertainty 0.0016; fills a blank field only."
         },
         "luminosity_solar": {
-          "status": "unknown",
-          "sourceRefs": [],
-          "detail": "No vetted component measurement adopted; mean-sequence values are not substituted."
+          "status": "measured",
+          "sourceRefs": [
+            "2020A&A...642A.115C:J10481-3956"
+          ],
+          "detail": "cifuentes-2020; uncertainty 3.3664019e-06; fills a blank field only."
         },
         "absolute_mag": {
           "status": "derived",
@@ -15294,9 +16838,60 @@
           "sourceRefs": [
             "10pc:tablea1:Seq=65:r_RV"
           ]
+        },
+        "radius_solar": {
+          "status": "derived",
+          "sourceRefs": [
+            "2020A&A...642A.115C:J10481-3956"
+          ],
+          "detail": "cifuentes-2020; uncertainty 0.004; fills a blank field only."
+        },
+        "metallicity_dex": {
+          "status": "unknown",
+          "sourceRefs": []
+        },
+        "age_gyr": {
+          "status": "unknown",
+          "sourceRefs": []
         }
       },
-      "overrides": []
+      "overrides": [],
+      "physicalSupplements": {
+        "identity": {
+          "cns5_id": "2647",
+          "simbad_id": "DENIS J104814.6-395606",
+          "twomass": "10481463-3956062",
+          "gaia_dr2": "5393446658454453632",
+          "identity_method": "nearest-100 source row; frozen CNS5 match; exact SIMBAD CNS5 identity"
+        },
+        "cifuentes2020": {
+          "record": "J10481-3956",
+          "matchedBy": "Gaia DR2",
+          "distancePc": 4.045051,
+          "status": "adopted",
+          "fields": [
+            "temperature_k",
+            "luminosity_solar",
+            "radius_solar",
+            "mass_solar"
+          ],
+          "reasons": []
+        },
+        "mann": {
+          "twomass": "10481463-3956062",
+          "ksMag": 8.447,
+          "ksErrorMag": 0.023,
+          "absoluteKs": 10.4123,
+          "absoluteKsError": 0.023,
+          "fields": [
+            "mass_solar"
+          ],
+          "reasons": [
+            "Spectral type outside Mann 2015 K7-M7 calibration"
+          ],
+          "status": "adopted"
+        }
+      }
     },
     {
       "id": "10pc-0066",
@@ -15528,9 +17123,48 @@
           "sourceRefs": [
             "10pc:tablea1:Seq=66:r_RV"
           ]
+        },
+        "radius_solar": {
+          "status": "unknown",
+          "sourceRefs": []
+        },
+        "metallicity_dex": {
+          "status": "unknown",
+          "sourceRefs": []
+        },
+        "age_gyr": {
+          "status": "unknown",
+          "sourceRefs": []
         }
       },
-      "overrides": []
+      "overrides": [],
+      "physicalSupplements": {
+        "identity": {
+          "cns5_id": "1610",
+          "simbad_id": "Ross  614",
+          "twomass": "06292339-0248499",
+          "gaia_dr2": "3117120863523946368",
+          "identity_method": "nearest-100 source row; frozen CNS5 match; exact SIMBAD CNS5 identity"
+        },
+        "cifuentes2020": {
+          "record": "J06293-028",
+          "matchedBy": "Gaia DR2",
+          "distancePc": 4.115804,
+          "status": "withheld",
+          "fields": [],
+          "reasons": [
+            "Cifuentes close multiple (<5 arcsec)",
+            "Gaia DR2 RUWE>1.41 flag; possible unresolved binary"
+          ]
+        },
+        "mann": {
+          "twomass": "06292339-0248499",
+          "status": "withheld",
+          "reasons": [
+            "Cifuentes flags multiple, ruwe; single main-sequence relation not applied"
+          ]
+        }
+      }
     },
     {
       "id": "10pc-0067",
@@ -15762,9 +17396,36 @@
           "sourceRefs": [
             "10pc:tablea1:Seq=67:r_RV"
           ]
+        },
+        "radius_solar": {
+          "status": "unknown",
+          "sourceRefs": []
+        },
+        "metallicity_dex": {
+          "status": "unknown",
+          "sourceRefs": []
+        },
+        "age_gyr": {
+          "status": "unknown",
+          "sourceRefs": []
         }
       },
-      "overrides": []
+      "overrides": [],
+      "physicalSupplements": {
+        "identity": {
+          "identity_method": "10pc Gaia DR2 identifier only; CNS5 identity shared by several components or absent"
+        },
+        "cifuentes2020": {
+          "status": "no exact identifier match"
+        },
+        "mann": {
+          "twomass": null,
+          "status": "withheld",
+          "reasons": [
+            "No unique 2MASS identifier"
+          ]
+        }
+      }
     },
     {
       "id": "10pc-0068",
@@ -15994,9 +17655,29 @@
           "sourceRefs": [
             "10pc:tablea1:Seq=68:r_RV"
           ]
+        },
+        "radius_solar": {
+          "status": "unknown",
+          "sourceRefs": []
+        },
+        "metallicity_dex": {
+          "status": "unknown",
+          "sourceRefs": []
+        },
+        "age_gyr": {
+          "status": "unknown",
+          "sourceRefs": []
         }
       },
-      "overrides": []
+      "overrides": [],
+      "physicalSupplements": {
+        "identity": {
+          "cns5_id": "1828",
+          "simbad_id": "WISE J072227.27-054029.9",
+          "identity_method": "nearest-100 source row; frozen CNS5 match; exact SIMBAD CNS5 identity"
+        },
+        "eligibility": "Not a parsed K5-M9.5 dwarf spectral type (no subdwarf, giant, composite or peculiar class); supplements not applied."
+      }
     },
     {
       "id": "10pc-0069",
@@ -16117,14 +17798,18 @@
           "detail": "Estimated: Pecaut-Mamajek 2022.04.16 M3V mean dwarf class, not a measured temperature."
         },
         "mass_solar": {
-          "status": "unknown",
-          "sourceRefs": [],
-          "detail": "No vetted component measurement adopted; mean-sequence values are not substituted."
+          "status": "empirical-relation",
+          "sourceRefs": [
+            "2019ApJ...871...63M:16301808-1239434"
+          ],
+          "detail": "mann-2019; uncertainty 0.0069; fills a blank field only."
         },
         "luminosity_solar": {
-          "status": "unknown",
-          "sourceRefs": [],
-          "detail": "No vetted component measurement adopted; mean-sequence values are not substituted."
+          "status": "measured",
+          "sourceRefs": [
+            "2020A&A...642A.115C:J16303-126"
+          ],
+          "detail": "cifuentes-2020; uncertainty 0.00018745806; fills a blank field only."
         },
         "absolute_mag": {
           "status": "derived",
@@ -16228,9 +17913,60 @@
           "sourceRefs": [
             "10pc:tablea1:Seq=69:r_RV"
           ]
+        },
+        "radius_solar": {
+          "status": "derived",
+          "sourceRefs": [
+            "2020A&A...642A.115C:J16303-126"
+          ],
+          "detail": "cifuentes-2020; uncertainty 0.01; fills a blank field only."
+        },
+        "metallicity_dex": {
+          "status": "unknown",
+          "sourceRefs": []
+        },
+        "age_gyr": {
+          "status": "unknown",
+          "sourceRefs": []
         }
       },
-      "overrides": []
+      "overrides": [],
+      "physicalSupplements": {
+        "identity": {
+          "cns5_id": "4043",
+          "simbad_id": "BD-12  4523",
+          "twomass": "16301808-1239434",
+          "karmn": "J16303-126",
+          "gaia_dr2": "4330690742322011520",
+          "identity_method": "nearest-100 source row; frozen CNS5 match; exact SIMBAD CNS5 identity"
+        },
+        "cifuentes2020": {
+          "record": "J16303-126",
+          "matchedBy": "Karmn",
+          "distancePc": 4.306455,
+          "status": "adopted",
+          "fields": [
+            "temperature_k",
+            "luminosity_solar",
+            "radius_solar",
+            "mass_solar"
+          ],
+          "reasons": []
+        },
+        "mann": {
+          "twomass": "16301808-1239434",
+          "ksMag": 5.075,
+          "ksErrorMag": 0.024,
+          "absoluteKs": 6.9036,
+          "absoluteKsError": 0.024,
+          "fields": [
+            "mass_solar",
+            "radius_solar"
+          ],
+          "reasons": [],
+          "status": "adopted"
+        }
+      }
     },
     {
       "id": "10pc-0073",
@@ -16460,9 +18196,31 @@
           "sourceRefs": [
             "10pc:tablea1:Seq=73:r_RV"
           ]
+        },
+        "radius_solar": {
+          "status": "unknown",
+          "sourceRefs": []
+        },
+        "metallicity_dex": {
+          "status": "unknown",
+          "sourceRefs": []
+        },
+        "age_gyr": {
+          "status": "unknown",
+          "sourceRefs": []
         }
       },
-      "overrides": []
+      "overrides": [],
+      "physicalSupplements": {
+        "identity": {
+          "cns5_id": "240",
+          "simbad_id": "Wolf   28",
+          "twomass": "00490996+0523173",
+          "gaia_dr2": "2552928187080872832",
+          "identity_method": "nearest-100 source row; frozen CNS5 match; exact SIMBAD CNS5 identity"
+        },
+        "eligibility": "Not a parsed K5-M9.5 dwarf spectral type (no subdwarf, giant, composite or peculiar class); supplements not applied."
+      }
     },
     {
       "id": "10pc-0074",
@@ -16694,9 +18452,38 @@
           "sourceRefs": [
             "10pc:tablea1:Seq=74:r_RV"
           ]
+        },
+        "radius_solar": {
+          "status": "unknown",
+          "sourceRefs": []
+        },
+        "metallicity_dex": {
+          "status": "unknown",
+          "sourceRefs": []
+        },
+        "age_gyr": {
+          "status": "unknown",
+          "sourceRefs": []
         }
       },
-      "overrides": []
+      "overrides": [],
+      "physicalSupplements": {
+        "identity": {
+          "cns5_id": "3092",
+          "simbad_id": "Wolf  424 A",
+          "identity_method": "nearest-100 source row; frozen CNS5 match; exact SIMBAD CNS5 identity"
+        },
+        "cifuentes2020": {
+          "status": "no exact identifier match"
+        },
+        "mann": {
+          "twomass": null,
+          "status": "withheld",
+          "reasons": [
+            "No unique 2MASS identifier"
+          ]
+        }
+      }
     },
     {
       "id": "10pc-0076",
@@ -16928,9 +18715,40 @@
           "sourceRefs": [
             "10pc:tablea1:Seq=76:r_RV"
           ]
+        },
+        "radius_solar": {
+          "status": "unknown",
+          "sourceRefs": []
+        },
+        "metallicity_dex": {
+          "status": "unknown",
+          "sourceRefs": []
+        },
+        "age_gyr": {
+          "status": "unknown",
+          "sourceRefs": []
         }
       },
-      "overrides": []
+      "overrides": [],
+      "physicalSupplements": {
+        "identity": {
+          "cns5_id": "19",
+          "simbad_id": "HD 225213",
+          "twomass": "00052423-3721257",
+          "gaia_dr2": "2306965202564506752",
+          "identity_method": "nearest-100 source row; frozen CNS5 match; exact SIMBAD CNS5 identity"
+        },
+        "cifuentes2020": {
+          "status": "no exact identifier match"
+        },
+        "mann": {
+          "twomass": "00052423-3721257",
+          "status": "withheld",
+          "reasons": [
+            "2MASS Ks quality, blend or contamination flag not clean (requires Q=A/B, B=1, C=0)"
+          ]
+        }
+      }
     },
     {
       "id": "10pc-0077",
@@ -17051,14 +18869,18 @@
           "detail": "Estimated: Pecaut-Mamajek 2022.04.16 M4.5V mean dwarf class, not a measured temperature."
         },
         "mass_solar": {
-          "status": "unknown",
-          "sourceRefs": [],
-          "detail": "No vetted component measurement adopted; mean-sequence values are not substituted."
+          "status": "empirical-relation",
+          "sourceRefs": [
+            "2019ApJ...871...63M:02001278+1303112"
+          ],
+          "detail": "mann-2019; uncertainty 0.0032; fills a blank field only."
         },
         "luminosity_solar": {
-          "status": "unknown",
-          "sourceRefs": [],
-          "detail": "No vetted component measurement adopted; mean-sequence values are not substituted."
+          "status": "measured",
+          "sourceRefs": [
+            "2020A&A...642A.115C:J02002+130"
+          ],
+          "detail": "cifuentes-2020; uncertainty 3.3223052e-05; fills a blank field only."
         },
         "absolute_mag": {
           "status": "derived",
@@ -17162,9 +18984,60 @@
           "sourceRefs": [
             "10pc:tablea1:Seq=77:r_RV"
           ]
+        },
+        "radius_solar": {
+          "status": "derived",
+          "sourceRefs": [
+            "2020A&A...642A.115C:J02002+130"
+          ],
+          "detail": "cifuentes-2020; uncertainty 0.0057; fills a blank field only."
+        },
+        "metallicity_dex": {
+          "status": "unknown",
+          "sourceRefs": []
+        },
+        "age_gyr": {
+          "status": "unknown",
+          "sourceRefs": []
         }
       },
-      "overrides": []
+      "overrides": [],
+      "physicalSupplements": {
+        "identity": {
+          "cns5_id": "510",
+          "simbad_id": "G   3-33",
+          "twomass": "02001278+1303112",
+          "karmn": "J02002+130",
+          "gaia_dr2": "76868614540049408",
+          "identity_method": "nearest-100 source row; frozen CNS5 match; exact SIMBAD CNS5 identity"
+        },
+        "cifuentes2020": {
+          "record": "J02002+130",
+          "matchedBy": "Karmn",
+          "distancePc": 4.471574,
+          "status": "adopted",
+          "fields": [
+            "temperature_k",
+            "luminosity_solar",
+            "radius_solar",
+            "mass_solar"
+          ],
+          "reasons": []
+        },
+        "mann": {
+          "twomass": "02001278+1303112",
+          "ksMag": 6.648,
+          "ksErrorMag": 0.017,
+          "absoluteKs": 8.3964,
+          "absoluteKsError": 0.017,
+          "fields": [
+            "mass_solar",
+            "radius_solar"
+          ],
+          "reasons": [],
+          "status": "adopted"
+        }
+      }
     },
     {
       "id": "10pc-0075",
@@ -17396,9 +19269,38 @@
           "sourceRefs": [
             "10pc:tablea1:Seq=75:r_RV"
           ]
+        },
+        "radius_solar": {
+          "status": "unknown",
+          "sourceRefs": []
+        },
+        "metallicity_dex": {
+          "status": "unknown",
+          "sourceRefs": []
+        },
+        "age_gyr": {
+          "status": "unknown",
+          "sourceRefs": []
         }
       },
-      "overrides": []
+      "overrides": [],
+      "physicalSupplements": {
+        "identity": {
+          "cns5_id": "3093",
+          "simbad_id": "Wolf  424 B",
+          "identity_method": "nearest-100 source row; frozen CNS5 match; exact SIMBAD CNS5 identity"
+        },
+        "cifuentes2020": {
+          "status": "no exact identifier match"
+        },
+        "mann": {
+          "twomass": null,
+          "status": "withheld",
+          "reasons": [
+            "No unique 2MASS identifier"
+          ]
+        }
+      }
     },
     {
       "id": "10pc-0080",
@@ -17630,9 +19532,48 @@
           "sourceRefs": [
             "10pc:tablea1:Seq=80:r_RV"
           ]
+        },
+        "radius_solar": {
+          "status": "unknown",
+          "sourceRefs": []
+        },
+        "metallicity_dex": {
+          "status": "unknown",
+          "sourceRefs": []
+        },
+        "age_gyr": {
+          "status": "unknown",
+          "sourceRefs": []
         }
       },
-      "overrides": []
+      "overrides": [],
+      "physicalSupplements": {
+        "identity": {
+          "cns5_id": "4343",
+          "simbad_id": "BD+68   946",
+          "twomass": "17362594+6820220",
+          "karmn": "J17364+683",
+          "gaia_dr2": "1637645127018395776",
+          "identity_method": "nearest-100 source row; frozen CNS5 match; exact SIMBAD CNS5 identity"
+        },
+        "cifuentes2020": {
+          "record": "J17364+683",
+          "matchedBy": "Karmn",
+          "distancePc": 4.54999,
+          "status": "withheld",
+          "fields": [],
+          "reasons": [
+            "Cifuentes close multiple (<5 arcsec)"
+          ]
+        },
+        "mann": {
+          "twomass": "17362594+6820220",
+          "status": "withheld",
+          "reasons": [
+            "Cifuentes flags multiple; single main-sequence relation not applied"
+          ]
+        }
+      }
     },
     {
       "id": "10pc-0082",
@@ -17753,9 +19694,11 @@
           "detail": "Estimated: Pecaut-Mamajek 2022.04.16 M2V mean dwarf class, not a measured temperature."
         },
         "mass_solar": {
-          "status": "unknown",
-          "sourceRefs": [],
-          "detail": "No vetted component measurement adopted; mean-sequence values are not substituted."
+          "status": "empirical-relation",
+          "sourceRefs": [
+            "2019ApJ...871...63M:17283991-4653424"
+          ],
+          "detail": "mann-2019; uncertainty 0.0075; fills a blank field only."
         },
         "luminosity_solar": {
           "status": "unknown",
@@ -17864,9 +19807,49 @@
           "sourceRefs": [
             "10pc:tablea1:Seq=82:r_RV"
           ]
+        },
+        "radius_solar": {
+          "status": "empirical-relation",
+          "sourceRefs": [
+            "2015ApJ...804...64M:17283991-4653424"
+          ],
+          "detail": "mann-2015; uncertainty 0.0108; fills a blank field only."
+        },
+        "metallicity_dex": {
+          "status": "unknown",
+          "sourceRefs": []
+        },
+        "age_gyr": {
+          "status": "unknown",
+          "sourceRefs": []
         }
       },
-      "overrides": []
+      "overrides": [],
+      "physicalSupplements": {
+        "identity": {
+          "cns5_id": "4293",
+          "simbad_id": "CD-46 11540",
+          "twomass": "17283991-4653424",
+          "gaia_dr2": "5951824121022278144",
+          "identity_method": "nearest-100 source row; frozen CNS5 match; exact SIMBAD CNS5 identity"
+        },
+        "cifuentes2020": {
+          "status": "no exact identifier match"
+        },
+        "mann": {
+          "twomass": "17283991-4653424",
+          "ksMag": 4.855,
+          "ksErrorMag": 0.018,
+          "absoluteKs": 6.5636,
+          "absoluteKsError": 0.018,
+          "fields": [
+            "mass_solar",
+            "radius_solar"
+          ],
+          "reasons": [],
+          "status": "adopted"
+        }
+      }
     },
     {
       "id": "10pc-0084",
@@ -18096,9 +20079,29 @@
           "sourceRefs": [
             "10pc:tablea1:Seq=84:r_RV"
           ]
+        },
+        "radius_solar": {
+          "status": "unknown",
+          "sourceRefs": []
+        },
+        "metallicity_dex": {
+          "status": "unknown",
+          "sourceRefs": []
+        },
+        "age_gyr": {
+          "status": "unknown",
+          "sourceRefs": []
         }
       },
-      "overrides": []
+      "overrides": [],
+      "physicalSupplements": {
+        "identity": {
+          "cns5_id": "4091",
+          "simbad_id": "WISE J163940.83-684738.6",
+          "identity_method": "nearest-100 source row; frozen CNS5 match; exact SIMBAD CNS5 identity"
+        },
+        "eligibility": "Not a parsed K5-M9.5 dwarf spectral type (no subdwarf, giant, composite or peculiar class); supplements not applied."
+      }
     },
     {
       "id": "10pc-0085",
@@ -18219,14 +20222,18 @@
           "detail": "Estimated: Pecaut-Mamajek 2022.04.16 M6.5V mean dwarf class, not a measured temperature."
         },
         "mass_solar": {
-          "status": "unknown",
-          "sourceRefs": [],
-          "detail": "No vetted component measurement adopted; mean-sequence values are not substituted."
+          "status": "empirical-relation",
+          "sourceRefs": [
+            "2019ApJ...871...63M:10481258-1120082"
+          ],
+          "detail": "mann-2019; uncertainty 0.0021; fills a blank field only."
         },
         "luminosity_solar": {
-          "status": "unknown",
-          "sourceRefs": [],
-          "detail": "No vetted component measurement adopted; mean-sequence values are not substituted."
+          "status": "measured",
+          "sourceRefs": [
+            "2020A&A...642A.115C:J10482-113"
+          ],
+          "detail": "cifuentes-2020; uncertainty 8.82522e-06; fills a blank field only."
         },
         "absolute_mag": {
           "status": "derived",
@@ -18330,9 +20337,60 @@
           "sourceRefs": [
             "10pc:tablea1:Seq=85:r_RV"
           ]
+        },
+        "radius_solar": {
+          "status": "derived",
+          "sourceRefs": [
+            "2020A&A...642A.115C:J10482-113"
+          ],
+          "detail": "cifuentes-2020; uncertainty 0.0044; fills a blank field only."
+        },
+        "metallicity_dex": {
+          "status": "unknown",
+          "sourceRefs": []
+        },
+        "age_gyr": {
+          "status": "unknown",
+          "sourceRefs": []
         }
       },
-      "overrides": []
+      "overrides": [],
+      "physicalSupplements": {
+        "identity": {
+          "cns5_id": "2648",
+          "simbad_id": "LP  731-58",
+          "twomass": "10481258-1120082",
+          "karmn": "J10482-113",
+          "gaia_dr2": "3757613049856225792",
+          "identity_method": "nearest-100 source row; frozen CNS5 match; exact SIMBAD CNS5 identity"
+        },
+        "cifuentes2020": {
+          "record": "J10482-113",
+          "matchedBy": "Karmn",
+          "distancePc": 4.563795,
+          "status": "adopted",
+          "fields": [
+            "temperature_k",
+            "luminosity_solar",
+            "radius_solar",
+            "mass_solar"
+          ],
+          "reasons": []
+        },
+        "mann": {
+          "twomass": "10481258-1120082",
+          "ksMag": 7.926,
+          "ksErrorMag": 0.033,
+          "absoluteKs": 9.6315,
+          "absoluteKsError": 0.033,
+          "fields": [
+            "mass_solar",
+            "radius_solar"
+          ],
+          "reasons": [],
+          "status": "adopted"
+        }
+      }
     },
     {
       "id": "10pc-0086",
@@ -18562,9 +20620,31 @@
           "sourceRefs": [
             "10pc:tablea1:Seq=86:r_RV"
           ]
+        },
+        "radius_solar": {
+          "status": "unknown",
+          "sourceRefs": []
+        },
+        "metallicity_dex": {
+          "status": "unknown",
+          "sourceRefs": []
+        },
+        "age_gyr": {
+          "status": "unknown",
+          "sourceRefs": []
         }
       },
-      "overrides": []
+      "overrides": [],
+      "physicalSupplements": {
+        "identity": {
+          "cns5_id": "2877",
+          "simbad_id": "LAWD 37",
+          "twomass": "11454297-6450297",
+          "gaia_dr2": "5332606522595645952",
+          "identity_method": "nearest-100 source row; frozen CNS5 match; exact SIMBAD CNS5 identity"
+        },
+        "eligibility": "Not a parsed K5-M9.5 dwarf spectral type (no subdwarf, giant, composite or peculiar class); supplements not applied."
+      }
     },
     {
       "id": "10pc-0089",
@@ -18796,9 +20876,48 @@
           "sourceRefs": [
             "10pc:tablea1:Seq=89:r_RV"
           ]
+        },
+        "radius_solar": {
+          "status": "unknown",
+          "sourceRefs": []
+        },
+        "metallicity_dex": {
+          "status": "unknown",
+          "sourceRefs": []
+        },
+        "age_gyr": {
+          "status": "unknown",
+          "sourceRefs": []
         }
       },
-      "overrides": []
+      "overrides": [],
+      "physicalSupplements": {
+        "identity": {
+          "cns5_id": "4921",
+          "simbad_id": "G 208-45",
+          "twomass": "19535508+4424550",
+          "karmn": "J19539+444E",
+          "gaia_dr2": "2079073928612821760",
+          "identity_method": "nearest-100 source row; frozen CNS5 match; exact SIMBAD CNS5 identity"
+        },
+        "cifuentes2020": {
+          "record": "J19539+444E",
+          "matchedBy": "Karmn",
+          "distancePc": 4.661386,
+          "status": "withheld",
+          "fields": [],
+          "reasons": [
+            "Cifuentes close multiple (<5 arcsec)"
+          ]
+        },
+        "mann": {
+          "twomass": "19535508+4424550",
+          "status": "withheld",
+          "reasons": [
+            "Cifuentes flags multiple; single main-sequence relation not applied"
+          ]
+        }
+      }
     },
     {
       "id": "10pc-0090",
@@ -19030,9 +21149,30 @@
           "sourceRefs": [
             "10pc:tablea1:Seq=90:r_RV"
           ]
+        },
+        "radius_solar": {
+          "status": "unknown",
+          "sourceRefs": []
+        },
+        "metallicity_dex": {
+          "status": "unknown",
+          "sourceRefs": []
+        },
+        "age_gyr": {
+          "status": "unknown",
+          "sourceRefs": []
         }
       },
-      "overrides": []
+      "overrides": [],
+      "physicalSupplements": {
+        "identity": {
+          "cns5_id": "4370",
+          "simbad_id": "WISEP J174124.25+255319.5",
+          "twomass": "17412462+2553343",
+          "identity_method": "nearest-100 source row; frozen CNS5 match; exact SIMBAD CNS5 identity"
+        },
+        "eligibility": "Not a parsed K5-M9.5 dwarf spectral type (no subdwarf, giant, composite or peculiar class); supplements not applied."
+      }
     },
     {
       "id": "10pc-0091",
@@ -19153,14 +21293,18 @@
           "detail": "Estimated: Pecaut-Mamajek 2022.04.16 M4V mean dwarf class, not a measured temperature."
         },
         "mass_solar": {
-          "status": "unknown",
-          "sourceRefs": [],
-          "detail": "No vetted component measurement adopted; mean-sequence values are not substituted."
+          "status": "empirical-relation",
+          "sourceRefs": [
+            "2019ApJ...871...63M:22531672-1415489"
+          ],
+          "detail": "mann-2019; uncertainty 0.0074; fills a blank field only."
         },
         "luminosity_solar": {
-          "status": "unknown",
-          "sourceRefs": [],
-          "detail": "No vetted component measurement adopted; mean-sequence values are not substituted."
+          "status": "measured",
+          "sourceRefs": [
+            "2020A&A...642A.115C:J22532-142"
+          ],
+          "detail": "cifuentes-2020; uncertainty 0.0002505079; fills a blank field only."
         },
         "absolute_mag": {
           "status": "derived",
@@ -19264,9 +21408,60 @@
           "sourceRefs": [
             "10pc:tablea1:Seq=91:r_RV"
           ]
+        },
+        "radius_solar": {
+          "status": "derived",
+          "sourceRefs": [
+            "2020A&A...642A.115C:J22532-142"
+          ],
+          "detail": "cifuentes-2020; uncertainty 0.012; fills a blank field only."
+        },
+        "metallicity_dex": {
+          "status": "unknown",
+          "sourceRefs": []
+        },
+        "age_gyr": {
+          "status": "unknown",
+          "sourceRefs": []
         }
       },
-      "overrides": []
+      "overrides": [],
+      "physicalSupplements": {
+        "identity": {
+          "cns5_id": "5644",
+          "simbad_id": "BD-15  6290",
+          "twomass": "22531672-1415489",
+          "karmn": "J22532-142",
+          "gaia_dr2": "2603090003484152064",
+          "identity_method": "nearest-100 source row; frozen CNS5 match; exact SIMBAD CNS5 identity"
+        },
+        "cifuentes2020": {
+          "record": "J22532-142",
+          "matchedBy": "Karmn",
+          "distancePc": 4.675806,
+          "status": "adopted",
+          "fields": [
+            "temperature_k",
+            "luminosity_solar",
+            "radius_solar",
+            "mass_solar"
+          ],
+          "reasons": []
+        },
+        "mann": {
+          "twomass": "22531672-1415489",
+          "ksMag": 5.01,
+          "ksErrorMag": 0.021,
+          "absoluteKs": 6.6599,
+          "absoluteKsError": 0.021,
+          "fields": [
+            "mass_solar",
+            "radius_solar"
+          ],
+          "reasons": [],
+          "status": "adopted"
+        }
+      }
     },
     {
       "id": "10pc-0087",
@@ -19498,9 +21693,45 @@
           "sourceRefs": [
             "10pc:tablea1:Seq=87:r_RV"
           ]
+        },
+        "radius_solar": {
+          "status": "unknown",
+          "sourceRefs": []
+        },
+        "metallicity_dex": {
+          "status": "unknown",
+          "sourceRefs": []
+        },
+        "age_gyr": {
+          "status": "unknown",
+          "sourceRefs": []
         }
       },
-      "overrides": []
+      "overrides": [],
+      "physicalSupplements": {
+        "identity": {
+          "gaia_dr2": "2079073928612819840",
+          "identity_method": "10pc Gaia DR2 identifier only; CNS5 identity shared by several components or absent"
+        },
+        "cifuentes2020": {
+          "record": "J19539+444W",
+          "matchedBy": "Gaia DR2",
+          "distancePc": 4.691908,
+          "status": "withheld",
+          "fields": [],
+          "reasons": [
+            "Cifuentes close multiple (<5 arcsec)",
+            "Gaia DR2 RUWE>1.41 flag; possible unresolved binary"
+          ]
+        },
+        "mann": {
+          "twomass": null,
+          "status": "withheld",
+          "reasons": [
+            "No unique 2MASS identifier"
+          ]
+        }
+      }
     },
     {
       "id": "10pc-0088",
@@ -19732,9 +21963,36 @@
           "sourceRefs": [
             "10pc:tablea1:Seq=88:r_RV"
           ]
+        },
+        "radius_solar": {
+          "status": "unknown",
+          "sourceRefs": []
+        },
+        "metallicity_dex": {
+          "status": "unknown",
+          "sourceRefs": []
+        },
+        "age_gyr": {
+          "status": "unknown",
+          "sourceRefs": []
         }
       },
-      "overrides": []
+      "overrides": [],
+      "physicalSupplements": {
+        "identity": {
+          "identity_method": "10pc Gaia DR2 identifier only; CNS5 identity shared by several components or absent"
+        },
+        "cifuentes2020": {
+          "status": "no exact identifier match"
+        },
+        "mann": {
+          "twomass": null,
+          "status": "withheld",
+          "reasons": [
+            "No unique 2MASS identifier"
+          ]
+        }
+      }
     },
     {
       "id": "10pc-0096",
@@ -19855,14 +22113,18 @@
           "detail": "Estimated: Pecaut-Mamajek 2022.04.16 M5.5V mean dwarf class, not a measured temperature."
         },
         "mass_solar": {
-          "status": "unknown",
-          "sourceRefs": [],
-          "detail": "No vetted component measurement adopted; mean-sequence values are not substituted."
+          "status": "empirical-relation",
+          "sourceRefs": [
+            "2019ApJ...871...63M:10442131-6112384"
+          ],
+          "detail": "mann-2019; uncertainty 0.0023; fills a blank field only."
         },
         "luminosity_solar": {
-          "status": "unknown",
-          "sourceRefs": [],
-          "detail": "No vetted component measurement adopted; mean-sequence values are not substituted."
+          "status": "measured",
+          "sourceRefs": [
+            "2020A&A...642A.115C:J10442-6112"
+          ],
+          "detail": "cifuentes-2020; uncertainty 1.0509872e-05; fills a blank field only."
         },
         "absolute_mag": {
           "status": "derived",
@@ -19966,9 +22228,59 @@
           "sourceRefs": [
             "10pc:tablea1:Seq=96:r_RV"
           ]
+        },
+        "radius_solar": {
+          "status": "derived",
+          "sourceRefs": [
+            "2020A&A...642A.115C:J10442-6112"
+          ],
+          "detail": "cifuentes-2020; uncertainty 0.0042; fills a blank field only."
+        },
+        "metallicity_dex": {
+          "status": "unknown",
+          "sourceRefs": []
+        },
+        "age_gyr": {
+          "status": "unknown",
+          "sourceRefs": []
         }
       },
-      "overrides": []
+      "overrides": [],
+      "physicalSupplements": {
+        "identity": {
+          "cns5_id": "2631",
+          "simbad_id": "L  143-23",
+          "twomass": "10442131-6112384",
+          "gaia_dr2": "5254061535097566848",
+          "identity_method": "nearest-100 source row; frozen CNS5 match; exact SIMBAD CNS5 identity"
+        },
+        "cifuentes2020": {
+          "record": "J10442-6112",
+          "matchedBy": "Gaia DR2",
+          "distancePc": 4.835188,
+          "status": "adopted",
+          "fields": [
+            "temperature_k",
+            "luminosity_solar",
+            "radius_solar",
+            "mass_solar"
+          ],
+          "reasons": []
+        },
+        "mann": {
+          "twomass": "10442131-6112384",
+          "ksMag": 7.728,
+          "ksErrorMag": 0.027,
+          "absoluteKs": 9.3087,
+          "absoluteKsError": 0.027,
+          "fields": [
+            "mass_solar",
+            "radius_solar"
+          ],
+          "reasons": [],
+          "status": "adopted"
+        }
+      }
     },
     {
       "id": "10pc-0097",
@@ -20089,14 +22401,18 @@
           "detail": "Estimated: Pecaut-Mamajek 2022.04.16 M5.5V mean dwarf class, not a measured temperature."
         },
         "mass_solar": {
-          "status": "unknown",
-          "sourceRefs": [],
-          "detail": "No vetted component measurement adopted; mean-sequence values are not substituted."
+          "status": "empirical-relation",
+          "sourceRefs": [
+            "2019ApJ...871...63M:00064325-0732147"
+          ],
+          "detail": "mann-2019; uncertainty 0.0025; fills a blank field only."
         },
         "luminosity_solar": {
-          "status": "unknown",
-          "sourceRefs": [],
-          "detail": "No vetted component measurement adopted; mean-sequence values are not substituted."
+          "status": "measured",
+          "sourceRefs": [
+            "2020A&A...642A.115C:J00067-075"
+          ],
+          "detail": "cifuentes-2020; uncertainty 1.921246e-05; fills a blank field only."
         },
         "absolute_mag": {
           "status": "derived",
@@ -20200,9 +22516,60 @@
           "sourceRefs": [
             "10pc:tablea1:Seq=97:r_RV"
           ]
+        },
+        "radius_solar": {
+          "status": "derived",
+          "sourceRefs": [
+            "2020A&A...642A.115C:J00067-075"
+          ],
+          "detail": "cifuentes-2020; uncertainty 0.0052; fills a blank field only."
+        },
+        "metallicity_dex": {
+          "status": "unknown",
+          "sourceRefs": []
+        },
+        "age_gyr": {
+          "status": "unknown",
+          "sourceRefs": []
         }
       },
-      "overrides": []
+      "overrides": [],
+      "physicalSupplements": {
+        "identity": {
+          "cns5_id": "28",
+          "simbad_id": "G 158-27",
+          "twomass": "00064325-0732147",
+          "karmn": "J00067-075",
+          "gaia_dr2": "2441630500517079808",
+          "identity_method": "nearest-100 source row; frozen CNS5 match; exact SIMBAD CNS5 identity"
+        },
+        "cifuentes2020": {
+          "record": "J00067-075",
+          "matchedBy": "Karmn",
+          "distancePc": 4.849345,
+          "status": "adopted",
+          "fields": [
+            "temperature_k",
+            "luminosity_solar",
+            "radius_solar",
+            "mass_solar"
+          ],
+          "reasons": []
+        },
+        "mann": {
+          "twomass": "00064325-0732147",
+          "ksMag": 7.439,
+          "ksErrorMag": 0.021,
+          "absoluteKs": 9.0117,
+          "absoluteKsError": 0.021,
+          "fields": [
+            "mass_solar",
+            "radius_solar"
+          ],
+          "reasons": [],
+          "status": "adopted"
+        }
+      }
     },
     {
       "id": "10pc-0098",
@@ -20434,9 +22801,31 @@
           "sourceRefs": [
             "10pc:tablea1:Seq=98:r_RV"
           ]
+        },
+        "radius_solar": {
+          "status": "unknown",
+          "sourceRefs": []
+        },
+        "metallicity_dex": {
+          "status": "unknown",
+          "sourceRefs": []
+        },
+        "age_gyr": {
+          "status": "unknown",
+          "sourceRefs": []
         }
       },
-      "overrides": []
+      "overrides": [],
+      "physicalSupplements": {
+        "identity": {
+          "cns5_id": "732",
+          "simbad_id": "DENIS J025503.3-470049",
+          "twomass": "02550357-4700509",
+          "gaia_dr2": "4752399493622045696",
+          "identity_method": "nearest-100 source row; frozen CNS5 match; exact SIMBAD CNS5 identity"
+        },
+        "eligibility": "Not a parsed K5-M9.5 dwarf spectral type (no subdwarf, giant, composite or peculiar class); supplements not applied."
+      }
     },
     {
       "id": "10pc-0099",
@@ -20557,14 +22946,18 @@
           "detail": "Estimated: linear interpolation between Pecaut-Mamajek 2022.04.16 K7V and K8V mean dwarf classes."
         },
         "mass_solar": {
-          "status": "unknown",
-          "sourceRefs": [],
-          "detail": "No vetted component measurement adopted; mean-sequence values are not substituted."
+          "status": "empirical-relation",
+          "sourceRefs": [
+            "2020A&A...642A.115C:I10113+4927"
+          ],
+          "detail": "cifuentes-2020; uncertainty 0.0391; fills a blank field only."
         },
         "luminosity_solar": {
-          "status": "unknown",
-          "sourceRefs": [],
-          "detail": "No vetted component measurement adopted; mean-sequence values are not substituted."
+          "status": "measured",
+          "sourceRefs": [
+            "2020A&A...642A.115C:I10113+4927"
+          ],
+          "detail": "cifuentes-2020; uncertainty 0.008813134; fills a blank field only."
         },
         "absolute_mag": {
           "status": "derived",
@@ -20668,9 +23061,53 @@
           "sourceRefs": [
             "10pc:tablea1:Seq=99:r_RV"
           ]
+        },
+        "radius_solar": {
+          "status": "derived",
+          "sourceRefs": [
+            "2020A&A...642A.115C:I10113+4927"
+          ],
+          "detail": "cifuentes-2020; uncertainty 0.0343; fills a blank field only."
+        },
+        "metallicity_dex": {
+          "status": "unknown",
+          "sourceRefs": []
+        },
+        "age_gyr": {
+          "status": "unknown",
+          "sourceRefs": []
         }
       },
-      "overrides": []
+      "overrides": [],
+      "physicalSupplements": {
+        "identity": {
+          "cns5_id": "2501",
+          "simbad_id": "HD  88230",
+          "twomass": "10112218+4927153",
+          "gaia_dr2": "823773494718931968",
+          "identity_method": "nearest-100 source row; frozen CNS5 match; exact SIMBAD CNS5 identity"
+        },
+        "cifuentes2020": {
+          "record": "I10113+4927",
+          "matchedBy": "Gaia DR2",
+          "distancePc": 4.868747,
+          "status": "adopted",
+          "fields": [
+            "temperature_k",
+            "luminosity_solar",
+            "radius_solar",
+            "mass_solar"
+          ],
+          "reasons": []
+        },
+        "mann": {
+          "twomass": "10112218+4927153",
+          "status": "withheld",
+          "reasons": [
+            "2MASS Ks quality, blend or contamination flag not clean (requires Q=A/B, B=1, C=0)"
+          ]
+        }
+      }
     },
     {
       "id": "10pc-0100",
@@ -20791,14 +23228,18 @@
           "detail": "Estimated: Pecaut-Mamajek 2022.04.16 M1V mean dwarf class, not a measured temperature."
         },
         "mass_solar": {
-          "status": "unknown",
-          "sourceRefs": [],
-          "detail": "No vetted component measurement adopted; mean-sequence values are not substituted."
+          "status": "empirical-relation",
+          "sourceRefs": [
+            "2019ApJ...871...63M:11052903+4331357"
+          ],
+          "detail": "mann-2019; uncertainty 0.0084; fills a blank field only."
         },
         "luminosity_solar": {
-          "status": "unknown",
-          "sourceRefs": [],
-          "detail": "No vetted component measurement adopted; mean-sequence values are not substituted."
+          "status": "measured",
+          "sourceRefs": [
+            "2020A&A...642A.115C:J11054+435"
+          ],
+          "detail": "cifuentes-2020; uncertainty 0.00042887163; fills a blank field only."
         },
         "absolute_mag": {
           "status": "unknown",
@@ -20902,9 +23343,60 @@
           "sourceRefs": [
             "10pc:tablea1:Seq=100:r_RV"
           ]
+        },
+        "radius_solar": {
+          "status": "derived",
+          "sourceRefs": [
+            "2020A&A...642A.115C:J11054+435"
+          ],
+          "detail": "cifuentes-2020; uncertainty 0.0126; fills a blank field only."
+        },
+        "metallicity_dex": {
+          "status": "unknown",
+          "sourceRefs": []
+        },
+        "age_gyr": {
+          "status": "unknown",
+          "sourceRefs": []
         }
       },
-      "overrides": []
+      "overrides": [],
+      "physicalSupplements": {
+        "identity": {
+          "cns5_id": "2702",
+          "simbad_id": "BD+44  2051",
+          "twomass": "11052903+4331357",
+          "karmn": "J11054+435",
+          "gaia_dr2": "778947814402405120",
+          "identity_method": "nearest-100 source row; frozen CNS5 match; exact SIMBAD CNS5 identity"
+        },
+        "cifuentes2020": {
+          "record": "J11054+435",
+          "matchedBy": "Karmn",
+          "distancePc": 4.85,
+          "status": "adopted",
+          "fields": [
+            "temperature_k",
+            "luminosity_solar",
+            "radius_solar",
+            "mass_solar"
+          ],
+          "reasons": []
+        },
+        "mann": {
+          "twomass": "11052903+4331357",
+          "ksMag": 4.769,
+          "ksErrorMag": 0.02,
+          "absoluteKs": 6.3165,
+          "absoluteKsError": 0.02,
+          "fields": [
+            "mass_solar",
+            "radius_solar"
+          ],
+          "reasons": [],
+          "status": "adopted"
+        }
+      }
     },
     {
       "id": "10pc-0101",
@@ -21025,14 +23517,18 @@
           "detail": "Estimated: Pecaut-Mamajek 2022.04.16 M5.5V mean dwarf class, not a measured temperature."
         },
         "mass_solar": {
-          "status": "unknown",
-          "sourceRefs": [],
-          "detail": "No vetted component measurement adopted; mean-sequence values are not substituted."
+          "status": "empirical-relation",
+          "sourceRefs": [
+            "2019ApJ...871...63M:11053133+4331170"
+          ],
+          "detail": "mann-2019; uncertainty 0.0022; fills a blank field only."
         },
         "luminosity_solar": {
-          "status": "unknown",
-          "sourceRefs": [],
-          "detail": "No vetted component measurement adopted; mean-sequence values are not substituted."
+          "status": "measured",
+          "sourceRefs": [
+            "2020A&A...642A.115C:J11055+435"
+          ],
+          "detail": "cifuentes-2020; uncertainty 1.1268381e-05; fills a blank field only."
         },
         "absolute_mag": {
           "status": "unknown",
@@ -21136,9 +23632,60 @@
           "sourceRefs": [
             "10pc:tablea1:Seq=101:r_RV"
           ]
+        },
+        "radius_solar": {
+          "status": "derived",
+          "sourceRefs": [
+            "2020A&A...642A.115C:J11055+435"
+          ],
+          "detail": "cifuentes-2020; uncertainty 0.0042; fills a blank field only."
+        },
+        "metallicity_dex": {
+          "status": "unknown",
+          "sourceRefs": []
+        },
+        "age_gyr": {
+          "status": "unknown",
+          "sourceRefs": []
         }
       },
-      "overrides": []
+      "overrides": [],
+      "physicalSupplements": {
+        "identity": {
+          "cns5_id": "2703",
+          "simbad_id": "BD+44  2051B",
+          "twomass": "11053133+4331170",
+          "karmn": "J11055+435",
+          "gaia_dr2": "778947608243864320",
+          "identity_method": "nearest-100 source row; frozen CNS5 match; exact SIMBAD CNS5 identity"
+        },
+        "cifuentes2020": {
+          "record": "J11055+435",
+          "matchedBy": "Karmn",
+          "distancePc": 4.90054,
+          "status": "adopted",
+          "fields": [
+            "temperature_k",
+            "luminosity_solar",
+            "radius_solar",
+            "mass_solar"
+          ],
+          "reasons": []
+        },
+        "mann": {
+          "twomass": "11053133+4331170",
+          "ksMag": 7.839,
+          "ksErrorMag": 0.026,
+          "absoluteKs": 9.3859,
+          "absoluteKsError": 0.026,
+          "fields": [
+            "mass_solar",
+            "radius_solar"
+          ],
+          "reasons": [],
+          "status": "adopted"
+        }
+      }
     },
     {
       "id": "10pc-0102",
@@ -21259,14 +23806,18 @@
           "detail": "Estimated: Pecaut-Mamajek 2022.04.16 M3V mean dwarf class, not a measured temperature."
         },
         "mass_solar": {
-          "status": "unknown",
-          "sourceRefs": [],
-          "detail": "No vetted component measurement adopted; mean-sequence values are not substituted."
+          "status": "empirical-relation",
+          "sourceRefs": [
+            "2019ApJ...871...63M:10193634+1952122"
+          ],
+          "detail": "mann-2019; uncertainty 0.0089; fills a blank field only."
         },
         "luminosity_solar": {
-          "status": "unknown",
-          "sourceRefs": [],
-          "detail": "No vetted component measurement adopted; mean-sequence values are not substituted."
+          "status": "measured",
+          "sourceRefs": [
+            "2020A&A...642A.115C:J10196+198"
+          ],
+          "detail": "cifuentes-2020; uncertainty 0.0003487837; fills a blank field only."
         },
         "absolute_mag": {
           "status": "derived",
@@ -21370,9 +23921,59 @@
           "sourceRefs": [
             "10pc:tablea1:Seq=102:r_RV"
           ]
+        },
+        "radius_solar": {
+          "status": "derived",
+          "sourceRefs": [
+            "2020A&A...642A.115C:J10196+198"
+          ],
+          "detail": "cifuentes-2020; uncertainty 0.0146; fills a blank field only."
+        },
+        "metallicity_dex": {
+          "status": "unknown",
+          "sourceRefs": []
+        },
+        "age_gyr": {
+          "status": "unknown",
+          "sourceRefs": []
         }
       },
-      "overrides": []
+      "overrides": [],
+      "physicalSupplements": {
+        "identity": {
+          "cns5_id": "2533",
+          "simbad_id": "V* AD Leo",
+          "twomass": "10193634+1952122",
+          "gaia_dr2": "625453654702751872",
+          "identity_method": "nearest-100 source row; frozen CNS5 match; exact SIMBAD CNS5 identity"
+        },
+        "cifuentes2020": {
+          "record": "J10196+198",
+          "matchedBy": "Gaia DR2",
+          "distancePc": 4.966024,
+          "status": "adopted",
+          "fields": [
+            "temperature_k",
+            "luminosity_solar",
+            "radius_solar",
+            "mass_solar"
+          ],
+          "reasons": []
+        },
+        "mann": {
+          "twomass": "10193634+1952122",
+          "ksMag": 4.593,
+          "ksErrorMag": 0.017,
+          "absoluteKs": 6.1135,
+          "absoluteKsError": 0.017,
+          "fields": [
+            "mass_solar",
+            "radius_solar"
+          ],
+          "reasons": [],
+          "status": "adopted"
+        }
+      }
     },
     {
       "id": "10pc-0103",
@@ -21604,9 +24205,40 @@
           "sourceRefs": [
             "10pc:tablea1:Seq=103:r_RV"
           ]
+        },
+        "radius_solar": {
+          "status": "unknown",
+          "sourceRefs": []
+        },
+        "metallicity_dex": {
+          "status": "unknown",
+          "sourceRefs": []
+        },
+        "age_gyr": {
+          "status": "unknown",
+          "sourceRefs": []
         }
       },
-      "overrides": []
+      "overrides": [],
+      "physicalSupplements": {
+        "identity": {
+          "cns5_id": "5309",
+          "simbad_id": "HD 204961",
+          "twomass": "21333397-4900323",
+          "gaia_dr2": "6562924609150908416",
+          "identity_method": "nearest-100 source row; frozen CNS5 match; exact SIMBAD CNS5 identity"
+        },
+        "cifuentes2020": {
+          "status": "no exact identifier match"
+        },
+        "mann": {
+          "twomass": "21333397-4900323",
+          "status": "withheld",
+          "reasons": [
+            "2MASS Ks quality, blend or contamination flag not clean (requires Q=A/B, B=1, C=0)"
+          ]
+        }
+      }
     },
     {
       "id": "10pc-0110",
@@ -21836,9 +24468,31 @@
           "sourceRefs": [
             "10pc:tablea1:Seq=110:r_RV"
           ]
+        },
+        "radius_solar": {
+          "status": "unknown",
+          "sourceRefs": []
+        },
+        "metallicity_dex": {
+          "status": "unknown",
+          "sourceRefs": []
+        },
+        "age_gyr": {
+          "status": "unknown",
+          "sourceRefs": []
         }
       },
-      "overrides": []
+      "overrides": [],
+      "physicalSupplements": {
+        "identity": {
+          "cns5_id": "1053",
+          "simbad_id": "* omi02 Eri B",
+          "twomass": "04152196-0739254",
+          "gaia_dr2": "3195919254110817408",
+          "identity_method": "nearest-100 source row; frozen CNS5 match; exact SIMBAD CNS5 identity"
+        },
+        "eligibility": "Not a parsed K5-M9.5 dwarf spectral type (no subdwarf, giant, composite or peculiar class); supplements not applied."
+      }
     },
     {
       "id": "10pc-0106",
@@ -21959,9 +24613,11 @@
           "detail": "Estimated: Pecaut-Mamajek 2022.04.16 M5V mean dwarf class, not a measured temperature."
         },
         "mass_solar": {
-          "status": "unknown",
-          "sourceRefs": [],
-          "detail": "No vetted component measurement adopted; mean-sequence values are not substituted."
+          "status": "empirical-relation",
+          "sourceRefs": [
+            "2019ApJ...871...63M:17370367-4419088"
+          ],
+          "detail": "mann-2019; uncertainty 0.0061; fills a blank field only."
         },
         "luminosity_solar": {
           "status": "unknown",
@@ -22070,9 +24726,49 @@
           "sourceRefs": [
             "10pc:tablea1:Seq=106:r_RV"
           ]
+        },
+        "radius_solar": {
+          "status": "empirical-relation",
+          "sourceRefs": [
+            "2015ApJ...804...64M:17370367-4419088"
+          ],
+          "detail": "mann-2015; uncertainty 0.0089; fills a blank field only."
+        },
+        "metallicity_dex": {
+          "status": "unknown",
+          "sourceRefs": []
+        },
+        "age_gyr": {
+          "status": "unknown",
+          "sourceRefs": []
         }
       },
-      "overrides": []
+      "overrides": [],
+      "physicalSupplements": {
+        "identity": {
+          "cns5_id": "4348",
+          "simbad_id": "CD-44 11909",
+          "twomass": "17370367-4419088",
+          "gaia_dr2": "5955305209191546112",
+          "identity_method": "nearest-100 source row; frozen CNS5 match; exact SIMBAD CNS5 identity"
+        },
+        "cifuentes2020": {
+          "status": "no exact identifier match"
+        },
+        "mann": {
+          "twomass": "17370367-4419088",
+          "ksMag": 5.606,
+          "ksErrorMag": 0.02,
+          "absoluteKs": 7.1076,
+          "absoluteKsError": 0.02,
+          "fields": [
+            "mass_solar",
+            "radius_solar"
+          ],
+          "reasons": [],
+          "status": "adopted"
+        }
+      }
     },
     {
       "id": "10pc-0109",
@@ -22304,9 +25000,31 @@
           "sourceRefs": [
             "10pc:tablea1:Seq=109:r_RV"
           ]
+        },
+        "radius_solar": {
+          "status": "unknown",
+          "sourceRefs": []
+        },
+        "metallicity_dex": {
+          "status": "unknown",
+          "sourceRefs": []
+        },
+        "age_gyr": {
+          "status": "unknown",
+          "sourceRefs": []
         }
       },
-      "overrides": []
+      "overrides": [],
+      "physicalSupplements": {
+        "identity": {
+          "cns5_id": "1051",
+          "simbad_id": "* omi02 Eri",
+          "twomass": "04151651-0739068",
+          "gaia_dr2": "3195919528988725120",
+          "identity_method": "nearest-100 source row; frozen CNS5 match; exact SIMBAD CNS5 identity"
+        },
+        "eligibility": "Not a parsed K5-M9.5 dwarf spectral type (no subdwarf, giant, composite or peculiar class); supplements not applied."
+      }
     },
     {
       "id": "10pc-0111",
@@ -22427,14 +25145,18 @@
           "detail": "Estimated: Pecaut-Mamajek 2022.04.16 M4.5V mean dwarf class, not a measured temperature."
         },
         "mass_solar": {
-          "status": "unknown",
-          "sourceRefs": [],
-          "detail": "No vetted component measurement adopted; mean-sequence values are not substituted."
+          "status": "empirical-relation",
+          "sourceRefs": [
+            "2019ApJ...871...63M:04152173-0739173"
+          ],
+          "detail": "mann-2019; uncertainty 0.0055; fills a blank field only."
         },
         "luminosity_solar": {
-          "status": "unknown",
-          "sourceRefs": [],
-          "detail": "No vetted component measurement adopted; mean-sequence values are not substituted."
+          "status": "measured",
+          "sourceRefs": [
+            "2020A&A...642A.115C:J04153-076"
+          ],
+          "detail": "cifuentes-2020; uncertainty 0.00012679477; fills a blank field only."
         },
         "absolute_mag": {
           "status": "unknown",
@@ -22538,9 +25260,60 @@
           "sourceRefs": [
             "10pc:tablea1:Seq=111:r_RV"
           ]
+        },
+        "radius_solar": {
+          "status": "derived",
+          "sourceRefs": [
+            "2020A&A...642A.115C:J04153-076"
+          ],
+          "detail": "cifuentes-2020; uncertainty 0.0094; fills a blank field only."
+        },
+        "metallicity_dex": {
+          "status": "unknown",
+          "sourceRefs": []
+        },
+        "age_gyr": {
+          "status": "unknown",
+          "sourceRefs": []
         }
       },
-      "overrides": []
+      "overrides": [],
+      "physicalSupplements": {
+        "identity": {
+          "cns5_id": "1052",
+          "simbad_id": "* omi02 Eri C",
+          "twomass": "04152173-0739173",
+          "karmn": "J04153-076",
+          "gaia_dr2": "3195919322830293760",
+          "identity_method": "nearest-100 source row; frozen CNS5 match; exact SIMBAD CNS5 identity"
+        },
+        "cifuentes2020": {
+          "record": "J04153-076",
+          "matchedBy": "Karmn",
+          "distancePc": 5.013658,
+          "status": "adopted",
+          "fields": [
+            "temperature_k",
+            "luminosity_solar",
+            "radius_solar",
+            "mass_solar"
+          ],
+          "reasons": []
+        },
+        "mann": {
+          "twomass": "04152173-0739173",
+          "ksMag": 5.962,
+          "ksErrorMag": 0.026,
+          "absoluteKs": 7.4609,
+          "absoluteKsError": 0.026,
+          "fields": [
+            "mass_solar",
+            "radius_solar"
+          ],
+          "reasons": [],
+          "status": "adopted"
+        }
+      }
     },
     {
       "id": "10pc-0112",
@@ -22661,14 +25434,18 @@
           "detail": "Estimated: Pecaut-Mamajek 2022.04.16 M4V mean dwarf class, not a measured temperature."
         },
         "mass_solar": {
-          "status": "unknown",
-          "sourceRefs": [],
-          "detail": "No vetted component measurement adopted; mean-sequence values are not substituted."
+          "status": "empirical-relation",
+          "sourceRefs": [
+            "2019ApJ...871...63M:22464980+4420030"
+          ],
+          "detail": "mann-2019; uncertainty 0.0073; fills a blank field only."
         },
         "luminosity_solar": {
-          "status": "unknown",
-          "sourceRefs": [],
-          "detail": "No vetted component measurement adopted; mean-sequence values are not substituted."
+          "status": "measured",
+          "sourceRefs": [
+            "2020A&A...642A.115C:J22468+443"
+          ],
+          "detail": "cifuentes-2020; uncertainty 0.00014482738; fills a blank field only."
         },
         "absolute_mag": {
           "status": "derived",
@@ -22772,9 +25549,60 @@
           "sourceRefs": [
             "10pc:tablea1:Seq=112:r_RV"
           ]
+        },
+        "radius_solar": {
+          "status": "derived",
+          "sourceRefs": [
+            "2020A&A...642A.115C:J22468+443"
+          ],
+          "detail": "cifuentes-2020; uncertainty 0.0117; fills a blank field only."
+        },
+        "metallicity_dex": {
+          "status": "unknown",
+          "sourceRefs": []
+        },
+        "age_gyr": {
+          "status": "unknown",
+          "sourceRefs": []
         }
       },
-      "overrides": []
+      "overrides": [],
+      "physicalSupplements": {
+        "identity": {
+          "cns5_id": "5620",
+          "simbad_id": "V* EV Lac",
+          "twomass": "22464980+4420030",
+          "karmn": "J22468+443",
+          "gaia_dr2": "1934263333784036736",
+          "identity_method": "nearest-100 source row; frozen CNS5 match; exact SIMBAD CNS5 identity"
+        },
+        "cifuentes2020": {
+          "record": "J22468+443",
+          "matchedBy": "Karmn",
+          "distancePc": 5.050219,
+          "status": "adopted",
+          "fields": [
+            "temperature_k",
+            "luminosity_solar",
+            "radius_solar",
+            "mass_solar"
+          ],
+          "reasons": []
+        },
+        "mann": {
+          "twomass": "22464980+4420030",
+          "ksMag": 5.299,
+          "ksErrorMag": 0.024,
+          "absoluteKs": 6.7819,
+          "absoluteKsError": 0.024,
+          "fields": [
+            "mass_solar",
+            "radius_solar"
+          ],
+          "reasons": [],
+          "status": "adopted"
+        }
+      }
     },
     {
       "id": "10pc-0114",
@@ -23006,9 +25834,46 @@
           "sourceRefs": [
             "10pc:tablea1:Seq=114:r_RV"
           ]
+        },
+        "radius_solar": {
+          "status": "unknown",
+          "sourceRefs": []
+        },
+        "metallicity_dex": {
+          "status": "unknown",
+          "sourceRefs": []
+        },
+        "age_gyr": {
+          "status": "unknown",
+          "sourceRefs": []
         }
       },
-      "overrides": []
+      "overrides": [],
+      "physicalSupplements": {
+        "identity": {
+          "cns5_id": "2209",
+          "simbad_id": "G   9-38B",
+          "gaia_dr2": "660597997697274752",
+          "identity_method": "nearest-100 source row; frozen CNS5 match; exact SIMBAD CNS5 identity"
+        },
+        "cifuentes2020": {
+          "record": "J08582+197",
+          "matchedBy": "Gaia DR2",
+          "distancePc": 5.126006,
+          "status": "withheld",
+          "fields": [],
+          "reasons": [
+            "Cifuentes close multiple (<5 arcsec)"
+          ]
+        },
+        "mann": {
+          "twomass": null,
+          "status": "withheld",
+          "reasons": [
+            "No unique 2MASS identifier"
+          ]
+        }
+      }
     },
     {
       "id": "10pc-0116",
@@ -23240,9 +26105,30 @@
           "sourceRefs": [
             "10pc:tablea1:Seq=116:r_RV"
           ]
+        },
+        "radius_solar": {
+          "status": "unknown",
+          "sourceRefs": []
+        },
+        "metallicity_dex": {
+          "status": "unknown",
+          "sourceRefs": []
+        },
+        "age_gyr": {
+          "status": "unknown",
+          "sourceRefs": []
         }
       },
-      "overrides": []
+      "overrides": [],
+      "physicalSupplements": {
+        "identity": {
+          "cns5_id": "4474",
+          "simbad_id": "*  70 Oph B",
+          "gaia_dr2": "4468557611977674496",
+          "identity_method": "nearest-100 source row; frozen CNS5 match; exact SIMBAD CNS5 identity"
+        },
+        "eligibility": "Not a parsed K5-M9.5 dwarf spectral type (no subdwarf, giant, composite or peculiar class); supplements not applied."
+      }
     },
     {
       "id": "10pc-0115",
@@ -23474,9 +26360,30 @@
           "sourceRefs": [
             "10pc:tablea1:Seq=115:r_RV"
           ]
+        },
+        "radius_solar": {
+          "status": "unknown",
+          "sourceRefs": []
+        },
+        "metallicity_dex": {
+          "status": "unknown",
+          "sourceRefs": []
+        },
+        "age_gyr": {
+          "status": "unknown",
+          "sourceRefs": []
         }
       },
-      "overrides": []
+      "overrides": [],
+      "physicalSupplements": {
+        "identity": {
+          "cns5_id": "4473",
+          "simbad_id": "*  70 Oph A",
+          "gaia_dr2": "4468557611977678336",
+          "identity_method": "nearest-100 source row; frozen CNS5 match; exact SIMBAD CNS5 identity"
+        },
+        "eligibility": "Not a parsed K5-M9.5 dwarf spectral type (no subdwarf, giant, composite or peculiar class); supplements not applied."
+      }
     },
     {
       "id": "10pc-0117",
@@ -23708,9 +26615,30 @@
           "sourceRefs": [
             "10pc:tablea1:Seq=117:r_RV"
           ]
+        },
+        "radius_solar": {
+          "status": "unknown",
+          "sourceRefs": []
+        },
+        "metallicity_dex": {
+          "status": "unknown",
+          "sourceRefs": []
+        },
+        "age_gyr": {
+          "status": "unknown",
+          "sourceRefs": []
         }
       },
-      "overrides": []
+      "overrides": [],
+      "physicalSupplements": {
+        "identity": {
+          "cns5_id": "4912",
+          "simbad_id": "* alf Aql",
+          "twomass": "19504698+0852060",
+          "identity_method": "nearest-100 source row; frozen CNS5 match; exact SIMBAD CNS5 identity"
+        },
+        "eligibility": "Not a parsed K5-M9.5 dwarf spectral type (no subdwarf, giant, composite or peculiar class); supplements not applied."
+      }
     },
     {
       "id": "10pc-0113",
@@ -23942,9 +26870,39 @@
           "sourceRefs": [
             "10pc:tablea1:Seq=113:r_RV"
           ]
+        },
+        "radius_solar": {
+          "status": "unknown",
+          "sourceRefs": []
+        },
+        "metallicity_dex": {
+          "status": "unknown",
+          "sourceRefs": []
+        },
+        "age_gyr": {
+          "status": "unknown",
+          "sourceRefs": []
         }
       },
-      "overrides": []
+      "overrides": [],
+      "physicalSupplements": {
+        "identity": {
+          "cns5_id": "2210",
+          "simbad_id": "G   9-38A",
+          "gaia_dr2": "660597997696173440",
+          "identity_method": "nearest-100 source row; frozen CNS5 match; exact SIMBAD CNS5 identity"
+        },
+        "cifuentes2020": {
+          "status": "no exact identifier match"
+        },
+        "mann": {
+          "twomass": null,
+          "status": "withheld",
+          "reasons": [
+            "No unique 2MASS identifier"
+          ]
+        }
+      }
     },
     {
       "id": "10pc-0118",
@@ -24176,9 +27134,31 @@
           "sourceRefs": [
             "10pc:tablea1:Seq=118:r_RV"
           ]
+        },
+        "radius_solar": {
+          "status": "unknown",
+          "sourceRefs": []
+        },
+        "metallicity_dex": {
+          "status": "unknown",
+          "sourceRefs": []
+        },
+        "age_gyr": {
+          "status": "unknown",
+          "sourceRefs": []
         }
       },
-      "overrides": []
+      "overrides": [],
+      "physicalSupplements": {
+        "identity": {
+          "cns5_id": "3734",
+          "simbad_id": "2MASS J15065257+7027247",
+          "twomass": "15065257+7027247",
+          "gaia_dr2": "1695191332232990720",
+          "identity_method": "nearest-100 source row; frozen CNS5 match; exact SIMBAD CNS5 identity"
+        },
+        "eligibility": "Not a parsed K5-M9.5 dwarf spectral type (no subdwarf, giant, composite or peculiar class); supplements not applied."
+      }
     },
     {
       "id": "10pc-0119",
@@ -24299,14 +27279,18 @@
           "detail": "Estimated: Pecaut-Mamajek 2022.04.16 M3.5V mean dwarf class, not a measured temperature."
         },
         "mass_solar": {
-          "status": "unknown",
-          "sourceRefs": [],
-          "detail": "No vetted component measurement adopted; mean-sequence values are not substituted."
+          "status": "empirical-relation",
+          "sourceRefs": [
+            "2019ApJ...871...63M:06000351+0242236"
+          ],
+          "detail": "mann-2019; uncertainty 0.0053; fills a blank field only."
         },
         "luminosity_solar": {
-          "status": "unknown",
-          "sourceRefs": [],
-          "detail": "No vetted component measurement adopted; mean-sequence values are not substituted."
+          "status": "measured",
+          "sourceRefs": [
+            "2020A&A...642A.115C:J06000+027"
+          ],
+          "detail": "cifuentes-2020; uncertainty 9.453955e-05; fills a blank field only."
         },
         "absolute_mag": {
           "status": "derived",
@@ -24410,9 +27394,60 @@
           "sourceRefs": [
             "10pc:tablea1:Seq=119:r_RV"
           ]
+        },
+        "radius_solar": {
+          "status": "derived",
+          "sourceRefs": [
+            "2020A&A...642A.115C:J06000+027"
+          ],
+          "detail": "cifuentes-2020; uncertainty 0.0083; fills a blank field only."
+        },
+        "metallicity_dex": {
+          "status": "unknown",
+          "sourceRefs": []
+        },
+        "age_gyr": {
+          "status": "unknown",
+          "sourceRefs": []
         }
       },
-      "overrides": []
+      "overrides": [],
+      "physicalSupplements": {
+        "identity": {
+          "cns5_id": "1492",
+          "simbad_id": "G  99-49",
+          "twomass": "06000351+0242236",
+          "karmn": "J06000+027",
+          "gaia_dr2": "3316364602541746048",
+          "identity_method": "nearest-100 source row; frozen CNS5 match; exact SIMBAD CNS5 identity"
+        },
+        "cifuentes2020": {
+          "record": "J06000+027",
+          "matchedBy": "Karmn",
+          "distancePc": 5.206504,
+          "status": "adopted",
+          "fields": [
+            "temperature_k",
+            "luminosity_solar",
+            "radius_solar",
+            "mass_solar"
+          ],
+          "reasons": []
+        },
+        "mann": {
+          "twomass": "06000351+0242236",
+          "ksMag": 6.042,
+          "ksErrorMag": 0.023,
+          "absoluteKs": 7.4589,
+          "absoluteKsError": 0.023,
+          "fields": [
+            "mass_solar",
+            "radius_solar"
+          ],
+          "reasons": [],
+          "status": "adopted"
+        }
+      }
     },
     {
       "id": "10pc-0120",
@@ -24644,9 +27679,31 @@
           "sourceRefs": [
             "10pc:tablea1:Seq=120:r_RV"
           ]
+        },
+        "radius_solar": {
+          "status": "unknown",
+          "sourceRefs": []
+        },
+        "metallicity_dex": {
+          "status": "unknown",
+          "sourceRefs": []
+        },
+        "age_gyr": {
+          "status": "unknown",
+          "sourceRefs": []
         }
       },
-      "overrides": []
+      "overrides": [],
+      "physicalSupplements": {
+        "identity": {
+          "cns5_id": "2055",
+          "simbad_id": "2MASS J08173001-6155158",
+          "twomass": "08173001-6155158",
+          "gaia_dr2": "5278042880077383040",
+          "identity_method": "nearest-100 source row; frozen CNS5 match; exact SIMBAD CNS5 identity"
+        },
+        "eligibility": "Not a parsed K5-M9.5 dwarf spectral type (no subdwarf, giant, composite or peculiar class); supplements not applied."
+      }
     },
     {
       "id": "10pc-0121",
@@ -24767,14 +27824,18 @@
           "detail": "Estimated: Pecaut-Mamajek 2022.04.16 M4V mean dwarf class, not a measured temperature."
         },
         "mass_solar": {
-          "status": "unknown",
-          "sourceRefs": [],
-          "detail": "No vetted component measurement adopted; mean-sequence values are not substituted."
+          "status": "empirical-relation",
+          "sourceRefs": [
+            "2019ApJ...871...63M:11474143+7841283"
+          ],
+          "detail": "mann-2019; uncertainty 0.0058; fills a blank field only."
         },
         "luminosity_solar": {
-          "status": "unknown",
-          "sourceRefs": [],
-          "detail": "No vetted component measurement adopted; mean-sequence values are not substituted."
+          "status": "measured",
+          "sourceRefs": [
+            "2020A&A...642A.115C:J11476+786"
+          ],
+          "detail": "cifuentes-2020; uncertainty 0.0001572946; fills a blank field only."
         },
         "absolute_mag": {
           "status": "unknown",
@@ -24878,9 +27939,60 @@
           "sourceRefs": [
             "10pc:tablea1:Seq=121:r_RV"
           ]
+        },
+        "radius_solar": {
+          "status": "derived",
+          "sourceRefs": [
+            "2020A&A...642A.115C:J11476+786"
+          ],
+          "detail": "cifuentes-2020; uncertainty 0.0086; fills a blank field only."
+        },
+        "metallicity_dex": {
+          "status": "unknown",
+          "sourceRefs": []
+        },
+        "age_gyr": {
+          "status": "unknown",
+          "sourceRefs": []
         }
       },
-      "overrides": []
+      "overrides": [],
+      "physicalSupplements": {
+        "identity": {
+          "cns5_id": "2891",
+          "simbad_id": "G 254-29",
+          "twomass": "11474143+7841283",
+          "karmn": "J11476+786",
+          "gaia_dr2": "1129149723913123456",
+          "identity_method": "nearest-100 source row; frozen CNS5 match; exact SIMBAD CNS5 identity"
+        },
+        "cifuentes2020": {
+          "record": "J11476+786",
+          "matchedBy": "Karmn",
+          "distancePc": 5.255898,
+          "status": "adopted",
+          "fields": [
+            "temperature_k",
+            "luminosity_solar",
+            "radius_solar",
+            "mass_solar"
+          ],
+          "reasons": []
+        },
+        "mann": {
+          "twomass": "11474143+7841283",
+          "ksMag": 5.954,
+          "ksErrorMag": 0.027,
+          "absoluteKs": 7.3507,
+          "absoluteKsError": 0.027,
+          "fields": [
+            "mass_solar",
+            "radius_solar"
+          ],
+          "reasons": [],
+          "status": "adopted"
+        }
+      }
     },
     {
       "id": "10pc-0122",
@@ -25001,9 +28113,11 @@
           "detail": "Estimated: Pecaut-Mamajek 2022.04.16 M6.5V mean dwarf class, not a measured temperature."
         },
         "mass_solar": {
-          "status": "unknown",
-          "sourceRefs": [],
-          "detail": "No vetted component measurement adopted; mean-sequence values are not substituted."
+          "status": "empirical-relation",
+          "sourceRefs": [
+            "2019ApJ...871...63M:15404341-5101357"
+          ],
+          "detail": "mann-2019; uncertainty 0.0025; fills a blank field only."
         },
         "luminosity_solar": {
           "status": "unknown",
@@ -25112,9 +28226,49 @@
           "sourceRefs": [
             "10pc:tablea1:Seq=122:r_RV"
           ]
+        },
+        "radius_solar": {
+          "status": "empirical-relation",
+          "sourceRefs": [
+            "2015ApJ...804...64M:15404341-5101357"
+          ],
+          "detail": "mann-2015; uncertainty 0.0041; fills a blank field only."
+        },
+        "metallicity_dex": {
+          "status": "unknown",
+          "sourceRefs": []
+        },
+        "age_gyr": {
+          "status": "unknown",
+          "sourceRefs": []
         }
       },
-      "overrides": []
+      "overrides": [],
+      "physicalSupplements": {
+        "identity": {
+          "cns5_id": "3863",
+          "simbad_id": "UCAC4 195-119117",
+          "twomass": "15404341-5101357",
+          "gaia_dr2": "5985290231327158144",
+          "identity_method": "nearest-100 source row; frozen CNS5 match; exact SIMBAD CNS5 identity"
+        },
+        "cifuentes2020": {
+          "status": "no exact identifier match"
+        },
+        "mann": {
+          "twomass": "15404341-5101357",
+          "ksMag": 7.943,
+          "ksErrorMag": 0.04,
+          "absoluteKs": 9.3112,
+          "absoluteKsError": 0.04,
+          "fields": [
+            "mass_solar",
+            "radius_solar"
+          ],
+          "reasons": [],
+          "status": "adopted"
+        }
+      }
     },
     {
       "id": "10pc-0123",
@@ -25346,9 +28500,30 @@
           "sourceRefs": [
             "10pc:tablea1:Seq=123:r_RV"
           ]
+        },
+        "radius_solar": {
+          "status": "unknown",
+          "sourceRefs": []
+        },
+        "metallicity_dex": {
+          "status": "unknown",
+          "sourceRefs": []
+        },
+        "age_gyr": {
+          "status": "unknown",
+          "sourceRefs": []
         }
       },
-      "overrides": []
+      "overrides": [],
+      "physicalSupplements": {
+        "identity": {
+          "cns5_id": "2389",
+          "simbad_id": "2MASS J09393548-2448279",
+          "twomass": "09393548-2448279",
+          "identity_method": "nearest-100 source row; frozen CNS5 match; exact SIMBAD CNS5 identity"
+        },
+        "eligibility": "Not a parsed K5-M9.5 dwarf spectral type (no subdwarf, giant, composite or peculiar class); supplements not applied."
+      }
     },
     {
       "id": "10pc-0124",
@@ -25469,14 +28644,18 @@
           "detail": "Estimated: Pecaut-Mamajek 2022.04.16 M4V mean dwarf class, not a measured temperature."
         },
         "mass_solar": {
-          "status": "unknown",
-          "sourceRefs": [],
-          "detail": "No vetted component measurement adopted; mean-sequence values are not substituted."
+          "status": "empirical-relation",
+          "sourceRefs": [
+            "2019ApJ...871...63M:05015746-0656459"
+          ],
+          "detail": "mann-2019; uncertainty 0.004; fills a blank field only."
         },
         "luminosity_solar": {
-          "status": "unknown",
-          "sourceRefs": [],
-          "detail": "No vetted component measurement adopted; mean-sequence values are not substituted."
+          "status": "measured",
+          "sourceRefs": [
+            "2020A&A...642A.115C:J05019-069"
+          ],
+          "detail": "cifuentes-2020; uncertainty 5.936017e-05; fills a blank field only."
         },
         "absolute_mag": {
           "status": "derived",
@@ -25580,9 +28759,60 @@
           "sourceRefs": [
             "10pc:tablea1:Seq=124:r_RV"
           ]
+        },
+        "radius_solar": {
+          "status": "derived",
+          "sourceRefs": [
+            "2020A&A...642A.115C:J05019-069"
+          ],
+          "detail": "cifuentes-2020; uncertainty 0.0069; fills a blank field only."
+        },
+        "metallicity_dex": {
+          "status": "unknown",
+          "sourceRefs": []
+        },
+        "age_gyr": {
+          "status": "unknown",
+          "sourceRefs": []
         }
       },
-      "overrides": []
+      "overrides": [],
+      "physicalSupplements": {
+        "identity": {
+          "cns5_id": "1257",
+          "simbad_id": "LP  656-38",
+          "twomass": "05015746-0656459",
+          "karmn": "J05019-069",
+          "gaia_dr2": "3187115498866675456",
+          "identity_method": "nearest-100 source row; frozen CNS5 match; exact SIMBAD CNS5 identity"
+        },
+        "cifuentes2020": {
+          "record": "J05019-069",
+          "matchedBy": "Karmn",
+          "distancePc": 5.375675,
+          "status": "adopted",
+          "fields": [
+            "temperature_k",
+            "luminosity_solar",
+            "radius_solar",
+            "mass_solar"
+          ],
+          "reasons": []
+        },
+        "mann": {
+          "twomass": "05015746-0656459",
+          "ksMag": 6.736,
+          "ksErrorMag": 0.024,
+          "absoluteKs": 8.0844,
+          "absoluteKsError": 0.024,
+          "fields": [
+            "mass_solar",
+            "radius_solar"
+          ],
+          "reasons": [],
+          "status": "adopted"
+        }
+      }
     },
     {
       "id": "10pc-0127",
@@ -25703,14 +28933,18 @@
           "detail": "Estimated: Pecaut-Mamajek 2022.04.16 M1.5V mean dwarf class, not a measured temperature."
         },
         "mass_solar": {
-          "status": "unknown",
-          "sourceRefs": [],
-          "detail": "No vetted component measurement adopted; mean-sequence values are not substituted."
+          "status": "empirical-relation",
+          "sourceRefs": [
+            "2019ApJ...871...63M:13454354+1453317"
+          ],
+          "detail": "mann-2019; uncertainty 0.01; fills a blank field only."
         },
         "luminosity_solar": {
-          "status": "unknown",
-          "sourceRefs": [],
-          "detail": "No vetted component measurement adopted; mean-sequence values are not substituted."
+          "status": "measured",
+          "sourceRefs": [
+            "2020A&A...642A.115C:J13457+148"
+          ],
+          "detail": "cifuentes-2020; uncertainty 0.0012772848; fills a blank field only."
         },
         "absolute_mag": {
           "status": "derived",
@@ -25814,9 +29048,60 @@
           "sourceRefs": [
             "10pc:tablea1:Seq=127:r_RV"
           ]
+        },
+        "radius_solar": {
+          "status": "derived",
+          "sourceRefs": [
+            "2020A&A...642A.115C:J13457+148"
+          ],
+          "detail": "cifuentes-2020; uncertainty 0.0162; fills a blank field only."
+        },
+        "metallicity_dex": {
+          "status": "unknown",
+          "sourceRefs": []
+        },
+        "age_gyr": {
+          "status": "unknown",
+          "sourceRefs": []
         }
       },
-      "overrides": []
+      "overrides": [],
+      "physicalSupplements": {
+        "identity": {
+          "cns5_id": "3403",
+          "simbad_id": "HD 119850",
+          "twomass": "13454354+1453317",
+          "karmn": "J13457+148",
+          "gaia_dr2": "3741297293732404352",
+          "identity_method": "nearest-100 source row; frozen CNS5 match; exact SIMBAD CNS5 identity"
+        },
+        "cifuentes2020": {
+          "record": "J13457+148",
+          "matchedBy": "Karmn",
+          "distancePc": 5.435268,
+          "status": "adopted",
+          "fields": [
+            "temperature_k",
+            "luminosity_solar",
+            "radius_solar",
+            "mass_solar"
+          ],
+          "reasons": []
+        },
+        "mann": {
+          "twomass": "13454354+1453317",
+          "ksMag": 4.415,
+          "ksErrorMag": 0.017,
+          "absoluteKs": 5.7391,
+          "absoluteKsError": 0.017,
+          "fields": [
+            "mass_solar",
+            "radius_solar"
+          ],
+          "reasons": [],
+          "status": "adopted"
+        }
+      }
     },
     {
       "id": "10pc-0129",
@@ -26046,9 +29331,30 @@
           "sourceRefs": [
             "10pc:tablea1:Seq=129:r_RV"
           ]
+        },
+        "radius_solar": {
+          "status": "unknown",
+          "sourceRefs": []
+        },
+        "metallicity_dex": {
+          "status": "unknown",
+          "sourceRefs": []
+        },
+        "age_gyr": {
+          "status": "unknown",
+          "sourceRefs": []
         }
       },
-      "overrides": []
+      "overrides": [],
+      "physicalSupplements": {
+        "identity": {
+          "cns5_id": "1121",
+          "simbad_id": "EGGR 180",
+          "gaia_dr2": "470826482635701376",
+          "identity_method": "nearest-100 source row; frozen CNS5 match; exact SIMBAD CNS5 identity"
+        },
+        "eligibility": "Not a parsed K5-M9.5 dwarf spectral type (no subdwarf, giant, composite or peculiar class); supplements not applied."
+      }
     },
     {
       "id": "10pc-0128",
@@ -26280,9 +29586,48 @@
           "sourceRefs": [
             "10pc:tablea1:Seq=128:r_RV"
           ]
+        },
+        "radius_solar": {
+          "status": "unknown",
+          "sourceRefs": []
+        },
+        "metallicity_dex": {
+          "status": "unknown",
+          "sourceRefs": []
+        },
+        "age_gyr": {
+          "status": "unknown",
+          "sourceRefs": []
         }
       },
-      "overrides": []
+      "overrides": [],
+      "physicalSupplements": {
+        "identity": {
+          "cns5_id": "1119",
+          "simbad_id": "G 175-34",
+          "twomass": "04311147+5858375",
+          "karmn": "J04311+589",
+          "gaia_dr2": "470826482635704064",
+          "identity_method": "nearest-100 source row; frozen CNS5 match; exact SIMBAD CNS5 identity"
+        },
+        "cifuentes2020": {
+          "record": "J04311+589",
+          "matchedBy": "Karmn",
+          "distancePc": 5.542578,
+          "status": "withheld",
+          "fields": [],
+          "reasons": [
+            "Cifuentes close multiple (<5 arcsec)"
+          ]
+        },
+        "mann": {
+          "twomass": "04311147+5858375",
+          "status": "withheld",
+          "reasons": [
+            "Cifuentes flags multiple; single main-sequence relation not applied"
+          ]
+        }
+      }
     },
     {
       "id": "10pc-0130",
@@ -26514,9 +29859,30 @@
           "sourceRefs": [
             "10pc:tablea1:Seq=130:r_RV"
           ]
+        },
+        "radius_solar": {
+          "status": "unknown",
+          "sourceRefs": []
+        },
+        "metallicity_dex": {
+          "status": "unknown",
+          "sourceRefs": []
+        },
+        "age_gyr": {
+          "status": "unknown",
+          "sourceRefs": []
         }
       },
-      "overrides": []
+      "overrides": [],
+      "physicalSupplements": {
+        "identity": {
+          "cns5_id": "2747",
+          "simbad_id": "2MASS J11145133-2618235",
+          "twomass": "11145133-2618235",
+          "identity_method": "nearest-100 source row; frozen CNS5 match; exact SIMBAD CNS5 identity"
+        },
+        "eligibility": "Not a parsed K5-M9.5 dwarf spectral type (no subdwarf, giant, composite or peculiar class); supplements not applied."
+      }
     },
     {
       "id": "10pc-0131",
@@ -26637,14 +30003,18 @@
           "detail": "Estimated: Pecaut-Mamajek 2022.04.16 M3V mean dwarf class, not a measured temperature."
         },
         "mass_solar": {
-          "status": "unknown",
-          "sourceRefs": [],
-          "detail": "No vetted component measurement adopted; mean-sequence values are not substituted."
+          "status": "empirical-relation",
+          "sourceRefs": [
+            "2019ApJ...871...63M:06544902+3316058"
+          ],
+          "detail": "mann-2019; uncertainty 0.0079; fills a blank field only."
         },
         "luminosity_solar": {
-          "status": "unknown",
-          "sourceRefs": [],
-          "detail": "No vetted component measurement adopted; mean-sequence values are not substituted."
+          "status": "measured",
+          "sourceRefs": [
+            "2020A&A...642A.115C:J06548+332"
+          ],
+          "detail": "cifuentes-2020; uncertainty 0.00035087115; fills a blank field only."
         },
         "absolute_mag": {
           "status": "unknown",
@@ -26748,9 +30118,60 @@
           "sourceRefs": [
             "10pc:tablea1:Seq=131:r_RV"
           ]
+        },
+        "radius_solar": {
+          "status": "derived",
+          "sourceRefs": [
+            "2020A&A...642A.115C:J06548+332"
+          ],
+          "detail": "cifuentes-2020; uncertainty 0.0114; fills a blank field only."
+        },
+        "metallicity_dex": {
+          "status": "unknown",
+          "sourceRefs": []
+        },
+        "age_gyr": {
+          "status": "unknown",
+          "sourceRefs": []
         }
       },
-      "overrides": []
+      "overrides": [],
+      "physicalSupplements": {
+        "identity": {
+          "cns5_id": "1713",
+          "simbad_id": "HD 265866",
+          "twomass": "06544902+3316058",
+          "karmn": "J06548+332",
+          "gaia_dr2": "939072613334579328",
+          "identity_method": "nearest-100 source row; frozen CNS5 match; exact SIMBAD CNS5 identity"
+        },
+        "cifuentes2020": {
+          "record": "J06548+332",
+          "matchedBy": "Karmn",
+          "distancePc": 5.581472,
+          "status": "adopted",
+          "fields": [
+            "temperature_k",
+            "luminosity_solar",
+            "radius_solar",
+            "mass_solar"
+          ],
+          "reasons": []
+        },
+        "mann": {
+          "twomass": "06544902+3316058",
+          "ksMag": 5.275,
+          "ksErrorMag": 0.023,
+          "absoluteKs": 6.5402,
+          "absoluteKsError": 0.023,
+          "fields": [
+            "mass_solar",
+            "radius_solar"
+          ],
+          "reasons": [],
+          "status": "adopted"
+        }
+      }
     },
     {
       "id": "10pc-0133",
@@ -26871,14 +30292,18 @@
           "detail": "Estimated: Pecaut-Mamajek 2022.04.16 M4V mean dwarf class, not a measured temperature."
         },
         "mass_solar": {
-          "status": "unknown",
-          "sourceRefs": [],
-          "detail": "No vetted component measurement adopted; mean-sequence values are not substituted."
+          "status": "empirical-relation",
+          "sourceRefs": [
+            "2019ApJ...871...63M:20523304-1658289"
+          ],
+          "detail": "mann-2019; uncertainty 0.0052; fills a blank field only."
         },
         "luminosity_solar": {
-          "status": "unknown",
-          "sourceRefs": [],
-          "detail": "No vetted component measurement adopted; mean-sequence values are not substituted."
+          "status": "measured",
+          "sourceRefs": [
+            "2020A&A...642A.115C:J20525-169"
+          ],
+          "detail": "cifuentes-2020; uncertainty 8.836586e-05; fills a blank field only."
         },
         "absolute_mag": {
           "status": "derived",
@@ -26982,9 +30407,60 @@
           "sourceRefs": [
             "10pc:tablea1:Seq=133:r_RV"
           ]
+        },
+        "radius_solar": {
+          "status": "derived",
+          "sourceRefs": [
+            "2020A&A...642A.115C:J20525-169"
+          ],
+          "detail": "cifuentes-2020; uncertainty 0.0093; fills a blank field only."
+        },
+        "metallicity_dex": {
+          "status": "unknown",
+          "sourceRefs": []
+        },
+        "age_gyr": {
+          "status": "unknown",
+          "sourceRefs": []
         }
       },
-      "overrides": []
+      "overrides": [],
+      "physicalSupplements": {
+        "identity": {
+          "cns5_id": "5161",
+          "simbad_id": "LP  816-60",
+          "twomass": "20523304-1658289",
+          "karmn": "J20525-169",
+          "gaia_dr2": "6882963066420161664",
+          "identity_method": "nearest-100 source row; frozen CNS5 match; exact SIMBAD CNS5 identity"
+        },
+        "cifuentes2020": {
+          "record": "J20525-169",
+          "matchedBy": "Karmn",
+          "distancePc": 5.614057,
+          "status": "adopted",
+          "fields": [
+            "temperature_k",
+            "luminosity_solar",
+            "radius_solar",
+            "mass_solar"
+          ],
+          "reasons": []
+        },
+        "mann": {
+          "twomass": "20523304-1658289",
+          "ksMag": 6.199,
+          "ksErrorMag": 0.021,
+          "absoluteKs": 7.4504,
+          "absoluteKsError": 0.021,
+          "fields": [
+            "mass_solar",
+            "radius_solar"
+          ],
+          "reasons": [],
+          "status": "adopted"
+        }
+      }
     },
     {
       "id": "10pc-0134",
@@ -27216,9 +30692,29 @@
           "sourceRefs": [
             "10pc:tablea1:Seq=134:r_RV"
           ]
+        },
+        "radius_solar": {
+          "status": "unknown",
+          "sourceRefs": []
+        },
+        "metallicity_dex": {
+          "status": "unknown",
+          "sourceRefs": []
+        },
+        "age_gyr": {
+          "status": "unknown",
+          "sourceRefs": []
         }
       },
-      "overrides": []
+      "overrides": [],
+      "physicalSupplements": {
+        "identity": {
+          "cns5_id": "965",
+          "simbad_id": "WISE J035000.32-565830.2",
+          "identity_method": "nearest-100 source row; frozen CNS5 match; exact SIMBAD CNS5 identity"
+        },
+        "eligibility": "Not a parsed K5-M9.5 dwarf spectral type (no subdwarf, giant, composite or peculiar class); supplements not applied."
+      }
     },
     {
       "id": "10pc-0135",
@@ -27339,14 +30835,18 @@
           "detail": "Estimated: Pecaut-Mamajek 2022.04.16 M8.5V mean dwarf class, not a measured temperature."
         },
         "mass_solar": {
-          "status": "unknown",
-          "sourceRefs": [],
-          "detail": "No vetted component measurement adopted; mean-sequence values are not substituted."
+          "status": "empirical-relation",
+          "sourceRefs": [
+            "2019ApJ...871...63M:18353790+3259545"
+          ],
+          "detail": "mann-2019; uncertainty 0.0016; fills a blank field only."
         },
         "luminosity_solar": {
-          "status": "unknown",
-          "sourceRefs": [],
-          "detail": "No vetted component measurement adopted; mean-sequence values are not substituted."
+          "status": "measured",
+          "sourceRefs": [
+            "2020A&A...642A.115C:J18356+329"
+          ],
+          "detail": "cifuentes-2020; uncertainty 2.370574e-06; fills a blank field only."
         },
         "absolute_mag": {
           "status": "unknown",
@@ -27450,9 +30950,61 @@
           "sourceRefs": [
             "10pc:tablea1:Seq=135:r_RV"
           ]
+        },
+        "radius_solar": {
+          "status": "derived",
+          "sourceRefs": [
+            "2020A&A...642A.115C:J18356+329"
+          ],
+          "detail": "cifuentes-2020; uncertainty 0.004; fills a blank field only."
+        },
+        "metallicity_dex": {
+          "status": "unknown",
+          "sourceRefs": []
+        },
+        "age_gyr": {
+          "status": "unknown",
+          "sourceRefs": []
         }
       },
-      "overrides": []
+      "overrides": [],
+      "physicalSupplements": {
+        "identity": {
+          "cns5_id": "4601",
+          "simbad_id": "LSR J1835+3259",
+          "twomass": "18353790+3259545",
+          "karmn": "J18356+329",
+          "gaia_dr2": "2091177593123254016",
+          "identity_method": "nearest-100 source row; frozen CNS5 match; exact SIMBAD CNS5 identity"
+        },
+        "cifuentes2020": {
+          "record": "J18356+329",
+          "matchedBy": "Karmn",
+          "distancePc": 5.687493,
+          "status": "adopted",
+          "fields": [
+            "temperature_k",
+            "luminosity_solar",
+            "radius_solar",
+            "mass_solar"
+          ],
+          "reasons": []
+        },
+        "mann": {
+          "twomass": "18353790+3259545",
+          "ksMag": 9.171,
+          "ksErrorMag": 0.018,
+          "absoluteKs": 10.396,
+          "absoluteKsError": 0.018,
+          "fields": [
+            "mass_solar"
+          ],
+          "reasons": [
+            "Spectral type outside Mann 2015 K7-M7 calibration"
+          ],
+          "status": "adopted"
+        }
+      }
     },
     {
       "id": "10pc-0136",
@@ -27573,14 +31125,18 @@
           "detail": "Estimated: Pecaut-Mamajek 2022.04.16 M1.5V mean dwarf class, not a measured temperature."
         },
         "mass_solar": {
-          "status": "unknown",
-          "sourceRefs": [],
-          "detail": "No vetted component measurement adopted; mean-sequence values are not substituted."
+          "status": "empirical-relation",
+          "sourceRefs": [
+            "2020A&A...642A.115C:J05314-036"
+          ],
+          "detail": "cifuentes-2020; uncertainty 0.0317; fills a blank field only."
         },
         "luminosity_solar": {
-          "status": "unknown",
-          "sourceRefs": [],
-          "detail": "No vetted component measurement adopted; mean-sequence values are not substituted."
+          "status": "measured",
+          "sourceRefs": [
+            "2020A&A...642A.115C:J05314-036"
+          ],
+          "detail": "cifuentes-2020; uncertainty 0.0045298357; fills a blank field only."
         },
         "absolute_mag": {
           "status": "derived",
@@ -27684,9 +31240,54 @@
           "sourceRefs": [
             "10pc:tablea1:Seq=136:r_RV"
           ]
+        },
+        "radius_solar": {
+          "status": "derived",
+          "sourceRefs": [
+            "2020A&A...642A.115C:J05314-036"
+          ],
+          "detail": "cifuentes-2020; uncertainty 0.0275; fills a blank field only."
+        },
+        "metallicity_dex": {
+          "status": "unknown",
+          "sourceRefs": []
+        },
+        "age_gyr": {
+          "status": "unknown",
+          "sourceRefs": []
         }
       },
-      "overrides": []
+      "overrides": [],
+      "physicalSupplements": {
+        "identity": {
+          "cns5_id": "1375",
+          "simbad_id": "HD  36395",
+          "twomass": "05312734-0340356",
+          "karmn": "J05314-036",
+          "gaia_dr2": "3209938366665770752",
+          "identity_method": "nearest-100 source row; frozen CNS5 match; exact SIMBAD CNS5 identity"
+        },
+        "cifuentes2020": {
+          "record": "J05314-036",
+          "matchedBy": "Karmn",
+          "distancePc": 5.700321,
+          "status": "adopted",
+          "fields": [
+            "temperature_k",
+            "luminosity_solar",
+            "radius_solar",
+            "mass_solar"
+          ],
+          "reasons": []
+        },
+        "mann": {
+          "twomass": "05312734-0340356",
+          "status": "withheld",
+          "reasons": [
+            "2MASS Ks quality, blend or contamination flag not clean (requires Q=A/B, B=1, C=0)"
+          ]
+        }
+      }
     },
     {
       "id": "10pc-0137",
@@ -27918,9 +31519,30 @@
           "sourceRefs": [
             "10pc:tablea1:Seq=137:r_RV"
           ]
+        },
+        "radius_solar": {
+          "status": "unknown",
+          "sourceRefs": []
+        },
+        "metallicity_dex": {
+          "status": "unknown",
+          "sourceRefs": []
+        },
+        "age_gyr": {
+          "status": "unknown",
+          "sourceRefs": []
         }
       },
-      "overrides": []
+      "overrides": [],
+      "physicalSupplements": {
+        "identity": {
+          "cns5_id": "1054",
+          "simbad_id": "2MASSI J0415195-093506",
+          "twomass": "04151954-0935066",
+          "identity_method": "nearest-100 source row; frozen CNS5 match; exact SIMBAD CNS5 identity"
+        },
+        "eligibility": "Not a parsed K5-M9.5 dwarf spectral type (no subdwarf, giant, composite or peculiar class); supplements not applied."
+      }
     },
     {
       "id": "10pc-0138",
@@ -28041,14 +31663,18 @@
           "detail": "Estimated: Pecaut-Mamajek 2022.04.16 M1V mean dwarf class, not a measured temperature."
         },
         "mass_solar": {
-          "status": "unknown",
-          "sourceRefs": [],
-          "detail": "No vetted component measurement adopted; mean-sequence values are not substituted."
+          "status": "empirical-relation",
+          "sourceRefs": [
+            "2020A&A...642A.115C:J06105-218"
+          ],
+          "detail": "cifuentes-2020; uncertainty 0.0241; fills a blank field only."
         },
         "luminosity_solar": {
-          "status": "unknown",
-          "sourceRefs": [],
-          "detail": "No vetted component measurement adopted; mean-sequence values are not substituted."
+          "status": "measured",
+          "sourceRefs": [
+            "2020A&A...642A.115C:J06105-218"
+          ],
+          "detail": "cifuentes-2020; uncertainty 0.0023798468; fills a blank field only."
         },
         "absolute_mag": {
           "status": "unknown",
@@ -28152,9 +31778,54 @@
           "sourceRefs": [
             "10pc:tablea1:Seq=138:r_RV"
           ]
+        },
+        "radius_solar": {
+          "status": "derived",
+          "sourceRefs": [
+            "2020A&A...642A.115C:J06105-218"
+          ],
+          "detail": "cifuentes-2020; uncertainty 0.0197; fills a blank field only."
+        },
+        "metallicity_dex": {
+          "status": "unknown",
+          "sourceRefs": []
+        },
+        "age_gyr": {
+          "status": "unknown",
+          "sourceRefs": []
         }
       },
-      "overrides": []
+      "overrides": [],
+      "physicalSupplements": {
+        "identity": {
+          "cns5_id": "1528",
+          "simbad_id": "HD  42581",
+          "twomass": "06103462-2151521",
+          "karmn": "J06105-218",
+          "gaia_dr2": "2940856402123426176",
+          "identity_method": "nearest-100 source row; frozen CNS5 match; exact SIMBAD CNS5 identity"
+        },
+        "cifuentes2020": {
+          "record": "J06105-218",
+          "matchedBy": "Karmn",
+          "distancePc": 5.757201,
+          "status": "adopted",
+          "fields": [
+            "temperature_k",
+            "luminosity_solar",
+            "radius_solar",
+            "mass_solar"
+          ],
+          "reasons": []
+        },
+        "mann": {
+          "twomass": "06103462-2151521",
+          "status": "withheld",
+          "reasons": [
+            "2MASS Ks quality, blend or contamination flag not clean (requires Q=A/B, B=1, C=0)"
+          ]
+        }
+      }
     }
   ]
 }

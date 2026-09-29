@@ -6,6 +6,8 @@ from typing import Any, Literal
 FieldStatus = Literal[
     "measured",
     "model-derived",
+    "empirical-relation",
+    "derived",
     "estimated",
     "inherited",
     "withheld",

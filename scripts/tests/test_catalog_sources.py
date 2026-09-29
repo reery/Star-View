@@ -1,17 +1,28 @@
 import csv
 import io
+import math
 import tempfile
 import unittest
 from pathlib import Path
 from unittest.mock import patch
 
-from scripts.catalog_sources.adapters import _text, read_gaia_tap, read_simbad_tap
-from scripts.catalog_sources.acquisition import _download, _tap_query, gaia_query, simbad_query
+from scripts.catalog_sources.adapters import _text, read_cifuentes, read_gaia_tap, read_simbad_tap, read_twomass_psc
+from scripts.catalog_sources.acquisition import _download, _tap_query, gaia_query, simbad_query, twomass_query
 from scripts.catalog_sources.filesystem import atomic_write_text, safe_output_directory, write_managed_files
 from scripts.catalog_sources.identity import positional_candidate, resolve_identity
+from scripts.catalog_sources.mdwarf import RowContext, Supplements, build_crossmatch, dwarf_subclass, mann2015_radius, mann2019_mass, resolve_supplemented_fields, supplement_observations
 from scripts.catalog_sources.models import IdentityRecord, NormalizedSourceRecord, PhysicalObservation
 from scripts.catalog_sources.resolution import resolve_physical_field
 from scripts.catalog_sources.snapshots import canonical_json, sha256, verify_sha256
+
+ROOT = Path(__file__).resolve().parents[2]
+
+
+def cifuentes_line(karmn, dist, lbol, teff, radius, mass, dr2="", multiple="false", young="false", ruwe="false"):
+    line = [" "] * 767
+    for start, text in ((1, karmn), (129, dist), (158, lbol), (172, "1.0E-4"), (186, teff), (195, radius), (202, "0.0060"), (209, mass), (216, "0.0100"), (705, dr2), (745, multiple), (751, young), (757, ruwe), (763, "false")):
+        line[start - 1:start - 1 + len(text)] = text
+    return "".join(line)
 
 
 class CatalogSourceTests(unittest.TestCase):
@@ -159,6 +170,101 @@ class CatalogSourceTests(unittest.TestCase):
                 write_managed_files(self.folder, {"first.txt": "new first", "second.txt": "new second"}, True)
         self.assertEqual(first.read_text(), "old first")
         self.assertEqual(second.read_text(), "old second")
+
+    def supplements(self, lines, twomass_rows, crossmatch, blended=()):
+        (self.folder / "cif.dat").write_text("\n".join(lines) + "\n")
+        cifuentes = read_cifuentes(self.folder / "cif.dat")
+        twomass = read_twomass_psc(self.write_csv("2mass.csv", twomass_rows))
+        by_dr2 = {record.raw["gaiaDr2Primary"]: record for record in cifuentes if record.raw["gaiaDr2Primary"]}
+        supplements = Supplements(crossmatch, {record.identity.source_record_id: record for record in cifuentes}, by_dr2, twomass, set(blended), "0" * 64, {}, {})
+        for entry in crossmatch.values():
+            for karmn in supplements.cifuentes_candidates(entry):
+                supplements.cifuentes_claims[karmn] = supplements.cifuentes_claims.get(karmn, 0) + 1
+            if entry["twomass"]:
+                supplements.twomass_claims[entry["twomass"]] = supplements.twomass_claims.get(entry["twomass"], 0) + 1
+        return supplements
+
+    @staticmethod
+    def entry(identifier, cns5="1", twomass="17574849+0441405", karmn="J17578+046", dr2=""):
+        return {"star_view_id": identifier, "cns5_id": cns5, "simbad_id": "x", "twomass": twomass, "karmn": karmn, "gaia_dr2": dr2, "identity_method": "test"}
+
+    def test_cifuentes_fixed_width_and_twomass_readers(self):
+        (self.folder / "cif.dat").write_text(cifuentes_line("J17578+046", "1.826649", "3.5225088E-3", "3200", "0.1931", "0.1797", dr2="4472832130942575872", young="true") + "\n")
+        record = read_cifuentes(self.folder / "cif.dat")[0]
+        physical = {item.field: item for item in record.physical}
+        self.assertEqual(record.identity.source_record_id, "J17578+046")
+        self.assertEqual(record.raw["gaiaDr2Primary"], "4472832130942575872")
+        self.assertTrue(record.raw["young"])
+        self.assertEqual(physical["luminosity_solar"].value, 0.0035225088)
+        self.assertEqual(physical["temperature_k"].uncertainty, 50.0)
+        self.assertEqual((physical["radius_solar"].status, physical["mass_solar"].status), ("derived", "empirical-relation"))
+        (self.folder / "short.dat").write_text("J00000+000\n")
+        with self.assertRaisesRegex(ValueError, "expected 767"):
+            read_cifuentes(self.folder / "short.dat")
+        twomass = read_twomass_psc(self.write_csv("2mass.csv", [{"2MASS": "17574849+0441405 ", "Kmag": "4.524", "e_Kmag": "0.02", "Qflg": "AAA", "Bflg": "111", "Cflg": "000"}]))
+        self.assertEqual(twomass["17574849+0441405"]["ks_mag"], 4.524)
+        self.assertIn("\"2MASS\" IN ('17574849+0441405')", twomass_query(["17574849+0441405"]))
+        with self.assertRaisesRegex(ValueError, "designations"):
+            twomass_query(["J17574849+0441405"])
+
+    def test_mann_relations_reproduce_published_examples(self):
+        # Mann et al. 2019 code README: Trappist-1 0.0898 and GJ 1214 0.1803 solar masses.
+        trappist, _ = mann2019_mass(10.296 - 5 * math.log10(12.23989539 / 10))
+        gj1214, error = mann2019_mass(8.782 - 5 * math.log10(14.55 / 10), 0.03)
+        self.assertAlmostEqual(trappist, 0.0898, delta=0.0898 * 0.03)
+        self.assertAlmostEqual(gj1214, 0.1803, delta=0.1803 * 0.03)
+        self.assertGreater(error / gj1214, 0.020)
+        self.assertAlmostEqual(mann2019_mass(7.5)[0], 10 ** -0.642)
+        radius, radius_error = mann2015_radius(6.6)
+        self.assertAlmostEqual(radius, 1.9515 - 0.3520 * 6.6 + 0.01680 * 6.6 ** 2)
+        self.assertAlmostEqual(radius_error, 0.0289 * radius)
+
+    def test_dwarf_subclass_rejects_giants_subdwarfs_and_composites(self):
+        for text, expected in (("M4.5V", 4.5), ("dM4", 4.0), ("K7V", -3.0), ("M5.5Ve", 5.5), ("M3/4V", 3.0), ("K2+V", -8.0), ("M4.0Vk:", 4.0)):
+            self.assertEqual(dwarf_subclass(text), expected, text)
+        for text in ("sdM1", "M4+T8", "K3IV", "K0IIIb", "M?", "K1V_Fe-0.5", "L5", "", None):
+            self.assertIsNone(dwarf_subclass(text), text)
+
+    def test_supplements_apply_eligibility_and_field_priority(self):
+        twomass = [{"2MASS": "17574849+0441405", "Kmag": "4.524", "e_Kmag": "0.02", "Qflg": "AAA", "Bflg": "111", "Cflg": "000"}]
+        line = cifuentes_line("J17578+046", "1.826649", "3.5225088E-3", "3200", "0.1931", "0.1797")
+        context = RowContext("barnard", "star", "M4.0Ve", 1.8266, 0.0001)
+        supplements = self.supplements([line], twomass, {"barnard": self.entry("barnard")})
+        observations, audit = supplement_observations(context, supplements)
+        self.assertEqual(audit["cifuentes2020"]["status"], "adopted")
+        self.assertEqual(sorted(audit["mann"]["fields"]), ["mass_solar", "radius_solar"])
+        row = {"temperature_k": "3210", "mass_solar": "", "luminosity_solar": "", "radius_solar": "", "notes": "Curated."}
+        adopted = resolve_supplemented_fields(row, observations)
+        self.assertEqual(row["temperature_k"], "3210")
+        self.assertEqual(adopted["mass_solar"].source_id, "mann-2019")
+        self.assertEqual(adopted["radius_solar"].source_id, "cifuentes-2020")
+        self.assertEqual(row["luminosity_solar"], "0.0035225088")
+        self.assertTrue(row["notes"].startswith("Curated. Supplementary mass from Mann et al. 2019"))
+        gaia = PhysicalObservation("gaia-dr3", "1", "radius_solar", 0.25, None, "model-derived", "Gaia DR3")
+        replaced = {"radius_solar": "0.25", "notes": ""}
+        resolve_supplemented_fields(replaced, observations, {"radius_solar": gaia})
+        self.assertEqual(replaced["radius_solar"], "0.1931")
+
+        blended, audit = supplement_observations(context, self.supplements([line], twomass, {"barnard": self.entry("barnard")}, blended={"1"}))
+        self.assertEqual(audit["mann"]["status"], "withheld")
+        self.assertFalse(any(item.source_id.startswith("mann") for item in blended))
+        dirty = [dict(twomass[0], Qflg="AAE")]
+        self.assertEqual(supplement_observations(context, self.supplements([line], dirty, {"barnard": self.entry("barnard")}))[1]["mann"]["status"], "withheld")
+        far, audit = supplement_observations(RowContext("barnard", "star", "M4.0Ve", 1.95, None), supplements)
+        self.assertEqual(audit["cifuentes2020"]["status"], "withheld")
+        self.assertFalse(any(item.source_id == "cifuentes-2020" for item in far))
+        young = cifuentes_line("J17578+046", "1.826649", "3.5225088E-3", "3200", "0.1931", "0.1797", young="true")
+        observations, audit = supplement_observations(context, self.supplements([young], twomass, {"barnard": self.entry("barnard")}))
+        self.assertNotIn("mass_solar", [item.field for item in observations])
+        self.assertEqual(audit["mann"]["status"], "withheld")
+        shared = self.supplements([line], twomass, {"a": self.entry("a"), "b": self.entry("b", cns5="2")})
+        self.assertEqual(supplement_observations(RowContext("a", "star", "M4.0Ve", 1.8266, None), shared)[0], [])
+        brown, audit = supplement_observations(RowContext("barnard", "brown_dwarf", "L5", 1.8266, None), supplements)
+        self.assertEqual(brown, [])
+        self.assertIn("eligibility", audit)
+
+    def test_frozen_crossmatch_regenerates_from_frozen_identities(self):
+        self.assertEqual(build_crossmatch(ROOT), (ROOT / "catalog-work/physical-supplements/crossmatch.csv").read_text())
 
 
 if __name__ == "__main__":

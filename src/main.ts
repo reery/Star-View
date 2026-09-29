@@ -168,8 +168,9 @@ function renderSelection(): void {
   text('radius', quantity(star.radius_solar, 'solar'))
   text('metallicity', quantity(star.metallicity_dex, 'dex'))
   text('age', quantity(star.age_gyr, 'Gyr'))
-  text('luminosity', quantity(star.luminosity_solar, 'solar'))
-  element('luminosity-row').hidden = star.luminosity_solar === null
+  const luminosity = star.luminosity_solar
+  text('luminosity', luminosity !== null && luminosity < 1 ? `${luminosity.toLocaleString('en-US', { maximumSignificantDigits: 3 })} solar` : quantity(luminosity, 'solar'))
+  element('luminosity-row').hidden = luminosity === null
   text('coordinate-x', formatDistance(star.x_pc, distanceUnit, 3))
   text('coordinate-y', formatDistance(star.y_pc, distanceUnit, 3))
   text('coordinate-z', formatDistance(star.z_pc, distanceUnit, 3))

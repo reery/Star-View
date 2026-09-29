@@ -1,0 +1,31 @@
+{
+  "checksumsSha256": {
+    "cifuentes2020-tablea3.dat": "8261d2d48989dd2332f8c7485f505453d62e2e7fe0a706baf288689eb1649b2a",
+    "cifuentes2020.ReadMe": "23f585ea9ee9c4cc501e213b3263a58e2bc81f5a0d7c33e7415412ab2dde85eb",
+    "crossmatch.csv": "882384928e15d2cbf5e0e5cc7dca48fb1734824da256da21276e416a10f7d733",
+    "twomass.adql": "ba57409b54ec0b8d7c937392ce18840a51cb9d62290eaaf73e6da7f2535d7d3f",
+    "twomass.csv": "1cb6c106fa95f4f8b60881fd401864073d0612c9babd48249bfe6cd7b770cf1d"
+  },
+  "retrieved": "2026-09-29",
+  "schemaVersion": 1,
+  "sources": {
+    "cifuentes2020": {
+      "compressedDataSha256": "ab699b25919558225517bb413c118ff5f47a480f8a97b726a5538a7a8f3f4252",
+      "reference": "2020A&A...642A.115C",
+      "release": "J/A+A/642/A115, CDS 20-Jul-2020",
+      "url": "https://cdsarc.cds.unistra.fr/ftp/J/A+A/642/A115/ReadMe"
+    },
+    "crossmatch": {
+      "method": "Exact identifiers from frozen nearest-1000 SIMBAD export and nearest-100 10pc identities; no positional matching",
+      "rows": 1111
+    },
+    "twomass": {
+      "designations": 937,
+      "queryFile": "twomass.adql",
+      "reference": "2006AJ....131.1163S",
+      "release": "2MASS All-Sky Point Source Catalog, VizieR II/246/out",
+      "rows": 937,
+      "url": "https://tapvizier.cds.unistra.fr/TAPVizieR/tap/sync"
+    }
+  }
+}

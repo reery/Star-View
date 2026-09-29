@@ -17,11 +17,13 @@ from astropy.utils import iers
 
 from catalog_sources.adapters import read_cns5, read_gaia_tap, read_simbad_tap
 from catalog_sources.filesystem import write_managed_files
+from catalog_sources.mdwarf import SUPPLEMENT_FIELDS, load_supplements, resolve_supplemented_fields, row_context, supplement_observations
 from catalog_sources.snapshots import canonical_json, sha256, verify_sha256
 
 iers.conf.auto_download = False
 ROOT = Path(__file__).resolve().parents[1]
 FROZEN = ROOT / "catalog-work/nearest-1000"
+SUPPLEMENTS = ROOT / "catalog-work/physical-supplements"
 NEAREST100_INPUT = ROOT / "catalog-work/nearest-100/source-input.json"
 NEAREST100_CSV = ROOT / "src/data/catalogs/nearest-100/stars.csv"
 NEAREST100_PROVENANCE = ROOT / "src/data/catalogs/nearest-100/provenance.json"
@@ -54,6 +56,10 @@ SOURCES = [
     {"name": "Gaia DR3 TAP snapshot; exact-ID GSP-Phot/FLAME physical estimates", "url": "https://gea.esac.esa.int/tap-server/tap/sync"},
     {"name": "Nearest 100 audited release; higher-curation shared-object overrides", "url": "https://cdsarc.cds.unistra.fr/ftp/J/A+A/650/A201/ReadMe"},
     {"name": f"Astropy {astropy.__version__}, IAU constellations using Roman 1987 boundaries", "url": "https://docs.astropy.org/en/stable/api/astropy.coordinates.get_constellation.html"},
+    {"name": "Cifuentes et al. 2020, CARMENES M-dwarf luminosities, temperatures, radii and masses (J/A+A/642/A115); ranks above Gaia DR3", "url": "https://cdsarc.cds.unistra.fr/ftp/J/A+A/642/A115/ReadMe"},
+    {"name": "Mann et al. 2019, absolute-Ks mass relation (2019ApJ...871...63M); ranks above Cifuentes and Gaia DR3 masses", "url": "https://ui.adsabs.harvard.edu/abs/2019ApJ...871...63M/abstract"},
+    {"name": "Mann et al. 2015, absolute-Ks radius relation (2015ApJ...804...64M); ranks below Cifuentes, above Gaia DR3 radii", "url": "https://ui.adsabs.harvard.edu/abs/2015ApJ...804...64M/abstract"},
+    {"name": "2MASS All-Sky Point Source Catalog Ks photometry (VizieR II/246)", "url": "https://cdsarc.cds.unistra.fr/viz-bin/cat/II/246"},
 ]
 
 
@@ -122,7 +128,7 @@ def display_name(simbad):
     return re.sub(r"\s+", " ", name)
 
 
-def normalize(record, simbad, gaia):
+def normalize(record, simbad, gaia, supplements):
     astrometry = record.astrometry
     raw = simbad.raw or {}
     object_type = source_type(raw.get("otype"))
@@ -177,6 +183,7 @@ def normalize(record, simbad, gaia):
     if v_magnitude:
         row["absolute_mag"] = f"{float(v_magnitude) - 5 * math.log10(direction.distance.to_value(units.pc) / 10):.6f}"
     physical = []
+    by_field = {}
     if gaia is not None and object_type == "star":
         def eligible_physical(item):
             if not math.isfinite(item.value) or (item.field != "metallicity_dex" and item.value <= 0):
@@ -205,6 +212,12 @@ def normalize(record, simbad, gaia):
         if "age_gyr" in by_field:
             row["age_gyr"] = str(by_field["age_gyr"].value)
         physical = [item.to_dict() for item in by_field.values()]
+    supplement_obs, supplement_audit = supplement_observations(row_context(row), supplements)
+    supplemented = resolve_supplemented_fields(row, supplement_obs, {field: by_field[field] for field in SUPPLEMENT_FIELDS if field in by_field})
+    physical += [item.to_dict() for item in supplement_obs]
+    if supplement_audit is not None:
+        supplement_audit["adopted"] = {field: f"{item.source_id}:{item.source_record_id}" for field, item in supplemented.items()}
+    status = lambda field: supplemented[field].status if field in supplemented else "model-derived" if row[field] else "unknown"
     provenance = {
         "id": identifier,
         "cns5Id": record.identity.source_record_id,
@@ -215,16 +228,18 @@ def normalize(record, simbad, gaia):
         "astrometry": astrometry.to_dict(),
         "physicalObservations": physical,
         "fieldStatus": {
-            "temperature_k": "model-derived" if row["temperature_k"] else "unknown",
-            "mass_solar": "model-derived" if row["mass_solar"] else "unknown",
-            "luminosity_solar": "model-derived" if row["luminosity_solar"] else "unknown",
-            "radius_solar": "model-derived" if row["radius_solar"] else "unknown",
+            "temperature_k": status("temperature_k"),
+            "mass_solar": status("mass_solar"),
+            "luminosity_solar": status("luminosity_solar"),
+            "radius_solar": status("radius_solar"),
             "metallicity_dex": "model-derived" if row["metallicity_dex"] else "unknown",
             "age_gyr": "model-derived" if row["age_gyr"] else "unknown",
             "absolute_mag": "derived-from-compiled-Johnson-V" if row["absolute_mag"] else "unknown",
             "radial_velocity_kms": "compiled" if use_rv else "withheld" if astrometry.radial_velocity_kms is not None else "unknown",
         },
     }
+    if supplement_audit is not None:
+        provenance["physicalSupplements"] = supplement_audit
     return row, provenance, direction.distance.to_value(units.pc)
 
 
@@ -237,6 +252,7 @@ def build_package():
     cns5 = cns5[:manifest_input["bufferSize"]]
     simbad = simbad_by_cns5()
     gaia = {record.identity.gaia_dr3_id: record for record in read_gaia_tap(FROZEN / "gaia.csv")}
+    supplements = load_supplements(SUPPLEMENTS, FROZEN / "cns5.dat")
     candidates = []
     audit = []
     replaced_ids = {identifier for identifiers in shared_mapping.values() for identifier in identifiers}
@@ -257,7 +273,7 @@ def build_package():
         if source_object_type in {"**", "BD?"}:
             audit.append({"cns5Id": cns5_id, "status": "excluded", "reason": "aggregate system" if source_object_type == "**" else "tentative brown-dwarf classification", "simbadType": source_object_type})
             continue
-        row, provenance, distance = normalize(record, source, gaia.get(record.identity.gaia_dr3_id))
+        row, provenance, distance = normalize(record, source, gaia.get(record.identity.gaia_dr3_id), supplements)
         candidates.append((distance, row["id"], row, provenance))
     ranked = sorted(candidates, key=lambda item: (item[0], item[1]))
     selected = ranked[:1000]
@@ -301,8 +317,9 @@ def build_package():
     provenance = {
         "schemaVersion": 1,
         "catalogId": "nearest-1000",
-        "policyRevision": "cns5-individuals-v1",
+        "policyRevision": "cns5-individuals-v2-mdwarf-supplements",
         "sourceManifestSha256": sha256(FROZEN / "source-manifest.json"),
+        "supplementManifestSha256": supplements.manifest_sha256,
         "sources": SOURCES,
         "coverage": {field: sum(bool(row.get(field)) for row in rows if row["id"] != "sun") for field in ("constellation", "spectral_type", "temperature_k", "mass_solar", "luminosity_solar", "radius_solar", "metallicity_dex", "age_gyr", "absolute_mag", "radial_velocity_kms")},
         "cutoff": {"rank": 1000, "id": cutoff[1], "name": cutoff[2]["name"], "distancePc": cutoff[0], "distanceSigmaPcLinearized": cutoff_sigma, "nextId": next_candidate[1], "nextDistancePc": next_candidate[0], "nextDistanceSigmaPcLinearized": next_sigma, "oneSigmaIntervalsOverlap": uncertainty_overlap},

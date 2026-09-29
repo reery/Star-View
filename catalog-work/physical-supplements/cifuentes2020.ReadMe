@@ -1,0 +1,227 @@
+J/A+A/642/A115      CARMENES input catalogue of M dwarfs. V.  (Cifuentes+, 2020)
+================================================================================
+CARMENES input catalogue of M dwarfs
+V. Luminosities, colours, and spectral energy distributions.
+    Cifuentes C., Caballero J.A., Cortes-Contreras M., Montes D., Abellan F.J.,
+    Dorda R., Holgado G., Zapatero Osorio M.R., Morales J.C., Amado P.J.,
+    Passegger V.M., Quirrenbach A., Reiners A., Ribas I., Sanz-Forcada J.,
+    Schweitzer A., Seifert W., Solano E.
+    <Astron. Astrophys. 642, A115 (2020)>
+    =2020A&A...642A.115C        (SIMBAD/NED BibCode)
+================================================================================
+ADC_Keywords: Fundamental catalog ; Photometry ; Stars, dwarfs ; Stars, M-type
+Keywords: astronomical databases: miscellaneous - virtual observatory tools -
+          catalogues - stars: low-mass - stars: late-type - planetary systems
+
+Abstract:
+    The relevance of M dwarfs in the search for potentially habitable
+    Earth-size planets has grown significantly in the last years. In our
+    on-going effort of comprehensively and accurately characterising
+    confirmed and potential planet-hosting M dwarfs, in particular for
+    the CARMENES survey, we have carried out a comprehensive multi-band
+    photometric analysis involving spectral energy distributions,
+    luminosities, absolute magnitudes, colours, and spectral types, from
+    which we have derived basic astrophysical parameters. We have
+    carefully compiled photometry in 20 passbands from the far-ultraviolet
+    to the mi-infrared, and combined it with the latest parallactic
+    distances and close-multiplicity information, mostly from Gaia DR2, of
+    a sample of 2479 K5 V to L8 stars and ultracool dwarfs, including 2210
+    nearby, bright, M dwarfs. For that, we have made extensive use of
+    Virtual Observatory tools. We have homogeneously computed accurate
+    bolometric luminosities, effective temperatures of 1843 single
+    stars, derived their radii and masses, studied the impact of
+    metallicity, and compared our results with the literature. The over 40
+    000 individually-inspected magnitudes, together with the basic data
+    and derived parameters of the stars, one by one and averaged by
+    spectral type, have been made public to the astronomical community. In
+    addition, we have reported 40 new close multiple systems and
+    candidates (rho<3.3-arcsec) and 36 overluminous stars that are
+    assigned to young Galactic populations. In the new era of exoplanet
+    searches around M dwarfs via transit (e.g., TESS, PLATO) and radial
+    velocity (e.g., CARMENES, NIRPS+HARPS), this work is of fundamental
+    importance for stellar and, thus, planetary parameter determination.
+
+Description:
+    Astrometric and photometric parameters for 2479 late-type dwarfs and
+    ultra-cool objects, from K5V to L8.0, collected from several ground-
+    and space- based surveys, with a wavelength coverage from the
+    far-ultraviolet to the mid-infrared. Additional astrophysical
+    parameters (luminosities, effective temperatures, surface gravities,
+    radii and masses) are provided for a sub-sample of single stars with
+    measured parallactic distances. Quality flags and booleans indices are
+    included to help defining well behaved photometric and astrometric data
+    for each application.
+
+File Summary:
+--------------------------------------------------------------------------------
+ FileName      Lrecl  Records   Explanations
+--------------------------------------------------------------------------------
+ReadMe            80        .   This file
+tablea3.dat      767     2479   Astrometric, photometric & fundamental
+                                 parameters for 2479 K5V to L8 stars
+--------------------------------------------------------------------------------
+
+See also:
+ J/AJ/145/102    : Bright M dwarfs in the northern sky spectroscopy
+                                                       (Lepine+, 2013)
+ J/A+A/577/A128  : CARMENES input catalog of M dwarfs I (Alonso-Floriano+, 2015)
+ J/A+A/597/A47   : CARMENES input catalog of M dwarfs II
+                                                       (Cortes- Contreras+ 2017)
+ J/MNRAS/469/401 : Known LT dwarfs in the Gaia DR1 (Smart+, 2017)
+ J/A+A/612/A49   : 324 CARMENES M dwarfs velocities (Reiners+, 2018)
+ J/A+A/615/A6    : Photospheric parameters of CARMENES stars (Passegger+, 2018)
+ J/A+A/621/A126  : CARMENES input catalogue of M dwarfs. IV. (Diez Alonso+ 2019)
+ J/A+A/623/A44   : CARMENES M-dwarfs activity indicators (Schoefer+, 2019)
+ J/A+A/625/A68   : Radii and masses of the CARMENES targets (Schweitzer+, 2019)
+
+Byte-by-byte Description of file: tablea3.dat
+--------------------------------------------------------------------------------
+   Bytes Format Units   Label     Explanations
+--------------------------------------------------------------------------------
+   1- 12  A12   ---     Karmn     Star identifier (JHHMMm+DDdAAA) (1)
+  14- 40  A27   ---     Name      Discovery or most common name
+  42- 57 F16.12 deg     RAdeg     Right ascension (J2000.0) (2)
+  59- 75 F17.13 deg     DEdeg     Declination (J2000.0) (2)
+  77- 86  A10   ---     SpType    Spectral type
+  88- 91  F4.1  ---     SpTnum    Spectral type in numerical format (3)
+  93- 98  A6    ---   r_SpType    Reference for the spectral type
+ 100-109  F10.6 ---     Plx       ? Parallax
+ 111-120  F10.6 mas   e_Plx       ? Parallax error
+ 122-127  A6    ---   r_Plx       Reference for the parallax
+ 129-138  F10.6 pc      Dist      Distance
+ 140-148  E9.6  pc    e_Dist      Distance error
+ 150-156  A7    ---   r_Dist      Reference for the distance
+ 158-170 E13.10 Lsun    Lbol      ? Bolometric luminosity from VOSA
+ 172-184 E13.10 Lsun  e_Lbol      ? Bolometric luminosity error from VOSA
+ 186-189  I4    K       Teff      ? Effective temperature from VOSA (4)
+ 191-193  F3.1  ---     logg      ? Surface gravity from VOSA (4)
+ 195-200  F6.4  Rsun    Radius    ? Stellar radius (5)
+ 202-207  F6.4  Rsun  e_Radius    ? Stellar radius error
+ 209-214  F6.4  Msun    Mass      ? Stellar mass (5)
+ 216-221  F6.4  Msun  e_Mass      ? Stellar mass error
+ 223-228  F6.3  mag     FUV       ? GALEX far-UV magnitude
+ 230-234  F5.3  mag   e_FUV       ? GALEX far-UV magnitude
+ 236-241  F6.3  mag     NUV       ? GALEX near-UV magnitude
+ 243-247  F5.3  mag   e_NUV       ? GALEX near-UV magnitude
+ 249-253  A5    ---   q_FUV       GALEX far-UV magnitude quality flag (6)
+ 255-259  A5    ---   q_NUV       GALEX near-UV magnitude quality flag (6)
+ 261-265  A5    ---   r_FUV       GALEX far-UV and near-UV magnitudes reference
+ 267-272  F6.3  mag     umag      ? u magnitude
+ 274-278  F5.3  mag   e_umag      ? u magnitude error
+ 280-284  A5    ---   q_umag      u magnitude quality flag
+ 286-290  A5    ---   r_umag      u magnitude reference
+ 292-297  F6.3  mag     BTmag     ? Tycho-2 BT magnitude
+ 299-303  F5.3  mag   e_BTmag     ? Tycho-2 BT magnitude error
+ 305-309  A5    ---   q_BTmag     Tycho-2 BT magnitude quality flag
+ 311-316  A6    ---   r_BTmag     Tycho-2 BT magnitude reference
+ 318-323  F6.3  mag     Bmag      ? Johnson B magnitude
+ 325-329  F5.3  mag   e_Bmag      ? Johnson B magnitude error
+ 331-335  A5    ---   q_Bmag      Johnson B magnitude quality flag
+ 337-342  A6    ---   r_Bmag      Johnson B magnitude reference
+ 344-349  F6.3  mag     gmag      ? g magnitude
+ 351-355  F5.3  mag   e_gmag      ? g magnitude error
+ 357-361  A5    ---   q_gmag      g magnitude quality flag
+ 363-368  A6    ---   r_gmag      g magnitude reference
+ 370-376  F7.4  mag     BPmag     ? Gaia DR2 BP magnitude
+ 378-383  E6.4  mag   e_BPmag     ? Gaia DR2 BP magnitude error (7)
+ 385-389  A5    ---   q_BPmag     Gaia DR2 BP magnitude quality flag
+ 391-395  A5    ---   r_BPmag     Gaia DR2 BP magnitude reference
+ 397-402  F6.3  mag     VTmag     ? Tycho-2 VT magnitude
+ 404-408  F5.3  mag   e_VTmag     ? Tycho-2 VT magnitude error
+ 410-414  A5    ---   q_VTmag     Tycho-2 VT magnitude quality flag
+ 416-421  A6    ---   r_VTmag     Tycho-2 VT magnitude reference
+ 423-428  F6.3  mag     Vmag      ? Johnson V magnitude
+ 430-434  F5.3  mag   e_Vmag      ? Johnson V magnitude error
+ 436-440  A5    ---   q_Vmag      Johnson V magnitude quality flag
+ 442-447  A6    ---   r_Vmag      Johnson V magnitude reference
+ 449-454  F6.3  mag     rmag      ? r magnitude
+ 456-460  F5.3  mag   e_rmag      ? r magnitude error
+ 462-466  A5    ---   q_rmag      r magnitude quality flag
+ 468-473  A6    ---   r_rmag      r magnitude reference
+ 475-481  F7.4  mag     Gmag      ? Gaia DR2 G magnitude
+ 483-488  E6.4  mag   e_Gmag      ? Gaia DR2 G magnitude error (7)
+ 490-494  A5    ---   q_Gmag      Gaia DR2 G magnitude quality flag
+ 496-500  A5    ----  r_Gmag      Gaia DR2 G magnitude reference
+ 502-507  F6.3  mag     imag      ? i magnitude
+ 509-513  F5.3  mag   e_imag      ? i magnitude error
+ 515-519  A5    ---   q_imag      i magnitude quality flag
+ 521-526  A6    ---   r_imag      i magnitude reference
+ 528-534  F7.4  mag     RPmag     ? Gaia DR2 RP magnitude
+ 536-541  E6.4  mag   e_RPmag     ? Gaia DR2 RP magnitude error (7)
+ 543-547  A5    ---   q_RPmag     Gaia DR2 RP magnitude quality flag
+ 549-553  A5    ---   r_RPmag     Gaia DR2 RP magnitude reference
+ 555-560  F6.3  mag     Jmag      2MASS J magnitude
+ 562-566  F5.3  mag   e_Jmag      2MASS J magnitude error
+ 568-573  F6.3  mag     Hmag      ? 2MASS H magnitude
+ 575-579  F5.3  mag   e_Hmag      ? 2MASS H magnitude error
+ 581-586  F6.3  mag     Ksmag     ? 2MASS Ks magnitude
+ 588-592  F5.3  mag   e_Ksmag     ? 2MASS Ks magnitude error
+ 594-596  A3    ---   q_2M        2MASS JHKs three-character quality flag
+ 598-602  A5    ---   q_Jmag      2MASS J magnitude quality flag
+ 604-608  A5    ---   q_Hmag      2MASS H magnitude quality flag
+ 610-614  A5    ---   q_Ksmag     2MASS Ks magnitude quality flag
+ 616-617  A2    ---   r_Jmag      2MASS JHKs magnitudes reference
+ 619-624  F6.3  mag     W1mag     ? WISE W1 magnitude
+ 626-630  F5.3  mag   e_W1mag     ? WISE W1 magnitude error
+ 632-637  F6.3  mag     W2mag     ? WISE W2 magnitude
+ 639-643  F5.3  mag   e_W2mag     ? WISE W2 magnitude error
+ 645-650  F6.3  mag     W3mag     ? WISE W3 magnitude
+ 652-656  F5.3  mag   e_W3mag     ? WISE W3 magnitude error
+ 658-662  F5.3  mag     W4mag     ? WISE W4 magnitude
+ 664-668  F5.3  mag   e_W4mag     ? WISE W4 magnitude error
+ 670-673  A4    ---   q_Ws        WISE W1W2W3W4 four-character quality flag
+ 675-679  A5    ---   q_W1mag     WISE W1 magnitude quality flag
+ 681-685  A5    ---   q_W2mag     WISE W2 magnitude quality flag
+ 687-691  A5    ---   q_W3mag     WISE W3 magnitude quality flag
+ 693-697  A5    ---   q_W4mag     WISE W4 magnitude quality flag
+ 699-703  A5    ---   r_Ws        WISE W1W2W3W4 magnitude reference (8)
+ 705-723  I19   ---     GaiaDR1   ? Gaia DR2 identifier of single or
+                                   primary star
+ 725-743  I19   ---     GaiaDR2   ? Gaia DR2 identifier of secondary star in
+                                   close binary system (9)
+ 745-749  A5    ---     Multiple  Boolean index for close multiple stars
+                                   (separated less than 5 arcsec)
+ 751-755  A5    ---     Young     Boolean index for overluminous young stars
+ 757-761  A5    ---     RUWE      Boolean index for stars with Gaia DR2
+                                   RUWE>1.41
+ 763-767  A5    ---     Excess    Boolean index for stars with photometric flux
+                                   excess in Gaia GBP and GRP passband
+--------------------------------------------------------------------------------
+Note (1): For the M and L dwarfs, the identifier "JHHMMm+DDdAAA" is used, plus
+  "N", "S", "E" or "W" if two stars (in a close binary system) have the same
+  "HHMMm+DDd" string. For the K dwarfs, the SUPERBLINK catalogue identifier
+  (Lepine & Shara 2020AJ....159...30H; Lepine et al., 2013, Cat. J/AJ/145/102)
+  is used. For the ultracool dwarfs,we tabulate the Gaia UltraCool Dwarf
+  Catalogue identifier (Smart et al. 2017, Cat. J/MNRAS/469/301,
+  2019MNRAS.485.4423S).
+Note (2): Equatorial coordinates at epoch J2015.5 in equinox J2000.
+Note (3): SpTnum=-2.0 for K5V, -1.0 for K7V, 0.0 for M0.0V, 0.5 for M0.5V,
+  ..., 10.0 for L0.0, 10.5 for L0.5, etc.
+Note (4): BT-Settl CIFIST grid of synthetic spectra uncertainties are 50 K for
+  Teff (25K for Teff<=2400K) and 0.5dex for logg.
+Note (5): The radii are calculated from Lbol and Teff using the
+  Stefan-Boltzmann law. The masses are derived from the radii, using the
+  radius-mass relation for eclipsing binaries by Schweitzer et al.,
+  2019, Cat. J/A+A/625/A68.
+Note (6): In all cases, quality flags are as follows:
+  true  = for poor photometric quality,
+  false = for good or acceptable photometric quality.
+
+  For 2MASS and WISE/ AllWISEphotometry, the alphabetic quality flags
+  (of the form NNN and NNNN, respectively) are provided.
+  In the Gaia DR2 data, the indicators 'RUWE' and 'phot_bp_rp_excess_factor'
+  determine the quality of their astrometric and photometric solution.
+Note (7): Uncertainties in Gaia DR2 BP, G and RP magnitudes are computed from
+  the associated bolometric flux and its error.
+Note (8):  WISE W1W2W3W4 magnitude reference as follows:
+  WISE   = AllWISE (Cutri et al., 2014, Cat. II/328)
+  WISE*' = WISE (Cutri et al., 2012, Cat. II/311)
+Note (9): The second Gaia DR2 identifier is provided for physically bound
+  binary systems or candidates, separated less than 5 arcsec.
+--------------------------------------------------------------------------------
+
+Acknowledgements:
+    Carlos Cifuentes, ccifuentes(at)cab.inta-csic.es
+
+================================================================================
+(End)     Carlos Cifuentes [CAB, Spain], Patricia Vannier [CDS]      20-Jul-2020

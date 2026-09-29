@@ -136,19 +136,72 @@ def read_simbad_tap(path: Path) -> list[NormalizedSourceRecord]:
     return records
 
 
+CIFUENTES_REFERENCE = "2020A&A...642A.115C"
+CIFUENTES_LINE_BYTES = 767
+
+
 def read_cifuentes(path: Path) -> list[NormalizedSourceRecord]:
+    """CDS J/A+A/642/A115 tablea3.dat, fixed-width per its ReadMe byte ranges."""
     records = []
-    for row in _csv_rows(path):
-        identifier = _text(row.get("GaiaDR3") or row.get("gaia_dr3_id") or row.get("Name"))
-        if identifier is None:
-            raise ValueError("Cifuentes row has no usable identifier")
+    for line_number, line in enumerate(path.read_text().splitlines(), 1):
+        if len(line) != CIFUENTES_LINE_BYTES:
+            raise ValueError(f"Cifuentes line {line_number} has {len(line)} bytes; expected {CIFUENTES_LINE_BYTES}")
+        value = lambda start, end: _text(line[start - 1:end])
+        karmn = value(1, 12)
+        if karmn is None:
+            raise ValueError(f"Cifuentes line {line_number} has no Karmn identifier")
+        flags = {label: value(start, end) for label, start, end in (("multiple", 745, 749), ("young", 751, 755), ("ruwe", 757, 761), ("excess", 763, 767))}
+        if any(flag not in {"true", "false"} for flag in flags.values()):
+            raise ValueError(f"Cifuentes {karmn} has an unexpected boolean flag")
+        quality = tuple(label for label, flag in flags.items() if flag == "true")
+        teff = _number(value(186, 189))
         physical = []
-        for field, names in (("temperature_k", ("Teff", "temperature_k")), ("mass_solar", ("Mass", "mass_solar")), ("luminosity_solar", ("Lum", "luminosity_solar")), ("radius_solar", ("Radius", "radius_solar")), ("metallicity_dex", ("FeH", "metallicity_dex")), ("age_gyr", ("Age", "age_gyr"))):
-            value = next((_number(row.get(name)) for name in names if _number(row.get(name)) is not None), None)
-            if value is not None:
-                physical.append(PhysicalObservation("cifuentes-2020", identifier, field, value, None, "model-derived", "2020A&A...642A.115C"))
-        records.append(NormalizedSourceRecord(IdentityRecord("cifuentes-2020", identifier, gaia_dr3_id=identifier if identifier.isdigit() else None, aliases=(identifier,)), physical=tuple(physical), raw=row))
+        for field, number, error, status in (
+            ("temperature_k", teff, (25.0 if teff is not None and teff <= 2400 else 50.0) if teff is not None else None, "model-derived"),
+            ("luminosity_solar", _number(value(158, 170)), _number(value(172, 184)), "measured"),
+            ("radius_solar", _number(value(195, 200)), _number(value(202, 207)), "derived"),
+            ("mass_solar", _number(value(209, 214)), _number(value(216, 221)), "empirical-relation"),
+        ):
+            if number is not None:
+                physical.append(PhysicalObservation("cifuentes-2020", karmn, field, number, error, status, CIFUENTES_REFERENCE, quality))
+        raw = {
+            "line": line_number,
+            "karmn": karmn,
+            "name": value(14, 40),
+            "spectralType": value(77, 86),
+            "spectralTypeNumber": _number(value(88, 91)),
+            "distancePc": _number(value(129, 138)),
+            "distanceErrorPc": _number(value(140, 148)),
+            "distanceRef": value(150, 156),
+            "gaiaDr2Primary": value(705, 723),
+            "gaiaDr2Secondary": value(725, 743),
+            **{flag: state == "true" for flag, state in flags.items()},
+        }
+        records.append(NormalizedSourceRecord(IdentityRecord("cifuentes-2020", karmn, aliases=(f"Karmn {karmn}",)), physical=tuple(physical), raw=raw))
     return records
+
+
+def read_twomass_psc(path: Path) -> dict[str, dict[str, str | float | None]]:
+    """VizieR II/246/out TAP export keyed by the bare 2MASS designation."""
+    result = {}
+    for row in _csv_rows(path):
+        designation = _text(row.get("2MASS"))
+        if designation is None:
+            raise ValueError("2MASS row has no designation")
+        if designation in result:
+            raise ValueError(f"Duplicate 2MASS designation {designation}")
+        result[designation] = {
+            "designation": designation,
+            "ks_mag": _number(row.get("Kmag")),
+            "ks_error_mag": _number(row.get("e_Kmag")),
+            "j_mag": _number(row.get("Jmag")),
+            "h_mag": _number(row.get("Hmag")),
+            "quality_flags": _text(row.get("Qflg")) or "",
+            "blend_flags": _text(row.get("Bflg")) or "",
+            "contamination_flags": _text(row.get("Cflg")) or "",
+            "date": _text(row.get("Date")),
+        }
+    return result
 
 
 def read_primary_overrides(path: Path) -> list[NormalizedSourceRecord]:

@@ -163,7 +163,7 @@ test('switches project catalogs while preserving settings and compatible selecti
   }
   await page.getByRole('button', { name: 'Select GJ 229 A', exact: true }).click()
   await expect(page.locator('#constellation')).toHaveText('Lepus')
-  await expect(page.locator('#luminosity-row')).toBeHidden()
+  await expect(page.locator('#luminosity')).toHaveText('0.0526 solar')
   await expect(page.locator('.motion-arrow')).toHaveCount(0)
   const nearestArrows = await motionArrows(page)
   expect(nearestArrows.some((arrow) => arrow.mode === 'transverse')).toBe(true)

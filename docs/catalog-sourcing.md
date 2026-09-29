@@ -10,13 +10,13 @@ Bright-star temperatures and metallicities come from frozen `mesFe_h` ranked bib
 
 The policy-aware rank-1000 object is **WISE J032337.53-602554.5** (`cns5-0864`) at **13.947001394700 pc**; the next eligible object, WISE J105553.59-165216.3, has the same nominal distance and sorts after it by stable ID. Their linearized parallax-only one-sigma intervals overlap, so nominal ranking is retained without claiming statistically secure membership. The audited 1100-row buffer excludes 47 aggregate SIMBAD `**` records and nine tentative `BD?` records before selecting 1000 individuals.
 
-Nearest-1000 non-Sun coverage is: 1000 raw astrometry records and constellations, 957 spectra, 544 absolute Johnson V magnitudes, 441 temperatures, 103 masses, 351 bolometric luminosities, 350 radii, 350 metallicities, 68 ages, 326 raw radial velocities, and 674 transverse-only motions. Gaia values are model-derived, not direct measurements. GSP-Phot temperature and `[M/H]` metallicity plus FLAME percentile bounds are retained in provenance. FLAME mass and age are adopted only when the first `flags_flame` digit is `0`; luminosity and radius may remain valid when mass/age is unavailable (`A=2`), and use the accepted distance/parallax flag policy. Brown dwarfs and white dwarfs do not receive generic Gaia stellar-model properties.
+Nearest-1000 non-Sun coverage is: 1000 raw astrometry records and constellations, 957 spectra, 544 absolute Johnson V magnitudes, 558 temperatures, 526 masses, 505 bolometric luminosities, 568 radii, 350 metallicities, 68 ages, 326 raw radial velocities, and 674 transverse-only motions. Gaia values are model-derived, not direct measurements. GSP-Phot temperature and `[M/H]` metallicity plus FLAME percentile bounds are retained in provenance. FLAME mass and age are adopted only when the first `flags_flame` digit is `0`; luminosity and radius may remain valid when mass/age is unavailable (`A=2`), and use the accepted distance/parallax flag policy. Brown dwarfs and white dwarfs do not receive generic Gaia stellar-model properties.
 
 Display names prefer a frozen SIMBAD `NAME` alias when one exists, so machine identifiers such as `* alf Boo` become `Arcturus`. Remaining SIMBAD object-class prefixes are removed, repeated whitespace is collapsed, and Bayer abbreviations are expanded (`* bet Hyi` becomes `Beta Hyi`). Stable Star View IDs do not change, and the original SIMBAD `main_id` remains in provenance.
 
 The Nearest 100 objects package contains exactly **100 individual non-Sun objects plus Sun**, ranked by adopted nominal J2000 distance. It is a frozen source-based catalog, not a complete or continuously current 2026 census. Stars, white dwarfs, brown dwarfs and sub-brown dwarfs are eligible; planet rows, aggregate system rows and tentative source `ObjType` endings `?` are excluded. The only explicitly approved exceptions are the vetted default members **EZ Aquarii B/C (Seq 27/28)**, whose raw `LM?` classifications remain recorded unchanged. Preserving these two existing rows is not a new classification measurement.
 
-The release contains 78 stars, 6 white dwarfs, 15 brown dwarfs and 1 sub-brown dwarf, excluding Sun. Including Sun, all 101 rows have spectral types, 92 have temperatures, 48 have absolute Johnson V magnitudes, 21 have masses, 2 have bolometric luminosities and 70 have complete velocity triplets. These counts include preserved neighbor data and explicitly estimated class temperatures, not just individually measured values. All 100 non-Sun rows have a constellation; Sun deliberately does not.
+The release contains 78 stars, 6 white dwarfs, 15 brown dwarfs and 1 sub-brown dwarf, excluding Sun. Including Sun, all 101 rows have spectral types, 92 have temperatures, 48 have absolute Johnson V magnitudes, 55 have masses, 39 have bolometric luminosities, 40 have radii and 70 have complete velocity triplets. These counts include preserved neighbor data, [M-dwarf supplements](#m-dwarf-physical-supplements) and explicitly estimated class temperatures, not just individually measured values. All 100 non-Sun rows have a constellation; Sun deliberately does not.
 
 The default catalog retains its 22 objects, IDs, positions, and curated physical properties. It now includes raw astrometry and constellations; unreviewed legacy radial velocities are withheld rather than silently promoted into full motion. All 22 rows are retained as curated overrides in both larger packages, including the corrected Sirius systemic velocity. Their original source notes remain authoritative; source-table alternatives are recorded for audit, not silently substituted.
 
@@ -28,6 +28,7 @@ The default catalog retains its 22 objects, IDs, positions, and curated physical
 - Executable authoring recipe: [author-nearest100.py](../scripts/author-nearest100.py); optional pinned environment: [catalog-requirements.txt](../scripts/catalog-requirements.txt).
 - Nearest-1000 frozen CNS5/SIMBAD/Gaia inputs, ADQL, manifest, and checksums: [catalog-work/nearest-1000](../catalog-work/nearest-1000/); executable recipe: [author-nearest1000.py](../scripts/author-nearest1000.py).
 - Bright-stars frozen SIMBAD snapshot and selection query: [catalog-work/bright-stars](../catalog-work/bright-stars/); executable recipe: [author-bright-stars.py](../scripts/author-bright-stars.py).
+- M-dwarf supplement inputs (Cifuentes et al. 2020 table, exact-identifier crossmatch, 2MASS PSC export and query, checksums): [catalog-work/physical-supplements](../catalog-work/physical-supplements/); shared logic: [mdwarf.py](../scripts/catalog_sources/mdwarf.py).
 
 | Source | Frozen Version | Use |
 | --- | --- | --- |
@@ -37,6 +38,9 @@ The default catalog retains its 22 objects, IDs, positions, and curated physical
 | [NASA Sun Fact Sheet](https://nssdc.gsfc.nasa.gov/planetary/factsheet/sunfact.html) | 9-May-2024 | Solar absolute visual magnitude +4.83, not bolometric magnitude |
 | [SIMBAD](https://simbad.cds.unistra.fr/simbad/) and [Bright Star Catalogue V/50](https://cdsarc.cds.unistra.fr/viz-bin/cat/V/50) | TAP snapshot 25-Sep-2026; BSC5 combined V for Acrux | Bright-star identities, astrometry, spectra, Johnson V and radial velocities |
 | [Astropy get_constellation](https://docs.astropy.org/en/stable/api/astropy.coordinates.get_constellation.html) | Astropy 7.1.1; Roman 1987 [VI/42](https://cdsarc.cds.unistra.fr/viz-bin/cat/VI/42) | Offline IAU boundary assignment |
+| [Cifuentes et al.](https://cdsarc.cds.unistra.fr/ftp/J/A+A/642/A115/ReadMe), 2020A&A...642A.115C | CDS 20-Jul-2020, 2479 records; frozen 2026-09-29 | M-dwarf SED luminosity, temperature, radius and mass |
+| [Mann et al. 2019](https://ui.adsabs.harvard.edu/abs/2019ApJ...871...63M/abstract) and [2015](https://ui.adsabs.harvard.edu/abs/2015ApJ...804...64M/abstract) | 2019 Table 6 (n=5, no [Fe/H]); 2015 Table 1 Eq. 4 | Masses and radii from absolute 2MASS Ks |
+| [2MASS PSC](https://cdsarc.cds.unistra.fr/viz-bin/cat/II/246), 2006AJ....131.1163S | VizieR TAP II/246/out, 937 exact designations; frozen 2026-09-29 | Ks photometry and quality flags for Mann relations |
 
 The nearest-1000 CNS5/SIMBAD/Gaia snapshot was refreshed on 2026-09-25; the nearest-100 frozen inputs were acquired on 2026-09-15. SHA-256 hashes of the original ReadMe files, decompressed CDS tables and complete temperature reference are retained inside the frozen inputs. Counts are verified against downloaded records, not the older paper abstracts. The original full survey downloads are temporary authoring inputs and are **not** checked into the browser source tree. Cite the source catalogs, individual bibliography in their records, CDS/VizieR and the temperature-table author when reusing these data; review their current redistribution terms for republication. No new upstream license is asserted here.
 
@@ -72,7 +76,22 @@ New white-dwarf spectroscopic RVs are withheld because gravitational redshift ma
 
 Only the source **Vmag** column is considered for new absolute Johnson V. For new members in a system with multiple non-planet census entries, even an apparently plausible V is conservatively withheld unless separately vetted; combined flux is never assigned to each component. System member counts use the full census, not just the selected 100. For accepted single-source V, `M_V = V - 5 log10(distance_pc / 10)`, with negligible local extinction assumed. The compilation does not give individual V uncertainties, photometric epochs or passband measurement bibliography: these remain explicitly unavailable. Variability and observer-to-target extinction are not modeled. Gaia G, estimated GCode 10/20 values, infrared magnitudes and class mean Mv are never substituted for V.
 
-Suitable dwarf spectral classes get **estimated**, not measured, temperatures from Pecaut-Mamajek. Intermediate subtypes interpolate between bracketing entries of the same family; no extrapolation is made. Unknown/limited/peculiar/subdwarf types, new white dwarfs and the subgiant Procyon A receive no generic dwarf temperature. New masses and bolometric luminosities are blank because no individually vetted measurements were adopted. The pre-existing measured/adopted/estimated neighbor fields remain unchanged. Empty cells always mean unknown/not adopted, never zero; zero and negative magnitudes are valid measurements.
+Suitable dwarf spectral classes get **estimated**, not measured, temperatures from Pecaut-Mamajek. Intermediate subtypes interpolate between bracketing entries of the same family; no extrapolation is made. Unknown/limited/peculiar/subdwarf types, new white dwarfs and the subgiant Procyon A receive no generic dwarf temperature. Mean-sequence masses and luminosities are never substituted; blank masses, luminosities and radii may be filled only by the [M-dwarf supplements](#m-dwarf-physical-supplements). The pre-existing measured/adopted/estimated neighbor fields remain unchanged. Empty cells always mean unknown/not adopted, never zero; zero and negative magnitudes are valid measurements.
+
+## M-Dwarf Physical Supplements
+
+Two frozen sources fill physical properties of K5–M9.5 dwarfs across the default, nearest-100 and nearest-1000 catalogs:
+
+- **Cifuentes et al. (2020)**: VOSA SED-integrated bolometric luminosity (`measured`), BT-Settl effective temperature (`model-derived`, ±50 K or ±25 K at or below 2400 K), Stefan–Boltzmann radius (`derived`) and Schweitzer et al. (2019) radius–mass relation mass (`empirical-relation`).
+- **Mann et al. (2019)** mass, $\log_{10} M = \sum_{i=0}^{5} a_i (M_{K_S} - 7.5)^i$ (Table 6, n=5, no [Fe/H], 2.0% scatter, valid $4 \le M_{K_S} \le 11$), and **Mann et al. (2015)** radius, $R = 1.9515 - 0.3520\,M_{K_S} + 0.01680\,M_{K_S}^2$ (Table 1, 2.89% scatter, valid $4.6 \le M_{K_S} \le 9.8$ and K7–M7). Both are `empirical-relation` values from 2MASS Ks and the row's adopted distance: $M_{K_S} = K_S - 5 \log_{10}(d/10)$. Uncertainties combine the published scatter with Ks and parallax errors.
+
+**Identity** uses exact identifiers only. The frozen `crossmatch.csv` maps each Star View ID to the 2MASS, CARMENES Karmn and Gaia DR2 aliases in its exact SIMBAD CNS5 record; nearest-100 components that share a CNS5 system record, or have none, use only their 10pc Gaia DR2 identifier. Cifuentes rows match by Karmn or Gaia DR2 primary identifier. An identifier or catalog row claimed by several objects, or a SIMBAD record listing several 2MASS designations, adopts nothing. No positional matching is used.
+
+**Eligibility** requires type `star` or `brown_dwarf` and a parsed K5–M9.5 dwarf spectral type: subdwarfs, giants/subgiants, composite, peculiar-abundance and unparsed types are excluded, as are white dwarfs and L/T/Y objects. `LM*` rows typed as brown dwarfs are eligible on their M spectral type; their type is unchanged. Cifuentes values are withheld for close multiples (`Multiple`), Gaia DR2 RUWE>1.41 (`RUWE`) or when the Cifuentes distance differs from the adopted distance by more than 5%; `Young` withholds only the mass. Mann relations are withheld when the 2MASS Ks quality is not A/B, the blend flag is not 1 or the contamination flag is not 0; when another CNS5 object lies within 5 arcsec after linear propagation to J2016.0; or when Cifuentes flags the star as multiple, RUWE or young. Metallicity is not used as a gate because nearest-1000 metallicities are GSP-Phot estimates.
+
+**Precedence** per field is: existing curated value (never overwritten, including class-estimated temperatures) > mass: Mann 2019 > Cifuentes > Gaia FLAME; radius: Cifuentes > Mann 2015 > Gaia FLAME; temperature and luminosity: Cifuentes > Gaia DR3. In nearest-1000 non-override rows, supplements therefore replace Gaia DR3 values; the replaced Gaia observation stays in `physicalObservations`. Each supplemented row appends a source sentence to its notes, and provenance records the identity, per-source audit, withholding reasons and adopted source per field under `physicalSupplements`.
+
+On the overlap, Mann masses run a median 7% below Cifuentes masses (248 stars), Cifuentes and Mann radii agree to 1.5% (236), and Cifuentes radii are a median 10% below Gaia FLAME radii (141). Ages and metallicities are not supplemented.
 
 ## Constellations
 
@@ -109,7 +128,7 @@ To generate the same three package files into a fresh authoring directory:
 /tmp/star-view-catalog-venv/bin/python scripts/author-nearest100.py build --output /tmp/star-view-rebuilt-catalog
 ```
 
-The build verifies the input checksum and policy revision, all 160 candidates' required astrometry, 155 eligible/five excluded records, two approved tentative-default exceptions, duplicate IDs/names, exact equality of all 22 frozen default rows with the current default catalog, all constellation assignments, the boundary fixture and exact count/cutoff. It refuses to overwrite existing output without `--force`. The `--check` mode compares all three files, including provenance, byte for byte. IERS auto-download is disabled. The default helper's `--write` mode only appends a missing constellation column after asserting that all existing field values are unchanged; the source-reviewed NASA Sun edit is not a generic runtime fallback.
+The build verifies the input checksum and policy revision, all 160 candidates' required astrometry, 155 eligible/five excluded records, two approved tentative-default exceptions, duplicate IDs/names, exact equality of all 22 frozen default rows plus M-dwarf supplements with the current default catalog, all constellation assignments, the boundary fixture and exact count/cutoff. It refuses to overwrite existing output without `--force`. The `--check` mode compares all three files, including provenance, byte for byte. IERS auto-download is disabled. The default helper's `--write` mode only appends missing constellation and physical columns and fills blank physical fields from the frozen M-dwarf supplements, after asserting that all existing field values are unchanged (notes may only gain a source sentence); the source-reviewed NASA Sun edit is not a generic runtime fallback.
 
 For this policy-only correction, the five original raw-download SHA-256 values were verified unchanged before regenerating decisions/checksum with the updated helper. All 160 raw candidate records, 141 CNS5 audit rows/matches, 22 default rows, calibration values and source metadata were then compared unchanged. With those same already-downloaded snapshots, the intentional regeneration commands are:
 
@@ -130,7 +149,7 @@ npm run test -- src/catalog.test.ts src/astronomy.test.ts
 
 ## Refresh the Sources
 
-The reusable adapters under `scripts/catalog_sources/` normalize CNS5, Gaia DR3 TAP, SIMBAD TAP, Cifuentes/VizieR-shaped CSV, and reviewed primary-paper overrides. Identifiers remain strings. Identity resolution prefers Star View ID, Gaia DR3 ID, SIMBAD ID, then reviewed aliases; positional candidates are emitted for review and never auto-adopted. Per-field resolution retains competing observations and distinguishes measured, model-derived, estimated, inherited, withheld, conflicting, and unknown values.
+The reusable adapters under `scripts/catalog_sources/` normalize CNS5, Gaia DR3 TAP, SIMBAD TAP, the Cifuentes CDS fixed-width table, 2MASS VizieR TAP exports, and reviewed primary-paper overrides. Identifiers remain strings. Identity resolution prefers Star View ID, Gaia DR3 ID, SIMBAD ID, then reviewed aliases; positional candidates are emitted for review and never auto-adopted. Per-field resolution retains competing observations and distinguishes measured, model-derived, estimated, inherited, withheld, conflicting, and unknown values.
 
 Nearest-1000 source refresh is explicit and network-backed; normal builds remain offline:
 
@@ -140,6 +159,15 @@ Nearest-1000 source refresh is explicit and network-backed; normal builds remain
 ```
 
 The command writes corrected CNS5, exact SIMBAD/Gaia TAP exports, ordered ADQL text, source releases, retrieval date, and SHA-256 checksums. It refuses existing output unless `--force` is supplied. Review cardinality, classifications, component/system identities, physical-property flags, and the cutoff before replacing `catalog-work/nearest-1000`; then run `author-nearest1000.py build --force` and `build --check`.
+
+The M-dwarf supplements refresh separately. It downloads the Cifuentes ReadMe and table, rebuilds `crossmatch.csv` from the frozen nearest-1000 SIMBAD export and nearest-100 identities, and queries 2MASS by exact designation in chunks of 200:
+
+```sh
+/tmp/star-view-catalog-venv/bin/python scripts/refresh-catalog-sources.py physical-supplements \
+  --output /tmp/star-view-supplements-refresh --retrieved YYYY-MM-DD
+```
+
+After review, replace `catalog-work/physical-supplements`, then run in order: `author-nearest100.py default --write`, `author-nearest100.py build --force`, `author-nearest1000.py build --force`, and both `build --check` commands. Refresh the supplements after any nearest-1000 SIMBAD refresh, because the crossmatch derives from it.
 
 Source refresh is a separate, explicit research step, not part of normal builds. Download the complete files into a temporary directory outside src; the 10pc data endpoint is compressed, while CNS5 is uncompressed:
 
