@@ -406,6 +406,7 @@ test('presents the selected object beside an expandable control dock', async ({ 
   expect(await page.locator('#catalog-select').evaluate((select) => select.closest('.preferences') !== null)).toBe(false)
   await openPreferences(page)
   await expect(page.locator('#preferences-panel')).toBeVisible()
+  await expect(page.locator('#object-card-details')).toHaveAttribute('open', '')
   await expect(page.locator('#distance-units-label')).toHaveCSS('font-size', '14px')
   await expect(page.locator('#distance-units .unit-options span').first()).toHaveCSS('font-size', '12px')
   await expect(page.locator('#distance-units .unit-options span').first()).toHaveCSS('height', '34px')
@@ -435,8 +436,9 @@ test('presents the selected object beside an expandable control dock', async ({ 
     const panel = inspector.querySelector('#filter-panel')!.getBoundingClientRect()
     const rail = inspector.querySelector('.dock-rail')!.getBoundingClientRect()
     const viewButton = inspector.querySelector('#reset-view')!.getBoundingClientRect()
-    return { selectedRight: selected.right, viewButtonLeft: viewButton.left, buttonLeft: button.left, buttonWidth: button.width, panelRight: panel.right, panelWidth: panel.width, bottomGap: Math.abs(panel.bottom - rail.bottom) }
+    return { selectedLeft: selected.left, selectedRight: selected.right, viewButtonLeft: viewButton.left, buttonLeft: button.left, buttonWidth: button.width, panelRight: panel.right, panelWidth: panel.width, bottomGap: Math.abs(panel.bottom - rail.bottom) }
   })
+  expect(placement.selectedLeft).toBe(20)
   expect(placement.selectedRight).toBeLessThan(placement.viewButtonLeft)
   expect(placement.panelRight).toBeLessThan(placement.buttonLeft)
   expect(placement.buttonWidth).toBe(44)
@@ -1683,6 +1685,7 @@ test('fits a narrow viewport and keeps long source content inside the inspector'
   await page.getByRole('button', { name: 'Filter', exact: true }).click()
   await expect(page.locator('.selected-object')).toBeVisible()
   await expect(page.locator('#filter-panel')).toBeVisible()
+  await expect(page.locator('#object-card-details')).not.toHaveAttribute('open')
   await sceneFits(page)
   await page.screenshot({ path: testInfo.outputPath('narrow-filter.png'), fullPage: true })
 })

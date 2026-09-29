@@ -100,6 +100,15 @@ function updateSelectionHistoryControls(): void {
   element<HTMLButtonElement>('selection-forward').disabled = sceneBusy || !selectionHistory.canGoForward(selectedStarAvailable)
 }
 
+function cardsHaveClearance(first: HTMLElement, second: HTMLElement, gap = 10): boolean {
+  const firstBounds = first.getBoundingClientRect()
+  const secondBounds = second.getBoundingClientRect()
+  return firstBounds.right + gap <= secondBounds.left
+    || secondBounds.right + gap <= firstBounds.left
+    || firstBounds.bottom + gap <= secondBounds.top
+    || secondBounds.bottom + gap <= firstBounds.top
+}
+
 function togglePanel(name: typeof panelNames[number]): void {
   const opening = element<HTMLButtonElement>(`${name}-toggle`).getAttribute('aria-expanded') !== 'true'
   for (const candidate of panelNames) {
@@ -108,8 +117,10 @@ function togglePanel(name: typeof panelNames[number]): void {
     element(`${candidate}-panel`).hidden = !active
   }
   if (opening) {
-    element<HTMLDetailsElement>('object-card-details').open = false
     element('control-dock').dataset.open = name
+    const selectedCard = element('selected-object-card')
+    const objectDetails = element<HTMLDetailsElement>('object-card-details')
+    if (!selectedCard.hidden && objectDetails.open && !cardsHaveClearance(selectedCard, element(`${name}-panel`))) objectDetails.open = false
   }
   else delete element('control-dock').dataset.open
 }

@@ -14,6 +14,7 @@ PARAMETERS = ROOT / "catalog-work/bright-stars/parameters.csv"
 DIAMETERS = ROOT / "catalog-work/bright-stars/diameters.csv"
 FUNDAMENTAL = ROOT / "catalog-work/bright-stars/fundamental.csv"
 SED = ROOT / "catalog-work/bright-stars/sed.csv"
+MASSIVE = ROOT / "catalog-work/bright-stars/massive.csv"
 PRIMARY = ROOT / "catalog-work/bright-stars/primary.csv"
 DEFAULT_CATALOG = ROOT / "src/data/stars.csv"
 OUTPUT = ROOT / "src/data/catalogs/bright-stars"
@@ -66,7 +67,7 @@ def matrix_vector(matrix, vector):
     return tuple(sum(row[index] * vector[index] for index in range(3)) for row in matrix)
 
 
-def source_row(source, parameters, diameters, fundamental, sed, primary):
+def source_row(source, parameters, diameters, fundamental, sed, massive, primary):
     ra = math.radians(float(source["ra"]))
     dec = math.radians(float(source["dec"]))
     parallax = float(source["plx_value"])
@@ -92,11 +93,14 @@ def source_row(source, parameters, diameters, fundamental, sed, primary):
     model = fundamental.get(source["main_id"], {})
     diameter = diameters.get(source["main_id"], {})
     sed_model = sed.get(source["main_id"], {})
+    massive_model = massive.get(source["main_id"], {})
     reviewed = primary.get(source["main_id"], {})
     temperature = round(10 ** float(model["log_temperature_k"])) if model else sed_model.get("temperature_k") or measured.get("teff", "")
     metallicity = measured.get("fe_h", "")
     reliable_model_mass = model and not system and (not metallicity or abs(float(metallicity)) <= 0.3)
-    mass = reviewed.get("mass_solar") or (model["mass_solar"] if reliable_model_mass else "")
+    model_mass = model["mass_solar"] if reliable_model_mass else ""
+    mass = reviewed.get("mass_solar") or model_mass or massive_model.get("mass_solar")
+    massive_mass_adopted = bool(massive_model and not reviewed.get("mass_solar") and not model_mass)
     age = reviewed.get("age_gyr", "")
     if diameter:
         radius = float(diameter["diameter_km"]) / (2 * SOLAR_RADIUS_KM)
@@ -112,9 +116,10 @@ def source_row(source, parameters, diameters, fundamental, sed, primary):
         radius_ref = ""
     luminosity = float(sed_model["luminosity_solar"]) if sed_model else (radius ** 2 * (float(temperature) / SOLAR_TEMPERATURE_K) ** 4 if radius is not None and temperature else None)
     physical_refs = sorted(set(filter(None, (
-        model.get("bibcode"), measured.get("bibcode"), diameter.get("bibcode"), sed_model.get("bibcode"), reviewed.get("bibcode"),
+        model.get("bibcode"), measured.get("bibcode"), diameter.get("bibcode"), sed_model.get("bibcode"), massive_model.get("bibcode") if massive_mass_adopted else None, reviewed.get("bibcode"),
     ))))
     physical_note = f" Physical parameters: {', '.join(physical_refs)}." if physical_refs else ""
+    mass_note = f" Mass source detail: {massive_model['note']}." if massive_mass_adopted else ""
     age_note = f" Age source detail: {reviewed['note']}." if age else " No component-resolved age was adopted from the reviewed sources."
     row = {header: "" for header in HEADERS}
     row.update({
@@ -128,7 +133,7 @@ def source_row(source, parameters, diameters, fundamental, sed, primary):
         "metallicity_dex": metallicity,
         "age_gyr": age,
         "absolute_mag": f"{absolute_magnitude:.6f}", "epoch": "2000.0",
-        "notes": f"Curated bright-star landmark; SIMBAD identity {source['main_id']}. {photometry}; absolute V derived from parallax with no extinction correction.{physical_note}{age_note}{system_note}",
+        "notes": f"Curated bright-star landmark; SIMBAD identity {source['main_id']}. {photometry}; absolute V derived from parallax with no extinction correction.{physical_note}{mass_note}{age_note}{system_note}",
         "constellation": CONSTELLATIONS[source["name"]], "ra_deg": source["ra"], "dec_deg": source["dec"],
         "astrometry_epoch": "2000.0", "parallax_mas": source["plx_value"], "parallax_error_mas": source["plx_err"],
         "pm_ra_cosdec_masyr": source["pmra"], "pm_dec_masyr": source["pmdec"],
@@ -155,11 +160,17 @@ def render():
         fundamental = {row["main_id"]: row for row in csv.DictReader(handle)}
     with SED.open(newline="") as handle:
         sed = {row["main_id"]: row for row in csv.DictReader(handle)}
+    with MASSIVE.open(newline="") as handle:
+        massive = {row["main_id"]: row for row in csv.DictReader(handle)}
     with PRIMARY.open(newline="") as handle:
         primary = {row["main_id"]: row for row in csv.DictReader(handle)}
+    if len(fundamental) != 39 or len(sed) != 53 or len(massive) != 9:
+        raise ValueError("Bright-star physical source subsets are incomplete")
+    if not set(massive).issubset({row["main_id"] for row in source_rows}):
+        raise ValueError("Massive-star supplement contains an unknown SIMBAD identity")
     if len(source_rows) != 79 or len({row["id"] for row in source_rows}) != 79 or len({row["name"] for row in source_rows}) != 79:
         raise ValueError("Bright-star source must contain 79 unique named landmarks")
-    authored = [source_row(row, parameters, diameters, fundamental, sed, primary) for row in source_rows]
+    authored = [source_row(row, parameters, diameters, fundamental, sed, massive, primary) for row in source_rows]
     for source, row in zip(source_rows, authored, strict=True):
         distance_ly = math.hypot(float(row["x_pc"]), float(row["y_pc"]), float(row["z_pc"])) * 3.261563777
         if distance_ly > 2000 or float(source["V"]) > 2.41:
@@ -169,16 +180,18 @@ def render():
     writer = csv.DictWriter(output, fieldnames=HEADERS, lineterminator="\n")
     writer.writeheader()
     writer.writerows(rows)
+    coverage_fields = ("temperature_k", "mass_solar", "luminosity_solar", "radius_solar", "metallicity_dex", "age_gyr")
     provenance = {
         "schemaVersion": 1,
         "catalogId": "bright-stars",
         "policy": "All frozen SIMBAD stellar entries within 2000 ly with compiled Johnson V <= 2.41, deduplicating the Alpha Centauri system in favor of A/B components; Acrux uses the Bright Star Catalogue combined V=0.76. Includes Sun as the map origin.",
+        "coverage": {field: sum(bool(row[field]) for row in rows if row["id"] != "sun") for field in coverage_fields},
         "objects": {
             row["id"]: ({"source": "nearest-neighbors", "adoptedWithoutChange": True} if row["id"] in {"sun", "sirius-a", "alpha-centauri-a", "alpha-centauri-b"} else {
                 "source": "SIMBAD TAP snapshot 2026-09-25",
                 "queryId": source_by_id[row["id"]]["main_id"],
                 "absoluteMagnitudeMethod": "Johnson V and inverse-parallax distance; no extinction correction",
-                "physicalParameters": "SIMBAD mesFe_h/mesDiameter ranked measurements, Allende Prieto & Lambert 1999 evolutionary models, McDonald et al. 2012 SED models, and reviewed primary papers; see row notes",
+                "physicalParameters": "SIMBAD mesFe_h/mesDiameter ranked measurements, Allende Prieto & Lambert 1999 evolutionary models, McDonald et al. 2012 SED models, Hohle et al. 2010 massive-star evolutionary models, and reviewed primary papers; see row notes",
                 "luminosityMethod": "McDonald et al. 2012 SED luminosity where available; otherwise Stefan-Boltzmann scaling R^2 (T/5772 K)^4 when both inputs are adopted",
             }) for row in rows
         },

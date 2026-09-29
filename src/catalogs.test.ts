@@ -64,12 +64,24 @@ describe('catalog packages and display settings', () => {
   it('keeps the bright landmark catalog bounded and merges it without duplicates', () => {
     expect(bright).toHaveLength(83)
     expect(bright.at(-1)?.name).toBe('Alnilam')
-    expect(catalogCoverage(bright)).toMatchObject({ temperatures: 38, masses: 18, luminosities: 34, radii: 33, metallicities: 19, ages: 1 })
+    expect(catalogCoverage(bright)).toMatchObject({ temperatures: 78, masses: 34, luminosities: 70, radii: 69, metallicities: 19, ages: 1 })
     expect(bright.find((star) => star.name === 'Rigel')).toMatchObject({
       temperature_k: 11968, radius_solar: 74.0262, luminosity_solar: 83226.2, metallicity_dex: -0.159,
     })
     expect(bright.find((star) => star.name === 'Antares')).toMatchObject({
       temperature_k: 3548, mass_solar: 15, radius_solar: 682.1352, luminosity_solar: 66430.9, age_gyr: 0.013,
+    })
+    expect(bright.find((star) => star.name === 'Acrux')).toMatchObject({
+      temperature_k: 24547, mass_solar: null, radius_solar: 10.5782, luminosity_solar: 36602.6,
+    })
+    expect(bright.find((star) => star.name === 'Denebola')).toMatchObject({
+      temperature_k: 8710, mass_solar: 1.9, radius_solar: 1.6218, luminosity_solar: 13.639,
+    })
+    expect(bright.find((star) => star.name === 'Sadr')).toMatchObject({
+      temperature_k: 5863, mass_solar: 12.11, radius_solar: 173.5751, luminosity_solar: 32073.7,
+    })
+    expect(bright.find((star) => star.name === 'Mizar A')).toMatchObject({
+      temperature_k: null, mass_solar: null, radius_solar: null, luminosity_solar: null,
     })
     expect(['Alnitak', 'Alnilam', 'Mintaka'].every((name) => bright.some((star) => star.name === name))).toBe(true)
     expect(bright.filter((star) => Math.hypot(star.x_pc, star.y_pc, star.z_pc) * 3.261563777 > 1000).map((star) => star.name)).toEqual([
