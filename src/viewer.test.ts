@@ -106,6 +106,16 @@ describe('screen-space grid cell keys', () => {
     grid.insert({ left: -40, right: 40, top: -40, bottom: 40 }, 1)
     expect(grid.query({ left: -40, right: 40, top: -40, bottom: 40 })).toEqual([1])
   })
+
+  it('forgets every value after clear while reusing cells', () => {
+    const grid = new ScreenSpaceGrid<number>()
+    grid.insert({ left: -40, right: 40, top: -40, bottom: 40 }, 1)
+    grid.clear()
+    expect(grid.query({ left: -40, right: 40, top: -40, bottom: 40 })).toEqual([])
+    expect(grid.queryAny({ left: -40, right: 40, top: -40, bottom: 40 }, () => true)).toBe(false)
+    grid.insert({ left: 0, right: 0, top: 0, bottom: 0 }, 2)
+    expect(grid.query({ left: -40, right: 40, top: -40, bottom: 40 })).toEqual([2])
+  })
 })
 
 describe('screen-space grid queryAny', () => {

@@ -14,6 +14,30 @@ const CONTENT_TYPES: Record<string, string> = {
   '.xml': 'application/xml; charset=utf-8',
 }
 
+const CONTENT_SECURITY_POLICY = [
+  "default-src 'self'",
+  "script-src 'self'",
+  "style-src 'self' 'unsafe-inline'",
+  "img-src 'self' data:",
+  "connect-src 'self'",
+  "object-src 'none'",
+  "base-uri 'none'",
+  "form-action 'none'",
+].join('; ')
+
+// Dev keeps Vite's inline HMR tooling; production pages get a same-origin-only policy.
+function contentSecurityPolicy(): Plugin {
+  return {
+    name: 'star-view-content-security-policy',
+    apply: 'build',
+    transformIndexHtml: () => [{
+      tag: 'meta',
+      attrs: { 'http-equiv': 'Content-Security-Policy', content: CONTENT_SECURITY_POLICY },
+      injectTo: 'head-prepend',
+    }],
+  }
+}
+
 function acceptsBrotli(header: string | undefined): boolean {
   if (!header) return false
   const encodings = header.split(',').map((part) => {
@@ -54,6 +78,9 @@ function brotliAssets(): Plugin {
       const outputRoot = realpathSync(resolve(server.config.root, server.config.build.outDir))
       server.middlewares.use((request, response, next) => {
         if (!request.url) return next()
+        response.setHeader('X-Content-Type-Options', 'nosniff')
+        response.setHeader('Referrer-Policy', 'no-referrer')
+        response.setHeader('X-Frame-Options', 'DENY')
         let pathname: string
         try {
           pathname = decodeURIComponent(new URL(request.url, 'http://localhost').pathname)
@@ -92,5 +119,5 @@ function brotliAssets(): Plugin {
 }
 
 export default defineConfig({
-  plugins: [brotliAssets()],
+  plugins: [contentSecurityPolicy(), brotliAssets()],
 })

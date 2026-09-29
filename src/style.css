@@ -43,7 +43,7 @@ button, p, h2, dd { overflow-wrap: anywhere; }
 .eyebrow { font-size: 10px; line-height: 1.5; font-weight: 500; color: var(--muted); }
 
 .inspector { position: absolute; inset: 0; pointer-events: none; }
-.selected-object, .dock-card { color: var(--ink); background: linear-gradient(145deg, #26282af7, var(--panel-glass)); border: 1px solid #5a5148; border-radius: var(--card-radius); box-shadow: 0 14px 38px #00000080, inset 0 1px #ffffff0a; backdrop-filter: blur(14px); }
+.selected-object, .dock-card { color: var(--ink); background: linear-gradient(145deg, #26282af7, var(--panel-glass)); border: 1px solid #5a5148; border-radius: var(--card-radius); box-shadow: 0 14px 38px #00000080, inset 0 1px #ffffff0a; }
 .selected-object { position: absolute; top: 20px; right: 74px; width: 292px; max-height: calc(100dvh - 40px); overflow: auto; overscroll-behavior: contain; scrollbar-width: thin; scrollbar-color: #776a5c transparent; pointer-events: auto; }
 .scene-toolbar { position: absolute; top: 20px; right: 18px; display: flex; flex-direction: column; align-items: center; gap: 4px; pointer-events: auto; }
 .control-dock { position: absolute; right: 18px; bottom: 20px; display: grid; grid-template-columns: 44px; align-items: end; gap: 10px; pointer-events: auto; }
@@ -82,7 +82,7 @@ button, p, h2, dd { overflow-wrap: anywhere; }
 .visibility-observer strong { color: var(--ink); font-weight: 500; }
 .scene-status { position: absolute; top: 45%; left: 50%; transform: translate(-50%, -50%); width: min(340px, calc(100% - 48px)); background: var(--panel); border: 1px solid var(--line); border-radius: var(--card-radius); padding: 20px; font-size: 14px; line-height: 1.6; color: var(--ink); z-index: 5; }
 
-.projected-axes, .projected-labels { position: absolute; inset: 0; pointer-events: none; overflow: hidden; }
+.projected-axes, .projected-labels { position: absolute; inset: 0; pointer-events: none; overflow: hidden; contain: strict; }
 .projected-axes { z-index: 0; }
 .projected-labels { z-index: 3; }
 .map-anchor { position: absolute; top: 0; left: 0; width: 1px; height: 1px; }

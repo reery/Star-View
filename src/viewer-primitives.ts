@@ -165,8 +165,13 @@ export class ScreenSpaceGrid<T> {
     this.cellSize = cellSize
   }
 
+  // Buckets are emptied in place so per-frame rebuilds don't reallocate them.
   clear(): void {
-    this.buckets.clear()
+    if (this.buckets.size > 16_384) {
+      this.buckets.clear()
+      return
+    }
+    for (const bucket of this.buckets.values()) bucket.length = 0
   }
 
   private cellKey(column: number, row: number): number {
@@ -270,7 +275,7 @@ export function projectWorldPointInto(
   const normalizedX = clip.x / clip.w
   const normalizedY = clip.y / clip.w
   const normalizedZ = clip.z / clip.w
-  if (![normalizedX, normalizedY, normalizedZ].every(Number.isFinite) ||
+  if (!Number.isFinite(normalizedX) || !Number.isFinite(normalizedY) || !Number.isFinite(normalizedZ) ||
     Math.abs(normalizedX) > 1 || Math.abs(normalizedY) > 1 || Math.abs(normalizedZ) > 1) return false
   target.x = viewport.left + (normalizedX + 1) * viewport.width / 2
   target.y = viewport.top + (1 - normalizedY) * viewport.height / 2
