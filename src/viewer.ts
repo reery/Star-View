@@ -572,6 +572,15 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
     projectionDirty = true
   }
 
+  // Blurred text shadows repaint every moving label; restore them on the settled frame.
+  let labelsMoving = false
+  function setLabelsMoving(moving: boolean): void {
+    if (moving === labelsMoving) return
+    labelsMoving = moving
+    labelLayer.classList.toggle('is-moving', moving)
+    axisLayer.classList.toggle('is-moving', moving)
+  }
+
   function invalidateViewport(): void {
     viewportDirty = true
     obstacleBoundsDirty = true
@@ -1363,6 +1372,7 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
     camera.updateMatrixWorld()
     updateMotionArrows()
     renderer.render(scene, camera)
+    setLabelsMoving(continueRendering)
     updateLabels(time)
     if (continueRendering || refreshSamplesRemaining > 0) requestRender(false)
     else {

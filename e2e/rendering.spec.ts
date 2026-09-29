@@ -238,6 +238,30 @@ test('records high-density nearest-1000 rotation evidence', { tag: '@mobile' }, 
   await expectIdle(page)
 })
 
+test('drops label text shadows only while the camera moves', async ({ page }) => {
+  await page.emulateMedia({ reducedMotion: 'no-preference' })
+  await page.goto('/')
+  await expect(page.locator('#scene')).toHaveAttribute('data-ready', 'true')
+  const starLabel = page.locator('.map-anchor:not(.is-selected) .star-label:visible').first()
+  const axisLabel = page.locator('.axis-label:visible').first()
+  const shadows = async () => [
+    await starLabel.evaluate((element) => getComputedStyle(element).textShadow),
+    await axisLabel.evaluate((element) => getComputedStyle(element).textShadow),
+  ]
+  await expect.poll(async () => (await shadows()).every((shadow) => shadow !== 'none')).toBe(true)
+  const bounds = (await page.locator('#scene canvas').boundingBox())!
+  await page.mouse.move(bounds.x + bounds.width / 2, bounds.y + bounds.height / 2)
+  await page.mouse.down()
+  await page.mouse.move(bounds.x + bounds.width / 2 + 45, bounds.y + bounds.height / 2 + 20, { steps: 5 })
+  await expect(page.locator('.projected-labels')).toHaveClass(/\bis-moving\b/)
+  await expect(page.locator('.projected-axes')).toHaveClass(/\bis-moving\b/)
+  await expect.poll(shadows).toEqual(['none', 'none'])
+  await page.mouse.up()
+  await expect(page.locator('.projected-labels')).not.toHaveClass(/\bis-moving\b/)
+  await expect(page.locator('.projected-axes')).not.toHaveClass(/\bis-moving\b/)
+  await expect.poll(async () => (await shadows()).every((shadow) => shadow !== 'none')).toBe(true)
+})
+
 test('coalesces virtual-list scroll renders and skips unchanged ranges', async ({ page }) => {
   await trackRendering(page)
   await openFilter(page)
