@@ -5,6 +5,7 @@ test('keeps the selected name in front even at collisions and scene edges', { ta
   await openViewer(page)
   await page.getByRole('button', { name: 'Objects', exact: true }).click()
   await page.getByRole('button', { name: 'Select Sun', exact: true }).click()
+  await page.getByRole('button', { name: 'Objects', exact: true }).click()
   await page.getByRole('button', { name: 'Reset view', exact: true }).click()
   const label = page.locator('[data-star-id="sun"] .star-label')
   await expect(label).toBeVisible()
