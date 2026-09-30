@@ -14,5 +14,5 @@ FROM basic AS b
 JOIN flux AS f ON b.oid = f.oidref
 WHERE f.filter = 'V'
   AND f.flux < 2.42
-  AND b.plx_value >= 1.6307818885
+  AND b.plx_value >= 1.0871879257
 ORDER BY V

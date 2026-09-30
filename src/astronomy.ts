@@ -1,5 +1,5 @@
 import { Color, Matrix3, Vector3 } from 'three'
-import type { RawAstrometry, Star } from './catalog-model'
+import { isCompactObject, type RawAstrometry, type Star } from './catalog-model'
 
 export const LIGHT_YEARS_PER_PARSEC = 3.261563777
 export const SOLAR_GALACTIC_VELOCITY_KMS = Object.freeze({ vx_kms: 12.9, vy_kms: 245.6, vz_kms: 7.78 })
@@ -27,7 +27,8 @@ export function gridSpacingPc(distanceLy: number): number {
   if (distanceLy <= 500) return 10
   if (distanceLy <= 1000) return 20
   if (distanceLy <= 1500) return 30
-  return 40
+  if (distanceLy <= 2000) return 40
+  return 60
 }
 
 export function formatDistance(distancePc: number, unit: DistanceUnit, digits = 2): string {
@@ -42,8 +43,9 @@ export function apparentVisualMagnitude(absoluteMagnitude: number | null, distan
   return Number.isFinite(magnitude) ? magnitude : null
 }
 
-export function visibilityTier(target: Pick<Star, 'id' | 'absolute_mag'> & Position, observer: Pick<Star, 'id'> & Position, limit: number): 'base' | 'eligible' | 'background' {
+export function visibilityTier(target: Pick<Star, 'id' | 'absolute_mag'> & Partial<Pick<Star, 'type'>> & Position, observer: Pick<Star, 'id'> & Position, limit: number): 'base' | 'eligible' | 'background' {
   if (target.id === observer.id) return 'base'
+  if (target.type && isCompactObject(target as Pick<Star, 'type'>)) return 'eligible'
   const distance = Math.hypot(target.x_pc - observer.x_pc, target.y_pc - observer.y_pc, target.z_pc - observer.z_pc)
   const magnitude = apparentVisualMagnitude(target.absolute_mag, distance)
   return magnitude !== null && magnitude <= limit ? 'eligible' : 'background'
@@ -180,6 +182,9 @@ export function starDisplayColor(
   star: Pick<Star, 'type' | 'temperature_k' | 'spectral_type'>,
   mode: StarColorMode = 'real',
 ): Color {
+  if (star.type === 'pulsar') return new Color(0x42d9ff)
+  if (star.type === 'neutron_star') return new Color(0xa78bfa)
+  if (star.type === 'black_hole') return new Color(0xff9f43)
   if (star.type !== 'brown_dwarf' && star.type !== 'sub_brown_dwarf') {
     const spectralClass = star.type === 'star' ? star.spectral_type?.match(/([OBAFGKM])/)?.[1] as keyof typeof STAR_CLASS_KELVIN | undefined : undefined
     return temperatureToColor(star.temperature_k ?? (spectralClass ? STAR_CLASS_KELVIN[spectralClass] : null), mode)

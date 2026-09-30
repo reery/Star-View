@@ -1,4 +1,4 @@
-import { OBJECT_TYPES, type Star } from './catalog-model'
+import { STELLAR_OBJECT_TYPES, type Star } from './catalog-model'
 import type { CatalogManifest } from './catalog-manifest'
 
 export { catalogSelection } from './catalog-selection'
@@ -48,7 +48,7 @@ export function parseCatalogPayload(value: unknown, manifest: CatalogManifest): 
   const ids = new Set<string>()
   for (const star of stars) {
     if (!star || typeof star !== 'object' || typeof star.id !== 'string' || !star.id || ids.has(star.id) ||
-      typeof star.name !== 'string' || !star.name || typeof star.type !== 'string' || !OBJECT_TYPES.includes(star.type as never) ||
+      typeof star.name !== 'string' || !star.name || typeof star.type !== 'string' || !STELLAR_OBJECT_TYPES.includes(star.type as never) ||
       !['x_pc', 'y_pc', 'z_pc', 'epoch'].every((field) => typeof star[field] === 'number' && Number.isFinite(star[field]))) {
       throw new Error(`Invalid catalog payload row: ${manifest.id}`)
     }

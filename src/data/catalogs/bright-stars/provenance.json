@@ -1,7 +1,8 @@
 {
   "schemaVersion": 1,
   "catalogId": "bright-stars",
-  "policy": "All frozen SIMBAD stellar entries within 2000 ly with compiled Johnson V <= 2.41, deduplicating the Alpha Centauri system in favor of A/B components; Acrux uses the Bright Star Catalogue combined V=0.76. Includes Sun as the map origin.",
+  "policy": "All frozen SIMBAD stellar entries within 3000 ly with compiled Johnson V <= 2.41, deduplicating the Alpha Centauri system in favor of A/B components; Acrux uses the Bright Star Catalogue combined V=0.76. Includes Sun as the map origin.",
+  "rangeReview": "The 2000-3000 ly shell was re-queried through SIMBAD TAP on 2026-09-30 and contained no additional qualifying V <= 2.41 stellar entries.",
   "coverage": {
     "temperature_k": 78,
     "mass_solar": 34,

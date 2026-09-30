@@ -1,0 +1,38 @@
+{
+  "schemaVersion": 1,
+  "id": "compact-remnants",
+  "label": "Compact remnants",
+  "description": "A separately loaded, source-defined overlay of catalogued pulsars and curated dormant compact-object systems within 3000 light-years.",
+  "epoch": 2000,
+  "objectCount": 269,
+  "radiusLy": 3000,
+  "counts": {
+    "pulsar": 266,
+    "neutron_star": 1,
+    "black_hole": 2
+  },
+  "sources": [
+    {
+      "name": "ATNF Pulsar Catalogue v2.8.1",
+      "url": "https://www.atnf.csiro.au/research/pulsar/psrcat/psrcat_help.html"
+    },
+    {
+      "name": "BlackCAT Galactic black-hole transients",
+      "url": "https://www.sc.eso.org/~jcorral/BlackCAT/transients.php"
+    },
+    {
+      "name": "Gaia BH1 high-precision orbit",
+      "url": "https://arxiv.org/abs/2312.05313"
+    },
+    {
+      "name": "Gaia BH3 discovery",
+      "url": "https://arxiv.org/abs/2404.10486"
+    },
+    {
+      "name": "Gaia NS1 characterization",
+      "url": "https://arxiv.org/abs/2402.06722"
+    }
+  ],
+  "cutoffPolicy": "ATNF v2.8.1 non-candidate, non-interim pulsars with positive adopted DIST <= 0.9198041814 kpc, plus reviewed dormant black-hole and non-pulsar neutron-star systems no farther than 3000 light-years. Candidate status is explicit.",
+  "snapshot": "J2000 map positions; ATNF package downloaded 2026-09-30; curated literature reviewed 2026-09-30."
+}

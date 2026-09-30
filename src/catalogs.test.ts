@@ -12,10 +12,13 @@ import nearest1000Manifest from './data/catalogs/nearest-1000/catalog.json?raw'
 import nearest1000Provenance from './data/catalogs/nearest-1000/provenance.json?raw'
 import brightCsv from './data/catalogs/bright-stars/stars.csv?raw'
 import brightManifest from './data/catalogs/bright-stars/catalog.json?raw'
+import compactManifestRaw from './data/overlays/compact-remnants/manifest.json?raw'
+import compactPayloadRaw from './data/overlays/compact-remnants/objects.json?raw'
 import { buildCatalog, catalogCoverage, catalogSelection, DEFAULT_CATALOG_MANIFEST, loadCatalog, parseCatalogManifest } from './catalogs'
 import { parseStarCatalog } from './catalog'
 import { apparentVisualMagnitude, formatDistance, temperatureToColor, visibilityTier } from './astronomy'
 import { catalogLoader, mergeCatalogStars } from './catalog-runtime'
+import { parseCompactOverlayManifest, parseCompactOverlayPayload } from './compact-overlay-model'
 
 describe('catalog packages and display settings', () => {
   const small = parseStarCatalog(csv)
@@ -87,7 +90,8 @@ describe('catalog packages and display settings', () => {
     expect(bright.filter((star) => Math.hypot(star.x_pc, star.y_pc, star.z_pc) * 3.261563777 > 1000).map((star) => star.name)).toEqual([
       'Naos', 'Regor', 'Deneb', 'Wezen', 'Sadr', 'Alnilam',
     ])
-    expect(Math.max(...bright.map((star) => Math.hypot(star.x_pc, star.y_pc, star.z_pc) * 3.261563777))).toBeLessThan(2000)
+    expect(Math.max(...bright.map((star) => Math.hypot(star.x_pc, star.y_pc, star.z_pc) * 3.261563777))).toBeLessThan(3000)
+    expect(parseCatalogManifest(brightManifest).cutoffPolicy).toContain('3000 light-years')
     expect(Math.max(...bright.filter((star) => star.id !== 'sun').map((star) => apparentVisualMagnitude(
       star.absolute_mag, Math.hypot(star.x_pc, star.y_pc, star.z_pc),
     )!))).toBeLessThanOrEqual(2.411)
@@ -103,6 +107,22 @@ describe('catalog packages and display settings', () => {
     const largestMerged = mergeCatalogStars(nearest1000, bright)
     expect(largestMerged).toHaveLength(1074)
     expect(new Set(largestMerged.map((star) => star.id)).size).toBe(largestMerged.length)
+  })
+
+  it('validates the source-defined compact-remnant overlay and its nullable measurements', () => {
+    const compactManifest = parseCompactOverlayManifest(compactManifestRaw)
+    const compact = parseCompactOverlayPayload(JSON.parse(compactPayloadRaw), compactManifest)
+    expect(compact).toHaveLength(269)
+    expect(compactManifest.counts).toEqual({ pulsar: 266, neutron_star: 1, black_hole: 2 })
+    expect(Math.max(...compact.map((object) => Math.hypot(object.x_pc, object.y_pc, object.z_pc) * 3.261563777))).toBeLessThanOrEqual(3000)
+    expect(compact.filter((object) => object.type === 'pulsar' && object.compact?.rotation_period_s !== null)).toHaveLength(263)
+    expect(compact.find((object) => object.id === 'gaia-bh1')).toMatchObject({
+      type: 'black_hole', mass_solar: 9.27, compact: { confidence: 'confirmed', orbital_period_days: 185.387 },
+    })
+    expect(compact.find((object) => object.id === 'gaia-ns1')).toMatchObject({
+      type: 'neutron_star', mass_solar: 1.9, compact: { confidence: 'candidate' },
+    })
+    expect(compact.filter((object) => object.type === 'pulsar').every((object) => object.mass_solar === null)).toBe(true)
   })
 
   it('rejects malformed packages and preserves nullable selection', () => {

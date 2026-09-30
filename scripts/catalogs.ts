@@ -2,10 +2,19 @@ import { readdirSync, readFileSync, rmSync } from 'node:fs'
 import { join, resolve } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { buildCatalog, catalogCoverage, DEFAULT_CATALOG_MANIFEST, loadCatalog, parseCatalogManifest } from '../src/catalogs.ts'
+import { parseCompactOverlayManifest, parseCompactOverlayPayload } from '../src/compact-overlay-model.ts'
 import { containedInput, safeOutputDirectory, writeManagedFiles } from './filesystem.ts'
 
 const root = fileURLToPath(new URL('../', import.meta.url))
 const [command, ...args] = process.argv.slice(2)
+const compactOverlayDirectory = join(root, 'src/data/overlays/compact-remnants')
+
+function loadCompactOverlay() {
+  const manifest = parseCompactOverlayManifest(readFileSync(join(compactOverlayDirectory, 'manifest.json'), 'utf8'))
+  const payload: unknown = JSON.parse(readFileSync(join(compactOverlayDirectory, 'objects.json'), 'utf8'))
+  const objects = parseCompactOverlayPayload(payload, manifest)
+  return { manifest, objects }
+}
 
 function validate(directory?: string): void {
   const packages = directory ? [resolve(directory)] : [
@@ -21,6 +30,10 @@ function validate(directory?: string): void {
     const coverage = catalogCoverage(stars)
     if (['nearest-neighbors', 'bright-stars', 'nearest-100'].includes(manifest.id) && coverage.constellations !== coverage.objects) throw new Error(`${path}: incomplete bundled constellation coverage`)
     console.log(`${manifest.id}: ${stars.length} rows; non-Sun coverage ${JSON.stringify(coverage)}`)
+  }
+  if (!directory) {
+    const { manifest, objects } = loadCompactOverlay()
+    console.log(`${manifest.id}: ${objects.length} overlay rows; type counts ${JSON.stringify(manifest.counts)}`)
   }
 }
 
@@ -45,6 +58,12 @@ function generate(): void {
     if (entry.isFile() && entry.name.endsWith('.json') && !Object.hasOwn(files, entry.name)) rmSync(join(output, entry.name))
   }
   console.log(`Generated ${Object.keys(files).length} browser catalog payloads.`)
+  const { manifest: overlayManifest, objects } = loadCompactOverlay()
+  const overlayOutput = safeOutputDirectory(join(root, 'src/data/generated/overlays'))
+  writeManagedFiles(overlayOutput, {
+    [`${overlayManifest.id}.json`]: JSON.stringify({ schemaVersion: 1, overlayId: overlayManifest.id, objects }) + '\n',
+  }, true)
+  console.log(`Generated ${objects.length} compact-object overlay rows.`)
 }
 
 try {

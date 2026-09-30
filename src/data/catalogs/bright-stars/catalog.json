@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "id": "bright-stars",
   "label": "Bright stars",
-  "description": "All frozen qualifying bright stellar entries within 2000 light-years, plus the Sun.",
+  "description": "All frozen qualifying bright stellar entries within 3000 light-years, plus the Sun.",
   "epoch": 2000,
   "objectCount": 83,
   "sources": [
@@ -39,6 +39,6 @@
       "url": "https://cdsarc.cds.unistra.fr/viz-bin/cat/V/50"
     }
   ],
-  "cutoffPolicy": "Every frozen SIMBAD stellar entry no farther than 2000 light-years with compiled Johnson V no fainter than Mintaka (V=2.41). The aggregate Alpha Centauri system row is replaced by its qualifying A and B components. Acrux uses the Bright Star Catalogue combined V=0.76. Sun is included only as the map origin.",
-  "snapshot": "J2000.0; SIMBAD TAP queried 2026-09-25; exact-Hipparcos physical subsets refreshed 2026-09-29; 82 qualifying bright stars plus Sun."
+  "cutoffPolicy": "Every frozen SIMBAD stellar entry no farther than 3000 light-years with compiled Johnson V no fainter than Mintaka (V=2.41). The aggregate Alpha Centauri system row is replaced by its qualifying A and B components. Acrux uses the Bright Star Catalogue combined V=0.76. Sun is included only as the map origin.",
+  "snapshot": "J2000.0; SIMBAD TAP source snapshot 2026-09-25, with the 2000-3000 ly shell rechecked 2026-09-30 and no additional qualifying rows; exact-Hipparcos physical subsets refreshed 2026-09-29; 82 qualifying bright stars plus Sun."
 }

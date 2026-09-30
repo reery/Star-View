@@ -1541,7 +1541,7 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
     select,
     reset,
     setObjectDistanceLimit(distanceLy) {
-      if (!Number.isFinite(distanceLy) || distanceLy < 5 || distanceLy > 2000) return
+      if (!Number.isFinite(distanceLy) || distanceLy < 5 || distanceLy > 3000) return
       if (distanceLy === objectDistanceLimitLy) return
       objectDistanceLimitLy = distanceLy
       const nextGridSpacing = gridSpacingPc(distanceLy)

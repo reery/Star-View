@@ -173,7 +173,7 @@ def render():
     authored = [source_row(row, parameters, diameters, fundamental, sed, massive, primary) for row in source_rows]
     for source, row in zip(source_rows, authored, strict=True):
         distance_ly = math.hypot(float(row["x_pc"]), float(row["y_pc"]), float(row["z_pc"])) * 3.261563777
-        if distance_ly > 2000 or float(source["V"]) > 2.41:
+        if distance_ly > 3000 or float(source["V"]) > 2.41:
             raise ValueError(f"Bright-star policy violation: {row['name']}")
     rows = [inherited[0], *sorted([*inherited[1:], *authored], key=lambda row: math.hypot(float(row["x_pc"]), float(row["y_pc"]), float(row["z_pc"])))]
     output = io.StringIO()
@@ -184,7 +184,8 @@ def render():
     provenance = {
         "schemaVersion": 1,
         "catalogId": "bright-stars",
-        "policy": "All frozen SIMBAD stellar entries within 2000 ly with compiled Johnson V <= 2.41, deduplicating the Alpha Centauri system in favor of A/B components; Acrux uses the Bright Star Catalogue combined V=0.76. Includes Sun as the map origin.",
+        "policy": "All frozen SIMBAD stellar entries within 3000 ly with compiled Johnson V <= 2.41, deduplicating the Alpha Centauri system in favor of A/B components; Acrux uses the Bright Star Catalogue combined V=0.76. Includes Sun as the map origin.",
+        "rangeReview": "The 2000-3000 ly shell was re-queried through SIMBAD TAP on 2026-09-30 and contained no additional qualifying V <= 2.41 stellar entries.",
         "coverage": {field: sum(bool(row[field]) for row in rows if row["id"] != "sun") for field in coverage_fields},
         "objects": {
             row["id"]: ({"source": "nearest-neighbors", "adoptedWithoutChange": True} if row["id"] in {"sun", "sirius-a", "alpha-centauri-a", "alpha-centauri-b"} else {

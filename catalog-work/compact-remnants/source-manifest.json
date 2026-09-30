@@ -1,0 +1,19 @@
+{
+  "schemaVersion": 1,
+  "atnf": {
+    "catalogVersion": "2.8.1",
+    "softwareVersion": "1.54",
+    "downloadUrl": "https://www.atnf.csiro.au/research/pulsar/psrcat/downloads/psrcat_pkg.tar.gz",
+    "downloaded": "2026-09-30",
+    "archiveSha256": "2ea143fc2c9a01184f5a94715422351c49ecf97cae26004ea4897e56421d4cbd",
+    "subsetSha256": "055ed1271e5bd46e0b517c1a068ec617ff432a27c05e3898f35b21368e4cd073",
+    "selection": "DIST > 0 && DIST <= 0.9198041814; psrcat -nocand -nointerim",
+    "rows": 266
+  },
+  "blackcat": {
+    "catalogVersion": "2025",
+    "reviewed": "2026-09-30",
+    "url": "https://www.sc.eso.org/~jcorral/BlackCAT/transients.php",
+    "result": "No catalogued black-hole X-ray transient lies within 3000 light-years; the nearest listed system, A0620-00, is at 1.06 kpc."
+  }
+}

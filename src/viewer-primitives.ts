@@ -48,6 +48,7 @@ export function starBlocksLabels(tier: ReturnType<typeof visibilityTier>): boole
 }
 
 export function starCoreWhiteStrength(star: Pick<Star, 'type' | 'temperature_k' | 'spectral_type'>): number {
+  if (star.type === 'pulsar' || star.type === 'neutron_star' || star.type === 'black_hole') return 0.2
   if (star.type === 'brown_dwarf' || star.type === 'sub_brown_dwarf') return 0.08
   const spectralClass = star.type === 'star' ? star.spectral_type?.match(/([OBAFGKM])/)?.[1] : undefined
   const temperature = star.temperature_k ?? (spectralClass === 'M' ? 3500 : null)

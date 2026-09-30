@@ -1,5 +1,31 @@
-export const OBJECT_TYPES = ['star', 'white_dwarf', 'brown_dwarf', 'sub_brown_dwarf'] as const
+export const STELLAR_OBJECT_TYPES = ['star', 'white_dwarf', 'brown_dwarf', 'sub_brown_dwarf'] as const
+export const COMPACT_OBJECT_TYPES = ['pulsar', 'neutron_star', 'black_hole'] as const
+export const OBJECT_TYPES = [...STELLAR_OBJECT_TYPES, ...COMPACT_OBJECT_TYPES] as const
 export type ObjectType = typeof OBJECT_TYPES[number]
+export type StellarObjectType = typeof STELLAR_OBJECT_TYPES[number]
+export type CompactObjectType = typeof COMPACT_OBJECT_TYPES[number]
+
+export interface CompactObjectDetails {
+  confidence: 'confirmed' | 'candidate'
+  distance_method: string
+  distance_source: string
+  position_source: string
+  mass_error_solar: number | null
+  rotation_period_s: number | null
+  rotation_period_error_s: number | null
+  radio_luminosity_1400_mjy_kpc2: number | null
+  characteristic_age_yr: number | null
+  surface_magnetic_field_gauss: number | null
+  spin_down_power_erg_s: number | null
+  orbital_period_days: number | null
+  orbital_period_error_days: number | null
+  companion: string | null
+  detection_method: string
+  source_label: string
+  source_url: string
+  ra_deg: number
+  dec_deg: number
+}
 
 export interface RawAstrometry {
   ra_deg: number
@@ -39,6 +65,11 @@ export interface Star {
   epoch: number
   notes: string
   raw_astrometry: RawAstrometry | null
+  compact?: CompactObjectDetails
+}
+
+export function isCompactObject(star: Pick<Star, 'type'>): boolean {
+  return COMPACT_OBJECT_TYPES.some((type) => type === star.type)
 }
 
 export function objectTypeLabel(type: ObjectType): string {
@@ -47,6 +78,9 @@ export function objectTypeLabel(type: ObjectType): string {
     white_dwarf: 'White dwarf',
     brown_dwarf: 'Brown dwarf',
     sub_brown_dwarf: 'Sub-brown dwarf',
+    pulsar: 'Pulsar',
+    neutron_star: 'Neutron star',
+    black_hole: 'Black hole',
   }[type]
 }
 
