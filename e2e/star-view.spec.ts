@@ -86,13 +86,13 @@ test('adds the bright-star catalog as a deduplicated optional overlay', async ({
   const sunBeforeToggle = await starPoint(page, 'sun')
   const gridBeforeToggle = await page.locator('#scene').getAttribute('data-grid-half-size-pc')
   await toggle.check()
-  await expect(page.locator('#catalog-count')).toHaveText(/\/101$/)
+  await expect(page.locator('#catalog-count')).toHaveText(/\/133$/)
   await expect(page.locator('[data-star="bright-canopus"]')).toHaveCount(0)
   expect(await page.locator('.catalog-entry').evaluateAll((entries) => {
     const ids = entries.map((entry) => (entry as HTMLElement).dataset.star)
     return new Set(ids).size === ids.length
   })).toBe(true)
-  expect(Number(await page.locator('.projected-labels').getAttribute('data-core-count'))).toBeLessThan(101)
+  expect(Number(await page.locator('.projected-labels').getAttribute('data-core-count'))).toBeLessThan(133)
   expect(await starPoint(page, 'sun')).toEqual(sunBeforeToggle)
   await expect(page.locator('#scene')).toHaveAttribute('data-grid-half-size-pc', gridBeforeToggle!)
 
@@ -103,14 +103,14 @@ test('adds the bright-star catalog as a deduplicated optional overlay', async ({
   await expect(page.locator('#grid-spacing')).toHaveText('195.69 ly grid')
   await expect(page.locator('#scene')).toHaveAttribute('data-grid-spacing-pc', '60')
   await expect(page.locator('#scene')).toHaveAttribute('data-grid-half-size-pc', '920')
-  await expect(page.locator('.projected-labels')).toHaveAttribute('data-core-count', '101')
+  await expect(page.locator('.projected-labels')).toHaveAttribute('data-core-count', '133')
   await expect(page.locator('[data-star="bright-canopus"]')).toHaveCount(1)
 
   await page.getByLabel('Catalog', { exact: true }).selectOption('bright-stars')
-  await expect(page.locator('#catalog-count')).toHaveText(/\/83$/)
+  await expect(page.locator('#catalog-count')).toHaveText(/\/115$/)
   await page.locator('#scene canvas').evaluate((canvas) => { canvas.dataset.instance = 'retained' })
   await toggle.uncheck()
-  await expect(page.locator('#catalog-count')).toHaveText(/\/83$/)
+  await expect(page.locator('#catalog-count')).toHaveText(/\/115$/)
   await expect(page.locator('#scene canvas')).toHaveAttribute('data-instance', 'retained')
 })
 

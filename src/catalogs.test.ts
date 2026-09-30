@@ -65,8 +65,8 @@ describe('catalog packages and display settings', () => {
   })
 
   it('keeps the bright landmark catalog bounded and merges it without duplicates', () => {
-    expect(bright).toHaveLength(83)
-    expect(bright.at(-1)?.name).toBe('Alnilam')
+    expect(bright).toHaveLength(115)
+    expect(bright.at(-1)?.name).toBe('Arneb')
     expect(catalogCoverage(bright)).toMatchObject({ temperatures: 78, masses: 34, luminosities: 70, radii: 69, metallicities: 19, ages: 1 })
     expect(bright.find((star) => star.name === 'Rigel')).toMatchObject({
       temperature_k: 11968, radius_solar: 74.0262, luminosity_solar: 83226.2, metallicity_dex: -0.159,
@@ -87,6 +87,8 @@ describe('catalog packages and display settings', () => {
       temperature_k: null, mass_solar: null, radius_solar: null, luminosity_solar: null,
     })
     expect(['Alnitak', 'Alnilam', 'Mintaka'].every((name) => bright.some((star) => star.name === name))).toBe(true)
+    expect(['Sabik', 'Arneb', 'Muphrid'].every((name) => bright.some((star) => star.name === name))).toBe(true)
+    expect(bright.some((star) => star.name === 'NGC 1980')).toBe(false)
     expect(bright.filter((star) => Math.hypot(star.x_pc, star.y_pc, star.z_pc) * 3.261563777 > 1000).map((star) => star.name)).toEqual([
       'Naos', 'Regor', 'Deneb', 'Wezen', 'Sadr', 'Alnilam',
     ])
@@ -94,9 +96,9 @@ describe('catalog packages and display settings', () => {
     expect(parseCatalogManifest(brightManifest).cutoffPolicy).toContain('3000 light-years')
     expect(Math.max(...bright.filter((star) => star.id !== 'sun').map((star) => apparentVisualMagnitude(
       star.absolute_mag, Math.hypot(star.x_pc, star.y_pc, star.z_pc),
-    )!))).toBeLessThanOrEqual(2.411)
+    )!))).toBeLessThan(2.70)
     const merged = mergeCatalogStars(large, bright)
-    expect(merged).toHaveLength(179)
+    expect(merged).toHaveLength(211)
     expect(new Set(merged.map((star) => star.id)).size).toBe(merged.length)
     expect(merged.find((star) => star.name === 'Altair')).toMatchObject({
       id: '10pc-0117', temperature_k: 7760, mass_solar: 1.6, radius_solar: 1.8183, metallicity_dex: 0.19,
@@ -105,7 +107,7 @@ describe('catalog packages and display settings', () => {
     const sirius = bright.find((star) => star.id === 'sirius-a')!
     expect(mergeCatalogStars([sirius], [{ ...sirius, id: 'sirius-companion' }])).toHaveLength(2)
     const largestMerged = mergeCatalogStars(nearest1000, bright)
-    expect(largestMerged).toHaveLength(1074)
+    expect(largestMerged).toHaveLength(1105)
     expect(new Set(largestMerged.map((star) => star.id)).size).toBe(largestMerged.length)
   })
 

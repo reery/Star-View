@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
   "catalogId": "bright-stars",
-  "policy": "All frozen SIMBAD stellar entries within 3000 ly with compiled Johnson V <= 2.41, deduplicating the Alpha Centauri system in favor of A/B components; Acrux uses the Bright Star Catalogue combined V=0.76. Includes Sun as the map origin.",
-  "rangeReview": "The 2000-3000 ly shell was re-queried through SIMBAD TAP on 2026-09-30 and contained no additional qualifying V <= 2.41 stellar entries.",
+  "policy": "All frozen SIMBAD stellar entries within 3000 ly with compiled Johnson V < 2.70, deduplicating the Alpha Centauri system in favor of A/B components; Acrux uses the Bright Star Catalogue combined V=0.76. Includes Sun as the map origin.",
+  "selectionReview": "The V=2.42-2.69 expansion was queried through SIMBAD TAP on 2026-09-30. The SIMBAD stellar hierarchy filter excludes NGC 1980, whose integrated V=2.50 is not a stellar entry.",
   "coverage": {
     "temperature_k": 78,
     "mass_solar": 34,
@@ -77,6 +77,13 @@
       "physicalParameters": "SIMBAD mesFe_h/mesDiameter ranked measurements, Allende Prieto & Lambert 1999 evolutionary models, McDonald et al. 2012 SED models, Hohle et al. 2010 massive-star evolutionary models, and reviewed primary papers; see row notes",
       "luminosityMethod": "McDonald et al. 2012 SED luminosity where available; otherwise Stefan-Boltzmann scaling R^2 (T/5772 K)^4 when both inputs are adopted"
     },
+    "cns5-3442": {
+      "source": "SIMBAD TAP snapshot 2026-09-30",
+      "queryId": "* eta Boo",
+      "absoluteMagnitudeMethod": "Johnson V and inverse-parallax distance; no extinction correction",
+      "physicalParameters": "SIMBAD mesFe_h/mesDiameter ranked measurements, Allende Prieto & Lambert 1999 evolutionary models, McDonald et al. 2012 SED models, Hohle et al. 2010 massive-star evolutionary models, and reviewed primary papers; see row notes",
+      "luminosityMethod": "McDonald et al. 2012 SED luminosity where available; otherwise Stefan-Boltzmann scaling R^2 (T/5772 K)^4 when both inputs are adopted"
+    },
     "cns5-1318": {
       "source": "SIMBAD TAP snapshot 2026-09-25",
       "queryId": "* alf Aur",
@@ -91,6 +98,13 @@
       "physicalParameters": "SIMBAD mesFe_h/mesDiameter ranked measurements, Allende Prieto & Lambert 1999 evolutionary models, McDonald et al. 2012 SED models, Hohle et al. 2010 massive-star evolutionary models, and reviewed primary papers; see row notes",
       "luminosityMethod": "McDonald et al. 2012 SED luminosity where available; otherwise Stefan-Boltzmann scaling R^2 (T/5772 K)^4 when both inputs are adopted"
     },
+    "bright-alderamin": {
+      "source": "SIMBAD TAP snapshot 2026-09-30",
+      "queryId": "* alf Cep",
+      "absoluteMagnitudeMethod": "Johnson V and inverse-parallax distance; no extinction correction",
+      "physicalParameters": "SIMBAD mesFe_h/mesDiameter ranked measurements, Allende Prieto & Lambert 1999 evolutionary models, McDonald et al. 2012 SED models, Hohle et al. 2010 massive-star evolutionary models, and reviewed primary papers; see row notes",
+      "luminosityMethod": "McDonald et al. 2012 SED luminosity where available; otherwise Stefan-Boltzmann scaling R^2 (T/5772 K)^4 when both inputs are adopted"
+    },
     "bright-castor": {
       "source": "SIMBAD TAP snapshot 2026-09-25",
       "queryId": "* alf Gem",
@@ -101,6 +115,20 @@
     "bright-caph": {
       "source": "SIMBAD TAP snapshot 2026-09-25",
       "queryId": "* bet Cas",
+      "absoluteMagnitudeMethod": "Johnson V and inverse-parallax distance; no extinction correction",
+      "physicalParameters": "SIMBAD mesFe_h/mesDiameter ranked measurements, Allende Prieto & Lambert 1999 evolutionary models, McDonald et al. 2012 SED models, Hohle et al. 2010 massive-star evolutionary models, and reviewed primary papers; see row notes",
+      "luminosityMethod": "McDonald et al. 2012 SED luminosity where available; otherwise Stefan-Boltzmann scaling R^2 (T/5772 K)^4 when both inputs are adopted"
+    },
+    "bright-zosma": {
+      "source": "SIMBAD TAP snapshot 2026-09-30",
+      "queryId": "* del Leo",
+      "absoluteMagnitudeMethod": "Johnson V and inverse-parallax distance; no extinction correction",
+      "physicalParameters": "SIMBAD mesFe_h/mesDiameter ranked measurements, Allende Prieto & Lambert 1999 evolutionary models, McDonald et al. 2012 SED models, Hohle et al. 2010 massive-star evolutionary models, and reviewed primary papers; see row notes",
+      "luminosityMethod": "McDonald et al. 2012 SED luminosity where available; otherwise Stefan-Boltzmann scaling R^2 (T/5772 K)^4 when both inputs are adopted"
+    },
+    "bright-sheratan": {
+      "source": "SIMBAD TAP snapshot 2026-09-30",
+      "queryId": "* bet Ari",
       "absoluteMagnitudeMethod": "Johnson V and inverse-parallax distance; no extinction correction",
       "physicalParameters": "SIMBAD mesFe_h/mesDiameter ranked measurements, Allende Prieto & Lambert 1999 evolutionary models, McDonald et al. 2012 SED models, Hohle et al. 2010 massive-star evolutionary models, and reviewed primary papers; see row notes",
       "luminosityMethod": "McDonald et al. 2012 SED luminosity where available; otherwise Stefan-Boltzmann scaling R^2 (T/5772 K)^4 when both inputs are adopted"
@@ -129,6 +157,20 @@
     "bright-aldebaran": {
       "source": "SIMBAD TAP snapshot 2026-09-25",
       "queryId": "* alf Tau",
+      "absoluteMagnitudeMethod": "Johnson V and inverse-parallax distance; no extinction correction",
+      "physicalParameters": "SIMBAD mesFe_h/mesDiameter ranked measurements, Allende Prieto & Lambert 1999 evolutionary models, McDonald et al. 2012 SED models, Hohle et al. 2010 massive-star evolutionary models, and reviewed primary papers; see row notes",
+      "luminosityMethod": "McDonald et al. 2012 SED luminosity where available; otherwise Stefan-Boltzmann scaling R^2 (T/5772 K)^4 when both inputs are adopted"
+    },
+    "bright-unukalhai": {
+      "source": "SIMBAD TAP snapshot 2026-09-30",
+      "queryId": "* alf Ser",
+      "absoluteMagnitudeMethod": "Johnson V and inverse-parallax distance; no extinction correction",
+      "physicalParameters": "SIMBAD mesFe_h/mesDiameter ranked measurements, Allende Prieto & Lambert 1999 evolutionary models, McDonald et al. 2012 SED models, Hohle et al. 2010 massive-star evolutionary models, and reviewed primary papers; see row notes",
+      "luminosityMethod": "McDonald et al. 2012 SED luminosity where available; otherwise Stefan-Boltzmann scaling R^2 (T/5772 K)^4 when both inputs are adopted"
+    },
+    "bright-aljanah": {
+      "source": "SIMBAD TAP snapshot 2026-09-30",
+      "queryId": "* eps Cyg",
       "absoluteMagnitudeMethod": "Johnson V and inverse-parallax distance; no extinction correction",
       "physicalParameters": "SIMBAD mesFe_h/mesDiameter ranked measurements, Allende Prieto & Lambert 1999 evolutionary models, McDonald et al. 2012 SED models, Hohle et al. 2010 massive-star evolutionary models, and reviewed primary papers; see row notes",
       "luminosityMethod": "McDonald et al. 2012 SED luminosity where available; otherwise Stefan-Boltzmann scaling R^2 (T/5772 K)^4 when both inputs are adopted"
@@ -168,6 +210,13 @@
       "physicalParameters": "SIMBAD mesFe_h/mesDiameter ranked measurements, Allende Prieto & Lambert 1999 evolutionary models, McDonald et al. 2012 SED models, Hohle et al. 2010 massive-star evolutionary models, and reviewed primary papers; see row notes",
       "luminosityMethod": "McDonald et al. 2012 SED luminosity where available; otherwise Stefan-Boltzmann scaling R^2 (T/5772 K)^4 when both inputs are adopted"
     },
+    "bright-phecda": {
+      "source": "SIMBAD TAP snapshot 2026-09-30",
+      "queryId": "* gam UMa",
+      "absoluteMagnitudeMethod": "Johnson V and inverse-parallax distance; no extinction correction",
+      "physicalParameters": "SIMBAD mesFe_h/mesDiameter ranked measurements, Allende Prieto & Lambert 1999 evolutionary models, McDonald et al. 2012 SED models, Hohle et al. 2010 massive-star evolutionary models, and reviewed primary papers; see row notes",
+      "luminosityMethod": "McDonald et al. 2012 SED luminosity where available; otherwise Stefan-Boltzmann scaling R^2 (T/5772 K)^4 when both inputs are adopted"
+    },
     "bright-merak": {
       "source": "SIMBAD TAP snapshot 2026-09-25",
       "queryId": "* bet UMa",
@@ -178,6 +227,20 @@
     "bright-ankaa": {
       "source": "SIMBAD TAP snapshot 2026-09-25",
       "queryId": "* alf Phe",
+      "absoluteMagnitudeMethod": "Johnson V and inverse-parallax distance; no extinction correction",
+      "physicalParameters": "SIMBAD mesFe_h/mesDiameter ranked measurements, Allende Prieto & Lambert 1999 evolutionary models, McDonald et al. 2012 SED models, Hohle et al. 2010 massive-star evolutionary models, and reviewed primary papers; see row notes",
+      "luminosityMethod": "McDonald et al. 2012 SED luminosity where available; otherwise Stefan-Boltzmann scaling R^2 (T/5772 K)^4 when both inputs are adopted"
+    },
+    "bright-ascella": {
+      "source": "SIMBAD TAP snapshot 2026-09-30",
+      "queryId": "* zet Sgr",
+      "absoluteMagnitudeMethod": "Johnson V and inverse-parallax distance; no extinction correction",
+      "physicalParameters": "SIMBAD mesFe_h/mesDiameter ranked measurements, Allende Prieto & Lambert 1999 evolutionary models, McDonald et al. 2012 SED models, Hohle et al. 2010 massive-star evolutionary models, and reviewed primary papers; see row notes",
+      "luminosityMethod": "McDonald et al. 2012 SED luminosity where available; otherwise Stefan-Boltzmann scaling R^2 (T/5772 K)^4 when both inputs are adopted"
+    },
+    "bright-sabik": {
+      "source": "SIMBAD TAP snapshot 2026-09-30",
+      "queryId": "* eta Oph",
       "absoluteMagnitudeMethod": "Johnson V and inverse-parallax distance; no extinction correction",
       "physicalParameters": "SIMBAD mesFe_h/mesDiameter ranked measurements, Allende Prieto & Lambert 1999 evolutionary models, McDonald et al. 2012 SED models, Hohle et al. 2010 massive-star evolutionary models, and reviewed primary papers; see row notes",
       "luminosityMethod": "McDonald et al. 2012 SED luminosity where available; otherwise Stefan-Boltzmann scaling R^2 (T/5772 K)^4 when both inputs are adopted"
@@ -210,6 +273,13 @@
       "physicalParameters": "SIMBAD mesFe_h/mesDiameter ranked measurements, Allende Prieto & Lambert 1999 evolutionary models, McDonald et al. 2012 SED models, Hohle et al. 2010 massive-star evolutionary models, and reviewed primary papers; see row notes",
       "luminosityMethod": "McDonald et al. 2012 SED luminosity where available; otherwise Stefan-Boltzmann scaling R^2 (T/5772 K)^4 when both inputs are adopted"
     },
+    "bright-ruchbah": {
+      "source": "SIMBAD TAP snapshot 2026-09-30",
+      "queryId": "* del Cas",
+      "absoluteMagnitudeMethod": "Johnson V and inverse-parallax distance; no extinction correction",
+      "physicalParameters": "SIMBAD mesFe_h/mesDiameter ranked measurements, Allende Prieto & Lambert 1999 evolutionary models, McDonald et al. 2012 SED models, Hohle et al. 2010 massive-star evolutionary models, and reviewed primary papers; see row notes",
+      "luminosityMethod": "McDonald et al. 2012 SED luminosity where available; otherwise Stefan-Boltzmann scaling R^2 (T/5772 K)^4 when both inputs are adopted"
+    },
     "bright-alnair": {
       "source": "SIMBAD TAP snapshot 2026-09-25",
       "queryId": "* alf Gru",
@@ -227,6 +297,13 @@
     "bright-alhena": {
       "source": "SIMBAD TAP snapshot 2026-09-25",
       "queryId": "* gam Gem",
+      "absoluteMagnitudeMethod": "Johnson V and inverse-parallax distance; no extinction correction",
+      "physicalParameters": "SIMBAD mesFe_h/mesDiameter ranked measurements, Allende Prieto & Lambert 1999 evolutionary models, McDonald et al. 2012 SED models, Hohle et al. 2010 massive-star evolutionary models, and reviewed primary papers; see row notes",
+      "luminosityMethod": "McDonald et al. 2012 SED luminosity where available; otherwise Stefan-Boltzmann scaling R^2 (T/5772 K)^4 when both inputs are adopted"
+    },
+    "bright-mu-velorum": {
+      "source": "SIMBAD TAP snapshot 2026-09-30",
+      "queryId": "* mu. Vel",
       "absoluteMagnitudeMethod": "Johnson V and inverse-parallax distance; no extinction correction",
       "physicalParameters": "SIMBAD mesFe_h/mesDiameter ranked measurements, Allende Prieto & Lambert 1999 evolutionary models, McDonald et al. 2012 SED models, Hohle et al. 2010 massive-star evolutionary models, and reviewed primary papers; see row notes",
       "luminosityMethod": "McDonald et al. 2012 SED luminosity where available; otherwise Stefan-Boltzmann scaling R^2 (T/5772 K)^4 when both inputs are adopted"
@@ -259,6 +336,13 @@
       "physicalParameters": "SIMBAD mesFe_h/mesDiameter ranked measurements, Allende Prieto & Lambert 1999 evolutionary models, McDonald et al. 2012 SED models, Hohle et al. 2010 massive-star evolutionary models, and reviewed primary papers; see row notes",
       "luminosityMethod": "McDonald et al. 2012 SED luminosity where available; otherwise Stefan-Boltzmann scaling R^2 (T/5772 K)^4 when both inputs are adopted"
     },
+    "bright-markab": {
+      "source": "SIMBAD TAP snapshot 2026-09-30",
+      "queryId": "* alf Peg",
+      "absoluteMagnitudeMethod": "Johnson V and inverse-parallax distance; no extinction correction",
+      "physicalParameters": "SIMBAD mesFe_h/mesDiameter ranked measurements, Allende Prieto & Lambert 1999 evolutionary models, McDonald et al. 2012 SED models, Hohle et al. 2010 massive-star evolutionary models, and reviewed primary papers; see row notes",
+      "luminosityMethod": "McDonald et al. 2012 SED luminosity where available; otherwise Stefan-Boltzmann scaling R^2 (T/5772 K)^4 when both inputs are adopted"
+    },
     "bright-elnath": {
       "source": "SIMBAD TAP snapshot 2026-09-25",
       "queryId": "* bet Tau",
@@ -280,9 +364,30 @@
       "physicalParameters": "SIMBAD mesFe_h/mesDiameter ranked measurements, Allende Prieto & Lambert 1999 evolutionary models, McDonald et al. 2012 SED models, Hohle et al. 2010 massive-star evolutionary models, and reviewed primary papers; see row notes",
       "luminosityMethod": "McDonald et al. 2012 SED luminosity where available; otherwise Stefan-Boltzmann scaling R^2 (T/5772 K)^4 when both inputs are adopted"
     },
+    "bright-kraz": {
+      "source": "SIMBAD TAP snapshot 2026-09-30",
+      "queryId": "* bet Crv",
+      "absoluteMagnitudeMethod": "Johnson V and inverse-parallax distance; no extinction correction",
+      "physicalParameters": "SIMBAD mesFe_h/mesDiameter ranked measurements, Allende Prieto & Lambert 1999 evolutionary models, McDonald et al. 2012 SED models, Hohle et al. 2010 massive-star evolutionary models, and reviewed primary papers; see row notes",
+      "luminosityMethod": "McDonald et al. 2012 SED luminosity where available; otherwise Stefan-Boltzmann scaling R^2 (T/5772 K)^4 when both inputs are adopted"
+    },
+    "bright-gienah": {
+      "source": "SIMBAD TAP snapshot 2026-09-30",
+      "queryId": "* gam Crv",
+      "absoluteMagnitudeMethod": "Johnson V and inverse-parallax distance; no extinction correction",
+      "physicalParameters": "SIMBAD mesFe_h/mesDiameter ranked measurements, Allende Prieto & Lambert 1999 evolutionary models, McDonald et al. 2012 SED models, Hohle et al. 2010 massive-star evolutionary models, and reviewed primary papers; see row notes",
+      "luminosityMethod": "McDonald et al. 2012 SED luminosity where available; otherwise Stefan-Boltzmann scaling R^2 (T/5772 K)^4 when both inputs are adopted"
+    },
     "bright-eltanin": {
       "source": "SIMBAD TAP snapshot 2026-09-25",
       "queryId": "* gam Dra",
+      "absoluteMagnitudeMethod": "Johnson V and inverse-parallax distance; no extinction correction",
+      "physicalParameters": "SIMBAD mesFe_h/mesDiameter ranked measurements, Allende Prieto & Lambert 1999 evolutionary models, McDonald et al. 2012 SED models, Hohle et al. 2010 massive-star evolutionary models, and reviewed primary papers; see row notes",
+      "luminosityMethod": "McDonald et al. 2012 SED luminosity where available; otherwise Stefan-Boltzmann scaling R^2 (T/5772 K)^4 when both inputs are adopted"
+    },
+    "bright-mahasim": {
+      "source": "SIMBAD TAP snapshot 2026-09-30",
+      "queryId": "* tet Aur",
       "absoluteMagnitudeMethod": "Johnson V and inverse-parallax distance; no extinction correction",
       "physicalParameters": "SIMBAD mesFe_h/mesDiameter ranked measurements, Allende Prieto & Lambert 1999 evolutionary models, McDonald et al. 2012 SED models, Hohle et al. 2010 massive-star evolutionary models, and reviewed primary papers; see row notes",
       "luminosityMethod": "McDonald et al. 2012 SED luminosity where available; otherwise Stefan-Boltzmann scaling R^2 (T/5772 K)^4 when both inputs are adopted"
@@ -308,6 +413,20 @@
       "physicalParameters": "SIMBAD mesFe_h/mesDiameter ranked measurements, Allende Prieto & Lambert 1999 evolutionary models, McDonald et al. 2012 SED models, Hohle et al. 2010 massive-star evolutionary models, and reviewed primary papers; see row notes",
       "luminosityMethod": "McDonald et al. 2012 SED luminosity where available; otherwise Stefan-Boltzmann scaling R^2 (T/5772 K)^4 when both inputs are adopted"
     },
+    "bright-zubeneschamali": {
+      "source": "SIMBAD TAP snapshot 2026-09-30",
+      "queryId": "* bet Lib",
+      "absoluteMagnitudeMethod": "Johnson V and inverse-parallax distance; no extinction correction",
+      "physicalParameters": "SIMBAD mesFe_h/mesDiameter ranked measurements, Allende Prieto & Lambert 1999 evolutionary models, McDonald et al. 2012 SED models, Hohle et al. 2010 massive-star evolutionary models, and reviewed primary papers; see row notes",
+      "luminosityMethod": "McDonald et al. 2012 SED luminosity where available; otherwise Stefan-Boltzmann scaling R^2 (T/5772 K)^4 when both inputs are adopted"
+    },
+    "bright-scheat": {
+      "source": "SIMBAD TAP snapshot 2026-09-30",
+      "queryId": "* bet Peg",
+      "absoluteMagnitudeMethod": "Johnson V and inverse-parallax distance; no extinction correction",
+      "physicalParameters": "SIMBAD mesFe_h/mesDiameter ranked measurements, Allende Prieto & Lambert 1999 evolutionary models, McDonald et al. 2012 SED models, Hohle et al. 2010 massive-star evolutionary models, and reviewed primary papers; see row notes",
+      "luminosityMethod": "McDonald et al. 2012 SED luminosity where available; otherwise Stefan-Boltzmann scaling R^2 (T/5772 K)^4 when both inputs are adopted"
+    },
     "bright-mirach": {
       "source": "SIMBAD TAP snapshot 2026-09-25",
       "queryId": "* bet And",
@@ -325,6 +444,20 @@
     "bright-schedar": {
       "source": "SIMBAD TAP snapshot 2026-09-25",
       "queryId": "* alf Cas",
+      "absoluteMagnitudeMethod": "Johnson V and inverse-parallax distance; no extinction correction",
+      "physicalParameters": "SIMBAD mesFe_h/mesDiameter ranked measurements, Allende Prieto & Lambert 1999 evolutionary models, McDonald et al. 2012 SED models, Hohle et al. 2010 massive-star evolutionary models, and reviewed primary papers; see row notes",
+      "luminosityMethod": "McDonald et al. 2012 SED luminosity where available; otherwise Stefan-Boltzmann scaling R^2 (T/5772 K)^4 when both inputs are adopted"
+    },
+    "bright-izar": {
+      "source": "SIMBAD TAP snapshot 2026-09-30",
+      "queryId": "* eps Boo",
+      "absoluteMagnitudeMethod": "Johnson V and inverse-parallax distance; no extinction correction",
+      "physicalParameters": "SIMBAD mesFe_h/mesDiameter ranked measurements, Allende Prieto & Lambert 1999 evolutionary models, McDonald et al. 2012 SED models, Hohle et al. 2010 massive-star evolutionary models, and reviewed primary papers; see row notes",
+      "luminosityMethod": "McDonald et al. 2012 SED luminosity where available; otherwise Stefan-Boltzmann scaling R^2 (T/5772 K)^4 when both inputs are adopted"
+    },
+    "bright-menkar": {
+      "source": "SIMBAD TAP snapshot 2026-09-30",
+      "queryId": "* alf Cet",
       "absoluteMagnitudeMethod": "Johnson V and inverse-parallax distance; no extinction correction",
       "physicalParameters": "SIMBAD mesFe_h/mesDiameter ranked measurements, Allende Prieto & Lambert 1999 evolutionary models, McDonald et al. 2012 SED models, Hohle et al. 2010 massive-star evolutionary models, and reviewed primary papers; see row notes",
       "luminosityMethod": "McDonald et al. 2012 SED luminosity where available; otherwise Stefan-Boltzmann scaling R^2 (T/5772 K)^4 when both inputs are adopted"
@@ -350,6 +483,13 @@
       "physicalParameters": "SIMBAD mesFe_h/mesDiameter ranked measurements, Allende Prieto & Lambert 1999 evolutionary models, McDonald et al. 2012 SED models, Hohle et al. 2010 massive-star evolutionary models, and reviewed primary papers; see row notes",
       "luminosityMethod": "McDonald et al. 2012 SED luminosity where available; otherwise Stefan-Boltzmann scaling R^2 (T/5772 K)^4 when both inputs are adopted"
     },
+    "bright-phact": {
+      "source": "SIMBAD TAP snapshot 2026-09-30",
+      "queryId": "* alf Col",
+      "absoluteMagnitudeMethod": "Johnson V and inverse-parallax distance; no extinction correction",
+      "physicalParameters": "SIMBAD mesFe_h/mesDiameter ranked measurements, Allende Prieto & Lambert 1999 evolutionary models, McDonald et al. 2012 SED models, Hohle et al. 2010 massive-star evolutionary models, and reviewed primary papers; see row notes",
+      "luminosityMethod": "McDonald et al. 2012 SED luminosity where available; otherwise Stefan-Boltzmann scaling R^2 (T/5772 K)^4 when both inputs are adopted"
+    },
     "bright-sargas": {
       "source": "SIMBAD TAP snapshot 2026-09-25",
       "queryId": "* tet Sco",
@@ -371,9 +511,30 @@
       "physicalParameters": "SIMBAD mesFe_h/mesDiameter ranked measurements, Allende Prieto & Lambert 1999 evolutionary models, McDonald et al. 2012 SED models, Hohle et al. 2010 massive-star evolutionary models, and reviewed primary papers; see row notes",
       "luminosityMethod": "McDonald et al. 2012 SED luminosity where available; otherwise Stefan-Boltzmann scaling R^2 (T/5772 K)^4 when both inputs are adopted"
     },
+    "bright-alpha-muscae": {
+      "source": "SIMBAD TAP snapshot 2026-09-30",
+      "queryId": "* alf Mus",
+      "absoluteMagnitudeMethod": "Johnson V and inverse-parallax distance; no extinction correction",
+      "physicalParameters": "SIMBAD mesFe_h/mesDiameter ranked measurements, Allende Prieto & Lambert 1999 evolutionary models, McDonald et al. 2012 SED models, Hohle et al. 2010 massive-star evolutionary models, and reviewed primary papers; see row notes",
+      "luminosityMethod": "McDonald et al. 2012 SED luminosity where available; otherwise Stefan-Boltzmann scaling R^2 (T/5772 K)^4 when both inputs are adopted"
+    },
     "bright-acrux": {
       "source": "SIMBAD TAP snapshot 2026-09-25",
       "queryId": "* alf Cru",
+      "absoluteMagnitudeMethod": "Johnson V and inverse-parallax distance; no extinction correction",
+      "physicalParameters": "SIMBAD mesFe_h/mesDiameter ranked measurements, Allende Prieto & Lambert 1999 evolutionary models, McDonald et al. 2012 SED models, Hohle et al. 2010 massive-star evolutionary models, and reviewed primary papers; see row notes",
+      "luminosityMethod": "McDonald et al. 2012 SED luminosity where available; otherwise Stefan-Boltzmann scaling R^2 (T/5772 K)^4 when both inputs are adopted"
+    },
+    "bright-leepwal": {
+      "source": "SIMBAD TAP snapshot 2026-09-30",
+      "queryId": "* zet Cen",
+      "absoluteMagnitudeMethod": "Johnson V and inverse-parallax distance; no extinction correction",
+      "physicalParameters": "SIMBAD mesFe_h/mesDiameter ranked measurements, Allende Prieto & Lambert 1999 evolutionary models, McDonald et al. 2012 SED models, Hohle et al. 2010 massive-star evolutionary models, and reviewed primary papers; see row notes",
+      "luminosityMethod": "McDonald et al. 2012 SED luminosity where available; otherwise Stefan-Boltzmann scaling R^2 (T/5772 K)^4 when both inputs are adopted"
+    },
+    "bright-beta-lupi": {
+      "source": "SIMBAD TAP snapshot 2026-09-30",
+      "queryId": "* bet Lup",
       "absoluteMagnitudeMethod": "Johnson V and inverse-parallax distance; no extinction correction",
       "physicalParameters": "SIMBAD mesFe_h/mesDiameter ranked measurements, Allende Prieto & Lambert 1999 evolutionary models, McDonald et al. 2012 SED models, Hohle et al. 2010 massive-star evolutionary models, and reviewed primary papers; see row notes",
       "luminosityMethod": "McDonald et al. 2012 SED luminosity where available; otherwise Stefan-Boltzmann scaling R^2 (T/5772 K)^4 when both inputs are adopted"
@@ -399,9 +560,23 @@
       "physicalParameters": "SIMBAD mesFe_h/mesDiameter ranked measurements, Allende Prieto & Lambert 1999 evolutionary models, McDonald et al. 2012 SED models, Hohle et al. 2010 massive-star evolutionary models, and reviewed primary papers; see row notes",
       "luminosityMethod": "McDonald et al. 2012 SED luminosity where available; otherwise Stefan-Boltzmann scaling R^2 (T/5772 K)^4 when both inputs are adopted"
     },
+    "bright-beta-scorpii-a": {
+      "source": "SIMBAD TAP snapshot 2026-09-30",
+      "queryId": "* bet01 Sco",
+      "absoluteMagnitudeMethod": "Johnson V and inverse-parallax distance; no extinction correction",
+      "physicalParameters": "SIMBAD mesFe_h/mesDiameter ranked measurements, Allende Prieto & Lambert 1999 evolutionary models, McDonald et al. 2012 SED models, Hohle et al. 2010 massive-star evolutionary models, and reviewed primary papers; see row notes",
+      "luminosityMethod": "McDonald et al. 2012 SED luminosity where available; otherwise Stefan-Boltzmann scaling R^2 (T/5772 K)^4 when both inputs are adopted"
+    },
     "bright-adhara": {
       "source": "SIMBAD TAP snapshot 2026-09-25",
       "queryId": "* eps CMa",
+      "absoluteMagnitudeMethod": "Johnson V and inverse-parallax distance; no extinction correction",
+      "physicalParameters": "SIMBAD mesFe_h/mesDiameter ranked measurements, Allende Prieto & Lambert 1999 evolutionary models, McDonald et al. 2012 SED models, Hohle et al. 2010 massive-star evolutionary models, and reviewed primary papers; see row notes",
+      "luminosityMethod": "McDonald et al. 2012 SED luminosity where available; otherwise Stefan-Boltzmann scaling R^2 (T/5772 K)^4 when both inputs are adopted"
+    },
+    "bright-kaus-media": {
+      "source": "SIMBAD TAP snapshot 2026-09-30",
+      "queryId": "* del Sgr",
       "absoluteMagnitudeMethod": "Johnson V and inverse-parallax distance; no extinction correction",
       "physicalParameters": "SIMBAD mesFe_h/mesDiameter ranked measurements, Allende Prieto & Lambert 1999 evolutionary models, McDonald et al. 2012 SED models, Hohle et al. 2010 massive-star evolutionary models, and reviewed primary papers; see row notes",
       "luminosityMethod": "McDonald et al. 2012 SED luminosity where available; otherwise Stefan-Boltzmann scaling R^2 (T/5772 K)^4 when both inputs are adopted"
@@ -416,6 +591,20 @@
     "bright-polaris": {
       "source": "SIMBAD TAP snapshot 2026-09-25",
       "queryId": "* alf UMi",
+      "absoluteMagnitudeMethod": "Johnson V and inverse-parallax distance; no extinction correction",
+      "physicalParameters": "SIMBAD mesFe_h/mesDiameter ranked measurements, Allende Prieto & Lambert 1999 evolutionary models, McDonald et al. 2012 SED models, Hohle et al. 2010 massive-star evolutionary models, and reviewed primary papers; see row notes",
+      "luminosityMethod": "McDonald et al. 2012 SED luminosity where available; otherwise Stefan-Boltzmann scaling R^2 (T/5772 K)^4 when both inputs are adopted"
+    },
+    "bright-zeta-ophiuchi": {
+      "source": "SIMBAD TAP snapshot 2026-09-30",
+      "queryId": "* zet Oph",
+      "absoluteMagnitudeMethod": "Johnson V and inverse-parallax distance; no extinction correction",
+      "physicalParameters": "SIMBAD mesFe_h/mesDiameter ranked measurements, Allende Prieto & Lambert 1999 evolutionary models, McDonald et al. 2012 SED models, Hohle et al. 2010 massive-star evolutionary models, and reviewed primary papers; see row notes",
+      "luminosityMethod": "McDonald et al. 2012 SED luminosity where available; otherwise Stefan-Boltzmann scaling R^2 (T/5772 K)^4 when both inputs are adopted"
+    },
+    "bright-hassaleh": {
+      "source": "SIMBAD TAP snapshot 2026-09-30",
+      "queryId": "* iot Aur",
       "absoluteMagnitudeMethod": "Johnson V and inverse-parallax distance; no extinction correction",
       "physicalParameters": "SIMBAD mesFe_h/mesDiameter ranked measurements, Allende Prieto & Lambert 1999 evolutionary models, McDonald et al. 2012 SED models, Hohle et al. 2010 massive-star evolutionary models, and reviewed primary papers; see row notes",
       "luminosityMethod": "McDonald et al. 2012 SED luminosity where available; otherwise Stefan-Boltzmann scaling R^2 (T/5772 K)^4 when both inputs are adopted"
@@ -483,9 +672,30 @@
       "physicalParameters": "SIMBAD mesFe_h/mesDiameter ranked measurements, Allende Prieto & Lambert 1999 evolutionary models, McDonald et al. 2012 SED models, Hohle et al. 2010 massive-star evolutionary models, and reviewed primary papers; see row notes",
       "luminosityMethod": "McDonald et al. 2012 SED luminosity where available; otherwise Stefan-Boltzmann scaling R^2 (T/5772 K)^4 when both inputs are adopted"
     },
+    "bright-delta-centauri": {
+      "source": "SIMBAD TAP snapshot 2026-09-30",
+      "queryId": "* del Cen",
+      "absoluteMagnitudeMethod": "Johnson V and inverse-parallax distance; no extinction correction",
+      "physicalParameters": "SIMBAD mesFe_h/mesDiameter ranked measurements, Allende Prieto & Lambert 1999 evolutionary models, McDonald et al. 2012 SED models, Hohle et al. 2010 massive-star evolutionary models, and reviewed primary papers; see row notes",
+      "luminosityMethod": "McDonald et al. 2012 SED luminosity where available; otherwise Stefan-Boltzmann scaling R^2 (T/5772 K)^4 when both inputs are adopted"
+    },
     "bright-shaula": {
       "source": "SIMBAD TAP snapshot 2026-09-25",
       "queryId": "* lam Sco",
+      "absoluteMagnitudeMethod": "Johnson V and inverse-parallax distance; no extinction correction",
+      "physicalParameters": "SIMBAD mesFe_h/mesDiameter ranked measurements, Allende Prieto & Lambert 1999 evolutionary models, McDonald et al. 2012 SED models, Hohle et al. 2010 massive-star evolutionary models, and reviewed primary papers; see row notes",
+      "luminosityMethod": "McDonald et al. 2012 SED luminosity where available; otherwise Stefan-Boltzmann scaling R^2 (T/5772 K)^4 when both inputs are adopted"
+    },
+    "bright-markeb": {
+      "source": "SIMBAD TAP snapshot 2026-09-30",
+      "queryId": "* kap Vel",
+      "absoluteMagnitudeMethod": "Johnson V and inverse-parallax distance; no extinction correction",
+      "physicalParameters": "SIMBAD mesFe_h/mesDiameter ranked measurements, Allende Prieto & Lambert 1999 evolutionary models, McDonald et al. 2012 SED models, Hohle et al. 2010 massive-star evolutionary models, and reviewed primary papers; see row notes",
+      "luminosityMethod": "McDonald et al. 2012 SED luminosity where available; otherwise Stefan-Boltzmann scaling R^2 (T/5772 K)^4 when both inputs are adopted"
+    },
+    "bright-lesath": {
+      "source": "SIMBAD TAP snapshot 2026-09-30",
+      "queryId": "* ups Sco",
       "absoluteMagnitudeMethod": "Johnson V and inverse-parallax distance; no extinction correction",
       "physicalParameters": "SIMBAD mesFe_h/mesDiameter ranked measurements, Allende Prieto & Lambert 1999 evolutionary models, McDonald et al. 2012 SED models, Hohle et al. 2010 massive-star evolutionary models, and reviewed primary papers; see row notes",
       "luminosityMethod": "McDonald et al. 2012 SED luminosity where available; otherwise Stefan-Boltzmann scaling R^2 (T/5772 K)^4 when both inputs are adopted"
@@ -577,6 +787,20 @@
     "bright-alnilam": {
       "source": "SIMBAD TAP snapshot 2026-09-25",
       "queryId": "* eps Ori",
+      "absoluteMagnitudeMethod": "Johnson V and inverse-parallax distance; no extinction correction",
+      "physicalParameters": "SIMBAD mesFe_h/mesDiameter ranked measurements, Allende Prieto & Lambert 1999 evolutionary models, McDonald et al. 2012 SED models, Hohle et al. 2010 massive-star evolutionary models, and reviewed primary papers; see row notes",
+      "luminosityMethod": "McDonald et al. 2012 SED luminosity where available; otherwise Stefan-Boltzmann scaling R^2 (T/5772 K)^4 when both inputs are adopted"
+    },
+    "bright-aludra": {
+      "source": "SIMBAD TAP snapshot 2026-09-30",
+      "queryId": "* eta CMa",
+      "absoluteMagnitudeMethod": "Johnson V and inverse-parallax distance; no extinction correction",
+      "physicalParameters": "SIMBAD mesFe_h/mesDiameter ranked measurements, Allende Prieto & Lambert 1999 evolutionary models, McDonald et al. 2012 SED models, Hohle et al. 2010 massive-star evolutionary models, and reviewed primary papers; see row notes",
+      "luminosityMethod": "McDonald et al. 2012 SED luminosity where available; otherwise Stefan-Boltzmann scaling R^2 (T/5772 K)^4 when both inputs are adopted"
+    },
+    "bright-arneb": {
+      "source": "SIMBAD TAP snapshot 2026-09-30",
+      "queryId": "* alf Lep",
       "absoluteMagnitudeMethod": "Johnson V and inverse-parallax distance; no extinction correction",
       "physicalParameters": "SIMBAD mesFe_h/mesDiameter ranked measurements, Allende Prieto & Lambert 1999 evolutionary models, McDonald et al. 2012 SED models, Hohle et al. 2010 massive-star evolutionary models, and reviewed primary papers; see row notes",
       "luminosityMethod": "McDonald et al. 2012 SED luminosity where available; otherwise Stefan-Boltzmann scaling R^2 (T/5772 K)^4 when both inputs are adopted"

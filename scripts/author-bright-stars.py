@@ -35,30 +35,31 @@ ICRS_TO_GALACTIC = (
 )
 CONSTELLATIONS = {
     "Achernar": "Eridanus", "Acrux": "Crux", "Adhara": "Canis Major",
-    "Aldebaran": "Taurus", "Alhena": "Gemini", "Alioth": "Ursa Major", "Alkaid": "Ursa Major",
-    "Almach": "Andromeda", "Alnair": "Grus", "Alnilam": "Orion", "Alnitak": "Orion",
-    "Alpha Lupi": "Lupus", "Alphard": "Hydra", "Alphecca": "Corona Borealis",
+    "Aldebaran": "Taurus", "Alderamin": "Cepheus", "Alhena": "Gemini", "Alioth": "Ursa Major", "Aljanah": "Cygnus",
+    "Alkaid": "Ursa Major", "Almach": "Andromeda", "Alnair": "Grus", "Alnilam": "Orion", "Alnitak": "Orion",
+    "Alpha Lupi": "Lupus", "Alpha Muscae": "Musca", "Alphard": "Hydra", "Alphecca": "Corona Borealis",
     "Alpheratz": "Andromeda", "Algol": "Perseus", "Altair": "Aquila", "Ankaa": "Phoenix",
-    "Antares": "Scorpius", "Arcturus": "Bootes", "Aspidiske": "Carina",
+    "Aludra": "Canis Major", "Antares": "Scorpius", "Arcturus": "Bootes", "Arneb": "Lepus", "Ascella": "Sagittarius", "Aspidiske": "Carina",
     "Atria": "Triangulum Australe", "Avior": "Carina", "Bellatrix": "Orion",
-    "Beta Gruis": "Grus", "Betelgeuse": "Orion", "Canopus": "Carina", "Caph": "Cassiopeia",
+    "Beta Gruis": "Grus", "Beta Lupi": "Lupus", "Beta Scorpii A": "Scorpius", "Betelgeuse": "Orion", "Canopus": "Carina", "Caph": "Cassiopeia",
     "Capella": "Auriga", "Castor": "Gemini", "Deneb": "Cygnus", "Denebola": "Leo",
-    "Diphda": "Cetus", "Dschubba": "Scorpius", "Dubhe": "Ursa Major", "Elnath": "Taurus",
+    "Delta Centauri": "Centaurus", "Diphda": "Cetus", "Dschubba": "Scorpius", "Dubhe": "Ursa Major", "Elnath": "Taurus",
     "Eltanin": "Draco", "Enif": "Pegasus", "Epsilon Centauri": "Centaurus",
     "Epsilon Scorpii": "Scorpius", "Eta Centauri": "Centaurus", "Fomalhaut": "Piscis Austrinus",
-    "Gacrux": "Crux", "Gamma Cassiopeiae": "Cassiopeia", "Gamma Centauri": "Centaurus",
-    "Hadar": "Centaurus", "Hamal": "Aries", "Kappa Scorpii": "Scorpius",
-    "Kaus Australis": "Sagittarius", "Kochab": "Ursa Minor", "Menkalinan": "Auriga",
-    "Menkent": "Centaurus", "Merak": "Ursa Major", "Miaplacidus": "Carina", "Mimosa": "Crux",
-    "Mintaka": "Orion", "Mirach": "Andromeda", "Mirfak": "Perseus", "Mirzam": "Canis Major",
-    "Mizar A": "Ursa Major", "Naos": "Puppis", "Nunki": "Sagittarius", "Peacock": "Pavo",
-    "Polaris": "Ursa Minor", "Pollux": "Gemini", "Procyon": "Canis Minor",
-    "Rasalhague": "Ophiuchus", "Regor": "Vela", "Regulus": "Leo", "Rigel": "Orion",
-    "Sadr": "Cygnus", "Saiph": "Orion", "Sargas": "Scorpius", "Schedar": "Cassiopeia",
-    "Shaula": "Scorpius", "Spica": "Virgo", "Suhail": "Vela", "Vega": "Lyra",
-    "Wezen": "Canis Major",
+    "Gacrux": "Crux", "Gamma Cassiopeiae": "Cassiopeia", "Gamma Centauri": "Centaurus", "Gienah": "Corvus",
+    "Hadar": "Centaurus", "Hamal": "Aries", "Hassaleh": "Auriga", "Izar": "Bootes", "Kappa Scorpii": "Scorpius",
+    "Kaus Australis": "Sagittarius", "Kaus Media": "Sagittarius", "Kochab": "Ursa Minor", "Kraz": "Corvus", "Leepwal": "Centaurus", "Lesath": "Scorpius",
+    "Mahasim": "Auriga", "Markab": "Pegasus", "Markeb": "Vela", "Menkalinan": "Auriga", "Menkent": "Centaurus", "Menkar": "Cetus",
+    "Merak": "Ursa Major", "Miaplacidus": "Carina", "Mimosa": "Crux", "Mintaka": "Orion", "Mirach": "Andromeda",
+    "Mirfak": "Perseus", "Mirzam": "Canis Major", "Mizar A": "Ursa Major", "Mu Velorum": "Vela", "Muphrid": "Bootes",
+    "Naos": "Puppis", "Nunki": "Sagittarius", "Peacock": "Pavo", "Phact": "Columba", "Phecda": "Ursa Major",
+    "Polaris": "Ursa Minor", "Pollux": "Gemini", "Procyon": "Canis Minor", "Rasalhague": "Ophiuchus",
+    "Regor": "Vela", "Regulus": "Leo", "Rigel": "Orion", "Ruchbah": "Cassiopeia", "Sabik": "Ophiuchus",
+    "Sadr": "Cygnus", "Saiph": "Orion", "Sargas": "Scorpius", "Schedar": "Cassiopeia", "Scheat": "Pegasus",
+    "Shaula": "Scorpius", "Sheratan": "Aries", "Spica": "Virgo", "Suhail": "Vela", "Unukalhai": "Serpens",
+    "Vega": "Lyra", "Wezen": "Canis Major", "Zeta Ophiuchi": "Ophiuchus", "Zosma": "Leo", "Zubeneschamali": "Libra",
 }
-SYSTEM_TYPES = {"**", "SB*", "bC*", "s*b"}
+SYSTEM_TYPES = {"**", "EB*", "SB*", "bC*", "s*b"}
 SOLAR_RADIUS_KM = 695700
 SOLAR_TEMPERATURE_K = 5772
 
@@ -122,6 +123,7 @@ def source_row(source, parameters, diameters, fundamental, sed, massive, primary
     mass_note = f" Mass source detail: {massive_model['note']}." if massive_mass_adopted else ""
     age_note = f" Age source detail: {reviewed['note']}." if age else " No component-resolved age was adopted from the reviewed sources."
     row = {header: "" for header in HEADERS}
+    snapshot_date = "2026-09-30" if visual_magnitude >= 2.42 else "2026-09-25"
     row.update({
         "type": "star", "id": source["id"], "name": source["name"],
         "spectral_type": source["sp_type"],
@@ -137,8 +139,8 @@ def source_row(source, parameters, diameters, fundamental, sed, massive, primary
         "constellation": CONSTELLATIONS[source["name"]], "ra_deg": source["ra"], "dec_deg": source["dec"],
         "astrometry_epoch": "2000.0", "parallax_mas": source["plx_value"], "parallax_error_mas": source["plx_err"],
         "pm_ra_cosdec_masyr": source["pmra"], "pm_dec_masyr": source["pmdec"],
-        "radial_velocity_kms": source["rvz_radvel"], "astrometry_ref": "SIMBAD TAP snapshot 2026-09-25",
-        "radial_velocity_ref": "SIMBAD TAP snapshot 2026-09-25",
+        "radial_velocity_kms": source["rvz_radvel"], "astrometry_ref": f"SIMBAD TAP snapshot {snapshot_date}",
+        "radial_velocity_ref": f"SIMBAD TAP snapshot {snapshot_date}",
     })
     return row
 
@@ -168,12 +170,12 @@ def render():
         raise ValueError("Bright-star physical source subsets are incomplete")
     if not set(massive).issubset({row["main_id"] for row in source_rows}):
         raise ValueError("Massive-star supplement contains an unknown SIMBAD identity")
-    if len(source_rows) != 79 or len({row["id"] for row in source_rows}) != 79 or len({row["name"] for row in source_rows}) != 79:
-        raise ValueError("Bright-star source must contain 79 unique named landmarks")
+    if len(source_rows) != 111 or len({row["id"] for row in source_rows}) != 111 or len({row["name"] for row in source_rows}) != 111:
+        raise ValueError("Bright-star source must contain 111 unique named landmarks")
     authored = [source_row(row, parameters, diameters, fundamental, sed, massive, primary) for row in source_rows]
     for source, row in zip(source_rows, authored, strict=True):
         distance_ly = math.hypot(float(row["x_pc"]), float(row["y_pc"]), float(row["z_pc"])) * 3.261563777
-        if distance_ly > 3000 or float(source["V"]) > 2.41:
+        if distance_ly > 3000 or float(source["V"]) >= 2.70:
             raise ValueError(f"Bright-star policy violation: {row['name']}")
     rows = [inherited[0], *sorted([*inherited[1:], *authored], key=lambda row: math.hypot(float(row["x_pc"]), float(row["y_pc"]), float(row["z_pc"])))]
     output = io.StringIO()
@@ -184,12 +186,12 @@ def render():
     provenance = {
         "schemaVersion": 1,
         "catalogId": "bright-stars",
-        "policy": "All frozen SIMBAD stellar entries within 3000 ly with compiled Johnson V <= 2.41, deduplicating the Alpha Centauri system in favor of A/B components; Acrux uses the Bright Star Catalogue combined V=0.76. Includes Sun as the map origin.",
-        "rangeReview": "The 2000-3000 ly shell was re-queried through SIMBAD TAP on 2026-09-30 and contained no additional qualifying V <= 2.41 stellar entries.",
+        "policy": "All frozen SIMBAD stellar entries within 3000 ly with compiled Johnson V < 2.70, deduplicating the Alpha Centauri system in favor of A/B components; Acrux uses the Bright Star Catalogue combined V=0.76. Includes Sun as the map origin.",
+        "selectionReview": "The V=2.42-2.69 expansion was queried through SIMBAD TAP on 2026-09-30. The SIMBAD stellar hierarchy filter excludes NGC 1980, whose integrated V=2.50 is not a stellar entry.",
         "coverage": {field: sum(bool(row[field]) for row in rows if row["id"] != "sun") for field in coverage_fields},
         "objects": {
             row["id"]: ({"source": "nearest-neighbors", "adoptedWithoutChange": True} if row["id"] in {"sun", "sirius-a", "alpha-centauri-a", "alpha-centauri-b"} else {
-                "source": "SIMBAD TAP snapshot 2026-09-25",
+                "source": f"SIMBAD TAP snapshot {'2026-09-30' if float(source_by_id[row['id']]['V']) >= 2.42 else '2026-09-25'}",
                 "queryId": source_by_id[row["id"]]["main_id"],
                 "absoluteMagnitudeMethod": "Johnson V and inverse-parallax distance; no extinction correction",
                 "physicalParameters": "SIMBAD mesFe_h/mesDiameter ranked measurements, Allende Prieto & Lambert 1999 evolutionary models, McDonald et al. 2012 SED models, Hohle et al. 2010 massive-star evolutionary models, and reviewed primary papers; see row notes",
