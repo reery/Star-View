@@ -175,13 +175,12 @@ function renderSelection(): void {
   text('constellation', star.id === 'sun' ? 'Not applicable' : star.constellation ?? 'Not available')
   text('spectral-type', star.spectral_type ?? 'Not available')
   text('temperature', quantity(star.temperature_k, 'K', 0))
+  const luminosity = star.luminosity_solar
+  text('luminosity', luminosity !== null && luminosity < 1 ? `${luminosity.toLocaleString('en-US', { maximumSignificantDigits: 3 })} solar` : quantity(luminosity, 'solar'))
   text('mass', quantity(star.mass_solar, 'solar'))
   text('radius', quantity(star.radius_solar, 'solar'))
   text('metallicity', quantity(star.metallicity_dex, 'dex'))
   text('age', quantity(star.age_gyr, 'Gyr'))
-  const luminosity = star.luminosity_solar
-  text('luminosity', luminosity !== null && luminosity < 1 ? `${luminosity.toLocaleString('en-US', { maximumSignificantDigits: 3 })} solar` : quantity(luminosity, 'solar'))
-  element('luminosity-row').hidden = luminosity === null
   text('coordinate-x', formatDistance(star.x_pc, distanceUnit, 3))
   text('coordinate-y', formatDistance(star.y_pc, distanceUnit, 3))
   text('coordinate-z', formatDistance(star.z_pc, distanceUnit, 3))

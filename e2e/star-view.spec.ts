@@ -398,6 +398,12 @@ test('presents the selected object beside an expandable control dock', async ({ 
   await page.screenshot({ path: testInfo.outputPath('compact-default.png'), fullPage: true })
   await page.locator('#object-card-details > summary').click()
   await expect(page.locator('.properties-section')).toBeVisible()
+  expect(await page.locator('.properties-section dt').allTextContents()).toEqual([
+    'Distance from Sun', 'Object type', 'Constellation', 'Spectral type', 'Temperature',
+    'Bolometric luminosity', 'Mass', 'Radius', 'Metallicity [M/H]', 'Age', 'Absolute mag. (V)',
+  ])
+  await expect(page.locator('#luminosity-row')).toBeVisible()
+  await expect(page.locator('#luminosity')).toHaveText('24.74 solar')
   await expect(page.locator('.properties-section .properties > div').first()).toHaveCSS('font-size', '14px')
   await expect(page.locator('#object-card-details > .selection-summary')).toHaveCSS('border-bottom-width', '0px')
   await expect(page.locator('.properties-section')).toHaveCSS('border-bottom-width', '0px')
@@ -1232,6 +1238,8 @@ test('targets ordinary selections, zooms around them, and resets to the catalog 
   await page.getByRole('button', { name: 'Objects', exact: true }).click()
   await page.getByRole('button', { name: 'Select WISE 0855-0714', exact: true }).click()
   await expect(page.locator('#velocity-x')).toHaveText('Not available')
+  await expect(page.locator('#luminosity-row')).not.toHaveAttribute('hidden')
+  await expect(page.locator('#luminosity')).toHaveText('Not available')
 })
 
 test('navigates backward and forward through selection history', { tag: '@mobile' }, async ({ page }) => {
