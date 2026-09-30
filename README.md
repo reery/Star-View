@@ -11,7 +11,7 @@ A Sun-centered 3D map of nearby stars and brown dwarfs that runs in the browser.
 - Inspector with type, constellation, spectral class, temperature, luminosity, mass, radius, metallicity, age, magnitude, distance and source notes
 - Searchable list of objects matching the active distance and object-type filters
 - Map filters for brightness as seen from the selected star, distance from the Sun (to 2000 light-years), object type, and an optional deduplicated bright-star overlay
-- Real or exaggerated temperature colors, magnitude-based glow and motion arrows
+- Real or exaggerated temperature colors, magnitude-based glow, motion arrows and an optional Galactic-aligned 360° Milky Way backdrop
 - Distance and height guides relative to the Sun
 - Light-year or parsec units, grid toggle and an optional power-saving mode
 - Desktop and mobile layouts

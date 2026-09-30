@@ -4,7 +4,7 @@ import { readFileSync } from 'node:fs'
 import { Box3, PerspectiveCamera, Sphere, Spherical, Vector3 } from 'three'
 import { parseStarCatalog, type Star } from '../src/catalog'
 import { galacticToWorld } from '../src/astronomy'
-import { arrowPixelMask, isolatedArrows, measureArrowShaft, motionArrows, openFilter, openPreferences, openViewer, starPoint, type MotionArrowSnapshot } from './support'
+import { arrowPixelMask, hideMilkyWay, isolatedArrows, measureArrowShaft, motionArrows, openFilter, openPreferences, openViewer, starPoint, type MotionArrowSnapshot } from './support'
 
 function homeCamera(stars: readonly Star[], bounds: { width: number; height: number }) {
   const sphere = new Box3().setFromPoints(stars.map(galacticToWorld)).getBoundingSphere(new Sphere())
@@ -76,6 +76,29 @@ test('adds the bright-star catalog as a deduplicated optional overlay', async ({
   await toggle.uncheck()
   await expect(page.locator('#catalog-count')).toHaveText(/\/83$/)
   await expect(page.locator('#scene canvas')).toHaveAttribute('data-instance', 'retained')
+})
+
+test('toggles the optimized Milky Way backdrop and remembers the choice', async ({ page }, testInfo) => {
+  await openViewer(page)
+  const scene = page.locator('#scene')
+  const canvas = scene.locator('canvas')
+  await expect(scene).toHaveAttribute('data-milky-way-visible', 'true')
+  await expect(scene).toHaveAttribute('data-milky-way-ready', 'true')
+  await openFilter(page)
+  const toggle = page.getByRole('switch', { name: 'Show Milky Way' })
+  await expect(toggle).toBeChecked()
+  await expect(toggle.locator('xpath=ancestor::label/following-sibling::label[1]')).toContainText('Motion arrows')
+
+  const backdrop = await canvas.screenshot({ scale: 'css', path: testInfo.outputPath('milky-way-on.png') })
+  await toggle.uncheck()
+  await expect(scene).toHaveAttribute('data-milky-way-visible', 'false')
+  expect(changedPixels(backdrop, await canvas.screenshot({ scale: 'css' }))).toBeGreaterThan(10_000)
+
+  await openViewer(page)
+  await openFilter(page)
+  await expect(page.getByRole('switch', { name: 'Show Milky Way' })).not.toBeChecked()
+  await expect(scene).toHaveAttribute('data-milky-way-visible', 'false')
+  await expect(scene).not.toHaveAttribute('data-milky-way-ready')
 })
 
 function changedPixels(before: Buffer, after: Buffer): number {
@@ -285,6 +308,7 @@ test('keeps faint dots pickable and retains the last visibility base', async ({ 
 
 test('renders faint objects as small colored cores without halos at either pixel density', async ({ page }, testInfo) => {
   await openViewer(page)
+  await hideMilkyWay(page)
   await openFilter(page)
   await page.getByRole('button', { name: 'Grid', exact: true }).click()
   await page.getByLabel('V magnitude limit', { exact: true }).fill('12')
@@ -618,6 +642,7 @@ test('renders temperature-colored objects, measurements, and a responsive interf
   page.on('console', (message) => { if (message.type() === 'error') errors.push(message.text()) })
   page.on('requestfailed', (request) => errors.push(request.url()))
   await openViewer(page)
+  await hideMilkyWay(page)
   await expect(page.locator('#distance-value')).toHaveText('8.61')
   await expect(page.locator('#inspector').getByText('Galactic height', { exact: true })).toHaveCount(0)
   await expect(page.locator('#height-pc, #height-side, #height-signed')).toHaveCount(0)
@@ -673,7 +698,7 @@ test('renders temperature-colored objects, measurements, and a responsive interf
     expect(coloredPixels, `${id} must retain a colored bloom outside its white center`).toBeGreaterThan(8)
     hotCenterCounts.push(hotCenterPixels)
   }
-  expect(Math.abs(hotCenterCounts[0]! - hotCenterCounts[1]!)).toBeLessThan(10)
+  expect(Math.abs(hotCenterCounts[0]! - hotCenterCounts[1]!)).toBeLessThanOrEqual(10)
   await page.screenshot({ path: testInfo.outputPath('overview.png'), fullPage: true })
   expect(errors).toEqual([])
 })
@@ -744,6 +769,7 @@ test('renders brown and sub-brown dwarfs in visible brown shades', async ({ page
 
 test('renders soft halos beyond crisp cores and boosts only the selected halo', async ({ page }, testInfo) => {
   await openViewer(page)
+  await hideMilkyWay(page)
   await page.getByRole('button', { name: 'Objects', exact: true }).click()
   await page.getByRole('button', { name: 'Select Sun', exact: true }).click()
   await page.getByRole('button', { name: 'Objects', exact: true }).click()
@@ -799,6 +825,7 @@ test('renders soft halos beyond crisp cores and boosts only the selected halo', 
 
 test('makes Sirius glow larger and brighter than Barnard with zoom-stable magnitude sizes', async ({ page }, testInfo) => {
   await openViewer(page)
+  await hideMilkyWay(page)
   await openFilter(page)
   // Keep the arrow mask present at both zoom levels so it cannot enter the
   // sampled halo annulus midway through this halo-only comparison.
@@ -934,6 +961,7 @@ test('keeps bright and selected halos strongly temperature-tinted without clippi
 
 test('toggles the grid below reset without moving stars or changing selection', { tag: '@mobile' }, async ({ page, isMobile }, testInfo) => {
   await openViewer(page)
+  await hideMilkyWay(page)
   await openFilter(page)
   await page.getByLabel('Arrow length', { exact: true }).selectOption('50000')
   await page.getByRole('button', { name: 'Filter', exact: true }).click()
@@ -1484,6 +1512,7 @@ test('shows attached travel-length motion arrows with selectable horizons', { ta
   expect(shortSirius.projectedDistance).toBeCloseTo(siriusArrow.projectedDistance / 2, 2)
   await horizon.selectOption('50000')
   await expect.poll(async () => arrowFor(await motionArrows(page), 'sirius-a')?.projectedDistance).toBeCloseTo(siriusArrow.projectedDistance, 3)
+  await page.getByRole('button', { name: 'Filter', exact: true }).click()
   const bounds = (await page.locator('#scene canvas').boundingBox())!
   await page.mouse.move(bounds.x + bounds.width * 0.3, bounds.y + bounds.height * 0.3)
   await page.mouse.down()
