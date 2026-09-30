@@ -2,17 +2,18 @@
 
 # Star View
 
-A Sun-centered 3D map of nearby stars and brown dwarfs that runs in the browser. Built with TypeScript, Three.js and Vite. All data, fonts and icons are bundled, so it runs without a backend or network access.
+A Sun-centered 3D map of nearby stars, brown dwarfs and compact remnants that runs in the browser. Built with TypeScript, Three.js and Vite. All data, fonts and icons are bundled, so it runs without a backend or network access.
 
 This project is still in active development and there are a lot of features to come.
 
 ## Features
 
-- Four bundled catalogs: **Nearest neighbors** (21 objects plus the Sun, default), **Nearest 100**, **Nearest 1000**, and magnitude-limited **Bright stars** within 2000 light-years
+- Four bundled stellar catalogs: **Nearest neighbors** (21 objects plus the Sun, default), **Nearest 100**, **Nearest 1000**, and magnitude-limited **Bright stars** within 3000 light-years
+- Optional, separately loaded compact-remnant overlay: 266 ATNF pulsars, Gaia NS1, Gaia BH1 and Gaia BH3 within 3000 light-years; all three type filters start off
 - Orbit, zoom and pan with mouse or touch; selecting an object centers it
-- Inspector with type, constellation, spectral class, temperature, luminosity, mass, radius, metallicity, age, magnitude, distance and source notes
+- Type-aware inspector with stellar properties or compact-object rotation, mass, orbital context, detection status and source notes
 - Searchable list of objects matching the active distance and object-type filters
-- Map filters for brightness as seen from the selected star, distance from the Sun (to 2000 light-years), object type, and an optional deduplicated bright-star overlay
+- Map filters for brightness as seen from the selected star, distance from the Sun (to 3000 light-years), object type, and an optional deduplicated bright-star overlay
 - Real or exaggerated temperature colors, magnitude-based glow, motion arrows and an optional Galactic-aligned 360° Milky Way backdrop
 - Distance and height guides relative to the Sun
 - Light-year or parsec units, grid toggle and an optional power-saving mode
@@ -57,7 +58,7 @@ The toolbar has reset view, grid toggle, zoom controls, and back/forward navigat
 
 ## Data
 
-The default catalog is [src/data/stars.csv](src/data/stars.csv); the others are in `src/data/catalogs/<id>/`. Builds validate them and generate browser-ready JSON automatically, without downloads or Python. The larger catalogs come from audited, frozen source releases and do not claim complete membership.
+The default catalog is [src/data/stars.csv](src/data/stars.csv); the others are in `src/data/catalogs/<id>/`. The compact-remnant source package is in `src/data/overlays/compact-remnants/`, with frozen authoring inputs under `catalog-work/compact-remnants/`. Builds validate them and generate browser-ready JSON automatically, without downloads or Python. The larger catalogs and overlay use audited, frozen source releases and make only the source-defined completeness claims documented in the sourcing guide.
 
 Positions are a fixed J2000 snapshot in a Sun-centered, Galactic-aligned frame. Colors and glow are illustrative, not calibrated photometry.
 

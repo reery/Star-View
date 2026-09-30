@@ -1,7 +1,8 @@
 import './style.css'
 import { ArrowLeft, ArrowRight, CircleHelp, Filter, Focus, Grid2X2, List, Lock, Orbit, Settings2, ZoomIn, ZoomOut, createElement, type IconNode } from 'lucide'
-import { describeObject, OBJECT_TYPES, objectTypeLabel, type ObjectType, type Star } from './catalog-model'
+import { COMPACT_OBJECT_TYPES, describeObject, isCompactObject, OBJECT_TYPES, objectTypeLabel, STELLAR_OBJECT_TYPES, type ObjectType, type Star } from './catalog-model'
 import { catalogSelection, mergeCatalogStars } from './catalog-runtime'
+import { loadCompactRemnants } from './compact-overlay'
 import { catalogs, catalogErrors } from './registry'
 import { formatDistance, gridSpacingPc, starDisplayColor, sunRelativeMetrics, type DistanceUnit, type MotionFrame, type StarColorMode } from './astronomy'
 import { MOTION_YEAR_OPTIONS, createStarViewer, type MotionYears, type StarViewer, type ViewerViewState } from './viewer'
@@ -33,6 +34,24 @@ function measurement(value: number | null, error: number | null, unit: string, m
   const formatted = value.toLocaleString('en-US', { maximumFractionDigits })
   const uncertainty = error === null ? '' : ` +/- ${error.toLocaleString('en-US', { maximumFractionDigits })}`
   return `${formatted}${uncertainty} ${unit}`
+}
+
+function preciseMeasurement(value: number | null, error: number | null, unit: string): string {
+  if (value === null) return 'Not available'
+  const significant = (number: number, digits: number) => {
+    const absolute = Math.abs(number)
+    return absolute > 0 && (absolute < 1e-6 || absolute >= 1e9)
+      ? number.toExponential(digits - 1).replace('e+', 'e')
+      : number.toLocaleString('en-US', { maximumSignificantDigits: digits })
+  }
+  const formatted = significant(value, 8)
+  const uncertainty = error === null ? '' : ` +/- ${significant(error, 3)}`
+  return `${formatted}${uncertainty} ${unit}`
+}
+
+function scientificQuantity(value: number | null, unit: string): string {
+  if (value === null) return 'Not available'
+  return `${value.toExponential(3).replace('e+', 'e')} ${unit}`
 }
 
 icon('reset-icon', Focus)
@@ -68,12 +87,12 @@ let motionFrame: MotionFrame = 'galactic'
 let motionYears: MotionYears = 1_000
 let catalogRequest = 0
 let sceneBusy = true
-const selectedTypes = new Set<ObjectType>(OBJECT_TYPES)
+const selectedTypes = new Set<ObjectType>(STELLAR_OBJECT_TYPES)
 let sunVisible = true
 let distanceUnit: DistanceUnit = 'ly'
 let starColorMode: StarColorMode = 'exaggerated'
 const BRIGHT_CATALOG_ID = 'bright-stars'
-const OBJECT_DISTANCE_STEPS_LY = [5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 60, 70, 80, 90, 100, 150, 200, 300, 500, 1000, 1500, 2000] as const
+const OBJECT_DISTANCE_STEPS_LY = [5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 60, 70, 80, 90, 100, 150, 200, 300, 500, 1000, 1500, 2000, 3000] as const
 try {
   if (localStorage.getItem('star-view-distance-unit') === 'pc') distanceUnit = 'pc'
   if (localStorage.getItem('star-view-color-mode') === 'real') starColorMode = 'real'
@@ -176,14 +195,36 @@ function renderSelection(): void {
   text('distance-unit', ` ${distanceUnit}`)
   text('object-type', describeObject(star))
   text('constellation', star.id === 'sun' ? 'Not applicable' : star.constellation ?? 'Not available')
+  const compact = star.compact
+  const compactObject = isCompactObject(star)
+  for (const row of document.querySelectorAll<HTMLElement>('.stellar-property')) row.hidden = compactObject
+  for (const row of document.querySelectorAll<HTMLElement>('.compact-property')) row.hidden = !compactObject
+  for (const row of document.querySelectorAll<HTMLElement>('.pulsar-property')) row.hidden = star.type !== 'pulsar'
+  for (const row of document.querySelectorAll<HTMLElement>('.rotation-property')) row.hidden = star.type === 'black_hole' || !compactObject
+  for (const row of document.querySelectorAll<HTMLElement>('.orbit-property')) row.hidden = !compact || (compact.orbital_period_days === null && compact.companion === null)
   text('spectral-type', star.spectral_type ?? 'Not available')
   text('temperature', quantity(star.temperature_k, 'K', 0))
   const luminosity = star.luminosity_solar
   text('luminosity', luminosity !== null && luminosity < 1 ? `${luminosity.toLocaleString('en-US', { maximumSignificantDigits: 3 })} solar` : quantity(luminosity, 'solar'))
-  text('mass', quantity(star.mass_solar, 'solar'))
+  text('mass', compact ? preciseMeasurement(star.mass_solar, compact.mass_error_solar, 'solar') : quantity(star.mass_solar, 'solar'))
   text('radius', quantity(star.radius_solar, 'solar'))
   text('metallicity', quantity(star.metallicity_dex, 'dex'))
   text('age', quantity(star.age_gyr, 'Gyr'))
+  if (compact) {
+    text('compact-status', compact.confidence === 'confirmed' ? 'Confirmed' : 'Candidate')
+    const rotation = preciseMeasurement(compact.rotation_period_s, compact.rotation_period_error_s, 's')
+    text('rotation-period', compact.rotation_period_s === null ? rotation : `${rotation} (${(1 / compact.rotation_period_s).toLocaleString('en-US', { maximumSignificantDigits: 6 })} Hz)`)
+    text('radio-luminosity', quantity(compact.radio_luminosity_1400_mjy_kpc2, 'mJy kpc²'))
+    text('characteristic-age', quantity(compact.characteristic_age_yr, 'yr', 0))
+    text('surface-field', scientificQuantity(compact.surface_magnetic_field_gauss, 'G'))
+    text('spin-down-power', scientificQuantity(compact.spin_down_power_erg_s, 'erg/s'))
+    text('orbital-period', preciseMeasurement(compact.orbital_period_days, compact.orbital_period_error_days, 'days'))
+    text('compact-companion', compact.companion ?? 'Not available')
+    text('detection-method', compact.detection_method)
+    const source = element<HTMLAnchorElement>('compact-source')
+    source.textContent = compact.source_label
+    source.href = compact.source_url
+  }
   text('coordinate-x', formatDistance(star.x_pc, distanceUnit, 3))
   text('coordinate-y', formatDistance(star.y_pc, distanceUnit, 3))
   text('coordinate-z', formatDistance(star.z_pc, distanceUnit, 3))
@@ -195,14 +236,14 @@ function renderSelection(): void {
   const raw = star.raw_astrometry
   const fullVelocity = [star.vx_kms, star.vy_kms, star.vz_kms].every((value) => value !== null) || (raw !== null && raw.radial_velocity_kms !== null)
   text('motion-data', fullVelocity ? 'Full space motion' : raw ? 'Transverse only; radial velocity unavailable' : 'Not available')
-  text('right-ascension', raw ? `${raw.ra_deg.toLocaleString('en-US', { maximumFractionDigits: 9 })} deg` : 'Not available')
-  text('declination', raw ? `${raw.dec_deg.toLocaleString('en-US', { maximumFractionDigits: 9 })} deg` : 'Not available')
+  text('right-ascension', raw ? `${raw.ra_deg.toLocaleString('en-US', { maximumFractionDigits: 9 })} deg` : compact ? `${compact.ra_deg.toLocaleString('en-US', { maximumFractionDigits: 9 })} deg` : 'Not available')
+  text('declination', raw ? `${raw.dec_deg.toLocaleString('en-US', { maximumFractionDigits: 9 })} deg` : compact ? `${compact.dec_deg.toLocaleString('en-US', { maximumFractionDigits: 9 })} deg` : 'Not available')
   text('astrometry-epoch', raw ? `J${raw.epoch.toFixed(1)}` : 'Not available')
   text('parallax', raw ? measurement(raw.parallax_mas, raw.parallax_error_mas, 'mas', 6) : 'Not available')
   text('proper-motion-ra', raw ? measurement(raw.pm_ra_cosdec_masyr, raw.pm_ra_error_masyr, 'mas/yr', 6) : 'Not available')
   text('proper-motion-dec', raw ? measurement(raw.pm_dec_masyr, raw.pm_dec_error_masyr, 'mas/yr', 6) : 'Not available')
   text('radial-velocity', raw ? measurement(raw.radial_velocity_kms, raw.radial_velocity_error_kms, 'km/s', 6) : 'Not available')
-  text('astrometry-source', raw?.astrometry_ref ?? 'Not available')
+  text('astrometry-source', raw?.astrometry_ref || compact?.position_source || 'Not available')
   text('absolute-mag', quantity(star.absolute_mag))
   text('star-notes', star.notes || 'No source notes available.')
   text('selection-announcement', `${star.name}, ${formatDistance(metrics.distancePc, distanceUnit)} from the Sun.`)
@@ -253,8 +294,10 @@ async function switchCatalog(id: string, refresh = false): Promise<void> {
     const brightCatalog = showAlwaysBright && id !== BRIGHT_CATALOG_ID
       ? await catalogs.find((catalog) => catalog.manifest.id === BRIGHT_CATALOG_ID)!.load()
       : []
-    nextStars = mergeCatalogStars(selectedCatalog, brightCatalog)
-    gridHalfSizePc = Math.max(3, Math.ceil(Math.max(...selectedCatalog.map((star) => Math.hypot(star.x_pc, star.y_pc, star.z_pc))) + 1))
+    const compactObjects = COMPACT_OBJECT_TYPES.some((type) => selectedTypes.has(type)) ? await loadCompactRemnants() : []
+    nextStars = [...mergeCatalogStars(selectedCatalog, brightCatalog), ...compactObjects]
+    const gridObjects = compactObjects.length ? [...selectedCatalog, ...compactObjects] : selectedCatalog
+    gridHalfSizePc = Math.max(3, Math.ceil(Math.max(...gridObjects.map((star) => Math.hypot(star.x_pc, star.y_pc, star.z_pc))) + 1))
   } catch (error) {
     if (request !== catalogRequest) return
     catalogError(error)
@@ -331,7 +374,7 @@ function appendObjectTypeOption(nameText: string, type?: ObjectType): void {
   input.name = 'object-type'
   if (type) input.dataset.objectType = type
   else input.dataset.objectId = 'sun'
-  input.checked = true
+  input.checked = type ? selectedTypes.has(type) : sunVisible
   const name = document.createElement('span')
   name.textContent = nameText
   label.append(input, name)
@@ -439,6 +482,10 @@ element('object-type-filter').addEventListener('change', (event) => {
   if (input.checked) selectedTypes.add(type)
   else selectedTypes.delete(type)
   renderObjectTypeSummary()
+  if (COMPACT_OBJECT_TYPES.includes(type as never)) {
+    void switchCatalog(activeCatalogId, true)
+    return
+  }
   updateObjectListFilter()
   viewer?.setObjectTypeFilter([...selectedTypes])
 }, { signal: events.signal })

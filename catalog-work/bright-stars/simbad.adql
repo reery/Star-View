@@ -1,4 +1,4 @@
-SELECT
+SELECT DISTINCT
   b.main_id,
   b.ra,
   b.dec,
@@ -12,7 +12,9 @@ SELECT
   f.flux AS V
 FROM basic AS b
 JOIN flux AS f ON b.oid = f.oidref
+JOIN otypes AS o ON b.oid = o.oidref
 WHERE f.filter = 'V'
-  AND f.flux < 2.42
-  AND b.plx_value >= 1.6307818885
+  AND f.flux < 2.70
+  AND b.plx_value >= 1.0871879257
+  AND o.otype = '*'
 ORDER BY V

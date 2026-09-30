@@ -1,5 +1,5 @@
 import Papa from 'papaparse'
-import { OBJECT_TYPES, type ObjectType, type RawAstrometry, type Star } from './catalog-model.ts'
+import { OBJECT_TYPES, STELLAR_OBJECT_TYPES, type ObjectType, type RawAstrometry, type Star } from './catalog-model.ts'
 
 export { OBJECT_TYPES, describeObject, objectTypeLabel, type ObjectType, type RawAstrometry, type Star } from './catalog-model.ts'
 
@@ -41,7 +41,7 @@ type CatalogField = typeof CATALOG_HEADERS[number]
 type CsvRecord = Partial<Record<CatalogField, string>>
 
 function isObjectType(value: string | undefined): value is ObjectType {
-  return OBJECT_TYPES.some((candidate) => candidate === value)
+  return STELLAR_OBJECT_TYPES.some((candidate) => candidate === value)
 }
 
 function invalid(record: number, field: string, reason: string): never {
