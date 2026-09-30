@@ -166,3 +166,9 @@ export async function openFilter(page: Page) {
   const button = page.getByRole('button', { name: 'Filter', exact: true })
   if (await button.getAttribute('aria-expanded') === 'false') await button.click()
 }
+
+export async function hideMilkyWay(page: Page) {
+  const toggle = page.locator('#milky-way-visible')
+  if (await toggle.isChecked()) await toggle.evaluate((element) => (element as HTMLInputElement).click())
+  await expect(page.locator('#scene')).toHaveAttribute('data-milky-way-visible', 'false')
+}

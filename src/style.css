@@ -161,6 +161,7 @@ select:focus-visible, input:focus-visible { outline: 2px solid var(--accent); ou
 .info-meta > div { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; padding: 7px 0; font-size: 13px; }
 .info-meta dt { color: var(--muted); }
 .info-meta dd { text-align: right; font-weight: 500; }
+.attribution-note { color: var(--muted); font-size: 10px; font-weight: 400; }
 .info-meta a { color: var(--accent-strong); text-underline-offset: 3px; }
 .info-meta a:hover { color: #fff0dc; }
 .info-meta a:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 2px; }

@@ -63,6 +63,7 @@ let gridVisible = true
 let powerSavingMode = false
 let labelLimit = 40
 let motionArrowsVisible = true
+let milkyWayVisible = true
 let motionFrame: MotionFrame = 'galactic'
 let motionYears: MotionYears = 1_000
 let catalogRequest = 0
@@ -76,11 +77,13 @@ const OBJECT_DISTANCE_STEPS_LY = [5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 60, 70,
 try {
   if (localStorage.getItem('star-view-distance-unit') === 'pc') distanceUnit = 'pc'
   if (localStorage.getItem('star-view-color-mode') === 'real') starColorMode = 'real'
+  if (localStorage.getItem('star-view-milky-way-visible') === 'false') milkyWayVisible = false
   const storedLabelLimit = localStorage.getItem('star-view-label-limit')
   const parsedLabelLimit = Number(storedLabelLimit)
   if (storedLabelLimit !== null && parsedLabelLimit >= 0 && parsedLabelLimit <= 140 && parsedLabelLimit % 20 === 0) labelLimit = parsedLabelLimit
 } catch {}
 element<HTMLInputElement>(`star-colors-${starColorMode}`).checked = true
+element<HTMLInputElement>('milky-way-visible').checked = milkyWayVisible
 const labelLimitInput = element<HTMLInputElement>('label-limit')
 labelLimitInput.value = String(labelLimit)
 labelLimitInput.setAttribute('aria-valuetext', labelLimit === 0 ? 'Off' : `${labelLimit} labels`)
@@ -277,7 +280,14 @@ async function switchCatalog(id: string, refresh = false): Promise<void> {
   updateObjectListFilter()
   renderDistances()
   try {
-    viewer = createStarViewer(element('scene'), stars, { onInteraction: dismissOpenPanel, onSelect: selectStar, onStatus: sceneStatus, colorMode: starColorMode, gridHalfSizePc })
+    viewer = createStarViewer(element('scene'), stars, {
+      onInteraction: dismissOpenPanel,
+      onSelect: selectStar,
+      onStatus: sceneStatus,
+      colorMode: starColorMode,
+      gridHalfSizePc,
+      milkyWayVisible,
+    })
   } catch (error) {
     console.error('Could not create the 3D viewer.', error)
     sceneStatus('3D graphics are unavailable on this device. The object catalog and details are still available.')
@@ -398,6 +408,11 @@ element('label-limit').addEventListener('input', () => {
 element('motion-arrows-visible').addEventListener('change', () => {
   motionArrowsVisible = element<HTMLInputElement>('motion-arrows-visible').checked
   viewer?.setMotionArrowsVisible(motionArrowsVisible)
+}, { signal: events.signal })
+element('milky-way-visible').addEventListener('change', () => {
+  milkyWayVisible = element<HTMLInputElement>('milky-way-visible').checked
+  try { localStorage.setItem('star-view-milky-way-visible', String(milkyWayVisible)) } catch {}
+  viewer?.setMilkyWayVisible(milkyWayVisible)
 }, { signal: events.signal })
 element('motion-years').addEventListener('change', () => {
   const years = Number(element<HTMLSelectElement>('motion-years').value) as MotionYears

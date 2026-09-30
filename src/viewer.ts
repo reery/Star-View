@@ -1,10 +1,11 @@
 import {
-  AdditiveBlending, Box3, BufferGeometry, CanvasTexture, Color, DoubleSide, DynamicDrawUsage, Float32BufferAttribute,
+  AdditiveBlending, BackSide, Box3, BoxGeometry, BufferGeometry, CanvasTexture, Color, DoubleSide, DynamicDrawUsage, Float32BufferAttribute,
   GridHelper, Group, InstancedBufferAttribute, InstancedBufferGeometry, LessDepth, Line, LineBasicMaterial, LineDashedMaterial,
-  LineSegments, Matrix4, Mesh, NoBlending, Object3D, PerspectiveCamera, Points, PointsMaterial, Scene, ShaderMaterial, Sphere,
-  SRGBColorSpace, Vector2, Vector3, Vector4, WebGLRenderer,
+  LinearFilter, LineSegments, Matrix4, Mesh, NoBlending, Object3D, PerspectiveCamera, Points, PointsMaterial, Scene, ShaderMaterial,
+  Sphere, SRGBColorSpace, TextureLoader, Vector2, Vector3, Vector4, WebGLRenderer, type Texture,
 } from 'three'
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js'
+import milkyWayImageUrl from './assets/milky-way.jpg'
 import { OBJECT_TYPES, type ObjectType, type Star } from './catalog-model'
 import { apparentVisualMagnitude, displayMotionForStar, formatDistance, galacticToWorld, gridSpacingPc, LIGHT_YEARS_PER_PARSEC, starDisplayColor, sunRelativeMetrics, type DistanceUnit, type MotionFrame, type MotionMode, type StarColorMode } from './astronomy'
 import { advanceFrameDeadline, effectiveDampingFactor, estimateRefreshRate, renderPixelRatio, targetRenderFps } from './render-scheduling'
@@ -29,6 +30,7 @@ export interface StarViewer {
   setSunVisible(visible: boolean): void
   setLabelLimit(limit: number): void
   setMotionArrowsVisible(visible: boolean): void
+  setMilkyWayVisible(visible: boolean): void
   setMotionFrame(frame: MotionFrame): void
   setMotionYears(years: MotionYears): void
   setPowerSavingMode(enabled: boolean): void
@@ -54,6 +56,7 @@ interface ViewerOptions {
   onStatus(message: string | null): void
   colorMode: StarColorMode
   gridHalfSizePc?: number
+  milkyWayVisible?: boolean
 }
 
 // Last drawn motion arrow in client CSS px, returned by the label layer's motionArrowSnapshot() test hook.
@@ -162,6 +165,60 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
   controls.minDistance = 0.08
   controls.maxDistance = Math.max(30, catalogSphere.radius * 24)
   camera.far = controls.maxDistance * 5
+
+  // Sample the equirectangular panorama directly rather than asking Three.js
+  // to expand it into six equally large cube faces. Besides saving GPU memory,
+  // this preserves its exact Galactic orientation: the centre points toward
+  // Galactic x, north is +world y, and increasing longitude points toward
+  // -world z, matching galacticToWorld().
+  const milkyWayUniforms = {
+    map: { value: null as Texture | null },
+    intensity: { value: 0.12 },
+  }
+  const milkyWayGeometry = new BoxGeometry(1, 1, 1)
+  const milkyWayMaterial = new ShaderMaterial({
+    uniforms: milkyWayUniforms,
+    side: BackSide,
+    depthTest: false,
+    depthWrite: false,
+    toneMapped: false,
+    vertexShader: `
+      varying vec3 worldDirection;
+      #include <common>
+      void main() {
+        worldDirection = transformDirection(position, modelMatrix);
+        #include <begin_vertex>
+        #include <project_vertex>
+        gl_Position.z = gl_Position.w;
+      }
+    `,
+    fragmentShader: `
+      uniform sampler2D map;
+      uniform float intensity;
+      varying vec3 worldDirection;
+      #include <common>
+      void main() {
+        vec4 panorama = texture2D(map, equirectUv(normalize(worldDirection)));
+        vec3 skyColor = panorama.rgb * intensity;
+        // Keep empty sky transparent so the DOM axis captions behind the
+        // canvas remain visible, while preserving the same color over black.
+        float skyAlpha = max(max(skyColor.r, skyColor.g), skyColor.b);
+        gl_FragColor = vec4(skyColor, skyAlpha);
+        #include <colorspace_fragment>
+      }
+    `,
+  })
+  const milkyWaySky = new Mesh(milkyWayGeometry, milkyWayMaterial)
+  milkyWaySky.frustumCulled = false
+  milkyWaySky.renderOrder = -1
+  milkyWaySky.visible = false
+  milkyWaySky.onBeforeRender = (_renderer, _scene, activeCamera) => {
+    milkyWaySky.matrixWorld.copyPosition(activeCamera.matrixWorld)
+  }
+  scene.add(milkyWaySky)
+  let milkyWayVisible = options.milkyWayVisible ?? true
+  let milkyWayLoading = false
+  let milkyWayTexture: Texture | null = null
 
   const textureCanvas = document.createElement('canvas')
   textureCanvas.width = textureCanvas.height = 64
@@ -668,6 +725,30 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
     }
     if (pendingFrame !== null) return
     pendingFrame = requestAnimationFrame(render)
+  }
+
+  function loadMilkyWay(): void {
+    if (milkyWayTexture || milkyWayLoading || disposed) return
+    milkyWayLoading = true
+    new TextureLoader().load(milkyWayImageUrl, (texture) => {
+      milkyWayLoading = false
+      if (disposed) {
+        texture.dispose()
+        return
+      }
+      texture.colorSpace = SRGBColorSpace
+      texture.generateMipmaps = false
+      texture.minFilter = LinearFilter
+      texture.magFilter = LinearFilter
+      milkyWayTexture = texture
+      milkyWayUniforms.map.value = texture
+      milkyWaySky.visible = milkyWayVisible
+      container.dataset.milkyWayReady = 'true'
+      requestRender()
+    }, undefined, () => {
+      milkyWayLoading = false
+      if (!disposed) container.dataset.milkyWayReady = 'error'
+    })
   }
 
   function cancelRender(): void {
@@ -1443,6 +1524,8 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
   })
   sceneObstacleElements.forEach((element) => obstacleObserver.observe(element))
   updatePresentation()
+  container.dataset.milkyWayVisible = String(milkyWayVisible)
+  if (milkyWayVisible) loadMilkyWay()
   resize()
   requestRender()
   container.dataset.ready = 'true'
@@ -1501,6 +1584,14 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
       motionArrowsVisible = visible
       invalidateProjection()
       ordinaryLayoutDirty = true
+      requestRender()
+    },
+    setMilkyWayVisible(visible) {
+      if (visible === milkyWayVisible) return
+      milkyWayVisible = visible
+      container.dataset.milkyWayVisible = String(visible)
+      if (visible && !milkyWayTexture) loadMilkyWay()
+      milkyWaySky.visible = visible && milkyWayTexture !== null
       requestRender()
     },
     setMotionFrame(frame) {
@@ -1612,6 +1703,9 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
       arrowMaterial.dispose()
       dotTexture.dispose()
       haloTexture.dispose()
+      milkyWayTexture?.dispose()
+      milkyWayGeometry.dispose()
+      milkyWayMaterial.dispose()
       renderer.dispose()
       canvas.remove()
       axisLayer.remove()
@@ -1619,6 +1713,8 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
       delete container.dataset.ready
       delete container.dataset.gridSpacingPc
       delete container.dataset.gridHalfSizePc
+      delete container.dataset.milkyWayReady
+      delete container.dataset.milkyWayVisible
     },
   }
 }

@@ -1,8 +1,10 @@
-<img src="starview_v05.png" alt="Star View v0.1 screenshot" width="800">
+<img src="starview_v06.png" alt="Star View v0.1 screenshot" width="800">
 
 # Star View
 
 A Sun-centered 3D map of nearby stars and brown dwarfs that runs in the browser. Built with TypeScript, Three.js and Vite. All data, fonts and icons are bundled, so it runs without a backend or network access.
+
+This project is still in active development and there are a lot of features to come.
 
 ## Features
 
@@ -11,7 +13,7 @@ A Sun-centered 3D map of nearby stars and brown dwarfs that runs in the browser.
 - Inspector with type, constellation, spectral class, temperature, luminosity, mass, radius, metallicity, age, magnitude, distance and source notes
 - Searchable list of objects matching the active distance and object-type filters
 - Map filters for brightness as seen from the selected star, distance from the Sun (to 2000 light-years), object type, and an optional deduplicated bright-star overlay
-- Real or exaggerated temperature colors, magnitude-based glow and motion arrows
+- Real or exaggerated temperature colors, magnitude-based glow, motion arrows and an optional Galactic-aligned 360° Milky Way backdrop
 - Distance and height guides relative to the Sun
 - Light-year or parsec units, grid toggle and an optional power-saving mode
 - Desktop and mobile layouts
