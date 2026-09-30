@@ -1,8 +1,10 @@
-<img src="starview_v05.png" alt="Star View v0.1 screenshot" width="800">
+<img src="starview_v06.png" alt="Star View v0.1 screenshot" width="800">
 
 # Star View
 
 A Sun-centered 3D map of nearby stars and brown dwarfs that runs in the browser. Built with TypeScript, Three.js and Vite. All data, fonts and icons are bundled, so it runs without a backend or network access.
+
+This project is still in active development and there are a lot of features to come.
 
 ## Features
 
