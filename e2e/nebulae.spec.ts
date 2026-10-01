@@ -1,9 +1,19 @@
+import { readFileSync } from 'node:fs'
 import { expect, test, type Page } from '@playwright/test'
 import { PNG } from 'pngjs'
+import { LIGHT_YEARS_PER_PARSEC } from '../src/astronomy'
 import { hideMilkyWay, openFilter, openPreferences, openViewer } from './support'
 
-const ORION_PUFFS = 320
-const PLEIADES_PUFFS = 200
+type NebulaRow = { type: string; nebula: { distance_pc: number; puff_count: number } }
+const NEBULAE: NebulaRow[] = JSON.parse(readFileSync(new URL('../src/data/overlays/nebulae/objects.json', import.meta.url), 'utf8')).objects
+const INTERSTELLAR = ['reflection_nebula', 'hii_region']
+const DEFAULT_ROWS = 22
+
+function expectedPuffs(limitLy: number, types = INTERSTELLAR, fraction = 1) {
+  return String(NEBULAE
+    .filter((row) => types.includes(row.type) && row.nebula.distance_pc * LIGHT_YEARS_PER_PARSEC <= limitLy)
+    .reduce((sum, row) => sum + Math.max(1, Math.ceil(row.nebula.puff_count * fraction)), 0))
+}
 
 async function nextFrames(page: Page, count = 2) {
   await page.evaluate((frames) => new Promise<void>((resolve) => {
@@ -48,29 +58,33 @@ test('loads nebulae on demand through the interstellar-medium category', async (
   const reflection = page.getByLabel('Reflection nebulae', { exact: true })
   await expect(hii).toBeDisabled()
   await enableNebulae(page, '14')
-  await expect(page.locator('#catalog-count')).toHaveText(/\/24$/)
+  await expect(page.locator('#catalog-count')).toHaveText(new RegExp(`/${DEFAULT_ROWS + NEBULAE.length}$`))
   expect(nebulaRequests).toHaveLength(1)
   await expect(hii).toBeEnabled()
-  await expect(page.locator('#object-type-filter-summary')).toHaveText('6 of 9')
+  await expect(page.locator('#object-type-filter-summary')).toHaveText('6 of 10')
   const layer = page.locator('.projected-labels')
   // Nebulae follow the Sun-centered distance filter by their centers.
   await expect(layer).toHaveAttribute('data-nebula-puff-count', '0')
   await expect(page.locator('[data-star="orion-nebula"]')).toHaveCount(0)
   await page.getByLabel('Object visibility distance', { exact: true }).fill('18')
-  await expect(layer).toHaveAttribute('data-nebula-puff-count', String(PLEIADES_PUFFS))
+  await expect(layer).toHaveAttribute('data-nebula-puff-count', expectedPuffs(500))
   await page.getByLabel('Object visibility distance', { exact: true }).fill('20')
-  await expect(layer).toHaveAttribute('data-nebula-puff-count', String(PLEIADES_PUFFS + ORION_PUFFS))
+  await expect(layer).toHaveAttribute('data-nebula-puff-count', expectedPuffs(1500))
   await reflection.uncheck()
-  await expect(layer).toHaveAttribute('data-nebula-puff-count', String(ORION_PUFFS))
-  await expect(page.locator('#object-type-filter-summary')).toHaveText('5 of 9')
+  await expect(layer).toHaveAttribute('data-nebula-puff-count', expectedPuffs(1500, ['hii_region']))
+  await expect(page.locator('#object-type-filter-summary')).toHaveText('5 of 10')
   await reflection.check()
+  // Planetary nebulae share the overlay but live under Stellar remnants.
+  await page.getByRole('switch', { name: 'Stellar remnants', exact: true }).check()
+  await expect(layer).toHaveAttribute('data-nebula-puff-count', expectedPuffs(1500, [...INTERSTELLAR, 'planetary_nebula']))
+  await page.getByRole('switch', { name: 'Stellar remnants', exact: true }).uncheck()
   expect(nebulaRequests).toHaveLength(1)
 
   await openPreferences(page)
   await page.getByRole('switch', { name: 'Power saving mode' }).check()
-  await expect(layer).toHaveAttribute('data-nebula-puff-count', String(PLEIADES_PUFFS / 2 + ORION_PUFFS / 2))
+  await expect(layer).toHaveAttribute('data-nebula-puff-count', expectedPuffs(1500, INTERSTELLAR, 0.5))
   await page.getByRole('switch', { name: 'Power saving mode' }).uncheck()
-  await expect(layer).toHaveAttribute('data-nebula-puff-count', String(PLEIADES_PUFFS + ORION_PUFFS))
+  await expect(layer).toHaveAttribute('data-nebula-puff-count', expectedPuffs(1500))
 
   await page.getByRole('button', { name: 'Objects', exact: true }).click()
   await page.getByLabel('Search objects').fill('M42')
@@ -88,7 +102,7 @@ test('loads nebulae on demand through the interstellar-medium category', async (
 
   await openFilter(page)
   await page.getByRole('switch', { name: 'Interstellar medium', exact: true }).uncheck()
-  await expect(page.locator('#catalog-count')).toHaveText(/\/22$/)
+  await expect(page.locator('#catalog-count')).toHaveText(new RegExp(`/${DEFAULT_ROWS}$`))
   await expect(layer).not.toHaveAttribute('data-nebula-puff-count')
   await expect(page.locator('#star-details')).toBeHidden()
 })
@@ -100,11 +114,11 @@ test('draws all nebulae in one additive call that follows the color preference a
   await page.getByRole('switch', { name: 'Motion arrows', exact: true }).uncheck()
   await enableNebulae(page)
   const layer = page.locator('.projected-labels')
-  await expect(layer).toHaveAttribute('data-nebula-puff-count', String(PLEIADES_PUFFS + ORION_PUFFS))
+  await expect(layer).toHaveAttribute('data-nebula-puff-count', expectedPuffs(1500))
   await page.getByRole('button', { name: 'Zoom in', exact: true }).click()
   await nextFrames(page)
   const withNebulae = Number(await layer.getAttribute('data-draw-calls'))
-  await page.getByLabel('Object visibility distance', { exact: true }).fill('17')
+  await page.getByLabel('Object visibility distance', { exact: true }).fill('14')
   await expect(layer).toHaveAttribute('data-nebula-puff-count', '0')
   await expect(layer).toHaveAttribute('data-draw-calls', String(withNebulae - 1))
   await page.getByLabel('Object visibility distance', { exact: true }).fill('20')
@@ -113,7 +127,8 @@ test('draws all nebulae in one additive call that follows the color preference a
   await page.getByRole('button', { name: 'Objects', exact: true }).click()
   await page.getByLabel('Search objects').fill('Orion')
   await page.getByRole('button', { name: 'Select Orion Nebula', exact: true }).click()
-  for (let step = 0; step < 14; step++) await page.getByRole('button', { name: 'Zoom in', exact: true }).click()
+  // The home view frames every visible nebula, so Orion starts small.
+  for (let step = 0; step < 15; step++) await page.getByRole('button', { name: 'Zoom in', exact: true }).click()
   await page.getByRole('button', { name: 'Objects', exact: true }).click()
   await nextFrames(page)
   const canvas = page.locator('#scene canvas')

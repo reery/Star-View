@@ -3,7 +3,7 @@ import { Vector3 } from 'three'
 import manifestRaw from './data/overlays/nebulae/manifest.json?raw'
 import payloadRaw from './data/overlays/nebulae/objects.json?raw'
 import { equatorialToGalacticPc, type Star } from './catalog-model'
-import { galacticToWorld, starDisplayColor } from './astronomy'
+import { galacticToWorld, LIGHT_YEARS_PER_PARSEC, starDisplayColor } from './astronomy'
 import { parseNebulaOverlayManifest, parseNebulaOverlayPayload } from './nebula-overlay-model'
 import { generateNebulaPuffs, nebulaBasis, packNebulaInstances, seededRandom } from './nebula-layer'
 
@@ -19,12 +19,23 @@ function payloadWith(change: (object: Record<string, any>) => void) {
 }
 
 describe('nebula overlay data', () => {
-  it('validates the bundled Pleiades and Orion records', () => {
-    expect(nebulae.map((nebula) => [nebula.id, nebula.type])).toEqual([
+  it('validates the bundled showcase and census records', () => {
+    expect(nebulae.slice(0, 2).map((nebula) => [nebula.id, nebula.type])).toEqual([
       ['pleiades-nebula', 'reflection_nebula'],
       ['orion-nebula', 'hii_region'],
     ])
-    expect(manifest.counts).toEqual({ reflection_nebula: 1, hii_region: 1 })
+    expect(nebulae).toHaveLength(22)
+    expect(manifest.counts).toEqual({ reflection_nebula: 17, hii_region: 4, planetary_nebula: 1 })
+    expect(byId('sh-2-216').type).toBe('planetary_nebula')
+  })
+
+  it('keeps every census nebula within 1 sigma of 500 ly and at least 5 arcmin across', () => {
+    const cutoffPc = 500 / LIGHT_YEARS_PER_PARSEC
+    for (const nebula of nebulae.filter((candidate) => candidate.id !== 'orion-nebula')) {
+      const { distance_pc, distance_error_pc, angular_size_arcmin } = nebula.nebula!
+      expect(distance_pc - (distance_error_pc ?? 0), nebula.id).toBeLessThanOrEqual(cutoffPc)
+      expect(Math.max(...angular_size_arcmin), nebula.id).toBeGreaterThanOrEqual(5)
+    }
   })
 
   it('places the nebulae at their Galactic directions and adopted distances', () => {
@@ -113,6 +124,19 @@ describe('nebula puff volumes', () => {
     }
   })
 
+  it('samples the planetary nebula as a hollow shell', () => {
+    const shell = byId('sh-2-216')
+    expect(shell.nebula!.shape.kind).toBe('shell')
+    const [depth, major, minor] = shell.nebula!.shape.semi_axes_pc
+    const puffs = generateNebulaPuffs(shell, sun)
+    for (let index = 0; index < puffs.count; index++) {
+      const [d, u, v] = puffs.local.subarray(index * 3, index * 3 + 3)
+      const radius = Math.hypot(d! / depth, u! / major, v! / minor)
+      expect(radius).toBeGreaterThanOrEqual(0.8 - 1e-6)
+      expect(radius).toBeLessThanOrEqual(1 + 1e-6)
+    }
+  })
+
   it('packs visible nebulae with level-of-detail prefixes', () => {
     const sources = nebulae.map((nebula) => generateNebulaPuffs(nebula, sun))
     const capacity = sources.reduce((sum, puffs) => sum + puffs.count, 0)
@@ -122,12 +146,14 @@ describe('nebula puff volumes', () => {
       realColors: new Float32Array(capacity * 3),
       vividColors: new Float32Array(capacity * 3),
     }
-    expect(packNebulaInstances(sources, [true, true], 1, target)).toBe(capacity)
-    expect(packNebulaInstances(sources, [false, true], 1, target)).toBe(sources[1]!.count)
+    const all = sources.map(() => true)
+    const onlySecond = sources.map((_, index) => index === 1)
+    expect(packNebulaInstances(sources, all, 1, target)).toBe(capacity)
+    expect(packNebulaInstances(sources, onlySecond, 1, target)).toBe(sources[1]!.count)
     expect(target.centers.subarray(0, 3)).toEqual(sources[1]!.centers.subarray(0, 3))
-    expect(packNebulaInstances(sources, [true, true], 0.5, target)).toBe(Math.ceil(sources[0]!.count / 2) + Math.ceil(sources[1]!.count / 2))
+    expect(packNebulaInstances(sources, all, 0.5, target)).toBe(sources.reduce((sum, puffs) => sum + Math.ceil(puffs.count / 2), 0))
     expect(target.shapes.subarray(Math.ceil(sources[0]!.count / 2) * 4, Math.ceil(sources[0]!.count / 2) * 4 + 4))
       .toEqual(sources[1]!.shapes.subarray(0, 4))
-    expect(packNebulaInstances(sources, [false, false], 1, target)).toBe(0)
+    expect(packNebulaInstances(sources, sources.map(() => false), 1, target)).toBe(0)
   })
 })

@@ -69,7 +69,7 @@ Compact objects are not valid rows in the stellar CSV format and are not mixed i
 
 ## Nebula Overlay
 
-Nebulae are likewise not valid stellar CSV rows. The hand-curated package under `src/data/overlays/nebulae/` holds `manifest.json` (id `nebulae`, epoch, `objectCount`, per-type `counts`, sources, cutoff policy) and `objects.json`; `npm run catalog:generate` validates both and emits a separately loadable payload. Types are `reflection_nebula` and `hii_region`. Rows share the common scene fields with null physical and motion values and a null `absolute_mag`, plus a `nebula` record:
+Nebulae are likewise not valid stellar CSV rows. The hand-curated package under `src/data/overlays/nebulae/` holds `manifest.json` (id `nebulae`, epoch, `objectCount`, per-type `counts`, sources, cutoff policy) and `objects.json`; `npm run catalog:generate` validates both and emits a separately loadable payload. Types are `reflection_nebula`, `hii_region` and `planetary_nebula`. Rows share the common scene fields with null physical and motion values and a null `absolute_mag`, plus a `nebula` record:
 
 | Field | Meaning |
 | --- | --- |
@@ -78,7 +78,7 @@ Nebulae are likewise not valid stellar CSV rows. The hand-curated package under 
 | `distance_source`, `position_source` | Provenance text |
 | `angular_size_arcmin` | Major and minor apparent size |
 | `illuminating_stars` | Ionizing or illuminating sources, as text |
-| `shape.kind` | `ellipsoid`, `blister` (bowl open toward the Sun) or `layers` (sheets along the line of sight) |
+| `shape.kind` | `ellipsoid`, `blister` (bowl open toward the Sun), `layers` (sheets along the line of sight) or `shell` (hollow shell between 0.8 and 1 of the semi-axes) |
 | `shape.semi_axes_pc` | Line-of-sight depth (sheet half-thickness for `layers`), then sky-plane major and minor semi-axes |
 | `shape.position_angle_deg` | Major axis from Galactic north toward increasing Galactic longitude |
 | `shape.layer_offsets_pc` | Sheet centers along the line of sight relative to the center; required for `layers` |
@@ -86,7 +86,7 @@ Nebulae are likewise not valid stellar CSV rows. The hand-curated package under 
 | `brightness`, `puff_count`, `seed` | Rendering density (0-1], number of volume samples (16-1024) and deterministic sampling seed |
 | `source_label`, `source_url`, `model_note` | Primary reference (HTTPS) and a statement of which geometry is modeled |
 
-The bundled release places the Orion Nebula (M42) at 388 pc from VLBA parallaxes (Kounkel et al. 2017) as a blister following O'Dell (2001), and the Pleiades reflection nebulosity at the Gaia cluster distance of 135.74 pc (Alfonso & García-Varela 2023) as two dust sheets following Gibson & Nordsieck (2003). Sky extents follow apparent sizes; depths, sheet offsets and orientations are illustrative.
+The bundled release holds 22 nebulae: 17 reflection nebulae, 4 H II regions and the planetary nebula Sh 2-216, selected by the census rule in [catalog-sourcing.md](catalog-sourcing.md). It places the Orion Nebula (M42) at 388 pc from VLBA parallaxes (Kounkel et al. 2017) as a blister following O'Dell (2001), and the Pleiades reflection nebulosity at the Gaia cluster distance of 135.74 pc (Alfonso & García-Varela 2023) as two dust sheets following Gibson & Nordsieck (2003). Census reflection nebulae and H II regions are ellipsoids (H II regions spherical) and Sh 2-216 is a shell. Sky extents follow apparent sizes; depths, sheet offsets and orientations are illustrative.
 
 Constellations are the Earth-view IAU regions at the adopted snapshot, assigned offline from sky directions using the IAU Roman/Delporte boundaries. They do not change with visibility observer, units or camera orientation. Every non-Sun object in all four bundled catalogs has one, even without V photometry. Sun displays Not applicable; a legacy/custom unknown displays Not available. Boundary-frame transformation is not physical motion propagation to 1875.
 

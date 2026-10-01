@@ -1,6 +1,6 @@
 export const STELLAR_OBJECT_TYPES = ['star', 'white_dwarf', 'brown_dwarf', 'sub_brown_dwarf'] as const
 export const COMPACT_OBJECT_TYPES = ['pulsar', 'neutron_star', 'black_hole'] as const
-export const NEBULA_OBJECT_TYPES = ['reflection_nebula', 'hii_region'] as const
+export const NEBULA_OBJECT_TYPES = ['reflection_nebula', 'hii_region', 'planetary_nebula'] as const
 export const OBJECT_TYPES = [...STELLAR_OBJECT_TYPES, ...COMPACT_OBJECT_TYPES, ...NEBULA_OBJECT_TYPES] as const
 export type ObjectType = typeof OBJECT_TYPES[number]
 export type StellarObjectType = typeof STELLAR_OBJECT_TYPES[number]
@@ -22,7 +22,8 @@ export function equatorialToGalacticPc(raDeg: number, decDeg: number, distancePc
   return { x_pc: x!, y_pc: y!, z_pc: z! }
 }
 
-export type NebulaShapeKind = 'ellipsoid' | 'blister' | 'layers'
+export const NEBULA_SHAPE_KINDS = ['ellipsoid', 'blister', 'layers', 'shell'] as const
+export type NebulaShapeKind = typeof NEBULA_SHAPE_KINDS[number]
 
 export interface NebulaShape {
   kind: NebulaShapeKind
@@ -138,6 +139,7 @@ export function objectTypeLabel(type: ObjectType): string {
     black_hole: 'Black hole',
     reflection_nebula: 'Reflection nebula',
     hii_region: 'H II region',
+    planetary_nebula: 'Planetary nebula',
   }[type]
 }
 

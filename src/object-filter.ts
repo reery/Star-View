@@ -63,7 +63,7 @@ export const FILTER_CATEGORY_IDS: readonly FilterCategoryId[] = FILTER_CATEGORIE
 const CATALOG_FILTER_KEYS: readonly FilterKey[] = ['sun', 'star', 'brown_dwarf', 'white_dwarf']
 
 export const DEFAULT_FILTER_CATEGORIES: readonly FilterCategoryId[] = ['compact_objects']
-export const DEFAULT_FILTER_SUBTYPES: readonly FilterKey[] = ['sun', 'star', 'brown_dwarf', 'white_dwarf', 'reflection_nebula', 'hii_region']
+export const DEFAULT_FILTER_SUBTYPES: readonly FilterKey[] = ['sun', 'star', 'brown_dwarf', 'white_dwarf', 'reflection_nebula', 'hii_region', 'planetary_nebula']
 
 export function isFilterKey(value: unknown): value is FilterKey {
   return FILTER_KEYS.includes(value as FilterKey)

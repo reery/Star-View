@@ -534,7 +534,7 @@ test('presents the selected object beside an expandable control dock', async ({ 
   await expect(page.locator('#object-categories .toggle-text > span:first-child')).toHaveText(categoryNames)
   for (const [name, checked, available] of [
     ['Compact objects', true, true], ['Stellar systems', false, false], ['Interstellar medium', false, true],
-    ['Stellar remnants', false, false], ['Large-scale structures', false, false],
+    ['Stellar remnants', false, true], ['Large-scale structures', false, false],
   ] as const) {
     const toggle = page.getByRole('switch', { name, exact: true })
     await expect(toggle).toBeChecked({ checked })
@@ -573,7 +573,7 @@ test('presents the selected object beside an expandable control dock', async ({ 
   await expect(page.locator('#object-type-options')).toBeHidden()
   await typeDropdown.locator('summary').click()
   await expect(page.locator('#object-type-options')).toBeVisible()
-  await expect(page.locator('#object-type-filter-summary')).toHaveText('4 of 9')
+  await expect(page.locator('#object-type-filter-summary')).toHaveText('4 of 10')
   await expect(page.locator('.type-group-heading')).toHaveText(categoryNames)
   await expect(page.locator('.object-type-option > span:not(.filter-hint)')).toHaveText(typeGroups.flat())
   const option = (name: string) => page.getByLabel(name, { exact: true })
@@ -585,11 +585,11 @@ test('presents the selected object beside an expandable control dock', async ({ 
     await expect(option(name)).not.toBeChecked()
     await expect(option(name)).toBeEnabled()
   }
-  for (const name of ['Reflection nebulae', 'H II regions']) {
+  for (const name of ['Reflection nebulae', 'H II regions', 'Planetary nebulae']) {
     await expect(option(name)).toBeChecked()
     await expect(option(name)).toBeDisabled()
   }
-  for (const name of [...typeGroups[1]!, ...typeGroups[2]!.slice(0, 2), ...typeGroups[3]!, ...typeGroups[4]!]) {
+  for (const name of [...typeGroups[1]!, ...typeGroups[2]!.slice(0, 2), ...typeGroups[3]!.slice(1), ...typeGroups[4]!]) {
     await expect(option(name)).not.toBeChecked()
     await expect(option(name)).toBeDisabled()
     await expect(option(name)).toHaveAccessibleDescription('No data yet')
@@ -696,13 +696,13 @@ test('filters the map and object browser even when an excluded object is selecte
   const stars = page.getByLabel('Stars', { exact: true })
   const sunChoice = page.getByLabel('Sun', { exact: true })
   const brownDwarfs = page.getByLabel('Brown dwarfs', { exact: true })
-  await expect(page.locator('#object-type-filter-summary')).toHaveText('4 of 9')
+  await expect(page.locator('#object-type-filter-summary')).toHaveText('4 of 10')
   await stars.uncheck()
-  await expect(page.locator('#object-type-filter-summary')).toHaveText('3 of 9')
+  await expect(page.locator('#object-type-filter-summary')).toHaveText('3 of 10')
   await expect(sun).toHaveAttribute('data-map-visible', 'true')
   await expect(sun).toBeVisible()
   await sunChoice.uncheck()
-  await expect(page.locator('#object-type-filter-summary')).toHaveText('2 of 9')
+  await expect(page.locator('#object-type-filter-summary')).toHaveText('2 of 10')
   await expect(sun).toHaveCount(0)
   await stars.check()
   await expect(sun).toHaveCount(0)
@@ -710,7 +710,7 @@ test('filters the map and object browser even when an excluded object is selecte
   await expect(sun).toHaveAttribute('data-map-visible', 'true')
   await expect(sun).toBeVisible()
   await brownDwarfs.uncheck()
-  await expect(page.locator('#object-type-filter-summary')).toHaveText('3 of 9')
+  await expect(page.locator('#object-type-filter-summary')).toHaveText('3 of 10')
   await expect(luhmanA).toHaveAttribute('data-map-visible', 'false')
   await expect(luhmanA).toBeHidden()
   await expect(luhmanB).toHaveCount(0)

@@ -98,6 +98,21 @@ function shapeSampler(details: NebulaDetails, random: () => number): () => Sampl
       }
     }
   }
+  if (kind === 'shell') {
+    return () => {
+      for (;;) {
+        const cosTheta = random() * 2 - 1
+        const sinTheta = Math.sqrt(1 - cosTheta * cosTheta)
+        const phi = 2 * Math.PI * random()
+        const radius = 0.8 + 0.2 * random()
+        const d = radius * cosTheta
+        const u = radius * sinTheta * Math.cos(phi)
+        const v = radius * sinTheta * Math.sin(phi)
+        if (!accept(d, u, v)) continue
+        return { d: d * depth, u: u * major, v: v * minor, t: (radius - 0.8) / 0.2, size: 1, alpha: 0.5 + 2.5 * (radius - 0.8) }
+      }
+    }
+  }
   if (kind === 'layers') {
     return () => {
       for (;;) {

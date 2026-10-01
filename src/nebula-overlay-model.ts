@@ -1,4 +1,4 @@
-import { equatorialToGalacticPc, NEBULA_OBJECT_TYPES, type NebulaDetails, type NebulaObjectType, type Star } from './catalog-model.ts'
+import { equatorialToGalacticPc, NEBULA_OBJECT_TYPES, NEBULA_SHAPE_KINDS, type NebulaDetails, type NebulaObjectType, type Star } from './catalog-model.ts'
 
 export interface NebulaOverlayManifest {
   schemaVersion: 1
@@ -53,7 +53,7 @@ function validDetails(value: unknown): value is NebulaDetails {
       .every((field) => typeof details[field] === 'string' && (details[field] as string).length > 0)
     && /^https:\/\//.test(details.source_url as string)
     && Array.isArray(angular) && angular.length === 2 && angular.every(finitePositive)
-    && !!shape && ['ellipsoid', 'blister', 'layers'].includes(shape.kind as string)
+    && !!shape && NEBULA_SHAPE_KINDS.includes(shape.kind as never)
     && Array.isArray(shape.semi_axes_pc) && shape.semi_axes_pc.length === 3 && shape.semi_axes_pc.every(finitePositive)
     && typeof shape.position_angle_deg === 'number' && Number.isFinite(shape.position_angle_deg)
     && Array.isArray(shape.layer_offsets_pc) && shape.layer_offsets_pc.every((offset) => typeof offset === 'number' && Number.isFinite(offset))

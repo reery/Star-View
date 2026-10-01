@@ -2,12 +2,13 @@
   "schemaVersion": 1,
   "id": "nebulae",
   "label": "Nebulae",
-  "description": "A separately loaded, hand-curated overlay of nearby nebulae rendered as approximate 3D volumes.",
+  "description": "A separately loaded, hand-curated overlay of the catalogued nebulae within about 500 ly, plus the Orion Nebula, rendered as approximate 3D volumes.",
   "epoch": 2000,
-  "objectCount": 2,
+  "objectCount": 22,
   "counts": {
-    "reflection_nebula": 1,
-    "hii_region": 1
+    "reflection_nebula": 17,
+    "hii_region": 4,
+    "planetary_nebula": 1
   },
   "sources": [
     {
@@ -25,8 +26,40 @@
     {
       "name": "Gibson & Nordsieck (2003); Pleiades reflection nebula scattering geometry",
       "url": "https://doi.org/10.1086/374590"
+    },
+    {
+      "name": "van den Bergh (1966); Catalogue of Reflection Nebulae (VizieR VII/21)",
+      "url": "https://ui.adsabs.harvard.edu/abs/1966AJ.....71..990V"
+    },
+    {
+      "name": "Lynds (1965); Catalogue of Bright Nebulae (VizieR VII/9)",
+      "url": "https://ui.adsabs.harvard.edu/abs/1965ApJS...12..163L"
+    },
+    {
+      "name": "Sharpless (1959); Catalogue of H II Regions (VizieR VII/20)",
+      "url": "https://ui.adsabs.harvard.edu/abs/1959ApJS....4..257S"
+    },
+    {
+      "name": "Magakian (2003); merged catalogue of reflection nebulae (southern completeness check)",
+      "url": "https://ui.adsabs.harvard.edu/abs/2003A%26A...399..141M"
+    },
+    {
+      "name": "Chornay & Walton (2021); Gaia EDR3 planetary nebula central stars with HASH radii",
+      "url": "https://ui.adsabs.harvard.edu/abs/2021A%26A...656A.110C"
+    },
+    {
+      "name": "Frew & Parker (2010); planetary nebula mimics including Abell 35",
+      "url": "https://ui.adsabs.harvard.edu/abs/2010PASA...27..129F"
+    },
+    {
+      "name": "Gaia Collaboration (2021); Gaia EDR3 parallaxes (VizieR I/350)",
+      "url": "https://ui.adsabs.harvard.edu/abs/2021A%26A...649A...1G"
+    },
+    {
+      "name": "van Leeuwen (2007); Hipparcos new reduction parallaxes (VizieR I/311)",
+      "url": "https://ui.adsabs.harvard.edu/abs/2007A%26A...474..653V"
     }
   ],
-  "cutoffPolicy": "Hand-picked showcase nebulae, not a complete census. Centers use catalogued positions and adopted literature distances; volumes are illustrative models constrained by angular size and published geometry.",
+  "cutoffPolicy": "Every reflection nebula, H II region and planetary nebula that is listed in NGC/IC, van den Bergh, Sharpless or HASH, spans at least 5 arcmin, and whose adopted distance is within 1 sigma of 500 ly (distance - error <= 153.3 pc). Distances come from the SIMBAD-adopted parallax (Gaia EDR3, else Hipparcos 2007) of the illuminating or central star; several stars use an inverse-variance mean. Sizes come from LBN for named NGC/IC nebulae, Sharpless or HASH for ionized nebulae, and twice the van den Bergh maximum radius otherwise. The Orion Nebula (about 1265 ly) is kept as a showcase beyond the cutoff. Excluded: dark nebulae and molecular clouds, nebulae under 5 arcmin (most young-star nebulae in Taurus, Ophiuchus and Corona Australis), the Corona Australis nebulae NGC 6726/6727 and IC 4812 (illuminating stars at 155 pc), the possible planetary nebula FP J1912-0331, and H-alpha-only ionized regions such as Spica's.",
   "snapshot": "J2000 map positions; literature reviewed 2026-10-01."
 }
