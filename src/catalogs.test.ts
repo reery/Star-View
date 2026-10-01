@@ -12,12 +12,18 @@ import nearest1000Manifest from './data/catalogs/nearest-1000/catalog.json?raw'
 import nearest1000Provenance from './data/catalogs/nearest-1000/provenance.json?raw'
 import brightCsv from './data/catalogs/bright-stars/stars.csv?raw'
 import brightManifest from './data/catalogs/bright-stars/catalog.json?raw'
+import westernCsv from './data/catalogs/western-constellation-stars/stars.csv?raw'
+import westernManifest from './data/catalogs/western-constellation-stars/catalog.json?raw'
+import westernProvenance from './data/catalogs/western-constellation-stars/provenance.json?raw'
+import clusterCsv from './data/catalogs/famous-cluster-stars/stars.csv?raw'
+import clusterManifest from './data/catalogs/famous-cluster-stars/catalog.json?raw'
+import clusterProvenance from './data/catalogs/famous-cluster-stars/provenance.json?raw'
 import compactManifestRaw from './data/overlays/compact-remnants/manifest.json?raw'
 import compactPayloadRaw from './data/overlays/compact-remnants/objects.json?raw'
 import { buildCatalog, catalogCoverage, catalogSelection, DEFAULT_CATALOG_MANIFEST, loadCatalog, parseCatalogManifest } from './catalogs'
 import { parseStarCatalog } from './catalog'
 import { apparentVisualMagnitude, formatDistance, temperatureToColor, visibilityTier } from './astronomy'
-import { catalogLoader, mergeCatalogStars } from './catalog-runtime'
+import { catalogLoader, mergeCatalogStars, mergeLandmarkStars } from './catalog-runtime'
 import { parseCompactOverlayManifest, parseCompactOverlayPayload } from './compact-overlay-model'
 
 describe('catalog packages and display settings', () => {
@@ -25,6 +31,8 @@ describe('catalog packages and display settings', () => {
   const large = loadCatalog({ manifest: parseCatalogManifest(manifest), csv: largeCsv })
   const nearest1000 = loadCatalog({ manifest: parseCatalogManifest(nearest1000Manifest), csv: nearest1000Csv })
   const bright = loadCatalog({ manifest: parseCatalogManifest(brightManifest), csv: brightCsv })
+  const western = loadCatalog({ manifest: parseCatalogManifest(westernManifest), csv: westernCsv })
+  const cluster = loadCatalog({ manifest: parseCatalogManifest(clusterManifest), csv: clusterCsv })
 
   it('validates both real catalogs and shared object metadata', () => {
     expect(small).toHaveLength(22)
@@ -121,6 +129,56 @@ describe('catalog packages and display settings', () => {
     const largestMerged = mergeCatalogStars(nearest1000, bright)
     expect(largestMerged).toHaveLength(1105)
     expect(new Set(largestMerged.map((star) => star.id)).size).toBe(largestMerged.length)
+  })
+
+  it('includes every source-defined Western constellation figure star as an independent overlay', () => {
+    const provenance = JSON.parse(westernProvenance)
+    expect(western).toHaveLength(692)
+    expect(catalogCoverage(western)).toMatchObject({
+      objects: 691, constellations: 691, magnitudes: 691, rawAstrometry: 691,
+      temperatures: 668, masses: 353, luminosities: 626, radii: 626, metallicities: 223, ages: 88,
+    })
+    expect(provenance).toMatchObject({ figureConstellations: 88, uniqueHipparcosStars: 691 })
+    expect(new Set(Object.values(provenance.objects).flatMap((entry: any) => entry.figureConstellations)).size).toBe(88)
+    expect(Math.max(...western.map((star) => Math.hypot(star.x_pc, star.y_pc, star.z_pc) * 3.261563777))).toBeLessThan(10000)
+    expect(Math.max(...western.filter((star) => star.id !== 'sun').map((star) => apparentVisualMagnitude(
+      star.absolute_mag, Math.hypot(star.x_pc, star.y_pc, star.z_pc),
+    )!))).toBeLessThan(6.54)
+    expect(Math.hypot(...(['x_pc', 'y_pc', 'z_pc'] as const).map((field) => western.find((star) => star.name === 'x Car')![field]))).toBeCloseTo(2623, 5)
+    expect(Math.hypot(...(['x_pc', 'y_pc', 'z_pc'] as const).map((field) => western.find((star) => star.name === 'Polis')![field]))).toBeCloseTo(1499.9503, 5)
+    expect(Math.hypot(...(['x_pc', 'y_pc', 'z_pc'] as const).map((field) => western.find((star) => star.name === 'Beta Phe')![field]))).toBeCloseTo(55.772448, 5)
+    expect(provenance.objects['hip-54463'].adoptedDistance).toMatchObject({ method: 'co-moving group distance', sourceId: '2026A&A...708A..78K' })
+    expect(provenance.objects['hip-89341'].adoptedDistance).toMatchObject({ method: 'associated-system geometric posterior' })
+    expect(provenance.objects['hip-5165'].adoptedDistance).toMatchObject({ method: 'binary-orbit parallax', sourceId: '2015AN....336..378A' })
+  })
+
+  it('keeps famous cluster stars curated, recognizable and separate from bright-star membership', () => {
+    const provenance = JSON.parse(clusterProvenance)
+    expect(cluster).toHaveLength(43)
+    expect(catalogCoverage(cluster)).toMatchObject({
+      objects: 42, constellations: 42, magnitudes: 42, rawAstrometry: 42,
+      temperatures: 42, masses: 26, luminosities: 42, radii: 42, metallicities: 22, ages: 7,
+    })
+    expect(provenance.groups.map((group: { name: string }) => group.name)).toEqual([
+      'Pleiades', 'Trapezium Cluster', 'Hyades', 'Coma Star Cluster', 'Southern Pleiades', 'Omicron Velorum Cluster', 'Beehive Cluster',
+    ])
+    expect(['Celaeno', 'Electra', 'Taygeta', 'Asterope', 'Maia', 'Merope', 'Alcyone', 'Theta1 Orionis C'].every((name) => cluster.some((star) => star.name === name))).toBe(true)
+    expect(cluster.some((star) => star.name === 'Aldebaran')).toBe(false)
+    expect(bright.some((star) => star.name === 'Alcyone')).toBe(false)
+    expect(cluster.find((star) => star.name === 'Alcyone')).toMatchObject({ temperature_k: 10168, luminosity_solar: 1161.86861365969 })
+    expect(cluster.find((star) => star.name === 'Theta1 Orionis C')).toMatchObject({
+      temperature_k: 39000, mass_solar: 33.4, luminosity_solar: 177827.941, radius_solar: 9.4,
+    })
+
+    const sirius = western.find((star) => star.name === 'Sirius')!
+    const merged = mergeLandmarkStars(small, [sirius, ...cluster])
+    expect(merged.filter((star) => star.name === 'Sirius' || star.name === 'Sirius A')).toHaveLength(1)
+    expect(merged).toHaveLength(64)
+    expect(mergeCatalogStars(small, [sirius])).toHaveLength(23)
+  })
+
+  it('rebuilds both landmark catalogs exactly from frozen sources', () => {
+    execFileSync('python3', ['scripts/author-landmark-stars.py'], { cwd: fileURLToPath(new URL('../', import.meta.url)) })
   })
 
   it('validates the source-defined compact-remnant overlay and its nullable measurements', () => {

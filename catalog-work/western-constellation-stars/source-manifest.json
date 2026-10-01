@@ -1,0 +1,24 @@
+{
+  "schemaVersion": 1,
+  "frozenAt": "2026-10-01",
+  "sources": {
+    "stellarium": {
+      "url": "https://raw.githubusercontent.com/Stellarium/stellarium-skycultures/014fbb5e59233d133c22f9811af96b67d05a95c9/western/index.json",
+      "commit": "014fbb5e59233d133c22f9811af96b67d05a95c9",
+      "file": "stellarium-western-index.json",
+      "sha256": "a861accd345249a185a5ecfc2a516f34291c0aa52f4bb8d8337ffc53e9cef6b9"
+    },
+    "simbad": {
+      "url": "https://simbad.cds.unistra.fr/simbad/sim-tap/sync",
+      "queryFile": "simbad.adql",
+      "resultFile": "simbad.csv",
+      "sha256": "c45f9d1adb165751c0cf8f77a28efc18dfef5427760de6be0dad20f4aff92ede"
+    },
+    "hipparcos": {
+      "url": "https://cdsarc.cds.unistra.fr/ftp/I/239/hip_main.dat",
+      "selection": "Johnson V and its source flag for the 691 selected Hipparcos identifiers only",
+      "file": "hipparcos-v.csv",
+      "sha256": "eec12b740da3aac5204ba75ca5158b6f9f2f81886dda2526fe765cf9ea159320"
+    }
+  }
+}

@@ -1,7 +1,7 @@
 import './style.css'
 import { ArrowLeft, ArrowRight, CircleHelp, Filter, Focus, Grid2X2, List, Lock, Orbit, Settings2, ZoomIn, ZoomOut, createElement, type IconNode } from 'lucide'
 import { COMPACT_OBJECT_TYPES, describeObject, isCompactObject, isNebulaObject, NEBULA_OBJECT_TYPES, type Star } from './catalog-model'
-import { catalogSelection, mergeCatalogStars } from './catalog-runtime'
+import { catalogSelection, mergeCatalogStars, mergeLandmarkStars } from './catalog-runtime'
 import { compactOverlayManifest, loadCompactRemnants } from './compact-overlay'
 import { loadNebulae, nebulaOverlayManifest } from './nebula-overlay'
 import { catalogs, catalogErrors } from './registry'
@@ -83,6 +83,8 @@ let observerId = 'sirius-a'
 let magnitudeLimit = 7
 let objectDistanceLimitLy = 100
 let showAlwaysBright = false
+let showWesternConstellationStars = false
+let showFamousClusterStars = false
 let gridVisible = true
 let powerSavingMode = false
 let labelLimit = 40
@@ -99,10 +101,13 @@ let visibleKeys = effectiveFilterKeys(filterCategories, filterSubtypes, availabl
 let distanceUnit: DistanceUnit = 'ly'
 let starColorMode: StarColorMode = 'exaggerated'
 const BRIGHT_CATALOG_ID = 'bright-stars'
-// Nearest-N catalogs form an ordered size progression; bright stars are an additive toggle.
-const sliderCatalogs = catalogs.filter((catalog) => catalog.manifest.id !== BRIGHT_CATALOG_ID)
+const WESTERN_CONSTELLATION_CATALOG_ID = 'western-constellation-stars'
+const FAMOUS_CLUSTER_CATALOG_ID = 'famous-cluster-stars'
+const ADDITIVE_CATALOG_IDS = new Set([BRIGHT_CATALOG_ID, WESTERN_CONSTELLATION_CATALOG_ID, FAMOUS_CLUSTER_CATALOG_ID])
+// Nearest-N catalogs form an ordered size progression; landmark catalogs are independent additive toggles.
+const sliderCatalogs = catalogs.filter((catalog) => !ADDITIVE_CATALOG_IDS.has(catalog.manifest.id))
   .sort((first, second) => first.manifest.objectCount - second.manifest.objectCount)
-const OBJECT_DISTANCE_STEPS_LY = [5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 60, 70, 80, 90, 100, 150, 200, 300, 500, 1000, 1500, 2000, 3000] as const
+const OBJECT_DISTANCE_STEPS_LY = [5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 60, 70, 80, 90, 100, 150, 200, 300, 500, 1000, 1500, 2000, 3000, 5000, 10000] as const
 try {
   if (localStorage.getItem('star-view-distance-unit') === 'pc') distanceUnit = 'pc'
   if (localStorage.getItem('star-view-color-mode') === 'real') starColorMode = 'real'
@@ -319,12 +324,19 @@ async function switchCatalog(id: string, refresh = false): Promise<void> {
   let nextStars: Star[]
   try {
     const selectedCatalog = await definition.load()
-    const brightCatalog = showAlwaysBright && id !== BRIGHT_CATALOG_ID
-      ? await catalogs.find((catalog) => catalog.manifest.id === BRIGHT_CATALOG_ID)!.load()
-      : []
+    const loadAdditiveCatalog = (enabled: boolean, catalogId: string) => enabled && id !== catalogId
+      ? catalogs.find((catalog) => catalog.manifest.id === catalogId)!.load()
+      : Promise.resolve([])
+    const [brightCatalog, westernConstellationCatalog, famousClusterCatalog] = await Promise.all([
+      loadAdditiveCatalog(showAlwaysBright, BRIGHT_CATALOG_ID),
+      loadAdditiveCatalog(showWesternConstellationStars, WESTERN_CONSTELLATION_CATALOG_ID),
+      loadAdditiveCatalog(showFamousClusterStars, FAMOUS_CLUSTER_CATALOG_ID),
+    ])
     const compactObjects = COMPACT_OBJECT_TYPES.some((type) => visibleKeys.has(type)) ? await loadCompactRemnants() : []
     const nebulae = NEBULA_OBJECT_TYPES.some((type) => visibleKeys.has(type)) ? await loadNebulae() : []
-    nextStars = [...mergeCatalogStars(selectedCatalog, brightCatalog), ...compactObjects, ...nebulae]
+    const withBrightStars = mergeCatalogStars(selectedCatalog, brightCatalog)
+    const withConstellationStars = mergeLandmarkStars(withBrightStars, westernConstellationCatalog)
+    nextStars = [...mergeLandmarkStars(withConstellationStars, famousClusterCatalog), ...compactObjects, ...nebulae]
   } catch (error) {
     if (request !== catalogRequest) return
     catalogError(error)
@@ -518,6 +530,14 @@ catalogRange.addEventListener('change', () => {
 }, { signal: events.signal })
 element('show-always-bright').addEventListener('change', () => {
   showAlwaysBright = element<HTMLInputElement>('show-always-bright').checked
+  void switchCatalog(activeCatalogId, true)
+}, { signal: events.signal })
+element('show-western-constellation-stars').addEventListener('change', () => {
+  showWesternConstellationStars = element<HTMLInputElement>('show-western-constellation-stars').checked
+  void switchCatalog(activeCatalogId, true)
+}, { signal: events.signal })
+element('show-famous-cluster-stars').addEventListener('change', () => {
+  showFamousClusterStars = element<HTMLInputElement>('show-famous-cluster-stars').checked
   void switchCatalog(activeCatalogId, true)
 }, { signal: events.signal })
 element('distance-units').addEventListener('change', () => {

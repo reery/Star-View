@@ -1,0 +1,36 @@
+{
+  "schemaVersion": 1,
+  "id": "famous-cluster-stars",
+  "label": "Famous cluster stars",
+  "description": "A compact landmark set for seven recognizable stellar groups, including the Orion Nebula's Trapezium.",
+  "epoch": 2000,
+  "objectCount": 43,
+  "sources": [
+    {
+      "name": "SIMBAD TAP snapshot; exact identities, open-cluster aliases, astrometry, classification and compiled Johnson V",
+      "url": "https://simbad.cds.unistra.fr/simbad/sim-tap/sync"
+    },
+    {
+      "name": "Bailer-Jones et al. 2021 Gaia EDR3 geometric distances; exact Gaia source identifiers",
+      "url": "https://bailer-jones.www3.mpia.de/gedr3_distances.html"
+    },
+    {
+      "name": "Allende Prieto & Lambert 1999 Hipparcos-star evolutionary models; exact HIP identifiers",
+      "url": "https://cdsarc.cds.unistra.fr/viz-bin/cat/J/A+A/352/555"
+    },
+    {
+      "name": "McDonald et al. 2012 Hipparcos-star SED models; exact HIP identifiers",
+      "url": "https://cdsarc.cds.unistra.fr/viz-bin/cat/J/MNRAS/427/343"
+    },
+    {
+      "name": "Gaia DR3 GSP-Phot and FLAME model parameters; exact Gaia DR3 identifiers",
+      "url": "https://gea.esac.esa.int/tap-server/tap/sync"
+    },
+    {
+      "name": "Component-resolved literature parameters for the four classical Trapezium systems",
+      "url": "https://doi.org/10.1093/mnras/stab1119"
+    }
+  ],
+  "cutoffPolicy": "Named Pleiades systems (the Seven Sisters, Atlas and Pleione), the classical Theta1 Orionis A-D Trapezium systems, and the brightest distance-consistent SIMBAD catalogued members of the Hyades, Coma Star Cluster, IC 2602, IC 2391 and the Beehive. Foreground Aldebaran and Gamma Comae Berenices are excluded. This is a visual landmark set, not a complete membership census. Sun is included only as the map origin.",
+  "snapshot": "SIMBAD, VizieR and Gaia snapshots frozen 2026-10-01; 42 stars in seven landmark groups plus Sun."
+}

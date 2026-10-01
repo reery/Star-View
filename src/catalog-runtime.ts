@@ -37,6 +37,35 @@ export function mergeCatalogStars(primary: readonly Star[], additional: readonly
   return merged
 }
 
+const SAME_SKY_POSITION_COSINE = Math.cos(Math.PI / (180 * 3600))
+
+function sameSkyPosition(first: Star, second: Star): boolean {
+  const firstAstrometry = first.raw_astrometry
+  const secondAstrometry = second.raw_astrometry
+  if (!firstAstrometry || !secondAstrometry) return false
+  const firstRa = firstAstrometry.ra_deg * Math.PI / 180
+  const firstDec = firstAstrometry.dec_deg * Math.PI / 180
+  const secondRa = secondAstrometry.ra_deg * Math.PI / 180
+  const secondDec = secondAstrometry.dec_deg * Math.PI / 180
+  const cosine = Math.sin(firstDec) * Math.sin(secondDec) + Math.cos(firstDec) * Math.cos(secondDec) * Math.cos(firstRa - secondRa)
+  return cosine >= SAME_SKY_POSITION_COSINE
+}
+
+/** Merge additive landmark layers without duplicating an object already supplied by the selected catalog. */
+export function mergeLandmarkStars(primary: readonly Star[], additional: readonly Star[]): Star[] {
+  const merged = [...primary]
+  const ids = new Set(merged.map((star) => star.id))
+  const names = new Set(merged.map((star) => star.name.toLocaleLowerCase('en-US')))
+  for (const star of additional) {
+    const normalizedName = star.name.toLocaleLowerCase('en-US')
+    if (ids.has(star.id) || names.has(normalizedName) || merged.some((candidate) => sameSkyPosition(candidate, star))) continue
+    ids.add(star.id)
+    names.add(normalizedName)
+    merged.push(star)
+  }
+  return merged
+}
+
 export function parseCatalogPayload(value: unknown, manifest: CatalogManifest): Star[] {
   if (!value || typeof value !== 'object') throw new Error('Catalog payload must be an object.')
   const payload = value as Record<string, unknown>

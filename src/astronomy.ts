@@ -24,7 +24,9 @@ export function gridSpacingPc(distanceLy: number): number {
   if (distanceLy <= 1000) return 20
   if (distanceLy <= 1500) return 30
   if (distanceLy <= 2000) return 40
-  return 60
+  if (distanceLy <= 3000) return 60
+  if (distanceLy <= 5000) return 100
+  return 200
 }
 
 export function formatDistance(distancePc: number, unit: DistanceUnit, digits = 2): string {

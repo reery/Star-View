@@ -120,12 +120,20 @@
                     <span>Always show bright stars</span>
                     <span class="switch-control"><input id="show-always-bright" type="checkbox" role="switch"><span class="switch-track" aria-hidden="true"></span></span>
                   </label>
+                  <label class="filter-toggle" for="show-western-constellation-stars">
+                    <span>Western constellation stars</span>
+                    <span class="switch-control"><input id="show-western-constellation-stars" type="checkbox" role="switch"><span class="switch-track" aria-hidden="true"></span></span>
+                  </label>
+                  <label class="filter-toggle" for="show-famous-cluster-stars">
+                    <span>Famous cluster stars</span>
+                    <span class="switch-control"><input id="show-famous-cluster-stars" type="checkbox" role="switch"><span class="switch-track" aria-hidden="true"></span></span>
+                  </label>
                   <div id="object-categories" class="category-toggles" role="group" aria-label="Object categories"></div>
                   <div class="range-filter">
                     <div class="range-heading"><label for="object-distance-limit">Object visibility distance</label><output id="object-distance-limit-value" for="object-distance-limit">100 ly</output></div>
-                    <input id="object-distance-limit" type="range" min="0" max="22" step="1" value="14" aria-valuetext="100 light-years" aria-describedby="object-distance-steps">
-                    <div class="range-bounds" aria-hidden="true"><span>5 ly</span><span>3000 ly</span></div>
-                    <span id="object-distance-steps" class="sr-only">Distance steps above 100 light-years are 150, 200, 300, 500, 1000, 1500, 2000, and 3000 light-years.</span>
+                    <input id="object-distance-limit" type="range" min="0" max="24" step="1" value="14" aria-valuetext="100 light-years" aria-describedby="object-distance-steps">
+                    <div class="range-bounds" aria-hidden="true"><span>5 ly</span><span>10000 ly</span></div>
+                    <span id="object-distance-steps" class="sr-only">Distance steps above 100 light-years are 150, 200, 300, 500, 1000, 1500, 2000, 3000, 5000, and 10000 light-years.</span>
                   </div>
                   <div class="range-filter">
                     <div class="range-heading"><label for="magnitude-limit">V magnitude limit</label><output id="magnitude-limit-value" for="magnitude-limit">7</output></div>
