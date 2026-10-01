@@ -4,7 +4,7 @@ import { readFileSync } from 'node:fs'
 import { Box3, PerspectiveCamera, Sphere, Spherical, Vector3 } from 'three'
 import { parseStarCatalog, type Star } from '../src/catalog'
 import { galacticToWorld, LIGHT_YEARS_PER_PARSEC } from '../src/astronomy'
-import { arrowPixelMask, hideMilkyWay, isolatedArrows, measureArrowShaft, motionArrows, openFilter, openPreferences, openViewer, starPoint, type MotionArrowSnapshot } from './support'
+import { arrowPixelMask, hideMilkyWay, isolatedArrows, measureArrowShaft, motionArrows, openFilter, openPreferences, openViewer, selectCatalog, starPoint, type MotionArrowSnapshot } from './support'
 
 function resetCamera(stars: readonly Star[], bounds: { width: number; height: number }, selectedId: string | null, distanceScale = 1) {
   const sun = galacticToWorld(stars.find((star) => star.id === 'sun')!)
@@ -46,13 +46,12 @@ test('loads each generated catalog payload only when first selected', async ({ p
   expect(catalogRequests.some((name) => name.startsWith('nearest-100-'))).toBe(false)
   expect(catalogRequests.some((name) => name.startsWith('nearest-1000-'))).toBe(false)
   await openFilter(page)
-  const selector = page.getByLabel('Catalog', { exact: true })
-  await selector.selectOption('nearest-1000')
+  await selectCatalog(page, 'nearest-1000')
   await expect(page.locator('#catalog-count')).toHaveText(/\/1001$/)
   expect(catalogRequests.filter((name) => name.startsWith('nearest-1000-'))).toHaveLength(1)
-  await selector.selectOption('nearest-neighbors')
+  await selectCatalog(page, 'nearest-neighbors')
   await expect(page.locator('#catalog-count')).toHaveText(/\/22$/)
-  await selector.selectOption('nearest-1000')
+  await selectCatalog(page, 'nearest-1000')
   await expect(page.locator('#catalog-count')).toHaveText(/\/1001$/)
   expect(catalogRequests.filter((name) => name.startsWith('nearest-1000-'))).toHaveLength(1)
 })
@@ -67,7 +66,7 @@ test('loads compact remnants on demand and shows type-specific sourced fields', 
   expect(compactRequests).toHaveLength(0)
   await openFilter(page)
   await page.locator('details.filter-dropdown > summary').click()
-  await page.getByLabel('Black hole', { exact: true }).check()
+  await page.getByLabel('Black holes', { exact: true }).check()
   await expect(page.locator('#catalog-count')).toHaveText(/\/291$/)
   await expect(page.locator('#scene')).toHaveAttribute('data-grid-spacing-pc', '0.5')
   await expect(page.locator('#scene')).toHaveAttribute('data-grid-half-size-pc', '31')
@@ -83,8 +82,8 @@ test('loads compact remnants on demand and shows type-specific sourced fields', 
   await expect(page.locator('.stellar-property:visible')).toHaveCount(0)
 
   await page.getByRole('button', { name: 'Filter', exact: true }).click()
-  await page.getByLabel('Pulsar', { exact: true }).check()
-  await page.getByLabel('Black hole', { exact: true }).uncheck()
+  await page.getByLabel('Pulsars', { exact: true }).check()
+  await page.getByLabel('Black holes', { exact: true }).uncheck()
   await page.getByRole('button', { name: 'Objects', exact: true }).click()
   await page.getByLabel('Search objects').fill('PSR J0030+0451')
   await page.getByRole('button', { name: 'Select PSR J0030+0451' }).click()
@@ -125,12 +124,9 @@ test('adds the bright-star catalog as a deduplicated optional overlay', async ({
   await expect(page.locator('.projected-labels')).toHaveAttribute('data-core-count', '133')
   await expect(page.locator('[data-star="bright-canopus"]')).toHaveCount(1)
 
-  await page.getByLabel('Catalog', { exact: true }).selectOption('bright-stars')
-  await expect(page.locator('#catalog-count')).toHaveText(/\/115$/)
-  await page.locator('#scene canvas').evaluate((canvas) => { canvas.dataset.instance = 'retained' })
   await toggle.uncheck()
-  await expect(page.locator('#catalog-count')).toHaveText(/\/115$/)
-  await expect(page.locator('#scene canvas')).toHaveAttribute('data-instance', 'retained')
+  await expect(page.locator('#catalog-count')).toHaveText(/\/22$/)
+  await expect(page.locator('[data-star="bright-canopus"]')).toHaveCount(0)
 })
 
 test('toggles the optimized Milky Way backdrop and remembers the choice', async ({ page }, testInfo) => {
@@ -207,8 +203,9 @@ test('switches project catalogs while preserving settings and compatible selecti
   await openPreferences(page)
   await page.getByLabel('Star labels', { exact: true }).fill('20')
   await openFilter(page)
-  const selector = page.getByLabel('Catalog', { exact: true })
-  await expect(selector).toHaveValue('nearest-neighbors')
+  const catalogSlider = page.getByLabel('Catalog', { exact: true })
+  await expect(catalogSlider).toHaveValue('0')
+  await expect(page.locator('#catalog-range-value')).toHaveText('Nearest neighbors')
   await expect(page.locator('#object-type')).toHaveText('White star')
   await expect(page.locator('#constellation')).toHaveText('Canis Major')
   await expect(page.locator('#absolute-mag')).toHaveText('1.42')
@@ -221,8 +218,7 @@ test('switches project catalogs while preserving settings and compatible selecti
   const sunBeforeCatalogSwitch = await starPoint(page, 'sun')
   const siriusBeforeCatalogSwitch = await starPoint(page, 'sirius-a')
   for (const id of ['nearest-100', 'nearest-neighbors', 'nearest-100']) {
-    await openFilter(page)
-    await selector.selectOption(id)
+    await selectCatalog(page, id)
     await page.getByRole('button', { name: 'Objects', exact: true }).click()
     await expect(page.locator('#scene canvas')).toHaveCount(1)
     await expect(page.locator('.projected-labels')).toHaveCount(1)
@@ -247,12 +243,11 @@ test('switches project catalogs while preserving settings and compatible selecti
   expect(nearestArrows.some((arrow) => arrow.mode === 'transverse')).toBe(true)
   expect(nearestArrows.some((arrow) => arrow.selected && arrow.opacity === 1)).toBe(true)
   await page.screenshot({ path: testInfo.outputPath('nearest-100.png'), fullPage: true })
-  await openFilter(page)
-  await selector.selectOption('nearest-neighbors')
+  await selectCatalog(page, 'nearest-neighbors')
   await expect(page.locator('#star-details')).toBeHidden()
   await expect(page.locator('#visibility-base')).toHaveText('Sun')
   await expect(page.locator('[data-star-id="sun"]')).toHaveAttribute('data-visibility', 'base')
-  await selector.selectOption('nearest-100')
+  await selectCatalog(page, 'nearest-100')
   await expect(page.locator('#star-details')).toBeHidden()
   await expect(page.locator('#visibility-base')).toHaveText('Sun')
   await sceneFits(page)
@@ -260,8 +255,7 @@ test('switches project catalogs while preserving settings and compatible selecti
 
 test('searches the virtualized nearest-1000 list within bounded name budgets', { tag: '@mobile' }, async ({ page }) => {
   await openViewer(page)
-  await openFilter(page)
-  await page.getByLabel('Catalog', { exact: true }).selectOption('nearest-1000')
+  await selectCatalog(page, 'nearest-1000')
   await expect(page.locator('#catalog-count')).toHaveText(/\/1001$/)
   await page.getByLabel('Arrow length', { exact: true }).selectOption('50000')
   const nameBudget = 40
@@ -352,7 +346,7 @@ test('keeps faint dots pickable and retains the last visibility base', async ({ 
   await expect(page.locator('#visibility-base')).toHaveText("Barnard's Star")
   await expect(faint).toHaveAttribute('data-visibility', 'base')
   expect(await starPoint(page, 'barnards-star')).toEqual(position)
-  await page.getByLabel('Catalog', { exact: true }).selectOption('nearest-100')
+  await selectCatalog(page, 'nearest-100')
   await expect(page.locator('#star-details')).toBeHidden()
   await expect(page.locator('#visibility-base')).toHaveText("Barnard's Star")
   await page.getByRole('button', { name: 'Objects', exact: true }).click()
@@ -487,8 +481,8 @@ test('presents the selected object beside an expandable control dock', async ({ 
   await expect(page.locator('#object-card-details > .selection-summary')).toHaveCSS('border-bottom-width', '0px')
   await expect(page.locator('.properties-section')).toHaveCSS('border-bottom-width', '0px')
   expect(await page.locator('.source-details').evaluate((details) => details.closest('.selected-object') !== null)).toBe(true)
-  expect(await page.locator('#catalog-select').evaluate((select) => select.closest('.filter-section') !== null)).toBe(true)
-  expect(await page.locator('#catalog-select').evaluate((select) => select.closest('.preferences') !== null)).toBe(false)
+  expect(await page.locator('#catalog-range').evaluate((slider) => slider.closest('.filter-section') !== null)).toBe(true)
+  expect(await page.locator('#catalog-range').evaluate((slider) => slider.closest('.preferences') !== null)).toBe(false)
   await openPreferences(page)
   await expect(page.locator('#preferences-panel')).toBeVisible()
   await expect(page.locator('#object-card-details')).toHaveAttribute('open', '')
@@ -530,8 +524,28 @@ test('presents the selected object beside an expandable control dock', async ({ 
   expect(placement.panelWidth).toBeLessThan(292)
   expect(placement.bottomGap).toBeLessThan(1)
   await expect(page.locator('#filter-heading').locator('..')).toHaveCSS('min-height', '44px')
-  await expect(page.getByLabel('Catalog', { exact: true })).toHaveCSS('font-size', '13px')
+  const catalogSlider = page.getByLabel('Catalog', { exact: true })
+  await expect(catalogSlider).toHaveAttribute('type', 'range')
+  await expect(catalogSlider).toHaveAttribute('min', '0')
+  await expect(catalogSlider).toHaveAttribute('max', '2')
+  await expect(catalogSlider).toHaveAttribute('aria-valuetext', 'Nearest neighbors')
+  await expect(page.locator('#catalog-range-bounds span')).toHaveText(['22 objects', '1001 objects'])
+  const categoryNames = ['Compact objects', 'Stellar systems', 'Interstellar medium', 'Stellar remnants', 'Large-scale structures']
+  await expect(page.locator('#object-categories .toggle-text > span:first-child')).toHaveText(categoryNames)
+  for (const [name, checked, available] of [
+    ['Compact objects', true, true], ['Stellar systems', false, false], ['Interstellar medium', false, true],
+    ['Stellar remnants', false, false], ['Large-scale structures', false, false],
+  ] as const) {
+    const toggle = page.getByRole('switch', { name, exact: true })
+    await expect(toggle).toBeChecked({ checked })
+    if (available) await expect(toggle).toBeEnabled()
+    else {
+      await expect(toggle).toBeDisabled()
+      await expect(toggle).toHaveAccessibleDescription('No data yet')
+    }
+  }
   await expect(page.locator('.filter-toggle').first()).toHaveCSS('font-size', '14px')
+  await expect(page.locator('.category-toggle').first()).toHaveCSS('font-size', '14px')
   await expect(page.locator('#motion-frame-label')).toHaveCSS('font-size', '14px')
   await expect(page.locator('#motion-frame .unit-options span').first()).toHaveCSS('font-size', '12px')
   const distance = page.getByLabel('Object visibility distance', { exact: true })
@@ -542,20 +556,44 @@ test('presents the selected object beside an expandable control dock', async ({ 
   await expect(page.locator('#object-distance-limit-value')).toHaveText('100 ly')
   await expect(magnitude).toHaveAttribute('type', 'range')
   await expect(magnitude).toHaveAttribute('max', '25')
-  await page.getByLabel('Catalog', { exact: true }).selectOption('nearest-100')
+  await selectCatalog(page, 'nearest-100')
+  await expect(page.locator('#catalog-range-value')).toHaveText('Nearest 100 objects')
   await magnitude.fill('25')
   await expect(page.locator('[data-star-id="10pc-0098"]')).toHaveAttribute('data-visibility', 'eligible')
 
-  const typeChoices = ['Sun', 'Star', 'White dwarf', 'Brown dwarf', 'Sub-brown dwarf', 'Pulsar', 'Neutron star', 'Black hole']
+  const typeGroups = [
+    ['Sun', 'Stars', 'Brown dwarfs', 'White dwarfs', 'Neutron stars', 'Pulsars', 'Black holes'],
+    ['Binaries', 'Multiple systems'],
+    ['Molecular clouds', 'Dark nebulae', 'Reflection nebulae', 'H II regions'],
+    ['Planetary nebulae', 'Supernova remnants', 'Pulsar-wind nebulae'],
+    ['Bubbles', 'Superbubbles', 'Dust sheets', 'Local Bubble'],
+  ]
   const typeDropdown = page.locator('details.filter-dropdown')
   await expect(typeDropdown).not.toHaveAttribute('open')
   await expect(page.locator('#object-type-options')).toBeHidden()
   await typeDropdown.locator('summary').click()
   await expect(page.locator('#object-type-options')).toBeVisible()
-  await expect(page.locator('#object-type-filter-summary')).toHaveText('5 of 8')
-  await expect(page.locator('.object-type-option')).toHaveText(typeChoices)
-  for (const name of typeChoices.slice(0, 5)) await expect(page.getByLabel(name, { exact: true })).toBeChecked()
-  for (const name of typeChoices.slice(5)) await expect(page.getByLabel(name, { exact: true })).not.toBeChecked()
+  await expect(page.locator('#object-type-filter-summary')).toHaveText('4 of 9')
+  await expect(page.locator('.type-group-heading')).toHaveText(categoryNames)
+  await expect(page.locator('.object-type-option > span:not(.filter-hint)')).toHaveText(typeGroups.flat())
+  const option = (name: string) => page.getByLabel(name, { exact: true })
+  for (const name of ['Sun', 'Stars', 'Brown dwarfs', 'White dwarfs']) {
+    await expect(option(name)).toBeChecked()
+    await expect(option(name)).toBeEnabled()
+  }
+  for (const name of ['Neutron stars', 'Pulsars', 'Black holes']) {
+    await expect(option(name)).not.toBeChecked()
+    await expect(option(name)).toBeEnabled()
+  }
+  for (const name of ['Reflection nebulae', 'H II regions']) {
+    await expect(option(name)).toBeChecked()
+    await expect(option(name)).toBeDisabled()
+  }
+  for (const name of [...typeGroups[1]!, ...typeGroups[2]!.slice(0, 2), ...typeGroups[3]!, ...typeGroups[4]!]) {
+    await expect(option(name)).not.toBeChecked()
+    await expect(option(name)).toBeDisabled()
+    await expect(option(name)).toHaveAccessibleDescription('No data yet')
+  }
   await sceneFits(page)
   await page.screenshot({ path: testInfo.outputPath('interface-hierarchy.png'), fullPage: true })
   await page.getByRole('button', { name: 'Objects', exact: true }).click()
@@ -655,15 +693,16 @@ test('filters the map and object browser even when an excluded object is selecte
   const luhmanA = page.locator('[data-star-id="luhman-16-a"]')
   const luhmanB = page.locator('[data-star-id="luhman-16-b"]')
   const sun = page.locator('[data-star-id="sun"]')
-  const stars = page.getByLabel('Star', { exact: true })
+  const stars = page.getByLabel('Stars', { exact: true })
   const sunChoice = page.getByLabel('Sun', { exact: true })
-  const brownDwarfs = page.getByLabel('Brown dwarf', { exact: true })
+  const brownDwarfs = page.getByLabel('Brown dwarfs', { exact: true })
+  await expect(page.locator('#object-type-filter-summary')).toHaveText('4 of 9')
   await stars.uncheck()
-  await expect(page.locator('#object-type-filter-summary')).toHaveText('4 of 8')
+  await expect(page.locator('#object-type-filter-summary')).toHaveText('3 of 9')
   await expect(sun).toHaveAttribute('data-map-visible', 'true')
   await expect(sun).toBeVisible()
   await sunChoice.uncheck()
-  await expect(page.locator('#object-type-filter-summary')).toHaveText('3 of 8')
+  await expect(page.locator('#object-type-filter-summary')).toHaveText('2 of 9')
   await expect(sun).toHaveCount(0)
   await stars.check()
   await expect(sun).toHaveCount(0)
@@ -671,7 +710,7 @@ test('filters the map and object browser even when an excluded object is selecte
   await expect(sun).toHaveAttribute('data-map-visible', 'true')
   await expect(sun).toBeVisible()
   await brownDwarfs.uncheck()
-  await expect(page.locator('#object-type-filter-summary')).toHaveText('4 of 8')
+  await expect(page.locator('#object-type-filter-summary')).toHaveText('3 of 9')
   await expect(luhmanA).toHaveAttribute('data-map-visible', 'false')
   await expect(luhmanA).toBeHidden()
   await expect(luhmanB).toHaveCount(0)
@@ -682,12 +721,11 @@ test('filters the map and object browser even when an excluded object is selecte
   await expect(luhmanB).toHaveCount(0)
   await expect(brownDwarfs).not.toBeChecked()
 
-  await openFilter(page)
-  await page.getByLabel('Catalog', { exact: true }).selectOption('nearest-100')
+  await selectCatalog(page, 'nearest-100')
   await expect(brownDwarfs).not.toBeChecked()
   await page.reload()
   await expect(page.locator('#scene')).toHaveAttribute('data-ready', 'true')
-  await expect(page.getByLabel('Brown dwarf', { exact: true })).toBeChecked()
+  await expect(page.getByLabel('Brown dwarfs', { exact: true })).toBeChecked()
   await openPreferences(page)
   await expect(page.getByRole('switch', { name: 'Power saving mode' })).not.toBeChecked()
 })
@@ -1624,8 +1662,7 @@ test('shows attached travel-length motion arrows with selectable horizons', { ta
 
 test('draws dashed transverse and solid full-motion shafts with a zoom-stable stroke', { tag: '@mobile' }, async ({ page, isMobile }, testInfo) => {
   await openViewer(page)
-  await openFilter(page)
-  await page.getByLabel('Catalog', { exact: true }).selectOption('nearest-1000')
+  await selectCatalog(page, 'nearest-1000')
   await expect(page.locator('#catalog-count')).toHaveText(/\/1001$/)
   await page.getByLabel('V magnitude limit', { exact: true }).fill('25')
   await page.getByRole('button', { name: 'Filter', exact: true }).click()
@@ -1842,8 +1879,7 @@ test('keeps the catalog usable if WebGL is unavailable', async ({ page }) => {
   await expect(page.locator('#star-name')).toHaveText('Sun')
   await expect(page.getByRole('button', { name: 'Reset view', exact: true })).toBeDisabled()
   await expect(page.getByRole('button', { name: 'Grid', exact: true })).toBeDisabled()
-  await openFilter(page)
-  await page.getByLabel('Catalog', { exact: true }).selectOption('nearest-100')
+  await selectCatalog(page, 'nearest-100')
   await page.getByRole('button', { name: 'Objects', exact: true }).click()
   await expect(page.locator('.catalog-entry')).toHaveCount(101)
   await expect(page.locator('#star-name')).toHaveText('Sun')

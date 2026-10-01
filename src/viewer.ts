@@ -6,10 +6,12 @@ import {
 } from 'three'
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js'
 import milkyWayImageUrl from './assets/milky-way.jpg'
-import { OBJECT_TYPES, type ObjectType, type Star } from './catalog-model'
+import type { Star } from './catalog-model'
 import { apparentVisualMagnitude, displayMotionForStar, formatDistance, galacticToWorld, gridSpacingPc, LIGHT_YEARS_PER_PARSEC, starDisplayColor, sunRelativeMetrics, type DistanceUnit, type MotionFrame, type MotionMode, type StarColorMode } from './astronomy'
 import { advanceFrameDeadline, effectiveDampingFactor, estimateRefreshRate, renderPixelRatio, targetRenderFps } from './render-scheduling'
 import { centeredForegroundLabelBounds, chooseOrdinaryLabelPlacement, ordinaryLabelCandidates, overlaps, type LabelRect, type OrdinaryLabelPlacement } from './label-layout'
+import { createNebulaLayer } from './nebula-layer'
+import { FILTER_KEYS, isFilterKey, type FilterKey } from './object-filter'
 import {
   MOTION_ARROW_DASH_PX, MOTION_ARROW_GAP_PX, MOTION_ARROW_HEAD_PX, MOTION_ARROW_STROKE_PX, MOTION_ARROW_TAIL_OFFSET_PX,
   STAR_DIAMETER_PX, ScreenSpaceGrid, TapGesture, budgetVisibleLabelIndices, compareMapLabelCandidates, focusProgress,
@@ -26,8 +28,7 @@ export interface StarViewer {
   setGridVisible(visible: boolean): void
   setViewState(state: ViewerViewState): void
   setObjectDistanceLimit(distanceLy: number): void
-  setObjectTypeFilter(types: readonly ObjectType[]): void
-  setSunVisible(visible: boolean): void
+  setObjectFilter(keys: readonly FilterKey[]): void
   setLabelLimit(limit: number): void
   setMotionArrowsVisible(visible: boolean): void
   setMilkyWayVisible(visible: boolean): void
@@ -325,6 +326,19 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
   halos.renderOrder = 3
   scene.add(halos)
 
+  const nebulaIndices = stars.flatMap((star, index) => star.nebula ? [index] : [])
+  const isNebula = new Uint8Array(stars.length)
+  for (const index of nebulaIndices) isNebula[index] = 1
+  const nebulaLayer = nebulaIndices.length > 0
+    ? createNebulaLayer(nebulaIndices.map((index) => stars[index]!), galacticToWorld(sun), starColorMode)
+    : null
+  if (nebulaLayer) scene.add(nebulaLayer.mesh)
+  // Sky-plane picking radius in pc; the volume center alone is too small a target.
+  const nebulaPickRadii = nebulaIndices.map((index) => {
+    const [, major, minor] = stars[index]!.nebula!.shape.semi_axes_pc
+    return 0.6 * Math.max(major, minor)
+  })
+
   // Screen-space motion arrows: one instanced quad per arrow, positioned in canvas CSS px each frame.
   const arrowCapacity = Math.max(1, motions.filter(Boolean).length)
   const arrowGeometry = new InstancedBufferGeometry()
@@ -521,8 +535,7 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
   let visibilityBase = sun
   let magnitudeLimit = 7
   let objectDistanceLimitLy = 100
-  let selectedTypes = new Set<ObjectType>(OBJECT_TYPES)
-  let sunVisible = true
+  let visibleKeys = new Set<FilterKey>(FILTER_KEYS)
   let labelLimit = 40
   let motionArrowsVisible = true
   let motionFrame: MotionFrame = 'galactic'
@@ -784,7 +797,7 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
     if (rankingChanged) {
       rankedCandidates = stars.map((star, index) => ({
         index,
-        priority: star.id === selectedId ? 0 : 1,
+        priority: star.id === selectedId ? 0 : isNebula[index] ? 1 : 2,
         magnitude: apparentMagnitudes[index]!,
       })).sort(compareMapLabelCandidates)
       rankedBaseId = visibilityBase.id
@@ -794,23 +807,28 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
     let haloCount = 0
     stars.forEach((star, index) => {
       const magnitude = apparentMagnitudes[index]!
-      const tier = star.id === visibilityBase.id ? 'base' : magnitude <= magnitudeLimit ? 'eligible' : 'background'
+      // Extended nebulae have no point magnitude; their names stay eligible.
+      const tier = star.id === visibilityBase.id ? 'base' : isNebula[index] || magnitude <= magnitudeLimit ? 'eligible' : 'background'
       const visible = isObjectMapVisible(
         star,
-        selectedTypes,
+        visibleKeys,
         selectedId,
         visibilityBase.id,
         sunDistancesLy[index]!,
         objectDistanceLimitLy,
-        sunVisible,
       )
       tiers[index] = tier
       mapVisible[index] = visible ? 1 : 0
       coreDiameters.setX(index, tier === 'background' ? 3 : STAR_DIAMETER_PX)
       haloOpacities.setX(index, tier === 'background' ? 0 : starHaloOpacity(star.absolute_mag, star.id === selectedId))
+      if (isNebula[index]) return
       if (visible) coreIndices.setX(coreCount++, index)
       if (visible && tier !== 'background') haloIndices.setX(haloCount++, index)
     })
+    if (nebulaLayer) {
+      nebulaLayer.setVisible(nebulaIndices.map((index) => mapVisible[index] === 1))
+      labelLayer.dataset.nebulaPuffCount = String(nebulaLayer.instanceCount())
+    }
     coreIndices.needsUpdate = true
     coreDiameters.needsUpdate = true
     haloOpacities.needsUpdate = true
@@ -1096,7 +1114,7 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
       starObstacles.clear()
       const radius = STAR_DIAMETER_PX / 2
       for (const projected of projectedPickables) {
-        if (!starBlocksLabels(tiers[projected.index]!)) continue
+        if (isNebula[projected.index] || !starBlocksLabels(tiers[projected.index]!)) continue
         const obstacle = starObstacleEntries[projected.index]!
         obstacle.depth = projected.depth
         obstacle.bounds.left = projected.x - radius
@@ -1319,6 +1337,7 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
     renderHeight = height
     renderer.setPixelRatio(pixelRatio)
     renderer.setSize(width, height)
+    nebulaLayer?.setViewportHeight(height * pixelRatio)
     gridOpacity.value = Math.min(1, 0.4 * pixelRatio)
     axisMaterial.opacity = Math.min(1, 0.55 * pixelRatio)
     arrowUniforms.pixelRatio.value = pixelRatio
@@ -1345,6 +1364,21 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
       projectionGridDirty = false
     }
     return pickProjectedStarAtScreenPoint(projectionGrid, projectionViewport, event, event.pointerType === 'touch' ? 24 : 16)
+      ?? pickNebula(event, projectionViewport)
+  }
+  function pickNebula(event: PointerEvent, viewport: DOMRect): string | null {
+    let picked: string | null = null
+    let nearestDepth = Infinity
+    const projectionScale = camera.projectionMatrix.elements[5]! * 0.5 * viewport.height
+    for (let order = 0; order < nebulaIndices.length; order++) {
+      const projected = projections[nebulaIndices[order]!]!
+      if (!projected.visible || projected.depth >= nearestDepth) continue
+      const radius = nebulaPickRadii[order]! * projectionScale / projected.depth
+      if (Math.hypot(event.clientX - projected.x, event.clientY - projected.y) > radius) continue
+      picked = projected.id
+      nearestDepth = projected.depth
+    }
+    return picked
   }
   let hoverFrame: number | null = null
   let hoverEvent: PointerEvent | null = null
@@ -1471,6 +1505,7 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
     camera.updateMatrixWorld()
     updateMotionArrows()
     renderer.render(scene, camera)
+    setData(labelLayer, 'drawCalls', String(renderer.info.render.calls))
     setLabelsMoving(continueRendering)
     updateLabels(time)
     if (continueRendering || refreshSamplesRemaining > 0) requestRender(false)
@@ -1578,17 +1613,12 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
       if (home) fitHome()
       requestRender()
     },
-    setObjectTypeFilter(types) {
-      const nextTypes = new Set(types.filter((type) => OBJECT_TYPES.includes(type)))
-      if (nextTypes.size === selectedTypes.size && [...nextTypes].every((type) => selectedTypes.has(type))) return
-      selectedTypes = nextTypes
+    setObjectFilter(keys) {
+      const nextKeys = new Set(keys.filter(isFilterKey))
+      if (nextKeys.size === visibleKeys.size && [...nextKeys].every((key) => visibleKeys.has(key))) return
+      visibleKeys = nextKeys
       updatePresentation()
-      requestRender()
-    },
-    setSunVisible(visible) {
-      if (visible === sunVisible) return
-      sunVisible = visible
-      updatePresentation()
+      if (home) fitHome()
       requestRender()
     },
     setLabelLimit(limit) {
@@ -1630,6 +1660,8 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
     setPowerSavingMode(enabled) {
       if (enabled === powerSavingMode) return
       powerSavingMode = enabled
+      nebulaLayer?.setLevelOfDetail(enabled ? 0.5 : 1)
+      if (nebulaLayer) labelLayer.dataset.nebulaPuffCount = String(nebulaLayer.instanceCount())
       resetCadenceSamples()
       resize()
       requestRender()
@@ -1644,6 +1676,7 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
         starColorAttribute.setXYZ(index, color.r, color.g, color.b)
       })
       starColorAttribute.needsUpdate = true
+      nebulaLayer?.setColorMode(mode)
       for (const [index, label] of activeStarLabels) label.anchor.style.setProperty('--star-color', starColorStyles[index]!)
       requestRender()
     },
@@ -1719,6 +1752,7 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
       disposeGeometry(scene)
       arrowGeometry.dispose()
       arrowMaterial.dispose()
+      nebulaLayer?.dispose()
       dotTexture.dispose()
       haloTexture.dispose()
       milkyWayTexture?.dispose()

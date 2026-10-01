@@ -20,11 +20,13 @@ During rotation, each visible object is projected once into reusable storage sha
 
 Only the visibility base and eligible objects submit halo points to the GPU; background dots keep their cores but do not draw transparent halos. A reusable index buffer updates this subset when visibility settings or selection change. The three colored axes share one draw call. Browser tests count point submissions and draw calls alongside the visual regression checks.
 
+Nebulae add exactly one draw call, and none while every nebula is filtered out. Each nebula is a fixed number of soft, camera-facing puffs (200 for the Pleiades, 320 for Orion) sampled once, deterministically from its seed, inside its modeled shape; all puffs share one instanced quad geometry and one shader. There is no ray marching, per-frame CPU work, sorting or animation: additive blending is order-independent, depth testing hides puffs behind star cores and the layer never writes depth. Puff colors for both modes are stored per instance, so changing Colors only updates a uniform. The vertex shader bounds fill rate by fading puffs the camera is inside or about to enter and capping a puff at 20% of the viewport height; subpixel puffs grow to 1.5 device px with energy-preserving alpha so distant nebulae do not shimmer. Filtering repacks only the visible nebulae into the front of the instance buffers. Because puffs are independent samples, any prefix is an unbiased subset: power-saving mode draws the first half of each nebula with doubled alpha. The overlay is a 3 kB payload fetched only when the Interstellar medium category is enabled.
+
 To compare power use in Safari, use `npm run build && npm run preview`, leave the map untouched for a few seconds, and observe Safari's CPU usage in Activity Monitor. Expect brief activity during interaction. The browser regression suite checks that WebGL draws and label mutations stop while idle in both catalogs and resume after changes; this measures rendering work, not a hardware-specific CPU percentage.
 
 ## Tests
 
-Unit tests cover CSV parsing and validation, all supported object classes, coordinate and velocity handedness, sourced motion conversion, Sun-relative distances, motion travel conversion, temperature colors, bounded halo gain and missing-value fallback, focus easing, camera clipping, projected motion direction and scale, screen-space picking, and gesture suppression. Browser scenarios run against the **production build** on desktop and touch-emulated mobile viewports, including 320 px and narrow landscape layouts.
+Unit tests cover CSV parsing and validation, all supported object classes, coordinate and velocity handedness, sourced motion conversion, Sun-relative distances, motion travel conversion, temperature colors, bounded halo gain and missing-value fallback, focus easing, camera clipping, projected motion direction and scale, screen-space picking, gesture suppression, the object-filter taxonomy and availability, nebula overlay validation (including position consistency with RA, Dec and distance), deterministic nebula sampling inside each modeled shape and level-of-detail packing. Browser scenarios run against the **production build** on desktop and touch-emulated mobile viewports, including 320 px and narrow landscape layouts. Nebula scenarios verify on-demand loading, distance and subtype filtering, power-saving puff counts, the inspector, a single extra draw call, color-mode saturation and idle suspension.
 
 ```sh
 npx playwright install chromium
@@ -53,6 +55,9 @@ Visual-polish regressions additionally sample the gap-free core-to-halo falloff,
 - [scripts/catalogs.ts](../scripts/catalogs.ts): offline native build/validation CLI.
 - [src/astronomy.ts](../src/astronomy.ts): frame mapping, distances, and temperature colors.
 - [src/viewer.ts](../src/viewer.ts): Three.js scene, camera, measurement guides, budgeted label placement, picking, and teardown.
+- [src/object-filter.ts](../src/object-filter.ts): filter categories, subtypes, data availability and effective visible types.
+- [src/nebula-overlay-model.ts](../src/nebula-overlay-model.ts) and [src/nebula-overlay.ts](../src/nebula-overlay.ts): nebula overlay validation and lazy loading.
+- [src/nebula-layer.ts](../src/nebula-layer.ts): deterministic nebula puff sampling and the single instanced nebula draw.
 - [src/object-list.ts](../src/object-list.ts): normalized search and fixed-row virtual object list.
 - [src/main.ts](../src/main.ts): selected-object state and semantic DOM inspector.
 - [src/style.css](../src/style.css): responsive, unframed map and inspector layout.

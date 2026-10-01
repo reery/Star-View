@@ -1,13 +1,9 @@
 import { Color, Matrix3, Vector3 } from 'three'
-import { isCompactObject, type RawAstrometry, type Star } from './catalog-model'
+import { ICRS_TO_GALACTIC_ROWS, isCompactObject, isNebulaObject, type RawAstrometry, type Star } from './catalog-model'
 
 export const LIGHT_YEARS_PER_PARSEC = 3.261563777
 export const SOLAR_GALACTIC_VELOCITY_KMS = Object.freeze({ vx_kms: 12.9, vy_kms: 245.6, vz_kms: 7.78 })
-const ICRS_TO_GALACTIC = new Matrix3().set(
-  -0.0548755604, -0.8734370902, -0.4838350155,
-  0.4941094279, -0.4448296300, 0.7469822445,
-  -0.8676661490, -0.1980763734, 0.4559837762,
-)
+const ICRS_TO_GALACTIC = new Matrix3().set(...ICRS_TO_GALACTIC_ROWS.flat() as [number, number, number, number, number, number, number, number, number])
 export type Position = Pick<Star, 'x_pc' | 'y_pc' | 'z_pc'>
 export type MotionMode = 'full' | 'transverse'
 export type MotionFrame = 'galactic' | 'solar'
@@ -45,7 +41,7 @@ export function apparentVisualMagnitude(absoluteMagnitude: number | null, distan
 
 export function visibilityTier(target: Pick<Star, 'id' | 'absolute_mag'> & Partial<Pick<Star, 'type'>> & Position, observer: Pick<Star, 'id'> & Position, limit: number): 'base' | 'eligible' | 'background' {
   if (target.id === observer.id) return 'base'
-  if (target.type && isCompactObject(target as Pick<Star, 'type'>)) return 'eligible'
+  if (target.type && (isCompactObject(target as Pick<Star, 'type'>) || isNebulaObject(target as Pick<Star, 'type'>))) return 'eligible'
   const distance = Math.hypot(target.x_pc - observer.x_pc, target.y_pc - observer.y_pc, target.z_pc - observer.z_pc)
   const magnitude = apparentVisualMagnitude(target.absolute_mag, distance)
   return magnitude !== null && magnitude <= limit ? 'eligible' : 'background'
@@ -179,9 +175,13 @@ export function temperatureToColor(kelvin: number | null, mode: StarColorMode = 
 }
 
 export function starDisplayColor(
-  star: Pick<Star, 'type' | 'temperature_k' | 'spectral_type'>,
+  star: Pick<Star, 'type' | 'temperature_k' | 'spectral_type'> & Partial<Pick<Star, 'nebula'>>,
   mode: StarColorMode = 'real',
 ): Color {
+  if (star.nebula) {
+    const palette = star.nebula.palette[mode]
+    return new Color(palette[Math.floor(palette.length / 2)]!)
+  }
   if (star.type === 'pulsar') return new Color(0x42d9ff)
   if (star.type === 'neutron_star') return new Color(0xa78bfa)
   if (star.type === 'black_hole') return new Color(0xff9f43)

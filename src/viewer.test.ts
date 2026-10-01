@@ -160,14 +160,26 @@ describe('object map filtering', () => {
   const star = { id: 'target', type: 'white_dwarf' as const }
   const sun = { id: 'sun', type: 'star' as const }
 
-  it('uses canonical object types for ordinary visibility', () => {
+  it('uses filter keys for ordinary visibility', () => {
     expect(isObjectMapVisible(star, new Set(['white_dwarf']), null, 'sun')).toBe(true)
     expect(isObjectMapVisible(star, new Set(['star']), null, 'sun')).toBe(false)
+  })
+
+  it('folds sub-brown dwarfs into the brown dwarf key', () => {
+    expect(isObjectMapVisible({ id: 'wise', type: 'sub_brown_dwarf' }, new Set(['brown_dwarf']), null, 'sun')).toBe(true)
+    expect(isObjectMapVisible({ id: 'wise', type: 'sub_brown_dwarf' }, new Set(['star']), null, 'sun')).toBe(false)
   })
 
   it('limits ordinary objects by their distance from the Sun', () => {
     expect(isObjectMapVisible(star, new Set(['white_dwarf']), null, 'sun', 8, 5)).toBe(false)
     expect(isObjectMapVisible(star, new Set(['white_dwarf']), null, 'sun', 8, 100)).toBe(true)
+  })
+
+  it('limits nebulae by their center distance', () => {
+    const orion = { id: 'orion-nebula', type: 'hii_region' as const }
+    expect(isObjectMapVisible(orion, new Set(['hii_region']), null, 'sun', 1265, 1000)).toBe(false)
+    expect(isObjectMapVisible(orion, new Set(['hii_region']), null, 'sun', 1265, 1500)).toBe(true)
+    expect(isObjectMapVisible(orion, new Set(['reflection_nebula']), null, 'sun', 1265, 1500)).toBe(false)
   })
 
   it('lets selection bypass distance but never a disabled object type', () => {
@@ -177,8 +189,8 @@ describe('object map filtering', () => {
   })
 
   it('controls the Sun independently from the star object type', () => {
-    expect(isObjectMapVisible(sun, new Set(), null, 'target')).toBe(true)
-    expect(isObjectMapVisible(sun, new Set(['star']), 'sun', 'sun', 0, Infinity, false)).toBe(false)
+    expect(isObjectMapVisible(sun, new Set(['sun']), null, 'target')).toBe(true)
+    expect(isObjectMapVisible(sun, new Set(['star']), 'sun', 'sun', 0, Infinity)).toBe(false)
   })
 })
 

@@ -1,5 +1,5 @@
 import Papa from 'papaparse'
-import { OBJECT_TYPES, STELLAR_OBJECT_TYPES, type ObjectType, type RawAstrometry, type Star } from './catalog-model.ts'
+import { STELLAR_OBJECT_TYPES, type ObjectType, type RawAstrometry, type Star } from './catalog-model.ts'
 
 export { OBJECT_TYPES, describeObject, objectTypeLabel, type ObjectType, type RawAstrometry, type Star } from './catalog-model.ts'
 
@@ -92,7 +92,7 @@ export function parseStarCatalog(csv: string): Star[] {
     const record = index + 1
     const type = row.type?.trim()
     if (!isObjectType(type)) {
-      invalid(record, 'type', `expected one of: ${OBJECT_TYPES.join(', ')}.`)
+      invalid(record, 'type', `expected one of: ${STELLAR_OBJECT_TYPES.join(', ')}.`)
     }
     const id = row.id?.trim() ?? ''
     const name = row.name?.trim() ?? ''

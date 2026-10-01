@@ -1,0 +1,106 @@
+{
+  "schemaVersion": 1,
+  "overlayId": "nebulae",
+  "objects": [
+    {
+      "type": "reflection_nebula",
+      "id": "pleiades-nebula",
+      "name": "Pleiades Nebula",
+      "spectral_type": null,
+      "constellation": "Taurus",
+      "x_pc": -120.991632,
+      "y_pc": 29.141096,
+      "z_pc": -54.195657,
+      "vx_kms": null,
+      "vy_kms": null,
+      "vz_kms": null,
+      "temperature_k": null,
+      "mass_solar": null,
+      "luminosity_solar": null,
+      "radius_solar": null,
+      "metallicity_dex": null,
+      "age_gyr": null,
+      "absolute_mag": null,
+      "epoch": 2000,
+      "notes": "Blue reflection nebulosity around the brightest Pleiades members (NGC 1435 Merope Nebula, IC 349, NGC 1432). The dust is an unrelated interstellar cloud the cluster is passing through, concentrated in two layers along the line of sight (Gibson & Nordsieck 2003). Centered on the cluster; distance from the Gaia cluster mean.",
+      "raw_astrometry": null,
+      "nebula": {
+        "designations": ["M45 nebulosity", "NGC 1435", "IC 349", "NGC 1432"],
+        "ra_deg": 56.658333,
+        "dec_deg": 24.178056,
+        "distance_pc": 135.74,
+        "distance_error_pc": 0.1,
+        "distance_source": "Alfonso & García-Varela (2023), A&A 677, A163; Gaia DR3 cluster distance",
+        "position_source": "Pleiades cluster center, Gaia DR3 (Gaia Collaboration 2023, A&A 674, A37)",
+        "angular_size_arcmin": [90, 70],
+        "illuminating_stars": "Merope, Alcyone, Electra, Maia and other B-type members",
+        "shape": {
+          "kind": "layers",
+          "semi_axes_pc": [0.12, 1.776934, 1.382029],
+          "position_angle_deg": 30,
+          "layer_offsets_pc": [-0.45, 0.2]
+        },
+        "palette": {
+          "real": ["#d4e2ff", "#93b2ea", "#5f80c2"],
+          "exaggerated": ["#a8e6ff", "#4a95ff", "#3557ff"]
+        },
+        "brightness": 0.8,
+        "puff_count": 200,
+        "seed": 1771,
+        "source_label": "Gibson & Nordsieck (2003)",
+        "source_url": "https://doi.org/10.1086/374590",
+        "model_note": "Sky extent approximates the photographed nebulosity (about 1.5 degrees); two-layer depth offsets, thickness and orientation are illustrative."
+      }
+    },
+    {
+      "type": "hii_region",
+      "id": "orion-nebula",
+      "name": "Orion Nebula",
+      "spectral_type": null,
+      "constellation": "Orion",
+      "x_pc": -320.091762,
+      "y_pc": -177.497919,
+      "z_pc": -128.762389,
+      "vx_kms": null,
+      "vy_kms": null,
+      "vz_kms": null,
+      "temperature_k": null,
+      "mass_solar": null,
+      "luminosity_solar": null,
+      "radius_solar": null,
+      "metallicity_dex": null,
+      "age_gyr": null,
+      "absolute_mag": null,
+      "epoch": 2000,
+      "notes": "H II region ionized mainly by theta1 Orionis C. Emission comes primarily from photoionized gas on the back surface of a cavity in the Orion molecular cloud, a concave blister open toward the Sun (O'Dell 2001). Distance from VLBA parallaxes of Orion Nebula Cluster members.",
+      "raw_astrometry": null,
+      "nebula": {
+        "designations": ["M42", "NGC 1976", "Sh 2-281"],
+        "ra_deg": 83.82,
+        "dec_deg": -5.3875,
+        "distance_pc": 388,
+        "distance_error_pc": 5,
+        "distance_source": "Kounkel et al. (2017), ApJ 834, 142; VLBA parallaxes",
+        "position_source": "SIMBAD M42",
+        "angular_size_arcmin": [65, 60],
+        "illuminating_stars": "theta1 Orionis C (Trapezium Cluster)",
+        "shape": {
+          "kind": "blister",
+          "semi_axes_pc": [1.8, 3.66821, 3.386025],
+          "position_angle_deg": 0,
+          "layer_offsets_pc": []
+        },
+        "palette": {
+          "real": ["#eef0dc", "#e7a5b0", "#b4475e"],
+          "exaggerated": ["#55f0d4", "#ff4fa6", "#ff2638"]
+        },
+        "brightness": 1,
+        "puff_count": 320,
+        "seed": 4242,
+        "source_label": "O'Dell (2001)",
+        "source_url": "https://doi.org/10.1086/317982",
+        "model_note": "Sky extent from the 65 x 60 arcmin revised-NGC size; bowl depth and orientation are illustrative."
+      }
+    }
+  ]
+}

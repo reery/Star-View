@@ -1,12 +1,17 @@
 import './style.css'
 import { ArrowLeft, ArrowRight, CircleHelp, Filter, Focus, Grid2X2, List, Lock, Orbit, Settings2, ZoomIn, ZoomOut, createElement, type IconNode } from 'lucide'
-import { COMPACT_OBJECT_TYPES, describeObject, isCompactObject, OBJECT_TYPES, objectTypeLabel, STELLAR_OBJECT_TYPES, type ObjectType, type Star } from './catalog-model'
+import { COMPACT_OBJECT_TYPES, describeObject, isCompactObject, isNebulaObject, NEBULA_OBJECT_TYPES, type Star } from './catalog-model'
 import { catalogSelection, mergeCatalogStars } from './catalog-runtime'
-import { loadCompactRemnants } from './compact-overlay'
+import { compactOverlayManifest, loadCompactRemnants } from './compact-overlay'
+import { loadNebulae, nebulaOverlayManifest } from './nebula-overlay'
 import { catalogs, catalogErrors } from './registry'
-import { formatDistance, gridSpacingPc, starDisplayColor, sunRelativeMetrics, type DistanceUnit, type MotionFrame, type StarColorMode } from './astronomy'
+import { formatDistance, gridSpacingPc, LIGHT_YEARS_PER_PARSEC, starDisplayColor, sunRelativeMetrics, type DistanceUnit, type MotionFrame, type StarColorMode } from './astronomy'
 import { MOTION_YEAR_OPTIONS, createStarViewer, type MotionYears, type StarViewer, type ViewerViewState } from './viewer'
 import { isObjectMapVisible } from './viewer-primitives'
+import {
+  availableFilterKeys, categoryAvailable, DEFAULT_FILTER_CATEGORIES, DEFAULT_FILTER_SUBTYPES, effectiveFilterKeys, FILTER_CATEGORIES,
+  filterCategoryForKey, filterSummary, isFilterCategoryId, isFilterKey, type FilterCategoryId, type FilterKey,
+} from './object-filter'
 import { ObjectList } from './object-list'
 import { SelectionHistory } from './selection-history'
 
@@ -87,11 +92,16 @@ let motionFrame: MotionFrame = 'galactic'
 let motionYears: MotionYears = 1_000
 let catalogRequest = 0
 let sceneBusy = true
-const selectedTypes = new Set<ObjectType>(STELLAR_OBJECT_TYPES)
-let sunVisible = true
+const filterCategories = new Set<FilterCategoryId>(DEFAULT_FILTER_CATEGORIES)
+const filterSubtypes = new Set<FilterKey>(DEFAULT_FILTER_SUBTYPES)
+const availableKeys = availableFilterKeys(compactOverlayManifest.counts, nebulaOverlayManifest.counts)
+let visibleKeys = effectiveFilterKeys(filterCategories, filterSubtypes, availableKeys)
 let distanceUnit: DistanceUnit = 'ly'
 let starColorMode: StarColorMode = 'exaggerated'
 const BRIGHT_CATALOG_ID = 'bright-stars'
+// Nearest-N catalogs form an ordered size progression; bright stars are an additive toggle.
+const sliderCatalogs = catalogs.filter((catalog) => catalog.manifest.id !== BRIGHT_CATALOG_ID)
+  .sort((first, second) => first.manifest.objectCount - second.manifest.objectCount)
 const OBJECT_DISTANCE_STEPS_LY = [5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 60, 70, 80, 90, 100, 150, 200, 300, 500, 1000, 1500, 2000, 3000] as const
 try {
   if (localStorage.getItem('star-view-distance-unit') === 'pc') distanceUnit = 'pc'
@@ -197,8 +207,12 @@ function renderSelection(): void {
   text('constellation', star.id === 'sun' ? 'Not applicable' : star.constellation ?? 'Not available')
   const compact = star.compact
   const compactObject = isCompactObject(star)
-  for (const row of document.querySelectorAll<HTMLElement>('.stellar-property')) row.hidden = compactObject
+  const nebula = star.nebula
+  const nebulaObject = isNebulaObject(star)
+  for (const row of document.querySelectorAll<HTMLElement>('.stellar-property')) row.hidden = compactObject || nebulaObject
   for (const row of document.querySelectorAll<HTMLElement>('.compact-property')) row.hidden = !compactObject
+  for (const row of document.querySelectorAll<HTMLElement>('.nebula-property')) row.hidden = !nebulaObject
+  element('mass-row').hidden = nebulaObject
   for (const row of document.querySelectorAll<HTMLElement>('.pulsar-property')) row.hidden = star.type !== 'pulsar'
   for (const row of document.querySelectorAll<HTMLElement>('.rotation-property')) row.hidden = star.type === 'black_hole' || !compactObject
   for (const row of document.querySelectorAll<HTMLElement>('.orbit-property')) row.hidden = !compact || (compact.orbital_period_days === null && compact.companion === null)
@@ -225,6 +239,20 @@ function renderSelection(): void {
     source.textContent = compact.source_label
     source.href = compact.source_url
   }
+  if (nebula) {
+    const [depth, major, minor] = nebula.shape.semi_axes_pc
+    const offsets = nebula.shape.layer_offsets_pc
+    const deepPc = 2 * depth + (offsets.length ? Math.max(...offsets) - Math.min(...offsets) : 0)
+    const extent = (pc: number) => (pc * (distanceUnit === 'ly' ? LIGHT_YEARS_PER_PARSEC : 1)).toLocaleString('en-US', { maximumFractionDigits: 1 })
+    text('nebula-designations', nebula.designations.join(', '))
+    text('nebula-angular-size', `${nebula.angular_size_arcmin[0]}′ × ${nebula.angular_size_arcmin[1]}′`)
+    text('nebula-extent', `${extent(2 * major)} × ${extent(2 * minor)} × ${extent(deepPc)} ${distanceUnit}`)
+    text('nebula-illumination', nebula.illuminating_stars)
+    text('nebula-distance-source', nebula.distance_source)
+    const source = element<HTMLAnchorElement>('nebula-source')
+    source.textContent = nebula.source_label
+    source.href = nebula.source_url
+  }
   text('coordinate-x', formatDistance(star.x_pc, distanceUnit, 3))
   text('coordinate-y', formatDistance(star.y_pc, distanceUnit, 3))
   text('coordinate-z', formatDistance(star.z_pc, distanceUnit, 3))
@@ -236,14 +264,15 @@ function renderSelection(): void {
   const raw = star.raw_astrometry
   const fullVelocity = [star.vx_kms, star.vy_kms, star.vz_kms].every((value) => value !== null) || (raw !== null && raw.radial_velocity_kms !== null)
   text('motion-data', fullVelocity ? 'Full space motion' : raw ? 'Transverse only; radial velocity unavailable' : 'Not available')
-  text('right-ascension', raw ? `${raw.ra_deg.toLocaleString('en-US', { maximumFractionDigits: 9 })} deg` : compact ? `${compact.ra_deg.toLocaleString('en-US', { maximumFractionDigits: 9 })} deg` : 'Not available')
-  text('declination', raw ? `${raw.dec_deg.toLocaleString('en-US', { maximumFractionDigits: 9 })} deg` : compact ? `${compact.dec_deg.toLocaleString('en-US', { maximumFractionDigits: 9 })} deg` : 'Not available')
+  const sky = raw ?? compact ?? nebula ?? null
+  text('right-ascension', sky ? `${sky.ra_deg.toLocaleString('en-US', { maximumFractionDigits: 9 })} deg` : 'Not available')
+  text('declination', sky ? `${sky.dec_deg.toLocaleString('en-US', { maximumFractionDigits: 9 })} deg` : 'Not available')
   text('astrometry-epoch', raw ? `J${raw.epoch.toFixed(1)}` : 'Not available')
   text('parallax', raw ? measurement(raw.parallax_mas, raw.parallax_error_mas, 'mas', 6) : 'Not available')
   text('proper-motion-ra', raw ? measurement(raw.pm_ra_cosdec_masyr, raw.pm_ra_error_masyr, 'mas/yr', 6) : 'Not available')
   text('proper-motion-dec', raw ? measurement(raw.pm_dec_masyr, raw.pm_dec_error_masyr, 'mas/yr', 6) : 'Not available')
   text('radial-velocity', raw ? measurement(raw.radial_velocity_kms, raw.radial_velocity_error_kms, 'km/s', 6) : 'Not available')
-  text('astrometry-source', raw?.astrometry_ref || compact?.position_source || 'Not available')
+  text('astrometry-source', raw?.astrometry_ref || compact?.position_source || nebula?.position_source || 'Not available')
   text('absolute-mag', quantity(star.absolute_mag))
   text('star-notes', star.notes || 'No source notes available.')
   text('selection-announcement', `${star.name}, ${formatDistance(metrics.distancePc, distanceUnit)} from the Sun.`)
@@ -254,7 +283,7 @@ function updateObjectListFilter(): void {
   if (!sun) return
   objectList.setFilter((star) => {
     const distanceLy = sunRelativeMetrics(star, sun).distanceLy
-    return isObjectMapVisible(star, selectedTypes, selectedId, observerId, distanceLy, objectDistanceLimitLy, sunVisible)
+    return isObjectMapVisible(star, visibleKeys, selectedId, observerId, distanceLy, objectDistanceLimitLy)
   })
 }
 
@@ -293,18 +322,18 @@ async function switchCatalog(id: string, refresh = false): Promise<void> {
     const brightCatalog = showAlwaysBright && id !== BRIGHT_CATALOG_ID
       ? await catalogs.find((catalog) => catalog.manifest.id === BRIGHT_CATALOG_ID)!.load()
       : []
-    const compactObjects = COMPACT_OBJECT_TYPES.some((type) => selectedTypes.has(type)) ? await loadCompactRemnants() : []
-    nextStars = [...mergeCatalogStars(selectedCatalog, brightCatalog), ...compactObjects]
+    const compactObjects = COMPACT_OBJECT_TYPES.some((type) => visibleKeys.has(type)) ? await loadCompactRemnants() : []
+    const nebulae = NEBULA_OBJECT_TYPES.some((type) => visibleKeys.has(type)) ? await loadNebulae() : []
+    nextStars = [...mergeCatalogStars(selectedCatalog, brightCatalog), ...compactObjects, ...nebulae]
   } catch (error) {
     if (request !== catalogRequest) return
     catalogError(error)
-    element<HTMLSelectElement>('catalog-select').value = activeCatalogId
+    renderCatalogRange(activeCatalogId)
     sceneStatus(viewer ? null : 'The nearby-object catalog could not be loaded.')
     return
   }
   if (request !== catalogRequest) return
   const retainedView: ViewerViewState | undefined = viewer?.getViewState()
-  const changingCatalog = activeCatalogId !== '' && id !== activeCatalogId
   const retained = catalogSelection(nextStars, selectedId, observerId)
   viewer?.dispose()
   viewer = undefined
@@ -313,8 +342,8 @@ async function switchCatalog(id: string, refresh = false): Promise<void> {
   selectedId = retained.selectedId
   observerId = retained.observerId
   text('scene-epoch', `J${definition.manifest.epoch.toFixed(1)}`)
-  element<HTMLSelectElement>('catalog-select').value = id
-  element('catalog-select').title = `${definition.manifest.description} ${definition.manifest.snapshot}`
+  renderCatalogRange(id)
+  element('catalog-range').title = `${definition.manifest.description} ${definition.manifest.snapshot}`
   element<HTMLInputElement>('object-search').value = ''
   objectList.setStars(stars, distanceUnit, selectedId)
   updateObjectListFilter()
@@ -336,16 +365,16 @@ async function switchCatalog(id: string, refresh = false): Promise<void> {
   viewer.select(selectedId, false)
   viewer.setVisibility(observerId, magnitudeLimit)
   viewer.setObjectDistanceLimit(objectDistanceLimitLy)
-  viewer.setObjectTypeFilter([...selectedTypes])
-  viewer.setSunVisible(sunVisible)
+  viewer.setObjectFilter([...visibleKeys])
   viewer.setLabelLimit(labelLimit)
   viewer.setMotionArrowsVisible(motionArrowsVisible)
   viewer.setMotionFrame(motionFrame)
   viewer.setMotionYears(motionYears)
   viewer.setPowerSavingMode(powerSavingMode)
   viewer.setGridVisible(gridVisible)
-  if (retainedView && (!changingCatalog || !retainedView.home)) {
-    viewer.setViewState({ ...retainedView, home: changingCatalog ? false : retainedView.home })
+  // A home view refits to the new visible set; manual views keep their camera.
+  if (retainedView && !retainedView.home) {
+    viewer.setViewState({ ...retainedView, home: false })
   }
   sceneStatus(null)
 }
@@ -355,48 +384,141 @@ function catalogError(error: unknown): void {
   element('catalog-error').hidden = false
 }
 
+const categoryOptions = element('object-categories')
 const typeOptions = element('object-type-options')
-function renderObjectTypeSummary(): void {
-  const selectedCount = selectedTypes.size + Number(sunVisible)
-  const optionCount = OBJECT_TYPES.length + 1
-  text('object-type-filter-summary', selectedCount === optionCount ? 'All' : `${selectedCount} of ${optionCount}`)
+
+function noDataHint(id: string, input: HTMLInputElement): HTMLSpanElement {
+  const hint = document.createElement('span')
+  hint.className = 'filter-hint'
+  hint.id = id
+  hint.textContent = 'No data yet'
+  input.setAttribute('aria-describedby', id)
+  return hint
 }
 
-function appendObjectTypeOption(nameText: string, type?: ObjectType): void {
-  const label = document.createElement('label')
-  label.className = 'object-type-option'
+for (const category of FILTER_CATEGORIES) {
+  const available = categoryAvailable(category.id, availableKeys)
+  const toggle = document.createElement('label')
+  toggle.className = 'filter-toggle category-toggle'
+  toggle.classList.toggle('is-unavailable', !available)
   const input = document.createElement('input')
+  input.id = `category-${category.id}`
   input.type = 'checkbox'
-  input.name = 'object-type'
-  if (type) input.dataset.objectType = type
-  else input.dataset.objectId = 'sun'
-  input.checked = type ? selectedTypes.has(type) : sunVisible
-  const name = document.createElement('span')
-  name.textContent = nameText
-  label.append(input, name)
-  typeOptions.append(label)
+  input.setAttribute('role', 'switch')
+  input.setAttribute('aria-label', category.label)
+  input.dataset.category = category.id
+  input.disabled = !available
+  toggle.htmlFor = input.id
+  const toggleText = document.createElement('span')
+  toggleText.className = 'toggle-text'
+  const toggleName = document.createElement('span')
+  toggleName.textContent = category.label
+  toggleText.append(toggleName)
+  if (!available) toggleText.append(noDataHint(`${input.id}-hint`, input))
+  const control = document.createElement('span')
+  control.className = 'switch-control'
+  const track = document.createElement('span')
+  track.className = 'switch-track'
+  track.setAttribute('aria-hidden', 'true')
+  control.append(input, track)
+  toggle.append(toggleText, control)
+  categoryOptions.append(toggle)
+
+  const group = document.createElement('div')
+  group.className = 'type-group'
+  group.setAttribute('role', 'group')
+  const heading = document.createElement('span')
+  heading.className = 'type-group-heading'
+  heading.id = `type-group-${category.id}`
+  heading.textContent = category.label
+  group.setAttribute('aria-labelledby', heading.id)
+  group.append(heading)
+  for (const subtype of category.subtypes) {
+    const option = document.createElement('label')
+    option.className = 'object-type-option'
+    const checkbox = document.createElement('input')
+    checkbox.type = 'checkbox'
+    checkbox.name = 'object-type'
+    checkbox.dataset.filterKey = subtype.key
+    checkbox.setAttribute('aria-label', subtype.label)
+    const name = document.createElement('span')
+    name.textContent = subtype.label
+    option.append(checkbox, name)
+    if (!availableKeys.has(subtype.key)) {
+      option.classList.add('is-unavailable')
+      option.append(noDataHint(`type-${subtype.key}-hint`, checkbox))
+    }
+    group.append(option)
+  }
+  typeOptions.append(group)
 }
 
-appendObjectTypeOption('Sun')
-for (const type of OBJECT_TYPES) appendObjectTypeOption(objectTypeLabel(type), type)
-renderObjectTypeSummary()
+function renderObjectFilter(): void {
+  for (const input of categoryOptions.querySelectorAll<HTMLInputElement>('input[data-category]')) {
+    input.checked = !input.disabled && filterCategories.has(input.dataset.category as FilterCategoryId)
+  }
+  for (const input of typeOptions.querySelectorAll<HTMLInputElement>('input[data-filter-key]')) {
+    const key = input.dataset.filterKey as FilterKey
+    input.checked = availableKeys.has(key) && filterSubtypes.has(key)
+    input.disabled = !availableKeys.has(key) || !filterCategories.has(filterCategoryForKey(key))
+  }
+  text('object-type-filter-summary', filterSummary(visibleKeys, availableKeys))
+}
+
+function applyObjectFilter(): void {
+  const previous = visibleKeys
+  visibleKeys = effectiveFilterKeys(filterCategories, filterSubtypes, availableKeys)
+  renderObjectFilter()
+  const overlayChanged = [COMPACT_OBJECT_TYPES, NEBULA_OBJECT_TYPES].some((types) =>
+    types.some((type) => previous.has(type)) !== types.some((type) => visibleKeys.has(type)))
+  if (overlayChanged) {
+    void switchCatalog(activeCatalogId, true)
+    return
+  }
+  updateObjectListFilter()
+  viewer?.setObjectFilter([...visibleKeys])
+}
+
+renderObjectFilter()
+
+const catalogRange = element<HTMLInputElement>('catalog-range')
+catalogRange.max = String(Math.max(0, sliderCatalogs.length - 1))
+element('catalog-range-bounds').replaceChildren(...[sliderCatalogs[0], sliderCatalogs.at(-1)].map((catalog) => {
+  const bound = document.createElement('span')
+  bound.textContent = `${catalog?.manifest.objectCount ?? 0} objects`
+  return bound
+}))
+
+function previewCatalogRange(index: number): void {
+  const manifest = sliderCatalogs[index]?.manifest
+  if (!manifest) return
+  text('catalog-range-value', manifest.label)
+  catalogRange.setAttribute('aria-valuetext', manifest.label)
+}
+
+function renderCatalogRange(id: string): void {
+  const index = sliderCatalogs.findIndex((catalog) => catalog.manifest.id === id)
+  if (index < 0) return
+  catalogRange.value = String(index)
+  previewCatalogRange(index)
+}
 
 const objectList = new ObjectList(element('star-list'), selectStar, (shown, total) => text('catalog-count', `${shown}/${total}`))
 objectList.setColorMode(starColorMode)
 
-for (const { manifest } of catalogs) {
-  element<HTMLSelectElement>('catalog-select').add(new Option(manifest.label, manifest.id))
-}
+renderCatalogRange('nearest-neighbors')
 void switchCatalog('nearest-neighbors')
 if (catalogErrors.length) catalogError(catalogErrors.join('\n'))
 
 element('object-search').addEventListener('input', () => objectList.setQuery(element<HTMLInputElement>('object-search').value), { signal: events.signal })
-element('catalog-select').addEventListener('change', () => {
-  void switchCatalog(element<HTMLSelectElement>('catalog-select').value)
+catalogRange.addEventListener('input', () => previewCatalogRange(catalogRange.valueAsNumber), { signal: events.signal })
+catalogRange.addEventListener('change', () => {
+  const catalog = sliderCatalogs[catalogRange.valueAsNumber]
+  if (catalog) void switchCatalog(catalog.manifest.id)
 }, { signal: events.signal })
 element('show-always-bright').addEventListener('change', () => {
   showAlwaysBright = element<HTMLInputElement>('show-always-bright').checked
-  if (activeCatalogId !== BRIGHT_CATALOG_ID) void switchCatalog(activeCatalogId, true)
+  void switchCatalog(activeCatalogId, true)
 }, { signal: events.signal })
 element('distance-units').addEventListener('change', () => {
   distanceUnit = element<HTMLInputElement>('unit-ly').checked ? 'ly' : 'pc'
@@ -463,27 +585,23 @@ element('motion-frame').addEventListener('change', () => {
   motionFrame = element<HTMLInputElement>('motion-frame-solar').checked ? 'solar' : 'galactic'
   viewer?.setMotionFrame(motionFrame)
 }, { signal: events.signal })
+categoryOptions.addEventListener('change', (event) => {
+  const input = event.target
+  if (!(input instanceof HTMLInputElement)) return
+  const category = input.dataset.category
+  if (!isFilterCategoryId(category)) return
+  if (input.checked) filterCategories.add(category)
+  else filterCategories.delete(category)
+  applyObjectFilter()
+}, { signal: events.signal })
 element('object-type-filter').addEventListener('change', (event) => {
   const input = event.target
   if (!(input instanceof HTMLInputElement)) return
-  if (input.dataset.objectId === 'sun') {
-    sunVisible = input.checked
-    renderObjectTypeSummary()
-    updateObjectListFilter()
-    viewer?.setSunVisible(sunVisible)
-    return
-  }
-  const type = input.dataset.objectType as ObjectType | undefined
-  if (!type || !OBJECT_TYPES.includes(type)) return
-  if (input.checked) selectedTypes.add(type)
-  else selectedTypes.delete(type)
-  renderObjectTypeSummary()
-  if (COMPACT_OBJECT_TYPES.includes(type as never)) {
-    void switchCatalog(activeCatalogId, true)
-    return
-  }
-  updateObjectListFilter()
-  viewer?.setObjectTypeFilter([...selectedTypes])
+  const key = input.dataset.filterKey
+  if (!isFilterKey(key)) return
+  if (input.checked) filterSubtypes.add(key)
+  else filterSubtypes.delete(key)
+  applyObjectFilter()
 }, { signal: events.signal })
 for (const name of panelNames) {
   element(`${name}-toggle`).addEventListener('click', () => togglePanel(name), { signal: events.signal })

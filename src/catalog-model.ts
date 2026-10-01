@@ -1,9 +1,59 @@
 export const STELLAR_OBJECT_TYPES = ['star', 'white_dwarf', 'brown_dwarf', 'sub_brown_dwarf'] as const
 export const COMPACT_OBJECT_TYPES = ['pulsar', 'neutron_star', 'black_hole'] as const
-export const OBJECT_TYPES = [...STELLAR_OBJECT_TYPES, ...COMPACT_OBJECT_TYPES] as const
+export const NEBULA_OBJECT_TYPES = ['reflection_nebula', 'hii_region'] as const
+export const OBJECT_TYPES = [...STELLAR_OBJECT_TYPES, ...COMPACT_OBJECT_TYPES, ...NEBULA_OBJECT_TYPES] as const
 export type ObjectType = typeof OBJECT_TYPES[number]
 export type StellarObjectType = typeof STELLAR_OBJECT_TYPES[number]
 export type CompactObjectType = typeof COMPACT_OBJECT_TYPES[number]
+export type NebulaObjectType = typeof NEBULA_OBJECT_TYPES[number]
+
+// IAU ICRS-to-Galactic rotation (Hipparcos convention), row-major.
+export const ICRS_TO_GALACTIC_ROWS = [
+  [-0.0548755604, -0.8734370902, -0.4838350155],
+  [0.4941094279, -0.4448296300, 0.7469822445],
+  [-0.8676661490, -0.1980763734, 0.4559837762],
+] as const
+
+export function equatorialToGalacticPc(raDeg: number, decDeg: number, distancePc: number): { x_pc: number; y_pc: number; z_pc: number } {
+  const alpha = raDeg * Math.PI / 180
+  const delta = decDeg * Math.PI / 180
+  const equatorial = [Math.cos(delta) * Math.cos(alpha), Math.cos(delta) * Math.sin(alpha), Math.sin(delta)]
+  const [x, y, z] = ICRS_TO_GALACTIC_ROWS.map((row) => distancePc * (row[0] * equatorial[0]! + row[1] * equatorial[1]! + row[2] * equatorial[2]!))
+  return { x_pc: x!, y_pc: y!, z_pc: z! }
+}
+
+export type NebulaShapeKind = 'ellipsoid' | 'blister' | 'layers'
+
+export interface NebulaShape {
+  kind: NebulaShapeKind
+  // Line-of-sight depth from the Sun, then sky-plane major and minor semi-axes.
+  semi_axes_pc: [number, number, number]
+  // Major axis angle from Galactic north toward increasing Galactic longitude.
+  position_angle_deg: number
+  // Line-of-sight sheet centers relative to the nebula center (layers only).
+  layer_offsets_pc: number[]
+}
+
+export interface NebulaDetails {
+  designations: string[]
+  ra_deg: number
+  dec_deg: number
+  distance_pc: number
+  distance_error_pc: number | null
+  distance_source: string
+  position_source: string
+  angular_size_arcmin: [number, number]
+  illuminating_stars: string
+  shape: NebulaShape
+  // Hex sRGB colors ordered from the illuminated core outward.
+  palette: { real: string[]; exaggerated: string[] }
+  brightness: number
+  puff_count: number
+  seed: number
+  source_label: string
+  source_url: string
+  model_note: string
+}
 
 export interface CompactObjectDetails {
   confidence: 'confirmed' | 'candidate'
@@ -66,10 +116,15 @@ export interface Star {
   notes: string
   raw_astrometry: RawAstrometry | null
   compact?: CompactObjectDetails
+  nebula?: NebulaDetails
 }
 
 export function isCompactObject(star: Pick<Star, 'type'>): boolean {
   return COMPACT_OBJECT_TYPES.some((type) => type === star.type)
+}
+
+export function isNebulaObject(star: Pick<Star, 'type'>): boolean {
+  return NEBULA_OBJECT_TYPES.some((type) => type === star.type)
 }
 
 export function objectTypeLabel(type: ObjectType): string {
@@ -81,6 +136,8 @@ export function objectTypeLabel(type: ObjectType): string {
     pulsar: 'Pulsar',
     neutron_star: 'Neutron star',
     black_hole: 'Black hole',
+    reflection_nebula: 'Reflection nebula',
+    hii_region: 'H II region',
   }[type]
 }
 

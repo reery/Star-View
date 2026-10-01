@@ -1,7 +1,8 @@
 import { Camera, Matrix4, Vector3, Vector4 } from 'three'
-import type { ObjectType, Star } from './catalog-model'
+import type { Star } from './catalog-model'
 import { visibilityTier } from './astronomy'
 import type { LabelRect, LayoutViewport } from './label-layout'
+import { filterKeyForObject, type FilterKey } from './object-filter'
 
 export const STAR_DIAMETER_PX = 10
 
@@ -61,15 +62,15 @@ export function starCoreWhiteStrength(star: Pick<Star, 'type' | 'temperature_k' 
 
 export function isObjectMapVisible(
   star: Pick<Star, 'id' | 'type'>,
-  selectedTypes: ReadonlySet<ObjectType>,
+  visibleKeys: ReadonlySet<FilterKey>,
   selectedId: string | null,
   observerId: string,
   distanceLy = 0,
   distanceLimitLy = Infinity,
-  sunVisible = true,
 ): boolean {
-  if (star.id === 'sun') return sunVisible
-  return selectedTypes.has(star.type) && (
+  const key = filterKeyForObject(star)
+  if (key === 'sun') return visibleKeys.has(key)
+  return visibleKeys.has(key) && (
     star.id === selectedId || star.id === observerId || distanceLy <= distanceLimitLy
   )
 }

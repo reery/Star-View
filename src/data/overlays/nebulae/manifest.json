@@ -1,0 +1,32 @@
+{
+  "schemaVersion": 1,
+  "id": "nebulae",
+  "label": "Nebulae",
+  "description": "A separately loaded, hand-curated overlay of nearby nebulae rendered as approximate 3D volumes.",
+  "epoch": 2000,
+  "objectCount": 2,
+  "counts": {
+    "reflection_nebula": 1,
+    "hii_region": 1
+  },
+  "sources": [
+    {
+      "name": "Kounkel et al. (2017); VLBA distance to the Orion Nebula Cluster",
+      "url": "https://doi.org/10.3847/1538-4357/834/2/142"
+    },
+    {
+      "name": "O'Dell (2001); structure of the Orion Nebula",
+      "url": "https://doi.org/10.1086/317982"
+    },
+    {
+      "name": "Alfonso & García-Varela (2023); Gaia astrometric distance to the Pleiades",
+      "url": "https://doi.org/10.1051/0004-6361/202346569"
+    },
+    {
+      "name": "Gibson & Nordsieck (2003); Pleiades reflection nebula scattering geometry",
+      "url": "https://doi.org/10.1086/374590"
+    }
+  ],
+  "cutoffPolicy": "Hand-picked showcase nebulae, not a complete census. Centers use catalogued positions and adopted literature distances; volumes are illustrative models constrained by angular size and published geometry.",
+  "snapshot": "J2000 map positions; literature reviewed 2026-10-01."
+}

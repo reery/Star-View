@@ -1,5 +1,6 @@
 import { expect, test, type Page } from '@playwright/test'
 import { PNG } from 'pngjs'
+import { selectCatalog } from './support'
 
 interface RenderingStats {
   draws: number
@@ -126,7 +127,7 @@ for (const catalog of ['nearest-neighbors', 'nearest-1000']) {
   test(`submits only visible halos and batches axes for ${catalog}`, async ({ page }) => {
     await trackRendering(page)
     await openFilter(page)
-    await page.getByLabel('Catalog', { exact: true }).selectOption(catalog)
+    await selectCatalog(page, catalog)
     await expectIdle(page)
     console.log(`${catalog} default GPU submissions: ${JSON.stringify(await stats(page))}`)
     for (const limit of ['0', '7', '12']) {
@@ -150,7 +151,7 @@ test('rotates nearest-neighbors without remeasuring label sizes', async ({ page,
   await page.emulateMedia({ reducedMotion: 'no-preference' })
   await trackRendering(page)
   await openFilter(page)
-  await page.getByLabel('Catalog', { exact: true }).selectOption('nearest-neighbors')
+  await selectCatalog(page, 'nearest-neighbors')
   await page.getByLabel('V magnitude limit', { exact: true }).fill('12')
   await page.getByRole('button', { name: 'Filter', exact: true }).click()
   await expectIdle(page)
@@ -189,7 +190,7 @@ test('records high-density nearest-1000 rotation evidence', { tag: '@mobile' }, 
   await page.emulateMedia({ reducedMotion: 'no-preference' })
   await trackRendering(page)
   await openFilter(page)
-  await page.getByLabel('Catalog', { exact: true }).selectOption('nearest-1000')
+  await selectCatalog(page, 'nearest-1000')
   await page.getByLabel('V magnitude limit', { exact: true }).fill('25')
   await page.getByLabel('Arrow length', { exact: true }).selectOption('50000')
   await page.getByRole('button', { name: 'Filter', exact: true }).click()
@@ -265,7 +266,7 @@ test('drops label text shadows only while the camera moves', async ({ page }) =>
 test('coalesces virtual-list scroll renders and skips unchanged ranges', async ({ page }) => {
   await trackRendering(page)
   await openFilter(page)
-  await page.getByLabel('Catalog', { exact: true }).selectOption('nearest-1000')
+  await selectCatalog(page, 'nearest-1000')
   await expectIdle(page)
   const catalog = page.getByRole('button', { name: 'Objects', exact: true })
   if (await catalog.getAttribute('aria-expanded') === 'false') await catalog.click()
@@ -306,7 +307,7 @@ test('sleeps when idle and redraws after interactions in both catalogs', async (
   await expectIdle(page)
   for (const catalog of ['nearest-neighbors', 'nearest-100']) {
     await openFilter(page)
-    await page.getByLabel('Catalog', { exact: true }).selectOption(catalog)
+    await selectCatalog(page, catalog)
     await expectIdle(page)
     for (const action of [
       () => page.getByRole('button', { name: 'Grid', exact: true }).click(),
@@ -378,7 +379,7 @@ test('measures each star name once while rotating zoomed in', async ({ page }) =
   await page.emulateMedia({ reducedMotion: 'no-preference' })
   await trackRendering(page)
   await openFilter(page)
-  await page.getByLabel('Catalog', { exact: true }).selectOption('nearest-1000')
+  await selectCatalog(page, 'nearest-1000')
   await page.getByLabel('V magnitude limit', { exact: true }).fill('25')
   for (let step = 0; step < 6; step++) await page.getByRole('button', { name: 'Zoom in', exact: true }).click()
   await expectIdle(page)
@@ -408,12 +409,13 @@ test('omits filtered cores and halos from GPU point submissions', async ({ page 
   await page.getByLabel('Object visibility distance', { exact: true }).fill('14')
   await page.locator('[data-star="luhman-16-a"]').evaluate((button: HTMLButtonElement) => button.click())
   await page.locator('details.filter-dropdown > summary').click()
-  await page.getByLabel('Brown dwarf', { exact: true }).uncheck()
+  await page.getByLabel('Brown dwarfs', { exact: true }).uncheck()
   await expect(page.locator('[data-star-id="luhman-16-a"]')).toHaveAttribute('data-map-visible', 'false')
   await expect(page.locator('[data-star-id="luhman-16-a"]')).toBeHidden()
   await expect.poll(async () => (await stats(page)).framePointVertices).toBe(await expectedPointVertices(page))
-  await expect(page.locator('.catalog-entry')).toHaveCount(20)
-  await expect(page.locator('[data-star="luhman-16-a"], [data-star="luhman-16-b"]')).toHaveCount(0)
+  // The brown dwarf filter also covers sub-brown dwarfs such as WISE 0855-0714.
+  await expect(page.locator('.catalog-entry')).toHaveCount(19)
+  await expect(page.locator('[data-star="luhman-16-a"], [data-star="luhman-16-b"], [data-star="wise-0855-0714"]')).toHaveCount(0)
   await expect(page.locator('[data-star-id="luhman-16-b"]')).toHaveCount(0)
   await expect.poll(async () => (await stats(page)).framePointVertices).toBe(await expectedPointVertices(page))
 })
@@ -441,7 +443,7 @@ test('uses the selected renderer resolution cap', { tag: '@mobile' }, async ({ p
   await openPreferences(page)
   await powerSaving.check()
   await openFilter(page)
-  await page.getByLabel('Catalog', { exact: true }).selectOption('nearest-100')
+  await selectCatalog(page, 'nearest-100')
   await openPreferences(page)
   await expect(powerSaving).toBeChecked()
   await page.mouse.move(start.x, start.y)
