@@ -1,7 +1,7 @@
 import './style.css'
 import { ArrowLeft, ArrowRight, CircleHelp, Filter, Focus, Grid2X2, List, Lock, Orbit, Settings2, ZoomIn, ZoomOut, createElement, type IconNode } from 'lucide'
 import { COMPACT_OBJECT_TYPES, describeObject, isCompactObject, isNebulaObject, NEBULA_OBJECT_TYPES, type Star } from './catalog-model'
-import { catalogSelection, mergeCatalogStars, mergeLandmarkStars } from './catalog-runtime'
+import { catalogSelection, mergeCatalogStars } from './catalog-runtime'
 import { compactOverlayManifest, loadCompactRemnants } from './compact-overlay'
 import { loadNebulae, nebulaOverlayManifest } from './nebula-overlay'
 import { catalogs, catalogErrors } from './registry'
@@ -335,8 +335,8 @@ async function switchCatalog(id: string, refresh = false): Promise<void> {
     const compactObjects = COMPACT_OBJECT_TYPES.some((type) => visibleKeys.has(type)) ? await loadCompactRemnants() : []
     const nebulae = NEBULA_OBJECT_TYPES.some((type) => visibleKeys.has(type)) ? await loadNebulae() : []
     const withBrightStars = mergeCatalogStars(selectedCatalog, brightCatalog)
-    const withConstellationStars = mergeLandmarkStars(withBrightStars, westernConstellationCatalog)
-    nextStars = [...mergeLandmarkStars(withConstellationStars, famousClusterCatalog), ...compactObjects, ...nebulae]
+    const withConstellationStars = mergeCatalogStars(withBrightStars, westernConstellationCatalog)
+    nextStars = [...mergeCatalogStars(withConstellationStars, famousClusterCatalog), ...compactObjects, ...nebulae]
   } catch (error) {
     if (request !== catalogRequest) return
     catalogError(error)

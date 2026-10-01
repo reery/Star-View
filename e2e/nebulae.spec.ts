@@ -29,6 +29,16 @@ async function enableNebulae(page: Page, distanceStep = '20') {
   await page.getByLabel('Object visibility distance', { exact: true }).fill(distanceStep)
 }
 
+async function focusOrionNebula(page: Page) {
+  await page.getByRole('button', { name: 'Objects', exact: true }).click()
+  await page.getByLabel('Search objects').fill('Orion')
+  await page.getByRole('button', { name: 'Select Orion Nebula', exact: true }).click()
+  // The home view frames every visible nebula, so Orion starts small.
+  for (let step = 0; step < 15; step++) await page.getByRole('button', { name: 'Zoom in', exact: true }).click()
+  await page.getByRole('button', { name: 'Objects', exact: true }).click()
+  await nextFrames(page)
+}
+
 function nebulaPixels(image: PNG) {
   let count = 0
   let saturation = 0
@@ -124,13 +134,7 @@ test('draws all nebulae in one additive call that follows the color preference a
   await page.getByLabel('Object visibility distance', { exact: true }).fill('20')
   await expect(layer).toHaveAttribute('data-draw-calls', String(withNebulae))
 
-  await page.getByRole('button', { name: 'Objects', exact: true }).click()
-  await page.getByLabel('Search objects').fill('Orion')
-  await page.getByRole('button', { name: 'Select Orion Nebula', exact: true }).click()
-  // The home view frames every visible nebula, so Orion starts small.
-  for (let step = 0; step < 15; step++) await page.getByRole('button', { name: 'Zoom in', exact: true }).click()
-  await page.getByRole('button', { name: 'Objects', exact: true }).click()
-  await nextFrames(page)
+  await focusOrionNebula(page)
   const canvas = page.locator('#scene canvas')
   const hideOverlays = '.projected-labels, .projected-axes { visibility: hidden !important; }'
   const vivid = PNG.sync.read(await canvas.screenshot({ scale: 'css', style: hideOverlays, path: testInfo.outputPath('orion-exaggerated.png') }))
@@ -148,4 +152,24 @@ test('draws all nebulae in one additive call that follows the color preference a
   const passes = Number(await layer.getAttribute('data-ordinary-layout-passes'))
   await page.waitForTimeout(500)
   expect(Number(await layer.getAttribute('data-ordinary-layout-passes'))).toBe(passes)
+})
+
+test('keeps the Orion Nebula visible with bright and constellation stars enabled', { tag: '@mobile' }, async ({ page }, testInfo) => {
+  await openViewer(page)
+  await hideMilkyWay(page)
+  await openFilter(page)
+  await page.getByRole('switch', { name: 'Motion arrows', exact: true }).uncheck()
+  await page.getByRole('switch', { name: 'Always show bright stars', exact: true }).check()
+  await page.getByRole('switch', { name: 'Western constellation stars', exact: true }).check()
+  await enableNebulae(page)
+  await focusOrionNebula(page)
+
+  const image = PNG.sync.read(await page.locator('#scene canvas').screenshot({
+    scale: 'css',
+    style: '.projected-labels, .projected-axes { visibility: hidden !important; }',
+    path: testInfo.outputPath('orion-with-landmark-stars.png'),
+  }))
+  const stats = nebulaPixels(image)
+  expect(stats.count).toBeGreaterThan(1500)
+  expect(stats.saturation).toBeGreaterThan(0.25)
 })

@@ -308,9 +308,10 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
   // the rasterizer. The visible subset only changes with selection/settings.
   haloGeometry.setIndex(stars.map((_, index) => index))
   const haloIndices = haloGeometry.getIndex()!
-  const haloOpacities = new Float32BufferAttribute(stars.map((star) => starHaloOpacity(star.absolute_mag)), 1)
+  const haloOpacities = new Float32BufferAttribute(stars.map(() => 0), 1)
+  const haloDiameters = new Float32BufferAttribute(stars.map(() => 30), 1)
   haloGeometry.setAttribute('haloOpacity', haloOpacities)
-  haloGeometry.setAttribute('haloDiameter', new Float32BufferAttribute(stars.map((star) => starHaloDiameter(star.absolute_mag)), 1))
+  haloGeometry.setAttribute('haloDiameter', haloDiameters)
   const haloMaterial = new PointsMaterial({
     size: 1, sizeAttenuation: false, map: haloTexture, vertexColors: true,
     blending: AdditiveBlending, transparent: true, depthTest: true, depthFunc: LessDepth, depthWrite: false, toneMapped: false,
@@ -819,8 +820,10 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
       )
       tiers[index] = tier
       mapVisible[index] = visible ? 1 : 0
+      const haloMagnitude = tier === 'base' ? star.absolute_mag : magnitude
       coreDiameters.setX(index, tier === 'background' ? 3 : STAR_DIAMETER_PX)
-      haloOpacities.setX(index, tier === 'background' ? 0 : starHaloOpacity(star.absolute_mag, star.id === selectedId))
+      haloOpacities.setX(index, tier === 'background' ? 0 : starHaloOpacity(haloMagnitude, star.id === selectedId))
+      haloDiameters.setX(index, starHaloDiameter(haloMagnitude))
       if (isNebula[index]) return
       if (visible) coreIndices.setX(coreCount++, index)
       if (visible && tier !== 'background') haloIndices.setX(haloCount++, index)
@@ -832,6 +835,7 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
     coreIndices.needsUpdate = true
     coreDiameters.needsUpdate = true
     haloOpacities.needsUpdate = true
+    haloDiameters.needsUpdate = true
     haloIndices.needsUpdate = true
     starGeometry.setDrawRange(0, coreCount)
     haloGeometry.setDrawRange(0, haloCount)

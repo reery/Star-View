@@ -148,6 +148,8 @@ test('adds independent Western constellation and famous-cluster landmark layers'
 
   await western.check()
   await expect(page.locator('#catalog-count')).toHaveText(/\/711$/)
+  await bright.check()
+  await expect(page.locator('#catalog-count')).toHaveText(/\/712$/)
   const distance = page.getByLabel('Object visibility distance', { exact: true })
   await distance.fill('24')
   await expect(page.locator('#object-distance-limit-value')).toHaveText('10000 ly')
@@ -155,6 +157,7 @@ test('adds independent Western constellation and famous-cluster landmark layers'
   await expect(page.locator('#scene')).toHaveAttribute('data-grid-spacing-pc', '200')
   await expect(page.locator('#scene')).toHaveAttribute('data-grid-half-size-pc', '3067')
 
+  await bright.uncheck()
   await western.uncheck()
   await clusters.check()
   await expect(page.locator('#catalog-count')).toHaveText(/\/64$/)

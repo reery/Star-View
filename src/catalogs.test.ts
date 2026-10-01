@@ -23,7 +23,7 @@ import compactPayloadRaw from './data/overlays/compact-remnants/objects.json?raw
 import { buildCatalog, catalogCoverage, catalogSelection, DEFAULT_CATALOG_MANIFEST, loadCatalog, parseCatalogManifest } from './catalogs'
 import { parseStarCatalog } from './catalog'
 import { apparentVisualMagnitude, formatDistance, temperatureToColor, visibilityTier } from './astronomy'
-import { catalogLoader, mergeCatalogStars, mergeLandmarkStars } from './catalog-runtime'
+import { catalogLoader, mergeCatalogStars } from './catalog-runtime'
 import { parseCompactOverlayManifest, parseCompactOverlayPayload } from './compact-overlay-model'
 
 describe('catalog packages and display settings', () => {
@@ -118,16 +118,19 @@ describe('catalog packages and display settings', () => {
       star.absolute_mag, Math.hypot(star.x_pc, star.y_pc, star.z_pc),
     )!))).toBeLessThan(2.70)
     const merged = mergeCatalogStars(large, bright)
-    expect(merged).toHaveLength(211)
+    expect(merged).toHaveLength(210)
     expect(new Set(merged.map((star) => star.id)).size).toBe(merged.length)
     expect(merged.find((star) => star.name === 'Altair')).toMatchObject({
       id: '10pc-0117', temperature_k: 7760, mass_solar: 1.6, radius_solar: 1.8183, metallicity_dex: 0.19,
     })
     expect(large.find((star) => star.name === 'Altair')).toMatchObject({ mass_solar: null, radius_solar: null })
+    expect(merged.filter((star) => star.name === 'Procyon A' || star.name === 'Procyon')).toHaveLength(1)
     const sirius = bright.find((star) => star.id === 'sirius-a')!
-    expect(mergeCatalogStars([sirius], [{ ...sirius, id: 'sirius-companion' }])).toHaveLength(2)
+    expect(mergeCatalogStars([sirius], [{ ...sirius, id: 'duplicate-sirius' }])).toHaveLength(1)
+    expect(mergeCatalogStars([sirius], [small.find((star) => star.id === 'sirius-b')!])).toHaveLength(2)
     const largestMerged = mergeCatalogStars(nearest1000, bright)
-    expect(largestMerged).toHaveLength(1105)
+    expect(largestMerged).toHaveLength(1103)
+    expect(largestMerged.filter((star) => star.name === 'Denebola')).toHaveLength(1)
     expect(new Set(largestMerged.map((star) => star.id)).size).toBe(largestMerged.length)
   })
 
@@ -150,6 +153,9 @@ describe('catalog packages and display settings', () => {
     expect(provenance.objects['hip-54463'].adoptedDistance).toMatchObject({ method: 'co-moving group distance', sourceId: '2026A&A...708A..78K' })
     expect(provenance.objects['hip-89341'].adoptedDistance).toMatchObject({ method: 'associated-system geometric posterior' })
     expect(provenance.objects['hip-5165'].adoptedDistance).toMatchObject({ method: 'binary-orbit parallax', sourceId: '2015AN....336..378A' })
+    const withBrightStars = mergeCatalogStars(bright, western)
+    expect(withBrightStars).toHaveLength(694)
+    expect(withBrightStars.filter((star) => star.name === 'Rigel')).toHaveLength(1)
   })
 
   it('keeps famous cluster stars curated, recognizable and separate from bright-star membership', () => {
@@ -171,10 +177,10 @@ describe('catalog packages and display settings', () => {
     })
 
     const sirius = western.find((star) => star.name === 'Sirius')!
-    const merged = mergeLandmarkStars(small, [sirius, ...cluster])
+    const merged = mergeCatalogStars(small, [sirius, ...cluster])
     expect(merged.filter((star) => star.name === 'Sirius' || star.name === 'Sirius A')).toHaveLength(1)
     expect(merged).toHaveLength(64)
-    expect(mergeCatalogStars(small, [sirius])).toHaveLength(23)
+    expect(mergeCatalogStars(small, [sirius])).toHaveLength(22)
   })
 
   it('rebuilds both landmark catalogs exactly from frozen sources', () => {

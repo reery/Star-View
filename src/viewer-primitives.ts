@@ -80,20 +80,20 @@ export function focusProgress(elapsedMs: number): number {
   return progress * progress * (3 - 2 * progress)
 }
 
-export function starHaloStrength(absoluteMagnitude: number | null, selected = false): number {
-  const strength = absoluteMagnitude !== null && Number.isFinite(absoluteMagnitude)
-    ? Math.max(0.08, Math.min(1.4, 0.65 * 10 ** Math.max(-2, Math.min(1, -0.1 * (absoluteMagnitude - 4.83)))))
+export function starHaloStrength(apparentMagnitude: number | null, selected = false): number {
+  const strength = apparentMagnitude !== null && Number.isFinite(apparentMagnitude)
+    ? Math.max(0.08, Math.min(1.4, 0.65 * 10 ** Math.max(-2, Math.min(1, -0.1 * (apparentMagnitude - 4.83)))))
     : 0.65
   return Math.min(1.8, strength * (selected ? 1.3 : 1))
 }
 
-export function starHaloDiameter(absoluteMagnitude: number | null): number {
-  if (absoluteMagnitude === null || !Number.isFinite(absoluteMagnitude)) return 30
-  return Math.max(20, Math.min(80, 68 - 4.25 * absoluteMagnitude))
+export function starHaloDiameter(apparentMagnitude: number | null): number {
+  if (apparentMagnitude === null || !Number.isFinite(apparentMagnitude)) return 30
+  return Math.max(20, Math.min(80, 68 - 4.25 * apparentMagnitude))
 }
 
-export function starHaloOpacity(absoluteMagnitude: number | null, selected = false): number {
-  return 0.9 * (1 - Math.exp(-1.4 * starHaloStrength(absoluteMagnitude, selected)))
+export function starHaloOpacity(apparentMagnitude: number | null, selected = false): number {
+  return 0.9 * (1 - Math.exp(-1.4 * starHaloStrength(apparentMagnitude, selected)))
 }
 
 const SECONDS_PER_JULIAN_YEAR = 31_557_600

@@ -17,24 +17,9 @@ function supplementPhysicalFields(primary: Star, additional: Star): Star {
   const fields = OVERLAY_PHYSICAL_FIELDS.filter((field) => primary[field] === null && additional[field] !== null)
   for (const field of fields) supplemented[field] = additional[field]
   if (fields.length) {
-    supplemented.notes = `${primary.notes} Bright-star overlay supplements ${fields.join(', ')}. ${additional.notes}`.trim()
+    supplemented.notes = `${primary.notes} Additional catalog supplements ${fields.join(', ')}. ${additional.notes}`.trim()
   }
   return supplemented
-}
-
-export function mergeCatalogStars(primary: readonly Star[], additional: readonly Star[]): Star[] {
-  const merged = [...primary]
-  const indices = new Map(merged.map((star, index) => [star.id, index]))
-  for (const star of additional) {
-    const duplicate = indices.get(star.id)
-    if (duplicate !== undefined) {
-      merged[duplicate] = supplementPhysicalFields(merged[duplicate]!, star)
-      continue
-    }
-    indices.set(star.id, merged.length)
-    merged.push(star)
-  }
-  return merged
 }
 
 const SAME_SKY_POSITION_COSINE = Math.cos(Math.PI / (180 * 3600))
@@ -51,16 +36,23 @@ function sameSkyPosition(first: Star, second: Star): boolean {
   return cosine >= SAME_SKY_POSITION_COSINE
 }
 
-/** Merge additive landmark layers without duplicating an object already supplied by the selected catalog. */
-export function mergeLandmarkStars(primary: readonly Star[], additional: readonly Star[]): Star[] {
+/** Merge a catalog layer while retaining one marker for objects shared under different catalog IDs. */
+export function mergeCatalogStars(primary: readonly Star[], additional: readonly Star[]): Star[] {
   const merged = [...primary]
-  const ids = new Set(merged.map((star) => star.id))
-  const names = new Set(merged.map((star) => star.name.toLocaleLowerCase('en-US')))
+  const ids = new Map(merged.map((star, index) => [star.id, index]))
+  const names = new Map(merged.map((star, index) => [star.name.toLocaleLowerCase('en-US'), index]))
   for (const star of additional) {
     const normalizedName = star.name.toLocaleLowerCase('en-US')
-    if (ids.has(star.id) || names.has(normalizedName) || merged.some((candidate) => sameSkyPosition(candidate, star))) continue
-    ids.add(star.id)
-    names.add(normalizedName)
+    const duplicate = ids.get(star.id) ?? names.get(normalizedName) ??
+      merged.findIndex((candidate) => sameSkyPosition(candidate, star))
+    if (duplicate >= 0) {
+      merged[duplicate] = supplementPhysicalFields(merged[duplicate]!, star)
+      ids.set(star.id, duplicate)
+      names.set(normalizedName, duplicate)
+      continue
+    }
+    ids.set(star.id, merged.length)
+    names.set(normalizedName, merged.length)
     merged.push(star)
   }
   return merged

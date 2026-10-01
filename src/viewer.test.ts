@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest'
 import { PerspectiveCamera, Vector3, type Camera } from 'three'
+import { apparentVisualMagnitude } from './astronomy'
 import { chooseOrdinaryLabelPlacement, ordinaryLabelCandidates } from './label-layout'
 import {
   MOTION_ARROW_HEAD_PX, MOTION_ARROW_STROKE_PX, MOTION_ARROW_TAIL_OFFSET_PX,
@@ -217,7 +218,7 @@ describe('star halo strength', () => {
     expect(starHaloStrength(magnitude, true)).toBeCloseTo(0.845)
   })
 
-  it('makes Sirius clearly brighter than Barnard while retaining faint locators', () => {
+  it('makes bright apparent stars clearly stronger than faint ones while retaining faint locators', () => {
     expect(starHaloStrength(4.83)).toBe(0.65)
     expect(starHaloStrength(1.42)).toBe(1.4)
     expect(starHaloStrength(13.22)).toBeCloseTo(0.094, 3)
@@ -262,7 +263,7 @@ describe('magnitude-sized halos', () => {
     expect(starHaloDiameter(magnitude)).toBe(30)
   })
 
-  it('gives Sirius a substantially larger glow than Barnard', () => {
+  it('gives a bright apparent star a substantially larger glow than a faint one', () => {
     expect(starHaloDiameter(1.42)).toBeCloseTo(61.965)
     expect(starHaloDiameter(13.22)).toBe(20)
     expect(starHaloDiameter(1.42)).toBeGreaterThan(starHaloDiameter(13.22) * 3)
@@ -275,6 +276,13 @@ describe('magnitude-sized halos', () => {
     expect(starHaloDiameter(Number.MAX_VALUE)).toBe(20)
     const sizes = [-2, 0, 5, 10, 15, 20].map(starHaloDiameter)
     expect(sizes).toEqual([...sizes].sort((first, second) => second - first))
+  })
+
+  it('applies inverse-square distance falloff before sizing a halo', () => {
+    const nearbyMagnitude = apparentVisualMagnitude(-5, 10)!
+    const distantMagnitude = apparentVisualMagnitude(-5, 1000)!
+    expect(starHaloDiameter(distantMagnitude)).toBeLessThan(starHaloDiameter(nearbyMagnitude))
+    expect(starHaloOpacity(distantMagnitude)).toBeLessThan(starHaloOpacity(nearbyMagnitude))
   })
 })
 
