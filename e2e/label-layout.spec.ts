@@ -53,7 +53,7 @@ test('keeps the selected name in front even at collisions and scene edges', { ta
   await expect(label).toBeVisible()
 })
 
-test('keeps front-camera names stable when the selected star moves behind the camera', { tag: '@mobile' }, async ({ page, isMobile }, testInfo) => {
+test('keeps front-camera names stable when the selected star leaves the camera view', { tag: '@mobile' }, async ({ page, isMobile }, testInfo) => {
   await openViewer(page)
   await openPreferences(page)
   await page.getByLabel('Star labels', { exact: true }).fill(isMobile ? '80' : '140')
@@ -88,6 +88,12 @@ test('keeps front-camera names stable when the selected star moves behind the ca
 
   const selectedAnchor = page.locator('[data-star-id="sun"]')
   const selectedName = selectedAnchor.locator('.star-label')
+  if (!await selectedAnchor.evaluate((element) => element.classList.contains('is-clipped'))) {
+    await page.mouse.move(start.x, start.y)
+    await page.mouse.down({ button: 'right' })
+    await page.mouse.move(start.x + bounds.width * 1.5, start.y, { steps: 12 })
+    await page.mouse.up({ button: 'right' })
+  }
   await expect(selectedAnchor).toHaveClass(/is-clipped/)
   await expect(selectedName).toBeVisible()
   await expect(foregroundName).toBeVisible()

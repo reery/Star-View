@@ -55,7 +55,6 @@ interface ViewerOptions {
   onSelect(id: string | null): void
   onStatus(message: string | null): void
   colorMode: StarColorMode
-  gridHalfSizePc?: number
   milkyWayVisible?: boolean
 }
 
@@ -423,9 +422,8 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
   arrows.visible = false
   scene.add(arrows)
 
-  const baseGridHalfSize = options.gridHalfSizePc ?? Math.max(3, Math.ceil(Math.max(...pickable.map((star) => star.position.length())) + 1))
   function gridHalfSizeForDistance(distanceLy: number): number {
-    return distanceLy <= 100 ? baseGridHalfSize : Math.max(baseGridHalfSize, Math.ceil(distanceLy / LIGHT_YEARS_PER_PARSEC))
+    return Math.max(3, Math.ceil(distanceLy / LIGHT_YEARS_PER_PARSEC))
   }
   function makeGridGeometry(spacingPc: number, halfSizePc: number): BufferGeometry {
     const helper = new GridHelper(halfSizePc * 2, Math.max(2, Math.round(halfSizePc * 2 / spacingPc)), 0x65615c, 0x393939)
@@ -1278,12 +1276,32 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
     invalidateProjection()
   }
 
+  function fitResetView(): void {
+    homeBounds.makeEmpty()
+    homeBounds.expandByPoint(origin)
+    const selected = selectedId === null ? undefined : starsById.get(selectedId)
+    if (selected && selected.index !== sunIndex) homeBounds.expandByPoint(pickable[selected.index]!.position)
+    homeBounds.getBoundingSphere(homeSphere)
+    let distance = 50 / LIGHT_YEARS_PER_PARSEC
+    if (selected && selected.index !== sunIndex) {
+      const verticalAngle = camera.fov * Math.PI / 360
+      const fitAngle = Math.min(verticalAngle, Math.atan(Math.tan(verticalAngle) * camera.aspect))
+      distance = Math.min(controls.maxDistance, Math.max(homeSphere.radius, 0.75) / Math.sin(fitAngle) * 1.6)
+    }
+    controls.target.copy(homeSphere.center)
+    camera.position.copy(homeSphere.center).addScaledVector(homeDirection, distance)
+    camera.lookAt(controls.target)
+    controls.update()
+    home = false
+    invalidateProjection()
+  }
+
   function reset(): void {
     focusTransition = null
     controlsInteracting = false
     controlsSettling = false
     controls.reset()
-    fitHome()
+    fitResetView()
     resize()
     requestRender()
   }

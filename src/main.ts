@@ -288,7 +288,6 @@ async function switchCatalog(id: string, refresh = false): Promise<void> {
   const request = ++catalogRequest
   sceneStatus(`Loading ${definition.manifest.label}...`)
   let nextStars: Star[]
-  let gridHalfSizePc: number
   try {
     const selectedCatalog = await definition.load()
     const brightCatalog = showAlwaysBright && id !== BRIGHT_CATALOG_ID
@@ -296,8 +295,6 @@ async function switchCatalog(id: string, refresh = false): Promise<void> {
       : []
     const compactObjects = COMPACT_OBJECT_TYPES.some((type) => selectedTypes.has(type)) ? await loadCompactRemnants() : []
     nextStars = [...mergeCatalogStars(selectedCatalog, brightCatalog), ...compactObjects]
-    const gridObjects = compactObjects.length ? [...selectedCatalog, ...compactObjects] : selectedCatalog
-    gridHalfSizePc = Math.max(3, Math.ceil(Math.max(...gridObjects.map((star) => Math.hypot(star.x_pc, star.y_pc, star.z_pc))) + 1))
   } catch (error) {
     if (request !== catalogRequest) return
     catalogError(error)
@@ -328,7 +325,6 @@ async function switchCatalog(id: string, refresh = false): Promise<void> {
       onSelect: selectStar,
       onStatus: sceneStatus,
       colorMode: starColorMode,
-      gridHalfSizePc,
       milkyWayVisible,
     })
   } catch (error) {

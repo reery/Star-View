@@ -96,14 +96,17 @@ def source_row(source, parameters, diameters, fundamental, sed, massive, primary
     sed_model = sed.get(source["main_id"], {})
     massive_model = massive.get(source["main_id"], {})
     reviewed = primary.get(source["main_id"], {})
-    temperature = round(10 ** float(model["log_temperature_k"])) if model else sed_model.get("temperature_k") or measured.get("teff", "")
+    temperature = reviewed.get("temperature_k") or (round(10 ** float(model["log_temperature_k"])) if model else sed_model.get("temperature_k") or measured.get("teff", ""))
     metallicity = measured.get("fe_h", "")
     reliable_model_mass = model and not system and (not metallicity or abs(float(metallicity)) <= 0.3)
     model_mass = model["mass_solar"] if reliable_model_mass else ""
     mass = reviewed.get("mass_solar") or model_mass or massive_model.get("mass_solar")
     massive_mass_adopted = bool(massive_model and not reviewed.get("mass_solar") and not model_mass)
     age = reviewed.get("age_gyr", "")
-    if diameter:
+    if reviewed.get("radius_solar"):
+        radius = float(reviewed["radius_solar"])
+        radius_ref = reviewed["bibcode"]
+    elif diameter:
         radius = float(diameter["diameter_km"]) / (2 * SOLAR_RADIUS_KM)
         radius_ref = diameter["bibcode"]
     elif model and not system:
@@ -115,12 +118,13 @@ def source_row(source, parameters, diameters, fundamental, sed, massive, primary
     else:
         radius = None
         radius_ref = ""
-    luminosity = float(sed_model["luminosity_solar"]) if sed_model else (radius ** 2 * (float(temperature) / SOLAR_TEMPERATURE_K) ** 4 if radius is not None and temperature else None)
+    luminosity = float(reviewed["luminosity_solar"]) if reviewed.get("luminosity_solar") else (float(sed_model["luminosity_solar"]) if sed_model else (radius ** 2 * (float(temperature) / SOLAR_TEMPERATURE_K) ** 4 if radius is not None and temperature else None))
     physical_refs = sorted(set(filter(None, (
         model.get("bibcode"), measured.get("bibcode"), diameter.get("bibcode"), sed_model.get("bibcode"), massive_model.get("bibcode") if massive_mass_adopted else None, reviewed.get("bibcode"),
     ))))
     physical_note = f" Physical parameters: {', '.join(physical_refs)}." if physical_refs else ""
     mass_note = f" Mass source detail: {massive_model['note']}." if massive_mass_adopted else ""
+    review_note = f" Reviewed source detail: {reviewed['note']}." if reviewed and not age else ""
     age_note = f" Age source detail: {reviewed['note']}." if age else " No component-resolved age was adopted from the reviewed sources."
     row = {header: "" for header in HEADERS}
     snapshot_date = "2026-09-30" if visual_magnitude >= 2.42 else "2026-09-25"
@@ -135,7 +139,7 @@ def source_row(source, parameters, diameters, fundamental, sed, massive, primary
         "metallicity_dex": metallicity,
         "age_gyr": age,
         "absolute_mag": f"{absolute_magnitude:.6f}", "epoch": "2000.0",
-        "notes": f"Curated bright-star landmark; SIMBAD identity {source['main_id']}. {photometry}; absolute V derived from parallax with no extinction correction.{physical_note}{mass_note}{age_note}{system_note}",
+        "notes": f"Curated bright-star landmark; SIMBAD identity {source['main_id']}. {photometry}; absolute V derived from parallax with no extinction correction.{physical_note}{mass_note}{review_note}{age_note}{system_note}",
         "constellation": CONSTELLATIONS[source["name"]], "ra_deg": source["ra"], "dec_deg": source["dec"],
         "astrometry_epoch": "2000.0", "parallax_mas": source["plx_value"], "parallax_error_mas": source["plx_err"],
         "pm_ra_cosdec_masyr": source["pmra"], "pm_dec_masyr": source["pmdec"],
@@ -166,10 +170,10 @@ def render():
         massive = {row["main_id"]: row for row in csv.DictReader(handle)}
     with PRIMARY.open(newline="") as handle:
         primary = {row["main_id"]: row for row in csv.DictReader(handle)}
-    if len(fundamental) != 39 or len(sed) != 53 or len(massive) != 9:
+    if len(fundamental) != 54 or len(sed) != 77 or len(massive) != 10 or len(primary) != 5:
         raise ValueError("Bright-star physical source subsets are incomplete")
-    if not set(massive).issubset({row["main_id"] for row in source_rows}):
-        raise ValueError("Massive-star supplement contains an unknown SIMBAD identity")
+    if not (set(massive) | set(primary)).issubset({row["main_id"] for row in source_rows}):
+        raise ValueError("Bright-star supplement contains an unknown SIMBAD identity")
     if len(source_rows) != 111 or len({row["id"] for row in source_rows}) != 111 or len({row["name"] for row in source_rows}) != 111:
         raise ValueError("Bright-star source must contain 111 unique named landmarks")
     authored = [source_row(row, parameters, diameters, fundamental, sed, massive, primary) for row in source_rows]
