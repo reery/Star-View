@@ -3,16 +3,25 @@ import { join, resolve } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { buildCatalog, catalogCoverage, DEFAULT_CATALOG_MANIFEST, loadCatalog, parseCatalogManifest } from '../src/catalogs.ts'
 import { parseCompactOverlayManifest, parseCompactOverlayPayload } from '../src/compact-overlay-model.ts'
+import { parseNebulaOverlayManifest, parseNebulaOverlayPayload } from '../src/nebula-overlay-model.ts'
 import { containedInput, safeOutputDirectory, writeManagedFiles } from './filesystem.ts'
 
 const root = fileURLToPath(new URL('../', import.meta.url))
 const [command, ...args] = process.argv.slice(2)
 const compactOverlayDirectory = join(root, 'src/data/overlays/compact-remnants')
+const nebulaOverlayDirectory = join(root, 'src/data/overlays/nebulae')
 
 function loadCompactOverlay() {
   const manifest = parseCompactOverlayManifest(readFileSync(join(compactOverlayDirectory, 'manifest.json'), 'utf8'))
   const payload: unknown = JSON.parse(readFileSync(join(compactOverlayDirectory, 'objects.json'), 'utf8'))
   const objects = parseCompactOverlayPayload(payload, manifest)
+  return { manifest, objects }
+}
+
+function loadNebulaOverlay() {
+  const manifest = parseNebulaOverlayManifest(readFileSync(join(nebulaOverlayDirectory, 'manifest.json'), 'utf8'))
+  const payload: unknown = JSON.parse(readFileSync(join(nebulaOverlayDirectory, 'objects.json'), 'utf8'))
+  const objects = parseNebulaOverlayPayload(payload, manifest)
   return { manifest, objects }
 }
 
@@ -34,6 +43,8 @@ function validate(directory?: string): void {
   if (!directory) {
     const { manifest, objects } = loadCompactOverlay()
     console.log(`${manifest.id}: ${objects.length} overlay rows; type counts ${JSON.stringify(manifest.counts)}`)
+    const nebulae = loadNebulaOverlay()
+    console.log(`${nebulae.manifest.id}: ${nebulae.objects.length} overlay rows; type counts ${JSON.stringify(nebulae.manifest.counts)}`)
   }
 }
 
@@ -59,11 +70,13 @@ function generate(): void {
   }
   console.log(`Generated ${Object.keys(files).length} browser catalog payloads.`)
   const { manifest: overlayManifest, objects } = loadCompactOverlay()
+  const nebulae = loadNebulaOverlay()
   const overlayOutput = safeOutputDirectory(join(root, 'src/data/generated/overlays'))
   writeManagedFiles(overlayOutput, {
     [`${overlayManifest.id}.json`]: JSON.stringify({ schemaVersion: 1, overlayId: overlayManifest.id, objects }) + '\n',
+    [`${nebulae.manifest.id}.json`]: JSON.stringify({ schemaVersion: 1, overlayId: nebulae.manifest.id, objects: nebulae.objects }) + '\n',
   }, true)
-  console.log(`Generated ${objects.length} compact-object overlay rows.`)
+  console.log(`Generated ${objects.length} compact-object and ${nebulae.objects.length} nebula overlay rows.`)
 }
 
 try {

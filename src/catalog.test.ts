@@ -148,6 +148,16 @@ describe('object catalog', () => {
   })
 
   it.each([
+    ['reflection_nebula', 'Reflection nebula'],
+    ['hii_region', 'H II region'],
+    ['planetary_nebula', 'Planetary nebula'],
+  ] as const)('labels the %s overlay type but rejects it in catalog CSV', (type, label) => {
+    expect(objectTypeLabel(type)).toBe(label)
+    expect(describeObject({ type, spectral_type: null })).toBe(label)
+    expect(() => parseStarCatalog(changeSirius({ type }))).toThrow(/expected one of: star, white_dwarf, brown_dwarf, sub_brown_dwarf/)
+  })
+
+  it.each([
     [{ x_pc: '' }, 'x_pc'],
     [{ y_pc: 'NaN' }, 'y_pc'],
     [{ z_pc: '1e999' }, 'z_pc'],

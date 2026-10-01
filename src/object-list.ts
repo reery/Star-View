@@ -54,7 +54,7 @@ export class ObjectList {
     this.items = stars.map((star) => ({
       star,
       distancePc: sunRelativeMetrics(star, sun).distancePc,
-      search: normalizeObjectSearch(`${star.name} ${star.id} ${star.spectral_type ?? ''}`),
+      search: normalizeObjectSearch(`${star.name} ${star.id} ${star.spectral_type ?? ''} ${star.nebula?.designations.join(' ') ?? ''}`),
       color: starDisplayColor(star, this.colorMode).getStyle(),
     }))
     this.query = ''

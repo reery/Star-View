@@ -39,7 +39,7 @@
                           <div class="stellar-property"><dt>Spectral type</dt><dd id="spectral-type"></dd></div>
                           <div class="stellar-property"><dt>Temperature</dt><dd id="temperature"></dd></div>
                           <div id="luminosity-row" class="stellar-property"><dt>Bolometric luminosity</dt><dd id="luminosity"></dd></div>
-                          <div><dt>Mass</dt><dd id="mass"></dd></div>
+                          <div id="mass-row"><dt>Mass</dt><dd id="mass"></dd></div>
                           <div class="stellar-property"><dt>Radius</dt><dd id="radius"></dd></div>
                           <div class="stellar-property"><dt>Metallicity [M/H]</dt><dd id="metallicity"></dd></div>
                           <div class="stellar-property"><dt>Age</dt><dd id="age"></dd></div>
@@ -54,6 +54,12 @@
                           <div class="compact-property orbit-property" hidden><dt>Companion</dt><dd id="compact-companion"></dd></div>
                           <div class="compact-property" hidden><dt>Detection</dt><dd id="detection-method"></dd></div>
                           <div class="compact-property" hidden><dt>Source</dt><dd><a id="compact-source" target="_blank" rel="noreferrer"></a></dd></div>
+                          <div class="nebula-property" hidden><dt>Designations</dt><dd id="nebula-designations"></dd></div>
+                          <div class="nebula-property" hidden><dt>Apparent size</dt><dd id="nebula-angular-size"></dd></div>
+                          <div class="nebula-property" hidden><dt>Modeled extent</dt><dd id="nebula-extent"></dd></div>
+                          <div class="nebula-property" hidden><dt>Illuminated by</dt><dd id="nebula-illumination"></dd></div>
+                          <div class="nebula-property" hidden><dt>Distance source</dt><dd id="nebula-distance-source"></dd></div>
+                          <div class="nebula-property" hidden><dt>Source</dt><dd><a id="nebula-source" target="_blank" rel="noreferrer"></a></dd></div>
                         </dl>
                       </section>
                       <details class="source-details">
@@ -104,12 +110,17 @@
               <section id="filter-panel" class="dock-card filter-section" aria-labelledby="filter-heading" hidden>
                 <div class="panel-heading"><h2 id="filter-heading">Filter</h2><button id="filter-lock" class="panel-lock" type="button" aria-label="Keep Filter open" aria-pressed="false"><span id="filter-lock-icon"></span></button></div>
                 <div class="filter-controls">
-                  <div class="catalog-choice"><label for="catalog-select">Catalog</label><select id="catalog-select"></select></div>
+                  <div class="range-filter">
+                    <div class="range-heading"><label for="catalog-range">Catalog</label><output id="catalog-range-value" for="catalog-range"></output></div>
+                    <input id="catalog-range" type="range" min="0" max="0" step="1" value="0">
+                    <div id="catalog-range-bounds" class="range-bounds" aria-hidden="true"></div>
+                  </div>
                   <p id="catalog-error" class="catalog-error" role="alert" hidden></p>
                   <label class="filter-toggle" for="show-always-bright">
                     <span>Always show bright stars</span>
                     <span class="switch-control"><input id="show-always-bright" type="checkbox" role="switch"><span class="switch-track" aria-hidden="true"></span></span>
                   </label>
+                  <div id="object-categories" class="category-toggles" role="group" aria-label="Object categories"></div>
                   <div class="range-filter">
                     <div class="range-heading"><label for="object-distance-limit">Object visibility distance</label><output id="object-distance-limit-value" for="object-distance-limit">100 ly</output></div>
                     <input id="object-distance-limit" type="range" min="0" max="22" step="1" value="14" aria-valuetext="100 light-years" aria-describedby="object-distance-steps">
@@ -144,7 +155,7 @@
                 <div class="panel-heading"><h2 id="preferences-heading">Preferences</h2><button id="preferences-lock" class="panel-lock" type="button" aria-label="Keep Preferences open" aria-pressed="false"><span id="preferences-lock-icon"></span></button></div>
                 <div class="display-settings" aria-label="Display settings">
                   <div id="distance-units" class="segmented-choice" role="group" aria-labelledby="distance-units-label"><span id="distance-units-label">Distances</span><div class="unit-options"><label><input id="unit-pc" type="radio" name="distance-unit" value="pc"><span>pc</span></label><label><input id="unit-ly" type="radio" name="distance-unit" value="ly" checked><span>ly</span></label></div></div>
-                  <div id="star-colors" class="segmented-choice" role="group" aria-labelledby="star-colors-label"><span id="star-colors-label">Star colors</span><div class="unit-options"><label><input id="star-colors-real" type="radio" name="star-color-mode" value="real"><span>Real</span></label><label><input id="star-colors-exaggerated" type="radio" name="star-color-mode" value="exaggerated" checked><span>Exaggerated</span></label></div></div>
+                  <div id="star-colors" class="segmented-choice" role="group" aria-labelledby="star-colors-label"><span id="star-colors-label">Colors</span><div class="unit-options"><label><input id="star-colors-real" type="radio" name="star-color-mode" value="real"><span>Real</span></label><label><input id="star-colors-exaggerated" type="radio" name="star-color-mode" value="exaggerated" checked><span>Exaggerated</span></label></div></div>
                   <div class="range-filter">
                     <div class="range-heading"><label for="label-limit">Star labels</label><output id="label-limit-value" for="label-limit">40</output></div>
                     <input id="label-limit" type="range" min="0" max="140" step="20" value="40" aria-valuetext="40 labels">
