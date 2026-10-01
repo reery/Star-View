@@ -22,6 +22,10 @@ interface ObjectListItem {
   color: string
 }
 
+export function sortObjectListItemsByDistance<T extends { distancePc: number }>(items: readonly T[]): T[] {
+  return [...items].sort((first, second) => first.distancePc - second.distancePc)
+}
+
 export class ObjectList {
   private readonly container: HTMLElement
   private readonly onCountChange: (shown: number, total: number) => void
@@ -51,12 +55,12 @@ export class ObjectList {
 
   setStars(stars: readonly Star[], unit: DistanceUnit, selectedId: string | null): void {
     const sun = stars.find((star) => star.id === 'sun')!
-    this.items = stars.map((star) => ({
+    this.items = sortObjectListItemsByDistance(stars.map((star) => ({
       star,
       distancePc: sunRelativeMetrics(star, sun).distancePc,
       search: normalizeObjectSearch(`${star.name} ${star.id} ${star.spectral_type ?? ''} ${star.nebula?.designations.join(' ') ?? ''}`),
       color: starDisplayColor(star, this.colorMode).getStyle(),
-    }))
+    })))
     this.query = ''
     this.unit = unit
     this.selectedId = selectedId
