@@ -3,10 +3,26 @@ import { PNG } from 'pngjs'
 import { readFileSync } from 'node:fs'
 import { Box3, PerspectiveCamera, Sphere, Spherical, Vector3 } from 'three'
 import { parseStarCatalog, type Star } from '../src/catalog'
-import { galacticToWorld } from '../src/astronomy'
+import { galacticToWorld, LIGHT_YEARS_PER_PARSEC } from '../src/astronomy'
 import { arrowPixelMask, hideMilkyWay, isolatedArrows, measureArrowShaft, motionArrows, openFilter, openPreferences, openViewer, starPoint, type MotionArrowSnapshot } from './support'
 
-function homeCamera(stars: readonly Star[], bounds: { width: number; height: number }) {
+function resetCamera(stars: readonly Star[], bounds: { width: number; height: number }, selectedId: string | null, distanceScale = 1) {
+  const sun = galacticToWorld(stars.find((star) => star.id === 'sun')!)
+  const selected = selectedId === null || selectedId === 'sun' ? null : galacticToWorld(stars.find((star) => star.id === selectedId)!)
+  const target = selected ? sun.clone().lerp(selected, 0.5) : sun
+  const camera = new PerspectiveCamera(44, bounds.width / bounds.height, 0.01, 1000)
+  const verticalAngle = camera.fov * Math.PI / 360
+  const fitAngle = Math.min(verticalAngle, Math.atan(Math.tan(verticalAngle) * camera.aspect))
+  const distance = (selected
+    ? Math.max(sun.distanceTo(selected) / 2, 0.75) / Math.sin(fitAngle) * 1.6
+    : 50 / LIGHT_YEARS_PER_PARSEC) * distanceScale
+  camera.position.copy(target).addScaledVector(new Vector3(-4.8, 3.8, -6.2).normalize(), distance)
+  camera.lookAt(target)
+  camera.updateMatrixWorld()
+  return camera
+}
+
+function catalogCamera(stars: readonly Star[], bounds: { width: number; height: number }) {
   const sphere = new Box3().setFromPoints(stars.map(galacticToWorld)).getBoundingSphere(new Sphere())
   sphere.radius = Math.max(sphere.radius, 0.75)
   const camera = new PerspectiveCamera(44, bounds.width / bounds.height, 0.01, 1000)
@@ -53,6 +69,8 @@ test('loads compact remnants on demand and shows type-specific sourced fields', 
   await page.locator('details.filter-dropdown > summary').click()
   await page.getByLabel('Black hole', { exact: true }).check()
   await expect(page.locator('#catalog-count')).toHaveText(/\/291$/)
+  await expect(page.locator('#scene')).toHaveAttribute('data-grid-spacing-pc', '0.5')
+  await expect(page.locator('#scene')).toHaveAttribute('data-grid-half-size-pc', '31')
   expect(compactRequests).toHaveLength(1)
   await page.getByLabel('Object visibility distance', { exact: true }).fill('22')
   await page.getByRole('button', { name: 'Objects', exact: true }).click()
@@ -85,6 +103,7 @@ test('adds the bright-star catalog as a deduplicated optional overlay', async ({
   await page.getByRole('button', { name: 'Zoom in' }).click()
   const sunBeforeToggle = await starPoint(page, 'sun')
   const gridBeforeToggle = await page.locator('#scene').getAttribute('data-grid-half-size-pc')
+  expect(gridBeforeToggle).toBe('31')
   await toggle.check()
   await expect(page.locator('#catalog-count')).toHaveText(/\/133$/)
   await expect(page.locator('[data-star="bright-canopus"]')).toHaveCount(0)
@@ -680,6 +699,7 @@ test('renders temperature-colored objects, measurements, and a responsive interf
   page.on('requestfailed', (request) => errors.push(request.url()))
   await openViewer(page)
   await hideMilkyWay(page)
+  await page.getByRole('button', { name: 'Grid', exact: true }).click()
   await expect(page.locator('#distance-value')).toHaveText('8.61')
   await expect(page.locator('#inspector').getByText('Galactic height', { exact: true })).toHaveCount(0)
   await expect(page.locator('#height-pc, #height-side, #height-signed')).toHaveCount(0)
@@ -996,7 +1016,7 @@ test('keeps bright and selected halos strongly temperature-tinted without clippi
   }
 })
 
-test('toggles the grid below reset without moving stars or changing selection', { tag: '@mobile' }, async ({ page, isMobile }, testInfo) => {
+test('toggles the grid without moving stars and preserves its state across reset', { tag: '@mobile' }, async ({ page, isMobile }, testInfo) => {
   await openViewer(page)
   await hideMilkyWay(page)
   await openFilter(page)
@@ -1054,17 +1074,17 @@ test('toggles the grid below reset without moving stars or changing selection', 
   await sceneFits(page)
   await page.screenshot({ path: testInfo.outputPath('grid-off.png'), fullPage: true })
   await page.getByRole('button', { name: 'Reset view', exact: true }).click()
-  expect(await starPoint(page, 'sun')).toEqual(sunBefore)
+  const sunAfterReset = await starPoint(page, 'sun')
   await expect(grid).toHaveAttribute('aria-pressed', 'false')
   await expect(page.locator('.axis-label:visible')).toHaveCount(0)
-  await expect.poll(async () => changedPixels(gridOff, await canvas.screenshot(screenshotOptions))).toBeLessThan(5)
+  const resetGridOff = await canvas.screenshot(screenshotOptions)
   await grid.focus()
   await page.keyboard.press('Enter')
   await expect(grid).toHaveAttribute('aria-pressed', 'true')
-  await expect(page.locator('.axis-label:visible')).toHaveCount(3)
+  expect(await starPoint(page, 'sun')).toEqual(sunAfterReset)
   await expect(page.locator('#grid-legend')).toBeVisible()
   await expect(page.locator('#grid-tooltip')).toHaveText('Hide grid')
-  await expect.poll(async () => changedPixels(gridOn, await canvas.screenshot(screenshotOptions))).toBeLessThan(5)
+  await expect.poll(async () => changedPixels(resetGridOff, await canvas.screenshot(screenshotOptions))).toBeGreaterThan(200)
   await grid.focus()
   await page.keyboard.press('Space')
   await expect(grid).toHaveAttribute('aria-pressed', 'false')
@@ -1126,6 +1146,12 @@ test('keeps axis captions anchored behind the canvas throughout rotation', async
 
 test('fades grid pixels toward the edge without fading the scene', { tag: '@mobile' }, async ({ page, isMobile }) => {
   await openViewer(page)
+  await openFilter(page)
+  await page.getByLabel('Object visibility distance', { exact: true }).fill('0')
+  await page.getByRole('button', { name: 'Filter', exact: true }).click()
+  await page.getByRole('button', { name: 'Reset view', exact: true }).click()
+  await page.getByRole('button', { name: 'Zoom out', exact: true }).click()
+  await page.getByRole('button', { name: 'Zoom out', exact: true }).click()
   const canvas = page.locator('#scene canvas')
   const bounds = (await canvas.boundingBox())!
   const options = { scale: 'css' as const, style: '.projected-axes, .projected-labels, .scene-toolbar, .scene-brand, .scene-legend, .plane-key, .visibility-observer { visibility: hidden !important; }' }
@@ -1133,8 +1159,8 @@ test('fades grid pixels toward the edge without fading the scene', { tag: '@mobi
   await page.getByRole('button', { name: 'Grid', exact: true }).click()
   const off = PNG.sync.read(await canvas.screenshot(options))
   const stars = parseStarCatalog(readFileSync(new URL('../src/data/stars.csv', import.meta.url), 'utf8'))
-  const camera = homeCamera(stars, bounds)
-  const radius = Math.max(3, Math.ceil(Math.max(...stars.map((star) => galacticToWorld(star).length())) + 1))
+  const camera = resetCamera(stars, bounds, 'sirius-a', 1.3 ** 2)
+  const radius = 3
   const brightness = [0.25, 0.75, 0.95, 1.1].map((fraction) => {
     const point = new Vector3(radius * fraction, 0, 0.5).project(camera)
     const centerX = Math.round((point.x + 1) * bounds.width / 2)
@@ -1161,9 +1187,6 @@ test('overlapping stars follow camera depth and keep their motion arrows', async
   await openFilter(page)
   await page.getByLabel('V magnitude limit', { exact: true }).fill('25')
   const stars = parseStarCatalog(readFileSync(new URL('../src/data/stars.csv', import.meta.url), 'utf8'))
-  const positions = stars.map(galacticToWorld)
-  const sphere = new Box3().setFromPoints(positions).getBoundingSphere(new Sphere())
-  sphere.radius = Math.max(sphere.radius, 0.75)
   const sunPosition = galacticToWorld(stars.find((star) => star.id === 'sun')!)
   const siriusPosition = galacticToWorld(stars.find((star) => star.id === 'sirius-a')!)
   const canvas = page.locator('#scene canvas')
@@ -1171,14 +1194,11 @@ test('overlapping stars follow camera depth and keep their motion arrows', async
   await page.locator('#objects-lock').click()
 
   for (const side of [-1, 1]) {
+    await page.getByRole('button', { name: 'Select Sirius A', exact: true }).click()
     await page.getByRole('button', { name: 'Reset view', exact: true }).click()
     await page.getByRole('button', { name: 'Select Sun', exact: true }).click()
     const bounds = (await canvas.boundingBox())!
-    const verticalAngle = 44 * Math.PI / 360
-    const fitAngle = Math.min(verticalAngle, Math.atan(Math.tan(verticalAngle) * bounds.width / bounds.height))
-    const distance = Math.min(Math.max(30, sphere.radius * 24), sphere.radius / Math.sin(fitAngle) * 1.6)
-    const homeCamera = sphere.center.clone().addScaledVector(new Vector3(-4.8, 3.8, -6.2).normalize(), distance)
-    const initial = new Spherical().setFromVector3(homeCamera.sub(sunPosition))
+    const initial = new Spherical().setFromVector3(resetCamera(stars, bounds, 'sirius-a').position.sub(sunPosition))
     const target = new Spherical().setFromVector3(siriusPosition.clone().sub(sunPosition).multiplyScalar(side))
     const thetaDelta = Math.atan2(Math.sin(initial.theta - target.theta), Math.cos(initial.theta - target.theta))
     const deltaX = thetaDelta * bounds.height / (2 * Math.PI * 0.65)
@@ -1237,16 +1257,11 @@ test('overlapping stars follow camera depth and keep their motion arrows', async
   }
 })
 
-test('targets ordinary selections, zooms around them, and resets to the catalog view', { tag: '@mobile' }, async ({ page, isMobile }) => {
+test('targets ordinary selections, zooms around them, and resets around the selected distance line', { tag: '@mobile' }, async ({ page, isMobile }) => {
   await openViewer(page)
   await page.getByRole('button', { name: 'Objects', exact: true }).click()
   const canvasBounds = (await page.locator('#scene canvas').boundingBox())!
   const stars = parseStarCatalog(readFileSync(new URL('../src/data/stars.csv', import.meta.url), 'utf8'))
-  const proximaProjection = galacticToWorld(stars.find((star) => star.id === 'proxima-centauri')!).project(homeCamera(stars, canvasBounds))
-  const proximaHome = {
-    x: canvasBounds.x + (proximaProjection.x + 1) * canvasBounds.width / 2,
-    y: canvasBounds.y + (1 - proximaProjection.y) * canvasBounds.height / 2,
-  }
   await page.getByRole('button', { name: 'Select Proxima Centauri', exact: true }).click()
   await expect(page.locator('#star-name')).toHaveText('Proxima Centauri')
   await page.getByRole('button', { name: 'Objects', exact: true }).click()
@@ -1257,10 +1272,13 @@ test('targets ordinary selections, zooms around them, and resets to the catalog 
   }).toBeLessThan(2)
 
   await page.getByRole('button', { name: 'Reset view', exact: true }).click()
-  await expect.poll(async () => {
-    const reset = await starPoint(page, 'proxima-centauri')
-    return Math.hypot(reset.x - proximaHome.x, reset.y - proximaHome.y)
-  }).toBeLessThan(2)
+  const reset = resetCamera(stars, canvasBounds, 'proxima-centauri')
+  for (const id of ['sun', 'proxima-centauri']) {
+    const projected = galacticToWorld(stars.find((star) => star.id === id)!).project(reset)
+    const actual = await starPoint(page, id)
+    expect(actual.x).toBeCloseTo(canvasBounds.x + (projected.x + 1) * canvasBounds.width / 2, 0)
+    expect(actual.y).toBeCloseTo(canvasBounds.y + (1 - projected.y) * canvasBounds.height / 2, 0)
+  }
 
   const sun = await starPoint(page, 'sun')
   if (isMobile) await page.touchscreen.tap(sun.x, sun.y)
@@ -1270,28 +1288,29 @@ test('targets ordinary selections, zooms around them, and resets to the catalog 
   await expect(page.locator('#selection-announcement')).toHaveText('Sun, 0.00 ly from the Sun.')
   await expect(page.locator('.dimension-label')).toHaveCount(0)
 
+  await page.getByRole('button', { name: 'Reset view', exact: true }).click()
   const focusedSun = await starPoint(page, 'sun')
-  const beforeZoom = await starPoint(page, 'sirius-a')
+  const beforeZoom = await starPoint(page, 'alpha-centauri-a')
   const separationBefore = Math.hypot(beforeZoom.x - focusedSun.x, beforeZoom.y - focusedSun.y)
   await page.getByRole('button', { name: 'Zoom in', exact: true }).click()
   await expect.poll(async () => {
     const first = await starPoint(page, 'sun')
-    const second = await starPoint(page, 'sirius-a')
+    const second = await starPoint(page, 'alpha-centauri-a')
     return Math.hypot(first.x - second.x, first.y - second.y)
   }).toBeGreaterThan(separationBefore)
 
-  const sirius = await starPoint(page, 'sirius-a')
-  if (isMobile) await page.touchscreen.tap(sirius.x + 15, sirius.y)
-  else await page.mouse.click(sirius.x, sirius.y)
+  await page.getByRole('button', { name: 'Objects', exact: true }).click()
+  await page.getByRole('button', { name: 'Select Sirius A', exact: true }).click()
   await expect(page.locator('#star-name')).toHaveText('Sirius A')
   await expect(page.locator('#selection-announcement')).toHaveText('Sirius A, 8.61 ly from the Sun.')
+  await page.getByRole('button', { name: 'Objects', exact: true }).click()
   await page.getByRole('button', { name: 'Reset view', exact: true }).click()
   await expect(page.locator('#star-name')).toHaveText('Sirius A')
 
   await page.getByRole('button', { name: 'Objects', exact: true }).click()
   const sunButton = page.getByRole('button', { name: 'Select Sun', exact: true })
-  await sunButton.focus()
-  await page.keyboard.press('Enter')
+  if (isMobile) await sunButton.click()
+  else await sunButton.press('Enter')
   await expect(sunButton).toHaveAttribute('aria-pressed', 'true')
   await expect(page.locator('#star-name')).toHaveText('Sun')
   await page.getByRole('button', { name: 'Select Sirius A', exact: true }).click()
@@ -1370,7 +1389,7 @@ test('eases focus through intermediate frames while preserving camera position',
   expect(samples.frames.some((frame) => frame.distance > 2 && frame.distance < samples.before - 2)).toBe(true)
   expect(samples.frames.at(-1)!.distance).toBeLessThan(1)
   const stars = parseStarCatalog(readFileSync(new URL('../src/data/stars.csv', import.meta.url), 'utf8'))
-  const camera = homeCamera(stars, bounds)
+  const camera = catalogCamera(stars, bounds)
   camera.lookAt(galacticToWorld(stars.find((star) => star.id === 'sun')!))
   camera.updateMatrixWorld()
   for (const id of ['sirius-a', 'ross-154', 'wolf-359']) {
@@ -1409,11 +1428,12 @@ test('interrupts focus for reset, zoom and rapid reselection', async ({ page }) 
         }
         requestAnimationFrame(sample)
       })
-      return { before, frames }
+      const scene = document.querySelector('#scene')!.getBoundingClientRect()
+      return { before, frames, center: { x: scene.x + scene.width / 2, y: scene.y + scene.height / 2 } }
     }, action)
     const first = result.frames[0]!
     const last = result.frames.at(-1)!
-    if (action === 'reset-view') expect(Math.hypot(last.x - result.before.x, last.y - result.before.y)).toBeLessThan(1)
+    if (action === 'reset-view') expect(Math.hypot(last.x - result.center.x, last.y - result.center.y)).toBeLessThan(1)
     if (action !== 'reselect') {
       expect(Math.max(...result.frames.map((point) => Math.hypot(point.x - first.x, point.y - first.y)))).toBeLessThan(1)
     } else {
@@ -1433,22 +1453,25 @@ test('hands active focus to pointer input, deselection and reduced motion', { ta
   const bounds = (await page.locator('#scene canvas').boundingBox())!
   const empty = { x: bounds.x + bounds.width * 0.25, y: bounds.y + bounds.height * 0.85 }
   for (const action of ['pointer', 'clear', 'reduce']) {
+    await page.locator('[data-star="sirius-a"]').evaluate((button: HTMLButtonElement) => button.click())
     await page.getByRole('button', { name: 'Reset view', exact: true }).click()
-    await page.evaluate(async () => {
+    const duringOffset = await page.evaluate(async () => {
       const anchor = document.querySelector('[data-star-id="sun"]')!
       const initial = anchor.getBoundingClientRect()
       document.querySelector<HTMLButtonElement>('[data-star="sun"]')!.click()
-      await new Promise<void>((resolve) => {
+      return new Promise<number>((resolve) => {
         function moved() {
           const current = anchor.getBoundingClientRect()
-          if (Math.hypot(current.x - initial.x, current.y - initial.y) > 0.5) resolve()
+          if (Math.hypot(current.x - initial.x, current.y - initial.y) > 0.5) {
+            const scene = document.querySelector('#scene')!.getBoundingClientRect()
+            resolve(Math.hypot(current.x - scene.x - scene.width / 2, current.y - scene.y - scene.height / 2))
+          }
           else requestAnimationFrame(moved)
         }
         requestAnimationFrame(moved)
       })
     })
-    const during = await starPoint(page, 'sun')
-    expect(Math.hypot(during.x - bounds.x - bounds.width / 2, during.y - bounds.y - bounds.height / 2)).toBeGreaterThan(1)
+    expect(duringOffset).toBeGreaterThan(0.5)
     const session = isMobile && action === 'pointer' ? await context.newCDPSession(page) : null
     if (action === 'reduce') await page.emulateMedia({ reducedMotion: 'reduce' })
     else if (action === 'clear') {
@@ -1581,10 +1604,12 @@ test('shows attached travel-length motion arrows with selectable horizons', { ta
   expect(arrowFor(siriusBArrows, 'sirius-b')!.selected).toBe(true)
   expect(arrowFor(siriusBArrows, 'sirius-b')!.color).not.toBe(siriusArrow.color)
   await page.getByRole('button', { name: 'Reset view', exact: true }).click()
-  await expect.poll(async () => {
-    const sun = await starPoint(page, 'sun')
-    return Math.hypot(sun.x - homeSun.x, sun.y - homeSun.y)
-  }).toBeLessThan(1)
+  const resetStars = parseStarCatalog(readFileSync(new URL('../src/data/stars.csv', import.meta.url), 'utf8'))
+  const reset = resetCamera(resetStars, bounds, 'sirius-b')
+  const resetSun = galacticToWorld(resetStars.find((star) => star.id === 'sun')!).project(reset)
+  const actualSun = await starPoint(page, 'sun')
+  expect(actualSun.x).toBeCloseTo(bounds.x + (resetSun.x + 1) * bounds.width / 2, 0)
+  expect(actualSun.y).toBeCloseTo(bounds.y + (1 - resetSun.y) * bounds.height / 2, 0)
   await page.getByRole('button', { name: 'Objects', exact: true }).click()
   const sun = await starPoint(page, 'sun')
   if (isMobile) await page.touchscreen.tap(sun.x, sun.y)
@@ -1731,12 +1756,20 @@ test('clears selection on empty-sky clicks and taps without moving the camera', 
   const after = await starPoint(page, 'sirius-a')
   expect(Math.hypot(after.x - before.x, after.y - before.y)).toBeLessThan(1)
   await page.getByRole('button', { name: 'Reset view', exact: true }).click()
+  const stars = parseStarCatalog(readFileSync(new URL('../src/data/stars.csv', import.meta.url), 'utf8'))
+  const reset = resetCamera(stars, bounds, null)
+  for (const id of ['sun', 'alpha-centauri-a']) {
+    const projected = galacticToWorld(stars.find((star) => star.id === id)!).project(reset)
+    const actual = await starPoint(page, id)
+    expect(actual.x).toBeCloseTo(bounds.x + (projected.x + 1) * bounds.width / 2, 0)
+    expect(actual.y).toBeCloseTo(bounds.y + (1 - projected.y) * bounds.height / 2, 0)
+  }
   await page.getByRole('button', { name: 'Zoom in', exact: true }).click()
   await expect(page.locator('#selected-object-card')).toBeHidden()
-  const point = await starPoint(page, 'sirius-a')
+  const point = await starPoint(page, 'alpha-centauri-a')
   if (isMobile) await page.touchscreen.tap(point.x, point.y)
   else await page.mouse.click(point.x, point.y)
-  await expect(page.locator('#star-name')).toHaveText('Sirius A')
+  await expect(page.locator('#star-name')).toHaveText('Alpha Centauri A')
   await expect(page.locator('#selected-object-card')).toBeVisible()
   await expect(page.locator('#star-details')).toBeVisible()
   await page.getByRole('button', { name: 'Objects', exact: true }).click()

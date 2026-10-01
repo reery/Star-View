@@ -67,7 +67,7 @@ describe('catalog packages and display settings', () => {
   it('keeps the bright landmark catalog bounded and merges it without duplicates', () => {
     expect(bright).toHaveLength(115)
     expect(bright.at(-1)?.name).toBe('Arneb')
-    expect(catalogCoverage(bright)).toMatchObject({ temperatures: 78, masses: 34, luminosities: 70, radii: 69, metallicities: 19, ages: 1 })
+    expect(catalogCoverage(bright)).toMatchObject({ temperatures: 113, masses: 45, luminosities: 99, radii: 98, metallicities: 23, ages: 1 })
     expect(bright.find((star) => star.name === 'Rigel')).toMatchObject({
       temperature_k: 11968, radius_solar: 74.0262, luminosity_solar: 83226.2, metallicity_dex: -0.159,
     })
@@ -83,6 +83,18 @@ describe('catalog packages and display settings', () => {
     expect(bright.find((star) => star.name === 'Sadr')).toMatchObject({
       temperature_k: 5863, mass_solar: 12.11, radius_solar: 173.5751, luminosity_solar: 32073.7,
     })
+    expect(bright.find((star) => star.name === 'Aludra')).toMatchObject({
+      temperature_k: 10000, mass_solar: 19.19, radius_solar: 66.8279, luminosity_solar: 40235.6,
+    })
+    expect(bright.find((star) => star.name === 'Menkar')).toMatchObject({
+      temperature_k: 3795, mass_solar: 2.3, radius_solar: 89, luminosity_solar: 1460, metallicity_dex: -0.221,
+    })
+    expect(bright.find((star) => star.name === 'Beta Gruis')).toMatchObject({
+      temperature_k: 3508, mass_solar: null, radius_solar: 153.871, luminosity_solar: 3221.38, metallicity_dex: null,
+    })
+    expect(bright.find((star) => star.name === 'Gacrux')).toMatchObject({
+      temperature_k: 3689, mass_solar: null, radius_solar: 71.952, luminosity_solar: 861.411,
+    })
     expect(bright.find((star) => star.name === 'Mizar A')).toMatchObject({
       temperature_k: null, mass_solar: null, radius_solar: null, luminosity_solar: null,
     })
@@ -90,7 +102,7 @@ describe('catalog packages and display settings', () => {
     expect(['Sabik', 'Arneb', 'Muphrid'].every((name) => bright.some((star) => star.name === name))).toBe(true)
     expect(bright.some((star) => star.name === 'NGC 1980')).toBe(false)
     expect(bright.filter((star) => Math.hypot(star.x_pc, star.y_pc, star.z_pc) * 3.261563777 > 1000).map((star) => star.name)).toEqual([
-      'Naos', 'Regor', 'Deneb', 'Wezen', 'Sadr', 'Alnilam',
+      'Naos', 'Regor', 'Deneb', 'Wezen', 'Sadr', 'Alnilam', 'Aludra', 'Arneb',
     ])
     expect(Math.max(...bright.map((star) => Math.hypot(star.x_pc, star.y_pc, star.z_pc) * 3.261563777))).toBeLessThan(3000)
     expect(parseCatalogManifest(brightManifest).cutoffPolicy).toContain('3000 light-years')
