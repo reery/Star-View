@@ -510,9 +510,9 @@ test('presents the selected object beside an expandable control dock', async ({ 
   await expect(page.locator('.selected-object')).toHaveCSS('border-radius', '11px')
   await expect(page.locator('.dock-card:visible')).toHaveCount(0)
   const panelButtons = page.locator('.panel-button')
-  await expect(panelButtons).toHaveCount(4)
-  expect(await panelButtons.evaluateAll((buttons) => buttons.map((button) => button.getAttribute('aria-label')))).toEqual(['Filter', 'Preferences', 'Objects', 'Info'])
-  expect(await panelButtons.evaluateAll((buttons) => buttons.map((button) => button.getAttribute('aria-expanded')))).toEqual(['false', 'false', 'false', 'false'])
+  await expect(panelButtons).toHaveCount(5)
+  expect(await panelButtons.evaluateAll((buttons) => buttons.map((button) => button.getAttribute('aria-label')))).toEqual(['Stellar motion', 'Filter', 'Preferences', 'Objects', 'Info'])
+  expect(await panelButtons.evaluateAll((buttons) => buttons.map((button) => button.getAttribute('aria-expanded')))).toEqual(['false', 'false', 'false', 'false', 'false'])
   await expect(page.locator('#object-card-details')).not.toHaveAttribute('open')
   await expect(page.locator('#star-name')).toBeVisible()
   await expect(page.locator('.properties-section')).toBeHidden()
@@ -675,7 +675,7 @@ test('presents the selected object beside an expandable control dock', async ({ 
 test('dismisses unlocked control cards on every scene interaction while locked cards stay open', async ({ page }) => {
   await openViewer(page)
   const canvas = page.locator('#scene canvas')
-  await expect(page.locator('.panel-lock')).toHaveCount(3)
+  await expect(page.locator('.panel-lock')).toHaveCount(4)
   await expect(page.locator('#info-panel .panel-lock')).toHaveCount(0)
 
   await openPreferences(page)
@@ -690,13 +690,30 @@ test('dismisses unlocked control cards on every scene interaction while locked c
   const sunAfterRotation = await starPoint(page, 'sun')
   expect(Math.hypot(sunAfterRotation.x - sunBeforeRotation.x, sunAfterRotation.y - sunBeforeRotation.y)).toBeGreaterThan(2)
 
-  for (const name of ['Filter', 'Objects', 'Info']) {
+  for (const [name, panel] of [['Stellar motion', 'motion'], ['Filter', 'filter'], ['Objects', 'objects'], ['Info', 'info']] as const) {
     const toggle = page.getByRole('button', { name, exact: true })
     await toggle.click()
-    await expect(page.locator(`#${name.toLowerCase()}-panel`)).toBeVisible()
+    await expect(page.locator(`#${panel}-panel`)).toBeVisible()
     await canvas.click({ position: { x: 2, y: 2 } })
     await expect(toggle).toHaveAttribute('aria-expanded', 'false')
   }
+
+  await page.getByRole('button', { name: 'Stellar motion', exact: true }).click()
+  const motionLock = page.locator('#motion-lock')
+  await motionLock.click()
+  await page.getByRole('button', { name: 'Filter', exact: true }).click()
+  await expect(page.locator('#motion-panel')).toBeVisible()
+  await expect(page.locator('#filter-panel')).toBeVisible()
+  await page.getByRole('button', { name: 'Preferences', exact: true }).click()
+  await expect(page.locator('#motion-panel')).toBeVisible()
+  await expect(page.locator('#filter-panel')).toBeHidden()
+  await expect(page.locator('#preferences-panel')).toBeVisible()
+  await canvas.click({ position: { x: 2, y: 2 } })
+  await expect(page.locator('#preferences-panel')).toBeHidden()
+  await expect(page.locator('#motion-panel')).toBeVisible()
+  await motionLock.click()
+  await canvas.click({ position: { x: 2, y: 2 } })
+  await expect(page.locator('#motion-panel')).toBeHidden()
 
   await openFilter(page)
   const filterLock = page.locator('#filter-lock')
@@ -1603,6 +1620,111 @@ test('hands active focus to pointer input, deselection and reduced motion', { ta
       await session.detach()
     } else if (action === 'pointer') await page.mouse.up({ button: 'right' })
   }
+})
+
+test('scrubs and plays the physical stellar-motion timeline in both directions', { tag: '@mobile' }, async ({ page }) => {
+  await openViewer(page)
+  const timeline = page.getByRole('region', { name: 'Stellar motion timeline' })
+  const slider = page.getByRole('slider', { name: 'Simulation time' })
+  const faster = page.getByRole('button', { name: 'Increase playback speed' })
+  const slower = page.getByRole('button', { name: 'Decrease playback speed' })
+  const follow = page.getByRole('button', { name: 'Follow selection' })
+  await expect(timeline).toBeHidden()
+  await page.getByRole('button', { name: 'Stellar motion', exact: true }).click()
+  await expect(timeline).toBeVisible()
+  await expect(timeline.getByRole('heading')).toHaveCount(0)
+  const motionLock = page.getByRole('button', { name: 'Keep Stellar motion open' })
+  await expect(motionLock).toBeVisible()
+  expect(await slower.evaluate((button) => button.previousElementSibling?.id)).toBe('time-follow')
+  await expect(follow).toHaveAttribute('aria-pressed', 'false')
+  await expect(timeline.locator('.time-readout > span')).toHaveCount(0)
+  await expect(timeline.locator('.time-directions')).toHaveText('PastFuture')
+  const timelineBounds = (await timeline.boundingBox())!
+  const lockBounds = (await motionLock.boundingBox())!
+  const fasterBounds = (await faster.boundingBox())!
+  expect(Math.abs(lockBounds.x + lockBounds.width - timelineBounds.x - timelineBounds.width)).toBeLessThan(2)
+  expect(Math.abs(lockBounds.y - timelineBounds.y)).toBeLessThan(2)
+  expect(lockBounds.x - fasterBounds.x - fasterBounds.width).toBeGreaterThan(8)
+  await motionLock.click()
+  await expect(motionLock).toHaveAttribute('aria-pressed', 'true')
+  await page.locator('#scene canvas').click({ position: { x: 2, y: 2 } })
+  await expect(timeline).toBeVisible()
+  await motionLock.click()
+  await expect(slider).toHaveAttribute('min', '-300000')
+  await expect(slider).toHaveAttribute('max', '300000')
+  await expect(slider).toHaveAttribute('step', 'any')
+  await expect(page.locator('.time-markers i')).toHaveCount(19)
+  await expect(page.locator('#time-value')).toHaveText('Now')
+  await expect(page.locator('#time-speed-value')).toHaveText('1k years / 7s')
+
+  for (let count = 0; count < 6; count++) await faster.click()
+  await expect(page.locator('#time-speed-value')).toHaveText('1k years / 1s')
+  await expect(faster).toBeDisabled()
+  for (let count = 0; count < 14; count++) await slower.click()
+  await expect(page.locator('#time-speed-value')).toHaveText('1k years / 15s')
+  await expect(slower).toBeDisabled()
+
+  await openFilter(page)
+  await page.getByLabel('Arrow length', { exact: true }).selectOption('50000')
+  await page.getByRole('button', { name: 'Filter', exact: true }).click()
+  await page.getByRole('button', { name: 'Stellar motion', exact: true }).click()
+  await page.locator('[data-star="sirius-a"]').evaluate((button: HTMLButtonElement) => button.click())
+  const distanceLabel = page.locator('.dimension-label')
+  const initialDistance = await distanceLabel.textContent()
+  const initialCardSubtitle = await page.locator('#star-distance').textContent()
+  const catalogDistance = await page.locator('#distance-value').textContent()
+  const before = await starPoint(page, 'sirius-a')
+  const arrow = (await motionArrows(page)).find((candidate) => candidate.id === 'sirius-a')!
+  await slider.fill('1000')
+  await expect(page.locator('#scene')).toHaveAttribute('data-simulation-years', '1000')
+  await expect(page.locator('#time-value')).toHaveText('+1,000 yr')
+  await expect(distanceLabel).toBeVisible()
+  const after = await starPoint(page, 'sirius-a')
+  const travelX = after.x - before.x
+  const travelY = after.y - before.y
+  const arrowX = arrow.tipX - arrow.tailX
+  const arrowY = arrow.tipY - arrow.tailY
+  expect(Math.hypot(travelX, travelY)).toBeGreaterThan(0.5)
+  expect(travelX * arrowX + travelY * arrowY, 'the star follows its displayed physical-motion vector').toBeGreaterThan(0)
+
+  await slider.fill('25000')
+  await expect(distanceLabel).toBeVisible()
+  await expect(distanceLabel).not.toHaveText(initialDistance!)
+  await expect(page.locator('#star-distance')).not.toHaveText(initialCardSubtitle!)
+  await expect(page.locator('#star-distance')).toHaveText(await distanceLabel.textContent() ?? '')
+  await expect(page.locator('#distance-value')).toHaveText(catalogDistance!)
+
+  await page.locator('[data-star="sirius-a"]').evaluate((button: HTMLButtonElement) => button.click())
+  await follow.click()
+  await expect(page.locator('#scene')).toHaveAttribute('data-follow-target', 'star')
+  const followedStarBefore = await starPoint(page, 'sirius-a')
+  await slider.fill('50000')
+  const followedStarAfter = await starPoint(page, 'sirius-a')
+  expect(Math.hypot(followedStarAfter.x - followedStarBefore.x, followedStarAfter.y - followedStarBefore.y)).toBeLessThan(1)
+  await follow.click()
+
+  await page.getByRole('button', { name: 'Reset view', exact: true }).click()
+  await follow.click()
+  await expect(page.locator('#scene')).toHaveAttribute('data-follow-target', 'distance')
+  const pathAnchor = distanceLabel.locator('..')
+  const followedPathBefore = (await pathAnchor.boundingBox())!
+  await slider.fill('75000')
+  const followedPathAfter = (await pathAnchor.boundingBox())!
+  expect(Math.hypot(followedPathAfter.x - followedPathBefore.x, followedPathAfter.y - followedPathBefore.y)).toBeLessThan(8)
+  await follow.click()
+
+  await page.getByRole('button', { name: 'Return timeline to now' }).click()
+  await expect(slider).toHaveValue('0')
+  await expect(page.locator('#scene')).toHaveAttribute('data-simulation-years', '0')
+  await expect(page.locator('#time-value')).toHaveText('Now')
+  await slider.fill('300000')
+  await page.getByRole('button', { name: 'Play stellar motion' }).click()
+  await expect(page.getByRole('button', { name: 'Pause stellar motion' })).toHaveAttribute('aria-pressed', 'true')
+  await expect.poll(async () => Number(await page.locator('#scene').getAttribute('data-simulation-years'))).toBeLessThan(300000)
+  await page.getByRole('button', { name: 'Pause stellar motion' }).click()
+  const paused = await page.locator('#scene').getAttribute('data-simulation-years')
+  await page.waitForTimeout(80)
+  await expect(page.locator('#scene')).toHaveAttribute('data-simulation-years', paused!)
 })
 
 test('shows attached travel-length motion arrows with selectable horizons', { tag: '@mobile' }, async ({ page, isMobile }, testInfo) => {
