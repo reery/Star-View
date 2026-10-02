@@ -13,9 +13,10 @@ import { centeredForegroundLabelBounds, chooseOrdinaryLabelPlacement, ordinaryLa
 import { createNebulaLayer } from './nebula-layer'
 import { FILTER_KEYS, isFilterKey, type FilterKey } from './object-filter'
 import {
-  MOTION_ARROW_DASH_PX, MOTION_ARROW_GAP_PX, MOTION_ARROW_HEAD_PX, MOTION_ARROW_STROKE_PX, MOTION_ARROW_TAIL_OFFSET_PX,
+  GUIDE_DASH_PX, GUIDE_GAP_PX, MOTION_ARROW_DASH_PX, MOTION_ARROW_GAP_PX, MOTION_ARROW_HEAD_PX, MOTION_ARROW_STROKE_PX,
+  MOTION_ARROW_TAIL_OFFSET_PX,
   STAR_DIAMETER_PX, ScreenSpaceGrid, TapGesture, budgetVisibleLabelIndices, compareMapLabelCandidates, focusProgress,
-  isObjectMapVisible, motionArrowGeometryInto, motionTravelDistancePc, pickProjectedStarAtScreenPoint,
+  guideDashScale, isObjectMapVisible, motionArrowGeometryInto, motionTravelDistancePc, pickProjectedStarAtScreenPoint,
   projectMotionDirectionInto, projectSelectedAnchor, projectWorldPointInto,
   shouldRunOrdinaryLabelLayout, starBlocksLabels, starCoreWhiteStrength, starHaloDiameter, starHaloOpacity,
   type MotionArrowGeometry, type ProjectedPickable,
@@ -102,10 +103,16 @@ function disposeGeometry(root: Object3D): void {
 function lineBetween(points: Vector3[], color: number, dashed = false): Line {
   const geometry = new BufferGeometry().setFromPoints(points)
   const material = dashed
-    ? new LineDashedMaterial({ color, dashSize: 0.065, gapSize: 0.045, depthWrite: false })
+    ? new LineDashedMaterial({ color, dashSize: GUIDE_DASH_PX, gapSize: GUIDE_GAP_PX, depthWrite: false })
     : new LineBasicMaterial({ color, depthWrite: false })
   const line = new Line(geometry, material)
-  if (dashed) line.computeLineDistances()
+  if (dashed) {
+    line.computeLineDistances()
+    line.userData.dashWorldLength = points.slice(1).reduce(
+      (length, point, index) => length + point.distanceTo(points[index]!),
+      0,
+    )
+  }
   return line
 }
 
@@ -531,6 +538,30 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
   axisLabels.forEach((label) => axisLayer.append(label.anchor))
   const guides = new Group()
   scene.add(guides)
+  const guideDashStart = new Vector3()
+  const guideDashEnd = new Vector3()
+
+  function updateGuideDashScales(): void {
+    const width = canvas.clientWidth
+    const height = canvas.clientHeight
+    const viewportDiagonal = Math.hypot(width, height)
+    for (const object of guides.children) {
+      if (!(object instanceof Line) || !(object.material instanceof LineDashedMaterial)) continue
+      const positions = object.geometry.getAttribute('position')
+      if (!positions || positions.count < 2) continue
+      guideDashStart.fromBufferAttribute(positions, 0).project(camera)
+      guideDashEnd.fromBufferAttribute(positions, positions.count - 1).project(camera)
+      const projectedLength = Math.hypot(
+        (guideDashEnd.x - guideDashStart.x) * width / 2,
+        (guideDashEnd.y - guideDashStart.y) * height / 2,
+      )
+      object.material.scale = guideDashScale(
+        object.userData.dashWorldLength as number,
+        projectedLength,
+        viewportDiagonal,
+      )
+    }
+  }
   let measurementLabels: MapLabel[] = []
   let selectedId: string | null = null
   let visibilityBase = sun
@@ -1507,6 +1538,7 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
       }
     }
     camera.updateMatrixWorld()
+    updateGuideDashScales()
     updateMotionArrows()
     renderer.render(scene, camera)
     setData(labelLayer, 'drawCalls', String(renderer.info.render.calls))

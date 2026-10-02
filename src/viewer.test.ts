@@ -3,15 +3,34 @@ import { PerspectiveCamera, Vector3, type Camera } from 'three'
 import { apparentVisualMagnitude } from './astronomy'
 import { chooseOrdinaryLabelPlacement, ordinaryLabelCandidates } from './label-layout'
 import {
-  MOTION_ARROW_HEAD_PX, MOTION_ARROW_STROKE_PX, MOTION_ARROW_TAIL_OFFSET_PX,
+  GUIDE_DASH_PX, GUIDE_GAP_PX, MOTION_ARROW_HEAD_PX, MOTION_ARROW_STROKE_PX, MOTION_ARROW_TAIL_OFFSET_PX,
   ScreenSpaceGrid, TapGesture, budgetVisibleLabelIndices, compareMapLabelCandidates, focusProgress, isObjectMapVisible,
-  motionArrowGeometryInto, motionTravelDistancePc, pickProjectedStarAtScreenPoint,
+  guideDashScale, motionArrowGeometryInto, motionTravelDistancePc, pickProjectedStarAtScreenPoint,
   projectMotionDirection, projectSelectedAnchor, projectWorldPoint, starBlocksLabels,
   shouldRunOrdinaryLabelLayout, starCoreWhiteStrength, starHaloDiameter, starHaloOpacity, starHaloStrength, type MotionArrowGeometry,
   type PointerPosition, type ProjectedPickable, type Viewport,
 } from './viewer-primitives'
 
 const viewport = { left: 110, top: 90, width: 400, height: 300 }
+
+describe('selected guide dashes', () => {
+  it('keeps the same screen-space cadence for nearby and distant guides', () => {
+    const projectedLength = 420
+    const patternSize = GUIDE_DASH_PX + GUIDE_GAP_PX
+    const nearbyRepeats = 2 * guideDashScale(2, projectedLength, 800) / patternSize
+    const distantRepeats = 300 * guideDashScale(300, projectedLength, 800) / patternSize
+    expect(nearbyRepeats).toBeCloseTo(60)
+    expect(distantRepeats).toBeCloseTo(nearbyRepeats)
+  })
+
+  it('caps the dash count when projected endpoints extend beyond the viewport', () => {
+    const worldLength = 300
+    const viewportDiagonal = 500
+    const repeats = worldLength * guideDashScale(worldLength, 10_000, viewportDiagonal) /
+      (GUIDE_DASH_PX + GUIDE_GAP_PX)
+    expect(repeats).toBeCloseTo(viewportDiagonal / (GUIDE_DASH_PX + GUIDE_GAP_PX))
+  })
+})
 
 it('ranks map labels by selection, apparent magnitude, then stable catalog order', () => {
   const candidates = [

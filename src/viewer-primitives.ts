@@ -5,6 +5,14 @@ import type { LabelRect, LayoutViewport } from './label-layout'
 import { filterKeyForObject, type FilterKey } from './object-filter'
 
 export const STAR_DIAMETER_PX = 10
+export const GUIDE_DASH_PX = 4
+export const GUIDE_GAP_PX = 3
+
+export function guideDashScale(worldLength: number, projectedLengthPx: number, viewportDiagonalPx: number): number {
+  if (!Number.isFinite(worldLength) || !Number.isFinite(projectedLengthPx) || !Number.isFinite(viewportDiagonalPx) ||
+      worldLength <= 0 || projectedLengthPx <= 0 || viewportDiagonalPx <= 0) return 0
+  return Math.min(projectedLengthPx, viewportDiagonalPx) / worldLength
+}
 
 export function compareMapLabelCandidates(
   first: { index: number; priority: number; magnitude: number },
