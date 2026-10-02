@@ -10,6 +10,7 @@
     "gaia.adql": "35af07c041827e2cea589798c5e669a8ddc76ce64a6431e818dfa565cf958281",
     "gaia.csv": "851bbf5865d45987d14cdda74691fd8b1b291e0af6353a8096bdb1524ef35d72",
     "physical-overrides.csv": "bbfbbeea0b948bfc37bb8f94f989990ddfffac5382b7c7c409f710465283e425",
+    "radial-velocity-overrides.csv": "27cfb1b121e05d1c96b39f21656216b8f59b5fd3cda7586abed0e7e9021ad084",
     "sed.adql": "63ff6e291e990da269e5bbc0ff6577546c12fa93d1e9a1e4424a062b9748b003",
     "sed.csv": "19b6662da85caf0ec75c57e6ba0b862d321fdc441dfcafc8bc9a56cab712e5ea"
   },
@@ -42,6 +43,15 @@
     "physicalOverrides": {
       "file": "physical-overrides.csv",
       "description": "Component-resolved primary-star parameters for the four classical Trapezium systems; each row carries its literature reference"
+    },
+    "radialVelocityOverrides": {
+      "file": "radial-velocity-overrides.csv",
+      "description": "Reviewed literature radial velocities replacing missing or demonstrably spurious compiled survey values",
+      "references": [
+        "2010A&A...521A..12M",
+        "2017A&A...603A..56C",
+        "2008A&A...488..287H"
+      ]
     },
     "sed": {
       "queryFile": "sed.adql",

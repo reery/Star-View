@@ -84,6 +84,8 @@ describe('object catalog', () => {
 
   it.each([
     ['proxima-centauri', 217.42894222160578, -62.67949018907555, -3781.741, 769.465, -20.578199],
+    ['alpha-centauri-a', 219.85892215, -60.83163195, -3639.95, 700.40, -22.3796],
+    ['alpha-centauri-b', 219.85892215, -60.83163195, -3639.95, 700.40, -22.3796],
     ['barnards-star', 269.4520769586187, 4.693364966576667, -801.551, 10362.394, -110.11],
     ['wolf-359', 164.1205036259475, 7.014723134801666, -3866.338, -2699.215, 19.57],
     ['lalande-21185', 165.8341450816425, 35.96988227279361, -580.057, -4776.589, -84.64],
@@ -112,7 +114,7 @@ describe('object catalog', () => {
     expect(star.notes).toContain('Motion:')
   })
 
-  it('retains unknown motion and explicitly shares only the Sirius system vector', () => {
+  it('retains unknown motion and explicitly shares the Sirius and Alpha Centauri system vectors', () => {
     const stars = parseStarCatalog(csv)
     const velocities = (id: string) => {
       const star = stars.find((star) => star.id === id)!
@@ -120,8 +122,20 @@ describe('object catalog', () => {
     }
     expect(velocities('sirius-b')).toEqual(velocities('sirius-a'))
     expect(stars.find((star) => star.id === 'sirius-b')!.notes).toContain('inherited Sirius system motion')
-    expect(stars.filter((star) => star.vx_kms !== null && star.id !== 'sun')).toHaveLength(11)
-    for (const id of ['alpha-centauri-a', 'alpha-centauri-b', 'luhman-16-a', 'luhman-16-b', 'wise-0855-0714', 'luyten-726-8-a', 'luyten-726-8-b', 'ez-aquarii-a', 'ez-aquarii-b', 'ez-aquarii-c']) {
+    expect(velocities('alpha-centauri-b')).toEqual(velocities('alpha-centauri-a'))
+    expect(velocities('alpha-centauri-a')).toEqual([-29.339, 1.746, 13.592])
+    expect(stars.find((star) => star.id === 'alpha-centauri-a')).toMatchObject({
+      raw_astrometry: {
+        epoch: 2019.5,
+        pm_ra_cosdec_masyr: -3639.95,
+        pm_dec_masyr: 700.4,
+        radial_velocity_kms: -22.3796,
+        radial_velocity_ref: '2021AJ....162...14A',
+      },
+    })
+    expect(stars.find((star) => star.id === 'alpha-centauri-b')!.notes).toContain('barycenter solution')
+    expect(stars.filter((star) => star.vx_kms !== null && star.id !== 'sun')).toHaveLength(13)
+    for (const id of ['luhman-16-a', 'luhman-16-b', 'wise-0855-0714', 'luyten-726-8-a', 'luyten-726-8-b', 'ez-aquarii-a', 'ez-aquarii-b', 'ez-aquarii-c']) {
       expect(velocities(id)).toEqual([null, null, null])
     }
   })

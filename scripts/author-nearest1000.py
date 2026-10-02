@@ -7,6 +7,7 @@ import json
 import math
 import re
 import shutil
+from functools import cache
 from pathlib import Path
 
 import astropy
@@ -18,12 +19,14 @@ from astropy.utils import iers
 from catalog_sources.adapters import read_cns5, read_gaia_tap, read_simbad_tap
 from catalog_sources.filesystem import write_managed_files
 from catalog_sources.mdwarf import SUPPLEMENT_FIELDS, load_supplements, resolve_supplemented_fields, row_context, supplement_observations
+from catalog_sources.models import AstrometryObservation
 from catalog_sources.snapshots import canonical_json, sha256, verify_sha256
 
 iers.conf.auto_download = False
 ROOT = Path(__file__).resolve().parents[1]
 FROZEN = ROOT / "catalog-work/nearest-1000"
 SUPPLEMENTS = ROOT / "catalog-work/physical-supplements"
+LANDMARK_SOURCES = ROOT / "catalog-work/landmark-stars"
 NEAREST100_INPUT = ROOT / "catalog-work/nearest-100/source-input.json"
 NEAREST100_CSV = ROOT / "src/data/catalogs/nearest-100/stars.csv"
 NEAREST100_PROVENANCE = ROOT / "src/data/catalogs/nearest-100/provenance.json"
@@ -53,13 +56,14 @@ HEADERS = BASE_HEADERS + RAW_HEADERS
 SOURCES = [
     {"name": "CNS5, Golovin et al., corrected 2023-12-13; membership and adopted astrometry", "url": "https://cdsarc.cds.unistra.fr/ftp/J/A+A/670/A19/ReadMe"},
     {"name": "SIMBAD TAP snapshot; exact CNS5 identity, classification, spectrum and compiled Johnson V", "url": "https://simbad.cds.unistra.fr/simbad/sim-tap/sync"},
-    {"name": "Gaia DR3 TAP snapshot; exact-ID GSP-Phot/FLAME physical estimates", "url": "https://gea.esac.esa.int/tap-server/tap/sync"},
+    {"name": "Gaia DR3 TAP snapshot; exact-ID radial velocities and GSP-Phot/FLAME physical estimates", "url": "https://gea.esac.esa.int/tap-server/tap/sync"},
     {"name": "Nearest 100 audited release; higher-curation shared-object overrides", "url": "https://cdsarc.cds.unistra.fr/ftp/J/A+A/650/A201/ReadMe"},
     {"name": f"Astropy {astropy.__version__}, IAU constellations using Roman 1987 boundaries", "url": "https://docs.astropy.org/en/stable/api/astropy.coordinates.get_constellation.html"},
     {"name": "Cifuentes et al. 2020, CARMENES M-dwarf luminosities, temperatures, radii and masses (J/A+A/642/A115); ranks above Gaia DR3", "url": "https://cdsarc.cds.unistra.fr/ftp/J/A+A/642/A115/ReadMe"},
     {"name": "Mann et al. 2019, absolute-Ks mass relation (2019ApJ...871...63M); ranks above Cifuentes and Gaia DR3 masses", "url": "https://ui.adsabs.harvard.edu/abs/2019ApJ...871...63M/abstract"},
     {"name": "Mann et al. 2015, absolute-Ks radius relation (2015ApJ...804...64M); ranks below Cifuentes, above Gaia DR3 radii", "url": "https://ui.adsabs.harvard.edu/abs/2015ApJ...804...64M/abstract"},
     {"name": "2MASS All-Sky Point Source Catalog Ks photometry (VizieR II/246)", "url": "https://cdsarc.cds.unistra.fr/viz-bin/cat/II/246"},
+    {"name": "Maldonado et al. 2010 radial velocity for Tabit (HIP 22449)", "url": "https://doi.org/10.1051/0004-6361/201014948"},
 ]
 
 
@@ -128,12 +132,74 @@ def display_name(simbad):
     return re.sub(r"\s+", " ", name)
 
 
+@cache
+def radial_velocity_overrides():
+    with (LANDMARK_SOURCES / "radial-velocity-overrides.csv").open(newline="") as handle:
+        rows = list(csv.DictReader(handle))
+    if len({row["main_id"] for row in rows}) != len(rows):
+        raise ValueError("Reviewed radial-velocity override identities must be unique")
+    return {row["main_id"]: row for row in rows}
+
+
+def reviewed_radial_velocity(simbad, astrometry):
+    override = radial_velocity_overrides().get((simbad.raw or {}).get("main_id"))
+    if override is None:
+        return None
+    return AstrometryObservation(
+        source_id="reviewed-literature-rv",
+        source_record_id=f"HIP {override['hip_id']}",
+        ra_deg=astrometry.ra_deg,
+        dec_deg=astrometry.dec_deg,
+        epoch=astrometry.epoch,
+        parallax_mas=astrometry.parallax_mas,
+        pm_ra_cosdec_masyr=astrometry.pm_ra_cosdec_masyr,
+        pm_dec_masyr=astrometry.pm_dec_masyr,
+        radial_velocity_kms=float(override["radial_velocity_kms"]),
+        radial_velocity_error_kms=float(override["radial_velocity_error_kms"]),
+        radial_velocity_ref=override["reference"],
+        quality_flags=(override["source"], override["note"]),
+    )
+
+
+def radial_velocity_choice(astrometry, gaia, object_type, reviewed=None):
+    gaia_astrometry = gaia.astrometry if gaia is not None else None
+    observation = next((candidate for candidate in (reviewed, astrometry, gaia_astrometry)
+                        if candidate is not None and candidate.radial_velocity_kms is not None), None)
+    if observation is None:
+        return None, "unknown"
+    if object_type == "white_dwarf":
+        return observation, "withheld-white-dwarf"
+    if observation is reviewed:
+        return observation, "reviewed-literature-override"
+    return observation, "compiled-cns5" if observation is astrometry else "gaia-dr3-fallback"
+
+
+def radial_velocity_provenance(observation, status):
+    result = {"status": status}
+    if observation is not None:
+        result["observation"] = {
+            "sourceId": observation.source_id,
+            "sourceRecordId": observation.source_record_id,
+            "valueKms": observation.radial_velocity_kms,
+            "uncertaintyKms": observation.radial_velocity_error_kms,
+            "reference": observation.radial_velocity_ref,
+            "qualityFlags": list(observation.quality_flags),
+        }
+    return result
+
+
 def normalize(record, simbad, gaia, supplements):
     astrometry = record.astrometry
     raw = simbad.raw or {}
     object_type = source_type(raw.get("otype"))
-    use_rv = astrometry.radial_velocity_kms is not None and object_type != "white_dwarf"
-    motion = {"radial_velocity": astrometry.radial_velocity_kms * units.km / units.s} if use_rv else {}
+    radial_velocity, radial_velocity_status = radial_velocity_choice(astrometry, gaia, object_type, reviewed_radial_velocity(simbad, astrometry))
+    use_rv = radial_velocity is not None and radial_velocity_status != "withheld-white-dwarf"
+    motion = {"radial_velocity": radial_velocity.radial_velocity_kms * units.km / units.s} if use_rv else {}
+    motion_note = {
+        "compiled-cns5": "Full source space motion.",
+        "gaia-dr3-fallback": "Full source space motion using exact-ID Gaia DR3 radial velocity fallback.",
+        "reviewed-literature-override": "Full source space motion using a reviewed literature radial velocity override.",
+    }.get(radial_velocity_status, "Transverse-only source motion; radial velocity unavailable or withheld.")
     original = SkyCoord(
         ra=astrometry.ra_deg * units.deg,
         dec=astrometry.dec_deg * units.deg,
@@ -161,7 +227,7 @@ def normalize(record, simbad, gaia, supplements):
         "y_pc": f"{position[1]:.9f}",
         "z_pc": f"{position[2]:.9f}",
         "epoch": "2000.0",
-        "notes": f"Corrected CNS5 {record.identity.source_record_id}; J2000 Sun-relative Galactic position. SIMBAD exact CNS5 identity. {'Full source space motion.' if use_rv else 'Transverse-only source motion; radial velocity unavailable or withheld.'}",
+        "notes": f"Corrected CNS5 {record.identity.source_record_id}; J2000 Sun-relative Galactic position. SIMBAD exact CNS5 identity. {motion_note}",
         "constellation": NAME_CORRECTIONS.get(constellation, constellation),
         "ra_deg": str(astrometry.ra_deg),
         "dec_deg": str(astrometry.dec_deg),
@@ -172,10 +238,10 @@ def normalize(record, simbad, gaia, supplements):
         "pm_ra_error_masyr": "" if astrometry.pm_ra_error_masyr is None else str(astrometry.pm_ra_error_masyr),
         "pm_dec_masyr": str(astrometry.pm_dec_masyr),
         "pm_dec_error_masyr": "" if astrometry.pm_dec_error_masyr is None else str(astrometry.pm_dec_error_masyr),
-        "radial_velocity_kms": str(astrometry.radial_velocity_kms) if use_rv else "",
-        "radial_velocity_error_kms": str(astrometry.radial_velocity_error_kms) if use_rv and astrometry.radial_velocity_error_kms is not None else "",
+        "radial_velocity_kms": str(radial_velocity.radial_velocity_kms) if use_rv else "",
+        "radial_velocity_error_kms": str(radial_velocity.radial_velocity_error_kms) if use_rv and radial_velocity.radial_velocity_error_kms is not None else "",
         "astrometry_ref": astrometry.astrometry_ref or "CNS5 corrected 2023-12-13",
-        "radial_velocity_ref": astrometry.radial_velocity_ref if use_rv else "",
+        "radial_velocity_ref": radial_velocity.radial_velocity_ref if use_rv else "",
     })
     if velocity is not None:
         row.update({key: f"{value:.6f}" for key, value in zip(("vx_kms", "vy_kms", "vz_kms"), velocity, strict=True)})
@@ -226,6 +292,7 @@ def normalize(record, simbad, gaia, supplements):
         "sourceType": raw.get("otype"),
         "identityMethod": "exact CNS5 identifier; exact Gaia DR3 identifier when present",
         "astrometry": astrometry.to_dict(),
+        "radialVelocity": radial_velocity_provenance(radial_velocity, radial_velocity_status),
         "physicalObservations": physical,
         "fieldStatus": {
             "temperature_k": status("temperature_k"),
@@ -235,7 +302,7 @@ def normalize(record, simbad, gaia, supplements):
             "metallicity_dex": "model-derived" if row["metallicity_dex"] else "unknown",
             "age_gyr": "model-derived" if row["age_gyr"] else "unknown",
             "absolute_mag": "derived-from-compiled-Johnson-V" if row["absolute_mag"] else "unknown",
-            "radial_velocity_kms": "compiled" if use_rv else "withheld" if astrometry.radial_velocity_kms is not None else "unknown",
+            "radial_velocity_kms": radial_velocity_status,
         },
     }
     if supplement_audit is not None:
@@ -317,10 +384,15 @@ def build_package():
     provenance = {
         "schemaVersion": 1,
         "catalogId": "nearest-1000",
-        "policyRevision": "cns5-individuals-v2-mdwarf-supplements",
+        "policyRevision": "cns5-individuals-v4-reviewed-rv-gaia-rv-fallback-mdwarf-supplements",
         "sourceManifestSha256": sha256(FROZEN / "source-manifest.json"),
         "supplementManifestSha256": supplements.manifest_sha256,
         "sources": SOURCES,
+        "radialVelocityPolicy": {
+            "precedence": ["nearest-100 curated override", "reviewed literature override", "CNS5 spectroscopic radial velocity", "Gaia DR3 exact-ID radial velocity fallback"],
+            "whiteDwarfs": "Withhold new spectroscopic radial velocities because gravitational redshift may contaminate space motion.",
+            "review": "Gaia DR3 fallback measurements are source-backed and retain uncertainty and quality flags, but are not individually reviewed for systemic binary motion.",
+        },
         "coverage": {field: sum(bool(row.get(field)) for row in rows if row["id"] != "sun") for field in ("constellation", "spectral_type", "temperature_k", "mass_solar", "luminosity_solar", "radius_solar", "metallicity_dex", "age_gyr", "absolute_mag", "radial_velocity_kms")},
         "cutoff": {"rank": 1000, "id": cutoff[1], "name": cutoff[2]["name"], "distancePc": cutoff[0], "distanceSigmaPcLinearized": cutoff_sigma, "nextId": next_candidate[1], "nextDistancePc": next_candidate[0], "nextDistanceSigmaPcLinearized": next_sigma, "oneSigmaIntervalsOverlap": uncertainty_overlap},
         "audit": candidate_audit,

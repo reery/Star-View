@@ -26,6 +26,16 @@ FROZEN = ROOT / "catalog-work/nearest-100"
 LEGACY_TENTATIVE_EXCEPTIONS = {"27", "28"}
 POLICY_REVISION = "confirmed-membership-v2"
 MEMBERSHIP_POLICY = "Exclude Planet rows, aggregate system rows and source ObjType endings '?'. The only approved exceptions are Seq 27/28 (EZ Aquarii B/C): preserve vetted default membership and every default field, while retaining raw LM? classifications explicitly; this is not a new classification measurement. Keep all tentative buffer records for audit."
+ALPHA_CENTAURI_IDS = {"alpha-centauri-a", "alpha-centauri-b"}
+ALPHA_CENTAURI_REF = "2021AJ....162...14A"
+ALPHA_CENTAURI_ASTROMETRY = {
+    "ra_deg": "219.85892215", "dec_deg": "-60.83163195", "astrometry_epoch": "2019.5",
+    "parallax_mas": "750.81", "parallax_error_mas": "0.38",
+    "pm_ra_cosdec_masyr": "-3639.95", "pm_ra_error_masyr": "0.42",
+    "pm_dec_masyr": "700.40", "pm_dec_error_masyr": "0.17",
+    "radial_velocity_kms": "-22.3796", "radial_velocity_error_kms": "0.0020",
+    "astrometry_ref": ALPHA_CENTAURI_REF, "radial_velocity_ref": ALPHA_CENTAURI_REF,
+}
 BASE_HEADERS = [
     "type", "id", "name", "spectral_type", "x_pc", "y_pc", "z_pc",
     "vx_kms", "vy_kms", "vz_kms", "temperature_k", "mass_solar",
@@ -66,6 +76,7 @@ SOURCES = [
     {"name": "CNS5, Golovin et al., corrected 2023-12-13; membership audit", "url": "https://cdsarc.cds.unistra.fr/ftp/J/A+A/670/A19/ReadMe"},
     {"name": "Pecaut & Mamajek 2013, dwarf sequence version 2022.04.16; estimated temperatures", "url": "https://www.pas.rochester.edu/~emamajek/EEM_dwarf_UBVIJHK_colors_Teff.txt"},
     {"name": "NASA Sun Fact Sheet, 2024-05-09", "url": "https://nssdc.gsfc.nasa.gov/planetary/factsheet/sunfact.html"},
+    {"name": "Akeson et al. 2021, Alpha Centauri AB barycentric astrometry and systemic radial velocity", "url": "https://doi.org/10.3847/1538-3881/abfaff"},
     {"name": "Guinan et al. 2016, Kapteyn's Star properties; Table 1 mass attributed to Segransan et al. 2003", "url": "https://ui.adsabs.harvard.edu/abs/2016ApJ...821...81G/abstract"},
     {"name": "Astropy 7.1.1, IAU constellations using Roman 1987 boundaries", "url": "https://docs.astropy.org/en/stable/api/astropy.coordinates.get_constellation.html"},
 ]
@@ -135,7 +146,7 @@ def freeze_sources(folder, force=False):
     legacy = list(csv.DictReader(io.StringIO((ROOT / "src/data/stars.csv").read_text())))
     assert set(LEGACY_IDS.values()) == {row["id"] for row in legacy if row["id"] != "sun"}
     data = {
-        "schemaVersion": 1, "release": "reyle-2023-08-25+cns5-2023-12-13+preserved-neighbors-v1",
+        "schemaVersion": 1, "release": "reyle-2023-08-25+cns5-2023-12-13+preserved-neighbors-v2",
         "policyRevision": POLICY_REVISION,
         "retrieved": "2026-09-15", "sources": SOURCES,
         "sourceChecksumsSha256": {name: checksum(folder / name) for name in ("10pc.ReadMe", "tablea1.dat", "cns5.ReadMe", "cns5.dat", "mamajek.txt")},
@@ -149,7 +160,7 @@ def freeze_sources(folder, force=False):
         "cns5Matches": matches, "temperatureSequenceKelvin": temperatures,
         "decisions": {
             "membership": MEMBERSHIP_POLICY,
-            "astrometry": "Adopt curated 10pc astrometry, except preserve all existing neighbor fields; CNS5 is an independent membership/measurement audit, not an automatic replacement.",
+            "astrometry": "Adopt curated 10pc astrometry, except preserve existing neighbor fields and the dedicated Akeson et al. 2021 Alpha Centauri AB barycentric motion; CNS5 is an independent membership/measurement audit, not an automatic replacement.",
             "GJ1005": "CNS5 69 uses Hipparcos 200.53 mas; 10pc 164/165 explicitly marks Hipparcos less accurate and adopts 166.6 +/-0.3 mas from Benedict et al. 2016AJ....152..141B. Retain curated value; outside cutoff.",
             "candidate1001": "Exclude Seq 1001 (Gaia EDR3 6305165514134625024) from release membership: raw BD? is tentative. Retain its unmodified candidate record and CNS5 3707 crossmatch; CNS5 membership does not establish confirmed classification. Gaia identifier is explicit in ObjName despite an empty GaiaEDR3 column.",
             "cutoff138": "GJ 229 A, Seq 138/system 75, has confirmed source ObjType LM and spectrum M1 (2002AJ....123.2002H). Adopt the 10pc Gaia EDR3 solution at J2016.0: RA 92.643579082 deg, Dec -21.867823113 deg, parallax 173.574 +/-0.017 mas, pmRA*cos(dec) -135.691607948 and pmDec -719.178133955 mas/yr (2020yCat.1350....0G), RV 4.734 km/s (2018A&A...616A...7S). CNS5 1528/GJ 229 A matches Gaia 2940856402123426176 exactly, with parallax 173.59297083190438 +/-0.019386925 mas; retain curated 10pc astrometry. CNS5 1529/GJ 229 B instead has parallax 173.6999969482422 +/-0.05 mas (2018A&A...616A...1G), versus dedicated 10pc 173.19 +/-1.12 mas (2012ApJ...752...56F); this alternate solution could move B inside the cutoff. Preserve the source solution, do not infer a new component or silently substitute CNS5 values. Rank 101 Alsafi and rank 102 GJ 229 B have linearized one-sigma distance intervals overlapping rank 100. No statistically secure membership claim.",
@@ -214,6 +225,28 @@ def raw_astrometry(source, allow_rv=True):
     }
 
 
+def apply_alpha_centauri_system_motion(row):
+    if row["id"] not in ALPHA_CENTAURI_IDS:
+        return False
+    barycenter = SkyCoord(
+        ra=float(ALPHA_CENTAURI_ASTROMETRY["ra_deg"]) * units.deg,
+        dec=float(ALPHA_CENTAURI_ASTROMETRY["dec_deg"]) * units.deg,
+        distance=1000 / float(ALPHA_CENTAURI_ASTROMETRY["parallax_mas"]) * units.pc,
+        pm_ra_cosdec=float(ALPHA_CENTAURI_ASTROMETRY["pm_ra_cosdec_masyr"]) * units.mas / units.yr,
+        pm_dec=float(ALPHA_CENTAURI_ASTROMETRY["pm_dec_masyr"]) * units.mas / units.yr,
+        radial_velocity=float(ALPHA_CENTAURI_ASTROMETRY["radial_velocity_kms"]) * units.km / units.s,
+        obstime=Time(float(ALPHA_CENTAURI_ASTROMETRY["astrometry_epoch"]), format="jyear", scale="tt"),
+        frame="icrs",
+    )
+    velocity = barycenter.galactic.velocity.d_xyz.to_value(units.km / units.s)
+    row.update({key: f"{value:.3f}" for key, value in zip(("vx_kms", "vy_kms", "vz_kms"), velocity, strict=True)})
+    row.update(ALPHA_CENTAURI_ASTROMETRY)
+    motion_note = " Motion: Akeson et al. (2021) Alpha Centauri AB barycenter solution at J2019.5, shared by A and B; no binary orbital motion."
+    if motion_note.strip() not in row["notes"]:
+        row["notes"] += motion_note
+    return True
+
+
 def adopt_object(source, frozen, system_counts, supplements):
     identifier = LEGACY_IDS.get(source["Seq"], f"10pc-{int(source['Seq']):04d}")
     if source["Seq"] == "1001":
@@ -266,6 +299,7 @@ def adopt_object(source, frozen, system_counts, supplements):
     if legacy:
         assert row == legacy
     row.update(raw_astrometry(source, not legacy or all(row[key] != "" for key in ("vx_kms", "vy_kms", "vz_kms"))))
+    alpha_centauri_system_motion = apply_alpha_centauri_system_motion(row)
     for key in RAW_ASTROMETRY_HEADERS:
         source_keys = {
             "ra_deg": "RAdeg", "dec_deg": "DEdeg", "astrometry_epoch": "Epoch",
@@ -276,6 +310,11 @@ def adopt_object(source, frozen, system_counts, supplements):
             "astrometry_ref": "r_plx,r_pmDE", "radial_velocity_ref": "r_RV",
         }
         fields[key] = field_source("compiled" if row[key] != "" else "unknown", reference + ":" + source_keys[key])
+    if alpha_centauri_system_motion:
+        for key in ("vx_kms", "vy_kms", "vz_kms"):
+            fields[key] = field_source("derived", ALPHA_CENTAURI_REF, "Shared Alpha Centauri AB barycentric Sun-relative Galactic velocity; binary orbital motion excluded.")
+        for key in RAW_ASTROMETRY_HEADERS:
+            fields[key] = field_source("adopted", ALPHA_CENTAURI_REF, "Alpha Centauri AB barycenter measurement at J2019.5, shared by both component rows.")
     if source["Seq"] == "59":
         row["mass_solar"] = "0.281"
         row["notes"] += " Mass: 0.281 +/- 0.014 solar masses adopted from Guinan et al. (2016) Table 1, attributed there to Segransan et al. (2003)."
@@ -295,6 +334,8 @@ def adopt_object(source, frozen, system_counts, supplements):
         "adoptedJ2000": {"frame": "ICRS", "raDeg": float(direction.ra.deg), "decDeg": float(direction.dec.deg), "distancePc": float(direction.distance.to_value(units.pc)), "method": mode},
         "fields": fields, "overrides": ["All existing neighbor values preserved; blank physical fields may be filled by the documented supplements; new source measurements are audit-only."] if legacy else [],
     }
+    if alpha_centauri_system_motion:
+        provenance["overrides"].append("Akeson et al. 2021 Alpha Centauri AB barycentric astrometry and systemic radial velocity replace orbit-contaminated component proper motions for the shared long-horizon motion vector.")
     if supplement_audit:
         provenance["physicalSupplements"] = supplement_audit
     if source["Seq"] in LEGACY_TENTATIVE_EXCEPTIONS:
@@ -440,6 +481,7 @@ def default_catalog(write=False):
         output = {key: row.get(key, "") for key in OUTPUT_HEADERS}
         if row["id"] != "sun":
             output.update(raw_astrometry(source_by_id[row["id"]], all(row[key] != "" for key in ("vx_kms", "vy_kms", "vz_kms"))))
+            apply_alpha_centauri_system_motion(output)
             before = {key: output[key] for key in OUTPUT_HEADERS}
             adopted, _ = enrich_curated_row(output, supplements)
             assert all(before[key] == output[key] or (key in adopted and before[key] == "") or (key == "notes" and output[key].startswith(before[key])) for key in OUTPUT_HEADERS)

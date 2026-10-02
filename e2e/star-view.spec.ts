@@ -291,8 +291,7 @@ test('switches project catalogs while preserving settings and compatible selecti
   await expect(page.locator('#luminosity')).toHaveText('0.0526 solar')
   await expect(page.locator('.motion-arrow')).toHaveCount(0)
   const nearestArrows = await motionArrows(page)
-  expect(nearestArrows.some((arrow) => arrow.mode === 'transverse')).toBe(true)
-  expect(nearestArrows.some((arrow) => arrow.selected && arrow.opacity === 1)).toBe(true)
+  expect(nearestArrows.some((arrow) => arrow.mode === 'full' && arrow.selected && arrow.opacity === 1)).toBe(true)
   await page.screenshot({ path: testInfo.outputPath('nearest-100.png'), fullPage: true })
   await selectCatalog(page, 'nearest-neighbors')
   await expect(page.locator('#star-details')).toBeHidden()
@@ -1767,7 +1766,6 @@ test('shows attached travel-length motion arrows with selectable horizons', { ta
   const sunArrow = arrowFor(initial, 'sun')!
   expect(sunArrow).toMatchObject({ mode: 'full', selected: false, opacity: 0.5, color: 'rgb(255,204,79)' })
   expect(Math.hypot(sunArrow.x - homeSun.x, sunArrow.y - homeSun.y), 'the Sun arrow starts at its dot').toBeLessThan(0.5)
-  expect(initial.some((arrow) => arrow.mode === 'transverse')).toBe(true)
   const siriusArrow = arrowFor(initial, 'sirius-a')!
   expect(siriusArrow).toMatchObject({ mode: 'full', selected: true, opacity: 1, color: 'rgb(117,169,255)' })
   expect(initial.some((arrow) => !arrow.selected && arrow.opacity === 0.5)).toBe(true)
@@ -1835,8 +1833,8 @@ test('shows attached travel-length motion arrows with selectable horizons', { ta
 
 test('draws dashed transverse and solid full-motion shafts with a zoom-stable stroke', { tag: '@mobile' }, async ({ page, isMobile }, testInfo) => {
   await openViewer(page)
-  await selectCatalog(page, 'nearest-1000')
-  await expect(page.locator('#catalog-count')).toHaveText(/\/1001$/)
+  await selectCatalog(page, 'nearest-100')
+  await expect(page.locator('#catalog-count')).toHaveText(/\/101$/)
   await page.getByLabel('V magnitude limit', { exact: true }).fill('25')
   await page.getByRole('button', { name: 'Filter', exact: true }).click()
   await page.getByRole('button', { name: 'Grid', exact: true }).click()
@@ -1980,6 +1978,8 @@ test('clears selection on empty-sky clicks and taps without moving the camera', 
   if (isMobile) await page.touchscreen.tap(point.x, point.y)
   else await page.mouse.click(point.x, point.y)
   await expect(page.locator('#star-name')).toHaveText('Alpha Centauri A')
+  await expect(page.locator('#motion-data')).toHaveText('Full space motion')
+  await expect.poll(async () => motionArrows(page).then((arrows) => arrows.find((arrow) => arrow.id === 'alpha-centauri-a')?.mode)).toBe('full')
   await expect(page.locator('#selected-object-card')).toBeVisible()
   await expect(page.locator('#star-details')).toBeVisible()
   await page.getByRole('button', { name: 'Objects', exact: true }).click()

@@ -49,6 +49,9 @@ CLUSTER_ALIASES = {
     "Omicron Velorum Cluster": "IC 2391",
     "Beehive Cluster": "NGC 2632",
 }
+CURATED_COMPONENT_IDS = {
+    "* alf Cen A": "alpha-centauri-a",
+}
 
 
 def matrix_vector(matrix, vector):
@@ -211,6 +214,22 @@ def physical_overrides():
     return rows
 
 
+@cache
+def radial_velocity_overrides():
+    with (PHYSICAL_SOURCE / "radial-velocity-overrides.csv").open(newline="") as handle:
+        rows = list(csv.DictReader(handle))
+    valid_main_ids = set()
+    for directory in (WESTERN_SOURCE, CLUSTER_SOURCE):
+        with (directory / "simbad.csv").open(newline="") as handle:
+            valid_main_ids.update(row["main_id"] for row in csv.DictReader(handle))
+    if len({row["main_id"] for row in rows}) != len(rows) or any(row["main_id"] not in valid_main_ids for row in rows):
+        raise ValueError("Radial-velocity override identity coverage drifted")
+    for row in rows:
+        if float(row["radial_velocity_error_kms"]) < 0 or not row["reference"] or not row["source"] or not row["url"]:
+            raise ValueError(f"Invalid radial-velocity override for {row['main_id']}")
+    return {row["main_id"]: row for row in rows}
+
+
 def angular_separation_arcsec(first_ra, first_dec, second_ra, second_dec):
     first_ra, first_dec, second_ra, second_dec = map(math.radians, (first_ra, first_dec, second_ra, second_dec))
     cosine = math.sin(first_dec) * math.sin(second_dec) + math.cos(first_dec) * math.cos(second_dec) * math.cos(first_ra - second_ra)
@@ -234,7 +253,7 @@ def bright_id_by_simbad_id():
 
 
 def curated_physical_match(source, name):
-    bright_id = bright_id_by_simbad_id().get(source["main_id"])
+    bright_id = bright_id_by_simbad_id().get(source["main_id"]) or CURATED_COMPONENT_IDS.get(source["main_id"])
     if bright_id:
         match = next((item for item in curated_physical_rows() if item[0] == "bright-stars" and item[1]["id"] == bright_id), None)
         if match:
@@ -444,7 +463,11 @@ def source_row(source, identifier, name, constellation, context, visual_magnitud
     east = (-math.sin(ra), math.cos(ra), 0)
     north = (-math.sin(dec) * math.cos(ra), -math.sin(dec) * math.sin(ra), math.cos(dec))
     position = matrix_vector(ICRS_TO_GALACTIC, tuple(distance * value for value in radial))
-    radial_velocity = source["rvz_radvel"].strip()
+    source_radial_velocity = source["rvz_radvel"].strip()
+    radial_velocity_override = radial_velocity_overrides().get(source["main_id"])
+    radial_velocity = radial_velocity_override["radial_velocity_kms"] if radial_velocity_override else source_radial_velocity
+    radial_velocity_error = radial_velocity_override["radial_velocity_error_kms"] if radial_velocity_override else ""
+    radial_velocity_reference = radial_velocity_override["reference"] if radial_velocity_override else "SIMBAD TAP snapshot 2026-10-01" if radial_velocity else ""
     velocity = None
     if radial_velocity:
         scale = 4.74047 * distance / 1000
@@ -467,12 +490,27 @@ def source_row(source, identifier, name, constellation, context, visual_magnitud
         "astrometry_epoch": "2000.0", "parallax_mas": source["plx_value"],
         "parallax_error_mas": source["plx_err"], "pm_ra_cosdec_masyr": source["pmra"],
         "pm_dec_masyr": source["pmdec"], "radial_velocity_kms": radial_velocity,
+        "radial_velocity_error_kms": radial_velocity_error,
         "astrometry_ref": "SIMBAD TAP snapshot 2026-10-01",
-        "radial_velocity_ref": "SIMBAD TAP snapshot 2026-10-01" if radial_velocity else "",
+        "radial_velocity_ref": radial_velocity_reference,
     })
+    radial_velocity_provenance = {
+        "status": "reviewed-literature-override" if radial_velocity_override else "simbad-compiled" if radial_velocity else "unknown",
+        "frozenSimbadValueKms": optional_number(source_radial_velocity),
+        "adoptedValueKms": optional_number(radial_velocity),
+        "uncertaintyKms": optional_number(radial_velocity_error),
+        "reference": radial_velocity_reference or None,
+    }
+    if radial_velocity_override:
+        radial_velocity_provenance.update({
+            "source": radial_velocity_override["source"],
+            "url": radial_velocity_override["url"],
+            "note": radial_velocity_override["note"],
+        })
+        row["notes"] += f" Motion RV: {radial_velocity} +/- {radial_velocity_error} km/s from {radial_velocity_override['source']}; reviewed literature override."
     if velocity is not None:
         row.update({"vx_kms": f"{velocity[0]:.6f}", "vy_kms": f"{velocity[1]:.6f}", "vz_kms": f"{velocity[2]:.6f}"})
-    return row, distance_provenance
+    return row, distance_provenance, radial_velocity_provenance
 
 
 def sun_row():
@@ -517,7 +555,7 @@ def western_catalog():
             raise ValueError(f"No Johnson V for HIP {hip}")
         visual_magnitude = float(simbad_v or fallback)
         photometry = f"SIMBAD compiled Johnson V={simbad_v}" if simbad_v else f"Hipparcos Johnson V={fallback} (SIMBAD V unavailable)"
-        row, distance = source_row(
+        row, distance, radial_velocity = source_row(
             source, f"hip-{hip}", display_name(source), constellations[constellation_code],
             f"Western constellation line-figure star (HIP {hip}; Stellarium {', '.join(memberships)}).",
             visual_magnitude, photometry,
@@ -531,6 +569,7 @@ def western_catalog():
             "simbadId": source["main_id"],
             "visualMagnitudeSource": "SIMBAD compiled Johnson V" if simbad_v else "Hipparcos main catalogue Johnson V",
             "adoptedDistance": distance,
+            "radialVelocity": radial_velocity,
             **physical,
         }
     if len({row["id"] for row in rows}) != 691:
@@ -550,6 +589,9 @@ def western_catalog():
             {"name": "Bailer-Jones et al. 2021 Gaia EDR3 geometric distances; exact Gaia source identifiers", "url": "https://bailer-jones.www3.mpia.de/gedr3_distances.html"},
             {"name": "Argyle et al. 2015 binary-orbit solution for Beta Phoenicis", "url": "https://doi.org/10.1002/asna.201412166"},
             {"name": "Kasikov et al. 2026 co-moving group distance for x Carinae", "url": "https://doi.org/10.1051/0004-6361/202558527"},
+            {"name": "Maldonado et al. 2010 radial velocity for Tabit", "url": "https://doi.org/10.1051/0004-6361/201014948"},
+            {"name": "Cazorla et al. 2017 radial velocities for Tau Scorpii", "url": "https://doi.org/10.1051/0004-6361/201629841"},
+            {"name": "Hubrig et al. 2008 orbital systemic velocity for Theta Carinae", "url": "https://doi.org/10.1051/0004-6361:200810124"},
             {"name": "Allende Prieto & Lambert 1999 Hipparcos-star evolutionary models; exact HIP identifiers", "url": "https://cdsarc.cds.unistra.fr/viz-bin/cat/J/A+A/352/555"},
             {"name": "McDonald et al. 2012 Hipparcos-star SED models; exact HIP identifiers", "url": "https://cdsarc.cds.unistra.fr/viz-bin/cat/J/MNRAS/427/343"},
             {"name": "Gaia DR3 GSP-Phot and FLAME model parameters; exact Gaia DR3 identifiers", "url": "https://gea.esac.esa.int/tap-server/tap/sync"},
@@ -589,7 +631,7 @@ def cluster_catalog():
             raise ValueError(f"No Johnson V for {query_id}")
         identifier = f"hip-{query_id.removeprefix('HIP ')}" if query_id.startswith("HIP ") else "trapezium-" + re.sub(r"[^a-z0-9]+", "-", selected_star["name"].casefold()).strip("-")
         name = selected_star.get("name") or display_name(source)
-        row, distance = source_row(
+        row, distance, radial_velocity = source_row(
             source, identifier, name, group["constellation"],
             f"{group['name']} landmark star; {group['selection']}", float(visual_text),
             f"SIMBAD compiled Johnson V={visual_text}",
@@ -598,7 +640,8 @@ def cluster_catalog():
         rows.append(row)
         provenance[identifier] = {
             "group": group["name"], "queryId": query_id, "simbadId": source["main_id"],
-            "selection": group["selection"], "adoptedDistance": distance, **physical,
+            "selection": group["selection"], "adoptedDistance": distance,
+            "radialVelocity": radial_velocity, **physical,
         }
     if len({row["id"] for row in rows}) != 42:
         raise ValueError("Famous-cluster output IDs are not unique")
@@ -612,6 +655,7 @@ def cluster_catalog():
         "sources": [
             {"name": "SIMBAD TAP snapshot; exact identities, open-cluster aliases, astrometry, classification and compiled Johnson V", "url": "https://simbad.cds.unistra.fr/simbad/sim-tap/sync"},
             {"name": "Bailer-Jones et al. 2021 Gaia EDR3 geometric distances; exact Gaia source identifiers", "url": "https://bailer-jones.www3.mpia.de/gedr3_distances.html"},
+            {"name": "Hubrig et al. 2008 orbital systemic velocity for Theta Carinae", "url": "https://doi.org/10.1051/0004-6361:200810124"},
             {"name": "Allende Prieto & Lambert 1999 Hipparcos-star evolutionary models; exact HIP identifiers", "url": "https://cdsarc.cds.unistra.fr/viz-bin/cat/J/A+A/352/555"},
             {"name": "McDonald et al. 2012 Hipparcos-star SED models; exact HIP identifiers", "url": "https://cdsarc.cds.unistra.fr/viz-bin/cat/J/MNRAS/427/343"},
             {"name": "Gaia DR3 GSP-Phot and FLAME model parameters; exact Gaia DR3 identifiers", "url": "https://gea.esac.esa.int/tap-server/tap/sync"},
