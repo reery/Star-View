@@ -343,9 +343,8 @@ function renderViewerDistance(distancePc: number): void {
   viewerDistancePc = distancePc
   const distance = formatDistance(distancePc, distanceUnit)
   const output = element('viewer-distance')
-  const widthMayChange = output.textContent?.length !== distance.length
+  if (output.textContent === distance) return
   output.textContent = distance
-  if (widthMayChange) syncVisibilityObserverLayout()
 }
 
 function renderSelection(): void {

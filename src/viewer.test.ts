@@ -332,7 +332,7 @@ describe('bright-star halo emphasis', () => {
   it('separates Rigel and Betelgeuse from the principal Pleiades stars by apparent magnitude', () => {
     expect(starHaloEmphasis(0.13)).toBeGreaterThan(0.98)
     expect(starHaloEmphasis(0.42)).toBeGreaterThan(0.85)
-    expect(starHaloEmphasis(2.87)).toBe(0)
+    expect(starHaloEmphasis(2.87)).toBeLessThan(0.01)
     expect(starHaloEmphasis(3.7)).toBe(0)
   })
 

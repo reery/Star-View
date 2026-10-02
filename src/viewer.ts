@@ -696,6 +696,7 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
   let contextLost = false
   let pendingFrame: number | null = null
   let sceneDirty = false
+  let lastViewerDistanceReport = 0
   let forceNextFrame = false
   let nextRenderDeadline = 0
   let lastRenderTime = 0
@@ -1756,8 +1757,11 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
     }
     camera.updateMatrixWorld()
     starViewDistance.value = camera.position.distanceTo(controls.target)
-    const visibilityBaseIndex = starsById.get(visibilityBase.id)!.index
-    options.onViewerDistance?.(camera.position.distanceTo(pickable[visibilityBaseIndex]!.position))
+    if ((!continueRendering && !simulationPlaying) || time - lastViewerDistanceReport >= 250) {
+      const visibilityBaseIndex = starsById.get(visibilityBase.id)!.index
+      options.onViewerDistance?.(camera.position.distanceTo(pickable[visibilityBaseIndex]!.position))
+      lastViewerDistanceReport = time
+    }
     updateGuideDashScales()
     updateMotionArrows()
     renderer.render(scene, camera)
