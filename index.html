@@ -17,7 +17,7 @@
             <span id="grid-legend" class="grid-legend"><span class="grid-symbol" aria-hidden="true"></span><span id="grid-spacing">0.5 pc grid</span><span class="legend-divider"></span></span>
             <span id="scene-epoch">J2000.0</span>
           </div>
-          <p class="visibility-observer" data-scene-obstacle>Visibility from <strong id="visibility-base">Sirius A</strong></p>
+          <p class="visibility-observer" data-scene-obstacle><span>Visibility from: <strong id="visibility-base">Sirius A</strong> <span aria-hidden="true">|</span> Distance from viewer: <strong id="viewer-distance">—</strong></span></p>
           <div id="scene-status" class="scene-status" role="status">Loading nearby-object map...</div>
           <aside id="inspector" class="inspector" aria-label="Object controls">
             <section id="selected-object-card" class="selected-object" aria-label="Selected object" data-scene-obstacle>
@@ -118,20 +118,18 @@
                     <div class="time-speed" role="group" aria-label="Motion playback controls">
                       <button id="time-follow" class="time-speed-button time-follow" type="button" aria-label="Follow selection" aria-pressed="false" title="Follow selection" disabled><span id="time-follow-icon"></span></button>
                       <button id="time-slower" class="time-speed-button" type="button" aria-label="Decrease playback speed" title="Slower" disabled><span id="time-slower-icon"></span></button>
-                      <output id="time-speed-value" aria-live="polite">1k years / 7s</output>
+                      <output id="time-speed-value" aria-live="polite">1k years / 1s</output>
                       <button id="time-faster" class="time-speed-button" type="button" aria-label="Increase playback speed" title="Faster" disabled><span id="time-faster-icon"></span></button>
                     </div>
                   </div>
                   <div class="time-range">
                     <div class="time-directions" aria-hidden="true"><span>Past</span><span>Future</span></div>
                     <div class="time-slider-track">
-                      <input id="time-slider" type="range" min="-300000" max="300000" step="any" value="0" aria-label="Simulation time" aria-valuetext="Now" disabled>
+                      <input id="time-slider" type="range" min="-500000" max="500000" step="any" value="0" aria-label="Simulation time" aria-valuetext="Now" disabled>
                       <div class="time-markers" aria-hidden="true">
-                        <i class="major" data-label="250k" style="--marker-position: 8.333%"></i><i class="major" data-label="200k" style="--marker-position: 16.667%"></i><i class="major" data-label="150k" style="--marker-position: 25%"></i><i class="major" data-label="100k" style="--marker-position: 33.333%"></i>
-                        <i style="--marker-position: 37.5%"></i><i class="major" data-label="50k" style="--marker-position: 41.667%"></i><i style="--marker-position: 45.833%"></i><i style="--marker-position: 48.333%"></i><i style="--marker-position: 49.167%"></i>
+                        <i class="major marker-start" data-label="500k" style="--marker-position: 0%"></i><i class="major" data-label="400k" style="--marker-position: 10%"></i><i class="major" data-label="300k" style="--marker-position: 20%"></i><i class="major" data-label="200k" style="--marker-position: 30%"></i><i class="major" data-label="100k" style="--marker-position: 40%"></i>
                         <i class="time-now-marker" style="--marker-position: 50%"></i>
-                        <i style="--marker-position: 50.833%"></i><i style="--marker-position: 51.667%"></i><i style="--marker-position: 54.167%"></i><i class="major" data-label="50k" style="--marker-position: 58.333%"></i><i style="--marker-position: 62.5%"></i>
-                        <i class="major" data-label="100k" style="--marker-position: 66.667%"></i><i class="major" data-label="150k" style="--marker-position: 75%"></i><i class="major" data-label="200k" style="--marker-position: 83.333%"></i><i class="major" data-label="250k" style="--marker-position: 91.667%"></i>
+                        <i class="major" data-label="100k" style="--marker-position: 60%"></i><i class="major" data-label="200k" style="--marker-position: 70%"></i><i class="major" data-label="300k" style="--marker-position: 80%"></i><i class="major" data-label="400k" style="--marker-position: 90%"></i><i class="major marker-end" data-label="500k" style="--marker-position: 100%"></i>
                       </div>
                     </div>
                   </div>

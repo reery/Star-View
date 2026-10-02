@@ -102,9 +102,10 @@ let motionYears: MotionYears = 1_000
 let simulationYears = 0
 let simulationPlaying = false
 let selectedDistancePc: number | null = null
+let viewerDistancePc: number | null = null
 let followSelection = false
 let simulationDirection: 1 | -1 = 1
-let playbackSecondsPerThousandYears = 7
+let playbackSecondsPerThousandYears = 1
 let playbackFrameRequest: number | null = null
 let previousPlaybackTime = 0
 let catalogRequest = 0
@@ -181,6 +182,29 @@ function syncPanelLayout(): void {
   else delete dock.dataset.open
   if (motionOpen) dock.dataset.motionOpen = ''
   else delete dock.dataset.motionOpen
+  syncSelectedObjectLayout()
+  syncVisibilityObserverLayout()
+}
+
+function syncSelectedObjectLayout(): void {
+  const selectedCard = element('selected-object-card')
+  selectedCard.style.removeProperty('max-height')
+  const motionPanel = element('motion-panel')
+  if (motionPanel.hidden || selectedCard.hidden) return
+  const availableHeight = Math.floor(motionPanel.getBoundingClientRect().top - selectedCard.getBoundingClientRect().top - 10)
+  selectedCard.style.maxHeight = `${Math.max(68, availableHeight)}px`
+}
+
+function syncVisibilityObserverLayout(): void {
+  const caption = document.querySelector<HTMLElement>('.visibility-observer')!
+  caption.classList.remove('is-avoiding-motion')
+  const motionPanel = element('motion-panel')
+  if (motionPanel.hidden) return
+  const panelBounds = motionPanel.getBoundingClientRect()
+  const captionBounds = caption.getBoundingClientRect()
+  const overlapsAtBottom = panelBounds.left < captionBounds.right && panelBounds.right > captionBounds.left &&
+    panelBounds.top < captionBounds.bottom && panelBounds.bottom > captionBounds.top
+  caption.classList.toggle('is-avoiding-motion', overlapsAtBottom)
 }
 
 function togglePanel(name: typeof panelNames[number]): void {
@@ -199,7 +223,7 @@ function togglePanel(name: typeof panelNames[number]): void {
   syncPanelLayout()
   const selectedCard = element('selected-object-card')
   const objectDetails = element<HTMLDetailsElement>('object-card-details')
-  if (!selectedCard.hidden && objectDetails.open && !cardsHaveClearance(selectedCard, element(`${name}-panel`))) objectDetails.open = false
+  if (name !== 'motion' && !selectedCard.hidden && objectDetails.open && !cardsHaveClearance(selectedCard, element(`${name}-panel`))) objectDetails.open = false
 }
 
 function dismissOpenPanel(): void {
@@ -261,7 +285,7 @@ function renderPlaybackState(): void {
 function renderPlaybackSpeed(): void {
   text('time-speed-value', `1k years / ${playbackSecondsPerThousandYears}s`)
   element<HTMLButtonElement>('time-slower').disabled = sceneBusy || playbackSecondsPerThousandYears >= 15
-  element<HTMLButtonElement>('time-faster').disabled = sceneBusy || playbackSecondsPerThousandYears <= 1
+  element<HTMLButtonElement>('time-faster').disabled = sceneBusy || playbackSecondsPerThousandYears <= 0.5
 }
 
 function renderFollowState(): void {
@@ -315,12 +339,23 @@ function renderSelectedDistance(distancePc: number): void {
   text('star-distance', formatDistance(distancePc, distanceUnit))
 }
 
+function renderViewerDistance(distancePc: number): void {
+  viewerDistancePc = distancePc
+  const distance = formatDistance(distancePc, distanceUnit)
+  const output = element('viewer-distance')
+  const widthMayChange = output.textContent?.length !== distance.length
+  output.textContent = distance
+  if (widthMayChange) syncVisibilityObserverLayout()
+}
+
 function renderSelection(): void {
   const sun = stars.find((star) => star.id === 'sun')!
   const star = stars.find((candidate) => candidate.id === selectedId)
   text('visibility-base', stars.find((candidate) => candidate.id === observerId)?.name ?? 'Sun')
   element('selected-object-card').hidden = !star
   element('star-details').hidden = !star
+  syncSelectedObjectLayout()
+  syncVisibilityObserverLayout()
   objectList.setSelected(selectedId)
   if (!star) {
     delete element('inspector').dataset.selectedStar
@@ -444,6 +479,7 @@ function renderDistances(): void {
   element<HTMLInputElement>(`unit-${distanceUnit}`).checked = true
   text('grid-spacing', `${formatDistance(gridSpacingPc(objectDistanceLimitLy), distanceUnit, distanceUnit === 'pc' ? 1 : 2)} grid`)
   objectList.setDistanceUnit(distanceUnit)
+  if (viewerDistancePc !== null) renderViewerDistance(viewerDistancePc)
   renderSelection()
 }
 
@@ -501,6 +537,7 @@ async function switchCatalog(id: string, refresh = false): Promise<void> {
         selectedDistancePc = distancePc
         if (distancePc !== null && selectedId !== null) renderSelectedDistance(distancePc)
       },
+      onViewerDistance: renderViewerDistance,
       onStatus: sceneStatus,
       colorMode: starColorMode,
       milkyWayVisible,
@@ -768,12 +805,20 @@ timeSlider.addEventListener('input', () => {
   setSimulationYears(timeSlider.valueAsNumber)
 }, { signal: events.signal })
 element('time-slower').addEventListener('click', () => {
-  playbackSecondsPerThousandYears = Math.min(15, playbackSecondsPerThousandYears + 1)
+  playbackSecondsPerThousandYears = playbackSecondsPerThousandYears < 1
+    ? 1
+    : Math.min(15, playbackSecondsPerThousandYears + 1)
   renderPlaybackSpeed()
 }, { signal: events.signal })
 element('time-faster').addEventListener('click', () => {
-  playbackSecondsPerThousandYears = Math.max(1, playbackSecondsPerThousandYears - 1)
+  playbackSecondsPerThousandYears = playbackSecondsPerThousandYears <= 1
+    ? 0.5
+    : Math.max(1, playbackSecondsPerThousandYears - 1)
   renderPlaybackSpeed()
+}, { signal: events.signal })
+window.addEventListener('resize', () => {
+  syncSelectedObjectLayout()
+  syncVisibilityObserverLayout()
 }, { signal: events.signal })
 categoryOptions.addEventListener('change', (event) => {
   const input = event.target

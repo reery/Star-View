@@ -15,10 +15,14 @@ import { FILTER_KEYS, isFilterKey, type FilterKey } from './object-filter'
 import {
   GUIDE_DASH_PX, GUIDE_GAP_PX, MOTION_ARROW_DASH_PX, MOTION_ARROW_GAP_PX, MOTION_ARROW_HEAD_PX, MOTION_ARROW_STROKE_PX,
   MOTION_ARROW_TAIL_OFFSET_PX,
-  STAR_DIAMETER_PX, ScreenSpaceGrid, TapGesture, budgetVisibleLabelIndices, compareMapLabelCandidates, focusProgress,
+  STAR_CORE_FULL_STRENGTH_DISTANCE_PC, STAR_CORE_MIN_DIAMETER_PX, STAR_CORE_MIN_VIEW_SCALE,
+  STAR_CORE_PHYSICAL_FULL_STRENGTH_DISTANCE_PC, STAR_CORE_VIEW_DISTANCE_FALLOFF_POWER, STAR_DIAMETER_PX,
+  STAR_HALO_FULL_STRENGTH_DISTANCE_PC,
+  STAR_HALO_MIN_OPACITY_SCALE, STAR_HALO_MIN_VIEW_SCALE, ScreenSpaceGrid, TapGesture, budgetVisibleLabelIndices,
+  compareMapLabelCandidates, focusProgress,
   guideDashScale, isObjectMapVisible, motionArrowGeometryInto, motionTravelDistancePc, pickProjectedStarAtScreenPoint,
   projectMotionDirectionInto, projectSelectedAnchor, projectWorldPointInto,
-  shouldRunOrdinaryLabelLayout, starBlocksLabels, starCoreWhiteStrength, starHaloDiameter, starHaloOpacity,
+  shouldRunOrdinaryLabelLayout, starBlocksLabels, starCoreWhiteStrength, starHaloDiameter, starHaloEmphasis, starHaloOpacity,
   type MotionArrowGeometry, type ProjectedPickable,
 } from './viewer-primitives'
 
@@ -48,7 +52,7 @@ export interface StarViewer {
 
 export const MOTION_YEAR_OPTIONS = [1_000, 5_000, 10_000, 25_000, 50_000] as const
 export type MotionYears = typeof MOTION_YEAR_OPTIONS[number]
-export const SIMULATION_YEAR_LIMIT = 300_000
+export const SIMULATION_YEAR_LIMIT = 500_000
 
 export interface ViewerViewState {
   position: readonly [number, number, number]
@@ -60,6 +64,7 @@ interface ViewerOptions {
   onInteraction(): void
   onSelect(id: string | null): void
   onSelectedDistance?(distancePc: number | null): void
+  onViewerDistance?(distancePc: number): void
   onStatus(message: string | null): void
   colorMode: StarColorMode
   milkyWayVisible?: boolean
@@ -276,22 +281,46 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
   starGeometry.setIndex(stars.map((_, index) => index))
   const coreIndices = starGeometry.getIndex()!
   const coreDiameters = new Float32BufferAttribute(stars.map(() => STAR_DIAMETER_PX), 1)
+  const coreFocuses = new Float32BufferAttribute(stars.map(() => 0), 1)
+  const coreEmphases = new Float32BufferAttribute(stars.map(() => 0), 1)
   starGeometry.setAttribute('coreDiameter', coreDiameters)
+  starGeometry.setAttribute('coreFocus', coreFocuses)
+  starGeometry.setAttribute('coreEmphasis', coreEmphases)
   starGeometry.setAttribute('coreWhiteStrength', new Float32BufferAttribute(stars.map(starCoreWhiteStrength), 1))
   const starMaterial = new PointsMaterial({
     size: 1, sizeAttenuation: false, map: dotTexture,
     vertexColors: true, alphaTest: 0.2, depthTest: true, depthWrite: true, toneMapped: false,
     transparent: true, blending: NoBlending,
   })
+  // The orbit radius caps every mark in wide overviews. Per-star distance still
+  // shrinks ordinary stars, while apparent brightness preserves exceptional
+  // glare from landmarks such as Rigel in a close Sun-centered view.
+  const starViewDistance = { value: camera.position.distanceTo(controls.target) }
   starMaterial.onBeforeCompile = (shader) => {
-    shader.vertexShader = `attribute float coreDiameter;\nattribute float coreWhiteStrength;\nvarying float vCoreDiameter;\nvarying float vCoreWhiteStrength;\n${shader.vertexShader}`
-      .replace('gl_PointSize = size;', 'gl_PointSize = size * coreDiameter;\nvCoreDiameter = coreDiameter;\nvCoreWhiteStrength = coreWhiteStrength;')
-    shader.fragmentShader = `varying float vCoreDiameter;\nvarying float vCoreWhiteStrength;\n${shader.fragmentShader}`.replace(
+    shader.uniforms.starViewDistance = starViewDistance
+    shader.vertexShader = `uniform float starViewDistance;\nattribute float coreDiameter;\nattribute float coreFocus;\nattribute float coreEmphasis;\nattribute float coreWhiteStrength;\nvarying float vCoreDiameter;\nvarying float vCoreEmphasis;\nvarying float vCoreWhiteStrength;\n${shader.vertexShader}`
+      .replace('gl_PointSize = size;', `float coreOverviewRatio = pow(min(1.0, ${STAR_CORE_FULL_STRENGTH_DISTANCE_PC} / max(starViewDistance, ${STAR_CORE_FULL_STRENGTH_DISTANCE_PC})), ${STAR_CORE_VIEW_DISTANCE_FALLOFF_POWER});
+      float corePhysicalRatio = min(1.0, ${STAR_CORE_PHYSICAL_FULL_STRENGTH_DISTANCE_PC} / max(length(mvPosition.xyz), ${STAR_CORE_PHYSICAL_FULL_STRENGTH_DISTANCE_PC}));
+      float coreOverviewScale = max(${STAR_CORE_MIN_VIEW_SCALE}, sqrt(coreOverviewRatio));
+      float corePhysicalScale = mix(max(${STAR_CORE_MIN_VIEW_SCALE}, sqrt(corePhysicalRatio)), 1.0, coreFocus);
+      float brightCoreFloor = mix(${STAR_CORE_MIN_VIEW_SCALE}, 0.55, coreEmphasis);
+      corePhysicalScale = max(corePhysicalScale, brightCoreFloor);
+      float coreViewScale = min(coreOverviewScale, corePhysicalScale);
+      gl_PointSize = size * max(${STAR_CORE_MIN_DIAMETER_PX}.0, coreDiameter * coreViewScale);
+      vCoreDiameter = coreDiameter * coreViewScale;
+      vCoreEmphasis = coreEmphasis;
+      vCoreWhiteStrength = coreWhiteStrength;`)
+    shader.fragmentShader = `varying float vCoreDiameter;\nvarying float vCoreEmphasis;\nvarying float vCoreWhiteStrength;\n${shader.fragmentShader}`.replace(
       '#include <color_fragment>',
       `#include <color_fragment>
       float coreRadius = length(gl_PointCoord - vec2(0.5)) * 2.0;
-      float hotCenter = 1.0 - smoothstep(vCoreDiameter > 3.0 ? 0.28 : 0.06, vCoreDiameter > 3.0 ? 0.74 : 0.42, coreRadius);
-      diffuseColor.rgb = mix(diffuseColor.rgb, vec3(1.0), hotCenter * vCoreWhiteStrength);`,
+      float compactCore = 1.0 - smoothstep(3.0, 4.0, vCoreDiameter);
+      float compactEmphasis = compactCore * vCoreEmphasis;
+      float hotCenterInner = mix(vCoreDiameter > 3.0 ? 0.28 : 0.06, 0.20, compactEmphasis);
+      float hotCenterOuter = mix(vCoreDiameter > 3.0 ? 0.74 : 0.42, 0.68, compactEmphasis);
+      float hotCenter = 1.0 - smoothstep(hotCenterInner, hotCenterOuter, coreRadius);
+      float whiteStrength = mix(vCoreWhiteStrength, 1.0, 0.55 * vCoreEmphasis);
+      diffuseColor.rgb = mix(diffuseColor.rgb, vec3(1.0), hotCenter * whiteStrength);`,
     )
   }
   const starPoints = new Points(starGeometry, starMaterial)
@@ -347,16 +376,27 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
   const haloIndices = haloGeometry.getIndex()!
   const haloOpacities = new Float32BufferAttribute(stars.map(() => 0), 1)
   const haloDiameters = new Float32BufferAttribute(stars.map(() => 30), 1)
+  const haloEmphases = new Float32BufferAttribute(stars.map(() => 0), 1)
   haloGeometry.setAttribute('haloOpacity', haloOpacities)
   haloGeometry.setAttribute('haloDiameter', haloDiameters)
+  haloGeometry.setAttribute('haloEmphasis', haloEmphases)
   const haloMaterial = new PointsMaterial({
     size: 1, sizeAttenuation: false, map: haloTexture, vertexColors: true,
     blending: AdditiveBlending, transparent: true, depthTest: true, depthFunc: LessDepth, depthWrite: false, toneMapped: false,
   })
   haloMaterial.onBeforeCompile = (shader) => {
-    shader.vertexShader = `attribute float haloDiameter;\nattribute float haloOpacity;\nvarying float vHaloOpacity;\n${shader.vertexShader}`
-      .replace('gl_PointSize = size;', 'gl_PointSize = size * haloDiameter;')
-      .replace('#include <begin_vertex>', '#include <begin_vertex>\nvHaloOpacity = haloOpacity;')
+    shader.uniforms.starViewDistance = starViewDistance
+    shader.vertexShader = `uniform float starViewDistance;\nattribute float haloDiameter;\nattribute float haloOpacity;\nattribute float haloEmphasis;\nvarying float vHaloOpacity;\n${shader.vertexShader}`
+      .replace('gl_PointSize = size;', `float overviewRatio = min(1.0, ${STAR_HALO_FULL_STRENGTH_DISTANCE_PC} / max(starViewDistance, ${STAR_HALO_FULL_STRENGTH_DISTANCE_PC}));
+      float physicalRatio = min(1.0, ${STAR_HALO_FULL_STRENGTH_DISTANCE_PC} / max(length(mvPosition.xyz), ${STAR_HALO_FULL_STRENGTH_DISTANCE_PC}));
+      float overviewSizeScale = max(${STAR_HALO_MIN_VIEW_SCALE}, sqrt(sqrt(overviewRatio)));
+      float overviewOpacityScale = max(${STAR_HALO_MIN_OPACITY_SCALE}, sqrt(overviewRatio));
+      float physicalSizeScale = mix(max(${STAR_HALO_MIN_VIEW_SCALE}, sqrt(sqrt(physicalRatio))), 1.0, haloEmphasis);
+      float physicalOpacityScale = mix(max(${STAR_HALO_MIN_OPACITY_SCALE}, sqrt(physicalRatio)), 1.0, haloEmphasis);
+      float haloViewScale = min(overviewSizeScale, physicalSizeScale);
+      float haloViewOpacityScale = min(overviewOpacityScale, physicalOpacityScale);
+      gl_PointSize = size * haloDiameter * haloViewScale;
+      vHaloOpacity = haloOpacity * haloViewOpacityScale;`)
     shader.fragmentShader = `varying float vHaloOpacity;\n${shader.fragmentShader}`
       .replace('#include <map_particle_fragment>', '#include <map_particle_fragment>\ndiffuseColor.a *= vHaloOpacity;')
   }
@@ -1008,9 +1048,13 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
       tiers[index] = tier
       mapVisible[index] = visible ? 1 : 0
       const haloMagnitude = tier === 'base' ? star.absolute_mag : magnitude
+      const haloEmphasis = starHaloEmphasis(haloMagnitude)
       coreDiameters.setX(index, tier === 'background' ? 3 : STAR_DIAMETER_PX)
+      coreFocuses.setX(index, star.id === visibilityBase.id || star.id === selectedId ? 1 : 0)
+      coreEmphases.setX(index, haloEmphasis)
       haloOpacities.setX(index, tier === 'background' ? 0 : starHaloOpacity(haloMagnitude, star.id === selectedId))
       haloDiameters.setX(index, starHaloDiameter(haloMagnitude))
+      haloEmphases.setX(index, haloEmphasis)
       if (isNebula[index]) return
       if (visible) coreIndices.setX(coreCount++, index)
       if (visible && tier !== 'background') haloIndices.setX(haloCount++, index)
@@ -1021,8 +1065,11 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
     }
     coreIndices.needsUpdate = true
     coreDiameters.needsUpdate = true
+    coreFocuses.needsUpdate = true
+    coreEmphases.needsUpdate = true
     haloOpacities.needsUpdate = true
     haloDiameters.needsUpdate = true
+    haloEmphases.needsUpdate = true
     haloIndices.needsUpdate = true
     starGeometry.setDrawRange(0, coreCount)
     haloGeometry.setDrawRange(0, haloCount)
@@ -1708,6 +1755,9 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
       }
     }
     camera.updateMatrixWorld()
+    starViewDistance.value = camera.position.distanceTo(controls.target)
+    const visibilityBaseIndex = starsById.get(visibilityBase.id)!.index
+    options.onViewerDistance?.(camera.position.distanceTo(pickable[visibilityBaseIndex]!.position))
     updateGuideDashScales()
     updateMotionArrows()
     renderer.render(scene, camera)

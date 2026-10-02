@@ -1,13 +1,14 @@
 import { describe, expect, it } from 'vitest'
 import { PerspectiveCamera, Vector3, type Camera } from 'three'
-import { apparentVisualMagnitude } from './astronomy'
+import { apparentVisualMagnitude, LIGHT_YEARS_PER_PARSEC } from './astronomy'
 import { chooseOrdinaryLabelPlacement, ordinaryLabelCandidates } from './label-layout'
 import {
   GUIDE_DASH_PX, GUIDE_GAP_PX, MOTION_ARROW_HEAD_PX, MOTION_ARROW_STROKE_PX, MOTION_ARROW_TAIL_OFFSET_PX,
   ScreenSpaceGrid, TapGesture, budgetVisibleLabelIndices, compareMapLabelCandidates, focusProgress, isObjectMapVisible,
   guideDashScale, motionArrowGeometryInto, motionTravelDistancePc, pickProjectedStarAtScreenPoint,
   projectMotionDirection, projectSelectedAnchor, projectWorldPoint, starBlocksLabels,
-  shouldRunOrdinaryLabelLayout, starCoreWhiteStrength, starHaloDiameter, starHaloOpacity, starHaloStrength, type MotionArrowGeometry,
+  shouldRunOrdinaryLabelLayout, starCoreViewScale, starCoreWhiteStrength, starHaloDiameter, starHaloEmphasis, starHaloOpacity,
+  starHaloStrength, starHaloViewOpacityScale, starHaloViewScale, type MotionArrowGeometry,
   type PointerPosition, type ProjectedPickable, type Viewport,
 } from './viewer-primitives'
 
@@ -302,6 +303,41 @@ describe('magnitude-sized halos', () => {
     const distantMagnitude = apparentVisualMagnitude(-5, 1000)!
     expect(starHaloDiameter(distantMagnitude)).toBeLessThan(starHaloDiameter(nearbyMagnitude))
     expect(starHaloOpacity(distantMagnitude)).toBeLessThan(starHaloOpacity(nearbyMagnitude))
+  })
+})
+
+describe('view-distance halo falloff', () => {
+  it('preserves close glows and substantially tones them down around 1,000 light-years', () => {
+    const oneThousandLightYearsPc = 1000 / LIGHT_YEARS_PER_PARSEC
+    const oneThousandLightYearHaloRatio = 0.05
+    expect(starCoreViewScale(50 / LIGHT_YEARS_PER_PARSEC)).toBe(1)
+    expect(starHaloViewScale(50 / LIGHT_YEARS_PER_PARSEC)).toBe(1)
+    expect(starHaloViewOpacityScale(50 / LIGHT_YEARS_PER_PARSEC)).toBe(1)
+    expect(starCoreViewScale(oneThousandLightYearsPc)).toBe(0.3)
+    expect(starHaloViewScale(oneThousandLightYearsPc)).toBeCloseTo(oneThousandLightYearHaloRatio ** 0.25)
+    expect(starHaloViewOpacityScale(oneThousandLightYearsPc)).toBeCloseTo(Math.sqrt(oneThousandLightYearHaloRatio))
+  })
+
+  it('keeps small cores and a restrained minimum glow at extreme and invalid view distances', () => {
+    expect(starCoreViewScale(1_000_000)).toBe(0.3)
+    expect(starHaloViewScale(1_000_000)).toBe(0.3)
+    expect(starHaloViewOpacityScale(1_000_000)).toBeCloseTo(0.08)
+    expect(starCoreViewScale(0)).toBe(1)
+    expect(starHaloViewScale(0)).toBe(1)
+    expect(starHaloViewOpacityScale(NaN)).toBe(1)
+  })
+})
+
+describe('bright-star halo emphasis', () => {
+  it('separates Rigel and Betelgeuse from the principal Pleiades stars by apparent magnitude', () => {
+    expect(starHaloEmphasis(0.13)).toBeGreaterThan(0.98)
+    expect(starHaloEmphasis(0.42)).toBeGreaterThan(0.85)
+    expect(starHaloEmphasis(2.87)).toBe(0)
+    expect(starHaloEmphasis(3.7)).toBe(0)
+  })
+
+  it.each([null, NaN, Infinity])('does not emphasize an unknown magnitude %s', (magnitude) => {
+    expect(starHaloEmphasis(magnitude)).toBe(0)
   })
 })
 

@@ -504,7 +504,7 @@ test('presents the selected object beside an expandable control dock', async ({ 
   await openViewer(page)
   await expect(page.locator('.app-header, .scene-heading, .catalog-footer')).toHaveCount(0)
   await expect(page.locator('.scene-brand, #brand-icon, #plane-key')).toHaveCount(0)
-  await expect(page.locator('.scene-wrap > .visibility-observer')).toContainText('Visibility from Sirius A')
+  await expect(page.locator('.scene-wrap > .visibility-observer')).toContainText('Visibility from: Sirius A | Distance from viewer:')
   await expect(page.locator('.selected-object > summary')).toHaveCount(0)
   await expect(page.locator('.selected-object')).toHaveCSS('border-radius', '11px')
   await expect(page.locator('.dock-card:visible')).toHaveCount(0)
@@ -983,6 +983,99 @@ test('renders soft halos beyond crisp cores and boosts only the selected halo', 
   await expect(page.locator('.map-anchor.is-selected')).toHaveCount(0)
   await page.evaluate(() => new Promise<void>((resolve) => requestAnimationFrame(() => resolve())))
   expect(changedPixels(PNG.sync.write(base), await canvas.screenshot(options))).toBe(0)
+})
+
+test('shrinks distant star cores while retaining bright glare around a 1,000-light-year overview', async ({ page }, testInfo) => {
+  await openViewer(page)
+  await hideMilkyWay(page)
+  await openFilter(page)
+  await page.getByRole('switch', { name: 'Always show bright stars' }).check()
+  await expect.poll(() => page.locator('#catalog-count').textContent()).not.toBe('22/22')
+  await page.getByRole('switch', { name: 'Motion arrows' }).uncheck()
+  await page.locator('[data-star="sun"]').evaluate((button: HTMLButtonElement) => button.click())
+  await page.getByRole('button', { name: 'Reset view', exact: true }).click()
+  await page.locator('[data-star="sirius-a"]').evaluate((button: HTMLButtonElement) => button.click())
+  await page.getByLabel('Object visibility distance', { exact: true }).fill('0')
+  await page.getByLabel('V magnitude limit', { exact: true }).fill('0')
+  await page.locator('details.filter-dropdown > summary').click()
+  await page.locator('#object-type-filter').getByLabel('Sun', { exact: true }).uncheck()
+  await page.getByRole('button', { name: 'Grid', exact: true }).click()
+
+  const canvas = page.locator('#scene canvas')
+  const bounds = (await canvas.boundingBox())!
+  await page.mouse.click(bounds.x + bounds.width * 0.15, bounds.y + bounds.height * 0.85)
+  await expect(page.locator('.map-anchor.is-selected')).toHaveCount(0)
+  const sirius = await starPoint(page, 'sirius-a')
+  const centerX = sirius.x - bounds.x
+  const centerY = sirius.y - bounds.y
+  const options = {
+    scale: 'css' as const,
+    style: '.projected-axes, .projected-labels, .scene-toolbar, .control-dock, .scene-legend, .visibility-observer { visibility: hidden !important; }',
+  }
+  const sample = (image: PNG, inner: number, outer: number) => {
+    const values: number[] = []
+    for (let pixelY = Math.floor(centerY - outer); pixelY <= Math.ceil(centerY + outer); pixelY++) {
+      for (let pixelX = Math.floor(centerX - outer); pixelX <= Math.ceil(centerX + outer); pixelX++) {
+        const distance = Math.hypot(pixelX + 0.5 - centerX, pixelY + 0.5 - centerY)
+        if (distance < inner || distance > outer) continue
+        const offset = (pixelY * image.width + pixelX) * 4
+        values.push(image.data[offset]! + image.data[offset + 1]! + image.data[offset + 2]!)
+      }
+    }
+    return values.reduce((sum, value) => sum + value, 0) / values.length
+  }
+
+  const near = PNG.sync.read(await canvas.screenshot({ ...options, path: testInfo.outputPath('sirius-near-glow.png') }))
+  for (let count = 0; count < 12; count++) await page.getByRole('button', { name: 'Zoom out', exact: true }).click()
+  await expect.poll(() => starPoint(page, 'sirius-a')).toEqual(sirius)
+  const far = PNG.sync.read(await canvas.screenshot({ ...options, path: testInfo.outputPath('sirius-far-glow.png') }))
+  const nearGlow = sample(near, 6, 14)
+  const farGlow = sample(far, 6, 14)
+  expect(farGlow).toBeGreaterThan(0)
+  expect(farGlow).toBeLessThan(nearGlow * 0.5)
+  expect(sample(far, 0, 1.5)).toBeGreaterThan(100)
+  expect(sample(far, 0, 3)).toBeLessThan(sample(near, 0, 3) * 0.7)
+})
+
+test('keeps the magnitude-7 all-catalog overview from washing out at roughly 1,000 light-years', async ({ page }, testInfo) => {
+  await openViewer(page)
+  await hideMilkyWay(page)
+  await openFilter(page)
+  await selectCatalog(page, 'nearest-1000')
+  await expect(page.locator('#catalog-count')).toHaveText(/\/1001$/)
+  for (const name of ['Always show bright stars', 'Western constellation stars', 'Famous cluster stars']) {
+    await page.getByRole('switch', { name }).check()
+  }
+  await expect.poll(async () => Number(await page.locator('.projected-labels').getAttribute('data-core-count'))).toBeGreaterThan(1000)
+  await page.getByLabel('Object visibility distance', { exact: true }).fill('19')
+  await page.getByLabel('V magnitude limit', { exact: true }).fill('7')
+  await page.getByRole('switch', { name: 'Motion arrows' }).uncheck()
+  await page.locator('[data-star="sun"]').evaluate((button: HTMLButtonElement) => button.click())
+  await page.getByRole('button', { name: 'Grid', exact: true }).click()
+  await page.getByRole('button', { name: 'Reset view', exact: true }).click()
+
+  const canvas = page.locator('#scene canvas')
+  const bounds = (await canvas.boundingBox())!
+  await page.mouse.click(bounds.x + bounds.width * 0.15, bounds.y + bounds.height * 0.85)
+  for (let count = 0; count < 12; count++) await page.getByRole('button', { name: 'Zoom out', exact: true }).click()
+  const image = PNG.sync.read(await canvas.screenshot({
+    scale: 'css',
+    path: testInfo.outputPath('all-catalogs-1000ly.png'),
+    style: '.projected-axes, .projected-labels, .scene-toolbar, .control-dock, .scene-legend, .visibility-observer { visibility: hidden !important; }',
+  }))
+  let luminousPixels = 0
+  let whitePixels = 0
+  for (let offset = 0; offset < image.data.length; offset += 4) {
+    const red = image.data[offset]!
+    const green = image.data[offset + 1]!
+    const blue = image.data[offset + 2]!
+    if (red + green + blue > 30) luminousPixels++
+    if (red > 200 && green > 200 && blue > 200) whitePixels++
+  }
+  const pixelCount = image.width * image.height
+  expect(Number(await page.locator('.projected-labels').getAttribute('data-halo-count'))).toBeGreaterThan(50)
+  expect(luminousPixels / pixelCount).toBeLessThan(0.08)
+  expect(whitePixels / pixelCount).toBeLessThan(0.01)
 })
 
 test('makes Sirius glow larger and brighter than Barnard with zoom-stable magnitude sizes', async ({ page }, testInfo) => {
@@ -1621,16 +1714,25 @@ test('hands active focus to pointer input, deselection and reduced motion', { ta
   }
 })
 
-test('scrubs and plays the physical stellar-motion timeline in both directions', { tag: '@mobile' }, async ({ page }) => {
+test('scrubs and plays the physical stellar-motion timeline in both directions', { tag: '@mobile' }, async ({ page, isMobile }) => {
   await openViewer(page)
   const timeline = page.getByRole('region', { name: 'Stellar motion timeline' })
   const slider = page.getByRole('slider', { name: 'Simulation time' })
   const faster = page.getByRole('button', { name: 'Increase playback speed' })
   const slower = page.getByRole('button', { name: 'Decrease playback speed' })
   const follow = page.getByRole('button', { name: 'Follow selection' })
+  const visibilityCaption = page.locator('.visibility-observer')
+  const captionBoundsBefore = (await visibilityCaption.boundingBox())!
+  const captionBottomBefore = captionBoundsBefore.y + captionBoundsBefore.height
   await expect(timeline).toBeHidden()
   await page.getByRole('button', { name: 'Stellar motion', exact: true }).click()
   await expect(timeline).toBeVisible()
+  if (isMobile) await expect(visibilityCaption).toHaveClass(/is-avoiding-motion/)
+  else await expect(visibilityCaption).not.toHaveClass(/is-avoiding-motion/)
+  const captionBoundsAfter = (await visibilityCaption.boundingBox())!
+  const captionBottomAfter = captionBoundsAfter.y + captionBoundsAfter.height
+  if (isMobile) expect(captionBottomAfter).toBeLessThan(captionBottomBefore - 100)
+  else expect(captionBottomAfter).toBeCloseTo(captionBottomBefore, 0)
   await expect(timeline.getByRole('heading')).toHaveCount(0)
   const motionLock = page.getByRole('button', { name: 'Keep Stellar motion open' })
   await expect(motionLock).toBeVisible()
@@ -1649,17 +1751,21 @@ test('scrubs and plays the physical stellar-motion timeline in both directions',
   await page.locator('#scene canvas').click({ position: { x: 2, y: 2 } })
   await expect(timeline).toBeVisible()
   await motionLock.click()
-  await expect(slider).toHaveAttribute('min', '-300000')
-  await expect(slider).toHaveAttribute('max', '300000')
+  await expect(slider).toHaveAttribute('min', '-500000')
+  await expect(slider).toHaveAttribute('max', '500000')
   await expect(slider).toHaveAttribute('step', 'any')
-  await expect(page.locator('.time-markers i')).toHaveCount(19)
+  await expect(page.locator('.time-markers i')).toHaveCount(11)
+  await expect(page.locator('.time-markers i.major')).toHaveCount(10)
+  expect(await page.locator('.time-markers i.major').evaluateAll((markers) => markers.map((marker) => marker.getAttribute('data-label')))).toEqual([
+    '500k', '400k', '300k', '200k', '100k', '100k', '200k', '300k', '400k', '500k',
+  ])
   await expect(page.locator('#time-value')).toHaveText('Now')
-  await expect(page.locator('#time-speed-value')).toHaveText('1k years / 7s')
-
-  for (let count = 0; count < 6; count++) await faster.click()
   await expect(page.locator('#time-speed-value')).toHaveText('1k years / 1s')
+
+  await faster.click()
+  await expect(page.locator('#time-speed-value')).toHaveText('1k years / 0.5s')
   await expect(faster).toBeDisabled()
-  for (let count = 0; count < 14; count++) await slower.click()
+  for (let count = 0; count < 15; count++) await slower.click()
   await expect(page.locator('#time-speed-value')).toHaveText('1k years / 15s')
   await expect(slower).toBeDisabled()
 
@@ -1716,10 +1822,10 @@ test('scrubs and plays the physical stellar-motion timeline in both directions',
   await expect(slider).toHaveValue('0')
   await expect(page.locator('#scene')).toHaveAttribute('data-simulation-years', '0')
   await expect(page.locator('#time-value')).toHaveText('Now')
-  await slider.fill('300000')
+  await slider.fill('500000')
   await page.getByRole('button', { name: 'Play stellar motion' }).click()
   await expect(page.getByRole('button', { name: 'Pause stellar motion' })).toHaveAttribute('aria-pressed', 'true')
-  await expect.poll(async () => Number(await page.locator('#scene').getAttribute('data-simulation-years'))).toBeLessThan(300000)
+  await expect.poll(async () => Number(await page.locator('#scene').getAttribute('data-simulation-years'))).toBeLessThan(500000)
   await page.getByRole('button', { name: 'Pause stellar motion' }).click()
   const paused = await page.locator('#scene').getAttribute('data-simulation-years')
   await page.waitForTimeout(80)

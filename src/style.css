@@ -69,6 +69,8 @@ button, p, h2, dd { overflow-wrap: anywhere; }
 .time-markers i { position: absolute; top: 5px; left: var(--marker-position); width: 2px; height: 10px; transform: translateX(-1px); background: #f0cfaa; box-shadow: 0 0 0 1px #171819; }
 .time-markers i.major { top: 3px; height: 14px; background: var(--accent-strong); }
 .time-markers i.major::after { content: attr(data-label); position: absolute; top: 15px; left: 50%; transform: translateX(-50%); color: #9b8977; font-size: 8px; font-style: normal; line-height: 1; white-space: nowrap; box-shadow: none; }
+.time-markers i.marker-start::after { left: 0; transform: none; }
+.time-markers i.marker-end::after { right: 0; left: auto; transform: none; }
 .time-markers .time-now-marker { top: 2px; height: 16px; background: var(--accent-vibrant); }
 @media (hover: hover) and (pointer: fine) {
   .time-button:hover:not(:disabled), .time-speed-button:hover:not(:disabled) { color: var(--accent-strong); background: var(--panel-selected); border-color: #ac8059; }
@@ -108,15 +110,14 @@ button, p, h2, dd { overflow-wrap: anywhere; }
 
 .scene-legend, .visibility-observer { position: absolute; bottom: 22px; color: var(--muted); font-size: 11px; display: flex; align-items: center; gap: 9px; pointer-events: none; }
 .scene-wrap:has(.control-dock[data-motion-open]) .scene-legend { bottom: 150px; }
-@media (max-width: 1360px) {
-  .scene-wrap:has(.control-dock[data-motion-open]) .visibility-observer { bottom: 150px; }
-}
+.visibility-observer.is-avoiding-motion { bottom: 150px; }
 .scene-legend { left: 28px; font-variant-numeric: tabular-nums; }
 .grid-legend { display: inline-flex; align-items: center; gap: 9px; }
 .legend-divider { width: 1px; height: 10px; background: var(--line); margin: 0 3px; }
 .grid-symbol { width: 12px; height: 12px; background: repeating-linear-gradient(0deg, transparent 0 5px, #9c8976 5px 6px), repeating-linear-gradient(90deg, transparent 0 5px, #9c8976 5px 6px); border: 1px solid #9c8976; }
 .visibility-observer { right: 74px; max-width: calc(50% - 74px); justify-content: flex-end; text-align: right; line-height: 1.4; }
 .visibility-observer strong { color: var(--ink); font-weight: 500; }
+#viewer-distance { font-variant-numeric: tabular-nums; }
 .scene-status { position: absolute; top: 45%; left: 50%; transform: translate(-50%, -50%); width: min(340px, calc(100% - 48px)); background: var(--panel); border: 1px solid var(--line); border-radius: var(--card-radius); padding: 20px; font-size: 14px; line-height: 1.6; color: var(--ink); z-index: 5; }
 
 .projected-axes, .projected-labels { position: absolute; inset: 0; pointer-events: none; overflow: hidden; contain: strict; }
@@ -256,7 +257,7 @@ select:focus-visible, input:focus-visible { outline: 2px solid var(--accent); ou
   .scene-legend { left: 18px; bottom: 16px; font-size: 10px; }
   .visibility-observer { right: 66px; bottom: 16px; max-width: 42%; font-size: 10px; }
   .scene-wrap:has(.control-dock[data-motion-open]) .scene-legend,
-  .scene-wrap:has(.control-dock[data-motion-open]) .visibility-observer { bottom: 198px; }
+  .visibility-observer.is-avoiding-motion { bottom: 198px; }
   .identity .star-name { font-size: 22px; }
   .star-distance { font-size: 12px; }
 }
