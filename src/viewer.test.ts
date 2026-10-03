@@ -1,16 +1,37 @@
 import { describe, expect, it } from 'vitest'
 import { PerspectiveCamera, Vector3, type Camera } from 'three'
+import { apparentVisualMagnitude, LIGHT_YEARS_PER_PARSEC } from './astronomy'
 import { chooseOrdinaryLabelPlacement, ordinaryLabelCandidates } from './label-layout'
 import {
-  MOTION_ARROW_HEAD_PX, MOTION_ARROW_STROKE_PX, MOTION_ARROW_TAIL_OFFSET_PX,
+  GUIDE_DASH_PX, GUIDE_GAP_PX, MOTION_ARROW_HEAD_PX, MOTION_ARROW_STROKE_PX, MOTION_ARROW_TAIL_OFFSET_PX,
   ScreenSpaceGrid, TapGesture, budgetVisibleLabelIndices, compareMapLabelCandidates, focusProgress, isObjectMapVisible,
-  motionArrowGeometryInto, motionTravelDistancePc, pickProjectedStarAtScreenPoint,
+  guideDashScale, motionArrowGeometryInto, motionTravelDistancePc, pickProjectedStarAtScreenPoint,
   projectMotionDirection, projectSelectedAnchor, projectWorldPoint, starBlocksLabels,
-  shouldRunOrdinaryLabelLayout, starCoreWhiteStrength, starHaloDiameter, starHaloOpacity, starHaloStrength, type MotionArrowGeometry,
+  shouldRunOrdinaryLabelLayout, starCoreViewScale, starCoreWhiteStrength, starHaloDiameter, starHaloEmphasis, starHaloOpacity,
+  starHaloStrength, starHaloViewOpacityScale, starHaloViewScale, type MotionArrowGeometry,
   type PointerPosition, type ProjectedPickable, type Viewport,
 } from './viewer-primitives'
 
 const viewport = { left: 110, top: 90, width: 400, height: 300 }
+
+describe('selected guide dashes', () => {
+  it('keeps the same screen-space cadence for nearby and distant guides', () => {
+    const projectedLength = 420
+    const patternSize = GUIDE_DASH_PX + GUIDE_GAP_PX
+    const nearbyRepeats = 2 * guideDashScale(2, projectedLength, 800) / patternSize
+    const distantRepeats = 300 * guideDashScale(300, projectedLength, 800) / patternSize
+    expect(nearbyRepeats).toBeCloseTo(60)
+    expect(distantRepeats).toBeCloseTo(nearbyRepeats)
+  })
+
+  it('caps the dash count when projected endpoints extend beyond the viewport', () => {
+    const worldLength = 300
+    const viewportDiagonal = 500
+    const repeats = worldLength * guideDashScale(worldLength, 10_000, viewportDiagonal) /
+      (GUIDE_DASH_PX + GUIDE_GAP_PX)
+    expect(repeats).toBeCloseTo(viewportDiagonal / (GUIDE_DASH_PX + GUIDE_GAP_PX))
+  })
+})
 
 it('ranks map labels by selection, apparent magnitude, then stable catalog order', () => {
   const candidates = [
@@ -217,7 +238,7 @@ describe('star halo strength', () => {
     expect(starHaloStrength(magnitude, true)).toBeCloseTo(0.845)
   })
 
-  it('makes Sirius clearly brighter than Barnard while retaining faint locators', () => {
+  it('makes bright apparent stars clearly stronger than faint ones while retaining faint locators', () => {
     expect(starHaloStrength(4.83)).toBe(0.65)
     expect(starHaloStrength(1.42)).toBe(1.4)
     expect(starHaloStrength(13.22)).toBeCloseTo(0.094, 3)
@@ -262,7 +283,7 @@ describe('magnitude-sized halos', () => {
     expect(starHaloDiameter(magnitude)).toBe(30)
   })
 
-  it('gives Sirius a substantially larger glow than Barnard', () => {
+  it('gives a bright apparent star a substantially larger glow than a faint one', () => {
     expect(starHaloDiameter(1.42)).toBeCloseTo(61.965)
     expect(starHaloDiameter(13.22)).toBe(20)
     expect(starHaloDiameter(1.42)).toBeGreaterThan(starHaloDiameter(13.22) * 3)
@@ -275,6 +296,48 @@ describe('magnitude-sized halos', () => {
     expect(starHaloDiameter(Number.MAX_VALUE)).toBe(20)
     const sizes = [-2, 0, 5, 10, 15, 20].map(starHaloDiameter)
     expect(sizes).toEqual([...sizes].sort((first, second) => second - first))
+  })
+
+  it('applies inverse-square distance falloff before sizing a halo', () => {
+    const nearbyMagnitude = apparentVisualMagnitude(-5, 10)!
+    const distantMagnitude = apparentVisualMagnitude(-5, 1000)!
+    expect(starHaloDiameter(distantMagnitude)).toBeLessThan(starHaloDiameter(nearbyMagnitude))
+    expect(starHaloOpacity(distantMagnitude)).toBeLessThan(starHaloOpacity(nearbyMagnitude))
+  })
+})
+
+describe('view-distance halo falloff', () => {
+  it('preserves close glows and substantially tones them down around 1,000 light-years', () => {
+    const oneThousandLightYearsPc = 1000 / LIGHT_YEARS_PER_PARSEC
+    const oneThousandLightYearHaloRatio = 0.05
+    expect(starCoreViewScale(50 / LIGHT_YEARS_PER_PARSEC)).toBe(1)
+    expect(starHaloViewScale(50 / LIGHT_YEARS_PER_PARSEC)).toBe(1)
+    expect(starHaloViewOpacityScale(50 / LIGHT_YEARS_PER_PARSEC)).toBe(1)
+    expect(starCoreViewScale(oneThousandLightYearsPc)).toBe(0.3)
+    expect(starHaloViewScale(oneThousandLightYearsPc)).toBeCloseTo(oneThousandLightYearHaloRatio ** 0.25)
+    expect(starHaloViewOpacityScale(oneThousandLightYearsPc)).toBeCloseTo(Math.sqrt(oneThousandLightYearHaloRatio))
+  })
+
+  it('keeps small cores and a restrained minimum glow at extreme and invalid view distances', () => {
+    expect(starCoreViewScale(1_000_000)).toBe(0.3)
+    expect(starHaloViewScale(1_000_000)).toBe(0.3)
+    expect(starHaloViewOpacityScale(1_000_000)).toBeCloseTo(0.08)
+    expect(starCoreViewScale(0)).toBe(1)
+    expect(starHaloViewScale(0)).toBe(1)
+    expect(starHaloViewOpacityScale(NaN)).toBe(1)
+  })
+})
+
+describe('bright-star halo emphasis', () => {
+  it('separates Rigel and Betelgeuse from the principal Pleiades stars by apparent magnitude', () => {
+    expect(starHaloEmphasis(0.13)).toBeGreaterThan(0.98)
+    expect(starHaloEmphasis(0.42)).toBeGreaterThan(0.85)
+    expect(starHaloEmphasis(2.87)).toBeLessThan(0.01)
+    expect(starHaloEmphasis(3.7)).toBe(0)
+  })
+
+  it.each([null, NaN, Infinity])('does not emphasize an unknown magnitude %s', (magnitude) => {
+    expect(starHaloEmphasis(magnitude)).toBe(0)
   })
 })
 

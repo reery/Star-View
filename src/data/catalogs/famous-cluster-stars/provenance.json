@@ -1,0 +1,3073 @@
+{
+  "schemaVersion": 1,
+  "catalogId": "famous-cluster-stars",
+  "policy": "Named Pleiades systems (the Seven Sisters, Atlas and Pleione), the classical Theta1 Orionis A-D Trapezium systems, and the brightest distance-consistent SIMBAD catalogued members of the Hyades, Coma Star Cluster, IC 2602, IC 2391 and the Beehive. Foreground Aldebaran and Gamma Comae Berenices are excluded. This is a visual landmark set, not a complete membership census. Sun is included only as the map origin.",
+  "groups": [
+    {
+      "name": "Pleiades",
+      "constellation": "Taurus",
+      "selection": "The Seven Sisters plus Atlas and Pleione; exact Hipparcos identifiers with SIMBAD Melotte 22 membership aliases.",
+      "stars": [
+        {
+          "queryId": "HIP 17489",
+          "name": "Celaeno"
+        },
+        {
+          "queryId": "HIP 17499",
+          "name": "Electra"
+        },
+        {
+          "queryId": "HIP 17531",
+          "name": "Taygeta"
+        },
+        {
+          "queryId": "HIP 17579",
+          "name": "Asterope"
+        },
+        {
+          "queryId": "HIP 17573",
+          "name": "Maia"
+        },
+        {
+          "queryId": "HIP 17608",
+          "name": "Merope"
+        },
+        {
+          "queryId": "HIP 17702",
+          "name": "Alcyone"
+        },
+        {
+          "queryId": "HIP 17847",
+          "name": "Atlas"
+        },
+        {
+          "queryId": "HIP 17851",
+          "name": "Pleione"
+        }
+      ]
+    },
+    {
+      "name": "Trapezium Cluster",
+      "constellation": "Orion",
+      "selection": "The four classical bright Trapezium systems at the heart of the Orion Nebula.",
+      "stars": [
+        {
+          "queryId": "* tet01 Ori A",
+          "name": "Theta1 Orionis A"
+        },
+        {
+          "queryId": "* tet01 Ori B",
+          "name": "Theta1 Orionis B"
+        },
+        {
+          "queryId": "* tet01 Ori C",
+          "name": "Theta1 Orionis C"
+        },
+        {
+          "queryId": "* tet01 Ori D",
+          "name": "Theta1 Orionis D"
+        }
+      ]
+    },
+    {
+      "name": "Hyades",
+      "constellation": "Taurus",
+      "selection": "Eight brightest SIMBAD Melotte 25 members with cluster-consistent parallaxes; foreground Aldebaran is deliberately excluded.",
+      "stars": [
+        {
+          "queryId": "HIP 20894"
+        },
+        {
+          "queryId": "HIP 20889"
+        },
+        {
+          "queryId": "HIP 20205"
+        },
+        {
+          "queryId": "HIP 20455"
+        },
+        {
+          "queryId": "HIP 20885"
+        },
+        {
+          "queryId": "HIP 20635"
+        },
+        {
+          "queryId": "HIP 21589"
+        },
+        {
+          "queryId": "HIP 20711"
+        }
+      ]
+    },
+    {
+      "name": "Coma Star Cluster",
+      "constellation": "Coma Berenices",
+      "selection": "Five brightest SIMBAD Melotte 111 members with cluster-consistent parallaxes; foreground Gamma Comae Berenices is excluded.",
+      "stars": [
+        {
+          "queryId": "HIP 61394"
+        },
+        {
+          "queryId": "HIP 60351"
+        },
+        {
+          "queryId": "HIP 59847"
+        },
+        {
+          "queryId": "HIP 62763"
+        },
+        {
+          "queryId": "HIP 60697"
+        }
+      ]
+    },
+    {
+      "name": "Southern Pleiades",
+      "constellation": "Carina",
+      "selection": "Five brightest SIMBAD IC 2602 members with cluster-consistent parallaxes.",
+      "stars": [
+        {
+          "queryId": "HIP 52419"
+        },
+        {
+          "queryId": "HIP 52502"
+        },
+        {
+          "queryId": "HIP 52370"
+        },
+        {
+          "queryId": "HIP 52736"
+        },
+        {
+          "queryId": "HIP 52701"
+        }
+      ]
+    },
+    {
+      "name": "Omicron Velorum Cluster",
+      "constellation": "Vela",
+      "selection": "Six brightest SIMBAD IC 2391 members with cluster-consistent parallaxes.",
+      "stars": [
+        {
+          "queryId": "HIP 42536"
+        },
+        {
+          "queryId": "HIP 42726"
+        },
+        {
+          "queryId": "HIP 42504"
+        },
+        {
+          "queryId": "HIP 42459"
+        },
+        {
+          "queryId": "HIP 42715"
+        },
+        {
+          "queryId": "HIP 42535"
+        }
+      ]
+    },
+    {
+      "name": "Beehive Cluster",
+      "constellation": "Cancer",
+      "selection": "Five brightest SIMBAD NGC 2632 members with cluster-consistent parallaxes.",
+      "stars": [
+        {
+          "queryId": "HIP 42556"
+        },
+        {
+          "queryId": "HIP 42549"
+        },
+        {
+          "queryId": "HIP 42516"
+        },
+        {
+          "queryId": "HIP 42133"
+        },
+        {
+          "queryId": "HIP 42497"
+        }
+      ]
+    }
+  ],
+  "physicalCoverage": {
+    "temperature_k": 42,
+    "mass_solar": 26,
+    "luminosity_solar": 42,
+    "radius_solar": 42,
+    "metallicity_dex": 22,
+    "age_gyr": 7
+  },
+  "objects": {
+    "hip-17489": {
+      "group": "Pleiades",
+      "queryId": "HIP 17489",
+      "simbadId": "*  16 Tau",
+      "selection": "The Seven Sisters plus Atlas and Pleione; exact Hipparcos identifiers with SIMBAD Melotte 22 membership aliases.",
+      "adoptedDistance": {
+        "method": "Bailer-Jones EDR3 geometric posterior median",
+        "distancePc": 134.37146,
+        "lowerPc": 133.1028,
+        "upperPc": 135.70512,
+        "source": "Bailer-Jones et al. 2021",
+        "sourceId": "65287458566524928"
+      },
+      "radialVelocity": {
+        "status": "simbad-compiled",
+        "frozenSimbadValueKms": 16.49,
+        "adoptedValueKms": 16.49,
+        "uncertaintyKms": null,
+        "reference": "SIMBAD TAP snapshot 2026-10-01"
+      },
+      "gaiaDr3Id": "65287458566524928",
+      "adoptedPhysicalFields": {
+        "temperature_k": "published:2012MNRAS.427..343M:HIP-17489",
+        "luminosity_solar": "published:2012MNRAS.427..343M:HIP-17489",
+        "metallicity_dex": "gaia-dr3:65287458566524928",
+        "mass_solar": "gaia-dr3:65287458566524928",
+        "radius_solar": "gaia-dr3:65287458566524928",
+        "age_gyr": "gaia-dr3:65287458566524928"
+      },
+      "physicalObservations": [
+        {
+          "field": "temperature_k",
+          "value": 9599.0,
+          "uncertainty": null,
+          "status": "model-derived",
+          "source": "McDonald et al. 2012",
+          "sourceId": "HIP 17489",
+          "bibcode": "2012MNRAS.427..343M"
+        },
+        {
+          "field": "luminosity_solar",
+          "value": 111.98962750731181,
+          "uncertainty": null,
+          "status": "model-derived",
+          "source": "McDonald et al. 2012 SED rescaled to adopted distance",
+          "sourceId": "HIP 17489",
+          "bibcode": "2012MNRAS.427..343M"
+        },
+        {
+          "field": "metallicity_dex",
+          "value": 0.7671,
+          "uncertainty": 0.03310000000000002,
+          "status": "model-derived",
+          "source": "Gaia DR3 astrophysical_parameters",
+          "sourceId": "65287458566524928",
+          "qualityFlags": "00"
+        },
+        {
+          "field": "mass_solar",
+          "value": 3.356137,
+          "uncertainty": 0.04322580000000009,
+          "status": "model-derived",
+          "source": "Gaia DR3 astrophysical_parameters",
+          "sourceId": "65287458566524928",
+          "qualityFlags": "00"
+        },
+        {
+          "field": "radius_solar",
+          "value": 3.429287,
+          "uncertainty": 0.0779078000000002,
+          "status": "model-derived",
+          "source": "Gaia DR3 astrophysical_parameters",
+          "sourceId": "65287458566524928",
+          "qualityFlags": "00"
+        },
+        {
+          "field": "age_gyr",
+          "value": 0.20730804,
+          "uncertainty": 0.026551500000000006,
+          "status": "model-derived",
+          "source": "Gaia DR3 astrophysical_parameters",
+          "sourceId": "65287458566524928",
+          "qualityFlags": "00"
+        }
+      ]
+    },
+    "hip-17499": {
+      "group": "Pleiades",
+      "queryId": "HIP 17499",
+      "simbadId": "*  17 Tau",
+      "selection": "The Seven Sisters plus Atlas and Pleione; exact Hipparcos identifiers with SIMBAD Melotte 22 membership aliases.",
+      "adoptedDistance": {
+        "method": "Bailer-Jones EDR3 geometric posterior median",
+        "distancePc": 121.61213,
+        "lowerPc": 115.70918,
+        "upperPc": 128.88344,
+        "source": "Bailer-Jones et al. 2021",
+        "sourceId": "65271996684817280"
+      },
+      "radialVelocity": {
+        "status": "simbad-compiled",
+        "frozenSimbadValueKms": 6.87,
+        "adoptedValueKms": 6.87,
+        "uncertaintyKms": null,
+        "reference": "SIMBAD TAP snapshot 2026-10-01"
+      },
+      "gaiaDr3Id": "65271996684817280",
+      "adoptedPhysicalFields": {
+        "temperature_k": "published:2012MNRAS.427..343M:HIP-17499",
+        "luminosity_solar": "published:2012MNRAS.427..343M:HIP-17499",
+        "radius_solar": "derived:stefan-boltzmann"
+      },
+      "physicalObservations": [
+        {
+          "field": "temperature_k",
+          "value": 9800.0,
+          "uncertainty": null,
+          "status": "model-derived",
+          "source": "McDonald et al. 2012",
+          "sourceId": "HIP 17499",
+          "bibcode": "2012MNRAS.427..343M"
+        },
+        {
+          "field": "luminosity_solar",
+          "value": 449.91019599579215,
+          "uncertainty": null,
+          "status": "model-derived",
+          "source": "McDonald et al. 2012 SED rescaled to adopted distance",
+          "sourceId": "HIP 17499",
+          "bibcode": "2012MNRAS.427..343M"
+        },
+        {
+          "field": "radius_solar",
+          "value": 7.358061461520922,
+          "status": "derived",
+          "source": "Stefan-Boltzmann scaling"
+        }
+      ]
+    },
+    "hip-17531": {
+      "group": "Pleiades",
+      "queryId": "HIP 17531",
+      "simbadId": "* q Tau",
+      "selection": "The Seven Sisters plus Atlas and Pleione; exact Hipparcos identifiers with SIMBAD Melotte 22 membership aliases.",
+      "adoptedDistance": {
+        "method": "Bailer-Jones EDR3 geometric posterior median",
+        "distancePc": 105.301414,
+        "lowerPc": 101.37064,
+        "upperPc": 110.23529,
+        "source": "Bailer-Jones et al. 2021",
+        "sourceId": "65296907494549120"
+      },
+      "radialVelocity": {
+        "status": "simbad-compiled",
+        "frozenSimbadValueKms": 5.66,
+        "adoptedValueKms": 5.66,
+        "uncertaintyKms": null,
+        "reference": "SIMBAD TAP snapshot 2026-10-01"
+      },
+      "gaiaDr3Id": "65296907494549120",
+      "adoptedPhysicalFields": {
+        "temperature_k": "published:2012MNRAS.427..343M:HIP-17531",
+        "luminosity_solar": "published:2012MNRAS.427..343M:HIP-17531",
+        "metallicity_dex": "gaia-dr3:65296907494549120",
+        "mass_solar": "gaia-dr3:65296907494549120",
+        "radius_solar": "gaia-dr3:65296907494549120"
+      },
+      "physicalObservations": [
+        {
+          "field": "temperature_k",
+          "value": 10792.0,
+          "uncertainty": null,
+          "status": "model-derived",
+          "source": "McDonald et al. 2012",
+          "sourceId": "HIP 17531",
+          "bibcode": "2012MNRAS.427..343M"
+        },
+        {
+          "field": "luminosity_solar",
+          "value": 237.18286872119367,
+          "uncertainty": null,
+          "status": "model-derived",
+          "source": "McDonald et al. 2012 SED rescaled to adopted distance",
+          "sourceId": "HIP 17531",
+          "bibcode": "2012MNRAS.427..343M"
+        },
+        {
+          "field": "metallicity_dex",
+          "value": -0.3703,
+          "uncertainty": 0.0006999999999999784,
+          "status": "model-derived",
+          "source": "Gaia DR3 astrophysical_parameters",
+          "sourceId": "65296907494549120",
+          "qualityFlags": "00"
+        },
+        {
+          "field": "mass_solar",
+          "value": 3.825357,
+          "uncertainty": 0.08125680000000024,
+          "status": "model-derived",
+          "source": "Gaia DR3 astrophysical_parameters",
+          "sourceId": "65296907494549120",
+          "qualityFlags": "00"
+        },
+        {
+          "field": "radius_solar",
+          "value": 4.160362,
+          "uncertainty": 0.19624729999999957,
+          "status": "model-derived",
+          "source": "Gaia DR3 astrophysical_parameters",
+          "sourceId": "65296907494549120",
+          "qualityFlags": "00"
+        }
+      ]
+    },
+    "hip-17579": {
+      "group": "Pleiades",
+      "queryId": "HIP 17579",
+      "simbadId": "*  21 Tau",
+      "selection": "The Seven Sisters plus Atlas and Pleione; exact Hipparcos identifiers with SIMBAD Melotte 22 membership aliases.",
+      "adoptedDistance": {
+        "method": "Bailer-Jones EDR3 geometric posterior median",
+        "distancePc": 136.17566,
+        "lowerPc": 134.41302,
+        "upperPc": 137.70808,
+        "source": "Bailer-Jones et al. 2021",
+        "sourceId": "66798496781121792"
+      },
+      "radialVelocity": {
+        "status": "simbad-compiled",
+        "frozenSimbadValueKms": 11.79,
+        "adoptedValueKms": 11.79,
+        "uncertaintyKms": null,
+        "reference": "SIMBAD TAP snapshot 2026-10-01"
+      },
+      "gaiaDr3Id": "66798496781121792",
+      "adoptedPhysicalFields": {
+        "temperature_k": "published:2012MNRAS.427..343M:HIP-17579",
+        "luminosity_solar": "published:2012MNRAS.427..343M:HIP-17579",
+        "radius_solar": "derived:stefan-boltzmann"
+      },
+      "physicalObservations": [
+        {
+          "field": "temperature_k",
+          "value": 9832.0,
+          "uncertainty": null,
+          "status": "model-derived",
+          "source": "McDonald et al. 2012",
+          "sourceId": "HIP 17579",
+          "bibcode": "2012MNRAS.427..343M"
+        },
+        {
+          "field": "luminosity_solar",
+          "value": 93.76839581653577,
+          "uncertainty": null,
+          "status": "model-derived",
+          "source": "McDonald et al. 2012 SED rescaled to adopted distance",
+          "sourceId": "HIP 17579",
+          "bibcode": "2012MNRAS.427..343M"
+        },
+        {
+          "field": "radius_solar",
+          "value": 3.337314598319567,
+          "status": "derived",
+          "source": "Stefan-Boltzmann scaling"
+        }
+      ]
+    },
+    "hip-17573": {
+      "group": "Pleiades",
+      "queryId": "HIP 17573",
+      "simbadId": "*  20 Tau",
+      "selection": "The Seven Sisters plus Atlas and Pleione; exact Hipparcos identifiers with SIMBAD Melotte 22 membership aliases.",
+      "adoptedDistance": {
+        "method": "Bailer-Jones EDR3 geometric posterior median",
+        "distancePc": 130.64438,
+        "lowerPc": 126.17799,
+        "upperPc": 136.38568,
+        "source": "Bailer-Jones et al. 2021",
+        "sourceId": "65283232316451328"
+      },
+      "radialVelocity": {
+        "status": "simbad-compiled",
+        "frozenSimbadValueKms": 7.4,
+        "adoptedValueKms": 7.4,
+        "uncertaintyKms": null,
+        "reference": "SIMBAD TAP snapshot 2026-10-01"
+      },
+      "gaiaDr3Id": "65283232316451328",
+      "adoptedPhysicalFields": {
+        "temperature_k": "published:2012MNRAS.427..343M:HIP-17573",
+        "luminosity_solar": "published:2012MNRAS.427..343M:HIP-17573",
+        "radius_solar": "derived:stefan-boltzmann"
+      },
+      "physicalObservations": [
+        {
+          "field": "temperature_k",
+          "value": 9530.0,
+          "uncertainty": null,
+          "status": "model-derived",
+          "source": "McDonald et al. 2012",
+          "sourceId": "HIP 17573",
+          "bibcode": "2012MNRAS.427..343M"
+        },
+        {
+          "field": "luminosity_solar",
+          "value": 432.67509113076716,
+          "uncertainty": null,
+          "status": "model-derived",
+          "source": "McDonald et al. 2012 SED rescaled to adopted distance",
+          "sourceId": "HIP 17573",
+          "bibcode": "2012MNRAS.427..343M"
+        },
+        {
+          "field": "radius_solar",
+          "value": 7.630408528087764,
+          "status": "derived",
+          "source": "Stefan-Boltzmann scaling"
+        }
+      ]
+    },
+    "hip-17608": {
+      "group": "Pleiades",
+      "queryId": "HIP 17608",
+      "simbadId": "*  23 Tau",
+      "selection": "The Seven Sisters plus Atlas and Pleione; exact Hipparcos identifiers with SIMBAD Melotte 22 membership aliases.",
+      "adoptedDistance": {
+        "method": "Bailer-Jones EDR3 geometric posterior median",
+        "distancePc": 142.66064,
+        "lowerPc": 137.17679,
+        "upperPc": 148.65869,
+        "source": "Bailer-Jones et al. 2021",
+        "sourceId": "65205373152172032"
+      },
+      "radialVelocity": {
+        "status": "simbad-compiled",
+        "frozenSimbadValueKms": 6.2,
+        "adoptedValueKms": 6.2,
+        "uncertaintyKms": null,
+        "reference": "SIMBAD TAP snapshot 2026-10-01"
+      },
+      "gaiaDr3Id": "65205373152172032",
+      "adoptedPhysicalFields": {
+        "temperature_k": "published:2012MNRAS.427..343M:HIP-17608",
+        "luminosity_solar": "published:2012MNRAS.427..343M:HIP-17608",
+        "radius_solar": "derived:stefan-boltzmann"
+      },
+      "physicalObservations": [
+        {
+          "field": "temperature_k",
+          "value": 9363.0,
+          "uncertainty": null,
+          "status": "model-derived",
+          "source": "McDonald et al. 2012",
+          "sourceId": "HIP 17608",
+          "bibcode": "2012MNRAS.427..343M"
+        },
+        {
+          "field": "luminosity_solar",
+          "value": 396.55634790921664,
+          "uncertainty": null,
+          "status": "model-derived",
+          "source": "McDonald et al. 2012 SED rescaled to adopted distance",
+          "sourceId": "HIP 17608",
+          "bibcode": "2012MNRAS.427..343M"
+        },
+        {
+          "field": "radius_solar",
+          "value": 7.567894187091117,
+          "status": "derived",
+          "source": "Stefan-Boltzmann scaling"
+        }
+      ]
+    },
+    "hip-17702": {
+      "group": "Pleiades",
+      "queryId": "HIP 17702",
+      "simbadId": "* eta Tau",
+      "selection": "The Seven Sisters plus Atlas and Pleione; exact Hipparcos identifiers with SIMBAD Melotte 22 membership aliases.",
+      "adoptedDistance": {
+        "method": "inverse SIMBAD compiled parallax",
+        "distancePc": 123.60939431396787,
+        "parallaxSignalToNoise": 19.261904761904763,
+        "source": "SIMBAD TAP snapshot 2026-10-01",
+        "sourceId": "* eta Tau"
+      },
+      "radialVelocity": {
+        "status": "simbad-compiled",
+        "frozenSimbadValueKms": 5.4,
+        "adoptedValueKms": 5.4,
+        "uncertaintyKms": null,
+        "reference": "SIMBAD TAP snapshot 2026-10-01"
+      },
+      "gaiaDr3Id": "66714384142368256",
+      "adoptedPhysicalFields": {
+        "temperature_k": "published:2012MNRAS.427..343M:HIP-17702",
+        "luminosity_solar": "published:2012MNRAS.427..343M:HIP-17702",
+        "radius_solar": "derived:stefan-boltzmann"
+      },
+      "physicalObservations": [
+        {
+          "field": "temperature_k",
+          "value": 10168.0,
+          "uncertainty": null,
+          "status": "model-derived",
+          "source": "McDonald et al. 2012",
+          "sourceId": "HIP 17702",
+          "bibcode": "2012MNRAS.427..343M"
+        },
+        {
+          "field": "luminosity_solar",
+          "value": 1161.86861365969,
+          "uncertainty": null,
+          "status": "model-derived",
+          "source": "McDonald et al. 2012 SED rescaled to adopted distance",
+          "sourceId": "HIP 17702",
+          "bibcode": "2012MNRAS.427..343M"
+        },
+        {
+          "field": "radius_solar",
+          "value": 10.983988758133966,
+          "status": "derived",
+          "source": "Stefan-Boltzmann scaling"
+        }
+      ]
+    },
+    "hip-17847": {
+      "group": "Pleiades",
+      "queryId": "HIP 17847",
+      "simbadId": "*  27 Tau",
+      "selection": "The Seven Sisters plus Atlas and Pleione; exact Hipparcos identifiers with SIMBAD Melotte 22 membership aliases.",
+      "adoptedDistance": {
+        "method": "Bailer-Jones EDR3 geometric posterior median",
+        "distancePc": 125.42968,
+        "lowerPc": 117.72701,
+        "upperPc": 134.53589,
+        "source": "Bailer-Jones et al. 2021",
+        "sourceId": "66526127137440128"
+      },
+      "radialVelocity": {
+        "status": "simbad-compiled",
+        "frozenSimbadValueKms": 8.5,
+        "adoptedValueKms": 8.5,
+        "uncertaintyKms": null,
+        "reference": "SIMBAD TAP snapshot 2026-10-01"
+      },
+      "gaiaDr3Id": "66526127137440128",
+      "adoptedPhysicalFields": {
+        "temperature_k": "published:2012MNRAS.427..343M:HIP-17847",
+        "luminosity_solar": "published:2012MNRAS.427..343M:HIP-17847",
+        "metallicity_dex": "gaia-dr3:66526127137440128",
+        "mass_solar": "gaia-dr3:66526127137440128",
+        "radius_solar": "gaia-dr3:66526127137440128"
+      },
+      "physicalObservations": [
+        {
+          "field": "temperature_k",
+          "value": 9608.0,
+          "uncertainty": null,
+          "status": "model-derived",
+          "source": "McDonald et al. 2012",
+          "sourceId": "HIP 17847",
+          "bibcode": "2012MNRAS.427..343M"
+        },
+        {
+          "field": "luminosity_solar",
+          "value": 504.04787024876924,
+          "uncertainty": null,
+          "status": "model-derived",
+          "source": "McDonald et al. 2012 SED rescaled to adopted distance",
+          "sourceId": "HIP 17847",
+          "bibcode": "2012MNRAS.427..343M"
+        },
+        {
+          "field": "metallicity_dex",
+          "value": 0.5428,
+          "uncertainty": 0.19929999999999992,
+          "status": "model-derived",
+          "source": "Gaia DR3 astrophysical_parameters",
+          "sourceId": "66526127137440128",
+          "qualityFlags": "00"
+        },
+        {
+          "field": "mass_solar",
+          "value": 4.5091114,
+          "uncertainty": 0.11421159999999997,
+          "status": "model-derived",
+          "source": "Gaia DR3 astrophysical_parameters",
+          "sourceId": "66526127137440128",
+          "qualityFlags": "00"
+        },
+        {
+          "field": "radius_solar",
+          "value": 7.318154,
+          "uncertainty": 0.43559000000000037,
+          "status": "model-derived",
+          "source": "Gaia DR3 astrophysical_parameters",
+          "sourceId": "66526127137440128",
+          "qualityFlags": "00"
+        }
+      ]
+    },
+    "hip-17851": {
+      "group": "Pleiades",
+      "queryId": "HIP 17851",
+      "simbadId": "*  28 Tau",
+      "selection": "The Seven Sisters plus Atlas and Pleione; exact Hipparcos identifiers with SIMBAD Melotte 22 membership aliases.",
+      "adoptedDistance": {
+        "method": "Bailer-Jones EDR3 geometric posterior median",
+        "distancePc": 137.43317,
+        "lowerPc": 134.63635,
+        "upperPc": 139.48549,
+        "source": "Bailer-Jones et al. 2021",
+        "sourceId": "66529975427235712"
+      },
+      "radialVelocity": {
+        "status": "simbad-compiled",
+        "frozenSimbadValueKms": 5.1,
+        "adoptedValueKms": 5.1,
+        "uncertaintyKms": null,
+        "reference": "SIMBAD TAP snapshot 2026-10-01"
+      },
+      "gaiaDr3Id": "66529975427235712",
+      "adoptedPhysicalFields": {
+        "temperature_k": "published:2012MNRAS.427..343M:HIP-17851",
+        "luminosity_solar": "published:2012MNRAS.427..343M:HIP-17851",
+        "radius_solar": "derived:stefan-boltzmann"
+      },
+      "physicalObservations": [
+        {
+          "field": "temperature_k",
+          "value": 8601.0,
+          "uncertainty": null,
+          "status": "model-derived",
+          "source": "McDonald et al. 2012",
+          "sourceId": "HIP 17851",
+          "bibcode": "2012MNRAS.427..343M"
+        },
+        {
+          "field": "luminosity_solar",
+          "value": 147.564008007837,
+          "uncertainty": null,
+          "status": "model-derived",
+          "source": "McDonald et al. 2012 SED rescaled to adopted distance",
+          "sourceId": "HIP 17851",
+          "bibcode": "2012MNRAS.427..343M"
+        },
+        {
+          "field": "radius_solar",
+          "value": 5.470726088798079,
+          "status": "derived",
+          "source": "Stefan-Boltzmann scaling"
+        }
+      ]
+    },
+    "trapezium-theta1-orionis-a": {
+      "group": "Trapezium Cluster",
+      "queryId": "* tet01 Ori A",
+      "simbadId": "* tet01 Ori A",
+      "selection": "The four classical bright Trapezium systems at the heart of the Orion Nebula.",
+      "adoptedDistance": {
+        "method": "Bailer-Jones EDR3 geometric posterior median",
+        "distancePc": 372.89548,
+        "lowerPc": 363.46613,
+        "upperPc": 384.89432,
+        "source": "Bailer-Jones et al. 2021",
+        "sourceId": "3017364132050194688"
+      },
+      "radialVelocity": {
+        "status": "simbad-compiled",
+        "frozenSimbadValueKms": 28.3,
+        "adoptedValueKms": 28.3,
+        "uncertaintyKms": null,
+        "reference": "SIMBAD TAP snapshot 2026-10-01"
+      },
+      "gaiaDr3Id": "3017364132050194688",
+      "adoptedPhysicalFields": {
+        "temperature_k": "targeted:2006A&A...448..351S",
+        "mass_solar": "targeted:2014A&A...566A...7N",
+        "luminosity_solar": "targeted:2014A&A...566A...7N",
+        "radius_solar": "targeted:2014A&A...566A...7N"
+      },
+      "physicalObservations": [
+        {
+          "field": "temperature_k",
+          "value": 30700.0,
+          "uncertainty": 300.0,
+          "status": "literature",
+          "source": "Simon-Diaz et al. 2006",
+          "sourceId": "2006A&A...448..351S",
+          "note": "dominant hot component"
+        },
+        {
+          "field": "mass_solar",
+          "value": 15.3,
+          "uncertainty": null,
+          "status": "literature",
+          "source": "Nieva and Przybilla 2014",
+          "sourceId": "2014A&A...566A...7N",
+          "note": "dominant hot component"
+        },
+        {
+          "field": "luminosity_solar",
+          "value": 16200.0,
+          "uncertainty": null,
+          "status": "literature",
+          "source": "Nieva and Przybilla 2014",
+          "sourceId": "2014A&A...566A...7N",
+          "note": "dominant hot component"
+        },
+        {
+          "field": "radius_solar",
+          "value": 4.5,
+          "uncertainty": null,
+          "status": "literature",
+          "source": "Nieva and Przybilla 2014",
+          "sourceId": "2014A&A...566A...7N",
+          "note": "dominant hot component"
+        }
+      ]
+    },
+    "trapezium-theta1-orionis-b": {
+      "group": "Trapezium Cluster",
+      "queryId": "* tet01 Ori B",
+      "simbadId": "* tet01 Ori B",
+      "selection": "The four classical bright Trapezium systems at the heart of the Orion Nebula.",
+      "adoptedDistance": {
+        "method": "Bailer-Jones EDR3 geometric posterior median",
+        "distancePc": 374.72595,
+        "lowerPc": 368.36505,
+        "upperPc": 379.41064,
+        "source": "Bailer-Jones et al. 2021",
+        "sourceId": "3017364132049943680"
+      },
+      "radialVelocity": {
+        "status": "simbad-compiled",
+        "frozenSimbadValueKms": 26.0,
+        "adoptedValueKms": 26.0,
+        "uncertaintyKms": null,
+        "reference": "SIMBAD TAP snapshot 2026-10-01"
+      },
+      "gaiaDr3Id": "3017364132049943680",
+      "adoptedPhysicalFields": {
+        "temperature_k": "targeted:2007MNRAS.382.1073M",
+        "mass_solar": "targeted:2018A&A...620A.116G",
+        "luminosity_solar": "targeted:2007MNRAS.382.1073M",
+        "radius_solar": "targeted:2013ApJ...768...67W"
+      },
+      "physicalObservations": [
+        {
+          "field": "temperature_k",
+          "value": 19320.0,
+          "uncertainty": null,
+          "status": "literature",
+          "source": "Malkov 2007",
+          "sourceId": "2007MNRAS.382.1073M",
+          "note": "B1 primary component"
+        },
+        {
+          "field": "mass_solar",
+          "value": 7.2,
+          "uncertainty": 0.2,
+          "status": "literature",
+          "source": "GRAVITY Collaboration 2018",
+          "sourceId": "2018A&A...620A.116G",
+          "note": "B1 primary component"
+        },
+        {
+          "field": "luminosity_solar",
+          "value": 776.0,
+          "uncertainty": null,
+          "status": "literature",
+          "source": "Malkov 2007",
+          "sourceId": "2007MNRAS.382.1073M",
+          "note": "B1 primary component"
+        },
+        {
+          "field": "radius_solar",
+          "value": 3.0,
+          "uncertainty": null,
+          "status": "literature",
+          "source": "Windemuth et al. 2013",
+          "sourceId": "2013ApJ...768...67W",
+          "note": "B1 primary component"
+        }
+      ]
+    },
+    "trapezium-theta1-orionis-c": {
+      "group": "Trapezium Cluster",
+      "queryId": "* tet01 Ori C",
+      "simbadId": "* tet01 Ori C",
+      "selection": "The four classical bright Trapezium systems at the heart of the Orion Nebula.",
+      "adoptedDistance": {
+        "method": "Bailer-Jones EDR3 geometric posterior median",
+        "distancePc": 393.42737,
+        "lowerPc": 373.5918,
+        "upperPc": 411.62833,
+        "source": "Bailer-Jones et al. 2021",
+        "sourceId": "3017364063330718080"
+      },
+      "radialVelocity": {
+        "status": "simbad-compiled",
+        "frozenSimbadValueKms": 24.5,
+        "adoptedValueKms": 24.5,
+        "uncertaintyKms": null,
+        "reference": "SIMBAD TAP snapshot 2026-10-01"
+      },
+      "gaiaDr3Id": "3017364063330718080",
+      "adoptedPhysicalFields": {
+        "temperature_k": "targeted:2021MNRAS.504.3787R",
+        "mass_solar": "targeted:2021MNRAS.504.3787R",
+        "luminosity_solar": "targeted:2021MNRAS.504.3787R",
+        "radius_solar": "targeted:2021MNRAS.504.3787R"
+      },
+      "physicalObservations": [
+        {
+          "field": "temperature_k",
+          "value": 39000.0,
+          "uncertainty": 1800.0,
+          "status": "literature",
+          "source": "Rzaev et al. 2021",
+          "sourceId": "2021MNRAS.504.3787R",
+          "note": "C1 primary component"
+        },
+        {
+          "field": "mass_solar",
+          "value": 33.4,
+          "uncertainty": 3.3,
+          "status": "literature",
+          "source": "Rzaev et al. 2021",
+          "sourceId": "2021MNRAS.504.3787R",
+          "note": "C1 primary component"
+        },
+        {
+          "field": "luminosity_solar",
+          "value": 177827.941,
+          "uncertainty": null,
+          "status": "literature",
+          "source": "Rzaev et al. 2021",
+          "sourceId": "2021MNRAS.504.3787R",
+          "note": "C1 primary component; log L/Lsun = 5.25"
+        },
+        {
+          "field": "radius_solar",
+          "value": 9.4,
+          "uncertainty": 0.9,
+          "status": "literature",
+          "source": "Rzaev et al. 2021",
+          "sourceId": "2021MNRAS.504.3787R",
+          "note": "C1 primary component"
+        }
+      ]
+    },
+    "trapezium-theta1-orionis-d": {
+      "group": "Trapezium Cluster",
+      "queryId": "* tet01 Ori D",
+      "simbadId": "* tet01 Ori D",
+      "selection": "The four classical bright Trapezium systems at the heart of the Orion Nebula.",
+      "adoptedDistance": {
+        "method": "Bailer-Jones EDR3 geometric posterior median",
+        "distancePc": 432.38034,
+        "lowerPc": 425.9827,
+        "upperPc": 438.7479,
+        "source": "Bailer-Jones et al. 2021",
+        "sourceId": "3017364063330465152"
+      },
+      "radialVelocity": {
+        "status": "simbad-compiled",
+        "frozenSimbadValueKms": 32.4,
+        "adoptedValueKms": 32.4,
+        "uncertaintyKms": null,
+        "reference": "SIMBAD TAP snapshot 2026-10-01"
+      },
+      "gaiaDr3Id": "3017364063330465152",
+      "adoptedPhysicalFields": {
+        "temperature_k": "targeted:2006A&A...448..351S",
+        "mass_solar": "targeted:2006A&A...448..351S",
+        "luminosity_solar": "targeted:2006A&A...448..351S",
+        "radius_solar": "targeted:2006A&A...448..351S"
+      },
+      "physicalObservations": [
+        {
+          "field": "temperature_k",
+          "value": 32000.0,
+          "uncertainty": null,
+          "status": "literature",
+          "source": "Simon-Diaz et al. 2006",
+          "sourceId": "2006A&A...448..351S",
+          "note": "dominant hot component"
+        },
+        {
+          "field": "mass_solar",
+          "value": 18.0,
+          "uncertainty": 6.0,
+          "status": "literature",
+          "source": "Simon-Diaz et al. 2006",
+          "sourceId": "2006A&A...448..351S",
+          "note": "dominant hot component"
+        },
+        {
+          "field": "luminosity_solar",
+          "value": 29500.0,
+          "uncertainty": null,
+          "status": "literature",
+          "source": "Simon-Diaz et al. 2006",
+          "sourceId": "2006A&A...448..351S",
+          "note": "dominant hot component"
+        },
+        {
+          "field": "radius_solar",
+          "value": 5.6,
+          "uncertainty": null,
+          "status": "literature",
+          "source": "Simon-Diaz et al. 2006",
+          "sourceId": "2006A&A...448..351S",
+          "note": "dominant hot component"
+        }
+      ]
+    },
+    "hip-20894": {
+      "group": "Hyades",
+      "queryId": "HIP 20894",
+      "simbadId": "* tet02 Tau",
+      "selection": "Eight brightest SIMBAD Melotte 25 members with cluster-consistent parallaxes; foreground Aldebaran is deliberately excluded.",
+      "adoptedDistance": {
+        "method": "Bailer-Jones EDR3 geometric posterior median",
+        "distancePc": 45.87351,
+        "lowerPc": 45.131214,
+        "upperPc": 46.714516,
+        "source": "Bailer-Jones et al. 2021",
+        "sourceId": "3312744219988782720"
+      },
+      "radialVelocity": {
+        "status": "simbad-compiled",
+        "frozenSimbadValueKms": 38.9,
+        "adoptedValueKms": 38.9,
+        "uncertaintyKms": null,
+        "reference": "SIMBAD TAP snapshot 2026-10-01"
+      },
+      "gaiaDr3Id": "3312744219988782720",
+      "adoptedPhysicalFields": {
+        "temperature_k": "published:1999A&A...352..555A:HIP-20894",
+        "mass_solar": "published:1999A&A...352..555A:HIP-20894",
+        "radius_solar": "published:1999A&A...352..555A:HIP-20894",
+        "luminosity_solar": "published:2012MNRAS.427..343M:HIP-20894"
+      },
+      "physicalObservations": [
+        {
+          "field": "temperature_k",
+          "value": 7762.4711662869195,
+          "uncertainty": 178.73750392288366,
+          "status": "model-derived",
+          "source": "Allende Prieto & Lambert 1999",
+          "sourceId": "HIP 20894",
+          "bibcode": "1999A&A...352..555A"
+        },
+        {
+          "field": "mass_solar",
+          "value": 2.4,
+          "uncertainty": 0.07,
+          "status": "model-derived",
+          "source": "Allende Prieto & Lambert 1999",
+          "sourceId": "HIP 20894",
+          "bibcode": "1999A&A...352..555A"
+        },
+        {
+          "field": "radius_solar",
+          "value": 4.677351412871983,
+          "uncertainty": 0.32309998913920995,
+          "status": "model-derived",
+          "source": "Allende Prieto & Lambert 1999",
+          "sourceId": "HIP 20894",
+          "bibcode": "1999A&A...352..555A"
+        },
+        {
+          "field": "luminosity_solar",
+          "value": 68.76925855541852,
+          "uncertainty": null,
+          "status": "model-derived",
+          "source": "McDonald et al. 2012 SED rescaled to adopted distance",
+          "sourceId": "HIP 20894",
+          "bibcode": "2012MNRAS.427..343M"
+        }
+      ]
+    },
+    "hip-20889": {
+      "group": "Hyades",
+      "queryId": "HIP 20889",
+      "simbadId": "* eps Tau",
+      "selection": "Eight brightest SIMBAD Melotte 25 members with cluster-consistent parallaxes; foreground Aldebaran is deliberately excluded.",
+      "adoptedDistance": {
+        "method": "Bailer-Jones EDR3 geometric posterior median",
+        "distancePc": 44.650326,
+        "lowerPc": 44.310673,
+        "upperPc": 44.93807,
+        "source": "Bailer-Jones et al. 2021",
+        "sourceId": "48026706558487040"
+      },
+      "radialVelocity": {
+        "status": "simbad-compiled",
+        "frozenSimbadValueKms": 38.42,
+        "adoptedValueKms": 38.42,
+        "uncertaintyKms": null,
+        "reference": "SIMBAD TAP snapshot 2026-10-01"
+      },
+      "gaiaDr3Id": "48026706558487040",
+      "adoptedPhysicalFields": {
+        "temperature_k": "published:1999A&A...352..555A:HIP-20889",
+        "luminosity_solar": "published:2012MNRAS.427..343M:HIP-20889",
+        "metallicity_dex": "gaia-dr3:48026706558487040",
+        "radius_solar": "gaia-dr3:48026706558487040"
+      },
+      "physicalObservations": [
+        {
+          "field": "temperature_k",
+          "value": 4786.300923226385,
+          "uncertainty": 110.20865156404713,
+          "status": "model-derived",
+          "source": "Allende Prieto & Lambert 1999",
+          "sourceId": "HIP 20889",
+          "bibcode": "1999A&A...352..555A"
+        },
+        {
+          "field": "luminosity_solar",
+          "value": 83.81338670148246,
+          "uncertainty": null,
+          "status": "model-derived",
+          "source": "McDonald et al. 2012 SED rescaled to adopted distance",
+          "sourceId": "HIP 20889",
+          "bibcode": "2012MNRAS.427..343M"
+        },
+        {
+          "field": "metallicity_dex",
+          "value": -0.8923,
+          "uncertainty": 0.0032999999999999696,
+          "status": "model-derived",
+          "source": "Gaia DR3 astrophysical_parameters",
+          "sourceId": "48026706558487040",
+          "qualityFlags": "10"
+        },
+        {
+          "field": "radius_solar",
+          "value": 13.684357,
+          "uncertainty": 0.29097050000000024,
+          "status": "model-derived",
+          "source": "Gaia DR3 astrophysical_parameters",
+          "sourceId": "48026706558487040",
+          "qualityFlags": "10"
+        }
+      ]
+    },
+    "hip-20205": {
+      "group": "Hyades",
+      "queryId": "HIP 20205",
+      "simbadId": "* gam Tau",
+      "selection": "Eight brightest SIMBAD Melotte 25 members with cluster-consistent parallaxes; foreground Aldebaran is deliberately excluded.",
+      "adoptedDistance": {
+        "method": "Bailer-Jones EDR3 geometric posterior median",
+        "distancePc": 46.27414,
+        "lowerPc": 45.795895,
+        "upperPc": 46.67814,
+        "source": "Bailer-Jones et al. 2021",
+        "sourceId": "3312052249215275904"
+      },
+      "radialVelocity": {
+        "status": "simbad-compiled",
+        "frozenSimbadValueKms": 38.458,
+        "adoptedValueKms": 38.458,
+        "uncertaintyKms": null,
+        "reference": "SIMBAD TAP snapshot 2026-10-01"
+      },
+      "gaiaDr3Id": "3312052249215275904",
+      "adoptedPhysicalFields": {
+        "temperature_k": "published:1999A&A...352..555A:HIP-20205",
+        "luminosity_solar": "published:2012MNRAS.427..343M:HIP-20205",
+        "metallicity_dex": "gaia-dr3:3312052249215275904",
+        "radius_solar": "gaia-dr3:3312052249215275904"
+      },
+      "physicalObservations": [
+        {
+          "field": "temperature_k",
+          "value": 4897.7881936844615,
+          "uncertainty": 112.77574083420075,
+          "status": "model-derived",
+          "source": "Allende Prieto & Lambert 1999",
+          "sourceId": "HIP 20205",
+          "bibcode": "1999A&A...352..555A"
+        },
+        {
+          "field": "luminosity_solar",
+          "value": 78.82716339026513,
+          "uncertainty": null,
+          "status": "model-derived",
+          "source": "McDonald et al. 2012 SED rescaled to adopted distance",
+          "sourceId": "HIP 20205",
+          "bibcode": "2012MNRAS.427..343M"
+        },
+        {
+          "field": "metallicity_dex",
+          "value": -0.5327,
+          "uncertainty": 0.0028999999999999027,
+          "status": "model-derived",
+          "source": "Gaia DR3 astrophysical_parameters",
+          "sourceId": "3312052249215275904",
+          "qualityFlags": "10"
+        },
+        {
+          "field": "radius_solar",
+          "value": 12.551621,
+          "uncertainty": 0.27222299999999855,
+          "status": "model-derived",
+          "source": "Gaia DR3 astrophysical_parameters",
+          "sourceId": "3312052249215275904",
+          "qualityFlags": "10"
+        }
+      ]
+    },
+    "hip-20455": {
+      "group": "Hyades",
+      "queryId": "HIP 20455",
+      "simbadId": "* del Tau",
+      "selection": "Eight brightest SIMBAD Melotte 25 members with cluster-consistent parallaxes; foreground Aldebaran is deliberately excluded.",
+      "adoptedDistance": {
+        "method": "Bailer-Jones EDR3 geometric posterior median",
+        "distancePc": 49.150944,
+        "lowerPc": 48.629948,
+        "upperPc": 49.667587,
+        "source": "Bailer-Jones et al. 2021",
+        "sourceId": "3314024566919613952"
+      },
+      "radialVelocity": {
+        "status": "simbad-compiled",
+        "frozenSimbadValueKms": 37.5875,
+        "adoptedValueKms": 37.5875,
+        "uncertaintyKms": null,
+        "reference": "SIMBAD TAP snapshot 2026-10-01"
+      },
+      "gaiaDr3Id": "3314024566919613952",
+      "adoptedPhysicalFields": {
+        "temperature_k": "published:1999A&A...352..555A:HIP-20455",
+        "luminosity_solar": "published:2012MNRAS.427..343M:HIP-20455",
+        "radius_solar": "derived:stefan-boltzmann"
+      },
+      "physicalObservations": [
+        {
+          "field": "temperature_k",
+          "value": 4897.7881936844615,
+          "uncertainty": 112.77574083420075,
+          "status": "model-derived",
+          "source": "Allende Prieto & Lambert 1999",
+          "sourceId": "HIP 20455",
+          "bibcode": "1999A&A...352..555A"
+        },
+        {
+          "field": "luminosity_solar",
+          "value": 79.81099666158538,
+          "uncertainty": null,
+          "status": "model-derived",
+          "source": "McDonald et al. 2012 SED rescaled to adopted distance",
+          "sourceId": "HIP 20455",
+          "bibcode": "2012MNRAS.427..343M"
+        },
+        {
+          "field": "radius_solar",
+          "value": 12.40641916961638,
+          "status": "derived",
+          "source": "Stefan-Boltzmann scaling"
+        }
+      ]
+    },
+    "hip-20885": {
+      "group": "Hyades",
+      "queryId": "HIP 20885",
+      "simbadId": "* tet01 Tau",
+      "selection": "Eight brightest SIMBAD Melotte 25 members with cluster-consistent parallaxes; foreground Aldebaran is deliberately excluded.",
+      "adoptedDistance": {
+        "method": "Bailer-Jones EDR3 geometric posterior median",
+        "distancePc": 40.284687,
+        "lowerPc": 39.732048,
+        "upperPc": 41.06265,
+        "source": "Bailer-Jones et al. 2021",
+        "sourceId": "3312748824193704832"
+      },
+      "radialVelocity": {
+        "status": "simbad-compiled",
+        "frozenSimbadValueKms": 42.193,
+        "adoptedValueKms": 42.193,
+        "uncertaintyKms": null,
+        "reference": "SIMBAD TAP snapshot 2026-10-01"
+      },
+      "gaiaDr3Id": "3312748824193704832",
+      "adoptedPhysicalFields": {
+        "temperature_k": "published:1999A&A...352..555A:HIP-20885",
+        "luminosity_solar": "published:2012MNRAS.427..343M:HIP-20885",
+        "radius_solar": "derived:stefan-boltzmann"
+      },
+      "physicalObservations": [
+        {
+          "field": "temperature_k",
+          "value": 4897.7881936844615,
+          "uncertainty": 0.0,
+          "status": "model-derived",
+          "source": "Allende Prieto & Lambert 1999",
+          "sourceId": "HIP 20885",
+          "bibcode": "1999A&A...352..555A"
+        },
+        {
+          "field": "luminosity_solar",
+          "value": 50.1100405349919,
+          "uncertainty": null,
+          "status": "model-derived",
+          "source": "McDonald et al. 2012 SED rescaled to adopted distance",
+          "sourceId": "HIP 20885",
+          "bibcode": "2012MNRAS.427..343M"
+        },
+        {
+          "field": "radius_solar",
+          "value": 9.83054193841459,
+          "status": "derived",
+          "source": "Stefan-Boltzmann scaling"
+        }
+      ]
+    },
+    "hip-20635": {
+      "group": "Hyades",
+      "queryId": "HIP 20635",
+      "simbadId": "* kap01 Tau",
+      "selection": "Eight brightest SIMBAD Melotte 25 members with cluster-consistent parallaxes; foreground Aldebaran is deliberately excluded.",
+      "adoptedDistance": {
+        "method": "Bailer-Jones EDR3 geometric posterior median",
+        "distancePc": 47.761127,
+        "lowerPc": 47.401684,
+        "upperPc": 48.119083,
+        "source": "Bailer-Jones et al. 2021",
+        "sourceId": "145674574739951872"
+      },
+      "radialVelocity": {
+        "status": "simbad-compiled",
+        "frozenSimbadValueKms": 37.3,
+        "adoptedValueKms": 37.3,
+        "uncertaintyKms": null,
+        "reference": "SIMBAD TAP snapshot 2026-10-01"
+      },
+      "gaiaDr3Id": "145674574739951872",
+      "adoptedPhysicalFields": {
+        "temperature_k": "published:1999A&A...352..555A:HIP-20635",
+        "mass_solar": "published:1999A&A...352..555A:HIP-20635",
+        "radius_solar": "published:1999A&A...352..555A:HIP-20635",
+        "luminosity_solar": "published:2012MNRAS.427..343M:HIP-20635"
+      },
+      "physicalObservations": [
+        {
+          "field": "temperature_k",
+          "value": 8128.305161640995,
+          "uncertainty": 0.0,
+          "status": "model-derived",
+          "source": "Allende Prieto & Lambert 1999",
+          "sourceId": "HIP 20635",
+          "bibcode": "1999A&A...352..555A"
+        },
+        {
+          "field": "mass_solar",
+          "value": 2.07,
+          "uncertainty": 0.11,
+          "status": "model-derived",
+          "source": "Allende Prieto & Lambert 1999",
+          "sourceId": "HIP 20635",
+          "bibcode": "1999A&A...352..555A"
+        },
+        {
+          "field": "radius_solar",
+          "value": 3.019951720402016,
+          "uncertainty": 0.1390739162591881,
+          "status": "model-derived",
+          "source": "Allende Prieto & Lambert 1999",
+          "sourceId": "HIP 20635",
+          "bibcode": "1999A&A...352..555A"
+        },
+        {
+          "field": "luminosity_solar",
+          "value": 34.39773681968106,
+          "uncertainty": null,
+          "status": "model-derived",
+          "source": "McDonald et al. 2012 SED rescaled to adopted distance",
+          "sourceId": "HIP 20635",
+          "bibcode": "2012MNRAS.427..343M"
+        }
+      ]
+    },
+    "hip-21589": {
+      "group": "Hyades",
+      "queryId": "HIP 21589",
+      "simbadId": "* c Tau",
+      "selection": "Eight brightest SIMBAD Melotte 25 members with cluster-consistent parallaxes; foreground Aldebaran is deliberately excluded.",
+      "adoptedDistance": {
+        "method": "Bailer-Jones EDR3 geometric posterior median",
+        "distancePc": 45.370083,
+        "lowerPc": 44.971806,
+        "upperPc": 45.787163,
+        "source": "Bailer-Jones et al. 2021",
+        "sourceId": "3306483944378137088"
+      },
+      "radialVelocity": {
+        "status": "simbad-compiled",
+        "frozenSimbadValueKms": 39.4782,
+        "adoptedValueKms": 39.4782,
+        "uncertaintyKms": null,
+        "reference": "SIMBAD TAP snapshot 2026-10-01"
+      },
+      "gaiaDr3Id": "3306483944378137088",
+      "adoptedPhysicalFields": {
+        "temperature_k": "published:1999A&A...352..555A:HIP-21589",
+        "mass_solar": "published:1999A&A...352..555A:HIP-21589",
+        "radius_solar": "published:1999A&A...352..555A:HIP-21589",
+        "luminosity_solar": "published:2012MNRAS.427..343M:HIP-21589"
+      },
+      "physicalObservations": [
+        {
+          "field": "temperature_k",
+          "value": 8128.305161640995,
+          "uncertainty": 187.16114296501112,
+          "status": "model-derived",
+          "source": "Allende Prieto & Lambert 1999",
+          "sourceId": "HIP 21589",
+          "bibcode": "1999A&A...352..555A"
+        },
+        {
+          "field": "mass_solar",
+          "value": 2.09,
+          "uncertainty": 0.11,
+          "status": "model-derived",
+          "source": "Allende Prieto & Lambert 1999",
+          "sourceId": "HIP 21589",
+          "bibcode": "1999A&A...352..555A"
+        },
+        {
+          "field": "radius_solar",
+          "value": 2.7542287033381663,
+          "uncertainty": 0.2536738382001113,
+          "status": "model-derived",
+          "source": "Allende Prieto & Lambert 1999",
+          "sourceId": "HIP 21589",
+          "bibcode": "1999A&A...352..555A"
+        },
+        {
+          "field": "luminosity_solar",
+          "value": 30.042808132878484,
+          "uncertainty": null,
+          "status": "model-derived",
+          "source": "McDonald et al. 2012 SED rescaled to adopted distance",
+          "sourceId": "HIP 21589",
+          "bibcode": "2012MNRAS.427..343M"
+        }
+      ]
+    },
+    "hip-20711": {
+      "group": "Hyades",
+      "queryId": "HIP 20711",
+      "simbadId": "* ups Tau",
+      "selection": "Eight brightest SIMBAD Melotte 25 members with cluster-consistent parallaxes; foreground Aldebaran is deliberately excluded.",
+      "adoptedDistance": {
+        "method": "Bailer-Jones EDR3 geometric posterior median",
+        "distancePc": 45.908237,
+        "lowerPc": 45.570587,
+        "upperPc": 46.28599,
+        "source": "Bailer-Jones et al. 2021",
+        "sourceId": "145727729255780736"
+      },
+      "radialVelocity": {
+        "status": "simbad-compiled",
+        "frozenSimbadValueKms": 32.2,
+        "adoptedValueKms": 32.2,
+        "uncertaintyKms": null,
+        "reference": "SIMBAD TAP snapshot 2026-10-01"
+      },
+      "gaiaDr3Id": "145727729255780736",
+      "adoptedPhysicalFields": {
+        "temperature_k": "published:1999A&A...352..555A:HIP-20711",
+        "mass_solar": "published:1999A&A...352..555A:HIP-20711",
+        "radius_solar": "published:1999A&A...352..555A:HIP-20711",
+        "luminosity_solar": "published:2012MNRAS.427..343M:HIP-20711"
+      },
+      "physicalObservations": [
+        {
+          "field": "temperature_k",
+          "value": 7413.102413009177,
+          "uncertainty": 170.69299109033125,
+          "status": "model-derived",
+          "source": "Allende Prieto & Lambert 1999",
+          "sourceId": "HIP 20711",
+          "bibcode": "1999A&A...352..555A"
+        },
+        {
+          "field": "mass_solar",
+          "value": 2.11,
+          "uncertainty": 0.08,
+          "status": "model-derived",
+          "source": "Allende Prieto & Lambert 1999",
+          "sourceId": "HIP 20711",
+          "bibcode": "1999A&A...352..555A"
+        },
+        {
+          "field": "radius_solar",
+          "value": 3.311311214825911,
+          "uncertainty": 0.22873727524566442,
+          "status": "model-derived",
+          "source": "Allende Prieto & Lambert 1999",
+          "sourceId": "HIP 20711",
+          "bibcode": "1999A&A...352..555A"
+        },
+        {
+          "field": "luminosity_solar",
+          "value": 30.782233236284576,
+          "uncertainty": null,
+          "status": "model-derived",
+          "source": "McDonald et al. 2012 SED rescaled to adopted distance",
+          "sourceId": "HIP 20711",
+          "bibcode": "2012MNRAS.427..343M"
+        }
+      ]
+    },
+    "hip-61394": {
+      "group": "Coma Star Cluster",
+      "queryId": "HIP 61394",
+      "simbadId": "*  23 Com",
+      "selection": "Five brightest SIMBAD Melotte 111 members with cluster-consistent parallaxes; foreground Gamma Comae Berenices is excluded.",
+      "adoptedDistance": {
+        "method": "Bailer-Jones EDR3 geometric posterior median",
+        "distancePc": 109.0274,
+        "lowerPc": 105.9669,
+        "upperPc": 113.13238,
+        "source": "Bailer-Jones et al. 2021",
+        "sourceId": "3958719258494268288"
+      },
+      "radialVelocity": {
+        "status": "simbad-compiled",
+        "frozenSimbadValueKms": -16.0,
+        "adoptedValueKms": -16.0,
+        "uncertaintyKms": null,
+        "reference": "SIMBAD TAP snapshot 2026-10-01"
+      },
+      "gaiaDr3Id": "3958719258494268288",
+      "adoptedPhysicalFields": {
+        "temperature_k": "published:2012MNRAS.427..343M:HIP-61394",
+        "luminosity_solar": "published:2012MNRAS.427..343M:HIP-61394",
+        "metallicity_dex": "gaia-dr3:3958719258494268288",
+        "mass_solar": "gaia-dr3:3958719258494268288",
+        "radius_solar": "gaia-dr3:3958719258494268288",
+        "age_gyr": "gaia-dr3:3958719258494268288"
+      },
+      "physicalObservations": [
+        {
+          "field": "temperature_k",
+          "value": 8204.0,
+          "uncertainty": null,
+          "status": "model-derived",
+          "source": "McDonald et al. 2012",
+          "sourceId": "HIP 61394",
+          "bibcode": "2012MNRAS.427..343M"
+        },
+        {
+          "field": "luminosity_solar",
+          "value": 102.65803611486659,
+          "uncertainty": null,
+          "status": "model-derived",
+          "source": "McDonald et al. 2012 SED rescaled to adopted distance",
+          "sourceId": "HIP 61394",
+          "bibcode": "2012MNRAS.427..343M"
+        },
+        {
+          "field": "metallicity_dex",
+          "value": -0.7596,
+          "uncertainty": 0.007199999999999984,
+          "status": "model-derived",
+          "source": "Gaia DR3 astrophysical_parameters",
+          "sourceId": "3958719258494268288",
+          "qualityFlags": "00"
+        },
+        {
+          "field": "mass_solar",
+          "value": 3.001303,
+          "uncertainty": 0.06142020000000015,
+          "status": "model-derived",
+          "source": "Gaia DR3 astrophysical_parameters",
+          "sourceId": "3958719258494268288",
+          "qualityFlags": "00"
+        },
+        {
+          "field": "radius_solar",
+          "value": 4.3829007,
+          "uncertainty": 0.1757168999999994,
+          "status": "model-derived",
+          "source": "Gaia DR3 astrophysical_parameters",
+          "sourceId": "3958719258494268288",
+          "qualityFlags": "00"
+        },
+        {
+          "field": "age_gyr",
+          "value": 0.3437056,
+          "uncertainty": 0.03846603999999998,
+          "status": "model-derived",
+          "source": "Gaia DR3 astrophysical_parameters",
+          "sourceId": "3958719258494268288",
+          "qualityFlags": "00"
+        }
+      ]
+    },
+    "hip-60351": {
+      "group": "Coma Star Cluster",
+      "queryId": "HIP 60351",
+      "simbadId": "*  12 Com",
+      "selection": "Five brightest SIMBAD Melotte 111 members with cluster-consistent parallaxes; foreground Gamma Comae Berenices is excluded.",
+      "adoptedDistance": {
+        "method": "Bailer-Jones EDR3 geometric posterior median",
+        "distancePc": 86.99648,
+        "lowerPc": 85.80023,
+        "upperPc": 88.1861,
+        "source": "Bailer-Jones et al. 2021",
+        "sourceId": "4008342726516877312"
+      },
+      "radialVelocity": {
+        "status": "simbad-compiled",
+        "frozenSimbadValueKms": 0.5,
+        "adoptedValueKms": 0.5,
+        "uncertaintyKms": null,
+        "reference": "SIMBAD TAP snapshot 2026-10-01"
+      },
+      "gaiaDr3Id": "4008342726516877312",
+      "adoptedPhysicalFields": {
+        "temperature_k": "published:1999A&A...352..555A:HIP-60351",
+        "luminosity_solar": "published:2012MNRAS.427..343M:HIP-60351",
+        "metallicity_dex": "gaia-dr3:4008342726516877312",
+        "mass_solar": "gaia-dr3:4008342726516877312",
+        "radius_solar": "gaia-dr3:4008342726516877312",
+        "age_gyr": "gaia-dr3:4008342726516877312"
+      },
+      "physicalObservations": [
+        {
+          "field": "temperature_k",
+          "value": 6309.57344480193,
+          "uncertainty": 145.28329757152014,
+          "status": "model-derived",
+          "source": "Allende Prieto & Lambert 1999",
+          "sourceId": "HIP 60351",
+          "bibcode": "1999A&A...352..555A"
+        },
+        {
+          "field": "luminosity_solar",
+          "value": 79.48212761316229,
+          "uncertainty": null,
+          "status": "model-derived",
+          "source": "McDonald et al. 2012 SED rescaled to adopted distance",
+          "sourceId": "HIP 60351",
+          "bibcode": "2012MNRAS.427..343M"
+        },
+        {
+          "field": "metallicity_dex",
+          "value": -0.6194,
+          "uncertainty": 0.0038000000000000256,
+          "status": "model-derived",
+          "source": "Gaia DR3 astrophysical_parameters",
+          "sourceId": "4008342726516877312",
+          "qualityFlags": "00"
+        },
+        {
+          "field": "mass_solar",
+          "value": 2.959935,
+          "uncertainty": 0.11052300000000015,
+          "status": "model-derived",
+          "source": "Gaia DR3 astrophysical_parameters",
+          "sourceId": "4008342726516877312",
+          "qualityFlags": "00"
+        },
+        {
+          "field": "radius_solar",
+          "value": 8.071031,
+          "uncertainty": 0.221032000000001,
+          "status": "model-derived",
+          "source": "Gaia DR3 astrophysical_parameters",
+          "sourceId": "4008342726516877312",
+          "qualityFlags": "00"
+        },
+        {
+          "field": "age_gyr",
+          "value": 0.3772032,
+          "uncertainty": 0.05335780000000001,
+          "status": "model-derived",
+          "source": "Gaia DR3 astrophysical_parameters",
+          "sourceId": "4008342726516877312",
+          "qualityFlags": "00"
+        }
+      ]
+    },
+    "hip-59847": {
+      "group": "Coma Star Cluster",
+      "queryId": "HIP 59847",
+      "simbadId": "*   7 Com",
+      "selection": "Five brightest SIMBAD Melotte 111 members with cluster-consistent parallaxes; foreground Gamma Comae Berenices is excluded.",
+      "adoptedDistance": {
+        "method": "Bailer-Jones EDR3 geometric posterior median",
+        "distancePc": 76.24783,
+        "lowerPc": 75.488716,
+        "upperPc": 76.8991,
+        "source": "Bailer-Jones et al. 2021",
+        "sourceId": "4002093686540184960"
+      },
+      "radialVelocity": {
+        "status": "simbad-compiled",
+        "frozenSimbadValueKms": -27.89,
+        "adoptedValueKms": -27.89,
+        "uncertaintyKms": null,
+        "reference": "SIMBAD TAP snapshot 2026-10-01"
+      },
+      "gaiaDr3Id": "4002093686540184960",
+      "adoptedPhysicalFields": {
+        "temperature_k": "published:1999A&A...352..555A:HIP-59847",
+        "mass_solar": "published:1999A&A...352..555A:HIP-59847",
+        "radius_solar": "published:1999A&A...352..555A:HIP-59847",
+        "luminosity_solar": "derived:stefan-boltzmann"
+      },
+      "physicalObservations": [
+        {
+          "field": "temperature_k",
+          "value": 4897.7881936844615,
+          "uncertainty": 0.0,
+          "status": "model-derived",
+          "source": "Allende Prieto & Lambert 1999",
+          "sourceId": "HIP 59847",
+          "bibcode": "1999A&A...352..555A"
+        },
+        {
+          "field": "mass_solar",
+          "value": 1.53,
+          "uncertainty": 0.58,
+          "status": "model-derived",
+          "source": "Allende Prieto & Lambert 1999",
+          "sourceId": "HIP 59847",
+          "bibcode": "1999A&A...352..555A"
+        },
+        {
+          "field": "radius_solar",
+          "value": 10.964781961431852,
+          "uncertainty": 1.00989373969292,
+          "status": "model-derived",
+          "source": "Allende Prieto & Lambert 1999",
+          "sourceId": "HIP 59847",
+          "bibcode": "1999A&A...352..555A"
+        },
+        {
+          "field": "luminosity_solar",
+          "value": 62.3404357308073,
+          "status": "derived",
+          "source": "Stefan-Boltzmann scaling"
+        }
+      ]
+    },
+    "hip-62763": {
+      "group": "Coma Star Cluster",
+      "queryId": "HIP 62763",
+      "simbadId": "*  31 Com",
+      "selection": "Five brightest SIMBAD Melotte 111 members with cluster-consistent parallaxes; foreground Gamma Comae Berenices is excluded.",
+      "adoptedDistance": {
+        "method": "Bailer-Jones EDR3 geometric posterior median",
+        "distancePc": 84.36414,
+        "lowerPc": 83.49123,
+        "upperPc": 85.01743,
+        "source": "Bailer-Jones et al. 2021",
+        "sourceId": "3961912034103154944"
+      },
+      "radialVelocity": {
+        "status": "simbad-compiled",
+        "frozenSimbadValueKms": 0.94,
+        "adoptedValueKms": 0.94,
+        "uncertaintyKms": null,
+        "reference": "SIMBAD TAP snapshot 2026-10-01"
+      },
+      "gaiaDr3Id": "3961912034103154944",
+      "adoptedPhysicalFields": {
+        "temperature_k": "published:1999A&A...352..555A:HIP-62763",
+        "mass_solar": "published:1999A&A...352..555A:HIP-62763",
+        "radius_solar": "published:1999A&A...352..555A:HIP-62763",
+        "luminosity_solar": "published:2012MNRAS.427..343M:HIP-62763",
+        "metallicity_dex": "gaia-dr3:3961912034103154944",
+        "age_gyr": "gaia-dr3:3961912034103154944"
+      },
+      "physicalObservations": [
+        {
+          "field": "temperature_k",
+          "value": 5754.399373371566,
+          "uncertainty": 132.49994216259648,
+          "status": "model-derived",
+          "source": "Allende Prieto & Lambert 1999",
+          "sourceId": "HIP 62763",
+          "bibcode": "1999A&A...352..555A"
+        },
+        {
+          "field": "mass_solar",
+          "value": 2.69,
+          "uncertainty": 0.13,
+          "status": "model-derived",
+          "source": "Allende Prieto & Lambert 1999",
+          "sourceId": "HIP 62763",
+          "bibcode": "1999A&A...352..555A"
+        },
+        {
+          "field": "radius_solar",
+          "value": 9.33254300796991,
+          "uncertainty": 1.0744487204938664,
+          "status": "model-derived",
+          "source": "Allende Prieto & Lambert 1999",
+          "sourceId": "HIP 62763",
+          "bibcode": "1999A&A...352..555A"
+        },
+        {
+          "field": "luminosity_solar",
+          "value": 65.12423327049716,
+          "uncertainty": null,
+          "status": "model-derived",
+          "source": "McDonald et al. 2012 SED rescaled to adopted distance",
+          "sourceId": "HIP 62763",
+          "bibcode": "2012MNRAS.427..343M"
+        },
+        {
+          "field": "metallicity_dex",
+          "value": -0.4303,
+          "uncertainty": 0.0010999999999999899,
+          "status": "model-derived",
+          "source": "Gaia DR3 astrophysical_parameters",
+          "sourceId": "3961912034103154944",
+          "qualityFlags": "00"
+        },
+        {
+          "field": "age_gyr",
+          "value": 0.5031119,
+          "uncertainty": 0.12740260000000003,
+          "status": "model-derived",
+          "source": "Gaia DR3 astrophysical_parameters",
+          "sourceId": "3961912034103154944",
+          "qualityFlags": "00"
+        }
+      ]
+    },
+    "hip-60697": {
+      "group": "Coma Star Cluster",
+      "queryId": "HIP 60697",
+      "simbadId": "*  14 Com",
+      "selection": "Five brightest SIMBAD Melotte 111 members with cluster-consistent parallaxes; foreground Gamma Comae Berenices is excluded.",
+      "adoptedDistance": {
+        "method": "Bailer-Jones EDR3 geometric posterior median",
+        "distancePc": 88.19742,
+        "lowerPc": 87.49918,
+        "upperPc": 88.891464,
+        "source": "Bailer-Jones et al. 2021",
+        "sourceId": "4009103588563247104"
+      },
+      "radialVelocity": {
+        "status": "simbad-compiled",
+        "frozenSimbadValueKms": 2.58,
+        "adoptedValueKms": 2.58,
+        "uncertaintyKms": null,
+        "reference": "SIMBAD TAP snapshot 2026-10-01"
+      },
+      "gaiaDr3Id": "4009103588563247104",
+      "adoptedPhysicalFields": {
+        "temperature_k": "published:1999A&A...352..555A:HIP-60697",
+        "mass_solar": "published:1999A&A...352..555A:HIP-60697",
+        "radius_solar": "published:1999A&A...352..555A:HIP-60697",
+        "luminosity_solar": "published:2012MNRAS.427..343M:HIP-60697",
+        "metallicity_dex": "gaia-dr3:4009103588563247104",
+        "age_gyr": "gaia-dr3:4009103588563247104"
+      },
+      "physicalObservations": [
+        {
+          "field": "temperature_k",
+          "value": 7244.359600749898,
+          "uncertainty": 166.80754424975015,
+          "status": "model-derived",
+          "source": "Allende Prieto & Lambert 1999",
+          "sourceId": "HIP 60697",
+          "bibcode": "1999A&A...352..555A"
+        },
+        {
+          "field": "mass_solar",
+          "value": 2.27,
+          "uncertainty": 0.1,
+          "status": "model-derived",
+          "source": "Allende Prieto & Lambert 1999",
+          "sourceId": "HIP 60697",
+          "bibcode": "1999A&A...352..555A"
+        },
+        {
+          "field": "radius_solar",
+          "value": 4.570881896148751,
+          "uncertainty": 0.42099378063633885,
+          "status": "model-derived",
+          "source": "Allende Prieto & Lambert 1999",
+          "sourceId": "HIP 60697",
+          "bibcode": "1999A&A...352..555A"
+        },
+        {
+          "field": "luminosity_solar",
+          "value": 63.75483039649028,
+          "uncertainty": null,
+          "status": "model-derived",
+          "source": "McDonald et al. 2012 SED rescaled to adopted distance",
+          "sourceId": "HIP 60697",
+          "bibcode": "2012MNRAS.427..343M"
+        },
+        {
+          "field": "metallicity_dex",
+          "value": -0.7082,
+          "uncertainty": 0.000500000000000056,
+          "status": "model-derived",
+          "source": "Gaia DR3 astrophysical_parameters",
+          "sourceId": "4009103588563247104",
+          "qualityFlags": "00"
+        },
+        {
+          "field": "age_gyr",
+          "value": 0.50302017,
+          "uncertainty": 0.054698880000000005,
+          "status": "model-derived",
+          "source": "Gaia DR3 astrophysical_parameters",
+          "sourceId": "4009103588563247104",
+          "qualityFlags": "00"
+        }
+      ]
+    },
+    "hip-52419": {
+      "group": "Southern Pleiades",
+      "queryId": "HIP 52419",
+      "simbadId": "* tet Car",
+      "selection": "Five brightest SIMBAD IC 2602 members with cluster-consistent parallaxes.",
+      "adoptedDistance": {
+        "method": "Bailer-Jones EDR3 geometric posterior median",
+        "distancePc": 139.15352,
+        "lowerPc": 124.74416,
+        "upperPc": 159.17116,
+        "source": "Bailer-Jones et al. 2021",
+        "sourceId": "5239828735016184448"
+      },
+      "radialVelocity": {
+        "status": "reviewed-literature-override",
+        "frozenSimbadValueKms": 459.7,
+        "adoptedValueKms": 20.18,
+        "uncertaintyKms": 0.04,
+        "reference": "2008A&A...488..287H",
+        "source": "Hubrig et al. 2008",
+        "url": "https://doi.org/10.1051/0004-6361:200810124",
+        "note": "SB1 systemic velocity from the orbital solution; 0.04 km/s is the formal fit uncertainty and the absolute uncertainty is larger"
+      },
+      "gaiaDr3Id": "5239828735016184448",
+      "adoptedPhysicalFields": {
+        "temperature_k": "published:2012MNRAS.427..343M:HIP-52419",
+        "luminosity_solar": "published:2012MNRAS.427..343M:HIP-52419",
+        "radius_solar": "derived:stefan-boltzmann"
+      },
+      "physicalObservations": [
+        {
+          "field": "temperature_k",
+          "value": 21001.0,
+          "uncertainty": null,
+          "status": "model-derived",
+          "source": "McDonald et al. 2012",
+          "sourceId": "HIP 52419",
+          "bibcode": "2012MNRAS.427..343M"
+        },
+        {
+          "field": "luminosity_solar",
+          "value": 7595.657228551216,
+          "uncertainty": null,
+          "status": "model-derived",
+          "source": "McDonald et al. 2012 SED rescaled to adopted distance",
+          "sourceId": "HIP 52419",
+          "bibcode": "2012MNRAS.427..343M"
+        },
+        {
+          "field": "radius_solar",
+          "value": 6.583477777848864,
+          "status": "derived",
+          "source": "Stefan-Boltzmann scaling"
+        }
+      ]
+    },
+    "hip-52502": {
+      "group": "Southern Pleiades",
+      "queryId": "HIP 52502",
+      "simbadId": "HD  93194",
+      "selection": "Five brightest SIMBAD IC 2602 members with cluster-consistent parallaxes.",
+      "adoptedDistance": {
+        "method": "Bailer-Jones EDR3 geometric posterior median",
+        "distancePc": 146.81357,
+        "lowerPc": 144.20854,
+        "upperPc": 149.72528,
+        "source": "Bailer-Jones et al. 2021",
+        "sourceId": "5239865225059167744"
+      },
+      "radialVelocity": {
+        "status": "simbad-compiled",
+        "frozenSimbadValueKms": 25.5,
+        "adoptedValueKms": 25.5,
+        "uncertaintyKms": null,
+        "reference": "SIMBAD TAP snapshot 2026-10-01"
+      },
+      "gaiaDr3Id": "5239865225059167744",
+      "adoptedPhysicalFields": {
+        "temperature_k": "published:2012MNRAS.427..343M:HIP-52502",
+        "luminosity_solar": "published:2012MNRAS.427..343M:HIP-52502",
+        "radius_solar": "derived:stefan-boltzmann"
+      },
+      "physicalObservations": [
+        {
+          "field": "temperature_k",
+          "value": 11828.0,
+          "uncertainty": null,
+          "status": "model-derived",
+          "source": "McDonald et al. 2012",
+          "sourceId": "HIP 52502",
+          "bibcode": "2012MNRAS.427..343M"
+        },
+        {
+          "field": "luminosity_solar",
+          "value": 354.432089922269,
+          "uncertainty": null,
+          "status": "model-derived",
+          "source": "McDonald et al. 2012 SED rescaled to adopted distance",
+          "sourceId": "HIP 52502",
+          "bibcode": "2012MNRAS.427..343M"
+        },
+        {
+          "field": "radius_solar",
+          "value": 4.483286892388543,
+          "status": "derived",
+          "source": "Stefan-Boltzmann scaling"
+        }
+      ]
+    },
+    "hip-52370": {
+      "group": "Southern Pleiades",
+      "queryId": "HIP 52370",
+      "simbadId": "HD  92938",
+      "selection": "Five brightest SIMBAD IC 2602 members with cluster-consistent parallaxes.",
+      "adoptedDistance": {
+        "method": "Bailer-Jones EDR3 geometric posterior median",
+        "distancePc": 148.22095,
+        "lowerPc": 145.92429,
+        "upperPc": 149.76517,
+        "source": "Bailer-Jones et al. 2021",
+        "sourceId": "5239823134370969088"
+      },
+      "radialVelocity": {
+        "status": "simbad-compiled",
+        "frozenSimbadValueKms": 24.2,
+        "adoptedValueKms": 24.2,
+        "uncertaintyKms": null,
+        "reference": "SIMBAD TAP snapshot 2026-10-01"
+      },
+      "gaiaDr3Id": "5239823134370969088",
+      "adoptedPhysicalFields": {
+        "temperature_k": "published:2012MNRAS.427..343M:HIP-52370",
+        "luminosity_solar": "published:2012MNRAS.427..343M:HIP-52370",
+        "metallicity_dex": "gaia-dr3:5239823134370969088",
+        "mass_solar": "gaia-dr3:5239823134370969088",
+        "radius_solar": "gaia-dr3:5239823134370969088"
+      },
+      "physicalObservations": [
+        {
+          "field": "temperature_k",
+          "value": 11558.0,
+          "uncertainty": null,
+          "status": "model-derived",
+          "source": "McDonald et al. 2012",
+          "sourceId": "HIP 52370",
+          "bibcode": "2012MNRAS.427..343M"
+        },
+        {
+          "field": "luminosity_solar",
+          "value": 356.41551412134163,
+          "uncertainty": null,
+          "status": "model-derived",
+          "source": "McDonald et al. 2012 SED rescaled to adopted distance",
+          "sourceId": "HIP 52370",
+          "bibcode": "2012MNRAS.427..343M"
+        },
+        {
+          "field": "metallicity_dex",
+          "value": -0.6699,
+          "uncertainty": 0.000300000000000078,
+          "status": "model-derived",
+          "source": "Gaia DR3 astrophysical_parameters",
+          "sourceId": "5239823134370969088",
+          "qualityFlags": "00"
+        },
+        {
+          "field": "mass_solar",
+          "value": 4.550562,
+          "uncertainty": 0.046311999999999465,
+          "status": "model-derived",
+          "source": "Gaia DR3 astrophysical_parameters",
+          "sourceId": "5239823134370969088",
+          "qualityFlags": "00"
+        },
+        {
+          "field": "radius_solar",
+          "value": 4.1323,
+          "uncertainty": 0.09668900000000047,
+          "status": "model-derived",
+          "source": "Gaia DR3 astrophysical_parameters",
+          "sourceId": "5239823134370969088",
+          "qualityFlags": "00"
+        }
+      ]
+    },
+    "hip-52736": {
+      "group": "Southern Pleiades",
+      "queryId": "HIP 52736",
+      "simbadId": "HD  93607",
+      "selection": "Five brightest SIMBAD IC 2602 members with cluster-consistent parallaxes.",
+      "adoptedDistance": {
+        "method": "Bailer-Jones EDR3 geometric posterior median",
+        "distancePc": 150.41403,
+        "lowerPc": 148.94899,
+        "upperPc": 152.09576,
+        "source": "Bailer-Jones et al. 2021",
+        "sourceId": "5239835710037143296"
+      },
+      "radialVelocity": {
+        "status": "simbad-compiled",
+        "frozenSimbadValueKms": 12.0,
+        "adoptedValueKms": 12.0,
+        "uncertaintyKms": null,
+        "reference": "SIMBAD TAP snapshot 2026-10-01"
+      },
+      "gaiaDr3Id": "5239835710037143296",
+      "adoptedPhysicalFields": {
+        "temperature_k": "published:2012MNRAS.427..343M:HIP-52736",
+        "luminosity_solar": "published:2012MNRAS.427..343M:HIP-52736",
+        "metallicity_dex": "gaia-dr3:5239835710037143296",
+        "mass_solar": "gaia-dr3:5239835710037143296",
+        "radius_solar": "gaia-dr3:5239835710037143296"
+      },
+      "physicalObservations": [
+        {
+          "field": "temperature_k",
+          "value": 13508.0,
+          "uncertainty": null,
+          "status": "model-derived",
+          "source": "McDonald et al. 2012",
+          "sourceId": "HIP 52736",
+          "bibcode": "2012MNRAS.427..343M"
+        },
+        {
+          "field": "luminosity_solar",
+          "value": 461.647369773467,
+          "uncertainty": null,
+          "status": "model-derived",
+          "source": "McDonald et al. 2012 SED rescaled to adopted distance",
+          "sourceId": "HIP 52736",
+          "bibcode": "2012MNRAS.427..343M"
+        },
+        {
+          "field": "metallicity_dex",
+          "value": 0.3384,
+          "uncertainty": 0.15480000000000005,
+          "status": "model-derived",
+          "source": "Gaia DR3 astrophysical_parameters",
+          "sourceId": "5239835710037143296",
+          "qualityFlags": "00"
+        },
+        {
+          "field": "mass_solar",
+          "value": 4.4830995,
+          "uncertainty": 0.060470500000000094,
+          "status": "model-derived",
+          "source": "Gaia DR3 astrophysical_parameters",
+          "sourceId": "5239835710037143296",
+          "qualityFlags": "00"
+        },
+        {
+          "field": "radius_solar",
+          "value": 3.9475212,
+          "uncertainty": 0.10498140000000022,
+          "status": "model-derived",
+          "source": "Gaia DR3 astrophysical_parameters",
+          "sourceId": "5239835710037143296",
+          "qualityFlags": "00"
+        }
+      ]
+    },
+    "hip-52701": {
+      "group": "Southern Pleiades",
+      "queryId": "HIP 52701",
+      "simbadId": "HD  93549",
+      "selection": "Five brightest SIMBAD IC 2602 members with cluster-consistent parallaxes.",
+      "adoptedDistance": {
+        "method": "Bailer-Jones EDR3 geometric posterior median",
+        "distancePc": 149.43182,
+        "lowerPc": 147.4213,
+        "upperPc": 152.1053,
+        "source": "Bailer-Jones et al. 2021",
+        "sourceId": "5239845949239370240"
+      },
+      "radialVelocity": {
+        "status": "simbad-compiled",
+        "frozenSimbadValueKms": -15.0,
+        "adoptedValueKms": -15.0,
+        "uncertaintyKms": null,
+        "reference": "SIMBAD TAP snapshot 2026-10-01"
+      },
+      "gaiaDr3Id": "5239845949239370240",
+      "adoptedPhysicalFields": {
+        "temperature_k": "published:2012MNRAS.427..343M:HIP-52701",
+        "luminosity_solar": "published:2012MNRAS.427..343M:HIP-52701",
+        "radius_solar": "derived:stefan-boltzmann"
+      },
+      "physicalObservations": [
+        {
+          "field": "temperature_k",
+          "value": 10471.0,
+          "uncertainty": null,
+          "status": "model-derived",
+          "source": "McDonald et al. 2012",
+          "sourceId": "HIP 52701",
+          "bibcode": "2012MNRAS.427..343M"
+        },
+        {
+          "field": "luminosity_solar",
+          "value": 196.39272654470284,
+          "uncertainty": null,
+          "status": "model-derived",
+          "source": "McDonald et al. 2012 SED rescaled to adopted distance",
+          "sourceId": "HIP 52701",
+          "bibcode": "2012MNRAS.427..343M"
+        },
+        {
+          "field": "radius_solar",
+          "value": 4.258327169251324,
+          "status": "derived",
+          "source": "Stefan-Boltzmann scaling"
+        }
+      ]
+    },
+    "hip-42536": {
+      "group": "Omicron Velorum Cluster",
+      "queryId": "HIP 42536",
+      "simbadId": "* omi Vel",
+      "selection": "Six brightest SIMBAD IC 2391 members with cluster-consistent parallaxes.",
+      "adoptedDistance": {
+        "method": "Bailer-Jones EDR3 geometric posterior median",
+        "distancePc": 143.12761,
+        "lowerPc": 135.5988,
+        "upperPc": 152.24144,
+        "source": "Bailer-Jones et al. 2021",
+        "sourceId": "5318547273548061824"
+      },
+      "radialVelocity": {
+        "status": "simbad-compiled",
+        "frozenSimbadValueKms": 17.3,
+        "adoptedValueKms": 17.3,
+        "uncertaintyKms": null,
+        "reference": "SIMBAD TAP snapshot 2026-10-01"
+      },
+      "gaiaDr3Id": "5318547273548061824",
+      "adoptedPhysicalFields": {
+        "temperature_k": "published:2012MNRAS.427..343M:HIP-42536",
+        "luminosity_solar": "published:2012MNRAS.427..343M:HIP-42536",
+        "metallicity_dex": "gaia-dr3:5318547273548061824",
+        "mass_solar": "gaia-dr3:5318547273548061824",
+        "radius_solar": "gaia-dr3:5318547273548061824"
+      },
+      "physicalObservations": [
+        {
+          "field": "temperature_k",
+          "value": 16880.0,
+          "uncertainty": null,
+          "status": "model-derived",
+          "source": "McDonald et al. 2012",
+          "sourceId": "HIP 42536",
+          "bibcode": "2012MNRAS.427..343M"
+        },
+        {
+          "field": "luminosity_solar",
+          "value": 2196.1948289229936,
+          "uncertainty": null,
+          "status": "model-derived",
+          "source": "McDonald et al. 2012 SED rescaled to adopted distance",
+          "sourceId": "HIP 42536",
+          "bibcode": "2012MNRAS.427..343M"
+        },
+        {
+          "field": "metallicity_dex",
+          "value": 0.7441,
+          "uncertainty": 0.4346,
+          "status": "model-derived",
+          "source": "Gaia DR3 astrophysical_parameters",
+          "sourceId": "5318547273548061824",
+          "qualityFlags": "00"
+        },
+        {
+          "field": "mass_solar",
+          "value": 5.730755,
+          "uncertainty": 0.1528640000000001,
+          "status": "model-derived",
+          "source": "Gaia DR3 astrophysical_parameters",
+          "sourceId": "5318547273548061824",
+          "qualityFlags": "00"
+        },
+        {
+          "field": "radius_solar",
+          "value": 6.592267,
+          "uncertainty": 0.31827200000000033,
+          "status": "model-derived",
+          "source": "Gaia DR3 astrophysical_parameters",
+          "sourceId": "5318547273548061824",
+          "qualityFlags": "00"
+        }
+      ]
+    },
+    "hip-42726": {
+      "group": "Omicron Velorum Cluster",
+      "queryId": "HIP 42726",
+      "simbadId": "HD  74560",
+      "selection": "Six brightest SIMBAD IC 2391 members with cluster-consistent parallaxes.",
+      "adoptedDistance": {
+        "method": "Bailer-Jones EDR3 geometric posterior median",
+        "distancePc": 150.28336,
+        "lowerPc": 148.17473,
+        "upperPc": 152.19121,
+        "source": "Bailer-Jones et al. 2021",
+        "sourceId": "5318486456810851072"
+      },
+      "radialVelocity": {
+        "status": "simbad-compiled",
+        "frozenSimbadValueKms": 10.411,
+        "adoptedValueKms": 10.411,
+        "uncertaintyKms": null,
+        "reference": "SIMBAD TAP snapshot 2026-10-01"
+      },
+      "gaiaDr3Id": "5318486456810851072",
+      "adoptedPhysicalFields": {
+        "temperature_k": "published:2012MNRAS.427..343M:HIP-42726",
+        "luminosity_solar": "published:2012MNRAS.427..343M:HIP-42726",
+        "metallicity_dex": "gaia-dr3:5318486456810851072",
+        "mass_solar": "gaia-dr3:5318486456810851072",
+        "radius_solar": "gaia-dr3:5318486456810851072"
+      },
+      "physicalObservations": [
+        {
+          "field": "temperature_k",
+          "value": 15635.0,
+          "uncertainty": null,
+          "status": "model-derived",
+          "source": "McDonald et al. 2012",
+          "sourceId": "HIP 42726",
+          "bibcode": "2012MNRAS.427..343M"
+        },
+        {
+          "field": "luminosity_solar",
+          "value": 665.4109268044164,
+          "uncertainty": null,
+          "status": "model-derived",
+          "source": "McDonald et al. 2012 SED rescaled to adopted distance",
+          "sourceId": "HIP 42726",
+          "bibcode": "2012MNRAS.427..343M"
+        },
+        {
+          "field": "metallicity_dex",
+          "value": 0.7933,
+          "uncertainty": 0.011700000000000044,
+          "status": "model-derived",
+          "source": "Gaia DR3 astrophysical_parameters",
+          "sourceId": "5318486456810851072",
+          "qualityFlags": "00"
+        },
+        {
+          "field": "mass_solar",
+          "value": 4.403055,
+          "uncertainty": 0.051766999999999896,
+          "status": "model-derived",
+          "source": "Gaia DR3 astrophysical_parameters",
+          "sourceId": "5318486456810851072",
+          "qualityFlags": "00"
+        },
+        {
+          "field": "radius_solar",
+          "value": 3.846748,
+          "uncertainty": 0.09604229999999969,
+          "status": "model-derived",
+          "source": "Gaia DR3 astrophysical_parameters",
+          "sourceId": "5318486456810851072",
+          "qualityFlags": "00"
+        }
+      ]
+    },
+    "hip-42504": {
+      "group": "Omicron Velorum Cluster",
+      "queryId": "HIP 42504",
+      "simbadId": "HD  74146",
+      "selection": "Six brightest SIMBAD IC 2391 members with cluster-consistent parallaxes.",
+      "adoptedDistance": {
+        "method": "Bailer-Jones EDR3 geometric posterior median",
+        "distancePc": 151.98213,
+        "lowerPc": 149.53642,
+        "upperPc": 154.4084,
+        "source": "Bailer-Jones et al. 2021",
+        "sourceId": "5318541982145960064"
+      },
+      "radialVelocity": {
+        "status": "simbad-compiled",
+        "frozenSimbadValueKms": -43.93,
+        "adoptedValueKms": -43.93,
+        "uncertaintyKms": null,
+        "reference": "SIMBAD TAP snapshot 2026-10-01"
+      },
+      "gaiaDr3Id": "5318541982145960064",
+      "adoptedPhysicalFields": {
+        "temperature_k": "published:2012MNRAS.427..343M:HIP-42504",
+        "luminosity_solar": "published:2012MNRAS.427..343M:HIP-42504",
+        "metallicity_dex": "gaia-dr3:5318541982145960064",
+        "mass_solar": "gaia-dr3:5318541982145960064",
+        "radius_solar": "gaia-dr3:5318541982145960064"
+      },
+      "physicalObservations": [
+        {
+          "field": "temperature_k",
+          "value": 14416.0,
+          "uncertainty": null,
+          "status": "model-derived",
+          "source": "McDonald et al. 2012",
+          "sourceId": "HIP 42504",
+          "bibcode": "2012MNRAS.427..343M"
+        },
+        {
+          "field": "luminosity_solar",
+          "value": 409.2982511113452,
+          "uncertainty": null,
+          "status": "model-derived",
+          "source": "McDonald et al. 2012 SED rescaled to adopted distance",
+          "sourceId": "HIP 42504",
+          "bibcode": "2012MNRAS.427..343M"
+        },
+        {
+          "field": "metallicity_dex",
+          "value": -0.8304,
+          "uncertainty": 0.07250000000000001,
+          "status": "model-derived",
+          "source": "Gaia DR3 astrophysical_parameters",
+          "sourceId": "5318541982145960064",
+          "qualityFlags": "00"
+        },
+        {
+          "field": "mass_solar",
+          "value": 4.366032,
+          "uncertainty": 0.04879870000000075,
+          "status": "model-derived",
+          "source": "Gaia DR3 astrophysical_parameters",
+          "sourceId": "5318541982145960064",
+          "qualityFlags": "00"
+        },
+        {
+          "field": "radius_solar",
+          "value": 3.486503,
+          "uncertainty": 0.08761229999999998,
+          "status": "model-derived",
+          "source": "Gaia DR3 astrophysical_parameters",
+          "sourceId": "5318541982145960064",
+          "qualityFlags": "00"
+        }
+      ]
+    },
+    "hip-42459": {
+      "group": "Omicron Velorum Cluster",
+      "queryId": "HIP 42459",
+      "simbadId": "V* HW Vel",
+      "selection": "Six brightest SIMBAD IC 2391 members with cluster-consistent parallaxes.",
+      "adoptedDistance": {
+        "method": "Bailer-Jones EDR3 geometric posterior median",
+        "distancePc": 158.67574,
+        "lowerPc": 155.97751,
+        "upperPc": 161.32356,
+        "source": "Bailer-Jones et al. 2021",
+        "sourceId": "5318113550566048256"
+      },
+      "radialVelocity": {
+        "status": "simbad-compiled",
+        "frozenSimbadValueKms": 25.141,
+        "adoptedValueKms": 25.141,
+        "uncertaintyKms": null,
+        "reference": "SIMBAD TAP snapshot 2026-10-01"
+      },
+      "gaiaDr3Id": "5318113550566048256",
+      "adoptedPhysicalFields": {
+        "temperature_k": "published:2012MNRAS.427..343M:HIP-42459",
+        "luminosity_solar": "published:2012MNRAS.427..343M:HIP-42459",
+        "metallicity_dex": "gaia-dr3:5318113550566048256",
+        "mass_solar": "gaia-dr3:5318113550566048256",
+        "radius_solar": "gaia-dr3:5318113550566048256"
+      },
+      "physicalObservations": [
+        {
+          "field": "temperature_k",
+          "value": 13995.0,
+          "uncertainty": null,
+          "status": "model-derived",
+          "source": "McDonald et al. 2012",
+          "sourceId": "HIP 42459",
+          "bibcode": "2012MNRAS.427..343M"
+        },
+        {
+          "field": "luminosity_solar",
+          "value": 325.2971585105108,
+          "uncertainty": null,
+          "status": "model-derived",
+          "source": "McDonald et al. 2012 SED rescaled to adopted distance",
+          "sourceId": "HIP 42459",
+          "bibcode": "2012MNRAS.427..343M"
+        },
+        {
+          "field": "metallicity_dex",
+          "value": -1.4552,
+          "uncertainty": 0.03370000000000006,
+          "status": "model-derived",
+          "source": "Gaia DR3 astrophysical_parameters",
+          "sourceId": "5318113550566048256",
+          "qualityFlags": "00"
+        },
+        {
+          "field": "mass_solar",
+          "value": 4.4141474,
+          "uncertainty": 0.04521759999999997,
+          "status": "model-derived",
+          "source": "Gaia DR3 astrophysical_parameters",
+          "sourceId": "5318113550566048256",
+          "qualityFlags": "00"
+        },
+        {
+          "field": "radius_solar",
+          "value": 3.1505623,
+          "uncertainty": 0.07614070000000028,
+          "status": "model-derived",
+          "source": "Gaia DR3 astrophysical_parameters",
+          "sourceId": "5318113550566048256",
+          "qualityFlags": "00"
+        }
+      ]
+    },
+    "hip-42715": {
+      "group": "Omicron Velorum Cluster",
+      "queryId": "HIP 42715",
+      "simbadId": "V* KT Vel",
+      "selection": "Six brightest SIMBAD IC 2391 members with cluster-consistent parallaxes.",
+      "adoptedDistance": {
+        "method": "Bailer-Jones EDR3 geometric posterior median",
+        "distancePc": 152.53659,
+        "lowerPc": 148.81091,
+        "upperPc": 155.58685,
+        "source": "Bailer-Jones et al. 2021",
+        "sourceId": "5318485048061677952"
+      },
+      "radialVelocity": {
+        "status": "simbad-compiled",
+        "frozenSimbadValueKms": 14.365,
+        "adoptedValueKms": 14.365,
+        "uncertaintyKms": null,
+        "reference": "SIMBAD TAP snapshot 2026-10-01"
+      },
+      "gaiaDr3Id": "5318485048061677952",
+      "adoptedPhysicalFields": {
+        "temperature_k": "published:2012MNRAS.427..343M:HIP-42715",
+        "luminosity_solar": "published:2012MNRAS.427..343M:HIP-42715",
+        "metallicity_dex": "gaia-dr3:5318485048061677952",
+        "mass_solar": "gaia-dr3:5318485048061677952",
+        "radius_solar": "gaia-dr3:5318485048061677952"
+      },
+      "physicalObservations": [
+        {
+          "field": "temperature_k",
+          "value": 13192.0,
+          "uncertainty": null,
+          "status": "model-derived",
+          "source": "McDonald et al. 2012",
+          "sourceId": "HIP 42715",
+          "bibcode": "2012MNRAS.427..343M"
+        },
+        {
+          "field": "luminosity_solar",
+          "value": 254.75051013150323,
+          "uncertainty": null,
+          "status": "model-derived",
+          "source": "McDonald et al. 2012 SED rescaled to adopted distance",
+          "sourceId": "HIP 42715",
+          "bibcode": "2012MNRAS.427..343M"
+        },
+        {
+          "field": "metallicity_dex",
+          "value": 0.7969,
+          "uncertainty": 0.0049000000000000155,
+          "status": "model-derived",
+          "source": "Gaia DR3 astrophysical_parameters",
+          "sourceId": "5318485048061677952",
+          "qualityFlags": "00"
+        },
+        {
+          "field": "mass_solar",
+          "value": 3.7920406,
+          "uncertainty": 0.05239439999999984,
+          "status": "model-derived",
+          "source": "Gaia DR3 astrophysical_parameters",
+          "sourceId": "5318485048061677952",
+          "qualityFlags": "00"
+        },
+        {
+          "field": "radius_solar",
+          "value": 2.9717155,
+          "uncertainty": 0.08626099999999992,
+          "status": "model-derived",
+          "source": "Gaia DR3 astrophysical_parameters",
+          "sourceId": "5318485048061677952",
+          "qualityFlags": "00"
+        }
+      ]
+    },
+    "hip-42535": {
+      "group": "Omicron Velorum Cluster",
+      "queryId": "HIP 42535",
+      "simbadId": "HD  74196",
+      "selection": "Six brightest SIMBAD IC 2391 members with cluster-consistent parallaxes.",
+      "adoptedDistance": {
+        "method": "Bailer-Jones EDR3 geometric posterior median",
+        "distancePc": 153.50978,
+        "lowerPc": 152.34464,
+        "upperPc": 154.61731,
+        "source": "Bailer-Jones et al. 2021",
+        "sourceId": "5318543425255007872"
+      },
+      "radialVelocity": {
+        "status": "simbad-compiled",
+        "frozenSimbadValueKms": 32.797,
+        "adoptedValueKms": 32.797,
+        "uncertaintyKms": null,
+        "reference": "SIMBAD TAP snapshot 2026-10-01"
+      },
+      "gaiaDr3Id": "5318543425255007872",
+      "adoptedPhysicalFields": {
+        "temperature_k": "published:2012MNRAS.427..343M:HIP-42535",
+        "luminosity_solar": "published:2012MNRAS.427..343M:HIP-42535",
+        "metallicity_dex": "gaia-dr3:5318543425255007872",
+        "mass_solar": "gaia-dr3:5318543425255007872",
+        "radius_solar": "gaia-dr3:5318543425255007872"
+      },
+      "physicalObservations": [
+        {
+          "field": "temperature_k",
+          "value": 13664.0,
+          "uncertainty": null,
+          "status": "model-derived",
+          "source": "McDonald et al. 2012",
+          "sourceId": "HIP 42535",
+          "bibcode": "2012MNRAS.427..343M"
+        },
+        {
+          "field": "luminosity_solar",
+          "value": 260.65682541134464,
+          "uncertainty": null,
+          "status": "model-derived",
+          "source": "McDonald et al. 2012 SED rescaled to adopted distance",
+          "sourceId": "HIP 42535",
+          "bibcode": "2012MNRAS.427..343M"
+        },
+        {
+          "field": "metallicity_dex",
+          "value": -1.1204,
+          "uncertainty": 0.0011999999999998678,
+          "status": "model-derived",
+          "source": "Gaia DR3 astrophysical_parameters",
+          "sourceId": "5318543425255007872",
+          "qualityFlags": "00"
+        },
+        {
+          "field": "mass_solar",
+          "value": 3.822324,
+          "uncertainty": 0.041980999999999824,
+          "status": "model-derived",
+          "source": "Gaia DR3 astrophysical_parameters",
+          "sourceId": "5318543425255007872",
+          "qualityFlags": "00"
+        },
+        {
+          "field": "radius_solar",
+          "value": 3.1953177,
+          "uncertainty": 0.06908590000000014,
+          "status": "model-derived",
+          "source": "Gaia DR3 astrophysical_parameters",
+          "sourceId": "5318543425255007872",
+          "qualityFlags": "00"
+        }
+      ]
+    },
+    "hip-42556": {
+      "group": "Beehive Cluster",
+      "queryId": "HIP 42556",
+      "simbadId": "* eps Cnc",
+      "selection": "Five brightest SIMBAD NGC 2632 members with cluster-consistent parallaxes.",
+      "adoptedDistance": {
+        "method": "Bailer-Jones EDR3 geometric posterior median",
+        "distancePc": 184.42776,
+        "lowerPc": 182.9652,
+        "upperPc": 186.2418,
+        "source": "Bailer-Jones et al. 2021",
+        "sourceId": "661291136701346304"
+      },
+      "radialVelocity": {
+        "status": "simbad-compiled",
+        "frozenSimbadValueKms": 29.9,
+        "adoptedValueKms": 29.9,
+        "uncertaintyKms": null,
+        "reference": "SIMBAD TAP snapshot 2026-10-01"
+      },
+      "gaiaDr3Id": "661291136701346304",
+      "adoptedPhysicalFields": {
+        "temperature_k": "published:2012MNRAS.427..343M:HIP-42556",
+        "luminosity_solar": "published:2012MNRAS.427..343M:HIP-42556",
+        "metallicity_dex": "gaia-dr3:661291136701346304",
+        "mass_solar": "gaia-dr3:661291136701346304",
+        "radius_solar": "gaia-dr3:661291136701346304",
+        "age_gyr": "gaia-dr3:661291136701346304"
+      },
+      "physicalObservations": [
+        {
+          "field": "temperature_k",
+          "value": 7851.0,
+          "uncertainty": null,
+          "status": "model-derived",
+          "source": "McDonald et al. 2012",
+          "sourceId": "HIP 42556",
+          "bibcode": "2012MNRAS.427..343M"
+        },
+        {
+          "field": "luminosity_solar",
+          "value": 77.87996532249194,
+          "uncertainty": null,
+          "status": "model-derived",
+          "source": "McDonald et al. 2012 SED rescaled to adopted distance",
+          "sourceId": "HIP 42556",
+          "bibcode": "2012MNRAS.427..343M"
+        },
+        {
+          "field": "metallicity_dex",
+          "value": -1.6264,
+          "uncertainty": 0.0032000000000000917,
+          "status": "model-derived",
+          "source": "Gaia DR3 astrophysical_parameters",
+          "sourceId": "661291136701346304",
+          "qualityFlags": "00"
+        },
+        {
+          "field": "mass_solar",
+          "value": 2.6248384,
+          "uncertainty": 0.04583629999999994,
+          "status": "model-derived",
+          "source": "Gaia DR3 astrophysical_parameters",
+          "sourceId": "661291136701346304",
+          "qualityFlags": "00"
+        },
+        {
+          "field": "radius_solar",
+          "value": 4.873694,
+          "uncertainty": 0.10486130000000049,
+          "status": "model-derived",
+          "source": "Gaia DR3 astrophysical_parameters",
+          "sourceId": "661291136701346304",
+          "qualityFlags": "00"
+        },
+        {
+          "field": "age_gyr",
+          "value": 0.501458,
+          "uncertainty": 0.06855326000000006,
+          "status": "model-derived",
+          "source": "Gaia DR3 astrophysical_parameters",
+          "sourceId": "661291136701346304",
+          "qualityFlags": "00"
+        }
+      ]
+    },
+    "hip-42549": {
+      "group": "Beehive Cluster",
+      "queryId": "HIP 42549",
+      "simbadId": "HD  73710",
+      "selection": "Five brightest SIMBAD NGC 2632 members with cluster-consistent parallaxes.",
+      "adoptedDistance": {
+        "method": "Bailer-Jones EDR3 geometric posterior median",
+        "distancePc": 183.36322,
+        "lowerPc": 182.32027,
+        "upperPc": 184.80669,
+        "source": "Bailer-Jones et al. 2021",
+        "sourceId": "661297080936069632"
+      },
+      "radialVelocity": {
+        "status": "simbad-compiled",
+        "frozenSimbadValueKms": 34.686,
+        "adoptedValueKms": 34.686,
+        "uncertaintyKms": null,
+        "reference": "SIMBAD TAP snapshot 2026-10-01"
+      },
+      "gaiaDr3Id": "661297080936069632",
+      "adoptedPhysicalFields": {
+        "temperature_k": "published:2012MNRAS.427..343M:HIP-42549",
+        "luminosity_solar": "published:2012MNRAS.427..343M:HIP-42549",
+        "metallicity_dex": "gaia-dr3:661297080936069632",
+        "radius_solar": "gaia-dr3:661297080936069632"
+      },
+      "physicalObservations": [
+        {
+          "field": "temperature_k",
+          "value": 4966.0,
+          "uncertainty": null,
+          "status": "model-derived",
+          "source": "McDonald et al. 2012",
+          "sourceId": "HIP 42549",
+          "bibcode": "2012MNRAS.427..343M"
+        },
+        {
+          "field": "luminosity_solar",
+          "value": 95.03566450514441,
+          "uncertainty": null,
+          "status": "model-derived",
+          "source": "McDonald et al. 2012 SED rescaled to adopted distance",
+          "sourceId": "HIP 42549",
+          "bibcode": "2012MNRAS.427..343M"
+        },
+        {
+          "field": "metallicity_dex",
+          "value": 0.0201,
+          "uncertainty": 0.0051,
+          "status": "model-derived",
+          "source": "Gaia DR3 astrophysical_parameters",
+          "sourceId": "661297080936069632",
+          "qualityFlags": "10"
+        },
+        {
+          "field": "radius_solar",
+          "value": 13.49927,
+          "uncertainty": 0.2784330000000015,
+          "status": "model-derived",
+          "source": "Gaia DR3 astrophysical_parameters",
+          "sourceId": "661297080936069632",
+          "qualityFlags": "10"
+        }
+      ]
+    },
+    "hip-42516": {
+      "group": "Beehive Cluster",
+      "queryId": "HIP 42516",
+      "simbadId": "*  39 Cnc",
+      "selection": "Five brightest SIMBAD NGC 2632 members with cluster-consistent parallaxes.",
+      "adoptedDistance": {
+        "method": "Bailer-Jones EDR3 geometric posterior median",
+        "distancePc": 183.12871,
+        "lowerPc": 182.20901,
+        "upperPc": 183.89645,
+        "source": "Bailer-Jones et al. 2021",
+        "sourceId": "661324431287688448"
+      },
+      "radialVelocity": {
+        "status": "simbad-compiled",
+        "frozenSimbadValueKms": 34.135,
+        "adoptedValueKms": 34.135,
+        "uncertaintyKms": null,
+        "reference": "SIMBAD TAP snapshot 2026-10-01"
+      },
+      "gaiaDr3Id": "661324431287688448",
+      "adoptedPhysicalFields": {
+        "temperature_k": "published:2012MNRAS.427..343M:HIP-42516",
+        "luminosity_solar": "published:2012MNRAS.427..343M:HIP-42516",
+        "metallicity_dex": "gaia-dr3:661324431287688448",
+        "radius_solar": "gaia-dr3:661324431287688448"
+      },
+      "physicalObservations": [
+        {
+          "field": "temperature_k",
+          "value": 5013.0,
+          "uncertainty": null,
+          "status": "model-derived",
+          "source": "McDonald et al. 2012",
+          "sourceId": "HIP 42516",
+          "bibcode": "2012MNRAS.427..343M"
+        },
+        {
+          "field": "luminosity_solar",
+          "value": 97.98288037801683,
+          "uncertainty": null,
+          "status": "model-derived",
+          "source": "McDonald et al. 2012 SED rescaled to adopted distance",
+          "sourceId": "HIP 42516",
+          "bibcode": "2012MNRAS.427..343M"
+        },
+        {
+          "field": "metallicity_dex",
+          "value": 0.0032,
+          "uncertainty": 0.0034000000000000002,
+          "status": "model-derived",
+          "source": "Gaia DR3 astrophysical_parameters",
+          "sourceId": "661324431287688448",
+          "qualityFlags": "10"
+        },
+        {
+          "field": "radius_solar",
+          "value": 13.067235,
+          "uncertainty": 0.26686800000000055,
+          "status": "model-derived",
+          "source": "Gaia DR3 astrophysical_parameters",
+          "sourceId": "661324431287688448",
+          "qualityFlags": "10"
+        }
+      ]
+    },
+    "hip-42133": {
+      "group": "Beehive Cluster",
+      "queryId": "HIP 42133",
+      "simbadId": "*  35 Cnc",
+      "selection": "Five brightest SIMBAD NGC 2632 members with cluster-consistent parallaxes.",
+      "adoptedDistance": {
+        "method": "Bailer-Jones EDR3 geometric posterior median",
+        "distancePc": 185.51736,
+        "lowerPc": 184.73206,
+        "upperPc": 186.39023,
+        "source": "Bailer-Jones et al. 2021",
+        "sourceId": "662794169095142912"
+      },
+      "radialVelocity": {
+        "status": "simbad-compiled",
+        "frozenSimbadValueKms": 28.684,
+        "adoptedValueKms": 28.684,
+        "uncertaintyKms": null,
+        "reference": "SIMBAD TAP snapshot 2026-10-01"
+      },
+      "gaiaDr3Id": "662794169095142912",
+      "adoptedPhysicalFields": {
+        "temperature_k": "published:2012MNRAS.427..343M:HIP-42133",
+        "luminosity_solar": "published:2012MNRAS.427..343M:HIP-42133",
+        "metallicity_dex": "gaia-dr3:662794169095142912",
+        "mass_solar": "gaia-dr3:662794169095142912",
+        "radius_solar": "gaia-dr3:662794169095142912",
+        "age_gyr": "gaia-dr3:662794169095142912"
+      },
+      "physicalObservations": [
+        {
+          "field": "temperature_k",
+          "value": 5400.0,
+          "uncertainty": null,
+          "status": "model-derived",
+          "source": "McDonald et al. 2012",
+          "sourceId": "HIP 42133",
+          "bibcode": "2012MNRAS.427..343M"
+        },
+        {
+          "field": "luminosity_solar",
+          "value": 66.45930704854347,
+          "uncertainty": null,
+          "status": "model-derived",
+          "source": "McDonald et al. 2012 SED rescaled to adopted distance",
+          "sourceId": "HIP 42133",
+          "bibcode": "2012MNRAS.427..343M"
+        },
+        {
+          "field": "metallicity_dex",
+          "value": -0.1764,
+          "uncertainty": 0.0010000000000000009,
+          "status": "model-derived",
+          "source": "Gaia DR3 astrophysical_parameters",
+          "sourceId": "662794169095142912",
+          "qualityFlags": "00"
+        },
+        {
+          "field": "mass_solar",
+          "value": 2.771235,
+          "uncertainty": 0.040075000000000305,
+          "status": "model-derived",
+          "source": "Gaia DR3 astrophysical_parameters",
+          "sourceId": "662794169095142912",
+          "qualityFlags": "00"
+        },
+        {
+          "field": "radius_solar",
+          "value": 8.357158,
+          "uncertainty": 0.20306000000000068,
+          "status": "model-derived",
+          "source": "Gaia DR3 astrophysical_parameters",
+          "sourceId": "662794169095142912",
+          "qualityFlags": "00"
+        },
+        {
+          "field": "age_gyr",
+          "value": 0.45547572,
+          "uncertainty": 0.046987299999999954,
+          "status": "model-derived",
+          "source": "Gaia DR3 astrophysical_parameters",
+          "sourceId": "662794169095142912",
+          "qualityFlags": "00"
+        }
+      ]
+    },
+    "hip-42497": {
+      "group": "Beehive Cluster",
+      "queryId": "HIP 42497",
+      "simbadId": "HD  73598",
+      "selection": "Five brightest SIMBAD NGC 2632 members with cluster-consistent parallaxes.",
+      "adoptedDistance": {
+        "method": "Bailer-Jones EDR3 geometric posterior median",
+        "distancePc": 167.06178,
+        "lowerPc": 163.64412,
+        "upperPc": 170.58041,
+        "source": "Bailer-Jones et al. 2021",
+        "sourceId": "661271173693364864"
+      },
+      "radialVelocity": {
+        "status": "simbad-compiled",
+        "frozenSimbadValueKms": 35.523,
+        "adoptedValueKms": 35.523,
+        "uncertaintyKms": null,
+        "reference": "SIMBAD TAP snapshot 2026-10-01"
+      },
+      "gaiaDr3Id": "661271173693364864",
+      "adoptedPhysicalFields": {
+        "temperature_k": "published:2012MNRAS.427..343M:HIP-42497",
+        "luminosity_solar": "published:2012MNRAS.427..343M:HIP-42497",
+        "metallicity_dex": "gaia-dr3:661271173693364864",
+        "radius_solar": "gaia-dr3:661271173693364864"
+      },
+      "physicalObservations": [
+        {
+          "field": "temperature_k",
+          "value": 5074.0,
+          "uncertainty": null,
+          "status": "model-derived",
+          "source": "McDonald et al. 2012",
+          "sourceId": "HIP 42497",
+          "bibcode": "2012MNRAS.427..343M"
+        },
+        {
+          "field": "luminosity_solar",
+          "value": 64.94939795364829,
+          "uncertainty": null,
+          "status": "model-derived",
+          "source": "McDonald et al. 2012 SED rescaled to adopted distance",
+          "sourceId": "HIP 42497",
+          "bibcode": "2012MNRAS.427..343M"
+        },
+        {
+          "field": "metallicity_dex",
+          "value": -0.5106,
+          "uncertainty": 0.0019000000000000128,
+          "status": "model-derived",
+          "source": "Gaia DR3 astrophysical_parameters",
+          "sourceId": "661271173693364864",
+          "qualityFlags": "10"
+        },
+        {
+          "field": "radius_solar",
+          "value": 11.132412,
+          "uncertainty": 0.2888269999999995,
+          "status": "model-derived",
+          "source": "Gaia DR3 astrophysical_parameters",
+          "sourceId": "661271173693364864",
+          "qualityFlags": "10"
+        }
+      ]
+    }
+  }
+}

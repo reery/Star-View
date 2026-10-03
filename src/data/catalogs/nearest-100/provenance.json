@@ -1,9 +1,9 @@
 {
   "schemaVersion": 1,
   "catalogId": "nearest-100",
-  "sourceRelease": "reyle-2023-08-25+cns5-2023-12-13+preserved-neighbors-v1",
+  "sourceRelease": "reyle-2023-08-25+cns5-2023-12-13+preserved-neighbors-v2",
   "policyRevision": "confirmed-membership-v2",
-  "inputSha256": "c71b24d763503795ad85083873094f1f4ee62d88cbdb19c6a7752a8b7aedf089",
+  "inputSha256": "ab8a3ab6e0b0edb1372f7c58cdf4f121fe1d5d204a9a0541e6d302a5ac18c84a",
   "supplementManifestSha256": "92cb2daae1b7319401890f4e1de7f904d1d1b0375b3ac2dc93c8c41c5ecd0073",
   "sources": [
     {
@@ -21,6 +21,10 @@
     {
       "name": "NASA Sun Fact Sheet, 2024-05-09",
       "url": "https://nssdc.gsfc.nasa.gov/planetary/factsheet/sunfact.html"
+    },
+    {
+      "name": "Akeson et al. 2021, Alpha Centauri AB barycentric astrometry and systemic radial velocity",
+      "url": "https://doi.org/10.3847/1538-3881/abfaff"
     },
     {
       "name": "Guinan et al. 2016, Kapteyn's Star properties; Table 1 mass attributed to Segransan et al. 2003",
@@ -74,7 +78,7 @@
   },
   "decisions": {
     "membership": "Exclude Planet rows, aggregate system rows and source ObjType endings '?'. The only approved exceptions are Seq 27/28 (EZ Aquarii B/C): preserve vetted default membership and every default field, while retaining raw LM? classifications explicitly; this is not a new classification measurement. Keep all tentative buffer records for audit.",
-    "astrometry": "Adopt curated 10pc astrometry, except preserve all existing neighbor fields; CNS5 is an independent membership/measurement audit, not an automatic replacement.",
+    "astrometry": "Adopt curated 10pc astrometry, except preserve existing neighbor fields and the dedicated Akeson et al. 2021 Alpha Centauri AB barycentric motion; CNS5 is an independent membership/measurement audit, not an automatic replacement.",
     "GJ1005": "CNS5 69 uses Hipparcos 200.53 mas; 10pc 164/165 explicitly marks Hipparcos less accurate and adopts 166.6 +/-0.3 mas from Benedict et al. 2016AJ....152..141B. Retain curated value; outside cutoff.",
     "candidate1001": "Exclude Seq 1001 (Gaia EDR3 6305165514134625024) from release membership: raw BD? is tentative. Retain its unmodified candidate record and CNS5 3707 crossmatch; CNS5 membership does not establish confirmed classification. Gaia identifier is explicit in ObjName despite an empty GaiaEDR3 column.",
     "cutoff138": "GJ 229 A, Seq 138/system 75, has confirmed source ObjType LM and spectrum M1 (2002AJ....123.2002H). Adopt the 10pc Gaia EDR3 solution at J2016.0: RA 92.643579082 deg, Dec -21.867823113 deg, parallax 173.574 +/-0.017 mas, pmRA*cos(dec) -135.691607948 and pmDec -719.178133955 mas/yr (2020yCat.1350....0G), RV 4.734 km/s (2018A&A...616A...7S). CNS5 1528/GJ 229 A matches Gaia 2940856402123426176 exactly, with parallax 173.59297083190438 +/-0.019386925 mas; retain curated 10pc astrometry. CNS5 1529/GJ 229 B instead has parallax 173.6999969482422 +/-0.05 mas (2018A&A...616A...1G), versus dedicated 10pc 173.19 +/-1.12 mas (2012ApJ...752...56F); this alternate solution could move B inside the cutoff. Preserve the source solution, do not infer a new component or silently substitute CNS5 values. Rank 101 Alsafi and rank 102 GJ 229 B have linearized one-sigma distance intervals overlapping rank 100. No statistically secure membership claim.",
@@ -91,9 +95,9 @@
     "luminosity_solar": 39,
     "radius_solar": 40,
     "absolute_mag": 48,
-    "fullVelocity": 70,
+    "fullVelocity": 72,
     "rawAstrometry": 100,
-    "radialVelocity": 68,
+    "radialVelocity": 70,
     "typesIncludingSun": {
       "star": 79,
       "white_dwarf": 6,
@@ -5265,22 +5269,25 @@
           ]
         },
         "vx_kms": {
-          "status": "unknown",
+          "status": "derived",
           "sourceRefs": [
-            "legacy-neighbors:alpha-centauri-b"
-          ]
+            "2021AJ....162...14A"
+          ],
+          "detail": "Shared Alpha Centauri AB barycentric Sun-relative Galactic velocity; binary orbital motion excluded."
         },
         "vy_kms": {
-          "status": "unknown",
+          "status": "derived",
           "sourceRefs": [
-            "legacy-neighbors:alpha-centauri-b"
-          ]
+            "2021AJ....162...14A"
+          ],
+          "detail": "Shared Alpha Centauri AB barycentric Sun-relative Galactic velocity; binary orbital motion excluded."
         },
         "vz_kms": {
-          "status": "unknown",
+          "status": "derived",
           "sourceRefs": [
-            "legacy-neighbors:alpha-centauri-b"
-          ]
+            "2021AJ....162...14A"
+          ],
+          "detail": "Shared Alpha Centauri AB barycentric Sun-relative Galactic velocity; binary orbital motion excluded."
         },
         "temperature_k": {
           "status": "adopted-existing",
@@ -5316,7 +5323,7 @@
           "sourceRefs": [
             "legacy-neighbors:alpha-centauri-b"
           ],
-          "detail": "Position from the J2000 component direction and the 750.81 mas Alpha Centauri AB parallax from Akeson et al. (2021). Temperature is a K1V class estimate."
+          "detail": "Position from the J2000 component direction and the 750.81 mas Alpha Centauri AB parallax from Akeson et al. (2021). Temperature is a K1V class estimate. Motion: Akeson et al. (2021) Alpha Centauri AB barycenter solution at J2019.5, shared by A and B; no binary orbital motion."
         },
         "constellation": {
           "status": "derived",
@@ -5326,82 +5333,95 @@
           "detail": "ICRS snapshot direction transformed to B1875 boundary coordinates; no physical motion to 1875. Canonical spelling normalization applied."
         },
         "ra_deg": {
-          "status": "compiled",
+          "status": "adopted",
           "sourceRefs": [
-            "10pc:tablea1:Seq=4:RAdeg"
-          ]
+            "2021AJ....162...14A"
+          ],
+          "detail": "Alpha Centauri AB barycenter measurement at J2019.5, shared by both component rows."
         },
         "dec_deg": {
-          "status": "compiled",
+          "status": "adopted",
           "sourceRefs": [
-            "10pc:tablea1:Seq=4:DEdeg"
-          ]
+            "2021AJ....162...14A"
+          ],
+          "detail": "Alpha Centauri AB barycenter measurement at J2019.5, shared by both component rows."
         },
         "astrometry_epoch": {
-          "status": "compiled",
+          "status": "adopted",
           "sourceRefs": [
-            "10pc:tablea1:Seq=4:Epoch"
-          ]
+            "2021AJ....162...14A"
+          ],
+          "detail": "Alpha Centauri AB barycenter measurement at J2019.5, shared by both component rows."
         },
         "parallax_mas": {
-          "status": "compiled",
+          "status": "adopted",
           "sourceRefs": [
-            "10pc:tablea1:Seq=4:plx"
-          ]
+            "2021AJ....162...14A"
+          ],
+          "detail": "Alpha Centauri AB barycenter measurement at J2019.5, shared by both component rows."
         },
         "parallax_error_mas": {
-          "status": "compiled",
+          "status": "adopted",
           "sourceRefs": [
-            "10pc:tablea1:Seq=4:e_plx"
-          ]
+            "2021AJ....162...14A"
+          ],
+          "detail": "Alpha Centauri AB barycenter measurement at J2019.5, shared by both component rows."
         },
         "pm_ra_cosdec_masyr": {
-          "status": "compiled",
+          "status": "adopted",
           "sourceRefs": [
-            "10pc:tablea1:Seq=4:pmRA"
-          ]
+            "2021AJ....162...14A"
+          ],
+          "detail": "Alpha Centauri AB barycenter measurement at J2019.5, shared by both component rows."
         },
         "pm_ra_error_masyr": {
-          "status": "compiled",
+          "status": "adopted",
           "sourceRefs": [
-            "10pc:tablea1:Seq=4:e_pmRA"
-          ]
+            "2021AJ....162...14A"
+          ],
+          "detail": "Alpha Centauri AB barycenter measurement at J2019.5, shared by both component rows."
         },
         "pm_dec_masyr": {
-          "status": "compiled",
+          "status": "adopted",
           "sourceRefs": [
-            "10pc:tablea1:Seq=4:pmDE"
-          ]
+            "2021AJ....162...14A"
+          ],
+          "detail": "Alpha Centauri AB barycenter measurement at J2019.5, shared by both component rows."
         },
         "pm_dec_error_masyr": {
-          "status": "compiled",
+          "status": "adopted",
           "sourceRefs": [
-            "10pc:tablea1:Seq=4:e_pmDE"
-          ]
+            "2021AJ....162...14A"
+          ],
+          "detail": "Alpha Centauri AB barycenter measurement at J2019.5, shared by both component rows."
         },
         "radial_velocity_kms": {
-          "status": "unknown",
+          "status": "adopted",
           "sourceRefs": [
-            "10pc:tablea1:Seq=4:RV"
-          ]
+            "2021AJ....162...14A"
+          ],
+          "detail": "Alpha Centauri AB barycenter measurement at J2019.5, shared by both component rows."
         },
         "radial_velocity_error_kms": {
-          "status": "unknown",
+          "status": "adopted",
           "sourceRefs": [
-            "10pc:tablea1:Seq=4:e_RV"
-          ]
+            "2021AJ....162...14A"
+          ],
+          "detail": "Alpha Centauri AB barycenter measurement at J2019.5, shared by both component rows."
         },
         "astrometry_ref": {
-          "status": "compiled",
+          "status": "adopted",
           "sourceRefs": [
-            "10pc:tablea1:Seq=4:r_plx,r_pmDE"
-          ]
+            "2021AJ....162...14A"
+          ],
+          "detail": "Alpha Centauri AB barycenter measurement at J2019.5, shared by both component rows."
         },
         "radial_velocity_ref": {
-          "status": "unknown",
+          "status": "adopted",
           "sourceRefs": [
-            "10pc:tablea1:Seq=4:r_RV"
-          ]
+            "2021AJ....162...14A"
+          ],
+          "detail": "Alpha Centauri AB barycenter measurement at J2019.5, shared by both component rows."
         },
         "radius_solar": {
           "status": "unknown",
@@ -5417,7 +5437,8 @@
         }
       },
       "overrides": [
-        "All existing neighbor values preserved; blank physical fields may be filled by the documented supplements; new source measurements are audit-only."
+        "All existing neighbor values preserved; blank physical fields may be filled by the documented supplements; new source measurements are audit-only.",
+        "Akeson et al. 2021 Alpha Centauri AB barycentric astrometry and systemic radial velocity replace orbit-contaminated component proper motions for the shared long-horizon motion vector."
       ],
       "physicalSupplements": {
         "identity": {
@@ -5512,22 +5533,25 @@
           ]
         },
         "vx_kms": {
-          "status": "unknown",
+          "status": "derived",
           "sourceRefs": [
-            "legacy-neighbors:alpha-centauri-a"
-          ]
+            "2021AJ....162...14A"
+          ],
+          "detail": "Shared Alpha Centauri AB barycentric Sun-relative Galactic velocity; binary orbital motion excluded."
         },
         "vy_kms": {
-          "status": "unknown",
+          "status": "derived",
           "sourceRefs": [
-            "legacy-neighbors:alpha-centauri-a"
-          ]
+            "2021AJ....162...14A"
+          ],
+          "detail": "Shared Alpha Centauri AB barycentric Sun-relative Galactic velocity; binary orbital motion excluded."
         },
         "vz_kms": {
-          "status": "unknown",
+          "status": "derived",
           "sourceRefs": [
-            "legacy-neighbors:alpha-centauri-a"
-          ]
+            "2021AJ....162...14A"
+          ],
+          "detail": "Shared Alpha Centauri AB barycentric Sun-relative Galactic velocity; binary orbital motion excluded."
         },
         "temperature_k": {
           "status": "adopted-existing",
@@ -5563,7 +5587,7 @@
           "sourceRefs": [
             "legacy-neighbors:alpha-centauri-a"
           ],
-          "detail": "Position from the J2000 component direction and the 750.81 mas Alpha Centauri AB parallax from Akeson et al. (2021). Temperature is a G2V class estimate."
+          "detail": "Position from the J2000 component direction and the 750.81 mas Alpha Centauri AB parallax from Akeson et al. (2021). Temperature is a G2V class estimate. Motion: Akeson et al. (2021) Alpha Centauri AB barycenter solution at J2019.5, shared by A and B; no binary orbital motion."
         },
         "constellation": {
           "status": "derived",
@@ -5573,82 +5597,95 @@
           "detail": "ICRS snapshot direction transformed to B1875 boundary coordinates; no physical motion to 1875. Canonical spelling normalization applied."
         },
         "ra_deg": {
-          "status": "compiled",
+          "status": "adopted",
           "sourceRefs": [
-            "10pc:tablea1:Seq=3:RAdeg"
-          ]
+            "2021AJ....162...14A"
+          ],
+          "detail": "Alpha Centauri AB barycenter measurement at J2019.5, shared by both component rows."
         },
         "dec_deg": {
-          "status": "compiled",
+          "status": "adopted",
           "sourceRefs": [
-            "10pc:tablea1:Seq=3:DEdeg"
-          ]
+            "2021AJ....162...14A"
+          ],
+          "detail": "Alpha Centauri AB barycenter measurement at J2019.5, shared by both component rows."
         },
         "astrometry_epoch": {
-          "status": "compiled",
+          "status": "adopted",
           "sourceRefs": [
-            "10pc:tablea1:Seq=3:Epoch"
-          ]
+            "2021AJ....162...14A"
+          ],
+          "detail": "Alpha Centauri AB barycenter measurement at J2019.5, shared by both component rows."
         },
         "parallax_mas": {
-          "status": "compiled",
+          "status": "adopted",
           "sourceRefs": [
-            "10pc:tablea1:Seq=3:plx"
-          ]
+            "2021AJ....162...14A"
+          ],
+          "detail": "Alpha Centauri AB barycenter measurement at J2019.5, shared by both component rows."
         },
         "parallax_error_mas": {
-          "status": "compiled",
+          "status": "adopted",
           "sourceRefs": [
-            "10pc:tablea1:Seq=3:e_plx"
-          ]
+            "2021AJ....162...14A"
+          ],
+          "detail": "Alpha Centauri AB barycenter measurement at J2019.5, shared by both component rows."
         },
         "pm_ra_cosdec_masyr": {
-          "status": "compiled",
+          "status": "adopted",
           "sourceRefs": [
-            "10pc:tablea1:Seq=3:pmRA"
-          ]
+            "2021AJ....162...14A"
+          ],
+          "detail": "Alpha Centauri AB barycenter measurement at J2019.5, shared by both component rows."
         },
         "pm_ra_error_masyr": {
-          "status": "compiled",
+          "status": "adopted",
           "sourceRefs": [
-            "10pc:tablea1:Seq=3:e_pmRA"
-          ]
+            "2021AJ....162...14A"
+          ],
+          "detail": "Alpha Centauri AB barycenter measurement at J2019.5, shared by both component rows."
         },
         "pm_dec_masyr": {
-          "status": "compiled",
+          "status": "adopted",
           "sourceRefs": [
-            "10pc:tablea1:Seq=3:pmDE"
-          ]
+            "2021AJ....162...14A"
+          ],
+          "detail": "Alpha Centauri AB barycenter measurement at J2019.5, shared by both component rows."
         },
         "pm_dec_error_masyr": {
-          "status": "compiled",
+          "status": "adopted",
           "sourceRefs": [
-            "10pc:tablea1:Seq=3:e_pmDE"
-          ]
+            "2021AJ....162...14A"
+          ],
+          "detail": "Alpha Centauri AB barycenter measurement at J2019.5, shared by both component rows."
         },
         "radial_velocity_kms": {
-          "status": "unknown",
+          "status": "adopted",
           "sourceRefs": [
-            "10pc:tablea1:Seq=3:RV"
-          ]
+            "2021AJ....162...14A"
+          ],
+          "detail": "Alpha Centauri AB barycenter measurement at J2019.5, shared by both component rows."
         },
         "radial_velocity_error_kms": {
-          "status": "unknown",
+          "status": "adopted",
           "sourceRefs": [
-            "10pc:tablea1:Seq=3:e_RV"
-          ]
+            "2021AJ....162...14A"
+          ],
+          "detail": "Alpha Centauri AB barycenter measurement at J2019.5, shared by both component rows."
         },
         "astrometry_ref": {
-          "status": "compiled",
+          "status": "adopted",
           "sourceRefs": [
-            "10pc:tablea1:Seq=3:r_plx,r_pmDE"
-          ]
+            "2021AJ....162...14A"
+          ],
+          "detail": "Alpha Centauri AB barycenter measurement at J2019.5, shared by both component rows."
         },
         "radial_velocity_ref": {
-          "status": "unknown",
+          "status": "adopted",
           "sourceRefs": [
-            "10pc:tablea1:Seq=3:r_RV"
-          ]
+            "2021AJ....162...14A"
+          ],
+          "detail": "Alpha Centauri AB barycenter measurement at J2019.5, shared by both component rows."
         },
         "radius_solar": {
           "status": "unknown",
@@ -5664,7 +5701,8 @@
         }
       },
       "overrides": [
-        "All existing neighbor values preserved; blank physical fields may be filled by the documented supplements; new source measurements are audit-only."
+        "All existing neighbor values preserved; blank physical fields may be filled by the documented supplements; new source measurements are audit-only.",
+        "Akeson et al. 2021 Alpha Centauri AB barycentric astrometry and systemic radial velocity replace orbit-contaminated component proper motions for the shared long-horizon motion vector."
       ],
       "physicalSupplements": {
         "identity": {

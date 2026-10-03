@@ -1,0 +1,60 @@
+{
+  "schemaVersion": 1,
+  "id": "western-constellation-stars",
+  "label": "Western constellation stars",
+  "description": "All unique Hipparcos stars used as vertices in Stellarium's Western constellation line figures, plus the Sun.",
+  "epoch": 2000,
+  "objectCount": 692,
+  "sources": [
+    {
+      "name": "Stellarium Western sky culture line figures, commit 014fbb5",
+      "url": "https://github.com/Stellarium/stellarium-skycultures/blob/014fbb5e59233d133c22f9811af96b67d05a95c9/western/index.json"
+    },
+    {
+      "name": "SIMBAD TAP snapshot; exact Hipparcos identity, astrometry, classification and compiled Johnson V",
+      "url": "https://simbad.cds.unistra.fr/simbad/sim-tap/sync"
+    },
+    {
+      "name": "Hipparcos main catalogue; Johnson V fallback",
+      "url": "https://cdsarc.cds.unistra.fr/viz-bin/cat/I/239"
+    },
+    {
+      "name": "Bailer-Jones et al. 2021 Gaia EDR3 geometric distances; exact Gaia source identifiers",
+      "url": "https://bailer-jones.www3.mpia.de/gedr3_distances.html"
+    },
+    {
+      "name": "Argyle et al. 2015 binary-orbit solution for Beta Phoenicis",
+      "url": "https://doi.org/10.1002/asna.201412166"
+    },
+    {
+      "name": "Kasikov et al. 2026 co-moving group distance for x Carinae",
+      "url": "https://doi.org/10.1051/0004-6361/202558527"
+    },
+    {
+      "name": "Maldonado et al. 2010 radial velocity for Tabit",
+      "url": "https://doi.org/10.1051/0004-6361/201014948"
+    },
+    {
+      "name": "Cazorla et al. 2017 radial velocities for Tau Scorpii",
+      "url": "https://doi.org/10.1051/0004-6361/201629841"
+    },
+    {
+      "name": "Hubrig et al. 2008 orbital systemic velocity for Theta Carinae",
+      "url": "https://doi.org/10.1051/0004-6361:200810124"
+    },
+    {
+      "name": "Allende Prieto & Lambert 1999 Hipparcos-star evolutionary models; exact HIP identifiers",
+      "url": "https://cdsarc.cds.unistra.fr/viz-bin/cat/J/A+A/352/555"
+    },
+    {
+      "name": "McDonald et al. 2012 Hipparcos-star SED models; exact HIP identifiers",
+      "url": "https://cdsarc.cds.unistra.fr/viz-bin/cat/J/MNRAS/427/343"
+    },
+    {
+      "name": "Gaia DR3 GSP-Phot and FLAME model parameters; exact Gaia DR3 identifiers",
+      "url": "https://gea.esac.esa.int/tap-server/tap/sync"
+    }
+  ],
+  "cutoffPolicy": "Every unique numeric Hipparcos vertex in all 88 Stellarium Western constellation line figures. Non-numeric drawing-style tokens are ignored. No apparent-magnitude cutoff is applied; Sun is included only as the map origin.",
+  "snapshot": "Stellarium commit 014fbb5e59233d133c22f9811af96b67d05a95c9; SIMBAD, Hipparcos, VizieR and Gaia snapshots frozen 2026-10-01; 691 figure stars plus Sun."
+}

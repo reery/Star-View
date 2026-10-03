@@ -1,0 +1,63 @@
+{
+  "schemaVersion": 1,
+  "retrieved": "2026-10-01",
+  "checksumsSha256": {
+    "distance-overrides.csv": "ea5f250ebf56f93c70dda535249f0b4625444aa268321df6199f6d94a18d21f1",
+    "distance.adql": "7bb0f0f76c77eccb212a689467329f0e8c4f609b053d07836c7d2d16020a4a86",
+    "distance.csv": "94ba6f5156e4ba964a75e7b7de76ea7ffadfbbc262d653f504d2164fe8c52e30",
+    "fundamental.adql": "e8653daadd4e0fbac12c428caa0ccbb7807ae12ed253c4974317cafdecadfd02",
+    "fundamental.csv": "0c74162585fe18479140ba23513df70ea14b5c1be5dbd63448027fec3d54d671",
+    "gaia.adql": "35af07c041827e2cea589798c5e669a8ddc76ce64a6431e818dfa565cf958281",
+    "gaia.csv": "851bbf5865d45987d14cdda74691fd8b1b291e0af6353a8096bdb1524ef35d72",
+    "physical-overrides.csv": "bbfbbeea0b948bfc37bb8f94f989990ddfffac5382b7c7c409f710465283e425",
+    "radial-velocity-overrides.csv": "27cfb1b121e05d1c96b39f21656216b8f59b5fd3cda7586abed0e7e9021ad084",
+    "sed.adql": "63ff6e291e990da269e5bbc0ff6577546c12fa93d1e9a1e4424a062b9748b003",
+    "sed.csv": "19b6662da85caf0ec75c57e6ba0b862d321fdc441dfcafc8bc9a56cab712e5ea"
+  },
+  "sources": {
+    "distance": {
+      "queryFile": "distance.adql",
+      "release": "Gaia EDR3 geometric distance catalogue",
+      "url": "https://gea.esac.esa.int/tap-server/tap/sync",
+      "reference": "2021AJ....161..147B"
+    },
+    "distanceOverrides": {
+      "file": "distance-overrides.csv",
+      "references": [
+        "2015AN....336..378A",
+        "2026A&A...708A..78K",
+        "2021AJ....161..147B"
+      ]
+    },
+    "fundamental": {
+      "queryFile": "fundamental.adql",
+      "catalog": "J/A+A/352/555",
+      "url": "https://tapvizier.cds.unistra.fr/TAPVizieR/tap/sync",
+      "reference": "1999A&A...352..555A"
+    },
+    "gaiaPhysical": {
+      "queryFile": "gaia.adql",
+      "release": "Gaia DR3",
+      "url": "https://gea.esac.esa.int/tap-server/tap/sync"
+    },
+    "physicalOverrides": {
+      "file": "physical-overrides.csv",
+      "description": "Component-resolved primary-star parameters for the four classical Trapezium systems; each row carries its literature reference"
+    },
+    "radialVelocityOverrides": {
+      "file": "radial-velocity-overrides.csv",
+      "description": "Reviewed literature radial velocities replacing missing or demonstrably spurious compiled survey values",
+      "references": [
+        "2010A&A...521A..12M",
+        "2017A&A...603A..56C",
+        "2008A&A...488..287H"
+      ]
+    },
+    "sed": {
+      "queryFile": "sed.adql",
+      "catalog": "J/MNRAS/427/343",
+      "url": "https://tapvizier.cds.unistra.fr/TAPVizieR/tap/sync",
+      "reference": "2012MNRAS.427..343M"
+    }
+  }
+}

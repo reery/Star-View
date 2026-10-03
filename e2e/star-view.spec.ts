@@ -85,6 +85,11 @@ test('loads compact remnants on demand and shows type-specific sourced fields', 
   await page.getByLabel('Pulsars', { exact: true }).check()
   await page.getByLabel('Black holes', { exact: true }).uncheck()
   await page.getByRole('button', { name: 'Objects', exact: true }).click()
+  await page.getByLabel('Search objects').fill('PSR')
+  await expect(page.getByRole('button', { name: /^Select PSR/ }).first()).toBeVisible()
+  const pulsarDistances = (await page.locator('.catalog-distance').allTextContents()).map((distance) => Number.parseFloat(distance))
+  expect(pulsarDistances.length).toBeGreaterThan(2)
+  expect(pulsarDistances).toEqual([...pulsarDistances].sort((first, second) => first - second))
   await page.getByLabel('Search objects').fill('PSR J0030+0451')
   await page.getByRole('button', { name: 'Select PSR J0030+0451' }).click()
   await expect(page.locator('#object-type')).toHaveText('Pulsar')
@@ -127,6 +132,52 @@ test('adds the bright-star catalog as a deduplicated optional overlay', async ({
   await toggle.uncheck()
   await expect(page.locator('#catalog-count')).toHaveText(/\/22$/)
   await expect(page.locator('[data-star="bright-canopus"]')).toHaveCount(0)
+})
+
+test('adds independent Western constellation and famous-cluster landmark layers', async ({ page }) => {
+  await openViewer(page)
+  await openFilter(page)
+  const bright = page.getByRole('switch', { name: 'Always show bright stars' })
+  const western = page.getByRole('switch', { name: 'Western constellation stars' })
+  const clusters = page.getByRole('switch', { name: 'Famous cluster stars' })
+  await expect(bright).not.toBeChecked()
+  await expect(western).not.toBeChecked()
+  await expect(clusters).not.toBeChecked()
+  await expect(western.locator('xpath=ancestor::label/preceding-sibling::label[1]')).toContainText('Always show bright stars')
+  await expect(clusters.locator('xpath=ancestor::label/preceding-sibling::label[1]')).toContainText('Western constellation stars')
+
+  await western.check()
+  await expect(page.locator('#catalog-count')).toHaveText(/\/711$/)
+  await bright.check()
+  await expect(page.locator('#catalog-count')).toHaveText(/\/712$/)
+  const distance = page.getByLabel('Object visibility distance', { exact: true })
+  await distance.fill('24')
+  await expect(page.locator('#object-distance-limit-value')).toHaveText('10000 ly')
+  await expect(distance).toHaveAttribute('aria-valuetext', '10000 light-years')
+  await expect(page.locator('#scene')).toHaveAttribute('data-grid-spacing-pc', '200')
+  await expect(page.locator('#scene')).toHaveAttribute('data-grid-half-size-pc', '3067')
+
+  await bright.uncheck()
+  await western.uncheck()
+  await clusters.check()
+  await expect(page.locator('#catalog-count')).toHaveText(/\/64$/)
+  await page.getByRole('button', { name: 'Objects', exact: true }).click()
+  await page.getByLabel('Search objects').fill('Alcyone')
+  await expect(page.getByRole('button', { name: 'Select Alcyone' })).toBeVisible()
+  await page.getByLabel('Search objects').fill('Theta1 Orionis C')
+  await page.getByRole('button', { name: 'Select Theta1 Orionis C' }).click()
+  await expect(page.locator('#star-name')).toHaveText('Theta1 Orionis C')
+  await page.locator('#object-card-details > summary').click()
+  await expect(page.locator('#temperature')).toHaveText('39,000 K')
+  await expect(page.locator('#mass')).toHaveText('33.4 solar')
+  await expect(page.locator('#luminosity')).toHaveText('177,827.941 solar')
+  await expect(page.locator('#radius')).toHaveText('9.4 solar')
+
+  await page.getByRole('button', { name: 'Filter', exact: true }).click()
+  await western.check()
+  await expect(page.locator('#catalog-count')).toHaveText(/\/746$/)
+  await bright.check()
+  await expect(page.locator('#catalog-count')).toHaveText(/\/747$/)
 })
 
 test('toggles the optimized Milky Way backdrop and remembers the choice', async ({ page }, testInfo) => {
@@ -240,8 +291,7 @@ test('switches project catalogs while preserving settings and compatible selecti
   await expect(page.locator('#luminosity')).toHaveText('0.0526 solar')
   await expect(page.locator('.motion-arrow')).toHaveCount(0)
   const nearestArrows = await motionArrows(page)
-  expect(nearestArrows.some((arrow) => arrow.mode === 'transverse')).toBe(true)
-  expect(nearestArrows.some((arrow) => arrow.selected && arrow.opacity === 1)).toBe(true)
+  expect(nearestArrows.some((arrow) => arrow.mode === 'full' && arrow.selected && arrow.opacity === 1)).toBe(true)
   await page.screenshot({ path: testInfo.outputPath('nearest-100.png'), fullPage: true })
   await selectCatalog(page, 'nearest-neighbors')
   await expect(page.locator('#star-details')).toBeHidden()
@@ -297,6 +347,9 @@ test('defaults to light-years, converts every distance without moving the camera
   await openPreferences(page)
   const before = await starPoint(page, 'sun')
   await expect(page.getByLabel('ly', { exact: true })).toBeChecked()
+  const viewerDistanceLy = Number.parseFloat(await page.locator('#viewer-distance').innerText())
+  expect(viewerDistanceLy).toBeGreaterThan(0)
+  await expect(page.locator('#viewer-distance')).toHaveText(/^[\d,.]+ ly$/)
   await expect(page.locator('#distance-value')).toHaveText('8.61')
   await expect(page.locator('#star-distance')).toHaveText('8.61 ly')
   await expect(page.locator('#grid-spacing')).toHaveText('1.63 ly grid')
@@ -309,6 +362,9 @@ test('defaults to light-years, converts every distance without moving the camera
   expect(await page.locator('.catalog-distance').allTextContents()).toEqual(expect.arrayContaining(['0.00 ly', '8.61 ly']))
   await expect(page.locator('#velocity-x')).toContainText('km/s')
   await page.getByLabel('pc', { exact: true }).check()
+  await expect(page.locator('#viewer-distance')).toHaveText(/^[\d,.]+ pc$/)
+  const viewerDistancePc = Number.parseFloat((await page.locator('#viewer-distance').innerText()).replaceAll(',', ''))
+  expect(viewerDistancePc).toBeCloseTo(viewerDistanceLy / 3.261563777, 1)
   await expect(page.locator('#distance-value')).toHaveText('2.64')
   await expect(page.locator('#star-distance')).toHaveText('2.64 pc')
   await expect(page.locator('#grid-spacing')).toHaveText('0.5 pc grid')
@@ -442,7 +498,7 @@ test('opens an accessible project info card', { tag: '@mobile' }, async ({ page 
   await expect(page.locator('#info-panel')).toBeVisible()
   await expect(page.locator('#info-heading')).toHaveText('Star View')
   await expect(page.locator('.info-meta')).toContainText('MIT')
-  await expect(page.locator('.info-meta')).toContainText('v0.1')
+  await expect(page.locator('.info-meta')).toContainText('v0.2')
   await expect(page.getByRole('link', { name: 'GitHub', exact: true })).toHaveAttribute('href', 'https://github.com/reery/Star-View')
   await sceneFits(page)
   await page.keyboard.press('Escape')
@@ -454,14 +510,14 @@ test('presents the selected object beside an expandable control dock', async ({ 
   await openViewer(page)
   await expect(page.locator('.app-header, .scene-heading, .catalog-footer')).toHaveCount(0)
   await expect(page.locator('.scene-brand, #brand-icon, #plane-key')).toHaveCount(0)
-  await expect(page.locator('.scene-wrap > .visibility-observer')).toContainText('Visibility from Sirius A')
+  await expect(page.locator('.scene-wrap > .visibility-observer')).toContainText('Visibility from: Sirius A | Distance from viewer:')
   await expect(page.locator('.selected-object > summary')).toHaveCount(0)
   await expect(page.locator('.selected-object')).toHaveCSS('border-radius', '11px')
   await expect(page.locator('.dock-card:visible')).toHaveCount(0)
   const panelButtons = page.locator('.panel-button')
-  await expect(panelButtons).toHaveCount(4)
-  expect(await panelButtons.evaluateAll((buttons) => buttons.map((button) => button.getAttribute('aria-label')))).toEqual(['Filter', 'Preferences', 'Objects', 'Info'])
-  expect(await panelButtons.evaluateAll((buttons) => buttons.map((button) => button.getAttribute('aria-expanded')))).toEqual(['false', 'false', 'false', 'false'])
+  await expect(panelButtons).toHaveCount(5)
+  expect(await panelButtons.evaluateAll((buttons) => buttons.map((button) => button.getAttribute('aria-label')))).toEqual(['Stellar motion', 'Filter', 'Preferences', 'Objects', 'Info'])
+  expect(await panelButtons.evaluateAll((buttons) => buttons.map((button) => button.getAttribute('aria-expanded')))).toEqual(['false', 'false', 'false', 'false', 'false'])
   await expect(page.locator('#object-card-details')).not.toHaveAttribute('open')
   await expect(page.locator('#star-name')).toBeVisible()
   await expect(page.locator('.properties-section')).toBeHidden()
@@ -551,7 +607,7 @@ test('presents the selected object beside an expandable control dock', async ({ 
   const distance = page.getByLabel('Object visibility distance', { exact: true })
   const magnitude = page.getByLabel('V magnitude limit', { exact: true })
   await expect(distance).toHaveAttribute('min', '0')
-  await expect(distance).toHaveAttribute('max', '22')
+  await expect(distance).toHaveAttribute('max', '24')
   await expect(distance).toHaveValue('14')
   await expect(page.locator('#object-distance-limit-value')).toHaveText('100 ly')
   await expect(magnitude).toHaveAttribute('type', 'range')
@@ -615,7 +671,7 @@ test('presents the selected object beside an expandable control dock', async ({ 
   await expect(page.locator('#info-panel')).toBeVisible()
   await expect(page.locator('#info-heading')).toHaveText('Star View')
   await expect(page.locator('.info-meta')).toContainText('MIT')
-  await expect(page.locator('.info-meta')).toContainText('v0.1')
+  await expect(page.locator('.info-meta')).toContainText('v0.2')
   await expect(page.getByRole('link', { name: 'GitHub', exact: true })).toHaveAttribute('href', 'https://github.com/reery/Star-View')
   await sceneFits(page)
   await page.screenshot({ path: testInfo.outputPath('compact-info.png'), fullPage: true })
@@ -624,7 +680,7 @@ test('presents the selected object beside an expandable control dock', async ({ 
 test('dismisses unlocked control cards on every scene interaction while locked cards stay open', async ({ page }) => {
   await openViewer(page)
   const canvas = page.locator('#scene canvas')
-  await expect(page.locator('.panel-lock')).toHaveCount(3)
+  await expect(page.locator('.panel-lock')).toHaveCount(4)
   await expect(page.locator('#info-panel .panel-lock')).toHaveCount(0)
 
   await openPreferences(page)
@@ -639,13 +695,30 @@ test('dismisses unlocked control cards on every scene interaction while locked c
   const sunAfterRotation = await starPoint(page, 'sun')
   expect(Math.hypot(sunAfterRotation.x - sunBeforeRotation.x, sunAfterRotation.y - sunBeforeRotation.y)).toBeGreaterThan(2)
 
-  for (const name of ['Filter', 'Objects', 'Info']) {
+  for (const [name, panel] of [['Stellar motion', 'motion'], ['Filter', 'filter'], ['Objects', 'objects'], ['Info', 'info']] as const) {
     const toggle = page.getByRole('button', { name, exact: true })
     await toggle.click()
-    await expect(page.locator(`#${name.toLowerCase()}-panel`)).toBeVisible()
+    await expect(page.locator(`#${panel}-panel`)).toBeVisible()
     await canvas.click({ position: { x: 2, y: 2 } })
     await expect(toggle).toHaveAttribute('aria-expanded', 'false')
   }
+
+  await page.getByRole('button', { name: 'Stellar motion', exact: true }).click()
+  const motionLock = page.locator('#motion-lock')
+  await motionLock.click()
+  await page.getByRole('button', { name: 'Filter', exact: true }).click()
+  await expect(page.locator('#motion-panel')).toBeVisible()
+  await expect(page.locator('#filter-panel')).toBeVisible()
+  await page.getByRole('button', { name: 'Preferences', exact: true }).click()
+  await expect(page.locator('#motion-panel')).toBeVisible()
+  await expect(page.locator('#filter-panel')).toBeHidden()
+  await expect(page.locator('#preferences-panel')).toBeVisible()
+  await canvas.click({ position: { x: 2, y: 2 } })
+  await expect(page.locator('#preferences-panel')).toBeHidden()
+  await expect(page.locator('#motion-panel')).toBeVisible()
+  await motionLock.click()
+  await canvas.click({ position: { x: 2, y: 2 } })
+  await expect(page.locator('#motion-panel')).toBeHidden()
 
   await openFilter(page)
   const filterLock = page.locator('#filter-lock')
@@ -916,6 +989,99 @@ test('renders soft halos beyond crisp cores and boosts only the selected halo', 
   await expect(page.locator('.map-anchor.is-selected')).toHaveCount(0)
   await page.evaluate(() => new Promise<void>((resolve) => requestAnimationFrame(() => resolve())))
   expect(changedPixels(PNG.sync.write(base), await canvas.screenshot(options))).toBe(0)
+})
+
+test('shrinks distant star cores while retaining bright glare around a 1,000-light-year overview', async ({ page }, testInfo) => {
+  await openViewer(page)
+  await hideMilkyWay(page)
+  await openFilter(page)
+  await page.getByRole('switch', { name: 'Always show bright stars' }).check()
+  await expect.poll(() => page.locator('#catalog-count').textContent()).not.toBe('22/22')
+  await page.getByRole('switch', { name: 'Motion arrows' }).uncheck()
+  await page.locator('[data-star="sun"]').evaluate((button: HTMLButtonElement) => button.click())
+  await page.getByRole('button', { name: 'Reset view', exact: true }).click()
+  await page.locator('[data-star="sirius-a"]').evaluate((button: HTMLButtonElement) => button.click())
+  await page.getByLabel('Object visibility distance', { exact: true }).fill('0')
+  await page.getByLabel('V magnitude limit', { exact: true }).fill('0')
+  await page.locator('details.filter-dropdown > summary').click()
+  await page.locator('#object-type-filter').getByLabel('Sun', { exact: true }).uncheck()
+  await page.getByRole('button', { name: 'Grid', exact: true }).click()
+
+  const canvas = page.locator('#scene canvas')
+  const bounds = (await canvas.boundingBox())!
+  await page.mouse.click(bounds.x + bounds.width * 0.15, bounds.y + bounds.height * 0.85)
+  await expect(page.locator('.map-anchor.is-selected')).toHaveCount(0)
+  const sirius = await starPoint(page, 'sirius-a')
+  const centerX = sirius.x - bounds.x
+  const centerY = sirius.y - bounds.y
+  const options = {
+    scale: 'css' as const,
+    style: '.projected-axes, .projected-labels, .scene-toolbar, .control-dock, .scene-legend, .visibility-observer { visibility: hidden !important; }',
+  }
+  const sample = (image: PNG, inner: number, outer: number) => {
+    const values: number[] = []
+    for (let pixelY = Math.floor(centerY - outer); pixelY <= Math.ceil(centerY + outer); pixelY++) {
+      for (let pixelX = Math.floor(centerX - outer); pixelX <= Math.ceil(centerX + outer); pixelX++) {
+        const distance = Math.hypot(pixelX + 0.5 - centerX, pixelY + 0.5 - centerY)
+        if (distance < inner || distance > outer) continue
+        const offset = (pixelY * image.width + pixelX) * 4
+        values.push(image.data[offset]! + image.data[offset + 1]! + image.data[offset + 2]!)
+      }
+    }
+    return values.reduce((sum, value) => sum + value, 0) / values.length
+  }
+
+  const near = PNG.sync.read(await canvas.screenshot({ ...options, path: testInfo.outputPath('sirius-near-glow.png') }))
+  for (let count = 0; count < 12; count++) await page.getByRole('button', { name: 'Zoom out', exact: true }).click()
+  await expect.poll(() => starPoint(page, 'sirius-a')).toEqual(sirius)
+  const far = PNG.sync.read(await canvas.screenshot({ ...options, path: testInfo.outputPath('sirius-far-glow.png') }))
+  const nearGlow = sample(near, 6, 14)
+  const farGlow = sample(far, 6, 14)
+  expect(farGlow).toBeGreaterThan(0)
+  expect(farGlow).toBeLessThan(nearGlow * 0.5)
+  expect(sample(far, 0, 1.5)).toBeGreaterThan(100)
+  expect(sample(far, 0, 3)).toBeLessThan(sample(near, 0, 3) * 0.7)
+})
+
+test('keeps the magnitude-7 all-catalog overview from washing out at roughly 1,000 light-years', async ({ page }, testInfo) => {
+  await openViewer(page)
+  await hideMilkyWay(page)
+  await openFilter(page)
+  await selectCatalog(page, 'nearest-1000')
+  await expect(page.locator('#catalog-count')).toHaveText(/\/1001$/)
+  for (const name of ['Always show bright stars', 'Western constellation stars', 'Famous cluster stars']) {
+    await page.getByRole('switch', { name }).check()
+  }
+  await expect.poll(async () => Number(await page.locator('.projected-labels').getAttribute('data-core-count'))).toBeGreaterThan(1000)
+  await page.getByLabel('Object visibility distance', { exact: true }).fill('19')
+  await page.getByLabel('V magnitude limit', { exact: true }).fill('7')
+  await page.getByRole('switch', { name: 'Motion arrows' }).uncheck()
+  await page.locator('[data-star="sun"]').evaluate((button: HTMLButtonElement) => button.click())
+  await page.getByRole('button', { name: 'Grid', exact: true }).click()
+  await page.getByRole('button', { name: 'Reset view', exact: true }).click()
+
+  const canvas = page.locator('#scene canvas')
+  const bounds = (await canvas.boundingBox())!
+  await page.mouse.click(bounds.x + bounds.width * 0.15, bounds.y + bounds.height * 0.85)
+  for (let count = 0; count < 12; count++) await page.getByRole('button', { name: 'Zoom out', exact: true }).click()
+  const image = PNG.sync.read(await canvas.screenshot({
+    scale: 'css',
+    path: testInfo.outputPath('all-catalogs-1000ly.png'),
+    style: '.projected-axes, .projected-labels, .scene-toolbar, .control-dock, .scene-legend, .visibility-observer { visibility: hidden !important; }',
+  }))
+  let luminousPixels = 0
+  let whitePixels = 0
+  for (let offset = 0; offset < image.data.length; offset += 4) {
+    const red = image.data[offset]!
+    const green = image.data[offset + 1]!
+    const blue = image.data[offset + 2]!
+    if (red + green + blue > 30) luminousPixels++
+    if (red > 200 && green > 200 && blue > 200) whitePixels++
+  }
+  const pixelCount = image.width * image.height
+  expect(Number(await page.locator('.projected-labels').getAttribute('data-halo-count'))).toBeGreaterThan(50)
+  expect(luminousPixels / pixelCount).toBeLessThan(0.08)
+  expect(whitePixels / pixelCount).toBeLessThan(0.01)
 })
 
 test('makes Sirius glow larger and brighter than Barnard with zoom-stable magnitude sizes', async ({ page }, testInfo) => {
@@ -1554,6 +1720,138 @@ test('hands active focus to pointer input, deselection and reduced motion', { ta
   }
 })
 
+test('scrubs and plays the physical stellar-motion timeline in both directions', { tag: '@mobile' }, async ({ page, isMobile }) => {
+  await openViewer(page)
+  const timeline = page.getByRole('region', { name: 'Stellar motion timeline' })
+  const slider = page.getByRole('slider', { name: 'Simulation time' })
+  const faster = page.getByRole('button', { name: 'Increase playback speed' })
+  const slower = page.getByRole('button', { name: 'Decrease playback speed' })
+  const follow = page.getByRole('button', { name: 'Follow selection' })
+  const visibilityCaption = page.locator('.visibility-observer')
+  const selectedCard = page.locator('#selected-object-card')
+  const objectDetails = page.locator('#object-card-details')
+  const sourceDetails = page.locator('.source-details')
+  await objectDetails.locator('> summary').click()
+  await sourceDetails.locator('> summary').click()
+  await expect(objectDetails).toHaveAttribute('open', '')
+  await expect(sourceDetails).toHaveAttribute('open', '')
+  const captionBoundsBefore = (await visibilityCaption.boundingBox())!
+  const captionBottomBefore = captionBoundsBefore.y + captionBoundsBefore.height
+  await expect(timeline).toBeHidden()
+  await page.getByRole('button', { name: 'Stellar motion', exact: true }).click()
+  await expect(timeline).toBeVisible()
+  await expect(objectDetails).toHaveAttribute('open', '')
+  await expect(sourceDetails).toHaveAttribute('open', '')
+  const selectedBounds = (await selectedCard.boundingBox())!
+  const motionBounds = (await timeline.boundingBox())!
+  expect(motionBounds.y - selectedBounds.y - selectedBounds.height).toBeGreaterThanOrEqual(9)
+  expect(motionBounds.y - selectedBounds.y - selectedBounds.height).toBeLessThanOrEqual(11)
+  expect(await selectedCard.evaluate((card) => card.scrollHeight)).toBeGreaterThan(await selectedCard.evaluate((card) => card.clientHeight))
+  if (isMobile) await expect(visibilityCaption).toHaveClass(/is-avoiding-motion/)
+  else await expect(visibilityCaption).not.toHaveClass(/is-avoiding-motion/)
+  const captionBoundsAfter = (await visibilityCaption.boundingBox())!
+  const captionBottomAfter = captionBoundsAfter.y + captionBoundsAfter.height
+  if (isMobile) expect(captionBottomAfter).toBeLessThan(captionBottomBefore - 100)
+  else expect(captionBottomAfter).toBeCloseTo(captionBottomBefore, 0)
+  await expect(timeline.getByRole('heading')).toHaveCount(0)
+  const motionLock = page.getByRole('button', { name: 'Keep Stellar motion open' })
+  await expect(motionLock).toBeVisible()
+  expect(await slower.evaluate((button) => button.previousElementSibling?.id)).toBe('time-follow')
+  await expect(follow).toHaveAttribute('aria-pressed', 'false')
+  await expect(timeline.locator('.time-readout > span')).toHaveCount(0)
+  await expect(timeline.locator('.time-directions')).toHaveText('PastFuture')
+  const timelineBounds = (await timeline.boundingBox())!
+  const lockBounds = (await motionLock.boundingBox())!
+  const fasterBounds = (await faster.boundingBox())!
+  expect(Math.abs(lockBounds.x + lockBounds.width - timelineBounds.x - timelineBounds.width)).toBeLessThan(2)
+  expect(Math.abs(lockBounds.y - timelineBounds.y)).toBeLessThan(2)
+  expect(lockBounds.x - fasterBounds.x - fasterBounds.width).toBeGreaterThan(8)
+  await motionLock.click()
+  await expect(motionLock).toHaveAttribute('aria-pressed', 'true')
+  await page.locator('#scene canvas').click({ position: { x: 2, y: 2 } })
+  await expect(timeline).toBeVisible()
+  await motionLock.click()
+  await expect(slider).toHaveAttribute('min', '-500000')
+  await expect(slider).toHaveAttribute('max', '500000')
+  await expect(slider).toHaveAttribute('step', 'any')
+  await expect(page.locator('.time-markers i')).toHaveCount(11)
+  await expect(page.locator('.time-markers i.major')).toHaveCount(10)
+  expect(await page.locator('.time-markers i.major').evaluateAll((markers) => markers.map((marker) => marker.getAttribute('data-label')))).toEqual([
+    '500k', '400k', '300k', '200k', '100k', '100k', '200k', '300k', '400k', '500k',
+  ])
+  await expect(page.locator('#time-value')).toHaveText('Now')
+  await expect(page.locator('#time-speed-value')).toHaveText('1k years / 1s')
+
+  await faster.click()
+  await expect(page.locator('#time-speed-value')).toHaveText('1k years / 0.5s')
+  await expect(faster).toBeDisabled()
+  for (let count = 0; count < 15; count++) await slower.click()
+  await expect(page.locator('#time-speed-value')).toHaveText('1k years / 15s')
+  await expect(slower).toBeDisabled()
+
+  await openFilter(page)
+  await page.getByLabel('Arrow length', { exact: true }).selectOption('50000')
+  await page.getByRole('button', { name: 'Filter', exact: true }).click()
+  await page.getByRole('button', { name: 'Stellar motion', exact: true }).click()
+  await page.locator('[data-star="sirius-a"]').evaluate((button: HTMLButtonElement) => button.click())
+  const distanceLabel = page.locator('.dimension-label')
+  const initialDistance = await distanceLabel.textContent()
+  const initialCardSubtitle = await page.locator('#star-distance').textContent()
+  const catalogDistance = await page.locator('#distance-value').textContent()
+  const before = await starPoint(page, 'sirius-a')
+  const arrow = (await motionArrows(page)).find((candidate) => candidate.id === 'sirius-a')!
+  await slider.fill('1000')
+  await expect(page.locator('#scene')).toHaveAttribute('data-simulation-years', '1000')
+  await expect(page.locator('#time-value')).toHaveText('+1,000 yr')
+  await expect(distanceLabel).toBeVisible()
+  const after = await starPoint(page, 'sirius-a')
+  const travelX = after.x - before.x
+  const travelY = after.y - before.y
+  const arrowX = arrow.tipX - arrow.tailX
+  const arrowY = arrow.tipY - arrow.tailY
+  expect(Math.hypot(travelX, travelY)).toBeGreaterThan(0.5)
+  expect(travelX * arrowX + travelY * arrowY, 'the star follows its displayed physical-motion vector').toBeGreaterThan(0)
+
+  await slider.fill('25000')
+  await expect(distanceLabel).toBeVisible()
+  await expect(distanceLabel).not.toHaveText(initialDistance!)
+  await expect(page.locator('#star-distance')).not.toHaveText(initialCardSubtitle!)
+  await expect(page.locator('#star-distance')).toHaveText(await distanceLabel.textContent() ?? '')
+  await expect(page.locator('#distance-value')).toHaveText(catalogDistance!)
+
+  await page.locator('[data-star="sirius-a"]').evaluate((button: HTMLButtonElement) => button.click())
+  await follow.click()
+  await expect(page.locator('#scene')).toHaveAttribute('data-follow-target', 'star')
+  const followedStarBefore = await starPoint(page, 'sirius-a')
+  await slider.fill('50000')
+  const followedStarAfter = await starPoint(page, 'sirius-a')
+  expect(Math.hypot(followedStarAfter.x - followedStarBefore.x, followedStarAfter.y - followedStarBefore.y)).toBeLessThan(1)
+  await follow.click()
+
+  await page.getByRole('button', { name: 'Reset view', exact: true }).click()
+  await follow.click()
+  await expect(page.locator('#scene')).toHaveAttribute('data-follow-target', 'distance')
+  const pathAnchor = distanceLabel.locator('..')
+  const followedPathBefore = (await pathAnchor.boundingBox())!
+  await slider.fill('75000')
+  const followedPathAfter = (await pathAnchor.boundingBox())!
+  expect(Math.hypot(followedPathAfter.x - followedPathBefore.x, followedPathAfter.y - followedPathBefore.y)).toBeLessThan(8)
+  await follow.click()
+
+  await page.getByRole('button', { name: 'Return timeline to now' }).click()
+  await expect(slider).toHaveValue('0')
+  await expect(page.locator('#scene')).toHaveAttribute('data-simulation-years', '0')
+  await expect(page.locator('#time-value')).toHaveText('Now')
+  await slider.fill('500000')
+  await page.getByRole('button', { name: 'Play stellar motion' }).click()
+  await expect(page.getByRole('button', { name: 'Pause stellar motion' })).toHaveAttribute('aria-pressed', 'true')
+  await expect.poll(async () => Number(await page.locator('#scene').getAttribute('data-simulation-years'))).toBeLessThan(500000)
+  await page.getByRole('button', { name: 'Pause stellar motion' }).click()
+  const paused = await page.locator('#scene').getAttribute('data-simulation-years')
+  await page.waitForTimeout(80)
+  await expect(page.locator('#scene')).toHaveAttribute('data-simulation-years', paused!)
+})
+
 test('shows attached travel-length motion arrows with selectable horizons', { tag: '@mobile' }, async ({ page, isMobile }, testInfo) => {
   await openViewer(page)
   await openFilter(page)
@@ -1594,7 +1892,6 @@ test('shows attached travel-length motion arrows with selectable horizons', { ta
   const sunArrow = arrowFor(initial, 'sun')!
   expect(sunArrow).toMatchObject({ mode: 'full', selected: false, opacity: 0.5, color: 'rgb(255,204,79)' })
   expect(Math.hypot(sunArrow.x - homeSun.x, sunArrow.y - homeSun.y), 'the Sun arrow starts at its dot').toBeLessThan(0.5)
-  expect(initial.some((arrow) => arrow.mode === 'transverse')).toBe(true)
   const siriusArrow = arrowFor(initial, 'sirius-a')!
   expect(siriusArrow).toMatchObject({ mode: 'full', selected: true, opacity: 1, color: 'rgb(117,169,255)' })
   expect(initial.some((arrow) => !arrow.selected && arrow.opacity === 0.5)).toBe(true)
@@ -1662,8 +1959,8 @@ test('shows attached travel-length motion arrows with selectable horizons', { ta
 
 test('draws dashed transverse and solid full-motion shafts with a zoom-stable stroke', { tag: '@mobile' }, async ({ page, isMobile }, testInfo) => {
   await openViewer(page)
-  await selectCatalog(page, 'nearest-1000')
-  await expect(page.locator('#catalog-count')).toHaveText(/\/1001$/)
+  await selectCatalog(page, 'nearest-100')
+  await expect(page.locator('#catalog-count')).toHaveText(/\/101$/)
   await page.getByLabel('V magnitude limit', { exact: true }).fill('25')
   await page.getByRole('button', { name: 'Filter', exact: true }).click()
   await page.getByRole('button', { name: 'Grid', exact: true }).click()
@@ -1807,6 +2104,8 @@ test('clears selection on empty-sky clicks and taps without moving the camera', 
   if (isMobile) await page.touchscreen.tap(point.x, point.y)
   else await page.mouse.click(point.x, point.y)
   await expect(page.locator('#star-name')).toHaveText('Alpha Centauri A')
+  await expect(page.locator('#motion-data')).toHaveText('Full space motion')
+  await expect.poll(async () => motionArrows(page).then((arrows) => arrows.find((arrow) => arrow.id === 'alpha-centauri-a')?.mode)).toBe('full')
   await expect(page.locator('#selected-object-card')).toBeVisible()
   await expect(page.locator('#star-details')).toBeVisible()
   await page.getByRole('button', { name: 'Objects', exact: true }).click()

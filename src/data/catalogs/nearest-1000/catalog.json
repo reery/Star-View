@@ -17,7 +17,7 @@
       "url": "https://simbad.cds.unistra.fr/simbad/sim-tap/sync"
     },
     {
-      "name": "Gaia DR3 TAP snapshot; exact-ID GSP-Phot/FLAME physical estimates",
+      "name": "Gaia DR3 TAP snapshot; exact-ID radial velocities and GSP-Phot/FLAME physical estimates",
       "url": "https://gea.esac.esa.int/tap-server/tap/sync"
     },
     {
@@ -43,6 +43,10 @@
     {
       "name": "2MASS All-Sky Point Source Catalog Ks photometry (VizieR II/246)",
       "url": "https://cdsarc.cds.unistra.fr/viz-bin/cat/II/246"
+    },
+    {
+      "name": "Maldonado et al. 2010 radial velocity for Tabit (HIP 22449)",
+      "url": "https://doi.org/10.1051/0004-6361/201014948"
     }
   ]
 }

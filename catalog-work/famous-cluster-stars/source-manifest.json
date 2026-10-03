@@ -1,0 +1,16 @@
+{
+  "schemaVersion": 1,
+  "frozenAt": "2026-10-01",
+  "sources": {
+    "selection": {
+      "file": "selection.json",
+      "sha256": "3d8aa83a8b309c58e1e2810389eee868126e7091de0a7ddfae865fe88e112dd7"
+    },
+    "simbad": {
+      "url": "https://simbad.cds.unistra.fr/simbad/sim-tap/sync",
+      "queryFile": "simbad.adql",
+      "resultFile": "simbad.csv",
+      "sha256": "31f7d87d2f684fca025388ed409856ab5fbe0038de62d9a214c77b1f5a3c1c01"
+    }
+  }
+}

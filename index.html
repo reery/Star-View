@@ -5,7 +5,7 @@
     <link rel="icon" href="data:," />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
     <meta name="theme-color" content="#202224" />
-    <meta name="description" content="A Sun-centered map of nearby stellar and substellar objects." />
+    <meta name="description" content="An origin-centered map of nearby stellar and substellar objects." />
     <title>Star View</title>
   </head>
   <body>
@@ -17,7 +17,7 @@
             <span id="grid-legend" class="grid-legend"><span class="grid-symbol" aria-hidden="true"></span><span id="grid-spacing">0.5 pc grid</span><span class="legend-divider"></span></span>
             <span id="scene-epoch">J2000.0</span>
           </div>
-          <p class="visibility-observer" data-scene-obstacle>Visibility from <strong id="visibility-base">Sirius A</strong></p>
+          <p class="visibility-observer" data-scene-obstacle><span>Origin: <strong id="reference-base">Sun</strong> <span aria-hidden="true">|</span> Visibility from: <strong id="visibility-base">Sirius A</strong> <span aria-hidden="true">|</span> Distance from viewer: <strong id="viewer-distance">—</strong></span></p>
           <div id="scene-status" class="scene-status" role="status">Loading nearby-object map...</div>
           <aside id="inspector" class="inspector" aria-label="Object controls">
             <section id="selected-object-card" class="selected-object" aria-label="Selected object" data-scene-obstacle>
@@ -99,14 +99,45 @@
               <span class="toolbar-divider"></span>
               <button id="selection-back" class="icon-button" type="button" aria-label="Previous selection" disabled><span id="selection-back-icon"></span><span class="tooltip">Previous selection</span></button>
               <button id="selection-forward" class="icon-button" type="button" aria-label="Next selection" disabled><span id="selection-forward-icon"></span><span class="tooltip">Next selection</span></button>
+              <span class="toolbar-divider"></span>
+              <button id="set-origin" class="icon-button" type="button" aria-label="Set selected object as origin" disabled><span id="set-origin-icon"></span><span class="tooltip">Set as origin</span></button>
+              <button id="observer-view" class="icon-button observer-view-button" type="button" aria-label="Enter observer view" aria-pressed="false" aria-controls="scene" disabled><span id="observer-view-icon"></span><span id="observer-view-tooltip" class="tooltip">Observer view</span></button>
             </div>
             <div id="control-dock" class="control-dock" data-scene-obstacle>
               <div class="dock-rail" role="group" aria-label="Map and information controls">
+                <button id="motion-toggle" class="icon-button panel-button" type="button" aria-label="Stellar motion" aria-controls="motion-panel" aria-expanded="false"><span id="motion-icon"></span><span class="tooltip">Stellar motion</span></button>
                 <button id="filter-toggle" class="icon-button panel-button" type="button" aria-label="Filter" aria-controls="filter-panel" aria-expanded="false"><span id="filter-icon"></span><span class="tooltip">Filter</span></button>
                 <button id="preferences-toggle" class="icon-button panel-button" type="button" aria-label="Preferences" aria-controls="preferences-panel" aria-expanded="false"><span id="preferences-icon"></span><span class="tooltip">Preferences</span></button>
                 <button id="objects-toggle" class="icon-button panel-button" type="button" aria-label="Objects" aria-controls="objects-panel" aria-expanded="false"><span id="objects-icon"></span><span class="tooltip">Objects</span></button>
                 <button id="info-toggle" class="icon-button panel-button" type="button" aria-label="Info" aria-controls="info-panel" aria-expanded="false"><span id="info-icon"></span><span class="tooltip">Info</span></button>
               </div>
+              <section id="motion-panel" class="dock-card time-controls" aria-label="Stellar motion timeline" data-scene-obstacle hidden>
+                <button id="motion-lock" class="panel-lock time-lock" type="button" aria-label="Keep Stellar motion open" aria-pressed="false"><span id="motion-lock-icon"></span></button>
+                <div class="time-controls-body">
+                  <div class="time-transport">
+                    <button id="time-play" class="time-button time-play" type="button" aria-label="Play stellar motion" aria-pressed="false" disabled><span id="time-play-icon"></span></button>
+                    <button id="time-now" class="time-button" type="button" aria-label="Return timeline to now" disabled><span id="time-now-icon"></span></button>
+                    <div class="time-readout"><output id="time-value" for="time-slider">Now</output></div>
+                    <div class="time-speed" role="group" aria-label="Motion playback controls">
+                      <button id="time-follow" class="time-speed-button time-follow" type="button" aria-label="Follow selection" aria-pressed="false" title="Follow selection" disabled><span id="time-follow-icon"></span></button>
+                      <button id="time-slower" class="time-speed-button" type="button" aria-label="Decrease playback speed" title="Slower" disabled><span id="time-slower-icon"></span></button>
+                      <output id="time-speed-value" aria-live="polite">1k years / 1s</output>
+                      <button id="time-faster" class="time-speed-button" type="button" aria-label="Increase playback speed" title="Faster" disabled><span id="time-faster-icon"></span></button>
+                    </div>
+                  </div>
+                  <div class="time-range">
+                    <div class="time-directions" aria-hidden="true"><span>Past</span><span>Future</span></div>
+                    <div class="time-slider-track">
+                      <input id="time-slider" type="range" min="-500000" max="500000" step="any" value="0" aria-label="Simulation time" aria-valuetext="Now" disabled>
+                      <div class="time-markers" aria-hidden="true">
+                        <i class="major marker-start" data-label="500k" style="--marker-position: 0%"></i><i class="major" data-label="400k" style="--marker-position: 10%"></i><i class="major" data-label="300k" style="--marker-position: 20%"></i><i class="major" data-label="200k" style="--marker-position: 30%"></i><i class="major" data-label="100k" style="--marker-position: 40%"></i>
+                        <i class="time-now-marker" style="--marker-position: 50%"></i>
+                        <i class="major" data-label="100k" style="--marker-position: 60%"></i><i class="major" data-label="200k" style="--marker-position: 70%"></i><i class="major" data-label="300k" style="--marker-position: 80%"></i><i class="major" data-label="400k" style="--marker-position: 90%"></i><i class="major marker-end" data-label="500k" style="--marker-position: 100%"></i>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </section>
               <section id="filter-panel" class="dock-card filter-section" aria-labelledby="filter-heading" hidden>
                 <div class="panel-heading"><h2 id="filter-heading">Filter</h2><button id="filter-lock" class="panel-lock" type="button" aria-label="Keep Filter open" aria-pressed="false"><span id="filter-lock-icon"></span></button></div>
                 <div class="filter-controls">
@@ -120,12 +151,20 @@
                     <span>Always show bright stars</span>
                     <span class="switch-control"><input id="show-always-bright" type="checkbox" role="switch"><span class="switch-track" aria-hidden="true"></span></span>
                   </label>
+                  <label class="filter-toggle" for="show-western-constellation-stars">
+                    <span>Western constellation stars</span>
+                    <span class="switch-control"><input id="show-western-constellation-stars" type="checkbox" role="switch"><span class="switch-track" aria-hidden="true"></span></span>
+                  </label>
+                  <label class="filter-toggle" for="show-famous-cluster-stars">
+                    <span>Famous cluster stars</span>
+                    <span class="switch-control"><input id="show-famous-cluster-stars" type="checkbox" role="switch"><span class="switch-track" aria-hidden="true"></span></span>
+                  </label>
                   <div id="object-categories" class="category-toggles" role="group" aria-label="Object categories"></div>
                   <div class="range-filter">
                     <div class="range-heading"><label for="object-distance-limit">Object visibility distance</label><output id="object-distance-limit-value" for="object-distance-limit">100 ly</output></div>
-                    <input id="object-distance-limit" type="range" min="0" max="22" step="1" value="14" aria-valuetext="100 light-years" aria-describedby="object-distance-steps">
-                    <div class="range-bounds" aria-hidden="true"><span>5 ly</span><span>3000 ly</span></div>
-                    <span id="object-distance-steps" class="sr-only">Distance steps above 100 light-years are 150, 200, 300, 500, 1000, 1500, 2000, and 3000 light-years.</span>
+                    <input id="object-distance-limit" type="range" min="0" max="24" step="1" value="14" aria-valuetext="100 light-years" aria-describedby="object-distance-steps">
+                    <div class="range-bounds" aria-hidden="true"><span>5 ly</span><span>10000 ly</span></div>
+                    <span id="object-distance-steps" class="sr-only">Distance steps above 100 light-years are 150, 200, 300, 500, 1000, 1500, 2000, 3000, 5000, and 10000 light-years.</span>
                   </div>
                   <div class="range-filter">
                     <div class="range-heading"><label for="magnitude-limit">V magnitude limit</label><output id="magnitude-limit-value" for="magnitude-limit">7</output></div>
@@ -184,10 +223,18 @@
                   <div><dt>Repository</dt><dd><a href="https://github.com/reery/Star-View" target="_blank" rel="noreferrer">GitHub</a></dd></div>
                   <div><dt>License</dt><dd>MIT</dd></div>
                   <div><dt>Sky image</dt><dd><a href="https://www.eso.org/public/images/eso0932a/" target="_blank" rel="noreferrer">ESO/S. Brunier</a><br><span class="attribution-note">resized and dimmed · <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noreferrer">CC BY 4.0</a></span></dd></div>
-                  <div><dt>Version</dt><dd>v0.1</dd></div>
+                  <div><dt>Version</dt><dd>v0.2</dd></div>
                 </dl>
               </section>
             </div>
+            <section id="observer-direction-card" class="observer-direction-card" aria-labelledby="observer-direction-title" data-scene-obstacle hidden>
+              <h2 id="observer-direction-title" class="observer-direction-title"><span>Observing from</span><button id="observer-object" class="observer-direction-object" type="button"><span id="observer-object-swatch" class="star-swatch" aria-hidden="true"></span><span id="observer-object-name"></span></button></h2>
+              <div class="observer-direction-buttons" role="group" aria-label="Roll observer camera">
+                <button id="observer-roll-counterclockwise" class="observer-direction-button" type="button" aria-label="Roll view counterclockwise" title="Roll counterclockwise" disabled><span id="observer-roll-counterclockwise-icon"></span></button>
+                <button id="observer-roll-reset" class="observer-direction-button" type="button" aria-label="Reset view roll" title="Reset view roll" disabled><span id="observer-roll-reset-icon"></span></button>
+                <button id="observer-roll-clockwise" class="observer-direction-button" type="button" aria-label="Roll view clockwise" title="Roll clockwise" disabled><span id="observer-roll-clockwise-icon"></span></button>
+              </div>
+            </section>
           </aside>
         </section>
       </main>

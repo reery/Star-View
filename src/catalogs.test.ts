@@ -12,6 +12,12 @@ import nearest1000Manifest from './data/catalogs/nearest-1000/catalog.json?raw'
 import nearest1000Provenance from './data/catalogs/nearest-1000/provenance.json?raw'
 import brightCsv from './data/catalogs/bright-stars/stars.csv?raw'
 import brightManifest from './data/catalogs/bright-stars/catalog.json?raw'
+import westernCsv from './data/catalogs/western-constellation-stars/stars.csv?raw'
+import westernManifest from './data/catalogs/western-constellation-stars/catalog.json?raw'
+import westernProvenance from './data/catalogs/western-constellation-stars/provenance.json?raw'
+import clusterCsv from './data/catalogs/famous-cluster-stars/stars.csv?raw'
+import clusterManifest from './data/catalogs/famous-cluster-stars/catalog.json?raw'
+import clusterProvenance from './data/catalogs/famous-cluster-stars/provenance.json?raw'
 import compactManifestRaw from './data/overlays/compact-remnants/manifest.json?raw'
 import compactPayloadRaw from './data/overlays/compact-remnants/objects.json?raw'
 import { buildCatalog, catalogCoverage, catalogSelection, DEFAULT_CATALOG_MANIFEST, loadCatalog, parseCatalogManifest } from './catalogs'
@@ -25,6 +31,8 @@ describe('catalog packages and display settings', () => {
   const large = loadCatalog({ manifest: parseCatalogManifest(manifest), csv: largeCsv })
   const nearest1000 = loadCatalog({ manifest: parseCatalogManifest(nearest1000Manifest), csv: nearest1000Csv })
   const bright = loadCatalog({ manifest: parseCatalogManifest(brightManifest), csv: brightCsv })
+  const western = loadCatalog({ manifest: parseCatalogManifest(westernManifest), csv: westernCsv })
+  const cluster = loadCatalog({ manifest: parseCatalogManifest(clusterManifest), csv: clusterCsv })
 
   it('validates both real catalogs and shared object metadata', () => {
     expect(small).toHaveLength(22)
@@ -42,7 +50,7 @@ describe('catalog packages and display settings', () => {
       vz_kms: null,
       raw_astrometry: { pm_ra_cosdec_masyr: 1012.444720371, pm_dec_masyr: -554.030838673, radial_velocity_kms: null },
     })
-    expect(catalogCoverage(large)).toMatchObject({ rawAstrometry: 100, radialVelocities: 68, transverseOnly: 32 })
+    expect(catalogCoverage(large)).toMatchObject({ rawAstrometry: 100, radialVelocities: 70, transverseOnly: 30 })
   })
 
   it('validates the nearest-1000 release and preserves every curated shared row', () => {
@@ -51,13 +59,44 @@ describe('catalog packages and display settings', () => {
       objects: 1000,
       constellations: 1000,
       rawAstrometry: 1000,
-      radialVelocities: 326,
-      transverseOnly: 674,
+      radialVelocities: 677,
+      transverseOnly: 323,
     })
     for (const star of large) expect(nearest1000.find((candidate) => candidate.id === star.id)).toEqual(star)
     const provenance = JSON.parse(nearest1000Provenance)
     expect(provenance.cutoff).toMatchObject({ rank: 1000, id: 'cns5-0864', nextId: 'cns5-2673', oneSigmaIntervalsOverlap: true })
     expect(nearest1000.find((star) => star.id === 'cns5-3517')?.name).toBe('Arcturus')
+    expect(nearest1000.find((star) => star.id === 'cns5-1415')).toMatchObject({
+      raw_astrometry: { radial_velocity_kms: 106.061874, radial_velocity_error_kms: 0.1704749, radial_velocity_ref: 'Gaia DR3' },
+    })
+    expect(provenance.objects.find((object: { id: string }) => object.id === 'cns5-1415')?.radialVelocity).toMatchObject({
+      status: 'gaia-dr3-fallback',
+      observation: { sourceId: 'gaia-dr3', valueKms: 106.061874 },
+    })
+    expect(nearest1000.find((star) => star.id === 'cns5-1208')).toMatchObject({
+      name: 'Tabit', vx_kms: -25.645926, vy_kms: -14.814296, vz_kms: 4.397823,
+      raw_astrometry: {
+        radial_velocity_kms: 24.11,
+        radial_velocity_error_kms: 0.08,
+        radial_velocity_ref: '2010A&A...521A..12M',
+      },
+    })
+    expect(provenance.objects.find((object: { id: string }) => object.id === 'cns5-1208')?.radialVelocity).toMatchObject({
+      status: 'reviewed-literature-override',
+      observation: { sourceId: 'reviewed-literature-rv', sourceRecordId: 'HIP 22449', valueKms: 24.11, uncertaintyKms: 0.08 },
+    })
+    expect(provenance.objects.find((object: { id: string }) => object.id === 'cns5-4846')?.radialVelocity).toMatchObject({
+      status: 'compiled-cns5',
+      observation: { sourceId: 'cns5', valueKms: 26.576419830322266 },
+    })
+    expect(nearest1000.find((star) => star.id === 'cns5-1475')).toMatchObject({
+      vx_kms: null, vy_kms: null, vz_kms: null,
+      raw_astrometry: { radial_velocity_kms: null },
+    })
+    expect(provenance.objects.find((object: { id: string }) => object.id === 'cns5-1475')?.radialVelocity).toMatchObject({
+      status: 'withheld-white-dwarf',
+      observation: { sourceId: 'gaia-dr3', valueKms: -414.01544 },
+    })
     expect(catalogCoverage(nearest1000)).toMatchObject({ radii: 568, metallicities: 350, ages: 68, masses: 526, luminosities: 505, temperatures: 558 })
     expect(catalogCoverage(large)).toMatchObject({ masses: 54, luminosities: 38, radii: 40 })
     expect(small.find((star) => star.id === 'barnards-star')).toMatchObject({ mass_solar: 0.144, radius_solar: 0.1931, luminosity_solar: 0.0035225088 })
@@ -67,7 +106,7 @@ describe('catalog packages and display settings', () => {
   it('keeps the bright landmark catalog bounded and merges it without duplicates', () => {
     expect(bright).toHaveLength(115)
     expect(bright.at(-1)?.name).toBe('Arneb')
-    expect(catalogCoverage(bright)).toMatchObject({ temperatures: 113, masses: 45, luminosities: 99, radii: 98, metallicities: 23, ages: 1 })
+    expect(catalogCoverage(bright)).toMatchObject({ temperatures: 113, masses: 45, luminosities: 99, radii: 98, metallicities: 23, ages: 1, radialVelocities: 114, transverseOnly: 0 })
     expect(bright.find((star) => star.name === 'Rigel')).toMatchObject({
       temperature_k: 11968, radius_solar: 74.0262, luminosity_solar: 83226.2, metallicity_dex: -0.159,
     })
@@ -110,17 +149,98 @@ describe('catalog packages and display settings', () => {
       star.absolute_mag, Math.hypot(star.x_pc, star.y_pc, star.z_pc),
     )!))).toBeLessThan(2.70)
     const merged = mergeCatalogStars(large, bright)
-    expect(merged).toHaveLength(211)
+    expect(merged).toHaveLength(210)
     expect(new Set(merged.map((star) => star.id)).size).toBe(merged.length)
     expect(merged.find((star) => star.name === 'Altair')).toMatchObject({
       id: '10pc-0117', temperature_k: 7760, mass_solar: 1.6, radius_solar: 1.8183, metallicity_dex: 0.19,
     })
     expect(large.find((star) => star.name === 'Altair')).toMatchObject({ mass_solar: null, radius_solar: null })
+    expect(merged.filter((star) => star.name === 'Procyon A' || star.name === 'Procyon')).toHaveLength(1)
     const sirius = bright.find((star) => star.id === 'sirius-a')!
-    expect(mergeCatalogStars([sirius], [{ ...sirius, id: 'sirius-companion' }])).toHaveLength(2)
+    expect(mergeCatalogStars([sirius], [{ ...sirius, id: 'duplicate-sirius' }])).toHaveLength(1)
+    expect(mergeCatalogStars([sirius], [small.find((star) => star.id === 'sirius-b')!])).toHaveLength(2)
     const largestMerged = mergeCatalogStars(nearest1000, bright)
-    expect(largestMerged).toHaveLength(1105)
+    expect(largestMerged).toHaveLength(1103)
+    expect(largestMerged.filter((star) => star.name === 'Denebola')).toHaveLength(1)
     expect(new Set(largestMerged.map((star) => star.id)).size).toBe(largestMerged.length)
+  })
+
+  it('includes every source-defined Western constellation figure star as an independent overlay', () => {
+    const provenance = JSON.parse(westernProvenance)
+    expect(western).toHaveLength(692)
+    expect(catalogCoverage(western)).toMatchObject({
+      objects: 691, constellations: 691, magnitudes: 691, rawAstrometry: 691,
+      temperatures: 668, masses: 353, luminosities: 626, radii: 626, metallicities: 223, ages: 88,
+    })
+    expect(provenance).toMatchObject({ figureConstellations: 88, uniqueHipparcosStars: 691 })
+    expect(new Set(Object.values(provenance.objects).flatMap((entry: any) => entry.figureConstellations)).size).toBe(88)
+    expect(Math.max(...western.map((star) => Math.hypot(star.x_pc, star.y_pc, star.z_pc) * 3.261563777))).toBeLessThan(10000)
+    expect(Math.max(...western.filter((star) => star.id !== 'sun').map((star) => apparentVisualMagnitude(
+      star.absolute_mag, Math.hypot(star.x_pc, star.y_pc, star.z_pc),
+    )!))).toBeLessThan(6.54)
+    expect(Math.hypot(...(['x_pc', 'y_pc', 'z_pc'] as const).map((field) => western.find((star) => star.name === 'x Car')![field]))).toBeCloseTo(2623, 5)
+    expect(Math.hypot(...(['x_pc', 'y_pc', 'z_pc'] as const).map((field) => western.find((star) => star.name === 'Polis')![field]))).toBeCloseTo(1499.9503, 5)
+    expect(Math.hypot(...(['x_pc', 'y_pc', 'z_pc'] as const).map((field) => western.find((star) => star.name === 'Beta Phe')![field]))).toBeCloseTo(55.772448, 5)
+    expect(provenance.objects['hip-54463'].adoptedDistance).toMatchObject({ method: 'co-moving group distance', sourceId: '2026A&A...708A..78K' })
+    expect(provenance.objects['hip-89341'].adoptedDistance).toMatchObject({ method: 'associated-system geometric posterior' })
+    expect(provenance.objects['hip-5165'].adoptedDistance).toMatchObject({ method: 'binary-orbit parallax', sourceId: '2015AN....336..378A' })
+    expect(western.find((star) => star.id === 'hip-22449')).toMatchObject({
+      name: 'Tabit', vx_kms: -25.634588, vy_kms: -14.733373, vz_kms: 4.33236,
+      raw_astrometry: { radial_velocity_kms: 24.11, radial_velocity_error_kms: 0.08, radial_velocity_ref: '2010A&A...521A..12M' },
+    })
+    expect(western.find((star) => star.id === 'hip-81266')).toMatchObject({
+      name: 'Paikauhale', vx_kms: 1.748073, vy_kms: -16.806049, vz_kms: -4.278355,
+      raw_astrometry: { radial_velocity_kms: 3.15, radial_velocity_error_kms: 0.7, radial_velocity_ref: '2017A&A...603A..56C' },
+    })
+    expect(western.find((star) => star.id === 'hip-52419')).toMatchObject({
+      name: 'Theta Car', vx_kms: -6.812084, vy_kms: -23.879625, vz_kms: -0.497474,
+      raw_astrometry: { radial_velocity_kms: 20.18, radial_velocity_error_kms: 0.04, radial_velocity_ref: '2008A&A...488..287H' },
+    })
+    expect(provenance.objects['hip-81266'].radialVelocity).toMatchObject({
+      status: 'reviewed-literature-override', frozenSimbadValueKms: -650.47, adoptedValueKms: 3.15,
+    })
+    expect(provenance.objects['hip-52419'].radialVelocity).toMatchObject({
+      status: 'reviewed-literature-override', frozenSimbadValueKms: 459.7, adoptedValueKms: 20.18,
+    })
+    const withBrightStars = mergeCatalogStars(bright, western)
+    expect(withBrightStars).toHaveLength(694)
+    expect(withBrightStars.filter((star) => star.name === 'Rigel')).toHaveLength(1)
+  })
+
+  it('keeps famous cluster stars curated, recognizable and separate from bright-star membership', () => {
+    const provenance = JSON.parse(clusterProvenance)
+    expect(cluster).toHaveLength(43)
+    expect(catalogCoverage(cluster)).toMatchObject({
+      objects: 42, constellations: 42, magnitudes: 42, rawAstrometry: 42,
+      temperatures: 42, masses: 26, luminosities: 42, radii: 42, metallicities: 22, ages: 7,
+    })
+    expect(provenance.groups.map((group: { name: string }) => group.name)).toEqual([
+      'Pleiades', 'Trapezium Cluster', 'Hyades', 'Coma Star Cluster', 'Southern Pleiades', 'Omicron Velorum Cluster', 'Beehive Cluster',
+    ])
+    expect(['Celaeno', 'Electra', 'Taygeta', 'Asterope', 'Maia', 'Merope', 'Alcyone', 'Theta1 Orionis C'].every((name) => cluster.some((star) => star.name === name))).toBe(true)
+    expect(cluster.some((star) => star.name === 'Aldebaran')).toBe(false)
+    expect(bright.some((star) => star.name === 'Alcyone')).toBe(false)
+    expect(cluster.find((star) => star.name === 'Alcyone')).toMatchObject({ temperature_k: 10168, luminosity_solar: 1161.86861365969 })
+    expect(cluster.find((star) => star.name === 'Theta1 Orionis C')).toMatchObject({
+      temperature_k: 39000, mass_solar: 33.4, luminosity_solar: 177827.941, radius_solar: 9.4,
+    })
+    expect(cluster.find((star) => star.id === 'hip-52419')).toMatchObject({
+      vx_kms: -6.812084, vy_kms: -23.879625, vz_kms: -0.497474,
+      raw_astrometry: { radial_velocity_kms: 20.18, radial_velocity_error_kms: 0.04, radial_velocity_ref: '2008A&A...488..287H' },
+    })
+    expect(provenance.objects['hip-52419'].radialVelocity).toMatchObject({
+      status: 'reviewed-literature-override', frozenSimbadValueKms: 459.7, adoptedValueKms: 20.18,
+    })
+
+    const sirius = western.find((star) => star.name === 'Sirius')!
+    const merged = mergeCatalogStars(small, [sirius, ...cluster])
+    expect(merged.filter((star) => star.name === 'Sirius' || star.name === 'Sirius A')).toHaveLength(1)
+    expect(merged).toHaveLength(64)
+    expect(mergeCatalogStars(small, [sirius])).toHaveLength(22)
+  })
+
+  it('rebuilds both landmark catalogs exactly from frozen sources', () => {
+    execFileSync('python3', ['scripts/author-landmark-stars.py'], { cwd: fileURLToPath(new URL('../', import.meta.url)) })
   })
 
   it('validates the source-defined compact-remnant overlay and its nullable measurements', () => {

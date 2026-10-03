@@ -1,10 +1,26 @@
 import { Camera, Matrix4, Vector3, Vector4 } from 'three'
 import type { Star } from './catalog-model'
-import { visibilityTier } from './astronomy'
+import { LIGHT_YEARS_PER_PARSEC, visibilityTier } from './astronomy'
 import type { LabelRect, LayoutViewport } from './label-layout'
 import { filterKeyForObject, type FilterKey } from './object-filter'
 
 export const STAR_DIAMETER_PX = 10
+export const STAR_CORE_FULL_STRENGTH_DISTANCE_PC = 200 / LIGHT_YEARS_PER_PARSEC
+export const STAR_CORE_VIEW_DISTANCE_FALLOFF_POWER = 1.6
+export const STAR_CORE_PHYSICAL_FULL_STRENGTH_DISTANCE_PC = 50 / LIGHT_YEARS_PER_PARSEC
+export const STAR_HALO_FULL_STRENGTH_DISTANCE_PC = 50 / LIGHT_YEARS_PER_PARSEC
+export const STAR_CORE_MIN_DIAMETER_PX = 2
+export const STAR_CORE_MIN_VIEW_SCALE = 0.3
+export const STAR_HALO_MIN_VIEW_SCALE = 0.3
+export const STAR_HALO_MIN_OPACITY_SCALE = 0.08
+export const GUIDE_DASH_PX = 4
+export const GUIDE_GAP_PX = 3
+
+export function guideDashScale(worldLength: number, projectedLengthPx: number, viewportDiagonalPx: number): number {
+  if (!Number.isFinite(worldLength) || !Number.isFinite(projectedLengthPx) || !Number.isFinite(viewportDiagonalPx) ||
+      worldLength <= 0 || projectedLengthPx <= 0 || viewportDiagonalPx <= 0) return 0
+  return Math.min(projectedLengthPx, viewportDiagonalPx) / worldLength
+}
 
 export function compareMapLabelCandidates(
   first: { index: number; priority: number; magnitude: number },
@@ -80,20 +96,50 @@ export function focusProgress(elapsedMs: number): number {
   return progress * progress * (3 - 2 * progress)
 }
 
-export function starHaloStrength(absoluteMagnitude: number | null, selected = false): number {
-  const strength = absoluteMagnitude !== null && Number.isFinite(absoluteMagnitude)
-    ? Math.max(0.08, Math.min(1.4, 0.65 * 10 ** Math.max(-2, Math.min(1, -0.1 * (absoluteMagnitude - 4.83)))))
+export function starHaloStrength(apparentMagnitude: number | null, selected = false): number {
+  const strength = apparentMagnitude !== null && Number.isFinite(apparentMagnitude)
+    ? Math.max(0.08, Math.min(1.4, 0.65 * 10 ** Math.max(-2, Math.min(1, -0.1 * (apparentMagnitude - 4.83)))))
     : 0.65
   return Math.min(1.8, strength * (selected ? 1.3 : 1))
 }
 
-export function starHaloDiameter(absoluteMagnitude: number | null): number {
-  if (absoluteMagnitude === null || !Number.isFinite(absoluteMagnitude)) return 30
-  return Math.max(20, Math.min(80, 68 - 4.25 * absoluteMagnitude))
+export function starHaloDiameter(apparentMagnitude: number | null): number {
+  if (apparentMagnitude === null || !Number.isFinite(apparentMagnitude)) return 30
+  return Math.max(20, Math.min(80, 68 - 4.25 * apparentMagnitude))
 }
 
-export function starHaloOpacity(absoluteMagnitude: number | null, selected = false): number {
-  return 0.9 * (1 - Math.exp(-1.4 * starHaloStrength(absoluteMagnitude, selected)))
+export function starHaloOpacity(apparentMagnitude: number | null, selected = false): number {
+  return 0.9 * (1 - Math.exp(-1.4 * starHaloStrength(apparentMagnitude, selected)))
+}
+
+function starViewDistanceRatio(viewDistancePc: number, fullStrengthDistancePc: number, power = 1): number {
+  if (!Number.isFinite(viewDistancePc) || viewDistancePc <= 0) return 1
+  return Math.min(1, (fullStrengthDistancePc / viewDistancePc) ** power)
+}
+
+export function starCoreViewScale(viewDistancePc: number): number {
+  return Math.max(STAR_CORE_MIN_VIEW_SCALE, Math.sqrt(starViewDistanceRatio(
+    viewDistancePc,
+    STAR_CORE_FULL_STRENGTH_DISTANCE_PC,
+    STAR_CORE_VIEW_DISTANCE_FALLOFF_POWER,
+  )))
+}
+
+export function starHaloViewScale(viewDistancePc: number): number {
+  return Math.max(STAR_HALO_MIN_VIEW_SCALE, starViewDistanceRatio(viewDistancePc, STAR_HALO_FULL_STRENGTH_DISTANCE_PC) ** 0.25)
+}
+
+export function starHaloViewOpacityScale(viewDistancePc: number): number {
+  return Math.max(STAR_HALO_MIN_OPACITY_SCALE, Math.sqrt(starViewDistanceRatio(viewDistancePc, STAR_HALO_FULL_STRENGTH_DISTANCE_PC)))
+}
+
+export function starHaloEmphasis(apparentMagnitude: number | null): number {
+  if (apparentMagnitude === null || !Number.isFinite(apparentMagnitude)) return 0
+  const brightProgress = Math.max(0, Math.min(1, (2 - apparentMagnitude) / 2))
+  const brightEmphasis = brightProgress * brightProgress * (3 - 2 * brightProgress)
+  const shoulderProgress = Math.max(0, Math.min(1, (3 - apparentMagnitude) / 1.5))
+  const shoulderEmphasis = 0.4 * shoulderProgress * shoulderProgress * (3 - 2 * shoulderProgress)
+  return Math.max(brightEmphasis, shoulderEmphasis)
 }
 
 const SECONDS_PER_JULIAN_YEAR = 31_557_600

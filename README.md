@@ -1,8 +1,8 @@
-<img src="starview_v06.png" alt="Star View v0.1 screenshot" width="800">
+<img src="starview_v07.png" alt="Star View v0.2 screenshot" width="800">
 
 # Star View
 
-A Sun-centered 3D map of nearby stars, brown dwarfs and compact remnants that runs in the browser. Built with TypeScript, Three.js and Vite. All data, fonts and icons are bundled, so it runs without a backend or network access.
+A 3D map of nearby stars, brown dwarfs and compact remnants that runs in the browser. It starts Sun-centered and lets any object become the active origin. Built with TypeScript, Three.js and Vite. All data, fonts and icons are bundled, so it runs without a backend or network access.
 
 This project is still in active development and there are a lot of features to come.
 
@@ -12,10 +12,11 @@ This project is still in active development and there are a lot of features to c
 - Optional, separately loaded compact-remnant overlay: 266 ATNF pulsars, Gaia NS1, Gaia BH1 and Gaia BH3 within 3000 light-years; all three type filters start off
 - Orbit, zoom and pan with mouse or touch; selecting an object centers it
 - Type-aware inspector with stellar properties or compact-object rotation, mass, orbital context, detection status and source notes
-- Searchable list of objects matching the active distance and object-type filters
-- Map filters for brightness as seen from the selected star, distance from the Sun (to 3000 light-years), object type, and an optional deduplicated bright-star overlay
+- Searchable origin-relative list of objects matching the active distance and object-type filters
+- Map filters for brightness as seen from the selected star, distance from the active origin (to 3000 light-years), object type, and an optional deduplicated bright-star overlay
 - Real or exaggerated temperature colors, magnitude-based glow, motion arrows and an optional Galactic-aligned 360° Milky Way backdrop
-- Distance and height guides relative to the Sun
+- Distance and height guides relative to the active origin
+- Rotation-only **Observer view** from any selected object, with the observing object hidden and other stars still selectable
 - Light-year or parsec units, grid toggle and an optional power-saving mode
 - Desktop and mobile layouts
 
@@ -54,7 +55,7 @@ Before the first browser test run, install Chromium with `npx playwright install
 | Select and center | Click an object | Tap an object |
 | Clear selection | Click empty sky | Tap empty sky |
 
-The toolbar has reset view, grid toggle, zoom controls, and back/forward navigation through the 20 most recent star selections. The Objects list supports search and keyboard selection.
+The toolbar has reset view, grid toggle, zoom controls, back/forward navigation through the 20 most recent star selections, **Set as origin**, and an eye-shaped **Observer view** toggle. Observer view fixes the camera at the object selected on entry and permits rotation only. Its compact **Observing from** card identifies the observing object, selects it when its name is clicked, rolls the view clockwise or counterclockwise, and resets it to level. Other stars remain selectable without measurement guides; exiting keeps the latest selection and applies Reset view. The Objects list supports search and keyboard selection; its star marker identifies the current origin.
 
 ## Data
 
