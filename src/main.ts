@@ -6,6 +6,7 @@ import { compactOverlayManifest, loadCompactRemnants } from './compact-overlay'
 import { loadNebulae, nebulaOverlayManifest } from './nebula-overlay'
 import { catalogs, catalogErrors } from './registry'
 import { formatDistance, gridSpacingPc, LIGHT_YEARS_PER_PARSEC, starDisplayColor, sunRelativeMetrics, type DistanceUnit, type MotionFrame, type StarColorMode } from './astronomy'
+import { EARTH_ORBIT_MODES, earthOrbitDateForMode, earthOrbitModeLabel, isEarthOrbitMode, type EarthOrbitMode } from './earth-orbit'
 import { MOTION_YEAR_OPTIONS, SIMULATION_YEAR_LIMIT, createStarViewer, type MotionYears, type StarViewer, type ViewerViewState } from './viewer'
 import { isObjectMapVisible } from './viewer-primitives'
 import {
@@ -104,6 +105,7 @@ let observerViewAnchorId: string | null = null
 let powerSavingMode = false
 let labelLimit = 40
 let motionArrowsVisible = true
+let earthOrbitMode: EarthOrbitMode = 'now'
 let milkyWayVisible = true
 let motionFrame: MotionFrame = 'galactic'
 let motionYears: MotionYears = 1_000
@@ -135,12 +137,19 @@ const OBJECT_DISTANCE_STEPS_LY = [5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 60, 70,
 try {
   if (localStorage.getItem('star-view-distance-unit') === 'pc') distanceUnit = 'pc'
   if (localStorage.getItem('star-view-color-mode') === 'real') starColorMode = 'real'
+  const storedEarthOrbitMode = localStorage.getItem('star-view-earth-orbit-mode')
+  if (isEarthOrbitMode(storedEarthOrbitMode)) earthOrbitMode = storedEarthOrbitMode
+  else if (localStorage.getItem('star-view-earth-orbit-visible') === 'false') earthOrbitMode = 'off'
   if (localStorage.getItem('star-view-milky-way-visible') === 'false') milkyWayVisible = false
   const storedLabelLimit = localStorage.getItem('star-view-label-limit')
   const parsedLabelLimit = Number(storedLabelLimit)
   if (storedLabelLimit !== null && parsedLabelLimit >= 0 && parsedLabelLimit <= 140 && parsedLabelLimit % 20 === 0) labelLimit = parsedLabelLimit
 } catch {}
 element<HTMLInputElement>(`star-colors-${starColorMode}`).checked = true
+const earthOrbitModeInput = element<HTMLInputElement>('earth-orbit-mode')
+earthOrbitModeInput.value = String(EARTH_ORBIT_MODES.indexOf(earthOrbitMode))
+earthOrbitModeInput.setAttribute('aria-valuetext', earthOrbitModeLabel(earthOrbitMode))
+text('earth-orbit-mode-value', earthOrbitModeLabel(earthOrbitMode))
 element<HTMLInputElement>('milky-way-visible').checked = milkyWayVisible
 const labelLimitInput = element<HTMLInputElement>('label-limit')
 labelLimitInput.value = String(labelLimit)
@@ -625,6 +634,7 @@ async function switchCatalog(id: string, refresh = false): Promise<void> {
       onViewerDistance: renderViewerDistance,
       onStatus: sceneStatus,
       colorMode: starColorMode,
+      earthOrbitDate: earthOrbitDateForMode(earthOrbitMode),
       milkyWayVisible,
     })
   } catch (error) {
@@ -854,6 +864,17 @@ element('label-limit').addEventListener('input', () => {
 element('motion-arrows-visible').addEventListener('change', () => {
   motionArrowsVisible = element<HTMLInputElement>('motion-arrows-visible').checked
   viewer?.setMotionArrowsVisible(motionArrowsVisible)
+}, { signal: events.signal })
+element('earth-orbit-mode').addEventListener('input', () => {
+  const input = element<HTMLInputElement>('earth-orbit-mode')
+  const mode = EARTH_ORBIT_MODES[input.valueAsNumber]
+  if (!mode) return
+  earthOrbitMode = mode
+  const label = earthOrbitModeLabel(mode)
+  input.setAttribute('aria-valuetext', label)
+  text('earth-orbit-mode-value', label)
+  try { localStorage.setItem('star-view-earth-orbit-mode', mode) } catch {}
+  viewer?.setEarthOrbitDate(earthOrbitDateForMode(mode))
 }, { signal: events.signal })
 element('milky-way-visible').addEventListener('change', () => {
   milkyWayVisible = element<HTMLInputElement>('milky-way-visible').checked

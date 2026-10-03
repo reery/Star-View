@@ -121,8 +121,8 @@
                     <div class="time-speed" role="group" aria-label="Motion playback controls">
                       <button id="time-follow" class="time-speed-button time-follow" type="button" aria-label="Follow selection" aria-pressed="false" title="Follow selection" disabled><span id="time-follow-icon"></span></button>
                       <button id="time-slower" class="time-speed-button" type="button" aria-label="Decrease playback speed" title="Slower" disabled><span id="time-slower-icon"></span></button>
-                      <output id="time-speed-value" aria-live="polite">1k years / 1s</output>
                       <button id="time-faster" class="time-speed-button" type="button" aria-label="Increase playback speed" title="Faster" disabled><span id="time-faster-icon"></span></button>
+                      <output id="time-speed-value" aria-live="polite">1k years / 1s</output>
                     </div>
                   </div>
                   <div class="time-range">
@@ -170,6 +170,13 @@
                     <div class="range-heading"><label for="magnitude-limit">V magnitude limit</label><output id="magnitude-limit-value" for="magnitude-limit">7</output></div>
                     <input id="magnitude-limit" type="range" min="0" max="25" step="0.5" value="7">
                     <div class="range-bounds" aria-hidden="true"><span>0</span><span>25</span></div>
+                  </div>
+                  <div class="range-filter">
+                    <div class="range-heading"><label for="earth-orbit-mode">Earth’s orbit</label><output id="earth-orbit-mode-value" for="earth-orbit-mode">Now</output></div>
+                    <input id="earth-orbit-mode" type="range" min="0" max="13" step="1" value="1" list="earth-orbit-mode-stops" aria-valuetext="Now" aria-describedby="earth-orbit-mode-description">
+                    <datalist id="earth-orbit-mode-stops"><option value="0" label="Off"></option><option value="1" label="Now"></option><option value="2" label="Jan"></option><option value="3" label="Feb"></option><option value="4" label="Mar"></option><option value="5" label="Apr"></option><option value="6" label="May"></option><option value="7" label="Jun"></option><option value="8" label="Jul"></option><option value="9" label="Aug"></option><option value="10" label="Sep"></option><option value="11" label="Oct"></option><option value="12" label="Nov"></option><option value="13" label="Dec"></option></datalist>
+                    <div class="range-bounds" aria-hidden="true"><span>Off</span><span>Dec</span></div>
+                    <span id="earth-orbit-mode-description" class="sr-only">Stops are Off, Now, January, February, March, April, May, June, July, August, September, October, November, and December.</span>
                   </div>
                   <label class="filter-toggle" for="milky-way-visible">
                     <span>Show Milky Way</span>

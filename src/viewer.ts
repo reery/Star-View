@@ -2,12 +2,13 @@ import {
   AdditiveBlending, BackSide, Box3, BoxGeometry, BufferGeometry, CanvasTexture, Color, DoubleSide, DynamicDrawUsage, Float32BufferAttribute,
   GridHelper, Group, InstancedBufferAttribute, InstancedBufferGeometry, LessDepth, Line, LineBasicMaterial, LineDashedMaterial,
   LinearFilter, LineSegments, Matrix4, Mesh, NoBlending, Object3D, PerspectiveCamera, Points, PointsMaterial, Scene, ShaderMaterial,
-  Sphere, SRGBColorSpace, TextureLoader, Vector2, Vector3, Vector4, WebGLRenderer, type Texture,
+  Quaternion, Sphere, SRGBColorSpace, TextureLoader, Vector2, Vector3, Vector4, WebGLRenderer, type Texture,
 } from 'three'
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js'
 import milkyWayImageUrl from './assets/milky-way.jpg'
 import type { Star } from './catalog-model'
 import { apparentVisualMagnitude, displayMotionForStar, formatDistance, galacticToWorld, gridSpacingPc, LIGHT_YEARS_PER_PARSEC, starDisplayColor, type DistanceUnit, type MotionFrame, type MotionMode, type StarColorMode } from './astronomy'
+import { EARTH_AXIS_DISPLAY_HALF_LENGTH_PC, EARTH_ORBIT_DISPLAY_RADIUS_PC, earthOrbitModel } from './earth-orbit'
 import { advanceFrameDeadline, effectiveDampingFactor, estimateRefreshRate, renderPixelRatio, targetRenderFps } from './render-scheduling'
 import { centeredForegroundLabelBounds, chooseOrdinaryLabelPlacement, ordinaryLabelCandidates, overlaps, type LabelRect, type OrdinaryLabelPlacement } from './label-layout'
 import { createNebulaLayer } from './nebula-layer'
@@ -39,6 +40,7 @@ export interface StarViewer {
   setObjectFilter(keys: readonly FilterKey[]): void
   setLabelLimit(limit: number): void
   setMotionArrowsVisible(visible: boolean): void
+  setEarthOrbitDate(date: Date | null): void
   setMilkyWayVisible(visible: boolean): void
   setMotionFrame(frame: MotionFrame): void
   setMotionYears(years: MotionYears): void
@@ -70,6 +72,7 @@ interface ViewerOptions {
   onViewerDistance?(distancePc: number): void
   onStatus(message: string | null): void
   colorMode: StarColorMode
+  earthOrbitDate?: Date | null
   milkyWayVisible?: boolean
 }
 
@@ -192,6 +195,17 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
   controls.rotateSpeed = 0.65
   controls.screenSpacePanning = true
 
+  // OrbitControls captures camera.up only once, although Observer view can roll
+  // the camera later. Keep its spherical frame aligned with the visible screen
+  // up so mouse and touch drags remain screen-relative after a roll.
+  const orbitFrame = controls as unknown as { _quat: Quaternion; _quatInverse: Quaternion }
+  const worldUp = new Vector3(0, 1, 0)
+  function setOrbitUp(up: Vector3): void {
+    camera.up.copy(up).normalize()
+    orbitFrame._quat.setFromUnitVectors(camera.up, worldUp)
+    orbitFrame._quatInverse.copy(orbitFrame._quat).invert()
+  }
+
   const pickable = stars.map((star) => ({ id: star.id, position: galacticToWorld(star) }))
   const basePositions = pickable.map(({ position }) => position.clone())
   let motions = stars.map((star) => displayMotionForStar(star))
@@ -280,6 +294,80 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
   context.fillRect(0, 0, 64, 64)
   const dotTexture = new CanvasTexture(textureCanvas)
   dotTexture.colorSpace = SRGBColorSpace
+
+  const initialEarthOrbitDate = options.earthOrbitDate === undefined ? new Date() : options.earthOrbitDate
+  const earthOrbit = earthOrbitModel(initialEarthOrbitDate ?? new Date())
+  const earthOrbitGroup = new Group()
+  earthOrbitGroup.name = 'earth-orbit-reference'
+  earthOrbitGroup.position.copy(galacticToWorld(sun))
+  const earthOrbitLine = new Line(
+    new BufferGeometry().setFromPoints(earthOrbit.orbitPoints),
+    new LineBasicMaterial({ color: 0x5dbfea, transparent: true, opacity: 0.82, depthTest: false, depthWrite: false, toneMapped: false }),
+  )
+  earthOrbitLine.name = 'earth-orbit-line'
+  earthOrbitLine.frustumCulled = false
+  earthOrbitLine.renderOrder = 1
+
+  const earthCanvas = document.createElement('canvas')
+  earthCanvas.width = earthCanvas.height = 64
+  const earthContext = earthCanvas.getContext('2d')!
+  const earthGlow = earthContext.createRadialGradient(29, 26, 3, 32, 32, 31)
+  earthGlow.addColorStop(0, '#d8fbffff')
+  earthGlow.addColorStop(0.28, '#51c8ffff')
+  earthGlow.addColorStop(0.62, '#176bbfff')
+  earthGlow.addColorStop(0.78, '#0b376fcc')
+  earthGlow.addColorStop(1, '#061c3a00')
+  earthContext.fillStyle = earthGlow
+  earthContext.fillRect(0, 0, 64, 64)
+  earthContext.fillStyle = '#88b77dcc'
+  earthContext.beginPath()
+  earthContext.ellipse(25, 28, 5, 2.5, -0.35, 0, Math.PI * 2)
+  earthContext.ellipse(37, 36, 4, 2, 0.55, 0, Math.PI * 2)
+  earthContext.fill()
+  const earthTexture = new CanvasTexture(earthCanvas)
+  earthTexture.colorSpace = SRGBColorSpace
+  const earthPointGeometry = new BufferGeometry().setFromPoints([earthOrbit.earthPosition])
+  const earthPoint = new Points(
+    earthPointGeometry,
+    new PointsMaterial({
+      color: 0xffffff, size: 11, sizeAttenuation: false, map: earthTexture, alphaTest: 0.05,
+      transparent: true, depthTest: true, depthWrite: true, toneMapped: false,
+    }),
+  )
+  earthPoint.name = 'earth-date-marker'
+  earthPoint.frustumCulled = false
+  earthPoint.renderOrder = 5
+  const earthAxisGeometry = new BufferGeometry().setFromPoints([
+    earthOrbit.earthPosition.clone().addScaledVector(earthOrbit.axisDirection, -EARTH_AXIS_DISPLAY_HALF_LENGTH_PC),
+    earthOrbit.earthPosition.clone().addScaledVector(earthOrbit.axisDirection, EARTH_AXIS_DISPLAY_HALF_LENGTH_PC),
+  ])
+  const earthAxisLine = new Line(
+    earthAxisGeometry,
+    new LineBasicMaterial({ color: 0xe2f8ff, transparent: true, opacity: 0.95, depthTest: true, depthWrite: false, toneMapped: false }),
+  )
+  earthAxisLine.name = 'earth-axis-line'
+  earthAxisLine.frustumCulled = false
+  earthAxisLine.renderOrder = 6
+  earthOrbitGroup.add(earthOrbitLine, earthAxisLine, earthPoint)
+  let earthOrbitVisible = initialEarthOrbitDate !== null
+  earthOrbitGroup.visible = earthOrbitVisible
+  scene.add(earthOrbitGroup)
+
+  function positionEarthMarker(date: Date): void {
+    const marker = earthOrbitModel(date)
+    const pointPositions = earthPointGeometry.getAttribute('position')
+    pointPositions.setXYZ(0, marker.earthPosition.x, marker.earthPosition.y, marker.earthPosition.z)
+    pointPositions.needsUpdate = true
+    const axisPositions = earthAxisGeometry.getAttribute('position')
+    const axisStart = marker.earthPosition.clone().addScaledVector(marker.axisDirection, -EARTH_AXIS_DISPLAY_HALF_LENGTH_PC)
+    const axisEnd = marker.earthPosition.clone().addScaledVector(marker.axisDirection, EARTH_AXIS_DISPLAY_HALF_LENGTH_PC)
+    axisPositions.setXYZ(0, axisStart.x, axisStart.y, axisStart.z)
+    axisPositions.setXYZ(1, axisEnd.x, axisEnd.y, axisEnd.z)
+    axisPositions.needsUpdate = true
+    container.dataset.earthOrbitDate = date.toISOString().slice(0, 10)
+    container.dataset.earthEclipticLongitudeDeg = marker.eclipticLongitudeDeg.toFixed(2)
+  }
+
   const starGeometry = new BufferGeometry()
   const starPositionAttribute = new Float32BufferAttribute(pickable.flatMap((star) => star.position.toArray()), 3).setUsage(DynamicDrawUsage)
   starGeometry.setAttribute('position', starPositionAttribute)
@@ -675,9 +763,10 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
   const followDelta = new Vector3()
   const observerDirection = new Vector3()
   const observerDelta = new Vector3()
+  const observerScreenUp = new Vector3()
+  const observerViewBackward = new Vector3()
   const OBSERVER_ORBIT_RADIUS_PC = 1e-6
   const OBSERVER_ROLL_STEP = Math.PI / 12
-  let observerRollRadians = 0
   let savedOrbitSettings: {
     enablePan: boolean
     enableZoom: boolean
@@ -956,6 +1045,7 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
       starPositionAttribute.setXYZ(index, position.x, position.y, position.z)
     }
     starPositionAttribute.needsUpdate = true
+    earthOrbitGroup.position.copy(pickable[sunIndex]!.position)
     container.dataset.simulationYears = String(simulationYears)
     syncObserverCamera()
     applySelectionFollow()
@@ -1681,7 +1771,7 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
     if (enabled && !anchor) return false
     observerViewEnabled = enabled
     observerViewAnchorIndex = anchor?.index ?? null
-    observerRollRadians = 0
+    setOrbitUp(worldUp)
     configureObserverControls(enabled)
     container.dataset.observerView = String(enabled)
     canvas.classList.toggle('is-observer-view', enabled)
@@ -1701,9 +1791,18 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
     focusTransition = null
     controlsInteracting = false
     controlsSettling = false
-    if (direction === 'center') observerRollRadians = 0
-    else observerRollRadians += direction === 'clockwise' ? -OBSERVER_ROLL_STEP : OBSERVER_ROLL_STEP
-    observerRollRadians = Math.atan2(Math.sin(observerRollRadians), Math.cos(observerRollRadians))
+    if (direction === 'center') {
+      setOrbitUp(worldUp)
+    } else {
+      camera.updateMatrixWorld()
+      observerScreenUp.set(0, 1, 0).applyQuaternion(camera.quaternion)
+      observerViewBackward.subVectors(camera.position, controls.target).normalize()
+      const angle = direction === 'clockwise' ? -OBSERVER_ROLL_STEP : OBSERVER_ROLL_STEP
+      observerScreenUp.applyAxisAngle(observerViewBackward, angle)
+      setOrbitUp(observerScreenUp)
+    }
+    camera.lookAt(controls.target)
+    controls.update()
     invalidateProjection()
     obstacleBoundsDirty = true
     ordinaryLayoutDirty = true
@@ -1901,7 +2000,6 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
         resize()
       }
     }
-    if (observerViewEnabled && observerRollRadians !== 0) camera.rotateZ(observerRollRadians)
     camera.updateMatrixWorld()
     starViewDistance.value = camera.position.distanceTo(controls.target)
     if ((!continueRendering && !simulationPlaying) || time - lastViewerDistanceReport >= 250) {
@@ -1984,6 +2082,9 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
   })
   sceneObstacleElements.forEach((element) => obstacleObserver.observe(element))
   updatePresentation()
+  container.dataset.earthOrbitVisible = String(earthOrbitVisible)
+  if (initialEarthOrbitDate) positionEarthMarker(initialEarthOrbitDate)
+  container.dataset.earthOrbitRadiusPc = String(EARTH_ORBIT_DISPLAY_RADIUS_PC)
   container.dataset.milkyWayVisible = String(milkyWayVisible)
   container.dataset.simulationYears = '0'
   if (milkyWayVisible) loadMilkyWay()
@@ -2053,6 +2154,18 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
       motionArrowsVisible = visible
       invalidateProjection()
       ordinaryLayoutDirty = true
+      requestRender()
+    },
+    setEarthOrbitDate(date) {
+      if (date !== null && !Number.isFinite(date.getTime())) return
+      earthOrbitVisible = date !== null
+      earthOrbitGroup.visible = earthOrbitVisible
+      container.dataset.earthOrbitVisible = String(earthOrbitVisible)
+      if (date) positionEarthMarker(date)
+      else {
+        delete container.dataset.earthOrbitDate
+        delete container.dataset.earthEclipticLongitudeDeg
+      }
       requestRender()
     },
     setMilkyWayVisible(visible) {
@@ -2199,6 +2312,7 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
       arrowMaterial.dispose()
       nebulaLayer?.dispose()
       dotTexture.dispose()
+      earthTexture.dispose()
       haloTexture.dispose()
       milkyWayTexture?.dispose()
       milkyWayGeometry.dispose()
@@ -2210,6 +2324,10 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
       delete container.dataset.ready
       delete container.dataset.gridSpacingPc
       delete container.dataset.gridHalfSizePc
+      delete container.dataset.earthOrbitVisible
+      delete container.dataset.earthOrbitDate
+      delete container.dataset.earthEclipticLongitudeDeg
+      delete container.dataset.earthOrbitRadiusPc
       delete container.dataset.referenceId
       delete container.dataset.observerView
       delete container.dataset.milkyWayReady

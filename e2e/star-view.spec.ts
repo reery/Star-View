@@ -180,6 +180,51 @@ test('adds independent Western constellation and famous-cluster landmark layers'
   await expect(page.locator('#catalog-count')).toHaveText(/\/747$/)
 })
 
+test('positions Earth from the orbit slider and remembers its stop', async ({ page }, testInfo) => {
+  await openViewer(page)
+  const scene = page.locator('#scene')
+  const canvas = scene.locator('canvas')
+  await expect(scene).toHaveAttribute('data-earth-orbit-visible', 'true')
+  await expect(scene).toHaveAttribute('data-earth-orbit-date', /^\d{4}-\d{2}-\d{2}$/)
+  await expect(scene).toHaveAttribute('data-earth-orbit-radius-pc', '0.35')
+  const longitude = Number(await scene.getAttribute('data-earth-ecliptic-longitude-deg'))
+  expect(longitude).toBeGreaterThanOrEqual(0)
+  expect(longitude).toBeLessThan(360)
+
+  await openFilter(page)
+  const slider = page.getByRole('slider', { name: 'Earth’s orbit' })
+  await expect(slider).toHaveValue('1')
+  await expect(slider).toHaveAttribute('aria-valuetext', 'Now')
+  await expect(page.locator('#earth-orbit-mode-value')).toHaveText('Now')
+  await expect(slider.locator('xpath=ancestor::div[contains(@class, "range-filter")]/following-sibling::label[1]')).toContainText('Show Milky Way')
+  const visible = await canvas.screenshot({ scale: 'css', path: testInfo.outputPath('earth-orbit-now.png') })
+
+  await slider.fill('0')
+  await expect(page.locator('#earth-orbit-mode-value')).toHaveText('Off')
+  await expect(scene).toHaveAttribute('data-earth-orbit-visible', 'false')
+  await page.evaluate(() => new Promise<void>((resolve) => requestAnimationFrame(() => resolve())))
+  expect(changedPixels(visible, await canvas.screenshot({ scale: 'css' }))).toBeGreaterThan(30)
+
+  const year = new Date().getUTCFullYear()
+  await slider.fill('2')
+  await expect(page.locator('#earth-orbit-mode-value')).toHaveText('Jan')
+  await expect(scene).toHaveAttribute('data-earth-orbit-visible', 'true')
+  await expect(scene).toHaveAttribute('data-earth-orbit-date', `${year}-01-15`)
+  const january = await canvas.screenshot({ scale: 'css', path: testInfo.outputPath('earth-orbit-january.png') })
+  await slider.fill('8')
+  await expect(page.locator('#earth-orbit-mode-value')).toHaveText('Jul')
+  await expect(scene).toHaveAttribute('data-earth-orbit-date', `${year}-07-15`)
+  await page.evaluate(() => new Promise<void>((resolve) => requestAnimationFrame(() => resolve())))
+  expect(changedPixels(january, await canvas.screenshot({ scale: 'css' }))).toBeGreaterThan(30)
+
+  await slider.fill('2')
+  await openViewer(page)
+  await openFilter(page)
+  await expect(page.getByRole('slider', { name: 'Earth’s orbit' })).toHaveValue('2')
+  await expect(page.locator('#earth-orbit-mode-value')).toHaveText('Jan')
+  await expect(scene).toHaveAttribute('data-earth-orbit-date', `${year}-01-15`)
+})
+
 test('toggles the optimized Milky Way backdrop and remembers the choice', async ({ page }, testInfo) => {
   await openViewer(page)
   const scene = page.locator('#scene')
@@ -2069,6 +2114,54 @@ test('orbit and pinch move the rendered scene without changing selection', { tag
     await expect(page.locator('#star-name')).toHaveText('Sirius A')
     await expect.poll(async () => changedPixels(beforePinch, await canvas.screenshot({ scale: 'css' }))).toBeGreaterThan(250)
   }
+})
+
+test('keeps observer drags screen-relative after rolling the view', { tag: '@mobile' }, async ({ page, context, isMobile }) => {
+  await page.emulateMedia({ reducedMotion: 'reduce' })
+  await openViewer(page)
+  await page.getByRole('button', { name: 'Enter observer view', exact: true }).click()
+  await expect(page.locator('#scene')).toHaveAttribute('data-observer-view', 'true')
+  const rollCounterclockwise = page.getByRole('button', { name: 'Roll view counterclockwise', exact: true })
+  for (let step = 0; step < 6; step++) await rollCounterclockwise.click()
+
+  const canvas = page.locator('#scene canvas')
+  const bounds = (await canvas.boundingBox())!
+  const sampleAnchors = () => page.locator('.map-anchor').evaluateAll((anchors, sceneBounds) => Object.fromEntries(anchors.flatMap((anchor) => {
+    const element = anchor as HTMLElement
+    const rectangle = element.getBoundingClientRect()
+    const id = element.dataset.starId
+    if (!id || !element.checkVisibility() || rectangle.left < sceneBounds.x + sceneBounds.width * 0.2 ||
+      rectangle.left > sceneBounds.x + sceneBounds.width * 0.8 || rectangle.top < sceneBounds.y + sceneBounds.height * 0.2 ||
+      rectangle.top > sceneBounds.y + sceneBounds.height * 0.8) return []
+    return [[id, { x: rectangle.left, y: rectangle.top }]]
+  })), bounds)
+  const before = await sampleAnchors()
+  const startX = bounds.x + bounds.width / 2
+  const startY = bounds.y + bounds.height * 0.65
+  if (isMobile) {
+    const session = await context.newCDPSession(page)
+    await session.send('Input.dispatchTouchEvent', { type: 'touchStart', touchPoints: [{ x: startX, y: startY, id: 0 }] })
+    await session.send('Input.dispatchTouchEvent', { type: 'touchMove', touchPoints: [{ x: startX, y: startY - 80, id: 0 }] })
+    await session.send('Input.dispatchTouchEvent', { type: 'touchEnd', touchPoints: [] })
+    await session.detach()
+  } else {
+    await page.mouse.move(startX, startY)
+    await page.mouse.down()
+    await page.mouse.move(startX, startY - 80, { steps: 6 })
+    await page.mouse.up()
+  }
+  await page.evaluate(() => new Promise<void>((resolve) => requestAnimationFrame(() => requestAnimationFrame(() => resolve()))))
+  const after = await sampleAnchors()
+  const movement = Object.entries(before).flatMap(([id, point]) => {
+    const next = after[id]
+    return next ? [{ x: Math.abs(next.x - point.x), y: Math.abs(next.y - point.y) }] : []
+  })
+  expect(movement.length).toBeGreaterThan(2)
+  const horizontal = movement.reduce((sum, delta) => sum + delta.x, 0) / movement.length
+  const vertical = movement.reduce((sum, delta) => sum + delta.y, 0) / movement.length
+  expect(vertical).toBeGreaterThan(15)
+  expect(vertical).toBeGreaterThan(horizontal * 2)
+  await expect(page.locator('#star-name')).toHaveText('Sirius A')
 })
 
 test('clears selection on empty-sky clicks and taps without moving the camera', { tag: '@mobile' }, async ({ page, isMobile }) => {
