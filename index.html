@@ -5,7 +5,7 @@
     <link rel="icon" href="data:," />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
     <meta name="theme-color" content="#202224" />
-    <meta name="description" content="A Sun-centered map of nearby stellar and substellar objects." />
+    <meta name="description" content="An origin-centered map of nearby stellar and substellar objects." />
     <title>Star View</title>
   </head>
   <body>
@@ -17,7 +17,7 @@
             <span id="grid-legend" class="grid-legend"><span class="grid-symbol" aria-hidden="true"></span><span id="grid-spacing">0.5 pc grid</span><span class="legend-divider"></span></span>
             <span id="scene-epoch">J2000.0</span>
           </div>
-          <p class="visibility-observer" data-scene-obstacle><span>Visibility from: <strong id="visibility-base">Sirius A</strong> <span aria-hidden="true">|</span> Distance from viewer: <strong id="viewer-distance">—</strong></span></p>
+          <p class="visibility-observer" data-scene-obstacle><span>Origin: <strong id="reference-base">Sun</strong> <span aria-hidden="true">|</span> Visibility from: <strong id="visibility-base">Sirius A</strong> <span aria-hidden="true">|</span> Distance from viewer: <strong id="viewer-distance">—</strong></span></p>
           <div id="scene-status" class="scene-status" role="status">Loading nearby-object map...</div>
           <aside id="inspector" class="inspector" aria-label="Object controls">
             <section id="selected-object-card" class="selected-object" aria-label="Selected object" data-scene-obstacle>
@@ -99,6 +99,9 @@
               <span class="toolbar-divider"></span>
               <button id="selection-back" class="icon-button" type="button" aria-label="Previous selection" disabled><span id="selection-back-icon"></span><span class="tooltip">Previous selection</span></button>
               <button id="selection-forward" class="icon-button" type="button" aria-label="Next selection" disabled><span id="selection-forward-icon"></span><span class="tooltip">Next selection</span></button>
+              <span class="toolbar-divider"></span>
+              <button id="set-origin" class="icon-button" type="button" aria-label="Set selected object as origin" disabled><span id="set-origin-icon"></span><span class="tooltip">Set as origin</span></button>
+              <button id="observer-view" class="icon-button observer-view-button" type="button" aria-label="Enter observer view" aria-pressed="false" aria-controls="scene" disabled><span id="observer-view-icon"></span><span id="observer-view-tooltip" class="tooltip">Observer view</span></button>
             </div>
             <div id="control-dock" class="control-dock" data-scene-obstacle>
               <div class="dock-rail" role="group" aria-label="Map and information controls">
@@ -224,6 +227,14 @@
                 </dl>
               </section>
             </div>
+            <section id="observer-direction-card" class="observer-direction-card" aria-labelledby="observer-direction-title" data-scene-obstacle hidden>
+              <h2 id="observer-direction-title" class="observer-direction-title"><span>Observing from</span><button id="observer-object" class="observer-direction-object" type="button"><span id="observer-object-swatch" class="star-swatch" aria-hidden="true"></span><span id="observer-object-name"></span></button></h2>
+              <div class="observer-direction-buttons" role="group" aria-label="Roll observer camera">
+                <button id="observer-roll-counterclockwise" class="observer-direction-button" type="button" aria-label="Roll view counterclockwise" title="Roll counterclockwise" disabled><span id="observer-roll-counterclockwise-icon"></span></button>
+                <button id="observer-roll-reset" class="observer-direction-button" type="button" aria-label="Reset view roll" title="Reset view roll" disabled><span id="observer-roll-reset-icon"></span></button>
+                <button id="observer-roll-clockwise" class="observer-direction-button" type="button" aria-label="Roll view clockwise" title="Roll clockwise" disabled><span id="observer-roll-clockwise-icon"></span></button>
+              </div>
+            </section>
           </aside>
         </section>
       </main>

@@ -36,6 +36,7 @@ export class ObjectList {
   private countedShown = -1
   private countedTotal = -1
   private selectedId: string | null = null
+  private referenceId = 'sun'
   private unit: DistanceUnit = 'ly'
   private colorMode: StarColorMode = 'real'
   private scrollFrame: number | null = null
@@ -53,17 +54,31 @@ export class ObjectList {
     })
   }
 
-  setStars(stars: readonly Star[], unit: DistanceUnit, selectedId: string | null): void {
+  setStars(stars: readonly Star[], unit: DistanceUnit, selectedId: string | null, referenceId = 'sun'): void {
     const sun = stars.find((star) => star.id === 'sun')!
+    const reference = stars.find((star) => star.id === referenceId) ?? sun
     this.items = sortObjectListItemsByDistance(stars.map((star) => ({
       star,
-      distancePc: sunRelativeMetrics(star, sun).distancePc,
+      distancePc: sunRelativeMetrics(star, reference).distancePc,
       search: normalizeObjectSearch(`${star.name} ${star.id} ${star.spectral_type ?? ''} ${star.nebula?.designations.join(' ') ?? ''}`),
       color: starDisplayColor(star, this.colorMode).getStyle(),
     })))
     this.query = ''
     this.unit = unit
     this.selectedId = selectedId
+    this.referenceId = reference.id
+    this.refresh()
+  }
+
+  setReference(id: string): void {
+    if (id === this.referenceId) return
+    const reference = this.items.find((item) => item.star.id === id)?.star
+    if (!reference) return
+    this.referenceId = id
+    this.items = sortObjectListItemsByDistance(this.items.map((item) => ({
+      ...item,
+      distancePc: sunRelativeMetrics(item.star, reference).distancePc,
+    })))
     this.refresh()
   }
 
@@ -123,9 +138,11 @@ export class ObjectList {
     button.type = 'button'
     button.className = 'catalog-entry'
     button.classList.toggle('is-selected', item.star.id === this.selectedId)
+    button.classList.toggle('is-reference', item.star.id === this.referenceId)
     button.dataset.star = item.star.id
     button.setAttribute('aria-label', `Select ${item.star.name}`)
     button.setAttribute('aria-pressed', String(item.star.id === this.selectedId))
+    if (item.star.id === this.referenceId) button.setAttribute('aria-current', 'true')
     if (virtual) {
       button.style.position = 'absolute'
       button.style.transform = `translateY(${index * ROW_HEIGHT}px)`
@@ -134,13 +151,24 @@ export class ObjectList {
     swatch.className = 'star-swatch'
     swatch.style.background = item.color
     swatch.setAttribute('aria-hidden', 'true')
+    const marker = document.createElement('span')
+    marker.className = 'catalog-marker'
+    marker.append(swatch)
+    if (item.star.id === this.referenceId) {
+      const reference = document.createElement('span')
+      reference.className = 'reference-star'
+      reference.textContent = '\u2605'
+      reference.title = 'Origin object'
+      reference.setAttribute('aria-hidden', 'true')
+      marker.append(reference)
+    }
     const name = document.createElement('span')
     name.className = 'catalog-name'
     name.textContent = item.star.name
     const distance = document.createElement('span')
     distance.className = 'catalog-distance'
     distance.textContent = formatDistance(item.distancePc, this.unit)
-    button.append(swatch, name, distance)
+    button.append(marker, name, distance)
     return button
   }
 

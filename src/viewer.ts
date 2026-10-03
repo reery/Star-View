@@ -7,7 +7,7 @@ import {
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js'
 import milkyWayImageUrl from './assets/milky-way.jpg'
 import type { Star } from './catalog-model'
-import { apparentVisualMagnitude, displayMotionForStar, formatDistance, galacticToWorld, gridSpacingPc, LIGHT_YEARS_PER_PARSEC, starDisplayColor, sunRelativeMetrics, type DistanceUnit, type MotionFrame, type MotionMode, type StarColorMode } from './astronomy'
+import { apparentVisualMagnitude, displayMotionForStar, formatDistance, galacticToWorld, gridSpacingPc, LIGHT_YEARS_PER_PARSEC, starDisplayColor, type DistanceUnit, type MotionFrame, type MotionMode, type StarColorMode } from './astronomy'
 import { advanceFrameDeadline, effectiveDampingFactor, estimateRefreshRate, renderPixelRatio, targetRenderFps } from './render-scheduling'
 import { centeredForegroundLabelBounds, chooseOrdinaryLabelPlacement, ordinaryLabelCandidates, overlaps, type LabelRect, type OrdinaryLabelPlacement } from './label-layout'
 import { createNebulaLayer } from './nebula-layer'
@@ -29,6 +29,9 @@ import {
 export interface StarViewer {
   getViewState(): ViewerViewState
   select(id: string | null, focus?: boolean): void
+  setReference(referenceId: string): void
+  setObserverView(enabled: boolean, anchorId?: string): boolean
+  rollObserverView(direction: 'counterclockwise' | 'center' | 'clockwise'): void
   reset(): void
   setGridVisible(visible: boolean): void
   setViewState(state: ViewerViewState): void
@@ -192,9 +195,13 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
   const pickable = stars.map((star) => ({ id: star.id, position: galacticToWorld(star) }))
   const basePositions = pickable.map(({ position }) => position.clone())
   let motions = stars.map((star) => displayMotionForStar(star))
-  const sunDistancesLy = stars.map((star) => sunRelativeMetrics(star, sun).distanceLy)
   const starsById = new Map(stars.map((star, index) => [star.id, { star, index }]))
   const sunIndex = starsById.get(sun.id)!.index
+  let referenceIndex = sunIndex
+  const referenceDistancesLy = new Float64Array(stars.length)
+  for (let index = 0; index < stars.length; index++) {
+    referenceDistancesLy[index] = basePositions[index]!.distanceTo(basePositions[referenceIndex]!) * LIGHT_YEARS_PER_PARSEC
+  }
   let starColorMode = options.colorMode
   const starColors = stars.map((star) => starDisplayColor(star, starColorMode))
   const starColorStyles = starColors.map((color) => color.getStyle())
@@ -551,17 +558,19 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
       }
     `,
   }))
+  const origin = basePositions[referenceIndex]!.clone()
+  grid.position.copy(origin)
   scene.add(grid)
   container.dataset.gridSpacingPc = String(gridSpacing)
   container.dataset.gridHalfSizePc = String(gridHalfSize)
-  const origin = galacticToWorld(sun)
+  container.dataset.referenceId = sun.id
   const axisLength = Math.max(1.2, catalogSphere.radius)
   const axes = [
-    { position: new Vector3(axisLength, 0, 0), text: '+X', color: 0x8d786f },
-    { position: new Vector3(0, 0, -axisLength), text: '+Y', color: 0x9c8976 },
-    { position: new Vector3(0, axisLength, 0), text: '+Z north', color: 0x899ca3 },
+    { offset: new Vector3(axisLength, 0, 0), position: origin.clone().add(new Vector3(axisLength, 0, 0)), text: '+X', color: 0x8d786f },
+    { offset: new Vector3(0, 0, -axisLength), position: origin.clone().add(new Vector3(0, 0, -axisLength)), text: '+Y', color: 0x9c8976 },
+    { offset: new Vector3(0, axisLength, 0), position: origin.clone().add(new Vector3(0, axisLength, 0)), text: '+Z north', color: 0x899ca3 },
   ]
-  const axisGeometry = new BufferGeometry().setFromPoints(axes.flatMap((axis) => [origin, axis.position]))
+  const axisGeometry = new BufferGeometry().setFromPoints(axes.flatMap((axis) => [new Vector3(), axis.offset]))
   axisGeometry.setAttribute('color', new Float32BufferAttribute(axes.flatMap((axis) => {
     const color = new Color(axis.color).toArray()
     return [...color, ...color]
@@ -570,6 +579,7 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
     vertexColors: true, transparent: true, opacity: 0.55, depthWrite: false,
   })
   const axisLines = new LineSegments(axisGeometry, axisMaterial)
+  axisLines.position.copy(origin)
   scene.add(axisLines)
 
   const axisLayer = document.createElement('div')
@@ -657,10 +667,25 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
   let simulationYears = 0
   let simulationPlaying = false
   let followSelection = false
+  let observerViewEnabled = false
+  let observerViewAnchorIndex: number | null = null
   let followTarget: 'star' | 'distance' = 'distance'
   const followAnchor = new Vector3()
   const followCurrent = new Vector3()
   const followDelta = new Vector3()
+  const observerDirection = new Vector3()
+  const observerDelta = new Vector3()
+  const OBSERVER_ORBIT_RADIUS_PC = 1e-6
+  const OBSERVER_ROLL_STEP = Math.PI / 12
+  let observerRollRadians = 0
+  let savedOrbitSettings: {
+    enablePan: boolean
+    enableZoom: boolean
+    minDistance: number
+    maxDistance: number
+    minPolarAngle: number
+    maxPolarAngle: number
+  } | null = null
   let distanceUnit: DistanceUnit = 'pc'
   const tiers: Array<'base' | 'eligible' | 'background'> = stars.map(() => 'background')
   const mapVisible = new Uint8Array(stars.length)
@@ -764,13 +789,84 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
     projectionDirty = true
   }
 
-  function setSelectionGuidePoints(sunPosition: Vector3, selectedPosition: Vector3): void {
+  function positionReferenceFrame(): void {
+    const reference = stars[referenceIndex]!
+    origin.copy(basePositions[referenceIndex]!)
+    grid.position.copy(origin)
+    axisLines.position.copy(origin)
+    for (const axis of axes) axis.position.copy(origin).add(axis.offset)
+    container.dataset.referenceId = reference.id
+    canvas.setAttribute('aria-label', `${reference.name}-centered 3D nearby-object map`)
+    obstacleBoundsDirty = true
+    ordinaryLayoutDirty = true
+    invalidateProjection()
+  }
+
+  function configureObserverControls(enabled: boolean): void {
+    if (enabled) {
+      savedOrbitSettings = {
+        enablePan: controls.enablePan,
+        enableZoom: controls.enableZoom,
+        minDistance: controls.minDistance,
+        maxDistance: controls.maxDistance,
+        minPolarAngle: controls.minPolarAngle,
+        maxPolarAngle: controls.maxPolarAngle,
+      }
+      controls.enablePan = false
+      controls.enableZoom = false
+      controls.minDistance = OBSERVER_ORBIT_RADIUS_PC
+      controls.maxDistance = OBSERVER_ORBIT_RADIUS_PC
+      controls.minPolarAngle = 0
+      controls.maxPolarAngle = Math.PI
+      return
+    }
+    if (!savedOrbitSettings) return
+    controls.enablePan = savedOrbitSettings.enablePan
+    controls.enableZoom = savedOrbitSettings.enableZoom
+    controls.minDistance = savedOrbitSettings.minDistance
+    controls.maxDistance = savedOrbitSettings.maxDistance
+    controls.minPolarAngle = savedOrbitSettings.minPolarAngle
+    controls.maxPolarAngle = savedOrbitSettings.maxPolarAngle
+    savedOrbitSettings = null
+  }
+
+  function applyObserverDirection(direction: Vector3): void {
+    if (observerViewAnchorIndex === null) return
+    const position = pickable[observerViewAnchorIndex]!.position
+    controls.target.copy(position)
+    camera.position.copy(position).addScaledVector(direction, -OBSERVER_ORBIT_RADIUS_PC)
+    camera.lookAt(position)
+    controls.update()
+    home = false
+    invalidateProjection()
+  }
+
+  function placeObserverCamera(index: number): void {
+    observerDirection.subVectors(controls.target, camera.position)
+    if (observerDirection.lengthSq() < 1e-18) observerDirection.copy(homeDirection).multiplyScalar(-1)
+    else observerDirection.normalize()
+    observerViewAnchorIndex = index
+    applyObserverDirection(observerDirection)
+  }
+
+  function syncObserverCamera(): void {
+    if (!observerViewEnabled || observerViewAnchorIndex === null) return
+    const position = pickable[observerViewAnchorIndex]!.position
+    observerDelta.subVectors(position, controls.target)
+    camera.position.add(observerDelta)
+    controls.target.copy(position)
+    camera.lookAt(position)
+    controls.update()
+    invalidateProjection()
+  }
+
+  function setSelectionGuidePoints(referencePosition: Vector3, selectedPosition: Vector3): void {
     const footX = selectedPosition.x
-    const footY = sunPosition.y
+    const footY = referencePosition.y
     const footZ = selectedPosition.z
-    selectionDistancePoints[0]!.copy(sunPosition)
+    selectionDistancePoints[0]!.copy(referencePosition)
     selectionDistancePoints[1]!.copy(selectedPosition)
-    selectionPlanePoints[0]!.copy(sunPosition)
+    selectionPlanePoints[0]!.copy(referencePosition)
     selectionPlanePoints[1]!.set(footX, footY, footZ)
     selectionHeightPoints[0]!.set(footX, footY, footZ)
     selectionHeightPoints[1]!.copy(selectedPosition)
@@ -783,15 +879,15 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
   }
 
   function captureFollowTarget(preferred?: 'star' | 'distance'): void {
-    if (!followSelection || selectedId === null) {
+    if (observerViewEnabled || !followSelection || selectedId === null) {
       delete container.dataset.followTarget
       return
     }
     const selectedIndex = starsById.get(selectedId)!.index
-    const sunPosition = pickable[sunIndex]!.position
+    const referencePosition = pickable[referenceIndex]!.position
     const selectedPosition = pickable[selectedIndex]!.position
-    followCurrent.addVectors(sunPosition, selectedPosition).multiplyScalar(0.5)
-    followTarget = selectedIndex === sunIndex ? 'star' : preferred ?? (
+    followCurrent.addVectors(referencePosition, selectedPosition).multiplyScalar(0.5)
+    followTarget = selectedIndex === referenceIndex ? 'star' : preferred ?? (
       controls.target.distanceToSquared(selectedPosition) <= controls.target.distanceToSquared(followCurrent)
         ? 'star'
         : 'distance'
@@ -801,11 +897,11 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
   }
 
   function applySelectionFollow(): void {
-    if (!followSelection || selectedId === null) return
+    if (observerViewEnabled || !followSelection || selectedId === null) return
     const selectedIndex = starsById.get(selectedId)!.index
     const selectedPosition = pickable[selectedIndex]!.position
     if (followTarget === 'star') followCurrent.copy(selectedPosition)
-    else followCurrent.addVectors(pickable[sunIndex]!.position, selectedPosition).multiplyScalar(0.5)
+    else followCurrent.addVectors(pickable[referenceIndex]!.position, selectedPosition).multiplyScalar(0.5)
     followDelta.subVectors(followCurrent, followAnchor)
     camera.position.add(followDelta)
     controls.target.add(followDelta)
@@ -819,17 +915,20 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
       return
     }
     const selectedIndex = starsById.get(selectedId)!.index
-    if (selectedIndex === sunIndex) {
+    if (selectedIndex === referenceIndex) {
       if (updateDistanceText) options.onSelectedDistance?.(0)
       return
     }
-    if (selectionDistanceLine === null) return
-    const sunPosition = pickable[sunIndex]!.position
+    const referencePosition = pickable[referenceIndex]!.position
     const selectedPosition = pickable[selectedIndex]!.position
-    setSelectionGuidePoints(sunPosition, selectedPosition)
-    const distance = sunPosition.distanceTo(selectedPosition)
-    const planeDistance = Math.hypot(selectedPosition.x - sunPosition.x, selectedPosition.z - sunPosition.z)
-    const height = Math.abs(selectedPosition.y - sunPosition.y)
+    setSelectionGuidePoints(referencePosition, selectedPosition)
+    const distance = referencePosition.distanceTo(selectedPosition)
+    const planeDistance = Math.hypot(selectedPosition.x - referencePosition.x, selectedPosition.z - referencePosition.z)
+    const height = Math.abs(selectedPosition.y - referencePosition.y)
+    if (selectionDistanceLine === null) {
+      if (updateDistanceText) options.onSelectedDistance?.(distance)
+      return
+    }
     updateLinePoints(selectionDistanceLine, selectionDistancePoints)
     updateLinePoints(selectionPlaneLine!, selectionPlanePoints)
     updateLinePoints(selectionHeightLine!, selectionHeightPoints)
@@ -839,7 +938,7 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
     selectionHeightLine!.visible = height > 1e-9
     selectionFootMarker!.visible = height > 1e-9
     if (selectionDistanceLabel === null) return
-    selectionDistanceLabel.position.copy(sunPosition).lerp(selectedPosition, 0.5)
+    selectionDistanceLabel.position.copy(referencePosition).lerp(selectedPosition, 0.5)
     if (!updateDistanceText) return
     selectionDistanceLabel.measurement!.distancePc = distance
     selectionDistanceLabel.text.textContent = formatDistance(distance, distanceUnit)
@@ -858,12 +957,13 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
     }
     starPositionAttribute.needsUpdate = true
     container.dataset.simulationYears = String(simulationYears)
+    syncObserverCamera()
     applySelectionFollow()
     const time = performance.now()
     const updateDistanceText = !simulationPlaying || time - lastSelectionDistanceUpdate >= 250
     updateSelectionGuides(updateDistanceText)
     if (updateDistanceText) lastSelectionDistanceUpdate = time
-    guides.visible = selectedId !== null && mapVisible[starsById.get(selectedId)!.index] === 1
+    guides.visible = !observerViewEnabled && selectedId !== null && mapVisible[starsById.get(selectedId)!.index] === 1
     if (!simulationPlaying) ordinaryLayoutDirty = true
     invalidateProjection()
     requestRender()
@@ -1034,6 +1134,7 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
     }
     let coreCount = 0
     let haloCount = 0
+    const observerIndex = observerViewEnabled ? observerViewAnchorIndex ?? -1 : -1
     stars.forEach((star, index) => {
       const magnitude = apparentMagnitudes[index]!
       // Extended nebulae have no point magnitude; their names stay eligible.
@@ -1043,7 +1144,7 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
         visibleKeys,
         selectedId,
         visibilityBase.id,
-        sunDistancesLy[index]!,
+        referenceDistancesLy[index]!,
         objectDistanceLimitLy,
       )
       tiers[index] = tier
@@ -1057,11 +1158,11 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
       haloDiameters.setX(index, starHaloDiameter(haloMagnitude))
       haloEmphases.setX(index, haloEmphasis)
       if (isNebula[index]) return
-      if (visible) coreIndices.setX(coreCount++, index)
-      if (visible && tier !== 'background') haloIndices.setX(haloCount++, index)
+      if (visible && index !== observerIndex) coreIndices.setX(coreCount++, index)
+      if (visible && index !== observerIndex && tier !== 'background') haloIndices.setX(haloCount++, index)
     })
     if (nebulaLayer) {
-      nebulaLayer.setVisible(nebulaIndices.map((index) => mapVisible[index] === 1))
+      nebulaLayer.setVisible(nebulaIndices.map((index) => mapVisible[index] === 1 && index !== observerIndex))
       labelLayer.dataset.nebulaPuffCount = String(nebulaLayer.instanceCount())
     }
     coreIndices.needsUpdate = true
@@ -1074,12 +1175,12 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
     haloIndices.needsUpdate = true
     starGeometry.setDrawRange(0, coreCount)
     haloGeometry.setDrawRange(0, haloCount)
-    guides.visible = selectedId !== null && mapVisible[starsById.get(selectedId)!.index] === 1
+    guides.visible = !observerViewEnabled && selectedId !== null && mapVisible[starsById.get(selectedId)!.index] === 1
     labelLayer.dataset.coreCount = String(coreCount)
     labelLayer.dataset.haloCount = String(haloCount)
     rankedNameGroups = []
     for (const candidate of rankedCandidates) {
-      if (!mapVisible[candidate.index] || tiers[candidate.index] === 'background') continue
+      if (candidate.index === observerIndex || !mapVisible[candidate.index] || tiers[candidate.index] === 'background') continue
       const group = rankedNameGroups.at(-1)
       if (!group || candidate.priority !== group.priority || candidate.magnitude !== group.magnitude) {
         rankedNameGroups.push({ priority: candidate.priority, magnitude: candidate.magnitude, indices: [candidate.index] })
@@ -1123,13 +1224,14 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
     projectedPickables.length = 0
     projectionGridDirty = true
     viewProjection.multiplyMatrices(camera.projectionMatrix, camera.matrixWorldInverse)
+    const observerIndex = observerViewEnabled ? observerViewAnchorIndex ?? -1 : -1
     for (const projected of projections) {
       projected.visible = false
       projected.motionVisible = false
       projected.motionScale = 0
       projected.motionDepthScale = 0
       const index = projected.index
-      if (!mapVisible[index]) continue
+      if (index === observerIndex || !mapVisible[index]) continue
       const position = pickable[index]!.position
       if (!projectWorldPointInto(position, viewProjection, viewport, clipPoint, projected)) continue
       projected.visible = true
@@ -1247,7 +1349,8 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
     if (projectionDirty) refreshProjectionCache()
     const viewport = projectionViewport!
     const selectedIndex = selectedId ? starsById.get(selectedId)!.index : -1
-    const ordinaryBudget = Math.max(0, labelLimit - (selectedIndex >= 0 && labelLimit > 0 ? 1 : 0))
+    const selectedLabelVisible = selectedIndex >= 0 && (!observerViewEnabled || selectedIndex !== observerViewAnchorIndex)
+    const ordinaryBudget = Math.max(0, labelLimit - (selectedLabelVisible && labelLimit > 0 ? 1 : 0))
     if (ordinaryGroupSource !== rankedNameGroups) {
       ordinaryGroupSource = rankedNameGroups
       ordinaryGroups.length = 0
@@ -1262,7 +1365,7 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
       ordinaryNameIndices.add(index)
       budgetedNameIndices.add(index)
     }
-    if (selectedIndex >= 0) budgetedNameIndices.add(selectedIndex)
+    if (selectedLabelVisible) budgetedNameIndices.add(selectedIndex)
     const labelsChanged = syncStarLabels(budgetedNameIndices, starLabels)
     setData(labelLayer, 'nameBudget', String(labelLimit))
     let labelSizesChanged = false
@@ -1279,7 +1382,7 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
     labelsToMeasure.length = 0
     for (const label of axisLabels) if (label.width === 0 || label.height === 0) labelsToMeasure.push(label)
     for (const label of measurementLabels) if (label.width === 0 || label.height === 0) labelsToMeasure.push(label)
-    // Every active star label is budgeted; a zero limit keeps only the hidden selected anchor.
+    // Every active star label is budgeted; a zero limit keeps only a visible selected anchor.
     if (labelLimit > 0) {
       for (const label of starLabels) if (label.width === 0 || label.height === 0) labelsToMeasure.push(label)
     }
@@ -1318,7 +1421,7 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
     blocked.clear()
     for (const obstacle of obstacles) blocked.insert(obstacle.bounds, obstacle.bounds)
     measurementPlacements.clear()
-    const measurementStart = projections[sunIndex]!
+    const measurementStart = projections[referenceIndex]!
     const measurementEnd = selectedIndex >= 0 ? projections[selectedIndex]! : undefined
     const measurementVisible = measurementStart.visible && measurementEnd?.visible === true
     const measurementCenterX = measurementVisible ? (measurementStart.x + measurementEnd!.x) / 2 : 0
@@ -1467,7 +1570,7 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
     const previousSelectedId = selectedId
     selectedId = id
     obstacleBoundsDirty = true
-    if (star) visibilityBase = star
+    if (star && !observerViewEnabled) visibilityBase = star
     updatePresentation()
     disposeGeometry(guides)
     guides.clear()
@@ -1489,25 +1592,32 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
       return
     }
     const selectedIndex = starsById.get(star.id)!.index
-    if (selectedIndex !== sunIndex) {
-      const sunPosition = pickable[sunIndex]!.position
+    if (selectedIndex !== referenceIndex) {
+      const referencePosition = pickable[referenceIndex]!.position
       const selectedPosition = pickable[selectedIndex]!.position
-      setSelectionGuidePoints(sunPosition, selectedPosition)
-      selectionDistanceLine = lineBetween(selectionDistancePoints, 0xe7a05b)
-      selectionPlaneLine = lineBetween(selectionPlanePoints, 0x79634d, true)
-      selectionHeightLine = lineBetween(selectionHeightPoints, 0xe7a05b, true)
-      selectionFootMarker = lineBetween(selectionMarkerPoints, 0xe7a05b)
-      guides.add(selectionDistanceLine, selectionPlaneLine, selectionHeightLine, selectionFootMarker)
-      const distance = sunPosition.distanceTo(selectedPosition)
-      selectionDistanceLabel = makeMeasurement(
-        selectionMidpoint.copy(sunPosition).lerp(selectedPosition, 0.5),
-        distance,
-        'dimension-label distance-label',
-      )
-      measurementLabels.push(selectionDistanceLabel)
+      setSelectionGuidePoints(referencePosition, selectedPosition)
+      const distance = referencePosition.distanceTo(selectedPosition)
+      if (!observerViewEnabled) {
+        selectionDistanceLine = lineBetween(selectionDistancePoints, 0xe7a05b)
+        selectionPlaneLine = lineBetween(selectionPlanePoints, 0x79634d, true)
+        selectionHeightLine = lineBetween(selectionHeightPoints, 0xe7a05b, true)
+        selectionFootMarker = lineBetween(selectionMarkerPoints, 0xe7a05b)
+        guides.add(selectionDistanceLine, selectionPlaneLine, selectionHeightLine, selectionFootMarker)
+        selectionDistanceLabel = makeMeasurement(
+          selectionMidpoint.copy(referencePosition).lerp(selectedPosition, 0.5),
+          distance,
+          'dimension-label distance-label',
+        )
+        measurementLabels.push(selectionDistanceLabel)
+      }
       updateSelectionGuides(true)
       lastSelectionDistanceUpdate = performance.now()
     } else options.onSelectedDistance?.(0)
+    if (observerViewEnabled) {
+      resize()
+      captureFollowTarget()
+      return
+    }
     if (focus) {
       const position = camera.position.clone()
       const from = controls.target.clone()
@@ -1546,12 +1656,12 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
 
   function fitResetView(): void {
     homeBounds.makeEmpty()
-    homeBounds.expandByPoint(pickable[sunIndex]!.position)
+    homeBounds.expandByPoint(pickable[referenceIndex]!.position)
     const selected = selectedId === null ? undefined : starsById.get(selectedId)
-    if (selected && selected.index !== sunIndex) homeBounds.expandByPoint(pickable[selected.index]!.position)
+    if (selected && selected.index !== referenceIndex) homeBounds.expandByPoint(pickable[selected.index]!.position)
     homeBounds.getBoundingSphere(homeSphere)
     let distance = 50 / LIGHT_YEARS_PER_PARSEC
-    if (selected && selected.index !== sunIndex) {
+    if (selected && selected.index !== referenceIndex) {
       const verticalAngle = camera.fov * Math.PI / 360
       const fitAngle = Math.min(verticalAngle, Math.atan(Math.tan(verticalAngle) * camera.aspect))
       distance = Math.min(controls.maxDistance, Math.max(homeSphere.radius, 0.75) / Math.sin(fitAngle) * 1.6)
@@ -1565,7 +1675,43 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
     invalidateProjection()
   }
 
+  function setObserverView(enabled: boolean, anchorId = selectedId ?? undefined): boolean {
+    if (enabled === observerViewEnabled) return observerViewEnabled
+    const anchor = enabled && anchorId ? starsById.get(anchorId) : undefined
+    if (enabled && !anchor) return false
+    observerViewEnabled = enabled
+    observerViewAnchorIndex = anchor?.index ?? null
+    observerRollRadians = 0
+    configureObserverControls(enabled)
+    container.dataset.observerView = String(enabled)
+    canvas.classList.toggle('is-observer-view', enabled)
+    focusTransition = null
+    controlsInteracting = false
+    controlsSettling = false
+    if (anchor) visibilityBase = anchor.star
+    select(selectedId, false)
+    if (anchor) placeObserverCamera(anchor.index)
+    else reset()
+    requestRender()
+    return observerViewEnabled
+  }
+
+  function rollObserverView(direction: 'counterclockwise' | 'center' | 'clockwise'): void {
+    if (!observerViewEnabled || observerViewAnchorIndex === null) return
+    focusTransition = null
+    controlsInteracting = false
+    controlsSettling = false
+    if (direction === 'center') observerRollRadians = 0
+    else observerRollRadians += direction === 'clockwise' ? -OBSERVER_ROLL_STEP : OBSERVER_ROLL_STEP
+    observerRollRadians = Math.atan2(Math.sin(observerRollRadians), Math.cos(observerRollRadians))
+    invalidateProjection()
+    obstacleBoundsDirty = true
+    ordinaryLayoutDirty = true
+    requestRender()
+  }
+
   function reset(): void {
+    if (observerViewEnabled) return
     focusTransition = null
     controlsInteracting = false
     controlsSettling = false
@@ -1755,6 +1901,7 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
         resize()
       }
     }
+    if (observerViewEnabled && observerRollRadians !== 0) camera.rotateZ(observerRollRadians)
     camera.updateMatrixWorld()
     starViewDistance.value = camera.position.distanceTo(controls.target)
     if ((!continueRendering && !simulationPlaying) || time - lastViewerDistanceReport >= 250) {
@@ -1853,6 +2000,19 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
       }
     },
     select,
+    setReference(id) {
+      const reference = starsById.get(id)
+      if (!reference || reference.index === referenceIndex) return
+      referenceIndex = reference.index
+      for (let index = 0; index < stars.length; index++) {
+        referenceDistancesLy[index] = basePositions[index]!.distanceTo(basePositions[referenceIndex]!) * LIGHT_YEARS_PER_PARSEC
+      }
+      positionReferenceFrame()
+      select(selectedId, false)
+      requestRender()
+    },
+    setObserverView,
+    rollObserverView,
     reset,
     setObjectDistanceLimit(distanceLy) {
       if (!Number.isFinite(distanceLy) || distanceLy < 5 || distanceLy > 40000) return
@@ -1991,6 +2151,7 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
       requestRender()
     },
     setViewState(state) {
+      if (observerViewEnabled) return
       const values = [...state.position, ...state.target]
       if (values.some((value) => !Number.isFinite(value))) return
       focusTransition = null
@@ -2010,6 +2171,7 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
       requestRender()
     },
     zoom(direction) {
+      if (observerViewEnabled) return
       focusTransition = null
       controlsInteracting = false
       controlsSettling = false
@@ -2048,6 +2210,8 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
       delete container.dataset.ready
       delete container.dataset.gridSpacingPc
       delete container.dataset.gridHalfSizePc
+      delete container.dataset.referenceId
+      delete container.dataset.observerView
       delete container.dataset.milkyWayReady
       delete container.dataset.milkyWayVisible
       delete container.dataset.simulationYears

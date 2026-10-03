@@ -43,9 +43,27 @@ button, p, h2, dd { overflow-wrap: anywhere; }
 .eyebrow { font-size: 10px; line-height: 1.5; font-weight: 500; color: var(--muted); }
 
 .inspector { position: absolute; inset: 0; pointer-events: none; }
-.selected-object, .dock-card { color: var(--ink); background: linear-gradient(145deg, #26282af7, var(--panel-glass)); border: 1px solid #5a5148; border-radius: var(--card-radius); box-shadow: 0 14px 38px #00000080, inset 0 1px #ffffff0a; }
+.selected-object, .dock-card, .observer-direction-card { color: var(--ink); background: linear-gradient(145deg, #26282af7, var(--panel-glass)); border: 1px solid #5a5148; border-radius: var(--card-radius); box-shadow: 0 14px 38px #00000080, inset 0 1px #ffffff0a; }
 .selected-object { position: absolute; top: 20px; left: 20px; width: 292px; max-height: calc(100dvh - 40px); overflow: auto; overscroll-behavior: contain; scrollbar-width: thin; scrollbar-color: #776a5c transparent; pointer-events: auto; }
 .scene-toolbar { position: absolute; top: 20px; right: 18px; display: flex; flex-direction: column; align-items: center; gap: 4px; pointer-events: auto; }
+.observer-direction-card { position: absolute; right: 74px; bottom: 48px; display: grid; gap: 5px; padding: 7px 8px 8px; pointer-events: auto; transition: right 120ms ease, bottom 120ms ease; }
+.observer-direction-card[hidden] { display: none; }
+.observer-direction-title { display: flex; align-items: center; gap: 8px; min-width: 0; padding: 0 2px; color: var(--muted); font-size: 10px; line-height: 1.2; font-weight: 600; letter-spacing: 0.04em; white-space: nowrap; }
+.observer-direction-object { display: inline-flex; align-items: center; gap: 4px; min-width: 0; padding: 0; color: var(--ink); background: transparent; border: 0; font: inherit; font-weight: 500; letter-spacing: 0; cursor: pointer; }
+.observer-direction-object[hidden] { display: none; }
+.observer-direction-object:focus-visible { outline-color: var(--accent-strong); outline-offset: 3px; }
+#observer-object-name { max-width: 112px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+#observer-object-swatch { box-shadow: 0 0 6px color-mix(in srgb, var(--observer-star-color, var(--accent)) 55%, transparent); }
+.observer-direction-buttons { display: flex; justify-content: center; gap: 4px; }
+.observer-direction-button { display: grid; place-items: center; width: 34px; height: 34px; padding: 0; color: var(--ink); background: #18191a; border: 1px solid var(--line); border-radius: 6px; }
+.observer-direction-button:focus-visible { outline-color: var(--accent-strong); }
+@media (hover: hover) and (pointer: fine) {
+  .observer-direction-object:hover:not(:disabled) { color: var(--accent-strong); text-decoration: underline; text-underline-offset: 2px; }
+  .observer-direction-button:hover:not(:disabled) { color: var(--accent-strong); background: var(--panel-selected); border-color: #ac8059; }
+}
+@media (min-width: 721px) {
+  .inspector:has(.control-dock[data-open]:not([data-open="motion"])) .observer-direction-card { right: 360px; }
+}
 .time-controls { position: fixed; left: 20px; bottom: 20px; padding: 0; overflow: hidden; }
 .time-controls-body { display: grid; gap: 8px; padding: 10px 12px 9px; }
 .time-transport { display: flex; align-items: center; gap: 7px; min-width: 0; padding-right: 42px; }
@@ -97,6 +115,8 @@ button, p, h2, dd { overflow-wrap: anywhere; }
 
 .icon-button { position: relative; display: grid; place-items: center; width: 44px; height: 44px; padding: 0; background: #1d1e20f2; border: 1px solid var(--line); border-radius: 7px; color: var(--ink); box-shadow: 0 5px 16px #00000050; }
 .icon-button[aria-pressed="true"], .panel-button[aria-expanded="true"] { background: var(--panel-selected); color: var(--accent-strong); border-color: #ac8059; }
+.observer-view-button[aria-pressed="true"] { color: var(--accent-vibrant); background: #3a211b; border-color: #c55f3c; box-shadow: 0 5px 16px #00000050, 0 0 12px #ff6b3d26; }
+.observer-view-button[aria-pressed="true"]:focus-visible { outline-color: var(--accent-vibrant); }
 .panel-button { transition: background 120ms ease, border-color 120ms ease; }
 .panel-button[aria-expanded="true"] .tooltip { display: none !important; }
 .icon-button:focus-visible { outline-color: var(--accent-strong); }
@@ -105,6 +125,7 @@ button, p, h2, dd { overflow-wrap: anywhere; }
 .icon-button:focus-visible .tooltip { display: block; }
 @media (hover: hover) and (pointer: fine) {
   .icon-button:hover:not(:disabled) { background: var(--panel-selected); color: var(--accent-strong); border-color: #ac8059; }
+  .observer-view-button[aria-pressed="true"]:hover:not(:disabled) { color: #ff9a78; background: #46251d; border-color: #d66b47; }
   .icon-button:hover .tooltip { display: block; }
 }
 
@@ -116,6 +137,7 @@ button, p, h2, dd { overflow-wrap: anywhere; }
 .legend-divider { width: 1px; height: 10px; background: var(--line); margin: 0 3px; }
 .grid-symbol { width: 12px; height: 12px; background: repeating-linear-gradient(0deg, transparent 0 5px, #9c8976 5px 6px), repeating-linear-gradient(90deg, transparent 0 5px, #9c8976 5px 6px); border: 1px solid #9c8976; }
 .visibility-observer { right: 74px; max-width: calc(50% - 74px); justify-content: flex-end; text-align: right; line-height: 1.4; }
+.scene-wrap:has(.visibility-observer.is-avoiding-motion) .observer-direction-card { bottom: 176px; }
 .visibility-observer strong { color: var(--ink); font-weight: 500; }
 #viewer-distance { white-space: nowrap; font-variant-numeric: tabular-nums; }
 .scene-status { position: absolute; top: 45%; left: 50%; transform: translate(-50%, -50%); width: min(340px, calc(100% - 48px)); background: var(--panel); border: 1px solid var(--line); border-radius: var(--card-radius); padding: 20px; font-size: 14px; line-height: 1.6; color: var(--ink); z-index: 5; }
@@ -198,9 +220,11 @@ select:focus-visible, input:focus-visible { outline: 2px solid var(--accent); ou
 .star-list.is-virtualized { display: block; position: relative; padding-top: 2px; }
 .star-list.is-virtualized .catalog-entry { top: 2px; left: 14px; right: 14px; width: calc(100% - 28px); height: 36px; }
 .catalog-virtual-spacer { width: 1px; pointer-events: none; }
-.catalog-entry { display: grid; grid-template-columns: 8px minmax(0, 1fr) auto; align-items: center; gap: 8px; text-align: left; width: 100%; min-height: 36px; padding: 5px 8px; background: transparent; border: 1px solid transparent; border-radius: 5px; color: var(--ink); }
+.catalog-entry { display: grid; grid-template-columns: 22px minmax(0, 1fr) auto; align-items: center; gap: 6px; text-align: left; width: 100%; min-height: 36px; padding: 5px 8px; background: transparent; border: 1px solid transparent; border-radius: 5px; color: var(--ink); }
 .catalog-entry:hover { background: var(--panel-hover); }
 .catalog-entry.is-selected { background: var(--panel-selected); border-color: #916b48; }
+.catalog-marker { display: flex; align-items: center; gap: 3px; min-width: 0; }
+.reference-star { color: var(--accent-strong); font-size: 10px; line-height: 1; text-shadow: 0 0 7px #e7a05b80; }
 .info-brand { display: flex; align-items: center; gap: 12px; padding: 18px 16px; border-bottom: 1px solid var(--line); }
 .info-brand-icon { display: grid; place-items: center; width: 42px; height: 42px; flex: 0 0 42px; color: var(--accent-strong); background: #171819; border: 1px solid #73583e; border-radius: 50%; box-shadow: 0 0 18px #e7a05b24; }
 .info-brand h2 { font-size: 19px; line-height: 1.2; font-weight: 600; }
@@ -250,6 +274,7 @@ select:focus-visible, input:focus-visible { outline: 2px solid var(--accent); ou
   .time-readout { min-width: 0; }
   .time-speed { grid-column: 1 / -1; width: max-content; margin: 1px 0 0; }
   .control-dock { right: 12px; bottom: 12px; }
+  .observer-direction-card { right: 66px; bottom: 44px; }
   .control-dock[data-open] { grid-template-columns: min(276px, calc(100vw - 80px)) 44px; }
   .control-dock[data-open="motion"] { grid-template-columns: 44px; }
   .dock-card { width: min(276px, calc(100vw - 80px)); max-height: calc(100dvh - 24px); }
@@ -258,6 +283,7 @@ select:focus-visible, input:focus-visible { outline: 2px solid var(--accent); ou
   .visibility-observer { right: 66px; bottom: 16px; max-width: 42%; font-size: 10px; }
   .scene-wrap:has(.control-dock[data-motion-open]) .scene-legend,
   .visibility-observer.is-avoiding-motion { bottom: 198px; }
+  .scene-wrap:has(.visibility-observer.is-avoiding-motion) .observer-direction-card { bottom: 224px; }
   .identity .star-name { font-size: 22px; }
   .star-distance { font-size: 12px; }
 }

@@ -14,9 +14,9 @@ The reference plane is `z_pc = 0`, passing through the Sun. It is not a claim ab
 
 The renderer maps `(x_pc, y_pc, z_pc)` to Three.js Y-up coordinates `(x_pc, z_pc, -y_pc)`. One scene unit equals one parsec on every axis, with no height exaggeration. A parsec is approximately 3.26156 light-years. Grid spacing follows the visibility-distance band: 0.5 pc through 100 ly, then 1, 2, 5, 10, 20, 30, 40, and 60 pc at 150, 200, 300, 500, 1000, 1500, 2000, and 3000 ly.
 
-A selected object has a direct Sun-to-object line and, when off the plane, a dashed perpendicular height line to a square projection marker. The faint dashed in-plane line completes the spatial triangle. The square is a measurement marker, not another object. Selecting the Sun removes the zero-length guides.
+A selected object has a direct origin-to-object line and, when off the origin's plane, a dashed perpendicular height line to a square projection marker. The faint dashed in-plane line completes the spatial triangle. The square is a measurement marker, not another object. Selecting the active origin removes the zero-length guides; Observer view hides the selected object's guides entirely.
 
-Only the Sun-distance text is shown on the map; the height text (such as “0.40 pc below”) is omitted. The distance label stays in the foreground centered on the direct line's midpoint, with its dark backing interrupting the line. It remains on the line even when the projected endpoints are close, clamps only at the scene edge, and reserves its bounds so ordinary object names yield to it.
+Only the origin-distance text is shown on the map; the height text (such as “0.40 pc below”) is omitted. The distance label stays in the foreground centered on the direct line's midpoint, with its dark backing interrupting the line. It remains on the line even when the projected endpoints are close, clamps only at the scene edge, and reserves its bounds so ordinary object names yield to it.
 
 ## CSV Data
 

@@ -1,5 +1,5 @@
 import './style.css'
-import { ArrowLeft, ArrowRight, CircleHelp, Clock, Crosshair, Filter, Focus, Grid2X2, List, Lock, Minus, Orbit, Pause, Play, Plus, RotateCcw, Settings2, ZoomIn, ZoomOut, createElement, type IconNode } from 'lucide'
+import { ArrowLeft, ArrowRight, CircleHelp, Clock, Crosshair, Eye, Filter, Focus, Grid2X2, List, Lock, Minus, Orbit, Pause, Play, Plus, RotateCcw, RotateCw, Settings2, Star as StarIcon, ZoomIn, ZoomOut, createElement, type IconNode } from 'lucide'
 import { COMPACT_OBJECT_TYPES, describeObject, isCompactObject, isNebulaObject, NEBULA_OBJECT_TYPES, type Star } from './catalog-model'
 import { catalogSelection, mergeCatalogStars } from './catalog-runtime'
 import { compactOverlayManifest, loadCompactRemnants } from './compact-overlay'
@@ -65,6 +65,11 @@ icon('zoom-in-icon', ZoomIn)
 icon('zoom-out-icon', ZoomOut)
 icon('selection-back-icon', ArrowLeft)
 icon('selection-forward-icon', ArrowRight)
+icon('set-origin-icon', StarIcon)
+icon('observer-view-icon', Eye)
+icon('observer-roll-counterclockwise-icon', RotateCcw)
+icon('observer-roll-reset-icon', Crosshair)
+icon('observer-roll-clockwise-icon', RotateCw)
 icon('filter-icon', Filter)
 icon('preferences-icon', Settings2)
 icon('objects-icon', List)
@@ -87,12 +92,15 @@ let stars: Star[] = []
 let activeCatalogId = ''
 let selectedId: string | null = 'sirius-a'
 let observerId = 'sirius-a'
+let referenceId = 'sun'
 let magnitudeLimit = 7
 let objectDistanceLimitLy = 100
 let showAlwaysBright = false
 let showWesternConstellationStars = false
 let showFamousClusterStars = false
 let gridVisible = true
+let observerView = false
+let observerViewAnchorId: string | null = null
 let powerSavingMode = false
 let labelLimit = 40
 let motionArrowsVisible = true
@@ -153,6 +161,36 @@ function selectedStarAvailable(id: string): boolean {
 function updateSelectionHistoryControls(): void {
   element<HTMLButtonElement>('selection-back').disabled = sceneBusy || !selectionHistory.canGoBack(selectedStarAvailable)
   element<HTMLButtonElement>('selection-forward').disabled = sceneBusy || !selectionHistory.canGoForward(selectedStarAvailable)
+}
+
+function updateReferenceControl(): void {
+  element<HTMLButtonElement>('set-origin').disabled = sceneBusy || selectedId === null || selectedId === referenceId
+}
+
+function updateObserverControl(): void {
+  const button = element<HTMLButtonElement>('observer-view')
+  const observer = observerViewAnchorId === null ? undefined : stars.find((star) => star.id === observerViewAnchorId)
+  button.disabled = sceneBusy || (!observerView && selectedId === null)
+  button.setAttribute('aria-pressed', String(observerView))
+  button.setAttribute('aria-label', observerView ? 'Exit observer view' : 'Enter observer view')
+  text('observer-view-tooltip', observerView ? 'Exit observer view' : 'Observer view')
+  element('observer-direction-card').hidden = !observerView
+  const observerObject = element<HTMLButtonElement>('observer-object')
+  observerObject.hidden = !observer
+  observerObject.disabled = sceneBusy || !observer
+  if (observer) {
+    const color = starDisplayColor(observer, starColorMode).getStyle()
+    text('observer-object-name', observer.name)
+    observerObject.setAttribute('aria-label', `Select observing object ${observer.name}`)
+    element('observer-object-swatch').style.background = color
+    element('observer-direction-card').style.setProperty('--observer-star-color', color)
+  }
+  for (const id of ['observer-roll-counterclockwise', 'observer-roll-reset', 'observer-roll-clockwise']) {
+    element<HTMLButtonElement>(id).disabled = sceneBusy || !observerView
+  }
+  for (const id of ['reset-view', 'zoom-in', 'zoom-out']) {
+    element<HTMLButtonElement>(id).disabled = sceneBusy || observerView
+  }
 }
 
 function cardsHaveClearance(first: HTMLElement, second: HTMLElement, gap = 10): boolean {
@@ -258,6 +296,8 @@ function sceneStatus(message: string | null): void {
   renderPlaybackSpeed()
   renderFollowState()
   updateSelectionHistoryControls()
+  updateReferenceControl()
+  updateObserverControl()
 }
 
 function formattedSimulationTime(years: number): { short: string; accessible: string } {
@@ -291,7 +331,7 @@ function renderPlaybackSpeed(): void {
 function renderFollowState(): void {
   const follow = element<HTMLButtonElement>('time-follow')
   follow.setAttribute('aria-pressed', String(followSelection))
-  follow.disabled = sceneBusy || selectedId === null
+  follow.disabled = sceneBusy || selectedId === null || observerView
 }
 
 function setSimulationYears(years: number): void {
@@ -349,13 +389,17 @@ function renderViewerDistance(distancePc: number): void {
 
 function renderSelection(): void {
   const sun = stars.find((star) => star.id === 'sun')!
+  const reference = stars.find((star) => star.id === referenceId) ?? sun
   const star = stars.find((candidate) => candidate.id === selectedId)
+  text('reference-base', reference.name)
   text('visibility-base', stars.find((candidate) => candidate.id === observerId)?.name ?? 'Sun')
   element('selected-object-card').hidden = !star
   element('star-details').hidden = !star
   syncSelectedObjectLayout()
   syncVisibilityObserverLayout()
   objectList.setSelected(selectedId)
+  updateReferenceControl()
+  updateObserverControl()
   if (!star) {
     delete element('inspector').dataset.selectedStar
     element('inspector').style.removeProperty('--selected-star-color')
@@ -363,7 +407,7 @@ function renderSelection(): void {
     return
   }
   const metrics = sunRelativeMetrics(star, sun)
-  const displayedDistancePc = selectedDistancePc ?? metrics.distancePc
+  const displayedDistancePc = selectedDistancePc ?? sunRelativeMetrics(star, reference).distancePc
   const color = starDisplayColor(star, starColorMode).getStyle()
   element('inspector').dataset.selectedStar = star.id
   element('inspector').style.setProperty('--selected-star-color', color)
@@ -444,14 +488,15 @@ function renderSelection(): void {
   text('astrometry-source', raw?.astrometry_ref || compact?.position_source || nebula?.position_source || 'Not available')
   text('absolute-mag', quantity(star.absolute_mag))
   text('star-notes', star.notes || 'No source notes available.')
-  text('selection-announcement', `${star.name}, ${formatDistance(displayedDistancePc, distanceUnit)} from the Sun.`)
+  const referenceName = reference.id === 'sun' ? 'the Sun' : reference.name
+  text('selection-announcement', `${star.name}, ${formatDistance(displayedDistancePc, distanceUnit)} from ${referenceName}.`)
 }
 
 function updateObjectListFilter(): void {
-  const sun = stars.find((star) => star.id === 'sun')
-  if (!sun) return
+  const reference = stars.find((star) => star.id === referenceId) ?? stars.find((star) => star.id === 'sun')
+  if (!reference) return
   objectList.setFilter((star) => {
-    const distanceLy = sunRelativeMetrics(star, sun).distanceLy
+    const distanceLy = sunRelativeMetrics(star, reference).distanceLy
     return isObjectMapVisible(star, visibleKeys, selectedId, observerId, distanceLy, objectDistanceLimitLy)
   })
 }
@@ -461,7 +506,7 @@ function selectStar(id: string | null, recordHistory = true): void {
   if (id !== null && recordHistory) selectionHistory.record(id)
   selectedDistancePc = null
   selectedId = id
-  if (id !== null) observerId = id
+  if (id !== null && !observerView) observerId = id
   updateObjectListFilter()
   renderSelection()
   viewer?.select(id)
@@ -472,6 +517,41 @@ function selectStar(id: string | null, recordHistory = true): void {
 function navigateSelectionHistory(direction: 'back' | 'forward'): void {
   const id = selectionHistory[direction](selectedStarAvailable)
   if (id !== null) selectStar(id, false)
+}
+
+function setSelectedAsOrigin(): void {
+  if (selectedId === null || selectedId === referenceId) return
+  referenceId = selectedId
+  selectedDistancePc = null
+  objectList.setReference(referenceId)
+  updateObjectListFilter()
+  viewer?.setReference(referenceId)
+  renderSelection()
+}
+
+function toggleObserverView(): void {
+  if (!viewer || (!observerView && selectedId === null)) return
+  if (!observerView) {
+    const anchorId = selectedId
+    if (anchorId === null) return
+    observerViewAnchorId = anchorId
+    observerId = anchorId
+    observerView = viewer.setObserverView(true, anchorId)
+    if (!observerView) observerViewAnchorId = null
+  } else {
+    observerView = viewer.setObserverView(false)
+    observerViewAnchorId = null
+    if (selectedId !== null) observerId = selectedId
+    viewer.setVisibility(observerId, magnitudeLimit)
+  }
+  updateObjectListFilter()
+  renderSelection()
+  renderFollowState()
+  updateObserverControl()
+}
+
+function rollObserverView(direction: 'counterclockwise' | 'center' | 'clockwise'): void {
+  viewer?.rollObserverView(direction)
 }
 
 function renderDistances(): void {
@@ -521,11 +601,17 @@ async function switchCatalog(id: string, refresh = false): Promise<void> {
   selectedDistancePc = null
   selectedId = retained.selectedId
   observerId = retained.observerId
+  const retainedObserverView = observerView
+  if (observerViewAnchorId && !nextStars.some((star) => star.id === observerViewAnchorId)) {
+    observerView = false
+    observerViewAnchorId = null
+  }
+  referenceId = nextStars.some((star) => star.id === referenceId) ? referenceId : 'sun'
   text('scene-epoch', `J${definition.manifest.epoch.toFixed(1)}`)
   renderCatalogRange(id)
   element('catalog-range').title = `${definition.manifest.description} ${definition.manifest.snapshot}`
   element<HTMLInputElement>('object-search').value = ''
-  objectList.setStars(stars, distanceUnit, selectedId)
+  objectList.setStars(stars, distanceUnit, selectedId, referenceId)
   updateObjectListFilter()
   renderDistances()
   try {
@@ -547,6 +633,7 @@ async function switchCatalog(id: string, refresh = false): Promise<void> {
     return
   }
   viewer.setDistanceUnit(distanceUnit)
+  viewer.setReference(referenceId)
   viewer.select(selectedId, false)
   viewer.setVisibility(observerId, magnitudeLimit)
   viewer.setObjectDistanceLimit(objectDistanceLimitLy)
@@ -561,9 +648,11 @@ async function switchCatalog(id: string, refresh = false): Promise<void> {
   viewer.setPowerSavingMode(powerSavingMode)
   viewer.setGridVisible(gridVisible)
   // A home view refits to the new visible set; manual views keep their camera.
-  if (retainedView && !retainedView.home) {
+  if (retainedView && !retainedView.home && (!retainedObserverView || observerView)) {
     viewer.setViewState({ ...retainedView, home: false })
   }
+  observerView = viewer.setObserverView(observerView, observerViewAnchorId ?? undefined)
+  if (!observerView) observerViewAnchorId = null
   sceneStatus(null)
 }
 
@@ -865,6 +954,14 @@ element('zoom-in').addEventListener('click', () => viewer?.zoom('in'), { signal:
 element('zoom-out').addEventListener('click', () => viewer?.zoom('out'), { signal: events.signal })
 element('selection-back').addEventListener('click', () => navigateSelectionHistory('back'), { signal: events.signal })
 element('selection-forward').addEventListener('click', () => navigateSelectionHistory('forward'), { signal: events.signal })
+element('set-origin').addEventListener('click', setSelectedAsOrigin, { signal: events.signal })
+element('observer-view').addEventListener('click', toggleObserverView, { signal: events.signal })
+element('observer-object').addEventListener('click', () => {
+  if (observerViewAnchorId !== null) selectStar(observerViewAnchorId)
+}, { signal: events.signal })
+element('observer-roll-counterclockwise').addEventListener('click', () => rollObserverView('counterclockwise'), { signal: events.signal })
+element('observer-roll-reset').addEventListener('click', () => rollObserverView('center'), { signal: events.signal })
+element('observer-roll-clockwise').addEventListener('click', () => rollObserverView('clockwise'), { signal: events.signal })
 
 import.meta.hot?.dispose(() => {
   events.abort()
