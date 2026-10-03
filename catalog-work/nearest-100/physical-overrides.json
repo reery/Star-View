@@ -1,0 +1,365 @@
+{
+  "schemaVersion": 1,
+  "records": [
+    {
+      "starViewId": "alpha-centauri-a",
+      "gaiaDr3Id": null,
+      "note": "Alpha Centauri A reviewed physical parameters. Akeson et al. (2021) combine the revised orbital parallax with published angular diameter and bolometric flux measurements for the mass, radius, and luminosity. Kervella et al. (2017) derive the effective temperature from interferometry and bolometric flux. Morel (2018) measures [Fe/H] in a differential HARPS abundance analysis. Joyce & Chaboyer (2018) infer the shared system age from classical and asteroseismic constraints.",
+      "physical": [
+        {
+          "field": "temperature_k",
+          "value": 5795,
+          "uncertainty": 19,
+          "status": "derived",
+          "reference": "2017A&A...597A.137K",
+          "qualityFlags": ["interferometric radius plus bolometric flux"]
+        },
+        {
+          "field": "mass_solar",
+          "value": 1.0788,
+          "uncertainty": 0.0029,
+          "status": "measured",
+          "reference": "2021AJ....162...14A",
+          "qualityFlags": ["binary dynamical mass"]
+        },
+        {
+          "field": "luminosity_solar",
+          "value": 1.5059,
+          "uncertainty": 0.0019,
+          "status": "derived",
+          "reference": "2021AJ....162...14A",
+          "qualityFlags": ["bolometric flux plus revised orbital parallax"]
+        },
+        {
+          "field": "radius_solar",
+          "value": 1.2175,
+          "uncertainty": 0.0055,
+          "status": "derived",
+          "reference": "2021AJ....162...14A",
+          "qualityFlags": ["interferometric angular diameter plus revised orbital parallax"]
+        },
+        {
+          "field": "metallicity_dex",
+          "value": 0.237,
+          "uncertainty": 0.007,
+          "status": "measured",
+          "reference": "2018A&A...615A.172M",
+          "qualityFlags": ["differential HARPS spectroscopic [Fe/H]"]
+        },
+        {
+          "field": "age_gyr",
+          "value": 5.3,
+          "uncertainty": 0.3,
+          "status": "model-derived",
+          "reference": "2018ApJ...864...99J",
+          "qualityFlags": ["shared binary age", "classical plus asteroseismic stellar models"]
+        }
+      ]
+    },
+    {
+      "starViewId": "alpha-centauri-b",
+      "gaiaDr3Id": null,
+      "note": "Alpha Centauri B reviewed physical parameters. Akeson et al. (2021) combine the revised orbital parallax with published angular diameter and bolometric flux measurements for the mass, radius, and luminosity. Kervella et al. (2017) derive the effective temperature from interferometry and bolometric flux. Morel (2018) measures [Fe/H] in a differential HARPS abundance analysis. Joyce & Chaboyer (2018) infer the shared system age from classical and asteroseismic constraints.",
+      "physical": [
+        {
+          "field": "temperature_k",
+          "value": 5231,
+          "uncertainty": 21,
+          "status": "derived",
+          "reference": "2017A&A...597A.137K",
+          "qualityFlags": ["interferometric radius plus bolometric flux"]
+        },
+        {
+          "field": "mass_solar",
+          "value": 0.9092,
+          "uncertainty": 0.0025,
+          "status": "measured",
+          "reference": "2021AJ....162...14A",
+          "qualityFlags": ["binary dynamical mass"]
+        },
+        {
+          "field": "luminosity_solar",
+          "value": 0.4981,
+          "uncertainty": 0.0007,
+          "status": "derived",
+          "reference": "2021AJ....162...14A",
+          "qualityFlags": ["bolometric flux plus revised orbital parallax"]
+        },
+        {
+          "field": "radius_solar",
+          "value": 0.8591,
+          "uncertainty": 0.0036,
+          "status": "derived",
+          "reference": "2021AJ....162...14A",
+          "qualityFlags": ["interferometric angular diameter plus revised orbital parallax"]
+        },
+        {
+          "field": "metallicity_dex",
+          "value": 0.221,
+          "uncertainty": 0.016,
+          "status": "measured",
+          "reference": "2018A&A...615A.172M",
+          "qualityFlags": ["differential HARPS spectroscopic [Fe/H]"]
+        },
+        {
+          "field": "age_gyr",
+          "value": 5.3,
+          "uncertainty": 0.3,
+          "status": "model-derived",
+          "reference": "2018ApJ...864...99J",
+          "qualityFlags": ["shared binary age", "classical plus asteroseismic stellar models"]
+        }
+      ]
+    },
+    {
+      "starViewId": "luhman-16-a",
+      "gaiaDr3Id": "5353626573555863424",
+      "note": "Luhman 16 A reviewed component parameters. Bedin et al. (2024) measure the individual dynamical mass. Lodieu et al. (2015) derive the resolved temperature and bolometric luminosity from spectroscopy and the spectral energy distribution. The displayed age is the Oceanus moving-group age supported, but not established, by Bedin et al.; their evolutionary-model comparison still shows component-age tension.",
+      "physical": [
+        {
+          "field": "temperature_k",
+          "value": 1305,
+          "uncertainty": 180,
+          "status": "model-derived",
+          "reference": "2015A&A...581A..73L",
+          "qualityFlags": ["resolved spectroscopy", "asymmetric uncertainty represented by its larger side"]
+        },
+        {
+          "field": "mass_solar",
+          "value": 0.0338,
+          "uncertainty": 0.0002,
+          "status": "measured",
+          "reference": "2024AN....34530158B",
+          "qualityFlags": ["35.4 +/- 0.2 Jupiter masses converted to solar masses"]
+        },
+        {
+          "field": "luminosity_solar",
+          "value": 0.0000218776,
+          "uncertainty": 0.00000443,
+          "status": "derived",
+          "reference": "2015A&A...581A..73L",
+          "qualityFlags": ["resolved bolometric SED", "converted from log(L/Lsun) = -4.66 +/- 0.08 dex"]
+        },
+        {
+          "field": "age_gyr",
+          "value": 0.51,
+          "uncertainty": 0.095,
+          "status": "model-derived",
+          "reference": "2024AN....34530158B",
+          "qualityFlags": ["assuming Oceanus moving-group membership", "evolutionary-model component ages remain discrepant"]
+        }
+      ]
+    },
+    {
+      "starViewId": "luhman-16-b",
+      "gaiaDr3Id": null,
+      "note": "Luhman 16 B reviewed component parameters. Bedin et al. (2024) measure the individual dynamical mass. Lodieu et al. (2015) derive the resolved temperature and bolometric luminosity from spectroscopy and the spectral energy distribution. The displayed age is the Oceanus moving-group age supported, but not established, by Bedin et al.; their evolutionary-model comparison still shows component-age tension.",
+      "physical": [
+        {
+          "field": "temperature_k",
+          "value": 1320,
+          "uncertainty": 185,
+          "status": "model-derived",
+          "reference": "2015A&A...581A..73L",
+          "qualityFlags": ["resolved spectroscopy", "asymmetric uncertainty represented by its larger side"]
+        },
+        {
+          "field": "mass_solar",
+          "value": 0.0281,
+          "uncertainty": 0.0002,
+          "status": "measured",
+          "reference": "2024AN....34530158B",
+          "qualityFlags": ["29.4 +/- 0.2 Jupiter masses converted to solar masses"]
+        },
+        {
+          "field": "luminosity_solar",
+          "value": 0.000020893,
+          "uncertainty": 0.00000729,
+          "status": "derived",
+          "reference": "2015A&A...581A..73L",
+          "qualityFlags": ["resolved bolometric SED", "converted from log(L/Lsun) = -4.68 +/- 0.13 dex"]
+        },
+        {
+          "field": "age_gyr",
+          "value": 0.51,
+          "uncertainty": 0.095,
+          "status": "model-derived",
+          "reference": "2024AN....34530158B",
+          "qualityFlags": ["assuming Oceanus moving-group membership", "evolutionary-model component ages remain discrepant"]
+        }
+      ]
+    },
+    {
+      "starViewId": "wise-0855-0714",
+      "gaiaDr3Id": null,
+      "note": "WISE 0855-0714 reviewed bolometric luminosity. Zapatero Osorio et al. (2016) fit the 0.89-22.09 micron spectral energy distribution with solar-metallicity atmosphere models. Their broad 2-10 Jupiter-mass and 1-12 Gyr ranges are retained in provenance rather than collapsed into misleading scalar mass or age values.",
+      "physical": [
+        {
+          "field": "luminosity_solar",
+          "value": 0.00000000269153,
+          "uncertainty": null,
+          "status": "model-derived",
+          "reference": "2016A&A...592A..80Z",
+          "qualityFlags": ["converted from log(L/Lsun) = -8.57", "best-fit atmosphere has acknowledged surface-gravity tension"]
+        }
+      ]
+    },
+    {
+      "starViewId": "sirius-a",
+      "gaiaDr3Id": null,
+      "note": "Sirius A reviewed physical parameters from Bond et al. (2017). The radius is interferometric, the mass dynamical, and the luminosity and temperature use the adopted parallax. The age and bulk [Fe/H] are stellar-evolution model results; the bulk metallicity is used instead of Sirius A's diffusion-altered Am photospheric abundance.",
+      "physical": [
+        {
+          "field": "temperature_k",
+          "value": 9845,
+          "uncertainty": 64,
+          "status": "derived",
+          "reference": "2017ApJ...840...70B",
+          "qualityFlags": ["interferometric radius plus bolometric flux"]
+        },
+        {
+          "field": "mass_solar",
+          "value": 2.063,
+          "uncertainty": 0.023,
+          "status": "measured",
+          "reference": "2017ApJ...840...70B",
+          "qualityFlags": ["binary dynamical mass"]
+        },
+        {
+          "field": "luminosity_solar",
+          "value": 24.74,
+          "uncertainty": 0.70,
+          "status": "derived",
+          "reference": "2017ApJ...840...70B",
+          "qualityFlags": ["bolometric flux plus adopted parallax"]
+        },
+        {
+          "field": "radius_solar",
+          "value": 1.7144,
+          "uncertainty": 0.0090,
+          "status": "measured",
+          "reference": "2017ApJ...840...70B",
+          "qualityFlags": ["interferometric radius"]
+        },
+        {
+          "field": "metallicity_dex",
+          "value": -0.10,
+          "uncertainty": 0.03,
+          "status": "model-derived",
+          "reference": "2017ApJ...840...70B",
+          "qualityFlags": ["bulk [Fe/H] midpoint of -0.13 to -0.07 model range", "not the diffusion-altered photospheric abundance"]
+        },
+        {
+          "field": "age_gyr",
+          "value": 0.242,
+          "uncertainty": 0.015,
+          "status": "model-derived",
+          "reference": "2017ApJ...840...70B",
+          "qualityFlags": ["midpoint of independent 237-247 Myr model results"]
+        }
+      ]
+    },
+    {
+      "starViewId": "sirius-b",
+      "gaiaDr3Id": null,
+      "note": "Sirius B reviewed physical parameters from Bond et al. (2017). The mass is dynamical; temperature, radius, and luminosity come from HST/STIS atmosphere and absolute-flux fitting. The displayed age is the total evolutionary age, not merely the 126 Myr white-dwarf cooling time. Photospheric metallicity remains intentionally blank for this pure-hydrogen white dwarf.",
+      "physical": [
+        {
+          "field": "temperature_k",
+          "value": 25369,
+          "uncertainty": 46,
+          "status": "measured",
+          "reference": "2017ApJ...840...70B",
+          "qualityFlags": ["HST/STIS atmosphere fit"]
+        },
+        {
+          "field": "mass_solar",
+          "value": 1.018,
+          "uncertainty": 0.011,
+          "status": "measured",
+          "reference": "2017ApJ...840...70B",
+          "qualityFlags": ["binary dynamical mass"]
+        },
+        {
+          "field": "luminosity_solar",
+          "value": 0.02448,
+          "uncertainty": 0.00033,
+          "status": "derived",
+          "reference": "2017ApJ...840...70B",
+          "qualityFlags": ["HST/STIS absolute-flux fit"]
+        },
+        {
+          "field": "radius_solar",
+          "value": 0.008098,
+          "uncertainty": 0.000046,
+          "status": "derived",
+          "reference": "2017ApJ...840...70B",
+          "qualityFlags": ["HST/STIS absolute-flux fit"]
+        },
+        {
+          "field": "age_gyr",
+          "value": 0.228,
+          "uncertainty": 0.010,
+          "status": "model-derived",
+          "reference": "2017ApJ...840...70B",
+          "qualityFlags": ["total age including progenitor lifetime", "not the 126 Myr cooling age"]
+        }
+      ]
+    },
+    {
+      "starViewId": "10pc-0044",
+      "gaiaDr3Id": "2452378776434477184",
+      "note": "Tau Ceti reviewed physical parameters. Korolik et al. (2023) combine CHARA interferometry and EXPRES spectroscopy; their measured temperature supersedes the earlier spectral-class estimate, and their luminosity is reported in the paper's literature-comparison table. Di Folco et al. (2004) infer the adopted age from stellar-evolution modelling. Pagano et al. (2015) measure [Fe/H] from high-resolution MIKE spectra.",
+      "physical": [
+        {
+          "field": "temperature_k",
+          "value": 5320,
+          "uncertainty": 40,
+          "status": "measured",
+          "reference": "2023AJ....166..123K",
+          "qualityFlags": ["EXPRES spectroscopy"]
+        },
+        {
+          "field": "mass_solar",
+          "value": 0.69,
+          "uncertainty": 0.09,
+          "status": "derived",
+          "reference": "2023AJ....166..123K",
+          "qualityFlags": ["spectroscopic surface gravity plus interferometric radius"]
+        },
+        {
+          "field": "luminosity_solar",
+          "value": 0.45,
+          "uncertainty": 0.02,
+          "status": "derived",
+          "reference": "2023AJ....166..123K",
+          "qualityFlags": ["interferometry plus spectroscopy"]
+        },
+        {
+          "field": "radius_solar",
+          "value": 0.793,
+          "uncertainty": 0.004,
+          "status": "derived",
+          "reference": "2023AJ....166..123K",
+          "qualityFlags": ["CHARA limb-darkened diameter plus Gaia parallax"]
+        },
+        {
+          "field": "metallicity_dex",
+          "value": -0.49,
+          "uncertainty": 0.08,
+          "status": "measured",
+          "reference": "2015ApJ...803...90P",
+          "qualityFlags": ["spectroscopic [Fe/H]"]
+        },
+        {
+          "field": "age_gyr",
+          "value": 10.0,
+          "uncertainty": null,
+          "status": "model-derived",
+          "reference": "2004A&A...426..601D",
+          "qualityFlags": ["stellar-evolution model", "adopted by 2023AJ....166..123K"]
+        }
+      ]
+    }
+  ]
+}

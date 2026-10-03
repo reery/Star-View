@@ -326,8 +326,12 @@ def row_context(row: dict[str, str]) -> RowContext:
     return RowContext(row["id"], row["type"], row["spectral_type"], distance, fraction)
 
 
-def enrich_curated_row(row: dict[str, str], supplements: Supplements) -> tuple[dict[str, PhysicalObservation], dict[str, Any] | None]:
+def enrich_curated_row(
+    row: dict[str, str],
+    supplements: Supplements,
+    replaceable: dict[str, PhysicalObservation] | None = None,
+) -> tuple[dict[str, PhysicalObservation], dict[str, Any] | None]:
     if row["id"] == "sun":
         return {}, None
     observations, audit = supplement_observations(row_context(row), supplements)
-    return resolve_supplemented_fields(row, observations), audit
+    return resolve_supplemented_fields(row, observations, replaceable), audit

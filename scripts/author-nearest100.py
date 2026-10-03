@@ -16,8 +16,9 @@ from astropy.io import ascii
 from astropy.time import Time
 from astropy.utils import iers
 
+from catalog_sources.adapters import eligible_gaia_physical, read_gaia_tap, read_primary_overrides
 from catalog_sources.filesystem import atomic_write_text, safe_output_directory, write_managed_files
-from catalog_sources.mdwarf import SUPPLEMENT_FIELDS, enrich_curated_row, load_supplements
+from catalog_sources.mdwarf import SUPPLEMENT_FIELDS, enrich_curated_row, format_value, load_supplements
 
 iers.conf.auto_download = False
 ROOT = Path(__file__).resolve().parents[1]
@@ -50,6 +51,9 @@ PHYSICAL_HEADERS = ["radius_solar", "metallicity_dex", "age_gyr"]
 OUTPUT_HEADERS = BASE_HEADERS[:13] + PHYSICAL_HEADERS + BASE_HEADERS[13:] + RAW_ASTROMETRY_HEADERS
 SUPPLEMENTS = ROOT / "catalog-work/physical-supplements"
 CNS5_DATA = ROOT / "catalog-work/nearest-1000/cns5.dat"
+GAIA_DATA = ROOT / "catalog-work/nearest-1000/gaia.csv"
+GAIA_MANIFEST = ROOT / "catalog-work/nearest-1000/source-manifest.json"
+PHYSICAL_OVERRIDES = FROZEN / "physical-overrides.json"
 LEGACY_IDS = {
     "1": "proxima-centauri", "3": "alpha-centauri-a", "4": "alpha-centauri-b",
     "5": "barnards-star", "6": "luhman-16-a", "7": "luhman-16-b",
@@ -76,7 +80,7 @@ SOURCES = [
     {"name": "CNS5, Golovin et al., corrected 2023-12-13; membership audit", "url": "https://cdsarc.cds.unistra.fr/ftp/J/A+A/670/A19/ReadMe"},
     {"name": "Pecaut & Mamajek 2013, dwarf sequence version 2022.04.16; estimated temperatures", "url": "https://www.pas.rochester.edu/~emamajek/EEM_dwarf_UBVIJHK_colors_Teff.txt"},
     {"name": "NASA Sun Fact Sheet, 2024-05-09", "url": "https://nssdc.gsfc.nasa.gov/planetary/factsheet/sunfact.html"},
-    {"name": "Akeson et al. 2021, Alpha Centauri AB barycentric astrometry and systemic radial velocity", "url": "https://doi.org/10.3847/1538-3881/abfaff"},
+    {"name": "Akeson et al. 2021, Alpha Centauri AB barycentric astrometry, systemic radial velocity, dynamical masses and revised-parallax physical parameters", "url": "https://doi.org/10.3847/1538-3881/abfaff"},
     {"name": "Guinan et al. 2016, Kapteyn's Star properties; Table 1 mass attributed to Segransan et al. 2003", "url": "https://ui.adsabs.harvard.edu/abs/2016ApJ...821...81G/abstract"},
     {"name": "Astropy 7.1.1, IAU constellations using Roman 1987 boundaries", "url": "https://docs.astropy.org/en/stable/api/astropy.coordinates.get_constellation.html"},
 ]
@@ -86,10 +90,41 @@ SUPPLEMENT_SOURCES = [
     {"name": "Mann et al. 2015, absolute-Ks radius relation (2015ApJ...804...64M); fills blank radii only", "url": "https://ui.adsabs.harvard.edu/abs/2015ApJ...804...64M/abstract"},
     {"name": "2MASS All-Sky Point Source Catalog Ks photometry (VizieR II/246)", "url": "https://cdsarc.cds.unistra.fr/viz-bin/cat/II/246"},
 ]
+GAIA_PHYSICAL_SOURCES = [
+    {"name": "Gaia DR3 TAP snapshot; exact-ID GSP-Phot/FLAME physical estimates, quality-filtered and used only for blank fields", "url": "https://gea.esac.esa.int/tap-server/tap/sync"},
+]
+REVIEWED_PHYSICAL_SOURCES = [
+    {"name": "Kervella et al. 2017, Alpha Centauri AB interferometric radii and effective temperatures", "url": "https://doi.org/10.1051/0004-6361/201629505"},
+    {"name": "Morel 2018, Alpha Centauri AB differential spectroscopic abundances", "url": "https://doi.org/10.1051/0004-6361/201833125"},
+    {"name": "Joyce & Chaboyer 2018, Alpha Centauri AB asteroseismic stellar-model age", "url": "https://doi.org/10.3847/1538-4357/aad464"},
+    {"name": "Lodieu et al. 2015, resolved Luhman 16 AB temperatures and bolometric luminosities", "url": "https://doi.org/10.1051/0004-6361/201524933"},
+    {"name": "Bedin et al. 2024, Luhman 16 AB dynamical masses and Oceanus membership assessment", "url": "https://doi.org/10.1002/asna.20230158"},
+    {"name": "Zapatero Osorio et al. 2016, WISE 0855-0714 spectral-energy-distribution modelling", "url": "https://doi.org/10.1051/0004-6361/201628662"},
+    {"name": "Bond et al. 2017, Sirius A/B dynamical and physical parameters", "url": "https://doi.org/10.3847/1538-4357/aa6af8"},
+    {"name": "Korolik et al. 2023, Tau Ceti interferometric and spectroscopic parameters", "url": "https://doi.org/10.3847/1538-3881/ace906"},
+    {"name": "Di Folco et al. 2004, Tau Ceti stellar-evolution age", "url": "https://doi.org/10.1051/0004-6361:20047189"},
+    {"name": "Pagano et al. 2015, Tau Ceti spectroscopic chemical composition", "url": "https://doi.org/10.1088/0004-637X/803/2/90"},
+]
 
 
 def checksum(path):
     return hashlib.sha256(path.read_bytes()).hexdigest()
+
+
+def gaia_physical_records():
+    manifest = json.loads(GAIA_MANIFEST.read_text())
+    assert checksum(GAIA_DATA) == manifest["checksumsSha256"]["gaia.csv"]
+    records = read_gaia_tap(GAIA_DATA)
+    return {record.identity.gaia_dr3_id: record for record in records}
+
+
+def reviewed_physical_records():
+    payload = json.loads(PHYSICAL_OVERRIDES.read_text())
+    assert payload["schemaVersion"] == 1
+    records = read_primary_overrides(PHYSICAL_OVERRIDES)
+    by_id = {record.identity.star_view_id: record for record in records}
+    assert len(by_id) == len(records)
+    return by_id
 
 
 def write_json(path, value):
@@ -205,6 +240,54 @@ def field_source(status, source, detail=None):
     return value
 
 
+def apply_reviewed_and_gaia_physical(row, reviewed, gaia, fields=None):
+    reviewed_adopted = {}
+    if reviewed is not None:
+        by_field = {item.field: item for item in reviewed.physical}
+        if len(by_field) != len(reviewed.physical):
+            raise ValueError(f"Duplicate reviewed physical field for {row['id']}")
+        if "temperature_k" in by_field:
+            row["notes"] = re.sub(
+                r"\s*Estimated: .*?Pecaut-Mamajek 2022\.04\.16 .*? mean dwarf class(?:es)?(?:, not a measured temperature)?\.",
+                "",
+                row["notes"],
+            ).strip()
+            row["notes"] = re.sub(
+                r"\s*[Tt]emperature is (?:[^.]*? )?class estimate\.",
+                "",
+                row["notes"],
+            ).strip()
+        for field, observation in by_field.items():
+            row[field] = format_value(observation)
+            reviewed_adopted[field] = observation
+            if fields is not None:
+                detail = f"{observation.source_id}; uncertainty {observation.uncertainty}; {', '.join(observation.quality_flags)}"
+                fields[field] = field_source(observation.status, f"{observation.reference}:{observation.source_record_id}", detail)
+        note = (reviewed.raw or {}).get("note")
+        if note:
+            row["notes"] = (row["notes"] + " " + note).strip()
+
+    gaia_eligible = eligible_gaia_physical(gaia) if row["type"] == "star" else {}
+    gaia_adopted = {}
+    for field, observation in gaia_eligible.items():
+        if row.get(field, "") != "":
+            continue
+        row[field] = format_value(observation)
+        gaia_adopted[field] = observation
+        if fields is not None:
+            detail = f"Gaia DR3 exact-ID model value; uncertainty {observation.uncertainty}; quality flags {', '.join(observation.quality_flags) or 'none'}"
+            fields[field] = field_source(observation.status, f"{observation.reference}:{observation.source_record_id}", detail)
+    return reviewed_adopted, gaia_eligible, gaia_adopted
+
+
+def finalize_gaia_note(row, gaia_adopted, supplemented):
+    row["notes"] = re.sub(r"\s*Gaia DR3 exact-ID model values for [^.]+\.", "", row["notes"]).strip()
+    final_gaia_fields = [field for field in gaia_adopted if field not in supplemented]
+    if final_gaia_fields:
+        labels = ", ".join(field.removesuffix("_solar").removesuffix("_dex").removesuffix("_gyr").removesuffix("_k") for field in final_gaia_fields)
+        row["notes"] += f" Gaia DR3 exact-ID model values for {labels}."
+
+
 def raw_astrometry(source, allow_rv=True):
     use_rv = allow_rv and source.get("RV") is not None and source.get("r_RV") is not None and source.get("ObjType") != "WD"
     astrometry_refs = list(dict.fromkeys(filter(None, (source.get("r_plx"), source.get("r_pmDE")))))
@@ -247,7 +330,7 @@ def apply_alpha_centauri_system_motion(row):
     return True
 
 
-def adopt_object(source, frozen, system_counts, supplements):
+def adopt_object(source, frozen, system_counts, supplements, gaia_records, reviewed_records):
     identifier = LEGACY_IDS.get(source["Seq"], f"10pc-{int(source['Seq']):04d}")
     if source["Seq"] == "1001":
         identifier = "gaia-dr3-6305165514134625024"
@@ -324,7 +407,11 @@ def adopt_object(source, frozen, system_counts, supplements):
     for key in PHYSICAL_HEADERS:
         row.setdefault(key, "")
         fields[key] = field_source("unknown", None)
-    supplemented, supplement_audit = enrich_curated_row(row, supplements)
+    reviewed = reviewed_records.get(identifier)
+    gaia = gaia_records.get(source.get("GaiaEDR3"))
+    reviewed_adopted, gaia_eligible, gaia_adopted = apply_reviewed_and_gaia_physical(row, reviewed, gaia, fields)
+    supplemented, supplement_audit = enrich_curated_row(row, supplements, gaia_adopted)
+    finalize_gaia_note(row, gaia_adopted, supplemented)
     for key, observation in supplemented.items():
         fields[key] = field_source(observation.status, f"{observation.reference}:{observation.source_record_id}", f"{observation.source_id}; uncertainty {observation.uncertainty}; fills a blank field only.")
     provenance = {
@@ -338,6 +425,20 @@ def adopt_object(source, frozen, system_counts, supplements):
         provenance["overrides"].append("Akeson et al. 2021 Alpha Centauri AB barycentric astrometry and systemic radial velocity replace orbit-contaminated component proper motions for the shared long-horizon motion vector.")
     if supplement_audit:
         provenance["physicalSupplements"] = supplement_audit
+    if reviewed is not None:
+        provenance["reviewedPhysical"] = {
+            "inputSha256": checksum(PHYSICAL_OVERRIDES),
+            "observations": [item.to_dict() for item in reviewed.physical],
+            "adopted": {field: f"{item.reference}:{item.source_record_id}" for field, item in reviewed_adopted.items()},
+        }
+    if gaia_eligible:
+        provenance["gaiaPhysical"] = {
+            "gaiaDr3Id": gaia.identity.gaia_dr3_id,
+            "observations": [item.to_dict() for item in gaia_eligible.values()],
+            "adopted": {field: f"{item.reference}:{item.source_record_id}" for field, item in gaia_adopted.items() if field not in supplemented},
+            "supersededByHigherPriority": sorted(set(supplemented) & set(gaia_adopted)),
+            "retainedExistingFields": sorted(set(gaia_eligible) - set(gaia_adopted)),
+        }
     if source["Seq"] in LEGACY_TENTATIVE_EXCEPTIONS:
         assert legacy and source["ObjType"] == "LM?" and row["type"] == "star"
         provenance["overrides"].append("Explicit approved membership exception: preserve vetted EZ Aquarii B/C default row despite raw 10pc LM?; source classification unchanged, not newly measured or reclassified.")
@@ -362,9 +463,11 @@ def build_catalog(output, force=False, check=False):
     current_default = {row["id"]: row for row in csv.DictReader(io.StringIO((ROOT / "src/data/stars.csv").read_text()))}
     assert list(current_default) == [row["id"] for row in frozen["legacyRows"]]
     supplements = load_supplements(SUPPLEMENTS, CNS5_DATA)
+    gaia_records = gaia_physical_records()
+    reviewed_records = reviewed_physical_records()
     system_counts = frozen["fullCensusSystemMemberCounts"]
     source_by_seq = {source["Seq"]: source for source in frozen["candidates"]}
-    adopted = [adopt_object(source, frozen, system_counts, supplements) for source in frozen["candidates"]]
+    adopted = [adopt_object(source, frozen, system_counts, supplements, gaia_records, reviewed_records) for source in frozen["candidates"]]
     adopted.sort(key=lambda item: (item[1]["adoptedJ2000"]["distancePc"], item[0]["id"]))
     eligible = [item for item in adopted if release_eligible(source_by_seq[item[1]["sourceRow"]])]
     excluded = [item for item in adopted if not release_eligible(source_by_seq[item[1]["sourceRow"]])]
@@ -396,8 +499,9 @@ def build_catalog(output, force=False, check=False):
         if row["id"] in current_default:
             assert row == {key: current_default[row["id"]].get(key, "") for key in headers}, f"Default row drifted from frozen legacy plus supplements: {row['id']}"
     cutoff_policy = MEMBERSHIP_POLICY + " Rank eligible individual non-Sun objects by unrounded adopted J2000 distance, then ASCII stable ID for exact ties; retain exactly 100 plus Sun. Rank 100 is GJ 229 A; nearby one-sigma distance intervals overlap, so membership is not statistically secure. Frozen 2023 source releases with preserved neighbor overrides; no 2026 completeness claim."
-    manifest = {"schemaVersion": 1, "id": "nearest-100", "label": "Nearest 100 objects", "description": "100 individual stellar/substellar objects from the frozen 2023 10pc census, audited against corrected CNS5, plus Sun. Tentative candidates excluded except explicitly preserved EZ Aquarii B/C default membership; photometry and physical properties are incomplete.", "epoch": 2000, "objectCount": 101, "sources": SOURCES + SUPPLEMENT_SOURCES, "cutoffPolicy": cutoff_policy, "snapshot": "J2000.0; 10pc 2023-08-25 / CNS5 corrected 2023-12-13; preserved neighbor measurements; frozen 2026-09-15; " + POLICY_REVISION}
-    coverage = {field: sum(row[field] != "" for row in rows) for field in ("constellation", "spectral_type", "temperature_k", "mass_solar", "luminosity_solar", "radius_solar", "absolute_mag")}
+    physical_sources = GAIA_PHYSICAL_SOURCES + REVIEWED_PHYSICAL_SOURCES + SUPPLEMENT_SOURCES
+    manifest = {"schemaVersion": 1, "id": "nearest-100", "label": "Nearest 100 objects", "description": "100 individual stellar/substellar objects from the frozen 2023 10pc census, audited against corrected CNS5, plus Sun. Tentative candidates excluded except explicitly preserved EZ Aquarii B/C default membership; exact-ID Gaia and reviewed physical enrichment remains nullable.", "epoch": 2000, "objectCount": 101, "sources": SOURCES + physical_sources, "cutoffPolicy": cutoff_policy, "snapshot": "J2000.0; 10pc 2023-08-25 / CNS5 corrected 2023-12-13; Gaia DR3 frozen 2026-09-25; reviewed physical overrides frozen 2026-10-03; " + POLICY_REVISION}
+    coverage = {field: sum(row[field] != "" for row in rows) for field in ("constellation", "spectral_type", "temperature_k", "mass_solar", "luminosity_solar", "radius_solar", "metallicity_dex", "age_gyr", "absolute_mag")}
     coverage["fullVelocity"] = sum(all(row[key] != "" for key in ("vx_kms", "vy_kms", "vz_kms")) for row in rows)
     coverage["rawAstrometry"] = sum(all(row[key] != "" for key in ("ra_deg", "dec_deg", "astrometry_epoch", "parallax_mas", "pm_ra_cosdec_masyr", "pm_dec_masyr")) for row in rows)
     coverage["radialVelocity"] = sum(row["radial_velocity_kms"] != "" for row in rows)
@@ -422,7 +526,9 @@ def build_catalog(output, force=False, check=False):
     provenance = {
         "schemaVersion": 1, "catalogId": "nearest-100", "sourceRelease": frozen["release"], "policyRevision": frozen["policyRevision"], "inputSha256": checksum(input_path),
         "supplementManifestSha256": supplements.manifest_sha256,
-        "sources": SOURCES + SUPPLEMENT_SOURCES, "sourceChecksumsSha256": frozen["sourceChecksumsSha256"],
+        "gaiaSourceManifestSha256": checksum(GAIA_MANIFEST), "physicalOverridesSha256": checksum(PHYSICAL_OVERRIDES),
+        "physicalPolicyRevision": "nearest100-reviewed-gaia-v1",
+        "sources": SOURCES + physical_sources, "sourceChecksumsSha256": frozen["sourceChecksumsSha256"],
         "tools": {"astropy": astropy.__version__, "boundary": "Roman 1987, VI/42 via Astropy", "constellationSpellingCorrections": NAME_CORRECTIONS},
         "conventions": {"position": "Sun-relative Galactic x toward Galactic center, y toward Galactic longitude 90 deg, z toward north Galactic pole; pc", "epoch": "J2000.0 Julian years TT; linear Astropy apply_space_motion, no binary orbit model. Source epoch precision is retained as published, including 0.1-year rounding.", "velocity": "Sun-relative Galactic km/s; no solar Galactic offset. Missing/withheld RV is used only as a transverse-only propagation approximation, never exported as measured velocity.", "constellation": "Earth-view IAU region from high-precision adopted snapshot direction before Cartesian rounding. Existing vectors are preserved and inverted. Sun has no fixed region. No physical propagation to B1875.", "photometry": "Johnson V only, MV=V-5log10(d/10), local extinction neglected; no G/IR/bolometric substitutions. No time-variable photometry or unresolved flux aggregation.", "uncertainty": "Raw source measurement errors retained. Rank uses nominal adopted distance; linearized parallax-only distance sigma is an audit, not a covariance-aware posterior or a guarantee of order. Existing row source errors are audit-only when astrometry is overridden."},
         "decisions": frozen["decisions"], "coverage": coverage,
@@ -473,18 +579,28 @@ def default_catalog(write=False):
     assert assignments["barnards-star"] == "Ophiuchus"
     assert all(row["constellation"] == assignments[row["id"]] for row in rows)
     frozen = json.loads((FROZEN / "source-input.json").read_text())
+    frozen_legacy_by_id = {row["id"]: row for row in frozen["legacyRows"]}
     source_by_id = {LEGACY_IDS[source["Seq"]]: source for source in frozen["candidates"] if source["Seq"] in LEGACY_IDS}
     supplements = load_supplements(SUPPLEMENTS, CNS5_DATA)
+    gaia_records = gaia_physical_records()
+    reviewed_records = reviewed_physical_records()
     enriched = []
     supplemented = {}
     for row in rows:
-        output = {key: row.get(key, "") for key in OUTPUT_HEADERS}
+        output = {key: frozen_legacy_by_id[row["id"]].get(key, "") for key in OUTPUT_HEADERS}
         if row["id"] != "sun":
             output.update(raw_astrometry(source_by_id[row["id"]], all(row[key] != "" for key in ("vx_kms", "vy_kms", "vz_kms"))))
             apply_alpha_centauri_system_motion(output)
+            source = source_by_id[row["id"]]
+            _, _, gaia_adopted = apply_reviewed_and_gaia_physical(
+                output,
+                reviewed_records.get(row["id"]),
+                gaia_records.get(source.get("GaiaEDR3")),
+            )
             before = {key: output[key] for key in OUTPUT_HEADERS}
-            adopted, _ = enrich_curated_row(output, supplements)
-            assert all(before[key] == output[key] or (key in adopted and before[key] == "") or (key == "notes" and output[key].startswith(before[key])) for key in OUTPUT_HEADERS)
+            adopted, _ = enrich_curated_row(output, supplements, gaia_adopted)
+            finalize_gaia_note(output, gaia_adopted, adopted)
+            assert all(before[key] == output[key] or (key in adopted and (before[key] == "" or key in gaia_adopted)) or (key == "notes" and output[key].startswith(before[key])) for key in OUTPUT_HEADERS)
             if adopted:
                 supplemented[row["id"]] = sorted(adopted)
         enriched.append(output)

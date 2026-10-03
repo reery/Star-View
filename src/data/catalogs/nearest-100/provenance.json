@@ -5,6 +5,9 @@
   "policyRevision": "confirmed-membership-v2",
   "inputSha256": "ab8a3ab6e0b0edb1372f7c58cdf4f121fe1d5d204a9a0541e6d302a5ac18c84a",
   "supplementManifestSha256": "92cb2daae1b7319401890f4e1de7f904d1d1b0375b3ac2dc93c8c41c5ecd0073",
+  "gaiaSourceManifestSha256": "2be61990729716fc4005ca5e0998ea2a67939060e8161391898fd32d20fff974",
+  "physicalOverridesSha256": "812dca6f37bfc4e714923571c87d1e88b256410416a5a4b411104e5244baa027",
+  "physicalPolicyRevision": "nearest100-reviewed-gaia-v1",
   "sources": [
     {
       "name": "10pc census, Reyle et al., tablea1 update 2023-08-25",
@@ -23,7 +26,7 @@
       "url": "https://nssdc.gsfc.nasa.gov/planetary/factsheet/sunfact.html"
     },
     {
-      "name": "Akeson et al. 2021, Alpha Centauri AB barycentric astrometry and systemic radial velocity",
+      "name": "Akeson et al. 2021, Alpha Centauri AB barycentric astrometry, systemic radial velocity, dynamical masses and revised-parallax physical parameters",
       "url": "https://doi.org/10.3847/1538-3881/abfaff"
     },
     {
@@ -33,6 +36,50 @@
     {
       "name": "Astropy 7.1.1, IAU constellations using Roman 1987 boundaries",
       "url": "https://docs.astropy.org/en/stable/api/astropy.coordinates.get_constellation.html"
+    },
+    {
+      "name": "Gaia DR3 TAP snapshot; exact-ID GSP-Phot/FLAME physical estimates, quality-filtered and used only for blank fields",
+      "url": "https://gea.esac.esa.int/tap-server/tap/sync"
+    },
+    {
+      "name": "Kervella et al. 2017, Alpha Centauri AB interferometric radii and effective temperatures",
+      "url": "https://doi.org/10.1051/0004-6361/201629505"
+    },
+    {
+      "name": "Morel 2018, Alpha Centauri AB differential spectroscopic abundances",
+      "url": "https://doi.org/10.1051/0004-6361/201833125"
+    },
+    {
+      "name": "Joyce & Chaboyer 2018, Alpha Centauri AB asteroseismic stellar-model age",
+      "url": "https://doi.org/10.3847/1538-4357/aad464"
+    },
+    {
+      "name": "Lodieu et al. 2015, resolved Luhman 16 AB temperatures and bolometric luminosities",
+      "url": "https://doi.org/10.1051/0004-6361/201524933"
+    },
+    {
+      "name": "Bedin et al. 2024, Luhman 16 AB dynamical masses and Oceanus membership assessment",
+      "url": "https://doi.org/10.1002/asna.20230158"
+    },
+    {
+      "name": "Zapatero Osorio et al. 2016, WISE 0855-0714 spectral-energy-distribution modelling",
+      "url": "https://doi.org/10.1051/0004-6361/201628662"
+    },
+    {
+      "name": "Bond et al. 2017, Sirius A/B dynamical and physical parameters",
+      "url": "https://doi.org/10.3847/1538-4357/aa6af8"
+    },
+    {
+      "name": "Korolik et al. 2023, Tau Ceti interferometric and spectroscopic parameters",
+      "url": "https://doi.org/10.3847/1538-3881/ace906"
+    },
+    {
+      "name": "Di Folco et al. 2004, Tau Ceti stellar-evolution age",
+      "url": "https://doi.org/10.1051/0004-6361:20047189"
+    },
+    {
+      "name": "Pagano et al. 2015, Tau Ceti spectroscopic chemical composition",
+      "url": "https://doi.org/10.1088/0004-637X/803/2/90"
     },
     {
       "name": "Cifuentes et al. 2020, CARMENES M-dwarf luminosities, temperatures, radii and masses (J/A+A/642/A115); fills blank fields only",
@@ -90,10 +137,12 @@
   "coverage": {
     "constellation": 100,
     "spectral_type": 101,
-    "temperature_k": 92,
-    "mass_solar": 55,
-    "luminosity_solar": 39,
-    "radius_solar": 40,
+    "temperature_k": 93,
+    "mass_solar": 59,
+    "luminosity_solar": 60,
+    "radius_solar": 57,
+    "metallicity_dex": 35,
+    "age_gyr": 10,
     "absolute_mag": 48,
     "fullVelocity": 72,
     "rawAstrometry": 100,
@@ -5142,8 +5191,11 @@
           "detail": "cifuentes-2020; uncertainty 0.0057; fills a blank field only."
         },
         "metallicity_dex": {
-          "status": "unknown",
-          "sourceRefs": []
+          "status": "model-derived",
+          "sourceRefs": [
+            "Gaia DR3 astrophysical_parameters:5853498713190525696"
+          ],
+          "detail": "Gaia DR3 exact-ID model value; uncertainty 0.0020000000000000018; quality flags none"
         },
         "age_gyr": {
           "status": "unknown",
@@ -5181,6 +5233,65 @@
             "2MASS Ks quality, blend or contamination flag not clean (requires Q=A/B, B=1, C=0)"
           ]
         }
+      },
+      "gaiaPhysical": {
+        "gaiaDr3Id": "5853498713190525696",
+        "observations": [
+          {
+            "source_id": "gaia-dr3",
+            "source_record_id": "5853498713190525696",
+            "field": "temperature_k",
+            "value": 2829.3542,
+            "uncertainty": 0.3602000000000771,
+            "status": "model-derived",
+            "reference": "Gaia DR3 astrophysical_parameters",
+            "quality_flags": []
+          },
+          {
+            "source_id": "gaia-dr3",
+            "source_record_id": "5853498713190525696",
+            "field": "metallicity_dex",
+            "value": -0.1806,
+            "uncertainty": 0.0020000000000000018,
+            "status": "model-derived",
+            "reference": "Gaia DR3 astrophysical_parameters",
+            "quality_flags": []
+          },
+          {
+            "source_id": "gaia-dr3",
+            "source_record_id": "5853498713190525696",
+            "field": "luminosity_solar",
+            "value": 0.0015221541,
+            "uncertainty": 1.5230000000011033e-07,
+            "status": "model-derived",
+            "reference": "Gaia DR3 astrophysical_parameters",
+            "quality_flags": [
+              "20"
+            ]
+          },
+          {
+            "source_id": "gaia-dr3",
+            "source_record_id": "5853498713190525696",
+            "field": "radius_solar",
+            "value": 0.16237111,
+            "uncertainty": 0.0032474299999999956,
+            "status": "model-derived",
+            "reference": "Gaia DR3 astrophysical_parameters",
+            "quality_flags": [
+              "20"
+            ]
+          }
+        ],
+        "adopted": {
+          "metallicity_dex": "Gaia DR3 astrophysical_parameters:5853498713190525696"
+        },
+        "supersededByHigherPriority": [
+          "luminosity_solar",
+          "radius_solar"
+        ],
+        "retainedExistingFields": [
+          "temperature_k"
+        ]
       }
     },
     {
@@ -5290,22 +5401,25 @@
           "detail": "Shared Alpha Centauri AB barycentric Sun-relative Galactic velocity; binary orbital motion excluded."
         },
         "temperature_k": {
-          "status": "adopted-existing",
+          "status": "derived",
           "sourceRefs": [
-            "legacy-neighbors:alpha-centauri-b"
-          ]
+            "2017A&A...597A.137K:alpha-centauri-b"
+          ],
+          "detail": "primary-paper; uncertainty 21.0; interferometric radius plus bolometric flux"
         },
         "mass_solar": {
-          "status": "adopted-existing",
+          "status": "measured",
           "sourceRefs": [
-            "legacy-neighbors:alpha-centauri-b"
-          ]
+            "2021AJ....162...14A:alpha-centauri-b"
+          ],
+          "detail": "primary-paper; uncertainty 0.0025; binary dynamical mass"
         },
         "luminosity_solar": {
-          "status": "unknown",
+          "status": "derived",
           "sourceRefs": [
-            "legacy-neighbors:alpha-centauri-b"
-          ]
+            "2021AJ....162...14A:alpha-centauri-b"
+          ],
+          "detail": "primary-paper; uncertainty 0.0007; bolometric flux plus revised orbital parallax"
         },
         "absolute_mag": {
           "status": "adopted-existing",
@@ -5424,16 +5538,25 @@
           "detail": "Alpha Centauri AB barycenter measurement at J2019.5, shared by both component rows."
         },
         "radius_solar": {
-          "status": "unknown",
-          "sourceRefs": []
+          "status": "derived",
+          "sourceRefs": [
+            "2021AJ....162...14A:alpha-centauri-b"
+          ],
+          "detail": "primary-paper; uncertainty 0.0036; interferometric angular diameter plus revised orbital parallax"
         },
         "metallicity_dex": {
-          "status": "unknown",
-          "sourceRefs": []
+          "status": "measured",
+          "sourceRefs": [
+            "2018A&A...615A.172M:alpha-centauri-b"
+          ],
+          "detail": "primary-paper; uncertainty 0.016; differential HARPS spectroscopic [Fe/H]"
         },
         "age_gyr": {
-          "status": "unknown",
-          "sourceRefs": []
+          "status": "model-derived",
+          "sourceRefs": [
+            "2018ApJ...864...99J:alpha-centauri-b"
+          ],
+          "detail": "primary-paper; uncertainty 0.3; shared binary age, classical plus asteroseismic stellar models"
         }
       },
       "overrides": [
@@ -5445,6 +5568,92 @@
           "identity_method": "10pc Gaia DR2 identifier only; CNS5 identity shared by several components or absent"
         },
         "eligibility": "Not a parsed K5-M9.5 dwarf spectral type (no subdwarf, giant, composite or peculiar class); supplements not applied."
+      },
+      "reviewedPhysical": {
+        "inputSha256": "812dca6f37bfc4e714923571c87d1e88b256410416a5a4b411104e5244baa027",
+        "observations": [
+          {
+            "source_id": "primary-paper",
+            "source_record_id": "alpha-centauri-b",
+            "field": "temperature_k",
+            "value": 5231.0,
+            "uncertainty": 21.0,
+            "status": "derived",
+            "reference": "2017A&A...597A.137K",
+            "quality_flags": [
+              "interferometric radius plus bolometric flux"
+            ]
+          },
+          {
+            "source_id": "primary-paper",
+            "source_record_id": "alpha-centauri-b",
+            "field": "mass_solar",
+            "value": 0.9092,
+            "uncertainty": 0.0025,
+            "status": "measured",
+            "reference": "2021AJ....162...14A",
+            "quality_flags": [
+              "binary dynamical mass"
+            ]
+          },
+          {
+            "source_id": "primary-paper",
+            "source_record_id": "alpha-centauri-b",
+            "field": "luminosity_solar",
+            "value": 0.4981,
+            "uncertainty": 0.0007,
+            "status": "derived",
+            "reference": "2021AJ....162...14A",
+            "quality_flags": [
+              "bolometric flux plus revised orbital parallax"
+            ]
+          },
+          {
+            "source_id": "primary-paper",
+            "source_record_id": "alpha-centauri-b",
+            "field": "radius_solar",
+            "value": 0.8591,
+            "uncertainty": 0.0036,
+            "status": "derived",
+            "reference": "2021AJ....162...14A",
+            "quality_flags": [
+              "interferometric angular diameter plus revised orbital parallax"
+            ]
+          },
+          {
+            "source_id": "primary-paper",
+            "source_record_id": "alpha-centauri-b",
+            "field": "metallicity_dex",
+            "value": 0.221,
+            "uncertainty": 0.016,
+            "status": "measured",
+            "reference": "2018A&A...615A.172M",
+            "quality_flags": [
+              "differential HARPS spectroscopic [Fe/H]"
+            ]
+          },
+          {
+            "source_id": "primary-paper",
+            "source_record_id": "alpha-centauri-b",
+            "field": "age_gyr",
+            "value": 5.3,
+            "uncertainty": 0.3,
+            "status": "model-derived",
+            "reference": "2018ApJ...864...99J",
+            "quality_flags": [
+              "shared binary age",
+              "classical plus asteroseismic stellar models"
+            ]
+          }
+        ],
+        "adopted": {
+          "temperature_k": "2017A&A...597A.137K:alpha-centauri-b",
+          "mass_solar": "2021AJ....162...14A:alpha-centauri-b",
+          "luminosity_solar": "2021AJ....162...14A:alpha-centauri-b",
+          "radius_solar": "2021AJ....162...14A:alpha-centauri-b",
+          "metallicity_dex": "2018A&A...615A.172M:alpha-centauri-b",
+          "age_gyr": "2018ApJ...864...99J:alpha-centauri-b"
+        }
       }
     },
     {
@@ -5554,22 +5763,25 @@
           "detail": "Shared Alpha Centauri AB barycentric Sun-relative Galactic velocity; binary orbital motion excluded."
         },
         "temperature_k": {
-          "status": "adopted-existing",
+          "status": "derived",
           "sourceRefs": [
-            "legacy-neighbors:alpha-centauri-a"
-          ]
+            "2017A&A...597A.137K:alpha-centauri-a"
+          ],
+          "detail": "primary-paper; uncertainty 19.0; interferometric radius plus bolometric flux"
         },
         "mass_solar": {
-          "status": "adopted-existing",
+          "status": "measured",
           "sourceRefs": [
-            "legacy-neighbors:alpha-centauri-a"
-          ]
+            "2021AJ....162...14A:alpha-centauri-a"
+          ],
+          "detail": "primary-paper; uncertainty 0.0029; binary dynamical mass"
         },
         "luminosity_solar": {
-          "status": "unknown",
+          "status": "derived",
           "sourceRefs": [
-            "legacy-neighbors:alpha-centauri-a"
-          ]
+            "2021AJ....162...14A:alpha-centauri-a"
+          ],
+          "detail": "primary-paper; uncertainty 0.0019; bolometric flux plus revised orbital parallax"
         },
         "absolute_mag": {
           "status": "adopted-existing",
@@ -5688,16 +5900,25 @@
           "detail": "Alpha Centauri AB barycenter measurement at J2019.5, shared by both component rows."
         },
         "radius_solar": {
-          "status": "unknown",
-          "sourceRefs": []
+          "status": "derived",
+          "sourceRefs": [
+            "2021AJ....162...14A:alpha-centauri-a"
+          ],
+          "detail": "primary-paper; uncertainty 0.0055; interferometric angular diameter plus revised orbital parallax"
         },
         "metallicity_dex": {
-          "status": "unknown",
-          "sourceRefs": []
+          "status": "measured",
+          "sourceRefs": [
+            "2018A&A...615A.172M:alpha-centauri-a"
+          ],
+          "detail": "primary-paper; uncertainty 0.007; differential HARPS spectroscopic [Fe/H]"
         },
         "age_gyr": {
-          "status": "unknown",
-          "sourceRefs": []
+          "status": "model-derived",
+          "sourceRefs": [
+            "2018ApJ...864...99J:alpha-centauri-a"
+          ],
+          "detail": "primary-paper; uncertainty 0.3; shared binary age, classical plus asteroseismic stellar models"
         }
       },
       "overrides": [
@@ -5709,6 +5930,92 @@
           "identity_method": "10pc Gaia DR2 identifier only; CNS5 identity shared by several components or absent"
         },
         "eligibility": "Not a parsed K5-M9.5 dwarf spectral type (no subdwarf, giant, composite or peculiar class); supplements not applied."
+      },
+      "reviewedPhysical": {
+        "inputSha256": "812dca6f37bfc4e714923571c87d1e88b256410416a5a4b411104e5244baa027",
+        "observations": [
+          {
+            "source_id": "primary-paper",
+            "source_record_id": "alpha-centauri-a",
+            "field": "temperature_k",
+            "value": 5795.0,
+            "uncertainty": 19.0,
+            "status": "derived",
+            "reference": "2017A&A...597A.137K",
+            "quality_flags": [
+              "interferometric radius plus bolometric flux"
+            ]
+          },
+          {
+            "source_id": "primary-paper",
+            "source_record_id": "alpha-centauri-a",
+            "field": "mass_solar",
+            "value": 1.0788,
+            "uncertainty": 0.0029,
+            "status": "measured",
+            "reference": "2021AJ....162...14A",
+            "quality_flags": [
+              "binary dynamical mass"
+            ]
+          },
+          {
+            "source_id": "primary-paper",
+            "source_record_id": "alpha-centauri-a",
+            "field": "luminosity_solar",
+            "value": 1.5059,
+            "uncertainty": 0.0019,
+            "status": "derived",
+            "reference": "2021AJ....162...14A",
+            "quality_flags": [
+              "bolometric flux plus revised orbital parallax"
+            ]
+          },
+          {
+            "source_id": "primary-paper",
+            "source_record_id": "alpha-centauri-a",
+            "field": "radius_solar",
+            "value": 1.2175,
+            "uncertainty": 0.0055,
+            "status": "derived",
+            "reference": "2021AJ....162...14A",
+            "quality_flags": [
+              "interferometric angular diameter plus revised orbital parallax"
+            ]
+          },
+          {
+            "source_id": "primary-paper",
+            "source_record_id": "alpha-centauri-a",
+            "field": "metallicity_dex",
+            "value": 0.237,
+            "uncertainty": 0.007,
+            "status": "measured",
+            "reference": "2018A&A...615A.172M",
+            "quality_flags": [
+              "differential HARPS spectroscopic [Fe/H]"
+            ]
+          },
+          {
+            "source_id": "primary-paper",
+            "source_record_id": "alpha-centauri-a",
+            "field": "age_gyr",
+            "value": 5.3,
+            "uncertainty": 0.3,
+            "status": "model-derived",
+            "reference": "2018ApJ...864...99J",
+            "quality_flags": [
+              "shared binary age",
+              "classical plus asteroseismic stellar models"
+            ]
+          }
+        ],
+        "adopted": {
+          "temperature_k": "2017A&A...597A.137K:alpha-centauri-a",
+          "mass_solar": "2021AJ....162...14A:alpha-centauri-a",
+          "luminosity_solar": "2021AJ....162...14A:alpha-centauri-a",
+          "radius_solar": "2021AJ....162...14A:alpha-centauri-a",
+          "metallicity_dex": "2018A&A...615A.172M:alpha-centauri-a",
+          "age_gyr": "2018ApJ...864...99J:alpha-centauri-a"
+        }
       }
     },
     {
@@ -5944,8 +6251,11 @@
           "detail": "cifuentes-2020; uncertainty 0.0065; fills a blank field only."
         },
         "metallicity_dex": {
-          "status": "unknown",
-          "sourceRefs": []
+          "status": "model-derived",
+          "sourceRefs": [
+            "Gaia DR3 astrophysical_parameters:4472832130942575872"
+          ],
+          "detail": "Gaia DR3 exact-ID model value; uncertainty 0.04069999999999996; quality flags none"
         },
         "age_gyr": {
           "status": "unknown",
@@ -5990,6 +6300,65 @@
           "reasons": [],
           "status": "adopted"
         }
+      },
+      "gaiaPhysical": {
+        "gaiaDr3Id": "4472832130942575872",
+        "observations": [
+          {
+            "source_id": "gaia-dr3",
+            "source_record_id": "4472832130942575872",
+            "field": "temperature_k",
+            "value": 3099.6335,
+            "uncertainty": 1.9983000000001994,
+            "status": "model-derived",
+            "reference": "Gaia DR3 astrophysical_parameters",
+            "quality_flags": []
+          },
+          {
+            "source_id": "gaia-dr3",
+            "source_record_id": "4472832130942575872",
+            "field": "metallicity_dex",
+            "value": -0.9072,
+            "uncertainty": 0.04069999999999996,
+            "status": "model-derived",
+            "reference": "Gaia DR3 astrophysical_parameters",
+            "quality_flags": []
+          },
+          {
+            "source_id": "gaia-dr3",
+            "source_record_id": "4472832130942575872",
+            "field": "luminosity_solar",
+            "value": 0.0033980533,
+            "uncertainty": 3.400000000001492e-07,
+            "status": "model-derived",
+            "reference": "Gaia DR3 astrophysical_parameters",
+            "quality_flags": [
+              "20"
+            ]
+          },
+          {
+            "source_id": "gaia-dr3",
+            "source_record_id": "4472832130942575872",
+            "field": "radius_solar",
+            "value": 0.20216417,
+            "uncertainty": 0.0040433,
+            "status": "model-derived",
+            "reference": "Gaia DR3 astrophysical_parameters",
+            "quality_flags": [
+              "20"
+            ]
+          }
+        ],
+        "adopted": {
+          "metallicity_dex": "Gaia DR3 astrophysical_parameters:4472832130942575872"
+        },
+        "supersededByHigherPriority": [
+          "luminosity_solar",
+          "radius_solar"
+        ],
+        "retainedExistingFields": [
+          "temperature_k"
+        ]
       }
     },
     {
@@ -6096,22 +6465,25 @@
           ]
         },
         "temperature_k": {
-          "status": "adopted-existing",
+          "status": "model-derived",
           "sourceRefs": [
-            "legacy-neighbors:luhman-16-a"
-          ]
+            "2015A&A...581A..73L:luhman-16-a"
+          ],
+          "detail": "primary-paper; uncertainty 180.0; resolved spectroscopy, asymmetric uncertainty represented by its larger side"
         },
         "mass_solar": {
-          "status": "adopted-existing",
+          "status": "measured",
           "sourceRefs": [
-            "legacy-neighbors:luhman-16-a"
-          ]
+            "2024AN....34530158B:luhman-16-a"
+          ],
+          "detail": "primary-paper; uncertainty 0.0002; 35.4 +/- 0.2 Jupiter masses converted to solar masses"
         },
         "luminosity_solar": {
-          "status": "unknown",
+          "status": "derived",
           "sourceRefs": [
-            "legacy-neighbors:luhman-16-a"
-          ]
+            "2015A&A...581A..73L:luhman-16-a"
+          ],
+          "detail": "primary-paper; uncertainty 4.43e-06; resolved bolometric SED, converted from log(L/Lsun) = -4.66 +/- 0.08 dex"
         },
         "absolute_mag": {
           "status": "unknown",
@@ -6225,8 +6597,11 @@
           "sourceRefs": []
         },
         "age_gyr": {
-          "status": "unknown",
-          "sourceRefs": []
+          "status": "model-derived",
+          "sourceRefs": [
+            "2024AN....34530158B:luhman-16-a"
+          ],
+          "detail": "primary-paper; uncertainty 0.095; assuming Oceanus moving-group membership, evolutionary-model component ages remain discrepant"
         }
       },
       "overrides": [
@@ -6238,6 +6613,68 @@
           "identity_method": "10pc Gaia DR2 identifier only; CNS5 identity shared by several components or absent"
         },
         "eligibility": "Not a parsed K5-M9.5 dwarf spectral type (no subdwarf, giant, composite or peculiar class); supplements not applied."
+      },
+      "reviewedPhysical": {
+        "inputSha256": "812dca6f37bfc4e714923571c87d1e88b256410416a5a4b411104e5244baa027",
+        "observations": [
+          {
+            "source_id": "primary-paper",
+            "source_record_id": "luhman-16-a",
+            "field": "temperature_k",
+            "value": 1305.0,
+            "uncertainty": 180.0,
+            "status": "model-derived",
+            "reference": "2015A&A...581A..73L",
+            "quality_flags": [
+              "resolved spectroscopy",
+              "asymmetric uncertainty represented by its larger side"
+            ]
+          },
+          {
+            "source_id": "primary-paper",
+            "source_record_id": "luhman-16-a",
+            "field": "mass_solar",
+            "value": 0.0338,
+            "uncertainty": 0.0002,
+            "status": "measured",
+            "reference": "2024AN....34530158B",
+            "quality_flags": [
+              "35.4 +/- 0.2 Jupiter masses converted to solar masses"
+            ]
+          },
+          {
+            "source_id": "primary-paper",
+            "source_record_id": "luhman-16-a",
+            "field": "luminosity_solar",
+            "value": 2.18776e-05,
+            "uncertainty": 4.43e-06,
+            "status": "derived",
+            "reference": "2015A&A...581A..73L",
+            "quality_flags": [
+              "resolved bolometric SED",
+              "converted from log(L/Lsun) = -4.66 +/- 0.08 dex"
+            ]
+          },
+          {
+            "source_id": "primary-paper",
+            "source_record_id": "luhman-16-a",
+            "field": "age_gyr",
+            "value": 0.51,
+            "uncertainty": 0.095,
+            "status": "model-derived",
+            "reference": "2024AN....34530158B",
+            "quality_flags": [
+              "assuming Oceanus moving-group membership",
+              "evolutionary-model component ages remain discrepant"
+            ]
+          }
+        ],
+        "adopted": {
+          "temperature_k": "2015A&A...581A..73L:luhman-16-a",
+          "mass_solar": "2024AN....34530158B:luhman-16-a",
+          "luminosity_solar": "2015A&A...581A..73L:luhman-16-a",
+          "age_gyr": "2024AN....34530158B:luhman-16-a"
+        }
       }
     },
     {
@@ -6344,22 +6781,25 @@
           ]
         },
         "temperature_k": {
-          "status": "adopted-existing",
+          "status": "model-derived",
           "sourceRefs": [
-            "legacy-neighbors:luhman-16-b"
-          ]
+            "2015A&A...581A..73L:luhman-16-b"
+          ],
+          "detail": "primary-paper; uncertainty 185.0; resolved spectroscopy, asymmetric uncertainty represented by its larger side"
         },
         "mass_solar": {
-          "status": "adopted-existing",
+          "status": "measured",
           "sourceRefs": [
-            "legacy-neighbors:luhman-16-b"
-          ]
+            "2024AN....34530158B:luhman-16-b"
+          ],
+          "detail": "primary-paper; uncertainty 0.0002; 29.4 +/- 0.2 Jupiter masses converted to solar masses"
         },
         "luminosity_solar": {
-          "status": "unknown",
+          "status": "derived",
           "sourceRefs": [
-            "legacy-neighbors:luhman-16-b"
-          ]
+            "2015A&A...581A..73L:luhman-16-b"
+          ],
+          "detail": "primary-paper; uncertainty 7.29e-06; resolved bolometric SED, converted from log(L/Lsun) = -4.68 +/- 0.13 dex"
         },
         "absolute_mag": {
           "status": "unknown",
@@ -6473,8 +6913,11 @@
           "sourceRefs": []
         },
         "age_gyr": {
-          "status": "unknown",
-          "sourceRefs": []
+          "status": "model-derived",
+          "sourceRefs": [
+            "2024AN....34530158B:luhman-16-b"
+          ],
+          "detail": "primary-paper; uncertainty 0.095; assuming Oceanus moving-group membership, evolutionary-model component ages remain discrepant"
         }
       },
       "overrides": [
@@ -6486,6 +6929,68 @@
           "identity_method": "10pc Gaia DR2 identifier only; CNS5 identity shared by several components or absent"
         },
         "eligibility": "Not a parsed K5-M9.5 dwarf spectral type (no subdwarf, giant, composite or peculiar class); supplements not applied."
+      },
+      "reviewedPhysical": {
+        "inputSha256": "812dca6f37bfc4e714923571c87d1e88b256410416a5a4b411104e5244baa027",
+        "observations": [
+          {
+            "source_id": "primary-paper",
+            "source_record_id": "luhman-16-b",
+            "field": "temperature_k",
+            "value": 1320.0,
+            "uncertainty": 185.0,
+            "status": "model-derived",
+            "reference": "2015A&A...581A..73L",
+            "quality_flags": [
+              "resolved spectroscopy",
+              "asymmetric uncertainty represented by its larger side"
+            ]
+          },
+          {
+            "source_id": "primary-paper",
+            "source_record_id": "luhman-16-b",
+            "field": "mass_solar",
+            "value": 0.0281,
+            "uncertainty": 0.0002,
+            "status": "measured",
+            "reference": "2024AN....34530158B",
+            "quality_flags": [
+              "29.4 +/- 0.2 Jupiter masses converted to solar masses"
+            ]
+          },
+          {
+            "source_id": "primary-paper",
+            "source_record_id": "luhman-16-b",
+            "field": "luminosity_solar",
+            "value": 2.0893e-05,
+            "uncertainty": 7.29e-06,
+            "status": "derived",
+            "reference": "2015A&A...581A..73L",
+            "quality_flags": [
+              "resolved bolometric SED",
+              "converted from log(L/Lsun) = -4.68 +/- 0.13 dex"
+            ]
+          },
+          {
+            "source_id": "primary-paper",
+            "source_record_id": "luhman-16-b",
+            "field": "age_gyr",
+            "value": 0.51,
+            "uncertainty": 0.095,
+            "status": "model-derived",
+            "reference": "2024AN....34530158B",
+            "quality_flags": [
+              "assuming Oceanus moving-group membership",
+              "evolutionary-model component ages remain discrepant"
+            ]
+          }
+        ],
+        "adopted": {
+          "temperature_k": "2015A&A...581A..73L:luhman-16-b",
+          "mass_solar": "2024AN....34530158B:luhman-16-b",
+          "luminosity_solar": "2015A&A...581A..73L:luhman-16-b",
+          "age_gyr": "2024AN....34530158B:luhman-16-b"
+        }
       }
     },
     {
@@ -6604,10 +7109,11 @@
           ]
         },
         "luminosity_solar": {
-          "status": "unknown",
+          "status": "model-derived",
           "sourceRefs": [
-            "legacy-neighbors:wise-0855-0714"
-          ]
+            "2016A&A...592A..80Z:wise-0855-0714"
+          ],
+          "detail": "primary-paper; uncertainty None; converted from log(L/Lsun) = -8.57, best-fit atmosphere has acknowledged surface-gravity tension"
         },
         "absolute_mag": {
           "status": "unknown",
@@ -6735,6 +7241,27 @@
           "identity_method": "nearest-100 source row; frozen CNS5 match; exact SIMBAD CNS5 identity"
         },
         "eligibility": "Not a parsed K5-M9.5 dwarf spectral type (no subdwarf, giant, composite or peculiar class); supplements not applied."
+      },
+      "reviewedPhysical": {
+        "inputSha256": "812dca6f37bfc4e714923571c87d1e88b256410416a5a4b411104e5244baa027",
+        "observations": [
+          {
+            "source_id": "primary-paper",
+            "source_record_id": "wise-0855-0714",
+            "field": "luminosity_solar",
+            "value": 2.69153e-09,
+            "uncertainty": null,
+            "status": "model-derived",
+            "reference": "2016A&A...592A..80Z",
+            "quality_flags": [
+              "converted from log(L/Lsun) = -8.57",
+              "best-fit atmosphere has acknowledged surface-gravity tension"
+            ]
+          }
+        ],
+        "adopted": {
+          "luminosity_solar": "2016A&A...592A..80Z:wise-0855-0714"
+        }
       }
     },
     {
@@ -7250,8 +7777,11 @@
           "detail": "cifuentes-2020; uncertainty 0.0167; fills a blank field only."
         },
         "metallicity_dex": {
-          "status": "unknown",
-          "sourceRefs": []
+          "status": "model-derived",
+          "sourceRefs": [
+            "Gaia DR3 astrophysical_parameters:762815470562110464"
+          ],
+          "detail": "Gaia DR3 exact-ID model value; uncertainty 0.003999999999999976; quality flags none"
         },
         "age_gyr": {
           "status": "unknown",
@@ -7288,6 +7818,65 @@
             "No unique 2MASS identifier"
           ]
         }
+      },
+      "gaiaPhysical": {
+        "gaiaDr3Id": "762815470562110464",
+        "observations": [
+          {
+            "source_id": "gaia-dr3",
+            "source_record_id": "762815470562110464",
+            "field": "temperature_k",
+            "value": 3511.045,
+            "uncertainty": 0.41069999999990614,
+            "status": "model-derived",
+            "reference": "Gaia DR3 astrophysical_parameters",
+            "quality_flags": []
+          },
+          {
+            "source_id": "gaia-dr3",
+            "source_record_id": "762815470562110464",
+            "field": "metallicity_dex",
+            "value": -0.1783,
+            "uncertainty": 0.003999999999999976,
+            "status": "model-derived",
+            "reference": "Gaia DR3 astrophysical_parameters",
+            "quality_flags": []
+          },
+          {
+            "source_id": "gaia-dr3",
+            "source_record_id": "762815470562110464",
+            "field": "luminosity_solar",
+            "value": 0.023884647,
+            "uncertainty": 0.005000058000000002,
+            "status": "model-derived",
+            "reference": "Gaia DR3 astrophysical_parameters",
+            "quality_flags": [
+              "20"
+            ]
+          },
+          {
+            "source_id": "gaia-dr3",
+            "source_record_id": "762815470562110464",
+            "field": "radius_solar",
+            "value": 0.41768724,
+            "uncertainty": 0.04451065999999998,
+            "status": "model-derived",
+            "reference": "Gaia DR3 astrophysical_parameters",
+            "quality_flags": [
+              "20"
+            ]
+          }
+        ],
+        "adopted": {
+          "metallicity_dex": "Gaia DR3 astrophysical_parameters:762815470562110464"
+        },
+        "supersededByHigherPriority": [
+          "luminosity_solar",
+          "radius_solar"
+        ],
+        "retainedExistingFields": [
+          "temperature_k"
+        ]
       }
     },
     {
@@ -7394,22 +7983,25 @@
           ]
         },
         "temperature_k": {
-          "status": "adopted-existing",
+          "status": "derived",
           "sourceRefs": [
-            "legacy-neighbors:sirius-a"
-          ]
+            "2017ApJ...840...70B:sirius-a"
+          ],
+          "detail": "primary-paper; uncertainty 64.0; interferometric radius plus bolometric flux"
         },
         "mass_solar": {
-          "status": "adopted-existing",
+          "status": "measured",
           "sourceRefs": [
-            "legacy-neighbors:sirius-a"
-          ]
+            "2017ApJ...840...70B:sirius-a"
+          ],
+          "detail": "primary-paper; uncertainty 0.023; binary dynamical mass"
         },
         "luminosity_solar": {
-          "status": "adopted-existing",
+          "status": "derived",
           "sourceRefs": [
-            "legacy-neighbors:sirius-a"
-          ]
+            "2017ApJ...840...70B:sirius-a"
+          ],
+          "detail": "primary-paper; uncertainty 0.7; bolometric flux plus adopted parallax"
         },
         "absolute_mag": {
           "status": "adopted-existing",
@@ -7515,16 +8107,25 @@
           ]
         },
         "radius_solar": {
-          "status": "unknown",
-          "sourceRefs": []
+          "status": "measured",
+          "sourceRefs": [
+            "2017ApJ...840...70B:sirius-a"
+          ],
+          "detail": "primary-paper; uncertainty 0.009; interferometric radius"
         },
         "metallicity_dex": {
-          "status": "unknown",
-          "sourceRefs": []
+          "status": "model-derived",
+          "sourceRefs": [
+            "2017ApJ...840...70B:sirius-a"
+          ],
+          "detail": "primary-paper; uncertainty 0.03; bulk [Fe/H] midpoint of -0.13 to -0.07 model range, not the diffusion-altered photospheric abundance"
         },
         "age_gyr": {
-          "status": "unknown",
-          "sourceRefs": []
+          "status": "model-derived",
+          "sourceRefs": [
+            "2017ApJ...840...70B:sirius-a"
+          ],
+          "detail": "primary-paper; uncertainty 0.015; midpoint of independent 237-247 Myr model results"
         }
       },
       "overrides": [
@@ -7538,6 +8139,92 @@
           "identity_method": "nearest-100 source row; frozen CNS5 match; exact SIMBAD CNS5 identity"
         },
         "eligibility": "Not a parsed K5-M9.5 dwarf spectral type (no subdwarf, giant, composite or peculiar class); supplements not applied."
+      },
+      "reviewedPhysical": {
+        "inputSha256": "812dca6f37bfc4e714923571c87d1e88b256410416a5a4b411104e5244baa027",
+        "observations": [
+          {
+            "source_id": "primary-paper",
+            "source_record_id": "sirius-a",
+            "field": "temperature_k",
+            "value": 9845.0,
+            "uncertainty": 64.0,
+            "status": "derived",
+            "reference": "2017ApJ...840...70B",
+            "quality_flags": [
+              "interferometric radius plus bolometric flux"
+            ]
+          },
+          {
+            "source_id": "primary-paper",
+            "source_record_id": "sirius-a",
+            "field": "mass_solar",
+            "value": 2.063,
+            "uncertainty": 0.023,
+            "status": "measured",
+            "reference": "2017ApJ...840...70B",
+            "quality_flags": [
+              "binary dynamical mass"
+            ]
+          },
+          {
+            "source_id": "primary-paper",
+            "source_record_id": "sirius-a",
+            "field": "luminosity_solar",
+            "value": 24.74,
+            "uncertainty": 0.7,
+            "status": "derived",
+            "reference": "2017ApJ...840...70B",
+            "quality_flags": [
+              "bolometric flux plus adopted parallax"
+            ]
+          },
+          {
+            "source_id": "primary-paper",
+            "source_record_id": "sirius-a",
+            "field": "radius_solar",
+            "value": 1.7144,
+            "uncertainty": 0.009,
+            "status": "measured",
+            "reference": "2017ApJ...840...70B",
+            "quality_flags": [
+              "interferometric radius"
+            ]
+          },
+          {
+            "source_id": "primary-paper",
+            "source_record_id": "sirius-a",
+            "field": "metallicity_dex",
+            "value": -0.1,
+            "uncertainty": 0.03,
+            "status": "model-derived",
+            "reference": "2017ApJ...840...70B",
+            "quality_flags": [
+              "bulk [Fe/H] midpoint of -0.13 to -0.07 model range",
+              "not the diffusion-altered photospheric abundance"
+            ]
+          },
+          {
+            "source_id": "primary-paper",
+            "source_record_id": "sirius-a",
+            "field": "age_gyr",
+            "value": 0.242,
+            "uncertainty": 0.015,
+            "status": "model-derived",
+            "reference": "2017ApJ...840...70B",
+            "quality_flags": [
+              "midpoint of independent 237-247 Myr model results"
+            ]
+          }
+        ],
+        "adopted": {
+          "temperature_k": "2017ApJ...840...70B:sirius-a",
+          "mass_solar": "2017ApJ...840...70B:sirius-a",
+          "luminosity_solar": "2017ApJ...840...70B:sirius-a",
+          "radius_solar": "2017ApJ...840...70B:sirius-a",
+          "metallicity_dex": "2017ApJ...840...70B:sirius-a",
+          "age_gyr": "2017ApJ...840...70B:sirius-a"
+        }
       }
     },
     {
@@ -7644,22 +8331,25 @@
           ]
         },
         "temperature_k": {
-          "status": "adopted-existing",
+          "status": "measured",
           "sourceRefs": [
-            "legacy-neighbors:sirius-b"
-          ]
+            "2017ApJ...840...70B:sirius-b"
+          ],
+          "detail": "primary-paper; uncertainty 46.0; HST/STIS atmosphere fit"
         },
         "mass_solar": {
-          "status": "adopted-existing",
+          "status": "measured",
           "sourceRefs": [
-            "legacy-neighbors:sirius-b"
-          ]
+            "2017ApJ...840...70B:sirius-b"
+          ],
+          "detail": "primary-paper; uncertainty 0.011; binary dynamical mass"
         },
         "luminosity_solar": {
-          "status": "unknown",
+          "status": "derived",
           "sourceRefs": [
-            "legacy-neighbors:sirius-b"
-          ]
+            "2017ApJ...840...70B:sirius-b"
+          ],
+          "detail": "primary-paper; uncertainty 0.00033; HST/STIS absolute-flux fit"
         },
         "absolute_mag": {
           "status": "adopted-existing",
@@ -7765,16 +8455,22 @@
           ]
         },
         "radius_solar": {
-          "status": "unknown",
-          "sourceRefs": []
+          "status": "derived",
+          "sourceRefs": [
+            "2017ApJ...840...70B:sirius-b"
+          ],
+          "detail": "primary-paper; uncertainty 4.6e-05; HST/STIS absolute-flux fit"
         },
         "metallicity_dex": {
           "status": "unknown",
           "sourceRefs": []
         },
         "age_gyr": {
-          "status": "unknown",
-          "sourceRefs": []
+          "status": "model-derived",
+          "sourceRefs": [
+            "2017ApJ...840...70B:sirius-b"
+          ],
+          "detail": "primary-paper; uncertainty 0.01; total age including progenitor lifetime, not the 126 Myr cooling age"
         }
       },
       "overrides": [
@@ -7788,6 +8484,79 @@
           "identity_method": "nearest-100 source row; frozen CNS5 match; exact SIMBAD CNS5 identity"
         },
         "eligibility": "Not a parsed K5-M9.5 dwarf spectral type (no subdwarf, giant, composite or peculiar class); supplements not applied."
+      },
+      "reviewedPhysical": {
+        "inputSha256": "812dca6f37bfc4e714923571c87d1e88b256410416a5a4b411104e5244baa027",
+        "observations": [
+          {
+            "source_id": "primary-paper",
+            "source_record_id": "sirius-b",
+            "field": "temperature_k",
+            "value": 25369.0,
+            "uncertainty": 46.0,
+            "status": "measured",
+            "reference": "2017ApJ...840...70B",
+            "quality_flags": [
+              "HST/STIS atmosphere fit"
+            ]
+          },
+          {
+            "source_id": "primary-paper",
+            "source_record_id": "sirius-b",
+            "field": "mass_solar",
+            "value": 1.018,
+            "uncertainty": 0.011,
+            "status": "measured",
+            "reference": "2017ApJ...840...70B",
+            "quality_flags": [
+              "binary dynamical mass"
+            ]
+          },
+          {
+            "source_id": "primary-paper",
+            "source_record_id": "sirius-b",
+            "field": "luminosity_solar",
+            "value": 0.02448,
+            "uncertainty": 0.00033,
+            "status": "derived",
+            "reference": "2017ApJ...840...70B",
+            "quality_flags": [
+              "HST/STIS absolute-flux fit"
+            ]
+          },
+          {
+            "source_id": "primary-paper",
+            "source_record_id": "sirius-b",
+            "field": "radius_solar",
+            "value": 0.008098,
+            "uncertainty": 4.6e-05,
+            "status": "derived",
+            "reference": "2017ApJ...840...70B",
+            "quality_flags": [
+              "HST/STIS absolute-flux fit"
+            ]
+          },
+          {
+            "source_id": "primary-paper",
+            "source_record_id": "sirius-b",
+            "field": "age_gyr",
+            "value": 0.228,
+            "uncertainty": 0.01,
+            "status": "model-derived",
+            "reference": "2017ApJ...840...70B",
+            "quality_flags": [
+              "total age including progenitor lifetime",
+              "not the 126 Myr cooling age"
+            ]
+          }
+        ],
+        "adopted": {
+          "temperature_k": "2017ApJ...840...70B:sirius-b",
+          "mass_solar": "2017ApJ...840...70B:sirius-b",
+          "luminosity_solar": "2017ApJ...840...70B:sirius-b",
+          "radius_solar": "2017ApJ...840...70B:sirius-b",
+          "age_gyr": "2017ApJ...840...70B:sirius-b"
+        }
       }
     },
     {
@@ -8549,8 +9318,11 @@
           "detail": "cifuentes-2020; uncertainty 0.0066; fills a blank field only."
         },
         "metallicity_dex": {
-          "status": "unknown",
-          "sourceRefs": []
+          "status": "model-derived",
+          "sourceRefs": [
+            "Gaia DR3 astrophysical_parameters:4075141768785646848"
+          ],
+          "detail": "Gaia DR3 exact-ID model value; uncertainty 0.14889999999999992; quality flags none"
         },
         "age_gyr": {
           "status": "unknown",
@@ -8595,6 +9367,65 @@
           "reasons": [],
           "status": "adopted"
         }
+      },
+      "gaiaPhysical": {
+        "gaiaDr3Id": "4075141768785646848",
+        "observations": [
+          {
+            "source_id": "gaia-dr3",
+            "source_record_id": "4075141768785646848",
+            "field": "temperature_k",
+            "value": 3117.376,
+            "uncertainty": 13.04049999999961,
+            "status": "model-derived",
+            "reference": "Gaia DR3 astrophysical_parameters",
+            "quality_flags": []
+          },
+          {
+            "source_id": "gaia-dr3",
+            "source_record_id": "4075141768785646848",
+            "field": "metallicity_dex",
+            "value": -0.84,
+            "uncertainty": 0.14889999999999992,
+            "status": "model-derived",
+            "reference": "Gaia DR3 astrophysical_parameters",
+            "quality_flags": []
+          },
+          {
+            "source_id": "gaia-dr3",
+            "source_record_id": "4075141768785646848",
+            "field": "luminosity_solar",
+            "value": 0.004220306,
+            "uncertainty": 4.2199999999992244e-07,
+            "status": "model-derived",
+            "reference": "Gaia DR3 astrophysical_parameters",
+            "quality_flags": [
+              "20"
+            ]
+          },
+          {
+            "source_id": "gaia-dr3",
+            "source_record_id": "4075141768785646848",
+            "field": "radius_solar",
+            "value": 0.21745506,
+            "uncertainty": 0.004349110000000017,
+            "status": "model-derived",
+            "reference": "Gaia DR3 astrophysical_parameters",
+            "quality_flags": [
+              "20"
+            ]
+          }
+        ],
+        "adopted": {
+          "metallicity_dex": "Gaia DR3 astrophysical_parameters:4075141768785646848"
+        },
+        "supersededByHigherPriority": [
+          "luminosity_solar",
+          "radius_solar"
+        ],
+        "retainedExistingFields": [
+          "temperature_k"
+        ]
       }
     },
     {
@@ -8994,10 +9825,11 @@
           ]
         },
         "luminosity_solar": {
-          "status": "unknown",
+          "status": "model-derived",
           "sourceRefs": [
-            "legacy-neighbors:epsilon-eridani"
-          ]
+            "Gaia DR3 astrophysical_parameters:5164707970261890560"
+          ],
+          "detail": "Gaia DR3 exact-ID model value; uncertainty 0.005052449999999986; quality flags 00"
         },
         "absolute_mag": {
           "status": "adopted-existing",
@@ -9103,16 +9935,25 @@
           ]
         },
         "radius_solar": {
-          "status": "unknown",
-          "sourceRefs": []
+          "status": "model-derived",
+          "sourceRefs": [
+            "Gaia DR3 astrophysical_parameters:5164707970261890560"
+          ],
+          "detail": "Gaia DR3 exact-ID model value; uncertainty 0.016560629999999965; quality flags 00"
         },
         "metallicity_dex": {
-          "status": "unknown",
-          "sourceRefs": []
+          "status": "model-derived",
+          "sourceRefs": [
+            "Gaia DR3 astrophysical_parameters:5164707970261890560"
+          ],
+          "detail": "Gaia DR3 exact-ID model value; uncertainty 0.0383; quality flags none"
         },
         "age_gyr": {
-          "status": "unknown",
-          "sourceRefs": []
+          "status": "model-derived",
+          "sourceRefs": [
+            "Gaia DR3 astrophysical_parameters:5164707970261890560"
+          ],
+          "detail": "Gaia DR3 exact-ID model value; uncertainty 2.121716; quality flags 00"
         }
       },
       "overrides": [
@@ -9127,6 +9968,90 @@
           "identity_method": "nearest-100 source row; frozen CNS5 match; exact SIMBAD CNS5 identity"
         },
         "eligibility": "Not a parsed K5-M9.5 dwarf spectral type (no subdwarf, giant, composite or peculiar class); supplements not applied."
+      },
+      "gaiaPhysical": {
+        "gaiaDr3Id": "5164707970261890560",
+        "observations": [
+          {
+            "source_id": "gaia-dr3",
+            "source_record_id": "5164707970261890560",
+            "field": "temperature_k",
+            "value": 5002.0435,
+            "uncertainty": 5.06880000000001,
+            "status": "model-derived",
+            "reference": "Gaia DR3 astrophysical_parameters",
+            "quality_flags": []
+          },
+          {
+            "source_id": "gaia-dr3",
+            "source_record_id": "5164707970261890560",
+            "field": "metallicity_dex",
+            "value": 0.1258,
+            "uncertainty": 0.0383,
+            "status": "model-derived",
+            "reference": "Gaia DR3 astrophysical_parameters",
+            "quality_flags": []
+          },
+          {
+            "source_id": "gaia-dr3",
+            "source_record_id": "5164707970261890560",
+            "field": "mass_solar",
+            "value": 0.8111994,
+            "uncertainty": 0.040364999999999984,
+            "status": "model-derived",
+            "reference": "Gaia DR3 astrophysical_parameters",
+            "quality_flags": [
+              "00"
+            ]
+          },
+          {
+            "source_id": "gaia-dr3",
+            "source_record_id": "5164707970261890560",
+            "field": "luminosity_solar",
+            "value": 0.33970678,
+            "uncertainty": 0.005052449999999986,
+            "status": "model-derived",
+            "reference": "Gaia DR3 astrophysical_parameters",
+            "quality_flags": [
+              "00"
+            ]
+          },
+          {
+            "source_id": "gaia-dr3",
+            "source_record_id": "5164707970261890560",
+            "field": "radius_solar",
+            "value": 0.77611643,
+            "uncertainty": 0.016560629999999965,
+            "status": "model-derived",
+            "reference": "Gaia DR3 astrophysical_parameters",
+            "quality_flags": [
+              "00"
+            ]
+          },
+          {
+            "source_id": "gaia-dr3",
+            "source_record_id": "5164707970261890560",
+            "field": "age_gyr",
+            "value": 7.3040414,
+            "uncertainty": 2.121716,
+            "status": "model-derived",
+            "reference": "Gaia DR3 astrophysical_parameters",
+            "quality_flags": [
+              "00"
+            ]
+          }
+        ],
+        "adopted": {
+          "metallicity_dex": "Gaia DR3 astrophysical_parameters:5164707970261890560",
+          "luminosity_solar": "Gaia DR3 astrophysical_parameters:5164707970261890560",
+          "radius_solar": "Gaia DR3 astrophysical_parameters:5164707970261890560",
+          "age_gyr": "Gaia DR3 astrophysical_parameters:5164707970261890560"
+        },
+        "supersededByHigherPriority": [],
+        "retainedExistingFields": [
+          "mass_solar",
+          "temperature_k"
+        ]
       }
     },
     {
@@ -9245,10 +10170,11 @@
           ]
         },
         "luminosity_solar": {
-          "status": "unknown",
+          "status": "model-derived",
           "sourceRefs": [
-            "legacy-neighbors:lacaille-9352"
-          ]
+            "Gaia DR3 astrophysical_parameters:6553614253923452800"
+          ],
+          "detail": "Gaia DR3 exact-ID model value; uncertainty 0.005004480999999998; quality flags 20"
         },
         "absolute_mag": {
           "status": "adopted-existing",
@@ -9354,12 +10280,18 @@
           ]
         },
         "radius_solar": {
-          "status": "unknown",
-          "sourceRefs": []
+          "status": "model-derived",
+          "sourceRefs": [
+            "Gaia DR3 astrophysical_parameters:6553614253923452800"
+          ],
+          "detail": "Gaia DR3 exact-ID model value; uncertainty 0.03846136999999994; quality flags 20"
         },
         "metallicity_dex": {
-          "status": "unknown",
-          "sourceRefs": []
+          "status": "model-derived",
+          "sourceRefs": [
+            "Gaia DR3 astrophysical_parameters:6553614253923452800"
+          ],
+          "detail": "Gaia DR3 exact-ID model value; uncertainty 0.04600000000000004; quality flags none"
         },
         "age_gyr": {
           "status": "unknown",
@@ -9387,6 +10319,64 @@
             "2MASS Ks quality, blend or contamination flag not clean (requires Q=A/B, B=1, C=0)"
           ]
         }
+      },
+      "gaiaPhysical": {
+        "gaiaDr3Id": "6553614253923452800",
+        "observations": [
+          {
+            "source_id": "gaia-dr3",
+            "source_record_id": "6553614253923452800",
+            "field": "temperature_k",
+            "value": 3376.0845,
+            "uncertainty": 16.066100000000006,
+            "status": "model-derived",
+            "reference": "Gaia DR3 astrophysical_parameters",
+            "quality_flags": []
+          },
+          {
+            "source_id": "gaia-dr3",
+            "source_record_id": "6553614253923452800",
+            "field": "metallicity_dex",
+            "value": -0.9754,
+            "uncertainty": 0.04600000000000004,
+            "status": "model-derived",
+            "reference": "Gaia DR3 astrophysical_parameters",
+            "quality_flags": []
+          },
+          {
+            "source_id": "gaia-dr3",
+            "source_record_id": "6553614253923452800",
+            "field": "luminosity_solar",
+            "value": 0.039837547,
+            "uncertainty": 0.005004480999999998,
+            "status": "model-derived",
+            "reference": "Gaia DR3 astrophysical_parameters",
+            "quality_flags": [
+              "20"
+            ]
+          },
+          {
+            "source_id": "gaia-dr3",
+            "source_record_id": "6553614253923452800",
+            "field": "radius_solar",
+            "value": 0.58346987,
+            "uncertainty": 0.03846136999999994,
+            "status": "model-derived",
+            "reference": "Gaia DR3 astrophysical_parameters",
+            "quality_flags": [
+              "20"
+            ]
+          }
+        ],
+        "adopted": {
+          "metallicity_dex": "Gaia DR3 astrophysical_parameters:6553614253923452800",
+          "luminosity_solar": "Gaia DR3 astrophysical_parameters:6553614253923452800",
+          "radius_solar": "Gaia DR3 astrophysical_parameters:6553614253923452800"
+        },
+        "supersededByHigherPriority": [],
+        "retainedExistingFields": [
+          "temperature_k"
+        ]
       }
     },
     {
@@ -9622,8 +10612,11 @@
           "detail": "cifuentes-2020; uncertainty 0.0072; fills a blank field only."
         },
         "metallicity_dex": {
-          "status": "unknown",
-          "sourceRefs": []
+          "status": "model-derived",
+          "sourceRefs": [
+            "Gaia DR3 astrophysical_parameters:3796072592206250624"
+          ],
+          "detail": "Gaia DR3 exact-ID model value; uncertainty 0.0013999999999999846; quality flags none"
         },
         "age_gyr": {
           "status": "unknown",
@@ -9668,6 +10661,65 @@
           "reasons": [],
           "status": "adopted"
         }
+      },
+      "gaiaPhysical": {
+        "gaiaDr3Id": "3796072592206250624",
+        "observations": [
+          {
+            "source_id": "gaia-dr3",
+            "source_record_id": "3796072592206250624",
+            "field": "temperature_k",
+            "value": 3093.4,
+            "uncertainty": 0.40239999999994325,
+            "status": "model-derived",
+            "reference": "Gaia DR3 astrophysical_parameters",
+            "quality_flags": []
+          },
+          {
+            "source_id": "gaia-dr3",
+            "source_record_id": "3796072592206250624",
+            "field": "metallicity_dex",
+            "value": -0.2009,
+            "uncertainty": 0.0013999999999999846,
+            "status": "model-derived",
+            "reference": "Gaia DR3 astrophysical_parameters",
+            "quality_flags": []
+          },
+          {
+            "source_id": "gaia-dr3",
+            "source_record_id": "3796072592206250624",
+            "field": "luminosity_solar",
+            "value": 0.003817869,
+            "uncertainty": 3.8200000000016e-07,
+            "status": "model-derived",
+            "reference": "Gaia DR3 astrophysical_parameters",
+            "quality_flags": [
+              "20"
+            ]
+          },
+          {
+            "source_id": "gaia-dr3",
+            "source_record_id": "3796072592206250624",
+            "field": "radius_solar",
+            "value": 0.21512306,
+            "uncertainty": 0.004302470000000003,
+            "status": "model-derived",
+            "reference": "Gaia DR3 astrophysical_parameters",
+            "quality_flags": [
+              "20"
+            ]
+          }
+        ],
+        "adopted": {
+          "metallicity_dex": "Gaia DR3 astrophysical_parameters:3796072592206250624"
+        },
+        "supersededByHigherPriority": [
+          "luminosity_solar",
+          "radius_solar"
+        ],
+        "retainedExistingFields": [
+          "temperature_k"
+        ]
       }
     },
     {
@@ -10547,9 +11599,11 @@
           "detail": "No vetted component measurement adopted; mean-sequence values are not substituted."
         },
         "luminosity_solar": {
-          "status": "unknown",
-          "sourceRefs": [],
-          "detail": "No vetted component measurement adopted; mean-sequence values are not substituted."
+          "status": "model-derived",
+          "sourceRefs": [
+            "Gaia DR3 astrophysical_parameters:1872046574983497216"
+          ],
+          "detail": "Gaia DR3 exact-ID model value; uncertainty 0.00501538; quality flags 20"
         },
         "absolute_mag": {
           "status": "unknown",
@@ -10655,12 +11709,18 @@
           ]
         },
         "radius_solar": {
-          "status": "unknown",
-          "sourceRefs": []
+          "status": "model-derived",
+          "sourceRefs": [
+            "Gaia DR3 astrophysical_parameters:1872046574983497216"
+          ],
+          "detail": "Gaia DR3 exact-ID model value; uncertainty 0.022498100000000076; quality flags 20"
         },
         "metallicity_dex": {
-          "status": "unknown",
-          "sourceRefs": []
+          "status": "model-derived",
+          "sourceRefs": [
+            "Gaia DR3 astrophysical_parameters:1872046574983497216"
+          ],
+          "detail": "Gaia DR3 exact-ID model value; uncertainty 0.06620000000000004; quality flags none"
         },
         "age_gyr": {
           "status": "unknown",
@@ -10687,6 +11747,64 @@
             "2MASS Ks quality, blend or contamination flag not clean (requires Q=A/B, B=1, C=0)"
           ]
         }
+      },
+      "gaiaPhysical": {
+        "gaiaDr3Id": "1872046574983497216",
+        "observations": [
+          {
+            "source_id": "gaia-dr3",
+            "source_record_id": "1872046574983497216",
+            "field": "temperature_k",
+            "value": 3889.6328,
+            "uncertainty": 26.652199999999993,
+            "status": "model-derived",
+            "reference": "Gaia DR3 astrophysical_parameters",
+            "quality_flags": []
+          },
+          {
+            "source_id": "gaia-dr3",
+            "source_record_id": "1872046574983497216",
+            "field": "metallicity_dex",
+            "value": -0.484,
+            "uncertainty": 0.06620000000000004,
+            "status": "model-derived",
+            "reference": "Gaia DR3 astrophysical_parameters",
+            "quality_flags": []
+          },
+          {
+            "source_id": "gaia-dr3",
+            "source_record_id": "1872046574983497216",
+            "field": "luminosity_solar",
+            "value": 0.09445296,
+            "uncertainty": 0.00501538,
+            "status": "model-derived",
+            "reference": "Gaia DR3 astrophysical_parameters",
+            "quality_flags": [
+              "20"
+            ]
+          },
+          {
+            "source_id": "gaia-dr3",
+            "source_record_id": "1872046574983497216",
+            "field": "radius_solar",
+            "value": 0.6768412,
+            "uncertainty": 0.022498100000000076,
+            "status": "model-derived",
+            "reference": "Gaia DR3 astrophysical_parameters",
+            "quality_flags": [
+              "20"
+            ]
+          }
+        ],
+        "adopted": {
+          "metallicity_dex": "Gaia DR3 astrophysical_parameters:1872046574983497216",
+          "luminosity_solar": "Gaia DR3 astrophysical_parameters:1872046574983497216",
+          "radius_solar": "Gaia DR3 astrophysical_parameters:1872046574983497216"
+        },
+        "supersededByHigherPriority": [],
+        "retainedExistingFields": [
+          "temperature_k"
+        ]
       }
     },
     {
@@ -10808,14 +11926,18 @@
           "detail": "Estimated: Pecaut-Mamajek 2022.04.16 K5V mean dwarf class, not a measured temperature."
         },
         "mass_solar": {
-          "status": "unknown",
-          "sourceRefs": [],
-          "detail": "No vetted component measurement adopted; mean-sequence values are not substituted."
+          "status": "model-derived",
+          "sourceRefs": [
+            "Gaia DR3 astrophysical_parameters:1872046609345556480"
+          ],
+          "detail": "Gaia DR3 exact-ID model value; uncertainty 0.04000073999999998; quality flags 00"
         },
         "luminosity_solar": {
-          "status": "unknown",
-          "sourceRefs": [],
-          "detail": "No vetted component measurement adopted; mean-sequence values are not substituted."
+          "status": "model-derived",
+          "sourceRefs": [
+            "Gaia DR3 astrophysical_parameters:1872046609345556480"
+          ],
+          "detail": "Gaia DR3 exact-ID model value; uncertainty 0.0050299499999999775; quality flags 00"
         },
         "absolute_mag": {
           "status": "unknown",
@@ -10921,12 +12043,18 @@
           ]
         },
         "radius_solar": {
-          "status": "unknown",
-          "sourceRefs": []
+          "status": "model-derived",
+          "sourceRefs": [
+            "Gaia DR3 astrophysical_parameters:1872046609345556480"
+          ],
+          "detail": "Gaia DR3 exact-ID model value; uncertainty 0.017772670000000046; quality flags 00"
         },
         "metallicity_dex": {
-          "status": "unknown",
-          "sourceRefs": []
+          "status": "model-derived",
+          "sourceRefs": [
+            "Gaia DR3 astrophysical_parameters:1872046609345556480"
+          ],
+          "detail": "Gaia DR3 exact-ID model value; uncertainty 0.0766; quality flags none"
         },
         "age_gyr": {
           "status": "unknown",
@@ -10953,6 +12081,77 @@
             "2MASS Ks quality, blend or contamination flag not clean (requires Q=A/B, B=1, C=0)"
           ]
         }
+      },
+      "gaiaPhysical": {
+        "gaiaDr3Id": "1872046609345556480",
+        "observations": [
+          {
+            "source_id": "gaia-dr3",
+            "source_record_id": "1872046609345556480",
+            "field": "temperature_k",
+            "value": 4353.7437,
+            "uncertainty": 13.606300000000374,
+            "status": "model-derived",
+            "reference": "Gaia DR3 astrophysical_parameters",
+            "quality_flags": []
+          },
+          {
+            "source_id": "gaia-dr3",
+            "source_record_id": "1872046609345556480",
+            "field": "metallicity_dex",
+            "value": 0.2244,
+            "uncertainty": 0.0766,
+            "status": "model-derived",
+            "reference": "Gaia DR3 astrophysical_parameters",
+            "quality_flags": []
+          },
+          {
+            "source_id": "gaia-dr3",
+            "source_record_id": "1872046609345556480",
+            "field": "mass_solar",
+            "value": 0.6795274,
+            "uncertainty": 0.04000073999999998,
+            "status": "model-derived",
+            "reference": "Gaia DR3 astrophysical_parameters",
+            "quality_flags": [
+              "00"
+            ]
+          },
+          {
+            "source_id": "gaia-dr3",
+            "source_record_id": "1872046609345556480",
+            "field": "luminosity_solar",
+            "value": 0.15068895,
+            "uncertainty": 0.0050299499999999775,
+            "status": "model-derived",
+            "reference": "Gaia DR3 astrophysical_parameters",
+            "quality_flags": [
+              "00"
+            ]
+          },
+          {
+            "source_id": "gaia-dr3",
+            "source_record_id": "1872046609345556480",
+            "field": "radius_solar",
+            "value": 0.68227917,
+            "uncertainty": 0.017772670000000046,
+            "status": "model-derived",
+            "reference": "Gaia DR3 astrophysical_parameters",
+            "quality_flags": [
+              "00"
+            ]
+          }
+        ],
+        "adopted": {
+          "metallicity_dex": "Gaia DR3 astrophysical_parameters:1872046609345556480",
+          "mass_solar": "Gaia DR3 astrophysical_parameters:1872046609345556480",
+          "luminosity_solar": "Gaia DR3 astrophysical_parameters:1872046609345556480",
+          "radius_solar": "Gaia DR3 astrophysical_parameters:1872046609345556480"
+        },
+        "supersededByHigherPriority": [],
+        "retainedExistingFields": [
+          "temperature_k"
+        ]
       }
     },
     {
@@ -11582,9 +12781,11 @@
           "detail": "No vetted component measurement adopted; mean-sequence values are not substituted."
         },
         "luminosity_solar": {
-          "status": "unknown",
-          "sourceRefs": [],
-          "detail": "No vetted component measurement adopted; mean-sequence values are not substituted."
+          "status": "model-derived",
+          "sourceRefs": [
+            "Gaia DR3 astrophysical_parameters:2154880616774131712"
+          ],
+          "detail": "Gaia DR3 exact-ID model value; uncertainty 0.005000203999999999; quality flags 20"
         },
         "absolute_mag": {
           "status": "unknown",
@@ -11690,12 +12891,18 @@
           ]
         },
         "radius_solar": {
-          "status": "unknown",
-          "sourceRefs": []
+          "status": "model-derived",
+          "sourceRefs": [
+            "Gaia DR3 astrophysical_parameters:2154880616774131712"
+          ],
+          "detail": "Gaia DR3 exact-ID model value; uncertainty 0.09014918; quality flags 20"
         },
         "metallicity_dex": {
-          "status": "unknown",
-          "sourceRefs": []
+          "status": "model-derived",
+          "sourceRefs": [
+            "Gaia DR3 astrophysical_parameters:2154880616774131712"
+          ],
+          "detail": "Gaia DR3 exact-ID model value; uncertainty 0.0946999999999999; quality flags none"
         },
         "age_gyr": {
           "status": "unknown",
@@ -11729,6 +12936,64 @@
             "Cifuentes flags multiple; single main-sequence relation not applied"
           ]
         }
+      },
+      "gaiaPhysical": {
+        "gaiaDr3Id": "2154880616774131712",
+        "observations": [
+          {
+            "source_id": "gaia-dr3",
+            "source_record_id": "2154880616774131712",
+            "field": "temperature_k",
+            "value": 3179.6333,
+            "uncertainty": 11.387499999999818,
+            "status": "model-derived",
+            "reference": "Gaia DR3 astrophysical_parameters",
+            "quality_flags": []
+          },
+          {
+            "source_id": "gaia-dr3",
+            "source_record_id": "2154880616774131712",
+            "field": "metallicity_dex",
+            "value": -1.0413,
+            "uncertainty": 0.0946999999999999,
+            "status": "model-derived",
+            "reference": "Gaia DR3 astrophysical_parameters",
+            "quality_flags": []
+          },
+          {
+            "source_id": "gaia-dr3",
+            "source_record_id": "2154880616774131712",
+            "field": "luminosity_solar",
+            "value": 0.008381523,
+            "uncertainty": 0.005000203999999999,
+            "status": "model-derived",
+            "reference": "Gaia DR3 astrophysical_parameters",
+            "quality_flags": [
+              "20"
+            ]
+          },
+          {
+            "source_id": "gaia-dr3",
+            "source_record_id": "2154880616774131712",
+            "field": "radius_solar",
+            "value": 0.30154562,
+            "uncertainty": 0.09014918,
+            "status": "model-derived",
+            "reference": "Gaia DR3 astrophysical_parameters",
+            "quality_flags": [
+              "20"
+            ]
+          }
+        ],
+        "adopted": {
+          "metallicity_dex": "Gaia DR3 astrophysical_parameters:2154880616774131712",
+          "luminosity_solar": "Gaia DR3 astrophysical_parameters:2154880616774131712",
+          "radius_solar": "Gaia DR3 astrophysical_parameters:2154880616774131712"
+        },
+        "supersededByHigherPriority": [],
+        "retainedExistingFields": [
+          "temperature_k"
+        ]
       }
     },
     {
@@ -11855,9 +13120,11 @@
           "detail": "No vetted component measurement adopted; mean-sequence values are not substituted."
         },
         "luminosity_solar": {
-          "status": "unknown",
-          "sourceRefs": [],
-          "detail": "No vetted component measurement adopted; mean-sequence values are not substituted."
+          "status": "model-derived",
+          "sourceRefs": [
+            "Gaia DR3 astrophysical_parameters:2154880616774131840"
+          ],
+          "detail": "Gaia DR3 exact-ID model value; uncertainty 0.0050002350000000004; quality flags 20"
         },
         "absolute_mag": {
           "status": "unknown",
@@ -11963,12 +13230,18 @@
           ]
         },
         "radius_solar": {
-          "status": "unknown",
-          "sourceRefs": []
+          "status": "model-derived",
+          "sourceRefs": [
+            "Gaia DR3 astrophysical_parameters:2154880616774131840"
+          ],
+          "detail": "Gaia DR3 exact-ID model value; uncertainty 0.05900778000000001; quality flags 20"
         },
         "metallicity_dex": {
-          "status": "unknown",
-          "sourceRefs": []
+          "status": "model-derived",
+          "sourceRefs": [
+            "Gaia DR3 astrophysical_parameters:2154880616774131840"
+          ],
+          "detail": "Gaia DR3 exact-ID model value; uncertainty 0.021000000000000005; quality flags none"
         },
         "age_gyr": {
           "status": "unknown",
@@ -12002,6 +13275,64 @@
             "Cifuentes flags multiple; single main-sequence relation not applied"
           ]
         }
+      },
+      "gaiaPhysical": {
+        "gaiaDr3Id": "2154880616774131840",
+        "observations": [
+          {
+            "source_id": "gaia-dr3",
+            "source_record_id": "2154880616774131840",
+            "field": "temperature_k",
+            "value": 3352.192,
+            "uncertainty": 1.595299999999952,
+            "status": "model-derived",
+            "reference": "Gaia DR3 astrophysical_parameters",
+            "quality_flags": []
+          },
+          {
+            "source_id": "gaia-dr3",
+            "source_record_id": "2154880616774131840",
+            "field": "metallicity_dex",
+            "value": -0.1016,
+            "uncertainty": 0.021000000000000005,
+            "status": "model-derived",
+            "reference": "Gaia DR3 astrophysical_parameters",
+            "quality_flags": []
+          },
+          {
+            "source_id": "gaia-dr3",
+            "source_record_id": "2154880616774131840",
+            "field": "luminosity_solar",
+            "value": 0.016037583,
+            "uncertainty": 0.0050002350000000004,
+            "status": "model-derived",
+            "reference": "Gaia DR3 astrophysical_parameters",
+            "quality_flags": [
+              "20"
+            ]
+          },
+          {
+            "source_id": "gaia-dr3",
+            "source_record_id": "2154880616774131840",
+            "field": "radius_solar",
+            "value": 0.37544188,
+            "uncertainty": 0.05900778000000001,
+            "status": "model-derived",
+            "reference": "Gaia DR3 astrophysical_parameters",
+            "quality_flags": [
+              "20"
+            ]
+          }
+        ],
+        "adopted": {
+          "metallicity_dex": "Gaia DR3 astrophysical_parameters:2154880616774131840",
+          "luminosity_solar": "Gaia DR3 astrophysical_parameters:2154880616774131840",
+          "radius_solar": "Gaia DR3 astrophysical_parameters:2154880616774131840"
+        },
+        "supersededByHigherPriority": [],
+        "retainedExistingFields": [
+          "temperature_k"
+        ]
       }
     },
     {
@@ -12247,8 +13578,11 @@
           "detail": "cifuentes-2020; uncertainty 0.0145; fills a blank field only."
         },
         "metallicity_dex": {
-          "status": "unknown",
-          "sourceRefs": []
+          "status": "model-derived",
+          "sourceRefs": [
+            "Gaia DR3 astrophysical_parameters:385334230892516480"
+          ],
+          "detail": "Gaia DR3 exact-ID model value; uncertainty 0.008299999999999974; quality flags none"
         },
         "age_gyr": {
           "status": "unknown",
@@ -12285,6 +13619,65 @@
             "2MASS Ks quality, blend or contamination flag not clean (requires Q=A/B, B=1, C=0)"
           ]
         }
+      },
+      "gaiaPhysical": {
+        "gaiaDr3Id": "385334230892516480",
+        "observations": [
+          {
+            "source_id": "gaia-dr3",
+            "source_record_id": "385334230892516480",
+            "field": "temperature_k",
+            "value": 3352.2085,
+            "uncertainty": 1.2091999999997824,
+            "status": "model-derived",
+            "reference": "Gaia DR3 astrophysical_parameters",
+            "quality_flags": []
+          },
+          {
+            "source_id": "gaia-dr3",
+            "source_record_id": "385334230892516480",
+            "field": "metallicity_dex",
+            "value": -1.4361,
+            "uncertainty": 0.008299999999999974,
+            "status": "model-derived",
+            "reference": "Gaia DR3 astrophysical_parameters",
+            "quality_flags": []
+          },
+          {
+            "source_id": "gaia-dr3",
+            "source_record_id": "385334230892516480",
+            "field": "luminosity_solar",
+            "value": 0.023865439,
+            "uncertainty": 0.005000018000000002,
+            "status": "model-derived",
+            "reference": "Gaia DR3 astrophysical_parameters",
+            "quality_flags": [
+              "20"
+            ]
+          },
+          {
+            "source_id": "gaia-dr3",
+            "source_record_id": "385334230892516480",
+            "field": "radius_solar",
+            "value": 0.4579952,
+            "uncertainty": 0.04884360000000004,
+            "status": "model-derived",
+            "reference": "Gaia DR3 astrophysical_parameters",
+            "quality_flags": [
+              "20"
+            ]
+          }
+        ],
+        "adopted": {
+          "metallicity_dex": "Gaia DR3 astrophysical_parameters:385334230892516480"
+        },
+        "supersededByHigherPriority": [
+          "luminosity_solar",
+          "radius_solar"
+        ],
+        "retainedExistingFields": [
+          "temperature_k"
+        ]
       }
     },
     {
@@ -12530,8 +13923,11 @@
           "detail": "cifuentes-2020; uncertainty 0.0061; fills a blank field only."
         },
         "metallicity_dex": {
-          "status": "unknown",
-          "sourceRefs": []
+          "status": "model-derived",
+          "sourceRefs": [
+            "Gaia DR3 astrophysical_parameters:385334196532776576"
+          ],
+          "detail": "Gaia DR3 exact-ID model value; uncertainty 0.041000000000000036; quality flags none"
         },
         "age_gyr": {
           "status": "unknown",
@@ -12574,6 +13970,65 @@
           "reasons": [],
           "status": "adopted"
         }
+      },
+      "gaiaPhysical": {
+        "gaiaDr3Id": "385334196532776576",
+        "observations": [
+          {
+            "source_id": "gaia-dr3",
+            "source_record_id": "385334196532776576",
+            "field": "temperature_k",
+            "value": 3020.2869,
+            "uncertainty": 8.145199999999932,
+            "status": "model-derived",
+            "reference": "Gaia DR3 astrophysical_parameters",
+            "quality_flags": []
+          },
+          {
+            "source_id": "gaia-dr3",
+            "source_record_id": "385334196532776576",
+            "field": "metallicity_dex",
+            "value": -0.7747,
+            "uncertainty": 0.041000000000000036,
+            "status": "model-derived",
+            "reference": "Gaia DR3 astrophysical_parameters",
+            "quality_flags": []
+          },
+          {
+            "source_id": "gaia-dr3",
+            "source_record_id": "385334196532776576",
+            "field": "luminosity_solar",
+            "value": 0.0037119307,
+            "uncertainty": 3.714000000000148e-07,
+            "status": "model-derived",
+            "reference": "Gaia DR3 astrophysical_parameters",
+            "quality_flags": [
+              "20"
+            ]
+          },
+          {
+            "source_id": "gaia-dr3",
+            "source_record_id": "385334196532776576",
+            "field": "radius_solar",
+            "value": 0.22242324,
+            "uncertainty": 0.00444847000000001,
+            "status": "model-derived",
+            "reference": "Gaia DR3 astrophysical_parameters",
+            "quality_flags": [
+              "20"
+            ]
+          }
+        ],
+        "adopted": {
+          "metallicity_dex": "Gaia DR3 astrophysical_parameters:385334196532776576"
+        },
+        "supersededByHigherPriority": [
+          "luminosity_solar",
+          "radius_solar"
+        ],
+        "retainedExistingFields": [
+          "temperature_k"
+        ]
       }
     },
     {
@@ -12984,14 +14439,18 @@
           "detail": "Estimated: Pecaut-Mamajek 2022.04.16 K5V mean dwarf class, not a measured temperature."
         },
         "mass_solar": {
-          "status": "unknown",
-          "sourceRefs": [],
-          "detail": "No vetted component measurement adopted; mean-sequence values are not substituted."
+          "status": "model-derived",
+          "sourceRefs": [
+            "Gaia DR3 astrophysical_parameters:6412595290592307840"
+          ],
+          "detail": "Gaia DR3 exact-ID model value; uncertainty 0.040000040000000014; quality flags 00"
         },
         "luminosity_solar": {
-          "status": "unknown",
-          "sourceRefs": [],
-          "detail": "No vetted component measurement adopted; mean-sequence values are not substituted."
+          "status": "model-derived",
+          "sourceRefs": [
+            "Gaia DR3 astrophysical_parameters:6412595290592307840"
+          ],
+          "detail": "Gaia DR3 exact-ID model value; uncertainty 0.005008420000000013; quality flags 00"
         },
         "absolute_mag": {
           "status": "unknown",
@@ -13097,16 +14556,25 @@
           ]
         },
         "radius_solar": {
-          "status": "unknown",
-          "sourceRefs": []
+          "status": "model-derived",
+          "sourceRefs": [
+            "Gaia DR3 astrophysical_parameters:6412595290592307840"
+          ],
+          "detail": "Gaia DR3 exact-ID model value; uncertainty 0.017468599999999945; quality flags 00"
         },
         "metallicity_dex": {
-          "status": "unknown",
-          "sourceRefs": []
+          "status": "model-derived",
+          "sourceRefs": [
+            "Gaia DR3 astrophysical_parameters:6412595290592307840"
+          ],
+          "detail": "Gaia DR3 exact-ID model value; uncertainty 0.059599999999999986; quality flags none"
         },
         "age_gyr": {
-          "status": "unknown",
-          "sourceRefs": []
+          "status": "model-derived",
+          "sourceRefs": [
+            "Gaia DR3 astrophysical_parameters:6412595290592307840"
+          ],
+          "detail": "Gaia DR3 exact-ID model value; uncertainty 2.475468000000001; quality flags 00"
         }
       },
       "overrides": [],
@@ -13128,6 +14596,90 @@
             "2MASS Ks quality, blend or contamination flag not clean (requires Q=A/B, B=1, C=0)"
           ]
         }
+      },
+      "gaiaPhysical": {
+        "gaiaDr3Id": "6412595290592307840",
+        "observations": [
+          {
+            "source_id": "gaia-dr3",
+            "source_record_id": "6412595290592307840",
+            "field": "temperature_k",
+            "value": 4560.303,
+            "uncertainty": 20.38799999999992,
+            "status": "model-derived",
+            "reference": "Gaia DR3 astrophysical_parameters",
+            "quality_flags": []
+          },
+          {
+            "source_id": "gaia-dr3",
+            "source_record_id": "6412595290592307840",
+            "field": "metallicity_dex",
+            "value": -0.2973,
+            "uncertainty": 0.059599999999999986,
+            "status": "model-derived",
+            "reference": "Gaia DR3 astrophysical_parameters",
+            "quality_flags": []
+          },
+          {
+            "source_id": "gaia-dr3",
+            "source_record_id": "6412595290592307840",
+            "field": "mass_solar",
+            "value": 0.73923224,
+            "uncertainty": 0.040000040000000014,
+            "status": "model-derived",
+            "reference": "Gaia DR3 astrophysical_parameters",
+            "quality_flags": [
+              "00"
+            ]
+          },
+          {
+            "source_id": "gaia-dr3",
+            "source_record_id": "6412595290592307840",
+            "field": "luminosity_solar",
+            "value": 0.2248931,
+            "uncertainty": 0.005008420000000013,
+            "status": "model-derived",
+            "reference": "Gaia DR3 astrophysical_parameters",
+            "quality_flags": [
+              "00"
+            ]
+          },
+          {
+            "source_id": "gaia-dr3",
+            "source_record_id": "6412595290592307840",
+            "field": "radius_solar",
+            "value": 0.7631266,
+            "uncertainty": 0.017468599999999945,
+            "status": "model-derived",
+            "reference": "Gaia DR3 astrophysical_parameters",
+            "quality_flags": [
+              "00"
+            ]
+          },
+          {
+            "source_id": "gaia-dr3",
+            "source_record_id": "6412595290592307840",
+            "field": "age_gyr",
+            "value": 10.487599,
+            "uncertainty": 2.475468000000001,
+            "status": "model-derived",
+            "reference": "Gaia DR3 astrophysical_parameters",
+            "quality_flags": [
+              "00"
+            ]
+          }
+        ],
+        "adopted": {
+          "metallicity_dex": "Gaia DR3 astrophysical_parameters:6412595290592307840",
+          "mass_solar": "Gaia DR3 astrophysical_parameters:6412595290592307840",
+          "luminosity_solar": "Gaia DR3 astrophysical_parameters:6412595290592307840",
+          "radius_solar": "Gaia DR3 astrophysical_parameters:6412595290592307840",
+          "age_gyr": "Gaia DR3 astrophysical_parameters:6412595290592307840"
+        },
+        "supersededByHigherPriority": [],
+        "retainedExistingFields": [
+          "temperature_k"
+        ]
       }
     },
     {
@@ -13242,21 +14794,25 @@
           "detail": "Sun-relative Galactic vector; source spectroscopic RV, not an orbit solution."
         },
         "temperature_k": {
-          "status": "estimated",
+          "status": "measured",
           "sourceRefs": [
-            "pecaut-mamajek:2022.04.16"
+            "2023AJ....166..123K:10pc-0044"
           ],
-          "detail": "Estimated: linear interpolation between Pecaut-Mamajek 2022.04.16 G8V and G9V mean dwarf classes."
+          "detail": "primary-paper; uncertainty 40.0; EXPRES spectroscopy"
         },
         "mass_solar": {
-          "status": "unknown",
-          "sourceRefs": [],
-          "detail": "No vetted component measurement adopted; mean-sequence values are not substituted."
+          "status": "derived",
+          "sourceRefs": [
+            "2023AJ....166..123K:10pc-0044"
+          ],
+          "detail": "primary-paper; uncertainty 0.09; spectroscopic surface gravity plus interferometric radius"
         },
         "luminosity_solar": {
-          "status": "unknown",
-          "sourceRefs": [],
-          "detail": "No vetted component measurement adopted; mean-sequence values are not substituted."
+          "status": "derived",
+          "sourceRefs": [
+            "2023AJ....166..123K:10pc-0044"
+          ],
+          "detail": "primary-paper; uncertainty 0.02; interferometry plus spectroscopy"
         },
         "absolute_mag": {
           "status": "derived",
@@ -13362,16 +14918,25 @@
           ]
         },
         "radius_solar": {
-          "status": "unknown",
-          "sourceRefs": []
+          "status": "derived",
+          "sourceRefs": [
+            "2023AJ....166..123K:10pc-0044"
+          ],
+          "detail": "primary-paper; uncertainty 0.004; CHARA limb-darkened diameter plus Gaia parallax"
         },
         "metallicity_dex": {
-          "status": "unknown",
-          "sourceRefs": []
+          "status": "measured",
+          "sourceRefs": [
+            "2015ApJ...803...90P:10pc-0044"
+          ],
+          "detail": "primary-paper; uncertainty 0.08; spectroscopic [Fe/H]"
         },
         "age_gyr": {
-          "status": "unknown",
-          "sourceRefs": []
+          "status": "model-derived",
+          "sourceRefs": [
+            "2004A&A...426..601D:10pc-0044"
+          ],
+          "detail": "primary-paper; uncertainty None; stellar-evolution model, adopted by 2023AJ....166..123K"
         }
       },
       "overrides": [],
@@ -13384,6 +14949,92 @@
           "identity_method": "nearest-100 source row; frozen CNS5 match; exact SIMBAD CNS5 identity"
         },
         "eligibility": "Not a parsed K5-M9.5 dwarf spectral type (no subdwarf, giant, composite or peculiar class); supplements not applied."
+      },
+      "reviewedPhysical": {
+        "inputSha256": "812dca6f37bfc4e714923571c87d1e88b256410416a5a4b411104e5244baa027",
+        "observations": [
+          {
+            "source_id": "primary-paper",
+            "source_record_id": "10pc-0044",
+            "field": "temperature_k",
+            "value": 5320.0,
+            "uncertainty": 40.0,
+            "status": "measured",
+            "reference": "2023AJ....166..123K",
+            "quality_flags": [
+              "EXPRES spectroscopy"
+            ]
+          },
+          {
+            "source_id": "primary-paper",
+            "source_record_id": "10pc-0044",
+            "field": "mass_solar",
+            "value": 0.69,
+            "uncertainty": 0.09,
+            "status": "derived",
+            "reference": "2023AJ....166..123K",
+            "quality_flags": [
+              "spectroscopic surface gravity plus interferometric radius"
+            ]
+          },
+          {
+            "source_id": "primary-paper",
+            "source_record_id": "10pc-0044",
+            "field": "luminosity_solar",
+            "value": 0.45,
+            "uncertainty": 0.02,
+            "status": "derived",
+            "reference": "2023AJ....166..123K",
+            "quality_flags": [
+              "interferometry plus spectroscopy"
+            ]
+          },
+          {
+            "source_id": "primary-paper",
+            "source_record_id": "10pc-0044",
+            "field": "radius_solar",
+            "value": 0.793,
+            "uncertainty": 0.004,
+            "status": "derived",
+            "reference": "2023AJ....166..123K",
+            "quality_flags": [
+              "CHARA limb-darkened diameter plus Gaia parallax"
+            ]
+          },
+          {
+            "source_id": "primary-paper",
+            "source_record_id": "10pc-0044",
+            "field": "metallicity_dex",
+            "value": -0.49,
+            "uncertainty": 0.08,
+            "status": "measured",
+            "reference": "2015ApJ...803...90P",
+            "quality_flags": [
+              "spectroscopic [Fe/H]"
+            ]
+          },
+          {
+            "source_id": "primary-paper",
+            "source_record_id": "10pc-0044",
+            "field": "age_gyr",
+            "value": 10.0,
+            "uncertainty": null,
+            "status": "model-derived",
+            "reference": "2004A&A...426..601D",
+            "quality_flags": [
+              "stellar-evolution model",
+              "adopted by 2023AJ....166..123K"
+            ]
+          }
+        ],
+        "adopted": {
+          "temperature_k": "2023AJ....166..123K:10pc-0044",
+          "mass_solar": "2023AJ....166..123K:10pc-0044",
+          "luminosity_solar": "2023AJ....166..123K:10pc-0044",
+          "radius_solar": "2023AJ....166..123K:10pc-0044",
+          "metallicity_dex": "2015ApJ...803...90P:10pc-0044",
+          "age_gyr": "2004A&A...426..601D:10pc-0044"
+        }
       }
     },
     {
@@ -14714,8 +16365,11 @@
           "detail": "cifuentes-2020; uncertainty 0.0112; fills a blank field only."
         },
         "metallicity_dex": {
-          "status": "unknown",
-          "sourceRefs": []
+          "status": "model-derived",
+          "sourceRefs": [
+            "Gaia DR3 astrophysical_parameters:3139847906307949696"
+          ],
+          "detail": "Gaia DR3 exact-ID model value; uncertainty 0.0028000000000000247; quality flags none"
         },
         "age_gyr": {
           "status": "unknown",
@@ -14758,6 +16412,65 @@
           "reasons": [],
           "status": "adopted"
         }
+      },
+      "gaiaPhysical": {
+        "gaiaDr3Id": "3139847906307949696",
+        "observations": [
+          {
+            "source_id": "gaia-dr3",
+            "source_record_id": "3139847906307949696",
+            "field": "temperature_k",
+            "value": 3024.395,
+            "uncertainty": 0.6177000000002408,
+            "status": "model-derived",
+            "reference": "Gaia DR3 astrophysical_parameters",
+            "quality_flags": []
+          },
+          {
+            "source_id": "gaia-dr3",
+            "source_record_id": "3139847906307949696",
+            "field": "metallicity_dex",
+            "value": -0.7638,
+            "uncertainty": 0.0028000000000000247,
+            "status": "model-derived",
+            "reference": "Gaia DR3 astrophysical_parameters",
+            "quality_flags": []
+          },
+          {
+            "source_id": "gaia-dr3",
+            "source_record_id": "3139847906307949696",
+            "field": "luminosity_solar",
+            "value": 0.011638882,
+            "uncertainty": 0.005000008,
+            "status": "model-derived",
+            "reference": "Gaia DR3 astrophysical_parameters",
+            "quality_flags": [
+              "20"
+            ]
+          },
+          {
+            "source_id": "gaia-dr3",
+            "source_record_id": "3139847906307949696",
+            "field": "radius_solar",
+            "value": 0.39294216,
+            "uncertainty": 0.08476813999999999,
+            "status": "model-derived",
+            "reference": "Gaia DR3 astrophysical_parameters",
+            "quality_flags": [
+              "20"
+            ]
+          }
+        ],
+        "adopted": {
+          "metallicity_dex": "Gaia DR3 astrophysical_parameters:3139847906307949696"
+        },
+        "supersededByHigherPriority": [
+          "luminosity_solar",
+          "radius_solar"
+        ],
+        "retainedExistingFields": [
+          "temperature_k"
+        ]
       }
     },
     {
@@ -15161,9 +16874,11 @@
           "detail": "Sun-relative Galactic vector; source spectroscopic RV, not an orbit solution."
         },
         "temperature_k": {
-          "status": "unknown",
-          "sourceRefs": [],
-          "detail": "Unknown, limited, peculiar, subdwarf or unsupported spectral classification."
+          "status": "model-derived",
+          "sourceRefs": [
+            "Gaia DR3 astrophysical_parameters:4810594479418041856"
+          ],
+          "detail": "Gaia DR3 exact-ID model value; uncertainty 3.095900000000256; quality flags none"
         },
         "mass_solar": {
           "status": "adopted",
@@ -15173,9 +16888,11 @@
           "detail": "0.281 +/- 0.014 solar masses; Table 1 attributes the value to 2003A&A...397L...5S."
         },
         "luminosity_solar": {
-          "status": "unknown",
-          "sourceRefs": [],
-          "detail": "No vetted component measurement adopted; mean-sequence values are not substituted."
+          "status": "model-derived",
+          "sourceRefs": [
+            "Gaia DR3 astrophysical_parameters:4810594479418041856"
+          ],
+          "detail": "Gaia DR3 exact-ID model value; uncertainty 0.005000013000000001; quality flags 20"
         },
         "absolute_mag": {
           "status": "derived",
@@ -15281,12 +16998,18 @@
           ]
         },
         "radius_solar": {
-          "status": "unknown",
-          "sourceRefs": []
+          "status": "model-derived",
+          "sourceRefs": [
+            "Gaia DR3 astrophysical_parameters:4810594479418041856"
+          ],
+          "detail": "Gaia DR3 exact-ID model value; uncertainty 0.06295821000000001; quality flags 20"
         },
         "metallicity_dex": {
-          "status": "unknown",
-          "sourceRefs": []
+          "status": "model-derived",
+          "sourceRefs": [
+            "Gaia DR3 astrophysical_parameters:4810594479418041856"
+          ],
+          "detail": "Gaia DR3 exact-ID model value; uncertainty 0.02410000000000001; quality flags none"
         },
         "age_gyr": {
           "status": "unknown",
@@ -15303,6 +17026,63 @@
           "identity_method": "nearest-100 source row; frozen CNS5 match; exact SIMBAD CNS5 identity"
         },
         "eligibility": "Not a parsed K5-M9.5 dwarf spectral type (no subdwarf, giant, composite or peculiar class); supplements not applied."
+      },
+      "gaiaPhysical": {
+        "gaiaDr3Id": "4810594479418041856",
+        "observations": [
+          {
+            "source_id": "gaia-dr3",
+            "source_record_id": "4810594479418041856",
+            "field": "temperature_k",
+            "value": 3451.8704,
+            "uncertainty": 3.095900000000256,
+            "status": "model-derived",
+            "reference": "Gaia DR3 astrophysical_parameters",
+            "quality_flags": []
+          },
+          {
+            "source_id": "gaia-dr3",
+            "source_record_id": "4810594479418041856",
+            "field": "metallicity_dex",
+            "value": -1.52,
+            "uncertainty": 0.02410000000000001,
+            "status": "model-derived",
+            "reference": "Gaia DR3 astrophysical_parameters",
+            "quality_flags": []
+          },
+          {
+            "source_id": "gaia-dr3",
+            "source_record_id": "4810594479418041856",
+            "field": "luminosity_solar",
+            "value": 0.012447712,
+            "uncertainty": 0.005000013000000001,
+            "status": "model-derived",
+            "reference": "Gaia DR3 astrophysical_parameters",
+            "quality_flags": [
+              "20"
+            ]
+          },
+          {
+            "source_id": "gaia-dr3",
+            "source_record_id": "4810594479418041856",
+            "field": "radius_solar",
+            "value": 0.31193075,
+            "uncertainty": 0.06295821000000001,
+            "status": "model-derived",
+            "reference": "Gaia DR3 astrophysical_parameters",
+            "quality_flags": [
+              "20"
+            ]
+          }
+        ],
+        "adopted": {
+          "temperature_k": "Gaia DR3 astrophysical_parameters:4810594479418041856",
+          "metallicity_dex": "Gaia DR3 astrophysical_parameters:4810594479418041856",
+          "luminosity_solar": "Gaia DR3 astrophysical_parameters:4810594479418041856",
+          "radius_solar": "Gaia DR3 astrophysical_parameters:4810594479418041856"
+        },
+        "supersededByHigherPriority": [],
+        "retainedExistingFields": []
       }
     },
     {
@@ -18647,9 +20427,11 @@
           "detail": "No vetted component measurement adopted; mean-sequence values are not substituted."
         },
         "luminosity_solar": {
-          "status": "unknown",
-          "sourceRefs": [],
-          "detail": "No vetted component measurement adopted; mean-sequence values are not substituted."
+          "status": "model-derived",
+          "sourceRefs": [
+            "Gaia DR3 astrophysical_parameters:2306965202564744064"
+          ],
+          "detail": "Gaia DR3 exact-ID model value; uncertainty 0.005000020000000001; quality flags 20"
         },
         "absolute_mag": {
           "status": "derived",
@@ -18755,12 +20537,18 @@
           ]
         },
         "radius_solar": {
-          "status": "unknown",
-          "sourceRefs": []
+          "status": "model-derived",
+          "sourceRefs": [
+            "Gaia DR3 astrophysical_parameters:2306965202564744064"
+          ],
+          "detail": "Gaia DR3 exact-ID model value; uncertainty 0.049230790000000024; quality flags 20"
         },
         "metallicity_dex": {
-          "status": "unknown",
-          "sourceRefs": []
+          "status": "model-derived",
+          "sourceRefs": [
+            "Gaia DR3 astrophysical_parameters:2306965202564744064"
+          ],
+          "detail": "Gaia DR3 exact-ID model value; uncertainty 0.0018000000000000238; quality flags none"
         },
         "age_gyr": {
           "status": "unknown",
@@ -18786,6 +20574,64 @@
             "2MASS Ks quality, blend or contamination flag not clean (requires Q=A/B, B=1, C=0)"
           ]
         }
+      },
+      "gaiaPhysical": {
+        "gaiaDr3Id": "2306965202564744064",
+        "observations": [
+          {
+            "source_id": "gaia-dr3",
+            "source_record_id": "2306965202564744064",
+            "field": "temperature_k",
+            "value": 3355.3533,
+            "uncertainty": 0.512300000000323,
+            "status": "model-derived",
+            "reference": "Gaia DR3 astrophysical_parameters",
+            "quality_flags": []
+          },
+          {
+            "source_id": "gaia-dr3",
+            "source_record_id": "2306965202564744064",
+            "field": "metallicity_dex",
+            "value": -1.3171,
+            "uncertainty": 0.0018000000000000238,
+            "status": "model-derived",
+            "reference": "Gaia DR3 astrophysical_parameters",
+            "quality_flags": []
+          },
+          {
+            "source_id": "gaia-dr3",
+            "source_record_id": "2306965202564744064",
+            "field": "luminosity_solar",
+            "value": 0.023371238,
+            "uncertainty": 0.005000020000000001,
+            "status": "model-derived",
+            "reference": "Gaia DR3 astrophysical_parameters",
+            "quality_flags": [
+              "20"
+            ]
+          },
+          {
+            "source_id": "gaia-dr3",
+            "source_record_id": "2306965202564744064",
+            "field": "radius_solar",
+            "value": 0.45239285,
+            "uncertainty": 0.049230790000000024,
+            "status": "model-derived",
+            "reference": "Gaia DR3 astrophysical_parameters",
+            "quality_flags": [
+              "20"
+            ]
+          }
+        ],
+        "adopted": {
+          "metallicity_dex": "Gaia DR3 astrophysical_parameters:2306965202564744064",
+          "luminosity_solar": "Gaia DR3 astrophysical_parameters:2306965202564744064",
+          "radius_solar": "Gaia DR3 astrophysical_parameters:2306965202564744064"
+        },
+        "supersededByHigherPriority": [],
+        "retainedExistingFields": [
+          "temperature_k"
+        ]
       }
     },
     {
@@ -19464,9 +21310,11 @@
           "detail": "No vetted component measurement adopted; mean-sequence values are not substituted."
         },
         "luminosity_solar": {
-          "status": "unknown",
-          "sourceRefs": [],
-          "detail": "No vetted component measurement adopted; mean-sequence values are not substituted."
+          "status": "model-derived",
+          "sourceRefs": [
+            "Gaia DR3 astrophysical_parameters:1637645127018395776"
+          ],
+          "detail": "Gaia DR3 exact-ID model value; uncertainty 0.005000024000000002; quality flags 20"
         },
         "absolute_mag": {
           "status": "unknown",
@@ -19572,12 +21420,18 @@
           ]
         },
         "radius_solar": {
-          "status": "unknown",
-          "sourceRefs": []
+          "status": "model-derived",
+          "sourceRefs": [
+            "Gaia DR3 astrophysical_parameters:1637645127018395776"
+          ],
+          "detail": "Gaia DR3 exact-ID model value; uncertainty 0.05663657999999999; quality flags 20"
         },
         "metallicity_dex": {
-          "status": "unknown",
-          "sourceRefs": []
+          "status": "model-derived",
+          "sourceRefs": [
+            "Gaia DR3 astrophysical_parameters:1637645127018395776"
+          ],
+          "detail": "Gaia DR3 exact-ID model value; uncertainty 0.0032999999999998586; quality flags none"
         },
         "age_gyr": {
           "status": "unknown",
@@ -19611,6 +21465,64 @@
             "Cifuentes flags multiple; single main-sequence relation not applied"
           ]
         }
+      },
+      "gaiaPhysical": {
+        "gaiaDr3Id": "1637645127018395776",
+        "observations": [
+          {
+            "source_id": "gaia-dr3",
+            "source_record_id": "1637645127018395776",
+            "field": "temperature_k",
+            "value": 3192.2751,
+            "uncertainty": 0.8342999999999847,
+            "status": "model-derived",
+            "reference": "Gaia DR3 astrophysical_parameters",
+            "quality_flags": []
+          },
+          {
+            "source_id": "gaia-dr3",
+            "source_record_id": "1637645127018395776",
+            "field": "metallicity_dex",
+            "value": -1.1643,
+            "uncertainty": 0.0032999999999998586,
+            "status": "model-derived",
+            "reference": "Gaia DR3 astrophysical_parameters",
+            "quality_flags": []
+          },
+          {
+            "source_id": "gaia-dr3",
+            "source_record_id": "1637645127018395776",
+            "field": "luminosity_solar",
+            "value": 0.021436334,
+            "uncertainty": 0.005000024000000002,
+            "status": "model-derived",
+            "reference": "Gaia DR3 astrophysical_parameters",
+            "quality_flags": [
+              "20"
+            ]
+          },
+          {
+            "source_id": "gaia-dr3",
+            "source_record_id": "1637645127018395776",
+            "field": "radius_solar",
+            "value": 0.47864288,
+            "uncertainty": 0.05663657999999999,
+            "status": "model-derived",
+            "reference": "Gaia DR3 astrophysical_parameters",
+            "quality_flags": [
+              "20"
+            ]
+          }
+        ],
+        "adopted": {
+          "metallicity_dex": "Gaia DR3 astrophysical_parameters:1637645127018395776",
+          "luminosity_solar": "Gaia DR3 astrophysical_parameters:1637645127018395776",
+          "radius_solar": "Gaia DR3 astrophysical_parameters:1637645127018395776"
+        },
+        "supersededByHigherPriority": [],
+        "retainedExistingFields": [
+          "temperature_k"
+        ]
       }
     },
     {
@@ -19739,9 +21651,11 @@
           "detail": "mann-2019; uncertainty 0.0075; fills a blank field only."
         },
         "luminosity_solar": {
-          "status": "unknown",
-          "sourceRefs": [],
-          "detail": "No vetted component measurement adopted; mean-sequence values are not substituted."
+          "status": "model-derived",
+          "sourceRefs": [
+            "Gaia DR3 astrophysical_parameters:5951824121022278144"
+          ],
+          "detail": "Gaia DR3 exact-ID model value; uncertainty 0.00031065599999999943; quality flags 20"
         },
         "absolute_mag": {
           "status": "derived",
@@ -19854,8 +21768,11 @@
           "detail": "mann-2015; uncertainty 0.0108; fills a blank field only."
         },
         "metallicity_dex": {
-          "status": "unknown",
-          "sourceRefs": []
+          "status": "model-derived",
+          "sourceRefs": [
+            "Gaia DR3 astrophysical_parameters:5951824121022278144"
+          ],
+          "detail": "Gaia DR3 exact-ID model value; uncertainty 0.2689; quality flags none"
         },
         "age_gyr": {
           "status": "unknown",
@@ -19887,6 +21804,65 @@
           "reasons": [],
           "status": "adopted"
         }
+      },
+      "gaiaPhysical": {
+        "gaiaDr3Id": "5951824121022278144",
+        "observations": [
+          {
+            "source_id": "gaia-dr3",
+            "source_record_id": "5951824121022278144",
+            "field": "temperature_k",
+            "value": 3274.975,
+            "uncertainty": 74.6880000000001,
+            "status": "model-derived",
+            "reference": "Gaia DR3 astrophysical_parameters",
+            "quality_flags": []
+          },
+          {
+            "source_id": "gaia-dr3",
+            "source_record_id": "5951824121022278144",
+            "field": "metallicity_dex",
+            "value": -0.3825,
+            "uncertainty": 0.2689,
+            "status": "model-derived",
+            "reference": "Gaia DR3 astrophysical_parameters",
+            "quality_flags": []
+          },
+          {
+            "source_id": "gaia-dr3",
+            "source_record_id": "5951824121022278144",
+            "field": "luminosity_solar",
+            "value": 0.017376905,
+            "uncertainty": 0.00031065599999999943,
+            "status": "model-derived",
+            "reference": "Gaia DR3 astrophysical_parameters",
+            "quality_flags": [
+              "20"
+            ]
+          },
+          {
+            "source_id": "gaia-dr3",
+            "source_record_id": "5951824121022278144",
+            "field": "radius_solar",
+            "value": 0.40950966,
+            "uncertainty": 0.02161527000000002,
+            "status": "model-derived",
+            "reference": "Gaia DR3 astrophysical_parameters",
+            "quality_flags": [
+              "20"
+            ]
+          }
+        ],
+        "adopted": {
+          "metallicity_dex": "Gaia DR3 astrophysical_parameters:5951824121022278144",
+          "luminosity_solar": "Gaia DR3 astrophysical_parameters:5951824121022278144"
+        },
+        "supersededByHigherPriority": [
+          "radius_solar"
+        ],
+        "retainedExistingFields": [
+          "temperature_k"
+        ]
       }
     },
     {
@@ -21455,8 +23431,11 @@
           "detail": "cifuentes-2020; uncertainty 0.012; fills a blank field only."
         },
         "metallicity_dex": {
-          "status": "unknown",
-          "sourceRefs": []
+          "status": "model-derived",
+          "sourceRefs": [
+            "Gaia DR3 astrophysical_parameters:2603090003484152064"
+          ],
+          "detail": "Gaia DR3 exact-ID model value; uncertainty 0.0101; quality flags none"
         },
         "age_gyr": {
           "status": "unknown",
@@ -21499,6 +23478,65 @@
           "reasons": [],
           "status": "adopted"
         }
+      },
+      "gaiaPhysical": {
+        "gaiaDr3Id": "2603090003484152064",
+        "observations": [
+          {
+            "source_id": "gaia-dr3",
+            "source_record_id": "2603090003484152064",
+            "field": "temperature_k",
+            "value": 3185.4407,
+            "uncertainty": 1.652100000000246,
+            "status": "model-derived",
+            "reference": "Gaia DR3 astrophysical_parameters",
+            "quality_flags": []
+          },
+          {
+            "source_id": "gaia-dr3",
+            "source_record_id": "2603090003484152064",
+            "field": "metallicity_dex",
+            "value": -0.0011,
+            "uncertainty": 0.0101,
+            "status": "model-derived",
+            "reference": "Gaia DR3 astrophysical_parameters",
+            "quality_flags": []
+          },
+          {
+            "source_id": "gaia-dr3",
+            "source_record_id": "2603090003484152064",
+            "field": "luminosity_solar",
+            "value": 0.012983897,
+            "uncertainty": 0.0005759450000000013,
+            "status": "model-derived",
+            "reference": "Gaia DR3 astrophysical_parameters",
+            "quality_flags": [
+              "20"
+            ]
+          },
+          {
+            "source_id": "gaia-dr3",
+            "source_record_id": "2603090003484152064",
+            "field": "radius_solar",
+            "value": 0.37295318,
+            "uncertainty": 0.028276420000000024,
+            "status": "model-derived",
+            "reference": "Gaia DR3 astrophysical_parameters",
+            "quality_flags": [
+              "20"
+            ]
+          }
+        ],
+        "adopted": {
+          "metallicity_dex": "Gaia DR3 astrophysical_parameters:2603090003484152064"
+        },
+        "supersededByHigherPriority": [
+          "luminosity_solar",
+          "radius_solar"
+        ],
+        "retainedExistingFields": [
+          "temperature_k"
+        ]
       }
     },
     {
@@ -23108,8 +25146,11 @@
           "detail": "cifuentes-2020; uncertainty 0.0343; fills a blank field only."
         },
         "metallicity_dex": {
-          "status": "unknown",
-          "sourceRefs": []
+          "status": "model-derived",
+          "sourceRefs": [
+            "Gaia DR3 astrophysical_parameters:823773494718931968"
+          ],
+          "detail": "Gaia DR3 exact-ID model value; uncertainty 0.10640000000000001; quality flags none"
         },
         "age_gyr": {
           "status": "unknown",
@@ -23145,6 +25186,65 @@
             "2MASS Ks quality, blend or contamination flag not clean (requires Q=A/B, B=1, C=0)"
           ]
         }
+      },
+      "gaiaPhysical": {
+        "gaiaDr3Id": "823773494718931968",
+        "observations": [
+          {
+            "source_id": "gaia-dr3",
+            "source_record_id": "823773494718931968",
+            "field": "temperature_k",
+            "value": 3978.864,
+            "uncertainty": 14.640600000000177,
+            "status": "model-derived",
+            "reference": "Gaia DR3 astrophysical_parameters",
+            "quality_flags": []
+          },
+          {
+            "source_id": "gaia-dr3",
+            "source_record_id": "823773494718931968",
+            "field": "metallicity_dex",
+            "value": -0.0402,
+            "uncertainty": 0.10640000000000001,
+            "status": "model-derived",
+            "reference": "Gaia DR3 astrophysical_parameters",
+            "quality_flags": []
+          },
+          {
+            "source_id": "gaia-dr3",
+            "source_record_id": "823773494718931968",
+            "field": "luminosity_solar",
+            "value": 0.117473625,
+            "uncertainty": 0.005125224999999997,
+            "status": "model-derived",
+            "reference": "Gaia DR3 astrophysical_parameters",
+            "quality_flags": [
+              "20"
+            ]
+          },
+          {
+            "source_id": "gaia-dr3",
+            "source_record_id": "823773494718931968",
+            "field": "radius_solar",
+            "value": 0.7212676,
+            "uncertainty": 0.021345999999999976,
+            "status": "model-derived",
+            "reference": "Gaia DR3 astrophysical_parameters",
+            "quality_flags": [
+              "20"
+            ]
+          }
+        ],
+        "adopted": {
+          "metallicity_dex": "Gaia DR3 astrophysical_parameters:823773494718931968"
+        },
+        "supersededByHigherPriority": [
+          "luminosity_solar",
+          "radius_solar"
+        ],
+        "retainedExistingFields": [
+          "temperature_k"
+        ]
       }
     },
     {
@@ -23390,8 +25490,11 @@
           "detail": "cifuentes-2020; uncertainty 0.0126; fills a blank field only."
         },
         "metallicity_dex": {
-          "status": "unknown",
-          "sourceRefs": []
+          "status": "model-derived",
+          "sourceRefs": [
+            "Gaia DR3 astrophysical_parameters:778947814402602752"
+          ],
+          "detail": "Gaia DR3 exact-ID model value; uncertainty 0.025499999999999856; quality flags none"
         },
         "age_gyr": {
           "status": "unknown",
@@ -23434,6 +25537,65 @@
           "reasons": [],
           "status": "adopted"
         }
+      },
+      "gaiaPhysical": {
+        "gaiaDr3Id": "778947814402602752",
+        "observations": [
+          {
+            "source_id": "gaia-dr3",
+            "source_record_id": "778947814402602752",
+            "field": "temperature_k",
+            "value": 3382.1968,
+            "uncertainty": 11.298800000000028,
+            "status": "model-derived",
+            "reference": "Gaia DR3 astrophysical_parameters",
+            "quality_flags": []
+          },
+          {
+            "source_id": "gaia-dr3",
+            "source_record_id": "778947814402602752",
+            "field": "metallicity_dex",
+            "value": -1.4765,
+            "uncertainty": 0.025499999999999856,
+            "status": "model-derived",
+            "reference": "Gaia DR3 astrophysical_parameters",
+            "quality_flags": []
+          },
+          {
+            "source_id": "gaia-dr3",
+            "source_record_id": "778947814402602752",
+            "field": "luminosity_solar",
+            "value": 0.023333251,
+            "uncertainty": 0.005000769999999998,
+            "status": "model-derived",
+            "reference": "Gaia DR3 astrophysical_parameters",
+            "quality_flags": [
+              "20"
+            ]
+          },
+          {
+            "source_id": "gaia-dr3",
+            "source_record_id": "778947814402602752",
+            "field": "radius_solar",
+            "value": 0.4448867,
+            "uncertainty": 0.04849716000000004,
+            "status": "model-derived",
+            "reference": "Gaia DR3 astrophysical_parameters",
+            "quality_flags": [
+              "20"
+            ]
+          }
+        ],
+        "adopted": {
+          "metallicity_dex": "Gaia DR3 astrophysical_parameters:778947814402602752"
+        },
+        "supersededByHigherPriority": [
+          "luminosity_solar",
+          "radius_solar"
+        ],
+        "retainedExistingFields": [
+          "temperature_k"
+        ]
       }
     },
     {
@@ -23968,8 +26130,11 @@
           "detail": "cifuentes-2020; uncertainty 0.0146; fills a blank field only."
         },
         "metallicity_dex": {
-          "status": "unknown",
-          "sourceRefs": []
+          "status": "model-derived",
+          "sourceRefs": [
+            "Gaia DR3 astrophysical_parameters:625453654702751872"
+          ],
+          "detail": "Gaia DR3 exact-ID model value; uncertainty 0.09549999999999992; quality flags none"
         },
         "age_gyr": {
           "status": "unknown",
@@ -24011,6 +26176,65 @@
           "reasons": [],
           "status": "adopted"
         }
+      },
+      "gaiaPhysical": {
+        "gaiaDr3Id": "625453654702751872",
+        "observations": [
+          {
+            "source_id": "gaia-dr3",
+            "source_record_id": "625453654702751872",
+            "field": "temperature_k",
+            "value": 3187.3616,
+            "uncertainty": 30.99509999999964,
+            "status": "model-derived",
+            "reference": "Gaia DR3 astrophysical_parameters",
+            "quality_flags": []
+          },
+          {
+            "source_id": "gaia-dr3",
+            "source_record_id": "625453654702751872",
+            "field": "metallicity_dex",
+            "value": -1.1456,
+            "uncertainty": 0.09549999999999992,
+            "status": "model-derived",
+            "reference": "Gaia DR3 astrophysical_parameters",
+            "quality_flags": []
+          },
+          {
+            "source_id": "gaia-dr3",
+            "source_record_id": "625453654702751872",
+            "field": "luminosity_solar",
+            "value": 0.021868695,
+            "uncertainty": 0.005004943000000001,
+            "status": "model-derived",
+            "reference": "Gaia DR3 astrophysical_parameters",
+            "quality_flags": [
+              "20"
+            ]
+          },
+          {
+            "source_id": "gaia-dr3",
+            "source_record_id": "625453654702751872",
+            "field": "radius_solar",
+            "value": 0.48493615,
+            "uncertainty": 0.05633325,
+            "status": "model-derived",
+            "reference": "Gaia DR3 astrophysical_parameters",
+            "quality_flags": [
+              "20"
+            ]
+          }
+        ],
+        "adopted": {
+          "metallicity_dex": "Gaia DR3 astrophysical_parameters:625453654702751872"
+        },
+        "supersededByHigherPriority": [
+          "luminosity_solar",
+          "radius_solar"
+        ],
+        "retainedExistingFields": [
+          "temperature_k"
+        ]
       }
     },
     {
@@ -24137,9 +26361,11 @@
           "detail": "No vetted component measurement adopted; mean-sequence values are not substituted."
         },
         "luminosity_solar": {
-          "status": "unknown",
-          "sourceRefs": [],
-          "detail": "No vetted component measurement adopted; mean-sequence values are not substituted."
+          "status": "model-derived",
+          "sourceRefs": [
+            "Gaia DR3 astrophysical_parameters:6562924609150908416"
+          ],
+          "detail": "Gaia DR3 exact-ID model value; uncertainty 0.005000204000000001; quality flags 20"
         },
         "absolute_mag": {
           "status": "derived",
@@ -24245,12 +26471,18 @@
           ]
         },
         "radius_solar": {
-          "status": "unknown",
-          "sourceRefs": []
+          "status": "model-derived",
+          "sourceRefs": [
+            "Gaia DR3 astrophysical_parameters:6562924609150908416"
+          ],
+          "detail": "Gaia DR3 exact-ID model value; uncertainty 0.045307429999999926; quality flags 20"
         },
         "metallicity_dex": {
-          "status": "unknown",
-          "sourceRefs": []
+          "status": "model-derived",
+          "sourceRefs": [
+            "Gaia DR3 astrophysical_parameters:6562924609150908416"
+          ],
+          "detail": "Gaia DR3 exact-ID model value; uncertainty 0.01079999999999992; quality flags none"
         },
         "age_gyr": {
           "status": "unknown",
@@ -24276,6 +26508,64 @@
             "2MASS Ks quality, blend or contamination flag not clean (requires Q=A/B, B=1, C=0)"
           ]
         }
+      },
+      "gaiaPhysical": {
+        "gaiaDr3Id": "6562924609150908416",
+        "observations": [
+          {
+            "source_id": "gaia-dr3",
+            "source_record_id": "6562924609150908416",
+            "field": "temperature_k",
+            "value": 3310.1243,
+            "uncertainty": 4.365900000000238,
+            "status": "model-derived",
+            "reference": "Gaia DR3 astrophysical_parameters",
+            "quality_flags": []
+          },
+          {
+            "source_id": "gaia-dr3",
+            "source_record_id": "6562924609150908416",
+            "field": "metallicity_dex",
+            "value": -1.3697,
+            "uncertainty": 0.01079999999999992,
+            "status": "model-derived",
+            "reference": "Gaia DR3 astrophysical_parameters",
+            "quality_flags": []
+          },
+          {
+            "source_id": "gaia-dr3",
+            "source_record_id": "6562924609150908416",
+            "field": "luminosity_solar",
+            "value": 0.029748699,
+            "uncertainty": 0.005000204000000001,
+            "status": "model-derived",
+            "reference": "Gaia DR3 astrophysical_parameters",
+            "quality_flags": [
+              "20"
+            ]
+          },
+          {
+            "source_id": "gaia-dr3",
+            "source_record_id": "6562924609150908416",
+            "field": "radius_solar",
+            "value": 0.52446586,
+            "uncertainty": 0.045307429999999926,
+            "status": "model-derived",
+            "reference": "Gaia DR3 astrophysical_parameters",
+            "quality_flags": [
+              "20"
+            ]
+          }
+        ],
+        "adopted": {
+          "metallicity_dex": "Gaia DR3 astrophysical_parameters:6562924609150908416",
+          "luminosity_solar": "Gaia DR3 astrophysical_parameters:6562924609150908416",
+          "radius_solar": "Gaia DR3 astrophysical_parameters:6562924609150908416"
+        },
+        "supersededByHigherPriority": [],
+        "retainedExistingFields": [
+          "temperature_k"
+        ]
       }
     },
     {
@@ -24658,9 +26948,11 @@
           "detail": "mann-2019; uncertainty 0.0061; fills a blank field only."
         },
         "luminosity_solar": {
-          "status": "unknown",
-          "sourceRefs": [],
-          "detail": "No vetted component measurement adopted; mean-sequence values are not substituted."
+          "status": "model-derived",
+          "sourceRefs": [
+            "Gaia DR3 astrophysical_parameters:5955305209191546112"
+          ],
+          "detail": "Gaia DR3 exact-ID model value; uncertainty 0.005000010499999999; quality flags 20"
         },
         "absolute_mag": {
           "status": "derived",
@@ -24773,8 +27065,11 @@
           "detail": "mann-2015; uncertainty 0.0089; fills a blank field only."
         },
         "metallicity_dex": {
-          "status": "unknown",
-          "sourceRefs": []
+          "status": "model-derived",
+          "sourceRefs": [
+            "Gaia DR3 astrophysical_parameters:5955305209191546112"
+          ],
+          "detail": "Gaia DR3 exact-ID model value; uncertainty 0.007199999999999998; quality flags none"
         },
         "age_gyr": {
           "status": "unknown",
@@ -24806,6 +27101,65 @@
           "reasons": [],
           "status": "adopted"
         }
+      },
+      "gaiaPhysical": {
+        "gaiaDr3Id": "5955305209191546112",
+        "observations": [
+          {
+            "source_id": "gaia-dr3",
+            "source_record_id": "5955305209191546112",
+            "field": "temperature_k",
+            "value": 3155.8037,
+            "uncertainty": 1.4070000000001528,
+            "status": "model-derived",
+            "reference": "Gaia DR3 astrophysical_parameters",
+            "quality_flags": []
+          },
+          {
+            "source_id": "gaia-dr3",
+            "source_record_id": "5955305209191546112",
+            "field": "metallicity_dex",
+            "value": 0.0419,
+            "uncertainty": 0.007199999999999998,
+            "status": "model-derived",
+            "reference": "Gaia DR3 astrophysical_parameters",
+            "quality_flags": []
+          },
+          {
+            "source_id": "gaia-dr3",
+            "source_record_id": "5955305209191546112",
+            "field": "luminosity_solar",
+            "value": 0.0082382895,
+            "uncertainty": 0.005000010499999999,
+            "status": "model-derived",
+            "reference": "Gaia DR3 astrophysical_parameters",
+            "quality_flags": [
+              "20"
+            ]
+          },
+          {
+            "source_id": "gaia-dr3",
+            "source_record_id": "5955305209191546112",
+            "field": "radius_solar",
+            "value": 0.30361992,
+            "uncertainty": 0.09233688000000001,
+            "status": "model-derived",
+            "reference": "Gaia DR3 astrophysical_parameters",
+            "quality_flags": [
+              "20"
+            ]
+          }
+        ],
+        "adopted": {
+          "metallicity_dex": "Gaia DR3 astrophysical_parameters:5955305209191546112",
+          "luminosity_solar": "Gaia DR3 astrophysical_parameters:5955305209191546112"
+        },
+        "supersededByHigherPriority": [
+          "radius_solar"
+        ],
+        "retainedExistingFields": [
+          "temperature_k"
+        ]
       }
     },
     {
@@ -26287,14 +28641,18 @@
           "detail": "Estimated: Pecaut-Mamajek 2022.04.16 K0V mean dwarf class, not a measured temperature."
         },
         "mass_solar": {
-          "status": "unknown",
-          "sourceRefs": [],
-          "detail": "No vetted component measurement adopted; mean-sequence values are not substituted."
+          "status": "model-derived",
+          "sourceRefs": [
+            "Gaia DR3 astrophysical_parameters:4468557611984384512"
+          ],
+          "detail": "Gaia DR3 exact-ID model value; uncertainty 0.04853666000000001; quality flags 00"
         },
         "luminosity_solar": {
-          "status": "unknown",
-          "sourceRefs": [],
-          "detail": "No vetted component measurement adopted; mean-sequence values are not substituted."
+          "status": "model-derived",
+          "sourceRefs": [
+            "Gaia DR3 astrophysical_parameters:4468557611984384512"
+          ],
+          "detail": "Gaia DR3 exact-ID model value; uncertainty 0.005152539999999983; quality flags 00"
         },
         "absolute_mag": {
           "status": "unknown",
@@ -26400,16 +28758,25 @@
           ]
         },
         "radius_solar": {
-          "status": "unknown",
-          "sourceRefs": []
+          "status": "model-derived",
+          "sourceRefs": [
+            "Gaia DR3 astrophysical_parameters:4468557611984384512"
+          ],
+          "detail": "Gaia DR3 exact-ID model value; uncertainty 0.01818395000000006; quality flags 00"
         },
         "metallicity_dex": {
-          "status": "unknown",
-          "sourceRefs": []
+          "status": "model-derived",
+          "sourceRefs": [
+            "Gaia DR3 astrophysical_parameters:4468557611984384512"
+          ],
+          "detail": "Gaia DR3 exact-ID model value; uncertainty 0.013700000000000018; quality flags none"
         },
         "age_gyr": {
-          "status": "unknown",
-          "sourceRefs": []
+          "status": "model-derived",
+          "sourceRefs": [
+            "Gaia DR3 astrophysical_parameters:4468557611984384512"
+          ],
+          "detail": "Gaia DR3 exact-ID model value; uncertainty 4.311994; quality flags 00"
         }
       },
       "overrides": [],
@@ -26421,6 +28788,90 @@
           "identity_method": "nearest-100 source row; frozen CNS5 match; exact SIMBAD CNS5 identity"
         },
         "eligibility": "Not a parsed K5-M9.5 dwarf spectral type (no subdwarf, giant, composite or peculiar class); supplements not applied."
+      },
+      "gaiaPhysical": {
+        "gaiaDr3Id": "4468557611984384512",
+        "observations": [
+          {
+            "source_id": "gaia-dr3",
+            "source_record_id": "4468557611984384512",
+            "field": "temperature_k",
+            "value": 5204.636,
+            "uncertainty": 2.751999999999498,
+            "status": "model-derived",
+            "reference": "Gaia DR3 astrophysical_parameters",
+            "quality_flags": []
+          },
+          {
+            "source_id": "gaia-dr3",
+            "source_record_id": "4468557611984384512",
+            "field": "metallicity_dex",
+            "value": -0.1421,
+            "uncertainty": 0.013700000000000018,
+            "status": "model-derived",
+            "reference": "Gaia DR3 astrophysical_parameters",
+            "quality_flags": []
+          },
+          {
+            "source_id": "gaia-dr3",
+            "source_record_id": "4468557611984384512",
+            "field": "mass_solar",
+            "value": 0.8256458,
+            "uncertainty": 0.04853666000000001,
+            "status": "model-derived",
+            "reference": "Gaia DR3 astrophysical_parameters",
+            "quality_flags": [
+              "00"
+            ]
+          },
+          {
+            "source_id": "gaia-dr3",
+            "source_record_id": "4468557611984384512",
+            "field": "luminosity_solar",
+            "value": 0.5142145,
+            "uncertainty": 0.005152539999999983,
+            "status": "model-derived",
+            "reference": "Gaia DR3 astrophysical_parameters",
+            "quality_flags": [
+              "00"
+            ]
+          },
+          {
+            "source_id": "gaia-dr3",
+            "source_record_id": "4468557611984384512",
+            "field": "radius_solar",
+            "value": 0.8819471,
+            "uncertainty": 0.01818395000000006,
+            "status": "model-derived",
+            "reference": "Gaia DR3 astrophysical_parameters",
+            "quality_flags": [
+              "00"
+            ]
+          },
+          {
+            "source_id": "gaia-dr3",
+            "source_record_id": "4468557611984384512",
+            "field": "age_gyr",
+            "value": 13.452476,
+            "uncertainty": 4.311994,
+            "status": "model-derived",
+            "reference": "Gaia DR3 astrophysical_parameters",
+            "quality_flags": [
+              "00"
+            ]
+          }
+        ],
+        "adopted": {
+          "metallicity_dex": "Gaia DR3 astrophysical_parameters:4468557611984384512",
+          "mass_solar": "Gaia DR3 astrophysical_parameters:4468557611984384512",
+          "luminosity_solar": "Gaia DR3 astrophysical_parameters:4468557611984384512",
+          "radius_solar": "Gaia DR3 astrophysical_parameters:4468557611984384512",
+          "age_gyr": "Gaia DR3 astrophysical_parameters:4468557611984384512"
+        },
+        "supersededByHigherPriority": [],
+        "retainedExistingFields": [
+          "temperature_k"
+        ]
       }
     },
     {
@@ -27441,8 +29892,11 @@
           "detail": "cifuentes-2020; uncertainty 0.0083; fills a blank field only."
         },
         "metallicity_dex": {
-          "status": "unknown",
-          "sourceRefs": []
+          "status": "model-derived",
+          "sourceRefs": [
+            "Gaia DR3 astrophysical_parameters:3316364602541746048"
+          ],
+          "detail": "Gaia DR3 exact-ID model value; uncertainty 0.4888; quality flags none"
         },
         "age_gyr": {
           "status": "unknown",
@@ -27485,6 +29939,65 @@
           "reasons": [],
           "status": "adopted"
         }
+      },
+      "gaiaPhysical": {
+        "gaiaDr3Id": "3316364602541746048",
+        "observations": [
+          {
+            "source_id": "gaia-dr3",
+            "source_record_id": "3316364602541746048",
+            "field": "temperature_k",
+            "value": 3138.287,
+            "uncertainty": 40.92079999999987,
+            "status": "model-derived",
+            "reference": "Gaia DR3 astrophysical_parameters",
+            "quality_flags": []
+          },
+          {
+            "source_id": "gaia-dr3",
+            "source_record_id": "3316364602541746048",
+            "field": "metallicity_dex",
+            "value": -0.3559,
+            "uncertainty": 0.4888,
+            "status": "model-derived",
+            "reference": "Gaia DR3 astrophysical_parameters",
+            "quality_flags": []
+          },
+          {
+            "source_id": "gaia-dr3",
+            "source_record_id": "3316364602541746048",
+            "field": "luminosity_solar",
+            "value": 0.0062579834,
+            "uncertainty": 0.0050056896,
+            "status": "model-derived",
+            "reference": "Gaia DR3 astrophysical_parameters",
+            "quality_flags": [
+              "20"
+            ]
+          },
+          {
+            "source_id": "gaia-dr3",
+            "source_record_id": "3316364602541746048",
+            "field": "radius_solar",
+            "value": 0.2675178,
+            "uncertainty": 0.10712590000000005,
+            "status": "model-derived",
+            "reference": "Gaia DR3 astrophysical_parameters",
+            "quality_flags": [
+              "20"
+            ]
+          }
+        ],
+        "adopted": {
+          "metallicity_dex": "Gaia DR3 astrophysical_parameters:3316364602541746048"
+        },
+        "supersededByHigherPriority": [
+          "luminosity_solar",
+          "radius_solar"
+        ],
+        "retainedExistingFields": [
+          "temperature_k"
+        ]
       }
     },
     {
@@ -27986,8 +30499,11 @@
           "detail": "cifuentes-2020; uncertainty 0.0086; fills a blank field only."
         },
         "metallicity_dex": {
-          "status": "unknown",
-          "sourceRefs": []
+          "status": "model-derived",
+          "sourceRefs": [
+            "Gaia DR3 astrophysical_parameters:1129149723913123456"
+          ],
+          "detail": "Gaia DR3 exact-ID model value; uncertainty 0.005599999999999938; quality flags none"
         },
         "age_gyr": {
           "status": "unknown",
@@ -28030,6 +30546,65 @@
           "reasons": [],
           "status": "adopted"
         }
+      },
+      "gaiaPhysical": {
+        "gaiaDr3Id": "1129149723913123456",
+        "observations": [
+          {
+            "source_id": "gaia-dr3",
+            "source_record_id": "1129149723913123456",
+            "field": "temperature_k",
+            "value": 3056.1953,
+            "uncertainty": 1.3117999999999483,
+            "status": "model-derived",
+            "reference": "Gaia DR3 astrophysical_parameters",
+            "quality_flags": []
+          },
+          {
+            "source_id": "gaia-dr3",
+            "source_record_id": "1129149723913123456",
+            "field": "metallicity_dex",
+            "value": -0.7508,
+            "uncertainty": 0.005599999999999938,
+            "status": "model-derived",
+            "reference": "Gaia DR3 astrophysical_parameters",
+            "quality_flags": []
+          },
+          {
+            "source_id": "gaia-dr3",
+            "source_record_id": "1129149723913123456",
+            "field": "luminosity_solar",
+            "value": 0.008802581,
+            "uncertainty": 0.005000002999999999,
+            "status": "model-derived",
+            "reference": "Gaia DR3 astrophysical_parameters",
+            "quality_flags": [
+              "20"
+            ]
+          },
+          {
+            "source_id": "gaia-dr3",
+            "source_record_id": "1129149723913123456",
+            "field": "radius_solar",
+            "value": 0.33465546,
+            "uncertainty": 0.09528013999999996,
+            "status": "model-derived",
+            "reference": "Gaia DR3 astrophysical_parameters",
+            "quality_flags": [
+              "20"
+            ]
+          }
+        ],
+        "adopted": {
+          "metallicity_dex": "Gaia DR3 astrophysical_parameters:1129149723913123456"
+        },
+        "supersededByHigherPriority": [
+          "luminosity_solar",
+          "radius_solar"
+        ],
+        "retainedExistingFields": [
+          "temperature_k"
+        ]
       }
     },
     {
@@ -29095,8 +31670,11 @@
           "detail": "cifuentes-2020; uncertainty 0.0162; fills a blank field only."
         },
         "metallicity_dex": {
-          "status": "unknown",
-          "sourceRefs": []
+          "status": "model-derived",
+          "sourceRefs": [
+            "Gaia DR3 astrophysical_parameters:3741297293732404352"
+          ],
+          "detail": "Gaia DR3 exact-ID model value; uncertainty 0.025000000000000022; quality flags none"
         },
         "age_gyr": {
           "status": "unknown",
@@ -29139,6 +31717,65 @@
           "reasons": [],
           "status": "adopted"
         }
+      },
+      "gaiaPhysical": {
+        "gaiaDr3Id": "3741297293732404352",
+        "observations": [
+          {
+            "source_id": "gaia-dr3",
+            "source_record_id": "3741297293732404352",
+            "field": "temperature_k",
+            "value": 3424.9907,
+            "uncertainty": 5.392800000000079,
+            "status": "model-derived",
+            "reference": "Gaia DR3 astrophysical_parameters",
+            "quality_flags": []
+          },
+          {
+            "source_id": "gaia-dr3",
+            "source_record_id": "3741297293732404352",
+            "field": "metallicity_dex",
+            "value": -0.7441,
+            "uncertainty": 0.025000000000000022,
+            "status": "model-derived",
+            "reference": "Gaia DR3 astrophysical_parameters",
+            "quality_flags": []
+          },
+          {
+            "source_id": "gaia-dr3",
+            "source_record_id": "3741297293732404352",
+            "field": "luminosity_solar",
+            "value": 0.03973957,
+            "uncertainty": 0.005000083000000002,
+            "status": "model-derived",
+            "reference": "Gaia DR3 astrophysical_parameters",
+            "quality_flags": [
+              "20"
+            ]
+          },
+          {
+            "source_id": "gaia-dr3",
+            "source_record_id": "3741297293732404352",
+            "field": "radius_solar",
+            "value": 0.5661616,
+            "uncertainty": 0.037374200000000024,
+            "status": "model-derived",
+            "reference": "Gaia DR3 astrophysical_parameters",
+            "quality_flags": [
+              "20"
+            ]
+          }
+        ],
+        "adopted": {
+          "metallicity_dex": "Gaia DR3 astrophysical_parameters:3741297293732404352"
+        },
+        "supersededByHigherPriority": [
+          "luminosity_solar",
+          "radius_solar"
+        ],
+        "retainedExistingFields": [
+          "temperature_k"
+        ]
       }
     },
     {
@@ -30165,8 +32802,11 @@
           "detail": "cifuentes-2020; uncertainty 0.0114; fills a blank field only."
         },
         "metallicity_dex": {
-          "status": "unknown",
-          "sourceRefs": []
+          "status": "model-derived",
+          "sourceRefs": [
+            "Gaia DR3 astrophysical_parameters:939072613334579328"
+          ],
+          "detail": "Gaia DR3 exact-ID model value; uncertainty 0.003599999999999999; quality flags none"
         },
         "age_gyr": {
           "status": "unknown",
@@ -30209,6 +32849,65 @@
           "reasons": [],
           "status": "adopted"
         }
+      },
+      "gaiaPhysical": {
+        "gaiaDr3Id": "939072613334579328",
+        "observations": [
+          {
+            "source_id": "gaia-dr3",
+            "source_record_id": "939072613334579328",
+            "field": "temperature_k",
+            "value": 3337.7017,
+            "uncertainty": 0.6267000000002554,
+            "status": "model-derived",
+            "reference": "Gaia DR3 astrophysical_parameters",
+            "quality_flags": []
+          },
+          {
+            "source_id": "gaia-dr3",
+            "source_record_id": "939072613334579328",
+            "field": "metallicity_dex",
+            "value": -0.0159,
+            "uncertainty": 0.003599999999999999,
+            "status": "model-derived",
+            "reference": "Gaia DR3 astrophysical_parameters",
+            "quality_flags": []
+          },
+          {
+            "source_id": "gaia-dr3",
+            "source_record_id": "939072613334579328",
+            "field": "luminosity_solar",
+            "value": 0.016528398,
+            "uncertainty": 0.005000019999999999,
+            "status": "model-derived",
+            "reference": "Gaia DR3 astrophysical_parameters",
+            "quality_flags": [
+              "20"
+            ]
+          },
+          {
+            "source_id": "gaia-dr3",
+            "source_record_id": "939072613334579328",
+            "field": "radius_solar",
+            "value": 0.3844853,
+            "uncertainty": 0.05866167,
+            "status": "model-derived",
+            "reference": "Gaia DR3 astrophysical_parameters",
+            "quality_flags": [
+              "20"
+            ]
+          }
+        ],
+        "adopted": {
+          "metallicity_dex": "Gaia DR3 astrophysical_parameters:939072613334579328"
+        },
+        "supersededByHigherPriority": [
+          "luminosity_solar",
+          "radius_solar"
+        ],
+        "retainedExistingFields": [
+          "temperature_k"
+        ]
       }
     },
     {
@@ -30454,8 +33153,11 @@
           "detail": "cifuentes-2020; uncertainty 0.0093; fills a blank field only."
         },
         "metallicity_dex": {
-          "status": "unknown",
-          "sourceRefs": []
+          "status": "model-derived",
+          "sourceRefs": [
+            "Gaia DR3 astrophysical_parameters:6882963066420161664"
+          ],
+          "detail": "Gaia DR3 exact-ID model value; uncertainty 0.010000000000000009; quality flags none"
         },
         "age_gyr": {
           "status": "unknown",
@@ -30498,6 +33200,65 @@
           "reasons": [],
           "status": "adopted"
         }
+      },
+      "gaiaPhysical": {
+        "gaiaDr3Id": "6882963066420161664",
+        "observations": [
+          {
+            "source_id": "gaia-dr3",
+            "source_record_id": "6882963066420161664",
+            "field": "temperature_k",
+            "value": 3000.1555,
+            "uncertainty": 2.222700000000259,
+            "status": "model-derived",
+            "reference": "Gaia DR3 astrophysical_parameters",
+            "quality_flags": []
+          },
+          {
+            "source_id": "gaia-dr3",
+            "source_record_id": "6882963066420161664",
+            "field": "metallicity_dex",
+            "value": -0.6792,
+            "uncertainty": 0.010000000000000009,
+            "status": "model-derived",
+            "reference": "Gaia DR3 astrophysical_parameters",
+            "quality_flags": []
+          },
+          {
+            "source_id": "gaia-dr3",
+            "source_record_id": "6882963066420161664",
+            "field": "luminosity_solar",
+            "value": 0.0067650513,
+            "uncertainty": 0.005000005700000001,
+            "status": "model-derived",
+            "reference": "Gaia DR3 astrophysical_parameters",
+            "quality_flags": [
+              "20"
+            ]
+          },
+          {
+            "source_id": "gaia-dr3",
+            "source_record_id": "6882963066420161664",
+            "field": "radius_solar",
+            "value": 0.3043816,
+            "uncertainty": 0.11264787000000004,
+            "status": "model-derived",
+            "reference": "Gaia DR3 astrophysical_parameters",
+            "quality_flags": [
+              "20"
+            ]
+          }
+        ],
+        "adopted": {
+          "metallicity_dex": "Gaia DR3 astrophysical_parameters:6882963066420161664"
+        },
+        "supersededByHigherPriority": [
+          "luminosity_solar",
+          "radius_solar"
+        ],
+        "retainedExistingFields": [
+          "temperature_k"
+        ]
       }
     },
     {

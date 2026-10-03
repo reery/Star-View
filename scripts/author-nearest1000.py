@@ -16,7 +16,7 @@ from astropy.coordinates import SkyCoord, get_constellation
 from astropy.time import Time
 from astropy.utils import iers
 
-from catalog_sources.adapters import read_cns5, read_gaia_tap, read_simbad_tap
+from catalog_sources.adapters import eligible_gaia_physical, read_cns5, read_gaia_tap, read_simbad_tap
 from catalog_sources.filesystem import write_managed_files
 from catalog_sources.mdwarf import SUPPLEMENT_FIELDS, load_supplements, resolve_supplemented_fields, row_context, supplement_observations
 from catalog_sources.models import AstrometryObservation
@@ -251,20 +251,7 @@ def normalize(record, simbad, gaia, supplements):
     physical = []
     by_field = {}
     if gaia is not None and object_type == "star":
-        def eligible_physical(item):
-            if not math.isfinite(item.value) or (item.field != "metallicity_dex" and item.value <= 0):
-                return False
-            if item.field == "temperature_k":
-                return True
-            if item.field == "metallicity_dex":
-                return True
-            flag = item.quality_flags[0] if item.quality_flags else ""
-            if len(flag) != 2:
-                return False
-            if item.field in {"mass_solar", "age_gyr"}:
-                return flag[0] == "0"
-            return item.field in {"luminosity_solar", "radius_solar"} and flag[1] in {"0", "2"}
-        by_field = {item.field: item for item in gaia.physical if eligible_physical(item)}
+        by_field = eligible_gaia_physical(gaia)
         if "temperature_k" in by_field:
             row["temperature_k"] = str(round(by_field["temperature_k"].value))
         if "mass_solar" in by_field:

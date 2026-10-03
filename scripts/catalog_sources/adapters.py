@@ -2,6 +2,7 @@
 
 import csv
 import json
+import math
 from pathlib import Path
 from typing import Iterator
 
@@ -122,6 +123,27 @@ def read_gaia_tap(path: Path) -> list[NormalizedSourceRecord]:
                 physical.append(PhysicalObservation("gaia-dr3", source_id, field, value, uncertainty, "model-derived", "Gaia DR3 astrophysical_parameters", flags))
         records.append(NormalizedSourceRecord(IdentityRecord("gaia-dr3", source_id, gaia_dr3_id=source_id), astrometry, tuple(physical), row))
     return records
+
+
+def eligible_gaia_physical(record: NormalizedSourceRecord | None) -> dict[str, PhysicalObservation]:
+    """Return Gaia DR3 physical fields that satisfy the catalog's existing quality policy."""
+    if record is None:
+        return {}
+    eligible = {}
+    for item in record.physical:
+        if not math.isfinite(item.value) or (item.field != "metallicity_dex" and item.value <= 0):
+            continue
+        if item.field in {"temperature_k", "metallicity_dex"}:
+            eligible[item.field] = item
+            continue
+        flag = item.quality_flags[0] if item.quality_flags else ""
+        if len(flag) != 2:
+            continue
+        if item.field in {"mass_solar", "age_gyr"} and flag[0] == "0":
+            eligible[item.field] = item
+        elif item.field in {"luminosity_solar", "radius_solar"} and flag[1] in {"0", "2"}:
+            eligible[item.field] = item
+    return eligible
 
 
 def read_simbad_tap(path: Path) -> list[NormalizedSourceRecord]:

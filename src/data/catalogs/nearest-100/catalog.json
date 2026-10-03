@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "id": "nearest-100",
   "label": "Nearest 100 objects",
-  "description": "100 individual stellar/substellar objects from the frozen 2023 10pc census, audited against corrected CNS5, plus Sun. Tentative candidates excluded except explicitly preserved EZ Aquarii B/C default membership; photometry and physical properties are incomplete.",
+  "description": "100 individual stellar/substellar objects from the frozen 2023 10pc census, audited against corrected CNS5, plus Sun. Tentative candidates excluded except explicitly preserved EZ Aquarii B/C default membership; exact-ID Gaia and reviewed physical enrichment remains nullable.",
   "epoch": 2000,
   "objectCount": 101,
   "sources": [
@@ -23,7 +23,7 @@
       "url": "https://nssdc.gsfc.nasa.gov/planetary/factsheet/sunfact.html"
     },
     {
-      "name": "Akeson et al. 2021, Alpha Centauri AB barycentric astrometry and systemic radial velocity",
+      "name": "Akeson et al. 2021, Alpha Centauri AB barycentric astrometry, systemic radial velocity, dynamical masses and revised-parallax physical parameters",
       "url": "https://doi.org/10.3847/1538-3881/abfaff"
     },
     {
@@ -33,6 +33,50 @@
     {
       "name": "Astropy 7.1.1, IAU constellations using Roman 1987 boundaries",
       "url": "https://docs.astropy.org/en/stable/api/astropy.coordinates.get_constellation.html"
+    },
+    {
+      "name": "Gaia DR3 TAP snapshot; exact-ID GSP-Phot/FLAME physical estimates, quality-filtered and used only for blank fields",
+      "url": "https://gea.esac.esa.int/tap-server/tap/sync"
+    },
+    {
+      "name": "Kervella et al. 2017, Alpha Centauri AB interferometric radii and effective temperatures",
+      "url": "https://doi.org/10.1051/0004-6361/201629505"
+    },
+    {
+      "name": "Morel 2018, Alpha Centauri AB differential spectroscopic abundances",
+      "url": "https://doi.org/10.1051/0004-6361/201833125"
+    },
+    {
+      "name": "Joyce & Chaboyer 2018, Alpha Centauri AB asteroseismic stellar-model age",
+      "url": "https://doi.org/10.3847/1538-4357/aad464"
+    },
+    {
+      "name": "Lodieu et al. 2015, resolved Luhman 16 AB temperatures and bolometric luminosities",
+      "url": "https://doi.org/10.1051/0004-6361/201524933"
+    },
+    {
+      "name": "Bedin et al. 2024, Luhman 16 AB dynamical masses and Oceanus membership assessment",
+      "url": "https://doi.org/10.1002/asna.20230158"
+    },
+    {
+      "name": "Zapatero Osorio et al. 2016, WISE 0855-0714 spectral-energy-distribution modelling",
+      "url": "https://doi.org/10.1051/0004-6361/201628662"
+    },
+    {
+      "name": "Bond et al. 2017, Sirius A/B dynamical and physical parameters",
+      "url": "https://doi.org/10.3847/1538-4357/aa6af8"
+    },
+    {
+      "name": "Korolik et al. 2023, Tau Ceti interferometric and spectroscopic parameters",
+      "url": "https://doi.org/10.3847/1538-3881/ace906"
+    },
+    {
+      "name": "Di Folco et al. 2004, Tau Ceti stellar-evolution age",
+      "url": "https://doi.org/10.1051/0004-6361:20047189"
+    },
+    {
+      "name": "Pagano et al. 2015, Tau Ceti spectroscopic chemical composition",
+      "url": "https://doi.org/10.1088/0004-637X/803/2/90"
     },
     {
       "name": "Cifuentes et al. 2020, CARMENES M-dwarf luminosities, temperatures, radii and masses (J/A+A/642/A115); fills blank fields only",
@@ -52,5 +96,5 @@
     }
   ],
   "cutoffPolicy": "Exclude Planet rows, aggregate system rows and source ObjType endings '?'. The only approved exceptions are Seq 27/28 (EZ Aquarii B/C): preserve vetted default membership and every default field, while retaining raw LM? classifications explicitly; this is not a new classification measurement. Keep all tentative buffer records for audit. Rank eligible individual non-Sun objects by unrounded adopted J2000 distance, then ASCII stable ID for exact ties; retain exactly 100 plus Sun. Rank 100 is GJ 229 A; nearby one-sigma distance intervals overlap, so membership is not statistically secure. Frozen 2023 source releases with preserved neighbor overrides; no 2026 completeness claim.",
-  "snapshot": "J2000.0; 10pc 2023-08-25 / CNS5 corrected 2023-12-13; preserved neighbor measurements; frozen 2026-09-15; confirmed-membership-v2"
+  "snapshot": "J2000.0; 10pc 2023-08-25 / CNS5 corrected 2023-12-13; Gaia DR3 frozen 2026-09-25; reviewed physical overrides frozen 2026-10-03; confirmed-membership-v2"
 }
