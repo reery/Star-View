@@ -4,6 +4,7 @@ import { fileURLToPath } from 'node:url'
 import { buildCatalog, catalogCoverage, DEFAULT_CATALOG_MANIFEST, loadCatalog, parseCatalogManifest } from '../src/catalogs.ts'
 import { parseCompactOverlayManifest, parseCompactOverlayPayload } from '../src/compact-overlay-model.ts'
 import { parseNebulaOverlayManifest, parseNebulaOverlayPayload } from '../src/nebula-overlay-model.ts'
+import { parseMolecularCloudOverlayManifest, parseMolecularCloudOverlayPayload } from '../src/molecular-cloud-overlay-model.ts'
 import { hydrateBubbleSurfaceGridFiles, parseBubbleOverlayManifest, parseBubbleOverlayPayload } from '../src/bubble-overlay-model.ts'
 import { containedInput, safeOutputDirectory, writeManagedFiles } from './filesystem.ts'
 
@@ -11,6 +12,7 @@ const root = fileURLToPath(new URL('../', import.meta.url))
 const [command, ...args] = process.argv.slice(2)
 const compactOverlayDirectory = join(root, 'src/data/overlays/compact-remnants')
 const nebulaOverlayDirectory = join(root, 'src/data/overlays/nebulae')
+const molecularCloudOverlayDirectory = join(root, 'src/data/overlays/molecular-clouds')
 const bubbleOverlayDirectory = join(root, 'src/data/overlays/bubbles')
 
 function loadCompactOverlay() {
@@ -24,6 +26,13 @@ function loadNebulaOverlay() {
   const manifest = parseNebulaOverlayManifest(readFileSync(join(nebulaOverlayDirectory, 'manifest.json'), 'utf8'))
   const payload: unknown = JSON.parse(readFileSync(join(nebulaOverlayDirectory, 'objects.json'), 'utf8'))
   const objects = parseNebulaOverlayPayload(payload, manifest)
+  return { manifest, objects }
+}
+
+function loadMolecularCloudOverlay() {
+  const manifest = parseMolecularCloudOverlayManifest(readFileSync(join(molecularCloudOverlayDirectory, 'manifest.json'), 'utf8'))
+  const payload: unknown = JSON.parse(readFileSync(join(molecularCloudOverlayDirectory, 'objects.json'), 'utf8'))
+  const objects = parseMolecularCloudOverlayPayload(payload, manifest)
   return { manifest, objects }
 }
 
@@ -57,6 +66,8 @@ function validate(directory?: string): void {
     console.log(`${manifest.id}: ${objects.length} overlay rows; type counts ${JSON.stringify(manifest.counts)}`)
     const nebulae = loadNebulaOverlay()
     console.log(`${nebulae.manifest.id}: ${nebulae.objects.length} overlay rows; type counts ${JSON.stringify(nebulae.manifest.counts)}`)
+    const molecularClouds = loadMolecularCloudOverlay()
+    console.log(`${molecularClouds.manifest.id}: ${molecularClouds.objects.length} overlay rows; ${molecularClouds.manifest.displaySampleCount} display samples`)
     const bubbles = loadBubbleOverlay()
     console.log(`${bubbles.manifest.id}: ${bubbles.objects.length} overlay rows; type counts ${JSON.stringify(bubbles.manifest.counts)}`)
   }
@@ -85,14 +96,16 @@ function generate(): void {
   console.log(`Generated ${Object.keys(files).length} browser catalog payloads.`)
   const { manifest: overlayManifest, objects } = loadCompactOverlay()
   const nebulae = loadNebulaOverlay()
+  const molecularClouds = loadMolecularCloudOverlay()
   const bubbles = loadBubbleOverlay()
   const overlayOutput = safeOutputDirectory(join(root, 'src/data/generated/overlays'))
   writeManagedFiles(overlayOutput, {
     [`${overlayManifest.id}.json`]: JSON.stringify({ schemaVersion: 1, overlayId: overlayManifest.id, objects }) + '\n',
     [`${nebulae.manifest.id}.json`]: JSON.stringify({ schemaVersion: 1, overlayId: nebulae.manifest.id, objects: nebulae.objects }) + '\n',
+    [`${molecularClouds.manifest.id}.json`]: JSON.stringify({ schemaVersion: 1, overlayId: molecularClouds.manifest.id, objects: molecularClouds.objects }) + '\n',
     [`${bubbles.manifest.id}.json`]: JSON.stringify({ schemaVersion: 1, overlayId: bubbles.manifest.id, objects: bubbles.objects }) + '\n',
   }, true)
-  console.log(`Generated ${objects.length} compact-object, ${nebulae.objects.length} nebula and ${bubbles.objects.length} bubble overlay rows.`)
+  console.log(`Generated ${objects.length} compact-object, ${nebulae.objects.length} nebula, ${molecularClouds.objects.length} molecular-cloud and ${bubbles.objects.length} bubble overlay rows.`)
 }
 
 try {

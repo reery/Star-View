@@ -1,12 +1,14 @@
 export const STELLAR_OBJECT_TYPES = ['star', 'white_dwarf', 'brown_dwarf', 'sub_brown_dwarf'] as const
 export const COMPACT_OBJECT_TYPES = ['pulsar', 'neutron_star', 'black_hole'] as const
 export const NEBULA_OBJECT_TYPES = ['reflection_nebula', 'hii_region', 'planetary_nebula'] as const
+export const MOLECULAR_CLOUD_OBJECT_TYPES = ['molecular_cloud'] as const
 export const BUBBLE_OBJECT_TYPES = ['bubble'] as const
-export const OBJECT_TYPES = [...STELLAR_OBJECT_TYPES, ...COMPACT_OBJECT_TYPES, ...NEBULA_OBJECT_TYPES, ...BUBBLE_OBJECT_TYPES] as const
+export const OBJECT_TYPES = [...STELLAR_OBJECT_TYPES, ...COMPACT_OBJECT_TYPES, ...NEBULA_OBJECT_TYPES, ...MOLECULAR_CLOUD_OBJECT_TYPES, ...BUBBLE_OBJECT_TYPES] as const
 export type ObjectType = typeof OBJECT_TYPES[number]
 export type StellarObjectType = typeof STELLAR_OBJECT_TYPES[number]
 export type CompactObjectType = typeof COMPACT_OBJECT_TYPES[number]
 export type NebulaObjectType = typeof NEBULA_OBJECT_TYPES[number]
+export type MolecularCloudObjectType = typeof MOLECULAR_CLOUD_OBJECT_TYPES[number]
 export type BubbleObjectType = typeof BUBBLE_OBJECT_TYPES[number]
 
 // IAU ICRS-to-Galactic rotation (Hipparcos convention), row-major.
@@ -53,6 +55,32 @@ export interface NebulaDetails {
   brightness: number
   puff_count: number
   seed: number
+  source_label: string
+  source_url: string
+  model_note: string
+}
+
+export interface MolecularCloudDetails {
+  catalog_id: number
+  complex_name: string | null
+  distance_pc: number
+  galactic_longitude_deg: number
+  galactic_latitude_deg: number
+  equivalent_radius_pc: number
+  mean_density_cm3: number
+  peak_density_cm3: number
+  surface_area_pc2: number
+  volume_pc3: number
+  source_voxel_count: number
+  // Flattened Galactic Cartesian display samples: x, y, z, x, y, z, ...
+  sample_points_pc: number[]
+  bounds_pc: { x: [number, number]; y: [number, number]; z: [number, number] }
+  palette: {
+    real: { body: string; rim: string }
+    exaggerated: { body: string; rim: string }
+  }
+  opacity: number
+  position_source: string
   source_label: string
   source_url: string
   model_note: string
@@ -181,6 +209,7 @@ export interface Star {
   raw_astrometry: RawAstrometry | null
   compact?: CompactObjectDetails
   nebula?: NebulaDetails
+  molecular_cloud?: MolecularCloudDetails
   bubble?: BubbleDetails
 }
 
@@ -190,6 +219,10 @@ export function isCompactObject(star: Pick<Star, 'type'>): boolean {
 
 export function isNebulaObject(star: Pick<Star, 'type'>): boolean {
   return NEBULA_OBJECT_TYPES.some((type) => type === star.type)
+}
+
+export function isMolecularCloudObject(star: Pick<Star, 'type'>): boolean {
+  return MOLECULAR_CLOUD_OBJECT_TYPES.some((type) => type === star.type)
 }
 
 export function isBubbleObject(star: Pick<Star, 'type'>): boolean {
@@ -208,6 +241,7 @@ export function objectTypeLabel(type: ObjectType): string {
     reflection_nebula: 'Reflection nebula',
     hii_region: 'H II region',
     planetary_nebula: 'Planetary nebula',
+    molecular_cloud: 'Molecular cloud',
     bubble: 'Bubble',
   }[type]
 }

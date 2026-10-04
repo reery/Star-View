@@ -25,6 +25,10 @@ async function nextFrames(page: Page, count = 2) {
 async function enableNebulae(page: Page, distanceStep = '20') {
   await openFilter(page)
   await page.getByRole('switch', { name: 'Interstellar medium', exact: true }).check()
+  // Keep this suite focused on the independently rendered luminous-nebula layer.
+  const typeDropdown = page.locator('details.filter-dropdown')
+  if (await typeDropdown.getAttribute('open') === null) await typeDropdown.locator('summary').click()
+  await page.getByLabel('Molecular clouds', { exact: true }).uncheck()
   await expect(page.locator('.projected-labels')).toHaveAttribute('data-nebula-puff-count', /\d+/)
   await page.getByLabel('Object visibility distance', { exact: true }).fill(distanceStep)
 }
@@ -71,7 +75,7 @@ test('loads nebulae on demand through the interstellar-medium category', async (
   await expect(page.locator('#catalog-count')).toHaveText(new RegExp(`/${DEFAULT_ROWS + NEBULAE.length}$`))
   expect(nebulaRequests).toHaveLength(1)
   await expect(hii).toBeEnabled()
-  await expect(page.locator('#object-type-filter-summary')).toHaveText('6 of 11')
+  await expect(page.locator('#object-type-filter-summary')).toHaveText('6 of 12')
   const layer = page.locator('.projected-labels')
   // Nebulae follow the Sun-centered distance filter by their centers.
   await expect(layer).toHaveAttribute('data-nebula-puff-count', '0')
@@ -82,7 +86,7 @@ test('loads nebulae on demand through the interstellar-medium category', async (
   await expect(layer).toHaveAttribute('data-nebula-puff-count', expectedPuffs(1500))
   await reflection.uncheck()
   await expect(layer).toHaveAttribute('data-nebula-puff-count', expectedPuffs(1500, ['hii_region']))
-  await expect(page.locator('#object-type-filter-summary')).toHaveText('5 of 11')
+  await expect(page.locator('#object-type-filter-summary')).toHaveText('5 of 12')
   await reflection.check()
   // Planetary nebulae share the overlay but live under Stellar remnants.
   await page.getByRole('switch', { name: 'Stellar remnants', exact: true }).check()

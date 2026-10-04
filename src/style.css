@@ -283,7 +283,7 @@ select:focus-visible, input:focus-visible { outline: 2px solid var(--accent); ou
 .properties > div { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 10px; align-items: baseline; padding: 3px 0; font-size: 14px; line-height: 1.2; }
 .properties dt { color: var(--muted); }
 .properties dd { text-align: right; font-weight: 500; font-variant-numeric: tabular-nums; }
-.compact-property dd, .nebula-property dd { max-width: 170px; overflow-wrap: anywhere; }
+.compact-property dd, .nebula-property dd, .molecular-cloud-property dd { max-width: 170px; overflow-wrap: anywhere; }
 .properties a { color: var(--accent-strong); text-underline-offset: 3px; }
 .properties a:hover { color: #fff0dc; }
 .properties a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 2px; }

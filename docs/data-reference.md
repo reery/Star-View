@@ -88,9 +88,26 @@ Nebulae are likewise not valid stellar CSV rows. The hand-curated package under 
 
 The bundled release holds 22 nebulae: 17 reflection nebulae, 4 H II regions and the planetary nebula Sh 2-216, selected by the census rule in [catalog-sourcing.md](catalog-sourcing.md). It places the Orion Nebula (M42) at 388 pc from VLBA parallaxes (Kounkel et al. 2017) as a blister following O'Dell (2001), and the Pleiades reflection nebulosity at the Gaia cluster distance of 135.74 pc (Alfonso & García-Varela 2023) as two dust sheets following Gibson & Nordsieck (2003). Census reflection nebulae and H II regions are ellipsoids (H II regions spherical) and Sh 2-216 is a shell. Sky extents follow apparent sizes; depths, sheet offsets and orientations are illustrative.
 
+## Molecular-cloud Overlay
+
+The separately loaded package under `src/data/overlays/molecular-clouds/` contains all 65 filtered three-dimensional cloud features from Cahlon et al. (2024). Rows share the selectable scene fields, use type `molecular_cloud`, and add a `molecular_cloud` record:
+
+| Field | Meaning |
+| --- | --- |
+| `catalog_id`, `complex_name` | Source Table 1 identifier and associated named cloud complex, when supplied |
+| `distance_pc`, `galactic_longitude_deg`, `galactic_latitude_deg` | Published center position; whole-parsec Cartesian centers introduce sub-degree roundoff |
+| `equivalent_radius_pc`, `mass_solar` | Source equivalent radius and cloud mass |
+| `mean_density_cm3`, `peak_density_cm3` | Mean and peak hydrogen-nucleus number densities |
+| `surface_area_pc2`, `volume_pc3` | Surface area and segmented volume of the source feature |
+| `source_voxel_count`, `sample_points_pc`, `bounds_pc` | Exact source count, deterministic 25% display sample and full source-coordinate bounds |
+| `palette`, `opacity` | Real/Exaggerated body and rim display styling |
+| `position_source`, `source_label`, `source_url`, `model_note` | Provenance and explicit display-model note |
+
+The source centers span 116–440 pc (about 378–1435 ly), placing all 65 inside the 2000-ly scope. The 78,326 published one-parsec voxels are reduced to 19,606 display samples by stable coordinate-hash ordering; each cloud retains `ceil(source_voxel_count / 4)` points, so runtime level-of-detail can take an unbiased prefix. This is faithful source geometry with softened display puffs, not a complete molecular-cloud census: the underlying Leike et al. map is effectively limited to about 400 pc, and Cahlon et al. warn against treating the outer 440–613 pc shell as complete.
+
 ## Bubble Overlay
 
-Large interstellar cavities use a third non-stellar package under `src/data/overlays/bubbles/`. A row shares the common selectable scene fields and adds a `bubble` record containing the published mean radius, radial shell-distance range, typical thickness, coordinate bounds, source, colors and a reusable shape. A `directional_grid` shape stores a south-to-north series of wrapped Galactic-longitude radius rows sampled from `shape.origin_pc`; an `analytic` shape remains available for future bubbles without published surfaces.
+Large interstellar cavities use another non-stellar package under `src/data/overlays/bubbles/`. A row shares the common selectable scene fields and adds a `bubble` record containing the published mean radius, radial shell-distance range, typical thickness, coordinate bounds, source, colors and a reusable shape. A `directional_grid` shape stores a south-to-north series of wrapped Galactic-longitude radius rows sampled from `shape.origin_pc`; an `analytic` shape remains available for future bubbles without published surfaces.
 
 The first row is the Local Bubble. It follows O'Neill et al. (2024), who report an average dust-shell distance of 170 pc, a 70–600+ pc range, typical 35 pc thickness and coordinate spans of `x=-300..330`, `y=-355..445`, `z=-300..600` pc. The bundled 128 by 64 grid is downsampled from the authors' 786,392-sightline interactive Figure 3 surface. It retains the roughly 500–550 ly characteristic radius while keeping the much narrower 600+ pc northern chimney and lateral tunnels. It is one indexed display mesh, not a claim to reproduce the source point cloud at parsec resolution.
 

@@ -60,7 +60,7 @@ export class ObjectList {
     this.items = sortObjectListItemsByDistance(stars.map((star) => ({
       star,
       distancePc: sunRelativeMetrics(star, reference).distancePc,
-      search: normalizeObjectSearch(`${star.name} ${star.id} ${star.spectral_type ?? ''} ${star.nebula?.designations.join(' ') ?? ''} ${star.bubble?.designations.join(' ') ?? ''}`),
+      search: normalizeObjectSearch(`${star.name} ${star.id} ${star.spectral_type ?? ''} ${star.nebula?.designations.join(' ') ?? ''} ${star.molecular_cloud?.complex_name ?? ''} ${star.bubble?.designations.join(' ') ?? ''}`),
       color: starDisplayColor(star, this.colorMode).getStyle(),
     })))
     this.query = ''

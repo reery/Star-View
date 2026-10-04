@@ -1,9 +1,10 @@
 import './style.css'
 import { ArrowLeft, ArrowRight, CircleHelp, Clock, Crosshair, Eye, Filter, Focus, Grid2X2, List, Lock, Minus, Orbit, Pause, Play, Plus, RotateCcw, RotateCw, Save, Settings2, Star as StarIcon, Trash2, createElement, type IconNode } from 'lucide'
-import { BUBBLE_OBJECT_TYPES, COMPACT_OBJECT_TYPES, describeObject, isBubbleObject, isCompactObject, isNebulaObject, NEBULA_OBJECT_TYPES, type Star } from './catalog-model'
+import { BUBBLE_OBJECT_TYPES, COMPACT_OBJECT_TYPES, describeObject, isBubbleObject, isCompactObject, isMolecularCloudObject, isNebulaObject, MOLECULAR_CLOUD_OBJECT_TYPES, NEBULA_OBJECT_TYPES, type Star } from './catalog-model'
 import { catalogSelection, mergeCatalogStars } from './catalog-runtime'
 import { compactOverlayManifest, loadCompactRemnants } from './compact-overlay'
 import { loadNebulae, nebulaOverlayManifest } from './nebula-overlay'
+import { loadMolecularClouds, molecularCloudOverlayManifest } from './molecular-cloud-overlay'
 import { bubbleOverlayManifest, loadBubbles } from './bubble-overlay'
 import { catalogs, catalogErrors } from './registry'
 import { formatDistance, LIGHT_YEARS_PER_PARSEC, starDisplayColor, sunRelativeMetrics, type DistanceUnit, type GridScale, type MotionFrame, type StarColorMode } from './astronomy'
@@ -124,7 +125,7 @@ let catalogRequest = 0
 let sceneBusy = true
 const filterCategories = new Set<FilterCategoryId>(DEFAULT_FILTER_CATEGORIES)
 const filterSubtypes = new Set<FilterKey>(DEFAULT_FILTER_SUBTYPES)
-const availableKeys = availableFilterKeys(compactOverlayManifest.counts, nebulaOverlayManifest.counts, bubbleOverlayManifest.counts)
+const availableKeys = availableFilterKeys(compactOverlayManifest.counts, nebulaOverlayManifest.counts, molecularCloudOverlayManifest.counts, bubbleOverlayManifest.counts)
 let visibleKeys = effectiveFilterKeys(filterCategories, filterSubtypes, availableKeys)
 let distanceUnit: DistanceUnit = 'ly'
 let starColorMode: StarColorMode = 'exaggerated'
@@ -540,11 +541,14 @@ function renderSelection(): void {
   const compactObject = isCompactObject(star)
   const nebula = star.nebula
   const nebulaObject = isNebulaObject(star)
+  const molecularCloud = star.molecular_cloud
+  const molecularCloudObject = isMolecularCloudObject(star)
   const bubble = star.bubble
   const bubbleObject = isBubbleObject(star)
-  for (const row of document.querySelectorAll<HTMLElement>('.stellar-property')) row.hidden = compactObject || nebulaObject || bubbleObject
+  for (const row of document.querySelectorAll<HTMLElement>('.stellar-property')) row.hidden = compactObject || nebulaObject || molecularCloudObject || bubbleObject
   for (const row of document.querySelectorAll<HTMLElement>('.compact-property')) row.hidden = !compactObject
   for (const row of document.querySelectorAll<HTMLElement>('.nebula-property')) row.hidden = !nebulaObject
+  for (const row of document.querySelectorAll<HTMLElement>('.molecular-cloud-property')) row.hidden = !molecularCloudObject
   for (const row of document.querySelectorAll<HTMLElement>('.bubble-property')) row.hidden = !bubbleObject
   element('mass-row').hidden = nebulaObject || bubbleObject
   for (const row of document.querySelectorAll<HTMLElement>('.pulsar-property')) row.hidden = star.type !== 'pulsar'
@@ -587,6 +591,19 @@ function renderSelection(): void {
     source.textContent = nebula.source_label
     source.href = nebula.source_url
   }
+  if (molecularCloud) {
+    const conversion = distanceUnit === 'ly' ? LIGHT_YEARS_PER_PARSEC : 1
+    const format = (value: number, maximumFractionDigits = 1) => (value * conversion).toLocaleString('en-US', { maximumFractionDigits })
+    text('molecular-cloud-complex', molecularCloud.complex_name ?? 'Unassociated catalog feature')
+    text('molecular-cloud-radius', `${format(molecularCloud.equivalent_radius_pc)} ${distanceUnit}`)
+    text('molecular-cloud-density', `${molecularCloud.mean_density_cm3.toLocaleString('en-US')} H nuclei/cm³`)
+    text('molecular-cloud-peak-density', `${molecularCloud.peak_density_cm3.toLocaleString('en-US')} H nuclei/cm³`)
+    text('molecular-cloud-volume', `${(molecularCloud.volume_pc3 * conversion ** 3).toLocaleString('en-US', { maximumFractionDigits: 0 })} ${distanceUnit}³`)
+    text('molecular-cloud-resolution', `${molecularCloud.source_voxel_count.toLocaleString('en-US')} one-pc voxels`)
+    const source = element<HTMLAnchorElement>('molecular-cloud-source')
+    source.textContent = molecularCloud.source_label
+    source.href = molecularCloud.source_url
+  }
   if (bubble) {
     const conversion = distanceUnit === 'ly' ? LIGHT_YEARS_PER_PARSEC : 1
     const extent = (pc: number) => (pc * conversion).toLocaleString('en-US', { maximumFractionDigits: 0 })
@@ -618,7 +635,7 @@ function renderSelection(): void {
   text('proper-motion-ra', raw ? measurement(raw.pm_ra_cosdec_masyr, raw.pm_ra_error_masyr, 'mas/yr', 6) : 'Not available')
   text('proper-motion-dec', raw ? measurement(raw.pm_dec_masyr, raw.pm_dec_error_masyr, 'mas/yr', 6) : 'Not available')
   text('radial-velocity', raw ? measurement(raw.radial_velocity_kms, raw.radial_velocity_error_kms, 'km/s', 6) : 'Not available')
-  text('astrometry-source', raw?.astrometry_ref || compact?.position_source || nebula?.position_source || bubble?.position_source || 'Not available')
+  text('astrometry-source', raw?.astrometry_ref || compact?.position_source || nebula?.position_source || molecularCloud?.position_source || bubble?.position_source || 'Not available')
   text('absolute-mag', quantity(star.absolute_mag))
   text('star-notes', star.notes || 'No source notes available.')
   const referenceName = reference.id === 'sun' ? 'the Sun' : reference.name
@@ -714,10 +731,11 @@ async function switchCatalog(id: string, refresh = false): Promise<void> {
     ])
     const compactObjects = COMPACT_OBJECT_TYPES.some((type) => visibleKeys.has(type)) ? await loadCompactRemnants() : []
     const nebulae = NEBULA_OBJECT_TYPES.some((type) => visibleKeys.has(type)) ? await loadNebulae() : []
+    const molecularClouds = MOLECULAR_CLOUD_OBJECT_TYPES.some((type) => visibleKeys.has(type)) ? await loadMolecularClouds() : []
     const bubbles = BUBBLE_OBJECT_TYPES.some((type) => visibleKeys.has(type)) ? await loadBubbles() : []
     const withBrightStars = mergeCatalogStars(selectedCatalog, brightCatalog)
     const withConstellationStars = mergeCatalogStars(withBrightStars, westernConstellationCatalog)
-    nextStars = [...mergeCatalogStars(withConstellationStars, famousClusterCatalog), ...compactObjects, ...nebulae, ...bubbles]
+    nextStars = [...mergeCatalogStars(withConstellationStars, famousClusterCatalog), ...compactObjects, ...nebulae, ...molecularClouds, ...bubbles]
   } catch (error) {
     if (request !== catalogRequest) return
     catalogError(error)
@@ -882,7 +900,7 @@ function applyObjectFilter(): void {
   const previous = visibleKeys
   visibleKeys = effectiveFilterKeys(filterCategories, filterSubtypes, availableKeys)
   renderObjectFilter()
-  const overlayChanged = [COMPACT_OBJECT_TYPES, NEBULA_OBJECT_TYPES, BUBBLE_OBJECT_TYPES].some((types) =>
+  const overlayChanged = [COMPACT_OBJECT_TYPES, NEBULA_OBJECT_TYPES, MOLECULAR_CLOUD_OBJECT_TYPES, BUBBLE_OBJECT_TYPES].some((types) =>
     types.some((type) => previous.has(type)) !== types.some((type) => visibleKeys.has(type)))
   if (overlayChanged) {
     void switchCatalog(activeCatalogId, true)

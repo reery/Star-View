@@ -12,6 +12,7 @@ import { EARTH_AXIS_DISPLAY_HALF_LENGTH_PC, EARTH_ORBIT_DISPLAY_RADIUS_PC, earth
 import { advanceFrameDeadline, effectiveDampingFactor, estimateRefreshRate, renderPixelRatio, targetRenderFps } from './render-scheduling'
 import { centeredForegroundLabelBounds, chooseOrdinaryLabelPlacement, ordinaryLabelCandidates, overlaps, type LabelRect, type OrdinaryLabelPlacement } from './label-layout'
 import { createNebulaLayer } from './nebula-layer'
+import { createMolecularCloudLayer } from './molecular-cloud-layer'
 import { createBubbleLayer } from './bubble-layer'
 import { FILTER_KEYS, isFilterKey, type FilterKey } from './object-filter'
 import {
@@ -166,6 +167,12 @@ function expandBoxByBubbleBounds(box: Box3, star: Pick<Star, 'bubble'>): void {
   for (const xPc of x) for (const yPc of y) for (const zPc of z) box.expandByPoint(new Vector3(xPc, zPc, -yPc))
 }
 
+function expandBoxByMolecularCloudBounds(box: Box3, star: Pick<Star, 'molecular_cloud'>): void {
+  if (!star.molecular_cloud) return
+  const { x, y, z } = star.molecular_cloud.bounds_pc
+  for (const xPc of x) for (const yPc of y) for (const zPc of z) box.expandByPoint(new Vector3(xPc, zPc, -yPc))
+}
+
 function setTransform(element: HTMLElement, transform: string): void {
   if (element.style.transform !== transform) element.style.transform = transform
 }
@@ -233,7 +240,10 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
   const starColors = stars.map((star) => starDisplayColor(star, starColorMode))
   const starColorStyles = starColors.map((color) => color.getStyle())
   const starBounds = new Box3().setFromPoints(pickable.map((star) => star.position))
-  stars.forEach((star) => expandBoxByBubbleBounds(starBounds, star))
+  stars.forEach((star) => {
+    expandBoxByMolecularCloudBounds(starBounds, star)
+    expandBoxByBubbleBounds(starBounds, star)
+  })
   const catalogSphere = starBounds.getBoundingSphere(new Sphere())
   catalogSphere.radius = Math.max(catalogSphere.radius, 0.75)
   const homeDirection = new Vector3(-4.8, 3.8, -6.2).normalize()
@@ -527,6 +537,14 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
     const [, major, minor] = stars[index]!.nebula!.shape.semi_axes_pc
     return 0.6 * Math.max(major, minor)
   })
+  const molecularCloudIndices = stars.flatMap((star, index) => star.molecular_cloud ? [index] : [])
+  const isMolecularCloud = new Uint8Array(stars.length)
+  for (const index of molecularCloudIndices) isMolecularCloud[index] = 1
+  const molecularCloudLayer = molecularCloudIndices.length > 0
+    ? createMolecularCloudLayer(molecularCloudIndices.map((index) => stars[index]!), starColorMode)
+    : null
+  if (molecularCloudLayer) scene.add(molecularCloudLayer.root)
+  const molecularCloudPickRadii = molecularCloudIndices.map((index) => stars[index]!.molecular_cloud!.equivalent_radius_pc)
   const bubbleIndices = stars.flatMap((star, index) => star.bubble ? [index] : [])
   const isBubble = new Uint8Array(stars.length)
   for (const index of bubbleIndices) isBubble[index] = 1
@@ -1286,7 +1304,7 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
     if (rankingChanged) {
       rankedCandidates = stars.map((star, index) => ({
         index,
-        priority: star.id === selectedId ? 0 : isNebula[index] || isBubble[index] ? 1 : 2,
+        priority: star.id === selectedId ? 0 : isNebula[index] || isMolecularCloud[index] || isBubble[index] ? 1 : 2,
         magnitude: apparentMagnitudes[index]!,
       })).sort(compareMapLabelCandidates)
       rankedBaseId = visibilityBase.id
@@ -1298,7 +1316,7 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
     stars.forEach((star, index) => {
       const magnitude = apparentMagnitudes[index]!
       // Extended nebulae have no point magnitude; their names stay eligible.
-      const tier = star.id === visibilityBase.id ? 'base' : isNebula[index] || isBubble[index] || magnitude <= magnitudeLimit ? 'eligible' : 'background'
+      const tier = star.id === visibilityBase.id ? 'base' : isNebula[index] || isMolecularCloud[index] || isBubble[index] || magnitude <= magnitudeLimit ? 'eligible' : 'background'
       const visible = isObjectMapVisible(
         star,
         visibleKeys,
@@ -1317,13 +1335,17 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
       haloOpacities.setX(index, tier === 'background' ? 0 : starHaloOpacity(haloMagnitude, star.id === selectedId))
       haloDiameters.setX(index, starHaloDiameter(haloMagnitude))
       haloEmphases.setX(index, haloEmphasis)
-      if (isNebula[index] || isBubble[index]) return
+      if (isNebula[index] || isMolecularCloud[index] || isBubble[index]) return
       if (visible && index !== observerIndex) coreIndices.setX(coreCount++, index)
       if (visible && index !== observerIndex && tier !== 'background') haloIndices.setX(haloCount++, index)
     })
     if (nebulaLayer) {
       nebulaLayer.setVisible(nebulaIndices.map((index) => mapVisible[index] === 1 && index !== observerIndex))
       labelLayer.dataset.nebulaPuffCount = String(nebulaLayer.instanceCount())
+    }
+    if (molecularCloudLayer) {
+      molecularCloudLayer.setVisible(molecularCloudIndices.map((index) => mapVisible[index] === 1 && index !== observerIndex))
+      labelLayer.dataset.molecularCloudPuffCount = String(molecularCloudLayer.instanceCount())
     }
     if (bubbleLayer) {
       const bubbleVisibility = bubbleIndices.map((index) => mapVisible[index] === 1 && index !== observerIndex)
@@ -1621,7 +1643,7 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
       starObstacles.clear()
       const radius = STAR_DIAMETER_PX / 2
       for (const projected of projectedPickables) {
-        if (isNebula[projected.index] || isBubble[projected.index] || !starBlocksLabels(tiers[projected.index]!)) continue
+        if (isNebula[projected.index] || isMolecularCloud[projected.index] || isBubble[projected.index] || !starBlocksLabels(tiers[projected.index]!)) continue
         const obstacle = starObstacleEntries[projected.index]!
         obstacle.depth = projected.depth
         obstacle.bounds.left = projected.x - radius
@@ -1734,6 +1756,7 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
     controlsSettling = false
     const previousSelectedId = selectedId
     selectedId = id
+    molecularCloudLayer?.setSelected(id)
     bubbleLayer?.setSelected(id)
     obstacleBoundsDirty = true
     if (star && !observerViewEnabled) visibilityBase = star
@@ -1805,6 +1828,7 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
     pickable.forEach(({ position }, index) => {
       if (!mapVisible[index]) return
       homeBounds.expandByPoint(position)
+      expandBoxByMolecularCloudBounds(homeBounds, stars[index]!)
       expandBoxByBubbleBounds(homeBounds, stars[index]!)
     })
     if (homeBounds.isEmpty()) homeBounds.expandByPoint(origin)
@@ -1828,6 +1852,7 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
     const selected = selectedId === null ? undefined : starsById.get(selectedId)
     if (selected && selected.index !== referenceIndex) {
       homeBounds.expandByPoint(pickable[selected.index]!.position)
+      expandBoxByMolecularCloudBounds(homeBounds, selected.star)
       expandBoxByBubbleBounds(homeBounds, selected.star)
     }
     homeBounds.getBoundingSphere(homeSphere)
@@ -1923,6 +1948,7 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
     renderer.setPixelRatio(pixelRatio)
     renderer.setSize(width, height)
     nebulaLayer?.setViewportHeight(height * pixelRatio)
+    molecularCloudLayer?.setViewportHeight(height * pixelRatio)
     gridOpacity.value = gridOpacityForDisplay(displayPixelRatio)
     axisMaterial.opacity = Math.min(1, 0.55 * pixelRatio)
     arrowUniforms.pixelRatio.value = pixelRatio
@@ -1949,19 +1975,21 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
       projectionGridDirty = false
     }
     return pickProjectedStarAtScreenPoint(projectionGrid, projectionViewport, event, event.pointerType === 'touch' ? 24 : 16)
-      ?? pickNebula(event, projectionViewport)
+      ?? pickExtendedVolume(event, projectionViewport)
   }
-  function pickNebula(event: PointerEvent, viewport: DOMRect): string | null {
+  function pickExtendedVolume(event: PointerEvent, viewport: DOMRect): string | null {
     let picked: string | null = null
     let nearestDepth = Infinity
     const projectionScale = camera.projectionMatrix.elements[5]! * 0.5 * viewport.height
-    for (let order = 0; order < nebulaIndices.length; order++) {
-      const projected = projections[nebulaIndices[order]!]!
-      if (!projected.visible || projected.depth >= nearestDepth) continue
-      const radius = nebulaPickRadii[order]! * projectionScale / projected.depth
-      if (Math.hypot(event.clientX - projected.x, event.clientY - projected.y) > radius) continue
-      picked = projected.id
-      nearestDepth = projected.depth
+    for (const [indices, radii] of [[nebulaIndices, nebulaPickRadii], [molecularCloudIndices, molecularCloudPickRadii]] as const) {
+      for (let order = 0; order < indices.length; order++) {
+        const projected = projections[indices[order]!]!
+        if (!projected.visible || projected.depth >= nearestDepth) continue
+        const radius = radii[order]! * projectionScale / projected.depth
+        if (Math.hypot(event.clientX - projected.x, event.clientY - projected.y) > radius) continue
+        picked = projected.id
+        nearestDepth = projected.depth
+      }
     }
     return picked
   }
@@ -2298,6 +2326,8 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
       powerSavingMode = enabled
       nebulaLayer?.setLevelOfDetail(enabled ? 0.5 : 1)
       if (nebulaLayer) labelLayer.dataset.nebulaPuffCount = String(nebulaLayer.instanceCount())
+      molecularCloudLayer?.setLevelOfDetail(enabled ? 0.4 : 1)
+      if (molecularCloudLayer) labelLayer.dataset.molecularCloudPuffCount = String(molecularCloudLayer.instanceCount())
       resetCadenceSamples()
       resize()
       requestRender()
@@ -2313,6 +2343,7 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
       })
       starColorAttribute.needsUpdate = true
       nebulaLayer?.setColorMode(mode)
+      molecularCloudLayer?.setColorMode(mode)
       bubbleLayer?.setColorMode(mode)
       for (const [index, label] of activeStarLabels) label.anchor.style.setProperty('--star-color', starColorStyles[index]!)
       requestRender()
@@ -2383,6 +2414,7 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
       arrowGeometry.dispose()
       arrowMaterial.dispose()
       nebulaLayer?.dispose()
+      molecularCloudLayer?.dispose()
       bubbleLayer?.dispose()
       dotTexture.dispose()
       earthTexture.dispose()
@@ -2408,6 +2440,7 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
       delete container.dataset.simulationYears
       delete container.dataset.followTarget
       delete labelLayer.dataset.bubbleTriangleCount
+      delete labelLayer.dataset.molecularCloudPuffCount
     },
   }
 }

@@ -1,0 +1,22 @@
+{
+  "schemaVersion": 1,
+  "catalog": "Cahlon et al. (2024), ApJ 961, 153",
+  "paperDoi": "10.3847/1538-4357/ad0cf8",
+  "datasetDoi": "10.7910/DVN/BFYDG8",
+  "files": [
+    {
+      "name": "Table1_Cahlon_2023.fits",
+      "dataverseFileId": 7339962,
+      "bytes": 17280,
+      "sha256": "36040a858ab163659cf0708442da281410f48de202e92eb6d90afd4041e85fba"
+    },
+    {
+      "name": "Galactic_Positions_For_All_Filtered_Clouds_Table1_Cahlon2023.fits",
+      "dataverseFileId": 7280031,
+      "bytes": 3139200,
+      "sha256": "bbad4cfb1f2787074451a35ca54d1c557ba5c014a169510fbe22ceeb30fb75bb"
+    }
+  ],
+  "displaySampling": "Each cloud's published one-parsec voxels are sorted by a stable coordinate hash and the first ceil(N/4) are retained. Runtime LOD uses prefixes of that spatially distributed sample.",
+  "notes": "The published source FITS files remain available from https://dataverse.harvard.edu/api/access/datafile/<dataverseFileId>. Generated overlay data is checked in under src/data/overlays/molecular-clouds."
+}

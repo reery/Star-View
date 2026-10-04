@@ -674,7 +674,7 @@ test('presents the selected object beside an expandable control dock', async ({ 
   await expect(page.locator('#object-type-options')).toBeHidden()
   await typeDropdown.locator('summary').click()
   await expect(page.locator('#object-type-options')).toBeVisible()
-  await expect(page.locator('#object-type-filter-summary')).toHaveText('4 of 11')
+  await expect(page.locator('#object-type-filter-summary')).toHaveText('4 of 12')
   await expect(page.locator('.type-group-heading')).toHaveText(categoryNames)
   await expect(page.locator('.object-type-option > span:not(.filter-hint)')).toHaveText(typeGroups.flat())
   const option = (name: string) => page.getByLabel(name, { exact: true })
@@ -686,13 +686,13 @@ test('presents the selected object beside an expandable control dock', async ({ 
     await expect(option(name)).not.toBeChecked()
     await expect(option(name)).toBeEnabled()
   }
-  for (const name of ['Reflection nebulae', 'H II regions', 'Planetary nebulae']) {
+  for (const name of ['Molecular clouds', 'Reflection nebulae', 'H II regions', 'Planetary nebulae']) {
     await expect(option(name)).toBeChecked()
     await expect(option(name)).toBeDisabled()
   }
   await expect(option('Bubbles')).toBeChecked()
   await expect(option('Bubbles')).toBeDisabled()
-  for (const name of [...typeGroups[1]!, ...typeGroups[2]!.slice(0, 2), ...typeGroups[3]!.slice(1), ...typeGroups[4]!.slice(1)]) {
+  for (const name of [...typeGroups[1]!, ...typeGroups[2]!.slice(1, 2), ...typeGroups[3]!.slice(1), ...typeGroups[4]!.slice(1)]) {
     await expect(option(name)).not.toBeChecked()
     await expect(option(name)).toBeDisabled()
     await expect(option(name)).toHaveAccessibleDescription('No data yet')
@@ -816,13 +816,13 @@ test('filters the map and object browser even when an excluded object is selecte
   const stars = page.getByLabel('Stars', { exact: true })
   const sunChoice = page.getByLabel('Sun', { exact: true })
   const brownDwarfs = page.getByLabel('Brown dwarfs', { exact: true })
-  await expect(page.locator('#object-type-filter-summary')).toHaveText('4 of 11')
+  await expect(page.locator('#object-type-filter-summary')).toHaveText('4 of 12')
   await stars.uncheck()
-  await expect(page.locator('#object-type-filter-summary')).toHaveText('3 of 11')
+  await expect(page.locator('#object-type-filter-summary')).toHaveText('3 of 12')
   await expect(sun).toHaveAttribute('data-map-visible', 'true')
   await expect(sun).toBeVisible()
   await sunChoice.uncheck()
-  await expect(page.locator('#object-type-filter-summary')).toHaveText('2 of 11')
+  await expect(page.locator('#object-type-filter-summary')).toHaveText('2 of 12')
   await expect(sun).toHaveCount(0)
   await stars.check()
   await expect(sun).toHaveCount(0)
@@ -830,7 +830,7 @@ test('filters the map and object browser even when an excluded object is selecte
   await expect(sun).toHaveAttribute('data-map-visible', 'true')
   await expect(sun).toBeVisible()
   await brownDwarfs.uncheck()
-  await expect(page.locator('#object-type-filter-summary')).toHaveText('3 of 11')
+  await expect(page.locator('#object-type-filter-summary')).toHaveText('3 of 12')
   await expect(luhmanA).toHaveAttribute('data-map-visible', 'false')
   await expect(luhmanA).toBeHidden()
   await expect(luhmanB).toHaveCount(0)
