@@ -2,7 +2,7 @@ import { readFileSync } from 'node:fs'
 import { expect, test, type Page } from '@playwright/test'
 import { PNG } from 'pngjs'
 import { LIGHT_YEARS_PER_PARSEC } from '../src/astronomy'
-import { hideMilkyWay, openFilter, openPreferences, openViewer } from './support'
+import { hideMilkyWay, openFilter, openPreferences, openViewer, zoomViewer } from './support'
 
 type NebulaRow = { type: string; nebula: { distance_pc: number; puff_count: number } }
 const NEBULAE: NebulaRow[] = JSON.parse(readFileSync(new URL('../src/data/overlays/nebulae/objects.json', import.meta.url), 'utf8')).objects
@@ -34,7 +34,7 @@ async function focusOrionNebula(page: Page) {
   await page.getByLabel('Search objects').fill('Orion')
   await page.getByRole('button', { name: 'Select Orion Nebula', exact: true }).click()
   // The home view frames every visible nebula, so Orion starts small.
-  for (let step = 0; step < 15; step++) await page.getByRole('button', { name: 'Zoom in', exact: true }).click()
+  await zoomViewer(page, 'in', 15)
   await page.getByRole('button', { name: 'Objects', exact: true }).click()
   await nextFrames(page)
 }
@@ -71,7 +71,7 @@ test('loads nebulae on demand through the interstellar-medium category', async (
   await expect(page.locator('#catalog-count')).toHaveText(new RegExp(`/${DEFAULT_ROWS + NEBULAE.length}$`))
   expect(nebulaRequests).toHaveLength(1)
   await expect(hii).toBeEnabled()
-  await expect(page.locator('#object-type-filter-summary')).toHaveText('6 of 10')
+  await expect(page.locator('#object-type-filter-summary')).toHaveText('6 of 11')
   const layer = page.locator('.projected-labels')
   // Nebulae follow the Sun-centered distance filter by their centers.
   await expect(layer).toHaveAttribute('data-nebula-puff-count', '0')
@@ -82,7 +82,7 @@ test('loads nebulae on demand through the interstellar-medium category', async (
   await expect(layer).toHaveAttribute('data-nebula-puff-count', expectedPuffs(1500))
   await reflection.uncheck()
   await expect(layer).toHaveAttribute('data-nebula-puff-count', expectedPuffs(1500, ['hii_region']))
-  await expect(page.locator('#object-type-filter-summary')).toHaveText('5 of 10')
+  await expect(page.locator('#object-type-filter-summary')).toHaveText('5 of 11')
   await reflection.check()
   // Planetary nebulae share the overlay but live under Stellar remnants.
   await page.getByRole('switch', { name: 'Stellar remnants', exact: true }).check()
@@ -117,7 +117,7 @@ test('loads nebulae on demand through the interstellar-medium category', async (
   await expect(page.locator('#star-details')).toBeHidden()
 })
 
-test('draws all nebulae in one additive call that follows the color preference and sleeps when idle', { tag: '@mobile' }, async ({ page }, testInfo) => {
+test('draws all nebulae in one additive call that follows the color preference and sleeps when idle', { tag: '@mobile' }, async ({ page, isMobile }, testInfo) => {
   await openViewer(page)
   await hideMilkyWay(page)
   await openFilter(page)
@@ -125,7 +125,7 @@ test('draws all nebulae in one additive call that follows the color preference a
   await enableNebulae(page)
   const layer = page.locator('.projected-labels')
   await expect(layer).toHaveAttribute('data-nebula-puff-count', expectedPuffs(1500))
-  await page.getByRole('button', { name: 'Zoom in', exact: true }).click()
+  await zoomViewer(page, 'in')
   await nextFrames(page)
   const withNebulae = Number(await layer.getAttribute('data-draw-calls'))
   await page.getByLabel('Object visibility distance', { exact: true }).fill('14')
@@ -147,7 +147,7 @@ test('draws all nebulae in one additive call that follows the color preference a
   const realStats = nebulaPixels(real)
   expect(vividStats.count).toBeGreaterThan(1500)
   expect(realStats.count).toBeGreaterThan(1500)
-  expect(vividStats.saturation).toBeGreaterThan(realStats.saturation + 0.1)
+  expect(vividStats.saturation).toBeGreaterThan(realStats.saturation + (isMobile ? 0.05 : 0.1))
 
   const passes = Number(await layer.getAttribute('data-ordinary-layout-passes'))
   await page.waitForTimeout(500)

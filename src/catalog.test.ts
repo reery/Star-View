@@ -165,6 +165,7 @@ describe('object catalog', () => {
     ['reflection_nebula', 'Reflection nebula'],
     ['hii_region', 'H II region'],
     ['planetary_nebula', 'Planetary nebula'],
+    ['bubble', 'Bubble'],
   ] as const)('labels the %s overlay type but rejects it in catalog CSV', (type, label) => {
     expect(objectTypeLabel(type)).toBe(label)
     expect(describeObject({ type, spectral_type: null })).toBe(label)

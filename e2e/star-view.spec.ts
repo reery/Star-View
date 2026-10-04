@@ -4,7 +4,7 @@ import { readFileSync } from 'node:fs'
 import { Box3, PerspectiveCamera, Sphere, Spherical, Vector3 } from 'three'
 import { parseStarCatalog, type Star } from '../src/catalog'
 import { galacticToWorld, LIGHT_YEARS_PER_PARSEC } from '../src/astronomy'
-import { arrowPixelMask, hideEarthOrbit, hideMilkyWay, isolatedArrows, measureArrowShaft, motionArrows, openFilter, openPreferences, openViewer, selectCatalog, starPoint, type MotionArrowSnapshot } from './support'
+import { arrowPixelMask, hideEarthOrbit, hideMilkyWay, isolatedArrows, measureArrowShaft, motionArrows, openFilter, openPreferences, openViewer, selectCatalog, starPoint, zoomViewer, type MotionArrowSnapshot } from './support'
 
 function resetCamera(stars: readonly Star[], bounds: { width: number; height: number }, selectedId: string | null, distanceScale = 1) {
   const sun = galacticToWorld(stars.find((star) => star.id === 'sun')!)
@@ -68,8 +68,9 @@ test('loads compact remnants on demand and shows type-specific sourced fields', 
   await page.locator('details.filter-dropdown > summary').click()
   await page.getByLabel('Black holes', { exact: true }).check()
   await expect(page.locator('#catalog-count')).toHaveText(/\/291$/)
-  await expect(page.locator('#scene')).toHaveAttribute('data-grid-spacing-pc', '0.5')
-  await expect(page.locator('#scene')).toHaveAttribute('data-grid-half-size-pc', '31')
+  await expect(page.locator('#grid-spacing')).toHaveText('5 ly grid')
+  expect(Number(await page.locator('#scene').getAttribute('data-grid-spacing-pc'))).toBeCloseTo(5 / LIGHT_YEARS_PER_PARSEC)
+  expect(Number(await page.locator('#scene').getAttribute('data-grid-half-size-pc'))).toBeCloseTo(75 / LIGHT_YEARS_PER_PARSEC)
   expect(compactRequests).toHaveLength(1)
   await page.getByLabel('Object visibility distance', { exact: true }).fill('22')
   await page.getByRole('button', { name: 'Objects', exact: true }).click()
@@ -104,10 +105,10 @@ test('adds the bright-star catalog as a deduplicated optional overlay', async ({
   await openFilter(page)
   const toggle = page.getByRole('switch', { name: 'Always show bright stars' })
   await expect(toggle).not.toBeChecked()
-  await page.getByRole('button', { name: 'Zoom in' }).click()
+  await zoomViewer(page, 'in')
   const sunBeforeToggle = await starPoint(page, 'sun')
   const gridBeforeToggle = await page.locator('#scene').getAttribute('data-grid-half-size-pc')
-  expect(gridBeforeToggle).toBe('31')
+  expect(gridBeforeToggle).not.toBeNull()
   await toggle.check()
   await expect(page.locator('#catalog-count')).toHaveText(/\/133$/)
   await expect(page.locator('[data-star="bright-canopus"]')).toHaveCount(0)
@@ -123,9 +124,8 @@ test('adds the bright-star catalog as a deduplicated optional overlay', async ({
   await distance.fill('22')
   await expect(page.locator('#object-distance-limit-value')).toHaveText('3000 ly')
   await expect(distance).toHaveAttribute('aria-valuetext', '3000 light-years')
-  await expect(page.locator('#grid-spacing')).toHaveText('195.69 ly grid')
-  await expect(page.locator('#scene')).toHaveAttribute('data-grid-spacing-pc', '60')
-  await expect(page.locator('#scene')).toHaveAttribute('data-grid-half-size-pc', '920')
+  await expect(page.locator('#grid-spacing')).toHaveText('5 ly grid')
+  await expect(page.locator('#scene')).toHaveAttribute('data-grid-half-size-pc', gridBeforeToggle!)
   await expect(page.locator('.projected-labels')).toHaveAttribute('data-core-count', '133')
   await expect(page.locator('[data-star="bright-canopus"]')).toHaveCount(1)
 
@@ -154,8 +154,9 @@ test('adds independent Western constellation and famous-cluster landmark layers'
   await distance.fill('24')
   await expect(page.locator('#object-distance-limit-value')).toHaveText('10000 ly')
   await expect(distance).toHaveAttribute('aria-valuetext', '10000 light-years')
-  await expect(page.locator('#scene')).toHaveAttribute('data-grid-spacing-pc', '200')
-  await expect(page.locator('#scene')).toHaveAttribute('data-grid-half-size-pc', '3067')
+  await expect(page.locator('#grid-spacing')).toHaveText('2,000 ly grid')
+  expect(Number(await page.locator('#scene').getAttribute('data-grid-spacing-pc'))).toBeCloseTo(2_000 / LIGHT_YEARS_PER_PARSEC)
+  expect(Number(await page.locator('#scene').getAttribute('data-grid-half-size-pc'))).toBeCloseTo(50_000 / LIGHT_YEARS_PER_PARSEC)
 
   await bright.uncheck()
   await western.uncheck()
@@ -310,7 +311,7 @@ test('switches project catalogs while preserving settings and compatible selecti
   await page.getByLabel('Object visibility distance', { exact: true }).fill('3')
   await page.getByLabel('Arrow length', { exact: true }).selectOption('50000')
   await page.getByRole('button', { name: 'Grid', exact: true }).click()
-  await page.getByRole('button', { name: 'Zoom in', exact: true }).click()
+  await zoomViewer(page, 'in')
   const sunBeforeCatalogSwitch = await starPoint(page, 'sun')
   const siriusBeforeCatalogSwitch = await starPoint(page, 'sirius-a')
   for (const id of ['nearest-100', 'nearest-neighbors', 'nearest-100']) {
@@ -397,7 +398,7 @@ test('defaults to light-years, converts every distance without moving the camera
   await expect(page.locator('#viewer-distance')).toHaveText(/^[\d,.]+ ly$/)
   await expect(page.locator('#distance-value')).toHaveText('8.61')
   await expect(page.locator('#star-distance')).toHaveText('8.61 ly')
-  await expect(page.locator('#grid-spacing')).toHaveText('1.63 ly grid')
+  await expect(page.locator('#grid-spacing')).toHaveText('5 ly grid')
   await expect(page.locator('.distance-label')).toHaveText('8.61 ly')
   await expect(page.locator('.height-label')).toHaveCount(0)
   await expect(page.locator('#coordinate-x')).toHaveText(/ ly$/)
@@ -412,7 +413,7 @@ test('defaults to light-years, converts every distance without moving the camera
   expect(viewerDistancePc).toBeCloseTo(viewerDistanceLy / 3.261563777, 1)
   await expect(page.locator('#distance-value')).toHaveText('2.64')
   await expect(page.locator('#star-distance')).toHaveText('2.64 pc')
-  await expect(page.locator('#grid-spacing')).toHaveText('0.5 pc grid')
+  await expect(page.locator('#grid-spacing')).toHaveText('2 pc grid')
   expect(await starPoint(page, 'sun')).toEqual(before)
   await page.reload()
   await expect(page.locator('#scene')).toHaveAttribute('data-ready', 'true')
@@ -462,8 +463,7 @@ test('renders faint objects as small colored cores without halos at either pixel
   await openFilter(page)
   await page.getByRole('button', { name: 'Grid', exact: true }).click()
   await page.getByLabel('V magnitude limit', { exact: true }).fill('12')
-  await page.getByRole('button', { name: 'Zoom in', exact: true }).click()
-  await page.getByRole('button', { name: 'Zoom in', exact: true }).click()
+  await zoomViewer(page, 'in', 2)
   const canvas = page.locator('#scene canvas')
   const bounds = (await canvas.boundingBox())!
   const point = await starPoint(page, 'barnards-star')
@@ -559,7 +559,7 @@ test('presents the selected object beside an expandable control dock', async ({ 
   await expect(page.locator('.selected-object > summary')).toHaveCount(0)
   await expect(page.locator('.selected-object')).toHaveCSS('border-radius', '11px')
   await expect(page.locator('.dock-card:visible')).toHaveCount(0)
-  const panelButtons = page.locator('.panel-button')
+  const panelButtons = page.locator('#control-dock .panel-button')
   await expect(panelButtons).toHaveCount(5)
   expect(await panelButtons.evaluateAll((buttons) => buttons.map((button) => button.getAttribute('aria-label')))).toEqual(['Stellar motion', 'Filter', 'Preferences', 'Objects', 'Info'])
   expect(await panelButtons.evaluateAll((buttons) => buttons.map((button) => button.getAttribute('aria-expanded')))).toEqual(['false', 'false', 'false', 'false', 'false'])
@@ -635,7 +635,7 @@ test('presents the selected object beside an expandable control dock', async ({ 
   await expect(page.locator('#object-categories .toggle-text > span:first-child')).toHaveText(categoryNames)
   for (const [name, checked, available] of [
     ['Compact objects', true, true], ['Stellar systems', false, false], ['Interstellar medium', false, true],
-    ['Stellar remnants', false, true], ['Large-scale structures', false, false],
+    ['Stellar remnants', false, true], ['Large-scale structures', false, true],
   ] as const) {
     const toggle = page.getByRole('switch', { name, exact: true })
     await expect(toggle).toBeChecked({ checked })
@@ -667,14 +667,14 @@ test('presents the selected object beside an expandable control dock', async ({ 
     ['Binaries', 'Multiple systems'],
     ['Molecular clouds', 'Dark nebulae', 'Reflection nebulae', 'H II regions'],
     ['Planetary nebulae', 'Supernova remnants', 'Pulsar-wind nebulae'],
-    ['Bubbles', 'Superbubbles', 'Dust sheets', 'Local Bubble'],
+    ['Bubbles', 'Superbubbles', 'Dust sheets'],
   ]
   const typeDropdown = page.locator('details.filter-dropdown')
   await expect(typeDropdown).not.toHaveAttribute('open')
   await expect(page.locator('#object-type-options')).toBeHidden()
   await typeDropdown.locator('summary').click()
   await expect(page.locator('#object-type-options')).toBeVisible()
-  await expect(page.locator('#object-type-filter-summary')).toHaveText('4 of 10')
+  await expect(page.locator('#object-type-filter-summary')).toHaveText('4 of 11')
   await expect(page.locator('.type-group-heading')).toHaveText(categoryNames)
   await expect(page.locator('.object-type-option > span:not(.filter-hint)')).toHaveText(typeGroups.flat())
   const option = (name: string) => page.getByLabel(name, { exact: true })
@@ -690,7 +690,9 @@ test('presents the selected object beside an expandable control dock', async ({ 
     await expect(option(name)).toBeChecked()
     await expect(option(name)).toBeDisabled()
   }
-  for (const name of [...typeGroups[1]!, ...typeGroups[2]!.slice(0, 2), ...typeGroups[3]!.slice(1), ...typeGroups[4]!]) {
+  await expect(option('Bubbles')).toBeChecked()
+  await expect(option('Bubbles')).toBeDisabled()
+  for (const name of [...typeGroups[1]!, ...typeGroups[2]!.slice(0, 2), ...typeGroups[3]!.slice(1), ...typeGroups[4]!.slice(1)]) {
     await expect(option(name)).not.toBeChecked()
     await expect(option(name)).toBeDisabled()
     await expect(option(name)).toHaveAccessibleDescription('No data yet')
@@ -814,13 +816,13 @@ test('filters the map and object browser even when an excluded object is selecte
   const stars = page.getByLabel('Stars', { exact: true })
   const sunChoice = page.getByLabel('Sun', { exact: true })
   const brownDwarfs = page.getByLabel('Brown dwarfs', { exact: true })
-  await expect(page.locator('#object-type-filter-summary')).toHaveText('4 of 10')
+  await expect(page.locator('#object-type-filter-summary')).toHaveText('4 of 11')
   await stars.uncheck()
-  await expect(page.locator('#object-type-filter-summary')).toHaveText('3 of 10')
+  await expect(page.locator('#object-type-filter-summary')).toHaveText('3 of 11')
   await expect(sun).toHaveAttribute('data-map-visible', 'true')
   await expect(sun).toBeVisible()
   await sunChoice.uncheck()
-  await expect(page.locator('#object-type-filter-summary')).toHaveText('2 of 10')
+  await expect(page.locator('#object-type-filter-summary')).toHaveText('2 of 11')
   await expect(sun).toHaveCount(0)
   await stars.check()
   await expect(sun).toHaveCount(0)
@@ -828,7 +830,7 @@ test('filters the map and object browser even when an excluded object is selecte
   await expect(sun).toHaveAttribute('data-map-visible', 'true')
   await expect(sun).toBeVisible()
   await brownDwarfs.uncheck()
-  await expect(page.locator('#object-type-filter-summary')).toHaveText('3 of 10')
+  await expect(page.locator('#object-type-filter-summary')).toHaveText('3 of 11')
   await expect(luhmanA).toHaveAttribute('data-map-visible', 'false')
   await expect(luhmanA).toBeHidden()
   await expect(luhmanB).toHaveCount(0)
@@ -1078,7 +1080,7 @@ test('shrinks distant star cores while retaining bright glare around a 1,000-lig
   }
 
   const near = PNG.sync.read(await canvas.screenshot({ ...options, path: testInfo.outputPath('sirius-near-glow.png') }))
-  for (let count = 0; count < 12; count++) await page.getByRole('button', { name: 'Zoom out', exact: true }).click()
+  await zoomViewer(page, 'out', 12)
   await expect.poll(() => starPoint(page, 'sirius-a')).toEqual(sirius)
   const far = PNG.sync.read(await canvas.screenshot({ ...options, path: testInfo.outputPath('sirius-far-glow.png') }))
   const nearGlow = sample(near, 6, 14)
@@ -1109,7 +1111,7 @@ test('keeps the magnitude-7 all-catalog overview from washing out at roughly 1,0
   const canvas = page.locator('#scene canvas')
   const bounds = (await canvas.boundingBox())!
   await page.mouse.click(bounds.x + bounds.width * 0.15, bounds.y + bounds.height * 0.85)
-  for (let count = 0; count < 12; count++) await page.getByRole('button', { name: 'Zoom out', exact: true }).click()
+  await zoomViewer(page, 'out', 12)
   const image = PNG.sync.read(await canvas.screenshot({
     scale: 'css',
     path: testInfo.outputPath('all-catalogs-1000ly.png'),
@@ -1146,8 +1148,7 @@ test('makes Sirius glow larger and brighter than Barnard with zoom-stable magnit
   for (const [id, name] of [['sirius-a', 'Sirius A'], ['barnards-star', "Barnard's Star"]]) {
     await page.getByRole('button', { name: 'Reset view', exact: true }).click()
     await page.getByRole('button', { name: `Select ${name}`, exact: true }).click()
-    await page.getByRole('button', { name: 'Zoom in', exact: true }).click()
-    await page.getByRole('button', { name: 'Zoom in', exact: true }).click()
+    await zoomViewer(page, 'in', 2)
     await page.mouse.click(bounds.x + bounds.width * 0.15, bounds.y + bounds.height * 0.85)
     await expect(page.locator('.map-anchor.is-selected')).toHaveCount(0)
     const point = await starPoint(page, id!)
@@ -1193,7 +1194,7 @@ test('makes Sirius glow larger and brighter than Barnard with zoom-stable magnit
       expect(beforeZoom.radius).toBeLessThan(11)
       expect(beforeZoom.outerPixels).toBe(0)
     }
-    await page.getByRole('button', { name: 'Zoom in', exact: true }).click()
+    await zoomViewer(page, 'in')
     await expect.poll(() => starPoint(page, id!)).toEqual(point)
     isArrowPixel = arrowPixelMask(await motionArrows(page), bounds)
     const afterZoom = extent(PNG.sync.read(await canvas.screenshot(options)))
@@ -1215,8 +1216,7 @@ test('keeps bright and selected halos strongly temperature-tinted without clippi
     await page.getByRole('button', { name: 'Reset view', exact: true }).click()
     const select = page.getByRole('button', { name: `Select ${name}`, exact: true })
     await select.click()
-    await page.getByRole('button', { name: 'Zoom in', exact: true }).click()
-    await page.getByRole('button', { name: 'Zoom in', exact: true }).click()
+    await zoomViewer(page, 'in', 2)
     await page.mouse.click(bounds.x + bounds.width * 0.15, bounds.y + bounds.height * 0.85)
     await expect(page.locator('.map-anchor.is-selected')).toHaveCount(0)
     const colors: { red: number; green: number; blue: number }[] = []
@@ -1400,8 +1400,7 @@ test('fades grid pixels toward the edge without fading the scene', { tag: '@mobi
   await page.getByLabel('Object visibility distance', { exact: true }).fill('0')
   await page.getByRole('button', { name: 'Filter', exact: true }).click()
   await page.getByRole('button', { name: 'Reset view', exact: true }).click()
-  await page.getByRole('button', { name: 'Zoom out', exact: true }).click()
-  await page.getByRole('button', { name: 'Zoom out', exact: true }).click()
+  await zoomViewer(page, 'out', 2)
   const canvas = page.locator('#scene canvas')
   const bounds = (await canvas.boundingBox())!
   const options = { scale: 'css' as const, style: '.projected-axes, .projected-labels, .scene-toolbar, .scene-brand, .scene-legend, .plane-key, .visibility-observer { visibility: hidden !important; }' }
@@ -1410,9 +1409,16 @@ test('fades grid pixels toward the edge without fading the scene', { tag: '@mobi
   const off = PNG.sync.read(await canvas.screenshot(options))
   const stars = parseStarCatalog(readFileSync(new URL('../src/data/stars.csv', import.meta.url), 'utf8'))
   const camera = resetCamera(stars, bounds, 'sirius-a', 1.3 ** 2)
-  const radius = 3
-  const brightness = [0.25, 0.75, 0.95, 1.1].map((fraction) => {
-    const point = new Vector3(radius * fraction, 0, 0.5).project(camera)
+  const radius = Number(await page.locator('#scene').getAttribute('data-grid-half-size-pc'))
+  const spacing = Number(await page.locator('#scene').getAttribute('data-grid-spacing-pc'))
+  const compressedDirection = new Vector3(4.8, 0, 6.2).normalize()
+  const brightness = [0.6, 0.75, 0.95, 1.1].map((fraction) => {
+    const radial = compressedDirection.clone().multiplyScalar(radius * fraction)
+    const point = new Vector3(
+      Math.round(radial.x / spacing) * spacing,
+      0,
+      Math.round(radial.z / spacing) * spacing,
+    ).project(camera)
     const centerX = Math.round((point.x + 1) * bounds.width / 2)
     const centerY = Math.round((1 - point.y) * bounds.height / 2)
     let brightest = 0
@@ -1542,7 +1548,7 @@ test('targets ordinary selections, zooms around them, and resets around the sele
   const focusedSun = await starPoint(page, 'sun')
   const beforeZoom = await starPoint(page, 'alpha-centauri-a')
   const separationBefore = Math.hypot(beforeZoom.x - focusedSun.x, beforeZoom.y - focusedSun.y)
-  await page.getByRole('button', { name: 'Zoom in', exact: true }).click()
+  await zoomViewer(page, 'in')
   await expect.poll(async () => {
     const first = await starPoint(page, 'sun')
     const second = await starPoint(page, 'alpha-centauri-a')
@@ -1649,7 +1655,7 @@ test('eases focus through intermediate frames while preserving camera position',
   }
 })
 
-test('interrupts focus for reset, zoom and rapid reselection', async ({ page }) => {
+test('interrupts focus for reset, wheel zoom and rapid reselection', async ({ page }) => {
   await page.emulateMedia({ reducedMotion: 'no-preference' })
   await openViewer(page)
   await page.getByRole('button', { name: 'Objects', exact: true }).click()
@@ -1668,8 +1674,20 @@ test('interrupts focus for reset, zoom and rapid reselection', async ({ page }) 
       await new Promise<void>((resolve) => {
         function sample(time: number) {
           if (!interrupted && time - started >= 70) {
-            const selector = action === 'reselect' ? '[data-star="sirius-a"]' : `#${action}`
-            document.querySelector<HTMLButtonElement>(selector)!.click()
+            if (action === 'zoom-in' || action === 'zoom-out') {
+              const canvas = document.querySelector<HTMLCanvasElement>('#scene canvas')!
+              const bounds = canvas.getBoundingClientRect()
+              canvas.dispatchEvent(new WheelEvent('wheel', {
+                bubbles: true,
+                cancelable: true,
+                clientX: bounds.x + bounds.width / 2,
+                clientY: bounds.y + bounds.height / 2,
+                deltaY: action === 'zoom-in' ? -512 : 512,
+              }))
+            } else {
+              const selector = action === 'reselect' ? '[data-star="sirius-a"]' : `#${action}`
+              document.querySelector<HTMLButtonElement>(selector)!.click()
+            }
             interrupted = true
           } else if (interrupted) frames.push(point())
           if (time - started >= 550) resolve()
@@ -1969,9 +1987,9 @@ test('shows attached travel-length motion arrows with selectable horizons', { ta
   await page.getByRole('button', { name: 'Reset view', exact: true }).click()
   await expect.poll(async () => arrowFor(await motionArrows(page), 'sirius-a') !== undefined).toBe(true)
   const resetDistance = arrowFor(await motionArrows(page), 'sirius-a')!.projectedDistance
-  await page.getByRole('button', { name: 'Zoom in', exact: true }).click()
+  await zoomViewer(page, 'in')
   expect(arrowFor(await motionArrows(page), 'sirius-a')!.projectedDistance).toBeGreaterThan(resetDistance)
-  await page.getByRole('button', { name: 'Zoom out', exact: true }).click()
+  await zoomViewer(page, 'out')
   expectAttached(await motionArrows(page))
   await expect(page.locator('.motion-arrow')).toHaveCount(0)
   await sceneFits(page)
@@ -2015,7 +2033,7 @@ test('draws dashed transverse and solid full-motion shafts with a zoom-stable st
   const strokeWidths: number[] = []
   // The smaller mobile canvas needs more zoom before shafts stand apart.
   for (const zoomSteps of [isMobile ? 5 : 2, 1]) {
-    for (let step = 0; step < zoomSteps; step++) await page.getByRole('button', { name: 'Zoom in', exact: true }).click()
+    await zoomViewer(page, 'in', zoomSteps)
     const totals = { full: { samples: 0, gaps: 0, width: 0, shafts: 0 }, transverse: { samples: 0, gaps: 0, width: 0, shafts: 0 } }
     // Full Galactic-rest velocities are generally much faster than the
     // transverse-only subset, so use a horizon that keeps each mode measurable.
@@ -2188,7 +2206,7 @@ test('clears selection on empty-sky clicks and taps without moving the camera', 
     expect(actual.x).toBeCloseTo(bounds.x + (projected.x + 1) * bounds.width / 2, 0)
     expect(actual.y).toBeCloseTo(bounds.y + (1 - projected.y) * bounds.height / 2, 0)
   }
-  await page.getByRole('button', { name: 'Zoom in', exact: true }).click()
+  await zoomViewer(page, 'in')
   await expect(page.locator('#selected-object-card')).toBeHidden()
   const point = await starPoint(page, 'alpha-centauri-a')
   if (isMobile) await page.touchscreen.tap(point.x, point.y)

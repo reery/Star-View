@@ -1,9 +1,10 @@
 import './style.css'
 import { ArrowLeft, ArrowRight, CircleHelp, Clock, Crosshair, Eye, Filter, Focus, Grid2X2, List, Lock, Minus, Orbit, Pause, Play, Plus, RotateCcw, RotateCw, Save, Settings2, Star as StarIcon, Trash2, createElement, type IconNode } from 'lucide'
-import { COMPACT_OBJECT_TYPES, describeObject, isCompactObject, isNebulaObject, NEBULA_OBJECT_TYPES, type Star } from './catalog-model'
+import { BUBBLE_OBJECT_TYPES, COMPACT_OBJECT_TYPES, describeObject, isBubbleObject, isCompactObject, isNebulaObject, NEBULA_OBJECT_TYPES, type Star } from './catalog-model'
 import { catalogSelection, mergeCatalogStars } from './catalog-runtime'
 import { compactOverlayManifest, loadCompactRemnants } from './compact-overlay'
 import { loadNebulae, nebulaOverlayManifest } from './nebula-overlay'
+import { bubbleOverlayManifest, loadBubbles } from './bubble-overlay'
 import { catalogs, catalogErrors } from './registry'
 import { formatDistance, LIGHT_YEARS_PER_PARSEC, starDisplayColor, sunRelativeMetrics, type DistanceUnit, type GridScale, type MotionFrame, type StarColorMode } from './astronomy'
 import { EARTH_ORBIT_MODES, earthOrbitDateForMode, earthOrbitModeLabel, isEarthOrbitMode, type EarthOrbitMode } from './earth-orbit'
@@ -123,7 +124,7 @@ let catalogRequest = 0
 let sceneBusy = true
 const filterCategories = new Set<FilterCategoryId>(DEFAULT_FILTER_CATEGORIES)
 const filterSubtypes = new Set<FilterKey>(DEFAULT_FILTER_SUBTYPES)
-const availableKeys = availableFilterKeys(compactOverlayManifest.counts, nebulaOverlayManifest.counts)
+const availableKeys = availableFilterKeys(compactOverlayManifest.counts, nebulaOverlayManifest.counts, bubbleOverlayManifest.counts)
 let visibleKeys = effectiveFilterKeys(filterCategories, filterSubtypes, availableKeys)
 let distanceUnit: DistanceUnit = 'ly'
 let starColorMode: StarColorMode = 'exaggerated'
@@ -539,10 +540,13 @@ function renderSelection(): void {
   const compactObject = isCompactObject(star)
   const nebula = star.nebula
   const nebulaObject = isNebulaObject(star)
-  for (const row of document.querySelectorAll<HTMLElement>('.stellar-property')) row.hidden = compactObject || nebulaObject
+  const bubble = star.bubble
+  const bubbleObject = isBubbleObject(star)
+  for (const row of document.querySelectorAll<HTMLElement>('.stellar-property')) row.hidden = compactObject || nebulaObject || bubbleObject
   for (const row of document.querySelectorAll<HTMLElement>('.compact-property')) row.hidden = !compactObject
   for (const row of document.querySelectorAll<HTMLElement>('.nebula-property')) row.hidden = !nebulaObject
-  element('mass-row').hidden = nebulaObject
+  for (const row of document.querySelectorAll<HTMLElement>('.bubble-property')) row.hidden = !bubbleObject
+  element('mass-row').hidden = nebulaObject || bubbleObject
   for (const row of document.querySelectorAll<HTMLElement>('.pulsar-property')) row.hidden = star.type !== 'pulsar'
   for (const row of document.querySelectorAll<HTMLElement>('.rotation-property')) row.hidden = star.type === 'black_hole' || !compactObject
   for (const row of document.querySelectorAll<HTMLElement>('.orbit-property')) row.hidden = !compact || (compact.orbital_period_days === null && compact.companion === null)
@@ -583,6 +587,18 @@ function renderSelection(): void {
     source.textContent = nebula.source_label
     source.href = nebula.source_url
   }
+  if (bubble) {
+    const conversion = distanceUnit === 'ly' ? LIGHT_YEARS_PER_PARSEC : 1
+    const extent = (pc: number) => (pc * conversion).toLocaleString('en-US', { maximumFractionDigits: 0 })
+    const [minimum, maximum] = bubble.surface_distance_range_pc
+    text('bubble-designations', bubble.designations.join(', '))
+    text('bubble-average-radius', `${extent(bubble.average_radius_pc)} ${distanceUnit}`)
+    text('bubble-surface-range', `${extent(minimum)}–${extent(maximum)}${bubble.surface_distance_max_open ? '+' : ''} ${distanceUnit}`)
+    text('bubble-shell-thickness', `${extent(bubble.shell_thickness_pc)} ${distanceUnit}`)
+    const source = element<HTMLAnchorElement>('bubble-source')
+    source.textContent = bubble.source_label
+    source.href = bubble.source_url
+  }
   text('coordinate-x', formatDistance(star.x_pc, distanceUnit, 3))
   text('coordinate-y', formatDistance(star.y_pc, distanceUnit, 3))
   text('coordinate-z', formatDistance(star.z_pc, distanceUnit, 3))
@@ -602,7 +618,7 @@ function renderSelection(): void {
   text('proper-motion-ra', raw ? measurement(raw.pm_ra_cosdec_masyr, raw.pm_ra_error_masyr, 'mas/yr', 6) : 'Not available')
   text('proper-motion-dec', raw ? measurement(raw.pm_dec_masyr, raw.pm_dec_error_masyr, 'mas/yr', 6) : 'Not available')
   text('radial-velocity', raw ? measurement(raw.radial_velocity_kms, raw.radial_velocity_error_kms, 'km/s', 6) : 'Not available')
-  text('astrometry-source', raw?.astrometry_ref || compact?.position_source || nebula?.position_source || 'Not available')
+  text('astrometry-source', raw?.astrometry_ref || compact?.position_source || nebula?.position_source || bubble?.position_source || 'Not available')
   text('absolute-mag', quantity(star.absolute_mag))
   text('star-notes', star.notes || 'No source notes available.')
   const referenceName = reference.id === 'sun' ? 'the Sun' : reference.name
@@ -698,9 +714,10 @@ async function switchCatalog(id: string, refresh = false): Promise<void> {
     ])
     const compactObjects = COMPACT_OBJECT_TYPES.some((type) => visibleKeys.has(type)) ? await loadCompactRemnants() : []
     const nebulae = NEBULA_OBJECT_TYPES.some((type) => visibleKeys.has(type)) ? await loadNebulae() : []
+    const bubbles = BUBBLE_OBJECT_TYPES.some((type) => visibleKeys.has(type)) ? await loadBubbles() : []
     const withBrightStars = mergeCatalogStars(selectedCatalog, brightCatalog)
     const withConstellationStars = mergeCatalogStars(withBrightStars, westernConstellationCatalog)
-    nextStars = [...mergeCatalogStars(withConstellationStars, famousClusterCatalog), ...compactObjects, ...nebulae]
+    nextStars = [...mergeCatalogStars(withConstellationStars, famousClusterCatalog), ...compactObjects, ...nebulae, ...bubbles]
   } catch (error) {
     if (request !== catalogRequest) return
     catalogError(error)
@@ -865,7 +882,7 @@ function applyObjectFilter(): void {
   const previous = visibleKeys
   visibleKeys = effectiveFilterKeys(filterCategories, filterSubtypes, availableKeys)
   renderObjectFilter()
-  const overlayChanged = [COMPACT_OBJECT_TYPES, NEBULA_OBJECT_TYPES].some((types) =>
+  const overlayChanged = [COMPACT_OBJECT_TYPES, NEBULA_OBJECT_TYPES, BUBBLE_OBJECT_TYPES].some((types) =>
     types.some((type) => previous.has(type)) !== types.some((type) => visibleKeys.has(type)))
   if (overlayChanged) {
     void switchCatalog(activeCatalogId, true)

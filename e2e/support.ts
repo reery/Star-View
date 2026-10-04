@@ -157,6 +157,36 @@ export async function openViewer(page: Page) {
   await starPoint(page, 'sirius-a')
 }
 
+// The saved-views toolbar replaced the discrete zoom buttons. A wheel delta of
+// about 512 matches the old button's 1.3x OrbitControls dolly step.
+export async function zoomViewer(page: Page, direction: 'in' | 'out', steps = 1) {
+  const canvas = page.locator('#scene canvas')
+  const bounds = await canvas.boundingBox()
+  if (!bounds) throw new Error('Viewer canvas is not visible.')
+  const touch = await page.evaluate(() => navigator.maxTouchPoints > 0)
+  if (touch) {
+    const session = await page.context().newCDPSession(page)
+    const centerX = bounds.x + bounds.width / 2
+    const centerY = bounds.y + bounds.height * 0.6
+    const touches = (spread: number) => [
+      { x: centerX - spread, y: centerY, id: 0 },
+      { x: centerX + spread, y: centerY, id: 1 },
+    ]
+    const startSpread = direction === 'in' ? 20 : 26
+    const endSpread = direction === 'in' ? 26 : 20
+    for (let step = 0; step < steps; step++) {
+      await session.send('Input.dispatchTouchEvent', { type: 'touchStart', touchPoints: touches(startSpread) })
+      await session.send('Input.dispatchTouchEvent', { type: 'touchMove', touchPoints: touches(endSpread) })
+      await session.send('Input.dispatchTouchEvent', { type: 'touchEnd', touchPoints: [] })
+    }
+    await session.detach()
+  } else {
+    await page.mouse.move(bounds.x + bounds.width / 2, bounds.y + bounds.height / 2)
+    await page.mouse.wheel(0, (direction === 'in' ? -512 : 512) * steps)
+  }
+  await page.evaluate(() => new Promise<void>((resolve) => requestAnimationFrame(() => requestAnimationFrame(() => resolve()))))
+}
+
 export async function openPreferences(page: Page) {
   const button = page.getByRole('button', { name: 'Preferences', exact: true })
   if (await button.getAttribute('aria-expanded') === 'false') await button.click()

@@ -14,7 +14,7 @@ describe('object filter taxonomy', () => {
       ['Binaries', 'Multiple systems'],
       ['Molecular clouds', 'Dark nebulae', 'Reflection nebulae', 'H II regions'],
       ['Planetary nebulae', 'Supernova remnants', 'Pulsar-wind nebulae'],
-      ['Bubbles', 'Superbubbles', 'Dust sheets', 'Local Bubble'],
+      ['Bubbles', 'Superbubbles', 'Dust sheets'],
     ])
     expect(new Set(FILTER_KEYS).size).toBe(FILTER_KEYS.length)
   })
@@ -25,7 +25,9 @@ describe('object filter taxonomy', () => {
     expect(filterKeyForObject({ id: 'wise-0855-0714', type: 'sub_brown_dwarf' })).toBe('brown_dwarf')
     expect(filterKeyForObject({ id: 'gaia-bh1', type: 'black_hole' })).toBe('black_hole')
     expect(filterKeyForObject({ id: 'orion-nebula', type: 'hii_region' })).toBe('hii_region')
+    expect(filterKeyForObject({ id: 'local-bubble', type: 'bubble' })).toBe('bubble')
     expect(filterCategoryForKey('hii_region')).toBe('interstellar_medium')
+    expect(filterCategoryForKey('bubble')).toBe('large_scale_structures')
     expect(filterCategoryForKey('sun')).toBe('compact_objects')
   })
 

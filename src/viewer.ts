@@ -12,6 +12,7 @@ import { EARTH_AXIS_DISPLAY_HALF_LENGTH_PC, EARTH_ORBIT_DISPLAY_RADIUS_PC, earth
 import { advanceFrameDeadline, effectiveDampingFactor, estimateRefreshRate, renderPixelRatio, targetRenderFps } from './render-scheduling'
 import { centeredForegroundLabelBounds, chooseOrdinaryLabelPlacement, ordinaryLabelCandidates, overlaps, type LabelRect, type OrdinaryLabelPlacement } from './label-layout'
 import { createNebulaLayer } from './nebula-layer'
+import { createBubbleLayer } from './bubble-layer'
 import { FILTER_KEYS, isFilterKey, type FilterKey } from './object-filter'
 import {
   GUIDE_DASH_PX, GUIDE_GAP_PX, MOTION_ARROW_DASH_PX, MOTION_ARROW_GAP_PX, MOTION_ARROW_HEAD_PX, MOTION_ARROW_STROKE_PX,
@@ -159,6 +160,12 @@ function setHidden(element: HTMLElement, hidden: boolean): void {
   if (element.hidden !== hidden) element.hidden = hidden
 }
 
+function expandBoxByBubbleBounds(box: Box3, star: Pick<Star, 'bubble'>): void {
+  if (!star.bubble) return
+  const { x, y, z } = star.bubble.reported_bounds_pc
+  for (const xPc of x) for (const yPc of y) for (const zPc of z) box.expandByPoint(new Vector3(xPc, zPc, -yPc))
+}
+
 function setTransform(element: HTMLElement, transform: string): void {
   if (element.style.transform !== transform) element.style.transform = transform
 }
@@ -226,6 +233,7 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
   const starColors = stars.map((star) => starDisplayColor(star, starColorMode))
   const starColorStyles = starColors.map((color) => color.getStyle())
   const starBounds = new Box3().setFromPoints(pickable.map((star) => star.position))
+  stars.forEach((star) => expandBoxByBubbleBounds(starBounds, star))
   const catalogSphere = starBounds.getBoundingSphere(new Sphere())
   catalogSphere.radius = Math.max(catalogSphere.radius, 0.75)
   const homeDirection = new Vector3(-4.8, 3.8, -6.2).normalize()
@@ -519,6 +527,13 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
     const [, major, minor] = stars[index]!.nebula!.shape.semi_axes_pc
     return 0.6 * Math.max(major, minor)
   })
+  const bubbleIndices = stars.flatMap((star, index) => star.bubble ? [index] : [])
+  const isBubble = new Uint8Array(stars.length)
+  for (const index of bubbleIndices) isBubble[index] = 1
+  const bubbleLayer = bubbleIndices.length > 0
+    ? createBubbleLayer(bubbleIndices.map((index) => stars[index]!), starColorMode)
+    : null
+  if (bubbleLayer) scene.add(bubbleLayer.mesh)
 
   // Screen-space motion arrows: one instanced quad per arrow, positioned in canvas CSS px each frame.
   const arrowCapacity = Math.max(1, motions.filter(Boolean).length)
@@ -697,6 +712,7 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
   const labelLayer = document.createElement('div')
   labelLayer.className = 'projected-labels'
   labelLayer.setAttribute('aria-hidden', 'true')
+  if (bubbleLayer) labelLayer.dataset.bubbleTriangleCount = String(bubbleLayer.triangleCount())
   container.append(labelLayer)
 
   function makeLabel(position: Vector3, content: string, className: string, starId?: string): MapLabel {
@@ -1270,7 +1286,7 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
     if (rankingChanged) {
       rankedCandidates = stars.map((star, index) => ({
         index,
-        priority: star.id === selectedId ? 0 : isNebula[index] ? 1 : 2,
+        priority: star.id === selectedId ? 0 : isNebula[index] || isBubble[index] ? 1 : 2,
         magnitude: apparentMagnitudes[index]!,
       })).sort(compareMapLabelCandidates)
       rankedBaseId = visibilityBase.id
@@ -1282,7 +1298,7 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
     stars.forEach((star, index) => {
       const magnitude = apparentMagnitudes[index]!
       // Extended nebulae have no point magnitude; their names stay eligible.
-      const tier = star.id === visibilityBase.id ? 'base' : isNebula[index] || magnitude <= magnitudeLimit ? 'eligible' : 'background'
+      const tier = star.id === visibilityBase.id ? 'base' : isNebula[index] || isBubble[index] || magnitude <= magnitudeLimit ? 'eligible' : 'background'
       const visible = isObjectMapVisible(
         star,
         visibleKeys,
@@ -1301,13 +1317,18 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
       haloOpacities.setX(index, tier === 'background' ? 0 : starHaloOpacity(haloMagnitude, star.id === selectedId))
       haloDiameters.setX(index, starHaloDiameter(haloMagnitude))
       haloEmphases.setX(index, haloEmphasis)
-      if (isNebula[index]) return
+      if (isNebula[index] || isBubble[index]) return
       if (visible && index !== observerIndex) coreIndices.setX(coreCount++, index)
       if (visible && index !== observerIndex && tier !== 'background') haloIndices.setX(haloCount++, index)
     })
     if (nebulaLayer) {
       nebulaLayer.setVisible(nebulaIndices.map((index) => mapVisible[index] === 1 && index !== observerIndex))
       labelLayer.dataset.nebulaPuffCount = String(nebulaLayer.instanceCount())
+    }
+    if (bubbleLayer) {
+      const bubbleVisibility = bubbleIndices.map((index) => mapVisible[index] === 1 && index !== observerIndex)
+      bubbleLayer.setVisible(bubbleVisibility)
+      labelLayer.dataset.bubbleVisibleCount = String(bubbleVisibility.filter(Boolean).length)
     }
     coreIndices.needsUpdate = true
     coreDiameters.needsUpdate = true
@@ -1600,7 +1621,7 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
       starObstacles.clear()
       const radius = STAR_DIAMETER_PX / 2
       for (const projected of projectedPickables) {
-        if (isNebula[projected.index] || !starBlocksLabels(tiers[projected.index]!)) continue
+        if (isNebula[projected.index] || isBubble[projected.index] || !starBlocksLabels(tiers[projected.index]!)) continue
         const obstacle = starObstacleEntries[projected.index]!
         obstacle.depth = projected.depth
         obstacle.bounds.left = projected.x - radius
@@ -1713,6 +1734,7 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
     controlsSettling = false
     const previousSelectedId = selectedId
     selectedId = id
+    bubbleLayer?.setSelected(id)
     obstacleBoundsDirty = true
     if (star && !observerViewEnabled) visibilityBase = star
     updatePresentation()
@@ -1781,7 +1803,9 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
   function fitHome(): void {
     homeBounds.makeEmpty()
     pickable.forEach(({ position }, index) => {
-      if (mapVisible[index]) homeBounds.expandByPoint(position)
+      if (!mapVisible[index]) return
+      homeBounds.expandByPoint(position)
+      expandBoxByBubbleBounds(homeBounds, stars[index]!)
     })
     if (homeBounds.isEmpty()) homeBounds.expandByPoint(origin)
     homeBounds.getBoundingSphere(homeSphere)
@@ -1802,7 +1826,10 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
     homeBounds.makeEmpty()
     homeBounds.expandByPoint(pickable[referenceIndex]!.position)
     const selected = selectedId === null ? undefined : starsById.get(selectedId)
-    if (selected && selected.index !== referenceIndex) homeBounds.expandByPoint(pickable[selected.index]!.position)
+    if (selected && selected.index !== referenceIndex) {
+      homeBounds.expandByPoint(pickable[selected.index]!.position)
+      expandBoxByBubbleBounds(homeBounds, selected.star)
+    }
     homeBounds.getBoundingSphere(homeSphere)
     let distance = 50 / LIGHT_YEARS_PER_PARSEC
     if (selected && selected.index !== referenceIndex) {
@@ -2286,6 +2313,7 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
       })
       starColorAttribute.needsUpdate = true
       nebulaLayer?.setColorMode(mode)
+      bubbleLayer?.setColorMode(mode)
       for (const [index, label] of activeStarLabels) label.anchor.style.setProperty('--star-color', starColorStyles[index]!)
       requestRender()
     },
@@ -2355,6 +2383,7 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
       arrowGeometry.dispose()
       arrowMaterial.dispose()
       nebulaLayer?.dispose()
+      bubbleLayer?.dispose()
       dotTexture.dispose()
       earthTexture.dispose()
       haloTexture.dispose()
@@ -2378,6 +2407,7 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
       delete container.dataset.milkyWayVisible
       delete container.dataset.simulationYears
       delete container.dataset.followTarget
+      delete labelLayer.dataset.bubbleTriangleCount
     },
   }
 }

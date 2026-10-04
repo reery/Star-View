@@ -88,6 +88,12 @@ Nebulae are likewise not valid stellar CSV rows. The hand-curated package under 
 
 The bundled release holds 22 nebulae: 17 reflection nebulae, 4 H II regions and the planetary nebula Sh 2-216, selected by the census rule in [catalog-sourcing.md](catalog-sourcing.md). It places the Orion Nebula (M42) at 388 pc from VLBA parallaxes (Kounkel et al. 2017) as a blister following O'Dell (2001), and the Pleiades reflection nebulosity at the Gaia cluster distance of 135.74 pc (Alfonso & García-Varela 2023) as two dust sheets following Gibson & Nordsieck (2003). Census reflection nebulae and H II regions are ellipsoids (H II regions spherical) and Sh 2-216 is a shell. Sky extents follow apparent sizes; depths, sheet offsets and orientations are illustrative.
 
+## Bubble Overlay
+
+Large interstellar cavities use a third non-stellar package under `src/data/overlays/bubbles/`. A row shares the common selectable scene fields and adds a `bubble` record containing the published mean radius, radial shell-distance range, typical thickness, coordinate bounds, source, colors and a reusable shape. A `directional_grid` shape stores a south-to-north series of wrapped Galactic-longitude radius rows sampled from `shape.origin_pc`; an `analytic` shape remains available for future bubbles without published surfaces.
+
+The first row is the Local Bubble. It follows O'Neill et al. (2024), who report an average dust-shell distance of 170 pc, a 70–600+ pc range, typical 35 pc thickness and coordinate spans of `x=-300..330`, `y=-355..445`, `z=-300..600` pc. The bundled 128 by 64 grid is downsampled from the authors' 786,392-sightline interactive Figure 3 surface. It retains the roughly 500–550 ly characteristic radius while keeping the much narrower 600+ pc northern chimney and lateral tunnels. It is one indexed display mesh, not a claim to reproduce the source point cloud at parsec resolution.
+
 Constellations are the Earth-view IAU regions at the adopted snapshot, assigned offline from sky directions using the IAU Roman/Delporte boundaries. They do not change with visibility observer, units or camera orientation. Every non-Sun object in all four bundled catalogs has one, even without V photometry. Sun displays Not applicable; a legacy/custom unknown displays Not available. Boundary-frame transformation is not physical motion propagation to 1875.
 
 ## Catalog Policy And Provenance

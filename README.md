@@ -10,8 +10,9 @@ This project is still in active development and there are a lot of features to c
 
 - Four bundled stellar catalogs: **Nearest neighbors** (21 objects plus the Sun, default), **Nearest 100**, **Nearest 1000**, and magnitude-limited **Bright stars** within 3000 light-years
 - Optional, separately loaded compact-remnant overlay: 266 ATNF pulsars, Gaia NS1, Gaia BH1 and Gaia BH3 within 3000 light-years; all three type filters start off
+- Optional extended-object overlays for nearby nebulae and a translucent Local Bubble shell downsampled from a published 3D dust surface
 - Orbit, zoom and pan with mouse or touch; selecting an object centers it
-- Type-aware inspector with stellar properties or compact-object rotation, mass, orbital context, detection status and source notes
+- Type-aware inspector with stellar, compact-object, nebula or interstellar-bubble properties and source notes
 - Searchable origin-relative list of objects matching the active distance and object-type filters
 - Map filters for brightness as seen from the selected star, distance from the active origin (to 3000 light-years), object type, and an optional deduplicated bright-star overlay
 - Real or exaggerated temperature colors, magnitude-based glow, motion arrows, a seasonal Earth-orbit reference and an optional Galactic-aligned 360° Milky Way backdrop
@@ -59,7 +60,7 @@ The toolbar has reset view, grid toggle, zoom controls, back/forward navigation 
 
 ## Data
 
-The default catalog is [src/data/stars.csv](src/data/stars.csv); the others are in `src/data/catalogs/<id>/`. The compact-remnant source package is in `src/data/overlays/compact-remnants/`, with frozen authoring inputs under `catalog-work/compact-remnants/`. Builds validate them and generate browser-ready JSON automatically, without downloads or Python. The larger catalogs and overlay use audited, frozen source releases and make only the source-defined completeness claims documented in the sourcing guide.
+The default catalog is [src/data/stars.csv](src/data/stars.csv); the others are in `src/data/catalogs/<id>/`. Separately loaded region and compact-object packages live in `src/data/overlays/`; the compact-remnant authoring inputs are under `catalog-work/compact-remnants/`. Builds validate them and generate browser-ready JSON automatically, without downloads or Python. The larger catalogs and overlays use reviewed, frozen source releases and make only the source-defined completeness claims documented in the sourcing guide.
 
 Positions are a fixed J2000 snapshot in a Sun-centered, Galactic-aligned frame. Colors and glow are illustrative, not calibrated photometry.
 
