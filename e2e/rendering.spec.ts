@@ -113,8 +113,10 @@ async function canvasPixelRatio(page: Page) {
 }
 
 async function expectedPointVertices(page: Page) {
-  return page.locator('.projected-labels').evaluate((layer: HTMLElement) =>
-    Number(layer.dataset.coreCount) + Number(layer.dataset.haloCount))
+  return page.locator('#scene').evaluate((scene: HTMLElement) => {
+    const layer = scene.querySelector<HTMLElement>('.projected-labels')!
+    return Number(layer.dataset.coreCount) + Number(layer.dataset.haloCount) + (scene.dataset.earthOrbitVisible === 'true' ? 1 : 0)
+  })
 }
 
 function percentile(values: readonly number[], percent: number): number | null {

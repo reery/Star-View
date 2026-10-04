@@ -2,7 +2,7 @@ import { Vector3 } from 'three'
 import { describe, expect, it } from 'vitest'
 import {
   EARTH_OBLIQUITY_DEG, EARTH_ORBIT_DISPLAY_RADIUS_PC, EARTH_ORBIT_MODES, earthEclipticLongitude, earthOrbitDateForMode,
-  earthOrbitModeLabel, earthOrbitModel, eclipticVectorToWorld, isEarthOrbitMode,
+  earthOrbitMarker, earthOrbitModeLabel, earthOrbitModel, earthOrbitPoints, eclipticVectorToWorld, isEarthOrbitMode,
 } from './earth-orbit'
 
 function angularDistanceDegrees(first: number, second: number): number {
@@ -33,14 +33,15 @@ describe('Earth orbit reference overlay', () => {
   })
 
   it('keeps the exaggerated ring circular in the J2000 ecliptic plane', () => {
-    const model = earthOrbitModel(new Date('2026-10-03T12:00:00Z'))
-    expect(model.orbitPoints).toHaveLength(181)
-    expect(model.orbitPoints[0]!.distanceTo(model.orbitPoints.at(-1)!)).toBeLessThan(1e-12)
-    expect(model.earthPosition.length()).toBeCloseTo(EARTH_ORBIT_DISPLAY_RADIUS_PC, 9)
-    for (const point of model.orbitPoints) expect(point.length()).toBeCloseTo(EARTH_ORBIT_DISPLAY_RADIUS_PC, 9)
+    const orbitPoints = earthOrbitPoints()
+    const marker = earthOrbitMarker(new Date('2026-10-03T12:00:00Z'))
+    expect(orbitPoints).toHaveLength(181)
+    expect(orbitPoints[0]!.distanceTo(orbitPoints.at(-1)!)).toBeLessThan(1e-12)
+    expect(marker.earthPosition.length()).toBeCloseTo(EARTH_ORBIT_DISPLAY_RADIUS_PC, 9)
+    for (const point of orbitPoints) expect(point.length()).toBeCloseTo(EARTH_ORBIT_DISPLAY_RADIUS_PC, 9)
 
     const eclipticNorth = eclipticVectorToWorld(new Vector3(0, 0, 1)).normalize()
-    for (const point of model.orbitPoints) expect(Math.abs(point.dot(eclipticNorth))).toBeLessThan(2e-11)
+    for (const point of orbitPoints) expect(Math.abs(point.dot(eclipticNorth))).toBeLessThan(2e-11)
   })
 
   it('draws the spin axis at Earth obliquity to the orbit normal', () => {
@@ -52,6 +53,9 @@ describe('Earth orbit reference overlay', () => {
 
   it('rejects invalid dates and display geometry', () => {
     expect(() => earthEclipticLongitude(new Date('invalid'))).toThrow(RangeError)
+    expect(() => earthOrbitMarker(new Date(), 0)).toThrow(RangeError)
+    expect(() => earthOrbitPoints(0)).toThrow(RangeError)
+    expect(() => earthOrbitPoints(1, 8)).toThrow(RangeError)
     expect(() => earthOrbitModel(new Date(), 0)).toThrow(RangeError)
     expect(() => earthOrbitModel(new Date(), 1, 8)).toThrow(RangeError)
   })

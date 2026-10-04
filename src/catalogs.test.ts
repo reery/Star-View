@@ -97,8 +97,8 @@ describe('catalog packages and display settings', () => {
       status: 'withheld-white-dwarf',
       observation: { sourceId: 'gaia-dr3', valueKms: -414.01544 },
     })
-    expect(catalogCoverage(nearest1000)).toMatchObject({ radii: 568, metallicities: 350, ages: 68, masses: 526, luminosities: 505, temperatures: 558 })
-    expect(catalogCoverage(large)).toMatchObject({ masses: 54, luminosities: 38, radii: 40 })
+    expect(catalogCoverage(nearest1000)).toMatchObject({ radii: 585, metallicities: 385, ages: 78, masses: 530, luminosities: 526, temperatures: 559 })
+    expect(catalogCoverage(large)).toMatchObject({ masses: 58, luminosities: 59, radii: 57 })
     expect(small.find((star) => star.id === 'barnards-star')).toMatchObject({ mass_solar: 0.144, radius_solar: 0.1931, luminosity_solar: 0.0035225088 })
     expect(nearest1000.find((star) => star.id === 'cns5-5672')).toMatchObject({ mass_solar: 0.6116, radius_solar: 0.6299 })
   })
@@ -106,7 +106,7 @@ describe('catalog packages and display settings', () => {
   it('keeps the bright landmark catalog bounded and merges it without duplicates', () => {
     expect(bright).toHaveLength(115)
     expect(bright.at(-1)?.name).toBe('Arneb')
-    expect(catalogCoverage(bright)).toMatchObject({ temperatures: 113, masses: 45, luminosities: 99, radii: 98, metallicities: 23, ages: 1, radialVelocities: 114, transverseOnly: 0 })
+    expect(catalogCoverage(bright)).toMatchObject({ temperatures: 113, masses: 45, luminosities: 101, radii: 101, metallicities: 26, ages: 4, radialVelocities: 114, transverseOnly: 0 })
     expect(bright.find((star) => star.name === 'Rigel')).toMatchObject({
       temperature_k: 11968, radius_solar: 74.0262, luminosity_solar: 83226.2, metallicity_dex: -0.159,
     })
@@ -170,7 +170,7 @@ describe('catalog packages and display settings', () => {
     expect(western).toHaveLength(692)
     expect(catalogCoverage(western)).toMatchObject({
       objects: 691, constellations: 691, magnitudes: 691, rawAstrometry: 691,
-      temperatures: 668, masses: 353, luminosities: 626, radii: 626, metallicities: 223, ages: 88,
+      temperatures: 668, masses: 354, luminosities: 627, radii: 627, metallicities: 226, ages: 91,
     })
     expect(provenance).toMatchObject({ figureConstellations: 88, uniqueHipparcosStars: 691 })
     expect(new Set(Object.values(provenance.objects).flatMap((entry: any) => entry.figureConstellations)).size).toBe(88)
@@ -239,7 +239,8 @@ describe('catalog packages and display settings', () => {
     expect(mergeCatalogStars(small, [sirius])).toHaveLength(22)
   })
 
-  it('rebuilds both landmark catalogs exactly from frozen sources', () => {
+  it('rebuilds bright and landmark catalogs exactly from frozen sources', () => {
+    execFileSync('python3', ['scripts/author-bright-stars.py'], { cwd: fileURLToPath(new URL('../', import.meta.url)) })
     execFileSync('python3', ['scripts/author-landmark-stars.py'], { cwd: fileURLToPath(new URL('../', import.meta.url)) })
   })
 
@@ -257,6 +258,9 @@ describe('catalog packages and display settings', () => {
       type: 'neutron_star', mass_solar: 1.9, compact: { confidence: 'candidate' },
     })
     expect(compact.filter((object) => object.type === 'pulsar').every((object) => object.mass_solar === null)).toBe(true)
+    const unsafePayload = JSON.parse(compactPayloadRaw)
+    unsafePayload.objects[0].compact.source_url = 'javascript:alert(1)'
+    expect(() => parseCompactOverlayPayload(unsafePayload, compactManifest)).toThrow(/row/)
   })
 
   it('rejects malformed packages and preserves nullable selection', () => {

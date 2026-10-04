@@ -8,7 +8,7 @@ import { OrbitControls } from 'three/addons/controls/OrbitControls.js'
 import milkyWayImageUrl from './assets/milky-way.jpg'
 import type { Star } from './catalog-model'
 import { apparentVisualMagnitude, displayMotionForStar, formatDistance, galacticToWorld, gridSpacingPc, LIGHT_YEARS_PER_PARSEC, starDisplayColor, type DistanceUnit, type MotionFrame, type MotionMode, type StarColorMode } from './astronomy'
-import { EARTH_AXIS_DISPLAY_HALF_LENGTH_PC, EARTH_ORBIT_DISPLAY_RADIUS_PC, earthOrbitModel } from './earth-orbit'
+import { EARTH_AXIS_DISPLAY_HALF_LENGTH_PC, EARTH_ORBIT_DISPLAY_RADIUS_PC, earthOrbitMarker, earthOrbitPoints } from './earth-orbit'
 import { advanceFrameDeadline, effectiveDampingFactor, estimateRefreshRate, renderPixelRatio, targetRenderFps } from './render-scheduling'
 import { centeredForegroundLabelBounds, chooseOrdinaryLabelPlacement, ordinaryLabelCandidates, overlaps, type LabelRect, type OrdinaryLabelPlacement } from './label-layout'
 import { createNebulaLayer } from './nebula-layer'
@@ -296,12 +296,12 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
   dotTexture.colorSpace = SRGBColorSpace
 
   const initialEarthOrbitDate = options.earthOrbitDate === undefined ? new Date() : options.earthOrbitDate
-  const earthOrbit = earthOrbitModel(initialEarthOrbitDate ?? new Date())
+  const initialEarthMarker = earthOrbitMarker(initialEarthOrbitDate ?? new Date())
   const earthOrbitGroup = new Group()
   earthOrbitGroup.name = 'earth-orbit-reference'
   earthOrbitGroup.position.copy(galacticToWorld(sun))
   const earthOrbitLine = new Line(
-    new BufferGeometry().setFromPoints(earthOrbit.orbitPoints),
+    new BufferGeometry().setFromPoints(earthOrbitPoints()),
     new LineBasicMaterial({ color: 0x5dbfea, transparent: true, opacity: 0.82, depthTest: false, depthWrite: false, toneMapped: false }),
   )
   earthOrbitLine.name = 'earth-orbit-line'
@@ -326,7 +326,7 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
   earthContext.fill()
   const earthTexture = new CanvasTexture(earthCanvas)
   earthTexture.colorSpace = SRGBColorSpace
-  const earthPointGeometry = new BufferGeometry().setFromPoints([earthOrbit.earthPosition])
+  const earthPointGeometry = new BufferGeometry().setFromPoints([initialEarthMarker.earthPosition])
   const earthPoint = new Points(
     earthPointGeometry,
     new PointsMaterial({
@@ -338,8 +338,8 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
   earthPoint.frustumCulled = false
   earthPoint.renderOrder = 5
   const earthAxisGeometry = new BufferGeometry().setFromPoints([
-    earthOrbit.earthPosition.clone().addScaledVector(earthOrbit.axisDirection, -EARTH_AXIS_DISPLAY_HALF_LENGTH_PC),
-    earthOrbit.earthPosition.clone().addScaledVector(earthOrbit.axisDirection, EARTH_AXIS_DISPLAY_HALF_LENGTH_PC),
+    initialEarthMarker.earthPosition.clone().addScaledVector(initialEarthMarker.axisDirection, -EARTH_AXIS_DISPLAY_HALF_LENGTH_PC),
+    initialEarthMarker.earthPosition.clone().addScaledVector(initialEarthMarker.axisDirection, EARTH_AXIS_DISPLAY_HALF_LENGTH_PC),
   ])
   const earthAxisLine = new Line(
     earthAxisGeometry,
@@ -352,17 +352,18 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
   let earthOrbitVisible = initialEarthOrbitDate !== null
   earthOrbitGroup.visible = earthOrbitVisible
   scene.add(earthOrbitGroup)
+  const earthAxisStart = new Vector3()
+  const earthAxisEnd = new Vector3()
 
-  function positionEarthMarker(date: Date): void {
-    const marker = earthOrbitModel(date)
+  function positionEarthMarker(date: Date, marker = earthOrbitMarker(date)): void {
     const pointPositions = earthPointGeometry.getAttribute('position')
     pointPositions.setXYZ(0, marker.earthPosition.x, marker.earthPosition.y, marker.earthPosition.z)
     pointPositions.needsUpdate = true
     const axisPositions = earthAxisGeometry.getAttribute('position')
-    const axisStart = marker.earthPosition.clone().addScaledVector(marker.axisDirection, -EARTH_AXIS_DISPLAY_HALF_LENGTH_PC)
-    const axisEnd = marker.earthPosition.clone().addScaledVector(marker.axisDirection, EARTH_AXIS_DISPLAY_HALF_LENGTH_PC)
-    axisPositions.setXYZ(0, axisStart.x, axisStart.y, axisStart.z)
-    axisPositions.setXYZ(1, axisEnd.x, axisEnd.y, axisEnd.z)
+    earthAxisStart.copy(marker.earthPosition).addScaledVector(marker.axisDirection, -EARTH_AXIS_DISPLAY_HALF_LENGTH_PC)
+    earthAxisEnd.copy(marker.earthPosition).addScaledVector(marker.axisDirection, EARTH_AXIS_DISPLAY_HALF_LENGTH_PC)
+    axisPositions.setXYZ(0, earthAxisStart.x, earthAxisStart.y, earthAxisStart.z)
+    axisPositions.setXYZ(1, earthAxisEnd.x, earthAxisEnd.y, earthAxisEnd.z)
     axisPositions.needsUpdate = true
     container.dataset.earthOrbitDate = date.toISOString().slice(0, 10)
     container.dataset.earthEclipticLongitudeDeg = marker.eclipticLongitudeDeg.toFixed(2)
@@ -764,9 +765,11 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
   const observerDirection = new Vector3()
   const observerDelta = new Vector3()
   const observerScreenUp = new Vector3()
+  const observerZeroRollUp = new Vector3()
   const observerViewBackward = new Vector3()
   const OBSERVER_ORBIT_RADIUS_PC = 1e-6
   const OBSERVER_ROLL_STEP = Math.PI / 12
+  let observerRollRadians = 0
   let savedOrbitSettings: {
     enablePan: boolean
     enableZoom: boolean
@@ -917,6 +920,23 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
     controls.minPolarAngle = savedOrbitSettings.minPolarAngle
     controls.maxPolarAngle = savedOrbitSettings.maxPolarAngle
     savedOrbitSettings = null
+  }
+
+  function applyObserverRollFrame(): void {
+    if (!observerViewEnabled || observerViewAnchorIndex === null) return
+    observerViewBackward.subVectors(camera.position, controls.target).normalize()
+    observerZeroRollUp.copy(worldUp).addScaledVector(observerViewBackward, -worldUp.dot(observerViewBackward))
+    if (observerZeroRollUp.lengthSq() < 1e-12) {
+      observerZeroRollUp.set(0, 1, 0).applyQuaternion(camera.quaternion)
+        .applyAxisAngle(observerViewBackward, -observerRollRadians)
+    }
+    observerZeroRollUp.normalize()
+    observerScreenUp.copy(observerZeroRollUp).applyAxisAngle(observerViewBackward, observerRollRadians)
+    setOrbitUp(observerScreenUp)
+    camera.lookAt(controls.target)
+    container.dataset.observerRollDegrees = String(Math.round(observerRollRadians * 180 / Math.PI))
+    container.dataset.observerViewDirection = `${-observerViewBackward.x},${-observerViewBackward.y},${-observerViewBackward.z}`
+    container.dataset.observerScreenUp = `${observerScreenUp.x},${observerScreenUp.y},${observerScreenUp.z}`
   }
 
   function applyObserverDirection(direction: Vector3): void {
@@ -1769,6 +1789,7 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
     if (enabled === observerViewEnabled) return observerViewEnabled
     const anchor = enabled && anchorId ? starsById.get(anchorId) : undefined
     if (enabled && !anchor) return false
+    observerRollRadians = 0
     observerViewEnabled = enabled
     observerViewAnchorIndex = anchor?.index ?? null
     setOrbitUp(worldUp)
@@ -1782,6 +1803,11 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
     select(selectedId, false)
     if (anchor) placeObserverCamera(anchor.index)
     else reset()
+    if (!enabled) {
+      container.dataset.observerRollDegrees = '0'
+      delete container.dataset.observerViewDirection
+      delete container.dataset.observerScreenUp
+    }
     requestRender()
     return observerViewEnabled
   }
@@ -1791,18 +1817,12 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
     focusTransition = null
     controlsInteracting = false
     controlsSettling = false
-    if (direction === 'center') {
-      setOrbitUp(worldUp)
-    } else {
-      camera.updateMatrixWorld()
-      observerScreenUp.set(0, 1, 0).applyQuaternion(camera.quaternion)
-      observerViewBackward.subVectors(camera.position, controls.target).normalize()
-      const angle = direction === 'clockwise' ? -OBSERVER_ROLL_STEP : OBSERVER_ROLL_STEP
-      observerScreenUp.applyAxisAngle(observerViewBackward, angle)
-      setOrbitUp(observerScreenUp)
+    if (direction === 'center') observerRollRadians = 0
+    else {
+      observerRollRadians += direction === 'clockwise' ? -OBSERVER_ROLL_STEP : OBSERVER_ROLL_STEP
+      observerRollRadians = Math.atan2(Math.sin(observerRollRadians), Math.cos(observerRollRadians))
     }
-    camera.lookAt(controls.target)
-    controls.update()
+    applyObserverRollFrame()
     invalidateProjection()
     obstacleBoundsDirty = true
     ordinaryLayoutDirty = true
@@ -1919,6 +1939,7 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
   controls.addEventListener('start', onControlsStart)
   controls.addEventListener('end', onControlsEnd)
   function onControlsChange(): void {
+    applyObserverRollFrame()
     invalidateProjection()
     requestRender(!updatingControls)
   }
@@ -2083,7 +2104,7 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
   sceneObstacleElements.forEach((element) => obstacleObserver.observe(element))
   updatePresentation()
   container.dataset.earthOrbitVisible = String(earthOrbitVisible)
-  if (initialEarthOrbitDate) positionEarthMarker(initialEarthOrbitDate)
+  if (initialEarthOrbitDate) positionEarthMarker(initialEarthOrbitDate, initialEarthMarker)
   container.dataset.earthOrbitRadiusPc = String(EARTH_ORBIT_DISPLAY_RADIUS_PC)
   container.dataset.milkyWayVisible = String(milkyWayVisible)
   container.dataset.simulationYears = '0'

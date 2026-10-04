@@ -183,3 +183,9 @@ export async function hideMilkyWay(page: Page) {
   if (await toggle.isChecked()) await toggle.evaluate((element) => (element as HTMLInputElement).click())
   await expect(page.locator('#scene')).toHaveAttribute('data-milky-way-visible', 'false')
 }
+
+export async function hideEarthOrbit(page: Page) {
+  await openFilter(page)
+  await page.getByLabel('Earth’s orbit', { exact: true }).fill('0')
+  await expect(page.locator('#scene')).toHaveAttribute('data-earth-orbit-visible', 'false')
+}

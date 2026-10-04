@@ -6,11 +6,11 @@
   "uniqueHipparcosStars": 691,
   "physicalCoverage": {
     "temperature_k": 668,
-    "mass_solar": 353,
-    "luminosity_solar": 626,
-    "radius_solar": 626,
-    "metallicity_dex": 223,
-    "age_gyr": 88
+    "mass_solar": 354,
+    "luminosity_solar": 627,
+    "radius_solar": 627,
+    "metallicity_dex": 226,
+    "age_gyr": 91
   },
   "objects": {
     "hip-677": {
@@ -2227,12 +2227,52 @@
       },
       "gaiaDr3Id": "2452378776434477184",
       "adoptedPhysicalFields": {
-        "temperature_k": "nearest-1000:10pc-0044"
+        "temperature_k": "nearest-1000:10pc-0044",
+        "mass_solar": "nearest-1000:10pc-0044",
+        "luminosity_solar": "nearest-1000:10pc-0044",
+        "radius_solar": "nearest-1000:10pc-0044",
+        "metallicity_dex": "nearest-1000:10pc-0044",
+        "age_gyr": "nearest-1000:10pc-0044"
       },
       "physicalObservations": [
         {
           "field": "temperature_k",
-          "value": 5430.0,
+          "value": 5320.0,
+          "status": "inherited",
+          "source": "nearest-1000",
+          "sourceId": "10pc-0044"
+        },
+        {
+          "field": "mass_solar",
+          "value": 0.69,
+          "status": "inherited",
+          "source": "nearest-1000",
+          "sourceId": "10pc-0044"
+        },
+        {
+          "field": "luminosity_solar",
+          "value": 0.45,
+          "status": "inherited",
+          "source": "nearest-1000",
+          "sourceId": "10pc-0044"
+        },
+        {
+          "field": "radius_solar",
+          "value": 0.793,
+          "status": "inherited",
+          "source": "nearest-1000",
+          "sourceId": "10pc-0044"
+        },
+        {
+          "field": "metallicity_dex",
+          "value": -0.49,
+          "status": "inherited",
+          "source": "nearest-1000",
+          "sourceId": "10pc-0044"
+        },
+        {
+          "field": "age_gyr",
+          "value": 10.0,
           "status": "inherited",
           "source": "nearest-1000",
           "sourceId": "10pc-0044"
@@ -13131,7 +13171,9 @@
         "temperature_k": "bright-stars:sirius-a",
         "mass_solar": "bright-stars:sirius-a",
         "luminosity_solar": "bright-stars:sirius-a",
-        "radius_solar": "derived:stefan-boltzmann"
+        "radius_solar": "bright-stars:sirius-a",
+        "metallicity_dex": "bright-stars:sirius-a",
+        "age_gyr": "bright-stars:sirius-a"
       },
       "physicalObservations": [
         {
@@ -13157,9 +13199,24 @@
         },
         {
           "field": "radius_solar",
-          "value": 1.7097044872782095,
-          "status": "derived",
-          "source": "Stefan-Boltzmann scaling"
+          "value": 1.7144,
+          "status": "inherited",
+          "source": "bright-stars",
+          "sourceId": "sirius-a"
+        },
+        {
+          "field": "metallicity_dex",
+          "value": -0.1,
+          "status": "inherited",
+          "source": "bright-stars",
+          "sourceId": "sirius-a"
+        },
+        {
+          "field": "age_gyr",
+          "value": 0.242,
+          "status": "inherited",
+          "source": "bright-stars",
+          "sourceId": "sirius-a"
         }
       ]
     },
@@ -25396,38 +25453,53 @@
       "adoptedPhysicalFields": {
         "temperature_k": "bright-stars:alpha-centauri-a",
         "mass_solar": "bright-stars:alpha-centauri-a",
-        "radius_solar": "published:1999A&A...352..555A:HIP-71683",
-        "luminosity_solar": "derived:stefan-boltzmann"
+        "luminosity_solar": "bright-stars:alpha-centauri-a",
+        "radius_solar": "bright-stars:alpha-centauri-a",
+        "metallicity_dex": "bright-stars:alpha-centauri-a",
+        "age_gyr": "bright-stars:alpha-centauri-a"
       },
       "physicalObservations": [
         {
           "field": "temperature_k",
-          "value": 5770.0,
+          "value": 5795.0,
           "status": "inherited",
           "source": "bright-stars",
           "sourceId": "alpha-centauri-a"
         },
         {
           "field": "mass_solar",
-          "value": 1.079,
+          "value": 1.0788,
+          "status": "inherited",
+          "source": "bright-stars",
+          "sourceId": "alpha-centauri-a"
+        },
+        {
+          "field": "luminosity_solar",
+          "value": 1.5059,
           "status": "inherited",
           "source": "bright-stars",
           "sourceId": "alpha-centauri-a"
         },
         {
           "field": "radius_solar",
-          "value": 1.288249551693134,
-          "uncertainty": 0.02966304213784873,
-          "status": "model-derived",
-          "source": "Allende Prieto & Lambert 1999",
-          "sourceId": "HIP 71683",
-          "bibcode": "1999A&A...352..555A"
+          "value": 1.2175,
+          "status": "inherited",
+          "source": "bright-stars",
+          "sourceId": "alpha-centauri-a"
         },
         {
-          "field": "luminosity_solar",
-          "value": 1.6572879129323403,
-          "status": "derived",
-          "source": "Stefan-Boltzmann scaling"
+          "field": "metallicity_dex",
+          "value": 0.237,
+          "status": "inherited",
+          "source": "bright-stars",
+          "sourceId": "alpha-centauri-a"
+        },
+        {
+          "field": "age_gyr",
+          "value": 5.3,
+          "status": "inherited",
+          "source": "bright-stars",
+          "sourceId": "alpha-centauri-a"
         }
       ]
     },

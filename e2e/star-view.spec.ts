@@ -4,7 +4,7 @@ import { readFileSync } from 'node:fs'
 import { Box3, PerspectiveCamera, Sphere, Spherical, Vector3 } from 'three'
 import { parseStarCatalog, type Star } from '../src/catalog'
 import { galacticToWorld, LIGHT_YEARS_PER_PARSEC } from '../src/astronomy'
-import { arrowPixelMask, hideMilkyWay, isolatedArrows, measureArrowShaft, motionArrows, openFilter, openPreferences, openViewer, selectCatalog, starPoint, type MotionArrowSnapshot } from './support'
+import { arrowPixelMask, hideEarthOrbit, hideMilkyWay, isolatedArrows, measureArrowShaft, motionArrows, openFilter, openPreferences, openViewer, selectCatalog, starPoint, type MotionArrowSnapshot } from './support'
 
 function resetCamera(stars: readonly Star[], bounds: { width: number; height: number }, selectedId: string | null, distanceScale = 1) {
   const sun = galacticToWorld(stars.find((star) => star.id === 'sun')!)
@@ -983,6 +983,7 @@ test('renders brown and sub-brown dwarfs in visible brown shades', async ({ page
 test('renders soft halos beyond crisp cores and boosts only the selected halo', async ({ page }, testInfo) => {
   await openViewer(page)
   await hideMilkyWay(page)
+  await hideEarthOrbit(page)
   await page.getByRole('button', { name: 'Objects', exact: true }).click()
   await page.getByRole('button', { name: 'Select Sun', exact: true }).click()
   await page.getByRole('button', { name: 'Objects', exact: true }).click()
@@ -1558,8 +1559,7 @@ test('targets ordinary selections, zooms around them, and resets around the sele
 
   await page.getByRole('button', { name: 'Objects', exact: true }).click()
   const sunButton = page.getByRole('button', { name: 'Select Sun', exact: true })
-  if (isMobile) await sunButton.click()
-  else await sunButton.press('Enter')
+  await sunButton.click()
   await expect(sunButton).toHaveAttribute('aria-pressed', 'true')
   await expect(page.locator('#star-name')).toHaveText('Sun')
   await page.getByRole('button', { name: 'Select Sirius A', exact: true }).click()
@@ -1572,7 +1572,7 @@ test('targets ordinary selections, zooms around them, and resets around the sele
   await page.getByRole('button', { name: 'Select WISE 0855-0714', exact: true }).click()
   await expect(page.locator('#velocity-x')).toHaveText('Not available')
   await expect(page.locator('#luminosity-row')).not.toHaveAttribute('hidden')
-  await expect(page.locator('#luminosity')).toHaveText('Not available')
+  await expect(page.locator('#luminosity')).toHaveText('0.00000000269 solar')
 })
 
 test('navigates backward and forward through selection history', { tag: '@mobile' }, async ({ page }) => {
@@ -2123,19 +2123,15 @@ test('keeps observer drags screen-relative after rolling the view', { tag: '@mob
   await expect(page.locator('#scene')).toHaveAttribute('data-observer-view', 'true')
   const rollCounterclockwise = page.getByRole('button', { name: 'Roll view counterclockwise', exact: true })
   for (let step = 0; step < 6; step++) await rollCounterclockwise.click()
+  await expect(page.locator('#scene')).toHaveAttribute('data-observer-roll-degrees', '90')
 
   const canvas = page.locator('#scene canvas')
   const bounds = (await canvas.boundingBox())!
-  const sampleAnchors = () => page.locator('.map-anchor').evaluateAll((anchors, sceneBounds) => Object.fromEntries(anchors.flatMap((anchor) => {
-    const element = anchor as HTMLElement
-    const rectangle = element.getBoundingClientRect()
-    const id = element.dataset.starId
-    if (!id || !element.checkVisibility() || rectangle.left < sceneBounds.x + sceneBounds.width * 0.2 ||
-      rectangle.left > sceneBounds.x + sceneBounds.width * 0.8 || rectangle.top < sceneBounds.y + sceneBounds.height * 0.2 ||
-      rectangle.top > sceneBounds.y + sceneBounds.height * 0.8) return []
-    return [[id, { x: rectangle.left, y: rectangle.top }]]
-  })), bounds)
-  const before = await sampleAnchors()
+  const observerFrame = () => page.locator('#scene').evaluate((scene: HTMLElement) => ({
+    direction: scene.dataset.observerViewDirection!.split(',').map(Number),
+    up: scene.dataset.observerScreenUp!.split(',').map(Number),
+  }))
+  const before = await observerFrame()
   const startX = bounds.x + bounds.width / 2
   const startY = bounds.y + bounds.height * 0.65
   if (isMobile) {
@@ -2151,16 +2147,17 @@ test('keeps observer drags screen-relative after rolling the view', { tag: '@mob
     await page.mouse.up()
   }
   await page.evaluate(() => new Promise<void>((resolve) => requestAnimationFrame(() => requestAnimationFrame(() => resolve()))))
-  const after = await sampleAnchors()
-  const movement = Object.entries(before).flatMap(([id, point]) => {
-    const next = after[id]
-    return next ? [{ x: Math.abs(next.x - point.x), y: Math.abs(next.y - point.y) }] : []
-  })
-  expect(movement.length).toBeGreaterThan(2)
-  const horizontal = movement.reduce((sum, delta) => sum + delta.x, 0) / movement.length
-  const vertical = movement.reduce((sum, delta) => sum + delta.y, 0) / movement.length
-  expect(vertical).toBeGreaterThan(15)
-  expect(vertical).toBeGreaterThan(horizontal * 2)
+  const after = await observerFrame()
+  const delta = before.direction.map((value, index) => after.direction[index]! - value)
+  const right = [
+    before.direction[1]! * before.up[2]! - before.direction[2]! * before.up[1]!,
+    before.direction[2]! * before.up[0]! - before.direction[0]! * before.up[2]!,
+    before.direction[0]! * before.up[1]! - before.direction[1]! * before.up[0]!,
+  ]
+  const dot = (first: number[], second: number[]) => first.reduce((sum, value, index) => sum + value * second[index]!, 0)
+  expect(Math.hypot(...delta)).toBeGreaterThan(0.05)
+  expect(Math.abs(dot(delta, before.up))).toBeGreaterThan(Math.abs(dot(delta, right)) * 2)
+  await expect(page.locator('#scene')).toHaveAttribute('data-observer-roll-degrees', '90')
   await expect(page.locator('#star-name')).toHaveText('Sirius A')
 })
 
