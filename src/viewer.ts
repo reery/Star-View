@@ -31,7 +31,7 @@ export interface StarViewer {
   getViewState(): ViewerViewState
   select(id: string | null, focus?: boolean): void
   setReference(referenceId: string): void
-  setObserverView(enabled: boolean, anchorId?: string): boolean
+  setObserverView(enabled: boolean, anchorId?: string, rollRadians?: number): boolean
   rollObserverView(direction: 'counterclockwise' | 'center' | 'clockwise'): void
   reset(): void
   setGridVisible(visible: boolean): void
@@ -51,7 +51,6 @@ export interface StarViewer {
   setStarColorMode(mode: StarColorMode): void
   setVisibility(observerId: string, limit: number): void
   setDistanceUnit(unit: DistanceUnit): void
-  zoom(direction: 'in' | 'out'): void
   dispose(): void
 }
 
@@ -63,6 +62,7 @@ export interface ViewerViewState {
   position: readonly [number, number, number]
   target: readonly [number, number, number]
   home: boolean
+  observerRollRadians: number
 }
 
 interface ViewerOptions {
@@ -1785,7 +1785,7 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
     invalidateProjection()
   }
 
-  function setObserverView(enabled: boolean, anchorId = selectedId ?? undefined): boolean {
+  function setObserverView(enabled: boolean, anchorId = selectedId ?? undefined, rollRadians = 0): boolean {
     if (enabled === observerViewEnabled) return observerViewEnabled
     const anchor = enabled && anchorId ? starsById.get(anchorId) : undefined
     if (enabled && !anchor) return false
@@ -1801,7 +1801,11 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
     controlsSettling = false
     if (anchor) visibilityBase = anchor.star
     select(selectedId, false)
-    if (anchor) placeObserverCamera(anchor.index)
+    if (anchor) {
+      placeObserverCamera(anchor.index)
+      if (Number.isFinite(rollRadians)) observerRollRadians = Math.atan2(Math.sin(rollRadians), Math.cos(rollRadians))
+      applyObserverRollFrame()
+    }
     else reset()
     if (!enabled) {
       container.dataset.observerRollDegrees = '0'
@@ -2119,6 +2123,7 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
         position: camera.position.toArray() as [number, number, number],
         target: controls.target.toArray() as [number, number, number],
         home,
+        observerRollRadians,
       }
     },
     select,
@@ -2302,18 +2307,6 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
       home = state.home
       captureFollowTarget()
       invalidateProjection()
-      requestRender()
-    },
-    zoom(direction) {
-      if (observerViewEnabled) return
-      focusTransition = null
-      controlsInteracting = false
-      controlsSettling = false
-      home = false
-      if (direction === 'in') controls.dollyIn(1 / 1.3)
-      else controls.dollyOut(1 / 1.3)
-      controls.update()
-      resize()
       requestRender()
     },
     dispose() {

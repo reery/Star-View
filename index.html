@@ -94,8 +94,7 @@
               <button id="reset-view" class="icon-button" type="button" aria-label="Reset view" disabled><span id="reset-icon"></span><span class="tooltip">Reset view</span></button>
               <button id="toggle-grid" class="icon-button" type="button" aria-label="Grid" aria-pressed="true" aria-controls="scene" disabled><span id="grid-icon"></span><span id="grid-tooltip" class="tooltip">Hide grid</span></button>
               <span class="toolbar-divider"></span>
-              <button id="zoom-in" class="icon-button" type="button" aria-label="Zoom in" disabled><span id="zoom-in-icon"></span><span class="tooltip">Zoom in</span></button>
-              <button id="zoom-out" class="icon-button" type="button" aria-label="Zoom out" disabled><span id="zoom-out-icon"></span><span class="tooltip">Zoom out</span></button>
+              <button id="views-toggle" class="icon-button panel-button" type="button" aria-label="Saved views" aria-controls="views-panel" aria-expanded="false" disabled><span id="views-icon"></span><span class="tooltip">Saved views</span></button>
               <span class="toolbar-divider"></span>
               <button id="selection-back" class="icon-button" type="button" aria-label="Previous selection" disabled><span id="selection-back-icon"></span><span class="tooltip">Previous selection</span></button>
               <button id="selection-forward" class="icon-button" type="button" aria-label="Next selection" disabled><span id="selection-forward-icon"></span><span class="tooltip">Next selection</span></button>
@@ -103,6 +102,22 @@
               <button id="set-origin" class="icon-button" type="button" aria-label="Set selected object as origin" disabled><span id="set-origin-icon"></span><span class="tooltip">Set as origin</span></button>
               <button id="observer-view" class="icon-button observer-view-button" type="button" aria-label="Enter observer view" aria-pressed="false" aria-controls="scene" disabled><span id="observer-view-icon"></span><span id="observer-view-tooltip" class="tooltip">Observer view</span></button>
             </div>
+            <section id="views-panel" class="dock-card saved-views-card" aria-labelledby="views-heading" data-scene-obstacle hidden>
+              <div class="panel-heading saved-views-heading"><h2 id="views-heading">Saved views</h2><p id="saved-views-status" class="saved-views-status" role="status" aria-live="polite"></p></div>
+              <form id="save-view-form" class="save-view-form">
+                <label class="sr-only" for="save-view-name">View name</label>
+                <input id="save-view-name" type="text" maxlength="80" placeholder="Name this view" autocomplete="off" required>
+                <button id="save-view" class="save-view-button" type="submit" aria-label="Save current view" title="Save current view"><span id="save-view-icon"></span></button>
+              </form>
+              <p id="saved-views-empty" class="saved-views-empty">No saved views yet.</p>
+              <div id="saved-views-table-wrap" class="saved-views-table-wrap" hidden>
+                <table class="saved-views-table">
+                  <colgroup><col class="saved-view-name-column"><col class="saved-view-origin-column"><col class="saved-view-date-column"><col class="saved-view-action-column"></colgroup>
+                  <thead><tr><th scope="col">Name</th><th scope="col">Origin</th><th scope="col">Date saved</th><th scope="col"><span class="sr-only">Delete</span></th></tr></thead>
+                  <tbody id="saved-views-list"></tbody>
+                </table>
+              </div>
+            </section>
             <div id="control-dock" class="control-dock" data-scene-obstacle>
               <div class="dock-rail" role="group" aria-label="Map and information controls">
                 <button id="motion-toggle" class="icon-button panel-button" type="button" aria-label="Stellar motion" aria-controls="motion-panel" aria-expanded="false"><span id="motion-icon"></span><span class="tooltip">Stellar motion</span></button>

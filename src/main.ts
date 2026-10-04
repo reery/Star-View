@@ -1,5 +1,5 @@
 import './style.css'
-import { ArrowLeft, ArrowRight, CircleHelp, Clock, Crosshair, Eye, Filter, Focus, Grid2X2, List, Lock, Minus, Orbit, Pause, Play, Plus, RotateCcw, RotateCw, Settings2, Star as StarIcon, ZoomIn, ZoomOut, createElement, type IconNode } from 'lucide'
+import { ArrowLeft, ArrowRight, CircleHelp, Clock, Crosshair, Eye, Filter, Focus, Grid2X2, List, Lock, Minus, Orbit, Pause, Play, Plus, RotateCcw, RotateCw, Save, Settings2, Star as StarIcon, Trash2, createElement, type IconNode } from 'lucide'
 import { COMPACT_OBJECT_TYPES, describeObject, isCompactObject, isNebulaObject, NEBULA_OBJECT_TYPES, type Star } from './catalog-model'
 import { catalogSelection, mergeCatalogStars } from './catalog-runtime'
 import { compactOverlayManifest, loadCompactRemnants } from './compact-overlay'
@@ -62,8 +62,8 @@ function scientificQuantity(value: number | null, unit: string): string {
 
 icon('reset-icon', Focus)
 icon('grid-icon', Grid2X2)
-icon('zoom-in-icon', ZoomIn)
-icon('zoom-out-icon', ZoomOut)
+icon('views-icon', Save)
+icon('save-view-icon', Save)
 icon('selection-back-icon', ArrowLeft)
 icon('selection-forward-icon', ArrowRight)
 icon('set-origin-icon', StarIcon)
@@ -130,10 +130,112 @@ const BRIGHT_CATALOG_ID = 'bright-stars'
 const WESTERN_CONSTELLATION_CATALOG_ID = 'western-constellation-stars'
 const FAMOUS_CLUSTER_CATALOG_ID = 'famous-cluster-stars'
 const ADDITIVE_CATALOG_IDS = new Set([BRIGHT_CATALOG_ID, WESTERN_CONSTELLATION_CATALOG_ID, FAMOUS_CLUSTER_CATALOG_ID])
+const SAVED_VIEWS_STORAGE_KEY = 'star-view-saved-views'
+
+interface SavedViewSettings {
+  catalogId: string
+  showAlwaysBright: boolean
+  showWesternConstellationStars: boolean
+  showFamousClusterStars: boolean
+  filterCategories: FilterCategoryId[]
+  filterSubtypes: FilterKey[]
+  magnitudeLimit: number
+  objectDistanceLimitLy: number
+  earthOrbitMode: EarthOrbitMode
+  milkyWayVisible: boolean
+  motionArrowsVisible: boolean
+  motionYears: MotionYears
+  motionFrame: MotionFrame
+  distanceUnit: DistanceUnit
+  starColorMode: StarColorMode
+  labelLimit: number
+  powerSavingMode: boolean
+  gridVisible: boolean
+  simulationYears: number
+  simulationPlaying: boolean
+  simulationDirection: 1 | -1
+  playbackSecondsPerThousandYears: number
+  followSelection: boolean
+  selectedId: string | null
+  observerId: string
+  referenceId: string
+  observerView: boolean
+  observerViewAnchorId: string | null
+  objectSearch: string
+  viewState: ViewerViewState
+}
+
+interface SavedView {
+  version: 1
+  id: string
+  name: string
+  originName: string
+  savedAt: string
+  settings: SavedViewSettings
+}
+
+function isRecord(value: unknown): value is Record<string, unknown> {
+  return typeof value === 'object' && value !== null
+}
+
+function isFiniteTuple3(value: unknown): value is [number, number, number] {
+  return Array.isArray(value) && value.length === 3 && value.every((entry) => typeof entry === 'number' && Number.isFinite(entry))
+}
+
+function isSavedView(value: unknown): value is SavedView {
+  if (!isRecord(value) || value.version !== 1 || typeof value.id !== 'string' || typeof value.name !== 'string' || !value.name.trim()
+    || typeof value.originName !== 'string' || typeof value.savedAt !== 'string' || !Number.isFinite(Date.parse(value.savedAt)) || !isRecord(value.settings)) return false
+  const settings = value.settings
+  const viewState = settings.viewState
+  return typeof settings.catalogId === 'string'
+    && typeof settings.showAlwaysBright === 'boolean'
+    && typeof settings.showWesternConstellationStars === 'boolean'
+    && typeof settings.showFamousClusterStars === 'boolean'
+    && Array.isArray(settings.filterCategories) && settings.filterCategories.every(isFilterCategoryId)
+    && Array.isArray(settings.filterSubtypes) && settings.filterSubtypes.every(isFilterKey)
+    && typeof settings.magnitudeLimit === 'number' && settings.magnitudeLimit >= 0 && settings.magnitudeLimit <= 25
+    && typeof settings.objectDistanceLimitLy === 'number' && OBJECT_DISTANCE_STEPS_LY.includes(settings.objectDistanceLimitLy as typeof OBJECT_DISTANCE_STEPS_LY[number])
+    && typeof settings.earthOrbitMode === 'string' && isEarthOrbitMode(settings.earthOrbitMode)
+    && typeof settings.milkyWayVisible === 'boolean'
+    && typeof settings.motionArrowsVisible === 'boolean'
+    && typeof settings.motionYears === 'number' && MOTION_YEAR_OPTIONS.includes(settings.motionYears as MotionYears)
+    && (settings.motionFrame === 'galactic' || settings.motionFrame === 'solar')
+    && (settings.distanceUnit === 'ly' || settings.distanceUnit === 'pc')
+    && (settings.starColorMode === 'real' || settings.starColorMode === 'exaggerated')
+    && typeof settings.labelLimit === 'number' && settings.labelLimit >= 0 && settings.labelLimit <= 140 && settings.labelLimit % 20 === 0
+    && typeof settings.powerSavingMode === 'boolean'
+    && typeof settings.gridVisible === 'boolean'
+    && typeof settings.simulationYears === 'number' && Math.abs(settings.simulationYears) <= SIMULATION_YEAR_LIMIT
+    && typeof settings.simulationPlaying === 'boolean'
+    && (settings.simulationDirection === 1 || settings.simulationDirection === -1)
+    && typeof settings.playbackSecondsPerThousandYears === 'number' && settings.playbackSecondsPerThousandYears >= 0.5 && settings.playbackSecondsPerThousandYears <= 15
+    && typeof settings.followSelection === 'boolean'
+    && (settings.selectedId === null || typeof settings.selectedId === 'string')
+    && typeof settings.observerId === 'string'
+    && typeof settings.referenceId === 'string'
+    && typeof settings.observerView === 'boolean'
+    && (settings.observerViewAnchorId === null || typeof settings.observerViewAnchorId === 'string')
+    && typeof settings.objectSearch === 'string'
+    && isRecord(viewState) && isFiniteTuple3(viewState.position) && isFiniteTuple3(viewState.target)
+    && typeof viewState.home === 'boolean' && typeof viewState.observerRollRadians === 'number' && Number.isFinite(viewState.observerRollRadians)
+}
+
+function readSavedViews(): SavedView[] {
+  try {
+    const stored = localStorage.getItem(SAVED_VIEWS_STORAGE_KEY)
+    if (!stored) return []
+    const parsed: unknown = JSON.parse(stored)
+    return Array.isArray(parsed) ? parsed.filter(isSavedView).sort((first, second) => Date.parse(second.savedAt) - Date.parse(first.savedAt)) : []
+  } catch {
+    return []
+  }
+}
+
 // Nearest-N catalogs form an ordered size progression; landmark catalogs are independent additive toggles.
 const sliderCatalogs = catalogs.filter((catalog) => !ADDITIVE_CATALOG_IDS.has(catalog.manifest.id))
   .sort((first, second) => first.manifest.objectCount - second.manifest.objectCount)
 const OBJECT_DISTANCE_STEPS_LY = [5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 60, 70, 80, 90, 100, 150, 200, 300, 500, 1000, 1500, 2000, 3000, 5000, 10000] as const
+let savedViews = readSavedViews()
 try {
   if (localStorage.getItem('star-view-distance-unit') === 'pc') distanceUnit = 'pc'
   if (localStorage.getItem('star-view-color-mode') === 'real') starColorMode = 'real'
@@ -155,11 +257,11 @@ const labelLimitInput = element<HTMLInputElement>('label-limit')
 labelLimitInput.value = String(labelLimit)
 labelLimitInput.setAttribute('aria-valuetext', labelLimit === 0 ? 'Off' : `${labelLimit} labels`)
 text('label-limit-value', labelLimit === 0 ? 'Off' : String(labelLimit))
-const viewButtons = ['reset-view', 'toggle-grid', 'zoom-in', 'zoom-out'].map((id) => element<HTMLButtonElement>(id))
+const viewButtons = ['reset-view', 'toggle-grid', 'views-toggle'].map((id) => element<HTMLButtonElement>(id))
 const timelineButtons = ['time-play', 'time-now', 'time-follow'].map((id) => element<HTMLButtonElement>(id))
 const timeSlider = element<HTMLInputElement>('time-slider')
 const selectionHistory = new SelectionHistory(selectedId)
-const panelNames = ['motion', 'filter', 'preferences', 'objects', 'info'] as const
+const panelNames = ['views', 'motion', 'filter', 'preferences', 'objects', 'info'] as const
 const lockablePanelNames = ['motion', 'filter', 'preferences', 'objects'] as const
 const lockedPanels = new Set<typeof lockablePanelNames[number]>()
 
@@ -197,7 +299,7 @@ function updateObserverControl(): void {
   for (const id of ['observer-roll-counterclockwise', 'observer-roll-reset', 'observer-roll-clockwise']) {
     element<HTMLButtonElement>(id).disabled = sceneBusy || !observerView
   }
-  for (const id of ['reset-view', 'zoom-in', 'zoom-out']) {
+  for (const id of ['reset-view']) {
     element<HTMLButtonElement>(id).disabled = sceneBusy || observerView
   }
 }
@@ -223,7 +325,7 @@ function setPanelOpen(name: typeof panelNames[number], open: boolean): void {
 function syncPanelLayout(): void {
   const dock = element('control-dock')
   const motionOpen = panelIsOpen('motion')
-  const dockPanel = panelNames.find((name) => name !== 'motion' && panelIsOpen(name))
+  const dockPanel = panelNames.find((name) => name !== 'views' && name !== 'motion' && panelIsOpen(name))
   if (dockPanel) dock.dataset.open = dockPanel
   else if (motionOpen) dock.dataset.open = 'motion'
   else delete dock.dataset.open
@@ -661,7 +763,7 @@ async function switchCatalog(id: string, refresh = false): Promise<void> {
   if (retainedView && !retainedView.home && (!retainedObserverView || observerView)) {
     viewer.setViewState({ ...retainedView, home: false })
   }
-  observerView = viewer.setObserverView(observerView, observerViewAnchorId ?? undefined)
+  observerView = viewer.setObserverView(observerView, observerViewAnchorId ?? undefined, retainedView?.observerRollRadians)
   if (!observerView) observerViewAnchorId = null
   sceneStatus(null)
 }
@@ -793,6 +895,255 @@ function renderCatalogRange(id: string): void {
 const objectList = new ObjectList(element('star-list'), selectStar, (shown, total) => text('catalog-count', `${shown}/${total}`))
 objectList.setColorMode(starColorMode)
 
+function savedViewDate(isoDate: string): string {
+  const date = new Date(isoDate)
+  const pad = (value: number) => String(value).padStart(2, '0')
+  return `${date.getFullYear()}-${pad(date.getMonth() + 1)}-${pad(date.getDate())} ${pad(date.getHours())}:${pad(date.getMinutes())}`
+}
+
+function setSavedViewsStatus(message: string): void {
+  const status = element('saved-views-status')
+  status.textContent = message
+  status.title = message
+}
+
+function writeSavedViews(next: SavedView[]): boolean {
+  try {
+    localStorage.setItem(SAVED_VIEWS_STORAGE_KEY, JSON.stringify(next))
+    savedViews = next
+    return true
+  } catch {
+    setSavedViewsStatus('Could not write saved views to browser storage')
+    return false
+  }
+}
+
+function renderSavedViews(): void {
+  const list = element<HTMLTableSectionElement>('saved-views-list')
+  list.replaceChildren(...savedViews.map((savedView) => {
+    const row = document.createElement('tr')
+    row.dataset.savedViewId = savedView.id
+    row.tabIndex = 0
+    row.setAttribute('aria-label', `Load saved view ${savedView.name}`)
+    row.title = `Load ${savedView.name}`
+    const name = document.createElement('td')
+    name.textContent = savedView.name
+    name.title = savedView.name
+    const origin = document.createElement('td')
+    origin.textContent = savedView.originName
+    origin.title = savedView.originName
+    const date = document.createElement('td')
+    const time = document.createElement('time')
+    time.dateTime = savedView.savedAt
+    time.textContent = savedViewDate(savedView.savedAt)
+    date.append(time)
+    const action = document.createElement('td')
+    const remove = document.createElement('button')
+    remove.className = 'saved-view-delete'
+    remove.type = 'button'
+    remove.dataset.deleteSavedView = savedView.id
+    remove.setAttribute('aria-label', `Delete saved view ${savedView.name}`)
+    remove.title = 'Delete saved view'
+    remove.append(createElement(Trash2, { width: 17, height: 17, 'stroke-width': 1.8, 'aria-hidden': 'true' }))
+    action.append(remove)
+    row.append(name, origin, date, action)
+    return row
+  }))
+  element('saved-views-empty').hidden = savedViews.length > 0
+  element('saved-views-table-wrap').hidden = savedViews.length === 0
+}
+
+function currentSavedViewSettings(): SavedViewSettings | null {
+  if (!viewer || sceneBusy) return null
+  return {
+    catalogId: activeCatalogId,
+    showAlwaysBright,
+    showWesternConstellationStars,
+    showFamousClusterStars,
+    filterCategories: [...filterCategories],
+    filterSubtypes: [...filterSubtypes],
+    magnitudeLimit,
+    objectDistanceLimitLy,
+    earthOrbitMode,
+    milkyWayVisible,
+    motionArrowsVisible,
+    motionYears,
+    motionFrame,
+    distanceUnit,
+    starColorMode,
+    labelLimit,
+    powerSavingMode,
+    gridVisible,
+    simulationYears,
+    simulationPlaying,
+    simulationDirection,
+    playbackSecondsPerThousandYears,
+    followSelection,
+    selectedId,
+    observerId,
+    referenceId,
+    observerView,
+    observerViewAnchorId,
+    objectSearch: element<HTMLInputElement>('object-search').value,
+    viewState: viewer.getViewState(),
+  }
+}
+
+function saveCurrentView(): void {
+  const input = element<HTMLInputElement>('save-view-name')
+  const name = input.value.trim()
+  if (!name) {
+    setSavedViewsStatus('Enter a name for this view')
+    input.focus()
+    return
+  }
+  const settings = currentSavedViewSettings()
+  if (!settings) {
+    setSavedViewsStatus('Wait for the scene to finish loading before saving')
+    return
+  }
+  const savedAt = new Date().toISOString()
+  const savedView: SavedView = {
+    version: 1,
+    id: globalThis.crypto?.randomUUID?.() ?? `${Date.now().toString(36)}-${Math.random().toString(36).slice(2)}`,
+    name,
+    originName: stars.find((star) => star.id === referenceId)?.name ?? referenceId,
+    savedAt,
+    settings,
+  }
+  const next = [savedView, ...savedViews].sort((first, second) => Date.parse(second.savedAt) - Date.parse(first.savedAt))
+  if (!writeSavedViews(next)) return
+  input.value = ''
+  setSavedViewsStatus(`Saved “${name}”`)
+  renderSavedViews()
+}
+
+function syncSavedSettingsInputs(): void {
+  renderCatalogRange(activeCatalogId)
+  element<HTMLInputElement>('show-always-bright').checked = showAlwaysBright
+  element<HTMLInputElement>('show-western-constellation-stars').checked = showWesternConstellationStars
+  element<HTMLInputElement>('show-famous-cluster-stars').checked = showFamousClusterStars
+  const distanceIndex = OBJECT_DISTANCE_STEPS_LY.indexOf(objectDistanceLimitLy as typeof OBJECT_DISTANCE_STEPS_LY[number])
+  const distanceInput = element<HTMLInputElement>('object-distance-limit')
+  distanceInput.value = String(Math.max(0, distanceIndex))
+  distanceInput.setAttribute('aria-valuetext', `${objectDistanceLimitLy} light-years`)
+  text('object-distance-limit-value', `${objectDistanceLimitLy} ly`)
+  const magnitudeInput = element<HTMLInputElement>('magnitude-limit')
+  magnitudeInput.value = String(magnitudeLimit)
+  text('magnitude-limit-value', String(magnitudeLimit))
+  earthOrbitModeInput.value = String(EARTH_ORBIT_MODES.indexOf(earthOrbitMode))
+  earthOrbitModeInput.setAttribute('aria-valuetext', earthOrbitModeLabel(earthOrbitMode))
+  text('earth-orbit-mode-value', earthOrbitModeLabel(earthOrbitMode))
+  element<HTMLInputElement>('milky-way-visible').checked = milkyWayVisible
+  element<HTMLInputElement>('motion-arrows-visible').checked = motionArrowsVisible
+  element<HTMLSelectElement>('motion-years').value = String(motionYears)
+  element<HTMLInputElement>(`motion-frame-${motionFrame}`).checked = true
+  element<HTMLInputElement>(`unit-${distanceUnit}`).checked = true
+  element<HTMLInputElement>(`star-colors-${starColorMode}`).checked = true
+  labelLimitInput.value = String(labelLimit)
+  labelLimitInput.setAttribute('aria-valuetext', labelLimit === 0 ? 'Off' : `${labelLimit} labels`)
+  text('label-limit-value', labelLimit === 0 ? 'Off' : String(labelLimit))
+  element<HTMLInputElement>('power-saving-mode').checked = powerSavingMode
+  const gridButton = element<HTMLButtonElement>('toggle-grid')
+  gridButton.setAttribute('aria-pressed', String(gridVisible))
+  text('grid-tooltip', gridVisible ? 'Hide grid' : 'Show grid')
+  element('grid-legend').hidden = !gridVisible
+  renderObjectFilter()
+  renderSimulationTime()
+  renderPlaybackState()
+  renderPlaybackSpeed()
+  renderFollowState()
+}
+
+async function loadSavedView(savedView: SavedView): Promise<void> {
+  const settings = savedView.settings
+  if (!catalogs.some((catalog) => catalog.manifest.id === settings.catalogId)) {
+    setSavedViewsStatus(`The catalog for “${savedView.name}” is no longer available`)
+    return
+  }
+  setSavedViewsStatus(`Loading “${savedView.name}”`)
+  setSimulationPlaying(false)
+  if (observerView) viewer?.setObserverView(false)
+  observerView = false
+  observerViewAnchorId = null
+  showAlwaysBright = settings.showAlwaysBright
+  showWesternConstellationStars = settings.showWesternConstellationStars
+  showFamousClusterStars = settings.showFamousClusterStars
+  filterCategories.clear()
+  settings.filterCategories.forEach((category) => filterCategories.add(category))
+  filterSubtypes.clear()
+  settings.filterSubtypes.forEach((subtype) => filterSubtypes.add(subtype))
+  visibleKeys = effectiveFilterKeys(filterCategories, filterSubtypes, availableKeys)
+  magnitudeLimit = settings.magnitudeLimit
+  objectDistanceLimitLy = settings.objectDistanceLimitLy
+  earthOrbitMode = settings.earthOrbitMode
+  milkyWayVisible = settings.milkyWayVisible
+  motionArrowsVisible = settings.motionArrowsVisible
+  motionYears = settings.motionYears
+  motionFrame = settings.motionFrame
+  distanceUnit = settings.distanceUnit
+  starColorMode = settings.starColorMode
+  labelLimit = settings.labelLimit
+  powerSavingMode = settings.powerSavingMode
+  gridVisible = settings.gridVisible
+  simulationYears = settings.simulationYears
+  simulationDirection = settings.simulationDirection
+  playbackSecondsPerThousandYears = settings.playbackSecondsPerThousandYears
+  followSelection = settings.followSelection
+  selectedId = settings.selectedId
+  observerId = settings.observerId
+  referenceId = settings.referenceId
+  objectList.setColorMode(starColorMode)
+  syncSavedSettingsInputs()
+  await switchCatalog(settings.catalogId, true)
+  if (!viewer || activeCatalogId !== settings.catalogId) {
+    setSavedViewsStatus(`Could not load “${savedView.name}”`)
+    return
+  }
+  element<HTMLInputElement>('object-search').value = settings.objectSearch
+  objectList.setQuery(settings.objectSearch)
+  viewer.setViewState(settings.viewState)
+  const savedObserverAnchorId = settings.observerViewAnchorId
+  const anchorAvailable = savedObserverAnchorId !== null && stars.some((star) => star.id === savedObserverAnchorId)
+  if (settings.observerView && anchorAvailable) {
+    observerViewAnchorId = savedObserverAnchorId
+    observerId = savedObserverAnchorId
+    viewer.setVisibility(observerId, magnitudeLimit)
+    observerView = viewer.setObserverView(true, savedObserverAnchorId, settings.viewState.observerRollRadians)
+    if (!observerView) observerViewAnchorId = null
+  }
+  if (selectedId !== null) selectionHistory.record(selectedId)
+  updateObjectListFilter()
+  objectList.setReference(referenceId)
+  renderDistances()
+  renderSelection()
+  syncSavedSettingsInputs()
+  updateSelectionHistoryControls()
+  updateReferenceControl()
+  updateObserverControl()
+  try {
+    localStorage.setItem('star-view-distance-unit', distanceUnit)
+    localStorage.setItem('star-view-color-mode', starColorMode)
+    localStorage.setItem('star-view-label-limit', String(labelLimit))
+    localStorage.setItem('star-view-earth-orbit-mode', earthOrbitMode)
+    localStorage.setItem('star-view-milky-way-visible', String(milkyWayVisible))
+  } catch {}
+  setSimulationPlaying(settings.simulationPlaying)
+  setPanelOpen('views', false)
+  syncPanelLayout()
+  setSavedViewsStatus(`Loaded “${savedView.name}”`)
+}
+
+function deleteSavedView(id: string): void {
+  const savedView = savedViews.find((candidate) => candidate.id === id)
+  if (!savedView) return
+  const next = savedViews.filter((candidate) => candidate.id !== id)
+  if (!writeSavedViews(next)) return
+  setSavedViewsStatus(`Deleted “${savedView.name}”`)
+  renderSavedViews()
+}
+
+renderSavedViews()
 renderCatalogRange('nearest-neighbors')
 void switchCatalog('nearest-neighbors')
 if (catalogErrors.length) catalogError(catalogErrors.join('\n'))
@@ -953,6 +1304,31 @@ for (const name of panelNames) {
 for (const name of lockablePanelNames) {
   element(`${name}-lock`).addEventListener('click', () => togglePanelLock(name), { signal: events.signal })
 }
+element<HTMLFormElement>('save-view-form').addEventListener('submit', (event) => {
+  event.preventDefault()
+  saveCurrentView()
+}, { signal: events.signal })
+element('saved-views-list').addEventListener('click', (event) => {
+  const target = event.target
+  if (!(target instanceof Element)) return
+  const deleteButton = target.closest<HTMLButtonElement>('[data-delete-saved-view]')
+  if (deleteButton) {
+    deleteSavedView(deleteButton.dataset.deleteSavedView!)
+    return
+  }
+  const row = target.closest<HTMLTableRowElement>('tr[data-saved-view-id]')
+  const savedView = savedViews.find((candidate) => candidate.id === row?.dataset.savedViewId)
+  if (savedView) void loadSavedView(savedView)
+}, { signal: events.signal })
+element('saved-views-list').addEventListener('keydown', (event) => {
+  if (event.key !== 'Enter' && event.key !== ' ') return
+  const target = event.target
+  if (!(target instanceof HTMLTableRowElement)) return
+  const savedView = savedViews.find((candidate) => candidate.id === target.dataset.savedViewId)
+  if (!savedView) return
+  event.preventDefault()
+  void loadSavedView(savedView)
+}, { signal: events.signal })
 document.addEventListener('keydown', (event) => {
   if (event.key !== 'Escape') return
   const open = panelNames.find((name) => name !== 'motion' && panelIsOpen(name))
@@ -971,8 +1347,6 @@ element('toggle-grid').addEventListener('click', () => {
   text('grid-tooltip', gridVisible ? 'Hide grid' : 'Show grid')
   element('grid-legend').hidden = !gridVisible
 }, { signal: events.signal })
-element('zoom-in').addEventListener('click', () => viewer?.zoom('in'), { signal: events.signal })
-element('zoom-out').addEventListener('click', () => viewer?.zoom('out'), { signal: events.signal })
 element('selection-back').addEventListener('click', () => navigateSelectionHistory('back'), { signal: events.signal })
 element('selection-forward').addEventListener('click', () => navigateSelectionHistory('forward'), { signal: events.signal })
 element('set-origin').addEventListener('click', setSelectedAsOrigin, { signal: events.signal })
