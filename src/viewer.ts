@@ -1,13 +1,13 @@
 import {
   AdditiveBlending, BackSide, Box3, BoxGeometry, BufferGeometry, CanvasTexture, Color, DoubleSide, DynamicDrawUsage, Float32BufferAttribute,
-  GridHelper, Group, InstancedBufferAttribute, InstancedBufferGeometry, LessDepth, Line, LineBasicMaterial, LineDashedMaterial,
+  Group, InstancedBufferAttribute, InstancedBufferGeometry, LessDepth, Line, LineBasicMaterial, LineDashedMaterial,
   LinearFilter, LineSegments, Matrix4, Mesh, NoBlending, Object3D, PerspectiveCamera, Points, PointsMaterial, Scene, ShaderMaterial,
   Quaternion, Sphere, SRGBColorSpace, TextureLoader, Vector2, Vector3, Vector4, WebGLRenderer, type Texture,
 } from 'three'
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js'
 import milkyWayImageUrl from './assets/milky-way.jpg'
 import type { Star } from './catalog-model'
-import { apparentVisualMagnitude, displayMotionForStar, formatDistance, galacticToWorld, gridSpacingPc, LIGHT_YEARS_PER_PARSEC, starDisplayColor, type DistanceUnit, type MotionFrame, type MotionMode, type StarColorMode } from './astronomy'
+import { apparentVisualMagnitude, displayMotionForStar, formatDistance, galacticToWorld, gridScaleForViewDistance, LIGHT_YEARS_PER_PARSEC, starDisplayColor, type DistanceUnit, type GridScale, type MotionFrame, type MotionMode, type StarColorMode } from './astronomy'
 import { EARTH_AXIS_DISPLAY_HALF_LENGTH_PC, EARTH_ORBIT_DISPLAY_RADIUS_PC, earthOrbitMarker, earthOrbitPoints } from './earth-orbit'
 import { advanceFrameDeadline, effectiveDampingFactor, estimateRefreshRate, renderPixelRatio, targetRenderFps } from './render-scheduling'
 import { centeredForegroundLabelBounds, chooseOrdinaryLabelPlacement, ordinaryLabelCandidates, overlaps, type LabelRect, type OrdinaryLabelPlacement } from './label-layout'
@@ -70,6 +70,7 @@ interface ViewerOptions {
   onSelect(id: string | null): void
   onSelectedDistance?(distancePc: number | null): void
   onViewerDistance?(distancePc: number): void
+  onGridScale?(scale: GridScale): void
   onStatus(message: string | null): void
   colorMode: StarColorMode
   earthOrbitDate?: Date | null
@@ -170,6 +171,11 @@ function sameIndexSet(first: ReadonlySet<number>, second: ReadonlySet<number>): 
   if (first.size !== second.size) return false
   for (const index of first) if (!second.has(index)) return false
   return true
+}
+
+function gridOpacityForDisplay(devicePixelRatio: number): number {
+  const ratio = Number.isFinite(devicePixelRatio) && devicePixelRatio > 0 ? devicePixelRatio : 1
+  return Math.min(0.9, 0.46 + Math.max(0, ratio - 1) * 0.22)
 }
 
 export function createStarViewer(container: HTMLElement, stars: readonly Star[], options: ViewerOptions): StarViewer {
@@ -611,17 +617,29 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
   arrows.visible = false
   scene.add(arrows)
 
-  function gridHalfSizeForDistance(distanceLy: number): number {
-    return Math.max(3, Math.ceil(distanceLy / LIGHT_YEARS_PER_PARSEC))
-  }
   function makeGridGeometry(spacingPc: number, halfSizePc: number): BufferGeometry {
-    const helper = new GridHelper(halfSizePc * 2, Math.max(2, Math.round(halfSizePc * 2 / spacingPc)), 0x65615c, 0x393939)
-    helper.material.dispose()
-    return helper.geometry
+    const limit = Math.floor(halfSizePc / spacingPc + 1e-9)
+    const positions: number[] = []
+    const colors: number[] = []
+    const center = new Color(0x756d65)
+    const ordinary = new Color(0x4a4642)
+    for (let index = -limit; index <= limit; index++) {
+      const offset = index * spacingPc
+      positions.push(-halfSizePc, 0, offset, halfSizePc, 0, offset)
+      positions.push(offset, 0, -halfSizePc, offset, 0, halfSizePc)
+      const color = index === 0 ? center : ordinary
+      colors.push(color.r, color.g, color.b, color.r, color.g, color.b)
+      colors.push(color.r, color.g, color.b, color.r, color.g, color.b)
+    }
+    const geometry = new BufferGeometry()
+    geometry.setAttribute('position', new Float32BufferAttribute(positions, 3))
+    geometry.setAttribute('color', new Float32BufferAttribute(colors, 3))
+    return geometry
   }
-  let gridSpacing = gridSpacingPc(100)
-  let gridHalfSize = gridHalfSizeForDistance(100)
-  const gridOpacity = { value: 0.4 }
+  let gridScale = gridScaleForViewDistance(0, 'pc')
+  let gridSpacing = gridScale.spacingPc
+  let gridHalfSize = gridScale.halfSizePc
+  const gridOpacity = { value: gridOpacityForDisplay(window.devicePixelRatio) }
   const gridRadius = { value: gridHalfSize }
   const grid = new LineSegments(makeGridGeometry(gridSpacing, gridHalfSize), new ShaderMaterial({
     uniforms: { radius: gridRadius, opacity: gridOpacity },
@@ -652,6 +670,7 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
   scene.add(grid)
   container.dataset.gridSpacingPc = String(gridSpacing)
   container.dataset.gridHalfSizePc = String(gridHalfSize)
+  options.onGridScale?.(gridScale)
   container.dataset.referenceId = sun.id
   const axisLength = Math.max(1.2, catalogSphere.radius)
   const axes = [
@@ -892,6 +911,21 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
     obstacleBoundsDirty = true
     ordinaryLayoutDirty = true
     invalidateProjection()
+  }
+
+  function updateGridScale(distancePc: number): void {
+    const next = gridScaleForViewDistance(distancePc, distanceUnit)
+    if (next.spacingPc === gridSpacing && next.halfSizePc === gridHalfSize) return
+    const previousGeometry = grid.geometry
+    grid.geometry = makeGridGeometry(next.spacingPc, next.halfSizePc)
+    previousGeometry.dispose()
+    gridScale = next
+    gridSpacing = next.spacingPc
+    gridHalfSize = next.halfSizePc
+    gridRadius.value = gridHalfSize
+    container.dataset.gridSpacingPc = String(gridSpacing)
+    container.dataset.gridHalfSizePc = String(gridHalfSize)
+    options.onGridScale?.(gridScale)
   }
 
   function configureObserverControls(enabled: boolean): void {
@@ -1846,19 +1880,23 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
 
   let renderWidth = 0
   let renderHeight = 0
+  let displayPixelRatio = 0
   function resize(): void {
     const width = container.clientWidth
     const height = container.clientHeight
     if (!width || !height) return
-    const pixelRatio = renderPixelRatio(window.devicePixelRatio || 1, powerSavingMode)
+    const nextDisplayPixelRatio = window.devicePixelRatio || 1
+    const pixelRatio = renderPixelRatio(nextDisplayPixelRatio, powerSavingMode)
     const sizeChanged = width !== renderWidth || height !== renderHeight
-    if (!sizeChanged && renderer.getPixelRatio() === pixelRatio) return
+    const displayPixelRatioChanged = displayPixelRatio !== nextDisplayPixelRatio
+    if (!sizeChanged && renderer.getPixelRatio() === pixelRatio && !displayPixelRatioChanged) return
     renderWidth = width
     renderHeight = height
+    displayPixelRatio = nextDisplayPixelRatio
     renderer.setPixelRatio(pixelRatio)
     renderer.setSize(width, height)
     nebulaLayer?.setViewportHeight(height * pixelRatio)
-    gridOpacity.value = Math.min(1, 0.4 * pixelRatio)
+    gridOpacity.value = gridOpacityForDisplay(displayPixelRatio)
     axisMaterial.opacity = Math.min(1, 0.55 * pixelRatio)
     arrowUniforms.pixelRatio.value = pixelRatio
     if (!sizeChanged) return
@@ -2027,9 +2065,11 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
     }
     camera.updateMatrixWorld()
     starViewDistance.value = camera.position.distanceTo(controls.target)
+    const visibilityBaseIndex = starsById.get(visibilityBase.id)!.index
+    const viewerDistance = camera.position.distanceTo(pickable[visibilityBaseIndex]!.position)
+    updateGridScale(viewerDistance)
     if ((!continueRendering && !simulationPlaying) || time - lastViewerDistanceReport >= 250) {
-      const visibilityBaseIndex = starsById.get(visibilityBase.id)!.index
-      options.onViewerDistance?.(camera.position.distanceTo(pickable[visibilityBaseIndex]!.position))
+      options.onViewerDistance?.(viewerDistance)
       lastViewerDistanceReport = time
     }
     updateGuideDashScales()
@@ -2145,18 +2185,6 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
       if (!Number.isFinite(distanceLy) || distanceLy < 5 || distanceLy > 40000) return
       if (distanceLy === objectDistanceLimitLy) return
       objectDistanceLimitLy = distanceLy
-      const nextGridSpacing = gridSpacingPc(distanceLy)
-      const nextGridHalfSize = gridHalfSizeForDistance(distanceLy)
-      if (nextGridSpacing !== gridSpacing || nextGridHalfSize !== gridHalfSize) {
-        const previousGeometry = grid.geometry
-        grid.geometry = makeGridGeometry(nextGridSpacing, nextGridHalfSize)
-        previousGeometry.dispose()
-        gridSpacing = nextGridSpacing
-        gridHalfSize = nextGridHalfSize
-        gridRadius.value = gridHalfSize
-        container.dataset.gridSpacingPc = String(gridSpacing)
-        container.dataset.gridHalfSizePc = String(gridHalfSize)
-      }
       updatePresentation()
       if (home) fitHome()
       requestRender()
@@ -2273,6 +2301,8 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
     setDistanceUnit(unit) {
       if (unit === distanceUnit) return
       distanceUnit = unit
+      const visibilityBaseIndex = starsById.get(visibilityBase.id)!.index
+      updateGridScale(camera.position.distanceTo(pickable[visibilityBaseIndex]!.position))
       obstacleBoundsDirty = true
       measurementLabels.forEach((label) => {
         const { distancePc, suffix } = label.measurement!

@@ -5,7 +5,7 @@ import { catalogSelection, mergeCatalogStars } from './catalog-runtime'
 import { compactOverlayManifest, loadCompactRemnants } from './compact-overlay'
 import { loadNebulae, nebulaOverlayManifest } from './nebula-overlay'
 import { catalogs, catalogErrors } from './registry'
-import { formatDistance, gridSpacingPc, LIGHT_YEARS_PER_PARSEC, starDisplayColor, sunRelativeMetrics, type DistanceUnit, type MotionFrame, type StarColorMode } from './astronomy'
+import { formatDistance, LIGHT_YEARS_PER_PARSEC, starDisplayColor, sunRelativeMetrics, type DistanceUnit, type GridScale, type MotionFrame, type StarColorMode } from './astronomy'
 import { EARTH_ORBIT_MODES, earthOrbitDateForMode, earthOrbitModeLabel, isEarthOrbitMode, type EarthOrbitMode } from './earth-orbit'
 import { MOTION_YEAR_OPTIONS, SIMULATION_YEAR_LIMIT, createStarViewer, type MotionYears, type StarViewer, type ViewerViewState } from './viewer'
 import { isObjectMapVisible } from './viewer-primitives'
@@ -113,6 +113,7 @@ let simulationYears = 0
 let simulationPlaying = false
 let selectedDistancePc: number | null = null
 let viewerDistancePc: number | null = null
+let currentGridScale: GridScale = { spacing: 1, spacingPc: 1 / LIGHT_YEARS_PER_PARSEC, halfSizePc: 10 / LIGHT_YEARS_PER_PARSEC }
 let followSelection = false
 let simulationDirection: 1 | -1 = 1
 let playbackSecondsPerThousandYears = 1
@@ -498,6 +499,11 @@ function renderViewerDistance(distancePc: number): void {
   output.textContent = distance
 }
 
+function renderGridScale(scale: GridScale): void {
+  currentGridScale = scale
+  text('grid-spacing', `${scale.spacing.toLocaleString('en-US', { maximumFractionDigits: 1 })} ${distanceUnit} grid`)
+}
+
 function renderSelection(): void {
   const sun = stars.find((star) => star.id === 'sun')!
   const reference = stars.find((star) => star.id === referenceId) ?? sun
@@ -667,7 +673,7 @@ function rollObserverView(direction: 'counterclockwise' | 'center' | 'clockwise'
 
 function renderDistances(): void {
   element<HTMLInputElement>(`unit-${distanceUnit}`).checked = true
-  text('grid-spacing', `${formatDistance(gridSpacingPc(objectDistanceLimitLy), distanceUnit, distanceUnit === 'pc' ? 1 : 2)} grid`)
+  renderGridScale(currentGridScale)
   objectList.setDistanceUnit(distanceUnit)
   if (viewerDistancePc !== null) renderViewerDistance(viewerDistancePc)
   renderSelection()
@@ -734,6 +740,7 @@ async function switchCatalog(id: string, refresh = false): Promise<void> {
         if (distancePc !== null && selectedId !== null) renderSelectedDistance(distancePc)
       },
       onViewerDistance: renderViewerDistance,
+      onGridScale: renderGridScale,
       onStatus: sceneStatus,
       colorMode: starColorMode,
       earthOrbitDate: earthOrbitDateForMode(earthOrbitMode),
@@ -1169,8 +1176,8 @@ element('show-famous-cluster-stars').addEventListener('change', () => {
 element('distance-units').addEventListener('change', () => {
   distanceUnit = element<HTMLInputElement>('unit-ly').checked ? 'ly' : 'pc'
   try { localStorage.setItem('star-view-distance-unit', distanceUnit) } catch {}
-  renderDistances()
   viewer?.setDistanceUnit(distanceUnit)
+  renderDistances()
 }, { signal: events.signal })
 element('star-colors').addEventListener('change', () => {
   starColorMode = element<HTMLInputElement>('star-colors-exaggerated').checked ? 'exaggerated' : 'real'
@@ -1195,7 +1202,6 @@ element('object-distance-limit').addEventListener('input', () => {
   objectDistanceLimitLy = OBJECT_DISTANCE_STEPS_LY[input.valueAsNumber] ?? objectDistanceLimitLy
   input.setAttribute('aria-valuetext', `${objectDistanceLimitLy} light-years`)
   text('object-distance-limit-value', `${objectDistanceLimitLy} ly`)
-  text('grid-spacing', `${formatDistance(gridSpacingPc(objectDistanceLimitLy), distanceUnit, distanceUnit === 'pc' ? 1 : 2)} grid`)
   updateObjectListFilter()
   viewer?.setObjectDistanceLimit(objectDistanceLimitLy)
 }, { signal: events.signal })

@@ -15,18 +15,57 @@ export interface DisplayMotion {
 
 export type DistanceUnit = 'pc' | 'ly'
 
-export function gridSpacingPc(distanceLy: number): number {
-  if (distanceLy <= 100) return 0.5
-  if (distanceLy <= 150) return 1
-  if (distanceLy <= 200) return 2
-  if (distanceLy <= 300) return 5
-  if (distanceLy <= 500) return 10
-  if (distanceLy <= 1000) return 20
-  if (distanceLy <= 1500) return 30
-  if (distanceLy <= 2000) return 40
-  if (distanceLy <= 3000) return 60
-  if (distanceLy <= 5000) return 100
-  return 200
+export interface GridScale {
+  spacing: number
+  spacingPc: number
+  halfSizePc: number
+}
+
+interface GridScaleStep {
+  maxDistance: number
+  spacing: number
+  size: number
+}
+
+const GRID_SCALE_STEPS: Record<DistanceUnit, readonly GridScaleStep[]> = {
+  ly: [
+    { maxDistance: 25, spacing: 1, size: 40 },
+    { maxDistance: 100, spacing: 5, size: 150 },
+    { maxDistance: 150, spacing: 10, size: 300 },
+    { maxDistance: 500, spacing: 20, size: 1_000 },
+    { maxDistance: 1_000, spacing: 50, size: 2_000 },
+    { maxDistance: 2_000, spacing: 100, size: 4_000 },
+    { maxDistance: 5_000, spacing: 200, size: 10_000 },
+    { maxDistance: 10_000, spacing: 500, size: 20_000 },
+    { maxDistance: 20_000, spacing: 1_000, size: 40_000 },
+    { maxDistance: 50_000, spacing: 2_000, size: 100_000 },
+    { maxDistance: Infinity, spacing: 5_000, size: 200_000 },
+  ],
+  pc: [
+    { maxDistance: 3, spacing: 0.5, size: 6 },
+    { maxDistance: 15, spacing: 0.5, size: 30 },
+    { maxDistance: 50, spacing: 2, size: 100 },
+    { maxDistance: 150, spacing: 3, size: 300 },
+    { maxDistance: 300, spacing: 6, size: 600 },
+    { maxDistance: 600, spacing: 30, size: 1_200 },
+    { maxDistance: 1_500, spacing: 60, size: 3_000 },
+    { maxDistance: 3_000, spacing: 150, size: 6_000 },
+    { maxDistance: 6_000, spacing: 300, size: 12_000 },
+    { maxDistance: 15_000, spacing: 600, size: 30_000 },
+    { maxDistance: Infinity, spacing: 1_500, size: 60_000 },
+  ],
+}
+
+export function gridScaleForViewDistance(distancePc: number, unit: DistanceUnit): GridScale {
+  const conversion = unit === 'ly' ? LIGHT_YEARS_PER_PARSEC : 1
+  const distance = Math.max(0, distancePc * conversion)
+  const steps = GRID_SCALE_STEPS[unit]
+  const step = steps.find((candidate) => distance <= candidate.maxDistance) ?? steps.at(-1)!
+  return {
+    spacing: step.spacing,
+    spacingPc: step.spacing / conversion,
+    halfSizePc: step.size / conversion / 2,
+  }
 }
 
 export function formatDistance(distancePc: number, unit: DistanceUnit, digits = 2): string {
