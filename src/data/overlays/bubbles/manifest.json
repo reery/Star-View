@@ -1,0 +1,23 @@
+{
+  "schemaVersion": 1,
+  "id": "bubbles",
+  "label": "Interstellar bubbles",
+  "description": "Separately loaded, source-backed shell models of large cavities in the interstellar medium.",
+  "epoch": 2000,
+  "objectCount": 1,
+  "counts": {
+    "bubble": 1
+  },
+  "sources": [
+    {
+      "name": "O'Neill et al. (2024); 3D dust-traced Local Bubble shell",
+      "url": "https://doi.org/10.3847/1538-4357/ad61de"
+    },
+    {
+      "name": "O'Neill et al. (2024); interactive Figure 3 peak-extinction surface",
+      "url": "https://theo-oneill.github.io/localbubble/plots/distance_interactive.html"
+    }
+  ],
+  "cutoffPolicy": "This first bubble overlay contains only the Local Bubble. Its surface is a 128 by 64 directional downsampling of the authors' published 786,392-sightline Figure 3 point cloud.",
+  "snapshot": "J2000 Galactic frame; Figure 3 source commit 52aa44614f3036b90fab8fd1beed996d285a7995; reviewed 2026-10-04."
+}

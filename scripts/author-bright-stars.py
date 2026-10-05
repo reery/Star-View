@@ -6,6 +6,7 @@ import io
 import json
 import math
 from pathlib import Path
+from catalog_sources.enrichment import enrich_from_frozen, enrichment_sources, manifest_sha256
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -170,13 +171,14 @@ def render():
         massive = {row["main_id"]: row for row in csv.DictReader(handle)}
     with PRIMARY.open(newline="") as handle:
         primary = {row["main_id"]: row for row in csv.DictReader(handle)}
-    if len(fundamental) != 54 or len(sed) != 77 or len(massive) != 10 or len(primary) != 5:
+    if len(fundamental) != 54 or len(sed) != 77 or len(massive) != 10 or len(primary) != 6:
         raise ValueError("Bright-star physical source subsets are incomplete")
     if not (set(massive) | set(primary)).issubset({row["main_id"] for row in source_rows}):
         raise ValueError("Bright-star supplement contains an unknown SIMBAD identity")
     if len(source_rows) != 111 or len({row["id"] for row in source_rows}) != 111 or len({row["name"] for row in source_rows}) != 111:
         raise ValueError("Bright-star source must contain 111 unique named landmarks")
     authored = [source_row(row, parameters, diameters, fundamental, sed, massive, primary) for row in source_rows]
+    shared_enrichment = {row["id"]: enrich_from_frozen(row, source["main_id"]) for source, row in zip(source_rows, authored, strict=True)}
     for source, row in zip(source_rows, authored, strict=True):
         distance_ly = math.hypot(float(row["x_pc"]), float(row["y_pc"]), float(row["z_pc"])) * 3.261563777
         if distance_ly > 3000 or float(source["V"]) >= 2.70:
@@ -190,6 +192,7 @@ def render():
     provenance = {
         "schemaVersion": 1,
         "catalogId": "bright-stars",
+        "sharedEnrichmentManifestSha256": manifest_sha256(),
         "policy": "All frozen SIMBAD stellar entries within 3000 ly with compiled Johnson V < 2.70, deduplicating the Alpha Centauri system in favor of A/B components; Acrux uses the Bright Star Catalogue combined V=0.76. Includes Sun as the map origin.",
         "selectionReview": "The V=2.42-2.69 expansion was queried through SIMBAD TAP on 2026-09-30. The SIMBAD stellar hierarchy filter excludes NGC 1980, whose integrated V=2.50 is not a stellar entry.",
         "coverage": {field: sum(bool(row[field]) for row in rows if row["id"] != "sun") for field in coverage_fields},
@@ -197,6 +200,7 @@ def render():
             row["id"]: ({"source": "nearest-neighbors", "adoptedWithoutChange": True} if row["id"] in {"sun", "sirius-a", "alpha-centauri-a", "alpha-centauri-b"} else {
                 "source": f"SIMBAD TAP snapshot {'2026-09-30' if float(source_by_id[row['id']]['V']) >= 2.42 else '2026-09-25'}",
                 "queryId": source_by_id[row["id"]]["main_id"],
+                "sharedPhysicalEnrichment": shared_enrichment[row["id"]],
                 "absoluteMagnitudeMethod": "Johnson V and inverse-parallax distance; no extinction correction",
                 "physicalParameters": "SIMBAD mesFe_h/mesDiameter ranked measurements, Allende Prieto & Lambert 1999 evolutionary models, McDonald et al. 2012 SED models, Hohle et al. 2010 massive-star evolutionary models, and reviewed primary papers; see row notes",
                 "luminosityMethod": "McDonald et al. 2012 SED luminosity where available; otherwise Stefan-Boltzmann scaling R^2 (T/5772 K)^4 when both inputs are adopted",
@@ -213,6 +217,13 @@ def main():
     csv_text, provenance = render()
     files = {"stars.csv": csv_text, "provenance.json": provenance}
     if args.write:
+        manifest_path = OUTPUT / "catalog.json"
+        manifest = json.loads(manifest_path.read_text())
+        sources_by_url = {source["url"]: source for source in manifest["sources"]}
+        for source in enrichment_sources():
+            sources_by_url.setdefault(source["url"], source)
+        manifest["sources"] = list(sources_by_url.values())
+        manifest_path.write_text(json.dumps(manifest, indent=2) + "\n")
         OUTPUT.mkdir(parents=True, exist_ok=True)
         for name, content in files.items():
             (OUTPUT / name).write_text(content)

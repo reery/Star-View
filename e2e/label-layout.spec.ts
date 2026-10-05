@@ -1,5 +1,5 @@
 import { expect, test } from '@playwright/test'
-import { arrowIntersectsRect, motionArrows, openFilter, openPreferences, openViewer, selectCatalog } from './support'
+import { arrowIntersectsRect, motionArrows, openFilter, openPreferences, openViewer, selectCatalog, zoomViewer } from './support'
 
 test('keeps the selected name in front even at collisions and scene edges', { tag: '@mobile' }, async ({ page }) => {
   await openViewer(page)
@@ -67,7 +67,7 @@ test('keeps front-camera names stable when the selected star leaves the camera v
 
   const foregroundName = page.locator('[data-star-id="cns5-5794"] .star-label')
   for (let click = 1; click <= 24; click++) {
-    await page.getByRole('button', { name: 'Zoom in', exact: true }).click()
+    await zoomViewer(page, 'in')
     if (click < 18) continue
     await page.evaluate(() => new Promise(requestAnimationFrame))
     expect(await foregroundName.isVisible(), `front name hidden after zoom step ${click}`).toBe(true)
@@ -125,7 +125,7 @@ test('keeps the Sirius name visible behind the Sun in the nearest-1000 view', as
   await page.getByRole('button', { name: 'Objects', exact: true }).click()
   await page.getByRole('button', { name: 'Select Sun', exact: true }).evaluate((button: HTMLButtonElement) => button.click())
   await page.getByRole('button', { name: 'Objects', exact: true }).click()
-  for (let click = 0; click < 4; click++) await page.getByRole('button', { name: 'Zoom in', exact: true }).click()
+  await zoomViewer(page, 'in', 4)
 
   const canvas = page.locator('#scene canvas')
   const bounds = (await canvas.boundingBox())!

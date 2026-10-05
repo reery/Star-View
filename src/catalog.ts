@@ -1,4 +1,5 @@
 import Papa from 'papaparse'
+import { uniqueDesignations } from './designations.ts'
 import { STELLAR_OBJECT_TYPES, type ObjectType, type RawAstrometry, type Star } from './catalog-model.ts'
 
 export { OBJECT_TYPES, describeObject, objectTypeLabel, type ObjectType, type RawAstrometry, type Star } from './catalog-model.ts'
@@ -19,7 +20,7 @@ export const RAW_ASTROMETRY_HEADERS = [
   'radial_velocity_kms', 'radial_velocity_error_kms', 'astrometry_ref', 'radial_velocity_ref',
 ] as const
 
-export const CATALOG_HEADERS = [...BASE_CATALOG_HEADERS, ...PHYSICAL_CATALOG_HEADERS, ...RAW_ASTROMETRY_HEADERS] as const
+export const CATALOG_HEADERS = [...BASE_CATALOG_HEADERS, 'designations', ...PHYSICAL_CATALOG_HEADERS, ...RAW_ASTROMETRY_HEADERS] as const
 
 export const CONSTELLATIONS = [
   'Andromeda', 'Antlia', 'Apus', 'Aquarius', 'Aquila', 'Ara', 'Aries', 'Auriga',
@@ -79,7 +80,7 @@ export function parseStarCatalog(csv: string): Star[] {
     new Set(headers).size !== headers.length ||
     headers.some((header) => !expected.has(header))
   ) {
-    throw new Error(`CSV headers must contain each required field exactly once: ${BASE_CATALOG_HEADERS.filter((header) => header !== 'constellation').join(', ')}. Optional fields: constellation; ${PHYSICAL_CATALOG_HEADERS.join(', ')}. Optional complete group: ${RAW_ASTROMETRY_HEADERS.join(', ')}.`)
+    throw new Error(`CSV headers must contain each required field exactly once: ${BASE_CATALOG_HEADERS.filter((header) => header !== 'constellation').join(', ')}. Optional fields: constellation; designations; ${PHYSICAL_CATALOG_HEADERS.join(', ')}. Optional complete group: ${RAW_ASTROMETRY_HEADERS.join(', ')}.`)
   }
   const firstError = result.errors[0]
   if (firstError) {
@@ -146,6 +147,7 @@ export function parseStarCatalog(csv: string): Star[] {
 
     const star: Star = {
       type, id, name,
+      designations: uniqueDesignations((row.designations ?? '').split('|'), name),
       spectral_type: row.spectral_type?.trim() || null,
       constellation: row.constellation?.trim() || null,
       x_pc: numeric(row.x_pc, 'x_pc', record),

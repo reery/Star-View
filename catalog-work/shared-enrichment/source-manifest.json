@@ -1,0 +1,69 @@
+{
+  "schemaVersion": 1,
+  "reviewed": "2026-10-05",
+  "policy": "Exact SIMBAD and unique Hipparcos/Gaia DR3 identities; fill blank physical fields only, preserve binary/component distinctions and Gaia eligibility; derive missing radius/luminosity from adopted Stefan-Boltzmann inputs.",
+  "checksumsSha256": {
+    "catalog-work/physical-supplements/crossmatch.csv": "882384928e15d2cbf5e0e5cc7dca48fb1734824da256da21276e416a10f7d733",
+    "catalog-work/nearest-1000/simbad.csv": "0d1ab9881afdfbbac62ea7d05d31cb0d8ca4c4235a4b14eb3d0e5b789a932dbd",
+    "catalog-work/nearest-1000/gaia.csv": "383bf1d50f69a6c6ec200e162661fa3ed4d0c012bdb6a05c3e0bd8276681e71e",
+    "catalog-work/bright-stars/simbad.csv": "8d1e328df0d1601b94f9d1cc6e051f6e78ebea3cd65b4ce5a1cfd8dad2f0eede",
+    "catalog-work/bright-stars/parameters.csv": "f872796418f48296e667798710039980fe231572309f17691ef8ede9af41332c",
+    "catalog-work/bright-stars/diameters.csv": "130c237d1aa91d0f69b1bed3ffa78c556416aa28bbbc78b2638db2890df3a7a6",
+    "catalog-work/bright-stars/fundamental.csv": "4ffb016e0759a5b8b2209b96affc280d6a30ee8daadb33db94eaeb7f4477fcda",
+    "catalog-work/bright-stars/sed.csv": "6d3e915dfe423d65c3e94fa0587e0142121a01b7eddabfb43e582246871478c5",
+    "catalog-work/bright-stars/primary.csv": "d80a053e54b42fd8afb1db20f0790eb0209f1dea94e7dd8ce1976d4526e2095d",
+    "catalog-work/western-constellation-stars/simbad.csv": "c45f9d1adb165751c0cf8f77a28efc18dfef5427760de6be0dad20f4aff92ede",
+    "catalog-work/famous-cluster-stars/simbad.csv": "31f7d87d2f684fca025388ed409856ab5fbe0038de62d9a214c77b1f5a3c1c01",
+    "catalog-work/landmark-stars/fundamental.csv": "0c74162585fe18479140ba23513df70ea14b5c1be5dbd63448027fec3d54d671",
+    "catalog-work/landmark-stars/sed.csv": "19b6662da85caf0ec75c57e6ba0b862d321fdc441dfcafc8bc9a56cab712e5ea",
+    "catalog-work/landmark-stars/gaia.csv": "851bbf5865d45987d14cdda74691fd8b1b291e0af6353a8096bdb1524ef35d72",
+    "catalog-work/nearest-100/source-input.json": "ab8a3ab6e0b0edb1372f7c58cdf4f121fe1d5d204a9a0541e6d302a5ac18c84a",
+    "catalog-work/nearest-100/physical-overrides.json": "59aeae9b903d977b550843799a09888a24cbb0f7ead137baf4d51765ea7738c9"
+  },
+  "sources": [
+    {
+      "name": "Bond et al. 2015, Procyon A/B component mass, age, and white dwarf radius",
+      "url": "https://arxiv.org/abs/1510.00485"
+    },
+    {
+      "name": "Chiavassa et al. 2012, Procyon A interferometry and effective temperature",
+      "url": "https://arxiv.org/abs/1201.3264"
+    },
+    {
+      "name": "Allende Prieto et al. 2002, Procyon A differential iron abundance",
+      "url": "https://arxiv.org/abs/astro-ph/0111055"
+    },
+    {
+      "name": "Pecaut & Mamajek 2013, dwarf temperature sequence frozen 2022.04.16",
+      "url": "https://www.pas.rochester.edu/~emamajek/EEM_dwarf_UBVIJHK_colors_Teff.txt"
+    },
+    {
+      "name": "McGill et al. 2023, LAWD 37 microlensing mass and atmospheric parameters",
+      "url": "https://arxiv.org/abs/2206.01814"
+    },
+    {
+      "name": "Sahu et al. 2017, Stein 2051 B microlensing mass and atmosphere fit",
+      "url": "https://arxiv.org/abs/1706.02037"
+    },
+    {
+      "name": "Chen et al. 2022, Epsilon Indi Ba/Bb dynamical masses and shared age",
+      "url": "https://arxiv.org/abs/2205.08077"
+    },
+    {
+      "name": "King et al. 2010, Epsilon Indi Ba/Bb resolved bolometric SEDs",
+      "url": "https://arxiv.org/abs/0911.3143"
+    },
+    {
+      "name": "Allende Prieto & Lambert 1999, exact-Hipparcos stellar models",
+      "url": "https://cdsarc.cds.unistra.fr/viz-bin/cat/J/A+A/352/555"
+    },
+    {
+      "name": "McDonald et al. 2012, exact-Hipparcos SED luminosities",
+      "url": "https://cdsarc.cds.unistra.fr/viz-bin/cat/J/MNRAS/427/343"
+    },
+    {
+      "name": "Gaia DR3, exact-ID quality-filtered astrophysical parameters",
+      "url": "https://gea.esac.esa.int/archive/"
+    }
+  ]
+}

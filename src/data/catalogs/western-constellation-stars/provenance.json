@@ -6,12 +6,13 @@
   "uniqueHipparcosStars": 691,
   "physicalCoverage": {
     "temperature_k": 668,
-    "mass_solar": 353,
-    "luminosity_solar": 626,
-    "radius_solar": 626,
-    "metallicity_dex": 223,
-    "age_gyr": 88
+    "mass_solar": 355,
+    "luminosity_solar": 628,
+    "radius_solar": 628,
+    "metallicity_dex": 227,
+    "age_gyr": 92
   },
+  "sharedEnrichmentManifestSha256": "7e823401fdbfc9ae6cb2353abca7153ba484217cb200f72fb95ed99c8699a56a",
   "objects": {
     "hip-677": {
       "hip": 677,
@@ -485,44 +486,39 @@
       },
       "gaiaDr3Id": "4683897617110115200",
       "adoptedPhysicalFields": {
-        "temperature_k": "published:1999A&A...352..555A:HIP-2021",
-        "mass_solar": "published:1999A&A...352..555A:HIP-2021",
-        "radius_solar": "published:1999A&A...352..555A:HIP-2021",
-        "luminosity_solar": "derived:stefan-boltzmann"
+        "temperature_k": "nearest-1000:cns5-0125",
+        "mass_solar": "nearest-1000:cns5-0125",
+        "luminosity_solar": "nearest-1000:cns5-0125",
+        "radius_solar": "nearest-1000:cns5-0125"
       },
       "physicalObservations": [
         {
           "field": "temperature_k",
-          "value": 5888.43655355589,
-          "uncertainty": 135.58626229259028,
-          "status": "model-derived",
-          "source": "Allende Prieto & Lambert 1999",
-          "sourceId": "HIP 2021",
-          "bibcode": "1999A&A...352..555A"
+          "value": 5888.0,
+          "status": "inherited",
+          "source": "nearest-1000",
+          "sourceId": "cns5-0125"
         },
         {
           "field": "mass_solar",
           "value": 1.11,
-          "uncertainty": 0.14,
-          "status": "model-derived",
-          "source": "Allende Prieto & Lambert 1999",
-          "sourceId": "HIP 2021",
-          "bibcode": "1999A&A...352..555A"
-        },
-        {
-          "field": "radius_solar",
-          "value": 1.7782794100389228,
-          "uncertainty": 0.1228391898220161,
-          "status": "model-derived",
-          "source": "Allende Prieto & Lambert 1999",
-          "sourceId": "HIP 2021",
-          "bibcode": "1999A&A...352..555A"
+          "status": "inherited",
+          "source": "nearest-1000",
+          "sourceId": "cns5-0125"
         },
         {
           "field": "luminosity_solar",
-          "value": 3.4242535575374644,
-          "status": "derived",
-          "source": "Stefan-Boltzmann scaling"
+          "value": 3.424253557,
+          "status": "inherited",
+          "source": "nearest-1000",
+          "sourceId": "cns5-0125"
+        },
+        {
+          "field": "radius_solar",
+          "value": 1.77827941,
+          "status": "inherited",
+          "source": "nearest-1000",
+          "sourceId": "cns5-0125"
         }
       ]
     },
@@ -2227,12 +2223,52 @@
       },
       "gaiaDr3Id": "2452378776434477184",
       "adoptedPhysicalFields": {
-        "temperature_k": "nearest-1000:10pc-0044"
+        "temperature_k": "nearest-1000:10pc-0044",
+        "mass_solar": "nearest-1000:10pc-0044",
+        "luminosity_solar": "nearest-1000:10pc-0044",
+        "radius_solar": "nearest-1000:10pc-0044",
+        "metallicity_dex": "nearest-1000:10pc-0044",
+        "age_gyr": "nearest-1000:10pc-0044"
       },
       "physicalObservations": [
         {
           "field": "temperature_k",
-          "value": 5430.0,
+          "value": 5320.0,
+          "status": "inherited",
+          "source": "nearest-1000",
+          "sourceId": "10pc-0044"
+        },
+        {
+          "field": "mass_solar",
+          "value": 0.69,
+          "status": "inherited",
+          "source": "nearest-1000",
+          "sourceId": "10pc-0044"
+        },
+        {
+          "field": "luminosity_solar",
+          "value": 0.45,
+          "status": "inherited",
+          "source": "nearest-1000",
+          "sourceId": "10pc-0044"
+        },
+        {
+          "field": "radius_solar",
+          "value": 0.793,
+          "status": "inherited",
+          "source": "nearest-1000",
+          "sourceId": "10pc-0044"
+        },
+        {
+          "field": "metallicity_dex",
+          "value": -0.49,
+          "status": "inherited",
+          "source": "nearest-1000",
+          "sourceId": "10pc-0044"
+        },
+        {
+          "field": "age_gyr",
+          "value": 10.0,
           "status": "inherited",
           "source": "nearest-1000",
           "sourceId": "10pc-0044"
@@ -5849,44 +5885,39 @@
       },
       "gaiaDr3Id": "5164120762333028736",
       "adoptedPhysicalFields": {
-        "temperature_k": "published:1999A&A...352..555A:HIP-17378",
-        "mass_solar": "published:1999A&A...352..555A:HIP-17378",
-        "radius_solar": "published:1999A&A...352..555A:HIP-17378",
-        "luminosity_solar": "derived:stefan-boltzmann"
+        "temperature_k": "nearest-1000:cns5-0938",
+        "mass_solar": "nearest-1000:cns5-0938",
+        "luminosity_solar": "nearest-1000:cns5-0938",
+        "radius_solar": "nearest-1000:cns5-0938"
       },
       "physicalObservations": [
         {
           "field": "temperature_k",
-          "value": 5011.872336272725,
-          "uncertainty": 115.40262529490819,
-          "status": "model-derived",
-          "source": "Allende Prieto & Lambert 1999",
-          "sourceId": "HIP 17378",
-          "bibcode": "1999A&A...352..555A"
+          "value": 5012.0,
+          "status": "inherited",
+          "source": "nearest-1000",
+          "sourceId": "cns5-0938"
         },
         {
           "field": "mass_solar",
           "value": 0.96,
-          "uncertainty": 0.14,
-          "status": "model-derived",
-          "source": "Allende Prieto & Lambert 1999",
-          "sourceId": "HIP 17378",
-          "bibcode": "1999A&A...352..555A"
-        },
-        {
-          "field": "radius_solar",
-          "value": 2.4547089156850306,
-          "uncertainty": 0.1130435231379186,
-          "status": "model-derived",
-          "source": "Allende Prieto & Lambert 1999",
-          "sourceId": "HIP 17378",
-          "bibcode": "1999A&A...352..555A"
+          "status": "inherited",
+          "source": "nearest-1000",
+          "sourceId": "cns5-0938"
         },
         {
           "field": "luminosity_solar",
-          "value": 3.4256182179745567,
-          "status": "derived",
-          "source": "Stefan-Boltzmann scaling"
+          "value": 3.425618219,
+          "status": "inherited",
+          "source": "nearest-1000",
+          "sourceId": "cns5-0938"
+        },
+        {
+          "field": "radius_solar",
+          "value": 2.454708916,
+          "status": "inherited",
+          "source": "nearest-1000",
+          "sourceId": "cns5-0938"
         }
       ]
     },
@@ -13131,7 +13162,9 @@
         "temperature_k": "bright-stars:sirius-a",
         "mass_solar": "bright-stars:sirius-a",
         "luminosity_solar": "bright-stars:sirius-a",
-        "radius_solar": "derived:stefan-boltzmann"
+        "radius_solar": "bright-stars:sirius-a",
+        "metallicity_dex": "bright-stars:sirius-a",
+        "age_gyr": "bright-stars:sirius-a"
       },
       "physicalObservations": [
         {
@@ -13157,9 +13190,24 @@
         },
         {
           "field": "radius_solar",
-          "value": 1.7097044872782095,
-          "status": "derived",
-          "source": "Stefan-Boltzmann scaling"
+          "value": 1.7144,
+          "status": "inherited",
+          "source": "bright-stars",
+          "sourceId": "sirius-a"
+        },
+        {
+          "field": "metallicity_dex",
+          "value": -0.1,
+          "status": "inherited",
+          "source": "bright-stars",
+          "sourceId": "sirius-a"
+        },
+        {
+          "field": "age_gyr",
+          "value": 0.242,
+          "status": "inherited",
+          "source": "bright-stars",
+          "sourceId": "sirius-a"
         }
       ]
     },
@@ -14931,12 +14979,52 @@
       },
       "gaiaDr3Id": null,
       "adoptedPhysicalFields": {
-        "temperature_k": "bright-stars:bright-procyon"
+        "temperature_k": "bright-stars:bright-procyon",
+        "mass_solar": "bright-stars:bright-procyon",
+        "luminosity_solar": "bright-stars:bright-procyon",
+        "radius_solar": "bright-stars:bright-procyon",
+        "metallicity_dex": "bright-stars:bright-procyon",
+        "age_gyr": "bright-stars:bright-procyon"
       },
       "physicalObservations": [
         {
           "field": "temperature_k",
-          "value": 6761.0,
+          "value": 6591.0,
+          "status": "inherited",
+          "source": "bright-stars",
+          "sourceId": "bright-procyon"
+        },
+        {
+          "field": "mass_solar",
+          "value": 1.478,
+          "status": "inherited",
+          "source": "bright-stars",
+          "sourceId": "bright-procyon"
+        },
+        {
+          "field": "luminosity_solar",
+          "value": 6.931,
+          "status": "inherited",
+          "source": "bright-stars",
+          "sourceId": "bright-procyon"
+        },
+        {
+          "field": "radius_solar",
+          "value": 2.019,
+          "status": "inherited",
+          "source": "bright-stars",
+          "sourceId": "bright-procyon"
+        },
+        {
+          "field": "metallicity_dex",
+          "value": -0.05,
+          "status": "inherited",
+          "source": "bright-stars",
+          "sourceId": "bright-procyon"
+        },
+        {
+          "field": "age_gyr",
+          "value": 2.7,
           "status": "inherited",
           "source": "bright-stars",
           "sourceId": "bright-procyon"
@@ -18157,44 +18245,39 @@
       },
       "gaiaDr3Id": "1018776176872261248",
       "adoptedPhysicalFields": {
-        "temperature_k": "published:1999A&A...352..555A:HIP-46853",
-        "mass_solar": "published:1999A&A...352..555A:HIP-46853",
-        "radius_solar": "published:1999A&A...352..555A:HIP-46853",
-        "luminosity_solar": "derived:stefan-boltzmann"
+        "temperature_k": "nearest-1000:cns5-2366",
+        "mass_solar": "nearest-1000:cns5-2366",
+        "luminosity_solar": "nearest-1000:cns5-2366",
+        "radius_solar": "nearest-1000:cns5-2366"
       },
       "physicalObservations": [
         {
           "field": "temperature_k",
-          "value": 6456.542290346556,
-          "uncertainty": 0.0,
-          "status": "model-derived",
-          "source": "Allende Prieto & Lambert 1999",
-          "sourceId": "HIP 46853",
-          "bibcode": "1999A&A...352..555A"
+          "value": 6457.0,
+          "status": "inherited",
+          "source": "nearest-1000",
+          "sourceId": "cns5-2366"
         },
         {
           "field": "mass_solar",
           "value": 1.53,
-          "uncertainty": 0.01,
-          "status": "model-derived",
-          "source": "Allende Prieto & Lambert 1999",
-          "sourceId": "HIP 46853",
-          "bibcode": "1999A&A...352..555A"
-        },
-        {
-          "field": "radius_solar",
-          "value": 2.1877616239495525,
-          "uncertainty": 0.050375073023306856,
-          "status": "model-derived",
-          "source": "Allende Prieto & Lambert 1999",
-          "sourceId": "HIP 46853",
-          "bibcode": "1999A&A...352..555A"
+          "status": "inherited",
+          "source": "nearest-1000",
+          "sourceId": "cns5-2366"
         },
         {
           "field": "luminosity_solar",
-          "value": 7.495797679923369,
-          "status": "derived",
-          "source": "Stefan-Boltzmann scaling"
+          "value": 7.49579768,
+          "status": "inherited",
+          "source": "nearest-1000",
+          "sourceId": "cns5-2366"
+        },
+        {
+          "field": "radius_solar",
+          "value": 2.187761624,
+          "status": "inherited",
+          "source": "nearest-1000",
+          "sourceId": "cns5-2366"
         }
       ]
     },
@@ -25396,38 +25479,53 @@
       "adoptedPhysicalFields": {
         "temperature_k": "bright-stars:alpha-centauri-a",
         "mass_solar": "bright-stars:alpha-centauri-a",
-        "radius_solar": "published:1999A&A...352..555A:HIP-71683",
-        "luminosity_solar": "derived:stefan-boltzmann"
+        "luminosity_solar": "bright-stars:alpha-centauri-a",
+        "radius_solar": "bright-stars:alpha-centauri-a",
+        "metallicity_dex": "bright-stars:alpha-centauri-a",
+        "age_gyr": "bright-stars:alpha-centauri-a"
       },
       "physicalObservations": [
         {
           "field": "temperature_k",
-          "value": 5770.0,
+          "value": 5795.0,
           "status": "inherited",
           "source": "bright-stars",
           "sourceId": "alpha-centauri-a"
         },
         {
           "field": "mass_solar",
-          "value": 1.079,
+          "value": 1.0788,
+          "status": "inherited",
+          "source": "bright-stars",
+          "sourceId": "alpha-centauri-a"
+        },
+        {
+          "field": "luminosity_solar",
+          "value": 1.5059,
           "status": "inherited",
           "source": "bright-stars",
           "sourceId": "alpha-centauri-a"
         },
         {
           "field": "radius_solar",
-          "value": 1.288249551693134,
-          "uncertainty": 0.02966304213784873,
-          "status": "model-derived",
-          "source": "Allende Prieto & Lambert 1999",
-          "sourceId": "HIP 71683",
-          "bibcode": "1999A&A...352..555A"
+          "value": 1.2175,
+          "status": "inherited",
+          "source": "bright-stars",
+          "sourceId": "alpha-centauri-a"
         },
         {
-          "field": "luminosity_solar",
-          "value": 1.6572879129323403,
-          "status": "derived",
-          "source": "Stefan-Boltzmann scaling"
+          "field": "metallicity_dex",
+          "value": 0.237,
+          "status": "inherited",
+          "source": "bright-stars",
+          "sourceId": "alpha-centauri-a"
+        },
+        {
+          "field": "age_gyr",
+          "value": 5.3,
+          "status": "inherited",
+          "source": "bright-stars",
+          "sourceId": "alpha-centauri-a"
         }
       ]
     },
@@ -27991,44 +28089,39 @@
       },
       "gaiaDr3Id": "5826168461855385472",
       "adoptedPhysicalFields": {
-        "temperature_k": "published:1999A&A...352..555A:HIP-77952",
-        "mass_solar": "published:1999A&A...352..555A:HIP-77952",
-        "radius_solar": "published:1999A&A...352..555A:HIP-77952",
-        "luminosity_solar": "derived:stefan-boltzmann"
+        "temperature_k": "nearest-1000:cns5-3915",
+        "mass_solar": "nearest-1000:cns5-3915",
+        "luminosity_solar": "nearest-1000:cns5-3915",
+        "radius_solar": "nearest-1000:cns5-3915"
       },
       "physicalObservations": [
         {
           "field": "temperature_k",
-          "value": 7413.102413009177,
-          "uncertainty": 0.0,
-          "status": "model-derived",
-          "source": "Allende Prieto & Lambert 1999",
-          "sourceId": "HIP 77952",
-          "bibcode": "1999A&A...352..555A"
+          "value": 7413.0,
+          "status": "inherited",
+          "source": "nearest-1000",
+          "sourceId": "cns5-3915"
         },
         {
           "field": "mass_solar",
           "value": 1.71,
-          "uncertainty": 0.04,
-          "status": "model-derived",
-          "source": "Allende Prieto & Lambert 1999",
-          "sourceId": "HIP 77952",
-          "bibcode": "1999A&A...352..555A"
-        },
-        {
-          "field": "radius_solar",
-          "value": 1.7378008287493754,
-          "uncertainty": 0.04001434282871011,
-          "status": "model-derived",
-          "source": "Allende Prieto & Lambert 1999",
-          "sourceId": "HIP 77952",
-          "bibcode": "1999A&A...352..555A"
+          "status": "inherited",
+          "source": "nearest-1000",
+          "sourceId": "cns5-3915"
         },
         {
           "field": "luminosity_solar",
-          "value": 8.216194483753098,
-          "status": "derived",
-          "source": "Stefan-Boltzmann scaling"
+          "value": 8.216194486,
+          "status": "inherited",
+          "source": "nearest-1000",
+          "sourceId": "cns5-3915"
+        },
+        {
+          "field": "radius_solar",
+          "value": 1.737800829,
+          "status": "inherited",
+          "source": "nearest-1000",
+          "sourceId": "cns5-3915"
         }
       ]
     },
@@ -29751,17 +29844,15 @@
       },
       "gaiaDr3Id": null,
       "adoptedPhysicalFields": {
-        "temperature_k": "published:1999A&A...352..555A:HIP-81693"
+        "temperature_k": "nearest-1000:cns5-4097"
       },
       "physicalObservations": [
         {
           "field": "temperature_k",
-          "value": 6025.595860743575,
-          "uncertainty": 0.0,
-          "status": "model-derived",
-          "source": "Allende Prieto & Lambert 1999",
-          "sourceId": "HIP 81693",
-          "bibcode": "1999A&A...352..555A"
+          "value": 6026.0,
+          "status": "inherited",
+          "source": "nearest-1000",
+          "sourceId": "cns5-4097"
         }
       ]
     },
@@ -33052,17 +33143,15 @@
       },
       "gaiaDr3Id": "2266693630693936512",
       "adoptedPhysicalFields": {
-        "temperature_k": "published:1999A&A...352..555A:HIP-89937"
+        "temperature_k": "nearest-1000:cns5-4539"
       },
       "physicalObservations": [
         {
           "field": "temperature_k",
-          "value": 6309.57344480193,
-          "uncertainty": 0.0,
-          "status": "model-derived",
-          "source": "Allende Prieto & Lambert 1999",
-          "sourceId": "HIP 89937",
-          "bibcode": "1999A&A...352..555A"
+          "value": 6310.0,
+          "status": "inherited",
+          "source": "nearest-1000",
+          "sourceId": "cns5-4539"
         }
       ]
     },
@@ -37169,44 +37258,39 @@
       },
       "gaiaDr3Id": "4296708789290712064",
       "adoptedPhysicalFields": {
-        "temperature_k": "published:1999A&A...352..555A:HIP-98036",
-        "mass_solar": "published:1999A&A...352..555A:HIP-98036",
-        "radius_solar": "published:1999A&A...352..555A:HIP-98036",
-        "luminosity_solar": "derived:stefan-boltzmann"
+        "temperature_k": "nearest-1000:cns5-4929",
+        "mass_solar": "nearest-1000:cns5-4929",
+        "luminosity_solar": "nearest-1000:cns5-4929",
+        "radius_solar": "nearest-1000:cns5-4929"
       },
       "physicalObservations": [
         {
           "field": "temperature_k",
-          "value": 5128.613839913648,
-          "uncertainty": 118.09069775508118,
-          "status": "model-derived",
-          "source": "Allende Prieto & Lambert 1999",
-          "sourceId": "HIP 98036",
-          "bibcode": "1999A&A...352..555A"
+          "value": 5129.0,
+          "status": "inherited",
+          "source": "nearest-1000",
+          "sourceId": "cns5-4929"
         },
         {
           "field": "mass_solar",
           "value": 1.27,
-          "uncertainty": 0.05,
-          "status": "model-derived",
-          "source": "Allende Prieto & Lambert 1999",
-          "sourceId": "HIP 98036",
-          "bibcode": "1999A&A...352..555A"
-        },
-        {
-          "field": "radius_solar",
-          "value": 3.0902954325135905,
-          "uncertainty": 0.21347004587560142,
-          "status": "model-derived",
-          "source": "Allende Prieto & Lambert 1999",
-          "sourceId": "HIP 98036",
-          "bibcode": "1999A&A...352..555A"
+          "status": "inherited",
+          "source": "nearest-1000",
+          "sourceId": "cns5-4929"
         },
         {
           "field": "luminosity_solar",
-          "value": 5.954228629193093,
-          "status": "derived",
-          "source": "Stefan-Boltzmann scaling"
+          "value": 5.954228631,
+          "status": "inherited",
+          "source": "nearest-1000",
+          "sourceId": "cns5-4929"
+        },
+        {
+          "field": "radius_solar",
+          "value": 3.090295433,
+          "status": "inherited",
+          "source": "nearest-1000",
+          "sourceId": "cns5-4929"
         }
       ]
     },
@@ -37671,15 +37755,22 @@
       "gaiaDr3Id": "6427464123776727168",
       "adoptedPhysicalFields": {
         "temperature_k": "nearest-1000:cns5-4994",
+        "mass_solar": "nearest-1000:cns5-4994",
         "luminosity_solar": "nearest-1000:cns5-4994",
         "radius_solar": "nearest-1000:cns5-4994",
-        "metallicity_dex": "nearest-1000:cns5-4994",
-        "mass_solar": "published:1999A&A...352..555A:HIP-99240"
+        "metallicity_dex": "nearest-1000:cns5-4994"
       },
       "physicalObservations": [
         {
           "field": "temperature_k",
           "value": 5438.0,
+          "status": "inherited",
+          "source": "nearest-1000",
+          "sourceId": "cns5-4994"
+        },
+        {
+          "field": "mass_solar",
+          "value": 0.94,
           "status": "inherited",
           "source": "nearest-1000",
           "sourceId": "cns5-4994"
@@ -37704,15 +37795,6 @@
           "status": "inherited",
           "source": "nearest-1000",
           "sourceId": "cns5-4994"
-        },
-        {
-          "field": "mass_solar",
-          "value": 0.94,
-          "uncertainty": 0.07,
-          "status": "model-derived",
-          "source": "Allende Prieto & Lambert 1999",
-          "sourceId": "HIP 99240",
-          "bibcode": "1999A&A...352..555A"
         }
       ]
     },
@@ -40249,17 +40331,15 @@
       },
       "gaiaDr3Id": "6838311796136238976",
       "adoptedPhysicalFields": {
-        "temperature_k": "published:1999A&A...352..555A:HIP-107556"
+        "temperature_k": "nearest-1000:cns5-5370"
       },
       "physicalObservations": [
         {
           "field": "temperature_k",
-          "value": 8128.305161640995,
-          "uncertainty": 0.0,
-          "status": "model-derived",
-          "source": "Allende Prieto & Lambert 1999",
-          "sourceId": "HIP 107556",
-          "bibcode": "1999A&A...352..555A"
+          "value": 8128.0,
+          "status": "inherited",
+          "source": "nearest-1000",
+          "sourceId": "cns5-5370"
         }
       ]
     },
@@ -43834,17 +43914,15 @@
       },
       "gaiaDr3Id": "2281778105594488192",
       "adoptedPhysicalFields": {
-        "temperature_k": "published:1999A&A...352..555A:HIP-116727"
+        "temperature_k": "nearest-1000:cns5-5833"
       },
       "physicalObservations": [
         {
           "field": "temperature_k",
-          "value": 4786.300923226385,
-          "uncertainty": 0.0,
-          "status": "model-derived",
-          "source": "Allende Prieto & Lambert 1999",
-          "sourceId": "HIP 116727",
-          "bibcode": "1999A&A...352..555A"
+          "value": 4786.0,
+          "status": "inherited",
+          "source": "nearest-1000",
+          "sourceId": "cns5-5833"
         }
       ]
     },

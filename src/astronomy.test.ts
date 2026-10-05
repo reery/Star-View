@@ -3,7 +3,7 @@ import { describe, expect, it } from 'vitest'
 import csv from './data/stars.csv?raw'
 import { parseStarCatalog } from './catalog'
 import type { ObjectType } from './catalog-model'
-import { displayMotionForStar, galacticToWorld, galacticVelocityToWorld, galactocentricVelocityToWorld, gridSpacingPc, rawAstrometryVelocityToWorld, SOLAR_GALACTIC_VELOCITY_KMS, starDisplayColor, sunRelativeMetrics, temperatureToColor } from './astronomy'
+import { displayMotionForStar, galacticToWorld, galacticVelocityToWorld, galactocentricVelocityToWorld, gridScaleForViewDistance, rawAstrometryVelocityToWorld, SOLAR_GALACTIC_VELOCITY_KMS, starDisplayColor, sunRelativeMetrics, temperatureToColor } from './astronomy'
 
 const stars = parseStarCatalog(csv)
 const sun = stars.find((star) => star.id === 'sun')!
@@ -11,10 +11,22 @@ const sirius = stars.find((star) => star.id === 'sirius-a')!
 
 describe('adaptive grid spacing', () => {
   it.each([
-    [5, 0.5], [100, 0.5], [150, 1], [200, 2], [300, 5], [500, 10], [1000, 20], [1500, 30], [2000, 40], [3000, 60],
-    [5000, 100], [10000, 200],
-  ])('uses %d ly visibility with %d pc cells', (distance, spacing) => {
-    expect(gridSpacingPc(distance)).toBe(spacing)
+    [25, 1, 40], [100, 5, 150], [150, 10, 300], [500, 20, 1_000], [1_000, 50, 2_000], [2_000, 100, 4_000],
+    [5_000, 200, 10_000], [10_000, 500, 20_000], [20_000, 1_000, 40_000], [50_000, 2_000, 100_000],
+    [100_000, 5_000, 200_000],
+  ])('uses %d ly view distance with %d ly cells across %d ly', (distance, spacing, size) => {
+    const scale = gridScaleForViewDistance(distance / 3.261563777, 'ly')
+    expect(scale.spacing).toBe(spacing)
+    expect(scale.halfSizePc * 3.261563777 * 2).toBeCloseTo(size)
+  })
+
+  it.each([
+    [3, 0.5, 6], [15, 0.5, 30], [50, 2, 100], [150, 3, 300], [300, 6, 600], [600, 30, 1_200],
+    [1_500, 60, 3_000], [3_000, 150, 6_000], [6_000, 300, 12_000], [15_000, 600, 30_000], [30_000, 1_500, 60_000],
+  ])('uses %d pc view distance with %d pc cells across %d pc', (distance, spacing, size) => {
+    const scale = gridScaleForViewDistance(distance, 'pc')
+    expect(scale.spacing).toBe(spacing)
+    expect(scale.halfSizePc * 2).toBe(size)
   })
 })
 

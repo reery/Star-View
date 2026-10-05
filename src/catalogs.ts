@@ -42,6 +42,7 @@ function catalogRecord(star: Star): Record<typeof CATALOG_HEADERS[number], strin
     type: star.type,
     id: star.id,
     name: star.name,
+    designations: star.designations?.join('|') ?? '',
     spectral_type: star.spectral_type,
     x_pc: star.x_pc,
     y_pc: star.y_pc,

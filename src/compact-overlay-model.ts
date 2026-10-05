@@ -1,3 +1,4 @@
+import { validDesignations } from './designations.ts'
 import { COMPACT_OBJECT_TYPES, type CompactObjectDetails, type Star } from './catalog-model.ts'
 
 export interface CompactOverlayManifest {
@@ -31,11 +32,22 @@ function finiteOrNull(value: unknown): boolean {
   return value === null || (typeof value === 'number' && Number.isFinite(value))
 }
 
+function isSafeSourceUrl(value: unknown): value is string {
+  if (typeof value !== 'string') return false
+  try {
+    const url = new URL(value)
+    return url.protocol === 'https:' && url.username === '' && url.password === ''
+  } catch {
+    return false
+  }
+}
+
 function validDetails(value: unknown): value is CompactObjectDetails {
   if (!value || typeof value !== 'object') return false
   const details = value as Record<string, unknown>
   return (details.confidence === 'confirmed' || details.confidence === 'candidate')
-    && ['distance_method', 'distance_source', 'position_source', 'detection_method', 'source_label', 'source_url'].every((field) => typeof details[field] === 'string')
+    && ['distance_method', 'distance_source', 'position_source', 'detection_method', 'source_label'].every((field) => typeof details[field] === 'string')
+    && isSafeSourceUrl(details.source_url)
     && ['mass_error_solar', 'rotation_period_s', 'rotation_period_error_s', 'radio_luminosity_1400_mjy_kpc2', 'characteristic_age_yr', 'surface_magnetic_field_gauss', 'spin_down_power_erg_s', 'orbital_period_days', 'orbital_period_error_days'].every((field) => finiteOrNull(details[field]))
     && (details.companion === null || typeof details.companion === 'string')
     && typeof details.ra_deg === 'number' && Number.isFinite(details.ra_deg)
@@ -53,7 +65,7 @@ export function parseCompactOverlayPayload(value: unknown, manifest: CompactOver
   const ids = new Set<string>()
   for (const object of objects) {
     if (!object || typeof object.id !== 'string' || !object.id || ids.has(object.id)
-      || typeof object.name !== 'string' || !object.name
+      || typeof object.name !== 'string' || !object.name || !validDesignations(object.designations)
       || typeof object.type !== 'string' || !COMPACT_OBJECT_TYPES.includes(object.type as never)
       || !['x_pc', 'y_pc', 'z_pc', 'epoch'].every((field) => typeof object[field] === 'number' && Number.isFinite(object[field]))
       || object.epoch !== manifest.epoch || !validDetails(object.compact)) {

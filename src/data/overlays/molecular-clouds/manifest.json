@@ -1,0 +1,29 @@
+{
+  "schemaVersion": 1,
+  "id": "molecular-clouds",
+  "label": "Molecular clouds",
+  "description": "The 65 distinct molecular-cloud features segmented in true 3D from the Leike et al. solar-neighborhood dust map by Cahlon et al. (2024).",
+  "epoch": 2000,
+  "objectCount": 65,
+  "counts": {
+    "molecular_cloud": 65
+  },
+  "sourceVoxelCount": 78326,
+  "displaySampleCount": 19606,
+  "sources": [
+    {
+      "name": "Cahlon et al. (2024); parsec-scale catalog of molecular clouds in the solar neighborhood",
+      "url": "https://doi.org/10.3847/1538-4357/ad0cf8"
+    },
+    {
+      "name": "Cahlon et al. (2024) machine-readable tables; Harvard Dataverse",
+      "url": "https://doi.org/10.7910/DVN/BFYDG8"
+    },
+    {
+      "name": "Leike et al. (2020); parsec-resolution 3D dust map",
+      "url": "https://doi.org/10.1051/0004-6361/202038169"
+    }
+  ],
+  "cutoffPolicy": "All 65 filtered 3D cloud features in Cahlon et al. (2024) are retained. Their catalog centers span 116-440 pc (about 378-1435 ly), so every feature lies within the Star View 2000-ly scope. The underlying Leike et al. map is effectively limited to about 400 pc and is not a complete census of the outer 440-613 pc shell.",
+  "snapshot": "Cahlon et al. (2024) Harvard Dataverse tables, reviewed and transformed 2026-10-04."
+}

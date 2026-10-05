@@ -360,6 +360,280 @@
           "qualityFlags": ["stellar-evolution model", "adopted by 2023AJ....166..123K"]
         }
       ]
+    },
+    {
+      "starViewId": "10pc-0031",
+      "gaiaDr3Id": null,
+      "note": "Procyon A component parameters: dynamical mass and preferred 2.70 Gyr high-core-overshoot age from Bond et al. (2015); age is model-dependent (alternative tracks 1.673 and 1.817 Gyr). Chiavassa et al. (2012) provide 6591 +/- 43 K and the 2.019 solar interferometric radius; the alternative bolometric flux gives 6556 +/- 84 K. Photospheric [Fe/H] is the differential 3D LTE result of Allende Prieto et al. (2002).",
+      "physical": [
+        {
+          "field": "temperature_k",
+          "value": 6591,
+          "uncertainty": 43,
+          "status": "derived",
+          "reference": "2012A&A...540A...5C",
+          "qualityFlags": [
+            "3D limb-darkened interferometry and Fuhrmann bolometric flux"
+          ]
+        },
+        {
+          "field": "mass_solar",
+          "value": 1.478,
+          "uncertainty": 0.012,
+          "status": "measured",
+          "reference": "2015ApJ...813..106B",
+          "qualityFlags": [
+            "binary dynamical mass"
+          ]
+        },
+        {
+          "field": "radius_solar",
+          "value": 2.019,
+          "uncertainty": null,
+          "status": "derived",
+          "reference": "2012A&A...540A...5C",
+          "qualityFlags": [
+            "Vinci angular diameter and Hipparcos parallax"
+          ]
+        },
+        {
+          "field": "metallicity_dex",
+          "value": -0.05,
+          "uncertainty": 0.03,
+          "status": "measured",
+          "reference": "2002ApJ...567..544A",
+          "qualityFlags": [
+            "differential solar iron abundance; 3D LTE"
+          ]
+        },
+        {
+          "field": "age_gyr",
+          "value": 2.7,
+          "uncertainty": null,
+          "status": "model-derived",
+          "reference": "2015ApJ...813..106B",
+          "qualityFlags": [
+            "preferred high core overshoot model; not a precise measured age"
+          ]
+        }
+      ],
+      "photometry": {
+        "johnson_v": 0.34,
+        "uncertainty": null,
+        "reference": "1953ApJ...117..313J; 2015ApJ...813..106B",
+        "note": "primary-star visual magnitude reported by Bond et al. section 2"
+      }
+    },
+    {
+      "starViewId": "10pc-0032",
+      "gaiaDr3Id": null,
+      "note": "Procyon B component parameters from Bond et al. (2015), using the Provencal et al. (2002) HST atmosphere temperature and parallax-adjusted radius. Metal pollution is not represented as an ordinary stellar [Fe/H]. Cooling age 1.37 +/- 0.04 Gyr is retained here separately from the preferred total binary age of 2.70 Gyr; the displayed age is the latter and inherits the primary stellar-evolution assumptions.",
+      "physical": [
+        {
+          "field": "temperature_k",
+          "value": 7740,
+          "uncertainty": 50,
+          "status": "measured",
+          "reference": "2002ApJ...568..324P",
+          "qualityFlags": [
+            "HST/STIS helium-atmosphere fit"
+          ]
+        },
+        {
+          "field": "mass_solar",
+          "value": 0.592,
+          "uncertainty": 0.006,
+          "status": "measured",
+          "reference": "2015ApJ...813..106B",
+          "qualityFlags": [
+            "binary dynamical mass"
+          ]
+        },
+        {
+          "field": "radius_solar",
+          "value": 0.01232,
+          "uncertainty": 0.00032,
+          "status": "derived",
+          "reference": "2015ApJ...813..106B",
+          "qualityFlags": [
+            "HST absolute-flux atmosphere fit with adopted parallax"
+          ]
+        },
+        {
+          "field": "age_gyr",
+          "value": 2.7,
+          "uncertainty": null,
+          "status": "model-derived",
+          "reference": "2015ApJ...813..106B",
+          "qualityFlags": [
+            "total binary age; not 1.37 Gyr white dwarf cooling time"
+          ]
+        }
+      ],
+      "photometry": {
+        "johnson_v": 10.82,
+        "uncertainty": 0.03,
+        "reference": "2002ApJ...568..324P; 2015ApJ...813..106B",
+        "note": "resolved HST SED Johnson V"
+      }
+    },
+    {
+      "starViewId": "10pc-0086",
+      "gaiaDr3Id": null,
+      "note": "LAWD 37: McGill et al. (2023) gravitational microlensing mass and DQ atmospheric-fit temperature/radius. Carbon abundance is not ordinary stellar [Fe/H]. The reported 1.15 Gyr age is a cooling age; no total stellar age is inferred.",
+      "physical": [
+        {
+          "field": "temperature_k",
+          "value": 7837,
+          "uncertainty": 83,
+          "status": "model-derived",
+          "reference": "2023MNRAS.520..259M",
+          "qualityFlags": [
+            "photometric/spectroscopic white dwarf atmosphere fit"
+          ]
+        },
+        {
+          "field": "mass_solar",
+          "value": 0.56,
+          "uncertainty": 0.08,
+          "status": "measured",
+          "reference": "2023MNRAS.520..259M",
+          "qualityFlags": [
+            "astrometric gravitational microlensing"
+          ]
+        },
+        {
+          "field": "radius_solar",
+          "value": 0.0127,
+          "uncertainty": 0.0003,
+          "status": "derived",
+          "reference": "2023MNRAS.520..259M",
+          "qualityFlags": [
+            "atmospheric absolute-flux fit and parallax"
+          ]
+        }
+      ]
+    },
+    {
+      "starViewId": "10pc-0129",
+      "gaiaDr3Id": null,
+      "note": "Stein 2051 B: Sahu et al. (2017) gravitational microlensing mass and model-atmosphere photometric temperature/radius from the supplementary material. The total age is reported as a 1.9-3.6 Gyr range and remains in this note; no scalar midpoint or ordinary stellar [Fe/H] is invented.",
+      "physical": [
+        {
+          "field": "temperature_k",
+          "value": 7122,
+          "uncertainty": 181,
+          "status": "model-derived",
+          "reference": "2017Sci...356.1046S",
+          "qualityFlags": [
+            "photometric/spectroscopic white dwarf atmosphere fit"
+          ]
+        },
+        {
+          "field": "mass_solar",
+          "value": 0.675,
+          "uncertainty": 0.051,
+          "status": "measured",
+          "reference": "2017Sci...356.1046S",
+          "qualityFlags": [
+            "astrometric gravitational microlensing"
+          ]
+        },
+        {
+          "field": "radius_solar",
+          "value": 0.0114,
+          "uncertainty": 0.0004,
+          "status": "derived",
+          "reference": "2017Sci...356.1046S",
+          "qualityFlags": [
+            "atmospheric absolute-flux fit and parallax"
+          ]
+        },
+        {
+          "field": "luminosity_solar",
+          "value": 0.0003019951720402016,
+          "uncertainty": 1.390739162591881e-05,
+          "status": "derived",
+          "reference": "2017Sci...356.1046S",
+          "qualityFlags": [
+            "log(L/Lsun)=-3.52 +/- 0.02 dex from supplementary atmosphere fit"
+          ]
+        }
+      ]
+    },
+    {
+      "starViewId": "10pc-0042",
+      "gaiaDr3Id": null,
+      "note": "Epsilon Indi Ba/Bb: individual dynamical masses from Chen et al. (2022); resolved SED luminosity from King et al. (2010). Shared age 3.5 Gyr is inferred from the activity of Epsilon Indi A, assuming coevality, with +0.8/-1.0 Gyr bounds. Existing spectral-class temperatures remain explicitly estimated; derived radii inherit that temperature assumption.",
+      "physical": [
+        {
+          "field": "mass_solar",
+          "value": 0.06388144613928,
+          "uncertainty": 0.00034365392424,
+          "status": "measured",
+          "reference": "2022AJ....163..288C",
+          "qualityFlags": [
+            "Jupiter-to-solar mass ratio 0.000954594234"
+          ]
+        },
+        {
+          "field": "luminosity_solar",
+          "value": 1.9998618696327447e-05,
+          "uncertainty": 7.828248619408052e-07,
+          "status": "derived",
+          "reference": "2010A&A...510A..99K",
+          "qualityFlags": [
+            "component SED log(L/Lsun)=-4.699 +/- 0.017 dex"
+          ]
+        },
+        {
+          "field": "age_gyr",
+          "value": 3.5,
+          "uncertainty": 1.0,
+          "status": "model-derived",
+          "reference": "2022AJ....163..288C",
+          "qualityFlags": [
+            "shared activity age; assuming coevality; larger side of asymmetric uncertainty"
+          ]
+        }
+      ]
+    },
+    {
+      "starViewId": "10pc-0043",
+      "gaiaDr3Id": null,
+      "note": "Epsilon Indi Ba/Bb: individual dynamical masses from Chen et al. (2022); resolved SED luminosity from King et al. (2010). Shared age 3.5 Gyr is inferred from the activity of Epsilon Indi A, assuming coevality, with +0.8/-1.0 Gyr bounds. Existing spectral-class temperatures remain explicitly estimated; derived radii inherit that temperature assumption.",
+      "physical": [
+        {
+          "field": "mass_solar",
+          "value": 0.050832142960499996,
+          "uncertainty": 0.00027683232785999997,
+          "status": "measured",
+          "reference": "2022AJ....163..288C",
+          "qualityFlags": [
+            "Jupiter-to-solar mass ratio 0.000954594234"
+          ]
+        },
+        {
+          "field": "luminosity_solar",
+          "value": 5.8613816451402845e-06,
+          "uncertainty": 2.6992660000897874e-07,
+          "status": "derived",
+          "reference": "2010A&A...510A..99K",
+          "qualityFlags": [
+            "component SED log(L/Lsun)=-5.232 +/- 0.02 dex"
+          ]
+        },
+        {
+          "field": "age_gyr",
+          "value": 3.5,
+          "uncertainty": 1.0,
+          "status": "model-derived",
+          "reference": "2022AJ....163..288C",
+          "qualityFlags": [
+            "shared activity age; assuming coevality; larger side of asymmetric uncertainty"
+          ]
+        }
+      ]
     }
   ]
 }

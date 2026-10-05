@@ -1,5 +1,5 @@
 import { Color, Matrix3, Vector3 } from 'three'
-import { ICRS_TO_GALACTIC_ROWS, isCompactObject, isNebulaObject, type RawAstrometry, type Star } from './catalog-model'
+import { ICRS_TO_GALACTIC_ROWS, isBubbleObject, isCompactObject, isMolecularCloudObject, isNebulaObject, type RawAstrometry, type Star } from './catalog-model'
 
 export const LIGHT_YEARS_PER_PARSEC = 3.261563777
 export const SOLAR_GALACTIC_VELOCITY_KMS = Object.freeze({ vx_kms: 12.9, vy_kms: 245.6, vz_kms: 7.78 })
@@ -15,18 +15,57 @@ export interface DisplayMotion {
 
 export type DistanceUnit = 'pc' | 'ly'
 
-export function gridSpacingPc(distanceLy: number): number {
-  if (distanceLy <= 100) return 0.5
-  if (distanceLy <= 150) return 1
-  if (distanceLy <= 200) return 2
-  if (distanceLy <= 300) return 5
-  if (distanceLy <= 500) return 10
-  if (distanceLy <= 1000) return 20
-  if (distanceLy <= 1500) return 30
-  if (distanceLy <= 2000) return 40
-  if (distanceLy <= 3000) return 60
-  if (distanceLy <= 5000) return 100
-  return 200
+export interface GridScale {
+  spacing: number
+  spacingPc: number
+  halfSizePc: number
+}
+
+interface GridScaleStep {
+  maxDistance: number
+  spacing: number
+  size: number
+}
+
+const GRID_SCALE_STEPS: Record<DistanceUnit, readonly GridScaleStep[]> = {
+  ly: [
+    { maxDistance: 25, spacing: 1, size: 40 },
+    { maxDistance: 100, spacing: 5, size: 150 },
+    { maxDistance: 150, spacing: 10, size: 300 },
+    { maxDistance: 500, spacing: 20, size: 1_000 },
+    { maxDistance: 1_000, spacing: 50, size: 2_000 },
+    { maxDistance: 2_000, spacing: 100, size: 4_000 },
+    { maxDistance: 5_000, spacing: 200, size: 10_000 },
+    { maxDistance: 10_000, spacing: 500, size: 20_000 },
+    { maxDistance: 20_000, spacing: 1_000, size: 40_000 },
+    { maxDistance: 50_000, spacing: 2_000, size: 100_000 },
+    { maxDistance: Infinity, spacing: 5_000, size: 200_000 },
+  ],
+  pc: [
+    { maxDistance: 3, spacing: 0.5, size: 6 },
+    { maxDistance: 15, spacing: 0.5, size: 30 },
+    { maxDistance: 50, spacing: 2, size: 100 },
+    { maxDistance: 150, spacing: 3, size: 300 },
+    { maxDistance: 300, spacing: 6, size: 600 },
+    { maxDistance: 600, spacing: 30, size: 1_200 },
+    { maxDistance: 1_500, spacing: 60, size: 3_000 },
+    { maxDistance: 3_000, spacing: 150, size: 6_000 },
+    { maxDistance: 6_000, spacing: 300, size: 12_000 },
+    { maxDistance: 15_000, spacing: 600, size: 30_000 },
+    { maxDistance: Infinity, spacing: 1_500, size: 60_000 },
+  ],
+}
+
+export function gridScaleForViewDistance(distancePc: number, unit: DistanceUnit): GridScale {
+  const conversion = unit === 'ly' ? LIGHT_YEARS_PER_PARSEC : 1
+  const distance = Math.max(0, distancePc * conversion)
+  const steps = GRID_SCALE_STEPS[unit]
+  const step = steps.find((candidate) => distance <= candidate.maxDistance) ?? steps.at(-1)!
+  return {
+    spacing: step.spacing,
+    spacingPc: step.spacing / conversion,
+    halfSizePc: step.size / conversion / 2,
+  }
 }
 
 export function formatDistance(distancePc: number, unit: DistanceUnit, digits = 2): string {
@@ -43,7 +82,12 @@ export function apparentVisualMagnitude(absoluteMagnitude: number | null, distan
 
 export function visibilityTier(target: Pick<Star, 'id' | 'absolute_mag'> & Partial<Pick<Star, 'type'>> & Position, observer: Pick<Star, 'id'> & Position, limit: number): 'base' | 'eligible' | 'background' {
   if (target.id === observer.id) return 'base'
-  if (target.type && (isCompactObject(target as Pick<Star, 'type'>) || isNebulaObject(target as Pick<Star, 'type'>))) return 'eligible'
+  if (target.type && (
+    isCompactObject(target as Pick<Star, 'type'>)
+    || isNebulaObject(target as Pick<Star, 'type'>)
+    || isMolecularCloudObject(target as Pick<Star, 'type'>)
+    || isBubbleObject(target as Pick<Star, 'type'>)
+  )) return 'eligible'
   const distance = Math.hypot(target.x_pc - observer.x_pc, target.y_pc - observer.y_pc, target.z_pc - observer.z_pc)
   const magnitude = apparentVisualMagnitude(target.absolute_mag, distance)
   return magnitude !== null && magnitude <= limit ? 'eligible' : 'background'
@@ -177,13 +221,15 @@ export function temperatureToColor(kelvin: number | null, mode: StarColorMode = 
 }
 
 export function starDisplayColor(
-  star: Pick<Star, 'type' | 'temperature_k' | 'spectral_type'> & Partial<Pick<Star, 'nebula'>>,
+  star: Pick<Star, 'type' | 'temperature_k' | 'spectral_type'> & Partial<Pick<Star, 'nebula' | 'molecular_cloud' | 'bubble'>>,
   mode: StarColorMode = 'real',
 ): Color {
   if (star.nebula) {
     const palette = star.nebula.palette[mode]
     return new Color(palette[Math.floor(palette.length / 2)]!)
   }
+  if (star.molecular_cloud) return new Color(star.molecular_cloud.palette[mode].rim)
+  if (star.bubble) return new Color(star.bubble.palette[mode])
   if (star.type === 'pulsar') return new Color(0x42d9ff)
   if (star.type === 'neutron_star') return new Color(0xa78bfa)
   if (star.type === 'black_hole') return new Color(0xff9f43)

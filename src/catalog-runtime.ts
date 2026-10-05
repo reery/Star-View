@@ -1,5 +1,6 @@
 import { STELLAR_OBJECT_TYPES, type Star } from './catalog-model'
 import type { CatalogManifest } from './catalog-manifest'
+import { objectDesignations, uniqueDesignations, validDesignations } from './designations'
 
 export { catalogSelection } from './catalog-selection'
 
@@ -14,6 +15,7 @@ const OVERLAY_PHYSICAL_FIELDS = [
 
 function supplementPhysicalFields(primary: Star, additional: Star): Star {
   const supplemented = { ...primary }
+  supplemented.designations = uniqueDesignations([...objectDesignations(primary), additional.name, ...objectDesignations(additional)], primary.name)
   const fields = OVERLAY_PHYSICAL_FIELDS.filter((field) => primary[field] === null && additional[field] !== null)
   for (const field of fields) supplemented[field] = additional[field]
   if (fields.length) {
@@ -81,6 +83,7 @@ export function parseCatalogPayload(value: unknown, manifest: CatalogManifest): 
   for (const star of stars) {
     if (!star || typeof star !== 'object' || typeof star.id !== 'string' || !star.id || ids.has(star.id) ||
       typeof star.name !== 'string' || !star.name || typeof star.type !== 'string' || !STELLAR_OBJECT_TYPES.includes(star.type as never) ||
+      !validDesignations(star.designations) ||
       !['x_pc', 'y_pc', 'z_pc', 'epoch'].every((field) => typeof star[field] === 'number' && Number.isFinite(star[field]))) {
       throw new Error(`Invalid catalog payload row: ${manifest.id}`)
     }

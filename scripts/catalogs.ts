@@ -4,24 +4,47 @@ import { fileURLToPath } from 'node:url'
 import { buildCatalog, catalogCoverage, DEFAULT_CATALOG_MANIFEST, loadCatalog, parseCatalogManifest } from '../src/catalogs.ts'
 import { parseCompactOverlayManifest, parseCompactOverlayPayload } from '../src/compact-overlay-model.ts'
 import { parseNebulaOverlayManifest, parseNebulaOverlayPayload } from '../src/nebula-overlay-model.ts'
+import { parseMolecularCloudOverlayManifest, parseMolecularCloudOverlayPayload } from '../src/molecular-cloud-overlay-model.ts'
+import { hydrateBubbleSurfaceGridFiles, parseBubbleOverlayManifest, parseBubbleOverlayPayload } from '../src/bubble-overlay-model.ts'
 import { containedInput, safeOutputDirectory, writeManagedFiles } from './filesystem.ts'
+import { parseObjectIdentities, supplementObjectIdentities } from '../src/designations.ts'
 
 const root = fileURLToPath(new URL('../', import.meta.url))
+const identities = parseObjectIdentities(JSON.parse(readFileSync(join(root, 'src/data/object-designations.json'), 'utf8')))
 const [command, ...args] = process.argv.slice(2)
 const compactOverlayDirectory = join(root, 'src/data/overlays/compact-remnants')
 const nebulaOverlayDirectory = join(root, 'src/data/overlays/nebulae')
+const molecularCloudOverlayDirectory = join(root, 'src/data/overlays/molecular-clouds')
+const bubbleOverlayDirectory = join(root, 'src/data/overlays/bubbles')
 
 function loadCompactOverlay() {
   const manifest = parseCompactOverlayManifest(readFileSync(join(compactOverlayDirectory, 'manifest.json'), 'utf8'))
   const payload: unknown = JSON.parse(readFileSync(join(compactOverlayDirectory, 'objects.json'), 'utf8'))
-  const objects = parseCompactOverlayPayload(payload, manifest)
+  const objects = supplementObjectIdentities(parseCompactOverlayPayload(payload, manifest), identities)
   return { manifest, objects }
 }
 
 function loadNebulaOverlay() {
   const manifest = parseNebulaOverlayManifest(readFileSync(join(nebulaOverlayDirectory, 'manifest.json'), 'utf8'))
   const payload: unknown = JSON.parse(readFileSync(join(nebulaOverlayDirectory, 'objects.json'), 'utf8'))
-  const objects = parseNebulaOverlayPayload(payload, manifest)
+  const objects = supplementObjectIdentities(parseNebulaOverlayPayload(payload, manifest), identities)
+  return { manifest, objects }
+}
+
+function loadMolecularCloudOverlay() {
+  const manifest = parseMolecularCloudOverlayManifest(readFileSync(join(molecularCloudOverlayDirectory, 'manifest.json'), 'utf8'))
+  const payload: unknown = JSON.parse(readFileSync(join(molecularCloudOverlayDirectory, 'objects.json'), 'utf8'))
+  const objects = supplementObjectIdentities(parseMolecularCloudOverlayPayload(payload, manifest), identities)
+  return { manifest, objects }
+}
+
+function loadBubbleOverlay() {
+  const manifest = parseBubbleOverlayManifest(readFileSync(join(bubbleOverlayDirectory, 'manifest.json'), 'utf8'))
+  const payload = hydrateBubbleSurfaceGridFiles(
+    JSON.parse(readFileSync(join(bubbleOverlayDirectory, 'objects.json'), 'utf8')),
+    (filename) => JSON.parse(readFileSync(join(bubbleOverlayDirectory, filename), 'utf8')),
+  )
+  const objects = supplementObjectIdentities(parseBubbleOverlayPayload(payload, manifest), identities)
   return { manifest, objects }
 }
 
@@ -45,6 +68,10 @@ function validate(directory?: string): void {
     console.log(`${manifest.id}: ${objects.length} overlay rows; type counts ${JSON.stringify(manifest.counts)}`)
     const nebulae = loadNebulaOverlay()
     console.log(`${nebulae.manifest.id}: ${nebulae.objects.length} overlay rows; type counts ${JSON.stringify(nebulae.manifest.counts)}`)
+    const molecularClouds = loadMolecularCloudOverlay()
+    console.log(`${molecularClouds.manifest.id}: ${molecularClouds.objects.length} overlay rows; ${molecularClouds.manifest.displaySampleCount} display samples`)
+    const bubbles = loadBubbleOverlay()
+    console.log(`${bubbles.manifest.id}: ${bubbles.objects.length} overlay rows; type counts ${JSON.stringify(bubbles.manifest.counts)}`)
   }
 }
 
@@ -60,7 +87,7 @@ function generate(): void {
     }),
   ]
   const files = Object.fromEntries(packages.map((definition) => {
-    const stars = loadCatalog(definition)
+    const stars = supplementObjectIdentities(loadCatalog(definition), identities)
     return [`${definition.manifest.id}.json`, JSON.stringify({ schemaVersion: 1, catalogId: definition.manifest.id, stars }) + '\n']
   }))
   const output = safeOutputDirectory(join(root, 'src/data/generated/catalogs'))
@@ -71,12 +98,16 @@ function generate(): void {
   console.log(`Generated ${Object.keys(files).length} browser catalog payloads.`)
   const { manifest: overlayManifest, objects } = loadCompactOverlay()
   const nebulae = loadNebulaOverlay()
+  const molecularClouds = loadMolecularCloudOverlay()
+  const bubbles = loadBubbleOverlay()
   const overlayOutput = safeOutputDirectory(join(root, 'src/data/generated/overlays'))
   writeManagedFiles(overlayOutput, {
     [`${overlayManifest.id}.json`]: JSON.stringify({ schemaVersion: 1, overlayId: overlayManifest.id, objects }) + '\n',
     [`${nebulae.manifest.id}.json`]: JSON.stringify({ schemaVersion: 1, overlayId: nebulae.manifest.id, objects: nebulae.objects }) + '\n',
+    [`${molecularClouds.manifest.id}.json`]: JSON.stringify({ schemaVersion: 1, overlayId: molecularClouds.manifest.id, objects: molecularClouds.objects }) + '\n',
+    [`${bubbles.manifest.id}.json`]: JSON.stringify({ schemaVersion: 1, overlayId: bubbles.manifest.id, objects: bubbles.objects }) + '\n',
   }, true)
-  console.log(`Generated ${objects.length} compact-object and ${nebulae.objects.length} nebula overlay rows.`)
+  console.log(`Generated ${objects.length} compact-object, ${nebulae.objects.length} nebula, ${molecularClouds.objects.length} molecular-cloud and ${bubbles.objects.length} bubble overlay rows.`)
 }
 
 try {

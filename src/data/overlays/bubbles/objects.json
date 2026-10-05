@@ -1,0 +1,55 @@
+{
+  "schemaVersion": 1,
+  "overlayId": "bubbles",
+  "objects": [
+    {
+      "type": "bubble",
+      "id": "local-bubble",
+      "name": "Local Bubble",
+      "spectral_type": null,
+      "constellation": null,
+      "x_pc": -9.8,
+      "y_pc": 1.9,
+      "z_pc": 0.2,
+      "vx_kms": null,
+      "vy_kms": null,
+      "vz_kms": null,
+      "temperature_k": null,
+      "mass_solar": null,
+      "luminosity_solar": null,
+      "radius_solar": null,
+      "metallicity_dex": null,
+      "age_gyr": null,
+      "absolute_mag": null,
+      "epoch": 2000,
+      "notes": "The Sun lies inside this low-density cavity. The visible surface represents its dust-traced shell. The asymmetric northern extension is the Local Chimney. The displayed shell is a compact directional sampling of the peak-extinction surface published with O'Neill et al. (2024), not an invented ellipsoid or a uniform 500-light-year sphere.",
+      "raw_astrometry": null,
+      "bubble": {
+        "designations": ["Local Bubble", "Local Hot Bubble", "Local Cavity", "Local Chimney"],
+        "average_radius_pc": 170,
+        "surface_distance_range_pc": [70, 600],
+        "surface_distance_max_open": true,
+        "shell_thickness_pc": 35,
+        "reported_bounds_pc": {
+          "x": [-300, 330],
+          "y": [-355, 445],
+          "z": [-300, 600]
+        },
+        "shape": {
+          "kind": "directional_grid",
+          "origin_pc": [0, 0, 0],
+          "surface_grid_file": "local-bubble-surface.json"
+        },
+        "palette": {
+          "real": "#77b9d6",
+          "exaggerated": "#54d5f3"
+        },
+        "opacity": 0.085,
+        "position_source": "Peak-extinction surface and geometric center from O'Neill et al. (2024), ApJ 973, 136",
+        "source_label": "O'Neill et al. (2024)",
+        "source_url": "https://doi.org/10.3847/1538-4357/ad61de",
+        "model_note": "The shell is a 128 by 64 Galactic longitude-latitude sampling of the 786,392-sightline peak-extinction surface in the authors' published interactive Figure 3. Each angular cell uses its 95th-percentile published radius; duplicated pole vertices share a mean. This retains narrow chimney and tunnel extrema without turning individual parsec-scale source pixels into spikes, while reducing the point cloud to one efficient indexed mesh."
+      }
+    }
+  ]
+}

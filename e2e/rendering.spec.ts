@@ -1,6 +1,6 @@
 import { expect, test, type Page } from '@playwright/test'
 import { PNG } from 'pngjs'
-import { selectCatalog } from './support'
+import { selectCatalog, zoomViewer } from './support'
 
 interface RenderingStats {
   draws: number
@@ -113,8 +113,10 @@ async function canvasPixelRatio(page: Page) {
 }
 
 async function expectedPointVertices(page: Page) {
-  return page.locator('.projected-labels').evaluate((layer: HTMLElement) =>
-    Number(layer.dataset.coreCount) + Number(layer.dataset.haloCount))
+  return page.locator('#scene').evaluate((scene: HTMLElement) => {
+    const layer = scene.querySelector<HTMLElement>('.projected-labels')!
+    return Number(layer.dataset.coreCount) + Number(layer.dataset.haloCount) + (scene.dataset.earthOrbitVisible === 'true' ? 1 : 0)
+  })
 }
 
 function percentile(values: readonly number[], percent: number): number | null {
@@ -311,7 +313,7 @@ test('sleeps when idle and redraws after interactions in both catalogs', async (
     await expectIdle(page)
     for (const action of [
       () => page.getByRole('button', { name: 'Grid', exact: true }).click(),
-      () => page.getByRole('button', { name: 'Zoom in', exact: true }).click(),
+      () => zoomViewer(page, 'in'),
       () => page.getByRole('button', { name: 'Reset view', exact: true }).click(),
       () => page.getByLabel('V magnitude limit', { exact: true }).fill('12'),
       () => page.locator('[data-star="sun"]').evaluate((button: HTMLButtonElement) => button.click()),
@@ -381,7 +383,7 @@ test('measures each star name once while rotating zoomed in', async ({ page }) =
   await openFilter(page)
   await selectCatalog(page, 'nearest-1000')
   await page.getByLabel('V magnitude limit', { exact: true }).fill('25')
-  for (let step = 0; step < 6; step++) await page.getByRole('button', { name: 'Zoom in', exact: true }).click()
+  await zoomViewer(page, 'in', 6)
   await expectIdle(page)
   const before = await stats(page)
   const bounds = (await page.locator('#scene canvas').boundingBox())!

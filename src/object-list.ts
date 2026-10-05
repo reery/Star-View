@@ -1,12 +1,25 @@
 import type { Star } from './catalog-model'
+import { objectDesignations } from './designations'
 import { formatDistance, starDisplayColor, sunRelativeMetrics, type DistanceUnit, type StarColorMode } from './astronomy'
 
 const VIRTUAL_THRESHOLD = 200
 const ROW_HEIGHT = 36
 const OVERSCAN = 4
+const GREEK_SEARCH_NAMES: Record<string, string> = Object.fromEntries(
+  [...'αβγδεζηθικλμνξοπρστυφχψω'].map((letter, index) => [letter,
+    'alpha beta gamma delta epsilon zeta eta theta iota kappa lambda mu nu xi omicron pi rho sigma tau upsilon phi chi psi omega'.split(' ')[index]!]),
+)
 
 export function normalizeObjectSearch(value: string): string {
-  return value.normalize('NFKD').replace(/[\u0300-\u036f]/g, '').toLocaleLowerCase().replace(/[^a-z0-9]+/g, ' ').trim()
+  return value.normalize('NFKD').replace(/[\u0300-\u036f]/g, '').toLocaleLowerCase()
+    .replace(/[α-ω]/g, (letter) => `${GREEK_SEARCH_NAMES[letter] ?? letter} `)
+    // Coordinate signs distinguish different objects, unlike name punctuation.
+    .replace(/[+\-−](?=\d)/g, (sign) => sign === '+' ? 'plus' : 'minus')
+    .replace(/[^a-z0-9]+/g, ' ').trim()
+}
+
+export function objectSearchText(star: Star): string {
+  return normalizeObjectSearch([star.name, star.id, star.spectral_type ?? '', ...objectDesignations(star), star.molecular_cloud?.complex_name ?? ''].join(' '))
 }
 
 export function virtualRange(scrollTop: number, viewportHeight: number, count: number): { start: number; end: number } {
@@ -19,6 +32,7 @@ interface ObjectListItem {
   star: Star
   distancePc: number
   search: string
+  compactSearch: string
   color: string
 }
 
@@ -32,6 +46,7 @@ export class ObjectList {
   private items: ObjectListItem[] = []
   private filtered: ObjectListItem[] = []
   private query = ''
+  private compactQuery = ''
   private filter: (star: Star) => boolean = () => true
   private countedShown = -1
   private countedTotal = -1
@@ -57,13 +72,18 @@ export class ObjectList {
   setStars(stars: readonly Star[], unit: DistanceUnit, selectedId: string | null, referenceId = 'sun'): void {
     const sun = stars.find((star) => star.id === 'sun')!
     const reference = stars.find((star) => star.id === referenceId) ?? sun
-    this.items = sortObjectListItemsByDistance(stars.map((star) => ({
-      star,
-      distancePc: sunRelativeMetrics(star, reference).distancePc,
-      search: normalizeObjectSearch(`${star.name} ${star.id} ${star.spectral_type ?? ''} ${star.nebula?.designations.join(' ') ?? ''}`),
-      color: starDisplayColor(star, this.colorMode).getStyle(),
-    })))
+    this.items = sortObjectListItemsByDistance(stars.map((star) => {
+      const search = objectSearchText(star)
+      return {
+        star,
+        distancePc: sunRelativeMetrics(star, reference).distancePc,
+        search,
+        compactSearch: search.replace(/ /g, ''),
+        color: starDisplayColor(star, this.colorMode).getStyle(),
+      }
+    }))
     this.query = ''
+    this.compactQuery = ''
     this.unit = unit
     this.selectedId = selectedId
     this.referenceId = reference.id
@@ -84,6 +104,7 @@ export class ObjectList {
 
   setQuery(query: string): void {
     this.query = normalizeObjectSearch(query)
+    this.compactQuery = this.query.replace(/ /g, '')
     this.refresh()
   }
 
@@ -93,7 +114,7 @@ export class ObjectList {
   }
 
   private refresh(): void {
-    const filtered = this.items.filter((item) => this.filter(item.star) && (!this.query || item.search.includes(this.query)))
+    const filtered = this.items.filter((item) => this.filter(item.star) && (!this.query || item.search.includes(this.query) || item.compactSearch.includes(this.compactQuery)))
     if (filtered.length !== this.countedShown || this.items.length !== this.countedTotal) {
       this.countedShown = filtered.length
       this.countedTotal = this.items.length

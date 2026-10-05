@@ -34,7 +34,7 @@
                       <section class="properties-section" aria-label="Object properties">
                         <dl class="properties">
                           <div><dt>Distance from Sun</dt><dd><span id="distance-value"></span><span id="distance-unit"> ly</span></dd></div>
-                          <div><dt>Object type</dt><dd id="object-type"></dd></div>
+                          <div class="object-type-row"><dt>Object type</dt><dd><button id="object-type-toggle" class="object-type-toggle" type="button" aria-controls="object-type-card" aria-expanded="false"><span id="object-type"></span></button></dd></div>
                           <div><dt>Constellation</dt><dd id="constellation"></dd></div>
                           <div class="stellar-property"><dt>Spectral type</dt><dd id="spectral-type"></dd></div>
                           <div class="stellar-property"><dt>Temperature</dt><dd id="temperature"></dd></div>
@@ -54,12 +54,23 @@
                           <div class="compact-property orbit-property" hidden><dt>Companion</dt><dd id="compact-companion"></dd></div>
                           <div class="compact-property" hidden><dt>Detection</dt><dd id="detection-method"></dd></div>
                           <div class="compact-property" hidden><dt>Source</dt><dd><a id="compact-source" target="_blank" rel="noreferrer"></a></dd></div>
-                          <div class="nebula-property" hidden><dt>Designations</dt><dd id="nebula-designations"></dd></div>
                           <div class="nebula-property" hidden><dt>Apparent size</dt><dd id="nebula-angular-size"></dd></div>
                           <div class="nebula-property" hidden><dt>Modeled extent</dt><dd id="nebula-extent"></dd></div>
                           <div class="nebula-property" hidden><dt>Illuminated by</dt><dd id="nebula-illumination"></dd></div>
                           <div class="nebula-property" hidden><dt>Distance source</dt><dd id="nebula-distance-source"></dd></div>
                           <div class="nebula-property" hidden><dt>Source</dt><dd><a id="nebula-source" target="_blank" rel="noreferrer"></a></dd></div>
+                          <div class="molecular-cloud-property" hidden><dt>Cloud complex</dt><dd id="molecular-cloud-complex"></dd></div>
+                          <div class="molecular-cloud-property" hidden><dt>Equivalent radius</dt><dd id="molecular-cloud-radius"></dd></div>
+                          <div class="molecular-cloud-property" hidden><dt>Mean density</dt><dd id="molecular-cloud-density"></dd></div>
+                          <div class="molecular-cloud-property" hidden><dt>Peak density</dt><dd id="molecular-cloud-peak-density"></dd></div>
+                          <div class="molecular-cloud-property" hidden><dt>Segmented volume</dt><dd id="molecular-cloud-volume"></dd></div>
+                          <div class="molecular-cloud-property" hidden><dt>Source geometry</dt><dd id="molecular-cloud-resolution"></dd></div>
+                          <div class="molecular-cloud-property" hidden><dt>Source</dt><dd><a id="molecular-cloud-source" target="_blank" rel="noreferrer"></a></dd></div>
+                          <div class="bubble-property" hidden><dt>Average shell radius</dt><dd id="bubble-average-radius"></dd></div>
+                          <div class="bubble-property" hidden><dt>Shell distance range</dt><dd id="bubble-surface-range"></dd></div>
+                          <div class="bubble-property" hidden><dt>Typical shell thickness</dt><dd id="bubble-shell-thickness"></dd></div>
+                          <div class="bubble-property" hidden><dt>Source</dt><dd><a id="bubble-source" target="_blank" rel="noreferrer"></a></dd></div>
+                          <div class="designations-property"><dt>Designations</dt><dd><ul id="object-designations" class="designation-list"></ul></dd></div>
                         </dl>
                       </section>
                       <details class="source-details">
@@ -90,12 +101,23 @@
                 </div>
               </div>
             </section>
+            <section id="object-type-card" class="dock-card object-type-card" aria-labelledby="object-type-heading" data-scene-obstacle hidden>
+              <div class="object-type-hero">
+                <img id="object-type-image" class="object-type-image" alt="" width="760" height="420" />
+                <h2 id="object-type-heading" class="star-name"></h2>
+              </div>
+              <button id="object-type-close" class="panel-lock object-type-close" type="button" aria-label="Close object type card"><span id="object-type-close-icon"></span></button>
+              <div class="object-type-body">
+                <p id="object-type-description"></p>
+                <a id="object-type-source" class="object-type-source" target="_blank" rel="noreferrer">Read more on Wikipedia ↗</a>
+                <p class="object-type-credit"><span id="object-type-caption"></span> · <a id="object-type-image-source" target="_blank" rel="noreferrer"></a></p>
+              </div>
+            </section>
             <div class="scene-toolbar" role="group" aria-label="Map view controls" data-scene-obstacle>
               <button id="reset-view" class="icon-button" type="button" aria-label="Reset view" disabled><span id="reset-icon"></span><span class="tooltip">Reset view</span></button>
               <button id="toggle-grid" class="icon-button" type="button" aria-label="Grid" aria-pressed="true" aria-controls="scene" disabled><span id="grid-icon"></span><span id="grid-tooltip" class="tooltip">Hide grid</span></button>
               <span class="toolbar-divider"></span>
-              <button id="zoom-in" class="icon-button" type="button" aria-label="Zoom in" disabled><span id="zoom-in-icon"></span><span class="tooltip">Zoom in</span></button>
-              <button id="zoom-out" class="icon-button" type="button" aria-label="Zoom out" disabled><span id="zoom-out-icon"></span><span class="tooltip">Zoom out</span></button>
+              <button id="views-toggle" class="icon-button panel-button" type="button" aria-label="Saved views" aria-controls="views-panel" aria-expanded="false" disabled><span id="views-icon"></span><span class="tooltip">Saved views</span></button>
               <span class="toolbar-divider"></span>
               <button id="selection-back" class="icon-button" type="button" aria-label="Previous selection" disabled><span id="selection-back-icon"></span><span class="tooltip">Previous selection</span></button>
               <button id="selection-forward" class="icon-button" type="button" aria-label="Next selection" disabled><span id="selection-forward-icon"></span><span class="tooltip">Next selection</span></button>
@@ -103,6 +125,22 @@
               <button id="set-origin" class="icon-button" type="button" aria-label="Set selected object as origin" disabled><span id="set-origin-icon"></span><span class="tooltip">Set as origin</span></button>
               <button id="observer-view" class="icon-button observer-view-button" type="button" aria-label="Enter observer view" aria-pressed="false" aria-controls="scene" disabled><span id="observer-view-icon"></span><span id="observer-view-tooltip" class="tooltip">Observer view</span></button>
             </div>
+            <section id="views-panel" class="dock-card saved-views-card" aria-labelledby="views-heading" data-scene-obstacle hidden>
+              <div class="panel-heading saved-views-heading"><h2 id="views-heading">Saved views</h2><p id="saved-views-status" class="saved-views-status" role="status" aria-live="polite"></p></div>
+              <form id="save-view-form" class="save-view-form">
+                <label class="sr-only" for="save-view-name">View name</label>
+                <input id="save-view-name" type="text" maxlength="80" placeholder="Name this view" autocomplete="off" required>
+                <button id="save-view" class="save-view-button" type="submit" aria-label="Save current view" title="Save current view"><span id="save-view-icon"></span></button>
+              </form>
+              <p id="saved-views-empty" class="saved-views-empty">No saved views yet.</p>
+              <div id="saved-views-table-wrap" class="saved-views-table-wrap" hidden>
+                <table class="saved-views-table">
+                  <colgroup><col class="saved-view-name-column"><col class="saved-view-origin-column"><col class="saved-view-date-column"><col class="saved-view-action-column"></colgroup>
+                  <thead><tr><th scope="col">Name</th><th scope="col">Origin</th><th scope="col">Date saved</th><th scope="col"><span class="sr-only">Delete</span></th></tr></thead>
+                  <tbody id="saved-views-list"></tbody>
+                </table>
+              </div>
+            </section>
             <div id="control-dock" class="control-dock" data-scene-obstacle>
               <div class="dock-rail" role="group" aria-label="Map and information controls">
                 <button id="motion-toggle" class="icon-button panel-button" type="button" aria-label="Stellar motion" aria-controls="motion-panel" aria-expanded="false"><span id="motion-icon"></span><span class="tooltip">Stellar motion</span></button>
@@ -121,8 +159,8 @@
                     <div class="time-speed" role="group" aria-label="Motion playback controls">
                       <button id="time-follow" class="time-speed-button time-follow" type="button" aria-label="Follow selection" aria-pressed="false" title="Follow selection" disabled><span id="time-follow-icon"></span></button>
                       <button id="time-slower" class="time-speed-button" type="button" aria-label="Decrease playback speed" title="Slower" disabled><span id="time-slower-icon"></span></button>
-                      <output id="time-speed-value" aria-live="polite">1k years / 1s</output>
                       <button id="time-faster" class="time-speed-button" type="button" aria-label="Increase playback speed" title="Faster" disabled><span id="time-faster-icon"></span></button>
+                      <output id="time-speed-value" aria-live="polite">1k years / 1s</output>
                     </div>
                   </div>
                   <div class="time-range">
@@ -170,6 +208,13 @@
                     <div class="range-heading"><label for="magnitude-limit">V magnitude limit</label><output id="magnitude-limit-value" for="magnitude-limit">7</output></div>
                     <input id="magnitude-limit" type="range" min="0" max="25" step="0.5" value="7">
                     <div class="range-bounds" aria-hidden="true"><span>0</span><span>25</span></div>
+                  </div>
+                  <div class="range-filter">
+                    <div class="range-heading"><label for="earth-orbit-mode">Earth’s orbit</label><output id="earth-orbit-mode-value" for="earth-orbit-mode">Now</output></div>
+                    <input id="earth-orbit-mode" type="range" min="0" max="13" step="1" value="1" list="earth-orbit-mode-stops" aria-valuetext="Now" aria-describedby="earth-orbit-mode-description">
+                    <datalist id="earth-orbit-mode-stops"><option value="0" label="Off"></option><option value="1" label="Now"></option><option value="2" label="Jan"></option><option value="3" label="Feb"></option><option value="4" label="Mar"></option><option value="5" label="Apr"></option><option value="6" label="May"></option><option value="7" label="Jun"></option><option value="8" label="Jul"></option><option value="9" label="Aug"></option><option value="10" label="Sep"></option><option value="11" label="Oct"></option><option value="12" label="Nov"></option><option value="13" label="Dec"></option></datalist>
+                    <div class="range-bounds" aria-hidden="true"><span>Off</span><span>Dec</span></div>
+                    <span id="earth-orbit-mode-description" class="sr-only">Stops are Off, Now, January, February, March, April, May, June, July, August, September, October, November, and December.</span>
                   </div>
                   <label class="filter-toggle" for="milky-way-visible">
                     <span>Show Milky Way</span>
@@ -223,7 +268,7 @@
                   <div><dt>Repository</dt><dd><a href="https://github.com/reery/Star-View" target="_blank" rel="noreferrer">GitHub</a></dd></div>
                   <div><dt>License</dt><dd>MIT</dd></div>
                   <div><dt>Sky image</dt><dd><a href="https://www.eso.org/public/images/eso0932a/" target="_blank" rel="noreferrer">ESO/S. Brunier</a><br><span class="attribution-note">resized and dimmed · <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noreferrer">CC BY 4.0</a></span></dd></div>
-                  <div><dt>Version</dt><dd>v0.2</dd></div>
+                  <div><dt>Version</dt><dd>v0.3</dd></div>
                 </dl>
               </section>
             </div>

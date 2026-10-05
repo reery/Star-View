@@ -1,11 +1,15 @@
 export const STELLAR_OBJECT_TYPES = ['star', 'white_dwarf', 'brown_dwarf', 'sub_brown_dwarf'] as const
 export const COMPACT_OBJECT_TYPES = ['pulsar', 'neutron_star', 'black_hole'] as const
 export const NEBULA_OBJECT_TYPES = ['reflection_nebula', 'hii_region', 'planetary_nebula'] as const
-export const OBJECT_TYPES = [...STELLAR_OBJECT_TYPES, ...COMPACT_OBJECT_TYPES, ...NEBULA_OBJECT_TYPES] as const
+export const MOLECULAR_CLOUD_OBJECT_TYPES = ['molecular_cloud'] as const
+export const BUBBLE_OBJECT_TYPES = ['bubble'] as const
+export const OBJECT_TYPES = [...STELLAR_OBJECT_TYPES, ...COMPACT_OBJECT_TYPES, ...NEBULA_OBJECT_TYPES, ...MOLECULAR_CLOUD_OBJECT_TYPES, ...BUBBLE_OBJECT_TYPES] as const
 export type ObjectType = typeof OBJECT_TYPES[number]
 export type StellarObjectType = typeof STELLAR_OBJECT_TYPES[number]
 export type CompactObjectType = typeof COMPACT_OBJECT_TYPES[number]
 export type NebulaObjectType = typeof NEBULA_OBJECT_TYPES[number]
+export type MolecularCloudObjectType = typeof MOLECULAR_CLOUD_OBJECT_TYPES[number]
+export type BubbleObjectType = typeof BUBBLE_OBJECT_TYPES[number]
 
 // IAU ICRS-to-Galactic rotation (Hipparcos convention), row-major.
 export const ICRS_TO_GALACTIC_ROWS = [
@@ -56,6 +60,93 @@ export interface NebulaDetails {
   model_note: string
 }
 
+export interface MolecularCloudDetails {
+  catalog_id: number
+  complex_name: string | null
+  distance_pc: number
+  galactic_longitude_deg: number
+  galactic_latitude_deg: number
+  equivalent_radius_pc: number
+  mean_density_cm3: number
+  peak_density_cm3: number
+  surface_area_pc2: number
+  volume_pc3: number
+  source_voxel_count: number
+  // Flattened Galactic Cartesian display samples: x, y, z, x, y, z, ...
+  sample_points_pc: number[]
+  bounds_pc: { x: [number, number]; y: [number, number]; z: [number, number] }
+  palette: {
+    real: { body: string; rim: string }
+    exaggerated: { body: string; rim: string }
+  }
+  opacity: number
+  position_source: string
+  source_label: string
+  source_url: string
+  model_note: string
+}
+
+export interface BubbleShapeFeature {
+  // Galactic longitude and latitude of a broad radial extension or indentation.
+  longitude_deg: number
+  latitude_deg: number
+  amplitude_pc: number
+  width_deg: number
+}
+
+export interface BubbleAnalyticShape {
+  kind: 'analytic'
+  // The surface is sampled radially from this Galactic Cartesian position.
+  origin_pc: [number, number, number]
+  base_radius_pc: number
+  axis_scale: [number, number, number]
+  features: BubbleShapeFeature[]
+  roughness_pc: number
+  seed: number
+}
+
+export interface BubbleSurfaceGrid {
+  schema_version: 1
+  source_url: string
+  source_commit: string
+  sampling: string
+  longitude_segments: number
+  latitude_segments: number
+  source_point_count: number
+  source_bounds_pc: [number, number, number, number, number, number]
+  // South-to-north latitude rows, each containing a wrapped 0-360 degree longitude row.
+  radii_pc: number[]
+}
+
+export interface BubbleDirectionalGridShape {
+  kind: 'directional_grid'
+  // The radial surface origin in Galactic Cartesian coordinates.
+  origin_pc: [number, number, number]
+  surface_grid: BubbleSurfaceGrid
+}
+
+export type BubbleShape = BubbleAnalyticShape | BubbleDirectionalGridShape
+
+export interface BubbleDetails {
+  designations: string[]
+  average_radius_pc: number
+  surface_distance_range_pc: [number, number]
+  surface_distance_max_open: boolean
+  shell_thickness_pc: number
+  reported_bounds_pc: {
+    x: [number, number]
+    y: [number, number]
+    z: [number, number]
+  }
+  shape: BubbleShape
+  palette: { real: string; exaggerated: string }
+  opacity: number
+  position_source: string
+  source_label: string
+  source_url: string
+  model_note: string
+}
+
 export interface CompactObjectDetails {
   confidence: 'confirmed' | 'candidate'
   distance_method: string
@@ -98,6 +189,7 @@ export interface Star {
   type: ObjectType
   id: string
   name: string
+  designations?: string[]
   spectral_type: string | null
   constellation: string | null
   x_pc: number
@@ -118,6 +210,8 @@ export interface Star {
   raw_astrometry: RawAstrometry | null
   compact?: CompactObjectDetails
   nebula?: NebulaDetails
+  molecular_cloud?: MolecularCloudDetails
+  bubble?: BubbleDetails
 }
 
 export function isCompactObject(star: Pick<Star, 'type'>): boolean {
@@ -126,6 +220,14 @@ export function isCompactObject(star: Pick<Star, 'type'>): boolean {
 
 export function isNebulaObject(star: Pick<Star, 'type'>): boolean {
   return NEBULA_OBJECT_TYPES.some((type) => type === star.type)
+}
+
+export function isMolecularCloudObject(star: Pick<Star, 'type'>): boolean {
+  return MOLECULAR_CLOUD_OBJECT_TYPES.some((type) => type === star.type)
+}
+
+export function isBubbleObject(star: Pick<Star, 'type'>): boolean {
+  return BUBBLE_OBJECT_TYPES.some((type) => type === star.type)
 }
 
 export function objectTypeLabel(type: ObjectType): string {
@@ -140,6 +242,8 @@ export function objectTypeLabel(type: ObjectType): string {
     reflection_nebula: 'Reflection nebula',
     hii_region: 'H II region',
     planetary_nebula: 'Planetary nebula',
+    molecular_cloud: 'Molecular cloud',
+    bubble: 'Bubble',
   }[type]
 }
 
