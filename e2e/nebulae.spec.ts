@@ -107,7 +107,9 @@ test('loads nebulae on demand through the interstellar-medium category', async (
   await expect(page.locator('#object-type')).toHaveText('H II region')
   await expect(page.locator('#constellation')).toHaveText('Orion')
   await expect(page.locator('#distance-value')).toHaveText('1265.49')
-  await expect(page.locator('#nebula-designations')).toHaveText('M42, NGC 1976, Sh 2-281')
+  await expect(page.locator('#object-designations')).toContainText('M42')
+  await expect(page.locator('#object-designations')).toContainText('NGC 1976')
+  await expect(page.locator('#object-designations')).toContainText('Sh 2-281')
   await expect(page.locator('#nebula-angular-size')).toHaveText('65\u2032 \u00d7 60\u2032')
   await expect(page.locator('#nebula-extent')).toHaveText('23.9 \u00d7 22.1 \u00d7 11.7 ly')
   await expect(page.locator('#nebula-source')).toHaveAttribute('href', 'https://doi.org/10.1086/317982')
@@ -121,7 +123,7 @@ test('loads nebulae on demand through the interstellar-medium category', async (
   await expect(page.locator('#star-details')).toBeHidden()
 })
 
-test('draws all nebulae in one additive call that follows the color preference and sleeps when idle', { tag: '@mobile' }, async ({ page, isMobile }, testInfo) => {
+test('draws all nebulae in one emission call that follows the color preference and sleeps when idle', { tag: '@mobile' }, async ({ page, isMobile }, testInfo) => {
   await openViewer(page)
   await hideMilkyWay(page)
   await openFilter(page)

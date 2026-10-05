@@ -1,3 +1,4 @@
+import { validDesignations } from './designations.ts'
 import { BUBBLE_OBJECT_TYPES, type BubbleDetails, type BubbleObjectType, type Star } from './catalog-model.ts'
 
 export interface BubbleOverlayManifest {
@@ -139,7 +140,7 @@ export function parseBubbleOverlayPayload(value: unknown, manifest: BubbleOverla
   const ids = new Set<string>()
   for (const object of objects) {
     if (!object || typeof object.id !== 'string' || !object.id || ids.has(object.id)
-      || typeof object.name !== 'string' || !object.name
+      || typeof object.name !== 'string' || !object.name || !validDesignations(object.designations)
       || typeof object.type !== 'string' || !BUBBLE_OBJECT_TYPES.includes(object.type as never)
       || !['x_pc', 'y_pc', 'z_pc', 'epoch'].every((field) => finite(object[field]))
       || object.epoch !== manifest.epoch || object.absolute_mag !== null || !validDetails(object.bubble)) {

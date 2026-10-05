@@ -171,7 +171,7 @@ function build(metadataBuffer, positionsBuffer) {
         position_source: 'Cahlon et al. (2024), Table 1 and Galactic positions for all filtered clouds',
         source_label: 'Cahlon et al. (2024)',
         source_url: DOI_URL,
-        model_note: 'Published one-parsec 3D dust segmentation, deterministically sampled at 25% for display. Fog texture, opacity and illuminated rims are visualization choices.',
+        model_note: 'Published one-parsec 3D dust segmentation, deterministically sampled at 25% for display. Dust texture, optical depth and faint edge reflection are illustrative visualization choices, not calibrated extinction or a local illumination model.',
       },
     }
   })

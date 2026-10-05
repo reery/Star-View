@@ -1,14 +1,16 @@
 import {
-  AdditiveBlending, Color, DataTexture, Float32BufferAttribute, InstancedBufferAttribute, InstancedBufferGeometry,
-  LinearFilter, Mesh, RedFormat, RepeatWrapping, ShaderMaterial, UnsignedByteType, Vector3,
+  Color, CustomBlending, DataTexture, Float32BufferAttribute, InstancedBufferAttribute, InstancedBufferGeometry,
+  LinearFilter, Mesh, OneFactor, OneMinusSrcAlphaFactor, OneMinusSrcColorFactor, RedFormat, RepeatWrapping, ShaderMaterial, UnsignedByteType, Vector3,
 } from 'three'
 import type { NebulaDetails, Star } from './catalog-model'
 import { galacticToWorld, type StarColorMode } from './astronomy'
 
 // Each puff is one camera-facing quad: all nebulae share a single instanced draw call.
 export const NEBULA_MAX_SCREEN_FRACTION = 0.2
-const PUFF_OVERLAP = 9
-const PUFF_ALPHA = 0.22
+// Wider overlapping kernels join the emitting gas into a continuous veil.
+// Compensate their larger area so smoothing alone does not add light.
+const PUFF_OVERLAP = 36
+const PUFF_ALPHA = 0.22 * 9 / PUFF_OVERLAP
 const MIN_PUFF_PIXELS = 1.5
 
 export function seededRandom(seed: number): () => number {
@@ -50,7 +52,7 @@ export interface NebulaPuffs {
   // Per puff: line-of-sight, major and minor offsets from the center in pc.
   local: Float32Array
   centers: Float32Array
-  // Per puff: radius pc, alpha, noise rotation, noise offset.
+  // Per puff: radius pc, alpha, coherent noise scale and nebula-wide offset.
   shapes: Float32Array
   realColors: Float32Array
   vividColors: Float32Array
@@ -77,11 +79,11 @@ function shapeSampler(details: NebulaDetails, random: () => number): () => Sampl
     const rimCos = Math.cos(100 * Math.PI / 180)
     const rimAngle = Math.acos(rimCos)
     return () => {
-      if (random() < 0.18) {
+      if (random() < 0.24) {
         const d = 0.2 + gaussian(random) * 0.08
         const u = gaussian(random) * 0.14
         const v = gaussian(random) * 0.14
-        return { d: d * depth, u: u * major, v: v * minor, t: Math.min(0.3, Math.hypot(u, v)), size: 0.7, alpha: 0.6 }
+        return { d: d * depth, u: u * major, v: v * minor, t: Math.min(0.3, Math.hypot(u, v)), size: 1, alpha: 0.85 }
       }
       for (;;) {
         const cosTheta = rimCos + (1 - rimCos) * random()
@@ -94,7 +96,7 @@ function shapeSampler(details: NebulaDetails, random: () => number): () => Sampl
         const t = 0.15 + 0.85 * Math.acos(cosTheta) / rimAngle
         // Thin the wall toward the rim so the bowl does not read as a limb-brightened ring.
         if (random() > 1.1 - t || !accept(d, u, v)) continue
-        return { d: d * depth, u: u * major, v: v * minor, t, size: 1, alpha: 1 - 0.55 * t }
+        return { d: d * depth, u: u * major, v: v * minor, t, size: 1, alpha: 1.5 * (1 - 0.55 * t) }
       }
     }
   }
@@ -150,6 +152,8 @@ export function generateNebulaPuffs(star: Star, observer: Vector3): NebulaPuffs 
   const basis = nebulaBasis(center, observer, details.shape.position_angle_deg)
   const [, major, minor] = details.shape.semi_axes_pc
   const baseRadius = Math.sqrt(PUFF_OVERLAP * major * minor / count)
+  const noiseScale = 0.35 / Math.sqrt(major * minor)
+  const noiseOffset = (details.seed % 997) / 997
   const puffs: NebulaPuffs = {
     count,
     local: new Float32Array(count * 3),
@@ -168,10 +172,10 @@ export function generateNebulaPuffs(star: Star, observer: Vector3): NebulaPuffs 
     position.copy(center).addScaledVector(basis.lineOfSight, d).addScaledVector(basis.major, u).addScaledVector(basis.minor, v)
     puffs.centers.set([position.x, position.y, position.z], index * 3)
     puffs.shapes.set([
-      baseRadius * size * (0.6 + 0.9 * random()),
+      baseRadius * size * (0.9 + 0.2 * random()),
       details.brightness * alpha * PUFF_ALPHA * (0.45 + 0.55 * random()),
-      random() * Math.PI * 2,
-      random(),
+      noiseScale,
+      noiseOffset,
     ], index * 4)
     puffs.realColors.set(paletteColor(details.palette.real, t, color, scratch).toArray(), index * 3)
     puffs.vividColors.set(paletteColor(details.palette.exaggerated, t, color, scratch).toArray(), index * 3)
@@ -266,7 +270,7 @@ export function createNebulaLayer(nebulae: readonly Star[], observer: Vector3, m
   const uniforms = {
     noiseMap: { value: noise },
     colorMix: { value: mode === 'exaggerated' ? 1 : 0 },
-    gain: { value: mode === 'exaggerated' ? 1 : 0.75 },
+    gain: { value: mode === 'exaggerated' ? 2.6 : 2.3 },
     alphaScale: { value: 1 },
     viewportHeight: { value: 1 },
     maxScreenFraction: { value: NEBULA_MAX_SCREEN_FRACTION },
@@ -275,7 +279,14 @@ export function createNebulaLayer(nebulae: readonly Star[], observer: Vector3, m
   const material = new ShaderMaterial({
     uniforms,
     transparent: true,
-    blending: AdditiveBlending,
+    // Screen compositing gives overlapping emission a gentle highlight rolloff
+    // instead of clipping large areas to white and overwhelming stellar marks.
+    blending: CustomBlending,
+    blendSrc: OneFactor,
+    blendDst: OneMinusSrcColorFactor,
+    blendSrcAlpha: OneFactor,
+    blendDstAlpha: OneMinusSrcAlphaFactor,
+    premultipliedAlpha: true,
     depthTest: true,
     depthWrite: false,
     toneMapped: false,
@@ -290,7 +301,7 @@ export function createNebulaLayer(nebulae: readonly Star[], observer: Vector3, m
       uniform float maxScreenFraction;
       uniform float minPixels;
       varying vec2 vUv;
-      varying vec2 vNoiseUv;
+      varying vec3 vNoisePosition;
       varying vec3 vColor;
       varying float vAlpha;
       void main() {
@@ -310,32 +321,45 @@ export function createNebulaLayer(nebulae: readonly Star[], observer: Vector3, m
         }
         vColor = mix(puffRealColor, puffVividColor, colorMix);
         vUv = position.xy;
-        float c = cos(puffShape.z);
-        float s = sin(puffShape.z);
-        vNoiseUv = mat2(c, s, -s, c) * position.xy * 0.45 + 0.5 + puffShape.w;
-        gl_Position = projectionMatrix * (viewCenter + vec4(position.xy * radius * scale * grow, 0.0, 0.0));
+        vec2 offset = position.xy * radius * scale * grow;
+        // Sample one continuous field across overlapping puffs. Billboard
+        // offsets use the camera's world-space right/up directions so the
+        // texture stays attached to the gas as the camera turns.
+        vec3 cameraRight = vec3(viewMatrix[0][0], viewMatrix[1][0], viewMatrix[2][0]);
+        vec3 cameraUp = vec3(viewMatrix[0][1], viewMatrix[1][1], viewMatrix[2][1]);
+        vec3 worldPosition = (modelMatrix * vec4(puffCenter, 1.0)).xyz + cameraRight * offset.x + cameraUp * offset.y;
+        vNoisePosition = worldPosition * puffShape.z + puffShape.w;
+        gl_Position = projectionMatrix * (viewCenter + vec4(offset, 0.0, 0.0));
       }
     `,
     fragmentShader: `
       uniform sampler2D noiseMap;
       uniform float gain;
       varying vec2 vUv;
-      varying vec2 vNoiseUv;
+      varying vec3 vNoisePosition;
       varying vec3 vColor;
       varying float vAlpha;
       void main() {
         float r2 = dot(vUv, vUv);
         if (r2 >= 1.0) discard;
-        float falloff = (exp(-3.5 * r2) - 0.0302) / 0.9698;
-        float noise = texture2D(noiseMap, vNoiseUv).r;
-        gl_FragColor = vec4(vColor * gain, vAlpha * falloff * (0.15 + 1.2 * noise));
+        // A soft outer wing reveals faint gas like a stretched long exposure,
+        // while the smooth cutoff avoids individual circular sprite outlines.
+        float falloff = (0.82 * exp(-4.0 * r2) + 0.18 * exp(-1.4 * r2)) * (1.0 - smoothstep(0.55, 1.0, r2));
+        vec3 p = vNoisePosition;
+        float broad = texture2D(noiseMap, p.xy * 0.55 + p.z * vec2(0.21, -0.17)).r;
+        float detail = texture2D(noiseMap, p.yz + p.x * vec2(-0.31, 0.23)).r;
+        float wisps = smoothstep(0.38, 0.7, detail);
+        float emission = 0.72 + 0.42 * broad + 0.18 * wisps;
+        float alpha = 1.0 - exp(-vAlpha * falloff * emission * gain);
+        gl_FragColor = vec4(vColor, alpha);
         #include <colorspace_fragment>
+        gl_FragColor.rgb *= gl_FragColor.a;
       }
     `,
   })
   const mesh = new Mesh(geometry, material)
   mesh.frustumCulled = false
-  // After opaque-like star cores (2), before additive halos (3).
+  // After opaque-like star cores (2), before additive stellar halos (3).
   mesh.renderOrder = 2.5
   mesh.visible = false
   let visibility: boolean[] = nebulae.map(() => false)
@@ -371,7 +395,7 @@ export function createNebulaLayer(nebulae: readonly Star[], observer: Vector3, m
     },
     setColorMode(next) {
       uniforms.colorMix.value = next === 'exaggerated' ? 1 : 0
-      uniforms.gain.value = next === 'exaggerated' ? 1 : 0.75
+      uniforms.gain.value = next === 'exaggerated' ? 2.6 : 2.3
     },
     setViewportHeight(pixels) {
       if (pixels > 0) uniforms.viewportHeight.value = pixels

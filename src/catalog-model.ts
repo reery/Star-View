@@ -189,6 +189,7 @@ export interface Star {
   type: ObjectType
   id: string
   name: string
+  designations?: string[]
   spectral_type: string | null
   constellation: string | null
   x_pc: number

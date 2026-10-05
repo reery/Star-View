@@ -1,3 +1,4 @@
+import { validDesignations } from './designations.ts'
 import { COMPACT_OBJECT_TYPES, type CompactObjectDetails, type Star } from './catalog-model.ts'
 
 export interface CompactOverlayManifest {
@@ -64,7 +65,7 @@ export function parseCompactOverlayPayload(value: unknown, manifest: CompactOver
   const ids = new Set<string>()
   for (const object of objects) {
     if (!object || typeof object.id !== 'string' || !object.id || ids.has(object.id)
-      || typeof object.name !== 'string' || !object.name
+      || typeof object.name !== 'string' || !object.name || !validDesignations(object.designations)
       || typeof object.type !== 'string' || !COMPACT_OBJECT_TYPES.includes(object.type as never)
       || !['x_pc', 'y_pc', 'z_pc', 'epoch'].every((field) => typeof object[field] === 'number' && Number.isFinite(object[field]))
       || object.epoch !== manifest.epoch || !validDetails(object.compact)) {

@@ -14,20 +14,16 @@ function expectedPuffs(limitLy: number, fraction = 1) {
     .reduce((sum, row) => sum + Math.max(1, Math.ceil(row.molecular_cloud.sample_points_pc.length / 3 * fraction)), 0))
 }
 
-function coloredFogPixels(image: PNG) {
+function darkenedCloudPixels(cloudy: PNG, clear: PNG) {
+  expect(cloudy.width).toBe(clear.width)
+  expect(cloudy.height).toBe(clear.height)
   let count = 0
-  let chroma = 0
-  for (let offset = 0; offset < image.data.length; offset += 4) {
-    const red = image.data[offset]!
-    const green = image.data[offset + 1]!
-    const blue = image.data[offset + 2]!
-    const maximum = Math.max(red, green, blue)
-    const minimum = Math.min(red, green, blue)
-    if (red + green + blue < 24 || maximum - minimum < 3) continue
-    count++
-    chroma += maximum - minimum
+  for (let offset = 0; offset < cloudy.data.length; offset += 4) {
+    const clearLight = clear.data[offset]! + clear.data[offset + 1]! + clear.data[offset + 2]!
+    const cloudyLight = cloudy.data[offset]! + cloudy.data[offset + 1]! + cloudy.data[offset + 2]!
+    if (clearLight - cloudyLight > 12) count++
   }
-  return { count, chroma }
+  return count
 }
 
 test('loads all 65 Cahlon clouds on demand and exposes sourced cloud properties', { tag: '@mobile' }, async ({ page }, testInfo) => {
@@ -77,19 +73,28 @@ test('loads all 65 Cahlon clouds on demand and exposes sourced cloud properties'
 
   await zoomViewer(page, 'in', 8)
   await page.getByRole('button', { name: 'Objects', exact: true }).click()
+  // Catalog reloads can change grid geometry. Compare extinction against the
+  // same sky background without those unrelated guide lines.
+  await page.getByRole('button', { name: 'Grid', exact: true }).click()
+  await expect(page.locator('#scene')).toHaveAttribute('data-milky-way-ready', 'true')
   await page.evaluate(() => new Promise<void>((resolve) => requestAnimationFrame(() => requestAnimationFrame(() => resolve()))))
+  const screenshotStyle = '.projected-labels, .projected-axes, [data-scene-obstacle] { visibility: hidden !important; }'
   const image = PNG.sync.read(await page.locator('#scene canvas').screenshot({
     scale: 'css',
-    style: '.projected-labels, .projected-axes { visibility: hidden !important; }',
+    style: screenshotStyle,
     path: testInfo.outputPath('taurus-molecular-cloud.png'),
   }))
-  const fog = coloredFogPixels(image)
-  expect(fog.count).toBeGreaterThan(2_000)
-  expect(fog.chroma).toBeGreaterThan(20_000)
 
   await openFilter(page)
   await page.getByRole('switch', { name: 'Interstellar medium', exact: true }).uncheck()
   await expect(page.locator('#catalog-count')).toHaveText(new RegExp(`/${DEFAULT_ROWS}$`))
   await expect(layer).not.toHaveAttribute('data-molecular-cloud-puff-count')
   expect(cloudRequests).toHaveLength(1)
+  await expect(page.locator('#scene')).toHaveAttribute('data-milky-way-ready', 'true')
+  await page.evaluate(() => new Promise<void>((resolve) => requestAnimationFrame(() => requestAnimationFrame(() => resolve()))))
+  const clear = PNG.sync.read(await page.locator('#scene canvas').screenshot({
+    scale: 'css', style: screenshotStyle, path: testInfo.outputPath('taurus-without-clouds.png'),
+  }))
+  // Scale the required silhouette area with the desktop/mobile viewport.
+  expect(darkenedCloudPixels(image, clear) / (image.width * image.height)).toBeGreaterThan(0.002)
 })

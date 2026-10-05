@@ -24,6 +24,8 @@ The default data stays in [src/data/stars.csv](../src/data/stars.csv). Other pac
 
 All original 16 headers must occur exactly once; `constellation` is optional for legacy/custom files. Enriched files may append the complete raw-astrometry group below. A partial raw group and unknown/duplicate headers are rejected.
 
+An optional `designations` column contains alternate names separated by `|`, for example `GJ 551|HIP 70890|Alpha Centauri C`. Bundled catalogs and overlays also receive a frozen [identity supplement](object-designations.md) during browser-payload generation. It provides common display names and alternate identifiers for search without rewriting scientific CSVs or changing stable IDs. Legacy CSVs and JSON payloads may omit aliases.
+
 ```csv
 type,id,name,spectral_type,x_pc,y_pc,z_pc,vx_kms,vy_kms,vz_kms,temperature_k,mass_solar,luminosity_solar,absolute_mag,epoch,notes,constellation
 ```
@@ -45,6 +47,7 @@ Raw astrometry is source-epoch ICRS data. `pm_ra_cosdec_masyr` includes `cos(dec
 | `type` | Required object class: `star`, `white_dwarf`, `brown_dwarf`, or `sub_brown_dwarf` |
 | `id` | Required, unique string; `sun` is reserved for the reference Sun |
 | `name` | Required display name |
+| `designations` | Optional alternate names, pipe-separated in CSV and a string array in browser JSON |
 | `spectral_type` | Optional spectral classification |
 | `x_pc`, `y_pc`, `z_pc` | Required finite coordinates in parsecs |
 | `vx_kms`, `vy_kms`, `vz_kms` | Optional Cartesian velocities, relative to the Sun, along the same axes in km/s |

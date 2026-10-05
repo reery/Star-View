@@ -1,3 +1,4 @@
+import { validDesignations } from './designations.ts'
 import { equatorialToGalacticPc, NEBULA_OBJECT_TYPES, NEBULA_SHAPE_KINDS, type NebulaDetails, type NebulaObjectType, type Star } from './catalog-model.ts'
 
 export interface NebulaOverlayManifest {
@@ -75,7 +76,7 @@ export function parseNebulaOverlayPayload(value: unknown, manifest: NebulaOverla
   const ids = new Set<string>()
   for (const object of objects) {
     if (!object || typeof object.id !== 'string' || !object.id || ids.has(object.id)
-      || typeof object.name !== 'string' || !object.name
+      || typeof object.name !== 'string' || !object.name || !validDesignations(object.designations)
       || typeof object.type !== 'string' || !NEBULA_OBJECT_TYPES.includes(object.type as never)
       || !['x_pc', 'y_pc', 'z_pc', 'epoch'].every((field) => typeof object[field] === 'number' && Number.isFinite(object[field]))
       || object.epoch !== manifest.epoch || object.absolute_mag !== null || !validDetails(object.nebula)) {

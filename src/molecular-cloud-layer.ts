@@ -1,5 +1,5 @@
 import {
-  AdditiveBlending, CanvasTexture, Color, Float32BufferAttribute, Group, InstancedBufferAttribute, InstancedBufferGeometry,
+  CanvasTexture, Color, Float32BufferAttribute, Group, InstancedBufferAttribute, InstancedBufferGeometry,
   LinearFilter, Mesh, NormalBlending, ShaderMaterial,
 } from 'three'
 import type { Star } from './catalog-model'
@@ -173,8 +173,7 @@ export function createMolecularCloudLayer(clouds: readonly Star[], mode: StarCol
   const uniforms = {
     noiseMap: { value: noise },
     colorMix: { value: mode === 'exaggerated' ? 1 : 0 },
-    bodyGain: { value: mode === 'exaggerated' ? 1.12 : 0.82 },
-    rimGain: { value: mode === 'exaggerated' ? 0.34 : 0.18 },
+    rimGain: { value: mode === 'exaggerated' ? 0.18 : 0.1 },
     alphaScale: { value: 1 },
     viewportHeight: { value: 1 },
     maxScreenFraction: { value: MOLECULAR_CLOUD_MAX_SCREEN_FRACTION },
@@ -234,29 +233,27 @@ export function createMolecularCloudLayer(clouds: readonly Star[], mode: StarCol
     vertexShader,
     fragmentShader: `
       uniform sampler2D noiseMap;
-      uniform float bodyGain;
       varying vec2 vUv;
       varying vec2 vNoiseUv;
-      varying vec3 vBodyColor;
       varying float vAlpha;
-      varying float vSelected;
       void main() {
         float r2 = dot(vUv, vUv);
         if (r2 >= 1.0) discard;
         float falloff = pow(1.0 - r2, 1.65);
         float noise = texture2D(noiseMap, vNoiseUv).r;
         float filaments = smoothstep(0.18, 0.92, noise + 0.16 * sin((vUv.x - vUv.y) * 8.0));
-        float alpha = vAlpha * falloff * (0.18 + 0.92 * filaments) * mix(1.0, 1.85, vSelected);
-        vec3 color = vBodyColor * bodyGain * mix(0.72, 1.2, noise) + vSelected * vec3(0.07, 0.045, 0.025);
-        gl_FragColor = vec4(color, alpha);
-        #include <colorspace_fragment>
+        // Treat the sample weight as optical depth. Overlapping puffs multiply
+        // transmission, so a denser column absorbs more light without emitting.
+        float opticalDepth = vAlpha * falloff * (0.4 + 1.4 * filaments) * 2.4;
+        float alpha = 1.0 - exp(-opticalDepth);
+        gl_FragColor = vec4(0.0, 0.0, 0.0, alpha);
       }
     `,
   })
   const rimMaterial = new ShaderMaterial({
     uniforms,
     transparent: true,
-    blending: AdditiveBlending,
+    blending: NormalBlending,
     depthTest: true,
     depthWrite: false,
     toneMapped: false,
@@ -266,6 +263,7 @@ export function createMolecularCloudLayer(clouds: readonly Star[], mode: StarCol
       uniform float rimGain;
       varying vec2 vUv;
       varying vec2 vNoiseUv;
+      varying vec3 vBodyColor;
       varying vec3 vRimColor;
       varying float vAlpha;
       varying float vSelected;
@@ -273,20 +271,25 @@ export function createMolecularCloudLayer(clouds: readonly Star[], mode: StarCol
         float r2 = dot(vUv, vUv);
         if (r2 >= 1.0) discard;
         float noise = texture2D(noiseMap, vNoiseUv * 1.7 + 0.13).r;
-        float veil = pow(1.0 - r2, 2.4) * smoothstep(0.48, 0.92, noise + 0.1 * sin(vUv.x * 11.0));
-        float edge = smoothstep(0.18, 0.68, r2) * (1.0 - smoothstep(0.68, 1.0, r2));
-        float alpha = vAlpha * rimGain * (0.5 * veil + edge * noise) * mix(1.0, 2.6, vSelected);
-        gl_FragColor = vec4(vRimColor, alpha);
+        // A faint illustrative reflection at diffuse edges keeps the geometry
+        // legible over black sky. The absorption pass also attenuates this tint.
+        float edge = smoothstep(0.32, 0.68, r2) * (1.0 - smoothstep(0.68, 1.0, r2));
+        float alpha = vAlpha * 0.24 * edge * (0.4 + 0.6 * noise) * mix(1.0, 3.0, vSelected);
+        gl_FragColor = vec4(mix(vBodyColor, vRimColor, 0.6) * rimGain, alpha);
         #include <colorspace_fragment>
       }
     `,
   })
   const body = new Mesh(geometry, bodyMaterial)
   body.frustumCulled = false
-  body.renderOrder = 2.2
+  // This sampled dust map has no calibrated extinction per voxel. Darken the
+  // background before drawing catalog sources: stellar photometry already
+  // includes observed extinction, and nebulae model their visible emitting gas.
+  // Draw every faint rim before every absorbing body.
+  body.renderOrder = 1.8
   const rim = new Mesh(geometry, rimMaterial)
   rim.frustumCulled = false
-  rim.renderOrder = 2.35
+  rim.renderOrder = 1.7
   const root = new Group()
   root.add(body, rim)
   root.visible = false
@@ -302,7 +305,7 @@ export function createMolecularCloudLayer(clouds: readonly Star[], mode: StarCol
     const count = packMolecularCloudInstances(sources, visibility, fraction, buffers)
     geometry.instanceCount = count
     root.visible = count > 0
-    uniforms.alphaScale.value = Math.min(2.2, 1 / Math.sqrt(fraction))
+    uniforms.alphaScale.value = 1 / fraction
     if (count === 0) return
     for (const [, attribute] of attributes) {
       attribute.clearUpdateRanges()
@@ -324,8 +327,7 @@ export function createMolecularCloudLayer(clouds: readonly Star[], mode: StarCol
     },
     setColorMode(next) {
       uniforms.colorMix.value = next === 'exaggerated' ? 1 : 0
-      uniforms.bodyGain.value = next === 'exaggerated' ? 1.12 : 0.82
-      uniforms.rimGain.value = next === 'exaggerated' ? 0.34 : 0.18
+      uniforms.rimGain.value = next === 'exaggerated' ? 0.18 : 0.1
     },
     setViewportHeight(pixels) {
       if (pixels > 0) uniforms.viewportHeight.value = pixels

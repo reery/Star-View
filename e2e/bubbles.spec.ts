@@ -56,7 +56,7 @@ test('loads the Local Bubble on demand as one visible sourced shell under Bubble
   await page.getByLabel('Search objects').fill('Local Chimney')
   await page.getByRole('button', { name: 'Select Local Bubble', exact: true }).click()
   await expect(page.locator('#object-type')).toHaveText('Bubble')
-  await expect(page.locator('#bubble-designations')).toContainText('Local Chimney')
+  await expect(page.locator('#object-designations')).toContainText('Local Chimney')
   await expect(page.locator('#bubble-average-radius')).toHaveText('554 ly')
   await expect(page.locator('#bubble-surface-range')).toHaveText('228–1,957+ ly')
   await expect(page.locator('#bubble-shell-thickness')).toHaveText('114 ly')

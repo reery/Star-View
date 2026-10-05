@@ -218,6 +218,8 @@ The original 16 headers are required exactly once; constellation is optional for
 ra_deg,dec_deg,astrometry_epoch,parallax_mas,parallax_error_mas,pm_ra_cosdec_masyr,pm_ra_error_masyr,pm_dec_masyr,pm_dec_error_masyr,radial_velocity_kms,radial_velocity_error_kms,astrometry_ref,radial_velocity_ref
 ```
 
+Optional `designations` may be appended as a pipe-separated list of alternate names. The bundled catalogs and overlays use the separately reproducible [object identity supplement](object-designations.md), applied when generating browser payloads. Stable IDs and scientific source rows are preserved.
+
 Optional physical columns may be appended independently:
 
 ```csv

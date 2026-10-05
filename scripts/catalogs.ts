@@ -7,8 +7,10 @@ import { parseNebulaOverlayManifest, parseNebulaOverlayPayload } from '../src/ne
 import { parseMolecularCloudOverlayManifest, parseMolecularCloudOverlayPayload } from '../src/molecular-cloud-overlay-model.ts'
 import { hydrateBubbleSurfaceGridFiles, parseBubbleOverlayManifest, parseBubbleOverlayPayload } from '../src/bubble-overlay-model.ts'
 import { containedInput, safeOutputDirectory, writeManagedFiles } from './filesystem.ts'
+import { parseObjectIdentities, supplementObjectIdentities } from '../src/designations.ts'
 
 const root = fileURLToPath(new URL('../', import.meta.url))
+const identities = parseObjectIdentities(JSON.parse(readFileSync(join(root, 'src/data/object-designations.json'), 'utf8')))
 const [command, ...args] = process.argv.slice(2)
 const compactOverlayDirectory = join(root, 'src/data/overlays/compact-remnants')
 const nebulaOverlayDirectory = join(root, 'src/data/overlays/nebulae')
@@ -18,21 +20,21 @@ const bubbleOverlayDirectory = join(root, 'src/data/overlays/bubbles')
 function loadCompactOverlay() {
   const manifest = parseCompactOverlayManifest(readFileSync(join(compactOverlayDirectory, 'manifest.json'), 'utf8'))
   const payload: unknown = JSON.parse(readFileSync(join(compactOverlayDirectory, 'objects.json'), 'utf8'))
-  const objects = parseCompactOverlayPayload(payload, manifest)
+  const objects = supplementObjectIdentities(parseCompactOverlayPayload(payload, manifest), identities)
   return { manifest, objects }
 }
 
 function loadNebulaOverlay() {
   const manifest = parseNebulaOverlayManifest(readFileSync(join(nebulaOverlayDirectory, 'manifest.json'), 'utf8'))
   const payload: unknown = JSON.parse(readFileSync(join(nebulaOverlayDirectory, 'objects.json'), 'utf8'))
-  const objects = parseNebulaOverlayPayload(payload, manifest)
+  const objects = supplementObjectIdentities(parseNebulaOverlayPayload(payload, manifest), identities)
   return { manifest, objects }
 }
 
 function loadMolecularCloudOverlay() {
   const manifest = parseMolecularCloudOverlayManifest(readFileSync(join(molecularCloudOverlayDirectory, 'manifest.json'), 'utf8'))
   const payload: unknown = JSON.parse(readFileSync(join(molecularCloudOverlayDirectory, 'objects.json'), 'utf8'))
-  const objects = parseMolecularCloudOverlayPayload(payload, manifest)
+  const objects = supplementObjectIdentities(parseMolecularCloudOverlayPayload(payload, manifest), identities)
   return { manifest, objects }
 }
 
@@ -42,7 +44,7 @@ function loadBubbleOverlay() {
     JSON.parse(readFileSync(join(bubbleOverlayDirectory, 'objects.json'), 'utf8')),
     (filename) => JSON.parse(readFileSync(join(bubbleOverlayDirectory, filename), 'utf8')),
   )
-  const objects = parseBubbleOverlayPayload(payload, manifest)
+  const objects = supplementObjectIdentities(parseBubbleOverlayPayload(payload, manifest), identities)
   return { manifest, objects }
 }
 
@@ -85,7 +87,7 @@ function generate(): void {
     }),
   ]
   const files = Object.fromEntries(packages.map((definition) => {
-    const stars = loadCatalog(definition)
+    const stars = supplementObjectIdentities(loadCatalog(definition), identities)
     return [`${definition.manifest.id}.json`, JSON.stringify({ schemaVersion: 1, catalogId: definition.manifest.id, stars }) + '\n']
   }))
   const output = safeOutputDirectory(join(root, 'src/data/generated/catalogs'))

@@ -1,3 +1,4 @@
+import { validDesignations } from './designations.ts'
 import { MOLECULAR_CLOUD_OBJECT_TYPES, type MolecularCloudDetails, type MolecularCloudObjectType, type Star } from './catalog-model.ts'
 
 export interface MolecularCloudOverlayManifest {
@@ -85,7 +86,7 @@ export function parseMolecularCloudOverlayPayload(value: unknown, manifest: Mole
   let displaySampleCount = 0
   for (const object of objects) {
     if (!object || typeof object.id !== 'string' || !object.id || ids.has(object.id)
-      || typeof object.name !== 'string' || !object.name
+      || typeof object.name !== 'string' || !object.name || !validDesignations(object.designations)
       || typeof object.type !== 'string' || !MOLECULAR_CLOUD_OBJECT_TYPES.includes(object.type as never)
       || !['x_pc', 'y_pc', 'z_pc', 'epoch', 'mass_solar'].every((field) => finite(object[field]))
       || object.epoch !== manifest.epoch || object.absolute_mag !== null || !validDetails(object.molecular_cloud)) {

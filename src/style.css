@@ -45,6 +45,10 @@ button, p, h2, dd { overflow-wrap: anywhere; }
 .inspector { position: absolute; inset: 0; pointer-events: none; }
 .selected-object, .dock-card, .observer-direction-card { color: var(--ink); background: linear-gradient(145deg, #26282af7, var(--panel-glass)); border: 1px solid #5a5148; border-radius: var(--card-radius); box-shadow: 0 14px 38px #00000080, inset 0 1px #ffffff0a; }
 .selected-object { position: absolute; top: 20px; left: 20px; width: 292px; max-height: calc(100dvh - 40px); overflow: auto; overscroll-behavior: contain; scrollbar-width: thin; scrollbar-color: #776a5c transparent; pointer-events: auto; }
+.properties .designations-property { grid-template-columns: 1fr; gap: 6px; }
+.properties .designations-property dd { text-align: left; }
+.designation-list { max-height: 156px; overflow: auto; margin: 0; padding: 0; list-style: none; scrollbar-width: thin; scrollbar-color: #776a5c transparent; }
+.designation-list li { padding: 3px 0; overflow-wrap: anywhere; }
 .scene-toolbar { position: absolute; top: 20px; right: 18px; display: flex; flex-direction: column; align-items: center; gap: 4px; pointer-events: auto; }
 .dock-card.saved-views-card { position: absolute; top: 20px; right: 72px; width: min(440px, calc(100vw - 110px)); max-height: calc(100dvh - 40px); overflow: hidden; pointer-events: auto; }
 .save-view-form { display: grid; grid-template-columns: minmax(0, 1fr) 44px; gap: 8px; padding: 10px 12px; border-bottom: 1px solid var(--line); }

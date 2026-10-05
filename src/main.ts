@@ -2,6 +2,7 @@ import './style.css'
 import { ArrowLeft, ArrowRight, CircleHelp, Clock, Crosshair, Eye, Filter, Focus, Grid2X2, List, Lock, Minus, Orbit, Pause, Play, Plus, RotateCcw, RotateCw, Save, Settings2, Star as StarIcon, Trash2, createElement, type IconNode } from 'lucide'
 import { BUBBLE_OBJECT_TYPES, COMPACT_OBJECT_TYPES, describeObject, isBubbleObject, isCompactObject, isMolecularCloudObject, isNebulaObject, MOLECULAR_CLOUD_OBJECT_TYPES, NEBULA_OBJECT_TYPES, type Star } from './catalog-model'
 import { catalogSelection, mergeCatalogStars } from './catalog-runtime'
+import { objectDesignations } from './designations'
 import { compactOverlayManifest, loadCompactRemnants } from './compact-overlay'
 import { loadNebulae, nebulaOverlayManifest } from './nebula-overlay'
 import { loadMolecularClouds, molecularCloudOverlayManifest } from './molecular-cloud-overlay'
@@ -582,7 +583,6 @@ function renderSelection(): void {
     const offsets = nebula.shape.layer_offsets_pc
     const deepPc = 2 * depth + (offsets.length ? Math.max(...offsets) - Math.min(...offsets) : 0)
     const extent = (pc: number) => (pc * (distanceUnit === 'ly' ? LIGHT_YEARS_PER_PARSEC : 1)).toLocaleString('en-US', { maximumFractionDigits: 1 })
-    text('nebula-designations', nebula.designations.join(', '))
     text('nebula-angular-size', `${nebula.angular_size_arcmin[0]}′ × ${nebula.angular_size_arcmin[1]}′`)
     text('nebula-extent', `${extent(2 * major)} × ${extent(2 * minor)} × ${extent(deepPc)} ${distanceUnit}`)
     text('nebula-illumination', nebula.illuminating_stars)
@@ -608,7 +608,6 @@ function renderSelection(): void {
     const conversion = distanceUnit === 'ly' ? LIGHT_YEARS_PER_PARSEC : 1
     const extent = (pc: number) => (pc * conversion).toLocaleString('en-US', { maximumFractionDigits: 0 })
     const [minimum, maximum] = bubble.surface_distance_range_pc
-    text('bubble-designations', bubble.designations.join(', '))
     text('bubble-average-radius', `${extent(bubble.average_radius_pc)} ${distanceUnit}`)
     text('bubble-surface-range', `${extent(minimum)}–${extent(maximum)}${bubble.surface_distance_max_open ? '+' : ''} ${distanceUnit}`)
     text('bubble-shell-thickness', `${extent(bubble.shell_thickness_pc)} ${distanceUnit}`)
@@ -637,6 +636,12 @@ function renderSelection(): void {
   text('radial-velocity', raw ? measurement(raw.radial_velocity_kms, raw.radial_velocity_error_kms, 'km/s', 6) : 'Not available')
   text('astrometry-source', raw?.astrometry_ref || compact?.position_source || nebula?.position_source || molecularCloud?.position_source || bubble?.position_source || 'Not available')
   text('absolute-mag', quantity(star.absolute_mag))
+  const designations = objectDesignations(star)
+  element('object-designations').replaceChildren(...(designations.length ? designations : ['No other designations recorded']).map((name) => {
+    const item = document.createElement('li')
+    item.textContent = name
+    return item
+  }))
   text('star-notes', star.notes || 'No source notes available.')
   const referenceName = reference.id === 'sun' ? 'the Sun' : reference.name
   text('selection-announcement', `${star.name}, ${formatDistance(displayedDistancePc, distanceUnit)} from ${referenceName}.`)
