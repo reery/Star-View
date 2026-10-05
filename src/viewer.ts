@@ -2,7 +2,7 @@ import {
   AdditiveBlending, BackSide, Box3, BoxGeometry, BufferGeometry, CanvasTexture, Color, DoubleSide, DynamicDrawUsage, Float32BufferAttribute,
   Group, InstancedBufferAttribute, InstancedBufferGeometry, LessDepth, Line, LineBasicMaterial, LineDashedMaterial,
   LinearFilter, LineSegments, Matrix4, Mesh, NoBlending, Object3D, PerspectiveCamera, Points, PointsMaterial, Scene, ShaderMaterial,
-  Quaternion, Sphere, SRGBColorSpace, TextureLoader, Vector2, Vector3, Vector4, WebGLRenderer, type Texture,
+  Quaternion, RepeatWrapping, Sphere, SRGBColorSpace, TextureLoader, Vector2, Vector3, Vector4, WebGLRenderer, type Texture,
 } from 'three'
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js'
 import milkyWayImageUrl from './assets/milky-way.jpg'
@@ -258,7 +258,9 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
   // -world z, matching galacticToWorld().
   const milkyWayUniforms = {
     map: { value: null as Texture | null },
+    texelSize: { value: new Vector2() },
     intensity: { value: 0.12 },
+    saturation: { value: starColorMode === 'exaggerated' ? 1.3 : 1 },
   }
   const milkyWayGeometry = new BoxGeometry(1, 1, 1)
   const milkyWayMaterial = new ShaderMaterial({
@@ -279,12 +281,24 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
     `,
     fragmentShader: `
       uniform sampler2D map;
+      uniform vec2 texelSize;
       uniform float intensity;
+      uniform float saturation;
       varying vec3 worldDirection;
       #include <common>
       void main() {
-        vec4 panorama = texture2D(map, equirectUv(normalize(worldDirection)));
-        vec3 skyColor = panorama.rgb * intensity;
+        vec2 uv = equirectUv(normalize(worldDirection));
+        vec3 panorama = texture2D(map, uv).rgb;
+        // Reduce tiny star peaks without blurring the broad dust lanes.
+        vec3 nearby = 0.25 * (
+          texture2D(map, uv + vec2(texelSize.x, 0.0)).rgb +
+          texture2D(map, uv - vec2(texelSize.x, 0.0)).rgb +
+          texture2D(map, uv + vec2(0.0, texelSize.y)).rgb +
+          texture2D(map, uv - vec2(0.0, texelSize.y)).rgb
+        );
+        panorama -= 0.25 * max(panorama - nearby, vec3(0.0));
+        float luminance = dot(panorama, vec3(0.2126, 0.7152, 0.0722));
+        vec3 skyColor = max(mix(vec3(luminance), panorama, saturation), vec3(0.0)) * intensity;
         // Keep empty sky transparent so the DOM axis captions behind the
         // canvas remain visible, while preserving the same color over black.
         float skyAlpha = max(max(skyColor.r, skyColor.g), skyColor.b);
@@ -1258,11 +1272,15 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
         return
       }
       texture.colorSpace = SRGBColorSpace
+      texture.wrapS = RepeatWrapping
       texture.generateMipmaps = false
       texture.minFilter = LinearFilter
       texture.magFilter = LinearFilter
       milkyWayTexture = texture
       milkyWayUniforms.map.value = texture
+      const textureWidth = Math.min(texture.image.width, renderer.capabilities.maxTextureSize)
+      const textureHeight = texture.image.height * textureWidth / texture.image.width
+      milkyWayUniforms.texelSize.value.set(1 / textureWidth, 1 / textureHeight)
       milkyWaySky.visible = milkyWayVisible
       container.dataset.milkyWayReady = 'true'
       requestRender()
@@ -2342,6 +2360,7 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
     setStarColorMode(mode) {
       if ((mode !== 'real' && mode !== 'exaggerated') || mode === starColorMode) return
       starColorMode = mode
+      milkyWayUniforms.saturation.value = mode === 'exaggerated' ? 1.3 : 1
       stars.forEach((star, index) => {
         const color = starDisplayColor(star, mode)
         starColors[index] = color

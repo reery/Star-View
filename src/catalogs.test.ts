@@ -97,8 +97,8 @@ describe('catalog packages and display settings', () => {
       status: 'withheld-white-dwarf',
       observation: { sourceId: 'gaia-dr3', valueKms: -414.01544 },
     })
-    expect(catalogCoverage(nearest1000)).toMatchObject({ radii: 585, metallicities: 385, ages: 78, masses: 530, luminosities: 526, temperatures: 559 })
-    expect(catalogCoverage(large)).toMatchObject({ masses: 58, luminosities: 59, radii: 57 })
+    expect(catalogCoverage(nearest1000)).toMatchObject({ radii: 605, metallicities: 390, ages: 82, masses: 547, luminosities: 575, temperatures: 823 })
+    expect(catalogCoverage(large)).toMatchObject({ masses: 65, luminosities: 67, radii: 67 })
     expect(small.find((star) => star.id === 'barnards-star')).toMatchObject({ mass_solar: 0.144, radius_solar: 0.1931, luminosity_solar: 0.0035225088 })
     expect(nearest1000.find((star) => star.id === 'cns5-5672')).toMatchObject({ mass_solar: 0.6116, radius_solar: 0.6299 })
   })
@@ -106,7 +106,7 @@ describe('catalog packages and display settings', () => {
   it('keeps the bright landmark catalog bounded and merges it without duplicates', () => {
     expect(bright).toHaveLength(115)
     expect(bright.at(-1)?.name).toBe('Arneb')
-    expect(catalogCoverage(bright)).toMatchObject({ temperatures: 113, masses: 45, luminosities: 101, radii: 101, metallicities: 26, ages: 4, radialVelocities: 114, transverseOnly: 0 })
+    expect(catalogCoverage(bright)).toMatchObject({ temperatures: 113, masses: 46, luminosities: 102, radii: 102, metallicities: 27, ages: 5, radialVelocities: 114, transverseOnly: 0 })
     expect(bright.find((star) => star.name === 'Rigel')).toMatchObject({
       temperature_k: 11968, radius_solar: 74.0262, luminosity_solar: 83226.2, metallicity_dex: -0.159,
     })
@@ -148,13 +148,15 @@ describe('catalog packages and display settings', () => {
     expect(Math.max(...bright.filter((star) => star.id !== 'sun').map((star) => apparentVisualMagnitude(
       star.absolute_mag, Math.hypot(star.x_pc, star.y_pc, star.z_pc),
     )!))).toBeLessThan(2.70)
+    const originalAltair = structuredClone(large.find((star) => star.name === 'Altair'))
     const merged = mergeCatalogStars(large, bright)
     expect(merged).toHaveLength(210)
     expect(new Set(merged.map((star) => star.id)).size).toBe(merged.length)
     expect(merged.find((star) => star.name === 'Altair')).toMatchObject({
-      id: '10pc-0117', temperature_k: 7760, mass_solar: 1.6, radius_solar: 1.8183, metallicity_dex: 0.19,
+      id: '10pc-0117', temperature_k: 7760, mass_solar: 1.6, metallicity_dex: 0.19,
     })
-    expect(large.find((star) => star.name === 'Altair')).toMatchObject({ mass_solar: null, radius_solar: null })
+    expect(merged.find((star) => star.name === 'Altair')!.radius_solar).toBeCloseTo(1.8183, 4)
+    expect(large.find((star) => star.name === 'Altair')).toEqual(originalAltair)
     expect(merged.filter((star) => star.name === 'Procyon A' || star.name === 'Procyon')).toHaveLength(1)
     const sirius = bright.find((star) => star.id === 'sirius-a')!
     expect(mergeCatalogStars([sirius], [{ ...sirius, id: 'duplicate-sirius' }])).toHaveLength(1)
@@ -165,12 +167,37 @@ describe('catalog packages and display settings', () => {
     expect(new Set(largestMerged.map((star) => star.id)).size).toBe(largestMerged.length)
   })
 
+  it('enriches Procyon components and keeps reviewed parameters across catalogs', () => {
+    const primary = large.find((star) => star.id === '10pc-0031')!
+    const companion = large.find((star) => star.id === '10pc-0032')!
+    expect(primary).toMatchObject({ temperature_k: 6591, mass_solar: 1.478, radius_solar: 2.019, metallicity_dex: -0.05, age_gyr: 2.7 })
+    expect(companion).toMatchObject({ temperature_k: 7740, mass_solar: 0.592, radius_solar: 0.01232, metallicity_dex: null, age_gyr: 2.7 })
+    expect(primary.absolute_mag).not.toBeNull()
+    expect(companion.absolute_mag).not.toBeNull()
+    expect(primary.luminosity_solar).toBeGreaterThan(6)
+    expect(companion.luminosity_solar).toBeGreaterThan(0)
+    for (const stars of [bright, western]) {
+      expect(stars.find((star) => star.name === 'Procyon')).toMatchObject({
+        temperature_k: primary.temperature_k, mass_solar: primary.mass_solar,
+        radius_solar: primary.radius_solar, age_gyr: primary.age_gyr,
+      })
+    }
+    const provenance = JSON.parse(nearest1000Provenance)
+    const estimated = provenance.objects.filter((object: any) => object.sharedPhysicalEnrichment?.temperature_k?.status === 'estimated')
+    expect(estimated.length).toBeGreaterThan(200)
+    for (const object of estimated) {
+      const star = nearest1000.find((candidate) => candidate.id === object.id)!
+      expect(star.notes).toContain('not an object-specific measurement')
+      expect(object.fieldStatus.temperature_k).toBe('estimated')
+    }
+  })
+
   it('includes every source-defined Western constellation figure star as an independent overlay', () => {
     const provenance = JSON.parse(westernProvenance)
     expect(western).toHaveLength(692)
     expect(catalogCoverage(western)).toMatchObject({
       objects: 691, constellations: 691, magnitudes: 691, rawAstrometry: 691,
-      temperatures: 668, masses: 354, luminosities: 627, radii: 627, metallicities: 226, ages: 91,
+      temperatures: 668, masses: 355, luminosities: 628, radii: 628, metallicities: 227, ages: 92,
     })
     expect(provenance).toMatchObject({ figureConstellations: 88, uniqueHipparcosStars: 691 })
     expect(new Set(Object.values(provenance.objects).flatMap((entry: any) => entry.figureConstellations)).size).toBe(88)

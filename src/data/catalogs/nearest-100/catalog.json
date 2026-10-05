@@ -93,6 +93,50 @@
     {
       "name": "2MASS All-Sky Point Source Catalog Ks photometry (VizieR II/246)",
       "url": "https://cdsarc.cds.unistra.fr/viz-bin/cat/II/246"
+    },
+    {
+      "name": "Bond et al. 2015, Procyon A/B component mass, age, and white dwarf radius",
+      "url": "https://arxiv.org/abs/1510.00485"
+    },
+    {
+      "name": "Chiavassa et al. 2012, Procyon A interferometry and effective temperature",
+      "url": "https://arxiv.org/abs/1201.3264"
+    },
+    {
+      "name": "Allende Prieto et al. 2002, Procyon A differential iron abundance",
+      "url": "https://arxiv.org/abs/astro-ph/0111055"
+    },
+    {
+      "name": "Pecaut & Mamajek 2013, dwarf temperature sequence frozen 2022.04.16",
+      "url": "https://www.pas.rochester.edu/~emamajek/EEM_dwarf_UBVIJHK_colors_Teff.txt"
+    },
+    {
+      "name": "McGill et al. 2023, LAWD 37 microlensing mass and atmospheric parameters",
+      "url": "https://arxiv.org/abs/2206.01814"
+    },
+    {
+      "name": "Sahu et al. 2017, Stein 2051 B microlensing mass and atmosphere fit",
+      "url": "https://arxiv.org/abs/1706.02037"
+    },
+    {
+      "name": "Chen et al. 2022, Epsilon Indi Ba/Bb dynamical masses and shared age",
+      "url": "https://arxiv.org/abs/2205.08077"
+    },
+    {
+      "name": "King et al. 2010, Epsilon Indi Ba/Bb resolved bolometric SEDs",
+      "url": "https://arxiv.org/abs/0911.3143"
+    },
+    {
+      "name": "Allende Prieto & Lambert 1999, exact-Hipparcos stellar models",
+      "url": "https://cdsarc.cds.unistra.fr/viz-bin/cat/J/A+A/352/555"
+    },
+    {
+      "name": "McDonald et al. 2012, exact-Hipparcos SED luminosities",
+      "url": "https://cdsarc.cds.unistra.fr/viz-bin/cat/J/MNRAS/427/343"
+    },
+    {
+      "name": "Gaia DR3, exact-ID quality-filtered astrophysical parameters",
+      "url": "https://gea.esac.esa.int/archive/"
     }
   ],
   "cutoffPolicy": "Exclude Planet rows, aggregate system rows and source ObjType endings '?'. The only approved exceptions are Seq 27/28 (EZ Aquarii B/C): preserve vetted default membership and every default field, while retaining raw LM? classifications explicitly; this is not a new classification measurement. Keep all tentative buffer records for audit. Rank eligible individual non-Sun objects by unrounded adopted J2000 distance, then ASCII stable ID for exact ties; retain exactly 100 plus Sun. Rank 100 is GJ 229 A; nearby one-sigma distance intervals overlap, so membership is not statistically secure. Frozen 2023 source releases with preserved neighbor overrides; no 2026 completeness claim.",

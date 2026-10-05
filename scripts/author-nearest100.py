@@ -17,6 +17,7 @@ from astropy.time import Time
 from astropy.utils import iers
 
 from catalog_sources.adapters import eligible_gaia_physical, read_gaia_tap, read_primary_overrides
+from catalog_sources.enrichment import enrich_from_frozen, enrichment_sources, manifest_sha256
 from catalog_sources.filesystem import atomic_write_text, safe_output_directory, write_managed_files
 from catalog_sources.mdwarf import SUPPLEMENT_FIELDS, enrich_curated_row, format_value, load_supplements
 
@@ -266,6 +267,14 @@ def apply_reviewed_and_gaia_physical(row, reviewed, gaia, fields=None):
         note = (reviewed.raw or {}).get("note")
         if note:
             row["notes"] = (row["notes"] + " " + note).strip()
+        photometry = (reviewed.raw or {}).get("photometry")
+        if photometry:
+            distance = math.sqrt(sum(float(row[key]) ** 2 for key in ("x_pc", "y_pc", "z_pc")))
+            row["absolute_mag"] = f"{photometry['johnson_v'] - 5 * math.log10(distance / 10):.6f}"
+            row["notes"] = row["notes"].replace("Component-resolved Johnson V not independently established; multi-star system V withheld.", "")
+            row["notes"] += f" Component-resolved Johnson V={photometry['johnson_v']} from {photometry['reference']}; absolute V uses the adopted distance."
+            if fields is not None:
+                fields["absolute_mag"] = field_source("derived", photometry["reference"], json.dumps(photometry, sort_keys=True))
 
     gaia_eligible = eligible_gaia_physical(gaia) if row["type"] == "star" else {}
     gaia_adopted = {}
@@ -412,6 +421,11 @@ def adopt_object(source, frozen, system_counts, supplements, gaia_records, revie
     reviewed_adopted, gaia_eligible, gaia_adopted = apply_reviewed_and_gaia_physical(row, reviewed, gaia, fields)
     supplemented, supplement_audit = enrich_curated_row(row, supplements, gaia_adopted)
     finalize_gaia_note(row, gaia_adopted, supplemented)
+    shared_enrichment = enrich_from_frozen(row)
+    if row["temperature_k"]:
+        row["notes"] = row["notes"].replace("No appropriate object-specific temperature adopted; dwarf sequence not applied.", "")
+    for key, observation in shared_enrichment.items():
+        fields[key] = field_source(observation["status"], observation["reference"], json.dumps(observation, sort_keys=True))
     for key, observation in supplemented.items():
         fields[key] = field_source(observation.status, f"{observation.reference}:{observation.source_record_id}", f"{observation.source_id}; uncertainty {observation.uncertainty}; fills a blank field only.")
     provenance = {
@@ -425,6 +439,8 @@ def adopt_object(source, frozen, system_counts, supplements, gaia_records, revie
         provenance["overrides"].append("Akeson et al. 2021 Alpha Centauri AB barycentric astrometry and systemic radial velocity replace orbit-contaminated component proper motions for the shared long-horizon motion vector.")
     if supplement_audit:
         provenance["physicalSupplements"] = supplement_audit
+    if shared_enrichment:
+        provenance["sharedPhysicalEnrichment"] = shared_enrichment
     if reviewed is not None:
         provenance["reviewedPhysical"] = {
             "inputSha256": checksum(PHYSICAL_OVERRIDES),
@@ -499,7 +515,7 @@ def build_catalog(output, force=False, check=False):
         if row["id"] in current_default:
             assert row == {key: current_default[row["id"]].get(key, "") for key in headers}, f"Default row drifted from frozen legacy plus supplements: {row['id']}"
     cutoff_policy = MEMBERSHIP_POLICY + " Rank eligible individual non-Sun objects by unrounded adopted J2000 distance, then ASCII stable ID for exact ties; retain exactly 100 plus Sun. Rank 100 is GJ 229 A; nearby one-sigma distance intervals overlap, so membership is not statistically secure. Frozen 2023 source releases with preserved neighbor overrides; no 2026 completeness claim."
-    physical_sources = GAIA_PHYSICAL_SOURCES + REVIEWED_PHYSICAL_SOURCES + SUPPLEMENT_SOURCES
+    physical_sources = GAIA_PHYSICAL_SOURCES + REVIEWED_PHYSICAL_SOURCES + SUPPLEMENT_SOURCES + enrichment_sources()
     manifest = {"schemaVersion": 1, "id": "nearest-100", "label": "Nearest 100 objects", "description": "100 individual stellar/substellar objects from the frozen 2023 10pc census, audited against corrected CNS5, plus Sun. Tentative candidates excluded except explicitly preserved EZ Aquarii B/C default membership; exact-ID Gaia and reviewed physical enrichment remains nullable.", "epoch": 2000, "objectCount": 101, "sources": SOURCES + physical_sources, "cutoffPolicy": cutoff_policy, "snapshot": "J2000.0; 10pc 2023-08-25 / CNS5 corrected 2023-12-13; Gaia DR3 frozen 2026-09-25; reviewed physical overrides frozen 2026-10-03; " + POLICY_REVISION}
     coverage = {field: sum(row[field] != "" for row in rows) for field in ("constellation", "spectral_type", "temperature_k", "mass_solar", "luminosity_solar", "radius_solar", "metallicity_dex", "age_gyr", "absolute_mag")}
     coverage["fullVelocity"] = sum(all(row[key] != "" for key in ("vx_kms", "vy_kms", "vz_kms")) for row in rows)
@@ -527,7 +543,8 @@ def build_catalog(output, force=False, check=False):
         "schemaVersion": 1, "catalogId": "nearest-100", "sourceRelease": frozen["release"], "policyRevision": frozen["policyRevision"], "inputSha256": checksum(input_path),
         "supplementManifestSha256": supplements.manifest_sha256,
         "gaiaSourceManifestSha256": checksum(GAIA_MANIFEST), "physicalOverridesSha256": checksum(PHYSICAL_OVERRIDES),
-        "physicalPolicyRevision": "nearest100-reviewed-gaia-v1",
+        "physicalPolicyRevision": "nearest100-reviewed-gaia-shared-v2",
+        "sharedEnrichmentManifestSha256": manifest_sha256(),
         "sources": SOURCES + physical_sources, "sourceChecksumsSha256": frozen["sourceChecksumsSha256"],
         "tools": {"astropy": astropy.__version__, "boundary": "Roman 1987, VI/42 via Astropy", "constellationSpellingCorrections": NAME_CORRECTIONS},
         "conventions": {"position": "Sun-relative Galactic x toward Galactic center, y toward Galactic longitude 90 deg, z toward north Galactic pole; pc", "epoch": "J2000.0 Julian years TT; linear Astropy apply_space_motion, no binary orbit model. Source epoch precision is retained as published, including 0.1-year rounding.", "velocity": "Sun-relative Galactic km/s; no solar Galactic offset. Missing/withheld RV is used only as a transverse-only propagation approximation, never exported as measured velocity.", "constellation": "Earth-view IAU region from high-precision adopted snapshot direction before Cartesian rounding. Existing vectors are preserved and inverted. Sun has no fixed region. No physical propagation to B1875.", "photometry": "Johnson V only, MV=V-5log10(d/10), local extinction neglected; no G/IR/bolometric substitutions. No time-variable photometry or unresolved flux aggregation.", "uncertainty": "Raw source measurement errors retained. Rank uses nominal adopted distance; linearized parallax-only distance sigma is an audit, not a covariance-aware posterior or a guarantee of order. Existing row source errors are audit-only when astrometry is overridden."},
@@ -601,6 +618,7 @@ def default_catalog(write=False):
             adopted, _ = enrich_curated_row(output, supplements, gaia_adopted)
             finalize_gaia_note(output, gaia_adopted, adopted)
             assert all(before[key] == output[key] or (key in adopted and (before[key] == "" or key in gaia_adopted)) or (key == "notes" and output[key].startswith(before[key])) for key in OUTPUT_HEADERS)
+            enrich_from_frozen(output)
             if adopted:
                 supplemented[row["id"]] = sorted(adopted)
         enriched.append(output)

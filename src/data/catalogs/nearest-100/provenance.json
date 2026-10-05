@@ -6,8 +6,9 @@
   "inputSha256": "ab8a3ab6e0b0edb1372f7c58cdf4f121fe1d5d204a9a0541e6d302a5ac18c84a",
   "supplementManifestSha256": "92cb2daae1b7319401890f4e1de7f904d1d1b0375b3ac2dc93c8c41c5ecd0073",
   "gaiaSourceManifestSha256": "2be61990729716fc4005ca5e0998ea2a67939060e8161391898fd32d20fff974",
-  "physicalOverridesSha256": "812dca6f37bfc4e714923571c87d1e88b256410416a5a4b411104e5244baa027",
-  "physicalPolicyRevision": "nearest100-reviewed-gaia-v1",
+  "physicalOverridesSha256": "59aeae9b903d977b550843799a09888a24cbb0f7ead137baf4d51765ea7738c9",
+  "physicalPolicyRevision": "nearest100-reviewed-gaia-shared-v2",
+  "sharedEnrichmentManifestSha256": "7e823401fdbfc9ae6cb2353abca7153ba484217cb200f72fb95ed99c8699a56a",
   "sources": [
     {
       "name": "10pc census, Reyle et al., tablea1 update 2023-08-25",
@@ -96,6 +97,50 @@
     {
       "name": "2MASS All-Sky Point Source Catalog Ks photometry (VizieR II/246)",
       "url": "https://cdsarc.cds.unistra.fr/viz-bin/cat/II/246"
+    },
+    {
+      "name": "Bond et al. 2015, Procyon A/B component mass, age, and white dwarf radius",
+      "url": "https://arxiv.org/abs/1510.00485"
+    },
+    {
+      "name": "Chiavassa et al. 2012, Procyon A interferometry and effective temperature",
+      "url": "https://arxiv.org/abs/1201.3264"
+    },
+    {
+      "name": "Allende Prieto et al. 2002, Procyon A differential iron abundance",
+      "url": "https://arxiv.org/abs/astro-ph/0111055"
+    },
+    {
+      "name": "Pecaut & Mamajek 2013, dwarf temperature sequence frozen 2022.04.16",
+      "url": "https://www.pas.rochester.edu/~emamajek/EEM_dwarf_UBVIJHK_colors_Teff.txt"
+    },
+    {
+      "name": "McGill et al. 2023, LAWD 37 microlensing mass and atmospheric parameters",
+      "url": "https://arxiv.org/abs/2206.01814"
+    },
+    {
+      "name": "Sahu et al. 2017, Stein 2051 B microlensing mass and atmosphere fit",
+      "url": "https://arxiv.org/abs/1706.02037"
+    },
+    {
+      "name": "Chen et al. 2022, Epsilon Indi Ba/Bb dynamical masses and shared age",
+      "url": "https://arxiv.org/abs/2205.08077"
+    },
+    {
+      "name": "King et al. 2010, Epsilon Indi Ba/Bb resolved bolometric SEDs",
+      "url": "https://arxiv.org/abs/0911.3143"
+    },
+    {
+      "name": "Allende Prieto & Lambert 1999, exact-Hipparcos stellar models",
+      "url": "https://cdsarc.cds.unistra.fr/viz-bin/cat/J/A+A/352/555"
+    },
+    {
+      "name": "McDonald et al. 2012, exact-Hipparcos SED luminosities",
+      "url": "https://cdsarc.cds.unistra.fr/viz-bin/cat/J/MNRAS/427/343"
+    },
+    {
+      "name": "Gaia DR3, exact-ID quality-filtered astrophysical parameters",
+      "url": "https://gea.esac.esa.int/archive/"
     }
   ],
   "sourceChecksumsSha256": {
@@ -137,13 +182,13 @@
   "coverage": {
     "constellation": 100,
     "spectral_type": 101,
-    "temperature_k": 93,
-    "mass_solar": 59,
-    "luminosity_solar": 60,
-    "radius_solar": 57,
-    "metallicity_dex": 35,
-    "age_gyr": 10,
-    "absolute_mag": 48,
+    "temperature_k": 97,
+    "mass_solar": 66,
+    "luminosity_solar": 68,
+    "radius_solar": 67,
+    "metallicity_dex": 37,
+    "age_gyr": 14,
+    "absolute_mag": 50,
     "fullVelocity": 72,
     "rawAstrometry": 100,
     "radialVelocity": 70,
@@ -5570,7 +5615,7 @@
         "eligibility": "Not a parsed K5-M9.5 dwarf spectral type (no subdwarf, giant, composite or peculiar class); supplements not applied."
       },
       "reviewedPhysical": {
-        "inputSha256": "812dca6f37bfc4e714923571c87d1e88b256410416a5a4b411104e5244baa027",
+        "inputSha256": "59aeae9b903d977b550843799a09888a24cbb0f7ead137baf4d51765ea7738c9",
         "observations": [
           {
             "source_id": "primary-paper",
@@ -5932,7 +5977,7 @@
         "eligibility": "Not a parsed K5-M9.5 dwarf spectral type (no subdwarf, giant, composite or peculiar class); supplements not applied."
       },
       "reviewedPhysical": {
-        "inputSha256": "812dca6f37bfc4e714923571c87d1e88b256410416a5a4b411104e5244baa027",
+        "inputSha256": "59aeae9b903d977b550843799a09888a24cbb0f7ead137baf4d51765ea7738c9",
         "observations": [
           {
             "source_id": "primary-paper",
@@ -6589,8 +6634,11 @@
           ]
         },
         "radius_solar": {
-          "status": "unknown",
-          "sourceRefs": []
+          "status": "derived",
+          "sourceRefs": [
+            "Stefan-Boltzmann scaling"
+          ],
+          "detail": "{\"field\": \"radius_solar\", \"inputs\": {\"luminosity_solar\": 2.18776e-05, \"temperature_k\": 1305.0}, \"reference\": \"Stefan-Boltzmann scaling\", \"status\": \"derived\", \"value\": 0.09150218405}"
         },
         "metallicity_dex": {
           "status": "unknown",
@@ -6614,8 +6662,20 @@
         },
         "eligibility": "Not a parsed K5-M9.5 dwarf spectral type (no subdwarf, giant, composite or peculiar class); supplements not applied."
       },
+      "sharedPhysicalEnrichment": {
+        "radius_solar": {
+          "field": "radius_solar",
+          "value": 0.09150218405,
+          "status": "derived",
+          "reference": "Stefan-Boltzmann scaling",
+          "inputs": {
+            "temperature_k": 1305.0,
+            "luminosity_solar": 2.18776e-05
+          }
+        }
+      },
       "reviewedPhysical": {
-        "inputSha256": "812dca6f37bfc4e714923571c87d1e88b256410416a5a4b411104e5244baa027",
+        "inputSha256": "59aeae9b903d977b550843799a09888a24cbb0f7ead137baf4d51765ea7738c9",
         "observations": [
           {
             "source_id": "primary-paper",
@@ -6905,8 +6965,11 @@
           ]
         },
         "radius_solar": {
-          "status": "unknown",
-          "sourceRefs": []
+          "status": "derived",
+          "sourceRefs": [
+            "Stefan-Boltzmann scaling"
+          ],
+          "detail": "{\"field\": \"radius_solar\", \"inputs\": {\"luminosity_solar\": 2.0893e-05, \"temperature_k\": 1320.0}, \"reference\": \"Stefan-Boltzmann scaling\", \"status\": \"derived\", \"value\": 0.08739874261}"
         },
         "metallicity_dex": {
           "status": "unknown",
@@ -6930,8 +6993,20 @@
         },
         "eligibility": "Not a parsed K5-M9.5 dwarf spectral type (no subdwarf, giant, composite or peculiar class); supplements not applied."
       },
+      "sharedPhysicalEnrichment": {
+        "radius_solar": {
+          "field": "radius_solar",
+          "value": 0.08739874261,
+          "status": "derived",
+          "reference": "Stefan-Boltzmann scaling",
+          "inputs": {
+            "temperature_k": 1320.0,
+            "luminosity_solar": 2.0893e-05
+          }
+        }
+      },
       "reviewedPhysical": {
-        "inputSha256": "812dca6f37bfc4e714923571c87d1e88b256410416a5a4b411104e5244baa027",
+        "inputSha256": "59aeae9b903d977b550843799a09888a24cbb0f7ead137baf4d51765ea7738c9",
         "observations": [
           {
             "source_id": "primary-paper",
@@ -7219,8 +7294,11 @@
           ]
         },
         "radius_solar": {
-          "status": "unknown",
-          "sourceRefs": []
+          "status": "derived",
+          "sourceRefs": [
+            "Stefan-Boltzmann scaling"
+          ],
+          "detail": "{\"field\": \"radius_solar\", \"inputs\": {\"luminosity_solar\": 2.69153e-09, \"temperature_k\": 250.0}, \"reference\": \"Stefan-Boltzmann scaling\", \"status\": \"derived\", \"value\": 0.02765490939}"
         },
         "metallicity_dex": {
           "status": "unknown",
@@ -7242,8 +7320,20 @@
         },
         "eligibility": "Not a parsed K5-M9.5 dwarf spectral type (no subdwarf, giant, composite or peculiar class); supplements not applied."
       },
+      "sharedPhysicalEnrichment": {
+        "radius_solar": {
+          "field": "radius_solar",
+          "value": 0.02765490939,
+          "status": "derived",
+          "reference": "Stefan-Boltzmann scaling",
+          "inputs": {
+            "temperature_k": 250.0,
+            "luminosity_solar": 2.69153e-09
+          }
+        }
+      },
       "reviewedPhysical": {
-        "inputSha256": "812dca6f37bfc4e714923571c87d1e88b256410416a5a4b411104e5244baa027",
+        "inputSha256": "59aeae9b903d977b550843799a09888a24cbb0f7ead137baf4d51765ea7738c9",
         "observations": [
           {
             "source_id": "primary-paper",
@@ -8141,7 +8231,7 @@
         "eligibility": "Not a parsed K5-M9.5 dwarf spectral type (no subdwarf, giant, composite or peculiar class); supplements not applied."
       },
       "reviewedPhysical": {
-        "inputSha256": "812dca6f37bfc4e714923571c87d1e88b256410416a5a4b411104e5244baa027",
+        "inputSha256": "59aeae9b903d977b550843799a09888a24cbb0f7ead137baf4d51765ea7738c9",
         "observations": [
           {
             "source_id": "primary-paper",
@@ -8486,7 +8576,7 @@
         "eligibility": "Not a parsed K5-M9.5 dwarf spectral type (no subdwarf, giant, composite or peculiar class); supplements not applied."
       },
       "reviewedPhysical": {
-        "inputSha256": "812dca6f37bfc4e714923571c87d1e88b256410416a5a4b411104e5244baa027",
+        "inputSha256": "59aeae9b903d977b550843799a09888a24cbb0f7ead137baf4d51765ea7738c9",
         "observations": [
           {
             "source_id": "primary-paper",
@@ -12266,26 +12356,32 @@
           "detail": "Incomplete/withheld space-motion inputs; placeholders are not exported."
         },
         "temperature_k": {
-          "status": "unknown",
-          "sourceRefs": [],
-          "detail": "No appropriate object-specific temperature adopted; dwarf sequence not applied."
+          "status": "measured",
+          "sourceRefs": [
+            "2002ApJ...568..324P:10pc-0032"
+          ],
+          "detail": "primary-paper; uncertainty 50.0; HST/STIS helium-atmosphere fit"
         },
         "mass_solar": {
-          "status": "unknown",
-          "sourceRefs": [],
-          "detail": "No vetted component measurement adopted; mean-sequence values are not substituted."
+          "status": "measured",
+          "sourceRefs": [
+            "2015ApJ...813..106B:10pc-0032"
+          ],
+          "detail": "primary-paper; uncertainty 0.006; binary dynamical mass"
         },
         "luminosity_solar": {
-          "status": "unknown",
-          "sourceRefs": [],
-          "detail": "No vetted component measurement adopted; mean-sequence values are not substituted."
+          "status": "derived",
+          "sourceRefs": [
+            "Stefan-Boltzmann scaling"
+          ],
+          "detail": "{\"field\": \"luminosity_solar\", \"inputs\": {\"radius_solar\": 0.01232, \"temperature_k\": 7740.0}, \"reference\": \"Stefan-Boltzmann scaling\", \"status\": \"derived\", \"value\": 0.0004907722167}"
         },
         "absolute_mag": {
-          "status": "unknown",
+          "status": "derived",
           "sourceRefs": [
-            "10pc:tablea1:Seq=32:Vmag"
+            "2002ApJ...568..324P; 2015ApJ...813..106B"
           ],
-          "detail": "Component-resolved Johnson V not independently established; multi-star system V withheld."
+          "detail": "{\"johnson_v\": 10.82, \"note\": \"resolved HST SED Johnson V\", \"reference\": \"2002ApJ...568..324P; 2015ApJ...813..106B\", \"uncertainty\": 0.03}"
         },
         "epoch": {
           "status": "adopted",
@@ -12384,16 +12480,22 @@
           ]
         },
         "radius_solar": {
-          "status": "unknown",
-          "sourceRefs": []
+          "status": "derived",
+          "sourceRefs": [
+            "2015ApJ...813..106B:10pc-0032"
+          ],
+          "detail": "primary-paper; uncertainty 0.00032; HST absolute-flux atmosphere fit with adopted parallax"
         },
         "metallicity_dex": {
           "status": "unknown",
           "sourceRefs": []
         },
         "age_gyr": {
-          "status": "unknown",
-          "sourceRefs": []
+          "status": "model-derived",
+          "sourceRefs": [
+            "2015ApJ...813..106B:10pc-0032"
+          ],
+          "detail": "primary-paper; uncertainty None; total binary age; not 1.37 Gyr white dwarf cooling time"
         }
       },
       "overrides": [],
@@ -12402,6 +12504,77 @@
           "identity_method": "10pc Gaia DR2 identifier only; CNS5 identity shared by several components or absent"
         },
         "eligibility": "Not a parsed K5-M9.5 dwarf spectral type (no subdwarf, giant, composite or peculiar class); supplements not applied."
+      },
+      "sharedPhysicalEnrichment": {
+        "luminosity_solar": {
+          "field": "luminosity_solar",
+          "value": 0.0004907722167,
+          "status": "derived",
+          "reference": "Stefan-Boltzmann scaling",
+          "inputs": {
+            "temperature_k": 7740.0,
+            "radius_solar": 0.01232
+          }
+        }
+      },
+      "reviewedPhysical": {
+        "inputSha256": "59aeae9b903d977b550843799a09888a24cbb0f7ead137baf4d51765ea7738c9",
+        "observations": [
+          {
+            "source_id": "primary-paper",
+            "source_record_id": "10pc-0032",
+            "field": "temperature_k",
+            "value": 7740.0,
+            "uncertainty": 50.0,
+            "status": "measured",
+            "reference": "2002ApJ...568..324P",
+            "quality_flags": [
+              "HST/STIS helium-atmosphere fit"
+            ]
+          },
+          {
+            "source_id": "primary-paper",
+            "source_record_id": "10pc-0032",
+            "field": "mass_solar",
+            "value": 0.592,
+            "uncertainty": 0.006,
+            "status": "measured",
+            "reference": "2015ApJ...813..106B",
+            "quality_flags": [
+              "binary dynamical mass"
+            ]
+          },
+          {
+            "source_id": "primary-paper",
+            "source_record_id": "10pc-0032",
+            "field": "radius_solar",
+            "value": 0.01232,
+            "uncertainty": 0.00032,
+            "status": "derived",
+            "reference": "2015ApJ...813..106B",
+            "quality_flags": [
+              "HST absolute-flux atmosphere fit with adopted parallax"
+            ]
+          },
+          {
+            "source_id": "primary-paper",
+            "source_record_id": "10pc-0032",
+            "field": "age_gyr",
+            "value": 2.7,
+            "uncertainty": null,
+            "status": "model-derived",
+            "reference": "2015ApJ...813..106B",
+            "quality_flags": [
+              "total binary age; not 1.37 Gyr white dwarf cooling time"
+            ]
+          }
+        ],
+        "adopted": {
+          "temperature_k": "2002ApJ...568..324P:10pc-0032",
+          "mass_solar": "2015ApJ...813..106B:10pc-0032",
+          "radius_solar": "2015ApJ...813..106B:10pc-0032",
+          "age_gyr": "2015ApJ...813..106B:10pc-0032"
+        }
       }
     },
     {
@@ -12516,26 +12689,32 @@
           "detail": "Sun-relative Galactic vector; source spectroscopic RV, not an orbit solution."
         },
         "temperature_k": {
-          "status": "unknown",
-          "sourceRefs": [],
-          "detail": "No appropriate object-specific temperature adopted; dwarf sequence not applied."
+          "status": "derived",
+          "sourceRefs": [
+            "2012A&A...540A...5C:10pc-0031"
+          ],
+          "detail": "primary-paper; uncertainty 43.0; 3D limb-darkened interferometry and Fuhrmann bolometric flux"
         },
         "mass_solar": {
-          "status": "unknown",
-          "sourceRefs": [],
-          "detail": "No vetted component measurement adopted; mean-sequence values are not substituted."
+          "status": "measured",
+          "sourceRefs": [
+            "2015ApJ...813..106B:10pc-0031"
+          ],
+          "detail": "primary-paper; uncertainty 0.012; binary dynamical mass"
         },
         "luminosity_solar": {
-          "status": "unknown",
-          "sourceRefs": [],
-          "detail": "No vetted component measurement adopted; mean-sequence values are not substituted."
+          "status": "derived",
+          "sourceRefs": [
+            "Stefan-Boltzmann scaling"
+          ],
+          "detail": "{\"field\": \"luminosity_solar\", \"inputs\": {\"radius_solar\": 2.019, \"temperature_k\": 6591.0}, \"reference\": \"Stefan-Boltzmann scaling\", \"status\": \"derived\", \"value\": 6.930628095}"
         },
         "absolute_mag": {
-          "status": "unknown",
+          "status": "derived",
           "sourceRefs": [
-            "10pc:tablea1:Seq=31:Vmag"
+            "1953ApJ...117..313J; 2015ApJ...813..106B"
           ],
-          "detail": "Component-resolved Johnson V not independently established; multi-star system V withheld."
+          "detail": "{\"johnson_v\": 0.34, \"note\": \"primary-star visual magnitude reported by Bond et al. section 2\", \"reference\": \"1953ApJ...117..313J; 2015ApJ...813..106B\", \"uncertainty\": null}"
         },
         "epoch": {
           "status": "adopted",
@@ -12634,16 +12813,25 @@
           ]
         },
         "radius_solar": {
-          "status": "unknown",
-          "sourceRefs": []
+          "status": "derived",
+          "sourceRefs": [
+            "2012A&A...540A...5C:10pc-0031"
+          ],
+          "detail": "primary-paper; uncertainty None; Vinci angular diameter and Hipparcos parallax"
         },
         "metallicity_dex": {
-          "status": "unknown",
-          "sourceRefs": []
+          "status": "measured",
+          "sourceRefs": [
+            "2002ApJ...567..544A:10pc-0031"
+          ],
+          "detail": "primary-paper; uncertainty 0.03; differential solar iron abundance; 3D LTE"
         },
         "age_gyr": {
-          "status": "unknown",
-          "sourceRefs": []
+          "status": "model-derived",
+          "sourceRefs": [
+            "2015ApJ...813..106B:10pc-0031"
+          ],
+          "detail": "primary-paper; uncertainty None; preferred high core overshoot model; not a precise measured age"
         }
       },
       "overrides": [],
@@ -12655,6 +12843,90 @@
           "identity_method": "nearest-100 source row; frozen CNS5 match; exact SIMBAD CNS5 identity"
         },
         "eligibility": "Not a parsed K5-M9.5 dwarf spectral type (no subdwarf, giant, composite or peculiar class); supplements not applied."
+      },
+      "sharedPhysicalEnrichment": {
+        "luminosity_solar": {
+          "field": "luminosity_solar",
+          "value": 6.930628095,
+          "status": "derived",
+          "reference": "Stefan-Boltzmann scaling",
+          "inputs": {
+            "temperature_k": 6591.0,
+            "radius_solar": 2.019
+          }
+        }
+      },
+      "reviewedPhysical": {
+        "inputSha256": "59aeae9b903d977b550843799a09888a24cbb0f7ead137baf4d51765ea7738c9",
+        "observations": [
+          {
+            "source_id": "primary-paper",
+            "source_record_id": "10pc-0031",
+            "field": "temperature_k",
+            "value": 6591.0,
+            "uncertainty": 43.0,
+            "status": "derived",
+            "reference": "2012A&A...540A...5C",
+            "quality_flags": [
+              "3D limb-darkened interferometry and Fuhrmann bolometric flux"
+            ]
+          },
+          {
+            "source_id": "primary-paper",
+            "source_record_id": "10pc-0031",
+            "field": "mass_solar",
+            "value": 1.478,
+            "uncertainty": 0.012,
+            "status": "measured",
+            "reference": "2015ApJ...813..106B",
+            "quality_flags": [
+              "binary dynamical mass"
+            ]
+          },
+          {
+            "source_id": "primary-paper",
+            "source_record_id": "10pc-0031",
+            "field": "radius_solar",
+            "value": 2.019,
+            "uncertainty": null,
+            "status": "derived",
+            "reference": "2012A&A...540A...5C",
+            "quality_flags": [
+              "Vinci angular diameter and Hipparcos parallax"
+            ]
+          },
+          {
+            "source_id": "primary-paper",
+            "source_record_id": "10pc-0031",
+            "field": "metallicity_dex",
+            "value": -0.05,
+            "uncertainty": 0.03,
+            "status": "measured",
+            "reference": "2002ApJ...567..544A",
+            "quality_flags": [
+              "differential solar iron abundance; 3D LTE"
+            ]
+          },
+          {
+            "source_id": "primary-paper",
+            "source_record_id": "10pc-0031",
+            "field": "age_gyr",
+            "value": 2.7,
+            "uncertainty": null,
+            "status": "model-derived",
+            "reference": "2015ApJ...813..106B",
+            "quality_flags": [
+              "preferred high core overshoot model; not a precise measured age"
+            ]
+          }
+        ],
+        "adopted": {
+          "temperature_k": "2012A&A...540A...5C:10pc-0031",
+          "mass_solar": "2015ApJ...813..106B:10pc-0031",
+          "radius_solar": "2012A&A...540A...5C:10pc-0031",
+          "metallicity_dex": "2002ApJ...567..544A:10pc-0031",
+          "age_gyr": "2015ApJ...813..106B:10pc-0031"
+        }
       }
     },
     {
@@ -14951,7 +15223,7 @@
         "eligibility": "Not a parsed K5-M9.5 dwarf spectral type (no subdwarf, giant, composite or peculiar class); supplements not applied."
       },
       "reviewedPhysical": {
-        "inputSha256": "812dca6f37bfc4e714923571c87d1e88b256410416a5a4b411104e5244baa027",
+        "inputSha256": "59aeae9b903d977b550843799a09888a24cbb0f7ead137baf4d51765ea7738c9",
         "observations": [
           {
             "source_id": "primary-paper",
@@ -15444,14 +15716,18 @@
           "detail": "Estimated: Pecaut-Mamajek 2022.04.16 T1V mean dwarf class, not a measured temperature."
         },
         "mass_solar": {
-          "status": "unknown",
-          "sourceRefs": [],
-          "detail": "No vetted component measurement adopted; mean-sequence values are not substituted."
+          "status": "measured",
+          "sourceRefs": [
+            "2022AJ....163..288C:10pc-0042"
+          ],
+          "detail": "primary-paper; uncertainty 0.00034365392424; Jupiter-to-solar mass ratio 0.000954594234"
         },
         "luminosity_solar": {
-          "status": "unknown",
-          "sourceRefs": [],
-          "detail": "No vetted component measurement adopted; mean-sequence values are not substituted."
+          "status": "derived",
+          "sourceRefs": [
+            "2010A&A...510A..99K:10pc-0042"
+          ],
+          "detail": "primary-paper; uncertainty 7.828248619408052e-07; component SED log(L/Lsun)=-4.699 +/- 0.017 dex"
         },
         "absolute_mag": {
           "status": "unknown",
@@ -15557,16 +15833,22 @@
           ]
         },
         "radius_solar": {
-          "status": "unknown",
-          "sourceRefs": []
+          "status": "derived",
+          "sourceRefs": [
+            "Stefan-Boltzmann scaling"
+          ],
+          "detail": "{\"field\": \"radius_solar\", \"inputs\": {\"luminosity_solar\": 1.9998618696327447e-05, \"temperature_k\": 1240.0}, \"reference\": \"Stefan-Boltzmann scaling\", \"status\": \"derived\", \"value\": 0.09689676424}"
         },
         "metallicity_dex": {
           "status": "unknown",
           "sourceRefs": []
         },
         "age_gyr": {
-          "status": "unknown",
-          "sourceRefs": []
+          "status": "model-derived",
+          "sourceRefs": [
+            "2022AJ....163..288C:10pc-0042"
+          ],
+          "detail": "primary-paper; uncertainty 1.0; shared activity age; assuming coevality; larger side of asymmetric uncertainty"
         }
       },
       "overrides": [],
@@ -15579,6 +15861,64 @@
           "identity_method": "nearest-100 source row; frozen CNS5 match; exact SIMBAD CNS5 identity"
         },
         "eligibility": "Not a parsed K5-M9.5 dwarf spectral type (no subdwarf, giant, composite or peculiar class); supplements not applied."
+      },
+      "sharedPhysicalEnrichment": {
+        "radius_solar": {
+          "field": "radius_solar",
+          "value": 0.09689676424,
+          "status": "derived",
+          "reference": "Stefan-Boltzmann scaling",
+          "inputs": {
+            "temperature_k": 1240.0,
+            "luminosity_solar": 1.9998618696327447e-05
+          }
+        }
+      },
+      "reviewedPhysical": {
+        "inputSha256": "59aeae9b903d977b550843799a09888a24cbb0f7ead137baf4d51765ea7738c9",
+        "observations": [
+          {
+            "source_id": "primary-paper",
+            "source_record_id": "10pc-0042",
+            "field": "mass_solar",
+            "value": 0.06388144613928,
+            "uncertainty": 0.00034365392424,
+            "status": "measured",
+            "reference": "2022AJ....163..288C",
+            "quality_flags": [
+              "Jupiter-to-solar mass ratio 0.000954594234"
+            ]
+          },
+          {
+            "source_id": "primary-paper",
+            "source_record_id": "10pc-0042",
+            "field": "luminosity_solar",
+            "value": 1.9998618696327447e-05,
+            "uncertainty": 7.828248619408052e-07,
+            "status": "derived",
+            "reference": "2010A&A...510A..99K",
+            "quality_flags": [
+              "component SED log(L/Lsun)=-4.699 +/- 0.017 dex"
+            ]
+          },
+          {
+            "source_id": "primary-paper",
+            "source_record_id": "10pc-0042",
+            "field": "age_gyr",
+            "value": 3.5,
+            "uncertainty": 1.0,
+            "status": "model-derived",
+            "reference": "2022AJ....163..288C",
+            "quality_flags": [
+              "shared activity age; assuming coevality; larger side of asymmetric uncertainty"
+            ]
+          }
+        ],
+        "adopted": {
+          "mass_solar": "2022AJ....163..288C:10pc-0042",
+          "luminosity_solar": "2010A&A...510A..99K:10pc-0042",
+          "age_gyr": "2022AJ....163..288C:10pc-0042"
+        }
       }
     },
     {
@@ -15700,14 +16040,18 @@
           "detail": "Estimated: Pecaut-Mamajek 2022.04.16 T6V mean dwarf class, not a measured temperature."
         },
         "mass_solar": {
-          "status": "unknown",
-          "sourceRefs": [],
-          "detail": "No vetted component measurement adopted; mean-sequence values are not substituted."
+          "status": "measured",
+          "sourceRefs": [
+            "2022AJ....163..288C:10pc-0043"
+          ],
+          "detail": "primary-paper; uncertainty 0.00027683232785999997; Jupiter-to-solar mass ratio 0.000954594234"
         },
         "luminosity_solar": {
-          "status": "unknown",
-          "sourceRefs": [],
-          "detail": "No vetted component measurement adopted; mean-sequence values are not substituted."
+          "status": "derived",
+          "sourceRefs": [
+            "2010A&A...510A..99K:10pc-0043"
+          ],
+          "detail": "primary-paper; uncertainty 2.6992660000897874e-07; component SED log(L/Lsun)=-5.232 +/- 0.02 dex"
         },
         "absolute_mag": {
           "status": "unknown",
@@ -15813,16 +16157,22 @@
           ]
         },
         "radius_solar": {
-          "status": "unknown",
-          "sourceRefs": []
+          "status": "derived",
+          "sourceRefs": [
+            "Stefan-Boltzmann scaling"
+          ],
+          "detail": "{\"field\": \"radius_solar\", \"inputs\": {\"luminosity_solar\": 5.8613816451402845e-06, \"temperature_k\": 950.0}, \"reference\": \"Stefan-Boltzmann scaling\", \"status\": \"derived\", \"value\": 0.08937281439}"
         },
         "metallicity_dex": {
           "status": "unknown",
           "sourceRefs": []
         },
         "age_gyr": {
-          "status": "unknown",
-          "sourceRefs": []
+          "status": "model-derived",
+          "sourceRefs": [
+            "2022AJ....163..288C:10pc-0043"
+          ],
+          "detail": "primary-paper; uncertainty 1.0; shared activity age; assuming coevality; larger side of asymmetric uncertainty"
         }
       },
       "overrides": [],
@@ -15831,6 +16181,64 @@
           "identity_method": "10pc Gaia DR2 identifier only; CNS5 identity shared by several components or absent"
         },
         "eligibility": "Not a parsed K5-M9.5 dwarf spectral type (no subdwarf, giant, composite or peculiar class); supplements not applied."
+      },
+      "sharedPhysicalEnrichment": {
+        "radius_solar": {
+          "field": "radius_solar",
+          "value": 0.08937281439,
+          "status": "derived",
+          "reference": "Stefan-Boltzmann scaling",
+          "inputs": {
+            "temperature_k": 950.0,
+            "luminosity_solar": 5.8613816451402845e-06
+          }
+        }
+      },
+      "reviewedPhysical": {
+        "inputSha256": "59aeae9b903d977b550843799a09888a24cbb0f7ead137baf4d51765ea7738c9",
+        "observations": [
+          {
+            "source_id": "primary-paper",
+            "source_record_id": "10pc-0043",
+            "field": "mass_solar",
+            "value": 0.050832142960499996,
+            "uncertainty": 0.00027683232785999997,
+            "status": "measured",
+            "reference": "2022AJ....163..288C",
+            "quality_flags": [
+              "Jupiter-to-solar mass ratio 0.000954594234"
+            ]
+          },
+          {
+            "source_id": "primary-paper",
+            "source_record_id": "10pc-0043",
+            "field": "luminosity_solar",
+            "value": 5.8613816451402845e-06,
+            "uncertainty": 2.6992660000897874e-07,
+            "status": "derived",
+            "reference": "2010A&A...510A..99K",
+            "quality_flags": [
+              "component SED log(L/Lsun)=-5.232 +/- 0.02 dex"
+            ]
+          },
+          {
+            "source_id": "primary-paper",
+            "source_record_id": "10pc-0043",
+            "field": "age_gyr",
+            "value": 3.5,
+            "uncertainty": 1.0,
+            "status": "model-derived",
+            "reference": "2022AJ....163..288C",
+            "quality_flags": [
+              "shared activity age; assuming coevality; larger side of asymmetric uncertainty"
+            ]
+          }
+        ],
+        "adopted": {
+          "mass_solar": "2022AJ....163..288C:10pc-0043",
+          "luminosity_solar": "2010A&A...510A..99K:10pc-0043",
+          "age_gyr": "2022AJ....163..288C:10pc-0043"
+        }
       }
     },
     {
@@ -22518,19 +22926,25 @@
           "detail": "Incomplete/withheld space-motion inputs; placeholders are not exported."
         },
         "temperature_k": {
-          "status": "unknown",
-          "sourceRefs": [],
-          "detail": "No appropriate object-specific temperature adopted; dwarf sequence not applied."
+          "status": "model-derived",
+          "sourceRefs": [
+            "2023MNRAS.520..259M:10pc-0086"
+          ],
+          "detail": "primary-paper; uncertainty 83.0; photometric/spectroscopic white dwarf atmosphere fit"
         },
         "mass_solar": {
-          "status": "unknown",
-          "sourceRefs": [],
-          "detail": "No vetted component measurement adopted; mean-sequence values are not substituted."
+          "status": "measured",
+          "sourceRefs": [
+            "2023MNRAS.520..259M:10pc-0086"
+          ],
+          "detail": "primary-paper; uncertainty 0.08; astrometric gravitational microlensing"
         },
         "luminosity_solar": {
-          "status": "unknown",
-          "sourceRefs": [],
-          "detail": "No vetted component measurement adopted; mean-sequence values are not substituted."
+          "status": "derived",
+          "sourceRefs": [
+            "Stefan-Boltzmann scaling"
+          ],
+          "detail": "{\"field\": \"luminosity_solar\", \"inputs\": {\"radius_solar\": 0.0127, \"temperature_k\": 7837.0}, \"reference\": \"Stefan-Boltzmann scaling\", \"status\": \"derived\", \"value\": 0.0005481526769}"
         },
         "absolute_mag": {
           "status": "derived",
@@ -22636,8 +23050,11 @@
           ]
         },
         "radius_solar": {
-          "status": "unknown",
-          "sourceRefs": []
+          "status": "derived",
+          "sourceRefs": [
+            "2023MNRAS.520..259M:10pc-0086"
+          ],
+          "detail": "primary-paper; uncertainty 0.0003; atmospheric absolute-flux fit and parallax"
         },
         "metallicity_dex": {
           "status": "unknown",
@@ -22658,6 +23075,64 @@
           "identity_method": "nearest-100 source row; frozen CNS5 match; exact SIMBAD CNS5 identity"
         },
         "eligibility": "Not a parsed K5-M9.5 dwarf spectral type (no subdwarf, giant, composite or peculiar class); supplements not applied."
+      },
+      "sharedPhysicalEnrichment": {
+        "luminosity_solar": {
+          "field": "luminosity_solar",
+          "value": 0.0005481526769,
+          "status": "derived",
+          "reference": "Stefan-Boltzmann scaling",
+          "inputs": {
+            "temperature_k": 7837.0,
+            "radius_solar": 0.0127
+          }
+        }
+      },
+      "reviewedPhysical": {
+        "inputSha256": "59aeae9b903d977b550843799a09888a24cbb0f7ead137baf4d51765ea7738c9",
+        "observations": [
+          {
+            "source_id": "primary-paper",
+            "source_record_id": "10pc-0086",
+            "field": "temperature_k",
+            "value": 7837.0,
+            "uncertainty": 83.0,
+            "status": "model-derived",
+            "reference": "2023MNRAS.520..259M",
+            "quality_flags": [
+              "photometric/spectroscopic white dwarf atmosphere fit"
+            ]
+          },
+          {
+            "source_id": "primary-paper",
+            "source_record_id": "10pc-0086",
+            "field": "mass_solar",
+            "value": 0.56,
+            "uncertainty": 0.08,
+            "status": "measured",
+            "reference": "2023MNRAS.520..259M",
+            "quality_flags": [
+              "astrometric gravitational microlensing"
+            ]
+          },
+          {
+            "source_id": "primary-paper",
+            "source_record_id": "10pc-0086",
+            "field": "radius_solar",
+            "value": 0.0127,
+            "uncertainty": 0.0003,
+            "status": "derived",
+            "reference": "2023MNRAS.520..259M",
+            "quality_flags": [
+              "atmospheric absolute-flux fit and parallax"
+            ]
+          }
+        ],
+        "adopted": {
+          "temperature_k": "2023MNRAS.520..259M:10pc-0086",
+          "mass_solar": "2023MNRAS.520..259M:10pc-0086",
+          "radius_solar": "2023MNRAS.520..259M:10pc-0086"
+        }
       }
     },
     {
@@ -28993,14 +29468,18 @@
           "detail": "Estimated: Pecaut-Mamajek 2022.04.16 A7V mean dwarf class, not a measured temperature."
         },
         "mass_solar": {
-          "status": "unknown",
-          "sourceRefs": [],
-          "detail": "No vetted component measurement adopted; mean-sequence values are not substituted."
+          "status": "model-derived",
+          "sourceRefs": [
+            "1999A&A...352..555A"
+          ],
+          "detail": "{\"field\": \"mass_solar\", \"identity\": \"* alf Aql\", \"reference\": \"1999A&A...352..555A\", \"sourceRecordId\": \"HIP 97649\", \"status\": \"model-derived\", \"uncertainty\": 0.09, \"value\": 1.6}"
         },
         "luminosity_solar": {
-          "status": "unknown",
-          "sourceRefs": [],
-          "detail": "No vetted component measurement adopted; mean-sequence values are not substituted."
+          "status": "derived",
+          "sourceRefs": [
+            "Stefan-Boltzmann scaling"
+          ],
+          "detail": "{\"field\": \"luminosity_solar\", \"inputs\": {\"radius_solar\": 1.818312491, \"temperature_k\": 7760.0}, \"reference\": \"Stefan-Boltzmann scaling\", \"status\": \"derived\", \"value\": 10.80136494}"
         },
         "absolute_mag": {
           "status": "derived",
@@ -29106,12 +29585,18 @@
           ]
         },
         "radius_solar": {
-          "status": "unknown",
-          "sourceRefs": []
+          "status": "derived",
+          "sourceRefs": [
+            "2018AJ....155...30B"
+          ],
+          "detail": "{\"field\": \"radius_solar\", \"identity\": \"* alf Aql\", \"reference\": \"2018AJ....155...30B\", \"status\": \"derived\", \"uncertainty\": null, \"value\": 1.818312491}"
         },
         "metallicity_dex": {
-          "status": "unknown",
-          "sourceRefs": []
+          "status": "measured",
+          "sourceRefs": [
+            "2024A&A...683A.125P"
+          ],
+          "detail": "{\"field\": \"metallicity_dex\", \"identity\": \"* alf Aql\", \"reference\": \"2024A&A...683A.125P\", \"status\": \"measured\", \"uncertainty\": null, \"value\": 0.19}"
         },
         "age_gyr": {
           "status": "unknown",
@@ -29127,6 +29612,43 @@
           "identity_method": "nearest-100 source row; frozen CNS5 match; exact SIMBAD CNS5 identity"
         },
         "eligibility": "Not a parsed K5-M9.5 dwarf spectral type (no subdwarf, giant, composite or peculiar class); supplements not applied."
+      },
+      "sharedPhysicalEnrichment": {
+        "metallicity_dex": {
+          "field": "metallicity_dex",
+          "value": 0.19,
+          "status": "measured",
+          "reference": "2024A&A...683A.125P",
+          "uncertainty": null,
+          "identity": "* alf Aql"
+        },
+        "radius_solar": {
+          "field": "radius_solar",
+          "value": 1.818312491,
+          "status": "derived",
+          "reference": "2018AJ....155...30B",
+          "uncertainty": null,
+          "identity": "* alf Aql"
+        },
+        "mass_solar": {
+          "field": "mass_solar",
+          "value": 1.6,
+          "status": "model-derived",
+          "reference": "1999A&A...352..555A",
+          "uncertainty": 0.09,
+          "identity": "* alf Aql",
+          "sourceRecordId": "HIP 97649"
+        },
+        "luminosity_solar": {
+          "field": "luminosity_solar",
+          "value": 10.80136494,
+          "status": "derived",
+          "reference": "Stefan-Boltzmann scaling",
+          "inputs": {
+            "temperature_k": 7760.0,
+            "radius_solar": 1.818312491
+          }
+        }
       }
     },
     {
@@ -30733,9 +31255,11 @@
           "detail": "mann-2019; uncertainty 0.0025; fills a blank field only."
         },
         "luminosity_solar": {
-          "status": "unknown",
-          "sourceRefs": [],
-          "detail": "No vetted component measurement adopted; mean-sequence values are not substituted."
+          "status": "derived",
+          "sourceRefs": [
+            "Stefan-Boltzmann scaling"
+          ],
+          "detail": "{\"field\": \"luminosity_solar\", \"inputs\": {\"radius_solar\": 0.1305, \"temperature_k\": 2740.0}, \"reference\": \"Stefan-Boltzmann scaling\", \"status\": \"derived\", \"value\": 0.0008648045879}"
         },
         "absolute_mag": {
           "status": "unknown",
@@ -30880,6 +31404,18 @@
           ],
           "reasons": [],
           "status": "adopted"
+        }
+      },
+      "sharedPhysicalEnrichment": {
+        "luminosity_solar": {
+          "field": "luminosity_solar",
+          "value": 0.0008648045879,
+          "status": "derived",
+          "reference": "Stefan-Boltzmann scaling",
+          "inputs": {
+            "temperature_k": 2740.0,
+            "radius_solar": 0.1305
+          }
         }
       }
     },
@@ -31890,19 +32426,25 @@
           "detail": "Incomplete/withheld space-motion inputs; placeholders are not exported."
         },
         "temperature_k": {
-          "status": "unknown",
-          "sourceRefs": [],
-          "detail": "No appropriate object-specific temperature adopted; dwarf sequence not applied."
+          "status": "model-derived",
+          "sourceRefs": [
+            "2017Sci...356.1046S:10pc-0129"
+          ],
+          "detail": "primary-paper; uncertainty 181.0; photometric/spectroscopic white dwarf atmosphere fit"
         },
         "mass_solar": {
-          "status": "unknown",
-          "sourceRefs": [],
-          "detail": "No vetted component measurement adopted; mean-sequence values are not substituted."
+          "status": "measured",
+          "sourceRefs": [
+            "2017Sci...356.1046S:10pc-0129"
+          ],
+          "detail": "primary-paper; uncertainty 0.051; astrometric gravitational microlensing"
         },
         "luminosity_solar": {
-          "status": "unknown",
-          "sourceRefs": [],
-          "detail": "No vetted component measurement adopted; mean-sequence values are not substituted."
+          "status": "derived",
+          "sourceRefs": [
+            "2017Sci...356.1046S:10pc-0129"
+          ],
+          "detail": "primary-paper; uncertainty 1.390739162591881e-05; log(L/Lsun)=-3.52 +/- 0.02 dex from supplementary atmosphere fit"
         },
         "absolute_mag": {
           "status": "unknown",
@@ -32008,8 +32550,11 @@
           ]
         },
         "radius_solar": {
-          "status": "unknown",
-          "sourceRefs": []
+          "status": "derived",
+          "sourceRefs": [
+            "2017Sci...356.1046S:10pc-0129"
+          ],
+          "detail": "primary-paper; uncertainty 0.0004; atmospheric absolute-flux fit and parallax"
         },
         "metallicity_dex": {
           "status": "unknown",
@@ -32029,6 +32574,65 @@
           "identity_method": "nearest-100 source row; frozen CNS5 match; exact SIMBAD CNS5 identity"
         },
         "eligibility": "Not a parsed K5-M9.5 dwarf spectral type (no subdwarf, giant, composite or peculiar class); supplements not applied."
+      },
+      "reviewedPhysical": {
+        "inputSha256": "59aeae9b903d977b550843799a09888a24cbb0f7ead137baf4d51765ea7738c9",
+        "observations": [
+          {
+            "source_id": "primary-paper",
+            "source_record_id": "10pc-0129",
+            "field": "temperature_k",
+            "value": 7122.0,
+            "uncertainty": 181.0,
+            "status": "model-derived",
+            "reference": "2017Sci...356.1046S",
+            "quality_flags": [
+              "photometric/spectroscopic white dwarf atmosphere fit"
+            ]
+          },
+          {
+            "source_id": "primary-paper",
+            "source_record_id": "10pc-0129",
+            "field": "mass_solar",
+            "value": 0.675,
+            "uncertainty": 0.051,
+            "status": "measured",
+            "reference": "2017Sci...356.1046S",
+            "quality_flags": [
+              "astrometric gravitational microlensing"
+            ]
+          },
+          {
+            "source_id": "primary-paper",
+            "source_record_id": "10pc-0129",
+            "field": "radius_solar",
+            "value": 0.0114,
+            "uncertainty": 0.0004,
+            "status": "derived",
+            "reference": "2017Sci...356.1046S",
+            "quality_flags": [
+              "atmospheric absolute-flux fit and parallax"
+            ]
+          },
+          {
+            "source_id": "primary-paper",
+            "source_record_id": "10pc-0129",
+            "field": "luminosity_solar",
+            "value": 0.0003019951720402016,
+            "uncertainty": 1.390739162591881e-05,
+            "status": "derived",
+            "reference": "2017Sci...356.1046S",
+            "quality_flags": [
+              "log(L/Lsun)=-3.52 +/- 0.02 dex from supplementary atmosphere fit"
+            ]
+          }
+        ],
+        "adopted": {
+          "temperature_k": "2017Sci...356.1046S:10pc-0129",
+          "mass_solar": "2017Sci...356.1046S:10pc-0129",
+          "radius_solar": "2017Sci...356.1046S:10pc-0129",
+          "luminosity_solar": "2017Sci...356.1046S:10pc-0129"
+        }
       }
     },
     {

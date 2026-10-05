@@ -7,10 +7,6 @@
   "objectCount": 115,
   "sources": [
     {
-      "name": "SIMBAD TAP snapshot; named-star identity, astrometry, classification, compiled Johnson V and radial velocity",
-      "url": "https://simbad.cds.unistra.fr/simbad/sim-tap/sync"
-    },
-    {
       "name": "SIMBAD bibliographic parameter and diameter measurements; mesFe_h and mesDiameter ranked rows",
       "url": "https://simbad.cds.unistra.fr/simbad/sim-tap/sync"
     },
@@ -45,6 +41,42 @@
     {
       "name": "Bright Star Catalogue, 5th Revised Ed.; combined visual magnitude for Acrux",
       "url": "https://cdsarc.cds.unistra.fr/viz-bin/cat/V/50"
+    },
+    {
+      "name": "Bond et al. 2015, Procyon A/B component mass, age, and white dwarf radius",
+      "url": "https://arxiv.org/abs/1510.00485"
+    },
+    {
+      "name": "Chiavassa et al. 2012, Procyon A interferometry and effective temperature",
+      "url": "https://arxiv.org/abs/1201.3264"
+    },
+    {
+      "name": "Allende Prieto et al. 2002, Procyon A differential iron abundance",
+      "url": "https://arxiv.org/abs/astro-ph/0111055"
+    },
+    {
+      "name": "Pecaut & Mamajek 2013, dwarf temperature sequence frozen 2022.04.16",
+      "url": "https://www.pas.rochester.edu/~emamajek/EEM_dwarf_UBVIJHK_colors_Teff.txt"
+    },
+    {
+      "name": "McGill et al. 2023, LAWD 37 microlensing mass and atmospheric parameters",
+      "url": "https://arxiv.org/abs/2206.01814"
+    },
+    {
+      "name": "Sahu et al. 2017, Stein 2051 B microlensing mass and atmosphere fit",
+      "url": "https://arxiv.org/abs/1706.02037"
+    },
+    {
+      "name": "Chen et al. 2022, Epsilon Indi Ba/Bb dynamical masses and shared age",
+      "url": "https://arxiv.org/abs/2205.08077"
+    },
+    {
+      "name": "King et al. 2010, Epsilon Indi Ba/Bb resolved bolometric SEDs",
+      "url": "https://arxiv.org/abs/0911.3143"
+    },
+    {
+      "name": "Gaia DR3, exact-ID quality-filtered astrophysical parameters",
+      "url": "https://gea.esac.esa.int/archive/"
     }
   ],
   "cutoffPolicy": "Every frozen SIMBAD stellar entry no farther than 3000 light-years with compiled Johnson V < 2.70. The SIMBAD stellar hierarchy excludes the integrated-light NGC 1980 cluster row. The aggregate Alpha Centauri system row is replaced by its qualifying A and B components. Acrux uses the Bright Star Catalogue combined V=0.76. Sun is included only as the map origin.",

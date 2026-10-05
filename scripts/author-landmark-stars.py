@@ -8,6 +8,7 @@ import math
 import re
 from functools import cache
 from pathlib import Path
+from catalog_sources.enrichment import enrich_from_frozen, enrichment_sources, manifest_sha256
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -416,6 +417,9 @@ def enrich_physical(row, source):
         if derived:
             details.append(f"Stefan-Boltzmann scaling for {', '.join(derived)}")
         row["notes"] += f" Physical parameters: {'; '.join(details)}."
+    shared_enrichment = enrich_from_frozen(row, source["main_id"], aliases(source))
+    adopted.update({field: f"shared:{item['reference']}" for field, item in shared_enrichment.items()})
+    observations.extend(shared_enrichment.values())
     return {
         "gaiaDr3Id": gaia_dr3_id(source),
         "adoptedPhysicalFields": adopted,
@@ -599,6 +603,7 @@ def western_catalog():
         "cutoffPolicy": "Every unique numeric Hipparcos vertex in all 88 Stellarium Western constellation line figures. Non-numeric drawing-style tokens are ignored. No apparent-magnitude cutoff is applied; Sun is included only as the map origin.",
         "snapshot": "Stellarium commit 014fbb5e59233d133c22f9811af96b67d05a95c9; SIMBAD, Hipparcos, VizieR and Gaia snapshots frozen 2026-10-01; 691 figure stars plus Sun.",
     }
+    manifest["sources"] += enrichment_sources()
     provenance_payload = {
         "schemaVersion": 1,
         "catalogId": manifest["id"],
@@ -606,6 +611,7 @@ def western_catalog():
         "figureConstellations": len(index["constellations"]),
         "uniqueHipparcosStars": len(rows),
         "physicalCoverage": {field: sum(bool(row[field]) for row in rows) for field in PHYSICAL_FIELDS},
+        "sharedEnrichmentManifestSha256": manifest_sha256(),
         "objects": provenance,
     }
     return {"catalog.json": json.dumps(manifest, indent=2) + "\n", "stars.csv": csv_text([sun_row(), *rows]), "provenance.json": json.dumps(provenance_payload, indent=2) + "\n"}
@@ -664,9 +670,11 @@ def cluster_catalog():
         "cutoffPolicy": "Named Pleiades systems (the Seven Sisters, Atlas and Pleione), the classical Theta1 Orionis A-D Trapezium systems, and the brightest distance-consistent SIMBAD catalogued members of the Hyades, Coma Star Cluster, IC 2602, IC 2391 and the Beehive. Foreground Aldebaran and Gamma Comae Berenices are excluded. This is a visual landmark set, not a complete membership census. Sun is included only as the map origin.",
         "snapshot": "SIMBAD, VizieR and Gaia snapshots frozen 2026-10-01; 42 stars in seven landmark groups plus Sun.",
     }
+    manifest["sources"] += enrichment_sources()
     provenance_payload = {
         "schemaVersion": 1, "catalogId": manifest["id"], "policy": manifest["cutoffPolicy"],
         "groups": selection["groups"], "physicalCoverage": {field: sum(bool(row[field]) for row in rows) for field in PHYSICAL_FIELDS},
+        "sharedEnrichmentManifestSha256": manifest_sha256(),
         "objects": provenance,
     }
     return {"catalog.json": json.dumps(manifest, indent=2) + "\n", "stars.csv": csv_text([sun_row(), *rows]), "provenance.json": json.dumps(provenance_payload, indent=2) + "\n"}

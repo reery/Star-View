@@ -17,6 +17,7 @@ from astropy.time import Time
 from astropy.utils import iers
 
 from catalog_sources.adapters import eligible_gaia_physical, read_cns5, read_gaia_tap, read_simbad_tap
+from catalog_sources.enrichment import enrich_from_frozen, enrichment_sources, manifest_sha256
 from catalog_sources.filesystem import write_managed_files
 from catalog_sources.mdwarf import SUPPLEMENT_FIELDS, load_supplements, resolve_supplemented_fields, row_context, supplement_observations
 from catalog_sources.models import AstrometryObservation
@@ -294,6 +295,10 @@ def normalize(record, simbad, gaia, supplements):
     }
     if supplement_audit is not None:
         provenance["physicalSupplements"] = supplement_audit
+    shared_enrichment = enrich_from_frozen(row, simbad.identity.simbad_id, simbad.identity.aliases)
+    if shared_enrichment:
+        provenance["sharedPhysicalEnrichment"] = shared_enrichment
+        provenance["fieldStatus"].update({field: observation["status"] for field, observation in shared_enrichment.items()})
     return row, provenance, direction.distance.to_value(units.pc)
 
 
@@ -364,7 +369,7 @@ def build_package():
         "description": "1000 individual stellar/substellar objects from corrected CNS5 with exact SIMBAD/Gaia enrichment and curated nearest-100 overrides, plus Sun.",
         "epoch": 2000,
         "objectCount": 1001,
-        "sources": SOURCES,
+        "sources": SOURCES + enrichment_sources(),
         "cutoffPolicy": f"Exclude SIMBAD aggregate systems (**) and tentative brown-dwarf candidates (BD?); replace mapped CNS5 records with curated nearest-100 components; rank nominal adopted J2000 distance then stable ID. Rank 1000 is {cutoff[2]['name']} ({cutoff[1]}) at {cutoff[0]:.12f} pc; next is {next_candidate[2]['name']} at {next_candidate[0]:.12f} pc. Linearized parallax intervals {'overlap' if uncertainty_overlap else 'do not overlap'}; nominal ranking is retained.",
         "snapshot": f"J2000.0; CNS5 corrected 2023-12-13; SIMBAD and Gaia DR3 TAP frozen {manifest_input['retrieved']}; source-defined snapshot, not a 2026 completeness claim.",
     }
@@ -374,7 +379,8 @@ def build_package():
         "policyRevision": "cns5-individuals-v4-reviewed-rv-gaia-rv-fallback-mdwarf-supplements",
         "sourceManifestSha256": sha256(FROZEN / "source-manifest.json"),
         "supplementManifestSha256": supplements.manifest_sha256,
-        "sources": SOURCES,
+        "sharedEnrichmentManifestSha256": manifest_sha256(),
+        "sources": SOURCES + enrichment_sources(),
         "radialVelocityPolicy": {
             "precedence": ["nearest-100 curated override", "reviewed literature override", "CNS5 spectroscopic radial velocity", "Gaia DR3 exact-ID radial velocity fallback"],
             "whiteDwarfs": "Withhold new spectroscopic radial velocities because gravitational redshift may contaminate space motion.",
