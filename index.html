@@ -41,7 +41,7 @@
                           <div id="luminosity-row" class="stellar-property"><dt>Bolometric luminosity</dt><dd id="luminosity"></dd></div>
                           <div id="mass-row"><dt>Mass</dt><dd id="mass"></dd></div>
                           <div class="stellar-property"><dt>Radius</dt><dd id="radius"></dd></div>
-                          <div class="stellar-property"><dt>Metallicity [M/H]</dt><dd id="metallicity"></dd></div>
+                          <div class="stellar-property metallicity-row"><dt>Metallicity [M/H]</dt><dd><button id="metallicity-toggle" class="object-type-toggle" type="button" aria-controls="metallicity-card" aria-expanded="false"><span id="metallicity"></span></button></dd></div>
                           <div class="stellar-property"><dt>Age</dt><dd id="age"></dd></div>
                           <div class="stellar-property"><dt>Absolute mag. (V)</dt><dd id="absolute-mag"></dd></div>
                           <div class="compact-property" hidden><dt>Status</dt><dd id="compact-status"></dd></div>
@@ -111,6 +111,22 @@
                 <p id="object-type-description"></p>
                 <a id="object-type-source" class="object-type-source" target="_blank" rel="noreferrer">Read more on Wikipedia ↗</a>
                 <p class="object-type-credit"><span id="object-type-caption"></span> · <a id="object-type-image-source" target="_blank" rel="noreferrer"></a></p>
+              </div>
+            </section>
+            <section id="metallicity-card" class="dock-card object-type-card metallicity-card" aria-labelledby="metallicity-heading" data-scene-obstacle hidden>
+              <div class="panel-heading">
+                <h2 id="metallicity-heading">Metallicity [M/H]</h2>
+                <button id="metallicity-close" class="panel-lock" type="button" aria-label="Close metallicity card"><span id="metallicity-close-icon"></span></button>
+              </div>
+              <div class="metallicity-body">
+                <div id="metallicity-scale" class="metallicity-scale" role="img">
+                  <div class="metallicity-track" aria-hidden="true">
+                    <span class="metallicity-sun-tick"></span>
+                    <span id="metallicity-marker" class="metallicity-marker"><span id="metallicity-marker-value" class="metallicity-marker-value"></span></span>
+                  </div>
+                  <div class="metallicity-scale-labels" aria-hidden="true"><span id="metallicity-min">−2</span><span class="metallicity-sun">0<span>Sun</span></span><span id="metallicity-max">+2</span></div>
+                </div>
+                <p id="metallicity-description"></p>
               </div>
             </section>
             <div class="scene-toolbar" role="group" aria-label="Map view controls" data-scene-obstacle>

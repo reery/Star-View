@@ -157,7 +157,7 @@ button, p, h2, dd { overflow-wrap: anywhere; }
 .glossary-terms, .glossary-detail { overflow-y: auto; overscroll-behavior: contain; scrollbar-width: thin; scrollbar-color: #776a5c transparent; }
 .glossary-terms { padding: 8px 0 12px; border-right: 1px solid var(--line); background: #17181955; }
 .glossary-group + .glossary-group { margin-top: 14px; }
-.glossary-group-heading { padding: 9px 14px 6px; color: var(--muted); font-size: 10px; line-height: 1.4; font-weight: 500; letter-spacing: 0.04em; }
+.glossary-group-heading { padding: 9px 14px 6px; color: var(--muted); background: #343638; font-size: 10px; line-height: 1.4; font-weight: 500; letter-spacing: 0.04em; }
 .glossary-term { display: block; position: relative; width: 100%; min-height: 34px; padding: 8px 14px; border: 0; border-radius: 0; color: var(--muted); background: transparent; text-align: left; font-size: 12px; line-height: 1.4; }
 .glossary-term[aria-current="true"] { color: var(--accent-strong); background: var(--panel-selected); }
 .glossary-term[aria-current="true"]::before { position: absolute; inset: 0 auto 0 0; width: 2px; background: var(--accent); content: ''; }
@@ -338,10 +338,10 @@ select:focus-visible, input:focus-visible { outline: 2px solid var(--accent); ou
 .properties > div { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 10px; align-items: baseline; padding: 3px 0; font-size: 14px; line-height: 1.2; }
 .properties dt { color: var(--muted); }
 .properties dd { text-align: right; font-weight: 500; font-variant-numeric: tabular-nums; }
-.properties > .object-type-row { position: relative; isolation: isolate; cursor: pointer; }
+.properties > .object-type-row, .properties > .metallicity-row { position: relative; isolation: isolate; cursor: pointer; }
 .object-type-toggle { padding: 0; border: 0; background: transparent; color: inherit; font: inherit; text-align: right; }
 .object-type-toggle::before { content: ''; position: absolute; z-index: -1; inset: -1px -8px; border-radius: 5px; }
-.object-type-row:hover .object-type-toggle::before, .object-type-toggle[aria-expanded="true"]::before { background: var(--panel-selected); }
+.object-type-row:hover .object-type-toggle::before, .metallicity-row:hover .object-type-toggle::before, .object-type-toggle[aria-expanded="true"]::before { background: var(--panel-selected); }
 .object-type-toggle:focus-visible { outline: none; }
 .object-type-toggle:focus-visible::before { outline: 2px solid var(--accent); outline-offset: 1px; }
 .dock-card.object-type-card { position: absolute; top: 20px; left: 324px; width: min(380px, calc(100vw - 402px)); max-height: calc(100dvh - 40px); overflow: auto; overscroll-behavior: contain; scrollbar-width: thin; scrollbar-color: #776a5c transparent; pointer-events: auto; background: linear-gradient(145deg, #26282a, var(--panel)); }
@@ -362,6 +362,19 @@ select:focus-visible, input:focus-visible { outline: 2px solid var(--accent); ou
 .object-type-body a:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
 .object-type-credit { margin-top: 18px; padding-top: 10px; border-top: 1px solid var(--line); font-size: 10px; line-height: 1.5; color: var(--muted); }
 .object-type-credit a { color: inherit; }
+.metallicity-body { padding: 0 20px 20px; }
+.metallicity-scale { margin: 42px 0 24px; padding: 0 8px; font-size: 12px; font-variant-numeric: tabular-nums; }
+.metallicity-track { position: relative; height: 2px; background: linear-gradient(90deg, #776a5c, var(--accent-strong)); }
+.metallicity-track::before, .metallicity-track::after, .metallicity-sun-tick { position: absolute; top: -4px; width: 1px; height: 10px; background: var(--muted); content: ''; }
+.metallicity-track::before { left: 0; }
+.metallicity-track::after { right: 0; }
+.metallicity-sun-tick { left: 50%; }
+.metallicity-marker { position: absolute; left: var(--metallicity-position, 50%); top: -5px; width: 12px; height: 12px; transform: translateX(-50%); border: 2px solid var(--panel); border-radius: 50%; background: var(--accent-vibrant); box-shadow: 0 0 0 1px var(--accent-vibrant); }
+.metallicity-marker-value { position: absolute; bottom: 20px; left: 50%; transform: translateX(var(--metallicity-label-offset, -50%)); color: var(--ink); white-space: nowrap; font-weight: 500; }
+.metallicity-scale-labels { display: flex; justify-content: space-between; position: relative; margin-top: 10px; color: var(--muted); }
+.metallicity-sun { position: absolute; left: 50%; transform: translateX(-50%); text-align: center; }
+.metallicity-sun span { display: block; margin-top: 4px; color: var(--ink); }
+#metallicity-description { margin-top: 32px; font-size: 14px; line-height: 1.65; color: var(--muted); }
 .compact-property dd, .nebula-property dd, .molecular-cloud-property dd { max-width: 170px; overflow-wrap: anywhere; }
 .properties a { color: var(--accent-strong); text-underline-offset: 3px; }
 .properties a:hover { color: #fff0dc; }

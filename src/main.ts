@@ -90,6 +90,7 @@ icon('objects-lock-icon', Lock)
 icon('motion-icon', Clock)
 icon('motion-lock-icon', Lock)
 icon('object-type-close-icon', X)
+icon('metallicity-close-icon', X)
 icon('time-play-icon', Play)
 icon('time-now-icon', RotateCcw)
 icon('time-follow-icon', Crosshair)
@@ -357,6 +358,53 @@ function closeObjectTypeCard(restoreFocus = false): void {
   if (restoreFocus) element('object-type-toggle').focus()
 }
 
+function closeMetallicityCard(restoreFocus = false): void {
+  const card = element('metallicity-card')
+  if (card.hidden) return
+  card.hidden = true
+  element('metallicity-toggle').setAttribute('aria-expanded', 'false')
+  if (restoreFocus) element('metallicity-toggle').focus()
+}
+
+function renderMetallicityCard(star: Star): void {
+  const value = star.metallicity_dex
+  // Keep the Sun at the midpoint and expand for values outside the usual range.
+  const limit = Math.max(2, Math.ceil(Math.abs(value ?? 0)))
+  const position = value === null ? 50 : (value + limit) / (2 * limit) * 100
+  text('metallicity-min', `−${limit}`)
+  text('metallicity-max', `+${limit}`)
+  const scale = element('metallicity-scale')
+  scale.style.setProperty('--metallicity-position', `${position}%`)
+  scale.style.setProperty('--metallicity-label-offset', position < 15 ? '0%' : position > 85 ? '-100%' : '-50%')
+  scale.setAttribute('aria-label', `${star.name}: ${quantity(value, 'dex')}. Scale −${limit} to +${limit} dex; Sun at 0.`)
+  element('metallicity-marker').hidden = value === null
+  text('metallicity-marker-value', `${value !== null && value > 0 ? '+' : ''}${quantity(value, 'dex')}`)
+  let description = `No metallicity measurement is available for ${star.name}. Zero dex represents the Sun’s metal-to-hydrogen ratio.`
+  if (value !== null) {
+    const difference = Math.expm1(value * Math.LN10) * 100
+    const percent = Math.abs(difference).toLocaleString('en-US', { maximumFractionDigits: Math.abs(difference) < 1 ? 2 : 0 })
+    description = value === 0
+      ? `${star.name} has the same metal-to-hydrogen ratio as the Sun.`
+      : `${star.name} has ${percent}% ${value > 0 ? 'more' : 'fewer'} metals relative to hydrogen compared to the Sun.`
+  }
+  text('metallicity-description', description)
+  syncObjectTypeLayout()
+}
+
+function toggleMetallicityCard(): void {
+  if (!element('metallicity-card').hidden) {
+    closeMetallicityCard(true)
+    return
+  }
+  const star = stars.find((candidate) => candidate.id === selectedId)
+  if (!star || element('metallicity-toggle').closest<HTMLElement>('.stellar-property')!.hidden) return
+  closeObjectTypeCard()
+  element('metallicity-card').hidden = false
+  element('metallicity-toggle').setAttribute('aria-expanded', 'true')
+  renderMetallicityCard(star)
+  element('metallicity-close').focus({ preventScroll: true })
+}
+
 function renderObjectTypeCard(star: Star): void {
   const introduction = objectTypeIntroduction(star)
   text('object-type-heading', introduction.title)
@@ -382,6 +430,7 @@ function toggleObjectTypeCard(): void {
   }
   const star = stars.find((candidate) => candidate.id === selectedId)
   if (!star) return
+  closeMetallicityCard()
   element('object-type-card').hidden = false
   element('object-type-toggle').setAttribute('aria-expanded', 'true')
   renderObjectTypeCard(star)
@@ -389,14 +438,16 @@ function toggleObjectTypeCard(): void {
 }
 
 function syncObjectTypeLayout(): void {
-  const card = element('object-type-card')
-  card.style.removeProperty('max-height')
   const motion = element('motion-panel')
-  if (card.hidden || motion.hidden) return
-  const bounds = card.getBoundingClientRect()
-  const motionBounds = motion.getBoundingClientRect()
-  if (bounds.left < motionBounds.right && bounds.right > motionBounds.left) {
-    card.style.maxHeight = `${Math.max(120, Math.floor(motionBounds.top - bounds.top - 10))}px`
+  for (const id of ['object-type-card', 'metallicity-card']) {
+    const card = element(id)
+    card.style.removeProperty('max-height')
+    if (card.hidden || motion.hidden) continue
+    const bounds = card.getBoundingClientRect()
+    const motionBounds = motion.getBoundingClientRect()
+    if (bounds.left < motionBounds.right && bounds.right > motionBounds.left) {
+      card.style.maxHeight = `${Math.max(120, Math.floor(motionBounds.top - bounds.top - 10))}px`
+    }
   }
 }
 
@@ -442,6 +493,7 @@ function togglePanel(name: typeof panelNames[number]): void {
 
 function dismissOpenPanel(): void {
   closeObjectTypeCard()
+  closeMetallicityCard()
   let changed = false
   for (const name of panelNames) {
     if (!panelIsOpen(name)) continue
@@ -584,6 +636,7 @@ function renderSelection(): void {
   updateObserverControl()
   if (!star) {
     closeObjectTypeCard()
+    closeMetallicityCard()
     delete element('inspector').dataset.selectedStar
     element('inspector').style.removeProperty('--selected-star-color')
     text('selection-announcement', 'No object selected.')
@@ -627,6 +680,9 @@ function renderSelection(): void {
   text('mass', compact ? preciseMeasurement(star.mass_solar, compact.mass_error_solar, 'solar') : quantity(star.mass_solar, 'solar'))
   text('radius', quantity(star.radius_solar, 'solar'))
   text('metallicity', quantity(star.metallicity_dex, 'dex'))
+  element('metallicity-toggle').setAttribute('aria-label', `Explain metallicity of ${star.name}`)
+  if (compactObject || nebulaObject || molecularCloudObject || bubbleObject) closeMetallicityCard()
+  else if (!element('metallicity-card').hidden) renderMetallicityCard(star)
   text('age', quantity(star.age_gyr, 'Gyr'))
   if (compact) {
     text('compact-status', compact.confidence === 'confirmed' ? 'Confirmed' : 'Candidate')
@@ -1443,6 +1499,10 @@ element('saved-views-list').addEventListener('keydown', (event) => {
 }, { signal: events.signal })
 document.addEventListener('keydown', (event) => {
   if (event.key !== 'Escape') return
+  if (!element('metallicity-card').hidden) {
+    closeMetallicityCard(true)
+    return
+  }
   if (!element('object-type-card').hidden) {
     closeObjectTypeCard(true)
     return
@@ -1455,6 +1515,8 @@ document.addEventListener('keydown', (event) => {
 }, { signal: events.signal })
 document.querySelector('.object-type-row')!.addEventListener('click', toggleObjectTypeCard, { signal: events.signal })
 element('object-type-close').addEventListener('click', () => closeObjectTypeCard(true), { signal: events.signal })
+document.querySelector('.metallicity-row')!.addEventListener('click', toggleMetallicityCard, { signal: events.signal })
+element('metallicity-close').addEventListener('click', () => closeMetallicityCard(true), { signal: events.signal })
 element('reset-view').addEventListener('click', () => {
   dismissOpenPanel()
   viewer?.reset()
