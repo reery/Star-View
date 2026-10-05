@@ -114,7 +114,14 @@
               </div>
             </section>
             <div class="scene-toolbar" role="group" aria-label="Map view controls" data-scene-obstacle>
-              <button id="reset-view" class="icon-button" type="button" aria-label="Reset view" disabled><span id="reset-icon"></span><span class="tooltip">Reset view</span></button>
+              <div class="camera-view-controls" role="group" aria-label="Camera views">
+                <button id="reset-view" class="icon-button" type="button" aria-label="Reset view" disabled><span id="reset-icon"></span><span class="tooltip">Reset view</span></button>
+                <div class="camera-view-options">
+                  <button id="top-view" class="icon-button camera-view-button" type="button" aria-label="Top view" aria-controls="scene" disabled>Top</button>
+                  <button id="side-view" class="icon-button camera-view-button" type="button" aria-label="Side view" aria-controls="scene" disabled>Side</button>
+                  <button id="front-view" class="icon-button camera-view-button" type="button" aria-label="Front view" aria-controls="scene" disabled>Front</button>
+                </div>
+              </div>
               <button id="toggle-grid" class="icon-button" type="button" aria-label="Grid" aria-pressed="true" aria-controls="scene" disabled><span id="grid-icon"></span><span id="grid-tooltip" class="tooltip">Hide grid</span></button>
               <span class="toolbar-divider"></span>
               <button id="views-toggle" class="icon-button panel-button" type="button" aria-label="Saved views" aria-controls="views-panel" aria-expanded="false" disabled><span id="views-icon"></span><span class="tooltip">Saved views</span></button>
@@ -147,6 +154,7 @@
                 <button id="filter-toggle" class="icon-button panel-button" type="button" aria-label="Filter" aria-controls="filter-panel" aria-expanded="false"><span id="filter-icon"></span><span class="tooltip">Filter</span></button>
                 <button id="preferences-toggle" class="icon-button panel-button" type="button" aria-label="Preferences" aria-controls="preferences-panel" aria-expanded="false"><span id="preferences-icon"></span><span class="tooltip">Preferences</span></button>
                 <button id="objects-toggle" class="icon-button panel-button" type="button" aria-label="Objects" aria-controls="objects-panel" aria-expanded="false"><span id="objects-icon"></span><span class="tooltip">Objects</span></button>
+                <button id="glossary-toggle" class="icon-button panel-button" type="button" aria-label="Glossary" aria-controls="glossary-panel" aria-expanded="false"><span id="glossary-icon"></span><span class="tooltip">Glossary</span></button>
                 <button id="info-toggle" class="icon-button panel-button" type="button" aria-label="Info" aria-controls="info-panel" aria-expanded="false"><span id="info-icon"></span><span class="tooltip">Info</span></button>
               </div>
               <section id="motion-panel" class="dock-card time-controls" aria-label="Stellar motion timeline" data-scene-obstacle hidden>
@@ -258,6 +266,33 @@
                   <input id="object-search" type="search" placeholder="Search objects" autocomplete="off" />
                 </div>
                 <div id="star-list" class="star-list" role="group" aria-label="Nearby objects"></div>
+              </section>
+              <section id="glossary-panel" class="dock-card glossary-card" aria-labelledby="glossary-heading" data-scene-obstacle hidden>
+                <div class="panel-heading glossary-heading">
+                  <h2 id="glossary-heading">Glossary</h2>
+                  <div class="glossary-search">
+                    <span id="glossary-search-icon"></span>
+                    <label class="sr-only" for="glossary-search">Search glossary terms</label>
+                    <input id="glossary-search" type="search" placeholder="Search terms" autocomplete="off" spellcheck="false" />
+                  </div>
+                  <button id="glossary-lock" class="panel-lock" type="button" aria-label="Keep Glossary open" aria-pressed="false"><span id="glossary-lock-icon"></span></button>
+                </div>
+                <div class="glossary-body">
+                  <nav id="glossary-terms" class="glossary-terms" aria-label="Glossary terms"></nav>
+                  <article id="glossary-detail" class="glossary-detail" aria-labelledby="glossary-term-heading">
+                    <p id="glossary-term-category" class="glossary-category"></p>
+                    <h3 id="glossary-term-heading"></h3>
+                    <figure id="glossary-figure" class="glossary-figure" hidden>
+                      <img id="glossary-image" alt="" />
+                      <figcaption id="glossary-caption"></figcaption>
+                    </figure>
+                    <p id="glossary-description" class="glossary-description"></p>
+                    <a id="glossary-source" class="glossary-source" target="_blank" rel="noreferrer">Read more on Wikipedia <span aria-hidden="true">↗</span></a>
+                    <p class="glossary-attribution">Summarized from Wikipedia · <a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noreferrer">CC BY-SA 4.0</a></p>
+                    <p id="glossary-image-credit" class="glossary-image-credit" hidden></p>
+                  </article>
+                  <p id="glossary-empty" class="glossary-empty" role="status" hidden>No matching terms. Try another search.</p>
+                </div>
               </section>
               <section id="info-panel" class="dock-card info-card" aria-labelledby="info-heading" hidden>
                 <div class="info-brand">

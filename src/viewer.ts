@@ -8,7 +8,7 @@ import { OrbitControls } from 'three/addons/controls/OrbitControls.js'
 import milkyWayImageUrl from './assets/milky-way.jpg'
 import type { Star } from './catalog-model'
 import { apparentVisualMagnitude, displayMotionForStar, formatDistance, galacticToWorld, gridScaleForViewDistance, LIGHT_YEARS_PER_PARSEC, starDisplayColor, type DistanceUnit, type GridScale, type MotionFrame, type MotionMode, type StarColorMode } from './astronomy'
-import { EARTH_AXIS_DISPLAY_HALF_LENGTH_PC, EARTH_ORBIT_DISPLAY_RADIUS_PC, earthOrbitMarker, earthOrbitPoints } from './earth-orbit'
+import { EARTH_AXIS_DISPLAY_HALF_LENGTH_PC, EARTH_ORBIT_DISPLAY_RADIUS_PC, EARTH_ORBIT_MAX_VIEW_DISTANCE_PC, earthOrbitMarker, earthOrbitPoints } from './earth-orbit'
 import { advanceFrameDeadline, effectiveDampingFactor, estimateRefreshRate, renderPixelRatio, targetRenderFps } from './render-scheduling'
 import { centeredForegroundLabelBounds, chooseOrdinaryLabelPlacement, ordinaryLabelCandidates, overlaps, type LabelRect, type OrdinaryLabelPlacement } from './label-layout'
 import { createNebulaLayer } from './nebula-layer'
@@ -36,6 +36,7 @@ export interface StarViewer {
   setObserverView(enabled: boolean, anchorId?: string, rollRadians?: number): boolean
   rollObserverView(direction: 'counterclockwise' | 'center' | 'clockwise'): void
   reset(): void
+  setCameraView(view: 'top' | 'side' | 'front'): void
   setGridVisible(visible: boolean): void
   setViewState(state: ViewerViewState): void
   setObjectDistanceLimit(distanceLy: number): void
@@ -210,7 +211,7 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
   const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)')
   controls.enableDamping = !reducedMotion.matches
   controls.dampingFactor = 0.2
-  controls.minPolarAngle = 0.08
+  controls.minPolarAngle = 0
   controls.maxPolarAngle = Math.PI - 0.08
   controls.rotateSpeed = 0.65
   controls.screenSpacePanning = true
@@ -387,11 +388,16 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
   earthAxisLine.frustumCulled = false
   earthAxisLine.renderOrder = 6
   earthOrbitGroup.add(earthOrbitLine, earthAxisLine, earthPoint)
-  let earthOrbitVisible = initialEarthOrbitDate !== null
-  earthOrbitGroup.visible = earthOrbitVisible
+  let earthOrbitEnabled = initialEarthOrbitDate !== null
   scene.add(earthOrbitGroup)
   const earthAxisStart = new Vector3()
   const earthAxisEnd = new Vector3()
+
+  function updateEarthOrbitVisibility(): void {
+    earthOrbitGroup.visible = earthOrbitEnabled
+      && camera.position.distanceTo(earthOrbitGroup.position) <= EARTH_ORBIT_MAX_VIEW_DISTANCE_PC
+    setData(container, 'earthOrbitVisible', String(earthOrbitGroup.visible))
+  }
 
   function positionEarthMarker(date: Date, marker = earthOrbitMarker(date)): void {
     const pointPositions = earthPointGeometry.getAttribute('position')
@@ -1954,6 +1960,24 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
     requestRender()
   }
 
+  function setCameraView(view: 'top' | 'side' | 'front'): void {
+    if (observerViewEnabled) return
+    const target = controls.target.clone()
+    const distance = camera.position.distanceTo(target)
+    const direction = view === 'top' ? new Vector3(0, 1, 0)
+      : view === 'side' ? new Vector3(1, 0, 0)
+        : new Vector3(0, 0, 1)
+    focusTransition = null
+    controlsInteracting = false
+    controlsSettling = false
+    home = false
+    // Clear any remaining orbit/pan damping before applying the new direction.
+    applyFocusTarget(target, camera.position.clone())
+    applyFocusTarget(target, target.clone().addScaledVector(direction, distance))
+    captureFollowTarget()
+    requestRender()
+  }
+
   let renderWidth = 0
   let renderHeight = 0
   let displayPixelRatio = 0
@@ -2144,6 +2168,7 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
       }
     }
     camera.updateMatrixWorld()
+    if (earthOrbitEnabled) updateEarthOrbitVisibility()
     starViewDistance.value = camera.position.distanceTo(controls.target)
     const visibilityBaseIndex = starsById.get(visibilityBase.id)!.index
     const viewerDistance = camera.position.distanceTo(pickable[visibilityBaseIndex]!.position)
@@ -2227,7 +2252,7 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
   })
   sceneObstacleElements.forEach((element) => obstacleObserver.observe(element))
   updatePresentation()
-  container.dataset.earthOrbitVisible = String(earthOrbitVisible)
+  updateEarthOrbitVisibility()
   if (initialEarthOrbitDate) positionEarthMarker(initialEarthOrbitDate, initialEarthMarker)
   container.dataset.earthOrbitRadiusPc = String(EARTH_ORBIT_DISPLAY_RADIUS_PC)
   container.dataset.milkyWayVisible = String(milkyWayVisible)
@@ -2261,6 +2286,7 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
     setObserverView,
     rollObserverView,
     reset,
+    setCameraView,
     setObjectDistanceLimit(distanceLy) {
       if (!Number.isFinite(distanceLy) || distanceLy < 5 || distanceLy > 40000) return
       if (distanceLy === objectDistanceLimitLy) return
@@ -2292,9 +2318,8 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
     },
     setEarthOrbitDate(date) {
       if (date !== null && !Number.isFinite(date.getTime())) return
-      earthOrbitVisible = date !== null
-      earthOrbitGroup.visible = earthOrbitVisible
-      container.dataset.earthOrbitVisible = String(earthOrbitVisible)
+      earthOrbitEnabled = date !== null
+      updateEarthOrbitVisibility()
       if (date) positionEarthMarker(date)
       else {
         delete container.dataset.earthOrbitDate

@@ -1,5 +1,5 @@
 import './style.css'
-import { ArrowLeft, ArrowRight, CircleHelp, Clock, Crosshair, Eye, Filter, Focus, Grid2X2, List, Lock, Minus, Orbit, Pause, Play, Plus, RotateCcw, RotateCw, Save, Settings2, Star as StarIcon, Trash2, X, createElement, type IconNode } from 'lucide'
+import { ArrowLeft, ArrowRight, BookOpen, CircleHelp, Clock, Crosshair, Eye, Filter, Focus, Grid2X2, List, Lock, Minus, Orbit, Pause, Play, Plus, RotateCcw, RotateCw, Save, Search, Settings2, Star as StarIcon, Trash2, X, createElement, type IconNode } from 'lucide'
 import { BUBBLE_OBJECT_TYPES, COMPACT_OBJECT_TYPES, describeObject, isBubbleObject, isCompactObject, isMolecularCloudObject, isNebulaObject, MOLECULAR_CLOUD_OBJECT_TYPES, NEBULA_OBJECT_TYPES, type Star } from './catalog-model'
 import { catalogSelection, mergeCatalogStars } from './catalog-runtime'
 import { objectDesignations } from './designations'
@@ -19,6 +19,7 @@ import {
 import { ObjectList } from './object-list'
 import { SelectionHistory } from './selection-history'
 import { objectTypeIntroduction } from './object-type-info'
+import { initializeGlossary } from './glossary'
 
 function element<ElementType extends HTMLElement = HTMLElement>(id: string): ElementType {
   const found = document.getElementById(id)
@@ -78,6 +79,9 @@ icon('observer-roll-clockwise-icon', RotateCw)
 icon('filter-icon', Filter)
 icon('preferences-icon', Settings2)
 icon('objects-icon', List)
+icon('glossary-icon', BookOpen)
+icon('glossary-search-icon', Search)
+icon('glossary-lock-icon', Lock)
 icon('info-icon', CircleHelp)
 icon('info-brand-icon', Orbit)
 icon('filter-lock-icon', Lock)
@@ -93,6 +97,7 @@ icon('time-slower-icon', Minus)
 icon('time-faster-icon', Plus)
 
 const events = new AbortController()
+initializeGlossary(events.signal)
 let viewer: StarViewer | undefined
 let stars: Star[] = []
 let activeCatalogId = ''
@@ -263,12 +268,14 @@ const labelLimitInput = element<HTMLInputElement>('label-limit')
 labelLimitInput.value = String(labelLimit)
 labelLimitInput.setAttribute('aria-valuetext', labelLimit === 0 ? 'Off' : `${labelLimit} labels`)
 text('label-limit-value', labelLimit === 0 ? 'Off' : String(labelLimit))
-const viewButtons = ['reset-view', 'toggle-grid', 'views-toggle'].map((id) => element<HTMLButtonElement>(id))
+const cameraViews = ['top', 'side', 'front'] as const
+const cameraViewButtonIds = ['reset-view', ...cameraViews.map((view) => `${view}-view`)]
+const viewButtons = [...cameraViewButtonIds, 'toggle-grid', 'views-toggle'].map((id) => element<HTMLButtonElement>(id))
 const timelineButtons = ['time-play', 'time-now', 'time-follow'].map((id) => element<HTMLButtonElement>(id))
 const timeSlider = element<HTMLInputElement>('time-slider')
 const selectionHistory = new SelectionHistory(selectedId)
-const panelNames = ['views', 'motion', 'filter', 'preferences', 'objects', 'info'] as const
-const lockablePanelNames = ['motion', 'filter', 'preferences', 'objects'] as const
+const panelNames = ['views', 'motion', 'filter', 'preferences', 'objects', 'glossary', 'info'] as const
+const lockablePanelNames = ['motion', 'filter', 'preferences', 'objects', 'glossary'] as const
 const lockedPanels = new Set<typeof lockablePanelNames[number]>()
 
 function selectedStarAvailable(id: string): boolean {
@@ -305,7 +312,7 @@ function updateObserverControl(): void {
   for (const id of ['observer-roll-counterclockwise', 'observer-roll-reset', 'observer-roll-clockwise']) {
     element<HTMLButtonElement>(id).disabled = sceneBusy || !observerView
   }
-  for (const id of ['reset-view']) {
+  for (const id of cameraViewButtonIds) {
     element<HTMLButtonElement>(id).disabled = sceneBusy || observerView
   }
 }
@@ -1452,6 +1459,12 @@ element('reset-view').addEventListener('click', () => {
   dismissOpenPanel()
   viewer?.reset()
 }, { signal: events.signal })
+for (const view of cameraViews) {
+  element(`${view}-view`).addEventListener('click', () => {
+    dismissOpenPanel()
+    viewer?.setCameraView(view)
+  }, { signal: events.signal })
+}
 element('toggle-grid').addEventListener('click', () => {
   if (!viewer) return
   const button = element('toggle-grid')
