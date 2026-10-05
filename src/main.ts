@@ -1,5 +1,5 @@
 import './style.css'
-import { ArrowLeft, ArrowRight, CircleHelp, Clock, Crosshair, Eye, Filter, Focus, Grid2X2, List, Lock, Minus, Orbit, Pause, Play, Plus, RotateCcw, RotateCw, Save, Settings2, Star as StarIcon, Trash2, createElement, type IconNode } from 'lucide'
+import { ArrowLeft, ArrowRight, CircleHelp, Clock, Crosshair, Eye, Filter, Focus, Grid2X2, List, Lock, Minus, Orbit, Pause, Play, Plus, RotateCcw, RotateCw, Save, Settings2, Star as StarIcon, Trash2, X, createElement, type IconNode } from 'lucide'
 import { BUBBLE_OBJECT_TYPES, COMPACT_OBJECT_TYPES, describeObject, isBubbleObject, isCompactObject, isMolecularCloudObject, isNebulaObject, MOLECULAR_CLOUD_OBJECT_TYPES, NEBULA_OBJECT_TYPES, type Star } from './catalog-model'
 import { catalogSelection, mergeCatalogStars } from './catalog-runtime'
 import { objectDesignations } from './designations'
@@ -18,6 +18,7 @@ import {
 } from './object-filter'
 import { ObjectList } from './object-list'
 import { SelectionHistory } from './selection-history'
+import { objectTypeIntroduction } from './object-type-info'
 
 function element<ElementType extends HTMLElement = HTMLElement>(id: string): ElementType {
   const found = document.getElementById(id)
@@ -84,6 +85,7 @@ icon('preferences-lock-icon', Lock)
 icon('objects-lock-icon', Lock)
 icon('motion-icon', Clock)
 icon('motion-lock-icon', Lock)
+icon('object-type-close-icon', X)
 icon('time-play-icon', Play)
 icon('time-now-icon', RotateCcw)
 icon('time-follow-icon', Crosshair)
@@ -336,7 +338,59 @@ function syncPanelLayout(): void {
   if (motionOpen) dock.dataset.motionOpen = ''
   else delete dock.dataset.motionOpen
   syncSelectedObjectLayout()
+  syncObjectTypeLayout()
   syncVisibilityObserverLayout()
+}
+
+function closeObjectTypeCard(restoreFocus = false): void {
+  const card = element('object-type-card')
+  if (card.hidden) return
+  card.hidden = true
+  element('object-type-toggle').setAttribute('aria-expanded', 'false')
+  if (restoreFocus) element('object-type-toggle').focus()
+}
+
+function renderObjectTypeCard(star: Star): void {
+  const introduction = objectTypeIntroduction(star)
+  text('object-type-heading', introduction.title)
+  text('object-type-description', introduction.description)
+  text('object-type-caption', introduction.caption)
+  const image = element<HTMLImageElement>('object-type-image')
+  image.src = introduction.image
+  image.alt = introduction.caption
+  image.style.objectPosition = introduction.imagePosition ?? '50% 50%'
+  element('object-type-card').dataset.objectType = star.type
+  element<HTMLAnchorElement>('object-type-source').href = introduction.source
+  const imageSource = element<HTMLAnchorElement>('object-type-image-source')
+  if (introduction.imageSource) imageSource.href = introduction.imageSource
+  else imageSource.removeAttribute('href')
+  imageSource.textContent = introduction.imageCredit
+  syncObjectTypeLayout()
+}
+
+function toggleObjectTypeCard(): void {
+  if (!element('object-type-card').hidden) {
+    closeObjectTypeCard(true)
+    return
+  }
+  const star = stars.find((candidate) => candidate.id === selectedId)
+  if (!star) return
+  element('object-type-card').hidden = false
+  element('object-type-toggle').setAttribute('aria-expanded', 'true')
+  renderObjectTypeCard(star)
+  element('object-type-close').focus({ preventScroll: true })
+}
+
+function syncObjectTypeLayout(): void {
+  const card = element('object-type-card')
+  card.style.removeProperty('max-height')
+  const motion = element('motion-panel')
+  if (card.hidden || motion.hidden) return
+  const bounds = card.getBoundingClientRect()
+  const motionBounds = motion.getBoundingClientRect()
+  if (bounds.left < motionBounds.right && bounds.right > motionBounds.left) {
+    card.style.maxHeight = `${Math.max(120, Math.floor(motionBounds.top - bounds.top - 10))}px`
+  }
 }
 
 function syncSelectedObjectLayout(): void {
@@ -380,6 +434,7 @@ function togglePanel(name: typeof panelNames[number]): void {
 }
 
 function dismissOpenPanel(): void {
+  closeObjectTypeCard()
   let changed = false
   for (const name of panelNames) {
     if (!panelIsOpen(name)) continue
@@ -521,6 +576,7 @@ function renderSelection(): void {
   updateReferenceControl()
   updateObserverControl()
   if (!star) {
+    closeObjectTypeCard()
     delete element('inspector').dataset.selectedStar
     element('inspector').style.removeProperty('--selected-star-color')
     text('selection-announcement', 'No object selected.')
@@ -537,6 +593,8 @@ function renderSelection(): void {
   text('distance-value', formatDistance(metrics.distancePc, distanceUnit).split(' ')[0]!)
   text('distance-unit', ` ${distanceUnit}`)
   text('object-type', describeObject(star))
+  element('object-type-toggle').setAttribute('aria-label', `Learn about ${describeObject(star).toLowerCase()}`)
+  if (!element('object-type-card').hidden) renderObjectTypeCard(star)
   text('constellation', star.id === 'sun' ? 'Not applicable' : star.constellation ?? 'Not available')
   const compact = star.compact
   const compactObject = isCompactObject(star)
@@ -1324,6 +1382,7 @@ element('time-faster').addEventListener('click', () => {
 }, { signal: events.signal })
 window.addEventListener('resize', () => {
   syncSelectedObjectLayout()
+  syncObjectTypeLayout()
   syncVisibilityObserverLayout()
 }, { signal: events.signal })
 categoryOptions.addEventListener('change', (event) => {
@@ -1377,13 +1436,22 @@ element('saved-views-list').addEventListener('keydown', (event) => {
 }, { signal: events.signal })
 document.addEventListener('keydown', (event) => {
   if (event.key !== 'Escape') return
+  if (!element('object-type-card').hidden) {
+    closeObjectTypeCard(true)
+    return
+  }
   const open = panelNames.find((name) => name !== 'motion' && panelIsOpen(name))
     ?? (panelIsOpen('motion') ? 'motion' : undefined)
   if (!open) return
   togglePanel(open)
   element(`${open}-toggle`).focus()
 }, { signal: events.signal })
-element('reset-view').addEventListener('click', () => viewer?.reset(), { signal: events.signal })
+document.querySelector('.object-type-row')!.addEventListener('click', toggleObjectTypeCard, { signal: events.signal })
+element('object-type-close').addEventListener('click', () => closeObjectTypeCard(true), { signal: events.signal })
+element('reset-view').addEventListener('click', () => {
+  dismissOpenPanel()
+  viewer?.reset()
+}, { signal: events.signal })
 element('toggle-grid').addEventListener('click', () => {
   if (!viewer) return
   const button = element('toggle-grid')

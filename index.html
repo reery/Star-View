@@ -34,7 +34,7 @@
                       <section class="properties-section" aria-label="Object properties">
                         <dl class="properties">
                           <div><dt>Distance from Sun</dt><dd><span id="distance-value"></span><span id="distance-unit"> ly</span></dd></div>
-                          <div><dt>Object type</dt><dd id="object-type"></dd></div>
+                          <div class="object-type-row"><dt>Object type</dt><dd><button id="object-type-toggle" class="object-type-toggle" type="button" aria-controls="object-type-card" aria-expanded="false"><span id="object-type"></span></button></dd></div>
                           <div><dt>Constellation</dt><dd id="constellation"></dd></div>
                           <div class="stellar-property"><dt>Spectral type</dt><dd id="spectral-type"></dd></div>
                           <div class="stellar-property"><dt>Temperature</dt><dd id="temperature"></dd></div>
@@ -99,6 +99,18 @@
                     </div>
                   </details>
                 </div>
+              </div>
+            </section>
+            <section id="object-type-card" class="dock-card object-type-card" aria-labelledby="object-type-heading" data-scene-obstacle hidden>
+              <div class="object-type-hero">
+                <img id="object-type-image" class="object-type-image" alt="" width="760" height="420" />
+                <h2 id="object-type-heading" class="star-name"></h2>
+              </div>
+              <button id="object-type-close" class="panel-lock object-type-close" type="button" aria-label="Close object type card"><span id="object-type-close-icon"></span></button>
+              <div class="object-type-body">
+                <p id="object-type-description"></p>
+                <a id="object-type-source" class="object-type-source" target="_blank" rel="noreferrer">Read more on Wikipedia ↗</a>
+                <p class="object-type-credit"><span id="object-type-caption"></span> · <a id="object-type-image-source" target="_blank" rel="noreferrer"></a></p>
               </div>
             </section>
             <div class="scene-toolbar" role="group" aria-label="Map view controls" data-scene-obstacle>

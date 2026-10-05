@@ -2025,6 +2025,7 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
   canvas.addEventListener('pointercancel', (event) => gesture.cancel(event.pointerId), { signal: events.signal })
   canvas.addEventListener('lostpointercapture', (event) => gesture.cancel(event.pointerId), { signal: events.signal })
   function onControlsStart(): void {
+    options.onInteraction()
     focusTransition = null
     home = false
     controlsInteracting = true

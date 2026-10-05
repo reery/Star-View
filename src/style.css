@@ -281,12 +281,36 @@ select:focus-visible, input:focus-visible { outline: 2px solid var(--accent); ou
 .identity { display: block; min-width: 0; border-left: 2px solid var(--selected-star-color, var(--accent)); padding-left: 10px; }
 #selected-swatch { box-shadow: 0 0 8px color-mix(in srgb, var(--selected-star-color, var(--accent)) 55%, transparent); }
 .identity-heading { display: flex; align-items: center; gap: 8px; }
-.identity .star-name { font-size: 24px; font-weight: 500; line-height: 1.15; }
+.identity .star-name, .object-type-hero .star-name { font-size: 24px; font-weight: 500; line-height: 1.15; }
 .star-distance { display: block; font-size: 12px; color: var(--muted); margin-top: 4px; font-variant-numeric: tabular-nums; }
 .properties-section { padding: 2px 16px 8px; }
 .properties > div { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 10px; align-items: baseline; padding: 3px 0; font-size: 14px; line-height: 1.2; }
 .properties dt { color: var(--muted); }
 .properties dd { text-align: right; font-weight: 500; font-variant-numeric: tabular-nums; }
+.properties > .object-type-row { position: relative; isolation: isolate; cursor: pointer; }
+.object-type-toggle { padding: 0; border: 0; background: transparent; color: inherit; font: inherit; text-align: right; }
+.object-type-toggle::before { content: ''; position: absolute; z-index: -1; inset: -1px -8px; border-radius: 5px; }
+.object-type-row:hover .object-type-toggle::before, .object-type-toggle[aria-expanded="true"]::before { background: var(--panel-selected); }
+.object-type-toggle:focus-visible { outline: none; }
+.object-type-toggle:focus-visible::before { outline: 2px solid var(--accent); outline-offset: 1px; }
+.dock-card.object-type-card { position: absolute; top: 20px; left: 324px; width: min(380px, calc(100vw - 402px)); max-height: calc(100dvh - 40px); overflow: auto; overscroll-behavior: contain; scrollbar-width: thin; scrollbar-color: #776a5c transparent; pointer-events: auto; background: linear-gradient(145deg, #26282a, var(--panel)); }
+.object-type-hero { position: relative; height: 210px; overflow: hidden; border-radius: var(--card-radius) var(--card-radius) 0 0; background: #090b10; }
+.object-type-image { display: block; width: 100%; height: 100%; object-fit: cover; }
+.object-type-hero::after { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, #00000018 30%, #111315a6 68%, #202224 100%); }
+.object-type-card[data-object-type="sub_brown_dwarf"] .object-type-hero::after { background: linear-gradient(180deg, transparent 55%, #11131580 80%, #202224 100%); }
+.object-type-hero .star-name { position: absolute; z-index: 1; right: 20px; bottom: 18px; left: 20px; color: var(--ink); text-shadow: 0 2px 12px #000; }
+.panel-lock.object-type-close { position: absolute; z-index: 2; top: -1px; right: -1px; width: 38px; height: 38px; border-color: transparent transparent var(--line) var(--line); border-radius: 0 var(--card-radius) 0 7px; background: #1d1e20; }
+@media (hover: hover) and (pointer: fine) {
+  .panel-lock.object-type-close:hover { color: var(--accent-vibrant); background: #292421; }
+}
+.object-type-body { padding: 0 20px 18px; }
+#object-type-description { font-size: 14px; line-height: 1.65; color: var(--muted); }
+.object-type-source { display: inline-block; margin-top: 14px; font-size: 12px; }
+.object-type-body a { color: var(--accent-strong); text-underline-offset: 3px; }
+.object-type-body a:hover { color: #fff0dc; }
+.object-type-body a:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+.object-type-credit { margin-top: 18px; padding-top: 10px; border-top: 1px solid var(--line); font-size: 10px; line-height: 1.5; color: var(--muted); }
+.object-type-credit a { color: inherit; }
 .compact-property dd, .nebula-property dd, .molecular-cloud-property dd { max-width: 170px; overflow-wrap: anywhere; }
 .properties a { color: var(--accent-strong); text-underline-offset: 3px; }
 .properties a:hover { color: #fff0dc; }
@@ -319,8 +343,14 @@ select:focus-visible, input:focus-visible { outline: 2px solid var(--accent); ou
   .scene-wrap:has(.control-dock[data-motion-open]) .scene-legend,
   .visibility-observer.is-avoiding-motion { bottom: 198px; }
   .scene-wrap:has(.visibility-observer.is-avoiding-motion) .observer-direction-card { bottom: 224px; }
-  .identity .star-name { font-size: 22px; }
+  .identity .star-name, .object-type-hero .star-name { font-size: 22px; }
+  .dock-card.object-type-card { top: 12px; left: 316px; width: calc(100vw - 394px); max-height: calc(100dvh - 24px); }
   .star-distance { font-size: 12px; }
+}
+
+@media (max-width: 660px) {
+  .dock-card.object-type-card { z-index: 1; top: 90px; left: 12px; width: min(380px, calc(100vw - 78px)); max-height: calc(100dvh - 114px); }
+  .object-type-hero { height: 180px; }
 }
 
 @media (max-width: 400px) {
