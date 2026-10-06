@@ -6,9 +6,9 @@
   "inputSha256": "ab8a3ab6e0b0edb1372f7c58cdf4f121fe1d5d204a9a0541e6d302a5ac18c84a",
   "supplementManifestSha256": "92cb2daae1b7319401890f4e1de7f904d1d1b0375b3ac2dc93c8c41c5ecd0073",
   "gaiaSourceManifestSha256": "5744f1665fe2700b5acaf88fd2cc46a4f2a0e2a75d75c03290b769b64c3cb315",
-  "physicalOverridesSha256": "665776a81875ac448b82a48c5d7d9d70af5dc54a1f3851843da75abdc0b3b10d",
+  "physicalOverridesSha256": "4f739cbcda0cb71b78447213c389aa3da8456b2e83072a8dfc6b5dd40f96b3b9",
   "physicalPolicyRevision": "nearest100-reviewed-gaia-shared-v2",
-  "sharedEnrichmentManifestSha256": "da2dd89f7976ccbf65eac832643f63404e2c9881e67d7fefab276ac5ba479e52",
+  "sharedEnrichmentManifestSha256": "29999eee6fd64ead674fb8dab1f595d27f8b3e4a32354c264f2e1bb645f2b401",
   "sources": [
     {
       "name": "10pc census, Reyle et al., tablea1 update 2023-08-25",
@@ -153,6 +153,18 @@
     {
       "name": "Kallinger et al. 2019, Rho Persei granulation-scaling mass and published SED luminosity/radius",
       "url": "https://arxiv.org/html/1902.07531"
+    },
+    {
+      "name": "Kervella et al. 2016, GJ 65 A/B resolved interferometric radii and photospheric iron abundances",
+      "url": "https://arxiv.org/abs/1607.04351"
+    },
+    {
+      "name": "MacDonald et al. 2018, GJ 65 A/B resolved bolometric luminosities and radius-based effective temperatures",
+      "url": "https://arxiv.org/abs/1711.09434"
+    },
+    {
+      "name": "GRAVITY Collaboration 2024, GJ 65 A/B individual dynamical masses",
+      "url": "https://arxiv.org/html/2404.08746v1"
     }
   ],
   "sourceChecksumsSha256": {
@@ -196,9 +208,9 @@
     "spectral_type": 101,
     "temperature_k": 97,
     "mass_solar": 66,
-    "luminosity_solar": 68,
-    "radius_solar": 68,
-    "metallicity_dex": 63,
+    "luminosity_solar": 70,
+    "radius_solar": 70,
+    "metallicity_dex": 64,
     "age_gyr": 15,
     "absolute_mag": 50,
     "fullVelocity": 72,
@@ -5655,7 +5667,7 @@
         "eligibility": "Not a parsed K5-M9.5 dwarf spectral type (no subdwarf, giant, composite or peculiar class); supplements not applied."
       },
       "reviewedPhysical": {
-        "inputSha256": "665776a81875ac448b82a48c5d7d9d70af5dc54a1f3851843da75abdc0b3b10d",
+        "inputSha256": "4f739cbcda0cb71b78447213c389aa3da8456b2e83072a8dfc6b5dd40f96b3b9",
         "observations": [
           {
             "source_id": "primary-paper",
@@ -6021,7 +6033,7 @@
         "eligibility": "Not a parsed K5-M9.5 dwarf spectral type (no subdwarf, giant, composite or peculiar class); supplements not applied."
       },
       "reviewedPhysical": {
-        "inputSha256": "665776a81875ac448b82a48c5d7d9d70af5dc54a1f3851843da75abdc0b3b10d",
+        "inputSha256": "4f739cbcda0cb71b78447213c389aa3da8456b2e83072a8dfc6b5dd40f96b3b9",
         "observations": [
           {
             "source_id": "primary-paper",
@@ -6727,7 +6739,7 @@
         }
       },
       "reviewedPhysical": {
-        "inputSha256": "665776a81875ac448b82a48c5d7d9d70af5dc54a1f3851843da75abdc0b3b10d",
+        "inputSha256": "4f739cbcda0cb71b78447213c389aa3da8456b2e83072a8dfc6b5dd40f96b3b9",
         "observations": [
           {
             "source_id": "primary-paper",
@@ -7062,7 +7074,7 @@
         }
       },
       "reviewedPhysical": {
-        "inputSha256": "665776a81875ac448b82a48c5d7d9d70af5dc54a1f3851843da75abdc0b3b10d",
+        "inputSha256": "4f739cbcda0cb71b78447213c389aa3da8456b2e83072a8dfc6b5dd40f96b3b9",
         "observations": [
           {
             "source_id": "primary-paper",
@@ -7393,7 +7405,7 @@
         }
       },
       "reviewedPhysical": {
-        "inputSha256": "665776a81875ac448b82a48c5d7d9d70af5dc54a1f3851843da75abdc0b3b10d",
+        "inputSha256": "4f739cbcda0cb71b78447213c389aa3da8456b2e83072a8dfc6b5dd40f96b3b9",
         "observations": [
           {
             "source_id": "primary-paper",
@@ -8320,7 +8332,7 @@
         "eligibility": "Not a parsed K5-M9.5 dwarf spectral type (no subdwarf, giant, composite or peculiar class); supplements not applied."
       },
       "reviewedPhysical": {
-        "inputSha256": "665776a81875ac448b82a48c5d7d9d70af5dc54a1f3851843da75abdc0b3b10d",
+        "inputSha256": "4f739cbcda0cb71b78447213c389aa3da8456b2e83072a8dfc6b5dd40f96b3b9",
         "observations": [
           {
             "source_id": "primary-paper",
@@ -8669,7 +8681,7 @@
         "eligibility": "Not a parsed K5-M9.5 dwarf spectral type (no subdwarf, giant, composite or peculiar class); supplements not applied."
       },
       "reviewedPhysical": {
-        "inputSha256": "665776a81875ac448b82a48c5d7d9d70af5dc54a1f3851843da75abdc0b3b10d",
+        "inputSha256": "4f739cbcda0cb71b78447213c389aa3da8456b2e83072a8dfc6b5dd40f96b3b9",
         "observations": [
           {
             "source_id": "primary-paper",
@@ -8846,22 +8858,25 @@
           ]
         },
         "temperature_k": {
-          "status": "adopted-existing",
+          "status": "derived",
           "sourceRefs": [
-            "legacy-neighbors:luyten-726-8-a"
-          ]
+            "2018ApJ...860...15M:luyten-726-8-a"
+          ],
+          "detail": "primary-paper; uncertainty 58.0; Bolometric flux with BT-Settl missing-flux correction and Kervella 2016 radius; not a spectral-class temperature., 2, final component luminosities and temperatures, https://arxiv.org/abs/1711.09434"
         },
         "mass_solar": {
-          "status": "adopted-existing",
+          "status": "measured",
           "sourceRefs": [
-            "legacy-neighbors:luyten-726-8-a"
-          ]
+            "2024A&A...685L...9G:luyten-726-8-a"
+          ],
+          "detail": "primary-paper; uncertainty 0.002; GRAVITY 2024 orbit and adopted parallax; not the binary total mass., Table 1, https://arxiv.org/html/2404.08746v1"
         },
         "luminosity_solar": {
-          "status": "unknown",
+          "status": "model-derived",
           "sourceRefs": [
-            "legacy-neighbors:luyten-726-8-a"
-          ]
+            "2018ApJ...860...15M"
+          ],
+          "detail": "{\"caveat\": \"Resolved flux ratio and BT-Settl correction outside 1.0435-3.770 microns; retained at the published distance.\", \"component\": \"A\", \"field\": \"luminosity_solar\", \"identity\": \"G 272-61A\", \"inputs\": {\"parallax_mas\": 373.7}, \"quantity\": \"component bolometric luminosity\", \"reference\": \"2018ApJ...860...15M\", \"scope\": \"Individual A component, not the unresolved GJ 65 binary.\", \"section\": \"2, final component luminosities\", \"sourceUrl\": \"https://arxiv.org/abs/1711.09434\", \"status\": \"model-derived\", \"uncertainty\": 5e-05, \"value\": 0.00147}"
         },
         "absolute_mag": {
           "status": "adopted-existing",
@@ -8967,12 +8982,18 @@
           ]
         },
         "radius_solar": {
-          "status": "unknown",
-          "sourceRefs": []
+          "status": "derived",
+          "sourceRefs": [
+            "2016A&A...593A.127K"
+          ],
+          "detail": "{\"caveat\": \"Published limb-darkened diameter and parallax, not recomputed with orbit-contaminated Gaia component parallaxes.\", \"component\": \"A\", \"field\": \"radius_solar\", \"identity\": \"G 272-61A\", \"inputs\": {\"limb_darkened_angular_diameter_mas\": 0.573, \"parallax_mas\": 373.7}, \"quantity\": \"interferometric photospheric radius\", \"reference\": \"2016A&A...593A.127K\", \"scope\": \"Individual A component, not the unresolved GJ 65 binary.\", \"section\": \"2.1 and Table 4\", \"sourceUrl\": \"https://arxiv.org/abs/1607.04351\", \"status\": \"derived\", \"uncertainty\": 0.006, \"value\": 0.165}"
         },
         "metallicity_dex": {
-          "status": "unknown",
-          "sourceRefs": []
+          "status": "measured",
+          "sourceRefs": [
+            "2016A&A...593A.127K"
+          ],
+          "detail": "{\"caveat\": \"Component-resolved UVES spectrum fitted relative to Proxima; method-dependent abundance. Adopted consistently for both A and B from Kervella et al. (2016), with +/-0.20 dex uncertainty.\", \"component\": \"A\", \"field\": \"metallicity_dex\", \"identity\": \"G 272-61A\", \"quantity\": \"photospheric [Fe/H]\", \"reference\": \"2016A&A...593A.127K\", \"scope\": \"Individual A component, not the unresolved GJ 65 binary.\", \"section\": \"2.3 and Table 4\", \"sourceUrl\": \"https://arxiv.org/abs/1607.04351\", \"status\": \"measured\", \"uncertainty\": 0.2, \"value\": -0.03}"
         },
         "age_gyr": {
           "status": "unknown",
@@ -9010,6 +9031,94 @@
           "reasons": [
             "No unique 2MASS identifier"
           ]
+        }
+      },
+      "sharedPhysicalEnrichment": {
+        "luminosity_solar": {
+          "field": "luminosity_solar",
+          "value": 0.00147,
+          "status": "model-derived",
+          "reference": "2018ApJ...860...15M",
+          "uncertainty": 5e-05,
+          "identity": "G 272-61A",
+          "component": "A",
+          "scope": "Individual A component, not the unresolved GJ 65 binary.",
+          "section": "2, final component luminosities",
+          "caveat": "Resolved flux ratio and BT-Settl correction outside 1.0435-3.770 microns; retained at the published distance.",
+          "quantity": "component bolometric luminosity",
+          "sourceUrl": "https://arxiv.org/abs/1711.09434",
+          "inputs": {
+            "parallax_mas": 373.7
+          }
+        },
+        "radius_solar": {
+          "field": "radius_solar",
+          "value": 0.165,
+          "status": "derived",
+          "reference": "2016A&A...593A.127K",
+          "uncertainty": 0.006,
+          "identity": "G 272-61A",
+          "component": "A",
+          "scope": "Individual A component, not the unresolved GJ 65 binary.",
+          "section": "2.1 and Table 4",
+          "caveat": "Published limb-darkened diameter and parallax, not recomputed with orbit-contaminated Gaia component parallaxes.",
+          "quantity": "interferometric photospheric radius",
+          "sourceUrl": "https://arxiv.org/abs/1607.04351",
+          "inputs": {
+            "limb_darkened_angular_diameter_mas": 0.573,
+            "parallax_mas": 373.7
+          }
+        },
+        "metallicity_dex": {
+          "field": "metallicity_dex",
+          "value": -0.03,
+          "status": "measured",
+          "reference": "2016A&A...593A.127K",
+          "uncertainty": 0.2,
+          "identity": "G 272-61A",
+          "component": "A",
+          "scope": "Individual A component, not the unresolved GJ 65 binary.",
+          "section": "2.3 and Table 4",
+          "caveat": "Component-resolved UVES spectrum fitted relative to Proxima; method-dependent abundance. Adopted consistently for both A and B from Kervella et al. (2016), with +/-0.20 dex uncertainty.",
+          "quantity": "photospheric [Fe/H]",
+          "sourceUrl": "https://arxiv.org/abs/1607.04351"
+        }
+      },
+      "reviewedPhysical": {
+        "inputSha256": "4f739cbcda0cb71b78447213c389aa3da8456b2e83072a8dfc6b5dd40f96b3b9",
+        "observations": [
+          {
+            "source_id": "primary-paper",
+            "source_record_id": "luyten-726-8-a",
+            "field": "temperature_k",
+            "value": 2784.0,
+            "uncertainty": 58.0,
+            "status": "derived",
+            "reference": "2018ApJ...860...15M",
+            "quality_flags": [
+              "Bolometric flux with BT-Settl missing-flux correction and Kervella 2016 radius; not a spectral-class temperature.",
+              "2, final component luminosities and temperatures",
+              "https://arxiv.org/abs/1711.09434"
+            ]
+          },
+          {
+            "source_id": "primary-paper",
+            "source_record_id": "luyten-726-8-a",
+            "field": "mass_solar",
+            "value": 0.122,
+            "uncertainty": 0.002,
+            "status": "measured",
+            "reference": "2024A&A...685L...9G",
+            "quality_flags": [
+              "GRAVITY 2024 orbit and adopted parallax; not the binary total mass.",
+              "Table 1",
+              "https://arxiv.org/html/2404.08746v1"
+            ]
+          }
+        ],
+        "adopted": {
+          "temperature_k": "2018ApJ...860...15M:luyten-726-8-a",
+          "mass_solar": "2024A&A...685L...9G:luyten-726-8-a"
         }
       }
     },
@@ -9117,22 +9226,25 @@
           ]
         },
         "temperature_k": {
-          "status": "adopted-existing",
+          "status": "derived",
           "sourceRefs": [
-            "legacy-neighbors:luyten-726-8-b"
-          ]
+            "2018ApJ...860...15M:luyten-726-8-b"
+          ],
+          "detail": "primary-paper; uncertainty 60.0; Bolometric flux with BT-Settl missing-flux correction and Kervella 2016 radius; not a spectral-class temperature., 2, final component luminosities and temperatures, https://arxiv.org/abs/1711.09434"
         },
         "mass_solar": {
-          "status": "adopted-existing",
+          "status": "measured",
           "sourceRefs": [
-            "legacy-neighbors:luyten-726-8-b"
-          ]
+            "2024A&A...685L...9G:luyten-726-8-b"
+          ],
+          "detail": "primary-paper; uncertainty 0.002; GRAVITY 2024 orbit and adopted parallax; not the binary total mass., Table 1, https://arxiv.org/html/2404.08746v1"
         },
         "luminosity_solar": {
-          "status": "unknown",
+          "status": "model-derived",
           "sourceRefs": [
-            "legacy-neighbors:luyten-726-8-b"
-          ]
+            "2018ApJ...860...15M"
+          ],
+          "detail": "{\"caveat\": \"Resolved flux ratio and BT-Settl correction outside 1.0435-3.770 microns; retained at the published distance.\", \"component\": \"B\", \"field\": \"luminosity_solar\", \"identity\": \"G 272-61B\", \"inputs\": {\"parallax_mas\": 373.7}, \"quantity\": \"component bolometric luminosity\", \"reference\": \"2018ApJ...860...15M\", \"scope\": \"Individual B component, not the unresolved GJ 65 binary.\", \"section\": \"2, final component luminosities\", \"sourceUrl\": \"https://arxiv.org/abs/1711.09434\", \"status\": \"model-derived\", \"uncertainty\": 5e-05, \"value\": 0.00125}"
         },
         "absolute_mag": {
           "status": "adopted-existing",
@@ -9238,15 +9350,18 @@
           ]
         },
         "radius_solar": {
-          "status": "unknown",
-          "sourceRefs": []
+          "status": "derived",
+          "sourceRefs": [
+            "2016A&A...593A.127K"
+          ],
+          "detail": "{\"caveat\": \"Published limb-darkened diameter and parallax, not recomputed with orbit-contaminated Gaia component parallaxes.\", \"component\": \"B\", \"field\": \"radius_solar\", \"identity\": \"G 272-61B\", \"inputs\": {\"limb_darkened_angular_diameter_mas\": 0.554, \"parallax_mas\": 373.7}, \"quantity\": \"interferometric photospheric radius\", \"reference\": \"2016A&A...593A.127K\", \"scope\": \"Individual B component, not the unresolved GJ 65 binary.\", \"section\": \"2.1 and Table 4\", \"sourceUrl\": \"https://arxiv.org/abs/1607.04351\", \"status\": \"derived\", \"uncertainty\": 0.006, \"value\": 0.159}"
         },
         "metallicity_dex": {
           "status": "measured",
           "sourceRefs": [
-            "2023ApJS..266...41P"
+            "2016A&A...593A.127K:luyten-726-8-b"
           ],
-          "detail": "{\"field\": \"metallicity_dex\", \"identity\": \"G 272-61B\", \"quantity\": \"photospheric [Fe/H]\", \"reference\": \"2023ApJS..266...41P\", \"scope\": \"catalogued stellar object\", \"selection\": \"Newest within 0.3 dex / 10 percent of the median; strict majority required for multiple observations\", \"sourceRecordId\": \"G 272-61B:mesFe_h:2\", \"status\": \"measured\", \"uncertainty\": null, \"value\": -0.42}"
+          "detail": "primary-paper; uncertainty 0.2; Component-resolved UVES spectrum fitted relative to Proxima; method-dependent abundance. Adopted consistently for both A and B from Kervella et al. (2016), with +/-0.20 dex uncertainty., section 2.3 and Table 4, https://arxiv.org/abs/1607.04351, Supersedes catalog [Fe/H]=-0.42 dex from 2023ApJS..266...41P, also reported by 2012A&A...538A.143K. Kervella et al. (2016), section 2.3, identify the older -0.42 +/-0.10 dex result as a low-resolution combined A+B spectrum, potentially biased low by rapid rotation; it is retained as historical system-level evidence, not an adopted B-component abundance."
         },
         "age_gyr": {
           "status": "unknown",
@@ -9279,17 +9394,93 @@
         }
       },
       "sharedPhysicalEnrichment": {
-        "metallicity_dex": {
-          "field": "metallicity_dex",
-          "value": -0.42,
-          "status": "measured",
-          "reference": "2023ApJS..266...41P",
-          "uncertainty": null,
+        "luminosity_solar": {
+          "field": "luminosity_solar",
+          "value": 0.00125,
+          "status": "model-derived",
+          "reference": "2018ApJ...860...15M",
+          "uncertainty": 5e-05,
           "identity": "G 272-61B",
-          "sourceRecordId": "G 272-61B:mesFe_h:2",
-          "quantity": "photospheric [Fe/H]",
-          "selection": "Newest within 0.3 dex / 10 percent of the median; strict majority required for multiple observations",
-          "scope": "catalogued stellar object"
+          "component": "B",
+          "scope": "Individual B component, not the unresolved GJ 65 binary.",
+          "section": "2, final component luminosities",
+          "caveat": "Resolved flux ratio and BT-Settl correction outside 1.0435-3.770 microns; retained at the published distance.",
+          "quantity": "component bolometric luminosity",
+          "sourceUrl": "https://arxiv.org/abs/1711.09434",
+          "inputs": {
+            "parallax_mas": 373.7
+          }
+        },
+        "radius_solar": {
+          "field": "radius_solar",
+          "value": 0.159,
+          "status": "derived",
+          "reference": "2016A&A...593A.127K",
+          "uncertainty": 0.006,
+          "identity": "G 272-61B",
+          "component": "B",
+          "scope": "Individual B component, not the unresolved GJ 65 binary.",
+          "section": "2.1 and Table 4",
+          "caveat": "Published limb-darkened diameter and parallax, not recomputed with orbit-contaminated Gaia component parallaxes.",
+          "quantity": "interferometric photospheric radius",
+          "sourceUrl": "https://arxiv.org/abs/1607.04351",
+          "inputs": {
+            "limb_darkened_angular_diameter_mas": 0.554,
+            "parallax_mas": 373.7
+          }
+        }
+      },
+      "reviewedPhysical": {
+        "inputSha256": "4f739cbcda0cb71b78447213c389aa3da8456b2e83072a8dfc6b5dd40f96b3b9",
+        "observations": [
+          {
+            "source_id": "primary-paper",
+            "source_record_id": "luyten-726-8-b",
+            "field": "temperature_k",
+            "value": 2728.0,
+            "uncertainty": 60.0,
+            "status": "derived",
+            "reference": "2018ApJ...860...15M",
+            "quality_flags": [
+              "Bolometric flux with BT-Settl missing-flux correction and Kervella 2016 radius; not a spectral-class temperature.",
+              "2, final component luminosities and temperatures",
+              "https://arxiv.org/abs/1711.09434"
+            ]
+          },
+          {
+            "source_id": "primary-paper",
+            "source_record_id": "luyten-726-8-b",
+            "field": "mass_solar",
+            "value": 0.116,
+            "uncertainty": 0.002,
+            "status": "measured",
+            "reference": "2024A&A...685L...9G",
+            "quality_flags": [
+              "GRAVITY 2024 orbit and adopted parallax; not the binary total mass.",
+              "Table 1",
+              "https://arxiv.org/html/2404.08746v1"
+            ]
+          },
+          {
+            "source_id": "primary-paper",
+            "source_record_id": "luyten-726-8-b",
+            "field": "metallicity_dex",
+            "value": -0.12,
+            "uncertainty": 0.2,
+            "status": "measured",
+            "reference": "2016A&A...593A.127K",
+            "quality_flags": [
+              "Component-resolved UVES spectrum fitted relative to Proxima; method-dependent abundance. Adopted consistently for both A and B from Kervella et al. (2016), with +/-0.20 dex uncertainty.",
+              "section 2.3 and Table 4",
+              "https://arxiv.org/abs/1607.04351",
+              "Supersedes catalog [Fe/H]=-0.42 dex from 2023ApJS..266...41P, also reported by 2012A&A...538A.143K. Kervella et al. (2016), section 2.3, identify the older -0.42 +/-0.10 dex result as a low-resolution combined A+B spectrum, potentially biased low by rapid rotation; it is retained as historical system-level evidence, not an adopted B-component abundance."
+            ]
+          }
+        ],
+        "adopted": {
+          "temperature_k": "2018ApJ...860...15M:luyten-726-8-b",
+          "mass_solar": "2024A&A...685L...9G:luyten-726-8-b",
+          "metallicity_dex": "2016A&A...593A.127K:luyten-726-8-b"
         }
       }
     },
@@ -12697,7 +12888,7 @@
         }
       },
       "reviewedPhysical": {
-        "inputSha256": "665776a81875ac448b82a48c5d7d9d70af5dc54a1f3851843da75abdc0b3b10d",
+        "inputSha256": "4f739cbcda0cb71b78447213c389aa3da8456b2e83072a8dfc6b5dd40f96b3b9",
         "observations": [
           {
             "source_id": "primary-paper",
@@ -13040,7 +13231,7 @@
         }
       },
       "reviewedPhysical": {
-        "inputSha256": "665776a81875ac448b82a48c5d7d9d70af5dc54a1f3851843da75abdc0b3b10d",
+        "inputSha256": "4f739cbcda0cb71b78447213c389aa3da8456b2e83072a8dfc6b5dd40f96b3b9",
         "observations": [
           {
             "source_id": "primary-paper",
@@ -15434,7 +15625,7 @@
         "eligibility": "Not a parsed K5-M9.5 dwarf spectral type (no subdwarf, giant, composite or peculiar class); supplements not applied."
       },
       "reviewedPhysical": {
-        "inputSha256": "665776a81875ac448b82a48c5d7d9d70af5dc54a1f3851843da75abdc0b3b10d",
+        "inputSha256": "4f739cbcda0cb71b78447213c389aa3da8456b2e83072a8dfc6b5dd40f96b3b9",
         "observations": [
           {
             "source_id": "primary-paper",
@@ -16111,7 +16302,7 @@
         }
       },
       "reviewedPhysical": {
-        "inputSha256": "665776a81875ac448b82a48c5d7d9d70af5dc54a1f3851843da75abdc0b3b10d",
+        "inputSha256": "4f739cbcda0cb71b78447213c389aa3da8456b2e83072a8dfc6b5dd40f96b3b9",
         "observations": [
           {
             "source_id": "primary-paper",
@@ -16435,7 +16626,7 @@
         }
       },
       "reviewedPhysical": {
-        "inputSha256": "665776a81875ac448b82a48c5d7d9d70af5dc54a1f3851843da75abdc0b3b10d",
+        "inputSha256": "4f739cbcda0cb71b78447213c389aa3da8456b2e83072a8dfc6b5dd40f96b3b9",
         "observations": [
           {
             "source_id": "primary-paper",
@@ -23544,7 +23735,7 @@
         }
       },
       "reviewedPhysical": {
-        "inputSha256": "665776a81875ac448b82a48c5d7d9d70af5dc54a1f3851843da75abdc0b3b10d",
+        "inputSha256": "4f739cbcda0cb71b78447213c389aa3da8456b2e83072a8dfc6b5dd40f96b3b9",
         "observations": [
           {
             "source_id": "primary-paper",
@@ -33330,7 +33521,7 @@
         "eligibility": "Not a parsed K5-M9.5 dwarf spectral type (no subdwarf, giant, composite or peculiar class); supplements not applied."
       },
       "reviewedPhysical": {
-        "inputSha256": "665776a81875ac448b82a48c5d7d9d70af5dc54a1f3851843da75abdc0b3b10d",
+        "inputSha256": "4f739cbcda0cb71b78447213c389aa3da8456b2e83072a8dfc6b5dd40f96b3b9",
         "observations": [
           {
             "source_id": "primary-paper",

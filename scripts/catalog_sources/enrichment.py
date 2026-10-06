@@ -200,10 +200,10 @@ def enrich_from_frozen(row, main_id=None, aliases=(), derive=True):
             for field, observation in review["fields"].items():
                 if field not in FIELDS:
                     raise ValueError(f"Unknown reviewed physical field: {field}")
-                adopt(field, observation["value"], review["reference"], observation["status"],
+                adopt(field, observation["value"], observation.get("reference", review["reference"]), observation["status"],
                       observation.get("uncertainty"), component=review["component"], scope=review["scope"],
                       section=observation.get("section"), caveat=observation.get("caveat"),
-                      quantity=observation.get("quantity"), sourceUrl=review["url"],
+                      quantity=observation.get("quantity"), sourceUrl=observation.get("url", review["url"]),
                       **{name: observation[name] for name in ("inputs", "sourceRecordId", "method") if name in observation})
             if adopted:
                 row["notes"] += f" Reviewed physical values describe {review['label']}. {review['scope']} {review['note']}"

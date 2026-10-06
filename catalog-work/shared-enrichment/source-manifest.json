@@ -18,8 +18,8 @@
     "catalog-work/landmark-stars/sed.csv": "19b6662da85caf0ec75c57e6ba0b862d321fdc441dfcafc8bc9a56cab712e5ea",
     "catalog-work/landmark-stars/gaia.csv": "851bbf5865d45987d14cdda74691fd8b1b291e0af6353a8096bdb1524ef35d72",
     "catalog-work/nearest-100/source-input.json": "ab8a3ab6e0b0edb1372f7c58cdf4f121fe1d5d204a9a0541e6d302a5ac18c84a",
-    "catalog-work/nearest-100/physical-overrides.json": "665776a81875ac448b82a48c5d7d9d70af5dc54a1f3851843da75abdc0b3b10d",
-    "catalog-work/shared-enrichment/reviewed-physical.json": "178713618193995a63b9e8d98238f19b187705594ef5795dc9cb14ffbd8b8812",
+    "catalog-work/nearest-100/physical-overrides.json": "4f739cbcda0cb71b78447213c389aa3da8456b2e83072a8dfc6b5dd40f96b3b9",
+    "catalog-work/shared-enrichment/reviewed-physical.json": "35c5261c71c98dd090d71001dca722f9f2020b4e905fb23341caf4c1a98ee05d",
     "catalog-work/shared-enrichment/literature/fundamental.adql": "8127e71c93bc01fbc3ebc6de69bb2399d0d8a7dd38af1de099323e6e384d2048",
     "catalog-work/shared-enrichment/literature/fundamental.csv": "87e9d805d41c01526cf5501b8520b2dba4f34ea825b80acddc2de4ff04e988a4",
     "catalog-work/shared-enrichment/literature/sed.adql": "c8d90beeb76787ae627db28b6feba3750794a79f11588ce227bd8e95887e25f3",
@@ -84,6 +84,18 @@
     {
       "name": "Kallinger et al. 2019, Rho Persei granulation-scaling mass and published SED luminosity/radius",
       "url": "https://arxiv.org/html/1902.07531"
+    },
+    {
+      "name": "Kervella et al. 2016, GJ 65 A/B resolved interferometric radii and photospheric iron abundances",
+      "url": "https://arxiv.org/abs/1607.04351"
+    },
+    {
+      "name": "MacDonald et al. 2018, GJ 65 A/B resolved bolometric luminosities and radius-based effective temperatures",
+      "url": "https://arxiv.org/abs/1711.09434"
+    },
+    {
+      "name": "GRAVITY Collaboration 2024, GJ 65 A/B individual dynamical masses",
+      "url": "https://arxiv.org/html/2404.08746v1"
     }
   ]
 }

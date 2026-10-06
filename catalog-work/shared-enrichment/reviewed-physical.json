@@ -30,6 +30,152 @@
         "luminosity_solar": {"value": 2691.534804, "uncertainty": {"lower": 179.6483724, "upper": 192.4966992}, "status": "model-derived", "section": "Table 2, row E", "quantity": "bolometric SED luminosity", "inputs": {"log_luminosity_solar": 3.43, "log_luminosity_uncertainty_dex": 0.03}, "caveat": "McDonald et al. 2017 SED value as adopted by Kallinger; retained at the publication's distance."},
         "radius_solar": {"value": 143, "uncertainty": 12, "status": "derived", "section": "Table 3, row E, note h", "quantity": "Stefan-Boltzmann stellar radius", "inputs": {"temperature_k": 3479, "log_luminosity_solar": 3.43}, "caveat": "Published radius uses 3479 K, not the catalog's preserved 3619 K temperature."}
       }
+    },
+    "G 272-61A": {
+      "label": "Luyten 726-8 A (GJ 65 A)",
+      "component": "A",
+      "scope": "Individual A component, not the unresolved GJ 65 binary.",
+      "reference": "2016A&A...593A.127K",
+      "url": "https://arxiv.org/abs/1607.04351",
+      "note": "Kervella et al. 2016 interferometric radius; MacDonald et al. 2018 resolved bolometric luminosity and temperature using that radius; GRAVITY Collaboration 2024 dynamical mass. Radii/luminosities are retained at their published parallax of 373.70 mas, while the mass uses 371.92 mas. No scalar age is adopted: the magnetic-model ages are assumptions, not age determinations.",
+      "fields": {
+        "temperature_k": {
+          "value": 2784,
+          "uncertainty": 58,
+          "status": "derived",
+          "section": "2, final component luminosities and temperatures",
+          "inputs": {
+            "radius_solar": 0.165,
+            "luminosity_solar": 0.00147
+          },
+          "caveat": "Bolometric flux with BT-Settl missing-flux correction and Kervella 2016 radius; not a spectral-class temperature.",
+          "reference": "2018ApJ...860...15M",
+          "url": "https://arxiv.org/abs/1711.09434"
+        },
+        "mass_solar": {
+          "value": 0.122,
+          "uncertainty": 0.002,
+          "status": "measured",
+          "section": "Table 1",
+          "quantity": "individual dynamical mass",
+          "inputs": {
+            "parallax_mas": 371.92
+          },
+          "caveat": "GRAVITY 2024 orbit and adopted parallax; not the binary total mass.",
+          "reference": "2024A&A...685L...9G",
+          "url": "https://arxiv.org/html/2404.08746v1"
+        },
+        "luminosity_solar": {
+          "value": 0.00147,
+          "uncertainty": 5e-05,
+          "status": "model-derived",
+          "section": "2, final component luminosities",
+          "quantity": "component bolometric luminosity",
+          "inputs": {
+            "parallax_mas": 373.7
+          },
+          "caveat": "Resolved flux ratio and BT-Settl correction outside 1.0435-3.770 microns; retained at the published distance.",
+          "reference": "2018ApJ...860...15M",
+          "url": "https://arxiv.org/abs/1711.09434"
+        },
+        "radius_solar": {
+          "value": 0.165,
+          "uncertainty": 0.006,
+          "status": "derived",
+          "section": "2.1 and Table 4",
+          "quantity": "interferometric photospheric radius",
+          "inputs": {
+            "limb_darkened_angular_diameter_mas": 0.573,
+            "parallax_mas": 373.7
+          },
+          "caveat": "Published limb-darkened diameter and parallax, not recomputed with orbit-contaminated Gaia component parallaxes.",
+          "reference": "2016A&A...593A.127K",
+          "url": "https://arxiv.org/abs/1607.04351"
+        },
+        "metallicity_dex": {
+          "value": -0.03,
+          "uncertainty": 0.2,
+          "status": "measured",
+          "section": "2.3 and Table 4",
+          "quantity": "photospheric [Fe/H]",
+          "reference": "2016A&A...593A.127K",
+          "url": "https://arxiv.org/abs/1607.04351",
+          "caveat": "Component-resolved UVES spectrum fitted relative to Proxima; method-dependent abundance. Adopted consistently for both A and B from Kervella et al. (2016), with +/-0.20 dex uncertainty."
+        }
+      }
+    },
+    "G 272-61B": {
+      "label": "Luyten 726-8 B (GJ 65 B)",
+      "component": "B",
+      "scope": "Individual B component, not the unresolved GJ 65 binary.",
+      "reference": "2016A&A...593A.127K",
+      "url": "https://arxiv.org/abs/1607.04351",
+      "note": "Kervella et al. 2016 interferometric radius; MacDonald et al. 2018 resolved bolometric luminosity and temperature using that radius; GRAVITY Collaboration 2024 dynamical mass. Radii/luminosities are retained at their published parallax of 373.70 mas, while the mass uses 371.92 mas. No scalar age is adopted: the magnetic-model ages are assumptions, not age determinations. Supersedes catalog [Fe/H]=-0.42 dex from 2023ApJS..266...41P, also reported by 2012A&A...538A.143K. Kervella et al. (2016), section 2.3, identify the older -0.42 +/-0.10 dex result as a low-resolution combined A+B spectrum, potentially biased low by rapid rotation; it is retained as historical system-level evidence, not an adopted B-component abundance.",
+      "fields": {
+        "temperature_k": {
+          "value": 2728,
+          "uncertainty": 60,
+          "status": "derived",
+          "section": "2, final component luminosities and temperatures",
+          "inputs": {
+            "radius_solar": 0.159,
+            "luminosity_solar": 0.00125
+          },
+          "caveat": "Bolometric flux with BT-Settl missing-flux correction and Kervella 2016 radius; not a spectral-class temperature.",
+          "reference": "2018ApJ...860...15M",
+          "url": "https://arxiv.org/abs/1711.09434"
+        },
+        "mass_solar": {
+          "value": 0.116,
+          "uncertainty": 0.002,
+          "status": "measured",
+          "section": "Table 1",
+          "quantity": "individual dynamical mass",
+          "inputs": {
+            "parallax_mas": 371.92
+          },
+          "caveat": "GRAVITY 2024 orbit and adopted parallax; not the binary total mass.",
+          "reference": "2024A&A...685L...9G",
+          "url": "https://arxiv.org/html/2404.08746v1"
+        },
+        "luminosity_solar": {
+          "value": 0.00125,
+          "uncertainty": 5e-05,
+          "status": "model-derived",
+          "section": "2, final component luminosities",
+          "quantity": "component bolometric luminosity",
+          "inputs": {
+            "parallax_mas": 373.7
+          },
+          "caveat": "Resolved flux ratio and BT-Settl correction outside 1.0435-3.770 microns; retained at the published distance.",
+          "reference": "2018ApJ...860...15M",
+          "url": "https://arxiv.org/abs/1711.09434"
+        },
+        "radius_solar": {
+          "value": 0.159,
+          "uncertainty": 0.006,
+          "status": "derived",
+          "section": "2.1 and Table 4",
+          "quantity": "interferometric photospheric radius",
+          "inputs": {
+            "limb_darkened_angular_diameter_mas": 0.554,
+            "parallax_mas": 373.7
+          },
+          "caveat": "Published limb-darkened diameter and parallax, not recomputed with orbit-contaminated Gaia component parallaxes.",
+          "reference": "2016A&A...593A.127K",
+          "url": "https://arxiv.org/abs/1607.04351"
+        },
+        "metallicity_dex": {
+          "value": -0.12,
+          "uncertainty": 0.2,
+          "status": "measured",
+          "section": "2.3 and Table 4",
+          "quantity": "photospheric [Fe/H]",
+          "reference": "2016A&A...593A.127K",
+          "url": "https://arxiv.org/abs/1607.04351",
+          "caveat": "Component-resolved UVES spectrum fitted relative to Proxima; method-dependent abundance. Adopted consistently for both A and B from Kervella et al. (2016), with +/-0.20 dex uncertainty. Supersedes catalog [Fe/H]=-0.42 dex from 2023ApJS..266...41P, also reported by 2012A&A...538A.143K. Kervella et al. (2016), section 2.3, identify the older -0.42 +/-0.10 dex result as a low-resolution combined A+B spectrum, potentially biased low by rapid rotation; it is retained as historical system-level evidence, not an adopted B-component abundance."
+        }
+      }
     }
   }
 }

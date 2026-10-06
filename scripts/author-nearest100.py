@@ -257,7 +257,7 @@ def apply_reviewed_and_gaia_physical(row, reviewed, gaia, fields=None):
                 row["notes"],
             ).strip()
             row["notes"] = re.sub(
-                r"\s*[Tt]emperature is (?:[^.]*? )?class estimate\.",
+                r"\s*[Tt]emperature is (?:[A-Za-z0-9.+/-]+\s+)*class estimate\.",
                 "",
                 row["notes"],
             ).strip()
