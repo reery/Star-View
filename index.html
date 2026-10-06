@@ -26,76 +26,91 @@
                   <details id="object-card-details">
                     <summary class="selection-summary" aria-labelledby="star-name">
                       <span class="identity">
-                        <span class="identity-heading"><span id="selected-swatch" class="star-swatch"></span><span id="star-name" class="star-name"></span></span>
-                        <span id="star-distance" class="star-distance"></span>
+                        <canvas id="selected-swatch" width="168" height="168" aria-hidden="true"></canvas>
+                        <span class="identity-heading">
+                          <span class="identity-title">
+                            <span id="star-name" class="star-name"></span>
+                            <span id="star-distance" class="star-distance"></span>
+                          </span>
+                          <span id="star-components" class="star-components" role="group" aria-label="System components" hidden></span>
+                        </span>
+                      </span>
+                      <span class="object-card-footer" role="group" aria-label="Object details">
+                        <button id="object-specs-toggle" class="object-section-button" type="button" aria-label="Specs" title="Specs" aria-controls="object-specs" aria-expanded="false"><span id="object-specs-icon"></span></button>
+                        <button id="object-info-toggle" class="object-section-button" type="button" aria-label="Info" title="Info" aria-controls="object-info" aria-expanded="false"><span id="object-info-icon"></span></button>
+                        <button id="object-system-toggle" class="object-section-button" type="button" aria-label="System" title="System" aria-controls="object-system" aria-expanded="false"><span id="object-system-icon"></span></button>
                       </span>
                     </summary>
                     <div class="object-card-body">
-                      <section class="properties-section" aria-label="Object properties">
-                        <dl class="properties">
-                          <div><dt>Distance from Sun</dt><dd><span id="distance-value"></span><span id="distance-unit"> ly</span></dd></div>
-                          <div class="object-type-row"><dt>Object type</dt><dd><button id="object-type-toggle" class="object-type-toggle" type="button" aria-controls="object-type-card" aria-expanded="false"><span id="object-type"></span></button></dd></div>
-                          <div><dt>Constellation</dt><dd id="constellation"></dd></div>
-                          <div class="stellar-property"><dt>Spectral type</dt><dd id="spectral-type"></dd></div>
-                          <div class="stellar-property"><dt>Temperature</dt><dd id="temperature"></dd></div>
-                          <div id="luminosity-row" class="stellar-property"><dt>Bolometric luminosity</dt><dd id="luminosity"></dd></div>
-                          <div id="mass-row"><dt>Mass</dt><dd id="mass"></dd></div>
-                          <div class="stellar-property"><dt>Radius</dt><dd id="radius"></dd></div>
-                          <div class="stellar-property"><dt>Metallicity [M/H]</dt><dd id="metallicity"></dd></div>
-                          <div class="stellar-property"><dt>Age</dt><dd id="age"></dd></div>
-                          <div class="stellar-property"><dt>Absolute mag. (V)</dt><dd id="absolute-mag"></dd></div>
-                          <div class="compact-property" hidden><dt>Status</dt><dd id="compact-status"></dd></div>
-                          <div class="compact-property rotation-property" hidden><dt>Rotation</dt><dd id="rotation-period"></dd></div>
-                          <div class="compact-property pulsar-property" hidden><dt>Radio luminosity (1400 MHz)</dt><dd id="radio-luminosity"></dd></div>
-                          <div class="compact-property pulsar-property" hidden><dt>Characteristic age</dt><dd id="characteristic-age"></dd></div>
-                          <div class="compact-property pulsar-property" hidden><dt>Surface magnetic field</dt><dd id="surface-field"></dd></div>
-                          <div class="compact-property pulsar-property" hidden><dt>Spin-down power</dt><dd id="spin-down-power"></dd></div>
-                          <div class="compact-property orbit-property" hidden><dt>Orbital period</dt><dd id="orbital-period"></dd></div>
-                          <div class="compact-property orbit-property" hidden><dt>Companion</dt><dd id="compact-companion"></dd></div>
-                          <div class="compact-property" hidden><dt>Detection</dt><dd id="detection-method"></dd></div>
-                          <div class="compact-property" hidden><dt>Source</dt><dd><a id="compact-source" target="_blank" rel="noreferrer"></a></dd></div>
-                          <div class="nebula-property" hidden><dt>Apparent size</dt><dd id="nebula-angular-size"></dd></div>
-                          <div class="nebula-property" hidden><dt>Modeled extent</dt><dd id="nebula-extent"></dd></div>
-                          <div class="nebula-property" hidden><dt>Illuminated by</dt><dd id="nebula-illumination"></dd></div>
-                          <div class="nebula-property" hidden><dt>Distance source</dt><dd id="nebula-distance-source"></dd></div>
-                          <div class="nebula-property" hidden><dt>Source</dt><dd><a id="nebula-source" target="_blank" rel="noreferrer"></a></dd></div>
-                          <div class="molecular-cloud-property" hidden><dt>Cloud complex</dt><dd id="molecular-cloud-complex"></dd></div>
-                          <div class="molecular-cloud-property" hidden><dt>Equivalent radius</dt><dd id="molecular-cloud-radius"></dd></div>
-                          <div class="molecular-cloud-property" hidden><dt>Mean density</dt><dd id="molecular-cloud-density"></dd></div>
-                          <div class="molecular-cloud-property" hidden><dt>Peak density</dt><dd id="molecular-cloud-peak-density"></dd></div>
-                          <div class="molecular-cloud-property" hidden><dt>Segmented volume</dt><dd id="molecular-cloud-volume"></dd></div>
-                          <div class="molecular-cloud-property" hidden><dt>Source geometry</dt><dd id="molecular-cloud-resolution"></dd></div>
-                          <div class="molecular-cloud-property" hidden><dt>Source</dt><dd><a id="molecular-cloud-source" target="_blank" rel="noreferrer"></a></dd></div>
-                          <div class="bubble-property" hidden><dt>Average shell radius</dt><dd id="bubble-average-radius"></dd></div>
-                          <div class="bubble-property" hidden><dt>Shell distance range</dt><dd id="bubble-surface-range"></dd></div>
-                          <div class="bubble-property" hidden><dt>Typical shell thickness</dt><dd id="bubble-shell-thickness"></dd></div>
-                          <div class="bubble-property" hidden><dt>Source</dt><dd><a id="bubble-source" target="_blank" rel="noreferrer"></a></dd></div>
-                          <div class="designations-property"><dt>Designations</dt><dd><ul id="object-designations" class="designation-list"></ul></dd></div>
-                        </dl>
-                      </section>
-                      <details class="source-details">
-                        <summary>Coordinates &amp; source</summary>
-                        <dl class="properties coordinate-properties">
-                          <div><dt>X</dt><dd id="coordinate-x"></dd></div>
-                          <div><dt>Y</dt><dd id="coordinate-y"></dd></div>
-                          <div><dt>Z</dt><dd id="coordinate-z"></dd></div>
-                          <div><dt>In-plane distance</dt><dd id="plane-distance"></dd></div>
-                          <div><dt>Epoch</dt><dd id="epoch"></dd></div>
-                          <div><dt>Velocity X</dt><dd id="velocity-x"></dd></div>
-                          <div><dt>Velocity Y</dt><dd id="velocity-y"></dd></div>
-                          <div><dt>Velocity Z</dt><dd id="velocity-z"></dd></div>
-                          <div><dt>Motion data</dt><dd id="motion-data"></dd></div>
-                          <div><dt>Right ascension</dt><dd id="right-ascension"></dd></div>
-                          <div><dt>Declination</dt><dd id="declination"></dd></div>
-                          <div><dt>Astrometry epoch</dt><dd id="astrometry-epoch"></dd></div>
-                          <div><dt>Parallax</dt><dd id="parallax"></dd></div>
-                          <div><dt>RA proper motion</dt><dd id="proper-motion-ra"></dd></div>
-                          <div><dt>Dec proper motion</dt><dd id="proper-motion-dec"></dd></div>
-                          <div><dt>Radial velocity</dt><dd id="radial-velocity"></dd></div>
-                          <div><dt>Astrometry source</dt><dd id="astrometry-source"></dd></div>
-                        </dl>
-                        <p id="star-notes" class="star-notes"></p>
-                      </details>
+                      <div id="object-specs">
+                        <section class="properties-section" aria-label="Object properties">
+                          <dl class="properties">
+                            <div><dt>Distance from Sun</dt><dd><span id="distance-value"></span><span id="distance-unit"> ly</span></dd></div>
+                            <div class="object-type-row"><dt>Object type</dt><dd><button id="object-type-toggle" class="object-type-toggle" type="button" aria-controls="object-type-card" aria-expanded="false"><span id="object-type"></span></button></dd></div>
+                            <div><dt>Constellation</dt><dd id="constellation"></dd></div>
+                            <div class="stellar-property"><dt>Spectral type</dt><dd id="spectral-type"></dd></div>
+                            <div class="stellar-property"><dt>Temperature</dt><dd id="temperature"></dd></div>
+                            <div id="luminosity-row" class="stellar-property"><dt>Bolometric luminosity</dt><dd id="luminosity"></dd></div>
+                            <div id="mass-row"><dt>Mass</dt><dd id="mass"></dd></div>
+                            <div class="stellar-property"><dt>Radius</dt><dd id="radius"></dd></div>
+                            <div class="stellar-property metallicity-row"><dt>Metallicity [M/H]</dt><dd><button id="metallicity-toggle" class="object-type-toggle" type="button" aria-controls="metallicity-card" aria-expanded="false"><span id="metallicity"></span></button></dd></div>
+                            <div class="stellar-property"><dt>Age</dt><dd id="age"></dd></div>
+                            <div class="stellar-property"><dt>Absolute mag. (V)</dt><dd id="absolute-mag"></dd></div>
+                            <div class="compact-property" hidden><dt>Status</dt><dd id="compact-status"></dd></div>
+                            <div class="compact-property rotation-property" hidden><dt>Rotation</dt><dd id="rotation-period"></dd></div>
+                            <div class="compact-property pulsar-property" hidden><dt>Radio luminosity (1400 MHz)</dt><dd id="radio-luminosity"></dd></div>
+                            <div class="compact-property pulsar-property" hidden><dt>Characteristic age</dt><dd id="characteristic-age"></dd></div>
+                            <div class="compact-property pulsar-property" hidden><dt>Surface magnetic field</dt><dd id="surface-field"></dd></div>
+                            <div class="compact-property pulsar-property" hidden><dt>Spin-down power</dt><dd id="spin-down-power"></dd></div>
+                            <div class="compact-property orbit-property" hidden><dt>Orbital period</dt><dd id="orbital-period"></dd></div>
+                            <div class="compact-property orbit-property" hidden><dt>Companion</dt><dd id="compact-companion"></dd></div>
+                            <div class="compact-property" hidden><dt>Detection</dt><dd id="detection-method"></dd></div>
+                            <div class="compact-property" hidden><dt>Source</dt><dd><a id="compact-source" target="_blank" rel="noreferrer"></a></dd></div>
+                            <div class="nebula-property" hidden><dt>Apparent size</dt><dd id="nebula-angular-size"></dd></div>
+                            <div class="nebula-property" hidden><dt>Modeled extent</dt><dd id="nebula-extent"></dd></div>
+                            <div class="nebula-property" hidden><dt>Illuminated by</dt><dd id="nebula-illumination"></dd></div>
+                            <div class="nebula-property" hidden><dt>Distance source</dt><dd id="nebula-distance-source"></dd></div>
+                            <div class="nebula-property" hidden><dt>Source</dt><dd><a id="nebula-source" target="_blank" rel="noreferrer"></a></dd></div>
+                            <div class="molecular-cloud-property" hidden><dt>Cloud complex</dt><dd id="molecular-cloud-complex"></dd></div>
+                            <div class="molecular-cloud-property" hidden><dt>Equivalent radius</dt><dd id="molecular-cloud-radius"></dd></div>
+                            <div class="molecular-cloud-property" hidden><dt>Mean density</dt><dd id="molecular-cloud-density"></dd></div>
+                            <div class="molecular-cloud-property" hidden><dt>Peak density</dt><dd id="molecular-cloud-peak-density"></dd></div>
+                            <div class="molecular-cloud-property" hidden><dt>Segmented volume</dt><dd id="molecular-cloud-volume"></dd></div>
+                            <div class="molecular-cloud-property" hidden><dt>Source geometry</dt><dd id="molecular-cloud-resolution"></dd></div>
+                            <div class="molecular-cloud-property" hidden><dt>Source</dt><dd><a id="molecular-cloud-source" target="_blank" rel="noreferrer"></a></dd></div>
+                            <div class="bubble-property" hidden><dt>Average shell radius</dt><dd id="bubble-average-radius"></dd></div>
+                            <div class="bubble-property" hidden><dt>Shell distance range</dt><dd id="bubble-surface-range"></dd></div>
+                            <div class="bubble-property" hidden><dt>Typical shell thickness</dt><dd id="bubble-shell-thickness"></dd></div>
+                            <div class="bubble-property" hidden><dt>Source</dt><dd><a id="bubble-source" target="_blank" rel="noreferrer"></a></dd></div>
+                            <div class="designations-property"><dt>Designations</dt><dd><ul id="object-designations" class="designation-list"></ul></dd></div>
+                          </dl>
+                        </section>
+                        <details class="source-details">
+                          <summary>Coordinates &amp; source</summary>
+                          <dl class="properties coordinate-properties">
+                            <div><dt>X</dt><dd id="coordinate-x"></dd></div>
+                            <div><dt>Y</dt><dd id="coordinate-y"></dd></div>
+                            <div><dt>Z</dt><dd id="coordinate-z"></dd></div>
+                            <div><dt>In-plane distance</dt><dd id="plane-distance"></dd></div>
+                            <div><dt>Epoch</dt><dd id="epoch"></dd></div>
+                            <div><dt>Velocity X</dt><dd id="velocity-x"></dd></div>
+                            <div><dt>Velocity Y</dt><dd id="velocity-y"></dd></div>
+                            <div><dt>Velocity Z</dt><dd id="velocity-z"></dd></div>
+                            <div><dt>Motion data</dt><dd id="motion-data"></dd></div>
+                            <div><dt>Right ascension</dt><dd id="right-ascension"></dd></div>
+                            <div><dt>Declination</dt><dd id="declination"></dd></div>
+                            <div><dt>Astrometry epoch</dt><dd id="astrometry-epoch"></dd></div>
+                            <div><dt>Parallax</dt><dd id="parallax"></dd></div>
+                            <div><dt>RA proper motion</dt><dd id="proper-motion-ra"></dd></div>
+                            <div><dt>Dec proper motion</dt><dd id="proper-motion-dec"></dd></div>
+                            <div><dt>Radial velocity</dt><dd id="radial-velocity"></dd></div>
+                            <div><dt>Astrometry source</dt><dd id="astrometry-source"></dd></div>
+                          </dl>
+                          <p id="star-notes" class="star-notes"></p>
+                        </details>
+                      </div>
+                      <section id="object-info" aria-label="Wikipedia summary" hidden></section>
+                      <section id="object-system" aria-label="Star and planet system" hidden></section>
                     </div>
                   </details>
                 </div>
@@ -113,8 +128,31 @@
                 <p class="object-type-credit"><span id="object-type-caption"></span> · <a id="object-type-image-source" target="_blank" rel="noreferrer"></a></p>
               </div>
             </section>
+            <section id="metallicity-card" class="dock-card object-type-card metallicity-card" aria-labelledby="metallicity-heading" data-scene-obstacle hidden>
+              <div class="panel-heading">
+                <h2 id="metallicity-heading">Metallicity [M/H]</h2>
+                <button id="metallicity-close" class="panel-lock" type="button" aria-label="Close metallicity card"><span id="metallicity-close-icon"></span></button>
+              </div>
+              <div class="metallicity-body">
+                <div id="metallicity-scale" class="metallicity-scale" role="img">
+                  <div class="metallicity-track" aria-hidden="true">
+                    <span class="metallicity-sun-tick"></span>
+                    <span id="metallicity-marker" class="metallicity-marker"><span id="metallicity-marker-value" class="metallicity-marker-value"></span></span>
+                  </div>
+                  <div class="metallicity-scale-labels" aria-hidden="true"><span id="metallicity-min">−2</span><span class="metallicity-sun">0<span>Sun</span></span><span id="metallicity-max">+2</span></div>
+                </div>
+                <p id="metallicity-description"></p>
+              </div>
+            </section>
             <div class="scene-toolbar" role="group" aria-label="Map view controls" data-scene-obstacle>
-              <button id="reset-view" class="icon-button" type="button" aria-label="Reset view" disabled><span id="reset-icon"></span><span class="tooltip">Reset view</span></button>
+              <div class="camera-view-controls" role="group" aria-label="Camera views">
+                <button id="reset-view" class="icon-button" type="button" aria-label="Reset view" disabled><span id="reset-icon"></span><span class="tooltip">Reset view</span></button>
+                <div class="camera-view-options">
+                  <button id="top-view" class="icon-button camera-view-button" type="button" aria-label="Top view" aria-controls="scene" disabled>Top</button>
+                  <button id="side-view" class="icon-button camera-view-button" type="button" aria-label="Side view" aria-controls="scene" disabled>Side</button>
+                  <button id="front-view" class="icon-button camera-view-button" type="button" aria-label="Front view" aria-controls="scene" disabled>Front</button>
+                </div>
+              </div>
               <button id="toggle-grid" class="icon-button" type="button" aria-label="Grid" aria-pressed="true" aria-controls="scene" disabled><span id="grid-icon"></span><span id="grid-tooltip" class="tooltip">Hide grid</span></button>
               <span class="toolbar-divider"></span>
               <button id="views-toggle" class="icon-button panel-button" type="button" aria-label="Saved views" aria-controls="views-panel" aria-expanded="false" disabled><span id="views-icon"></span><span class="tooltip">Saved views</span></button>
@@ -126,12 +164,15 @@
               <button id="observer-view" class="icon-button observer-view-button" type="button" aria-label="Enter observer view" aria-pressed="false" aria-controls="scene" disabled><span id="observer-view-icon"></span><span id="observer-view-tooltip" class="tooltip">Observer view</span></button>
             </div>
             <section id="views-panel" class="dock-card saved-views-card" aria-labelledby="views-heading" data-scene-obstacle hidden>
-              <div class="panel-heading saved-views-heading"><h2 id="views-heading">Saved views</h2><p id="saved-views-status" class="saved-views-status" role="status" aria-live="polite"></p></div>
-              <form id="save-view-form" class="save-view-form">
-                <label class="sr-only" for="save-view-name">View name</label>
-                <input id="save-view-name" type="text" maxlength="80" placeholder="Name this view" autocomplete="off" required>
+              <form id="save-view-form" class="panel-heading saved-views-heading">
+                <h2 id="views-heading">Saved views</h2>
+                <div class="save-view-name-field">
+                  <label class="sr-only" for="save-view-name">View name</label>
+                  <input id="save-view-name" type="text" maxlength="80" placeholder="Name this view" autocomplete="off" required>
+                </div>
                 <button id="save-view" class="save-view-button" type="submit" aria-label="Save current view" title="Save current view"><span id="save-view-icon"></span></button>
               </form>
+              <p id="saved-views-status" class="sr-only" role="status" aria-live="polite"></p>
               <p id="saved-views-empty" class="saved-views-empty">No saved views yet.</p>
               <div id="saved-views-table-wrap" class="saved-views-table-wrap" hidden>
                 <table class="saved-views-table">
@@ -147,6 +188,7 @@
                 <button id="filter-toggle" class="icon-button panel-button" type="button" aria-label="Filter" aria-controls="filter-panel" aria-expanded="false"><span id="filter-icon"></span><span class="tooltip">Filter</span></button>
                 <button id="preferences-toggle" class="icon-button panel-button" type="button" aria-label="Preferences" aria-controls="preferences-panel" aria-expanded="false"><span id="preferences-icon"></span><span class="tooltip">Preferences</span></button>
                 <button id="objects-toggle" class="icon-button panel-button" type="button" aria-label="Objects" aria-controls="objects-panel" aria-expanded="false"><span id="objects-icon"></span><span class="tooltip">Objects</span></button>
+                <button id="glossary-toggle" class="icon-button panel-button" type="button" aria-label="Glossary" aria-controls="glossary-panel" aria-expanded="false"><span id="glossary-icon"></span><span class="tooltip">Glossary</span></button>
                 <button id="info-toggle" class="icon-button panel-button" type="button" aria-label="Info" aria-controls="info-panel" aria-expanded="false"><span id="info-icon"></span><span class="tooltip">Info</span></button>
               </div>
               <section id="motion-panel" class="dock-card time-controls" aria-label="Stellar motion timeline" data-scene-obstacle hidden>
@@ -258,6 +300,32 @@
                   <input id="object-search" type="search" placeholder="Search objects" autocomplete="off" />
                 </div>
                 <div id="star-list" class="star-list" role="group" aria-label="Nearby objects"></div>
+              </section>
+              <section id="glossary-panel" class="dock-card glossary-card" aria-labelledby="glossary-heading" data-scene-obstacle hidden>
+                <div class="panel-heading glossary-heading">
+                  <h2 id="glossary-heading">Glossary</h2>
+                  <div class="glossary-search">
+                    <span id="glossary-search-icon"></span>
+                    <label class="sr-only" for="glossary-search">Search glossary terms</label>
+                    <input id="glossary-search" type="search" placeholder="Search terms" autocomplete="off" spellcheck="false" />
+                  </div>
+                  <button id="glossary-lock" class="panel-lock" type="button" aria-label="Keep Glossary open" aria-pressed="false"><span id="glossary-lock-icon"></span></button>
+                </div>
+                <div class="glossary-body">
+                  <nav id="glossary-terms" class="glossary-terms" aria-label="Glossary terms"></nav>
+                  <article id="glossary-detail" class="glossary-detail" aria-labelledby="glossary-term-heading">
+                    <h3 id="glossary-term-heading"></h3>
+                    <figure id="glossary-figure" class="glossary-figure" hidden>
+                      <img id="glossary-image" alt="" />
+                      <figcaption id="glossary-caption"></figcaption>
+                    </figure>
+                    <p id="glossary-description" class="glossary-description"></p>
+                    <a id="glossary-source" class="glossary-source" target="_blank" rel="noreferrer">Read more on Wikipedia <span aria-hidden="true">↗</span></a>
+                    <p class="glossary-attribution">Summarized from Wikipedia · <a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noreferrer">CC BY-SA 4.0</a></p>
+                    <p id="glossary-image-credit" class="glossary-image-credit" hidden></p>
+                  </article>
+                  <p id="glossary-empty" class="glossary-empty" role="status" hidden>No matching terms. Try another search.</p>
+                </div>
               </section>
               <section id="info-panel" class="dock-card info-card" aria-labelledby="info-heading" hidden>
                 <div class="info-brand">

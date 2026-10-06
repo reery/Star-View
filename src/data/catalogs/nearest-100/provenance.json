@@ -8,7 +8,7 @@
   "gaiaSourceManifestSha256": "2be61990729716fc4005ca5e0998ea2a67939060e8161391898fd32d20fff974",
   "physicalOverridesSha256": "59aeae9b903d977b550843799a09888a24cbb0f7ead137baf4d51765ea7738c9",
   "physicalPolicyRevision": "nearest100-reviewed-gaia-shared-v2",
-  "sharedEnrichmentManifestSha256": "7e823401fdbfc9ae6cb2353abca7153ba484217cb200f72fb95ed99c8699a56a",
+  "sharedEnrichmentManifestSha256": "724d1da5b0cc21bd0f4d7e734e546aa09014d32330d1896ebca775bf7b593244",
   "sources": [
     {
       "name": "10pc census, Reyle et al., tablea1 update 2023-08-25",
@@ -141,6 +141,18 @@
     {
       "name": "Gaia DR3, exact-ID quality-filtered astrophysical parameters",
       "url": "https://gea.esac.esa.int/archive/"
+    },
+    {
+      "name": "SIMBAD mesFe_h: exact-object published spectroscopic temperatures and photospheric iron abundances, full measurement pool frozen 2026-10-05",
+      "url": "https://simbad.cds.unistra.fr/simbad/sim-tap"
+    },
+    {
+      "name": "Bond et al. 2020, Mu Cas A dynamical mass, preferred physical parameters and uncertain model age",
+      "url": "https://arxiv.org/abs/2010.06609"
+    },
+    {
+      "name": "Kallinger et al. 2019, Rho Persei granulation-scaling mass and published SED luminosity/radius",
+      "url": "https://arxiv.org/html/1902.07531"
     }
   ],
   "sourceChecksumsSha256": {
@@ -186,7 +198,7 @@
     "mass_solar": 66,
     "luminosity_solar": 68,
     "radius_solar": 67,
-    "metallicity_dex": 37,
+    "metallicity_dex": 62,
     "age_gyr": 14,
     "absolute_mag": 50,
     "fullVelocity": 72,
@@ -7587,8 +7599,11 @@
           "detail": "cifuentes-2020; uncertainty 0.0053; fills a blank field only."
         },
         "metallicity_dex": {
-          "status": "unknown",
-          "sourceRefs": []
+          "status": "measured",
+          "sourceRefs": [
+            "2024A&A...691A..53S"
+          ],
+          "detail": "{\"field\": \"metallicity_dex\", \"identity\": \"Wolf 359\", \"quantity\": \"photospheric [Fe/H]\", \"reference\": \"2024A&A...691A..53S\", \"scope\": \"catalogued stellar object\", \"selection\": \"Newest within 0.3 dex / 10 percent of the median; strict majority required for multiple observations\", \"sourceRecordId\": \"Wolf 359:mesFe_h:1\", \"status\": \"measured\", \"uncertainty\": null, \"value\": 0.18}"
         },
         "age_gyr": {
           "status": "unknown",
@@ -7631,6 +7646,20 @@
           ],
           "reasons": [],
           "status": "adopted"
+        }
+      },
+      "sharedPhysicalEnrichment": {
+        "metallicity_dex": {
+          "field": "metallicity_dex",
+          "value": 0.18,
+          "status": "measured",
+          "reference": "2024A&A...691A..53S",
+          "uncertainty": null,
+          "identity": "Wolf 359",
+          "sourceRecordId": "Wolf 359:mesFe_h:1",
+          "quantity": "photospheric [Fe/H]",
+          "selection": "Newest within 0.3 dex / 10 percent of the median; strict majority required for multiple observations",
+          "scope": "catalogued stellar object"
         }
       }
     },
@@ -9145,8 +9174,11 @@
           "sourceRefs": []
         },
         "metallicity_dex": {
-          "status": "unknown",
-          "sourceRefs": []
+          "status": "measured",
+          "sourceRefs": [
+            "2023ApJS..266...41P"
+          ],
+          "detail": "{\"field\": \"metallicity_dex\", \"identity\": \"G 272-61B\", \"quantity\": \"photospheric [Fe/H]\", \"reference\": \"2023ApJS..266...41P\", \"scope\": \"catalogued stellar object\", \"selection\": \"Newest within 0.3 dex / 10 percent of the median; strict majority required for multiple observations\", \"sourceRecordId\": \"G 272-61B:mesFe_h:2\", \"status\": \"measured\", \"uncertainty\": null, \"value\": -0.42}"
         },
         "age_gyr": {
           "status": "unknown",
@@ -9172,6 +9204,20 @@
           "reasons": [
             "No unique 2MASS identifier"
           ]
+        }
+      },
+      "sharedPhysicalEnrichment": {
+        "metallicity_dex": {
+          "field": "metallicity_dex",
+          "value": -0.42,
+          "status": "measured",
+          "reference": "2023ApJS..266...41P",
+          "uncertainty": null,
+          "identity": "G 272-61B",
+          "sourceRecordId": "G 272-61B:mesFe_h:2",
+          "quantity": "photospheric [Fe/H]",
+          "selection": "Newest within 0.3 dex / 10 percent of the median; strict majority required for multiple observations",
+          "scope": "catalogued stellar object"
         }
       }
     },
@@ -9751,8 +9797,11 @@
           "detail": "cifuentes-2020; uncertainty 0.0059; fills a blank field only."
         },
         "metallicity_dex": {
-          "status": "unknown",
-          "sourceRefs": []
+          "status": "measured",
+          "sourceRefs": [
+            "2025ApJ...978..154J"
+          ],
+          "detail": "{\"field\": \"metallicity_dex\", \"identity\": \"Ross 248\", \"quantity\": \"photospheric [Fe/H]\", \"reference\": \"2025ApJ...978..154J\", \"scope\": \"catalogued stellar object\", \"selection\": \"Newest within 0.3 dex / 10 percent of the median; strict majority required for multiple observations\", \"sourceRecordId\": \"Ross 248:mesFe_h:3\", \"status\": \"measured\", \"uncertainty\": null, \"value\": -0.22}"
         },
         "age_gyr": {
           "status": "unknown",
@@ -9796,6 +9845,20 @@
           ],
           "reasons": [],
           "status": "adopted"
+        }
+      },
+      "sharedPhysicalEnrichment": {
+        "metallicity_dex": {
+          "field": "metallicity_dex",
+          "value": -0.22,
+          "status": "measured",
+          "reference": "2025ApJ...978..154J",
+          "uncertainty": null,
+          "identity": "Ross 248",
+          "sourceRecordId": "Ross 248:mesFe_h:3",
+          "quantity": "photospheric [Fe/H]",
+          "selection": "Newest within 0.3 dex / 10 percent of the median; strict majority required for multiple observations",
+          "scope": "catalogued stellar object"
         }
       }
     },
@@ -15552,8 +15615,11 @@
           "detail": "cifuentes-2020; uncertainty 0.0058; fills a blank field only."
         },
         "metallicity_dex": {
-          "status": "unknown",
-          "sourceRefs": []
+          "status": "measured",
+          "sourceRefs": [
+            "2024A&A...691A..53S"
+          ],
+          "detail": "{\"field\": \"metallicity_dex\", \"identity\": \"L 372-58\", \"quantity\": \"photospheric [Fe/H]\", \"reference\": \"2024A&A...691A..53S\", \"scope\": \"catalogued stellar object\", \"selection\": \"Newest within 0.3 dex / 10 percent of the median; strict majority required for multiple observations\", \"sourceRecordId\": \"L 372-58:mesFe_h:1\", \"status\": \"measured\", \"uncertainty\": null, \"value\": -0.08}"
         },
         "age_gyr": {
           "status": "unknown",
@@ -15594,6 +15660,20 @@
           ],
           "reasons": [],
           "status": "adopted"
+        }
+      },
+      "sharedPhysicalEnrichment": {
+        "metallicity_dex": {
+          "field": "metallicity_dex",
+          "value": -0.08,
+          "status": "measured",
+          "reference": "2024A&A...691A..53S",
+          "uncertainty": null,
+          "identity": "L 372-58",
+          "sourceRecordId": "L 372-58:mesFe_h:1",
+          "quantity": "photospheric [Fe/H]",
+          "selection": "Newest within 0.3 dex / 10 percent of the median; strict majority required for multiple observations",
+          "scope": "catalogued stellar object"
         }
       }
     },
@@ -16484,8 +16564,11 @@
           "detail": "cifuentes-2020; uncertainty 0.0056; fills a blank field only."
         },
         "metallicity_dex": {
-          "status": "unknown",
-          "sourceRefs": []
+          "status": "measured",
+          "sourceRefs": [
+            "2024A&A...691A..53S"
+          ],
+          "detail": "{\"field\": \"metallicity_dex\", \"identity\": \"V* YZ Cet\", \"quantity\": \"photospheric [Fe/H]\", \"reference\": \"2024A&A...691A..53S\", \"scope\": \"catalogued stellar object\", \"selection\": \"Newest within 0.3 dex / 10 percent of the median; strict majority required for multiple observations\", \"sourceRecordId\": \"V* YZ Cet:mesFe_h:1\", \"status\": \"measured\", \"uncertainty\": null, \"value\": -0.26}"
         },
         "age_gyr": {
           "status": "unknown",
@@ -16527,6 +16610,20 @@
           ],
           "reasons": [],
           "status": "adopted"
+        }
+      },
+      "sharedPhysicalEnrichment": {
+        "metallicity_dex": {
+          "field": "metallicity_dex",
+          "value": -0.26,
+          "status": "measured",
+          "reference": "2024A&A...691A..53S",
+          "uncertainty": null,
+          "identity": "V* YZ Cet",
+          "sourceRecordId": "V* YZ Cet:mesFe_h:1",
+          "quantity": "photospheric [Fe/H]",
+          "selection": "Newest within 0.3 dex / 10 percent of the median; strict majority required for multiple observations",
+          "scope": "catalogued stellar object"
         }
       }
     },
@@ -17124,8 +17221,11 @@
           "detail": "cifuentes-2020; uncertainty 0.0041; fills a blank field only."
         },
         "metallicity_dex": {
-          "status": "unknown",
-          "sourceRefs": []
+          "status": "measured",
+          "sourceRefs": [
+            "2024A&A...691A..53S"
+          ],
+          "detail": "{\"field\": \"metallicity_dex\", \"identity\": \"NAME Teegarden's Star\", \"quantity\": \"photospheric [Fe/H]\", \"reference\": \"2024A&A...691A..53S\", \"scope\": \"catalogued stellar object\", \"selection\": \"Newest within 0.3 dex / 10 percent of the median; strict majority required for multiple observations\", \"sourceRecordId\": \"NAME Teegarden's Star:mesFe_h:1\", \"status\": \"measured\", \"uncertainty\": null, \"value\": -0.19}"
         },
         "age_gyr": {
           "status": "unknown",
@@ -17167,6 +17267,20 @@
           ],
           "reasons": [],
           "status": "adopted"
+        }
+      },
+      "sharedPhysicalEnrichment": {
+        "metallicity_dex": {
+          "field": "metallicity_dex",
+          "value": -0.19,
+          "status": "measured",
+          "reference": "2024A&A...691A..53S",
+          "uncertainty": null,
+          "identity": "NAME Teegarden's Star",
+          "sourceRecordId": "NAME Teegarden's Star:mesFe_h:1",
+          "quantity": "photospheric [Fe/H]",
+          "selection": "Newest within 0.3 dex / 10 percent of the median; strict majority required for multiple observations",
+          "scope": "catalogued stellar object"
         }
       }
     },
@@ -17729,8 +17843,11 @@
           "sourceRefs": []
         },
         "metallicity_dex": {
-          "status": "unknown",
-          "sourceRefs": []
+          "status": "measured",
+          "sourceRefs": [
+            "2024A&A...683A.125P"
+          ],
+          "detail": "{\"field\": \"metallicity_dex\", \"identity\": \"V* AX Mic\", \"quantity\": \"photospheric [Fe/H]\", \"reference\": \"2024A&A...683A.125P\", \"scope\": \"catalogued stellar object\", \"selection\": \"Newest within 0.3 dex / 10 percent of the median; strict majority required for multiple observations\", \"sourceRecordId\": \"V* AX Mic:mesFe_h:1\", \"status\": \"measured\", \"uncertainty\": null, \"value\": 0.0}"
         },
         "age_gyr": {
           "status": "unknown",
@@ -17755,6 +17872,20 @@
           "reasons": [
             "2MASS Ks quality, blend or contamination flag not clean (requires Q=A/B, B=1, C=0)"
           ]
+        }
+      },
+      "sharedPhysicalEnrichment": {
+        "metallicity_dex": {
+          "field": "metallicity_dex",
+          "value": 0.0,
+          "status": "measured",
+          "reference": "2024A&A...683A.125P",
+          "uncertainty": null,
+          "identity": "V* AX Mic",
+          "sourceRecordId": "V* AX Mic:mesFe_h:1",
+          "quantity": "photospheric [Fe/H]",
+          "selection": "Newest within 0.3 dex / 10 percent of the median; strict majority required for multiple observations",
+          "scope": "catalogued stellar object"
         }
       }
     },
@@ -19355,8 +19486,11 @@
           "sourceRefs": []
         },
         "metallicity_dex": {
-          "status": "unknown",
-          "sourceRefs": []
+          "status": "measured",
+          "sourceRefs": [
+            "2021MNRAS.508.5148C"
+          ],
+          "detail": "{\"field\": \"metallicity_dex\", \"identity\": \"Ross 614\", \"quantity\": \"photospheric [Fe/H]\", \"reference\": \"2021MNRAS.508.5148C\", \"scope\": \"SIMBAD object as catalogued; unresolved spectra may be primary-dominated\", \"selection\": \"Newest within 0.3 dex / 10 percent of the median; strict majority required for multiple observations\", \"sourceRecordId\": \"Ross 614:mesFe_h:1\", \"status\": \"measured\", \"uncertainty\": null, \"value\": -0.34}"
         },
         "age_gyr": {
           "status": "unknown",
@@ -19389,6 +19523,20 @@
           "reasons": [
             "Cifuentes flags multiple, ruwe; single main-sequence relation not applied"
           ]
+        }
+      },
+      "sharedPhysicalEnrichment": {
+        "metallicity_dex": {
+          "field": "metallicity_dex",
+          "value": -0.34,
+          "status": "measured",
+          "reference": "2021MNRAS.508.5148C",
+          "uncertainty": null,
+          "identity": "Ross 614",
+          "sourceRecordId": "Ross 614:mesFe_h:1",
+          "quantity": "photospheric [Fe/H]",
+          "selection": "Newest within 0.3 dex / 10 percent of the median; strict majority required for multiple observations",
+          "scope": "SIMBAD object as catalogued; unresolved spectra may be primary-dominated"
         }
       }
     },
@@ -20148,8 +20296,11 @@
           "detail": "cifuentes-2020; uncertainty 0.01; fills a blank field only."
         },
         "metallicity_dex": {
-          "status": "unknown",
-          "sourceRefs": []
+          "status": "measured",
+          "sourceRefs": [
+            "2024A&A...691A..53S"
+          ],
+          "detail": "{\"field\": \"metallicity_dex\", \"identity\": \"BD-12 4523\", \"quantity\": \"photospheric [Fe/H]\", \"reference\": \"2024A&A...691A..53S\", \"scope\": \"catalogued stellar object\", \"selection\": \"Newest within 0.3 dex / 10 percent of the median; strict majority required for multiple observations\", \"sourceRecordId\": \"BD-12 4523:mesFe_h:1\", \"status\": \"measured\", \"uncertainty\": null, \"value\": -0.12}"
         },
         "age_gyr": {
           "status": "unknown",
@@ -20191,6 +20342,20 @@
           ],
           "reasons": [],
           "status": "adopted"
+        }
+      },
+      "sharedPhysicalEnrichment": {
+        "metallicity_dex": {
+          "field": "metallicity_dex",
+          "value": -0.12,
+          "status": "measured",
+          "reference": "2024A&A...691A..53S",
+          "uncertainty": null,
+          "identity": "BD-12 4523",
+          "sourceRecordId": "BD-12 4523:mesFe_h:1",
+          "quantity": "photospheric [Fe/H]",
+          "selection": "Newest within 0.3 dex / 10 percent of the median; strict majority required for multiple observations",
+          "scope": "catalogued stellar object"
         }
       }
     },
@@ -21285,8 +21450,11 @@
           "detail": "cifuentes-2020; uncertainty 0.0057; fills a blank field only."
         },
         "metallicity_dex": {
-          "status": "unknown",
-          "sourceRefs": []
+          "status": "measured",
+          "sourceRefs": [
+            "2024A&A...691A..53S"
+          ],
+          "detail": "{\"field\": \"metallicity_dex\", \"identity\": \"G 3-33\", \"quantity\": \"photospheric [Fe/H]\", \"reference\": \"2024A&A...691A..53S\", \"scope\": \"catalogued stellar object\", \"selection\": \"Newest within 0.3 dex / 10 percent of the median; strict majority required for multiple observations\", \"sourceRecordId\": \"G 3-33:mesFe_h:1\", \"status\": \"measured\", \"uncertainty\": null, \"value\": -0.2}"
         },
         "age_gyr": {
           "status": "unknown",
@@ -21328,6 +21496,20 @@
           ],
           "reasons": [],
           "status": "adopted"
+        }
+      },
+      "sharedPhysicalEnrichment": {
+        "metallicity_dex": {
+          "field": "metallicity_dex",
+          "value": -0.2,
+          "status": "measured",
+          "reference": "2024A&A...691A..53S",
+          "uncertainty": null,
+          "identity": "G 3-33",
+          "sourceRecordId": "G 3-33:mesFe_h:1",
+          "quantity": "photospheric [Fe/H]",
+          "selection": "Newest within 0.3 dex / 10 percent of the median; strict majority required for multiple observations",
+          "scope": "catalogued stellar object"
         }
       }
     },
@@ -22768,8 +22950,11 @@
           "detail": "cifuentes-2020; uncertainty 0.0044; fills a blank field only."
         },
         "metallicity_dex": {
-          "status": "unknown",
-          "sourceRefs": []
+          "status": "measured",
+          "sourceRefs": [
+            "2021A&A...656A.162M"
+          ],
+          "detail": "{\"field\": \"metallicity_dex\", \"identity\": \"LP 731-58\", \"quantity\": \"photospheric [Fe/H]\", \"reference\": \"2021A&A...656A.162M\", \"scope\": \"catalogued stellar object\", \"selection\": \"Newest within 0.3 dex / 10 percent of the median; strict majority required for multiple observations\", \"sourceRecordId\": \"LP 731-58:mesFe_h:2\", \"status\": \"measured\", \"uncertainty\": null, \"value\": -0.13}"
         },
         "age_gyr": {
           "status": "unknown",
@@ -22811,6 +22996,20 @@
           ],
           "reasons": [],
           "status": "adopted"
+        }
+      },
+      "sharedPhysicalEnrichment": {
+        "metallicity_dex": {
+          "field": "metallicity_dex",
+          "value": -0.13,
+          "status": "measured",
+          "reference": "2021A&A...656A.162M",
+          "uncertainty": null,
+          "identity": "LP 731-58",
+          "sourceRecordId": "LP 731-58:mesFe_h:2",
+          "quantity": "photospheric [Fe/H]",
+          "selection": "Newest within 0.3 dex / 10 percent of the median; strict majority required for multiple observations",
+          "scope": "catalogued stellar object"
         }
       }
     },
@@ -23371,8 +23570,11 @@
           "sourceRefs": []
         },
         "metallicity_dex": {
-          "status": "unknown",
-          "sourceRefs": []
+          "status": "measured",
+          "sourceRefs": [
+            "2015ApJ...804...64M"
+          ],
+          "detail": "{\"field\": \"metallicity_dex\", \"identity\": \"G 208-45\", \"quantity\": \"photospheric [Fe/H]\", \"reference\": \"2015ApJ...804...64M\", \"scope\": \"catalogued stellar object\", \"selection\": \"Newest within 0.3 dex / 10 percent of the median; strict majority required for multiple observations\", \"sourceRecordId\": \"G 208-45:mesFe_h:8\", \"status\": \"measured\", \"uncertainty\": null, \"value\": -0.05}"
         },
         "age_gyr": {
           "status": "unknown",
@@ -23405,6 +23607,20 @@
           "reasons": [
             "Cifuentes flags multiple; single main-sequence relation not applied"
           ]
+        }
+      },
+      "sharedPhysicalEnrichment": {
+        "metallicity_dex": {
+          "field": "metallicity_dex",
+          "value": -0.05,
+          "status": "measured",
+          "reference": "2015ApJ...804...64M",
+          "uncertainty": null,
+          "identity": "G 208-45",
+          "sourceRecordId": "G 208-45:mesFe_h:8",
+          "quantity": "photospheric [Fe/H]",
+          "selection": "Newest within 0.3 dex / 10 percent of the median; strict majority required for multiple observations",
+          "scope": "catalogued stellar object"
         }
       }
     },
@@ -25076,8 +25292,11 @@
           "detail": "cifuentes-2020; uncertainty 0.0052; fills a blank field only."
         },
         "metallicity_dex": {
-          "status": "unknown",
-          "sourceRefs": []
+          "status": "measured",
+          "sourceRefs": [
+            "2025ApJ...978..154J"
+          ],
+          "detail": "{\"field\": \"metallicity_dex\", \"identity\": \"G 158-27\", \"quantity\": \"photospheric [Fe/H]\", \"reference\": \"2025ApJ...978..154J\", \"scope\": \"catalogued stellar object\", \"selection\": \"Newest within 0.3 dex / 10 percent of the median; strict majority required for multiple observations\", \"sourceRecordId\": \"G 158-27:mesFe_h:2\", \"status\": \"measured\", \"uncertainty\": null, \"value\": -0.18}"
         },
         "age_gyr": {
           "status": "unknown",
@@ -25119,6 +25338,20 @@
           ],
           "reasons": [],
           "status": "adopted"
+        }
+      },
+      "sharedPhysicalEnrichment": {
+        "metallicity_dex": {
+          "field": "metallicity_dex",
+          "value": -0.18,
+          "status": "measured",
+          "reference": "2025ApJ...978..154J",
+          "uncertainty": null,
+          "identity": "G 158-27",
+          "sourceRecordId": "G 158-27:mesFe_h:2",
+          "quantity": "photospheric [Fe/H]",
+          "selection": "Newest within 0.3 dex / 10 percent of the median; strict majority required for multiple observations",
+          "scope": "catalogued stellar object"
         }
       }
     },
@@ -26316,8 +26549,11 @@
           "detail": "cifuentes-2020; uncertainty 0.0042; fills a blank field only."
         },
         "metallicity_dex": {
-          "status": "unknown",
-          "sourceRefs": []
+          "status": "measured",
+          "sourceRefs": [
+            "2022AJ....163..152S"
+          ],
+          "detail": "{\"field\": \"metallicity_dex\", \"identity\": \"BD+44 2051B\", \"quantity\": \"photospheric [Fe/H]\", \"reference\": \"2022AJ....163..152S\", \"scope\": \"catalogued stellar object\", \"selection\": \"Newest within 0.3 dex / 10 percent of the median; strict majority required for multiple observations\", \"sourceRecordId\": \"BD+44 2051B:mesFe_h:1\", \"status\": \"measured\", \"uncertainty\": null, \"value\": -0.186}"
         },
         "age_gyr": {
           "status": "unknown",
@@ -26359,6 +26595,20 @@
           ],
           "reasons": [],
           "status": "adopted"
+        }
+      },
+      "sharedPhysicalEnrichment": {
+        "metallicity_dex": {
+          "field": "metallicity_dex",
+          "value": -0.186,
+          "status": "measured",
+          "reference": "2022AJ....163..152S",
+          "uncertainty": null,
+          "identity": "BD+44 2051B",
+          "sourceRecordId": "BD+44 2051B:mesFe_h:1",
+          "quantity": "photospheric [Fe/H]",
+          "selection": "Newest within 0.3 dex / 10 percent of the median; strict majority required for multiple observations",
+          "scope": "catalogued stellar object"
         }
       }
     },
@@ -27873,8 +28123,11 @@
           "sourceRefs": []
         },
         "metallicity_dex": {
-          "status": "unknown",
-          "sourceRefs": []
+          "status": "measured",
+          "sourceRefs": [
+            "2024A&A...691A..53S"
+          ],
+          "detail": "{\"field\": \"metallicity_dex\", \"identity\": \"* omi02 Eri\", \"quantity\": \"photospheric [Fe/H]\", \"reference\": \"2024A&A...691A..53S\", \"scope\": \"catalogued stellar object\", \"selection\": \"Newest within 0.3 dex / 10 percent of the median; strict majority required for multiple observations\", \"sourceRecordId\": \"* omi02 Eri:mesFe_h:1\", \"status\": \"measured\", \"uncertainty\": null, \"value\": -0.35}"
         },
         "age_gyr": {
           "status": "unknown",
@@ -27891,6 +28144,20 @@
           "identity_method": "nearest-100 source row; frozen CNS5 match; exact SIMBAD CNS5 identity"
         },
         "eligibility": "Not a parsed K5-M9.5 dwarf spectral type (no subdwarf, giant, composite or peculiar class); supplements not applied."
+      },
+      "sharedPhysicalEnrichment": {
+        "metallicity_dex": {
+          "field": "metallicity_dex",
+          "value": -0.35,
+          "status": "measured",
+          "reference": "2024A&A...691A..53S",
+          "uncertainty": null,
+          "identity": "* omi02 Eri",
+          "sourceRecordId": "* omi02 Eri:mesFe_h:1",
+          "quantity": "photospheric [Fe/H]",
+          "selection": "Newest within 0.3 dex / 10 percent of the median; strict majority required for multiple observations",
+          "scope": "catalogued stellar object"
+        }
       }
     },
     {
@@ -28136,8 +28403,11 @@
           "detail": "cifuentes-2020; uncertainty 0.0094; fills a blank field only."
         },
         "metallicity_dex": {
-          "status": "unknown",
-          "sourceRefs": []
+          "status": "measured",
+          "sourceRefs": [
+            "2021A&A...656A.162M"
+          ],
+          "detail": "{\"field\": \"metallicity_dex\", \"identity\": \"* omi02 Eri C\", \"quantity\": \"photospheric [Fe/H]\", \"reference\": \"2021A&A...656A.162M\", \"scope\": \"catalogued stellar object\", \"selection\": \"Newest within 0.3 dex / 10 percent of the median; strict majority required for multiple observations\", \"sourceRecordId\": \"* omi02 Eri C:mesFe_h:3\", \"status\": \"measured\", \"uncertainty\": null, \"value\": -0.44}"
         },
         "age_gyr": {
           "status": "unknown",
@@ -28179,6 +28449,20 @@
           ],
           "reasons": [],
           "status": "adopted"
+        }
+      },
+      "sharedPhysicalEnrichment": {
+        "metallicity_dex": {
+          "field": "metallicity_dex",
+          "value": -0.44,
+          "status": "measured",
+          "reference": "2021A&A...656A.162M",
+          "uncertainty": null,
+          "identity": "* omi02 Eri C",
+          "sourceRecordId": "* omi02 Eri C:mesFe_h:3",
+          "quantity": "photospheric [Fe/H]",
+          "selection": "Newest within 0.3 dex / 10 percent of the median; strict majority required for multiple observations",
+          "scope": "catalogued stellar object"
         }
       }
     },
@@ -28425,8 +28709,11 @@
           "detail": "cifuentes-2020; uncertainty 0.0117; fills a blank field only."
         },
         "metallicity_dex": {
-          "status": "unknown",
-          "sourceRefs": []
+          "status": "measured",
+          "sourceRefs": [
+            "2021ApJS..255....8R"
+          ],
+          "detail": "{\"field\": \"metallicity_dex\", \"identity\": \"V* EV Lac\", \"quantity\": \"photospheric [Fe/H]\", \"reference\": \"2021ApJS..255....8R\", \"scope\": \"catalogued stellar object\", \"selection\": \"Newest within 0.3 dex / 10 percent of the median; strict majority required for multiple observations\", \"sourceRecordId\": \"V* EV Lac:mesFe_h:4\", \"status\": \"measured\", \"uncertainty\": null, \"value\": -0.067}"
         },
         "age_gyr": {
           "status": "unknown",
@@ -28468,6 +28755,20 @@
           ],
           "reasons": [],
           "status": "adopted"
+        }
+      },
+      "sharedPhysicalEnrichment": {
+        "metallicity_dex": {
+          "field": "metallicity_dex",
+          "value": -0.067,
+          "status": "measured",
+          "reference": "2021ApJS..255....8R",
+          "uncertainty": null,
+          "identity": "V* EV Lac",
+          "sourceRecordId": "V* EV Lac:mesFe_h:4",
+          "quantity": "photospheric [Fe/H]",
+          "selection": "Newest within 0.3 dex / 10 percent of the median; strict majority required for multiple observations",
+          "scope": "catalogued stellar object"
         }
       }
     },
@@ -28707,8 +29008,11 @@
           "sourceRefs": []
         },
         "metallicity_dex": {
-          "status": "unknown",
-          "sourceRefs": []
+          "status": "measured",
+          "sourceRefs": [
+            "2014AJ....147...20N"
+          ],
+          "detail": "{\"field\": \"metallicity_dex\", \"identity\": \"G 9-38B\", \"quantity\": \"photospheric [Fe/H]\", \"reference\": \"2014AJ....147...20N\", \"scope\": \"catalogued stellar object\", \"selection\": \"Newest within 0.3 dex / 10 percent of the median; strict majority required for multiple observations\", \"sourceRecordId\": \"G 9-38B:mesFe_h:1\", \"status\": \"measured\", \"uncertainty\": null, \"value\": 0.08}"
         },
         "age_gyr": {
           "status": "unknown",
@@ -28739,6 +29043,20 @@
           "reasons": [
             "No unique 2MASS identifier"
           ]
+        }
+      },
+      "sharedPhysicalEnrichment": {
+        "metallicity_dex": {
+          "field": "metallicity_dex",
+          "value": 0.08,
+          "status": "measured",
+          "reference": "2014AJ....147...20N",
+          "uncertainty": null,
+          "identity": "G 9-38B",
+          "sourceRecordId": "G 9-38B:mesFe_h:1",
+          "quantity": "photospheric [Fe/H]",
+          "selection": "Newest within 0.3 dex / 10 percent of the median; strict majority required for multiple observations",
+          "scope": "catalogued stellar object"
         }
       }
     },
@@ -28978,8 +29296,11 @@
           "sourceRefs": []
         },
         "metallicity_dex": {
-          "status": "unknown",
-          "sourceRefs": []
+          "status": "measured",
+          "sourceRefs": [
+            "2024A&A...690A..97C"
+          ],
+          "detail": "{\"field\": \"metallicity_dex\", \"identity\": \"* 70 Oph B\", \"quantity\": \"photospheric [Fe/H]\", \"reference\": \"2024A&A...690A..97C\", \"scope\": \"catalogued stellar object\", \"selection\": \"Newest within 0.3 dex / 10 percent of the median; strict majority required for multiple observations\", \"sourceRecordId\": \"* 70 Oph B:mesFe_h:1\", \"status\": \"measured\", \"uncertainty\": null, \"value\": -0.07}"
         },
         "age_gyr": {
           "status": "unknown",
@@ -28995,6 +29316,20 @@
           "identity_method": "nearest-100 source row; frozen CNS5 match; exact SIMBAD CNS5 identity"
         },
         "eligibility": "Not a parsed K5-M9.5 dwarf spectral type (no subdwarf, giant, composite or peculiar class); supplements not applied."
+      },
+      "sharedPhysicalEnrichment": {
+        "metallicity_dex": {
+          "field": "metallicity_dex",
+          "value": -0.07,
+          "status": "measured",
+          "reference": "2024A&A...690A..97C",
+          "uncertainty": null,
+          "identity": "* 70 Oph B",
+          "sourceRecordId": "* 70 Oph B:mesFe_h:1",
+          "quantity": "photospheric [Fe/H]",
+          "selection": "Newest within 0.3 dex / 10 percent of the median; strict majority required for multiple observations",
+          "scope": "catalogued stellar object"
+        }
       }
     },
     {
@@ -29887,8 +30222,11 @@
           "sourceRefs": []
         },
         "metallicity_dex": {
-          "status": "unknown",
-          "sourceRefs": []
+          "status": "measured",
+          "sourceRefs": [
+            "2014AJ....147...20N"
+          ],
+          "detail": "{\"field\": \"metallicity_dex\", \"identity\": \"G 9-38A\", \"quantity\": \"photospheric [Fe/H]\", \"reference\": \"2014AJ....147...20N\", \"scope\": \"catalogued stellar object\", \"selection\": \"Newest within 0.3 dex / 10 percent of the median; strict majority required for multiple observations\", \"sourceRecordId\": \"G 9-38A:mesFe_h:1\", \"status\": \"measured\", \"uncertainty\": null, \"value\": 0.14}"
         },
         "age_gyr": {
           "status": "unknown",
@@ -29912,6 +30250,20 @@
           "reasons": [
             "No unique 2MASS identifier"
           ]
+        }
+      },
+      "sharedPhysicalEnrichment": {
+        "metallicity_dex": {
+          "field": "metallicity_dex",
+          "value": 0.14,
+          "status": "measured",
+          "reference": "2014AJ....147...20N",
+          "uncertainty": null,
+          "identity": "G 9-38A",
+          "sourceRecordId": "G 9-38A:mesFe_h:1",
+          "quantity": "photospheric [Fe/H]",
+          "selection": "Newest within 0.3 dex / 10 percent of the median; strict majority required for multiple observations",
+          "scope": "catalogued stellar object"
         }
       }
     },
@@ -31917,8 +32269,11 @@
           "detail": "cifuentes-2020; uncertainty 0.0069; fills a blank field only."
         },
         "metallicity_dex": {
-          "status": "unknown",
-          "sourceRefs": []
+          "status": "measured",
+          "sourceRefs": [
+            "2024A&A...691A..53S"
+          ],
+          "detail": "{\"field\": \"metallicity_dex\", \"identity\": \"LP 656-38\", \"quantity\": \"photospheric [Fe/H]\", \"reference\": \"2024A&A...691A..53S\", \"scope\": \"catalogued stellar object\", \"selection\": \"Newest within 0.3 dex / 10 percent of the median; strict majority required for multiple observations\", \"sourceRecordId\": \"LP 656-38:mesFe_h:1\", \"status\": \"measured\", \"uncertainty\": null, \"value\": -0.34}"
         },
         "age_gyr": {
           "status": "unknown",
@@ -31960,6 +32315,20 @@
           ],
           "reasons": [],
           "status": "adopted"
+        }
+      },
+      "sharedPhysicalEnrichment": {
+        "metallicity_dex": {
+          "field": "metallicity_dex",
+          "value": -0.34,
+          "status": "measured",
+          "reference": "2024A&A...691A..53S",
+          "uncertainty": null,
+          "identity": "LP 656-38",
+          "sourceRecordId": "LP 656-38:mesFe_h:1",
+          "quantity": "photospheric [Fe/H]",
+          "selection": "Newest within 0.3 dex / 10 percent of the median; strict majority required for multiple observations",
+          "scope": "catalogued stellar object"
         }
       }
     },
@@ -32871,8 +33240,11 @@
           "sourceRefs": []
         },
         "metallicity_dex": {
-          "status": "unknown",
-          "sourceRefs": []
+          "status": "measured",
+          "sourceRefs": [
+            "2022AJ....163..152S"
+          ],
+          "detail": "{\"field\": \"metallicity_dex\", \"identity\": \"G 175-34\", \"quantity\": \"photospheric [Fe/H]\", \"reference\": \"2022AJ....163..152S\", \"scope\": \"catalogued stellar object\", \"selection\": \"Newest within 0.3 dex / 10 percent of the median; strict majority required for multiple observations\", \"sourceRecordId\": \"G 175-34:mesFe_h:1\", \"status\": \"measured\", \"uncertainty\": null, \"value\": -0.227}"
         },
         "age_gyr": {
           "status": "unknown",
@@ -32905,6 +33277,20 @@
           "reasons": [
             "Cifuentes flags multiple; single main-sequence relation not applied"
           ]
+        }
+      },
+      "sharedPhysicalEnrichment": {
+        "metallicity_dex": {
+          "field": "metallicity_dex",
+          "value": -0.227,
+          "status": "measured",
+          "reference": "2022AJ....163..152S",
+          "uncertainty": null,
+          "identity": "G 175-34",
+          "sourceRecordId": "G 175-34:mesFe_h:1",
+          "quantity": "photospheric [Fe/H]",
+          "selection": "Newest within 0.3 dex / 10 percent of the median; strict majority required for multiple observations",
+          "scope": "catalogued stellar object"
         }
       }
     },
@@ -34362,8 +34748,11 @@
           "detail": "cifuentes-2020; uncertainty 0.004; fills a blank field only."
         },
         "metallicity_dex": {
-          "status": "unknown",
-          "sourceRefs": []
+          "status": "measured",
+          "sourceRefs": [
+            "2012ApJ...748...93R"
+          ],
+          "detail": "{\"field\": \"metallicity_dex\", \"identity\": \"LSR J1835+3259\", \"quantity\": \"photospheric [Fe/H]\", \"reference\": \"2012ApJ...748...93R\", \"scope\": \"catalogued stellar object\", \"selection\": \"Newest within 0.3 dex / 10 percent of the median; strict majority required for multiple observations\", \"sourceRecordId\": \"LSR J1835+3259:mesFe_h:2\", \"status\": \"measured\", \"uncertainty\": null, \"value\": -0.4}"
         },
         "age_gyr": {
           "status": "unknown",
@@ -34406,6 +34795,20 @@
             "Spectral type outside Mann 2015 K7-M7 calibration"
           ],
           "status": "adopted"
+        }
+      },
+      "sharedPhysicalEnrichment": {
+        "metallicity_dex": {
+          "field": "metallicity_dex",
+          "value": -0.4,
+          "status": "measured",
+          "reference": "2012ApJ...748...93R",
+          "uncertainty": null,
+          "identity": "LSR J1835+3259",
+          "sourceRecordId": "LSR J1835+3259:mesFe_h:2",
+          "quantity": "photospheric [Fe/H]",
+          "selection": "Newest within 0.3 dex / 10 percent of the median; strict majority required for multiple observations",
+          "scope": "catalogued stellar object"
         }
       }
     },
@@ -34652,8 +35055,11 @@
           "detail": "cifuentes-2020; uncertainty 0.0275; fills a blank field only."
         },
         "metallicity_dex": {
-          "status": "unknown",
-          "sourceRefs": []
+          "status": "measured",
+          "sourceRefs": [
+            "2025A&A...698A..93J"
+          ],
+          "detail": "{\"field\": \"metallicity_dex\", \"identity\": \"HD 36395\", \"quantity\": \"photospheric [Fe/H]\", \"reference\": \"2025A&A...698A..93J\", \"scope\": \"catalogued stellar object\", \"selection\": \"Newest within 0.3 dex / 10 percent of the median; strict majority required for multiple observations\", \"sourceRecordId\": \"HD 36395:mesFe_h:2\", \"status\": \"measured\", \"uncertainty\": null, \"value\": 0.21}"
         },
         "age_gyr": {
           "status": "unknown",
@@ -34689,6 +35095,20 @@
           "reasons": [
             "2MASS Ks quality, blend or contamination flag not clean (requires Q=A/B, B=1, C=0)"
           ]
+        }
+      },
+      "sharedPhysicalEnrichment": {
+        "metallicity_dex": {
+          "field": "metallicity_dex",
+          "value": 0.21,
+          "status": "measured",
+          "reference": "2025A&A...698A..93J",
+          "uncertainty": null,
+          "identity": "HD 36395",
+          "sourceRecordId": "HD 36395:mesFe_h:2",
+          "quantity": "photospheric [Fe/H]",
+          "selection": "Newest within 0.3 dex / 10 percent of the median; strict majority required for multiple observations",
+          "scope": "catalogued stellar object"
         }
       }
     },
@@ -35190,8 +35610,11 @@
           "detail": "cifuentes-2020; uncertainty 0.0197; fills a blank field only."
         },
         "metallicity_dex": {
-          "status": "unknown",
-          "sourceRefs": []
+          "status": "measured",
+          "sourceRefs": [
+            "2025A&A...698A..93J"
+          ],
+          "detail": "{\"field\": \"metallicity_dex\", \"identity\": \"HD 42581\", \"quantity\": \"photospheric [Fe/H]\", \"reference\": \"2025A&A...698A..93J\", \"scope\": \"catalogued stellar object\", \"selection\": \"Newest within 0.3 dex / 10 percent of the median; strict majority required for multiple observations\", \"sourceRecordId\": \"HD 42581:mesFe_h:2\", \"status\": \"measured\", \"uncertainty\": null, \"value\": -0.1}"
         },
         "age_gyr": {
           "status": "unknown",
@@ -35227,6 +35650,20 @@
           "reasons": [
             "2MASS Ks quality, blend or contamination flag not clean (requires Q=A/B, B=1, C=0)"
           ]
+        }
+      },
+      "sharedPhysicalEnrichment": {
+        "metallicity_dex": {
+          "field": "metallicity_dex",
+          "value": -0.1,
+          "status": "measured",
+          "reference": "2025A&A...698A..93J",
+          "uncertainty": null,
+          "identity": "HD 42581",
+          "sourceRecordId": "HD 42581:mesFe_h:2",
+          "quantity": "photospheric [Fe/H]",
+          "selection": "Newest within 0.3 dex / 10 percent of the median; strict majority required for multiple observations",
+          "scope": "catalogued stellar object"
         }
       }
     }

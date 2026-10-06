@@ -1,0 +1,245 @@
+{
+  "schemaVersion": 1,
+  "reviewedOn": "2026-10-06",
+  "policy": "Add reviewed companions only for explicitly matched existing overlay landmarks. Keep the original landmark selection; component companions are exempt from its magnitude/figure-vertex rule. Separate Trapezium systems are not grouped.",
+  "catalogs": {
+    "bright-stars": [
+      {
+        "systemId": "alpha-centauri",
+        "landmarkId": "alpha-centauri-a",
+        "primaryId": "alpha-centauri-a",
+        "simbadId": null,
+        "identityEvidence": "Stable inherited component ID.",
+        "memberIds": [
+          "alpha-centauri-a",
+          "alpha-centauri-b",
+          "proxima-centauri"
+        ]
+      },
+      {
+        "systemId": "sirius",
+        "landmarkId": "sirius-a",
+        "primaryId": "sirius-a",
+        "simbadId": null,
+        "identityEvidence": "Stable inherited component ID.",
+        "memberIds": [
+          "sirius-a",
+          "sirius-b"
+        ]
+      },
+      {
+        "systemId": "procyon",
+        "landmarkId": "bright-procyon",
+        "primaryId": "10pc-0031",
+        "simbadId": "* alf CMi",
+        "identityEvidence": "Exact frozen SIMBAD identity * alf CMi matches the Western HIP primary and the reviewed nearby system.",
+        "memberIds": [
+          "10pc-0031",
+          "10pc-0032"
+        ]
+      },
+      {
+        "systemId": "fomalhaut",
+        "landmarkId": "cns5-5665",
+        "primaryId": "cns5-5665",
+        "simbadId": "* alf PsA",
+        "identityEvidence": "Exact frozen SIMBAD identity * alf PsA matches the Western HIP primary and the reviewed nearby system.",
+        "memberIds": [
+          "cns5-5665",
+          "cns5-5660",
+          "cns5-5623"
+        ]
+      },
+      {
+        "systemId": "capella",
+        "landmarkId": "cns5-1318",
+        "primaryId": "cns5-1318",
+        "simbadId": "* alf Aur",
+        "identityEvidence": "Exact frozen SIMBAD identity * alf Aur matches the Western HIP primary and the reviewed nearby system.",
+        "memberIds": [
+          "cns5-1318",
+          "capella-ab",
+          "cns5-1323",
+          "cns5-1324"
+        ]
+      },
+      {
+        "systemId": "rigel",
+        "landmarkId": "bright-rigel",
+        "primaryId": "bright-rigel",
+        "simbadId": "* bet Ori",
+        "identityEvidence": "Exact HIP 24436 / HD 34085 in MSC primary A; the frozen SIMBAD landmark is beta Orionis. The MSC grade-5 hierarchy identifies A, Ba, Bb and C.",
+        "memberIds": [
+          "bright-rigel",
+          "rigel-ba",
+          "rigel-bb",
+          "rigel-c"
+        ]
+      }
+    ],
+    "western-constellation-stars": [
+      {
+        "systemId": "alpha-centauri",
+        "landmarkId": "hip-71683",
+        "primaryId": "alpha-centauri-a",
+        "simbadId": "* alf Cen A",
+        "identityEvidence": "Exact HIP 71683 alias in the frozen CNS5 SIMBAD identity for the reviewed primary; individual companion membership comes from the system definition.",
+        "memberIds": [
+          "alpha-centauri-a",
+          "alpha-centauri-b",
+          "proxima-centauri"
+        ]
+      },
+      {
+        "systemId": "sirius",
+        "landmarkId": "hip-32349",
+        "primaryId": "sirius-a",
+        "simbadId": "* alf CMa",
+        "identityEvidence": "Exact HIP 32349 alias in the frozen CNS5 SIMBAD identity for the reviewed primary; individual companion membership comes from the system definition.",
+        "memberIds": [
+          "sirius-a",
+          "sirius-b"
+        ]
+      },
+      {
+        "systemId": "procyon",
+        "landmarkId": "hip-37279",
+        "primaryId": "10pc-0031",
+        "simbadId": "* alf CMi",
+        "identityEvidence": "Exact HIP 37279 alias in the frozen CNS5 SIMBAD identity for the reviewed primary; individual companion membership comes from the system definition.",
+        "memberIds": [
+          "10pc-0031",
+          "10pc-0032"
+        ]
+      },
+      {
+        "systemId": "fomalhaut",
+        "landmarkId": "hip-113368",
+        "primaryId": "cns5-5665",
+        "simbadId": "* alf PsA",
+        "identityEvidence": "Exact HIP 113368 alias in the frozen CNS5 SIMBAD identity for the reviewed primary; individual companion membership comes from the system definition.",
+        "memberIds": [
+          "cns5-5665",
+          "cns5-5660",
+          "cns5-5623"
+        ]
+      },
+      {
+        "systemId": "chi-draconis",
+        "landmarkId": "hip-89937",
+        "primaryId": "cns5-4539",
+        "simbadId": "* chi Dra",
+        "identityEvidence": "Exact HIP 89937 alias in the frozen CNS5 SIMBAD identity for the reviewed primary; individual companion membership comes from the system definition.",
+        "memberIds": [
+          "cns5-4539",
+          "chi-draconis-b"
+        ]
+      },
+      {
+        "systemId": "gj-695",
+        "landmarkId": "hip-86974",
+        "primaryId": "cns5-4401",
+        "simbadId": "* mu.01 Her",
+        "identityEvidence": "Exact HIP 86974 alias in the frozen CNS5 SIMBAD identity for the reviewed primary; individual companion membership comes from the system definition.",
+        "memberIds": [
+          "cns5-4401",
+          "mu-her-ab",
+          "cns5-4400",
+          "cns5-4399"
+        ]
+      },
+      {
+        "systemId": "chi1-orionis",
+        "landmarkId": "hip-27913",
+        "primaryId": "cns5-1464",
+        "simbadId": "* chi01 Ori",
+        "identityEvidence": "Exact HIP 27913 alias in the frozen CNS5 SIMBAD identity for the reviewed primary; individual companion membership comes from the system definition.",
+        "memberIds": [
+          "cns5-1464",
+          "chi1-orionis-b"
+        ]
+      },
+      {
+        "systemId": "gj-216",
+        "landmarkId": "hip-27072",
+        "primaryId": "cns5-1427",
+        "simbadId": "* gam Lep",
+        "identityEvidence": "Exact HIP 27072 alias in the frozen CNS5 SIMBAD identity for the reviewed primary; individual companion membership comes from the system definition.",
+        "memberIds": [
+          "cns5-1427",
+          "cns5-1425"
+        ]
+      },
+      {
+        "systemId": "zeta-herculis",
+        "landmarkId": "hip-81693",
+        "primaryId": "cns5-4097",
+        "simbadId": "* zet Her",
+        "identityEvidence": "Exact HIP 81693 alias in the frozen CNS5 SIMBAD identity for the reviewed primary; individual companion membership comes from the system definition.",
+        "memberIds": [
+          "cns5-4097",
+          "zeta-herculis-b"
+        ]
+      },
+      {
+        "systemId": "iota-pegasi",
+        "landmarkId": "hip-109176",
+        "primaryId": "cns5-5470",
+        "simbadId": "* iot Peg",
+        "identityEvidence": "Exact HIP 109176 alias in the frozen CNS5 SIMBAD identity for the reviewed primary; individual companion membership comes from the system definition.",
+        "memberIds": [
+          "cns5-5470",
+          "iota-pegasi-b"
+        ]
+      },
+      {
+        "systemId": "capella",
+        "landmarkId": "hip-24608",
+        "primaryId": "cns5-1318",
+        "simbadId": "* alf Aur",
+        "identityEvidence": "Exact HIP 24608 alias in the frozen CNS5 SIMBAD identity for the reviewed primary; individual companion membership comes from the system definition.",
+        "memberIds": [
+          "cns5-1318",
+          "capella-ab",
+          "cns5-1323",
+          "cns5-1324"
+        ]
+      },
+      {
+        "systemId": "gj-771",
+        "landmarkId": "hip-98036",
+        "primaryId": "cns5-4929",
+        "simbadId": "* bet Aql",
+        "identityEvidence": "Exact HIP 98036 alias in the frozen CNS5 SIMBAD identity for the reviewed primary; individual companion membership comes from the system definition.",
+        "memberIds": [
+          "cns5-4929",
+          "cns5-4930"
+        ]
+      },
+      {
+        "systemId": "gamma-cephei",
+        "landmarkId": "hip-116727",
+        "primaryId": "cns5-5833",
+        "simbadId": "* gam Cep",
+        "identityEvidence": "Exact HIP 116727 alias in the frozen CNS5 SIMBAD identity for the reviewed primary; individual companion membership comes from the system definition.",
+        "memberIds": [
+          "cns5-5833",
+          "gamma-cephei-b"
+        ]
+      },
+      {
+        "systemId": "rigel",
+        "landmarkId": "hip-24436",
+        "primaryId": "bright-rigel",
+        "simbadId": "* bet Ori",
+        "identityEvidence": "Exact HIP 24436 / HD 34085 in MSC primary A; the frozen SIMBAD landmark is beta Orionis. The MSC grade-5 hierarchy identifies A, Ba, Bb and C.",
+        "memberIds": [
+          "bright-rigel",
+          "rigel-ba",
+          "rigel-bb",
+          "rigel-c"
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,5561 @@
+{
+  "schemaVersion": 1,
+  "reviewedOn": "2026-10-06",
+  "scope": "Frozen source flags plus exact-HIP MSC matches of original overlay landmarks; no positional membership inference. MSC covers triples and higher, not all binaries. SIMBAD flags are leads, not a physical census or proof of an additional classified star. Famous-cluster inner systems are separately held for review.",
+  "inputSha256": {
+    "catalog-work/star-systems/msc-20260619-overlay-matches.json": "e71adfcd0834684a16cd83cbc36972da1680378e60ed68f72ab0b3de896a69ce",
+    "catalog-work/star-systems/overlay-companions.json": "0155d05f01e61ef80496c0d515b35946c8e6dcdd06342bb7fa8eda653e39485b",
+    "catalog-work/bright-stars/simbad.csv": "8d1e328df0d1601b94f9d1cc6e051f6e78ebea3cd65b4ce5a1cfd8dad2f0eede",
+    "src/data/catalogs/bright-stars/stars.csv": "58c8e9a6989ef66103a5b253bf0e8c126d042d6dc85eda46bbb732657c22b602",
+    "src/data/catalogs/bright-stars/provenance.json": "da5a6a73fc129f0b8db07216607dd47044fd641be17bade9812ef8be133fda51",
+    "catalog-work/western-constellation-stars/simbad.csv": "c45f9d1adb165751c0cf8f77a28efc18dfef5427760de6be0dad20f4aff92ede",
+    "src/data/catalogs/western-constellation-stars/stars.csv": "b6968983dee4b7a0f81833e35ef8cdc203788374d49313d47544113966b8b10b",
+    "src/data/catalogs/western-constellation-stars/provenance.json": "8080871cbb56aa665621d279425115937d5f3c81bbb00d0982fc0eca93fe4594",
+    "catalog-work/famous-cluster-stars/simbad.csv": "31f7d87d2f684fca025388ed409856ab5fbe0038de62d9a214c77b1f5a3c1c01",
+    "src/data/catalogs/famous-cluster-stars/stars.csv": "76c39a8513dcf96d5b4fe914c3558544e0abc0ff72d1b67e6e63892b21d7c9c6",
+    "src/data/catalogs/famous-cluster-stars/provenance.json": "6440f7a35999f1d643688c86c3307d4e0d44d19b81f538f6b7b0b69c202d2cd0"
+  },
+  "catalogs": {
+    "bright-stars": {
+      "nonSunObjects": 125,
+      "expandedSystems": 6,
+      "remainingSourceCandidates": 37,
+      "candidates": [
+        {
+          "starId": "bright-acrux",
+          "name": "Acrux",
+          "simbadId": "* alf Cru",
+          "simbadType": "SB*",
+          "hip": 60718,
+          "wds": "12266-6306",
+          "mscGrade": 5,
+          "mscComponentCount": 6,
+          "hierarchy": [
+            {
+              "primary": "AB",
+              "secondary": "CD",
+              "parent": "*",
+              "status": "Cmr"
+            },
+            {
+              "primary": "C",
+              "secondary": "D",
+              "parent": "CD",
+              "status": "Ch?"
+            },
+            {
+              "primary": "A",
+              "secondary": "B",
+              "parent": "AB",
+              "status": "Chmp"
+            },
+            {
+              "primary": "Aa",
+              "secondary": "Ab",
+              "parent": "A",
+              "status": "S1"
+            },
+            {
+              "primary": "Ca",
+              "secondary": "Cb",
+              "parent": "C",
+              "status": "S1"
+            }
+          ],
+          "status": "needs-individual-identity-classification-and-measurement-review"
+        },
+        {
+          "starId": "bright-algol",
+          "name": "Algol",
+          "simbadId": "* bet Per",
+          "simbadType": "SB*",
+          "hip": 14576,
+          "wds": "03082+4057",
+          "mscGrade": 5,
+          "mscComponentCount": 3,
+          "hierarchy": [
+            {
+              "primary": "A",
+              "secondary": "B",
+              "parent": "*",
+              "status": "V,A,S2"
+            },
+            {
+              "primary": "Aa",
+              "secondary": "Ab",
+              "parent": "A",
+              "status": "S2,E,V"
+            }
+          ],
+          "status": "needs-individual-identity-classification-and-measurement-review"
+        },
+        {
+          "starId": "bright-alhena",
+          "name": "Alhena",
+          "simbadId": "* gam Gem",
+          "simbadType": "SB*",
+          "hip": 31681,
+          "wds": null,
+          "mscGrade": null,
+          "mscComponentCount": null,
+          "hierarchy": [],
+          "status": "needs-individual-identity-classification-and-measurement-review"
+        },
+        {
+          "starId": "bright-aljanah",
+          "name": "Aljanah",
+          "simbadId": "* eps Cyg",
+          "simbadType": "**",
+          "hip": 102488,
+          "wds": "20462+3358",
+          "mscGrade": 5,
+          "mscComponentCount": 3,
+          "hierarchy": [
+            {
+              "primary": "A",
+              "secondary": "D",
+              "parent": "*",
+              "status": "Cmp"
+            },
+            {
+              "primary": "A",
+              "secondary": "C",
+              "parent": "X",
+              "status": "Xmhp"
+            },
+            {
+              "primary": "Aa",
+              "secondary": "Ab",
+              "parent": "A",
+              "status": "S1,a"
+            }
+          ],
+          "status": "needs-individual-identity-classification-and-measurement-review"
+        },
+        {
+          "starId": "bright-almach",
+          "name": "Almach",
+          "simbadId": "* gam01 And",
+          "simbadType": "*",
+          "hip": 9640,
+          "wds": "02039+4220",
+          "mscGrade": 5,
+          "mscComponentCount": 4,
+          "hierarchy": [
+            {
+              "primary": "A",
+              "secondary": "BC",
+              "parent": "*",
+              "status": "Cmph"
+            },
+            {
+              "primary": "B",
+              "secondary": "C",
+              "parent": "BC",
+              "status": "V"
+            },
+            {
+              "primary": "Ba",
+              "secondary": "Bb",
+              "parent": "B",
+              "status": "S2"
+            }
+          ],
+          "status": "needs-individual-identity-classification-and-measurement-review"
+        },
+        {
+          "starId": "bright-alnitak",
+          "name": "Alnitak",
+          "simbadId": "* zet Ori",
+          "simbadType": "**",
+          "hip": 26727,
+          "wds": "05407-0157",
+          "mscGrade": 5,
+          "mscComponentCount": 3,
+          "hierarchy": [
+            {
+              "primary": "A",
+              "secondary": "B",
+              "parent": "*",
+              "status": "V"
+            },
+            {
+              "primary": "Aa",
+              "secondary": "Ab",
+              "parent": "A",
+              "status": "V"
+            }
+          ],
+          "status": "needs-individual-identity-classification-and-measurement-review"
+        },
+        {
+          "starId": "bright-alpha-muscae",
+          "name": "Alpha Muscae",
+          "simbadId": "* alf Mus",
+          "simbadType": "**",
+          "hip": 61585,
+          "wds": "12372-6908",
+          "mscGrade": 4,
+          "mscComponentCount": 3,
+          "hierarchy": [
+            {
+              "primary": "A",
+              "secondary": "B",
+              "parent": "*",
+              "status": "Cmp"
+            },
+            {
+              "primary": "Aa",
+              "secondary": "Ab",
+              "parent": "A",
+              "status": "v,a"
+            }
+          ],
+          "status": "needs-individual-identity-classification-and-measurement-review"
+        },
+        {
+          "starId": "bright-alphecca",
+          "name": "Alphecca",
+          "simbadId": "* alf CrB",
+          "simbadType": "SB*",
+          "hip": 76267,
+          "wds": null,
+          "mscGrade": null,
+          "mscComponentCount": null,
+          "hierarchy": [],
+          "status": "needs-individual-identity-classification-and-measurement-review"
+        },
+        {
+          "starId": "bright-ankaa",
+          "name": "Ankaa",
+          "simbadId": "* alf Phe",
+          "simbadType": "SB*",
+          "hip": 2081,
+          "wds": null,
+          "mscGrade": null,
+          "mscComponentCount": null,
+          "hierarchy": [],
+          "status": "needs-individual-identity-classification-and-measurement-review"
+        },
+        {
+          "starId": "bright-ascella",
+          "name": "Ascella",
+          "simbadId": "* zet Sgr",
+          "simbadType": "**",
+          "hip": 93506,
+          "wds": null,
+          "mscGrade": null,
+          "mscComponentCount": null,
+          "hierarchy": [],
+          "status": "needs-individual-identity-classification-and-measurement-review"
+        },
+        {
+          "starId": "bright-avior",
+          "name": "Avior",
+          "simbadId": "* eps Car",
+          "simbadType": "**",
+          "hip": 41037,
+          "wds": null,
+          "mscGrade": null,
+          "mscComponentCount": null,
+          "hierarchy": [],
+          "status": "needs-individual-identity-classification-and-measurement-review"
+        },
+        {
+          "starId": "bright-beta-lupi",
+          "name": "Beta Lupi",
+          "simbadId": "* bet Lup",
+          "simbadType": "**",
+          "hip": 73273,
+          "wds": "14585-4308",
+          "mscGrade": 4,
+          "mscComponentCount": 3,
+          "hierarchy": [
+            {
+              "primary": "A",
+              "secondary": "B",
+              "parent": "*",
+              "status": "v"
+            },
+            {
+              "primary": "Aa",
+              "secondary": "Ab",
+              "parent": "A",
+              "status": "v"
+            }
+          ],
+          "status": "needs-individual-identity-classification-and-measurement-review"
+        },
+        {
+          "starId": "bright-beta-scorpii-a",
+          "name": "Beta Scorpii A",
+          "simbadId": "* bet01 Sco",
+          "simbadType": "bC*",
+          "hip": 78820,
+          "wds": "16054-1948",
+          "mscGrade": 5,
+          "mscComponentCount": 6,
+          "hierarchy": [
+            {
+              "primary": "AB",
+              "secondary": "CE",
+              "parent": "*",
+              "status": "Cmrh"
+            },
+            {
+              "primary": "A",
+              "secondary": "B",
+              "parent": "AB",
+              "status": "V"
+            },
+            {
+              "primary": "C",
+              "secondary": "E",
+              "parent": "CE",
+              "status": "o,V,s"
+            },
+            {
+              "primary": "Ea",
+              "secondary": "Eb",
+              "parent": "E",
+              "status": "S1"
+            },
+            {
+              "primary": "Aa",
+              "secondary": "Ab",
+              "parent": "A",
+              "status": "S2,A,o"
+            }
+          ],
+          "status": "needs-individual-identity-classification-and-measurement-review"
+        },
+        {
+          "starId": "bright-castor",
+          "name": "Castor",
+          "simbadId": "* alf Gem",
+          "simbadType": "**",
+          "hip": 36850,
+          "wds": "07346+3153",
+          "mscGrade": 5,
+          "mscComponentCount": 7,
+          "hierarchy": [
+            {
+              "primary": "AB",
+              "secondary": "C",
+              "parent": "*",
+              "status": "Cmp"
+            },
+            {
+              "primary": "A",
+              "secondary": "B",
+              "parent": "AB",
+              "status": "V"
+            },
+            {
+              "primary": "Cab",
+              "secondary": "Cc",
+              "parent": "C",
+              "status": "E*?"
+            },
+            {
+              "primary": "Aa",
+              "secondary": "Ab",
+              "parent": "A",
+              "status": "S1,V"
+            },
+            {
+              "primary": "Ba",
+              "secondary": "Bb",
+              "parent": "B",
+              "status": "S1,A"
+            },
+            {
+              "primary": "Ca",
+              "secondary": "Cb",
+              "parent": "Cab",
+              "status": "S2,E"
+            }
+          ],
+          "status": "needs-individual-identity-classification-and-measurement-review"
+        },
+        {
+          "starId": "bright-delta-centauri",
+          "name": "Delta Centauri",
+          "simbadId": "* del Cen",
+          "simbadType": "Be*",
+          "hip": 59196,
+          "wds": "12084-5043",
+          "mscGrade": 4,
+          "mscComponentCount": 6,
+          "hierarchy": [
+            {
+              "primary": "A",
+              "secondary": "C",
+              "parent": "t",
+              "status": "Chrmp"
+            },
+            {
+              "primary": "A",
+              "secondary": "B",
+              "parent": "t",
+              "status": "Chmrp"
+            },
+            {
+              "primary": "Ba",
+              "secondary": "Bb",
+              "parent": "B",
+              "status": "v?"
+            },
+            {
+              "primary": "Aa",
+              "secondary": "Ab",
+              "parent": "A",
+              "status": "v"
+            },
+            {
+              "primary": "Ba1",
+              "secondary": "Ba2",
+              "parent": "Ba",
+              "status": "s2,a"
+            }
+          ],
+          "status": "needs-individual-identity-classification-and-measurement-review"
+        },
+        {
+          "starId": "bright-dschubba",
+          "name": "Dschubba",
+          "simbadId": "* del Sco",
+          "simbadType": "SB*",
+          "hip": 78401,
+          "wds": null,
+          "mscGrade": null,
+          "mscComponentCount": null,
+          "hierarchy": [],
+          "status": "needs-individual-identity-classification-and-measurement-review"
+        },
+        {
+          "starId": "bright-dubhe",
+          "name": "Dubhe",
+          "simbadId": "* alf UMa",
+          "simbadType": "SB*",
+          "hip": 54061,
+          "wds": "11037+6145",
+          "mscGrade": 5,
+          "mscComponentCount": 5,
+          "hierarchy": [
+            {
+              "primary": "AD",
+              "secondary": "C",
+              "parent": "*",
+              "status": "Cpmr"
+            },
+            {
+              "primary": "AB",
+              "secondary": "D",
+              "parent": "AD",
+              "status": "Cmp"
+            },
+            {
+              "primary": "A",
+              "secondary": "B",
+              "parent": "AB",
+              "status": "V,S1"
+            },
+            {
+              "primary": "Ca",
+              "secondary": "Cb",
+              "parent": "C",
+              "status": "S1"
+            }
+          ],
+          "status": "needs-individual-identity-classification-and-measurement-review"
+        },
+        {
+          "starId": "bright-gamma-cassiopeiae",
+          "name": "Gamma Cassiopeiae",
+          "simbadId": "* gam Cas",
+          "simbadType": "HXB",
+          "hip": 4427,
+          "wds": "00567+6043",
+          "mscGrade": 4,
+          "mscComponentCount": 4,
+          "hierarchy": [
+            {
+              "primary": "A",
+              "secondary": "B",
+              "parent": "*",
+              "status": "Ch"
+            },
+            {
+              "primary": "Aab",
+              "secondary": "Ac",
+              "parent": "A",
+              "status": "A"
+            },
+            {
+              "primary": "Aa",
+              "secondary": "Ab",
+              "parent": "Aab",
+              "status": "S1,a"
+            }
+          ],
+          "status": "needs-individual-identity-classification-and-measurement-review"
+        },
+        {
+          "starId": "bright-gamma-centauri",
+          "name": "Gamma Centauri",
+          "simbadId": "* gam Cen",
+          "simbadType": "**",
+          "hip": 61932,
+          "wds": "12415-4858",
+          "mscGrade": 1,
+          "mscComponentCount": 2,
+          "hierarchy": [
+            {
+              "primary": "AB",
+              "secondary": "D",
+              "parent": "X",
+              "status": "Cmpr"
+            },
+            {
+              "primary": "A",
+              "secondary": "B",
+              "parent": "*",
+              "status": "V"
+            }
+          ],
+          "status": "needs-individual-identity-classification-and-measurement-review"
+        },
+        {
+          "starId": "bright-hadar",
+          "name": "Hadar",
+          "simbadId": "* bet Cen",
+          "simbadType": "bC*",
+          "hip": 68702,
+          "wds": "14038-6022",
+          "mscGrade": 5,
+          "mscComponentCount": 3,
+          "hierarchy": [
+            {
+              "primary": "A",
+              "secondary": "B",
+              "parent": "*",
+              "status": "V"
+            },
+            {
+              "primary": "Aa",
+              "secondary": "Ab",
+              "parent": "A",
+              "status": "s2,V"
+            }
+          ],
+          "status": "needs-individual-identity-classification-and-measurement-review"
+        },
+        {
+          "starId": "bright-izar",
+          "name": "Izar",
+          "simbadId": "* eps Boo",
+          "simbadType": "PM*",
+          "hip": 72105,
+          "wds": "14450+2704",
+          "mscGrade": 4,
+          "mscComponentCount": 3,
+          "hierarchy": [
+            {
+              "primary": "AB",
+              "secondary": "D",
+              "parent": "*",
+              "status": "Cmp"
+            },
+            {
+              "primary": "A",
+              "secondary": "B",
+              "parent": "AB",
+              "status": "Ch"
+            }
+          ],
+          "status": "needs-individual-identity-classification-and-measurement-review"
+        },
+        {
+          "starId": "bright-leepwal",
+          "name": "Leepwal",
+          "simbadId": "* zet Cen",
+          "simbadType": "SB*",
+          "hip": 68002,
+          "wds": null,
+          "mscGrade": null,
+          "mscComponentCount": null,
+          "hierarchy": [],
+          "status": "needs-individual-identity-classification-and-measurement-review"
+        },
+        {
+          "starId": "bright-markeb",
+          "name": "Markeb",
+          "simbadId": "* kap Vel",
+          "simbadType": "SB*",
+          "hip": 45941,
+          "wds": null,
+          "mscGrade": null,
+          "mscComponentCount": null,
+          "hierarchy": [],
+          "status": "needs-individual-identity-classification-and-measurement-review"
+        },
+        {
+          "starId": "bright-menkalinan",
+          "name": "Menkalinan",
+          "simbadId": "* bet Aur",
+          "simbadType": "SB*",
+          "hip": 28360,
+          "wds": null,
+          "mscGrade": null,
+          "mscComponentCount": null,
+          "hierarchy": [],
+          "status": "needs-individual-identity-classification-and-measurement-review"
+        },
+        {
+          "starId": "bright-mintaka",
+          "name": "Mintaka",
+          "simbadId": "* del Ori",
+          "simbadType": "**",
+          "hip": 25930,
+          "wds": "05320-0018",
+          "mscGrade": 4,
+          "mscComponentCount": 5,
+          "hierarchy": [
+            {
+              "primary": "A",
+              "secondary": "C",
+              "parent": "*",
+              "status": "Cmpr"
+            },
+            {
+              "primary": "Aa",
+              "secondary": "Ab",
+              "parent": "A",
+              "status": "V"
+            },
+            {
+              "primary": "Ca",
+              "secondary": "Cb",
+              "parent": "C",
+              "status": "S2"
+            },
+            {
+              "primary": "Aa1",
+              "secondary": "Aa2",
+              "parent": "Aa",
+              "status": "S1,E"
+            }
+          ],
+          "status": "needs-individual-identity-classification-and-measurement-review"
+        },
+        {
+          "starId": "bright-mizar-a",
+          "name": "Mizar A",
+          "simbadId": "* zet01 UMa",
+          "simbadType": "SB*",
+          "hip": null,
+          "wds": null,
+          "mscGrade": null,
+          "mscComponentCount": null,
+          "hierarchy": [],
+          "status": "needs-individual-identity-classification-and-measurement-review"
+        },
+        {
+          "starId": "cns5-3442",
+          "name": "Muphrid",
+          "simbadId": "* eta Boo",
+          "simbadType": "SB*",
+          "hip": 67927,
+          "wds": null,
+          "mscGrade": null,
+          "mscComponentCount": null,
+          "hierarchy": [],
+          "status": "needs-individual-identity-classification-and-measurement-review"
+        },
+        {
+          "starId": "bright-nunki",
+          "name": "Nunki",
+          "simbadId": "* sig Sgr",
+          "simbadType": "**",
+          "hip": 92855,
+          "wds": "18553-2618",
+          "mscGrade": 1,
+          "mscComponentCount": 0,
+          "hierarchy": [
+            {
+              "primary": "A",
+              "secondary": "B",
+              "parent": "X",
+              "status": "Xmp"
+            },
+            {
+              "primary": "Aa",
+              "secondary": "Ab",
+              "parent": "*",
+              "status": "v"
+            }
+          ],
+          "status": "needs-individual-identity-classification-and-measurement-review"
+        },
+        {
+          "starId": "bright-peacock",
+          "name": "Peacock",
+          "simbadId": "* alf Pav",
+          "simbadType": "SB*",
+          "hip": 100751,
+          "wds": null,
+          "mscGrade": null,
+          "mscComponentCount": null,
+          "hierarchy": [],
+          "status": "needs-individual-identity-classification-and-measurement-review"
+        },
+        {
+          "starId": "bright-polaris",
+          "name": "Polaris",
+          "simbadId": "* alf UMi",
+          "simbadType": "cC*",
+          "hip": 11767,
+          "wds": "02318+8916",
+          "mscGrade": 5,
+          "mscComponentCount": 3,
+          "hierarchy": [
+            {
+              "primary": "A",
+              "secondary": "B",
+              "parent": "*",
+              "status": "Cmrp"
+            },
+            {
+              "primary": "Aa",
+              "secondary": "Ab",
+              "parent": "A",
+              "status": "S1,A,V"
+            }
+          ],
+          "status": "needs-individual-identity-classification-and-measurement-review"
+        },
+        {
+          "starId": "bright-rasalhague",
+          "name": "Rasalhague",
+          "simbadId": "* alf Oph",
+          "simbadType": "**",
+          "hip": 86032,
+          "wds": null,
+          "mscGrade": null,
+          "mscComponentCount": null,
+          "hierarchy": [],
+          "status": "needs-individual-identity-classification-and-measurement-review"
+        },
+        {
+          "starId": "bright-regor",
+          "name": "Regor",
+          "simbadId": "* gam02 Vel",
+          "simbadType": "WR*",
+          "hip": 39953,
+          "wds": "08095-4720",
+          "mscGrade": 4,
+          "mscComponentCount": 6,
+          "hierarchy": [
+            {
+              "primary": "A",
+              "secondary": "C",
+              "parent": "t",
+              "status": "Cphr"
+            },
+            {
+              "primary": "A",
+              "secondary": "B",
+              "parent": "t",
+              "status": "Crmh"
+            },
+            {
+              "primary": "Aab",
+              "secondary": "Ac",
+              "parent": "A",
+              "status": "Cp?"
+            },
+            {
+              "primary": "Aa",
+              "secondary": "Ab",
+              "parent": "Aab",
+              "status": "S2"
+            },
+            {
+              "primary": "Ba",
+              "secondary": "Bb",
+              "parent": "B",
+              "status": "S1"
+            }
+          ],
+          "status": "needs-individual-identity-classification-and-measurement-review"
+        },
+        {
+          "starId": "bright-regulus",
+          "name": "Regulus",
+          "simbadId": "* alf Leo",
+          "simbadType": "PM*",
+          "hip": 49669,
+          "wds": "10084+1158",
+          "mscGrade": 5,
+          "mscComponentCount": 4,
+          "hierarchy": [
+            {
+              "primary": "A",
+              "secondary": "BC",
+              "parent": "*",
+              "status": "Cmhrp"
+            },
+            {
+              "primary": "B",
+              "secondary": "C",
+              "parent": "BC",
+              "status": "Cpm"
+            },
+            {
+              "primary": "Aa",
+              "secondary": "Ab",
+              "parent": "A",
+              "status": "S1"
+            }
+          ],
+          "status": "needs-individual-identity-classification-and-measurement-review"
+        },
+        {
+          "starId": "bright-ruchbah",
+          "name": "Ruchbah",
+          "simbadId": "* del Cas",
+          "simbadType": "EB*",
+          "hip": 6686,
+          "wds": null,
+          "mscGrade": null,
+          "mscComponentCount": null,
+          "hierarchy": [],
+          "status": "needs-individual-identity-classification-and-measurement-review"
+        },
+        {
+          "starId": "bright-sabik",
+          "name": "Sabik",
+          "simbadId": "* eta Oph",
+          "simbadType": "**",
+          "hip": 84012,
+          "wds": null,
+          "mscGrade": null,
+          "mscComponentCount": null,
+          "hierarchy": [],
+          "status": "needs-individual-identity-classification-and-measurement-review"
+        },
+        {
+          "starId": "bright-shaula",
+          "name": "Shaula",
+          "simbadId": "* lam Sco",
+          "simbadType": "bC*",
+          "hip": 85927,
+          "wds": "17336-3706",
+          "mscGrade": 5,
+          "mscComponentCount": 3,
+          "hierarchy": [
+            {
+              "primary": "Aa",
+              "secondary": "Ab",
+              "parent": "*",
+              "status": "S3,V"
+            },
+            {
+              "primary": "Aa1",
+              "secondary": "Aa2",
+              "parent": "Aa",
+              "status": "S2,E"
+            }
+          ],
+          "status": "needs-individual-identity-classification-and-measurement-review"
+        },
+        {
+          "starId": "bright-sheratan",
+          "name": "Sheratan",
+          "simbadId": "* bet Ari",
+          "simbadType": "SB*",
+          "hip": 8903,
+          "wds": null,
+          "mscGrade": null,
+          "mscComponentCount": null,
+          "hierarchy": [],
+          "status": "needs-individual-identity-classification-and-measurement-review"
+        }
+      ]
+    },
+    "western-constellation-stars": {
+      "nonSunObjects": 713,
+      "expandedSystems": 14,
+      "remainingSourceCandidates": 213,
+      "candidates": [
+        {
+          "starId": "hip-28734",
+          "name": "1 Gem",
+          "simbadId": "*   1 Gem",
+          "simbadType": "**",
+          "hip": 28734,
+          "wds": "06041+2316",
+          "mscGrade": 5,
+          "mscComponentCount": 3,
+          "hierarchy": [
+            {
+              "primary": "A",
+              "secondary": "B",
+              "parent": "*",
+              "status": "V,S1"
+            },
+            {
+              "primary": "Ba",
+              "secondary": "Bb",
+              "parent": "B",
+              "status": "S1"
+            }
+          ],
+          "status": "needs-individual-identity-classification-and-measurement-review"
+        },
+        {
+          "starId": "hip-44248",
+          "name": "10 UMa",
+          "simbadId": "*  10 UMa",
+          "simbadType": "SB*",
+          "hip": 44248,
+          "wds": null,
+          "mscGrade": null,
+          "mscComponentCount": null,
+          "hierarchy": [],
+          "status": "needs-individual-identity-classification-and-measurement-review"
+        },
+        {
+          "starId": "hip-33449",
+          "name": "15 Lyn",
+          "simbadId": "*  15 Lyn",
+          "simbadType": "**",
+          "hip": 33449,
+          "wds": "06573+5825",
+          "mscGrade": 1,
+          "mscComponentCount": 2,
+          "hierarchy": [
+            {
+              "primary": "AB",
+              "secondary": "E",
+              "parent": "X",
+              "status": "Xpm"
+            },
+            {
+              "primary": "A",
+              "secondary": "B",
+              "parent": "*",
+              "status": "V,a"
+            }
+          ],
+          "status": "needs-individual-identity-classification-and-measurement-review"
+        },
+        {
+          "starId": "hip-38146",
+          "name": "188 Pup",
+          "simbadId": "* 188 Pup",
+          "simbadType": "**",
+          "hip": 38146,
+          "wds": null,
+          "mscGrade": null,
+          "mscComponentCount": null,
+          "hierarchy": [],
+          "status": "needs-individual-identity-classification-and-measurement-review"
+        },
+        {
+          "starId": "hip-30060",
+          "name": "2 Lyn",
+          "simbadId": "*   2 Lyn",
+          "simbadType": "EB*",
+          "hip": 30060,
+          "wds": null,
+          "mscGrade": null,
+          "mscComponentCount": null,
+          "hierarchy": [],
+          "status": "needs-individual-identity-classification-and-measurement-review"
+        },
+        {
+          "starId": "hip-45688",
+          "name": "38 Lyn",
+          "simbadId": "*  38 Lyn",
+          "simbadType": "PM*",
+          "hip": 45688,
+          "wds": "09188+3648",
+          "mscGrade": 5,
+          "mscComponentCount": 4,
+          "hierarchy": [
+            {
+              "primary": "AB",
+              "secondary": "E",
+              "parent": "*",
+              "status": "Cmp"
+            },
+            {
+              "primary": "A",
+              "secondary": "B",
+              "parent": "AB",
+              "status": "Chmp"
+            },
+            {
+              "primary": "Ba",
+              "secondary": "Bb",
+              "parent": "B",
+              "status": "v"
+            }
+          ],
+          "status": "needs-individual-identity-classification-and-measurement-review"
+        },
+        {
+          "starId": "hip-111104",
+          "name": "6 Lac",
+          "simbadId": "*   6 Lac",
+          "simbadType": "SB*",
+          "hip": 111104,
+          "wds": null,
+          "mscGrade": null,
+          "mscComponentCount": null,
+          "hierarchy": [],
+          "status": "needs-individual-identity-classification-and-measurement-review"
+        },
+        {
+          "starId": "hip-28691",
+          "name": "64 Ori",
+          "simbadId": "*  64 Ori",
+          "simbadType": "SB*",
+          "hip": 28691,
+          "wds": "06035+1941",
+          "mscGrade": 5,
+          "mscComponentCount": 3,
+          "hierarchy": [
+            {
+              "primary": "A",
+              "secondary": "B",
+              "parent": "*",
+              "status": "S1,V,o"
+            },
+            {
+              "primary": "Aa",
+              "secondary": "Ab",
+              "parent": "A",
+              "status": "S2"
+            }
+          ],
+          "status": "needs-individual-identity-classification-and-measurement-review"
+        },
+        {
+          "starId": "hip-45080",
+          "name": "a Car",
+          "simbadId": "* a Car",
+          "simbadType": "SB*",
+          "hip": 45080,
+          "wds": "09110-5858",
+          "mscGrade": 3,
+          "mscComponentCount": 3,
+          "hierarchy": [
+            {
+              "primary": "Aa1",
+              "secondary": "Aa2",
+              "parent": "Aa",
+              "status": "S1,E"
+            },
+            {
+              "primary": "Aa",
+              "secondary": "Ab",
+              "parent": "*",
+              "status": "a"
+            }
+          ],
+          "status": "needs-individual-identity-classification-and-measurement-review"
+        },
+        {
+          "starId": "hip-13847",
+          "name": "Acamar",
+          "simbadId": "* tet Eri",
+          "simbadType": "**",
+          "hip": 13847,
+          "wds": "02583-4018",
+          "mscGrade": 2,
+          "mscComponentCount": 3,
+          "hierarchy": [
+            {
+              "primary": "A",
+              "secondary": "B",
+              "parent": "*",
+              "status": "Cmp"
+            },
+            {
+              "primary": "Aa",
+              "secondary": "Ab",
+              "parent": "A",
+              "status": "a?"
+            }
+          ],
+          "status": "needs-individual-identity-classification-and-measurement-review"
+        },
+        {
+          "starId": "hip-60718",
+          "name": "Acrux",
+          "simbadId": "* alf Cru",
+          "simbadType": "SB*",
+          "hip": 60718,
+          "wds": "12266-6306",
+          "mscGrade": 5,
+          "mscComponentCount": 6,
+          "hierarchy": [
+            {
+              "primary": "AB",
+              "secondary": "CD",
+              "parent": "*",
+              "status": "Cmr"
+            },
+            {
+              "primary": "C",
+              "secondary": "D",
+              "parent": "CD",
+              "status": "Ch?"
+            },
+            {
+              "primary": "A",
+              "secondary": "B",
+              "parent": "AB",
+              "status": "Chmp"
+            },
+            {
+              "primary": "Aa",
+              "secondary": "Ab",
+              "parent": "A",
+              "status": "S1"
+            },
+            {
+              "primary": "Ca",
+              "secondary": "Cb",
+              "parent": "C",
+              "status": "S1"
+            }
+          ],
+          "status": "needs-individual-identity-classification-and-measurement-review"
+        },
+        {
+          "starId": "hip-44066",
+          "name": "Acubens",
+          "simbadId": "* alf Cnc",
+          "simbadType": "PM*",
+          "hip": 44066,
+          "wds": "08585+1151",
+          "mscGrade": 4,
+          "mscComponentCount": 3,
+          "hierarchy": [
+            {
+              "primary": "A",
+              "secondary": "B",
+              "parent": "*",
+              "status": "Chpmr"
+            },
+            {
+              "primary": "Aa",
+              "secondary": "Ab",
+              "parent": "A",
+              "status": "o,s,a"
+            }
+          ],
+          "status": "needs-individual-identity-classification-and-measurement-review"
+        },
+        {
+          "starId": "hip-68702",
+          "name": "Agena",
+          "simbadId": "* bet Cen",
+          "simbadType": "bC*",
+          "hip": 68702,
+          "wds": "14038-6022",
+          "mscGrade": 5,
+          "mscComponentCount": 3,
+          "hierarchy": [
+            {
+              "primary": "A",
+              "secondary": "B",
+              "parent": "*",
+              "status": "V"
+            },
+            {
+              "primary": "Aa",
+              "secondary": "Ab",
+              "parent": "A",
+              "status": "s2,V"
+            }
+          ],
+          "status": "needs-individual-identity-classification-and-measurement-review"
+        },
+        {
+          "starId": "hip-20889",
+          "name": "Ain",
+          "simbadId": "* eps Tau",
+          "simbadType": "**",
+          "hip": 20889,
+          "wds": null,
+          "mscGrade": null,
+          "mscComponentCount": null,
+          "hierarchy": [],
+          "status": "needs-individual-identity-classification-and-measurement-review"
+        },
+        {
+          "starId": "hip-10064",
+          "name": "Alaybasan",
+          "simbadId": "* bet Tri",
+          "simbadType": "SB*",
+          "hip": 10064,
+          "wds": null,
+          "mscGrade": null,
+          "mscComponentCount": null,
+          "hierarchy": [],
+          "status": "needs-individual-identity-classification-and-measurement-review"
+        },
+        {
+          "starId": "hip-95947",
+          "name": "Albereo",
+          "simbadId": "* bet01 Cyg",
+          "simbadType": "**",
+          "hip": 95947,
+          "wds": "19307+2758",
+          "mscGrade": 5,
+          "mscComponentCount": 3,
+          "hierarchy": [
+            {
+              "primary": "A",
+              "secondary": "B",
+              "parent": "*",
+              "status": "Chprm"
+            },
+            {
+              "primary": "Aa",
+              "secondary": "Ab",
+              "parent": "A",
+              "status": "V"
+            }
+          ],
+          "status": "needs-individual-identity-classification-and-measurement-review"
+        },
+        {
+          "starId": "hip-83895",
+          "name": "Aldhibah",
+          "simbadId": "* zet Dra",
+          "simbadType": "**",
+          "hip": 83895,
+          "wds": null,
+          "mscGrade": null,
+          "mscComponentCount": null,
+          "hierarchy": [],
+          "status": "needs-individual-identity-classification-and-measurement-review"
+        },
+        {
+          "starId": "hip-106032",
+          "name": "Alfirk",
+          "simbadId": "* bet Cep",
+          "simbadType": "bC*",
+          "hip": 106032,
+          "wds": "21287+7034",
+          "mscGrade": 5,
+          "mscComponentCount": 4,
+          "hierarchy": [
+            {
+              "primary": "A",
+              "secondary": "B",
+              "parent": "*",
+              "status": "Chpm"
+            },
+            {
+              "primary": "Aa",
+              "secondary": "Ab",
+              "parent": "A",
+              "status": "V"
+            },
+            {
+              "primary": "Aa1",
+              "secondary": "Aa2",
+              "parent": "Aa",
+              "status": "S1"
+            }
+          ],
+          "status": "needs-individual-identity-classification-and-measurement-review"
+        },
+        {
+          "starId": "hip-50583",
+          "name": "Algieba",
+          "simbadId": "* gam Leo",
+          "simbadType": "**",
+          "hip": 50583,
+          "wds": null,
+          "mscGrade": null,
+          "mscComponentCount": null,
+          "hierarchy": [],
+          "status": "needs-individual-identity-classification-and-measurement-review"
+        },
+        {
+          "starId": "hip-14576",
+          "name": "Algol",
+          "simbadId": "* bet Per",
+          "simbadType": "SB*",
+          "hip": 14576,
+          "wds": "03082+4057",
+          "mscGrade": 5,
+          "mscComponentCount": 3,
+          "hierarchy": [
+            {
+              "primary": "A",
+              "secondary": "B",
+              "parent": "*",
+              "status": "V,A,S2"
+            },
+            {
+              "primary": "Aa",
+              "secondary": "Ab",
+              "parent": "A",
+              "status": "S2,E,V"
+            }
+          ],
+          "status": "needs-individual-identity-classification-and-measurement-review"
+        },
+        {
+          "starId": "hip-31681",
+          "name": "Alhena",
+          "simbadId": "* gam Gem",
+          "simbadType": "SB*",
+          "hip": 31681,
+          "wds": null,
+          "mscGrade": null,
+          "mscComponentCount": null,
+          "hierarchy": [],
+          "status": "needs-individual-identity-classification-and-measurement-review"
+        },
+        {
+          "starId": "hip-102488",
+          "name": "Aljanah",
+          "simbadId": "* eps Cyg",
+          "simbadType": "**",
+          "hip": 102488,
+          "wds": "20462+3358",
+          "mscGrade": 5,
+          "mscComponentCount": 3,
+          "hierarchy": [
+            {
+              "primary": "A",
+              "secondary": "D",
+              "parent": "*",
+              "status": "Cmp"
+            },
+            {
+              "primary": "A",
+              "secondary": "C",
+              "parent": "X",
+              "status": "Xmhp"
+            },
+            {
+              "primary": "Aa",
+              "secondary": "Ab",
+              "parent": "A",
+              "status": "S1,a"
+            }
+          ],
+          "status": "needs-individual-identity-classification-and-measurement-review"
+        },
+        {
+          "starId": "hip-44471",
+          "name": "Alkaphrah",
+          "simbadId": "* kap UMa",
+          "simbadType": "**",
+          "hip": 44471,
+          "wds": null,
+          "mscGrade": null,
+          "mscComponentCount": null,
+          "hierarchy": [],
+          "status": "needs-individual-identity-classification-and-measurement-review"
+        },
+        {
+          "starId": "hip-9640",
+          "name": "Almach",
+          "simbadId": "* gam01 And",
+          "simbadType": "*",
+          "hip": 9640,
+          "wds": "02039+4220",
+          "mscGrade": 5,
+          "mscComponentCount": 4,
+          "hierarchy": [
+            {
+              "primary": "A",
+              "secondary": "BC",
+              "parent": "*",
+              "status": "Cmph"
+            },
+            {
+              "primary": "B",
+              "secondary": "C",
+              "parent": "BC",
+              "status": "V"
+            },
+            {
+              "primary": "Ba",
+              "secondary": "Bb",
+              "parent": "B",
+              "status": "S2"
+            }
+          ],
+          "status": "needs-individual-identity-classification-and-measurement-review"
+        },
+        {
+          "starId": "hip-26727",
+          "name": "Alnitak",
+          "simbadId": "* zet Ori",
+          "simbadType": "**",
+          "hip": 26727,
+          "wds": "05407-0157",
+          "mscGrade": 5,
+          "mscComponentCount": 3,
+          "hierarchy": [
+            {
+              "primary": "A",
+              "secondary": "B",
+              "parent": "*",
+              "status": "V"
+            },
+            {
+              "primary": "Aa",
+              "secondary": "Ab",
+              "parent": "A",
+              "status": "V"
+            }
+          ],
+          "status": "needs-individual-identity-classification-and-measurement-review"
+        },
+        {
+          "starId": "hip-21770",
+          "name": "Alpha Cae",
+          "simbadId": "* alf Cae",
+          "simbadType": "PM*",
+          "hip": 21770,
+          "wds": "04406-4152",
+          "mscGrade": 4,
+          "mscComponentCount": 3,
+          "hierarchy": [
+            {
+              "primary": "A",
+              "secondary": "B",
+              "parent": "*",
+              "status": "Ch"
+            },
+            {
+              "primary": "Ba",
+              "secondary": "Bb",
+              "parent": "B",
+              "status": "v"
+            }
+          ],
+          "status": "needs-individual-identity-classification-and-measurement-review"
+        },
+        {
+          "starId": "hip-61585",
+          "name": "Alpha Mus",
+          "simbadId": "* alf Mus",
+          "simbadType": "**",
+          "hip": 61585,
+          "wds": "12372-6908",
+          "mscGrade": 4,
+          "mscComponentCount": 3,
+          "hierarchy": [
+            {
+              "primary": "A",
+              "secondary": "B",
+              "parent": "*",
+              "status": "Cmp"
+            },
+            {
+              "primary": "Aa",
+              "secondary": "Ab",
+              "parent": "A",
+              "status": "v,a"
+            }
+          ],
+          "status": "needs-individual-identity-classification-and-measurement-review"
+        },
+        {
+          "starId": "hip-44382",
+          "name": "Alpha Vol",
+          "simbadId": "* alf Vol",
+          "simbadType": "**",
+          "hip": 44382,
+          "wds": null,
+          "mscGrade": null,
+          "mscComponentCount": null,
+          "hierarchy": [],
+          "status": "needs-individual-identity-classification-and-measurement-review"
+        },
+        {
+          "starId": "hip-76267",
+          "name": "Alphecca",
+          "simbadId": "* alf CrB",
+          "simbadType": "SB*",
+          "hip": 76267,
+          "wds": null,
+          "mscGrade": null,
+          "mscComponentCount": null,
+          "hierarchy": [],
+          "status": "needs-individual-identity-classification-and-measurement-review"
+        },
+        {
+          "starId": "hip-7097",
+          "name": "Alpherg",
+          "simbadId": "* eta Psc",
+          "simbadType": "**",
+          "hip": 7097,
+          "wds": null,
+          "mscGrade": null,
+          "mscComponentCount": null,
+          "hierarchy": [],
+          "status": "needs-individual-identity-classification-and-measurement-review"
+        },
+        {
+          "starId": "hip-9487",
+          "name": "Alrescha",
+          "simbadId": "* alf Psc",
+          "simbadType": "a2*",
+          "hip": 9487,
+          "wds": "02020+0246",
+          "mscGrade": 5,
+          "mscComponentCount": 3,
+          "hierarchy": [
+            {
+              "primary": "A",
+              "secondary": "B",
+              "parent": "*",
+              "status": "V"
+            },
+            {
+              "primary": "Ba",
+              "secondary": "Bb",
+              "parent": "B",
+              "status": "V,S2"
+            }
+          ],
+          "status": "needs-individual-identity-classification-and-measurement-review"
+        },
+        {
+          "starId": "hip-42913",
+          "name": "Alsephina",
+          "simbadId": "* del01 Vel",
+          "simbadType": "**",
+          "hip": 42913,
+          "wds": "08447-5443",
+          "mscGrade": 5,
+          "mscComponentCount": 3,
+          "hierarchy": [
+            {
+              "primary": "A",
+              "secondary": "B",
+              "parent": "*",
+              "status": "V"
+            },
+            {
+              "primary": "Aa",
+              "secondary": "Ab",
+              "parent": "A",
+              "status": "E,V"
+            },
+            {
+              "primary": "A",
+              "secondary": "F",
+              "parent": "X",
+              "status": "Cmpr"
+            }
+          ],
+          "status": "needs-individual-identity-classification-and-measurement-review"
+        },
+        {
+          "starId": "hip-2081",
+          "name": "Ankaa",
+          "simbadId": "* alf Phe",
+          "simbadType": "SB*",
+          "hip": 2081,
+          "wds": null,
+          "mscGrade": null,
+          "mscComponentCount": null,
+          "hierarchy": [],
+          "status": "needs-individual-identity-classification-and-measurement-review"
+        },
+        {
+          "starId": "hip-99473",
+          "name": "Antinous",
+          "simbadId": "* tet Aql",
+          "simbadType": "SB*",
+          "hip": 99473,
+          "wds": "20113-0049",
+          "mscGrade": 1,
+          "mscComponentCount": 0,
+          "hierarchy": [
+            {
+              "primary": "Aa",
+              "secondary": "Ab",
+              "parent": "*",
+              "status": "S2,v"
+            },
+            {
+              "primary": "A",
+              "secondary": "B",
+              "parent": "X",
+              "status": "Xmp"
+            }
+          ],
+          "status": "needs-individual-identity-classification-and-measurement-review"
+        },
+        {
+          "starId": "hip-93506",
+          "name": "Ascella",
+          "simbadId": "* zet Sgr",
+          "simbadType": "**",
+          "hip": 93506,
+          "wds": null,
+          "mscGrade": null,
+          "mscComponentCount": null,
+          "hierarchy": [],
+          "status": "needs-individual-identity-classification-and-measurement-review"
+        },
+        {
+          "starId": "hip-42911",
+          "name": "Asellus Australis",
+          "simbadId": "* del Cnc",
+          "simbadType": "**",
+          "hip": 42911,
+          "wds": null,
+          "mscGrade": null,
+          "mscComponentCount": null,
+          "hierarchy": [],
+          "status": "needs-individual-identity-classification-and-measurement-review"
+        },
+        {
+          "starId": "hip-43109",
+          "name": "Ashlesha",
+          "simbadId": "* eps Hya",
+          "simbadType": "**",
+          "hip": 43109,
+          "wds": "08468+0625",
+          "mscGrade": 5,
+          "mscComponentCount": 5,
+          "hierarchy": [
+            {
+              "primary": "AC",
+              "secondary": "D",
+              "parent": "*",
+              "status": "Cpm"
+            },
+            {
+              "primary": "AB",
+              "secondary": "C",
+              "parent": "AC",
+              "status": "V,s"
+            },
+            {
+              "primary": "A",
+              "secondary": "B",
+              "parent": "AB",
+              "status": "V,S1"
+            },
+            {
+              "primary": "Ca",
+              "secondary": "Cb",
+              "parent": "C",
+              "status": "S1"
+            }
+          ],
+          "status": "needs-individual-identity-classification-and-measurement-review"
+        },
+        {
+          "starId": "hip-80331",
+          "name": "Athebyne",
+          "simbadId": "* eta Dra",
+          "simbadType": "PM*",
+          "hip": 80331,
+          "wds": "16240+6131",
+          "mscGrade": 3,
+          "mscComponentCount": 3,
+          "hierarchy": [
+            {
+              "primary": "A",
+              "secondary": "B",
+              "parent": "*",
+              "status": "Chmp"
+            },
+            {
+              "primary": "Aa",
+              "secondary": "Ab",
+              "parent": "A",
+              "status": "a,s"
+            }
+          ],
+          "status": "needs-individual-identity-classification-and-measurement-review"
+        },
+        {
+          "starId": "hip-17448",
+          "name": "Atik",
+          "simbadId": "* omi Per",
+          "simbadType": "SB*",
+          "hip": 17448,
+          "wds": "03443+3217",
+          "mscGrade": 5,
+          "mscComponentCount": 3,
+          "hierarchy": [
+            {
+              "primary": "A",
+              "secondary": "B",
+              "parent": "*",
+              "status": "v"
+            },
+            {
+              "primary": "Aa",
+              "secondary": "Ab",
+              "parent": "A",
+              "status": "S2"
+            }
+          ],
+          "status": "needs-individual-identity-classification-and-measurement-review"
+        },
+        {
+          "starId": "hip-17847",
+          "name": "Atlas",
+          "simbadId": "*  27 Tau",
+          "simbadType": "SB*",
+          "hip": 17847,
+          "wds": "03492+2403",
+          "mscGrade": 2,
+          "mscComponentCount": 3,
+          "hierarchy": [
+            {
+              "primary": "Aa",
+              "secondary": "Ab",
+              "parent": "*",
+              "status": "Ch?"
+            },
+            {
+              "primary": "Aa1",
+              "secondary": "Aa2",
+              "parent": "Aa",
+              "status": "S1,V"
+            }
+          ],
+          "status": "needs-individual-identity-classification-and-measurement-review"
+        },
+        {
+          "starId": "hip-41037",
+          "name": "Avior",
+          "simbadId": "* eps Car",
+          "simbadType": "**",
+          "hip": 41037,
+          "wds": null,
+          "mscGrade": null,
+          "mscComponentCount": null,
+          "hierarchy": [],
+          "status": "needs-individual-identity-classification-and-measurement-review"
+        },
+        {
+          "starId": "hip-8645",
+          "name": "Baten Kaitos",
+          "simbadId": "* zet Cet",
+          "simbadType": "SB*",
+          "hip": 8645,
+          "wds": null,
+          "mscGrade": null,
+          "mscComponentCount": null,
+          "hierarchy": [],
+          "status": "needs-individual-identity-classification-and-measurement-review"
+        },
+        {
+          "starId": "hip-54682",
+          "name": "Beta Crt",
+          "simbadId": "* bet Crt",
+          "simbadType": "SB*",
+          "hip": 54682,
+          "wds": null,
+          "mscGrade": null,
+          "mscComponentCount": null,
+          "hierarchy": [],
+          "status": "needs-individual-identity-classification-and-measurement-review"
+        },
+        {
+          "starId": "hip-110538",
+          "name": "Beta Lac",
+          "simbadId": "* bet Lac",
+          "simbadType": "**",
+          "hip": 110538,
+          "wds": null,
+          "mscGrade": null,
+          "mscComponentCount": null,
+          "hierarchy": [],
+          "status": "needs-individual-identity-classification-and-measurement-review"
+        },
+        {
+          "starId": "hip-51233",
+          "name": "Beta LMi",
+          "simbadId": "* bet LMi",
+          "simbadType": "**",
+          "hip": 51233,
+          "wds": "10279+3642",
+          "mscGrade": 1,
+          "mscComponentCount": 2,
+          "hierarchy": [
+            {
+              "primary": "A",
+              "secondary": "B",
+              "parent": "*",
+              "status": "V,S1"
+            }
+          ],
+          "status": "needs-individual-identity-classification-and-measurement-review"
+        },
+        {
+          "starId": "hip-73273",
+          "name": "Beta Lup",
+          "simbadId": "* bet Lup",
+          "simbadType": "**",
+          "hip": 73273,
+          "wds": "14585-4308",
+          "mscGrade": 4,
+          "mscComponentCount": 3,
+          "hierarchy": [
+            {
+              "primary": "A",
+              "secondary": "B",
+              "parent": "*",
+              "status": "v"
+            },
+            {
+              "primary": "Aa",
+              "secondary": "Ab",
+              "parent": "A",
+              "status": "v"
+            }
+          ],
+          "status": "needs-individual-identity-classification-and-measurement-review"
+        },
+        {
+          "starId": "hip-30867",
+          "name": "Beta Mon",
+          "simbadId": "* bet Mon",
+          "simbadType": "**",
+          "hip": 30867,
+          "wds": "06288-0702",
+          "mscGrade": 4,
+          "mscComponentCount": 4,
+          "hierarchy": [
+            {
+              "primary": "A",
+              "secondary": "B",
+              "parent": "t",
+              "status": "Cmrp"
+            },
+            {
+              "primary": "B",
+              "secondary": "C",
+              "parent": "t",
+              "status": "Cmrp"
+            },
+            {
+              "primary": "Ca",
+              "secondary": "Cb",
+              "parent": "C",
+              "status": "v??"
+            }
+          ],
+          "status": "needs-individual-identity-classification-and-measurement-review"
+        },
+        {
+          "starId": "hip-62322",
+          "name": "Beta Mus",
+          "simbadId": "* bet Mus",
+          "simbadType": "**",
+          "hip": 62322,
+          "wds": "12463-6806",
+          "mscGrade": 5,
+          "mscComponentCount": 5,
+          "hierarchy": [
+            {
+              "primary": "AB",
+              "secondary": "C",
+              "parent": "t",
+              "status": "Cmp"
+            },
+            {
+              "primary": "AB",
+              "secondary": "D",
+              "parent": "t",
+              "status": "Cmp"
+            },
+            {
+              "primary": "A",
+              "secondary": "B",
+              "parent": "AB",
+              "status": "V"
+            },
+            {
+              "primary": "Aa",
+              "secondary": "Ab",
+              "parent": "A",
+              "status": "v"
+            }
+          ],
+          "status": "needs-individual-identity-classification-and-measurement-review"
+        },
+        {
+          "starId": "hip-5165",
+          "name": "Beta Phe",
+          "simbadId": "* bet Phe",
+          "simbadType": "**",
+          "hip": 5165,
+          "wds": null,
+          "mscGrade": null,
+          "mscComponentCount": null,
+          "hierarchy": [],
+          "status": "needs-individual-identity-classification-and-measurement-review"
+        },
+        {
+          "starId": "hip-17440",
+          "name": "Beta Ret",
+          "simbadId": "* bet Ret",
+          "simbadType": "SB*",
+          "hip": 17440,
+          "wds": "03442-6448",
+          "mscGrade": 1,
+          "mscComponentCount": 2,
+          "hierarchy": [
+            {
+              "primary": "A",
+              "secondary": "B",
+              "parent": "X",
+              "status": "Cmp?"
+            },
+            {
+              "primary": "Aa",
+              "secondary": "Ab",
+              "parent": "*",
+              "status": "S1,A,V"
+            }
+          ],
+          "status": "needs-individual-identity-classification-and-measurement-review"
+        },
+        {
+          "starId": "hip-92175",
+          "name": "Beta Sct",
+          "simbadId": "* bet Sct",
+          "simbadType": "SB*",
+          "hip": 92175,
+          "wds": null,
+          "mscGrade": null,
+          "mscComponentCount": null,
+          "hierarchy": [],
+          "status": "needs-individual-identity-classification-and-measurement-review"
+        },
+        {
+          "starId": "hip-78820",
+          "name": "Beta1 Sco",
+          "simbadId": "* bet01 Sco",
+          "simbadType": "bC*",
+          "hip": 78820,
+          "wds": "16054-1948",
+          "mscGrade": 5,
+          "mscComponentCount": 6,
+          "hierarchy": [
+            {
+              "primary": "AB",
+              "secondary": "CE",
+              "parent": "*",
+              "status": "Cmrh"
+            },
+            {
+              "primary": "A",
+              "secondary": "B",
+              "parent": "AB",
+              "status": "V"
+            },
+            {
+              "primary": "C",
+              "secondary": "E",
+              "parent": "CE",
+              "status": "o,V,s"
+            },
+            {
+              "primary": "Ea",
+              "secondary": "Eb",
+              "parent": "E",
+              "status": "S1"
+            },
+            {
+              "primary": "Aa",
+              "secondary": "Ab",
+              "parent": "A",
+              "status": "S2,A,o"
+            }
+          ],
+          "status": "needs-individual-identity-classification-and-measurement-review"
+        },
+        {
+          "starId": "hip-2484",
+          "name": "Beta1 Tuc",
+          "simbadId": "* bet01 Tuc",
+          "simbadType": "**",
+          "hip": 2484,
+          "wds": "00315-6257",
+          "mscGrade": 5,
+          "mscComponentCount": 5,
+          "hierarchy": [
+            {
+              "primary": "AC",
+              "secondary": "P",
+              "parent": "*",
+              "status": "Cmpr"
+            },
+            {
+              "primary": "AB",
+              "secondary": "CD",
+              "parent": "AC",
+              "status": "Cmpr"
+            },
+            {
+              "primary": "A",
+              "secondary": "B",
+              "parent": "AB",
+              "status": "Chm"
+            },
+            {
+              "primary": "C",
+              "secondary": "D",
+              "parent": "CD",
+              "status": "V"
+            },
+            {
+              "primary": "P",
+              "secondary": "Q",
+              "parent": "X",
+              "status": "v??"
+            }
+          ],
+          "status": "needs-individual-identity-classification-and-measurement-review"
+        },
+        {
+          "starId": "hip-13209",
+          "name": "Bharani",
+          "simbadId": "*  41 Ari",
+          "simbadType": "**",
+          "hip": 13209,
+          "wds": null,
+          "mscGrade": null,
+          "mscComponentCount": null,
+          "hierarchy": [],
+          "status": "needs-individual-identity-classification-and-measurement-review"
+        },
+        {
+          "starId": "hip-36850",
+          "name": "Castor",
+          "simbadId": "* alf Gem",
+          "simbadType": "**",
+          "hip": 36850,
+          "wds": "07346+3153",
+          "mscGrade": 5,
+          "mscComponentCount": 7,
+          "hierarchy": [
+            {
+              "primary": "AB",
+              "secondary": "C",
+              "parent": "*",
+              "status": "Cmp"
+            },
+            {
+              "primary": "A",
+              "secondary": "B",
+              "parent": "AB",
+              "status": "V"
+            },
+            {
+              "primary": "Cab",
+              "secondary": "Cc",
+              "parent": "C",
+              "status": "E*?"
+            },
+            {
+              "primary": "Aa",
+              "secondary": "Ab",
+              "parent": "A",
+              "status": "S1,V"
+            },
+            {
+              "primary": "Ba",
+              "secondary": "Bb",
+              "parent": "B",
+              "status": "S1,A"
+            },
+            {
+              "primary": "Ca",
+              "secondary": "Cb",
+              "parent": "Cab",
+              "status": "S2,E"
+            }
+          ],
+          "status": "needs-individual-identity-classification-and-measurement-review"
+        },
+        {
+          "starId": "hip-61317",
+          "name": "Chara",
+          "simbadId": "* bet CVn",
+          "simbadType": "**",
+          "hip": 61317,
+          "wds": null,
+          "mscGrade": null,
+          "mscComponentCount": null,
+          "hierarchy": [],
+          "status": "needs-individual-identity-classification-and-measurement-review"
+        },
+        {
+          "starId": "hip-77634",
+          "name": "Chi Lup",
+          "simbadId": "* chi Lup",
+          "simbadType": "SB*",
+          "hip": 77634,
+          "wds": "15509-3338",
+          "mscGrade": 3,
+          "mscComponentCount": 3,
+          "hierarchy": [
+            {
+              "primary": "Aa",
+              "secondary": "Ab",
+              "parent": "Aab",
+              "status": "S2"
+            },
+            {
+              "primary": "Aab",
+              "secondary": "Ac",
+              "parent": "*",
+              "status": "a"
+            }
+          ],
+          "status": "needs-individual-identity-classification-and-measurement-review"
+        },
+        {
+          "starId": "hip-63125",
+          "name": "Cor Caroli",
+          "simbadId": "* alf02 CVn",
+          "simbadType": "a2*",
+          "hip": 63125,
+          "wds": "12560+3819",
+          "mscGrade": 3,
+          "mscComponentCount": 3,
+          "hierarchy": [
+            {
+              "primary": "A",
+              "secondary": "B",
+              "parent": "*",
+              "status": "Cmpr"
+            },
+            {
+              "primary": "Aa",
+              "secondary": "Ab",
+              "parent": "A",
+              "status": "a"
+            }
+          ],
+          "status": "needs-individual-identity-classification-and-measurement-review"
+        },
+        {
+          "starId": "hip-65936",
+          "name": "d Cen",
+          "simbadId": "* d Cen",
+          "simbadType": "**",
+          "hip": 65936,
+          "wds": null,
+          "mscGrade": null,
+          "mscComponentCount": null,
+          "hierarchy": [],
+          "status": "needs-individual-identity-classification-and-measurement-review"
+        },
+        {
+          "starId": "hip-100345",
+          "name": "Dabih",
+          "simbadId": "* bet01 Cap",
+          "simbadType": "SB*",
+          "hip": 100345,
+          "wds": "20210-1447",
+          "mscGrade": 5,
+          "mscComponentCount": 5,
+          "hierarchy": [
+            {
+              "primary": "A",
+              "secondary": "B",
+              "parent": "*",
+              "status": "Cmrph"
+            },
+            {
+              "primary": "Ba",
+              "secondary": "Bb",
+              "parent": "B",
+              "status": "V,o"
+            },
+            {
+              "primary": "Aa",
+              "secondary": "Ab",
+              "parent": "A",
+              "status": "S2,V,o,a"
+            },
+            {
+              "primary": "Ab1",
+              "secondary": "Ab2",
+              "parent": "Ab",
+              "status": "S1,E?"
+            }
+          ],
+          "status": "needs-individual-identity-classification-and-measurement-review"
+        },
+        {
+          "starId": "hip-14879",
+          "name": "Dalim",
+          "simbadId": "* alf For",
+          "simbadType": "PM*",
+          "hip": 14879,
+          "wds": "03121-2859",
+          "mscGrade": 5,
+          "mscComponentCount": 3,
+          "hierarchy": [
+            {
+              "primary": "A",
+              "secondary": "B",
+              "parent": "*",
+              "status": "V"
+            },
+            {
+              "primary": "Ba",
+              "secondary": "Bb",
+              "parent": "B",
+              "status": "S1"
+            }
+          ],
+          "status": "needs-individual-identity-classification-and-measurement-review"
+        },
+        {
+          "starId": "hip-3092",
+          "name": "Delta And",
+          "simbadId": "* del And",
+          "simbadType": "SB*",
+          "hip": 3092,
+          "wds": "00393+3052",
+          "mscGrade": 5,
+          "mscComponentCount": 3,
+          "hierarchy": [
+            {
+              "primary": "A",
+              "secondary": "B",
+              "parent": "*",
+              "status": "Cpm"
+            },
+            {
+              "primary": "Aa",
+              "secondary": "Ab",
+              "parent": "A",
+              "status": "S1,A,v"
+            }
+          ],
+          "status": "needs-individual-identity-classification-and-measurement-review"
+        },
+        {
+          "starId": "hip-95501",
+          "name": "Delta Aql",
+          "simbadId": "* del Aql",
+          "simbadType": "**",
+          "hip": 95501,
+          "wds": null,
+          "mscGrade": null,
+          "mscComponentCount": null,
+          "hierarchy": [],
+          "status": "needs-individual-identity-classification-and-measurement-review"
+        },
+        {
+          "starId": "hip-59196",
+          "name": "Delta Cen",
+          "simbadId": "* del Cen",
+          "simbadType": "Be*",
+          "hip": 59196,
+          "wds": "12084-5043",
+          "mscGrade": 4,
+          "mscComponentCount": 6,
+          "hierarchy": [
+            {
+              "primary": "A",
+              "secondary": "C",
+              "parent": "t",
+              "status": "Chrmp"
+            },
+            {
+              "primary": "A",
+              "secondary": "B",
+              "parent": "t",
+              "status": "Chmrp"
+            },
+            {
+              "primary": "Ba",
+              "secondary": "Bb",
+              "parent": "B",
+              "status": "v?"
+            },
+            {
+              "primary": "Aa",
+              "secondary": "Ab",
+              "parent": "A",
+              "status": "v"
+            },
+            {
+              "primary": "Ba1",
+              "secondary": "Ba2",
+              "parent": "Ba",
+              "status": "s2,a"
+            }
+          ],
+          "status": "needs-individual-identity-classification-and-measurement-review"
+        },
+        {
+          "starId": "hip-30277",
+          "name": "Delta Col",
+          "simbadId": "* del Col",
+          "simbadType": "SB*",
+          "hip": 30277,
+          "wds": null,
+          "mscGrade": null,
+          "mscComponentCount": null,
+          "hierarchy": [],
+          "status": "needs-individual-identity-classification-and-measurement-review"
+        },
+        {
+          "starId": "hip-104858",
+          "name": "Delta Equ",
+          "simbadId": "* del Equ",
+          "simbadType": "SB*",
+          "hip": 104858,
+          "wds": null,
+          "mscGrade": null,
+          "mscComponentCount": null,
+          "hierarchy": [],
+          "status": "needs-individual-identity-classification-and-measurement-review"
+        },
+        {
+          "starId": "hip-42313",
+          "name": "Delta Hya",
+          "simbadId": "* del Hya",
+          "simbadType": "**",
+          "hip": 42313,
+          "wds": null,
+          "mscGrade": null,
+          "mscComponentCount": null,
+          "hierarchy": [],
+          "status": "needs-individual-identity-classification-and-measurement-review"
+        },
+        {
+          "starId": "hip-76276",
+          "name": "Delta Ser",
+          "simbadId": "* del Ser",
+          "simbadType": "**",
+          "hip": 76276,
+          "wds": "15348+1032",
+          "mscGrade": 3,
+          "mscComponentCount": 3,
+          "hierarchy": [
+            {
+              "primary": "A",
+              "secondary": "B",
+              "parent": "*",
+              "status": "Cmp"
+            },
+            {
+              "primary": "Aa",
+              "secondary": "Ab",
+              "parent": "A",
+              "status": "a,s"
+            }
+          ],
+          "status": "needs-individual-identity-classification-and-measurement-review"
+        },
+        {
+          "starId": "hip-97365",
+          "name": "Delta Sge",
+          "simbadId": "* del Sge",
+          "simbadType": "SB*",
+          "hip": 97365,
+          "wds": null,
+          "mscGrade": null,
+          "mscComponentCount": null,
+          "hierarchy": [],
+          "status": "needs-individual-identity-classification-and-measurement-review"
+        },
+        {
+          "starId": "hip-107556",
+          "name": "Deneb Algedi",
+          "simbadId": "* del Cap",
+          "simbadType": "SB*",
+          "hip": 107556,
+          "wds": null,
+          "mscGrade": null,
+          "mscComponentCount": null,
+          "hierarchy": [],
+          "status": "needs-individual-identity-classification-and-measurement-review"
+        },
+        {
+          "starId": "hip-64241",
+          "name": "Diadem",
+          "simbadId": "* alf Com",
+          "simbadType": "**",
+          "hip": 64241,
+          "wds": null,
+          "mscGrade": null,
+          "mscComponentCount": null,
+          "hierarchy": [],
+          "status": "needs-individual-identity-classification-and-measurement-review"
+        },
+        {
+          "starId": "hip-78401",
+          "name": "Dschubba",
+          "simbadId": "* del Sco",
+          "simbadType": "SB*",
+          "hip": 78401,
+          "wds": null,
+          "mscGrade": null,
+          "mscComponentCount": null,
+          "hierarchy": [],
+          "status": "needs-individual-identity-classification-and-measurement-review"
+        },
+        {
+          "starId": "hip-54061",
+          "name": "Dubhe",
+          "simbadId": "* alf UMa",
+          "simbadType": "SB*",
+          "hip": 54061,
+          "wds": "11037+6145",
+          "mscGrade": 5,
+          "mscComponentCount": 5,
+          "hierarchy": [
+            {
+              "primary": "AD",
+              "secondary": "C",
+              "parent": "*",
+              "status": "Cpmr"
+            },
+            {
+              "primary": "AB",
+              "secondary": "D",
+              "parent": "AD",
+              "status": "Cmp"
+            },
+            {
+              "primary": "A",
+              "secondary": "B",
+              "parent": "AB",
+              "status": "V,S1"
+            },
+            {
+              "primary": "Ca",
+              "secondary": "Cb",
+              "parent": "C",
+              "status": "S1"
+            }
+          ],
+          "status": "needs-individual-identity-classification-and-measurement-review"
+        },
+        {
+          "starId": "hip-93244",
+          "name": "Epsilon Aql",
+          "simbadId": "* eps Aql",
+          "simbadType": "SB*",
+          "hip": 93244,
+          "wds": null,
+          "mscGrade": null,
+          "mscComponentCount": null,
+          "hierarchy": [],
+          "status": "needs-individual-identity-classification-and-measurement-review"
+        },
+        {
+          "starId": "hip-12390",
+          "name": "Epsilon Cet",
+          "simbadId": "* eps Cet",
+          "simbadType": "SB*",
+          "hip": 12390,
+          "wds": null,
+          "mscGrade": null,
+          "mscComponentCount": null,
+          "hierarchy": [],
+          "status": "needs-individual-identity-classification-and-measurement-review"
+        },
+        {
+          "starId": "hip-93174",
+          "name": "Epsilon CrA",
+          "simbadId": "* eps CrA",
+          "simbadType": "SB*",
+          "hip": 93174,
+          "wds": null,
+          "mscGrade": null,
+          "mscComponentCount": null,
+          "hierarchy": [],
+          "status": "needs-individual-identity-classification-and-measurement-review"
+        },
+        {
+          "starId": "hip-112623",
+          "name": "Epsilon Gru",
+          "simbadId": "* eps Gru",
+          "simbadType": "SB*",
+          "hip": 112623,
+          "wds": null,
+          "mscGrade": null,
+          "mscComponentCount": null,
+          "hierarchy": [],
+          "status": "needs-individual-identity-classification-and-measurement-review"
+        },
+        {
+          "starId": "hip-83207",
+          "name": "Epsilon Her",
+          "simbadId": "* eps Her",
+          "simbadType": "SB*",
+          "hip": 83207,
+          "wds": "17003+3056",
+          "mscGrade": 1,
+          "mscComponentCount": 2,
+          "hierarchy": [
+            {
+              "primary": "A",
+              "secondary": "B",
+              "parent": "X",
+              "status": "v??"
+            },
+            {
+              "primary": "Aa",
+              "secondary": "Ab",
+              "parent": "*",
+              "status": "S2"
+            }
+          ],
+          "status": "needs-individual-identity-classification-and-measurement-review"
+        },
+        {
+          "starId": "hip-30419",
+          "name": "Epsilon Mon A",
+          "simbadId": "* eps Mon A",
+          "simbadType": "*",
+          "hip": 30419,
+          "wds": "06238+0436",
+          "mscGrade": 3,
+          "mscComponentCount": 3,
+          "hierarchy": [
+            {
+              "primary": "A",
+              "secondary": "B",
+              "parent": "*",
+              "status": "Cmp"
+            },
+            {
+              "primary": "Aa",
+              "secondary": "Ab",
+              "parent": "A",
+              "status": "a"
+            }
+          ],
+          "status": "needs-individual-identity-classification-and-measurement-review"
+        },
+        {
+          "starId": "hip-80582",
+          "name": "Epsilon Nor",
+          "simbadId": "* eps Nor",
+          "simbadType": "SB*",
+          "hip": 80582,
+          "wds": "16272-4733",
+          "mscGrade": 5,
+          "mscComponentCount": 3,
+          "hierarchy": [
+            {
+              "primary": "A",
+              "secondary": "B",
+              "parent": "*",
+              "status": "Cmp"
+            },
+            {
+              "primary": "Aa",
+              "secondary": "Ab",
+              "parent": "A",
+              "status": "S2"
+            }
+          ],
+          "status": "needs-individual-identity-classification-and-measurement-review"
+        },
+        {
+          "starId": "hip-18532",
+          "name": "Epsilon Per",
+          "simbadId": "* eps Per",
+          "simbadType": "bC*",
+          "hip": 18532,
+          "wds": "03579+4001",
+          "mscGrade": 5,
+          "mscComponentCount": 4,
+          "hierarchy": [
+            {
+              "primary": "A",
+              "secondary": "B",
+              "parent": "*",
+              "status": "Chp"
+            },
+            {
+              "primary": "Aab",
+              "secondary": "Ac",
+              "parent": "A",
+              "status": "S1"
+            },
+            {
+              "primary": "Aa",
+              "secondary": "Ab",
+              "parent": "Aab",
+              "status": "S1,E"
+            }
+          ],
+          "status": "needs-individual-identity-classification-and-measurement-review"
+        },
+        {
+          "starId": "hip-111954",
+          "name": "Epsilon PsA",
+          "simbadId": "* eps PsA",
+          "simbadType": "Be*",
+          "hip": 111954,
+          "wds": "22407-2703",
+          "mscGrade": 3,
+          "mscComponentCount": 3,
+          "hierarchy": [
+            {
+              "primary": "A",
+              "secondary": "B",
+              "parent": "*",
+              "status": "Cmp"
+            },
+            {
+              "primary": "Aa",
+              "secondary": "Ab",
+              "parent": "A",
+              "status": "a"
+            }
+          ],
+          "status": "needs-individual-identity-classification-and-measurement-review"
+        },
+        {
+          "starId": "hip-39794",
+          "name": "Epsilon Vol",
+          "simbadId": "* eps Vol",
+          "simbadType": "SB*",
+          "hip": 39794,
+          "wds": "08079-6837",
+          "mscGrade": 3,
+          "mscComponentCount": 4,
+          "hierarchy": [
+            {
+              "primary": "A",
+              "secondary": "B",
+              "parent": "*",
+              "status": "Chprm"
+            },
+            {
+              "primary": "Aa",
+              "secondary": "Ab",
+              "parent": "A",
+              "status": "S2"
+            },
+            {
+              "primary": "Ba",
+              "secondary": "Bb",
+              "parent": "B",
+              "status": "s2"
+            }
+          ],
+          "status": "needs-individual-identity-classification-and-measurement-review"
+        },
+        {
+          "starId": "hip-98110",
+          "name": "Eta Cyg",
+          "simbadId": "* eta Cyg",
+          "simbadType": "*",
+          "hip": 98110,
+          "wds": "19563+3505",
+          "mscGrade": 4,
+          "mscComponentCount": 3,
+          "hierarchy": [
+            {
+              "primary": "AB",
+              "secondary": "C",
+              "parent": "*",
+              "status": "Cmp"
+            },
+            {
+              "primary": "A",
+              "secondary": "B",
+              "parent": "AB",
+              "status": "Cmp"
+            }
+          ],
+          "status": "needs-individual-identity-classification-and-measurement-review"
+        },
+        {
+          "starId": "hip-78384",
+          "name": "Eta Lup",
+          "simbadId": "* eta Lup",
+          "simbadType": "bC?",
+          "hip": 78384,
+          "wds": "16001-3824",
+          "mscGrade": 4,
+          "mscComponentCount": 3,
+          "hierarchy": [
+            {
+              "primary": "AB",
+              "secondary": "C",
+              "parent": "*",
+              "status": "CmhpXr"
+            },
+            {
+              "primary": "A",
+              "secondary": "B",
+              "parent": "AB",
+              "status": "Cmhpr"
+            }
+          ],
+          "status": "needs-individual-identity-classification-and-measurement-review"
+        },
+        {
+          "starId": "hip-17797",
+          "name": "f Eri",
+          "simbadId": "* f Eri",
+          "simbadType": "**",
+          "hip": 17797,
+          "wds": "03486-3737",
+          "mscGrade": 4,
+          "mscComponentCount": 4,
+          "hierarchy": [
+            {
+              "primary": "AB",
+              "secondary": "C",
+              "parent": "*",
+              "status": "Cmp"
+            },
+            {
+              "primary": "A",
+              "secondary": "B",
+              "parent": "AB",
+              "status": "Cmp"
+            },
+            {
+              "primary": "Aa",
+              "secondary": "Ab",
+              "parent": "A",
+              "status": "v,a"
+            }
+          ],
+          "status": "needs-individual-identity-classification-and-measurement-review"
+        },
+        {
+          "starId": "hip-78265",
+          "name": "Fang",
+          "simbadId": "* pi. Sco",
+          "simbadType": "SB*",
+          "hip": 78265,
+          "wds": "15589-2607",
+          "mscGrade": 2,
+          "mscComponentCount": 3,
+          "hierarchy": [
+            {
+              "primary": "A",
+              "secondary": "B",
+              "parent": "*",
+              "status": "c"
+            },
+            {
+              "primary": "Aa1",
+              "secondary": "Aa2",
+              "parent": "A",
+              "status": "S2"
+            }
+          ],
+          "status": "needs-individual-identity-classification-and-measurement-review"
+        },
+        {
+          "starId": "hip-61932",
+          "name": "Gamma Cen",
+          "simbadId": "* gam Cen",
+          "simbadType": "**",
+          "hip": 61932,
+          "wds": "12415-4858",
+          "mscGrade": 1,
+          "mscComponentCount": 2,
+          "hierarchy": [
+            {
+              "primary": "AB",
+              "secondary": "D",
+              "parent": "X",
+              "status": "Cmpr"
+            },
+            {
+              "primary": "A",
+              "secondary": "B",
+              "parent": "*",
+              "status": "V"
+            }
+          ],
+          "status": "needs-individual-identity-classification-and-measurement-review"
+        },
+        {
+          "starId": "hip-75323",
+          "name": "Gamma Cir",
+          "simbadId": "* gam Cir",
+          "simbadType": "**",
+          "hip": 75323,
+          "wds": "15234-5919",
+          "mscGrade": 1,
+          "mscComponentCount": 0,
+          "hierarchy": [
+            {
+              "primary": "A",
+              "secondary": "B",
+              "parent": "*",
+              "status": "V"
+            }
+          ],
+          "status": "needs-individual-identity-classification-and-measurement-review"
+        },
+        {
+          "starId": "hip-93825",
+          "name": "Gamma CrA",
+          "simbadId": "* gam CrA",
+          "simbadType": "**",
+          "hip": 93825,
+          "wds": null,
+          "mscGrade": null,
+          "mscComponentCount": null,
+          "hierarchy": [],
+          "status": "needs-individual-identity-classification-and-measurement-review"
+        },
+        {
+          "starId": "hip-76952",
+          "name": "Gamma CrB",
+          "simbadId": "* gam CrB",
+          "simbadType": "**",
+          "hip": 76952,
+          "wds": null,
+          "mscGrade": null,
+          "mscComponentCount": null,
+          "hierarchy": [],
+          "status": "needs-individual-identity-classification-and-measurement-review"
+        },
+        {
+          "starId": "hip-64962",
+          "name": "Gamma Hya",
+          "simbadId": "* gam Hya",
+          "simbadType": "SB*",
+          "hip": 64962,
+          "wds": null,
+          "mscGrade": null,
+          "mscComponentCount": null,
+          "hierarchy": [],
+          "status": "needs-individual-identity-classification-and-measurement-review"
+        },
+        {
+          "starId": "hip-76297",
+          "name": "Gamma Lup",
+          "simbadId": "* gam Lup",
+          "simbadType": "**",
+          "hip": 76297,
+          "wds": "15351-4110",
+          "mscGrade": 5,
+          "mscComponentCount": 3,
+          "hierarchy": [
+            {
+              "primary": "AB",
+              "secondary": "D",
+              "parent": "X",
+              "status": "CmXp?"
+            },
+            {
+              "primary": "AB",
+              "secondary": "C",
+              "parent": "X",
+              "status": "Xmp"
+            },
+            {
+              "primary": "A",
+              "secondary": "B",
+              "parent": "*",
+              "status": "V,s"
+            },
+            {
+              "primary": "Aa",
+              "secondary": "Ab",
+              "parent": "A",
+              "status": "S1"
+            }
+          ],
+          "status": "needs-individual-identity-classification-and-measurement-review"
+        },
+        {
+          "starId": "hip-61199",
+          "name": "Gamma Mus",
+          "simbadId": "* gam Mus",
+          "simbadType": "SB*",
+          "hip": 61199,
+          "wds": null,
+          "mscGrade": null,
+          "mscComponentCount": null,
+          "hierarchy": [],
+          "status": "needs-individual-identity-classification-and-measurement-review"
+        },
+        {
+          "starId": "hip-14328",
+          "name": "Gamma Per",
+          "simbadId": "* gam Per",
+          "simbadType": "SB*",
+          "hip": 14328,
+          "wds": null,
+          "mscGrade": null,
+          "mscComponentCount": null,
+          "hierarchy": [],
+          "status": "needs-individual-identity-classification-and-measurement-review"
+        },
+        {
+          "starId": "hip-6867",
+          "name": "Gamma Phe",
+          "simbadId": "* gam Phe",
+          "simbadType": "SB*",
+          "hip": 6867,
+          "wds": null,
+          "mscGrade": null,
+          "mscComponentCount": null,
+          "hierarchy": [],
+          "status": "needs-individual-identity-classification-and-measurement-review"
+        },
+        {
+          "starId": "hip-98337",
+          "name": "Gamma Sge",
+          "simbadId": "* gam Sge",
+          "simbadType": "PM*",
+          "hip": 98337,
+          "wds": "19588+1930",
+          "mscGrade": 3,
+          "mscComponentCount": 4,
+          "hierarchy": [
+            {
+              "primary": "A",
+              "secondary": "BC",
+              "parent": "*",
+              "status": "Cmp"
+            },
+            {
+              "primary": "B",
+              "secondary": "C",
+              "parent": "BC",
+              "status": "Cmp"
+            },
+            {
+              "primary": "Aa",
+              "secondary": "Ab",
+              "parent": "A",
+              "status": "a"
+            }
+          ],
+          "status": "needs-individual-identity-classification-and-measurement-review"
+        },
+        {
+          "starId": "hip-114996",
+          "name": "Gamma Tuc",
+          "simbadId": "* gam Tuc",
+          "simbadType": "PM*",
+          "hip": 114996,
+          "wds": "23174-5814",
+          "mscGrade": 3,
+          "mscComponentCount": 3,
+          "hierarchy": [
+            {
+              "primary": "A",
+              "secondary": "B",
+              "parent": "*",
+              "status": "Cmp"
+            },
+            {
+              "primary": "Aa",
+              "secondary": "Ab",
+              "parent": "A",
+              "status": "a"
+            }
+          ],
+          "status": "needs-individual-identity-classification-and-measurement-review"
+        },
+        {
+          "starId": "hip-34481",
+          "name": "Gamma2 Vol",
+          "simbadId": "* gam02 Vol",
+          "simbadType": "PM*",
+          "hip": 34481,
+          "wds": "07087-7030",
+          "mscGrade": 3,
+          "mscComponentCount": 3,
+          "hierarchy": [
+            {
+              "primary": "A",
+              "secondary": "B",
+              "parent": "*",
+              "status": "Cmp"
+            },
+            {
+              "primary": "Ba",
+              "secondary": "Bb",
+              "parent": "B",
+              "status": "a,s"
+            }
+          ],
+          "status": "needs-individual-identity-classification-and-measurement-review"
+        },
+        {
+          "starId": "hip-36377",
+          "name": "Hadir",
+          "simbadId": "* sig Pup",
+          "simbadType": "SB*",
+          "hip": 36377,
+          "wds": "07292-4318",
+          "mscGrade": 5,
+          "mscComponentCount": 3,
+          "hierarchy": [
+            {
+              "primary": "A",
+              "secondary": "B",
+              "parent": "*",
+              "status": "Cprm"
+            },
+            {
+              "primary": "Aa",
+              "secondary": "Ab",
+              "parent": "A",
+              "status": "S1,A"
+            }
+          ],
+          "status": "needs-individual-identity-classification-and-measurement-review"
+        },
+        {
+          "starId": "hip-78970",
+          "name": "HD 144415",
+          "simbadId": "HD 144415",
+          "simbadType": "PM*",
+          "hip": 78970,
+          "wds": "16073-3645",
+          "mscGrade": 5,
+          "mscComponentCount": 3,
+          "hierarchy": [
+            {
+              "primary": "A",
+              "secondary": "B",
+              "parent": "*",
+              "status": "Cmp"
+            },
+            {
+              "primary": "Aa",
+              "secondary": "Ab",
+              "parent": "A",
+              "status": "A,s?"
+            }
+          ],
+          "status": "needs-individual-identity-classification-and-measurement-review"
+        },
+        {
+          "starId": "hip-26207",
+          "name": "Heka",
+          "simbadId": "* lam Ori",
+          "simbadType": "**",
+          "hip": 26207,
+          "wds": null,
+          "mscGrade": null,
+          "mscComponentCount": null,
+          "hierarchy": [],
+          "status": "needs-individual-identity-classification-and-measurement-review"
+        },
+        {
+          "starId": "hip-109139",
+          "name": "Iota Aqr",
+          "simbadId": "* iot Aqr",
+          "simbadType": "SB*",
+          "hip": 109139,
+          "wds": null,
+          "mscGrade": null,
+          "mscComponentCount": null,
+          "hierarchy": [],
+          "status": "needs-individual-identity-classification-and-measurement-review"
+        },
+        {
+          "starId": "hip-78493",
+          "name": "Iota CrB",
+          "simbadId": "* iot CrB",
+          "simbadType": "SB*",
+          "hip": 78493,
+          "wds": null,
+          "mscGrade": null,
+          "mscComponentCount": null,
+          "hierarchy": [],
+          "status": "needs-individual-identity-classification-and-measurement-review"
+        },
+        {
+          "starId": "hip-114421",
+          "name": "Iota Gru",
+          "simbadId": "* iot Gru",
+          "simbadType": "SB*",
+          "hip": 114421,
+          "wds": null,
+          "mscGrade": null,
+          "mscComponentCount": null,
+          "hierarchy": [],
+          "status": "needs-individual-identity-classification-and-measurement-review"
+        },
+        {
+          "starId": "hip-24244",
+          "name": "Iota Lep",
+          "simbadId": "* iot Lep",
+          "simbadType": "**",
+          "hip": 24244,
+          "wds": "05123-1152",
+          "mscGrade": 4,
+          "mscComponentCount": 3,
+          "hierarchy": [
+            {
+              "primary": "A",
+              "secondary": "B",
+              "parent": "*",
+              "status": "Chmp"
+            },
+            {
+              "primary": "Aa",
+              "secondary": "Ab",
+              "parent": "A",
+              "status": "v,a"
+            }
+          ],
+          "status": "needs-individual-identity-classification-and-measurement-review"
+        },
+        {
+          "starId": "hip-72105",
+          "name": "Izar",
+          "simbadId": "* eps Boo",
+          "simbadType": "PM*",
+          "hip": 72105,
+          "wds": "14450+2704",
+          "mscGrade": 4,
+          "mscComponentCount": 3,
+          "hierarchy": [
+            {
+              "primary": "AB",
+              "secondary": "D",
+              "parent": "*",
+              "status": "Cmp"
+            },
+            {
+              "primary": "A",
+              "secondary": "B",
+              "parent": "AB",
+              "status": "Ch"
+            }
+          ],
+          "status": "needs-individual-identity-classification-and-measurement-review"
+        },
+        {
+          "starId": "hip-12706",
+          "name": "Kaffaljidhma",
+          "simbadId": "* gam Cet",
+          "simbadType": "**",
+          "hip": 12706,
+          "wds": "02433+0314",
+          "mscGrade": 4,
+          "mscComponentCount": 3,
+          "hierarchy": [
+            {
+              "primary": "AB",
+              "secondary": "C",
+              "parent": "*",
+              "status": "Cmrp"
+            },
+            {
+              "primary": "A",
+              "secondary": "B",
+              "parent": "AB",
+              "status": "Ch"
+            }
+          ],
+          "status": "needs-individual-identity-classification-and-measurement-review"
+        },
+        {
+          "starId": "hip-73334",
+          "name": "Kappa Cen",
+          "simbadId": "* kap Cen",
+          "simbadType": "bC*",
+          "hip": 73334,
+          "wds": "14592-4206",
+          "mscGrade": 5,
+          "mscComponentCount": 3,
+          "hierarchy": [
+            {
+              "primary": "A",
+              "secondary": "B",
+              "parent": "*",
+              "status": "Chmp"
+            },
+            {
+              "primary": "Aa",
+              "secondary": "Ab",
+              "parent": "A",
+              "status": "s,V"
+            }
+          ],
+          "status": "needs-individual-identity-classification-and-measurement-review"
+        },
+        {
+          "starId": "hip-37740",
+          "name": "Kappa Gem",
+          "simbadId": "* kap Gem",
+          "simbadType": "PM*",
+          "hip": 37740,
+          "wds": "07444+2424",
+          "mscGrade": 3,
+          "mscComponentCount": 3,
+          "hierarchy": [
+            {
+              "primary": "A",
+              "secondary": "B",
+              "parent": "*",
+              "status": "Chmp"
+            },
+            {
+              "primary": "Aa",
+              "secondary": "Ab",
+              "parent": "A",
+              "status": "a"
+            }
+          ],
+          "status": "needs-individual-identity-classification-and-measurement-review"
+        },
+        {
+          "starId": "hip-107354",
+          "name": "Kappa Peg",
+          "simbadId": "* kap Peg",
+          "simbadType": "**",
+          "hip": 107354,
+          "wds": "21446+2539",
+          "mscGrade": 5,
+          "mscComponentCount": 3,
+          "hierarchy": [
+            {
+              "primary": "AB",
+              "secondary": "C",
+              "parent": "X",
+              "status": "XmpChr?"
+            },
+            {
+              "primary": "A",
+              "secondary": "B",
+              "parent": "*",
+              "status": "V,S2"
+            },
+            {
+              "primary": "Ba",
+              "secondary": "Bb",
+              "parent": "B",
+              "status": "S1,A"
+            }
+          ],
+          "status": "needs-individual-identity-classification-and-measurement-review"
+        },
+        {
+          "starId": "hip-104987",
+          "name": "Kitalpha",
+          "simbadId": "* alf Equ",
+          "simbadType": "SB*",
+          "hip": 104987,
+          "wds": null,
+          "mscGrade": null,
+          "mscComponentCount": null,
+          "hierarchy": [],
+          "status": "needs-individual-identity-classification-and-measurement-review"
+        },
+        {
+          "starId": "hip-80816",
+          "name": "Kornephoros",
+          "simbadId": "* bet Her",
+          "simbadType": "SB*",
+          "hip": 80816,
+          "wds": null,
+          "mscGrade": null,
+          "mscComponentCount": null,
+          "hierarchy": [],
+          "status": "needs-individual-identity-classification-and-measurement-review"
+        },
+        {
+          "starId": "hip-49841",
+          "name": "Lambda Hya",
+          "simbadId": "* lam Hya",
+          "simbadType": "SB*",
+          "hip": 49841,
+          "wds": null,
+          "mscGrade": null,
+          "mscComponentCount": null,
+          "hierarchy": [],
+          "status": "needs-individual-identity-classification-and-measurement-review"
+        },
+        {
+          "starId": "hip-24845",
+          "name": "Lambda Lep",
+          "simbadId": "* lam Lep",
+          "simbadType": "**",
+          "hip": 24845,
+          "wds": null,
+          "mscGrade": null,
+          "mscComponentCount": null,
+          "hierarchy": [],
+          "status": "needs-individual-identity-classification-and-measurement-review"
+        },
+        {
+          "starId": "hip-57363",
+          "name": "Lambda Mus",
+          "simbadId": "* lam Mus",
+          "simbadType": "PM*",
+          "hip": 57363,
+          "wds": "11456-6644",
+          "mscGrade": 5,
+          "mscComponentCount": 3,
+          "hierarchy": [
+            {
+              "primary": "A",
+              "secondary": "B",
+              "parent": "*",
+              "status": "v"
+            },
+            {
+              "primary": "Aa",
+              "secondary": "Ab",
+              "parent": "A",
+              "status": "A,S1"
+            }
+          ],
+          "status": "needs-individual-identity-classification-and-measurement-review"
+        },
+        {
+          "starId": "hip-18724",
+          "name": "Lambda Tau",
+          "simbadId": "* lam Tau",
+          "simbadType": "SB*",
+          "hip": 18724,
+          "wds": "04007+1229",
+          "mscGrade": 5,
+          "mscComponentCount": 3,
+          "hierarchy": [
+            {
+              "primary": "Aab",
+              "secondary": "Ac",
+              "parent": "*",
+              "status": "S1"
+            },
+            {
+              "primary": "Aa",
+              "secondary": "Ab",
+              "parent": "Aab",
+              "status": "S2,E"
+            }
+          ],
+          "status": "needs-individual-identity-classification-and-measurement-review"
+        },
+        {
+          "starId": "hip-110130",
+          "name": "Lang-Exster",
+          "simbadId": "* alf Tuc",
+          "simbadType": "SB*",
+          "hip": 110130,
+          "wds": null,
+          "mscGrade": null,
+          "mscComponentCount": null,
+          "hierarchy": [],
+          "status": "needs-individual-identity-classification-and-measurement-review"
+        },
+        {
+          "starId": "hip-68002",
+          "name": "Leepwal",
+          "simbadId": "* zet Cen",
+          "simbadType": "SB*",
+          "hip": 68002,
+          "wds": null,
+          "mscGrade": null,
+          "mscComponentCount": null,
+          "hierarchy": [],
+          "status": "needs-individual-identity-classification-and-measurement-review"
+        },
+        {
+          "starId": "hip-45941",
+          "name": "Markeb",
+          "simbadId": "* kap Vel",
+          "simbadType": "SB*",
+          "hip": 45941,
+          "wds": null,
+          "mscGrade": null,
+          "mscComponentCount": null,
+          "hierarchy": [],
+          "status": "needs-individual-identity-classification-and-measurement-review"
+        },
+        {
+          "starId": "hip-112158",
+          "name": "Matar",
+          "simbadId": "* eta Peg",
+          "simbadType": "SB*",
+          "hip": 112158,
+          "wds": null,
+          "mscGrade": null,
+          "mscComponentCount": null,
+          "hierarchy": [],
+          "status": "needs-individual-identity-classification-and-measurement-review"
+        },
+        {
+          "starId": "hip-28360",
+          "name": "Menkalinan",
+          "simbadId": "* bet Aur",
+          "simbadType": "SB*",
+          "hip": 28360,
+          "wds": null,
+          "mscGrade": null,
+          "mscComponentCount": null,
+          "hierarchy": [],
+          "status": "needs-individual-identity-classification-and-measurement-review"
+        },
+        {
+          "starId": "hip-18614",
+          "name": "Menkib",
+          "simbadId": "* ksi Per",
+          "simbadType": "**",
+          "hip": 18614,
+          "wds": null,
+          "mscGrade": null,
+          "mscComponentCount": null,
+          "hierarchy": [],
+          "status": "needs-individual-identity-classification-and-measurement-review"
+        },
+        {
+          "starId": "hip-25930",
+          "name": "Mintaka",
+          "simbadId": "* del Ori",
+          "simbadType": "**",
+          "hip": 25930,
+          "wds": "05320-0018",
+          "mscGrade": 4,
+          "mscComponentCount": 5,
+          "hierarchy": [
+            {
+              "primary": "A",
+              "secondary": "C",
+              "parent": "*",
+              "status": "Cmpr"
+            },
+            {
+              "primary": "Aa",
+              "secondary": "Ab",
+              "parent": "A",
+              "status": "V"
+            },
+            {
+              "primary": "Ca",
+              "secondary": "Cb",
+              "parent": "C",
+              "status": "S2"
+            },
+            {
+              "primary": "Aa1",
+              "secondary": "Aa2",
+              "parent": "Aa",
+              "status": "S1,E"
+            }
+          ],
+          "status": "needs-individual-identity-classification-and-measurement-review"
+        },
+        {
+          "starId": "hip-65378",
+          "name": "Mizar",
+          "simbadId": "* zet UMa",
+          "simbadType": "**",
+          "hip": 65378,
+          "wds": "13239+5456",
+          "mscGrade": 5,
+          "mscComponentCount": 6,
+          "hierarchy": [
+            {
+              "primary": "AB",
+              "secondary": "C",
+              "parent": "*",
+              "status": "Cmrp"
+            },
+            {
+              "primary": "A",
+              "secondary": "B",
+              "parent": "AB",
+              "status": "Cmrp"
+            },
+            {
+              "primary": "Ca",
+              "secondary": "Cb",
+              "parent": "C",
+              "status": "v"
+            },
+            {
+              "primary": "Ba",
+              "secondary": "Bb",
+              "parent": "B",
+              "status": "S1,a"
+            },
+            {
+              "primary": "Aa",
+              "secondary": "Ab",
+              "parent": "A",
+              "status": "S2,V,A"
+            }
+          ],
+          "status": "needs-individual-identity-classification-and-measurement-review"
+        },
+        {
+          "starId": "hip-8796",
+          "name": "Mothallah",
+          "simbadId": "* alf Tri",
+          "simbadType": "SB*",
+          "hip": 8796,
+          "wds": null,
+          "mscGrade": null,
+          "mscComponentCount": null,
+          "hierarchy": [],
+          "status": "needs-individual-identity-classification-and-measurement-review"
+        },
+        {
+          "starId": "hip-67472",
+          "name": "Mu Cen",
+          "simbadId": "* mu. Cen",
+          "simbadType": "Be*",
+          "hip": 67472,
+          "wds": "13496-4228",
+          "mscGrade": 4,
+          "mscComponentCount": 3,
+          "hierarchy": [
+            {
+              "primary": "A",
+              "secondary": "C",
+              "parent": "*",
+              "status": "ChmXp"
+            },
+            {
+              "primary": "Aa",
+              "secondary": "Ab",
+              "parent": "A",
+              "status": "v"
+            }
+          ],
+          "status": "needs-individual-identity-classification-and-measurement-review"
+        },
+        {
+          "starId": "hip-12828",
+          "name": "Mu Cet",
+          "simbadId": "* mu. Cet",
+          "simbadType": "SB*",
+          "hip": 12828,
+          "wds": "02449+1007",
+          "mscGrade": 2,
+          "mscComponentCount": 2,
+          "hierarchy": [
+            {
+              "primary": "A",
+              "secondary": "B",
+              "parent": "*",
+              "status": "S1,V,o"
+            },
+            {
+              "primary": "Bab",
+              "secondary": "Bc",
+              "parent": "X",
+              "status": "o?"
+            },
+            {
+              "primary": "Ba",
+              "secondary": "Bb",
+              "parent": "X",
+              "status": "o?"
+            }
+          ],
+          "status": "needs-individual-identity-classification-and-measurement-review"
+        },
+        {
+          "starId": "hip-107310",
+          "name": "Mu Cyg",
+          "simbadId": "* mu. Cyg",
+          "simbadType": "**",
+          "hip": 107310,
+          "wds": null,
+          "mscGrade": null,
+          "mscComponentCount": null,
+          "hierarchy": [],
+          "status": "needs-individual-identity-classification-and-measurement-review"
+        },
+        {
+          "starId": "hip-22109",
+          "name": "Mu Eri",
+          "simbadId": "* mu. Eri",
+          "simbadType": "SB*",
+          "hip": 22109,
+          "wds": null,
+          "mscGrade": null,
+          "mscComponentCount": null,
+          "hierarchy": [],
+          "status": "needs-individual-identity-classification-and-measurement-review"
+        },
+        {
+          "starId": "hip-28614",
+          "name": "Mu Ori",
+          "simbadId": "* mu. Ori",
+          "simbadType": "SB*",
+          "hip": 28614,
+          "wds": "06024+0939",
+          "mscGrade": 5,
+          "mscComponentCount": 4,
+          "hierarchy": [
+            {
+              "primary": "A",
+              "secondary": "B",
+              "parent": "*",
+              "status": "V,A,S2"
+            },
+            {
+              "primary": "Ba",
+              "secondary": "Bb",
+              "parent": "B",
+              "status": "S2,A"
+            },
+            {
+              "primary": "Aa",
+              "secondary": "Ab",
+              "parent": "A",
+              "status": "S1,A"
+            }
+          ],
+          "status": "needs-individual-identity-classification-and-measurement-review"
+        },
+        {
+          "starId": "hip-77516",
+          "name": "Mu Ser",
+          "simbadId": "* mu. Ser",
+          "simbadType": "**",
+          "hip": 77516,
+          "wds": null,
+          "mscGrade": null,
+          "mscComponentCount": null,
+          "hierarchy": [],
+          "status": "needs-individual-identity-classification-and-measurement-review"
+        },
+        {
+          "starId": "hip-71957",
+          "name": "Mu Vir",
+          "simbadId": "* mu. Vir",
+          "simbadType": "PM*",
+          "hip": 71957,
+          "wds": "14431-0540",
+          "mscGrade": 3,
+          "mscComponentCount": 3,
+          "hierarchy": [
+            {
+              "primary": "A",
+              "secondary": "B",
+              "parent": "*",
+              "status": "Cmp"
+            },
+            {
+              "primary": "Aa",
+              "secondary": "Ab",
+              "parent": "A",
+              "status": "a"
+            }
+          ],
+          "status": "needs-individual-identity-classification-and-measurement-review"
+        },
+        {
+          "starId": "hip-67927",
+          "name": "Muphrid",
+          "simbadId": "* eta Boo",
+          "simbadType": "SB*",
+          "hip": 67927,
+          "wds": null,
+          "mscGrade": null,
+          "mscComponentCount": null,
+          "hierarchy": [],
+          "status": "needs-individual-identity-classification-and-measurement-review"
+        },
+        {
+          "starId": "hip-3881",
+          "name": "Nu And",
+          "simbadId": "* nu. And",
+          "simbadType": "SB*",
+          "hip": 3881,
+          "wds": null,
+          "mscGrade": null,
+          "mscComponentCount": null,
+          "hierarchy": [],
+          "status": "needs-individual-identity-classification-and-measurement-review"
+        },
+        {
+          "starId": "hip-12093",
+          "name": "Nu Cet",
+          "simbadId": "* nu. Cet",
+          "simbadType": "SB*",
+          "hip": 12093,
+          "wds": "02359+0536",
+          "mscGrade": 5,
+          "mscComponentCount": 3,
+          "hierarchy": [
+            {
+              "primary": "A",
+              "secondary": "B",
+              "parent": "*",
+              "status": "Chrp"
+            },
+            {
+              "primary": "Aa",
+              "secondary": "Ab",
+              "parent": "A",
+              "status": "S1"
+            }
+          ],
+          "status": "needs-individual-identity-classification-and-measurement-review"
+        },
+        {
+          "starId": "hip-30883",
+          "name": "Nu Gem",
+          "simbadId": "* nu. Gem",
+          "simbadType": "Be*",
+          "hip": 30883,
+          "wds": "06290+2013",
+          "mscGrade": 5,
+          "mscComponentCount": 5,
+          "hierarchy": [
+            {
+              "primary": "A",
+              "secondary": "B",
+              "parent": "*",
+              "status": "Cmp"
+            },
+            {
+              "primary": "Ba",
+              "secondary": "Bb",
+              "parent": "B",
+              "status": "V"
+            },
+            {
+              "primary": "Aa",
+              "secondary": "Ab",
+              "parent": "A",
+              "status": "V"
+            },
+            {
+              "primary": "Aa1",
+              "secondary": "Aa2",
+              "parent": "Aa",
+              "status": "S1,V"
+            }
+          ],
+          "status": "needs-individual-identity-classification-and-measurement-review"
+        },
+        {
+          "starId": "hip-107089",
+          "name": "Nu Oct",
+          "simbadId": "* nu. Oct",
+          "simbadType": "SB*",
+          "hip": 107089,
+          "wds": null,
+          "mscGrade": null,
+          "mscComponentCount": null,
+          "hierarchy": [],
+          "status": "needs-individual-identity-classification-and-measurement-review"
+        },
+        {
+          "starId": "hip-29038",
+          "name": "Nu Ori",
+          "simbadId": "* nu. Ori",
+          "simbadType": "SB*",
+          "hip": 29038,
+          "wds": null,
+          "mscGrade": null,
+          "mscComponentCount": null,
+          "hierarchy": [],
+          "status": "needs-individual-identity-classification-and-measurement-review"
+        },
+        {
+          "starId": "hip-85829",
+          "name": "Nu2 Dra",
+          "simbadId": "* nu.02 Dra",
+          "simbadType": "SB*",
+          "hip": 85829,
+          "wds": "17323+5510",
+          "mscGrade": 5,
+          "mscComponentCount": 3,
+          "hierarchy": [
+            {
+              "primary": "A",
+              "secondary": "B",
+              "parent": "*",
+              "status": "Cmhrp"
+            },
+            {
+              "primary": "Aa",
+              "secondary": "Ab",
+              "parent": "A",
+              "status": "S1,a"
+            }
+          ],
+          "status": "needs-individual-identity-classification-and-measurement-review"
+        },
+        {
+          "starId": "hip-92855",
+          "name": "Nunki",
+          "simbadId": "* sig Sgr",
+          "simbadType": "**",
+          "hip": 92855,
+          "wds": "18553-2618",
+          "mscGrade": 1,
+          "mscComponentCount": 0,
+          "hierarchy": [
+            {
+              "primary": "A",
+              "secondary": "B",
+              "parent": "X",
+              "status": "Xmp"
+            },
+            {
+              "primary": "Aa",
+              "secondary": "Ab",
+              "parent": "*",
+              "status": "v"
+            }
+          ],
+          "status": "needs-individual-identity-classification-and-measurement-review"
+        },
+        {
+          "starId": "hip-22701",
+          "name": "Omega Eri",
+          "simbadId": "* ome Eri",
+          "simbadType": "SB*",
+          "hip": 22701,
+          "wds": null,
+          "mscGrade": null,
+          "mscComponentCount": null,
+          "hierarchy": [],
+          "status": "needs-individual-identity-classification-and-measurement-review"
+        },
+        {
+          "starId": "hip-118268",
+          "name": "Omega Psc",
+          "simbadId": "* ome Psc",
+          "simbadType": "SB*",
+          "hip": 118268,
+          "wds": null,
+          "mscGrade": null,
+          "mscComponentCount": null,
+          "hierarchy": [],
+          "status": "needs-individual-identity-classification-and-measurement-review"
+        },
+        {
+          "starId": "hip-15900",
+          "name": "Omicron Tau",
+          "simbadId": "* omi Tau",
+          "simbadType": "SB*",
+          "hip": 15900,
+          "wds": null,
+          "mscGrade": null,
+          "mscComponentCount": null,
+          "hierarchy": [],
+          "status": "needs-individual-identity-classification-and-measurement-review"
+        },
+        {
+          "starId": "hip-51986",
+          "name": "p Vel",
+          "simbadId": "* p Vel",
+          "simbadType": "SB*",
+          "hip": 51986,
+          "wds": "10373-4814",
+          "mscGrade": 5,
+          "mscComponentCount": 3,
+          "hierarchy": [
+            {
+              "primary": "A",
+              "secondary": "B",
+              "parent": "*",
+              "status": "V"
+            },
+            {
+              "primary": "Aa",
+              "secondary": "Ab",
+              "parent": "A",
+              "status": "S2"
+            }
+          ],
+          "status": "needs-individual-identity-classification-and-measurement-review"
+        },
+        {
+          "starId": "hip-100751",
+          "name": "Peacock",
+          "simbadId": "* alf Pav",
+          "simbadType": "SB*",
+          "hip": 100751,
+          "wds": null,
+          "mscGrade": null,
+          "mscComponentCount": null,
+          "hierarchy": [],
+          "status": "needs-individual-identity-classification-and-measurement-review"
+        },
+        {
+          "starId": "hip-5742",
+          "name": "Phi Psc",
+          "simbadId": "* phi Psc",
+          "simbadType": "SB*",
+          "hip": 5742,
+          "wds": "01137+2435",
+          "mscGrade": 5,
+          "mscComponentCount": 4,
+          "hierarchy": [
+            {
+              "primary": "A",
+              "secondary": "B",
+              "parent": "*",
+              "status": "Chrp"
+            },
+            {
+              "primary": "Aa",
+              "secondary": "Ab",
+              "parent": "A",
+              "status": "S1"
+            },
+            {
+              "primary": "Ba",
+              "secondary": "Bb",
+              "parent": "B",
+              "status": "S1"
+            }
+          ],
+          "status": "needs-individual-identity-classification-and-measurement-review"
+        },
+        {
+          "starId": "hip-48402",
+          "name": "Phi UMa",
+          "simbadId": "* phi UMa",
+          "simbadType": "**",
+          "hip": 48402,
+          "wds": null,
+          "mscGrade": null,
+          "mscComponentCount": null,
+          "hierarchy": [],
+          "status": "needs-individual-identity-classification-and-measurement-review"
+        },
+        {
+          "starId": "hip-12770",
+          "name": "Pi Cet",
+          "simbadId": "* pi. Cet",
+          "simbadType": "SB*",
+          "hip": 12770,
+          "wds": null,
+          "mscGrade": null,
+          "mscComponentCount": null,
+          "hierarchy": [],
+          "status": "needs-individual-identity-classification-and-measurement-review"
+        },
+        {
+          "starId": "hip-22549",
+          "name": "Pi4 Ori",
+          "simbadId": "* pi.04 Ori",
+          "simbadType": "SB*",
+          "hip": 22549,
+          "wds": "04512+0536",
+          "mscGrade": 4,
+          "mscComponentCount": 3,
+          "hierarchy": [
+            {
+              "primary": "A",
+              "secondary": "B",
+              "parent": "*",
+              "status": "v"
+            },
+            {
+              "primary": "Aa",
+              "secondary": "Ab",
+              "parent": "A",
+              "status": "S1"
+            }
+          ],
+          "status": "needs-individual-identity-classification-and-measurement-review"
+        },
+        {
+          "starId": "hip-11767",
+          "name": "Polaris",
+          "simbadId": "* alf UMi",
+          "simbadType": "cC*",
+          "hip": 11767,
+          "wds": "02318+8916",
+          "mscGrade": 5,
+          "mscComponentCount": 3,
+          "hierarchy": [
+            {
+              "primary": "A",
+              "secondary": "B",
+              "parent": "*",
+              "status": "Cmrp"
+            },
+            {
+              "primary": "Aa",
+              "secondary": "Ab",
+              "parent": "A",
+              "status": "S1,A,V"
+            }
+          ],
+          "status": "needs-individual-identity-classification-and-measurement-review"
+        },
+        {
+          "starId": "hip-20205",
+          "name": "Prima Hyadum",
+          "simbadId": "* gam Tau",
+          "simbadType": "**",
+          "hip": 20205,
+          "wds": null,
+          "mscGrade": null,
+          "mscComponentCount": null,
+          "hierarchy": [],
+          "status": "needs-individual-identity-classification-and-measurement-review"
+        },
+        {
+          "starId": "hip-29655",
+          "name": "Propus",
+          "simbadId": "* eta Gem",
+          "simbadType": "RG*",
+          "hip": 29655,
+          "wds": "06149+2230",
+          "mscGrade": 5,
+          "mscComponentCount": 3,
+          "hierarchy": [
+            {
+              "primary": "A",
+              "secondary": "B",
+              "parent": "*",
+              "status": "V"
+            },
+            {
+              "primary": "Aa",
+              "secondary": "Ab",
+              "parent": "A",
+              "status": "S1,a"
+            }
+          ],
+          "status": "needs-individual-identity-classification-and-measurement-review"
+        },
+        {
+          "starId": "hip-46651",
+          "name": "Psi Vel",
+          "simbadId": "* psi Vel",
+          "simbadType": "**",
+          "hip": 46651,
+          "wds": null,
+          "mscGrade": null,
+          "mscComponentCount": null,
+          "hierarchy": [],
+          "status": "needs-individual-identity-classification-and-measurement-review"
+        },
+        {
+          "starId": "hip-114855",
+          "name": "Psi1 Aqr",
+          "simbadId": "* psi01 Aqr",
+          "simbadType": "PM*",
+          "hip": 114855,
+          "wds": "23159-0905",
+          "mscGrade": 5,
+          "mscComponentCount": 3,
+          "hierarchy": [
+            {
+              "primary": "A",
+              "secondary": "BC",
+              "parent": "*",
+              "status": "Chmpr"
+            },
+            {
+              "primary": "B",
+              "secondary": "C",
+              "parent": "BC",
+              "status": "V"
+            }
+          ],
+          "status": "needs-individual-identity-classification-and-measurement-review"
+        },
+        {
+          "starId": "hip-84345",
+          "name": "Rasalgethi",
+          "simbadId": "* alf Her",
+          "simbadType": "**",
+          "hip": 84345,
+          "wds": "17146+1423",
+          "mscGrade": 5,
+          "mscComponentCount": 3,
+          "hierarchy": [
+            {
+              "primary": "A",
+              "secondary": "B",
+              "parent": "*",
+              "status": "V"
+            },
+            {
+              "primary": "Aa",
+              "secondary": "Ab",
+              "parent": "X",
+              "status": "v,s??"
+            },
+            {
+              "primary": "Ba",
+              "secondary": "Bb",
+              "parent": "B",
+              "status": "S1"
+            }
+          ],
+          "status": "needs-individual-identity-classification-and-measurement-review"
+        },
+        {
+          "starId": "hip-86032",
+          "name": "Rasalhague",
+          "simbadId": "* alf Oph",
+          "simbadType": "**",
+          "hip": 86032,
+          "wds": null,
+          "mscGrade": null,
+          "mscComponentCount": null,
+          "hierarchy": [],
+          "status": "needs-individual-identity-classification-and-measurement-review"
+        },
+        {
+          "starId": "hip-39953",
+          "name": "Regor",
+          "simbadId": "* gam02 Vel",
+          "simbadType": "WR*",
+          "hip": 39953,
+          "wds": "08095-4720",
+          "mscGrade": 4,
+          "mscComponentCount": 6,
+          "hierarchy": [
+            {
+              "primary": "A",
+              "secondary": "C",
+              "parent": "t",
+              "status": "Cphr"
+            },
+            {
+              "primary": "A",
+              "secondary": "B",
+              "parent": "t",
+              "status": "Crmh"
+            },
+            {
+              "primary": "Aab",
+              "secondary": "Ac",
+              "parent": "A",
+              "status": "Cp?"
+            },
+            {
+              "primary": "Aa",
+              "secondary": "Ab",
+              "parent": "Aab",
+              "status": "S2"
+            },
+            {
+              "primary": "Ba",
+              "secondary": "Bb",
+              "parent": "B",
+              "status": "S1"
+            }
+          ],
+          "status": "needs-individual-identity-classification-and-measurement-review"
+        },
+        {
+          "starId": "hip-49669",
+          "name": "Regulus",
+          "simbadId": "* alf Leo",
+          "simbadType": "PM*",
+          "hip": 49669,
+          "wds": "10084+1158",
+          "mscGrade": 5,
+          "mscComponentCount": 4,
+          "hierarchy": [
+            {
+              "primary": "A",
+              "secondary": "BC",
+              "parent": "*",
+              "status": "Cmhrp"
+            },
+            {
+              "primary": "B",
+              "secondary": "C",
+              "parent": "BC",
+              "status": "Cpm"
+            },
+            {
+              "primary": "Aa",
+              "secondary": "Ab",
+              "parent": "A",
+              "status": "S1"
+            }
+          ],
+          "status": "needs-individual-identity-classification-and-measurement-review"
+        },
+        {
+          "starId": "hip-85112",
+          "name": "Rho Her",
+          "simbadId": "* rho Her",
+          "simbadType": "**",
+          "hip": 85112,
+          "wds": "17237+3709",
+          "mscGrade": 4,
+          "mscComponentCount": 3,
+          "hierarchy": [
+            {
+              "primary": "A",
+              "secondary": "B",
+              "parent": "*",
+              "status": "Cmrp"
+            },
+            {
+              "primary": "Aa",
+              "secondary": "Ab",
+              "parent": "A",
+              "status": "v"
+            }
+          ],
+          "status": "needs-individual-identity-classification-and-measurement-review"
+        },
+        {
+          "starId": "hip-101769",
+          "name": "Rotanev",
+          "simbadId": "* bet Del",
+          "simbadType": "**",
+          "hip": 101769,
+          "wds": "20375+1436",
+          "mscGrade": 2,
+          "mscComponentCount": 3,
+          "hierarchy": [
+            {
+              "primary": "A",
+              "secondary": "B",
+              "parent": "*",
+              "status": "V,S1"
+            },
+            {
+              "primary": "Ba",
+              "secondary": "Bb",
+              "parent": "B",
+              "status": "A?"
+            }
+          ],
+          "status": "needs-individual-identity-classification-and-measurement-review"
+        },
+        {
+          "starId": "hip-6686",
+          "name": "Ruchbah",
+          "simbadId": "* del Cas",
+          "simbadType": "EB*",
+          "hip": 6686,
+          "wds": null,
+          "mscGrade": null,
+          "mscComponentCount": null,
+          "hierarchy": [],
+          "status": "needs-individual-identity-classification-and-measurement-review"
+        },
+        {
+          "starId": "hip-12413",
+          "name": "s Eri",
+          "simbadId": "* s Eri",
+          "simbadType": "SB*",
+          "hip": 12413,
+          "wds": "02398-4254",
+          "mscGrade": 3,
+          "mscComponentCount": 5,
+          "hierarchy": [
+            {
+              "primary": "AB",
+              "secondary": "D",
+              "parent": "*",
+              "status": "Cmp"
+            },
+            {
+              "primary": "A",
+              "secondary": "B",
+              "parent": "AB",
+              "status": "Cmhp"
+            },
+            {
+              "primary": "Ba",
+              "secondary": "Bb",
+              "parent": "B",
+              "status": "a,V"
+            },
+            {
+              "primary": "Aa",
+              "secondary": "Ab",
+              "parent": "A",
+              "status": "a,s"
+            }
+          ],
+          "status": "needs-individual-identity-classification-and-measurement-review"
+        },
+        {
+          "starId": "hip-84012",
+          "name": "Sabik",
+          "simbadId": "* eta Oph",
+          "simbadType": "**",
+          "hip": 84012,
+          "wds": null,
+          "mscGrade": null,
+          "mscComponentCount": null,
+          "hierarchy": [],
+          "status": "needs-individual-identity-classification-and-measurement-review"
+        },
+        {
+          "starId": "hip-23453",
+          "name": "Saclateni",
+          "simbadId": "* zet Aur",
+          "simbadType": "SB*",
+          "hip": 23453,
+          "wds": null,
+          "mscGrade": null,
+          "mscComponentCount": null,
+          "hierarchy": [],
+          "status": "needs-individual-identity-classification-and-measurement-review"
+        },
+        {
+          "starId": "hip-84379",
+          "name": "Sarin",
+          "simbadId": "* del Her",
+          "simbadType": "SB*",
+          "hip": 84379,
+          "wds": "17150+2450",
+          "mscGrade": 1,
+          "mscComponentCount": 2,
+          "hierarchy": [
+            {
+              "primary": "Aa",
+              "secondary": "Ab",
+              "parent": "*",
+              "status": "v"
+            },
+            {
+              "primary": "A",
+              "secondary": "B",
+              "parent": "X",
+              "status": "Xhmp"
+            }
+          ],
+          "status": "needs-individual-identity-classification-and-measurement-review"
+        },
+        {
+          "starId": "hip-21594",
+          "name": "Sceptrum",
+          "simbadId": "* l Eri",
+          "simbadType": "**",
+          "hip": 21594,
+          "wds": "04382-1418",
+          "mscGrade": 5,
+          "mscComponentCount": 3,
+          "hierarchy": [
+            {
+              "primary": "AB",
+              "secondary": "C",
+              "parent": "*",
+              "status": "Cmp"
+            },
+            {
+              "primary": "A",
+              "secondary": "B",
+              "parent": "AB",
+              "status": "V"
+            }
+          ],
+          "status": "needs-individual-identity-classification-and-measurement-review"
+        },
+        {
+          "starId": "hip-20455",
+          "name": "Secunda Hyadum",
+          "simbadId": "* del Tau",
+          "simbadType": "SB*",
+          "hip": 20455,
+          "wds": null,
+          "mscGrade": null,
+          "mscComponentCount": null,
+          "hierarchy": [],
+          "status": "needs-individual-identity-classification-and-measurement-review"
+        },
+        {
+          "starId": "hip-85927",
+          "name": "Shaula",
+          "simbadId": "* lam Sco",
+          "simbadType": "bC*",
+          "hip": 85927,
+          "wds": "17336-3706",
+          "mscGrade": 5,
+          "mscComponentCount": 3,
+          "hierarchy": [
+            {
+              "primary": "Aa",
+              "secondary": "Ab",
+              "parent": "*",
+              "status": "S3,V"
+            },
+            {
+              "primary": "Aa1",
+              "secondary": "Aa2",
+              "parent": "Aa",
+              "status": "S2,E"
+            }
+          ],
+          "status": "needs-individual-identity-classification-and-measurement-review"
+        },
+        {
+          "starId": "hip-92420",
+          "name": "Sheliak",
+          "simbadId": "* bet Lyr",
+          "simbadType": "SB*",
+          "hip": 92420,
+          "wds": "18501+3322",
+          "mscGrade": 5,
+          "mscComponentCount": 4,
+          "hierarchy": [
+            {
+              "primary": "A",
+              "secondary": "F",
+              "parent": "X",
+              "status": "XhCp"
+            },
+            {
+              "primary": "A",
+              "secondary": "B",
+              "parent": "*",
+              "status": "Chpr"
+            },
+            {
+              "primary": "Aa",
+              "secondary": "Ab",
+              "parent": "A",
+              "status": "v"
+            },
+            {
+              "primary": "Aa1",
+              "secondary": "Aa2",
+              "parent": "Aa",
+              "status": "S1,E"
+            }
+          ],
+          "status": "needs-individual-identity-classification-and-measurement-review"
+        },
+        {
+          "starId": "hip-8903",
+          "name": "Sheratan",
+          "simbadId": "* bet Ari",
+          "simbadType": "SB*",
+          "hip": 8903,
+          "wds": null,
+          "mscGrade": null,
+          "mscComponentCount": null,
+          "hierarchy": [],
+          "status": "needs-individual-identity-classification-and-measurement-review"
+        },
+        {
+          "starId": "hip-60823",
+          "name": "Sigma Cen",
+          "simbadId": "* sig Cen",
+          "simbadType": "**",
+          "hip": 60823,
+          "wds": null,
+          "mscGrade": null,
+          "mscComponentCount": null,
+          "hierarchy": [],
+          "status": "needs-individual-identity-classification-and-measurement-review"
+        },
+        {
+          "starId": "hip-11783",
+          "name": "Sigma Cet",
+          "simbadId": "* sig Cet",
+          "simbadType": "**",
+          "hip": 11783,
+          "wds": "02321-1515",
+          "mscGrade": 5,
+          "mscComponentCount": 3,
+          "hierarchy": [
+            {
+              "primary": "A",
+              "secondary": "B",
+              "parent": "*",
+              "status": "Cmpr"
+            },
+            {
+              "primary": "Aa",
+              "secondary": "Ab",
+              "parent": "A",
+              "status": "V,S1,a"
+            }
+          ],
+          "status": "needs-individual-identity-classification-and-measurement-review"
+        },
+        {
+          "starId": "hip-81126",
+          "name": "Sigma Her",
+          "simbadId": "* sig Her",
+          "simbadType": "**",
+          "hip": 81126,
+          "wds": null,
+          "mscGrade": null,
+          "mscComponentCount": null,
+          "hierarchy": [],
+          "status": "needs-individual-identity-classification-and-measurement-review"
+        },
+        {
+          "starId": "hip-4889",
+          "name": "Sigma Psc",
+          "simbadId": "* sig Psc",
+          "simbadType": "SB*",
+          "hip": 4889,
+          "wds": "01028+3148",
+          "mscGrade": 5,
+          "mscComponentCount": 3,
+          "hierarchy": [
+            {
+              "primary": "A",
+              "secondary": "B",
+              "parent": "*",
+              "status": "Cmp"
+            },
+            {
+              "primary": "Aa",
+              "secondary": "Ab",
+              "parent": "A",
+              "status": "S2,V"
+            }
+          ],
+          "status": "needs-individual-identity-classification-and-measurement-review"
+        },
+        {
+          "starId": "hip-101958",
+          "name": "Sualocin",
+          "simbadId": "* alf Del",
+          "simbadType": "**",
+          "hip": 101958,
+          "wds": "20396+1555",
+          "mscGrade": 5,
+          "mscComponentCount": 3,
+          "hierarchy": [
+            {
+              "primary": "A",
+              "secondary": "B",
+              "parent": "*",
+              "status": "V"
+            },
+            {
+              "primary": "Ba",
+              "secondary": "Bb",
+              "parent": "B",
+              "status": "V,S1"
+            }
+          ],
+          "status": "needs-individual-identity-classification-and-measurement-review"
+        },
+        {
+          "starId": "hip-32768",
+          "name": "Taleban",
+          "simbadId": "* tau Pup",
+          "simbadType": "SB*",
+          "hip": 32768,
+          "wds": null,
+          "mscGrade": null,
+          "mscComponentCount": null,
+          "hierarchy": [],
+          "status": "needs-individual-identity-classification-and-measurement-review"
+        },
+        {
+          "starId": "hip-44127",
+          "name": "Talitha",
+          "simbadId": "* iot UMa",
+          "simbadType": "**",
+          "hip": 44127,
+          "wds": "08592+4803",
+          "mscGrade": 5,
+          "mscComponentCount": 4,
+          "hierarchy": [
+            {
+              "primary": "A",
+              "secondary": "BC",
+              "parent": "*",
+              "status": "V"
+            },
+            {
+              "primary": "B",
+              "secondary": "C",
+              "parent": "BC",
+              "status": "V"
+            },
+            {
+              "primary": "Aa",
+              "secondary": "Ab",
+              "parent": "A",
+              "status": "S1?,a"
+            }
+          ],
+          "status": "needs-individual-identity-classification-and-measurement-review"
+        },
+        {
+          "starId": "hip-50801",
+          "name": "Tania Australis",
+          "simbadId": "* mu. UMa",
+          "simbadType": "SB*",
+          "hip": 50801,
+          "wds": "10223+4130",
+          "mscGrade": 5,
+          "mscComponentCount": 3,
+          "hierarchy": [
+            {
+              "primary": "A",
+              "secondary": "B",
+              "parent": "*",
+              "status": "Cmp"
+            },
+            {
+              "primary": "Aa",
+              "secondary": "Ab",
+              "parent": "A",
+              "status": "A,S1"
+            }
+          ],
+          "status": "needs-individual-identity-classification-and-measurement-review"
+        },
+        {
+          "starId": "hip-34693",
+          "name": "Tau Gem",
+          "simbadId": "* tau Gem",
+          "simbadType": "PM*",
+          "hip": 34693,
+          "wds": "07111+3015",
+          "mscGrade": 5,
+          "mscComponentCount": 3,
+          "hierarchy": [
+            {
+              "primary": "A",
+              "secondary": "B",
+              "parent": "*",
+              "status": "Ch"
+            },
+            {
+              "primary": "Aa",
+              "secondary": "Ab",
+              "parent": "A",
+              "status": "S1?"
+            }
+          ],
+          "status": "needs-individual-identity-classification-and-measurement-review"
+        },
+        {
+          "starId": "hip-21881",
+          "name": "Tau Tau",
+          "simbadId": "* tau Tau",
+          "simbadType": "SB*",
+          "hip": 21881,
+          "wds": "04422+2257",
+          "mscGrade": 5,
+          "mscComponentCount": 4,
+          "hierarchy": [
+            {
+              "primary": "A",
+              "secondary": "B",
+              "parent": "*",
+              "status": "Chpmr"
+            },
+            {
+              "primary": "Aab",
+              "secondary": "Ac",
+              "parent": "A",
+              "status": "V,o"
+            },
+            {
+              "primary": "Aa",
+              "secondary": "Ab",
+              "parent": "Aab",
+              "status": "S2,o"
+            }
+          ],
+          "status": "needs-individual-identity-classification-and-measurement-review"
+        },
+        {
+          "starId": "hip-46509",
+          "name": "Tau1 Hya",
+          "simbadId": "* tau01 Hya",
+          "simbadType": "SB*",
+          "hip": 46509,
+          "wds": "09291-0246",
+          "mscGrade": 5,
+          "mscComponentCount": 3,
+          "hierarchy": [
+            {
+              "primary": "A",
+              "secondary": "B",
+              "parent": "*",
+              "status": "Chrpm"
+            },
+            {
+              "primary": "Aa",
+              "secondary": "Ab",
+              "parent": "A",
+              "status": "S1,a,v"
+            }
+          ],
+          "status": "needs-individual-identity-classification-and-measurement-review"
+        },
+        {
+          "starId": "hip-70576",
+          "name": "Tau2 Lup",
+          "simbadId": "* tau02 Lup",
+          "simbadType": "**",
+          "hip": 70576,
+          "wds": null,
+          "mscGrade": null,
+          "mscComponentCount": null,
+          "hierarchy": [],
+          "status": "needs-individual-identity-classification-and-measurement-review"
+        },
+        {
+          "starId": "hip-16611",
+          "name": "Tau5 Eri",
+          "simbadId": "* tau05 Eri",
+          "simbadType": "SB*",
+          "hip": 16611,
+          "wds": null,
+          "mscGrade": null,
+          "mscComponentCount": null,
+          "hierarchy": [],
+          "status": "needs-individual-identity-classification-and-measurement-review"
+        },
+        {
+          "starId": "hip-52419",
+          "name": "Theta Car",
+          "simbadId": "* tet Car",
+          "simbadType": "SB*",
+          "hip": 52419,
+          "wds": "10429-6423",
+          "mscGrade": 2,
+          "mscComponentCount": 3,
+          "hierarchy": [
+            {
+              "primary": "Aa",
+              "secondary": "Ab",
+              "parent": "*",
+              "status": "A?"
+            },
+            {
+              "primary": "Aa1",
+              "secondary": "Aa2",
+              "parent": "Aa",
+              "status": "S1"
+            }
+          ],
+          "status": "needs-individual-identity-classification-and-measurement-review"
+        },
+        {
+          "starId": "hip-78527",
+          "name": "Theta Dra",
+          "simbadId": "* tet Dra",
+          "simbadType": "SB*",
+          "hip": 78527,
+          "wds": null,
+          "mscGrade": null,
+          "mscComponentCount": null,
+          "hierarchy": [],
+          "status": "needs-individual-identity-classification-and-measurement-review"
+        },
+        {
+          "starId": "hip-114131",
+          "name": "Theta Gru",
+          "simbadId": "* tet Gru",
+          "simbadType": "**",
+          "hip": 114131,
+          "wds": "23069-4331",
+          "mscGrade": 4,
+          "mscComponentCount": 3,
+          "hierarchy": [
+            {
+              "primary": "AB",
+              "secondary": "C",
+              "parent": "*",
+              "status": "Chmpr"
+            },
+            {
+              "primary": "A",
+              "secondary": "B",
+              "parent": "AB",
+              "status": "V"
+            }
+          ],
+          "status": "needs-individual-identity-classification-and-measurement-review"
+        },
+        {
+          "starId": "hip-45336",
+          "name": "Theta Hya",
+          "simbadId": "* tet Hya",
+          "simbadType": "SB*",
+          "hip": 45336,
+          "wds": null,
+          "mscGrade": null,
+          "mscComponentCount": null,
+          "hierarchy": [],
+          "status": "needs-individual-identity-classification-and-measurement-review"
+        },
+        {
+          "starId": "hip-105319",
+          "name": "Theta Ind",
+          "simbadId": "* tet Ind",
+          "simbadType": "**",
+          "hip": 105319,
+          "wds": "21199-5327",
+          "mscGrade": 5,
+          "mscComponentCount": 3,
+          "hierarchy": [
+            {
+              "primary": "A",
+              "secondary": "B",
+              "parent": "*",
+              "status": "Cmp"
+            },
+            {
+              "primary": "Ba",
+              "secondary": "Bb",
+              "parent": "B",
+              "status": "A,V"
+            },
+            {
+              "primary": "Aa",
+              "secondary": "Ab",
+              "parent": "X",
+              "status": "v?"
+            }
+          ],
+          "status": "needs-individual-identity-classification-and-measurement-review"
+        },
+        {
+          "starId": "hip-107608",
+          "name": "Theta PsA",
+          "simbadId": "* tet PsA",
+          "simbadType": "**",
+          "hip": 107608,
+          "wds": "21477-3054",
+          "mscGrade": 5,
+          "mscComponentCount": 3,
+          "hierarchy": [
+            {
+              "primary": "AB",
+              "secondary": "C",
+              "parent": "*",
+              "status": "Cmp"
+            },
+            {
+              "primary": "A",
+              "secondary": "B",
+              "parent": "AB",
+              "status": "V"
+            }
+          ],
+          "status": "needs-individual-identity-classification-and-measurement-review"
+        },
+        {
+          "starId": "hip-98412",
+          "name": "Theta1 Sgr",
+          "simbadId": "* tet01 Sgr",
+          "simbadType": "SB*",
+          "hip": 98412,
+          "wds": null,
+          "mscGrade": null,
+          "mscComponentCount": null,
+          "hierarchy": [],
+          "status": "needs-individual-identity-classification-and-measurement-review"
+        },
+        {
+          "starId": "hip-68756",
+          "name": "Thuban",
+          "simbadId": "* alf Dra",
+          "simbadType": "SB*",
+          "hip": 68756,
+          "wds": null,
+          "mscGrade": null,
+          "mscComponentCount": null,
+          "hierarchy": [],
+          "status": "needs-individual-identity-classification-and-measurement-review"
+        },
+        {
+          "starId": "hip-4427",
+          "name": "Tiansi",
+          "simbadId": "* gam Cas",
+          "simbadType": "HXB",
+          "hip": 4427,
+          "wds": "00567+6043",
+          "mscGrade": 4,
+          "mscComponentCount": 4,
+          "hierarchy": [
+            {
+              "primary": "A",
+              "secondary": "B",
+              "parent": "*",
+              "status": "Ch"
+            },
+            {
+              "primary": "Aab",
+              "secondary": "Ac",
+              "parent": "A",
+              "status": "A"
+            },
+            {
+              "primary": "Aa",
+              "secondary": "Ab",
+              "parent": "Aab",
+              "status": "S1,a"
+            }
+          ],
+          "status": "needs-individual-identity-classification-and-measurement-review"
+        },
+        {
+          "starId": "hip-20042",
+          "name": "Upsilon4 Eri",
+          "simbadId": "* ups04 Eri",
+          "simbadType": "SB*",
+          "hip": 20042,
+          "wds": "04179-3348",
+          "mscGrade": 5,
+          "mscComponentCount": 3,
+          "hierarchy": [
+            {
+              "primary": "A",
+              "secondary": "B",
+              "parent": "*",
+              "status": "Cmp"
+            },
+            {
+              "primary": "Aa",
+              "secondary": "Ab",
+              "parent": "X",
+              "status": "v?"
+            },
+            {
+              "primary": "Aa1",
+              "secondary": "Aa2",
+              "parent": "A",
+              "status": "S2,V"
+            }
+          ],
+          "status": "needs-individual-identity-classification-and-measurement-review"
+        },
+        {
+          "starId": "hip-35550",
+          "name": "Wasat",
+          "simbadId": "* del Gem",
+          "simbadType": "SB*",
+          "hip": 35550,
+          "wds": "07201+2159",
+          "mscGrade": 5,
+          "mscComponentCount": 3,
+          "hierarchy": [
+            {
+              "primary": "A",
+              "secondary": "B",
+              "parent": "*",
+              "status": "V"
+            },
+            {
+              "primary": "Aa",
+              "secondary": "Ab",
+              "parent": "A",
+              "status": "A,S1,o"
+            }
+          ],
+          "status": "needs-individual-identity-classification-and-measurement-review"
+        },
+        {
+          "starId": "hip-5348",
+          "name": "Wurren",
+          "simbadId": "* zet Phe",
+          "simbadType": "SB*",
+          "hip": 5348,
+          "wds": "01084-5515",
+          "mscGrade": 5,
+          "mscComponentCount": 5,
+          "hierarchy": [
+            {
+              "primary": "AC",
+              "secondary": "D",
+              "parent": "*",
+              "status": "Cmp"
+            },
+            {
+              "primary": "AB",
+              "secondary": "C",
+              "parent": "AC",
+              "status": "Chprm"
+            },
+            {
+              "primary": "A",
+              "secondary": "B",
+              "parent": "AB",
+              "status": "V"
+            },
+            {
+              "primary": "Aa",
+              "secondary": "Ab",
+              "parent": "A",
+              "status": "S2,E"
+            }
+          ],
+          "status": "needs-individual-identity-classification-and-measurement-review"
+        },
+        {
+          "starId": "hip-56343",
+          "name": "Xi Hya",
+          "simbadId": "* ksi Hya",
+          "simbadType": "**",
+          "hip": 56343,
+          "wds": null,
+          "mscGrade": null,
+          "mscComponentCount": null,
+          "hierarchy": [],
+          "status": "needs-individual-identity-classification-and-measurement-review"
+        },
+        {
+          "starId": "hip-29426",
+          "name": "Xi Ori",
+          "simbadId": "* ksi Ori",
+          "simbadType": "SB*",
+          "hip": 29426,
+          "wds": null,
+          "mscGrade": null,
+          "mscComponentCount": null,
+          "hierarchy": [],
+          "status": "needs-individual-identity-classification-and-measurement-review"
+        },
+        {
+          "starId": "hip-90098",
+          "name": "Xi Pav",
+          "simbadId": "* ksi Pav",
+          "simbadType": "SB*",
+          "hip": 90098,
+          "wds": "18232-6130",
+          "mscGrade": 5,
+          "mscComponentCount": 4,
+          "hierarchy": [
+            {
+              "primary": "AB",
+              "secondary": "C",
+              "parent": "*",
+              "status": "Cmp?"
+            },
+            {
+              "primary": "A",
+              "secondary": "B",
+              "parent": "AB",
+              "status": "Chp"
+            },
+            {
+              "primary": "Aa",
+              "secondary": "Ab",
+              "parent": "A",
+              "status": "S1,A"
+            }
+          ],
+          "status": "needs-individual-identity-classification-and-measurement-review"
+        },
+        {
+          "starId": "hip-112447",
+          "name": "Xi Peg",
+          "simbadId": "* ksi Peg",
+          "simbadType": "PM*",
+          "hip": 112447,
+          "wds": "22467+1210",
+          "mscGrade": 3,
+          "mscComponentCount": 3,
+          "hierarchy": [
+            {
+              "primary": "A",
+              "secondary": "B",
+              "parent": "*",
+              "status": "Chmp"
+            },
+            {
+              "primary": "Aa",
+              "secondary": "Ab",
+              "parent": "A",
+              "status": "a"
+            }
+          ],
+          "status": "needs-individual-identity-classification-and-measurement-review"
+        },
+        {
+          "starId": "hip-8833",
+          "name": "Xi Psc",
+          "simbadId": "* ksi Psc",
+          "simbadType": "SB*",
+          "hip": 8833,
+          "wds": null,
+          "mscGrade": null,
+          "mscComponentCount": null,
+          "hierarchy": [],
+          "status": "needs-individual-identity-classification-and-measurement-review"
+        },
+        {
+          "starId": "hip-86263",
+          "name": "Xi Ser",
+          "simbadId": "* ksi Ser",
+          "simbadType": "SB*",
+          "hip": 86263,
+          "wds": "17376-1524",
+          "mscGrade": 5,
+          "mscComponentCount": 3,
+          "hierarchy": [
+            {
+              "primary": "A",
+              "secondary": "B",
+              "parent": "*",
+              "status": "Chpm"
+            },
+            {
+              "primary": "Aa",
+              "secondary": "Ab",
+              "parent": "A",
+              "status": "S1,a"
+            }
+          ],
+          "status": "needs-individual-identity-classification-and-measurement-review"
+        },
+        {
+          "starId": "hip-10324",
+          "name": "Xi1 Cet",
+          "simbadId": "* ksi01 Cet",
+          "simbadType": "SB*",
+          "hip": 10324,
+          "wds": null,
+          "mscGrade": null,
+          "mscComponentCount": null,
+          "hierarchy": [],
+          "status": "needs-individual-identity-classification-and-measurement-review"
+        },
+        {
+          "starId": "hip-110960",
+          "name": "Zeta Aqr",
+          "simbadId": "* zet Aqr",
+          "simbadType": "**",
+          "hip": 110960,
+          "wds": "22288-0001",
+          "mscGrade": 5,
+          "mscComponentCount": 3,
+          "hierarchy": [
+            {
+              "primary": "A",
+              "secondary": "B",
+              "parent": "*",
+              "status": "V"
+            },
+            {
+              "primary": "Aa",
+              "secondary": "Ab",
+              "parent": "A",
+              "status": "V,A"
+            }
+          ],
+          "status": "needs-individual-identity-classification-and-measurement-review"
+        },
+        {
+          "starId": "hip-71795",
+          "name": "Zeta Boo",
+          "simbadId": "* zet Boo",
+          "simbadType": "**",
+          "hip": 71795,
+          "wds": null,
+          "mscGrade": null,
+          "mscComponentCount": null,
+          "hierarchy": [],
+          "status": "needs-individual-identity-classification-and-measurement-review"
+        },
+        {
+          "starId": "hip-105881",
+          "name": "Zeta Cap",
+          "simbadId": "* zet Cap",
+          "simbadType": "SB*",
+          "hip": 105881,
+          "wds": null,
+          "mscGrade": null,
+          "mscComponentCount": null,
+          "hierarchy": [],
+          "status": "needs-individual-identity-classification-and-measurement-review"
+        },
+        {
+          "starId": "hip-57283",
+          "name": "Zeta Crt",
+          "simbadId": "* zet Crt",
+          "simbadType": "**",
+          "hip": 57283,
+          "wds": null,
+          "mscGrade": null,
+          "mscComponentCount": null,
+          "hierarchy": [],
+          "status": "needs-individual-identity-classification-and-measurement-review"
+        },
+        {
+          "starId": "hip-104732",
+          "name": "Zeta Cyg",
+          "simbadId": "* zet Cyg",
+          "simbadType": "SB*",
+          "hip": 104732,
+          "wds": "21129+3014",
+          "mscGrade": 1,
+          "mscComponentCount": 2,
+          "hierarchy": [
+            {
+              "primary": "A",
+              "secondary": "C",
+              "parent": "X",
+              "status": "Xmp"
+            },
+            {
+              "primary": "Aa",
+              "secondary": "Ab",
+              "parent": "*",
+              "status": "v,a"
+            }
+          ],
+          "status": "needs-individual-identity-classification-and-measurement-review"
+        },
+        {
+          "starId": "hip-12484",
+          "name": "Zeta Hor",
+          "simbadId": "* zet Hor",
+          "simbadType": "SB*",
+          "hip": 12484,
+          "wds": null,
+          "mscGrade": null,
+          "mscComponentCount": null,
+          "hierarchy": [],
+          "status": "needs-individual-identity-classification-and-measurement-review"
+        },
+        {
+          "starId": "hip-91971",
+          "name": "Zeta1 Lyr",
+          "simbadId": "* zet01 Lyr",
+          "simbadType": "SB*",
+          "hip": 91971,
+          "wds": "18448+3736",
+          "mscGrade": 3,
+          "mscComponentCount": 5,
+          "hierarchy": [
+            {
+              "primary": "A",
+              "secondary": "D",
+              "parent": "*",
+              "status": "Cmrp"
+            },
+            {
+              "primary": "Aa1",
+              "secondary": "Aa2",
+              "parent": "Aa",
+              "status": "S1"
+            },
+            {
+              "primary": "Aa",
+              "secondary": "Ab",
+              "parent": "A",
+              "status": "a"
+            },
+            {
+              "primary": "Da",
+              "secondary": "Db",
+              "parent": "D",
+              "status": "a,s"
+            }
+          ],
+          "status": "needs-individual-identity-classification-and-measurement-review"
+        },
+        {
+          "starId": "hip-15197",
+          "name": "Zibal",
+          "simbadId": "* zet Eri",
+          "simbadType": "SB*",
+          "hip": 15197,
+          "wds": null,
+          "mscGrade": null,
+          "mscComponentCount": null,
+          "hierarchy": [],
+          "status": "needs-individual-identity-classification-and-measurement-review"
+        },
+        {
+          "starId": "hip-72622",
+          "name": "Zubenelgenubi",
+          "simbadId": "* alf02 Lib",
+          "simbadType": "SB*",
+          "hip": 72622,
+          "wds": "14509-1603",
+          "mscGrade": 5,
+          "mscComponentCount": 4,
+          "hierarchy": [
+            {
+              "primary": "A",
+              "secondary": "B",
+              "parent": "*",
+              "status": "Cmrph"
+            },
+            {
+              "primary": "Ba",
+              "secondary": "Bb",
+              "parent": "B",
+              "status": "S1,V,a"
+            },
+            {
+              "primary": "Aa",
+              "secondary": "Ab",
+              "parent": "A",
+              "status": "S1,o"
+            }
+          ],
+          "status": "needs-individual-identity-classification-and-measurement-review"
+        },
+        {
+          "starId": "hip-76333",
+          "name": "Zubenelhakrabi",
+          "simbadId": "* gam Lib",
+          "simbadType": "**",
+          "hip": 76333,
+          "wds": null,
+          "mscGrade": null,
+          "mscComponentCount": null,
+          "hierarchy": [],
+          "status": "needs-individual-identity-classification-and-measurement-review"
+        }
+      ]
+    },
+    "famous-cluster-stars": {
+      "nonSunObjects": 42,
+      "expandedSystems": 0,
+      "remainingSourceCandidates": 16,
+      "candidates": [
+        {
+          "starId": "hip-60351",
+          "name": "12 Com",
+          "simbadId": "*  12 Com",
+          "simbadType": "SB*",
+          "hip": 60351,
+          "wds": null,
+          "mscGrade": null,
+          "mscComponentCount": null,
+          "hierarchy": [],
+          "status": "needs-individual-identity-classification-and-measurement-review"
+        },
+        {
+          "starId": "hip-20889",
+          "name": "Ain",
+          "simbadId": "* eps Tau",
+          "simbadType": "**",
+          "hip": 20889,
+          "wds": null,
+          "mscGrade": null,
+          "mscComponentCount": null,
+          "hierarchy": [],
+          "status": "needs-individual-identity-classification-and-measurement-review"
+        },
+        {
+          "starId": "hip-17847",
+          "name": "Atlas",
+          "simbadId": "*  27 Tau",
+          "simbadType": "SB*",
+          "hip": 17847,
+          "wds": "03492+2403",
+          "mscGrade": 2,
+          "mscComponentCount": 3,
+          "hierarchy": [
+            {
+              "primary": "Aa",
+              "secondary": "Ab",
+              "parent": "*",
+              "status": "Ch?"
+            },
+            {
+              "primary": "Aa1",
+              "secondary": "Aa2",
+              "parent": "Aa",
+              "status": "S1,V"
+            }
+          ],
+          "status": "needs-individual-identity-classification-and-measurement-review"
+        },
+        {
+          "starId": "hip-42497",
+          "name": "HD 73598",
+          "simbadId": "HD  73598",
+          "simbadType": "**",
+          "hip": 42497,
+          "wds": null,
+          "mscGrade": null,
+          "mscComponentCount": null,
+          "hierarchy": [],
+          "status": "needs-individual-identity-classification-and-measurement-review"
+        },
+        {
+          "starId": "hip-42504",
+          "name": "HD 74146",
+          "simbadId": "HD  74146",
+          "simbadType": "SB*",
+          "hip": 42504,
+          "wds": null,
+          "mscGrade": null,
+          "mscComponentCount": null,
+          "hierarchy": [],
+          "status": "needs-individual-identity-classification-and-measurement-review"
+        },
+        {
+          "starId": "hip-42726",
+          "name": "HD 74560",
+          "simbadId": "HD  74560",
+          "simbadType": "SB*",
+          "hip": 42726,
+          "wds": null,
+          "mscGrade": null,
+          "mscComponentCount": null,
+          "hierarchy": [],
+          "status": "needs-individual-identity-classification-and-measurement-review"
+        },
+        {
+          "starId": "hip-52701",
+          "name": "HD 93549",
+          "simbadId": "HD  93549",
+          "simbadType": "SB*",
+          "hip": 52701,
+          "wds": null,
+          "mscGrade": null,
+          "mscComponentCount": null,
+          "hierarchy": [],
+          "status": "needs-individual-identity-classification-and-measurement-review"
+        },
+        {
+          "starId": "hip-42556",
+          "name": "Meleph",
+          "simbadId": "* eps Cnc",
+          "simbadType": "SB*",
+          "hip": 42556,
+          "wds": null,
+          "mscGrade": null,
+          "mscComponentCount": null,
+          "hierarchy": [],
+          "status": "needs-individual-identity-classification-and-measurement-review"
+        },
+        {
+          "starId": "hip-61394",
+          "name": "Phyllon Kissinou",
+          "simbadId": "*  23 Com",
+          "simbadType": "**",
+          "hip": 61394,
+          "wds": null,
+          "mscGrade": null,
+          "mscComponentCount": null,
+          "hierarchy": [],
+          "status": "needs-individual-identity-classification-and-measurement-review"
+        },
+        {
+          "starId": "hip-20205",
+          "name": "Prima Hyadum",
+          "simbadId": "* gam Tau",
+          "simbadType": "**",
+          "hip": 20205,
+          "wds": null,
+          "mscGrade": null,
+          "mscComponentCount": null,
+          "hierarchy": [],
+          "status": "needs-individual-identity-classification-and-measurement-review"
+        },
+        {
+          "starId": "hip-20455",
+          "name": "Secunda Hyadum",
+          "simbadId": "* del Tau",
+          "simbadType": "SB*",
+          "hip": 20455,
+          "wds": null,
+          "mscGrade": null,
+          "mscComponentCount": null,
+          "hierarchy": [],
+          "status": "needs-individual-identity-classification-and-measurement-review"
+        },
+        {
+          "starId": "hip-17531",
+          "name": "Taygeta",
+          "simbadId": "* q Tau",
+          "simbadType": "SB*",
+          "hip": 17531,
+          "wds": null,
+          "mscGrade": null,
+          "mscComponentCount": null,
+          "hierarchy": [],
+          "status": "needs-individual-identity-classification-and-measurement-review"
+        },
+        {
+          "starId": "hip-52419",
+          "name": "Theta Car",
+          "simbadId": "* tet Car",
+          "simbadType": "SB*",
+          "hip": 52419,
+          "wds": "10429-6423",
+          "mscGrade": 2,
+          "mscComponentCount": 3,
+          "hierarchy": [
+            {
+              "primary": "Aa",
+              "secondary": "Ab",
+              "parent": "*",
+              "status": "A?"
+            },
+            {
+              "primary": "Aa1",
+              "secondary": "Aa2",
+              "parent": "Aa",
+              "status": "S1"
+            }
+          ],
+          "status": "needs-individual-identity-classification-and-measurement-review"
+        },
+        {
+          "starId": "trapezium-theta1-orionis-b",
+          "name": "Theta1 Orionis B",
+          "simbadId": "* tet01 Ori B",
+          "simbadType": "EB*",
+          "hip": null,
+          "wds": null,
+          "mscGrade": null,
+          "mscComponentCount": null,
+          "hierarchy": [],
+          "status": "needs-individual-identity-classification-and-measurement-review"
+        },
+        {
+          "starId": "trapezium-theta1-orionis-c",
+          "name": "Theta1 Orionis C",
+          "simbadId": "* tet01 Ori C",
+          "simbadType": "SB*",
+          "hip": null,
+          "wds": null,
+          "mscGrade": null,
+          "mscComponentCount": null,
+          "hierarchy": [],
+          "status": "needs-individual-identity-classification-and-measurement-review"
+        },
+        {
+          "starId": "hip-20885",
+          "name": "Theta1 Tau",
+          "simbadId": "* tet01 Tau",
+          "simbadType": "SB*",
+          "hip": 20885,
+          "wds": null,
+          "mscGrade": null,
+          "mscComponentCount": null,
+          "hierarchy": [],
+          "status": "needs-individual-identity-classification-and-measurement-review"
+        }
+      ]
+    }
+  }
+}

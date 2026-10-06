@@ -1,0 +1,27 @@
+{
+  "schemaVersion": 1,
+  "source": "Tokovinin Multiple Star Catalog, June 19 2026 distribution",
+  "url": "https://www.ctio.noirlab.edu/~atokovin/stars/newmsc-20260619.tar.gz",
+  "retrievedOn": "2026-10-06",
+  "archiveSha256": "4471cfba7c84e9c604083c87e729cad96eb72b0813259ef8097aad136780d535",
+  "readmeSha256": "d0906632b078a3b97b4e7247ad76830e2cc13bae6300ae145d69ce30a8e859b8",
+  "wds": "05145-0812",
+  "tables": {
+    "comp.tsv": [
+      "05145-0812| 78.634467| -8.201638|    3.78|HIP |    1.3|    0.5|  21.0| A|    0.0|B8Iae   | 24436| 34085| 0.10| 0.13| 0.00| 0.22| 0.20| 0.18| 4|5|BD-08_1063, ADS_3823, HR_1713, *19bet_Ori         ",
+      "05145-0812| 78.633403| -8.204067|    3.24|DR3 |   -0.0|   -0.0|  19.1| B|    9.5|B9+B9   |     0|     0| 0.00| 6.62| 6.60| 5.99| 0.00| 7.94| 0|0|ADS_3823BC                                        "
+    ],
+    "sys.tsv": [
+      "05145-0812|A  |BC |*  |Chpr    |   23.9000|k|   9.500|\"|202.0| 0.12|B8Ia:| 7.00|B9V  | 19.60|v|  8.00|s|STF_668 A,BC                  ",
+      "05145-0812|B  |C  |BC |v       |   63.2000|y|   0.120|\"| 30.0| 7.60|B9V  | 7.60|B9V  |  5.05|s|  2.94|v|BU_555 BC                     ",
+      "05145-0812|Ba |Bb |B  |S2      |    9.8600|d|   0.584|m|  0.0| 7.60|B9V  | 0.00|     |  2.94|v|  2.11|q|SB9_307 q=0.767               "
+    ],
+    "orb.tsv": [
+      "05145-0812|Ba,Bb   |      9.8600|29633.1953| 0.100|  0.0000|  0.00| 10.00|  0.00| 25.00| 32.60|   19.10|B|d|SB9_307 1942ApJ....95..421S   "
+    ],
+    "notes.tsv": [
+      "05145-0812|A consid. as SB by PLaskett (ApJ 30 26 1909), K1=3.8, contested (ApJ 105 222)   |"
+    ]
+  },
+  "review": "Four individual stars: A plus the Ba/Bb spectroscopic pair and close visual C. Grade 5. B/BC flux, spectral blends, photometric/mass-ratio mass estimates and primary-only properties are not copied into new individual companions. Component D and an alleged spectroscopic companion of A are excluded."
+}

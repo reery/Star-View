@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
-  "reviewed": "2026-10-05",
-  "policy": "Exact SIMBAD and unique Hipparcos/Gaia DR3 identities; fill blank physical fields only, preserve binary/component distinctions and Gaia eligibility; derive missing radius/luminosity from adopted Stefan-Boltzmann inputs.",
+  "reviewed": "2026-10-06",
+  "policy": "Exact SIMBAD and unique Hipparcos/Gaia DR3 identities across all stellar catalogs; reviewed component-specific literature first; fill blank physical fields, preserve curated values and Gaia eligibility; spectroscopy requires valid measurements and strict-majority consensus; no generic binary mass.",
   "checksumsSha256": {
     "catalog-work/physical-supplements/crossmatch.csv": "882384928e15d2cbf5e0e5cc7dca48fb1734824da256da21276e416a10f7d733",
     "catalog-work/nearest-1000/simbad.csv": "0d1ab9881afdfbbac62ea7d05d31cb0d8ca4c4235a4b14eb3d0e5b789a932dbd",
@@ -18,7 +18,15 @@
     "catalog-work/landmark-stars/sed.csv": "19b6662da85caf0ec75c57e6ba0b862d321fdc441dfcafc8bc9a56cab712e5ea",
     "catalog-work/landmark-stars/gaia.csv": "851bbf5865d45987d14cdda74691fd8b1b291e0af6353a8096bdb1524ef35d72",
     "catalog-work/nearest-100/source-input.json": "ab8a3ab6e0b0edb1372f7c58cdf4f121fe1d5d204a9a0541e6d302a5ac18c84a",
-    "catalog-work/nearest-100/physical-overrides.json": "59aeae9b903d977b550843799a09888a24cbb0f7ead137baf4d51765ea7738c9"
+    "catalog-work/nearest-100/physical-overrides.json": "59aeae9b903d977b550843799a09888a24cbb0f7ead137baf4d51765ea7738c9",
+    "catalog-work/shared-enrichment/reviewed-physical.json": "178713618193995a63b9e8d98238f19b187705594ef5795dc9cb14ffbd8b8812",
+    "catalog-work/shared-enrichment/literature/fundamental.adql": "8127e71c93bc01fbc3ebc6de69bb2399d0d8a7dd38af1de099323e6e384d2048",
+    "catalog-work/shared-enrichment/literature/fundamental.csv": "87e9d805d41c01526cf5501b8520b2dba4f34ea825b80acddc2de4ff04e988a4",
+    "catalog-work/shared-enrichment/literature/sed.adql": "c8d90beeb76787ae627db28b6feba3750794a79f11588ce227bd8e95887e25f3",
+    "catalog-work/shared-enrichment/literature/sed.csv": "c596ddb8b4dc80f408ffcdb99e9446629c0beda30d11af75ca47aa9316c8bc14",
+    "catalog-work/shared-enrichment/literature/source-manifest.json": "6f2a78d2688ee3dc8108d1e9a2dcd9c710fddf79a8248227174ab750eacd0b26",
+    "catalog-work/shared-enrichment/literature/spectroscopy.adql": "c75754a01ac2ba2c142ab399ed628e25ff9f9d5613429af4633ea4a5cd9b62b8",
+    "catalog-work/shared-enrichment/literature/spectroscopy.csv": "85da8f4ab1bef2d73d791b9a72a804fe69173ac3ac84772ddda926759a4afc0e"
   },
   "sources": [
     {
@@ -64,6 +72,18 @@
     {
       "name": "Gaia DR3, exact-ID quality-filtered astrophysical parameters",
       "url": "https://gea.esac.esa.int/archive/"
+    },
+    {
+      "name": "SIMBAD mesFe_h: exact-object published spectroscopic temperatures and photospheric iron abundances, full measurement pool frozen 2026-10-05",
+      "url": "https://simbad.cds.unistra.fr/simbad/sim-tap"
+    },
+    {
+      "name": "Bond et al. 2020, Mu Cas A dynamical mass, preferred physical parameters and uncertain model age",
+      "url": "https://arxiv.org/abs/2010.06609"
+    },
+    {
+      "name": "Kallinger et al. 2019, Rho Persei granulation-scaling mass and published SED luminosity/radius",
+      "url": "https://arxiv.org/html/1902.07531"
     }
   ]
 }

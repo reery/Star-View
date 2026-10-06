@@ -1,6 +1,7 @@
 import { STELLAR_OBJECT_TYPES, type Star } from './catalog-model'
 import type { CatalogManifest } from './catalog-manifest'
 import { objectDesignations, uniqueDesignations, validDesignations } from './designations'
+import { starComponentIdentity } from './star-systems'
 
 export { catalogSelection } from './catalog-selection'
 
@@ -16,7 +17,10 @@ const OVERLAY_PHYSICAL_FIELDS = [
 function supplementPhysicalFields(primary: Star, additional: Star): Star {
   const supplemented = { ...primary }
   supplemented.designations = uniqueDesignations([...objectDesignations(primary), additional.name, ...objectDesignations(additional)], primary.name)
-  const fields = OVERLAY_PHYSICAL_FIELDS.filter((field) => primary[field] === null && additional[field] !== null)
+  // A reviewed component may deliberately withhold blended system estimates.
+  // An overlapping legacy overlay must not restore those rejected values.
+  const withheld = new Set(primary.notes.match(/Withheld individual fields: ([a-z_, ]+)\./)?.[1]?.split(', ') ?? [])
+  const fields = OVERLAY_PHYSICAL_FIELDS.filter((field) => !withheld.has(field) && primary[field] === null && additional[field] !== null)
   for (const field of fields) supplemented[field] = additional[field]
   if (fields.length) {
     supplemented.notes = `${primary.notes} Additional catalog supplements ${fields.join(', ')}. ${additional.notes}`.trim()
@@ -54,18 +58,31 @@ export function mergeCatalogStars(primary: readonly Star[], additional: readonly
   const merged = [...primary]
   const ids = new Map(merged.map((star, index) => [star.id, index]))
   const names = new Map(merged.map((star, index) => [star.name.toLocaleLowerCase('en-US'), index]))
+  const components = new Map(merged.flatMap((star, index) => {
+    const identity = starComponentIdentity(star.id)
+    return identity ? [[identity.canonicalStarId, index] as const] : []
+  }))
   for (const star of additional) {
     const normalizedName = star.name.toLocaleLowerCase('en-US')
-    const duplicate = ids.get(star.id) ?? names.get(normalizedName) ??
-      merged.findIndex((candidate) => sameSkyPosition(candidate, star))
+    const identity = starComponentIdentity(star.id)
+    const distinctComponent = (candidate: Star) => {
+      const candidateIdentity = starComponentIdentity(candidate.id)
+      return identity && candidateIdentity && identity.canonicalStarId !== candidateIdentity.canonicalStarId
+    }
+    const namedDuplicate = names.get(normalizedName)
+    const duplicate = ids.get(star.id) ?? (identity ? components.get(identity.canonicalStarId) : undefined) ??
+      (namedDuplicate !== undefined && !distinctComponent(merged[namedDuplicate]!) ? namedDuplicate : undefined) ??
+      merged.findIndex((candidate) => !distinctComponent(candidate) && sameSkyPosition(candidate, star))
     if (duplicate >= 0) {
       merged[duplicate] = supplementPhysicalFields(merged[duplicate]!, star)
       ids.set(star.id, duplicate)
       names.set(normalizedName, duplicate)
+      if (identity) components.set(identity.canonicalStarId, duplicate)
       continue
     }
     ids.set(star.id, merged.length)
     names.set(normalizedName, merged.length)
+    if (identity) components.set(identity.canonicalStarId, merged.length)
     merged.push(star)
   }
   return merged

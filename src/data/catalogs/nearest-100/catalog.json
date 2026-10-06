@@ -137,6 +137,18 @@
     {
       "name": "Gaia DR3, exact-ID quality-filtered astrophysical parameters",
       "url": "https://gea.esac.esa.int/archive/"
+    },
+    {
+      "name": "SIMBAD mesFe_h: exact-object published spectroscopic temperatures and photospheric iron abundances, full measurement pool frozen 2026-10-05",
+      "url": "https://simbad.cds.unistra.fr/simbad/sim-tap"
+    },
+    {
+      "name": "Bond et al. 2020, Mu Cas A dynamical mass, preferred physical parameters and uncertain model age",
+      "url": "https://arxiv.org/abs/2010.06609"
+    },
+    {
+      "name": "Kallinger et al. 2019, Rho Persei granulation-scaling mass and published SED luminosity/radius",
+      "url": "https://arxiv.org/html/1902.07531"
     }
   ],
   "cutoffPolicy": "Exclude Planet rows, aggregate system rows and source ObjType endings '?'. The only approved exceptions are Seq 27/28 (EZ Aquarii B/C): preserve vetted default membership and every default field, while retaining raw LM? classifications explicitly; this is not a new classification measurement. Keep all tentative buffer records for audit. Rank eligible individual non-Sun objects by unrounded adopted J2000 distance, then ASCII stable ID for exact ties; retain exactly 100 plus Sun. Rank 100 is GJ 229 A; nearby one-sigma distance intervals overlap, so membership is not statistically secure. Frozen 2023 source releases with preserved neighbor overrides; no 2026 completeness claim.",

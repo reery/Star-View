@@ -1,8 +1,10 @@
 import { Matrix3, Vector3 } from 'three'
+import { LIGHT_YEARS_PER_PARSEC } from './astronomy'
 import { ICRS_TO_GALACTIC_ROWS } from './catalog-model'
 
 export const EARTH_OBLIQUITY_DEG = 23.43928
 export const EARTH_ORBIT_DISPLAY_RADIUS_PC = 0.35
+export const EARTH_ORBIT_MAX_VIEW_DISTANCE_PC = 150 / LIGHT_YEARS_PER_PARSEC
 export const EARTH_AXIS_DISPLAY_HALF_LENGTH_PC = 0.14
 export const EARTH_ORBIT_MODES = ['off', 'now', 'jan', 'feb', 'mar', 'apr', 'may', 'jun', 'jul', 'aug', 'sep', 'oct', 'nov', 'dec'] as const
 export type EarthOrbitMode = typeof EARTH_ORBIT_MODES[number]

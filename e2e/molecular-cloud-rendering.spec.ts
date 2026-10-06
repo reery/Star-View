@@ -109,7 +109,7 @@ test('keeps Orion emission and belt stars visible with its molecular clouds', { 
   }
 })
 
-test('uses apparent brightness without extra distance fading in Observer view', async ({ page }) => {
+test('retains restrained star glow when switching to Observer view', async ({ page }, testInfo) => {
   const landmark = landmarks.find((star) => star.id === 'bright-alnilam')!
   const lights: number[] = []
   for (const distance of [20, 600]) {
@@ -117,15 +117,25 @@ test('uses apparent brightness without extra distance fading in Observer view', 
       ...landmark, id: 'equal-brightness-source', x_pc: -distance, y_pc: 0, z_pc: 0,
       absolute_mag: 2 - 5 * (Math.log10(distance) - 1),
     }
-    const points = await page.evaluate((input) =>
-      (window as unknown as { renderViewer(options: ViewerRenderOptions): Promise<Record<string, { x: number; y: number }>> }).renderViewer(input),
-    { stars: [sun, star], targetId: star.id, observerView: true, mode: 'real', showClouds: false } satisfies ViewerRenderOptions)
-    const image = PNG.sync.read(await page.locator('div canvas').screenshot({ scale: 'css' }))
-    lights.push(regionLight(image, points[star.id]!, 40))
+    const modeLights: number[] = []
+    for (const observerView of [false, true]) {
+      // Keep the camera at the Sun with the same direction and no overview
+      // dimming. The map's minimum orbit radius is 0.08 pc.
+      const points = await page.evaluate((input) =>
+        (window as unknown as { renderViewer(options: ViewerRenderOptions): Promise<Record<string, { x: number; y: number }>> }).renderViewer(input),
+      { stars: [sun, star], targetId: star.id, observerView, orbitDistancePc: 0.08, mode: 'real', showClouds: false } satisfies ViewerRenderOptions)
+      const image = PNG.sync.read(await page.locator('div canvas').screenshot({
+        scale: 'css', path: testInfo.outputPath(`star-${distance}pc-${observerView ? 'observer' : 'map'}.png`),
+      }))
+      modeLights.push(regionLight(image, points[star.id]!, 40))
+    }
+    expect(modeLights[1]! / modeLights[0]!).toBeGreaterThan(0.98)
+    expect(modeLights[1]! / modeLights[0]!).toBeLessThan(1.02)
+    lights.push(modeLights[1]!)
   }
   expect(lights[0]).toBeGreaterThan(5000)
-  expect(lights[1]! / lights[0]!).toBeGreaterThan(0.98)
-  expect(lights[1]! / lights[0]!).toBeLessThan(1.02)
+  expect(lights[1]).toBeGreaterThan(500)
+  expect(lights[1]!).toBeLessThan(lights[0]! * 0.5)
 })
 
 test('renders a continuous long-exposure nebula with a bright core and faint wings', { tag: '@mobile' }, async ({ page }, testInfo) => {

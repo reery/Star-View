@@ -11,6 +11,7 @@ import re
 from collections import Counter
 from functools import cache
 from pathlib import Path
+from statistics import median
 
 from .adapters import eligible_gaia_physical, read_gaia_tap
 from .snapshots import sha256, verify_sha256
@@ -19,6 +20,7 @@ ROOT = Path(__file__).resolve().parents[2]
 FIELDS = ("temperature_k", "mass_solar", "luminosity_solar", "radius_solar", "metallicity_dex", "age_gyr")
 SYSTEM_TYPES = {"**", "EB*", "SB*", "bC*", "s*b"}
 MANIFEST = ROOT / "catalog-work/shared-enrichment/source-manifest.json"
+LITERATURE = "catalog-work/shared-enrichment/literature"
 
 
 def normalized_id(value):
@@ -56,6 +58,12 @@ def source_index():
                                            "logRad": row["log_radius_solar"], "logTeff": row["log_temperature_k"]})
     for row in csv_rows("catalog-work/bright-stars/sed.csv"):
         sed.setdefault(row["hip"], {"HIP": row["hip"], "Dist": row["distance_pc"], "Teff": row["temperature_k"], "Lum": row["luminosity_solar"]})
+    # The older subsets covered constellation figures and bright landmarks only.
+    # This snapshot queries the union of exact identifiers across every catalog.
+    for row in csv_rows(f"{LITERATURE}/fundamental.csv"):
+        fundamental.setdefault(row["HIP"], row)
+    for row in csv_rows(f"{LITERATURE}/sed.csv"):
+        sed.setdefault(row["HIP"], row)
     gaia = {}
     for directory in ("nearest-1000", "landmark-stars"):
         for record in read_gaia_tap(ROOT / f"catalog-work/{directory}/gaia.csv"):
@@ -109,6 +117,46 @@ def number(value):
     return result if math.isfinite(result) else None
 
 
+@cache
+def spectroscopy_index():
+    index = {}
+    for observation in csv_rows(f"{LITERATURE}/spectroscopy.csv"):
+        index.setdefault(normalized_id(observation["main_id"]), []).append(observation)
+    return index
+
+
+def select_spectroscopy(observations, column):
+    """Use a recent, consensus-compatible measurement; withhold conflicts.
+
+    This is not a new averaged measurement. Values and bibliography remain those
+    of the selected paper, and the complete raw measurement pool remains frozen.
+    """
+    candidates = []
+    for observation in observations:
+        value = number(observation.get(column))
+        reference = observation.get("bibcode", "")
+        if value is None or not re.match(r"(?:19|20)\d{2}", reference):
+            continue
+        if column == "teff" and not 1000 <= value <= 100000:
+            continue
+        if column == "fe_h" and not -5 <= value <= 1.5:
+            continue
+        candidates.append(observation)
+    if not candidates:
+        return None
+    center = median(float(item[column]) for item in candidates)
+    tolerance = .3 if column == "fe_h" else .1 * center
+    consistent = [item for item in candidates if abs(float(item[column]) - center) <= tolerance]
+    if not consistent or len(consistent) <= len(candidates) / 2 and len(candidates) > 1:
+        return None
+    return max(consistent, key=lambda item: (item["bibcode"][:4], item["bibcode"], int(item.get("mespos") or 0)))
+
+
+@cache
+def reviewed_physical():
+    return json.loads((ROOT / "catalog-work/shared-enrichment/reviewed-physical.json").read_text())["objects"]
+
+
 def derive_physical(row):
     """Complete Stefan-Boltzmann triples, recording the actual input values."""
     if row["id"] == "sun":
@@ -144,6 +192,18 @@ def enrich_from_frozen(row, main_id=None, aliases=(), derive=True):
                           "reference": reference, "uncertainty": uncertainty, "identity": key, **detail}
 
     if row["type"] == "star" and key:
+        review = reviewed_physical().get(key)
+        if review:
+            for field, observation in review["fields"].items():
+                if field not in FIELDS:
+                    raise ValueError(f"Unknown reviewed physical field: {field}")
+                adopt(field, observation["value"], review["reference"], observation["status"],
+                      observation.get("uncertainty"), component=review["component"], scope=review["scope"],
+                      section=observation.get("section"), caveat=observation.get("caveat"),
+                      quantity=observation.get("quantity"), sourceUrl=review["url"],
+                      **{name: observation[name] for name in ("inputs", "sourceRecordId", "method") if name in observation})
+            if adopted:
+                row["notes"] += f" Reviewed physical values describe {review['label']}. {review['scope']} {review['note']}"
         identifiers = set(normalized_id(alias) for alias in aliases)
         identifiers.update(normalized_id(alias) for alias in source.get("ids", "").split("|"))
         # The bright subset explicitly records exact Hipparcos identifiers.
@@ -154,11 +214,23 @@ def enrich_from_frozen(row, main_id=None, aliases=(), derive=True):
         model = fundamental.get(hip, {})
         measurement = measured.get(key, {})
         system = source.get("otype") in SYSTEM_TYPES
+        # Previously reviewed measurement choices retain priority over an
+        # automatic recent/consensus selection from the larger literature pool.
+        adopt("temperature_k", measurement.get("teff"), measurement.get("bibcode", "SIMBAD mesFe_h"), "measured")
+        adopt("metallicity_dex", measurement.get("fe_h"), measurement.get("bibcode", "SIMBAD mesFe_h"), "measured")
+        for column, field in (("teff", "temperature_k"), ("fe_h", "metallicity_dex")):
+            if row.get(field):
+                continue
+            observation = select_spectroscopy(spectroscopy_index().get(key, []), column)
+            if observation:
+                adopt(field, observation[column], observation["bibcode"], "measured",
+                      sourceRecordId=f"{key}:mesFe_h:{observation['mespos']}",
+                      quantity="photospheric [Fe/H]" if column == "fe_h" else "spectroscopic effective temperature",
+                      selection="Newest within 0.3 dex / 10 percent of the median; strict majority required for multiple observations",
+                      scope="SIMBAD object as catalogued; unresolved spectra may be primary-dominated" if system else "catalogued stellar object")
         metallicity = number(row.get("metallicity_dex"))
         if metallicity is None:
             metallicity = number(measurement.get("fe_h"))
-        adopt("temperature_k", measurement.get("teff"), measurement.get("bibcode", "SIMBAD mesFe_h"), "measured")
-        adopt("metallicity_dex", measurement.get("fe_h"), measurement.get("bibcode", "SIMBAD mesFe_h"), "measured")
         diameter = diameters.get(key, {})
         if diameter:
             adopt("radius_solar", float(diameter["diameter_km"]) / 1391400, diameter["bibcode"], "derived")

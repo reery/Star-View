@@ -5,7 +5,7 @@ import unittest
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
-from catalog_sources.enrichment import FIELDS, derive_physical, enrich_from_frozen, estimate_temperature
+from catalog_sources.enrichment import FIELDS, derive_physical, enrich_from_frozen, estimate_temperature, select_spectroscopy
 
 
 def empty_row(**values):
@@ -14,6 +14,47 @@ def empty_row(**values):
 
 
 class EnrichmentTests(unittest.TestCase):
+    def test_rho_per_fills_missing_fields_with_source_inputs_and_preserves_spectroscopy(self):
+        row = empty_row(id="hip-14354", spectral_type="M4+IIIa", temperature_k="3619", metallicity_dex="-0.4384")
+        adopted = enrich_from_frozen(row, "* rho Per", ["HIP 14354", "HD 19058"])
+        self.assertEqual(set(adopted), {"mass_solar", "luminosity_solar", "radius_solar"})
+        self.assertEqual(row["temperature_k"], "3619")
+        self.assertEqual(row["metallicity_dex"], "-0.4384")
+        self.assertEqual(row["age_gyr"], "")
+        self.assertEqual(float(row["mass_solar"]), 1.9)
+        self.assertEqual(adopted["mass_solar"]["uncertainty"], .7)
+        self.assertEqual(adopted["mass_solar"]["status"], "derived")
+        self.assertAlmostEqual(float(row["luminosity_solar"]), 10 ** 3.43, places=6)
+        error = adopted["luminosity_solar"]["uncertainty"]
+        self.assertAlmostEqual(error["lower"], 10 ** 3.43 - 10 ** 3.40, places=5)
+        self.assertAlmostEqual(error["upper"], 10 ** 3.46 - 10 ** 3.43, places=5)
+        self.assertEqual(float(row["radius_solar"]), 143)
+        self.assertEqual(adopted["radius_solar"]["inputs"]["temperature_k"], 3479)
+        self.assertIn("Rho Persei (Gorgonea Tertia)", row["notes"])
+        self.assertNotIn("Mu Cas", row["notes"])
+        self.assertEqual(enrich_from_frozen(row, "* rho Per"), {})
+
+    def test_mu_cas_uses_reviewed_primary_parameters_and_retains_caveats(self):
+        row = empty_row(id="cns5-0317", spectral_type="G5Vb")
+        adopted = enrich_from_frozen(row, "* mu. Cas")
+        self.assertEqual(set(adopted), set(FIELDS))
+        self.assertEqual(float(row["mass_solar"]), .7440)
+        self.assertEqual(adopted["mass_solar"]["component"], "A")
+        self.assertEqual(adopted["mass_solar"]["uncertainty"], .0122)
+        self.assertEqual(adopted["age_gyr"]["status"], "model-derived")
+        self.assertIn("angular diameter", row["notes"])
+        # An exact companion ID never inherits the system/primary override.
+        companion = empty_row()
+        self.assertEqual(enrich_from_frozen(companion, "* mu. Cas B"), {})
+
+    def test_spectroscopic_conflicts_and_sentinels_are_withheld(self):
+        def observation(value, year):
+            return {"fe_h": str(value), "bibcode": f"{year}A&A...123..456A", "mespos": "1"}
+        self.assertIsNone(select_spectroscopy([observation(-9.99, 2024)], "fe_h"))
+        self.assertIsNone(select_spectroscopy([observation(-1, 2020), observation(0, 2024)], "fe_h"))
+        values = [observation(-.1, 2010), observation(-.12, 2015), observation(-.09, 2020), observation(1, 2025)]
+        self.assertEqual(select_spectroscopy(values, "fe_h")["bibcode"][:4], "2020")
+
     def test_unknown_identity_does_not_match_a_nearby_star(self):
         row = empty_row(name="Procyon", ra_deg="114.825497908", dec_deg="5.224987557")
         self.assertEqual(enrich_from_frozen(row), {})

@@ -1,16 +1,16 @@
 {
   "schemaVersion": 1,
   "catalogId": "bright-stars",
-  "sharedEnrichmentManifestSha256": "7e823401fdbfc9ae6cb2353abca7153ba484217cb200f72fb95ed99c8699a56a",
+  "sharedEnrichmentManifestSha256": "724d1da5b0cc21bd0f4d7e734e546aa09014d32330d1896ebca775bf7b593244",
   "policy": "All frozen SIMBAD stellar entries within 3000 ly with compiled Johnson V < 2.70, deduplicating the Alpha Centauri system in favor of A/B components; Acrux uses the Bright Star Catalogue combined V=0.76. Includes Sun as the map origin.",
   "selectionReview": "The V=2.42-2.69 expansion was queried through SIMBAD TAP on 2026-09-30. The SIMBAD stellar hierarchy filter excludes NGC 1980, whose integrated V=2.50 is not a stellar entry.",
   "coverage": {
-    "temperature_k": 113,
-    "mass_solar": 46,
-    "luminosity_solar": 102,
-    "radius_solar": 102,
-    "metallicity_dex": 27,
-    "age_gyr": 5
+    "temperature_k": 121,
+    "mass_solar": 54,
+    "luminosity_solar": 110,
+    "radius_solar": 110,
+    "metallicity_dex": 76,
+    "age_gyr": 9
   },
   "objects": {
     "sun": {
@@ -19,15 +19,49 @@
     },
     "alpha-centauri-b": {
       "source": "nearest-neighbors",
-      "adoptedWithoutChange": true
+      "adoptedWithoutChange": true,
+      "componentAssociation": {
+        "systemId": "alpha-centauri",
+        "systemName": "Alpha Centauri",
+        "component": "B",
+        "canonicalStarId": "alpha-centauri-b",
+        "sourceCatalog": "nearest-1000",
+        "sourceRef": "reyle-2023",
+        "identityEvidence": "Stable inherited component ID.",
+        "role": "reviewed-companion",
+        "individualRecordProvenance": {
+          "id": "alpha-centauri-b",
+          "status": "higher-curation nearest-100 override"
+        }
+      }
     },
     "alpha-centauri-a": {
       "source": "nearest-neighbors",
-      "adoptedWithoutChange": true
+      "adoptedWithoutChange": true,
+      "componentAssociation": {
+        "systemId": "alpha-centauri",
+        "systemName": "Alpha Centauri",
+        "component": "A",
+        "canonicalStarId": "alpha-centauri-a",
+        "sourceCatalog": "nearest-1000",
+        "sourceRef": "reyle-2023",
+        "identityEvidence": "Stable inherited component ID.",
+        "role": "primary-landmark"
+      }
     },
     "sirius-a": {
       "source": "nearest-neighbors",
-      "adoptedWithoutChange": true
+      "adoptedWithoutChange": true,
+      "componentAssociation": {
+        "systemId": "sirius",
+        "systemName": "Sirius",
+        "component": "A",
+        "canonicalStarId": "sirius-a",
+        "sourceCatalog": "nearest-1000",
+        "sourceRef": "reyle-2023",
+        "identityEvidence": "Stable inherited component ID.",
+        "role": "primary-landmark"
+      }
     },
     "bright-procyon": {
       "source": "SIMBAD TAP snapshot 2026-09-25",
@@ -35,7 +69,17 @@
       "sharedPhysicalEnrichment": {},
       "absoluteMagnitudeMethod": "Johnson V and inverse-parallax distance; no extinction correction",
       "physicalParameters": "SIMBAD mesFe_h/mesDiameter ranked measurements, Allende Prieto & Lambert 1999 evolutionary models, McDonald et al. 2012 SED models, Hohle et al. 2010 massive-star evolutionary models, and reviewed primary papers; see row notes",
-      "luminosityMethod": "McDonald et al. 2012 SED luminosity where available; otherwise Stefan-Boltzmann scaling R^2 (T/5772 K)^4 when both inputs are adopted"
+      "luminosityMethod": "McDonald et al. 2012 SED luminosity where available; otherwise Stefan-Boltzmann scaling R^2 (T/5772 K)^4 when both inputs are adopted",
+      "componentAssociation": {
+        "systemId": "procyon",
+        "systemName": "Procyon",
+        "component": "A",
+        "canonicalStarId": "10pc-0031",
+        "sourceCatalog": "nearest-1000",
+        "sourceRef": "reyle-2023",
+        "identityEvidence": "Exact frozen SIMBAD identity * alf CMi matches the Western HIP primary and the reviewed nearby system.",
+        "role": "primary-landmark"
+      }
     },
     "10pc-0117": {
       "source": "SIMBAD TAP snapshot 2026-09-25",
@@ -48,7 +92,20 @@
     "cns5-4607": {
       "source": "SIMBAD TAP snapshot 2026-09-25",
       "queryId": "* alf Lyr",
-      "sharedPhysicalEnrichment": {},
+      "sharedPhysicalEnrichment": {
+        "metallicity_dex": {
+          "field": "metallicity_dex",
+          "value": -0.5,
+          "status": "measured",
+          "reference": "2018MNRAS.477.3343S",
+          "uncertainty": null,
+          "identity": "* alf Lyr",
+          "sourceRecordId": "* alf Lyr:mesFe_h:2",
+          "quantity": "photospheric [Fe/H]",
+          "selection": "Newest within 0.3 dex / 10 percent of the median; strict majority required for multiple observations",
+          "scope": "catalogued stellar object"
+        }
+      },
       "absoluteMagnitudeMethod": "Johnson V and inverse-parallax distance; no extinction correction",
       "physicalParameters": "SIMBAD mesFe_h/mesDiameter ranked measurements, Allende Prieto & Lambert 1999 evolutionary models, McDonald et al. 2012 SED models, Hohle et al. 2010 massive-star evolutionary models, and reviewed primary papers; see row notes",
       "luminosityMethod": "McDonald et al. 2012 SED luminosity where available; otherwise Stefan-Boltzmann scaling R^2 (T/5772 K)^4 when both inputs are adopted"
@@ -56,10 +113,33 @@
     "cns5-5665": {
       "source": "SIMBAD TAP snapshot 2026-09-25",
       "queryId": "* alf PsA",
-      "sharedPhysicalEnrichment": {},
+      "sharedPhysicalEnrichment": {
+        "metallicity_dex": {
+          "field": "metallicity_dex",
+          "value": 0.31,
+          "status": "measured",
+          "reference": "2017AJ....153...21L",
+          "uncertainty": null,
+          "identity": "* alf PsA",
+          "sourceRecordId": "* alf PsA:mesFe_h:2",
+          "quantity": "photospheric [Fe/H]",
+          "selection": "Newest within 0.3 dex / 10 percent of the median; strict majority required for multiple observations",
+          "scope": "catalogued stellar object"
+        }
+      },
       "absoluteMagnitudeMethod": "Johnson V and inverse-parallax distance; no extinction correction",
       "physicalParameters": "SIMBAD mesFe_h/mesDiameter ranked measurements, Allende Prieto & Lambert 1999 evolutionary models, McDonald et al. 2012 SED models, Hohle et al. 2010 massive-star evolutionary models, and reviewed primary papers; see row notes",
-      "luminosityMethod": "McDonald et al. 2012 SED luminosity where available; otherwise Stefan-Boltzmann scaling R^2 (T/5772 K)^4 when both inputs are adopted"
+      "luminosityMethod": "McDonald et al. 2012 SED luminosity where available; otherwise Stefan-Boltzmann scaling R^2 (T/5772 K)^4 when both inputs are adopted",
+      "componentAssociation": {
+        "systemId": "fomalhaut",
+        "systemName": "Fomalhaut",
+        "component": "A",
+        "canonicalStarId": "cns5-5665",
+        "sourceCatalog": "nearest-1000",
+        "sourceRef": "mamajek-2013",
+        "identityEvidence": "Exact frozen SIMBAD identity * alf PsA matches the Western HIP primary and the reviewed nearby system.",
+        "role": "primary-landmark"
+      }
     },
     "cns5-1912": {
       "source": "SIMBAD TAP snapshot 2026-09-25",
@@ -72,7 +152,20 @@
     "bright-denebola": {
       "source": "SIMBAD TAP snapshot 2026-09-25",
       "queryId": "* bet Leo",
-      "sharedPhysicalEnrichment": {},
+      "sharedPhysicalEnrichment": {
+        "metallicity_dex": {
+          "field": "metallicity_dex",
+          "value": 0.07,
+          "status": "measured",
+          "reference": "2003A&A...398.1121E",
+          "uncertainty": null,
+          "identity": "* bet Leo",
+          "sourceRecordId": "* bet Leo:mesFe_h:3",
+          "quantity": "photospheric [Fe/H]",
+          "selection": "Newest within 0.3 dex / 10 percent of the median; strict majority required for multiple observations",
+          "scope": "catalogued stellar object"
+        }
+      },
       "absoluteMagnitudeMethod": "Johnson V and inverse-parallax distance; no extinction correction",
       "physicalParameters": "SIMBAD mesFe_h/mesDiameter ranked measurements, Allende Prieto & Lambert 1999 evolutionary models, McDonald et al. 2012 SED models, Hohle et al. 2010 massive-star evolutionary models, and reviewed primary papers; see row notes",
       "luminosityMethod": "McDonald et al. 2012 SED luminosity where available; otherwise Stefan-Boltzmann scaling R^2 (T/5772 K)^4 when both inputs are adopted"
@@ -88,23 +181,247 @@
     "cns5-3442": {
       "source": "SIMBAD TAP snapshot 2026-09-30",
       "queryId": "* eta Boo",
-      "sharedPhysicalEnrichment": {},
+      "sharedPhysicalEnrichment": {
+        "metallicity_dex": {
+          "field": "metallicity_dex",
+          "value": 0.34,
+          "status": "measured",
+          "reference": "2025A&A...703A.128B",
+          "uncertainty": null,
+          "identity": "* eta Boo",
+          "sourceRecordId": "* eta Boo:mesFe_h:2",
+          "quantity": "photospheric [Fe/H]",
+          "selection": "Newest within 0.3 dex / 10 percent of the median; strict majority required for multiple observations",
+          "scope": "SIMBAD object as catalogued; unresolved spectra may be primary-dominated"
+        }
+      },
       "absoluteMagnitudeMethod": "Johnson V and inverse-parallax distance; no extinction correction",
       "physicalParameters": "SIMBAD mesFe_h/mesDiameter ranked measurements, Allende Prieto & Lambert 1999 evolutionary models, McDonald et al. 2012 SED models, Hohle et al. 2010 massive-star evolutionary models, and reviewed primary papers; see row notes",
       "luminosityMethod": "McDonald et al. 2012 SED luminosity where available; otherwise Stefan-Boltzmann scaling R^2 (T/5772 K)^4 when both inputs are adopted"
     },
     "cns5-1318": {
-      "source": "SIMBAD TAP snapshot 2026-09-25",
-      "queryId": "* alf Aur",
-      "sharedPhysicalEnrichment": {},
-      "absoluteMagnitudeMethod": "Johnson V and inverse-parallax distance; no extinction correction",
-      "physicalParameters": "SIMBAD mesFe_h/mesDiameter ranked measurements, Allende Prieto & Lambert 1999 evolutionary models, McDonald et al. 2012 SED models, Hohle et al. 2010 massive-star evolutionary models, and reviewed primary papers; see row notes",
-      "luminosityMethod": "McDonald et al. 2012 SED luminosity where available; otherwise Stefan-Boltzmann scaling R^2 (T/5772 K)^4 when both inputs are adopted"
+      "landmarkSelection": {
+        "source": "SIMBAD TAP snapshot 2026-09-25",
+        "queryId": "* alf Aur",
+        "sharedPhysicalEnrichment": {},
+        "absoluteMagnitudeMethod": "Johnson V and inverse-parallax distance; no extinction correction",
+        "physicalParameters": "SIMBAD mesFe_h/mesDiameter ranked measurements, Allende Prieto & Lambert 1999 evolutionary models, McDonald et al. 2012 SED models, Hohle et al. 2010 massive-star evolutionary models, and reviewed primary papers; see row notes",
+        "luminosityMethod": "McDonald et al. 2012 SED luminosity where available; otherwise Stefan-Boltzmann scaling R^2 (T/5772 K)^4 when both inputs are adopted"
+      },
+      "componentAssociation": {
+        "systemId": "capella",
+        "systemName": "Capella",
+        "component": "Aa",
+        "canonicalStarId": "cns5-1318",
+        "sourceCatalog": "nearest-1000",
+        "sourceRef": "torres2015",
+        "identityEvidence": "Exact frozen SIMBAD identity * alf Aur matches the Western HIP primary and the reviewed nearby system.",
+        "role": "primary-landmark",
+        "individualRecordProvenance": {
+          "astrometry": {
+            "astrometry_ref": "2007A&A...474..653V",
+            "dec_deg": 45.999029047535174,
+            "epoch": 1991.25,
+            "parallax_error_mas": 0.46,
+            "parallax_mas": 76.19999694824219,
+            "pm_dec_error_masyr": 0.2800000011920929,
+            "pm_dec_masyr": -426.89,
+            "pm_ra_cosdec_masyr": 75.25,
+            "pm_ra_error_masyr": 0.5400000214576721,
+            "quality_flags": [],
+            "ra_deg": 79.17206465892026,
+            "radial_velocity_error_kms": null,
+            "radial_velocity_kms": null,
+            "radial_velocity_ref": null,
+            "source_id": "cns5",
+            "source_record_id": "1318"
+          },
+          "astrometryScope": "Former combined giant-pair source snapshot, shared as an approximate Aa/Ab position and proper motion. No resolved orbital trajectory is claimed.",
+          "cns5Id": "1318",
+          "fieldStatus": {
+            "absolute_mag": "derived-from-orbital-parallax",
+            "age_gyr": "withheld-model-age-range",
+            "luminosity_solar": "derived-from-bolometric-correction",
+            "mass_solar": "dynamical",
+            "metallicity_dex": "measured",
+            "radial_velocity_kms": "unknown",
+            "radius_solar": "measured",
+            "temperature_k": "measured"
+          },
+          "gaiaDr3Id": null,
+          "id": "cns5-1318",
+          "identityMethod": "exact CNS5 identifier; exact Gaia DR3 identifier when present",
+          "individualComponentReview": {
+            "additive": false,
+            "astrometryScope": "Former combined giant-pair source snapshot, shared as an approximate Aa/Ab position and proper motion. No resolved orbital trajectory is claimed.",
+            "cns5Id": "1318",
+            "decision": "Resolve the giant pair using component values from Torres et al. 2015; retain the existing stable ID for the cooler primary. The known wide H/L pair makes this a quadruple. The paper system age range 0.590-0.650 Gyr is retained in provenance and not converted into an invented point estimate.",
+            "gaiaDr3Id": null,
+            "name": "Capella Aa",
+            "physicalOverrides": {
+              "absolute_mag": {
+                "reference": "arXiv:1505.07461:Table 3",
+                "status": "derived-from-orbital-parallax",
+                "uncertainty": 0.016,
+                "value": 0.296
+              },
+              "age_gyr": {
+                "reference": "arXiv:1505.07461:Table 3; system age 0.590-0.650 Gyr, not a single adopted individual value",
+                "status": "withheld-model-age-range",
+                "value": null
+              },
+              "luminosity_solar": {
+                "reference": "arXiv:1505.07461:Table 3",
+                "status": "derived-from-bolometric-correction",
+                "uncertainty": 4.2,
+                "value": 78.7
+              },
+              "mass_solar": {
+                "reference": "arXiv:1505.07461:Table 3",
+                "status": "dynamical",
+                "uncertainty": 0.0074,
+                "value": 2.5687
+              },
+              "metallicity_dex": {
+                "reference": "arXiv:1505.07461:Table 3",
+                "status": "measured",
+                "uncertainty": 0.06,
+                "value": -0.04
+              },
+              "radius_solar": {
+                "reference": "arXiv:1505.07461:Table 3",
+                "status": "measured",
+                "uncertainty": 0.57,
+                "value": 11.98
+              },
+              "temperature_k": {
+                "reference": "arXiv:1505.07461:Table 3",
+                "status": "measured",
+                "uncertainty": 50,
+                "value": 4970
+              }
+            },
+            "reference": "arXiv:1505.07461",
+            "reviewDate": "2026-10-06",
+            "simbadId": "* alf Aur",
+            "spectralType": "G8III",
+            "url": "https://arxiv.org/abs/1505.07461",
+            "withholdIndividualMotion": true
+          },
+          "physicalObservations": [
+            {
+              "field": "mass_solar",
+              "reference": "arXiv:1505.07461:Table 3",
+              "sourceId": "reviewed-individual-component",
+              "status": "dynamical",
+              "uncertainty": 0.0074,
+              "value": 2.5687
+            },
+            {
+              "field": "temperature_k",
+              "reference": "arXiv:1505.07461:Table 3",
+              "sourceId": "reviewed-individual-component",
+              "status": "measured",
+              "uncertainty": 50,
+              "value": 4970
+            },
+            {
+              "field": "radius_solar",
+              "reference": "arXiv:1505.07461:Table 3",
+              "sourceId": "reviewed-individual-component",
+              "status": "measured",
+              "uncertainty": 0.57,
+              "value": 11.98
+            },
+            {
+              "field": "luminosity_solar",
+              "reference": "arXiv:1505.07461:Table 3",
+              "sourceId": "reviewed-individual-component",
+              "status": "derived-from-bolometric-correction",
+              "uncertainty": 4.2,
+              "value": 78.7
+            },
+            {
+              "field": "metallicity_dex",
+              "reference": "arXiv:1505.07461:Table 3",
+              "sourceId": "reviewed-individual-component",
+              "status": "measured",
+              "uncertainty": 0.06,
+              "value": -0.04
+            },
+            {
+              "field": "absolute_mag",
+              "reference": "arXiv:1505.07461:Table 3",
+              "sourceId": "reviewed-individual-component",
+              "status": "derived-from-orbital-parallax",
+              "uncertainty": 0.016,
+              "value": 0.296
+            },
+            {
+              "field": "age_gyr",
+              "reference": "arXiv:1505.07461:Table 3; system age 0.590-0.650 Gyr, not a single adopted individual value",
+              "sourceId": "reviewed-individual-component",
+              "status": "withheld-model-age-range",
+              "value": null
+            }
+          ],
+          "physicalSupplements": {
+            "adopted": {},
+            "eligibility": "Not a parsed K5-M9.5 dwarf spectral type (no subdwarf, giant, composite or peculiar class); supplements not applied.",
+            "identity": {
+              "cns5_id": "1318",
+              "identity_method": "exact SIMBAD CNS5 identity",
+              "simbad_id": "* alf Aur",
+              "twomass": "05164138+4559525"
+            }
+          },
+          "radialVelocity": {
+            "sourceAlternative": {
+              "status": "unknown"
+            },
+            "status": "withheld-individual-orbital-motion"
+          },
+          "sharedPhysicalEnrichment": {},
+          "simbadId": "* alf Aur",
+          "sourceType": "SB*",
+          "supersededSharedPhysicalEnrichment": {
+            "metallicity_dex": {
+              "field": "metallicity_dex",
+              "identity": "* alf Aur",
+              "reference": "2022A&A...663A...4S",
+              "status": "measured",
+              "uncertainty": null,
+              "value": -0.37
+            },
+            "temperature_k": {
+              "field": "temperature_k",
+              "identity": "* alf Aur",
+              "reference": "2022A&A...663A...4S",
+              "status": "measured",
+              "uncertainty": null,
+              "value": 5205.0
+            }
+          }
+        }
+      }
     },
     "bright-rasalhague": {
       "source": "SIMBAD TAP snapshot 2026-09-25",
       "queryId": "* alf Oph",
-      "sharedPhysicalEnrichment": {},
+      "sharedPhysicalEnrichment": {
+        "metallicity_dex": {
+          "field": "metallicity_dex",
+          "value": -0.16,
+          "status": "measured",
+          "reference": "2003A&A...398.1121E",
+          "uncertainty": null,
+          "identity": "* alf Oph",
+          "sourceRecordId": "* alf Oph:mesFe_h:6",
+          "quantity": "photospheric [Fe/H]",
+          "selection": "Newest within 0.3 dex / 10 percent of the median; strict majority required for multiple observations",
+          "scope": "SIMBAD object as catalogued; unresolved spectra may be primary-dominated"
+        }
+      },
       "absoluteMagnitudeMethod": "Johnson V and inverse-parallax distance; no extinction correction",
       "physicalParameters": "SIMBAD mesFe_h/mesDiameter ranked measurements, Allende Prieto & Lambert 1999 evolutionary models, McDonald et al. 2012 SED models, Hohle et al. 2010 massive-star evolutionary models, and reviewed primary papers; see row notes",
       "luminosityMethod": "McDonald et al. 2012 SED luminosity where available; otherwise Stefan-Boltzmann scaling R^2 (T/5772 K)^4 when both inputs are adopted"
@@ -128,7 +445,20 @@
     "bright-caph": {
       "source": "SIMBAD TAP snapshot 2026-09-25",
       "queryId": "* bet Cas",
-      "sharedPhysicalEnrichment": {},
+      "sharedPhysicalEnrichment": {
+        "metallicity_dex": {
+          "field": "metallicity_dex",
+          "value": -0.15,
+          "status": "measured",
+          "reference": "2003A&A...398.1121E",
+          "uncertainty": null,
+          "identity": "* bet Cas",
+          "sourceRecordId": "* bet Cas:mesFe_h:3",
+          "quantity": "photospheric [Fe/H]",
+          "selection": "Newest within 0.3 dex / 10 percent of the median; strict majority required for multiple observations",
+          "scope": "catalogued stellar object"
+        }
+      },
       "absoluteMagnitudeMethod": "Johnson V and inverse-parallax distance; no extinction correction",
       "physicalParameters": "SIMBAD mesFe_h/mesDiameter ranked measurements, Allende Prieto & Lambert 1999 evolutionary models, McDonald et al. 2012 SED models, Hohle et al. 2010 massive-star evolutionary models, and reviewed primary papers; see row notes",
       "luminosityMethod": "McDonald et al. 2012 SED luminosity where available; otherwise Stefan-Boltzmann scaling R^2 (T/5772 K)^4 when both inputs are adopted"
@@ -144,7 +474,20 @@
     "bright-sheratan": {
       "source": "SIMBAD TAP snapshot 2026-09-30",
       "queryId": "* bet Ari",
-      "sharedPhysicalEnrichment": {},
+      "sharedPhysicalEnrichment": {
+        "metallicity_dex": {
+          "field": "metallicity_dex",
+          "value": -0.2,
+          "status": "measured",
+          "reference": "2016A&A...589A..83G",
+          "uncertainty": null,
+          "identity": "* bet Ari",
+          "sourceRecordId": "* bet Ari:mesFe_h:2",
+          "quantity": "photospheric [Fe/H]",
+          "selection": "Newest within 0.3 dex / 10 percent of the median; strict majority required for multiple observations",
+          "scope": "SIMBAD object as catalogued; unresolved spectra may be primary-dominated"
+        }
+      },
       "absoluteMagnitudeMethod": "Johnson V and inverse-parallax distance; no extinction correction",
       "physicalParameters": "SIMBAD mesFe_h/mesDiameter ranked measurements, Allende Prieto & Lambert 1999 evolutionary models, McDonald et al. 2012 SED models, Hohle et al. 2010 massive-star evolutionary models, and reviewed primary papers; see row notes",
       "luminosityMethod": "McDonald et al. 2012 SED luminosity where available; otherwise Stefan-Boltzmann scaling R^2 (T/5772 K)^4 when both inputs are adopted"
@@ -152,7 +495,20 @@
     "bright-menkent": {
       "source": "SIMBAD TAP snapshot 2026-09-25",
       "queryId": "* tet Cen",
-      "sharedPhysicalEnrichment": {},
+      "sharedPhysicalEnrichment": {
+        "metallicity_dex": {
+          "field": "metallicity_dex",
+          "value": 0.08,
+          "status": "measured",
+          "reference": "2022A&A...663A...4S",
+          "uncertainty": null,
+          "identity": "* tet Cen",
+          "sourceRecordId": "* tet Cen:mesFe_h:1",
+          "quantity": "photospheric [Fe/H]",
+          "selection": "Newest within 0.3 dex / 10 percent of the median; strict majority required for multiple observations",
+          "scope": "catalogued stellar object"
+        }
+      },
       "absoluteMagnitudeMethod": "Johnson V and inverse-parallax distance; no extinction correction",
       "physicalParameters": "SIMBAD mesFe_h/mesDiameter ranked measurements, Allende Prieto & Lambert 1999 evolutionary models, McDonald et al. 2012 SED models, Hohle et al. 2010 massive-star evolutionary models, and reviewed primary papers; see row notes",
       "luminosityMethod": "McDonald et al. 2012 SED luminosity where available; otherwise Stefan-Boltzmann scaling R^2 (T/5772 K)^4 when both inputs are adopted"
@@ -160,7 +516,20 @@
     "bright-epsilon-scorpii": {
       "source": "SIMBAD TAP snapshot 2026-09-25",
       "queryId": "* eps Sco",
-      "sharedPhysicalEnrichment": {},
+      "sharedPhysicalEnrichment": {
+        "metallicity_dex": {
+          "field": "metallicity_dex",
+          "value": -0.14,
+          "status": "measured",
+          "reference": "2022A&A...663A...4S",
+          "uncertainty": null,
+          "identity": "* eps Sco",
+          "sourceRecordId": "* eps Sco:mesFe_h:1",
+          "quantity": "photospheric [Fe/H]",
+          "selection": "Newest within 0.3 dex / 10 percent of the median; strict majority required for multiple observations",
+          "scope": "catalogued stellar object"
+        }
+      },
       "absoluteMagnitudeMethod": "Johnson V and inverse-parallax distance; no extinction correction",
       "physicalParameters": "SIMBAD mesFe_h/mesDiameter ranked measurements, Allende Prieto & Lambert 1999 evolutionary models, McDonald et al. 2012 SED models, Hohle et al. 2010 massive-star evolutionary models, and reviewed primary papers; see row notes",
       "luminosityMethod": "McDonald et al. 2012 SED luminosity where available; otherwise Stefan-Boltzmann scaling R^2 (T/5772 K)^4 when both inputs are adopted"
@@ -168,7 +537,20 @@
     "bright-hamal": {
       "source": "SIMBAD TAP snapshot 2026-09-25",
       "queryId": "* alf Ari",
-      "sharedPhysicalEnrichment": {},
+      "sharedPhysicalEnrichment": {
+        "metallicity_dex": {
+          "field": "metallicity_dex",
+          "value": -0.25,
+          "status": "measured",
+          "reference": "2025A&A...698A..93J",
+          "uncertainty": null,
+          "identity": "* alf Ari",
+          "sourceRecordId": "* alf Ari:mesFe_h:2",
+          "quantity": "photospheric [Fe/H]",
+          "selection": "Newest within 0.3 dex / 10 percent of the median; strict majority required for multiple observations",
+          "scope": "catalogued stellar object"
+        }
+      },
       "absoluteMagnitudeMethod": "Johnson V and inverse-parallax distance; no extinction correction",
       "physicalParameters": "SIMBAD mesFe_h/mesDiameter ranked measurements, Allende Prieto & Lambert 1999 evolutionary models, McDonald et al. 2012 SED models, Hohle et al. 2010 massive-star evolutionary models, and reviewed primary papers; see row notes",
       "luminosityMethod": "McDonald et al. 2012 SED luminosity where available; otherwise Stefan-Boltzmann scaling R^2 (T/5772 K)^4 when both inputs are adopted"
@@ -184,7 +566,20 @@
     "bright-unukalhai": {
       "source": "SIMBAD TAP snapshot 2026-09-30",
       "queryId": "* alf Ser",
-      "sharedPhysicalEnrichment": {},
+      "sharedPhysicalEnrichment": {
+        "metallicity_dex": {
+          "field": "metallicity_dex",
+          "value": -0.06,
+          "status": "measured",
+          "reference": "2024A&A...690A..97C",
+          "uncertainty": null,
+          "identity": "* alf Ser",
+          "sourceRecordId": "* alf Ser:mesFe_h:1",
+          "quantity": "photospheric [Fe/H]",
+          "selection": "Newest within 0.3 dex / 10 percent of the median; strict majority required for multiple observations",
+          "scope": "catalogued stellar object"
+        }
+      },
       "absoluteMagnitudeMethod": "Johnson V and inverse-parallax distance; no extinction correction",
       "physicalParameters": "SIMBAD mesFe_h/mesDiameter ranked measurements, Allende Prieto & Lambert 1999 evolutionary models, McDonald et al. 2012 SED models, Hohle et al. 2010 massive-star evolutionary models, and reviewed primary papers; see row notes",
       "luminosityMethod": "McDonald et al. 2012 SED luminosity where available; otherwise Stefan-Boltzmann scaling R^2 (T/5772 K)^4 when both inputs are adopted"
@@ -192,7 +587,20 @@
     "bright-aljanah": {
       "source": "SIMBAD TAP snapshot 2026-09-30",
       "queryId": "* eps Cyg",
-      "sharedPhysicalEnrichment": {},
+      "sharedPhysicalEnrichment": {
+        "metallicity_dex": {
+          "field": "metallicity_dex",
+          "value": -0.21,
+          "status": "measured",
+          "reference": "2022A&A...668A..88N",
+          "uncertainty": null,
+          "identity": "* eps Cyg",
+          "sourceRecordId": "* eps Cyg:mesFe_h:3",
+          "quantity": "photospheric [Fe/H]",
+          "selection": "Newest within 0.3 dex / 10 percent of the median; strict majority required for multiple observations",
+          "scope": "SIMBAD object as catalogued; unresolved spectra may be primary-dominated"
+        }
+      },
       "absoluteMagnitudeMethod": "Johnson V and inverse-parallax distance; no extinction correction",
       "physicalParameters": "SIMBAD mesFe_h/mesDiameter ranked measurements, Allende Prieto & Lambert 1999 evolutionary models, McDonald et al. 2012 SED models, Hohle et al. 2010 massive-star evolutionary models, and reviewed primary papers; see row notes",
       "luminosityMethod": "McDonald et al. 2012 SED luminosity where available; otherwise Stefan-Boltzmann scaling R^2 (T/5772 K)^4 when both inputs are adopted"
@@ -200,7 +608,20 @@
     "bright-alphecca": {
       "source": "SIMBAD TAP snapshot 2026-09-25",
       "queryId": "* alf CrB",
-      "sharedPhysicalEnrichment": {},
+      "sharedPhysicalEnrichment": {
+        "metallicity_dex": {
+          "field": "metallicity_dex",
+          "value": 0.2,
+          "status": "measured",
+          "reference": "2016A&A...589A..83G",
+          "uncertainty": null,
+          "identity": "* alf CrB",
+          "sourceRecordId": "* alf CrB:mesFe_h:1",
+          "quantity": "photospheric [Fe/H]",
+          "selection": "Newest within 0.3 dex / 10 percent of the median; strict majority required for multiple observations",
+          "scope": "SIMBAD object as catalogued; unresolved spectra may be primary-dominated"
+        }
+      },
       "absoluteMagnitudeMethod": "Johnson V and inverse-parallax distance; no extinction correction",
       "physicalParameters": "SIMBAD mesFe_h/mesDiameter ranked measurements, Allende Prieto & Lambert 1999 evolutionary models, McDonald et al. 2012 SED models, Hohle et al. 2010 massive-star evolutionary models, and reviewed primary papers; see row notes",
       "luminosityMethod": "McDonald et al. 2012 SED luminosity where available; otherwise Stefan-Boltzmann scaling R^2 (T/5772 K)^4 when both inputs are adopted"
@@ -216,7 +637,32 @@
     "bright-mizar-a": {
       "source": "SIMBAD TAP snapshot 2026-09-25",
       "queryId": "* zet01 UMa",
-      "sharedPhysicalEnrichment": {},
+      "sharedPhysicalEnrichment": {
+        "temperature_k": {
+          "field": "temperature_k",
+          "value": 9700.0,
+          "status": "measured",
+          "reference": "2016A&A...589A..83G",
+          "uncertainty": null,
+          "identity": "* zet01 UMa",
+          "sourceRecordId": "* zet01 UMa:mesFe_h:1",
+          "quantity": "spectroscopic effective temperature",
+          "selection": "Newest within 0.3 dex / 10 percent of the median; strict majority required for multiple observations",
+          "scope": "SIMBAD object as catalogued; unresolved spectra may be primary-dominated"
+        },
+        "metallicity_dex": {
+          "field": "metallicity_dex",
+          "value": 0.2,
+          "status": "measured",
+          "reference": "2016A&A...589A..83G",
+          "uncertainty": null,
+          "identity": "* zet01 UMa",
+          "sourceRecordId": "* zet01 UMa:mesFe_h:1",
+          "quantity": "photospheric [Fe/H]",
+          "selection": "Newest within 0.3 dex / 10 percent of the median; strict majority required for multiple observations",
+          "scope": "SIMBAD object as catalogued; unresolved spectra may be primary-dominated"
+        }
+      },
       "absoluteMagnitudeMethod": "Johnson V and inverse-parallax distance; no extinction correction",
       "physicalParameters": "SIMBAD mesFe_h/mesDiameter ranked measurements, Allende Prieto & Lambert 1999 evolutionary models, McDonald et al. 2012 SED models, Hohle et al. 2010 massive-star evolutionary models, and reviewed primary papers; see row notes",
       "luminosityMethod": "McDonald et al. 2012 SED luminosity where available; otherwise Stefan-Boltzmann scaling R^2 (T/5772 K)^4 when both inputs are adopted"
@@ -256,7 +702,20 @@
     "bright-ankaa": {
       "source": "SIMBAD TAP snapshot 2026-09-25",
       "queryId": "* alf Phe",
-      "sharedPhysicalEnrichment": {},
+      "sharedPhysicalEnrichment": {
+        "metallicity_dex": {
+          "field": "metallicity_dex",
+          "value": -0.4,
+          "status": "measured",
+          "reference": "2020A&A...633A..34C",
+          "uncertainty": null,
+          "identity": "* alf Phe",
+          "sourceRecordId": "* alf Phe:mesFe_h:1",
+          "quantity": "photospheric [Fe/H]",
+          "selection": "Newest within 0.3 dex / 10 percent of the median; strict majority required for multiple observations",
+          "scope": "SIMBAD object as catalogued; unresolved spectra may be primary-dominated"
+        }
+      },
       "absoluteMagnitudeMethod": "Johnson V and inverse-parallax distance; no extinction correction",
       "physicalParameters": "SIMBAD mesFe_h/mesDiameter ranked measurements, Allende Prieto & Lambert 1999 evolutionary models, McDonald et al. 2012 SED models, Hohle et al. 2010 massive-star evolutionary models, and reviewed primary papers; see row notes",
       "luminosityMethod": "McDonald et al. 2012 SED luminosity where available; otherwise Stefan-Boltzmann scaling R^2 (T/5772 K)^4 when both inputs are adopted"
@@ -296,7 +755,20 @@
     "bright-diphda": {
       "source": "SIMBAD TAP snapshot 2026-09-25",
       "queryId": "* bet Cet",
-      "sharedPhysicalEnrichment": {},
+      "sharedPhysicalEnrichment": {
+        "metallicity_dex": {
+          "field": "metallicity_dex",
+          "value": 0.15,
+          "status": "measured",
+          "reference": "2024A&A...690A..97C",
+          "uncertainty": null,
+          "identity": "* bet Cet",
+          "sourceRecordId": "* bet Cet:mesFe_h:2",
+          "quantity": "photospheric [Fe/H]",
+          "selection": "Newest within 0.3 dex / 10 percent of the median; strict majority required for multiple observations",
+          "scope": "catalogued stellar object"
+        }
+      },
       "absoluteMagnitudeMethod": "Johnson V and inverse-parallax distance; no extinction correction",
       "physicalParameters": "SIMBAD mesFe_h/mesDiameter ranked measurements, Allende Prieto & Lambert 1999 evolutionary models, McDonald et al. 2012 SED models, Hohle et al. 2010 massive-star evolutionary models, and reviewed primary papers; see row notes",
       "luminosityMethod": "McDonald et al. 2012 SED luminosity where available; otherwise Stefan-Boltzmann scaling R^2 (T/5772 K)^4 when both inputs are adopted"
@@ -304,7 +776,20 @@
     "bright-alpheratz": {
       "source": "SIMBAD TAP snapshot 2026-09-25",
       "queryId": "* alf And",
-      "sharedPhysicalEnrichment": {},
+      "sharedPhysicalEnrichment": {
+        "metallicity_dex": {
+          "field": "metallicity_dex",
+          "value": 0.42,
+          "status": "measured",
+          "reference": "2023ApJS..266...41P",
+          "uncertainty": null,
+          "identity": "* alf And",
+          "sourceRecordId": "* alf And:mesFe_h:2",
+          "quantity": "photospheric [Fe/H]",
+          "selection": "Newest within 0.3 dex / 10 percent of the median; strict majority required for multiple observations",
+          "scope": "catalogued stellar object"
+        }
+      },
       "absoluteMagnitudeMethod": "Johnson V and inverse-parallax distance; no extinction correction",
       "physicalParameters": "SIMBAD mesFe_h/mesDiameter ranked measurements, Allende Prieto & Lambert 1999 evolutionary models, McDonald et al. 2012 SED models, Hohle et al. 2010 massive-star evolutionary models, and reviewed primary papers; see row notes",
       "luminosityMethod": "McDonald et al. 2012 SED luminosity where available; otherwise Stefan-Boltzmann scaling R^2 (T/5772 K)^4 when both inputs are adopted"
@@ -312,7 +797,20 @@
     "bright-ruchbah": {
       "source": "SIMBAD TAP snapshot 2026-09-30",
       "queryId": "* del Cas",
-      "sharedPhysicalEnrichment": {},
+      "sharedPhysicalEnrichment": {
+        "metallicity_dex": {
+          "field": "metallicity_dex",
+          "value": -0.4,
+          "status": "measured",
+          "reference": "2016A&A...589A..83G",
+          "uncertainty": null,
+          "identity": "* del Cas",
+          "sourceRecordId": "* del Cas:mesFe_h:1",
+          "quantity": "photospheric [Fe/H]",
+          "selection": "Newest within 0.3 dex / 10 percent of the median; strict majority required for multiple observations",
+          "scope": "SIMBAD object as catalogued; unresolved spectra may be primary-dominated"
+        }
+      },
       "absoluteMagnitudeMethod": "Johnson V and inverse-parallax distance; no extinction correction",
       "physicalParameters": "SIMBAD mesFe_h/mesDiameter ranked measurements, Allende Prieto & Lambert 1999 evolutionary models, McDonald et al. 2012 SED models, Hohle et al. 2010 massive-star evolutionary models, and reviewed primary papers; see row notes",
       "luminosityMethod": "McDonald et al. 2012 SED luminosity where available; otherwise Stefan-Boltzmann scaling R^2 (T/5772 K)^4 when both inputs are adopted"
@@ -344,7 +842,20 @@
     "bright-mu-velorum": {
       "source": "SIMBAD TAP snapshot 2026-09-30",
       "queryId": "* mu. Vel",
-      "sharedPhysicalEnrichment": {},
+      "sharedPhysicalEnrichment": {
+        "metallicity_dex": {
+          "field": "metallicity_dex",
+          "value": 0.0,
+          "status": "measured",
+          "reference": "2020A&A...633A..34C",
+          "uncertainty": null,
+          "identity": "* mu. Vel",
+          "sourceRecordId": "* mu. Vel:mesFe_h:1",
+          "quantity": "photospheric [Fe/H]",
+          "selection": "Newest within 0.3 dex / 10 percent of the median; strict majority required for multiple observations",
+          "scope": "catalogued stellar object"
+        }
+      },
       "absoluteMagnitudeMethod": "Johnson V and inverse-parallax distance; no extinction correction",
       "physicalParameters": "SIMBAD mesFe_h/mesDiameter ranked measurements, Allende Prieto & Lambert 1999 evolutionary models, McDonald et al. 2012 SED models, Hohle et al. 2010 massive-star evolutionary models, and reviewed primary papers; see row notes",
       "luminosityMethod": "McDonald et al. 2012 SED luminosity where available; otherwise Stefan-Boltzmann scaling R^2 (T/5772 K)^4 when both inputs are adopted"
@@ -376,7 +887,20 @@
     "bright-kochab": {
       "source": "SIMBAD TAP snapshot 2026-09-25",
       "queryId": "* bet UMi",
-      "sharedPhysicalEnrichment": {},
+      "sharedPhysicalEnrichment": {
+        "metallicity_dex": {
+          "field": "metallicity_dex",
+          "value": -0.29,
+          "status": "measured",
+          "reference": "2025A&A...698A..93J",
+          "uncertainty": null,
+          "identity": "* bet UMi",
+          "sourceRecordId": "* bet UMi:mesFe_h:2",
+          "quantity": "photospheric [Fe/H]",
+          "selection": "Newest within 0.3 dex / 10 percent of the median; strict majority required for multiple observations",
+          "scope": "catalogued stellar object"
+        }
+      },
       "absoluteMagnitudeMethod": "Johnson V and inverse-parallax distance; no extinction correction",
       "physicalParameters": "SIMBAD mesFe_h/mesDiameter ranked measurements, Allende Prieto & Lambert 1999 evolutionary models, McDonald et al. 2012 SED models, Hohle et al. 2010 massive-star evolutionary models, and reviewed primary papers; see row notes",
       "luminosityMethod": "McDonald et al. 2012 SED luminosity where available; otherwise Stefan-Boltzmann scaling R^2 (T/5772 K)^4 when both inputs are adopted"
@@ -384,7 +908,20 @@
     "bright-markab": {
       "source": "SIMBAD TAP snapshot 2026-09-30",
       "queryId": "* alf Peg",
-      "sharedPhysicalEnrichment": {},
+      "sharedPhysicalEnrichment": {
+        "metallicity_dex": {
+          "field": "metallicity_dex",
+          "value": 0.0,
+          "status": "measured",
+          "reference": "2016A&A...589A..83G",
+          "uncertainty": null,
+          "identity": "* alf Peg",
+          "sourceRecordId": "* alf Peg:mesFe_h:2",
+          "quantity": "photospheric [Fe/H]",
+          "selection": "Newest within 0.3 dex / 10 percent of the median; strict majority required for multiple observations",
+          "scope": "catalogued stellar object"
+        }
+      },
       "absoluteMagnitudeMethod": "Johnson V and inverse-parallax distance; no extinction correction",
       "physicalParameters": "SIMBAD mesFe_h/mesDiameter ranked measurements, Allende Prieto & Lambert 1999 evolutionary models, McDonald et al. 2012 SED models, Hohle et al. 2010 massive-star evolutionary models, and reviewed primary papers; see row notes",
       "luminosityMethod": "McDonald et al. 2012 SED luminosity where available; otherwise Stefan-Boltzmann scaling R^2 (T/5772 K)^4 when both inputs are adopted"
@@ -392,7 +929,20 @@
     "bright-elnath": {
       "source": "SIMBAD TAP snapshot 2026-09-25",
       "queryId": "* bet Tau",
-      "sharedPhysicalEnrichment": {},
+      "sharedPhysicalEnrichment": {
+        "metallicity_dex": {
+          "field": "metallicity_dex",
+          "value": -0.1,
+          "status": "measured",
+          "reference": "1979ApJS...41..675H",
+          "uncertainty": null,
+          "identity": "* bet Tau",
+          "sourceRecordId": "* bet Tau:mesFe_h:5",
+          "quantity": "photospheric [Fe/H]",
+          "selection": "Newest within 0.3 dex / 10 percent of the median; strict majority required for multiple observations",
+          "scope": "catalogued stellar object"
+        }
+      },
       "absoluteMagnitudeMethod": "Johnson V and inverse-parallax distance; no extinction correction",
       "physicalParameters": "SIMBAD mesFe_h/mesDiameter ranked measurements, Allende Prieto & Lambert 1999 evolutionary models, McDonald et al. 2012 SED models, Hohle et al. 2010 massive-star evolutionary models, and reviewed primary papers; see row notes",
       "luminosityMethod": "McDonald et al. 2012 SED luminosity where available; otherwise Stefan-Boltzmann scaling R^2 (T/5772 K)^4 when both inputs are adopted"
@@ -416,7 +966,20 @@
     "bright-kraz": {
       "source": "SIMBAD TAP snapshot 2026-09-30",
       "queryId": "* bet Crv",
-      "sharedPhysicalEnrichment": {},
+      "sharedPhysicalEnrichment": {
+        "metallicity_dex": {
+          "field": "metallicity_dex",
+          "value": 0.05,
+          "status": "measured",
+          "reference": "2024A&A...692A.189R",
+          "uncertainty": null,
+          "identity": "* bet Crv",
+          "sourceRecordId": "* bet Crv:mesFe_h:2",
+          "quantity": "photospheric [Fe/H]",
+          "selection": "Newest within 0.3 dex / 10 percent of the median; strict majority required for multiple observations",
+          "scope": "catalogued stellar object"
+        }
+      },
       "absoluteMagnitudeMethod": "Johnson V and inverse-parallax distance; no extinction correction",
       "physicalParameters": "SIMBAD mesFe_h/mesDiameter ranked measurements, Allende Prieto & Lambert 1999 evolutionary models, McDonald et al. 2012 SED models, Hohle et al. 2010 massive-star evolutionary models, and reviewed primary papers; see row notes",
       "luminosityMethod": "McDonald et al. 2012 SED luminosity where available; otherwise Stefan-Boltzmann scaling R^2 (T/5772 K)^4 when both inputs are adopted"
@@ -432,7 +995,20 @@
     "bright-eltanin": {
       "source": "SIMBAD TAP snapshot 2026-09-25",
       "queryId": "* gam Dra",
-      "sharedPhysicalEnrichment": {},
+      "sharedPhysicalEnrichment": {
+        "metallicity_dex": {
+          "field": "metallicity_dex",
+          "value": -0.06,
+          "status": "measured",
+          "reference": "2024A&A...692A.189R",
+          "uncertainty": null,
+          "identity": "* gam Dra",
+          "sourceRecordId": "* gam Dra:mesFe_h:1",
+          "quantity": "photospheric [Fe/H]",
+          "selection": "Newest within 0.3 dex / 10 percent of the median; strict majority required for multiple observations",
+          "scope": "catalogued stellar object"
+        }
+      },
       "absoluteMagnitudeMethod": "Johnson V and inverse-parallax distance; no extinction correction",
       "physicalParameters": "SIMBAD mesFe_h/mesDiameter ranked measurements, Allende Prieto & Lambert 1999 evolutionary models, McDonald et al. 2012 SED models, Hohle et al. 2010 massive-star evolutionary models, and reviewed primary papers; see row notes",
       "luminosityMethod": "McDonald et al. 2012 SED luminosity where available; otherwise Stefan-Boltzmann scaling R^2 (T/5772 K)^4 when both inputs are adopted"
@@ -448,7 +1024,20 @@
     "bright-beta-gruis": {
       "source": "SIMBAD TAP snapshot 2026-09-25",
       "queryId": "* bet Gru",
-      "sharedPhysicalEnrichment": {},
+      "sharedPhysicalEnrichment": {
+        "metallicity_dex": {
+          "field": "metallicity_dex",
+          "value": 0.208,
+          "status": "measured",
+          "reference": "2023ApJS..266...11B",
+          "uncertainty": null,
+          "identity": "* bet Gru",
+          "sourceRecordId": "* bet Gru:mesFe_h:1",
+          "quantity": "photospheric [Fe/H]",
+          "selection": "Newest within 0.3 dex / 10 percent of the median; strict majority required for multiple observations",
+          "scope": "catalogued stellar object"
+        }
+      },
       "absoluteMagnitudeMethod": "Johnson V and inverse-parallax distance; no extinction correction",
       "physicalParameters": "SIMBAD mesFe_h/mesDiameter ranked measurements, Allende Prieto & Lambert 1999 evolutionary models, McDonald et al. 2012 SED models, Hohle et al. 2010 massive-star evolutionary models, and reviewed primary papers; see row notes",
       "luminosityMethod": "McDonald et al. 2012 SED luminosity where available; otherwise Stefan-Boltzmann scaling R^2 (T/5772 K)^4 when both inputs are adopted"
@@ -464,7 +1053,20 @@
     "bright-alphard": {
       "source": "SIMBAD TAP snapshot 2026-09-25",
       "queryId": "* alf Hya",
-      "sharedPhysicalEnrichment": {},
+      "sharedPhysicalEnrichment": {
+        "metallicity_dex": {
+          "field": "metallicity_dex",
+          "value": -0.08,
+          "status": "measured",
+          "reference": "2024A&A...692A.189R",
+          "uncertainty": null,
+          "identity": "* alf Hya",
+          "sourceRecordId": "* alf Hya:mesFe_h:3",
+          "quantity": "photospheric [Fe/H]",
+          "selection": "Newest within 0.3 dex / 10 percent of the median; strict majority required for multiple observations",
+          "scope": "catalogued stellar object"
+        }
+      },
       "absoluteMagnitudeMethod": "Johnson V and inverse-parallax distance; no extinction correction",
       "physicalParameters": "SIMBAD mesFe_h/mesDiameter ranked measurements, Allende Prieto & Lambert 1999 evolutionary models, McDonald et al. 2012 SED models, Hohle et al. 2010 massive-star evolutionary models, and reviewed primary papers; see row notes",
       "luminosityMethod": "McDonald et al. 2012 SED luminosity where available; otherwise Stefan-Boltzmann scaling R^2 (T/5772 K)^4 when both inputs are adopted"
@@ -504,7 +1106,20 @@
     "bright-schedar": {
       "source": "SIMBAD TAP snapshot 2026-09-25",
       "queryId": "* alf Cas",
-      "sharedPhysicalEnrichment": {},
+      "sharedPhysicalEnrichment": {
+        "metallicity_dex": {
+          "field": "metallicity_dex",
+          "value": 0.15,
+          "status": "measured",
+          "reference": "2023ApJS..266...41P",
+          "uncertainty": null,
+          "identity": "* alf Cas",
+          "sourceRecordId": "* alf Cas:mesFe_h:1",
+          "quantity": "photospheric [Fe/H]",
+          "selection": "Newest within 0.3 dex / 10 percent of the median; strict majority required for multiple observations",
+          "scope": "catalogued stellar object"
+        }
+      },
       "absoluteMagnitudeMethod": "Johnson V and inverse-parallax distance; no extinction correction",
       "physicalParameters": "SIMBAD mesFe_h/mesDiameter ranked measurements, Allende Prieto & Lambert 1999 evolutionary models, McDonald et al. 2012 SED models, Hohle et al. 2010 massive-star evolutionary models, and reviewed primary papers; see row notes",
       "luminosityMethod": "McDonald et al. 2012 SED luminosity where available; otherwise Stefan-Boltzmann scaling R^2 (T/5772 K)^4 when both inputs are adopted"
@@ -512,7 +1127,20 @@
     "bright-izar": {
       "source": "SIMBAD TAP snapshot 2026-09-30",
       "queryId": "* eps Boo",
-      "sharedPhysicalEnrichment": {},
+      "sharedPhysicalEnrichment": {
+        "metallicity_dex": {
+          "field": "metallicity_dex",
+          "value": -0.13,
+          "status": "measured",
+          "reference": "2008AJ....135..209M",
+          "uncertainty": null,
+          "identity": "* eps Boo",
+          "sourceRecordId": "* eps Boo:mesFe_h:1",
+          "quantity": "photospheric [Fe/H]",
+          "selection": "Newest within 0.3 dex / 10 percent of the median; strict majority required for multiple observations",
+          "scope": "catalogued stellar object"
+        }
+      },
       "absoluteMagnitudeMethod": "Johnson V and inverse-parallax distance; no extinction correction",
       "physicalParameters": "SIMBAD mesFe_h/mesDiameter ranked measurements, Allende Prieto & Lambert 1999 evolutionary models, McDonald et al. 2012 SED models, Hohle et al. 2010 massive-star evolutionary models, and reviewed primary papers; see row notes",
       "luminosityMethod": "McDonald et al. 2012 SED luminosity where available; otherwise Stefan-Boltzmann scaling R^2 (T/5772 K)^4 when both inputs are adopted"
@@ -536,7 +1164,20 @@
     "bright-bellatrix": {
       "source": "SIMBAD TAP snapshot 2026-09-25",
       "queryId": "* gam Ori",
-      "sharedPhysicalEnrichment": {},
+      "sharedPhysicalEnrichment": {
+        "metallicity_dex": {
+          "field": "metallicity_dex",
+          "value": 0.0093,
+          "status": "measured",
+          "reference": "2023ApJS..266...11B",
+          "uncertainty": null,
+          "identity": "* gam Ori",
+          "sourceRecordId": "* gam Ori:mesFe_h:2",
+          "quantity": "photospheric [Fe/H]",
+          "selection": "Newest within 0.3 dex / 10 percent of the median; strict majority required for multiple observations",
+          "scope": "catalogued stellar object"
+        }
+      },
       "absoluteMagnitudeMethod": "Johnson V and inverse-parallax distance; no extinction correction",
       "physicalParameters": "SIMBAD mesFe_h/mesDiameter ranked measurements, Allende Prieto & Lambert 1999 evolutionary models, McDonald et al. 2012 SED models, Hohle et al. 2010 massive-star evolutionary models, and reviewed primary papers; see row notes",
       "luminosityMethod": "McDonald et al. 2012 SED luminosity where available; otherwise Stefan-Boltzmann scaling R^2 (T/5772 K)^4 when both inputs are adopted"
@@ -544,7 +1185,20 @@
     "bright-mimosa": {
       "source": "SIMBAD TAP snapshot 2026-09-25",
       "queryId": "* bet Cru",
-      "sharedPhysicalEnrichment": {},
+      "sharedPhysicalEnrichment": {
+        "metallicity_dex": {
+          "field": "metallicity_dex",
+          "value": -0.08,
+          "status": "measured",
+          "reference": "1994A&A...282..867K",
+          "uncertainty": null,
+          "identity": "* bet Cru",
+          "sourceRecordId": "* bet Cru:mesFe_h:5",
+          "quantity": "photospheric [Fe/H]",
+          "selection": "Newest within 0.3 dex / 10 percent of the median; strict majority required for multiple observations",
+          "scope": "SIMBAD object as catalogued; unresolved spectra may be primary-dominated"
+        }
+      },
       "absoluteMagnitudeMethod": "Johnson V and inverse-parallax distance; no extinction correction",
       "physicalParameters": "SIMBAD mesFe_h/mesDiameter ranked measurements, Allende Prieto & Lambert 1999 evolutionary models, McDonald et al. 2012 SED models, Hohle et al. 2010 massive-star evolutionary models, and reviewed primary papers; see row notes",
       "luminosityMethod": "McDonald et al. 2012 SED luminosity where available; otherwise Stefan-Boltzmann scaling R^2 (T/5772 K)^4 when both inputs are adopted"
@@ -632,7 +1286,20 @@
     "bright-almach": {
       "source": "SIMBAD TAP snapshot 2026-09-25",
       "queryId": "* gam01 And",
-      "sharedPhysicalEnrichment": {},
+      "sharedPhysicalEnrichment": {
+        "metallicity_dex": {
+          "field": "metallicity_dex",
+          "value": 0.12,
+          "status": "measured",
+          "reference": "2023ApJS..266...41P",
+          "uncertainty": null,
+          "identity": "* gam01 And",
+          "sourceRecordId": "* gam01 And:mesFe_h:1",
+          "quantity": "photospheric [Fe/H]",
+          "selection": "Newest within 0.3 dex / 10 percent of the median; strict majority required for multiple observations",
+          "scope": "catalogued stellar object"
+        }
+      },
       "absoluteMagnitudeMethod": "Johnson V and inverse-parallax distance; no extinction correction",
       "physicalParameters": "SIMBAD mesFe_h/mesDiameter ranked measurements, Allende Prieto & Lambert 1999 evolutionary models, McDonald et al. 2012 SED models, Hohle et al. 2010 massive-star evolutionary models, and reviewed primary papers; see row notes",
       "luminosityMethod": "McDonald et al. 2012 SED luminosity where available; otherwise Stefan-Boltzmann scaling R^2 (T/5772 K)^4 when both inputs are adopted"
@@ -656,7 +1323,20 @@
     "bright-kaus-media": {
       "source": "SIMBAD TAP snapshot 2026-09-30",
       "queryId": "* del Sgr",
-      "sharedPhysicalEnrichment": {},
+      "sharedPhysicalEnrichment": {
+        "metallicity_dex": {
+          "field": "metallicity_dex",
+          "value": -0.22,
+          "status": "measured",
+          "reference": "2022A&A...663A...4S",
+          "uncertainty": null,
+          "identity": "* del Sgr",
+          "sourceRecordId": "* del Sgr:mesFe_h:1",
+          "quantity": "photospheric [Fe/H]",
+          "selection": "Newest within 0.3 dex / 10 percent of the median; strict majority required for multiple observations",
+          "scope": "catalogued stellar object"
+        }
+      },
       "absoluteMagnitudeMethod": "Johnson V and inverse-parallax distance; no extinction correction",
       "physicalParameters": "SIMBAD mesFe_h/mesDiameter ranked measurements, Allende Prieto & Lambert 1999 evolutionary models, McDonald et al. 2012 SED models, Hohle et al. 2010 massive-star evolutionary models, and reviewed primary papers; see row notes",
       "luminosityMethod": "McDonald et al. 2012 SED luminosity where available; otherwise Stefan-Boltzmann scaling R^2 (T/5772 K)^4 when both inputs are adopted"
@@ -672,7 +1352,20 @@
     "bright-polaris": {
       "source": "SIMBAD TAP snapshot 2026-09-25",
       "queryId": "* alf UMi",
-      "sharedPhysicalEnrichment": {},
+      "sharedPhysicalEnrichment": {
+        "metallicity_dex": {
+          "field": "metallicity_dex",
+          "value": 0.03,
+          "status": "measured",
+          "reference": "2022A&A...663A...4S",
+          "uncertainty": null,
+          "identity": "* alf UMi",
+          "sourceRecordId": "* alf UMi:mesFe_h:1",
+          "quantity": "photospheric [Fe/H]",
+          "selection": "Newest within 0.3 dex / 10 percent of the median; strict majority required for multiple observations",
+          "scope": "catalogued stellar object"
+        }
+      },
       "absoluteMagnitudeMethod": "Johnson V and inverse-parallax distance; no extinction correction",
       "physicalParameters": "SIMBAD mesFe_h/mesDiameter ranked measurements, Allende Prieto & Lambert 1999 evolutionary models, McDonald et al. 2012 SED models, Hohle et al. 2010 massive-star evolutionary models, and reviewed primary papers; see row notes",
       "luminosityMethod": "McDonald et al. 2012 SED luminosity where available; otherwise Stefan-Boltzmann scaling R^2 (T/5772 K)^4 when both inputs are adopted"
@@ -688,7 +1381,20 @@
     "bright-hassaleh": {
       "source": "SIMBAD TAP snapshot 2026-09-30",
       "queryId": "* iot Aur",
-      "sharedPhysicalEnrichment": {},
+      "sharedPhysicalEnrichment": {
+        "metallicity_dex": {
+          "field": "metallicity_dex",
+          "value": -0.11,
+          "status": "measured",
+          "reference": "2024A&A...692A.189R",
+          "uncertainty": null,
+          "identity": "* iot Aur",
+          "sourceRecordId": "* iot Aur:mesFe_h:1",
+          "quantity": "photospheric [Fe/H]",
+          "selection": "Newest within 0.3 dex / 10 percent of the median; strict majority required for multiple observations",
+          "scope": "catalogued stellar object"
+        }
+      },
       "absoluteMagnitudeMethod": "Johnson V and inverse-parallax distance; no extinction correction",
       "physicalParameters": "SIMBAD mesFe_h/mesDiameter ranked measurements, Allende Prieto & Lambert 1999 evolutionary models, McDonald et al. 2012 SED models, Hohle et al. 2010 massive-star evolutionary models, and reviewed primary papers; see row notes",
       "luminosityMethod": "McDonald et al. 2012 SED luminosity where available; otherwise Stefan-Boltzmann scaling R^2 (T/5772 K)^4 when both inputs are adopted"
@@ -720,7 +1426,20 @@
     "bright-mirzam": {
       "source": "SIMBAD TAP snapshot 2026-09-25",
       "queryId": "* bet CMa",
-      "sharedPhysicalEnrichment": {},
+      "sharedPhysicalEnrichment": {
+        "metallicity_dex": {
+          "field": "metallicity_dex",
+          "value": -0.41,
+          "status": "measured",
+          "reference": "1992ApJ...387..673G",
+          "uncertainty": null,
+          "identity": "* bet CMa",
+          "sourceRecordId": "* bet CMa:mesFe_h:5",
+          "quantity": "photospheric [Fe/H]",
+          "selection": "Newest within 0.3 dex / 10 percent of the median; strict majority required for multiple observations",
+          "scope": "SIMBAD object as catalogued; unresolved spectra may be primary-dominated"
+        }
+      },
       "absoluteMagnitudeMethod": "Johnson V and inverse-parallax distance; no extinction correction",
       "physicalParameters": "SIMBAD mesFe_h/mesDiameter ranked measurements, Allende Prieto & Lambert 1999 evolutionary models, McDonald et al. 2012 SED models, Hohle et al. 2010 massive-star evolutionary models, and reviewed primary papers; see row notes",
       "luminosityMethod": "McDonald et al. 2012 SED luminosity where available; otherwise Stefan-Boltzmann scaling R^2 (T/5772 K)^4 when both inputs are adopted"
@@ -728,7 +1447,20 @@
     "bright-betelgeuse": {
       "source": "SIMBAD TAP snapshot 2026-09-25",
       "queryId": "* alf Ori",
-      "sharedPhysicalEnrichment": {},
+      "sharedPhysicalEnrichment": {
+        "metallicity_dex": {
+          "field": "metallicity_dex",
+          "value": -0.111,
+          "status": "measured",
+          "reference": "2025A&A...693A.163T",
+          "uncertainty": null,
+          "identity": "* alf Ori",
+          "sourceRecordId": "* alf Ori:mesFe_h:3",
+          "quantity": "photospheric [Fe/H]",
+          "selection": "Newest within 0.3 dex / 10 percent of the median; strict majority required for multiple observations",
+          "scope": "catalogued stellar object"
+        }
+      },
       "absoluteMagnitudeMethod": "Johnson V and inverse-parallax distance; no extinction correction",
       "physicalParameters": "SIMBAD mesFe_h/mesDiameter ranked measurements, Allende Prieto & Lambert 1999 evolutionary models, McDonald et al. 2012 SED models, Hohle et al. 2010 massive-star evolutionary models, and reviewed primary papers; see row notes",
       "luminosityMethod": "McDonald et al. 2012 SED luminosity where available; otherwise Stefan-Boltzmann scaling R^2 (T/5772 K)^4 when both inputs are adopted"
@@ -744,7 +1476,20 @@
     "bright-suhail": {
       "source": "SIMBAD TAP snapshot 2026-09-25",
       "queryId": "* lam Vel",
-      "sharedPhysicalEnrichment": {},
+      "sharedPhysicalEnrichment": {
+        "metallicity_dex": {
+          "field": "metallicity_dex",
+          "value": 0.23,
+          "status": "measured",
+          "reference": "2023ApJS..266...41P",
+          "uncertainty": null,
+          "identity": "* lam Vel",
+          "sourceRecordId": "* lam Vel:mesFe_h:1",
+          "quantity": "photospheric [Fe/H]",
+          "selection": "Newest within 0.3 dex / 10 percent of the median; strict majority required for multiple observations",
+          "scope": "catalogued stellar object"
+        }
+      },
       "absoluteMagnitudeMethod": "Johnson V and inverse-parallax distance; no extinction correction",
       "physicalParameters": "SIMBAD mesFe_h/mesDiameter ranked measurements, Allende Prieto & Lambert 1999 evolutionary models, McDonald et al. 2012 SED models, Hohle et al. 2010 massive-star evolutionary models, and reviewed primary papers; see row notes",
       "luminosityMethod": "McDonald et al. 2012 SED luminosity where available; otherwise Stefan-Boltzmann scaling R^2 (T/5772 K)^4 when both inputs are adopted"
@@ -816,7 +1561,20 @@
     "bright-enif": {
       "source": "SIMBAD TAP snapshot 2026-09-25",
       "queryId": "* eps Peg",
-      "sharedPhysicalEnrichment": {},
+      "sharedPhysicalEnrichment": {
+        "metallicity_dex": {
+          "field": "metallicity_dex",
+          "value": 0.08,
+          "status": "measured",
+          "reference": "2023ApJS..266...41P",
+          "uncertainty": null,
+          "identity": "* eps Peg",
+          "sourceRecordId": "* eps Peg:mesFe_h:2",
+          "quantity": "photospheric [Fe/H]",
+          "selection": "Newest within 0.3 dex / 10 percent of the median; strict majority required for multiple observations",
+          "scope": "catalogued stellar object"
+        }
+      },
       "absoluteMagnitudeMethod": "Johnson V and inverse-parallax distance; no extinction correction",
       "physicalParameters": "SIMBAD mesFe_h/mesDiameter ranked measurements, Allende Prieto & Lambert 1999 evolutionary models, McDonald et al. 2012 SED models, Hohle et al. 2010 massive-star evolutionary models, and reviewed primary papers; see row notes",
       "luminosityMethod": "McDonald et al. 2012 SED luminosity where available; otherwise Stefan-Boltzmann scaling R^2 (T/5772 K)^4 when both inputs are adopted"
@@ -840,7 +1598,20 @@
     "bright-aspidiske": {
       "source": "SIMBAD TAP snapshot 2026-09-25",
       "queryId": "* iot Car",
-      "sharedPhysicalEnrichment": {},
+      "sharedPhysicalEnrichment": {
+        "metallicity_dex": {
+          "field": "metallicity_dex",
+          "value": -0.3,
+          "status": "measured",
+          "reference": "1985ApJ...298..782L",
+          "uncertainty": null,
+          "identity": "* iot Car",
+          "sourceRecordId": "* iot Car:mesFe_h:6",
+          "quantity": "photospheric [Fe/H]",
+          "selection": "Newest within 0.3 dex / 10 percent of the median; strict majority required for multiple observations",
+          "scope": "catalogued stellar object"
+        }
+      },
       "absoluteMagnitudeMethod": "Johnson V and inverse-parallax distance; no extinction correction",
       "physicalParameters": "SIMBAD mesFe_h/mesDiameter ranked measurements, Allende Prieto & Lambert 1999 evolutionary models, McDonald et al. 2012 SED models, Hohle et al. 2010 massive-star evolutionary models, and reviewed primary papers; see row notes",
       "luminosityMethod": "McDonald et al. 2012 SED luminosity where available; otherwise Stefan-Boltzmann scaling R^2 (T/5772 K)^4 when both inputs are adopted"
@@ -851,12 +1622,35 @@
       "sharedPhysicalEnrichment": {},
       "absoluteMagnitudeMethod": "Johnson V and inverse-parallax distance; no extinction correction",
       "physicalParameters": "SIMBAD mesFe_h/mesDiameter ranked measurements, Allende Prieto & Lambert 1999 evolutionary models, McDonald et al. 2012 SED models, Hohle et al. 2010 massive-star evolutionary models, and reviewed primary papers; see row notes",
-      "luminosityMethod": "McDonald et al. 2012 SED luminosity where available; otherwise Stefan-Boltzmann scaling R^2 (T/5772 K)^4 when both inputs are adopted"
+      "luminosityMethod": "McDonald et al. 2012 SED luminosity where available; otherwise Stefan-Boltzmann scaling R^2 (T/5772 K)^4 when both inputs are adopted",
+      "componentAssociation": {
+        "systemId": "rigel",
+        "systemName": "Rigel",
+        "component": "A",
+        "canonicalStarId": "bright-rigel",
+        "sourceCatalog": "bright-stars",
+        "sourceRef": "msc-20260619",
+        "identityEvidence": "Exact HIP 24436 / HD 34085 in MSC primary A; the frozen SIMBAD landmark is beta Orionis. The MSC grade-5 hierarchy identifies A, Ba, Bb and C.",
+        "role": "primary-landmark"
+      }
     },
     "bright-naos": {
       "source": "SIMBAD TAP snapshot 2026-09-25",
       "queryId": "* zet Pup",
-      "sharedPhysicalEnrichment": {},
+      "sharedPhysicalEnrichment": {
+        "metallicity_dex": {
+          "field": "metallicity_dex",
+          "value": 0.492,
+          "status": "measured",
+          "reference": "2023ApJS..266...11B",
+          "uncertainty": null,
+          "identity": "* zet Pup",
+          "sourceRecordId": "* zet Pup:mesFe_h:2",
+          "quantity": "photospheric [Fe/H]",
+          "selection": "Newest within 0.3 dex / 10 percent of the median; strict majority required for multiple observations",
+          "scope": "catalogued stellar object"
+        }
+      },
       "absoluteMagnitudeMethod": "Johnson V and inverse-parallax distance; no extinction correction",
       "physicalParameters": "SIMBAD mesFe_h/mesDiameter ranked measurements, Allende Prieto & Lambert 1999 evolutionary models, McDonald et al. 2012 SED models, Hohle et al. 2010 massive-star evolutionary models, and reviewed primary papers; see row notes",
       "luminosityMethod": "McDonald et al. 2012 SED luminosity where available; otherwise Stefan-Boltzmann scaling R^2 (T/5772 K)^4 when both inputs are adopted"
@@ -872,7 +1666,20 @@
     "bright-deneb": {
       "source": "SIMBAD TAP snapshot 2026-09-25",
       "queryId": "* alf Cyg",
-      "sharedPhysicalEnrichment": {},
+      "sharedPhysicalEnrichment": {
+        "metallicity_dex": {
+          "field": "metallicity_dex",
+          "value": 0.23,
+          "status": "measured",
+          "reference": "2014AJ....147..137L",
+          "uncertainty": null,
+          "identity": "* alf Cyg",
+          "sourceRecordId": "* alf Cyg:mesFe_h:6",
+          "quantity": "photospheric [Fe/H]",
+          "selection": "Newest within 0.3 dex / 10 percent of the median; strict majority required for multiple observations",
+          "scope": "catalogued stellar object"
+        }
+      },
       "absoluteMagnitudeMethod": "Johnson V and inverse-parallax distance; no extinction correction",
       "physicalParameters": "SIMBAD mesFe_h/mesDiameter ranked measurements, Allende Prieto & Lambert 1999 evolutionary models, McDonald et al. 2012 SED models, Hohle et al. 2010 massive-star evolutionary models, and reviewed primary papers; see row notes",
       "luminosityMethod": "McDonald et al. 2012 SED luminosity where available; otherwise Stefan-Boltzmann scaling R^2 (T/5772 K)^4 when both inputs are adopted"
@@ -880,7 +1687,20 @@
     "bright-wezen": {
       "source": "SIMBAD TAP snapshot 2026-09-25",
       "queryId": "* del CMa",
-      "sharedPhysicalEnrichment": {},
+      "sharedPhysicalEnrichment": {
+        "metallicity_dex": {
+          "field": "metallicity_dex",
+          "value": -0.03,
+          "status": "measured",
+          "reference": "2021MNRAS.505.4496G",
+          "uncertainty": null,
+          "identity": "* del CMa",
+          "sourceRecordId": "* del CMa:mesFe_h:1",
+          "quantity": "photospheric [Fe/H]",
+          "selection": "Newest within 0.3 dex / 10 percent of the median; strict majority required for multiple observations",
+          "scope": "catalogued stellar object"
+        }
+      },
       "absoluteMagnitudeMethod": "Johnson V and inverse-parallax distance; no extinction correction",
       "physicalParameters": "SIMBAD mesFe_h/mesDiameter ranked measurements, Allende Prieto & Lambert 1999 evolutionary models, McDonald et al. 2012 SED models, Hohle et al. 2010 massive-star evolutionary models, and reviewed primary papers; see row notes",
       "luminosityMethod": "McDonald et al. 2012 SED luminosity where available; otherwise Stefan-Boltzmann scaling R^2 (T/5772 K)^4 when both inputs are adopted"
@@ -888,7 +1708,20 @@
     "bright-sadr": {
       "source": "SIMBAD TAP snapshot 2026-09-25",
       "queryId": "* gam Cyg",
-      "sharedPhysicalEnrichment": {},
+      "sharedPhysicalEnrichment": {
+        "metallicity_dex": {
+          "field": "metallicity_dex",
+          "value": 0.15,
+          "status": "measured",
+          "reference": "2023ApJS..266...41P",
+          "uncertainty": null,
+          "identity": "* gam Cyg",
+          "sourceRecordId": "* gam Cyg:mesFe_h:1",
+          "quantity": "photospheric [Fe/H]",
+          "selection": "Newest within 0.3 dex / 10 percent of the median; strict majority required for multiple observations",
+          "scope": "catalogued stellar object"
+        }
+      },
       "absoluteMagnitudeMethod": "Johnson V and inverse-parallax distance; no extinction correction",
       "physicalParameters": "SIMBAD mesFe_h/mesDiameter ranked measurements, Allende Prieto & Lambert 1999 evolutionary models, McDonald et al. 2012 SED models, Hohle et al. 2010 massive-star evolutionary models, and reviewed primary papers; see row notes",
       "luminosityMethod": "McDonald et al. 2012 SED luminosity where available; otherwise Stefan-Boltzmann scaling R^2 (T/5772 K)^4 when both inputs are adopted"
@@ -912,10 +1745,1029 @@
     "bright-arneb": {
       "source": "SIMBAD TAP snapshot 2026-09-30",
       "queryId": "* alf Lep",
-      "sharedPhysicalEnrichment": {},
+      "sharedPhysicalEnrichment": {
+        "metallicity_dex": {
+          "field": "metallicity_dex",
+          "value": 0.01,
+          "status": "measured",
+          "reference": "2014AJ....147..137L",
+          "uncertainty": null,
+          "identity": "* alf Lep",
+          "sourceRecordId": "* alf Lep:mesFe_h:9",
+          "quantity": "photospheric [Fe/H]",
+          "selection": "Newest within 0.3 dex / 10 percent of the median; strict majority required for multiple observations",
+          "scope": "catalogued stellar object"
+        }
+      },
       "absoluteMagnitudeMethod": "Johnson V and inverse-parallax distance; no extinction correction",
       "physicalParameters": "SIMBAD mesFe_h/mesDiameter ranked measurements, Allende Prieto & Lambert 1999 evolutionary models, McDonald et al. 2012 SED models, Hohle et al. 2010 massive-star evolutionary models, and reviewed primary papers; see row notes",
       "luminosityMethod": "McDonald et al. 2012 SED luminosity where available; otherwise Stefan-Boltzmann scaling R^2 (T/5772 K)^4 when both inputs are adopted"
+    },
+    "proxima-centauri": {
+      "componentAssociation": {
+        "systemId": "alpha-centauri",
+        "systemName": "Alpha Centauri",
+        "component": "C",
+        "canonicalStarId": "proxima-centauri",
+        "sourceCatalog": "nearest-1000",
+        "sourceRef": "reyle-2023",
+        "identityEvidence": "Stable inherited component ID.",
+        "role": "reviewed-companion",
+        "individualRecordProvenance": {
+          "id": "proxima-centauri",
+          "status": "higher-curation nearest-100 override"
+        }
+      }
+    },
+    "sirius-b": {
+      "componentAssociation": {
+        "systemId": "sirius",
+        "systemName": "Sirius",
+        "component": "B",
+        "canonicalStarId": "sirius-b",
+        "sourceCatalog": "nearest-1000",
+        "sourceRef": "reyle-2023",
+        "identityEvidence": "Stable inherited component ID.",
+        "role": "reviewed-companion",
+        "individualRecordProvenance": {
+          "id": "sirius-b",
+          "status": "higher-curation nearest-100 override"
+        }
+      }
+    },
+    "10pc-0032": {
+      "componentAssociation": {
+        "systemId": "procyon",
+        "systemName": "Procyon",
+        "component": "B",
+        "canonicalStarId": "10pc-0032",
+        "sourceCatalog": "nearest-1000",
+        "sourceRef": "reyle-2023",
+        "identityEvidence": "Exact frozen SIMBAD identity * alf CMi matches the Western HIP primary and the reviewed nearby system.",
+        "role": "reviewed-companion",
+        "individualRecordProvenance": {
+          "id": "10pc-0032",
+          "status": "higher-curation nearest-100 override"
+        }
+      }
+    },
+    "cns5-5660": {
+      "componentAssociation": {
+        "systemId": "fomalhaut",
+        "systemName": "Fomalhaut",
+        "component": "B",
+        "canonicalStarId": "cns5-5660",
+        "sourceCatalog": "nearest-1000",
+        "sourceRef": "mamajek-2013",
+        "identityEvidence": "Exact frozen SIMBAD identity * alf PsA matches the Western HIP primary and the reviewed nearby system.",
+        "role": "reviewed-companion",
+        "individualRecordProvenance": {
+          "astrometry": {
+            "astrometry_ref": "2020yCat.1350....0G",
+            "dec_deg": -31.56626896213439,
+            "epoch": 2016.0,
+            "parallax_error_mas": 0.031432442,
+            "parallax_mas": 131.58010625077998,
+            "pm_dec_error_masyr": 0.02836935594677925,
+            "pm_dec_masyr": -158.6023341436887,
+            "pm_ra_cosdec_masyr": 330.2033788189263,
+            "pm_ra_error_masyr": 0.023418890312314034,
+            "quality_flags": [],
+            "ra_deg": 344.10194140173917,
+            "radial_velocity_error_kms": 0.1575317233800888,
+            "radial_velocity_kms": 6.996584892272949,
+            "radial_velocity_ref": "2020yCat.1350....0G",
+            "source_id": "cns5",
+            "source_record_id": "5660"
+          },
+          "cns5Id": "5660",
+          "fieldStatus": {
+            "absolute_mag": "derived-from-compiled-Johnson-V",
+            "age_gyr": "model-derived",
+            "luminosity_solar": "model-derived",
+            "mass_solar": "model-derived",
+            "metallicity_dex": "model-derived",
+            "radial_velocity_kms": "compiled-cns5",
+            "radius_solar": "model-derived",
+            "temperature_k": "model-derived"
+          },
+          "gaiaDr3Id": "6604147121141267712",
+          "id": "cns5-5660",
+          "identityMethod": "exact CNS5 identifier; exact Gaia DR3 identifier when present",
+          "physicalObservations": [
+            {
+              "field": "temperature_k",
+              "quality_flags": [],
+              "reference": "Gaia DR3 astrophysical_parameters",
+              "source_id": "gaia-dr3",
+              "source_record_id": "6604147121141267712",
+              "status": "model-derived",
+              "uncertainty": 5.5856000000003405,
+              "value": 4463.109
+            },
+            {
+              "field": "metallicity_dex",
+              "quality_flags": [],
+              "reference": "Gaia DR3 astrophysical_parameters",
+              "source_id": "gaia-dr3",
+              "source_record_id": "6604147121141267712",
+              "status": "model-derived",
+              "uncertainty": 0.04519999999999999,
+              "value": -0.1788
+            },
+            {
+              "field": "mass_solar",
+              "quality_flags": [
+                "00"
+              ],
+              "reference": "Gaia DR3 astrophysical_parameters",
+              "source_id": "gaia-dr3",
+              "source_record_id": "6604147121141267712",
+              "status": "model-derived",
+              "uncertainty": 0.040000050000000065,
+              "value": 0.72544885
+            },
+            {
+              "field": "luminosity_solar",
+              "quality_flags": [
+                "00"
+              ],
+              "reference": "Gaia DR3 astrophysical_parameters",
+              "source_id": "gaia-dr3",
+              "source_record_id": "6604147121141267712",
+              "status": "model-derived",
+              "uncertainty": 0.005018930000000005,
+              "value": 0.19891936
+            },
+            {
+              "field": "radius_solar",
+              "quality_flags": [
+                "00"
+              ],
+              "reference": "Gaia DR3 astrophysical_parameters",
+              "source_id": "gaia-dr3",
+              "source_record_id": "6604147121141267712",
+              "status": "model-derived",
+              "uncertainty": 0.017639700000000036,
+              "value": 0.74598
+            },
+            {
+              "field": "age_gyr",
+              "quality_flags": [
+                "00"
+              ],
+              "reference": "Gaia DR3 astrophysical_parameters",
+              "source_id": "gaia-dr3",
+              "source_record_id": "6604147121141267712",
+              "status": "model-derived",
+              "uncertainty": 2.619266999999999,
+              "value": 9.807368
+            }
+          ],
+          "physicalSupplements": {
+            "adopted": {},
+            "eligibility": "Not a parsed K5-M9.5 dwarf spectral type (no subdwarf, giant, composite or peculiar class); supplements not applied.",
+            "identity": {
+              "cns5_id": "5660",
+              "gaia_dr2": "6604147121141267712",
+              "identity_method": "exact SIMBAD CNS5 identity",
+              "simbad_id": "V* TW PsA",
+              "twomass": "22562403-3133559"
+            }
+          },
+          "radialVelocity": {
+            "observation": {
+              "qualityFlags": [],
+              "reference": "2020yCat.1350....0G",
+              "sourceId": "cns5",
+              "sourceRecordId": "5660",
+              "uncertaintyKms": 0.1575317233800888,
+              "valueKms": 6.996584892272949
+            },
+            "status": "compiled-cns5"
+          },
+          "simbadId": "V* TW PsA",
+          "sourceType": "BY*"
+        }
+      }
+    },
+    "cns5-5623": {
+      "componentAssociation": {
+        "systemId": "fomalhaut",
+        "systemName": "Fomalhaut",
+        "component": "C",
+        "canonicalStarId": "cns5-5623",
+        "sourceCatalog": "nearest-1000",
+        "sourceRef": "mamajek-2013",
+        "identityEvidence": "Exact frozen SIMBAD identity * alf PsA matches the Western HIP primary and the reviewed nearby system.",
+        "role": "reviewed-companion",
+        "individualRecordProvenance": {
+          "astrometry": {
+            "astrometry_ref": "2020yCat.1350....0G",
+            "dec_deg": -24.369627417603155,
+            "epoch": 2016.0,
+            "parallax_error_mas": 0.036415633,
+            "parallax_mas": 130.30315269441948,
+            "pm_dec_error_masyr": 0.030936168506741524,
+            "pm_dec_masyr": -183.8049429101332,
+            "pm_ra_cosdec_masyr": 331.60870305798755,
+            "pm_ra_error_masyr": 0.030834762379527092,
+            "quality_flags": [],
+            "ra_deg": 342.0203381724408,
+            "radial_velocity_error_kms": null,
+            "radial_velocity_kms": null,
+            "radial_velocity_ref": null,
+            "source_id": "cns5",
+            "source_record_id": "5623"
+          },
+          "cns5Id": "5623",
+          "fieldStatus": {
+            "absolute_mag": "derived-from-compiled-Johnson-V",
+            "age_gyr": "unknown",
+            "luminosity_solar": "derived",
+            "mass_solar": "empirical-relation",
+            "metallicity_dex": "measured",
+            "radial_velocity_kms": "gaia-dr3-fallback",
+            "radius_solar": "empirical-relation",
+            "temperature_k": "measured"
+          },
+          "gaiaDr3Id": "6623351805412369024",
+          "id": "cns5-5623",
+          "identityMethod": "exact CNS5 identifier; exact Gaia DR3 identifier when present",
+          "individualComponentReview": {
+            "cns5Id": "5623",
+            "decision": "Admit LP 876-10 as the individual Fomalhaut C component despite frozen SIMBAD type **. Mamajek et al. identify it as the wide third stellar member and do not confirm the reported close companion. Keep its exact CNS5/Gaia astrometry and independently sourced physical properties; do not split it into hypothetical Ca/Cb records.",
+            "gaiaDr3Id": "6623351805412369024",
+            "name": "Fomalhaut C",
+            "reference": "2013AJ....146..154M",
+            "reviewDate": "2026-10-05",
+            "simbadId": "* alf PsA C",
+            "url": "https://arxiv.org/abs/1310.0764"
+          },
+          "physicalObservations": [
+            {
+              "field": "mass_solar",
+              "quality_flags": [
+                "2MASS Q=AAA B=111 C=000",
+                "MKs=7.7808+/-0.0210"
+              ],
+              "reference": "2019ApJ...871...63M",
+              "source_id": "mann-2019",
+              "source_record_id": "22480446-2422075",
+              "status": "empirical-relation",
+              "uncertainty": 0.0045,
+              "value": 0.1994
+            },
+            {
+              "field": "radius_solar",
+              "quality_flags": [
+                "2MASS Q=AAA B=111 C=000",
+                "MKs=7.7808+/-0.0210"
+              ],
+              "reference": "2015ApJ...804...64M",
+              "source_id": "mann-2015",
+              "source_record_id": "22480446-2422075",
+              "status": "empirical-relation",
+              "uncertainty": 0.0069,
+              "value": 0.2297
+            }
+          ],
+          "physicalSupplements": {
+            "adopted": {
+              "mass_solar": "mann-2019:22480446-2422075",
+              "radius_solar": "mann-2015:22480446-2422075"
+            },
+            "cifuentes2020": {
+              "status": "no exact identifier match"
+            },
+            "identity": {
+              "cns5_id": "5623",
+              "gaia_dr2": "6623351805412369024",
+              "identity_method": "exact SIMBAD CNS5 identity",
+              "simbad_id": "* alf PsA C",
+              "twomass": "22480446-2422075"
+            },
+            "mann": {
+              "absoluteKs": 7.7808,
+              "absoluteKsError": 0.021,
+              "fields": [
+                "mass_solar",
+                "radius_solar"
+              ],
+              "ksErrorMag": 0.021,
+              "ksMag": 7.206,
+              "reasons": [],
+              "status": "adopted",
+              "twomass": "22480446-2422075"
+            }
+          },
+          "radialVelocity": {
+            "observation": {
+              "qualityFlags": [],
+              "reference": "Gaia DR3",
+              "sourceId": "gaia-dr3",
+              "sourceRecordId": "6623351805412369024",
+              "uncertaintyKms": 0.57990056,
+              "valueKms": 5.773293
+            },
+            "status": "gaia-dr3-fallback"
+          },
+          "sharedPhysicalEnrichment": {
+            "luminosity_solar": {
+              "field": "luminosity_solar",
+              "inputs": {
+                "radius_solar": 0.2297,
+                "temperature_k": 3143.0
+              },
+              "reference": "Stefan-Boltzmann scaling",
+              "status": "derived",
+              "value": 0.004638677982
+            },
+            "metallicity_dex": {
+              "field": "metallicity_dex",
+              "identity": "* alf PsA C",
+              "quantity": "photospheric [Fe/H]",
+              "reference": "2014MNRAS.443.2561G",
+              "scope": "SIMBAD object as catalogued; unresolved spectra may be primary-dominated",
+              "selection": "Newest within 0.3 dex / 10 percent of the median; strict majority required for multiple observations",
+              "sourceRecordId": "* alf PsA C:mesFe_h:1",
+              "status": "measured",
+              "uncertainty": null,
+              "value": 0.03
+            },
+            "temperature_k": {
+              "field": "temperature_k",
+              "identity": "* alf PsA C",
+              "quantity": "spectroscopic effective temperature",
+              "reference": "2014MNRAS.443.2561G",
+              "scope": "SIMBAD object as catalogued; unresolved spectra may be primary-dominated",
+              "selection": "Newest within 0.3 dex / 10 percent of the median; strict majority required for multiple observations",
+              "sourceRecordId": "* alf PsA C:mesFe_h:1",
+              "status": "measured",
+              "uncertainty": null,
+              "value": 3143.0
+            }
+          },
+          "simbadId": "* alf PsA C",
+          "sourceType": "**"
+        }
+      }
+    },
+    "capella-ab": {
+      "componentAssociation": {
+        "systemId": "capella",
+        "systemName": "Capella",
+        "component": "Ab",
+        "canonicalStarId": "capella-ab",
+        "sourceCatalog": "nearest-1000",
+        "sourceRef": "torres2015",
+        "identityEvidence": "Exact frozen SIMBAD identity * alf Aur matches the Western HIP primary and the reviewed nearby system.",
+        "role": "reviewed-companion",
+        "individualRecordProvenance": {
+          "astrometryParentId": "cns5-1318",
+          "astrometryScope": "Shared system snapshot; individual orbital position, proper motion and radial velocity not adopted.",
+          "fieldStatus": {
+            "absolute_mag": "derived-from-orbital-parallax",
+            "age_gyr": "withheld-model-age-range",
+            "luminosity_solar": "derived-from-bolometric-correction",
+            "mass_solar": "dynamical",
+            "metallicity_dex": "measured",
+            "radial_velocity_kms": "unknown",
+            "radius_solar": "measured",
+            "temperature_k": "measured"
+          },
+          "id": "capella-ab",
+          "individualComponentReview": {
+            "name": "Capella Ab",
+            "note": "Confirmed hotter giant component. Dynamical mass, radius, temperature, luminosity, abundance and individual absolute V come from Torres et al. 2015 Table 3. System model age spans 0.590-0.650 Gyr and is not adopted as a point estimate. Position/proper motion share the original combined source snapshot; individual orbital radial velocity is withheld.",
+            "parentId": "cns5-1318",
+            "physical": {
+              "absolute_mag": {
+                "reference": "arXiv:1505.07461:Table 3",
+                "status": "derived-from-orbital-parallax",
+                "uncertainty": 0.015,
+                "value": 0.167
+              },
+              "age_gyr": {
+                "reference": "arXiv:1505.07461:Table 3; system age 0.590-0.650 Gyr, not a single adopted individual value",
+                "status": "withheld-model-age-range",
+                "value": null
+              },
+              "luminosity_solar": {
+                "reference": "arXiv:1505.07461:Table 3",
+                "status": "derived-from-bolometric-correction",
+                "uncertainty": 3.6,
+                "value": 72.7
+              },
+              "mass_solar": {
+                "reference": "arXiv:1505.07461:Table 3",
+                "status": "dynamical",
+                "uncertainty": 0.0067,
+                "value": 2.4828
+              },
+              "metallicity_dex": {
+                "reference": "arXiv:1505.07461:Table 3",
+                "status": "measured",
+                "uncertainty": 0.06,
+                "value": -0.04
+              },
+              "radius_solar": {
+                "reference": "arXiv:1505.07461:Table 3",
+                "status": "measured",
+                "uncertainty": 0.33,
+                "value": 8.83
+              },
+              "temperature_k": {
+                "reference": "arXiv:1505.07461:Table 3",
+                "status": "measured",
+                "uncertainty": 60,
+                "value": 5730
+              }
+            },
+            "reference": "arXiv:1505.07461",
+            "spectralType": "G0III",
+            "starId": "capella-ab",
+            "type": "star",
+            "url": "https://arxiv.org/abs/1505.07461"
+          },
+          "physicalObservations": [
+            {
+              "field": "mass_solar",
+              "reference": "arXiv:1505.07461:Table 3",
+              "sourceId": "reviewed-individual-component",
+              "status": "dynamical",
+              "uncertainty": 0.0067,
+              "value": 2.4828
+            },
+            {
+              "field": "temperature_k",
+              "reference": "arXiv:1505.07461:Table 3",
+              "sourceId": "reviewed-individual-component",
+              "status": "measured",
+              "uncertainty": 60,
+              "value": 5730
+            },
+            {
+              "field": "radius_solar",
+              "reference": "arXiv:1505.07461:Table 3",
+              "sourceId": "reviewed-individual-component",
+              "status": "measured",
+              "uncertainty": 0.33,
+              "value": 8.83
+            },
+            {
+              "field": "luminosity_solar",
+              "reference": "arXiv:1505.07461:Table 3",
+              "sourceId": "reviewed-individual-component",
+              "status": "derived-from-bolometric-correction",
+              "uncertainty": 3.6,
+              "value": 72.7
+            },
+            {
+              "field": "metallicity_dex",
+              "reference": "arXiv:1505.07461:Table 3",
+              "sourceId": "reviewed-individual-component",
+              "status": "measured",
+              "uncertainty": 0.06,
+              "value": -0.04
+            },
+            {
+              "field": "absolute_mag",
+              "reference": "arXiv:1505.07461:Table 3",
+              "sourceId": "reviewed-individual-component",
+              "status": "derived-from-orbital-parallax",
+              "uncertainty": 0.015,
+              "value": 0.167
+            },
+            {
+              "field": "age_gyr",
+              "reference": "arXiv:1505.07461:Table 3; system age 0.590-0.650 Gyr, not a single adopted individual value",
+              "sourceId": "reviewed-individual-component",
+              "status": "withheld-model-age-range",
+              "value": null
+            }
+          ]
+        }
+      }
+    },
+    "cns5-1323": {
+      "componentAssociation": {
+        "systemId": "capella",
+        "systemName": "Capella",
+        "component": "H",
+        "canonicalStarId": "cns5-1323",
+        "sourceCatalog": "nearest-1000",
+        "sourceRef": "torres2015",
+        "identityEvidence": "Exact frozen SIMBAD identity * alf Aur matches the Western HIP primary and the reviewed nearby system.",
+        "role": "reviewed-companion",
+        "individualRecordProvenance": {
+          "astrometry": {
+            "astrometry_ref": "2020yCat.1350....0G",
+            "dec_deg": 45.83779586527358,
+            "epoch": 2016.0,
+            "parallax_error_mas": 0.021176783,
+            "parallax_mas": 74.99312875728972,
+            "pm_dec_error_masyr": 0.0169722530990839,
+            "pm_dec_masyr": -428.9109215093979,
+            "pm_ra_cosdec_masyr": 88.4249612507515,
+            "pm_ra_error_masyr": 0.020196933299303055,
+            "quality_flags": [],
+            "ra_deg": 79.34999070128362,
+            "radial_velocity_error_kms": 0.6324355006217957,
+            "radial_velocity_kms": 30.15380859375,
+            "radial_velocity_ref": "2020yCat.1350....0G",
+            "source_id": "cns5",
+            "source_record_id": "1323"
+          },
+          "cns5Id": "1323",
+          "fieldStatus": {
+            "absolute_mag": "unknown",
+            "age_gyr": "model-derived",
+            "luminosity_solar": "model-derived",
+            "mass_solar": "model-derived",
+            "metallicity_dex": "model-derived",
+            "radial_velocity_kms": "compiled-cns5",
+            "radius_solar": "model-derived",
+            "temperature_k": "model-derived"
+          },
+          "gaiaDr3Id": "211810233512673792",
+          "id": "cns5-1323",
+          "identityMethod": "exact CNS5 identifier; exact Gaia DR3 identifier when present",
+          "physicalObservations": [
+            {
+              "field": "temperature_k",
+              "quality_flags": [],
+              "reference": "Gaia DR3 astrophysical_parameters",
+              "source_id": "gaia-dr3",
+              "source_record_id": "211810233512673792",
+              "status": "model-derived",
+              "uncertainty": 10.79300000000012,
+              "value": 3630.5886
+            },
+            {
+              "field": "metallicity_dex",
+              "quality_flags": [],
+              "reference": "Gaia DR3 astrophysical_parameters",
+              "source_id": "gaia-dr3",
+              "source_record_id": "211810233512673792",
+              "status": "model-derived",
+              "uncertainty": 0.0887,
+              "value": -0.1129
+            },
+            {
+              "field": "mass_solar",
+              "quality_flags": [
+                "00"
+              ],
+              "reference": "Gaia DR3 astrophysical_parameters",
+              "source_id": "gaia-dr3",
+              "source_record_id": "211810233512673792",
+              "status": "model-derived",
+              "uncertainty": 0.04016534999999999,
+              "value": 0.53719205
+            },
+            {
+              "field": "luminosity_solar",
+              "quality_flags": [
+                "00"
+              ],
+              "reference": "Gaia DR3 astrophysical_parameters",
+              "source_id": "gaia-dr3",
+              "source_record_id": "211810233512673792",
+              "status": "model-derived",
+              "uncertainty": 0.005054186000000002,
+              "value": 0.048280984
+            },
+            {
+              "field": "radius_solar",
+              "quality_flags": [
+                "00"
+              ],
+              "reference": "Gaia DR3 astrophysical_parameters",
+              "source_id": "gaia-dr3",
+              "source_record_id": "211810233512673792",
+              "status": "model-derived",
+              "uncertainty": 0.031128739999999988,
+              "value": 0.55555
+            },
+            {
+              "field": "age_gyr",
+              "quality_flags": [
+                "00"
+              ],
+              "reference": "Gaia DR3 astrophysical_parameters",
+              "source_id": "gaia-dr3",
+              "source_record_id": "211810233512673792",
+              "status": "model-derived",
+              "uncertainty": 7.4399391999999995,
+              "value": 10.741266
+            }
+          ],
+          "physicalSupplements": {
+            "adopted": {},
+            "cifuentes2020": {
+              "distancePc": 13.330654,
+              "fields": [],
+              "matchedBy": "Gaia DR2",
+              "reasons": [
+                "Cifuentes close multiple (<5 arcsec)"
+              ],
+              "record": "J05173+458",
+              "status": "withheld"
+            },
+            "identity": {
+              "cns5_id": "1323",
+              "gaia_dr2": "211810233512673792",
+              "identity_method": "exact SIMBAD CNS5 identity",
+              "simbad_id": "G  96-29A",
+              "twomass": "05172386+4550229"
+            },
+            "mann": {
+              "reasons": [
+                "Another CNS5 object lies within 5 arcsec; Ks may be blended"
+              ],
+              "status": "withheld",
+              "twomass": "05172386+4550229"
+            }
+          },
+          "radialVelocity": {
+            "observation": {
+              "qualityFlags": [],
+              "reference": "2020yCat.1350....0G",
+              "sourceId": "cns5",
+              "sourceRecordId": "1323",
+              "uncertaintyKms": 0.6324355006217957,
+              "valueKms": 30.15380859375
+            },
+            "status": "compiled-cns5"
+          },
+          "simbadId": "G  96-29A",
+          "sourceType": "PM*"
+        }
+      }
+    },
+    "cns5-1324": {
+      "componentAssociation": {
+        "systemId": "capella",
+        "systemName": "Capella",
+        "component": "L",
+        "canonicalStarId": "cns5-1324",
+        "sourceCatalog": "nearest-1000",
+        "sourceRef": "torres2015",
+        "identityEvidence": "Exact frozen SIMBAD identity * alf Aur matches the Western HIP primary and the reviewed nearby system.",
+        "role": "reviewed-companion",
+        "individualRecordProvenance": {
+          "astrometry": {
+            "astrometry_ref": "2020yCat.1350....0G",
+            "dec_deg": 45.83684161390765,
+            "epoch": 2016.0,
+            "parallax_error_mas": 0.06217547,
+            "parallax_mas": 75.18378634422855,
+            "pm_dec_error_masyr": 0.049219679087400436,
+            "pm_dec_masyr": -416.9026177100576,
+            "pm_ra_cosdec_masyr": 53.96645153206382,
+            "pm_ra_error_masyr": 0.05879475548863411,
+            "quality_flags": [],
+            "ra_deg": 79.35014604066659,
+            "radial_velocity_error_kms": null,
+            "radial_velocity_kms": null,
+            "radial_velocity_ref": null,
+            "source_id": "cns5",
+            "source_record_id": "1324"
+          },
+          "cns5Id": "1324",
+          "fieldStatus": {
+            "absolute_mag": "unknown",
+            "age_gyr": "unknown",
+            "luminosity_solar": "unknown",
+            "mass_solar": "unknown",
+            "metallicity_dex": "unknown",
+            "radial_velocity_kms": "unknown",
+            "radius_solar": "unknown",
+            "temperature_k": "unknown"
+          },
+          "gaiaDr3Id": "211810233512673920",
+          "id": "cns5-1324",
+          "identityMethod": "exact CNS5 identifier; exact Gaia DR3 identifier when present",
+          "physicalObservations": [],
+          "physicalSupplements": {
+            "adopted": {},
+            "cifuentes2020": {
+              "status": "no exact identifier match"
+            },
+            "identity": {
+              "cns5_id": "1324",
+              "gaia_dr2": "211810233512673920",
+              "identity_method": "exact SIMBAD CNS5 identity",
+              "simbad_id": "G  96-29B",
+              "twomass": "05172394+4550198"
+            },
+            "mann": {
+              "reasons": [
+                "Another CNS5 object lies within 5 arcsec; Ks may be blended"
+              ],
+              "status": "withheld",
+              "twomass": "05172394+4550198"
+            }
+          },
+          "radialVelocity": {
+            "status": "unknown"
+          },
+          "simbadId": "G  96-29B",
+          "sourceType": "PM*"
+        }
+      }
+    },
+    "rigel-ba": {
+      "componentAssociation": {
+        "systemId": "rigel",
+        "systemName": "Rigel",
+        "component": "Ba",
+        "canonicalStarId": "rigel-ba",
+        "sourceCatalog": "reviewed-overlay-components",
+        "sourceRef": "msc-20260619",
+        "identityEvidence": "Exact HIP 24436 / HD 34085 in MSC primary A; the frozen SIMBAD landmark is beta Orionis. The MSC grade-5 hierarchy identifies A, Ba, Bb and C.",
+        "role": "reviewed-companion",
+        "individualRecordProvenance": {
+          "individualComponentReview": {
+            "starId": "rigel-ba",
+            "name": "Rigel Ba",
+            "type": "star",
+            "systemId": "rigel",
+            "label": "Ba",
+            "raDeg": 78.633403,
+            "decDeg": -8.204067,
+            "spectralType": "B9V",
+            "visualMagnitude": null,
+            "sourceRef": "msc-20260619",
+            "frozenInput": "catalog-work/star-systems/msc-20260619-rigel.json",
+            "physical": {},
+            "note": "Individual stellar member from MSC WDS 05145-0812. The MSC BC sky direction and primary Rigel parallax place the component approximately at J2000; Ba/Bb/C share that BC direction and the primary proper motion. No resolved inner orbital offset, phase or individual radial velocity is adopted. B/BC integrated photometry and catalogue estimated masses are withheld. Individual Johnson V and physical measurements are unknown."
+          },
+          "astrometryScope": "Shared BC direction; primary distance/proper motion approximation; no individual orbital motion.",
+          "physicalStatus": "Unknown; catalogue estimated masses and blended photometry withheld."
+        }
+      }
+    },
+    "rigel-bb": {
+      "componentAssociation": {
+        "systemId": "rigel",
+        "systemName": "Rigel",
+        "component": "Bb",
+        "canonicalStarId": "rigel-bb",
+        "sourceCatalog": "reviewed-overlay-components",
+        "sourceRef": "msc-20260619",
+        "identityEvidence": "Exact HIP 24436 / HD 34085 in MSC primary A; the frozen SIMBAD landmark is beta Orionis. The MSC grade-5 hierarchy identifies A, Ba, Bb and C.",
+        "role": "reviewed-companion",
+        "individualRecordProvenance": {
+          "individualComponentReview": {
+            "starId": "rigel-bb",
+            "name": "Rigel Bb",
+            "type": "star",
+            "systemId": "rigel",
+            "label": "Bb",
+            "raDeg": 78.633403,
+            "decDeg": -8.204067,
+            "spectralType": "",
+            "visualMagnitude": null,
+            "sourceRef": "msc-20260619",
+            "frozenInput": "catalog-work/star-systems/msc-20260619-rigel.json",
+            "physical": {},
+            "note": "Individual stellar member from MSC WDS 05145-0812. The MSC BC sky direction and primary Rigel parallax place the component approximately at J2000; Ba/Bb/C share that BC direction and the primary proper motion. No resolved inner orbital offset, phase or individual radial velocity is adopted. B/BC integrated photometry and catalogue estimated masses are withheld. Individual Johnson V and physical measurements are unknown."
+          },
+          "astrometryScope": "Shared BC direction; primary distance/proper motion approximation; no individual orbital motion.",
+          "physicalStatus": "Unknown; catalogue estimated masses and blended photometry withheld."
+        }
+      }
+    },
+    "rigel-c": {
+      "componentAssociation": {
+        "systemId": "rigel",
+        "systemName": "Rigel",
+        "component": "C",
+        "canonicalStarId": "rigel-c",
+        "sourceCatalog": "reviewed-overlay-components",
+        "sourceRef": "msc-20260619",
+        "identityEvidence": "Exact HIP 24436 / HD 34085 in MSC primary A; the frozen SIMBAD landmark is beta Orionis. The MSC grade-5 hierarchy identifies A, Ba, Bb and C.",
+        "role": "reviewed-companion",
+        "individualRecordProvenance": {
+          "individualComponentReview": {
+            "starId": "rigel-c",
+            "name": "Rigel C",
+            "type": "star",
+            "systemId": "rigel",
+            "label": "C",
+            "raDeg": 78.633403,
+            "decDeg": -8.204067,
+            "spectralType": "B9V",
+            "visualMagnitude": 7.6,
+            "sourceRef": "msc-20260619",
+            "frozenInput": "catalog-work/star-systems/msc-20260619-rigel.json",
+            "physical": {},
+            "note": "Individual stellar member from MSC WDS 05145-0812. The MSC BC sky direction and primary Rigel parallax place the component approximately at J2000; Ba/Bb/C share that BC direction and the primary proper motion. No resolved inner orbital offset, phase or individual radial velocity is adopted. B/BC integrated photometry and catalogue estimated masses are withheld. C Johnson V=7.60 is the individual visual C value in the B,C subsystem table; no bolometric conversion is made."
+          },
+          "astrometryScope": "Shared BC direction; primary distance/proper motion approximation; no individual orbital motion.",
+          "physicalStatus": "Unknown; catalogue estimated masses and blended photometry withheld."
+        }
+      }
+    }
+  },
+  "originalLandmarkIds": [
+    "alpha-centauri-b",
+    "alpha-centauri-a",
+    "sirius-a",
+    "bright-procyon",
+    "10pc-0117",
+    "cns5-4607",
+    "cns5-5665",
+    "cns5-1912",
+    "bright-denebola",
+    "cns5-3517",
+    "cns5-3442",
+    "cns5-1318",
+    "bright-rasalhague",
+    "bright-alderamin",
+    "bright-castor",
+    "bright-caph",
+    "bright-zosma",
+    "bright-sheratan",
+    "bright-menkent",
+    "bright-epsilon-scorpii",
+    "bright-hamal",
+    "bright-aldebaran",
+    "bright-unukalhai",
+    "bright-aljanah",
+    "bright-alphecca",
+    "bright-regulus",
+    "bright-mizar-a",
+    "bright-menkalinan",
+    "bright-alioth",
+    "bright-phecda",
+    "bright-merak",
+    "bright-ankaa",
+    "bright-ascella",
+    "bright-sabik",
+    "bright-gacrux",
+    "bright-algol",
+    "bright-diphda",
+    "bright-alpheratz",
+    "bright-ruchbah",
+    "bright-alnair",
+    "bright-alkaid",
+    "bright-alhena",
+    "bright-mu-velorum",
+    "bright-miaplacidus",
+    "bright-dubhe",
+    "bright-gamma-centauri",
+    "bright-kochab",
+    "bright-markab",
+    "bright-elnath",
+    "bright-achernar",
+    "bright-kaus-australis",
+    "bright-kraz",
+    "bright-gienah",
+    "bright-eltanin",
+    "bright-mahasim",
+    "bright-beta-gruis",
+    "bright-peacock",
+    "bright-alphard",
+    "bright-zubeneschamali",
+    "bright-scheat",
+    "bright-mirach",
+    "bright-nunki",
+    "bright-schedar",
+    "bright-izar",
+    "bright-menkar",
+    "bright-spica",
+    "bright-bellatrix",
+    "bright-mimosa",
+    "bright-phact",
+    "bright-sargas",
+    "bright-eta-centauri",
+    "bright-canopus",
+    "bright-alpha-muscae",
+    "bright-acrux",
+    "bright-leepwal",
+    "bright-beta-lupi",
+    "bright-atria",
+    "bright-hadar",
+    "bright-almach",
+    "bright-beta-scorpii-a",
+    "bright-adhara",
+    "bright-kaus-media",
+    "bright-epsilon-centauri",
+    "bright-polaris",
+    "bright-zeta-ophiuchi",
+    "bright-hassaleh",
+    "bright-alpha-lupi",
+    "bright-kappa-scorpii",
+    "bright-dschubba",
+    "bright-mirzam",
+    "bright-betelgeuse",
+    "bright-mirfak",
+    "bright-suhail",
+    "bright-gamma-cassiopeiae",
+    "bright-antares",
+    "bright-delta-centauri",
+    "bright-shaula",
+    "bright-markeb",
+    "bright-lesath",
+    "bright-avior",
+    "bright-saiph",
+    "bright-enif",
+    "bright-mintaka",
+    "bright-alnitak",
+    "bright-aspidiske",
+    "bright-rigel",
+    "bright-naos",
+    "bright-regor",
+    "bright-deneb",
+    "bright-wezen",
+    "bright-sadr",
+    "bright-alnilam",
+    "bright-aludra",
+    "bright-arneb"
+  ],
+  "companionExpansion": {
+    "reviewedOn": "2026-10-06",
+    "policy": "Add reviewed companions only for explicitly matched existing overlay landmarks. Keep the original landmark selection; component companions are exempt from its magnitude/figure-vertex rule. Separate Trapezium systems are not grouped.",
+    "addedCompanions": 11,
+    "systems": [
+      {
+        "systemId": "alpha-centauri",
+        "name": "Alpha Centauri",
+        "landmarkId": "alpha-centauri-a",
+        "members": [
+          "alpha-centauri-a",
+          "alpha-centauri-b",
+          "proxima-centauri"
+        ],
+        "sourceRef": "reyle-2023"
+      },
+      {
+        "systemId": "sirius",
+        "name": "Sirius",
+        "landmarkId": "sirius-a",
+        "members": [
+          "sirius-a",
+          "sirius-b"
+        ],
+        "sourceRef": "reyle-2023"
+      },
+      {
+        "systemId": "procyon",
+        "name": "Procyon",
+        "landmarkId": "bright-procyon",
+        "members": [
+          "10pc-0031",
+          "10pc-0032"
+        ],
+        "sourceRef": "reyle-2023"
+      },
+      {
+        "systemId": "fomalhaut",
+        "name": "Fomalhaut",
+        "landmarkId": "cns5-5665",
+        "members": [
+          "cns5-5665",
+          "cns5-5660",
+          "cns5-5623"
+        ],
+        "sourceRef": "mamajek-2013"
+      },
+      {
+        "systemId": "capella",
+        "name": "Capella",
+        "landmarkId": "cns5-1318",
+        "members": [
+          "cns5-1318",
+          "capella-ab",
+          "cns5-1323",
+          "cns5-1324"
+        ],
+        "sourceRef": "torres2015"
+      },
+      {
+        "systemId": "rigel",
+        "name": "Rigel",
+        "landmarkId": "bright-rigel",
+        "members": [
+          "bright-rigel",
+          "rigel-ba",
+          "rigel-bb",
+          "rigel-c"
+        ],
+        "sourceRef": "msc-20260619"
+      }
+    ],
+    "inputSha256": {
+      "catalog-work/star-systems/overlay-companions.json": "0155d05f01e61ef80496c0d515b35946c8e6dcdd06342bb7fa8eda653e39485b",
+      "src/data/star-systems.json": "22a77579b11e4f5035f19be704fda78f1a6a5d409ca7ce0d5bc74aab8eaa599b",
+      "src/data/catalogs/nearest-1000/stars.csv": "14905a4ada8de25f0ede737c04b50225c930f780ed0860484811c33bdb23788f",
+      "src/data/catalogs/nearest-1000/provenance.json": "1aa535b59945f3406c2a6c88fac84441f3432822879ba8b29a6137fcecaf1ff8",
+      "catalog-work/star-systems/overlay-individual-components.json": "b4fbcf92e682c639a11c5e488a378d43a0b43aaa10e0e8b16b2db70dc9a10741",
+      "catalog-work/star-systems/msc-20260619-rigel.json": "0bc6740e8537705363c915a78b203822b46a9a31330f325f6b4a783091e40e97",
+      "catalog-work/star-systems/msc-20260619.Readme": "d0906632b078a3b97b4e7247ad76830e2cc13bae6300ae145d69ce30a8e859b8"
     }
   }
 }

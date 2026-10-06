@@ -110,13 +110,13 @@ test('adds the bright-star catalog as a deduplicated optional overlay', async ({
   const gridBeforeToggle = await page.locator('#scene').getAttribute('data-grid-half-size-pc')
   expect(gridBeforeToggle).not.toBeNull()
   await toggle.check()
-  await expect(page.locator('#catalog-count')).toHaveText(/\/133$/)
+  await expect(page.locator('#catalog-count')).toHaveText(/\/142$/)
   await expect(page.locator('[data-star="bright-canopus"]')).toHaveCount(0)
   expect(await page.locator('.catalog-entry').evaluateAll((entries) => {
     const ids = entries.map((entry) => (entry as HTMLElement).dataset.star)
     return new Set(ids).size === ids.length
   })).toBe(true)
-  expect(Number(await page.locator('.projected-labels').getAttribute('data-core-count'))).toBeLessThan(133)
+  expect(Number(await page.locator('.projected-labels').getAttribute('data-core-count'))).toBeLessThan(142)
   expect(await starPoint(page, 'sun')).toEqual(sunBeforeToggle)
   await expect(page.locator('#scene')).toHaveAttribute('data-grid-half-size-pc', gridBeforeToggle!)
 
@@ -126,7 +126,7 @@ test('adds the bright-star catalog as a deduplicated optional overlay', async ({
   await expect(distance).toHaveAttribute('aria-valuetext', '3000 light-years')
   await expect(page.locator('#grid-spacing')).toHaveText('5 ly grid')
   await expect(page.locator('#scene')).toHaveAttribute('data-grid-half-size-pc', gridBeforeToggle!)
-  await expect(page.locator('.projected-labels')).toHaveAttribute('data-core-count', '133')
+  await expect(page.locator('.projected-labels')).toHaveAttribute('data-core-count', '142')
   await expect(page.locator('[data-star="bright-canopus"]')).toHaveCount(1)
 
   await toggle.uncheck()
@@ -147,9 +147,9 @@ test('adds independent Western constellation and famous-cluster landmark layers'
   await expect(clusters.locator('xpath=ancestor::label/preceding-sibling::label[1]')).toContainText('Western constellation stars')
 
   await western.check()
-  await expect(page.locator('#catalog-count')).toHaveText(/\/711$/)
+  await expect(page.locator('#catalog-count')).toHaveText(/\/730$/)
   await bright.check()
-  await expect(page.locator('#catalog-count')).toHaveText(/\/712$/)
+  await expect(page.locator('#catalog-count')).toHaveText(/\/731$/)
   const distance = page.getByLabel('Object visibility distance', { exact: true })
   await distance.fill('24')
   await expect(page.locator('#object-distance-limit-value')).toHaveText('10000 ly')
@@ -176,9 +176,9 @@ test('adds independent Western constellation and famous-cluster landmark layers'
 
   await page.getByRole('button', { name: 'Filter', exact: true }).click()
   await western.check()
-  await expect(page.locator('#catalog-count')).toHaveText(/\/746$/)
+  await expect(page.locator('#catalog-count')).toHaveText(/\/765$/)
   await bright.check()
-  await expect(page.locator('#catalog-count')).toHaveText(/\/747$/)
+  await expect(page.locator('#catalog-count')).toHaveText(/\/766$/)
 })
 
 test('positions Earth from the orbit slider and remembers its stop', async ({ page }, testInfo) => {

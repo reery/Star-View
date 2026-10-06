@@ -7,6 +7,7 @@ import json
 import math
 from pathlib import Path
 from catalog_sources.enrichment import enrich_from_frozen, enrichment_sources, manifest_sha256
+from catalog_sources.overlay_companions import expand_overlay
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -20,7 +21,7 @@ PRIMARY = ROOT / "catalog-work/bright-stars/primary.csv"
 DEFAULT_CATALOG = ROOT / "src/data/stars.csv"
 OUTPUT = ROOT / "src/data/catalogs/bright-stars"
 HEADERS = [
-    "type", "id", "name", "spectral_type", "x_pc", "y_pc", "z_pc",
+    "type", "id", "name", "designations", "spectral_type", "x_pc", "y_pc", "z_pc",
     "vx_kms", "vy_kms", "vz_kms", "temperature_k", "mass_solar",
     "luminosity_solar", "radius_solar", "metallicity_dex", "age_gyr",
     "absolute_mag", "epoch", "notes", "constellation", "ra_deg", "dec_deg",
@@ -184,10 +185,6 @@ def render():
         if distance_ly > 3000 or float(source["V"]) >= 2.70:
             raise ValueError(f"Bright-star policy violation: {row['name']}")
     rows = [inherited[0], *sorted([*inherited[1:], *authored], key=lambda row: math.hypot(float(row["x_pc"]), float(row["y_pc"]), float(row["z_pc"])))]
-    output = io.StringIO()
-    writer = csv.DictWriter(output, fieldnames=HEADERS, lineterminator="\n")
-    writer.writeheader()
-    writer.writerows(rows)
     coverage_fields = ("temperature_k", "mass_solar", "luminosity_solar", "radius_solar", "metallicity_dex", "age_gyr")
     provenance = {
         "schemaVersion": 1,
@@ -207,6 +204,15 @@ def render():
             }) for row in rows
         },
     }
+    provenance["originalLandmarkIds"] = [row["id"] for row in rows if row["id"] != "sun"]
+    rows, expansion, _ = expand_overlay("bright-stars", rows, provenance["objects"])
+    rows = [rows[0], *sorted(rows[1:], key=lambda row: math.hypot(float(row["x_pc"]), float(row["y_pc"]), float(row["z_pc"])))]
+    provenance["companionExpansion"] = expansion
+    provenance["coverage"] = {field: sum(bool(row.get(field)) for row in rows if row["id"] != "sun") for field in coverage_fields}
+    output = io.StringIO()
+    writer = csv.DictWriter(output, fieldnames=HEADERS, lineterminator="\n")
+    writer.writeheader()
+    writer.writerows({header: row.get(header, "") for header in HEADERS} for row in rows)
     return output.getvalue(), json.dumps(provenance, indent=2, ensure_ascii=True) + "\n"
 
 
@@ -219,8 +225,23 @@ def main():
     if args.write:
         manifest_path = OUTPUT / "catalog.json"
         manifest = json.loads(manifest_path.read_text())
+        expanded_provenance = json.loads(provenance)
+        manifest["objectCount"] = len(expanded_provenance["objects"])
+        manifest["description"] = "Frozen bright stellar landmarks within 3000 light-years with reviewed individual companions, plus the Sun."
+        companion_policy = " Reviewed companions of explicitly matched landmarks are added irrespective of their individual brightness; component-resolved records replace reviewed blended primaries."
+        if companion_policy not in manifest["cutoffPolicy"]:
+            manifest["cutoffPolicy"] += companion_policy
+        manifest["snapshot"] = "J2000.0; frozen bright-star selection 2026-09-25/30, physical enrichment and companion review 2026-10-06; 114 original non-Sun landmarks plus reviewed companions and Sun."
         sources_by_url = {source["url"]: source for source in manifest["sources"]}
-        for source in enrichment_sources():
+        companion_sources = []
+        # Source references used by the frozen expansion plan.
+        definitions = json.loads((ROOT / "src/data/star-systems.json").read_text())
+        cns5_source = definitions["sources"]["cns5-2023"]
+        companion_sources.append({"name": cns5_source["label"], "url": cns5_source["url"]})
+        for system in expanded_provenance["companionExpansion"]["systems"]:
+            source = definitions["sources"][system["sourceRef"]]
+            companion_sources.append({"name": source["label"], "url": source["url"]})
+        for source in [*enrichment_sources(), *companion_sources]:
             sources_by_url.setdefault(source["url"], source)
         manifest["sources"] = list(sources_by_url.values())
         manifest_path.write_text(json.dumps(manifest, indent=2) + "\n")

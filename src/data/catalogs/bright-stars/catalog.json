@@ -2,9 +2,9 @@
   "schemaVersion": 1,
   "id": "bright-stars",
   "label": "Bright stars",
-  "description": "All frozen qualifying bright stellar entries within 3000 light-years, plus the Sun.",
+  "description": "Frozen bright stellar landmarks within 3000 light-years with reviewed individual companions, plus the Sun.",
   "epoch": 2000,
-  "objectCount": 115,
+  "objectCount": 126,
   "sources": [
     {
       "name": "SIMBAD bibliographic parameter and diameter measurements; mesFe_h and mesDiameter ranked rows",
@@ -77,8 +77,40 @@
     {
       "name": "Gaia DR3, exact-ID quality-filtered astrophysical parameters",
       "url": "https://gea.esac.esa.int/archive/"
+    },
+    {
+      "name": "SIMBAD mesFe_h: exact-object published spectroscopic temperatures and photospheric iron abundances, full measurement pool frozen 2026-10-05",
+      "url": "https://simbad.cds.unistra.fr/simbad/sim-tap"
+    },
+    {
+      "name": "Bond et al. 2020, Mu Cas A dynamical mass, preferred physical parameters and uncertain model age",
+      "url": "https://arxiv.org/abs/2010.06609"
+    },
+    {
+      "name": "Kallinger et al. 2019, Rho Persei granulation-scaling mass and published SED luminosity/radius",
+      "url": "https://arxiv.org/html/1902.07531"
+    },
+    {
+      "name": "10pc census, Reyle et al., tablea1 update 2023-08-25",
+      "url": "https://vizier.cds.unistra.fr/viz-bin/VizieR?-source=J%2FA%2BA%2F650%2FA201"
+    },
+    {
+      "name": "Mamajek et al. 2013, The Solar Neighborhood XXX: Fomalhaut C; Fomalhaut system membership",
+      "url": "https://arxiv.org/abs/1310.0764"
+    },
+    {
+      "name": "Torres et al. 2015, resolved giant-pair properties and Capella HL membership",
+      "url": "https://arxiv.org/abs/1505.07461"
+    },
+    {
+      "name": "Tokovinin Multiple Star Catalog, June 19 2026 snapshot; Rigel hierarchy and component labels",
+      "url": "https://www.ctio.noirlab.edu/~atokovin/stars/"
+    },
+    {
+      "name": "Corrected CNS5, 2023-12-13; component identities and labels",
+      "url": "https://cdsarc.cds.unistra.fr/ftp/J/A+A/670/A19/ReadMe"
     }
   ],
-  "cutoffPolicy": "Every frozen SIMBAD stellar entry no farther than 3000 light-years with compiled Johnson V < 2.70. The SIMBAD stellar hierarchy excludes the integrated-light NGC 1980 cluster row. The aggregate Alpha Centauri system row is replaced by its qualifying A and B components. Acrux uses the Bright Star Catalogue combined V=0.76. Sun is included only as the map origin.",
-  "snapshot": "J2000.0; SIMBAD TAP source snapshot 2026-09-25, expanded through V=2.69 on 2026-09-30; exact-Hipparcos physical subsets and targeted ranked atmospheric measurements refreshed 2026-10-01; 114 qualifying bright stars plus Sun."
+  "cutoffPolicy": "Every frozen SIMBAD stellar entry no farther than 3000 light-years with compiled Johnson V < 2.70. The SIMBAD stellar hierarchy excludes the integrated-light NGC 1980 cluster row. The aggregate Alpha Centauri system row is replaced by its qualifying A and B components. Acrux uses the Bright Star Catalogue combined V=0.76. Sun is included only as the map origin. Reviewed companions of explicitly matched landmarks are added irrespective of their individual brightness; component-resolved records replace reviewed blended primaries.",
+  "snapshot": "J2000.0; frozen bright-star selection 2026-09-25/30, physical enrichment and companion review 2026-10-06; 114 original non-Sun landmarks plus reviewed companions and Sun."
 }

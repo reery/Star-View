@@ -197,10 +197,10 @@
     "mass_solar": 26,
     "luminosity_solar": 42,
     "radius_solar": 42,
-    "metallicity_dex": 22,
+    "metallicity_dex": 34,
     "age_gyr": 7
   },
-  "sharedEnrichmentManifestSha256": "7e823401fdbfc9ae6cb2353abca7153ba484217cb200f72fb95ed99c8699a56a",
+  "sharedEnrichmentManifestSha256": "724d1da5b0cc21bd0f4d7e734e546aa09014d32330d1896ebca775bf7b593244",
   "objects": {
     "hip-17489": {
       "group": "Pleiades",
@@ -441,7 +441,8 @@
       "adoptedPhysicalFields": {
         "temperature_k": "published:2012MNRAS.427..343M:HIP-17579",
         "luminosity_solar": "published:2012MNRAS.427..343M:HIP-17579",
-        "radius_solar": "derived:stefan-boltzmann"
+        "radius_solar": "derived:stefan-boltzmann",
+        "metallicity_dex": "shared:2018AJ....155..149B"
       },
       "physicalObservations": [
         {
@@ -467,6 +468,18 @@
           "value": 3.337314598319567,
           "status": "derived",
           "source": "Stefan-Boltzmann scaling"
+        },
+        {
+          "field": "metallicity_dex",
+          "value": 0.0,
+          "status": "measured",
+          "reference": "2018AJ....155..149B",
+          "uncertainty": null,
+          "identity": "* 21 Tau",
+          "sourceRecordId": "* 21 Tau:mesFe_h:1",
+          "quantity": "photospheric [Fe/H]",
+          "selection": "Newest within 0.3 dex / 10 percent of the median; strict majority required for multiple observations",
+          "scope": "catalogued stellar object"
         }
       ]
     },
@@ -494,7 +507,8 @@
       "adoptedPhysicalFields": {
         "temperature_k": "published:2012MNRAS.427..343M:HIP-17573",
         "luminosity_solar": "published:2012MNRAS.427..343M:HIP-17573",
-        "radius_solar": "derived:stefan-boltzmann"
+        "radius_solar": "derived:stefan-boltzmann",
+        "metallicity_dex": "shared:1979ApJS...41..675H"
       },
       "physicalObservations": [
         {
@@ -520,6 +534,18 @@
           "value": 7.630408528087764,
           "status": "derived",
           "source": "Stefan-Boltzmann scaling"
+        },
+        {
+          "field": "metallicity_dex",
+          "value": 1.1,
+          "status": "measured",
+          "reference": "1979ApJS...41..675H",
+          "uncertainty": null,
+          "identity": "* 20 Tau",
+          "sourceRecordId": "* 20 Tau:mesFe_h:6",
+          "quantity": "photospheric [Fe/H]",
+          "selection": "Newest within 0.3 dex / 10 percent of the median; strict majority required for multiple observations",
+          "scope": "catalogued stellar object"
         }
       ]
     },
@@ -782,7 +808,8 @@
         "temperature_k": "targeted:2006A&A...448..351S",
         "mass_solar": "targeted:2014A&A...566A...7N",
         "luminosity_solar": "targeted:2014A&A...566A...7N",
-        "radius_solar": "targeted:2014A&A...566A...7N"
+        "radius_solar": "targeted:2014A&A...566A...7N",
+        "metallicity_dex": "shared:2011A&A...532A...2N"
       },
       "physicalObservations": [
         {
@@ -820,6 +847,18 @@
           "source": "Nieva and Przybilla 2014",
           "sourceId": "2014A&A...566A...7N",
           "note": "dominant hot component"
+        },
+        {
+          "field": "metallicity_dex",
+          "value": -0.01,
+          "status": "measured",
+          "reference": "2011A&A...532A...2N",
+          "uncertainty": null,
+          "identity": "* tet01 Ori A",
+          "sourceRecordId": "* tet01 Ori A:mesFe_h:1",
+          "quantity": "photospheric [Fe/H]",
+          "selection": "Newest within 0.3 dex / 10 percent of the median; strict majority required for multiple observations",
+          "scope": "catalogued stellar object"
         }
       ]
     },
@@ -1046,7 +1085,8 @@
         "temperature_k": "published:1999A&A...352..555A:HIP-20894",
         "mass_solar": "published:1999A&A...352..555A:HIP-20894",
         "radius_solar": "published:1999A&A...352..555A:HIP-20894",
-        "luminosity_solar": "published:2012MNRAS.427..343M:HIP-20894"
+        "luminosity_solar": "published:2012MNRAS.427..343M:HIP-20894",
+        "metallicity_dex": "shared:2016A&A...589A..83G"
       },
       "physicalObservations": [
         {
@@ -1084,6 +1124,18 @@
           "source": "McDonald et al. 2012 SED rescaled to adopted distance",
           "sourceId": "HIP 20894",
           "bibcode": "2012MNRAS.427..343M"
+        },
+        {
+          "field": "metallicity_dex",
+          "value": -0.1,
+          "status": "measured",
+          "reference": "2016A&A...589A..83G",
+          "uncertainty": null,
+          "identity": "* tet02 Tau",
+          "sourceRecordId": "* tet02 Tau:mesFe_h:1",
+          "quantity": "photospheric [Fe/H]",
+          "selection": "Newest within 0.3 dex / 10 percent of the median; strict majority required for multiple observations",
+          "scope": "catalogued stellar object"
         }
       ]
     },
@@ -1243,7 +1295,8 @@
       "adoptedPhysicalFields": {
         "temperature_k": "published:1999A&A...352..555A:HIP-20455",
         "luminosity_solar": "published:2012MNRAS.427..343M:HIP-20455",
-        "radius_solar": "derived:stefan-boltzmann"
+        "radius_solar": "derived:stefan-boltzmann",
+        "metallicity_dex": "shared:2024A&A...692A.189R"
       },
       "physicalObservations": [
         {
@@ -1269,6 +1322,18 @@
           "value": 12.40641916961638,
           "status": "derived",
           "source": "Stefan-Boltzmann scaling"
+        },
+        {
+          "field": "metallicity_dex",
+          "value": 0.11,
+          "status": "measured",
+          "reference": "2024A&A...692A.189R",
+          "uncertainty": null,
+          "identity": "* del Tau",
+          "sourceRecordId": "* del Tau:mesFe_h:1",
+          "quantity": "photospheric [Fe/H]",
+          "selection": "Newest within 0.3 dex / 10 percent of the median; strict majority required for multiple observations",
+          "scope": "SIMBAD object as catalogued; unresolved spectra may be primary-dominated"
         }
       ]
     },
@@ -1296,7 +1361,8 @@
       "adoptedPhysicalFields": {
         "temperature_k": "published:1999A&A...352..555A:HIP-20885",
         "luminosity_solar": "published:2012MNRAS.427..343M:HIP-20885",
-        "radius_solar": "derived:stefan-boltzmann"
+        "radius_solar": "derived:stefan-boltzmann",
+        "metallicity_dex": "shared:2024A&A...692A.189R"
       },
       "physicalObservations": [
         {
@@ -1322,6 +1388,18 @@
           "value": 9.83054193841459,
           "status": "derived",
           "source": "Stefan-Boltzmann scaling"
+        },
+        {
+          "field": "metallicity_dex",
+          "value": 0.14,
+          "status": "measured",
+          "reference": "2024A&A...692A.189R",
+          "uncertainty": null,
+          "identity": "* tet01 Tau",
+          "sourceRecordId": "* tet01 Tau:mesFe_h:1",
+          "quantity": "photospheric [Fe/H]",
+          "selection": "Newest within 0.3 dex / 10 percent of the median; strict majority required for multiple observations",
+          "scope": "SIMBAD object as catalogued; unresolved spectra may be primary-dominated"
         }
       ]
     },
@@ -1350,7 +1428,8 @@
         "temperature_k": "published:1999A&A...352..555A:HIP-20635",
         "mass_solar": "published:1999A&A...352..555A:HIP-20635",
         "radius_solar": "published:1999A&A...352..555A:HIP-20635",
-        "luminosity_solar": "published:2012MNRAS.427..343M:HIP-20635"
+        "luminosity_solar": "published:2012MNRAS.427..343M:HIP-20635",
+        "metallicity_dex": "shared:2016A&A...589A..83G"
       },
       "physicalObservations": [
         {
@@ -1388,6 +1467,18 @@
           "source": "McDonald et al. 2012 SED rescaled to adopted distance",
           "sourceId": "HIP 20635",
           "bibcode": "2012MNRAS.427..343M"
+        },
+        {
+          "field": "metallicity_dex",
+          "value": -0.1,
+          "status": "measured",
+          "reference": "2016A&A...589A..83G",
+          "uncertainty": null,
+          "identity": "* kap01 Tau",
+          "sourceRecordId": "* kap01 Tau:mesFe_h:1",
+          "quantity": "photospheric [Fe/H]",
+          "selection": "Newest within 0.3 dex / 10 percent of the median; strict majority required for multiple observations",
+          "scope": "catalogued stellar object"
         }
       ]
     },
@@ -1416,7 +1507,8 @@
         "temperature_k": "published:1999A&A...352..555A:HIP-21589",
         "mass_solar": "published:1999A&A...352..555A:HIP-21589",
         "radius_solar": "published:1999A&A...352..555A:HIP-21589",
-        "luminosity_solar": "published:2012MNRAS.427..343M:HIP-21589"
+        "luminosity_solar": "published:2012MNRAS.427..343M:HIP-21589",
+        "metallicity_dex": "shared:2024A&A...683A.125P"
       },
       "physicalObservations": [
         {
@@ -1454,6 +1546,18 @@
           "source": "McDonald et al. 2012 SED rescaled to adopted distance",
           "sourceId": "HIP 21589",
           "bibcode": "2012MNRAS.427..343M"
+        },
+        {
+          "field": "metallicity_dex",
+          "value": 0.0,
+          "status": "measured",
+          "reference": "2024A&A...683A.125P",
+          "uncertainty": null,
+          "identity": "* c Tau",
+          "sourceRecordId": "* c Tau:mesFe_h:1",
+          "quantity": "photospheric [Fe/H]",
+          "selection": "Newest within 0.3 dex / 10 percent of the median; strict majority required for multiple observations",
+          "scope": "catalogued stellar object"
         }
       ]
     },
@@ -1482,7 +1586,8 @@
         "temperature_k": "published:1999A&A...352..555A:HIP-20711",
         "mass_solar": "published:1999A&A...352..555A:HIP-20711",
         "radius_solar": "published:1999A&A...352..555A:HIP-20711",
-        "luminosity_solar": "published:2012MNRAS.427..343M:HIP-20711"
+        "luminosity_solar": "published:2012MNRAS.427..343M:HIP-20711",
+        "metallicity_dex": "shared:2016A&A...589A..83G"
       },
       "physicalObservations": [
         {
@@ -1520,6 +1625,18 @@
           "source": "McDonald et al. 2012 SED rescaled to adopted distance",
           "sourceId": "HIP 20711",
           "bibcode": "2012MNRAS.427..343M"
+        },
+        {
+          "field": "metallicity_dex",
+          "value": -0.4,
+          "status": "measured",
+          "reference": "2016A&A...589A..83G",
+          "uncertainty": null,
+          "identity": "* ups Tau",
+          "sourceRecordId": "* ups Tau:mesFe_h:1",
+          "quantity": "photospheric [Fe/H]",
+          "selection": "Newest within 0.3 dex / 10 percent of the median; strict majority required for multiple observations",
+          "scope": "catalogued stellar object"
         }
       ]
     },
@@ -1720,7 +1837,8 @@
         "temperature_k": "published:1999A&A...352..555A:HIP-59847",
         "mass_solar": "published:1999A&A...352..555A:HIP-59847",
         "radius_solar": "published:1999A&A...352..555A:HIP-59847",
-        "luminosity_solar": "derived:stefan-boltzmann"
+        "luminosity_solar": "derived:stefan-boltzmann",
+        "metallicity_dex": "shared:2022A&A...663A...4S"
       },
       "physicalObservations": [
         {
@@ -1755,6 +1873,18 @@
           "value": 62.3404357308073,
           "status": "derived",
           "source": "Stefan-Boltzmann scaling"
+        },
+        {
+          "field": "metallicity_dex",
+          "value": -0.15,
+          "status": "measured",
+          "reference": "2022A&A...663A...4S",
+          "uncertainty": null,
+          "identity": "* 7 Com",
+          "sourceRecordId": "* 7 Com:mesFe_h:2",
+          "quantity": "photospheric [Fe/H]",
+          "selection": "Newest within 0.3 dex / 10 percent of the median; strict majority required for multiple observations",
+          "scope": "catalogued stellar object"
         }
       ]
     },
@@ -1957,7 +2087,8 @@
       "adoptedPhysicalFields": {
         "temperature_k": "published:2012MNRAS.427..343M:HIP-52419",
         "luminosity_solar": "published:2012MNRAS.427..343M:HIP-52419",
-        "radius_solar": "derived:stefan-boltzmann"
+        "radius_solar": "derived:stefan-boltzmann",
+        "metallicity_dex": "shared:2023A&A...676A.129H"
       },
       "physicalObservations": [
         {
@@ -1983,6 +2114,18 @@
           "value": 6.583477777848864,
           "status": "derived",
           "source": "Stefan-Boltzmann scaling"
+        },
+        {
+          "field": "metallicity_dex",
+          "value": -0.12,
+          "status": "measured",
+          "reference": "2023A&A...676A.129H",
+          "uncertainty": null,
+          "identity": "* tet Car",
+          "sourceRecordId": "* tet Car:mesFe_h:1",
+          "quantity": "photospheric [Fe/H]",
+          "selection": "Newest within 0.3 dex / 10 percent of the median; strict majority required for multiple observations",
+          "scope": "SIMBAD object as catalogued; unresolved spectra may be primary-dominated"
         }
       ]
     },
@@ -2215,7 +2358,8 @@
       "adoptedPhysicalFields": {
         "temperature_k": "published:2012MNRAS.427..343M:HIP-52701",
         "luminosity_solar": "published:2012MNRAS.427..343M:HIP-52701",
-        "radius_solar": "derived:stefan-boltzmann"
+        "radius_solar": "derived:stefan-boltzmann",
+        "metallicity_dex": "shared:2021MNRAS.502.3670G"
       },
       "physicalObservations": [
         {
@@ -2241,6 +2385,18 @@
           "value": 4.258327169251324,
           "status": "derived",
           "source": "Stefan-Boltzmann scaling"
+        },
+        {
+          "field": "metallicity_dex",
+          "value": -0.21,
+          "status": "measured",
+          "reference": "2021MNRAS.502.3670G",
+          "uncertainty": null,
+          "identity": "HD 93549",
+          "sourceRecordId": "HD 93549:mesFe_h:1",
+          "quantity": "photospheric [Fe/H]",
+          "selection": "Newest within 0.3 dex / 10 percent of the median; strict majority required for multiple observations",
+          "scope": "SIMBAD object as catalogued; unresolved spectra may be primary-dominated"
         }
       ]
     },

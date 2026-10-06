@@ -1,5 +1,5 @@
 import './style.css'
-import { ArrowLeft, ArrowRight, CircleHelp, Clock, Crosshair, Eye, Filter, Focus, Grid2X2, List, Lock, Minus, Orbit, Pause, Play, Plus, RotateCcw, RotateCw, Save, Settings2, Star as StarIcon, Trash2, X, createElement, type IconNode } from 'lucide'
+import { ArrowLeft, ArrowRight, BookOpen, CircleHelp, Clock, Crosshair, Eye, Filter, Focus, Grid2X2, List, Lock, Minus, Orbit, Pause, Play, Plus, RotateCcw, RotateCw, Save, Search, Settings2, Star as StarIcon, Trash2, X, createElement, type IconNode } from 'lucide'
 import { BUBBLE_OBJECT_TYPES, COMPACT_OBJECT_TYPES, describeObject, isBubbleObject, isCompactObject, isMolecularCloudObject, isNebulaObject, MOLECULAR_CLOUD_OBJECT_TYPES, NEBULA_OBJECT_TYPES, type Star } from './catalog-model'
 import { catalogSelection, mergeCatalogStars } from './catalog-runtime'
 import { objectDesignations } from './designations'
@@ -12,6 +12,8 @@ import { formatDistance, LIGHT_YEARS_PER_PARSEC, starDisplayColor, sunRelativeMe
 import { EARTH_ORBIT_MODES, earthOrbitDateForMode, earthOrbitModeLabel, isEarthOrbitMode, type EarthOrbitMode } from './earth-orbit'
 import { MOTION_YEAR_OPTIONS, SIMULATION_YEAR_LIMIT, createStarViewer, type MotionYears, type StarViewer, type ViewerViewState } from './viewer'
 import { isObjectMapVisible } from './viewer-primitives'
+import { renderSelectedStarPreview } from './selected-star-preview'
+import { indexStarSystems, type StarSystem } from './star-systems'
 import {
   availableFilterKeys, categoryAvailable, DEFAULT_FILTER_CATEGORIES, DEFAULT_FILTER_SUBTYPES, effectiveFilterKeys, FILTER_CATEGORIES,
   filterCategoryForKey, filterSummary, isFilterCategoryId, isFilterKey, type FilterCategoryId, type FilterKey,
@@ -19,6 +21,7 @@ import {
 import { ObjectList } from './object-list'
 import { SelectionHistory } from './selection-history'
 import { objectTypeIntroduction } from './object-type-info'
+import { initializeGlossary } from './glossary'
 
 function element<ElementType extends HTMLElement = HTMLElement>(id: string): ElementType {
   const found = document.getElementById(id)
@@ -78,6 +81,9 @@ icon('observer-roll-clockwise-icon', RotateCw)
 icon('filter-icon', Filter)
 icon('preferences-icon', Settings2)
 icon('objects-icon', List)
+icon('glossary-icon', BookOpen)
+icon('glossary-search-icon', Search)
+icon('glossary-lock-icon', Lock)
 icon('info-icon', CircleHelp)
 icon('info-brand-icon', Orbit)
 icon('filter-lock-icon', Lock)
@@ -86,15 +92,21 @@ icon('objects-lock-icon', Lock)
 icon('motion-icon', Clock)
 icon('motion-lock-icon', Lock)
 icon('object-type-close-icon', X)
+icon('metallicity-close-icon', X)
 icon('time-play-icon', Play)
 icon('time-now-icon', RotateCcw)
 icon('time-follow-icon', Crosshair)
 icon('time-slower-icon', Minus)
 icon('time-faster-icon', Plus)
+icon('object-specs-icon', List)
+icon('object-info-icon', BookOpen)
+icon('object-system-icon', Orbit)
 
 const events = new AbortController()
+initializeGlossary(events.signal)
 let viewer: StarViewer | undefined
 let stars: Star[] = []
+let starSystems: ReadonlyMap<string, StarSystem> = new Map()
 let activeCatalogId = ''
 let selectedId: string | null = 'sirius-a'
 let observerId = 'sirius-a'
@@ -263,12 +275,14 @@ const labelLimitInput = element<HTMLInputElement>('label-limit')
 labelLimitInput.value = String(labelLimit)
 labelLimitInput.setAttribute('aria-valuetext', labelLimit === 0 ? 'Off' : `${labelLimit} labels`)
 text('label-limit-value', labelLimit === 0 ? 'Off' : String(labelLimit))
-const viewButtons = ['reset-view', 'toggle-grid', 'views-toggle'].map((id) => element<HTMLButtonElement>(id))
+const cameraViews = ['top', 'side', 'front'] as const
+const cameraViewButtonIds = ['reset-view', ...cameraViews.map((view) => `${view}-view`)]
+const viewButtons = [...cameraViewButtonIds, 'toggle-grid', 'views-toggle'].map((id) => element<HTMLButtonElement>(id))
 const timelineButtons = ['time-play', 'time-now', 'time-follow'].map((id) => element<HTMLButtonElement>(id))
 const timeSlider = element<HTMLInputElement>('time-slider')
 const selectionHistory = new SelectionHistory(selectedId)
-const panelNames = ['views', 'motion', 'filter', 'preferences', 'objects', 'info'] as const
-const lockablePanelNames = ['motion', 'filter', 'preferences', 'objects'] as const
+const panelNames = ['views', 'motion', 'filter', 'preferences', 'objects', 'glossary', 'info'] as const
+const lockablePanelNames = ['motion', 'filter', 'preferences', 'objects', 'glossary'] as const
 const lockedPanels = new Set<typeof lockablePanelNames[number]>()
 
 function selectedStarAvailable(id: string): boolean {
@@ -305,7 +319,7 @@ function updateObserverControl(): void {
   for (const id of ['observer-roll-counterclockwise', 'observer-roll-reset', 'observer-roll-clockwise']) {
     element<HTMLButtonElement>(id).disabled = sceneBusy || !observerView
   }
-  for (const id of ['reset-view']) {
+  for (const id of cameraViewButtonIds) {
     element<HTMLButtonElement>(id).disabled = sceneBusy || observerView
   }
 }
@@ -350,6 +364,53 @@ function closeObjectTypeCard(restoreFocus = false): void {
   if (restoreFocus) element('object-type-toggle').focus()
 }
 
+function closeMetallicityCard(restoreFocus = false): void {
+  const card = element('metallicity-card')
+  if (card.hidden) return
+  card.hidden = true
+  element('metallicity-toggle').setAttribute('aria-expanded', 'false')
+  if (restoreFocus) element('metallicity-toggle').focus()
+}
+
+function renderMetallicityCard(star: Star): void {
+  const value = star.metallicity_dex
+  // Keep the Sun at the midpoint and expand for values outside the usual range.
+  const limit = Math.max(2, Math.ceil(Math.abs(value ?? 0)))
+  const position = value === null ? 50 : (value + limit) / (2 * limit) * 100
+  text('metallicity-min', `−${limit}`)
+  text('metallicity-max', `+${limit}`)
+  const scale = element('metallicity-scale')
+  scale.style.setProperty('--metallicity-position', `${position}%`)
+  scale.style.setProperty('--metallicity-label-offset', position < 15 ? '0%' : position > 85 ? '-100%' : '-50%')
+  scale.setAttribute('aria-label', `${star.name}: ${quantity(value, 'dex')}. Scale −${limit} to +${limit} dex; Sun at 0.`)
+  element('metallicity-marker').hidden = value === null
+  text('metallicity-marker-value', `${value !== null && value > 0 ? '+' : ''}${quantity(value, 'dex')}`)
+  let description = `No metallicity measurement is available for ${star.name}. Zero dex represents the Sun’s metal-to-hydrogen ratio.`
+  if (value !== null) {
+    const difference = Math.expm1(value * Math.LN10) * 100
+    const percent = Math.abs(difference).toLocaleString('en-US', { maximumFractionDigits: Math.abs(difference) < 1 ? 2 : 0 })
+    description = value === 0
+      ? `${star.name} has the same metal-to-hydrogen ratio as the Sun.`
+      : `${star.name} has ${percent}% ${value > 0 ? 'more' : 'fewer'} metals relative to hydrogen compared to the Sun.`
+  }
+  text('metallicity-description', description)
+  syncObjectTypeLayout()
+}
+
+function toggleMetallicityCard(): void {
+  if (!element('metallicity-card').hidden) {
+    closeMetallicityCard(true)
+    return
+  }
+  const star = stars.find((candidate) => candidate.id === selectedId)
+  if (!star || element('metallicity-toggle').closest<HTMLElement>('.stellar-property')!.hidden) return
+  closeObjectTypeCard()
+  element('metallicity-card').hidden = false
+  element('metallicity-toggle').setAttribute('aria-expanded', 'true')
+  renderMetallicityCard(star)
+  element('metallicity-close').focus({ preventScroll: true })
+}
+
 function renderObjectTypeCard(star: Star): void {
   const introduction = objectTypeIntroduction(star)
   text('object-type-heading', introduction.title)
@@ -375,6 +436,7 @@ function toggleObjectTypeCard(): void {
   }
   const star = stars.find((candidate) => candidate.id === selectedId)
   if (!star) return
+  closeMetallicityCard()
   element('object-type-card').hidden = false
   element('object-type-toggle').setAttribute('aria-expanded', 'true')
   renderObjectTypeCard(star)
@@ -382,14 +444,16 @@ function toggleObjectTypeCard(): void {
 }
 
 function syncObjectTypeLayout(): void {
-  const card = element('object-type-card')
-  card.style.removeProperty('max-height')
   const motion = element('motion-panel')
-  if (card.hidden || motion.hidden) return
-  const bounds = card.getBoundingClientRect()
-  const motionBounds = motion.getBoundingClientRect()
-  if (bounds.left < motionBounds.right && bounds.right > motionBounds.left) {
-    card.style.maxHeight = `${Math.max(120, Math.floor(motionBounds.top - bounds.top - 10))}px`
+  for (const id of ['object-type-card', 'metallicity-card']) {
+    const card = element(id)
+    card.style.removeProperty('max-height')
+    if (card.hidden || motion.hidden) continue
+    const bounds = card.getBoundingClientRect()
+    const motionBounds = motion.getBoundingClientRect()
+    if (bounds.left < motionBounds.right && bounds.right > motionBounds.left) {
+      card.style.maxHeight = `${Math.max(120, Math.floor(motionBounds.top - bounds.top - 10))}px`
+    }
   }
 }
 
@@ -435,6 +499,7 @@ function togglePanel(name: typeof panelNames[number]): void {
 
 function dismissOpenPanel(): void {
   closeObjectTypeCard()
+  closeMetallicityCard()
   let changed = false
   for (const name of panelNames) {
     if (!panelIsOpen(name)) continue
@@ -562,6 +627,77 @@ function renderGridScale(scale: GridScale): void {
   text('grid-spacing', `${scale.spacing.toLocaleString('en-US', { maximumFractionDigits: 1 })} ${distanceUnit} grid`)
 }
 
+const objectSections = ['specs', 'info', 'system'] as const
+let activeObjectSection: typeof objectSections[number] = 'specs'
+
+function syncObjectSections(): void {
+  const details = element<HTMLDetailsElement>('object-card-details')
+  for (const section of objectSections) {
+    const active = section === activeObjectSection
+    element(`object-${section}`).hidden = !active
+    element(`object-${section}-toggle`).setAttribute('aria-expanded', String(details.open && active))
+  }
+  syncSelectedObjectLayout()
+}
+
+for (const section of objectSections) {
+  element(`object-${section}-toggle`).addEventListener('click', (event) => {
+    event.preventDefault()
+    event.stopPropagation()
+    const details = element<HTMLDetailsElement>('object-card-details')
+    const opening = !details.open || activeObjectSection !== section
+    activeObjectSection = section
+    details.open = opening
+    if (section !== 'specs') {
+      closeObjectTypeCard()
+      closeMetallicityCard()
+    }
+    syncObjectSections()
+  }, { signal: events.signal })
+}
+element('object-card-details').addEventListener('toggle', syncObjectSections, { signal: events.signal })
+syncObjectSections()
+
+function renderSystemComponents(system: StarSystem | undefined, selectedComponentId: string): void {
+  const group = element('star-components')
+  group.hidden = !system
+  const preview = element<HTMLCanvasElement>('selected-swatch')
+  preview.title = system ? `${system.components.length} cataloged components · illustrative arrangement` : ''
+  if (!system) {
+    group.replaceChildren()
+    delete group.dataset.system
+    return
+  }
+  group.setAttribute('aria-label', `${system.name} components`)
+  const key = system.components.map(({ label, star }) => `${label}:${star.id}`).join('|')
+  // Retain the buttons while switching components so keyboard focus stays put.
+  if (group.dataset.system !== key) {
+    group.dataset.system = key
+    group.replaceChildren(...system.components.map(({ label, star }) => {
+      const button = document.createElement('button')
+      button.type = 'button'
+      button.className = 'star-component'
+      button.dataset.componentId = star.id
+      button.textContent = label
+      button.title = star.name
+      button.setAttribute('aria-label', `Show ${system.name} ${label}${star.id === 'proxima-centauri' ? ' (Proxima Centauri)' : ''}`)
+      return button
+    }))
+  }
+  for (const button of group.querySelectorAll<HTMLButtonElement>('button')) {
+    button.setAttribute('aria-pressed', String(button.dataset.componentId === selectedComponentId))
+  }
+}
+
+element('star-components').addEventListener('click', (event) => {
+  const button = (event.target as HTMLElement).closest<HTMLButtonElement>('button[data-component-id]')
+  if (!button?.dataset.componentId) return
+  // Component buttons live below the distance inside the expandable header.
+  event.preventDefault()
+  event.stopPropagation()
+  selectStar(button.dataset.componentId)
+}, { signal: events.signal })
+
 function renderSelection(): void {
   const sun = stars.find((star) => star.id === 'sun')!
   const reference = stars.find((star) => star.id === referenceId) ?? sun
@@ -577,6 +713,7 @@ function renderSelection(): void {
   updateObserverControl()
   if (!star) {
     closeObjectTypeCard()
+    closeMetallicityCard()
     delete element('inspector').dataset.selectedStar
     element('inspector').style.removeProperty('--selected-star-color')
     text('selection-announcement', 'No object selected.')
@@ -587,9 +724,11 @@ function renderSelection(): void {
   const color = starDisplayColor(star, starColorMode).getStyle()
   element('inspector').dataset.selectedStar = star.id
   element('inspector').style.setProperty('--selected-star-color', color)
-  text('star-name', star.name)
+  const system = starSystems.get(star.id)
+  text('star-name', system?.name ?? star.name)
   renderSelectedDistance(displayedDistancePc)
-  element('selected-swatch').style.background = color
+  renderSystemComponents(system, star.id)
+  renderSelectedStarPreview(element<HTMLCanvasElement>('selected-swatch'), star, starColorMode, system?.components.map((component) => component.star))
   text('distance-value', formatDistance(metrics.distancePc, distanceUnit).split(' ')[0]!)
   text('distance-unit', ` ${distanceUnit}`)
   text('object-type', describeObject(star))
@@ -620,6 +759,9 @@ function renderSelection(): void {
   text('mass', compact ? preciseMeasurement(star.mass_solar, compact.mass_error_solar, 'solar') : quantity(star.mass_solar, 'solar'))
   text('radius', quantity(star.radius_solar, 'solar'))
   text('metallicity', quantity(star.metallicity_dex, 'dex'))
+  element('metallicity-toggle').setAttribute('aria-label', `Explain metallicity of ${star.name}`)
+  if (compactObject || nebulaObject || molecularCloudObject || bubbleObject) closeMetallicityCard()
+  else if (!element('metallicity-card').hidden) renderMetallicityCard(star)
   text('age', quantity(star.age_gyr, 'Gyr'))
   if (compact) {
     text('compact-status', compact.confidence === 'confirmed' ? 'Confirmed' : 'Candidate')
@@ -812,6 +954,7 @@ async function switchCatalog(id: string, refresh = false): Promise<void> {
   viewer?.dispose()
   viewer = undefined
   stars = nextStars
+  starSystems = indexStarSystems(stars)
   activeCatalogId = id
   selectedDistancePc = null
   selectedId = retained.selectedId
@@ -1009,7 +1152,10 @@ function savedViewDate(isoDate: string): string {
 function setSavedViewsStatus(message: string): void {
   const status = element('saved-views-status')
   status.textContent = message
-  status.title = message
+  const input = element<HTMLInputElement>('save-view-name')
+  input.placeholder = message || 'Name this view'
+  input.title = message
+  input.toggleAttribute('data-status', Boolean(message))
 }
 
 function writeSavedViews(next: SavedView[]): boolean {
@@ -1413,6 +1559,7 @@ element<HTMLFormElement>('save-view-form').addEventListener('submit', (event) =>
   event.preventDefault()
   saveCurrentView()
 }, { signal: events.signal })
+element('save-view-name').addEventListener('input', () => setSavedViewsStatus(''), { signal: events.signal })
 element('saved-views-list').addEventListener('click', (event) => {
   const target = event.target
   if (!(target instanceof Element)) return
@@ -1436,6 +1583,10 @@ element('saved-views-list').addEventListener('keydown', (event) => {
 }, { signal: events.signal })
 document.addEventListener('keydown', (event) => {
   if (event.key !== 'Escape') return
+  if (!element('metallicity-card').hidden) {
+    closeMetallicityCard(true)
+    return
+  }
   if (!element('object-type-card').hidden) {
     closeObjectTypeCard(true)
     return
@@ -1448,10 +1599,18 @@ document.addEventListener('keydown', (event) => {
 }, { signal: events.signal })
 document.querySelector('.object-type-row')!.addEventListener('click', toggleObjectTypeCard, { signal: events.signal })
 element('object-type-close').addEventListener('click', () => closeObjectTypeCard(true), { signal: events.signal })
+document.querySelector('.metallicity-row')!.addEventListener('click', toggleMetallicityCard, { signal: events.signal })
+element('metallicity-close').addEventListener('click', () => closeMetallicityCard(true), { signal: events.signal })
 element('reset-view').addEventListener('click', () => {
   dismissOpenPanel()
   viewer?.reset()
 }, { signal: events.signal })
+for (const view of cameraViews) {
+  element(`${view}-view`).addEventListener('click', () => {
+    dismissOpenPanel()
+    viewer?.setCameraView(view)
+  }, { signal: events.signal })
+}
 element('toggle-grid').addEventListener('click', () => {
   if (!viewer) return
   const button = element('toggle-grid')

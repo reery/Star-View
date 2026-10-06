@@ -1,0 +1,40 @@
+{
+  "schemaVersion": 1,
+  "retrieved": "2026-10-05",
+  "identityPolicy": "Union of exact frozen SIMBAD main IDs and unique HIP aliases; no positional matching",
+  "identityCount": 1791,
+  "hipCount": 1062,
+  "rowCounts": {
+    "spectroscopy": 18812,
+    "fundamental": 433,
+    "sed": 552
+  },
+  "inputChecksumsSha256": {
+    "catalog-work/nearest-1000/simbad.csv": "0d1ab9881afdfbbac62ea7d05d31cb0d8ca4c4235a4b14eb3d0e5b789a932dbd",
+    "catalog-work/bright-stars/simbad.csv": "8d1e328df0d1601b94f9d1cc6e051f6e78ebea3cd65b4ce5a1cfd8dad2f0eede",
+    "catalog-work/western-constellation-stars/simbad.csv": "c45f9d1adb165751c0cf8f77a28efc18dfef5427760de6be0dad20f4aff92ede",
+    "catalog-work/famous-cluster-stars/simbad.csv": "31f7d87d2f684fca025388ed409856ab5fbe0038de62d9a214c77b1f5a3c1c01"
+  },
+  "sources": {
+    "spectroscopy": {
+      "url": "https://simbad.cds.unistra.fr/simbad/sim-tap/sync",
+      "queryFile": "spectroscopy.adql"
+    },
+    "fundamental": {
+      "url": "https://tapvizier.cds.unistra.fr/TAPVizieR/tap/sync",
+      "queryFile": "fundamental.adql"
+    },
+    "sed": {
+      "url": "https://tapvizier.cds.unistra.fr/TAPVizieR/tap/sync",
+      "queryFile": "sed.adql"
+    }
+  },
+  "checksumsSha256": {
+    "spectroscopy.csv": "85da8f4ab1bef2d73d791b9a72a804fe69173ac3ac84772ddda926759a4afc0e",
+    "spectroscopy.adql": "c75754a01ac2ba2c142ab399ed628e25ff9f9d5613429af4633ea4a5cd9b62b8",
+    "fundamental.csv": "87e9d805d41c01526cf5501b8520b2dba4f34ea825b80acddc2de4ff04e988a4",
+    "fundamental.adql": "8127e71c93bc01fbc3ebc6de69bb2399d0d8a7dd38af1de099323e6e384d2048",
+    "sed.csv": "c596ddb8b4dc80f408ffcdb99e9446629c0beda30d11af75ca47aa9316c8bc14",
+    "sed.adql": "c8d90beeb76787ae627db28b6feba3750794a79f11588ce227bd8e95887e25f3"
+  }
+}
