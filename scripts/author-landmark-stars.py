@@ -24,7 +24,7 @@ SYSTEM_TYPES = {"**", "EB*", "SB*", "bC*", "s*b"}
 HEADERS = [
     "type", "id", "name", "designations", "spectral_type", "x_pc", "y_pc", "z_pc",
     "vx_kms", "vy_kms", "vz_kms", "temperature_k", "mass_solar",
-    "luminosity_solar", "radius_solar", "metallicity_dex", "age_gyr",
+    "luminosity_solar", "radius_solar", "metallicity_dex", "metallicity_kind", "age_gyr",
     "absolute_mag", "epoch", "notes", "constellation", "ra_deg", "dec_deg",
     "astrometry_epoch", "parallax_mas", "parallax_error_mas",
     "pm_ra_cosdec_masyr", "pm_ra_error_masyr", "pm_dec_masyr",
@@ -360,6 +360,8 @@ def enrich_physical(row, source):
         for field in PHYSICAL_FIELDS:
             if candidate[field]:
                 row[field] = candidate[field]
+                if field == "metallicity_dex":
+                    row["metallicity_kind"] = candidate["metallicity_kind"]
                 adopted[field] = f"{catalog_id}:{candidate['id']}"
                 observations.append({"field": field, "value": float(candidate[field]), "status": "inherited", "source": catalog_id, "sourceId": candidate["id"]})
     for override in physical_overrides():
@@ -384,6 +386,8 @@ def enrich_physical(row, source):
     for field, value in gaia_values.items():
         if not row[field]:
             row[field] = value
+            if field == "metallicity_dex":
+                row["metallicity_kind"] = "[M/H]"
             adopted[field] = f"gaia-dr3:{gaia_dr3_id(source)}"
             observations.extend(observation for observation in gaia_observations if observation["field"] == field)
     temperature = optional_number(row["temperature_k"])

@@ -574,7 +574,7 @@ test('presents the selected object beside an expandable control dock', async ({ 
   await expect(page.locator('.properties-section')).toBeVisible()
   expect(await page.locator('.properties-section dt:visible').allTextContents()).toEqual([
     'Distance from Sun', 'Object type', 'Constellation', 'Spectral type', 'Temperature',
-    'Bolometric luminosity', 'Mass', 'Radius', 'Metallicity [M/H]', 'Age', 'Absolute mag. (V)',
+    'Bolometric luminosity', 'Mass', 'Radius', 'Metallicity [Fe/H]', 'Age', 'Absolute mag. (V)',
   ])
   await expect(page.locator('#luminosity-row')).toBeVisible()
   await expect(page.locator('#luminosity')).toHaveText('24.74 solar')

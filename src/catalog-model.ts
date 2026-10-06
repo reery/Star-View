@@ -202,6 +202,8 @@ export interface Star {
   mass_solar: number | null
   luminosity_solar: number | null
   radius_solar: number | null
+  // The abundance ratio is mandatory whenever a metallicity value is supplied.
+  metallicity_kind?: '[M/H]' | '[Fe/H]' | null
   metallicity_dex: number | null
   age_gyr: number | null
   absolute_mag: number | null

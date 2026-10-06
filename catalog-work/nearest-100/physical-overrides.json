@@ -44,7 +44,8 @@
           "uncertainty": 0.007,
           "status": "measured",
           "reference": "2018A&A...615A.172M",
-          "qualityFlags": ["differential HARPS spectroscopic [Fe/H]"]
+          "qualityFlags": ["differential HARPS spectroscopic [Fe/H]"],
+          "quantity": "[Fe/H]"
         },
         {
           "field": "age_gyr",
@@ -99,7 +100,8 @@
           "uncertainty": 0.016,
           "status": "measured",
           "reference": "2018A&A...615A.172M",
-          "qualityFlags": ["differential HARPS spectroscopic [Fe/H]"]
+          "qualityFlags": ["differential HARPS spectroscopic [Fe/H]"],
+          "quantity": "[Fe/H]"
         },
         {
           "field": "age_gyr",
@@ -247,7 +249,8 @@
           "uncertainty": 0.03,
           "status": "model-derived",
           "reference": "2017ApJ...840...70B",
-          "qualityFlags": ["bulk [Fe/H] midpoint of -0.13 to -0.07 model range", "not the diffusion-altered photospheric abundance"]
+          "qualityFlags": ["bulk [Fe/H] midpoint of -0.13 to -0.07 model range", "not the diffusion-altered photospheric abundance"],
+          "quantity": "[Fe/H]"
         },
         {
           "field": "age_gyr",
@@ -349,7 +352,8 @@
           "uncertainty": 0.08,
           "status": "measured",
           "reference": "2015ApJ...803...90P",
-          "qualityFlags": ["spectroscopic [Fe/H]"]
+          "qualityFlags": ["spectroscopic [Fe/H]"],
+          "quantity": "[Fe/H]"
         },
         {
           "field": "age_gyr",
@@ -404,7 +408,8 @@
           "reference": "2002ApJ...567..544A",
           "qualityFlags": [
             "differential solar iron abundance; 3D LTE"
-          ]
+          ],
+          "quantity": "[Fe/H]"
         },
         {
           "field": "age_gyr",

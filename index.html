@@ -53,7 +53,7 @@
                             <div id="luminosity-row" class="stellar-property"><dt>Bolometric luminosity</dt><dd id="luminosity"></dd></div>
                             <div id="mass-row"><dt>Mass</dt><dd id="mass"></dd></div>
                             <div class="stellar-property"><dt>Radius</dt><dd id="radius"></dd></div>
-                            <div class="stellar-property metallicity-row"><dt>Metallicity [M/H]</dt><dd><button id="metallicity-toggle" class="object-type-toggle" type="button" aria-controls="metallicity-card" aria-expanded="false"><span id="metallicity"></span></button></dd></div>
+                            <div class="stellar-property metallicity-row"><dt id="metallicity-label">Metallicity</dt><dd><button id="metallicity-toggle" class="object-type-toggle" type="button" aria-controls="metallicity-card" aria-expanded="false"><span id="metallicity"></span></button></dd></div>
                             <div class="stellar-property"><dt>Age</dt><dd id="age"></dd></div>
                             <div class="stellar-property"><dt>Absolute mag. (V)</dt><dd id="absolute-mag"></dd></div>
                             <div class="compact-property" hidden><dt>Status</dt><dd id="compact-status"></dd></div>
@@ -130,16 +130,16 @@
             </section>
             <section id="metallicity-card" class="dock-card object-type-card metallicity-card" aria-labelledby="metallicity-heading" data-scene-obstacle hidden>
               <div class="panel-heading">
-                <h2 id="metallicity-heading">Metallicity [M/H]</h2>
+                <h2 id="metallicity-heading">Metallicity</h2>
                 <button id="metallicity-close" class="panel-lock" type="button" aria-label="Close metallicity card"><span id="metallicity-close-icon"></span></button>
               </div>
               <div class="metallicity-body">
                 <div id="metallicity-scale" class="metallicity-scale" role="img">
                   <div class="metallicity-track" aria-hidden="true">
-                    <span class="metallicity-sun-tick"></span>
+                    <span id="metallicity-ticks"></span>
                     <span id="metallicity-marker" class="metallicity-marker"><span id="metallicity-marker-value" class="metallicity-marker-value"></span></span>
+                    <span class="metallicity-sun-name">Sun</span>
                   </div>
-                  <div class="metallicity-scale-labels" aria-hidden="true"><span id="metallicity-min">−2</span><span class="metallicity-sun">0<span>Sun</span></span><span id="metallicity-max">+2</span></div>
                 </div>
                 <p id="metallicity-description"></p>
               </div>
@@ -150,7 +150,7 @@
                 <div class="camera-view-options">
                   <button id="top-view" class="icon-button camera-view-button" type="button" aria-label="Top view" aria-controls="scene" disabled>Top</button>
                   <button id="side-view" class="icon-button camera-view-button" type="button" aria-label="Side view" aria-controls="scene" disabled>Side</button>
-                  <button id="front-view" class="icon-button camera-view-button" type="button" aria-label="Front view" aria-controls="scene" disabled>Front</button>
+                  <button id="front-view" class="icon-button camera-view-button" type="button" aria-label="Back view" aria-controls="scene" disabled>Back</button>
                 </div>
               </div>
               <button id="toggle-grid" class="icon-button" type="button" aria-label="Grid" aria-pressed="true" aria-controls="scene" disabled><span id="grid-icon"></span><span id="grid-tooltip" class="tooltip">Hide grid</span></button>

@@ -14,6 +14,7 @@ from pathlib import Path
 from statistics import median
 
 from .adapters import eligible_gaia_physical, read_gaia_tap
+from .metallicity import metallicity_kind
 from .snapshots import sha256, verify_sha256
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -188,6 +189,8 @@ def enrich_from_frozen(row, main_id=None, aliases=(), derive=True):
         if row.get(field) or value is None or (field != "metallicity_dex" and value <= 0):
             return
         row[field] = str(round(value)) if field == "temperature_k" else format(value, ".10g")
+        if field == "metallicity_dex":
+            row["metallicity_kind"] = metallicity_kind(detail.get("quantity"))
         adopted[field] = {"field": field, "value": float(row[field]), "status": status,
                           "reference": reference, "uncertainty": uncertainty, "identity": key, **detail}
 
@@ -217,7 +220,7 @@ def enrich_from_frozen(row, main_id=None, aliases=(), derive=True):
         # Previously reviewed measurement choices retain priority over an
         # automatic recent/consensus selection from the larger literature pool.
         adopt("temperature_k", measurement.get("teff"), measurement.get("bibcode", "SIMBAD mesFe_h"), "measured")
-        adopt("metallicity_dex", measurement.get("fe_h"), measurement.get("bibcode", "SIMBAD mesFe_h"), "measured")
+        adopt("metallicity_dex", measurement.get("fe_h"), measurement.get("bibcode", "SIMBAD mesFe_h"), "measured", quantity="photospheric [Fe/H]")
         for column, field in (("teff", "temperature_k"), ("fe_h", "metallicity_dex")):
             if row.get(field):
                 continue
@@ -257,7 +260,8 @@ def enrich_from_frozen(row, main_id=None, aliases=(), derive=True):
             record = gaia.get(next(iter(gaia_ids)))
             for field, observation in eligible_gaia_physical(record).items():
                 adopt(field, observation.value, observation.reference, observation.status, observation.uncertainty,
-                      sourceRecordId=observation.source_record_id, qualityFlags=list(observation.quality_flags))
+                      sourceRecordId=observation.source_record_id, qualityFlags=list(observation.quality_flags),
+                      quantity="[M/H]" if field == "metallicity_dex" else None)
     if adopted:
         details = "; ".join(f"{field}: {item['reference']}" for field, item in adopted.items())
         row["notes"] += f" Shared exact-identity physical supplements ({details})."

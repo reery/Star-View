@@ -19,6 +19,8 @@ from astropy.utils import iers
 
 from catalog_sources.adapters import eligible_gaia_physical, read_cns5, read_gaia_tap, read_simbad_tap
 from catalog_sources.enrichment import enrich_from_frozen, enrichment_sources, manifest_sha256
+from catalog_sources.metallicity import metallicity_kind
+from catalog_sources.component_enrichment import enrich_component, component_sources, component_plan_sha256
 from catalog_sources.filesystem import write_managed_files
 from catalog_sources.mdwarf import SUPPLEMENT_FIELDS, load_supplements, resolve_supplemented_fields, row_context, supplement_observations
 from catalog_sources.models import AstrometryObservation
@@ -39,7 +41,7 @@ NAME_CORRECTIONS = {"Bo\u00f6tes": "Bootes", "Chamaleon": "Chamaeleon", "Ophiucu
 BASE_HEADERS = [
     "type", "id", "name", "designations", "spectral_type", "x_pc", "y_pc", "z_pc",
     "vx_kms", "vy_kms", "vz_kms", "temperature_k", "mass_solar",
-    "luminosity_solar", "radius_solar", "metallicity_dex", "age_gyr",
+    "luminosity_solar", "radius_solar", "metallicity_dex", "metallicity_kind", "age_gyr",
     "absolute_mag", "epoch", "notes", "constellation",
 ]
 
@@ -68,6 +70,7 @@ SOURCES = [
     {"name": "Mann et al. 2015, absolute-Ks radius relation (2015ApJ...804...64M); ranks below Cifuentes, above Gaia DR3 radii", "url": "https://ui.adsabs.harvard.edu/abs/2015ApJ...804...64M/abstract"},
     {"name": "2MASS All-Sky Point Source Catalog Ks photometry (VizieR II/246)", "url": "https://cdsarc.cds.unistra.fr/viz-bin/cat/II/246"},
     {"name": "Maldonado et al. 2010 radial velocity for Tabit (HIP 22449)", "url": "https://doi.org/10.1051/0004-6361/201014948"},
+    {"name": "Chubak et al. 2012 preprint, Table 3 resolved HD 4614 (Achird A) radial velocity", "url": "https://arxiv.org/abs/1207.6212"},
     {"name": "Mamajek et al. 2013, Fomalhaut C individual-component membership review", "url": "https://arxiv.org/abs/1310.0764"},
     {"name": "Reyle et al. 2023 10pc census; individually reviewed missing companion records", "url": "https://cdsarc.cds.unistra.fr/ftp/J/A+A/650/A201/ReadMe"},
     {"name": "Burgasser et al. 2000, resolved GJ 570 ABC and brown-dwarf D membership", "url": "https://arxiv.org/abs/astro-ph/0001194"},
@@ -166,8 +169,13 @@ def display_name(simbad):
 
 @cache
 def radial_velocity_overrides():
-    with (LANDMARK_SOURCES / "radial-velocity-overrides.csv").open(newline="") as handle:
-        rows = list(csv.DictReader(handle))
+    rows = []
+    for directory in (LANDMARK_SOURCES, FROZEN):
+        manifest = json.loads((directory / "source-manifest.json").read_text())
+        path = directory / "radial-velocity-overrides.csv"
+        verify_sha256(path, manifest["checksumsSha256"][path.name])
+        with path.open(newline="") as handle:
+            rows.extend(csv.DictReader(handle))
     if len({row["main_id"] for row in rows}) != len(rows):
         raise ValueError("Reviewed radial-velocity override identities must be unique")
     return {row["main_id"]: row for row in rows}
@@ -177,6 +185,8 @@ def reviewed_radial_velocity(simbad, astrometry):
     override = radial_velocity_overrides().get((simbad.raw or {}).get("main_id"))
     if override is None:
         return None
+    if simbad.identity.gaia_dr3_id != override["gaia_dr3_id"]:
+        raise ValueError(f"Reviewed radial-velocity Gaia identity drifted: {override['main_id']}")
     return AstrometryObservation(
         source_id="reviewed-literature-rv",
         source_record_id=f"HIP {override['hip_id']}",
@@ -187,7 +197,7 @@ def reviewed_radial_velocity(simbad, astrometry):
         pm_ra_cosdec_masyr=astrometry.pm_ra_cosdec_masyr,
         pm_dec_masyr=astrometry.pm_dec_masyr,
         radial_velocity_kms=float(override["radial_velocity_kms"]),
-        radial_velocity_error_kms=float(override["radial_velocity_error_kms"]),
+        radial_velocity_error_kms=float(override["radial_velocity_error_kms"]) if override["radial_velocity_error_kms"] else None,
         radial_velocity_ref=override["reference"],
         quality_flags=(override["source"], override["note"]),
     )
@@ -232,6 +242,8 @@ def normalize(record, simbad, gaia, supplements):
         "gaia-dr3-fallback": "Full source space motion using exact-ID Gaia DR3 radial velocity fallback.",
         "reviewed-literature-override": "Full source space motion using a reviewed literature radial velocity override.",
     }.get(radial_velocity_status, "Transverse-only source motion; radial velocity unavailable or withheld.")
+    if radial_velocity_status == "reviewed-literature-override":
+        motion_note += " " + radial_velocity.quality_flags[-1]
     original = SkyCoord(
         ra=astrometry.ra_deg * units.deg,
         dec=astrometry.dec_deg * units.deg,
@@ -294,6 +306,7 @@ def normalize(record, simbad, gaia, supplements):
             row["radius_solar"] = str(by_field["radius_solar"].value)
         if "metallicity_dex" in by_field:
             row["metallicity_dex"] = str(by_field["metallicity_dex"].value)
+            row["metallicity_kind"] = "[M/H]"
         if "age_gyr" in by_field:
             row["age_gyr"] = str(by_field["age_gyr"].value)
         physical = [item.to_dict() for item in by_field.values()]
@@ -351,6 +364,8 @@ def apply_component_physical(row, observations):
             if item.get("uncertainty") is not None:
                 item["uncertainty"] *= factor
             row[field] = str(round(item["value"])) if field == "temperature_k" else f"{item['value']:.12g}"
+        if field == "metallicity_dex":
+            row["metallicity_kind"] = metallicity_kind(item.get("quantity")) if item["value"] is not None else ""
         physical.append({"field": field, "sourceId": "reviewed-individual-component", **item})
     return physical
 
@@ -388,6 +403,7 @@ def additional_component_candidates(review, candidates):
         row = dict(parent[2])
         row.update({"id": item["starId"], "name": item["name"], "type": item["type"], "spectral_type": item.get("spectralType", "")})
         row["designations"] = ""
+        row["metallicity_kind"] = ""
         for field in ("vx_kms", "vy_kms", "vz_kms", "radial_velocity_kms", "radial_velocity_error_kms", "radial_velocity_ref", "temperature_k", "mass_solar", "luminosity_solar", "radius_solar", "metallicity_dex", "age_gyr", "absolute_mag"):
             row[field] = ""
         row["astrometry_ref"] = f"Shared system snapshot from {item['parentId']}: " + row["astrometry_ref"]
@@ -483,6 +499,8 @@ def build_package():
         candidates.append((distance, row["id"], row, provenance))
     extra_candidates = additional_component_candidates(companion_review, candidates)
     candidates.extend(extra_candidates)
+    for _, _, row, provenance in candidates:
+        enrich_component(row, provenance)
     ranked = sorted(candidates, key=lambda item: (item[0], item[1]))
     # Reviewed companions are additive: preserve the original nearest-1000
     # baseline instead of displacing its boundary object with each addition.
@@ -527,7 +545,7 @@ def build_package():
         "description": "Nearest-1000 baseline of individual stellar/substellar objects from corrected CNS5 with exact SIMBAD/Gaia enrichment and curated nearest-100 overrides, plus reviewed individual companions and Sun.",
         "epoch": 2000,
         "objectCount": len(rows),
-        "sources": SOURCES + enrichment_sources(),
+        "sources": SOURCES + enrichment_sources() + component_sources(),
         "cutoffPolicy": f"Exclude SIMBAD multiple-star records (**) unless explicitly reviewed as individual components, and tentative brown-dwarf candidates (BD?); replace mapped CNS5 records with curated nearest-100 components; rank nominal adopted J2000 distance then stable ID. Keep the nearest-1000 baseline plus {len(reviewed_ids)} reviewed individual companion additions without removing baseline members. Baseline rank 1000 is {cutoff[2]['name']} ({cutoff[1]}) at {cutoff[0]:.12f} pc; next baseline candidate is {next_candidate[2]['name']} at {next_candidate[0]:.12f} pc. Linearized parallax intervals {'overlap' if uncertainty_overlap else 'do not overlap'}; nominal baseline ranking is retained.",
         "snapshot": f"J2000.0; CNS5 corrected 2023-12-13; SIMBAD and Gaia DR3 TAP frozen {manifest_input['retrieved']}; source-defined snapshot, not a 2026 completeness claim.",
     }
@@ -538,15 +556,17 @@ def build_package():
         "sourceManifestSha256": sha256(FROZEN / "source-manifest.json"),
         "individualComponentReviewSha256": sha256(INDIVIDUAL_OVERRIDES),
         "reviewedCompanionsSha256": sha256(REVIEWED_COMPANIONS),
+        "reviewedComponentPropertiesSha256": component_plan_sha256(),
         "reviewedCompanionVicinityPc": companion_review["maximumDistancePc"],
         "reviewedAdditionIds": sorted(reviewed_ids),
         "supplementManifestSha256": supplements.manifest_sha256,
         "sharedEnrichmentManifestSha256": manifest_sha256(),
-        "sources": SOURCES + enrichment_sources(),
+        "sources": SOURCES + enrichment_sources() + component_sources(),
         "radialVelocityPolicy": {
             "precedence": ["nearest-100 curated override", "reviewed literature override", "CNS5 spectroscopic radial velocity", "Gaia DR3 exact-ID radial velocity fallback"],
             "whiteDwarfs": "Withhold new spectroscopic radial velocities because gravitational redshift may contaminate space motion.",
             "review": "Gaia DR3 fallback measurements are source-backed and retain uncertainty and quality flags, but are not individually reviewed for systemic binary motion.",
+            "resolvedComponents": "After aggregate splitting, reviewed systemic RVs can fill withheld motion as an explicitly documented bulk-motion approximation; no individual orbital velocities are supplied.",
         },
         "coverage": {field: sum(bool(row.get(field)) for row in rows if row["id"] != "sun") for field in ("constellation", "spectral_type", "temperature_k", "mass_solar", "luminosity_solar", "radius_solar", "metallicity_dex", "age_gyr", "absolute_mag", "radial_velocity_kms")},
         "cutoff": {"rank": ranked.index(cutoff) + 1, "baselineRank": 1000, "id": cutoff[1], "name": cutoff[2]["name"], "distancePc": cutoff[0], "distanceSigmaPcLinearized": cutoff_sigma, "nextId": next_candidate[1], "nextDistancePc": next_candidate[0], "nextDistanceSigmaPcLinearized": next_sigma, "oneSigmaIntervalsOverlap": uncertainty_overlap},

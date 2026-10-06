@@ -6,9 +6,9 @@
   "inputSha256": "ab8a3ab6e0b0edb1372f7c58cdf4f121fe1d5d204a9a0541e6d302a5ac18c84a",
   "supplementManifestSha256": "92cb2daae1b7319401890f4e1de7f904d1d1b0375b3ac2dc93c8c41c5ecd0073",
   "gaiaSourceManifestSha256": "2be61990729716fc4005ca5e0998ea2a67939060e8161391898fd32d20fff974",
-  "physicalOverridesSha256": "59aeae9b903d977b550843799a09888a24cbb0f7ead137baf4d51765ea7738c9",
+  "physicalOverridesSha256": "665776a81875ac448b82a48c5d7d9d70af5dc54a1f3851843da75abdc0b3b10d",
   "physicalPolicyRevision": "nearest100-reviewed-gaia-shared-v2",
-  "sharedEnrichmentManifestSha256": "724d1da5b0cc21bd0f4d7e734e546aa09014d32330d1896ebca775bf7b593244",
+  "sharedEnrichmentManifestSha256": "da2dd89f7976ccbf65eac832643f63404e2c9881e67d7fefab276ac5ba479e52",
   "sources": [
     {
       "name": "10pc census, Reyle et al., tablea1 update 2023-08-25",
@@ -4911,6 +4911,12 @@
           "status": "unknown",
           "sourceRefs": []
         },
+        "metallicity_kind": {
+          "status": "adopted",
+          "sourceRefs": [
+            "legacy-neighbors:sun"
+          ]
+        },
         "absolute_mag": {
           "status": "adopted",
           "sourceRefs": [
@@ -5255,6 +5261,10 @@
           "detail": "Gaia DR3 exact-ID model value; uncertainty 0.0020000000000000018; quality flags none"
         },
         "age_gyr": {
+          "status": "unknown",
+          "sourceRefs": []
+        },
+        "metallicity_kind": {
           "status": "unknown",
           "sourceRefs": []
         }
@@ -5614,6 +5624,10 @@
             "2018ApJ...864...99J:alpha-centauri-b"
           ],
           "detail": "primary-paper; uncertainty 0.3; shared binary age, classical plus asteroseismic stellar models"
+        },
+        "metallicity_kind": {
+          "status": "unknown",
+          "sourceRefs": []
         }
       },
       "overrides": [
@@ -5627,7 +5641,7 @@
         "eligibility": "Not a parsed K5-M9.5 dwarf spectral type (no subdwarf, giant, composite or peculiar class); supplements not applied."
       },
       "reviewedPhysical": {
-        "inputSha256": "59aeae9b903d977b550843799a09888a24cbb0f7ead137baf4d51765ea7738c9",
+        "inputSha256": "665776a81875ac448b82a48c5d7d9d70af5dc54a1f3851843da75abdc0b3b10d",
         "observations": [
           {
             "source_id": "primary-paper",
@@ -5976,6 +5990,10 @@
             "2018ApJ...864...99J:alpha-centauri-a"
           ],
           "detail": "primary-paper; uncertainty 0.3; shared binary age, classical plus asteroseismic stellar models"
+        },
+        "metallicity_kind": {
+          "status": "unknown",
+          "sourceRefs": []
         }
       },
       "overrides": [
@@ -5989,7 +6007,7 @@
         "eligibility": "Not a parsed K5-M9.5 dwarf spectral type (no subdwarf, giant, composite or peculiar class); supplements not applied."
       },
       "reviewedPhysical": {
-        "inputSha256": "59aeae9b903d977b550843799a09888a24cbb0f7ead137baf4d51765ea7738c9",
+        "inputSha256": "665776a81875ac448b82a48c5d7d9d70af5dc54a1f3851843da75abdc0b3b10d",
         "observations": [
           {
             "source_id": "primary-paper",
@@ -6315,6 +6333,10 @@
           "detail": "Gaia DR3 exact-ID model value; uncertainty 0.04069999999999996; quality flags none"
         },
         "age_gyr": {
+          "status": "unknown",
+          "sourceRefs": []
+        },
+        "metallicity_kind": {
           "status": "unknown",
           "sourceRefs": []
         }
@@ -6662,6 +6684,10 @@
             "2024AN....34530158B:luhman-16-a"
           ],
           "detail": "primary-paper; uncertainty 0.095; assuming Oceanus moving-group membership, evolutionary-model component ages remain discrepant"
+        },
+        "metallicity_kind": {
+          "status": "unknown",
+          "sourceRefs": []
         }
       },
       "overrides": [
@@ -6687,7 +6713,7 @@
         }
       },
       "reviewedPhysical": {
-        "inputSha256": "59aeae9b903d977b550843799a09888a24cbb0f7ead137baf4d51765ea7738c9",
+        "inputSha256": "665776a81875ac448b82a48c5d7d9d70af5dc54a1f3851843da75abdc0b3b10d",
         "observations": [
           {
             "source_id": "primary-paper",
@@ -6993,6 +7019,10 @@
             "2024AN....34530158B:luhman-16-b"
           ],
           "detail": "primary-paper; uncertainty 0.095; assuming Oceanus moving-group membership, evolutionary-model component ages remain discrepant"
+        },
+        "metallicity_kind": {
+          "status": "unknown",
+          "sourceRefs": []
         }
       },
       "overrides": [
@@ -7018,7 +7048,7 @@
         }
       },
       "reviewedPhysical": {
-        "inputSha256": "59aeae9b903d977b550843799a09888a24cbb0f7ead137baf4d51765ea7738c9",
+        "inputSha256": "665776a81875ac448b82a48c5d7d9d70af5dc54a1f3851843da75abdc0b3b10d",
         "observations": [
           {
             "source_id": "primary-paper",
@@ -7319,6 +7349,10 @@
         "age_gyr": {
           "status": "unknown",
           "sourceRefs": []
+        },
+        "metallicity_kind": {
+          "status": "unknown",
+          "sourceRefs": []
         }
       },
       "overrides": [
@@ -7345,7 +7379,7 @@
         }
       },
       "reviewedPhysical": {
-        "inputSha256": "59aeae9b903d977b550843799a09888a24cbb0f7ead137baf4d51765ea7738c9",
+        "inputSha256": "665776a81875ac448b82a48c5d7d9d70af5dc54a1f3851843da75abdc0b3b10d",
         "observations": [
           {
             "source_id": "primary-paper",
@@ -7606,6 +7640,10 @@
           "detail": "{\"field\": \"metallicity_dex\", \"identity\": \"Wolf 359\", \"quantity\": \"photospheric [Fe/H]\", \"reference\": \"2024A&A...691A..53S\", \"scope\": \"catalogued stellar object\", \"selection\": \"Newest within 0.3 dex / 10 percent of the median; strict majority required for multiple observations\", \"sourceRecordId\": \"Wolf 359:mesFe_h:1\", \"status\": \"measured\", \"uncertainty\": null, \"value\": 0.18}"
         },
         "age_gyr": {
+          "status": "unknown",
+          "sourceRefs": []
+        },
+        "metallicity_kind": {
           "status": "unknown",
           "sourceRefs": []
         }
@@ -7903,6 +7941,10 @@
           "detail": "Gaia DR3 exact-ID model value; uncertainty 0.003999999999999976; quality flags none"
         },
         "age_gyr": {
+          "status": "unknown",
+          "sourceRefs": []
+        },
+        "metallicity_kind": {
           "status": "unknown",
           "sourceRefs": []
         }
@@ -8245,6 +8287,10 @@
             "2017ApJ...840...70B:sirius-a"
           ],
           "detail": "primary-paper; uncertainty 0.015; midpoint of independent 237-247 Myr model results"
+        },
+        "metallicity_kind": {
+          "status": "unknown",
+          "sourceRefs": []
         }
       },
       "overrides": [
@@ -8260,7 +8306,7 @@
         "eligibility": "Not a parsed K5-M9.5 dwarf spectral type (no subdwarf, giant, composite or peculiar class); supplements not applied."
       },
       "reviewedPhysical": {
-        "inputSha256": "59aeae9b903d977b550843799a09888a24cbb0f7ead137baf4d51765ea7738c9",
+        "inputSha256": "665776a81875ac448b82a48c5d7d9d70af5dc54a1f3851843da75abdc0b3b10d",
         "observations": [
           {
             "source_id": "primary-paper",
@@ -8590,6 +8636,10 @@
             "2017ApJ...840...70B:sirius-b"
           ],
           "detail": "primary-paper; uncertainty 0.01; total age including progenitor lifetime, not the 126 Myr cooling age"
+        },
+        "metallicity_kind": {
+          "status": "unknown",
+          "sourceRefs": []
         }
       },
       "overrides": [
@@ -8605,7 +8655,7 @@
         "eligibility": "Not a parsed K5-M9.5 dwarf spectral type (no subdwarf, giant, composite or peculiar class); supplements not applied."
       },
       "reviewedPhysical": {
-        "inputSha256": "59aeae9b903d977b550843799a09888a24cbb0f7ead137baf4d51765ea7738c9",
+        "inputSha256": "665776a81875ac448b82a48c5d7d9d70af5dc54a1f3851843da75abdc0b3b10d",
         "observations": [
           {
             "source_id": "primary-paper",
@@ -8913,6 +8963,10 @@
         "age_gyr": {
           "status": "unknown",
           "sourceRefs": []
+        },
+        "metallicity_kind": {
+          "status": "unknown",
+          "sourceRefs": []
         }
       },
       "overrides": [
@@ -9181,6 +9235,10 @@
           "detail": "{\"field\": \"metallicity_dex\", \"identity\": \"G 272-61B\", \"quantity\": \"photospheric [Fe/H]\", \"reference\": \"2023ApJS..266...41P\", \"scope\": \"catalogued stellar object\", \"selection\": \"Newest within 0.3 dex / 10 percent of the median; strict majority required for multiple observations\", \"sourceRecordId\": \"G 272-61B:mesFe_h:2\", \"status\": \"measured\", \"uncertainty\": null, \"value\": -0.42}"
         },
         "age_gyr": {
+          "status": "unknown",
+          "sourceRefs": []
+        },
+        "metallicity_kind": {
           "status": "unknown",
           "sourceRefs": []
         }
@@ -9461,6 +9519,10 @@
           "detail": "Gaia DR3 exact-ID model value; uncertainty 0.14889999999999992; quality flags none"
         },
         "age_gyr": {
+          "status": "unknown",
+          "sourceRefs": []
+        },
+        "metallicity_kind": {
           "status": "unknown",
           "sourceRefs": []
         }
@@ -9806,6 +9868,10 @@
         "age_gyr": {
           "status": "unknown",
           "sourceRefs": []
+        },
+        "metallicity_kind": {
+          "status": "unknown",
+          "sourceRefs": []
         }
       },
       "overrides": [
@@ -10107,6 +10173,10 @@
             "Gaia DR3 astrophysical_parameters:5164707970261890560"
           ],
           "detail": "Gaia DR3 exact-ID model value; uncertainty 2.121716; quality flags 00"
+        },
+        "metallicity_kind": {
+          "status": "unknown",
+          "sourceRefs": []
         }
       },
       "overrides": [
@@ -10449,6 +10519,10 @@
         "age_gyr": {
           "status": "unknown",
           "sourceRefs": []
+        },
+        "metallicity_kind": {
+          "status": "unknown",
+          "sourceRefs": []
         }
       },
       "overrides": [
@@ -10772,6 +10846,10 @@
           "detail": "Gaia DR3 exact-ID model value; uncertainty 0.0013999999999999846; quality flags none"
         },
         "age_gyr": {
+          "status": "unknown",
+          "sourceRefs": []
+        },
+        "metallicity_kind": {
           "status": "unknown",
           "sourceRefs": []
         }
@@ -11110,6 +11188,10 @@
         "age_gyr": {
           "status": "unknown",
           "sourceRefs": []
+        },
+        "metallicity_kind": {
+          "status": "unknown",
+          "sourceRefs": []
         }
       },
       "overrides": [
@@ -11367,6 +11449,10 @@
         "age_gyr": {
           "status": "unknown",
           "sourceRefs": []
+        },
+        "metallicity_kind": {
+          "status": "unknown",
+          "sourceRefs": []
         }
       },
       "overrides": [
@@ -11613,6 +11699,10 @@
           "sourceRefs": []
         },
         "age_gyr": {
+          "status": "unknown",
+          "sourceRefs": []
+        },
+        "metallicity_kind": {
           "status": "unknown",
           "sourceRefs": []
         }
@@ -11876,6 +11966,10 @@
           "detail": "Gaia DR3 exact-ID model value; uncertainty 0.06620000000000004; quality flags none"
         },
         "age_gyr": {
+          "status": "unknown",
+          "sourceRefs": []
+        },
+        "metallicity_kind": {
           "status": "unknown",
           "sourceRefs": []
         }
@@ -12210,6 +12304,10 @@
           "detail": "Gaia DR3 exact-ID model value; uncertainty 0.0766; quality flags none"
         },
         "age_gyr": {
+          "status": "unknown",
+          "sourceRefs": []
+        },
+        "metallicity_kind": {
           "status": "unknown",
           "sourceRefs": []
         }
@@ -12559,6 +12657,10 @@
             "2015ApJ...813..106B:10pc-0032"
           ],
           "detail": "primary-paper; uncertainty None; total binary age; not 1.37 Gyr white dwarf cooling time"
+        },
+        "metallicity_kind": {
+          "status": "unknown",
+          "sourceRefs": []
         }
       },
       "overrides": [],
@@ -12581,7 +12683,7 @@
         }
       },
       "reviewedPhysical": {
-        "inputSha256": "59aeae9b903d977b550843799a09888a24cbb0f7ead137baf4d51765ea7738c9",
+        "inputSha256": "665776a81875ac448b82a48c5d7d9d70af5dc54a1f3851843da75abdc0b3b10d",
         "observations": [
           {
             "source_id": "primary-paper",
@@ -12895,6 +12997,10 @@
             "2015ApJ...813..106B:10pc-0031"
           ],
           "detail": "primary-paper; uncertainty None; preferred high core overshoot model; not a precise measured age"
+        },
+        "metallicity_kind": {
+          "status": "unknown",
+          "sourceRefs": []
         }
       },
       "overrides": [],
@@ -12920,7 +13026,7 @@
         }
       },
       "reviewedPhysical": {
-        "inputSha256": "59aeae9b903d977b550843799a09888a24cbb0f7ead137baf4d51765ea7738c9",
+        "inputSha256": "665776a81875ac448b82a48c5d7d9d70af5dc54a1f3851843da75abdc0b3b10d",
         "observations": [
           {
             "source_id": "primary-paper",
@@ -13240,6 +13346,10 @@
           "detail": "Gaia DR3 exact-ID model value; uncertainty 0.0946999999999999; quality flags none"
         },
         "age_gyr": {
+          "status": "unknown",
+          "sourceRefs": []
+        },
+        "metallicity_kind": {
           "status": "unknown",
           "sourceRefs": []
         }
@@ -13581,6 +13691,10 @@
         "age_gyr": {
           "status": "unknown",
           "sourceRefs": []
+        },
+        "metallicity_kind": {
+          "status": "unknown",
+          "sourceRefs": []
         }
       },
       "overrides": [],
@@ -13920,6 +14034,10 @@
           "detail": "Gaia DR3 exact-ID model value; uncertainty 0.008299999999999974; quality flags none"
         },
         "age_gyr": {
+          "status": "unknown",
+          "sourceRefs": []
+        },
+        "metallicity_kind": {
           "status": "unknown",
           "sourceRefs": []
         }
@@ -14265,6 +14383,10 @@
           "detail": "Gaia DR3 exact-ID model value; uncertainty 0.041000000000000036; quality flags none"
         },
         "age_gyr": {
+          "status": "unknown",
+          "sourceRefs": []
+        },
+        "metallicity_kind": {
           "status": "unknown",
           "sourceRefs": []
         }
@@ -14615,6 +14737,10 @@
         "age_gyr": {
           "status": "unknown",
           "sourceRefs": []
+        },
+        "metallicity_kind": {
+          "status": "unknown",
+          "sourceRefs": []
         }
       },
       "overrides": [],
@@ -14910,6 +15036,10 @@
             "Gaia DR3 astrophysical_parameters:6412595290592307840"
           ],
           "detail": "Gaia DR3 exact-ID model value; uncertainty 2.475468000000001; quality flags 00"
+        },
+        "metallicity_kind": {
+          "status": "unknown",
+          "sourceRefs": []
         }
       },
       "overrides": [],
@@ -15272,6 +15402,10 @@
             "2004A&A...426..601D:10pc-0044"
           ],
           "detail": "primary-paper; uncertainty None; stellar-evolution model, adopted by 2023AJ....166..123K"
+        },
+        "metallicity_kind": {
+          "status": "unknown",
+          "sourceRefs": []
         }
       },
       "overrides": [],
@@ -15286,7 +15420,7 @@
         "eligibility": "Not a parsed K5-M9.5 dwarf spectral type (no subdwarf, giant, composite or peculiar class); supplements not applied."
       },
       "reviewedPhysical": {
-        "inputSha256": "59aeae9b903d977b550843799a09888a24cbb0f7ead137baf4d51765ea7738c9",
+        "inputSha256": "665776a81875ac448b82a48c5d7d9d70af5dc54a1f3851843da75abdc0b3b10d",
         "observations": [
           {
             "source_id": "primary-paper",
@@ -15624,6 +15758,10 @@
         "age_gyr": {
           "status": "unknown",
           "sourceRefs": []
+        },
+        "metallicity_kind": {
+          "status": "unknown",
+          "sourceRefs": []
         }
       },
       "overrides": [],
@@ -15929,6 +16067,10 @@
             "2022AJ....163..288C:10pc-0042"
           ],
           "detail": "primary-paper; uncertainty 1.0; shared activity age; assuming coevality; larger side of asymmetric uncertainty"
+        },
+        "metallicity_kind": {
+          "status": "unknown",
+          "sourceRefs": []
         }
       },
       "overrides": [],
@@ -15955,7 +16097,7 @@
         }
       },
       "reviewedPhysical": {
-        "inputSha256": "59aeae9b903d977b550843799a09888a24cbb0f7ead137baf4d51765ea7738c9",
+        "inputSha256": "665776a81875ac448b82a48c5d7d9d70af5dc54a1f3851843da75abdc0b3b10d",
         "observations": [
           {
             "source_id": "primary-paper",
@@ -16253,6 +16395,10 @@
             "2022AJ....163..288C:10pc-0043"
           ],
           "detail": "primary-paper; uncertainty 1.0; shared activity age; assuming coevality; larger side of asymmetric uncertainty"
+        },
+        "metallicity_kind": {
+          "status": "unknown",
+          "sourceRefs": []
         }
       },
       "overrides": [],
@@ -16275,7 +16421,7 @@
         }
       },
       "reviewedPhysical": {
-        "inputSha256": "59aeae9b903d977b550843799a09888a24cbb0f7ead137baf4d51765ea7738c9",
+        "inputSha256": "665776a81875ac448b82a48c5d7d9d70af5dc54a1f3851843da75abdc0b3b10d",
         "observations": [
           {
             "source_id": "primary-paper",
@@ -16571,6 +16717,10 @@
           "detail": "{\"field\": \"metallicity_dex\", \"identity\": \"V* YZ Cet\", \"quantity\": \"photospheric [Fe/H]\", \"reference\": \"2024A&A...691A..53S\", \"scope\": \"catalogued stellar object\", \"selection\": \"Newest within 0.3 dex / 10 percent of the median; strict majority required for multiple observations\", \"sourceRecordId\": \"V* YZ Cet:mesFe_h:1\", \"status\": \"measured\", \"uncertainty\": null, \"value\": -0.26}"
         },
         "age_gyr": {
+          "status": "unknown",
+          "sourceRefs": []
+        },
+        "metallicity_kind": {
           "status": "unknown",
           "sourceRefs": []
         }
@@ -16877,6 +17027,10 @@
           "detail": "Gaia DR3 exact-ID model value; uncertainty 0.0028000000000000247; quality flags none"
         },
         "age_gyr": {
+          "status": "unknown",
+          "sourceRefs": []
+        },
+        "metallicity_kind": {
           "status": "unknown",
           "sourceRefs": []
         }
@@ -17230,6 +17384,10 @@
         "age_gyr": {
           "status": "unknown",
           "sourceRefs": []
+        },
+        "metallicity_kind": {
+          "status": "unknown",
+          "sourceRefs": []
         }
       },
       "overrides": [],
@@ -17534,6 +17692,10 @@
           "detail": "Gaia DR3 exact-ID model value; uncertainty 0.02410000000000001; quality flags none"
         },
         "age_gyr": {
+          "status": "unknown",
+          "sourceRefs": []
+        },
+        "metallicity_kind": {
           "status": "unknown",
           "sourceRefs": []
         }
@@ -17852,6 +18014,10 @@
         "age_gyr": {
           "status": "unknown",
           "sourceRefs": []
+        },
+        "metallicity_kind": {
+          "status": "unknown",
+          "sourceRefs": []
         }
       },
       "overrides": [],
@@ -18131,6 +18297,10 @@
         "age_gyr": {
           "status": "unknown",
           "sourceRefs": []
+        },
+        "metallicity_kind": {
+          "status": "unknown",
+          "sourceRefs": []
         }
       },
       "overrides": [],
@@ -18393,6 +18563,10 @@
         "age_gyr": {
           "status": "unknown",
           "sourceRefs": []
+        },
+        "metallicity_kind": {
+          "status": "unknown",
+          "sourceRefs": []
         }
       },
       "overrides": [],
@@ -18650,6 +18824,10 @@
           "sourceRefs": []
         },
         "age_gyr": {
+          "status": "unknown",
+          "sourceRefs": []
+        },
+        "metallicity_kind": {
           "status": "unknown",
           "sourceRefs": []
         }
@@ -18934,6 +19112,10 @@
         "age_gyr": {
           "status": "unknown",
           "sourceRefs": []
+        },
+        "metallicity_kind": {
+          "status": "unknown",
+          "sourceRefs": []
         }
       },
       "overrides": [],
@@ -19208,6 +19390,10 @@
           "sourceRefs": []
         },
         "age_gyr": {
+          "status": "unknown",
+          "sourceRefs": []
+        },
+        "metallicity_kind": {
           "status": "unknown",
           "sourceRefs": []
         }
@@ -19493,6 +19679,10 @@
           "detail": "{\"field\": \"metallicity_dex\", \"identity\": \"Ross 614\", \"quantity\": \"photospheric [Fe/H]\", \"reference\": \"2021MNRAS.508.5148C\", \"scope\": \"SIMBAD object as catalogued; unresolved spectra may be primary-dominated\", \"selection\": \"Newest within 0.3 dex / 10 percent of the median; strict majority required for multiple observations\", \"sourceRecordId\": \"Ross 614:mesFe_h:1\", \"status\": \"measured\", \"uncertainty\": null, \"value\": -0.34}"
         },
         "age_gyr": {
+          "status": "unknown",
+          "sourceRefs": []
+        },
+        "metallicity_kind": {
           "status": "unknown",
           "sourceRefs": []
         }
@@ -19782,6 +19972,10 @@
         "age_gyr": {
           "status": "unknown",
           "sourceRefs": []
+        },
+        "metallicity_kind": {
+          "status": "unknown",
+          "sourceRefs": []
         }
       },
       "overrides": [],
@@ -20039,6 +20233,10 @@
           "sourceRefs": []
         },
         "age_gyr": {
+          "status": "unknown",
+          "sourceRefs": []
+        },
+        "metallicity_kind": {
           "status": "unknown",
           "sourceRefs": []
         }
@@ -20303,6 +20501,10 @@
           "detail": "{\"field\": \"metallicity_dex\", \"identity\": \"BD-12 4523\", \"quantity\": \"photospheric [Fe/H]\", \"reference\": \"2024A&A...691A..53S\", \"scope\": \"catalogued stellar object\", \"selection\": \"Newest within 0.3 dex / 10 percent of the median; strict majority required for multiple observations\", \"sourceRecordId\": \"BD-12 4523:mesFe_h:1\", \"status\": \"measured\", \"uncertainty\": null, \"value\": -0.12}"
         },
         "age_gyr": {
+          "status": "unknown",
+          "sourceRefs": []
+        },
+        "metallicity_kind": {
           "status": "unknown",
           "sourceRefs": []
         }
@@ -20599,6 +20801,10 @@
         "age_gyr": {
           "status": "unknown",
           "sourceRefs": []
+        },
+        "metallicity_kind": {
+          "status": "unknown",
+          "sourceRefs": []
         }
       },
       "overrides": [],
@@ -20853,6 +21059,10 @@
           "sourceRefs": []
         },
         "age_gyr": {
+          "status": "unknown",
+          "sourceRefs": []
+        },
+        "metallicity_kind": {
           "status": "unknown",
           "sourceRefs": []
         }
@@ -21124,6 +21334,10 @@
           "detail": "Gaia DR3 exact-ID model value; uncertainty 0.0018000000000000238; quality flags none"
         },
         "age_gyr": {
+          "status": "unknown",
+          "sourceRefs": []
+        },
+        "metallicity_kind": {
           "status": "unknown",
           "sourceRefs": []
         }
@@ -21459,6 +21673,10 @@
         "age_gyr": {
           "status": "unknown",
           "sourceRefs": []
+        },
+        "metallicity_kind": {
+          "status": "unknown",
+          "sourceRefs": []
         }
       },
       "overrides": [],
@@ -21755,6 +21973,10 @@
         "age_gyr": {
           "status": "unknown",
           "sourceRefs": []
+        },
+        "metallicity_kind": {
+          "status": "unknown",
+          "sourceRefs": []
         }
       },
       "overrides": [],
@@ -22024,6 +22246,10 @@
           "detail": "Gaia DR3 exact-ID model value; uncertainty 0.0032999999999998586; quality flags none"
         },
         "age_gyr": {
+          "status": "unknown",
+          "sourceRefs": []
+        },
+        "metallicity_kind": {
           "status": "unknown",
           "sourceRefs": []
         }
@@ -22367,6 +22593,10 @@
         "age_gyr": {
           "status": "unknown",
           "sourceRefs": []
+        },
+        "metallicity_kind": {
+          "status": "unknown",
+          "sourceRefs": []
         }
       },
       "overrides": [],
@@ -22695,6 +22925,10 @@
         "age_gyr": {
           "status": "unknown",
           "sourceRefs": []
+        },
+        "metallicity_kind": {
+          "status": "unknown",
+          "sourceRefs": []
         }
       },
       "overrides": [],
@@ -22957,6 +23191,10 @@
           "detail": "{\"field\": \"metallicity_dex\", \"identity\": \"LP 731-58\", \"quantity\": \"photospheric [Fe/H]\", \"reference\": \"2021A&A...656A.162M\", \"scope\": \"catalogued stellar object\", \"selection\": \"Newest within 0.3 dex / 10 percent of the median; strict majority required for multiple observations\", \"sourceRecordId\": \"LP 731-58:mesFe_h:2\", \"status\": \"measured\", \"uncertainty\": null, \"value\": -0.13}"
         },
         "age_gyr": {
+          "status": "unknown",
+          "sourceRefs": []
+        },
+        "metallicity_kind": {
           "status": "unknown",
           "sourceRefs": []
         }
@@ -23262,6 +23500,10 @@
         "age_gyr": {
           "status": "unknown",
           "sourceRefs": []
+        },
+        "metallicity_kind": {
+          "status": "unknown",
+          "sourceRefs": []
         }
       },
       "overrides": [],
@@ -23288,7 +23530,7 @@
         }
       },
       "reviewedPhysical": {
-        "inputSha256": "59aeae9b903d977b550843799a09888a24cbb0f7ead137baf4d51765ea7738c9",
+        "inputSha256": "665776a81875ac448b82a48c5d7d9d70af5dc54a1f3851843da75abdc0b3b10d",
         "observations": [
           {
             "source_id": "primary-paper",
@@ -23579,6 +23821,10 @@
         "age_gyr": {
           "status": "unknown",
           "sourceRefs": []
+        },
+        "metallicity_kind": {
+          "status": "unknown",
+          "sourceRefs": []
         }
       },
       "overrides": [],
@@ -23866,6 +24112,10 @@
         "age_gyr": {
           "status": "unknown",
           "sourceRefs": []
+        },
+        "metallicity_kind": {
+          "status": "unknown",
+          "sourceRefs": []
         }
       },
       "overrides": [],
@@ -24129,6 +24379,10 @@
           "detail": "Gaia DR3 exact-ID model value; uncertainty 0.0101; quality flags none"
         },
         "age_gyr": {
+          "status": "unknown",
+          "sourceRefs": []
+        },
+        "metallicity_kind": {
           "status": "unknown",
           "sourceRefs": []
         }
@@ -24472,6 +24726,10 @@
         "age_gyr": {
           "status": "unknown",
           "sourceRefs": []
+        },
+        "metallicity_kind": {
+          "status": "unknown",
+          "sourceRefs": []
         }
       },
       "overrides": [],
@@ -24742,6 +25000,10 @@
         "age_gyr": {
           "status": "unknown",
           "sourceRefs": []
+        },
+        "metallicity_kind": {
+          "status": "unknown",
+          "sourceRefs": []
         }
       },
       "overrides": [],
@@ -25008,6 +25270,10 @@
           "sourceRefs": []
         },
         "age_gyr": {
+          "status": "unknown",
+          "sourceRefs": []
+        },
+        "metallicity_kind": {
           "status": "unknown",
           "sourceRefs": []
         }
@@ -25299,6 +25565,10 @@
           "detail": "{\"field\": \"metallicity_dex\", \"identity\": \"G 158-27\", \"quantity\": \"photospheric [Fe/H]\", \"reference\": \"2025ApJ...978..154J\", \"scope\": \"catalogued stellar object\", \"selection\": \"Newest within 0.3 dex / 10 percent of the median; strict majority required for multiple observations\", \"sourceRecordId\": \"G 158-27:mesFe_h:2\", \"status\": \"measured\", \"uncertainty\": null, \"value\": -0.18}"
         },
         "age_gyr": {
+          "status": "unknown",
+          "sourceRefs": []
+        },
+        "metallicity_kind": {
           "status": "unknown",
           "sourceRefs": []
         }
@@ -25597,6 +25867,10 @@
         "age_gyr": {
           "status": "unknown",
           "sourceRefs": []
+        },
+        "metallicity_kind": {
+          "status": "unknown",
+          "sourceRefs": []
         }
       },
       "overrides": [],
@@ -25861,6 +26135,10 @@
           "detail": "Gaia DR3 exact-ID model value; uncertainty 0.10640000000000001; quality flags none"
         },
         "age_gyr": {
+          "status": "unknown",
+          "sourceRefs": []
+        },
+        "metallicity_kind": {
           "status": "unknown",
           "sourceRefs": []
         }
@@ -26205,6 +26483,10 @@
           "detail": "Gaia DR3 exact-ID model value; uncertainty 0.025499999999999856; quality flags none"
         },
         "age_gyr": {
+          "status": "unknown",
+          "sourceRefs": []
+        },
+        "metallicity_kind": {
           "status": "unknown",
           "sourceRefs": []
         }
@@ -26558,6 +26840,10 @@
         "age_gyr": {
           "status": "unknown",
           "sourceRefs": []
+        },
+        "metallicity_kind": {
+          "status": "unknown",
+          "sourceRefs": []
         }
       },
       "overrides": [],
@@ -26862,6 +27148,10 @@
           "detail": "Gaia DR3 exact-ID model value; uncertainty 0.09549999999999992; quality flags none"
         },
         "age_gyr": {
+          "status": "unknown",
+          "sourceRefs": []
+        },
+        "metallicity_kind": {
           "status": "unknown",
           "sourceRefs": []
         }
@@ -27212,6 +27502,10 @@
         "age_gyr": {
           "status": "unknown",
           "sourceRefs": []
+        },
+        "metallicity_kind": {
+          "status": "unknown",
+          "sourceRefs": []
         }
       },
       "overrides": [],
@@ -27533,6 +27827,10 @@
         "age_gyr": {
           "status": "unknown",
           "sourceRefs": []
+        },
+        "metallicity_kind": {
+          "status": "unknown",
+          "sourceRefs": []
         }
       },
       "overrides": [],
@@ -27797,6 +28095,10 @@
           "detail": "Gaia DR3 exact-ID model value; uncertainty 0.007199999999999998; quality flags none"
         },
         "age_gyr": {
+          "status": "unknown",
+          "sourceRefs": []
+        },
+        "metallicity_kind": {
           "status": "unknown",
           "sourceRefs": []
         }
@@ -28132,6 +28434,10 @@
         "age_gyr": {
           "status": "unknown",
           "sourceRefs": []
+        },
+        "metallicity_kind": {
+          "status": "unknown",
+          "sourceRefs": []
         }
       },
       "overrides": [],
@@ -28410,6 +28716,10 @@
           "detail": "{\"field\": \"metallicity_dex\", \"identity\": \"* omi02 Eri C\", \"quantity\": \"photospheric [Fe/H]\", \"reference\": \"2021A&A...656A.162M\", \"scope\": \"catalogued stellar object\", \"selection\": \"Newest within 0.3 dex / 10 percent of the median; strict majority required for multiple observations\", \"sourceRecordId\": \"* omi02 Eri C:mesFe_h:3\", \"status\": \"measured\", \"uncertainty\": null, \"value\": -0.44}"
         },
         "age_gyr": {
+          "status": "unknown",
+          "sourceRefs": []
+        },
+        "metallicity_kind": {
           "status": "unknown",
           "sourceRefs": []
         }
@@ -28718,6 +29028,10 @@
         "age_gyr": {
           "status": "unknown",
           "sourceRefs": []
+        },
+        "metallicity_kind": {
+          "status": "unknown",
+          "sourceRefs": []
         }
       },
       "overrides": [],
@@ -29017,6 +29331,10 @@
         "age_gyr": {
           "status": "unknown",
           "sourceRefs": []
+        },
+        "metallicity_kind": {
+          "status": "unknown",
+          "sourceRefs": []
         }
       },
       "overrides": [],
@@ -29305,6 +29623,10 @@
         "age_gyr": {
           "status": "unknown",
           "sourceRefs": []
+        },
+        "metallicity_kind": {
+          "status": "unknown",
+          "sourceRefs": []
         }
       },
       "overrides": [],
@@ -29587,6 +29909,10 @@
             "Gaia DR3 astrophysical_parameters:4468557611984384512"
           ],
           "detail": "Gaia DR3 exact-ID model value; uncertainty 4.311994; quality flags 00"
+        },
+        "metallicity_kind": {
+          "status": "unknown",
+          "sourceRefs": []
         }
       },
       "overrides": [],
@@ -29931,9 +30257,13 @@
           "sourceRefs": [
             "2024A&A...683A.125P"
           ],
-          "detail": "{\"field\": \"metallicity_dex\", \"identity\": \"* alf Aql\", \"reference\": \"2024A&A...683A.125P\", \"status\": \"measured\", \"uncertainty\": null, \"value\": 0.19}"
+          "detail": "{\"field\": \"metallicity_dex\", \"identity\": \"* alf Aql\", \"quantity\": \"photospheric [Fe/H]\", \"reference\": \"2024A&A...683A.125P\", \"status\": \"measured\", \"uncertainty\": null, \"value\": 0.19}"
         },
         "age_gyr": {
+          "status": "unknown",
+          "sourceRefs": []
+        },
+        "metallicity_kind": {
           "status": "unknown",
           "sourceRefs": []
         }
@@ -29955,7 +30285,8 @@
           "status": "measured",
           "reference": "2024A&A...683A.125P",
           "uncertainty": null,
-          "identity": "* alf Aql"
+          "identity": "* alf Aql",
+          "quantity": "photospheric [Fe/H]"
         },
         "radius_solar": {
           "field": "radius_solar",
@@ -30229,6 +30560,10 @@
           "detail": "{\"field\": \"metallicity_dex\", \"identity\": \"G 9-38A\", \"quantity\": \"photospheric [Fe/H]\", \"reference\": \"2014AJ....147...20N\", \"scope\": \"catalogued stellar object\", \"selection\": \"Newest within 0.3 dex / 10 percent of the median; strict majority required for multiple observations\", \"sourceRecordId\": \"G 9-38A:mesFe_h:1\", \"status\": \"measured\", \"uncertainty\": null, \"value\": 0.14}"
         },
         "age_gyr": {
+          "status": "unknown",
+          "sourceRefs": []
+        },
+        "metallicity_kind": {
           "status": "unknown",
           "sourceRefs": []
         }
@@ -30509,6 +30844,10 @@
         "age_gyr": {
           "status": "unknown",
           "sourceRefs": []
+        },
+        "metallicity_kind": {
+          "status": "unknown",
+          "sourceRefs": []
         }
       },
       "overrides": [],
@@ -30773,6 +31112,10 @@
           "detail": "Gaia DR3 exact-ID model value; uncertainty 0.4888; quality flags none"
         },
         "age_gyr": {
+          "status": "unknown",
+          "sourceRefs": []
+        },
+        "metallicity_kind": {
           "status": "unknown",
           "sourceRefs": []
         }
@@ -31116,6 +31459,10 @@
         "age_gyr": {
           "status": "unknown",
           "sourceRefs": []
+        },
+        "metallicity_kind": {
+          "status": "unknown",
+          "sourceRefs": []
         }
       },
       "overrides": [],
@@ -31380,6 +31727,10 @@
           "detail": "Gaia DR3 exact-ID model value; uncertainty 0.005599999999999938; quality flags none"
         },
         "age_gyr": {
+          "status": "unknown",
+          "sourceRefs": []
+        },
+        "metallicity_kind": {
           "status": "unknown",
           "sourceRefs": []
         }
@@ -31730,6 +32081,10 @@
         "age_gyr": {
           "status": "unknown",
           "sourceRefs": []
+        },
+        "metallicity_kind": {
+          "status": "unknown",
+          "sourceRefs": []
         }
       },
       "overrides": [],
@@ -32013,6 +32368,10 @@
         "age_gyr": {
           "status": "unknown",
           "sourceRefs": []
+        },
+        "metallicity_kind": {
+          "status": "unknown",
+          "sourceRefs": []
         }
       },
       "overrides": [],
@@ -32276,6 +32635,10 @@
           "detail": "{\"field\": \"metallicity_dex\", \"identity\": \"LP 656-38\", \"quantity\": \"photospheric [Fe/H]\", \"reference\": \"2024A&A...691A..53S\", \"scope\": \"catalogued stellar object\", \"selection\": \"Newest within 0.3 dex / 10 percent of the median; strict majority required for multiple observations\", \"sourceRecordId\": \"LP 656-38:mesFe_h:1\", \"status\": \"measured\", \"uncertainty\": null, \"value\": -0.34}"
         },
         "age_gyr": {
+          "status": "unknown",
+          "sourceRefs": []
+        },
+        "metallicity_kind": {
           "status": "unknown",
           "sourceRefs": []
         }
@@ -32582,6 +32945,10 @@
           "detail": "Gaia DR3 exact-ID model value; uncertainty 0.025000000000000022; quality flags none"
         },
         "age_gyr": {
+          "status": "unknown",
+          "sourceRefs": []
+        },
+        "metallicity_kind": {
           "status": "unknown",
           "sourceRefs": []
         }
@@ -32932,6 +33299,10 @@
         "age_gyr": {
           "status": "unknown",
           "sourceRefs": []
+        },
+        "metallicity_kind": {
+          "status": "unknown",
+          "sourceRefs": []
         }
       },
       "overrides": [],
@@ -32945,7 +33316,7 @@
         "eligibility": "Not a parsed K5-M9.5 dwarf spectral type (no subdwarf, giant, composite or peculiar class); supplements not applied."
       },
       "reviewedPhysical": {
-        "inputSha256": "59aeae9b903d977b550843799a09888a24cbb0f7ead137baf4d51765ea7738c9",
+        "inputSha256": "665776a81875ac448b82a48c5d7d9d70af5dc54a1f3851843da75abdc0b3b10d",
         "observations": [
           {
             "source_id": "primary-paper",
@@ -33249,6 +33620,10 @@
         "age_gyr": {
           "status": "unknown",
           "sourceRefs": []
+        },
+        "metallicity_kind": {
+          "status": "unknown",
+          "sourceRefs": []
         }
       },
       "overrides": [],
@@ -33536,6 +33911,10 @@
         "age_gyr": {
           "status": "unknown",
           "sourceRefs": []
+        },
+        "metallicity_kind": {
+          "status": "unknown",
+          "sourceRefs": []
         }
       },
       "overrides": [],
@@ -33799,6 +34178,10 @@
           "detail": "Gaia DR3 exact-ID model value; uncertainty 0.003599999999999999; quality flags none"
         },
         "age_gyr": {
+          "status": "unknown",
+          "sourceRefs": []
+        },
+        "metallicity_kind": {
           "status": "unknown",
           "sourceRefs": []
         }
@@ -34152,6 +34535,10 @@
         "age_gyr": {
           "status": "unknown",
           "sourceRefs": []
+        },
+        "metallicity_kind": {
+          "status": "unknown",
+          "sourceRefs": []
         }
       },
       "overrides": [],
@@ -34493,6 +34880,10 @@
         "age_gyr": {
           "status": "unknown",
           "sourceRefs": []
+        },
+        "metallicity_kind": {
+          "status": "unknown",
+          "sourceRefs": []
         }
       },
       "overrides": [],
@@ -34755,6 +35146,10 @@
           "detail": "{\"field\": \"metallicity_dex\", \"identity\": \"LSR J1835+3259\", \"quantity\": \"photospheric [Fe/H]\", \"reference\": \"2012ApJ...748...93R\", \"scope\": \"catalogued stellar object\", \"selection\": \"Newest within 0.3 dex / 10 percent of the median; strict majority required for multiple observations\", \"sourceRecordId\": \"LSR J1835+3259:mesFe_h:2\", \"status\": \"measured\", \"uncertainty\": null, \"value\": -0.4}"
         },
         "age_gyr": {
+          "status": "unknown",
+          "sourceRefs": []
+        },
+        "metallicity_kind": {
           "status": "unknown",
           "sourceRefs": []
         }
@@ -35064,6 +35459,10 @@
         "age_gyr": {
           "status": "unknown",
           "sourceRefs": []
+        },
+        "metallicity_kind": {
+          "status": "unknown",
+          "sourceRefs": []
         }
       },
       "overrides": [],
@@ -35354,6 +35753,10 @@
         "age_gyr": {
           "status": "unknown",
           "sourceRefs": []
+        },
+        "metallicity_kind": {
+          "status": "unknown",
+          "sourceRefs": []
         }
       },
       "overrides": [],
@@ -35617,6 +36020,10 @@
           "detail": "{\"field\": \"metallicity_dex\", \"identity\": \"HD 42581\", \"quantity\": \"photospheric [Fe/H]\", \"reference\": \"2025A&A...698A..93J\", \"scope\": \"catalogued stellar object\", \"selection\": \"Newest within 0.3 dex / 10 percent of the median; strict majority required for multiple observations\", \"sourceRecordId\": \"HD 42581:mesFe_h:2\", \"status\": \"measured\", \"uncertainty\": null, \"value\": -0.1}"
         },
         "age_gyr": {
+          "status": "unknown",
+          "sourceRefs": []
+        },
+        "metallicity_kind": {
           "status": "unknown",
           "sourceRefs": []
         }

@@ -17,6 +17,7 @@ from astropy.time import Time
 from astropy.utils import iers
 
 from catalog_sources.adapters import eligible_gaia_physical, read_gaia_tap, read_primary_overrides
+from catalog_sources.metallicity import metallicity_kind
 from catalog_sources.enrichment import enrich_from_frozen, enrichment_sources, manifest_sha256
 from catalog_sources.filesystem import atomic_write_text, safe_output_directory, write_managed_files
 from catalog_sources.mdwarf import SUPPLEMENT_FIELDS, enrich_curated_row, format_value, load_supplements
@@ -49,7 +50,8 @@ RAW_ASTROMETRY_HEADERS = [
     "radial_velocity_kms", "radial_velocity_error_kms", "astrometry_ref", "radial_velocity_ref",
 ]
 PHYSICAL_HEADERS = ["radius_solar", "metallicity_dex", "age_gyr"]
-OUTPUT_HEADERS = BASE_HEADERS[:13] + PHYSICAL_HEADERS + BASE_HEADERS[13:] + RAW_ASTROMETRY_HEADERS
+METALLICITY_HEADERS = ["metallicity_kind"]
+OUTPUT_HEADERS = BASE_HEADERS[:13] + PHYSICAL_HEADERS + METALLICITY_HEADERS + BASE_HEADERS[13:] + RAW_ASTROMETRY_HEADERS
 SUPPLEMENTS = ROOT / "catalog-work/physical-supplements"
 CNS5_DATA = ROOT / "catalog-work/nearest-1000/cns5.dat"
 GAIA_DATA = ROOT / "catalog-work/nearest-1000/gaia.csv"
@@ -260,6 +262,8 @@ def apply_reviewed_and_gaia_physical(row, reviewed, gaia, fields=None):
             ).strip()
         for field, observation in by_field.items():
             row[field] = format_value(observation)
+            if field == "metallicity_dex":
+                row["metallicity_kind"] = metallicity_kind(next(item["quantity"] for item in reviewed.raw["physical"] if item["field"] == field))
             reviewed_adopted[field] = observation
             if fields is not None:
                 detail = f"{observation.source_id}; uncertainty {observation.uncertainty}; {', '.join(observation.quality_flags)}"
@@ -282,6 +286,8 @@ def apply_reviewed_and_gaia_physical(row, reviewed, gaia, fields=None):
         if row.get(field, "") != "":
             continue
         row[field] = format_value(observation)
+        if field == "metallicity_dex":
+            row["metallicity_kind"] = "[M/H]"
         gaia_adopted[field] = observation
         if fields is not None:
             detail = f"Gaia DR3 exact-ID model value; uncertainty {observation.uncertainty}; quality flags {', '.join(observation.quality_flags) or 'none'}"
@@ -413,7 +419,7 @@ def adopt_object(source, frozen, system_counts, supplements, gaia_records, revie
         fields["mass_solar"] = field_source("adopted", "2016ApJ...821...81G:Table1", "0.281 +/- 0.014 solar masses; Table 1 attributes the value to 2003A&A...397L...5S.")
     fields["constellation"] = field_source("derived", "astropy:7.1.1:Roman1987", "ICRS snapshot direction transformed to B1875 boundary coordinates; no physical motion to 1875. Canonical spelling normalization applied.")
     fields["epoch"] = field_source("adopted", None, "Static J2000.0 snapshot; source decimal years treated as Julian years TT.")
-    for key in PHYSICAL_HEADERS:
+    for key in PHYSICAL_HEADERS + METALLICITY_HEADERS:
         row.setdefault(key, "")
         fields[key] = field_source("unknown", None)
     reviewed = reviewed_records.get(identifier)
@@ -507,7 +513,7 @@ def build_catalog(output, force=False, check=False):
         for bearing in range(0, 360, 45):
             assert constellation(direction.directional_offset_by(bearing * units.deg, 1 * units.arcsec)) == row["constellation"]
     sun = dict(next(row for row in frozen["legacyRows"] if row["id"] == "sun"))
-    sun.update({key: "" for key in PHYSICAL_HEADERS + RAW_ASTROMETRY_HEADERS})
+    sun.update({key: "" for key in PHYSICAL_HEADERS + METALLICITY_HEADERS + RAW_ASTROMETRY_HEADERS})
     sun = {key: sun[key] for key in OUTPUT_HEADERS}
     rows = [sun] + [{key: row[key] for key in OUTPUT_HEADERS} for row, _ in selected]
     headers = OUTPUT_HEADERS

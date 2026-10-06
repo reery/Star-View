@@ -59,6 +59,7 @@ function catalogRecord(star: Star): Record<typeof CATALOG_HEADERS[number], strin
     constellation: star.constellation,
     radius_solar: star.radius_solar,
     metallicity_dex: star.metallicity_dex,
+    metallicity_kind: star.metallicity_kind ?? null,
     age_gyr: star.age_gyr,
     ra_deg: raw?.ra_deg ?? null,
     dec_deg: raw?.dec_deg ?? null,

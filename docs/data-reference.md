@@ -37,7 +37,7 @@ ra_deg,dec_deg,astrometry_epoch,parallax_mas,parallax_error_mas,pm_ra_cosdec_mas
 Optional physical-property columns may also be appended independently:
 
 ```csv
-radius_solar,metallicity_dex,age_gyr
+radius_solar,metallicity_dex,metallicity_kind,age_gyr
 ```
 
 Raw astrometry is source-epoch ICRS data. `pm_ra_cosdec_masyr` includes `cos(dec)`. Parallax must be positive; uncertainties are nonnegative. Radial velocity and its source may be blank, but are never replaced by zero. The common Cartesian `epoch` remains the static J2000 map snapshot and is distinct from `astrometry_epoch`.
@@ -55,7 +55,8 @@ Raw astrometry is source-epoch ICRS data. `pm_ra_cosdec_masyr` includes `cos(dec
 | `mass_solar` | Optional, positive mass relative to the Sun |
 | `luminosity_solar` | Optional, positive bolometric luminosity relative to the Sun |
 | `radius_solar` | Optional, positive radius relative to the Sun |
-| `metallicity_dex` | Optional stellar metallicity in dex; bundled Gaia values are GSP-Phot `[M/H]` model estimates |
+| `metallicity_dex` | Optional abundance value in dex; requires its explicit `metallicity_kind` |
+| `metallicity_kind` | `[M/H]` for overall metallicity or `[Fe/H]` for iron abundance, as reported by the source. Blank when the value is blank. CSV and browser payload loaders reject missing or invalid kinds; these quantities are never relabeled or converted into each other. |
 | `age_gyr` | Optional, positive age in billions of years |
 | `absolute_mag` | Optional Johnson V absolute magnitude, not bolometric magnitude |
 | `epoch` | Required decimal Julian year of the coordinate snapshot; initially `2000.0` |
@@ -122,7 +123,7 @@ The default sample ranks individual stellar and substellar objects beyond the Su
 
 Positions combine J2000 Galactic directions from [SIMBAD](https://simbad.cds.unistra.fr/simbad/) with selected parallaxes. Gaia EDR3/CNS5 values are used where suitable; dedicated measurements are retained for systems Gaia does not resolve cleanly or objects it does not measure well. Those sources include Akeson et al. (2021) for Alpha Centauri AB, Bedin et al. (2024) for Luhman 16, Kirkpatrick et al. (2021) for WISE 0855-0714, [Bond et al. (2017)](https://arxiv.org/html/1703.10625) for Sirius, the GRAVITY Collaboration (2024) for Luyten 726-8, and Torres et al. (2010) for EZ Aquarii. Each CSV row names its adopted source.
 
-Temperatures use directly published values where available and spectral-class estimates otherwise. The Sun uses [NASA Sun facts](https://science.nasa.gov/sun/facts/) and the nominal effective temperature associated with [IAU 2015 Resolution B3](https://arxiv.org/abs/1510.07674). Main-sequence class estimates follow the [Pecaut-Mamajek dwarf sequence](https://www.pas.rochester.edu/~emamajek/EEM_dwarf_UBVIJHK_colors_Teff.txt). Nearest-1000 radii, metallicities and ages use Gaia DR3 model outputs when they pass the documented source policy. For eligible K5–M9.5 dwarfs, Cifuentes et al. (2020) CARMENES SED values and the Mann et al. (2019/2015) absolute-Ks mass/radius relations with 2MASS Ks fill blank temperatures, masses, luminosities and radii in the default, nearest-100 and nearest-1000 catalogs; in nearest-1000 they also outrank Gaia DR3 values. Curated values are never overwritten, and each supplemented row names its source in its notes. Bright-stars physical values use frozen SIMBAD bibliographic measurements, the Allende Prieto–Lambert Hipparcos model catalog, McDonald et al. Hipparcos SED models, and two component-specific primary papers. Blank optional fields mean the source set did not justify a value.
+Temperatures use directly published values where available and spectral-class estimates otherwise. The Sun uses [NASA Sun facts](https://science.nasa.gov/sun/facts/) and the nominal effective temperature associated with [IAU 2015 Resolution B3](https://arxiv.org/abs/1510.07674). Main-sequence class estimates follow the [Pecaut-Mamajek dwarf sequence](https://www.pas.rochester.edu/~emamajek/EEM_dwarf_UBVIJHK_colors_Teff.txt). Nearest-1000 radii, metallicities and ages use Gaia DR3 model outputs when they pass the documented source policy. For eligible K5–M9.5 dwarfs, Cifuentes et al. (2020) CARMENES SED values and the Mann et al. (2019/2015) absolute-Ks mass/radius relations with 2MASS Ks fill blank temperatures, masses, luminosities and radii in the default, nearest-100 and nearest-1000 catalogs; in nearest-1000 they also outrank Gaia DR3 values. Curated values are never overwritten, and each supplemented row names its source in its notes. Bright-stars physical values use frozen SIMBAD bibliographic measurements, the Allende Prieto–Lambert Hipparcos model catalog, McDonald et al. Hipparcos SED models, and two component-specific primary papers. Blank optional fields mean the source set did not justify a value. The [resolved companion review](companion-property-enrichment.md) fills blank component properties from individually resolved literature and exact Gaia-ID matches, with estimates and shared systemic velocities identified in provenance.
 
 Coordinates are derived as `d = 1 / parallax`, `x = d cos(b) cos(l)`, `y = d cos(b) sin(l)`, and `z = d sin(b)`. Close components share a system position when their physical separation is below this catalog's spatial precision; separation is not exaggerated for display. The app derives all distance and height readouts from the loaded coordinates. Positions are a curated static snapshot, source uncertainties are not modeled, and the catalog is not a precision ephemeris.
 

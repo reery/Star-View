@@ -22,7 +22,7 @@ describe('object catalog', () => {
     expect(() => parseStarCatalog(Papa.unparse([extended[0]!, { ...extended[1], constellation: 'Unknown' }]))).toThrow('IAU')
     expect(CONSTELLATIONS).toHaveLength(88)
     expect(new Set(CONSTELLATIONS).size).toBe(88)
-    expect(PHYSICAL_CATALOG_HEADERS).toEqual(['radius_solar', 'metallicity_dex', 'age_gyr'])
+    expect(PHYSICAL_CATALOG_HEADERS).toEqual(['radius_solar', 'metallicity_dex', 'metallicity_kind', 'age_gyr'])
   })
 
   it('retains raw proper motion without inventing a radial velocity', () => {
@@ -147,8 +147,20 @@ describe('object catalog', () => {
   })
 
   it('accepts negative magnitude and velocity as metadata', () => {
-    const input = changeSirius({ absolute_mag: '-1.5', vx_kms: '-5.2', radius_solar: '1.7', metallicity_dex: '-0.4', age_gyr: '0.24' })
+    const input = changeSirius({ absolute_mag: '-1.5', vx_kms: '-5.2', radius_solar: '1.7', metallicity_dex: '-0.4', metallicity_kind: '[Fe/H]', age_gyr: '0.24' })
     expect(parseStarCatalog(input)[1]).toMatchObject({ absolute_mag: -1.5, vx_kms: -5.2, radius_solar: 1.7, metallicity_dex: -0.4, age_gyr: 0.24 })
+  })
+
+  it('requires the abundance quantity and keeps [M/H] distinct from [Fe/H]', () => {
+    for (const kind of ['[M/H]', '[Fe/H]']) {
+      expect(parseStarCatalog(changeSirius({ metallicity_dex: '-0.4', metallicity_kind: kind }))[1])
+        .toMatchObject({ metallicity_dex: -0.4, metallicity_kind: kind })
+    }
+    for (const kind of ['', '[Fe/M]', '[M/H] = [Fe/H]']) {
+      expect(() => parseStarCatalog(changeSirius({ metallicity_dex: '-0.4', metallicity_kind: kind })))
+        .toThrow('metallicity_kind')
+    }
+    expect(() => parseStarCatalog(changeSirius({ metallicity_kind: '[Fe/H]' }))).toThrow('metallicity_kind')
   })
 
   it.each([

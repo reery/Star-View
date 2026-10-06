@@ -23,9 +23,10 @@ import compactManifestRaw from './data/overlays/compact-remnants/manifest.json?r
 import compactPayloadRaw from './data/overlays/compact-remnants/objects.json?raw'
 import { buildCatalog, catalogCoverage, catalogSelection, DEFAULT_CATALOG_MANIFEST, loadCatalog, parseCatalogManifest } from './catalogs'
 import { parseStarCatalog } from './catalog'
-import { apparentVisualMagnitude, formatDistance, temperatureToColor, visibilityTier } from './astronomy'
-import { catalogLoader, mergeCatalogStars } from './catalog-runtime'
-import { indexStarSystems } from './star-systems'
+import { apparentVisualMagnitude, displayMotionForStar, formatDistance, galacticToWorld, temperatureToColor, visibilityTier } from './astronomy'
+import { retainBrightestCoincidentComponents } from './viewer-primitives'
+import { catalogLoader, mergeCatalogStars, parseCatalogPayload } from './catalog-runtime'
+import { coincidentComponentGroups, indexStarSystems } from './star-systems'
 import { parseCompactOverlayManifest, parseCompactOverlayPayload } from './compact-overlay-model'
 
 describe('catalog packages and display settings', () => {
@@ -56,17 +57,18 @@ describe('catalog packages and display settings', () => {
   })
 
   it('validates the nearest-1000 release and preserves every curated shared row', () => {
-    expect(nearest1000).toHaveLength(1001)
+    expect(nearest1000).toHaveLength(1037)
     expect(catalogCoverage(nearest1000)).toMatchObject({
-      objects: 1000,
-      constellations: 1000,
-      rawAstrometry: 1000,
-      radialVelocities: 677,
-      transverseOnly: 323,
+      objects: 1036,
+      constellations: 1036,
+      rawAstrometry: 1036,
+      radialVelocities: 684,
+      transverseOnly: 352,
     })
     for (const star of large) expect(nearest1000.find((candidate) => candidate.id === star.id)).toEqual(star)
     const provenance = JSON.parse(nearest1000Provenance)
-    expect(provenance.cutoff).toMatchObject({ rank: 1000, id: 'cns5-0864', nextId: 'cns5-2673', oneSigmaIntervalsOverlap: true })
+    expect(provenance.cutoff).toMatchObject({ baselineRank: 1000, id: 'cns5-0864', nextId: 'cns5-2673', oneSigmaIntervalsOverlap: true })
+    expect(provenance.reviewedAdditionIds).toHaveLength(36)
     expect(nearest1000.find((star) => star.id === 'cns5-3517')?.name).toBe('Arcturus')
     expect(nearest1000.find((star) => star.id === 'cns5-1415')).toMatchObject({
       raw_astrometry: { radial_velocity_kms: 106.061874, radial_velocity_error_kms: 0.1704749, radial_velocity_ref: 'Gaia DR3' },
@@ -99,7 +101,7 @@ describe('catalog packages and display settings', () => {
       status: 'withheld-white-dwarf',
       observation: { sourceId: 'gaia-dr3', valueKms: -414.01544 },
     })
-    expect(catalogCoverage(nearest1000)).toMatchObject({ radii: 610, metallicities: 617, ages: 83, masses: 550, luminosities: 597, temperatures: 858 })
+    expect(catalogCoverage(nearest1000)).toMatchObject({ radii: 631, metallicities: 611, ages: 90, masses: 601, luminosities: 610, temperatures: 872 })
     expect(catalogCoverage(large)).toMatchObject({ masses: 65, luminosities: 67, radii: 67 })
     expect(small.find((star) => star.id === 'barnards-star')).toMatchObject({ mass_solar: 0.144, radius_solar: 0.1931, luminosity_solar: 0.0035225088 })
     expect(nearest1000.find((star) => star.id === 'cns5-5672')).toMatchObject({ mass_solar: 0.6116, radius_solar: 0.6299 })
@@ -108,7 +110,7 @@ describe('catalog packages and display settings', () => {
   it('keeps the bright landmark catalog bounded and merges it without duplicates', () => {
     expect(bright).toHaveLength(126)
     expect(bright.at(-1)?.name).toBe('Arneb')
-    expect(catalogCoverage(bright)).toMatchObject({ temperatures: 121, masses: 54, luminosities: 110, radii: 110, metallicities: 76, ages: 9, radialVelocities: 117 })
+    expect(catalogCoverage(bright)).toMatchObject({ temperatures: 121, masses: 55, luminosities: 110, radii: 111, metallicities: 76, ages: 11, radialVelocities: 119 })
     expect(bright.find((star) => star.name === 'Rigel')).toMatchObject({
       temperature_k: 11968, radius_solar: 74.0262, luminosity_solar: 83226.2, metallicity_dex: -0.159,
     })
@@ -197,14 +199,142 @@ describe('catalog packages and display settings', () => {
 
   it('ships reviewed Mu Cas primary properties with uncertainties and model caveats', () => {
     expect(nearest1000.find((star) => star.id === 'cns5-0317')).toMatchObject({
-      name: 'Mu Cas', temperature_k: 5346, mass_solar: 0.744, luminosity_solar: 0.458,
-      radius_solar: 0.789, metallicity_dex: -0.81, age_gyr: 12.7,
+      name: 'Mu Cassiopeiae A', temperature_k: 5346, mass_solar: 0.744, luminosity_solar: 0.458,
+      radius_solar: 0.789, metallicity_dex: -0.81, age_gyr: 12.7, absolute_mag: 5.784,
     })
     const provenance = JSON.parse(nearest1000Provenance)
-    const physical = provenance.objects.find((object: { id: string }) => object.id === 'cns5-0317').sharedPhysicalEnrichment
+    const physical = provenance.objects.find((object: { id: string }) => object.id === 'cns5-0317').supersededSharedPhysicalEnrichment
     expect(physical.mass_solar).toMatchObject({ component: 'A', uncertainty: 0.0122, status: 'measured' })
     expect(physical.age_gyr).toMatchObject({ uncertainty: 2.7, status: 'model-derived' })
     expect(physical.radius_solar.caveat).toContain('systematic')
+  })
+
+  it('restores resolved Mu Cas B properties and explicitly shared systemic motion', () => {
+    const primary = nearest1000.find((star) => star.id === 'cns5-0317')!
+    const secondary = nearest1000.find((star) => star.id === 'mu-cassiopeiae-b')!
+    expect(secondary).toMatchObject({
+      type: 'star', absolute_mag: 11.6, mass_solar: 0.1728, temperature_k: 3034,
+      radius_solar: 0.26, luminosity_solar: 0.0051, metallicity_dex: null,
+    })
+    for (const star of [primary, secondary]) {
+      expect(star.raw_astrometry?.radial_velocity_kms).toBe(-97)
+      expect(star.raw_astrometry?.radial_velocity_error_kms).toBeNull()
+      expect(displayMotionForStar(star, 'solar')?.mode).toBe('full')
+      const object = JSON.parse(nearest1000Provenance).objects.find((item: any) => item.id === star.id)
+      expect(object.radialVelocity).toMatchObject({ status: 'systemic-approximation' })
+      expect(object.astrometryScope).toContain('without individual orbital velocity')
+    }
+    const age = JSON.parse(nearest1000Provenance).objects.find((item: any) => item.id === secondary.id).reviewedComponentEnrichment.adopted.age_gyr
+    expect(age.scope).toContain('not an independent B age')
+    expect(secondary.notes).not.toContain('absolute_mag,')
+  })
+
+  it('uses comparable resolved Achird iron measurements and restores B physical properties', () => {
+    const primary = nearest1000.find((star) => star.id === 'cns5-0239')!
+    const secondary = nearest1000.find((star) => star.id === 'cns5-0238')!
+    expect(primary).toMatchObject({ metallicity_kind: '[Fe/H]', metallicity_dex: -0.230 })
+    expect(secondary).toMatchObject({
+      metallicity_kind: '[Fe/H]', metallicity_dex: -0.305, temperature_k: 4011,
+      mass_solar: 0.5487, radius_solar: 0.57, luminosity_solar: 0.082, age_gyr: null,
+    })
+    const provenance = JSON.parse(nearest1000Provenance)
+    const observations = [primary, secondary].map((star) => provenance.objects.find((item: any) => item.id === star.id).reviewedComponentEnrichment)
+    expect(observations[0].replaced.metallicity_dex).toMatchObject({ value: -0.972, kind: '[M/H]' })
+    expect(observations[1].adopted.metallicity_dex.uncertainty).toBe(0.448)
+    expect(observations[1].adopted.metallicity_dex.caveat).toContain('no accurate Fe II')
+    expect(observations[1].adopted.luminosity_solar.uncertainty).toBeNull()
+  })
+
+  it('restores Achird A space motion from its resolved observed radial velocity', () => {
+    const primary = nearest1000.find((star) => star.id === 'cns5-0239')!
+    const secondary = nearest1000.find((star) => star.id === 'cns5-0238')!
+    expect(primary.raw_astrometry).toMatchObject({
+      radial_velocity_kms: 8.397,
+      radial_velocity_error_kms: null,
+      radial_velocity_ref: 'arXiv:1207.6212:Table 3',
+    })
+    expect(displayMotionForStar(primary, 'solar')?.mode).toBe('full')
+    expect(Math.hypot(primary.vx_kms!, primary.vy_kms!, primary.vz_kms!)).toBeCloseTo(35.031, 3)
+    const object = JSON.parse(nearest1000Provenance).objects.find((item: any) => item.id === primary.id)
+    expect(object.radialVelocity).toMatchObject({
+      status: 'reviewed-literature-override',
+      observation: { sourceRecordId: 'HIP 3821', valueKms: 8.397, uncertaintyKms: null },
+    })
+    expect(primary.notes).toContain('Includes component orbital motion, not a binary systemic velocity')
+    expect(primary.notes).toContain('0.117 km/s is observation scatter, not a formal uncertainty')
+    expect(secondary.raw_astrometry?.radial_velocity_kms).toBe(10.446348190307617)
+  })
+
+  it('keeps abundance types through payload loading and overlay supplementation', () => {
+    for (const stars of [small, large, nearest1000, bright, western, cluster]) {
+      for (const star of stars) {
+        if (star.metallicity_dex !== null) expect(['[M/H]', '[Fe/H]']).toContain(star.metallicity_kind)
+        else expect(star.metallicity_kind).toBeNull()
+      }
+    }
+    const source = nearest1000.find((star) => star.id === 'cns5-0239')!
+    const blank = { ...source, metallicity_dex: null, metallicity_kind: null }
+    expect(mergeCatalogStars([blank], [source])[0]).toMatchObject({ metallicity_dex: -0.23, metallicity_kind: '[Fe/H]' })
+    const metadata = parseCatalogManifest(nearest1000Manifest)
+    expect(() => parseCatalogPayload({ schemaVersion: 1, catalogId: metadata.id, stars: nearest1000.map((star) => star.id === source.id ? { ...star, metallicity_kind: null } : star) }, metadata)).toThrow('metallicity quantity')
+  })
+
+  it('keeps the Mu Cas primary bright when its shared-position companion remains the visibility reference', () => {
+    const primary = nearest1000.find((star) => star.id === 'cns5-0317')!
+    const secondary = nearest1000.find((star) => star.id === 'mu-cassiopeiae-b')!
+    // Deselecting leaves the last chosen component as the visibility reference.
+    // Neither direction may demote a co-located primary/companion to background.
+    expect(visibilityTier(primary, secondary, 0)).toBe('base')
+    expect(visibilityTier(secondary, primary, 0)).toBe('base')
+    expect(visibilityTier(primary, { ...secondary, x_pc: secondary.x_pc + 10 }, 0)).toBe('background')
+  })
+
+  it('draws only the brightest coincident component while retaining separated Alpha Centauri members', () => {
+    const groups = coincidentComponentGroups(nearest1000)
+    const index = (id: string) => nearest1000.findIndex((star) => star.id === id)
+    const primary = index('cns5-0317')
+    const secondary = index('mu-cassiopeiae-b')
+    const alpha = ['alpha-centauri-a', 'alpha-centauri-b', 'proxima-centauri'].map(index)
+    const positions = nearest1000.map(galacticToWorld)
+    const enabled = new Uint8Array(nearest1000.length)
+    for (const member of [primary, secondary, ...alpha]) enabled[member] = 1
+    retainBrightestCoincidentComponents(groups, positions, enabled)
+    expect(enabled[primary]).toBe(1)
+    expect(enabled[secondary]).toBe(0)
+    expect(alpha.map((member) => enabled[member])).toEqual([1, 1, 1])
+    // Separating the simulated positions restores an independent secondary point.
+    positions[secondary]!.x += 0.01
+    enabled[secondary] = 1
+    retainBrightestCoincidentComponents(groups, positions, enabled)
+    expect(enabled[secondary]).toBe(1)
+    // A hidden primary must not suppress its sole visible companion.
+    positions[secondary]!.copy(positions[primary]!)
+    enabled[primary] = 0
+    retainBrightestCoincidentComponents(groups, positions, enabled)
+    expect(enabled[secondary]).toBe(1)
+  })
+
+  it('carries resolved companion supplements into overlays and retains unknown individual fields', () => {
+    for (const id of ['zeta-herculis-b', 'iota-pegasi-b', 'gamma-cephei-b', 'capella-ab']) {
+      const base = nearest1000.find((star) => star.id === id)!
+      const overlay = western.find((star) => star.id === id)!
+      expect(overlay).toMatchObject({
+        temperature_k: base.temperature_k, radius_solar: base.radius_solar,
+        luminosity_solar: base.luminosity_solar, mass_solar: base.mass_solar,
+        age_gyr: base.age_gyr, absolute_mag: base.absolute_mag,
+      })
+      expect(mergeCatalogStars(nearest1000, western).filter((star) => star.id === id)).toHaveLength(1)
+    }
+    expect(nearest1000.find((star) => star.id === 'gj-644-bb')?.absolute_mag).toBe(11.71)
+    expect(nearest1000.find((star) => star.id === 'hd-50281-bb')).toMatchObject({
+      temperature_k: null, luminosity_solar: null, absolute_mag: null,
+    })
+    expect(nearest1000.find((star) => star.id === 'gj-569-bb')).toMatchObject({
+      temperature_k: 2400, radius_solar: 0.102, mass_solar: null,
+    })
+    const calibrated = JSON.parse(nearest1000Provenance).objects.find((item: any) => item.id === 'cns5-1324')
+    expect(calibrated.reviewedComponentEnrichment.adopted.mass_solar.status).toBe('estimated')
+    expect(calibrated.reviewedComponentEnrichment.review.gaiaDr3Id).toBe(calibrated.gaiaDr3Id)
   })
 
   it('ships reviewed Gorgonea Tertia properties with source uncertainties and radius inputs', () => {
@@ -228,8 +358,8 @@ describe('catalog packages and display settings', () => {
     const provenance = JSON.parse(westernProvenance)
     expect(western).toHaveLength(714)
     expect(catalogCoverage(western)).toMatchObject({
-      objects: 713, constellations: 713, magnitudes: 695, rawAstrometry: 713,
-      temperatures: 689, masses: 374, luminosities: 638, radii: 638, metallicities: 530, ages: 96,
+      objects: 713, constellations: 713, magnitudes: 697, rawAstrometry: 713,
+      temperatures: 695, masses: 377, luminosities: 643, radii: 644, metallicities: 532, ages: 100,
     })
     expect(provenance).toMatchObject({ figureConstellations: 88, uniqueHipparcosStars: 691 })
     expect(new Set(Object.values(provenance.objects).flatMap((entry: any) => entry.figureConstellations ?? [])).size).toBe(88)
@@ -456,7 +586,7 @@ describe('catalog packages and display settings', () => {
     expect(visibilityTier(target, observer, 7)).toBe('eligible')
     expect(visibilityTier({ ...target, absolute_mag: 7.00001 }, observer, 7)).toBe('background')
     expect(visibilityTier({ ...target, absolute_mag: null }, observer, 12)).toBe('background')
-    expect(visibilityTier({ ...target, x_pc: 100 }, observer, 12)).toBe('background')
+    expect(visibilityTier({ ...target, x_pc: 100 }, observer, 12)).toBe('base')
     expect(visibilityTier({ ...target, id: 'base' }, observer, 0)).toBe('base')
     expect(visibilityTier(target, { ...observer, x_pc: 0 }, 7)).toBe('background')
     expect(visibilityTier(target, observer, 8)).toBe('eligible')

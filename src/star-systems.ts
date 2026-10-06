@@ -25,6 +25,28 @@ export interface StarSystem {
   components: StarSystemComponent[]
 }
 
+/** Cache only system components that share a catalog position, brightest first. */
+export function coincidentComponentGroups(stars: readonly Star[]): number[][] {
+  const indices = new Map(stars.map((star, index) => [star.id, index]))
+  const groups: number[][] = []
+  for (const system of new Set(indexStarSystems(stars).values())) {
+    const positions = new Map<string, number[]>()
+    for (const { star } of system.components) {
+      const key = `${star.x_pc},${star.y_pc},${star.z_pc}`
+      let members = positions.get(key)
+      if (!members) positions.set(key, members = [])
+      members.push(indices.get(star.id)!)
+    }
+    for (const members of positions.values()) {
+      if (members.length < 2) continue
+      members.sort((a, b) => (stars[a]!.absolute_mag ?? Infinity) - (stars[b]!.absolute_mag ?? Infinity)
+        || (stars[b]!.luminosity_solar ?? 0) - (stars[a]!.luminosity_solar ?? 0) || a - b)
+      groups.push(members)
+    }
+  }
+  return groups
+}
+
 /** Group resolved, named catalog components; never infer companions from proximity. */
 export function indexStarSystems(stars: readonly Star[]): ReadonlyMap<string, StarSystem> {
   const groups = new Map<string, Map<string, Star>>()
