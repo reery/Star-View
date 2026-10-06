@@ -36,6 +36,8 @@ ra_deg,dec_deg,astrometry_epoch,parallax_mas,parallax_error_mas,pm_ra_cosdec_mas
 
 Optional physical-property columns may also be appended independently:
 
+Every bundled catalog carries the same adopted Sun record: radius 1 R☉ (695,700 km), mass 1 M☉, luminosity 1 L☉, effective temperature 5,772 K, spectral class G2V, absolute V magnitude +4.83, [M/H] = 0 dex, and approximate formation age 4.6 Gyr. Zero dex defines the solar-relative abundance reference; it does not mean the Sun contains no metals. The age is rounded, and the nominal radius is a conversion reference rather than a measurement with zero uncertainty. The reviewed values, source links, and caveats live in [the solar reference](../catalog-work/solar-reference/adopted.json); offline authoring preserves them during regeneration.
+
 ```csv
 radius_solar,metallicity_dex,metallicity_kind,age_gyr
 ```

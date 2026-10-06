@@ -10758,7 +10758,70 @@
   "individualComponentReviewSha256": "7cebe87fc936f9f333170d86c73c9187829fe2e9aad16b2b4f28ef2b69c94c0e",
   "objects": [
     {
+      "fields": {
+        "absolute_mag": {
+          "caveat": "Johnson V absolute visual magnitude, not bolometric magnitude.",
+          "sourceReference": "NASA:sunfact:2024-05-09",
+          "sourceUrl": "https://nssdc.gsfc.nasa.gov/planetary/factsheet/sunfact.html",
+          "status": "adopted",
+          "value": "4.83"
+        },
+        "age_gyr": {
+          "caveat": "Rounded approximate age since formation; no fabricated uncertainty or extra precision is adopted.",
+          "sourceReference": "NASA:sun-facts:formation-age",
+          "sourceUrl": "https://science.nasa.gov/sun/facts/",
+          "status": "estimated",
+          "value": "4.6"
+        },
+        "luminosity_solar": {
+          "caveat": "Unity as the reference for solar-relative luminosity; nominal solar luminosity is 3.828e26 W (IAU 2015 B3).",
+          "sourceReference": "solar-relative-unit",
+          "status": "defined",
+          "value": "1"
+        },
+        "mass_solar": {
+          "caveat": "Unity as the reference for solar-relative mass; not an independent mass measurement.",
+          "sourceReference": "solar-relative-unit",
+          "status": "defined",
+          "value": "1"
+        },
+        "metallicity_dex": {
+          "caveat": "The present Sun is the zero point of this logarithmic solar-relative abundance scale. Zero dex does not imply zero metals and is not the protosolar heavy-element mass fraction.",
+          "quantity": "[M/H]",
+          "sourceReference": "SDSS:DR15:ASPCAP:MH-definition",
+          "sourceUrl": "https://www.sdss4.org/dr15/irspec/aspcap/",
+          "status": "defined",
+          "value": "0"
+        },
+        "metallicity_kind": {
+          "sourceReference": "SDSS:DR15:ASPCAP:MH-definition",
+          "sourceUrl": "https://www.sdss4.org/dr15/irspec/aspcap/",
+          "status": "defined",
+          "value": "[M/H]"
+        },
+        "radius_solar": {
+          "caveat": "Nominal solar radius is an exact conversion constant, 695700 km; not an uncertainty-free measurement of the variable physical Sun.",
+          "sourceReference": "IAU:2015:B3",
+          "sourceUrl": "https://arxiv.org/abs/1510.07674",
+          "status": "adopted",
+          "value": "1"
+        },
+        "spectral_type": {
+          "sourceReference": "NASA:sunfact:2024-05-09",
+          "sourceUrl": "https://nssdc.gsfc.nasa.gov/planetary/factsheet/sunfact.html",
+          "status": "adopted",
+          "value": "G2V"
+        },
+        "temperature_k": {
+          "sourceReference": "IAU:2015:B3",
+          "sourceUrl": "https://arxiv.org/abs/1510.07674",
+          "status": "adopted",
+          "value": "5772"
+        }
+      },
       "id": "sun",
+      "sourceFile": "catalog-work/solar-reference/adopted.json",
+      "sourceSha256": "307056f03c6afeadf7dc5447dce0ed97380facec2251977279d785e1b3d19be1",
       "status": "shared override"
     },
     {

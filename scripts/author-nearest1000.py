@@ -20,6 +20,7 @@ from astropy.utils import iers
 from catalog_sources.adapters import eligible_gaia_physical, read_cns5, read_gaia_tap, read_simbad_tap
 from catalog_sources.enrichment import enrich_from_frozen, enrichment_sources, manifest_sha256
 from catalog_sources.metallicity import metallicity_kind
+from catalog_sources.solar import adopt_solar_reference, solar_provenance
 from catalog_sources.component_enrichment import enrich_component, component_sources, component_plan_sha256
 from catalog_sources.filesystem import write_managed_files
 from catalog_sources.mdwarf import SUPPLEMENT_FIELDS, load_supplements, resolve_supplemented_fields, row_context, supplement_observations
@@ -514,6 +515,7 @@ def build_package():
     if len(baseline) != 1000 or not replaced_ids.issubset(selected_ids):
         raise ValueError("Nearest-1000 candidate buffer or curated override coverage is insufficient")
     sun = shared_by_id["sun"]
+    adopt_solar_reference(sun)
     rows = [sun] + [item[2] for item in selected]
     names = [row["name"] for row in rows]
     if len(set(row["id"] for row in rows)) != len(rows) or len(set(names)) != len(rows):
@@ -571,7 +573,7 @@ def build_package():
         "coverage": {field: sum(bool(row.get(field)) for row in rows if row["id"] != "sun") for field in ("constellation", "spectral_type", "temperature_k", "mass_solar", "luminosity_solar", "radius_solar", "metallicity_dex", "age_gyr", "absolute_mag", "radial_velocity_kms")},
         "cutoff": {"rank": ranked.index(cutoff) + 1, "baselineRank": 1000, "id": cutoff[1], "name": cutoff[2]["name"], "distancePc": cutoff[0], "distanceSigmaPcLinearized": cutoff_sigma, "nextId": next_candidate[1], "nextDistancePc": next_candidate[0], "nextDistanceSigmaPcLinearized": next_sigma, "oneSigmaIntervalsOverlap": uncertainty_overlap},
         "audit": candidate_audit,
-        "objects": [{"id": "sun", "status": "shared override"}] + [item[3] for item in selected],
+        "objects": [{**solar_provenance(), "status": "shared override"}] + [item[3] for item in selected],
     }
     stream = io.StringIO(newline="")
     writer = csv.DictWriter(stream, fieldnames=HEADERS, lineterminator="\n")

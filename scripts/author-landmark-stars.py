@@ -10,6 +10,7 @@ from functools import cache
 from pathlib import Path
 from catalog_sources.enrichment import enrich_from_frozen, enrichment_sources, manifest_sha256
 from catalog_sources.overlay_companions import expand_overlay
+from catalog_sources.solar import adopt_solar_reference, solar_provenance
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -525,7 +526,7 @@ def source_row(source, identifier, name, constellation, context, visual_magnitud
 def sun_row():
     with DEFAULT_CATALOG.open(newline="") as handle:
         source = next(row for row in csv.DictReader(handle) if row["id"] == "sun")
-    return {header: source.get(header, "") or "" for header in HEADERS}
+    return {header: value for header, value in adopt_solar_reference(source).items() if header in HEADERS}
 
 
 def csv_text(rows):
@@ -552,7 +553,7 @@ def western_catalog():
     if len(hips) != 691 or set(hips) != set(simbad) or set(hips) != set(hipparcos_v):
         raise ValueError("Western figure source identity coverage drifted")
     rows = []
-    provenance = {}
+    provenance = {"sun": solar_provenance()}
     for hip in sorted(hips):
         source = simbad[hip]
         memberships = sorted(hips[hip])
@@ -636,7 +637,7 @@ def cluster_catalog():
     if len(selected) != 42 or {star["queryId"] for _, star in selected} != set(simbad):
         raise ValueError("Famous-cluster source identity coverage drifted")
     rows = []
-    provenance = {}
+    provenance = {"sun": solar_provenance()}
     for group, selected_star in selected:
         query_id = selected_star["queryId"]
         source = simbad[query_id]

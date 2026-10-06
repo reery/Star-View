@@ -8,6 +8,7 @@ import math
 from pathlib import Path
 from catalog_sources.enrichment import enrich_from_frozen, enrichment_sources, manifest_sha256
 from catalog_sources.overlay_companions import expand_overlay
+from catalog_sources.solar import adopt_solar_reference, solar_provenance
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -156,6 +157,8 @@ def render():
     inherited = []
     for identifier in ("sun", "sirius-a", "alpha-centauri-a", "alpha-centauri-b"):
         source = defaults[identifier]
+        if identifier == "sun":
+            adopt_solar_reference(source)
         inherited.append({header: source.get(header, "") or "" for header in HEADERS})
     with SOURCE.open(newline="") as handle:
         source_rows = list(csv.DictReader(handle))
@@ -205,6 +208,7 @@ def render():
         },
     }
     provenance["originalLandmarkIds"] = [row["id"] for row in rows if row["id"] != "sun"]
+    provenance["objects"]["sun"].update(solar_provenance())
     rows, expansion, _ = expand_overlay("bright-stars", rows, provenance["objects"])
     rows = [rows[0], *sorted(rows[1:], key=lambda row: math.hypot(float(row["x_pc"]), float(row["y_pc"]), float(row["z_pc"])))]
     provenance["companionExpansion"] = expansion

@@ -355,10 +355,10 @@ select:focus-visible, input:focus-visible { outline: 2px solid var(--accent); ou
 .properties > div { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 10px; align-items: baseline; padding: 3px 0; font-size: 14px; line-height: 1.2; }
 .properties dt { color: var(--muted); }
 .properties dd { text-align: right; font-weight: 500; font-variant-numeric: tabular-nums; }
-.properties > .object-type-row, .properties > .metallicity-row { position: relative; isolation: isolate; cursor: pointer; }
+.properties > .object-type-row, .properties > .metallicity-row, .properties > .radius-row { position: relative; isolation: isolate; cursor: pointer; }
 .object-type-toggle { padding: 0; border: 0; background: transparent; color: inherit; font: inherit; text-align: right; }
 .object-type-toggle::before { content: ''; position: absolute; z-index: -1; inset: -1px -8px; border-radius: 5px; }
-.object-type-row:hover .object-type-toggle::before, .metallicity-row:hover .object-type-toggle::before, .object-type-toggle[aria-expanded="true"]::before { background: var(--panel-selected); }
+.object-type-row:hover .object-type-toggle::before, .metallicity-row:hover .object-type-toggle::before, .radius-row:hover .object-type-toggle::before, .object-type-toggle[aria-expanded="true"]::before { background: var(--panel-selected); }
 .object-type-toggle:focus-visible { outline: none; }
 .object-type-toggle:focus-visible::before { outline: 2px solid var(--accent); outline-offset: 1px; }
 .dock-card.object-type-card { position: absolute; top: 20px; left: 324px; width: min(380px, calc(100vw - 402px)); max-height: calc(100dvh - 40px); overflow: auto; overscroll-behavior: contain; scrollbar-width: thin; scrollbar-color: #776a5c transparent; pointer-events: auto; background: linear-gradient(145deg, #26282a, var(--panel)); }
@@ -380,6 +380,31 @@ select:focus-visible, input:focus-visible { outline: 2px solid var(--accent); ou
 .object-type-credit { margin-top: 18px; padding-top: 10px; border-top: 1px solid var(--line); font-size: 10px; line-height: 1.5; color: var(--muted); }
 .object-type-credit a { color: inherit; }
 .metallicity-body { padding: 0 20px 20px; }
+.radius-body { padding: 0 16px 18px; }
+.radius-figure { margin: 0 -16px; }
+#radius-comparison { display: block; width: 100%; aspect-ratio: 340 / 172; background: #090b10; }
+.radius-footer { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); margin-bottom: 14px; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); background: #1d1e20; overflow: hidden; }
+.radius-selected-label { display: grid; align-content: center; padding: 9px 16px; }
+.radius-selected-label strong { font-size: 12px; font-weight: 500; overflow-wrap: anywhere; }
+.radius-reference-buttons { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); border-left: 1px solid var(--line); }
+.object-section-button.radius-reference-button { min-width: 0; min-height: 46px; padding: 8px 2px; border-radius: 0; font-size: 11px; }
+.radius-reference-button[aria-pressed="true"] { color: var(--accent-vibrant); background: #ff8a2a14; box-shadow: inset 0 -2px #ff8a2a70; }
+.radius-image-credit a { margin-top: 0; }
+.radius-summary { margin: 14px 0; font-size: 13px; line-height: 1.55; }
+.radius-stats { width: 100%; table-layout: fixed; border-collapse: collapse; font-size: 12px; font-variant-numeric: tabular-nums; }
+.radius-stats th, .radius-stats td { padding: 9px 0 9px 8px; text-align: right; vertical-align: top; overflow-wrap: anywhere; border-bottom: 1px solid var(--line); }
+.radius-stats th:first-child { padding-left: 0; width: 24%; text-align: left; font-weight: 400; color: var(--muted); }
+.radius-stats thead { background: #343638; }
+.radius-stats thead th { position: relative; font-size: 10px; line-height: 1.4; font-weight: 500; letter-spacing: 0.04em; color: var(--muted); }
+.radius-stats thead th:first-child { font-weight: 500; }
+.radius-stats thead th:first-child::before, .radius-stats thead th:last-child::after { content: ''; position: absolute; top: 0; bottom: -1px; width: 16px; background: #343638; border-bottom: 1px solid var(--line); }
+.radius-stats thead th:first-child::before { left: -16px; }
+.radius-stats thead th:last-child::after { right: -16px; }
+.radius-stat-unit { display: block; margin-top: 4px; font-size: 10px; color: var(--muted); }
+.radius-note, .radius-method { margin-top: 12px; font-size: 11px; line-height: 1.55; color: var(--muted); }
+.radius-method summary { cursor: pointer; }
+.radius-method p { margin-top: 10px; }
+.radius-method a { display: inline-block; margin-top: 8px; color: var(--accent-strong); text-underline-offset: 3px; }
 .metallicity-scale { margin: 64px 0 16px; padding: 0 8px 32px; font-size: 12px; font-variant-numeric: tabular-nums; }
 .metallicity-track { position: relative; height: 2px; background: linear-gradient(90deg, #776a5c, var(--accent-strong)); }
 .metallicity-tick { position: absolute; top: -4px; width: 1px; height: 10px; background: var(--muted); }

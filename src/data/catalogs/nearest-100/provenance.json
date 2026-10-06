@@ -5,7 +5,7 @@
   "policyRevision": "confirmed-membership-v2",
   "inputSha256": "ab8a3ab6e0b0edb1372f7c58cdf4f121fe1d5d204a9a0541e6d302a5ac18c84a",
   "supplementManifestSha256": "92cb2daae1b7319401890f4e1de7f904d1d1b0375b3ac2dc93c8c41c5ecd0073",
-  "gaiaSourceManifestSha256": "2be61990729716fc4005ca5e0998ea2a67939060e8161391898fd32d20fff974",
+  "gaiaSourceManifestSha256": "5744f1665fe2700b5acaf88fd2cc46a4f2a0e2a75d75c03290b769b64c3cb315",
   "physicalOverridesSha256": "665776a81875ac448b82a48c5d7d9d70af5dc54a1f3851843da75abdc0b3b10d",
   "physicalPolicyRevision": "nearest100-reviewed-gaia-shared-v2",
   "sharedEnrichmentManifestSha256": "da2dd89f7976ccbf65eac832643f63404e2c9881e67d7fefab276ac5ba479e52",
@@ -197,9 +197,9 @@
     "temperature_k": 97,
     "mass_solar": 66,
     "luminosity_solar": 68,
-    "radius_solar": 67,
-    "metallicity_dex": 62,
-    "age_gyr": 14,
+    "radius_solar": 68,
+    "metallicity_dex": 63,
+    "age_gyr": 15,
     "absolute_mag": 50,
     "fullVelocity": 72,
     "rawAstrometry": 100,
@@ -4820,6 +4820,9 @@
   "objects": [
     {
       "id": "sun",
+      "status": "adopted solar reference",
+      "sourceFile": "catalog-work/solar-reference/adopted.json",
+      "sourceSha256": "307056f03c6afeadf7dc5447dce0ed97380facec2251977279d785e1b3d19be1",
       "fields": {
         "type": {
           "status": "adopted",
@@ -4840,10 +4843,10 @@
           ]
         },
         "spectral_type": {
+          "value": "G2V",
           "status": "adopted",
-          "sourceRefs": [
-            "legacy-neighbors:sun"
-          ]
+          "sourceReference": "NASA:sunfact:2024-05-09",
+          "sourceUrl": "https://nssdc.gsfc.nasa.gov/planetary/factsheet/sunfact.html"
         },
         "x_pc": {
           "status": "adopted",
@@ -4882,46 +4885,57 @@
           ]
         },
         "temperature_k": {
+          "value": "5772",
           "status": "adopted",
-          "sourceRefs": [
-            "legacy-neighbors:sun"
-          ]
+          "sourceReference": "IAU:2015:B3",
+          "sourceUrl": "https://arxiv.org/abs/1510.07674"
         },
         "mass_solar": {
-          "status": "adopted",
-          "sourceRefs": [
-            "legacy-neighbors:sun"
-          ]
+          "value": "1",
+          "status": "defined",
+          "sourceReference": "solar-relative-unit",
+          "caveat": "Unity as the reference for solar-relative mass; not an independent mass measurement."
         },
         "luminosity_solar": {
-          "status": "adopted",
-          "sourceRefs": [
-            "legacy-neighbors:sun"
-          ]
+          "value": "1",
+          "status": "defined",
+          "sourceReference": "solar-relative-unit",
+          "caveat": "Unity as the reference for solar-relative luminosity; nominal solar luminosity is 3.828e26 W (IAU 2015 B3)."
         },
         "radius_solar": {
-          "status": "unknown",
-          "sourceRefs": []
+          "value": "1",
+          "status": "adopted",
+          "sourceReference": "IAU:2015:B3",
+          "sourceUrl": "https://arxiv.org/abs/1510.07674",
+          "caveat": "Nominal solar radius is an exact conversion constant, 695700 km; not an uncertainty-free measurement of the variable physical Sun."
         },
         "metallicity_dex": {
-          "status": "unknown",
-          "sourceRefs": []
+          "value": "0",
+          "status": "defined",
+          "sourceReference": "SDSS:DR15:ASPCAP:MH-definition",
+          "sourceUrl": "https://www.sdss4.org/dr15/irspec/aspcap/",
+          "quantity": "[M/H]",
+          "caveat": "The present Sun is the zero point of this logarithmic solar-relative abundance scale. Zero dex does not imply zero metals and is not the protosolar heavy-element mass fraction."
         },
         "age_gyr": {
-          "status": "unknown",
-          "sourceRefs": []
+          "value": "4.6",
+          "status": "estimated",
+          "sourceReference": "NASA:sun-facts:formation-age",
+          "sourceUrl": "https://science.nasa.gov/sun/facts/",
+          "caveat": "Rounded approximate age since formation; no fabricated uncertainty or extra precision is adopted."
         },
         "metallicity_kind": {
-          "status": "adopted",
-          "sourceRefs": [
-            "legacy-neighbors:sun"
-          ]
+          "value": "[M/H]",
+          "status": "defined",
+          "sourceReference": "SDSS:DR15:ASPCAP:MH-definition",
+          "sourceUrl": "https://www.sdss4.org/dr15/irspec/aspcap/"
         },
         "absolute_mag": {
+          "value": "4.83",
           "status": "adopted",
-          "sourceRefs": [
-            "NASA:sunfact:2024-05-09"
-          ]
+          "sourceReference": "NASA:sunfact:2024-05-09",
+          "sourceUrl": "https://nssdc.gsfc.nasa.gov/planetary/factsheet/sunfact.html",
+          "caveat": "Johnson V absolute visual magnitude, not bolometric magnitude."
         },
         "epoch": {
           "status": "adopted",
@@ -4942,79 +4956,79 @@
           ]
         },
         "ra_deg": {
-          "status": "adopted",
+          "status": "not-applicable",
           "sourceRefs": [
             "legacy-neighbors:sun"
           ]
         },
         "dec_deg": {
-          "status": "adopted",
+          "status": "not-applicable",
           "sourceRefs": [
             "legacy-neighbors:sun"
           ]
         },
         "astrometry_epoch": {
-          "status": "adopted",
+          "status": "not-applicable",
           "sourceRefs": [
             "legacy-neighbors:sun"
           ]
         },
         "parallax_mas": {
-          "status": "adopted",
+          "status": "not-applicable",
           "sourceRefs": [
             "legacy-neighbors:sun"
           ]
         },
         "parallax_error_mas": {
-          "status": "adopted",
+          "status": "not-applicable",
           "sourceRefs": [
             "legacy-neighbors:sun"
           ]
         },
         "pm_ra_cosdec_masyr": {
-          "status": "adopted",
+          "status": "not-applicable",
           "sourceRefs": [
             "legacy-neighbors:sun"
           ]
         },
         "pm_ra_error_masyr": {
-          "status": "adopted",
+          "status": "not-applicable",
           "sourceRefs": [
             "legacy-neighbors:sun"
           ]
         },
         "pm_dec_masyr": {
-          "status": "adopted",
+          "status": "not-applicable",
           "sourceRefs": [
             "legacy-neighbors:sun"
           ]
         },
         "pm_dec_error_masyr": {
-          "status": "adopted",
+          "status": "not-applicable",
           "sourceRefs": [
             "legacy-neighbors:sun"
           ]
         },
         "radial_velocity_kms": {
-          "status": "adopted",
+          "status": "not-applicable",
           "sourceRefs": [
             "legacy-neighbors:sun"
           ]
         },
         "radial_velocity_error_kms": {
-          "status": "adopted",
+          "status": "not-applicable",
           "sourceRefs": [
             "legacy-neighbors:sun"
           ]
         },
         "astrometry_ref": {
-          "status": "adopted",
+          "status": "not-applicable",
           "sourceRefs": [
             "legacy-neighbors:sun"
           ]
         },
         "radial_velocity_ref": {
-          "status": "adopted",
+          "status": "not-applicable",
           "sourceRefs": [
             "legacy-neighbors:sun"
           ]

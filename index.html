@@ -52,7 +52,7 @@
                             <div class="stellar-property"><dt>Temperature</dt><dd id="temperature"></dd></div>
                             <div id="luminosity-row" class="stellar-property"><dt>Bolometric luminosity</dt><dd id="luminosity"></dd></div>
                             <div id="mass-row"><dt>Mass</dt><dd id="mass"></dd></div>
-                            <div class="stellar-property"><dt>Radius</dt><dd id="radius"></dd></div>
+                            <div class="stellar-property radius-row"><dt>Radius</dt><dd><button id="radius-toggle" class="object-type-toggle" type="button" aria-controls="radius-card" aria-expanded="false"><span id="radius"></span></button></dd></div>
                             <div class="stellar-property metallicity-row"><dt id="metallicity-label">Metallicity</dt><dd><button id="metallicity-toggle" class="object-type-toggle" type="button" aria-controls="metallicity-card" aria-expanded="false"><span id="metallicity"></span></button></dd></div>
                             <div class="stellar-property"><dt>Age</dt><dd id="age"></dd></div>
                             <div class="stellar-property"><dt>Absolute mag. (V)</dt><dd id="absolute-mag"></dd></div>
@@ -142,6 +142,32 @@
                   </div>
                 </div>
                 <p id="metallicity-description"></p>
+              </div>
+            </section>
+            <section id="radius-card" class="dock-card object-type-card radius-card" aria-labelledby="radius-heading" data-scene-obstacle hidden>
+              <div class="panel-heading">
+                <h2 id="radius-heading">Radius comparison</h2>
+                <button id="radius-close" class="panel-lock" type="button" aria-label="Close radius card"><span id="radius-close-icon"></span></button>
+              </div>
+              <div class="radius-body">
+                <figure class="radius-figure">
+                  <canvas id="radius-comparison" role="img" aria-label="Radius comparison"></canvas>
+                  <figcaption class="radius-footer">
+                    <div class="radius-selected-label"><strong id="radius-selected-name"></strong></div>
+                    <div class="radius-reference-buttons" role="group" aria-label="Radius comparison object">
+                      <button id="radius-reference-origin" class="object-section-button radius-reference-button" type="button" aria-pressed="true">Origin</button>
+                      <button id="radius-reference-jupiter" class="object-section-button radius-reference-button" type="button" aria-pressed="false">Jupiter</button>
+                      <button id="radius-reference-earth" class="object-section-button radius-reference-button" type="button" aria-pressed="false">Earth</button>
+                    </div>
+                  </figcaption>
+                </figure>
+                <p id="radius-benchmark-note" class="radius-note" hidden></p>
+                <p id="radius-comparison-summary" class="radius-summary" aria-live="polite"></p>
+                <table class="radius-stats" aria-label="Dimensions of selected and comparison objects">
+                  <thead><tr><th scope="col">Dimension</th><th id="radius-selected-column" scope="col">Selected</th><th id="radius-reference-column" scope="col">Origin</th></tr></thead>
+                  <tbody id="radius-stats"></tbody>
+                </table>
+                <details class="radius-method"><summary>Units, imagery &amp; assumptions</summary><p id="radius-scale-note"></p><p>Based on catalog radii, which may be measured, estimated, or model-derived. Area and volume are derived, not independent measurements.</p><p>Stars are represented as spheres using their catalog radii. Diameter = 2 × radius; surface area = 4πr²; volume = 4πr³/3. These derived values inherit the catalog radius’s uncertainty; extra digits do not imply extra accuracy. Stellar surface detail, shine, and temperature-based colors are illustrative. Cool dwarfs are brightened for visibility, although much of their radiation is infrared.</p><p>R☉ = 695,700 km. R♃ = 71,492 km and R⊕ = 6,378.1 km (equatorial radii). Jupiter and Earth are oblate spheroids with polar radii 66,854 km and 6,356.8 km; their area and volume account for this flattening. A / V mean surface area / volume relative to the Sun, Jupiter, or Earth, indicated by ☉ / ♃ / ⊕.</p><p>Jupiter uses a Hubble photographic map with the Great Red Spot facing the viewer; the unobserved small polar caps extend the map’s nearest observed row. Earth uses NASA’s Blue Marble satellite mosaic with its historical cloud composite. Planetary shading adds illustrative daylight and grazing-angle atmospheric haze. These views show recognizable features, not the current rotation or illumination.</p><a href="https://arxiv.org/abs/1510.07674" target="_blank" rel="noreferrer">IAU nominal conversion constants ↗</a><p class="radius-image-credit">Jupiter: <a href="https://science.nasa.gov/asset/hubble/jupiter-global-map-2019/" target="_blank" rel="noreferrer">NASA, ESA, A. Simon &amp; M.H. Wong ↗</a><br />Earth: <a href="https://svs.gsfc.nasa.gov/2915/" target="_blank" rel="noreferrer">NASA/GSFC Scientific Visualization Studio ↗</a> · <a href="https://science.nasa.gov/blogs/earth-matters/2011/10/06/crafting-the-blue-marble/" target="_blank" rel="noreferrer">Blue Marble clouds: Reto Stöckli &amp; Robert Simmon ↗</a></p></details>
               </div>
             </section>
             <div class="scene-toolbar" role="group" aria-label="Map view controls" data-scene-obstacle>
