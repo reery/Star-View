@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "reviewed": "2026-10-06",
+  "objects": {
+    "* mu. Cas": {
+      "label": "Mu Cas A",
+      "component": "A",
+      "scope": "Primary Mu Cas A, not the total mass of the binary or the faint B component. The catalog retains the existing Mu Cas system marker and motion.",
+      "reference": "2020ApJ...904..112B",
+      "url": "https://arxiv.org/abs/2010.06609",
+      "note": "Bond et al. 2020: primary dynamical mass (Table 7), photospheric [Fe/H] (Table 9), preferred temperature and luminosity (§9.1), and model age (§9.2). Radius is the parallax-adjusted interferometric value in Table 9. The paper suspects the interferometric angular diameter is overestimated by a few percent, and explicitly treats temperature, radius, helium content and age as uncertain. The adopted surface [Fe/H]=-0.81 differs from the initial abundance used for diffusion-inclusive stellar models. Luminosity and mass use this paper's parallax and are retained as published, not recomputed with the catalog's orbit-contaminated Gaia component parallax.",
+      "fields": {
+        "temperature_k": {"value": 5346, "uncertainty": 70, "status": "model-derived", "section": "9.1"},
+        "mass_solar": {"value": 0.7440, "uncertainty": 0.0122, "status": "measured", "section": "Table 7"},
+        "luminosity_solar": {"value": 0.458, "uncertainty": 0.014, "status": "model-derived", "section": "9.1"},
+        "radius_solar": {"value": 0.789, "uncertainty": 0.008, "status": "derived", "section": "Table 9", "caveat": "Formal uncertainty excludes the suspected angular-diameter systematic; see §8.1."},
+        "metallicity_dex": {"value": -0.81, "uncertainty": 0.03, "status": "measured", "section": "Table 9", "quantity": "photospheric [Fe/H]"},
+        "age_gyr": {"value": 12.7, "uncertainty": 2.7, "status": "model-derived", "section": "9.2", "caveat": "Suggestive model estimate sensitive to temperature, angular diameter, helium and element diffusion."}
+      }
+    },
+    "* rho Per": {
+      "label": "Rho Persei (Gorgonea Tertia)",
+      "component": "single star",
+      "scope": "Single catalogued star HIP 14354 / HD 19058.",
+      "reference": "2019A&A...624A..35K",
+      "url": "https://arxiv.org/html/1902.07531",
+      "note": "Tables 2-3, row E: direct granulation-scaling mass and Stefan-Boltzmann radius; luminosity converts log10(L/Lsun)=3.43 +/-0.03, adopted there from McDonald et al. 2017. Published values retain their source temperature (3479 +/-125 K); the catalog's existing spectroscopic temperature and [Fe/H] remain unchanged. Mass is not an orbital/dynamical measurement; radius is not interferometric. No age is adopted because this paper reports none.",
+      "fields": {
+        "mass_solar": {"value": 1.9, "uncertainty": 0.7, "status": "derived", "section": "Table 3, row E, M_direct", "quantity": "granulation-scaling stellar mass", "inputs": {"log_g_cgs": 0.37, "radius_solar": 143}, "caveat": "Empirical granulation calibration and the paper's radius; not a dynamical mass."},
+        "luminosity_solar": {"value": 2691.534804, "uncertainty": {"lower": 179.6483724, "upper": 192.4966992}, "status": "model-derived", "section": "Table 2, row E", "quantity": "bolometric SED luminosity", "inputs": {"log_luminosity_solar": 3.43, "log_luminosity_uncertainty_dex": 0.03}, "caveat": "McDonald et al. 2017 SED value as adopted by Kallinger; retained at the publication's distance."},
+        "radius_solar": {"value": 143, "uncertainty": 12, "status": "derived", "section": "Table 3, row E, note h", "quantity": "Stefan-Boltzmann stellar radius", "inputs": {"temperature_k": 3479, "log_luminosity_solar": 3.43}, "caveat": "Published radius uses 3479 K, not the catalog's preserved 3619 K temperature."}
+      }
+    }
+  }
+}

@@ -15,6 +15,7 @@ export interface ViewerRenderOptions {
   mode: StarColorMode
   showClouds: boolean
   targetDistancePc?: number
+  orbitDistancePc?: number
   powerSaving?: boolean
 }
 
@@ -61,7 +62,9 @@ Object.assign(window, {
     const target = galacticToWorld(stars.find((star) => star.id === options.targetId)!)
     const position = options.targetDistancePc === undefined ? new Vector3()
       : target.clone().addScaledVector(target.clone().normalize(), -options.targetDistancePc)
-    viewer.setViewState({ position: position.toArray(), target: target.toArray(), home: false, observerRollRadians: 0 })
+    const orbitTarget = options.orbitDistancePc === undefined ? target
+      : target.clone().sub(position).setLength(options.orbitDistancePc).add(position)
+    viewer.setViewState({ position: position.toArray(), target: orbitTarget.toArray(), home: false, observerRollRadians: 0 })
     if (options.observerView) viewer.setObserverView(true, 'sun')
     await new Promise<void>((resolve) => requestAnimationFrame(() => requestAnimationFrame(() => resolve())))
     const state = viewer.getViewState()

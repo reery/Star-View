@@ -1,0 +1,491 @@
+{
+  "schemaVersion": 1,
+  "maximumDistancePc": 25,
+  "reviewDate": "2026-10-06",
+  "censusComponents": [
+    {
+      "sourceRow": "145",
+      "starId": "10pc-0145",
+      "name": "GJ 570 B",
+      "membershipRef": "2000ApJ...531L..57B",
+      "membershipUrl": "https://arxiv.org/abs/astro-ph/0001194",
+      "spectralType": "M1.5V",
+      "spectralTypeRef": "2000ApJ...531L..57B",
+      "physical": {
+        "mass_solar": {
+          "value": 0.586,
+          "uncertainty": 0.007,
+          "status": "dynamical",
+          "reference": "1999A&A...351..619F:Table 3"
+        }
+      },
+      "note": "The frozen BC astrometric position and proper motion are shared approximations. Use the reviewed 169.8 +/- 0.9 mas orbital parallax from Forveille et al. 1999 for both components. Combined BC photometry and models are withheld; the B mass is component-resolved.",
+      "parallaxMas": 169.8,
+      "parallaxErrorMas": 0.9,
+      "parallaxRef": "1999A&A...351..619F"
+    },
+    {
+      "sourceRow": "146",
+      "starId": "10pc-0146",
+      "name": "GJ 570 C",
+      "membershipRef": "2000ApJ...531L..57B",
+      "membershipUrl": "https://arxiv.org/abs/astro-ph/0001194",
+      "spectralType": "M3V",
+      "spectralTypeRef": "2000ApJ...531L..57B",
+      "physical": {
+        "mass_solar": {
+          "value": 0.39,
+          "uncertainty": 0.005,
+          "status": "dynamical",
+          "reference": "1999A&A...351..619F:Table 3"
+        }
+      },
+      "note": "Published resolved binary measurements confirm this stellar component despite the frozen census LM? classification. Retain the original raw type in provenance. Its position and proper motion are shared BC approximations, not an independently resolved trajectory. Combined BC photometry and models are withheld.",
+      "parallaxMas": 169.8,
+      "parallaxErrorMas": 0.9,
+      "parallaxRef": "1999A&A...351..619F"
+    }
+  ],
+  "sharedSystemComponents": [
+    {
+      "starId": "wt-766-close-companion",
+      "name": "WT 766 B",
+      "type": "brown_dwarf",
+      "parentId": "cns5-5192",
+      "reference": "2024A&A...688A..44W",
+      "url": "https://arxiv.org/abs/2403.13055",
+      "physical": {
+        "mass_solar": {
+          "value": 77.3,
+          "unit": "M_jup",
+          "uncertainty": 1.4,
+          "status": "dynamical",
+          "reference": "2024A&A...688A..44W:Table C.3"
+        },
+        "temperature_k": {
+          "value": 2328,
+          "uncertainty": 7,
+          "status": "model-derived",
+          "reference": "2024A&A...688A..44W:Table C.3 ATMO"
+        },
+        "radius_solar": {
+          "value": 0.977,
+          "unit": "R_jup",
+          "uncertainty": 0.004,
+          "status": "model-derived",
+          "reference": "2024A&A...688A..44W:Table C.3 ATMO"
+        },
+        "age_gyr": {
+          "value": 0.67,
+          "uncertainty": 0.04,
+          "status": "model-derived",
+          "reference": "2024A&A...688A..44W:Table C.3 ATMO"
+        }
+      },
+      "note": "Directly detected close substellar companion to WT 766. ATMO model values are adopted; the paper also reports Baraffe alternatives. The J2000 position and proper motion use the shared system snapshot, with no invented AU offset or orbital phase. Individual radial velocity and Johnson V are unknown; host flux is not copied."
+    },
+    {
+      "starId": "gj-229-bb",
+      "name": "GJ 229 Bb",
+      "type": "brown_dwarf",
+      "parentId": "cns5-1529",
+      "reference": "arXiv:2410.11953",
+      "url": "https://arxiv.org/abs/2410.11953",
+      "physical": {
+        "mass_solar": {
+          "value": 34.4,
+          "unit": "M_jup",
+          "uncertainty": 1.5,
+          "status": "dynamical",
+          "reference": "arXiv:2410.11953:Table 1"
+        },
+        "temperature_k": {
+          "value": 770,
+          "uncertainty": 20,
+          "status": "model-derived",
+          "reference": "arXiv:2410.11953:ATMO 2020"
+        },
+        "luminosity_solar": {
+          "value": 2.6302679918953817e-06,
+          "uncertainty": 2.422566347487076e-07,
+          "log10Value": -5.58,
+          "status": "model-derived",
+          "reference": "arXiv:2410.11953:ATMO 2020"
+        },
+        "age_gyr": {
+          "value": 2.45,
+          "uncertainty": 0.2,
+          "status": "model-derived",
+          "reference": "arXiv:2410.11953:ATMO 2020"
+        }
+      },
+      "note": "Resolved brown-dwarf component Bb. Individual dynamical mass and ATMO 2020 model parameters are adopted from the discovery paper. Position and proper motion share the former B system snapshot; no inner orbital separation, phase or individual radial velocity is invented."
+    },
+    {
+      "starId": "gj-1001-c",
+      "name": "GJ 1001 C",
+      "type": "brown_dwarf",
+      "spectralType": "L4.5",
+      "parentId": "cns5-0011",
+      "reference": "GJ1001BC-proceedings",
+      "url": "https://static.cambridge.org/content/id/urn%3Acambridge.org%3Aid%3Aarticle%3AS1743921307004255/resource/name/golimowski.pdf",
+      "physical": {},
+      "note": "Resolved L4.5 brown dwarf in GJ 1001 BC. Position and proper motion use the combined BC snapshot. The old combined temperature and luminosity are not assigned to either component. The proceedings component masses depend on a hypothetical 3:2 mass ratio and are not adopted."
+    },
+    {
+      "starId": "gj-105-c",
+      "name": "GJ 105 C",
+      "type": "star",
+      "parentId": "cns5-0658",
+      "reference": "arXiv:2505.08042",
+      "url": "https://arxiv.org/abs/2505.08042",
+      "spectralType": "M7",
+      "physical": {
+        "mass_solar": {
+          "value": 0.098,
+          "uncertainty": 0.002,
+          "status": "dynamical",
+          "reference": "arXiv:2505.08042"
+        }
+      },
+      "note": "Confirmed individual stellar companion. Position and proper motion use the source subsystem snapshot as an approximation; individual orbital phase, radial velocity and Johnson V are not supplied. Combined source physical measurements are not copied."
+    },
+    {
+      "starId": "gj-22-c",
+      "name": "GJ 22 C",
+      "type": "star",
+      "parentId": "cns5-0155",
+      "reference": "2003A&A...406..293W",
+      "url": "https://arxiv.org/abs/astro-ph/0305330",
+      "spectralType": "",
+      "physical": {},
+      "note": "Confirmed individual stellar companion. Position and proper motion use the source subsystem snapshot as an approximation; individual orbital phase, radial velocity and Johnson V are not supplied. Combined source physical measurements are not copied."
+    },
+    {
+      "starId": "gj-835-c",
+      "name": "GJ 835 C",
+      "type": "star",
+      "parentId": "cns5-5330",
+      "reference": "2013MNRAS.429..859J",
+      "url": "https://academic.oup.com/mnras/article/429/1/859/1028530",
+      "spectralType": "M7",
+      "physical": {},
+      "note": "Confirmed individual stellar companion. Position and proper motion use the source subsystem snapshot as an approximation; individual orbital phase, radial velocity and Johnson V are not supplied. Combined source physical measurements are not copied. M7 is a photometric spectral-type estimate from the paper, rather than a resolved spectral measurement."
+    },
+    {
+      "starId": "hd-50281-bb",
+      "name": "HD 50281 Bb",
+      "type": "star",
+      "parentId": "cns5-1702",
+      "reference": "2018AJ....155..215M",
+      "url": "https://arxiv.org/abs/1804.07845",
+      "spectralType": "",
+      "physical": {},
+      "note": "Confirmed individual stellar companion. Position and proper motion use the source subsystem snapshot as an approximation; individual orbital phase, radial velocity and Johnson V are not supplied. Combined source physical measurements are not copied."
+    },
+    {
+      "starId": "gj-667-b",
+      "name": "GJ 667 B",
+      "type": "star",
+      "parentId": "cns5-4252",
+      "reference": "CNS5 spectra and ESO eso1214",
+      "url": "https://www.eso.org/public/news/eso1214/",
+      "spectralType": "K5V",
+      "physical": {},
+      "note": "Confirmed individual stellar companion. Position and proper motion use the source subsystem snapshot as an approximation; individual orbital phase, radial velocity and Johnson V are not supplied. Combined source physical measurements are not copied."
+    },
+    {
+      "starId": "mu-her-ab",
+      "name": "Mu Her Ab",
+      "type": "star",
+      "parentId": "cns5-4401",
+      "reference": "arXiv:2604.12492",
+      "url": "https://arxiv.org/abs/2604.12492",
+      "spectralType": "",
+      "physical": {
+        "mass_solar": {
+          "value": 0.2286,
+          "uncertainty": 0.0006,
+          "status": "dynamical",
+          "reference": "arXiv:2604.12492"
+        }
+      },
+      "note": "Confirmed individual stellar companion. Position and proper motion use the source subsystem snapshot as an approximation; individual orbital phase, radial velocity and Johnson V are not supplied. Combined source physical measurements are not copied."
+    },
+    {
+      "starId": "gj-661-b",
+      "name": "GJ 661 B",
+      "type": "star",
+      "parentId": "cns5-4217",
+      "reference": "2000A&A...364..217D",
+      "url": "https://arxiv.org/abs/astro-ph/0010586",
+      "spectralType": "",
+      "physical": {
+        "mass_solar": {
+          "value": 0.369,
+          "uncertainty": 0.035,
+          "status": "dynamical",
+          "reference": "2000A&A...364..217D:Table 3"
+        }
+      },
+      "note": "Confirmed individual companion. Position and proper motion use the source subsystem snapshot as an approximation. Individual orbital phase, radial velocity and Johnson V are unknown. Combined physical values are withheld."
+    },
+    {
+      "starId": "gj-268-b",
+      "name": "GJ 268 B",
+      "type": "star",
+      "parentId": "cns5-1784",
+      "reference": "1999A&A...344..897D and Reyle 2023 census system 92",
+      "url": "https://citeseerx.ist.psu.edu/document?doi=632dc4feecc21ebe55cdf3c697ec4831dbbbb9e6&repid=rep1&type=pdf",
+      "spectralType": "M5e",
+      "physical": {},
+      "note": "Confirmed individual companion. Position and proper motion use the source subsystem snapshot as an approximation. Individual orbital phase, radial velocity and Johnson V are unknown. Combined physical values are withheld.",
+      "sourceCensusRows": [
+        "171",
+        "172"
+      ]
+    },
+    {
+      "starId": "gj-644-ba",
+      "name": "GJ 644 Ba",
+      "type": "star",
+      "parentId": "cns5-4136",
+      "reference": "2000A&A...364..665S",
+      "url": "https://arxiv.org/abs/astro-ph/0010585",
+      "spectralType": "",
+      "physical": {
+        "mass_solar": {
+          "value": 0.3466,
+          "uncertainty": 0.0047,
+          "status": "dynamical",
+          "reference": "2000A&A...364..665S:Table 3"
+        }
+      },
+      "note": "Confirmed individual companion. Position and proper motion use the source subsystem snapshot as an approximation. Individual orbital phase, radial velocity and Johnson V are unknown. Combined physical values are withheld."
+    },
+    {
+      "starId": "gj-644-bb",
+      "name": "GJ 644 Bb",
+      "type": "star",
+      "parentId": "cns5-4136",
+      "reference": "2000A&A...364..665S",
+      "url": "https://arxiv.org/abs/astro-ph/0010585",
+      "spectralType": "",
+      "physical": {
+        "mass_solar": {
+          "value": 0.3143,
+          "uncertainty": 0.004,
+          "status": "dynamical",
+          "reference": "2000A&A...364..665S:Table 3"
+        }
+      },
+      "note": "Confirmed individual companion. Position and proper motion use the source subsystem snapshot as an approximation. Individual orbital phase, radial velocity and Johnson V are unknown. Combined physical values are withheld."
+    },
+    {
+      "starId": "gj-569-bb",
+      "name": "GJ 569 Bb",
+      "type": "brown_dwarf",
+      "parentId": "cns5-3687",
+      "reference": "2004ApJ...615..958Z",
+      "url": "https://arxiv.org/abs/astro-ph/0407334",
+      "spectralType": "M9V",
+      "physical": {},
+      "note": "Confirmed individual companion. Position and proper motion use the source subsystem snapshot as an approximation. Individual orbital phase, radial velocity and Johnson V are unknown. Combined physical values are withheld."
+    },
+    {
+      "starId": "ross-458-b",
+      "name": "Ross 458 B",
+      "type": "star",
+      "parentId": "cns5-3213",
+      "spectralType": "M7Ve",
+      "reference": "arXiv:1009.5722",
+      "url": "https://arxiv.org/abs/1009.5722",
+      "physical": {},
+      "note": "Published M7 Ve component of the Ross 458 AB pair. Position and proper motion share the source subsystem snapshot. Individual RV and physical measurements are unknown; no invented orbital offset or parent physical data is adopted."
+    },
+    {
+      "starId": "gj-783-b",
+      "name": "GJ 783 B",
+      "type": "star",
+      "parentId": "cns5-5008",
+      "spectralType": "M3.5",
+      "reference": "Reyle 2023 census row 167, system 90",
+      "url": "https://cdsarc.cds.unistra.fr/ftp/J/A+A/650/A201/ReadMe",
+      "physical": {},
+      "note": "Confirmed LM companion from the frozen 10pc census, row 167/system 90. Its source parallax/proper motion are inherited from A. The census cautions about the candidate Gaia match, which is not adopted as a resolved B identity or independent astrometry. Position and proper motion share the source subsystem snapshot. Individual RV and physical measurements are unknown; no invented orbital offset or parent physical data is adopted.",
+      "sourceCensusRows": [
+        "167"
+      ]
+    },
+    {
+      "starId": "capella-ab",
+      "name": "Capella Ab",
+      "type": "star",
+      "parentId": "cns5-1318",
+      "spectralType": "G0III",
+      "reference": "arXiv:1505.07461",
+      "url": "https://arxiv.org/abs/1505.07461",
+      "physical": {
+        "mass_solar": {
+          "value": 2.4828,
+          "uncertainty": 0.0067,
+          "status": "dynamical",
+          "reference": "arXiv:1505.07461:Table 3"
+        },
+        "temperature_k": {
+          "value": 5730,
+          "uncertainty": 60,
+          "status": "measured",
+          "reference": "arXiv:1505.07461:Table 3"
+        },
+        "radius_solar": {
+          "value": 8.83,
+          "uncertainty": 0.33,
+          "status": "measured",
+          "reference": "arXiv:1505.07461:Table 3"
+        },
+        "luminosity_solar": {
+          "value": 72.7,
+          "uncertainty": 3.6,
+          "status": "derived-from-bolometric-correction",
+          "reference": "arXiv:1505.07461:Table 3"
+        },
+        "metallicity_dex": {
+          "value": -0.04,
+          "uncertainty": 0.06,
+          "status": "measured",
+          "reference": "arXiv:1505.07461:Table 3"
+        },
+        "absolute_mag": {
+          "value": 0.167,
+          "uncertainty": 0.015,
+          "status": "derived-from-orbital-parallax",
+          "reference": "arXiv:1505.07461:Table 3"
+        },
+        "age_gyr": {
+          "value": null,
+          "status": "withheld-model-age-range",
+          "reference": "arXiv:1505.07461:Table 3; system age 0.590-0.650 Gyr, not a single adopted individual value"
+        }
+      },
+      "note": "Confirmed hotter giant component. Dynamical mass, radius, temperature, luminosity, abundance and individual absolute V come from Torres et al. 2015 Table 3. System model age spans 0.590-0.650 Gyr and is not adopted as a point estimate. Position/proper motion share the original combined source snapshot; individual orbital radial velocity is withheld."
+    },
+    {
+      "starId": "chi-draconis-b",
+      "name": "Chi Draconis B",
+      "type": "star",
+      "parentId": "cns5-4539",
+      "reference": "2010AJ....139.2308F",
+      "url": "https://chara.gsu.edu/files/papers/2010_Farrington_AJ_139_2308.pdf",
+      "physical": {
+        "mass_solar": {
+          "value": 0.75,
+          "uncertainty": 0.03,
+          "status": "dynamical",
+          "reference": "2010AJ....139.2308F"
+        }
+      },
+      "note": "The Table 5 masses use the paper orbital solution. Individual spectral types and blended photometry are withheld. Position and proper motion share the parent snapshot as an approximation. Individual radial velocity, orbital phase and unresolved physical measurements are withheld."
+    },
+    {
+      "starId": "mu-cassiopeiae-b",
+      "name": "Mu Cassiopeiae B",
+      "type": "star",
+      "parentId": "cns5-0317",
+      "reference": "arXiv:2010.06609",
+      "url": "https://arxiv.org/abs/2010.06609",
+      "physical": {
+        "mass_solar": {
+          "value": 0.1728,
+          "uncertainty": 0.0035,
+          "status": "dynamical",
+          "reference": "arXiv:2010.06609"
+        }
+      },
+      "note": "The faint secondary is a confirmed dM star. Retain already reviewed primary-only Bond et al. physical values; no third object is inferred. Position and proper motion share the parent snapshot as an approximation. Individual radial velocity, orbital phase and unresolved physical measurements are withheld."
+    },
+    {
+      "starId": "chi1-orionis-b",
+      "name": "Chi1 Orionis B",
+      "type": "star",
+      "parentId": "cns5-1464",
+      "reference": "arXiv:astro-ph/0209404",
+      "url": "https://arxiv.org/abs/astro-ph/0209404",
+      "physical": {
+        "mass_solar": {
+          "value": 0.15,
+          "uncertainty": 0.02,
+          "status": "dynamical",
+          "reference": "arXiv:astro-ph/0209404"
+        }
+      },
+      "note": "The directly detected companion is stellar. Model age disagreements are retained as unknown individual ages. Position and proper motion share the parent snapshot as an approximation. Individual radial velocity, orbital phase and unresolved physical measurements are withheld."
+    },
+    {
+      "starId": "zeta-herculis-b",
+      "name": "Zeta Herculis B",
+      "type": "star",
+      "parentId": "cns5-4097",
+      "reference": "arXiv:astro-ph/0110004",
+      "url": "https://arxiv.org/abs/astro-ph/0110004",
+      "physical": {},
+      "note": "Published A/B membership is adopted. Calibration-dependent masses and a hypothetical unseen substellar companion are not adopted. Position and proper motion share the parent snapshot as an approximation. Individual radial velocity, orbital phase and unresolved physical measurements are withheld."
+    },
+    {
+      "starId": "iota-pegasi-b",
+      "name": "Iota Pegasi B",
+      "type": "star",
+      "parentId": "cns5-5470",
+      "reference": "arXiv:astro-ph/9811029",
+      "url": "https://arxiv.org/abs/astro-ph/9811029",
+      "physical": {
+        "mass_solar": {
+          "value": 0.819,
+          "uncertainty": 0.009,
+          "status": "dynamical",
+          "reference": "arXiv:astro-ph/9811029"
+        }
+      },
+      "note": "Adopt component dynamical masses, without copying combined spectrum or photometry. Position and proper motion share the parent snapshot as an approximation. Individual radial velocity, orbital phase and unresolved physical measurements are withheld."
+    },
+    {
+      "starId": "hd-104304-b",
+      "name": "HD 104304 B",
+      "type": "star",
+      "parentId": "cns5-2945",
+      "reference": "arXiv:1005.0620",
+      "url": "https://arxiv.org/abs/1005.0620",
+      "physical": {
+        "mass_solar": {
+          "value": 0.21,
+          "uncertainty": null,
+          "status": "photometric-estimate",
+          "reference": "arXiv:1005.0620"
+        }
+      },
+      "note": "Resolved common-proper-motion companion. M4V and the 0.21 solar mass estimate are photometrically derived, not a resolved spectral or dynamical measurement. Position and proper motion share the parent snapshot as an approximation. Individual radial velocity, orbital phase and unresolved physical measurements are withheld.",
+      "spectralType": "M4V"
+    },
+    {
+      "starId": "gamma-cephei-b",
+      "name": "Gamma Cephei B",
+      "type": "star",
+      "parentId": "cns5-5833",
+      "reference": "arXiv:astro-ph/0609638",
+      "url": "https://arxiv.org/abs/astro-ph/0609638",
+      "physical": {},
+      "note": "The orbit analysis identifies a stellar secondary. Its inferred M4 class and mass depend on the primary model and are withheld here. The planet remains outside this stellar-component card. Position and proper motion share the parent snapshot as an approximation. Individual radial velocity, orbital phase and unresolved physical measurements are withheld."
+    },
+    {
+      "starId": "gj-867-c",
+      "name": "GJ 867 C",
+      "type": "star",
+      "parentId": "cns5-5588",
+      "reference": "arXiv:2312.04247",
+      "url": "https://arxiv.org/abs/2312.04247",
+      "physical": {},
+      "note": "FK Aqr is the A/C pair in published GJ 867 nomenclature. The FL Aqr B/D pair has an unseen D with ambiguous stellar versus brown-dwarf classification; do not create a classified D record yet. Position and proper motion share the parent snapshot as an approximation. Individual radial velocity, orbital phase and unresolved physical measurements are withheld.",
+      "spectralType": "M1-2Ve"
+    }
+  ]
+}

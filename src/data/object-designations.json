@@ -13,21 +13,21 @@
     "catalog-work/object-designations/simbad.csv": "d2f31fe2362ae8b8b56b672e93ab48e144457ed5795e3b90fb905ffc78bdea12",
     "catalog-work/object-designations/source-manifest.json": "cb4b8c3c657b06f5eb1abd7679d4a2b5021bc6b3a1af6e151fc77bd0339f5ab2",
     "catalog-work/western-constellation-stars/simbad.csv": "c45f9d1adb165751c0cf8f77a28efc18dfef5427760de6be0dad20f4aff92ede",
-    "src/data/catalogs/bright-stars/provenance.json": "38529411832d4f419ed7257bd09006ab6b1fd25a4a398082439d154f2878d910",
-    "src/data/catalogs/bright-stars/stars.csv": "27ff72685776c01059cc312cd8ca1ab8a1ffb6bc7f031fc42632a3a7ed79dc23",
-    "src/data/catalogs/famous-cluster-stars/provenance.json": "5db955ed298a4bc7fa637076117537b6fcfd8b6cb4532545322beb65af955649",
-    "src/data/catalogs/famous-cluster-stars/stars.csv": "d206df86f5d4f0ad492cd15e289efb6c94b19a76351e02b6b1fc7c1a28c335f4",
-    "src/data/catalogs/nearest-100/provenance.json": "b5796a81f17aaf02a1565d74c0fd2e5f655f475ea2216292a0947a2e06677d28",
-    "src/data/catalogs/nearest-100/stars.csv": "299fb6bcde5a659d0c4a3ecd2915a4e87865a5f71138aa1a3fc758da0d4c3b96",
-    "src/data/catalogs/nearest-1000/provenance.json": "926918af6f6ccc747cb309cf03d1e240c14be658c53b82854b52fd98e34b08d7",
-    "src/data/catalogs/nearest-1000/stars.csv": "cd34a07854222054ba064d7cc41573c7b43b1031acf30ac68954ba1752f6fa3c",
-    "src/data/catalogs/western-constellation-stars/provenance.json": "7a694cf910e1a77d78defbdbc695762bcf1dd2dc3cffc0d94cbf556020ec7c6f",
-    "src/data/catalogs/western-constellation-stars/stars.csv": "72295aaa86e287bcf42cbdfcf7282c7dd9ce915a787135c9af0561061781731b",
+    "src/data/catalogs/bright-stars/provenance.json": "da5a6a73fc129f0b8db07216607dd47044fd641be17bade9812ef8be133fda51",
+    "src/data/catalogs/bright-stars/stars.csv": "58c8e9a6989ef66103a5b253bf0e8c126d042d6dc85eda46bbb732657c22b602",
+    "src/data/catalogs/famous-cluster-stars/provenance.json": "6440f7a35999f1d643688c86c3307d4e0d44d19b81f538f6b7b0b69c202d2cd0",
+    "src/data/catalogs/famous-cluster-stars/stars.csv": "76c39a8513dcf96d5b4fe914c3558544e0abc0ff72d1b67e6e63892b21d7c9c6",
+    "src/data/catalogs/nearest-100/provenance.json": "721a3b6d647b6c96ad111e9cd6617b99d88133bcc141adddf68e6dfe00dfc498",
+    "src/data/catalogs/nearest-100/stars.csv": "7bba6871e50af4e8db37c2ed3382212f7b11bb464e4a00d64ec15e63d1ef036e",
+    "src/data/catalogs/nearest-1000/provenance.json": "1aa535b59945f3406c2a6c88fac84441f3432822879ba8b29a6137fcecaf1ff8",
+    "src/data/catalogs/nearest-1000/stars.csv": "14905a4ada8de25f0ede737c04b50225c930f780ed0860484811c33bdb23788f",
+    "src/data/catalogs/western-constellation-stars/provenance.json": "8080871cbb56aa665621d279425115937d5f3c81bbb00d0982fc0eca93fe4594",
+    "src/data/catalogs/western-constellation-stars/stars.csv": "b6968983dee4b7a0f81833e35ef8cdc203788374d49313d47544113966b8b10b",
     "src/data/overlays/bubbles/objects.json": "9f45e7246b650153b17fc151df06ef413fe4de6b6987cddddd093caf6c978ac5",
     "src/data/overlays/compact-remnants/objects.json": "bc0b4aca34b965dc2c464b59a2f359a96c71ece5832a8d55f3ba621e1b57eee0",
     "src/data/overlays/molecular-clouds/objects.json": "6f20f8fefbbeab700c05c1a0e6b9844f42998da9d810f073973cd99da50419b4",
     "src/data/overlays/nebulae/objects.json": "d39e6c33ce9d69e766df197f054dd392623fce93a19c171a636920f175910548",
-    "src/data/stars.csv": "0097830fdbcb542cc70082c1cc1c735a926b1e711e72f95068a9243dbaf1bb85"
+    "src/data/stars.csv": "b2730d990dad43bb380826c4a1c12b84cac8469bd21b3635920f6d8625cfb1a8"
   },
   "objects": {
     "10pc-0029": {
@@ -278,8 +278,10 @@
       "sources": [
         "catalog-work/object-designations/components.csv",
         "catalog-work/object-designations/simbad.csv",
+        "src/data/catalogs/bright-stars/stars.csv",
         "src/data/catalogs/nearest-100/stars.csv",
-        "src/data/catalogs/nearest-1000/stars.csv"
+        "src/data/catalogs/nearest-1000/stars.csv",
+        "src/data/catalogs/western-constellation-stars/stars.csv"
       ]
     },
     "10pc-0033": {
@@ -3598,6 +3600,20 @@
         "src/data/catalogs/nearest-1000/stars.csv"
       ]
     },
+    "10pc-0145": {
+      "name": "GJ 570 B",
+      "designations": [],
+      "sources": [
+        "src/data/catalogs/nearest-1000/stars.csv"
+      ]
+    },
+    "10pc-0146": {
+      "name": "GJ 570 C",
+      "designations": [],
+      "sources": [
+        "src/data/catalogs/nearest-1000/stars.csv"
+      ]
+    },
     "abell-35": {
       "name": "Abell 35",
       "designations": [
@@ -3708,6 +3724,7 @@
         "src/data/catalogs/bright-stars/stars.csv",
         "src/data/catalogs/nearest-100/stars.csv",
         "src/data/catalogs/nearest-1000/stars.csv",
+        "src/data/catalogs/western-constellation-stars/stars.csv",
         "src/data/stars.csv"
       ]
     },
@@ -10403,6 +10420,31 @@
         "src/data/overlays/molecular-clouds/objects.json"
       ]
     },
+    "capella-ab": {
+      "name": "Capella Ab",
+      "designations": [],
+      "sources": [
+        "src/data/catalogs/bright-stars/stars.csv",
+        "src/data/catalogs/nearest-1000/stars.csv",
+        "src/data/catalogs/western-constellation-stars/stars.csv"
+      ]
+    },
+    "chi-draconis-b": {
+      "name": "Chi Draconis B",
+      "designations": [],
+      "sources": [
+        "src/data/catalogs/nearest-1000/stars.csv",
+        "src/data/catalogs/western-constellation-stars/stars.csv"
+      ]
+    },
+    "chi1-orionis-b": {
+      "name": "Chi1 Orionis B",
+      "designations": [],
+      "sources": [
+        "src/data/catalogs/nearest-1000/stars.csv",
+        "src/data/catalogs/western-constellation-stars/stars.csv"
+      ]
+    },
     "cns5-0006": {
       "name": "85 Peg",
       "designations": [
@@ -10503,9 +10545,10 @@
       ]
     },
     "cns5-0011": {
-      "name": "L 362-29 BC",
+      "name": "GJ 1001 B",
       "designations": [
-        "GJ 1001 B",
+        "L 362-29 BC",
+        "L 362-29 BC",
         "GJ 1001 C",
         "2MASS J00043484-4044058",
         "2MASSW J0004348-404405",
@@ -11142,6 +11185,45 @@
         "VYS 2B",
         "WDS J00321+6715B",
         "Zkh 11"
+      ],
+      "sources": [
+        "catalog-work/nearest-1000/simbad.csv",
+        "src/data/catalogs/nearest-1000/stars.csv"
+      ]
+    },
+    "cns5-0155": {
+      "name": "GJ 22 A",
+      "designations": [
+        "GJ 22 C",
+        "2MASS J00322970+6714080",
+        "[RHG95] 92",
+        "ADS 433 AC",
+        "ADS 440 AC",
+        "BD+66 34A",
+        "CCDM J00325+6714A",
+        "CNS5 155",
+        "Gaia DR2 527956488339113472",
+        "Gaia DR3 527956488340229632",
+        "IDS 00263+6642 A",
+        "LFT 47",
+        "LHS 114",
+        "LSPM J0032+6714N",
+        "LTT 10178",
+        "MCY 1",
+        "NLTT 1707",
+        "PM J00324+6714",
+        "PMSC 00263+6642A",
+        "PMSC 00263+6642Aab",
+        "TIC 420470817",
+        "TIC 608170820",
+        "TYC 4027-803-1",
+        "UCAC4 787-000993",
+        "V547 Cas",
+        "VYS 2A",
+        "WDS J00321+6715A",
+        "WDS J00321+6715Aa,Ab",
+        "Zkh 10",
+        "Zkh 12"
       ],
       "sources": [
         "catalog-work/nearest-1000/simbad.csv",
@@ -12137,7 +12219,7 @@
       ]
     },
     "cns5-0317": {
-      "name": "Mu Cas",
+      "name": "Mu Cassiopeiae A",
       "designations": [
         "GJ 53",
         "GJ 53 A",
@@ -12174,6 +12256,7 @@
         "LHS 8",
         "LSPM J0108+5455",
         "LTT 10400",
+        "Mu Cas",
         "Mu Cassiopeiae",
         "mu. Cas",
         "N30 220",
@@ -14762,6 +14845,59 @@
         "src/data/catalogs/nearest-1000/stars.csv"
       ]
     },
+    "cns5-0833": {
+      "name": "Zeta2 Ret",
+      "designations": [
+        "GJ 138",
+        "HD 20807",
+        "HIP 15371",
+        "2MASS J03181281-6230230",
+        "ALB 1A",
+        "BNU 2",
+        "CCDM J03180-6232A",
+        "Ci 20 226",
+        "CNS5 833",
+        "CPC 20.1 685",
+        "CPD-62 265",
+        "Gaia DR2 4722135642226356736",
+        "Gaia DR3 4722135642226902656",
+        "GC 3975",
+        "GCRV 1842",
+        "GEN# +1.00020807",
+        "HIC 15371",
+        "HR 1010",
+        "IDS 03160-6253 A",
+        "IRAS 03172-6241",
+        "JP11 777",
+        "LFT 276",
+        "LHS 172",
+        "LPM 148",
+        "LTT 1576",
+        "N30 680",
+        "NLTT 10597",
+        "PLX 705",
+        "PM 03171-6242",
+        "PPM 353441",
+        "SAO 248774",
+        "SKY# 4958",
+        "SPOCS 159",
+        "TIC 279649049",
+        "TIC 471011143",
+        "TYC 8863-1557-1",
+        "UBV 3233",
+        "UBV M 9467",
+        "WDS J03182-6230A",
+        "WDS J03182-6230Aa,Ab",
+        "WEB 2954",
+        "WISEA J031814.85-623015.9",
+        "zet02 Ret",
+        "Zeta2 Reticuli"
+      ],
+      "sources": [
+        "catalog-work/nearest-1000/simbad.csv",
+        "src/data/catalogs/nearest-1000/stars.csv"
+      ]
+    },
     "cns5-0840": {
       "name": "Kappa1 Cet",
       "designations": [
@@ -17065,8 +17201,9 @@
       ]
     },
     "cns5-1318": {
-      "name": "Capella",
+      "name": "Capella Aa",
       "designations": [
+        "Capella",
         "Alpha Aurigae",
         "GJ 194",
         "GJ 194 A",
@@ -17225,7 +17362,9 @@
       ],
       "sources": [
         "catalog-work/nearest-1000/simbad.csv",
-        "src/data/catalogs/nearest-1000/stars.csv"
+        "src/data/catalogs/bright-stars/stars.csv",
+        "src/data/catalogs/nearest-1000/stars.csv",
+        "src/data/catalogs/western-constellation-stars/stars.csv"
       ]
     },
     "cns5-1324": {
@@ -17250,7 +17389,9 @@
       ],
       "sources": [
         "catalog-work/nearest-1000/simbad.csv",
-        "src/data/catalogs/nearest-1000/stars.csv"
+        "src/data/catalogs/bright-stars/stars.csv",
+        "src/data/catalogs/nearest-1000/stars.csv",
+        "src/data/catalogs/western-constellation-stars/stars.csv"
       ]
     },
     "cns5-1332": {
@@ -17929,7 +18070,8 @@
       ],
       "sources": [
         "catalog-work/nearest-1000/simbad.csv",
-        "src/data/catalogs/nearest-1000/stars.csv"
+        "src/data/catalogs/nearest-1000/stars.csv",
+        "src/data/catalogs/western-constellation-stars/stars.csv"
       ]
     },
     "cns5-1427": {
@@ -18109,7 +18251,7 @@
       ]
     },
     "cns5-1464": {
-      "name": "Chi1 Ori",
+      "name": "Chi1 Orionis A",
       "designations": [
         "GJ 222",
         "HD 39587",
@@ -18126,6 +18268,7 @@
         "ASCC 755242",
         "BD+20 1162",
         "chi01 Ori",
+        "Chi1 Ori",
         "Chi1 Orionis",
         "CNS5 1464",
         "EUVE J0554+20.2",
@@ -18611,9 +18754,10 @@
       ]
     },
     "cns5-1529": {
-      "name": "HD 42581B",
+      "name": "GJ 229 Ba",
       "designations": [
         "GJ 229 B",
+        "HD 42581B",
         "8pc 173.19B",
         "[B2006] J061035.1-215117",
         "CNS5 1529",
@@ -19043,6 +19187,42 @@
         "src/data/catalogs/nearest-1000/stars.csv"
       ]
     },
+    "cns5-1702": {
+      "name": "HD 50281 Ba",
+      "designations": [
+        "GJ 250 B",
+        "HD 50281B",
+        "2MASS J06521804-0511241",
+        "[RHG95] 1092",
+        "CCDM J06523-0511B",
+        "CNS5 1702",
+        "CSI-05 1844 2",
+        "Gaia DR2 3101920046552857728",
+        "Gaia DR3 3101920046552857728",
+        "GEN# +1.00050281B",
+        "GSC 04808-00765",
+        "IDS 06474-0503 B",
+        "Karmn J06523-051SAB",
+        "LFT 495",
+        "LHS 1876",
+        "LTT 2663",
+        "NLTT 17108",
+        "PM 06499-0508",
+        "PM J06523-0511",
+        "TIC 282210724",
+        "TYC 4808-765-1",
+        "UCAC4 425-023198",
+        "WDS J06523-0510B",
+        "WDS J06523-0510Ba,Bb",
+        "WNO 17B",
+        "WSI 125",
+        "Zkh 94"
+      ],
+      "sources": [
+        "catalog-work/nearest-1000/simbad.csv",
+        "src/data/catalogs/nearest-1000/stars.csv"
+      ]
+    },
     "cns5-1703": {
       "name": "HD 50281",
       "designations": [
@@ -19290,10 +19470,9 @@
       ]
     },
     "cns5-1784": {
-      "name": "QY Aur",
+      "name": "GJ 268 A",
       "designations": [
         "GJ 268",
-        "GJ 268 A",
         "GJ 268 B",
         "HIP 34603",
         "1RXS J071000.6+383211",
@@ -19337,6 +19516,7 @@
         "PLX 1668.00",
         "PM 07066+3838",
         "PM J07100+3831",
+        "QY Aur",
         "Ross 986",
         "SBC9 434",
         "StKM 2-447",
@@ -24128,6 +24308,57 @@
         "src/data/catalogs/nearest-1000/stars.csv"
       ]
     },
+    "cns5-2803": {
+      "name": "HD 99279 A",
+      "designations": [
+        "GJ 428 A",
+        "HD 99279A",
+        "HIP 55691",
+        "HIP 55691A",
+        "1RXS J112440.4-613904",
+        "2MASS J11244030-6138512",
+        "BSO 5A",
+        "CCDM J11247-6139A",
+        "CD-60 3532A",
+        "Ci 20 634",
+        "CNS5 2803",
+        "CPC 20.1 3176",
+        "CPD-60 2911A",
+        "CSI-60 2911 41",
+        "CSI-60 2911 42",
+        "DENIS J112440.3-613851",
+        "EXO 112229-6122.4",
+        "Gaia DR2 5334356223546961536",
+        "Gaia DR3 5334356223546961536",
+        "GCRV 3986 E",
+        "GCRV 62431",
+        "GEN# +1.00099279",
+        "HIC 55691",
+        "IDS 11204-6106 A",
+        "LFT 803",
+        "LHS 2402",
+        "LPM 385",
+        "LTT 4221",
+        "NLTT 27330",
+        "PLX 2645",
+        "PM 11225-6122",
+        "PPM 358692",
+        "SKY# 21672",
+        "TIC 315311759",
+        "TYC 8959-1969-2",
+        "UBV 10352",
+        "UCAC2 4550485",
+        "UCAC3 57-166345",
+        "WDS J11247-6139A",
+        "WEB 10010",
+        "WISE J112439.60-613850.4",
+        "WISEA J112439.38-613851.3"
+      ],
+      "sources": [
+        "catalog-work/nearest-1000/simbad.csv",
+        "src/data/catalogs/nearest-1000/stars.csv"
+      ]
+    },
     "cns5-2817": {
       "name": "Wolf 398",
       "designations": [
@@ -25167,9 +25398,10 @@
       ]
     },
     "cns5-2945": {
-      "name": "HD 104304",
+      "name": "HD 104304 A",
       "designations": [
         "GJ 454",
+        "HD 104304",
         "HIP 58576",
         "2MASS J12004444-1026452",
         "[B10] 3137",
@@ -26227,7 +26459,7 @@
       ]
     },
     "cns5-3213": {
-      "name": "BD+13 2618",
+      "name": "Ross 458 A",
       "designations": [
         "GJ 494",
         "GJ 494 A",
@@ -26246,6 +26478,7 @@
         "[ZEH2003] RX J1300.7+1222 1",
         "ASAS J130047+1222.3",
         "ASCC 954910",
+        "BD+13 2618",
         "BEU 16",
         "Ci 20 755",
         "CNS5 3213",
@@ -28546,10 +28779,11 @@
       ]
     },
     "cns5-3687": {
-      "name": "BD+16 2708B",
+      "name": "GJ 569 Ba",
       "designations": [
         "GJ 569 B",
         "[B2006] J145428.0+160605",
+        "BD+16 2708B",
         "CCDM J14545+1606B",
         "CNS5 3687",
         "FRT 1B",
@@ -30478,7 +30712,7 @@
       ]
     },
     "cns5-4097": {
-      "name": "Zeta Her",
+      "name": "Zeta Herculis A",
       "designations": [
         "HD 150680",
         "HIP 81693",
@@ -30531,6 +30765,7 @@
         "WDS J16413+3136AB",
         "WEB 13799",
         "zet Her",
+        "Zeta Her",
         "Zeta Herculis",
         "Zkh 230"
       ],
@@ -30760,11 +30995,11 @@
       ]
     },
     "cns5-4136": {
-      "name": "HD 152751",
+      "name": "GJ 644 A",
       "designations": [
         "GJ 644",
-        "GJ 644 A",
         "GJ 644 B",
+        "HD 152751",
         "HIP 82817",
         "1C 66.01",
         "1E 1652.7-0815",
@@ -31294,9 +31529,10 @@
       ]
     },
     "cns5-4217": {
-      "name": "HD 155876",
+      "name": "GJ 661 A",
       "designations": [
         "GJ 661",
+        "HD 155876",
         "HIP 84140",
         "1C 74.01",
         "1RXS J171206.0+454025",
@@ -31578,6 +31814,58 @@
         "Gaia DR3 5959737748540750592",
         "TIC 192642951",
         "WISEA J171854.33-413149.6"
+      ],
+      "sources": [
+        "catalog-work/nearest-1000/simbad.csv",
+        "src/data/catalogs/nearest-1000/stars.csv"
+      ]
+    },
+    "cns5-4252": {
+      "name": "GJ 667 A",
+      "designations": [
+        "GJ 667",
+        "HD 156384",
+        "HIP 84709",
+        "1RXS J171856.8-345928",
+        "2MASS J17185698-3459236",
+        "CCDM J17190-3459AB",
+        "CD-34 11626",
+        "Ci 20 1030",
+        "CNS5 4252",
+        "CPC 17 9133",
+        "CPD-34 6803",
+        "CSI-34 11626 21",
+        "Gaia DR3 5975663422846187008",
+        "GC 23362",
+        "GCRV 9982",
+        "GEN# +1.00156384",
+        "HIC 84709",
+        "HJ 4935AB",
+        "HR 6426",
+        "IDS 17121-3453 AB",
+        "IRAS 17156-3456",
+        "JP11 2840",
+        "LFT 1336",
+        "LHS 442",
+        "LPM 638",
+        "LTT 6888",
+        "MLO 4",
+        "MSX6C G351.8413+01.4245",
+        "N30 3854",
+        "NLTT 44531",
+        "NSV 8482",
+        "PLX 3924",
+        "PM 17155-3456",
+        "PPM 296186",
+        "SAO 208670",
+        "SKY# 31218",
+        "SRS 43662",
+        "TIC 154385728",
+        "UBV 14705",
+        "UGP 433",
+        "WDS J17190-3459AB",
+        "WEB 14302",
+        "WISEA J171858.15-345925.5"
       ],
       "sources": [
         "catalog-work/nearest-1000/simbad.csv",
@@ -32328,7 +32616,7 @@
       ]
     },
     "cns5-4399": {
-      "name": "Mu2 Her B",
+      "name": "Mu Her C",
       "designations": [
         "GJ 695 C",
         "AC 7B",
@@ -32336,17 +32624,19 @@
         "Gaia DR3 4594497838483177984",
         "Karmn J17464+277B",
         "mu.02 Her B",
+        "Mu2 Her B",
         "Mu2 Herculis B",
         "STF 2220C",
         "WDS J17465+2743C"
       ],
       "sources": [
         "catalog-work/nearest-1000/simbad.csv",
-        "src/data/catalogs/nearest-1000/stars.csv"
+        "src/data/catalogs/nearest-1000/stars.csv",
+        "src/data/catalogs/western-constellation-stars/stars.csv"
       ]
     },
     "cns5-4400": {
-      "name": "Mu2 Her A",
+      "name": "Mu Her B",
       "designations": [
         "GJ 695 B",
         "AC 7A",
@@ -32354,12 +32644,92 @@
         "Gaia DR3 4594497834189213184",
         "Karmn J17464+277A",
         "mu.02 Her A",
+        "Mu2 Her A",
         "Mu2 Herculis A",
         "STF 2220B",
         "WDS J17465+2743B"
       ],
       "sources": [
         "catalog-work/nearest-1000/simbad.csv",
+        "src/data/catalogs/nearest-1000/stars.csv",
+        "src/data/catalogs/western-constellation-stars/stars.csv"
+      ]
+    },
+    "cns5-4401": {
+      "name": "Mu Her Aa",
+      "designations": [
+        "GJ 695 A",
+        "HD 161797",
+        "HD 161797A",
+        "HIP 86974",
+        "1E 1744.4+2744",
+        "1RXS J174627.3+274322",
+        "2E 1744.5+2744",
+        "2E 3947",
+        "2MASS J17462752+2743142",
+        "86 Her",
+        "ABT 14A",
+        "ADS 10786 A",
+        "AG+27 1677",
+        "ASCC 697588",
+        "BD+27 2888",
+        "CCDM J17465+2744A",
+        "Ci 20 1065",
+        "CNS5 4401",
+        "CSI+27 2888 1",
+        "FK5 667",
+        "Gaia DR2 4594497769763697792",
+        "Gaia DR3 4594497769766809216",
+        "GC 24138",
+        "GCRV 10285",
+        "GEN# +1.00161797A",
+        "GSC 02085-03062",
+        "HIC 86974",
+        "HR 6623",
+        "IDS 17425+2747 A",
+        "IRAS 17444+2744",
+        "IRC +30312",
+        "JP11 2891",
+        "LFT 1374",
+        "LHS 3326",
+        "LSPM J1746+2743E",
+        "LTT 15266",
+        "Mu Herculis",
+        "Mu Herculis A",
+        "mu. Her",
+        "mu. Her A",
+        "mu.01 Her",
+        "Mu1 Her",
+        "Mu1 Herculis",
+        "N30 3954",
+        "NLTT 45435",
+        "PLX 4060",
+        "PMC 90-93 473",
+        "PMSC 17425+2747A",
+        "PPM 106324",
+        "ROT 2489",
+        "SAO 85397",
+        "SKY# 32126",
+        "SPOCS 764",
+        "SRS 30667",
+        "STF 2220A",
+        "TD1 20993",
+        "TIC 460067868",
+        "TRN 2",
+        "TYC 2085-3062-1",
+        "UBV 15136",
+        "USNO 873",
+        "USNO-B1.0 1177-00371509",
+        "uvby98 100161797 A",
+        "WDS J17465+2743A",
+        "WDS J17465+2743Aa,Ab",
+        "WEB 14673",
+        "YZ 27 8419",
+        "Zkh 264"
+      ],
+      "sources": [
+        "catalog-work/nearest-1000/simbad.csv",
+        "catalog-work/western-constellation-stars/simbad.csv",
         "src/data/catalogs/nearest-1000/stars.csv"
       ]
     },
@@ -32957,7 +33327,7 @@
       ]
     },
     "cns5-4539": {
-      "name": "Chi Dra",
+      "name": "Chi Draconis A",
       "designations": [
         "GJ 713",
         "GJ 713 A",
@@ -32976,10 +33346,10 @@
         "BD+72 839",
         "BUP 182A",
         "CCDM J18211+7245A",
+        "chi Dra",
         "chi Dra A",
         "chi Dra B",
         "Chi Draconis",
-        "Chi Draconis A",
         "Chi Draconis B",
         "Ci 20 1087",
         "CNS5 4539",
@@ -34898,7 +35268,8 @@
       ],
       "sources": [
         "catalog-work/nearest-1000/simbad.csv",
-        "src/data/catalogs/nearest-1000/stars.csv"
+        "src/data/catalogs/nearest-1000/stars.csv",
+        "src/data/catalogs/western-constellation-stars/stars.csv"
       ]
     },
     "cns5-4935": {
@@ -35210,9 +35581,9 @@
       ]
     },
     "cns5-5008": {
-      "name": "HD 191408",
+      "name": "GJ 783 A",
       "designations": [
-        "GJ 783 A",
+        "HD 191408",
         "HIP 99461",
         "CCDM J20112-3605A",
         "CD-36 13940",
@@ -36049,6 +36420,29 @@
         "src/data/catalogs/nearest-1000/stars.csv"
       ]
     },
+    "cns5-5192": {
+      "name": "WT 766 A",
+      "designations": [
+        "2MASS J21010742-4907248",
+        "APMPM J2101-4907",
+        "CNS5 5192",
+        "Gaia DR2 6478328150150225664",
+        "Gaia DR3 6478328150150225664",
+        "PM J21011-4907",
+        "RAVE J210107.4-490725",
+        "SKF 765A",
+        "TIC 79020913",
+        "UCAC4 205-183952",
+        "WDS J21011-4907A",
+        "WISE J210107.10-490727.0",
+        "WISEA J210107.08-490727.1",
+        "WT 766"
+      ],
+      "sources": [
+        "catalog-work/nearest-1000/simbad.csv",
+        "src/data/catalogs/nearest-1000/stars.csv"
+      ]
+    },
     "cns5-5199": {
       "name": "WISE J210200.15-442919.5",
       "designations": [
@@ -36309,6 +36703,54 @@
         "EQ J2134-7137",
         "WISE J213456.73-713744.5",
         "WISEA J213456.79-713744.7"
+      ],
+      "sources": [
+        "catalog-work/nearest-1000/simbad.csv",
+        "src/data/catalogs/nearest-1000/stars.csv"
+      ]
+    },
+    "cns5-5330": {
+      "name": "GJ 835 A",
+      "designations": [
+        "GJ 835",
+        "HIP 106811",
+        "1RXS J213801.1+274325",
+        "2MASS J21380036+2743254",
+        "[RHG95] 3378",
+        "ASCC 2500986",
+        "BD+27 4120",
+        "BD+27 4120A",
+        "CCDM J21380+2743AC",
+        "Ci 20 1299",
+        "CNS5 5330",
+        "CSI+27 4120 1",
+        "G 188-9",
+        "Gaia DR2 1800808220175220480",
+        "Gaia DR3 1800808220175220480",
+        "GCRV 13587",
+        "GEN# +0.02704120",
+        "HDS 3080",
+        "HIC 106811",
+        "LSPM J2138+2743",
+        "LTT 16320",
+        "MCC 203",
+        "NLTT 51716",
+        "PLX 5215",
+        "PM J21380+2743",
+        "SKF 245A",
+        "TIC 298712317",
+        "TYC 2197-752-1",
+        "UBV 18594",
+        "UBV M 1687",
+        "UCAC2 41631329",
+        "UCAC4 589-123700",
+        "USNO-B1.0 1177-00702008",
+        "VVO 82",
+        "VVO 83",
+        "WDS J21379+2743A",
+        "WDS J21379+2743Aa,Ab",
+        "WEB 19310",
+        "WISEA J213800.78+274325.2"
       ],
       "sources": [
         "catalog-work/nearest-1000/simbad.csv",
@@ -36846,7 +37288,7 @@
       ]
     },
     "cns5-5470": {
-      "name": "Iota Peg",
+      "name": "Iota Pegasi A",
       "designations": [
         "GJ 848",
         "HD 210027",
@@ -36873,8 +37315,8 @@
         "iot Peg",
         "iot Peg A",
         "iot Peg B",
+        "Iota Peg",
         "Iota Pegasi",
-        "Iota Pegasi A",
         "Iota Pegasi B",
         "IRAS 22047+2506",
         "IRC +30485",
@@ -37514,9 +37956,8 @@
       ]
     },
     "cns5-5588": {
-      "name": "FK Aqr",
+      "name": "GJ 867 A",
       "designations": [
-        "GJ 867 A",
         "HD 214479",
         "HIP 111802",
         "1ES 2236-20.8",
@@ -37534,6 +37975,7 @@
         "CNS5 5588",
         "CPD-21 8162",
         "CSI-21 6267 1",
+        "FK Aqr",
         "Gaia DR1 2400808137742460032",
         "Gaia DR2 2400808142038361088",
         "Gaia DR3 2400808142038361088",
@@ -37662,6 +38104,35 @@
       "sources": [
         "catalog-work/nearest-1000/simbad.csv",
         "src/data/catalogs/nearest-1000/stars.csv"
+      ]
+    },
+    "cns5-5623": {
+      "name": "Fomalhaut C",
+      "designations": [
+        "Alpha Piscis Austrini C",
+        "2MASS J22480446-2422075",
+        "alf PsA C",
+        "CNS5 5623",
+        "Gaia DR2 6623351805412369024",
+        "Gaia DR3 6623351805412369024",
+        "GSC 06964-01226",
+        "LP 876-10",
+        "MAM 1C",
+        "NLTT 54872",
+        "PM J22480-2422",
+        "TIC 47423224",
+        "UCAC4 329-202449",
+        "WDS J22577-2937C",
+        "WDS J22577-2937Ca,Cb",
+        "WISEA J224804.74-242209.6",
+        "WSI 138",
+        "WT 2282"
+      ],
+      "sources": [
+        "catalog-work/nearest-1000/simbad.csv",
+        "src/data/catalogs/bright-stars/stars.csv",
+        "src/data/catalogs/nearest-1000/stars.csv",
+        "src/data/catalogs/western-constellation-stars/stars.csv"
       ]
     },
     "cns5-5646": {
@@ -37829,7 +38300,9 @@
       ],
       "sources": [
         "catalog-work/nearest-1000/simbad.csv",
-        "src/data/catalogs/nearest-1000/stars.csv"
+        "src/data/catalogs/bright-stars/stars.csv",
+        "src/data/catalogs/nearest-1000/stars.csv",
+        "src/data/catalogs/western-constellation-stars/stars.csv"
       ]
     },
     "cns5-5663": {
@@ -38492,8 +38965,10 @@
       ]
     },
     "cns5-5833": {
-      "name": "Errai",
+      "name": "Gamma Cephei A",
       "designations": [
+        "Errai",
+        "Errai",
         "Gamma Cephei",
         "GJ 903",
         "HD 222404",
@@ -39241,6 +39716,119 @@
         "catalog-work/object-designations/extended.csv",
         "https://arxiv.org/abs/2402.06722",
         "src/data/overlays/compact-remnants/objects.json"
+      ]
+    },
+    "gamma-cephei-b": {
+      "name": "Gamma Cephei B",
+      "designations": [],
+      "sources": [
+        "src/data/catalogs/nearest-1000/stars.csv",
+        "src/data/catalogs/western-constellation-stars/stars.csv"
+      ]
+    },
+    "gj-1001-c": {
+      "name": "GJ 1001 C",
+      "designations": [],
+      "sources": [
+        "src/data/catalogs/nearest-1000/stars.csv"
+      ]
+    },
+    "gj-105-c": {
+      "name": "GJ 105 C",
+      "designations": [],
+      "sources": [
+        "src/data/catalogs/nearest-1000/stars.csv"
+      ]
+    },
+    "gj-22-c": {
+      "name": "GJ 22 C",
+      "designations": [],
+      "sources": [
+        "src/data/catalogs/nearest-1000/stars.csv"
+      ]
+    },
+    "gj-229-bb": {
+      "name": "GJ 229 Bb",
+      "designations": [],
+      "sources": [
+        "src/data/catalogs/nearest-1000/stars.csv"
+      ]
+    },
+    "gj-268-b": {
+      "name": "GJ 268 B",
+      "designations": [],
+      "sources": [
+        "src/data/catalogs/nearest-1000/stars.csv"
+      ]
+    },
+    "gj-569-bb": {
+      "name": "GJ 569 Bb",
+      "designations": [],
+      "sources": [
+        "src/data/catalogs/nearest-1000/stars.csv"
+      ]
+    },
+    "gj-644-ba": {
+      "name": "GJ 644 Ba",
+      "designations": [],
+      "sources": [
+        "src/data/catalogs/nearest-1000/stars.csv"
+      ]
+    },
+    "gj-644-bb": {
+      "name": "GJ 644 Bb",
+      "designations": [],
+      "sources": [
+        "src/data/catalogs/nearest-1000/stars.csv"
+      ]
+    },
+    "gj-661-b": {
+      "name": "GJ 661 B",
+      "designations": [],
+      "sources": [
+        "src/data/catalogs/nearest-1000/stars.csv"
+      ]
+    },
+    "gj-667-b": {
+      "name": "GJ 667 B",
+      "designations": [],
+      "sources": [
+        "src/data/catalogs/nearest-1000/stars.csv"
+      ]
+    },
+    "gj-783-b": {
+      "name": "GJ 783 B",
+      "designations": [],
+      "sources": [
+        "src/data/catalogs/nearest-1000/stars.csv"
+      ]
+    },
+    "gj-835-c": {
+      "name": "GJ 835 C",
+      "designations": [],
+      "sources": [
+        "src/data/catalogs/nearest-1000/stars.csv"
+      ]
+    },
+    "gj-867-c": {
+      "name": "GJ 867 C",
+      "designations": [],
+      "sources": [
+        "src/data/catalogs/nearest-1000/stars.csv"
+      ]
+    },
+    "hd-104304-b": {
+      "name": "HD 104304 B",
+      "designations": [],
+      "sources": [
+        "src/data/catalogs/nearest-1000/stars.csv"
+      ]
+    },
+    "hd-50281-bb": {
+      "name": "HD 50281 Bb",
+      "designations": [],
+      "sources": [
+        "src/data/catalogs/nearest-1000/stars.csv"
       ]
     },
     "hinds-variable-nebula": {
@@ -41942,7 +42530,7 @@
       ]
     },
     "hip-109176": {
-      "name": "Iota Peg",
+      "name": "Iota Pegasi A",
       "designations": [
         "GJ 848",
         "HD 210027",
@@ -41969,8 +42557,8 @@
         "iot Peg",
         "iot Peg A",
         "iot Peg B",
+        "Iota Peg",
         "Iota Pegasi",
-        "Iota Pegasi A",
         "Iota Pegasi B",
         "IRAS 22047+2506",
         "IRC +30485",
@@ -44501,8 +45089,10 @@
       ]
     },
     "hip-116727": {
-      "name": "Errai",
+      "name": "Gamma Cephei A",
       "designations": [
+        "Errai",
+        "Errai",
         "Gamma Cephei",
         "GJ 903",
         "HD 222404",
@@ -50625,8 +51215,9 @@
       ]
     },
     "hip-24608": {
-      "name": "Capella",
+      "name": "Capella Aa",
       "designations": [
+        "Capella",
         "Alpha Aurigae",
         "GJ 194",
         "GJ 194 A",
@@ -52063,7 +52654,7 @@
       ]
     },
     "hip-27913": {
-      "name": "Chi1 Ori",
+      "name": "Chi1 Orionis A",
       "designations": [
         "GJ 222",
         "HD 39587",
@@ -52080,6 +52671,7 @@
         "ASCC 755242",
         "BD+20 1162",
         "chi01 Ori",
+        "Chi1 Ori",
         "Chi1 Orionis",
         "CNS5 1464",
         "EUVE J0554+20.2",
@@ -69894,7 +70486,7 @@
       ]
     },
     "hip-81693": {
-      "name": "Zeta Her",
+      "name": "Zeta Herculis A",
       "designations": [
         "HD 150680",
         "HIP 81693",
@@ -69947,6 +70539,7 @@
         "WDS J16413+3136AB",
         "WEB 13799",
         "zet Her",
+        "Zeta Her",
         "Zeta Herculis",
         "Zkh 230"
       ],
@@ -71946,7 +72539,7 @@
       ]
     },
     "hip-86974": {
-      "name": "Mu1 Her",
+      "name": "Mu Her Aa",
       "designations": [
         "GJ 695 A",
         "HD 161797",
@@ -71989,6 +72582,7 @@
         "mu. Her",
         "mu. Her A",
         "mu.01 Her",
+        "Mu1 Her",
         "Mu1 Herculis",
         "N30 3954",
         "NLTT 45435",
@@ -72996,7 +73590,7 @@
       ]
     },
     "hip-89937": {
-      "name": "Chi Dra",
+      "name": "Chi Draconis A",
       "designations": [
         "GJ 713",
         "GJ 713 A",
@@ -73015,10 +73609,10 @@
         "BD+72 839",
         "BUP 182A",
         "CCDM J18211+7245A",
+        "chi Dra",
         "chi Dra A",
         "chi Dra B",
         "Chi Draconis",
-        "Chi Draconis A",
         "Chi Draconis B",
         "Ci 20 1087",
         "CNS5 4539",
@@ -76848,6 +77442,14 @@
         "src/data/overlays/nebulae/objects.json"
       ]
     },
+    "iota-pegasi-b": {
+      "name": "Iota Pegasi B",
+      "designations": [],
+      "sources": [
+        "src/data/catalogs/nearest-1000/stars.csv",
+        "src/data/catalogs/western-constellation-stars/stars.csv"
+      ]
+    },
     "lacaille-9352": {
       "name": "Lacaille 9352",
       "designations": [
@@ -77096,6 +77698,21 @@
         "src/data/stars.csv"
       ]
     },
+    "mu-cassiopeiae-b": {
+      "name": "Mu Cassiopeiae B",
+      "designations": [],
+      "sources": [
+        "src/data/catalogs/nearest-1000/stars.csv"
+      ]
+    },
+    "mu-her-ab": {
+      "name": "Mu Her Ab",
+      "designations": [],
+      "sources": [
+        "src/data/catalogs/nearest-1000/stars.csv",
+        "src/data/catalogs/western-constellation-stars/stars.csv"
+      ]
+    },
     "orion-nebula": {
       "name": "Orion Nebula",
       "designations": [
@@ -77193,8 +77810,10 @@
         "catalog-work/nearest-1000/simbad.csv",
         "catalog-work/object-designations/components.csv",
         "catalog-work/object-designations/simbad.csv",
+        "src/data/catalogs/bright-stars/stars.csv",
         "src/data/catalogs/nearest-100/stars.csv",
         "src/data/catalogs/nearest-1000/stars.csv",
+        "src/data/catalogs/western-constellation-stars/stars.csv",
         "src/data/stars.csv"
       ]
     },
@@ -80219,6 +80838,30 @@
         "src/data/overlays/compact-remnants/objects.json"
       ]
     },
+    "rigel-ba": {
+      "name": "Rigel Ba",
+      "designations": [],
+      "sources": [
+        "src/data/catalogs/bright-stars/stars.csv",
+        "src/data/catalogs/western-constellation-stars/stars.csv"
+      ]
+    },
+    "rigel-bb": {
+      "name": "Rigel Bb",
+      "designations": [],
+      "sources": [
+        "src/data/catalogs/bright-stars/stars.csv",
+        "src/data/catalogs/western-constellation-stars/stars.csv"
+      ]
+    },
+    "rigel-c": {
+      "name": "Rigel C",
+      "designations": [],
+      "sources": [
+        "src/data/catalogs/bright-stars/stars.csv",
+        "src/data/catalogs/western-constellation-stars/stars.csv"
+      ]
+    },
     "ross-128": {
       "name": "Ross 128",
       "designations": [
@@ -80414,6 +81057,13 @@
         "src/data/stars.csv"
       ]
     },
+    "ross-458-b": {
+      "name": "Ross 458 B",
+      "designations": [],
+      "sources": [
+        "src/data/catalogs/nearest-1000/stars.csv"
+      ]
+    },
     "sh-2-216": {
       "name": "Sh 2-216",
       "designations": [
@@ -80583,8 +81233,10 @@
         "catalog-work/nearest-1000/simbad.csv",
         "catalog-work/object-designations/components.csv",
         "catalog-work/object-designations/simbad.csv",
+        "src/data/catalogs/bright-stars/stars.csv",
         "src/data/catalogs/nearest-100/stars.csv",
         "src/data/catalogs/nearest-1000/stars.csv",
+        "src/data/catalogs/western-constellation-stars/stars.csv",
         "src/data/stars.csv"
       ]
     },
@@ -81059,6 +81711,21 @@
         "src/data/catalogs/nearest-100/stars.csv",
         "src/data/catalogs/nearest-1000/stars.csv",
         "src/data/stars.csv"
+      ]
+    },
+    "wt-766-close-companion": {
+      "name": "WT 766 B",
+      "designations": [],
+      "sources": [
+        "src/data/catalogs/nearest-1000/stars.csv"
+      ]
+    },
+    "zeta-herculis-b": {
+      "name": "Zeta Herculis B",
+      "designations": [],
+      "sources": [
+        "src/data/catalogs/nearest-1000/stars.csv",
+        "src/data/catalogs/western-constellation-stars/stars.csv"
       ]
     }
   }

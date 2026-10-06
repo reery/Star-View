@@ -1,0 +1,2442 @@
+{
+  "schemaVersion": 1,
+  "reviewDate": "2026-10-06",
+  "maximumDistancePc": 25,
+  "scope": "Literature research of the 37 original source records (36 systems) within the approved 25 pc vicinity. Proposals are research findings, not catalog additions. Unknown types, tentative members and unresolved naming scopes remain explicit.",
+  "records": [
+    {
+      "starId": "cns5-2293",
+      "name": "HD 79210",
+      "distancePc": 6.332130838963206,
+      "cardSystem": "GJ 338",
+      "componentLabel": "A",
+      "sourceRecords": [
+        {
+          "cns5Id": "2293",
+          "gj": "338",
+          "label": "A",
+          "total": "2",
+          "primary": "1",
+          "primaryGj": "",
+          "distancePc": 6.332306978638877,
+          "simbadId": "HD  79210",
+          "simbadType": "SB*"
+        }
+      ],
+      "status": "associated-catalog-members",
+      "researchStatus": "reviewed",
+      "sources": [
+        "cif25",
+        "gon26"
+      ],
+      "outcome": "A/B already present; no additional physical star established.",
+      "decision": "already-represented",
+      "systemName": "GJ 338",
+      "components": [
+        {
+          "label": "A",
+          "objectType": "star",
+          "action": "retain",
+          "existingStarId": "cns5-2293"
+        },
+        {
+          "label": "B",
+          "objectType": "star",
+          "action": "retain"
+        }
+      ],
+      "unresolvedComponents": [],
+      "authoringNotes": [
+        "CARMENES classifies a double system. WDS AC/AD are optical, not additional physical components. Retain the legacy SB flag in provenance; it does not identify another star."
+      ],
+      "implementationStatus": "research-only"
+    },
+    {
+      "starId": "cns5-2217",
+      "name": "G 41-14",
+      "distancePc": 6.772314788822706,
+      "cardSystem": null,
+      "componentLabel": null,
+      "sourceRecords": [
+        {
+          "cns5Id": "2217",
+          "gj": "3522",
+          "label": "ABC",
+          "total": "3",
+          "primary": "1",
+          "primaryGj": "",
+          "distancePc": 6.772314777190844,
+          "simbadId": "G  41-14",
+          "simbadType": "SB*"
+        }
+      ],
+      "status": "unresolved-membership-or-identity",
+      "researchStatus": "reviewed",
+      "sources": [
+        "del99",
+        "cif25",
+        "gon26"
+      ],
+      "outcome": "Triple: split A into Aa/Ab and add the resolved B.",
+      "decision": "supported-additions",
+      "systemName": "GJ 3522 / G 41-14",
+      "components": [
+        {
+          "label": "Aa",
+          "objectType": "star",
+          "action": "retain-primary"
+        },
+        {
+          "label": "Ab",
+          "objectType": "star",
+          "action": "add",
+          "proposedStarId": "gj-3522-ab",
+          "classificationBasis": "SB2"
+        },
+        {
+          "label": "B",
+          "objectType": "star",
+          "action": "add",
+          "proposedStarId": "gj-3522-b",
+          "gaiaDr3Id": "585250248258396416",
+          "classificationBasis": "Resolved M dwarf"
+        }
+      ],
+      "unresolvedComponents": [],
+      "authoringNotes": [],
+      "implementationStatus": "research-only"
+    },
+    {
+      "starId": "cns5-5297",
+      "name": "Ross 775",
+      "distancePc": 6.777701397208262,
+      "cardSystem": null,
+      "componentLabel": null,
+      "sourceRecords": [
+        {
+          "cns5Id": "5297",
+          "gj": "829",
+          "label": "",
+          "total": "-",
+          "primary": "0",
+          "primaryGj": "",
+          "distancePc": 6.777701341244713,
+          "simbadId": "Ross  775",
+          "simbadType": "SB*"
+        }
+      ],
+      "status": "unresolved-membership-or-identity",
+      "researchStatus": "reviewed",
+      "sources": [
+        "del99",
+        "bar18",
+        "cif25"
+      ],
+      "outcome": "Two stellar SB2 components; add B.",
+      "decision": "supported-additions",
+      "systemName": "GJ 829 / Ross 775",
+      "components": [
+        {
+          "label": "A",
+          "objectType": "star",
+          "action": "retain-primary"
+        },
+        {
+          "label": "B",
+          "objectType": "star",
+          "action": "add",
+          "proposedStarId": "ross-775-b",
+          "classificationBasis": "SB2"
+        }
+      ],
+      "unresolvedComponents": [],
+      "authoringNotes": [
+        "Use the 53.221-day Ross 775/GJ 829 entry. Baroch Table D.1 also contains a conflicting 1.548-day eclipsing Ross 775 label; do not match by name alone."
+      ],
+      "implementationStatus": "research-only"
+    },
+    {
+      "starId": "cns5-0757",
+      "name": "BD-17 588A",
+      "distancePc": 6.8619845894656875,
+      "cardSystem": null,
+      "componentLabel": null,
+      "sourceRecords": [
+        {
+          "cns5Id": "757",
+          "gj": "3193",
+          "label": "ABC",
+          "total": "3",
+          "primary": "1",
+          "primaryGj": "",
+          "distancePc": 6.8618905857092685,
+          "simbadId": "BD-17   588A",
+          "simbadType": "PM*"
+        }
+      ],
+      "status": "unresolved-membership-or-identity",
+      "researchStatus": "reviewed",
+      "sources": [
+        "win19",
+        "gon26"
+      ],
+      "outcome": "Confirmed A + BC triple: add B and C.",
+      "decision": "supported-additions",
+      "systemName": "LTT 1445",
+      "components": [
+        {
+          "label": "A",
+          "objectType": "star",
+          "action": "retain-primary"
+        },
+        {
+          "label": "B",
+          "objectType": "star",
+          "action": "add",
+          "proposedStarId": "ltt-1445-b"
+        },
+        {
+          "label": "C",
+          "objectType": "star",
+          "action": "add",
+          "proposedStarId": "ltt-1445-c"
+        }
+      ],
+      "unresolvedComponents": [],
+      "authoringNotes": [
+        "Preserve Winters A+BC nomenclature. CARMENES AB+C labels conflict with it. Gaia 5153091836072107008 represents an unresolved BC source; do not assign it as an exact individual C identity. Neither this Gaia ID nor two individual B/C rows are in the frozen full CNS5 input."
+      ],
+      "implementationStatus": "research-only"
+    },
+    {
+      "starId": "cns5-4198",
+      "name": "G 203-47",
+      "distancePc": 7.596620214617586,
+      "cardSystem": null,
+      "componentLabel": null,
+      "sourceRecords": [
+        {
+          "cns5Id": "4198",
+          "gj": "3991",
+          "label": "",
+          "total": "-",
+          "primary": "0",
+          "primaryGj": "",
+          "distancePc": 7.596260225541062,
+          "simbadId": "G 203-47",
+          "simbadType": "SB*"
+        }
+      ],
+      "status": "unresolved-membership-or-identity",
+      "researchStatus": "reviewed",
+      "sources": [
+        "obr26"
+      ],
+      "outcome": "Add the white dwarf directly confirmed by HST spectroscopy in July 2026.",
+      "decision": "supported-additions",
+      "systemName": "G 203-47",
+      "components": [
+        {
+          "label": "A",
+          "objectType": "star",
+          "action": "retain-primary"
+        },
+        {
+          "label": "B",
+          "objectType": "white_dwarf",
+          "action": "add",
+          "proposedStarId": "g-203-47-b",
+          "classificationBasis": "HST/STIS direct spectroscopy"
+        }
+      ],
+      "unresolvedComponents": [],
+      "authoringNotes": [
+        "Do not convert the old >0.5 solar-mass lower bound into a measured mass. Model temperature uses an assumed gravity."
+      ],
+      "implementationStatus": "research-only"
+    },
+    {
+      "starId": "cns5-4014",
+      "name": "G 202-45",
+      "distancePc": 8.056719103596349,
+      "cardSystem": null,
+      "componentLabel": null,
+      "sourceRecords": [
+        {
+          "cns5Id": "4014",
+          "gj": "623",
+          "label": "",
+          "total": "-",
+          "primary": "0",
+          "primaryGj": "",
+          "distancePc": 8.056719125616823,
+          "simbadId": "G 202-45",
+          "simbadType": "SB*"
+        }
+      ],
+      "status": "unresolved-membership-or-identity",
+      "researchStatus": "reviewed",
+      "sources": [
+        "mar07",
+        "gon26"
+      ],
+      "outcome": "Resolved low-mass stellar binary; add secondary.",
+      "decision": "supported-additions",
+      "systemName": "GJ 623",
+      "components": [
+        {
+          "label": "A",
+          "objectType": "star",
+          "action": "retain-primary"
+        },
+        {
+          "label": "B",
+          "objectType": "star",
+          "action": "add",
+          "proposedStarId": "gj-623-b",
+          "classificationBasis": "Resolved orbit and stellar mass"
+        }
+      ],
+      "unresolvedComponents": [],
+      "authoringNotes": [
+        "Martinache gives 0.371 +/-0.015 and 0.115 +/-0.0023 solar masses. The 2026 census compiles revised values; resolve the measurement lineage before physical-field adoption. WDS calls this Aa/Ab; A/B can follow the component paper with an explicit label note."
+      ],
+      "implementationStatus": "research-only"
+    },
+    {
+      "starId": "cns5-2771",
+      "name": "Xi UMa C",
+      "distancePc": 8.733624454305245,
+      "cardSystem": null,
+      "componentLabel": null,
+      "sourceRecords": [
+        {
+          "cns5Id": "2771",
+          "gj": "423",
+          "label": "E",
+          "total": "5",
+          "primary": "0",
+          "primaryGj": "",
+          "distancePc": 8.733624454148472,
+          "simbadId": "* ksi UMa C",
+          "simbadType": "BD*"
+        }
+      ],
+      "status": "unresolved-membership-or-identity",
+      "researchStatus": "reviewed",
+      "sources": [
+        "wri13",
+        "gon26"
+      ],
+      "outcome": "Already cataloged T8.5 member: associate with central Xi UMa; no duplicate object.",
+      "decision": "existing-member-needs-grouping",
+      "systemName": "Xi Ursae Majoris",
+      "components": [
+        {
+          "label": "C",
+          "objectType": "brown_dwarf",
+          "action": "reuse",
+          "existingStarId": "cns5-2771",
+          "classificationBasis": "Spectroscopy and common proper motion"
+        }
+      ],
+      "unresolvedComponents": [],
+      "authoringNotes": [
+        "CNS5 E and 2026 WDS D are alternative scopes. Keep the published Xi UMa C designation. Central component findings are on CNS5 2767."
+      ],
+      "implementationStatus": "research-only"
+    },
+    {
+      "starId": "cns5-2767",
+      "name": "Alula Australis",
+      "distancePc": 8.734639080510123,
+      "cardSystem": null,
+      "componentLabel": null,
+      "sourceRecords": [
+        {
+          "cns5Id": "2767",
+          "gj": "423",
+          "label": "ABCD",
+          "total": "5",
+          "primary": "1",
+          "primaryGj": "",
+          "distancePc": 8.734639045408768,
+          "simbadId": "* ksi UMa",
+          "simbadType": "RS*"
+        }
+      ],
+      "status": "unresolved-membership-or-identity",
+      "researchStatus": "reviewed",
+      "sources": [
+        "wri13",
+        "gon26"
+      ],
+      "outcome": "Central hierarchy Aa/Ab + Ba/Bb; Aa, Ab and Ba have supported stellar interpretations.",
+      "decision": "partial-supported",
+      "systemName": "Xi Ursae Majoris",
+      "components": [
+        {
+          "label": "Aa",
+          "objectType": "star",
+          "action": "retain-primary",
+          "classificationBasis": "F8.5V bright component"
+        },
+        {
+          "label": "Ab",
+          "objectType": "star",
+          "action": "add",
+          "proposedStarId": "xi-uma-ab",
+          "classificationBasis": "2026 census estimated M dwarf, 0.380 +/-0.038 solar masses"
+        },
+        {
+          "label": "Ba",
+          "objectType": "star",
+          "action": "add",
+          "proposedStarId": "xi-uma-ba",
+          "classificationBasis": "G2V resolved bright component"
+        },
+        {
+          "label": "C",
+          "objectType": "brown_dwarf",
+          "action": "reuse",
+          "existingStarId": "cns5-2771"
+        }
+      ],
+      "unresolvedComponents": [
+        "Bb exists in a 3.98-day SB1 orbit, but its individual classification is uncertain. The 2026 M: assignment and 0.140 +/-0.090 solar-mass estimate overlap the substellar regime."
+      ],
+      "authoringNotes": [
+        "Do not infer the one-epoch proposed extra Bc as a confirmed sixth member. Do not give all central components the combined ABCD physical values."
+      ],
+      "implementationStatus": "research-only"
+    },
+    {
+      "starId": "cns5-5064",
+      "name": "G 24-16",
+      "distancePc": 8.818342186114826,
+      "cardSystem": null,
+      "componentLabel": null,
+      "sourceRecords": [
+        {
+          "cns5Id": "5064",
+          "gj": "791.2",
+          "label": "AB",
+          "total": "2",
+          "primary": "1",
+          "primaryGj": "",
+          "distancePc": 8.818342151675484,
+          "simbadId": "G  24-16",
+          "simbadType": "Er*"
+        }
+      ],
+      "status": "unresolved-membership-or-identity",
+      "researchStatus": "reviewed",
+      "sources": [
+        "ben16",
+        "man19",
+        "cif25"
+      ],
+      "outcome": "Resolved stellar pair; add B.",
+      "decision": "supported-additions",
+      "systemName": "GJ 791.2 / HU Del",
+      "components": [
+        {
+          "label": "A",
+          "objectType": "star",
+          "action": "retain-primary"
+        },
+        {
+          "label": "B",
+          "objectType": "star",
+          "action": "add",
+          "proposedStarId": "gj-791-2-b",
+          "classificationBasis": "Resolved low-mass stellar binary"
+        }
+      ],
+      "unresolvedComponents": [],
+      "authoringNotes": [
+        "Published mass/orbit determinations disagree; membership is supported but individual numerical masses need a reconciled source. CRC 37 is optical."
+      ],
+      "implementationStatus": "research-only"
+    },
+    {
+      "starId": "cns5-5587",
+      "name": "FL Aqr",
+      "distancePc": 8.84668350937189,
+      "cardSystem": "GJ 867",
+      "componentLabel": "B",
+      "sourceRecords": [
+        {
+          "cns5Id": "5587",
+          "gj": "867",
+          "label": "B",
+          "total": "2",
+          "primary": "0",
+          "primaryGj": "",
+          "distancePc": 8.84658617962085,
+          "simbadId": "V* FL Aqr",
+          "simbadType": "SB*"
+        }
+      ],
+      "status": "associated-catalog-members",
+      "researchStatus": "reviewed",
+      "sources": [
+        "dav13"
+      ],
+      "outcome": "FL Aqr is the B/D subsystem; D exists but its stellar versus brown-dwarf class is undetermined.",
+      "decision": "classification-unresolved",
+      "systemName": "GJ 867",
+      "components": [
+        {
+          "label": "B",
+          "objectType": "star",
+          "action": "retain",
+          "existingStarId": "cns5-5587"
+        }
+      ],
+      "unresolvedComponents": [
+        "D: SB1 minimum mass 61 +/-7 Jupiter masses does not establish a stellar or substellar class."
+      ],
+      "authoringNotes": [
+        "A/C already authored in the previous expansion; no new classified D proposed."
+      ],
+      "implementationStatus": "research-only"
+    },
+    {
+      "starId": "cns5-0527",
+      "name": "BD-18 359",
+      "distancePc": 9.316322884711601,
+      "cardSystem": null,
+      "componentLabel": null,
+      "sourceRecords": [
+        {
+          "cns5Id": "527",
+          "gj": "84",
+          "label": "",
+          "total": "-",
+          "primary": "0",
+          "primaryGj": "",
+          "distancePc": 9.31674751871703,
+          "simbadId": "BD-18   359",
+          "simbadType": "SB*"
+        }
+      ],
+      "status": "unresolved-membership-or-identity",
+      "researchStatus": "reviewed",
+      "sources": [
+        "gol04",
+        "gon26",
+        "man19"
+      ],
+      "outcome": "Resolved secondary supports an additional late-M star.",
+      "decision": "supported-additions",
+      "systemName": "GJ 84",
+      "components": [
+        {
+          "label": "A",
+          "objectType": "star",
+          "action": "retain-primary"
+        },
+        {
+          "label": "B",
+          "objectType": "star",
+          "action": "add",
+          "proposedStarId": "gj-84-b",
+          "classificationBasis": "Resolved photometry; 2026 estimated M6:V, mass 0.120 +/-0.020 solar masses"
+        }
+      ],
+      "unresolvedComponents": [],
+      "authoringNotes": [
+        "Earlier photometry tentatively gave M7 and a lower boundary-crossing mass. The updated class and mass are photometric estimates, not individual spectroscopy or a component dynamical mass."
+      ],
+      "implementationStatus": "research-only"
+    },
+    {
+      "starId": "cns5-0970",
+      "name": "Wolf 227",
+      "distancePc": 9.660437960212167,
+      "cardSystem": null,
+      "componentLabel": null,
+      "sourceRecords": [
+        {
+          "cns5Id": "970",
+          "gj": "3253",
+          "label": "",
+          "total": "-",
+          "primary": "0",
+          "primaryGj": "",
+          "distancePc": 9.661026364408578,
+          "simbadId": "Wolf  227",
+          "simbadType": "SB*"
+        }
+      ],
+      "status": "unresolved-membership-or-identity",
+      "researchStatus": "reviewed",
+      "sources": [
+        "fit24",
+        "gon26"
+      ],
+      "outcome": "Add the confirmed brown dwarf, not another ordinary star.",
+      "decision": "supported-additions",
+      "systemName": "LHS 1610 / Wolf 227",
+      "components": [
+        {
+          "label": "A",
+          "objectType": "star",
+          "action": "retain-primary"
+        },
+        {
+          "label": "B",
+          "objectType": "brown_dwarf",
+          "action": "add",
+          "proposedStarId": "lhs-1610-b",
+          "classificationBasis": "Joint Gaia and RV dynamical mass"
+        }
+      ],
+      "unresolvedComponents": [],
+      "authoringNotes": [
+        "Published final mass is 49.5 +4.3/-3.5 Jupiter masses. Preserve asymmetric errors in provenance. Historical CARMENES SB2 designation does not override the dedicated brown-dwarf study."
+      ],
+      "implementationStatus": "research-only"
+    },
+    {
+      "starId": "cns5-3867",
+      "name": "L 768-119",
+      "distancePc": 9.690460738646008,
+      "cardSystem": null,
+      "componentLabel": null,
+      "sourceRecords": [
+        {
+          "cns5Id": "3867",
+          "gj": "595",
+          "label": "",
+          "total": "-",
+          "primary": "0",
+          "primaryGj": "",
+          "distancePc": 9.691821222908446,
+          "simbadId": "L  768-119",
+          "simbadType": "SB*"
+        }
+      ],
+      "status": "unresolved-membership-or-identity",
+      "researchStatus": "reviewed",
+      "sources": [
+        "sah11",
+        "cif25",
+        "gon26"
+      ],
+      "outcome": "The SB1 companion is real; the 2026 census assigns an estimated M-dwarf interpretation.",
+      "decision": "estimated-classification",
+      "systemName": "GJ 595",
+      "components": [
+        {
+          "label": "A",
+          "objectType": "star",
+          "action": "retain-primary"
+        },
+        {
+          "label": "B",
+          "objectType": "star",
+          "action": "provisional",
+          "proposedStarId": "gj-595-b",
+          "classificationBasis": "2026 census M:, compiled 0.224 +/-0.056 solar-mass estimate"
+        }
+      ],
+      "unresolvedComponents": [
+        "B lacks an independently detected component spectrum in the sources reviewed. Trace the 2024 mass estimate before authoring it as a secure typed object."
+      ],
+      "authoringNotes": [
+        "The older roughly 60-Jupiter-mass minimum alone was insufficient. Do not treat the newer compiled estimate as a measured resolved mass."
+      ],
+      "implementationStatus": "research-only"
+    },
+    {
+      "starId": "cns5-4625",
+      "name": "G 184-19",
+      "distancePc": 9.926741144290851,
+      "cardSystem": "GJ 1230",
+      "componentLabel": "A",
+      "sourceRecords": [
+        {
+          "cns5Id": "4625",
+          "gj": "1230",
+          "label": "A",
+          "total": "2",
+          "primary": "1",
+          "primaryGj": "",
+          "distancePc": 9.926741120457535,
+          "simbadId": "G 184-19",
+          "simbadType": "SB*"
+        }
+      ],
+      "status": "associated-catalog-members",
+      "researchStatus": "reviewed",
+      "sources": [
+        "del99",
+        "cif25"
+      ],
+      "outcome": "A is an inner stellar SB2; add Ab alongside the existing wide B.",
+      "decision": "supported-additions",
+      "systemName": "GJ 1230",
+      "components": [
+        {
+          "label": "Aa",
+          "objectType": "star",
+          "action": "retain-primary"
+        },
+        {
+          "label": "Ab",
+          "objectType": "star",
+          "action": "add",
+          "proposedStarId": "gj-1230-ab",
+          "classificationBasis": "SB2"
+        },
+        {
+          "label": "B",
+          "objectType": "star",
+          "action": "retain"
+        }
+      ],
+      "unresolvedComponents": [],
+      "authoringNotes": [
+        "Use Aa/Ab/B hierarchy rather than flattening the inner companion to the existing outer B."
+      ],
+      "implementationStatus": "research-only"
+    },
+    {
+      "starId": "cns5-3169",
+      "name": "G 237-78",
+      "distancePc": 10.213460955390289,
+      "cardSystem": null,
+      "componentLabel": null,
+      "sourceRecords": [
+        {
+          "cns5Id": "3169",
+          "gj": "487",
+          "label": "",
+          "total": "-",
+          "primary": "0",
+          "primaryGj": "",
+          "distancePc": 10.213460960036654,
+          "simbadId": "G 237-78",
+          "simbadType": "SB*"
+        }
+      ],
+      "status": "unresolved-membership-or-identity",
+      "researchStatus": "reviewed",
+      "sources": [
+        "del99",
+        "cif25"
+      ],
+      "outcome": "Triple-lined stellar triple: add inner Ab and outer B.",
+      "decision": "supported-additions",
+      "systemName": "GJ 487 / DP Dra",
+      "components": [
+        {
+          "label": "Aa",
+          "objectType": "star",
+          "action": "retain-primary"
+        },
+        {
+          "label": "Ab",
+          "objectType": "star",
+          "action": "add",
+          "proposedStarId": "gj-487-ab",
+          "classificationBasis": "Triple-lined orbit"
+        },
+        {
+          "label": "B",
+          "objectType": "star",
+          "action": "add",
+          "proposedStarId": "gj-487-b",
+          "classificationBasis": "Resolved tertiary and third spectrum"
+        }
+      ],
+      "unresolvedComponents": [],
+      "authoringNotes": [],
+      "implementationStatus": "research-only"
+    },
+    {
+      "starId": "cns5-1408",
+      "name": "G 100-28",
+      "distancePc": 10.245901653502719,
+      "cardSystem": null,
+      "componentLabel": null,
+      "sourceRecords": [
+        {
+          "cns5Id": "1408",
+          "gj": "1083",
+          "label": "AB",
+          "total": "2",
+          "primary": "1",
+          "primaryGj": "",
+          "distancePc": 10.245901639344263,
+          "simbadId": "G 100-28",
+          "simbadType": "Er*"
+        }
+      ],
+      "status": "unresolved-membership-or-identity",
+      "researchStatus": "reviewed",
+      "sources": [
+        "cif25",
+        "gon26"
+      ],
+      "outcome": "Resolved low-mass stellar pair: add B.",
+      "decision": "supported-additions",
+      "systemName": "GJ 1083 / G 100-28",
+      "components": [
+        {
+          "label": "A",
+          "objectType": "star",
+          "action": "retain-primary"
+        },
+        {
+          "label": "B",
+          "objectType": "star",
+          "action": "add",
+          "proposedStarId": "gj-1083-b",
+          "classificationBasis": "Resolved orbit; estimated M6.0:V"
+        }
+      ],
+      "unresolvedComponents": [],
+      "authoringNotes": [
+        "The 2026 orbit is weakly constrained. Do not turn its orbital period uncertainty into a precise rendered orbit."
+      ],
+      "implementationStatus": "research-only"
+    },
+    {
+      "starId": "cns5-3007",
+      "name": "RX J1214.1-2345",
+      "distancePc": 10.76488618248629,
+      "cardSystem": null,
+      "componentLabel": null,
+      "sourceRecords": [
+        {
+          "cns5Id": "3007",
+          "gj": "11757",
+          "label": "A",
+          "total": "2",
+          "primary": "1",
+          "primaryGj": "",
+          "distancePc": 10.7648861815496,
+          "simbadId": "RX J1214.1-2345",
+          "simbadType": "PM*"
+        }
+      ],
+      "status": "unresolved-membership-or-identity",
+      "researchStatus": "reviewed",
+      "sources": [
+        "cns5",
+        "sim-rx"
+      ],
+      "outcome": "Source companion CNS5 3006 is tentative BD? with no individual spectrum.",
+      "decision": "classification-unresolved",
+      "systemName": "RX J1214.1-2345",
+      "components": [],
+      "unresolvedComponents": [
+        "RX J1214.1-2345 B: Gaia DR3 3489874340630661248 has source astrometry but no secure stellar/substellar classification found."
+      ],
+      "authoringNotes": [
+        "Searched both RX J1214.1-2345B and SCR J1214-2345B aliases and the Gaia ID. Do not convert BD? to a confirmed brown dwarf or ordinary star."
+      ],
+      "implementationStatus": "research-only"
+    },
+    {
+      "starId": "cns5-0583",
+      "name": "Delta Tri",
+      "distancePc": 10.784099728321467,
+      "cardSystem": null,
+      "componentLabel": null,
+      "sourceRecords": [
+        {
+          "cns5Id": "583",
+          "gj": "92",
+          "label": "",
+          "total": "-",
+          "primary": "0",
+          "primaryGj": "",
+          "distancePc": 10.78399615872793,
+          "simbadId": "* del Tri",
+          "simbadType": "SB*"
+        }
+      ],
+      "status": "unresolved-membership-or-identity",
+      "researchStatus": "reviewed",
+      "sources": [
+        "rag10"
+      ],
+      "outcome": "Resolved and double-lined stellar binary: add B.",
+      "decision": "supported-additions",
+      "systemName": "Delta Trianguli",
+      "components": [
+        {
+          "label": "A",
+          "objectType": "star",
+          "action": "retain-primary"
+        },
+        {
+          "label": "B",
+          "objectType": "star",
+          "action": "add",
+          "proposedStarId": "delta-trianguli-b",
+          "classificationBasis": "SB2 and interferometric orbit"
+        }
+      ],
+      "unresolvedComponents": [],
+      "authoringNotes": [
+        "Secondary spectral estimates differ between G9 and K4. Leave a precise individual spectral subtype blank rather than selecting one as certain."
+      ],
+      "implementationStatus": "research-only"
+    },
+    {
+      "starId": "cns5-5888",
+      "name": "HD 223778",
+      "distancePc": 10.89390566745512,
+      "cardSystem": null,
+      "componentLabel": null,
+      "sourceRecords": [
+        {
+          "cns5Id": "5888",
+          "gj": "909",
+          "label": "AB",
+          "total": "2",
+          "primary": "1",
+          "primaryGj": "",
+          "distancePc": 10.893905657926648,
+          "simbadId": "HD 223778",
+          "simbadType": "SB*"
+        }
+      ],
+      "status": "unresolved-membership-or-identity",
+      "researchStatus": "reviewed",
+      "sources": [
+        "rag10",
+        "hal18"
+      ],
+      "outcome": "Confirmed Aa/Ab stellar SB2 with a resolved outer M-dwarf B: add both.",
+      "decision": "supported-additions",
+      "systemName": "HD 223778 / GJ 909",
+      "components": [
+        {
+          "label": "Aa",
+          "objectType": "star",
+          "action": "retain-primary"
+        },
+        {
+          "label": "Ab",
+          "objectType": "star",
+          "action": "add",
+          "proposedStarId": "hd-223778-ab",
+          "classificationBasis": "SB2 and resolved close orbit"
+        },
+        {
+          "label": "B",
+          "objectType": "star",
+          "action": "add",
+          "proposedStarId": "hd-223778-b",
+          "classificationBasis": "Confirmed visual tertiary; estimated M6"
+        }
+      ],
+      "unresolvedComponents": [],
+      "authoringNotes": [
+        "Raghavan Figure 22 distinguishes the 7.8-day inner pair from the approximately 290-year outer pair. Do not add optical WDS AC as another physical member."
+      ],
+      "implementationStatus": "research-only"
+    },
+    {
+      "starId": "cns5-4363",
+      "name": "HD 160346",
+      "distancePc": 10.999889556506151,
+      "cardSystem": null,
+      "componentLabel": null,
+      "sourceRecords": [
+        {
+          "cns5Id": "4363",
+          "gj": "688",
+          "label": "",
+          "total": "-",
+          "primary": "0",
+          "primaryGj": "",
+          "distancePc": 10.999889557993635,
+          "simbadId": "HD 160346",
+          "simbadType": "SB*"
+        }
+      ],
+      "status": "unresolved-membership-or-identity",
+      "researchStatus": "reviewed",
+      "sources": [
+        "mar25"
+      ],
+      "outcome": "Disentangled secondary spectrum now supports a stellar B.",
+      "decision": "supported-additions",
+      "systemName": "HD 160346 / GJ 688",
+      "components": [
+        {
+          "label": "A",
+          "objectType": "star",
+          "action": "retain-primary"
+        },
+        {
+          "label": "B",
+          "objectType": "star",
+          "action": "add",
+          "proposedStarId": "hd-160346-b",
+          "classificationBasis": "2025 spectral disentangling"
+        }
+      ],
+      "unresolvedComponents": [],
+      "authoringNotes": [
+        "Secondary 3700 K is a selected template, without a robust temperature uncertainty. Inferred 0.39 +/-0.012 solar masses depends on estimated primary mass; it is not a dynamical individual mass."
+      ],
+      "implementationStatus": "research-only"
+    },
+    {
+      "starId": "cns5-4704",
+      "name": "MCC 188",
+      "distancePc": 11.117176367488254,
+      "cardSystem": null,
+      "componentLabel": null,
+      "sourceRecords": [
+        {
+          "cns5Id": "4704",
+          "gj": "735",
+          "label": "",
+          "total": "-",
+          "primary": "0",
+          "primaryGj": "",
+          "distancePc": 11.117176366116524,
+          "simbadId": "MCC 188",
+          "simbadType": "SB*"
+        }
+      ],
+      "status": "unresolved-membership-or-identity",
+      "researchStatus": "reviewed",
+      "sources": [
+        "bar18",
+        "cif25"
+      ],
+      "outcome": "Confirmed stellar SB2: add B.",
+      "decision": "supported-additions",
+      "systemName": "GJ 735 / MCC 188",
+      "components": [
+        {
+          "label": "A",
+          "objectType": "star",
+          "action": "retain-primary"
+        },
+        {
+          "label": "B",
+          "objectType": "star",
+          "action": "add",
+          "proposedStarId": "gj-735-b",
+          "classificationBasis": "SB2"
+        }
+      ],
+      "unresolvedComponents": [],
+      "authoringNotes": [
+        "Baroch Table D.1 has period 10.319 days and q=0.94, identifying MCC 188 exactly. Do not use an unrelated short-period claim attached to its variable-star alias."
+      ],
+      "implementationStatus": "research-only"
+    },
+    {
+      "starId": "cns5-1860",
+      "name": "G 107-69",
+      "distancePc": 11.270269513725315,
+      "cardSystem": null,
+      "componentLabel": null,
+      "sourceRecords": [
+        {
+          "cns5Id": "1860",
+          "gj": "275.2",
+          "label": "AB",
+          "total": "2",
+          "primary": "1",
+          "primaryGj": "",
+          "distancePc": 11.269344698460888,
+          "simbadId": "G 107-69",
+          "simbadType": "PM*"
+        }
+      ],
+      "status": "unresolved-membership-or-identity",
+      "researchStatus": "reviewed",
+      "sources": [
+        "har81",
+        "cif25",
+        "bag21"
+      ],
+      "outcome": "Associate the two confirmed white dwarfs in G 107-70 with G 107-69.",
+      "decision": "partial-supported",
+      "systemName": "G 107-69/70",
+      "components": [
+        {
+          "label": "G 107-69 A",
+          "objectType": "star",
+          "action": "retain-primary"
+        },
+        {
+          "label": "G 107-70 A",
+          "objectType": "white_dwarf",
+          "action": "add",
+          "proposedStarId": "g-107-70-a",
+          "gaiaDr3Id": "975968340912517248",
+          "classificationBasis": "Resolved DA white dwarf"
+        },
+        {
+          "label": "G 107-70 B",
+          "objectType": "white_dwarf",
+          "action": "add",
+          "proposedStarId": "g-107-70-b",
+          "gaiaDr3Id": "975968340910692608",
+          "classificationBasis": "Resolved DA white dwarf"
+        }
+      ],
+      "unresolvedComponents": [
+        "G 107-69 B: astrometric companion is not individually typed; historical estimates straddle the dwarf/brown-dwarf boundary."
+      ],
+      "authoringNotes": [
+        "Neither white dwarf Gaia ID occurs in the frozen full CNS5 source. Use their own published positions, not the M-dwarf position 103 arcsec away. CARMENES names the white dwarfs A/B and the M-dwarf pair C/D; retain subgroup names to avoid silently relabeling them."
+      ],
+      "implementationStatus": "research-only"
+    },
+    {
+      "starId": "cns5-3442",
+      "name": "Muphrid",
+      "distancePc": 11.396011391636527,
+      "cardSystem": null,
+      "componentLabel": null,
+      "sourceRecords": [
+        {
+          "cns5Id": "3442",
+          "gj": "534",
+          "label": "",
+          "total": "-",
+          "primary": "0",
+          "primaryGj": "",
+          "distancePc": 11.396011396011396,
+          "simbadId": "* eta Boo",
+          "simbadType": "SB*"
+        }
+      ],
+      "status": "unresolved-membership-or-identity",
+      "researchStatus": "reviewed",
+      "sources": [
+        "bel07"
+      ],
+      "outcome": "Historical SB claim remains unconfirmed by direct component observations.",
+      "decision": "membership-unconfirmed",
+      "systemName": "Muphrid / Eta Bootis",
+      "components": [],
+      "unresolvedComponents": [
+        "Possible Ab: PTI/speckle non-detections allow a sufficiently faint companion, but do not establish its identity or type."
+      ],
+      "authoringNotes": [
+        "Do not create an M7 star from the paper sensitivity limit."
+      ],
+      "implementationStatus": "research-only"
+    },
+    {
+      "starId": "cns5-0022",
+      "name": "HD 38A",
+      "distancePc": 11.516453991698418,
+      "cardSystem": "GJ 4",
+      "componentLabel": "A",
+      "sourceRecords": [
+        {
+          "cns5Id": "22",
+          "gj": "4",
+          "label": "A",
+          "total": "2",
+          "primary": "1",
+          "primaryGj": "",
+          "distancePc": 11.516472730240928,
+          "simbadId": "HD     38A",
+          "simbadType": "SB*"
+        }
+      ],
+      "status": "associated-catalog-members",
+      "researchStatus": "reviewed",
+      "sources": [
+        "mak21",
+        "cif25"
+      ],
+      "outcome": "Group the existing GJ 2 physical tertiary with HD 38 A/B.",
+      "decision": "partial-supported",
+      "systemName": "GJ 4 / HD 38",
+      "components": [
+        {
+          "label": "A",
+          "objectType": "star",
+          "action": "retain",
+          "existingStarId": "cns5-0022"
+        },
+        {
+          "label": "B",
+          "objectType": "star",
+          "action": "retain"
+        },
+        {
+          "label": "F",
+          "objectType": "star",
+          "action": "reuse",
+          "existingStarId": "cns5-0015",
+          "gaiaDr3Id": "386655019234959872"
+        }
+      ],
+      "unresolvedComponents": [
+        "Proposed unresolved companions to A and possibly B lack individually established classifications."
+      ],
+      "authoringNotes": [
+        "GJ 2 is WDS F and C in the 2025 table; use an explicit naming note. Its record already exists, so no new object is needed for this confirmed tertiary."
+      ],
+      "implementationStatus": "research-only"
+    },
+    {
+      "starId": "cns5-2197",
+      "name": "HD 75632A",
+      "distancePc": 11.576660633786807,
+      "cardSystem": "GJ 325",
+      "componentLabel": "A",
+      "sourceRecords": [
+        {
+          "cns5Id": "2197",
+          "gj": "325",
+          "label": "A",
+          "total": "2",
+          "primary": "1",
+          "primaryGj": "",
+          "distancePc": 11.576660415735052,
+          "simbadId": "HD  75632A",
+          "simbadType": "SB*"
+        }
+      ],
+      "status": "associated-catalog-members",
+      "researchStatus": "reviewed",
+      "sources": [
+        "spe19"
+      ],
+      "outcome": "Outer A/B already represented; the proposed inner third component is uncertain.",
+      "decision": "membership-unconfirmed",
+      "systemName": "GJ 325 / HD 75632",
+      "components": [
+        {
+          "label": "A",
+          "objectType": "star",
+          "action": "retain"
+        },
+        {
+          "label": "B",
+          "objectType": "star",
+          "action": "retain"
+        }
+      ],
+      "unresolvedComponents": [
+        "Possible inner companion to A: authors declined to publish the tentative short orbit."
+      ],
+      "authoringNotes": [
+        "The source explicitly describes possible, not confirmed, triplicity."
+      ],
+      "implementationStatus": "research-only"
+    },
+    {
+      "starId": "cns5-0276",
+      "name": "CD-28 302",
+      "distancePc": 11.761284141533062,
+      "cardSystem": null,
+      "componentLabel": null,
+      "sourceRecords": [
+        {
+          "cns5Id": "276",
+          "gj": "46",
+          "label": "",
+          "total": "-",
+          "primary": "0",
+          "primaryGj": "",
+          "distancePc": 11.761617216021538,
+          "simbadId": "CD-28   302",
+          "simbadType": "SB*"
+        }
+      ],
+      "status": "unresolved-membership-or-identity",
+      "researchStatus": "reviewed",
+      "sources": [
+        "mas18",
+        "mig24"
+      ],
+      "outcome": "Legacy SB flag does not yield a confirmed individual companion in this review.",
+      "decision": "membership-unconfirmed",
+      "systemName": "GJ 46",
+      "components": [],
+      "unresolvedComponents": [
+        "No typed individual B established. A null imaging observation does not rule out all close or faint companions."
+      ],
+      "authoringNotes": [
+        "Retain the original flag, with the research outcome; do not label the star definitively single."
+      ],
+      "implementationStatus": "research-only"
+    },
+    {
+      "starId": "cns5-5173",
+      "name": "LP 756-19",
+      "distancePc": 11.781585131272877,
+      "cardSystem": "GJ 810",
+      "componentLabel": "A",
+      "sourceRecords": [
+        {
+          "cns5Id": "5173",
+          "gj": "810",
+          "label": "A",
+          "total": "2",
+          "primary": "1",
+          "primaryGj": "",
+          "distancePc": 11.779267793199024,
+          "simbadId": "LP  756-19",
+          "simbadType": "SB*"
+        }
+      ],
+      "status": "associated-catalog-members",
+      "researchStatus": "reviewed",
+      "sources": [
+        "bar18",
+        "cif25"
+      ],
+      "outcome": "A is a stellar SB2; add Ab alongside the existing wide B.",
+      "decision": "supported-additions",
+      "systemName": "GJ 810",
+      "components": [
+        {
+          "label": "Aa",
+          "objectType": "star",
+          "action": "retain-primary"
+        },
+        {
+          "label": "Ab",
+          "objectType": "star",
+          "action": "add",
+          "proposedStarId": "gj-810-ab",
+          "classificationBasis": "SB2"
+        },
+        {
+          "label": "B",
+          "objectType": "star",
+          "action": "retain"
+        }
+      ],
+      "unresolvedComponents": [],
+      "authoringNotes": [
+        "Individual empirical masses and fitted temperatures are available in Baroch Tables 2/6, separate from the combined source spectrum."
+      ],
+      "implementationStatus": "research-only",
+      "reviewedMeasurements": {
+        "reference": "bar18",
+        "method": "empirical mass-luminosity relation and SB2 mass ratio",
+        "Aa": {
+          "massSolar": [
+            0.245,
+            0.021
+          ],
+          "radiusSolar": [
+            0.258,
+            0.021
+          ],
+          "temperatureK": [
+            3400,
+            100
+          ]
+        },
+        "Ab": {
+          "massSolar": [
+            0.202,
+            0.021
+          ],
+          "radiusSolar": [
+            0.217,
+            0.021
+          ],
+          "temperatureK": [
+            3300,
+            100
+          ]
+        }
+      }
+    },
+    {
+      "starId": "cns5-5370",
+      "name": "Deneb Algedi",
+      "distancePc": 11.866619692461674,
+      "cardSystem": null,
+      "componentLabel": null,
+      "sourceRecords": [
+        {
+          "cns5Id": "5370",
+          "gj": "837",
+          "label": "",
+          "total": "-",
+          "primary": "0",
+          "primaryGj": "",
+          "distancePc": 11.866619672902031,
+          "simbadId": "* del Cap",
+          "simbadType": "SB*"
+        }
+      ],
+      "status": "unresolved-membership-or-identity",
+      "researchStatus": "reviewed",
+      "sources": [
+        "wai26"
+      ],
+      "outcome": "Resolved red-dwarf secondary: add Ab.",
+      "decision": "supported-additions",
+      "systemName": "Deneb Algedi",
+      "components": [
+        {
+          "label": "Aa",
+          "objectType": "star",
+          "action": "retain-primary"
+        },
+        {
+          "label": "Ab",
+          "objectType": "star",
+          "action": "add",
+          "proposedStarId": "deneb-algedi-ab",
+          "classificationBasis": "VLTI/GRAVITY direct resolution"
+        }
+      ],
+      "unresolvedComponents": [],
+      "authoringNotes": [
+        "Primary radius 1.87 +/-0.02 solar radii is an individual measurement. Do not attach this radius to the secondary or add unrelated optical WDS B/C objects."
+      ],
+      "implementationStatus": "research-only",
+      "reviewedMeasurements": {
+        "reference": "wai26",
+        "method": "resolved interferometric diameter with distance",
+        "Aa": {
+          "radiusSolar": [
+            1.87,
+            0.02
+          ]
+        }
+      }
+    },
+    {
+      "starId": "cns5-0006",
+      "name": "85 Peg",
+      "distancePc": 12.319033565542334,
+      "cardSystem": null,
+      "componentLabel": null,
+      "sourceRecords": [
+        {
+          "cns5Id": "6",
+          "gj": "914",
+          "label": "",
+          "total": "-",
+          "primary": "0",
+          "primaryGj": "",
+          "distancePc": 12.318451375970275,
+          "simbadId": "*  85 Peg",
+          "simbadType": "SB*"
+        }
+      ],
+      "status": "unresolved-membership-or-identity",
+      "researchStatus": "reviewed",
+      "sources": [
+        "peg05",
+        "peg09"
+      ],
+      "outcome": "Observed visual stellar pair supports adding B; its proposed inner Bb is not confirmed.",
+      "decision": "partial-supported",
+      "systemName": "85 Pegasi",
+      "components": [
+        {
+          "label": "A",
+          "objectType": "star",
+          "action": "retain-primary"
+        },
+        {
+          "label": "B",
+          "objectType": "star",
+          "action": "add",
+          "proposedStarId": "85-pegasi-b",
+          "classificationBasis": "Observed visual stellar companion"
+        }
+      ],
+      "unresolvedComponents": [
+        "Possible Bb remains a mass-luminosity/variability hypothesis, not a direct individual detection."
+      ],
+      "authoringNotes": [
+        "Do not adopt the total dynamical B-subsystem mass as the physical mass of a hypothetical Ba or Bb."
+      ],
+      "implementationStatus": "research-only"
+    },
+    {
+      "starId": "cns5-0884",
+      "name": "HD 21531",
+      "distancePc": 12.493752964708817,
+      "cardSystem": null,
+      "componentLabel": null,
+      "sourceRecords": [
+        {
+          "cns5Id": "884",
+          "gj": "142",
+          "label": "",
+          "total": "-",
+          "primary": "0",
+          "primaryGj": "",
+          "distancePc": 12.493752980530079,
+          "simbadId": "HD  21531",
+          "simbadType": "SB*"
+        }
+      ],
+      "status": "unresolved-membership-or-identity",
+      "researchStatus": "reviewed",
+      "sources": [
+        "hal18"
+      ],
+      "outcome": "RV source is SB1, but does not identify the companion class.",
+      "decision": "classification-unresolved",
+      "systemName": "HD 21531 / GJ 142",
+      "components": [],
+      "unresolvedComponents": [
+        "Unseen companion: no sufficiently constrained individual type or mass established."
+      ],
+      "authoringNotes": [],
+      "implementationStatus": "research-only"
+    },
+    {
+      "starId": "cns5-0306",
+      "name": "G 69-47",
+      "distancePc": 12.506021778838203,
+      "cardSystem": null,
+      "componentLabel": null,
+      "sourceRecords": [
+        {
+          "cns5Id": "306",
+          "gj": "1029",
+          "label": "",
+          "total": "-",
+          "primary": "0",
+          "primaryGj": "",
+          "distancePc": 12.506021283313851,
+          "simbadId": "G  69-47",
+          "simbadType": "SB*"
+        }
+      ],
+      "status": "unresolved-membership-or-identity",
+      "researchStatus": "reviewed",
+      "sources": [
+        "bar18",
+        "win20",
+        "cif25"
+      ],
+      "outcome": "Stellar SB2: add B.",
+      "decision": "supported-additions",
+      "systemName": "GJ 1029",
+      "components": [
+        {
+          "label": "A",
+          "objectType": "star",
+          "action": "retain-primary"
+        },
+        {
+          "label": "B",
+          "objectType": "star",
+          "action": "add",
+          "proposedStarId": "gj-1029-b",
+          "classificationBasis": "Direct secondary spectrum"
+        }
+      ],
+      "unresolvedComponents": [],
+      "authoringNotes": [],
+      "implementationStatus": "research-only",
+      "reviewedMeasurements": {
+        "reference": "bar18",
+        "method": "empirical mass-luminosity relation and SB2 mass ratio",
+        "A": {
+          "massSolar": [
+            0.142,
+            0.02
+          ],
+          "radiusSolar": [
+            0.161,
+            0.02
+          ],
+          "temperatureK": [
+            3100,
+            100
+          ]
+        },
+        "B": {
+          "massSolar": [
+            0.101,
+            0.02
+          ],
+          "radiusSolar": [
+            0.123,
+            0.02
+          ],
+          "temperatureK": [
+            2900,
+            100
+          ]
+        }
+      }
+    },
+    {
+      "starId": "cns5-2593",
+      "name": "G 236-34",
+      "distancePc": 12.720672481698125,
+      "cardSystem": null,
+      "componentLabel": null,
+      "sourceRecords": [
+        {
+          "cns5Id": "2593",
+          "gj": "3612",
+          "label": "",
+          "total": "-",
+          "primary": "0",
+          "primaryGj": "",
+          "distancePc": 12.719644392011961,
+          "simbadId": "G 236-34",
+          "simbadType": "SB*"
+        }
+      ],
+      "status": "unresolved-membership-or-identity",
+      "researchStatus": "reviewed",
+      "sources": [
+        "bar18",
+        "cif25"
+      ],
+      "outcome": "Stellar SB2 identified as Karmn J10354+694: add B.",
+      "decision": "supported-additions",
+      "systemName": "GJ 3612",
+      "components": [
+        {
+          "label": "A",
+          "objectType": "star",
+          "action": "retain-primary"
+        },
+        {
+          "label": "B",
+          "objectType": "star",
+          "action": "add",
+          "proposedStarId": "gj-3612-b",
+          "classificationBasis": "Direct secondary spectrum"
+        }
+      ],
+      "unresolvedComponents": [],
+      "authoringNotes": [],
+      "implementationStatus": "research-only",
+      "reviewedMeasurements": {
+        "reference": "bar18",
+        "method": "empirical mass-luminosity relation and SB2 mass ratio",
+        "A": {
+          "massSolar": [
+            0.323,
+            0.02
+          ],
+          "radiusSolar": [
+            0.33,
+            0.021
+          ],
+          "temperatureK": [
+            3600,
+            100
+          ]
+        },
+        "B": {
+          "massSolar": [
+            0.164,
+            0.02
+          ],
+          "radiusSolar": [
+            0.181,
+            0.02
+          ],
+          "temperatureK": [
+            3300,
+            100
+          ]
+        }
+      }
+    },
+    {
+      "starId": "cns5-4402",
+      "name": "Wolf 1473",
+      "distancePc": 13.060946665850688,
+      "cardSystem": null,
+      "componentLabel": null,
+      "sourceRecords": [
+        {
+          "cns5Id": "4402",
+          "gj": "12564",
+          "label": "",
+          "total": "-",
+          "primary": "0",
+          "primaryGj": "",
+          "distancePc": 13.060672268731846,
+          "simbadId": "Wolf 1473",
+          "simbadType": "SB*"
+        }
+      ],
+      "status": "unresolved-membership-or-identity",
+      "researchStatus": "reviewed",
+      "sources": [
+        "win20"
+      ],
+      "outcome": "Stellar SB2: add B.",
+      "decision": "supported-additions",
+      "systemName": "LTT 7077 / Wolf 1473",
+      "components": [
+        {
+          "label": "A",
+          "objectType": "star",
+          "action": "retain-primary"
+        },
+        {
+          "label": "B",
+          "objectType": "star",
+          "action": "add",
+          "proposedStarId": "ltt-7077-b",
+          "classificationBasis": "Direct secondary spectrum"
+        }
+      ],
+      "unresolvedComponents": [],
+      "authoringNotes": [
+        "Do not mistake the measured M sin^3(i) values for true individual masses."
+      ],
+      "implementationStatus": "research-only"
+    },
+    {
+      "starId": "cns5-3865",
+      "name": "Ross 1057",
+      "distancePc": 13.643815995241114,
+      "cardSystem": null,
+      "componentLabel": null,
+      "sourceRecords": [
+        {
+          "cns5Id": "3865",
+          "gj": "597",
+          "label": "",
+          "total": "-",
+          "primary": "0",
+          "primaryGj": "",
+          "distancePc": 13.643165757490895,
+          "simbadId": "Ross 1057",
+          "simbadType": "SB*"
+        }
+      ],
+      "status": "unresolved-membership-or-identity",
+      "researchStatus": "reviewed",
+      "sources": [
+        "bar18",
+        "bar21",
+        "cif25"
+      ],
+      "outcome": "Stellar SB2 with updated long-period orbit: add B.",
+      "decision": "supported-additions",
+      "systemName": "UU Ursae Minoris / Ross 1057",
+      "components": [
+        {
+          "label": "A",
+          "objectType": "star",
+          "action": "retain-primary"
+        },
+        {
+          "label": "B",
+          "objectType": "star",
+          "action": "add",
+          "proposedStarId": "uu-umi-b",
+          "classificationBasis": "Direct secondary spectrum"
+        }
+      ],
+      "unresolvedComponents": [],
+      "authoringNotes": [
+        "Use the 2021 orbit rather than the earlier approximate period. Orbit minimum masses are not actual masses."
+      ],
+      "implementationStatus": "research-only"
+    },
+    {
+      "starId": "cns5-3277",
+      "name": "BD+35 2436",
+      "distancePc": 13.697309359154744,
+      "cardSystem": "GJ 507",
+      "componentLabel": "A",
+      "sourceRecords": [
+        {
+          "cns5Id": "3277",
+          "gj": "507",
+          "label": "A",
+          "total": "2",
+          "primary": "1",
+          "primaryGj": "",
+          "distancePc": 13.697159775219289,
+          "simbadId": "BD+35  2436",
+          "simbadType": "SB*"
+        }
+      ],
+      "status": "associated-catalog-members",
+      "researchStatus": "reviewed",
+      "sources": [
+        "bar18",
+        "cif25"
+      ],
+      "outcome": "A is a confirmed stellar SB2: add Ab; wide B is already present.",
+      "decision": "partial-supported",
+      "systemName": "GJ 507",
+      "components": [
+        {
+          "label": "Aa",
+          "objectType": "star",
+          "action": "retain-primary"
+        },
+        {
+          "label": "Ab",
+          "objectType": "star",
+          "action": "add",
+          "proposedStarId": "gj-507-ab",
+          "classificationBasis": "SB2, exact BD+35 2436 identity"
+        },
+        {
+          "label": "B",
+          "objectType": "star",
+          "action": "retain"
+        }
+      ],
+      "unresolvedComponents": [
+        "The outer GJ 507 B also has an SB1 flag; its additional inner companion is not individually typed."
+      ],
+      "authoringNotes": [
+        "CARMENES uses AB+Cab rather than conventional Aa/Ab/B. Keep a naming note. Optical HJ 529 and KZA 47 entries must not become physical members."
+      ],
+      "implementationStatus": "research-only"
+    },
+    {
+      "starId": "cns5-2636",
+      "name": "BD+39 2376A",
+      "distancePc": 13.859253133297093,
+      "cardSystem": null,
+      "componentLabel": null,
+      "sourceRecords": [
+        {
+          "cns5Id": "2636",
+          "gj": "400",
+          "label": "AB",
+          "total": "2",
+          "primary": "1",
+          "primaryGj": "",
+          "distancePc": 13.859253129044413,
+          "simbadId": "BD+39  2376A",
+          "simbadType": "PM*"
+        }
+      ],
+      "status": "unresolved-membership-or-identity",
+      "researchStatus": "reviewed",
+      "sources": [
+        "cif25"
+      ],
+      "outcome": "Gaia-resolved M-dwarf companion is supported; an additional close object remains uncertain.",
+      "decision": "partial-supported",
+      "systemName": "GJ 400",
+      "components": [
+        {
+          "label": "A",
+          "objectType": "star",
+          "action": "retain-primary"
+        },
+        {
+          "label": "C",
+          "objectType": "star",
+          "action": "add",
+          "proposedStarId": "gj-400-c",
+          "gaiaDr3Id": "776067093937332992",
+          "classificationBasis": "Resolved co-moving M dwarf; B in 2025 table, HO 532 AC in WDS"
+        }
+      ],
+      "unresolvedComponents": [
+        "Possible separate CHR 191 AB companion: source warns of historical confusion with HO 532 AC; exact identity/membership needs reconciliation."
+      ],
+      "authoringNotes": [
+        "Use Gaia ID as the secure identity. Resolve the B-versus-C label scope explicitly before card authoring; do not add both names as separate stars."
+      ],
+      "implementationStatus": "research-only"
+    },
+    {
+      "starId": "cns5-3515",
+      "name": "G 65-39",
+      "distancePc": 13.884057988929628,
+      "cardSystem": null,
+      "componentLabel": null,
+      "sourceRecords": [
+        {
+          "cns5Id": "3515",
+          "gj": "1182",
+          "label": "",
+          "total": "-",
+          "primary": "0",
+          "primaryGj": "",
+          "distancePc": 13.884080552168085,
+          "simbadId": "G  65-39",
+          "simbadType": "SB*"
+        }
+      ],
+      "status": "unresolved-membership-or-identity",
+      "researchStatus": "reviewed",
+      "sources": [
+        "bar18",
+        "win20",
+        "cif25"
+      ],
+      "outcome": "Stellar SB2: add B.",
+      "decision": "supported-additions",
+      "systemName": "GJ 1182",
+      "components": [
+        {
+          "label": "A",
+          "objectType": "star",
+          "action": "retain-primary"
+        },
+        {
+          "label": "B",
+          "objectType": "star",
+          "action": "add",
+          "proposedStarId": "gj-1182-b",
+          "classificationBasis": "Direct secondary spectrum"
+        }
+      ],
+      "unresolvedComponents": [],
+      "authoringNotes": [],
+      "implementationStatus": "research-only",
+      "reviewedMeasurements": {
+        "reference": "bar18",
+        "method": "empirical mass-luminosity relation and SB2 mass ratio",
+        "A": {
+          "massSolar": [
+            0.157,
+            0.02
+          ],
+          "radiusSolar": [
+            0.175,
+            0.02
+          ],
+          "temperatureK": [
+            3300,
+            100
+          ]
+        },
+        "B": {
+          "massSolar": [
+            0.104,
+            0.02
+          ],
+          "radiusSolar": [
+            0.126,
+            0.02
+          ],
+          "temperatureK": [
+            2900,
+            100
+          ]
+        }
+      }
+    }
+  ],
+  "sources": {
+    "cif25": {
+      "title": "Cifuentes et al. 2025, CARMENES input catalogue IX",
+      "url": "https://doi.org/10.1051/0004-6361/202452527",
+      "location": "Table A.1 and published CDS component data, J/A+A/693/A228",
+      "frozenInput": "catalog-work/star-systems/cifuentes-2025-reviewed-systems.json"
+    },
+    "gon26": {
+      "title": "Gonzalez-Payo et al. 2026, Characterisation of all known multiple stellar systems within 10 pc",
+      "url": "https://arxiv.org/abs/2605.04094",
+      "location": "Tables C2/C3; Appendix A",
+      "downloadSha256": "9cb684832d19a467862cd313bf2d7adb0147f3e7e08ebc6758b205e4095367b0",
+      "version": "arXiv:2605.04094v1"
+    },
+    "del99": {
+      "title": "Delfosse et al. 1999, New neighbours I: 13 new companions to nearby M dwarfs",
+      "url": "https://arxiv.org/abs/astro-ph/9812008",
+      "location": "Individual-system discussion and SB2 orbital table"
+    },
+    "bar18": {
+      "title": "Baroch et al. 2018, CARMENES search: Nine new double-line spectroscopic binary systems",
+      "url": "https://arxiv.org/abs/1808.06895",
+      "location": "Tables 1, 2, 6 and D.1",
+      "downloadSha256": "4a729609e78fa0471ce6a47f15c38266dc71de15d943db5acf8b5b81fb5980c0",
+      "version": "arXiv:1808.06895v1"
+    },
+    "win19": {
+      "title": "Winters et al. 2019, Three Red Suns in the Sky: a transiting planet in a triple M dwarf system",
+      "url": "https://lweb.cfa.harvard.edu/~jwinters/Winters_2019_AJ_158_152.pdf",
+      "location": "LTT 1445 A, B and C identities and masses"
+    },
+    "obr26": {
+      "title": "OBrien et al. 2026, Direct detections of white dwarfs in four WD+dM post-common envelope binaries within 20 pc",
+      "url": "https://arxiv.org/abs/2607.11320",
+      "location": "G 203-47 HST/STIS spectroscopy; Table 3"
+    },
+    "mar07": {
+      "title": "Martinache et al. 2007, Precision masses of the low-mass binary system GJ 623",
+      "url": "https://arxiv.org/abs/astro-ph/0612138",
+      "location": "Resolved AO and spectroscopic orbit"
+    },
+    "wri13": {
+      "title": "Wright et al. 2013, A T8.5 brown dwarf member of the Xi Ursae Majoris system",
+      "url": "https://arxiv.org/abs/1203.5764",
+      "location": "Sections 3.1 and 3.1.1; wide companion common proper motion"
+    },
+    "ben16": {
+      "title": "Benedict et al. 2016, The Solar Neighborhood XXXVII: The Mass-Luminosity Relation for Main-Sequence M Dwarfs",
+      "url": "https://recons.org/published37.pdf",
+      "location": "GJ 791.2 component orbit; Table 9"
+    },
+    "man19": {
+      "title": "Mann et al. 2019, How to Constrain Your M Dwarf II",
+      "url": "https://doi.org/10.3847/1538-4357/aaf3bc",
+      "location": "Discussion of discrepant GJ 791.2 orbital masses; GJ 84 orbit"
+    },
+    "dav13": {
+      "title": "Davison et al. 2013, The Closest M-Dwarf Quadruple System to the Sun",
+      "url": "https://arxiv.org/abs/1310.6761",
+      "location": "GJ 867 D minimum mass and uncertain stellar/substellar class"
+    },
+    "gol04": {
+      "title": "Golimowski et al. 2004, The Solar Neighborhood IX: HST detections of companions to five M and L dwarfs",
+      "url": "https://arxiv.org/abs/astro-ph/0406664",
+      "location": "Section 3.3: GJ 84 B photometric M7 estimate"
+    },
+    "fit24": {
+      "title": "Fitzmaurice et al. 2024, LHS 1610: brown dwarf companion mass from Gaia and radial velocities",
+      "url": "https://doi.org/10.3847/1538-3881/ad57be",
+      "location": "Published final mass: 49.5 +4.3/-3.5 Jupiter masses; supersedes preprint uncertainty"
+    },
+    "sah11": {
+      "title": "Sahlmann et al. 2011, Search for brown-dwarf companions from Hipparcos astrometry",
+      "url": "https://www.aanda.org/articles/aa/pdf/2011/01/aa15427-10.pdf",
+      "location": "GJ 595/HIP 76901 minimum-mass constraint"
+    },
+    "rag10": {
+      "title": "Raghavan et al. 2010, A Survey of Stellar Families: Multiplicity of Solar-type Stars",
+      "url": "https://chara.gsu.edu/files/papers/Paper38.pdf",
+      "location": "HD 13974 SB2 orbit; HD 223778 triple hierarchy; companion tables and Figure 22"
+    },
+    "mar25": {
+      "title": "Martinez and Gonzalez 2025, BiSpeD: Binary Spectral Disentangling applied to binary low-mass star searches",
+      "url": "https://www.aanda.org/articles/aa/pdf/2025/02/aa51496-24.pdf",
+      "location": "HD 160346; Tables 2/3, Figure B.6; author institutional copy read",
+      "accessUrl": "https://ri.conicet.gov.ar/bitstream/handle/11336/273309/CONICET_Digital_Nro.0d232358-29a9-4cba-b001-8b4c1ed14b05_B.pdf?sequence=2"
+    },
+    "har81": {
+      "title": "Harrington, Christy and Strand 1981, The nearby quadruple system G 107-69/70",
+      "url": "https://ui.adsabs.harvard.edu/abs/1981AJ.....86..909H/abstract",
+      "location": "Unresolved astrometric G 107-69 companion; resolved double white dwarf G 107-70"
+    },
+    "bag21": {
+      "title": "Bagnulo and Landstreet 2021, New insight into the magnetism of degenerate stars from the analysis of a volume-limited sample of white dwarfs",
+      "url": "https://doi.org/10.1093/mnras/stab2046",
+      "location": "G 107-70 A/B, Section B1.25; individual dynamical masses from Nelan et al. 2015"
+    },
+    "bel07": {
+      "title": "van Belle et al. 2007, Measurement of the Surface Gravity of eta Bootis",
+      "url": "https://arxiv.org/abs/astro-ph/0701120",
+      "location": "Section 4, Non-Detection of Binarity; a sufficiently faint companion is not excluded"
+    },
+    "mak21": {
+      "title": "Makarov 2021, Mass ratios of long-period binary stars resolved in precision astrometry catalogs of two epochs",
+      "url": "https://doi.org/10.22201/ia.01851101p.2021.57.02.12",
+      "location": "Section 3, HD 38 A/B and physical tertiary WDS F"
+    },
+    "spe19": {
+      "title": "Sperauskas et al. 2019, Spectroscopic orbits of nearby stars",
+      "url": "https://www.aanda.org/articles/aa/pdf/2019/06/aa35346-19.pdf",
+      "location": "HIP 43820/HD 75632 discussion: possible triple, tentative orbit not published"
+    },
+    "mas18": {
+      "title": "Mason et al. 2018, Speckle interferometry of red dwarf stars",
+      "url": "https://vizier.cds.unistra.fr/viz-bin/VizieR?-source=J/AJ/155/215",
+      "location": "Published null-detection table; GJ 46"
+    },
+    "mig24": {
+      "title": "Mignon et al. 2024, HARPS M-dwarf radial-velocity survey",
+      "url": "https://www.aanda.org/articles/aa/pdf/2024/09/aa46570-23.pdf",
+      "location": "GJ 46 source survey; no individually typed stellar companion established by this review"
+    },
+    "wai26": {
+      "title": "Waisberg, Klein and Katz 2026, Hidden Companions XXXVI: Resolving Deneb Algedi",
+      "url": "https://doi.org/10.3847/2515-5172/ae5a98",
+      "location": "RNAAS 10(4), 78; resolved red dwarf and primary radius",
+      "accessUrl": "https://www.researchgate.net/publication/403627952_Hidden_Companions_to_Intermediate-mass_Stars_XXXVI_Resolving_the_Nearby_Eclipsing_Binary_Deneb_Algedi_Delta_Capricorni"
+    },
+    "peg09": {
+      "title": "MOST study of 85 Pegasi: A search for p-modes and other variability",
+      "url": "https://arxiv.org/abs/0907.1929",
+      "location": "Section 4.1 treats Bb as putative, not a direct detection"
+    },
+    "peg05": {
+      "title": "DAntona et al. 2005, 85 Peg A: what age for a low-metallicity solar-like star?",
+      "url": "https://academic.oup.com/mnras/article/363/3/847/1145909",
+      "location": "Section 2: observed visual A/B; extra Bb is a mass-luminosity hypothesis"
+    },
+    "hal18": {
+      "title": "Halbwachs et al. 2018, CORAVEL survey of nearby solar-type stars",
+      "url": "https://www.aanda.org/articles/aa/pdf/2018/11/aa33377-18.pdf",
+      "location": "HD 21531/GJ 142 SB1; HD 223778/GJ 909 A"
+    },
+    "win20": {
+      "title": "Winters et al. 2020, Spectroscopic Orbits of Eleven Nearby, Mid-to-Late M Dwarf Binaries",
+      "url": "https://arxiv.org/abs/2004.11225",
+      "location": "GJ 1029, GJ 1182 and LTT 7077: directly detected stellar SB2 companions"
+    },
+    "bar21": {
+      "title": "Baroch et al. 2021, CARMENES orbits of double-lined spectroscopic binaries",
+      "url": "https://www.aanda.org/articles/aa/pdf/2021/09/aa41031-21.pdf",
+      "location": "Updated UU UMi orbit; minimum masses are not individual dynamical masses"
+    },
+    "cns5": {
+      "title": "Golovin et al. 2023, Fifth Catalogue of Nearby Stars",
+      "url": "https://cdsarc.cds.unistra.fr/viz-bin/ReadMe/J/A+A/670/A19?format=html",
+      "location": "Corrected frozen 5909 source rows; tentative RX J1214.1-2345 B record 3006"
+    },
+    "sim-rx": {
+      "title": "SIMBAD RX J1214.1-2345 B record",
+      "url": "https://simbad.u-strasbg.fr/simbad/sim-id?Ident=RX%20J1214.1-2345B",
+      "location": "Frozen exact-ID CNS5 3006 match: BD?; no individual spectral type"
+    }
+  },
+  "fieldPolicy": [
+    "Component spectra and physical values must describe individuals; combined source properties are not copied to children.",
+    "Empirical, photometric and model estimates retain their methods and uncertainties. Minimum masses and asymmetric errors are not silently converted to exact masses.",
+    "Unresolved close companions may share approximate source astrometry only with explicit provenance. Resolved wide companions use their own astrometry.",
+    "No instantaneous component radial velocity is adopted as a barycentric trajectory, and no uncorrected white-dwarf spectroscopic RV is adopted."
+  ],
+  "inputSha256": {
+    "catalog-work/nearest-1000/cns5.dat": "7e8c1a2ce4a2afcd70cdf40340c9685b1ec90e8e5085a81812dfa98c5c8adbbf",
+    "catalog-work/nearest-1000/simbad.csv": "0d1ab9881afdfbbac62ea7d05d31cb0d8ca4c4235a4b14eb3d0e5b789a932dbd",
+    "src/data/catalogs/nearest-1000/stars.csv": "14905a4ada8de25f0ede737c04b50225c930f780ed0860484811c33bdb23788f",
+    "src/data/star-systems.json": "1c4391ab257de38b8c9eb0288e7a66f4c43287087d34692c5f979e4949246581"
+  },
+  "summary": {
+    "recordsResearched": 37,
+    "systemsResearched": 36,
+    "decisionCounts": {
+      "already-represented": 1,
+      "supported-additions": 22,
+      "existing-member-needs-grouping": 1,
+      "partial-supported": 6,
+      "classification-unresolved": 3,
+      "estimated-classification": 1,
+      "membership-unconfirmed": 3
+    },
+    "supportedNewObjects": 33,
+    "supportedNewObjectsByType": {
+      "star": 29,
+      "white_dwarf": 3,
+      "brown_dwarf": 1
+    },
+    "existingObjectsToAssociate": 2,
+    "recordsWithUnresolvedComponents": 13,
+    "unresolvedCompanionSlots": 13,
+    "catalogChangesApplied": false,
+    "applicationValidationRun": false
+  },
+  "supportedAdditionProposals": [
+    {
+      "sourceStarId": "cns5-2217",
+      "system": "GJ 3522 / G 41-14",
+      "label": "Ab",
+      "objectType": "star",
+      "action": "add",
+      "proposedStarId": "gj-3522-ab",
+      "classificationBasis": "SB2"
+    },
+    {
+      "sourceStarId": "cns5-2217",
+      "system": "GJ 3522 / G 41-14",
+      "label": "B",
+      "objectType": "star",
+      "action": "add",
+      "proposedStarId": "gj-3522-b",
+      "gaiaDr3Id": "585250248258396416",
+      "classificationBasis": "Resolved M dwarf"
+    },
+    {
+      "sourceStarId": "cns5-5297",
+      "system": "GJ 829 / Ross 775",
+      "label": "B",
+      "objectType": "star",
+      "action": "add",
+      "proposedStarId": "ross-775-b",
+      "classificationBasis": "SB2"
+    },
+    {
+      "sourceStarId": "cns5-0757",
+      "system": "LTT 1445",
+      "label": "B",
+      "objectType": "star",
+      "action": "add",
+      "proposedStarId": "ltt-1445-b"
+    },
+    {
+      "sourceStarId": "cns5-0757",
+      "system": "LTT 1445",
+      "label": "C",
+      "objectType": "star",
+      "action": "add",
+      "proposedStarId": "ltt-1445-c"
+    },
+    {
+      "sourceStarId": "cns5-4198",
+      "system": "G 203-47",
+      "label": "B",
+      "objectType": "white_dwarf",
+      "action": "add",
+      "proposedStarId": "g-203-47-b",
+      "classificationBasis": "HST/STIS direct spectroscopy"
+    },
+    {
+      "sourceStarId": "cns5-4014",
+      "system": "GJ 623",
+      "label": "B",
+      "objectType": "star",
+      "action": "add",
+      "proposedStarId": "gj-623-b",
+      "classificationBasis": "Resolved orbit and stellar mass"
+    },
+    {
+      "sourceStarId": "cns5-2767",
+      "system": "Xi Ursae Majoris",
+      "label": "Ab",
+      "objectType": "star",
+      "action": "add",
+      "proposedStarId": "xi-uma-ab",
+      "classificationBasis": "2026 census estimated M dwarf, 0.380 +/-0.038 solar masses"
+    },
+    {
+      "sourceStarId": "cns5-2767",
+      "system": "Xi Ursae Majoris",
+      "label": "Ba",
+      "objectType": "star",
+      "action": "add",
+      "proposedStarId": "xi-uma-ba",
+      "classificationBasis": "G2V resolved bright component"
+    },
+    {
+      "sourceStarId": "cns5-5064",
+      "system": "GJ 791.2 / HU Del",
+      "label": "B",
+      "objectType": "star",
+      "action": "add",
+      "proposedStarId": "gj-791-2-b",
+      "classificationBasis": "Resolved low-mass stellar binary"
+    },
+    {
+      "sourceStarId": "cns5-0527",
+      "system": "GJ 84",
+      "label": "B",
+      "objectType": "star",
+      "action": "add",
+      "proposedStarId": "gj-84-b",
+      "classificationBasis": "Resolved photometry; 2026 estimated M6:V, mass 0.120 +/-0.020 solar masses"
+    },
+    {
+      "sourceStarId": "cns5-0970",
+      "system": "LHS 1610 / Wolf 227",
+      "label": "B",
+      "objectType": "brown_dwarf",
+      "action": "add",
+      "proposedStarId": "lhs-1610-b",
+      "classificationBasis": "Joint Gaia and RV dynamical mass"
+    },
+    {
+      "sourceStarId": "cns5-4625",
+      "system": "GJ 1230",
+      "label": "Ab",
+      "objectType": "star",
+      "action": "add",
+      "proposedStarId": "gj-1230-ab",
+      "classificationBasis": "SB2"
+    },
+    {
+      "sourceStarId": "cns5-3169",
+      "system": "GJ 487 / DP Dra",
+      "label": "Ab",
+      "objectType": "star",
+      "action": "add",
+      "proposedStarId": "gj-487-ab",
+      "classificationBasis": "Triple-lined orbit"
+    },
+    {
+      "sourceStarId": "cns5-3169",
+      "system": "GJ 487 / DP Dra",
+      "label": "B",
+      "objectType": "star",
+      "action": "add",
+      "proposedStarId": "gj-487-b",
+      "classificationBasis": "Resolved tertiary and third spectrum"
+    },
+    {
+      "sourceStarId": "cns5-1408",
+      "system": "GJ 1083 / G 100-28",
+      "label": "B",
+      "objectType": "star",
+      "action": "add",
+      "proposedStarId": "gj-1083-b",
+      "classificationBasis": "Resolved orbit; estimated M6.0:V"
+    },
+    {
+      "sourceStarId": "cns5-0583",
+      "system": "Delta Trianguli",
+      "label": "B",
+      "objectType": "star",
+      "action": "add",
+      "proposedStarId": "delta-trianguli-b",
+      "classificationBasis": "SB2 and interferometric orbit"
+    },
+    {
+      "sourceStarId": "cns5-5888",
+      "system": "HD 223778 / GJ 909",
+      "label": "Ab",
+      "objectType": "star",
+      "action": "add",
+      "proposedStarId": "hd-223778-ab",
+      "classificationBasis": "SB2 and resolved close orbit"
+    },
+    {
+      "sourceStarId": "cns5-5888",
+      "system": "HD 223778 / GJ 909",
+      "label": "B",
+      "objectType": "star",
+      "action": "add",
+      "proposedStarId": "hd-223778-b",
+      "classificationBasis": "Confirmed visual tertiary; estimated M6"
+    },
+    {
+      "sourceStarId": "cns5-4363",
+      "system": "HD 160346 / GJ 688",
+      "label": "B",
+      "objectType": "star",
+      "action": "add",
+      "proposedStarId": "hd-160346-b",
+      "classificationBasis": "2025 spectral disentangling"
+    },
+    {
+      "sourceStarId": "cns5-4704",
+      "system": "GJ 735 / MCC 188",
+      "label": "B",
+      "objectType": "star",
+      "action": "add",
+      "proposedStarId": "gj-735-b",
+      "classificationBasis": "SB2"
+    },
+    {
+      "sourceStarId": "cns5-1860",
+      "system": "G 107-69/70",
+      "label": "G 107-70 A",
+      "objectType": "white_dwarf",
+      "action": "add",
+      "proposedStarId": "g-107-70-a",
+      "gaiaDr3Id": "975968340912517248",
+      "classificationBasis": "Resolved DA white dwarf"
+    },
+    {
+      "sourceStarId": "cns5-1860",
+      "system": "G 107-69/70",
+      "label": "G 107-70 B",
+      "objectType": "white_dwarf",
+      "action": "add",
+      "proposedStarId": "g-107-70-b",
+      "gaiaDr3Id": "975968340910692608",
+      "classificationBasis": "Resolved DA white dwarf"
+    },
+    {
+      "sourceStarId": "cns5-5173",
+      "system": "GJ 810",
+      "label": "Ab",
+      "objectType": "star",
+      "action": "add",
+      "proposedStarId": "gj-810-ab",
+      "classificationBasis": "SB2"
+    },
+    {
+      "sourceStarId": "cns5-5370",
+      "system": "Deneb Algedi",
+      "label": "Ab",
+      "objectType": "star",
+      "action": "add",
+      "proposedStarId": "deneb-algedi-ab",
+      "classificationBasis": "VLTI/GRAVITY direct resolution"
+    },
+    {
+      "sourceStarId": "cns5-0006",
+      "system": "85 Pegasi",
+      "label": "B",
+      "objectType": "star",
+      "action": "add",
+      "proposedStarId": "85-pegasi-b",
+      "classificationBasis": "Observed visual stellar companion"
+    },
+    {
+      "sourceStarId": "cns5-0306",
+      "system": "GJ 1029",
+      "label": "B",
+      "objectType": "star",
+      "action": "add",
+      "proposedStarId": "gj-1029-b",
+      "classificationBasis": "Direct secondary spectrum"
+    },
+    {
+      "sourceStarId": "cns5-2593",
+      "system": "GJ 3612",
+      "label": "B",
+      "objectType": "star",
+      "action": "add",
+      "proposedStarId": "gj-3612-b",
+      "classificationBasis": "Direct secondary spectrum"
+    },
+    {
+      "sourceStarId": "cns5-4402",
+      "system": "LTT 7077 / Wolf 1473",
+      "label": "B",
+      "objectType": "star",
+      "action": "add",
+      "proposedStarId": "ltt-7077-b",
+      "classificationBasis": "Direct secondary spectrum"
+    },
+    {
+      "sourceStarId": "cns5-3865",
+      "system": "UU Ursae Minoris / Ross 1057",
+      "label": "B",
+      "objectType": "star",
+      "action": "add",
+      "proposedStarId": "uu-umi-b",
+      "classificationBasis": "Direct secondary spectrum"
+    },
+    {
+      "sourceStarId": "cns5-3277",
+      "system": "GJ 507",
+      "label": "Ab",
+      "objectType": "star",
+      "action": "add",
+      "proposedStarId": "gj-507-ab",
+      "classificationBasis": "SB2, exact BD+35 2436 identity"
+    },
+    {
+      "sourceStarId": "cns5-2636",
+      "system": "GJ 400",
+      "label": "C",
+      "objectType": "star",
+      "action": "add",
+      "proposedStarId": "gj-400-c",
+      "gaiaDr3Id": "776067093937332992",
+      "classificationBasis": "Resolved co-moving M dwarf; B in 2025 table, HO 532 AC in WDS"
+    },
+    {
+      "sourceStarId": "cns5-3515",
+      "system": "GJ 1182",
+      "label": "B",
+      "objectType": "star",
+      "action": "add",
+      "proposedStarId": "gj-1182-b",
+      "classificationBasis": "Direct secondary spectrum"
+    }
+  ]
+}

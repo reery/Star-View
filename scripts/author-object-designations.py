@@ -148,6 +148,9 @@ def build():
     for identifier, rows in sorted(inventory.items()):
         row = rows[0][0]
         name = default_names.get(identifier, bright_names.get(identifier, row["name"]))
+        component_name = next((r["name"] for r, _ in rows if
+                               "Individually reviewed physical values/withholding:" in r.get("notes", "") or
+                               "Reviewed companion expansion" in r.get("notes", "")), None)
         aliases = [r["name"] for r, _ in rows]
         sources = [path for _, path in rows]
         identifiers = []
@@ -225,6 +228,11 @@ def build():
             aliases.extend(decision.get("designations", []))
             sources.extend(decision["sources"])
         aliases = unique(aliases)
+        if component_name:
+            # Reviewed individual labels supersede an older blended-system name.
+            # Keep that familiar name searchable without renaming Aa back to AB.
+            aliases.append(name)
+            name = component_name
         aliases = [value for value in aliases if key(value) != key(name)]
         aliases.sort(key=lambda value: (0 if value in named else 1 if re.match(r"^(?:PSR |HD |HIP |GJ |Alpha|Beta|Gamma|Delta|Epsilon)", value) else 2, key(value)))
         objects[identifier] = {"name": name, "designations": aliases, "sources": sorted(set(sources))}

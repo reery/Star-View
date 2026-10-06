@@ -9,6 +9,7 @@ import re
 from functools import cache
 from pathlib import Path
 from catalog_sources.enrichment import enrich_from_frozen, enrichment_sources, manifest_sha256
+from catalog_sources.overlay_companions import expand_overlay
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -21,7 +22,7 @@ DEFAULT_CATALOG = ROOT / "src/data/stars.csv"
 PHYSICAL_FIELDS = ("temperature_k", "mass_solar", "luminosity_solar", "radius_solar", "metallicity_dex", "age_gyr")
 SYSTEM_TYPES = {"**", "EB*", "SB*", "bC*", "s*b"}
 HEADERS = [
-    "type", "id", "name", "spectral_type", "x_pc", "y_pc", "z_pc",
+    "type", "id", "name", "designations", "spectral_type", "x_pc", "y_pc", "z_pc",
     "vx_kms", "vy_kms", "vz_kms", "temperature_k", "mass_solar",
     "luminosity_solar", "radius_solar", "metallicity_dex", "age_gyr",
     "absolute_mag", "epoch", "notes", "constellation", "ra_deg", "dec_deg",
@@ -527,7 +528,7 @@ def csv_text(rows):
     output = io.StringIO()
     writer = csv.DictWriter(output, fieldnames=HEADERS, lineterminator="\n")
     writer.writeheader()
-    writer.writerows(rows)
+    writer.writerows({header: row.get(header, "") for header in HEADERS} for row in rows)
     return output.getvalue()
 
 
@@ -578,14 +579,15 @@ def western_catalog():
         }
     if len({row["id"] for row in rows}) != 691:
         raise ValueError("Western figure output IDs are not unique")
+    rows, expansion, companion_sources = expand_overlay("western-constellation-stars", rows, provenance)
     rows.sort(key=lambda row: math.hypot(float(row["x_pc"]), float(row["y_pc"]), float(row["z_pc"])))
     manifest = {
         "schemaVersion": 1,
         "id": "western-constellation-stars",
         "label": "Western constellation stars",
-        "description": "All unique Hipparcos stars used as vertices in Stellarium's Western constellation line figures, plus the Sun.",
+        "description": "All unique Hipparcos vertices in Stellarium's Western constellation figures with reviewed individual companions, plus the Sun.",
         "epoch": 2000,
-        "objectCount": 692,
+        "objectCount": len(rows) + 1,
         "sources": [
             {"name": "Stellarium Western sky culture line figures, commit 014fbb5", "url": "https://github.com/Stellarium/stellarium-skycultures/blob/014fbb5e59233d133c22f9811af96b67d05a95c9/western/index.json"},
             {"name": "SIMBAD TAP snapshot; exact Hipparcos identity, astrometry, classification and compiled Johnson V", "url": "https://simbad.cds.unistra.fr/simbad/sim-tap/sync"},
@@ -600,16 +602,21 @@ def western_catalog():
             {"name": "McDonald et al. 2012 Hipparcos-star SED models; exact HIP identifiers", "url": "https://cdsarc.cds.unistra.fr/viz-bin/cat/J/MNRAS/427/343"},
             {"name": "Gaia DR3 GSP-Phot and FLAME model parameters; exact Gaia DR3 identifiers", "url": "https://gea.esac.esa.int/tap-server/tap/sync"},
         ],
-        "cutoffPolicy": "Every unique numeric Hipparcos vertex in all 88 Stellarium Western constellation line figures. Non-numeric drawing-style tokens are ignored. No apparent-magnitude cutoff is applied; Sun is included only as the map origin.",
-        "snapshot": "Stellarium commit 014fbb5e59233d133c22f9811af96b67d05a95c9; SIMBAD, Hipparcos, VizieR and Gaia snapshots frozen 2026-10-01; 691 figure stars plus Sun.",
+        "cutoffPolicy": "Every unique numeric Hipparcos vertex in all 88 Stellarium Western constellation line figures, plus reviewed companions of explicitly matched landmarks. Non-numeric drawing-style tokens are ignored. No apparent-magnitude cutoff is applied; Sun is included only as the map origin. Component-resolved records replace reviewed blended primaries.",
+        "snapshot": "Stellarium commit 014fbb5e59233d133c22f9811af96b67d05a95c9; SIMBAD, Hipparcos, VizieR and Gaia snapshots frozen 2026-10-01; 691 original figure landmarks plus reviewed companions (2026-10-06) and Sun.",
     }
     manifest["sources"] += enrichment_sources()
+    sources_by_url = {source["url"]: source for source in manifest["sources"]}
+    for source in companion_sources:
+        sources_by_url.setdefault(source["url"], source)
+    manifest["sources"] = list(sources_by_url.values())
     provenance_payload = {
         "schemaVersion": 1,
         "catalogId": manifest["id"],
         "policy": manifest["cutoffPolicy"],
         "figureConstellations": len(index["constellations"]),
-        "uniqueHipparcosStars": len(rows),
+        "uniqueHipparcosStars": len(hips),
+        "companionExpansion": expansion,
         "physicalCoverage": {field: sum(bool(row[field]) for row in rows) for field in PHYSICAL_FIELDS},
         "sharedEnrichmentManifestSha256": manifest_sha256(),
         "objects": provenance,

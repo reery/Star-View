@@ -22,6 +22,67 @@ sequence with interpolation and no extrapolation. Giants, subgiants, white dwarf
 peculiar/uncertain/composite spectra do not receive that generic estimate. No
 generic age, metallicity, mass, or Johnson V is invented.
 
+### Union-wide literature expansion (2026-10-05)
+
+`scripts/refresh-shared-physical.py --retrieved YYYY-MM-DD` explicitly acquires a
+separate, immutable literature snapshot for the union of all four frozen SIMBAD
+identity exports. The 2026-10-05 snapshot queries 1,791 exact SIMBAD identities and
+1,062 HIP identifiers, yielding 18,812 `mesFe_h` spectroscopy records, 433
+Allende Prieto & Lambert model rows and 552 McDonald SED rows. Queries, raw values,
+bibliography and hashes live in `catalog-work/shared-enrichment/literature/`.
+Every stellar builder reads this same pool; no overlay needs to be enabled for
+its measurements to be available in a base catalog.
+
+Existing curated values and previously reviewed spectroscopy choices retain
+priority. The automatic spectroscopy fallback excludes missing/nonfinite values,
+temperature outside 1,000–100,000 K and iron abundance outside −5 to +1.5 dex,
+including common sentinel values. Among multiple observations, a strict majority
+must lie within 10 percent of the median temperature or 0.3 dex of the median
+metallicity; select the newest publication in that group. This is a conservative
+selection heuristic, not a guarantee that the newest paper is the best. No new
+mean measurement or invented uncertainty is exported. The entire measurement
+pool remains available for later review; selected references and record IDs are
+retained per field. Spectroscopic iron abundance is explicitly **photospheric
+[Fe/H]**, distinct from Gaia's model-derived [M/H]. Unresolved spectra may describe
+the primary-dominated light, and no single-star model mass is adopted for a binary.
+
+Mu Cas previously had no Gaia physical parameters, no applicable frozen
+Hipparcos-literature subset, and a `G5Vb` spectrum ineligible for the mean-dwarf
+temperature fallback. `reviewed-physical.json` now adopts Bond et al. (2020) primary
+**Mu Cas A** properties: 5,346 ± 70 K, 0.7440 ± 0.0122 solar masses,
+0.458 ± 0.014 solar luminosities, 0.789 ± 0.008 solar radii, photospheric
+[Fe/H] = −0.81 ± 0.03 and a **model age** of 12.7 ± 2.7 Gyr. Temperature and
+luminosity follow the preferred §9.1 discussion rather than the earlier Table 9
+temperature/luminosity pair; radius remains the Table 9 interferometric value.
+The paper suspects a systematic overestimate in angular diameter and calls its
+age conclusions suggestive. Scope, sections, formal errors and those caveats stay
+in provenance and row notes. The existing system marker, position and motion are
+retained; the displayed mass is not the binary's total mass.
+
+This expansion adds 698 previously blank physical fields across the shipped
+snapshots (each shared object counts once per catalog): default 3, nearest-100 25,
+nearest-1000 295, bright 45, constellation 318 and cluster 12. Most gains are
+metallicity. Published object-specific temperatures replace some previously
+generated automatic fallbacks; existing curated properties remain authoritative.
+New metallicities also exclude the older solar-composition evolutionary masses
+for Vega and Fomalhaut in nearest-1000; these masses stay unavailable pending a
+better applicable source.
+
+Nearest-1000 non-Sun coverage after this expansion is temperature 858, mass 550,
+bolometric luminosity 597, radius 610, metallicity 617 and age 83. Equal source
+access does not imply equal completeness: binaries, faint substellar objects and
+white dwarfs still have different applicable measurements. Unsupported fields
+remain null.
+
+**Gorgonea Tertia review (2026-10-06).**
+
+Rho Persei (HIP 14354 / HD 19058) gains mass **1.9 ± 0.7 M☉**, bolometric
+luminosity **2,692 +192/−180 L☉**, and radius **143 ± 12 R☉** from
+[Kallinger et al. (2019), Tables 2–3, row E](https://arxiv.org/html/1902.07531).
+The radius uses that paper's 3,479 K temperature; existing spectroscopy remains
+unchanged. These are derived/SED properties. Age stays unavailable. Inputs,
+uncertainties and caveats are frozen in `reviewed-physical.json` and provenance.
+
 Reviewed additions include Procyon A/B (Bond 2015, Chiavassa 2012, Allende Prieto
 2002, and resolved visual photometry), LAWD 37 (McGill 2023), Stein 2051 B (Sahu
 2017), and Epsilon Indi Ba/Bb (Chen 2022; King 2010). Procyon B's displayed age is
@@ -29,7 +90,7 @@ the preferred **total binary age**, not its white-dwarf cooling age. The age's
 strong model dependence and alternative Procyon A tracks remain in the notes.
 Ordinary stellar [Fe/H] is not assigned to polluted white-dwarf atmospheres.
 
-This pass fills 411 previously blank fields across the shipped snapshots (shared
+The earlier shared-source pass filled 411 previously blank fields across the shipped snapshots (shared
 objects count once per catalog). The nearest-1000 physical coverage, excluding
 Sun, changes as follows:
 
@@ -54,7 +115,7 @@ future reviewed supplements.
 
 The project now ships four snapshots. **Nearest 1000 objects** contains 1000 non-Sun individuals plus Sun. Corrected CNS5 (13-Dec-2023) defines its membership backbone; exact CNS5 identifiers enrich through a frozen SIMBAD TAP export and exact Gaia DR3 identifiers enrich through a frozen Gaia TAP export. All 101 enriched nearest-100 rows are retained field-for-field as higher-curation overrides.
 
-**Bright stars** contains 114 qualifying stars within 3000 light-years, plus Sun as the map origin. Membership includes every stellar entry in the frozen SIMBAD snapshots with compiled apparent Johnson V below 2.70. A SIMBAD stellar-hierarchy join excludes NGC 1980: its integrated V=2.50 qualifies numerically, but it is an open cluster rather than a star. The aggregate Alpha Centauri system row is omitted in favor of its separately qualifying A and B components, while Acrux uses the Bright Star Catalogue combined V=0.76 because SIMBAD does not supply the required combined V row. The 1000-2000 light-year shell contains Alnilam, Aludra, Deneb, Naos, Regor, Sadr and Wezen; Arneb is the sole qualifying 2000-3000 light-year row. System-level names remain system-level where SIMBAD identifies an unresolved or spectroscopic system. Excluding Sun, current physical coverage is 113 temperatures, 46 masses, 102 luminosities, 102 radii, 27 metallicities and five ages. No age is adopted without a source that resolves the represented component or system and publishes a compatible estimate.
+**Bright stars** retains its 114 original qualifying landmarks within 3000 light-years and adds 11 reviewed individual companions, for 125 non-Sun records plus Sun. The [overlay companion review](overlay-companion-expansion.md) describes the six implemented systems, including Rigel A/Ba/Bb/C. Companion records are exempt from the landmark brightness cutoff. Membership includes every stellar entry in the frozen SIMBAD snapshots with compiled apparent Johnson V below 2.70. A SIMBAD stellar-hierarchy join excludes NGC 1980: its integrated V=2.50 qualifies numerically, but it is an open cluster rather than a star. The aggregate Alpha Centauri system row is omitted in favor of its separately qualifying A and B components, while Acrux uses the Bright Star Catalogue combined V=0.76 because SIMBAD does not supply the required combined V row. The 1000-2000 light-year shell contains Alnilam, Aludra, Deneb, Naos, Regor, Sadr and Wezen; Arneb is the sole qualifying 2000-3000 light-year row. System-level names remain system-level where SIMBAD identifies an unresolved or spectroscopic system. Excluding Sun, current physical coverage is 121 temperatures, 54 masses, 110 luminosities, 110 radii, 76 metallicities and nine ages. Reviewed individual component rows replace formerly blended primaries; the original source identity and selection remain in provenance. No age is adopted without a source that resolves the represented component or system and publishes a compatible estimate.
 
 **Compact remnants** is a separate opt-in overlay, not a fifth stellar catalog. Its frozen ATNF v2.8.1 subset contains 266 non-candidate, non-interim pulsars with positive ATNF adopted distance no greater than 0.9198041814 kpc (3000 ly). Coverage is 263 rotation periods, 167 1400 MHz radio luminosities, and 220 characteristic ages/surface magnetic fields; 54 rows have the parallax-plus-proper-motion group required for a transverse map arrow. ATNF adopted distance can come from an independent estimate, significant parallax or a dispersion-measure model, and the per-row method/reference is retained. Companion-mass limits are deliberately not represented as pulsar masses.
 
@@ -68,11 +129,30 @@ The curated non-pulsar portion contains confirmed dormant systems Gaia BH1 and G
 
 Bright-star temperatures and metallicities come from frozen `mesFe_h` ranked bibliographic measurements. Linear diameter measurements from `mesDiameter` become radii using the IAU nominal solar-radius scale. The reviewed physical-property subsets refreshed on 2026-10-01 contain 54 exact-Hipparcos rows from the 17,219-star evolutionary-model catalog of Allende Prieto & Lambert (1999), 77 rows from the 107,619-star McDonald et al. (2012) SED catalog, and ten unambiguous Hohle et al. (2010) massive-star rows. Eligible single-star masses, radii and temperatures use the former; its masses are withheld for unresolved systems and for stars whose adopted metallicity falls outside ±0.3 dex. The latter supplies fallback temperatures and luminosities, with Stefan–Boltzmann radii derived when no stronger radius exists. Reviewed source rows add interferometric and spectroscopic parameters for Menkar, high-quality exact-Hipparcos 2017 SED parameters for Beta Gruis and Gacrux, Antares A's mass and age-range midpoint, and Shaula A's component mass. Fields without a reviewed frozen source remain blank; Mizar A remains unfilled because the available system/component matches are ambiguous. The row notes and provenance retain the contributing bibcodes.
 
-The policy-aware rank-1000 object is **WISE J032337.53-602554.5** (`cns5-0864`) at **13.947001394700 pc**; the next eligible object, WISE J105553.59-165216.3, has the same nominal distance and sorts after it by stable ID. Their linearized parallax-only one-sigma intervals overlap, so nominal ranking is retained without claiming statistically secure membership. The audited 1100-row buffer excludes 47 aggregate SIMBAD `**` records and nine tentative `BD?` records before selecting 1000 individuals.
+The policy-aware rank-1000 object is **WISE J032337.53-602554.5** (`cns5-0864`) at **13.947001394700 pc**; the next eligible object, WISE J105553.59-165216.3, has the same nominal distance and sorts after it by stable ID. Their linearized parallax-only one-sigma intervals overlap, so nominal ranking is retained without claiming statistically secure membership. The original audited 1100-row buffer excluded 47 aggregate SIMBAD `**` records and nine tentative `BD?` records before selecting 1000 individuals. Nine individually reviewed component exceptions now admit source rows carrying broad `**` classifications; 38 unreviewed aggregate rows and nine tentative `BD?` rows remain excluded.
 
-Nearest-1000 non-Sun coverage is: 1000 raw astrometry records and constellations, 957 spectra, 546 absolute Johnson V magnitudes, 823 temperatures (including explicitly labeled class estimates), 547 masses, 575 bolometric luminosities, 605 radii, 390 metallicities, 82 ages, 677 raw radial velocities, and 323 transverse-only motions. Radial-velocity precedence is existing nearest-100 curated data, then a reviewed literature override, CNS5, and finally an exact-identifier Gaia DR3 fallback; existing values are never overwritten. The literature override supplies Tabit's missing motion from Maldonado et al. (2010). Gaia fallback uncertainties and source quality flags remain in provenance for review, and new white-dwarf spectroscopic velocities remain withheld because gravitational redshift may contaminate space motion. Gaia physical parameters are model-derived, while Gaia radial velocities are spectroscopic measurements. GSP-Phot temperature and `[M/H]` metallicity plus FLAME percentile bounds are retained in provenance. FLAME mass and age are adopted only when the first `flags_flame` digit is `0`; luminosity and radius may remain valid when mass/age is unavailable (`A=2`), and use the accepted distance/parallax flag policy. Brown dwarfs and white dwarfs do not receive generic Gaia stellar-model properties.
+After the 2026-10-06 companion review, nearest-1000 non-Sun coverage is: 1036 constellations and source astrometric snapshots (including explicitly shared component approximations), 971 spectra, 539 absolute Johnson V magnitudes, 855 temperatures, 575 masses, 599 bolometric luminosities, 611 radii, 609 metallicities, 85 ages and 673 raw radial velocities. These counts include reviewed shared physical enrichment and explicitly labeled estimates; they are not counts of independent measurements. Radial-velocity precedence is existing nearest-100 curated data, then a reviewed literature override, CNS5, and finally an exact-identifier Gaia DR3 fallback; existing curated values retain precedence. Individual-component reviews can explicitly withhold a former blended or orbit-contaminated velocity, with the source alternative retained in provenance. The literature override supplies Tabit's missing motion from Maldonado et al. (2010). Gaia fallback uncertainties and source quality flags remain in provenance for review, and new white-dwarf spectroscopic velocities remain withheld because gravitational redshift may contaminate space motion. Gaia physical parameters are model-derived, while Gaia radial velocities are spectroscopic measurements. GSP-Phot temperature and `[M/H]` metallicity plus FLAME percentile bounds are retained in provenance. FLAME mass and age are adopted only when the first `flags_flame` digit is `0`; luminosity and radius may remain valid when mass/age is unavailable (`A=2`), and use the accepted distance/parallax flag policy. Brown dwarfs and white dwarfs do not receive generic Gaia stellar-model properties.
 
 Display names prefer a frozen SIMBAD `NAME` alias when one exists, so machine identifiers such as `* alf Boo` become `Arcturus`. Remaining SIMBAD object-class prefixes are removed, repeated whitespace is collapsed, and Bayer abbreviations are expanded (`* bet Hyi` becomes `Beta Hyi`). Stable Star View IDs do not change, and the original SIMBAD `main_id` remains in provenance.
+
+On 2026-10-05, Fomalhaut C (LP 876-10, CNS5 5623, Gaia DR3
+6623351805412369024) was admitted as a reviewed individual-component exception
+to the SIMBAD `**` exclusion. [Mamajek et al. 2013](https://arxiv.org/abs/1310.0764)
+supports its wide-system membership and does not confirm the reported close
+companion. The review is frozen in
+`catalog-work/nearest-1000/individual-object-overrides.json`, hashed in generated
+provenance, and applied by the authoring recipe. C keeps its own exact astrometry,
+Gaia radial velocity, Mann mass/radius supplements, and individually matched
+physical enrichment. No hypothetical Ca/Cb records are created. Reviewed
+companions are additive: the 1000-object baseline is retained, so the package
+now contains 1036 non-Sun objects plus Sun after the broader
+[25 pc companion review](companion-expansion-25pc.md). Baseline cutoffs and overall
+ranks are recorded separately; selection flags use actual selected IDs. Reviewed
+close companions have their own records, with component measurements adopted
+only when individually sourced. Shared source positions/proper motions are
+explicitly approximate, and individual radial velocities and blended physical
+estimates are withheld. The review inputs and their hashes are retained in
+provenance; the smaller catalogs keep their frozen membership snapshots.
 
 The Nearest 100 objects package contains exactly **100 individual non-Sun objects plus Sun**, ranked by adopted nominal J2000 distance. It is a frozen source-based catalog, not a complete or continuously current 2026 census. Stars, white dwarfs, brown dwarfs and sub-brown dwarfs are eligible; planet rows, aggregate system rows and tentative source `ObjType` endings `?` are excluded. The only explicitly approved exceptions are the vetted default members **EZ Aquarii B/C (Seq 27/28)**, whose raw `LM?` classifications remain recorded unchanged. Preserving these two existing rows is not a new classification measurement.
 

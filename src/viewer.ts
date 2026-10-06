@@ -435,14 +435,13 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
   // The orbit radius caps every mark in wide overviews. Per-star distance still
   // shrinks ordinary stars, while apparent brightness preserves exceptional
   // glare from landmarks such as Rigel in a close Sun-centered view.
+  // Keep per-star falloff in Observer view too, to avoid a sudden glare boost.
   const starViewDistance = { value: camera.position.distanceTo(controls.target) }
-  const observerSkyView = { value: 0 }
   starMaterial.onBeforeCompile = (shader) => {
     shader.uniforms.starViewDistance = starViewDistance
-    shader.uniforms.observerSkyView = observerSkyView
-    shader.vertexShader = `uniform float starViewDistance;\nuniform float observerSkyView;\nattribute float coreDiameter;\nattribute float coreFocus;\nattribute float coreEmphasis;\nattribute float coreWhiteStrength;\nvarying float vCoreDiameter;\nvarying float vCoreEmphasis;\nvarying float vCoreWhiteStrength;\n${shader.vertexShader}`
+    shader.vertexShader = `uniform float starViewDistance;\nattribute float coreDiameter;\nattribute float coreFocus;\nattribute float coreEmphasis;\nattribute float coreWhiteStrength;\nvarying float vCoreDiameter;\nvarying float vCoreEmphasis;\nvarying float vCoreWhiteStrength;\n${shader.vertexShader}`
       .replace('gl_PointSize = size;', `float coreOverviewRatio = pow(min(1.0, ${STAR_CORE_FULL_STRENGTH_DISTANCE_PC} / max(starViewDistance, ${STAR_CORE_FULL_STRENGTH_DISTANCE_PC})), ${STAR_CORE_VIEW_DISTANCE_FALLOFF_POWER});
-      float corePhysicalRatio = mix(min(1.0, ${STAR_CORE_PHYSICAL_FULL_STRENGTH_DISTANCE_PC} / max(length(mvPosition.xyz), ${STAR_CORE_PHYSICAL_FULL_STRENGTH_DISTANCE_PC})), 1.0, observerSkyView);
+      float corePhysicalRatio = min(1.0, ${STAR_CORE_PHYSICAL_FULL_STRENGTH_DISTANCE_PC} / max(length(mvPosition.xyz), ${STAR_CORE_PHYSICAL_FULL_STRENGTH_DISTANCE_PC}));
       float coreOverviewScale = max(${STAR_CORE_MIN_VIEW_SCALE}, sqrt(coreOverviewRatio));
       float corePhysicalScale = mix(max(${STAR_CORE_MIN_VIEW_SCALE}, sqrt(corePhysicalRatio)), 1.0, coreFocus);
       float brightCoreFloor = mix(${STAR_CORE_MIN_VIEW_SCALE}, 0.55, coreEmphasis);
@@ -528,10 +527,9 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
   })
   haloMaterial.onBeforeCompile = (shader) => {
     shader.uniforms.starViewDistance = starViewDistance
-    shader.uniforms.observerSkyView = observerSkyView
-    shader.vertexShader = `uniform float starViewDistance;\nuniform float observerSkyView;\nattribute float haloDiameter;\nattribute float haloOpacity;\nattribute float haloEmphasis;\nvarying float vHaloOpacity;\n${shader.vertexShader}`
+    shader.vertexShader = `uniform float starViewDistance;\nattribute float haloDiameter;\nattribute float haloOpacity;\nattribute float haloEmphasis;\nvarying float vHaloOpacity;\n${shader.vertexShader}`
       .replace('gl_PointSize = size;', `float overviewRatio = min(1.0, ${STAR_HALO_FULL_STRENGTH_DISTANCE_PC} / max(starViewDistance, ${STAR_HALO_FULL_STRENGTH_DISTANCE_PC}));
-      float physicalRatio = mix(min(1.0, ${STAR_HALO_FULL_STRENGTH_DISTANCE_PC} / max(length(mvPosition.xyz), ${STAR_HALO_FULL_STRENGTH_DISTANCE_PC})), 1.0, observerSkyView);
+      float physicalRatio = min(1.0, ${STAR_HALO_FULL_STRENGTH_DISTANCE_PC} / max(length(mvPosition.xyz), ${STAR_HALO_FULL_STRENGTH_DISTANCE_PC}));
       float overviewSizeScale = max(${STAR_HALO_MIN_VIEW_SCALE}, sqrt(sqrt(overviewRatio)));
       float overviewOpacityScale = max(${STAR_HALO_MIN_OPACITY_SCALE}, sqrt(overviewRatio));
       float physicalSizeScale = mix(max(${STAR_HALO_MIN_VIEW_SCALE}, sqrt(sqrt(physicalRatio))), 1.0, haloEmphasis);
@@ -1904,9 +1902,6 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
     if (enabled && !anchor) return false
     observerRollRadians = 0
     observerViewEnabled = enabled
-    // Apparent magnitudes already account for source distance in a sky view.
-    // The additional physical scaling is only a readability aid for the 3D map.
-    observerSkyView.value = enabled ? 1 : 0
     observerViewAnchorIndex = anchor?.index ?? null
     setOrbitUp(worldUp)
     configureObserverControls(enabled)

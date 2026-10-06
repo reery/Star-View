@@ -11,7 +11,6 @@ export function initializeGlossary(signal: AbortSignal): void {
   function renderDetail(entry: GlossaryEntry): void {
     selectedId = entry.id
     get('glossary-term-heading').textContent = entry.title
-    get('glossary-term-category').textContent = entry.group
     get('glossary-description').textContent = entry.description
     get<HTMLAnchorElement>('glossary-source').href = entry.source
     const image = get<HTMLImageElement>('glossary-image')

@@ -1,0 +1,209 @@
+J/A+AS/124/75       Multiple star catalogue (MSC) (Tokovinin 1997)
+================================================================================
+MSC - a catalogue of physical multiple stars
+       Tokovinin A.A.
+       VizieR DOI : 10.26093/cds/vizier.22350006
+       Bibcode : 2018ApJS..235....6T 
+       J/ApJS/235/6
+      
+================================================================================
+ADC_Keywords: Stars, double and multiple ; Positional data ; Radial velocities
+Keywords: binaries: general - catalog
+
+Description:
+
+    Data on  6080 stellar systems  of multiplicity  3 to 7  are given.
+    These   systems  are   physical   and,   with  little   exception,
+    hierarchical.   For  grades 4  (N=2948)  and  5 (N=2275),  orbital
+    periods are known  or estimated, while for 857 systems  of grade 3
+    some periods remain unknown.   Additionally, 844 systems of grades
+    1  and  2  (refuted  or unconfirmed  hierarchies)  are  given  for
+    reference.  A hierarchical system  consists of several "elementary
+    binaries". For each binary, the  orbital period and separation are
+    given,  as well  as  components' magnitudes,  spectral types,  and
+    estimated masses.  Orbital elements are also given when available.
+    The present version  of the catalogue is the latest  update of the
+    original  1997 publication  (Tokovinin, 1997-1999,  J/A+AS/124/75)
+    and its continuation in 2018ApJS..235....6T.
+
+File Summary:
+--------------------------------------------------------------------------------
+  FileName     Explanations
+--------------------------------------------------------------------------------
+ReadMe         This file
+comp.tsv       Catalog of Physical Multiple Stars (components)
+sys.tsv        Individual subsystems
+orb.tsv        Orbital elements
+notes.tsv      Notes
+
+--------------------------------------------------------------------------------
+
+Byte-by-byte Description of file: comp.tsv 
+--------------------------------------------------------------------------------
+   Bytes Format Units   Label     Explanations
+--------------------------------------------------------------------------------
+   1- 10  A10   ---     WDS       WDS (J2000) (1)
+  12- 21  F10.6 deg     RAdeg     Right Ascension 2000 (degrees)
+  23- 32  F10.6 deg     DEdeg     Declination 2000 (degrees)
+  34- 41  F8.2  mas     plx       Parallax
+  43- 46  A4    ---     refpar    Reference code for parallax (2)
+  48- 54  F7.1 mas/yr   PMRA      Proper motion in RA
+  56- 62  F7.1 mas/yr   PMDE      Proper motion in Dec
+  64- 69  F6.1 km/s     RV        Radial velocity
+  71- 72  A2   ---      Comp      Component label
+  74- 80  F7.1 arcsec   Sep       Separation from main component
+  82- 89  A8   ---      Sp        Spectral type
+  91- 96  I6   ---      HIP       Hipparcos number
+  98-103  I6   ---      HD        HD number
+ 105-109  F5.2 mag      Bmag      B-band magnitude
+ 111-115  F5.2 mag      Vmag      V-band magnitude
+ 117-121  F5.2 mag      Gmag      Gaia G-band magnitude
+ 123-127  F5.2 mag      Jmag      J-band magnitude
+ 129-133  F5.2 mag      Hmag      H-band magnitude
+ 135-139  F5.2 mag      Kmag      K-band magnitude
+ 141-142  I2   ---      Ncomp     Number of components
+ 144-144  I1   ---      Gr        Grade (3)
+ 146-195  A50  ---      Id        Other identifiers      
+--------------------------------------------------------------------------------
+Note (1): The WDS index may differ from the index given in
+the Washington Double Stars Catalog for the same system.
+
+Note (2): Parallax code: HIP,HIP1,HIP2 - trigonometric Hipparcos
+     	  	         Gaia - Gaia DR1 parallax
+			 DR2 - Gaia DR2 parallax
+			 DR3 - Gaia DR3 or eDR3 parallax
+			 DR3N - Gaia DR3+NSS parallax
+			 DR3H - Gaia DR3 and HIP-Gaia PM
+                         ptm - photometric parallax estimate
+                         dyn - dynamical from visual orbit
+                         orb - orbital for visual/SB2 orbit
+                         bib - taken from literature
+			 guess - crude guess
+
+Note (3): Grades have the following meaning
+     0 - no grade or secondary component
+     1 - not a triple system
+     2 - uncertain triple or very wide (period >2Myr)
+     3 - some undefined period or poorly known distance
+     4 - at least triple, all periods defined
+     5 - At least one orbit, distance known within 10%
+
+Note (4): Unknown numerical parameters have zero value in all tables!
+
+--------------------------------------------------------------------------------
+
+Byte-by-byte Description of file: sys.tsv
+--------------------------------------------------------------------------------
+   Bytes Format Units   Label     Explanations
+--------------------------------------------------------------------------------
+   1- 10  A10   ---     WDS       WDS(J2000)
+  12- 14  A3    ---     Primary   Primary component label
+  16- 18  A3    ---     Secondary Secondary component label
+  20- 22  A3    ---     Parent    Parent label (1)
+  24- 31  A6    ---     Type      Observing technique/status (2)
+  33- 42  F10.4 n/a     P         Orbital period 
+  44- 44  A1    ---     Punit     [kydM] unit of period 
+  46- 53  F8.3  ---     Sep       Separation or semimajor axis
+      55  A1    ---     Sunit     ['"m] Units of separation
+  57- 61  F5.1  deg     PA        Position angle
+  63- 67  F5.2  mag     Vmag1     V-magnitude of the primary
+  69- 73  A5    ---     SP1       Spectral type of the primary
+  75- 79  F5.2  mag     Vmag2     V-magnitude of the secondary
+  81- 85  A5    ---     SP2       Spectral type of the secondary
+  87- 92  F6.2  solMass Mass1     Mass of the primary
+      94  A1    ---     MCode1    Mass estimation code for primary (3)
+  96-101  F6.2  solMass Mass2     Mass of the secondary
+     103  A1    ---     MCode2    Mass estimation code for secondary (3)
+ 105-134  A20   ---     Comment   Comment (4)
+--------------------------------------------------------------------------------
+Note (1): The "Parent" points to a component identifier in a
+     higher-level system to which the current system belongs and thus
+     codes the hierarchy by reference. Two special symbols are used:
+       * means root (system at the highest hierarchical level)
+       t means "Trapezium"-type, apparently non-hierarchical
+
+Note (2): Discovery/observing status codes, comma-separated:
+           c - wide, possibly C.P.M. system
+           C - C.P.M. system (sep.>1");
+          The following small letters give the criteria used to establish CPM:
+               h - physical according to hypothetical parallax,
+               r - common radial velocities,
+               p - photometric distances or common parallax;
+               m - common proper motion.
+           v - close visual or interferometric system (sep.<3")
+           V - visual system with computed orbit
+           a - astrometric system (perturbed motion suspected)
+           A - astrometric orbit for invisible companion is computed
+           s - possibly spectroscopic system (var. RV or composite sp.)
+           S1, S2 - spectroscopic system with computed orbit, single- or double-lined
+           o - occultation binary
+           E - eclipsing binary with known period
+           E* - eclipse time variation
+           e - eclipsing binary, period not known
+	   X - optical or spurious (qualifiers h,r,m clarify why optical)
+Note (3): Mass codes:
+          r - given in the original publication
+          v - estimated from absolute V magnitude
+          k - estimated from absolute K or H magnitude
+          a - estimated from spectral type or B-V color index from Allen's tables
+          s - sum of masses for the sub-system(s)
+          q - estimated from primary mass and mass ratio of SB2 or astrometric
+          m - minimum secondary mass for SB1
+Note (4): some acronyms in the comments
+          SOAR - speckle interferometry at SOAR (e.g. 2024AJ....168...28T & ref. there)
+          acc - acceleration detected by Gaia or Hipparcos
+          dmu - acceleration from PM difference; in mas/yr in (ra,dec)
+          fdbl - multiple transits in Gaia DR3  
+          drv - RV scatter in Gaia
+          N04 - 2004A&A...418..989N Nordstroem et al.
+          MK05 -
+          NSS - Gaia DR3 non-single-star solutions
+          CfA - D.Latham, private communication
+          dI, dG - magnitude difference in I or G band
+
+--------------------------------------------------------------------------------
+
+
+Byte-by-byte Description of file: orb.tsv
+--------------------------------------------------------------------------------
+   Bytes Format Units   Label     Explanations
+--------------------------------------------------------------------------------
+   1- 10  A10   ---     WDS       WDS(J2000)
+  12- 19  A7    ---     System    Primary,Secondary
+  21- 32  F12.4 ---     Period    Period (See Punit for the units)
+  34- 43  F10.4 ---     T         Periastron epoch (Julian year or JD-2400000)
+  45- 50  F6.3  ---     e         Eccentricity
+  52- 59  F8.4  arcsec  a         Semimajor axis 
+  61- 66  F6.2  deg     Node      P.A. of the ascending node
+  68- 73  F6.2  deg     LongP     Longitude of periastron
+  75- 80  F6.2  deg     Incl      Inclination
+  82- 87  F6.2  km/s    K1        Primary semi-amplitude
+  89- 94  F6.2  km/s    K2        Secondary semi-amplitude
+  96-103  F8.2  km/s    V0        Center of mass velocity
+     105  A1    ---     Nodeflag  Component to which the node refers
+     107  A1    ---     Punit     [yd] Units of period
+ 109-138  A30   ---     Note      Note (may include bibcode) (5)  
+--------------------------------------------------------------------------------
+Noote (5): orbit references
+          VB6 - sixth catalog of visual orbits, online
+          Tok - unpublished visual orbits by Tokovinin
+          IAU#+number - Circulars of the IAU Commission on double stars (Division B)           
+
+Byte-by-byte Description of file: notes.tsv
+--------------------------------------------------------------------------------
+   Bytes Format Units   Label     Explanations
+--------------------------------------------------------------------------------
+   1- 10  A10   ---     WDS       WDS(J2000)
+  12- 91  A80   ---     Rem       Remark text
+  93-111  A19   ---     Bib       Bibcode or reference
+
+Acknowledgements: Andrei Tokovinin <andrei.tokovinin@noirlab.edu>
+
+History:
+  * 22-Mar-2017 First version posted 
+  * 07-Feb-2023 Previous update
+  * 01-Jan-2024 Second update
+  * 12-Jun-2026 Last update
+
+================================================================================
+(End)

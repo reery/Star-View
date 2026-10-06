@@ -3,6 +3,7 @@
 import argparse
 import csv
 import io
+import importlib.util
 import json
 import math
 import re
@@ -26,6 +27,8 @@ from catalog_sources.snapshots import canonical_json, sha256, verify_sha256
 iers.conf.auto_download = False
 ROOT = Path(__file__).resolve().parents[1]
 FROZEN = ROOT / "catalog-work/nearest-1000"
+INDIVIDUAL_OVERRIDES = FROZEN / "individual-object-overrides.json"
+REVIEWED_COMPANIONS = FROZEN / "reviewed-companions.json"
 SUPPLEMENTS = ROOT / "catalog-work/physical-supplements"
 LANDMARK_SOURCES = ROOT / "catalog-work/landmark-stars"
 NEAREST100_INPUT = ROOT / "catalog-work/nearest-100/source-input.json"
@@ -34,7 +37,7 @@ NEAREST100_PROVENANCE = ROOT / "src/data/catalogs/nearest-100/provenance.json"
 DEFAULT_OUTPUT = ROOT / "src/data/catalogs/nearest-1000"
 NAME_CORRECTIONS = {"Bo\u00f6tes": "Bootes", "Chamaleon": "Chamaeleon", "Ophiucus": "Ophiuchus", "Pisces Austrinus": "Piscis Austrinus"}
 BASE_HEADERS = [
-    "type", "id", "name", "spectral_type", "x_pc", "y_pc", "z_pc",
+    "type", "id", "name", "designations", "spectral_type", "x_pc", "y_pc", "z_pc",
     "vx_kms", "vy_kms", "vz_kms", "temperature_k", "mass_solar",
     "luminosity_solar", "radius_solar", "metallicity_dex", "age_gyr",
     "absolute_mag", "epoch", "notes", "constellation",
@@ -65,6 +68,34 @@ SOURCES = [
     {"name": "Mann et al. 2015, absolute-Ks radius relation (2015ApJ...804...64M); ranks below Cifuentes, above Gaia DR3 radii", "url": "https://ui.adsabs.harvard.edu/abs/2015ApJ...804...64M/abstract"},
     {"name": "2MASS All-Sky Point Source Catalog Ks photometry (VizieR II/246)", "url": "https://cdsarc.cds.unistra.fr/viz-bin/cat/II/246"},
     {"name": "Maldonado et al. 2010 radial velocity for Tabit (HIP 22449)", "url": "https://doi.org/10.1051/0004-6361/201014948"},
+    {"name": "Mamajek et al. 2013, Fomalhaut C individual-component membership review", "url": "https://arxiv.org/abs/1310.0764"},
+    {"name": "Reyle et al. 2023 10pc census; individually reviewed missing companion records", "url": "https://cdsarc.cds.unistra.fr/ftp/J/A+A/650/A201/ReadMe"},
+    {"name": "Burgasser et al. 2000, resolved GJ 570 ABC and brown-dwarf D membership", "url": "https://arxiv.org/abs/astro-ph/0001194"},
+    {"name": "Forveille et al. 1999, GJ 570 BC individual dynamical masses and orbital parallax", "url": "https://arxiv.org/abs/astro-ph/9909342"},
+    {"name": "Adibekyan et al. 2016, individually observed Zeta Reticuli components", "url": "https://arxiv.org/abs/1605.01918"},
+    {"name": "Winterhalder et al. 2024, WT 766 directly detected substellar companion and dynamical masses", "url": "https://arxiv.org/abs/2403.13055"},
+    {"name": "Xuan et al. 2024, resolved Gliese 229 Ba/Bb masses and ATMO physical parameters", "url": "https://arxiv.org/abs/2410.11953"},
+    {"name": "Golimowski et al. 2007, resolved GJ 1001 BC membership and L4.5 spectra; hypothetical individual masses not adopted", "url": "https://static.cambridge.org/content/id/urn%3Acambridge.org%3Aid%3Aarticle%3AS1743921307004255/resource/name/golimowski.pdf"},
+    {"name": "Dedrick et al. 2025, GJ 105 AC resolved membership and dynamical masses", "url": "https://arxiv.org/abs/2505.08042"},
+    {"name": "Woitas et al. 2003, resolved Gliese 22 AC with outer B", "url": "https://arxiv.org/abs/astro-ph/0305330"},
+    {"name": "Jodar et al. 2013, Gliese 835 resolved close pair", "url": "https://academic.oup.com/mnras/article/429/1/859/1028530"},
+    {"name": "Mason et al. 2018, HD 50281 Ba/Bb speckle resolution", "url": "https://arxiv.org/abs/1804.07845"},
+    {"name": "ESO eso1214 and corrected CNS5 spectra, GJ 667 ABC membership", "url": "https://www.eso.org/public/news/eso1214/"},
+    {"name": "Marcussen et al. 2026 preprint, Mu Her Aa/Ab/B/C membership and dynamical masses", "url": "https://arxiv.org/abs/2604.12492"},
+    {"name": "Delfosse et al. 2000, GJ 661 resolved component masses", "url": "https://arxiv.org/abs/astro-ph/0010586"},
+    {"name": "Delfosse et al. 1999, GJ 268 double-lined binary", "url": "https://citeseerx.ist.psu.edu/document?doi=632dc4feecc21ebe55cdf3c697ec4831dbbbb9e6&repid=rep1&type=pdf"},
+    {"name": "Segransan et al. 2000, GJ 644 five-member system and inner A/Ba/Bb masses", "url": "https://arxiv.org/abs/astro-ph/0010585"},
+    {"name": "Zapatero Osorio et al. 2004, resolved GJ 569 Ba/Bb membership and spectra", "url": "https://arxiv.org/abs/astro-ph/0407334"},
+    {"name": "Burgasser et al. 2010, Ross 458 AB pair and wide C membership", "url": "https://arxiv.org/abs/1009.5722"},
+    {"name": "Torres et al. 2015, Capella resolved giant-pair properties and wide H/L membership", "url": "https://arxiv.org/abs/1505.07461"},
+    {'name': 'Farrington et al. 2010, resolved Chi Draconis binary', 'url': 'https://chara.gsu.edu/files/papers/2010_Farrington_AJ_139_2308.pdf'},
+    {'name': 'Bond et al. 2020, HST Mu Cassiopeiae component masses', 'url': 'https://arxiv.org/abs/2010.06609'},
+    {'name': 'Koenig et al. 2002, direct detection of Chi1 Orionis B', 'url': 'https://arxiv.org/abs/astro-ph/0209404'},
+    {'name': 'Morel et al. 2001, Zeta Herculis stellar binary', 'url': 'https://arxiv.org/abs/astro-ph/0110004'},
+    {'name': 'Boden and Koresko 1998, resolved Iota Pegasi orbit and masses', 'url': 'https://arxiv.org/abs/astro-ph/9811029'},
+    {'name': 'Schnupp et al. 2010, directly imaged HD 104304 companion', 'url': 'https://arxiv.org/abs/1005.0620'},
+    {'name': 'Torres 2006, Gamma Cephei stellar binary orbit', 'url': 'https://arxiv.org/abs/astro-ph/0609638'},
+    {'name': 'Tsvetkova et al. 2023, GJ 867 AC resolved double-line stellar binary', 'url': 'https://arxiv.org/abs/2312.04247'},
 ]
 
 
@@ -302,8 +333,82 @@ def normalize(record, simbad, gaia, supplements):
     return row, provenance, direction.distance.to_value(units.pc)
 
 
+def apply_component_physical(row, observations):
+    """Adopt only individually reviewed values, retaining units and uncertainties."""
+    physical = []
+    for field, original in observations.items():
+        item = dict(original)
+        factor = {"M_jup": units.M_jup.to(units.M_sun), "R_jup": units.R_jup.to(units.R_sun)}.get(item.get("unit"), 1)
+        if item.get("unit") in {"M_jup", "R_jup"}:
+            item["sourceValue"] = original["value"]
+            item["sourceUncertainty"] = original.get("uncertainty")
+            item["sourceUnit"] = original["unit"]
+            item["unit"] = "M_sun" if original["unit"] == "M_jup" else "R_sun"
+        if item["value"] is None:
+            row[field] = ""
+        else:
+            item["value"] *= factor
+            if item.get("uncertainty") is not None:
+                item["uncertainty"] *= factor
+            row[field] = str(round(item["value"])) if field == "temperature_k" else f"{item['value']:.12g}"
+        physical.append({"field": field, "sourceId": "reviewed-individual-component", **item})
+    return physical
+
+
+def additional_component_candidates(review, candidates):
+    additions = []
+    if review["censusComponents"]:
+        # Reuse the established source-epoch propagation and temperature sequence,
+        # without adopting combined photometry or generic parent physical models.
+        spec = importlib.util.spec_from_file_location("nearest100_companion_sources", ROOT / "scripts/author-nearest100.py")
+        census_module = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(census_module)
+        frozen = json.loads(NEAREST100_INPUT.read_text())
+        census_rows = {item["Seq"]: item for item in frozen["candidates"]}
+        for item in review["censusComponents"]:
+            original = census_rows[item["sourceRow"]]
+            source = dict(original)
+            source.update({"plx": str(item["parallaxMas"]), "e_plx": str(item["parallaxErrorMas"]), "r_plx": item["parallaxRef"], "SpType": item["spectralType"]})
+            direction, velocity, mode = census_module.normalized_position(source)
+            position = direction.galactic.cartesian.xyz.to_value(units.pc)
+            temperature, temperature_note = census_module.temperature_estimate(source, frozen["temperatureSequenceKelvin"])
+            row = {header: "" for header in HEADERS}
+            row.update({"id": item["starId"], "name": item["name"], "type": "star", "spectral_type": item["spectralType"], "epoch": "2000.0", "temperature_k": str(temperature) if temperature is not None else "", "constellation": census_module.constellation(direction)})
+            row.update({key: f"{value:.9f}" for key, value in zip(("x_pc", "y_pc", "z_pc"), position, strict=True)})
+            row.update(census_module.raw_astrometry(source))
+            row["notes"] = f"10pc census object {item['sourceRow']}, system {source['Sys']}; reviewed component membership {item['membershipRef']}. {item['note']} {temperature_note} No component-resolved Johnson V or bolometric luminosity adopted."
+            physical = apply_component_physical(row, item["physical"])
+            provenance = {"id": row["id"], "sourceRow": item["sourceRow"], "systemId": source["Sys"], "sourceObjectName": original["ObjName"], "sourceObjectType": original["ObjType"], "sourceMeasurements": original, "individualComponentReview": item, "astrometryScope": "Shared BC source position/proper motion; reviewed BC orbital parallax. Not an independently resolved component trajectory.", "physicalObservations": physical, "fieldStatus": {field: "unknown" for field in ("temperature_k", "mass_solar", "luminosity_solar", "radius_solar", "metallicity_dex", "age_gyr", "absolute_mag", "radial_velocity_kms")}}
+            provenance["fieldStatus"]["temperature_k"] = "estimated" if temperature is not None else "unknown"
+            provenance["fieldStatus"].update({observation["field"]: observation["status"] for observation in physical})
+            additions.append((direction.distance.to_value(units.pc), row["id"], row, provenance))
+    by_id = {item[1]: item for item in candidates}
+    for item in review["sharedSystemComponents"]:
+        parent = by_id[item["parentId"]]
+        row = dict(parent[2])
+        row.update({"id": item["starId"], "name": item["name"], "type": item["type"], "spectral_type": item.get("spectralType", "")})
+        row["designations"] = ""
+        for field in ("vx_kms", "vy_kms", "vz_kms", "radial_velocity_kms", "radial_velocity_error_kms", "radial_velocity_ref", "temperature_k", "mass_solar", "luminosity_solar", "radius_solar", "metallicity_dex", "age_gyr", "absolute_mag"):
+            row[field] = ""
+        row["astrometry_ref"] = f"Shared system snapshot from {item['parentId']}: " + row["astrometry_ref"]
+        row["notes"] = f"Reviewed individual companion: {item['reference']}. {item['note']}"
+        physical = apply_component_physical(row, item["physical"])
+        withheld = [field for field in ("temperature_k", "mass_solar", "luminosity_solar", "radius_solar", "metallicity_dex", "age_gyr", "absolute_mag") if not row[field]]
+        if withheld:
+            row["notes"] += " Withheld individual fields: " + ", ".join(withheld) + "."
+        provenance = {"id": row["id"], "individualComponentReview": item, "astrometryScope": "Shared system snapshot; individual orbital position, proper motion and radial velocity not adopted.", "astrometryParentId": item["parentId"], "physicalObservations": physical, "fieldStatus": {field: "unknown" for field in ("temperature_k", "mass_solar", "luminosity_solar", "radius_solar", "metallicity_dex", "age_gyr", "absolute_mag", "radial_velocity_kms")}}
+        provenance["fieldStatus"].update({observation["field"]: observation["status"] for observation in physical})
+        additions.append((parent[0], row["id"], row, provenance))
+    for item in additions:
+        if item[0] > review["maximumDistancePc"]:
+            raise ValueError(f"Reviewed companion exceeds the approved vicinity: {item[1]}")
+    return additions
+
+
 def build_package():
     manifest_input = source_manifest()
+    individual_overrides = {item["cns5Id"]: item for item in json.loads(INDIVIDUAL_OVERRIDES.read_text())["objects"]}
+    companion_review = json.loads(REVIEWED_COMPANIONS.read_text())
     shared, shared_mapping = shared_rows_and_cns5_map()
     shared_by_id = {row["id"]: row for row in shared}
     cns5 = [record for record in read_cns5(FROZEN / "cns5.dat") if record.astrometry is not None]
@@ -329,23 +434,75 @@ def build_package():
         if source is None:
             raise ValueError(f"Missing exact SIMBAD enrichment for CNS5 {cns5_id}")
         source_object_type = (source.raw or {}).get("otype")
-        if source_object_type in {"**", "BD?"}:
+        individual_review = individual_overrides.get(cns5_id)
+        if individual_review is not None and (
+            source.identity.simbad_id != individual_review["simbadId"]
+            or record.identity.gaia_dr3_id != individual_review.get("cns5GaiaDr3Id", individual_review["gaiaDr3Id"])
+            or source.identity.gaia_dr3_id != individual_review["gaiaDr3Id"]
+        ):
+            raise ValueError(f"Reviewed individual-component identity drifted for CNS5 {cns5_id}")
+        if source_object_type == "BD?" or (source_object_type == "**" and individual_review is None):
             audit.append({"cns5Id": cns5_id, "status": "excluded", "reason": "aggregate system" if source_object_type == "**" else "tentative brown-dwarf classification", "simbadType": source_object_type})
             continue
         row, provenance, distance = normalize(record, source, gaia.get(record.identity.gaia_dr3_id), supplements)
+        if individual_review is not None:
+            if distance > companion_review["maximumDistancePc"]:
+                raise ValueError(f"Reviewed CNS5 component exceeds the approved vicinity: {row['id']}")
+            original_name = row["name"]
+            row["name"] = individual_review["name"]
+            row["designations"] = "|".join(dict.fromkeys(filter(lambda name: name and name != row["name"], [*row.get("designations", "").split("|"), original_name])))
+            row["spectral_type"] = individual_review.get("spectralType", row["spectral_type"])
+            row["notes"] += f" Reviewed individual-component membership: {individual_review['reference']}. {individual_review['decision']}"
+            provenance["individualComponentReview"] = individual_review
+            if individual_review.get("astrometryScope"):
+                provenance["astrometryScope"] = individual_review["astrometryScope"]
+                row["notes"] = f"Corrected CNS5 {cns5_id}; exact source identity {individual_review['simbadId']}. {individual_review['astrometryScope']} {individual_review['decision']} Reviewed membership and individual physical parameters: {individual_review['reference']}."
+            if individual_review.get("withholdIndividualMotion"):
+                for field in ("vx_kms", "vy_kms", "vz_kms", "radial_velocity_kms", "radial_velocity_error_kms", "radial_velocity_ref"):
+                    row[field] = ""
+                provenance["radialVelocity"] = {"status": "withheld-individual-orbital-motion", "sourceAlternative": provenance["radialVelocity"]}
+                provenance["fieldStatus"]["radial_velocity_kms"] = "unknown"
+            if individual_review.get("physicalOverrides"):
+                overridden = set(individual_review["physicalOverrides"])
+                supplement = provenance.get("physicalSupplements", {})
+                previous_adopted = {field: value for field, value in supplement.get("adopted", {}).items() if field in overridden}
+                if previous_adopted:
+                    supplement["supersededByIndividualReview"] = previous_adopted
+                    supplement["adopted"] = {field: value for field, value in supplement["adopted"].items() if field not in overridden}
+                enrichment = provenance.get("sharedPhysicalEnrichment", {})
+                previous_enrichment = {field: enrichment.pop(field) for field in overridden if field in enrichment}
+                if previous_enrichment:
+                    provenance["supersededSharedPhysicalEnrichment"] = previous_enrichment
+                observations = apply_component_physical(row, individual_review["physicalOverrides"])
+                provenance["physicalObservations"].extend(observations)
+                provenance["fieldStatus"].update({item["field"]: item["status"] for item in observations})
+                row["notes"] += f" Individually reviewed physical values/withholding: {individual_review['reference']}; supersedes blended-source values for these fields."
+                withheld = [field for field, item in individual_review["physicalOverrides"].items() if item["value"] is None]
+                if withheld:
+                    row["notes"] += " Withheld individual fields: " + ", ".join(withheld) + "."
         candidates.append((distance, row["id"], row, provenance))
+    extra_candidates = additional_component_candidates(companion_review, candidates)
+    candidates.extend(extra_candidates)
     ranked = sorted(candidates, key=lambda item: (item[0], item[1]))
-    selected = ranked[:1000]
-    if len(selected) != 1000 or not replaced_ids.issubset({item[1] for item in selected}):
+    # Reviewed companions are additive: preserve the original nearest-1000
+    # baseline instead of displacing its boundary object with each addition.
+    extra_ids = {item[1] for item in extra_candidates}
+    additive_cns5_ids = {cid for cid, review in individual_overrides.items() if review.get("additive", True)}
+    baseline_candidates = [item for item in ranked if item[3].get("cns5Id") not in additive_cns5_ids and item[1] not in extra_ids]
+    baseline = baseline_candidates[:1000]
+    reviewed_ids = {item[1] for item in ranked if item[3].get("cns5Id") in additive_cns5_ids} | extra_ids
+    selected_ids = {item[1] for item in baseline} | reviewed_ids
+    selected = [item for item in ranked if item[1] in selected_ids]
+    if len(baseline) != 1000 or not replaced_ids.issubset(selected_ids):
         raise ValueError("Nearest-1000 candidate buffer or curated override coverage is insufficient")
     sun = shared_by_id["sun"]
     rows = [sun] + [item[2] for item in selected]
     names = [row["name"] for row in rows]
-    if len(set(row["id"] for row in rows)) != 1001 or len(set(names)) != 1001:
+    if len(set(row["id"] for row in rows)) != len(rows) or len(set(names)) != len(rows):
         duplicates = sorted(name for name in set(names) if names.count(name) > 1)
         raise ValueError(f"Generated identifiers or names are not unique: {duplicates}")
-    cutoff = selected[-1]
-    next_candidate = ranked[1000]
+    cutoff = baseline[-1]
+    next_candidate = baseline_candidates[1000]
     def distance_sigma(candidate):
         astrometry = candidate[3].get("astrometry")
         if not astrometry or astrometry["parallax_error_mas"] is None:
@@ -360,24 +517,29 @@ def build_package():
         "rank": rank,
         "distancePc": item[0],
         "distanceSigmaPcLinearized": distance_sigma(item),
-        "selected": rank <= 1000,
+        "selected": item[1] in selected_ids,
+        "reviewedAddition": item[1] in reviewed_ids,
     } for rank, item in enumerate(ranked, 1)]
     manifest = {
         "schemaVersion": 1,
         "id": "nearest-1000",
-        "label": "Nearest 1000 objects",
-        "description": "1000 individual stellar/substellar objects from corrected CNS5 with exact SIMBAD/Gaia enrichment and curated nearest-100 overrides, plus Sun.",
+        "label": "Nearest 1000 + companions",
+        "description": "Nearest-1000 baseline of individual stellar/substellar objects from corrected CNS5 with exact SIMBAD/Gaia enrichment and curated nearest-100 overrides, plus reviewed individual companions and Sun.",
         "epoch": 2000,
-        "objectCount": 1001,
+        "objectCount": len(rows),
         "sources": SOURCES + enrichment_sources(),
-        "cutoffPolicy": f"Exclude SIMBAD aggregate systems (**) and tentative brown-dwarf candidates (BD?); replace mapped CNS5 records with curated nearest-100 components; rank nominal adopted J2000 distance then stable ID. Rank 1000 is {cutoff[2]['name']} ({cutoff[1]}) at {cutoff[0]:.12f} pc; next is {next_candidate[2]['name']} at {next_candidate[0]:.12f} pc. Linearized parallax intervals {'overlap' if uncertainty_overlap else 'do not overlap'}; nominal ranking is retained.",
+        "cutoffPolicy": f"Exclude SIMBAD multiple-star records (**) unless explicitly reviewed as individual components, and tentative brown-dwarf candidates (BD?); replace mapped CNS5 records with curated nearest-100 components; rank nominal adopted J2000 distance then stable ID. Keep the nearest-1000 baseline plus {len(reviewed_ids)} reviewed individual companion additions without removing baseline members. Baseline rank 1000 is {cutoff[2]['name']} ({cutoff[1]}) at {cutoff[0]:.12f} pc; next baseline candidate is {next_candidate[2]['name']} at {next_candidate[0]:.12f} pc. Linearized parallax intervals {'overlap' if uncertainty_overlap else 'do not overlap'}; nominal baseline ranking is retained.",
         "snapshot": f"J2000.0; CNS5 corrected 2023-12-13; SIMBAD and Gaia DR3 TAP frozen {manifest_input['retrieved']}; source-defined snapshot, not a 2026 completeness claim.",
     }
     provenance = {
         "schemaVersion": 1,
         "catalogId": "nearest-1000",
-        "policyRevision": "cns5-individuals-v4-reviewed-rv-gaia-rv-fallback-mdwarf-supplements",
+        "policyRevision": "cns5-individuals-v5-reviewed-component-exceptions",
         "sourceManifestSha256": sha256(FROZEN / "source-manifest.json"),
+        "individualComponentReviewSha256": sha256(INDIVIDUAL_OVERRIDES),
+        "reviewedCompanionsSha256": sha256(REVIEWED_COMPANIONS),
+        "reviewedCompanionVicinityPc": companion_review["maximumDistancePc"],
+        "reviewedAdditionIds": sorted(reviewed_ids),
         "supplementManifestSha256": supplements.manifest_sha256,
         "sharedEnrichmentManifestSha256": manifest_sha256(),
         "sources": SOURCES + enrichment_sources(),
@@ -387,7 +549,7 @@ def build_package():
             "review": "Gaia DR3 fallback measurements are source-backed and retain uncertainty and quality flags, but are not individually reviewed for systemic binary motion.",
         },
         "coverage": {field: sum(bool(row.get(field)) for row in rows if row["id"] != "sun") for field in ("constellation", "spectral_type", "temperature_k", "mass_solar", "luminosity_solar", "radius_solar", "metallicity_dex", "age_gyr", "absolute_mag", "radial_velocity_kms")},
-        "cutoff": {"rank": 1000, "id": cutoff[1], "name": cutoff[2]["name"], "distancePc": cutoff[0], "distanceSigmaPcLinearized": cutoff_sigma, "nextId": next_candidate[1], "nextDistancePc": next_candidate[0], "nextDistanceSigmaPcLinearized": next_sigma, "oneSigmaIntervalsOverlap": uncertainty_overlap},
+        "cutoff": {"rank": ranked.index(cutoff) + 1, "baselineRank": 1000, "id": cutoff[1], "name": cutoff[2]["name"], "distancePc": cutoff[0], "distanceSigmaPcLinearized": cutoff_sigma, "nextId": next_candidate[1], "nextDistancePc": next_candidate[0], "nextDistanceSigmaPcLinearized": next_sigma, "oneSigmaIntervalsOverlap": uncertainty_overlap},
         "audit": candidate_audit,
         "objects": [{"id": "sun", "status": "shared override"}] + [item[3] for item in selected],
     }
@@ -411,12 +573,12 @@ def main():
     if arguments.check:
         if any(not (arguments.output / name).exists() or (arguments.output / name).read_text() != content for name, content in package.items()):
             raise ValueError("Nearest-1000 output does not reproduce byte for byte")
-        print(json.dumps({"reproduced": True, "objects": 1001}, indent=2))
+        print(json.dumps({"reproduced": True, "objects": json.loads(package["catalog.json"])["objectCount"]}, indent=2))
         return
     if arguments.output.exists() and not arguments.force:
         raise FileExistsError("Output exists; use --force for an intentional regeneration")
     write_managed_files(arguments.output, package, arguments.force)
-    print(json.dumps(json.loads(package["provenance.json"])["coverage"] | {"objects": 1001}, indent=2))
+    print(json.dumps(json.loads(package["provenance.json"])["coverage"] | {"objects": json.loads(package["catalog.json"])["objectCount"]}, indent=2))
 
 
 if __name__ == "__main__":

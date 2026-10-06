@@ -65,6 +65,19 @@ describe('object designations', () => {
     expect(identities['10pc-0073']!.name).toBe("van Maanen's Star")
   })
 
+  it('keeps reviewed individual component names and their old landmark aliases', () => {
+    for (const path of ['catalogs/bright-stars/stars.csv', 'catalogs/western-constellation-stars/stars.csv']) {
+      const stars = supplementObjectIdentities(parseStarCatalog(readFileSync(new URL(`./data/${path}`, import.meta.url), 'utf8')), identities)
+      const primary = stars.find((star) => star.id === 'cns5-1318' || star.id === 'hip-24608')!
+      expect(primary.name).toBe('Capella Aa')
+      expect(primary.designations).toContain('Capella')
+      expect(stars.find((star) => star.id === 'capella-ab')?.name).toBe('Capella Ab')
+      for (const label of ['Ba', 'Bb', 'C']) {
+        expect(stars.find((star) => star.id === `rigel-${label.toLowerCase()}`)?.name).toBe(`Rigel ${label}`)
+      }
+    }
+  })
+
   it('covers every bundled catalog and overlay while preserving the science data', () => {
     const paths = ['stars.csv', ...['nearest-100', 'nearest-1000', 'bright-stars', 'western-constellation-stars', 'famous-cluster-stars'].map((id) => `catalogs/${id}/stars.csv`)]
     for (const path of paths) {

@@ -1,0 +1,2278 @@
+{
+  "schemaVersion": 1,
+  "sources": {
+    "reyle-2023": {
+      "label": "10pc census, Reyle et al., tablea1 update 2023-08-25",
+      "url": "https://vizier.cds.unistra.fr/viz-bin/VizieR?-source=J%2FA%2BA%2F650%2FA201",
+      "frozenInput": "catalog-work/nearest-100/source-input.json"
+    },
+    "cns5-2023": {
+      "label": "Corrected CNS5, 2023-12-13; component identities and labels",
+      "url": "https://cdsarc.cds.unistra.fr/ftp/J/A+A/670/A19/ReadMe",
+      "frozenInput": "catalog-work/nearest-1000/cns5.dat"
+    },
+    "mamajek-2013": {
+      "label": "Mamajek et al. 2013, The Solar Neighborhood XXX: Fomalhaut C; Fomalhaut system membership",
+      "url": "https://arxiv.org/abs/1310.0764"
+    },
+    "burgasser-2000": {
+      "label": "Burgasser et al. 2000, GJ 570 ABCD component membership and designations",
+      "url": "https://arxiv.org/abs/astro-ph/0001194"
+    },
+    "winterhalder-2024": {
+      "label": "Winterhalder et al. 2024, directly detected WT 766 close companion",
+      "url": "https://arxiv.org/abs/2403.13055"
+    },
+    "adibekyan-2016": {
+      "label": "Adibekyan et al. 2016, Zeta Reticuli individual components",
+      "url": "https://arxiv.org/abs/1605.01918"
+    },
+    "xuan-2024": {
+      "label": "Xuan et al. 2024, resolved GJ 229 Ba/Bb",
+      "url": "https://arxiv.org/abs/2410.11953"
+    },
+    "gj-1001-resolved": {
+      "label": "Golimowski et al., resolved GJ 1001 BC membership and L4.5 spectral classes",
+      "url": "https://static.cambridge.org/content/id/urn%3Acambridge.org%3Aid%3Aarticle%3AS1743921307004255/resource/name/golimowski.pdf"
+    },
+    "dedrick2025": {
+      "label": "Dedrick et al. 2025, resolved GJ 105 AC membership and dynamical masses",
+      "url": "https://arxiv.org/abs/2505.08042"
+    },
+    "woitas2003": {
+      "label": "Woitas et al. 2003, resolved Gliese 22 AC and wide B",
+      "url": "https://arxiv.org/abs/astro-ph/0305330"
+    },
+    "jodar2013": {
+      "label": "Jodar et al. 2013, resolved Gliese 835 close pair and estimated spectral types",
+      "url": "https://academic.oup.com/mnras/article/429/1/859/1028530"
+    },
+    "mason2018": {
+      "label": "Mason et al. 2018, resolved HD 50281 Ba/Bb",
+      "url": "https://arxiv.org/abs/1804.07845"
+    },
+    "eso-gj667": {
+      "label": "ESO and frozen CNS5, confirmed GJ 667 ABC and K3V/K5V spectrum",
+      "url": "https://www.eso.org/public/news/eso1214/"
+    },
+    "marcussen2026": {
+      "label": "Marcussen et al. 2026, Mu Herculis Aa/Ab/B/C membership and dynamical masses",
+      "url": "https://arxiv.org/abs/2604.12492"
+    },
+    "delfosse2000": {
+      "label": "Delfosse et al. 2000, GJ 661 individual dynamical masses, Table 3",
+      "url": "https://arxiv.org/abs/astro-ph/0010586"
+    },
+    "delfosse1999": {
+      "label": "Delfosse et al. 1999, GJ 268 double-lined binary, plus frozen Reyle census component names and classes",
+      "url": "https://citeseerx.ist.psu.edu/document?doi=632dc4feecc21ebe55cdf3c697ec4831dbbbb9e6&repid=rep1&type=pdf"
+    },
+    "segransan2000": {
+      "label": "Segransan et al. 2000, GJ 644 A/Ba/Bb masses and five-member system",
+      "url": "https://arxiv.org/abs/astro-ph/0010585"
+    },
+    "zapatero2004": {
+      "label": "Zapatero Osorio et al. 2004, resolved GJ 569 Ba/Bb spectra and substellar Bb membership",
+      "url": "https://arxiv.org/abs/astro-ph/0407334"
+    },
+    "burgasser2010": {
+      "label": "Burgasser et al. 2010, Ross 458 AB pair and wide C membership",
+      "url": "https://arxiv.org/abs/1009.5722"
+    },
+    "torres2015": {
+      "label": "Torres et al. 2015, resolved giant-pair properties and Capella HL membership",
+      "url": "https://arxiv.org/abs/1505.07461"
+    },
+    "close-4539": {
+      "label": "Farrington et al. 2010, resolved Chi Draconis binary",
+      "url": "https://chara.gsu.edu/files/papers/2010_Farrington_AJ_139_2308.pdf"
+    },
+    "close-317": {
+      "label": "Bond et al. 2020, HST Mu Cassiopeiae component masses",
+      "url": "https://arxiv.org/abs/2010.06609"
+    },
+    "close-1464": {
+      "label": "Koenig et al. 2002, direct detection of Chi1 Orionis B",
+      "url": "https://arxiv.org/abs/astro-ph/0209404"
+    },
+    "close-4097": {
+      "label": "Morel et al. 2001, Zeta Herculis stellar binary",
+      "url": "https://arxiv.org/abs/astro-ph/0110004"
+    },
+    "close-5470": {
+      "label": "Boden and Koresko 1998, resolved Iota Pegasi orbit and masses",
+      "url": "https://arxiv.org/abs/astro-ph/9811029"
+    },
+    "close-2945": {
+      "label": "Schnupp et al. 2010, directly imaged HD 104304 companion",
+      "url": "https://arxiv.org/abs/1005.0620"
+    },
+    "close-5833": {
+      "label": "Torres 2006, Gamma Cephei stellar binary orbit",
+      "url": "https://arxiv.org/abs/astro-ph/0609638"
+    },
+    "close-5588": {
+      "label": "Tsvetkova et al. 2023, GJ 867 AC resolved double-line stellar binary",
+      "url": "https://arxiv.org/abs/2312.04247"
+    },
+    "msc-20260619": {
+      "label": "Tokovinin Multiple Star Catalog, June 19 2026 snapshot; Rigel hierarchy and component labels",
+      "url": "https://www.ctio.noirlab.edu/~atokovin/stars/",
+      "frozenInput": "catalog-work/star-systems/msc-20260619-rigel.json"
+    }
+  },
+  "systems": [
+    {
+      "id": "gj-725",
+      "name": "GJ 725",
+      "sourceRef": "reyle-2023",
+      "sourceSystemId": "17",
+      "componentLabelsRef": "cns5-2023",
+      "components": [
+        {
+          "starId": "10pc-0033",
+          "label": "A",
+          "sourceRow": "33",
+          "sourceObjectName": "HD 173739",
+          "cns5Id": "4633"
+        },
+        {
+          "starId": "10pc-0034",
+          "label": "B",
+          "sourceRow": "34",
+          "sourceObjectName": "HD 173740",
+          "cns5Id": "4634"
+        }
+      ]
+    },
+    {
+      "id": "gj-15",
+      "name": "GJ 15",
+      "sourceRef": "reyle-2023",
+      "sourceSystemId": "18",
+      "components": [
+        {
+          "starId": "10pc-0035",
+          "label": "A",
+          "sourceRow": "35",
+          "sourceObjectName": "GJ 15 A"
+        },
+        {
+          "starId": "10pc-0038",
+          "label": "B",
+          "sourceRow": "38",
+          "sourceObjectName": "GJ 15 B"
+        }
+      ]
+    },
+    {
+      "id": "kruger-60",
+      "name": "Kruger 60",
+      "sourceRef": "reyle-2023",
+      "sourceSystemId": "28",
+      "components": [
+        {
+          "starId": "10pc-0061",
+          "label": "A",
+          "sourceRow": "61",
+          "sourceObjectName": "HD 239960 A"
+        },
+        {
+          "starId": "10pc-0062",
+          "label": "B",
+          "sourceRow": "62",
+          "sourceObjectName": "HD 239960 B"
+        }
+      ]
+    },
+    {
+      "id": "gj-412",
+      "name": "GJ 412",
+      "sourceRef": "reyle-2023",
+      "sourceSystemId": "50",
+      "components": [
+        {
+          "starId": "10pc-0100",
+          "label": "A",
+          "sourceRow": "100",
+          "sourceObjectName": "BD+44 2051 A"
+        },
+        {
+          "starId": "10pc-0101",
+          "label": "B",
+          "sourceRow": "101",
+          "sourceObjectName": "BD+44 2051 B"
+        }
+      ]
+    },
+    {
+      "id": "keid",
+      "name": "Keid",
+      "sourceRef": "reyle-2023",
+      "sourceSystemId": "54",
+      "components": [
+        {
+          "starId": "10pc-0109",
+          "label": "A",
+          "sourceRow": "109",
+          "sourceObjectName": "GJ 166 A"
+        },
+        {
+          "starId": "10pc-0110",
+          "label": "B",
+          "sourceRow": "110",
+          "sourceObjectName": "GJ 166 B"
+        },
+        {
+          "starId": "10pc-0111",
+          "label": "C",
+          "sourceRow": "111",
+          "sourceObjectName": "GJ 166 C"
+        }
+      ]
+    },
+    {
+      "id": "fomalhaut",
+      "name": "Fomalhaut",
+      "sourceRef": "mamajek-2013",
+      "componentLabelsRef": "cns5-2023",
+      "components": [
+        {
+          "starId": "cns5-5665",
+          "label": "A",
+          "cns5Id": "5665",
+          "alternateStarIds": [
+            "hip-113368"
+          ]
+        },
+        {
+          "starId": "cns5-5660",
+          "label": "B",
+          "cns5Id": "5660"
+        },
+        {
+          "starId": "cns5-5623",
+          "label": "C",
+          "cns5Id": "5623",
+          "componentLabelsRef": "mamajek-2013"
+        }
+      ]
+    },
+    {
+      "id": "gj-752",
+      "name": "GJ 752",
+      "sourceRef": "cns5-2023",
+      "sourceSystemId": "GJ 752",
+      "components": [
+        {
+          "starId": "cns5-4779",
+          "label": "A",
+          "cns5Id": "4779"
+        },
+        {
+          "starId": "cns5-4780",
+          "label": "B",
+          "cns5Id": "4780"
+        }
+      ]
+    },
+    {
+      "id": "gj-34",
+      "name": "Achird",
+      "sourceRef": "cns5-2023",
+      "sourceSystemId": "GJ 34",
+      "components": [
+        {
+          "starId": "cns5-0239",
+          "label": "A",
+          "cns5Id": "239"
+        },
+        {
+          "starId": "cns5-0238",
+          "label": "B",
+          "cns5Id": "238"
+        }
+      ]
+    },
+    {
+      "id": "gj-663",
+      "name": "36 Oph",
+      "sourceRef": "cns5-2023",
+      "sourceSystemId": "GJ 663",
+      "components": [
+        {
+          "starId": "cns5-4232",
+          "label": "A",
+          "cns5Id": "4232"
+        },
+        {
+          "starId": "cns5-4233",
+          "label": "B",
+          "cns5Id": "4233"
+        },
+        {
+          "starId": "cns5-4238",
+          "label": "C",
+          "cns5Id": "4238"
+        }
+      ]
+    },
+    {
+      "id": "gj-896",
+      "name": "BD+19 5116",
+      "sourceRef": "cns5-2023",
+      "sourceSystemId": "GJ 896",
+      "components": [
+        {
+          "starId": "cns5-5800",
+          "label": "A",
+          "cns5Id": "5800"
+        },
+        {
+          "starId": "cns5-5801",
+          "label": "B",
+          "cns5Id": "5801"
+        }
+      ]
+    },
+    {
+      "id": "gj-105",
+      "name": "GJ 105",
+      "sourceRef": "dedrick2025",
+      "sourceSystemId": "GJ 105",
+      "components": [
+        {
+          "starId": "cns5-0658",
+          "label": "A",
+          "cns5Id": "658"
+        },
+        {
+          "starId": "cns5-0659",
+          "label": "B",
+          "cns5Id": "659"
+        },
+        {
+          "starId": "gj-105-c",
+          "label": "C"
+        }
+      ]
+    },
+    {
+      "id": "gj-257",
+      "name": "CD-44 3045",
+      "sourceRef": "cns5-2023",
+      "sourceSystemId": "GJ 257",
+      "components": [
+        {
+          "starId": "cns5-1724",
+          "label": "A",
+          "cns5Id": "1724"
+        },
+        {
+          "starId": "cns5-1723",
+          "label": "B",
+          "cns5Id": "1723"
+        }
+      ]
+    },
+    {
+      "id": "gj-185",
+      "name": "HD 32450",
+      "sourceRef": "cns5-2023",
+      "sourceSystemId": "GJ 185",
+      "components": [
+        {
+          "starId": "cns5-1264",
+          "label": "A",
+          "cns5Id": "1264"
+        },
+        {
+          "starId": "cns5-1263",
+          "label": "B",
+          "cns5Id": "1263"
+        }
+      ]
+    },
+    {
+      "id": "gj-618",
+      "name": "CD-37 10765",
+      "sourceRef": "cns5-2023",
+      "sourceSystemId": "GJ 618",
+      "components": [
+        {
+          "starId": "cns5-4001",
+          "label": "A",
+          "cns5Id": "4001"
+        },
+        {
+          "starId": "cns5-4000",
+          "label": "B",
+          "cns5Id": "4000"
+        }
+      ]
+    },
+    {
+      "id": "gj-666",
+      "name": "41 Ara",
+      "sourceRef": "cns5-2023",
+      "sourceSystemId": "GJ 666",
+      "components": [
+        {
+          "starId": "cns5-4255",
+          "label": "A",
+          "cns5Id": "4255"
+        },
+        {
+          "starId": "cns5-4254",
+          "label": "B",
+          "cns5Id": "4254"
+        }
+      ]
+    },
+    {
+      "id": "gj-745",
+      "name": "GJ 745",
+      "sourceRef": "cns5-2023",
+      "sourceSystemId": "GJ 745",
+      "components": [
+        {
+          "starId": "cns5-4746",
+          "label": "A",
+          "cns5Id": "4746"
+        },
+        {
+          "starId": "cns5-4747",
+          "label": "B",
+          "cns5Id": "4747"
+        }
+      ]
+    },
+    {
+      "id": "gj-10949",
+      "name": "GJ 10949",
+      "sourceRef": "cns5-2023",
+      "sourceSystemId": "GJ 10949",
+      "components": [
+        {
+          "starId": "cns5-1624",
+          "label": "A",
+          "cns5Id": "1624"
+        },
+        {
+          "starId": "cns5-1625",
+          "label": "B",
+          "cns5Id": "1625"
+        }
+      ]
+    },
+    {
+      "id": "gj-10944",
+      "name": "SCR J0630-7643",
+      "sourceRef": "cns5-2023",
+      "sourceSystemId": "GJ 10944",
+      "components": [
+        {
+          "starId": "cns5-1615",
+          "label": "A",
+          "cns5Id": "1615"
+        },
+        {
+          "starId": "cns5-1616",
+          "label": "B",
+          "cns5Id": "1616"
+        }
+      ]
+    },
+    {
+      "id": "gj-216",
+      "name": "Gamma Lep",
+      "sourceRef": "cns5-2023",
+      "sourceSystemId": "GJ 216",
+      "components": [
+        {
+          "starId": "cns5-1427",
+          "label": "A",
+          "cns5Id": "1427",
+          "alternateStarIds": [
+            "hip-27072"
+          ]
+        },
+        {
+          "starId": "cns5-1425",
+          "label": "B",
+          "cns5Id": "1425"
+        }
+      ]
+    },
+    {
+      "id": "gj-283",
+      "name": "GJ 283",
+      "sourceRef": "cns5-2023",
+      "sourceSystemId": "GJ 283",
+      "components": [
+        {
+          "starId": "cns5-1901",
+          "label": "A",
+          "cns5Id": "1901"
+        },
+        {
+          "starId": "cns5-1900",
+          "label": "B",
+          "cns5Id": "1900"
+        }
+      ]
+    },
+    {
+      "id": "gj-12050",
+      "name": "GJ 12050",
+      "sourceRef": "cns5-2023",
+      "sourceSystemId": "GJ 12050",
+      "components": [
+        {
+          "starId": "cns5-3522",
+          "label": "A",
+          "cns5Id": "3522"
+        },
+        {
+          "starId": "cns5-3521",
+          "label": "B",
+          "cns5Id": "3521"
+        }
+      ]
+    },
+    {
+      "id": "gj-442",
+      "name": "HD 102365",
+      "sourceRef": "cns5-2023",
+      "sourceSystemId": "GJ 442",
+      "components": [
+        {
+          "starId": "cns5-2879",
+          "label": "A",
+          "cns5Id": "2879"
+        },
+        {
+          "starId": "cns5-2880",
+          "label": "B",
+          "cns5Id": "2880"
+        }
+      ]
+    },
+    {
+      "id": "gj-432",
+      "name": "20 Crt",
+      "sourceRef": "cns5-2023",
+      "sourceSystemId": "GJ 432",
+      "components": [
+        {
+          "starId": "cns5-2835",
+          "label": "A",
+          "cns5Id": "2835"
+        },
+        {
+          "starId": "cns5-2836",
+          "label": "B",
+          "cns5Id": "2836"
+        }
+      ]
+    },
+    {
+      "id": "gj-680",
+      "name": "CD-48 11837",
+      "sourceRef": "cns5-2023",
+      "sourceSystemId": "GJ 680",
+      "components": [
+        {
+          "starId": "cns5-4336",
+          "label": "A",
+          "cns5Id": "4336"
+        },
+        {
+          "starId": "cns5-4335",
+          "label": "B",
+          "cns5Id": "4335"
+        }
+      ]
+    },
+    {
+      "id": "gj-49",
+      "name": "GJ 49",
+      "sourceRef": "cns5-2023",
+      "sourceSystemId": "GJ 49",
+      "components": [
+        {
+          "starId": "cns5-0289",
+          "label": "A",
+          "cns5Id": "289"
+        },
+        {
+          "starId": "cns5-0298",
+          "label": "B",
+          "cns5Id": "298"
+        }
+      ]
+    },
+    {
+      "id": "gj-231",
+      "name": "Alpha Men",
+      "sourceRef": "cns5-2023",
+      "sourceSystemId": "GJ 231",
+      "components": [
+        {
+          "starId": "cns5-1526",
+          "label": "A",
+          "cns5Id": "1526"
+        },
+        {
+          "starId": "cns5-1525",
+          "label": "B",
+          "cns5Id": "1525"
+        }
+      ]
+    },
+    {
+      "id": "gj-653",
+      "name": "HD 154363",
+      "sourceRef": "cns5-2023",
+      "sourceSystemId": "GJ 653",
+      "components": [
+        {
+          "starId": "cns5-4183",
+          "label": "A",
+          "cns5Id": "4183"
+        },
+        {
+          "starId": "cns5-4184",
+          "label": "B",
+          "cns5Id": "4184"
+        }
+      ]
+    },
+    {
+      "id": "gj-754-1",
+      "name": "GJ 754.1",
+      "sourceRef": "cns5-2023",
+      "sourceSystemId": "GJ 754.1",
+      "components": [
+        {
+          "starId": "cns5-4799",
+          "label": "A",
+          "cns5Id": "4799"
+        },
+        {
+          "starId": "cns5-4798",
+          "label": "B",
+          "cns5Id": "4798"
+        }
+      ]
+    },
+    {
+      "id": "gj-766",
+      "name": "GJ 766",
+      "sourceRef": "cns5-2023",
+      "sourceSystemId": "GJ 766",
+      "components": [
+        {
+          "starId": "cns5-4898",
+          "label": "A",
+          "cns5Id": "4898"
+        },
+        {
+          "starId": "cns5-4899",
+          "label": "B",
+          "cns5Id": "4899"
+        }
+      ]
+    },
+    {
+      "id": "gj-669",
+      "name": "GJ 669",
+      "sourceRef": "cns5-2023",
+      "sourceSystemId": "GJ 669",
+      "components": [
+        {
+          "starId": "cns5-4261",
+          "label": "A",
+          "cns5Id": "4261"
+        },
+        {
+          "starId": "cns5-4259",
+          "label": "B",
+          "cns5Id": "4259"
+        }
+      ]
+    },
+    {
+      "id": "gj-86",
+      "name": "HD 13445",
+      "sourceRef": "cns5-2023",
+      "sourceSystemId": "GJ 86",
+      "components": [
+        {
+          "starId": "cns5-0543",
+          "label": "A",
+          "cns5Id": "543"
+        },
+        {
+          "starId": "cns5-0544",
+          "label": "B",
+          "cns5Id": "544"
+        }
+      ]
+    },
+    {
+      "id": "gj-617",
+      "name": "HD 147379",
+      "sourceRef": "cns5-2023",
+      "sourceSystemId": "GJ 617",
+      "components": [
+        {
+          "starId": "cns5-3993",
+          "label": "A",
+          "cns5Id": "3993"
+        },
+        {
+          "starId": "cns5-3994",
+          "label": "B",
+          "cns5Id": "3994"
+        }
+      ]
+    },
+    {
+      "id": "gj-9492",
+      "name": "G 239-25",
+      "sourceRef": "cns5-2023",
+      "sourceSystemId": "GJ 9492",
+      "components": [
+        {
+          "starId": "cns5-3636",
+          "label": "A",
+          "cns5Id": "3636"
+        },
+        {
+          "starId": "cns5-3637",
+          "label": "B",
+          "cns5Id": "3637"
+        }
+      ]
+    },
+    {
+      "id": "gj-505",
+      "name": "HD 115404",
+      "sourceRef": "cns5-2023",
+      "sourceSystemId": "GJ 505",
+      "components": [
+        {
+          "starId": "cns5-3269",
+          "label": "A",
+          "cns5Id": "3269"
+        },
+        {
+          "starId": "cns5-3270",
+          "label": "B",
+          "cns5Id": "3270"
+        }
+      ]
+    },
+    {
+      "id": "gj-2036",
+      "name": "CD-56 1032",
+      "sourceRef": "cns5-2023",
+      "sourceSystemId": "GJ 2036",
+      "components": [
+        {
+          "starId": "cns5-1223",
+          "label": "A",
+          "cns5Id": "1223"
+        },
+        {
+          "starId": "cns5-1222",
+          "label": "B",
+          "cns5Id": "1222"
+        }
+      ]
+    },
+    {
+      "id": "gj-27",
+      "name": "54 Psc",
+      "sourceRef": "cns5-2023",
+      "sourceSystemId": "GJ 27",
+      "components": [
+        {
+          "starId": "cns5-0192",
+          "label": "A",
+          "cns5Id": "192"
+        },
+        {
+          "starId": "cns5-0191",
+          "label": "B",
+          "cns5Id": "191"
+        }
+      ]
+    },
+    {
+      "id": "gj-107",
+      "name": "Theta Per",
+      "sourceRef": "cns5-2023",
+      "sourceSystemId": "GJ 107",
+      "components": [
+        {
+          "starId": "cns5-0687",
+          "label": "A",
+          "cns5Id": "687"
+        },
+        {
+          "starId": "cns5-0686",
+          "label": "B",
+          "cns5Id": "686"
+        }
+      ]
+    },
+    {
+      "id": "gj-537",
+      "name": "BD+47 2112",
+      "sourceRef": "cns5-2023",
+      "sourceSystemId": "GJ 537",
+      "components": [
+        {
+          "starId": "cns5-3474",
+          "label": "A",
+          "cns5Id": "3474"
+        },
+        {
+          "starId": "cns5-3475",
+          "label": "B",
+          "cns5Id": "3475"
+        }
+      ]
+    },
+    {
+      "id": "gj-356",
+      "name": "11 LMi",
+      "sourceRef": "cns5-2023",
+      "sourceSystemId": "GJ 356",
+      "components": [
+        {
+          "starId": "cns5-2372",
+          "label": "A",
+          "cns5Id": "2372"
+        },
+        {
+          "starId": "cns5-2373",
+          "label": "B",
+          "cns5Id": "2373"
+        }
+      ]
+    },
+    {
+      "id": "gj-12887",
+      "name": "PM J19515-3510",
+      "sourceRef": "cns5-2023",
+      "sourceSystemId": "GJ 12887",
+      "components": [
+        {
+          "starId": "cns5-4916",
+          "label": "A",
+          "cns5Id": "4916"
+        },
+        {
+          "starId": "cns5-4917",
+          "label": "B",
+          "cns5Id": "4917"
+        }
+      ]
+    },
+    {
+      "id": "gj-4048",
+      "name": "GJ 4048",
+      "sourceRef": "cns5-2023",
+      "sourceSystemId": "GJ 4048",
+      "components": [
+        {
+          "starId": "cns5-4529",
+          "label": "A",
+          "cns5Id": "4529"
+        },
+        {
+          "starId": "cns5-4528",
+          "label": "B",
+          "cns5Id": "4528"
+        }
+      ]
+    },
+    {
+      "id": "gj-208",
+      "name": "GJ 208",
+      "sourceRef": "cns5-2023",
+      "sourceSystemId": "GJ 208",
+      "components": [
+        {
+          "starId": "cns5-1393",
+          "label": "A",
+          "cns5Id": "1393"
+        },
+        {
+          "starId": "cns5-1394",
+          "label": "B",
+          "cns5Id": "1394"
+        }
+      ]
+    },
+    {
+      "id": "gj-568",
+      "name": "Ross 52",
+      "sourceRef": "cns5-2023",
+      "sourceSystemId": "GJ 568",
+      "components": [
+        {
+          "starId": "cns5-3682",
+          "label": "A",
+          "cns5Id": "3682"
+        },
+        {
+          "starId": "cns5-3683",
+          "label": "B",
+          "cns5Id": "3683"
+        }
+      ]
+    },
+    {
+      "id": "gj-3417",
+      "name": "G 250-31",
+      "sourceRef": "cns5-2023",
+      "sourceSystemId": "GJ 3417",
+      "components": [
+        {
+          "starId": "cns5-1726",
+          "label": "A",
+          "cns5Id": "1726"
+        },
+        {
+          "starId": "cns5-1725",
+          "label": "B",
+          "cns5Id": "1725"
+        }
+      ]
+    },
+    {
+      "id": "gj-189",
+      "name": "Zeta Dor",
+      "sourceRef": "cns5-2023",
+      "sourceSystemId": "GJ 189",
+      "components": [
+        {
+          "starId": "cns5-1279",
+          "label": "A",
+          "cns5Id": "1279"
+        },
+        {
+          "starId": "cns5-1281",
+          "label": "B",
+          "cns5Id": "1281"
+        }
+      ]
+    },
+    {
+      "id": "gj-572",
+      "name": "BD+45 2247",
+      "sourceRef": "cns5-2023",
+      "sourceSystemId": "GJ 572",
+      "components": [
+        {
+          "starId": "cns5-3710",
+          "label": "A",
+          "cns5Id": "3710"
+        },
+        {
+          "starId": "cns5-3711",
+          "label": "B",
+          "cns5Id": "3711"
+        }
+      ]
+    },
+    {
+      "id": "gj-4288",
+      "name": "GJ 4288",
+      "sourceRef": "cns5-2023",
+      "sourceSystemId": "GJ 4288",
+      "components": [
+        {
+          "starId": "cns5-5583",
+          "label": "A",
+          "cns5Id": "5583"
+        },
+        {
+          "starId": "cns5-5584",
+          "label": "B",
+          "cns5Id": "5584"
+        }
+      ]
+    },
+    {
+      "id": "gj-360",
+      "name": "GJ 360",
+      "sourceRef": "cns5-2023",
+      "sourceSystemId": "GJ 360",
+      "components": [
+        {
+          "starId": "cns5-2398",
+          "label": "A",
+          "cns5Id": "2398"
+        },
+        {
+          "starId": "cns5-2403",
+          "label": "B",
+          "cns5Id": "2403"
+        }
+      ]
+    },
+    {
+      "id": "gj-1179",
+      "name": "GJ 1179",
+      "sourceRef": "cns5-2023",
+      "sourceSystemId": "GJ 1179",
+      "components": [
+        {
+          "starId": "cns5-3415",
+          "label": "A",
+          "cns5Id": "3415"
+        },
+        {
+          "starId": "cns5-3412",
+          "label": "B",
+          "cns5Id": "3412"
+        }
+      ]
+    },
+    {
+      "id": "gj-414",
+      "name": "HD 97101",
+      "sourceRef": "cns5-2023",
+      "sourceSystemId": "GJ 414",
+      "components": [
+        {
+          "starId": "cns5-2724",
+          "label": "A",
+          "cns5Id": "2724"
+        },
+        {
+          "starId": "cns5-2723",
+          "label": "B",
+          "cns5Id": "2723"
+        }
+      ]
+    },
+    {
+      "id": "gj-13264",
+      "name": "PM J22403-4931",
+      "sourceRef": "cns5-2023",
+      "sourceSystemId": "GJ 13264",
+      "components": [
+        {
+          "starId": "cns5-5592",
+          "label": "A",
+          "cns5Id": "5592"
+        },
+        {
+          "starId": "cns5-5593",
+          "label": "B",
+          "cns5Id": "5593"
+        }
+      ]
+    },
+    {
+      "id": "gj-11774",
+      "name": "GJ 11774",
+      "sourceRef": "cns5-2023",
+      "sourceSystemId": "GJ 11774",
+      "components": [
+        {
+          "starId": "cns5-3032",
+          "label": "A",
+          "cns5Id": "3032"
+        },
+        {
+          "starId": "cns5-3031",
+          "label": "B",
+          "cns5Id": "3031"
+        }
+      ]
+    },
+    {
+      "id": "gj-211",
+      "name": "GJ 211",
+      "sourceRef": "cns5-2023",
+      "sourceSystemId": "GJ 211",
+      "components": [
+        {
+          "starId": "cns5-1412",
+          "label": "A",
+          "cns5Id": "1412"
+        },
+        {
+          "starId": "cns5-1413",
+          "label": "B",
+          "cns5Id": "1413"
+        }
+      ]
+    },
+    {
+      "id": "gj-737",
+      "name": "HD 175224",
+      "sourceRef": "cns5-2023",
+      "sourceSystemId": "GJ 737",
+      "components": [
+        {
+          "starId": "cns5-4716",
+          "label": "A",
+          "cns5Id": "4716"
+        },
+        {
+          "starId": "cns5-4715",
+          "label": "B",
+          "cns5Id": "4715"
+        }
+      ]
+    },
+    {
+      "id": "gj-1263",
+      "name": "Wolf 940",
+      "sourceRef": "cns5-2023",
+      "sourceSystemId": "GJ 1263",
+      "components": [
+        {
+          "starId": "cns5-5365",
+          "label": "A",
+          "cns5Id": "5365"
+        },
+        {
+          "starId": "cns5-5364",
+          "label": "B",
+          "cns5Id": "5364"
+        }
+      ]
+    },
+    {
+      "id": "gj-324",
+      "name": "Copernicus",
+      "sourceRef": "cns5-2023",
+      "sourceSystemId": "GJ 324",
+      "components": [
+        {
+          "starId": "cns5-2182",
+          "label": "A",
+          "cns5Id": "2182"
+        },
+        {
+          "starId": "cns5-2183",
+          "label": "B",
+          "cns5Id": "2183"
+        }
+      ]
+    },
+    {
+      "id": "gj-3708",
+      "name": "GJ 3708",
+      "sourceRef": "cns5-2023",
+      "sourceSystemId": "GJ 3708",
+      "components": [
+        {
+          "starId": "cns5-2996",
+          "label": "A",
+          "cns5Id": "2996"
+        },
+        {
+          "starId": "cns5-2997",
+          "label": "B",
+          "cns5Id": "2997"
+        }
+      ]
+    },
+    {
+      "id": "gj-774",
+      "name": "GJ 774",
+      "sourceRef": "cns5-2023",
+      "sourceSystemId": "GJ 774",
+      "components": [
+        {
+          "starId": "cns5-4968",
+          "label": "A",
+          "cns5Id": "4968"
+        },
+        {
+          "starId": "cns5-4967",
+          "label": "B",
+          "cns5Id": "4967"
+        }
+      ]
+    },
+    {
+      "id": "gj-11217",
+      "name": "GJ 11217",
+      "sourceRef": "cns5-2023",
+      "sourceSystemId": "GJ 11217",
+      "components": [
+        {
+          "starId": "cns5-2074",
+          "label": "A",
+          "cns5Id": "2074"
+        },
+        {
+          "starId": "cns5-2075",
+          "label": "B",
+          "cns5Id": "2075"
+        }
+      ]
+    },
+    {
+      "id": "gj-620-1",
+      "name": "GJ 620.1",
+      "sourceRef": "cns5-2023",
+      "sourceSystemId": "GJ 620.1",
+      "components": [
+        {
+          "starId": "cns5-4013",
+          "label": "A",
+          "cns5Id": "4013"
+        },
+        {
+          "starId": "cns5-4011",
+          "label": "B",
+          "cns5Id": "4011"
+        }
+      ]
+    },
+    {
+      "id": "gj-395",
+      "name": "36 UMa",
+      "sourceRef": "cns5-2023",
+      "sourceSystemId": "GJ 395",
+      "components": [
+        {
+          "starId": "cns5-2572",
+          "label": "A",
+          "cns5Id": "2572"
+        },
+        {
+          "starId": "cns5-2571",
+          "label": "B",
+          "cns5Id": "2571"
+        }
+      ]
+    },
+    {
+      "id": "gj-3304",
+      "name": "G 39-29",
+      "sourceRef": "cns5-2023",
+      "sourceSystemId": "GJ 3304",
+      "components": [
+        {
+          "starId": "cns5-1155",
+          "label": "A",
+          "cns5Id": "1155"
+        },
+        {
+          "starId": "cns5-1154",
+          "label": "B",
+          "cns5Id": "1154"
+        }
+      ]
+    },
+    {
+      "id": "gj-425",
+      "name": "HD 98712",
+      "sourceRef": "cns5-2023",
+      "sourceSystemId": "GJ 425",
+      "components": [
+        {
+          "starId": "cns5-2779",
+          "label": "A",
+          "cns5Id": "2779"
+        },
+        {
+          "starId": "cns5-2778",
+          "label": "B",
+          "cns5Id": "2778"
+        }
+      ]
+    },
+    {
+      "id": "gj-512",
+      "name": "Ross 486",
+      "sourceRef": "cns5-2023",
+      "sourceSystemId": "GJ 512",
+      "components": [
+        {
+          "starId": "cns5-3317",
+          "label": "A",
+          "cns5Id": "3317"
+        },
+        {
+          "starId": "cns5-3318",
+          "label": "B",
+          "cns5Id": "3318"
+        }
+      ]
+    },
+    {
+      "id": "gj-3148",
+      "name": "GJ 3148",
+      "sourceRef": "cns5-2023",
+      "sourceSystemId": "GJ 3148",
+      "components": [
+        {
+          "starId": "cns5-0581",
+          "label": "A",
+          "cns5Id": "581"
+        },
+        {
+          "starId": "cns5-0580",
+          "label": "B",
+          "cns5Id": "580"
+        }
+      ]
+    },
+    {
+      "id": "gj-3371",
+      "name": "GJ 3371",
+      "sourceRef": "cns5-2023",
+      "sourceSystemId": "GJ 3371",
+      "components": [
+        {
+          "starId": "cns5-1490",
+          "label": "A",
+          "cns5Id": "1490"
+        },
+        {
+          "starId": "cns5-1491",
+          "label": "B",
+          "cns5Id": "1491"
+        }
+      ]
+    },
+    {
+      "id": "gj-61",
+      "name": "Titawin",
+      "sourceRef": "cns5-2023",
+      "sourceSystemId": "GJ 61",
+      "components": [
+        {
+          "starId": "cns5-0402",
+          "label": "A",
+          "cns5Id": "402"
+        },
+        {
+          "starId": "cns5-0403",
+          "label": "B",
+          "cns5Id": "403"
+        }
+      ]
+    },
+    {
+      "id": "gj-528",
+      "name": "HD 120476",
+      "sourceRef": "cns5-2023",
+      "sourceSystemId": "GJ 528",
+      "components": [
+        {
+          "starId": "cns5-3422",
+          "label": "A",
+          "cns5Id": "3422"
+        },
+        {
+          "starId": "cns5-3421",
+          "label": "B",
+          "cns5Id": "3421"
+        }
+      ]
+    },
+    {
+      "id": "gj-130-1",
+      "name": "Ross 370",
+      "sourceRef": "cns5-2023",
+      "sourceSystemId": "GJ 130.1",
+      "components": [
+        {
+          "starId": "cns5-0820",
+          "label": "A",
+          "cns5Id": "820"
+        },
+        {
+          "starId": "cns5-0822",
+          "label": "B",
+          "cns5Id": "822"
+        }
+      ]
+    },
+    {
+      "id": "gj-771",
+      "name": "Alshain",
+      "sourceRef": "cns5-2023",
+      "sourceSystemId": "GJ 771",
+      "components": [
+        {
+          "starId": "cns5-4929",
+          "label": "A",
+          "cns5Id": "4929",
+          "alternateStarIds": [
+            "hip-98036"
+          ]
+        },
+        {
+          "starId": "cns5-4930",
+          "label": "B",
+          "cns5Id": "4930"
+        }
+      ]
+    },
+    {
+      "id": "gj-3997",
+      "name": "BD+19 3268",
+      "sourceRef": "cns5-2023",
+      "sourceSystemId": "GJ 3997",
+      "components": [
+        {
+          "starId": "cns5-4235",
+          "label": "A",
+          "cns5Id": "4235"
+        },
+        {
+          "starId": "cns5-4234",
+          "label": "B",
+          "cns5Id": "4234"
+        }
+      ]
+    },
+    {
+      "id": "gj-184",
+      "name": "BD+52 911",
+      "sourceRef": "cns5-2023",
+      "sourceSystemId": "GJ 184",
+      "components": [
+        {
+          "starId": "cns5-1272",
+          "label": "A",
+          "cns5Id": "1272"
+        },
+        {
+          "starId": "cns5-1271",
+          "label": "B",
+          "cns5Id": "1271"
+        }
+      ]
+    },
+    {
+      "id": "gj-767",
+      "name": "HD 331161",
+      "sourceRef": "cns5-2023",
+      "sourceSystemId": "GJ 767",
+      "components": [
+        {
+          "starId": "cns5-4901",
+          "label": "A",
+          "cns5Id": "4901"
+        },
+        {
+          "starId": "cns5-4902",
+          "label": "B",
+          "cns5Id": "4902"
+        }
+      ]
+    },
+    {
+      "id": "gj-570",
+      "name": "GJ 570",
+      "sourceRef": "burgasser-2000",
+      "components": [
+        {
+          "starId": "cns5-3700",
+          "label": "A",
+          "cns5Id": "3700"
+        },
+        {
+          "starId": "10pc-0145",
+          "label": "B",
+          "sourceRow": "145"
+        },
+        {
+          "starId": "10pc-0146",
+          "label": "C",
+          "sourceRow": "146"
+        },
+        {
+          "starId": "cns5-3699",
+          "label": "D",
+          "cns5Id": "3699"
+        }
+      ]
+    },
+    {
+      "id": "zeta-reticuli",
+      "name": "Zeta Reticuli",
+      "sourceRef": "adibekyan-2016",
+      "componentLabelsRef": "cns5-2023",
+      "components": [
+        {
+          "starId": "cns5-0833",
+          "label": "A",
+          "cns5Id": "833"
+        },
+        {
+          "starId": "cns5-0829",
+          "label": "B",
+          "cns5Id": "829"
+        }
+      ]
+    },
+    {
+      "id": "gj-428",
+      "name": "HD 99279",
+      "sourceRef": "cns5-2023",
+      "sourceSystemId": "GJ 428",
+      "components": [
+        {
+          "starId": "cns5-2803",
+          "label": "A",
+          "cns5Id": "2803"
+        },
+        {
+          "starId": "cns5-2800",
+          "label": "B",
+          "cns5Id": "2800"
+        }
+      ]
+    },
+    {
+      "id": "wt-766",
+      "name": "WT 766",
+      "sourceRef": "winterhalder-2024",
+      "components": [
+        {
+          "starId": "cns5-5192",
+          "label": "Aa",
+          "cns5Id": "5192"
+        },
+        {
+          "starId": "wt-766-close-companion",
+          "label": "Ab",
+          "sourceObjectName": "WT 766 B"
+        },
+        {
+          "starId": "cns5-5190",
+          "label": "B",
+          "cns5Id": "5190"
+        }
+      ],
+      "labelNote": "Hierarchical UI labels Aa/Ab distinguish the close WT 766 A/B pair from its wide white-dwarf component WT 765 (CNS5 B)."
+    },
+    {
+      "id": "gj-338",
+      "name": "GJ 338",
+      "sourceRef": "cns5-2023",
+      "sourceSystemId": "GJ 338",
+      "components": [
+        {
+          "starId": "cns5-2293",
+          "label": "A",
+          "cns5Id": "2293",
+          "sourceMultiplicityNote": "Frozen SIMBAD spectroscopic-binary flag retained; this catalog component may contain an unresolved inner pair."
+        },
+        {
+          "starId": "cns5-2295",
+          "label": "B",
+          "cns5Id": "2295",
+          "sourceMultiplicityNote": "Individual outer-system component."
+        }
+      ],
+      "note": "Outer components are explicitly associated by CNS5. This association does not split an unresolved spectroscopic pair or claim complete physical membership."
+    },
+    {
+      "id": "gj-867",
+      "name": "GJ 867",
+      "sourceRef": "close-5588",
+      "sourceSystemId": "GJ 867",
+      "components": [
+        {
+          "starId": "cns5-5588",
+          "label": "A",
+          "cns5Id": "5588"
+        },
+        {
+          "starId": "cns5-5587",
+          "label": "B",
+          "cns5Id": "5587",
+          "sourceMultiplicityNote": "Frozen SIMBAD spectroscopic-binary flag retained; this catalog component may contain an unresolved inner pair."
+        },
+        {
+          "starId": "gj-867-c",
+          "label": "C"
+        }
+      ],
+      "note": "FK Aqr is the A/C pair in published GJ 867 nomenclature. The FL Aqr B/D pair has an unseen D with ambiguous stellar versus brown-dwarf classification; do not create a classified D record yet."
+    },
+    {
+      "id": "gj-1230",
+      "name": "GJ 1230",
+      "sourceRef": "cns5-2023",
+      "sourceSystemId": "GJ 1230",
+      "components": [
+        {
+          "starId": "cns5-4625",
+          "label": "A",
+          "cns5Id": "4625",
+          "sourceMultiplicityNote": "Frozen SIMBAD spectroscopic-binary flag retained; this catalog component may contain an unresolved inner pair."
+        },
+        {
+          "starId": "cns5-4626",
+          "label": "B",
+          "cns5Id": "4626",
+          "sourceMultiplicityNote": "Individual outer-system component."
+        }
+      ],
+      "note": "Outer components are explicitly associated by CNS5. This association does not split an unresolved spectroscopic pair or claim complete physical membership."
+    },
+    {
+      "id": "gj-569",
+      "name": "GJ 569",
+      "sourceRef": "zapatero2004",
+      "sourceSystemId": "GJ 569",
+      "components": [
+        {
+          "starId": "cns5-3688",
+          "label": "A",
+          "cns5Id": "3688",
+          "sourceMultiplicityNote": "Individual outer-system component."
+        },
+        {
+          "starId": "cns5-3687",
+          "label": "Ba",
+          "cns5Id": "3687"
+        },
+        {
+          "starId": "gj-569-bb",
+          "label": "Bb"
+        }
+      ],
+      "note": "Outer components are explicitly associated by CNS5. This association does not split an unresolved spectroscopic pair or claim complete physical membership."
+    },
+    {
+      "id": "gj-4",
+      "name": "GJ 4",
+      "sourceRef": "cns5-2023",
+      "sourceSystemId": "GJ 4",
+      "components": [
+        {
+          "starId": "cns5-0022",
+          "label": "A",
+          "cns5Id": "22",
+          "sourceMultiplicityNote": "Frozen SIMBAD spectroscopic-binary flag retained; this catalog component may contain an unresolved inner pair."
+        },
+        {
+          "starId": "cns5-0021",
+          "label": "B",
+          "cns5Id": "21",
+          "sourceMultiplicityNote": "Individual outer-system component."
+        }
+      ],
+      "note": "Outer components are explicitly associated by CNS5. This association does not split an unresolved spectroscopic pair or claim complete physical membership."
+    },
+    {
+      "id": "gj-325",
+      "name": "GJ 325",
+      "sourceRef": "cns5-2023",
+      "sourceSystemId": "GJ 325",
+      "components": [
+        {
+          "starId": "cns5-2197",
+          "label": "A",
+          "cns5Id": "2197",
+          "sourceMultiplicityNote": "Frozen SIMBAD spectroscopic-binary flag retained; this catalog component may contain an unresolved inner pair."
+        },
+        {
+          "starId": "cns5-2198",
+          "label": "B",
+          "cns5Id": "2198",
+          "sourceMultiplicityNote": "Individual outer-system component."
+        }
+      ],
+      "note": "Outer components are explicitly associated by CNS5. This association does not split an unresolved spectroscopic pair or claim complete physical membership."
+    },
+    {
+      "id": "gj-810",
+      "name": "GJ 810",
+      "sourceRef": "cns5-2023",
+      "sourceSystemId": "GJ 810",
+      "components": [
+        {
+          "starId": "cns5-5173",
+          "label": "A",
+          "cns5Id": "5173",
+          "sourceMultiplicityNote": "Frozen SIMBAD spectroscopic-binary flag retained; this catalog component may contain an unresolved inner pair."
+        },
+        {
+          "starId": "cns5-5172",
+          "label": "B",
+          "cns5Id": "5172",
+          "sourceMultiplicityNote": "Individual outer-system component."
+        }
+      ],
+      "note": "Outer components are explicitly associated by CNS5. This association does not split an unresolved spectroscopic pair or claim complete physical membership."
+    },
+    {
+      "id": "gj-507",
+      "name": "GJ 507",
+      "sourceRef": "cns5-2023",
+      "sourceSystemId": "GJ 507",
+      "components": [
+        {
+          "starId": "cns5-3277",
+          "label": "A",
+          "cns5Id": "3277",
+          "sourceMultiplicityNote": "Frozen SIMBAD spectroscopic-binary flag retained; this catalog component may contain an unresolved inner pair."
+        },
+        {
+          "starId": "cns5-3278",
+          "label": "B",
+          "cns5Id": "3278",
+          "sourceMultiplicityNote": "Individual outer-system component."
+        }
+      ],
+      "note": "Outer components are explicitly associated by CNS5. This association does not split an unresolved spectroscopic pair or claim complete physical membership."
+    },
+    {
+      "id": "gj-229",
+      "name": "GJ 229",
+      "sourceRef": "xuan-2024",
+      "components": [
+        {
+          "starId": "10pc-0138",
+          "label": "A",
+          "sourceRow": "138"
+        },
+        {
+          "starId": "cns5-1529",
+          "label": "Ba",
+          "cns5Id": "1529"
+        },
+        {
+          "starId": "gj-229-bb",
+          "label": "Bb",
+          "sourceObjectName": "Gliese 229 Bb"
+        }
+      ]
+    },
+    {
+      "id": "gj-1001",
+      "name": "GJ 1001",
+      "sourceRef": "gj-1001-resolved",
+      "components": [
+        {
+          "starId": "cns5-0012",
+          "label": "A",
+          "cns5Id": "12"
+        },
+        {
+          "starId": "cns5-0011",
+          "label": "B",
+          "cns5Id": "11"
+        },
+        {
+          "starId": "gj-1001-c",
+          "label": "C",
+          "sourceObjectName": "GJ 1001 C"
+        }
+      ]
+    },
+    {
+      "id": "gj-277",
+      "name": "VV Lyn",
+      "sourceRef": "cns5-2023",
+      "sourceSystemId": "GJ 277",
+      "labelNote": "Hierarchical UI labels Aa/Ab preserve the VV Lyn A/B sub-pair, with Ross 989 as the wide B member. CNS5 flat labels A/B/C are retained per component.",
+      "components": [
+        {
+          "starId": "cns5-1863",
+          "label": "B",
+          "cns5Id": "1863",
+          "sourceComponentLabel": "B"
+        },
+        {
+          "starId": "cns5-1865",
+          "label": "Ab",
+          "cns5Id": "1865",
+          "sourceComponentLabel": "C"
+        },
+        {
+          "starId": "cns5-1866",
+          "label": "Aa",
+          "cns5Id": "1866",
+          "sourceComponentLabel": "A"
+        }
+      ]
+    },
+    {
+      "id": "gj-22",
+      "name": "GJ 22",
+      "sourceRef": "woitas2003",
+      "components": [
+        {
+          "starId": "cns5-0155",
+          "label": "A",
+          "cns5Id": "155"
+        },
+        {
+          "starId": "cns5-0154",
+          "label": "B",
+          "cns5Id": "154"
+        },
+        {
+          "starId": "gj-22-c",
+          "label": "C"
+        }
+      ]
+    },
+    {
+      "id": "gj-835",
+      "name": "GJ 835",
+      "sourceRef": "jodar2013",
+      "components": [
+        {
+          "starId": "cns5-5330",
+          "label": "A",
+          "cns5Id": "5330"
+        },
+        {
+          "starId": "cns5-5331",
+          "label": "B",
+          "cns5Id": "5331"
+        },
+        {
+          "starId": "gj-835-c",
+          "label": "C"
+        }
+      ]
+    },
+    {
+      "id": "gj-250",
+      "name": "HD 50281",
+      "sourceRef": "mason2018",
+      "components": [
+        {
+          "starId": "cns5-1703",
+          "label": "A",
+          "cns5Id": "1703"
+        },
+        {
+          "starId": "cns5-1702",
+          "label": "Ba",
+          "cns5Id": "1702"
+        },
+        {
+          "starId": "hd-50281-bb",
+          "label": "Bb"
+        }
+      ]
+    },
+    {
+      "id": "gj-667",
+      "name": "GJ 667",
+      "sourceRef": "eso-gj667",
+      "components": [
+        {
+          "starId": "cns5-4252",
+          "label": "A",
+          "cns5Id": "4252"
+        },
+        {
+          "starId": "gj-667-b",
+          "label": "B"
+        },
+        {
+          "starId": "cns5-4253",
+          "label": "C",
+          "cns5Id": "4253"
+        }
+      ]
+    },
+    {
+      "id": "gj-695",
+      "name": "Mu Her",
+      "sourceRef": "marcussen2026",
+      "components": [
+        {
+          "starId": "cns5-4401",
+          "label": "Aa",
+          "cns5Id": "4401",
+          "alternateStarIds": [
+            "hip-86974"
+          ]
+        },
+        {
+          "starId": "mu-her-ab",
+          "label": "Ab"
+        },
+        {
+          "starId": "cns5-4400",
+          "label": "B",
+          "cns5Id": "4400"
+        },
+        {
+          "starId": "cns5-4399",
+          "label": "C",
+          "cns5Id": "4399"
+        }
+      ]
+    },
+    {
+      "id": "gj-661",
+      "name": "GJ 661",
+      "sourceRef": "delfosse2000",
+      "components": [
+        {
+          "starId": "cns5-4217",
+          "label": "A",
+          "cns5Id": "4217"
+        },
+        {
+          "starId": "gj-661-b",
+          "label": "B"
+        }
+      ]
+    },
+    {
+      "id": "gj-268",
+      "name": "GJ 268",
+      "sourceRef": "delfosse1999",
+      "components": [
+        {
+          "starId": "cns5-1784",
+          "label": "A",
+          "cns5Id": "1784"
+        },
+        {
+          "starId": "gj-268-b",
+          "label": "B"
+        }
+      ]
+    },
+    {
+      "id": "gj-644",
+      "name": "GJ 644",
+      "sourceRef": "segransan2000",
+      "components": [
+        {
+          "starId": "cns5-4136",
+          "label": "A",
+          "cns5Id": "4136"
+        },
+        {
+          "starId": "gj-644-ba",
+          "label": "Ba"
+        },
+        {
+          "starId": "gj-644-bb",
+          "label": "Bb"
+        },
+        {
+          "starId": "cns5-4137",
+          "label": "C",
+          "cns5Id": "4137"
+        },
+        {
+          "starId": "cns5-4135",
+          "label": "D",
+          "cns5Id": "4135"
+        }
+      ],
+      "labelNote": "C follows the published Gl 644 C designation for VB 8. D is the interface label for the fifth member Gl 643, whose source display name HD 152751C and CNS5 E label use other naming scopes. CNS5 CD for VB 8 is not split into hypothetical stars: the published system has three inner stars plus Gl 643 and VB 8."
+    },
+    {
+      "id": "gj-494",
+      "name": "Ross 458",
+      "sourceRef": "burgasser2010",
+      "components": [
+        {
+          "starId": "cns5-3213",
+          "label": "A",
+          "cns5Id": "3213"
+        },
+        {
+          "starId": "ross-458-b",
+          "label": "B"
+        },
+        {
+          "starId": "cns5-3212",
+          "label": "C",
+          "cns5Id": "3212"
+        }
+      ],
+      "labelNote": "Published C corrects the frozen CNS5 B designation for the wide T dwarf."
+    },
+    {
+      "id": "gj-783",
+      "name": "GJ 783",
+      "sourceRef": "cns5-2023",
+      "components": [
+        {
+          "starId": "cns5-5008",
+          "label": "A",
+          "cns5Id": "5008"
+        },
+        {
+          "starId": "gj-783-b",
+          "label": "B"
+        }
+      ]
+    },
+    {
+      "id": "capella",
+      "name": "Capella",
+      "sourceRef": "torres2015",
+      "components": [
+        {
+          "starId": "cns5-1318",
+          "label": "Aa",
+          "cns5Id": "1318",
+          "alternateStarIds": [
+            "hip-24608"
+          ]
+        },
+        {
+          "starId": "capella-ab",
+          "label": "Ab"
+        },
+        {
+          "starId": "cns5-1323",
+          "label": "H",
+          "cns5Id": "1323"
+        },
+        {
+          "starId": "cns5-1324",
+          "label": "L",
+          "cns5Id": "1324"
+        }
+      ],
+      "labelNote": "Aa/Ab identify the giant pair; H/L retain the historical names of the wide M-dwarf pair. Do not label the H/L source A/B as the same pair as the giants."
+    },
+    {
+      "id": "chi-draconis",
+      "name": "Chi Draconis",
+      "sourceRef": "close-4539",
+      "components": [
+        {
+          "starId": "cns5-4539",
+          "label": "A",
+          "cns5Id": "4539",
+          "alternateStarIds": [
+            "hip-89937"
+          ]
+        },
+        {
+          "starId": "chi-draconis-b",
+          "label": "B"
+        }
+      ],
+      "note": "The Table 5 masses use the paper orbital solution. Individual spectral types and blended photometry are withheld."
+    },
+    {
+      "id": "mu-cassiopeiae",
+      "name": "Mu Cassiopeiae",
+      "sourceRef": "close-317",
+      "components": [
+        {
+          "starId": "cns5-0317",
+          "label": "A",
+          "cns5Id": "317"
+        },
+        {
+          "starId": "mu-cassiopeiae-b",
+          "label": "B"
+        }
+      ],
+      "note": "The faint secondary is a confirmed dM star. Retain already reviewed primary-only Bond et al. physical values; no third object is inferred."
+    },
+    {
+      "id": "chi1-orionis",
+      "name": "Chi1 Orionis",
+      "sourceRef": "close-1464",
+      "components": [
+        {
+          "starId": "cns5-1464",
+          "label": "A",
+          "cns5Id": "1464",
+          "alternateStarIds": [
+            "hip-27913"
+          ]
+        },
+        {
+          "starId": "chi1-orionis-b",
+          "label": "B"
+        }
+      ],
+      "note": "The directly detected companion is stellar. Model age disagreements are retained as unknown individual ages."
+    },
+    {
+      "id": "zeta-herculis",
+      "name": "Zeta Herculis",
+      "sourceRef": "close-4097",
+      "components": [
+        {
+          "starId": "cns5-4097",
+          "label": "A",
+          "cns5Id": "4097",
+          "alternateStarIds": [
+            "hip-81693"
+          ]
+        },
+        {
+          "starId": "zeta-herculis-b",
+          "label": "B"
+        }
+      ],
+      "note": "Published A/B membership is adopted. Calibration-dependent masses and a hypothetical unseen substellar companion are not adopted."
+    },
+    {
+      "id": "iota-pegasi",
+      "name": "Iota Pegasi",
+      "sourceRef": "close-5470",
+      "components": [
+        {
+          "starId": "cns5-5470",
+          "label": "A",
+          "cns5Id": "5470",
+          "alternateStarIds": [
+            "hip-109176"
+          ]
+        },
+        {
+          "starId": "iota-pegasi-b",
+          "label": "B"
+        }
+      ],
+      "note": "Adopt component dynamical masses, without copying combined spectrum or photometry."
+    },
+    {
+      "id": "hd-104304",
+      "name": "HD 104304",
+      "sourceRef": "close-2945",
+      "components": [
+        {
+          "starId": "cns5-2945",
+          "label": "A",
+          "cns5Id": "2945"
+        },
+        {
+          "starId": "hd-104304-b",
+          "label": "B"
+        }
+      ],
+      "note": "Resolved common-proper-motion companion. M4V and the 0.21 solar mass estimate are photometrically derived, not a resolved spectral or dynamical measurement."
+    },
+    {
+      "id": "gamma-cephei",
+      "name": "Gamma Cephei",
+      "sourceRef": "close-5833",
+      "components": [
+        {
+          "starId": "cns5-5833",
+          "label": "A",
+          "cns5Id": "5833",
+          "alternateStarIds": [
+            "hip-116727"
+          ]
+        },
+        {
+          "starId": "gamma-cephei-b",
+          "label": "B"
+        }
+      ],
+      "note": "The orbit analysis identifies a stellar secondary. Its inferred M4 class and mass depend on the primary model and are withheld here. The planet remains outside this stellar-component card."
+    },
+    {
+      "id": "alpha-centauri",
+      "name": "Alpha Centauri",
+      "sourceRef": "reyle-2023",
+      "components": [
+        {
+          "starId": "alpha-centauri-a",
+          "label": "A",
+          "alternateStarIds": [
+            "hip-71683"
+          ]
+        },
+        {
+          "starId": "alpha-centauri-b",
+          "label": "B"
+        },
+        {
+          "starId": "proxima-centauri",
+          "label": "C"
+        }
+      ]
+    },
+    {
+      "id": "sirius",
+      "name": "Sirius",
+      "sourceRef": "reyle-2023",
+      "components": [
+        {
+          "starId": "sirius-a",
+          "label": "A",
+          "alternateStarIds": [
+            "hip-32349"
+          ]
+        },
+        {
+          "starId": "sirius-b",
+          "label": "B"
+        }
+      ]
+    },
+    {
+      "id": "procyon",
+      "name": "Procyon",
+      "sourceRef": "reyle-2023",
+      "components": [
+        {
+          "starId": "10pc-0031",
+          "label": "A",
+          "alternateStarIds": [
+            "hip-37279",
+            "bright-procyon"
+          ]
+        },
+        {
+          "starId": "10pc-0032",
+          "label": "B"
+        }
+      ]
+    },
+    {
+      "id": "rigel",
+      "name": "Rigel",
+      "sourceRef": "msc-20260619",
+      "components": [
+        {
+          "starId": "bright-rigel",
+          "label": "A",
+          "alternateStarIds": [
+            "hip-24436"
+          ]
+        },
+        {
+          "starId": "rigel-ba",
+          "label": "Ba"
+        },
+        {
+          "starId": "rigel-bb",
+          "label": "Bb"
+        },
+        {
+          "starId": "rigel-c",
+          "label": "C"
+        }
+      ],
+      "note": "Grade-5 MSC system A-(Ba,Bb,C); B is a spectroscopic pair, not one individual star. The visual C companion completes the quadruple. D is not admitted; the old proposed inner companion of A was contested."
+    }
+  ]
+}

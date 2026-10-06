@@ -2,9 +2,9 @@
   "schemaVersion": 1,
   "id": "western-constellation-stars",
   "label": "Western constellation stars",
-  "description": "All unique Hipparcos stars used as vertices in Stellarium's Western constellation line figures, plus the Sun.",
+  "description": "All unique Hipparcos vertices in Stellarium's Western constellation figures with reviewed individual companions, plus the Sun.",
   "epoch": 2000,
-  "objectCount": 692,
+  "objectCount": 714,
   "sources": [
     {
       "name": "Stellarium Western sky culture line figures, commit 014fbb5",
@@ -43,11 +43,11 @@
       "url": "https://doi.org/10.1051/0004-6361:200810124"
     },
     {
-      "name": "Allende Prieto & Lambert 1999 Hipparcos-star evolutionary models; exact HIP identifiers",
+      "name": "Allende Prieto & Lambert 1999, exact-Hipparcos stellar models",
       "url": "https://cdsarc.cds.unistra.fr/viz-bin/cat/J/A+A/352/555"
     },
     {
-      "name": "McDonald et al. 2012 Hipparcos-star SED models; exact HIP identifiers",
+      "name": "McDonald et al. 2012, exact-Hipparcos SED luminosities",
       "url": "https://cdsarc.cds.unistra.fr/viz-bin/cat/J/MNRAS/427/343"
     },
     {
@@ -87,18 +87,66 @@
       "url": "https://arxiv.org/abs/0911.3143"
     },
     {
-      "name": "Allende Prieto & Lambert 1999, exact-Hipparcos stellar models",
-      "url": "https://cdsarc.cds.unistra.fr/viz-bin/cat/J/A+A/352/555"
-    },
-    {
-      "name": "McDonald et al. 2012, exact-Hipparcos SED luminosities",
-      "url": "https://cdsarc.cds.unistra.fr/viz-bin/cat/J/MNRAS/427/343"
-    },
-    {
       "name": "Gaia DR3, exact-ID quality-filtered astrophysical parameters",
       "url": "https://gea.esac.esa.int/archive/"
+    },
+    {
+      "name": "SIMBAD mesFe_h: exact-object published spectroscopic temperatures and photospheric iron abundances, full measurement pool frozen 2026-10-05",
+      "url": "https://simbad.cds.unistra.fr/simbad/sim-tap"
+    },
+    {
+      "name": "Bond et al. 2020, Mu Cas A dynamical mass, preferred physical parameters and uncertain model age",
+      "url": "https://arxiv.org/abs/2010.06609"
+    },
+    {
+      "name": "Kallinger et al. 2019, Rho Persei granulation-scaling mass and published SED luminosity/radius",
+      "url": "https://arxiv.org/html/1902.07531"
+    },
+    {
+      "name": "10pc census, Reyle et al., tablea1 update 2023-08-25",
+      "url": "https://vizier.cds.unistra.fr/viz-bin/VizieR?-source=J%2FA%2BA%2F650%2FA201"
+    },
+    {
+      "name": "Mamajek et al. 2013, The Solar Neighborhood XXX: Fomalhaut C; Fomalhaut system membership",
+      "url": "https://arxiv.org/abs/1310.0764"
+    },
+    {
+      "name": "Farrington et al. 2010, resolved Chi Draconis binary",
+      "url": "https://chara.gsu.edu/files/papers/2010_Farrington_AJ_139_2308.pdf"
+    },
+    {
+      "name": "Marcussen et al. 2026, Mu Herculis Aa/Ab/B/C membership and dynamical masses",
+      "url": "https://arxiv.org/abs/2604.12492"
+    },
+    {
+      "name": "Koenig et al. 2002, direct detection of Chi1 Orionis B",
+      "url": "https://arxiv.org/abs/astro-ph/0209404"
+    },
+    {
+      "name": "Corrected CNS5, 2023-12-13; component identities and labels",
+      "url": "https://cdsarc.cds.unistra.fr/ftp/J/A+A/670/A19/ReadMe"
+    },
+    {
+      "name": "Morel et al. 2001, Zeta Herculis stellar binary",
+      "url": "https://arxiv.org/abs/astro-ph/0110004"
+    },
+    {
+      "name": "Boden and Koresko 1998, resolved Iota Pegasi orbit and masses",
+      "url": "https://arxiv.org/abs/astro-ph/9811029"
+    },
+    {
+      "name": "Torres et al. 2015, resolved giant-pair properties and Capella HL membership",
+      "url": "https://arxiv.org/abs/1505.07461"
+    },
+    {
+      "name": "Torres 2006, Gamma Cephei stellar binary orbit",
+      "url": "https://arxiv.org/abs/astro-ph/0609638"
+    },
+    {
+      "name": "Tokovinin Multiple Star Catalog, June 19 2026 snapshot; Rigel hierarchy and component labels",
+      "url": "https://www.ctio.noirlab.edu/~atokovin/stars/"
     }
   ],
-  "cutoffPolicy": "Every unique numeric Hipparcos vertex in all 88 Stellarium Western constellation line figures. Non-numeric drawing-style tokens are ignored. No apparent-magnitude cutoff is applied; Sun is included only as the map origin.",
-  "snapshot": "Stellarium commit 014fbb5e59233d133c22f9811af96b67d05a95c9; SIMBAD, Hipparcos, VizieR and Gaia snapshots frozen 2026-10-01; 691 figure stars plus Sun."
+  "cutoffPolicy": "Every unique numeric Hipparcos vertex in all 88 Stellarium Western constellation line figures, plus reviewed companions of explicitly matched landmarks. Non-numeric drawing-style tokens are ignored. No apparent-magnitude cutoff is applied; Sun is included only as the map origin. Component-resolved records replace reviewed blended primaries.",
+  "snapshot": "Stellarium commit 014fbb5e59233d133c22f9811af96b67d05a95c9; SIMBAD, Hipparcos, VizieR and Gaia snapshots frozen 2026-10-01; 691 original figure landmarks plus reviewed companions (2026-10-06) and Sun."
 }

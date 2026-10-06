@@ -12,6 +12,8 @@ import { formatDistance, LIGHT_YEARS_PER_PARSEC, starDisplayColor, sunRelativeMe
 import { EARTH_ORBIT_MODES, earthOrbitDateForMode, earthOrbitModeLabel, isEarthOrbitMode, type EarthOrbitMode } from './earth-orbit'
 import { MOTION_YEAR_OPTIONS, SIMULATION_YEAR_LIMIT, createStarViewer, type MotionYears, type StarViewer, type ViewerViewState } from './viewer'
 import { isObjectMapVisible } from './viewer-primitives'
+import { renderSelectedStarPreview } from './selected-star-preview'
+import { indexStarSystems, type StarSystem } from './star-systems'
 import {
   availableFilterKeys, categoryAvailable, DEFAULT_FILTER_CATEGORIES, DEFAULT_FILTER_SUBTYPES, effectiveFilterKeys, FILTER_CATEGORIES,
   filterCategoryForKey, filterSummary, isFilterCategoryId, isFilterKey, type FilterCategoryId, type FilterKey,
@@ -96,11 +98,15 @@ icon('time-now-icon', RotateCcw)
 icon('time-follow-icon', Crosshair)
 icon('time-slower-icon', Minus)
 icon('time-faster-icon', Plus)
+icon('object-specs-icon', List)
+icon('object-info-icon', BookOpen)
+icon('object-system-icon', Orbit)
 
 const events = new AbortController()
 initializeGlossary(events.signal)
 let viewer: StarViewer | undefined
 let stars: Star[] = []
+let starSystems: ReadonlyMap<string, StarSystem> = new Map()
 let activeCatalogId = ''
 let selectedId: string | null = 'sirius-a'
 let observerId = 'sirius-a'
@@ -621,6 +627,77 @@ function renderGridScale(scale: GridScale): void {
   text('grid-spacing', `${scale.spacing.toLocaleString('en-US', { maximumFractionDigits: 1 })} ${distanceUnit} grid`)
 }
 
+const objectSections = ['specs', 'info', 'system'] as const
+let activeObjectSection: typeof objectSections[number] = 'specs'
+
+function syncObjectSections(): void {
+  const details = element<HTMLDetailsElement>('object-card-details')
+  for (const section of objectSections) {
+    const active = section === activeObjectSection
+    element(`object-${section}`).hidden = !active
+    element(`object-${section}-toggle`).setAttribute('aria-expanded', String(details.open && active))
+  }
+  syncSelectedObjectLayout()
+}
+
+for (const section of objectSections) {
+  element(`object-${section}-toggle`).addEventListener('click', (event) => {
+    event.preventDefault()
+    event.stopPropagation()
+    const details = element<HTMLDetailsElement>('object-card-details')
+    const opening = !details.open || activeObjectSection !== section
+    activeObjectSection = section
+    details.open = opening
+    if (section !== 'specs') {
+      closeObjectTypeCard()
+      closeMetallicityCard()
+    }
+    syncObjectSections()
+  }, { signal: events.signal })
+}
+element('object-card-details').addEventListener('toggle', syncObjectSections, { signal: events.signal })
+syncObjectSections()
+
+function renderSystemComponents(system: StarSystem | undefined, selectedComponentId: string): void {
+  const group = element('star-components')
+  group.hidden = !system
+  const preview = element<HTMLCanvasElement>('selected-swatch')
+  preview.title = system ? `${system.components.length} cataloged components · illustrative arrangement` : ''
+  if (!system) {
+    group.replaceChildren()
+    delete group.dataset.system
+    return
+  }
+  group.setAttribute('aria-label', `${system.name} components`)
+  const key = system.components.map(({ label, star }) => `${label}:${star.id}`).join('|')
+  // Retain the buttons while switching components so keyboard focus stays put.
+  if (group.dataset.system !== key) {
+    group.dataset.system = key
+    group.replaceChildren(...system.components.map(({ label, star }) => {
+      const button = document.createElement('button')
+      button.type = 'button'
+      button.className = 'star-component'
+      button.dataset.componentId = star.id
+      button.textContent = label
+      button.title = star.name
+      button.setAttribute('aria-label', `Show ${system.name} ${label}${star.id === 'proxima-centauri' ? ' (Proxima Centauri)' : ''}`)
+      return button
+    }))
+  }
+  for (const button of group.querySelectorAll<HTMLButtonElement>('button')) {
+    button.setAttribute('aria-pressed', String(button.dataset.componentId === selectedComponentId))
+  }
+}
+
+element('star-components').addEventListener('click', (event) => {
+  const button = (event.target as HTMLElement).closest<HTMLButtonElement>('button[data-component-id]')
+  if (!button?.dataset.componentId) return
+  // Component buttons live below the distance inside the expandable header.
+  event.preventDefault()
+  event.stopPropagation()
+  selectStar(button.dataset.componentId)
+}, { signal: events.signal })
+
 function renderSelection(): void {
   const sun = stars.find((star) => star.id === 'sun')!
   const reference = stars.find((star) => star.id === referenceId) ?? sun
@@ -647,9 +724,11 @@ function renderSelection(): void {
   const color = starDisplayColor(star, starColorMode).getStyle()
   element('inspector').dataset.selectedStar = star.id
   element('inspector').style.setProperty('--selected-star-color', color)
-  text('star-name', star.name)
+  const system = starSystems.get(star.id)
+  text('star-name', system?.name ?? star.name)
   renderSelectedDistance(displayedDistancePc)
-  element('selected-swatch').style.background = color
+  renderSystemComponents(system, star.id)
+  renderSelectedStarPreview(element<HTMLCanvasElement>('selected-swatch'), star, starColorMode, system?.components.map((component) => component.star))
   text('distance-value', formatDistance(metrics.distancePc, distanceUnit).split(' ')[0]!)
   text('distance-unit', ` ${distanceUnit}`)
   text('object-type', describeObject(star))
@@ -875,6 +954,7 @@ async function switchCatalog(id: string, refresh = false): Promise<void> {
   viewer?.dispose()
   viewer = undefined
   stars = nextStars
+  starSystems = indexStarSystems(stars)
   activeCatalogId = id
   selectedDistancePc = null
   selectedId = retained.selectedId
@@ -1072,7 +1152,10 @@ function savedViewDate(isoDate: string): string {
 function setSavedViewsStatus(message: string): void {
   const status = element('saved-views-status')
   status.textContent = message
-  status.title = message
+  const input = element<HTMLInputElement>('save-view-name')
+  input.placeholder = message || 'Name this view'
+  input.title = message
+  input.toggleAttribute('data-status', Boolean(message))
 }
 
 function writeSavedViews(next: SavedView[]): boolean {
@@ -1476,6 +1559,7 @@ element<HTMLFormElement>('save-view-form').addEventListener('submit', (event) =>
   event.preventDefault()
   saveCurrentView()
 }, { signal: events.signal })
+element('save-view-name').addEventListener('input', () => setSavedViewsStatus(''), { signal: events.signal })
 element('saved-views-list').addEventListener('click', (event) => {
   const target = event.target
   if (!(target instanceof Element)) return

@@ -1,0 +1,5055 @@
+{
+  "schemaVersion": 1,
+  "reviewDate": "2026-10-05",
+  "scope": "Three base catalogs, excluding optional overlays; frozen-source association review, no runtime changes.",
+  "catalogs": {
+    "nearest-neighbors": {
+      "objects": 21,
+      "supportedSystems": 5,
+      "sourceGroups": 5,
+      "remainingUpdates": 0
+    },
+    "nearest-100": {
+      "objects": 100,
+      "supportedSystems": 20,
+      "sourceGroups": 20,
+      "remainingUpdates": 0
+    },
+    "nearest-1000": {
+      "objects": 1000,
+      "supportedSystems": 31,
+      "sourceGroups": 112,
+      "remainingUpdates": 84
+    }
+  },
+  "summary": {
+    "research-required": 17,
+    "association-candidate": 67
+  },
+  "remainingGroups": [
+    {
+      "sourceKeys": [
+        "census:75",
+        "gj:229"
+      ],
+      "status": "research-required",
+      "extendsCard": null,
+      "components": [
+        {
+          "starId": "10pc-0138",
+          "name": "GJ 229 A",
+          "type": "star",
+          "label": "A",
+          "sourceRecords": [
+            {
+              "cns5Id": "1528",
+              "gj": "229",
+              "label": "A",
+              "total": "2",
+              "primary": "1",
+              "primaryGj": "",
+              "simbadType": "PM*",
+              "simbadId": "HD  42581"
+            }
+          ]
+        },
+        {
+          "starId": "cns5-1529",
+          "name": "HD 42581B",
+          "type": "brown_dwarf",
+          "label": "B",
+          "sourceRecords": [
+            {
+              "cns5Id": "1529",
+              "gj": "229",
+              "label": "B",
+              "total": "2",
+              "primary": "0",
+              "primaryGj": "",
+              "simbadType": "BD*",
+              "simbadId": "HD  42581B"
+            }
+          ]
+        }
+      ],
+      "notes": [
+        "GJ 229 B is resolved into Ba/Bb in 2024; bundled B is a combined old record."
+      ],
+      "references": [
+        "https://arxiv.org/abs/2410.11953"
+      ]
+    },
+    {
+      "sourceKeys": [
+        "gj:570"
+      ],
+      "status": "research-required",
+      "extendsCard": null,
+      "components": [
+        {
+          "starId": "cns5-3699",
+          "name": "GJ 570 D",
+          "type": "brown_dwarf",
+          "label": "B",
+          "sourceRecords": [
+            {
+              "cns5Id": "3699",
+              "gj": "12147",
+              "label": "B",
+              "total": "2",
+              "primary": "0",
+              "primaryGj": "570.",
+              "simbadType": "BD*",
+              "simbadId": "GJ 570 D"
+            }
+          ]
+        },
+        {
+          "starId": "cns5-3700",
+          "name": "HD 131977",
+          "type": "star",
+          "label": "A",
+          "sourceRecords": [
+            {
+              "cns5Id": "3700",
+              "gj": "570",
+              "label": "A",
+              "total": "2",
+              "primary": "1",
+              "primaryGj": "",
+              "simbadType": "BY*",
+              "simbadId": "HD 131977"
+            }
+          ]
+        }
+      ],
+      "notes": [
+        "CNS5 calls the brown dwarf B, but its published/catalog designation is D; B/C are absent.",
+        "GJ 570 D: published name suffix differs from CNS5 label B."
+      ],
+      "references": [
+        "https://arxiv.org/abs/astro-ph/0001194"
+      ]
+    },
+    {
+      "sourceKeys": [
+        "gj:752"
+      ],
+      "status": "association-candidate",
+      "extendsCard": null,
+      "components": [
+        {
+          "starId": "cns5-4779",
+          "name": "HD 180617",
+          "type": "star",
+          "label": "A",
+          "sourceRecords": [
+            {
+              "cns5Id": "4779",
+              "gj": "752",
+              "label": "A",
+              "total": "2",
+              "primary": "1",
+              "primaryGj": "",
+              "simbadType": "PM*",
+              "simbadId": "HD 180617"
+            }
+          ]
+        },
+        {
+          "starId": "cns5-4780",
+          "name": "VB 10",
+          "type": "star",
+          "label": "B",
+          "sourceRecords": [
+            {
+              "cns5Id": "4780",
+              "gj": "752",
+              "label": "B",
+              "total": "2",
+              "primary": "0",
+              "primaryGj": "",
+              "simbadType": "PM*",
+              "simbadId": "VB 10"
+            }
+          ]
+        }
+      ],
+      "notes": [],
+      "references": []
+    },
+    {
+      "sourceKeys": [
+        "gj:34"
+      ],
+      "status": "association-candidate",
+      "extendsCard": null,
+      "components": [
+        {
+          "starId": "cns5-0238",
+          "name": "Eta Cas B",
+          "type": "star",
+          "label": "B",
+          "sourceRecords": [
+            {
+              "cns5Id": "238",
+              "gj": "34",
+              "label": "B",
+              "total": "2",
+              "primary": "0",
+              "primaryGj": "",
+              "simbadType": "PM*",
+              "simbadId": "* eta Cas B"
+            }
+          ]
+        },
+        {
+          "starId": "cns5-0239",
+          "name": "Achird",
+          "type": "star",
+          "label": "A",
+          "sourceRecords": [
+            {
+              "cns5Id": "239",
+              "gj": "34",
+              "label": "A",
+              "total": "2",
+              "primary": "1",
+              "primaryGj": "",
+              "simbadType": "PM*",
+              "simbadId": "* eta Cas"
+            }
+          ]
+        }
+      ],
+      "notes": [],
+      "references": []
+    },
+    {
+      "sourceKeys": [
+        "gj:663"
+      ],
+      "status": "association-candidate",
+      "extendsCard": "36 Oph",
+      "components": [
+        {
+          "starId": "cns5-4232",
+          "name": "36 Oph A",
+          "type": "star",
+          "label": "A",
+          "sourceRecords": [
+            {
+              "cns5Id": "4232",
+              "gj": "663",
+              "label": "A",
+              "total": "3",
+              "primary": "1",
+              "primaryGj": "",
+              "simbadType": "PM*",
+              "simbadId": "*  36 Oph A"
+            }
+          ]
+        },
+        {
+          "starId": "cns5-4233",
+          "name": "36 Oph B",
+          "type": "star",
+          "label": "B",
+          "sourceRecords": [
+            {
+              "cns5Id": "4233",
+              "gj": "663",
+              "label": "B",
+              "total": "3",
+              "primary": "0",
+              "primaryGj": "",
+              "simbadType": "PM*",
+              "simbadId": "*  36 Oph B"
+            }
+          ]
+        },
+        {
+          "starId": "cns5-4238",
+          "name": "V2215 Oph",
+          "type": "star",
+          "label": "C",
+          "sourceRecords": [
+            {
+              "cns5Id": "4238",
+              "gj": "664",
+              "label": "C",
+              "total": "3",
+              "primary": "0",
+              "primaryGj": "663.",
+              "simbadType": "RS*",
+              "simbadId": "V* V2215 Oph"
+            }
+          ]
+        }
+      ],
+      "notes": [],
+      "references": []
+    },
+    {
+      "sourceKeys": [
+        "gj:644"
+      ],
+      "status": "research-required",
+      "extendsCard": null,
+      "components": [
+        {
+          "starId": "cns5-4135",
+          "name": "HD 152751C",
+          "type": "star",
+          "label": "E",
+          "sourceRecords": [
+            {
+              "cns5Id": "4135",
+              "gj": "643",
+              "label": "E",
+              "total": "5",
+              "primary": "0",
+              "primaryGj": "644.",
+              "simbadType": "PM*",
+              "simbadId": "HD 152751C"
+            }
+          ]
+        },
+        {
+          "starId": "cns5-4136",
+          "name": "HD 152751",
+          "type": "star",
+          "label": "AB",
+          "sourceRecords": [
+            {
+              "cns5Id": "4136",
+              "gj": "644",
+              "label": "AB",
+              "total": "5",
+              "primary": "1",
+              "primaryGj": "",
+              "simbadType": "SB*",
+              "simbadId": "HD 152751"
+            }
+          ]
+        },
+        {
+          "starId": "cns5-4137",
+          "name": "VB 8",
+          "type": "brown_dwarf",
+          "label": "CD",
+          "sourceRecords": [
+            {
+              "cns5Id": "4137",
+              "gj": "644",
+              "label": "CD",
+              "total": "5",
+              "primary": "0",
+              "primaryGj": "",
+              "simbadType": "LM*",
+              "simbadId": "VB  8"
+            }
+          ]
+        }
+      ],
+      "notes": [
+        "AB and CD are compound component records; five physical members are not five independent rows.",
+        "HD 152751C: published name suffix differs from CNS5 label E.",
+        "HD 152751: missing or compound CNS5 label.",
+        "HD 152751: frozen SIMBAD spectroscopic-binary flag; confirm whether this row is an individual or subsystem.",
+        "VB 8: missing or compound CNS5 label."
+      ],
+      "references": []
+    },
+    {
+      "sourceKeys": [
+        "gj:896"
+      ],
+      "status": "association-candidate",
+      "extendsCard": null,
+      "components": [
+        {
+          "starId": "cns5-5800",
+          "name": "BD+19 5116A",
+          "type": "star",
+          "label": "A",
+          "sourceRecords": [
+            {
+              "cns5Id": "5800",
+              "gj": "896",
+              "label": "A",
+              "total": "2",
+              "primary": "1",
+              "primaryGj": "",
+              "simbadType": "PM*",
+              "simbadId": "BD+19  5116A"
+            }
+          ]
+        },
+        {
+          "starId": "cns5-5801",
+          "name": "BD+19 5116B",
+          "type": "star",
+          "label": "B",
+          "sourceRecords": [
+            {
+              "cns5Id": "5801",
+              "gj": "896",
+              "label": "B",
+              "total": "2",
+              "primary": "0",
+              "primaryGj": "",
+              "simbadType": "PM*",
+              "simbadId": "BD+19  5116B"
+            }
+          ]
+        }
+      ],
+      "notes": [],
+      "references": []
+    },
+    {
+      "sourceKeys": [
+        "gj:338"
+      ],
+      "status": "research-required",
+      "extendsCard": null,
+      "components": [
+        {
+          "starId": "cns5-2293",
+          "name": "HD 79210",
+          "type": "star",
+          "label": "A",
+          "sourceRecords": [
+            {
+              "cns5Id": "2293",
+              "gj": "338",
+              "label": "A",
+              "total": "2",
+              "primary": "1",
+              "primaryGj": "",
+              "simbadType": "SB*",
+              "simbadId": "HD  79210"
+            }
+          ]
+        },
+        {
+          "starId": "cns5-2295",
+          "name": "HD 79211",
+          "type": "star",
+          "label": "B",
+          "sourceRecords": [
+            {
+              "cns5Id": "2295",
+              "gj": "338",
+              "label": "B",
+              "total": "2",
+              "primary": "0",
+              "primaryGj": "",
+              "simbadType": "PM*",
+              "simbadId": "HD  79211"
+            }
+          ]
+        }
+      ],
+      "notes": [
+        "HD 79210: frozen SIMBAD spectroscopic-binary flag; confirm whether this row is an individual or subsystem."
+      ],
+      "references": []
+    },
+    {
+      "sourceKeys": [
+        "gj:105"
+      ],
+      "status": "association-candidate",
+      "extendsCard": null,
+      "components": [
+        {
+          "starId": "cns5-0658",
+          "name": "HD 16160",
+          "type": "star",
+          "label": "A",
+          "sourceRecords": [
+            {
+              "cns5Id": "658",
+              "gj": "105",
+              "label": "A",
+              "total": "2",
+              "primary": "1",
+              "primaryGj": "",
+              "simbadType": "PM*",
+              "simbadId": "HD  16160"
+            }
+          ]
+        },
+        {
+          "starId": "cns5-0659",
+          "name": "BX Cet",
+          "type": "star",
+          "label": "B",
+          "sourceRecords": [
+            {
+              "cns5Id": "659",
+              "gj": "105",
+              "label": "B",
+              "total": "2",
+              "primary": "0",
+              "primaryGj": "",
+              "simbadType": "BY*",
+              "simbadId": "V* BX Cet"
+            }
+          ]
+        }
+      ],
+      "notes": [
+        "A/B association is supported, but GJ 105 C is missing from runtime; this would be a partial system, not a complete binary."
+      ],
+      "references": [
+        "https://arxiv.org/abs/2505.08042"
+      ]
+    },
+    {
+      "sourceKeys": [
+        "gj:257"
+      ],
+      "status": "association-candidate",
+      "extendsCard": null,
+      "components": [
+        {
+          "starId": "cns5-1723",
+          "name": "CD-44 3045B",
+          "type": "star",
+          "label": "B",
+          "sourceRecords": [
+            {
+              "cns5Id": "1723",
+              "gj": "257",
+              "label": "B",
+              "total": "2",
+              "primary": "0",
+              "primaryGj": "",
+              "simbadType": "PM*",
+              "simbadId": "CD-44  3045B"
+            }
+          ]
+        },
+        {
+          "starId": "cns5-1724",
+          "name": "CD-44 3045A",
+          "type": "star",
+          "label": "A",
+          "sourceRecords": [
+            {
+              "cns5Id": "1724",
+              "gj": "257",
+              "label": "A",
+              "total": "2",
+              "primary": "1",
+              "primaryGj": "",
+              "simbadType": "PM*",
+              "simbadId": "CD-44  3045A"
+            }
+          ]
+        }
+      ],
+      "notes": [],
+      "references": []
+    },
+    {
+      "sourceKeys": [
+        "gj:185"
+      ],
+      "status": "association-candidate",
+      "extendsCard": null,
+      "components": [
+        {
+          "starId": "cns5-1263",
+          "name": "HD 32450B",
+          "type": "star",
+          "label": "B",
+          "sourceRecords": [
+            {
+              "cns5Id": "1263",
+              "gj": "185",
+              "label": "B",
+              "total": "2",
+              "primary": "0",
+              "primaryGj": "",
+              "simbadType": "PM*",
+              "simbadId": "HD  32450B"
+            }
+          ]
+        },
+        {
+          "starId": "cns5-1264",
+          "name": "HD 32450A",
+          "type": "star",
+          "label": "A",
+          "sourceRecords": [
+            {
+              "cns5Id": "1264",
+              "gj": "185",
+              "label": "A",
+              "total": "2",
+              "primary": "1",
+              "primaryGj": "",
+              "simbadType": "PM*",
+              "simbadId": "HD  32450A"
+            }
+          ]
+        }
+      ],
+      "notes": [],
+      "references": []
+    },
+    {
+      "sourceKeys": [
+        "gj:618"
+      ],
+      "status": "association-candidate",
+      "extendsCard": null,
+      "components": [
+        {
+          "starId": "cns5-4000",
+          "name": "CD-37 10765B",
+          "type": "star",
+          "label": "B",
+          "sourceRecords": [
+            {
+              "cns5Id": "4000",
+              "gj": "618",
+              "label": "B",
+              "total": "2",
+              "primary": "0",
+              "primaryGj": "",
+              "simbadType": "PM*",
+              "simbadId": "CD-37 10765B"
+            }
+          ]
+        },
+        {
+          "starId": "cns5-4001",
+          "name": "CD-37 10765",
+          "type": "star",
+          "label": "A",
+          "sourceRecords": [
+            {
+              "cns5Id": "4001",
+              "gj": "618",
+              "label": "A",
+              "total": "2",
+              "primary": "1",
+              "primaryGj": "",
+              "simbadType": "PM*",
+              "simbadId": "CD-37 10765"
+            }
+          ]
+        }
+      ],
+      "notes": [],
+      "references": []
+    },
+    {
+      "sourceKeys": [
+        "gj:423"
+      ],
+      "status": "research-required",
+      "extendsCard": null,
+      "components": [
+        {
+          "starId": "cns5-2767",
+          "name": "Alula Australis",
+          "type": "star",
+          "label": "ABCD",
+          "sourceRecords": [
+            {
+              "cns5Id": "2767",
+              "gj": "423",
+              "label": "ABCD",
+              "total": "5",
+              "primary": "1",
+              "primaryGj": "",
+              "simbadType": "RS*",
+              "simbadId": "* ksi UMa"
+            }
+          ]
+        },
+        {
+          "starId": "cns5-2771",
+          "name": "Xi UMa C",
+          "type": "brown_dwarf",
+          "label": "E",
+          "sourceRecords": [
+            {
+              "cns5Id": "2771",
+              "gj": "423",
+              "label": "E",
+              "total": "5",
+              "primary": "0",
+              "primaryGj": "",
+              "simbadType": "BD*",
+              "simbadId": "* ksi UMa C"
+            }
+          ]
+        }
+      ],
+      "notes": [
+        "Alula Australis is a combined ABCD record; the brown dwarf is called Xi UMa C but CNS5 labels E.",
+        "Alula Australis: missing or compound CNS5 label.",
+        "Xi UMa C: published name suffix differs from CNS5 label E."
+      ],
+      "references": []
+    },
+    {
+      "sourceKeys": [
+        "gj:666"
+      ],
+      "status": "association-candidate",
+      "extendsCard": null,
+      "components": [
+        {
+          "starId": "cns5-4254",
+          "name": "41 Ara B",
+          "type": "star",
+          "label": "B",
+          "sourceRecords": [
+            {
+              "cns5Id": "4254",
+              "gj": "666",
+              "label": "B",
+              "total": "2",
+              "primary": "0",
+              "primaryGj": "",
+              "simbadType": "Em*",
+              "simbadId": "*  41 Ara B"
+            }
+          ]
+        },
+        {
+          "starId": "cns5-4255",
+          "name": "41 Ara",
+          "type": "star",
+          "label": "A",
+          "sourceRecords": [
+            {
+              "cns5Id": "4255",
+              "gj": "666",
+              "label": "A",
+              "total": "2",
+              "primary": "1",
+              "primaryGj": "",
+              "simbadType": "PM*",
+              "simbadId": "*  41 Ara"
+            }
+          ]
+        }
+      ],
+      "notes": [],
+      "references": []
+    },
+    {
+      "sourceKeys": [
+        "gj:745"
+      ],
+      "status": "association-candidate",
+      "extendsCard": null,
+      "components": [
+        {
+          "starId": "cns5-4746",
+          "name": "Ross 730",
+          "type": "star",
+          "label": "A",
+          "sourceRecords": [
+            {
+              "cns5Id": "4746",
+              "gj": "745",
+              "label": "A",
+              "total": "2",
+              "primary": "1",
+              "primaryGj": "",
+              "simbadType": "PM*",
+              "simbadId": "Ross  730"
+            }
+          ]
+        },
+        {
+          "starId": "cns5-4747",
+          "name": "HD 349726",
+          "type": "star",
+          "label": "B",
+          "sourceRecords": [
+            {
+              "cns5Id": "4747",
+              "gj": "745",
+              "label": "B",
+              "total": "2",
+              "primary": "0",
+              "primaryGj": "",
+              "simbadType": "PM*",
+              "simbadId": "HD 349726"
+            }
+          ]
+        }
+      ],
+      "notes": [],
+      "references": []
+    },
+    {
+      "sourceKeys": [
+        "gj:10949"
+      ],
+      "status": "association-candidate",
+      "extendsCard": null,
+      "components": [
+        {
+          "starId": "cns5-1624",
+          "name": "L 32-9",
+          "type": "star",
+          "label": "A",
+          "sourceRecords": [
+            {
+              "cns5Id": "1624",
+              "gj": "10949",
+              "label": "A",
+              "total": "2",
+              "primary": "1",
+              "primaryGj": "",
+              "simbadType": "PM*",
+              "simbadId": "L   32-9"
+            }
+          ]
+        },
+        {
+          "starId": "cns5-1625",
+          "name": "L 32-8",
+          "type": "star",
+          "label": "B",
+          "sourceRecords": [
+            {
+              "cns5Id": "1625",
+              "gj": "10950",
+              "label": "B",
+              "total": "2",
+              "primary": "0",
+              "primaryGj": "10949",
+              "simbadType": "PM*",
+              "simbadId": "L   32-8"
+            }
+          ]
+        }
+      ],
+      "notes": [],
+      "references": []
+    },
+    {
+      "sourceKeys": [
+        "gj:867"
+      ],
+      "status": "research-required",
+      "extendsCard": null,
+      "components": [
+        {
+          "starId": "cns5-5587",
+          "name": "FL Aqr",
+          "type": "star",
+          "label": "B",
+          "sourceRecords": [
+            {
+              "cns5Id": "5587",
+              "gj": "867",
+              "label": "B",
+              "total": "2",
+              "primary": "0",
+              "primaryGj": "",
+              "simbadType": "SB*",
+              "simbadId": "V* FL Aqr"
+            }
+          ]
+        },
+        {
+          "starId": "cns5-5588",
+          "name": "FK Aqr",
+          "type": "star",
+          "label": "A",
+          "sourceRecords": [
+            {
+              "cns5Id": "5588",
+              "gj": "867",
+              "label": "A",
+              "total": "2",
+              "primary": "1",
+              "primaryGj": "",
+              "simbadType": "SB*",
+              "simbadId": "V* FK Aqr"
+            }
+          ]
+        }
+      ],
+      "notes": [
+        "FL Aqr: frozen SIMBAD spectroscopic-binary flag; confirm whether this row is an individual or subsystem.",
+        "FK Aqr: frozen SIMBAD spectroscopic-binary flag; confirm whether this row is an individual or subsystem."
+      ],
+      "references": [
+        "https://arxiv.org/abs/2312.04247"
+      ]
+    },
+    {
+      "sourceKeys": [
+        "gj:10944"
+      ],
+      "status": "association-candidate",
+      "extendsCard": null,
+      "components": [
+        {
+          "starId": "cns5-1615",
+          "name": "SCR J0630-7643A",
+          "type": "star",
+          "label": "A",
+          "sourceRecords": [
+            {
+              "cns5Id": "1615",
+              "gj": "10944",
+              "label": "A",
+              "total": "2",
+              "primary": "1",
+              "primaryGj": "",
+              "simbadType": "PM*",
+              "simbadId": "SCR J0630-7643A"
+            }
+          ]
+        },
+        {
+          "starId": "cns5-1616",
+          "name": "SCR J0630-7643B",
+          "type": "star",
+          "label": "B",
+          "sourceRecords": [
+            {
+              "cns5Id": "1616",
+              "gj": "10945",
+              "label": "B",
+              "total": "2",
+              "primary": "0",
+              "primaryGj": "10944",
+              "simbadType": "PM*",
+              "simbadId": "SCR J0630-7643B"
+            }
+          ]
+        }
+      ],
+      "notes": [],
+      "references": []
+    },
+    {
+      "sourceKeys": [
+        "gj:216"
+      ],
+      "status": "association-candidate",
+      "extendsCard": null,
+      "components": [
+        {
+          "starId": "cns5-1425",
+          "name": "AK Lep",
+          "type": "star",
+          "label": "B",
+          "sourceRecords": [
+            {
+              "cns5Id": "1425",
+              "gj": "216",
+              "label": "B",
+              "total": "2",
+              "primary": "0",
+              "primaryGj": "",
+              "simbadType": "BY*",
+              "simbadId": "V* AK Lep"
+            }
+          ]
+        },
+        {
+          "starId": "cns5-1427",
+          "name": "Gamma Lep",
+          "type": "star",
+          "label": "A",
+          "sourceRecords": [
+            {
+              "cns5Id": "1427",
+              "gj": "216",
+              "label": "A",
+              "total": "2",
+              "primary": "1",
+              "primaryGj": "",
+              "simbadType": "PM*",
+              "simbadId": "* gam Lep"
+            }
+          ]
+        }
+      ],
+      "notes": [],
+      "references": []
+    },
+    {
+      "sourceKeys": [
+        "gj:283"
+      ],
+      "status": "association-candidate",
+      "extendsCard": null,
+      "components": [
+        {
+          "starId": "cns5-1900",
+          "name": "LP 783-2",
+          "type": "star",
+          "label": "B",
+          "sourceRecords": [
+            {
+              "cns5Id": "1900",
+              "gj": "283",
+              "label": "B",
+              "total": "2",
+              "primary": "0",
+              "primaryGj": "",
+              "simbadType": "PM*",
+              "simbadId": "LP  783-2"
+            }
+          ]
+        },
+        {
+          "starId": "cns5-1901",
+          "name": "LAWD 25",
+          "type": "white_dwarf",
+          "label": "A",
+          "sourceRecords": [
+            {
+              "cns5Id": "1901",
+              "gj": "283",
+              "label": "A",
+              "total": "2",
+              "primary": "1",
+              "primaryGj": "",
+              "simbadType": "WD*",
+              "simbadId": "LAWD 25"
+            }
+          ]
+        }
+      ],
+      "notes": [],
+      "references": []
+    },
+    {
+      "sourceKeys": [
+        "gj:12050"
+      ],
+      "status": "association-candidate",
+      "extendsCard": null,
+      "components": [
+        {
+          "starId": "cns5-3521",
+          "name": "ULAS J141623.94+134836.3",
+          "type": "brown_dwarf",
+          "label": "B",
+          "sourceRecords": [
+            {
+              "cns5Id": "3521",
+              "gj": "12049",
+              "label": "B",
+              "total": "2",
+              "primary": "0",
+              "primaryGj": "12050",
+              "simbadType": "BD*",
+              "simbadId": "ULAS J141623.94+134836.3"
+            }
+          ]
+        },
+        {
+          "starId": "cns5-3522",
+          "name": "2MASS J14162408+1348263",
+          "type": "brown_dwarf",
+          "label": "A",
+          "sourceRecords": [
+            {
+              "cns5Id": "3522",
+              "gj": "12050",
+              "label": "A",
+              "total": "2",
+              "primary": "1",
+              "primaryGj": "",
+              "simbadType": "BD*",
+              "simbadId": "2MASS J14162408+1348263"
+            }
+          ]
+        }
+      ],
+      "notes": [],
+      "references": []
+    },
+    {
+      "sourceKeys": [
+        "gj:442"
+      ],
+      "status": "association-candidate",
+      "extendsCard": null,
+      "components": [
+        {
+          "starId": "cns5-2879",
+          "name": "HD 102365",
+          "type": "star",
+          "label": "A",
+          "sourceRecords": [
+            {
+              "cns5Id": "2879",
+              "gj": "442",
+              "label": "A",
+              "total": "2",
+              "primary": "1",
+              "primaryGj": "",
+              "simbadType": "PM*",
+              "simbadId": "HD 102365"
+            }
+          ]
+        },
+        {
+          "starId": "cns5-2880",
+          "name": "HD 102365B",
+          "type": "star",
+          "label": "B",
+          "sourceRecords": [
+            {
+              "cns5Id": "2880",
+              "gj": "442",
+              "label": "B",
+              "total": "2",
+              "primary": "0",
+              "primaryGj": "",
+              "simbadType": "PM*",
+              "simbadId": "HD 102365B"
+            }
+          ]
+        }
+      ],
+      "notes": [],
+      "references": []
+    },
+    {
+      "sourceKeys": [
+        "gj:432"
+      ],
+      "status": "association-candidate",
+      "extendsCard": null,
+      "components": [
+        {
+          "starId": "cns5-2835",
+          "name": "20 Crt",
+          "type": "star",
+          "label": "A",
+          "sourceRecords": [
+            {
+              "cns5Id": "2835",
+              "gj": "432",
+              "label": "A",
+              "total": "2",
+              "primary": "1",
+              "primaryGj": "",
+              "simbadType": "PM*",
+              "simbadId": "*  20 Crt"
+            }
+          ]
+        },
+        {
+          "starId": "cns5-2836",
+          "name": "20 Crt B",
+          "type": "white_dwarf",
+          "label": "B",
+          "sourceRecords": [
+            {
+              "cns5Id": "2836",
+              "gj": "432",
+              "label": "B",
+              "total": "2",
+              "primary": "0",
+              "primaryGj": "",
+              "simbadType": "WD*",
+              "simbadId": "*  20 Crt B"
+            }
+          ]
+        }
+      ],
+      "notes": [],
+      "references": []
+    },
+    {
+      "sourceKeys": [
+        "gj:680"
+      ],
+      "status": "association-candidate",
+      "extendsCard": null,
+      "components": [
+        {
+          "starId": "cns5-4335",
+          "name": "CD-48 11837B",
+          "type": "star",
+          "label": "B",
+          "sourceRecords": [
+            {
+              "cns5Id": "4335",
+              "gj": "12530",
+              "label": "B",
+              "total": "2",
+              "primary": "0",
+              "primaryGj": "680.",
+              "simbadType": "PM*",
+              "simbadId": "CD-48 11837B"
+            }
+          ]
+        },
+        {
+          "starId": "cns5-4336",
+          "name": "CD-48 11837",
+          "type": "star",
+          "label": "A",
+          "sourceRecords": [
+            {
+              "cns5Id": "4336",
+              "gj": "680",
+              "label": "A",
+              "total": "2",
+              "primary": "1",
+              "primaryGj": "",
+              "simbadType": "PM*",
+              "simbadId": "CD-48 11837"
+            }
+          ]
+        }
+      ],
+      "notes": [],
+      "references": []
+    },
+    {
+      "sourceKeys": [
+        "gj:49"
+      ],
+      "status": "association-candidate",
+      "extendsCard": null,
+      "components": [
+        {
+          "starId": "cns5-0289",
+          "name": "BD+61 195",
+          "type": "star",
+          "label": "A",
+          "sourceRecords": [
+            {
+              "cns5Id": "289",
+              "gj": "49",
+              "label": "A",
+              "total": "2",
+              "primary": "1",
+              "primaryGj": "",
+              "simbadType": "PM*",
+              "simbadId": "BD+61   195"
+            }
+          ]
+        },
+        {
+          "starId": "cns5-0298",
+          "name": "Wolf 47",
+          "type": "star",
+          "label": "B",
+          "sourceRecords": [
+            {
+              "cns5Id": "298",
+              "gj": "51",
+              "label": "B",
+              "total": "2",
+              "primary": "0",
+              "primaryGj": "49.",
+              "simbadType": "PM*",
+              "simbadId": "Wolf   47"
+            }
+          ]
+        }
+      ],
+      "notes": [],
+      "references": []
+    },
+    {
+      "sourceKeys": [
+        "gj:1230"
+      ],
+      "status": "research-required",
+      "extendsCard": null,
+      "components": [
+        {
+          "starId": "cns5-4625",
+          "name": "G 184-19",
+          "type": "star",
+          "label": "A",
+          "sourceRecords": [
+            {
+              "cns5Id": "4625",
+              "gj": "1230",
+              "label": "A",
+              "total": "2",
+              "primary": "1",
+              "primaryGj": "",
+              "simbadType": "SB*",
+              "simbadId": "G 184-19"
+            }
+          ]
+        },
+        {
+          "starId": "cns5-4626",
+          "name": "G 184-19B",
+          "type": "brown_dwarf",
+          "label": "B",
+          "sourceRecords": [
+            {
+              "cns5Id": "4626",
+              "gj": "1230",
+              "label": "B",
+              "total": "2",
+              "primary": "0",
+              "primaryGj": "",
+              "simbadType": "LM*",
+              "simbadId": "G 184-19B"
+            }
+          ]
+        }
+      ],
+      "notes": [
+        "G 184-19: frozen SIMBAD spectroscopic-binary flag; confirm whether this row is an individual or subsystem."
+      ],
+      "references": []
+    },
+    {
+      "sourceKeys": [
+        "gj:569"
+      ],
+      "status": "research-required",
+      "extendsCard": null,
+      "components": [
+        {
+          "starId": "cns5-3687",
+          "name": "BD+16 2708B",
+          "type": "star",
+          "label": "B",
+          "sourceRecords": [
+            {
+              "cns5Id": "3687",
+              "gj": "569",
+              "label": "B",
+              "total": "2",
+              "primary": "0",
+              "primaryGj": "",
+              "simbadType": "SB*",
+              "simbadId": "BD+16  2708B"
+            }
+          ]
+        },
+        {
+          "starId": "cns5-3688",
+          "name": "BD+16 2708",
+          "type": "star",
+          "label": "A",
+          "sourceRecords": [
+            {
+              "cns5Id": "3688",
+              "gj": "569",
+              "label": "A",
+              "total": "2",
+              "primary": "1",
+              "primaryGj": "",
+              "simbadType": "PM*",
+              "simbadId": "BD+16  2708"
+            }
+          ]
+        }
+      ],
+      "notes": [
+        "BD+16 2708B: frozen SIMBAD spectroscopic-binary flag; confirm whether this row is an individual or subsystem."
+      ],
+      "references": []
+    },
+    {
+      "sourceKeys": [
+        "gj:11123"
+      ],
+      "status": "research-required",
+      "extendsCard": null,
+      "components": [
+        {
+          "starId": "cns5-1920",
+          "name": "COCONUTS-2A",
+          "type": "brown_dwarf",
+          "label": "A",
+          "sourceRecords": [
+            {
+              "cns5Id": "1920",
+              "gj": "11123",
+              "label": "A",
+              "total": "2",
+              "primary": "1",
+              "primaryGj": "",
+              "simbadType": "LM*",
+              "simbadId": "L   34-26"
+            }
+          ]
+        },
+        {
+          "starId": "cns5-1929",
+          "name": "COCONUTS-2b",
+          "type": "brown_dwarf",
+          "label": "B",
+          "sourceRecords": [
+            {
+              "cns5Id": "1929",
+              "gj": "11129",
+              "label": "B",
+              "total": "2",
+              "primary": "0",
+              "primaryGj": "11123",
+              "simbadType": "BD*",
+              "simbadId": "L   34-26 B"
+            }
+          ]
+        }
+      ],
+      "notes": [
+        "COCONUTS-2b is a planetary-mass companion; defer to future planet-system support."
+      ],
+      "references": [
+        "https://arxiv.org/abs/2107.02805"
+      ]
+    },
+    {
+      "sourceKeys": [
+        "gj:231"
+      ],
+      "status": "association-candidate",
+      "extendsCard": null,
+      "components": [
+        {
+          "starId": "cns5-1525",
+          "name": "Alpha Men B",
+          "type": "star",
+          "label": "B",
+          "sourceRecords": [
+            {
+              "cns5Id": "1525",
+              "gj": "10876",
+              "label": "B",
+              "total": "2",
+              "primary": "0",
+              "primaryGj": "231.",
+              "simbadType": "PM*",
+              "simbadId": "* alf Men B"
+            }
+          ]
+        },
+        {
+          "starId": "cns5-1526",
+          "name": "Alpha Men",
+          "type": "star",
+          "label": "A",
+          "sourceRecords": [
+            {
+              "cns5Id": "1526",
+              "gj": "231",
+              "label": "A",
+              "total": "2",
+              "primary": "1",
+              "primaryGj": "",
+              "simbadType": "PM*",
+              "simbadId": "* alf Men"
+            }
+          ]
+        }
+      ],
+      "notes": [],
+      "references": []
+    },
+    {
+      "sourceKeys": [
+        "gj:653"
+      ],
+      "status": "association-candidate",
+      "extendsCard": null,
+      "components": [
+        {
+          "starId": "cns5-4183",
+          "name": "HD 154363",
+          "type": "star",
+          "label": "A",
+          "sourceRecords": [
+            {
+              "cns5Id": "4183",
+              "gj": "653",
+              "label": "A",
+              "total": "2",
+              "primary": "1",
+              "primaryGj": "",
+              "simbadType": "PM*",
+              "simbadId": "HD 154363"
+            }
+          ]
+        },
+        {
+          "starId": "cns5-4184",
+          "name": "HD 154363B",
+          "type": "star",
+          "label": "B",
+          "sourceRecords": [
+            {
+              "cns5Id": "4184",
+              "gj": "654",
+              "label": "B",
+              "total": "2",
+              "primary": "0",
+              "primaryGj": "653.",
+              "simbadType": "PM*",
+              "simbadId": "HD 154363B"
+            }
+          ]
+        }
+      ],
+      "notes": [],
+      "references": []
+    },
+    {
+      "sourceKeys": [
+        "gj:754.1"
+      ],
+      "status": "association-candidate",
+      "extendsCard": null,
+      "components": [
+        {
+          "starId": "cns5-4798",
+          "name": "L 923-22",
+          "type": "star",
+          "label": "B",
+          "sourceRecords": [
+            {
+              "cns5Id": "4798",
+              "gj": "754.1",
+              "label": "B",
+              "total": "2",
+              "primary": "0",
+              "primaryGj": "",
+              "simbadType": "PM*",
+              "simbadId": "L  923-22"
+            }
+          ]
+        },
+        {
+          "starId": "cns5-4799",
+          "name": "LAWD 74",
+          "type": "white_dwarf",
+          "label": "A",
+          "sourceRecords": [
+            {
+              "cns5Id": "4799",
+              "gj": "754.1",
+              "label": "A",
+              "total": "2",
+              "primary": "1",
+              "primaryGj": "",
+              "simbadType": "WD*",
+              "simbadId": "LAWD 74"
+            }
+          ]
+        }
+      ],
+      "notes": [],
+      "references": []
+    },
+    {
+      "sourceKeys": [
+        "gj:766"
+      ],
+      "status": "association-candidate",
+      "extendsCard": null,
+      "components": [
+        {
+          "starId": "cns5-4898",
+          "name": "LSPM J1945+2707NW",
+          "type": "star",
+          "label": "A",
+          "sourceRecords": [
+            {
+              "cns5Id": "4898",
+              "gj": "766",
+              "label": "A",
+              "total": "2",
+              "primary": "1",
+              "primaryGj": "",
+              "simbadType": "PM*",
+              "simbadId": "Ross  165A"
+            }
+          ]
+        },
+        {
+          "starId": "cns5-4899",
+          "name": "LSPM J1945+2707SE",
+          "type": "star",
+          "label": "B",
+          "sourceRecords": [
+            {
+              "cns5Id": "4899",
+              "gj": "766",
+              "label": "B",
+              "total": "2",
+              "primary": "0",
+              "primaryGj": "",
+              "simbadType": "PM*",
+              "simbadId": "Ross  165B"
+            }
+          ]
+        }
+      ],
+      "notes": [],
+      "references": []
+    },
+    {
+      "sourceKeys": [
+        "gj:669"
+      ],
+      "status": "association-candidate",
+      "extendsCard": null,
+      "components": [
+        {
+          "starId": "cns5-4259",
+          "name": "Ross 867",
+          "type": "star",
+          "label": "B",
+          "sourceRecords": [
+            {
+              "cns5Id": "4259",
+              "gj": "669",
+              "label": "B",
+              "total": "2",
+              "primary": "0",
+              "primaryGj": "",
+              "simbadType": "PM*",
+              "simbadId": "Ross  867"
+            }
+          ]
+        },
+        {
+          "starId": "cns5-4261",
+          "name": "Ross 868",
+          "type": "star",
+          "label": "A",
+          "sourceRecords": [
+            {
+              "cns5Id": "4261",
+              "gj": "669",
+              "label": "A",
+              "total": "2",
+              "primary": "1",
+              "primaryGj": "",
+              "simbadType": "PM*",
+              "simbadId": "Ross  868"
+            }
+          ]
+        }
+      ],
+      "notes": [],
+      "references": []
+    },
+    {
+      "sourceKeys": [
+        "gj:86"
+      ],
+      "status": "association-candidate",
+      "extendsCard": null,
+      "components": [
+        {
+          "starId": "cns5-0543",
+          "name": "HD 13445",
+          "type": "star",
+          "label": "A",
+          "sourceRecords": [
+            {
+              "cns5Id": "543",
+              "gj": "86",
+              "label": "A",
+              "total": "2",
+              "primary": "1",
+              "primaryGj": "",
+              "simbadType": "PM*",
+              "simbadId": "HD  13445"
+            }
+          ]
+        },
+        {
+          "starId": "cns5-0544",
+          "name": "HD 13445B",
+          "type": "white_dwarf",
+          "label": "B",
+          "sourceRecords": [
+            {
+              "cns5Id": "544",
+              "gj": "86",
+              "label": "B",
+              "total": "2",
+              "primary": "0",
+              "primaryGj": "",
+              "simbadType": "WD*",
+              "simbadId": "HD  13445B"
+            }
+          ]
+        }
+      ],
+      "notes": [],
+      "references": []
+    },
+    {
+      "sourceKeys": [
+        "gj:617"
+      ],
+      "status": "association-candidate",
+      "extendsCard": null,
+      "components": [
+        {
+          "starId": "cns5-3993",
+          "name": "HD 147379",
+          "type": "star",
+          "label": "A",
+          "sourceRecords": [
+            {
+              "cns5Id": "3993",
+              "gj": "617",
+              "label": "A",
+              "total": "2",
+              "primary": "1",
+              "primaryGj": "",
+              "simbadType": "PM*",
+              "simbadId": "HD 147379"
+            }
+          ]
+        },
+        {
+          "starId": "cns5-3994",
+          "name": "HD 147379B",
+          "type": "star",
+          "label": "B",
+          "sourceRecords": [
+            {
+              "cns5Id": "3994",
+              "gj": "617",
+              "label": "B",
+              "total": "2",
+              "primary": "0",
+              "primaryGj": "",
+              "simbadType": "BY*",
+              "simbadId": "HD 147379B"
+            }
+          ]
+        }
+      ],
+      "notes": [],
+      "references": []
+    },
+    {
+      "sourceKeys": [
+        "gj:9492"
+      ],
+      "status": "association-candidate",
+      "extendsCard": null,
+      "components": [
+        {
+          "starId": "cns5-3636",
+          "name": "G 239-25",
+          "type": "star",
+          "label": "A",
+          "sourceRecords": [
+            {
+              "cns5Id": "3636",
+              "gj": "9492",
+              "label": "A",
+              "total": "2",
+              "primary": "1",
+              "primaryGj": "",
+              "simbadType": "PM*",
+              "simbadId": "G 239-25"
+            }
+          ]
+        },
+        {
+          "starId": "cns5-3637",
+          "name": "G 239-25B",
+          "type": "brown_dwarf",
+          "label": "B",
+          "sourceRecords": [
+            {
+              "cns5Id": "3637",
+              "gj": "9492",
+              "label": "B",
+              "total": "2",
+              "primary": "0",
+              "primaryGj": "",
+              "simbadType": "LM*",
+              "simbadId": "G 239-25B"
+            }
+          ]
+        }
+      ],
+      "notes": [],
+      "references": []
+    },
+    {
+      "sourceKeys": [
+        "gj:505"
+      ],
+      "status": "association-candidate",
+      "extendsCard": null,
+      "components": [
+        {
+          "starId": "cns5-3269",
+          "name": "HD 115404",
+          "type": "star",
+          "label": "A",
+          "sourceRecords": [
+            {
+              "cns5Id": "3269",
+              "gj": "505",
+              "label": "A",
+              "total": "2",
+              "primary": "1",
+              "primaryGj": "",
+              "simbadType": "PM*",
+              "simbadId": "HD 115404"
+            }
+          ]
+        },
+        {
+          "starId": "cns5-3270",
+          "name": "HD 115404B",
+          "type": "star",
+          "label": "B",
+          "sourceRecords": [
+            {
+              "cns5Id": "3270",
+              "gj": "505",
+              "label": "B",
+              "total": "2",
+              "primary": "0",
+              "primaryGj": "",
+              "simbadType": "PM*",
+              "simbadId": "HD 115404B"
+            }
+          ]
+        }
+      ],
+      "notes": [],
+      "references": []
+    },
+    {
+      "sourceKeys": [
+        "gj:2036"
+      ],
+      "status": "association-candidate",
+      "extendsCard": null,
+      "components": [
+        {
+          "starId": "cns5-1222",
+          "name": "CD-56 1032B",
+          "type": "star",
+          "label": "B",
+          "sourceRecords": [
+            {
+              "cns5Id": "1222",
+              "gj": "2036",
+              "label": "B",
+              "total": "2",
+              "primary": "0",
+              "primaryGj": "",
+              "simbadType": "PM*",
+              "simbadId": "CD-56  1032B"
+            }
+          ]
+        },
+        {
+          "starId": "cns5-1223",
+          "name": "CD-56 1032A",
+          "type": "star",
+          "label": "A",
+          "sourceRecords": [
+            {
+              "cns5Id": "1223",
+              "gj": "2036",
+              "label": "A",
+              "total": "2",
+              "primary": "1",
+              "primaryGj": "",
+              "simbadType": "PM*",
+              "simbadId": "CD-56  1032A"
+            }
+          ]
+        }
+      ],
+      "notes": [],
+      "references": []
+    },
+    {
+      "sourceKeys": [
+        "gj:27"
+      ],
+      "status": "association-candidate",
+      "extendsCard": null,
+      "components": [
+        {
+          "starId": "cns5-0191",
+          "name": "54 Psc B",
+          "type": "brown_dwarf",
+          "label": "B",
+          "sourceRecords": [
+            {
+              "cns5Id": "191",
+              "gj": "10108",
+              "label": "B",
+              "total": "2",
+              "primary": "0",
+              "primaryGj": "27.",
+              "simbadType": "BD*",
+              "simbadId": "*  54 Psc B"
+            }
+          ]
+        },
+        {
+          "starId": "cns5-0192",
+          "name": "54 Psc",
+          "type": "star",
+          "label": "A",
+          "sourceRecords": [
+            {
+              "cns5Id": "192",
+              "gj": "27",
+              "label": "A",
+              "total": "2",
+              "primary": "1",
+              "primaryGj": "",
+              "simbadType": "PM*",
+              "simbadId": "*  54 Psc"
+            }
+          ]
+        }
+      ],
+      "notes": [],
+      "references": []
+    },
+    {
+      "sourceKeys": [
+        "gj:107"
+      ],
+      "status": "association-candidate",
+      "extendsCard": null,
+      "components": [
+        {
+          "starId": "cns5-0686",
+          "name": "Theta Per B",
+          "type": "star",
+          "label": "B",
+          "sourceRecords": [
+            {
+              "cns5Id": "686",
+              "gj": "107",
+              "label": "B",
+              "total": "2",
+              "primary": "0",
+              "primaryGj": "",
+              "simbadType": "PM*",
+              "simbadId": "* tet Per B"
+            }
+          ]
+        },
+        {
+          "starId": "cns5-0687",
+          "name": "Theta Per",
+          "type": "star",
+          "label": "A",
+          "sourceRecords": [
+            {
+              "cns5Id": "687",
+              "gj": "107",
+              "label": "A",
+              "total": "2",
+              "primary": "1",
+              "primaryGj": "",
+              "simbadType": "PM*",
+              "simbadId": "* tet Per"
+            }
+          ]
+        }
+      ],
+      "notes": [],
+      "references": []
+    },
+    {
+      "sourceKeys": [
+        "gj:537"
+      ],
+      "status": "association-candidate",
+      "extendsCard": null,
+      "components": [
+        {
+          "starId": "cns5-3474",
+          "name": "BD+47 2112A",
+          "type": "star",
+          "label": "A",
+          "sourceRecords": [
+            {
+              "cns5Id": "3474",
+              "gj": "537",
+              "label": "A",
+              "total": "2",
+              "primary": "1",
+              "primaryGj": "",
+              "simbadType": "PM*",
+              "simbadId": "BD+47  2112A"
+            }
+          ]
+        },
+        {
+          "starId": "cns5-3475",
+          "name": "BD+47 2112B",
+          "type": "star",
+          "label": "B",
+          "sourceRecords": [
+            {
+              "cns5Id": "3475",
+              "gj": "537",
+              "label": "B",
+              "total": "2",
+              "primary": "0",
+              "primaryGj": "",
+              "simbadType": "PM*",
+              "simbadId": "BD+47  2112B"
+            }
+          ]
+        }
+      ],
+      "notes": [],
+      "references": []
+    },
+    {
+      "sourceKeys": [
+        "gj:356"
+      ],
+      "status": "association-candidate",
+      "extendsCard": null,
+      "components": [
+        {
+          "starId": "cns5-2372",
+          "name": "11 LMi",
+          "type": "star",
+          "label": "A",
+          "sourceRecords": [
+            {
+              "cns5Id": "2372",
+              "gj": "356",
+              "label": "A",
+              "total": "2",
+              "primary": "1",
+              "primaryGj": "",
+              "simbadType": "RS*",
+              "simbadId": "*  11 LMi"
+            }
+          ]
+        },
+        {
+          "starId": "cns5-2373",
+          "name": "11 LMi B",
+          "type": "star",
+          "label": "B",
+          "sourceRecords": [
+            {
+              "cns5Id": "2373",
+              "gj": "356",
+              "label": "B",
+              "total": "2",
+              "primary": "0",
+              "primaryGj": "",
+              "simbadType": "PM*",
+              "simbadId": "*  11 LMi B"
+            }
+          ]
+        }
+      ],
+      "notes": [],
+      "references": []
+    },
+    {
+      "sourceKeys": [
+        "gj:12887"
+      ],
+      "status": "association-candidate",
+      "extendsCard": null,
+      "components": [
+        {
+          "starId": "cns5-4916",
+          "name": "PM J19515-3510A",
+          "type": "star",
+          "label": "A",
+          "sourceRecords": [
+            {
+              "cns5Id": "4916",
+              "gj": "12887",
+              "label": "A",
+              "total": "2",
+              "primary": "1",
+              "primaryGj": "",
+              "simbadType": "PM*",
+              "simbadId": "PM J19515-3510A"
+            }
+          ]
+        },
+        {
+          "starId": "cns5-4917",
+          "name": "PM J19515-3510B",
+          "type": "star",
+          "label": "B",
+          "sourceRecords": [
+            {
+              "cns5Id": "4917",
+              "gj": "12888",
+              "label": "B",
+              "total": "2",
+              "primary": "0",
+              "primaryGj": "12887",
+              "simbadType": "PM*",
+              "simbadId": "PM J19515-3510B"
+            }
+          ]
+        }
+      ],
+      "notes": [],
+      "references": []
+    },
+    {
+      "sourceKeys": [
+        "gj:4048"
+      ],
+      "status": "association-candidate",
+      "extendsCard": null,
+      "components": [
+        {
+          "starId": "cns5-4528",
+          "name": "G 204-57",
+          "type": "star",
+          "label": "B",
+          "sourceRecords": [
+            {
+              "cns5Id": "4528",
+              "gj": "4049",
+              "label": "B",
+              "total": "2",
+              "primary": "0",
+              "primaryGj": "4048.",
+              "simbadType": "PM*",
+              "simbadId": "G 204-57"
+            }
+          ]
+        },
+        {
+          "starId": "cns5-4529",
+          "name": "G 204-58",
+          "type": "star",
+          "label": "A",
+          "sourceRecords": [
+            {
+              "cns5Id": "4529",
+              "gj": "4048",
+              "label": "A",
+              "total": "2",
+              "primary": "1",
+              "primaryGj": "",
+              "simbadType": "PM*",
+              "simbadId": "G 204-58"
+            }
+          ]
+        }
+      ],
+      "notes": [],
+      "references": []
+    },
+    {
+      "sourceKeys": [
+        "gj:208"
+      ],
+      "status": "association-candidate",
+      "extendsCard": null,
+      "components": [
+        {
+          "starId": "cns5-1393",
+          "name": "V2689 Ori",
+          "type": "star",
+          "label": "A",
+          "sourceRecords": [
+            {
+              "cns5Id": "1393",
+              "gj": "208",
+              "label": "A",
+              "total": "2",
+              "primary": "1",
+              "primaryGj": "",
+              "simbadType": "RS*",
+              "simbadId": "V* V2689 Ori"
+            }
+          ]
+        },
+        {
+          "starId": "cns5-1394",
+          "name": "PM J05366+1117",
+          "type": "star",
+          "label": "B",
+          "sourceRecords": [
+            {
+              "cns5Id": "1394",
+              "gj": "10790",
+              "label": "B",
+              "total": "2",
+              "primary": "0",
+              "primaryGj": "208.",
+              "simbadType": "PM*",
+              "simbadId": "PM J05366+1117"
+            }
+          ]
+        }
+      ],
+      "notes": [],
+      "references": []
+    },
+    {
+      "sourceKeys": [
+        "gj:568"
+      ],
+      "status": "association-candidate",
+      "extendsCard": null,
+      "components": [
+        {
+          "starId": "cns5-3682",
+          "name": "Ross 52A",
+          "type": "star",
+          "label": "A",
+          "sourceRecords": [
+            {
+              "cns5Id": "3682",
+              "gj": "568",
+              "label": "A",
+              "total": "2",
+              "primary": "1",
+              "primaryGj": "",
+              "simbadType": "PM*",
+              "simbadId": "Ross   52A"
+            }
+          ]
+        },
+        {
+          "starId": "cns5-3683",
+          "name": "Ross 52B",
+          "type": "star",
+          "label": "B",
+          "sourceRecords": [
+            {
+              "cns5Id": "3683",
+              "gj": "568",
+              "label": "B",
+              "total": "2",
+              "primary": "0",
+              "primaryGj": "",
+              "simbadType": "PM*",
+              "simbadId": "Ross   52B"
+            }
+          ]
+        }
+      ],
+      "notes": [],
+      "references": []
+    },
+    {
+      "sourceKeys": [
+        "gj:3417"
+      ],
+      "status": "association-candidate",
+      "extendsCard": null,
+      "components": [
+        {
+          "starId": "cns5-1725",
+          "name": "G 250-31B",
+          "type": "star",
+          "label": "B",
+          "sourceRecords": [
+            {
+              "cns5Id": "1725",
+              "gj": "3417",
+              "label": "B",
+              "total": "2",
+              "primary": "0",
+              "primaryGj": "",
+              "simbadType": "PM*",
+              "simbadId": "G 250-31B"
+            }
+          ]
+        },
+        {
+          "starId": "cns5-1726",
+          "name": "G 250-31A",
+          "type": "star",
+          "label": "A",
+          "sourceRecords": [
+            {
+              "cns5Id": "1726",
+              "gj": "3417",
+              "label": "A",
+              "total": "2",
+              "primary": "1",
+              "primaryGj": "",
+              "simbadType": "PM*",
+              "simbadId": "G 250-31A"
+            }
+          ]
+        }
+      ],
+      "notes": [],
+      "references": []
+    },
+    {
+      "sourceKeys": [
+        "gj:494"
+      ],
+      "status": "research-required",
+      "extendsCard": null,
+      "components": [
+        {
+          "starId": "cns5-3212",
+          "name": "BD+13 2618C",
+          "type": "brown_dwarf",
+          "label": "B",
+          "sourceRecords": [
+            {
+              "cns5Id": "3212",
+              "gj": "11884",
+              "label": "B",
+              "total": "2",
+              "primary": "0",
+              "primaryGj": "494.",
+              "simbadType": "BD*",
+              "simbadId": "BD+13  2618C"
+            }
+          ]
+        },
+        {
+          "starId": "cns5-3213",
+          "name": "BD+13 2618",
+          "type": "star",
+          "label": "A",
+          "sourceRecords": [
+            {
+              "cns5Id": "3213",
+              "gj": "494",
+              "label": "A",
+              "total": "2",
+              "primary": "1",
+              "primaryGj": "",
+              "simbadType": "RS*",
+              "simbadId": "BD+13  2618"
+            }
+          ]
+        }
+      ],
+      "notes": [
+        "BD+13 2618C is Ross 458 C, but CNS5 labels it B; the primary record covers the host binary.",
+        "BD+13 2618C: published name suffix differs from CNS5 label B."
+      ],
+      "references": []
+    },
+    {
+      "sourceKeys": [
+        "gj:4"
+      ],
+      "status": "research-required",
+      "extendsCard": null,
+      "components": [
+        {
+          "starId": "cns5-0021",
+          "name": "HD 38B",
+          "type": "star",
+          "label": "B",
+          "sourceRecords": [
+            {
+              "cns5Id": "21",
+              "gj": "4",
+              "label": "B",
+              "total": "2",
+              "primary": "0",
+              "primaryGj": "",
+              "simbadType": "PM*",
+              "simbadId": "HD     38B"
+            }
+          ]
+        },
+        {
+          "starId": "cns5-0022",
+          "name": "HD 38A",
+          "type": "star",
+          "label": "A",
+          "sourceRecords": [
+            {
+              "cns5Id": "22",
+              "gj": "4",
+              "label": "A",
+              "total": "2",
+              "primary": "1",
+              "primaryGj": "",
+              "simbadType": "SB*",
+              "simbadId": "HD     38A"
+            }
+          ]
+        }
+      ],
+      "notes": [
+        "HD 38A: frozen SIMBAD spectroscopic-binary flag; confirm whether this row is an individual or subsystem."
+      ],
+      "references": []
+    },
+    {
+      "sourceKeys": [
+        "gj:325"
+      ],
+      "status": "research-required",
+      "extendsCard": null,
+      "components": [
+        {
+          "starId": "cns5-2197",
+          "name": "HD 75632A",
+          "type": "star",
+          "label": "A",
+          "sourceRecords": [
+            {
+              "cns5Id": "2197",
+              "gj": "325",
+              "label": "A",
+              "total": "2",
+              "primary": "1",
+              "primaryGj": "",
+              "simbadType": "SB*",
+              "simbadId": "HD  75632A"
+            }
+          ]
+        },
+        {
+          "starId": "cns5-2198",
+          "name": "HD 75632B",
+          "type": "star",
+          "label": "B",
+          "sourceRecords": [
+            {
+              "cns5Id": "2198",
+              "gj": "325",
+              "label": "B",
+              "total": "2",
+              "primary": "0",
+              "primaryGj": "",
+              "simbadType": "PM*",
+              "simbadId": "HD  75632B"
+            }
+          ]
+        }
+      ],
+      "notes": [
+        "HD 75632A: frozen SIMBAD spectroscopic-binary flag; confirm whether this row is an individual or subsystem."
+      ],
+      "references": []
+    },
+    {
+      "sourceKeys": [
+        "gj:189"
+      ],
+      "status": "association-candidate",
+      "extendsCard": null,
+      "components": [
+        {
+          "starId": "cns5-1279",
+          "name": "Zeta Dor",
+          "type": "star",
+          "label": "A",
+          "sourceRecords": [
+            {
+              "cns5Id": "1279",
+              "gj": "189",
+              "label": "A",
+              "total": "2",
+              "primary": "1",
+              "primaryGj": "",
+              "simbadType": "PM*",
+              "simbadId": "* zet Dor"
+            }
+          ]
+        },
+        {
+          "starId": "cns5-1281",
+          "name": "CD-57 1079",
+          "type": "star",
+          "label": "B",
+          "sourceRecords": [
+            {
+              "cns5Id": "1281",
+              "gj": "1075",
+              "label": "B",
+              "total": "2",
+              "primary": "0",
+              "primaryGj": "189.",
+              "simbadType": "PM*",
+              "simbadId": "CD-57  1079"
+            }
+          ]
+        }
+      ],
+      "notes": [],
+      "references": []
+    },
+    {
+      "sourceKeys": [
+        "gj:572"
+      ],
+      "status": "association-candidate",
+      "extendsCard": null,
+      "components": [
+        {
+          "starId": "cns5-3710",
+          "name": "BD+45 2247",
+          "type": "star",
+          "label": "A",
+          "sourceRecords": [
+            {
+              "cns5Id": "3710",
+              "gj": "572",
+              "label": "A",
+              "total": "2",
+              "primary": "1",
+              "primaryGj": "",
+              "simbadType": "PM*",
+              "simbadId": "BD+45  2247"
+            }
+          ]
+        },
+        {
+          "starId": "cns5-3711",
+          "name": "BD+45 2247B",
+          "type": "star",
+          "label": "B",
+          "sourceRecords": [
+            {
+              "cns5Id": "3711",
+              "gj": "12153",
+              "label": "B",
+              "total": "2",
+              "primary": "0",
+              "primaryGj": "572.",
+              "simbadType": "PM*",
+              "simbadId": "BD+45  2247B"
+            }
+          ]
+        }
+      ],
+      "notes": [],
+      "references": []
+    },
+    {
+      "sourceKeys": [
+        "gj:810"
+      ],
+      "status": "research-required",
+      "extendsCard": null,
+      "components": [
+        {
+          "starId": "cns5-5172",
+          "name": "LP 756-18",
+          "type": "star",
+          "label": "B",
+          "sourceRecords": [
+            {
+              "cns5Id": "5172",
+              "gj": "810",
+              "label": "B",
+              "total": "2",
+              "primary": "0",
+              "primaryGj": "",
+              "simbadType": "PM*",
+              "simbadId": "LP  756-18"
+            }
+          ]
+        },
+        {
+          "starId": "cns5-5173",
+          "name": "LP 756-19",
+          "type": "star",
+          "label": "A",
+          "sourceRecords": [
+            {
+              "cns5Id": "5173",
+              "gj": "810",
+              "label": "A",
+              "total": "2",
+              "primary": "1",
+              "primaryGj": "",
+              "simbadType": "SB*",
+              "simbadId": "LP  756-19"
+            }
+          ]
+        }
+      ],
+      "notes": [
+        "LP 756-19: frozen SIMBAD spectroscopic-binary flag; confirm whether this row is an individual or subsystem."
+      ],
+      "references": []
+    },
+    {
+      "sourceKeys": [
+        "gj:4288"
+      ],
+      "status": "association-candidate",
+      "extendsCard": null,
+      "components": [
+        {
+          "starId": "cns5-5583",
+          "name": "L 645-74",
+          "type": "star",
+          "label": "A",
+          "sourceRecords": [
+            {
+              "cns5Id": "5583",
+              "gj": "4288",
+              "label": "A",
+              "total": "2",
+              "primary": "1",
+              "primaryGj": "",
+              "simbadType": "PM*",
+              "simbadId": "L  645-74"
+            }
+          ]
+        },
+        {
+          "starId": "cns5-5584",
+          "name": "L 645-73",
+          "type": "star",
+          "label": "B",
+          "sourceRecords": [
+            {
+              "cns5Id": "5584",
+              "gj": "4289",
+              "label": "B",
+              "total": "2",
+              "primary": "0",
+              "primaryGj": "4288.",
+              "simbadType": "PM*",
+              "simbadId": "L  645-73"
+            }
+          ]
+        }
+      ],
+      "notes": [],
+      "references": []
+    },
+    {
+      "sourceKeys": [
+        "gj:360"
+      ],
+      "status": "association-candidate",
+      "extendsCard": null,
+      "components": [
+        {
+          "starId": "cns5-2398",
+          "name": "G 236-1",
+          "type": "star",
+          "label": "A",
+          "sourceRecords": [
+            {
+              "cns5Id": "2398",
+              "gj": "360",
+              "label": "A",
+              "total": "2",
+              "primary": "1",
+              "primaryGj": "",
+              "simbadType": "PM*",
+              "simbadId": "G 236-1"
+            }
+          ]
+        },
+        {
+          "starId": "cns5-2403",
+          "name": "G 236-2",
+          "type": "star",
+          "label": "B",
+          "sourceRecords": [
+            {
+              "cns5Id": "2403",
+              "gj": "362",
+              "label": "B",
+              "total": "2",
+              "primary": "0",
+              "primaryGj": "360.",
+              "simbadType": "PM*",
+              "simbadId": "G 236-2"
+            }
+          ]
+        }
+      ],
+      "notes": [],
+      "references": []
+    },
+    {
+      "sourceKeys": [
+        "gj:1179"
+      ],
+      "status": "association-candidate",
+      "extendsCard": null,
+      "components": [
+        {
+          "starId": "cns5-3412",
+          "name": "EGGR 438",
+          "type": "white_dwarf",
+          "label": "B",
+          "sourceRecords": [
+            {
+              "cns5Id": "3412",
+              "gj": "1179",
+              "label": "B",
+              "total": "2",
+              "primary": "0",
+              "primaryGj": "",
+              "simbadType": "WD*",
+              "simbadId": "EGGR 438"
+            }
+          ]
+        },
+        {
+          "starId": "cns5-3415",
+          "name": "LP 380-6",
+          "type": "star",
+          "label": "A",
+          "sourceRecords": [
+            {
+              "cns5Id": "3415",
+              "gj": "1179",
+              "label": "A",
+              "total": "2",
+              "primary": "1",
+              "primaryGj": "",
+              "simbadType": "PM*",
+              "simbadId": "LP  380-6"
+            }
+          ]
+        }
+      ],
+      "notes": [],
+      "references": []
+    },
+    {
+      "sourceKeys": [
+        "gj:414"
+      ],
+      "status": "association-candidate",
+      "extendsCard": null,
+      "components": [
+        {
+          "starId": "cns5-2723",
+          "name": "HD 97101B",
+          "type": "star",
+          "label": "B",
+          "sourceRecords": [
+            {
+              "cns5Id": "2723",
+              "gj": "414",
+              "label": "B",
+              "total": "2",
+              "primary": "0",
+              "primaryGj": "",
+              "simbadType": "PM*",
+              "simbadId": "HD  97101B"
+            }
+          ]
+        },
+        {
+          "starId": "cns5-2724",
+          "name": "HD 97101",
+          "type": "star",
+          "label": "A",
+          "sourceRecords": [
+            {
+              "cns5Id": "2724",
+              "gj": "414",
+              "label": "A",
+              "total": "2",
+              "primary": "1",
+              "primaryGj": "",
+              "simbadType": "PM*",
+              "simbadId": "HD  97101"
+            }
+          ]
+        }
+      ],
+      "notes": [],
+      "references": []
+    },
+    {
+      "sourceKeys": [
+        "gj:13264"
+      ],
+      "status": "association-candidate",
+      "extendsCard": null,
+      "components": [
+        {
+          "starId": "cns5-5592",
+          "name": "PM J22403-4931A",
+          "type": "star",
+          "label": "A",
+          "sourceRecords": [
+            {
+              "cns5Id": "5592",
+              "gj": "13264",
+              "label": "A",
+              "total": "2",
+              "primary": "1",
+              "primaryGj": "",
+              "simbadType": "PM*",
+              "simbadId": "PM J22403-4931A"
+            }
+          ]
+        },
+        {
+          "starId": "cns5-5593",
+          "name": "PM J22403-4931B",
+          "type": "star",
+          "label": "B",
+          "sourceRecords": [
+            {
+              "cns5Id": "5593",
+              "gj": "13265",
+              "label": "B",
+              "total": "2",
+              "primary": "0",
+              "primaryGj": "13264",
+              "simbadType": "PM*",
+              "simbadId": "PM J22403-4931B"
+            }
+          ]
+        }
+      ],
+      "notes": [],
+      "references": []
+    },
+    {
+      "sourceKeys": [
+        "gj:277"
+      ],
+      "status": "research-required",
+      "extendsCard": "VV Lyn",
+      "components": [
+        {
+          "starId": "cns5-1863",
+          "name": "Ross 989",
+          "type": "star",
+          "label": "B",
+          "sourceRecords": [
+            {
+              "cns5Id": "1863",
+              "gj": "277",
+              "label": "B",
+              "total": "3",
+              "primary": "0",
+              "primaryGj": "",
+              "simbadType": "BY*",
+              "simbadId": "Ross  989"
+            }
+          ]
+        },
+        {
+          "starId": "cns5-1865",
+          "name": "VV Lyn B",
+          "type": "star",
+          "label": "C",
+          "sourceRecords": [
+            {
+              "cns5Id": "1865",
+              "gj": "277",
+              "label": "C",
+              "total": "3",
+              "primary": "0",
+              "primaryGj": "",
+              "simbadType": "PM*",
+              "simbadId": "V* VV Lyn B"
+            }
+          ]
+        },
+        {
+          "starId": "cns5-1866",
+          "name": "VV Lyn A",
+          "type": "star",
+          "label": "A",
+          "sourceRecords": [
+            {
+              "cns5Id": "1866",
+              "gj": "277",
+              "label": "A",
+              "total": "3",
+              "primary": "1",
+              "primaryGj": "",
+              "simbadType": "PM*",
+              "simbadId": "V* VV Lyn A"
+            }
+          ]
+        }
+      ],
+      "notes": [
+        "VV Lyn A/B are sub-pair labels; CNS5 assigns A to VV Lyn A, B to Ross 989, and C to VV Lyn B.",
+        "VV Lyn B: published name suffix differs from CNS5 label C."
+      ],
+      "references": []
+    },
+    {
+      "sourceKeys": [
+        "gj:11774"
+      ],
+      "status": "association-candidate",
+      "extendsCard": null,
+      "components": [
+        {
+          "starId": "cns5-3031",
+          "name": "G 148-47",
+          "type": "star",
+          "label": "B",
+          "sourceRecords": [
+            {
+              "cns5Id": "3031",
+              "gj": "11773",
+              "label": "B",
+              "total": "2",
+              "primary": "0",
+              "primaryGj": "11774",
+              "simbadType": "PM*",
+              "simbadId": "G 148-47"
+            }
+          ]
+        },
+        {
+          "starId": "cns5-3032",
+          "name": "G 148-48",
+          "type": "brown_dwarf",
+          "label": "A",
+          "sourceRecords": [
+            {
+              "cns5Id": "3032",
+              "gj": "11774",
+              "label": "A",
+              "total": "2",
+              "primary": "1",
+              "primaryGj": "",
+              "simbadType": "LM*",
+              "simbadId": "G 148-48"
+            }
+          ]
+        }
+      ],
+      "notes": [],
+      "references": []
+    },
+    {
+      "sourceKeys": [
+        "gj:1001"
+      ],
+      "status": "research-required",
+      "extendsCard": null,
+      "components": [
+        {
+          "starId": "cns5-0011",
+          "name": "L 362-29 BC",
+          "type": "brown_dwarf",
+          "label": "B",
+          "sourceRecords": [
+            {
+              "cns5Id": "11",
+              "gj": "1001",
+              "label": "B",
+              "total": "2",
+              "primary": "0",
+              "primaryGj": "",
+              "simbadType": "BD*",
+              "simbadId": "NAME L 362-29 BC"
+            }
+          ]
+        },
+        {
+          "starId": "cns5-0012",
+          "name": "L 362-29",
+          "type": "star",
+          "label": "A",
+          "sourceRecords": [
+            {
+              "cns5Id": "12",
+              "gj": "1001",
+              "label": "A",
+              "total": "2",
+              "primary": "1",
+              "primaryGj": "",
+              "simbadType": "PM*",
+              "simbadId": "L  362-29"
+            }
+          ]
+        }
+      ],
+      "notes": [
+        "L 362-29 BC has a combined L5+L5 spectrum; do not turn the BC record into a single B.",
+        "L 362-29 BC: display name identifies a compound subsystem."
+      ],
+      "references": [
+        "https://static.cambridge.org/content/id/urn%3Acambridge.org%3Aid%3Aarticle%3AS1743921307004255/resource/name/golimowski.pdf"
+      ]
+    },
+    {
+      "sourceKeys": [
+        "gj:211"
+      ],
+      "status": "association-candidate",
+      "extendsCard": null,
+      "components": [
+        {
+          "starId": "cns5-1412",
+          "name": "HD 37394",
+          "type": "star",
+          "label": "A",
+          "sourceRecords": [
+            {
+              "cns5Id": "1412",
+              "gj": "211",
+              "label": "A",
+              "total": "2",
+              "primary": "1",
+              "primaryGj": "",
+              "simbadType": "BY*",
+              "simbadId": "HD  37394"
+            }
+          ]
+        },
+        {
+          "starId": "cns5-1413",
+          "name": "HD 233153",
+          "type": "star",
+          "label": "B",
+          "sourceRecords": [
+            {
+              "cns5Id": "1413",
+              "gj": "212",
+              "label": "B",
+              "total": "2",
+              "primary": "0",
+              "primaryGj": "211.",
+              "simbadType": "PM*",
+              "simbadId": "HD 233153"
+            }
+          ]
+        }
+      ],
+      "notes": [],
+      "references": []
+    },
+    {
+      "sourceKeys": [
+        "gj:737"
+      ],
+      "status": "association-candidate",
+      "extendsCard": null,
+      "components": [
+        {
+          "starId": "cns5-4715",
+          "name": "HD 175224B",
+          "type": "star",
+          "label": "B",
+          "sourceRecords": [
+            {
+              "cns5Id": "4715",
+              "gj": "737",
+              "label": "B",
+              "total": "2",
+              "primary": "0",
+              "primaryGj": "",
+              "simbadType": "PM*",
+              "simbadId": "HD 175224B"
+            }
+          ]
+        },
+        {
+          "starId": "cns5-4716",
+          "name": "HD 175224A",
+          "type": "star",
+          "label": "A",
+          "sourceRecords": [
+            {
+              "cns5Id": "4716",
+              "gj": "737",
+              "label": "A",
+              "total": "2",
+              "primary": "1",
+              "primaryGj": "",
+              "simbadType": "PM*",
+              "simbadId": "HD 175224A"
+            }
+          ]
+        }
+      ],
+      "notes": [],
+      "references": []
+    },
+    {
+      "sourceKeys": [
+        "gj:1263"
+      ],
+      "status": "association-candidate",
+      "extendsCard": null,
+      "components": [
+        {
+          "starId": "cns5-5364",
+          "name": "Wolf 940 B",
+          "type": "brown_dwarf",
+          "label": "B",
+          "sourceRecords": [
+            {
+              "cns5Id": "5364",
+              "gj": "1263",
+              "label": "B",
+              "total": "2",
+              "primary": "0",
+              "primaryGj": "",
+              "simbadType": "BD*",
+              "simbadId": "Wolf  940 B"
+            }
+          ]
+        },
+        {
+          "starId": "cns5-5365",
+          "name": "Wolf 940",
+          "type": "star",
+          "label": "A",
+          "sourceRecords": [
+            {
+              "cns5Id": "5365",
+              "gj": "1263",
+              "label": "A",
+              "total": "2",
+              "primary": "1",
+              "primaryGj": "",
+              "simbadType": "PM*",
+              "simbadId": "Wolf  940"
+            }
+          ]
+        }
+      ],
+      "notes": [],
+      "references": []
+    },
+    {
+      "sourceKeys": [
+        "gj:324"
+      ],
+      "status": "association-candidate",
+      "extendsCard": null,
+      "components": [
+        {
+          "starId": "cns5-2182",
+          "name": "Copernicus",
+          "type": "star",
+          "label": "A",
+          "sourceRecords": [
+            {
+              "cns5Id": "2182",
+              "gj": "324",
+              "label": "A",
+              "total": "2",
+              "primary": "1",
+              "primaryGj": "",
+              "simbadType": "PM*",
+              "simbadId": "* rho01 Cnc"
+            }
+          ]
+        },
+        {
+          "starId": "cns5-2183",
+          "name": "Rho1 Cnc B",
+          "type": "star",
+          "label": "B",
+          "sourceRecords": [
+            {
+              "cns5Id": "2183",
+              "gj": "324",
+              "label": "B",
+              "total": "2",
+              "primary": "0",
+              "primaryGj": "",
+              "simbadType": "PM*",
+              "simbadId": "* rho01 Cnc B"
+            }
+          ]
+        }
+      ],
+      "notes": [],
+      "references": []
+    },
+    {
+      "sourceKeys": [
+        "gj:3708"
+      ],
+      "status": "association-candidate",
+      "extendsCard": null,
+      "components": [
+        {
+          "starId": "cns5-2996",
+          "name": "L 758-108",
+          "type": "star",
+          "label": "A",
+          "sourceRecords": [
+            {
+              "cns5Id": "2996",
+              "gj": "3708",
+              "label": "A",
+              "total": "2",
+              "primary": "1",
+              "primaryGj": "",
+              "simbadType": "PM*",
+              "simbadId": "L  758-108"
+            }
+          ]
+        },
+        {
+          "starId": "cns5-2997",
+          "name": "L 758-107",
+          "type": "star",
+          "label": "B",
+          "sourceRecords": [
+            {
+              "cns5Id": "2997",
+              "gj": "3709",
+              "label": "B",
+              "total": "2",
+              "primary": "0",
+              "primaryGj": "3708.",
+              "simbadType": "PM*",
+              "simbadId": "L  758-107"
+            }
+          ]
+        }
+      ],
+      "notes": [],
+      "references": []
+    },
+    {
+      "sourceKeys": [
+        "gj:774"
+      ],
+      "status": "association-candidate",
+      "extendsCard": null,
+      "components": [
+        {
+          "starId": "cns5-4967",
+          "name": "L 115-22",
+          "type": "star",
+          "label": "B",
+          "sourceRecords": [
+            {
+              "cns5Id": "4967",
+              "gj": "774",
+              "label": "B",
+              "total": "2",
+              "primary": "0",
+              "primaryGj": "",
+              "simbadType": "PM*",
+              "simbadId": "L  115-22"
+            }
+          ]
+        },
+        {
+          "starId": "cns5-4968",
+          "name": "L 115-21",
+          "type": "star",
+          "label": "A",
+          "sourceRecords": [
+            {
+              "cns5Id": "4968",
+              "gj": "774",
+              "label": "A",
+              "total": "2",
+              "primary": "1",
+              "primaryGj": "",
+              "simbadType": "PM*",
+              "simbadId": "L  115-21"
+            }
+          ]
+        }
+      ],
+      "notes": [],
+      "references": []
+    },
+    {
+      "sourceKeys": [
+        "gj:11217"
+      ],
+      "status": "association-candidate",
+      "extendsCard": null,
+      "components": [
+        {
+          "starId": "cns5-2074",
+          "name": "L 186-67",
+          "type": "brown_dwarf",
+          "label": "A",
+          "sourceRecords": [
+            {
+              "cns5Id": "2074",
+              "gj": "11217",
+              "label": "A",
+              "total": "2",
+              "primary": "1",
+              "primaryGj": "",
+              "simbadType": "LM*",
+              "simbadId": "L  186-67"
+            }
+          ]
+        },
+        {
+          "starId": "cns5-2075",
+          "name": "L 186-66",
+          "type": "star",
+          "label": "B",
+          "sourceRecords": [
+            {
+              "cns5Id": "2075",
+              "gj": "11218",
+              "label": "B",
+              "total": "2",
+              "primary": "0",
+              "primaryGj": "11217",
+              "simbadType": "PM*",
+              "simbadId": "L  186-66"
+            }
+          ]
+        }
+      ],
+      "notes": [],
+      "references": []
+    },
+    {
+      "sourceKeys": [
+        "gj:620.1"
+      ],
+      "status": "association-candidate",
+      "extendsCard": null,
+      "components": [
+        {
+          "starId": "cns5-4011",
+          "name": "CD-38 10980",
+          "type": "white_dwarf",
+          "label": "B",
+          "sourceRecords": [
+            {
+              "cns5Id": "4011",
+              "gj": "620.1",
+              "label": "B",
+              "total": "2",
+              "primary": "0",
+              "primaryGj": "",
+              "simbadType": "WD*",
+              "simbadId": "CD-38 10980"
+            }
+          ]
+        },
+        {
+          "starId": "cns5-4013",
+          "name": "HD 147513",
+          "type": "star",
+          "label": "A",
+          "sourceRecords": [
+            {
+              "cns5Id": "4013",
+              "gj": "620.1",
+              "label": "A",
+              "total": "2",
+              "primary": "1",
+              "primaryGj": "",
+              "simbadType": "PM*",
+              "simbadId": "HD 147513"
+            }
+          ]
+        }
+      ],
+      "notes": [],
+      "references": []
+    },
+    {
+      "sourceKeys": [
+        "gj:395"
+      ],
+      "status": "association-candidate",
+      "extendsCard": null,
+      "components": [
+        {
+          "starId": "cns5-2571",
+          "name": "36 UMa B",
+          "type": "star",
+          "label": "B",
+          "sourceRecords": [
+            {
+              "cns5Id": "2571",
+              "gj": "394",
+              "label": "B",
+              "total": "2",
+              "primary": "0",
+              "primaryGj": "395.",
+              "simbadType": "PM*",
+              "simbadId": "*  36 UMa B"
+            }
+          ]
+        },
+        {
+          "starId": "cns5-2572",
+          "name": "36 UMa",
+          "type": "star",
+          "label": "A",
+          "sourceRecords": [
+            {
+              "cns5Id": "2572",
+              "gj": "395",
+              "label": "A",
+              "total": "2",
+              "primary": "1",
+              "primaryGj": "",
+              "simbadType": "PM*",
+              "simbadId": "*  36 UMa"
+            }
+          ]
+        }
+      ],
+      "notes": [],
+      "references": []
+    },
+    {
+      "sourceKeys": [
+        "gj:3304"
+      ],
+      "status": "association-candidate",
+      "extendsCard": null,
+      "components": [
+        {
+          "starId": "cns5-1154",
+          "name": "G 39-29B",
+          "type": "star",
+          "label": "B",
+          "sourceRecords": [
+            {
+              "cns5Id": "1154",
+              "gj": "3304",
+              "label": "B",
+              "total": "2",
+              "primary": "0",
+              "primaryGj": "",
+              "simbadType": "PM*",
+              "simbadId": "G  39-29B"
+            }
+          ]
+        },
+        {
+          "starId": "cns5-1155",
+          "name": "G 39-29A",
+          "type": "star",
+          "label": "A",
+          "sourceRecords": [
+            {
+              "cns5Id": "1155",
+              "gj": "3304",
+              "label": "A",
+              "total": "2",
+              "primary": "1",
+              "primaryGj": "",
+              "simbadType": "PM*",
+              "simbadId": "G  39-29A"
+            }
+          ]
+        }
+      ],
+      "notes": [],
+      "references": []
+    },
+    {
+      "sourceKeys": [
+        "gj:425"
+      ],
+      "status": "association-candidate",
+      "extendsCard": null,
+      "components": [
+        {
+          "starId": "cns5-2778",
+          "name": "HD 98712B",
+          "type": "star",
+          "label": "B",
+          "sourceRecords": [
+            {
+              "cns5Id": "2778",
+              "gj": "425",
+              "label": "B",
+              "total": "2",
+              "primary": "0",
+              "primaryGj": "",
+              "simbadType": "PM*",
+              "simbadId": "HD  98712B"
+            }
+          ]
+        },
+        {
+          "starId": "cns5-2779",
+          "name": "HD 98712A",
+          "type": "star",
+          "label": "A",
+          "sourceRecords": [
+            {
+              "cns5Id": "2779",
+              "gj": "425",
+              "label": "A",
+              "total": "2",
+              "primary": "1",
+              "primaryGj": "",
+              "simbadType": "PM*",
+              "simbadId": "HD  98712A"
+            }
+          ]
+        }
+      ],
+      "notes": [],
+      "references": []
+    },
+    {
+      "sourceKeys": [
+        "gj:194"
+      ],
+      "status": "research-required",
+      "extendsCard": "Capella",
+      "components": [
+        {
+          "starId": "cns5-1318",
+          "name": "Capella",
+          "type": "star",
+          "label": "AB",
+          "sourceRecords": [
+            {
+              "cns5Id": "1318",
+              "gj": "194",
+              "label": "AB",
+              "total": "4",
+              "primary": "1",
+              "primaryGj": "",
+              "simbadType": "SB*",
+              "simbadId": "* alf Aur"
+            }
+          ]
+        },
+        {
+          "starId": "cns5-1323",
+          "name": "Capella H",
+          "type": "star",
+          "label": "A",
+          "sourceRecords": [
+            {
+              "cns5Id": "1323",
+              "gj": "195",
+              "label": "A",
+              "total": "4",
+              "primary": "0",
+              "primaryGj": "194.",
+              "simbadType": "PM*",
+              "simbadId": "G  96-29A"
+            }
+          ]
+        },
+        {
+          "starId": "cns5-1324",
+          "name": "Capella L",
+          "type": "star",
+          "label": "B",
+          "sourceRecords": [
+            {
+              "cns5Id": "1324",
+              "gj": "195",
+              "label": "B",
+              "total": "4",
+              "primary": "0",
+              "primaryGj": "194.",
+              "simbadType": "PM*",
+              "simbadId": "G  96-29B"
+            }
+          ]
+        }
+      ],
+      "notes": [
+        "Central Capella AB is combined; H/L have their own component naming scope.",
+        "Capella: missing or compound CNS5 label.",
+        "Capella: frozen SIMBAD spectroscopic-binary flag; confirm whether this row is an individual or subsystem.",
+        "Capella H: published name suffix differs from CNS5 label A.",
+        "Capella L: published name suffix differs from CNS5 label B."
+      ],
+      "references": []
+    },
+    {
+      "sourceKeys": [
+        "gj:512"
+      ],
+      "status": "association-candidate",
+      "extendsCard": null,
+      "components": [
+        {
+          "starId": "cns5-3317",
+          "name": "Ross 486A",
+          "type": "star",
+          "label": "A",
+          "sourceRecords": [
+            {
+              "cns5Id": "3317",
+              "gj": "512",
+              "label": "A",
+              "total": "2",
+              "primary": "1",
+              "primaryGj": "",
+              "simbadType": "PM*",
+              "simbadId": "Ross  486A"
+            }
+          ]
+        },
+        {
+          "starId": "cns5-3318",
+          "name": "Ross 486B",
+          "type": "star",
+          "label": "B",
+          "sourceRecords": [
+            {
+              "cns5Id": "3318",
+              "gj": "512",
+              "label": "B",
+              "total": "2",
+              "primary": "0",
+              "primaryGj": "",
+              "simbadType": "PM*",
+              "simbadId": "Ross  486B"
+            }
+          ]
+        }
+      ],
+      "notes": [],
+      "references": []
+    },
+    {
+      "sourceKeys": [
+        "gj:3148"
+      ],
+      "status": "association-candidate",
+      "extendsCard": null,
+      "components": [
+        {
+          "starId": "cns5-0580",
+          "name": "CD-31 908",
+          "type": "star",
+          "label": "B",
+          "sourceRecords": [
+            {
+              "cns5Id": "580",
+              "gj": "3149",
+              "label": "B",
+              "total": "2",
+              "primary": "0",
+              "primaryGj": "3148.",
+              "simbadType": "PM*",
+              "simbadId": "CD-31   908"
+            }
+          ]
+        },
+        {
+          "starId": "cns5-0581",
+          "name": "CD-31 909",
+          "type": "star",
+          "label": "A",
+          "sourceRecords": [
+            {
+              "cns5Id": "581",
+              "gj": "3148",
+              "label": "A",
+              "total": "2",
+              "primary": "1",
+              "primaryGj": "",
+              "simbadType": "PM*",
+              "simbadId": "CD-31   909"
+            }
+          ]
+        }
+      ],
+      "notes": [],
+      "references": []
+    },
+    {
+      "sourceKeys": [
+        "gj:3371"
+      ],
+      "status": "association-candidate",
+      "extendsCard": null,
+      "components": [
+        {
+          "starId": "cns5-1490",
+          "name": "G 192-11",
+          "type": "star",
+          "label": "A",
+          "sourceRecords": [
+            {
+              "cns5Id": "1490",
+              "gj": "3371",
+              "label": "A",
+              "total": "2",
+              "primary": "1",
+              "primaryGj": "",
+              "simbadType": "PM*",
+              "simbadId": "G 192-11"
+            }
+          ]
+        },
+        {
+          "starId": "cns5-1491",
+          "name": "G 192-12",
+          "type": "star",
+          "label": "B",
+          "sourceRecords": [
+            {
+              "cns5Id": "1491",
+              "gj": "3372",
+              "label": "B",
+              "total": "2",
+              "primary": "0",
+              "primaryGj": "3371.",
+              "simbadType": "PM*",
+              "simbadId": "G 192-12"
+            }
+          ]
+        }
+      ],
+      "notes": [],
+      "references": []
+    },
+    {
+      "sourceKeys": [
+        "gj:61"
+      ],
+      "status": "association-candidate",
+      "extendsCard": null,
+      "components": [
+        {
+          "starId": "cns5-0402",
+          "name": "Titawin",
+          "type": "star",
+          "label": "A",
+          "sourceRecords": [
+            {
+              "cns5Id": "402",
+              "gj": "61",
+              "label": "A",
+              "total": "2",
+              "primary": "1",
+              "primaryGj": "",
+              "simbadType": "PM*",
+              "simbadId": "* ups And"
+            }
+          ]
+        },
+        {
+          "starId": "cns5-0403",
+          "name": "Upsilon And B",
+          "type": "star",
+          "label": "B",
+          "sourceRecords": [
+            {
+              "cns5Id": "403",
+              "gj": "10216",
+              "label": "B",
+              "total": "2",
+              "primary": "0",
+              "primaryGj": "61.",
+              "simbadType": "PM*",
+              "simbadId": "* ups And B"
+            }
+          ]
+        }
+      ],
+      "notes": [],
+      "references": []
+    },
+    {
+      "sourceKeys": [
+        "gj:528"
+      ],
+      "status": "association-candidate",
+      "extendsCard": null,
+      "components": [
+        {
+          "starId": "cns5-3421",
+          "name": "HD 120476B",
+          "type": "star",
+          "label": "B",
+          "sourceRecords": [
+            {
+              "cns5Id": "3421",
+              "gj": "528",
+              "label": "B",
+              "total": "2",
+              "primary": "0",
+              "primaryGj": "",
+              "simbadType": "PM*",
+              "simbadId": "HD 120476B"
+            }
+          ]
+        },
+        {
+          "starId": "cns5-3422",
+          "name": "HD 120476A",
+          "type": "star",
+          "label": "A",
+          "sourceRecords": [
+            {
+              "cns5Id": "3422",
+              "gj": "528",
+              "label": "A",
+              "total": "2",
+              "primary": "1",
+              "primaryGj": "",
+              "simbadType": "PM*",
+              "simbadId": "HD 120476A"
+            }
+          ]
+        }
+      ],
+      "notes": [],
+      "references": []
+    },
+    {
+      "sourceKeys": [
+        "gj:507"
+      ],
+      "status": "research-required",
+      "extendsCard": null,
+      "components": [
+        {
+          "starId": "cns5-3277",
+          "name": "BD+35 2436",
+          "type": "star",
+          "label": "A",
+          "sourceRecords": [
+            {
+              "cns5Id": "3277",
+              "gj": "507",
+              "label": "A",
+              "total": "2",
+              "primary": "1",
+              "primaryGj": "",
+              "simbadType": "SB*",
+              "simbadId": "BD+35  2436"
+            }
+          ]
+        },
+        {
+          "starId": "cns5-3278",
+          "name": "G 164-65",
+          "type": "star",
+          "label": "B",
+          "sourceRecords": [
+            {
+              "cns5Id": "3278",
+              "gj": "507",
+              "label": "B",
+              "total": "2",
+              "primary": "0",
+              "primaryGj": "",
+              "simbadType": "PM*",
+              "simbadId": "G 164-65"
+            }
+          ]
+        }
+      ],
+      "notes": [
+        "BD+35 2436: frozen SIMBAD spectroscopic-binary flag; confirm whether this row is an individual or subsystem."
+      ],
+      "references": []
+    },
+    {
+      "sourceKeys": [
+        "gj:130.1"
+      ],
+      "status": "association-candidate",
+      "extendsCard": null,
+      "components": [
+        {
+          "starId": "cns5-0820",
+          "name": "Ross 370A",
+          "type": "star",
+          "label": "A",
+          "sourceRecords": [
+            {
+              "cns5Id": "820",
+              "gj": "130.1",
+              "label": "A",
+              "total": "2",
+              "primary": "1",
+              "primaryGj": "",
+              "simbadType": "PM*",
+              "simbadId": "Ross  370A"
+            }
+          ]
+        },
+        {
+          "starId": "cns5-0822",
+          "name": "Ross 370B",
+          "type": "star",
+          "label": "B",
+          "sourceRecords": [
+            {
+              "cns5Id": "822",
+              "gj": "130.1",
+              "label": "B",
+              "total": "2",
+              "primary": "0",
+              "primaryGj": "",
+              "simbadType": "PM*",
+              "simbadId": "Ross  370B"
+            }
+          ]
+        }
+      ],
+      "notes": [],
+      "references": []
+    },
+    {
+      "sourceKeys": [
+        "gj:771"
+      ],
+      "status": "association-candidate",
+      "extendsCard": null,
+      "components": [
+        {
+          "starId": "cns5-4929",
+          "name": "Alshain",
+          "type": "star",
+          "label": "A",
+          "sourceRecords": [
+            {
+              "cns5Id": "4929",
+              "gj": "771",
+              "label": "A",
+              "total": "2",
+              "primary": "1",
+              "primaryGj": "",
+              "simbadType": "PM*",
+              "simbadId": "* bet Aql"
+            }
+          ]
+        },
+        {
+          "starId": "cns5-4930",
+          "name": "Beta Aql B",
+          "type": "star",
+          "label": "B",
+          "sourceRecords": [
+            {
+              "cns5Id": "4930",
+              "gj": "771",
+              "label": "B",
+              "total": "2",
+              "primary": "0",
+              "primaryGj": "",
+              "simbadType": "PM*",
+              "simbadId": "* bet Aql B"
+            }
+          ]
+        }
+      ],
+      "notes": [],
+      "references": []
+    },
+    {
+      "sourceKeys": [
+        "gj:3997"
+      ],
+      "status": "association-candidate",
+      "extendsCard": null,
+      "components": [
+        {
+          "starId": "cns5-4234",
+          "name": "BD+19 3268B",
+          "type": "star",
+          "label": "B",
+          "sourceRecords": [
+            {
+              "cns5Id": "4234",
+              "gj": "12469",
+              "label": "B",
+              "total": "2",
+              "primary": "0",
+              "primaryGj": "3997.",
+              "simbadType": "PM*",
+              "simbadId": "BD+19  3268B"
+            }
+          ]
+        },
+        {
+          "starId": "cns5-4235",
+          "name": "BD+19 3268A",
+          "type": "star",
+          "label": "A",
+          "sourceRecords": [
+            {
+              "cns5Id": "4235",
+              "gj": "3997",
+              "label": "A",
+              "total": "2",
+              "primary": "1",
+              "primaryGj": "",
+              "simbadType": "PM*",
+              "simbadId": "BD+19  3268A"
+            }
+          ]
+        }
+      ],
+      "notes": [],
+      "references": []
+    },
+    {
+      "sourceKeys": [
+        "gj:184"
+      ],
+      "status": "association-candidate",
+      "extendsCard": null,
+      "components": [
+        {
+          "starId": "cns5-1271",
+          "name": "BD+52 911B",
+          "type": "star",
+          "label": "B",
+          "sourceRecords": [
+            {
+              "cns5Id": "1271",
+              "gj": "10723",
+              "label": "B",
+              "total": "2",
+              "primary": "0",
+              "primaryGj": "184.",
+              "simbadType": "PM*",
+              "simbadId": "BD+52   911B"
+            }
+          ]
+        },
+        {
+          "starId": "cns5-1272",
+          "name": "BD+52 911",
+          "type": "star",
+          "label": "A",
+          "sourceRecords": [
+            {
+              "cns5Id": "1272",
+              "gj": "184",
+              "label": "A",
+              "total": "2",
+              "primary": "1",
+              "primaryGj": "",
+              "simbadType": "PM*",
+              "simbadId": "BD+52   911"
+            }
+          ]
+        }
+      ],
+      "notes": [],
+      "references": []
+    },
+    {
+      "sourceKeys": [
+        "gj:767"
+      ],
+      "status": "association-candidate",
+      "extendsCard": null,
+      "components": [
+        {
+          "starId": "cns5-4901",
+          "name": "HD 331161A",
+          "type": "star",
+          "label": "A",
+          "sourceRecords": [
+            {
+              "cns5Id": "4901",
+              "gj": "767",
+              "label": "A",
+              "total": "2",
+              "primary": "1",
+              "primaryGj": "",
+              "simbadType": "PM*",
+              "simbadId": "HD 331161A"
+            }
+          ]
+        },
+        {
+          "starId": "cns5-4902",
+          "name": "HD 331161B",
+          "type": "star",
+          "label": "B",
+          "sourceRecords": [
+            {
+              "cns5Id": "4902",
+              "gj": "767",
+              "label": "B",
+              "total": "2",
+              "primary": "0",
+              "primaryGj": "",
+              "simbadType": "PM*",
+              "simbadId": "HD 331161B"
+            }
+          ]
+        }
+      ],
+      "notes": [],
+      "references": []
+    }
+  ],
+  "singleOrUnresolvedRecords": [
+    {
+      "starId": "cns5-4217",
+      "name": "HD 155876",
+      "sourceRecords": [
+        {
+          "cns5Id": "4217",
+          "gj": "661",
+          "label": "",
+          "total": "-",
+          "primary": "0",
+          "primaryGj": "",
+          "simbadType": "SB*"
+        }
+      ],
+      "absentPartners": []
+    },
+    {
+      "starId": "cns5-5008",
+      "name": "HD 191408",
+      "sourceRecords": [
+        {
+          "cns5Id": "5008",
+          "gj": "783",
+          "label": "AB",
+          "total": "2",
+          "primary": "1",
+          "primaryGj": "",
+          "simbadType": "PM*"
+        }
+      ],
+      "absentPartners": []
+    },
+    {
+      "starId": "cns5-1784",
+      "name": "QY Aur",
+      "sourceRecords": [
+        {
+          "cns5Id": "1784",
+          "gj": "268",
+          "label": "",
+          "total": "-",
+          "primary": "0",
+          "primaryGj": "",
+          "simbadType": "SB*"
+        }
+      ],
+      "absentPartners": []
+    },
+    {
+      "starId": "cns5-2217",
+      "name": "G 41-14",
+      "sourceRecords": [
+        {
+          "cns5Id": "2217",
+          "gj": "3522",
+          "label": "ABC",
+          "total": "3",
+          "primary": "1",
+          "primaryGj": "",
+          "simbadType": "SB*"
+        }
+      ],
+      "absentPartners": []
+    },
+    {
+      "starId": "cns5-5297",
+      "name": "Ross 775",
+      "sourceRecords": [
+        {
+          "cns5Id": "5297",
+          "gj": "829",
+          "label": "",
+          "total": "-",
+          "primary": "0",
+          "primaryGj": "",
+          "simbadType": "SB*"
+        }
+      ],
+      "absentPartners": []
+    },
+    {
+      "starId": "cns5-0757",
+      "name": "BD-17 588A",
+      "sourceRecords": [
+        {
+          "cns5Id": "757",
+          "gj": "3193",
+          "label": "ABC",
+          "total": "3",
+          "primary": "1",
+          "primaryGj": "",
+          "simbadType": "PM*"
+        }
+      ],
+      "absentPartners": []
+    },
+    {
+      "starId": "cns5-4253",
+      "name": "HD 156384C",
+      "sourceRecords": [
+        {
+          "cns5Id": "4253",
+          "gj": "667",
+          "label": "C",
+          "total": "3",
+          "primary": "0",
+          "primaryGj": "",
+          "simbadType": "PM*"
+        }
+      ],
+      "absentPartners": [
+        {
+          "cns5Id": "4252",
+          "source": {
+            "gj": "667",
+            "label": "AB",
+            "total": "3",
+            "primary": "1",
+            "primaryGj": ""
+          },
+          "simbadId": "HD 156384",
+          "simbadType": "**"
+        }
+      ]
+    },
+    {
+      "starId": "cns5-4198",
+      "name": "G 203-47",
+      "sourceRecords": [
+        {
+          "cns5Id": "4198",
+          "gj": "3991",
+          "label": "",
+          "total": "-",
+          "primary": "0",
+          "primaryGj": "",
+          "simbadType": "SB*"
+        }
+      ],
+      "absentPartners": []
+    },
+    {
+      "starId": "cns5-5660",
+      "name": "Fomalhaut B",
+      "sourceRecords": [
+        {
+          "cns5Id": "5660",
+          "gj": "879",
+          "label": "B",
+          "total": "2",
+          "primary": "0",
+          "primaryGj": "881.",
+          "simbadType": "BY*"
+        }
+      ],
+      "absentPartners": []
+    },
+    {
+      "starId": "cns5-0317",
+      "name": "Mu Cas",
+      "sourceRecords": [
+        {
+          "cns5Id": "317",
+          "gj": "53",
+          "label": "",
+          "total": "-",
+          "primary": "0",
+          "primaryGj": "",
+          "simbadType": "SB*"
+        }
+      ],
+      "absentPartners": []
+    },
+    {
+      "starId": "cns5-5665",
+      "name": "Fomalhaut",
+      "sourceRecords": [
+        {
+          "cns5Id": "5665",
+          "gj": "881",
+          "label": "A",
+          "total": "2",
+          "primary": "1",
+          "primaryGj": "879.",
+          "simbadType": "PM*"
+        }
+      ],
+      "absentPartners": []
+    },
+    {
+      "starId": "cns5-4014",
+      "name": "G 202-45",
+      "sourceRecords": [
+        {
+          "cns5Id": "4014",
+          "gj": "623",
+          "label": "",
+          "total": "-",
+          "primary": "0",
+          "primaryGj": "",
+          "simbadType": "SB*"
+        }
+      ],
+      "absentPartners": []
+    },
+    {
+      "starId": "cns5-4539",
+      "name": "Chi Dra",
+      "sourceRecords": [
+        {
+          "cns5Id": "4539",
+          "gj": "713",
+          "label": "",
+          "total": "-",
+          "primary": "0",
+          "primaryGj": "",
+          "simbadType": "SB*"
+        }
+      ],
+      "absentPartners": []
+    },
+    {
+      "starId": "cns5-1464",
+      "name": "Chi1 Ori",
+      "sourceRecords": [
+        {
+          "cns5Id": "1464",
+          "gj": "222",
+          "label": "",
+          "total": "-",
+          "primary": "0",
+          "primaryGj": "",
+          "simbadType": "SB*"
+        }
+      ],
+      "absentPartners": []
+    },
+    {
+      "starId": "cns5-1703",
+      "name": "HD 50281",
+      "sourceRecords": [
+        {
+          "cns5Id": "1703",
+          "gj": "250",
+          "label": "A",
+          "total": "2",
+          "primary": "1",
+          "primaryGj": "",
+          "simbadType": "PM*"
+        }
+      ],
+      "absentPartners": [
+        {
+          "cns5Id": "1702",
+          "source": {
+            "gj": "250",
+            "label": "B",
+            "total": "2",
+            "primary": "0",
+            "primaryGj": ""
+          },
+          "simbadId": "HD  50281B",
+          "simbadType": "**"
+        }
+      ]
+    },
+    {
+      "starId": "cns5-5064",
+      "name": "G 24-16",
+      "sourceRecords": [
+        {
+          "cns5Id": "5064",
+          "gj": "791.2",
+          "label": "AB",
+          "total": "2",
+          "primary": "1",
+          "primaryGj": "",
+          "simbadType": "Er*"
+        }
+      ],
+      "absentPartners": []
+    },
+    {
+      "starId": "cns5-0527",
+      "name": "BD-18 359",
+      "sourceRecords": [
+        {
+          "cns5Id": "527",
+          "gj": "84",
+          "label": "",
+          "total": "-",
+          "primary": "0",
+          "primaryGj": "",
+          "simbadType": "SB*"
+        }
+      ],
+      "absentPartners": []
+    },
+    {
+      "starId": "cns5-0970",
+      "name": "Wolf 227",
+      "sourceRecords": [
+        {
+          "cns5Id": "970",
+          "gj": "3253",
+          "label": "",
+          "total": "-",
+          "primary": "0",
+          "primaryGj": "",
+          "simbadType": "SB*"
+        }
+      ],
+      "absentPartners": []
+    },
+    {
+      "starId": "cns5-3867",
+      "name": "L 768-119",
+      "sourceRecords": [
+        {
+          "cns5Id": "3867",
+          "gj": "595",
+          "label": "",
+          "total": "-",
+          "primary": "0",
+          "primaryGj": "",
+          "simbadType": "SB*"
+        }
+      ],
+      "absentPartners": []
+    },
+    {
+      "starId": "cns5-0154",
+      "name": "BD+66 34B",
+      "sourceRecords": [
+        {
+          "cns5Id": "154",
+          "gj": "22",
+          "label": "B",
+          "total": "2",
+          "primary": "0",
+          "primaryGj": "",
+          "simbadType": "PM*"
+        }
+      ],
+      "absentPartners": [
+        {
+          "cns5Id": "155",
+          "source": {
+            "gj": "22",
+            "label": "A",
+            "total": "2",
+            "primary": "1",
+            "primaryGj": ""
+          },
+          "simbadId": "BD+66    34A",
+          "simbadType": "**"
+        }
+      ]
+    },
+    {
+      "starId": "cns5-3169",
+      "name": "G 237-78",
+      "sourceRecords": [
+        {
+          "cns5Id": "3169",
+          "gj": "487",
+          "label": "",
+          "total": "-",
+          "primary": "0",
+          "primaryGj": "",
+          "simbadType": "SB*"
+        }
+      ],
+      "absentPartners": []
+    },
+    {
+      "starId": "cns5-1408",
+      "name": "G 100-28",
+      "sourceRecords": [
+        {
+          "cns5Id": "1408",
+          "gj": "1083",
+          "label": "AB",
+          "total": "2",
+          "primary": "1",
+          "primaryGj": "",
+          "simbadType": "Er*"
+        }
+      ],
+      "absentPartners": []
+    },
+    {
+      "starId": "cns5-4097",
+      "name": "Zeta Her",
+      "sourceRecords": [
+        {
+          "cns5Id": "4097",
+          "gj": "635",
+          "label": "AB",
+          "total": "2",
+          "primary": "1",
+          "primaryGj": "",
+          "simbadType": "SB*"
+        }
+      ],
+      "absentPartners": []
+    },
+    {
+      "starId": "cns5-3007",
+      "name": "RX J1214.1-2345",
+      "sourceRecords": [
+        {
+          "cns5Id": "3007",
+          "gj": "11757",
+          "label": "A",
+          "total": "2",
+          "primary": "1",
+          "primaryGj": "",
+          "simbadType": "PM*"
+        }
+      ],
+      "absentPartners": [
+        {
+          "cns5Id": "3006",
+          "source": {
+            "gj": "11756",
+            "label": "B",
+            "total": "2",
+            "primary": "0",
+            "primaryGj": "11757"
+          },
+          "simbadId": "RX J1214.1-2345B",
+          "simbadType": "BD?"
+        }
+      ]
+    },
+    {
+      "starId": "cns5-0583",
+      "name": "Delta Tri",
+      "sourceRecords": [
+        {
+          "cns5Id": "583",
+          "gj": "92",
+          "label": "",
+          "total": "-",
+          "primary": "0",
+          "primaryGj": "",
+          "simbadType": "SB*"
+        }
+      ],
+      "absentPartners": []
+    },
+    {
+      "starId": "cns5-5888",
+      "name": "HD 223778",
+      "sourceRecords": [
+        {
+          "cns5Id": "5888",
+          "gj": "909",
+          "label": "AB",
+          "total": "2",
+          "primary": "1",
+          "primaryGj": "",
+          "simbadType": "SB*"
+        }
+      ],
+      "absentPartners": []
+    },
+    {
+      "starId": "cns5-4363",
+      "name": "HD 160346",
+      "sourceRecords": [
+        {
+          "cns5Id": "4363",
+          "gj": "688",
+          "label": "",
+          "total": "-",
+          "primary": "0",
+          "primaryGj": "",
+          "simbadType": "SB*"
+        }
+      ],
+      "absentPartners": []
+    },
+    {
+      "starId": "cns5-4704",
+      "name": "MCC 188",
+      "sourceRecords": [
+        {
+          "cns5Id": "4704",
+          "gj": "735",
+          "label": "",
+          "total": "-",
+          "primary": "0",
+          "primaryGj": "",
+          "simbadType": "SB*"
+        }
+      ],
+      "absentPartners": []
+    },
+    {
+      "starId": "cns5-1860",
+      "name": "G 107-69",
+      "sourceRecords": [
+        {
+          "cns5Id": "1860",
+          "gj": "275.2",
+          "label": "AB",
+          "total": "2",
+          "primary": "1",
+          "primaryGj": "",
+          "simbadType": "PM*"
+        }
+      ],
+      "absentPartners": []
+    },
+    {
+      "starId": "cns5-3442",
+      "name": "Muphrid",
+      "sourceRecords": [
+        {
+          "cns5Id": "3442",
+          "gj": "534",
+          "label": "",
+          "total": "-",
+          "primary": "0",
+          "primaryGj": "",
+          "simbadType": "SB*"
+        }
+      ],
+      "absentPartners": []
+    },
+    {
+      "starId": "cns5-2800",
+      "name": "HD 99279B",
+      "sourceRecords": [
+        {
+          "cns5Id": "2800",
+          "gj": "428",
+          "label": "B",
+          "total": "2",
+          "primary": "0",
+          "primaryGj": "",
+          "simbadType": "PM*"
+        }
+      ],
+      "absentPartners": [
+        {
+          "cns5Id": "2803",
+          "source": {
+            "gj": "428",
+            "label": "A",
+            "total": "2",
+            "primary": "1",
+            "primaryGj": ""
+          },
+          "simbadId": "HD  99279A",
+          "simbadType": "**"
+        }
+      ]
+    },
+    {
+      "starId": "cns5-0276",
+      "name": "CD-28 302",
+      "sourceRecords": [
+        {
+          "cns5Id": "276",
+          "gj": "46",
+          "label": "",
+          "total": "-",
+          "primary": "0",
+          "primaryGj": "",
+          "simbadType": "SB*"
+        }
+      ],
+      "absentPartners": []
+    },
+    {
+      "starId": "cns5-5370",
+      "name": "Deneb Algedi",
+      "sourceRecords": [
+        {
+          "cns5Id": "5370",
+          "gj": "837",
+          "label": "",
+          "total": "-",
+          "primary": "0",
+          "primaryGj": "",
+          "simbadType": "SB*"
+        }
+      ],
+      "absentPartners": []
+    },
+    {
+      "starId": "cns5-5470",
+      "name": "Iota Peg",
+      "sourceRecords": [
+        {
+          "cns5Id": "5470",
+          "gj": "848",
+          "label": "",
+          "total": "-",
+          "primary": "0",
+          "primaryGj": "",
+          "simbadType": "SB*"
+        }
+      ],
+      "absentPartners": []
+    },
+    {
+      "starId": "cns5-0829",
+      "name": "Zeta1 Ret",
+      "sourceRecords": [
+        {
+          "cns5Id": "829",
+          "gj": "136",
+          "label": "B",
+          "total": "2",
+          "primary": "0",
+          "primaryGj": "138.",
+          "simbadType": "PM*"
+        }
+      ],
+      "absentPartners": [
+        {
+          "cns5Id": "833",
+          "source": {
+            "gj": "138",
+            "label": "A",
+            "total": "2",
+            "primary": "1",
+            "primaryGj": ""
+          },
+          "simbadId": "* zet02 Ret",
+          "simbadType": "**"
+        }
+      ]
+    },
+    {
+      "starId": "cns5-0006",
+      "name": "85 Peg",
+      "sourceRecords": [
+        {
+          "cns5Id": "6",
+          "gj": "914",
+          "label": "",
+          "total": "-",
+          "primary": "0",
+          "primaryGj": "",
+          "simbadType": "SB*"
+        }
+      ],
+      "absentPartners": []
+    },
+    {
+      "starId": "cns5-0884",
+      "name": "HD 21531",
+      "sourceRecords": [
+        {
+          "cns5Id": "884",
+          "gj": "142",
+          "label": "",
+          "total": "-",
+          "primary": "0",
+          "primaryGj": "",
+          "simbadType": "SB*"
+        }
+      ],
+      "absentPartners": []
+    },
+    {
+      "starId": "cns5-0306",
+      "name": "G 69-47",
+      "sourceRecords": [
+        {
+          "cns5Id": "306",
+          "gj": "1029",
+          "label": "",
+          "total": "-",
+          "primary": "0",
+          "primaryGj": "",
+          "simbadType": "SB*"
+        }
+      ],
+      "absentPartners": []
+    },
+    {
+      "starId": "cns5-5331",
+      "name": "BD+27 4120B",
+      "sourceRecords": [
+        {
+          "cns5Id": "5331",
+          "gj": "835",
+          "label": "B",
+          "total": "3",
+          "primary": "0",
+          "primaryGj": "",
+          "simbadType": "PM*"
+        }
+      ],
+      "absentPartners": [
+        {
+          "cns5Id": "5330",
+          "source": {
+            "gj": "835",
+            "label": "AC",
+            "total": "3",
+            "primary": "1",
+            "primaryGj": ""
+          },
+          "simbadId": "BD+27  4120",
+          "simbadType": "**"
+        }
+      ]
+    },
+    {
+      "starId": "cns5-2593",
+      "name": "G 236-34",
+      "sourceRecords": [
+        {
+          "cns5Id": "2593",
+          "gj": "3612",
+          "label": "",
+          "total": "-",
+          "primary": "0",
+          "primaryGj": "",
+          "simbadType": "SB*"
+        }
+      ],
+      "absentPartners": []
+    },
+    {
+      "starId": "cns5-2945",
+      "name": "HD 104304",
+      "sourceRecords": [
+        {
+          "cns5Id": "2945",
+          "gj": "454",
+          "label": "",
+          "total": "-",
+          "primary": "0",
+          "primaryGj": "",
+          "simbadType": "SB*"
+        }
+      ],
+      "absentPartners": []
+    },
+    {
+      "starId": "cns5-4402",
+      "name": "Wolf 1473",
+      "sourceRecords": [
+        {
+          "cns5Id": "4402",
+          "gj": "12564",
+          "label": "",
+          "total": "-",
+          "primary": "0",
+          "primaryGj": "",
+          "simbadType": "SB*"
+        }
+      ],
+      "absentPartners": []
+    },
+    {
+      "starId": "cns5-5190",
+      "name": "WT 765",
+      "sourceRecords": [
+        {
+          "cns5Id": "5190",
+          "gj": "13041",
+          "label": "B",
+          "total": "2",
+          "primary": "0",
+          "primaryGj": "13043",
+          "simbadType": "WD*"
+        }
+      ],
+      "absentPartners": [
+        {
+          "cns5Id": "5192",
+          "source": {
+            "gj": "13043",
+            "label": "A",
+            "total": "2",
+            "primary": "1",
+            "primaryGj": ""
+          },
+          "simbadId": "WT 766",
+          "simbadType": "**"
+        }
+      ]
+    },
+    {
+      "starId": "cns5-3865",
+      "name": "Ross 1057",
+      "sourceRecords": [
+        {
+          "cns5Id": "3865",
+          "gj": "597",
+          "label": "",
+          "total": "-",
+          "primary": "0",
+          "primaryGj": "",
+          "simbadType": "SB*"
+        }
+      ],
+      "absentPartners": []
+    },
+    {
+      "starId": "cns5-5833",
+      "name": "Errai",
+      "sourceRecords": [
+        {
+          "cns5Id": "5833",
+          "gj": "903",
+          "label": "",
+          "total": "-",
+          "primary": "0",
+          "primaryGj": "",
+          "simbadType": "SB*"
+        }
+      ],
+      "absentPartners": []
+    },
+    {
+      "starId": "cns5-2636",
+      "name": "BD+39 2376A",
+      "sourceRecords": [
+        {
+          "cns5Id": "2636",
+          "gj": "400",
+          "label": "AB",
+          "total": "2",
+          "primary": "1",
+          "primaryGj": "",
+          "simbadType": "PM*"
+        }
+      ],
+      "absentPartners": []
+    },
+    {
+      "starId": "cns5-3515",
+      "name": "G 65-39",
+      "sourceRecords": [
+        {
+          "cns5Id": "3515",
+          "gj": "1182",
+          "label": "",
+          "total": "-",
+          "primary": "0",
+          "primaryGj": "",
+          "simbadType": "SB*"
+        }
+      ],
+      "absentPartners": []
+    }
+  ],
+  "inputs": [
+    {
+      "path": "src/data/stars.csv",
+      "sha256": "b2730d990dad43bb380826c4a1c12b84cac8469bd21b3635920f6d8625cfb1a8"
+    },
+    {
+      "path": "src/data/catalogs/nearest-100/stars.csv",
+      "sha256": "7bba6871e50af4e8db37c2ed3382212f7b11bb464e4a00d64ec15e63d1ef036e"
+    },
+    {
+      "path": "src/data/catalogs/nearest-1000/stars.csv",
+      "sha256": "45a045496165c75fd03768ef502326a7e0f08eac7551f9877864f09ec248267a"
+    },
+    {
+      "path": "src/data/star-systems.json",
+      "sha256": "86987e23ff3dfd2dc8873f452322f35529809008edf2e8ad607d34a6323eb7c1"
+    },
+    {
+      "path": "src/data/catalogs/nearest-100/provenance.json",
+      "sha256": "b630d4ce108649fffe687ad1803b293bde4fce20056e9a370240d1fa92a6e566"
+    },
+    {
+      "path": "src/data/catalogs/nearest-1000/provenance.json",
+      "sha256": "38cb1c522fe055add984e16117aa6ed5a090c0f9414ffb73dcbb3ecc20f9468d"
+    },
+    {
+      "path": "catalog-work/nearest-100/source-input.json",
+      "sha256": "ab8a3ab6e0b0edb1372f7c58cdf4f121fe1d5d204a9a0541e6d302a5ac18c84a"
+    },
+    {
+      "path": "catalog-work/nearest-1000/cns5.dat",
+      "sha256": "7e8c1a2ce4a2afcd70cdf40340c9685b1ec90e8e5085a81812dfa98c5c8adbbf"
+    },
+    {
+      "path": "catalog-work/nearest-1000/simbad.csv",
+      "sha256": "0d1ab9881afdfbbac62ea7d05d31cb0d8ca4c4235a4b14eb3d0e5b789a932dbd"
+    }
+  ],
+  "method": [
+    "Match runtime IDs through exact nearest-100 system provenance and CNS5 provenance.",
+    "Group CNS5 entries with NComp >= 2 by primary GJ pointer, falling back to their own GJ number; merge overlapping source groups.",
+    "Compare source groups to the current suffix-derived and explicit five-system card associations.",
+    "Defer missing, compound, conflicting labels and non-curated spectroscopic-binary records for individual review.",
+    "Inspect remaining ungrouped runtime records for CNS5 multiplicity or frozen SIMBAD SB* flags; do not infer membership from sky proximity."
+  ],
+  "limitations": [
+    "Association candidates have usable frozen-source labels, not a guarantee of complete physical membership or current individual-component measurements.",
+    "SIMBAD SB* flags are review triggers; they do not by themselves establish extra component identities.",
+    "SIMBAD ** can denote a multiple-star object and is not sufficient proof that a source row is an unresolved aggregate. The generator currently excludes this type.",
+    "The isolated-record count includes both Fomalhaut A and B and must not be interpreted as a count of distinct systems.",
+    "Only the three base catalogs were reviewed; optional overlays are outside scope."
+  ],
+  "supplementaryGroups": [
+    {
+      "name": "Fomalhaut",
+      "status": "association-candidate-with-source-pointer-correction",
+      "components": [
+        {
+          "starId": "cns5-5665",
+          "label": "A"
+        },
+        {
+          "starId": "cns5-5660",
+          "label": "B"
+        }
+      ],
+      "missingRuntimeComponent": {
+        "cns5Id": "5623",
+        "label": "C",
+        "name": "LP 876-10",
+        "exclusionReason": "aggregate system (frozen SIMBAD type **)",
+        "requiresIndividualIdentityReview": true
+      },
+      "notes": [
+        "A/B have reciprocal primary GJ pointers (879/881), so the conservative grouping separates them.",
+        "Published work supports the wider A/B/C system; do not invent individual C data or infer a close C companion from the ** flag."
+      ],
+      "references": [
+        "https://arxiv.org/abs/1310.0764"
+      ]
+    }
+  ]
+}

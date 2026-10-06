@@ -1,0 +1,51 @@
+{
+  "schemaVersion": 1,
+  "reviewedOn": "2026-10-06",
+  "components": [
+    {
+      "starId": "rigel-ba",
+      "name": "Rigel Ba",
+      "type": "star",
+      "systemId": "rigel",
+      "label": "Ba",
+      "raDeg": 78.633403,
+      "decDeg": -8.204067,
+      "spectralType": "B9V",
+      "visualMagnitude": null,
+      "sourceRef": "msc-20260619",
+      "frozenInput": "catalog-work/star-systems/msc-20260619-rigel.json",
+      "physical": {},
+      "note": "Individual stellar member from MSC WDS 05145-0812. The MSC BC sky direction and primary Rigel parallax place the component approximately at J2000; Ba/Bb/C share that BC direction and the primary proper motion. No resolved inner orbital offset, phase or individual radial velocity is adopted. B/BC integrated photometry and catalogue estimated masses are withheld. Individual Johnson V and physical measurements are unknown."
+    },
+    {
+      "starId": "rigel-bb",
+      "name": "Rigel Bb",
+      "type": "star",
+      "systemId": "rigel",
+      "label": "Bb",
+      "raDeg": 78.633403,
+      "decDeg": -8.204067,
+      "spectralType": "",
+      "visualMagnitude": null,
+      "sourceRef": "msc-20260619",
+      "frozenInput": "catalog-work/star-systems/msc-20260619-rigel.json",
+      "physical": {},
+      "note": "Individual stellar member from MSC WDS 05145-0812. The MSC BC sky direction and primary Rigel parallax place the component approximately at J2000; Ba/Bb/C share that BC direction and the primary proper motion. No resolved inner orbital offset, phase or individual radial velocity is adopted. B/BC integrated photometry and catalogue estimated masses are withheld. Individual Johnson V and physical measurements are unknown."
+    },
+    {
+      "starId": "rigel-c",
+      "name": "Rigel C",
+      "type": "star",
+      "systemId": "rigel",
+      "label": "C",
+      "raDeg": 78.633403,
+      "decDeg": -8.204067,
+      "spectralType": "B9V",
+      "visualMagnitude": 7.6,
+      "sourceRef": "msc-20260619",
+      "frozenInput": "catalog-work/star-systems/msc-20260619-rigel.json",
+      "physical": {},
+      "note": "Individual stellar member from MSC WDS 05145-0812. The MSC BC sky direction and primary Rigel parallax place the component approximately at J2000; Ba/Bb/C share that BC direction and the primary proper motion. No resolved inner orbital offset, phase or individual radial velocity is adopted. B/BC integrated photometry and catalogue estimated masses are withheld. C Johnson V=7.60 is the individual visual C value in the B,C subsystem table; no bolometric conversion is made."
+    }
+  ]
+}

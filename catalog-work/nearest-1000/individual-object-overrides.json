@@ -1,0 +1,1258 @@
+{
+  "schemaVersion": 1,
+  "objects": [
+    {
+      "cns5Id": "5623",
+      "simbadId": "* alf PsA C",
+      "gaiaDr3Id": "6623351805412369024",
+      "name": "Fomalhaut C",
+      "reviewDate": "2026-10-05",
+      "reference": "2013AJ....146..154M",
+      "url": "https://arxiv.org/abs/1310.0764",
+      "decision": "Admit LP 876-10 as the individual Fomalhaut C component despite frozen SIMBAD type **. Mamajek et al. identify it as the wide third stellar member and do not confirm the reported close companion. Keep its exact CNS5/Gaia astrometry and independently sourced physical properties; do not split it into hypothetical Ca/Cb records."
+    },
+    {
+      "cns5Id": "833",
+      "simbadId": "* zet02 Ret",
+      "gaiaDr3Id": "4722135642226902656",
+      "name": "Zeta2 Ret",
+      "reviewDate": "2026-10-05",
+      "reference": "2016A&A...591A..34A",
+      "url": "https://arxiv.org/abs/1605.01918",
+      "decision": "Admit the individually observed Zeta2 Reticuli stellar component, paired with Zeta1 Reticuli; the broad SIMBAD ** flag does not make these two resolved solar analogs one aggregate."
+    },
+    {
+      "cns5Id": "2803",
+      "simbadId": "HD  99279A",
+      "gaiaDr3Id": "5334356223546961536",
+      "name": "HD 99279 A",
+      "reviewDate": "2026-10-05",
+      "reference": "2023A&A...670A..19G",
+      "url": "https://cdsarc.cds.unistra.fr/ftp/J/A+A/670/A19/ReadMe",
+      "decision": "Admit the explicit CNS5 A component of GJ 428. The exact Gaia identity, individual A component field, K5-V spectrum, and WDS A identity distinguish it from the separately cataloged B; retain the original SIMBAD ** classification in provenance. The frozen CNS5 astrometry has no Gaia ID; its SIMBAD-resolved Gaia identifier is retained separately and is not substituted for CNS5 astrometry.",
+      "cns5GaiaDr3Id": null
+    },
+    {
+      "cns5Id": "5192",
+      "simbadId": "WT 766",
+      "gaiaDr3Id": "6478328150150225664",
+      "name": "WT 766 A",
+      "reviewDate": "2026-10-05",
+      "reference": "2024A&A...688A..44W",
+      "url": "https://arxiv.org/abs/2403.13055",
+      "decision": "Admit the M-dwarf primary WT 766. Published resolved observations measure its close substellar companion independently; the wide white dwarf WT 765 is already cataloged. Preserve the system astrometry as an approximate primary snapshot, not an orbital trajectory.",
+      "physicalOverrides": {
+        "mass_solar": {
+          "value": 0.211,
+          "uncertainty": 0.004,
+          "status": "dynamical",
+          "reference": "2024A&A...688A..44W:Table C.3"
+        },
+        "radius_solar": {
+          "value": null,
+          "status": "withheld-blended-photometry",
+          "reference": "2024A&A...688A..44W"
+        },
+        "luminosity_solar": {
+          "value": null,
+          "status": "withheld-blended-photometry",
+          "reference": "2024A&A...688A..44W"
+        }
+      }
+    },
+    {
+      "cns5Id": "1529",
+      "simbadId": "HD  42581B",
+      "gaiaDr3Id": null,
+      "name": "GJ 229 Ba",
+      "spectralType": "",
+      "reviewDate": "2026-10-05",
+      "reference": "arXiv:2410.11953",
+      "url": "https://arxiv.org/abs/2410.11953",
+      "additive": false,
+      "withholdIndividualMotion": true,
+      "astrometryScope": "Former combined binary source snapshot, shared as an approximate component position. No resolved orbital trajectory is claimed.",
+      "decision": "Replace the combined source record with its individually identified primary component while keeping the stable ID and source astrometric snapshot. Add the resolved secondary separately. Withhold combined photometry, atmosphere estimates and individual orbital radial velocity.",
+      "physicalOverrides": {
+        "temperature_k": {
+          "value": 860,
+          "uncertainty": 20,
+          "status": "model-derived",
+          "reference": "arXiv:2410.11953:ATMO 2020"
+        },
+        "mass_solar": {
+          "value": 38.1,
+          "unit": "M_jup",
+          "uncertainty": 1.0,
+          "status": "dynamical",
+          "reference": "arXiv:2410.11953:Table 1"
+        },
+        "luminosity_solar": {
+          "value": 3.890451449942805e-06,
+          "uncertainty": 3.5832382054621495e-07,
+          "log10Value": -5.41,
+          "status": "model-derived",
+          "reference": "arXiv:2410.11953:ATMO 2020"
+        },
+        "radius_solar": {
+          "value": null,
+          "status": "withheld-combined-record",
+          "reference": "arXiv:2410.11953"
+        },
+        "metallicity_dex": {
+          "value": null,
+          "status": "withheld-combined-record",
+          "reference": "arXiv:2410.11953"
+        },
+        "age_gyr": {
+          "value": 2.45,
+          "uncertainty": 0.2,
+          "status": "model-derived",
+          "reference": "arXiv:2410.11953:ATMO 2020"
+        },
+        "absolute_mag": {
+          "value": null,
+          "status": "withheld-combined-record",
+          "reference": "arXiv:2410.11953"
+        }
+      }
+    },
+    {
+      "cns5Id": "11",
+      "simbadId": "NAME L 362-29 BC",
+      "gaiaDr3Id": "4996141155411984128",
+      "name": "GJ 1001 B",
+      "spectralType": "L4.5",
+      "reviewDate": "2026-10-05",
+      "reference": "GJ1001BC-proceedings",
+      "url": "https://static.cambridge.org/content/id/urn%3Acambridge.org%3Aid%3Aarticle%3AS1743921307004255/resource/name/golimowski.pdf",
+      "additive": false,
+      "withholdIndividualMotion": true,
+      "astrometryScope": "Former combined binary source snapshot, shared as an approximate component position. No resolved orbital trajectory is claimed.",
+      "decision": "Replace the combined source record with its individually identified primary component while keeping the stable ID and source astrometric snapshot. Add the resolved secondary separately. Withhold combined photometry, atmosphere estimates and individual orbital radial velocity.",
+      "physicalOverrides": {
+        "temperature_k": {
+          "value": null,
+          "status": "withheld-combined-record",
+          "reference": "GJ1001BC-proceedings"
+        },
+        "mass_solar": {
+          "value": null,
+          "status": "withheld-combined-record",
+          "reference": "GJ1001BC-proceedings"
+        },
+        "luminosity_solar": {
+          "value": null,
+          "status": "withheld-combined-record",
+          "reference": "GJ1001BC-proceedings"
+        },
+        "radius_solar": {
+          "value": null,
+          "status": "withheld-combined-record",
+          "reference": "GJ1001BC-proceedings"
+        },
+        "metallicity_dex": {
+          "value": null,
+          "status": "withheld-combined-record",
+          "reference": "GJ1001BC-proceedings"
+        },
+        "age_gyr": {
+          "value": null,
+          "status": "withheld-combined-record",
+          "reference": "GJ1001BC-proceedings"
+        },
+        "absolute_mag": {
+          "value": null,
+          "status": "withheld-combined-record",
+          "reference": "GJ1001BC-proceedings"
+        }
+      }
+    },
+    {
+      "cns5Id": "155",
+      "simbadId": "BD+66    34A",
+      "gaiaDr3Id": "527956488340229632",
+      "name": "GJ 22 A",
+      "spectralType": "M2",
+      "reviewDate": "2026-10-06",
+      "reference": "2003A&A...406..293W",
+      "url": "https://arxiv.org/abs/astro-ph/0305330",
+      "withholdIndividualMotion": true,
+      "astrometryScope": "Former unresolved subsystem snapshot, used as an approximate component position and proper motion. No individual orbital trajectory is claimed.",
+      "decision": "Published resolved membership identifies this individual primary. Split the companion into a separate record; withhold blended physical measurements and individual radial velocity.",
+      "physicalOverrides": {
+        "temperature_k": {
+          "value": null,
+          "status": "withheld-combined-record",
+          "reference": "2003A&A...406..293W"
+        },
+        "mass_solar": {
+          "value": null,
+          "status": "withheld-combined-record",
+          "reference": "2003A&A...406..293W"
+        },
+        "luminosity_solar": {
+          "value": null,
+          "status": "withheld-combined-record",
+          "reference": "2003A&A...406..293W"
+        },
+        "radius_solar": {
+          "value": null,
+          "status": "withheld-combined-record",
+          "reference": "2003A&A...406..293W"
+        },
+        "metallicity_dex": {
+          "value": null,
+          "status": "withheld-combined-record",
+          "reference": "2003A&A...406..293W"
+        },
+        "age_gyr": {
+          "value": null,
+          "status": "withheld-combined-record",
+          "reference": "2003A&A...406..293W"
+        },
+        "absolute_mag": {
+          "value": null,
+          "status": "withheld-combined-record",
+          "reference": "2003A&A...406..293W"
+        }
+      }
+    },
+    {
+      "cns5Id": "5330",
+      "simbadId": "BD+27  4120",
+      "gaiaDr3Id": "1800808220175220480",
+      "name": "GJ 835 A",
+      "spectralType": "M0",
+      "reviewDate": "2026-10-06",
+      "reference": "2013MNRAS.429..859J",
+      "url": "https://academic.oup.com/mnras/article/429/1/859/1028530",
+      "withholdIndividualMotion": true,
+      "astrometryScope": "Former unresolved subsystem snapshot, used as an approximate component position and proper motion. No individual orbital trajectory is claimed.",
+      "decision": "Published resolved membership identifies this individual primary. Split the companion into a separate record; withhold blended physical measurements and individual radial velocity.",
+      "physicalOverrides": {
+        "temperature_k": {
+          "value": null,
+          "status": "withheld-combined-record",
+          "reference": "2013MNRAS.429..859J"
+        },
+        "mass_solar": {
+          "value": null,
+          "status": "withheld-combined-record",
+          "reference": "2013MNRAS.429..859J"
+        },
+        "luminosity_solar": {
+          "value": null,
+          "status": "withheld-combined-record",
+          "reference": "2013MNRAS.429..859J"
+        },
+        "radius_solar": {
+          "value": null,
+          "status": "withheld-combined-record",
+          "reference": "2013MNRAS.429..859J"
+        },
+        "metallicity_dex": {
+          "value": null,
+          "status": "withheld-combined-record",
+          "reference": "2013MNRAS.429..859J"
+        },
+        "age_gyr": {
+          "value": null,
+          "status": "withheld-combined-record",
+          "reference": "2013MNRAS.429..859J"
+        },
+        "absolute_mag": {
+          "value": null,
+          "status": "withheld-combined-record",
+          "reference": "2013MNRAS.429..859J"
+        }
+      }
+    },
+    {
+      "cns5Id": "1702",
+      "simbadId": "HD  50281B",
+      "gaiaDr3Id": "3101920046552857728",
+      "name": "HD 50281 Ba",
+      "spectralType": "",
+      "reviewDate": "2026-10-06",
+      "reference": "2018AJ....155..215M",
+      "url": "https://arxiv.org/abs/1804.07845",
+      "withholdIndividualMotion": true,
+      "astrometryScope": "Former unresolved subsystem snapshot, used as an approximate component position and proper motion. No individual orbital trajectory is claimed.",
+      "decision": "Published resolved membership identifies this individual primary. Split the companion into a separate record; withhold blended physical measurements and individual radial velocity.",
+      "physicalOverrides": {
+        "temperature_k": {
+          "value": null,
+          "status": "withheld-combined-record",
+          "reference": "2018AJ....155..215M"
+        },
+        "mass_solar": {
+          "value": null,
+          "status": "withheld-combined-record",
+          "reference": "2018AJ....155..215M"
+        },
+        "luminosity_solar": {
+          "value": null,
+          "status": "withheld-combined-record",
+          "reference": "2018AJ....155..215M"
+        },
+        "radius_solar": {
+          "value": null,
+          "status": "withheld-combined-record",
+          "reference": "2018AJ....155..215M"
+        },
+        "metallicity_dex": {
+          "value": null,
+          "status": "withheld-combined-record",
+          "reference": "2018AJ....155..215M"
+        },
+        "age_gyr": {
+          "value": null,
+          "status": "withheld-combined-record",
+          "reference": "2018AJ....155..215M"
+        },
+        "absolute_mag": {
+          "value": null,
+          "status": "withheld-combined-record",
+          "reference": "2018AJ....155..215M"
+        }
+      }
+    },
+    {
+      "cns5Id": "4252",
+      "simbadId": "HD 156384",
+      "gaiaDr3Id": "5975663422846187008",
+      "name": "GJ 667 A",
+      "spectralType": "K3V",
+      "reviewDate": "2026-10-06",
+      "reference": "CNS5 spectra and ESO eso1214",
+      "url": "https://www.eso.org/public/news/eso1214/",
+      "withholdIndividualMotion": true,
+      "astrometryScope": "Former unresolved subsystem snapshot, used as an approximate component position and proper motion. No individual orbital trajectory is claimed.",
+      "decision": "Published resolved membership identifies this individual primary. Split the companion into a separate record; withhold blended physical measurements and individual radial velocity.",
+      "physicalOverrides": {
+        "temperature_k": {
+          "value": null,
+          "status": "withheld-combined-record",
+          "reference": "CNS5 spectra and ESO eso1214"
+        },
+        "mass_solar": {
+          "value": null,
+          "status": "withheld-combined-record",
+          "reference": "CNS5 spectra and ESO eso1214"
+        },
+        "luminosity_solar": {
+          "value": null,
+          "status": "withheld-combined-record",
+          "reference": "CNS5 spectra and ESO eso1214"
+        },
+        "radius_solar": {
+          "value": null,
+          "status": "withheld-combined-record",
+          "reference": "CNS5 spectra and ESO eso1214"
+        },
+        "metallicity_dex": {
+          "value": null,
+          "status": "withheld-combined-record",
+          "reference": "CNS5 spectra and ESO eso1214"
+        },
+        "age_gyr": {
+          "value": null,
+          "status": "withheld-combined-record",
+          "reference": "CNS5 spectra and ESO eso1214"
+        },
+        "absolute_mag": {
+          "value": null,
+          "status": "withheld-combined-record",
+          "reference": "CNS5 spectra and ESO eso1214"
+        }
+      },
+      "cns5GaiaDr3Id": null
+    },
+    {
+      "cns5Id": "4401",
+      "simbadId": "* mu.01 Her",
+      "gaiaDr3Id": "4594497769766809216",
+      "name": "Mu Her Aa",
+      "spectralType": "G5IV",
+      "reviewDate": "2026-10-06",
+      "reference": "arXiv:2604.12492",
+      "url": "https://arxiv.org/abs/2604.12492",
+      "withholdIndividualMotion": true,
+      "astrometryScope": "Former unresolved subsystem snapshot, used as an approximate component position and proper motion. No individual orbital trajectory is claimed.",
+      "decision": "Published resolved membership identifies this individual primary. Split the companion into a separate record; withhold blended physical measurements and individual radial velocity.",
+      "physicalOverrides": {
+        "temperature_k": {
+          "value": null,
+          "status": "withheld-combined-record",
+          "reference": "arXiv:2604.12492"
+        },
+        "mass_solar": {
+          "value": 1.134,
+          "uncertainty": 0.007,
+          "status": "dynamical",
+          "reference": "arXiv:2604.12492"
+        },
+        "luminosity_solar": {
+          "value": null,
+          "status": "withheld-combined-record",
+          "reference": "arXiv:2604.12492"
+        },
+        "radius_solar": {
+          "value": null,
+          "status": "withheld-combined-record",
+          "reference": "arXiv:2604.12492"
+        },
+        "metallicity_dex": {
+          "value": null,
+          "status": "withheld-combined-record",
+          "reference": "arXiv:2604.12492"
+        },
+        "age_gyr": {
+          "value": null,
+          "status": "withheld-combined-record",
+          "reference": "arXiv:2604.12492"
+        },
+        "absolute_mag": {
+          "value": null,
+          "status": "withheld-combined-record",
+          "reference": "arXiv:2604.12492"
+        }
+      }
+    },
+    {
+      "cns5Id": "4400",
+      "simbadId": "* mu.02 Her A",
+      "gaiaDr3Id": "4594497834189213184",
+      "name": "Mu Her B",
+      "reviewDate": "2026-10-06",
+      "reference": "arXiv:2604.12492",
+      "url": "https://arxiv.org/abs/2604.12492",
+      "additive": false,
+      "decision": "Retain the separate CNS5 B/C identity and measurements. Adopt the component dynamical mass from the full quadruple orbit, with its published B/C labels.",
+      "physicalOverrides": {
+        "mass_solar": {
+          "value": 0.417,
+          "uncertainty": 0.005,
+          "status": "dynamical",
+          "reference": "arXiv:2604.12492"
+        }
+      }
+    },
+    {
+      "cns5Id": "4399",
+      "simbadId": "* mu.02 Her B",
+      "gaiaDr3Id": "4594497838483177984",
+      "name": "Mu Her C",
+      "reviewDate": "2026-10-06",
+      "reference": "arXiv:2604.12492",
+      "url": "https://arxiv.org/abs/2604.12492",
+      "additive": false,
+      "decision": "Retain the separate CNS5 B/C identity and measurements. Adopt the component dynamical mass from the full quadruple orbit, with its published B/C labels.",
+      "physicalOverrides": {
+        "mass_solar": {
+          "value": 0.445,
+          "uncertainty": 0.005,
+          "status": "dynamical",
+          "reference": "arXiv:2604.12492"
+        }
+      }
+    },
+    {
+      "cns5Id": "4217",
+      "simbadId": "HD 155876",
+      "gaiaDr3Id": null,
+      "name": "GJ 661 A",
+      "spectralType": "",
+      "reviewDate": "2026-10-06",
+      "reference": "2000A&A...364..217D",
+      "url": "https://arxiv.org/abs/astro-ph/0010586",
+      "additive": false,
+      "withholdIndividualMotion": true,
+      "astrometryScope": "Former unresolved subsystem snapshot used for approximate component position and proper motion; no individual orbital trajectory is claimed.",
+      "decision": "Identify the individually confirmed primary, retaining its stable ID. Add the confirmed companion separately and withhold combined-source physical parameters and individual radial velocity.",
+      "physicalOverrides": {
+        "temperature_k": {
+          "value": null,
+          "status": "withheld-combined-record",
+          "reference": "2000A&A...364..217D"
+        },
+        "mass_solar": {
+          "value": 0.379,
+          "uncertainty": 0.035,
+          "status": "dynamical",
+          "reference": "2000A&A...364..217D:Table 3"
+        },
+        "luminosity_solar": {
+          "value": null,
+          "status": "withheld-combined-record",
+          "reference": "2000A&A...364..217D"
+        },
+        "radius_solar": {
+          "value": null,
+          "status": "withheld-combined-record",
+          "reference": "2000A&A...364..217D"
+        },
+        "metallicity_dex": {
+          "value": null,
+          "status": "withheld-combined-record",
+          "reference": "2000A&A...364..217D"
+        },
+        "age_gyr": {
+          "value": null,
+          "status": "withheld-combined-record",
+          "reference": "2000A&A...364..217D"
+        },
+        "absolute_mag": {
+          "value": null,
+          "status": "withheld-combined-record",
+          "reference": "2000A&A...364..217D"
+        }
+      }
+    },
+    {
+      "cns5Id": "1784",
+      "simbadId": "V* QY Aur",
+      "gaiaDr3Id": "946632924007399936",
+      "name": "GJ 268 A",
+      "spectralType": "M5e",
+      "reviewDate": "2026-10-06",
+      "reference": "1999A&A...344..897D and Reyle 2023 census system 92",
+      "url": "https://citeseerx.ist.psu.edu/document?doi=632dc4feecc21ebe55cdf3c697ec4831dbbbb9e6&repid=rep1&type=pdf",
+      "additive": false,
+      "withholdIndividualMotion": true,
+      "astrometryScope": "Former unresolved subsystem snapshot used for approximate component position and proper motion; no individual orbital trajectory is claimed.",
+      "decision": "Identify the individually confirmed primary, retaining its stable ID. Add the confirmed companion separately and withhold combined-source physical parameters and individual radial velocity.",
+      "physicalOverrides": {
+        "temperature_k": {
+          "value": null,
+          "status": "withheld-combined-record",
+          "reference": "1999A&A...344..897D and Reyle 2023 census system 92"
+        },
+        "mass_solar": {
+          "value": null,
+          "status": "withheld-combined-record",
+          "reference": "1999A&A...344..897D and Reyle 2023 census system 92"
+        },
+        "luminosity_solar": {
+          "value": null,
+          "status": "withheld-combined-record",
+          "reference": "1999A&A...344..897D and Reyle 2023 census system 92"
+        },
+        "radius_solar": {
+          "value": null,
+          "status": "withheld-combined-record",
+          "reference": "1999A&A...344..897D and Reyle 2023 census system 92"
+        },
+        "metallicity_dex": {
+          "value": null,
+          "status": "withheld-combined-record",
+          "reference": "1999A&A...344..897D and Reyle 2023 census system 92"
+        },
+        "age_gyr": {
+          "value": null,
+          "status": "withheld-combined-record",
+          "reference": "1999A&A...344..897D and Reyle 2023 census system 92"
+        },
+        "absolute_mag": {
+          "value": null,
+          "status": "withheld-combined-record",
+          "reference": "1999A&A...344..897D and Reyle 2023 census system 92"
+        }
+      },
+      "sourceCensusRows": [
+        "171",
+        "172"
+      ]
+    },
+    {
+      "cns5Id": "4136",
+      "simbadId": "HD 152751",
+      "gaiaDr3Id": "4339465085630200960",
+      "name": "GJ 644 A",
+      "spectralType": "",
+      "reviewDate": "2026-10-06",
+      "reference": "2000A&A...364..665S",
+      "url": "https://arxiv.org/abs/astro-ph/0010585",
+      "additive": false,
+      "withholdIndividualMotion": true,
+      "astrometryScope": "Former unresolved subsystem snapshot used for approximate component position and proper motion; no individual orbital trajectory is claimed.",
+      "decision": "Identify the individually confirmed primary, retaining its stable ID. Add the confirmed companion separately and withhold combined-source physical parameters and individual radial velocity.",
+      "physicalOverrides": {
+        "temperature_k": {
+          "value": null,
+          "status": "withheld-combined-record",
+          "reference": "2000A&A...364..665S"
+        },
+        "mass_solar": {
+          "value": 0.4155,
+          "uncertainty": 0.0057,
+          "status": "dynamical",
+          "reference": "2000A&A...364..665S:Table 3"
+        },
+        "luminosity_solar": {
+          "value": null,
+          "status": "withheld-combined-record",
+          "reference": "2000A&A...364..665S"
+        },
+        "radius_solar": {
+          "value": null,
+          "status": "withheld-combined-record",
+          "reference": "2000A&A...364..665S"
+        },
+        "metallicity_dex": {
+          "value": null,
+          "status": "withheld-combined-record",
+          "reference": "2000A&A...364..665S"
+        },
+        "age_gyr": {
+          "value": null,
+          "status": "withheld-combined-record",
+          "reference": "2000A&A...364..665S"
+        },
+        "absolute_mag": {
+          "value": null,
+          "status": "withheld-combined-record",
+          "reference": "2000A&A...364..665S"
+        }
+      },
+      "cns5GaiaDr3Id": null
+    },
+    {
+      "cns5Id": "3687",
+      "simbadId": "BD+16  2708B",
+      "gaiaDr3Id": "1187851653286799488",
+      "name": "GJ 569 Ba",
+      "spectralType": "M8.5V",
+      "reviewDate": "2026-10-06",
+      "reference": "2004ApJ...615..958Z",
+      "url": "https://arxiv.org/abs/astro-ph/0407334",
+      "additive": false,
+      "withholdIndividualMotion": true,
+      "astrometryScope": "Former unresolved subsystem snapshot used for approximate component position and proper motion; no individual orbital trajectory is claimed.",
+      "decision": "Identify the individually confirmed primary, retaining its stable ID. Add the confirmed companion separately and withhold combined-source physical parameters and individual radial velocity. Ba lies close to the stellar/substellar boundary; retain the frozen census stellar classification rather than claiming a definitive brown-dwarf classification.",
+      "physicalOverrides": {
+        "temperature_k": {
+          "value": null,
+          "status": "withheld-combined-record",
+          "reference": "2004ApJ...615..958Z"
+        },
+        "mass_solar": {
+          "value": null,
+          "status": "withheld-combined-record",
+          "reference": "2004ApJ...615..958Z"
+        },
+        "luminosity_solar": {
+          "value": null,
+          "status": "withheld-combined-record",
+          "reference": "2004ApJ...615..958Z"
+        },
+        "radius_solar": {
+          "value": null,
+          "status": "withheld-combined-record",
+          "reference": "2004ApJ...615..958Z"
+        },
+        "metallicity_dex": {
+          "value": null,
+          "status": "withheld-combined-record",
+          "reference": "2004ApJ...615..958Z"
+        },
+        "age_gyr": {
+          "value": null,
+          "status": "withheld-combined-record",
+          "reference": "2004ApJ...615..958Z"
+        },
+        "absolute_mag": {
+          "value": null,
+          "status": "withheld-combined-record",
+          "reference": "2004ApJ...615..958Z"
+        }
+      },
+      "cns5GaiaDr3Id": null
+    },
+    {
+      "cns5Id": "3213",
+      "simbadId": "BD+13  2618",
+      "gaiaDr3Id": "3737308025029348608",
+      "name": "Ross 458 A",
+      "spectralType": "M0.5Ve",
+      "reference": "arXiv:1009.5722",
+      "url": "https://arxiv.org/abs/1009.5722",
+      "reviewDate": "2026-10-06",
+      "additive": false,
+      "withholdIndividualMotion": true,
+      "astrometryScope": "Shared source subsystem snapshot, approximate individual position and proper motion; resolved orbital trajectory is not adopted.",
+      "decision": "The published/source census identifies individual A and B. Preserve the primary stable ID and add B separately; withhold combined physical measurements and individual orbital radial velocity.",
+      "physicalOverrides": {
+        "temperature_k": {
+          "value": null,
+          "status": "withheld-combined-record",
+          "reference": "arXiv:1009.5722"
+        },
+        "mass_solar": {
+          "value": null,
+          "status": "withheld-combined-record",
+          "reference": "arXiv:1009.5722"
+        },
+        "luminosity_solar": {
+          "value": null,
+          "status": "withheld-combined-record",
+          "reference": "arXiv:1009.5722"
+        },
+        "radius_solar": {
+          "value": null,
+          "status": "withheld-combined-record",
+          "reference": "arXiv:1009.5722"
+        },
+        "metallicity_dex": {
+          "value": null,
+          "status": "withheld-combined-record",
+          "reference": "arXiv:1009.5722"
+        },
+        "age_gyr": {
+          "value": null,
+          "status": "withheld-combined-record",
+          "reference": "arXiv:1009.5722"
+        },
+        "absolute_mag": {
+          "value": null,
+          "status": "withheld-combined-record",
+          "reference": "arXiv:1009.5722"
+        }
+      }
+    },
+    {
+      "cns5Id": "5008",
+      "simbadId": "HD 191408",
+      "gaiaDr3Id": "6697578465310949376",
+      "name": "GJ 783 A",
+      "spectralType": "K2.5V",
+      "reference": "Reyle 2023 census row 167, system 90",
+      "url": "https://cdsarc.cds.unistra.fr/ftp/J/A+A/650/A201/ReadMe",
+      "reviewDate": "2026-10-06",
+      "additive": false,
+      "withholdIndividualMotion": true,
+      "astrometryScope": "Shared source subsystem snapshot, approximate individual position and proper motion; resolved orbital trajectory is not adopted.",
+      "decision": "The published/source census identifies individual A and B. Preserve the primary stable ID and add B separately; withhold combined physical measurements and individual orbital radial velocity.",
+      "physicalOverrides": {
+        "temperature_k": {
+          "value": null,
+          "status": "withheld-combined-record",
+          "reference": "Reyle 2023 census row 167, system 90"
+        },
+        "mass_solar": {
+          "value": null,
+          "status": "withheld-combined-record",
+          "reference": "Reyle 2023 census row 167, system 90"
+        },
+        "luminosity_solar": {
+          "value": null,
+          "status": "withheld-combined-record",
+          "reference": "Reyle 2023 census row 167, system 90"
+        },
+        "radius_solar": {
+          "value": null,
+          "status": "withheld-combined-record",
+          "reference": "Reyle 2023 census row 167, system 90"
+        },
+        "metallicity_dex": {
+          "value": null,
+          "status": "withheld-combined-record",
+          "reference": "Reyle 2023 census row 167, system 90"
+        },
+        "age_gyr": {
+          "value": null,
+          "status": "withheld-combined-record",
+          "reference": "Reyle 2023 census row 167, system 90"
+        },
+        "absolute_mag": {
+          "value": null,
+          "status": "withheld-combined-record",
+          "reference": "Reyle 2023 census row 167, system 90"
+        }
+      }
+    },
+    {
+      "cns5Id": "1318",
+      "simbadId": "* alf Aur",
+      "gaiaDr3Id": null,
+      "name": "Capella Aa",
+      "spectralType": "G8III",
+      "reference": "arXiv:1505.07461",
+      "url": "https://arxiv.org/abs/1505.07461",
+      "reviewDate": "2026-10-06",
+      "additive": false,
+      "withholdIndividualMotion": true,
+      "astrometryScope": "Former combined giant-pair source snapshot, shared as an approximate Aa/Ab position and proper motion. No resolved orbital trajectory is claimed.",
+      "decision": "Resolve the giant pair using component values from Torres et al. 2015; retain the existing stable ID for the cooler primary. The known wide H/L pair makes this a quadruple. The paper system age range 0.590-0.650 Gyr is retained in provenance and not converted into an invented point estimate.",
+      "physicalOverrides": {
+        "mass_solar": {
+          "value": 2.5687,
+          "uncertainty": 0.0074,
+          "status": "dynamical",
+          "reference": "arXiv:1505.07461:Table 3"
+        },
+        "temperature_k": {
+          "value": 4970,
+          "uncertainty": 50,
+          "status": "measured",
+          "reference": "arXiv:1505.07461:Table 3"
+        },
+        "radius_solar": {
+          "value": 11.98,
+          "uncertainty": 0.57,
+          "status": "measured",
+          "reference": "arXiv:1505.07461:Table 3"
+        },
+        "luminosity_solar": {
+          "value": 78.7,
+          "uncertainty": 4.2,
+          "status": "derived-from-bolometric-correction",
+          "reference": "arXiv:1505.07461:Table 3"
+        },
+        "metallicity_dex": {
+          "value": -0.04,
+          "uncertainty": 0.06,
+          "status": "measured",
+          "reference": "arXiv:1505.07461:Table 3"
+        },
+        "absolute_mag": {
+          "value": 0.296,
+          "uncertainty": 0.016,
+          "status": "derived-from-orbital-parallax",
+          "reference": "arXiv:1505.07461:Table 3"
+        },
+        "age_gyr": {
+          "value": null,
+          "status": "withheld-model-age-range",
+          "reference": "arXiv:1505.07461:Table 3; system age 0.590-0.650 Gyr, not a single adopted individual value"
+        }
+      }
+    },
+    {
+      "cns5Id": "4539",
+      "simbadId": "* chi Dra",
+      "gaiaDr3Id": "2266693630693936512",
+      "name": "Chi Draconis A",
+      "spectralType": "",
+      "reference": "2010AJ....139.2308F",
+      "url": "https://chara.gsu.edu/files/papers/2010_Farrington_AJ_139_2308.pdf",
+      "reviewDate": "2026-10-06",
+      "additive": false,
+      "withholdIndividualMotion": true,
+      "astrometryScope": "Former system source snapshot, shared as an approximate component position and proper motion. No resolved orbital trajectory is claimed.",
+      "decision": "The Table 5 masses use the paper orbital solution. Individual spectral types and blended photometry are withheld.",
+      "physicalOverrides": {
+        "temperature_k": {
+          "value": null,
+          "status": "withheld-combined-record",
+          "reference": "2010AJ....139.2308F"
+        },
+        "mass_solar": {
+          "value": 0.96,
+          "uncertainty": 0.03,
+          "status": "dynamical",
+          "reference": "2010AJ....139.2308F"
+        },
+        "luminosity_solar": {
+          "value": null,
+          "status": "withheld-combined-record",
+          "reference": "2010AJ....139.2308F"
+        },
+        "radius_solar": {
+          "value": null,
+          "status": "withheld-combined-record",
+          "reference": "2010AJ....139.2308F"
+        },
+        "metallicity_dex": {
+          "value": null,
+          "status": "withheld-combined-record",
+          "reference": "2010AJ....139.2308F"
+        },
+        "age_gyr": {
+          "value": null,
+          "status": "withheld-combined-record",
+          "reference": "2010AJ....139.2308F"
+        },
+        "absolute_mag": {
+          "value": null,
+          "status": "withheld-combined-record",
+          "reference": "2010AJ....139.2308F"
+        }
+      },
+      "cns5GaiaDr3Id": null
+    },
+    {
+      "cns5Id": "317",
+      "simbadId": "* mu. Cas",
+      "gaiaDr3Id": "411413822074322432",
+      "name": "Mu Cassiopeiae A",
+      "spectralType": "G5V",
+      "reference": "arXiv:2010.06609",
+      "url": "https://arxiv.org/abs/2010.06609",
+      "reviewDate": "2026-10-06",
+      "additive": false,
+      "withholdIndividualMotion": true,
+      "astrometryScope": "Former system source snapshot, shared as an approximate component position and proper motion. No resolved orbital trajectory is claimed.",
+      "decision": "The faint secondary is a confirmed dM star. Retain already reviewed primary-only Bond et al. physical values; no third object is inferred.",
+      "physicalOverrides": {
+        "temperature_k": {
+          "value": 5346.0,
+          "uncertainty": 70,
+          "status": "model-derived",
+          "reference": "2020ApJ...904..112B"
+        },
+        "mass_solar": {
+          "value": 0.744,
+          "uncertainty": 0.0122,
+          "status": "dynamical",
+          "reference": "arXiv:2010.06609"
+        },
+        "luminosity_solar": {
+          "value": 0.458,
+          "uncertainty": 0.014,
+          "status": "model-derived",
+          "reference": "2020ApJ...904..112B"
+        },
+        "radius_solar": {
+          "value": 0.789,
+          "uncertainty": 0.008,
+          "status": "derived",
+          "reference": "2020ApJ...904..112B"
+        },
+        "metallicity_dex": {
+          "value": -0.81,
+          "uncertainty": 0.03,
+          "status": "measured",
+          "reference": "2020ApJ...904..112B"
+        },
+        "age_gyr": {
+          "value": 12.7,
+          "uncertainty": 2.7,
+          "status": "model-derived",
+          "reference": "2020ApJ...904..112B"
+        },
+        "absolute_mag": {
+          "value": null,
+          "status": "withheld-combined-record",
+          "reference": "arXiv:2010.06609"
+        }
+      },
+      "cns5GaiaDr3Id": "411413822074322432"
+    },
+    {
+      "cns5Id": "1464",
+      "simbadId": "* chi01 Ori",
+      "gaiaDr3Id": "3399063235755057792",
+      "name": "Chi1 Orionis A",
+      "spectralType": "",
+      "reference": "arXiv:astro-ph/0209404",
+      "url": "https://arxiv.org/abs/astro-ph/0209404",
+      "reviewDate": "2026-10-06",
+      "additive": false,
+      "withholdIndividualMotion": true,
+      "astrometryScope": "Former system source snapshot, shared as an approximate component position and proper motion. No resolved orbital trajectory is claimed.",
+      "decision": "The directly detected companion is stellar. Model age disagreements are retained as unknown individual ages.",
+      "physicalOverrides": {
+        "temperature_k": {
+          "value": null,
+          "status": "withheld-combined-record",
+          "reference": "arXiv:astro-ph/0209404"
+        },
+        "mass_solar": {
+          "value": 1.01,
+          "uncertainty": 0.13,
+          "status": "dynamical",
+          "reference": "arXiv:astro-ph/0209404"
+        },
+        "luminosity_solar": {
+          "value": null,
+          "status": "withheld-combined-record",
+          "reference": "arXiv:astro-ph/0209404"
+        },
+        "radius_solar": {
+          "value": null,
+          "status": "withheld-combined-record",
+          "reference": "arXiv:astro-ph/0209404"
+        },
+        "metallicity_dex": {
+          "value": null,
+          "status": "withheld-combined-record",
+          "reference": "arXiv:astro-ph/0209404"
+        },
+        "age_gyr": {
+          "value": null,
+          "status": "withheld-combined-record",
+          "reference": "arXiv:astro-ph/0209404"
+        },
+        "absolute_mag": {
+          "value": null,
+          "status": "withheld-combined-record",
+          "reference": "arXiv:astro-ph/0209404"
+        }
+      },
+      "cns5GaiaDr3Id": "3399063235755057792"
+    },
+    {
+      "cns5Id": "4097",
+      "simbadId": "* zet Her",
+      "gaiaDr3Id": null,
+      "name": "Zeta Herculis A",
+      "spectralType": "G0IV",
+      "reference": "arXiv:astro-ph/0110004",
+      "url": "https://arxiv.org/abs/astro-ph/0110004",
+      "reviewDate": "2026-10-06",
+      "additive": false,
+      "withholdIndividualMotion": true,
+      "astrometryScope": "Former system source snapshot, shared as an approximate component position and proper motion. No resolved orbital trajectory is claimed.",
+      "decision": "Published A/B membership is adopted. Calibration-dependent masses and a hypothetical unseen substellar companion are not adopted.",
+      "physicalOverrides": {
+        "temperature_k": {
+          "value": null,
+          "status": "withheld-combined-record",
+          "reference": "arXiv:astro-ph/0110004"
+        },
+        "mass_solar": {
+          "value": null,
+          "status": "withheld-combined-record",
+          "reference": "arXiv:astro-ph/0110004"
+        },
+        "luminosity_solar": {
+          "value": null,
+          "status": "withheld-combined-record",
+          "reference": "arXiv:astro-ph/0110004"
+        },
+        "radius_solar": {
+          "value": null,
+          "status": "withheld-combined-record",
+          "reference": "arXiv:astro-ph/0110004"
+        },
+        "metallicity_dex": {
+          "value": null,
+          "status": "withheld-combined-record",
+          "reference": "arXiv:astro-ph/0110004"
+        },
+        "age_gyr": {
+          "value": null,
+          "status": "withheld-combined-record",
+          "reference": "arXiv:astro-ph/0110004"
+        },
+        "absolute_mag": {
+          "value": null,
+          "status": "withheld-combined-record",
+          "reference": "arXiv:astro-ph/0110004"
+        }
+      },
+      "cns5GaiaDr3Id": null
+    },
+    {
+      "cns5Id": "5470",
+      "simbadId": "* iot Peg",
+      "gaiaDr3Id": "1891598193816300544",
+      "name": "Iota Pegasi A",
+      "spectralType": "",
+      "reference": "arXiv:astro-ph/9811029",
+      "url": "https://arxiv.org/abs/astro-ph/9811029",
+      "reviewDate": "2026-10-06",
+      "additive": false,
+      "withholdIndividualMotion": true,
+      "astrometryScope": "Former system source snapshot, shared as an approximate component position and proper motion. No resolved orbital trajectory is claimed.",
+      "decision": "Adopt component dynamical masses, without copying combined spectrum or photometry.",
+      "physicalOverrides": {
+        "temperature_k": {
+          "value": null,
+          "status": "withheld-combined-record",
+          "reference": "arXiv:astro-ph/9811029"
+        },
+        "mass_solar": {
+          "value": 1.326,
+          "uncertainty": 0.016,
+          "status": "dynamical",
+          "reference": "arXiv:astro-ph/9811029"
+        },
+        "luminosity_solar": {
+          "value": null,
+          "status": "withheld-combined-record",
+          "reference": "arXiv:astro-ph/9811029"
+        },
+        "radius_solar": {
+          "value": null,
+          "status": "withheld-combined-record",
+          "reference": "arXiv:astro-ph/9811029"
+        },
+        "metallicity_dex": {
+          "value": null,
+          "status": "withheld-combined-record",
+          "reference": "arXiv:astro-ph/9811029"
+        },
+        "age_gyr": {
+          "value": null,
+          "status": "withheld-combined-record",
+          "reference": "arXiv:astro-ph/9811029"
+        },
+        "absolute_mag": {
+          "value": null,
+          "status": "withheld-combined-record",
+          "reference": "arXiv:astro-ph/9811029"
+        }
+      },
+      "cns5GaiaDr3Id": "1891598193816300544"
+    },
+    {
+      "cns5Id": "2945",
+      "simbadId": "HD 104304",
+      "gaiaDr3Id": "3575733210781078016",
+      "name": "HD 104304 A",
+      "spectralType": "",
+      "reference": "arXiv:1005.0620",
+      "url": "https://arxiv.org/abs/1005.0620",
+      "reviewDate": "2026-10-06",
+      "additive": false,
+      "withholdIndividualMotion": true,
+      "astrometryScope": "Former system source snapshot, shared as an approximate component position and proper motion. No resolved orbital trajectory is claimed.",
+      "decision": "Resolved common-proper-motion companion. M4V and the 0.21 solar mass estimate are photometrically derived, not a resolved spectral or dynamical measurement.",
+      "physicalOverrides": {
+        "temperature_k": {
+          "value": null,
+          "status": "withheld-combined-record",
+          "reference": "arXiv:1005.0620"
+        },
+        "mass_solar": {
+          "value": null,
+          "status": "withheld-combined-record",
+          "reference": "arXiv:1005.0620"
+        },
+        "luminosity_solar": {
+          "value": null,
+          "status": "withheld-combined-record",
+          "reference": "arXiv:1005.0620"
+        },
+        "radius_solar": {
+          "value": null,
+          "status": "withheld-combined-record",
+          "reference": "arXiv:1005.0620"
+        },
+        "metallicity_dex": {
+          "value": null,
+          "status": "withheld-combined-record",
+          "reference": "arXiv:1005.0620"
+        },
+        "age_gyr": {
+          "value": null,
+          "status": "withheld-combined-record",
+          "reference": "arXiv:1005.0620"
+        },
+        "absolute_mag": {
+          "value": null,
+          "status": "withheld-combined-record",
+          "reference": "arXiv:1005.0620"
+        }
+      },
+      "cns5GaiaDr3Id": "3575733210781078016"
+    },
+    {
+      "cns5Id": "5833",
+      "simbadId": "* gam Cep",
+      "gaiaDr3Id": "2281778105594488192",
+      "name": "Gamma Cephei A",
+      "spectralType": "K1III-IV",
+      "reference": "arXiv:astro-ph/0609638",
+      "url": "https://arxiv.org/abs/astro-ph/0609638",
+      "reviewDate": "2026-10-06",
+      "additive": false,
+      "withholdIndividualMotion": true,
+      "astrometryScope": "Former system source snapshot, shared as an approximate component position and proper motion. No resolved orbital trajectory is claimed.",
+      "decision": "The orbit analysis identifies a stellar secondary. Its inferred M4 class and mass depend on the primary model and are withheld here. The planet remains outside this stellar-component card.",
+      "physicalOverrides": {
+        "temperature_k": {
+          "value": null,
+          "status": "withheld-combined-record",
+          "reference": "arXiv:astro-ph/0609638"
+        },
+        "mass_solar": {
+          "value": null,
+          "status": "withheld-combined-record",
+          "reference": "arXiv:astro-ph/0609638"
+        },
+        "luminosity_solar": {
+          "value": null,
+          "status": "withheld-combined-record",
+          "reference": "arXiv:astro-ph/0609638"
+        },
+        "radius_solar": {
+          "value": null,
+          "status": "withheld-combined-record",
+          "reference": "arXiv:astro-ph/0609638"
+        },
+        "metallicity_dex": {
+          "value": null,
+          "status": "withheld-combined-record",
+          "reference": "arXiv:astro-ph/0609638"
+        },
+        "age_gyr": {
+          "value": null,
+          "status": "withheld-combined-record",
+          "reference": "arXiv:astro-ph/0609638"
+        },
+        "absolute_mag": {
+          "value": null,
+          "status": "withheld-combined-record",
+          "reference": "arXiv:astro-ph/0609638"
+        }
+      },
+      "cns5GaiaDr3Id": "2281778105594488192"
+    },
+    {
+      "cns5Id": "5588",
+      "simbadId": "V* FK Aqr",
+      "gaiaDr3Id": "2400808142038361088",
+      "name": "GJ 867 A",
+      "spectralType": "M1-2Ve",
+      "reference": "arXiv:2312.04247",
+      "url": "https://arxiv.org/abs/2312.04247",
+      "reviewDate": "2026-10-06",
+      "additive": false,
+      "withholdIndividualMotion": true,
+      "astrometryScope": "Former system source snapshot, shared as an approximate component position and proper motion. No resolved orbital trajectory is claimed.",
+      "decision": "FK Aqr is the A/C pair in published GJ 867 nomenclature. The FL Aqr B/D pair has an unseen D with ambiguous stellar versus brown-dwarf classification; do not create a classified D record yet.",
+      "physicalOverrides": {
+        "temperature_k": {
+          "value": null,
+          "status": "withheld-combined-record",
+          "reference": "arXiv:2312.04247"
+        },
+        "mass_solar": {
+          "value": null,
+          "status": "withheld-combined-record",
+          "reference": "arXiv:2312.04247"
+        },
+        "luminosity_solar": {
+          "value": null,
+          "status": "withheld-combined-record",
+          "reference": "arXiv:2312.04247"
+        },
+        "radius_solar": {
+          "value": null,
+          "status": "withheld-combined-record",
+          "reference": "arXiv:2312.04247"
+        },
+        "metallicity_dex": {
+          "value": null,
+          "status": "withheld-combined-record",
+          "reference": "arXiv:2312.04247"
+        },
+        "age_gyr": {
+          "value": null,
+          "status": "withheld-combined-record",
+          "reference": "arXiv:2312.04247"
+        },
+        "absolute_mag": {
+          "value": null,
+          "status": "withheld-combined-record",
+          "reference": "arXiv:2312.04247"
+        }
+      },
+      "cns5GaiaDr3Id": "2400808142038361088"
+    }
+  ]
+}
