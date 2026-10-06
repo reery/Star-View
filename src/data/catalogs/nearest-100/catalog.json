@@ -149,6 +149,18 @@
     {
       "name": "Kallinger et al. 2019, Rho Persei granulation-scaling mass and published SED luminosity/radius",
       "url": "https://arxiv.org/html/1902.07531"
+    },
+    {
+      "name": "Kervella et al. 2016, GJ 65 A/B resolved interferometric radii and photospheric iron abundances",
+      "url": "https://arxiv.org/abs/1607.04351"
+    },
+    {
+      "name": "MacDonald et al. 2018, GJ 65 A/B resolved bolometric luminosities and radius-based effective temperatures",
+      "url": "https://arxiv.org/abs/1711.09434"
+    },
+    {
+      "name": "GRAVITY Collaboration 2024, GJ 65 A/B individual dynamical masses",
+      "url": "https://arxiv.org/html/2404.08746v1"
     }
   ],
   "cutoffPolicy": "Exclude Planet rows, aggregate system rows and source ObjType endings '?'. The only approved exceptions are Seq 27/28 (EZ Aquarii B/C): preserve vetted default membership and every default field, while retaining raw LM? classifications explicitly; this is not a new classification measurement. Keep all tentative buffer records for audit. Rank eligible individual non-Sun objects by unrounded adopted J2000 distance, then ASCII stable ID for exact ties; retain exactly 100 plus Sun. Rank 100 is GJ 229 A; nearby one-sigma distance intervals overlap, so membership is not statistically secure. Frozen 2023 source releases with preserved neighbor overrides; no 2026 completeness claim.",

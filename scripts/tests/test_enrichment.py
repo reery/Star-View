@@ -14,6 +14,34 @@ def empty_row(**values):
 
 
 class EnrichmentTests(unittest.TestCase):
+    def test_gj65_reviews_keep_components_and_field_sources_distinct(self):
+        for component, temperature, mass, radius, luminosity in (
+            ("A", 2784, .122, .165, .00147),
+            ("B", 2728, .116, .159, .00125),
+        ):
+            with self.subTest(component=component):
+                row = empty_row()
+                adopted = enrich_from_frozen(row, f"G 272-61{component}")
+                for field, value in (("temperature_k", temperature), ("mass_solar", mass),
+                                     ("radius_solar", radius), ("luminosity_solar", luminosity)):
+                    self.assertEqual(float(row[field]), value)
+                    self.assertEqual(adopted[field]["component"], component)
+                self.assertEqual(adopted["radius_solar"]["reference"], "2016A&A...593A.127K")
+                self.assertEqual(adopted["radius_solar"]["uncertainty"], .006)
+                self.assertEqual(adopted["luminosity_solar"]["reference"], "2018ApJ...860...15M")
+                self.assertEqual(adopted["luminosity_solar"]["sourceUrl"], "https://arxiv.org/abs/1711.09434")
+                self.assertEqual(adopted["mass_solar"]["reference"], "2024A&A...685L...9G")
+                self.assertEqual(adopted["temperature_k"]["status"], "derived")
+                self.assertEqual(row["metallicity_dex"], "-0.12" if component == "B" else "-0.03")
+                self.assertEqual(adopted["metallicity_dex"]["reference"], "2016A&A...593A.127K")
+                self.assertEqual(adopted["metallicity_dex"]["uncertainty"], .2)
+                if component == "B":
+                    self.assertIn("combined A+B spectrum", adopted["metallicity_dex"]["caveat"])
+                    self.assertIn("2023ApJS..266...41P", adopted["metallicity_dex"]["caveat"])
+                self.assertEqual(row["age_gyr"], "")
+                self.assertEqual(enrich_from_frozen(row, f"G 272-61{component}"), {})
+        self.assertEqual(enrich_from_frozen(empty_row(), "GJ 65"), {})
+
     def test_rho_per_fills_missing_fields_with_source_inputs_and_preserves_spectroscopy(self):
         row = empty_row(id="hip-14354", spectral_type="M4+IIIa", temperature_k="3619", metallicity_dex="-0.4384")
         adopted = enrich_from_frozen(row, "* rho Per", ["HIP 14354", "HD 19058"])

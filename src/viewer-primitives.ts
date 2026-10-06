@@ -16,6 +16,23 @@ export const STAR_HALO_MIN_OPACITY_SCALE = 0.08
 export const GUIDE_DASH_PX = 4
 export const GUIDE_GAP_PX = 3
 
+/** Mutate the drawable-point mask without merging objects or their positions. */
+export function retainBrightestCoincidentComponents(groups: readonly (readonly number[])[], positions: readonly Vector3[], enabled: Uint8Array): void {
+  for (const group of groups) {
+    for (let slot = 0; slot < group.length; slot++) {
+      const index = group[slot]!
+      if (!enabled[index]) continue
+      for (let earlier = 0; earlier < slot; earlier++) {
+        const brighter = group[earlier]!
+        if (enabled[brighter] && positions[index]!.equals(positions[brighter]!)) {
+          enabled[index] = 0
+          break
+        }
+      }
+    }
+  }
+}
+
 export function guideDashScale(worldLength: number, projectedLengthPx: number, viewportDiagonalPx: number): number {
   if (!Number.isFinite(worldLength) || !Number.isFinite(projectedLengthPx) || !Number.isFinite(viewportDiagonalPx) ||
       worldLength <= 0 || projectedLengthPx <= 0 || viewportDiagonalPx <= 0) return 0

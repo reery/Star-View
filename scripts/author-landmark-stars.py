@@ -10,6 +10,7 @@ from functools import cache
 from pathlib import Path
 from catalog_sources.enrichment import enrich_from_frozen, enrichment_sources, manifest_sha256
 from catalog_sources.overlay_companions import expand_overlay
+from catalog_sources.solar import adopt_solar_reference, solar_provenance
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -24,7 +25,7 @@ SYSTEM_TYPES = {"**", "EB*", "SB*", "bC*", "s*b"}
 HEADERS = [
     "type", "id", "name", "designations", "spectral_type", "x_pc", "y_pc", "z_pc",
     "vx_kms", "vy_kms", "vz_kms", "temperature_k", "mass_solar",
-    "luminosity_solar", "radius_solar", "metallicity_dex", "age_gyr",
+    "luminosity_solar", "radius_solar", "metallicity_dex", "metallicity_kind", "age_gyr",
     "absolute_mag", "epoch", "notes", "constellation", "ra_deg", "dec_deg",
     "astrometry_epoch", "parallax_mas", "parallax_error_mas",
     "pm_ra_cosdec_masyr", "pm_ra_error_masyr", "pm_dec_masyr",
@@ -360,6 +361,8 @@ def enrich_physical(row, source):
         for field in PHYSICAL_FIELDS:
             if candidate[field]:
                 row[field] = candidate[field]
+                if field == "metallicity_dex":
+                    row["metallicity_kind"] = candidate["metallicity_kind"]
                 adopted[field] = f"{catalog_id}:{candidate['id']}"
                 observations.append({"field": field, "value": float(candidate[field]), "status": "inherited", "source": catalog_id, "sourceId": candidate["id"]})
     for override in physical_overrides():
@@ -384,6 +387,8 @@ def enrich_physical(row, source):
     for field, value in gaia_values.items():
         if not row[field]:
             row[field] = value
+            if field == "metallicity_dex":
+                row["metallicity_kind"] = "[M/H]"
             adopted[field] = f"gaia-dr3:{gaia_dr3_id(source)}"
             observations.extend(observation for observation in gaia_observations if observation["field"] == field)
     temperature = optional_number(row["temperature_k"])
@@ -521,7 +526,7 @@ def source_row(source, identifier, name, constellation, context, visual_magnitud
 def sun_row():
     with DEFAULT_CATALOG.open(newline="") as handle:
         source = next(row for row in csv.DictReader(handle) if row["id"] == "sun")
-    return {header: source.get(header, "") or "" for header in HEADERS}
+    return {header: value for header, value in adopt_solar_reference(source).items() if header in HEADERS}
 
 
 def csv_text(rows):
@@ -548,7 +553,7 @@ def western_catalog():
     if len(hips) != 691 or set(hips) != set(simbad) or set(hips) != set(hipparcos_v):
         raise ValueError("Western figure source identity coverage drifted")
     rows = []
-    provenance = {}
+    provenance = {"sun": solar_provenance()}
     for hip in sorted(hips):
         source = simbad[hip]
         memberships = sorted(hips[hip])
@@ -632,7 +637,7 @@ def cluster_catalog():
     if len(selected) != 42 or {star["queryId"] for _, star in selected} != set(simbad):
         raise ValueError("Famous-cluster source identity coverage drifted")
     rows = []
-    provenance = {}
+    provenance = {"sun": solar_provenance()}
     for group, selected_star in selected:
         query_id = selected_star["queryId"]
         source = simbad[query_id]

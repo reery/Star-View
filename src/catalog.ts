@@ -11,7 +11,7 @@ export const BASE_CATALOG_HEADERS = [
 ] as const
 
 export const PHYSICAL_CATALOG_HEADERS = [
-  'radius_solar', 'metallicity_dex', 'age_gyr',
+  'radius_solar', 'metallicity_dex', 'metallicity_kind', 'age_gyr',
 ] as const
 
 export const RAW_ASTROMETRY_HEADERS = [
@@ -161,11 +161,19 @@ export function parseStarCatalog(csv: string): Star[] {
       luminosity_solar: numeric(row.luminosity_solar, 'luminosity_solar', record, true),
       radius_solar: numeric(row.radius_solar, 'radius_solar', record, true),
       metallicity_dex: numeric(row.metallicity_dex, 'metallicity_dex', record, true),
+      metallicity_kind: (row.metallicity_kind?.trim() || null) as Star['metallicity_kind'],
       age_gyr: numeric(row.age_gyr, 'age_gyr', record, true),
       absolute_mag: numeric(row.absolute_mag, 'absolute_mag', record, true),
       epoch: numeric(row.epoch, 'epoch', record),
       notes: row.notes?.trim() ?? '',
       raw_astrometry: rawAstrometry,
+    }
+    if (star.metallicity_dex !== null) {
+      if (star.metallicity_kind !== '[M/H]' && star.metallicity_kind !== '[Fe/H]') {
+        invalid(record, 'metallicity_kind', 'a metallicity value requires its source quantity: [M/H] or [Fe/H].')
+      }
+    } else if (star.metallicity_kind !== null) {
+      invalid(record, 'metallicity_kind', 'must be blank when the metallicity value is blank.')
     }
     if (star.constellation !== null && !CONSTELLATIONS.some((name) => name === star.constellation)) {
       invalid(record, 'constellation', 'expected a full IAU constellation name or blank.')

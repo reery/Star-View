@@ -13,6 +13,7 @@ import { EARTH_ORBIT_MODES, earthOrbitDateForMode, earthOrbitModeLabel, isEarthO
 import { MOTION_YEAR_OPTIONS, SIMULATION_YEAR_LIMIT, createStarViewer, type MotionYears, type StarViewer, type ViewerViewState } from './viewer'
 import { isObjectMapVisible } from './viewer-primitives'
 import { renderSelectedStarPreview } from './selected-star-preview'
+import { radiusComparison, radiusStats, radiusSummary, renderRadiusComparison, type RadiusReference } from './radius-comparison'
 import { indexStarSystems, type StarSystem } from './star-systems'
 import {
   availableFilterKeys, categoryAvailable, DEFAULT_FILTER_CATEGORIES, DEFAULT_FILTER_SUBTYPES, effectiveFilterKeys, FILTER_CATEGORIES,
@@ -93,6 +94,7 @@ icon('motion-icon', Clock)
 icon('motion-lock-icon', Lock)
 icon('object-type-close-icon', X)
 icon('metallicity-close-icon', X)
+icon('radius-close-icon', X)
 icon('time-play-icon', Play)
 icon('time-now-icon', RotateCcw)
 icon('time-follow-icon', Crosshair)
@@ -372,29 +374,139 @@ function closeMetallicityCard(restoreFocus = false): void {
   if (restoreFocus) element('metallicity-toggle').focus()
 }
 
+function closeRadiusCard(restoreFocus = false): void {
+  const card = element('radius-card')
+  if (card.hidden) return
+  card.hidden = true
+  element('radius-toggle').setAttribute('aria-expanded', 'false')
+  if (restoreFocus) element('radius-toggle').focus()
+}
+
+let radiusReference: RadiusReference = 'auto'
+
+function renderRadiusCard(star: Star): void {
+  const origin = stars.find((candidate) => candidate.id === referenceId) ?? stars.find((candidate) => candidate.id === 'sun')!
+  const comparison = radiusComparison(star, origin, radiusReference)
+  text('radius-selected-name', comparison.selected.name)
+  text('radius-selected-column', comparison.selected.name)
+  text('radius-reference-column', comparison.reference.name)
+  for (const mode of ['origin', 'jupiter', 'earth'] as const) {
+    element(`radius-reference-${mode}`).setAttribute('aria-pressed', String(mode === comparison.referenceMode))
+  }
+  element('radius-reference-origin').title = `Origin: ${origin.name}`
+  element('radius-reference-origin').setAttribute('aria-label', `Compare with origin: ${origin.name}`)
+  element('radius-benchmark-note').hidden = radiusReference !== 'auto' || !comparison.jupiterBenchmark
+  text('radius-benchmark-note', 'Origin: Sun. Comparing with Jupiter because the selected radius is at most 2 R♃.')
+  text('radius-comparison-summary', radiusSummary(comparison))
+  text('radius-scale-note', renderRadiusComparison(element<HTMLCanvasElement>('radius-comparison'), comparison))
+  element('radius-stats').replaceChildren(...radiusStats(comparison).map(({ label, values }) => {
+    const row = document.createElement('tr')
+    const heading = document.createElement('th')
+    heading.scope = 'row'
+    heading.textContent = label
+    row.append(heading)
+    for (const { value, unit } of values) {
+      const cell = document.createElement('td')
+      cell.append(value)
+      if (unit) {
+        const secondary = document.createElement('span')
+        secondary.className = 'radius-stat-unit'
+        secondary.textContent = unit
+        cell.append(secondary)
+      }
+      row.append(cell)
+    }
+    return row
+  }))
+  syncObjectTypeLayout()
+}
+
+function toggleRadiusCard(): void {
+  if (!element('radius-card').hidden) {
+    closeRadiusCard(true)
+    return
+  }
+  const star = stars.find((candidate) => candidate.id === selectedId)
+  if (!star || element('radius-toggle').closest<HTMLElement>('.stellar-property')!.hidden) return
+  closeObjectTypeCard()
+  closeMetallicityCard()
+  element('radius-card').hidden = false
+  element('radius-toggle').setAttribute('aria-expanded', 'true')
+  renderRadiusCard(star)
+  element('radius-close').focus({ preventScroll: true })
+}
+
 function renderMetallicityCard(star: Star): void {
   const value = star.metallicity_dex
-  // Keep the Sun at the midpoint and expand for values outside the usual range.
-  const limit = Math.max(2, Math.ceil(Math.abs(value ?? 0)))
-  const position = value === null ? 50 : (value + limit) / (2 * limit) * 100
-  text('metallicity-min', `−${limit}`)
-  text('metallicity-max', `+${limit}`)
+  const iron = star.metallicity_kind === '[Fe/H]'
+  const ratioName = iron ? 'iron-to-hydrogen' : 'metal-to-hydrogen'
+  const elementName = iron ? 'iron' : 'metals'
+  text('metallicity-heading', `Metallicity ${star.metallicity_kind ?? ''}`.trim())
+  const limit = 2
+  const outsideScale = value !== null && Math.abs(value) > limit
+  const position = value === null ? 50 : Math.max(0, Math.min(100, (value + limit) / (2 * limit) * 100))
   const scale = element('metallicity-scale')
   scale.style.setProperty('--metallicity-position', `${position}%`)
-  scale.style.setProperty('--metallicity-label-offset', position < 15 ? '0%' : position > 85 ? '-100%' : '-50%')
-  scale.setAttribute('aria-label', `${star.name}: ${quantity(value, 'dex')}. Scale −${limit} to +${limit} dex; Sun at 0.`)
+  scale.style.setProperty('--metallicity-label-offset', position < 35 ? '0%' : position > 65 ? '-100%' : '-50%')
+  const formatPercent = (percent: number): string => `${percent.toLocaleString('en-US', {
+    notation: percent > 1000 ? 'compact' : 'standard',
+    ...(percent > 1000 ? { maximumSignificantDigits: 3 } : { maximumFractionDigits: percent < 1 ? 2 : 0 }),
+    useGrouping: false,
+  }).replace('K', 'k')}%`
+  const solarPercent = value === null ? null : 10 ** value * 100
+  const percentageLabel = solarPercent === null ? '' : `${formatPercent(solarPercent)} of Sun`
+  scale.setAttribute('aria-label', `${star.name}: ${quantity(value, 'dex')}${value === null ? '' : `, ${percentageLabel}`}. Scale −2 to +2 dex: 1%, 10%, 100%, 10 times and 100 times the Sun’s ${ratioName} ratio.${outsideScale ? ' Value is outside the scale; marker shown at the nearest edge.' : ''}`)
+  const ticks = [
+    { dex: -2, ratio: '1%' }, { dex: -1, ratio: '10%' }, { dex: 0, ratio: '100%' },
+    { dex: 1, ratio: '10x' }, { dex: 2, ratio: '100x' },
+  ].map(({ dex, ratio }) => {
+    const tick = document.createElement('span')
+    tick.className = 'metallicity-tick'
+    if (dex === 0) tick.classList.add('metallicity-tick-sun')
+    tick.style.left = `${(dex + limit) / (2 * limit) * 100}%`
+    const dexLabel = document.createElement('span')
+    dexLabel.className = 'metallicity-tick-dex'
+    dexLabel.textContent = `${dex < 0 ? '−' : dex > 0 ? '+' : ''}${Math.abs(dex)}`
+    const ratioLabel = document.createElement('span')
+    ratioLabel.className = 'metallicity-tick-ratio'
+    ratioLabel.textContent = ratio
+    tick.append(dexLabel, ratioLabel)
+    return tick
+  })
+  element('metallicity-ticks').replaceChildren(...ticks)
   element('metallicity-marker').hidden = value === null
-  text('metallicity-marker-value', `${value !== null && value > 0 ? '+' : ''}${quantity(value, 'dex')}`)
-  let description = `No metallicity measurement is available for ${star.name}. Zero dex represents the Sun’s metal-to-hydrogen ratio.`
+  text('metallicity-marker-value', value === null ? '' : `${value > 0 ? '+' : ''}${quantity(value, 'dex', 2)} (${percentageLabel})`)
+  let description = `No metallicity measurement is available for ${star.name}. [Fe/H] measures iron relative to hydrogen; [M/H] describes overall metallicity. They are distinct quantities.`
   if (value !== null) {
     const difference = Math.expm1(value * Math.LN10) * 100
     const percent = Math.abs(difference).toLocaleString('en-US', { maximumFractionDigits: Math.abs(difference) < 1 ? 2 : 0 })
     description = value === 0
-      ? `${star.name} has the same metal-to-hydrogen ratio as the Sun.`
-      : `${star.name} has ${percent}% ${value > 0 ? 'more' : 'fewer'} metals relative to hydrogen compared to the Sun.`
+      ? `${star.name} has the same ${ratioName} ratio as the Sun.`
+      : `${star.name} has ${percent}% ${value > 0 ? 'more' : 'less'} ${elementName} relative to hydrogen compared to the Sun.`
+    description += iron
+      ? ' [Fe/H] is iron abundance; it does not measure the total abundance of all metals.'
+      : ' [M/H] is overall metallicity; it is not an iron-specific [Fe/H] measurement.'
+    description += ` ${metallicityContext(star)}`
+    if (outsideScale) description += ' Its value is beyond the displayed −2 to +2 dex range; the marker sits at the nearest edge.'
   }
   text('metallicity-description', description)
   syncObjectTypeLayout()
+}
+
+function metallicityContext(star: Star): string {
+  const value = star.metallicity_dex
+  if (value === null) return ''
+  // Population trends, not individual age estimates: https://arxiv.org/abs/1401.4437
+  if (value <= -1) return 'This metal-poor composition is often found in older stellar populations formed from less enriched gas.'
+  if (value < -0.3) return 'This subsolar composition can reflect formation from less enriched gas.'
+  if (value < 0) {
+    if (star.type === 'star' && star.age_gyr !== null && star.age_gyr < 1 && star.mass_solar !== null && star.mass_solar > 1) {
+      return 'This young star is more massive than the Sun and has a slightly subsolar composition.'
+    }
+    return 'This slightly subsolar composition lies within the range found among Milky Way disk stars.'
+  }
+  if (value === 0) return `Each increase of 1 dex represents ten times the ${star.metallicity_kind === '[Fe/H]' ? 'iron' : 'metal'}-to-hydrogen ratio.`
+  return 'This metal-rich composition can reflect formation from gas enriched by earlier generations of stars.'
 }
 
 function toggleMetallicityCard(): void {
@@ -405,6 +517,7 @@ function toggleMetallicityCard(): void {
   const star = stars.find((candidate) => candidate.id === selectedId)
   if (!star || element('metallicity-toggle').closest<HTMLElement>('.stellar-property')!.hidden) return
   closeObjectTypeCard()
+  closeRadiusCard()
   element('metallicity-card').hidden = false
   element('metallicity-toggle').setAttribute('aria-expanded', 'true')
   renderMetallicityCard(star)
@@ -437,6 +550,7 @@ function toggleObjectTypeCard(): void {
   const star = stars.find((candidate) => candidate.id === selectedId)
   if (!star) return
   closeMetallicityCard()
+  closeRadiusCard()
   element('object-type-card').hidden = false
   element('object-type-toggle').setAttribute('aria-expanded', 'true')
   renderObjectTypeCard(star)
@@ -445,7 +559,7 @@ function toggleObjectTypeCard(): void {
 
 function syncObjectTypeLayout(): void {
   const motion = element('motion-panel')
-  for (const id of ['object-type-card', 'metallicity-card']) {
+  for (const id of ['object-type-card', 'metallicity-card', 'radius-card']) {
     const card = element(id)
     card.style.removeProperty('max-height')
     if (card.hidden || motion.hidden) continue
@@ -500,6 +614,7 @@ function togglePanel(name: typeof panelNames[number]): void {
 function dismissOpenPanel(): void {
   closeObjectTypeCard()
   closeMetallicityCard()
+  closeRadiusCard()
   let changed = false
   for (const name of panelNames) {
     if (!panelIsOpen(name)) continue
@@ -651,6 +766,7 @@ for (const section of objectSections) {
     if (section !== 'specs') {
       closeObjectTypeCard()
       closeMetallicityCard()
+      closeRadiusCard()
     }
     syncObjectSections()
   }, { signal: events.signal })
@@ -714,6 +830,7 @@ function renderSelection(): void {
   if (!star) {
     closeObjectTypeCard()
     closeMetallicityCard()
+    closeRadiusCard()
     delete element('inspector').dataset.selectedStar
     element('inspector').style.removeProperty('--selected-star-color')
     text('selection-announcement', 'No object selected.')
@@ -758,7 +875,11 @@ function renderSelection(): void {
   text('luminosity', luminosity !== null && luminosity < 1 ? `${luminosity.toLocaleString('en-US', { maximumSignificantDigits: 3 })} solar` : quantity(luminosity, 'solar'))
   text('mass', compact ? preciseMeasurement(star.mass_solar, compact.mass_error_solar, 'solar') : quantity(star.mass_solar, 'solar'))
   text('radius', quantity(star.radius_solar, 'solar'))
+  element('radius-toggle').setAttribute('aria-label', `Compare radius of ${star.name} with origin`)
+  if (compactObject || nebulaObject || molecularCloudObject || bubbleObject) closeRadiusCard()
+  else if (!element('radius-card').hidden) renderRadiusCard(star)
   text('metallicity', quantity(star.metallicity_dex, 'dex'))
+  text('metallicity-label', `Metallicity ${star.metallicity_kind ?? ''}`.trim())
   element('metallicity-toggle').setAttribute('aria-label', `Explain metallicity of ${star.name}`)
   if (compactObject || nebulaObject || molecularCloudObject || bubbleObject) closeMetallicityCard()
   else if (!element('metallicity-card').hidden) renderMetallicityCard(star)
@@ -1530,6 +1651,8 @@ window.addEventListener('resize', () => {
   syncSelectedObjectLayout()
   syncObjectTypeLayout()
   syncVisibilityObserverLayout()
+  const star = stars.find((candidate) => candidate.id === selectedId)
+  if (star && !element('radius-card').hidden) renderRadiusCard(star)
 }, { signal: events.signal })
 categoryOptions.addEventListener('change', (event) => {
   const input = event.target
@@ -1583,6 +1706,10 @@ element('saved-views-list').addEventListener('keydown', (event) => {
 }, { signal: events.signal })
 document.addEventListener('keydown', (event) => {
   if (event.key !== 'Escape') return
+  if (!element('radius-card').hidden) {
+    closeRadiusCard(true)
+    return
+  }
   if (!element('metallicity-card').hidden) {
     closeMetallicityCard(true)
     return
@@ -1601,6 +1728,15 @@ document.querySelector('.object-type-row')!.addEventListener('click', toggleObje
 element('object-type-close').addEventListener('click', () => closeObjectTypeCard(true), { signal: events.signal })
 document.querySelector('.metallicity-row')!.addEventListener('click', toggleMetallicityCard, { signal: events.signal })
 element('metallicity-close').addEventListener('click', () => closeMetallicityCard(true), { signal: events.signal })
+document.querySelector('.radius-row')!.addEventListener('click', toggleRadiusCard, { signal: events.signal })
+element('radius-close').addEventListener('click', () => closeRadiusCard(true), { signal: events.signal })
+for (const mode of ['origin', 'jupiter', 'earth'] as const) {
+  element(`radius-reference-${mode}`).addEventListener('click', () => {
+    radiusReference = mode
+    const star = stars.find((candidate) => candidate.id === selectedId)
+    if (star && !element('radius-card').hidden) renderRadiusCard(star)
+  }, { signal: events.signal })
+}
 element('reset-view').addEventListener('click', () => {
   dismissOpenPanel()
   viewer?.reset()

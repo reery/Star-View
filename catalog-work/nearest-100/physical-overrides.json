@@ -44,7 +44,8 @@
           "uncertainty": 0.007,
           "status": "measured",
           "reference": "2018A&A...615A.172M",
-          "qualityFlags": ["differential HARPS spectroscopic [Fe/H]"]
+          "qualityFlags": ["differential HARPS spectroscopic [Fe/H]"],
+          "quantity": "[Fe/H]"
         },
         {
           "field": "age_gyr",
@@ -99,7 +100,8 @@
           "uncertainty": 0.016,
           "status": "measured",
           "reference": "2018A&A...615A.172M",
-          "qualityFlags": ["differential HARPS spectroscopic [Fe/H]"]
+          "qualityFlags": ["differential HARPS spectroscopic [Fe/H]"],
+          "quantity": "[Fe/H]"
         },
         {
           "field": "age_gyr",
@@ -247,7 +249,8 @@
           "uncertainty": 0.03,
           "status": "model-derived",
           "reference": "2017ApJ...840...70B",
-          "qualityFlags": ["bulk [Fe/H] midpoint of -0.13 to -0.07 model range", "not the diffusion-altered photospheric abundance"]
+          "qualityFlags": ["bulk [Fe/H] midpoint of -0.13 to -0.07 model range", "not the diffusion-altered photospheric abundance"],
+          "quantity": "[Fe/H]"
         },
         {
           "field": "age_gyr",
@@ -349,7 +352,8 @@
           "uncertainty": 0.08,
           "status": "measured",
           "reference": "2015ApJ...803...90P",
-          "qualityFlags": ["spectroscopic [Fe/H]"]
+          "qualityFlags": ["spectroscopic [Fe/H]"],
+          "quantity": "[Fe/H]"
         },
         {
           "field": "age_gyr",
@@ -404,7 +408,8 @@
           "reference": "2002ApJ...567..544A",
           "qualityFlags": [
             "differential solar iron abundance; 3D LTE"
-          ]
+          ],
+          "quantity": "[Fe/H]"
         },
         {
           "field": "age_gyr",
@@ -631,6 +636,82 @@
           "reference": "2022AJ....163..288C",
           "qualityFlags": [
             "shared activity age; assuming coevality; larger side of asymmetric uncertainty"
+          ]
+        }
+      ]
+    },
+    {
+      "starViewId": "luyten-726-8-a",
+      "gaiaDr3Id": null,
+      "note": "Luyten 726-8 A: temperature 2784 +/- 58 K from MacDonald et al. (2018), section 2, using Kervella et al. (2016) interferometric radius and corrected component bolometric luminosity; replaces the spectral-class estimate. Individual dynamical mass 0.122 +/- 0.002 solar masses from GRAVITY Collaboration (2024), Table 1, supersedes the older legacy mass.",
+      "physical": [
+        {
+          "field": "temperature_k",
+          "value": 2784,
+          "uncertainty": 58,
+          "status": "derived",
+          "reference": "2018ApJ...860...15M",
+          "qualityFlags": [
+            "Bolometric flux with BT-Settl missing-flux correction and Kervella 2016 radius; not a spectral-class temperature.",
+            "2, final component luminosities and temperatures",
+            "https://arxiv.org/abs/1711.09434"
+          ]
+        },
+        {
+          "field": "mass_solar",
+          "value": 0.122,
+          "uncertainty": 0.002,
+          "status": "measured",
+          "reference": "2024A&A...685L...9G",
+          "qualityFlags": [
+            "GRAVITY 2024 orbit and adopted parallax; not the binary total mass.",
+            "Table 1",
+            "https://arxiv.org/html/2404.08746v1"
+          ]
+        }
+      ]
+    },
+    {
+      "starViewId": "luyten-726-8-b",
+      "gaiaDr3Id": null,
+      "note": "Luyten 726-8 B: temperature 2728 +/- 60 K from MacDonald et al. (2018), section 2, using Kervella et al. (2016) interferometric radius and corrected component bolometric luminosity; replaces the spectral-class estimate. Individual dynamical mass 0.116 +/- 0.002 solar masses from GRAVITY Collaboration (2024), Table 1, supersedes the older legacy mass. Component [Fe/H]=-0.12 +/-0.20 dex from Kervella et al. (2016), section 2.3 and Table 4, adopted on the same scale as A. Supersedes catalog [Fe/H]=-0.42 dex from 2023ApJS..266...41P, also reported by 2012A&A...538A.143K. Kervella et al. (2016), section 2.3, identify the older -0.42 +/-0.10 dex result as a low-resolution combined A+B spectrum, potentially biased low by rapid rotation; it is retained as historical system-level evidence, not an adopted B-component abundance.",
+      "physical": [
+        {
+          "field": "temperature_k",
+          "value": 2728,
+          "uncertainty": 60,
+          "status": "derived",
+          "reference": "2018ApJ...860...15M",
+          "qualityFlags": [
+            "Bolometric flux with BT-Settl missing-flux correction and Kervella 2016 radius; not a spectral-class temperature.",
+            "2, final component luminosities and temperatures",
+            "https://arxiv.org/abs/1711.09434"
+          ]
+        },
+        {
+          "field": "mass_solar",
+          "value": 0.116,
+          "uncertainty": 0.002,
+          "status": "measured",
+          "reference": "2024A&A...685L...9G",
+          "qualityFlags": [
+            "GRAVITY 2024 orbit and adopted parallax; not the binary total mass.",
+            "Table 1",
+            "https://arxiv.org/html/2404.08746v1"
+          ]
+        },
+        {
+          "field": "metallicity_dex",
+          "value": -0.12,
+          "uncertainty": 0.2,
+          "status": "measured",
+          "reference": "2016A&A...593A.127K",
+          "quantity": "photospheric [Fe/H]",
+          "qualityFlags": [
+            "Component-resolved UVES spectrum fitted relative to Proxima; method-dependent abundance. Adopted consistently for both A and B from Kervella et al. (2016), with +/-0.20 dex uncertainty.",
+            "section 2.3 and Table 4",
+            "https://arxiv.org/abs/1607.04351",
+            "Supersedes catalog [Fe/H]=-0.42 dex from 2023ApJS..266...41P, also reported by 2012A&A...538A.143K. Kervella et al. (2016), section 2.3, identify the older -0.42 +/-0.10 dex result as a low-resolution combined A+B spectrum, potentially biased low by rapid rotation; it is retained as historical system-level evidence, not an adopted B-component abundance."
           ]
         }
       ]

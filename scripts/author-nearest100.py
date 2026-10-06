@@ -17,6 +17,8 @@ from astropy.time import Time
 from astropy.utils import iers
 
 from catalog_sources.adapters import eligible_gaia_physical, read_gaia_tap, read_primary_overrides
+from catalog_sources.metallicity import metallicity_kind
+from catalog_sources.solar import adopt_solar_reference, solar_provenance
 from catalog_sources.enrichment import enrich_from_frozen, enrichment_sources, manifest_sha256
 from catalog_sources.filesystem import atomic_write_text, safe_output_directory, write_managed_files
 from catalog_sources.mdwarf import SUPPLEMENT_FIELDS, enrich_curated_row, format_value, load_supplements
@@ -49,7 +51,8 @@ RAW_ASTROMETRY_HEADERS = [
     "radial_velocity_kms", "radial_velocity_error_kms", "astrometry_ref", "radial_velocity_ref",
 ]
 PHYSICAL_HEADERS = ["radius_solar", "metallicity_dex", "age_gyr"]
-OUTPUT_HEADERS = BASE_HEADERS[:13] + PHYSICAL_HEADERS + BASE_HEADERS[13:] + RAW_ASTROMETRY_HEADERS
+METALLICITY_HEADERS = ["metallicity_kind"]
+OUTPUT_HEADERS = BASE_HEADERS[:13] + PHYSICAL_HEADERS + METALLICITY_HEADERS + BASE_HEADERS[13:] + RAW_ASTROMETRY_HEADERS
 SUPPLEMENTS = ROOT / "catalog-work/physical-supplements"
 CNS5_DATA = ROOT / "catalog-work/nearest-1000/cns5.dat"
 GAIA_DATA = ROOT / "catalog-work/nearest-1000/gaia.csv"
@@ -254,12 +257,14 @@ def apply_reviewed_and_gaia_physical(row, reviewed, gaia, fields=None):
                 row["notes"],
             ).strip()
             row["notes"] = re.sub(
-                r"\s*[Tt]emperature is (?:[^.]*? )?class estimate\.",
+                r"\s*[Tt]emperature is (?:[A-Za-z0-9.+/-]+\s+)*class estimate\.",
                 "",
                 row["notes"],
             ).strip()
         for field, observation in by_field.items():
             row[field] = format_value(observation)
+            if field == "metallicity_dex":
+                row["metallicity_kind"] = metallicity_kind(next(item["quantity"] for item in reviewed.raw["physical"] if item["field"] == field))
             reviewed_adopted[field] = observation
             if fields is not None:
                 detail = f"{observation.source_id}; uncertainty {observation.uncertainty}; {', '.join(observation.quality_flags)}"
@@ -282,6 +287,8 @@ def apply_reviewed_and_gaia_physical(row, reviewed, gaia, fields=None):
         if row.get(field, "") != "":
             continue
         row[field] = format_value(observation)
+        if field == "metallicity_dex":
+            row["metallicity_kind"] = "[M/H]"
         gaia_adopted[field] = observation
         if fields is not None:
             detail = f"Gaia DR3 exact-ID model value; uncertainty {observation.uncertainty}; quality flags {', '.join(observation.quality_flags) or 'none'}"
@@ -413,7 +420,7 @@ def adopt_object(source, frozen, system_counts, supplements, gaia_records, revie
         fields["mass_solar"] = field_source("adopted", "2016ApJ...821...81G:Table1", "0.281 +/- 0.014 solar masses; Table 1 attributes the value to 2003A&A...397L...5S.")
     fields["constellation"] = field_source("derived", "astropy:7.1.1:Roman1987", "ICRS snapshot direction transformed to B1875 boundary coordinates; no physical motion to 1875. Canonical spelling normalization applied.")
     fields["epoch"] = field_source("adopted", None, "Static J2000.0 snapshot; source decimal years treated as Julian years TT.")
-    for key in PHYSICAL_HEADERS:
+    for key in PHYSICAL_HEADERS + METALLICITY_HEADERS:
         row.setdefault(key, "")
         fields[key] = field_source("unknown", None)
     reviewed = reviewed_records.get(identifier)
@@ -507,7 +514,8 @@ def build_catalog(output, force=False, check=False):
         for bearing in range(0, 360, 45):
             assert constellation(direction.directional_offset_by(bearing * units.deg, 1 * units.arcsec)) == row["constellation"]
     sun = dict(next(row for row in frozen["legacyRows"] if row["id"] == "sun"))
-    sun.update({key: "" for key in PHYSICAL_HEADERS + RAW_ASTROMETRY_HEADERS})
+    sun.update({key: "" for key in PHYSICAL_HEADERS + METALLICITY_HEADERS + RAW_ASTROMETRY_HEADERS})
+    adopt_solar_reference(sun)
     sun = {key: sun[key] for key in OUTPUT_HEADERS}
     rows = [sun] + [{key: row[key] for key in OUTPUT_HEADERS} for row, _ in selected]
     headers = OUTPUT_HEADERS
@@ -550,7 +558,10 @@ def build_catalog(output, force=False, check=False):
         "conventions": {"position": "Sun-relative Galactic x toward Galactic center, y toward Galactic longitude 90 deg, z toward north Galactic pole; pc", "epoch": "J2000.0 Julian years TT; linear Astropy apply_space_motion, no binary orbit model. Source epoch precision is retained as published, including 0.1-year rounding.", "velocity": "Sun-relative Galactic km/s; no solar Galactic offset. Missing/withheld RV is used only as a transverse-only propagation approximation, never exported as measured velocity.", "constellation": "Earth-view IAU region from high-precision adopted snapshot direction before Cartesian rounding. Existing vectors are preserved and inverted. Sun has no fixed region. No physical propagation to B1875.", "photometry": "Johnson V only, MV=V-5log10(d/10), local extinction neglected; no G/IR/bolometric substitutions. No time-variable photometry or unresolved flux aggregation.", "uncertainty": "Raw source measurement errors retained. Rank uses nominal adopted distance; linearized parallax-only distance sigma is an audit, not a covariance-aware posterior or a guarantee of order. Existing row source errors are audit-only when astrometry is overridden."},
         "decisions": frozen["decisions"], "coverage": coverage,
         "audit": {"sourceCounts": frozen["sourceCounts"], "bufferPolicy": frozen["bufferPolicy"], "candidateCount": len(adopted), "eligibleCandidateCount": len(eligible), "excludedTentativeSequences": frozen["excludedTentativeSequences"], "excludedPlanetSequences": frozen["excludedPlanetSequences"], "preservedTentativeSequences": frozen["preservedTentativeSequences"], "rankingPolicy": "bufferRank covers all 160 frozen candidates; rank covers only the 155 eligible objects and is null for explicit exclusions. Uncertainty flags on excluded rows are diagnostic only, not eligibility.", "cns5RowsChecked": len(frozen["cns5Matches"]), "unmatchedCNS5Rows": 0, "rankings": rankings, "cns5Matches": frozen["cns5Matches"], "coincidentGroups": [members for members in positions.values() if len(members) > 1], "constellationBoundaryProbeArcsec": 1, "boundaryFixtures": boundary_fixtures, "boundaryFixtureMethod": "Synthetic B1875 directions RA=0h, Dec=88deg +/-1arcsec transformed to ICRS with Astropy PrecessedGeocentric; no physical proper motion.", "cutoffTie": [row["id"] for row, item in eligible if item["adoptedJ2000"]["distancePc"] == cutoff_distance], "splitCutoffTie": any(item["adoptedJ2000"]["distancePc"] == cutoff_distance for _, item in eligible[100:])},
-        "objects": [{"id": "sun", "fields": {key: field_source("not-applicable" if key == "constellation" else "unknown" if key in PHYSICAL_HEADERS else "adopted", "NASA:sunfact:2024-05-09" if key == "absolute_mag" else None if key in PHYSICAL_HEADERS else "legacy-neighbors:sun") for key in sun}}] + [item for _, item in selected],
+        "objects": [{**solar_provenance(), "fields": {
+            **{key: field_source("not-applicable" if key == "constellation" or key in RAW_ASTROMETRY_HEADERS else "adopted", "legacy-neighbors:sun") for key in sun},
+            **solar_provenance()["fields"],
+        }}] + [item for _, item in selected],
     }
     csv_text = io.StringIO(newline="")
     writer = csv.DictWriter(csv_text, fieldnames=headers, lineterminator="\n")
@@ -605,6 +616,8 @@ def default_catalog(write=False):
     supplemented = {}
     for row in rows:
         output = {key: frozen_legacy_by_id[row["id"]].get(key, "") for key in OUTPUT_HEADERS}
+        if row["id"] == "sun":
+            adopt_solar_reference(output)
         if row["id"] != "sun":
             output.update(raw_astrometry(source_by_id[row["id"]], all(row[key] != "" for key in ("vx_kms", "vy_kms", "vz_kms"))))
             apply_alpha_centauri_system_motion(output)

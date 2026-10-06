@@ -1,0 +1,1352 @@
+{
+  "schemaVersion": 1,
+  "reviewDate": "2026-10-06",
+  "policy": "After component splitting, fill blank fields only using explicitly reviewed individual observations or unique exact Gaia DR3 component matches. Published calibration masses/radii are estimates. Never substitute G/K for Johnson V, adopt ambiguous aggregate photometry, or assign a parent photospheric metallicity to a secondary. Systemic RVs give explicitly approximate bulk motion, not orbital velocity. Explicit corrections may replace a reviewed expected input value and abundance kind; input drift fails generation. [M/H] and [Fe/H] are retained as distinct source quantities.",
+  "inputSha256": {
+    "catalog-work/star-systems/cifuentes-2025-component-properties.json": "4bd874cca800b16f60a6fc8318a75fe6ae291c0b73c7ef0f17de5eefe74fcad4",
+    "catalog-work/star-systems/reyle-2023-component-photometry.json": "53e65c7a11ead0234b9bacbc50b9e1664c94211a5126d0b56ff594d9676b16bb",
+    "catalog-work/star-systems/achird-b-gaia-dr2.tsv": "3656b3674f90bb22c69652f15cdb925478c9555880ab0b49917eb2598130272f"
+  },
+  "sources": [
+    {
+      "name": "Cifuentes et al. 2025, resolved companion model/photometric estimates, Table A.1",
+      "url": "https://arxiv.org/abs/2412.12264"
+    },
+    {
+      "name": "McCarthy et al. 1993, resolved Mu Cas B SED and radius",
+      "url": "https://articles.adsabs.harvard.edu/pdf/1993AJ....105..652M"
+    },
+    {
+      "name": "Jao et al. 2016, individual Mu Cas A/B visual magnitudes",
+      "url": "https://arxiv.org/abs/1607.01304"
+    },
+    {
+      "name": "Delfosse et al. 2000, resolved low-mass Johnson V magnitudes",
+      "url": "https://arxiv.org/abs/astro-ph/0010586"
+    },
+    {
+      "name": "Morel et al. 2001, Zeta Her component photometry and temperatures",
+      "url": "https://arxiv.org/abs/astro-ph/0110004"
+    },
+    {
+      "name": "Boden et al. 1999, Iota Peg component angular diameters",
+      "url": "https://arxiv.org/abs/astro-ph/9811029"
+    },
+    {
+      "name": "Neuhauser et al. 2007, Gamma Cep directly resolved masses and systemic RV",
+      "url": "https://arxiv.org/abs/astro-ph/0611427"
+    },
+    {
+      "name": "Konig et al. 2002, Chi1 Ori A component spectroscopy",
+      "url": "https://arxiv.org/abs/astro-ph/0209404"
+    },
+    {
+      "name": "Zapatero Osorio et al. 2004, GJ 569 Ba/Bb resolved atmospheric/bolometric fits",
+      "url": "https://arxiv.org/abs/astro-ph/0407334"
+    },
+    {
+      "name": "Reyle et al. 2023, resolved GJ 667 A/B visual photometry",
+      "url": "https://cdsarc.cds.unistra.fr/viz-bin/cat/J/A+A/650/A201"
+    },
+    {
+      "name": "Aleo et al. 2017, resolved Eta Cas A/B atmospheric parameters, Table 1",
+      "url": "https://arxiv.org/abs/1709.01244"
+    },
+    {
+      "name": "Giovinazzi et al. 2025, Eta Cas B dynamical mass, Table 6",
+      "url": "https://arxiv.org/abs/2505.12563"
+    },
+    {
+      "name": "Gaia DR2, exact Eta Cas B radius/luminosity record",
+      "url": "https://vizier.cfa.harvard.edu/viz-bin/VizieR-S?Gaia+DR2+425040000959067008"
+    }
+  ],
+  "objects": {
+    "cns5-0021": {
+      "expectedName": "HD 38B",
+      "fields": {
+        "mass_solar": {
+          "value": 0.64,
+          "uncertainty": 0.0267,
+          "status": "estimated",
+          "reference": "2025A&A...693A.228C:Table A.1",
+          "sourceRecordId": "7",
+          "sourceReference": "This work",
+          "scope": "Resolved Gaia DR3 component 386653747925624576",
+          "method": "Published MG calibration",
+          "sourceUrl": "https://vizier.cfa.harvard.edu/viz-bin/asu-tsv?-source=J/A%2bA/693/A228/tablea1&-out.max=unlimited&-out.all=1"
+        },
+        "radius_solar": {
+          "value": 0.6094,
+          "uncertainty": 0.012,
+          "status": "estimated",
+          "reference": "2025A&A...693A.228C:Table A.1",
+          "sourceRecordId": "7",
+          "sourceReference": "This work",
+          "scope": "Resolved Gaia DR3 component 386653747925624576",
+          "method": "Published MG calibration",
+          "sourceUrl": "https://vizier.cfa.harvard.edu/viz-bin/asu-tsv?-source=J/A%2bA/693/A228/tablea1&-out.max=unlimited&-out.all=1"
+        }
+      },
+      "note": "Exact Gaia DR3 component match to Cifuentes et al. 2025 Table A.1. Only blank fields are filled. Mass/radius are published photometric estimates or SED-derived results, not dynamical measurements. Compromised spectra, candidate inner binaries, white dwarfs, and out-of-range MG calibration are excluded; compiled metallicities and velocities are not adopted.",
+      "gaiaDr3Id": "386653747925624576",
+      "sourceRecordId": "7"
+    },
+    "cns5-0154": {
+      "expectedName": "BD+66 34B",
+      "fields": {
+        "mass_solar": {
+          "value": 0.2641,
+          "uncertainty": 0.0358,
+          "status": "estimated",
+          "reference": "2025A&A...693A.228C:Table A.1",
+          "sourceRecordId": "70",
+          "sourceReference": "This work",
+          "scope": "Resolved Gaia DR3 component 527956488339113600",
+          "method": "Published MG calibration",
+          "sourceUrl": "https://vizier.cfa.harvard.edu/viz-bin/asu-tsv?-source=J/A%2bA/693/A228/tablea1&-out.max=unlimited&-out.all=1"
+        },
+        "radius_solar": {
+          "value": 0.2698,
+          "uncertainty": 0.0161,
+          "status": "estimated",
+          "reference": "2025A&A...693A.228C:Table A.1",
+          "sourceRecordId": "70",
+          "sourceReference": "This work",
+          "scope": "Resolved Gaia DR3 component 527956488339113600",
+          "method": "Published MG calibration",
+          "sourceUrl": "https://vizier.cfa.harvard.edu/viz-bin/asu-tsv?-source=J/A%2bA/693/A228/tablea1&-out.max=unlimited&-out.all=1"
+        }
+      },
+      "note": "Exact Gaia DR3 component match to Cifuentes et al. 2025 Table A.1. Only blank fields are filled. Mass/radius are published photometric estimates or SED-derived results, not dynamical measurements. Compromised spectra, candidate inner binaries, white dwarfs, and out-of-range MG calibration are excluded; compiled metallicities and velocities are not adopted.",
+      "gaiaDr3Id": "527956488339113600",
+      "sourceRecordId": "70"
+    },
+    "cns5-0686": {
+      "expectedName": "Theta Per B",
+      "fields": {
+        "mass_solar": {
+          "value": 0.509,
+          "uncertainty": 0.0291,
+          "status": "estimated",
+          "reference": "2025A&A...693A.228C:Table A.1",
+          "sourceRecordId": "297",
+          "sourceReference": "This work",
+          "scope": "Resolved Gaia DR3 component 438829835272390784",
+          "method": "Published MG calibration",
+          "sourceUrl": "https://vizier.cfa.harvard.edu/viz-bin/asu-tsv?-source=J/A%2bA/693/A228/tablea1&-out.max=unlimited&-out.all=1"
+        }
+      },
+      "note": "Exact Gaia DR3 component match to Cifuentes et al. 2025 Table A.1. Only blank fields are filled. Mass/radius are published photometric estimates or SED-derived results, not dynamical measurements. Compromised spectra, candidate inner binaries, white dwarfs, and out-of-range MG calibration are excluded; compiled metallicities and velocities are not adopted.",
+      "gaiaDr3Id": "438829835272390784",
+      "sourceRecordId": "297"
+    },
+    "cns5-1324": {
+      "expectedName": "Capella L",
+      "fields": {
+        "mass_solar": {
+          "value": 0.2722,
+          "uncertainty": 0.0355,
+          "status": "estimated",
+          "reference": "2025A&A...693A.228C:Table A.1",
+          "sourceRecordId": "658",
+          "sourceReference": "This work",
+          "scope": "Resolved Gaia DR3 component 211810233512673920",
+          "method": "Published MG calibration",
+          "sourceUrl": "https://vizier.cfa.harvard.edu/viz-bin/asu-tsv?-source=J/A%2bA/693/A228/tablea1&-out.max=unlimited&-out.all=1"
+        },
+        "radius_solar": {
+          "value": 0.2773,
+          "uncertainty": 0.016,
+          "status": "estimated",
+          "reference": "2025A&A...693A.228C:Table A.1",
+          "sourceRecordId": "658",
+          "sourceReference": "This work",
+          "scope": "Resolved Gaia DR3 component 211810233512673920",
+          "method": "Published MG calibration",
+          "sourceUrl": "https://vizier.cfa.harvard.edu/viz-bin/asu-tsv?-source=J/A%2bA/693/A228/tablea1&-out.max=unlimited&-out.all=1"
+        }
+      },
+      "note": "Exact Gaia DR3 component match to Cifuentes et al. 2025 Table A.1. Only blank fields are filled. Mass/radius are published photometric estimates or SED-derived results, not dynamical measurements. Compromised spectra, candidate inner binaries, white dwarfs, and out-of-range MG calibration are excluded; compiled metallicities and velocities are not adopted.",
+      "gaiaDr3Id": "211810233512673920",
+      "sourceRecordId": "658"
+    },
+    "cns5-0820": {
+      "expectedName": "Ross 370A",
+      "fields": {
+        "mass_solar": {
+          "value": 0.4489,
+          "uncertainty": 0.0171,
+          "status": "model-derived",
+          "reference": "2025A&A...693A.228C:Table A.1",
+          "sourceRecordId": "356",
+          "sourceReference": "This work",
+          "scope": "Resolved Gaia DR3 component 461701979229013376",
+          "method": "Published SED/stellar-parameter compilation",
+          "sourceUrl": "https://vizier.cfa.harvard.edu/viz-bin/asu-tsv?-source=J/A%2bA/693/A228/tablea1&-out.max=unlimited&-out.all=1"
+        }
+      },
+      "note": "Exact Gaia DR3 component match to Cifuentes et al. 2025 Table A.1. Only blank fields are filled. Mass/radius are published photometric estimates or SED-derived results, not dynamical measurements. Compromised spectra, candidate inner binaries, white dwarfs, and out-of-range MG calibration are excluded; compiled metallicities and velocities are not adopted.",
+      "gaiaDr3Id": "461701979229013376",
+      "sourceRecordId": "356"
+    },
+    "cns5-0822": {
+      "expectedName": "Ross 370B",
+      "fields": {
+        "mass_solar": {
+          "value": 0.4173,
+          "uncertainty": 0.0162,
+          "status": "model-derived",
+          "reference": "2025A&A...693A.228C:Table A.1",
+          "sourceRecordId": "357",
+          "sourceReference": "This work",
+          "scope": "Resolved Gaia DR3 component 461701979233050624",
+          "method": "Published SED/stellar-parameter compilation",
+          "sourceUrl": "https://vizier.cfa.harvard.edu/viz-bin/asu-tsv?-source=J/A%2bA/693/A228/tablea1&-out.max=unlimited&-out.all=1"
+        }
+      },
+      "note": "Exact Gaia DR3 component match to Cifuentes et al. 2025 Table A.1. Only blank fields are filled. Mass/radius are published photometric estimates or SED-derived results, not dynamical measurements. Compromised spectra, candidate inner binaries, white dwarfs, and out-of-range MG calibration are excluded; compiled metallicities and velocities are not adopted.",
+      "gaiaDr3Id": "461701979233050624",
+      "sourceRecordId": "357"
+    },
+    "cns5-1263": {
+      "expectedName": "HD 32450B",
+      "fields": {
+        "mass_solar": {
+          "value": 0.3722,
+          "uncertainty": 0.0324,
+          "status": "estimated",
+          "reference": "2025A&A...693A.228C:Table A.1",
+          "sourceRecordId": "621",
+          "sourceReference": "This work",
+          "scope": "Resolved Gaia DR3 component 2974726136265625088",
+          "method": "Published MG calibration",
+          "sourceUrl": "https://vizier.cfa.harvard.edu/viz-bin/asu-tsv?-source=J/A%2bA/693/A228/tablea1&-out.max=unlimited&-out.all=1"
+        },
+        "radius_solar": {
+          "value": 0.3691,
+          "uncertainty": 0.0146,
+          "status": "estimated",
+          "reference": "2025A&A...693A.228C:Table A.1",
+          "sourceRecordId": "621",
+          "sourceReference": "This work",
+          "scope": "Resolved Gaia DR3 component 2974726136265625088",
+          "method": "Published MG calibration",
+          "sourceUrl": "https://vizier.cfa.harvard.edu/viz-bin/asu-tsv?-source=J/A%2bA/693/A228/tablea1&-out.max=unlimited&-out.all=1"
+        }
+      },
+      "note": "Exact Gaia DR3 component match to Cifuentes et al. 2025 Table A.1. Only blank fields are filled. Mass/radius are published photometric estimates or SED-derived results, not dynamical measurements. Compromised spectra, candidate inner binaries, white dwarfs, and out-of-range MG calibration are excluded; compiled metallicities and velocities are not adopted.",
+      "gaiaDr3Id": "2974726136265625088",
+      "sourceRecordId": "621"
+    },
+    "cns5-1725": {
+      "expectedName": "G 250-31B",
+      "fields": {
+        "mass_solar": {
+          "value": 0.1288,
+          "uncertainty": 0.0435,
+          "status": "estimated",
+          "reference": "2025A&A...693A.228C:Table A.1",
+          "sourceRecordId": "837",
+          "sourceReference": "This work",
+          "scope": "Resolved Gaia DR3 component 1099288637370627072",
+          "method": "Published MG calibration",
+          "sourceUrl": "https://vizier.cfa.harvard.edu/viz-bin/asu-tsv?-source=J/A%2bA/693/A228/tablea1&-out.max=unlimited&-out.all=1"
+        },
+        "radius_solar": {
+          "value": 0.1386,
+          "uncertainty": 0.0195,
+          "status": "estimated",
+          "reference": "2025A&A...693A.228C:Table A.1",
+          "sourceRecordId": "837",
+          "sourceReference": "This work",
+          "scope": "Resolved Gaia DR3 component 1099288637370627072",
+          "method": "Published MG calibration",
+          "sourceUrl": "https://vizier.cfa.harvard.edu/viz-bin/asu-tsv?-source=J/A%2bA/693/A228/tablea1&-out.max=unlimited&-out.all=1"
+        }
+      },
+      "note": "Exact Gaia DR3 component match to Cifuentes et al. 2025 Table A.1. Only blank fields are filled. Mass/radius are published photometric estimates or SED-derived results, not dynamical measurements. Compromised spectra, candidate inner binaries, white dwarfs, and out-of-range MG calibration are excluded; compiled metallicities and velocities are not adopted.",
+      "gaiaDr3Id": "1099288637370627072",
+      "sourceRecordId": "837"
+    },
+    "cns5-2778": {
+      "expectedName": "HD 98712B",
+      "fields": {
+        "mass_solar": {
+          "value": 0.4206,
+          "uncertainty": 0.0311,
+          "status": "estimated",
+          "reference": "2025A&A...693A.228C:Table A.1",
+          "sourceRecordId": "1318",
+          "sourceReference": "This work",
+          "scope": "Resolved Gaia DR3 component 3545469496823737984",
+          "method": "Published MG calibration",
+          "sourceUrl": "https://vizier.cfa.harvard.edu/viz-bin/asu-tsv?-source=J/A%2bA/693/A228/tablea1&-out.max=unlimited&-out.all=1"
+        },
+        "radius_solar": {
+          "value": 0.413,
+          "uncertainty": 0.014,
+          "status": "estimated",
+          "reference": "2025A&A...693A.228C:Table A.1",
+          "sourceRecordId": "1318",
+          "sourceReference": "This work",
+          "scope": "Resolved Gaia DR3 component 3545469496823737984",
+          "method": "Published MG calibration",
+          "sourceUrl": "https://vizier.cfa.harvard.edu/viz-bin/asu-tsv?-source=J/A%2bA/693/A228/tablea1&-out.max=unlimited&-out.all=1"
+        }
+      },
+      "note": "Exact Gaia DR3 component match to Cifuentes et al. 2025 Table A.1. Only blank fields are filled. Mass/radius are published photometric estimates or SED-derived results, not dynamical measurements. Compromised spectra, candidate inner binaries, white dwarfs, and out-of-range MG calibration are excluded; compiled metallicities and velocities are not adopted.",
+      "gaiaDr3Id": "3545469496823737984",
+      "sourceRecordId": "1318"
+    },
+    "cns5-2997": {
+      "expectedName": "L 758-107",
+      "fields": {
+        "mass_solar": {
+          "value": 0.2751,
+          "uncertainty": 0.0128,
+          "status": "model-derived",
+          "reference": "2025A&A...693A.228C:Table A.1",
+          "sourceRecordId": "1399",
+          "sourceReference": "This work",
+          "scope": "Resolved Gaia DR3 component 3517841140438425600",
+          "method": "Published SED/stellar-parameter compilation",
+          "sourceUrl": "https://vizier.cfa.harvard.edu/viz-bin/asu-tsv?-source=J/A%2bA/693/A228/tablea1&-out.max=unlimited&-out.all=1"
+        }
+      },
+      "note": "Exact Gaia DR3 component match to Cifuentes et al. 2025 Table A.1. Only blank fields are filled. Mass/radius are published photometric estimates or SED-derived results, not dynamical measurements. Compromised spectra, candidate inner binaries, white dwarfs, and out-of-range MG calibration are excluded; compiled metallicities and velocities are not adopted.",
+      "gaiaDr3Id": "3517841140438425600",
+      "sourceRecordId": "1399"
+    },
+    "cns5-3031": {
+      "expectedName": "G 148-47",
+      "fields": {
+        "mass_solar": {
+          "value": 0.1406,
+          "uncertainty": 0.0424,
+          "status": "estimated",
+          "reference": "2025A&A...693A.228C:Table A.1",
+          "sourceRecordId": "1428",
+          "sourceReference": "This work",
+          "scope": "Resolved Gaia DR3 component 4015042738059517568",
+          "method": "Published MG calibration",
+          "sourceUrl": "https://vizier.cfa.harvard.edu/viz-bin/asu-tsv?-source=J/A%2bA/693/A228/tablea1&-out.max=unlimited&-out.all=1"
+        },
+        "radius_solar": {
+          "value": 0.1508,
+          "uncertainty": 0.019,
+          "status": "estimated",
+          "reference": "2025A&A...693A.228C:Table A.1",
+          "sourceRecordId": "1428",
+          "sourceReference": "This work",
+          "scope": "Resolved Gaia DR3 component 4015042738059517568",
+          "method": "Published MG calibration",
+          "sourceUrl": "https://vizier.cfa.harvard.edu/viz-bin/asu-tsv?-source=J/A%2bA/693/A228/tablea1&-out.max=unlimited&-out.all=1"
+        }
+      },
+      "note": "Exact Gaia DR3 component match to Cifuentes et al. 2025 Table A.1. Only blank fields are filled. Mass/radius are published photometric estimates or SED-derived results, not dynamical measurements. Compromised spectra, candidate inner binaries, white dwarfs, and out-of-range MG calibration are excluded; compiled metallicities and velocities are not adopted.",
+      "gaiaDr3Id": "4015042738059517568",
+      "sourceRecordId": "1428"
+    },
+    "cns5-3270": {
+      "expectedName": "HD 115404B",
+      "fields": {
+        "mass_solar": {
+          "value": 0.541,
+          "uncertainty": 0.0285,
+          "status": "estimated",
+          "reference": "2025A&A...693A.228C:Table A.1",
+          "sourceRecordId": "1520",
+          "sourceReference": "This work",
+          "scope": "Resolved Gaia DR3 component 3936909723803146496",
+          "method": "Published MG calibration",
+          "sourceUrl": "https://vizier.cfa.harvard.edu/viz-bin/asu-tsv?-source=J/A%2bA/693/A228/tablea1&-out.max=unlimited&-out.all=1"
+        }
+      },
+      "note": "Exact Gaia DR3 component match to Cifuentes et al. 2025 Table A.1. Only blank fields are filled. Mass/radius are published photometric estimates or SED-derived results, not dynamical measurements. Compromised spectra, candidate inner binaries, white dwarfs, and out-of-range MG calibration are excluded; compiled metallicities and velocities are not adopted.",
+      "gaiaDr3Id": "3936909723803146496",
+      "sourceRecordId": "1520"
+    },
+    "cns5-3474": {
+      "expectedName": "BD+47 2112A",
+      "fields": {
+        "mass_solar": {
+          "value": 0.5235,
+          "uncertainty": 0.0288,
+          "status": "estimated",
+          "reference": "2025A&A...693A.228C:Table A.1",
+          "sourceRecordId": "1632",
+          "sourceReference": "This work",
+          "scope": "Resolved Gaia DR3 component 1508886439891509248",
+          "method": "Published MG calibration",
+          "sourceUrl": "https://vizier.cfa.harvard.edu/viz-bin/asu-tsv?-source=J/A%2bA/693/A228/tablea1&-out.max=unlimited&-out.all=1"
+        }
+      },
+      "note": "Exact Gaia DR3 component match to Cifuentes et al. 2025 Table A.1. Only blank fields are filled. Mass/radius are published photometric estimates or SED-derived results, not dynamical measurements. Compromised spectra, candidate inner binaries, white dwarfs, and out-of-range MG calibration are excluded; compiled metallicities and velocities are not adopted.",
+      "gaiaDr3Id": "1508886439891509248",
+      "sourceRecordId": "1632"
+    },
+    "cns5-3475": {
+      "expectedName": "BD+47 2112B",
+      "fields": {
+        "mass_solar": {
+          "value": 0.5056,
+          "uncertainty": 0.0292,
+          "status": "estimated",
+          "reference": "2025A&A...693A.228C:Table A.1",
+          "sourceRecordId": "1633",
+          "sourceReference": "This work",
+          "scope": "Resolved Gaia DR3 component 1508886439891508736",
+          "method": "Published MG calibration",
+          "sourceUrl": "https://vizier.cfa.harvard.edu/viz-bin/asu-tsv?-source=J/A%2bA/693/A228/tablea1&-out.max=unlimited&-out.all=1"
+        }
+      },
+      "note": "Exact Gaia DR3 component match to Cifuentes et al. 2025 Table A.1. Only blank fields are filled. Mass/radius are published photometric estimates or SED-derived results, not dynamical measurements. Compromised spectra, candidate inner binaries, white dwarfs, and out-of-range MG calibration are excluded; compiled metallicities and velocities are not adopted.",
+      "gaiaDr3Id": "1508886439891508736",
+      "sourceRecordId": "1633"
+    },
+    "cns5-3636": {
+      "expectedName": "G 239-25",
+      "fields": {
+        "mass_solar": {
+          "value": 0.4122,
+          "uncertainty": 0.0313,
+          "status": "estimated",
+          "reference": "2025A&A...693A.228C:Table A.1",
+          "sourceRecordId": "1707",
+          "sourceReference": "This work",
+          "scope": "Resolved Gaia DR3 component 1669449084967071872",
+          "method": "Published MG calibration",
+          "sourceUrl": "https://vizier.cfa.harvard.edu/viz-bin/asu-tsv?-source=J/A%2bA/693/A228/tablea1&-out.max=unlimited&-out.all=1"
+        }
+      },
+      "note": "Exact Gaia DR3 component match to Cifuentes et al. 2025 Table A.1. Only blank fields are filled. Mass/radius are published photometric estimates or SED-derived results, not dynamical measurements. Compromised spectra, candidate inner binaries, white dwarfs, and out-of-range MG calibration are excluded; compiled metallicities and velocities are not adopted.",
+      "gaiaDr3Id": "1669449084967071872",
+      "sourceRecordId": "1707"
+    },
+    "cns5-3688": {
+      "expectedName": "BD+16 2708",
+      "fields": {
+        "mass_solar": {
+          "value": 0.4774,
+          "uncertainty": 0.0298,
+          "status": "estimated",
+          "reference": "2025A&A...693A.228C:Table A.1",
+          "sourceRecordId": "1719",
+          "sourceReference": "This work",
+          "scope": "Resolved Gaia DR3 component 1187851653287128576",
+          "method": "Published MG calibration",
+          "sourceUrl": "https://vizier.cfa.harvard.edu/viz-bin/asu-tsv?-source=J/A%2bA/693/A228/tablea1&-out.max=unlimited&-out.all=1"
+        }
+      },
+      "note": "Exact Gaia DR3 component match to Cifuentes et al. 2025 Table A.1. Only blank fields are filled. Mass/radius are published photometric estimates or SED-derived results, not dynamical measurements. Compromised spectra, candidate inner binaries, white dwarfs, and out-of-range MG calibration are excluded; compiled metallicities and velocities are not adopted.",
+      "gaiaDr3Id": "1187851653287128576",
+      "sourceRecordId": "1719"
+    },
+    "cns5-3710": {
+      "expectedName": "BD+45 2247",
+      "fields": {
+        "mass_solar": {
+          "value": 0.6198,
+          "uncertainty": 0.027,
+          "status": "estimated",
+          "reference": "2025A&A...693A.228C:Table A.1",
+          "sourceRecordId": "1732",
+          "sourceReference": "This work",
+          "scope": "Resolved Gaia DR3 component 1586968533015434624",
+          "method": "Published MG calibration",
+          "sourceUrl": "https://vizier.cfa.harvard.edu/viz-bin/asu-tsv?-source=J/A%2bA/693/A228/tablea1&-out.max=unlimited&-out.all=1"
+        }
+      },
+      "note": "Exact Gaia DR3 component match to Cifuentes et al. 2025 Table A.1. Only blank fields are filled. Mass/radius are published photometric estimates or SED-derived results, not dynamical measurements. Compromised spectra, candidate inner binaries, white dwarfs, and out-of-range MG calibration are excluded; compiled metallicities and velocities are not adopted.",
+      "gaiaDr3Id": "1586968533015434624",
+      "sourceRecordId": "1732"
+    },
+    "cns5-3711": {
+      "expectedName": "BD+45 2247B",
+      "fields": {
+        "mass_solar": {
+          "value": 0.2426,
+          "uncertainty": 0.0367,
+          "status": "estimated",
+          "reference": "2025A&A...693A.228C:Table A.1",
+          "sourceRecordId": "1733",
+          "sourceReference": "This work",
+          "scope": "Resolved Gaia DR3 component 1586968533013974528",
+          "method": "Published MG calibration",
+          "sourceUrl": "https://vizier.cfa.harvard.edu/viz-bin/asu-tsv?-source=J/A%2bA/693/A228/tablea1&-out.max=unlimited&-out.all=1"
+        },
+        "radius_solar": {
+          "value": 0.2497,
+          "uncertainty": 0.0165,
+          "status": "estimated",
+          "reference": "2025A&A...693A.228C:Table A.1",
+          "sourceRecordId": "1733",
+          "sourceReference": "This work",
+          "scope": "Resolved Gaia DR3 component 1586968533013974528",
+          "method": "Published MG calibration",
+          "sourceUrl": "https://vizier.cfa.harvard.edu/viz-bin/asu-tsv?-source=J/A%2bA/693/A228/tablea1&-out.max=unlimited&-out.all=1"
+        }
+      },
+      "note": "Exact Gaia DR3 component match to Cifuentes et al. 2025 Table A.1. Only blank fields are filled. Mass/radius are published photometric estimates or SED-derived results, not dynamical measurements. Compromised spectra, candidate inner binaries, white dwarfs, and out-of-range MG calibration are excluded; compiled metallicities and velocities are not adopted.",
+      "gaiaDr3Id": "1586968533013974528",
+      "sourceRecordId": "1733"
+    },
+    "cns5-4261": {
+      "expectedName": "Ross 868",
+      "fields": {
+        "mass_solar": {
+          "value": 0.4324,
+          "uncertainty": 0.0175,
+          "status": "model-derived",
+          "reference": "2025A&A...693A.228C:Table A.1",
+          "sourceRecordId": "1950",
+          "sourceReference": "This work",
+          "scope": "Resolved Gaia DR3 component 4574048021719710848",
+          "method": "Published SED/stellar-parameter compilation",
+          "sourceUrl": "https://vizier.cfa.harvard.edu/viz-bin/asu-tsv?-source=J/A%2bA/693/A228/tablea1&-out.max=unlimited&-out.all=1"
+        }
+      },
+      "note": "Exact Gaia DR3 component match to Cifuentes et al. 2025 Table A.1. Only blank fields are filled. Mass/radius are published photometric estimates or SED-derived results, not dynamical measurements. Compromised spectra, candidate inner binaries, white dwarfs, and out-of-range MG calibration are excluded; compiled metallicities and velocities are not adopted.",
+      "gaiaDr3Id": "4574048021719710848",
+      "sourceRecordId": "1950"
+    },
+    "cns5-4259": {
+      "expectedName": "Ross 867",
+      "fields": {
+        "mass_solar": {
+          "value": 0.2975,
+          "uncertainty": 0.0139,
+          "status": "model-derived",
+          "reference": "2025A&A...693A.228C:Table A.1",
+          "sourceRecordId": "1951",
+          "sourceReference": "This work",
+          "scope": "Resolved Gaia DR3 component 4574048021719712640",
+          "method": "Published SED/stellar-parameter compilation",
+          "sourceUrl": "https://vizier.cfa.harvard.edu/viz-bin/asu-tsv?-source=J/A%2bA/693/A228/tablea1&-out.max=unlimited&-out.all=1"
+        },
+        "radius_solar": {
+          "value": 0.3047,
+          "uncertainty": 0.0099,
+          "status": "model-derived",
+          "reference": "2025A&A...693A.228C:Table A.1",
+          "sourceRecordId": "1951",
+          "sourceReference": "This work",
+          "scope": "Resolved Gaia DR3 component 4574048021719712640",
+          "method": "Published SED/stellar-parameter compilation",
+          "sourceUrl": "https://vizier.cfa.harvard.edu/viz-bin/asu-tsv?-source=J/A%2bA/693/A228/tablea1&-out.max=unlimited&-out.all=1"
+        },
+        "luminosity_solar": {
+          "value": 0.00772365,
+          "uncertainty": 3.9676e-05,
+          "status": "model-derived",
+          "reference": "2025A&A...693A.228C:Table A.1",
+          "sourceRecordId": "1951",
+          "sourceReference": "This work",
+          "scope": "Resolved Gaia DR3 component 4574048021719712640",
+          "method": "Published SED/stellar-parameter compilation",
+          "sourceUrl": "https://vizier.cfa.harvard.edu/viz-bin/asu-tsv?-source=J/A%2bA/693/A228/tablea1&-out.max=unlimited&-out.all=1"
+        }
+      },
+      "note": "Exact Gaia DR3 component match to Cifuentes et al. 2025 Table A.1. Only blank fields are filled. Mass/radius are published photometric estimates or SED-derived results, not dynamical measurements. Compromised spectra, candidate inner binaries, white dwarfs, and out-of-range MG calibration are excluded; compiled metallicities and velocities are not adopted.",
+      "gaiaDr3Id": "4574048021719712640",
+      "sourceRecordId": "1951"
+    },
+    "cns5-4780": {
+      "expectedName": "VB 10",
+      "fields": {
+        "radius_solar": {
+          "value": 0.0997,
+          "uncertainty": 0.0231,
+          "status": "model-derived",
+          "reference": "2025A&A...693A.228C:Table A.1",
+          "sourceRecordId": "2144",
+          "sourceReference": "This work",
+          "scope": "Resolved Gaia DR3 component 4293315765165489536",
+          "method": "Published SED/stellar-parameter compilation",
+          "sourceUrl": "https://vizier.cfa.harvard.edu/viz-bin/asu-tsv?-source=J/A%2bA/693/A228/tablea1&-out.max=unlimited&-out.all=1"
+        },
+        "luminosity_solar": {
+          "value": 0.000429189,
+          "uncertainty": 2.5453e-06,
+          "status": "model-derived",
+          "reference": "2025A&A...693A.228C:Table A.1",
+          "sourceRecordId": "2144",
+          "sourceReference": "This work",
+          "scope": "Resolved Gaia DR3 component 4293315765165489536",
+          "method": "Published SED/stellar-parameter compilation",
+          "sourceUrl": "https://vizier.cfa.harvard.edu/viz-bin/asu-tsv?-source=J/A%2bA/693/A228/tablea1&-out.max=unlimited&-out.all=1"
+        }
+      },
+      "note": "Exact Gaia DR3 component match to Cifuentes et al. 2025 Table A.1. Only blank fields are filled. Mass/radius are published photometric estimates or SED-derived results, not dynamical measurements. Compromised spectra, candidate inner binaries, white dwarfs, and out-of-range MG calibration are excluded; compiled metallicities and velocities are not adopted.",
+      "gaiaDr3Id": "4293315765165489536",
+      "sourceRecordId": "2144"
+    },
+    "cns5-4798": {
+      "expectedName": "L 923-22",
+      "fields": {
+        "mass_solar": {
+          "value": 0.2862,
+          "uncertainty": 0.035,
+          "status": "estimated",
+          "reference": "2025A&A...693A.228C:Table A.1",
+          "sourceRecordId": "2148",
+          "sourceReference": "This work",
+          "scope": "Resolved Gaia DR3 component 4201781696994082944",
+          "method": "Published MG calibration",
+          "sourceUrl": "https://vizier.cfa.harvard.edu/viz-bin/asu-tsv?-source=J/A%2bA/693/A228/tablea1&-out.max=unlimited&-out.all=1"
+        }
+      },
+      "note": "Exact Gaia DR3 component match to Cifuentes et al. 2025 Table A.1. Only blank fields are filled. Mass/radius are published photometric estimates or SED-derived results, not dynamical measurements. Compromised spectra, candidate inner binaries, white dwarfs, and out-of-range MG calibration are excluded; compiled metallicities and velocities are not adopted.",
+      "gaiaDr3Id": "4201781696994082944",
+      "sourceRecordId": "2148"
+    },
+    "cns5-4898": {
+      "expectedName": "LSPM J1945+2707NW",
+      "fields": {
+        "mass_solar": {
+          "value": 0.2454,
+          "uncertainty": 0.0366,
+          "status": "estimated",
+          "reference": "2025A&A...693A.228C:Table A.1",
+          "sourceRecordId": "2180",
+          "sourceReference": "This work",
+          "scope": "Resolved Gaia DR3 component 2028065934962125184",
+          "method": "Published MG calibration",
+          "sourceUrl": "https://vizier.cfa.harvard.edu/viz-bin/asu-tsv?-source=J/A%2bA/693/A228/tablea1&-out.max=unlimited&-out.all=1"
+        }
+      },
+      "note": "Exact Gaia DR3 component match to Cifuentes et al. 2025 Table A.1. Only blank fields are filled. Mass/radius are published photometric estimates or SED-derived results, not dynamical measurements. Compromised spectra, candidate inner binaries, white dwarfs, and out-of-range MG calibration are excluded; compiled metallicities and velocities are not adopted.",
+      "gaiaDr3Id": "2028065934962125184",
+      "sourceRecordId": "2180"
+    },
+    "cns5-4899": {
+      "expectedName": "LSPM J1945+2707SE",
+      "fields": {
+        "mass_solar": {
+          "value": 0.206,
+          "uncertainty": 0.0383,
+          "status": "estimated",
+          "reference": "2025A&A...693A.228C:Table A.1",
+          "sourceRecordId": "2181",
+          "sourceReference": "This work",
+          "scope": "Resolved Gaia DR3 component 2028065934962124928",
+          "method": "Published MG calibration",
+          "sourceUrl": "https://vizier.cfa.harvard.edu/viz-bin/asu-tsv?-source=J/A%2bA/693/A228/tablea1&-out.max=unlimited&-out.all=1"
+        }
+      },
+      "note": "Exact Gaia DR3 component match to Cifuentes et al. 2025 Table A.1. Only blank fields are filled. Mass/radius are published photometric estimates or SED-derived results, not dynamical measurements. Compromised spectra, candidate inner binaries, white dwarfs, and out-of-range MG calibration are excluded; compiled metallicities and velocities are not adopted.",
+      "gaiaDr3Id": "2028065934962124928",
+      "sourceRecordId": "2181"
+    },
+    "cns5-4902": {
+      "expectedName": "HD 331161B",
+      "fields": {
+        "mass_solar": {
+          "value": 0.4427,
+          "uncertainty": 0.0306,
+          "status": "estimated",
+          "reference": "2025A&A...693A.228C:Table A.1",
+          "sourceRecordId": "2184",
+          "sourceReference": "This work",
+          "scope": "Resolved Gaia DR3 component 2034581091125010048",
+          "method": "Published MG calibration",
+          "sourceUrl": "https://vizier.cfa.harvard.edu/viz-bin/asu-tsv?-source=J/A%2bA/693/A228/tablea1&-out.max=unlimited&-out.all=1"
+        }
+      },
+      "note": "Exact Gaia DR3 component match to Cifuentes et al. 2025 Table A.1. Only blank fields are filled. Mass/radius are published photometric estimates or SED-derived results, not dynamical measurements. Compromised spectra, candidate inner binaries, white dwarfs, and out-of-range MG calibration are excluded; compiled metallicities and velocities are not adopted.",
+      "gaiaDr3Id": "2034581091125010048",
+      "sourceRecordId": "2184"
+    },
+    "cns5-0317": {
+      "expectedName": "Mu Cassiopeiae A",
+      "fields": {
+        "absolute_mag": {
+          "value": 5.784,
+          "status": "model-derived",
+          "reference": "2020ApJ...904..112B:9.1",
+          "inputs": {
+            "primaryV": 5.17,
+            "distanceModulus": -0.614
+          },
+          "caveat": "Primary V corrected for B using stellar models; retained at the paper parallax, not the orbit-contaminated Gaia parallax."
+        }
+      },
+      "note": "Component-specific published measurements supersede earlier withholding of aggregate measurements. No parent flux or unreviewed individual velocity is copied. The paper gives an approximate system RV of -97 km/s. Combine it with the existing shared proper-motion/parallax snapshot for approximate bulk motion; instantaneous A/B orbital velocities are not modeled. No uncertainty is invented.",
+      "completeStefanBoltzmann": true,
+      "systemicVelocity": {
+        "value": -97,
+        "uncertainty": null,
+        "reference": "2020ApJ...904..112B:1",
+        "scope": "Shared system/subsystem center-of-mass approximation",
+        "note": "The paper gives an approximate system RV of -97 km/s. Combine it with the existing shared proper-motion/parallax snapshot for approximate bulk motion; instantaneous A/B orbital velocities are not modeled. No uncertainty is invented."
+      }
+    },
+    "mu-cassiopeiae-b": {
+      "expectedName": "Mu Cassiopeiae B",
+      "fields": {
+        "absolute_mag": {
+          "value": 11.6,
+          "status": "derived",
+          "reference": "2016AJ....152..153J:Table 1",
+          "sourceUrl": "https://arxiv.org/abs/1607.01304",
+          "caveat": "Published component MV; no formal magnitude error in Table 1. Source parallax 132.67 +/-0.74 mas; retained as published."
+        },
+        "temperature_k": {
+          "value": 3034,
+          "status": "model-derived",
+          "reference": "1993AJ....105..652M:4.3",
+          "sourceUrl": "https://articles.adsabs.harvard.edu/pdf/1993AJ....105..652M",
+          "caveat": "Resolved 0.55-3.4 micron Planck SED fit; retained at the original 136.8 +/-3.3 mas parallax. Section 4.3 identifies 0.26 as radius, although the abstract calls it diameter. Older low-resolution SED estimate; formal errors do not describe all atmosphere-model systematics.",
+          "uncertainty": 160
+        },
+        "radius_solar": {
+          "value": 0.26,
+          "status": "model-derived",
+          "reference": "1993AJ....105..652M:4.3",
+          "sourceUrl": "https://articles.adsabs.harvard.edu/pdf/1993AJ....105..652M",
+          "caveat": "Resolved 0.55-3.4 micron Planck SED fit; retained at the original 136.8 +/-3.3 mas parallax. Section 4.3 identifies 0.26 as radius, although the abstract calls it diameter. Older low-resolution SED estimate; formal errors do not describe all atmosphere-model systematics.",
+          "uncertainty": 0.0063
+        },
+        "luminosity_solar": {
+          "value": 0.0051,
+          "status": "model-derived",
+          "reference": "1993AJ....105..652M:4.3",
+          "sourceUrl": "https://articles.adsabs.harvard.edu/pdf/1993AJ....105..652M",
+          "caveat": "Resolved 0.55-3.4 micron Planck SED fit; retained at the original 136.8 +/-3.3 mas parallax. Section 4.3 identifies 0.26 as radius, although the abstract calls it diameter. Older low-resolution SED estimate; formal errors do not describe all atmosphere-model systematics.",
+          "uncertainty": 0.0011
+        },
+        "age_gyr": {
+          "value": 12.7,
+          "status": "model-derived",
+          "reference": "2020ApJ...904..112B:9.2",
+          "scope": "Coeval binary age inferred from A; not an independent B age",
+          "caveat": "Suggestive primary stellar-model age; sensitive to angular diameter, temperature, helium, and diffusion.",
+          "uncertainty": 2.7
+        }
+      },
+      "note": "Component-specific published measurements supersede earlier withholding of aggregate measurements. No parent flux or unreviewed individual velocity is copied. The paper gives an approximate system RV of -97 km/s. Combine it with the existing shared proper-motion/parallax snapshot for approximate bulk motion; instantaneous A/B orbital velocities are not modeled. No uncertainty is invented.",
+      "completeStefanBoltzmann": true,
+      "systemicVelocity": {
+        "value": -97,
+        "uncertainty": null,
+        "reference": "2020ApJ...904..112B:1",
+        "scope": "Shared system/subsystem center-of-mass approximation",
+        "note": "The paper gives an approximate system RV of -97 km/s. Combine it with the existing shared proper-motion/parallax snapshot for approximate bulk motion; instantaneous A/B orbital velocities are not modeled. No uncertainty is invented."
+      }
+    },
+    "10pc-0145": {
+      "expectedName": "GJ 570 B",
+      "fields": {
+        "absolute_mag": {
+          "value": 9.45,
+          "status": "derived",
+          "reference": "2000A&A...364..217D:Table 3",
+          "sourceUrl": "https://arxiv.org/abs/astro-ph/0010586",
+          "caveat": "Component visual photometry and source-system distance, retained as published; K-band magnitudes are not substituted for Johnson V.",
+          "uncertainty": 0.05
+        }
+      },
+      "note": "Component-specific published measurements supersede earlier withholding of aggregate measurements. No parent flux or unreviewed individual velocity is copied. Use the resolved BC spectroscopic orbital systemic velocity, not GJ 570 A velocity. Proper motion and position remain the shared BC approximation.",
+      "completeStefanBoltzmann": true,
+      "systemicVelocity": {
+        "value": 28.665,
+        "uncertainty": 0.008,
+        "reference": "1999A&A...351..619F:Table 3",
+        "scope": "Shared system/subsystem center-of-mass approximation",
+        "note": "Use the resolved BC spectroscopic orbital systemic velocity, not GJ 570 A velocity. Proper motion and position remain the shared BC approximation."
+      }
+    },
+    "10pc-0146": {
+      "expectedName": "GJ 570 C",
+      "fields": {
+        "absolute_mag": {
+          "value": 11.09,
+          "status": "derived",
+          "reference": "2000A&A...364..217D:Table 3",
+          "sourceUrl": "https://arxiv.org/abs/astro-ph/0010586",
+          "caveat": "Component visual photometry and source-system distance, retained as published; K-band magnitudes are not substituted for Johnson V.",
+          "uncertainty": 0.17
+        }
+      },
+      "note": "Component-specific published measurements supersede earlier withholding of aggregate measurements. No parent flux or unreviewed individual velocity is copied. Use the resolved BC spectroscopic orbital systemic velocity, not GJ 570 A velocity. Proper motion and position remain the shared BC approximation.",
+      "completeStefanBoltzmann": true,
+      "systemicVelocity": {
+        "value": 28.665,
+        "uncertainty": 0.008,
+        "reference": "1999A&A...351..619F:Table 3",
+        "scope": "Shared system/subsystem center-of-mass approximation",
+        "note": "Use the resolved BC spectroscopic orbital systemic velocity, not GJ 570 A velocity. Proper motion and position remain the shared BC approximation."
+      }
+    },
+    "cns5-4136": {
+      "expectedName": "GJ 644 A",
+      "fields": {
+        "absolute_mag": {
+          "value": 10.76,
+          "status": "derived",
+          "reference": "2000A&A...364..217D:Table 3",
+          "sourceUrl": "https://arxiv.org/abs/astro-ph/0010586",
+          "caveat": "Component visual photometry and source-system distance, retained as published; K-band magnitudes are not substituted for Johnson V.",
+          "uncertainty": 0.06
+        }
+      },
+      "note": "Component-specific published measurements supersede earlier withholding of aggregate measurements. No parent flux or unreviewed individual velocity is copied. Use the A/Ba/Bb outer-orbit systemic velocity. Preserve the shared positions and proper motions; no individual inner/outer orbital velocity is added.",
+      "completeStefanBoltzmann": true,
+      "systemicVelocity": {
+        "value": 14.947,
+        "uncertainty": 0.007,
+        "reference": "2000A&A...364..665S:Table 2",
+        "scope": "Shared system/subsystem center-of-mass approximation",
+        "note": "Use the A/Ba/Bb outer-orbit systemic velocity. Preserve the shared positions and proper motions; no individual inner/outer orbital velocity is added."
+      }
+    },
+    "gj-644-ba": {
+      "expectedName": "GJ 644 Ba",
+      "fields": {
+        "absolute_mag": {
+          "value": 11.22,
+          "status": "derived",
+          "reference": "2000A&A...364..217D:Table 3",
+          "sourceUrl": "https://arxiv.org/abs/astro-ph/0010586",
+          "caveat": "Component visual photometry and source-system distance, retained as published; K-band magnitudes are not substituted for Johnson V.",
+          "uncertainty": 0.1
+        }
+      },
+      "note": "Component-specific published measurements supersede earlier withholding of aggregate measurements. No parent flux or unreviewed individual velocity is copied. Use the A/Ba/Bb outer-orbit systemic velocity. Preserve the shared positions and proper motions; no individual inner/outer orbital velocity is added.",
+      "completeStefanBoltzmann": true,
+      "systemicVelocity": {
+        "value": 14.947,
+        "uncertainty": 0.007,
+        "reference": "2000A&A...364..665S:Table 2",
+        "scope": "Shared system/subsystem center-of-mass approximation",
+        "note": "Use the A/Ba/Bb outer-orbit systemic velocity. Preserve the shared positions and proper motions; no individual inner/outer orbital velocity is added."
+      }
+    },
+    "gj-644-bb": {
+      "expectedName": "GJ 644 Bb",
+      "fields": {
+        "absolute_mag": {
+          "value": 11.71,
+          "status": "derived",
+          "reference": "2000A&A...364..217D:Table 3",
+          "sourceUrl": "https://arxiv.org/abs/astro-ph/0010586",
+          "caveat": "Component visual photometry and source-system distance, retained as published; K-band magnitudes are not substituted for Johnson V.",
+          "uncertainty": 0.1
+        }
+      },
+      "note": "Component-specific published measurements supersede earlier withholding of aggregate measurements. No parent flux or unreviewed individual velocity is copied. Use the A/Ba/Bb outer-orbit systemic velocity. Preserve the shared positions and proper motions; no individual inner/outer orbital velocity is added.",
+      "completeStefanBoltzmann": true,
+      "systemicVelocity": {
+        "value": 14.947,
+        "uncertainty": 0.007,
+        "reference": "2000A&A...364..665S:Table 2",
+        "scope": "Shared system/subsystem center-of-mass approximation",
+        "note": "Use the A/Ba/Bb outer-orbit systemic velocity. Preserve the shared positions and proper motions; no individual inner/outer orbital velocity is added."
+      }
+    },
+    "cns5-4217": {
+      "expectedName": "GJ 661 A",
+      "fields": {
+        "absolute_mag": {
+          "value": 11.1,
+          "status": "derived",
+          "reference": "2000A&A...364..217D:Table 3",
+          "sourceUrl": "https://arxiv.org/abs/astro-ph/0010586",
+          "caveat": "Component visual photometry and source-system distance, retained as published; K-band magnitudes are not substituted for Johnson V.",
+          "uncertainty": 0.06
+        }
+      },
+      "note": "Component-specific published measurements supersede earlier withholding of aggregate measurements. No parent flux or unreviewed individual velocity is copied.",
+      "completeStefanBoltzmann": true,
+      "spectralType": "M3.5V",
+      "spectralTypeSource": {
+        "reference": "2025A&A...693A.228C:Table A.1 IDstar 1933",
+        "status": "estimated"
+      }
+    },
+    "gj-661-b": {
+      "expectedName": "GJ 661 B",
+      "fields": {
+        "absolute_mag": {
+          "value": 11.15,
+          "status": "derived",
+          "reference": "2000A&A...364..217D:Table 3",
+          "sourceUrl": "https://arxiv.org/abs/astro-ph/0010586",
+          "caveat": "Component visual photometry and source-system distance, retained as published; K-band magnitudes are not substituted for Johnson V.",
+          "uncertainty": 0.06
+        }
+      },
+      "note": "Component-specific published measurements supersede earlier withholding of aggregate measurements. No parent flux or unreviewed individual velocity is copied.",
+      "completeStefanBoltzmann": true,
+      "spectralType": "M3V",
+      "spectralTypeSource": {
+        "reference": "2025A&A...693A.228C:Table A.1 IDstar 1934",
+        "status": "estimated"
+      }
+    },
+    "cns5-4097": {
+      "expectedName": "Zeta Herculis A",
+      "fields": {
+        "temperature_k": {
+          "value": 5820,
+          "status": "derived",
+          "reference": "2001A&A...379..245M:Table 3",
+          "uncertainty": 50
+        },
+        "luminosity_solar": {
+          "value": 6.55,
+          "status": "derived",
+          "reference": "2001A&A...379..245M:Table 2",
+          "uncertainty": 0.39
+        },
+        "absolute_mag": {
+          "value": 2.7556,
+          "status": "derived",
+          "reference": "2001A&A...379..245M:Table 2",
+          "inputs": {
+            "method": "MV = published Mbol - BCV"
+          },
+          "caveat": "Tycho/Hipparcos conversion to Johnson V; retained at the source distance. Errors propagated in quadrature from Table 2; calibration systematics remain.",
+          "uncertainty": 0.066
+        },
+        "metallicity_dex": {
+          "value": 0.04,
+          "status": "measured",
+          "reference": "2001A&A...379..245M:Table 3",
+          "quantity": "Photospheric [Fe/H] of A; not assigned to B",
+          "uncertainty": 0.03
+        }
+      },
+      "note": "Component-specific published measurements supersede earlier withholding of aggregate measurements. No parent flux or unreviewed individual velocity is copied.",
+      "completeStefanBoltzmann": true
+    },
+    "zeta-herculis-b": {
+      "expectedName": "Zeta Herculis B",
+      "fields": {
+        "temperature_k": {
+          "value": 5300,
+          "status": "derived",
+          "reference": "2001A&A...379..245M:Table 3",
+          "uncertainty": 150
+        },
+        "luminosity_solar": {
+          "value": 0.62,
+          "status": "derived",
+          "reference": "2001A&A...379..245M:Table 2",
+          "uncertainty": 0.06
+        },
+        "absolute_mag": {
+          "value": 5.422,
+          "status": "derived",
+          "reference": "2001A&A...379..245M:Table 2",
+          "inputs": {
+            "method": "MV = published Mbol - BCV"
+          },
+          "caveat": "Tycho/Hipparcos conversion to Johnson V; retained at the source distance. Errors propagated in quadrature from Table 2; calibration systematics remain.",
+          "uncertainty": 0.111
+        }
+      },
+      "note": "Component-specific published measurements supersede earlier withholding of aggregate measurements. No parent flux or unreviewed individual velocity is copied.",
+      "completeStefanBoltzmann": true
+    },
+    "cns5-5470": {
+      "expectedName": "Iota Pegasi A",
+      "fields": {
+        "radius_solar": {
+          "value": 1.2375100558840018,
+          "status": "derived",
+          "reference": "1999ApJ...515..356B:Table 4",
+          "inputs": {
+            "limbDarkenedDiameterMas": 1.0,
+            "distancePc": 11.51
+          },
+          "caveat": "Interferometric fitted diameter with assumed limb darkening; source distance retained.",
+          "uncertainty": 0.06343450870163753
+        },
+        "age_gyr": {
+          "value": 0.17,
+          "status": "model-derived",
+          "reference": "1999ApJ...515..356B:4",
+          "scope": "System stellar-model age quoted from Lyubimkov et al. 1991",
+          "uncertainty": 0.08
+        }
+      },
+      "note": "Reviewed individual spectrum permits a mean-dwarf temperature estimate when no object-specific temperature is available.",
+      "completeStefanBoltzmann": true,
+      "spectralType": "F5V",
+      "spectralTypeSource": {
+        "reference": "1999ApJ...515..356B:Table 4",
+        "status": "measured"
+      }
+    },
+    "iota-pegasi-b": {
+      "expectedName": "Iota Pegasi B",
+      "fields": {
+        "radius_solar": {
+          "value": 0.8786321396776411,
+          "status": "derived",
+          "reference": "1999ApJ...515..356B:Table 4",
+          "inputs": {
+            "limbDarkenedDiameterMas": 0.71,
+            "distancePc": 11.51
+          },
+          "caveat": "Interferometric fitted diameter with assumed limb darkening; source distance retained.",
+          "uncertainty": 0.12414826571615621
+        },
+        "age_gyr": {
+          "value": 0.17,
+          "status": "model-derived",
+          "reference": "1999ApJ...515..356B:4",
+          "scope": "System stellar-model age quoted from Lyubimkov et al. 1991",
+          "uncertainty": 0.08
+        }
+      },
+      "note": "Reviewed individual spectrum permits a mean-dwarf temperature estimate when no object-specific temperature is available.",
+      "completeStefanBoltzmann": true,
+      "spectralType": "G8V",
+      "spectralTypeSource": {
+        "reference": "1999ApJ...515..356B:Table 4",
+        "status": "measured"
+      }
+    },
+    "cns5-5833": {
+      "expectedName": "Gamma Cephei A",
+      "fields": {
+        "mass_solar": {
+          "value": 1.4,
+          "status": "dynamical",
+          "reference": "2007A&A...462..777N:Table 2",
+          "uncertainty": 0.12
+        }
+      },
+      "note": "Component-specific published measurements supersede earlier withholding of aggregate measurements. No parent flux or unreviewed individual velocity is copied. The binary orbital gamma is adopted as shared bulk RV; individual orbital velocities and phase are not represented.",
+      "completeStefanBoltzmann": true,
+      "systemicVelocity": {
+        "value": -42.943,
+        "uncertainty": 0.046,
+        "reference": "2007A&A...462..777N:Table 2",
+        "scope": "Shared system/subsystem center-of-mass approximation",
+        "note": "The binary orbital gamma is adopted as shared bulk RV; individual orbital velocities and phase are not represented."
+      }
+    },
+    "gamma-cephei-b": {
+      "expectedName": "Gamma Cephei B",
+      "fields": {
+        "mass_solar": {
+          "value": 0.409,
+          "status": "dynamical",
+          "reference": "2007A&A...462..777N:Table 2",
+          "uncertainty": 0.018
+        }
+      },
+      "note": "Component-specific published measurements supersede earlier withholding of aggregate measurements. No parent flux or unreviewed individual velocity is copied. The binary orbital gamma is adopted as shared bulk RV; individual orbital velocities and phase are not represented.",
+      "completeStefanBoltzmann": true,
+      "spectralType": "M4V",
+      "spectralTypeSource": {
+        "reference": "2007A&A...462..777N:3 (photometric classification)",
+        "status": "estimated"
+      },
+      "systemicVelocity": {
+        "value": -42.943,
+        "uncertainty": 0.046,
+        "reference": "2007A&A...462..777N:Table 2",
+        "scope": "Shared system/subsystem center-of-mass approximation",
+        "note": "The binary orbital gamma is adopted as shared bulk RV; individual orbital velocities and phase are not represented."
+      }
+    },
+    "cns5-1464": {
+      "expectedName": "Chi1 Orionis A",
+      "fields": {
+        "temperature_k": {
+          "value": 5920,
+          "status": "model-derived",
+          "reference": "2002A&A...394L..43K:4",
+          "uncertainty": 70
+        },
+        "metallicity_dex": {
+          "value": -0.07,
+          "status": "measured",
+          "reference": "2002A&A...394L..43K:4",
+          "uncertainty": 0.07,
+          "quantity": "photospheric [Fe/H]"
+        },
+        "luminosity_solar": {
+          "value": 1.1376272858234315,
+          "status": "derived",
+          "reference": "2002A&A...394L..43K:4",
+          "inputs": {
+            "Mbol": 4.6,
+            "MbolError": 0.05,
+            "solarMbol": 4.74
+          }
+        }
+      },
+      "note": "Component-specific published measurements supersede earlier withholding of aggregate measurements. No parent flux or unreviewed individual velocity is copied.",
+      "completeStefanBoltzmann": true
+    },
+    "cns5-3687": {
+      "expectedName": "GJ 569 Ba",
+      "fields": {
+        "temperature_k": {
+          "value": 2400,
+          "status": "model-derived",
+          "reference": "2004ApJ...615..958Z:3.2",
+          "caveat": "Dusty best-fit atmosphere; UCM alternatives give 2500 K, and molecular absorption remains imperfect.",
+          "uncertainty": 100
+        },
+        "luminosity_solar": {
+          "value": 0.00044668359215096305,
+          "status": "derived",
+          "reference": "2004ApJ...615..958Z:4",
+          "inputs": {
+            "log10LuminositySolar": -3.35,
+            "log10UncertaintyDex": 0.07
+          }
+        },
+        "radius_solar": {
+          "value": 0.119,
+          "status": "derived",
+          "reference": "2004ApJ...615..958Z:4",
+          "uncertainty": 0.02
+        }
+      },
+      "note": "Component-specific published measurements supersede earlier withholding of aggregate measurements. No parent flux or unreviewed individual velocity is copied.",
+      "completeStefanBoltzmann": true
+    },
+    "gj-569-bb": {
+      "expectedName": "GJ 569 Bb",
+      "fields": {
+        "temperature_k": {
+          "value": 2400,
+          "status": "model-derived",
+          "reference": "2004ApJ...615..958Z:3.2",
+          "caveat": "Dusty best-fit atmosphere; UCM alternatives give 2500 K, and molecular absorption remains imperfect.",
+          "uncertainty": 100
+        },
+        "luminosity_solar": {
+          "value": 0.00026302679918953814,
+          "status": "derived",
+          "reference": "2004ApJ...615..958Z:4",
+          "inputs": {
+            "log10LuminositySolar": -3.58,
+            "log10UncertaintyDex": 0.07
+          }
+        },
+        "radius_solar": {
+          "value": 0.102,
+          "status": "derived",
+          "reference": "2004ApJ...615..958Z:4",
+          "uncertainty": 0.02
+        }
+      },
+      "note": "Component-specific published measurements supersede earlier withholding of aggregate measurements. No parent flux or unreviewed individual velocity is copied.",
+      "completeStefanBoltzmann": true
+    },
+    "cns5-1318": {
+      "expectedName": "Capella Aa",
+      "fields": {
+        "age_gyr": {
+          "value": 0.649,
+          "status": "model-derived",
+          "reference": "2015ApJ...807...26T:7",
+          "scope": "Common best-fit MESA age for the two giants",
+          "caveat": "Alternative Granada models give 588.5 Myr; the model-family dependence is not a statistical age error."
+        }
+      },
+      "note": "Component-specific published measurements supersede earlier withholding of aggregate measurements. No parent flux or unreviewed individual velocity is copied. The spectroscopic orbital gamma describes the Aa/Ab center of mass; no instantaneous giant orbital RV is modeled.",
+      "completeStefanBoltzmann": true,
+      "systemicVelocity": {
+        "value": 29.9387,
+        "uncertainty": 0.0032,
+        "reference": "2015ApJ...807...26T:Table 2",
+        "scope": "Shared system/subsystem center-of-mass approximation",
+        "note": "The spectroscopic orbital gamma describes the Aa/Ab center of mass; no instantaneous giant orbital RV is modeled."
+      }
+    },
+    "capella-ab": {
+      "expectedName": "Capella Ab",
+      "fields": {
+        "age_gyr": {
+          "value": 0.649,
+          "status": "model-derived",
+          "reference": "2015ApJ...807...26T:7",
+          "scope": "Common best-fit MESA age for the two giants",
+          "caveat": "Alternative Granada models give 588.5 Myr; the model-family dependence is not a statistical age error."
+        }
+      },
+      "note": "Component-specific published measurements supersede earlier withholding of aggregate measurements. No parent flux or unreviewed individual velocity is copied. The spectroscopic orbital gamma describes the Aa/Ab center of mass; no instantaneous giant orbital RV is modeled.",
+      "completeStefanBoltzmann": true,
+      "systemicVelocity": {
+        "value": 29.9387,
+        "uncertainty": 0.0032,
+        "reference": "2015ApJ...807...26T:Table 2",
+        "scope": "Shared system/subsystem center-of-mass approximation",
+        "note": "The spectroscopic orbital gamma describes the Aa/Ab center of mass; no instantaneous giant orbital RV is modeled."
+      }
+    },
+    "wt-766-close-companion": {
+      "expectedName": "WT 766 B",
+      "fields": {},
+      "note": "Only already reviewed individual spectra and physical inputs are used. Mean-dwarf temperatures are explicitly estimates; Stefan-Boltzmann completion inherits the source assumptions. No visual magnitude or generic mass is inferred.",
+      "completeStefanBoltzmann": true
+    },
+    "gj-229-bb": {
+      "expectedName": "GJ 229 Bb",
+      "fields": {},
+      "note": "Only already reviewed individual spectra and physical inputs are used. Mean-dwarf temperatures are explicitly estimates; Stefan-Boltzmann completion inherits the source assumptions. No visual magnitude or generic mass is inferred.",
+      "completeStefanBoltzmann": true
+    },
+    "cns5-1529": {
+      "expectedName": "GJ 229 Ba",
+      "fields": {},
+      "note": "Only already reviewed individual spectra and physical inputs are used. Mean-dwarf temperatures are explicitly estimates; Stefan-Boltzmann completion inherits the source assumptions. No visual magnitude or generic mass is inferred.",
+      "completeStefanBoltzmann": true
+    },
+    "gj-1001-c": {
+      "expectedName": "GJ 1001 C",
+      "fields": {},
+      "note": "Only already reviewed individual spectra and physical inputs are used. Mean-dwarf temperatures are explicitly estimates; Stefan-Boltzmann completion inherits the source assumptions. No visual magnitude or generic mass is inferred.",
+      "completeStefanBoltzmann": true
+    },
+    "cns5-0011": {
+      "expectedName": "GJ 1001 B",
+      "fields": {},
+      "note": "Only already reviewed individual spectra and physical inputs are used. Mean-dwarf temperatures are explicitly estimates; Stefan-Boltzmann completion inherits the source assumptions. No visual magnitude or generic mass is inferred.",
+      "completeStefanBoltzmann": true
+    },
+    "ross-458-b": {
+      "expectedName": "Ross 458 B",
+      "fields": {},
+      "note": "Only already reviewed individual spectra and physical inputs are used. Mean-dwarf temperatures are explicitly estimates; Stefan-Boltzmann completion inherits the source assumptions. No visual magnitude or generic mass is inferred.",
+      "completeStefanBoltzmann": true
+    },
+    "hd-104304-b": {
+      "expectedName": "HD 104304 B",
+      "fields": {},
+      "note": "Only already reviewed individual spectra and physical inputs are used. Mean-dwarf temperatures are explicitly estimates; Stefan-Boltzmann completion inherits the source assumptions. No visual magnitude or generic mass is inferred.",
+      "completeStefanBoltzmann": true
+    },
+    "gj-667-b": {
+      "expectedName": "GJ 667 B",
+      "fields": {
+        "absolute_mag": {
+          "value": 8.206073099893585,
+          "status": "derived",
+          "reference": "2023 10pc census:Seq 248",
+          "inputs": {
+            "componentV": 7.38,
+            "adoptedDistancePc": 6.83573754798164
+          },
+          "sourceUrl": "https://vizier.cfa.harvard.edu/viz-bin/asu-tsv?-source=J/A%2bA/650/A201/tablea1&-out.max=unlimited&-out.all=1",
+          "caveat": "Reviewed resolved A/B visual photometry; negligible extinction assumed. Compilation supplies no photometric uncertainty."
+        }
+      },
+      "note": "Only already reviewed individual spectra and physical inputs are used. Mean-dwarf temperatures are explicitly estimates; Stefan-Boltzmann completion inherits the source assumptions. No visual magnitude or generic mass is inferred.",
+      "completeStefanBoltzmann": true
+    },
+    "cns5-4252": {
+      "expectedName": "GJ 667 A",
+      "fields": {
+        "absolute_mag": {
+          "value": 6.716073099893586,
+          "status": "derived",
+          "reference": "2023 10pc census:Seq 247",
+          "inputs": {
+            "componentV": 5.89,
+            "adoptedDistancePc": 6.83573754798164
+          },
+          "sourceUrl": "https://vizier.cfa.harvard.edu/viz-bin/asu-tsv?-source=J/A%2bA/650/A201/tablea1&-out.max=unlimited&-out.all=1",
+          "caveat": "Reviewed resolved A/B visual photometry; negligible extinction assumed. Compilation supplies no photometric uncertainty."
+        }
+      },
+      "note": "Only already reviewed individual spectra and physical inputs are used. Mean-dwarf temperatures are explicitly estimates; Stefan-Boltzmann completion inherits the source assumptions. No visual magnitude or generic mass is inferred.",
+      "completeStefanBoltzmann": true
+    },
+    "cns5-0239": {
+      "expectedName": "Achird",
+      "gaiaDr3Id": "425040000962559616",
+      "fields": {
+        "metallicity_dex": {
+          "value": -0.23,
+          "uncertainty": 0.047,
+          "status": "measured",
+          "sourceRecordId": "HD 4614a",
+          "replaces": {
+            "value": -0.972,
+            "kind": "[M/H]"
+          },
+          "reference": "2017ApJ...846...24A:Table 1",
+          "method": "Resolved component spectroscopy, same analysis for both components",
+          "quantity": "photospheric [Fe/H]",
+          "sourceUrl": "https://arxiv.org/abs/1709.01244"
+        }
+      },
+      "note": "Eta Cas A iron abundance is the resolved spectroscopic [Fe/H], compared with B from the same study. Supersedes Gaia GSP-Phot [M/H]; these quantities are not interchangeable and are not forced to match."
+    },
+    "cns5-0238": {
+      "expectedName": "Eta Cas B",
+      "gaiaDr3Id": "425040000962497792",
+      "fields": {
+        "metallicity_dex": {
+          "value": -0.305,
+          "uncertainty": 0.448,
+          "status": "measured",
+          "sourceRecordId": "HD 4614b",
+          "replaces": {
+            "value": -0.1798,
+            "kind": "[Fe/H]"
+          },
+          "caveat": "Published [Fe/H] uncertainty is large; no accurate Fe II lines were available because of blends (Table 1 phi footnote). Do not claim precise equality with A.",
+          "reference": "2017ApJ...846...24A:Table 1",
+          "method": "Resolved component spectroscopy, same analysis for both components",
+          "quantity": "photospheric [Fe/H]",
+          "sourceUrl": "https://arxiv.org/abs/1709.01244"
+        },
+        "temperature_k": {
+          "value": 4011,
+          "uncertainty": 38,
+          "status": "measured",
+          "reference": "2017ApJ...846...24A:Table 1",
+          "method": "Line-depth ratio calibration",
+          "sourceRecordId": "HD 4614b",
+          "sourceUrl": "https://arxiv.org/abs/1709.01244",
+          "replaces": {
+            "value": 5921
+          },
+          "caveat": "Supersedes source temperature incompatible with the resolved K7 dwarf."
+        },
+        "mass_solar": {
+          "value": 0.5487,
+          "uncertainty": 0.0056,
+          "status": "dynamical",
+          "reference": "2025AJ....170...52G:Table 6",
+          "method": "Joint orbit fit using RV, relative astrometry and Hipparcos/Gaia accelerations",
+          "sourceRecordId": "HD 4614 B",
+          "sourceUrl": "https://arxiv.org/abs/2505.12563"
+        },
+        "radius_solar": {
+          "value": 0.57,
+          "uncertaintyLower": 0.03,
+          "uncertaintyUpper": 0.02,
+          "status": "model-derived",
+          "reference": "2018A&A...616A...1G:Gaia DR2 Apsis-FLAME",
+          "sourceRecordId": "425040000959067008",
+          "sourceUrl": "https://vizier.cfa.harvard.edu/viz-bin/VizieR-S?Gaia+DR2+425040000959067008",
+          "method": "Published resolved-source Gaia DR2 model estimate; derived using DR2 Teff 4091.89 K, not the separately adopted 4011 K temperature"
+        },
+        "luminosity_solar": {
+          "value": 0.082,
+          "uncertainty": null,
+          "status": "model-derived",
+          "reference": "2018A&A...616A...1G:Gaia DR2 Apsis-FLAME",
+          "sourceRecordId": "425040000959067008",
+          "sourceUrl": "https://vizier.cfa.harvard.edu/viz-bin/VizieR-S?Gaia+DR2+425040000959067008",
+          "method": "Published resolved-source Gaia DR2 bolometric luminosity estimate",
+          "caveat": "VizieR rounds central and percentile luminosities to 0.082; no zero error or invented precision is adopted."
+        }
+      },
+      "note": "Resolved Eta Cas B properties from Aleo et al. 2017, Giovinazzi et al. 2025 and the exact Gaia DR2 component. [Fe/H] is an independent, uncertain measurement consistent with A, not copied from A. The old 5921 K source temperature is superseded. DR2 radius/luminosity retain their original model assumptions; no independent B age is adopted."
+    }
+  }
+}

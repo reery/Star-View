@@ -161,23 +161,90 @@
     "inputSha256": {
       "catalog-work/star-systems/overlay-companions.json": "0155d05f01e61ef80496c0d515b35946c8e6dcdd06342bb7fa8eda653e39485b",
       "src/data/star-systems.json": "22a77579b11e4f5035f19be704fda78f1a6a5d409ca7ce0d5bc74aab8eaa599b",
-      "src/data/catalogs/nearest-1000/stars.csv": "14905a4ada8de25f0ede737c04b50225c930f780ed0860484811c33bdb23788f",
-      "src/data/catalogs/nearest-1000/provenance.json": "1aa535b59945f3406c2a6c88fac84441f3432822879ba8b29a6137fcecaf1ff8",
+      "src/data/catalogs/nearest-1000/stars.csv": "028e081ffd692aeac564593779e30f41e44f682268f1734dcfcd6c30ef7a9620",
+      "src/data/catalogs/nearest-1000/provenance.json": "91bd00e8fe7cd71dd8eea3eba521330492b70b8fa64b6fd651e67ed3c826ab12",
       "catalog-work/star-systems/overlay-individual-components.json": "b4fbcf92e682c639a11c5e488a378d43a0b43aaa10e0e8b16b2db70dc9a10741",
       "catalog-work/star-systems/msc-20260619-rigel.json": "0bc6740e8537705363c915a78b203822b46a9a31330f325f6b4a783091e40e97",
       "catalog-work/star-systems/msc-20260619.Readme": "d0906632b078a3b97b4e7247ad76830e2cc13bae6300ae145d69ce30a8e859b8"
     }
   },
   "physicalCoverage": {
-    "temperature_k": 689,
-    "mass_solar": 374,
-    "luminosity_solar": 638,
-    "radius_solar": 638,
-    "metallicity_dex": 530,
-    "age_gyr": 96
+    "temperature_k": 695,
+    "mass_solar": 377,
+    "luminosity_solar": 643,
+    "radius_solar": 644,
+    "metallicity_dex": 532,
+    "age_gyr": 100
   },
-  "sharedEnrichmentManifestSha256": "724d1da5b0cc21bd0f4d7e734e546aa09014d32330d1896ebca775bf7b593244",
+  "sharedEnrichmentManifestSha256": "da2dd89f7976ccbf65eac832643f63404e2c9881e67d7fefab276ac5ba479e52",
   "objects": {
+    "sun": {
+      "id": "sun",
+      "status": "adopted solar reference",
+      "sourceFile": "catalog-work/solar-reference/adopted.json",
+      "sourceSha256": "307056f03c6afeadf7dc5447dce0ed97380facec2251977279d785e1b3d19be1",
+      "fields": {
+        "radius_solar": {
+          "value": "1",
+          "status": "adopted",
+          "sourceReference": "IAU:2015:B3",
+          "sourceUrl": "https://arxiv.org/abs/1510.07674",
+          "caveat": "Nominal solar radius is an exact conversion constant, 695700 km; not an uncertainty-free measurement of the variable physical Sun."
+        },
+        "metallicity_dex": {
+          "value": "0",
+          "status": "defined",
+          "sourceReference": "SDSS:DR15:ASPCAP:MH-definition",
+          "sourceUrl": "https://www.sdss4.org/dr15/irspec/aspcap/",
+          "quantity": "[M/H]",
+          "caveat": "The present Sun is the zero point of this logarithmic solar-relative abundance scale. Zero dex does not imply zero metals and is not the protosolar heavy-element mass fraction."
+        },
+        "metallicity_kind": {
+          "value": "[M/H]",
+          "status": "defined",
+          "sourceReference": "SDSS:DR15:ASPCAP:MH-definition",
+          "sourceUrl": "https://www.sdss4.org/dr15/irspec/aspcap/"
+        },
+        "age_gyr": {
+          "value": "4.6",
+          "status": "estimated",
+          "sourceReference": "NASA:sun-facts:formation-age",
+          "sourceUrl": "https://science.nasa.gov/sun/facts/",
+          "caveat": "Rounded approximate age since formation; no fabricated uncertainty or extra precision is adopted."
+        },
+        "temperature_k": {
+          "value": "5772",
+          "status": "adopted",
+          "sourceReference": "IAU:2015:B3",
+          "sourceUrl": "https://arxiv.org/abs/1510.07674"
+        },
+        "mass_solar": {
+          "value": "1",
+          "status": "defined",
+          "sourceReference": "solar-relative-unit",
+          "caveat": "Unity as the reference for solar-relative mass; not an independent mass measurement."
+        },
+        "luminosity_solar": {
+          "value": "1",
+          "status": "defined",
+          "sourceReference": "solar-relative-unit",
+          "caveat": "Unity as the reference for solar-relative luminosity; nominal solar luminosity is 3.828e26 W (IAU 2015 B3)."
+        },
+        "spectral_type": {
+          "value": "G2V",
+          "status": "adopted",
+          "sourceReference": "NASA:sunfact:2024-05-09",
+          "sourceUrl": "https://nssdc.gsfc.nasa.gov/planetary/factsheet/sunfact.html"
+        },
+        "absolute_mag": {
+          "value": "4.83",
+          "status": "adopted",
+          "sourceReference": "NASA:sunfact:2024-05-09",
+          "sourceUrl": "https://nssdc.gsfc.nasa.gov/planetary/factsheet/sunfact.html",
+          "caveat": "Johnson V absolute visual magnitude, not bolometric magnitude."
+        }
+      }
+    },
     "hip-677": {
       "hip": 677,
       "figureConstellations": [
@@ -10465,7 +10532,8 @@
           "mass_solar": "bright-stars:cns5-1318",
           "luminosity_solar": "bright-stars:cns5-1318",
           "radius_solar": "bright-stars:cns5-1318",
-          "metallicity_dex": "bright-stars:cns5-1318"
+          "metallicity_dex": "bright-stars:cns5-1318",
+          "age_gyr": "bright-stars:cns5-1318"
         },
         "physicalObservations": [
           {
@@ -10499,6 +10567,13 @@
           {
             "field": "metallicity_dex",
             "value": -0.04,
+            "status": "inherited",
+            "source": "bright-stars",
+            "sourceId": "cns5-1318"
+          },
+          {
+            "field": "age_gyr",
+            "value": 0.649,
             "status": "inherited",
             "source": "bright-stars",
             "sourceId": "cns5-1318"
@@ -10538,15 +10613,15 @@
             "source_id": "cns5",
             "source_record_id": "1318"
           },
-          "astrometryScope": "Former combined giant-pair source snapshot, shared as an approximate Aa/Ab position and proper motion. No resolved orbital trajectory is claimed.",
+          "astrometryScope": "Existing positional/proper-motion snapshot with a reviewed shared systemic radial velocity; approximate bulk space motion, without individual orbital velocity or orbital phase.",
           "cns5Id": "1318",
           "fieldStatus": {
             "absolute_mag": "derived-from-orbital-parallax",
-            "age_gyr": "withheld-model-age-range",
+            "age_gyr": "model-derived",
             "luminosity_solar": "derived-from-bolometric-correction",
             "mass_solar": "dynamical",
             "metallicity_dex": "measured",
-            "radial_velocity_kms": "unknown",
+            "radial_velocity_kms": "systemic-approximation",
             "radius_solar": "measured",
             "temperature_k": "measured"
           },
@@ -10585,6 +10660,7 @@
                 "value": 2.5687
               },
               "metallicity_dex": {
+                "quantity": "photospheric [Fe/H]",
                 "reference": "arXiv:1505.07461:Table 3",
                 "status": "measured",
                 "uncertainty": 0.06,
@@ -10645,6 +10721,7 @@
             },
             {
               "field": "metallicity_dex",
+              "quantity": "photospheric [Fe/H]",
               "reference": "arXiv:1505.07461:Table 3",
               "sourceId": "reviewed-individual-component",
               "status": "measured",
@@ -10678,10 +10755,65 @@
             }
           },
           "radialVelocity": {
+            "field": "radial_velocity_kms",
+            "note": "The spectroscopic orbital gamma describes the Aa/Ab center of mass; no instantaneous giant orbital RV is modeled.",
+            "reference": "2015ApJ...807...26T:Table 2",
+            "scope": "Shared system/subsystem center-of-mass approximation",
             "sourceAlternative": {
-              "status": "unknown"
+              "sourceAlternative": {
+                "status": "unknown"
+              },
+              "status": "withheld-individual-orbital-motion"
             },
-            "status": "withheld-individual-orbital-motion"
+            "status": "systemic-approximation",
+            "uncertainty": 0.0032,
+            "value": 29.9387
+          },
+          "reviewedComponentEnrichment": {
+            "adopted": {
+              "age_gyr": {
+                "caveat": "Alternative Granada models give 588.5 Myr; the model-family dependence is not a statistical age error.",
+                "field": "age_gyr",
+                "reference": "2015ApJ...807...26T:7",
+                "scope": "Common best-fit MESA age for the two giants",
+                "status": "model-derived",
+                "value": 0.649
+              },
+              "radial_velocity_kms": {
+                "field": "radial_velocity_kms",
+                "note": "The spectroscopic orbital gamma describes the Aa/Ab center of mass; no instantaneous giant orbital RV is modeled.",
+                "reference": "2015ApJ...807...26T:Table 2",
+                "scope": "Shared system/subsystem center-of-mass approximation",
+                "status": "systemic-approximation",
+                "uncertainty": 0.0032,
+                "value": 29.9387
+              }
+            },
+            "review": {
+              "completeStefanBoltzmann": true,
+              "expectedName": "Capella Aa",
+              "fields": {
+                "age_gyr": {
+                  "caveat": "Alternative Granada models give 588.5 Myr; the model-family dependence is not a statistical age error.",
+                  "reference": "2015ApJ...807...26T:7",
+                  "scope": "Common best-fit MESA age for the two giants",
+                  "status": "model-derived",
+                  "value": 0.649
+                }
+              },
+              "note": "Component-specific published measurements supersede earlier withholding of aggregate measurements. No parent flux or unreviewed individual velocity is copied. The spectroscopic orbital gamma describes the Aa/Ab center of mass; no instantaneous giant orbital RV is modeled.",
+              "systemicVelocity": {
+                "note": "The spectroscopic orbital gamma describes the Aa/Ab center of mass; no instantaneous giant orbital RV is modeled.",
+                "reference": "2015ApJ...807...26T:Table 2",
+                "scope": "Shared system/subsystem center-of-mass approximation",
+                "uncertainty": 0.0032,
+                "value": 29.9387
+              }
+            },
+            "supersededFieldStatus": {
+              "age_gyr": "withheld-model-age-range",
+              "radial_velocity_kms": "unknown"
+            }
           },
           "sharedPhysicalEnrichment": {},
           "simbadId": "* alf Aur",
@@ -10690,6 +10822,7 @@
             "metallicity_dex": {
               "field": "metallicity_dex",
               "identity": "* alf Aur",
+              "quantity": "photospheric [Fe/H]",
               "reference": "2022A&A...663A...4S",
               "status": "measured",
               "uncertainty": null,
@@ -12633,12 +12766,12 @@
           "fieldStatus": {
             "absolute_mag": "withheld-combined-record",
             "age_gyr": "withheld-combined-record",
-            "luminosity_solar": "withheld-combined-record",
+            "luminosity_solar": "derived",
             "mass_solar": "dynamical",
-            "metallicity_dex": "withheld-combined-record",
+            "metallicity_dex": "measured",
             "radial_velocity_kms": "unknown",
-            "radius_solar": "withheld-combined-record",
-            "temperature_k": "withheld-combined-record"
+            "radius_solar": "derived",
+            "temperature_k": "model-derived"
           },
           "gaiaDr3Id": "3399063235755057792",
           "id": "cns5-1464",
@@ -12840,6 +12973,82 @@
               "status": "compiled-cns5"
             },
             "status": "withheld-individual-orbital-motion"
+          },
+          "reviewedComponentEnrichment": {
+            "adopted": {
+              "luminosity_solar": {
+                "field": "luminosity_solar",
+                "inputs": {
+                  "Mbol": 4.6,
+                  "MbolError": 0.05,
+                  "solarMbol": 4.74
+                },
+                "reference": "2002A&A...394L..43K:4",
+                "status": "derived",
+                "value": 1.1376272858234315
+              },
+              "metallicity_dex": {
+                "field": "metallicity_dex",
+                "quantity": "photospheric [Fe/H]",
+                "reference": "2002A&A...394L..43K:4",
+                "status": "measured",
+                "uncertainty": 0.07,
+                "value": -0.07
+              },
+              "radius_solar": {
+                "field": "radius_solar",
+                "inputs": {
+                  "luminosity_solar": 1.13762728582,
+                  "temperature_k": 5920.0
+                },
+                "reference": "Stefan-Boltzmann scaling",
+                "status": "derived",
+                "value": 1.013932938
+              },
+              "temperature_k": {
+                "field": "temperature_k",
+                "reference": "2002A&A...394L..43K:4",
+                "status": "model-derived",
+                "uncertainty": 70,
+                "value": 5920
+              }
+            },
+            "review": {
+              "completeStefanBoltzmann": true,
+              "expectedName": "Chi1 Orionis A",
+              "fields": {
+                "luminosity_solar": {
+                  "inputs": {
+                    "Mbol": 4.6,
+                    "MbolError": 0.05,
+                    "solarMbol": 4.74
+                  },
+                  "reference": "2002A&A...394L..43K:4",
+                  "status": "derived",
+                  "value": 1.1376272858234315
+                },
+                "metallicity_dex": {
+                  "quantity": "photospheric [Fe/H]",
+                  "reference": "2002A&A...394L..43K:4",
+                  "status": "measured",
+                  "uncertainty": 0.07,
+                  "value": -0.07
+                },
+                "temperature_k": {
+                  "reference": "2002A&A...394L..43K:4",
+                  "status": "model-derived",
+                  "uncertainty": 70,
+                  "value": 5920
+                }
+              },
+              "note": "Component-specific published measurements supersede earlier withholding of aggregate measurements. No parent flux or unreviewed individual velocity is copied."
+            },
+            "supersededFieldStatus": {
+              "luminosity_solar": "withheld-combined-record",
+              "metallicity_dex": "withheld-combined-record",
+              "radius_solar": "withheld-combined-record",
+              "temperature_k": "withheld-combined-record"
+            }
           },
           "simbadId": "* chi01 Ori",
           "sourceType": "SB*"
@@ -33246,14 +33455,14 @@
           "astrometryScope": "Former system source snapshot, shared as an approximate component position and proper motion. No resolved orbital trajectory is claimed.",
           "cns5Id": "4097",
           "fieldStatus": {
-            "absolute_mag": "withheld-combined-record",
+            "absolute_mag": "derived",
             "age_gyr": "withheld-combined-record",
-            "luminosity_solar": "withheld-combined-record",
+            "luminosity_solar": "derived",
             "mass_solar": "withheld-combined-record",
-            "metallicity_dex": "withheld-combined-record",
+            "metallicity_dex": "measured",
             "radial_velocity_kms": "unknown",
-            "radius_solar": "withheld-combined-record",
-            "temperature_k": "withheld-combined-record"
+            "radius_solar": "derived",
+            "temperature_k": "derived"
           },
           "gaiaDr3Id": null,
           "id": "cns5-4097",
@@ -33376,6 +33585,96 @@
               "status": "unknown"
             },
             "status": "withheld-individual-orbital-motion"
+          },
+          "reviewedComponentEnrichment": {
+            "adopted": {
+              "absolute_mag": {
+                "caveat": "Tycho/Hipparcos conversion to Johnson V; retained at the source distance. Errors propagated in quadrature from Table 2; calibration systematics remain.",
+                "field": "absolute_mag",
+                "inputs": {
+                  "method": "MV = published Mbol - BCV"
+                },
+                "reference": "2001A&A...379..245M:Table 2",
+                "status": "derived",
+                "uncertainty": 0.066,
+                "value": 2.7556
+              },
+              "luminosity_solar": {
+                "field": "luminosity_solar",
+                "reference": "2001A&A...379..245M:Table 2",
+                "status": "derived",
+                "uncertainty": 0.39,
+                "value": 6.55
+              },
+              "metallicity_dex": {
+                "field": "metallicity_dex",
+                "quantity": "Photospheric [Fe/H] of A; not assigned to B",
+                "reference": "2001A&A...379..245M:Table 3",
+                "status": "measured",
+                "uncertainty": 0.03,
+                "value": 0.04
+              },
+              "radius_solar": {
+                "field": "radius_solar",
+                "inputs": {
+                  "luminosity_solar": 6.55,
+                  "temperature_k": 5820.0
+                },
+                "reference": "Stefan-Boltzmann scaling",
+                "status": "derived",
+                "value": 2.517255657
+              },
+              "temperature_k": {
+                "field": "temperature_k",
+                "reference": "2001A&A...379..245M:Table 3",
+                "status": "derived",
+                "uncertainty": 50,
+                "value": 5820
+              }
+            },
+            "review": {
+              "completeStefanBoltzmann": true,
+              "expectedName": "Zeta Herculis A",
+              "fields": {
+                "absolute_mag": {
+                  "caveat": "Tycho/Hipparcos conversion to Johnson V; retained at the source distance. Errors propagated in quadrature from Table 2; calibration systematics remain.",
+                  "inputs": {
+                    "method": "MV = published Mbol - BCV"
+                  },
+                  "reference": "2001A&A...379..245M:Table 2",
+                  "status": "derived",
+                  "uncertainty": 0.066,
+                  "value": 2.7556
+                },
+                "luminosity_solar": {
+                  "reference": "2001A&A...379..245M:Table 2",
+                  "status": "derived",
+                  "uncertainty": 0.39,
+                  "value": 6.55
+                },
+                "metallicity_dex": {
+                  "quantity": "Photospheric [Fe/H] of A; not assigned to B",
+                  "reference": "2001A&A...379..245M:Table 3",
+                  "status": "measured",
+                  "uncertainty": 0.03,
+                  "value": 0.04
+                },
+                "temperature_k": {
+                  "reference": "2001A&A...379..245M:Table 3",
+                  "status": "derived",
+                  "uncertainty": 50,
+                  "value": 5820
+                }
+              },
+              "note": "Component-specific published measurements supersede earlier withholding of aggregate measurements. No parent flux or unreviewed individual velocity is copied."
+            },
+            "supersededFieldStatus": {
+              "absolute_mag": "withheld-combined-record",
+              "luminosity_solar": "withheld-combined-record",
+              "metallicity_dex": "withheld-combined-record",
+              "radius_solar": "withheld-combined-record",
+              "temperature_k": "withheld-combined-record"
+            }
           },
           "sharedPhysicalEnrichment": {},
           "simbadId": "* zet Her",
@@ -45748,13 +46047,14 @@
           "cns5Id": "5470",
           "fieldStatus": {
             "absolute_mag": "withheld-combined-record",
-            "age_gyr": "withheld-combined-record",
-            "luminosity_solar": "withheld-combined-record",
+            "age_gyr": "model-derived",
+            "luminosity_solar": "derived",
             "mass_solar": "dynamical",
             "metallicity_dex": "withheld-combined-record",
             "radial_velocity_kms": "unknown",
-            "radius_solar": "withheld-combined-record",
-            "temperature_k": "withheld-combined-record"
+            "radius_solar": "derived",
+            "spectral_type": "measured",
+            "temperature_k": "estimated"
           },
           "gaiaDr3Id": "1891598193816300544",
           "id": "cns5-5470",
@@ -45956,6 +46256,89 @@
               "status": "gaia-dr3-fallback"
             },
             "status": "withheld-individual-orbital-motion"
+          },
+          "reviewedComponentEnrichment": {
+            "adopted": {
+              "age_gyr": {
+                "field": "age_gyr",
+                "reference": "1999ApJ...515..356B:4",
+                "scope": "System stellar-model age quoted from Lyubimkov et al. 1991",
+                "status": "model-derived",
+                "uncertainty": 0.08,
+                "value": 0.17
+              },
+              "luminosity_solar": {
+                "field": "luminosity_solar",
+                "inputs": {
+                  "radius_solar": 1.23751005588,
+                  "temperature_k": 6550.0
+                },
+                "reference": "Stefan-Boltzmann scaling",
+                "status": "derived",
+                "value": 2.5395536
+              },
+              "radius_solar": {
+                "caveat": "Interferometric fitted diameter with assumed limb darkening; source distance retained.",
+                "field": "radius_solar",
+                "inputs": {
+                  "distancePc": 11.51,
+                  "limbDarkenedDiameterMas": 1.0
+                },
+                "reference": "1999ApJ...515..356B:Table 4",
+                "status": "derived",
+                "uncertainty": 0.06343450870163753,
+                "value": 1.2375100558840018
+              },
+              "spectral_type": {
+                "reference": "1999ApJ...515..356B:Table 4",
+                "status": "measured",
+                "value": "F5V"
+              },
+              "temperature_k": {
+                "field": "temperature_k",
+                "reference": "Pecaut-Mamajek 2022.04.16",
+                "spectralType": "F5V",
+                "status": "estimated",
+                "value": 6550
+              }
+            },
+            "review": {
+              "completeStefanBoltzmann": true,
+              "expectedName": "Iota Pegasi A",
+              "fields": {
+                "age_gyr": {
+                  "reference": "1999ApJ...515..356B:4",
+                  "scope": "System stellar-model age quoted from Lyubimkov et al. 1991",
+                  "status": "model-derived",
+                  "uncertainty": 0.08,
+                  "value": 0.17
+                },
+                "radius_solar": {
+                  "caveat": "Interferometric fitted diameter with assumed limb darkening; source distance retained.",
+                  "inputs": {
+                    "distancePc": 11.51,
+                    "limbDarkenedDiameterMas": 1.0
+                  },
+                  "reference": "1999ApJ...515..356B:Table 4",
+                  "status": "derived",
+                  "uncertainty": 0.06343450870163753,
+                  "value": 1.2375100558840018
+                }
+              },
+              "note": "Reviewed individual spectrum permits a mean-dwarf temperature estimate when no object-specific temperature is available.",
+              "spectralType": "F5V",
+              "spectralTypeSource": {
+                "reference": "1999ApJ...515..356B:Table 4",
+                "status": "measured"
+              }
+            },
+            "supersededFieldStatus": {
+              "age_gyr": "withheld-combined-record",
+              "luminosity_solar": "withheld-combined-record",
+              "radius_solar": "withheld-combined-record",
+              "spectral_type": "unknown",
+              "temperature_k": "withheld-combined-record"
+            }
           },
           "simbadId": "* iot Peg",
           "sourceType": "SB*"
@@ -49519,15 +49902,15 @@
             "source_id": "cns5",
             "source_record_id": "5833"
           },
-          "astrometryScope": "Former system source snapshot, shared as an approximate component position and proper motion. No resolved orbital trajectory is claimed.",
+          "astrometryScope": "Existing positional/proper-motion snapshot with a reviewed shared systemic radial velocity; approximate bulk space motion, without individual orbital velocity or orbital phase.",
           "cns5Id": "5833",
           "fieldStatus": {
             "absolute_mag": "withheld-combined-record",
             "age_gyr": "withheld-combined-record",
             "luminosity_solar": "withheld-combined-record",
-            "mass_solar": "withheld-combined-record",
+            "mass_solar": "dynamical",
             "metallicity_dex": "withheld-combined-record",
-            "radial_velocity_kms": "unknown",
+            "radial_velocity_kms": "systemic-approximation",
             "radius_solar": "withheld-combined-record",
             "temperature_k": "withheld-combined-record"
           },
@@ -49649,10 +50032,63 @@
             }
           },
           "radialVelocity": {
+            "field": "radial_velocity_kms",
+            "note": "The binary orbital gamma is adopted as shared bulk RV; individual orbital velocities and phase are not represented.",
+            "reference": "2007A&A...462..777N:Table 2",
+            "scope": "Shared system/subsystem center-of-mass approximation",
             "sourceAlternative": {
-              "status": "unknown"
+              "sourceAlternative": {
+                "status": "unknown"
+              },
+              "status": "withheld-individual-orbital-motion"
             },
-            "status": "withheld-individual-orbital-motion"
+            "status": "systemic-approximation",
+            "uncertainty": 0.046,
+            "value": -42.943
+          },
+          "reviewedComponentEnrichment": {
+            "adopted": {
+              "mass_solar": {
+                "field": "mass_solar",
+                "reference": "2007A&A...462..777N:Table 2",
+                "status": "dynamical",
+                "uncertainty": 0.12,
+                "value": 1.4
+              },
+              "radial_velocity_kms": {
+                "field": "radial_velocity_kms",
+                "note": "The binary orbital gamma is adopted as shared bulk RV; individual orbital velocities and phase are not represented.",
+                "reference": "2007A&A...462..777N:Table 2",
+                "scope": "Shared system/subsystem center-of-mass approximation",
+                "status": "systemic-approximation",
+                "uncertainty": 0.046,
+                "value": -42.943
+              }
+            },
+            "review": {
+              "completeStefanBoltzmann": true,
+              "expectedName": "Gamma Cephei A",
+              "fields": {
+                "mass_solar": {
+                  "reference": "2007A&A...462..777N:Table 2",
+                  "status": "dynamical",
+                  "uncertainty": 0.12,
+                  "value": 1.4
+                }
+              },
+              "note": "Component-specific published measurements supersede earlier withholding of aggregate measurements. No parent flux or unreviewed individual velocity is copied. The binary orbital gamma is adopted as shared bulk RV; individual orbital velocities and phase are not represented.",
+              "systemicVelocity": {
+                "note": "The binary orbital gamma is adopted as shared bulk RV; individual orbital velocities and phase are not represented.",
+                "reference": "2007A&A...462..777N:Table 2",
+                "scope": "Shared system/subsystem center-of-mass approximation",
+                "uncertainty": 0.046,
+                "value": -42.943
+              }
+            },
+            "supersededFieldStatus": {
+              "mass_solar": "withheld-combined-record",
+              "radial_velocity_kms": "unknown"
+            }
           },
           "sharedPhysicalEnrichment": {},
           "simbadId": "* gam Cep",
@@ -50794,14 +51230,14 @@
           "astrometryParentId": "cns5-4097",
           "astrometryScope": "Shared system snapshot; individual orbital position, proper motion and radial velocity not adopted.",
           "fieldStatus": {
-            "absolute_mag": "unknown",
+            "absolute_mag": "derived",
             "age_gyr": "unknown",
-            "luminosity_solar": "unknown",
+            "luminosity_solar": "derived",
             "mass_solar": "unknown",
             "metallicity_dex": "unknown",
             "radial_velocity_kms": "unknown",
-            "radius_solar": "unknown",
-            "temperature_k": "unknown"
+            "radius_solar": "derived",
+            "temperature_k": "derived"
           },
           "id": "zeta-herculis-b",
           "individualComponentReview": {
@@ -50814,7 +51250,81 @@
             "type": "star",
             "url": "https://arxiv.org/abs/astro-ph/0110004"
           },
-          "physicalObservations": []
+          "physicalObservations": [],
+          "reviewedComponentEnrichment": {
+            "adopted": {
+              "absolute_mag": {
+                "caveat": "Tycho/Hipparcos conversion to Johnson V; retained at the source distance. Errors propagated in quadrature from Table 2; calibration systematics remain.",
+                "field": "absolute_mag",
+                "inputs": {
+                  "method": "MV = published Mbol - BCV"
+                },
+                "reference": "2001A&A...379..245M:Table 2",
+                "status": "derived",
+                "uncertainty": 0.111,
+                "value": 5.422
+              },
+              "luminosity_solar": {
+                "field": "luminosity_solar",
+                "reference": "2001A&A...379..245M:Table 2",
+                "status": "derived",
+                "uncertainty": 0.06,
+                "value": 0.62
+              },
+              "radius_solar": {
+                "field": "radius_solar",
+                "inputs": {
+                  "luminosity_solar": 0.62,
+                  "temperature_k": 5300.0
+                },
+                "reference": "Stefan-Boltzmann scaling",
+                "status": "derived",
+                "value": 0.9338922049
+              },
+              "temperature_k": {
+                "field": "temperature_k",
+                "reference": "2001A&A...379..245M:Table 3",
+                "status": "derived",
+                "uncertainty": 150,
+                "value": 5300
+              }
+            },
+            "review": {
+              "completeStefanBoltzmann": true,
+              "expectedName": "Zeta Herculis B",
+              "fields": {
+                "absolute_mag": {
+                  "caveat": "Tycho/Hipparcos conversion to Johnson V; retained at the source distance. Errors propagated in quadrature from Table 2; calibration systematics remain.",
+                  "inputs": {
+                    "method": "MV = published Mbol - BCV"
+                  },
+                  "reference": "2001A&A...379..245M:Table 2",
+                  "status": "derived",
+                  "uncertainty": 0.111,
+                  "value": 5.422
+                },
+                "luminosity_solar": {
+                  "reference": "2001A&A...379..245M:Table 2",
+                  "status": "derived",
+                  "uncertainty": 0.06,
+                  "value": 0.62
+                },
+                "temperature_k": {
+                  "reference": "2001A&A...379..245M:Table 3",
+                  "status": "derived",
+                  "uncertainty": 150,
+                  "value": 5300
+                }
+              },
+              "note": "Component-specific published measurements supersede earlier withholding of aggregate measurements. No parent flux or unreviewed individual velocity is copied."
+            },
+            "supersededFieldStatus": {
+              "absolute_mag": "unknown",
+              "luminosity_solar": "unknown",
+              "radius_solar": "unknown",
+              "temperature_k": "unknown"
+            }
+          }
         }
       }
     },
@@ -50833,13 +51343,14 @@
           "astrometryScope": "Shared system snapshot; individual orbital position, proper motion and radial velocity not adopted.",
           "fieldStatus": {
             "absolute_mag": "unknown",
-            "age_gyr": "unknown",
-            "luminosity_solar": "unknown",
+            "age_gyr": "model-derived",
+            "luminosity_solar": "derived",
             "mass_solar": "dynamical",
             "metallicity_dex": "unknown",
             "radial_velocity_kms": "unknown",
-            "radius_solar": "unknown",
-            "temperature_k": "unknown"
+            "radius_solar": "derived",
+            "spectral_type": "measured",
+            "temperature_k": "estimated"
           },
           "id": "iota-pegasi-b",
           "individualComponentReview": {
@@ -50868,7 +51379,90 @@
               "uncertainty": 0.009,
               "value": 0.819
             }
-          ]
+          ],
+          "reviewedComponentEnrichment": {
+            "adopted": {
+              "age_gyr": {
+                "field": "age_gyr",
+                "reference": "1999ApJ...515..356B:4",
+                "scope": "System stellar-model age quoted from Lyubimkov et al. 1991",
+                "status": "model-derived",
+                "uncertainty": 0.08,
+                "value": 0.17
+              },
+              "luminosity_solar": {
+                "field": "luminosity_solar",
+                "inputs": {
+                  "radius_solar": 0.878632139678,
+                  "temperature_k": 5480.0
+                },
+                "reference": "Stefan-Boltzmann scaling",
+                "status": "derived",
+                "value": 0.6272361999
+              },
+              "radius_solar": {
+                "caveat": "Interferometric fitted diameter with assumed limb darkening; source distance retained.",
+                "field": "radius_solar",
+                "inputs": {
+                  "distancePc": 11.51,
+                  "limbDarkenedDiameterMas": 0.71
+                },
+                "reference": "1999ApJ...515..356B:Table 4",
+                "status": "derived",
+                "uncertainty": 0.12414826571615621,
+                "value": 0.8786321396776411
+              },
+              "spectral_type": {
+                "reference": "1999ApJ...515..356B:Table 4",
+                "status": "measured",
+                "value": "G8V"
+              },
+              "temperature_k": {
+                "field": "temperature_k",
+                "reference": "Pecaut-Mamajek 2022.04.16",
+                "spectralType": "G8V",
+                "status": "estimated",
+                "value": 5480
+              }
+            },
+            "review": {
+              "completeStefanBoltzmann": true,
+              "expectedName": "Iota Pegasi B",
+              "fields": {
+                "age_gyr": {
+                  "reference": "1999ApJ...515..356B:4",
+                  "scope": "System stellar-model age quoted from Lyubimkov et al. 1991",
+                  "status": "model-derived",
+                  "uncertainty": 0.08,
+                  "value": 0.17
+                },
+                "radius_solar": {
+                  "caveat": "Interferometric fitted diameter with assumed limb darkening; source distance retained.",
+                  "inputs": {
+                    "distancePc": 11.51,
+                    "limbDarkenedDiameterMas": 0.71
+                  },
+                  "reference": "1999ApJ...515..356B:Table 4",
+                  "status": "derived",
+                  "uncertainty": 0.12414826571615621,
+                  "value": 0.8786321396776411
+                }
+              },
+              "note": "Reviewed individual spectrum permits a mean-dwarf temperature estimate when no object-specific temperature is available.",
+              "spectralType": "G8V",
+              "spectralTypeSource": {
+                "reference": "1999ApJ...515..356B:Table 4",
+                "status": "measured"
+              }
+            },
+            "supersededFieldStatus": {
+              "age_gyr": "unknown",
+              "luminosity_solar": "unknown",
+              "radius_solar": "unknown",
+              "spectral_type": "unknown",
+              "temperature_k": "unknown"
+            }
+          }
         }
       }
     },
@@ -50884,14 +51478,14 @@
         "role": "reviewed-companion",
         "individualRecordProvenance": {
           "astrometryParentId": "cns5-1318",
-          "astrometryScope": "Shared system snapshot; individual orbital position, proper motion and radial velocity not adopted.",
+          "astrometryScope": "Existing positional/proper-motion snapshot with a reviewed shared systemic radial velocity; approximate bulk space motion, without individual orbital velocity or orbital phase.",
           "fieldStatus": {
             "absolute_mag": "derived-from-orbital-parallax",
-            "age_gyr": "withheld-model-age-range",
+            "age_gyr": "model-derived",
             "luminosity_solar": "derived-from-bolometric-correction",
             "mass_solar": "dynamical",
             "metallicity_dex": "measured",
-            "radial_velocity_kms": "unknown",
+            "radial_velocity_kms": "systemic-approximation",
             "radius_solar": "measured",
             "temperature_k": "measured"
           },
@@ -50925,6 +51519,7 @@
                 "value": 2.4828
               },
               "metallicity_dex": {
+                "quantity": "photospheric [Fe/H]",
                 "reference": "arXiv:1505.07461:Table 3",
                 "status": "measured",
                 "uncertainty": 0.06,
@@ -50984,6 +51579,7 @@
             },
             {
               "field": "metallicity_dex",
+              "quantity": "photospheric [Fe/H]",
               "reference": "arXiv:1505.07461:Table 3",
               "sourceId": "reviewed-individual-component",
               "status": "measured",
@@ -51005,7 +51601,63 @@
               "status": "withheld-model-age-range",
               "value": null
             }
-          ]
+          ],
+          "radialVelocity": {
+            "field": "radial_velocity_kms",
+            "note": "The spectroscopic orbital gamma describes the Aa/Ab center of mass; no instantaneous giant orbital RV is modeled.",
+            "reference": "2015ApJ...807...26T:Table 2",
+            "scope": "Shared system/subsystem center-of-mass approximation",
+            "sourceAlternative": null,
+            "status": "systemic-approximation",
+            "uncertainty": 0.0032,
+            "value": 29.9387
+          },
+          "reviewedComponentEnrichment": {
+            "adopted": {
+              "age_gyr": {
+                "caveat": "Alternative Granada models give 588.5 Myr; the model-family dependence is not a statistical age error.",
+                "field": "age_gyr",
+                "reference": "2015ApJ...807...26T:7",
+                "scope": "Common best-fit MESA age for the two giants",
+                "status": "model-derived",
+                "value": 0.649
+              },
+              "radial_velocity_kms": {
+                "field": "radial_velocity_kms",
+                "note": "The spectroscopic orbital gamma describes the Aa/Ab center of mass; no instantaneous giant orbital RV is modeled.",
+                "reference": "2015ApJ...807...26T:Table 2",
+                "scope": "Shared system/subsystem center-of-mass approximation",
+                "status": "systemic-approximation",
+                "uncertainty": 0.0032,
+                "value": 29.9387
+              }
+            },
+            "review": {
+              "completeStefanBoltzmann": true,
+              "expectedName": "Capella Ab",
+              "fields": {
+                "age_gyr": {
+                  "caveat": "Alternative Granada models give 588.5 Myr; the model-family dependence is not a statistical age error.",
+                  "reference": "2015ApJ...807...26T:7",
+                  "scope": "Common best-fit MESA age for the two giants",
+                  "status": "model-derived",
+                  "value": 0.649
+                }
+              },
+              "note": "Component-specific published measurements supersede earlier withholding of aggregate measurements. No parent flux or unreviewed individual velocity is copied. The spectroscopic orbital gamma describes the Aa/Ab center of mass; no instantaneous giant orbital RV is modeled.",
+              "systemicVelocity": {
+                "note": "The spectroscopic orbital gamma describes the Aa/Ab center of mass; no instantaneous giant orbital RV is modeled.",
+                "reference": "2015ApJ...807...26T:Table 2",
+                "scope": "Shared system/subsystem center-of-mass approximation",
+                "uncertainty": 0.0032,
+                "value": 29.9387
+              }
+            },
+            "supersededFieldStatus": {
+              "age_gyr": "withheld-model-age-range",
+              "radial_velocity_kms": "unknown"
+            }
+          }
         }
       }
     },
@@ -51199,10 +51851,10 @@
             "absolute_mag": "unknown",
             "age_gyr": "unknown",
             "luminosity_solar": "unknown",
-            "mass_solar": "unknown",
+            "mass_solar": "estimated",
             "metallicity_dex": "unknown",
             "radial_velocity_kms": "unknown",
-            "radius_solar": "unknown",
+            "radius_solar": "estimated",
             "temperature_k": "unknown"
           },
           "gaiaDr3Id": "211810233512673920",
@@ -51231,6 +51883,68 @@
           },
           "radialVelocity": {
             "status": "unknown"
+          },
+          "reviewedComponentEnrichment": {
+            "adopted": {
+              "mass_solar": {
+                "field": "mass_solar",
+                "method": "Published MG calibration",
+                "reference": "2025A&A...693A.228C:Table A.1",
+                "scope": "Resolved Gaia DR3 component 211810233512673920",
+                "sourceRecordId": "658",
+                "sourceReference": "This work",
+                "sourceUrl": "https://vizier.cfa.harvard.edu/viz-bin/asu-tsv?-source=J/A%2bA/693/A228/tablea1&-out.max=unlimited&-out.all=1",
+                "status": "estimated",
+                "uncertainty": 0.0355,
+                "value": 0.2722
+              },
+              "radius_solar": {
+                "field": "radius_solar",
+                "method": "Published MG calibration",
+                "reference": "2025A&A...693A.228C:Table A.1",
+                "scope": "Resolved Gaia DR3 component 211810233512673920",
+                "sourceRecordId": "658",
+                "sourceReference": "This work",
+                "sourceUrl": "https://vizier.cfa.harvard.edu/viz-bin/asu-tsv?-source=J/A%2bA/693/A228/tablea1&-out.max=unlimited&-out.all=1",
+                "status": "estimated",
+                "uncertainty": 0.016,
+                "value": 0.2773
+              }
+            },
+            "review": {
+              "expectedName": "Capella L",
+              "fields": {
+                "mass_solar": {
+                  "method": "Published MG calibration",
+                  "reference": "2025A&A...693A.228C:Table A.1",
+                  "scope": "Resolved Gaia DR3 component 211810233512673920",
+                  "sourceRecordId": "658",
+                  "sourceReference": "This work",
+                  "sourceUrl": "https://vizier.cfa.harvard.edu/viz-bin/asu-tsv?-source=J/A%2bA/693/A228/tablea1&-out.max=unlimited&-out.all=1",
+                  "status": "estimated",
+                  "uncertainty": 0.0355,
+                  "value": 0.2722
+                },
+                "radius_solar": {
+                  "method": "Published MG calibration",
+                  "reference": "2025A&A...693A.228C:Table A.1",
+                  "scope": "Resolved Gaia DR3 component 211810233512673920",
+                  "sourceRecordId": "658",
+                  "sourceReference": "This work",
+                  "sourceUrl": "https://vizier.cfa.harvard.edu/viz-bin/asu-tsv?-source=J/A%2bA/693/A228/tablea1&-out.max=unlimited&-out.all=1",
+                  "status": "estimated",
+                  "uncertainty": 0.016,
+                  "value": 0.2773
+                }
+              },
+              "gaiaDr3Id": "211810233512673920",
+              "note": "Exact Gaia DR3 component match to Cifuentes et al. 2025 Table A.1. Only blank fields are filled. Mass/radius are published photometric estimates or SED-derived results, not dynamical measurements. Compromised spectra, candidate inner binaries, white dwarfs, and out-of-range MG calibration are excluded; compiled metallicities and velocities are not adopted.",
+              "sourceRecordId": "658"
+            },
+            "supersededFieldStatus": {
+              "mass_solar": "unknown",
+              "radius_solar": "unknown"
+            }
           },
           "simbadId": "G  96-29B",
           "sourceType": "PM*"
@@ -51365,16 +52079,17 @@
         "role": "reviewed-companion",
         "individualRecordProvenance": {
           "astrometryParentId": "cns5-5833",
-          "astrometryScope": "Shared system snapshot; individual orbital position, proper motion and radial velocity not adopted.",
+          "astrometryScope": "Existing positional/proper-motion snapshot with a reviewed shared systemic radial velocity; approximate bulk space motion, without individual orbital velocity or orbital phase.",
           "fieldStatus": {
             "absolute_mag": "unknown",
             "age_gyr": "unknown",
             "luminosity_solar": "unknown",
-            "mass_solar": "unknown",
+            "mass_solar": "dynamical",
             "metallicity_dex": "unknown",
-            "radial_velocity_kms": "unknown",
+            "radial_velocity_kms": "systemic-approximation",
             "radius_solar": "unknown",
-            "temperature_k": "unknown"
+            "spectral_type": "estimated",
+            "temperature_k": "estimated"
           },
           "id": "gamma-cephei-b",
           "individualComponentReview": {
@@ -51387,7 +52102,80 @@
             "type": "star",
             "url": "https://arxiv.org/abs/astro-ph/0609638"
           },
-          "physicalObservations": []
+          "physicalObservations": [],
+          "radialVelocity": {
+            "field": "radial_velocity_kms",
+            "note": "The binary orbital gamma is adopted as shared bulk RV; individual orbital velocities and phase are not represented.",
+            "reference": "2007A&A...462..777N:Table 2",
+            "scope": "Shared system/subsystem center-of-mass approximation",
+            "sourceAlternative": null,
+            "status": "systemic-approximation",
+            "uncertainty": 0.046,
+            "value": -42.943
+          },
+          "reviewedComponentEnrichment": {
+            "adopted": {
+              "mass_solar": {
+                "field": "mass_solar",
+                "reference": "2007A&A...462..777N:Table 2",
+                "status": "dynamical",
+                "uncertainty": 0.018,
+                "value": 0.409
+              },
+              "radial_velocity_kms": {
+                "field": "radial_velocity_kms",
+                "note": "The binary orbital gamma is adopted as shared bulk RV; individual orbital velocities and phase are not represented.",
+                "reference": "2007A&A...462..777N:Table 2",
+                "scope": "Shared system/subsystem center-of-mass approximation",
+                "status": "systemic-approximation",
+                "uncertainty": 0.046,
+                "value": -42.943
+              },
+              "spectral_type": {
+                "reference": "2007A&A...462..777N:3 (photometric classification)",
+                "status": "estimated",
+                "value": "M4V"
+              },
+              "temperature_k": {
+                "field": "temperature_k",
+                "reference": "Pecaut-Mamajek 2022.04.16",
+                "spectralType": "M4V",
+                "status": "estimated",
+                "value": 3210
+              }
+            },
+            "review": {
+              "completeStefanBoltzmann": true,
+              "expectedName": "Gamma Cephei B",
+              "fields": {
+                "mass_solar": {
+                  "reference": "2007A&A...462..777N:Table 2",
+                  "status": "dynamical",
+                  "uncertainty": 0.018,
+                  "value": 0.409
+                }
+              },
+              "note": "Component-specific published measurements supersede earlier withholding of aggregate measurements. No parent flux or unreviewed individual velocity is copied. The binary orbital gamma is adopted as shared bulk RV; individual orbital velocities and phase are not represented.",
+              "spectralType": "M4V",
+              "spectralTypeSource": {
+                "reference": "2007A&A...462..777N:3 (photometric classification)",
+                "status": "estimated"
+              },
+              "systemicVelocity": {
+                "note": "The binary orbital gamma is adopted as shared bulk RV; individual orbital velocities and phase are not represented.",
+                "reference": "2007A&A...462..777N:Table 2",
+                "scope": "Shared system/subsystem center-of-mass approximation",
+                "uncertainty": 0.046,
+                "value": -42.943
+              }
+            },
+            "supersededFieldStatus": {
+              "mass_solar": "unknown",
+              "radial_velocity_kms": "unknown",
+              "spectral_type": "unknown",
+              "temperature_k": "unknown"
+            }
+          }
         }
       }
     },

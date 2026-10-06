@@ -8,6 +8,7 @@ import math
 from pathlib import Path
 from catalog_sources.enrichment import enrich_from_frozen, enrichment_sources, manifest_sha256
 from catalog_sources.overlay_companions import expand_overlay
+from catalog_sources.solar import adopt_solar_reference, solar_provenance
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -23,7 +24,7 @@ OUTPUT = ROOT / "src/data/catalogs/bright-stars"
 HEADERS = [
     "type", "id", "name", "designations", "spectral_type", "x_pc", "y_pc", "z_pc",
     "vx_kms", "vy_kms", "vz_kms", "temperature_k", "mass_solar",
-    "luminosity_solar", "radius_solar", "metallicity_dex", "age_gyr",
+    "luminosity_solar", "radius_solar", "metallicity_dex", "metallicity_kind", "age_gyr",
     "absolute_mag", "epoch", "notes", "constellation", "ra_deg", "dec_deg",
     "astrometry_epoch", "parallax_mas", "parallax_error_mas",
     "pm_ra_cosdec_masyr", "pm_ra_error_masyr", "pm_dec_masyr",
@@ -138,7 +139,7 @@ def source_row(source, parameters, diameters, fundamental, sed, massive, primary
         "temperature_k": str(temperature), "mass_solar": mass,
         "luminosity_solar": f"{luminosity:.3f}" if luminosity is not None else "",
         "radius_solar": f"{radius:.4f}" if radius is not None else "",
-        "metallicity_dex": metallicity,
+        "metallicity_dex": metallicity, "metallicity_kind": "[Fe/H]" if metallicity else "",
         "age_gyr": age,
         "absolute_mag": f"{absolute_magnitude:.6f}", "epoch": "2000.0",
         "notes": f"Curated bright-star landmark; SIMBAD identity {source['main_id']}. {photometry}; absolute V derived from parallax with no extinction correction.{physical_note}{mass_note}{review_note}{age_note}{system_note}",
@@ -156,6 +157,8 @@ def render():
     inherited = []
     for identifier in ("sun", "sirius-a", "alpha-centauri-a", "alpha-centauri-b"):
         source = defaults[identifier]
+        if identifier == "sun":
+            adopt_solar_reference(source)
         inherited.append({header: source.get(header, "") or "" for header in HEADERS})
     with SOURCE.open(newline="") as handle:
         source_rows = list(csv.DictReader(handle))
@@ -205,6 +208,7 @@ def render():
         },
     }
     provenance["originalLandmarkIds"] = [row["id"] for row in rows if row["id"] != "sun"]
+    provenance["objects"]["sun"].update(solar_provenance())
     rows, expansion, _ = expand_overlay("bright-stars", rows, provenance["objects"])
     rows = [rows[0], *sorted(rows[1:], key=lambda row: math.hypot(float(row["x_pc"]), float(row["y_pc"]), float(row["z_pc"])))]
     provenance["companionExpansion"] = expansion

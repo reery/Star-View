@@ -1,0 +1,3811 @@
+{
+  "schemaVersion": 1,
+  "scope": "Represented nearest-1000 component-card members, including primaries. Not a complete companion census or an assertion that all published measurements have been exhausted.",
+  "inputSha256": {
+    "src/data/catalogs/nearest-1000/stars.csv": "e967f1b32deaf7af0a1fd13af95d17ee25865133717d6ecc3dc0eb3b72cdc738",
+    "src/data/catalogs/nearest-1000/provenance.json": "8fe99b893b44461d99f74b2c6009dda32182d5c1ccce7bc78517eda664cef54c",
+    "src/data/star-systems.json": "22a77579b11e4f5035f19be704fda78f1a6a5d409ca7ce0d5bc74aab8eaa599b",
+    "catalog-work/star-systems/reviewed-component-properties.json": "e3c4e01fa4a9c823c48f1f9bbe7f31a3426bb76e1a59563c1006a10bcc0222c1"
+  },
+  "systems": 128,
+  "members": 284,
+  "supplementedMembers": 56,
+  "supplementedFieldCount": 116,
+  "coverage": {
+    "absolute_mag": {
+      "available": 143,
+      "missing": 141
+    },
+    "radial_velocity_kms": {
+      "available": 185,
+      "missing": 99
+    },
+    "temperature_k": {
+      "available": 219,
+      "missing": 65
+    },
+    "mass_solar": {
+      "available": 168,
+      "missing": 116
+    },
+    "luminosity_solar": {
+      "available": 159,
+      "missing": 125
+    },
+    "radius_solar": {
+      "available": 168,
+      "missing": 116
+    },
+    "metallicity_dex": {
+      "available": 161,
+      "missing": 123
+    },
+    "age_gyr": {
+      "available": 50,
+      "missing": 234
+    },
+    "spectral_type": {
+      "available": 244,
+      "missing": 40
+    }
+  },
+  "records": [
+    {
+      "starId": "cns5-2372",
+      "name": "11 LMi",
+      "system": "11 LMi",
+      "component": "A",
+      "missingFields": [
+        "age_gyr"
+      ],
+      "supplementedFields": {}
+    },
+    {
+      "starId": "cns5-2373",
+      "name": "11 LMi B",
+      "system": "11 LMi",
+      "component": "B",
+      "missingFields": [
+        "temperature_k",
+        "mass_solar",
+        "luminosity_solar",
+        "radius_solar",
+        "metallicity_dex",
+        "age_gyr",
+        "spectral_type"
+      ],
+      "supplementedFields": {}
+    },
+    {
+      "starId": "cns5-2835",
+      "name": "20 Crt",
+      "system": "20 Crt",
+      "component": "A",
+      "missingFields": [
+        "age_gyr"
+      ],
+      "supplementedFields": {}
+    },
+    {
+      "starId": "cns5-2836",
+      "name": "20 Crt B",
+      "system": "20 Crt",
+      "component": "B",
+      "missingFields": [
+        "radial_velocity_kms",
+        "temperature_k",
+        "mass_solar",
+        "luminosity_solar",
+        "radius_solar",
+        "metallicity_dex",
+        "age_gyr"
+      ],
+      "supplementedFields": {}
+    },
+    {
+      "starId": "cns5-4232",
+      "name": "36 Oph A",
+      "system": "36 Oph",
+      "component": "A",
+      "missingFields": [],
+      "supplementedFields": {}
+    },
+    {
+      "starId": "cns5-4233",
+      "name": "36 Oph B",
+      "system": "36 Oph",
+      "component": "B",
+      "missingFields": [
+        "radial_velocity_kms"
+      ],
+      "supplementedFields": {}
+    },
+    {
+      "starId": "cns5-4238",
+      "name": "V2215 Oph",
+      "system": "36 Oph",
+      "component": "C",
+      "missingFields": [
+        "age_gyr"
+      ],
+      "supplementedFields": {}
+    },
+    {
+      "starId": "cns5-2572",
+      "name": "36 UMa",
+      "system": "36 UMa",
+      "component": "A",
+      "missingFields": [
+        "absolute_mag"
+      ],
+      "supplementedFields": {}
+    },
+    {
+      "starId": "cns5-2571",
+      "name": "36 UMa B",
+      "system": "36 UMa",
+      "component": "B",
+      "missingFields": [
+        "absolute_mag",
+        "age_gyr"
+      ],
+      "supplementedFields": {}
+    },
+    {
+      "starId": "cns5-4255",
+      "name": "41 Ara",
+      "system": "41 Ara",
+      "component": "A",
+      "missingFields": [],
+      "supplementedFields": {}
+    },
+    {
+      "starId": "cns5-4254",
+      "name": "41 Ara B",
+      "system": "41 Ara",
+      "component": "B",
+      "missingFields": [
+        "temperature_k",
+        "mass_solar",
+        "luminosity_solar",
+        "radius_solar",
+        "metallicity_dex",
+        "age_gyr"
+      ],
+      "supplementedFields": {}
+    },
+    {
+      "starId": "cns5-0192",
+      "name": "54 Psc",
+      "system": "54 Psc",
+      "component": "A",
+      "missingFields": [
+        "mass_solar",
+        "age_gyr"
+      ],
+      "supplementedFields": {}
+    },
+    {
+      "starId": "cns5-0191",
+      "name": "54 Psc B",
+      "system": "54 Psc",
+      "component": "B",
+      "missingFields": [
+        "absolute_mag",
+        "radial_velocity_kms",
+        "mass_solar",
+        "luminosity_solar",
+        "radius_solar",
+        "metallicity_dex",
+        "age_gyr"
+      ],
+      "supplementedFields": {}
+    },
+    {
+      "starId": "10pc-0029",
+      "name": "61 Cyg A",
+      "system": "61 Cyg",
+      "component": "A",
+      "missingFields": [
+        "absolute_mag",
+        "age_gyr"
+      ],
+      "supplementedFields": {}
+    },
+    {
+      "starId": "10pc-0030",
+      "name": "61 Cyg B",
+      "system": "61 Cyg",
+      "component": "B",
+      "missingFields": [
+        "absolute_mag",
+        "mass_solar",
+        "age_gyr"
+      ],
+      "supplementedFields": {}
+    },
+    {
+      "starId": "10pc-0115",
+      "name": "70 Oph A",
+      "system": "70 Oph",
+      "component": "A",
+      "missingFields": [
+        "absolute_mag"
+      ],
+      "supplementedFields": {}
+    },
+    {
+      "starId": "10pc-0116",
+      "name": "70 Oph B",
+      "system": "70 Oph",
+      "component": "B",
+      "missingFields": [
+        "absolute_mag",
+        "mass_solar",
+        "luminosity_solar",
+        "radius_solar",
+        "age_gyr"
+      ],
+      "supplementedFields": {}
+    },
+    {
+      "starId": "cns5-5103",
+      "name": "AT Mic A",
+      "system": "AT Mic",
+      "component": "A",
+      "missingFields": [
+        "mass_solar",
+        "luminosity_solar",
+        "radius_solar",
+        "metallicity_dex",
+        "age_gyr"
+      ],
+      "supplementedFields": {}
+    },
+    {
+      "starId": "cns5-5104",
+      "name": "AT Mic B",
+      "system": "AT Mic",
+      "component": "B",
+      "missingFields": [
+        "mass_solar",
+        "age_gyr"
+      ],
+      "supplementedFields": {}
+    },
+    {
+      "starId": "cns5-0239",
+      "name": "Achird",
+      "system": "Achird",
+      "component": "A",
+      "missingFields": [],
+      "supplementedFields": {
+        "metallicity_dex": "measured"
+      }
+    },
+    {
+      "starId": "cns5-0238",
+      "name": "Eta Cas B",
+      "system": "Achird",
+      "component": "B",
+      "missingFields": [
+        "age_gyr"
+      ],
+      "supplementedFields": {
+        "luminosity_solar": "model-derived",
+        "mass_solar": "dynamical",
+        "metallicity_dex": "measured",
+        "radius_solar": "model-derived",
+        "temperature_k": "measured"
+      }
+    },
+    {
+      "starId": "alpha-centauri-a",
+      "name": "Alpha Centauri A",
+      "system": "Alpha Centauri",
+      "component": "A",
+      "missingFields": [],
+      "supplementedFields": {}
+    },
+    {
+      "starId": "alpha-centauri-b",
+      "name": "Alpha Centauri B",
+      "system": "Alpha Centauri",
+      "component": "B",
+      "missingFields": [],
+      "supplementedFields": {}
+    },
+    {
+      "starId": "proxima-centauri",
+      "name": "Proxima Centauri",
+      "system": "Alpha Centauri",
+      "component": "C",
+      "missingFields": [
+        "age_gyr"
+      ],
+      "supplementedFields": {}
+    },
+    {
+      "starId": "cns5-1526",
+      "name": "Alpha Men",
+      "system": "Alpha Men",
+      "component": "A",
+      "missingFields": [
+        "age_gyr"
+      ],
+      "supplementedFields": {}
+    },
+    {
+      "starId": "cns5-1525",
+      "name": "Alpha Men B",
+      "system": "Alpha Men",
+      "component": "B",
+      "missingFields": [
+        "absolute_mag",
+        "radial_velocity_kms",
+        "temperature_k",
+        "mass_solar",
+        "luminosity_solar",
+        "radius_solar",
+        "metallicity_dex",
+        "age_gyr"
+      ],
+      "supplementedFields": {}
+    },
+    {
+      "starId": "cns5-4929",
+      "name": "Alshain",
+      "system": "Alshain",
+      "component": "A",
+      "missingFields": [
+        "radial_velocity_kms",
+        "age_gyr"
+      ],
+      "supplementedFields": {}
+    },
+    {
+      "starId": "cns5-4930",
+      "name": "Beta Aql B",
+      "system": "Alshain",
+      "component": "B",
+      "missingFields": [
+        "radial_velocity_kms",
+        "mass_solar",
+        "age_gyr"
+      ],
+      "supplementedFields": {}
+    },
+    {
+      "starId": "cns5-4235",
+      "name": "BD+19 3268A",
+      "system": "BD+19 3268",
+      "component": "A",
+      "missingFields": [
+        "absolute_mag",
+        "mass_solar",
+        "age_gyr",
+        "spectral_type"
+      ],
+      "supplementedFields": {}
+    },
+    {
+      "starId": "cns5-4234",
+      "name": "BD+19 3268B",
+      "system": "BD+19 3268",
+      "component": "B",
+      "missingFields": [
+        "absolute_mag",
+        "temperature_k",
+        "mass_solar",
+        "luminosity_solar",
+        "radius_solar",
+        "metallicity_dex",
+        "age_gyr",
+        "spectral_type"
+      ],
+      "supplementedFields": {}
+    },
+    {
+      "starId": "cns5-5800",
+      "name": "BD+19 5116A",
+      "system": "BD+19 5116",
+      "component": "A",
+      "missingFields": [
+        "mass_solar",
+        "luminosity_solar",
+        "radius_solar",
+        "age_gyr"
+      ],
+      "supplementedFields": {}
+    },
+    {
+      "starId": "cns5-5801",
+      "name": "BD+19 5116B",
+      "system": "BD+19 5116",
+      "component": "B",
+      "missingFields": [
+        "absolute_mag",
+        "radial_velocity_kms",
+        "mass_solar",
+        "luminosity_solar",
+        "radius_solar",
+        "age_gyr"
+      ],
+      "supplementedFields": {}
+    },
+    {
+      "starId": "cns5-3710",
+      "name": "BD+45 2247",
+      "system": "BD+45 2247",
+      "component": "A",
+      "missingFields": [
+        "absolute_mag",
+        "age_gyr"
+      ],
+      "supplementedFields": {
+        "mass_solar": "estimated"
+      }
+    },
+    {
+      "starId": "cns5-3711",
+      "name": "BD+45 2247B",
+      "system": "BD+45 2247",
+      "component": "B",
+      "missingFields": [
+        "absolute_mag",
+        "radial_velocity_kms",
+        "temperature_k",
+        "luminosity_solar",
+        "metallicity_dex",
+        "age_gyr",
+        "spectral_type"
+      ],
+      "supplementedFields": {
+        "mass_solar": "estimated",
+        "radius_solar": "estimated"
+      }
+    },
+    {
+      "starId": "cns5-3474",
+      "name": "BD+47 2112A",
+      "system": "BD+47 2112",
+      "component": "A",
+      "missingFields": [
+        "absolute_mag",
+        "age_gyr"
+      ],
+      "supplementedFields": {
+        "mass_solar": "estimated"
+      }
+    },
+    {
+      "starId": "cns5-3475",
+      "name": "BD+47 2112B",
+      "system": "BD+47 2112",
+      "component": "B",
+      "missingFields": [
+        "absolute_mag",
+        "age_gyr"
+      ],
+      "supplementedFields": {
+        "mass_solar": "estimated"
+      }
+    },
+    {
+      "starId": "cns5-1272",
+      "name": "BD+52 911",
+      "system": "BD+52 911",
+      "component": "A",
+      "missingFields": [
+        "age_gyr"
+      ],
+      "supplementedFields": {}
+    },
+    {
+      "starId": "cns5-1271",
+      "name": "BD+52 911B",
+      "system": "BD+52 911",
+      "component": "B",
+      "missingFields": [
+        "absolute_mag",
+        "radial_velocity_kms",
+        "temperature_k",
+        "mass_solar",
+        "luminosity_solar",
+        "radius_solar",
+        "metallicity_dex",
+        "age_gyr",
+        "spectral_type"
+      ],
+      "supplementedFields": {}
+    },
+    {
+      "starId": "cns5-4001",
+      "name": "CD-37 10765",
+      "system": "CD-37 10765",
+      "component": "A",
+      "missingFields": [
+        "mass_solar",
+        "age_gyr"
+      ],
+      "supplementedFields": {}
+    },
+    {
+      "starId": "cns5-4000",
+      "name": "CD-37 10765B",
+      "system": "CD-37 10765",
+      "component": "B",
+      "missingFields": [
+        "absolute_mag",
+        "radial_velocity_kms",
+        "mass_solar",
+        "luminosity_solar",
+        "radius_solar",
+        "age_gyr"
+      ],
+      "supplementedFields": {}
+    },
+    {
+      "starId": "cns5-1724",
+      "name": "CD-44 3045A",
+      "system": "CD-44 3045",
+      "component": "A",
+      "missingFields": [
+        "radial_velocity_kms",
+        "mass_solar",
+        "age_gyr"
+      ],
+      "supplementedFields": {}
+    },
+    {
+      "starId": "cns5-1723",
+      "name": "CD-44 3045B",
+      "system": "CD-44 3045",
+      "component": "B",
+      "missingFields": [
+        "radial_velocity_kms",
+        "mass_solar",
+        "age_gyr"
+      ],
+      "supplementedFields": {}
+    },
+    {
+      "starId": "cns5-4336",
+      "name": "CD-48 11837",
+      "system": "CD-48 11837",
+      "component": "A",
+      "missingFields": [
+        "mass_solar",
+        "age_gyr"
+      ],
+      "supplementedFields": {}
+    },
+    {
+      "starId": "cns5-4335",
+      "name": "CD-48 11837B",
+      "system": "CD-48 11837",
+      "component": "B",
+      "missingFields": [
+        "absolute_mag",
+        "mass_solar",
+        "age_gyr"
+      ],
+      "supplementedFields": {}
+    },
+    {
+      "starId": "cns5-1223",
+      "name": "CD-56 1032A",
+      "system": "CD-56 1032",
+      "component": "A",
+      "missingFields": [
+        "age_gyr"
+      ],
+      "supplementedFields": {}
+    },
+    {
+      "starId": "cns5-1222",
+      "name": "CD-56 1032B",
+      "system": "CD-56 1032",
+      "component": "B",
+      "missingFields": [
+        "age_gyr"
+      ],
+      "supplementedFields": {}
+    },
+    {
+      "starId": "cns5-1318",
+      "name": "Capella Aa",
+      "system": "Capella",
+      "component": "Aa",
+      "missingFields": [],
+      "supplementedFields": {
+        "age_gyr": "model-derived",
+        "radial_velocity_kms": "systemic-approximation"
+      }
+    },
+    {
+      "starId": "capella-ab",
+      "name": "Capella Ab",
+      "system": "Capella",
+      "component": "Ab",
+      "missingFields": [],
+      "supplementedFields": {
+        "age_gyr": "model-derived",
+        "radial_velocity_kms": "systemic-approximation"
+      }
+    },
+    {
+      "starId": "cns5-1323",
+      "name": "Capella H",
+      "system": "Capella",
+      "component": "H",
+      "missingFields": [
+        "absolute_mag"
+      ],
+      "supplementedFields": {}
+    },
+    {
+      "starId": "cns5-1324",
+      "name": "Capella L",
+      "system": "Capella",
+      "component": "L",
+      "missingFields": [
+        "absolute_mag",
+        "radial_velocity_kms",
+        "temperature_k",
+        "luminosity_solar",
+        "metallicity_dex",
+        "age_gyr"
+      ],
+      "supplementedFields": {
+        "mass_solar": "estimated",
+        "radius_solar": "estimated"
+      }
+    },
+    {
+      "starId": "cns5-4539",
+      "name": "Chi Draconis A",
+      "system": "Chi Draconis",
+      "component": "A",
+      "missingFields": [
+        "absolute_mag",
+        "radial_velocity_kms",
+        "temperature_k",
+        "luminosity_solar",
+        "radius_solar",
+        "metallicity_dex",
+        "age_gyr",
+        "spectral_type"
+      ],
+      "supplementedFields": {}
+    },
+    {
+      "starId": "chi-draconis-b",
+      "name": "Chi Draconis B",
+      "system": "Chi Draconis",
+      "component": "B",
+      "missingFields": [
+        "absolute_mag",
+        "radial_velocity_kms",
+        "temperature_k",
+        "luminosity_solar",
+        "radius_solar",
+        "metallicity_dex",
+        "age_gyr",
+        "spectral_type"
+      ],
+      "supplementedFields": {}
+    },
+    {
+      "starId": "cns5-1464",
+      "name": "Chi1 Orionis A",
+      "system": "Chi1 Orionis",
+      "component": "A",
+      "missingFields": [
+        "absolute_mag",
+        "radial_velocity_kms",
+        "age_gyr",
+        "spectral_type"
+      ],
+      "supplementedFields": {
+        "luminosity_solar": "derived",
+        "metallicity_dex": "measured",
+        "radius_solar": "derived",
+        "temperature_k": "model-derived"
+      }
+    },
+    {
+      "starId": "chi1-orionis-b",
+      "name": "Chi1 Orionis B",
+      "system": "Chi1 Orionis",
+      "component": "B",
+      "missingFields": [
+        "absolute_mag",
+        "radial_velocity_kms",
+        "temperature_k",
+        "luminosity_solar",
+        "radius_solar",
+        "metallicity_dex",
+        "age_gyr",
+        "spectral_type"
+      ],
+      "supplementedFields": {}
+    },
+    {
+      "starId": "cns5-2182",
+      "name": "Copernicus",
+      "system": "Copernicus",
+      "component": "A",
+      "missingFields": [
+        "absolute_mag",
+        "age_gyr"
+      ],
+      "supplementedFields": {}
+    },
+    {
+      "starId": "cns5-2183",
+      "name": "Rho1 Cnc B",
+      "system": "Copernicus",
+      "component": "B",
+      "missingFields": [
+        "absolute_mag",
+        "age_gyr"
+      ],
+      "supplementedFields": {}
+    },
+    {
+      "starId": "10pc-0113",
+      "name": "EI Cnc A",
+      "system": "EI Cnc",
+      "component": "A",
+      "missingFields": [
+        "absolute_mag",
+        "mass_solar",
+        "luminosity_solar",
+        "radius_solar",
+        "age_gyr"
+      ],
+      "supplementedFields": {}
+    },
+    {
+      "starId": "10pc-0114",
+      "name": "EI Cnc B",
+      "system": "EI Cnc",
+      "component": "B",
+      "missingFields": [
+        "absolute_mag",
+        "mass_solar",
+        "luminosity_solar",
+        "radius_solar",
+        "age_gyr"
+      ],
+      "supplementedFields": {}
+    },
+    {
+      "starId": "ez-aquarii-a",
+      "name": "EZ Aquarii A",
+      "system": "EZ Aquarii",
+      "component": "A",
+      "missingFields": [
+        "radial_velocity_kms",
+        "luminosity_solar",
+        "radius_solar",
+        "metallicity_dex",
+        "age_gyr"
+      ],
+      "supplementedFields": {}
+    },
+    {
+      "starId": "ez-aquarii-b",
+      "name": "EZ Aquarii B",
+      "system": "EZ Aquarii",
+      "component": "B",
+      "missingFields": [
+        "radial_velocity_kms",
+        "luminosity_solar",
+        "radius_solar",
+        "metallicity_dex",
+        "age_gyr"
+      ],
+      "supplementedFields": {}
+    },
+    {
+      "starId": "ez-aquarii-c",
+      "name": "EZ Aquarii C",
+      "system": "EZ Aquarii",
+      "component": "C",
+      "missingFields": [
+        "radial_velocity_kms",
+        "luminosity_solar",
+        "radius_solar",
+        "metallicity_dex",
+        "age_gyr"
+      ],
+      "supplementedFields": {}
+    },
+    {
+      "starId": "10pc-0074",
+      "name": "FL Vir A",
+      "system": "FL Vir",
+      "component": "A",
+      "missingFields": [
+        "absolute_mag",
+        "mass_solar",
+        "luminosity_solar",
+        "radius_solar",
+        "metallicity_dex",
+        "age_gyr"
+      ],
+      "supplementedFields": {}
+    },
+    {
+      "starId": "10pc-0075",
+      "name": "FL Vir B",
+      "system": "FL Vir",
+      "component": "B",
+      "missingFields": [
+        "absolute_mag",
+        "radial_velocity_kms",
+        "mass_solar",
+        "luminosity_solar",
+        "radius_solar",
+        "metallicity_dex",
+        "age_gyr"
+      ],
+      "supplementedFields": {}
+    },
+    {
+      "starId": "cns5-5665",
+      "name": "Fomalhaut",
+      "system": "Fomalhaut",
+      "component": "A",
+      "missingFields": [
+        "radial_velocity_kms",
+        "mass_solar",
+        "age_gyr"
+      ],
+      "supplementedFields": {}
+    },
+    {
+      "starId": "cns5-5660",
+      "name": "Fomalhaut B",
+      "system": "Fomalhaut",
+      "component": "B",
+      "missingFields": [],
+      "supplementedFields": {}
+    },
+    {
+      "starId": "cns5-5623",
+      "name": "Fomalhaut C",
+      "system": "Fomalhaut",
+      "component": "C",
+      "missingFields": [
+        "age_gyr"
+      ],
+      "supplementedFields": {}
+    },
+    {
+      "starId": "cns5-3636",
+      "name": "G 239-25",
+      "system": "G 239-25",
+      "component": "A",
+      "missingFields": [
+        "age_gyr"
+      ],
+      "supplementedFields": {
+        "mass_solar": "estimated"
+      }
+    },
+    {
+      "starId": "cns5-3637",
+      "name": "G 239-25B",
+      "system": "G 239-25",
+      "component": "B",
+      "missingFields": [
+        "radial_velocity_kms",
+        "temperature_k",
+        "mass_solar",
+        "luminosity_solar",
+        "radius_solar",
+        "metallicity_dex",
+        "age_gyr"
+      ],
+      "supplementedFields": {}
+    },
+    {
+      "starId": "cns5-1726",
+      "name": "G 250-31A",
+      "system": "G 250-31",
+      "component": "A",
+      "missingFields": [
+        "absolute_mag",
+        "radial_velocity_kms",
+        "mass_solar",
+        "luminosity_solar",
+        "radius_solar",
+        "metallicity_dex",
+        "age_gyr"
+      ],
+      "supplementedFields": {}
+    },
+    {
+      "starId": "cns5-1725",
+      "name": "G 250-31B",
+      "system": "G 250-31",
+      "component": "B",
+      "missingFields": [
+        "absolute_mag",
+        "radial_velocity_kms",
+        "luminosity_solar",
+        "metallicity_dex",
+        "age_gyr"
+      ],
+      "supplementedFields": {
+        "mass_solar": "estimated",
+        "radius_solar": "estimated"
+      }
+    },
+    {
+      "starId": "cns5-1155",
+      "name": "G 39-29A",
+      "system": "G 39-29",
+      "component": "A",
+      "missingFields": [
+        "absolute_mag",
+        "temperature_k",
+        "mass_solar",
+        "luminosity_solar",
+        "radius_solar",
+        "metallicity_dex",
+        "age_gyr"
+      ],
+      "supplementedFields": {}
+    },
+    {
+      "starId": "cns5-1154",
+      "name": "G 39-29B",
+      "system": "G 39-29",
+      "component": "B",
+      "missingFields": [
+        "absolute_mag",
+        "temperature_k",
+        "mass_solar",
+        "luminosity_solar",
+        "radius_solar",
+        "metallicity_dex",
+        "age_gyr"
+      ],
+      "supplementedFields": {}
+    },
+    {
+      "starId": "cns5-0012",
+      "name": "L 362-29",
+      "system": "GJ 1001",
+      "component": "A",
+      "missingFields": [
+        "age_gyr"
+      ],
+      "supplementedFields": {}
+    },
+    {
+      "starId": "cns5-0011",
+      "name": "GJ 1001 B",
+      "system": "GJ 1001",
+      "component": "B",
+      "missingFields": [
+        "absolute_mag",
+        "radial_velocity_kms",
+        "mass_solar",
+        "luminosity_solar",
+        "radius_solar",
+        "metallicity_dex",
+        "age_gyr"
+      ],
+      "supplementedFields": {
+        "temperature_k": "estimated"
+      }
+    },
+    {
+      "starId": "gj-1001-c",
+      "name": "GJ 1001 C",
+      "system": "GJ 1001",
+      "component": "C",
+      "missingFields": [
+        "absolute_mag",
+        "radial_velocity_kms",
+        "mass_solar",
+        "luminosity_solar",
+        "radius_solar",
+        "metallicity_dex",
+        "age_gyr"
+      ],
+      "supplementedFields": {
+        "temperature_k": "estimated"
+      }
+    },
+    {
+      "starId": "cns5-0658",
+      "name": "HD 16160",
+      "system": "GJ 105",
+      "component": "A",
+      "missingFields": [
+        "absolute_mag",
+        "mass_solar",
+        "luminosity_solar",
+        "radius_solar",
+        "age_gyr"
+      ],
+      "supplementedFields": {}
+    },
+    {
+      "starId": "cns5-0659",
+      "name": "BX Cet",
+      "system": "GJ 105",
+      "component": "B",
+      "missingFields": [
+        "absolute_mag",
+        "age_gyr"
+      ],
+      "supplementedFields": {}
+    },
+    {
+      "starId": "gj-105-c",
+      "name": "GJ 105 C",
+      "system": "GJ 105",
+      "component": "C",
+      "missingFields": [
+        "absolute_mag",
+        "radial_velocity_kms",
+        "temperature_k",
+        "luminosity_solar",
+        "radius_solar",
+        "metallicity_dex",
+        "age_gyr"
+      ],
+      "supplementedFields": {}
+    },
+    {
+      "starId": "cns5-1624",
+      "name": "L 32-9",
+      "system": "GJ 10949",
+      "component": "A",
+      "missingFields": [
+        "age_gyr"
+      ],
+      "supplementedFields": {}
+    },
+    {
+      "starId": "cns5-1625",
+      "name": "L 32-8",
+      "system": "GJ 10949",
+      "component": "B",
+      "missingFields": [
+        "age_gyr"
+      ],
+      "supplementedFields": {}
+    },
+    {
+      "starId": "cns5-2074",
+      "name": "L 186-67",
+      "system": "GJ 11217",
+      "component": "A",
+      "missingFields": [
+        "absolute_mag",
+        "temperature_k",
+        "luminosity_solar",
+        "metallicity_dex",
+        "age_gyr"
+      ],
+      "supplementedFields": {}
+    },
+    {
+      "starId": "cns5-2075",
+      "name": "L 186-66",
+      "system": "GJ 11217",
+      "component": "B",
+      "missingFields": [
+        "absolute_mag",
+        "radial_velocity_kms",
+        "temperature_k",
+        "mass_solar",
+        "luminosity_solar",
+        "radius_solar",
+        "metallicity_dex",
+        "age_gyr",
+        "spectral_type"
+      ],
+      "supplementedFields": {}
+    },
+    {
+      "starId": "cns5-3032",
+      "name": "G 148-48",
+      "system": "GJ 11774",
+      "component": "A",
+      "missingFields": [
+        "absolute_mag",
+        "temperature_k",
+        "mass_solar",
+        "luminosity_solar",
+        "radius_solar",
+        "metallicity_dex",
+        "age_gyr"
+      ],
+      "supplementedFields": {}
+    },
+    {
+      "starId": "cns5-3031",
+      "name": "G 148-47",
+      "system": "GJ 11774",
+      "component": "B",
+      "missingFields": [
+        "absolute_mag",
+        "temperature_k",
+        "luminosity_solar",
+        "metallicity_dex",
+        "age_gyr"
+      ],
+      "supplementedFields": {
+        "mass_solar": "estimated",
+        "radius_solar": "estimated"
+      }
+    },
+    {
+      "starId": "cns5-3415",
+      "name": "LP 380-6",
+      "system": "GJ 1179",
+      "component": "A",
+      "missingFields": [
+        "absolute_mag",
+        "age_gyr"
+      ],
+      "supplementedFields": {}
+    },
+    {
+      "starId": "cns5-3412",
+      "name": "EGGR 438",
+      "system": "GJ 1179",
+      "component": "B",
+      "missingFields": [
+        "absolute_mag",
+        "radial_velocity_kms",
+        "temperature_k",
+        "mass_solar",
+        "luminosity_solar",
+        "radius_solar",
+        "metallicity_dex",
+        "age_gyr"
+      ],
+      "supplementedFields": {}
+    },
+    {
+      "starId": "cns5-3522",
+      "name": "2MASS J14162408+1348263",
+      "system": "GJ 12050",
+      "component": "A",
+      "missingFields": [
+        "absolute_mag",
+        "radial_velocity_kms",
+        "mass_solar",
+        "luminosity_solar",
+        "radius_solar",
+        "metallicity_dex",
+        "age_gyr"
+      ],
+      "supplementedFields": {}
+    },
+    {
+      "starId": "cns5-3521",
+      "name": "ULAS J141623.94+134836.3",
+      "system": "GJ 12050",
+      "component": "B",
+      "missingFields": [
+        "absolute_mag",
+        "radial_velocity_kms",
+        "temperature_k",
+        "mass_solar",
+        "luminosity_solar",
+        "radius_solar",
+        "metallicity_dex",
+        "age_gyr"
+      ],
+      "supplementedFields": {}
+    },
+    {
+      "starId": "cns5-4625",
+      "name": "G 184-19",
+      "system": "GJ 1230",
+      "component": "A",
+      "missingFields": [
+        "absolute_mag",
+        "radial_velocity_kms",
+        "mass_solar",
+        "luminosity_solar",
+        "radius_solar",
+        "age_gyr"
+      ],
+      "supplementedFields": {}
+    },
+    {
+      "starId": "cns5-4626",
+      "name": "G 184-19B",
+      "system": "GJ 1230",
+      "component": "B",
+      "missingFields": [
+        "temperature_k",
+        "mass_solar",
+        "luminosity_solar",
+        "radius_solar",
+        "metallicity_dex",
+        "age_gyr"
+      ],
+      "supplementedFields": {}
+    },
+    {
+      "starId": "10pc-0087",
+      "name": "GJ 1245 A",
+      "system": "GJ 1245",
+      "component": "A",
+      "missingFields": [
+        "absolute_mag",
+        "mass_solar",
+        "luminosity_solar",
+        "radius_solar",
+        "metallicity_dex",
+        "age_gyr"
+      ],
+      "supplementedFields": {}
+    },
+    {
+      "starId": "10pc-0089",
+      "name": "GJ 1245 B",
+      "system": "GJ 1245",
+      "component": "B",
+      "missingFields": [
+        "absolute_mag",
+        "mass_solar",
+        "luminosity_solar",
+        "radius_solar",
+        "age_gyr"
+      ],
+      "supplementedFields": {}
+    },
+    {
+      "starId": "10pc-0088",
+      "name": "GJ 1245 C",
+      "system": "GJ 1245",
+      "component": "C",
+      "missingFields": [
+        "absolute_mag",
+        "radial_velocity_kms",
+        "mass_solar",
+        "luminosity_solar",
+        "radius_solar",
+        "metallicity_dex",
+        "age_gyr"
+      ],
+      "supplementedFields": {}
+    },
+    {
+      "starId": "10pc-0035",
+      "name": "GX And",
+      "system": "GJ 15",
+      "component": "A",
+      "missingFields": [
+        "absolute_mag",
+        "age_gyr"
+      ],
+      "supplementedFields": {}
+    },
+    {
+      "starId": "10pc-0038",
+      "name": "GQ And",
+      "system": "GJ 15",
+      "component": "B",
+      "missingFields": [
+        "absolute_mag",
+        "age_gyr"
+      ],
+      "supplementedFields": {}
+    },
+    {
+      "starId": "cns5-1393",
+      "name": "V2689 Ori",
+      "system": "GJ 208",
+      "component": "A",
+      "missingFields": [
+        "age_gyr"
+      ],
+      "supplementedFields": {}
+    },
+    {
+      "starId": "cns5-1394",
+      "name": "PM J05366+1117",
+      "system": "GJ 208",
+      "component": "B",
+      "missingFields": [
+        "age_gyr"
+      ],
+      "supplementedFields": {}
+    },
+    {
+      "starId": "cns5-1412",
+      "name": "HD 37394",
+      "system": "GJ 211",
+      "component": "A",
+      "missingFields": [
+        "age_gyr"
+      ],
+      "supplementedFields": {}
+    },
+    {
+      "starId": "cns5-1413",
+      "name": "HD 233153",
+      "system": "GJ 211",
+      "component": "B",
+      "missingFields": [
+        "absolute_mag",
+        "age_gyr"
+      ],
+      "supplementedFields": {}
+    },
+    {
+      "starId": "cns5-0155",
+      "name": "GJ 22 A",
+      "system": "GJ 22",
+      "component": "A",
+      "missingFields": [
+        "absolute_mag",
+        "radial_velocity_kms",
+        "temperature_k",
+        "mass_solar",
+        "luminosity_solar",
+        "radius_solar",
+        "metallicity_dex",
+        "age_gyr"
+      ],
+      "supplementedFields": {}
+    },
+    {
+      "starId": "cns5-0154",
+      "name": "BD+66 34B",
+      "system": "GJ 22",
+      "component": "B",
+      "missingFields": [
+        "luminosity_solar",
+        "age_gyr"
+      ],
+      "supplementedFields": {
+        "mass_solar": "estimated",
+        "radius_solar": "estimated"
+      }
+    },
+    {
+      "starId": "gj-22-c",
+      "name": "GJ 22 C",
+      "system": "GJ 22",
+      "component": "C",
+      "missingFields": [
+        "absolute_mag",
+        "radial_velocity_kms",
+        "temperature_k",
+        "mass_solar",
+        "luminosity_solar",
+        "radius_solar",
+        "metallicity_dex",
+        "age_gyr",
+        "spectral_type"
+      ],
+      "supplementedFields": {}
+    },
+    {
+      "starId": "10pc-0138",
+      "name": "GJ 229 A",
+      "system": "GJ 229",
+      "component": "A",
+      "missingFields": [
+        "absolute_mag",
+        "age_gyr"
+      ],
+      "supplementedFields": {}
+    },
+    {
+      "starId": "cns5-1529",
+      "name": "GJ 229 Ba",
+      "system": "GJ 229",
+      "component": "Ba",
+      "missingFields": [
+        "absolute_mag",
+        "radial_velocity_kms",
+        "metallicity_dex",
+        "spectral_type"
+      ],
+      "supplementedFields": {
+        "radius_solar": "derived"
+      }
+    },
+    {
+      "starId": "gj-229-bb",
+      "name": "GJ 229 Bb",
+      "system": "GJ 229",
+      "component": "Bb",
+      "missingFields": [
+        "absolute_mag",
+        "radial_velocity_kms",
+        "metallicity_dex",
+        "spectral_type"
+      ],
+      "supplementedFields": {
+        "radius_solar": "derived"
+      }
+    },
+    {
+      "starId": "cns5-1784",
+      "name": "GJ 268 A",
+      "system": "GJ 268",
+      "component": "A",
+      "missingFields": [
+        "absolute_mag",
+        "radial_velocity_kms",
+        "temperature_k",
+        "mass_solar",
+        "luminosity_solar",
+        "radius_solar",
+        "metallicity_dex",
+        "age_gyr"
+      ],
+      "supplementedFields": {}
+    },
+    {
+      "starId": "gj-268-b",
+      "name": "GJ 268 B",
+      "system": "GJ 268",
+      "component": "B",
+      "missingFields": [
+        "absolute_mag",
+        "radial_velocity_kms",
+        "temperature_k",
+        "mass_solar",
+        "luminosity_solar",
+        "radius_solar",
+        "metallicity_dex",
+        "age_gyr"
+      ],
+      "supplementedFields": {}
+    },
+    {
+      "starId": "cns5-1901",
+      "name": "LAWD 25",
+      "system": "GJ 283",
+      "component": "A",
+      "missingFields": [
+        "radial_velocity_kms",
+        "temperature_k",
+        "mass_solar",
+        "luminosity_solar",
+        "radius_solar",
+        "metallicity_dex",
+        "age_gyr"
+      ],
+      "supplementedFields": {}
+    },
+    {
+      "starId": "cns5-1900",
+      "name": "LP 783-2",
+      "system": "GJ 283",
+      "component": "B",
+      "missingFields": [
+        "age_gyr"
+      ],
+      "supplementedFields": {}
+    },
+    {
+      "starId": "cns5-0581",
+      "name": "CD-31 909",
+      "system": "GJ 3148",
+      "component": "A",
+      "missingFields": [
+        "age_gyr"
+      ],
+      "supplementedFields": {}
+    },
+    {
+      "starId": "cns5-0580",
+      "name": "CD-31 908",
+      "system": "GJ 3148",
+      "component": "B",
+      "missingFields": [
+        "age_gyr"
+      ],
+      "supplementedFields": {}
+    },
+    {
+      "starId": "cns5-2197",
+      "name": "HD 75632A",
+      "system": "GJ 325",
+      "component": "A",
+      "missingFields": [
+        "radial_velocity_kms"
+      ],
+      "supplementedFields": {}
+    },
+    {
+      "starId": "cns5-2198",
+      "name": "HD 75632B",
+      "system": "GJ 325",
+      "component": "B",
+      "missingFields": [
+        "radial_velocity_kms"
+      ],
+      "supplementedFields": {}
+    },
+    {
+      "starId": "cns5-1490",
+      "name": "G 192-11",
+      "system": "GJ 3371",
+      "component": "A",
+      "missingFields": [
+        "absolute_mag",
+        "age_gyr"
+      ],
+      "supplementedFields": {}
+    },
+    {
+      "starId": "cns5-1491",
+      "name": "G 192-12",
+      "system": "GJ 3371",
+      "component": "B",
+      "missingFields": [
+        "absolute_mag",
+        "age_gyr"
+      ],
+      "supplementedFields": {}
+    },
+    {
+      "starId": "cns5-2293",
+      "name": "HD 79210",
+      "system": "GJ 338",
+      "component": "A",
+      "missingFields": [
+        "absolute_mag",
+        "age_gyr"
+      ],
+      "supplementedFields": {}
+    },
+    {
+      "starId": "cns5-2295",
+      "name": "HD 79211",
+      "system": "GJ 338",
+      "component": "B",
+      "missingFields": [
+        "absolute_mag",
+        "age_gyr"
+      ],
+      "supplementedFields": {}
+    },
+    {
+      "starId": "cns5-2398",
+      "name": "G 236-1",
+      "system": "GJ 360",
+      "component": "A",
+      "missingFields": [
+        "age_gyr"
+      ],
+      "supplementedFields": {}
+    },
+    {
+      "starId": "cns5-2403",
+      "name": "G 236-2",
+      "system": "GJ 360",
+      "component": "B",
+      "missingFields": [
+        "absolute_mag",
+        "age_gyr"
+      ],
+      "supplementedFields": {}
+    },
+    {
+      "starId": "cns5-2996",
+      "name": "L 758-108",
+      "system": "GJ 3708",
+      "component": "A",
+      "missingFields": [
+        "age_gyr"
+      ],
+      "supplementedFields": {}
+    },
+    {
+      "starId": "cns5-2997",
+      "name": "L 758-107",
+      "system": "GJ 3708",
+      "component": "B",
+      "missingFields": [
+        "age_gyr"
+      ],
+      "supplementedFields": {
+        "mass_solar": "model-derived"
+      }
+    },
+    {
+      "starId": "cns5-0022",
+      "name": "HD 38A",
+      "system": "GJ 4",
+      "component": "A",
+      "missingFields": [
+        "mass_solar",
+        "luminosity_solar",
+        "radius_solar",
+        "age_gyr"
+      ],
+      "supplementedFields": {}
+    },
+    {
+      "starId": "cns5-0021",
+      "name": "HD 38B",
+      "system": "GJ 4",
+      "component": "B",
+      "missingFields": [
+        "luminosity_solar",
+        "age_gyr"
+      ],
+      "supplementedFields": {
+        "mass_solar": "estimated",
+        "radius_solar": "estimated"
+      }
+    },
+    {
+      "starId": "cns5-4529",
+      "name": "G 204-58",
+      "system": "GJ 4048",
+      "component": "A",
+      "missingFields": [
+        "age_gyr"
+      ],
+      "supplementedFields": {}
+    },
+    {
+      "starId": "cns5-4528",
+      "name": "G 204-57",
+      "system": "GJ 4048",
+      "component": "B",
+      "missingFields": [
+        "age_gyr"
+      ],
+      "supplementedFields": {}
+    },
+    {
+      "starId": "10pc-0100",
+      "name": "BD+44 2051 A",
+      "system": "GJ 412",
+      "component": "A",
+      "missingFields": [
+        "absolute_mag",
+        "age_gyr"
+      ],
+      "supplementedFields": {}
+    },
+    {
+      "starId": "10pc-0101",
+      "name": "WX UMa",
+      "system": "GJ 412",
+      "component": "B",
+      "missingFields": [
+        "absolute_mag",
+        "age_gyr"
+      ],
+      "supplementedFields": {}
+    },
+    {
+      "starId": "cns5-5583",
+      "name": "L 645-74",
+      "system": "GJ 4288",
+      "component": "A",
+      "missingFields": [
+        "age_gyr"
+      ],
+      "supplementedFields": {}
+    },
+    {
+      "starId": "cns5-5584",
+      "name": "L 645-73",
+      "system": "GJ 4288",
+      "component": "B",
+      "missingFields": [
+        "metallicity_dex",
+        "age_gyr"
+      ],
+      "supplementedFields": {}
+    },
+    {
+      "starId": "cns5-0289",
+      "name": "BD+61 195",
+      "system": "GJ 49",
+      "component": "A",
+      "missingFields": [
+        "absolute_mag",
+        "age_gyr"
+      ],
+      "supplementedFields": {}
+    },
+    {
+      "starId": "cns5-0298",
+      "name": "Wolf 47",
+      "system": "GJ 49",
+      "component": "B",
+      "missingFields": [
+        "radial_velocity_kms",
+        "age_gyr"
+      ],
+      "supplementedFields": {}
+    },
+    {
+      "starId": "cns5-3277",
+      "name": "BD+35 2436",
+      "system": "GJ 507",
+      "component": "A",
+      "missingFields": [
+        "absolute_mag",
+        "mass_solar",
+        "luminosity_solar",
+        "radius_solar",
+        "age_gyr"
+      ],
+      "supplementedFields": {}
+    },
+    {
+      "starId": "cns5-3278",
+      "name": "G 164-65",
+      "system": "GJ 507",
+      "component": "B",
+      "missingFields": [
+        "mass_solar",
+        "age_gyr"
+      ],
+      "supplementedFields": {}
+    },
+    {
+      "starId": "cns5-3688",
+      "name": "BD+16 2708",
+      "system": "GJ 569",
+      "component": "A",
+      "missingFields": [
+        "age_gyr"
+      ],
+      "supplementedFields": {
+        "mass_solar": "estimated"
+      }
+    },
+    {
+      "starId": "cns5-3687",
+      "name": "GJ 569 Ba",
+      "system": "GJ 569",
+      "component": "Ba",
+      "missingFields": [
+        "absolute_mag",
+        "radial_velocity_kms",
+        "mass_solar",
+        "metallicity_dex",
+        "age_gyr"
+      ],
+      "supplementedFields": {
+        "luminosity_solar": "derived",
+        "radius_solar": "derived",
+        "temperature_k": "model-derived"
+      }
+    },
+    {
+      "starId": "gj-569-bb",
+      "name": "GJ 569 Bb",
+      "system": "GJ 569",
+      "component": "Bb",
+      "missingFields": [
+        "absolute_mag",
+        "radial_velocity_kms",
+        "mass_solar",
+        "metallicity_dex",
+        "age_gyr"
+      ],
+      "supplementedFields": {
+        "luminosity_solar": "derived",
+        "radius_solar": "derived",
+        "temperature_k": "model-derived"
+      }
+    },
+    {
+      "starId": "cns5-3700",
+      "name": "HD 131977",
+      "system": "GJ 570",
+      "component": "A",
+      "missingFields": [
+        "mass_solar",
+        "age_gyr"
+      ],
+      "supplementedFields": {}
+    },
+    {
+      "starId": "10pc-0145",
+      "name": "GJ 570 B",
+      "system": "GJ 570",
+      "component": "B",
+      "missingFields": [
+        "luminosity_solar",
+        "radius_solar",
+        "metallicity_dex",
+        "age_gyr"
+      ],
+      "supplementedFields": {
+        "absolute_mag": "derived",
+        "radial_velocity_kms": "systemic-approximation"
+      }
+    },
+    {
+      "starId": "10pc-0146",
+      "name": "GJ 570 C",
+      "system": "GJ 570",
+      "component": "C",
+      "missingFields": [
+        "luminosity_solar",
+        "radius_solar",
+        "metallicity_dex",
+        "age_gyr"
+      ],
+      "supplementedFields": {
+        "absolute_mag": "derived",
+        "radial_velocity_kms": "systemic-approximation"
+      }
+    },
+    {
+      "starId": "cns5-3699",
+      "name": "GJ 570 D",
+      "system": "GJ 570",
+      "component": "D",
+      "missingFields": [
+        "absolute_mag",
+        "radial_velocity_kms",
+        "mass_solar",
+        "luminosity_solar",
+        "radius_solar",
+        "metallicity_dex",
+        "age_gyr"
+      ],
+      "supplementedFields": {}
+    },
+    {
+      "starId": "cns5-4013",
+      "name": "HD 147513",
+      "system": "GJ 620.1",
+      "component": "A",
+      "missingFields": [],
+      "supplementedFields": {}
+    },
+    {
+      "starId": "cns5-4011",
+      "name": "CD-38 10980",
+      "system": "GJ 620.1",
+      "component": "B",
+      "missingFields": [
+        "radial_velocity_kms",
+        "temperature_k",
+        "mass_solar",
+        "luminosity_solar",
+        "radius_solar",
+        "metallicity_dex",
+        "age_gyr"
+      ],
+      "supplementedFields": {}
+    },
+    {
+      "starId": "cns5-4136",
+      "name": "GJ 644 A",
+      "system": "GJ 644",
+      "component": "A",
+      "missingFields": [
+        "temperature_k",
+        "luminosity_solar",
+        "radius_solar",
+        "metallicity_dex",
+        "age_gyr",
+        "spectral_type"
+      ],
+      "supplementedFields": {
+        "absolute_mag": "derived",
+        "radial_velocity_kms": "systemic-approximation"
+      }
+    },
+    {
+      "starId": "gj-644-ba",
+      "name": "GJ 644 Ba",
+      "system": "GJ 644",
+      "component": "Ba",
+      "missingFields": [
+        "temperature_k",
+        "luminosity_solar",
+        "radius_solar",
+        "metallicity_dex",
+        "age_gyr",
+        "spectral_type"
+      ],
+      "supplementedFields": {
+        "absolute_mag": "derived",
+        "radial_velocity_kms": "systemic-approximation"
+      }
+    },
+    {
+      "starId": "gj-644-bb",
+      "name": "GJ 644 Bb",
+      "system": "GJ 644",
+      "component": "Bb",
+      "missingFields": [
+        "temperature_k",
+        "luminosity_solar",
+        "radius_solar",
+        "metallicity_dex",
+        "age_gyr",
+        "spectral_type"
+      ],
+      "supplementedFields": {
+        "absolute_mag": "derived",
+        "radial_velocity_kms": "systemic-approximation"
+      }
+    },
+    {
+      "starId": "cns5-4137",
+      "name": "VB 8",
+      "system": "GJ 644",
+      "component": "C",
+      "missingFields": [
+        "metallicity_dex",
+        "age_gyr"
+      ],
+      "supplementedFields": {}
+    },
+    {
+      "starId": "cns5-4135",
+      "name": "HD 152751C",
+      "system": "GJ 644",
+      "component": "D",
+      "missingFields": [
+        "age_gyr"
+      ],
+      "supplementedFields": {}
+    },
+    {
+      "starId": "cns5-4217",
+      "name": "GJ 661 A",
+      "system": "GJ 661",
+      "component": "A",
+      "missingFields": [
+        "radial_velocity_kms",
+        "luminosity_solar",
+        "radius_solar",
+        "metallicity_dex",
+        "age_gyr"
+      ],
+      "supplementedFields": {
+        "absolute_mag": "derived",
+        "spectral_type": "estimated",
+        "temperature_k": "estimated"
+      }
+    },
+    {
+      "starId": "gj-661-b",
+      "name": "GJ 661 B",
+      "system": "GJ 661",
+      "component": "B",
+      "missingFields": [
+        "radial_velocity_kms",
+        "luminosity_solar",
+        "radius_solar",
+        "metallicity_dex",
+        "age_gyr"
+      ],
+      "supplementedFields": {
+        "absolute_mag": "derived",
+        "spectral_type": "estimated",
+        "temperature_k": "estimated"
+      }
+    },
+    {
+      "starId": "cns5-4252",
+      "name": "GJ 667 A",
+      "system": "GJ 667",
+      "component": "A",
+      "missingFields": [
+        "radial_velocity_kms",
+        "mass_solar",
+        "luminosity_solar",
+        "radius_solar",
+        "metallicity_dex",
+        "age_gyr"
+      ],
+      "supplementedFields": {
+        "absolute_mag": "derived",
+        "temperature_k": "estimated"
+      }
+    },
+    {
+      "starId": "gj-667-b",
+      "name": "GJ 667 B",
+      "system": "GJ 667",
+      "component": "B",
+      "missingFields": [
+        "radial_velocity_kms",
+        "mass_solar",
+        "luminosity_solar",
+        "radius_solar",
+        "metallicity_dex",
+        "age_gyr"
+      ],
+      "supplementedFields": {
+        "absolute_mag": "derived",
+        "temperature_k": "estimated"
+      }
+    },
+    {
+      "starId": "cns5-4253",
+      "name": "HD 156384C",
+      "system": "GJ 667",
+      "component": "C",
+      "missingFields": [
+        "age_gyr"
+      ],
+      "supplementedFields": {}
+    },
+    {
+      "starId": "cns5-4261",
+      "name": "Ross 868",
+      "system": "GJ 669",
+      "component": "A",
+      "missingFields": [
+        "age_gyr"
+      ],
+      "supplementedFields": {
+        "mass_solar": "model-derived"
+      }
+    },
+    {
+      "starId": "cns5-4259",
+      "name": "Ross 867",
+      "system": "GJ 669",
+      "component": "B",
+      "missingFields": [
+        "absolute_mag",
+        "age_gyr"
+      ],
+      "supplementedFields": {
+        "luminosity_solar": "model-derived",
+        "mass_solar": "model-derived",
+        "radius_solar": "model-derived"
+      }
+    },
+    {
+      "starId": "10pc-0033",
+      "name": "HD 173739",
+      "system": "GJ 725",
+      "component": "A",
+      "missingFields": [
+        "absolute_mag",
+        "mass_solar",
+        "age_gyr"
+      ],
+      "supplementedFields": {}
+    },
+    {
+      "starId": "10pc-0034",
+      "name": "HD 173740",
+      "system": "GJ 725",
+      "component": "B",
+      "missingFields": [
+        "absolute_mag",
+        "mass_solar",
+        "age_gyr"
+      ],
+      "supplementedFields": {}
+    },
+    {
+      "starId": "cns5-4746",
+      "name": "Ross 730",
+      "system": "GJ 745",
+      "component": "A",
+      "missingFields": [
+        "age_gyr"
+      ],
+      "supplementedFields": {}
+    },
+    {
+      "starId": "cns5-4747",
+      "name": "HD 349726",
+      "system": "GJ 745",
+      "component": "B",
+      "missingFields": [
+        "age_gyr"
+      ],
+      "supplementedFields": {}
+    },
+    {
+      "starId": "cns5-4779",
+      "name": "HD 180617",
+      "system": "GJ 752",
+      "component": "A",
+      "missingFields": [
+        "age_gyr"
+      ],
+      "supplementedFields": {}
+    },
+    {
+      "starId": "cns5-4780",
+      "name": "VB 10",
+      "system": "GJ 752",
+      "component": "B",
+      "missingFields": [
+        "age_gyr"
+      ],
+      "supplementedFields": {
+        "luminosity_solar": "model-derived",
+        "radius_solar": "model-derived"
+      }
+    },
+    {
+      "starId": "cns5-4799",
+      "name": "LAWD 74",
+      "system": "GJ 754.1",
+      "component": "A",
+      "missingFields": [
+        "radial_velocity_kms",
+        "temperature_k",
+        "mass_solar",
+        "luminosity_solar",
+        "radius_solar",
+        "metallicity_dex",
+        "age_gyr"
+      ],
+      "supplementedFields": {}
+    },
+    {
+      "starId": "cns5-4798",
+      "name": "L 923-22",
+      "system": "GJ 754.1",
+      "component": "B",
+      "missingFields": [
+        "age_gyr"
+      ],
+      "supplementedFields": {
+        "mass_solar": "estimated"
+      }
+    },
+    {
+      "starId": "cns5-4898",
+      "name": "LSPM J1945+2707NW",
+      "system": "GJ 766",
+      "component": "A",
+      "missingFields": [
+        "absolute_mag",
+        "age_gyr"
+      ],
+      "supplementedFields": {
+        "mass_solar": "estimated"
+      }
+    },
+    {
+      "starId": "cns5-4899",
+      "name": "LSPM J1945+2707SE",
+      "system": "GJ 766",
+      "component": "B",
+      "missingFields": [
+        "absolute_mag",
+        "age_gyr"
+      ],
+      "supplementedFields": {
+        "mass_solar": "estimated"
+      }
+    },
+    {
+      "starId": "cns5-4968",
+      "name": "L 115-21",
+      "system": "GJ 774",
+      "component": "A",
+      "missingFields": [
+        "age_gyr"
+      ],
+      "supplementedFields": {}
+    },
+    {
+      "starId": "cns5-4967",
+      "name": "L 115-22",
+      "system": "GJ 774",
+      "component": "B",
+      "missingFields": [
+        "absolute_mag",
+        "metallicity_dex",
+        "age_gyr"
+      ],
+      "supplementedFields": {}
+    },
+    {
+      "starId": "cns5-5008",
+      "name": "GJ 783 A",
+      "system": "GJ 783",
+      "component": "A",
+      "missingFields": [
+        "absolute_mag",
+        "radial_velocity_kms",
+        "temperature_k",
+        "mass_solar",
+        "luminosity_solar",
+        "radius_solar",
+        "metallicity_dex",
+        "age_gyr"
+      ],
+      "supplementedFields": {}
+    },
+    {
+      "starId": "gj-783-b",
+      "name": "GJ 783 B",
+      "system": "GJ 783",
+      "component": "B",
+      "missingFields": [
+        "absolute_mag",
+        "radial_velocity_kms",
+        "temperature_k",
+        "mass_solar",
+        "luminosity_solar",
+        "radius_solar",
+        "metallicity_dex",
+        "age_gyr"
+      ],
+      "supplementedFields": {}
+    },
+    {
+      "starId": "cns5-5173",
+      "name": "LP 756-19",
+      "system": "GJ 810",
+      "component": "A",
+      "missingFields": [
+        "mass_solar",
+        "luminosity_solar",
+        "radius_solar",
+        "age_gyr"
+      ],
+      "supplementedFields": {}
+    },
+    {
+      "starId": "cns5-5172",
+      "name": "LP 756-18",
+      "system": "GJ 810",
+      "component": "B",
+      "missingFields": [
+        "age_gyr"
+      ],
+      "supplementedFields": {}
+    },
+    {
+      "starId": "cns5-5330",
+      "name": "GJ 835 A",
+      "system": "GJ 835",
+      "component": "A",
+      "missingFields": [
+        "absolute_mag",
+        "radial_velocity_kms",
+        "temperature_k",
+        "mass_solar",
+        "luminosity_solar",
+        "radius_solar",
+        "metallicity_dex",
+        "age_gyr"
+      ],
+      "supplementedFields": {}
+    },
+    {
+      "starId": "cns5-5331",
+      "name": "BD+27 4120B",
+      "system": "GJ 835",
+      "component": "B",
+      "missingFields": [
+        "absolute_mag",
+        "radial_velocity_kms",
+        "temperature_k",
+        "mass_solar",
+        "luminosity_solar",
+        "radius_solar",
+        "metallicity_dex",
+        "age_gyr",
+        "spectral_type"
+      ],
+      "supplementedFields": {}
+    },
+    {
+      "starId": "gj-835-c",
+      "name": "GJ 835 C",
+      "system": "GJ 835",
+      "component": "C",
+      "missingFields": [
+        "absolute_mag",
+        "radial_velocity_kms",
+        "temperature_k",
+        "mass_solar",
+        "luminosity_solar",
+        "radius_solar",
+        "metallicity_dex",
+        "age_gyr"
+      ],
+      "supplementedFields": {}
+    },
+    {
+      "starId": "cns5-5588",
+      "name": "GJ 867 A",
+      "system": "GJ 867",
+      "component": "A",
+      "missingFields": [
+        "absolute_mag",
+        "radial_velocity_kms",
+        "temperature_k",
+        "mass_solar",
+        "luminosity_solar",
+        "radius_solar",
+        "metallicity_dex",
+        "age_gyr"
+      ],
+      "supplementedFields": {}
+    },
+    {
+      "starId": "cns5-5587",
+      "name": "FL Aqr",
+      "system": "GJ 867",
+      "component": "B",
+      "missingFields": [
+        "mass_solar",
+        "age_gyr"
+      ],
+      "supplementedFields": {}
+    },
+    {
+      "starId": "gj-867-c",
+      "name": "GJ 867 C",
+      "system": "GJ 867",
+      "component": "C",
+      "missingFields": [
+        "absolute_mag",
+        "radial_velocity_kms",
+        "temperature_k",
+        "mass_solar",
+        "luminosity_solar",
+        "radius_solar",
+        "metallicity_dex",
+        "age_gyr"
+      ],
+      "supplementedFields": {}
+    },
+    {
+      "starId": "cns5-5833",
+      "name": "Gamma Cephei A",
+      "system": "Gamma Cephei",
+      "component": "A",
+      "missingFields": [
+        "absolute_mag",
+        "temperature_k",
+        "luminosity_solar",
+        "radius_solar",
+        "metallicity_dex",
+        "age_gyr"
+      ],
+      "supplementedFields": {
+        "mass_solar": "dynamical",
+        "radial_velocity_kms": "systemic-approximation"
+      }
+    },
+    {
+      "starId": "gamma-cephei-b",
+      "name": "Gamma Cephei B",
+      "system": "Gamma Cephei",
+      "component": "B",
+      "missingFields": [
+        "absolute_mag",
+        "luminosity_solar",
+        "radius_solar",
+        "metallicity_dex",
+        "age_gyr"
+      ],
+      "supplementedFields": {
+        "mass_solar": "dynamical",
+        "radial_velocity_kms": "systemic-approximation",
+        "spectral_type": "estimated",
+        "temperature_k": "estimated"
+      }
+    },
+    {
+      "starId": "cns5-1427",
+      "name": "Gamma Lep",
+      "system": "Gamma Lep",
+      "component": "A",
+      "missingFields": [],
+      "supplementedFields": {}
+    },
+    {
+      "starId": "cns5-1425",
+      "name": "AK Lep",
+      "system": "Gamma Lep",
+      "component": "B",
+      "missingFields": [],
+      "supplementedFields": {}
+    },
+    {
+      "starId": "cns5-2879",
+      "name": "HD 102365",
+      "system": "HD 102365",
+      "component": "A",
+      "missingFields": [],
+      "supplementedFields": {}
+    },
+    {
+      "starId": "cns5-2880",
+      "name": "HD 102365B",
+      "system": "HD 102365",
+      "component": "B",
+      "missingFields": [
+        "age_gyr"
+      ],
+      "supplementedFields": {}
+    },
+    {
+      "starId": "cns5-2945",
+      "name": "HD 104304 A",
+      "system": "HD 104304",
+      "component": "A",
+      "missingFields": [
+        "absolute_mag",
+        "radial_velocity_kms",
+        "temperature_k",
+        "mass_solar",
+        "luminosity_solar",
+        "radius_solar",
+        "metallicity_dex",
+        "age_gyr",
+        "spectral_type"
+      ],
+      "supplementedFields": {}
+    },
+    {
+      "starId": "hd-104304-b",
+      "name": "HD 104304 B",
+      "system": "HD 104304",
+      "component": "B",
+      "missingFields": [
+        "absolute_mag",
+        "radial_velocity_kms",
+        "luminosity_solar",
+        "radius_solar",
+        "metallicity_dex",
+        "age_gyr"
+      ],
+      "supplementedFields": {
+        "temperature_k": "estimated"
+      }
+    },
+    {
+      "starId": "cns5-3269",
+      "name": "HD 115404",
+      "system": "HD 115404",
+      "component": "A",
+      "missingFields": [],
+      "supplementedFields": {}
+    },
+    {
+      "starId": "cns5-3270",
+      "name": "HD 115404B",
+      "system": "HD 115404",
+      "component": "B",
+      "missingFields": [
+        "age_gyr"
+      ],
+      "supplementedFields": {
+        "mass_solar": "estimated"
+      }
+    },
+    {
+      "starId": "cns5-3422",
+      "name": "HD 120476A",
+      "system": "HD 120476",
+      "component": "A",
+      "missingFields": [
+        "radial_velocity_kms",
+        "mass_solar",
+        "age_gyr"
+      ],
+      "supplementedFields": {}
+    },
+    {
+      "starId": "cns5-3421",
+      "name": "HD 120476B",
+      "system": "HD 120476",
+      "component": "B",
+      "missingFields": [
+        "radial_velocity_kms",
+        "mass_solar",
+        "luminosity_solar",
+        "radius_solar",
+        "age_gyr"
+      ],
+      "supplementedFields": {}
+    },
+    {
+      "starId": "cns5-0543",
+      "name": "HD 13445",
+      "system": "HD 13445",
+      "component": "A",
+      "missingFields": [],
+      "supplementedFields": {}
+    },
+    {
+      "starId": "cns5-0544",
+      "name": "HD 13445B",
+      "system": "HD 13445",
+      "component": "B",
+      "missingFields": [
+        "absolute_mag",
+        "radial_velocity_kms",
+        "temperature_k",
+        "mass_solar",
+        "luminosity_solar",
+        "radius_solar",
+        "metallicity_dex",
+        "age_gyr"
+      ],
+      "supplementedFields": {}
+    },
+    {
+      "starId": "cns5-3993",
+      "name": "HD 147379",
+      "system": "HD 147379",
+      "component": "A",
+      "missingFields": [
+        "absolute_mag",
+        "age_gyr"
+      ],
+      "supplementedFields": {}
+    },
+    {
+      "starId": "cns5-3994",
+      "name": "HD 147379B",
+      "system": "HD 147379",
+      "component": "B",
+      "missingFields": [
+        "absolute_mag",
+        "age_gyr"
+      ],
+      "supplementedFields": {}
+    },
+    {
+      "starId": "cns5-4183",
+      "name": "HD 154363",
+      "system": "HD 154363",
+      "component": "A",
+      "missingFields": [],
+      "supplementedFields": {}
+    },
+    {
+      "starId": "cns5-4184",
+      "name": "HD 154363B",
+      "system": "HD 154363",
+      "component": "B",
+      "missingFields": [
+        "age_gyr"
+      ],
+      "supplementedFields": {}
+    },
+    {
+      "starId": "cns5-4716",
+      "name": "HD 175224A",
+      "system": "HD 175224",
+      "component": "A",
+      "missingFields": [
+        "mass_solar",
+        "luminosity_solar",
+        "radius_solar",
+        "metallicity_dex",
+        "age_gyr"
+      ],
+      "supplementedFields": {}
+    },
+    {
+      "starId": "cns5-4715",
+      "name": "HD 175224B",
+      "system": "HD 175224",
+      "component": "B",
+      "missingFields": [],
+      "supplementedFields": {}
+    },
+    {
+      "starId": "cns5-1264",
+      "name": "HD 32450A",
+      "system": "HD 32450",
+      "component": "A",
+      "missingFields": [
+        "radial_velocity_kms",
+        "temperature_k",
+        "mass_solar",
+        "luminosity_solar",
+        "radius_solar",
+        "metallicity_dex",
+        "age_gyr"
+      ],
+      "supplementedFields": {}
+    },
+    {
+      "starId": "cns5-1263",
+      "name": "HD 32450B",
+      "system": "HD 32450",
+      "component": "B",
+      "missingFields": [
+        "radial_velocity_kms",
+        "temperature_k",
+        "luminosity_solar",
+        "metallicity_dex",
+        "age_gyr",
+        "spectral_type"
+      ],
+      "supplementedFields": {
+        "mass_solar": "estimated",
+        "radius_solar": "estimated"
+      }
+    },
+    {
+      "starId": "cns5-4901",
+      "name": "HD 331161A",
+      "system": "HD 331161",
+      "component": "A",
+      "missingFields": [],
+      "supplementedFields": {}
+    },
+    {
+      "starId": "cns5-4902",
+      "name": "HD 331161B",
+      "system": "HD 331161",
+      "component": "B",
+      "missingFields": [
+        "age_gyr"
+      ],
+      "supplementedFields": {
+        "mass_solar": "estimated"
+      }
+    },
+    {
+      "starId": "cns5-1703",
+      "name": "HD 50281",
+      "system": "HD 50281",
+      "component": "A",
+      "missingFields": [],
+      "supplementedFields": {}
+    },
+    {
+      "starId": "cns5-1702",
+      "name": "HD 50281 Ba",
+      "system": "HD 50281",
+      "component": "Ba",
+      "missingFields": [
+        "absolute_mag",
+        "radial_velocity_kms",
+        "temperature_k",
+        "mass_solar",
+        "luminosity_solar",
+        "radius_solar",
+        "metallicity_dex",
+        "age_gyr",
+        "spectral_type"
+      ],
+      "supplementedFields": {}
+    },
+    {
+      "starId": "hd-50281-bb",
+      "name": "HD 50281 Bb",
+      "system": "HD 50281",
+      "component": "Bb",
+      "missingFields": [
+        "absolute_mag",
+        "radial_velocity_kms",
+        "temperature_k",
+        "mass_solar",
+        "luminosity_solar",
+        "radius_solar",
+        "metallicity_dex",
+        "age_gyr",
+        "spectral_type"
+      ],
+      "supplementedFields": {}
+    },
+    {
+      "starId": "cns5-2724",
+      "name": "HD 97101",
+      "system": "HD 97101",
+      "component": "A",
+      "missingFields": [
+        "absolute_mag"
+      ],
+      "supplementedFields": {}
+    },
+    {
+      "starId": "cns5-2723",
+      "name": "HD 97101B",
+      "system": "HD 97101",
+      "component": "B",
+      "missingFields": [
+        "age_gyr"
+      ],
+      "supplementedFields": {}
+    },
+    {
+      "starId": "cns5-2779",
+      "name": "HD 98712A",
+      "system": "HD 98712",
+      "component": "A",
+      "missingFields": [
+        "mass_solar",
+        "luminosity_solar",
+        "radius_solar",
+        "age_gyr"
+      ],
+      "supplementedFields": {}
+    },
+    {
+      "starId": "cns5-2778",
+      "name": "HD 98712B",
+      "system": "HD 98712",
+      "component": "B",
+      "missingFields": [
+        "luminosity_solar",
+        "metallicity_dex",
+        "age_gyr"
+      ],
+      "supplementedFields": {
+        "mass_solar": "estimated",
+        "radius_solar": "estimated"
+      }
+    },
+    {
+      "starId": "cns5-2803",
+      "name": "HD 99279 A",
+      "system": "HD 99279",
+      "component": "A",
+      "missingFields": [
+        "radial_velocity_kms",
+        "mass_solar",
+        "luminosity_solar",
+        "radius_solar",
+        "age_gyr"
+      ],
+      "supplementedFields": {}
+    },
+    {
+      "starId": "cns5-2800",
+      "name": "HD 99279B",
+      "system": "HD 99279",
+      "component": "B",
+      "missingFields": [],
+      "supplementedFields": {}
+    },
+    {
+      "starId": "cns5-5470",
+      "name": "Iota Pegasi A",
+      "system": "Iota Pegasi",
+      "component": "A",
+      "missingFields": [
+        "absolute_mag",
+        "radial_velocity_kms",
+        "metallicity_dex"
+      ],
+      "supplementedFields": {
+        "age_gyr": "model-derived",
+        "luminosity_solar": "derived",
+        "radius_solar": "derived",
+        "spectral_type": "measured",
+        "temperature_k": "estimated"
+      }
+    },
+    {
+      "starId": "iota-pegasi-b",
+      "name": "Iota Pegasi B",
+      "system": "Iota Pegasi",
+      "component": "B",
+      "missingFields": [
+        "absolute_mag",
+        "radial_velocity_kms",
+        "metallicity_dex"
+      ],
+      "supplementedFields": {
+        "age_gyr": "model-derived",
+        "luminosity_solar": "derived",
+        "radius_solar": "derived",
+        "spectral_type": "measured",
+        "temperature_k": "estimated"
+      }
+    },
+    {
+      "starId": "10pc-0109",
+      "name": "Keid",
+      "system": "Keid",
+      "component": "A",
+      "missingFields": [
+        "absolute_mag",
+        "mass_solar",
+        "luminosity_solar",
+        "radius_solar",
+        "age_gyr"
+      ],
+      "supplementedFields": {}
+    },
+    {
+      "starId": "10pc-0110",
+      "name": "GJ 166 B",
+      "system": "Keid",
+      "component": "B",
+      "missingFields": [
+        "absolute_mag",
+        "radial_velocity_kms",
+        "temperature_k",
+        "mass_solar",
+        "luminosity_solar",
+        "radius_solar",
+        "metallicity_dex",
+        "age_gyr"
+      ],
+      "supplementedFields": {}
+    },
+    {
+      "starId": "10pc-0111",
+      "name": "DY Eri",
+      "system": "Keid",
+      "component": "C",
+      "missingFields": [
+        "absolute_mag",
+        "age_gyr"
+      ],
+      "supplementedFields": {}
+    },
+    {
+      "starId": "10pc-0061",
+      "name": "Kruger 60 A",
+      "system": "Kruger 60",
+      "component": "A",
+      "missingFields": [
+        "absolute_mag",
+        "mass_solar",
+        "luminosity_solar",
+        "radius_solar",
+        "metallicity_dex",
+        "age_gyr"
+      ],
+      "supplementedFields": {}
+    },
+    {
+      "starId": "10pc-0062",
+      "name": "DO Cep",
+      "system": "Kruger 60",
+      "component": "B",
+      "missingFields": [
+        "absolute_mag",
+        "mass_solar",
+        "luminosity_solar",
+        "radius_solar",
+        "metallicity_dex",
+        "age_gyr"
+      ],
+      "supplementedFields": {}
+    },
+    {
+      "starId": "cns5-4503",
+      "name": "L 43-72 A",
+      "system": "L 43-72",
+      "component": "A",
+      "missingFields": [
+        "absolute_mag",
+        "temperature_k",
+        "mass_solar",
+        "luminosity_solar",
+        "radius_solar",
+        "metallicity_dex",
+        "age_gyr",
+        "spectral_type"
+      ],
+      "supplementedFields": {}
+    },
+    {
+      "starId": "cns5-4504",
+      "name": "L 43-72 B",
+      "system": "L 43-72",
+      "component": "B",
+      "missingFields": [
+        "absolute_mag",
+        "temperature_k",
+        "mass_solar",
+        "luminosity_solar",
+        "radius_solar",
+        "metallicity_dex",
+        "age_gyr",
+        "spectral_type"
+      ],
+      "supplementedFields": {}
+    },
+    {
+      "starId": "cns5-1951",
+      "name": "L 601-78 A",
+      "system": "L 601-78",
+      "component": "A",
+      "missingFields": [
+        "absolute_mag",
+        "temperature_k",
+        "mass_solar",
+        "luminosity_solar",
+        "radius_solar",
+        "metallicity_dex",
+        "age_gyr",
+        "spectral_type"
+      ],
+      "supplementedFields": {}
+    },
+    {
+      "starId": "cns5-1952",
+      "name": "L 601-78 B",
+      "system": "L 601-78",
+      "component": "B",
+      "missingFields": [
+        "absolute_mag",
+        "temperature_k",
+        "mass_solar",
+        "luminosity_solar",
+        "radius_solar",
+        "metallicity_dex",
+        "age_gyr",
+        "spectral_type"
+      ],
+      "supplementedFields": {}
+    },
+    {
+      "starId": "luhman-16-a",
+      "name": "Luhman 16 A",
+      "system": "Luhman 16",
+      "component": "A",
+      "missingFields": [
+        "absolute_mag",
+        "radial_velocity_kms",
+        "metallicity_dex"
+      ],
+      "supplementedFields": {}
+    },
+    {
+      "starId": "luhman-16-b",
+      "name": "Luhman 16 B",
+      "system": "Luhman 16",
+      "component": "B",
+      "missingFields": [
+        "absolute_mag",
+        "radial_velocity_kms",
+        "metallicity_dex"
+      ],
+      "supplementedFields": {}
+    },
+    {
+      "starId": "luyten-726-8-a",
+      "name": "Luyten 726-8 A",
+      "system": "Luyten 726-8",
+      "component": "A",
+      "missingFields": [
+        "radial_velocity_kms",
+        "luminosity_solar",
+        "radius_solar",
+        "metallicity_dex",
+        "age_gyr"
+      ],
+      "supplementedFields": {}
+    },
+    {
+      "starId": "luyten-726-8-b",
+      "name": "Luyten 726-8 B",
+      "system": "Luyten 726-8",
+      "component": "B",
+      "missingFields": [
+        "radial_velocity_kms",
+        "luminosity_solar",
+        "radius_solar",
+        "age_gyr"
+      ],
+      "supplementedFields": {}
+    },
+    {
+      "starId": "cns5-0317",
+      "name": "Mu Cassiopeiae A",
+      "system": "Mu Cassiopeiae",
+      "component": "A",
+      "missingFields": [],
+      "supplementedFields": {
+        "absolute_mag": "model-derived",
+        "radial_velocity_kms": "systemic-approximation"
+      }
+    },
+    {
+      "starId": "mu-cassiopeiae-b",
+      "name": "Mu Cassiopeiae B",
+      "system": "Mu Cassiopeiae",
+      "component": "B",
+      "missingFields": [
+        "metallicity_dex",
+        "spectral_type"
+      ],
+      "supplementedFields": {
+        "absolute_mag": "derived",
+        "age_gyr": "model-derived",
+        "luminosity_solar": "model-derived",
+        "radial_velocity_kms": "systemic-approximation",
+        "radius_solar": "model-derived",
+        "temperature_k": "model-derived"
+      }
+    },
+    {
+      "starId": "cns5-4401",
+      "name": "Mu Her Aa",
+      "system": "Mu Her",
+      "component": "Aa",
+      "missingFields": [
+        "absolute_mag",
+        "radial_velocity_kms",
+        "temperature_k",
+        "luminosity_solar",
+        "radius_solar",
+        "metallicity_dex",
+        "age_gyr"
+      ],
+      "supplementedFields": {}
+    },
+    {
+      "starId": "mu-her-ab",
+      "name": "Mu Her Ab",
+      "system": "Mu Her",
+      "component": "Ab",
+      "missingFields": [
+        "absolute_mag",
+        "radial_velocity_kms",
+        "temperature_k",
+        "luminosity_solar",
+        "radius_solar",
+        "metallicity_dex",
+        "age_gyr",
+        "spectral_type"
+      ],
+      "supplementedFields": {}
+    },
+    {
+      "starId": "cns5-4400",
+      "name": "Mu Her B",
+      "system": "Mu Her",
+      "component": "B",
+      "missingFields": [
+        "absolute_mag",
+        "radial_velocity_kms",
+        "temperature_k",
+        "luminosity_solar",
+        "radius_solar",
+        "metallicity_dex",
+        "age_gyr",
+        "spectral_type"
+      ],
+      "supplementedFields": {}
+    },
+    {
+      "starId": "cns5-4399",
+      "name": "Mu Her C",
+      "system": "Mu Her",
+      "component": "C",
+      "missingFields": [
+        "absolute_mag",
+        "radial_velocity_kms",
+        "temperature_k",
+        "luminosity_solar",
+        "radius_solar",
+        "metallicity_dex",
+        "age_gyr",
+        "spectral_type"
+      ],
+      "supplementedFields": {}
+    },
+    {
+      "starId": "cns5-4916",
+      "name": "PM J19515-3510A",
+      "system": "PM J19515-3510",
+      "component": "A",
+      "missingFields": [
+        "absolute_mag",
+        "mass_solar",
+        "age_gyr",
+        "spectral_type"
+      ],
+      "supplementedFields": {}
+    },
+    {
+      "starId": "cns5-4917",
+      "name": "PM J19515-3510B",
+      "system": "PM J19515-3510",
+      "component": "B",
+      "missingFields": [
+        "absolute_mag",
+        "temperature_k",
+        "mass_solar",
+        "luminosity_solar",
+        "radius_solar",
+        "metallicity_dex",
+        "age_gyr",
+        "spectral_type"
+      ],
+      "supplementedFields": {}
+    },
+    {
+      "starId": "cns5-5592",
+      "name": "PM J22403-4931A",
+      "system": "PM J22403-4931",
+      "component": "A",
+      "missingFields": [
+        "temperature_k",
+        "mass_solar",
+        "luminosity_solar",
+        "radius_solar",
+        "metallicity_dex",
+        "age_gyr"
+      ],
+      "supplementedFields": {}
+    },
+    {
+      "starId": "cns5-5593",
+      "name": "PM J22403-4931B",
+      "system": "PM J22403-4931",
+      "component": "B",
+      "missingFields": [
+        "absolute_mag",
+        "mass_solar",
+        "luminosity_solar",
+        "radius_solar",
+        "metallicity_dex",
+        "age_gyr",
+        "spectral_type"
+      ],
+      "supplementedFields": {}
+    },
+    {
+      "starId": "10pc-0031",
+      "name": "Procyon A",
+      "system": "Procyon",
+      "component": "A",
+      "missingFields": [],
+      "supplementedFields": {}
+    },
+    {
+      "starId": "10pc-0032",
+      "name": "Procyon B",
+      "system": "Procyon",
+      "component": "B",
+      "missingFields": [
+        "radial_velocity_kms",
+        "metallicity_dex"
+      ],
+      "supplementedFields": {}
+    },
+    {
+      "starId": "cns5-0820",
+      "name": "Ross 370A",
+      "system": "Ross 370",
+      "component": "A",
+      "missingFields": [
+        "age_gyr"
+      ],
+      "supplementedFields": {
+        "mass_solar": "model-derived"
+      }
+    },
+    {
+      "starId": "cns5-0822",
+      "name": "Ross 370B",
+      "system": "Ross 370",
+      "component": "B",
+      "missingFields": [
+        "absolute_mag",
+        "age_gyr"
+      ],
+      "supplementedFields": {
+        "mass_solar": "model-derived"
+      }
+    },
+    {
+      "starId": "cns5-3213",
+      "name": "Ross 458 A",
+      "system": "Ross 458",
+      "component": "A",
+      "missingFields": [
+        "absolute_mag",
+        "radial_velocity_kms",
+        "temperature_k",
+        "mass_solar",
+        "luminosity_solar",
+        "radius_solar",
+        "metallicity_dex",
+        "age_gyr"
+      ],
+      "supplementedFields": {}
+    },
+    {
+      "starId": "ross-458-b",
+      "name": "Ross 458 B",
+      "system": "Ross 458",
+      "component": "B",
+      "missingFields": [
+        "absolute_mag",
+        "radial_velocity_kms",
+        "mass_solar",
+        "luminosity_solar",
+        "radius_solar",
+        "metallicity_dex",
+        "age_gyr"
+      ],
+      "supplementedFields": {
+        "temperature_k": "estimated"
+      }
+    },
+    {
+      "starId": "cns5-3212",
+      "name": "BD+13 2618C",
+      "system": "Ross 458",
+      "component": "C",
+      "missingFields": [
+        "absolute_mag",
+        "radial_velocity_kms",
+        "temperature_k",
+        "mass_solar",
+        "luminosity_solar",
+        "radius_solar",
+        "metallicity_dex",
+        "age_gyr"
+      ],
+      "supplementedFields": {}
+    },
+    {
+      "starId": "cns5-3317",
+      "name": "Ross 486A",
+      "system": "Ross 486",
+      "component": "A",
+      "missingFields": [
+        "age_gyr"
+      ],
+      "supplementedFields": {}
+    },
+    {
+      "starId": "cns5-3318",
+      "name": "Ross 486B",
+      "system": "Ross 486",
+      "component": "B",
+      "missingFields": [
+        "mass_solar",
+        "luminosity_solar",
+        "radius_solar",
+        "metallicity_dex",
+        "age_gyr"
+      ],
+      "supplementedFields": {}
+    },
+    {
+      "starId": "cns5-3682",
+      "name": "Ross 52A",
+      "system": "Ross 52",
+      "component": "A",
+      "missingFields": [
+        "absolute_mag",
+        "radial_velocity_kms",
+        "temperature_k",
+        "mass_solar",
+        "luminosity_solar",
+        "radius_solar",
+        "metallicity_dex",
+        "age_gyr",
+        "spectral_type"
+      ],
+      "supplementedFields": {}
+    },
+    {
+      "starId": "cns5-3683",
+      "name": "Ross 52B",
+      "system": "Ross 52",
+      "component": "B",
+      "missingFields": [
+        "absolute_mag",
+        "temperature_k",
+        "mass_solar",
+        "luminosity_solar",
+        "radius_solar",
+        "metallicity_dex",
+        "age_gyr",
+        "spectral_type"
+      ],
+      "supplementedFields": {}
+    },
+    {
+      "starId": "cns5-1615",
+      "name": "SCR J0630-7643A",
+      "system": "SCR J0630-7643",
+      "component": "A",
+      "missingFields": [
+        "absolute_mag",
+        "radial_velocity_kms",
+        "temperature_k",
+        "mass_solar",
+        "luminosity_solar",
+        "radius_solar",
+        "metallicity_dex",
+        "age_gyr",
+        "spectral_type"
+      ],
+      "supplementedFields": {}
+    },
+    {
+      "starId": "cns5-1616",
+      "name": "SCR J0630-7643B",
+      "system": "SCR J0630-7643",
+      "component": "B",
+      "missingFields": [
+        "absolute_mag",
+        "radial_velocity_kms",
+        "temperature_k",
+        "mass_solar",
+        "luminosity_solar",
+        "radius_solar",
+        "metallicity_dex",
+        "age_gyr",
+        "spectral_type"
+      ],
+      "supplementedFields": {}
+    },
+    {
+      "starId": "10pc-0063",
+      "name": "SCR J1845-6357 A",
+      "system": "SCR J1845-6357",
+      "component": "A",
+      "missingFields": [
+        "absolute_mag",
+        "metallicity_dex",
+        "age_gyr"
+      ],
+      "supplementedFields": {}
+    },
+    {
+      "starId": "10pc-0064",
+      "name": "SCR J1845-6357 B",
+      "system": "SCR J1845-6357",
+      "component": "B",
+      "missingFields": [
+        "absolute_mag",
+        "radial_velocity_kms",
+        "mass_solar",
+        "luminosity_solar",
+        "radius_solar",
+        "metallicity_dex",
+        "age_gyr"
+      ],
+      "supplementedFields": {}
+    },
+    {
+      "starId": "sirius-a",
+      "name": "Sirius A",
+      "system": "Sirius",
+      "component": "A",
+      "missingFields": [],
+      "supplementedFields": {}
+    },
+    {
+      "starId": "sirius-b",
+      "name": "Sirius B",
+      "system": "Sirius",
+      "component": "B",
+      "missingFields": [
+        "radial_velocity_kms",
+        "metallicity_dex"
+      ],
+      "supplementedFields": {}
+    },
+    {
+      "starId": "10pc-0128",
+      "name": "Stein 2051 A",
+      "system": "Stein 2051",
+      "component": "A",
+      "missingFields": [
+        "absolute_mag",
+        "mass_solar",
+        "luminosity_solar",
+        "radius_solar",
+        "age_gyr"
+      ],
+      "supplementedFields": {}
+    },
+    {
+      "starId": "10pc-0129",
+      "name": "Stein 2051 B",
+      "system": "Stein 2051",
+      "component": "B",
+      "missingFields": [
+        "absolute_mag",
+        "radial_velocity_kms",
+        "metallicity_dex",
+        "age_gyr"
+      ],
+      "supplementedFields": {}
+    },
+    {
+      "starId": "cns5-0687",
+      "name": "Theta Per",
+      "system": "Theta Per",
+      "component": "A",
+      "missingFields": [],
+      "supplementedFields": {}
+    },
+    {
+      "starId": "cns5-0686",
+      "name": "Theta Per B",
+      "system": "Theta Per",
+      "component": "B",
+      "missingFields": [
+        "age_gyr"
+      ],
+      "supplementedFields": {
+        "mass_solar": "estimated"
+      }
+    },
+    {
+      "starId": "cns5-0402",
+      "name": "Titawin",
+      "system": "Titawin",
+      "component": "A",
+      "missingFields": [],
+      "supplementedFields": {}
+    },
+    {
+      "starId": "cns5-0403",
+      "name": "Upsilon And B",
+      "system": "Titawin",
+      "component": "B",
+      "missingFields": [
+        "absolute_mag",
+        "metallicity_dex",
+        "age_gyr"
+      ],
+      "supplementedFields": {}
+    },
+    {
+      "starId": "10pc-0066",
+      "name": "V577 Mon A",
+      "system": "V577 Mon",
+      "component": "A",
+      "missingFields": [
+        "absolute_mag",
+        "mass_solar",
+        "luminosity_solar",
+        "radius_solar",
+        "age_gyr"
+      ],
+      "supplementedFields": {}
+    },
+    {
+      "starId": "10pc-0067",
+      "name": "V577 Mon B",
+      "system": "V577 Mon",
+      "component": "B",
+      "missingFields": [
+        "absolute_mag",
+        "radial_velocity_kms",
+        "mass_solar",
+        "luminosity_solar",
+        "radius_solar",
+        "metallicity_dex",
+        "age_gyr"
+      ],
+      "supplementedFields": {}
+    },
+    {
+      "starId": "cns5-3857",
+      "name": "VB 24 A",
+      "system": "VB 24",
+      "component": "A",
+      "missingFields": [
+        "absolute_mag",
+        "mass_solar",
+        "luminosity_solar",
+        "radius_solar",
+        "age_gyr"
+      ],
+      "supplementedFields": {}
+    },
+    {
+      "starId": "cns5-3858",
+      "name": "VB 24 B",
+      "system": "VB 24",
+      "component": "B",
+      "missingFields": [
+        "mass_solar",
+        "luminosity_solar",
+        "radius_solar",
+        "metallicity_dex",
+        "age_gyr"
+      ],
+      "supplementedFields": {}
+    },
+    {
+      "starId": "cns5-1866",
+      "name": "VV Lyn A",
+      "system": "VV Lyn",
+      "component": "Aa",
+      "missingFields": [
+        "absolute_mag",
+        "mass_solar",
+        "age_gyr",
+        "spectral_type"
+      ],
+      "supplementedFields": {}
+    },
+    {
+      "starId": "cns5-1865",
+      "name": "VV Lyn B",
+      "system": "VV Lyn",
+      "component": "Ab",
+      "missingFields": [
+        "absolute_mag",
+        "temperature_k",
+        "mass_solar",
+        "luminosity_solar",
+        "radius_solar",
+        "metallicity_dex",
+        "age_gyr",
+        "spectral_type"
+      ],
+      "supplementedFields": {}
+    },
+    {
+      "starId": "cns5-1863",
+      "name": "Ross 989",
+      "system": "VV Lyn",
+      "component": "B",
+      "missingFields": [
+        "age_gyr"
+      ],
+      "supplementedFields": {}
+    },
+    {
+      "starId": "cns5-5192",
+      "name": "WT 766 A",
+      "system": "WT 766",
+      "component": "Aa",
+      "missingFields": [
+        "luminosity_solar",
+        "radius_solar",
+        "metallicity_dex",
+        "age_gyr"
+      ],
+      "supplementedFields": {}
+    },
+    {
+      "starId": "wt-766-close-companion",
+      "name": "WT 766 B",
+      "system": "WT 766",
+      "component": "Ab",
+      "missingFields": [
+        "absolute_mag",
+        "radial_velocity_kms",
+        "metallicity_dex",
+        "spectral_type"
+      ],
+      "supplementedFields": {
+        "luminosity_solar": "derived"
+      }
+    },
+    {
+      "starId": "cns5-5190",
+      "name": "WT 765",
+      "system": "WT 766",
+      "component": "B",
+      "missingFields": [
+        "radial_velocity_kms",
+        "temperature_k",
+        "mass_solar",
+        "luminosity_solar",
+        "radius_solar",
+        "metallicity_dex",
+        "age_gyr"
+      ],
+      "supplementedFields": {}
+    },
+    {
+      "starId": "cns5-5510",
+      "name": "Wolf 1561 A",
+      "system": "Wolf 1561",
+      "component": "A",
+      "missingFields": [
+        "absolute_mag",
+        "mass_solar",
+        "luminosity_solar",
+        "radius_solar",
+        "age_gyr"
+      ],
+      "supplementedFields": {}
+    },
+    {
+      "starId": "cns5-5509",
+      "name": "Wolf 1561 B",
+      "system": "Wolf 1561",
+      "component": "B",
+      "missingFields": [
+        "absolute_mag",
+        "mass_solar",
+        "luminosity_solar",
+        "radius_solar",
+        "metallicity_dex",
+        "age_gyr"
+      ],
+      "supplementedFields": {}
+    },
+    {
+      "starId": "cns5-5365",
+      "name": "Wolf 940",
+      "system": "Wolf 940",
+      "component": "A",
+      "missingFields": [
+        "age_gyr"
+      ],
+      "supplementedFields": {}
+    },
+    {
+      "starId": "cns5-5364",
+      "name": "Wolf 940 B",
+      "system": "Wolf 940",
+      "component": "B",
+      "missingFields": [
+        "absolute_mag",
+        "radial_velocity_kms",
+        "mass_solar",
+        "luminosity_solar",
+        "radius_solar",
+        "metallicity_dex",
+        "age_gyr"
+      ],
+      "supplementedFields": {}
+    },
+    {
+      "starId": "cns5-3674",
+      "name": "Xi Boo A",
+      "system": "Xi Boo",
+      "component": "A",
+      "missingFields": [],
+      "supplementedFields": {}
+    },
+    {
+      "starId": "cns5-3673",
+      "name": "Xi Boo B",
+      "system": "Xi Boo",
+      "component": "B",
+      "missingFields": [
+        "mass_solar",
+        "age_gyr"
+      ],
+      "supplementedFields": {}
+    },
+    {
+      "starId": "cns5-1279",
+      "name": "Zeta Dor",
+      "system": "Zeta Dor",
+      "component": "A",
+      "missingFields": [],
+      "supplementedFields": {}
+    },
+    {
+      "starId": "cns5-1281",
+      "name": "CD-57 1079",
+      "system": "Zeta Dor",
+      "component": "B",
+      "missingFields": [
+        "age_gyr"
+      ],
+      "supplementedFields": {}
+    },
+    {
+      "starId": "cns5-4097",
+      "name": "Zeta Herculis A",
+      "system": "Zeta Herculis",
+      "component": "A",
+      "missingFields": [
+        "radial_velocity_kms",
+        "mass_solar",
+        "age_gyr"
+      ],
+      "supplementedFields": {
+        "absolute_mag": "derived",
+        "luminosity_solar": "derived",
+        "metallicity_dex": "measured",
+        "radius_solar": "derived",
+        "temperature_k": "derived"
+      }
+    },
+    {
+      "starId": "zeta-herculis-b",
+      "name": "Zeta Herculis B",
+      "system": "Zeta Herculis",
+      "component": "B",
+      "missingFields": [
+        "radial_velocity_kms",
+        "mass_solar",
+        "metallicity_dex",
+        "age_gyr",
+        "spectral_type"
+      ],
+      "supplementedFields": {
+        "absolute_mag": "derived",
+        "luminosity_solar": "derived",
+        "radius_solar": "derived",
+        "temperature_k": "derived"
+      }
+    },
+    {
+      "starId": "cns5-0833",
+      "name": "Zeta2 Ret",
+      "system": "Zeta Reticuli",
+      "component": "A",
+      "missingFields": [],
+      "supplementedFields": {}
+    },
+    {
+      "starId": "cns5-0829",
+      "name": "Zeta1 Ret",
+      "system": "Zeta Reticuli",
+      "component": "B",
+      "missingFields": [],
+      "supplementedFields": {}
+    },
+    {
+      "starId": "10pc-0040",
+      "name": "eps Ind A",
+      "system": "eps Ind",
+      "component": "A",
+      "missingFields": [
+        "absolute_mag"
+      ],
+      "supplementedFields": {}
+    },
+    {
+      "starId": "10pc-0042",
+      "name": "eps Ind Ba",
+      "system": "eps Ind",
+      "component": "Ba",
+      "missingFields": [
+        "absolute_mag",
+        "radial_velocity_kms",
+        "metallicity_dex"
+      ],
+      "supplementedFields": {}
+    },
+    {
+      "starId": "10pc-0043",
+      "name": "eps Ind Bb",
+      "system": "eps Ind",
+      "component": "Bb",
+      "missingFields": [
+        "absolute_mag",
+        "radial_velocity_kms",
+        "metallicity_dex"
+      ],
+      "supplementedFields": {}
+    },
+    {
+      "starId": "cns5-0429",
+      "name": "p Eri A",
+      "system": "p Eri",
+      "component": "A",
+      "missingFields": [],
+      "supplementedFields": {}
+    },
+    {
+      "starId": "cns5-0428",
+      "name": "p Eri B",
+      "system": "p Eri",
+      "component": "B",
+      "missingFields": [],
+      "supplementedFields": {}
+    }
+  ]
+}

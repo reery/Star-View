@@ -12,11 +12,11 @@
   ],
   "sourceRowsSearched": 5909,
   "inputSha256": {
-    "src/data/stars.csv": "b2730d990dad43bb380826c4a1c12b84cac8469bd21b3635920f6d8625cfb1a8",
-    "src/data/catalogs/nearest-100/stars.csv": "7bba6871e50af4e8db37c2ed3382212f7b11bb464e4a00d64ec15e63d1ef036e",
-    "src/data/catalogs/nearest-1000/stars.csv": "14905a4ada8de25f0ede737c04b50225c930f780ed0860484811c33bdb23788f",
-    "src/data/star-systems.json": "1c4391ab257de38b8c9eb0288e7a66f4c43287087d34692c5f979e4949246581",
-    "src/data/catalogs/nearest-1000/provenance.json": "1aa535b59945f3406c2a6c88fac84441f3432822879ba8b29a6137fcecaf1ff8",
+    "src/data/stars.csv": "1eb78fe2d531e2e6979271610113df4104121b4e3a11f75c19efb302a5bf8b7c",
+    "src/data/catalogs/nearest-100/stars.csv": "bfaf8f70668878ca089cad53ea8819ff18bbf3c7cd2527609939300736241bd3",
+    "src/data/catalogs/nearest-1000/stars.csv": "e967f1b32deaf7af0a1fd13af95d17ee25865133717d6ecc3dc0eb3b72cdc738",
+    "src/data/star-systems.json": "22a77579b11e4f5035f19be704fda78f1a6a5d409ca7ce0d5bc74aab8eaa599b",
+    "src/data/catalogs/nearest-1000/provenance.json": "8fe99b893b44461d99f74b2c6009dda32182d5c1ccce7bc78517eda664cef54c",
     "catalog-work/nearest-1000/cns5.dat": "7e8c1a2ce4a2afcd70cdf40340c9685b1ec90e8e5085a81812dfa98c5c8adbbf",
     "catalog-work/nearest-1000/simbad.csv": "0d1ab9881afdfbbac62ea7d05d31cb0d8ca4c4235a4b14eb3d0e5b789a932dbd",
     "catalog-work/nearest-100/source-input.json": "ab8a3ab6e0b0edb1372f7c58cdf4f121fe1d5d204a9a0541e6d302a5ac18c84a",
@@ -58,7 +58,7 @@
           "name": "Alpha Centauri B",
           "distancePc": 1.3318944599321674,
           "cardSystem": "Alpha Centauri",
-          "componentLabel": null,
+          "componentLabel": "B",
           "sourceRecords": [
             {
               "cns5Id": "3627",
@@ -104,7 +104,7 @@
           "name": "Sirius B",
           "distancePc": 2.6392186870286065,
           "cardSystem": "Sirius",
-          "componentLabel": null,
+          "componentLabel": "B",
           "sourceRecords": [
             {
               "cns5Id": "1675",
@@ -175,7 +175,7 @@
           "name": "Proxima Centauri",
           "distancePc": 1.3019704959364478,
           "cardSystem": "Alpha Centauri",
-          "componentLabel": null,
+          "componentLabel": "C",
           "sourceRecords": [
             {
               "cns5Id": "3591",
@@ -199,7 +199,7 @@
           "name": "Alpha Centauri A",
           "distancePc": 1.3318951120212132,
           "cardSystem": "Alpha Centauri",
-          "componentLabel": null,
+          "componentLabel": "A",
           "sourceRecords": [
             {
               "cns5Id": "3627",
@@ -223,7 +223,7 @@
           "name": "Alpha Centauri B",
           "distancePc": 1.3318944599321674,
           "cardSystem": "Alpha Centauri",
-          "componentLabel": null,
+          "componentLabel": "B",
           "sourceRecords": [
             {
               "cns5Id": "3627",
@@ -295,7 +295,7 @@
           "name": "Sirius A",
           "distancePc": 2.6392186870286065,
           "cardSystem": "Sirius",
-          "componentLabel": null,
+          "componentLabel": "A",
           "sourceRecords": [
             {
               "cns5Id": "1676",
@@ -319,7 +319,7 @@
           "name": "Sirius B",
           "distancePc": 2.6392186870286065,
           "cardSystem": "Sirius",
-          "componentLabel": null,
+          "componentLabel": "B",
           "sourceRecords": [
             {
               "cns5Id": "1675",
@@ -562,7 +562,7 @@
           "name": "Alpha Centauri B",
           "distancePc": 1.3318944599321674,
           "cardSystem": "Alpha Centauri",
-          "componentLabel": null,
+          "componentLabel": "B",
           "sourceRecords": [
             {
               "cns5Id": "3627",
@@ -608,7 +608,7 @@
           "name": "Sirius B",
           "distancePc": 2.6392186870286065,
           "cardSystem": "Sirius",
-          "componentLabel": null,
+          "componentLabel": "B",
           "sourceRecords": [
             {
               "cns5Id": "1675",
@@ -700,7 +700,7 @@
           "name": "Procyon B",
           "distancePc": 3.5141973569220766,
           "cardSystem": "Procyon",
-          "componentLabel": null,
+          "componentLabel": "B",
           "sourceRecords": [],
           "censusSystemId": "16",
           "censusNonPlanetMemberCount": 2,
@@ -999,7 +999,7 @@
           "name": "Proxima Centauri",
           "distancePc": 1.3019704959364478,
           "cardSystem": "Alpha Centauri",
-          "componentLabel": null,
+          "componentLabel": "C",
           "sourceRecords": [
             {
               "cns5Id": "3591",
@@ -1023,7 +1023,7 @@
           "name": "Alpha Centauri B",
           "distancePc": 1.3318944599321674,
           "cardSystem": "Alpha Centauri",
-          "componentLabel": null,
+          "componentLabel": "B",
           "sourceRecords": [
             {
               "cns5Id": "3627",
@@ -1047,7 +1047,7 @@
           "name": "Alpha Centauri A",
           "distancePc": 1.3318951120212132,
           "cardSystem": "Alpha Centauri",
-          "componentLabel": null,
+          "componentLabel": "A",
           "sourceRecords": [
             {
               "cns5Id": "3627",
@@ -1119,7 +1119,7 @@
           "name": "Sirius A",
           "distancePc": 2.6392186870286065,
           "cardSystem": "Sirius",
-          "componentLabel": null,
+          "componentLabel": "A",
           "sourceRecords": [
             {
               "cns5Id": "1676",
@@ -1143,7 +1143,7 @@
           "name": "Sirius B",
           "distancePc": 2.6392186870286065,
           "cardSystem": "Sirius",
-          "componentLabel": null,
+          "componentLabel": "B",
           "sourceRecords": [
             {
               "cns5Id": "1675",
@@ -1335,7 +1335,7 @@
           "name": "Procyon B",
           "distancePc": 3.5141973569220766,
           "cardSystem": "Procyon",
-          "componentLabel": null,
+          "componentLabel": "B",
           "sourceRecords": [],
           "censusSystemId": "16",
           "censusNonPlanetMemberCount": 2,
@@ -1347,7 +1347,7 @@
           "name": "Procyon A",
           "distancePc": 3.5141973573838237,
           "cardSystem": "Procyon",
-          "componentLabel": null,
+          "componentLabel": "A",
           "sourceRecords": [
             {
               "cns5Id": "1895",
@@ -2692,7 +2692,7 @@
           "name": "Alpha Centauri B",
           "distancePc": 1.3318944599321674,
           "cardSystem": "Alpha Centauri",
-          "componentLabel": null,
+          "componentLabel": "B",
           "sourceRecords": [
             {
               "cns5Id": "3627",
@@ -2738,7 +2738,7 @@
           "name": "Sirius B",
           "distancePc": 2.6392186870286065,
           "cardSystem": "Sirius",
-          "componentLabel": null,
+          "componentLabel": "B",
           "sourceRecords": [
             {
               "cns5Id": "1675",
@@ -2830,7 +2830,7 @@
           "name": "Procyon B",
           "distancePc": 3.5141973569220766,
           "cardSystem": "Procyon",
-          "componentLabel": null,
+          "componentLabel": "B",
           "sourceRecords": [],
           "censusSystemId": "16",
           "censusNonPlanetMemberCount": 2,
@@ -5358,7 +5358,7 @@
           "name": "Proxima Centauri",
           "distancePc": 1.3019704959364478,
           "cardSystem": "Alpha Centauri",
-          "componentLabel": null,
+          "componentLabel": "C",
           "sourceRecords": [
             {
               "cns5Id": "3591",
@@ -5382,7 +5382,7 @@
           "name": "Alpha Centauri B",
           "distancePc": 1.3318944599321674,
           "cardSystem": "Alpha Centauri",
-          "componentLabel": null,
+          "componentLabel": "B",
           "sourceRecords": [
             {
               "cns5Id": "3627",
@@ -5406,7 +5406,7 @@
           "name": "Alpha Centauri A",
           "distancePc": 1.3318951120212132,
           "cardSystem": "Alpha Centauri",
-          "componentLabel": null,
+          "componentLabel": "A",
           "sourceRecords": [
             {
               "cns5Id": "3627",
@@ -5478,7 +5478,7 @@
           "name": "Sirius A",
           "distancePc": 2.6392186870286065,
           "cardSystem": "Sirius",
-          "componentLabel": null,
+          "componentLabel": "A",
           "sourceRecords": [
             {
               "cns5Id": "1676",
@@ -5502,7 +5502,7 @@
           "name": "Sirius B",
           "distancePc": 2.6392186870286065,
           "cardSystem": "Sirius",
-          "componentLabel": null,
+          "componentLabel": "B",
           "sourceRecords": [
             {
               "cns5Id": "1675",
@@ -5694,7 +5694,7 @@
           "name": "Procyon B",
           "distancePc": 3.5141973569220766,
           "cardSystem": "Procyon",
-          "componentLabel": null,
+          "componentLabel": "B",
           "sourceRecords": [],
           "censusSystemId": "16",
           "censusNonPlanetMemberCount": 2,
@@ -5706,7 +5706,7 @@
           "name": "Procyon A",
           "distancePc": 3.5141973573838237,
           "cardSystem": "Procyon",
-          "componentLabel": null,
+          "componentLabel": "A",
           "sourceRecords": [
             {
               "cns5Id": "1895",
@@ -6573,7 +6573,7 @@
         {
           "starId": "cns5-0239",
           "name": "Achird",
-          "distancePc": 5.9230421956801065,
+          "distancePc": 5.922904795008456,
           "cardSystem": "Achird",
           "componentLabel": "A",
           "sourceRecords": [
@@ -7519,6 +7519,7 @@
                 "value": 0.744
               },
               "metallicity_dex": {
+                "quantity": "photospheric [Fe/H]",
                 "reference": "2020ApJ...904..112B",
                 "status": "measured",
                 "uncertainty": 0.03,
@@ -12338,6 +12339,7 @@
                 "value": 2.5687
               },
               "metallicity_dex": {
+                "quantity": "photospheric [Fe/H]",
                 "reference": "arXiv:1505.07461:Table 3",
                 "status": "measured",
                 "uncertainty": 0.06,

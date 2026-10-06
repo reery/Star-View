@@ -1,0 +1,45 @@
+#
+#   VizieR Astronomical Server vizier.cfa.harvard.edu
+#    Date: 2026-10-06T11:48:16 [V7.6]
+#   In case of problem, please report to:	cds-question@unistra.fr
+#
+#
+#Coosys	J2000:	eq_FK5 J2000
+#INFO	service_protocol=ASU	  IVOID of the protocol through which the data was retrieved
+#INFO	request_date=2026-10-06T11:48:16	  Query execution date
+#INFO	request=https://vizier.cfa.harvard.edu/viz-bin/asu-tsv?-source=I/345/gaia2&Source=425040000959067008&-out=Source,Teff,Rad,b_Rad,B_Rad,Lum,b_Lum,B_Lum	  Full request URL
+#INFO	contact=cds-question@unistra.fr	  Email or URL to contact publisher
+#INFO	server_software=VizieR/7.6	  Software version
+#INFO	publisher=CDS	  Data centre that produced the VOTable
+#INFO	MaxTuples=50000	
+
+#RESOURCE=yCat_1345
+#Name: I/345
+#Title: Gaia DR2 (Gaia Collaboration, 2018)
+#INFO	ivoid=ivo://cds.vizier/i/345	    IVOID of underlying data collection
+#INFO	data_ivoid=ivo://cds.vizier/i/345	    IVOID of underlying data collection
+#INFO	creator=Gaia collaboration	    First author or institution
+#INFO	cites=bibcode:2018A&A...616A...1G	    Article or Data origin sources
+#INFO	journal=A&A	    Journal name
+#INFO	original_date=2018	    Year of the article publication
+#INFO	reference_url=https://cdsarc.cds.unistra.fr/viz-bin/cat/I/345	    Dataset landing page
+#INFO	citation=doi:10.26093/cds/vizier.1345	    Dataset identifier that can be used for citation
+#INFO	publication_date=2023-12-19	    Date of first publication in the data centre
+#INFO	rights_uri=https://cds.unistra.fr/vizier-org/licences_vizier.html	    Licence URI
+#Coosys	H_2015.500:	ICRS
+#Table	I_345_gaia2:
+#Name: I/345/gaia2
+#Title: GaiaSource DR2 data
+#Column	Source	(I19)	Unique source identifier (unique within a particular Data Release) (source_id) (G2)	[ucd=meta.id;meta.main]
+#Column	Teff	(F7.2)	? Stellar effective temperature (estimate from Apsis-Priam) (teff_val)	[ucd=phys.temperature.effective]
+#Column	Rad	(F6.2)	? Estimate of radius from Apsis-FLAME (radius_val)	[ucd=phys.size.radius]
+#Column	b_Rad	(F6.2)	? Uncertainty (lower) on radius estimate from Apsis-FLAME (16th percentile) (radius_percentile_lower)	[ucd=phys.size.radius;stat.min]
+#Column	B_Rad	(F7.2)	? Uncertainty (upper) on radius estimate from Apsis-FLAME (84th percentile) (radius_percentile_upper)	[ucd=phys.size.radius;stat.max]
+#Column	Lum	(F9.3)	? Esimate of luminosity from Apsis-FLAME (lum_val)	[ucd=phys.luminosity]
+#Column	b_Lum	(F9.3)	? Uncertainty (lower) on luminosity estimate from Apsis-FLAME (16th percentile) (lum_percentile_lower)	[ucd=phys.luminosity;stat.min]
+#Column	B_Lum	(F9.3)	? Uncertainty (upper) on luminosity estimate from Apsis-FLAME (84th percentile) (lum_percentile_upper)	[ucd=phys.luminosity;stat.max]
+Source	Teff	Rad	b_Rad	B_Rad	Lum	b_Lum	B_Lum
+ 	K	solRad	solRad	solRad	solLum	solLum	solLum
+-------------------	-------	------	------	-------	---------	---------	---------
+ 425040000959067008	4091.89	  0.57	  0.54	   0.59	    0.082	    0.082	    0.082
+

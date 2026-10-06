@@ -5,10 +5,10 @@
   "policyRevision": "confirmed-membership-v2",
   "inputSha256": "ab8a3ab6e0b0edb1372f7c58cdf4f121fe1d5d204a9a0541e6d302a5ac18c84a",
   "supplementManifestSha256": "92cb2daae1b7319401890f4e1de7f904d1d1b0375b3ac2dc93c8c41c5ecd0073",
-  "gaiaSourceManifestSha256": "2be61990729716fc4005ca5e0998ea2a67939060e8161391898fd32d20fff974",
-  "physicalOverridesSha256": "59aeae9b903d977b550843799a09888a24cbb0f7ead137baf4d51765ea7738c9",
+  "gaiaSourceManifestSha256": "5744f1665fe2700b5acaf88fd2cc46a4f2a0e2a75d75c03290b769b64c3cb315",
+  "physicalOverridesSha256": "4f739cbcda0cb71b78447213c389aa3da8456b2e83072a8dfc6b5dd40f96b3b9",
   "physicalPolicyRevision": "nearest100-reviewed-gaia-shared-v2",
-  "sharedEnrichmentManifestSha256": "724d1da5b0cc21bd0f4d7e734e546aa09014d32330d1896ebca775bf7b593244",
+  "sharedEnrichmentManifestSha256": "29999eee6fd64ead674fb8dab1f595d27f8b3e4a32354c264f2e1bb645f2b401",
   "sources": [
     {
       "name": "10pc census, Reyle et al., tablea1 update 2023-08-25",
@@ -153,6 +153,18 @@
     {
       "name": "Kallinger et al. 2019, Rho Persei granulation-scaling mass and published SED luminosity/radius",
       "url": "https://arxiv.org/html/1902.07531"
+    },
+    {
+      "name": "Kervella et al. 2016, GJ 65 A/B resolved interferometric radii and photospheric iron abundances",
+      "url": "https://arxiv.org/abs/1607.04351"
+    },
+    {
+      "name": "MacDonald et al. 2018, GJ 65 A/B resolved bolometric luminosities and radius-based effective temperatures",
+      "url": "https://arxiv.org/abs/1711.09434"
+    },
+    {
+      "name": "GRAVITY Collaboration 2024, GJ 65 A/B individual dynamical masses",
+      "url": "https://arxiv.org/html/2404.08746v1"
     }
   ],
   "sourceChecksumsSha256": {
@@ -196,10 +208,10 @@
     "spectral_type": 101,
     "temperature_k": 97,
     "mass_solar": 66,
-    "luminosity_solar": 68,
-    "radius_solar": 67,
-    "metallicity_dex": 62,
-    "age_gyr": 14,
+    "luminosity_solar": 70,
+    "radius_solar": 70,
+    "metallicity_dex": 64,
+    "age_gyr": 15,
     "absolute_mag": 50,
     "fullVelocity": 72,
     "rawAstrometry": 100,
@@ -4820,6 +4832,9 @@
   "objects": [
     {
       "id": "sun",
+      "status": "adopted solar reference",
+      "sourceFile": "catalog-work/solar-reference/adopted.json",
+      "sourceSha256": "307056f03c6afeadf7dc5447dce0ed97380facec2251977279d785e1b3d19be1",
       "fields": {
         "type": {
           "status": "adopted",
@@ -4840,10 +4855,10 @@
           ]
         },
         "spectral_type": {
+          "value": "G2V",
           "status": "adopted",
-          "sourceRefs": [
-            "legacy-neighbors:sun"
-          ]
+          "sourceReference": "NASA:sunfact:2024-05-09",
+          "sourceUrl": "https://nssdc.gsfc.nasa.gov/planetary/factsheet/sunfact.html"
         },
         "x_pc": {
           "status": "adopted",
@@ -4882,40 +4897,57 @@
           ]
         },
         "temperature_k": {
+          "value": "5772",
           "status": "adopted",
-          "sourceRefs": [
-            "legacy-neighbors:sun"
-          ]
+          "sourceReference": "IAU:2015:B3",
+          "sourceUrl": "https://arxiv.org/abs/1510.07674"
         },
         "mass_solar": {
-          "status": "adopted",
-          "sourceRefs": [
-            "legacy-neighbors:sun"
-          ]
+          "value": "1",
+          "status": "defined",
+          "sourceReference": "solar-relative-unit",
+          "caveat": "Unity as the reference for solar-relative mass; not an independent mass measurement."
         },
         "luminosity_solar": {
-          "status": "adopted",
-          "sourceRefs": [
-            "legacy-neighbors:sun"
-          ]
+          "value": "1",
+          "status": "defined",
+          "sourceReference": "solar-relative-unit",
+          "caveat": "Unity as the reference for solar-relative luminosity; nominal solar luminosity is 3.828e26 W (IAU 2015 B3)."
         },
         "radius_solar": {
-          "status": "unknown",
-          "sourceRefs": []
+          "value": "1",
+          "status": "adopted",
+          "sourceReference": "IAU:2015:B3",
+          "sourceUrl": "https://arxiv.org/abs/1510.07674",
+          "caveat": "Nominal solar radius is an exact conversion constant, 695700 km; not an uncertainty-free measurement of the variable physical Sun."
         },
         "metallicity_dex": {
-          "status": "unknown",
-          "sourceRefs": []
+          "value": "0",
+          "status": "defined",
+          "sourceReference": "SDSS:DR15:ASPCAP:MH-definition",
+          "sourceUrl": "https://www.sdss4.org/dr15/irspec/aspcap/",
+          "quantity": "[M/H]",
+          "caveat": "The present Sun is the zero point of this logarithmic solar-relative abundance scale. Zero dex does not imply zero metals and is not the protosolar heavy-element mass fraction."
         },
         "age_gyr": {
-          "status": "unknown",
-          "sourceRefs": []
+          "value": "4.6",
+          "status": "estimated",
+          "sourceReference": "NASA:sun-facts:formation-age",
+          "sourceUrl": "https://science.nasa.gov/sun/facts/",
+          "caveat": "Rounded approximate age since formation; no fabricated uncertainty or extra precision is adopted."
+        },
+        "metallicity_kind": {
+          "value": "[M/H]",
+          "status": "defined",
+          "sourceReference": "SDSS:DR15:ASPCAP:MH-definition",
+          "sourceUrl": "https://www.sdss4.org/dr15/irspec/aspcap/"
         },
         "absolute_mag": {
+          "value": "4.83",
           "status": "adopted",
-          "sourceRefs": [
-            "NASA:sunfact:2024-05-09"
-          ]
+          "sourceReference": "NASA:sunfact:2024-05-09",
+          "sourceUrl": "https://nssdc.gsfc.nasa.gov/planetary/factsheet/sunfact.html",
+          "caveat": "Johnson V absolute visual magnitude, not bolometric magnitude."
         },
         "epoch": {
           "status": "adopted",
@@ -4936,79 +4968,79 @@
           ]
         },
         "ra_deg": {
-          "status": "adopted",
+          "status": "not-applicable",
           "sourceRefs": [
             "legacy-neighbors:sun"
           ]
         },
         "dec_deg": {
-          "status": "adopted",
+          "status": "not-applicable",
           "sourceRefs": [
             "legacy-neighbors:sun"
           ]
         },
         "astrometry_epoch": {
-          "status": "adopted",
+          "status": "not-applicable",
           "sourceRefs": [
             "legacy-neighbors:sun"
           ]
         },
         "parallax_mas": {
-          "status": "adopted",
+          "status": "not-applicable",
           "sourceRefs": [
             "legacy-neighbors:sun"
           ]
         },
         "parallax_error_mas": {
-          "status": "adopted",
+          "status": "not-applicable",
           "sourceRefs": [
             "legacy-neighbors:sun"
           ]
         },
         "pm_ra_cosdec_masyr": {
-          "status": "adopted",
+          "status": "not-applicable",
           "sourceRefs": [
             "legacy-neighbors:sun"
           ]
         },
         "pm_ra_error_masyr": {
-          "status": "adopted",
+          "status": "not-applicable",
           "sourceRefs": [
             "legacy-neighbors:sun"
           ]
         },
         "pm_dec_masyr": {
-          "status": "adopted",
+          "status": "not-applicable",
           "sourceRefs": [
             "legacy-neighbors:sun"
           ]
         },
         "pm_dec_error_masyr": {
-          "status": "adopted",
+          "status": "not-applicable",
           "sourceRefs": [
             "legacy-neighbors:sun"
           ]
         },
         "radial_velocity_kms": {
-          "status": "adopted",
+          "status": "not-applicable",
           "sourceRefs": [
             "legacy-neighbors:sun"
           ]
         },
         "radial_velocity_error_kms": {
-          "status": "adopted",
+          "status": "not-applicable",
           "sourceRefs": [
             "legacy-neighbors:sun"
           ]
         },
         "astrometry_ref": {
-          "status": "adopted",
+          "status": "not-applicable",
           "sourceRefs": [
             "legacy-neighbors:sun"
           ]
         },
         "radial_velocity_ref": {
-          "status": "adopted",
+          "status": "not-applicable",
           "sourceRefs": [
             "legacy-neighbors:sun"
           ]
@@ -5255,6 +5287,10 @@
           "detail": "Gaia DR3 exact-ID model value; uncertainty 0.0020000000000000018; quality flags none"
         },
         "age_gyr": {
+          "status": "unknown",
+          "sourceRefs": []
+        },
+        "metallicity_kind": {
           "status": "unknown",
           "sourceRefs": []
         }
@@ -5614,6 +5650,10 @@
             "2018ApJ...864...99J:alpha-centauri-b"
           ],
           "detail": "primary-paper; uncertainty 0.3; shared binary age, classical plus asteroseismic stellar models"
+        },
+        "metallicity_kind": {
+          "status": "unknown",
+          "sourceRefs": []
         }
       },
       "overrides": [
@@ -5627,7 +5667,7 @@
         "eligibility": "Not a parsed K5-M9.5 dwarf spectral type (no subdwarf, giant, composite or peculiar class); supplements not applied."
       },
       "reviewedPhysical": {
-        "inputSha256": "59aeae9b903d977b550843799a09888a24cbb0f7ead137baf4d51765ea7738c9",
+        "inputSha256": "4f739cbcda0cb71b78447213c389aa3da8456b2e83072a8dfc6b5dd40f96b3b9",
         "observations": [
           {
             "source_id": "primary-paper",
@@ -5976,6 +6016,10 @@
             "2018ApJ...864...99J:alpha-centauri-a"
           ],
           "detail": "primary-paper; uncertainty 0.3; shared binary age, classical plus asteroseismic stellar models"
+        },
+        "metallicity_kind": {
+          "status": "unknown",
+          "sourceRefs": []
         }
       },
       "overrides": [
@@ -5989,7 +6033,7 @@
         "eligibility": "Not a parsed K5-M9.5 dwarf spectral type (no subdwarf, giant, composite or peculiar class); supplements not applied."
       },
       "reviewedPhysical": {
-        "inputSha256": "59aeae9b903d977b550843799a09888a24cbb0f7ead137baf4d51765ea7738c9",
+        "inputSha256": "4f739cbcda0cb71b78447213c389aa3da8456b2e83072a8dfc6b5dd40f96b3b9",
         "observations": [
           {
             "source_id": "primary-paper",
@@ -6315,6 +6359,10 @@
           "detail": "Gaia DR3 exact-ID model value; uncertainty 0.04069999999999996; quality flags none"
         },
         "age_gyr": {
+          "status": "unknown",
+          "sourceRefs": []
+        },
+        "metallicity_kind": {
           "status": "unknown",
           "sourceRefs": []
         }
@@ -6662,6 +6710,10 @@
             "2024AN....34530158B:luhman-16-a"
           ],
           "detail": "primary-paper; uncertainty 0.095; assuming Oceanus moving-group membership, evolutionary-model component ages remain discrepant"
+        },
+        "metallicity_kind": {
+          "status": "unknown",
+          "sourceRefs": []
         }
       },
       "overrides": [
@@ -6687,7 +6739,7 @@
         }
       },
       "reviewedPhysical": {
-        "inputSha256": "59aeae9b903d977b550843799a09888a24cbb0f7ead137baf4d51765ea7738c9",
+        "inputSha256": "4f739cbcda0cb71b78447213c389aa3da8456b2e83072a8dfc6b5dd40f96b3b9",
         "observations": [
           {
             "source_id": "primary-paper",
@@ -6993,6 +7045,10 @@
             "2024AN....34530158B:luhman-16-b"
           ],
           "detail": "primary-paper; uncertainty 0.095; assuming Oceanus moving-group membership, evolutionary-model component ages remain discrepant"
+        },
+        "metallicity_kind": {
+          "status": "unknown",
+          "sourceRefs": []
         }
       },
       "overrides": [
@@ -7018,7 +7074,7 @@
         }
       },
       "reviewedPhysical": {
-        "inputSha256": "59aeae9b903d977b550843799a09888a24cbb0f7ead137baf4d51765ea7738c9",
+        "inputSha256": "4f739cbcda0cb71b78447213c389aa3da8456b2e83072a8dfc6b5dd40f96b3b9",
         "observations": [
           {
             "source_id": "primary-paper",
@@ -7319,6 +7375,10 @@
         "age_gyr": {
           "status": "unknown",
           "sourceRefs": []
+        },
+        "metallicity_kind": {
+          "status": "unknown",
+          "sourceRefs": []
         }
       },
       "overrides": [
@@ -7345,7 +7405,7 @@
         }
       },
       "reviewedPhysical": {
-        "inputSha256": "59aeae9b903d977b550843799a09888a24cbb0f7ead137baf4d51765ea7738c9",
+        "inputSha256": "4f739cbcda0cb71b78447213c389aa3da8456b2e83072a8dfc6b5dd40f96b3b9",
         "observations": [
           {
             "source_id": "primary-paper",
@@ -7606,6 +7666,10 @@
           "detail": "{\"field\": \"metallicity_dex\", \"identity\": \"Wolf 359\", \"quantity\": \"photospheric [Fe/H]\", \"reference\": \"2024A&A...691A..53S\", \"scope\": \"catalogued stellar object\", \"selection\": \"Newest within 0.3 dex / 10 percent of the median; strict majority required for multiple observations\", \"sourceRecordId\": \"Wolf 359:mesFe_h:1\", \"status\": \"measured\", \"uncertainty\": null, \"value\": 0.18}"
         },
         "age_gyr": {
+          "status": "unknown",
+          "sourceRefs": []
+        },
+        "metallicity_kind": {
           "status": "unknown",
           "sourceRefs": []
         }
@@ -7903,6 +7967,10 @@
           "detail": "Gaia DR3 exact-ID model value; uncertainty 0.003999999999999976; quality flags none"
         },
         "age_gyr": {
+          "status": "unknown",
+          "sourceRefs": []
+        },
+        "metallicity_kind": {
           "status": "unknown",
           "sourceRefs": []
         }
@@ -8245,6 +8313,10 @@
             "2017ApJ...840...70B:sirius-a"
           ],
           "detail": "primary-paper; uncertainty 0.015; midpoint of independent 237-247 Myr model results"
+        },
+        "metallicity_kind": {
+          "status": "unknown",
+          "sourceRefs": []
         }
       },
       "overrides": [
@@ -8260,7 +8332,7 @@
         "eligibility": "Not a parsed K5-M9.5 dwarf spectral type (no subdwarf, giant, composite or peculiar class); supplements not applied."
       },
       "reviewedPhysical": {
-        "inputSha256": "59aeae9b903d977b550843799a09888a24cbb0f7ead137baf4d51765ea7738c9",
+        "inputSha256": "4f739cbcda0cb71b78447213c389aa3da8456b2e83072a8dfc6b5dd40f96b3b9",
         "observations": [
           {
             "source_id": "primary-paper",
@@ -8590,6 +8662,10 @@
             "2017ApJ...840...70B:sirius-b"
           ],
           "detail": "primary-paper; uncertainty 0.01; total age including progenitor lifetime, not the 126 Myr cooling age"
+        },
+        "metallicity_kind": {
+          "status": "unknown",
+          "sourceRefs": []
         }
       },
       "overrides": [
@@ -8605,7 +8681,7 @@
         "eligibility": "Not a parsed K5-M9.5 dwarf spectral type (no subdwarf, giant, composite or peculiar class); supplements not applied."
       },
       "reviewedPhysical": {
-        "inputSha256": "59aeae9b903d977b550843799a09888a24cbb0f7ead137baf4d51765ea7738c9",
+        "inputSha256": "4f739cbcda0cb71b78447213c389aa3da8456b2e83072a8dfc6b5dd40f96b3b9",
         "observations": [
           {
             "source_id": "primary-paper",
@@ -8782,22 +8858,25 @@
           ]
         },
         "temperature_k": {
-          "status": "adopted-existing",
+          "status": "derived",
           "sourceRefs": [
-            "legacy-neighbors:luyten-726-8-a"
-          ]
+            "2018ApJ...860...15M:luyten-726-8-a"
+          ],
+          "detail": "primary-paper; uncertainty 58.0; Bolometric flux with BT-Settl missing-flux correction and Kervella 2016 radius; not a spectral-class temperature., 2, final component luminosities and temperatures, https://arxiv.org/abs/1711.09434"
         },
         "mass_solar": {
-          "status": "adopted-existing",
+          "status": "measured",
           "sourceRefs": [
-            "legacy-neighbors:luyten-726-8-a"
-          ]
+            "2024A&A...685L...9G:luyten-726-8-a"
+          ],
+          "detail": "primary-paper; uncertainty 0.002; GRAVITY 2024 orbit and adopted parallax; not the binary total mass., Table 1, https://arxiv.org/html/2404.08746v1"
         },
         "luminosity_solar": {
-          "status": "unknown",
+          "status": "model-derived",
           "sourceRefs": [
-            "legacy-neighbors:luyten-726-8-a"
-          ]
+            "2018ApJ...860...15M"
+          ],
+          "detail": "{\"caveat\": \"Resolved flux ratio and BT-Settl correction outside 1.0435-3.770 microns; retained at the published distance.\", \"component\": \"A\", \"field\": \"luminosity_solar\", \"identity\": \"G 272-61A\", \"inputs\": {\"parallax_mas\": 373.7}, \"quantity\": \"component bolometric luminosity\", \"reference\": \"2018ApJ...860...15M\", \"scope\": \"Individual A component, not the unresolved GJ 65 binary.\", \"section\": \"2, final component luminosities\", \"sourceUrl\": \"https://arxiv.org/abs/1711.09434\", \"status\": \"model-derived\", \"uncertainty\": 5e-05, \"value\": 0.00147}"
         },
         "absolute_mag": {
           "status": "adopted-existing",
@@ -8903,14 +8982,24 @@
           ]
         },
         "radius_solar": {
-          "status": "unknown",
-          "sourceRefs": []
+          "status": "derived",
+          "sourceRefs": [
+            "2016A&A...593A.127K"
+          ],
+          "detail": "{\"caveat\": \"Published limb-darkened diameter and parallax, not recomputed with orbit-contaminated Gaia component parallaxes.\", \"component\": \"A\", \"field\": \"radius_solar\", \"identity\": \"G 272-61A\", \"inputs\": {\"limb_darkened_angular_diameter_mas\": 0.573, \"parallax_mas\": 373.7}, \"quantity\": \"interferometric photospheric radius\", \"reference\": \"2016A&A...593A.127K\", \"scope\": \"Individual A component, not the unresolved GJ 65 binary.\", \"section\": \"2.1 and Table 4\", \"sourceUrl\": \"https://arxiv.org/abs/1607.04351\", \"status\": \"derived\", \"uncertainty\": 0.006, \"value\": 0.165}"
         },
         "metallicity_dex": {
+          "status": "measured",
+          "sourceRefs": [
+            "2016A&A...593A.127K"
+          ],
+          "detail": "{\"caveat\": \"Component-resolved UVES spectrum fitted relative to Proxima; method-dependent abundance. Adopted consistently for both A and B from Kervella et al. (2016), with +/-0.20 dex uncertainty.\", \"component\": \"A\", \"field\": \"metallicity_dex\", \"identity\": \"G 272-61A\", \"quantity\": \"photospheric [Fe/H]\", \"reference\": \"2016A&A...593A.127K\", \"scope\": \"Individual A component, not the unresolved GJ 65 binary.\", \"section\": \"2.3 and Table 4\", \"sourceUrl\": \"https://arxiv.org/abs/1607.04351\", \"status\": \"measured\", \"uncertainty\": 0.2, \"value\": -0.03}"
+        },
+        "age_gyr": {
           "status": "unknown",
           "sourceRefs": []
         },
-        "age_gyr": {
+        "metallicity_kind": {
           "status": "unknown",
           "sourceRefs": []
         }
@@ -8942,6 +9031,94 @@
           "reasons": [
             "No unique 2MASS identifier"
           ]
+        }
+      },
+      "sharedPhysicalEnrichment": {
+        "luminosity_solar": {
+          "field": "luminosity_solar",
+          "value": 0.00147,
+          "status": "model-derived",
+          "reference": "2018ApJ...860...15M",
+          "uncertainty": 5e-05,
+          "identity": "G 272-61A",
+          "component": "A",
+          "scope": "Individual A component, not the unresolved GJ 65 binary.",
+          "section": "2, final component luminosities",
+          "caveat": "Resolved flux ratio and BT-Settl correction outside 1.0435-3.770 microns; retained at the published distance.",
+          "quantity": "component bolometric luminosity",
+          "sourceUrl": "https://arxiv.org/abs/1711.09434",
+          "inputs": {
+            "parallax_mas": 373.7
+          }
+        },
+        "radius_solar": {
+          "field": "radius_solar",
+          "value": 0.165,
+          "status": "derived",
+          "reference": "2016A&A...593A.127K",
+          "uncertainty": 0.006,
+          "identity": "G 272-61A",
+          "component": "A",
+          "scope": "Individual A component, not the unresolved GJ 65 binary.",
+          "section": "2.1 and Table 4",
+          "caveat": "Published limb-darkened diameter and parallax, not recomputed with orbit-contaminated Gaia component parallaxes.",
+          "quantity": "interferometric photospheric radius",
+          "sourceUrl": "https://arxiv.org/abs/1607.04351",
+          "inputs": {
+            "limb_darkened_angular_diameter_mas": 0.573,
+            "parallax_mas": 373.7
+          }
+        },
+        "metallicity_dex": {
+          "field": "metallicity_dex",
+          "value": -0.03,
+          "status": "measured",
+          "reference": "2016A&A...593A.127K",
+          "uncertainty": 0.2,
+          "identity": "G 272-61A",
+          "component": "A",
+          "scope": "Individual A component, not the unresolved GJ 65 binary.",
+          "section": "2.3 and Table 4",
+          "caveat": "Component-resolved UVES spectrum fitted relative to Proxima; method-dependent abundance. Adopted consistently for both A and B from Kervella et al. (2016), with +/-0.20 dex uncertainty.",
+          "quantity": "photospheric [Fe/H]",
+          "sourceUrl": "https://arxiv.org/abs/1607.04351"
+        }
+      },
+      "reviewedPhysical": {
+        "inputSha256": "4f739cbcda0cb71b78447213c389aa3da8456b2e83072a8dfc6b5dd40f96b3b9",
+        "observations": [
+          {
+            "source_id": "primary-paper",
+            "source_record_id": "luyten-726-8-a",
+            "field": "temperature_k",
+            "value": 2784.0,
+            "uncertainty": 58.0,
+            "status": "derived",
+            "reference": "2018ApJ...860...15M",
+            "quality_flags": [
+              "Bolometric flux with BT-Settl missing-flux correction and Kervella 2016 radius; not a spectral-class temperature.",
+              "2, final component luminosities and temperatures",
+              "https://arxiv.org/abs/1711.09434"
+            ]
+          },
+          {
+            "source_id": "primary-paper",
+            "source_record_id": "luyten-726-8-a",
+            "field": "mass_solar",
+            "value": 0.122,
+            "uncertainty": 0.002,
+            "status": "measured",
+            "reference": "2024A&A...685L...9G",
+            "quality_flags": [
+              "GRAVITY 2024 orbit and adopted parallax; not the binary total mass.",
+              "Table 1",
+              "https://arxiv.org/html/2404.08746v1"
+            ]
+          }
+        ],
+        "adopted": {
+          "temperature_k": "2018ApJ...860...15M:luyten-726-8-a",
+          "mass_solar": "2024A&A...685L...9G:luyten-726-8-a"
         }
       }
     },
@@ -9049,22 +9226,25 @@
           ]
         },
         "temperature_k": {
-          "status": "adopted-existing",
+          "status": "derived",
           "sourceRefs": [
-            "legacy-neighbors:luyten-726-8-b"
-          ]
+            "2018ApJ...860...15M:luyten-726-8-b"
+          ],
+          "detail": "primary-paper; uncertainty 60.0; Bolometric flux with BT-Settl missing-flux correction and Kervella 2016 radius; not a spectral-class temperature., 2, final component luminosities and temperatures, https://arxiv.org/abs/1711.09434"
         },
         "mass_solar": {
-          "status": "adopted-existing",
+          "status": "measured",
           "sourceRefs": [
-            "legacy-neighbors:luyten-726-8-b"
-          ]
+            "2024A&A...685L...9G:luyten-726-8-b"
+          ],
+          "detail": "primary-paper; uncertainty 0.002; GRAVITY 2024 orbit and adopted parallax; not the binary total mass., Table 1, https://arxiv.org/html/2404.08746v1"
         },
         "luminosity_solar": {
-          "status": "unknown",
+          "status": "model-derived",
           "sourceRefs": [
-            "legacy-neighbors:luyten-726-8-b"
-          ]
+            "2018ApJ...860...15M"
+          ],
+          "detail": "{\"caveat\": \"Resolved flux ratio and BT-Settl correction outside 1.0435-3.770 microns; retained at the published distance.\", \"component\": \"B\", \"field\": \"luminosity_solar\", \"identity\": \"G 272-61B\", \"inputs\": {\"parallax_mas\": 373.7}, \"quantity\": \"component bolometric luminosity\", \"reference\": \"2018ApJ...860...15M\", \"scope\": \"Individual B component, not the unresolved GJ 65 binary.\", \"section\": \"2, final component luminosities\", \"sourceUrl\": \"https://arxiv.org/abs/1711.09434\", \"status\": \"model-derived\", \"uncertainty\": 5e-05, \"value\": 0.00125}"
         },
         "absolute_mag": {
           "status": "adopted-existing",
@@ -9170,17 +9350,24 @@
           ]
         },
         "radius_solar": {
-          "status": "unknown",
-          "sourceRefs": []
+          "status": "derived",
+          "sourceRefs": [
+            "2016A&A...593A.127K"
+          ],
+          "detail": "{\"caveat\": \"Published limb-darkened diameter and parallax, not recomputed with orbit-contaminated Gaia component parallaxes.\", \"component\": \"B\", \"field\": \"radius_solar\", \"identity\": \"G 272-61B\", \"inputs\": {\"limb_darkened_angular_diameter_mas\": 0.554, \"parallax_mas\": 373.7}, \"quantity\": \"interferometric photospheric radius\", \"reference\": \"2016A&A...593A.127K\", \"scope\": \"Individual B component, not the unresolved GJ 65 binary.\", \"section\": \"2.1 and Table 4\", \"sourceUrl\": \"https://arxiv.org/abs/1607.04351\", \"status\": \"derived\", \"uncertainty\": 0.006, \"value\": 0.159}"
         },
         "metallicity_dex": {
           "status": "measured",
           "sourceRefs": [
-            "2023ApJS..266...41P"
+            "2016A&A...593A.127K:luyten-726-8-b"
           ],
-          "detail": "{\"field\": \"metallicity_dex\", \"identity\": \"G 272-61B\", \"quantity\": \"photospheric [Fe/H]\", \"reference\": \"2023ApJS..266...41P\", \"scope\": \"catalogued stellar object\", \"selection\": \"Newest within 0.3 dex / 10 percent of the median; strict majority required for multiple observations\", \"sourceRecordId\": \"G 272-61B:mesFe_h:2\", \"status\": \"measured\", \"uncertainty\": null, \"value\": -0.42}"
+          "detail": "primary-paper; uncertainty 0.2; Component-resolved UVES spectrum fitted relative to Proxima; method-dependent abundance. Adopted consistently for both A and B from Kervella et al. (2016), with +/-0.20 dex uncertainty., section 2.3 and Table 4, https://arxiv.org/abs/1607.04351, Supersedes catalog [Fe/H]=-0.42 dex from 2023ApJS..266...41P, also reported by 2012A&A...538A.143K. Kervella et al. (2016), section 2.3, identify the older -0.42 +/-0.10 dex result as a low-resolution combined A+B spectrum, potentially biased low by rapid rotation; it is retained as historical system-level evidence, not an adopted B-component abundance."
         },
         "age_gyr": {
+          "status": "unknown",
+          "sourceRefs": []
+        },
+        "metallicity_kind": {
           "status": "unknown",
           "sourceRefs": []
         }
@@ -9207,17 +9394,93 @@
         }
       },
       "sharedPhysicalEnrichment": {
-        "metallicity_dex": {
-          "field": "metallicity_dex",
-          "value": -0.42,
-          "status": "measured",
-          "reference": "2023ApJS..266...41P",
-          "uncertainty": null,
+        "luminosity_solar": {
+          "field": "luminosity_solar",
+          "value": 0.00125,
+          "status": "model-derived",
+          "reference": "2018ApJ...860...15M",
+          "uncertainty": 5e-05,
           "identity": "G 272-61B",
-          "sourceRecordId": "G 272-61B:mesFe_h:2",
-          "quantity": "photospheric [Fe/H]",
-          "selection": "Newest within 0.3 dex / 10 percent of the median; strict majority required for multiple observations",
-          "scope": "catalogued stellar object"
+          "component": "B",
+          "scope": "Individual B component, not the unresolved GJ 65 binary.",
+          "section": "2, final component luminosities",
+          "caveat": "Resolved flux ratio and BT-Settl correction outside 1.0435-3.770 microns; retained at the published distance.",
+          "quantity": "component bolometric luminosity",
+          "sourceUrl": "https://arxiv.org/abs/1711.09434",
+          "inputs": {
+            "parallax_mas": 373.7
+          }
+        },
+        "radius_solar": {
+          "field": "radius_solar",
+          "value": 0.159,
+          "status": "derived",
+          "reference": "2016A&A...593A.127K",
+          "uncertainty": 0.006,
+          "identity": "G 272-61B",
+          "component": "B",
+          "scope": "Individual B component, not the unresolved GJ 65 binary.",
+          "section": "2.1 and Table 4",
+          "caveat": "Published limb-darkened diameter and parallax, not recomputed with orbit-contaminated Gaia component parallaxes.",
+          "quantity": "interferometric photospheric radius",
+          "sourceUrl": "https://arxiv.org/abs/1607.04351",
+          "inputs": {
+            "limb_darkened_angular_diameter_mas": 0.554,
+            "parallax_mas": 373.7
+          }
+        }
+      },
+      "reviewedPhysical": {
+        "inputSha256": "4f739cbcda0cb71b78447213c389aa3da8456b2e83072a8dfc6b5dd40f96b3b9",
+        "observations": [
+          {
+            "source_id": "primary-paper",
+            "source_record_id": "luyten-726-8-b",
+            "field": "temperature_k",
+            "value": 2728.0,
+            "uncertainty": 60.0,
+            "status": "derived",
+            "reference": "2018ApJ...860...15M",
+            "quality_flags": [
+              "Bolometric flux with BT-Settl missing-flux correction and Kervella 2016 radius; not a spectral-class temperature.",
+              "2, final component luminosities and temperatures",
+              "https://arxiv.org/abs/1711.09434"
+            ]
+          },
+          {
+            "source_id": "primary-paper",
+            "source_record_id": "luyten-726-8-b",
+            "field": "mass_solar",
+            "value": 0.116,
+            "uncertainty": 0.002,
+            "status": "measured",
+            "reference": "2024A&A...685L...9G",
+            "quality_flags": [
+              "GRAVITY 2024 orbit and adopted parallax; not the binary total mass.",
+              "Table 1",
+              "https://arxiv.org/html/2404.08746v1"
+            ]
+          },
+          {
+            "source_id": "primary-paper",
+            "source_record_id": "luyten-726-8-b",
+            "field": "metallicity_dex",
+            "value": -0.12,
+            "uncertainty": 0.2,
+            "status": "measured",
+            "reference": "2016A&A...593A.127K",
+            "quality_flags": [
+              "Component-resolved UVES spectrum fitted relative to Proxima; method-dependent abundance. Adopted consistently for both A and B from Kervella et al. (2016), with +/-0.20 dex uncertainty.",
+              "section 2.3 and Table 4",
+              "https://arxiv.org/abs/1607.04351",
+              "Supersedes catalog [Fe/H]=-0.42 dex from 2023ApJS..266...41P, also reported by 2012A&A...538A.143K. Kervella et al. (2016), section 2.3, identify the older -0.42 +/-0.10 dex result as a low-resolution combined A+B spectrum, potentially biased low by rapid rotation; it is retained as historical system-level evidence, not an adopted B-component abundance."
+            ]
+          }
+        ],
+        "adopted": {
+          "temperature_k": "2018ApJ...860...15M:luyten-726-8-b",
+          "mass_solar": "2024A&A...685L...9G:luyten-726-8-b",
+          "metallicity_dex": "2016A&A...593A.127K:luyten-726-8-b"
         }
       }
     },
@@ -9461,6 +9724,10 @@
           "detail": "Gaia DR3 exact-ID model value; uncertainty 0.14889999999999992; quality flags none"
         },
         "age_gyr": {
+          "status": "unknown",
+          "sourceRefs": []
+        },
+        "metallicity_kind": {
           "status": "unknown",
           "sourceRefs": []
         }
@@ -9806,6 +10073,10 @@
         "age_gyr": {
           "status": "unknown",
           "sourceRefs": []
+        },
+        "metallicity_kind": {
+          "status": "unknown",
+          "sourceRefs": []
         }
       },
       "overrides": [
@@ -10107,6 +10378,10 @@
             "Gaia DR3 astrophysical_parameters:5164707970261890560"
           ],
           "detail": "Gaia DR3 exact-ID model value; uncertainty 2.121716; quality flags 00"
+        },
+        "metallicity_kind": {
+          "status": "unknown",
+          "sourceRefs": []
         }
       },
       "overrides": [
@@ -10449,6 +10724,10 @@
         "age_gyr": {
           "status": "unknown",
           "sourceRefs": []
+        },
+        "metallicity_kind": {
+          "status": "unknown",
+          "sourceRefs": []
         }
       },
       "overrides": [
@@ -10772,6 +11051,10 @@
           "detail": "Gaia DR3 exact-ID model value; uncertainty 0.0013999999999999846; quality flags none"
         },
         "age_gyr": {
+          "status": "unknown",
+          "sourceRefs": []
+        },
+        "metallicity_kind": {
           "status": "unknown",
           "sourceRefs": []
         }
@@ -11110,6 +11393,10 @@
         "age_gyr": {
           "status": "unknown",
           "sourceRefs": []
+        },
+        "metallicity_kind": {
+          "status": "unknown",
+          "sourceRefs": []
         }
       },
       "overrides": [
@@ -11367,6 +11654,10 @@
         "age_gyr": {
           "status": "unknown",
           "sourceRefs": []
+        },
+        "metallicity_kind": {
+          "status": "unknown",
+          "sourceRefs": []
         }
       },
       "overrides": [
@@ -11613,6 +11904,10 @@
           "sourceRefs": []
         },
         "age_gyr": {
+          "status": "unknown",
+          "sourceRefs": []
+        },
+        "metallicity_kind": {
           "status": "unknown",
           "sourceRefs": []
         }
@@ -11876,6 +12171,10 @@
           "detail": "Gaia DR3 exact-ID model value; uncertainty 0.06620000000000004; quality flags none"
         },
         "age_gyr": {
+          "status": "unknown",
+          "sourceRefs": []
+        },
+        "metallicity_kind": {
           "status": "unknown",
           "sourceRefs": []
         }
@@ -12210,6 +12509,10 @@
           "detail": "Gaia DR3 exact-ID model value; uncertainty 0.0766; quality flags none"
         },
         "age_gyr": {
+          "status": "unknown",
+          "sourceRefs": []
+        },
+        "metallicity_kind": {
           "status": "unknown",
           "sourceRefs": []
         }
@@ -12559,6 +12862,10 @@
             "2015ApJ...813..106B:10pc-0032"
           ],
           "detail": "primary-paper; uncertainty None; total binary age; not 1.37 Gyr white dwarf cooling time"
+        },
+        "metallicity_kind": {
+          "status": "unknown",
+          "sourceRefs": []
         }
       },
       "overrides": [],
@@ -12581,7 +12888,7 @@
         }
       },
       "reviewedPhysical": {
-        "inputSha256": "59aeae9b903d977b550843799a09888a24cbb0f7ead137baf4d51765ea7738c9",
+        "inputSha256": "4f739cbcda0cb71b78447213c389aa3da8456b2e83072a8dfc6b5dd40f96b3b9",
         "observations": [
           {
             "source_id": "primary-paper",
@@ -12895,6 +13202,10 @@
             "2015ApJ...813..106B:10pc-0031"
           ],
           "detail": "primary-paper; uncertainty None; preferred high core overshoot model; not a precise measured age"
+        },
+        "metallicity_kind": {
+          "status": "unknown",
+          "sourceRefs": []
         }
       },
       "overrides": [],
@@ -12920,7 +13231,7 @@
         }
       },
       "reviewedPhysical": {
-        "inputSha256": "59aeae9b903d977b550843799a09888a24cbb0f7ead137baf4d51765ea7738c9",
+        "inputSha256": "4f739cbcda0cb71b78447213c389aa3da8456b2e83072a8dfc6b5dd40f96b3b9",
         "observations": [
           {
             "source_id": "primary-paper",
@@ -13240,6 +13551,10 @@
           "detail": "Gaia DR3 exact-ID model value; uncertainty 0.0946999999999999; quality flags none"
         },
         "age_gyr": {
+          "status": "unknown",
+          "sourceRefs": []
+        },
+        "metallicity_kind": {
           "status": "unknown",
           "sourceRefs": []
         }
@@ -13581,6 +13896,10 @@
         "age_gyr": {
           "status": "unknown",
           "sourceRefs": []
+        },
+        "metallicity_kind": {
+          "status": "unknown",
+          "sourceRefs": []
         }
       },
       "overrides": [],
@@ -13920,6 +14239,10 @@
           "detail": "Gaia DR3 exact-ID model value; uncertainty 0.008299999999999974; quality flags none"
         },
         "age_gyr": {
+          "status": "unknown",
+          "sourceRefs": []
+        },
+        "metallicity_kind": {
           "status": "unknown",
           "sourceRefs": []
         }
@@ -14265,6 +14588,10 @@
           "detail": "Gaia DR3 exact-ID model value; uncertainty 0.041000000000000036; quality flags none"
         },
         "age_gyr": {
+          "status": "unknown",
+          "sourceRefs": []
+        },
+        "metallicity_kind": {
           "status": "unknown",
           "sourceRefs": []
         }
@@ -14615,6 +14942,10 @@
         "age_gyr": {
           "status": "unknown",
           "sourceRefs": []
+        },
+        "metallicity_kind": {
+          "status": "unknown",
+          "sourceRefs": []
         }
       },
       "overrides": [],
@@ -14910,6 +15241,10 @@
             "Gaia DR3 astrophysical_parameters:6412595290592307840"
           ],
           "detail": "Gaia DR3 exact-ID model value; uncertainty 2.475468000000001; quality flags 00"
+        },
+        "metallicity_kind": {
+          "status": "unknown",
+          "sourceRefs": []
         }
       },
       "overrides": [],
@@ -15272,6 +15607,10 @@
             "2004A&A...426..601D:10pc-0044"
           ],
           "detail": "primary-paper; uncertainty None; stellar-evolution model, adopted by 2023AJ....166..123K"
+        },
+        "metallicity_kind": {
+          "status": "unknown",
+          "sourceRefs": []
         }
       },
       "overrides": [],
@@ -15286,7 +15625,7 @@
         "eligibility": "Not a parsed K5-M9.5 dwarf spectral type (no subdwarf, giant, composite or peculiar class); supplements not applied."
       },
       "reviewedPhysical": {
-        "inputSha256": "59aeae9b903d977b550843799a09888a24cbb0f7ead137baf4d51765ea7738c9",
+        "inputSha256": "4f739cbcda0cb71b78447213c389aa3da8456b2e83072a8dfc6b5dd40f96b3b9",
         "observations": [
           {
             "source_id": "primary-paper",
@@ -15624,6 +15963,10 @@
         "age_gyr": {
           "status": "unknown",
           "sourceRefs": []
+        },
+        "metallicity_kind": {
+          "status": "unknown",
+          "sourceRefs": []
         }
       },
       "overrides": [],
@@ -15929,6 +16272,10 @@
             "2022AJ....163..288C:10pc-0042"
           ],
           "detail": "primary-paper; uncertainty 1.0; shared activity age; assuming coevality; larger side of asymmetric uncertainty"
+        },
+        "metallicity_kind": {
+          "status": "unknown",
+          "sourceRefs": []
         }
       },
       "overrides": [],
@@ -15955,7 +16302,7 @@
         }
       },
       "reviewedPhysical": {
-        "inputSha256": "59aeae9b903d977b550843799a09888a24cbb0f7ead137baf4d51765ea7738c9",
+        "inputSha256": "4f739cbcda0cb71b78447213c389aa3da8456b2e83072a8dfc6b5dd40f96b3b9",
         "observations": [
           {
             "source_id": "primary-paper",
@@ -16253,6 +16600,10 @@
             "2022AJ....163..288C:10pc-0043"
           ],
           "detail": "primary-paper; uncertainty 1.0; shared activity age; assuming coevality; larger side of asymmetric uncertainty"
+        },
+        "metallicity_kind": {
+          "status": "unknown",
+          "sourceRefs": []
         }
       },
       "overrides": [],
@@ -16275,7 +16626,7 @@
         }
       },
       "reviewedPhysical": {
-        "inputSha256": "59aeae9b903d977b550843799a09888a24cbb0f7ead137baf4d51765ea7738c9",
+        "inputSha256": "4f739cbcda0cb71b78447213c389aa3da8456b2e83072a8dfc6b5dd40f96b3b9",
         "observations": [
           {
             "source_id": "primary-paper",
@@ -16571,6 +16922,10 @@
           "detail": "{\"field\": \"metallicity_dex\", \"identity\": \"V* YZ Cet\", \"quantity\": \"photospheric [Fe/H]\", \"reference\": \"2024A&A...691A..53S\", \"scope\": \"catalogued stellar object\", \"selection\": \"Newest within 0.3 dex / 10 percent of the median; strict majority required for multiple observations\", \"sourceRecordId\": \"V* YZ Cet:mesFe_h:1\", \"status\": \"measured\", \"uncertainty\": null, \"value\": -0.26}"
         },
         "age_gyr": {
+          "status": "unknown",
+          "sourceRefs": []
+        },
+        "metallicity_kind": {
           "status": "unknown",
           "sourceRefs": []
         }
@@ -16877,6 +17232,10 @@
           "detail": "Gaia DR3 exact-ID model value; uncertainty 0.0028000000000000247; quality flags none"
         },
         "age_gyr": {
+          "status": "unknown",
+          "sourceRefs": []
+        },
+        "metallicity_kind": {
           "status": "unknown",
           "sourceRefs": []
         }
@@ -17230,6 +17589,10 @@
         "age_gyr": {
           "status": "unknown",
           "sourceRefs": []
+        },
+        "metallicity_kind": {
+          "status": "unknown",
+          "sourceRefs": []
         }
       },
       "overrides": [],
@@ -17534,6 +17897,10 @@
           "detail": "Gaia DR3 exact-ID model value; uncertainty 0.02410000000000001; quality flags none"
         },
         "age_gyr": {
+          "status": "unknown",
+          "sourceRefs": []
+        },
+        "metallicity_kind": {
           "status": "unknown",
           "sourceRefs": []
         }
@@ -17852,6 +18219,10 @@
         "age_gyr": {
           "status": "unknown",
           "sourceRefs": []
+        },
+        "metallicity_kind": {
+          "status": "unknown",
+          "sourceRefs": []
         }
       },
       "overrides": [],
@@ -18131,6 +18502,10 @@
         "age_gyr": {
           "status": "unknown",
           "sourceRefs": []
+        },
+        "metallicity_kind": {
+          "status": "unknown",
+          "sourceRefs": []
         }
       },
       "overrides": [],
@@ -18393,6 +18768,10 @@
         "age_gyr": {
           "status": "unknown",
           "sourceRefs": []
+        },
+        "metallicity_kind": {
+          "status": "unknown",
+          "sourceRefs": []
         }
       },
       "overrides": [],
@@ -18650,6 +19029,10 @@
           "sourceRefs": []
         },
         "age_gyr": {
+          "status": "unknown",
+          "sourceRefs": []
+        },
+        "metallicity_kind": {
           "status": "unknown",
           "sourceRefs": []
         }
@@ -18934,6 +19317,10 @@
         "age_gyr": {
           "status": "unknown",
           "sourceRefs": []
+        },
+        "metallicity_kind": {
+          "status": "unknown",
+          "sourceRefs": []
         }
       },
       "overrides": [],
@@ -19208,6 +19595,10 @@
           "sourceRefs": []
         },
         "age_gyr": {
+          "status": "unknown",
+          "sourceRefs": []
+        },
+        "metallicity_kind": {
           "status": "unknown",
           "sourceRefs": []
         }
@@ -19493,6 +19884,10 @@
           "detail": "{\"field\": \"metallicity_dex\", \"identity\": \"Ross 614\", \"quantity\": \"photospheric [Fe/H]\", \"reference\": \"2021MNRAS.508.5148C\", \"scope\": \"SIMBAD object as catalogued; unresolved spectra may be primary-dominated\", \"selection\": \"Newest within 0.3 dex / 10 percent of the median; strict majority required for multiple observations\", \"sourceRecordId\": \"Ross 614:mesFe_h:1\", \"status\": \"measured\", \"uncertainty\": null, \"value\": -0.34}"
         },
         "age_gyr": {
+          "status": "unknown",
+          "sourceRefs": []
+        },
+        "metallicity_kind": {
           "status": "unknown",
           "sourceRefs": []
         }
@@ -19782,6 +20177,10 @@
         "age_gyr": {
           "status": "unknown",
           "sourceRefs": []
+        },
+        "metallicity_kind": {
+          "status": "unknown",
+          "sourceRefs": []
         }
       },
       "overrides": [],
@@ -20039,6 +20438,10 @@
           "sourceRefs": []
         },
         "age_gyr": {
+          "status": "unknown",
+          "sourceRefs": []
+        },
+        "metallicity_kind": {
           "status": "unknown",
           "sourceRefs": []
         }
@@ -20303,6 +20706,10 @@
           "detail": "{\"field\": \"metallicity_dex\", \"identity\": \"BD-12 4523\", \"quantity\": \"photospheric [Fe/H]\", \"reference\": \"2024A&A...691A..53S\", \"scope\": \"catalogued stellar object\", \"selection\": \"Newest within 0.3 dex / 10 percent of the median; strict majority required for multiple observations\", \"sourceRecordId\": \"BD-12 4523:mesFe_h:1\", \"status\": \"measured\", \"uncertainty\": null, \"value\": -0.12}"
         },
         "age_gyr": {
+          "status": "unknown",
+          "sourceRefs": []
+        },
+        "metallicity_kind": {
           "status": "unknown",
           "sourceRefs": []
         }
@@ -20599,6 +21006,10 @@
         "age_gyr": {
           "status": "unknown",
           "sourceRefs": []
+        },
+        "metallicity_kind": {
+          "status": "unknown",
+          "sourceRefs": []
         }
       },
       "overrides": [],
@@ -20853,6 +21264,10 @@
           "sourceRefs": []
         },
         "age_gyr": {
+          "status": "unknown",
+          "sourceRefs": []
+        },
+        "metallicity_kind": {
           "status": "unknown",
           "sourceRefs": []
         }
@@ -21124,6 +21539,10 @@
           "detail": "Gaia DR3 exact-ID model value; uncertainty 0.0018000000000000238; quality flags none"
         },
         "age_gyr": {
+          "status": "unknown",
+          "sourceRefs": []
+        },
+        "metallicity_kind": {
           "status": "unknown",
           "sourceRefs": []
         }
@@ -21459,6 +21878,10 @@
         "age_gyr": {
           "status": "unknown",
           "sourceRefs": []
+        },
+        "metallicity_kind": {
+          "status": "unknown",
+          "sourceRefs": []
         }
       },
       "overrides": [],
@@ -21755,6 +22178,10 @@
         "age_gyr": {
           "status": "unknown",
           "sourceRefs": []
+        },
+        "metallicity_kind": {
+          "status": "unknown",
+          "sourceRefs": []
         }
       },
       "overrides": [],
@@ -22024,6 +22451,10 @@
           "detail": "Gaia DR3 exact-ID model value; uncertainty 0.0032999999999998586; quality flags none"
         },
         "age_gyr": {
+          "status": "unknown",
+          "sourceRefs": []
+        },
+        "metallicity_kind": {
           "status": "unknown",
           "sourceRefs": []
         }
@@ -22367,6 +22798,10 @@
         "age_gyr": {
           "status": "unknown",
           "sourceRefs": []
+        },
+        "metallicity_kind": {
+          "status": "unknown",
+          "sourceRefs": []
         }
       },
       "overrides": [],
@@ -22695,6 +23130,10 @@
         "age_gyr": {
           "status": "unknown",
           "sourceRefs": []
+        },
+        "metallicity_kind": {
+          "status": "unknown",
+          "sourceRefs": []
         }
       },
       "overrides": [],
@@ -22957,6 +23396,10 @@
           "detail": "{\"field\": \"metallicity_dex\", \"identity\": \"LP 731-58\", \"quantity\": \"photospheric [Fe/H]\", \"reference\": \"2021A&A...656A.162M\", \"scope\": \"catalogued stellar object\", \"selection\": \"Newest within 0.3 dex / 10 percent of the median; strict majority required for multiple observations\", \"sourceRecordId\": \"LP 731-58:mesFe_h:2\", \"status\": \"measured\", \"uncertainty\": null, \"value\": -0.13}"
         },
         "age_gyr": {
+          "status": "unknown",
+          "sourceRefs": []
+        },
+        "metallicity_kind": {
           "status": "unknown",
           "sourceRefs": []
         }
@@ -23262,6 +23705,10 @@
         "age_gyr": {
           "status": "unknown",
           "sourceRefs": []
+        },
+        "metallicity_kind": {
+          "status": "unknown",
+          "sourceRefs": []
         }
       },
       "overrides": [],
@@ -23288,7 +23735,7 @@
         }
       },
       "reviewedPhysical": {
-        "inputSha256": "59aeae9b903d977b550843799a09888a24cbb0f7ead137baf4d51765ea7738c9",
+        "inputSha256": "4f739cbcda0cb71b78447213c389aa3da8456b2e83072a8dfc6b5dd40f96b3b9",
         "observations": [
           {
             "source_id": "primary-paper",
@@ -23579,6 +24026,10 @@
         "age_gyr": {
           "status": "unknown",
           "sourceRefs": []
+        },
+        "metallicity_kind": {
+          "status": "unknown",
+          "sourceRefs": []
         }
       },
       "overrides": [],
@@ -23866,6 +24317,10 @@
         "age_gyr": {
           "status": "unknown",
           "sourceRefs": []
+        },
+        "metallicity_kind": {
+          "status": "unknown",
+          "sourceRefs": []
         }
       },
       "overrides": [],
@@ -24129,6 +24584,10 @@
           "detail": "Gaia DR3 exact-ID model value; uncertainty 0.0101; quality flags none"
         },
         "age_gyr": {
+          "status": "unknown",
+          "sourceRefs": []
+        },
+        "metallicity_kind": {
           "status": "unknown",
           "sourceRefs": []
         }
@@ -24472,6 +24931,10 @@
         "age_gyr": {
           "status": "unknown",
           "sourceRefs": []
+        },
+        "metallicity_kind": {
+          "status": "unknown",
+          "sourceRefs": []
         }
       },
       "overrides": [],
@@ -24742,6 +25205,10 @@
         "age_gyr": {
           "status": "unknown",
           "sourceRefs": []
+        },
+        "metallicity_kind": {
+          "status": "unknown",
+          "sourceRefs": []
         }
       },
       "overrides": [],
@@ -25008,6 +25475,10 @@
           "sourceRefs": []
         },
         "age_gyr": {
+          "status": "unknown",
+          "sourceRefs": []
+        },
+        "metallicity_kind": {
           "status": "unknown",
           "sourceRefs": []
         }
@@ -25299,6 +25770,10 @@
           "detail": "{\"field\": \"metallicity_dex\", \"identity\": \"G 158-27\", \"quantity\": \"photospheric [Fe/H]\", \"reference\": \"2025ApJ...978..154J\", \"scope\": \"catalogued stellar object\", \"selection\": \"Newest within 0.3 dex / 10 percent of the median; strict majority required for multiple observations\", \"sourceRecordId\": \"G 158-27:mesFe_h:2\", \"status\": \"measured\", \"uncertainty\": null, \"value\": -0.18}"
         },
         "age_gyr": {
+          "status": "unknown",
+          "sourceRefs": []
+        },
+        "metallicity_kind": {
           "status": "unknown",
           "sourceRefs": []
         }
@@ -25597,6 +26072,10 @@
         "age_gyr": {
           "status": "unknown",
           "sourceRefs": []
+        },
+        "metallicity_kind": {
+          "status": "unknown",
+          "sourceRefs": []
         }
       },
       "overrides": [],
@@ -25861,6 +26340,10 @@
           "detail": "Gaia DR3 exact-ID model value; uncertainty 0.10640000000000001; quality flags none"
         },
         "age_gyr": {
+          "status": "unknown",
+          "sourceRefs": []
+        },
+        "metallicity_kind": {
           "status": "unknown",
           "sourceRefs": []
         }
@@ -26205,6 +26688,10 @@
           "detail": "Gaia DR3 exact-ID model value; uncertainty 0.025499999999999856; quality flags none"
         },
         "age_gyr": {
+          "status": "unknown",
+          "sourceRefs": []
+        },
+        "metallicity_kind": {
           "status": "unknown",
           "sourceRefs": []
         }
@@ -26558,6 +27045,10 @@
         "age_gyr": {
           "status": "unknown",
           "sourceRefs": []
+        },
+        "metallicity_kind": {
+          "status": "unknown",
+          "sourceRefs": []
         }
       },
       "overrides": [],
@@ -26862,6 +27353,10 @@
           "detail": "Gaia DR3 exact-ID model value; uncertainty 0.09549999999999992; quality flags none"
         },
         "age_gyr": {
+          "status": "unknown",
+          "sourceRefs": []
+        },
+        "metallicity_kind": {
           "status": "unknown",
           "sourceRefs": []
         }
@@ -27212,6 +27707,10 @@
         "age_gyr": {
           "status": "unknown",
           "sourceRefs": []
+        },
+        "metallicity_kind": {
+          "status": "unknown",
+          "sourceRefs": []
         }
       },
       "overrides": [],
@@ -27533,6 +28032,10 @@
         "age_gyr": {
           "status": "unknown",
           "sourceRefs": []
+        },
+        "metallicity_kind": {
+          "status": "unknown",
+          "sourceRefs": []
         }
       },
       "overrides": [],
@@ -27797,6 +28300,10 @@
           "detail": "Gaia DR3 exact-ID model value; uncertainty 0.007199999999999998; quality flags none"
         },
         "age_gyr": {
+          "status": "unknown",
+          "sourceRefs": []
+        },
+        "metallicity_kind": {
           "status": "unknown",
           "sourceRefs": []
         }
@@ -28132,6 +28639,10 @@
         "age_gyr": {
           "status": "unknown",
           "sourceRefs": []
+        },
+        "metallicity_kind": {
+          "status": "unknown",
+          "sourceRefs": []
         }
       },
       "overrides": [],
@@ -28410,6 +28921,10 @@
           "detail": "{\"field\": \"metallicity_dex\", \"identity\": \"* omi02 Eri C\", \"quantity\": \"photospheric [Fe/H]\", \"reference\": \"2021A&A...656A.162M\", \"scope\": \"catalogued stellar object\", \"selection\": \"Newest within 0.3 dex / 10 percent of the median; strict majority required for multiple observations\", \"sourceRecordId\": \"* omi02 Eri C:mesFe_h:3\", \"status\": \"measured\", \"uncertainty\": null, \"value\": -0.44}"
         },
         "age_gyr": {
+          "status": "unknown",
+          "sourceRefs": []
+        },
+        "metallicity_kind": {
           "status": "unknown",
           "sourceRefs": []
         }
@@ -28718,6 +29233,10 @@
         "age_gyr": {
           "status": "unknown",
           "sourceRefs": []
+        },
+        "metallicity_kind": {
+          "status": "unknown",
+          "sourceRefs": []
         }
       },
       "overrides": [],
@@ -29017,6 +29536,10 @@
         "age_gyr": {
           "status": "unknown",
           "sourceRefs": []
+        },
+        "metallicity_kind": {
+          "status": "unknown",
+          "sourceRefs": []
         }
       },
       "overrides": [],
@@ -29305,6 +29828,10 @@
         "age_gyr": {
           "status": "unknown",
           "sourceRefs": []
+        },
+        "metallicity_kind": {
+          "status": "unknown",
+          "sourceRefs": []
         }
       },
       "overrides": [],
@@ -29587,6 +30114,10 @@
             "Gaia DR3 astrophysical_parameters:4468557611984384512"
           ],
           "detail": "Gaia DR3 exact-ID model value; uncertainty 4.311994; quality flags 00"
+        },
+        "metallicity_kind": {
+          "status": "unknown",
+          "sourceRefs": []
         }
       },
       "overrides": [],
@@ -29931,9 +30462,13 @@
           "sourceRefs": [
             "2024A&A...683A.125P"
           ],
-          "detail": "{\"field\": \"metallicity_dex\", \"identity\": \"* alf Aql\", \"reference\": \"2024A&A...683A.125P\", \"status\": \"measured\", \"uncertainty\": null, \"value\": 0.19}"
+          "detail": "{\"field\": \"metallicity_dex\", \"identity\": \"* alf Aql\", \"quantity\": \"photospheric [Fe/H]\", \"reference\": \"2024A&A...683A.125P\", \"status\": \"measured\", \"uncertainty\": null, \"value\": 0.19}"
         },
         "age_gyr": {
+          "status": "unknown",
+          "sourceRefs": []
+        },
+        "metallicity_kind": {
           "status": "unknown",
           "sourceRefs": []
         }
@@ -29955,7 +30490,8 @@
           "status": "measured",
           "reference": "2024A&A...683A.125P",
           "uncertainty": null,
-          "identity": "* alf Aql"
+          "identity": "* alf Aql",
+          "quantity": "photospheric [Fe/H]"
         },
         "radius_solar": {
           "field": "radius_solar",
@@ -30229,6 +30765,10 @@
           "detail": "{\"field\": \"metallicity_dex\", \"identity\": \"G 9-38A\", \"quantity\": \"photospheric [Fe/H]\", \"reference\": \"2014AJ....147...20N\", \"scope\": \"catalogued stellar object\", \"selection\": \"Newest within 0.3 dex / 10 percent of the median; strict majority required for multiple observations\", \"sourceRecordId\": \"G 9-38A:mesFe_h:1\", \"status\": \"measured\", \"uncertainty\": null, \"value\": 0.14}"
         },
         "age_gyr": {
+          "status": "unknown",
+          "sourceRefs": []
+        },
+        "metallicity_kind": {
           "status": "unknown",
           "sourceRefs": []
         }
@@ -30509,6 +31049,10 @@
         "age_gyr": {
           "status": "unknown",
           "sourceRefs": []
+        },
+        "metallicity_kind": {
+          "status": "unknown",
+          "sourceRefs": []
         }
       },
       "overrides": [],
@@ -30773,6 +31317,10 @@
           "detail": "Gaia DR3 exact-ID model value; uncertainty 0.4888; quality flags none"
         },
         "age_gyr": {
+          "status": "unknown",
+          "sourceRefs": []
+        },
+        "metallicity_kind": {
           "status": "unknown",
           "sourceRefs": []
         }
@@ -31116,6 +31664,10 @@
         "age_gyr": {
           "status": "unknown",
           "sourceRefs": []
+        },
+        "metallicity_kind": {
+          "status": "unknown",
+          "sourceRefs": []
         }
       },
       "overrides": [],
@@ -31380,6 +31932,10 @@
           "detail": "Gaia DR3 exact-ID model value; uncertainty 0.005599999999999938; quality flags none"
         },
         "age_gyr": {
+          "status": "unknown",
+          "sourceRefs": []
+        },
+        "metallicity_kind": {
           "status": "unknown",
           "sourceRefs": []
         }
@@ -31730,6 +32286,10 @@
         "age_gyr": {
           "status": "unknown",
           "sourceRefs": []
+        },
+        "metallicity_kind": {
+          "status": "unknown",
+          "sourceRefs": []
         }
       },
       "overrides": [],
@@ -32013,6 +32573,10 @@
         "age_gyr": {
           "status": "unknown",
           "sourceRefs": []
+        },
+        "metallicity_kind": {
+          "status": "unknown",
+          "sourceRefs": []
         }
       },
       "overrides": [],
@@ -32276,6 +32840,10 @@
           "detail": "{\"field\": \"metallicity_dex\", \"identity\": \"LP 656-38\", \"quantity\": \"photospheric [Fe/H]\", \"reference\": \"2024A&A...691A..53S\", \"scope\": \"catalogued stellar object\", \"selection\": \"Newest within 0.3 dex / 10 percent of the median; strict majority required for multiple observations\", \"sourceRecordId\": \"LP 656-38:mesFe_h:1\", \"status\": \"measured\", \"uncertainty\": null, \"value\": -0.34}"
         },
         "age_gyr": {
+          "status": "unknown",
+          "sourceRefs": []
+        },
+        "metallicity_kind": {
           "status": "unknown",
           "sourceRefs": []
         }
@@ -32582,6 +33150,10 @@
           "detail": "Gaia DR3 exact-ID model value; uncertainty 0.025000000000000022; quality flags none"
         },
         "age_gyr": {
+          "status": "unknown",
+          "sourceRefs": []
+        },
+        "metallicity_kind": {
           "status": "unknown",
           "sourceRefs": []
         }
@@ -32932,6 +33504,10 @@
         "age_gyr": {
           "status": "unknown",
           "sourceRefs": []
+        },
+        "metallicity_kind": {
+          "status": "unknown",
+          "sourceRefs": []
         }
       },
       "overrides": [],
@@ -32945,7 +33521,7 @@
         "eligibility": "Not a parsed K5-M9.5 dwarf spectral type (no subdwarf, giant, composite or peculiar class); supplements not applied."
       },
       "reviewedPhysical": {
-        "inputSha256": "59aeae9b903d977b550843799a09888a24cbb0f7ead137baf4d51765ea7738c9",
+        "inputSha256": "4f739cbcda0cb71b78447213c389aa3da8456b2e83072a8dfc6b5dd40f96b3b9",
         "observations": [
           {
             "source_id": "primary-paper",
@@ -33249,6 +33825,10 @@
         "age_gyr": {
           "status": "unknown",
           "sourceRefs": []
+        },
+        "metallicity_kind": {
+          "status": "unknown",
+          "sourceRefs": []
         }
       },
       "overrides": [],
@@ -33536,6 +34116,10 @@
         "age_gyr": {
           "status": "unknown",
           "sourceRefs": []
+        },
+        "metallicity_kind": {
+          "status": "unknown",
+          "sourceRefs": []
         }
       },
       "overrides": [],
@@ -33799,6 +34383,10 @@
           "detail": "Gaia DR3 exact-ID model value; uncertainty 0.003599999999999999; quality flags none"
         },
         "age_gyr": {
+          "status": "unknown",
+          "sourceRefs": []
+        },
+        "metallicity_kind": {
           "status": "unknown",
           "sourceRefs": []
         }
@@ -34152,6 +34740,10 @@
         "age_gyr": {
           "status": "unknown",
           "sourceRefs": []
+        },
+        "metallicity_kind": {
+          "status": "unknown",
+          "sourceRefs": []
         }
       },
       "overrides": [],
@@ -34493,6 +35085,10 @@
         "age_gyr": {
           "status": "unknown",
           "sourceRefs": []
+        },
+        "metallicity_kind": {
+          "status": "unknown",
+          "sourceRefs": []
         }
       },
       "overrides": [],
@@ -34755,6 +35351,10 @@
           "detail": "{\"field\": \"metallicity_dex\", \"identity\": \"LSR J1835+3259\", \"quantity\": \"photospheric [Fe/H]\", \"reference\": \"2012ApJ...748...93R\", \"scope\": \"catalogued stellar object\", \"selection\": \"Newest within 0.3 dex / 10 percent of the median; strict majority required for multiple observations\", \"sourceRecordId\": \"LSR J1835+3259:mesFe_h:2\", \"status\": \"measured\", \"uncertainty\": null, \"value\": -0.4}"
         },
         "age_gyr": {
+          "status": "unknown",
+          "sourceRefs": []
+        },
+        "metallicity_kind": {
           "status": "unknown",
           "sourceRefs": []
         }
@@ -35064,6 +35664,10 @@
         "age_gyr": {
           "status": "unknown",
           "sourceRefs": []
+        },
+        "metallicity_kind": {
+          "status": "unknown",
+          "sourceRefs": []
         }
       },
       "overrides": [],
@@ -35354,6 +35958,10 @@
         "age_gyr": {
           "status": "unknown",
           "sourceRefs": []
+        },
+        "metallicity_kind": {
+          "status": "unknown",
+          "sourceRefs": []
         }
       },
       "overrides": [],
@@ -35617,6 +36225,10 @@
           "detail": "{\"field\": \"metallicity_dex\", \"identity\": \"HD 42581\", \"quantity\": \"photospheric [Fe/H]\", \"reference\": \"2025A&A...698A..93J\", \"scope\": \"catalogued stellar object\", \"selection\": \"Newest within 0.3 dex / 10 percent of the median; strict majority required for multiple observations\", \"sourceRecordId\": \"HD 42581:mesFe_h:2\", \"status\": \"measured\", \"uncertainty\": null, \"value\": -0.1}"
         },
         "age_gyr": {
+          "status": "unknown",
+          "sourceRefs": []
+        },
+        "metallicity_kind": {
           "status": "unknown",
           "sourceRefs": []
         }

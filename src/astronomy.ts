@@ -80,8 +80,17 @@ export function apparentVisualMagnitude(absoluteMagnitude: number | null, distan
   return Number.isFinite(magnitude) ? magnitude : null
 }
 
+export function isMapVisibilityBase(target: Pick<Star, 'id'> & Position, observer: Pick<Star, 'id'> & Position): boolean {
+  // Close components can share an explicitly approximate catalog position.
+  // Keep their intrinsic display brightness rather than treating an undefined
+  // zero-distance magnitude as a background object.
+  return target.id === observer.id || (
+    target.x_pc === observer.x_pc && target.y_pc === observer.y_pc && target.z_pc === observer.z_pc
+  )
+}
+
 export function visibilityTier(target: Pick<Star, 'id' | 'absolute_mag'> & Partial<Pick<Star, 'type'>> & Position, observer: Pick<Star, 'id'> & Position, limit: number): 'base' | 'eligible' | 'background' {
-  if (target.id === observer.id) return 'base'
+  if (isMapVisibilityBase(target, observer)) return 'base'
   if (target.type && (
     isCompactObject(target as Pick<Star, 'type'>)
     || isNebulaObject(target as Pick<Star, 'type'>)

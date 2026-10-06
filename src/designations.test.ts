@@ -13,6 +13,20 @@ const identities = parseObjectIdentities(identitiesPayload)
 const stars = parseStarCatalog(csv)
 
 describe('object designations', () => {
+  it('finds Luyten 726-8 under Gliese 65 with distinct component aliases in every containing catalog', () => {
+    for (const path of ['stars.csv', 'catalogs/nearest-100/stars.csv', 'catalogs/nearest-1000/stars.csv']) {
+      const objects = supplementObjectIdentities(parseStarCatalog(readFileSync(new URL(`./data/${path}`, import.meta.url), 'utf8')), identities)
+      const matches = objects.filter((star) => objectSearchText(star).includes(normalizeObjectSearch('Gliese 65')))
+      expect(matches.map((star) => star.id).sort()).toEqual(['luyten-726-8-a', 'luyten-726-8-b'])
+      for (const component of ['A', 'B']) {
+        const star = matches.find((star) => star.id === `luyten-726-8-${component.toLowerCase()}`)!
+        expect(star.name).toBe(`Luyten 726-8 ${component}`)
+        expect(objectDesignations(star)).toContain(`Gliese 65 ${component}`)
+        expect(objectDesignations(star)).not.toContain(`Gliese 65 ${component === 'A' ? 'B' : 'A'}`)
+      }
+    }
+  })
+
   it('accepts optional native aliases and preserves them through catalog parsing', () => {
     const rows = Papa.parse<Record<string, string>>(csv, { header: true, skipEmptyLines: true }).data
     const native = Papa.unparse([{ ...rows[0], designations: '' }, { ...rows[1], designations: ' GJ 551 | HIP 70890 | gj 551 | Proxima Centauri ' }])

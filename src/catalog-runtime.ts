@@ -21,7 +21,10 @@ function supplementPhysicalFields(primary: Star, additional: Star): Star {
   // An overlapping legacy overlay must not restore those rejected values.
   const withheld = new Set(primary.notes.match(/Withheld individual fields: ([a-z_, ]+)\./)?.[1]?.split(', ') ?? [])
   const fields = OVERLAY_PHYSICAL_FIELDS.filter((field) => !withheld.has(field) && primary[field] === null && additional[field] !== null)
-  for (const field of fields) supplemented[field] = additional[field]
+  for (const field of fields) {
+    supplemented[field] = additional[field]
+    if (field === 'metallicity_dex') supplemented.metallicity_kind = additional.metallicity_kind
+  }
   if (fields.length) {
     supplemented.notes = `${primary.notes} Additional catalog supplements ${fields.join(', ')}. ${additional.notes}`.trim()
   }
@@ -105,6 +108,12 @@ export function parseCatalogPayload(value: unknown, manifest: CatalogManifest): 
       throw new Error(`Invalid catalog payload row: ${manifest.id}`)
     }
     ids.add(star.id)
+    if (star.metallicity_dex !== null && (
+      typeof star.metallicity_dex !== 'number' || !Number.isFinite(star.metallicity_dex) ||
+      (star.metallicity_kind !== '[M/H]' && star.metallicity_kind !== '[Fe/H]')
+    ) || star.metallicity_dex === null && star.metallicity_kind != null) {
+      throw new Error(`Invalid metallicity quantity in catalog payload: ${manifest.id}:${star.id}`)
+    }
     if (star.epoch !== manifest.epoch) throw new Error('Catalog manifest epoch does not match payload.')
   }
   if (!ids.has('sun')) throw new Error('Catalog payload requires the Sun reference.')

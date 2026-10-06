@@ -1,0 +1,67 @@
+{
+  "schemaVersion": 1,
+  "id": "sun",
+  "reviewedDate": "2026-10-06",
+  "note": "Solar reference: radius 1 R_sun = 695700 km (IAU 2015 B3); [M/H] = 0 dex by definition relative to the present Sun, not zero metal content; approximate formation age 4.6 Gyr (NASA Sun Facts). Mass and luminosity are unity in solar units; effective temperature 5772 K and spectral class G2V are adopted. Sources: https://arxiv.org/abs/1510.07674 ; https://science.nasa.gov/sun/facts/ ; https://nssdc.gsfc.nasa.gov/planetary/factsheet/sunfact.html ; https://www.sdss4.org/dr15/irspec/aspcap/ .",
+  "fields": {
+    "radius_solar": {
+      "value": "1",
+      "status": "adopted",
+      "sourceReference": "IAU:2015:B3",
+      "sourceUrl": "https://arxiv.org/abs/1510.07674",
+      "caveat": "Nominal solar radius is an exact conversion constant, 695700 km; not an uncertainty-free measurement of the variable physical Sun."
+    },
+    "metallicity_dex": {
+      "value": "0",
+      "status": "defined",
+      "sourceReference": "SDSS:DR15:ASPCAP:MH-definition",
+      "sourceUrl": "https://www.sdss4.org/dr15/irspec/aspcap/",
+      "quantity": "[M/H]",
+      "caveat": "The present Sun is the zero point of this logarithmic solar-relative abundance scale. Zero dex does not imply zero metals and is not the protosolar heavy-element mass fraction."
+    },
+    "metallicity_kind": {
+      "value": "[M/H]",
+      "status": "defined",
+      "sourceReference": "SDSS:DR15:ASPCAP:MH-definition",
+      "sourceUrl": "https://www.sdss4.org/dr15/irspec/aspcap/"
+    },
+    "age_gyr": {
+      "value": "4.6",
+      "status": "estimated",
+      "sourceReference": "NASA:sun-facts:formation-age",
+      "sourceUrl": "https://science.nasa.gov/sun/facts/",
+      "caveat": "Rounded approximate age since formation; no fabricated uncertainty or extra precision is adopted."
+    },
+    "temperature_k": {
+      "value": "5772",
+      "status": "adopted",
+      "sourceReference": "IAU:2015:B3",
+      "sourceUrl": "https://arxiv.org/abs/1510.07674"
+    },
+    "mass_solar": {
+      "value": "1",
+      "status": "defined",
+      "sourceReference": "solar-relative-unit",
+      "caveat": "Unity as the reference for solar-relative mass; not an independent mass measurement."
+    },
+    "luminosity_solar": {
+      "value": "1",
+      "status": "defined",
+      "sourceReference": "solar-relative-unit",
+      "caveat": "Unity as the reference for solar-relative luminosity; nominal solar luminosity is 3.828e26 W (IAU 2015 B3)."
+    },
+    "spectral_type": {
+      "value": "G2V",
+      "status": "adopted",
+      "sourceReference": "NASA:sunfact:2024-05-09",
+      "sourceUrl": "https://nssdc.gsfc.nasa.gov/planetary/factsheet/sunfact.html"
+    },
+    "absolute_mag": {
+      "value": "4.83",
+      "status": "adopted",
+      "sourceReference": "NASA:sunfact:2024-05-09",
+      "sourceUrl": "https://nssdc.gsfc.nasa.gov/planetary/factsheet/sunfact.html",
+      "caveat": "Johnson V absolute visual magnitude, not bolometric magnitude."
+    }
+  }
+}
