@@ -13,6 +13,9 @@ import { EARTH_ORBIT_MODES, earthOrbitDateForMode, earthOrbitModeLabel, isEarthO
 import { MOTION_YEAR_OPTIONS, SIMULATION_YEAR_LIMIT, createStarViewer, type MotionYears, type StarViewer, type ViewerViewState } from './viewer'
 import { isObjectMapVisible } from './viewer-primitives'
 import { renderSelectedStarPreview } from './selected-star-preview'
+import { disposeDistanceComparison, renderDistanceComparison } from './distance-comparison'
+import { renderMassCardContent } from './mass-card'
+import { massCardAvailable } from './mass-properties'
 import { radiusComparison, radiusStats, radiusSummary, renderRadiusComparison, type RadiusReference } from './radius-comparison'
 import { indexStarSystems, type StarSystem } from './star-systems'
 import {
@@ -95,6 +98,9 @@ icon('motion-lock-icon', Lock)
 icon('object-type-close-icon', X)
 icon('metallicity-close-icon', X)
 icon('radius-close-icon', X)
+icon('mass-close-icon', X)
+icon('distance-close-icon', X)
+icon('distance-lock-icon', Lock)
 icon('time-play-icon', Play)
 icon('time-now-icon', RotateCcw)
 icon('time-follow-icon', Crosshair)
@@ -292,8 +298,18 @@ function selectedStarAvailable(id: string): boolean {
 }
 
 function updateSelectionHistoryControls(): void {
-  element<HTMLButtonElement>('selection-back').disabled = sceneBusy || !selectionHistory.canGoBack(selectedStarAvailable)
-  element<HTMLButtonElement>('selection-forward').disabled = sceneBusy || !selectionHistory.canGoForward(selectedStarAvailable)
+  for (const direction of ['back', 'forward'] as const) {
+    const id = direction === 'back' ? selectionHistory.peekBack(selectedStarAvailable) : selectionHistory.peekForward(selectedStarAvailable)
+    const star = stars.find((star) => star.id === id)
+    const prefix = `selection-${direction}`
+    const label = direction === 'back' ? 'Previous selection' : 'Next selection'
+    const button = element<HTMLButtonElement>(prefix)
+    button.disabled = sceneBusy || !star
+    button.setAttribute('aria-label', star ? `${label}: ${star.name}` : label)
+    element(`${prefix}-object`).hidden = !star
+    text(`${prefix}-name`, star?.name ?? '')
+    element(`${prefix}-swatch`).style.background = star ? starDisplayColor(star, starColorMode).getStyle() : ''
+  }
 }
 
 function updateReferenceControl(): void {
@@ -382,6 +398,88 @@ function closeRadiusCard(restoreFocus = false): void {
   if (restoreFocus) element('radius-toggle').focus()
 }
 
+function closeMassCard(restoreFocus = false): void {
+  const card = element('mass-card')
+  if (card.hidden) return
+  card.hidden = true
+  element('mass-toggle').setAttribute('aria-expanded', 'false')
+  if (restoreFocus) element('mass-toggle').focus()
+}
+
+function renderMassCard(star: Star): void {
+  renderMassCardContent(element('mass-card'), star)
+  syncObjectTypeLayout()
+}
+
+function toggleMassCard(): void {
+  if (!element('mass-card').hidden) {
+    closeMassCard(true)
+    return
+  }
+  const star = stars.find((candidate) => candidate.id === selectedId)
+  if (!star || !massCardAvailable(star)) return
+  closeObjectTypeCard()
+  closeMetallicityCard()
+  closeRadiusCard()
+  closeDistanceCard()
+  element('mass-card').hidden = false
+  element('mass-toggle').setAttribute('aria-expanded', 'true')
+  renderMassCard(star)
+  element('mass-card').querySelector<HTMLElement>('.card-scroll-content')!.scrollTop = 0
+  element('mass-close').focus({ preventScroll: true })
+}
+
+let distanceReference: 'origin' | 'sun' = 'origin'
+let distanceCardLocked = false
+let lastDistanceCardRender = -Infinity
+
+function closeDistanceCard(restoreFocus = false): void {
+  const card = element('distance-card')
+  if (card.hidden) return
+  card.hidden = true
+  element('distance-toggle').setAttribute('aria-expanded', 'false')
+  if (restoreFocus) element('distance-toggle').focus()
+}
+
+function renderDistanceCard(star: Star): void {
+  const sun = stars.find((candidate) => candidate.id === 'sun')!
+  const origin = stars.find((candidate) => candidate.id === referenceId) ?? sun
+  const originLabel = `from Origin (${origin.name})`
+  text('distance-reference-origin', originLabel)
+  element('distance-reference-origin').title = originLabel
+  element('distance-reference-origin').setAttribute('aria-label', originLabel)
+  for (const mode of ['origin', 'sun'] as const) {
+    element(`distance-reference-${mode}`).setAttribute('aria-pressed', String(distanceReference === mode))
+  }
+  const reference = distanceReference === 'sun' ? sun : origin
+  renderDistanceComparison(element<HTMLCanvasElement>('distance-comparison'), star, reference, starColorMode, distanceUnit, simulationYears, motionFrame)
+  lastDistanceCardRender = performance.now()
+  syncObjectTypeLayout()
+}
+
+function refreshDistanceCard(): void {
+  if (element('distance-card').hidden) return
+  const star = stars.find((candidate) => candidate.id === selectedId)
+  if (star) renderDistanceCard(star)
+}
+
+function toggleDistanceCard(): void {
+  if (!element('distance-card').hidden) {
+    closeDistanceCard(true)
+    return
+  }
+  const star = stars.find((candidate) => candidate.id === selectedId)
+  if (!star) return
+  closeObjectTypeCard()
+  closeMetallicityCard()
+  closeRadiusCard()
+  closeMassCard()
+  element('distance-card').hidden = false
+  element('distance-toggle').setAttribute('aria-expanded', 'true')
+  renderDistanceCard(star)
+  element('distance-close').focus({ preventScroll: true })
+}
+
 let radiusReference: RadiusReference = 'auto'
 
 function renderRadiusCard(star: Star): void {
@@ -430,6 +528,8 @@ function toggleRadiusCard(): void {
   if (!star || element('radius-toggle').closest<HTMLElement>('.stellar-property')!.hidden) return
   closeObjectTypeCard()
   closeMetallicityCard()
+  closeDistanceCard()
+  closeMassCard()
   element('radius-card').hidden = false
   element('radius-toggle').setAttribute('aria-expanded', 'true')
   renderRadiusCard(star)
@@ -475,6 +575,7 @@ function renderMetallicityCard(star: Star): void {
   })
   element('metallicity-ticks').replaceChildren(...ticks)
   element('metallicity-marker').hidden = value === null
+  element('metallicity-fill').hidden = value === null
   text('metallicity-marker-value', value === null ? '' : `${value > 0 ? '+' : ''}${quantity(value, 'dex', 2)} (${percentageLabel})`)
   let description = `No metallicity measurement is available for ${star.name}. [Fe/H] measures iron relative to hydrogen; [M/H] describes overall metallicity. They are distinct quantities.`
   if (value !== null) {
@@ -518,6 +619,8 @@ function toggleMetallicityCard(): void {
   if (!star || element('metallicity-toggle').closest<HTMLElement>('.stellar-property')!.hidden) return
   closeObjectTypeCard()
   closeRadiusCard()
+  closeMassCard()
+  closeDistanceCard()
   element('metallicity-card').hidden = false
   element('metallicity-toggle').setAttribute('aria-expanded', 'true')
   renderMetallicityCard(star)
@@ -551,6 +654,8 @@ function toggleObjectTypeCard(): void {
   if (!star) return
   closeMetallicityCard()
   closeRadiusCard()
+  closeMassCard()
+  closeDistanceCard()
   element('object-type-card').hidden = false
   element('object-type-toggle').setAttribute('aria-expanded', 'true')
   renderObjectTypeCard(star)
@@ -559,7 +664,7 @@ function toggleObjectTypeCard(): void {
 
 function syncObjectTypeLayout(): void {
   const motion = element('motion-panel')
-  for (const id of ['object-type-card', 'metallicity-card', 'radius-card']) {
+  for (const id of ['object-type-card', 'metallicity-card', 'radius-card', 'mass-card', 'distance-card']) {
     const card = element(id)
     card.style.removeProperty('max-height')
     if (card.hidden || motion.hidden) continue
@@ -615,6 +720,8 @@ function dismissOpenPanel(): void {
   closeObjectTypeCard()
   closeMetallicityCard()
   closeRadiusCard()
+  closeMassCard()
+  if (!distanceCardLocked) closeDistanceCard()
   let changed = false
   for (const name of panelNames) {
     if (!panelIsOpen(name)) continue
@@ -689,6 +796,7 @@ function setSimulationYears(years: number): void {
   simulationYears = Math.abs(clamped) < 1e-9 ? 0 : clamped
   renderSimulationTime()
   viewer?.setSimulationYears(simulationYears)
+  if (!simulationPlaying || performance.now() - lastDistanceCardRender >= 100) refreshDistanceCard()
 }
 
 function playbackFrame(time: number): void {
@@ -718,6 +826,7 @@ function setSimulationPlaying(playing: boolean): void {
   if (playbackFrameRequest !== null) cancelAnimationFrame(playbackFrameRequest)
   playbackFrameRequest = playing ? requestAnimationFrame(playbackFrame) : null
   renderPlaybackState()
+  if (!playing) refreshDistanceCard()
 }
 
 renderSimulationTime()
@@ -767,6 +876,8 @@ for (const section of objectSections) {
       closeObjectTypeCard()
       closeMetallicityCard()
       closeRadiusCard()
+      closeMassCard()
+      closeDistanceCard()
     }
     syncObjectSections()
   }, { signal: events.signal })
@@ -831,6 +942,8 @@ function renderSelection(): void {
     closeObjectTypeCard()
     closeMetallicityCard()
     closeRadiusCard()
+    closeMassCard()
+    closeDistanceCard()
     delete element('inspector').dataset.selectedStar
     element('inspector').style.removeProperty('--selected-star-color')
     text('selection-announcement', 'No object selected.')
@@ -848,6 +961,8 @@ function renderSelection(): void {
   renderSelectedStarPreview(element<HTMLCanvasElement>('selected-swatch'), star, starColorMode, system?.components.map((component) => component.star))
   text('distance-value', formatDistance(metrics.distancePc, distanceUnit).split(' ')[0]!)
   text('distance-unit', ` ${distanceUnit}`)
+  element('distance-toggle').setAttribute('aria-label', `Visualize distance and direction of ${star.name}`)
+  refreshDistanceCard()
   text('object-type', describeObject(star))
   element('object-type-toggle').setAttribute('aria-label', `Learn about ${describeObject(star).toLowerCase()}`)
   if (!element('object-type-card').hidden) renderObjectTypeCard(star)
@@ -874,6 +989,11 @@ function renderSelection(): void {
   const luminosity = star.luminosity_solar
   text('luminosity', luminosity !== null && luminosity < 1 ? `${luminosity.toLocaleString('en-US', { maximumSignificantDigits: 3 })} solar` : quantity(luminosity, 'solar'))
   text('mass', compact ? preciseMeasurement(star.mass_solar, compact.mass_error_solar, 'solar') : quantity(star.mass_solar, 'solar'))
+  element<HTMLButtonElement>('mass-toggle').disabled = !massCardAvailable(star)
+  element('mass-toggle').setAttribute('aria-label', `Explore mass of ${star.name}`)
+  element('mass-row').classList.toggle('mass-row', massCardAvailable(star))
+  if (!massCardAvailable(star)) closeMassCard()
+  else if (!element('mass-card').hidden) renderMassCard(star)
   text('radius', quantity(star.radius_solar, 'solar'))
   element('radius-toggle').setAttribute('aria-label', `Compare radius of ${star.name} with origin`)
   if (compactObject || nebulaObject || molecularCloudObject || bubbleObject) closeRadiusCard()
@@ -1549,6 +1669,7 @@ element('star-colors').addEventListener('change', () => {
   try { localStorage.setItem('star-view-color-mode', starColorMode) } catch {}
   objectList.setColorMode(starColorMode)
   renderSelection()
+  updateSelectionHistoryControls()
   viewer?.setStarColorMode(starColorMode)
 }, { signal: events.signal })
 element('magnitude-limit').addEventListener('input', () => {
@@ -1612,6 +1733,7 @@ element('motion-years').addEventListener('change', () => {
 element('motion-frame').addEventListener('change', () => {
   motionFrame = element<HTMLInputElement>('motion-frame-solar').checked ? 'solar' : 'galactic'
   viewer?.setMotionFrame(motionFrame)
+  refreshDistanceCard()
 }, { signal: events.signal })
 element('time-play').addEventListener('click', () => {
   if (!simulationPlaying) {
@@ -1653,6 +1775,8 @@ window.addEventListener('resize', () => {
   syncVisibilityObserverLayout()
   const star = stars.find((candidate) => candidate.id === selectedId)
   if (star && !element('radius-card').hidden) renderRadiusCard(star)
+  if (star && !element('mass-card').hidden) renderMassCard(star)
+  refreshDistanceCard()
 }, { signal: events.signal })
 categoryOptions.addEventListener('change', (event) => {
   const input = event.target
@@ -1706,6 +1830,14 @@ element('saved-views-list').addEventListener('keydown', (event) => {
 }, { signal: events.signal })
 document.addEventListener('keydown', (event) => {
   if (event.key !== 'Escape') return
+  if (!element('mass-card').hidden) {
+    closeMassCard(true)
+    return
+  }
+  if (!element('distance-card').hidden) {
+    closeDistanceCard(true)
+    return
+  }
   if (!element('radius-card').hidden) {
     closeRadiusCard(true)
     return
@@ -1728,6 +1860,20 @@ document.querySelector('.object-type-row')!.addEventListener('click', toggleObje
 element('object-type-close').addEventListener('click', () => closeObjectTypeCard(true), { signal: events.signal })
 document.querySelector('.metallicity-row')!.addEventListener('click', toggleMetallicityCard, { signal: events.signal })
 element('metallicity-close').addEventListener('click', () => closeMetallicityCard(true), { signal: events.signal })
+document.querySelector('.distance-row')!.addEventListener('click', toggleDistanceCard, { signal: events.signal })
+element('distance-close').addEventListener('click', () => closeDistanceCard(true), { signal: events.signal })
+element('distance-lock').addEventListener('click', () => {
+  distanceCardLocked = !distanceCardLocked
+  element('distance-lock').setAttribute('aria-pressed', String(distanceCardLocked))
+}, { signal: events.signal })
+for (const mode of ['origin', 'sun'] as const) {
+  element(`distance-reference-${mode}`).addEventListener('click', () => {
+    distanceReference = mode
+    refreshDistanceCard()
+  }, { signal: events.signal })
+}
+element('mass-row').addEventListener('click', toggleMassCard, { signal: events.signal })
+element('mass-close').addEventListener('click', () => closeMassCard(true), { signal: events.signal })
 document.querySelector('.radius-row')!.addEventListener('click', toggleRadiusCard, { signal: events.signal })
 element('radius-close').addEventListener('click', () => closeRadiusCard(true), { signal: events.signal })
 for (const mode of ['origin', 'jupiter', 'earth'] as const) {
@@ -1771,4 +1917,5 @@ import.meta.hot?.dispose(() => {
   events.abort()
   if (playbackFrameRequest !== null) cancelAnimationFrame(playbackFrameRequest)
   viewer?.dispose()
+  disposeDistanceComparison()
 })

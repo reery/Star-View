@@ -263,6 +263,8 @@ def enrich_from_frozen(row, main_id=None, aliases=(), derive=True):
                       sourceRecordId=observation.source_record_id, qualityFlags=list(observation.quality_flags),
                       quantity="[M/H]" if field == "metallicity_dex" else None)
     if adopted:
+        if "age_gyr" in adopted:
+            row["notes"] = row["notes"].replace(" No component-resolved age was adopted from the reviewed sources.", "")
         details = "; ".join(f"{field}: {item['reference']}" for field, item in adopted.items())
         row["notes"] += f" Shared exact-identity physical supplements ({details})."
     adopted.update(estimate_temperature(row))

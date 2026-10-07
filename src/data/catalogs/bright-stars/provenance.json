@@ -1,16 +1,16 @@
 {
   "schemaVersion": 1,
   "catalogId": "bright-stars",
-  "sharedEnrichmentManifestSha256": "da2dd89f7976ccbf65eac832643f63404e2c9881e67d7fefab276ac5ba479e52",
+  "sharedEnrichmentManifestSha256": "3db40151af2455da8373cddc60213f3afb6eb8cffc12d42fc0e1865d5309f389",
   "policy": "All frozen SIMBAD stellar entries within 3000 ly with compiled Johnson V < 2.70, deduplicating the Alpha Centauri system in favor of A/B components; Acrux uses the Bright Star Catalogue combined V=0.76. Includes Sun as the map origin.",
   "selectionReview": "The V=2.42-2.69 expansion was queried through SIMBAD TAP on 2026-09-30. The SIMBAD stellar hierarchy filter excludes NGC 1980, whose integrated V=2.50 is not a stellar entry.",
   "coverage": {
     "temperature_k": 121,
-    "mass_solar": 55,
+    "mass_solar": 56,
     "luminosity_solar": 110,
     "radius_solar": 111,
     "metallicity_dex": 76,
-    "age_gyr": 11
+    "age_gyr": 12
   },
   "objects": {
     "sun": {
@@ -1571,6 +1571,52 @@
       "source": "SIMBAD TAP snapshot 2026-09-25",
       "queryId": "* alf Ori",
       "sharedPhysicalEnrichment": {
+        "mass_solar": {
+          "field": "mass_solar",
+          "value": 17.75,
+          "status": "model-derived",
+          "reference": "2020ApJ...902...63J",
+          "uncertainty": {
+            "lower": 1.25,
+            "upper": 1.25
+          },
+          "identity": "* alf Ori",
+          "component": "red supergiant primary",
+          "scope": "Present-day Betelgeuse A, HIP 27989 / HD 39801; not initial mass, companion mass or binary-total mass.",
+          "section": "Table 2 and seismic analysis; also Montarg\u00e8s 2026 section 4.1",
+          "caveat": "Range-based representative, not a dynamical measurement or posterior best fit. Bounds are the adopted model range, not a 1-sigma confidence interval.",
+          "quantity": "present-day stellar mass",
+          "sourceUrl": "https://arxiv.org/abs/2006.09837",
+          "inputs": {
+            "mass_lower_solar": 16.5,
+            "mass_upper_solar": 19
+          },
+          "method": "Representative midpoint of the published model range"
+        },
+        "age_gyr": {
+          "field": "age_gyr",
+          "value": 0.00925,
+          "status": "model-derived",
+          "reference": "2026A&A...711L..12M",
+          "uncertainty": {
+            "lower": 0.00125,
+            "upper": 0.00125
+          },
+          "identity": "* alf Ori",
+          "component": "red supergiant primary",
+          "scope": "Present-day Betelgeuse A, HIP 27989 / HD 39801; not initial mass, companion mass or binary-total mass.",
+          "section": "4.3, age since arrival on the main sequence, adopting Joyce et al. 2020",
+          "caveat": "2026 adoption of earlier evolutionary models, not a new independent age measurement. Bounds are a model range, not a 1-sigma confidence interval.",
+          "quantity": "stellar age since zero-age main sequence",
+          "sourceUrl": "https://www.eso.org/public/archives/releases/sciencepapers/eso2611/eso2611a.pdf",
+          "inputs": {
+            "age_lower_myr": 8,
+            "age_upper_myr": 10.5,
+            "initial_mass_lower_solar": 18,
+            "initial_mass_upper_solar": 21
+          },
+          "method": "Representative midpoint of the adopted model age range"
+        },
         "metallicity_dex": {
           "field": "metallicity_dex",
           "value": -0.111,
@@ -3006,8 +3052,8 @@
     "inputSha256": {
       "catalog-work/star-systems/overlay-companions.json": "0155d05f01e61ef80496c0d515b35946c8e6dcdd06342bb7fa8eda653e39485b",
       "src/data/star-systems.json": "22a77579b11e4f5035f19be704fda78f1a6a5d409ca7ce0d5bc74aab8eaa599b",
-      "src/data/catalogs/nearest-1000/stars.csv": "028e081ffd692aeac564593779e30f41e44f682268f1734dcfcd6c30ef7a9620",
-      "src/data/catalogs/nearest-1000/provenance.json": "91bd00e8fe7cd71dd8eea3eba521330492b70b8fa64b6fd651e67ed3c826ab12",
+      "src/data/catalogs/nearest-1000/stars.csv": "3e7c65047f21a7037025e68674142b2a459cab566eb66ec3d54c1e408a201980",
+      "src/data/catalogs/nearest-1000/provenance.json": "8ae3f5a4e16016228bce0e65b41efacae6db4858b9407224fc3f49885e287bb2",
       "catalog-work/star-systems/overlay-individual-components.json": "b4fbcf92e682c639a11c5e488a378d43a0b43aaa10e0e8b16b2db70dc9a10741",
       "catalog-work/star-systems/msc-20260619-rigel.json": "0bc6740e8537705363c915a78b203822b46a9a31330f325f6b4a783091e40e97",
       "catalog-work/star-systems/msc-20260619.Readme": "d0906632b078a3b97b4e7247ad76830e2cc13bae6300ae145d69ce30a8e859b8"

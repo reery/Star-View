@@ -14,6 +14,32 @@ def empty_row(**values):
 
 
 class EnrichmentTests(unittest.TestCase):
+    def test_betelgeuse_review_preserves_other_fields_and_current_mass_range(self):
+        row = empty_row(id="bright-betelgeuse", temperature_k="3659", luminosity_solar="73524.200",
+                        radius_solar="674.7501", metallicity_dex="-0.111",
+                        notes="Curated star. No component-resolved age was adopted from the reviewed sources.")
+        before = dict(row)
+        adopted = enrich_from_frozen(row, "* alf Ori", ["HIP 27989", "HD 39801"])
+        self.assertEqual(set(adopted), {"mass_solar", "age_gyr"})
+        self.assertEqual(float(row["mass_solar"]), 17.75)
+        self.assertEqual(float(row["age_gyr"]) * 1000, 9.25)
+        for field in ("temperature_k", "luminosity_solar", "radius_solar", "metallicity_dex"):
+            self.assertEqual(row[field], before[field])
+        for item in adopted.values():
+            self.assertEqual(item["status"], "model-derived")
+            self.assertIn("not a 1-sigma", item["caveat"])
+        mass, age = adopted["mass_solar"], adopted["age_gyr"]
+        self.assertEqual(mass["reference"], "2020ApJ...902...63J")
+        self.assertEqual(age["reference"], "2026A&A...711L..12M")
+        self.assertEqual(mass["quantity"], "present-day stellar mass")
+        self.assertEqual(mass["value"] - mass["uncertainty"]["lower"], 16.5)
+        self.assertEqual(mass["value"] + mass["uncertainty"]["upper"], 19)
+        self.assertAlmostEqual(age["value"] - age["uncertainty"]["lower"], .008)
+        self.assertAlmostEqual(age["value"] + age["uncertainty"]["upper"], .0105)
+        self.assertNotIn("No component-resolved age", row["notes"])
+        self.assertEqual(enrich_from_frozen(row, "* alf Ori"), {})
+        self.assertEqual(enrich_from_frozen(empty_row(), "* alf Ori B"), {})
+
     def test_gj65_reviews_keep_components_and_field_sources_distinct(self):
         for component, temperature, mass, radius, luminosity in (
             ("A", 2784, .122, .165, .00147),

@@ -161,8 +161,8 @@
     "inputSha256": {
       "catalog-work/star-systems/overlay-companions.json": "0155d05f01e61ef80496c0d515b35946c8e6dcdd06342bb7fa8eda653e39485b",
       "src/data/star-systems.json": "22a77579b11e4f5035f19be704fda78f1a6a5d409ca7ce0d5bc74aab8eaa599b",
-      "src/data/catalogs/nearest-1000/stars.csv": "028e081ffd692aeac564593779e30f41e44f682268f1734dcfcd6c30ef7a9620",
-      "src/data/catalogs/nearest-1000/provenance.json": "91bd00e8fe7cd71dd8eea3eba521330492b70b8fa64b6fd651e67ed3c826ab12",
+      "src/data/catalogs/nearest-1000/stars.csv": "3e7c65047f21a7037025e68674142b2a459cab566eb66ec3d54c1e408a201980",
+      "src/data/catalogs/nearest-1000/provenance.json": "8ae3f5a4e16016228bce0e65b41efacae6db4858b9407224fc3f49885e287bb2",
       "catalog-work/star-systems/overlay-individual-components.json": "b4fbcf92e682c639a11c5e488a378d43a0b43aaa10e0e8b16b2db70dc9a10741",
       "catalog-work/star-systems/msc-20260619-rigel.json": "0bc6740e8537705363c915a78b203822b46a9a31330f325f6b4a783091e40e97",
       "catalog-work/star-systems/msc-20260619.Readme": "d0906632b078a3b97b4e7247ad76830e2cc13bae6300ae145d69ce30a8e859b8"
@@ -170,13 +170,13 @@
   },
   "physicalCoverage": {
     "temperature_k": 695,
-    "mass_solar": 377,
+    "mass_solar": 378,
     "luminosity_solar": 643,
     "radius_solar": 644,
     "metallicity_dex": 532,
-    "age_gyr": 100
+    "age_gyr": 101
   },
-  "sharedEnrichmentManifestSha256": "da2dd89f7976ccbf65eac832643f63404e2c9881e67d7fefab276ac5ba479e52",
+  "sharedEnrichmentManifestSha256": "3db40151af2455da8373cddc60213f3afb6eb8cffc12d42fc0e1865d5309f389",
   "objects": {
     "sun": {
       "id": "sun",
@@ -13080,14 +13080,23 @@
       "gaiaDr3Id": null,
       "adoptedPhysicalFields": {
         "temperature_k": "bright-stars:bright-betelgeuse",
+        "mass_solar": "bright-stars:bright-betelgeuse",
         "luminosity_solar": "bright-stars:bright-betelgeuse",
         "radius_solar": "bright-stars:bright-betelgeuse",
-        "metallicity_dex": "bright-stars:bright-betelgeuse"
+        "metallicity_dex": "bright-stars:bright-betelgeuse",
+        "age_gyr": "bright-stars:bright-betelgeuse"
       },
       "physicalObservations": [
         {
           "field": "temperature_k",
           "value": 3659.0,
+          "status": "inherited",
+          "source": "bright-stars",
+          "sourceId": "bright-betelgeuse"
+        },
+        {
+          "field": "mass_solar",
+          "value": 17.75,
           "status": "inherited",
           "source": "bright-stars",
           "sourceId": "bright-betelgeuse"
@@ -13109,6 +13118,13 @@
         {
           "field": "metallicity_dex",
           "value": -0.111,
+          "status": "inherited",
+          "source": "bright-stars",
+          "sourceId": "bright-betelgeuse"
+        },
+        {
+          "field": "age_gyr",
+          "value": 0.00925,
           "status": "inherited",
           "source": "bright-stars",
           "sourceId": "bright-betelgeuse"
