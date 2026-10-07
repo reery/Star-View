@@ -43,7 +43,6 @@ const jupiter: RadiusBody = {
   name: 'Jupiter', radiusKm: JUPITER_RADIUS_KM, polarRadiusKm: JUPITER_POLAR_RADIUS_KM,
   color: '#c7b49b', kind: 'jupiter',
 }
-const solar: RadiusBody = { name: 'Sun', radiusKm: SOLAR_RADIUS_KM, polarRadiusKm: SOLAR_RADIUS_KM, color: '#ffe6bc', kind: 'star' }
 const earth: RadiusBody = {
   name: 'Earth', radiusKm: EARTH_RADIUS_KM, polarRadiusKm: EARTH_POLAR_RADIUS_KM,
   color: '#739bd1', kind: 'earth',
@@ -75,24 +74,20 @@ export function dimensionNumber(value: number): string {
   return value.toLocaleString('en-US', { maximumSignificantDigits: 4 })
 }
 
-export function radiusStats(comparison: RadiusComparison): { label: string; values: { value: string; unit: string }[] }[] {
-  const base = comparison.referenceMode === 'earth' ? earth : comparison.jupiterBenchmark ? jupiter : solar
-  const symbol = comparison.referenceMode === 'earth' ? '⊕' : comparison.jupiterBenchmark ? '♃' : '☉'
+export function radiusStats(comparison: RadiusComparison): { label: string; values: { value: string }[] }[] {
   return [
-    { label: 'Radius', measure: (body: RadiusBody) => body.radiusKm, unit: 'km', relative: (body: RadiusBody) => body.radiusKm === null ? null : body.radiusKm / base.radiusKm!, relativeUnit: `R${symbol}` },
-    { label: 'Diameter', measure: (body: RadiusBody) => body.radiusKm === null ? null : body.radiusKm * 2, unit: 'km', relative: () => null, relativeUnit: '' },
-    { label: 'Surface area', measure: surfaceArea, unit: 'km²', relative: (body: RadiusBody) => surfaceArea(body) === null ? null : surfaceArea(body)! / surfaceArea(base)!, relativeUnit: `A${symbol}` },
-    { label: 'Volume', measure: volume, unit: 'km³', relative: (body: RadiusBody) => volume(body) === null ? null : volume(body)! / volume(base)!, relativeUnit: `V${symbol}` },
-  ].map(({ label, measure, unit, relative, relativeUnit }) => ({
+    { label: 'Radius', measure: (body: RadiusBody) => body.radiusKm, unit: 'km' },
+    { label: 'Diameter', measure: (body: RadiusBody) => body.radiusKm === null ? null : body.radiusKm * 2, unit: 'km' },
+    { label: 'Surface area', measure: surfaceArea, unit: 'km²' },
+    { label: 'Volume', measure: volume, unit: 'km³' },
+  ].map(({ label, measure, unit }) => ({
     label,
     values: [comparison.selected, comparison.reference].map((body) => {
       const value = measure(body)
-      const ratio = relative(body)
-      // Area and volume are most legible in relative units; SI values remain available below.
-      const relativeFirst = label === 'Surface area' || label === 'Volume'
+      const formatted = value === null ? null : label === 'Surface area' || label === 'Volume'
+        ? value.toExponential(3).replace('e+', 'e') : dimensionNumber(value)
       return {
-        value: value === null ? 'Not available' : relativeFirst ? `${dimensionNumber(ratio!)} ${relativeUnit}` : `${dimensionNumber(value)} ${unit}`,
-        unit: value === null ? '' : relativeFirst ? `${value.toExponential(3).replace('e+', 'e')} ${unit}` : ratio === null ? '' : `${dimensionNumber(ratio)} ${relativeUnit}`,
+        value: formatted === null ? 'Not available' : `${formatted} ${unit}`,
       }
     }),
   }))

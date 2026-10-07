@@ -1,4 +1,4 @@
-import { isCompactObject, type Star } from './catalog-model'
+import { isCompactObject, type Star } from './catalog-model.ts'
 
 // IAU 2015 B3 nominal GM and radius: https://arxiv.org/abs/1510.07674
 const SOLAR_GM = 1.3271244e20
@@ -17,7 +17,7 @@ function positive(value: number | null): number | null {
   return value !== null && Number.isFinite(value) && value > 0 ? value : null
 }
 
-export function massProperties(star: Star) {
+export function massProperties(star: Pick<Star, 'type' | 'mass_solar' | 'radius_solar' | 'luminosity_solar'>) {
   const mass = positive(star.mass_solar)
   // A horizon is not a photosphere; neutron-star surfaces require relativistic models.
   const radius = isCompactObject(star) ? null : positive(star.radius_solar)

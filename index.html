@@ -150,11 +150,17 @@
               </div>
             </section>
             <section id="mass-card" class="dock-card object-type-card mass-card" aria-labelledby="mass-heading" data-scene-obstacle hidden>
-              <div class="panel-heading">
+              <div class="panel-heading mass-heading">
                 <h2 id="mass-heading">Mass</h2>
+                <div class="distance-reference-buttons" role="group" aria-label="Mass comparison reference">
+                  <button id="mass-reference-class" class="object-section-button distance-reference-button" type="button" aria-pressed="true">vs Class</button>
+                  <button id="mass-reference-origin" class="object-section-button distance-reference-button" type="button" aria-pressed="false" hidden>vs Sun</button>
+                  <button id="mass-reference-sun" class="object-section-button distance-reference-button" type="button" aria-pressed="false">vs Sun</button>
+                </div>
                 <button id="mass-close" class="panel-lock" type="button" aria-label="Close mass card"><span id="mass-close-icon"></span></button>
               </div>
               <div class="mass-body card-scroll-content">
+                <p id="mass-reference-context" class="mass-reference-context"></p>
                 <div class="mass-metric mass-overview">
                   <div class="mass-metric-copy"><h4 id="mass-scale-selected" class="mass-metric-heading"></h4></div>
                   <div class="mass-metric-ratio"><strong id="mass-card-value"></strong><small id="mass-card-uncertainty" hidden></small><span id="mass-conversions"></span><small id="mass-earth-masses"></small></div>
@@ -166,32 +172,40 @@
                     </div>
                   </div>
                 </div>
+                <div id="mass-reference-metric" class="mass-metric mass-reference-metric">
+                  <div class="mass-metric-copy"><h4 id="mass-reference-heading" class="mass-metric-heading"></h4><small id="mass-reference-benchmark" class="mass-benchmark"></small></div>
+                  <div class="mass-metric-ratio" hidden><strong id="mass-reference-value" hidden></strong><span id="mass-reference-ratio" hidden></span><small id="mass-reference-extra" hidden></small></div>
+                  <div id="mass-reference-bar" class="mass-ratio-bar" role="img"><div class="mass-ratio-track"><span class="mass-ratio-fill"></span><span class="mass-typical-limit mass-typical-low" hidden></span><span class="mass-typical-limit mass-typical-high" hidden></span><span class="mass-ratio-sun"></span><span class="mass-ratio-marker"></span></div><div class="mass-ratio-labels" aria-hidden="true"><span id="mass-reference-low"></span><span id="mass-reference-mid"></span><span id="mass-reference-high"></span></div></div>
+                </div>
                 <section class="mass-section" aria-labelledby="mass-gravity-heading">
                   <h3 id="mass-gravity-heading" class="card-subgroup-heading">Gravity</h3>
                   <p id="mass-gravity-context"></p>
                   <div class="mass-metric">
                     <div class="mass-metric-copy">
                       <h4 class="mass-metric-heading"><button type="button" class="mass-metric-help" aria-describedby="mass-gravity-tooltip">Photosphere gravity</button></h4>
+                      <small id="mass-gravity-benchmark" class="mass-benchmark"></small>
                       <span id="mass-gravity-tooltip" class="tooltip mass-metric-tooltip" role="tooltip">Acceleration due to gravity at the light-emitting surface.</span>
                     </div>
                     <div class="mass-metric-ratio"><strong id="mass-gravity-value"></strong><span id="mass-gravity-ratio"></span><small id="mass-gravity-extra"></small></div>
-                    <div id="mass-gravity-bar" class="mass-ratio-bar" role="img"><div class="mass-ratio-track"><span class="mass-ratio-fill"></span><span class="mass-ratio-sun"></span><span class="mass-ratio-marker"></span></div><div class="mass-ratio-labels" aria-hidden="true"><span id="mass-gravity-low"></span><span>Sun</span><span id="mass-gravity-high"></span></div></div>
+                    <div id="mass-gravity-bar" class="mass-ratio-bar" role="img"><div class="mass-ratio-track"><span class="mass-ratio-fill"></span><span class="mass-typical-limit mass-typical-low" hidden></span><span class="mass-typical-limit mass-typical-high" hidden></span><span class="mass-ratio-sun"></span><span class="mass-ratio-marker"></span></div><div class="mass-ratio-labels" aria-hidden="true"><span id="mass-gravity-low"></span><span id="mass-gravity-mid"></span><span id="mass-gravity-high"></span></div></div>
                   </div>
                   <div class="mass-metric">
                     <div class="mass-metric-copy">
                       <h4 class="mass-metric-heading"><button type="button" class="mass-metric-help" aria-describedby="mass-escape-tooltip">Escape velocity</button></h4>
+                      <small id="mass-escape-benchmark" class="mass-benchmark"></small>
                       <span id="mass-escape-tooltip" class="tooltip mass-metric-tooltip" role="tooltip">Minimum speed to escape from the surface without further propulsion.</span>
                     </div>
                     <div class="mass-metric-ratio"><strong id="mass-escape-value"></strong><span id="mass-escape-ratio"></span><small id="mass-escape-extra"></small></div>
-                    <div id="mass-escape-bar" class="mass-ratio-bar" role="img"><div class="mass-ratio-track"><span class="mass-ratio-fill"></span><span class="mass-ratio-sun"></span><span class="mass-ratio-marker"></span></div><div class="mass-ratio-labels" aria-hidden="true"><span id="mass-escape-low"></span><span>Sun</span><span id="mass-escape-high"></span></div></div>
+                    <div id="mass-escape-bar" class="mass-ratio-bar" role="img"><div class="mass-ratio-track"><span class="mass-ratio-fill"></span><span class="mass-typical-limit mass-typical-low" hidden></span><span class="mass-typical-limit mass-typical-high" hidden></span><span class="mass-ratio-sun"></span><span class="mass-ratio-marker"></span></div><div class="mass-ratio-labels" aria-hidden="true"><span id="mass-escape-low"></span><span id="mass-escape-mid"></span><span id="mass-escape-high"></span></div></div>
                   </div>
                   <div class="mass-metric">
                     <div class="mass-metric-copy">
                       <h4 class="mass-metric-heading"><button type="button" class="mass-metric-help" aria-describedby="mass-density-tooltip">Mean density</button></h4>
+                      <small id="mass-density-benchmark" class="mass-benchmark"></small>
                       <span id="mass-density-tooltip" class="tooltip mass-metric-tooltip" role="tooltip">Average mass per unit volume, including the dense core and outer layers.</span>
                     </div>
                     <div class="mass-metric-ratio"><strong id="mass-density-value"></strong><span id="mass-density-ratio"></span><small id="mass-density-extra"></small></div>
-                    <div id="mass-density-bar" class="mass-ratio-bar" role="img"><div class="mass-ratio-track"><span class="mass-ratio-fill"></span><span class="mass-ratio-sun"></span><span class="mass-ratio-marker"></span></div><div class="mass-ratio-labels" aria-hidden="true"><span id="mass-density-low"></span><span>Sun</span><span id="mass-density-high"></span></div></div>
+                    <div id="mass-density-bar" class="mass-ratio-bar" role="img"><div class="mass-ratio-track"><span class="mass-ratio-fill"></span><span class="mass-typical-limit mass-typical-low" hidden></span><span class="mass-typical-limit mass-typical-high" hidden></span><span class="mass-ratio-sun"></span><span class="mass-ratio-marker"></span></div><div class="mass-ratio-labels" aria-hidden="true"><span id="mass-density-low"></span><span id="mass-density-mid"></span><span id="mass-density-high"></span></div></div>
                   </div>
                 </section>
                 <section class="mass-section" aria-labelledby="mass-luminosity-heading">
@@ -199,10 +213,11 @@
                   <div class="mass-metric">
                     <div class="mass-metric-copy">
                       <h4 class="mass-metric-heading"><button type="button" class="mass-metric-help" aria-describedby="mass-efficiency-tooltip">Luminosity per unit mass</button></h4>
-                      <span id="mass-efficiency-tooltip" class="tooltip mass-metric-tooltip" role="tooltip">Radiated power per solar mass, compared with the Sun.</span>
+                      <small id="mass-efficiency-benchmark" class="mass-benchmark"></small>
+                      <span id="mass-efficiency-tooltip" class="tooltip mass-metric-tooltip" role="tooltip">Radiated power per solar mass, compared with the selected reference.</span>
                     </div>
                     <div class="mass-metric-ratio"><strong id="mass-efficiency-value"></strong><span id="mass-efficiency-ratio"></span><small id="mass-efficiency-extra"></small></div>
-                    <div id="mass-efficiency-bar" class="mass-ratio-bar" role="img"><div class="mass-ratio-track"><span class="mass-ratio-fill"></span><span class="mass-ratio-sun"></span><span class="mass-ratio-marker"></span></div><div class="mass-ratio-labels" aria-hidden="true"><span id="mass-efficiency-low"></span><span>Sun</span><span id="mass-efficiency-high"></span></div></div>
+                    <div id="mass-efficiency-bar" class="mass-ratio-bar" role="img"><div class="mass-ratio-track"><span class="mass-ratio-fill"></span><span class="mass-typical-limit mass-typical-low" hidden></span><span class="mass-typical-limit mass-typical-high" hidden></span><span class="mass-ratio-sun"></span><span class="mass-ratio-marker"></span></div><div class="mass-ratio-labels" aria-hidden="true"><span id="mass-efficiency-low"></span><span id="mass-efficiency-mid"></span><span id="mass-efficiency-high"></span></div></div>
                   </div>
                   <p id="mass-efficiency-detail" class="mass-note"></p>
                 </section>
@@ -211,7 +226,7 @@
                   <p class="mass-end-state-line"><strong id="mass-end-state"></strong></p>
                   <p id="mass-end-state-comment" class="mass-note"></p>
                 </section>
-                <details class="mass-method"><summary>Calculations &amp; sources</summary><p>Derived from catalog values, which may be measured or model-derived. Gravity = GM/r²; escape speed = √(2GM/r); mean density = 3M/(4πr³). These spherical Newtonian estimates omit rotation, radiation pressure, and relativity. Extra digits do not imply extra accuracy.</p><p>Solar reference: GM☉ = 1.3271244 × 10²⁰ m³/s²; R☉ = 695,700 km. Mass in kg uses G = 6.67430 × 10⁻¹¹ m³/(kg s²). Earth gravity reference = 9.80665 m/s²; Earth surface escape speed = 11.186 km/s. Water density is approximately 1 g/cm³. Evolution describes broad single-star trends, not an individual prediction.</p><a href="https://arxiv.org/abs/1510.07674" target="_blank" rel="noreferrer">IAU conversion constants ↗</a> · <a href="https://physics.nist.gov/cuu/Constants/Table/allascii.txt" target="_blank" rel="noreferrer">Gravitational constant ↗</a> · <a href="https://science.nasa.gov/universe/stars/types/" target="_blank" rel="noreferrer">NASA: stellar evolution ↗</a> · <a href="https://nssdc.gsfc.nasa.gov/planetary/factsheet/earthfact.html" target="_blank" rel="noreferrer">NASA: Earth references ↗</a></details>
+                <details class="mass-method"><summary>Calculations &amp; sources</summary><p id="mass-class-method"></p><a id="mass-class-source" target="_blank" rel="noreferrer" hidden></a><p>Derived from catalog values, which may be measured or model-derived. Gravity = GM/r²; escape speed = √(2GM/r); mean density = 3M/(4πr³). These spherical Newtonian estimates omit rotation, radiation pressure, and relativity. Extra digits do not imply extra accuracy.</p><p>Solar reference: GM☉ = 1.3271244 × 10²⁰ m³/s²; R☉ = 695,700 km. Mass in kg uses G = 6.67430 × 10⁻¹¹ m³/(kg s²). Earth gravity reference = 9.80665 m/s²; Earth surface escape speed = 11.186 km/s. Water density is approximately 1 g/cm³. Evolution describes broad single-star trends, not an individual prediction.</p><a href="https://arxiv.org/abs/1510.07674" target="_blank" rel="noreferrer">IAU conversion constants ↗</a> · <a href="https://physics.nist.gov/cuu/Constants/Table/allascii.txt" target="_blank" rel="noreferrer">Gravitational constant ↗</a> · <a href="https://science.nasa.gov/universe/stars/types/" target="_blank" rel="noreferrer">NASA: stellar evolution ↗</a> · <a href="https://nssdc.gsfc.nasa.gov/planetary/factsheet/earthfact.html" target="_blank" rel="noreferrer">NASA: Earth references ↗</a></details>
               </div>
             </section>
             <section id="radius-card" class="dock-card object-type-card radius-card" aria-labelledby="radius-heading" data-scene-obstacle hidden>
@@ -225,7 +240,7 @@
                   <figcaption class="radius-footer">
                     <div class="radius-selected-label"><strong id="radius-selected-name"></strong></div>
                     <div class="radius-reference-buttons" role="group" aria-label="Radius comparison object">
-                      <button id="radius-reference-origin" class="object-section-button radius-reference-button" type="button" aria-pressed="true">Origin</button>
+                      <button id="radius-reference-origin" class="object-section-button radius-reference-button" type="button" aria-pressed="true">Sun</button>
                       <button id="radius-reference-jupiter" class="object-section-button radius-reference-button" type="button" aria-pressed="false">Jupiter</button>
                       <button id="radius-reference-earth" class="object-section-button radius-reference-button" type="button" aria-pressed="false">Earth</button>
                     </div>
@@ -233,19 +248,38 @@
                 </figure>
                 <p id="radius-benchmark-note" class="radius-note" hidden></p>
                 <p id="radius-comparison-summary" class="radius-summary" aria-live="polite"></p>
+                <div class="radius-metrics" role="group" aria-label="Radius scales">
+                  <div class="mass-metric radius-metric">
+                    <h4 id="radius-reference-heading" class="mass-metric-heading">Radius vs reference</h4>
+                    <div class="mass-metric-ratio"><strong id="radius-reference-value"></strong></div>
+                    <div id="radius-reference-bar" class="mass-ratio-bar radius-ratio-bar" role="img">
+                      <div class="mass-ratio-track"><span class="mass-ratio-fill"></span><span class="mass-ratio-sun"></span><span class="mass-ratio-marker"></span></div>
+                      <div class="mass-ratio-labels" aria-hidden="true"><span id="radius-reference-low"></span><span id="radius-reference-mid"></span><span id="radius-reference-high"></span></div>
+                    </div>
+                  </div>
+                  <div class="mass-metric radius-metric">
+                    <h4 id="radius-typical-heading" class="mass-metric-heading">Typical object size</h4>
+                    <div class="mass-metric-ratio"><strong id="radius-typical-value"></strong></div>
+                    <div id="radius-typical-bar" class="mass-ratio-bar radius-ratio-bar" role="img">
+                      <div class="mass-ratio-track"><span class="mass-ratio-fill"></span><span class="mass-ratio-sun"></span><span class="mass-ratio-marker"></span></div>
+                      <div class="mass-ratio-labels" aria-hidden="true"><span id="radius-typical-low"></span><span id="radius-typical-mid"></span><span id="radius-typical-high"></span></div>
+                    </div>
+                    <p id="radius-typical-context" class="radius-metric-context"></p>
+                  </div>
+                </div>
                 <table class="radius-stats" aria-label="Dimensions of selected and comparison objects">
-                  <thead><tr><th scope="col">Dimension</th><th id="radius-selected-column" scope="col">Selected</th><th id="radius-reference-column" scope="col">Origin</th></tr></thead>
+                  <thead><tr><th scope="col">Dimension</th><th id="radius-selected-column" scope="col">Selected</th><th id="radius-reference-column" scope="col">Sun</th></tr></thead>
                   <tbody id="radius-stats"></tbody>
                 </table>
-                <details class="radius-method"><summary>Units, imagery &amp; assumptions</summary><p id="radius-scale-note"></p><p>Based on catalog radii, which may be measured, estimated, or model-derived. Area and volume are derived, not independent measurements.</p><p>Stars are represented as spheres using their catalog radii. Diameter = 2 × radius; surface area = 4πr²; volume = 4πr³/3. These derived values inherit the catalog radius’s uncertainty; extra digits do not imply extra accuracy. Stellar surface detail, shine, and temperature-based colors are illustrative. Cool dwarfs are brightened for visibility, although much of their radiation is infrared.</p><p>R☉ = 695,700 km. R♃ = 71,492 km and R⊕ = 6,378.1 km (equatorial radii). Jupiter and Earth are oblate spheroids with polar radii 66,854 km and 6,356.8 km; their area and volume account for this flattening. A / V mean surface area / volume relative to the Sun, Jupiter, or Earth, indicated by ☉ / ♃ / ⊕.</p><p>Jupiter uses a Hubble photographic map with the Great Red Spot facing the viewer; the unobserved small polar caps extend the map’s nearest observed row. Earth uses NASA’s Blue Marble satellite mosaic with its historical cloud composite. Planetary shading adds illustrative daylight and grazing-angle atmospheric haze. These views show recognizable features, not the current rotation or illumination.</p><a href="https://arxiv.org/abs/1510.07674" target="_blank" rel="noreferrer">IAU nominal conversion constants ↗</a><p class="radius-image-credit">Jupiter: <a href="https://science.nasa.gov/asset/hubble/jupiter-global-map-2019/" target="_blank" rel="noreferrer">NASA, ESA, A. Simon &amp; M.H. Wong ↗</a><br />Earth: <a href="https://svs.gsfc.nasa.gov/2915/" target="_blank" rel="noreferrer">NASA/GSFC Scientific Visualization Studio ↗</a> · <a href="https://science.nasa.gov/blogs/earth-matters/2011/10/06/crafting-the-blue-marble/" target="_blank" rel="noreferrer">Blue Marble clouds: Reto Stöckli &amp; Robert Simmon ↗</a></p></details>
+                <details class="radius-method"><summary>Units, imagery &amp; assumptions</summary><p id="radius-scale-note"></p><p>The radius bars use logarithmic scales. The reference bar is centered on 1× the chosen object and expands by powers of ten to include the selected radius. The typical-size bar uses a fixed, approximate range for the object’s class; its midpoint is the geometric middle of that range, not a measured population average. Values outside the range appear at the nearest end and are labeled above or below it.</p><p id="radius-typical-method"></p><a id="radius-typical-source" target="_blank" rel="noreferrer" hidden></a><p>Based on catalog radii, which may be measured, estimated, or model-derived. Area and volume are derived, not independent measurements.</p><p>Stars are represented as spheres using their catalog radii. Diameter = 2 × radius; surface area = 4πr²; volume = 4πr³/3. These derived values inherit the catalog radius’s uncertainty; extra digits do not imply extra accuracy. Stellar surface detail, shine, and temperature-based colors are illustrative. Cool dwarfs are brightened for visibility, although much of their radiation is infrared.</p><p>R☉ = 695,700 km. R♃ = 71,492 km and R⊕ = 6,378.1 km (equatorial radii). Jupiter and Earth are oblate spheroids with polar radii 66,854 km and 6,356.8 km; their area and volume account for this flattening.</p><p>Jupiter uses a Hubble photographic map with the Great Red Spot facing the viewer; the unobserved small polar caps extend the map’s nearest observed row. Earth uses NASA’s Blue Marble satellite mosaic with its historical cloud composite. Planetary shading adds illustrative daylight and grazing-angle atmospheric haze. These views show recognizable features, not the current rotation or illumination.</p><a href="https://arxiv.org/abs/1510.07674" target="_blank" rel="noreferrer">IAU nominal conversion constants ↗</a><p class="radius-image-credit">Jupiter: <a href="https://science.nasa.gov/asset/hubble/jupiter-global-map-2019/" target="_blank" rel="noreferrer">NASA, ESA, A. Simon &amp; M.H. Wong ↗</a><br />Earth: <a href="https://svs.gsfc.nasa.gov/2915/" target="_blank" rel="noreferrer">NASA/GSFC Scientific Visualization Studio ↗</a> · <a href="https://science.nasa.gov/blogs/earth-matters/2011/10/06/crafting-the-blue-marble/" target="_blank" rel="noreferrer">Blue Marble clouds: Reto Stöckli &amp; Robert Simmon ↗</a></p></details>
               </div>
             </section>
             <section id="distance-card" class="dock-card object-type-card distance-card" aria-labelledby="distance-heading" data-scene-obstacle hidden>
               <div class="panel-heading distance-heading">
                 <h2 id="distance-heading">Distance</h2>
                 <div class="distance-reference-buttons" role="group" aria-label="Distance reference">
-                  <button id="distance-reference-origin" class="object-section-button distance-reference-button" type="button" aria-pressed="true">from Origin (Sun)</button>
-                  <button id="distance-reference-sun" class="object-section-button distance-reference-button" type="button" aria-pressed="false">from Sun</button>
+                  <button id="distance-reference-origin" class="object-section-button distance-reference-button" type="button" aria-pressed="false" hidden>from Sun</button>
+                  <button id="distance-reference-sun" class="object-section-button distance-reference-button" type="button" aria-pressed="true">from Sun</button>
                 </div>
                 <button id="distance-lock" class="panel-lock" type="button" aria-label="Keep Distance open" aria-pressed="false"><span id="distance-lock-icon"></span></button>
                 <button id="distance-close" class="panel-lock" type="button" aria-label="Close distance card"><span id="distance-close-icon"></span></button>

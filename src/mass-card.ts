@@ -1,15 +1,30 @@
 import type { Star } from './catalog-model'
 import { massEvolution, massGravityContext, massProperties, solarBarScale } from './mass-properties'
+import { massComparison, typicalMassRangePosition, type MassMetric, type MassReference } from './mass-comparison'
 
 const number = (value: number, digits = 3) => value.toLocaleString('en-US', { maximumSignificantDigits: digits })
 const fixed = (value: number, digits = 1) => value.toLocaleString('en-US', { maximumFractionDigits: digits })
-const solarComparison = (ratio: number) => ratio < 1 ? `${number(ratio * 100)}% of Sun` : `${number(ratio)}× Sun`
 const superscript = (value: string) => value.replace(/[-\d]/g, (digit) => '⁻⁰¹²³⁴⁵⁶⁷⁸⁹'['-0123456789'.indexOf(digit)]!)
 
-export function renderMassCardContent(card: HTMLElement, star: Star): void {
+export function renderMassCardContent(card: HTMLElement, star: Star, origin: Star, mode: MassReference): void {
   const get = (id: string) => card.querySelector<HTMLElement>(`#${id}`)!
   const set = (id: string, content: string) => { get(id).textContent = content }
   const properties = massProperties(star)
+  const comparison = massComparison(star, origin, mode)
+  const referenceLabel = mode === 'class' ? 'class' : mode === 'origin' ? origin.name : 'Sun'
+  const ratioLabel = (ratio: number) => ratio < 1 ? `${number(ratio * 100)}% of ${referenceLabel}` : `${number(ratio)}× ${referenceLabel}`
+  set('mass-reference-context', mode === 'class'
+    ? comparison.typical ? `${comparison.typical.fallbackLabel ?? comparison.typical.label} · ${comparison.typical.rangeLabel ?? 'Typical mass reference'}`
+      : comparison.classLabel ? `${comparison.classLabel} · No class guide assigned` : 'A spectral and luminosity class is needed for a class comparison.'
+    : `Reference: ${comparison.label}`)
+  set('mass-class-method', comparison.typical?.note ?? 'No usable published or catalog class reference is available for this classification. Composite spectra need individual component measurements. No generic mass reference is assigned to black holes or sub-brown dwarfs.')
+  get('mass-class-method').hidden = mode !== 'class'
+  const source = get('mass-class-source') as HTMLAnchorElement
+  source.hidden = !comparison.typical?.source
+  if (comparison.typical?.source) {
+    source.href = comparison.typical.source
+    source.textContent = `${comparison.typical.sourceLabel} ↗`
+  }
   const { mass, kilograms, earthMasses } = properties
   set('mass-card-value', mass === null ? 'Mass not available' : `${fixed(mass, 6)} M☉`)
   const uncertainty = star.compact?.mass_error_solar
@@ -77,31 +92,90 @@ export function renderMassCardContent(card: HTMLElement, star: Star): void {
     }
   }
   get('mass-scale').style.setProperty('--mass-tick-rows', String(Math.max(1, rowEnds.length)))
-  set('mass-gravity-context', massGravityContext(star))
+  // The bars explain comparisons; keep prose for missing data and model limitations.
+  const gravityContext = properties.gravity === null ? massGravityContext(star) : ''
+  set('mass-gravity-context', gravityContext)
+  get('mass-gravity-context').hidden = !gravityContext
 
-  function metric(id: string, value: number | null, unit: string, ratio: number | null, extra = '', digits = 1): void {
+  get('mass-reference-metric').hidden = mode !== 'class' || comparison.typical === null
+  set('mass-reference-heading', `Mass range for ${comparison.label}`)
+
+  function metric(id: string, key: MassMetric, value: number | null, unit: string, extra = '', digits = 1): void {
+    const { ratio, value: reference, range } = comparison.metrics[key]
     set(`${id}-value`, value === null ? 'Not available' : `${value !== 0 && (value < 0.01 || value >= 1e6) ? number(value) : fixed(value, digits)} ${unit}`)
-    set(`${id}-ratio`, ratio === null ? '' : solarComparison(ratio))
+    const ratioText = mode === 'class' ? '' : ratio === null ? value === null ? '' : 'Reference unavailable' : ratioLabel(ratio)
+    set(`${id}-ratio`, ratioText)
+    get(`${id}-ratio`).hidden = !ratioText || id === 'mass-reference'
+    const metricReference = comparison.typical?.metrics[key]
+    const benchmarkClass = metricReference?.referenceLabel && metricReference.referenceLabel !== comparison.label ? ` (${metricReference.referenceLabel})` : ''
+    const referenceText = reference === null
+      ? mode === 'class' ? '' : 'Catalog reference data missing'
+      : `${mode === 'class' ? `${comparison.typical?.benchmarkLabel ?? 'Typical'}${benchmarkClass}` : referenceLabel}: ${number(reference)} ${unit}`
+    const lowerBound = value !== null && range !== null && value < range[0] ? `Lower: ${number(range[0])} ${unit}` : ''
+    const upperBound = range !== null ? `Upper: ${number(range[1])} ${unit}` : ''
+    const benchmark = [referenceText, lowerBound, upperBound].filter(Boolean).join(', ')
+    set(`${id}-benchmark`, benchmark)
     set(`${id}-extra`, extra)
+    get(`${id}-extra`).hidden = !extra
+    get(`${id}-benchmark`).hidden = !benchmark
+    get(`${id}-benchmark`).title = mode === 'class' ? `${benchmark}. ${comparison.typical?.sourceLabel ?? ''}` : benchmark
+    if (id === 'mass-reference') {
+      set(`${id}-value`, '')
+      get(`${id}-value`).hidden = true
+    }
     const bar = get(`${id}-bar`)
-    bar.hidden = ratio === null
-    if (ratio !== null) {
+    const typicalMarker = bar.querySelector<HTMLElement>('.mass-ratio-sun')!
+    const selectedMarker = bar.querySelector<HTMLElement>('.mass-ratio-marker')!
+    const rangeLow = bar.querySelector<HTMLElement>('.mass-typical-low')!
+    const rangeHigh = bar.querySelector<HTMLElement>('.mass-typical-high')!
+    bar.classList.toggle('has-class-range', range !== null)
+    bar.hidden = ratio === null && range === null
+    selectedMarker.hidden = value === null
+    typicalMarker.hidden = reference === null
+    bar.querySelector<HTMLElement>('.mass-ratio-fill')!.hidden = value === null
+    rangeLow.hidden = rangeHigh.hidden = range === null
+    typicalMarker.style.left = '50%'
+    typicalMarker.title = benchmark
+    if (range !== null) {
+      const rangeKind = comparison.typical?.benchmarkLabel === 'Catalog average' ? 'Catalog range' : 'Typical range'
+      const { position, low, high, rangeLowPosition, rangeHighPosition, typicalPosition } = typicalMassRangePosition(value, range, reference)
+      bar.style.setProperty('--mass-ratio-position', `${position ?? 0}%`)
+      bar.style.setProperty('--mass-range-low-position', `${rangeLowPosition}%`)
+      bar.style.setProperty('--mass-range-high-position', `${rangeHighPosition}%`)
+      // The fill's percentages use its own width; the track's use the whole axis.
+      const fillRangePosition = (bound: number) => position !== null && position > 0 ? Math.min(100, Math.max(0, bound / position * 100)) : 0
+      bar.style.setProperty('--mass-fill-range-low-position', `${fillRangePosition(rangeLowPosition)}%`)
+      bar.style.setProperty('--mass-fill-range-high-position', `${fillRangePosition(rangeHighPosition)}%`)
+      rangeLow.style.left = `${rangeLowPosition}%`
+      rangeHigh.style.left = `${rangeHighPosition}%`
+      rangeLow.title = `${rangeKind} minimum: ${number(range[0])} ${unit}`
+      rangeHigh.title = `${rangeKind} maximum: ${number(range[1])} ${unit}`
+      if (typicalPosition !== null) typicalMarker.style.left = `${typicalPosition}%`
+      set(`${id}-low`, number(low))
+      set(`${id}-mid`, unit)
+      set(`${id}-high`, number(high))
+      bar.setAttribute('aria-label', `${star.name}: ${value === null ? 'not available' : `${number(value)} ${unit}`}. ${rangeKind} (${metricReference?.rangeLabel ?? comparison.typical!.rangeLabel}): ${number(range[0])} to ${number(range[1])} ${unit}. Logarithmic axis from ${number(low)} to ${number(high)} ${unit}. ${benchmark}.`)
+      bar.title = bar.getAttribute('aria-label')!
+    } else if (ratio !== null) {
       const { position, low, high } = solarBarScale(ratio)
       bar.style.setProperty('--mass-ratio-position', `${position}%`)
-      bar.setAttribute('aria-label', `${solarComparison(ratio)}. Comparison from ${number(low)} to ${number(high)} times Sun; Sun is the central tick.`)
+      bar.setAttribute('aria-label', mode === 'class'
+        ? `${star.name}: ${number(value!)} ${unit}. ${benchmark}. Logarithmic axis from ${number(low * reference!)} to ${number(high * reference!)} ${unit}.`
+        : `${ratioLabel(ratio)}. ${benchmark}. Logarithmic comparison from ${number(low)} to ${number(high)} times reference; ${comparison.label} is the central tick at 1 times.`)
       bar.title = bar.getAttribute('aria-label')!
-      set(`${id}-low`, `${number(low)}×`)
-      set(`${id}-high`, `${number(high)}×`)
+      set(`${id}-low`, mode === 'class' ? number(low * reference!) : `${number(low)}×`)
+      set(`${id}-mid`, mode === 'class' ? unit : referenceLabel)
+      set(`${id}-high`, mode === 'class' ? number(high * reference!) : `${number(high)}×`)
     }
   }
-  metric('mass-gravity', properties.gravity, 'm/s²', properties.gravityRatio, properties.gravity === null ? '' : `${fixed(properties.gravity / 9.80665)}× Earth`)
-  // Earth surface escape speed: https://nssdc.gsfc.nasa.gov/planetary/factsheet/earthfact.html
-  metric('mass-escape', properties.escapeKms, 'km/s', properties.escapeRatio, properties.escapeKms === null ? '' : `${fixed(properties.escapeKms / 11.186)}× Earth`)
-  // Water is approximately 1 g/cm³; this is a bulk-density comparison, not surface density.
-  metric('mass-density', properties.density, 'g/cm³', properties.densityRatio, properties.density === null ? '' : `≈ ${number(properties.density, 2)}× water`, properties.density !== null && properties.density < 0.01 ? 6 : 3)
+  metric('mass-reference', 'mass', mass, 'M☉')
+  metric('mass-gravity', 'gravity', properties.gravity, 'm/s²', properties.gravity === null ? '' : `${fixed(properties.gravity / 9.80665)}× Earth`)
+  metric('mass-escape', 'escapeKms', properties.escapeKms, 'km/s', properties.escapeKms === null ? '' : `${fixed(properties.escapeKms / 11.186)}× Earth`)
+  metric('mass-density', 'density', properties.density, 'g/cm³', properties.density === null ? '' : `≈ ${number(properties.density, 2)}× water`, properties.density !== null && properties.density < 0.01 ? 6 : 3)
   const evolution = massEvolution(star)
-  metric('mass-efficiency', properties.luminosityPerMass, 'L☉ / M☉', properties.luminosityPerMass)
-  set('mass-efficiency-detail', properties.luminosityPerMass === null ? 'Catalog luminosity and mass are both needed for this comparison.' : `${number(properties.luminosity!, 5)} L☉ ÷ ${number(mass!, 5)} M☉. Each solar mass of ${star.name} is associated with ${solarComparison(properties.luminosityPerMass).replace('Sun', 'the Sun’s energy output per solar mass')}.`)
+  metric('mass-efficiency', 'luminosityPerMass', properties.luminosityPerMass, 'L☉ / M☉')
+  set('mass-efficiency-detail', properties.luminosityPerMass === null ? 'Catalog luminosity and mass are both needed for this comparison.' : '')
+  get('mass-efficiency-detail').hidden = properties.luminosityPerMass !== null
   set('mass-end-state', evolution.outcome)
   set('mass-end-state-comment', evolution.comment)
 }

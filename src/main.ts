@@ -1,5 +1,5 @@
 import './style.css'
-import { ArrowLeft, ArrowRight, BookOpen, CircleHelp, Clock, Crosshair, Eye, Filter, Focus, Grid2X2, List, Lock, Minus, Orbit, Pause, Play, Plus, RotateCcw, RotateCw, Save, Search, Settings2, Star as StarIcon, Trash2, X, createElement, type IconNode } from 'lucide'
+import { ArrowLeft, ArrowRight, BookOpen, CircleHelp, Clock, Crosshair, Eye, Filter, Focus, Grid2X2, List, Lock, Minus, Orbit, Pause, Play, Plus, RotateCcw, RotateCw, Save, Search, Settings2, Star as StarIcon, X, createElement, type IconNode } from 'lucide'
 import { BUBBLE_OBJECT_TYPES, COMPACT_OBJECT_TYPES, describeObject, isBubbleObject, isCompactObject, isMolecularCloudObject, isNebulaObject, MOLECULAR_CLOUD_OBJECT_TYPES, NEBULA_OBJECT_TYPES, type Star } from './catalog-model'
 import { catalogSelection, mergeCatalogStars } from './catalog-runtime'
 import { objectDesignations } from './designations'
@@ -15,6 +15,8 @@ import { isObjectMapVisible } from './viewer-primitives'
 import { renderSelectedStarPreview } from './selected-star-preview'
 import { disposeDistanceComparison, renderDistanceComparison } from './distance-comparison'
 import { renderMassCardContent } from './mass-card'
+import { type MassReference } from './mass-comparison'
+import { renderRadiusBars } from './radius-card'
 import { massCardAvailable } from './mass-properties'
 import { radiusComparison, radiusStats, radiusSummary, renderRadiusComparison, type RadiusReference } from './radius-comparison'
 import { indexStarSystems, type StarSystem } from './star-systems'
@@ -406,8 +408,19 @@ function closeMassCard(restoreFocus = false): void {
   if (restoreFocus) element('mass-toggle').focus()
 }
 
+let massReference: MassReference = 'class'
+
 function renderMassCard(star: Star): void {
-  renderMassCardContent(element('mass-card'), star)
+  const origin = stars.find((candidate) => candidate.id === referenceId) ?? stars.find((candidate) => candidate.id === 'sun')!
+  const referenceMode = origin.id === 'sun' && massReference === 'origin' ? 'sun' : massReference
+  text('mass-reference-origin', `vs ${origin.name}`)
+  element('mass-reference-origin').hidden = origin.id === 'sun'
+  element('mass-reference-origin').title = `Compare mass properties with ${origin.name}`
+  element('mass-reference-origin').setAttribute('aria-label', `Compare mass properties with ${origin.name}`)
+  for (const mode of ['class', 'origin', 'sun'] as const) {
+    element(`mass-reference-${mode}`).setAttribute('aria-pressed', String(referenceMode === mode))
+  }
+  renderMassCardContent(element('mass-card'), star, origin, referenceMode)
   syncObjectTypeLayout()
 }
 
@@ -444,14 +457,16 @@ function closeDistanceCard(restoreFocus = false): void {
 function renderDistanceCard(star: Star): void {
   const sun = stars.find((candidate) => candidate.id === 'sun')!
   const origin = stars.find((candidate) => candidate.id === referenceId) ?? sun
-  const originLabel = `from Origin (${origin.name})`
+  const referenceMode = origin.id === 'sun' ? 'sun' : distanceReference
+  const originLabel = `from ${origin.name}`
   text('distance-reference-origin', originLabel)
+  element('distance-reference-origin').hidden = origin.id === 'sun'
   element('distance-reference-origin').title = originLabel
   element('distance-reference-origin').setAttribute('aria-label', originLabel)
   for (const mode of ['origin', 'sun'] as const) {
-    element(`distance-reference-${mode}`).setAttribute('aria-pressed', String(distanceReference === mode))
+    element(`distance-reference-${mode}`).setAttribute('aria-pressed', String(referenceMode === mode))
   }
-  const reference = distanceReference === 'sun' ? sun : origin
+  const reference = referenceMode === 'sun' ? sun : origin
   renderDistanceComparison(element<HTMLCanvasElement>('distance-comparison'), star, reference, starColorMode, distanceUnit, simulationYears, motionFrame)
   lastDistanceCardRender = performance.now()
   syncObjectTypeLayout()
@@ -491,11 +506,13 @@ function renderRadiusCard(star: Star): void {
   for (const mode of ['origin', 'jupiter', 'earth'] as const) {
     element(`radius-reference-${mode}`).setAttribute('aria-pressed', String(mode === comparison.referenceMode))
   }
-  element('radius-reference-origin').title = `Origin: ${origin.name}`
-  element('radius-reference-origin').setAttribute('aria-label', `Compare with origin: ${origin.name}`)
+  text('radius-reference-origin', origin.name)
+  element('radius-reference-origin').title = `Compare radius with ${origin.name}`
+  element('radius-reference-origin').setAttribute('aria-label', `Compare radius with ${origin.name}`)
   element('radius-benchmark-note').hidden = radiusReference !== 'auto' || !comparison.jupiterBenchmark
-  text('radius-benchmark-note', 'Origin: Sun. Comparing with Jupiter because the selected radius is at most 2 R♃.')
+  text('radius-benchmark-note', 'Comparing with Jupiter because the selected radius is at most 2 R♃.')
   text('radius-comparison-summary', radiusSummary(comparison))
+  renderRadiusBars(element('radius-card'), star, comparison)
   text('radius-scale-note', renderRadiusComparison(element<HTMLCanvasElement>('radius-comparison'), comparison))
   element('radius-stats').replaceChildren(...radiusStats(comparison).map(({ label, values }) => {
     const row = document.createElement('tr')
@@ -503,15 +520,9 @@ function renderRadiusCard(star: Star): void {
     heading.scope = 'row'
     heading.textContent = label
     row.append(heading)
-    for (const { value, unit } of values) {
+    for (const { value } of values) {
       const cell = document.createElement('td')
       cell.append(value)
-      if (unit) {
-        const secondary = document.createElement('span')
-        secondary.className = 'radius-stat-unit'
-        secondary.textContent = unit
-        cell.append(secondary)
-      }
       row.append(cell)
     }
     return row
@@ -1436,7 +1447,7 @@ function renderSavedViews(): void {
     remove.dataset.deleteSavedView = savedView.id
     remove.setAttribute('aria-label', `Delete saved view ${savedView.name}`)
     remove.title = 'Delete saved view'
-    remove.append(createElement(Trash2, { width: 17, height: 17, 'stroke-width': 1.8, 'aria-hidden': 'true' }))
+    remove.textContent = 'Delete'
     action.append(remove)
     row.append(name, origin, date, action)
     return row
@@ -1874,6 +1885,13 @@ for (const mode of ['origin', 'sun'] as const) {
 }
 element('mass-row').addEventListener('click', toggleMassCard, { signal: events.signal })
 element('mass-close').addEventListener('click', () => closeMassCard(true), { signal: events.signal })
+for (const mode of ['class', 'origin', 'sun'] as const) {
+  element(`mass-reference-${mode}`).addEventListener('click', () => {
+    massReference = mode
+    const star = stars.find((candidate) => candidate.id === selectedId)
+    if (star && !element('mass-card').hidden) renderMassCard(star)
+  }, { signal: events.signal })
+}
 document.querySelector('.radius-row')!.addEventListener('click', toggleRadiusCard, { signal: events.signal })
 element('radius-close').addEventListener('click', () => closeRadiusCard(true), { signal: events.signal })
 for (const mode of ['origin', 'jupiter', 'earth'] as const) {

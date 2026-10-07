@@ -8,6 +8,7 @@ import { parseMolecularCloudOverlayManifest, parseMolecularCloudOverlayPayload }
 import { hydrateBubbleSurfaceGridFiles, parseBubbleOverlayManifest, parseBubbleOverlayPayload } from '../src/bubble-overlay-model.ts'
 import { containedInput, safeOutputDirectory, writeManagedFiles } from './filesystem.ts'
 import { parseObjectIdentities, supplementObjectIdentities } from '../src/designations.ts'
+import { buildCatalogClassReferences } from '../src/catalog-class-references.ts'
 
 const root = fileURLToPath(new URL('../', import.meta.url))
 const identities = parseObjectIdentities(JSON.parse(readFileSync(join(root, 'src/data/object-designations.json'), 'utf8')))
@@ -86,10 +87,22 @@ function generate(): void {
       }
     }),
   ]
-  const files = Object.fromEntries(packages.map((definition) => {
-    const stars = supplementObjectIdentities(loadCatalog(definition), identities)
-    return [`${definition.manifest.id}.json`, JSON.stringify({ schemaVersion: 1, catalogId: definition.manifest.id, stars }) + '\n']
+  const catalogs = packages.map((definition) => ({
+    id: definition.manifest.id,
+    stars: supplementObjectIdentities(loadCatalog(definition), identities),
   }))
+  const files = Object.fromEntries(catalogs.map(({ id, stars }) =>
+    [`${id}.json`, JSON.stringify({ schemaVersion: 1, catalogId: id, stars }) + '\n']))
+  const systems = JSON.parse(readFileSync(join(root, 'src/data/star-systems.json'), 'utf8')) as {
+    systems: { components: { starId: string; alternateStarIds?: string[] }[] }[]
+  }
+  const components = new Map(systems.systems.flatMap((system) => system.components.flatMap((component) =>
+    [component.starId, ...component.alternateStarIds ?? []].map((id) => [id, { canonicalStarId: component.starId }] as const))))
+  const references = buildCatalogClassReferences(catalogs, (id) => components.get(id))
+  writeManagedFiles(safeOutputDirectory(join(root, 'src/data')), {
+    'catalog-class-references.json': JSON.stringify(references, null, 2) + '\n',
+  }, true)
+  console.log(`Generated ${references.classes.length} class samples from ${references.uniqueObjects} distinct objects across ${catalogs.length} catalogs.`)
   const output = safeOutputDirectory(join(root, 'src/data/generated/catalogs'))
   writeManagedFiles(output, files, true)
   for (const entry of readdirSync(output, { withFileTypes: true })) {
