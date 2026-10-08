@@ -1,4 +1,6 @@
 import { Color, Matrix3, Vector3 } from 'three'
+import { apparentVisualMagnitude } from './photometry.ts'
+export { apparentVisualMagnitude } from './photometry.ts'
 import { ICRS_TO_GALACTIC_ROWS, isBubbleObject, isCompactObject, isMolecularCloudObject, isNebulaObject, type RawAstrometry, type Star } from './catalog-model'
 
 export const LIGHT_YEARS_PER_PARSEC = 3.261563777
@@ -72,12 +74,6 @@ export function formatDistance(distancePc: number, unit: DistanceUnit, digits = 
   const converted = distancePc * (unit === 'ly' ? LIGHT_YEARS_PER_PARSEC : 1)
   const value = Math.abs(converted) < 0.5 * 10 ** -digits ? 0 : converted
   return `${value.toFixed(digits)} ${unit}`
-}
-
-export function apparentVisualMagnitude(absoluteMagnitude: number | null, distancePc: number): number | null {
-  if (absoluteMagnitude === null || !Number.isFinite(absoluteMagnitude) || !Number.isFinite(distancePc) || distancePc <= 0) return null
-  const magnitude = absoluteMagnitude + 5 * (Math.log10(distancePc) - 1)
-  return Number.isFinite(magnitude) ? magnitude : null
 }
 
 export function isMapVisibilityBase(target: Pick<Star, 'id'> & Position, observer: Pick<Star, 'id'> & Position): boolean {

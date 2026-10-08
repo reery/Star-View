@@ -1,5 +1,5 @@
 import './style.css'
-import { ArrowLeft, ArrowRight, BookOpen, CircleHelp, Clock, Crosshair, Eye, Filter, Focus, Grid2X2, List, Lock, Minus, Moon, Orbit, Pause, Play, Plus, RotateCcw, RotateCw, Save, Search, Settings2, Star as StarIcon, X, createElement, type IconNode } from 'lucide'
+import { ArrowLeft, ArrowRight, BookOpen, CircleHelp, Clock, Crosshair, Earth, Eye, Filter, Focus, Grid2X2, List, Lock, Minus, Moon, Orbit, Pause, Play, Plus, RotateCcw, RotateCw, Save, Search, Settings2, Star as StarIcon, X, createElement, type IconNode } from 'lucide'
 import { BUBBLE_OBJECT_TYPES, COMPACT_OBJECT_TYPES, describeObject, isBubbleObject, isCompactObject, isMolecularCloudObject, isNebulaObject, MOLECULAR_CLOUD_OBJECT_TYPES, NEBULA_OBJECT_TYPES, type Star } from './catalog-model'
 import { catalogSelection, mergeCatalogStars } from './catalog-runtime'
 import { objectDesignations } from './designations'
@@ -85,6 +85,7 @@ icon('save-view-icon', Save)
 icon('selection-back-icon', ArrowLeft)
 icon('selection-forward-icon', ArrowRight)
 icon('set-origin-icon', StarIcon)
+icon('go-to-origin-icon', Crosshair)
 icon('observer-view-icon', Eye)
 icon('observer-roll-counterclockwise-icon', RotateCcw)
 icon('observer-roll-reset-icon', Crosshair)
@@ -112,7 +113,9 @@ icon('planet-lock-icon', Lock)
 icon('planet-specs-icon', List)
 icon('planet-info-icon', BookOpen)
 icon('planet-moons-icon', Moon)
-icon('planet-orbit-icon', Orbit)
+icon('planet-earth-icon', Earth)
+icon('planet-earth-plus-icon', Plus)
+icon('planet-earth-minus-icon', Minus)
 icon('time-play-icon', Play)
 icon('time-now-icon', RotateCcw)
 icon('time-follow-icon', Crosshair)
@@ -184,10 +187,6 @@ interface SavedViewSettings {
   motionArrowsVisible: boolean
   motionYears: MotionYears
   motionFrame: MotionFrame
-  distanceUnit: DistanceUnit
-  starColorMode: StarColorMode
-  labelLimit: number
-  powerSavingMode: boolean
   gridVisible: boolean
   simulationYears: number
   simulationPlaying: boolean
@@ -238,10 +237,6 @@ function isSavedView(value: unknown): value is SavedView {
     && typeof settings.motionArrowsVisible === 'boolean'
     && typeof settings.motionYears === 'number' && MOTION_YEAR_OPTIONS.includes(settings.motionYears as MotionYears)
     && (settings.motionFrame === 'galactic' || settings.motionFrame === 'solar')
-    && (settings.distanceUnit === 'ly' || settings.distanceUnit === 'pc')
-    && (settings.starColorMode === 'real' || settings.starColorMode === 'exaggerated')
-    && typeof settings.labelLimit === 'number' && settings.labelLimit >= 0 && settings.labelLimit <= 140 && settings.labelLimit % 20 === 0
-    && typeof settings.powerSavingMode === 'boolean'
     && typeof settings.gridVisible === 'boolean'
     && typeof settings.simulationYears === 'number' && Math.abs(settings.simulationYears) <= SIMULATION_YEAR_LIMIT
     && typeof settings.simulationPlaying === 'boolean'
@@ -302,8 +297,8 @@ const viewButtons = [...cameraViewButtonIds, 'toggle-grid', 'views-toggle'].map(
 const timelineButtons = ['time-play', 'time-now', 'time-follow'].map((id) => element<HTMLButtonElement>(id))
 const timeSlider = element<HTMLInputElement>('time-slider')
 const selectionHistory = new SelectionHistory(selectedId)
-const panelNames = ['views', 'motion', 'filter', 'preferences', 'objects', 'glossary', 'info'] as const
-const lockablePanelNames = ['motion', 'filter', 'preferences', 'objects', 'glossary'] as const
+const panelNames = ['views', 'motion', 'filter', 'objects', 'glossary', 'preferences', 'info'] as const
+const lockablePanelNames = ['motion', 'filter', 'objects', 'glossary', 'preferences'] as const
 const lockedPanels = new Set<typeof lockablePanelNames[number]>()
 
 function selectedStarAvailable(id: string): boolean {
@@ -326,7 +321,17 @@ function updateSelectionHistoryControls(): void {
 }
 
 function updateReferenceControl(): void {
-  element<HTMLButtonElement>('set-origin').disabled = sceneBusy || selectedId === null || selectedId === referenceId
+  const setOrigin = element<HTMLButtonElement>('set-origin')
+  setOrigin.disabled = sceneBusy || selectedId === null || selectedId === referenceId
+  const goToOrigin = element<HTMLButtonElement>('go-to-origin')
+  const origin = stars.find((star) => star.id === referenceId)
+  goToOrigin.disabled = sceneBusy || !origin
+  goToOrigin.setAttribute('aria-label', origin ? `Go to ${origin.name}` : 'Go to set origin')
+  text('go-to-origin-name', origin?.name ?? 'set origin')
+  element('go-to-origin-swatch').hidden = !origin
+  element('go-to-origin-swatch').style.background = origin ? starDisplayColor(origin, starColorMode).getStyle() : ''
+  // Keep the expansion reachable by keyboard when the selected object is already the origin.
+  element('origin-controls').tabIndex = setOrigin.disabled && !goToOrigin.disabled ? 0 : -1
 }
 
 function updateObserverControl(): void {
@@ -422,7 +427,7 @@ function closeMassCard(restoreFocus = false): void {
 
 let activePlanetId: string | null = null
 let planetCardLocked = false
-const planetSections = ['specs', 'info', 'moons', 'orbit'] as const
+const planetSections = ['specs', 'info', 'moons'] as const
 
 function showPlanetSection(section: typeof planetSections[number]): void {
   for (const candidate of planetSections) {
@@ -944,6 +949,7 @@ function syncObjectSections(): void {
     element(`object-${section}`).hidden = !active
     element(`object-${section}-toggle`).setAttribute('aria-expanded', String(details.open && active))
   }
+  element('known-planets').setAttribute('aria-expanded', String(details.open && activeObjectSection === 'system'))
   syncSelectedObjectLayout()
 }
 
@@ -967,6 +973,17 @@ for (const section of objectSections) {
   }, { signal: events.signal })
 }
 element('object-card-details').addEventListener('toggle', syncObjectSections, { signal: events.signal })
+element('known-planets-row').addEventListener('click', () => {
+  activeObjectSection = 'system'
+  element<HTMLDetailsElement>('object-card-details').open = true
+  closeObjectTypeCard()
+  closeMetallicityCard()
+  closeRadiusCard()
+  closeMassCard()
+  closeDistanceCard()
+  syncObjectSections()
+  element('object-system-toggle').focus({ preventScroll: true })
+}, { signal: events.signal })
 syncObjectSections()
 
 function renderSystemComponents(system: StarSystem | undefined, selectedComponentId: string): void {
@@ -1044,13 +1061,14 @@ function renderSelection(): void {
   text('star-name', system?.name ?? star.name)
   renderSelectedDistance(displayedDistancePc)
   renderSystemComponents(system, star.id)
-  renderSelectedStarPreview(element<HTMLCanvasElement>('selected-swatch'), star, starColorMode, system?.components.map((component) => component.star), !!planets?.planets.length)
+  const knownPlanetCount = planets?.planets.length ?? star.known_planets ?? 0
+  renderSelectedStarPreview(element<HTMLCanvasElement>('selected-swatch'), star, starColorMode, system?.components.map((component) => component.star), knownPlanetCount > 0)
   renderSystemCard(element('object-system'), planets, system?.components.length ?? 1, selectSystemPlanet)
   const openPlanet = activePlanetId ? planetDescriptionForId(activePlanetId) : undefined
   if (!planetCardLocked && openPlanet?.hostStarId !== star.id) closePlanetCard()
   if (!element('planet-card').hidden && openPlanet?.hostStarId === star.id) highlightSystemPlanet(element('object-system'), activePlanetId, activePlanetId)
   element('object-system-toggle').setAttribute('aria-label', planets ? `System, ${planets.planets.length} known planets` : 'System')
-  if (planets) element<HTMLCanvasElement>('selected-swatch').title = `${planets.planets.length} known planets · illustrative orbit`
+  if (knownPlanetCount > 0) element<HTMLCanvasElement>('selected-swatch').title = `${knownPlanetCount} known planets · illustrative orbit`
   text('distance-value', formatDistance(metrics.distancePc, distanceUnit).split(' ')[0]!)
   text('distance-unit', ` ${distanceUnit}`)
   element('distance-toggle').setAttribute('aria-label', `Visualize distance and direction of ${star.name}`)
@@ -1058,7 +1076,12 @@ function renderSelection(): void {
   text('object-type', describeObject(star))
   element('object-type-toggle').setAttribute('aria-label', `Learn about ${describeObject(star).toLowerCase()}`)
   if (!element('object-type-card').hidden) renderObjectTypeCard(star)
-  text('constellation', star.id === 'sun' ? 'Not applicable' : star.constellation ?? 'Not available')
+  element('constellation-row').hidden = star.id === 'sun'
+  text('constellation', star.constellation ?? 'Not available')
+  text('known-planets', String(knownPlanetCount))
+  element('known-planets').title = 'Show confirmed planets in this system from the adopted NASA Exoplanet Archive snapshot.'
+  element('known-planets').setAttribute('aria-label', `Show system with ${knownPlanetCount} known planets`)
+  text('object-subtypes', star.subtypes?.length ? star.subtypes.join(' · ') : 'Not available')
   const compact = star.compact
   const compactObject = isCompactObject(star)
   const nebula = star.nebula
@@ -1067,6 +1090,8 @@ function renderSelection(): void {
   const molecularCloudObject = isMolecularCloudObject(star)
   const bubble = star.bubble
   const bubbleObject = isBubbleObject(star)
+  element('known-planets-row').hidden = knownPlanetCount === 0 || nebulaObject || molecularCloudObject || bubbleObject
+  element('object-subtypes-row').hidden = (nebulaObject || molecularCloudObject || bubbleObject) && !star.subtypes?.length
   for (const row of document.querySelectorAll<HTMLElement>('.stellar-property')) row.hidden = compactObject || nebulaObject || molecularCloudObject || bubbleObject
   for (const row of document.querySelectorAll<HTMLElement>('.compact-property')) row.hidden = !compactObject
   for (const row of document.querySelectorAll<HTMLElement>('.nebula-property')) row.hidden = !nebulaObject
@@ -1169,8 +1194,10 @@ function renderSelection(): void {
   text('radial-velocity', raw ? measurement(raw.radial_velocity_kms, raw.radial_velocity_error_kms, 'km/s', 6) : 'Not available')
   text('astrometry-source', raw?.astrometry_ref || compact?.position_source || nebula?.position_source || molecularCloud?.position_source || bubble?.position_source || 'Not available')
   text('absolute-mag', quantity(star.absolute_mag))
+  text('apparent-mag', quantity(star.apparent_mag ?? null))
   const designations = objectDesignations(star)
-  element('object-designations').replaceChildren(...(designations.length ? designations : ['No other designations recorded']).map((name) => {
+  element('designations-row').hidden = designations.length === 0
+  element('object-designations').replaceChildren(...designations.map((name) => {
     const item = document.createElement('li')
     item.textContent = name
     return item
@@ -1499,6 +1526,9 @@ function writeSavedViews(next: SavedView[]): boolean {
 function closeSavedViewContextMenu(restoreFocus = false): void {
   const menu = element('saved-view-context-menu')
   menu.hidden = true
+  element('saved-view-context-backdrop').hidden = true
+  element('app').inert = false
+  element('views-panel').removeAttribute('data-context-menu-open')
   delete menu.dataset.savedViewId
   savedViewMenuRow?.setAttribute('aria-expanded', 'false')
   if (restoreFocus && savedViewMenuRow?.isConnected) savedViewMenuRow.focus()
@@ -1518,6 +1548,9 @@ function openSavedViewContextMenu(row: HTMLTableRowElement, x: number, y: number
   menu.style.left = '0px'
   menu.style.top = '0px'
   menu.hidden = false
+  element('saved-view-context-backdrop').hidden = false
+  element('app').inert = true
+  element('views-panel').setAttribute('data-context-menu-open', '')
   const bounds = menu.getBoundingClientRect()
   menu.style.left = `${Math.max(8, Math.min(x, window.innerWidth - bounds.width - 8))}px`
   menu.style.top = `${Math.max(8, Math.min(y, window.innerHeight - bounds.height - 8))}px`
@@ -1565,10 +1598,6 @@ function currentSavedViewSettings(): SavedViewSettings | null {
     motionArrowsVisible,
     motionYears,
     motionFrame,
-    distanceUnit,
-    starColorMode,
-    labelLimit,
-    powerSavingMode,
     gridVisible,
     simulationYears,
     simulationPlaying,
@@ -1634,12 +1663,6 @@ function syncSavedSettingsInputs(): void {
   element<HTMLInputElement>('motion-arrows-visible').checked = motionArrowsVisible
   element<HTMLSelectElement>('motion-years').value = String(motionYears)
   element<HTMLInputElement>(`motion-frame-${motionFrame}`).checked = true
-  element<HTMLInputElement>(`unit-${distanceUnit}`).checked = true
-  element<HTMLInputElement>(`star-colors-${starColorMode}`).checked = true
-  labelLimitInput.value = String(labelLimit)
-  labelLimitInput.setAttribute('aria-valuetext', labelLimit === 0 ? 'Off' : `${labelLimit} labels`)
-  text('label-limit-value', labelLimit === 0 ? 'Off' : String(labelLimit))
-  element<HTMLInputElement>('power-saving-mode').checked = powerSavingMode
   const gridButton = element<HTMLButtonElement>('toggle-grid')
   gridButton.setAttribute('aria-pressed', String(gridVisible))
   text('grid-tooltip', gridVisible ? 'Hide grid' : 'Show grid')
@@ -1677,10 +1700,6 @@ async function loadSavedView(savedView: SavedView): Promise<void> {
   motionArrowsVisible = settings.motionArrowsVisible
   motionYears = settings.motionYears
   motionFrame = settings.motionFrame
-  distanceUnit = settings.distanceUnit
-  starColorMode = settings.starColorMode
-  labelLimit = settings.labelLimit
-  powerSavingMode = settings.powerSavingMode
   gridVisible = settings.gridVisible
   simulationYears = settings.simulationYears
   simulationDirection = settings.simulationDirection
@@ -1718,9 +1737,6 @@ async function loadSavedView(savedView: SavedView): Promise<void> {
   updateReferenceControl()
   updateObserverControl()
   try {
-    localStorage.setItem('star-view-distance-unit', distanceUnit)
-    localStorage.setItem('star-view-color-mode', starColorMode)
-    localStorage.setItem('star-view-label-limit', String(labelLimit))
     localStorage.setItem('star-view-earth-orbit-mode', earthOrbitMode)
     localStorage.setItem('star-view-milky-way-visible', String(milkyWayVisible))
   } catch {}
@@ -1952,25 +1968,22 @@ element('saved-view-context-delete').addEventListener('click', () => {
   const focusTarget = rows[Math.min(index, rows.length - 1)] ?? element('save-view-name')
   focusTarget.focus({ preventScroll: true })
 }, { signal: events.signal })
-for (const type of ['pointerdown', 'focusin', 'contextmenu'] as const) {
-  document.addEventListener(type, (event) => {
-    const menu = element('saved-view-context-menu')
-    if (!menu.hidden && event.target instanceof Node && !menu.contains(event.target)
-      && !(type === 'contextmenu' && element('saved-views-list').contains(event.target))) {
-      closeSavedViewContextMenu()
-    }
-  }, { signal: events.signal })
-}
+element('saved-view-context-backdrop').addEventListener('click', () => {
+  closeSavedViewContextMenu(true)
+}, { signal: events.signal })
+element('saved-view-context-backdrop').addEventListener('contextmenu', (event) => {
+  event.preventDefault()
+  closeSavedViewContextMenu(true)
+}, { signal: events.signal })
 element('saved-view-context-menu').addEventListener('keydown', (event) => {
   if (['ArrowDown', 'ArrowUp', 'Home', 'End'].includes(event.key)) event.preventDefault()
 }, { signal: events.signal })
-document.addEventListener('scroll', () => closeSavedViewContextMenu(), { capture: true, signal: events.signal })
 window.addEventListener('resize', () => closeSavedViewContextMenu(), { signal: events.signal })
 document.addEventListener('keydown', (event) => {
   if (!element('saved-view-context-menu').hidden) {
     if (event.key === 'Escape' || event.key === 'Tab') {
       closeSavedViewContextMenu(true)
-      if (event.key === 'Escape') event.preventDefault()
+      event.preventDefault()
       return
     }
   }
@@ -2068,6 +2081,11 @@ element('toggle-grid').addEventListener('click', () => {
 element('selection-back').addEventListener('click', () => navigateSelectionHistory('back'), { signal: events.signal })
 element('selection-forward').addEventListener('click', () => navigateSelectionHistory('forward'), { signal: events.signal })
 element('set-origin').addEventListener('click', setSelectedAsOrigin, { signal: events.signal })
+element('go-to-origin').addEventListener('click', () => {
+  dismissOpenPanel()
+  if (observerView) toggleObserverView()
+  selectStar(referenceId)
+}, { signal: events.signal })
 element('observer-view').addEventListener('click', toggleObserverView, { signal: events.signal })
 element('observer-object').addEventListener('click', () => {
   if (observerViewAnchorId !== null) selectStar(observerViewAnchorId)

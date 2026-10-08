@@ -453,7 +453,7 @@ test('keeps faint dots pickable and retains the last visibility base', async ({ 
   await expect(page.locator('#visibility-base')).toHaveText("Barnard's Star")
   await page.getByRole('button', { name: 'Objects', exact: true }).click()
   await page.getByRole('button', { name: 'Select Sun', exact: true }).click()
-  await expect(page.locator('#constellation')).toHaveText('Not applicable')
+  await expect(page.locator('#constellation-row')).toBeHidden()
   await expect(page.locator('#absolute-mag')).toHaveText('4.83')
 })
 
@@ -560,9 +560,9 @@ test('presents the selected object beside an expandable control dock', async ({ 
   await expect(page.locator('.selected-object')).toHaveCSS('border-radius', '11px')
   await expect(page.locator('.dock-card:visible')).toHaveCount(0)
   const panelButtons = page.locator('#control-dock .panel-button')
-  await expect(panelButtons).toHaveCount(5)
-  expect(await panelButtons.evaluateAll((buttons) => buttons.map((button) => button.getAttribute('aria-label')))).toEqual(['Stellar motion', 'Filter', 'Preferences', 'Objects', 'Info'])
-  expect(await panelButtons.evaluateAll((buttons) => buttons.map((button) => button.getAttribute('aria-expanded')))).toEqual(['false', 'false', 'false', 'false', 'false'])
+  await expect(panelButtons).toHaveCount(6)
+  expect(await panelButtons.evaluateAll((buttons) => buttons.map((button) => button.getAttribute('aria-label')))).toEqual(['Stellar motion', 'Filter', 'Objects', 'Glossary', 'Preferences', 'Info'])
+  expect(await panelButtons.evaluateAll((buttons) => buttons.map((button) => button.getAttribute('aria-expanded')))).toEqual(['false', 'false', 'false', 'false', 'false', 'false'])
   await expect(page.locator('#object-card-details')).not.toHaveAttribute('open')
   await expect(page.locator('#star-name')).toBeVisible()
   await expect(page.locator('.properties-section')).toBeHidden()
@@ -573,8 +573,8 @@ test('presents the selected object beside an expandable control dock', async ({ 
   await page.locator('#object-card-details > summary').click()
   await expect(page.locator('.properties-section')).toBeVisible()
   expect(await page.locator('.properties-section dt:visible').allTextContents()).toEqual([
-    'Distance from Sun', 'Object type', 'Constellation', 'Spectral type', 'Temperature',
-    'Bolometric luminosity', 'Mass', 'Radius', 'Metallicity [Fe/H]', 'Age', 'Absolute mag. (V)',
+    'Distance from Sun', 'Object type', 'Known planets', 'Sub-type', 'Constellation', 'Spectral type', 'Temperature',
+    'Bolometric luminosity', 'Mass', 'Radius', 'Metallicity [Fe/H]', 'Age', 'Absolute mag. (V)', 'Apparent mag. (V)', 'Designations',
   ])
   await expect(page.locator('#luminosity-row')).toBeVisible()
   await expect(page.locator('#luminosity')).toHaveText('24.74 solar')
@@ -2290,7 +2290,7 @@ test('keeps the catalog usable if WebGL is unavailable', async ({ page }) => {
   await page.getByRole('button', { name: 'Objects', exact: true }).click()
   await expect(page.locator('.catalog-entry')).toHaveCount(101)
   await expect(page.locator('#star-name')).toHaveText('Sun')
-  await expect(page.locator('#constellation')).toHaveText('Not applicable')
+  await expect(page.locator('#constellation-row')).toBeHidden()
   await openPreferences(page)
   await page.getByLabel('ly', { exact: true }).check()
   await expect(page.locator('#distance-unit')).toHaveText(' ly')

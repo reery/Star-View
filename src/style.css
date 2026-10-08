@@ -65,10 +65,14 @@ button, p, h2, dd { overflow-wrap: anywhere; }
 .saved-view-origin-column { width: 28%; }
 .saved-views-table th { position: sticky; z-index: 1; top: 0; text-align: left; white-space: nowrap; }
 .saved-views-table tbody tr { cursor: pointer; }
+.saved-views-table tbody tr[aria-expanded="true"] { background: var(--panel-hover); }
+.saved-views-card[data-context-menu-open] .saved-views-table thead,
+.saved-views-card[data-context-menu-open] .saved-views-table tbody tr:not([aria-expanded="true"]) { filter: blur(3px); }
 .saved-views-table td { vertical-align: middle; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .saved-views-table tbody td { padding-block: 4px; }
+.saved-view-context-backdrop { position: fixed; z-index: 9; inset: 0; touch-action: none; }
 .saved-view-context-menu { position: fixed; z-index: 10; max-width: min(320px, calc(100vw - 16px)); padding: 4px; color: var(--ink); background: var(--panel); border: 1px solid var(--line); border-radius: 5px; box-shadow: 0 6px 18px #00000070; font-size: var(--property-text-size); line-height: 1.4; }
-.saved-view-context-delete { display: block; width: 100%; padding: 7px 10px; color: #e9a0a0; background: transparent; border: 0; border-radius: 3px; text-align: left; }
+.saved-view-context-delete { display: block; width: 100%; padding: 7px 10px; color: #f08080; background: transparent; border: 0; border-radius: 3px; text-align: left; }
 .saved-view-context-delete:focus-visible { background: var(--panel-hover); }
 .observer-direction-card { position: absolute; right: 74px; bottom: 48px; display: grid; gap: 5px; padding: 7px 8px 8px; pointer-events: auto; transition: right 120ms ease, bottom 120ms ease; }
 .observer-direction-card[hidden] { display: none; }
@@ -190,22 +194,26 @@ button, p, h2, dd { overflow-wrap: anywhere; }
 .panel-button { transition: background 120ms ease, border-color 120ms ease; }
 .panel-button[aria-expanded="true"] .tooltip { display: none !important; }
 .icon-button:focus-visible { outline-color: var(--accent-strong); }
-.camera-view-controls { position: relative; width: 44px; height: 44px; }
-.camera-view-options { position: absolute; top: 0; right: 100%; display: flex; gap: 4px; padding-right: 4px; opacity: 0; visibility: hidden; pointer-events: none; transform: translateX(12px); transition: opacity 160ms ease, transform 160ms ease, visibility 160ms; }
+.camera-view-controls, .origin-controls { position: relative; width: 44px; height: 44px; }
+.camera-view-options, .origin-options { position: absolute; top: 0; right: 100%; display: flex; gap: 4px; padding-right: 4px; opacity: 0; visibility: hidden; pointer-events: none; transform: translateX(12px); transition: opacity 160ms ease, transform 160ms ease, visibility 160ms; }
 .camera-view-button { width: 60px; flex: 0 0 60px; font: inherit; font-size: 12px; font-weight: 500; }
-.camera-view-controls:focus-within:has(#reset-view:not(:disabled)) .camera-view-options { opacity: 1; visibility: visible; pointer-events: auto; transform: translateX(0); }
-.camera-view-controls #reset-view .tooltip { top: calc(100% + 8px); right: 0; }
+.origin-controls:focus-visible { outline: 2px solid var(--accent-strong); outline-offset: 2px; border-radius: 7px; }
+.camera-view-controls:focus-within:has(#reset-view:not(:disabled)) .camera-view-options,
+.origin-controls:focus-within:has(#go-to-origin:not(:disabled)) .origin-options { opacity: 1; visibility: visible; pointer-events: auto; transform: translateX(0); }
+.camera-view-controls #reset-view .tooltip, .origin-controls #set-origin .tooltip { top: calc(100% + 8px); right: 0; }
 @media (hover: hover) and (pointer: fine) {
-  .camera-view-controls:hover:has(#reset-view:not(:disabled)) .camera-view-options { opacity: 1; visibility: visible; pointer-events: auto; transform: translateX(0); }
+  .camera-view-controls:hover:has(#reset-view:not(:disabled)) .camera-view-options,
+  .origin-controls:hover:has(#go-to-origin:not(:disabled)) .origin-options { opacity: 1; visibility: visible; pointer-events: auto; transform: translateX(0); }
 }
 @media (prefers-reduced-motion: reduce) {
-  .camera-view-options { transition: none; transform: none; }
+  .camera-view-options, .origin-options { transition: none; transform: none; }
 }
 .toolbar-divider { width: 20px; height: 1px; background: var(--line); margin: 4px 12px; }
 .tooltip { display: none; position: absolute; right: calc(100% + 10px); white-space: nowrap; font-size: 12px; font-weight: 400; background: var(--panel); border: 1px solid var(--line); color: var(--ink); padding: 7px 10px; border-radius: 5px; pointer-events: none; z-index: 5; box-shadow: 0 6px 18px #00000070; }
 .icon-button:focus-visible .tooltip { display: block; }
 .selection-tooltip-object { display: flex; align-items: center; gap: 6px; margin-top: 5px; }
 .selection-tooltip-object[hidden] { display: none; }
+.origin-tooltip-object { display: inline-flex; align-items: center; gap: 6px; vertical-align: middle; }
 @media (hover: hover) and (pointer: fine) {
   .icon-button:hover:not(:disabled) { background: var(--panel-selected); color: var(--accent-strong); border-color: #ac8059; }
   .observer-view-button[aria-pressed="true"]:hover:not(:disabled) { color: #ff9a78; background: #46251d; border-color: #d66b47; }
@@ -374,6 +382,7 @@ select:focus-visible, input:focus-visible { outline: 2px solid var(--accent); ou
 .properties > div { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 10px; align-items: baseline; padding: 3px 0; font-size: var(--property-text-size); line-height: 1.2; }
 .properties dt { color: var(--muted); }
 .properties dd { text-align: right; font-weight: 500; font-variant-numeric: tabular-nums; }
+.properties > #object-subtypes-row { grid-template-columns: auto minmax(0, 1fr); }
 .properties > .object-type-row, .properties > .metallicity-row, .properties > .radius-row, .properties > .distance-row { position: relative; isolation: isolate; cursor: pointer; }
 .object-type-toggle { padding: 0; border: 0; background: transparent; color: inherit; font: inherit; text-align: right; }
 .object-type-toggle::before { content: ''; position: absolute; z-index: -1; inset: -1px -8px; border-radius: 5px; }
@@ -399,6 +408,8 @@ select:focus-visible, input:focus-visible { outline: 2px solid var(--accent); ou
 .object-type-credit a { color: inherit; }
 .metallicity-body { padding: 0 20px 20px; }
 .properties > .mass-row { position: relative; isolation: isolate; cursor: pointer; }
+#known-planets-row { position: relative; isolation: isolate; cursor: pointer; }
+#known-planets-row:hover .object-type-toggle::before { background: var(--panel-selected); }
 .mass-row:hover .object-type-toggle::before { background: var(--panel-selected); }
 .object-type-toggle:disabled { cursor: default; }
 .mass-card #mass-close { right: 0; }
@@ -471,9 +482,10 @@ select:focus-visible, input:focus-visible { outline: 2px solid var(--accent); ou
 .dock-card.object-type-card.distance-card { width: min(560px, calc(100vw - 402px)); }
 .dock-card.object-type-card.planet-card { width: min(380px, calc(100vw - 402px)); }
 .planet-heading { gap: 12px; padding-right: 54px; }
-.planet-heading h2 { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
+.planet-heading h2 { display: flex; align-items: center; gap: 8px; }
+#planet-name { min-width: 0; overflow-wrap: anywhere; }
 .planet-icon { display: inline-block; width: 24px; height: 24px; flex: 0 0 24px; border-radius: 50%; background: radial-gradient(circle at 30% 28%, #e2dcd5, var(--planet-color) 42%, #494441 78%, #242221); box-shadow: inset -3px -2px 5px #0006; }
-.planet-section-buttons { display: flex; align-self: stretch; margin: -1px 0; }
+.planet-section-buttons { display: flex; align-self: stretch; flex-shrink: 0; margin: -1px 0; }
 .planet-heading .planet-section-button { position: static; height: 45px; border-radius: 0; border-color: transparent transparent var(--line) var(--line); }
 .planet-heading .planet-section-button:last-child { border-right-color: var(--line); }
 .planet-heading .planet-section-button[aria-expanded="true"] { color: var(--accent-vibrant); background: #ff8a2a14; border-bottom-color: #ff8a2a70; }
@@ -481,10 +493,25 @@ select:focus-visible, input:focus-visible { outline: 2px solid var(--accent); ou
 .planet-card-body { padding: 0 16px 12px; }
 .planet-card-body .card-subgroup-heading { margin-bottom: 7px; }
 .planet-card-body section + section { margin-top: 12px; }
+.planet-specs-sticky { position: sticky; top: 0; z-index: 5; margin: 0 -16px 7px; background: var(--panel); }
+.planet-specs-sticky .planet-globe-frame { margin: 0; }
+.planet-physical-header { display: flex; align-items: stretch; border-bottom: 1px solid var(--line); }
+.planet-card-body .planet-physical-header .card-subgroup-heading { display: flex; align-items: center; flex: 1; margin: 0; border: 0; }
+.planet-earth-button { height: auto; min-height: 44px; border-left-color: var(--line); border-radius: 0; }
+.planet-earth-symbol { position: relative; display: block; width: 28px; height: 28px; }
+#planet-earth-icon { position: absolute; bottom: 0; left: 0; }
+.planet-earth-mark { position: absolute; top: 0; right: 0; }
+.planet-earth-mark svg { width: 12px; height: 12px; }
+.planet-earth-button[aria-pressed="false"] #planet-earth-minus-icon,
+.planet-earth-button[aria-pressed="true"] #planet-earth-plus-icon { display: none; }
+.planet-earth-button:disabled { color: var(--muted); }
 .planet-properties > div { grid-template-columns: minmax(0, min(160px, 38%)) minmax(0, 1fr); gap: 10px; }
 .planet-properties dd { text-align: left; }
+.planet-properties a { color: inherit; text-decoration: none; }
+.planet-properties a:hover { color: var(--accent-strong); }
+.planet-properties a:focus-visible { outline: 1px solid var(--accent-vibrant); outline-offset: 3px; }
 .planet-metric-tooltip > span { display: block; }
-.planet-globe-frame { margin: 0 -16px; background: #000; }
+.planet-globe-frame { position: relative; margin: 0 -16px; background: #000; }
 #planet-globe { display: block; width: 100%; height: 172px; touch-action: none; cursor: grab; }
 #planet-globe.is-dragging { cursor: grabbing; }
 #planet-globe:focus-visible { outline: 1px solid var(--accent-vibrant); outline-offset: -3px; }

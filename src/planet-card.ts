@@ -1,4 +1,5 @@
-import { planetAtmosphereSpecs, planetMoonsForId, planetPhysicalSpecs, scientificPlanetValue, type PlanetDescription, type PlanetSpec } from './planet-properties'
+import { isExtrasolarPlanet, planetAtmosphereSpecs, planetMoonsForId, planetPhysicalSpecs, scientificPlanetValue, type PlanetDescription, type PlanetSpec, type SolarPlanetDescription } from './planet-properties'
+import { extrasolarOrbitalSpecs } from './exoplanet-properties'
 import { renderPlanetInfo } from './planet-info'
 import { renderPlanetGlobe } from './planet-globe'
 
@@ -47,7 +48,14 @@ function specRow(spec: PlanetSpec): HTMLDivElement {
     value.append(button, tooltip)
     label.title = spec.detail
   } else {
-    value.append(spec.value)
+    if (spec.sourceUrl) {
+      const link = document.createElement('a')
+      link.href = spec.sourceUrl
+      link.target = '_blank'
+      link.rel = 'noopener noreferrer'
+      link.textContent = spec.value
+      value.append(link)
+    } else value.append(spec.value)
     row.title = spec.detail
   }
   if (spec.comparison) {
@@ -60,7 +68,7 @@ function specRow(spec: PlanetSpec): HTMLDivElement {
   return row
 }
 
-function renderPlanetMoons(container: HTMLElement, planet: PlanetDescription): boolean {
+function renderPlanetMoons(container: HTMLElement, planet: SolarPlanetDescription): boolean {
   const moons = planetMoonsForId(planet.id)
   container.replaceChildren()
   for (const moon of moons) {
@@ -72,7 +80,7 @@ function renderPlanetMoons(container: HTMLElement, planet: PlanetDescription): b
     link.href = moon.source
     link.target = '_blank'
     link.rel = 'noopener noreferrer'
-    link.title = `NASA ${moon.name} fact sheet`
+    link.title = `NASA ${moon.sourceLabel}`
     link.textContent = moon.name
     heading.append(link)
     section.setAttribute('aria-labelledby', heading.id)
@@ -80,16 +88,16 @@ function renderPlanetMoons(container: HTMLElement, planet: PlanetDescription): b
     properties.className = 'properties planet-properties'
     const format = (value: number) => value.toLocaleString('en-US', { maximumFractionDigits: 4 })
     const specs: [string, string, string, string?][] = [
-      ['mean-radius', 'Mean radius', `${format(moon.meanRadiusKm)} km`],
+      ['mean-radius', 'Mean radius', `${format(moon.meanRadiusKm)} km`, moon.meanRadiusDetail],
       ['mass', 'Mass', `${scientificPlanetValue(moon.massKg)} kg`],
-      ['surface-gravity', 'Surface gravity', `${format(moon.surfaceGravityMs2)} m/s²`],
-      ['semi-major-axis', 'Orbital semi-major axis', `${format(moon.semiMajorAxisKm)} km`, 'Orbital size measured between the centers of Earth and Moon, not a current distance.'],
-      ['sidereal-orbit', 'Sidereal orbital period', `${format(moon.siderealOrbitDays)} d`, 'One orbit relative to the distant stars.'],
-      ['phase-cycle', 'Phase cycle', `${format(moon.phaseCycleDays)} d`, 'Synodic month: one new Moon to the next.'],
+      ['surface-gravity', 'Surface gravity', `${format(moon.surfaceGravityMs2)} m/s²`, moon.surfaceGravityDetail],
+      ['semi-major-axis', 'Orbital semi-major axis', `${format(moon.semiMajorAxisKm)} km`, moon.semiMajorAxisDetail ?? `Orbital size measured between the centers of ${planet.name} and ${moon.name}, not a current distance.`],
+      ['sidereal-orbit', 'Sidereal orbital period', `${format(moon.siderealOrbitDays)} d${moon.id === 'triton' ? ' · retrograde' : ''}`, moon.siderealOrbitDetail ?? 'One orbit relative to the distant stars.'],
+      ['phase-cycle', 'Phase cycle', `${format(moon.phaseCycleDays)} d`, moon.phaseCycleDetail ?? 'Synodic month: one new Moon to the next.'],
     ]
     properties.append(...specs.map(([id, label, value, detail]) => specRow({
       id: `moon-${moon.id}-${id}`, label, value, comparison: '',
-      detail: `${detail ? `${detail} ` : ''}NASA ${moon.name} fact sheet.`,
+      detail: `${detail ? `${detail} ` : ''}NASA ${moon.sourceLabel}.`,
     })))
     section.append(heading, properties)
     container.append(section)
@@ -98,16 +106,43 @@ function renderPlanetMoons(container: HTMLElement, planet: PlanetDescription): b
 }
 
 export function renderPlanetCard(card: HTMLElement, planet: PlanetDescription): void {
+  const extrasolar = isExtrasolarPlanet(planet)
   card.dataset.planetId = planet.id
   card.querySelector<HTMLElement>('#planet-name')!.textContent = planet.name
   card.querySelector<HTMLElement>('#planet-icon')!.style.setProperty('--planet-color', planet.color)
   const globe = card.querySelector<HTMLCanvasElement>('#planet-globe')!
-  globe.parentElement!.hidden = !renderPlanetGlobe(globe, planet.id)
-  card.querySelector<HTMLElement>('#planet-moons-toggle')!.hidden = planet.moonCount === 0
-  card.querySelector<HTMLButtonElement>('#planet-moons-toggle')!.disabled = !renderPlanetMoons(card.querySelector<HTMLElement>('#planet-moons')!, planet)
-  card.querySelector<HTMLButtonElement>('#planet-info-toggle')!.disabled = !renderPlanetInfo(card.querySelector<HTMLElement>('#planet-info')!, planet.id)
+  const addEarth = card.querySelector<HTMLButtonElement>('#planet-add-earth')!
+  const globeAvailable = renderPlanetGlobe(globe, planet.id)
+  globe.parentElement!.hidden = !globeAvailable
+  addEarth.hidden = extrasolar
+  addEarth.disabled = planet.id === 'earth' || !globeAvailable
+  addEarth.title = planet.id === 'earth' ? 'Earth is already selected' : 'Add Earth for size comparison'
+  addEarth.setAttribute('aria-label', 'Add Earth')
+  addEarth.setAttribute('aria-pressed', 'false')
+  addEarth.onclick = () => {
+    const comparing = addEarth.getAttribute('aria-pressed') !== 'true'
+    renderPlanetGlobe(globe, planet.id, comparing)
+    addEarth.setAttribute('aria-label', comparing ? 'Remove Earth' : 'Add Earth')
+    addEarth.title = comparing ? 'Remove Earth from size comparison' : 'Add Earth for size comparison'
+    addEarth.setAttribute('aria-pressed', String(comparing))
+  }
+  card.querySelector<HTMLElement>('#planet-moons-toggle')!.hidden = extrasolar || planet.moonCount === 0
+  const moons = card.querySelector<HTMLElement>('#planet-moons')!
+  moons.replaceChildren()
+  card.querySelector<HTMLButtonElement>('#planet-moons-toggle')!.disabled = extrasolar || !renderPlanetMoons(moons, planet)
+  const infoToggle = card.querySelector<HTMLButtonElement>('#planet-info-toggle')!
+  infoToggle.hidden = extrasolar
+  const info = card.querySelector<HTMLElement>('#planet-info')!
+  info.replaceChildren()
+  infoToggle.disabled = extrasolar || !renderPlanetInfo(info, planet.id)
   card.querySelector<HTMLElement>('#planet-physical-specs')!.replaceChildren(...planetPhysicalSpecs(planet).map(specRow))
+  const orbit = card.querySelector<HTMLElement>('#planet-orbit-specs')!
+  orbit.replaceChildren(...(extrasolar ? extrasolarOrbitalSpecs(planet).map(specRow) : []))
+  card.querySelector<HTMLElement>('#planet-orbit-section')!.hidden = !extrasolar
   const atmosphere = card.querySelector<HTMLElement>('#planet-atmosphere-specs')!
+  card.querySelector<HTMLElement>('#planet-atmosphere-section')!.hidden = extrasolar
+  atmosphere.replaceChildren()
+  if (extrasolar) return
   atmosphere.replaceChildren(...planetAtmosphereSpecs(planet).map(specRow))
   const composition = document.createElement('div')
   composition.className = 'planet-composition-row'

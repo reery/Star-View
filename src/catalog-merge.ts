@@ -7,10 +7,13 @@ const OVERLAY_PHYSICAL_FIELDS = [
 
 function supplementPhysicalFields(primary: Star, additional: Star): Star {
   const supplemented = { ...primary }
+  supplemented.subtypes = uniqueDesignations([...(primary.subtypes ?? []), ...(additional.subtypes ?? [])])
+  supplemented.known_planets = primary.known_planets ?? additional.known_planets ?? null
   supplemented.designations = uniqueDesignations([...objectDesignations(primary), additional.name, ...objectDesignations(additional)], primary.name)
   // A reviewed component may deliberately withhold blended system estimates.
   // An overlapping legacy overlay must not restore those rejected values.
   const withheld = new Set(primary.notes.match(/Withheld individual fields: ([a-z_, ]+)\./)?.[1]?.split(', ') ?? [])
+  supplemented.apparent_mag = primary.apparent_mag ?? (withheld.has('absolute_mag') ? null : additional.apparent_mag ?? null)
   const fields = OVERLAY_PHYSICAL_FIELDS.filter((field) => !withheld.has(field) && primary[field] === null && additional[field] !== null)
   for (const field of fields) {
     supplemented[field] = additional[field]
@@ -81,4 +84,3 @@ export function mergeCatalogStarLayers(primary: readonly Star[], additional: rea
   }
   return merged
 }
-

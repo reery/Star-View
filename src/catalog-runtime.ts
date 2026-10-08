@@ -3,6 +3,7 @@ import type { CatalogManifest } from './catalog-manifest'
 import { validDesignations } from './designations'
 import { mergeCatalogStarLayers } from './catalog-merge'
 import { starComponentIdentity } from './star-systems'
+import { validObjectStats } from './object-stats'
 
 export { catalogSelection } from './catalog-selection'
 
@@ -29,6 +30,7 @@ export function parseCatalogPayload(value: unknown, manifest: CatalogManifest): 
     if (!star || typeof star !== 'object' || typeof star.id !== 'string' || !star.id || ids.has(star.id) ||
       typeof star.name !== 'string' || !star.name || typeof star.type !== 'string' || !STELLAR_OBJECT_TYPES.includes(star.type as never) ||
       !validDesignations(star.designations) ||
+      !validObjectStats(star) ||
       !['x_pc', 'y_pc', 'z_pc', 'epoch'].every((field) => typeof star[field] === 'number' && Number.isFinite(star[field]))) {
       throw new Error(`Invalid catalog payload row: ${manifest.id}`)
     }

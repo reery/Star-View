@@ -1,0 +1,31 @@
+import { expect, test } from '@playwright/test'
+
+test('shows selected-object stats and hides empty Sun metadata @mobile', async ({ page }, testInfo) => {
+  await page.goto('/')
+  await expect(page.locator('#scene')).toHaveAttribute('data-ready', 'true')
+  await page.getByRole('button', { name: 'Objects', exact: true }).click()
+  await page.getByRole('button', { name: 'Select Sun', exact: true }).click()
+  await page.getByRole('button', { name: 'Objects', exact: true }).click()
+  await page.getByRole('button', { name: 'Specs', exact: true }).click()
+  await expect(page.locator('#constellation-row')).toBeHidden()
+  await expect(page.locator('#designations-row')).toBeHidden()
+  await expect(page.locator('#known-planets')).toHaveText('8')
+  await expect(page.locator('#object-subtypes')).toHaveText('Main-sequence')
+  await expect(page.locator('#apparent-mag')).toHaveText('-26.74')
+  expect(await page.locator('#absolute-mag').evaluate((value) => value.parentElement!.nextElementSibling!.querySelector('dt')!.textContent)).toBe('Apparent mag. (V)')
+  await page.screenshot({ path: testInfo.outputPath('sun-object-stats.png') })
+  await page.getByRole('button', { name: 'Objects', exact: true }).click()
+  await page.getByRole('button', { name: 'Select Proxima Centauri', exact: true }).click()
+  await page.getByRole('button', { name: 'Objects', exact: true }).click()
+  if (await page.locator('#object-specs-toggle').getAttribute('aria-expanded') === 'false') {
+    await page.getByRole('button', { name: 'Specs', exact: true }).click()
+  }
+  await expect(page.locator('#constellation-row')).toBeVisible()
+  await expect(page.locator('#designations-row')).toBeVisible()
+  await expect(page.locator('#known-planets')).toHaveText('2')
+  await expect(page.locator('#object-subtypes')).toContainText('variable')
+  await expect(page.locator('#apparent-mag')).toHaveText('11.103')
+  const subtypeFits = await page.locator('#object-subtypes-row').evaluate((row) => row.scrollWidth <= row.clientWidth)
+  expect(subtypeFits).toBe(true)
+  await page.screenshot({ path: testInfo.outputPath('proxima-object-stats.png') })
+})

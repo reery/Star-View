@@ -190,6 +190,11 @@ export interface Star {
   id: string
   name: string
   designations?: string[]
+  subtypes?: string[]
+  // Confirmed planets in the adopted archive snapshot; null means no coverage.
+  known_planets?: number | null
+  // Earth-view Johnson V snapshot, independent of the map's observer.
+  apparent_mag?: number | null
   spectral_type: string | null
   constellation: string | null
   x_pc: number

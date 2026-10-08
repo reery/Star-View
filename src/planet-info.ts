@@ -2,6 +2,11 @@ import mercuryNaturalColor from './assets/planets/mercury-natural-color.jpg'
 import mercuryHollows from './assets/planets/mercury-hollows.jpg'
 import venusNaturalColor from './assets/planets/venus-natural-color.png'
 import earthBlueMarble from './assets/planets/earth-blue-marble.jpg'
+import marsNaturalColor from './assets/planets/mars-natural-color.jpg'
+import jupiterNaturalColor from './assets/planets/jupiter-natural-color.jpg'
+import saturnNaturalColor from './assets/planets/saturn-natural-color.jpg'
+import uranusVoyager from './assets/planets/uranus-voyager.jpg'
+import neptuneVoyager from './assets/planets/neptune-voyager.jpg'
 
 interface InfoSource {
   title: string
@@ -401,7 +406,371 @@ const earthInfo: PlanetInfo = {
   ],
 }
 
-const planetInfo: Readonly<Record<string, PlanetInfo>> = { mercury: mercuryInfo, venus: venusInfo, earth: earthInfo }
+const marsFacts: InfoSource = {
+  title: 'NASA: Mars facts',
+  url: 'https://science.nasa.gov/mars/facts/',
+}
+
+const marsInfo: PlanetInfo = {
+  image: {
+    src: marsNaturalColor,
+    width: 1920,
+    height: 1920,
+    alt: 'A global color mosaic of Mars, showing its north polar cap, rust-colored plains, dark regions, Tharsis volcanoes and Valles Marineris.',
+    caption: 'NASA / JPL-Caltech / USGS · Viking color mosaic',
+    credit: 'NASA / JPL-Caltech / USGS. Viking Orbiter mosaic, published June 8, 1998 (PIA00407). Red- and violet-filter observations with a synthesized green channel. Bright regions approximate natural color; dark regions have stretched color and contrast. A processed composite, not a single photograph.',
+    source: {
+      title: 'NASA: Global Color Views of Mars (PIA00407)',
+      url: 'https://science.nasa.gov/resource/global-color-views-of-mars/',
+    },
+  },
+  introduction: {
+    label: 'Mars',
+    source: marsFacts,
+    text: 'is the fourth planet from the Sun, a cold, rocky desert with a thin atmosphere and two small moons. Iron minerals in its rocks and dust give it a reddish appearance. Ancient valleys and lakebeds preserve evidence of a wetter past.',
+  },
+  sections: [
+    {
+      id: 'interior',
+      title: 'Internal structure',
+      source: {
+        title: 'Bi et al. (2025): Seismic detection of a 600-km solid inner core in Mars',
+        url: 'https://www.nature.com/articles/s41586-025-09361-9',
+      },
+      paragraphs: [{
+        text: 'A rocky crust and mantle surround an iron-rich core. InSight’s seismic measurements revealed a liquid outer core. A 2025 analysis reported evidence for a solid inner core about 613 km in radius; the details of the interior continue to be investigated.',
+      }],
+    },
+    {
+      id: 'surface',
+      title: 'Surface geology',
+      source: marsFacts,
+      paragraphs: [{
+        text: 'Impact craters, volcanic plains and enormous canyons shape the landscape. Olympus Mons is the Solar System’s largest volcano, and Valles Marineris stretches almost 4,000 km. Polar deposits contain ice; ancient river channels, deltas and water-altered minerals record past liquid water.',
+      }],
+    },
+    {
+      id: 'magnetic-field',
+      title: 'Magnetic field and atmosphere',
+      source: marsFacts,
+      paragraphs: [{
+        text: 'Mars has no global magnetic field today, although magnetized crust preserves traces of an ancient one. Its thin atmosphere is mostly carbon dioxide, with nitrogen and argon. Suspended dust can grow into planet-wide storms, and the sparse air allows large temperature changes.',
+      }],
+    },
+    {
+      id: 'orbit',
+      title: 'Orbit',
+      source: marsFacts,
+      paragraphs: [{
+        text: 'A year lasts about 687 Earth days at an average distance of 1.52 AU from the Sun. A solar day, or sol, lasts about 24 hours 40 minutes. Its tilted axis produces seasons; the elliptical orbit makes their lengths unequal.',
+      }],
+    },
+    {
+      id: 'probes',
+      title: 'Observation (Probes)',
+      paragraphs: [{
+        label: 'Mariner 4 (1965) and Mariner 9 (1971).',
+        source: { title: 'NASA: Viking and the earlier Mariner missions', url: 'https://science.nasa.gov/mission/viking/viking-50-years-on-mars/' },
+        text: 'Early flybys returned close-up images. Mariner 9 became the first spacecraft to orbit another planet, revealing vast volcanoes, canyons and evidence of ancient flowing water.',
+      }, {
+        label: 'Viking 1 and 2 (1976).',
+        source: { title: 'NASA: Viking Project', url: 'https://science.nasa.gov/mission/viking/' },
+        text: 'Paired orbiters and landers mapped Mars and returned photographs and measurements from the surface. The globe and Info image use Viking orbital imagery.',
+      }, {
+        label: 'Curiosity (landed 2012).',
+        source: { title: 'NASA: Mars Science Laboratory / Curiosity', url: 'https://science.nasa.gov/mission/msl-curiosity/' },
+        text: 'Exploration of Gale Crater found evidence that ancient environments could have supported microbial life.',
+      }, {
+        label: 'InSight (2018–2022).',
+        source: { title: 'NASA / JPL: InSight', url: 'https://www.jpl.nasa.gov/missions/insight/' },
+        text: 'A stationary lander measured marsquakes to investigate the crust, mantle and core.',
+      }, {
+        label: 'Perseverance (landed 2021).',
+        source: { title: 'NASA: Mars 2020 / Perseverance', url: 'https://science.nasa.gov/mission/mars-2020-perseverance/' },
+        text: 'The rover investigates Jezero Crater’s ancient lake and delta, searches for signs of past microbial life and collects rock samples.',
+      }],
+    },
+    {
+      id: 'history',
+      title: 'Observation (History)',
+      paragraphs: [{
+        text: 'Recognized since antiquity, Mars appears as a reddish point in Earth’s sky. Close oppositions offer especially favorable views through telescopes.',
+      }, {
+        label: '1877.',
+        source: { title: 'NASA: Discovery of Mars’s moons', url: 'https://science.nasa.gov/mars/moons/' },
+        text: 'Asaph Hall discovered Phobos and Deimos, the planet’s two small moons.',
+      }, {
+        label: 'The “canals”.',
+        source: { title: 'NASA: Triumph of Mariner 4', url: 'https://science.nasa.gov/mars/triumph-of-mariner-4/' },
+        text: 'Lines mapped by Giovanni Schiaparelli were called canali, meaning channels. Their interpretation as artificial canals fueled speculation about civilizations; spacecraft later revealed a very different landscape.',
+      }],
+    },
+  ],
+}
+
+const jupiterFacts: InfoSource = {
+  title: 'NASA: Jupiter facts',
+  url: 'https://science.nasa.gov/jupiter/jupiter-facts/',
+}
+
+const jupiterExploration: InfoSource = {
+  title: 'NASA: Jupiter exploration',
+  url: 'https://science.nasa.gov/jupiter/exploration/',
+}
+
+const jupiterInfo: PlanetInfo = {
+  image: {
+    src: jupiterNaturalColor,
+    width: 1920,
+    height: 2400,
+    alt: 'A partly illuminated Jupiter against black space, with cream and reddish-brown cloud bands, white storm ovals and the Great Red Spot; the right limb fades into shadow.',
+    caption: 'NASA / JPL / SSI · Cassini true-color mosaic',
+    credit: 'NASA / JPL / Space Science Institute. Cassini narrow-angle camera, December 29, 2000 (PIA04866). A mosaic of 27 red-, green- and blue-filter images approximating the human-eye view; not a single exposure.',
+    source: {
+      title: 'NASA / JPL: Cassini Jupiter Portrait (PIA04866)',
+      url: 'https://www.jpl.nasa.gov/images/pia04866-cassini-jupiter-portrait/',
+    },
+  },
+  introduction: {
+    label: 'Jupiter',
+    source: jupiterFacts,
+    text: 'is the fifth planet from the Sun and the largest in the Solar System. This gas giant is mostly hydrogen and helium, wrapped in cloud bands and long-lived storms. Its four largest moons form a small planetary system of their own.',
+  },
+  sections: [
+    {
+      id: 'interior',
+      title: 'Internal structure',
+      source: jupiterFacts,
+      paragraphs: [{
+        text: 'Pressure compresses hydrogen into liquid, then an electrically conducting metallic state. Juno’s gravity measurements suggest a diffuse core of heavier material mixed with surrounding hydrogen, rather than a sharply bounded solid center.',
+      }],
+    },
+    {
+      id: 'surface',
+      title: 'Clouds and storms',
+      source: {
+        title: 'NASA / ESA: Hubble’s Jupiter global map (2019)',
+        url: 'https://science.nasa.gov/asset/hubble/jupiter-global-map-2019/',
+      },
+      paragraphs: [{
+        text: 'The visible globe shows clouds, not terrain. Opposing jet streams separate light zones from darker belts. The Great Red Spot is an enormous anticyclone in the southern hemisphere; its size and color change over time. The globe’s Hubble map records a 2019 snapshot.',
+      }],
+    },
+    {
+      id: 'magnetic-field',
+      title: 'Magnetic field and atmosphere',
+      source: jupiterFacts,
+      paragraphs: [{
+        text: 'Motion in the metallic-hydrogen interior powers a strong magnetic field. Trapped charged particles create intense radiation belts and polar aurorae. Clouds include ammonia ice, ammonium hydrosulfide and water; pressure and temperature rise toward the interior. There is no solid surface to land on.',
+      }],
+    },
+    {
+      id: 'orbit',
+      title: 'Orbit',
+      source: { title: 'NASA: Jupiter fact sheet', url: 'https://nssdc.gsfc.nasa.gov/planetary/factsheet/jupiterfact.html' },
+      paragraphs: [{
+        text: 'Jupiter orbits about 5.2 AU from the Sun, completing a year in 4,332.6 Earth days. Its reference solar day lasts about 9 hours 56 minutes, although cloud rotation varies with latitude. Rapid rotation produces its noticeably flattened polar shape.',
+      }],
+    },
+    {
+      id: 'probes',
+      title: 'Observation (Probes)',
+      paragraphs: [{
+        label: 'Pioneer 10 and 11 (1973–1974).',
+        source: jupiterExploration,
+        text: 'The first close encounters measured the radiation environment and returned images of Jupiter and its moons.',
+      }, {
+        label: 'Voyager 1 and 2 (1979).',
+        source: jupiterExploration,
+        text: 'Flybys revealed a faint ring system, active volcanoes on Io and intricate cloud patterns.',
+      }, {
+        label: 'Galileo (1995–2003 at Jupiter).',
+        source: jupiterExploration,
+        text: 'The first Jupiter orbiter repeatedly visited its moons and delivered a probe that measured the atmosphere during descent.',
+      }, {
+        label: 'Cassini (2000 flyby).',
+        source: { title: 'NASA / JPL: Cassini Jupiter Portrait', url: 'https://www.jpl.nasa.gov/images/pia04866-cassini-jupiter-portrait/' },
+        text: 'Its visible-light images supply the true-color portrait above.',
+      }, {
+        label: 'Juno (arrived 2016).',
+        source: { title: 'NASA: Juno', url: 'https://science.nasa.gov/mission/juno/' },
+        text: 'Close polar passes investigated the deep atmosphere, gravity and magnetic field, and imaged cyclones around the poles.',
+      }],
+    },
+    {
+      id: 'history',
+      title: 'Observation (History)',
+      paragraphs: [{
+        text: 'Bright enough to see without a telescope, Jupiter has been known since antiquity.',
+      }, {
+        label: '1610.',
+        source: { title: 'NASA / JPL: Galileo’s observations of Jupiter’s moons', url: 'https://www.jpl.nasa.gov/edu/resources/gallery/exploring-jupiter/' },
+        text: 'Galileo observed Io, Europa, Ganymede and Callisto orbiting Jupiter. These Galilean moons showed that celestial bodies could orbit a world other than Earth.',
+      }, {
+        label: 'Hubble / OPAL.',
+        source: { title: 'NASA / ESA: Jupiter global map (2019)', url: 'https://science.nasa.gov/asset/hubble/jupiter-global-map-2019/' },
+        text: 'Repeated global maps track changes in the planet’s clouds and storms over the years.',
+      }],
+    },
+  ],
+}
+
+const saturnFacts: InfoSource = { title: 'NASA: Saturn facts', url: 'https://science.nasa.gov/saturn/facts/' }
+const saturnExploration: InfoSource = { title: 'NASA: Saturn exploration', url: 'https://science.nasa.gov/saturn/exploration/' }
+
+const saturnInfo: PlanetInfo = {
+  image: {
+    src: saturnNaturalColor, width: 3545, height: 1834,
+    alt: 'Saturn against black space, with soft gold cloud bands, its north pole facing the viewer and broad pale rings crossed by the planet’s shadow.',
+    caption: 'NASA / JPL / SSI · Cassini natural-color view',
+    credit: 'NASA / JPL-Caltech / Space Science Institute. Cassini wide-angle camera, October 28, 2016 (PIA21345). Red-, green- and blue-filter images combined into a natural-color view, looking about 25° above the ring plane. Full published frame, unmodified.',
+    source: { title: 'NASA: So Far from Home (PIA21345)', url: 'https://science.nasa.gov/photojournal/so-far-from-home/' },
+  },
+  introduction: {
+    label: 'Saturn', source: saturnFacts,
+    text: 'is the sixth planet from the Sun and the Solar System’s second-largest. This hydrogen-and-helium giant has a low average density, pale cloud bands and a broad system of icy rings. Its moons include haze-covered Titan and ocean-bearing Enceladus.',
+  },
+  sections: [{
+    id: 'interior', title: 'Internal structure', source: saturnFacts,
+    paragraphs: [{ text: 'Pressure transforms hydrogen into liquid and, deeper down, an electrically conducting metallic state. Heavier material is concentrated toward the center. The interior is inferred from measurements and models; there is no solid surface to land on.' }],
+  }, {
+    id: 'surface', title: 'Clouds and rings',
+    source: { title: 'NASA / ESA: Saturn 2019', url: 'https://science.nasa.gov/asset/hubble/saturn-2019/' },
+    paragraphs: [{ text: 'Alternating winds organize the atmosphere into faint bands. A long-lived hexagonal jet stream encircles the north pole. The rings consist of countless orbiting particles, mostly ice, rather than a continuous solid disk. The Cassini Division separates the bright A and B rings. Their origin and age remain debated.' }],
+  }, {
+    id: 'magnetic-field', title: 'Magnetic field and atmosphere', source: saturnFacts,
+    paragraphs: [{ text: 'Saturn’s magnetic field guides charged particles and produces polar aurorae. Hydrogen and helium dominate the atmosphere, with methane and other trace gases. Clouds and hazes obscure the deeper layers, where pressure and temperature increase. The displayed temperature refers to the 1-bar level.' }],
+  }, {
+    id: 'orbit', title: 'Orbit',
+    source: { title: 'NASA: Saturn fact sheet', url: 'https://nssdc.gsfc.nasa.gov/planetary/factsheet/saturnfact.html' },
+    paragraphs: [{ text: 'Saturn orbits about 9.5 AU from the Sun, completing a year in 10,755.7 Earth days. The fact sheet’s reference day lasts about 10 hours 39 minutes; cloud rotation varies with latitude. Rapid rotation flattens the poles, while the 26.73° axial tilt gives Saturn seasons.' }],
+  }, {
+    id: 'probes', title: 'Observation (Probes)',
+    paragraphs: [{
+      label: 'Pioneer 11 (1979).', source: saturnExploration,
+      text: 'The first spacecraft encounter measured Saturn’s magnetic environment and discovered the narrow F ring.',
+    }, {
+      label: 'Voyager 1 and 2 (1980–1981).', source: saturnExploration,
+      text: 'Flybys resolved intricate ring structure and returned close views of the planet and its moons.',
+    }, {
+      label: 'Cassini (2004–2017 at Saturn).',
+      source: { title: 'NASA: Cassini-Huygens', url: 'https://science.nasa.gov/mission/cassini/' },
+      text: 'The first Saturn orbiter studied seasonal changes, rings and moons for 13 years, including water-ice plumes from Enceladus. The mission ended with a planned plunge into Saturn’s atmosphere on September 15, 2017.',
+    }, {
+      label: 'Huygens (2005).',
+      source: { title: 'NASA / ESA: Huygens', url: 'https://science.nasa.gov/mission/cassini-huygens/' },
+      text: 'Carried by Cassini, ESA’s probe descended through Titan’s atmosphere and landed on January 14, returning measurements and images from the surface.',
+    }],
+  }, {
+    id: 'history', title: 'Observation (History)', source: saturnExploration,
+    paragraphs: [{ text: 'Visible without a telescope, Saturn has been known since antiquity.' }, {
+      label: '1610.', source: saturnExploration,
+      text: 'Galileo saw apparent companions beside Saturn; his telescope could not resolve the rings clearly.',
+    }, {
+      label: '1655.', source: saturnExploration,
+      text: 'Christiaan Huygens recognized the ring surrounding Saturn and discovered Titan.',
+    }, {
+      label: '1675.', source: saturnExploration,
+      text: 'Giovanni Domenico Cassini identified the gap now called the Cassini Division.',
+    }],
+  }],
+}
+
+const uranusFacts: InfoSource = { title: 'NASA: Uranus facts', url: 'https://science.nasa.gov/uranus/facts/' }
+const neptuneFacts: InfoSource = { title: 'NASA: Neptune facts', url: 'https://science.nasa.gov/neptune/neptune-facts/' }
+const voyager2: InfoSource = { title: 'NASA: Voyager 2', url: 'https://science.nasa.gov/mission/voyager/voyager-2/' }
+const iceGiantColors: InfoSource = {
+  title: 'University of Oxford: the visible colors of Uranus and Neptune (2024)',
+  url: 'https://www.ox.ac.uk/news/2024-01-05-new-images-reveal-what-neptune-and-uranus-really-look-0',
+}
+
+const uranusInfo: PlanetInfo = {
+  image: {
+    src: uranusVoyager, width: 1720, height: 1720,
+    alt: 'The pale blue-green disk of Uranus against black space, with a smooth, hazy atmosphere and a shaded limb.',
+    caption: 'NASA / JPL-Caltech · Voyager 2 (1986)',
+    credit: 'NASA / JPL-Caltech. Voyager 2 image of Uranus in 1986 (PIA18182). The full published frame is displayed unchanged; the source does not specify a complete color-calibration recipe.',
+    source: { title: 'NASA: Uranus as seen by Voyager 2 (PIA18182)', url: 'https://science.nasa.gov/photojournal/uranus-as-seen-by-nasas-voyager-2/' },
+  },
+  introduction: {
+    label: 'Uranus', source: uranusFacts,
+    text: 'is the seventh planet from the Sun, an ice giant with a pale blue-green atmosphere, faint rings and a rotation axis tipped almost sideways. Miranda, Ariel, Umbriel, Titania and Oberon are its five major moons.',
+  },
+  sections: [{
+    id: 'interior', title: 'Internal structure', source: uranusFacts,
+    paragraphs: [{ text: 'Models place a hydrogen-and-helium envelope above hot, dense material rich in water, ammonia and methane, surrounding a rocky core. “Ice giant” describes these materials, rather than a frozen solid interior. The layer boundaries remain uncertain.' }],
+  }, {
+    id: 'surface', title: 'Clouds and rings', source: iceGiantColors,
+    paragraphs: [{ text: 'Visible light reveals a hazy, low-contrast globe. Its blue-green shade varies with season and viewing latitude. Infrared observations reveal cloud and ring detail that is much less prominent to the human eye.' }, {
+      source: uranusFacts, label: 'Rings.',
+      text: 'Narrow, dark rings encircle the equator and share the planet’s sideways orientation.',
+    }],
+  }, {
+    id: 'magnetic-field', title: 'Magnetic field and atmosphere', source: uranusFacts,
+    paragraphs: [{ text: 'Hydrogen and helium dominate the atmosphere, with methane absorbing red light. The magnetic axis is tilted nearly 60° from the rotation axis and offset from the center, producing an asymmetric magnetosphere. There is no solid surface.' }],
+  }, {
+    id: 'orbit', title: 'Orbit',
+    source: { title: 'NASA: Uranus fact sheet', url: 'https://nssdc.gsfc.nasa.gov/planetary/factsheet/uranusfact.html' },
+    paragraphs: [{ text: 'A year lasts about 84 Earth years at roughly 19 AU from the Sun. Its 97.77° axial tilt gives extreme seasons. The fact sheet’s 17.24-hour reference day comes from Voyager radio measurements; different atmospheric latitudes can rotate at different rates.' }],
+  }, {
+    id: 'probes', title: 'Observation (Probes)',
+    paragraphs: [{ label: 'Voyager 2 (1986).', source: voyager2,
+      text: 'The January 24 flyby returned close views of the major moons and measurements of the atmosphere, rings and magnetic field. It discovered ten additional moons. The portrait above comes from this encounter.',
+    }],
+  }, {
+    id: 'history', title: 'Observation (History)',
+    paragraphs: [{ label: '1781.', source: uranusFacts,
+      text: 'William Herschel discovered Uranus on March 13, initially interpreting it as a comet. It became the first planet discovered with a telescope.',
+    }, { label: '1977.', source: { title: 'NASA: Uranus exploration', url: 'https://science.nasa.gov/uranus/exploration/' },
+      text: 'An occultation of a background star revealed the planet’s narrow ring system before Voyager’s encounter.',
+    }],
+  }],
+}
+
+const neptuneInfo: PlanetInfo = {
+  image: {
+    src: neptuneVoyager, width: 2188, height: 2185,
+    alt: 'Neptune in a published blue Voyager composite, with the Great Dark Spot and bright clouds against black space.',
+    caption: 'NASA / JPL · Voyager 2 color composite (1989)',
+    credit: 'NASA / JPL. Voyager 2 narrow-angle camera, August 1989 (PIA01492), assembled from green- and orange-filter images. Historical color processing emphasizes blue and cloud contrast; this is not a calibrated human-eye view. Full published frame, unmodified.',
+    source: { title: 'NASA: Neptune Full Disk View (PIA01492)', url: 'https://science.nasa.gov/photojournal/neptune-full-disk-view/' },
+  },
+  introduction: {
+    label: 'Neptune', source: neptuneFacts,
+    text: 'is the eighth and most distant planet from the Sun. This ice giant has powerful winds, changing storms and faint rings. Its largest moon, Triton, follows a retrograde orbit; Proteus and Nereid are the other major moons shown here.',
+  },
+  sections: [{
+    id: 'interior', title: 'Internal structure', source: neptuneFacts,
+    paragraphs: [{ text: 'A deep hydrogen-and-helium atmosphere merges into hot, dense material rich in water, ammonia and methane above a rocky core. These “ices” are not a frozen surface. The interior is inferred from measurements and models.' }],
+  }, {
+    id: 'surface', title: 'Clouds and storms', source: iceGiantColors,
+    paragraphs: [{ text: 'Reprocessed observations show a softer blue-green world, only slightly bluer than Uranus. The familiar deep-blue Voyager portraits emphasize color and contrast to reveal cloud structure, as in the historical composite above.' }, {
+      label: 'Great Dark Spot.', source: neptuneFacts,
+      text: 'Voyager saw this large storm in 1989. It later disappeared, while other dark storms formed. The image records a historical atmosphere.',
+    }],
+  }, {
+    id: 'magnetic-field', title: 'Magnetic field and atmosphere', source: neptuneFacts,
+    paragraphs: [{ text: 'Hydrogen, helium and methane dominate the atmosphere. Strong winds move bright methane-ice clouds above deeper layers. The magnetic axis tilts about 47° from the rotation axis. There is no solid surface; the displayed temperature refers to the 1-bar level.' }],
+  }, {
+    id: 'orbit', title: 'Orbit',
+    source: { title: 'NASA: Neptune fact sheet', url: 'https://nssdc.gsfc.nasa.gov/planetary/factsheet/neptunefact.html' },
+    paragraphs: [{ text: 'Neptune orbits roughly 30 AU from the Sun, taking about 165 Earth years to complete a circuit. Its reference day lasts 16.11 hours, based on Voyager radio measurements. A 28.32° axial tilt produces long seasons.' }],
+  }, {
+    id: 'probes', title: 'Observation (Probes)',
+    paragraphs: [{ label: 'Voyager 2 (1989).', source: voyager2,
+      text: 'The August 25 encounter revealed storms, ring arcs and new moons. At Triton, Voyager photographed icy terrain and nitrogen geysers. The portrait above was assembled from images taken before closest approach.',
+    }],
+  }, {
+    id: 'history', title: 'Observation (History)',
+    paragraphs: [{ label: '1846.', source: neptuneFacts,
+      text: 'Urbain Le Verrier predicted a planet from deviations in Uranus’s orbit. Johann Gottfried Galle and Heinrich d’Arrest found Neptune at the Berlin Observatory on September 23. William Lassell discovered Triton soon afterward.',
+    }, { label: '1949.', source: { title: 'NASA: Neptune exploration', url: 'https://science.nasa.gov/neptune/exploration/' },
+      text: 'Gerard Kuiper discovered Nereid, whose highly elongated orbit carries it far beyond Triton.',
+    }],
+  }],
+}
+
+const planetInfo: Readonly<Record<string, PlanetInfo>> = { mercury: mercuryInfo, venus: venusInfo, earth: earthInfo, mars: marsInfo, jupiter: jupiterInfo, saturn: saturnInfo, uranus: uranusInfo, neptune: neptuneInfo }
 
 function sourceLink(source: InfoSource): HTMLAnchorElement {
   const link = document.createElement('a')

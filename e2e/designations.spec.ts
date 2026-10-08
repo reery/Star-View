@@ -1,16 +1,19 @@
 import { expect, test } from '@playwright/test'
 import { openFilter, openViewer } from './support'
 
-test('searches stellar aliases and displays a bounded designation list after absolute magnitude @mobile', async ({ page }, testInfo) => {
-  await openViewer(page)
+test('searches stellar aliases and displays a bounded designation list after magnitudes @mobile', async ({ page }, testInfo) => {
+  await page.goto('/')
+  await expect(page.locator('#scene')).toHaveAttribute('data-ready', 'true')
   await page.getByRole('button', { name: 'Objects', exact: true }).click()
   await page.getByLabel('Search objects').fill('HD48915')
   await expect(page.getByRole('button', { name: 'Select Sirius A', exact: true })).toBeVisible()
   await page.getByRole('button', { name: 'Select Sirius A', exact: true }).click()
-  await page.locator('#object-card-details > summary').click()
+  await page.getByRole('button', { name: 'Objects', exact: true }).click()
+  await page.getByRole('button', { name: 'Specs', exact: true }).click()
   const aliases = page.locator('#object-designations')
   await expect(aliases.locator('li', { hasText: /^HD 48915$/ })).toBeVisible()
-  expect(await page.locator('#absolute-mag').evaluate((element) => element.parentElement!.nextElementSibling!.querySelector('dt')!.textContent)).toBe('Designations')
+  const labels = await page.locator('.properties-section dt:visible').allTextContents()
+  expect(labels[labels.indexOf('Apparent mag. (V)') + 1]).toBe('Designations')
   expect(await aliases.evaluate((element) => element.scrollHeight > element.clientHeight)).toBe(true)
   expect(await aliases.evaluate((element) => element.getBoundingClientRect().height)).toBeLessThanOrEqual(156)
   await page.screenshot({ path: testInfo.outputPath('stellar-designations.png') })

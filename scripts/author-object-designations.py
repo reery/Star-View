@@ -88,7 +88,7 @@ def build():
                  ("nearest-1000", "western-constellation-stars", "famous-cluster-stars", "bright-stars")] + [WORK / "simbad.csv", WORK / "components.csv", WORK / "extended.csv"]:
         for row in read_csv(path):
             main = key(row["main_id"])
-            record = records.setdefault(main, {"aliases": [], "sources": [], "queries": []})
+            record = records.setdefault(main, {"mainId": row["main_id"], "aliases": [], "sources": [], "queries": []})
             record["aliases"].extend([row["main_id"], *(row.get("ids") or "").split("|")])
             record["queries"].append(row.get("query_id") or row["main_id"])
             record["sources"].append(str(path.relative_to(ROOT)))
@@ -236,6 +236,8 @@ def build():
         aliases = [value for value in aliases if key(value) != key(name)]
         aliases.sort(key=lambda value: (0 if value in named else 1 if re.match(r"^(?:PSR |HD |HIP |GJ |Alpha|Beta|Gamma|Delta|Epsilon)", value) else 2, key(value)))
         objects[identifier] = {"name": name, "designations": aliases, "sources": sorted(set(sources))}
+        if main:
+            objects[identifier]["simbadId"] = records[main]["mainId"]
     return {"schemaVersion": 1, "policy": "Exact source identifiers only; preserve familiar authored names, prefer published common names to catalog numbers; keep individual components distinct. No positional alias matching. Associated nebula names are withheld from pulsars.",
             "sourceChecksumsSha256": dict(sorted(inputs.items())), "objects": objects}
 

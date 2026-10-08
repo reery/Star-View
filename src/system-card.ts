@@ -10,19 +10,20 @@ function svgElement<K extends keyof SVGElementTagNameMap>(tag: K, attributes: Re
   return node
 }
 
-function orbitalDiagram(system: PlanetarySystem): SVGSVGElement {
+function orbitalDiagram(system: PlanetarySystem, stellarCount: number): SVGSVGElement {
+  const positioned = system.planets.filter((planet) => planet.semiMajorAxisAu !== null && planet.semiMajorAxisAu > 0 && !planet.distanceLimit)
   const svg = svgElement('svg', { viewBox: '0 0 260 94', class: 'planet-orbit-diagram', role: 'img',
     'aria-label': `${system.name}: ${system.planets.map((planet) => `${planet.name} ${formatOrbitalDistance(planet)}`).join(', ')}. Logarithmic orbital distance scale; body sizes and orbits are schematic, not current positions.` })
-  const nearest = system.planets[0]!.semiMajorAxisAu
-  const farthest = system.planets[system.planets.length - 1]!.semiMajorAxisAu
+  const nearest = Math.min(...positioned.map((planet) => planet.semiMajorAxisAu!))
+  const farthest = Math.max(...positioned.map((planet) => planet.semiMajorAxisAu!))
   const sunX = 22
   const centerY = 42
   const orbits = svgElement('g', {})
   const bodies = svgElement('g', {})
-  // Logarithmic spacing separates the inner planets in a narrow panel. The Sun
+  // Logarithmic spacing separates the inner planets in a narrow panel. The host
   // is a symbolic origin: its zero distance cannot occupy a logarithmic axis.
-  system.planets.forEach((planet) => {
-    const fraction = farthest === nearest ? 0 : Math.log(planet.semiMajorAxisAu / nearest) / Math.log(farthest / nearest)
+  positioned.forEach((planet) => {
+    const fraction = farthest === nearest ? 0.5 : Math.log(planet.semiMajorAxisAu! / nearest) / Math.log(farthest / nearest)
     const x = 52 + 188 * fraction
     const orbit = svgElement('ellipse', { cx: sunX, cy: centerY, rx: x - sunX, ry: 10 + 20 * fraction,
       class: 'planet-orbit', 'data-orbit-id': planet.id })
@@ -49,9 +50,10 @@ function orbitalDiagram(system: PlanetarySystem): SVGSVGElement {
   star.append(svgElement('circle', { cx: sunX, cy: centerY, r: 20, fill: 'url(#system-star-glow)' }),
     svgElement('circle', { cx: sunX, cy: centerY, r: 6, fill: 'var(--selected-star-color)' }),
     svgElement('circle', { cx: sunX, cy: centerY, r: 3, fill: '#fff8ed' }))
-  const sunLabel = svgElement('text', { x: sunX, y: 86, 'text-anchor': 'middle', class: 'planet-diagram-label' })
-  sunLabel.textContent = 'Sun'
-  svg.append(definitions, orbits, star, bodies, sunLabel)
+  const sunLabel = svgElement('text', { x: 8, y: 86, 'text-anchor': 'start', class: 'planet-diagram-label' })
+  sunLabel.textContent = system.name
+  svg.append(definitions, orbits, star, bodies)
+  if (stellarCount > 1) svg.append(sunLabel)
   return svg
 }
 
@@ -75,15 +77,16 @@ export function renderSystemCard(container: HTMLElement, planets: PlanetarySyste
     const heading = document.createElement('h3')
     heading.className = 'card-subgroup-heading'
     heading.id = 'system-planets-heading'
-    heading.textContent = `${planets.planets.length} known Planets`
+    heading.textContent = `${planets.planets.length} known ${planets.planets.length === 1 ? 'planet' : 'planets'}`
     section.setAttribute('aria-labelledby', heading.id)
     const figure = document.createElement('figure')
     figure.className = 'planet-system-figure'
-    figure.append(orbitalDiagram(planets))
+    figure.append(orbitalDiagram(planets, stellarCount))
+    figure.hidden = !planets.planets.some((planet) => planet.semiMajorAxisAu !== null && planet.semiMajorAxisAu > 0 && !planet.distanceLimit)
     const list = document.createElement('dl')
     list.className = 'properties planet-list'
-    list.setAttribute('aria-label', 'Planet orbital distances from Sun')
-    list.title = 'Orbital semi-major axes, not instantaneous distances from the Sun.'
+    list.setAttribute('aria-label', `Planet orbital distances from ${planets.name}`)
+    list.title = planets.source.note
     for (const planet of planets.planets) {
       const row = document.createElement('div')
       row.className = 'planet-row'
@@ -98,7 +101,7 @@ export function renderSystemCard(container: HTMLElement, planets: PlanetarySyste
       const button = document.createElement('button')
       button.type = 'button'
       button.className = 'object-type-toggle'
-      button.setAttribute('aria-label', `${planet.name}, orbital distance ${formatOrbitalDistance(planet)} from Sun`)
+      button.setAttribute('aria-label', `${planet.name}, orbital distance ${formatOrbitalDistance(planet)} from ${planets.name}`)
       button.setAttribute('aria-pressed', 'false')
       if (planetDescriptionForId(planet.id)) {
         button.setAttribute('aria-controls', 'planet-card')

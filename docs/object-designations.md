@@ -8,7 +8,7 @@ Sources are the frozen SIMBAD identifier exports for nearby stars, western const
 
 Identity uses exact published identifiers, never proximity. Shared system records are not copied onto separate binary components. In particular, Luhman 16 A/B retain their component-specific Gaia DR2 identifiers instead of the Gaia DR3 identifier for the unresolved system. Some SIMBAD VdB records identify illuminating stars; those stellar identifiers are withheld from nebulae. Ambiguous Abell numbers resolving to galaxy clusters are also withheld. Pulsar aliases omit associated supernova-remnant and nebula names. Gaia BH1/BH3/NS1 aliases refer to their plotted unresolved system, as documented by the overlay's source notes. Molecular-cloud indices identify individual Cahlon segmented features, without treating each feature as an entire named cloud complex.
 
-Some objects have only one documented designation in the adopted sources. Their alternate-name list is empty and the card says “No other designations recorded.” This is a catalog snapshot, not a claim to contain every designation ever published.
+Some objects have only one documented designation in the adopted sources. Their alternate-name list is empty and the card hides the Designations row. This is a catalog snapshot, not a claim to contain every designation ever published.
 
 Rebuild or compare the supplement offline with standard Python, then regenerate browser payloads:
 

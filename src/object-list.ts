@@ -19,7 +19,7 @@ export function normalizeObjectSearch(value: string): string {
 }
 
 export function objectSearchText(star: Star): string {
-  return normalizeObjectSearch([star.name, star.id, star.spectral_type ?? '', ...objectDesignations(star), star.molecular_cloud?.complex_name ?? ''].join(' '))
+  return normalizeObjectSearch([star.name, star.id, star.spectral_type ?? '', ...(star.subtypes ?? []), ...objectDesignations(star), star.molecular_cloud?.complex_name ?? ''].join(' '))
 }
 
 export function virtualRange(scrollTop: number, viewportHeight: number, count: number): { start: number; end: number } {

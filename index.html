@@ -47,7 +47,9 @@
                           <dl class="properties">
                             <div class="distance-row"><dt>Distance from Sun</dt><dd><button id="distance-toggle" class="object-type-toggle" type="button" aria-controls="distance-card" aria-expanded="false"><span id="distance-value"></span><span id="distance-unit"> ly</span></button></dd></div>
                             <div class="object-type-row"><dt>Object type</dt><dd><button id="object-type-toggle" class="object-type-toggle" type="button" aria-controls="object-type-card" aria-expanded="false"><span id="object-type"></span></button></dd></div>
-                            <div><dt>Constellation</dt><dd id="constellation"></dd></div>
+                            <div id="known-planets-row"><dt>Known planets</dt><dd><button id="known-planets" class="object-type-toggle" type="button" aria-controls="object-system"></button></dd></div>
+                            <div id="object-subtypes-row"><dt>Sub-type</dt><dd id="object-subtypes"></dd></div>
+                            <div id="constellation-row"><dt>Constellation</dt><dd id="constellation"></dd></div>
                             <div class="stellar-property"><dt>Spectral type</dt><dd id="spectral-type"></dd></div>
                             <div class="stellar-property"><dt>Temperature</dt><dd id="temperature"></dd></div>
                             <div id="luminosity-row" class="stellar-property"><dt>Bolometric luminosity</dt><dd id="luminosity"></dd></div>
@@ -56,6 +58,7 @@
                             <div class="stellar-property metallicity-row"><dt id="metallicity-label">Metallicity</dt><dd><button id="metallicity-toggle" class="object-type-toggle" type="button" aria-controls="metallicity-card" aria-expanded="false"><span id="metallicity"></span></button></dd></div>
                             <div class="stellar-property"><dt>Age</dt><dd id="age"></dd></div>
                             <div class="stellar-property"><dt>Absolute mag. (V)</dt><dd id="absolute-mag"></dd></div>
+                            <div class="stellar-property"><dt>Apparent mag. (V)</dt><dd id="apparent-mag" title="Earth-view catalog V magnitude; a snapshot, not current variable-star photometry."></dd></div>
                             <div class="compact-property" hidden><dt>Status</dt><dd id="compact-status"></dd></div>
                             <div class="compact-property rotation-property" hidden><dt>Rotation</dt><dd id="rotation-period"></dd></div>
                             <div class="compact-property pulsar-property" hidden><dt>Radio luminosity (1400 MHz)</dt><dd id="radio-luminosity"></dd></div>
@@ -82,7 +85,7 @@
                             <div class="bubble-property" hidden><dt>Shell distance range</dt><dd id="bubble-surface-range"></dd></div>
                             <div class="bubble-property" hidden><dt>Typical shell thickness</dt><dd id="bubble-shell-thickness"></dd></div>
                             <div class="bubble-property" hidden><dt>Source</dt><dd><a id="bubble-source" target="_blank" rel="noreferrer"></a></dd></div>
-                            <div class="designations-property"><dt>Designations</dt><dd><ul id="object-designations" class="designation-list"></ul></dd></div>
+                            <div id="designations-row" class="designations-property"><dt>Designations</dt><dd><ul id="object-designations" class="designation-list"></ul></dd></div>
                           </dl>
                         </section>
                         <details class="source-details">
@@ -294,25 +297,36 @@
                   <button id="planet-specs-toggle" class="panel-lock planet-section-button" type="button" aria-label="Specs" title="Specs" aria-controls="planet-specs" aria-expanded="true"><span id="planet-specs-icon"></span></button>
                   <button id="planet-info-toggle" class="panel-lock planet-section-button" type="button" aria-label="Info" title="Info" aria-controls="planet-info" aria-expanded="false" disabled><span id="planet-info-icon"></span></button>
                   <button id="planet-moons-toggle" class="panel-lock planet-section-button" type="button" aria-label="Moons" title="Moons" aria-controls="planet-moons" aria-expanded="false" disabled hidden><span id="planet-moons-icon"></span></button>
-                  <button id="planet-orbit-toggle" class="panel-lock planet-section-button" type="button" aria-label="Orbit" title="Orbit" aria-controls="planet-orbit" aria-expanded="false" disabled><span id="planet-orbit-icon"></span></button>
                 </div>
                 <button id="planet-lock" class="panel-lock" type="button" aria-label="Keep planet card open" aria-pressed="false"><span id="planet-lock-icon"></span></button>
               </div>
               <div class="card-scroll-content planet-card-body">
                 <div id="planet-specs">
-                  <div class="planet-globe-frame"><canvas id="planet-globe" role="img" tabindex="0" aria-label="Planet globe. Drag or use arrow keys to rotate."></canvas></div>
+                  <div class="planet-specs-sticky">
+                    <div class="planet-globe-frame">
+                      <canvas id="planet-globe" role="img" tabindex="0" aria-label="Planet globe. Drag or use arrow keys to rotate."></canvas>
+                    </div>
+                    <div class="planet-physical-header">
+                      <h3 id="planet-physical-heading" class="card-subgroup-heading">Physical characteristics</h3>
+                      <button id="planet-add-earth" class="panel-lock planet-earth-button" type="button" aria-label="Add Earth" title="Add Earth for size comparison" aria-pressed="false" aria-controls="planet-globe">
+                        <span class="planet-earth-symbol" aria-hidden="true"><span id="planet-earth-icon"></span><span id="planet-earth-plus-icon" class="planet-earth-mark"></span><span id="planet-earth-minus-icon" class="planet-earth-mark"></span></span>
+                      </button>
+                    </div>
+                  </div>
                   <section aria-labelledby="planet-physical-heading">
-                    <h3 id="planet-physical-heading" class="card-subgroup-heading">Physical characteristics</h3>
                     <dl id="planet-physical-specs" class="properties planet-properties"></dl>
                   </section>
-                  <section aria-labelledby="planet-atmosphere-heading">
+                  <section id="planet-orbit-section" aria-labelledby="planet-orbit-heading" hidden>
+                    <h3 id="planet-orbit-heading" class="card-subgroup-heading">Orbit and discovery</h3>
+                    <dl id="planet-orbit-specs" class="properties planet-properties"></dl>
+                  </section>
+                  <section id="planet-atmosphere-section" aria-labelledby="planet-atmosphere-heading">
                     <h3 id="planet-atmosphere-heading" class="card-subgroup-heading">Atmosphere</h3>
                     <dl id="planet-atmosphere-specs" class="properties planet-properties"></dl>
                   </section>
                 </div>
                 <section id="planet-info" aria-label="Planet information" hidden></section>
                 <section id="planet-moons" hidden></section>
-                <section id="planet-orbit" hidden></section>
               </div>
             </section>
             <div class="scene-toolbar" role="group" aria-label="Map view controls" data-scene-obstacle>
@@ -331,7 +345,12 @@
               <button id="selection-back" class="icon-button" type="button" aria-label="Previous selection" disabled><span id="selection-back-icon"></span><span class="tooltip">Previous selection<span id="selection-back-object" class="selection-tooltip-object" hidden><span id="selection-back-swatch" class="star-swatch" aria-hidden="true"></span><span id="selection-back-name"></span></span></span></button>
               <button id="selection-forward" class="icon-button" type="button" aria-label="Next selection" disabled><span id="selection-forward-icon"></span><span class="tooltip">Next selection<span id="selection-forward-object" class="selection-tooltip-object" hidden><span id="selection-forward-swatch" class="star-swatch" aria-hidden="true"></span><span id="selection-forward-name"></span></span></span></button>
               <span class="toolbar-divider"></span>
-              <button id="set-origin" class="icon-button" type="button" aria-label="Set selected object as origin" disabled><span id="set-origin-icon"></span><span class="tooltip">Set as origin</span></button>
+              <div id="origin-controls" class="origin-controls" role="group" aria-label="Origin controls">
+                <button id="set-origin" class="icon-button" type="button" aria-label="Set selected object as origin" disabled><span id="set-origin-icon"></span><span class="tooltip">Set as origin</span></button>
+                <div class="origin-options">
+                  <button id="go-to-origin" class="icon-button" type="button" aria-label="Go to set origin" aria-controls="scene" disabled><span id="go-to-origin-icon"></span><span class="tooltip">Go to <span class="origin-tooltip-object"><span id="go-to-origin-swatch" class="star-swatch" aria-hidden="true"></span><span id="go-to-origin-name"></span></span></span></button>
+                </div>
+              </div>
               <button id="observer-view" class="icon-button observer-view-button" type="button" aria-label="Enter observer view" aria-pressed="false" aria-controls="scene" disabled><span id="observer-view-icon"></span><span id="observer-view-tooltip" class="tooltip">Observer view</span></button>
             </div>
             <section id="views-panel" class="dock-card saved-views-card" aria-labelledby="views-heading" data-scene-obstacle hidden>
@@ -357,9 +376,9 @@
               <div class="dock-rail" role="group" aria-label="Map and information controls">
                 <button id="motion-toggle" class="icon-button panel-button" type="button" aria-label="Stellar motion" aria-controls="motion-panel" aria-expanded="false"><span id="motion-icon"></span><span class="tooltip">Stellar motion</span></button>
                 <button id="filter-toggle" class="icon-button panel-button" type="button" aria-label="Filter" aria-controls="filter-panel" aria-expanded="false"><span id="filter-icon"></span><span class="tooltip">Filter</span></button>
-                <button id="preferences-toggle" class="icon-button panel-button" type="button" aria-label="Preferences" aria-controls="preferences-panel" aria-expanded="false"><span id="preferences-icon"></span><span class="tooltip">Preferences</span></button>
                 <button id="objects-toggle" class="icon-button panel-button" type="button" aria-label="Objects" aria-controls="objects-panel" aria-expanded="false"><span id="objects-icon"></span><span class="tooltip">Objects</span></button>
                 <button id="glossary-toggle" class="icon-button panel-button" type="button" aria-label="Glossary" aria-controls="glossary-panel" aria-expanded="false"><span id="glossary-icon"></span><span class="tooltip">Glossary</span></button>
+                <button id="preferences-toggle" class="icon-button panel-button" type="button" aria-label="Preferences" aria-controls="preferences-panel" aria-expanded="false"><span id="preferences-icon"></span><span class="tooltip">Preferences</span></button>
                 <button id="info-toggle" class="icon-button panel-button" type="button" aria-label="Info" aria-controls="info-panel" aria-expanded="false"><span id="info-icon"></span><span class="tooltip">Info</span></button>
               </div>
               <section id="motion-panel" class="dock-card time-controls" aria-label="Stellar motion timeline" data-scene-obstacle hidden>
@@ -448,22 +467,6 @@
                   </details>
                 </div>
               </section>
-              <section id="preferences-panel" class="dock-card preferences" aria-labelledby="preferences-heading" hidden>
-                <div class="panel-heading"><h2 id="preferences-heading">Preferences</h2><button id="preferences-lock" class="panel-lock" type="button" aria-label="Keep Preferences open" aria-pressed="false"><span id="preferences-lock-icon"></span></button></div>
-                <div class="display-settings card-scroll-content" aria-label="Display settings">
-                  <div id="distance-units" class="segmented-choice" role="group" aria-labelledby="distance-units-label"><span id="distance-units-label">Distances</span><div class="unit-options"><label><input id="unit-pc" type="radio" name="distance-unit" value="pc"><span>pc</span></label><label><input id="unit-ly" type="radio" name="distance-unit" value="ly" checked><span>ly</span></label></div></div>
-                  <div id="star-colors" class="segmented-choice" role="group" aria-labelledby="star-colors-label"><span id="star-colors-label">Colors</span><div class="unit-options"><label><input id="star-colors-real" type="radio" name="star-color-mode" value="real"><span>Real</span></label><label><input id="star-colors-exaggerated" type="radio" name="star-color-mode" value="exaggerated" checked><span>Exaggerated</span></label></div></div>
-                  <div class="range-filter">
-                    <div class="range-heading"><label for="label-limit">Star labels</label><output id="label-limit-value" for="label-limit">40</output></div>
-                    <input id="label-limit" type="range" min="0" max="140" step="20" value="40" aria-valuetext="40 labels">
-                    <div class="range-bounds" aria-hidden="true"><span>Off</span><span>140</span></div>
-                  </div>
-                  <label class="power-saving-choice" for="power-saving-mode">
-                    <span>Power saving mode</span>
-                    <span class="switch-control"><input id="power-saving-mode" type="checkbox" role="switch"><span class="switch-track" aria-hidden="true"></span></span>
-                  </label>
-                </div>
-              </section>
               <section id="objects-panel" class="dock-card catalog" aria-labelledby="catalog-heading" hidden>
                 <div class="panel-heading"><h2 id="catalog-heading">Objects <span id="catalog-count"></span></h2><button id="objects-lock" class="panel-lock" type="button" aria-label="Keep Objects open" aria-pressed="false"><span id="objects-lock-icon"></span></button></div>
                 <div class="object-search">
@@ -498,6 +501,22 @@
                   <p id="glossary-empty" class="glossary-empty" role="status" hidden>No matching terms. Try another search.</p>
                 </div>
               </section>
+              <section id="preferences-panel" class="dock-card preferences" aria-labelledby="preferences-heading" hidden>
+                <div class="panel-heading"><h2 id="preferences-heading">Preferences</h2><button id="preferences-lock" class="panel-lock" type="button" aria-label="Keep Preferences open" aria-pressed="false"><span id="preferences-lock-icon"></span></button></div>
+                <div class="display-settings card-scroll-content" aria-label="Display settings">
+                  <div id="distance-units" class="segmented-choice" role="group" aria-labelledby="distance-units-label"><span id="distance-units-label">Distances</span><div class="unit-options"><label><input id="unit-pc" type="radio" name="distance-unit" value="pc"><span>pc</span></label><label><input id="unit-ly" type="radio" name="distance-unit" value="ly" checked><span>ly</span></label></div></div>
+                  <div id="star-colors" class="segmented-choice" role="group" aria-labelledby="star-colors-label"><span id="star-colors-label">Colors</span><div class="unit-options"><label><input id="star-colors-real" type="radio" name="star-color-mode" value="real"><span>Real</span></label><label><input id="star-colors-exaggerated" type="radio" name="star-color-mode" value="exaggerated" checked><span>Exaggerated</span></label></div></div>
+                  <div class="range-filter">
+                    <div class="range-heading"><label for="label-limit">Star labels</label><output id="label-limit-value" for="label-limit">40</output></div>
+                    <input id="label-limit" type="range" min="0" max="140" step="20" value="40" aria-valuetext="40 labels">
+                    <div class="range-bounds" aria-hidden="true"><span>Off</span><span>140</span></div>
+                  </div>
+                  <label class="power-saving-choice" for="power-saving-mode">
+                    <span>Power saving mode</span>
+                    <span class="switch-control"><input id="power-saving-mode" type="checkbox" role="switch"><span class="switch-track" aria-hidden="true"></span></span>
+                  </label>
+                </div>
+              </section>
               <section id="info-panel" class="dock-card info-card" aria-labelledby="info-heading" hidden>
                 <div class="info-brand">
                   <span id="info-brand-icon" class="info-brand-icon"></span>
@@ -524,6 +543,7 @@
       </main>
       <p id="selection-announcement" class="sr-only" aria-live="polite" aria-atomic="true"></p>
     </div>
+    <div id="saved-view-context-backdrop" class="saved-view-context-backdrop" aria-hidden="true" hidden></div>
     <div id="saved-view-context-menu" class="saved-view-context-menu" role="menu" aria-label="Saved view actions" hidden>
       <button id="saved-view-context-delete" class="saved-view-context-delete" type="button" role="menuitem" tabindex="-1"></button>
     </div>

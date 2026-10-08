@@ -1,6 +1,6 @@
 # Planet imagery
 
-All files are served locally. Mercury imagery was downloaded October 7, 2026; Venus and Earth imagery October 8, 2026. Original downloaded files are unmodified. Observation, processing, globe-rendering and reuse details are recorded separately below.
+All files are served locally. Mercury imagery was downloaded October 7, 2026; the remaining planet imagery October 8, 2026. Observation, processing, globe-rendering and reuse details are recorded separately below.
 
 ## mercury-natural-color.jpg
 
@@ -59,5 +59,73 @@ All files are served locally. Mercury imagery was downloaded October 7, 2026; Ve
 - **Source:** [NASA Earth Observatory: The Blue Marble (2002)](https://science.nasa.gov/earth/earth-observatory/the-blue-marble-true-color-global-imagery-at-1km-resolution/), the Land Surface, Ocean Color, Sea Ice, and Clouds product (legacy Visible Earth ID 57735).
 - **Downloaded file:** [NASA's 2048 × 1024 global JPEG](https://eoimages.gsfc.nasa.gov/images/imagerecords/57000/57735/land_ocean_ice_cloud_2048.jpg), approximately 580 KB. Downloaded October 8, 2026, unmodified; complete 2:1 equirectangular extent.
 - **Credit:** NASA / Goddard Space Flight Center. Reto Stöckli (land surface, shallow water, clouds); Robert Simmon (ocean color and compositing), with MODIS teams and supporting NOAA/USGS data.
-- **Representation:** Published satellite composite: much of the land/coastal-ocean imagery was collected June–September 2001; clouds combine observations from separate days, including thermal-infrared observations over the poles. The source contains topographic shading and processed ocean color. It approximates a visible-color global appearance rather than a single instant or purely visible-light exposure. The globe maps the supplied colors directly with soft illustrative lighting, high roughness and restrained bloom. Clouds are fixed in the map; no relief, atmospheric height or current weather is inferred.
+- **Representation:** Published satellite composite: much of the land/coastal-ocean imagery was collected June–September 2001; clouds combine observations from separate days, including thermal-infrared observations over the poles. The source contains topographic shading and processed ocean color. It approximates a visible-color global appearance rather than a single instant or purely visible-light exposure. Clouds are fixed in the map; no relief, atmospheric height or current weather is inferred.
+- **Globe color adjustment:** The downloaded JPEG remains unmodified. Both the selected Earth globe and the Earth size-comparison globe selectively lift blue-dominant ocean pixels in linear RGB, shifting the map's nearly black violet-blue water toward a softer blue. The reference is NASA's [Artemis II “Hello, World” photograph](https://www.nasa.gov/image-article/hello-world/) (art002e000192, April 2, 2026), compared with the distant sunlit crescent in [Earthset From the Lunar Far Side](https://science.nasa.gov/earth/earth-observatory/earthset-from-the-lunar-far-side/) (April 6, 2026). The adjustment uses an illustrative water anchor of sRGB `#315979` in place of `#0a123b`, with a smooth blue-dominance mask that preserves neutral white clouds, ice and land colors. These anchors are artistic approximations, not sampled or calibrated ocean measurements. NASA [explains that the full-disk photo is moonlit](https://science.nasa.gov/earth/earth-observatory/a-moonlit-earth-as-seen-from-artemis-ii/) and was taken at ISO 51,200; its exposure, atmosphere and camera processing cannot define one exact daylight hue. The globe retains soft illustrative lighting, high roughness and restrained bloom. The Info photograph is displayed unchanged.
 - **Reuse:** NASA describes the Blue Marble products as freely available to educators, scientists, museums and the public. Used under [NASA Images and Media Guidelines](https://www.nasa.gov/nasa-brand-center/images-and-media/), retaining image credits, provenance and the composite qualification in documentation and the globe tooltip.
+
+## mars-natural-color.jpg
+
+- **Source:** [NASA: Global Color Views of Mars (PIA00407)](https://science.nasa.gov/resource/global-color-views-of-mars/), published June 8, 1998. Local image: 1920 × 1920 pixels; the published full-resolution mosaic is 6787 × 6787.
+- **Credit:** NASA / JPL-Caltech / USGS, from Viking Orbiter observations.
+- **Representation:** A processed global mosaic centered at 20° latitude and 60° longitude, assembled from red- and violet-filter imagery with a synthesized green channel and interpolated coverage gaps. The source approximates natural color in bright regions but stretches dark regions' color and contrast. It is not a single photograph or a uniformly natural-color measurement. Info preserves the local file's full frame, with no additional color changes or cropping.
+- **Reuse:** Informational use under [NASA Images and Media Guidelines](https://www.nasa.gov/nasa-brand-center/images-and-media/), retaining institutional credit, source and processing context.
+
+## mars-surface-map.jpg
+
+- **Source:** [NASA / JPL Solar System Simulator: Mars texture map](https://maps.jpl.nasa.gov/tmaps/mars.html), the Viking entry.
+- **Credit:** Caltech / JPL / USGS. Viking images processed at the USGS.
+- **Representation:** A static equirectangular surface-color map. Globe lighting and orientation are illustrative; no surface relief or current weather is inferred. Earth comparisons use the planets' mean radii to preserve their relative diameters, with a shared scale, lighting and camera.
+- **Reuse:** Informational visualization under [JPL's image-use policy](https://www.jpl.nasa.gov/jpl-image-use-policy/) and NASA's media guidelines, preserving attribution in the globe tooltip and this documentation.
+
+## jupiter-natural-color.jpg
+
+- **Source:** [NASA / JPL: Cassini Jupiter Portrait (PIA04866)](https://www.jpl.nasa.gov/images/pia04866-cassini-jupiter-portrait/), also cataloged by [NASA Science](https://science.nasa.gov/resource/cassini-jupiter-portrait/).
+- **Downloaded file:** [Published JPEG](https://d2pn8kiwq2w21t.cloudfront.net/original_images/jpegPIA04866.jpg), 1920 × 2400 pixels, approximately 175 KB. Downloaded October 8, 2026, unmodified. The complete published frame and aspect ratio are preserved, including the shadowed right limb.
+- **Credit:** NASA / JPL / Space Science Institute. Cassini narrow-angle camera observations, December 29, 2000.
+- **Representation:** A true-color mosaic assembled from 27 red-, green- and blue-filter images, approximating human-eye colors. Not a single exposure or a current view.
+- **Reuse:** Informational use under [JPL's image-use policy](https://www.jpl.nasa.gov/jpl-image-use-policy/) and [NASA media guidelines](https://www.nasa.gov/nasa-brand-center/images-and-media/), retaining institutional and mission attribution.
+
+## Jupiter globe: shared Hubble map
+
+The planet globe reuses `../radius-comparison/jupiter-map.png`, the existing 3600 × 1800 [Hubble OPAL global map (2019)](https://science.nasa.gov/asset/hubble/jupiter-global-map-2019/). Credit: NASA, ESA, A. Simon (Goddard Space Flight Center), and M. H. Wong (University of California, Berkeley). Original download and usage policies remain documented in [the radius imagery README](../radius-comparison/README.md).
+
+The mesh uses Jupiter’s 1-bar equatorial and polar radii (71,492 / 66,854 km), normalized by its volumetric mean radius, with recomputed ellipsoid normals. UV sampling extends the nearest mapped rows into the unobserved caps above 80° latitude, matching the existing comparison renderer. The initial meridian places the Great Red Spot slightly left of center. The center retains the photographic map colors. Toward the inner limb, a small derivative-based cloud blur progressively softens detail, and pale scattering follows the daylight with a smooth grazing-angle falloff. The treatment is visually guided by the [Hubble 2019 portrait](https://science.nasa.gov/asset/hubble/jupiter-2019/), rather than fitted to an atmospheric model. It remains within the mesh silhouette and rotates correctly with the oblate body. Roughness removes a solid-surface specular appearance, and bloom is disabled for Jupiter. No terrain displacement, invented cloud heights or weather animation is added. Lighting and orientation remain illustrative; the globe tooltip records the historical composite and polar coverage limits. The Earth comparison uses the same physical scale for both meshes.
+
+## saturn-natural-color.jpg
+
+- **Source:** [NASA: So Far from Home (PIA21345)](https://science.nasa.gov/photojournal/so-far-from-home/).
+- **Downloaded file:** [Original JPEG](https://assets.science.nasa.gov/content/dam/science/psd/photojournal/pia/pia21/pia21345/PIA21345.jpg), 3545 × 1834 pixels, approximately 236 KB. Downloaded October 8, 2026, unmodified; Info preserves the complete published frame and aspect ratio.
+- **Credit:** NASA / JPL-Caltech / Space Science Institute. Cassini wide-angle camera, October 28, 2016.
+- **Representation:** Red-, green- and blue-filter images combined into a natural-color view from about 25° above the sunlit ring plane. A historical composite, not a current view or a single exposure.
+- **Reuse:** Informational use under [NASA media guidelines](https://www.nasa.gov/nasa-brand-center/images-and-media/) and [JPL image-use policy](https://www.jpl.nasa.gov/jpl-image-use-policy/), retaining credit and source links.
+
+## saturn-cloud-atlas.png, saturn-rings.png and saturn-mesh.json
+
+- **Source:** [NASA Saturn 3D Model](https://science.nasa.gov/resource/saturn-3d-model/), published April 22, 2019. Credit: NASA Visualization Technology Applications and Development (VTAD).
+- **Downloaded model:** [Saturn_1_120536.glb](https://assets.science.nasa.gov/content/dam/science/psd/solar/2023/09/s/Saturn_1_120536.glb), October 8, 2026.
+- **Extraction:** The two embedded PNG byte streams are retained without image edits: `saturn_diff.jpg` (the embedded name; actual MIME type PNG), 4096 × 3072, and `saturn_rings_25sat_outterRings.png`, 4096 × 16. The JSON stores the cloud mesh's original positions, normals, UVs and indices. No original model file is shipped.
+- **Representation:** The cloud image is a cube atlas, not an equirectangular map. The globe uses the model's corresponding UVs, scales its geometry to the reviewed 1-bar ellipsoid and transforms normals accordingly. The ring image is a radial color/opacity strip, sampled on a double-sided equatorial annulus. Model textures approximate Saturn's appearance; NASA's model page does not establish acquisition dates or a complete observational cloud map. No current weather, invented relief or precise optical-depth measurement is implied. Rotation, starting orientation, lighting and shadow mapping are illustrative. Earth comparison and rings use the same physical scale; camera framing includes the ring extent during rotation.
+- **Reuse:** NASA distributes the model for informational visualization; use follows its media guidelines with VTAD attribution retained in the globe tooltip and this documentation.
+
+## uranus-voyager.jpg
+
+- **Source:** [NASA: Uranus as seen by Voyager 2 (PIA18182)](https://science.nasa.gov/photojournal/uranus-as-seen-by-nasas-voyager-2/).
+- **Downloaded file:** [Original JPEG](https://assets.science.nasa.gov/content/dam/science/psd/photojournal/pia/pia18/pia18182/PIA18182.jpg), 1720 × 1720 pixels, 78,816 bytes. Downloaded October 8, 2026, unchanged; the complete frame is displayed.
+- **Credit:** NASA / JPL-Caltech. Voyager 2, 1986. The source does not supply a complete color-calibration recipe; the app identifies the published Voyager image without claiming a precise human-eye calibration.
+- **Reuse:** NASA informational imagery under [NASA media guidelines](https://www.nasa.gov/nasa-brand-center/images-and-media/) and [JPL image-use policy](https://www.jpl.nasa.gov/jpl-image-use-policy/), with source and institutional credit retained.
+
+## neptune-voyager.jpg
+
+- **Source:** [NASA: Neptune Full Disk View (PIA01492)](https://science.nasa.gov/photojournal/neptune-full-disk-view/).
+- **Downloaded file:** [Original JPEG](https://assets.science.nasa.gov/content/dam/science/psd/photojournal/pia/pia01/pia01492/PIA01492.jpg), 2188 × 2185 pixels, 259,000 bytes approximately. Downloaded October 8, 2026, unchanged; Info preserves the entire frame and aspect ratio.
+- **Credit:** NASA / JPL. Voyager 2 narrow-angle camera, August 1989. Composite of green- and orange-filter images taken about four days and twenty hours before closest approach.
+- **Representation:** A historical composite showing the Great Dark Spot and bright clouds. Published Voyager processing emphasizes blue and cloud contrast, as discussed in [NASA Neptune facts](https://science.nasa.gov/neptune/neptune-facts/) and [Oxford's 2024 reconstruction](https://www.ox.ac.uk/news/2024-01-05-new-images-reveal-what-neptune-and-uranus-really-look-0). The caption and hover credit identify the composite; it is not described as calibrated natural color or present weather.
+- **Reuse:** Informational imagery under NASA media guidelines and JPL image-use policy, retaining institutional and mission attribution.
+
+## uranus-cloud-map.jpg and neptune-cloud-map.jpg
+
+- **Source:** NASA / JPL Solar System Simulator [Uranus textures](https://maps.jpl.nasa.gov/tmaps/uranus.html) and [Neptune textures](https://maps.jpl.nasa.gov/tmaps/neptune.html).
+- **Downloaded files:** [ura0fss1.jpg](https://maps.jpl.nasa.gov/tmaps/pix/ura0fss1.jpg), 4,769 bytes, and [nep0fds1.jpg](https://maps.jpl.nasa.gov/tmaps/pix/nep0fds1.jpg), 32,453 bytes. Both 720 × 360 pixels, downloaded October 8, 2026 and stored unchanged.
+- **Credit:** David Seal (Uranus), Don Davis (Neptune), NASA / JPL-Caltech. JPL explicitly labels both fictional: Uranus is a solid-color map, Neptune an artist-created cloud map.
+- **Rendering:** Uranus uses an illustrative pale tint (`#abd5d3`) with zero contribution from the supplied saturated solid-color map. Neptune blends 18% of its map with `#a8cfd3` in linear RGB, retaining subtle clouds while greatly softening the original saturated blue. These are visual approximations guided by the [Irwin et al. 2024 reconstruction](https://www.ox.ac.uk/news/2024-01-05-new-images-reveal-what-neptune-and-uranus-really-look-0), not sampled or calibrated colors. Faint rings are omitted, as for Jupiter. Globes use the sourced 1-bar ellipsoids; Uranus starts tipped sideways. No terrain, weather animation, surface displacement or observed global coverage is inferred. Lighting and orientation are illustrative, and these limitations appear in globe hover/accessibility metadata.
+- **Reuse:** Informational visualization under JPL image-use policy and NASA media guidelines, preserving creator/owner attribution. Info uses separate spacecraft images.

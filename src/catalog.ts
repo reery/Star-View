@@ -20,7 +20,8 @@ export const RAW_ASTROMETRY_HEADERS = [
   'radial_velocity_kms', 'radial_velocity_error_kms', 'astrometry_ref', 'radial_velocity_ref',
 ] as const
 
-export const CATALOG_HEADERS = [...BASE_CATALOG_HEADERS, 'designations', ...PHYSICAL_CATALOG_HEADERS, ...RAW_ASTROMETRY_HEADERS] as const
+export const OBJECT_STATS_HEADERS = ['subtypes', 'known_planets', 'apparent_mag'] as const
+export const CATALOG_HEADERS = [...BASE_CATALOG_HEADERS, 'designations', ...OBJECT_STATS_HEADERS, ...PHYSICAL_CATALOG_HEADERS, ...RAW_ASTROMETRY_HEADERS] as const
 
 export const CONSTELLATIONS = [
   'Andromeda', 'Antlia', 'Apus', 'Aquarius', 'Aquila', 'Ara', 'Aries', 'Auriga',
@@ -80,7 +81,7 @@ export function parseStarCatalog(csv: string): Star[] {
     new Set(headers).size !== headers.length ||
     headers.some((header) => !expected.has(header))
   ) {
-    throw new Error(`CSV headers must contain each required field exactly once: ${BASE_CATALOG_HEADERS.filter((header) => header !== 'constellation').join(', ')}. Optional fields: constellation; designations; ${PHYSICAL_CATALOG_HEADERS.join(', ')}. Optional complete group: ${RAW_ASTROMETRY_HEADERS.join(', ')}.`)
+    throw new Error(`CSV headers must contain each required field exactly once: ${BASE_CATALOG_HEADERS.filter((header) => header !== 'constellation').join(', ')}. Optional fields: constellation; designations; ${OBJECT_STATS_HEADERS.join(', ')}; ${PHYSICAL_CATALOG_HEADERS.join(', ')}. Optional complete group: ${RAW_ASTROMETRY_HEADERS.join(', ')}.`)
   }
   const firstError = result.errors[0]
   if (firstError) {
@@ -148,6 +149,9 @@ export function parseStarCatalog(csv: string): Star[] {
     const star: Star = {
       type, id, name,
       designations: uniqueDesignations((row.designations ?? '').split('|'), name),
+      subtypes: uniqueDesignations((row.subtypes ?? '').split('|')),
+      known_planets: numeric(row.known_planets, 'known_planets', record, true),
+      apparent_mag: numeric(row.apparent_mag, 'apparent_mag', record, true),
       spectral_type: row.spectral_type?.trim() || null,
       constellation: row.constellation?.trim() || null,
       x_pc: numeric(row.x_pc, 'x_pc', record),
@@ -174,6 +178,9 @@ export function parseStarCatalog(csv: string): Star[] {
       }
     } else if (star.metallicity_kind !== null) {
       invalid(record, 'metallicity_kind', 'must be blank when the metallicity value is blank.')
+    }
+    if (star.known_planets != null && (!Number.isInteger(star.known_planets) || star.known_planets < 0)) {
+      invalid(record, 'known_planets', 'must be a non-negative integer or blank.')
     }
     if (star.constellation !== null && !CONSTELLATIONS.some((name) => name === star.constellation)) {
       invalid(record, 'constellation', 'expected a full IAU constellation name or blank.')
