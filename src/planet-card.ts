@@ -2,13 +2,32 @@ import { planetAtmosphereSpecs, planetMoonsForId, planetPhysicalSpecs, scientifi
 import { renderPlanetInfo } from './planet-info'
 import { renderPlanetGlobe } from './planet-globe'
 
+function specTooltipLines(spec: PlanetSpec): string[] | undefined {
+  if (spec.temperatureK) {
+    const digits = spec.temperatureK.length > 1 ? 0 : 1
+    const format = (temperature: number) => temperature.toLocaleString('en-US', { maximumFractionDigits: digits })
+    const celsius = spec.temperatureK.map((kelvin) => kelvin - 273.15)
+    const fahrenheit = celsius.map((temperature) => temperature * 9 / 5 + 32)
+    return [`${celsius.map(format).join(' / ')} °C`, `${fahrenheit.map(format).join(' / ')} °F`]
+  }
+  if (spec.pressurePa !== undefined) {
+    const prefix = spec.pressureUpperLimit ? '≲ ' : ''
+    const format = (value: number) => value.toLocaleString('en-US', { maximumSignificantDigits: spec.pressureSignificantDigits ?? 3 })
+    const bar = spec.pressurePa / 100_000
+    const psi = spec.pressurePa / 6_894.757293168
+    return [`${prefix}${format(bar)} bar`, `${prefix}${format(psi)} psi`]
+  }
+  return undefined
+}
+
 function specRow(spec: PlanetSpec): HTMLDivElement {
   const row = document.createElement('div')
   row.dataset.planetSpec = spec.id
   const label = document.createElement('dt')
   label.textContent = spec.label
   const value = document.createElement('dd')
-  if (spec.temperatureK) {
+  const lines = specTooltipLines(spec)
+  if (lines) {
     value.classList.add('mass-metric-copy')
     const button = document.createElement('button')
     button.type = 'button'
@@ -17,15 +36,12 @@ function specRow(spec: PlanetSpec): HTMLDivElement {
     button.setAttribute('aria-label', `${spec.label}: ${spec.value}. ${spec.detail}`)
     const tooltip = document.createElement('span')
     tooltip.id = `planet-${spec.id}-tooltip`
-    tooltip.className = 'tooltip mass-metric-tooltip planet-temperature-tooltip'
+    tooltip.className = 'tooltip mass-metric-tooltip planet-metric-tooltip'
     tooltip.setAttribute('role', 'tooltip')
-    const digits = spec.temperatureK.length > 1 ? 0 : 1
-    const format = (temperature: number) => temperature.toLocaleString('en-US', { maximumFractionDigits: digits })
-    const celsius = spec.temperatureK.map((kelvin) => kelvin - 273.15)
-    for (const [temperatures, unit] of [[celsius, '°C'], [celsius.map((temperature) => temperature * 9 / 5 + 32), '°F']] as const) {
-      const line = document.createElement('span')
-      line.textContent = `${temperatures.map(format).join(' / ')} ${unit}`
-      tooltip.append(line)
+    for (const line of lines) {
+      const span = document.createElement('span')
+      span.textContent = line
+      tooltip.append(span)
     }
     button.setAttribute('aria-describedby', tooltip.id)
     value.append(button, tooltip)

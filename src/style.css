@@ -483,7 +483,7 @@ select:focus-visible, input:focus-visible { outline: 2px solid var(--accent); ou
 .planet-card-body section + section { margin-top: 12px; }
 .planet-properties > div { grid-template-columns: minmax(0, min(160px, 38%)) minmax(0, 1fr); gap: 10px; }
 .planet-properties dd { text-align: left; }
-.planet-temperature-tooltip > span { display: block; }
+.planet-metric-tooltip > span { display: block; }
 .planet-globe-frame { margin: 0 -16px; background: #000; }
 #planet-globe { display: block; width: 100%; height: 172px; touch-action: none; cursor: grab; }
 #planet-globe.is-dragging { cursor: grabbing; }

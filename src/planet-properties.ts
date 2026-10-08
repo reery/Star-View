@@ -9,6 +9,9 @@ export interface PlanetSpec {
   readonly comparison: string
   readonly detail: string
   readonly temperatureK?: readonly number[]
+  readonly pressurePa?: number
+  readonly pressureUpperLimit?: boolean
+  readonly pressureSignificantDigits?: number
 }
 
 const earth = definitions.earth
@@ -75,10 +78,14 @@ export function planetPhysicalSpecs(planet: PlanetDescription): PlanetSpec[] {
 export function planetAtmosphereSpecs(planet: PlanetDescription): PlanetSpec[] {
   const upperLimit = planet.surfacePressureUpperPa !== undefined
   const pressure = planet.surfacePressurePa ?? planet.surfacePressureUpperPa!
+  const significantDigits = upperLimit ? 1 : planet.id === 'earth' ? 4 : 2
   return [{
     id: 'surface-pressure', label: 'Surface pressure',
-    value: `${upperLimit ? '≲' : ''}${scientificPlanetValue(pressure, upperLimit ? 1 : planet.id === 'earth' ? 4 : 2)} Pa`,
+    value: `${upperLimit ? '≲' : ''}${scientificPlanetValue(pressure, significantDigits)} Pa`,
     comparison: planet.id === 'earth' ? '' : `${upperLimit ? '≲' : ''}${upperLimit ? scientificPlanetValue(pressure / earth.surfacePressurePa, 3) + '×Earth' : earthRatio(pressure, earth.surfacePressurePa)}`,
     detail: planet.id === 'earth' ? `${planet.notes.atmosphere} NASA Earth fact sheet.` : `${planet.notes.atmosphere} Earth reference: 101,400 Pa. NASA ${planet.name} and Earth fact sheets.`,
+    pressurePa: pressure,
+    pressureUpperLimit: upperLimit,
+    pressureSignificantDigits: significantDigits,
   }]
 }
