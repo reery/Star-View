@@ -18,11 +18,31 @@ describe('radius scales', () => {
 
   it('places small, medium and large white dwarfs on the same fixed range', () => {
     const range = typicalRadiusRange({ type: 'white_dwarf', spectral_type: 'DA2' })!
-    expect(typicalRadiusPosition(0.006 * SOLAR_RADIUS_KM, range).description).toBe('')
-    expect(typicalRadiusPosition(0.01 * SOLAR_RADIUS_KM, range)).toEqual({ position: 50, description: '' })
-    expect(typicalRadiusPosition(0.018 * SOLAR_RADIUS_KM, range).description).toBe('')
-    expect(typicalRadiusPosition(0.004 * SOLAR_RADIUS_KM, range)).toEqual({ position: 0, description: 'Below typical range' })
-    expect(typicalRadiusPosition(0.03 * SOLAR_RADIUS_KM, range)).toEqual({ position: 100, description: 'Above typical range' })
+    expect(typicalRadiusPosition(0.006 * SOLAR_RADIUS_KM, range).position).toBeGreaterThan(0)
+    expect(typicalRadiusPosition(0.01 * SOLAR_RADIUS_KM, range)).toEqual({
+      low: 0.005, high: 0.02, position: 50, rangeLowPosition: 0, rangeHighPosition: 100, typicalPosition: 50,
+    })
+    expect(typicalRadiusPosition(0.018 * SOLAR_RADIUS_KM, range).position).toBeLessThan(100)
+    const below = typicalRadiusPosition(0.004 * SOLAR_RADIUS_KM, range)
+    expect(below.low).toBeCloseTo(0.004)
+    expect(below.high).toBe(0.02)
+    expect(below.position).toBe(0)
+    expect(below.rangeLowPosition).toBeGreaterThan(0)
+    const above = typicalRadiusPosition(0.03 * SOLAR_RADIUS_KM, range)
+    expect(above.low).toBe(0.005)
+    expect(above.high).toBeCloseTo(0.03)
+    expect(above.position).toBe(100)
+    expect(above.rangeHighPosition).toBeLessThan(100)
+  })
+
+  it('places Alpha Centauri A beyond the marked G-star upper boundary', () => {
+    const range = typicalRadiusRange({ type: 'star', spectral_type: 'G2V' })!
+    const layout = typicalRadiusPosition(1.22 * SOLAR_RADIUS_KM, range)
+    expect(layout.low).toBe(0.85)
+    expect(layout.high).toBeCloseTo(1.22)
+    expect(layout.position).toBe(100)
+    expect(layout.rangeHighPosition).toBeCloseTo(Math.log(1.1 / 0.85) / Math.log(1.22 / 0.85) * 100)
+    expect(layout.rangeHighPosition).toBeLessThan(layout.position!)
   })
 
   it('distinguishes main-sequence stars from evolved stars with the same spectral color', () => {

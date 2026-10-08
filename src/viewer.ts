@@ -383,6 +383,7 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
 
   function updateEarthOrbitVisibility(): void {
     earthOrbitGroup.visible = earthOrbitEnabled
+      && !(observerViewEnabled && referenceIndex === sunIndex)
       && camera.position.distanceTo(earthOrbitGroup.position) <= EARTH_ORBIT_MAX_VIEW_DISTANCE_PC
     setData(container, 'earthOrbitVisible', String(earthOrbitGroup.visible))
   }

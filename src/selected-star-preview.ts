@@ -8,8 +8,8 @@ function translucent(color: string, opacity: number): string {
   return `${color}${Math.round(Math.max(0, Math.min(1, opacity)) * 255).toString(16).padStart(2, '0')}`
 }
 
-export function renderSelectedStarPreview(canvas: HTMLCanvasElement, star: Star, mode: StarColorMode, members: readonly Star[] = [star]): void {
-  const key = members.map((member) => `${member.id}:${member.type}:${starDisplayColor(member, mode).getHexString()}:${member.radius_solar}:${member.luminosity_solar}`).join('|')
+export function renderSelectedStarPreview(canvas: HTMLCanvasElement, star: Star, mode: StarColorMode, members: readonly Star[] = [star], hasKnownPlanets = false): void {
+  const key = `${hasKnownPlanets}:` + members.map((member) => `${member.id}:${member.type}:${starDisplayColor(member, mode).getHexString()}:${member.radius_solar}:${member.luminosity_solar}`).join('|')
   if (renderedPreviews.get(canvas) === key) return
   const context = canvas.getContext('2d')
   if (!context) return
@@ -17,8 +17,22 @@ export function renderSelectedStarPreview(canvas: HTMLCanvasElement, star: Star,
   context.scale(3, 3)
   context.translate(28, 28)
 
+  if (hasKnownPlanets) {
+    context.save()
+    context.rotate(-Math.PI / 6)
+    context.strokeStyle = '#b29d8799'
+    context.lineWidth = 0.8
+    context.beginPath()
+    context.ellipse(0, 0, 24, 15, 0, 0, Math.PI * 2)
+    context.stroke()
+    context.restore()
+  }
+
   if (members.length === 1) {
+    context.save()
+    if (hasKnownPlanets) context.scale(0.72, 0.72)
     drawStarPreview(context, star, mode)
+    context.restore()
   } else {
     // Illustrative arrangement, not binary orbital positions or separations.
     const placements: [number, number, number][] = members.length === 2 ? [[-11, -8, 0.56], [11, 9, 0.5]]
@@ -37,6 +51,18 @@ export function renderSelectedStarPreview(canvas: HTMLCanvasElement, star: Star,
       drawStarPreview(context, member, mode)
       context.restore()
     })
+  }
+  if (hasKnownPlanets) {
+    context.save()
+    context.rotate(-Math.PI / 6)
+    context.fillStyle = '#edc69b'
+    context.strokeStyle = '#202224'
+    context.lineWidth = 1
+    context.beginPath()
+    context.arc(24 * Math.cos(0.4), 15 * Math.sin(0.4), 2.6, 0, Math.PI * 2)
+    context.fill()
+    context.stroke()
+    context.restore()
   }
   renderedPreviews.set(canvas, key)
 }

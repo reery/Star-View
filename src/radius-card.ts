@@ -31,10 +31,6 @@ export function renderRadiusBars(card: HTMLElement, star: Star, comparison: Radi
   get('radius-typical-bar').hidden = !available
   get('radius-typical-source').hidden = range === null
   set('radius-typical-value', available ? `${number(selected.radiusKm! / range.radiusKmPerUnit)} ${range.unit}` : 'Not available')
-  set('radius-typical-context', !range ? 'No typical radius range is assigned to this catalog classification.'
-    : selected.radiusKm === null ? 'A catalog radius is needed for the typical-size comparison.'
-      : typicalRadiusPosition(selected.radiusKm, range).description)
-  get('radius-typical-context').hidden = !get('radius-typical-context').textContent
   set('radius-typical-method', range ? `${range.label}: approximately ${number(range.low)}–${number(range.high)} ${range.unit}. ${range.note}` : '')
   if (range) {
     const source = get('radius-typical-source') as HTMLAnchorElement
@@ -42,13 +38,25 @@ export function renderRadiusBars(card: HTMLElement, star: Star, comparison: Radi
     source.textContent = `${range.sourceLabel} ↗`
   }
   if (available) {
-    const { position, description } = typicalRadiusPosition(selected.radiusKm!, range)
+    const { position, low, high, rangeLowPosition, rangeHighPosition, typicalPosition } = typicalRadiusPosition(selected.radiusKm!, range)
     const bar = get('radius-typical-bar')
     bar.style.setProperty('--mass-ratio-position', `${position}%`)
-    set('radius-typical-low', `${number(range.low)} ${range.unit}`)
-    set('radius-typical-mid', `${number(Math.sqrt(range.low * range.high))} ${range.unit}`)
-    set('radius-typical-high', `${number(range.high)} ${range.unit}`)
-    bar.setAttribute('aria-label', `${star.name}: ${number(selected.radiusKm! / range.radiusKmPerUnit)} ${range.unit}.${description ? ` ${description}.` : ''} Typical ${range.label.toLowerCase()} radius guide from ${number(range.low)} to ${number(range.high)} ${range.unit} on a logarithmic scale; outside values are marked at the nearest end.`)
+    bar.style.setProperty('--mass-range-low-position', `${rangeLowPosition}%`)
+    bar.style.setProperty('--mass-range-high-position', `${rangeHighPosition}%`)
+    const fillRangePosition = (bound: number) => position !== null && position > 0 ? Math.min(100, Math.max(0, bound / position * 100)) : 0
+    bar.style.setProperty('--mass-fill-range-low-position', `${fillRangePosition(rangeLowPosition)}%`)
+    bar.style.setProperty('--mass-fill-range-high-position', `${fillRangePosition(rangeHighPosition)}%`)
+    const rangeLow = bar.querySelector<HTMLElement>('.mass-typical-low')!
+    const rangeHigh = bar.querySelector<HTMLElement>('.mass-typical-high')!
+    rangeLow.style.left = `${rangeLowPosition}%`
+    rangeHigh.style.left = `${rangeHighPosition}%`
+    rangeLow.title = `Typical radius minimum: ${number(range.low)} ${range.unit}`
+    rangeHigh.title = `Typical radius maximum: ${number(range.high)} ${range.unit}`
+    bar.querySelector<HTMLElement>('.mass-ratio-sun')!.style.left = `${typicalPosition}%`
+    set('radius-typical-low', `${number(low)} ${range.unit}`)
+    set('radius-typical-mid', `${number(Math.sqrt(low * high))} ${range.unit}`)
+    set('radius-typical-high', `${number(high)} ${range.unit}`)
+    bar.setAttribute('aria-label', `${star.name}: ${number(selected.radiusKm! / range.radiusKmPerUnit)} ${range.unit}. Typical ${range.label.toLowerCase()} radius guide from ${number(range.low)} to ${number(range.high)} ${range.unit}. Logarithmic axis from ${number(low)} to ${number(high)} ${range.unit}; the line is thinner outside the typical range.`)
     bar.title = bar.getAttribute('aria-label')!
   }
 }

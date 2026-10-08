@@ -1,0 +1,158 @@
+{
+  "sources": {
+    "mercury": "https://nssdc.gsfc.nasa.gov/planetary/factsheet/mercuryfact.html",
+    "venus": "https://nssdc.gsfc.nasa.gov/planetary/factsheet/venusfact.html",
+    "earth": "https://nssdc.gsfc.nasa.gov/planetary/factsheet/earthfact.html",
+    "definitions": "https://nssdc.gsfc.nasa.gov/planetary/factsheet/fact_notes.html",
+    "surfaceTemperatures": "https://science.nasa.gov/mercury/facts/",
+    "moon": "https://nssdc.gsfc.nasa.gov/planetary/factsheet/moonfact.html"
+  },
+  "earth": {
+    "meanRadiusKm": 6371,
+    "flattening": 0.003353,
+    "volumeKm3": 1083210000000,
+    "massKg": 5.9722e24,
+    "meanDensityKgM3": 5513,
+    "surfaceGravityMs2": 9.82,
+    "escapeVelocityKmS": 11.186,
+    "solarDayHours": 24,
+    "bondAlbedo": 0.294,
+    "blackBodyTemperatureK": 254,
+    "meanSurfaceTemperatureK": 288,
+    "absoluteMagnitudeV": -3.99,
+    "surfacePressurePa": 101400
+  },
+  "planets": [
+    {
+      "id": "mercury",
+      "hostStarId": "sun",
+      "name": "Mercury",
+      "color": "#aaa19b",
+      "moonCount": 0,
+      "meanRadiusKm": 2439.7,
+      "flattening": 0.0009,
+      "volumeKm3": 60830000000,
+      "massKg": 3.301e23,
+      "meanDensityKgM3": 5429,
+      "surfaceGravityMs2": 3.7,
+      "escapeVelocityKmS": 4.3,
+      "solarDayHours": 4222.6,
+      "bondAlbedo": 0.068,
+      "blackBodyTemperatureK": 439.6,
+      "surfaceTemperatureMinK": 93,
+      "surfaceTemperatureMaxK": 703,
+      "absoluteMagnitudeV": -0.613,
+      "brightestApparentMagnitudeV": -2.43,
+      "surfacePressureUpperPa": 5e-10,
+      "composition": [
+        { "symbol": "Na", "name": "Sodium" },
+        { "symbol": "Mg", "name": "Magnesium" },
+        { "symbol": "O", "name": "Oxygen" },
+        { "symbol": "H", "name": "Hydrogen" },
+        { "symbol": "He", "name": "Helium" },
+        { "symbol": "K", "name": "Potassium" },
+        { "symbol": "Ca", "name": "Calcium" }
+      ],
+      "notes": {
+        "surfaceArea": "Spherical approximation, 4πR², using the volumetric mean radius for both planets.",
+        "surfaceTemperatures": "Approximate cold nighttime and hot daytime surface temperatures, converted from NASA's −180 °C and 430 °C to Kelvin. They do not describe all permanently shadowed locations. Ratios compare both limits with Earth's mean surface temperature, 288 K.",
+        "absoluteMagnitude": "Planetary absolute V magnitude: Sun and observer each at 1 AU, zero phase angle. The Earth comparison is a magnitude difference, not a ratio.",
+        "apparentMagnitude": "Brightest apparent V magnitude from Earth, not a current measurement. It varies with phase and distance; Earth has no comparable magnitude for an observer on Earth.",
+        "atmosphere": "Mercury has a surface-bounded exosphere. The pressure is an approximate upper limit, not a measured ambient pressure. Composition lists important detected atoms without assuming fixed proportions."
+      }
+    },
+    {
+      "id": "venus",
+      "hostStarId": "sun",
+      "name": "Venus",
+      "color": "#f3efdc",
+      "moonCount": 0,
+      "meanRadiusKm": 6051.8,
+      "flattening": 0,
+      "volumeKm3": 928430000000,
+      "massKg": 4.8673e24,
+      "meanDensityKgM3": 5243,
+      "surfaceGravityMs2": 8.87,
+      "escapeVelocityKmS": 10.36,
+      "solarDayHours": 2802,
+      "bondAlbedo": 0.77,
+      "blackBodyTemperatureK": 226.6,
+      "meanSurfaceTemperatureK": 737,
+      "absoluteMagnitudeV": -4.38,
+      "brightestApparentMagnitudeV": -4.8,
+      "surfacePressurePa": 9200000,
+      "composition": [
+        { "symbol": "CO₂", "name": "Carbon dioxide", "abundance": "96.5%" },
+        { "symbol": "N₂", "name": "Nitrogen", "abundance": "3.5%" },
+        { "symbol": "SO₂", "name": "Sulfur dioxide", "abundance": "150 ppm" },
+        { "symbol": "Ar", "name": "Argon", "abundance": "70 ppm" },
+        { "symbol": "H₂O", "name": "Water vapor", "abundance": "20 ppm" },
+        { "symbol": "CO", "name": "Carbon monoxide", "abundance": "17 ppm" },
+        { "symbol": "He", "name": "Helium", "abundance": "12 ppm" },
+        { "symbol": "Ne", "name": "Neon", "abundance": "7 ppm" }
+      ],
+      "notes": {
+        "surfaceArea": "Spherical approximation, 4πR², using the volumetric mean radius for both planets.",
+        "surfaceTemperatures": "Mean near-surface temperature, 737 K (about 464 °C), not a measured global minimum or maximum. Compared with Earth's mean surface temperature, 288 K. The dense atmosphere keeps day-night temperature differences small, while temperature varies with altitude.",
+        "absoluteMagnitude": "Planetary absolute V magnitude: Sun and observer each at 1 AU, zero phase angle. The Earth comparison is a magnitude difference, not a ratio.",
+        "apparentMagnitude": "Brightest apparent V magnitude from Earth, not a current measurement. It varies with phase and distance; Earth has no comparable magnitude for an observer on Earth.",
+        "atmosphere": "Approximate surface pressure: 92 bar = 9.2 × 10⁶ Pa. Gas composition is near-surface abundance by volume; ppm means parts per million. Major abundances are rounded. Sulfuric-acid droplets form the opaque cloud layers higher in the atmosphere and are not represented by these gas percentages."
+      }
+    },
+    {
+      "id": "earth",
+      "hostStarId": "sun",
+      "name": "Earth",
+      "color": "#769eca",
+      "moonCount": 1,
+      "meanRadiusKm": 6371,
+      "flattening": 0.003353,
+      "volumeKm3": 1083210000000,
+      "massKg": 5.9722e24,
+      "meanDensityKgM3": 5513,
+      "surfaceGravityMs2": 9.82,
+      "escapeVelocityKmS": 11.186,
+      "solarDayHours": 24,
+      "bondAlbedo": 0.294,
+      "blackBodyTemperatureK": 254,
+      "meanSurfaceTemperatureK": 288,
+      "absoluteMagnitudeV": -3.99,
+      "brightestApparentMagnitudeV": null,
+      "surfacePressurePa": 101400,
+      "composition": [
+        { "symbol": "N₂", "name": "Nitrogen", "abundance": "78.08%" },
+        { "symbol": "O₂", "name": "Oxygen", "abundance": "20.95%" },
+        { "symbol": "Ar", "name": "Argon", "abundance": "0.934%" },
+        { "symbol": "CO₂", "name": "Carbon dioxide", "abundance": "420 ppm (2024)" },
+        { "symbol": "Ne", "name": "Neon", "abundance": "18.18 ppm" },
+        { "symbol": "He", "name": "Helium", "abundance": "5.24 ppm" },
+        { "symbol": "CH₄", "name": "Methane", "abundance": "1.94 ppm (2024)" },
+        { "symbol": "Kr", "name": "Krypton", "abundance": "1.14 ppm" },
+        { "symbol": "H₂", "name": "Hydrogen", "abundance": "0.55 ppm" },
+        { "symbol": "H₂O", "name": "Water vapor", "abundance": "variable" }
+      ],
+      "notes": {
+        "surfaceArea": "Spherical approximation, 4πR², using the volumetric mean radius. This is not the area of Earth's oblate reference ellipsoid.",
+        "surfaceTemperatures": "NASA fact-sheet reference mean, 288 K (about 15 °C), not a current global temperature or local minimum/maximum. Temperature varies with location, altitude, season and time; this fixed reference is also used for the other planets' Earth comparisons.",
+        "absoluteMagnitude": "Planetary absolute V magnitude: Sun and observer each at 1 AU, zero phase angle. This is a standardized reflected-light brightness, not how Earth appears from its own surface.",
+        "apparentMagnitude": "Not applicable for an observer on Earth. From a spacecraft or another world, Earth's apparent magnitude depends on the observer's distance and the illuminated phase; no universal brightest value is supplied.",
+        "atmosphere": "NASA fact-sheet reference surface pressure: 1014 millibars = 101,400 Pa, not a local weather measurement or the standard atmosphere of 101,325 Pa. Composition is by volume of dry air, except for separately listed variable water vapor. Carbon dioxide and methane are the dated values in NASA's November 2024 sheet, not live atmospheric measurements; ppm means parts per million. Rounded abundances need not sum to exactly 100%."
+      }
+    }
+  ],
+  "moons": {
+    "earth": [
+      {
+        "id": "moon",
+        "name": "Moon",
+        "source": "https://nssdc.gsfc.nasa.gov/planetary/factsheet/moonfact.html",
+        "meanRadiusKm": 1737.4,
+        "massKg": 7.346e22,
+        "surfaceGravityMs2": 1.62,
+        "semiMajorAxisKm": 384400,
+        "siderealOrbitDays": 27.3217,
+        "phaseCycleDays": 29.53
+      }
+    ]
+  }
+}

@@ -1,5 +1,5 @@
 import './style.css'
-import { ArrowLeft, ArrowRight, BookOpen, CircleHelp, Clock, Crosshair, Eye, Filter, Focus, Grid2X2, List, Lock, Minus, Orbit, Pause, Play, Plus, RotateCcw, RotateCw, Save, Search, Settings2, Star as StarIcon, X, createElement, type IconNode } from 'lucide'
+import { ArrowLeft, ArrowRight, BookOpen, CircleHelp, Clock, Crosshair, Eye, Filter, Focus, Grid2X2, List, Lock, Minus, Moon, Orbit, Pause, Play, Plus, RotateCcw, RotateCw, Save, Search, Settings2, Star as StarIcon, X, createElement, type IconNode } from 'lucide'
 import { BUBBLE_OBJECT_TYPES, COMPACT_OBJECT_TYPES, describeObject, isBubbleObject, isCompactObject, isMolecularCloudObject, isNebulaObject, MOLECULAR_CLOUD_OBJECT_TYPES, NEBULA_OBJECT_TYPES, type Star } from './catalog-model'
 import { catalogSelection, mergeCatalogStars } from './catalog-runtime'
 import { objectDesignations } from './designations'
@@ -20,6 +20,11 @@ import { renderRadiusBars } from './radius-card'
 import { massCardAvailable } from './mass-properties'
 import { radiusComparison, radiusStats, radiusSummary, renderRadiusComparison, type RadiusReference } from './radius-comparison'
 import { indexStarSystems, type StarSystem } from './star-systems'
+import { planetarySystemForStar } from './planetary-systems'
+import { highlightSystemPlanet, renderSystemCard } from './system-card'
+import { planetDescriptionForId } from './planet-properties'
+import { renderPlanetCard } from './planet-card'
+import { disposePlanetGlobe } from './planet-globe'
 import {
   availableFilterKeys, categoryAvailable, DEFAULT_FILTER_CATEGORIES, DEFAULT_FILTER_SUBTYPES, effectiveFilterKeys, FILTER_CATEGORIES,
   filterCategoryForKey, filterSummary, isFilterCategoryId, isFilterKey, type FilterCategoryId, type FilterKey,
@@ -103,6 +108,11 @@ icon('radius-close-icon', X)
 icon('mass-close-icon', X)
 icon('distance-close-icon', X)
 icon('distance-lock-icon', Lock)
+icon('planet-lock-icon', Lock)
+icon('planet-specs-icon', List)
+icon('planet-info-icon', BookOpen)
+icon('planet-moons-icon', Moon)
+icon('planet-orbit-icon', Orbit)
 icon('time-play-icon', Play)
 icon('time-now-icon', RotateCcw)
 icon('time-follow-icon', Crosshair)
@@ -264,6 +274,7 @@ const sliderCatalogs = catalogs.filter((catalog) => !ADDITIVE_CATALOG_IDS.has(ca
   .sort((first, second) => first.manifest.objectCount - second.manifest.objectCount)
 const OBJECT_DISTANCE_STEPS_LY = [5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 60, 70, 80, 90, 100, 150, 200, 300, 500, 1000, 1500, 2000, 3000, 5000, 10000] as const
 let savedViews = readSavedViews()
+let savedViewMenuRow: HTMLTableRowElement | null = null
 try {
   if (localStorage.getItem('star-view-distance-unit') === 'pc') distanceUnit = 'pc'
   if (localStorage.getItem('star-view-color-mode') === 'real') starColorMode = 'real'
@@ -358,6 +369,7 @@ function panelIsOpen(name: typeof panelNames[number]): boolean {
 }
 
 function setPanelOpen(name: typeof panelNames[number], open: boolean): void {
+  if (name === 'views' && !open) closeSavedViewContextMenu()
   element<HTMLButtonElement>(`${name}-toggle`).setAttribute('aria-expanded', String(open))
   element(`${name}-panel`).hidden = !open
 }
@@ -408,6 +420,60 @@ function closeMassCard(restoreFocus = false): void {
   if (restoreFocus) element('mass-toggle').focus()
 }
 
+let activePlanetId: string | null = null
+let planetCardLocked = false
+const planetSections = ['specs', 'info', 'moons', 'orbit'] as const
+
+function showPlanetSection(section: typeof planetSections[number]): void {
+  for (const candidate of planetSections) {
+    element(`planet-${candidate}`).hidden = candidate !== section
+    element(`planet-${candidate}-toggle`).setAttribute('aria-expanded', String(candidate === section))
+  }
+  element('planet-card').querySelector<HTMLElement>('.card-scroll-content')!.scrollTop = 0
+  syncObjectTypeLayout()
+}
+
+function closePlanetCard(restoreFocus = false): void {
+  const card = element('planet-card')
+  if (card.hidden) return
+  card.hidden = true
+  const system = element('object-system')
+  const selectedRow = system.querySelector<HTMLElement>('.planet-row:has([aria-pressed="true"])')
+  const selectedPlanet = selectedRow?.dataset.planetId ?? null
+  highlightSystemPlanet(system, selectedPlanet === activePlanetId ? null : selectedPlanet)
+  if (restoreFocus) {
+    const button = system.querySelector<HTMLButtonElement>(`.planet-row[data-planet-id="${activePlanetId}"] button`)
+    if (button && !system.hidden) button.focus({ preventScroll: true })
+    else if (!element('selected-object-card').hidden) element('object-system-toggle').focus({ preventScroll: true })
+  }
+}
+
+function selectSystemPlanet(planetId: string): void {
+  const system = element('object-system')
+  const description = planetDescriptionForId(planetId)
+  const selected = system.querySelector<HTMLButtonElement>(`.planet-row[data-planet-id="${planetId}"] button`)?.getAttribute('aria-pressed') === 'true'
+  if (!description) {
+    if (!planetCardLocked) closePlanetCard()
+    highlightSystemPlanet(system, selected ? null : planetId, element('planet-card').hidden ? null : activePlanetId)
+    return
+  }
+  if (!element('planet-card').hidden && activePlanetId === planetId) {
+    closePlanetCard(true)
+    return
+  }
+  closeObjectTypeCard()
+  closeMetallicityCard()
+  closeRadiusCard()
+  closeMassCard()
+  closeDistanceCard()
+  activePlanetId = planetId
+  renderPlanetCard(element('planet-card'), description)
+  element('planet-card').hidden = false
+  highlightSystemPlanet(system, planetId, planetId)
+  showPlanetSection('specs')
+  element('planet-specs-toggle').focus({ preventScroll: true })
+}
+
 let massReference: MassReference = 'class'
 
 function renderMassCard(star: Star): void {
@@ -431,6 +497,7 @@ function toggleMassCard(): void {
   }
   const star = stars.find((candidate) => candidate.id === selectedId)
   if (!star || !massCardAvailable(star)) return
+  closePlanetCard()
   closeObjectTypeCard()
   closeMetallicityCard()
   closeRadiusCard()
@@ -485,6 +552,7 @@ function toggleDistanceCard(): void {
   }
   const star = stars.find((candidate) => candidate.id === selectedId)
   if (!star) return
+  closePlanetCard()
   closeObjectTypeCard()
   closeMetallicityCard()
   closeRadiusCard()
@@ -537,6 +605,7 @@ function toggleRadiusCard(): void {
   }
   const star = stars.find((candidate) => candidate.id === selectedId)
   if (!star || element('radius-toggle').closest<HTMLElement>('.stellar-property')!.hidden) return
+  closePlanetCard()
   closeObjectTypeCard()
   closeMetallicityCard()
   closeDistanceCard()
@@ -628,6 +697,7 @@ function toggleMetallicityCard(): void {
   }
   const star = stars.find((candidate) => candidate.id === selectedId)
   if (!star || element('metallicity-toggle').closest<HTMLElement>('.stellar-property')!.hidden) return
+  closePlanetCard()
   closeObjectTypeCard()
   closeRadiusCard()
   closeMassCard()
@@ -663,6 +733,7 @@ function toggleObjectTypeCard(): void {
   }
   const star = stars.find((candidate) => candidate.id === selectedId)
   if (!star) return
+  closePlanetCard()
   closeMetallicityCard()
   closeRadiusCard()
   closeMassCard()
@@ -675,7 +746,7 @@ function toggleObjectTypeCard(): void {
 
 function syncObjectTypeLayout(): void {
   const motion = element('motion-panel')
-  for (const id of ['object-type-card', 'metallicity-card', 'radius-card', 'mass-card', 'distance-card']) {
+  for (const id of ['object-type-card', 'metallicity-card', 'radius-card', 'mass-card', 'distance-card', 'planet-card']) {
     const card = element(id)
     card.style.removeProperty('max-height')
     if (card.hidden || motion.hidden) continue
@@ -733,6 +804,7 @@ function dismissOpenPanel(): void {
   closeRadiusCard()
   closeMassCard()
   if (!distanceCardLocked) closeDistanceCard()
+  if (!planetCardLocked) closePlanetCard()
   let changed = false
   for (const name of panelNames) {
     if (!panelIsOpen(name)) continue
@@ -883,6 +955,7 @@ for (const section of objectSections) {
     const opening = !details.open || activeObjectSection !== section
     activeObjectSection = section
     details.open = opening
+    if (section !== 'system' && !planetCardLocked) closePlanetCard()
     if (section !== 'specs') {
       closeObjectTypeCard()
       closeMetallicityCard()
@@ -950,6 +1023,7 @@ function renderSelection(): void {
   updateReferenceControl()
   updateObserverControl()
   if (!star) {
+    if (!planetCardLocked) closePlanetCard()
     closeObjectTypeCard()
     closeMetallicityCard()
     closeRadiusCard()
@@ -966,10 +1040,17 @@ function renderSelection(): void {
   element('inspector').dataset.selectedStar = star.id
   element('inspector').style.setProperty('--selected-star-color', color)
   const system = starSystems.get(star.id)
+  const planets = planetarySystemForStar(star.id)
   text('star-name', system?.name ?? star.name)
   renderSelectedDistance(displayedDistancePc)
   renderSystemComponents(system, star.id)
-  renderSelectedStarPreview(element<HTMLCanvasElement>('selected-swatch'), star, starColorMode, system?.components.map((component) => component.star))
+  renderSelectedStarPreview(element<HTMLCanvasElement>('selected-swatch'), star, starColorMode, system?.components.map((component) => component.star), !!planets?.planets.length)
+  renderSystemCard(element('object-system'), planets, system?.components.length ?? 1, selectSystemPlanet)
+  const openPlanet = activePlanetId ? planetDescriptionForId(activePlanetId) : undefined
+  if (!planetCardLocked && openPlanet?.hostStarId !== star.id) closePlanetCard()
+  if (!element('planet-card').hidden && openPlanet?.hostStarId === star.id) highlightSystemPlanet(element('object-system'), activePlanetId, activePlanetId)
+  element('object-system-toggle').setAttribute('aria-label', planets ? `System, ${planets.planets.length} known planets` : 'System')
+  if (planets) element<HTMLCanvasElement>('selected-swatch').title = `${planets.planets.length} known planets · illustrative orbit`
   text('distance-value', formatDistance(metrics.distancePc, distanceUnit).split(' ')[0]!)
   text('distance-unit', ` ${distanceUnit}`)
   element('distance-toggle').setAttribute('aria-label', `Visualize distance and direction of ${star.name}`)
@@ -1395,12 +1476,6 @@ function renderCatalogRange(id: string): void {
 const objectList = new ObjectList(element('star-list'), selectStar, (shown, total) => text('catalog-count', `${shown}/${total}`))
 objectList.setColorMode(starColorMode)
 
-function savedViewDate(isoDate: string): string {
-  const date = new Date(isoDate)
-  const pad = (value: number) => String(value).padStart(2, '0')
-  return `${date.getFullYear()}-${pad(date.getMonth() + 1)}-${pad(date.getDate())} ${pad(date.getHours())}:${pad(date.getMinutes())}`
-}
-
 function setSavedViewsStatus(message: string): void {
   const status = element('saved-views-status')
   status.textContent = message
@@ -1421,13 +1496,45 @@ function writeSavedViews(next: SavedView[]): boolean {
   }
 }
 
+function closeSavedViewContextMenu(restoreFocus = false): void {
+  const menu = element('saved-view-context-menu')
+  menu.hidden = true
+  delete menu.dataset.savedViewId
+  savedViewMenuRow?.setAttribute('aria-expanded', 'false')
+  if (restoreFocus && savedViewMenuRow?.isConnected) savedViewMenuRow.focus()
+  savedViewMenuRow = null
+}
+
+function openSavedViewContextMenu(row: HTMLTableRowElement, x: number, y: number): void {
+  const savedView = savedViews.find((candidate) => candidate.id === row.dataset.savedViewId)
+  if (!savedView) return
+  closeSavedViewContextMenu()
+  const menu = element('saved-view-context-menu')
+  const remove = element<HTMLButtonElement>('saved-view-context-delete')
+  remove.textContent = `Delete ${savedView.name}`
+  menu.dataset.savedViewId = savedView.id
+  savedViewMenuRow = row
+  row.setAttribute('aria-expanded', 'true')
+  menu.style.left = '0px'
+  menu.style.top = '0px'
+  menu.hidden = false
+  const bounds = menu.getBoundingClientRect()
+  menu.style.left = `${Math.max(8, Math.min(x, window.innerWidth - bounds.width - 8))}px`
+  menu.style.top = `${Math.max(8, Math.min(y, window.innerHeight - bounds.height - 8))}px`
+  remove.focus({ preventScroll: true })
+}
+
 function renderSavedViews(): void {
+  closeSavedViewContextMenu()
   const list = element<HTMLTableSectionElement>('saved-views-list')
   list.replaceChildren(...savedViews.map((savedView) => {
     const row = document.createElement('tr')
     row.dataset.savedViewId = savedView.id
     row.tabIndex = 0
     row.setAttribute('aria-label', `Load saved view ${savedView.name}`)
+    row.setAttribute('aria-haspopup', 'menu')
+    row.setAttribute('aria-controls', 'saved-view-context-menu')
+    row.setAttribute('aria-expanded', 'false')
     row.title = `Load ${savedView.name}`
     const name = document.createElement('td')
     name.textContent = savedView.name
@@ -1435,21 +1542,7 @@ function renderSavedViews(): void {
     const origin = document.createElement('td')
     origin.textContent = savedView.originName
     origin.title = savedView.originName
-    const date = document.createElement('td')
-    const time = document.createElement('time')
-    time.dateTime = savedView.savedAt
-    time.textContent = savedViewDate(savedView.savedAt)
-    date.append(time)
-    const action = document.createElement('td')
-    const remove = document.createElement('button')
-    remove.className = 'saved-view-delete'
-    remove.type = 'button'
-    remove.dataset.deleteSavedView = savedView.id
-    remove.setAttribute('aria-label', `Delete saved view ${savedView.name}`)
-    remove.title = 'Delete saved view'
-    remove.textContent = 'Delete'
-    action.append(remove)
-    row.append(name, origin, date, action)
+    row.append(name, origin)
     return row
   }))
   element('saved-views-empty').hidden = savedViews.length > 0
@@ -1821,26 +1914,71 @@ element('save-view-name').addEventListener('input', () => setSavedViewsStatus(''
 element('saved-views-list').addEventListener('click', (event) => {
   const target = event.target
   if (!(target instanceof Element)) return
-  const deleteButton = target.closest<HTMLButtonElement>('[data-delete-saved-view]')
-  if (deleteButton) {
-    deleteSavedView(deleteButton.dataset.deleteSavedView!)
-    return
-  }
   const row = target.closest<HTMLTableRowElement>('tr[data-saved-view-id]')
   const savedView = savedViews.find((candidate) => candidate.id === row?.dataset.savedViewId)
   if (savedView) void loadSavedView(savedView)
 }, { signal: events.signal })
+element('saved-views-list').addEventListener('contextmenu', (event) => {
+  const target = event.target
+  if (!(target instanceof Element)) return
+  const row = target.closest<HTMLTableRowElement>('tr[data-saved-view-id]')
+  if (!row) return
+  event.preventDefault()
+  const bounds = row.getBoundingClientRect()
+  openSavedViewContextMenu(row, event.clientX || bounds.left + 12, event.clientY || bounds.bottom)
+}, { signal: events.signal })
 element('saved-views-list').addEventListener('keydown', (event) => {
-  if (event.key !== 'Enter' && event.key !== ' ') return
   const target = event.target
   if (!(target instanceof HTMLTableRowElement)) return
+  if (event.key === 'ContextMenu' || (event.shiftKey && event.key === 'F10')) {
+    event.preventDefault()
+    const bounds = target.getBoundingClientRect()
+    openSavedViewContextMenu(target, bounds.left + 12, bounds.bottom)
+    return
+  }
+  if (event.key !== 'Enter' && event.key !== ' ') return
   const savedView = savedViews.find((candidate) => candidate.id === target.dataset.savedViewId)
   if (!savedView) return
   event.preventDefault()
   void loadSavedView(savedView)
 }, { signal: events.signal })
+element('saved-view-context-delete').addEventListener('click', () => {
+  const id = element('saved-view-context-menu').dataset.savedViewId
+  if (!id) return
+  const index = savedViews.findIndex((savedView) => savedView.id === id)
+  closeSavedViewContextMenu(true)
+  deleteSavedView(id)
+  const rows = element('saved-views-list').querySelectorAll<HTMLTableRowElement>('tr')
+  const focusTarget = rows[Math.min(index, rows.length - 1)] ?? element('save-view-name')
+  focusTarget.focus({ preventScroll: true })
+}, { signal: events.signal })
+for (const type of ['pointerdown', 'focusin', 'contextmenu'] as const) {
+  document.addEventListener(type, (event) => {
+    const menu = element('saved-view-context-menu')
+    if (!menu.hidden && event.target instanceof Node && !menu.contains(event.target)
+      && !(type === 'contextmenu' && element('saved-views-list').contains(event.target))) {
+      closeSavedViewContextMenu()
+    }
+  }, { signal: events.signal })
+}
+element('saved-view-context-menu').addEventListener('keydown', (event) => {
+  if (['ArrowDown', 'ArrowUp', 'Home', 'End'].includes(event.key)) event.preventDefault()
+}, { signal: events.signal })
+document.addEventListener('scroll', () => closeSavedViewContextMenu(), { capture: true, signal: events.signal })
+window.addEventListener('resize', () => closeSavedViewContextMenu(), { signal: events.signal })
 document.addEventListener('keydown', (event) => {
+  if (!element('saved-view-context-menu').hidden) {
+    if (event.key === 'Escape' || event.key === 'Tab') {
+      closeSavedViewContextMenu(true)
+      if (event.key === 'Escape') event.preventDefault()
+      return
+    }
+  }
   if (event.key !== 'Escape') return
+  if (!element('planet-card').hidden) {
+    closePlanetCard(true)
+    return
+  }
   if (!element('mass-card').hidden) {
     closeMassCard(true)
     return
@@ -1877,6 +2015,13 @@ element('distance-lock').addEventListener('click', () => {
   distanceCardLocked = !distanceCardLocked
   element('distance-lock').setAttribute('aria-pressed', String(distanceCardLocked))
 }, { signal: events.signal })
+element('planet-lock').addEventListener('click', () => {
+  planetCardLocked = !planetCardLocked
+  element('planet-lock').setAttribute('aria-pressed', String(planetCardLocked))
+}, { signal: events.signal })
+for (const section of planetSections) {
+  element(`planet-${section}-toggle`).addEventListener('click', () => showPlanetSection(section), { signal: events.signal })
+}
 for (const mode of ['origin', 'sun'] as const) {
   element(`distance-reference-${mode}`).addEventListener('click', () => {
     distanceReference = mode
@@ -1936,4 +2081,5 @@ import.meta.hot?.dispose(() => {
   if (playbackFrameRequest !== null) cancelAnimationFrame(playbackFrameRequest)
   viewer?.dispose()
   disposeDistanceComparison()
+  disposePlanetGlobe()
 })

@@ -260,18 +260,17 @@
                   <div class="mass-metric radius-metric">
                     <h4 id="radius-typical-heading" class="mass-metric-heading">Typical object size</h4>
                     <div class="mass-metric-ratio"><strong id="radius-typical-value"></strong></div>
-                    <div id="radius-typical-bar" class="mass-ratio-bar radius-ratio-bar" role="img">
-                      <div class="mass-ratio-track"><span class="mass-ratio-fill"></span><span class="mass-ratio-sun"></span><span class="mass-ratio-marker"></span></div>
+                    <div id="radius-typical-bar" class="mass-ratio-bar radius-ratio-bar has-class-range" role="img">
+                      <div class="mass-ratio-track"><span class="mass-ratio-fill"></span><span class="mass-typical-limit mass-typical-low"></span><span class="mass-typical-limit mass-typical-high"></span><span class="mass-ratio-sun"></span><span class="mass-ratio-marker"></span></div>
                       <div class="mass-ratio-labels" aria-hidden="true"><span id="radius-typical-low"></span><span id="radius-typical-mid"></span><span id="radius-typical-high"></span></div>
                     </div>
-                    <p id="radius-typical-context" class="radius-metric-context"></p>
                   </div>
                 </div>
                 <table class="radius-stats" aria-label="Dimensions of selected and comparison objects">
                   <thead><tr><th scope="col">Dimension</th><th id="radius-selected-column" scope="col">Selected</th><th id="radius-reference-column" scope="col">Sun</th></tr></thead>
                   <tbody id="radius-stats"></tbody>
                 </table>
-                <details class="radius-method"><summary>Units, imagery &amp; assumptions</summary><p id="radius-scale-note"></p><p>The radius bars use logarithmic scales. The reference bar is centered on 1× the chosen object and expands by powers of ten to include the selected radius. The typical-size bar uses a fixed, approximate range for the object’s class; its midpoint is the geometric middle of that range, not a measured population average. Values outside the range appear at the nearest end and are labeled above or below it.</p><p id="radius-typical-method"></p><a id="radius-typical-source" target="_blank" rel="noreferrer" hidden></a><p>Based on catalog radii, which may be measured, estimated, or model-derived. Area and volume are derived, not independent measurements.</p><p>Stars are represented as spheres using their catalog radii. Diameter = 2 × radius; surface area = 4πr²; volume = 4πr³/3. These derived values inherit the catalog radius’s uncertainty; extra digits do not imply extra accuracy. Stellar surface detail, shine, and temperature-based colors are illustrative. Cool dwarfs are brightened for visibility, although much of their radiation is infrared.</p><p>R☉ = 695,700 km. R♃ = 71,492 km and R⊕ = 6,378.1 km (equatorial radii). Jupiter and Earth are oblate spheroids with polar radii 66,854 km and 6,356.8 km; their area and volume account for this flattening.</p><p>Jupiter uses a Hubble photographic map with the Great Red Spot facing the viewer; the unobserved small polar caps extend the map’s nearest observed row. Earth uses NASA’s Blue Marble satellite mosaic with its historical cloud composite. Planetary shading adds illustrative daylight and grazing-angle atmospheric haze. These views show recognizable features, not the current rotation or illumination.</p><a href="https://arxiv.org/abs/1510.07674" target="_blank" rel="noreferrer">IAU nominal conversion constants ↗</a><p class="radius-image-credit">Jupiter: <a href="https://science.nasa.gov/asset/hubble/jupiter-global-map-2019/" target="_blank" rel="noreferrer">NASA, ESA, A. Simon &amp; M.H. Wong ↗</a><br />Earth: <a href="https://svs.gsfc.nasa.gov/2915/" target="_blank" rel="noreferrer">NASA/GSFC Scientific Visualization Studio ↗</a> · <a href="https://science.nasa.gov/blogs/earth-matters/2011/10/06/crafting-the-blue-marble/" target="_blank" rel="noreferrer">Blue Marble clouds: Reto Stöckli &amp; Robert Simmon ↗</a></p></details>
+                <details class="radius-method"><summary>Units, imagery &amp; assumptions</summary><p id="radius-scale-note"></p><p>The radius bars use logarithmic scales. The reference bar is centered on 1× the chosen object and expands by powers of ten to include the selected radius. The typical-size bar marks an approximate range for the object’s class; its guide tick is the geometric middle of that range, not a measured population average. The logarithmic axis extends to include values outside the range, with a thinner line beyond the marked boundaries.</p><p id="radius-typical-method"></p><a id="radius-typical-source" target="_blank" rel="noreferrer" hidden></a><p>Based on catalog radii, which may be measured, estimated, or model-derived. Area and volume are derived, not independent measurements.</p><p>Stars are represented as spheres using their catalog radii. Diameter = 2 × radius; surface area = 4πr²; volume = 4πr³/3. These derived values inherit the catalog radius’s uncertainty; extra digits do not imply extra accuracy. Stellar surface detail, shine, and temperature-based colors are illustrative. Cool dwarfs are brightened for visibility, although much of their radiation is infrared.</p><p>R☉ = 695,700 km. R♃ = 71,492 km and R⊕ = 6,378.1 km (equatorial radii). Jupiter and Earth are oblate spheroids with polar radii 66,854 km and 6,356.8 km; their area and volume account for this flattening.</p><p>Jupiter uses a Hubble photographic map with the Great Red Spot facing the viewer; the unobserved small polar caps extend the map’s nearest observed row. Earth uses NASA’s Blue Marble satellite mosaic with its historical cloud composite. Planetary shading adds illustrative daylight and grazing-angle atmospheric haze. These views show recognizable features, not the current rotation or illumination.</p><a href="https://arxiv.org/abs/1510.07674" target="_blank" rel="noreferrer">IAU nominal conversion constants ↗</a><p class="radius-image-credit">Jupiter: <a href="https://science.nasa.gov/asset/hubble/jupiter-global-map-2019/" target="_blank" rel="noreferrer">NASA, ESA, A. Simon &amp; M.H. Wong ↗</a><br />Earth: <a href="https://svs.gsfc.nasa.gov/2915/" target="_blank" rel="noreferrer">NASA/GSFC Scientific Visualization Studio ↗</a> · <a href="https://science.nasa.gov/blogs/earth-matters/2011/10/06/crafting-the-blue-marble/" target="_blank" rel="noreferrer">Blue Marble clouds: Reto Stöckli &amp; Robert Simmon ↗</a></p></details>
               </div>
             </section>
             <section id="distance-card" class="dock-card object-type-card distance-card" aria-labelledby="distance-heading" data-scene-obstacle hidden>
@@ -287,6 +286,34 @@
               <figure class="distance-figure card-scroll-content">
                 <canvas id="distance-comparison" role="img" aria-label="Distance and direction comparison"></canvas>
               </figure>
+            </section>
+            <section id="planet-card" class="dock-card object-type-card planet-card" aria-labelledby="planet-name" data-scene-obstacle hidden>
+              <div class="panel-heading planet-heading">
+                <h2><span id="planet-icon" class="planet-icon" aria-hidden="true"></span><span id="planet-name"></span></h2>
+                <div class="planet-section-buttons" role="group" aria-label="Planet details">
+                  <button id="planet-specs-toggle" class="panel-lock planet-section-button" type="button" aria-label="Specs" title="Specs" aria-controls="planet-specs" aria-expanded="true"><span id="planet-specs-icon"></span></button>
+                  <button id="planet-info-toggle" class="panel-lock planet-section-button" type="button" aria-label="Info" title="Info" aria-controls="planet-info" aria-expanded="false" disabled><span id="planet-info-icon"></span></button>
+                  <button id="planet-moons-toggle" class="panel-lock planet-section-button" type="button" aria-label="Moons" title="Moons" aria-controls="planet-moons" aria-expanded="false" disabled hidden><span id="planet-moons-icon"></span></button>
+                  <button id="planet-orbit-toggle" class="panel-lock planet-section-button" type="button" aria-label="Orbit" title="Orbit" aria-controls="planet-orbit" aria-expanded="false" disabled><span id="planet-orbit-icon"></span></button>
+                </div>
+                <button id="planet-lock" class="panel-lock" type="button" aria-label="Keep planet card open" aria-pressed="false"><span id="planet-lock-icon"></span></button>
+              </div>
+              <div class="card-scroll-content planet-card-body">
+                <div id="planet-specs">
+                  <div class="planet-globe-frame"><canvas id="planet-globe" role="img" tabindex="0" aria-label="Planet globe. Drag or use arrow keys to rotate."></canvas></div>
+                  <section aria-labelledby="planet-physical-heading">
+                    <h3 id="planet-physical-heading" class="card-subgroup-heading">Physical characteristics</h3>
+                    <dl id="planet-physical-specs" class="properties planet-properties"></dl>
+                  </section>
+                  <section aria-labelledby="planet-atmosphere-heading">
+                    <h3 id="planet-atmosphere-heading" class="card-subgroup-heading">Atmosphere</h3>
+                    <dl id="planet-atmosphere-specs" class="properties planet-properties"></dl>
+                  </section>
+                </div>
+                <section id="planet-info" aria-label="Planet information" hidden></section>
+                <section id="planet-moons" hidden></section>
+                <section id="planet-orbit" hidden></section>
+              </div>
             </section>
             <div class="scene-toolbar" role="group" aria-label="Map view controls" data-scene-obstacle>
               <div class="camera-view-controls" role="group" aria-label="Camera views">
@@ -320,8 +347,8 @@
               <p id="saved-views-empty" class="saved-views-empty">No saved views yet.</p>
               <div id="saved-views-table-wrap" class="saved-views-table-wrap" hidden>
                 <table class="saved-views-table">
-                  <colgroup><col class="saved-view-name-column"><col class="saved-view-origin-column"><col class="saved-view-date-column"><col class="saved-view-action-column"></colgroup>
-                  <thead><tr><th scope="col">Name</th><th scope="col">Origin</th><th scope="col">Date saved</th><th scope="col"><span class="sr-only">Delete</span></th></tr></thead>
+                  <colgroup><col class="saved-view-name-column"><col class="saved-view-origin-column"></colgroup>
+                  <thead><tr><th scope="col">Name</th><th scope="col">Origin</th></tr></thead>
                   <tbody id="saved-views-list"></tbody>
                 </table>
               </div>
@@ -496,6 +523,9 @@
         </section>
       </main>
       <p id="selection-announcement" class="sr-only" aria-live="polite" aria-atomic="true"></p>
+    </div>
+    <div id="saved-view-context-menu" class="saved-view-context-menu" role="menu" aria-label="Saved view actions" hidden>
+      <button id="saved-view-context-delete" class="saved-view-context-delete" type="button" role="menuitem" tabindex="-1"></button>
     </div>
     <noscript>This nearby-object viewer requires JavaScript.</noscript>
     <script type="module" src="/src/main.ts"></script>
