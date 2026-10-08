@@ -20,6 +20,7 @@ from catalog_sources.adapters import eligible_gaia_physical, read_gaia_tap, read
 from catalog_sources.metallicity import metallicity_kind
 from catalog_sources.solar import adopt_solar_reference, solar_provenance
 from catalog_sources.enrichment import enrich_from_frozen, enrichment_sources, manifest_sha256
+from catalog_sources.shared_objects import adopt_shared_object
 from catalog_sources.filesystem import atomic_write_text, safe_output_directory, write_managed_files
 from catalog_sources.mdwarf import SUPPLEMENT_FIELDS, enrich_curated_row, format_value, load_supplements
 
@@ -468,6 +469,7 @@ def adopt_object(source, frozen, system_counts, supplements, gaia_records, revie
     if source["Seq"] == "1001":
         provenance["identifiers"]["GaiaEDR3"] = "6305165514134625024"
         provenance["overrides"].append("Gaia identifier recovered from explicit source ObjName, not from a numeric conversion or positional guess.")
+    adopt_shared_object(row, provenance)
     return row, provenance
 
 
@@ -634,6 +636,7 @@ def default_catalog(write=False):
             enrich_from_frozen(output)
             if adopted:
                 supplemented[row["id"]] = sorted(adopted)
+        adopt_shared_object(output)
         enriched.append(output)
     generated = io.StringIO(newline="")
     writer = csv.DictWriter(generated, fieldnames=OUTPUT_HEADERS, lineterminator="\n")

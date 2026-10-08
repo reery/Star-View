@@ -50,7 +50,7 @@
                             <div id="known-planets-row"><dt>Known planets</dt><dd><button id="known-planets" class="object-type-toggle" type="button" aria-controls="object-system"></button></dd></div>
                             <div id="object-subtypes-row"><dt>Sub-type</dt><dd id="object-subtypes"></dd></div>
                             <div id="constellation-row"><dt>Constellation</dt><dd id="constellation"></dd></div>
-                            <div class="stellar-property"><dt>Spectral type</dt><dd id="spectral-type"></dd></div>
+                            <div class="stellar-property spectral-row"><dt>Spectral type</dt><dd><button id="spectral-toggle" class="object-type-toggle" type="button" aria-controls="spectral-card" aria-expanded="false"><span id="spectral-type"></span></button></dd></div>
                             <div class="stellar-property"><dt>Temperature</dt><dd id="temperature"></dd></div>
                             <div id="luminosity-row" class="stellar-property"><dt>Bolometric luminosity</dt><dd id="luminosity"></dd></div>
                             <div id="mass-row" class="mass-row"><dt>Mass</dt><dd><button id="mass-toggle" class="object-type-toggle" type="button" aria-controls="mass-card" aria-expanded="false"><span id="mass"></span></button></dd></div>
@@ -156,7 +156,7 @@
               <div class="panel-heading mass-heading">
                 <h2 id="mass-heading">Mass</h2>
                 <div class="distance-reference-buttons" role="group" aria-label="Mass comparison reference">
-                  <button id="mass-reference-class" class="object-section-button distance-reference-button" type="button" aria-pressed="true">vs Class</button>
+                  <button id="mass-reference-class" class="object-section-button distance-reference-button" type="button" aria-pressed="true">vs spectral type</button>
                   <button id="mass-reference-origin" class="object-section-button distance-reference-button" type="button" aria-pressed="false" hidden>vs Sun</button>
                   <button id="mass-reference-sun" class="object-section-button distance-reference-button" type="button" aria-pressed="false">vs Sun</button>
                 </div>
@@ -230,6 +230,74 @@
                   <p id="mass-end-state-comment" class="mass-note"></p>
                 </section>
                 <details class="mass-method"><summary>Calculations &amp; sources</summary><p id="mass-class-method"></p><a id="mass-class-source" target="_blank" rel="noreferrer" hidden></a><p>Derived from catalog values, which may be measured or model-derived. Gravity = GM/r²; escape speed = √(2GM/r); mean density = 3M/(4πr³). These spherical Newtonian estimates omit rotation, radiation pressure, and relativity. Extra digits do not imply extra accuracy.</p><p>Solar reference: GM☉ = 1.3271244 × 10²⁰ m³/s²; R☉ = 695,700 km. Mass in kg uses G = 6.67430 × 10⁻¹¹ m³/(kg s²). Earth gravity reference = 9.80665 m/s²; Earth surface escape speed = 11.186 km/s. Water density is approximately 1 g/cm³. Evolution describes broad single-star trends, not an individual prediction.</p><a href="https://arxiv.org/abs/1510.07674" target="_blank" rel="noreferrer">IAU conversion constants ↗</a> · <a href="https://physics.nist.gov/cuu/Constants/Table/allascii.txt" target="_blank" rel="noreferrer">Gravitational constant ↗</a> · <a href="https://science.nasa.gov/universe/stars/types/" target="_blank" rel="noreferrer">NASA: stellar evolution ↗</a> · <a href="https://nssdc.gsfc.nasa.gov/planetary/factsheet/earthfact.html" target="_blank" rel="noreferrer">NASA: Earth references ↗</a></details>
+              </div>
+            </section>
+            <section id="spectral-card" class="dock-card object-type-card spectral-card" aria-labelledby="spectral-heading" data-scene-obstacle hidden>
+              <div class="panel-heading spectral-heading">
+                <h2 id="spectral-heading">Spectral type</h2>
+                <div class="distance-reference-buttons" role="group" aria-label="Spectral type diagram">
+                  <button id="spectral-hr" class="object-section-button distance-reference-button" type="button" aria-pressed="true" aria-controls="spectral-hr-content">H-R</button>
+                  <button id="spectral-mk" class="object-section-button distance-reference-button" type="button" aria-pressed="false" aria-controls="spectral-mk-content">M-K</button>
+                </div>
+                <button id="spectral-close" class="panel-lock" type="button" aria-label="Close spectral type card"><span id="spectral-close-icon"></span></button>
+              </div>
+              <div class="spectral-body card-scroll-content">
+                <div id="spectral-hr-content">
+                  <div class="spectral-magnitude-buttons radius-reference-buttons" role="group" aria-label="Absolute magnitude scale">
+                    <button id="spectral-visual" class="object-section-button radius-reference-button" type="button" aria-pressed="true" title="Johnson V magnitude: visible light">Visual · Mᵥ</button>
+                    <button id="spectral-bolometric" class="object-section-button radius-reference-button" type="button" aria-pressed="false" title="Bolometric magnitude: total light, including infrared">Bolometric · Mbol</button>
+                  </div>
+                  <figure class="spectral-figure">
+                    <div id="hr-diagram"></div>
+                  </figure>
+                  <div class="spectral-readout">
+                    <p id="spectral-missing" class="radius-note" hidden></p>
+                    <table class="radius-stats spectral-stats" aria-label="H–R diagram coordinates">
+                      <thead><tr><th scope="col"></th><th id="spectral-selected-name" scope="col"></th><th id="spectral-reference-name" scope="col"></th></tr></thead>
+                      <tbody>
+                        <tr><th scope="row">Spectral type</th><td id="spectral-selected-type"></td><td id="spectral-reference-type"></td></tr>
+                        <tr><th scope="row">Temperature</th><td id="spectral-selected-temperature"></td><td id="spectral-reference-temperature"></td></tr>
+                        <tr><th id="spectral-magnitude-label" scope="row">Abs. mag. (V)</th><td id="spectral-selected-magnitude"></td><td id="spectral-reference-magnitude"></td></tr>
+                      </tbody>
+                    </table>
+                    <details class="radius-method spectral-method">
+                      <summary>About this diagram</summary>
+                      <p>Temperature decreases to the right on a logarithmic scale. Lower magnitudes are brighter. The spectral letters are approximate temperature guides for dwarfs; giants and white dwarfs have different spectral calibrations.</p>
+                      <p>Visual uses the catalog’s Johnson V magnitude. Bolometric uses total luminosity: Mbol = 4.74 − 2.5 log₁₀(L/L☉). Missing values are not inferred. Regions are schematic guides, not classification boundaries; L, T and Y extend into cool substellar objects.</p>
+                      <p>The blue-to-red background is a temperature guide; the coolest objects emit mainly infrared light. Positions use adopted catalog values, which may be measured, model-derived or estimated.</p>
+                      <a href="https://www.esa.int/ESA_Multimedia/Images/2004/10/A_Hertzsprung-Russell_diagram" target="_blank" rel="noreferrer">H–R diagrams: ESA ↗</a><br>
+                      <a href="https://www.pas.rochester.edu/~emamajek/EEM_dwarf_UBVIJHK_colors_Teff.txt" target="_blank" rel="noreferrer">Dwarf sequence: Pecaut &amp; Mamajek ↗</a><br>
+                      <a href="https://arxiv.org/abs/1510.06262" target="_blank" rel="noreferrer">Bolometric scale: IAU 2015 B2 ↗</a>
+                    </details>
+                  </div>
+                </div>
+                <div id="spectral-mk-content" hidden>
+                  <figure class="spectral-figure"><div id="mk-diagram"></div></figure>
+                  <div class="spectral-readout">
+                    <p id="mk-missing" class="radius-note" hidden></p>
+                    <table class="radius-stats spectral-stats mk-stats" aria-label="M-K diagram classifications">
+                      <thead><tr><th scope="col"></th><th id="mk-selected-name" scope="col"></th><th id="mk-reference-name" scope="col"></th></tr></thead>
+                      <tbody>
+                        <tr><th scope="row">Spectral type</th><td id="mk-selected-type"></td><td id="mk-reference-type"></td></tr>
+                        <tr><th scope="row">Luminosity class</th><td id="mk-selected-class"></td><td id="mk-reference-class"></td></tr>
+                      </tbody>
+                    </table>
+                    <section class="degenerate-classification" aria-labelledby="degenerate-heading">
+                      <h3 id="degenerate-heading">Degenerate stars</h3>
+                      <p class="degenerate-kind">White dwarfs</p>
+                      <div id="white-dwarf-families" class="white-dwarf-families" role="list" aria-label="White dwarf spectral families"></div>
+                      <div id="white-dwarf-stars" class="white-dwarf-stars"></div>
+                    </section>
+                    <details class="radius-method spectral-method">
+                      <summary>About this diagram</summary>
+                      <p>M-K (Morgan–Keenan) places the catalog’s spectral subtype against its luminosity class. The classes describe spectral features associated with stellar surface gravity; they are not equal steps in absolute magnitude.</p>
+                      <p>Only explicit O–M subtypes and luminosity classes are plotted. Intermediate classes are shown between rows. Missing classes are not inferred from temperature or brightness. White dwarfs and L, T and Y dwarfs use separate classification schemes.</p>
+                      <p>The white-dwarf D classification uses spectral features rather than an M-K luminosity class. Additional letters are retained in the catalog label; a number, as in DA2, is a temperature index.</p>
+                      <a href="https://ned.ipac.caltech.edu/level5/March02/Morgan/Morgan1.html" target="_blank" rel="noreferrer">M-K classification: Morgan, Abt &amp; Tapscott ↗</a>
+                      <a href="https://heasarc.gsfc.nasa.gov/W3Browse/all/mcksion.html" target="_blank" rel="noreferrer">White-dwarf classification: McCook–Sion ↗</a>
+                    </details>
+                  </div>
+                </div>
               </div>
             </section>
             <section id="radius-card" class="dock-card object-type-card radius-card" aria-labelledby="radius-heading" data-scene-obstacle hidden>

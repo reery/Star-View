@@ -1,5 +1,6 @@
 import './style.css'
-import { ArrowLeft, ArrowRight, BookOpen, ChevronsLeftRight, ChevronsRightLeft, CircleHelp, Clock, Crosshair, Earth, Eye, Filter, Focus, Grid2X2, List, Lock, Minus, Moon, Orbit, Pause, Play, Plus, RotateCcw, RotateCw, Save, Search, Settings2, Star as StarIcon, X, createElement, type IconNode } from 'lucide'
+import { ArrowLeft, ArrowRight, BookOpen, ChevronsLeftRight, ChevronsRightLeft, CircleHelp, Clock, Crosshair, Earth, Eye, Filter, Focus, Grid2X2, List, Lock, Minus, Moon, Orbit, Pause, Play, Plus, RotateCcw, RotateCw, Save, Search, Settings2, X, createElement, type IconNode } from 'lucide'
+import { OriginIcon } from './origin-icon'
 import { BUBBLE_OBJECT_TYPES, COMPACT_OBJECT_TYPES, describeObject, isBubbleObject, isCompactObject, isMolecularCloudObject, isNebulaObject, MOLECULAR_CLOUD_OBJECT_TYPES, NEBULA_OBJECT_TYPES, type Star } from './catalog-model'
 import { catalogSelection, mergeCatalogStars } from './catalog-runtime'
 import { objectDesignations } from './designations'
@@ -17,6 +18,9 @@ import { disposeDistanceComparison, renderDistanceComparison } from './distance-
 import { renderMassCardContent } from './mass-card'
 import { type MassReference } from './mass-comparison'
 import { renderRadiusBars } from './radius-card'
+import { hrCardAvailable, hrMagnitude, renderHrDiagram, type HrMagnitudeMode } from './hr-diagram'
+import { renderMkDiagram } from './mk-diagram'
+import { spectralReference } from './spectral-chart'
 import { massCardAvailable } from './mass-properties'
 import { radiusComparison, radiusStats, radiusSummary, renderRadiusComparison, type RadiusReference } from './radius-comparison'
 import { indexStarSystems, type StarSystem } from './star-systems'
@@ -84,7 +88,7 @@ icon('views-icon', Save)
 icon('save-view-icon', Save)
 icon('selection-back-icon', ArrowLeft)
 icon('selection-forward-icon', ArrowRight)
-icon('set-origin-icon', StarIcon)
+icon('set-origin-icon', OriginIcon)
 icon('go-to-origin-icon', Crosshair)
 icon('observer-view-icon', Eye)
 icon('observer-roll-counterclockwise-icon', RotateCcw)
@@ -107,6 +111,7 @@ icon('motion-lock-icon', Lock)
 icon('object-type-close-icon', X)
 icon('metallicity-close-icon', X)
 icon('radius-close-icon', X)
+icon('spectral-close-icon', X)
 icon('mass-close-icon', X)
 icon('distance-close-icon', X)
 icon('distance-lock-icon', Lock)
@@ -427,6 +432,52 @@ function closeMassCard(restoreFocus = false): void {
   if (restoreFocus) element('mass-toggle').focus()
 }
 
+function closeSpectralCard(restoreFocus = false): void {
+  const card = element('spectral-card')
+  if (card.hidden) return
+  card.hidden = true
+  element('spectral-toggle').setAttribute('aria-expanded', 'false')
+  if (restoreFocus) element('spectral-toggle').focus()
+}
+
+let spectralMagnitudeMode: HrMagnitudeMode | null = null
+let spectralDiagram: 'hr' | 'mk' = 'hr'
+
+function renderSpectralCard(star: Star): void {
+  const sun = stars.find((candidate) => candidate.id === 'sun')!
+  const origin = stars.find((candidate) => candidate.id === referenceId) ?? sun
+  const reference = spectralReference(origin, sun)
+  for (const diagram of ['hr', 'mk'] as const) {
+    element(`spectral-${diagram}`).setAttribute('aria-pressed', String(spectralDiagram === diagram))
+    element(`spectral-${diagram}-content`).hidden = spectralDiagram !== diagram
+  }
+  if (spectralDiagram === 'hr') {
+    const mode = spectralMagnitudeMode ?? (hrMagnitude(star, 'visual') === null && hrMagnitude(star, 'bolometric') !== null ? 'bolometric' : 'visual')
+    renderHrDiagram(element('spectral-card'), star, reference, mode)
+  } else renderMkDiagram(element('spectral-card'), star, reference)
+  syncObjectTypeLayout()
+}
+
+function toggleSpectralCard(): void {
+  if (!element('spectral-card').hidden) {
+    closeSpectralCard(true)
+    return
+  }
+  const star = stars.find((candidate) => candidate.id === selectedId)
+  if (!star || !hrCardAvailable(star)) return
+  closePlanetCard()
+  closeObjectTypeCard()
+  closeMetallicityCard()
+  closeRadiusCard()
+  closeMassCard()
+  closeDistanceCard()
+  element('spectral-card').hidden = false
+  element('spectral-toggle').setAttribute('aria-expanded', 'true')
+  renderSpectralCard(star)
+  element('spectral-card').querySelector<HTMLElement>('.card-scroll-content')!.scrollTop = 0
+  element('spectral-close').focus({ preventScroll: true })
+}
+
 let activePlanetId: string | null = null
 let planetCardLocked = false
 const planetSections = ['specs', 'info', 'moons'] as const
@@ -474,6 +525,7 @@ function selectSystemPlanet(planetId: string): void {
   closeMassCard()
   closeDistanceCard()
   activePlanetId = planetId
+  closeSpectralCard()
   renderPlanetCard(element('planet-card'), description)
   element('planet-card').hidden = false
   highlightSystemPlanet(system, planetId, planetId)
@@ -509,6 +561,7 @@ function toggleMassCard(): void {
   closeMetallicityCard()
   closeRadiusCard()
   closeDistanceCard()
+  closeSpectralCard()
   element('mass-card').hidden = false
   element('mass-toggle').setAttribute('aria-expanded', 'true')
   renderMassCard(star)
@@ -564,6 +617,7 @@ function toggleDistanceCard(): void {
   closeMetallicityCard()
   closeRadiusCard()
   closeMassCard()
+  closeSpectralCard()
   element('distance-card').hidden = false
   element('distance-toggle').setAttribute('aria-expanded', 'true')
   renderDistanceCard(star)
@@ -617,6 +671,7 @@ function toggleRadiusCard(): void {
   closeMetallicityCard()
   closeDistanceCard()
   closeMassCard()
+  closeSpectralCard()
   element('radius-card').hidden = false
   element('radius-toggle').setAttribute('aria-expanded', 'true')
   renderRadiusCard(star)
@@ -709,6 +764,7 @@ function toggleMetallicityCard(): void {
   closeRadiusCard()
   closeMassCard()
   closeDistanceCard()
+  closeSpectralCard()
   element('metallicity-card').hidden = false
   element('metallicity-toggle').setAttribute('aria-expanded', 'true')
   renderMetallicityCard(star)
@@ -745,6 +801,7 @@ function toggleObjectTypeCard(): void {
   closeRadiusCard()
   closeMassCard()
   closeDistanceCard()
+  closeSpectralCard()
   element('object-type-card').hidden = false
   element('object-type-toggle').setAttribute('aria-expanded', 'true')
   renderObjectTypeCard(star)
@@ -753,7 +810,7 @@ function toggleObjectTypeCard(): void {
 
 function syncObjectTypeLayout(): void {
   const motion = element('motion-panel')
-  for (const id of ['object-type-card', 'metallicity-card', 'radius-card', 'mass-card', 'distance-card', 'planet-card']) {
+  for (const id of ['object-type-card', 'metallicity-card', 'radius-card', 'spectral-card', 'mass-card', 'distance-card', 'planet-card']) {
     const card = element(id)
     card.style.removeProperty('max-height')
     if (card.hidden || motion.hidden) continue
@@ -809,6 +866,7 @@ function dismissOpenPanel(): void {
   closeObjectTypeCard()
   closeMetallicityCard()
   closeRadiusCard()
+  closeSpectralCard()
   closeMassCard()
   if (!distanceCardLocked) closeDistanceCard()
   if (!planetCardLocked) closePlanetCard()
@@ -968,6 +1026,7 @@ for (const section of objectSections) {
       closeObjectTypeCard()
       closeMetallicityCard()
       closeRadiusCard()
+      closeSpectralCard()
       closeMassCard()
       closeDistanceCard()
     }
@@ -981,6 +1040,7 @@ element('known-planets-row').addEventListener('click', () => {
   closeObjectTypeCard()
   closeMetallicityCard()
   closeRadiusCard()
+  closeSpectralCard()
   closeMassCard()
   closeDistanceCard()
   syncObjectSections()
@@ -1048,6 +1108,7 @@ function renderSelection(): void {
     closeRadiusCard()
     closeMassCard()
     closeDistanceCard()
+    closeSpectralCard()
     delete element('inspector').dataset.selectedStar
     element('inspector').style.removeProperty('--selected-star-color')
     text('selection-announcement', 'No object selected.')
@@ -1104,6 +1165,9 @@ function renderSelection(): void {
   for (const row of document.querySelectorAll<HTMLElement>('.rotation-property')) row.hidden = star.type === 'black_hole' || !compactObject
   for (const row of document.querySelectorAll<HTMLElement>('.orbit-property')) row.hidden = !compact || (compact.orbital_period_days === null && compact.companion === null)
   text('spectral-type', star.spectral_type ?? 'Not available')
+  element('spectral-toggle').setAttribute('aria-label', `Explore spectral type of ${star.name}`)
+  if (!hrCardAvailable(star)) closeSpectralCard()
+  else if (!element('spectral-card').hidden) renderSpectralCard(star)
   text('temperature', quantity(star.temperature_k, 'K', 0))
   const luminosity = star.luminosity_solar
   text('luminosity', luminosity !== null && luminosity < 1 ? `${luminosity.toLocaleString('en-US', { maximumSignificantDigits: 3 })} solar` : quantity(luminosity, 'solar'))
@@ -2028,6 +2092,10 @@ document.addEventListener('keydown', (event) => {
     closeRadiusCard(true)
     return
   }
+  if (!element('spectral-card').hidden) {
+    closeSpectralCard(true)
+    return
+  }
   if (!element('metallicity-card').hidden) {
     closeMetallicityCard(true)
     return
@@ -2076,6 +2144,23 @@ for (const mode of ['class', 'origin', 'sun'] as const) {
 }
 document.querySelector('.radius-row')!.addEventListener('click', toggleRadiusCard, { signal: events.signal })
 element('radius-close').addEventListener('click', () => closeRadiusCard(true), { signal: events.signal })
+document.querySelector('.spectral-row')!.addEventListener('click', toggleSpectralCard, { signal: events.signal })
+element('spectral-close').addEventListener('click', () => closeSpectralCard(true), { signal: events.signal })
+for (const diagram of ['hr', 'mk'] as const) {
+  element(`spectral-${diagram}`).addEventListener('click', () => {
+    spectralDiagram = diagram
+    const star = stars.find((candidate) => candidate.id === selectedId)
+    if (star && !element('spectral-card').hidden) renderSpectralCard(star)
+    element('spectral-card').querySelector<HTMLElement>('.card-scroll-content')!.scrollTop = 0
+  }, { signal: events.signal })
+}
+for (const mode of ['visual', 'bolometric'] as const) {
+  element(`spectral-${mode}`).addEventListener('click', () => {
+    spectralMagnitudeMode = mode
+    const star = stars.find((candidate) => candidate.id === selectedId)
+    if (star && !element('spectral-card').hidden) renderSpectralCard(star)
+  }, { signal: events.signal })
+}
 for (const mode of ['origin', 'jupiter', 'earth'] as const) {
   element(`radius-reference-${mode}`).addEventListener('click', () => {
     radiusReference = mode

@@ -930,7 +930,7 @@
     },
     {
       "cns5Id": null,
-      "distancePc": 1.331895112021213,
+      "distancePc": 1.3318951120212132,
       "distanceSigmaPcLinearized": null,
       "id": "alpha-centauri-a",
       "rank": 3,
@@ -939,7 +939,7 @@
     },
     {
       "cns5Id": null,
-      "distancePc": 1.8282340375572819,
+      "distancePc": 1.8282340375572816,
       "distanceSigmaPcLinearized": null,
       "id": "barnards-star",
       "rank": 4,
@@ -1245,7 +1245,7 @@
     },
     {
       "cns5Id": null,
-      "distancePc": 3.8305411470937454,
+      "distancePc": 3.830541147093746,
       "distanceSigmaPcLinearized": null,
       "id": "10pc-0056",
       "rank": 38,
@@ -1587,7 +1587,7 @@
     },
     {
       "cns5Id": null,
-      "distancePc": 5.014461340183529,
+      "distancePc": 5.01446134018353,
       "distanceSigmaPcLinearized": null,
       "id": "10pc-0111",
       "rank": 76,
@@ -10736,9 +10736,9 @@
     "age_gyr": 90,
     "constellation": 1036,
     "luminosity_solar": 613,
-    "mass_solar": 602,
+    "mass_solar": 604,
     "metallicity_dex": 612,
-    "radial_velocity_kms": 685,
+    "radial_velocity_kms": 696,
     "radius_solar": 634,
     "spectral_type": 976,
     "temperature_k": 872
@@ -10834,6 +10834,72 @@
     },
     {
       "id": "alpha-centauri-a",
+      "sharedObjectAdoption": {
+        "fields": [
+          "absolute_mag",
+          "vx_kms",
+          "pm_dec_error_masyr",
+          "pm_ra_cosdec_masyr",
+          "pm_ra_error_masyr",
+          "vy_kms",
+          "x_pc",
+          "dec_deg",
+          "pm_dec_masyr",
+          "radial_velocity_ref",
+          "z_pc",
+          "parallax_mas",
+          "vz_kms",
+          "astrometry_epoch",
+          "ra_deg",
+          "parallax_error_mas",
+          "y_pc",
+          "radial_velocity_kms",
+          "radial_velocity_error_kms",
+          "astrometry_ref",
+          "epoch",
+          "constellation"
+        ],
+        "recordId": "* alf Cen A",
+        "reviewSha256": "13b3b09260b2c461f96a27d5d13ed7dbe7975025168a9d2b93a6aaf479ac962f",
+        "scope": "Reviewed catalog object/component alpha-centauri-a; aliases only, distinct companions remain separate.",
+        "sourceEvidence": "Original measurements and catalog-specific provenance are retained; the shared adopted record supersedes them for these fields.",
+        "sourceSelections": {
+          "astrometryAndMotion": {
+            "decision": "Retain the curated nearest-catalog coordinate/motion bundle where available; otherwise use the later Western snapshot. For the eleven reviewed stellar objects with missing CNS5 RV but an existing adopted SIMBAD RV, use the complete Western position/motion bundle to retain full-space motion. Spectroscopic binaries and composite Porrima retain the nearest-catalog RV withholding. Keep positions, velocities, reference epoch, raw measurements, uncertainties and bibliographies together. Withheld individual/system velocities remain withheld.",
+            "fields": [
+              "x_pc",
+              "y_pc",
+              "z_pc",
+              "vx_kms",
+              "vy_kms",
+              "vz_kms",
+              "epoch",
+              "constellation",
+              "ra_deg",
+              "dec_deg",
+              "astrometry_epoch",
+              "parallax_mas",
+              "parallax_error_mas",
+              "pm_ra_cosdec_masyr",
+              "pm_ra_error_masyr",
+              "pm_dec_masyr",
+              "pm_dec_error_masyr",
+              "radial_velocity_kms",
+              "radial_velocity_error_kms",
+              "astrometry_ref",
+              "radial_velocity_ref"
+            ],
+            "source": "nearest-100:alpha-centauri-a"
+          },
+          "photometry": {
+            "decision": "Use the component-resolved curated Johnson V/distance where available, otherwise the common selected astrometric snapshot; preserve the specifically reviewed Bright Star Catalogue V=0.76 for Acrux. No integrated system flux is assigned to a faint companion.",
+            "fields": [
+              "absolute_mag"
+            ],
+            "source": "nearest-100:alpha-centauri-a"
+          }
+        }
+      },
       "status": "higher-curation nearest-100 override"
     },
     {
@@ -10862,6 +10928,79 @@
     },
     {
       "id": "sirius-a",
+      "sharedObjectAdoption": {
+        "fields": [
+          "absolute_mag",
+          "vx_kms",
+          "pm_dec_error_masyr",
+          "radial_velocity_error_kms",
+          "vz_kms",
+          "pm_ra_error_masyr",
+          "radial_velocity_ref",
+          "x_pc",
+          "z_pc",
+          "vy_kms",
+          "ra_deg",
+          "dec_deg",
+          "y_pc",
+          "spectral_type",
+          "astrometry_ref",
+          "epoch",
+          "constellation",
+          "astrometry_epoch",
+          "parallax_mas",
+          "parallax_error_mas",
+          "pm_ra_cosdec_masyr",
+          "pm_dec_masyr",
+          "radial_velocity_kms"
+        ],
+        "recordId": "* alf CMa",
+        "reviewSha256": "13b3b09260b2c461f96a27d5d13ed7dbe7975025168a9d2b93a6aaf479ac962f",
+        "scope": "Reviewed catalog object/component sirius-a; aliases only, distinct companions remain separate.",
+        "sourceEvidence": "Original measurements and catalog-specific provenance are retained; the shared adopted record supersedes them for these fields.",
+        "sourceSelections": {
+          "astrometryAndMotion": {
+            "decision": "Retain the curated nearest-catalog coordinate/motion bundle where available; otherwise use the later Western snapshot. For the eleven reviewed stellar objects with missing CNS5 RV but an existing adopted SIMBAD RV, use the complete Western position/motion bundle to retain full-space motion. Spectroscopic binaries and composite Porrima retain the nearest-catalog RV withholding. Keep positions, velocities, reference epoch, raw measurements, uncertainties and bibliographies together. Withheld individual/system velocities remain withheld.",
+            "fields": [
+              "x_pc",
+              "y_pc",
+              "z_pc",
+              "vx_kms",
+              "vy_kms",
+              "vz_kms",
+              "epoch",
+              "constellation",
+              "ra_deg",
+              "dec_deg",
+              "astrometry_epoch",
+              "parallax_mas",
+              "parallax_error_mas",
+              "pm_ra_cosdec_masyr",
+              "pm_ra_error_masyr",
+              "pm_dec_masyr",
+              "pm_dec_error_masyr",
+              "radial_velocity_kms",
+              "radial_velocity_error_kms",
+              "astrometry_ref",
+              "radial_velocity_ref"
+            ],
+            "source": "nearest-100:sirius-a"
+          },
+          "photometry": {
+            "decision": "Use the component-resolved curated Johnson V/distance where available, otherwise the common selected astrometric snapshot; preserve the specifically reviewed Bright Star Catalogue V=0.76 for Acrux. No integrated system flux is assigned to a faint companion.",
+            "fields": [
+              "absolute_mag"
+            ],
+            "source": "nearest-100:sirius-a"
+          },
+          "spectral": {
+            "decision": "Full classification of Sirius A, including metallic-line morphology; Sirius B is separate.",
+            "reference": "2003AJ....126.2048G",
+            "sourceUrl": "https://simbad.cds.unistra.fr/simbad/sim-basic?Ident=Sirius+A",
+            "value": "A0mA1Va"
+          }
+        }
+      },
       "status": "higher-curation nearest-100 override"
     },
     {
@@ -10886,6 +11025,92 @@
     },
     {
       "id": "epsilon-eridani",
+      "sharedObjectAdoption": {
+        "fields": [
+          "absolute_mag",
+          "vx_kms",
+          "pm_dec_error_masyr",
+          "pm_ra_cosdec_masyr",
+          "pm_ra_error_masyr",
+          "vy_kms",
+          "x_pc",
+          "dec_deg",
+          "pm_dec_masyr",
+          "radial_velocity_ref",
+          "z_pc",
+          "temperature_k",
+          "mass_solar",
+          "vz_kms",
+          "astrometry_epoch",
+          "ra_deg",
+          "y_pc",
+          "radial_velocity_error_kms",
+          "astrometry_ref",
+          "epoch",
+          "constellation",
+          "parallax_mas",
+          "parallax_error_mas",
+          "radial_velocity_kms",
+          "luminosity_solar",
+          "radius_solar",
+          "metallicity_dex",
+          "metallicity_kind",
+          "age_gyr"
+        ],
+        "recordId": "* eps Eri",
+        "reviewSha256": "13b3b09260b2c461f96a27d5d13ed7dbe7975025168a9d2b93a6aaf479ac962f",
+        "scope": "Reviewed catalog object/component epsilon-eridani; aliases only, distinct companions remain separate.",
+        "sourceEvidence": "Original measurements and catalog-specific provenance are retained; the shared adopted record supersedes them for these fields.",
+        "sourceSelections": {
+          "astrometryAndMotion": {
+            "decision": "Retain the curated nearest-catalog coordinate/motion bundle where available; otherwise use the later Western snapshot. For the eleven reviewed stellar objects with missing CNS5 RV but an existing adopted SIMBAD RV, use the complete Western position/motion bundle to retain full-space motion. Spectroscopic binaries and composite Porrima retain the nearest-catalog RV withholding. Keep positions, velocities, reference epoch, raw measurements, uncertainties and bibliographies together. Withheld individual/system velocities remain withheld.",
+            "fields": [
+              "x_pc",
+              "y_pc",
+              "z_pc",
+              "vx_kms",
+              "vy_kms",
+              "vz_kms",
+              "epoch",
+              "constellation",
+              "ra_deg",
+              "dec_deg",
+              "astrometry_epoch",
+              "parallax_mas",
+              "parallax_error_mas",
+              "pm_ra_cosdec_masyr",
+              "pm_ra_error_masyr",
+              "pm_dec_masyr",
+              "pm_dec_error_masyr",
+              "radial_velocity_kms",
+              "radial_velocity_error_kms",
+              "astrometry_ref",
+              "radial_velocity_ref"
+            ],
+            "source": "nearest-100:epsilon-eridani"
+          },
+          "photometry": {
+            "decision": "Use the component-resolved curated Johnson V/distance where available, otherwise the common selected astrometric snapshot; preserve the specifically reviewed Bright Star Catalogue V=0.76 for Acrux. No integrated system flux is assigned to a faint companion.",
+            "fields": [
+              "absolute_mag"
+            ],
+            "source": "nearest-100:epsilon-eridani"
+          },
+          "physical": {
+            "decision": "Adopt the exact-ID Gaia DR3 model temperature and mass already used by the constellation catalog instead of legacy class estimates; retain the existing Gaia model radius, luminosity, abundance and age.",
+            "fields": [
+              "temperature_k",
+              "mass_solar",
+              "luminosity_solar",
+              "radius_solar",
+              "metallicity_dex",
+              "metallicity_kind",
+              "age_gyr"
+            ],
+            "source": "western-constellation-stars:hip-16537"
+          }
+        }
+      },
       "status": "higher-curation nearest-100 override"
     },
     {
@@ -10922,6 +11147,99 @@
     },
     {
       "id": "10pc-0031",
+      "sharedObjectAdoption": {
+        "fields": [
+          "absolute_mag",
+          "vx_kms",
+          "pm_dec_error_masyr",
+          "radial_velocity_error_kms",
+          "vz_kms",
+          "pm_ra_error_masyr",
+          "radial_velocity_ref",
+          "x_pc",
+          "z_pc",
+          "vy_kms",
+          "ra_deg",
+          "dec_deg",
+          "y_pc",
+          "spectral_type",
+          "astrometry_ref",
+          "radial_velocity_kms",
+          "luminosity_solar",
+          "epoch",
+          "constellation",
+          "astrometry_epoch",
+          "parallax_mas",
+          "parallax_error_mas",
+          "pm_ra_cosdec_masyr",
+          "pm_dec_masyr",
+          "temperature_k",
+          "mass_solar",
+          "radius_solar",
+          "metallicity_dex",
+          "metallicity_kind",
+          "age_gyr"
+        ],
+        "recordId": "* alf CMi",
+        "reviewSha256": "13b3b09260b2c461f96a27d5d13ed7dbe7975025168a9d2b93a6aaf479ac962f",
+        "scope": "Reviewed catalog object/component 10pc-0031; aliases only, distinct companions remain separate.",
+        "sourceEvidence": "Original measurements and catalog-specific provenance are retained; the shared adopted record supersedes them for these fields.",
+        "sourceSelections": {
+          "astrometryAndMotion": {
+            "decision": "Retain the curated nearest-catalog coordinate/motion bundle where available; otherwise use the later Western snapshot. For the eleven reviewed stellar objects with missing CNS5 RV but an existing adopted SIMBAD RV, use the complete Western position/motion bundle to retain full-space motion. Spectroscopic binaries and composite Porrima retain the nearest-catalog RV withholding. Keep positions, velocities, reference epoch, raw measurements, uncertainties and bibliographies together. Withheld individual/system velocities remain withheld.",
+            "fields": [
+              "x_pc",
+              "y_pc",
+              "z_pc",
+              "vx_kms",
+              "vy_kms",
+              "vz_kms",
+              "epoch",
+              "constellation",
+              "ra_deg",
+              "dec_deg",
+              "astrometry_epoch",
+              "parallax_mas",
+              "parallax_error_mas",
+              "pm_ra_cosdec_masyr",
+              "pm_ra_error_masyr",
+              "pm_dec_masyr",
+              "pm_dec_error_masyr",
+              "radial_velocity_kms",
+              "radial_velocity_error_kms",
+              "astrometry_ref",
+              "radial_velocity_ref"
+            ],
+            "source": "nearest-100:10pc-0031"
+          },
+          "photometry": {
+            "decision": "Use the component-resolved curated Johnson V/distance where available, otherwise the common selected astrometric snapshot; preserve the specifically reviewed Bright Star Catalogue V=0.76 for Acrux. No integrated system flux is assigned to a faint companion.",
+            "fields": [
+              "absolute_mag"
+            ],
+            "source": "nearest-100:10pc-0031"
+          },
+          "physical": {
+            "decision": "Preserve the existing reviewed component-scoped physical parameters and their published/derived provenance.",
+            "fields": [
+              "temperature_k",
+              "mass_solar",
+              "luminosity_solar",
+              "radius_solar",
+              "metallicity_dex",
+              "metallicity_kind",
+              "age_gyr"
+            ],
+            "source": "nearest-100:10pc-0031"
+          },
+          "spectral": {
+            "decision": "Primary-only Procyon A classification; the composite F5IV-V+DQZ spectrum is not appropriate for a component A row.",
+            "reference": "2004A&A...413..251K",
+            "sourceUrl": "https://arxiv.org/abs/astro-ph/0309148",
+            "value": "F5IV-V"
+          }
+        }
+      },
       "status": "higher-curation nearest-100 override"
     },
     {
@@ -10950,6 +11268,79 @@
     },
     {
       "id": "10pc-0044",
+      "sharedObjectAdoption": {
+        "fields": [
+          "absolute_mag",
+          "vx_kms",
+          "pm_dec_error_masyr",
+          "pm_ra_cosdec_masyr",
+          "radial_velocity_error_kms",
+          "vz_kms",
+          "pm_ra_error_masyr",
+          "astrometry_epoch",
+          "radial_velocity_ref",
+          "x_pc",
+          "z_pc",
+          "vy_kms",
+          "ra_deg",
+          "dec_deg",
+          "y_pc",
+          "spectral_type",
+          "pm_dec_masyr",
+          "astrometry_ref",
+          "epoch",
+          "constellation",
+          "parallax_mas",
+          "parallax_error_mas",
+          "radial_velocity_kms"
+        ],
+        "recordId": "* tau Cet",
+        "reviewSha256": "13b3b09260b2c461f96a27d5d13ed7dbe7975025168a9d2b93a6aaf479ac962f",
+        "scope": "Reviewed catalog object/component 10pc-0044; aliases only, distinct companions remain separate.",
+        "sourceEvidence": "Original measurements and catalog-specific provenance are retained; the shared adopted record supersedes them for these fields.",
+        "sourceSelections": {
+          "astrometryAndMotion": {
+            "decision": "Retain the curated nearest-catalog coordinate/motion bundle where available; otherwise use the later Western snapshot. For the eleven reviewed stellar objects with missing CNS5 RV but an existing adopted SIMBAD RV, use the complete Western position/motion bundle to retain full-space motion. Spectroscopic binaries and composite Porrima retain the nearest-catalog RV withholding. Keep positions, velocities, reference epoch, raw measurements, uncertainties and bibliographies together. Withheld individual/system velocities remain withheld.",
+            "fields": [
+              "x_pc",
+              "y_pc",
+              "z_pc",
+              "vx_kms",
+              "vy_kms",
+              "vz_kms",
+              "epoch",
+              "constellation",
+              "ra_deg",
+              "dec_deg",
+              "astrometry_epoch",
+              "parallax_mas",
+              "parallax_error_mas",
+              "pm_ra_cosdec_masyr",
+              "pm_ra_error_masyr",
+              "pm_dec_masyr",
+              "pm_dec_error_masyr",
+              "radial_velocity_kms",
+              "radial_velocity_error_kms",
+              "astrometry_ref",
+              "radial_velocity_ref"
+            ],
+            "source": "nearest-100:10pc-0044"
+          },
+          "photometry": {
+            "decision": "Use the component-resolved curated Johnson V/distance where available, otherwise the common selected astrometric snapshot; preserve the specifically reviewed Bright Star Catalogue V=0.76 for Acrux. No integrated system flux is assigned to a faint companion.",
+            "fields": [
+              "absolute_mag"
+            ],
+            "source": "nearest-100:10pc-0044"
+          },
+          "spectral": {
+            "decision": "Retain the 2006 optical subtype cited by the 10pc census and restore its dwarf luminosity class, rather than reverting to the older G8V classification.",
+            "reference": "2006AJ....132..161G",
+            "sourceUrl": "https://doi.org/10.1086/504637",
+            "value": "G8.5V"
+          }
+        }
+      },
       "status": "higher-curation nearest-100 override"
     },
     {
@@ -11146,6 +11537,91 @@
     },
     {
       "id": "10pc-0117",
+      "sharedObjectAdoption": {
+        "fields": [
+          "radial_velocity_error_kms",
+          "vx_kms",
+          "pm_dec_error_masyr",
+          "pm_ra_error_masyr",
+          "radial_velocity_ref",
+          "x_pc",
+          "z_pc",
+          "vy_kms",
+          "ra_deg",
+          "dec_deg",
+          "temperature_k",
+          "y_pc",
+          "spectral_type",
+          "astrometry_ref",
+          "radius_solar",
+          "luminosity_solar",
+          "vz_kms",
+          "epoch",
+          "constellation",
+          "astrometry_epoch",
+          "parallax_mas",
+          "parallax_error_mas",
+          "pm_ra_cosdec_masyr",
+          "pm_dec_masyr",
+          "radial_velocity_kms",
+          "mass_solar",
+          "metallicity_dex",
+          "metallicity_kind",
+          "age_gyr"
+        ],
+        "recordId": "* alf Aql",
+        "reviewSha256": "13b3b09260b2c461f96a27d5d13ed7dbe7975025168a9d2b93a6aaf479ac962f",
+        "scope": "Reviewed catalog object/component 10pc-0117; aliases only, distinct companions remain separate.",
+        "sourceEvidence": "Original measurements and catalog-specific provenance are retained; the shared adopted record supersedes them for these fields.",
+        "sourceSelections": {
+          "astrometryAndMotion": {
+            "decision": "Retain the curated nearest-catalog coordinate/motion bundle where available; otherwise use the later Western snapshot. For the eleven reviewed stellar objects with missing CNS5 RV but an existing adopted SIMBAD RV, use the complete Western position/motion bundle to retain full-space motion. Spectroscopic binaries and composite Porrima retain the nearest-catalog RV withholding. Keep positions, velocities, reference epoch, raw measurements, uncertainties and bibliographies together. Withheld individual/system velocities remain withheld.",
+            "fields": [
+              "x_pc",
+              "y_pc",
+              "z_pc",
+              "vx_kms",
+              "vy_kms",
+              "vz_kms",
+              "epoch",
+              "constellation",
+              "ra_deg",
+              "dec_deg",
+              "astrometry_epoch",
+              "parallax_mas",
+              "parallax_error_mas",
+              "pm_ra_cosdec_masyr",
+              "pm_ra_error_masyr",
+              "pm_dec_masyr",
+              "pm_dec_error_masyr",
+              "radial_velocity_kms",
+              "radial_velocity_error_kms",
+              "astrometry_ref",
+              "radial_velocity_ref"
+            ],
+            "source": "nearest-100:10pc-0117"
+          },
+          "physical": {
+            "decision": "Retain the individually adopted bright-star temperature/luminosity/radius bundle rather than the A7 mean-dwarf estimate; the temperature is the 1999 evolutionary-model value, not an individual spectroscopic measurement. The frozen automatic 6246 K temperature is not adopted for this rapidly rotating A star.",
+            "fields": [
+              "temperature_k",
+              "mass_solar",
+              "luminosity_solar",
+              "radius_solar",
+              "metallicity_dex",
+              "metallicity_kind",
+              "age_gyr"
+            ],
+            "source": "bright-stars:10pc-0117"
+          },
+          "spectral": {
+            "decision": "Full optical spectral classification, including rotation-broadened lines.",
+            "reference": "2003AJ....126.2048G",
+            "sourceUrl": "https://simbad.cds.unistra.fr/simbad/sim-basic?Ident=Altair",
+            "value": "A7Vn"
+          }
+        }
+      },
       "status": "higher-curation nearest-100 override"
     },
     {
@@ -14981,14 +15457,34 @@
       },
       "cns5Id": "843",
       "fieldStatus": {
-        "absolute_mag": "derived-from-compiled-Johnson-V",
+        "absolute_mag": "adopted",
         "age_gyr": "model-derived",
+        "astrometry_epoch": "adopted",
+        "astrometry_ref": "adopted",
+        "constellation": "adopted",
+        "dec_deg": "adopted",
+        "epoch": "adopted",
         "luminosity_solar": "model-derived",
         "mass_solar": "model-derived",
         "metallicity_dex": "model-derived",
-        "radial_velocity_kms": "compiled-cns5",
+        "parallax_error_mas": "adopted",
+        "parallax_mas": "adopted",
+        "pm_dec_error_masyr": "adopted",
+        "pm_dec_masyr": "adopted",
+        "pm_ra_cosdec_masyr": "adopted",
+        "pm_ra_error_masyr": "adopted",
+        "ra_deg": "adopted",
+        "radial_velocity_error_kms": "adopted",
+        "radial_velocity_kms": "adopted",
+        "radial_velocity_ref": "adopted",
         "radius_solar": "model-derived",
-        "temperature_k": "model-derived"
+        "temperature_k": "model-derived",
+        "vx_kms": "adopted",
+        "vy_kms": "adopted",
+        "vz_kms": "adopted",
+        "x_pc": "adopted",
+        "y_pc": "adopted",
+        "z_pc": "adopted"
       },
       "gaiaDr3Id": "4847957293278177024",
       "id": "cns5-0843",
@@ -15084,6 +15580,72 @@
           "valueKms": 87.900390625
         },
         "status": "compiled-cns5"
+      },
+      "sharedObjectAdoption": {
+        "fields": [
+          "absolute_mag",
+          "vx_kms",
+          "pm_dec_error_masyr",
+          "pm_ra_cosdec_masyr",
+          "pm_ra_error_masyr",
+          "vy_kms",
+          "x_pc",
+          "dec_deg",
+          "pm_dec_masyr",
+          "radial_velocity_ref",
+          "z_pc",
+          "parallax_mas",
+          "vz_kms",
+          "astrometry_epoch",
+          "ra_deg",
+          "parallax_error_mas",
+          "y_pc",
+          "radial_velocity_kms",
+          "radial_velocity_error_kms",
+          "astrometry_ref",
+          "epoch",
+          "constellation"
+        ],
+        "recordId": "* e Eri",
+        "reviewSha256": "13b3b09260b2c461f96a27d5d13ed7dbe7975025168a9d2b93a6aaf479ac962f",
+        "scope": "Reviewed catalog object/component cns5-0843; aliases only, distinct companions remain separate.",
+        "sourceEvidence": "Original measurements and catalog-specific provenance are retained; the shared adopted record supersedes them for these fields.",
+        "sourceSelections": {
+          "astrometryAndMotion": {
+            "decision": "Retain the curated nearest-catalog coordinate/motion bundle where available; otherwise use the later Western snapshot. For the eleven reviewed stellar objects with missing CNS5 RV but an existing adopted SIMBAD RV, use the complete Western position/motion bundle to retain full-space motion. Spectroscopic binaries and composite Porrima retain the nearest-catalog RV withholding. Keep positions, velocities, reference epoch, raw measurements, uncertainties and bibliographies together. Withheld individual/system velocities remain withheld.",
+            "fields": [
+              "x_pc",
+              "y_pc",
+              "z_pc",
+              "vx_kms",
+              "vy_kms",
+              "vz_kms",
+              "epoch",
+              "constellation",
+              "ra_deg",
+              "dec_deg",
+              "astrometry_epoch",
+              "parallax_mas",
+              "parallax_error_mas",
+              "pm_ra_cosdec_masyr",
+              "pm_ra_error_masyr",
+              "pm_dec_masyr",
+              "pm_dec_error_masyr",
+              "radial_velocity_kms",
+              "radial_velocity_error_kms",
+              "astrometry_ref",
+              "radial_velocity_ref"
+            ],
+            "source": "nearest-1000:cns5-0843"
+          },
+          "photometry": {
+            "decision": "Use the component-resolved curated Johnson V/distance where available, otherwise the common selected astrometric snapshot; preserve the specifically reviewed Bright Star Catalogue V=0.76 for Acrux. No integrated system flux is assigned to a faint companion.",
+            "fields": [
+              "absolute_mag"
+            ],
+            "source": "nearest-1000:cns5-0843"
+          }
+        }
       },
       "simbadId": "* e Eri",
       "sourceType": "PM*"
@@ -15343,14 +15905,34 @@
       },
       "cns5Id": "4994",
       "fieldStatus": {
-        "absolute_mag": "derived-from-compiled-Johnson-V",
+        "absolute_mag": "adopted",
         "age_gyr": "unknown",
+        "astrometry_epoch": "adopted",
+        "astrometry_ref": "adopted",
+        "constellation": "adopted",
+        "dec_deg": "adopted",
+        "epoch": "adopted",
         "luminosity_solar": "model-derived",
         "mass_solar": "model-derived",
         "metallicity_dex": "model-derived",
-        "radial_velocity_kms": "unknown",
+        "parallax_error_mas": "adopted",
+        "parallax_mas": "adopted",
+        "pm_dec_error_masyr": "unknown",
+        "pm_dec_masyr": "adopted",
+        "pm_ra_cosdec_masyr": "adopted",
+        "pm_ra_error_masyr": "unknown",
+        "ra_deg": "adopted",
+        "radial_velocity_error_kms": "unknown",
+        "radial_velocity_kms": "adopted",
+        "radial_velocity_ref": "adopted",
         "radius_solar": "model-derived",
-        "temperature_k": "model-derived"
+        "temperature_k": "model-derived",
+        "vx_kms": "adopted",
+        "vy_kms": "adopted",
+        "vz_kms": "adopted",
+        "x_pc": "adopted",
+        "y_pc": "adopted",
+        "z_pc": "adopted"
       },
       "gaiaDr3Id": "6427464123776727168",
       "id": "cns5-4994",
@@ -15414,6 +15996,72 @@
       },
       "radialVelocity": {
         "status": "unknown"
+      },
+      "sharedObjectAdoption": {
+        "fields": [
+          "absolute_mag",
+          "vx_kms",
+          "pm_dec_error_masyr",
+          "pm_ra_cosdec_masyr",
+          "pm_ra_error_masyr",
+          "vy_kms",
+          "x_pc",
+          "dec_deg",
+          "pm_dec_masyr",
+          "radial_velocity_ref",
+          "z_pc",
+          "parallax_mas",
+          "vz_kms",
+          "astrometry_epoch",
+          "ra_deg",
+          "parallax_error_mas",
+          "y_pc",
+          "radial_velocity_kms",
+          "astrometry_ref",
+          "epoch",
+          "constellation",
+          "radial_velocity_error_kms"
+        ],
+        "recordId": "* del Pav",
+        "reviewSha256": "13b3b09260b2c461f96a27d5d13ed7dbe7975025168a9d2b93a6aaf479ac962f",
+        "scope": "Reviewed catalog object/component cns5-4994; aliases only, distinct companions remain separate.",
+        "sourceEvidence": "Original measurements and catalog-specific provenance are retained; the shared adopted record supersedes them for these fields.",
+        "sourceSelections": {
+          "astrometryAndMotion": {
+            "decision": "Retain the curated nearest-catalog coordinate/motion bundle where available; otherwise use the later Western snapshot. For the eleven reviewed stellar objects with missing CNS5 RV but an existing adopted SIMBAD RV, use the complete Western position/motion bundle to retain full-space motion. Spectroscopic binaries and composite Porrima retain the nearest-catalog RV withholding. Keep positions, velocities, reference epoch, raw measurements, uncertainties and bibliographies together. Withheld individual/system velocities remain withheld.",
+            "fields": [
+              "x_pc",
+              "y_pc",
+              "z_pc",
+              "vx_kms",
+              "vy_kms",
+              "vz_kms",
+              "epoch",
+              "constellation",
+              "ra_deg",
+              "dec_deg",
+              "astrometry_epoch",
+              "parallax_mas",
+              "parallax_error_mas",
+              "pm_ra_cosdec_masyr",
+              "pm_ra_error_masyr",
+              "pm_dec_masyr",
+              "pm_dec_error_masyr",
+              "radial_velocity_kms",
+              "radial_velocity_error_kms",
+              "astrometry_ref",
+              "radial_velocity_ref"
+            ],
+            "source": "western-constellation-stars:hip-99240"
+          },
+          "photometry": {
+            "decision": "Use the component-resolved curated Johnson V/distance where available, otherwise the common selected astrometric snapshot; preserve the specifically reviewed Bright Star Catalogue V=0.76 for Acrux. No integrated system flux is assigned to a faint companion.",
+            "fields": [
+              "absolute_mag"
+            ],
+            "source": "western-constellation-stars:hip-99240"
+          }
+        }
       },
       "sharedPhysicalEnrichment": {
         "mass_solar": {
@@ -22899,14 +23547,34 @@
       },
       "cns5Id": "125",
       "fieldStatus": {
-        "absolute_mag": "derived-from-compiled-Johnson-V",
+        "absolute_mag": "adopted",
         "age_gyr": "unknown",
+        "astrometry_epoch": "adopted",
+        "astrometry_ref": "adopted",
+        "constellation": "adopted",
+        "dec_deg": "adopted",
+        "epoch": "adopted",
         "luminosity_solar": "derived",
         "mass_solar": "model-derived",
         "metallicity_dex": "measured",
-        "radial_velocity_kms": "unknown",
+        "parallax_error_mas": "adopted",
+        "parallax_mas": "adopted",
+        "pm_dec_error_masyr": "unknown",
+        "pm_dec_masyr": "adopted",
+        "pm_ra_cosdec_masyr": "adopted",
+        "pm_ra_error_masyr": "unknown",
+        "ra_deg": "adopted",
+        "radial_velocity_error_kms": "unknown",
+        "radial_velocity_kms": "adopted",
+        "radial_velocity_ref": "adopted",
         "radius_solar": "model-derived",
-        "temperature_k": "measured"
+        "temperature_k": "measured",
+        "vx_kms": "adopted",
+        "vy_kms": "adopted",
+        "vz_kms": "adopted",
+        "x_pc": "adopted",
+        "y_pc": "adopted",
+        "z_pc": "adopted"
       },
       "gaiaDr3Id": "4683897617110115200",
       "id": "cns5-0125",
@@ -22925,6 +23593,72 @@
       },
       "radialVelocity": {
         "status": "unknown"
+      },
+      "sharedObjectAdoption": {
+        "fields": [
+          "absolute_mag",
+          "vx_kms",
+          "pm_dec_error_masyr",
+          "vz_kms",
+          "pm_ra_error_masyr",
+          "astrometry_epoch",
+          "radial_velocity_ref",
+          "vy_kms",
+          "x_pc",
+          "z_pc",
+          "ra_deg",
+          "dec_deg",
+          "y_pc",
+          "parallax_mas",
+          "astrometry_ref",
+          "radial_velocity_kms",
+          "epoch",
+          "constellation",
+          "parallax_error_mas",
+          "pm_ra_cosdec_masyr",
+          "pm_dec_masyr",
+          "radial_velocity_error_kms"
+        ],
+        "recordId": "* bet Hyi",
+        "reviewSha256": "13b3b09260b2c461f96a27d5d13ed7dbe7975025168a9d2b93a6aaf479ac962f",
+        "scope": "Reviewed catalog object/component cns5-0125; aliases only, distinct companions remain separate.",
+        "sourceEvidence": "Original measurements and catalog-specific provenance are retained; the shared adopted record supersedes them for these fields.",
+        "sourceSelections": {
+          "astrometryAndMotion": {
+            "decision": "Retain the curated nearest-catalog coordinate/motion bundle where available; otherwise use the later Western snapshot. For the eleven reviewed stellar objects with missing CNS5 RV but an existing adopted SIMBAD RV, use the complete Western position/motion bundle to retain full-space motion. Spectroscopic binaries and composite Porrima retain the nearest-catalog RV withholding. Keep positions, velocities, reference epoch, raw measurements, uncertainties and bibliographies together. Withheld individual/system velocities remain withheld.",
+            "fields": [
+              "x_pc",
+              "y_pc",
+              "z_pc",
+              "vx_kms",
+              "vy_kms",
+              "vz_kms",
+              "epoch",
+              "constellation",
+              "ra_deg",
+              "dec_deg",
+              "astrometry_epoch",
+              "parallax_mas",
+              "parallax_error_mas",
+              "pm_ra_cosdec_masyr",
+              "pm_ra_error_masyr",
+              "pm_dec_masyr",
+              "pm_dec_error_masyr",
+              "radial_velocity_kms",
+              "radial_velocity_error_kms",
+              "astrometry_ref",
+              "radial_velocity_ref"
+            ],
+            "source": "western-constellation-stars:hip-2021"
+          },
+          "photometry": {
+            "decision": "Use the component-resolved curated Johnson V/distance where available, otherwise the common selected astrometric snapshot; preserve the specifically reviewed Bright Star Catalogue V=0.76 for Acrux. No integrated system flux is assigned to a faint companion.",
+            "fields": [
+              "absolute_mag"
+            ],
+            "source": "western-constellation-stars:hip-2021"
+          }
+        }
       },
       "sharedPhysicalEnrichment": {
         "luminosity_solar": {
@@ -25088,12 +25822,33 @@
       "fieldStatus": {
         "absolute_mag": "derived-from-compiled-Johnson-V",
         "age_gyr": "unknown",
-        "luminosity_solar": "derived",
-        "mass_solar": "unknown",
-        "metallicity_dex": "measured",
-        "radial_velocity_kms": "unknown",
-        "radius_solar": "derived",
-        "temperature_k": "measured"
+        "astrometry_epoch": "adopted",
+        "astrometry_ref": "adopted",
+        "constellation": "adopted",
+        "dec_deg": "adopted",
+        "epoch": "adopted",
+        "luminosity_solar": "adopted",
+        "mass_solar": "adopted",
+        "metallicity_dex": "adopted",
+        "metallicity_kind": "adopted",
+        "parallax_error_mas": "adopted",
+        "parallax_mas": "adopted",
+        "pm_dec_error_masyr": "unknown",
+        "pm_dec_masyr": "adopted",
+        "pm_ra_cosdec_masyr": "adopted",
+        "pm_ra_error_masyr": "unknown",
+        "ra_deg": "adopted",
+        "radial_velocity_error_kms": "unknown",
+        "radial_velocity_kms": "adopted",
+        "radial_velocity_ref": "adopted",
+        "radius_solar": "adopted",
+        "temperature_k": "adopted",
+        "vx_kms": "adopted",
+        "vy_kms": "adopted",
+        "vz_kms": "adopted",
+        "x_pc": "adopted",
+        "y_pc": "adopted",
+        "z_pc": "adopted"
       },
       "gaiaDr3Id": null,
       "id": "cns5-4607",
@@ -25111,6 +25866,91 @@
       },
       "radialVelocity": {
         "status": "unknown"
+      },
+      "sharedObjectAdoption": {
+        "fields": [
+          "vx_kms",
+          "pm_dec_error_masyr",
+          "pm_ra_error_masyr",
+          "vy_kms",
+          "x_pc",
+          "dec_deg",
+          "radial_velocity_ref",
+          "z_pc",
+          "temperature_k",
+          "parallax_mas",
+          "radius_solar",
+          "luminosity_solar",
+          "mass_solar",
+          "vz_kms",
+          "astrometry_epoch",
+          "ra_deg",
+          "y_pc",
+          "radial_velocity_kms",
+          "astrometry_ref",
+          "epoch",
+          "constellation",
+          "parallax_error_mas",
+          "pm_ra_cosdec_masyr",
+          "pm_dec_masyr",
+          "radial_velocity_error_kms",
+          "metallicity_dex",
+          "metallicity_kind",
+          "age_gyr"
+        ],
+        "recordId": "* alf Lyr",
+        "reviewSha256": "13b3b09260b2c461f96a27d5d13ed7dbe7975025168a9d2b93a6aaf479ac962f",
+        "scope": "Reviewed catalog object/component cns5-4607; aliases only, distinct companions remain separate.",
+        "sourceEvidence": "Original measurements and catalog-specific provenance are retained; the shared adopted record supersedes them for these fields.",
+        "sourceSelections": {
+          "astrometryAndMotion": {
+            "decision": "Retain the curated nearest-catalog coordinate/motion bundle where available; otherwise use the later Western snapshot. For the eleven reviewed stellar objects with missing CNS5 RV but an existing adopted SIMBAD RV, use the complete Western position/motion bundle to retain full-space motion. Spectroscopic binaries and composite Porrima retain the nearest-catalog RV withholding. Keep positions, velocities, reference epoch, raw measurements, uncertainties and bibliographies together. Withheld individual/system velocities remain withheld.",
+            "fields": [
+              "x_pc",
+              "y_pc",
+              "z_pc",
+              "vx_kms",
+              "vy_kms",
+              "vz_kms",
+              "epoch",
+              "constellation",
+              "ra_deg",
+              "dec_deg",
+              "astrometry_epoch",
+              "parallax_mas",
+              "parallax_error_mas",
+              "pm_ra_cosdec_masyr",
+              "pm_ra_error_masyr",
+              "pm_dec_masyr",
+              "pm_dec_error_masyr",
+              "radial_velocity_kms",
+              "radial_velocity_error_kms",
+              "astrometry_ref",
+              "radial_velocity_ref"
+            ],
+            "source": "western-constellation-stars:hip-91262"
+          },
+          "mass": {
+            "decision": "Retain the existing explicitly curated Allende Prieto & Lambert 1999 model mass, with its original model scope; do not reinterpret it as a dynamical measurement.",
+            "fields": [
+              "mass_solar"
+            ],
+            "source": "bright-stars:cns5-4607"
+          },
+          "physical": {
+            "decision": "Prefer the frozen 2026 measured temperature over the 1999 model temperature, retaining the precise adopted radius and its Stefan-Boltzmann luminosity. Preserve the previously curated 1999 model mass separately; it is not a new dynamical mass measurement.",
+            "fields": [
+              "temperature_k",
+              "mass_solar",
+              "luminosity_solar",
+              "radius_solar",
+              "metallicity_dex",
+              "metallicity_kind",
+              "age_gyr"
+            ],
+            "source": "nearest-1000:cns5-4607"
+          }
+        }
       },
       "sharedPhysicalEnrichment": {
         "luminosity_solar": {
@@ -25178,12 +26018,33 @@
       "fieldStatus": {
         "absolute_mag": "derived-from-compiled-Johnson-V",
         "age_gyr": "unknown",
-        "luminosity_solar": "derived",
-        "mass_solar": "unknown",
-        "metallicity_dex": "measured",
-        "radial_velocity_kms": "unknown",
-        "radius_solar": "derived",
-        "temperature_k": "measured"
+        "astrometry_epoch": "adopted",
+        "astrometry_ref": "adopted",
+        "constellation": "adopted",
+        "dec_deg": "adopted",
+        "epoch": "adopted",
+        "luminosity_solar": "adopted",
+        "mass_solar": "adopted",
+        "metallicity_dex": "adopted",
+        "metallicity_kind": "adopted",
+        "parallax_error_mas": "adopted",
+        "parallax_mas": "adopted",
+        "pm_dec_error_masyr": "unknown",
+        "pm_dec_masyr": "adopted",
+        "pm_ra_cosdec_masyr": "adopted",
+        "pm_ra_error_masyr": "unknown",
+        "ra_deg": "adopted",
+        "radial_velocity_error_kms": "unknown",
+        "radial_velocity_kms": "adopted",
+        "radial_velocity_ref": "adopted",
+        "radius_solar": "adopted",
+        "temperature_k": "adopted",
+        "vx_kms": "adopted",
+        "vy_kms": "adopted",
+        "vz_kms": "adopted",
+        "x_pc": "adopted",
+        "y_pc": "adopted",
+        "z_pc": "adopted"
       },
       "gaiaDr3Id": null,
       "id": "cns5-5665",
@@ -25201,6 +26062,91 @@
       },
       "radialVelocity": {
         "status": "unknown"
+      },
+      "sharedObjectAdoption": {
+        "fields": [
+          "vx_kms",
+          "pm_dec_error_masyr",
+          "pm_ra_error_masyr",
+          "vy_kms",
+          "x_pc",
+          "dec_deg",
+          "radial_velocity_ref",
+          "z_pc",
+          "temperature_k",
+          "parallax_mas",
+          "radius_solar",
+          "luminosity_solar",
+          "mass_solar",
+          "vz_kms",
+          "astrometry_epoch",
+          "ra_deg",
+          "y_pc",
+          "radial_velocity_kms",
+          "astrometry_ref",
+          "epoch",
+          "constellation",
+          "parallax_error_mas",
+          "pm_ra_cosdec_masyr",
+          "pm_dec_masyr",
+          "radial_velocity_error_kms",
+          "metallicity_dex",
+          "metallicity_kind",
+          "age_gyr"
+        ],
+        "recordId": "* alf PsA",
+        "reviewSha256": "13b3b09260b2c461f96a27d5d13ed7dbe7975025168a9d2b93a6aaf479ac962f",
+        "scope": "Reviewed catalog object/component cns5-5665; aliases only, distinct companions remain separate.",
+        "sourceEvidence": "Original measurements and catalog-specific provenance are retained; the shared adopted record supersedes them for these fields.",
+        "sourceSelections": {
+          "astrometryAndMotion": {
+            "decision": "Retain the curated nearest-catalog coordinate/motion bundle where available; otherwise use the later Western snapshot. For the eleven reviewed stellar objects with missing CNS5 RV but an existing adopted SIMBAD RV, use the complete Western position/motion bundle to retain full-space motion. Spectroscopic binaries and composite Porrima retain the nearest-catalog RV withholding. Keep positions, velocities, reference epoch, raw measurements, uncertainties and bibliographies together. Withheld individual/system velocities remain withheld.",
+            "fields": [
+              "x_pc",
+              "y_pc",
+              "z_pc",
+              "vx_kms",
+              "vy_kms",
+              "vz_kms",
+              "epoch",
+              "constellation",
+              "ra_deg",
+              "dec_deg",
+              "astrometry_epoch",
+              "parallax_mas",
+              "parallax_error_mas",
+              "pm_ra_cosdec_masyr",
+              "pm_ra_error_masyr",
+              "pm_dec_masyr",
+              "pm_dec_error_masyr",
+              "radial_velocity_kms",
+              "radial_velocity_error_kms",
+              "astrometry_ref",
+              "radial_velocity_ref"
+            ],
+            "source": "western-constellation-stars:hip-113368"
+          },
+          "mass": {
+            "decision": "Retain the existing explicitly curated Allende Prieto & Lambert 1999 model mass, with its original model scope; do not reinterpret it as a dynamical measurement.",
+            "fields": [
+              "mass_solar"
+            ],
+            "source": "bright-stars:cns5-5665"
+          },
+          "physical": {
+            "decision": "Prefer the frozen 2021 measured temperature over the 1999 model temperature, retaining the precise interferometric radius and its Stefan-Boltzmann luminosity. Preserve the previously curated 1999 model mass separately; it is not a new dynamical mass measurement.",
+            "fields": [
+              "temperature_k",
+              "mass_solar",
+              "luminosity_solar",
+              "radius_solar",
+              "metallicity_dex",
+              "metallicity_kind",
+              "age_gyr"
+            ],
+            "source": "nearest-1000:cns5-5665"
+          }
+        }
       },
       "sharedPhysicalEnrichment": {
         "luminosity_solar": {
@@ -27723,14 +28669,34 @@
       },
       "cns5Id": "1208",
       "fieldStatus": {
-        "absolute_mag": "derived-from-compiled-Johnson-V",
+        "absolute_mag": "adopted",
         "age_gyr": "model-derived",
+        "astrometry_epoch": "adopted",
+        "astrometry_ref": "adopted",
+        "constellation": "adopted",
+        "dec_deg": "adopted",
+        "epoch": "adopted",
         "luminosity_solar": "model-derived",
         "mass_solar": "model-derived",
         "metallicity_dex": "model-derived",
-        "radial_velocity_kms": "reviewed-literature-override",
+        "parallax_error_mas": "adopted",
+        "parallax_mas": "adopted",
+        "pm_dec_error_masyr": "adopted",
+        "pm_dec_masyr": "adopted",
+        "pm_ra_cosdec_masyr": "adopted",
+        "pm_ra_error_masyr": "adopted",
+        "ra_deg": "adopted",
+        "radial_velocity_error_kms": "adopted",
+        "radial_velocity_kms": "adopted",
+        "radial_velocity_ref": "adopted",
         "radius_solar": "model-derived",
-        "temperature_k": "model-derived"
+        "temperature_k": "model-derived",
+        "vx_kms": "adopted",
+        "vy_kms": "adopted",
+        "vz_kms": "adopted",
+        "x_pc": "adopted",
+        "y_pc": "adopted",
+        "z_pc": "adopted"
       },
       "gaiaDr3Id": "3288921720025503360",
       "id": "cns5-1208",
@@ -27829,6 +28795,72 @@
           "valueKms": 24.11
         },
         "status": "reviewed-literature-override"
+      },
+      "sharedObjectAdoption": {
+        "fields": [
+          "absolute_mag",
+          "vx_kms",
+          "pm_dec_error_masyr",
+          "pm_ra_cosdec_masyr",
+          "vz_kms",
+          "pm_ra_error_masyr",
+          "astrometry_epoch",
+          "vy_kms",
+          "x_pc",
+          "z_pc",
+          "ra_deg",
+          "dec_deg",
+          "parallax_error_mas",
+          "y_pc",
+          "parallax_mas",
+          "pm_dec_masyr",
+          "astrometry_ref",
+          "epoch",
+          "constellation",
+          "radial_velocity_kms",
+          "radial_velocity_error_kms",
+          "radial_velocity_ref"
+        ],
+        "recordId": "* pi.03 Ori",
+        "reviewSha256": "13b3b09260b2c461f96a27d5d13ed7dbe7975025168a9d2b93a6aaf479ac962f",
+        "scope": "Reviewed catalog object/component cns5-1208; aliases only, distinct companions remain separate.",
+        "sourceEvidence": "Original measurements and catalog-specific provenance are retained; the shared adopted record supersedes them for these fields.",
+        "sourceSelections": {
+          "astrometryAndMotion": {
+            "decision": "Retain the curated nearest-catalog coordinate/motion bundle where available; otherwise use the later Western snapshot. For the eleven reviewed stellar objects with missing CNS5 RV but an existing adopted SIMBAD RV, use the complete Western position/motion bundle to retain full-space motion. Spectroscopic binaries and composite Porrima retain the nearest-catalog RV withholding. Keep positions, velocities, reference epoch, raw measurements, uncertainties and bibliographies together. Withheld individual/system velocities remain withheld.",
+            "fields": [
+              "x_pc",
+              "y_pc",
+              "z_pc",
+              "vx_kms",
+              "vy_kms",
+              "vz_kms",
+              "epoch",
+              "constellation",
+              "ra_deg",
+              "dec_deg",
+              "astrometry_epoch",
+              "parallax_mas",
+              "parallax_error_mas",
+              "pm_ra_cosdec_masyr",
+              "pm_ra_error_masyr",
+              "pm_dec_masyr",
+              "pm_dec_error_masyr",
+              "radial_velocity_kms",
+              "radial_velocity_error_kms",
+              "astrometry_ref",
+              "radial_velocity_ref"
+            ],
+            "source": "nearest-1000:cns5-1208"
+          },
+          "photometry": {
+            "decision": "Use the component-resolved curated Johnson V/distance where available, otherwise the common selected astrometric snapshot; preserve the specifically reviewed Bright Star Catalogue V=0.76 for Acrux. No integrated system flux is assigned to a faint companion.",
+            "fields": [
+              "absolute_mag"
+            ],
+            "source": "nearest-1000:cns5-1208"
+          }
+        }
       },
       "simbadId": "* pi.03 Ori",
       "sourceType": "PM*"
@@ -32155,14 +33187,34 @@
       },
       "cns5Id": "102",
       "fieldStatus": {
-        "absolute_mag": "derived-from-compiled-Johnson-V",
+        "absolute_mag": "adopted",
         "age_gyr": "model-derived",
+        "astrometry_epoch": "adopted",
+        "astrometry_ref": "adopted",
+        "constellation": "adopted",
+        "dec_deg": "adopted",
+        "epoch": "adopted",
         "luminosity_solar": "model-derived",
         "mass_solar": "model-derived",
         "metallicity_dex": "model-derived",
-        "radial_velocity_kms": "gaia-dr3-fallback",
+        "parallax_error_mas": "adopted",
+        "parallax_mas": "adopted",
+        "pm_dec_error_masyr": "adopted",
+        "pm_dec_masyr": "adopted",
+        "pm_ra_cosdec_masyr": "adopted",
+        "pm_ra_error_masyr": "adopted",
+        "ra_deg": "adopted",
+        "radial_velocity_error_kms": "adopted",
+        "radial_velocity_kms": "adopted",
+        "radial_velocity_ref": "adopted",
         "radius_solar": "model-derived",
-        "temperature_k": "model-derived"
+        "temperature_k": "model-derived",
+        "vx_kms": "adopted",
+        "vy_kms": "adopted",
+        "vz_kms": "adopted",
+        "x_pc": "adopted",
+        "y_pc": "adopted",
+        "z_pc": "adopted"
       },
       "gaiaDr3Id": "4900108950849461248",
       "id": "cns5-0102",
@@ -32258,6 +33310,72 @@
           "valueKms": 9.283571
         },
         "status": "gaia-dr3-fallback"
+      },
+      "sharedObjectAdoption": {
+        "fields": [
+          "absolute_mag",
+          "vx_kms",
+          "pm_dec_error_masyr",
+          "pm_ra_cosdec_masyr",
+          "pm_ra_error_masyr",
+          "vy_kms",
+          "x_pc",
+          "dec_deg",
+          "pm_dec_masyr",
+          "radial_velocity_ref",
+          "z_pc",
+          "parallax_mas",
+          "vz_kms",
+          "astrometry_epoch",
+          "ra_deg",
+          "parallax_error_mas",
+          "y_pc",
+          "radial_velocity_kms",
+          "radial_velocity_error_kms",
+          "astrometry_ref",
+          "epoch",
+          "constellation"
+        ],
+        "recordId": "* zet Tuc",
+        "reviewSha256": "13b3b09260b2c461f96a27d5d13ed7dbe7975025168a9d2b93a6aaf479ac962f",
+        "scope": "Reviewed catalog object/component cns5-0102; aliases only, distinct companions remain separate.",
+        "sourceEvidence": "Original measurements and catalog-specific provenance are retained; the shared adopted record supersedes them for these fields.",
+        "sourceSelections": {
+          "astrometryAndMotion": {
+            "decision": "Retain the curated nearest-catalog coordinate/motion bundle where available; otherwise use the later Western snapshot. For the eleven reviewed stellar objects with missing CNS5 RV but an existing adopted SIMBAD RV, use the complete Western position/motion bundle to retain full-space motion. Spectroscopic binaries and composite Porrima retain the nearest-catalog RV withholding. Keep positions, velocities, reference epoch, raw measurements, uncertainties and bibliographies together. Withheld individual/system velocities remain withheld.",
+            "fields": [
+              "x_pc",
+              "y_pc",
+              "z_pc",
+              "vx_kms",
+              "vy_kms",
+              "vz_kms",
+              "epoch",
+              "constellation",
+              "ra_deg",
+              "dec_deg",
+              "astrometry_epoch",
+              "parallax_mas",
+              "parallax_error_mas",
+              "pm_ra_cosdec_masyr",
+              "pm_ra_error_masyr",
+              "pm_dec_masyr",
+              "pm_dec_error_masyr",
+              "radial_velocity_kms",
+              "radial_velocity_error_kms",
+              "astrometry_ref",
+              "radial_velocity_ref"
+            ],
+            "source": "nearest-1000:cns5-0102"
+          },
+          "photometry": {
+            "decision": "Use the component-resolved curated Johnson V/distance where available, otherwise the common selected astrometric snapshot; preserve the specifically reviewed Bright Star Catalogue V=0.76 for Acrux. No integrated system flux is assigned to a faint companion.",
+            "fields": [
+              "absolute_mag"
+            ],
+            "source": "nearest-1000:cns5-0102"
+          }
+        }
       },
       "simbadId": "* zet Tuc",
       "sourceType": "PM*"
@@ -36731,14 +37849,34 @@
       },
       "cns5Id": "1427",
       "fieldStatus": {
-        "absolute_mag": "derived-from-compiled-Johnson-V",
+        "absolute_mag": "adopted",
         "age_gyr": "model-derived",
+        "astrometry_epoch": "adopted",
+        "astrometry_ref": "adopted",
+        "constellation": "adopted",
+        "dec_deg": "adopted",
+        "epoch": "adopted",
         "luminosity_solar": "model-derived",
         "mass_solar": "model-derived",
         "metallicity_dex": "model-derived",
-        "radial_velocity_kms": "gaia-dr3-fallback",
+        "parallax_error_mas": "adopted",
+        "parallax_mas": "adopted",
+        "pm_dec_error_masyr": "adopted",
+        "pm_dec_masyr": "adopted",
+        "pm_ra_cosdec_masyr": "adopted",
+        "pm_ra_error_masyr": "adopted",
+        "ra_deg": "adopted",
+        "radial_velocity_error_kms": "adopted",
+        "radial_velocity_kms": "adopted",
+        "radial_velocity_ref": "adopted",
         "radius_solar": "model-derived",
-        "temperature_k": "model-derived"
+        "temperature_k": "model-derived",
+        "vx_kms": "adopted",
+        "vy_kms": "adopted",
+        "vz_kms": "adopted",
+        "x_pc": "adopted",
+        "y_pc": "adopted",
+        "z_pc": "adopted"
       },
       "gaiaDr3Id": "2964000159821218432",
       "id": "cns5-1427",
@@ -36834,6 +37972,72 @@
           "valueKms": -8.989398
         },
         "status": "gaia-dr3-fallback"
+      },
+      "sharedObjectAdoption": {
+        "fields": [
+          "absolute_mag",
+          "vx_kms",
+          "pm_dec_error_masyr",
+          "pm_ra_cosdec_masyr",
+          "pm_ra_error_masyr",
+          "vy_kms",
+          "x_pc",
+          "dec_deg",
+          "pm_dec_masyr",
+          "radial_velocity_ref",
+          "z_pc",
+          "parallax_mas",
+          "vz_kms",
+          "astrometry_epoch",
+          "ra_deg",
+          "parallax_error_mas",
+          "y_pc",
+          "radial_velocity_kms",
+          "radial_velocity_error_kms",
+          "astrometry_ref",
+          "epoch",
+          "constellation"
+        ],
+        "recordId": "* gam Lep",
+        "reviewSha256": "13b3b09260b2c461f96a27d5d13ed7dbe7975025168a9d2b93a6aaf479ac962f",
+        "scope": "Reviewed catalog object/component cns5-1427; aliases only, distinct companions remain separate.",
+        "sourceEvidence": "Original measurements and catalog-specific provenance are retained; the shared adopted record supersedes them for these fields.",
+        "sourceSelections": {
+          "astrometryAndMotion": {
+            "decision": "Retain the curated nearest-catalog coordinate/motion bundle where available; otherwise use the later Western snapshot. For the eleven reviewed stellar objects with missing CNS5 RV but an existing adopted SIMBAD RV, use the complete Western position/motion bundle to retain full-space motion. Spectroscopic binaries and composite Porrima retain the nearest-catalog RV withholding. Keep positions, velocities, reference epoch, raw measurements, uncertainties and bibliographies together. Withheld individual/system velocities remain withheld.",
+            "fields": [
+              "x_pc",
+              "y_pc",
+              "z_pc",
+              "vx_kms",
+              "vy_kms",
+              "vz_kms",
+              "epoch",
+              "constellation",
+              "ra_deg",
+              "dec_deg",
+              "astrometry_epoch",
+              "parallax_mas",
+              "parallax_error_mas",
+              "pm_ra_cosdec_masyr",
+              "pm_ra_error_masyr",
+              "pm_dec_masyr",
+              "pm_dec_error_masyr",
+              "radial_velocity_kms",
+              "radial_velocity_error_kms",
+              "astrometry_ref",
+              "radial_velocity_ref"
+            ],
+            "source": "nearest-1000:cns5-1427"
+          },
+          "photometry": {
+            "decision": "Use the component-resolved curated Johnson V/distance where available, otherwise the common selected astrometric snapshot; preserve the specifically reviewed Bright Star Catalogue V=0.76 for Acrux. No integrated system flux is assigned to a faint companion.",
+            "fields": [
+              "absolute_mag"
+            ],
+            "source": "nearest-1000:cns5-1427"
+          }
+        }
       },
       "simbadId": "* gam Lep",
       "sourceType": "PM*"
@@ -37060,14 +38264,34 @@
       },
       "cns5Id": "938",
       "fieldStatus": {
-        "absolute_mag": "derived-from-compiled-Johnson-V",
+        "absolute_mag": "adopted",
         "age_gyr": "unknown",
+        "astrometry_epoch": "adopted",
+        "astrometry_ref": "adopted",
+        "constellation": "adopted",
+        "dec_deg": "adopted",
+        "epoch": "adopted",
         "luminosity_solar": "derived",
         "mass_solar": "model-derived",
         "metallicity_dex": "measured",
-        "radial_velocity_kms": "unknown",
+        "parallax_error_mas": "adopted",
+        "parallax_mas": "adopted",
+        "pm_dec_error_masyr": "unknown",
+        "pm_dec_masyr": "adopted",
+        "pm_ra_cosdec_masyr": "adopted",
+        "pm_ra_error_masyr": "unknown",
+        "ra_deg": "adopted",
+        "radial_velocity_error_kms": "unknown",
+        "radial_velocity_kms": "adopted",
+        "radial_velocity_ref": "adopted",
         "radius_solar": "model-derived",
-        "temperature_k": "measured"
+        "temperature_k": "measured",
+        "vx_kms": "adopted",
+        "vy_kms": "adopted",
+        "vz_kms": "adopted",
+        "x_pc": "adopted",
+        "y_pc": "adopted",
+        "z_pc": "adopted"
       },
       "gaiaDr3Id": "5164120762333028736",
       "id": "cns5-0938",
@@ -37086,6 +38310,72 @@
       },
       "radialVelocity": {
         "status": "unknown"
+      },
+      "sharedObjectAdoption": {
+        "fields": [
+          "absolute_mag",
+          "vx_kms",
+          "pm_dec_error_masyr",
+          "pm_ra_cosdec_masyr",
+          "pm_ra_error_masyr",
+          "vy_kms",
+          "x_pc",
+          "dec_deg",
+          "pm_dec_masyr",
+          "radial_velocity_ref",
+          "z_pc",
+          "parallax_mas",
+          "vz_kms",
+          "astrometry_epoch",
+          "ra_deg",
+          "parallax_error_mas",
+          "y_pc",
+          "radial_velocity_kms",
+          "astrometry_ref",
+          "epoch",
+          "constellation",
+          "radial_velocity_error_kms"
+        ],
+        "recordId": "* del Eri",
+        "reviewSha256": "13b3b09260b2c461f96a27d5d13ed7dbe7975025168a9d2b93a6aaf479ac962f",
+        "scope": "Reviewed catalog object/component cns5-0938; aliases only, distinct companions remain separate.",
+        "sourceEvidence": "Original measurements and catalog-specific provenance are retained; the shared adopted record supersedes them for these fields.",
+        "sourceSelections": {
+          "astrometryAndMotion": {
+            "decision": "Retain the curated nearest-catalog coordinate/motion bundle where available; otherwise use the later Western snapshot. For the eleven reviewed stellar objects with missing CNS5 RV but an existing adopted SIMBAD RV, use the complete Western position/motion bundle to retain full-space motion. Spectroscopic binaries and composite Porrima retain the nearest-catalog RV withholding. Keep positions, velocities, reference epoch, raw measurements, uncertainties and bibliographies together. Withheld individual/system velocities remain withheld.",
+            "fields": [
+              "x_pc",
+              "y_pc",
+              "z_pc",
+              "vx_kms",
+              "vy_kms",
+              "vz_kms",
+              "epoch",
+              "constellation",
+              "ra_deg",
+              "dec_deg",
+              "astrometry_epoch",
+              "parallax_mas",
+              "parallax_error_mas",
+              "pm_ra_cosdec_masyr",
+              "pm_ra_error_masyr",
+              "pm_dec_masyr",
+              "pm_dec_error_masyr",
+              "radial_velocity_kms",
+              "radial_velocity_error_kms",
+              "astrometry_ref",
+              "radial_velocity_ref"
+            ],
+            "source": "western-constellation-stars:hip-17378"
+          },
+          "photometry": {
+            "decision": "Use the component-resolved curated Johnson V/distance where available, otherwise the common selected astrometric snapshot; preserve the specifically reviewed Bright Star Catalogue V=0.76 for Acrux. No integrated system flux is assigned to a faint companion.",
+            "fields": [
+              "absolute_mag"
+            ],
+            "source": "western-constellation-stars:hip-17378"
+          }
+        }
       },
       "sharedPhysicalEnrichment": {
         "luminosity_solar": {
@@ -37943,14 +39233,34 @@
       },
       "cns5Id": "3247",
       "fieldStatus": {
-        "absolute_mag": "derived-from-compiled-Johnson-V",
+        "absolute_mag": "adopted",
         "age_gyr": "model-derived",
+        "astrometry_epoch": "adopted",
+        "astrometry_ref": "adopted",
+        "constellation": "adopted",
+        "dec_deg": "adopted",
+        "epoch": "adopted",
         "luminosity_solar": "model-derived",
         "mass_solar": "model-derived",
         "metallicity_dex": "model-derived",
-        "radial_velocity_kms": "compiled-cns5",
+        "parallax_error_mas": "adopted",
+        "parallax_mas": "adopted",
+        "pm_dec_error_masyr": "adopted",
+        "pm_dec_masyr": "adopted",
+        "pm_ra_cosdec_masyr": "adopted",
+        "pm_ra_error_masyr": "adopted",
+        "ra_deg": "adopted",
+        "radial_velocity_error_kms": "adopted",
+        "radial_velocity_kms": "adopted",
+        "radial_velocity_ref": "adopted",
         "radius_solar": "model-derived",
-        "temperature_k": "model-derived"
+        "temperature_k": "model-derived",
+        "vx_kms": "adopted",
+        "vy_kms": "adopted",
+        "vz_kms": "adopted",
+        "x_pc": "adopted",
+        "y_pc": "adopted",
+        "z_pc": "adopted"
       },
       "gaiaDr3Id": "1460229442589223424",
       "id": "cns5-3247",
@@ -38046,6 +39356,72 @@
           "valueKms": 5.6009521484375
         },
         "status": "compiled-cns5"
+      },
+      "sharedObjectAdoption": {
+        "fields": [
+          "absolute_mag",
+          "vx_kms",
+          "pm_dec_error_masyr",
+          "pm_ra_cosdec_masyr",
+          "pm_ra_error_masyr",
+          "vy_kms",
+          "x_pc",
+          "dec_deg",
+          "pm_dec_masyr",
+          "radial_velocity_ref",
+          "z_pc",
+          "parallax_mas",
+          "vz_kms",
+          "astrometry_epoch",
+          "ra_deg",
+          "parallax_error_mas",
+          "y_pc",
+          "radial_velocity_kms",
+          "radial_velocity_error_kms",
+          "astrometry_ref",
+          "epoch",
+          "constellation"
+        ],
+        "recordId": "* bet Com",
+        "reviewSha256": "13b3b09260b2c461f96a27d5d13ed7dbe7975025168a9d2b93a6aaf479ac962f",
+        "scope": "Reviewed catalog object/component cns5-3247; aliases only, distinct companions remain separate.",
+        "sourceEvidence": "Original measurements and catalog-specific provenance are retained; the shared adopted record supersedes them for these fields.",
+        "sourceSelections": {
+          "astrometryAndMotion": {
+            "decision": "Retain the curated nearest-catalog coordinate/motion bundle where available; otherwise use the later Western snapshot. For the eleven reviewed stellar objects with missing CNS5 RV but an existing adopted SIMBAD RV, use the complete Western position/motion bundle to retain full-space motion. Spectroscopic binaries and composite Porrima retain the nearest-catalog RV withholding. Keep positions, velocities, reference epoch, raw measurements, uncertainties and bibliographies together. Withheld individual/system velocities remain withheld.",
+            "fields": [
+              "x_pc",
+              "y_pc",
+              "z_pc",
+              "vx_kms",
+              "vy_kms",
+              "vz_kms",
+              "epoch",
+              "constellation",
+              "ra_deg",
+              "dec_deg",
+              "astrometry_epoch",
+              "parallax_mas",
+              "parallax_error_mas",
+              "pm_ra_cosdec_masyr",
+              "pm_ra_error_masyr",
+              "pm_dec_masyr",
+              "pm_dec_error_masyr",
+              "radial_velocity_kms",
+              "radial_velocity_error_kms",
+              "astrometry_ref",
+              "radial_velocity_ref"
+            ],
+            "source": "nearest-1000:cns5-3247"
+          },
+          "photometry": {
+            "decision": "Use the component-resolved curated Johnson V/distance where available, otherwise the common selected astrometric snapshot; preserve the specifically reviewed Bright Star Catalogue V=0.76 for Acrux. No integrated system flux is assigned to a faint companion.",
+            "fields": [
+              "absolute_mag"
+            ],
+            "source": "nearest-1000:cns5-3247"
+          }
+        }
       },
       "simbadId": "* bet Com",
       "sourceType": "PM*"
@@ -39139,14 +40515,34 @@
       },
       "cns5Id": "5277",
       "fieldStatus": {
-        "absolute_mag": "derived-from-compiled-Johnson-V",
+        "absolute_mag": "adopted",
         "age_gyr": "model-derived",
+        "astrometry_epoch": "adopted",
+        "astrometry_ref": "adopted",
+        "constellation": "adopted",
+        "dec_deg": "adopted",
+        "epoch": "adopted",
         "luminosity_solar": "model-derived",
         "mass_solar": "model-derived",
         "metallicity_dex": "model-derived",
-        "radial_velocity_kms": "compiled-cns5",
+        "parallax_error_mas": "adopted",
+        "parallax_mas": "adopted",
+        "pm_dec_error_masyr": "adopted",
+        "pm_dec_masyr": "adopted",
+        "pm_ra_cosdec_masyr": "adopted",
+        "pm_ra_error_masyr": "adopted",
+        "ra_deg": "adopted",
+        "radial_velocity_error_kms": "adopted",
+        "radial_velocity_kms": "adopted",
+        "radial_velocity_ref": "adopted",
         "radius_solar": "model-derived",
-        "temperature_k": "model-derived"
+        "temperature_k": "model-derived",
+        "vx_kms": "adopted",
+        "vy_kms": "adopted",
+        "vz_kms": "adopted",
+        "x_pc": "adopted",
+        "y_pc": "adopted",
+        "z_pc": "adopted"
       },
       "gaiaDr3Id": "6401464693867773568",
       "id": "cns5-5277",
@@ -39242,6 +40638,72 @@
           "valueKms": -29.836265563964844
         },
         "status": "compiled-cns5"
+      },
+      "sharedObjectAdoption": {
+        "fields": [
+          "absolute_mag",
+          "vx_kms",
+          "pm_dec_error_masyr",
+          "pm_ra_cosdec_masyr",
+          "pm_ra_error_masyr",
+          "vy_kms",
+          "x_pc",
+          "dec_deg",
+          "pm_dec_masyr",
+          "radial_velocity_ref",
+          "z_pc",
+          "parallax_mas",
+          "vz_kms",
+          "astrometry_epoch",
+          "ra_deg",
+          "parallax_error_mas",
+          "y_pc",
+          "radial_velocity_kms",
+          "radial_velocity_error_kms",
+          "astrometry_ref",
+          "epoch",
+          "constellation"
+        ],
+        "recordId": "* gam Pav",
+        "reviewSha256": "13b3b09260b2c461f96a27d5d13ed7dbe7975025168a9d2b93a6aaf479ac962f",
+        "scope": "Reviewed catalog object/component cns5-5277; aliases only, distinct companions remain separate.",
+        "sourceEvidence": "Original measurements and catalog-specific provenance are retained; the shared adopted record supersedes them for these fields.",
+        "sourceSelections": {
+          "astrometryAndMotion": {
+            "decision": "Retain the curated nearest-catalog coordinate/motion bundle where available; otherwise use the later Western snapshot. For the eleven reviewed stellar objects with missing CNS5 RV but an existing adopted SIMBAD RV, use the complete Western position/motion bundle to retain full-space motion. Spectroscopic binaries and composite Porrima retain the nearest-catalog RV withholding. Keep positions, velocities, reference epoch, raw measurements, uncertainties and bibliographies together. Withheld individual/system velocities remain withheld.",
+            "fields": [
+              "x_pc",
+              "y_pc",
+              "z_pc",
+              "vx_kms",
+              "vy_kms",
+              "vz_kms",
+              "epoch",
+              "constellation",
+              "ra_deg",
+              "dec_deg",
+              "astrometry_epoch",
+              "parallax_mas",
+              "parallax_error_mas",
+              "pm_ra_cosdec_masyr",
+              "pm_ra_error_masyr",
+              "pm_dec_masyr",
+              "pm_dec_error_masyr",
+              "radial_velocity_kms",
+              "radial_velocity_error_kms",
+              "astrometry_ref",
+              "radial_velocity_ref"
+            ],
+            "source": "nearest-1000:cns5-5277"
+          },
+          "photometry": {
+            "decision": "Use the component-resolved curated Johnson V/distance where available, otherwise the common selected astrometric snapshot; preserve the specifically reviewed Bright Star Catalogue V=0.76 for Acrux. No integrated system flux is assigned to a faint companion.",
+            "fields": [
+              "absolute_mag"
+            ],
+            "source": "nearest-1000:cns5-5277"
+          }
+        }
       },
       "simbadId": "* gam Pav",
       "sourceType": "PM*"
@@ -52821,12 +54283,33 @@
       "fieldStatus": {
         "absolute_mag": "derived-from-compiled-Johnson-V",
         "age_gyr": "unknown",
-        "luminosity_solar": "derived",
-        "mass_solar": "model-derived",
-        "metallicity_dex": "measured",
-        "radial_velocity_kms": "unknown",
-        "radius_solar": "derived",
-        "temperature_k": "measured"
+        "astrometry_epoch": "adopted",
+        "astrometry_ref": "adopted",
+        "constellation": "adopted",
+        "dec_deg": "adopted",
+        "epoch": "adopted",
+        "luminosity_solar": "adopted",
+        "mass_solar": "adopted",
+        "metallicity_dex": "adopted",
+        "metallicity_kind": "adopted",
+        "parallax_error_mas": "adopted",
+        "parallax_mas": "adopted",
+        "pm_dec_error_masyr": "unknown",
+        "pm_dec_masyr": "adopted",
+        "pm_ra_cosdec_masyr": "adopted",
+        "pm_ra_error_masyr": "unknown",
+        "ra_deg": "adopted",
+        "radial_velocity_error_kms": "unknown",
+        "radial_velocity_kms": "adopted",
+        "radial_velocity_ref": "adopted",
+        "radius_solar": "adopted",
+        "temperature_k": "adopted",
+        "vx_kms": "adopted",
+        "vy_kms": "adopted",
+        "vz_kms": "adopted",
+        "x_pc": "adopted",
+        "y_pc": "adopted",
+        "z_pc": "adopted"
       },
       "gaiaDr3Id": null,
       "id": "cns5-1912",
@@ -52844,6 +54327,84 @@
       },
       "radialVelocity": {
         "status": "unknown"
+      },
+      "sharedObjectAdoption": {
+        "fields": [
+          "vx_kms",
+          "pm_dec_error_masyr",
+          "vz_kms",
+          "pm_ra_error_masyr",
+          "astrometry_epoch",
+          "radial_velocity_ref",
+          "vy_kms",
+          "x_pc",
+          "z_pc",
+          "ra_deg",
+          "dec_deg",
+          "temperature_k",
+          "y_pc",
+          "parallax_mas",
+          "astrometry_ref",
+          "radial_velocity_kms",
+          "radius_solar",
+          "luminosity_solar",
+          "epoch",
+          "constellation",
+          "parallax_error_mas",
+          "pm_ra_cosdec_masyr",
+          "pm_dec_masyr",
+          "radial_velocity_error_kms",
+          "mass_solar",
+          "metallicity_dex",
+          "metallicity_kind",
+          "age_gyr"
+        ],
+        "recordId": "* bet Gem",
+        "reviewSha256": "13b3b09260b2c461f96a27d5d13ed7dbe7975025168a9d2b93a6aaf479ac962f",
+        "scope": "Reviewed catalog object/component cns5-1912; aliases only, distinct companions remain separate.",
+        "sourceEvidence": "Original measurements and catalog-specific provenance are retained; the shared adopted record supersedes them for these fields.",
+        "sourceSelections": {
+          "astrometryAndMotion": {
+            "decision": "Retain the curated nearest-catalog coordinate/motion bundle where available; otherwise use the later Western snapshot. For the eleven reviewed stellar objects with missing CNS5 RV but an existing adopted SIMBAD RV, use the complete Western position/motion bundle to retain full-space motion. Spectroscopic binaries and composite Porrima retain the nearest-catalog RV withholding. Keep positions, velocities, reference epoch, raw measurements, uncertainties and bibliographies together. Withheld individual/system velocities remain withheld.",
+            "fields": [
+              "x_pc",
+              "y_pc",
+              "z_pc",
+              "vx_kms",
+              "vy_kms",
+              "vz_kms",
+              "epoch",
+              "constellation",
+              "ra_deg",
+              "dec_deg",
+              "astrometry_epoch",
+              "parallax_mas",
+              "parallax_error_mas",
+              "pm_ra_cosdec_masyr",
+              "pm_ra_error_masyr",
+              "pm_dec_masyr",
+              "pm_dec_error_masyr",
+              "radial_velocity_kms",
+              "radial_velocity_error_kms",
+              "astrometry_ref",
+              "radial_velocity_ref"
+            ],
+            "source": "western-constellation-stars:hip-37826"
+          },
+          "physical": {
+            "decision": "Prefer the frozen 2025 spectroscopic temperature over the 1999 model temperature; retain the precise interferometric radius and recomputed Stefan-Boltzmann luminosity.",
+            "fields": [
+              "temperature_k",
+              "mass_solar",
+              "luminosity_solar",
+              "radius_solar",
+              "metallicity_dex",
+              "metallicity_kind",
+              "age_gyr"
+            ],
+            "source": "nearest-1000:cns5-1912"
+          }
+        }
       },
       "sharedPhysicalEnrichment": {
         "luminosity_solar": {
@@ -64988,12 +66549,33 @@
       "fieldStatus": {
         "absolute_mag": "derived-from-compiled-Johnson-V",
         "age_gyr": "unknown",
-        "luminosity_solar": "derived",
-        "mass_solar": "model-derived",
-        "metallicity_dex": "measured",
-        "radial_velocity_kms": "unknown",
-        "radius_solar": "model-derived",
-        "temperature_k": "measured"
+        "astrometry_epoch": "adopted",
+        "astrometry_ref": "adopted",
+        "constellation": "adopted",
+        "dec_deg": "adopted",
+        "epoch": "adopted",
+        "luminosity_solar": "adopted",
+        "mass_solar": "adopted",
+        "metallicity_dex": "adopted",
+        "metallicity_kind": "adopted",
+        "parallax_error_mas": "adopted",
+        "parallax_mas": "adopted",
+        "pm_dec_error_masyr": "unknown",
+        "pm_dec_masyr": "adopted",
+        "pm_ra_cosdec_masyr": "adopted",
+        "pm_ra_error_masyr": "unknown",
+        "ra_deg": "adopted",
+        "radial_velocity_error_kms": "unknown",
+        "radial_velocity_kms": "adopted",
+        "radial_velocity_ref": "adopted",
+        "radius_solar": "adopted",
+        "temperature_k": "adopted",
+        "vx_kms": "adopted",
+        "vy_kms": "adopted",
+        "vz_kms": "adopted",
+        "x_pc": "adopted",
+        "y_pc": "adopted",
+        "z_pc": "adopted"
       },
       "gaiaDr3Id": null,
       "id": "cns5-2899",
@@ -65011,6 +66593,84 @@
       },
       "radialVelocity": {
         "status": "unknown"
+      },
+      "sharedObjectAdoption": {
+        "fields": [
+          "vx_kms",
+          "pm_dec_error_masyr",
+          "vz_kms",
+          "pm_ra_error_masyr",
+          "astrometry_epoch",
+          "radial_velocity_ref",
+          "vy_kms",
+          "x_pc",
+          "z_pc",
+          "ra_deg",
+          "dec_deg",
+          "temperature_k",
+          "y_pc",
+          "parallax_mas",
+          "astrometry_ref",
+          "radial_velocity_kms",
+          "radius_solar",
+          "luminosity_solar",
+          "epoch",
+          "constellation",
+          "parallax_error_mas",
+          "pm_ra_cosdec_masyr",
+          "pm_dec_masyr",
+          "radial_velocity_error_kms",
+          "mass_solar",
+          "metallicity_dex",
+          "metallicity_kind",
+          "age_gyr"
+        ],
+        "recordId": "* bet Leo",
+        "reviewSha256": "13b3b09260b2c461f96a27d5d13ed7dbe7975025168a9d2b93a6aaf479ac962f",
+        "scope": "Reviewed catalog object/component cns5-2899; aliases only, distinct companions remain separate.",
+        "sourceEvidence": "Original measurements and catalog-specific provenance are retained; the shared adopted record supersedes them for these fields.",
+        "sourceSelections": {
+          "astrometryAndMotion": {
+            "decision": "Retain the curated nearest-catalog coordinate/motion bundle where available; otherwise use the later Western snapshot. For the eleven reviewed stellar objects with missing CNS5 RV but an existing adopted SIMBAD RV, use the complete Western position/motion bundle to retain full-space motion. Spectroscopic binaries and composite Porrima retain the nearest-catalog RV withholding. Keep positions, velocities, reference epoch, raw measurements, uncertainties and bibliographies together. Withheld individual/system velocities remain withheld.",
+            "fields": [
+              "x_pc",
+              "y_pc",
+              "z_pc",
+              "vx_kms",
+              "vy_kms",
+              "vz_kms",
+              "epoch",
+              "constellation",
+              "ra_deg",
+              "dec_deg",
+              "astrometry_epoch",
+              "parallax_mas",
+              "parallax_error_mas",
+              "pm_ra_cosdec_masyr",
+              "pm_ra_error_masyr",
+              "pm_dec_masyr",
+              "pm_dec_error_masyr",
+              "radial_velocity_kms",
+              "radial_velocity_error_kms",
+              "astrometry_ref",
+              "radial_velocity_ref"
+            ],
+            "source": "western-constellation-stars:hip-57632"
+          },
+          "physical": {
+            "decision": "Prefer the published 2013 object-specific temperature over the 1999 model temperature; retain the precise adopted radius and its Stefan-Boltzmann luminosity.",
+            "fields": [
+              "temperature_k",
+              "mass_solar",
+              "luminosity_solar",
+              "radius_solar",
+              "metallicity_dex",
+              "metallicity_kind",
+              "age_gyr"
+            ],
+            "source": "nearest-1000:cns5-2899"
+          }
+        }
       },
       "sharedPhysicalEnrichment": {
         "luminosity_solar": {
@@ -69882,14 +71542,34 @@
       },
       "cns5Id": "3922",
       "fieldStatus": {
-        "absolute_mag": "derived-from-compiled-Johnson-V",
+        "absolute_mag": "adopted",
         "age_gyr": "model-derived",
+        "astrometry_epoch": "adopted",
+        "astrometry_ref": "adopted",
+        "constellation": "adopted",
+        "dec_deg": "adopted",
+        "epoch": "adopted",
         "luminosity_solar": "model-derived",
         "mass_solar": "model-derived",
         "metallicity_dex": "model-derived",
-        "radial_velocity_kms": "compiled-cns5",
+        "parallax_error_mas": "adopted",
+        "parallax_mas": "adopted",
+        "pm_dec_error_masyr": "adopted",
+        "pm_dec_masyr": "adopted",
+        "pm_ra_cosdec_masyr": "adopted",
+        "pm_ra_error_masyr": "adopted",
+        "ra_deg": "adopted",
+        "radial_velocity_error_kms": "adopted",
+        "radial_velocity_kms": "adopted",
+        "radial_velocity_ref": "adopted",
         "radius_solar": "model-derived",
-        "temperature_k": "model-derived"
+        "temperature_k": "model-derived",
+        "vx_kms": "adopted",
+        "vy_kms": "adopted",
+        "vz_kms": "adopted",
+        "x_pc": "adopted",
+        "y_pc": "adopted",
+        "z_pc": "adopted"
       },
       "gaiaDr3Id": "1193030490492925824",
       "id": "cns5-3922",
@@ -69985,6 +71665,72 @@
           "valueKms": 7.108845233917236
         },
         "status": "compiled-cns5"
+      },
+      "sharedObjectAdoption": {
+        "fields": [
+          "absolute_mag",
+          "vx_kms",
+          "pm_dec_error_masyr",
+          "pm_ra_cosdec_masyr",
+          "pm_ra_error_masyr",
+          "vy_kms",
+          "x_pc",
+          "dec_deg",
+          "pm_dec_masyr",
+          "radial_velocity_ref",
+          "z_pc",
+          "parallax_mas",
+          "vz_kms",
+          "astrometry_epoch",
+          "ra_deg",
+          "parallax_error_mas",
+          "y_pc",
+          "radial_velocity_kms",
+          "radial_velocity_error_kms",
+          "astrometry_ref",
+          "epoch",
+          "constellation"
+        ],
+        "recordId": "* gam Ser",
+        "reviewSha256": "13b3b09260b2c461f96a27d5d13ed7dbe7975025168a9d2b93a6aaf479ac962f",
+        "scope": "Reviewed catalog object/component cns5-3922; aliases only, distinct companions remain separate.",
+        "sourceEvidence": "Original measurements and catalog-specific provenance are retained; the shared adopted record supersedes them for these fields.",
+        "sourceSelections": {
+          "astrometryAndMotion": {
+            "decision": "Retain the curated nearest-catalog coordinate/motion bundle where available; otherwise use the later Western snapshot. For the eleven reviewed stellar objects with missing CNS5 RV but an existing adopted SIMBAD RV, use the complete Western position/motion bundle to retain full-space motion. Spectroscopic binaries and composite Porrima retain the nearest-catalog RV withholding. Keep positions, velocities, reference epoch, raw measurements, uncertainties and bibliographies together. Withheld individual/system velocities remain withheld.",
+            "fields": [
+              "x_pc",
+              "y_pc",
+              "z_pc",
+              "vx_kms",
+              "vy_kms",
+              "vz_kms",
+              "epoch",
+              "constellation",
+              "ra_deg",
+              "dec_deg",
+              "astrometry_epoch",
+              "parallax_mas",
+              "parallax_error_mas",
+              "pm_ra_cosdec_masyr",
+              "pm_ra_error_masyr",
+              "pm_dec_masyr",
+              "pm_dec_error_masyr",
+              "radial_velocity_kms",
+              "radial_velocity_error_kms",
+              "astrometry_ref",
+              "radial_velocity_ref"
+            ],
+            "source": "nearest-1000:cns5-3922"
+          },
+          "photometry": {
+            "decision": "Use the component-resolved curated Johnson V/distance where available, otherwise the common selected astrometric snapshot; preserve the specifically reviewed Bright Star Catalogue V=0.76 for Acrux. No integrated system flux is assigned to a faint companion.",
+            "fields": [
+              "absolute_mag"
+            ],
+            "source": "nearest-1000:cns5-3922"
+          }
+        }
       },
       "simbadId": "* gam Ser",
       "sourceType": "PM*"
@@ -70169,12 +71915,33 @@
       "fieldStatus": {
         "absolute_mag": "derived-from-compiled-Johnson-V",
         "age_gyr": "unknown",
-        "luminosity_solar": "derived",
+        "astrometry_epoch": "adopted",
+        "astrometry_ref": "adopted",
+        "constellation": "adopted",
+        "dec_deg": "adopted",
+        "epoch": "adopted",
+        "luminosity_solar": "adopted",
         "mass_solar": "unknown",
-        "metallicity_dex": "measured",
-        "radial_velocity_kms": "unknown",
-        "radius_solar": "model-derived",
-        "temperature_k": "measured"
+        "metallicity_dex": "adopted",
+        "metallicity_kind": "adopted",
+        "parallax_error_mas": "adopted",
+        "parallax_mas": "adopted",
+        "pm_dec_error_masyr": "unknown",
+        "pm_dec_masyr": "adopted",
+        "pm_ra_cosdec_masyr": "adopted",
+        "pm_ra_error_masyr": "unknown",
+        "ra_deg": "adopted",
+        "radial_velocity_error_kms": "unknown",
+        "radial_velocity_kms": "adopted",
+        "radial_velocity_ref": "adopted",
+        "radius_solar": "adopted",
+        "temperature_k": "adopted",
+        "vx_kms": "adopted",
+        "vy_kms": "adopted",
+        "vz_kms": "adopted",
+        "x_pc": "adopted",
+        "y_pc": "adopted",
+        "z_pc": "adopted"
       },
       "gaiaDr3Id": null,
       "id": "cns5-3517",
@@ -70192,6 +71959,84 @@
       },
       "radialVelocity": {
         "status": "unknown"
+      },
+      "sharedObjectAdoption": {
+        "fields": [
+          "vx_kms",
+          "pm_dec_error_masyr",
+          "pm_ra_error_masyr",
+          "vy_kms",
+          "x_pc",
+          "dec_deg",
+          "radial_velocity_ref",
+          "z_pc",
+          "temperature_k",
+          "parallax_mas",
+          "radius_solar",
+          "luminosity_solar",
+          "mass_solar",
+          "vz_kms",
+          "astrometry_epoch",
+          "ra_deg",
+          "y_pc",
+          "radial_velocity_kms",
+          "astrometry_ref",
+          "epoch",
+          "constellation",
+          "parallax_error_mas",
+          "pm_ra_cosdec_masyr",
+          "pm_dec_masyr",
+          "radial_velocity_error_kms",
+          "metallicity_dex",
+          "metallicity_kind",
+          "age_gyr"
+        ],
+        "recordId": "* alf Boo",
+        "reviewSha256": "13b3b09260b2c461f96a27d5d13ed7dbe7975025168a9d2b93a6aaf479ac962f",
+        "scope": "Reviewed catalog object/component cns5-3517; aliases only, distinct companions remain separate.",
+        "sourceEvidence": "Original measurements and catalog-specific provenance are retained; the shared adopted record supersedes them for these fields.",
+        "sourceSelections": {
+          "astrometryAndMotion": {
+            "decision": "Retain the curated nearest-catalog coordinate/motion bundle where available; otherwise use the later Western snapshot. For the eleven reviewed stellar objects with missing CNS5 RV but an existing adopted SIMBAD RV, use the complete Western position/motion bundle to retain full-space motion. Spectroscopic binaries and composite Porrima retain the nearest-catalog RV withholding. Keep positions, velocities, reference epoch, raw measurements, uncertainties and bibliographies together. Withheld individual/system velocities remain withheld.",
+            "fields": [
+              "x_pc",
+              "y_pc",
+              "z_pc",
+              "vx_kms",
+              "vy_kms",
+              "vz_kms",
+              "epoch",
+              "constellation",
+              "ra_deg",
+              "dec_deg",
+              "astrometry_epoch",
+              "parallax_mas",
+              "parallax_error_mas",
+              "pm_ra_cosdec_masyr",
+              "pm_ra_error_masyr",
+              "pm_dec_masyr",
+              "pm_dec_error_masyr",
+              "radial_velocity_kms",
+              "radial_velocity_error_kms",
+              "astrometry_ref",
+              "radial_velocity_ref"
+            ],
+            "source": "western-constellation-stars:hip-69673"
+          },
+          "physical": {
+            "decision": "Prefer the frozen 2024 spectroscopic temperature over the 1999 model temperature. Withhold the automatic near-solar-metallicity evolutionary mass consistently for this metal-poor giant, as the bright/nearest catalogs already do; retain the adopted radius and its Stefan-Boltzmann luminosity.",
+            "fields": [
+              "temperature_k",
+              "mass_solar",
+              "luminosity_solar",
+              "radius_solar",
+              "metallicity_dex",
+              "metallicity_kind",
+              "age_gyr"
+            ],
+            "source": "nearest-1000:cns5-3517"
+          }
+        }
       },
       "sharedPhysicalEnrichment": {
         "luminosity_solar": {
@@ -71952,12 +73797,33 @@
       "fieldStatus": {
         "absolute_mag": "derived-from-compiled-Johnson-V",
         "age_gyr": "unknown",
+        "astrometry_epoch": "adopted",
+        "astrometry_ref": "adopted",
+        "constellation": "adopted",
+        "dec_deg": "adopted",
+        "epoch": "adopted",
         "luminosity_solar": "unknown",
         "mass_solar": "unknown",
-        "metallicity_dex": "measured",
+        "metallicity_dex": "adopted",
+        "metallicity_kind": "adopted",
+        "parallax_error_mas": "adopted",
+        "parallax_mas": "adopted",
+        "pm_dec_error_masyr": "adopted",
+        "pm_dec_masyr": "adopted",
+        "pm_ra_cosdec_masyr": "adopted",
+        "pm_ra_error_masyr": "adopted",
+        "ra_deg": "adopted",
+        "radial_velocity_error_kms": "unknown",
         "radial_velocity_kms": "unknown",
+        "radial_velocity_ref": "unknown",
         "radius_solar": "unknown",
-        "temperature_k": "measured"
+        "temperature_k": "adopted",
+        "vx_kms": "unknown",
+        "vy_kms": "unknown",
+        "vz_kms": "unknown",
+        "x_pc": "adopted",
+        "y_pc": "adopted",
+        "z_pc": "adopted"
       },
       "gaiaDr3Id": null,
       "id": "cns5-3442",
@@ -71976,6 +73842,84 @@
       },
       "radialVelocity": {
         "status": "unknown"
+      },
+      "sharedObjectAdoption": {
+        "fields": [
+          "vx_kms",
+          "pm_dec_error_masyr",
+          "vz_kms",
+          "pm_ra_error_masyr",
+          "astrometry_epoch",
+          "radial_velocity_ref",
+          "vy_kms",
+          "x_pc",
+          "z_pc",
+          "ra_deg",
+          "dec_deg",
+          "temperature_k",
+          "y_pc",
+          "astrometry_ref",
+          "radial_velocity_kms",
+          "epoch",
+          "constellation",
+          "parallax_mas",
+          "parallax_error_mas",
+          "pm_ra_cosdec_masyr",
+          "pm_dec_masyr",
+          "radial_velocity_error_kms",
+          "mass_solar",
+          "luminosity_solar",
+          "radius_solar",
+          "metallicity_dex",
+          "metallicity_kind",
+          "age_gyr"
+        ],
+        "recordId": "* eta Boo",
+        "reviewSha256": "13b3b09260b2c461f96a27d5d13ed7dbe7975025168a9d2b93a6aaf479ac962f",
+        "scope": "Reviewed catalog object/component cns5-3442; aliases only, distinct companions remain separate.",
+        "sourceEvidence": "Original measurements and catalog-specific provenance are retained; the shared adopted record supersedes them for these fields.",
+        "sourceSelections": {
+          "astrometryAndMotion": {
+            "decision": "Retain the curated nearest-catalog coordinate/motion bundle where available; otherwise use the later Western snapshot. For the eleven reviewed stellar objects with missing CNS5 RV but an existing adopted SIMBAD RV, use the complete Western position/motion bundle to retain full-space motion. Spectroscopic binaries and composite Porrima retain the nearest-catalog RV withholding. Keep positions, velocities, reference epoch, raw measurements, uncertainties and bibliographies together. Withheld individual/system velocities remain withheld.",
+            "fields": [
+              "x_pc",
+              "y_pc",
+              "z_pc",
+              "vx_kms",
+              "vy_kms",
+              "vz_kms",
+              "epoch",
+              "constellation",
+              "ra_deg",
+              "dec_deg",
+              "astrometry_epoch",
+              "parallax_mas",
+              "parallax_error_mas",
+              "pm_ra_cosdec_masyr",
+              "pm_ra_error_masyr",
+              "pm_dec_masyr",
+              "pm_dec_error_masyr",
+              "radial_velocity_kms",
+              "radial_velocity_error_kms",
+              "astrometry_ref",
+              "radial_velocity_ref"
+            ],
+            "source": "nearest-1000:cns5-3442"
+          },
+          "physical": {
+            "decision": "Prefer the frozen 2025 spectroscopic temperature over the 1999 model temperature; retain primary-dominated spectral scope and withhold individual mass, radius, luminosity and age as in the existing reviewed catalogs.",
+            "fields": [
+              "temperature_k",
+              "mass_solar",
+              "luminosity_solar",
+              "radius_solar",
+              "metallicity_dex",
+              "metallicity_kind",
+              "age_gyr"
+            ],
+            "source": "nearest-1000:cns5-3442"
+          }
+        }
       },
       "sharedPhysicalEnrichment": {
         "metallicity_dex": {
@@ -81099,14 +83043,34 @@
       },
       "cns5Id": "5370",
       "fieldStatus": {
-        "absolute_mag": "derived-from-compiled-Johnson-V",
+        "absolute_mag": "adopted",
         "age_gyr": "unknown",
+        "astrometry_epoch": "adopted",
+        "astrometry_ref": "adopted",
+        "constellation": "adopted",
+        "dec_deg": "adopted",
+        "epoch": "adopted",
         "luminosity_solar": "unknown",
         "mass_solar": "unknown",
         "metallicity_dex": "measured",
+        "parallax_error_mas": "adopted",
+        "parallax_mas": "adopted",
+        "pm_dec_error_masyr": "adopted",
+        "pm_dec_masyr": "adopted",
+        "pm_ra_cosdec_masyr": "adopted",
+        "pm_ra_error_masyr": "adopted",
+        "ra_deg": "adopted",
+        "radial_velocity_error_kms": "unknown",
         "radial_velocity_kms": "unknown",
+        "radial_velocity_ref": "unknown",
         "radius_solar": "unknown",
-        "temperature_k": "measured"
+        "temperature_k": "measured",
+        "vx_kms": "unknown",
+        "vy_kms": "unknown",
+        "vz_kms": "unknown",
+        "x_pc": "adopted",
+        "y_pc": "adopted",
+        "z_pc": "adopted"
       },
       "gaiaDr3Id": "6838311796136238976",
       "id": "cns5-5370",
@@ -81124,6 +83088,72 @@
       },
       "radialVelocity": {
         "status": "unknown"
+      },
+      "sharedObjectAdoption": {
+        "fields": [
+          "absolute_mag",
+          "vx_kms",
+          "pm_dec_error_masyr",
+          "vz_kms",
+          "pm_ra_error_masyr",
+          "astrometry_epoch",
+          "radial_velocity_ref",
+          "vy_kms",
+          "x_pc",
+          "z_pc",
+          "ra_deg",
+          "dec_deg",
+          "y_pc",
+          "parallax_mas",
+          "astrometry_ref",
+          "radial_velocity_kms",
+          "epoch",
+          "constellation",
+          "parallax_error_mas",
+          "pm_ra_cosdec_masyr",
+          "pm_dec_masyr",
+          "radial_velocity_error_kms"
+        ],
+        "recordId": "* del Cap",
+        "reviewSha256": "13b3b09260b2c461f96a27d5d13ed7dbe7975025168a9d2b93a6aaf479ac962f",
+        "scope": "Reviewed catalog object/component cns5-5370; aliases only, distinct companions remain separate.",
+        "sourceEvidence": "Original measurements and catalog-specific provenance are retained; the shared adopted record supersedes them for these fields.",
+        "sourceSelections": {
+          "astrometryAndMotion": {
+            "decision": "Retain the curated nearest-catalog coordinate/motion bundle where available; otherwise use the later Western snapshot. For the eleven reviewed stellar objects with missing CNS5 RV but an existing adopted SIMBAD RV, use the complete Western position/motion bundle to retain full-space motion. Spectroscopic binaries and composite Porrima retain the nearest-catalog RV withholding. Keep positions, velocities, reference epoch, raw measurements, uncertainties and bibliographies together. Withheld individual/system velocities remain withheld.",
+            "fields": [
+              "x_pc",
+              "y_pc",
+              "z_pc",
+              "vx_kms",
+              "vy_kms",
+              "vz_kms",
+              "epoch",
+              "constellation",
+              "ra_deg",
+              "dec_deg",
+              "astrometry_epoch",
+              "parallax_mas",
+              "parallax_error_mas",
+              "pm_ra_cosdec_masyr",
+              "pm_ra_error_masyr",
+              "pm_dec_masyr",
+              "pm_dec_error_masyr",
+              "radial_velocity_kms",
+              "radial_velocity_error_kms",
+              "astrometry_ref",
+              "radial_velocity_ref"
+            ],
+            "source": "nearest-1000:cns5-5370"
+          },
+          "photometry": {
+            "decision": "Use the component-resolved curated Johnson V/distance where available, otherwise the common selected astrometric snapshot; preserve the specifically reviewed Bright Star Catalogue V=0.76 for Acrux. No integrated system flux is assigned to a faint companion.",
+            "fields": [
+              "absolute_mag"
+            ],
+            "source": "nearest-1000:cns5-5370"
+          }
+        }
       },
       "sharedPhysicalEnrichment": {
         "metallicity_dex": {
@@ -85567,14 +87597,34 @@
       },
       "cns5Id": "3135",
       "fieldStatus": {
-        "absolute_mag": "derived-from-compiled-Johnson-V",
+        "absolute_mag": "adopted",
         "age_gyr": "model-derived",
+        "astrometry_epoch": "adopted",
+        "astrometry_ref": "adopted",
+        "constellation": "adopted",
+        "dec_deg": "adopted",
+        "epoch": "adopted",
         "luminosity_solar": "model-derived",
         "mass_solar": "model-derived",
         "metallicity_dex": "model-derived",
+        "parallax_error_mas": "adopted",
+        "parallax_mas": "adopted",
+        "pm_dec_error_masyr": "adopted",
+        "pm_dec_masyr": "adopted",
+        "pm_ra_cosdec_masyr": "adopted",
+        "pm_ra_error_masyr": "adopted",
+        "ra_deg": "adopted",
+        "radial_velocity_error_kms": "unknown",
         "radial_velocity_kms": "unknown",
+        "radial_velocity_ref": "unknown",
         "radius_solar": "model-derived",
-        "temperature_k": "model-derived"
+        "temperature_k": "model-derived",
+        "vx_kms": "unknown",
+        "vy_kms": "unknown",
+        "vz_kms": "unknown",
+        "x_pc": "adopted",
+        "y_pc": "adopted",
+        "z_pc": "adopted"
       },
       "gaiaDr3Id": "3683687763520080384",
       "id": "cns5-3135",
@@ -85662,6 +87712,72 @@
       },
       "radialVelocity": {
         "status": "unknown"
+      },
+      "sharedObjectAdoption": {
+        "fields": [
+          "absolute_mag",
+          "vx_kms",
+          "pm_dec_error_masyr",
+          "pm_ra_cosdec_masyr",
+          "pm_ra_error_masyr",
+          "vy_kms",
+          "x_pc",
+          "dec_deg",
+          "pm_dec_masyr",
+          "radial_velocity_ref",
+          "z_pc",
+          "parallax_mas",
+          "vz_kms",
+          "astrometry_epoch",
+          "ra_deg",
+          "parallax_error_mas",
+          "y_pc",
+          "radial_velocity_kms",
+          "astrometry_ref",
+          "epoch",
+          "constellation",
+          "radial_velocity_error_kms"
+        ],
+        "recordId": "* gam Vir",
+        "reviewSha256": "13b3b09260b2c461f96a27d5d13ed7dbe7975025168a9d2b93a6aaf479ac962f",
+        "scope": "Reviewed catalog object/component cns5-3135; aliases only, distinct companions remain separate.",
+        "sourceEvidence": "Original measurements and catalog-specific provenance are retained; the shared adopted record supersedes them for these fields.",
+        "sourceSelections": {
+          "astrometryAndMotion": {
+            "decision": "Retain the curated nearest-catalog coordinate/motion bundle where available; otherwise use the later Western snapshot. For the eleven reviewed stellar objects with missing CNS5 RV but an existing adopted SIMBAD RV, use the complete Western position/motion bundle to retain full-space motion. Spectroscopic binaries and composite Porrima retain the nearest-catalog RV withholding. Keep positions, velocities, reference epoch, raw measurements, uncertainties and bibliographies together. Withheld individual/system velocities remain withheld.",
+            "fields": [
+              "x_pc",
+              "y_pc",
+              "z_pc",
+              "vx_kms",
+              "vy_kms",
+              "vz_kms",
+              "epoch",
+              "constellation",
+              "ra_deg",
+              "dec_deg",
+              "astrometry_epoch",
+              "parallax_mas",
+              "parallax_error_mas",
+              "pm_ra_cosdec_masyr",
+              "pm_ra_error_masyr",
+              "pm_dec_masyr",
+              "pm_dec_error_masyr",
+              "radial_velocity_kms",
+              "radial_velocity_error_kms",
+              "astrometry_ref",
+              "radial_velocity_ref"
+            ],
+            "source": "nearest-1000:cns5-3135"
+          },
+          "photometry": {
+            "decision": "Use the component-resolved curated Johnson V/distance where available, otherwise the common selected astrometric snapshot; preserve the specifically reviewed Bright Star Catalogue V=0.76 for Acrux. No integrated system flux is assigned to a faint companion.",
+            "fields": [
+              "absolute_mag"
+            ],
+            "source": "nearest-1000:cns5-3135"
+          }
+        }
       },
       "simbadId": "* gam Vir",
       "sourceType": "PM*"
@@ -92189,14 +94305,34 @@
       },
       "cns5Id": "3915",
       "fieldStatus": {
-        "absolute_mag": "derived-from-compiled-Johnson-V",
+        "absolute_mag": "adopted",
         "age_gyr": "unknown",
+        "astrometry_epoch": "adopted",
+        "astrometry_ref": "adopted",
+        "constellation": "adopted",
+        "dec_deg": "adopted",
+        "epoch": "adopted",
         "luminosity_solar": "derived",
         "mass_solar": "model-derived",
         "metallicity_dex": "measured",
-        "radial_velocity_kms": "unknown",
+        "parallax_error_mas": "adopted",
+        "parallax_mas": "adopted",
+        "pm_dec_error_masyr": "unknown",
+        "pm_dec_masyr": "adopted",
+        "pm_ra_cosdec_masyr": "adopted",
+        "pm_ra_error_masyr": "unknown",
+        "ra_deg": "adopted",
+        "radial_velocity_error_kms": "unknown",
+        "radial_velocity_kms": "adopted",
+        "radial_velocity_ref": "adopted",
         "radius_solar": "model-derived",
-        "temperature_k": "measured"
+        "temperature_k": "measured",
+        "vx_kms": "adopted",
+        "vy_kms": "adopted",
+        "vz_kms": "adopted",
+        "x_pc": "adopted",
+        "y_pc": "adopted",
+        "z_pc": "adopted"
       },
       "gaiaDr3Id": "5826168461855385472",
       "id": "cns5-3915",
@@ -92215,6 +94351,72 @@
       },
       "radialVelocity": {
         "status": "unknown"
+      },
+      "sharedObjectAdoption": {
+        "fields": [
+          "absolute_mag",
+          "vx_kms",
+          "pm_dec_error_masyr",
+          "pm_ra_cosdec_masyr",
+          "pm_ra_error_masyr",
+          "vy_kms",
+          "x_pc",
+          "dec_deg",
+          "pm_dec_masyr",
+          "radial_velocity_ref",
+          "z_pc",
+          "parallax_mas",
+          "vz_kms",
+          "astrometry_epoch",
+          "ra_deg",
+          "parallax_error_mas",
+          "y_pc",
+          "radial_velocity_kms",
+          "astrometry_ref",
+          "epoch",
+          "constellation",
+          "radial_velocity_error_kms"
+        ],
+        "recordId": "* bet TrA",
+        "reviewSha256": "13b3b09260b2c461f96a27d5d13ed7dbe7975025168a9d2b93a6aaf479ac962f",
+        "scope": "Reviewed catalog object/component cns5-3915; aliases only, distinct companions remain separate.",
+        "sourceEvidence": "Original measurements and catalog-specific provenance are retained; the shared adopted record supersedes them for these fields.",
+        "sourceSelections": {
+          "astrometryAndMotion": {
+            "decision": "Retain the curated nearest-catalog coordinate/motion bundle where available; otherwise use the later Western snapshot. For the eleven reviewed stellar objects with missing CNS5 RV but an existing adopted SIMBAD RV, use the complete Western position/motion bundle to retain full-space motion. Spectroscopic binaries and composite Porrima retain the nearest-catalog RV withholding. Keep positions, velocities, reference epoch, raw measurements, uncertainties and bibliographies together. Withheld individual/system velocities remain withheld.",
+            "fields": [
+              "x_pc",
+              "y_pc",
+              "z_pc",
+              "vx_kms",
+              "vy_kms",
+              "vz_kms",
+              "epoch",
+              "constellation",
+              "ra_deg",
+              "dec_deg",
+              "astrometry_epoch",
+              "parallax_mas",
+              "parallax_error_mas",
+              "pm_ra_cosdec_masyr",
+              "pm_ra_error_masyr",
+              "pm_dec_masyr",
+              "pm_dec_error_masyr",
+              "radial_velocity_kms",
+              "radial_velocity_error_kms",
+              "astrometry_ref",
+              "radial_velocity_ref"
+            ],
+            "source": "western-constellation-stars:hip-77952"
+          },
+          "photometry": {
+            "decision": "Use the component-resolved curated Johnson V/distance where available, otherwise the common selected astrometric snapshot; preserve the specifically reviewed Bright Star Catalogue V=0.76 for Acrux. No integrated system flux is assigned to a faint companion.",
+            "fields": [
+              "absolute_mag"
+            ],
+            "source": "western-constellation-stars:hip-77952"
+          }
+        }
       },
       "sharedPhysicalEnrichment": {
         "luminosity_solar": {
@@ -116946,14 +119148,34 @@
       },
       "cns5Id": "2366",
       "fieldStatus": {
-        "absolute_mag": "derived-from-compiled-Johnson-V",
+        "absolute_mag": "adopted",
         "age_gyr": "unknown",
+        "astrometry_epoch": "adopted",
+        "astrometry_ref": "adopted",
+        "constellation": "adopted",
+        "dec_deg": "adopted",
+        "epoch": "adopted",
         "luminosity_solar": "derived",
         "mass_solar": "model-derived",
         "metallicity_dex": "measured",
-        "radial_velocity_kms": "unknown",
+        "parallax_error_mas": "adopted",
+        "parallax_mas": "adopted",
+        "pm_dec_error_masyr": "unknown",
+        "pm_dec_masyr": "adopted",
+        "pm_ra_cosdec_masyr": "adopted",
+        "pm_ra_error_masyr": "unknown",
+        "ra_deg": "adopted",
+        "radial_velocity_error_kms": "unknown",
+        "radial_velocity_kms": "adopted",
+        "radial_velocity_ref": "adopted",
         "radius_solar": "model-derived",
-        "temperature_k": "measured"
+        "temperature_k": "measured",
+        "vx_kms": "adopted",
+        "vy_kms": "adopted",
+        "vz_kms": "adopted",
+        "x_pc": "adopted",
+        "y_pc": "adopted",
+        "z_pc": "adopted"
       },
       "gaiaDr3Id": "1018776176872261248",
       "id": "cns5-2366",
@@ -116972,6 +119194,72 @@
       },
       "radialVelocity": {
         "status": "unknown"
+      },
+      "sharedObjectAdoption": {
+        "fields": [
+          "absolute_mag",
+          "vx_kms",
+          "pm_dec_error_masyr",
+          "pm_ra_cosdec_masyr",
+          "pm_ra_error_masyr",
+          "vy_kms",
+          "x_pc",
+          "dec_deg",
+          "pm_dec_masyr",
+          "radial_velocity_ref",
+          "z_pc",
+          "parallax_mas",
+          "vz_kms",
+          "astrometry_epoch",
+          "ra_deg",
+          "parallax_error_mas",
+          "y_pc",
+          "radial_velocity_kms",
+          "astrometry_ref",
+          "epoch",
+          "constellation",
+          "radial_velocity_error_kms"
+        ],
+        "recordId": "* tet UMa",
+        "reviewSha256": "13b3b09260b2c461f96a27d5d13ed7dbe7975025168a9d2b93a6aaf479ac962f",
+        "scope": "Reviewed catalog object/component cns5-2366; aliases only, distinct companions remain separate.",
+        "sourceEvidence": "Original measurements and catalog-specific provenance are retained; the shared adopted record supersedes them for these fields.",
+        "sourceSelections": {
+          "astrometryAndMotion": {
+            "decision": "Retain the curated nearest-catalog coordinate/motion bundle where available; otherwise use the later Western snapshot. For the eleven reviewed stellar objects with missing CNS5 RV but an existing adopted SIMBAD RV, use the complete Western position/motion bundle to retain full-space motion. Spectroscopic binaries and composite Porrima retain the nearest-catalog RV withholding. Keep positions, velocities, reference epoch, raw measurements, uncertainties and bibliographies together. Withheld individual/system velocities remain withheld.",
+            "fields": [
+              "x_pc",
+              "y_pc",
+              "z_pc",
+              "vx_kms",
+              "vy_kms",
+              "vz_kms",
+              "epoch",
+              "constellation",
+              "ra_deg",
+              "dec_deg",
+              "astrometry_epoch",
+              "parallax_mas",
+              "parallax_error_mas",
+              "pm_ra_cosdec_masyr",
+              "pm_ra_error_masyr",
+              "pm_dec_masyr",
+              "pm_dec_error_masyr",
+              "radial_velocity_kms",
+              "radial_velocity_error_kms",
+              "astrometry_ref",
+              "radial_velocity_ref"
+            ],
+            "source": "western-constellation-stars:hip-46853"
+          },
+          "photometry": {
+            "decision": "Use the component-resolved curated Johnson V/distance where available, otherwise the common selected astrometric snapshot; preserve the specifically reviewed Bright Star Catalogue V=0.76 for Acrux. No integrated system flux is assigned to a faint companion.",
+            "fields": [
+              "absolute_mag"
+            ],
+            "source": "western-constellation-stars:hip-46853"
+          }
+        }
       },
       "sharedPhysicalEnrichment": {
         "luminosity_solar": {
@@ -120580,14 +122868,34 @@
       },
       "cns5Id": "4929",
       "fieldStatus": {
-        "absolute_mag": "derived-from-compiled-Johnson-V",
+        "absolute_mag": "adopted",
         "age_gyr": "unknown",
+        "astrometry_epoch": "adopted",
+        "astrometry_ref": "adopted",
+        "constellation": "adopted",
+        "dec_deg": "adopted",
+        "epoch": "adopted",
         "luminosity_solar": "derived",
         "mass_solar": "model-derived",
         "metallicity_dex": "measured",
-        "radial_velocity_kms": "unknown",
+        "parallax_error_mas": "adopted",
+        "parallax_mas": "adopted",
+        "pm_dec_error_masyr": "unknown",
+        "pm_dec_masyr": "adopted",
+        "pm_ra_cosdec_masyr": "adopted",
+        "pm_ra_error_masyr": "unknown",
+        "ra_deg": "adopted",
+        "radial_velocity_error_kms": "unknown",
+        "radial_velocity_kms": "adopted",
+        "radial_velocity_ref": "adopted",
         "radius_solar": "model-derived",
-        "temperature_k": "measured"
+        "temperature_k": "measured",
+        "vx_kms": "adopted",
+        "vy_kms": "adopted",
+        "vz_kms": "adopted",
+        "x_pc": "adopted",
+        "y_pc": "adopted",
+        "z_pc": "adopted"
       },
       "gaiaDr3Id": "4296708789290712064",
       "id": "cns5-4929",
@@ -120606,6 +122914,72 @@
       },
       "radialVelocity": {
         "status": "unknown"
+      },
+      "sharedObjectAdoption": {
+        "fields": [
+          "absolute_mag",
+          "vx_kms",
+          "pm_dec_error_masyr",
+          "pm_ra_cosdec_masyr",
+          "pm_ra_error_masyr",
+          "vy_kms",
+          "x_pc",
+          "dec_deg",
+          "pm_dec_masyr",
+          "radial_velocity_ref",
+          "z_pc",
+          "parallax_mas",
+          "vz_kms",
+          "astrometry_epoch",
+          "ra_deg",
+          "parallax_error_mas",
+          "y_pc",
+          "radial_velocity_kms",
+          "astrometry_ref",
+          "epoch",
+          "constellation",
+          "radial_velocity_error_kms"
+        ],
+        "recordId": "* bet Aql",
+        "reviewSha256": "13b3b09260b2c461f96a27d5d13ed7dbe7975025168a9d2b93a6aaf479ac962f",
+        "scope": "Reviewed catalog object/component cns5-4929; aliases only, distinct companions remain separate.",
+        "sourceEvidence": "Original measurements and catalog-specific provenance are retained; the shared adopted record supersedes them for these fields.",
+        "sourceSelections": {
+          "astrometryAndMotion": {
+            "decision": "Retain the curated nearest-catalog coordinate/motion bundle where available; otherwise use the later Western snapshot. For the eleven reviewed stellar objects with missing CNS5 RV but an existing adopted SIMBAD RV, use the complete Western position/motion bundle to retain full-space motion. Spectroscopic binaries and composite Porrima retain the nearest-catalog RV withholding. Keep positions, velocities, reference epoch, raw measurements, uncertainties and bibliographies together. Withheld individual/system velocities remain withheld.",
+            "fields": [
+              "x_pc",
+              "y_pc",
+              "z_pc",
+              "vx_kms",
+              "vy_kms",
+              "vz_kms",
+              "epoch",
+              "constellation",
+              "ra_deg",
+              "dec_deg",
+              "astrometry_epoch",
+              "parallax_mas",
+              "parallax_error_mas",
+              "pm_ra_cosdec_masyr",
+              "pm_ra_error_masyr",
+              "pm_dec_masyr",
+              "pm_dec_error_masyr",
+              "radial_velocity_kms",
+              "radial_velocity_error_kms",
+              "astrometry_ref",
+              "radial_velocity_ref"
+            ],
+            "source": "western-constellation-stars:hip-98036"
+          },
+          "photometry": {
+            "decision": "Use the component-resolved curated Johnson V/distance where available, otherwise the common selected astrometric snapshot; preserve the specifically reviewed Bright Star Catalogue V=0.76 for Acrux. No integrated system flux is assigned to a faint companion.",
+            "fields": [
+              "absolute_mag"
+            ],
+            "source": "western-constellation-stars:hip-98036"
+          }
+        }
       },
       "sharedPhysicalEnrichment": {
         "luminosity_solar": {
@@ -122285,14 +124659,34 @@
       },
       "cns5Id": "5836",
       "fieldStatus": {
-        "absolute_mag": "derived-from-compiled-Johnson-V",
+        "absolute_mag": "adopted",
         "age_gyr": "model-derived",
+        "astrometry_epoch": "adopted",
+        "astrometry_ref": "adopted",
+        "constellation": "adopted",
+        "dec_deg": "adopted",
+        "epoch": "adopted",
         "luminosity_solar": "model-derived",
         "mass_solar": "model-derived",
         "metallicity_dex": "model-derived",
-        "radial_velocity_kms": "compiled-cns5",
+        "parallax_error_mas": "adopted",
+        "parallax_mas": "adopted",
+        "pm_dec_error_masyr": "adopted",
+        "pm_dec_masyr": "adopted",
+        "pm_ra_cosdec_masyr": "adopted",
+        "pm_ra_error_masyr": "adopted",
+        "ra_deg": "adopted",
+        "radial_velocity_error_kms": "adopted",
+        "radial_velocity_kms": "adopted",
+        "radial_velocity_ref": "adopted",
         "radius_solar": "model-derived",
-        "temperature_k": "model-derived"
+        "temperature_k": "model-derived",
+        "vx_kms": "adopted",
+        "vy_kms": "adopted",
+        "vz_kms": "adopted",
+        "x_pc": "adopted",
+        "y_pc": "adopted",
+        "z_pc": "adopted"
       },
       "gaiaDr3Id": "2756363608023588864",
       "id": "cns5-5836",
@@ -122388,6 +124782,72 @@
           "valueKms": 5.976536750793457
         },
         "status": "compiled-cns5"
+      },
+      "sharedObjectAdoption": {
+        "fields": [
+          "absolute_mag",
+          "vx_kms",
+          "pm_dec_error_masyr",
+          "pm_ra_cosdec_masyr",
+          "pm_ra_error_masyr",
+          "vy_kms",
+          "x_pc",
+          "dec_deg",
+          "pm_dec_masyr",
+          "radial_velocity_ref",
+          "z_pc",
+          "parallax_mas",
+          "vz_kms",
+          "astrometry_epoch",
+          "ra_deg",
+          "parallax_error_mas",
+          "y_pc",
+          "radial_velocity_kms",
+          "radial_velocity_error_kms",
+          "astrometry_ref",
+          "epoch",
+          "constellation"
+        ],
+        "recordId": "* iot Psc",
+        "reviewSha256": "13b3b09260b2c461f96a27d5d13ed7dbe7975025168a9d2b93a6aaf479ac962f",
+        "scope": "Reviewed catalog object/component cns5-5836; aliases only, distinct companions remain separate.",
+        "sourceEvidence": "Original measurements and catalog-specific provenance are retained; the shared adopted record supersedes them for these fields.",
+        "sourceSelections": {
+          "astrometryAndMotion": {
+            "decision": "Retain the curated nearest-catalog coordinate/motion bundle where available; otherwise use the later Western snapshot. For the eleven reviewed stellar objects with missing CNS5 RV but an existing adopted SIMBAD RV, use the complete Western position/motion bundle to retain full-space motion. Spectroscopic binaries and composite Porrima retain the nearest-catalog RV withholding. Keep positions, velocities, reference epoch, raw measurements, uncertainties and bibliographies together. Withheld individual/system velocities remain withheld.",
+            "fields": [
+              "x_pc",
+              "y_pc",
+              "z_pc",
+              "vx_kms",
+              "vy_kms",
+              "vz_kms",
+              "epoch",
+              "constellation",
+              "ra_deg",
+              "dec_deg",
+              "astrometry_epoch",
+              "parallax_mas",
+              "parallax_error_mas",
+              "pm_ra_cosdec_masyr",
+              "pm_ra_error_masyr",
+              "pm_dec_masyr",
+              "pm_dec_error_masyr",
+              "radial_velocity_kms",
+              "radial_velocity_error_kms",
+              "astrometry_ref",
+              "radial_velocity_ref"
+            ],
+            "source": "nearest-1000:cns5-5836"
+          },
+          "photometry": {
+            "decision": "Use the component-resolved curated Johnson V/distance where available, otherwise the common selected astrometric snapshot; preserve the specifically reviewed Bright Star Catalogue V=0.76 for Acrux. No integrated system flux is assigned to a faint companion.",
+            "fields": [
+              "absolute_mag"
+            ],
+            "source": "nearest-1000:cns5-5836"
+          }
+        }
       },
       "simbadId": "* iot Psc",
       "sourceType": "PM*"
@@ -126845,7 +129305,7 @@
   "reviewedCompanionsSha256": "3e45616a65aef9ba731644d2dc6ace421b9b26d53470bb289baf95f054bc8d96",
   "reviewedComponentPropertiesSha256": "e3c4e01fa4a9c823c48f1f9bbe7f31a3426bb76e1a59563c1006a10bcc0222c1",
   "schemaVersion": 1,
-  "sharedEnrichmentManifestSha256": "29999eee6fd64ead674fb8dab1f595d27f8b3e4a32354c264f2e1bb645f2b401",
+  "sharedEnrichmentManifestSha256": "fd8afad8f0f9e697c1ebbffda45ce525201ca8f7e1adc06ccce09255041b6311",
   "sourceManifestSha256": "5744f1665fe2700b5acaf88fd2cc46a4f2a0e2a75d75c03290b769b64c3cb315",
   "sources": [
     {
@@ -127071,6 +129531,30 @@
     {
       "name": "GRAVITY Collaboration 2024, GJ 65 A/B individual dynamical masses",
       "url": "https://arxiv.org/html/2404.08746v1"
+    },
+    {
+      "name": "Neuh\u00e4user et al. 2022, alternative Betelgeuse initial MIST track and model age (context, not adopted)",
+      "url": "https://arxiv.org/abs/2207.04702"
+    },
+    {
+      "name": "Joyce et al. 2020, Betelgeuse present-day seismic/evolutionary mass range",
+      "url": "https://arxiv.org/abs/2006.09837"
+    },
+    {
+      "name": "Montarg\u00e8s et al. 2026, Betelgeuse A current mass and model age ranges adopted in companion analysis",
+      "url": "https://www.eso.org/public/archives/releases/sciencepapers/eso2611/eso2611a.pdf"
+    },
+    {
+      "name": "Gray et al. 2003, full optical classifications of Altair and Sirius A",
+      "url": "https://doi.org/10.1086/378365"
+    },
+    {
+      "name": "Gray et al. 2006, Tau Ceti optical subtype and luminosity class",
+      "url": "https://doi.org/10.1086/504637"
+    },
+    {
+      "name": "Kervella et al. 2004, component A spectral classification of Procyon",
+      "url": "https://arxiv.org/abs/astro-ph/0309148"
     },
     {
       "name": "Cifuentes et al. 2025, resolved companion model/photometric estimates, Table A.1",

@@ -1,3 +1,5 @@
+import { createElement } from 'lucide'
+import { OriginIcon } from './origin-icon'
 import type { Star } from './catalog-model'
 import { objectDesignations } from './designations'
 import { formatDistance, starDisplayColor, sunRelativeMetrics, type DistanceUnit, type StarColorMode } from './astronomy'
@@ -200,8 +202,8 @@ export class ObjectList {
     marker.append(swatch)
     if (item.star.id === this.referenceId) {
       const reference = document.createElement('span')
-      reference.className = 'reference-star'
-      reference.textContent = '\u2605'
+      reference.className = 'reference-target'
+      reference.append(createElement(OriginIcon, { width: 11, height: 11, 'stroke-width': 1.7, 'aria-hidden': 'true' }))
       reference.title = 'Origin object'
       reference.setAttribute('aria-hidden', 'true')
       marker.append(reference)

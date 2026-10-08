@@ -7,6 +7,7 @@ import json
 import math
 from pathlib import Path
 from catalog_sources.enrichment import enrich_from_frozen, enrichment_sources, manifest_sha256
+from catalog_sources.shared_objects import adopt_shared_objects
 from catalog_sources.overlay_companions import expand_overlay
 from catalog_sources.solar import adopt_solar_reference, solar_provenance
 
@@ -210,6 +211,7 @@ def render():
     provenance["originalLandmarkIds"] = [row["id"] for row in rows if row["id"] != "sun"]
     provenance["objects"]["sun"].update(solar_provenance())
     rows, expansion, _ = expand_overlay("bright-stars", rows, provenance["objects"])
+    adopt_shared_objects(rows, provenance["objects"])
     rows = [rows[0], *sorted(rows[1:], key=lambda row: math.hypot(float(row["x_pc"]), float(row["y_pc"]), float(row["z_pc"])))]
     provenance["companionExpansion"] = expansion
     provenance["coverage"] = {field: sum(bool(row.get(field)) for row in rows if row["id"] != "sun") for field in coverage_fields}

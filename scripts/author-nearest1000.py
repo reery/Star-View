@@ -19,6 +19,7 @@ from astropy.utils import iers
 
 from catalog_sources.adapters import eligible_gaia_physical, read_cns5, read_gaia_tap, read_simbad_tap
 from catalog_sources.enrichment import enrich_from_frozen, enrichment_sources, manifest_sha256
+from catalog_sources.shared_objects import adopt_shared_object
 from catalog_sources.metallicity import metallicity_kind
 from catalog_sources.solar import adopt_solar_reference, solar_provenance
 from catalog_sources.component_enrichment import enrich_component, component_sources, component_plan_sha256
@@ -502,6 +503,7 @@ def build_package():
     candidates.extend(extra_candidates)
     for _, _, row, provenance in candidates:
         enrich_component(row, provenance)
+        adopt_shared_object(row, provenance)
     ranked = sorted(candidates, key=lambda item: (item[0], item[1]))
     # Reviewed companions are additive: preserve the original nearest-1000
     # baseline instead of displacing its boundary object with each addition.

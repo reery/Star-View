@@ -10,11 +10,17 @@ import { containedInput, safeOutputDirectory, writeManagedFiles } from './filesy
 import { parseObjectIdentities, supplementObjectIdentities } from '../src/designations.ts'
 import { buildCatalogClassReferences } from '../src/catalog-class-references.ts'
 import { parseObjectStats, supplementObjectStats } from '../src/object-stats.ts'
+import { auditCatalogConsistency } from '../src/catalog-consistency.ts'
 
 const root = fileURLToPath(new URL('../', import.meta.url))
 const identities = parseObjectIdentities(JSON.parse(readFileSync(join(root, 'src/data/object-designations.json'), 'utf8')))
 const objectStats = parseObjectStats(JSON.parse(readFileSync(join(root, 'src/data/object-stats.json'), 'utf8')))
 const supplement = (stars: Parameters<typeof supplementObjectIdentities>[0]) => supplementObjectStats(supplementObjectIdentities(stars, identities), objectStats)
+const systems = JSON.parse(readFileSync(join(root, 'src/data/star-systems.json'), 'utf8')) as {
+  systems: { components: { starId: string; alternateStarIds?: string[] }[] }[]
+}
+const components = new Map(systems.systems.flatMap((system) => system.components.flatMap((component) =>
+  [component.starId, ...component.alternateStarIds ?? []].map((id) => [id, { canonicalStarId: component.starId }] as const))))
 const [command, ...args] = process.argv.slice(2)
 const compactOverlayDirectory = join(root, 'src/data/overlays/compact-remnants')
 const nebulaOverlayDirectory = join(root, 'src/data/overlays/nebulae')
@@ -58,16 +64,19 @@ function validate(directory?: string): void {
     ...readdirSync(join(root, 'src/data/catalogs'), { withFileTypes: true }).filter((entry) => entry.isDirectory()).map((entry) => join(root, 'src/data/catalogs', entry.name)),
   ]
   const ids = new Set<string>()
+  const catalogs: { id: string; stars: ReturnType<typeof loadCatalog> }[] = []
   for (const path of packages) {
     const manifest = path === join(root, 'src/data') ? DEFAULT_CATALOG_MANIFEST : parseCatalogManifest(readFileSync(join(path, 'catalog.json'), 'utf8'))
     if (ids.has(manifest.id) || (path !== join(root, 'src/data') && manifest.id === DEFAULT_CATALOG_MANIFEST.id)) throw new Error(`Duplicate or reserved catalog id: ${manifest.id}`)
     ids.add(manifest.id)
     const stars = loadCatalog({ manifest, csv: readFileSync(join(path, 'stars.csv'), 'utf8') })
+    catalogs.push({ id: manifest.id, stars: supplement(stars) })
     const coverage = catalogCoverage(stars)
     if (['nearest-neighbors', 'bright-stars', 'nearest-100', 'western-constellation-stars', 'famous-cluster-stars'].includes(manifest.id) && coverage.constellations !== coverage.objects) throw new Error(`${path}: incomplete bundled constellation coverage`)
     console.log(`${manifest.id}: ${stars.length} rows; non-Sun coverage ${JSON.stringify(coverage)}`)
   }
   if (!directory) {
+    requireConsistentCatalogs(catalogs)
     const { manifest, objects } = loadCompactOverlay()
     console.log(`${manifest.id}: ${objects.length} overlay rows; type counts ${JSON.stringify(manifest.counts)}`)
     const nebulae = loadNebulaOverlay()
@@ -77,6 +86,12 @@ function validate(directory?: string): void {
     const bubbles = loadBubbleOverlay()
     console.log(`${bubbles.manifest.id}: ${bubbles.objects.length} overlay rows; type counts ${JSON.stringify(bubbles.manifest.counts)}`)
   }
+}
+
+function requireConsistentCatalogs(catalogs: Parameters<typeof auditCatalogConsistency>[0]) {
+  const audit = auditCatalogConsistency(catalogs, identities, (id) => components.get(id))
+  if (audit.conflicts.length) throw new Error(`Inconsistent adopted catalog details:\n${JSON.stringify(audit.conflicts, null, 2)}`)
+  console.log(`Shared details: ${audit.sharedObjects} objects checked across ${catalogs.length} catalogs; no inconsistencies.`)
 }
 
 function generate(): void {
@@ -94,13 +109,9 @@ function generate(): void {
     id: definition.manifest.id,
     stars: supplement(loadCatalog(definition)),
   }))
+  requireConsistentCatalogs(catalogs)
   const files = Object.fromEntries(catalogs.map(({ id, stars }) =>
     [`${id}.json`, JSON.stringify({ schemaVersion: 1, catalogId: id, stars }) + '\n']))
-  const systems = JSON.parse(readFileSync(join(root, 'src/data/star-systems.json'), 'utf8')) as {
-    systems: { components: { starId: string; alternateStarIds?: string[] }[] }[]
-  }
-  const components = new Map(systems.systems.flatMap((system) => system.components.flatMap((component) =>
-    [component.starId, ...component.alternateStarIds ?? []].map((id) => [id, { canonicalStarId: component.starId }] as const))))
   const references = buildCatalogClassReferences(catalogs, (id) => components.get(id))
   writeManagedFiles(safeOutputDirectory(join(root, 'src/data')), {
     'catalog-class-references.json': JSON.stringify(references, null, 2) + '\n',

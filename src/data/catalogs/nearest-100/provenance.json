@@ -8,7 +8,7 @@
   "gaiaSourceManifestSha256": "5744f1665fe2700b5acaf88fd2cc46a4f2a0e2a75d75c03290b769b64c3cb315",
   "physicalOverridesSha256": "4f739cbcda0cb71b78447213c389aa3da8456b2e83072a8dfc6b5dd40f96b3b9",
   "physicalPolicyRevision": "nearest100-reviewed-gaia-shared-v2",
-  "sharedEnrichmentManifestSha256": "29999eee6fd64ead674fb8dab1f595d27f8b3e4a32354c264f2e1bb645f2b401",
+  "sharedEnrichmentManifestSha256": "fd8afad8f0f9e697c1ebbffda45ce525201ca8f7e1adc06ccce09255041b6311",
   "sources": [
     {
       "name": "10pc census, Reyle et al., tablea1 update 2023-08-25",
@@ -165,6 +165,30 @@
     {
       "name": "GRAVITY Collaboration 2024, GJ 65 A/B individual dynamical masses",
       "url": "https://arxiv.org/html/2404.08746v1"
+    },
+    {
+      "name": "Neuh\u00e4user et al. 2022, alternative Betelgeuse initial MIST track and model age (context, not adopted)",
+      "url": "https://arxiv.org/abs/2207.04702"
+    },
+    {
+      "name": "Joyce et al. 2020, Betelgeuse present-day seismic/evolutionary mass range",
+      "url": "https://arxiv.org/abs/2006.09837"
+    },
+    {
+      "name": "Montarg\u00e8s et al. 2026, Betelgeuse A current mass and model age ranges adopted in companion analysis",
+      "url": "https://www.eso.org/public/archives/releases/sciencepapers/eso2611/eso2611a.pdf"
+    },
+    {
+      "name": "Gray et al. 2003, full optical classifications of Altair and Sirius A",
+      "url": "https://doi.org/10.1086/378365"
+    },
+    {
+      "name": "Gray et al. 2006, Tau Ceti optical subtype and luminosity class",
+      "url": "https://doi.org/10.1086/504637"
+    },
+    {
+      "name": "Kervella et al. 2004, component A spectral classification of Procyon",
+      "url": "https://arxiv.org/abs/astro-ph/0309148"
     }
   ],
   "sourceChecksumsSha256": {
@@ -5821,43 +5845,40 @@
           ]
         },
         "x_pc": {
-          "status": "adopted-existing",
+          "status": "adopted",
           "sourceRefs": [
-            "legacy-neighbors:alpha-centauri-a"
+            "shared-object:* alf Cen A:x_pc"
           ]
         },
         "y_pc": {
-          "status": "adopted-existing",
+          "status": "adopted",
           "sourceRefs": [
-            "legacy-neighbors:alpha-centauri-a"
+            "shared-object:* alf Cen A:y_pc"
           ]
         },
         "z_pc": {
-          "status": "adopted-existing",
+          "status": "adopted",
           "sourceRefs": [
-            "legacy-neighbors:alpha-centauri-a"
+            "shared-object:* alf Cen A:z_pc"
           ]
         },
         "vx_kms": {
-          "status": "derived",
+          "status": "adopted",
           "sourceRefs": [
-            "2021AJ....162...14A"
-          ],
-          "detail": "Shared Alpha Centauri AB barycentric Sun-relative Galactic velocity; binary orbital motion excluded."
+            "shared-object:* alf Cen A:vx_kms"
+          ]
         },
         "vy_kms": {
-          "status": "derived",
+          "status": "adopted",
           "sourceRefs": [
-            "2021AJ....162...14A"
-          ],
-          "detail": "Shared Alpha Centauri AB barycentric Sun-relative Galactic velocity; binary orbital motion excluded."
+            "shared-object:* alf Cen A:vy_kms"
+          ]
         },
         "vz_kms": {
-          "status": "derived",
+          "status": "adopted",
           "sourceRefs": [
-            "2021AJ....162...14A"
-          ],
-          "detail": "Shared Alpha Centauri AB barycentric Sun-relative Galactic velocity; binary orbital motion excluded."
+            "shared-object:* alf Cen A:vz_kms"
+          ]
         },
         "temperature_k": {
           "status": "derived",
@@ -5881,15 +5902,16 @@
           "detail": "primary-paper; uncertainty 0.0019; bolometric flux plus revised orbital parallax"
         },
         "absolute_mag": {
-          "status": "adopted-existing",
+          "status": "adopted",
           "sourceRefs": [
-            "legacy-neighbors:alpha-centauri-a"
+            "shared-object:* alf Cen A:absolute_mag"
           ]
         },
         "epoch": {
           "status": "adopted",
-          "sourceRefs": [],
-          "detail": "Static J2000.0 snapshot; source decimal years treated as Julian years TT."
+          "sourceRefs": [
+            "shared-object:* alf Cen A:epoch"
+          ]
         },
         "notes": {
           "status": "adopted-existing",
@@ -5899,102 +5921,88 @@
           "detail": "Position from the J2000 component direction and the 750.81 mas Alpha Centauri AB parallax from Akeson et al. (2021). Temperature is a G2V class estimate. Motion: Akeson et al. (2021) Alpha Centauri AB barycenter solution at J2019.5, shared by A and B; no binary orbital motion."
         },
         "constellation": {
-          "status": "derived",
+          "status": "adopted",
           "sourceRefs": [
-            "astropy:7.1.1:Roman1987"
-          ],
-          "detail": "ICRS snapshot direction transformed to B1875 boundary coordinates; no physical motion to 1875. Canonical spelling normalization applied."
+            "shared-object:* alf Cen A:constellation"
+          ]
         },
         "ra_deg": {
           "status": "adopted",
           "sourceRefs": [
-            "2021AJ....162...14A"
-          ],
-          "detail": "Alpha Centauri AB barycenter measurement at J2019.5, shared by both component rows."
+            "shared-object:* alf Cen A:ra_deg"
+          ]
         },
         "dec_deg": {
           "status": "adopted",
           "sourceRefs": [
-            "2021AJ....162...14A"
-          ],
-          "detail": "Alpha Centauri AB barycenter measurement at J2019.5, shared by both component rows."
+            "shared-object:* alf Cen A:dec_deg"
+          ]
         },
         "astrometry_epoch": {
           "status": "adopted",
           "sourceRefs": [
-            "2021AJ....162...14A"
-          ],
-          "detail": "Alpha Centauri AB barycenter measurement at J2019.5, shared by both component rows."
+            "shared-object:* alf Cen A:astrometry_epoch"
+          ]
         },
         "parallax_mas": {
           "status": "adopted",
           "sourceRefs": [
-            "2021AJ....162...14A"
-          ],
-          "detail": "Alpha Centauri AB barycenter measurement at J2019.5, shared by both component rows."
+            "shared-object:* alf Cen A:parallax_mas"
+          ]
         },
         "parallax_error_mas": {
           "status": "adopted",
           "sourceRefs": [
-            "2021AJ....162...14A"
-          ],
-          "detail": "Alpha Centauri AB barycenter measurement at J2019.5, shared by both component rows."
+            "shared-object:* alf Cen A:parallax_error_mas"
+          ]
         },
         "pm_ra_cosdec_masyr": {
           "status": "adopted",
           "sourceRefs": [
-            "2021AJ....162...14A"
-          ],
-          "detail": "Alpha Centauri AB barycenter measurement at J2019.5, shared by both component rows."
+            "shared-object:* alf Cen A:pm_ra_cosdec_masyr"
+          ]
         },
         "pm_ra_error_masyr": {
           "status": "adopted",
           "sourceRefs": [
-            "2021AJ....162...14A"
-          ],
-          "detail": "Alpha Centauri AB barycenter measurement at J2019.5, shared by both component rows."
+            "shared-object:* alf Cen A:pm_ra_error_masyr"
+          ]
         },
         "pm_dec_masyr": {
           "status": "adopted",
           "sourceRefs": [
-            "2021AJ....162...14A"
-          ],
-          "detail": "Alpha Centauri AB barycenter measurement at J2019.5, shared by both component rows."
+            "shared-object:* alf Cen A:pm_dec_masyr"
+          ]
         },
         "pm_dec_error_masyr": {
           "status": "adopted",
           "sourceRefs": [
-            "2021AJ....162...14A"
-          ],
-          "detail": "Alpha Centauri AB barycenter measurement at J2019.5, shared by both component rows."
+            "shared-object:* alf Cen A:pm_dec_error_masyr"
+          ]
         },
         "radial_velocity_kms": {
           "status": "adopted",
           "sourceRefs": [
-            "2021AJ....162...14A"
-          ],
-          "detail": "Alpha Centauri AB barycenter measurement at J2019.5, shared by both component rows."
+            "shared-object:* alf Cen A:radial_velocity_kms"
+          ]
         },
         "radial_velocity_error_kms": {
           "status": "adopted",
           "sourceRefs": [
-            "2021AJ....162...14A"
-          ],
-          "detail": "Alpha Centauri AB barycenter measurement at J2019.5, shared by both component rows."
+            "shared-object:* alf Cen A:radial_velocity_error_kms"
+          ]
         },
         "astrometry_ref": {
           "status": "adopted",
           "sourceRefs": [
-            "2021AJ....162...14A"
-          ],
-          "detail": "Alpha Centauri AB barycenter measurement at J2019.5, shared by both component rows."
+            "shared-object:* alf Cen A:astrometry_ref"
+          ]
         },
         "radial_velocity_ref": {
           "status": "adopted",
           "sourceRefs": [
-            "2021AJ....162...14A"
-          ],
-          "detail": "Alpha Centauri AB barycenter measurement at J2019.5, shared by both component rows."
+            "shared-object:* alf Cen A:radial_velocity_ref"
+          ]
         },
         "radius_solar": {
           "status": "derived",
@@ -6116,6 +6124,222 @@
           "radius_solar": "2021AJ....162...14A:alpha-centauri-a",
           "metallicity_dex": "2018A&A...615A.172M:alpha-centauri-a",
           "age_gyr": "2018ApJ...864...99J:alpha-centauri-a"
+        }
+      },
+      "sharedObjectAdoption": {
+        "recordId": "* alf Cen A",
+        "reviewSha256": "13b3b09260b2c461f96a27d5d13ed7dbe7975025168a9d2b93a6aaf479ac962f",
+        "scope": "Reviewed catalog object/component alpha-centauri-a; aliases only, distinct companions remain separate.",
+        "fields": [
+          "absolute_mag",
+          "vx_kms",
+          "pm_dec_error_masyr",
+          "pm_ra_cosdec_masyr",
+          "pm_ra_error_masyr",
+          "vy_kms",
+          "x_pc",
+          "dec_deg",
+          "pm_dec_masyr",
+          "radial_velocity_ref",
+          "z_pc",
+          "parallax_mas",
+          "vz_kms",
+          "astrometry_epoch",
+          "ra_deg",
+          "parallax_error_mas",
+          "y_pc",
+          "radial_velocity_kms",
+          "radial_velocity_error_kms",
+          "astrometry_ref",
+          "epoch",
+          "constellation"
+        ],
+        "sourceSelections": {
+          "astrometryAndMotion": {
+            "source": "nearest-100:alpha-centauri-a",
+            "fields": [
+              "x_pc",
+              "y_pc",
+              "z_pc",
+              "vx_kms",
+              "vy_kms",
+              "vz_kms",
+              "epoch",
+              "constellation",
+              "ra_deg",
+              "dec_deg",
+              "astrometry_epoch",
+              "parallax_mas",
+              "parallax_error_mas",
+              "pm_ra_cosdec_masyr",
+              "pm_ra_error_masyr",
+              "pm_dec_masyr",
+              "pm_dec_error_masyr",
+              "radial_velocity_kms",
+              "radial_velocity_error_kms",
+              "astrometry_ref",
+              "radial_velocity_ref"
+            ],
+            "decision": "Retain the curated nearest-catalog coordinate/motion bundle where available; otherwise use the later Western snapshot. For the eleven reviewed stellar objects with missing CNS5 RV but an existing adopted SIMBAD RV, use the complete Western position/motion bundle to retain full-space motion. Spectroscopic binaries and composite Porrima retain the nearest-catalog RV withholding. Keep positions, velocities, reference epoch, raw measurements, uncertainties and bibliographies together. Withheld individual/system velocities remain withheld."
+          },
+          "photometry": {
+            "source": "nearest-100:alpha-centauri-a",
+            "fields": [
+              "absolute_mag"
+            ],
+            "decision": "Use the component-resolved curated Johnson V/distance where available, otherwise the common selected astrometric snapshot; preserve the specifically reviewed Bright Star Catalogue V=0.76 for Acrux. No integrated system flux is assigned to a faint companion."
+          }
+        },
+        "sourceEvidence": "Original measurements and catalog-specific provenance are retained; the shared adopted record supersedes them for these fields."
+      },
+      "sourceFieldProvenance": {
+        "absolute_mag": {
+          "status": "adopted-existing",
+          "sourceRefs": [
+            "legacy-neighbors:alpha-centauri-a"
+          ]
+        },
+        "vx_kms": {
+          "status": "derived",
+          "sourceRefs": [
+            "2021AJ....162...14A"
+          ],
+          "detail": "Shared Alpha Centauri AB barycentric Sun-relative Galactic velocity; binary orbital motion excluded."
+        },
+        "pm_dec_error_masyr": {
+          "status": "adopted",
+          "sourceRefs": [
+            "2021AJ....162...14A"
+          ],
+          "detail": "Alpha Centauri AB barycenter measurement at J2019.5, shared by both component rows."
+        },
+        "pm_ra_cosdec_masyr": {
+          "status": "adopted",
+          "sourceRefs": [
+            "2021AJ....162...14A"
+          ],
+          "detail": "Alpha Centauri AB barycenter measurement at J2019.5, shared by both component rows."
+        },
+        "pm_ra_error_masyr": {
+          "status": "adopted",
+          "sourceRefs": [
+            "2021AJ....162...14A"
+          ],
+          "detail": "Alpha Centauri AB barycenter measurement at J2019.5, shared by both component rows."
+        },
+        "vy_kms": {
+          "status": "derived",
+          "sourceRefs": [
+            "2021AJ....162...14A"
+          ],
+          "detail": "Shared Alpha Centauri AB barycentric Sun-relative Galactic velocity; binary orbital motion excluded."
+        },
+        "x_pc": {
+          "status": "adopted-existing",
+          "sourceRefs": [
+            "legacy-neighbors:alpha-centauri-a"
+          ]
+        },
+        "dec_deg": {
+          "status": "adopted",
+          "sourceRefs": [
+            "2021AJ....162...14A"
+          ],
+          "detail": "Alpha Centauri AB barycenter measurement at J2019.5, shared by both component rows."
+        },
+        "pm_dec_masyr": {
+          "status": "adopted",
+          "sourceRefs": [
+            "2021AJ....162...14A"
+          ],
+          "detail": "Alpha Centauri AB barycenter measurement at J2019.5, shared by both component rows."
+        },
+        "radial_velocity_ref": {
+          "status": "adopted",
+          "sourceRefs": [
+            "2021AJ....162...14A"
+          ],
+          "detail": "Alpha Centauri AB barycenter measurement at J2019.5, shared by both component rows."
+        },
+        "z_pc": {
+          "status": "adopted-existing",
+          "sourceRefs": [
+            "legacy-neighbors:alpha-centauri-a"
+          ]
+        },
+        "parallax_mas": {
+          "status": "adopted",
+          "sourceRefs": [
+            "2021AJ....162...14A"
+          ],
+          "detail": "Alpha Centauri AB barycenter measurement at J2019.5, shared by both component rows."
+        },
+        "vz_kms": {
+          "status": "derived",
+          "sourceRefs": [
+            "2021AJ....162...14A"
+          ],
+          "detail": "Shared Alpha Centauri AB barycentric Sun-relative Galactic velocity; binary orbital motion excluded."
+        },
+        "astrometry_epoch": {
+          "status": "adopted",
+          "sourceRefs": [
+            "2021AJ....162...14A"
+          ],
+          "detail": "Alpha Centauri AB barycenter measurement at J2019.5, shared by both component rows."
+        },
+        "ra_deg": {
+          "status": "adopted",
+          "sourceRefs": [
+            "2021AJ....162...14A"
+          ],
+          "detail": "Alpha Centauri AB barycenter measurement at J2019.5, shared by both component rows."
+        },
+        "parallax_error_mas": {
+          "status": "adopted",
+          "sourceRefs": [
+            "2021AJ....162...14A"
+          ],
+          "detail": "Alpha Centauri AB barycenter measurement at J2019.5, shared by both component rows."
+        },
+        "y_pc": {
+          "status": "adopted-existing",
+          "sourceRefs": [
+            "legacy-neighbors:alpha-centauri-a"
+          ]
+        },
+        "radial_velocity_kms": {
+          "status": "adopted",
+          "sourceRefs": [
+            "2021AJ....162...14A"
+          ],
+          "detail": "Alpha Centauri AB barycenter measurement at J2019.5, shared by both component rows."
+        },
+        "radial_velocity_error_kms": {
+          "status": "adopted",
+          "sourceRefs": [
+            "2021AJ....162...14A"
+          ],
+          "detail": "Alpha Centauri AB barycenter measurement at J2019.5, shared by both component rows."
+        },
+        "astrometry_ref": {
+          "status": "adopted",
+          "sourceRefs": [
+            "2021AJ....162...14A"
+          ],
+          "detail": "Alpha Centauri AB barycenter measurement at J2019.5, shared by both component rows."
+        },
+        "epoch": {
+          "status": "adopted",
+          "sourceRefs": [],
+          "detail": "Static J2000.0 snapshot; source decimal years treated as Julian years TT."
+        },
+        "constellation": {
+          "status": "derived",
+          "sourceRefs": [
+            "astropy:7.1.1:Roman1987"
+          ],
+          "detail": "ICRS snapshot direction transformed to B1875 boundary coordinates; no physical motion to 1875. Canonical spelling normalization applied."
         }
       }
     },
@@ -8128,45 +8352,45 @@
           ]
         },
         "spectral_type": {
-          "status": "adopted-existing",
+          "status": "adopted",
           "sourceRefs": [
-            "legacy-neighbors:sirius-a"
+            "shared-object:* alf CMa:spectral_type"
           ]
         },
         "x_pc": {
-          "status": "adopted-existing",
+          "status": "adopted",
           "sourceRefs": [
-            "legacy-neighbors:sirius-a"
+            "shared-object:* alf CMa:x_pc"
           ]
         },
         "y_pc": {
-          "status": "adopted-existing",
+          "status": "adopted",
           "sourceRefs": [
-            "legacy-neighbors:sirius-a"
+            "shared-object:* alf CMa:y_pc"
           ]
         },
         "z_pc": {
-          "status": "adopted-existing",
+          "status": "adopted",
           "sourceRefs": [
-            "legacy-neighbors:sirius-a"
+            "shared-object:* alf CMa:z_pc"
           ]
         },
         "vx_kms": {
-          "status": "adopted-existing",
+          "status": "adopted",
           "sourceRefs": [
-            "legacy-neighbors:sirius-a"
+            "shared-object:* alf CMa:vx_kms"
           ]
         },
         "vy_kms": {
-          "status": "adopted-existing",
+          "status": "adopted",
           "sourceRefs": [
-            "legacy-neighbors:sirius-a"
+            "shared-object:* alf CMa:vy_kms"
           ]
         },
         "vz_kms": {
-          "status": "adopted-existing",
+          "status": "adopted",
           "sourceRefs": [
-            "legacy-neighbors:sirius-a"
+            "shared-object:* alf CMa:vz_kms"
           ]
         },
         "temperature_k": {
@@ -8191,15 +8415,16 @@
           "detail": "primary-paper; uncertainty 0.7; bolometric flux plus adopted parallax"
         },
         "absolute_mag": {
-          "status": "adopted-existing",
+          "status": "adopted",
           "sourceRefs": [
-            "legacy-neighbors:sirius-a"
+            "shared-object:* alf CMa:absolute_mag"
           ]
         },
         "epoch": {
           "status": "adopted",
-          "sourceRefs": [],
-          "detail": "Static J2000.0 snapshot; source decimal years treated as Julian years TT."
+          "sourceRefs": [
+            "shared-object:* alf CMa:epoch"
+          ]
         },
         "notes": {
           "status": "adopted-existing",
@@ -8209,88 +8434,87 @@
           "detail": "Sirius system position and physical properties use Bond et al. (2017), including the adopted 378.9 mas parallax. The component offset is below this catalog's spatial precision. Motion: system motion shared by A and B; Hipparcos proper motion (SIMBAD HIP 32349; 2007A&A...474..653V) and true systemic RV -8.47 km/s from Bond et al. (2017) section V.1. No binary orbital motion; Galactic conversion documented in README."
         },
         "constellation": {
-          "status": "derived",
+          "status": "adopted",
           "sourceRefs": [
-            "astropy:7.1.1:Roman1987"
-          ],
-          "detail": "ICRS snapshot direction transformed to B1875 boundary coordinates; no physical motion to 1875. Canonical spelling normalization applied."
+            "shared-object:* alf CMa:constellation"
+          ]
         },
         "ra_deg": {
-          "status": "compiled",
+          "status": "adopted",
           "sourceRefs": [
-            "10pc:tablea1:Seq=13:RAdeg"
+            "shared-object:* alf CMa:ra_deg"
           ]
         },
         "dec_deg": {
-          "status": "compiled",
+          "status": "adopted",
           "sourceRefs": [
-            "10pc:tablea1:Seq=13:DEdeg"
+            "shared-object:* alf CMa:dec_deg"
           ]
         },
         "astrometry_epoch": {
-          "status": "compiled",
+          "status": "adopted",
           "sourceRefs": [
-            "10pc:tablea1:Seq=13:Epoch"
+            "shared-object:* alf CMa:astrometry_epoch"
           ]
         },
         "parallax_mas": {
-          "status": "compiled",
+          "status": "adopted",
           "sourceRefs": [
-            "10pc:tablea1:Seq=13:plx"
+            "shared-object:* alf CMa:parallax_mas"
           ]
         },
         "parallax_error_mas": {
-          "status": "compiled",
+          "status": "adopted",
           "sourceRefs": [
-            "10pc:tablea1:Seq=13:e_plx"
+            "shared-object:* alf CMa:parallax_error_mas"
           ]
         },
         "pm_ra_cosdec_masyr": {
-          "status": "compiled",
+          "status": "adopted",
           "sourceRefs": [
-            "10pc:tablea1:Seq=13:pmRA"
+            "shared-object:* alf CMa:pm_ra_cosdec_masyr"
           ]
         },
         "pm_ra_error_masyr": {
-          "status": "compiled",
+          "status": "adopted",
           "sourceRefs": [
-            "10pc:tablea1:Seq=13:e_pmRA"
+            "shared-object:* alf CMa:pm_ra_error_masyr"
           ]
         },
         "pm_dec_masyr": {
-          "status": "compiled",
+          "status": "adopted",
           "sourceRefs": [
-            "10pc:tablea1:Seq=13:pmDE"
+            "shared-object:* alf CMa:pm_dec_masyr"
           ]
         },
         "pm_dec_error_masyr": {
-          "status": "compiled",
+          "status": "adopted",
           "sourceRefs": [
-            "10pc:tablea1:Seq=13:e_pmDE"
+            "shared-object:* alf CMa:pm_dec_error_masyr"
           ]
         },
         "radial_velocity_kms": {
-          "status": "compiled",
+          "status": "adopted",
           "sourceRefs": [
-            "10pc:tablea1:Seq=13:RV"
+            "shared-object:* alf CMa:radial_velocity_kms"
           ]
         },
         "radial_velocity_error_kms": {
-          "status": "compiled",
+          "status": "adopted",
           "sourceRefs": [
-            "10pc:tablea1:Seq=13:e_RV"
+            "shared-object:* alf CMa:radial_velocity_error_kms"
           ]
         },
         "astrometry_ref": {
-          "status": "compiled",
+          "status": "adopted",
           "sourceRefs": [
-            "10pc:tablea1:Seq=13:r_plx,r_pmDE"
+            "shared-object:* alf CMa:astrometry_ref"
           ]
         },
         "radial_velocity_ref": {
-          "status": "compiled",
+          "status": "adopted",
           "sourceRefs": [
-            "10pc:tablea1:Seq=13:r_RV"
+            "shared-object:* alf CMa:radial_velocity_ref"
           ]
         },
         "radius_solar": {
@@ -8415,6 +8639,219 @@
           "radius_solar": "2017ApJ...840...70B:sirius-a",
           "metallicity_dex": "2017ApJ...840...70B:sirius-a",
           "age_gyr": "2017ApJ...840...70B:sirius-a"
+        }
+      },
+      "sharedObjectAdoption": {
+        "recordId": "* alf CMa",
+        "reviewSha256": "13b3b09260b2c461f96a27d5d13ed7dbe7975025168a9d2b93a6aaf479ac962f",
+        "scope": "Reviewed catalog object/component sirius-a; aliases only, distinct companions remain separate.",
+        "fields": [
+          "absolute_mag",
+          "vx_kms",
+          "pm_dec_error_masyr",
+          "radial_velocity_error_kms",
+          "vz_kms",
+          "pm_ra_error_masyr",
+          "radial_velocity_ref",
+          "x_pc",
+          "z_pc",
+          "vy_kms",
+          "ra_deg",
+          "dec_deg",
+          "y_pc",
+          "spectral_type",
+          "astrometry_ref",
+          "epoch",
+          "constellation",
+          "astrometry_epoch",
+          "parallax_mas",
+          "parallax_error_mas",
+          "pm_ra_cosdec_masyr",
+          "pm_dec_masyr",
+          "radial_velocity_kms"
+        ],
+        "sourceSelections": {
+          "astrometryAndMotion": {
+            "source": "nearest-100:sirius-a",
+            "fields": [
+              "x_pc",
+              "y_pc",
+              "z_pc",
+              "vx_kms",
+              "vy_kms",
+              "vz_kms",
+              "epoch",
+              "constellation",
+              "ra_deg",
+              "dec_deg",
+              "astrometry_epoch",
+              "parallax_mas",
+              "parallax_error_mas",
+              "pm_ra_cosdec_masyr",
+              "pm_ra_error_masyr",
+              "pm_dec_masyr",
+              "pm_dec_error_masyr",
+              "radial_velocity_kms",
+              "radial_velocity_error_kms",
+              "astrometry_ref",
+              "radial_velocity_ref"
+            ],
+            "decision": "Retain the curated nearest-catalog coordinate/motion bundle where available; otherwise use the later Western snapshot. For the eleven reviewed stellar objects with missing CNS5 RV but an existing adopted SIMBAD RV, use the complete Western position/motion bundle to retain full-space motion. Spectroscopic binaries and composite Porrima retain the nearest-catalog RV withholding. Keep positions, velocities, reference epoch, raw measurements, uncertainties and bibliographies together. Withheld individual/system velocities remain withheld."
+          },
+          "photometry": {
+            "source": "nearest-100:sirius-a",
+            "fields": [
+              "absolute_mag"
+            ],
+            "decision": "Use the component-resolved curated Johnson V/distance where available, otherwise the common selected astrometric snapshot; preserve the specifically reviewed Bright Star Catalogue V=0.76 for Acrux. No integrated system flux is assigned to a faint companion."
+          },
+          "spectral": {
+            "value": "A0mA1Va",
+            "reference": "2003AJ....126.2048G",
+            "sourceUrl": "https://simbad.cds.unistra.fr/simbad/sim-basic?Ident=Sirius+A",
+            "decision": "Full classification of Sirius A, including metallic-line morphology; Sirius B is separate."
+          }
+        },
+        "sourceEvidence": "Original measurements and catalog-specific provenance are retained; the shared adopted record supersedes them for these fields."
+      },
+      "sourceFieldProvenance": {
+        "absolute_mag": {
+          "status": "adopted-existing",
+          "sourceRefs": [
+            "legacy-neighbors:sirius-a"
+          ]
+        },
+        "vx_kms": {
+          "status": "adopted-existing",
+          "sourceRefs": [
+            "legacy-neighbors:sirius-a"
+          ]
+        },
+        "pm_dec_error_masyr": {
+          "status": "compiled",
+          "sourceRefs": [
+            "10pc:tablea1:Seq=13:e_pmDE"
+          ]
+        },
+        "radial_velocity_error_kms": {
+          "status": "compiled",
+          "sourceRefs": [
+            "10pc:tablea1:Seq=13:e_RV"
+          ]
+        },
+        "vz_kms": {
+          "status": "adopted-existing",
+          "sourceRefs": [
+            "legacy-neighbors:sirius-a"
+          ]
+        },
+        "pm_ra_error_masyr": {
+          "status": "compiled",
+          "sourceRefs": [
+            "10pc:tablea1:Seq=13:e_pmRA"
+          ]
+        },
+        "radial_velocity_ref": {
+          "status": "compiled",
+          "sourceRefs": [
+            "10pc:tablea1:Seq=13:r_RV"
+          ]
+        },
+        "x_pc": {
+          "status": "adopted-existing",
+          "sourceRefs": [
+            "legacy-neighbors:sirius-a"
+          ]
+        },
+        "z_pc": {
+          "status": "adopted-existing",
+          "sourceRefs": [
+            "legacy-neighbors:sirius-a"
+          ]
+        },
+        "vy_kms": {
+          "status": "adopted-existing",
+          "sourceRefs": [
+            "legacy-neighbors:sirius-a"
+          ]
+        },
+        "ra_deg": {
+          "status": "compiled",
+          "sourceRefs": [
+            "10pc:tablea1:Seq=13:RAdeg"
+          ]
+        },
+        "dec_deg": {
+          "status": "compiled",
+          "sourceRefs": [
+            "10pc:tablea1:Seq=13:DEdeg"
+          ]
+        },
+        "y_pc": {
+          "status": "adopted-existing",
+          "sourceRefs": [
+            "legacy-neighbors:sirius-a"
+          ]
+        },
+        "spectral_type": {
+          "status": "adopted-existing",
+          "sourceRefs": [
+            "legacy-neighbors:sirius-a"
+          ]
+        },
+        "astrometry_ref": {
+          "status": "compiled",
+          "sourceRefs": [
+            "10pc:tablea1:Seq=13:r_plx,r_pmDE"
+          ]
+        },
+        "epoch": {
+          "status": "adopted",
+          "sourceRefs": [],
+          "detail": "Static J2000.0 snapshot; source decimal years treated as Julian years TT."
+        },
+        "constellation": {
+          "status": "derived",
+          "sourceRefs": [
+            "astropy:7.1.1:Roman1987"
+          ],
+          "detail": "ICRS snapshot direction transformed to B1875 boundary coordinates; no physical motion to 1875. Canonical spelling normalization applied."
+        },
+        "astrometry_epoch": {
+          "status": "compiled",
+          "sourceRefs": [
+            "10pc:tablea1:Seq=13:Epoch"
+          ]
+        },
+        "parallax_mas": {
+          "status": "compiled",
+          "sourceRefs": [
+            "10pc:tablea1:Seq=13:plx"
+          ]
+        },
+        "parallax_error_mas": {
+          "status": "compiled",
+          "sourceRefs": [
+            "10pc:tablea1:Seq=13:e_plx"
+          ]
+        },
+        "pm_ra_cosdec_masyr": {
+          "status": "compiled",
+          "sourceRefs": [
+            "10pc:tablea1:Seq=13:pmRA"
+          ]
+        },
+        "pm_dec_masyr": {
+          "status": "compiled",
+          "sourceRefs": [
+            "10pc:tablea1:Seq=13:pmDE"
+          ]
+        },
+        "radial_velocity_kms": {
+          "status": "compiled",
+          "sourceRefs": [
+            "10pc:tablea1:Seq=13:RV"
+          ]
         }
       }
     },
@@ -10201,70 +10638,70 @@
           ]
         },
         "x_pc": {
-          "status": "adopted-existing",
+          "status": "adopted",
           "sourceRefs": [
-            "legacy-neighbors:epsilon-eridani"
+            "shared-object:* eps Eri:x_pc"
           ]
         },
         "y_pc": {
-          "status": "adopted-existing",
+          "status": "adopted",
           "sourceRefs": [
-            "legacy-neighbors:epsilon-eridani"
+            "shared-object:* eps Eri:y_pc"
           ]
         },
         "z_pc": {
-          "status": "adopted-existing",
+          "status": "adopted",
           "sourceRefs": [
-            "legacy-neighbors:epsilon-eridani"
+            "shared-object:* eps Eri:z_pc"
           ]
         },
         "vx_kms": {
-          "status": "adopted-existing",
+          "status": "adopted",
           "sourceRefs": [
-            "legacy-neighbors:epsilon-eridani"
+            "shared-object:* eps Eri:vx_kms"
           ]
         },
         "vy_kms": {
-          "status": "adopted-existing",
+          "status": "adopted",
           "sourceRefs": [
-            "legacy-neighbors:epsilon-eridani"
+            "shared-object:* eps Eri:vy_kms"
           ]
         },
         "vz_kms": {
-          "status": "adopted-existing",
+          "status": "adopted",
           "sourceRefs": [
-            "legacy-neighbors:epsilon-eridani"
+            "shared-object:* eps Eri:vz_kms"
           ]
         },
         "temperature_k": {
-          "status": "adopted-existing",
+          "status": "adopted",
           "sourceRefs": [
-            "legacy-neighbors:epsilon-eridani"
+            "shared-object:* eps Eri:temperature_k"
           ]
         },
         "mass_solar": {
-          "status": "adopted-existing",
+          "status": "adopted",
           "sourceRefs": [
-            "legacy-neighbors:epsilon-eridani"
+            "shared-object:* eps Eri:mass_solar"
           ]
         },
         "luminosity_solar": {
-          "status": "model-derived",
+          "status": "adopted",
           "sourceRefs": [
-            "Gaia DR3 astrophysical_parameters:5164707970261890560"
-          ],
-          "detail": "Gaia DR3 exact-ID model value; uncertainty 0.005052449999999986; quality flags 00"
+            "shared-object:* eps Eri:luminosity_solar"
+          ]
         },
         "absolute_mag": {
-          "status": "adopted-existing",
+          "status": "adopted",
           "sourceRefs": [
-            "legacy-neighbors:epsilon-eridani"
+            "shared-object:* eps Eri:absolute_mag"
           ]
         },
         "epoch": {
           "status": "adopted",
-          "sourceRefs": [],
-          "detail": "Static J2000.0 snapshot; source decimal years treated as Julian years TT."
+          "sourceRefs": [
+            "shared-object:* eps Eri:epoch"
+          ]
         },
         "notes": {
           "status": "adopted-existing",
@@ -10274,114 +10711,112 @@
           "detail": "Position from J2000 direction and Gaia EDR3 parallax 310.5773 mas (SIMBAD/CNS5). Temperature is a K2V class estimate. Motion: SIMBAD GJ 144; Gaia EDR3 proper motion (2020yCat.1350....0G) and RV 16.376 km/s (2018A&A...616A...7S); converted to Sun-relative Galactic axes as documented in README."
         },
         "constellation": {
-          "status": "derived",
+          "status": "adopted",
           "sourceRefs": [
-            "astropy:7.1.1:Roman1987"
-          ],
-          "detail": "ICRS snapshot direction transformed to B1875 boundary coordinates; no physical motion to 1875. Canonical spelling normalization applied."
+            "shared-object:* eps Eri:constellation"
+          ]
         },
         "ra_deg": {
-          "status": "compiled",
+          "status": "adopted",
           "sourceRefs": [
-            "10pc:tablea1:Seq=19:RAdeg"
+            "shared-object:* eps Eri:ra_deg"
           ]
         },
         "dec_deg": {
-          "status": "compiled",
+          "status": "adopted",
           "sourceRefs": [
-            "10pc:tablea1:Seq=19:DEdeg"
+            "shared-object:* eps Eri:dec_deg"
           ]
         },
         "astrometry_epoch": {
-          "status": "compiled",
+          "status": "adopted",
           "sourceRefs": [
-            "10pc:tablea1:Seq=19:Epoch"
+            "shared-object:* eps Eri:astrometry_epoch"
           ]
         },
         "parallax_mas": {
-          "status": "compiled",
+          "status": "adopted",
           "sourceRefs": [
-            "10pc:tablea1:Seq=19:plx"
+            "shared-object:* eps Eri:parallax_mas"
           ]
         },
         "parallax_error_mas": {
-          "status": "compiled",
+          "status": "adopted",
           "sourceRefs": [
-            "10pc:tablea1:Seq=19:e_plx"
+            "shared-object:* eps Eri:parallax_error_mas"
           ]
         },
         "pm_ra_cosdec_masyr": {
-          "status": "compiled",
+          "status": "adopted",
           "sourceRefs": [
-            "10pc:tablea1:Seq=19:pmRA"
+            "shared-object:* eps Eri:pm_ra_cosdec_masyr"
           ]
         },
         "pm_ra_error_masyr": {
-          "status": "compiled",
+          "status": "adopted",
           "sourceRefs": [
-            "10pc:tablea1:Seq=19:e_pmRA"
+            "shared-object:* eps Eri:pm_ra_error_masyr"
           ]
         },
         "pm_dec_masyr": {
-          "status": "compiled",
+          "status": "adopted",
           "sourceRefs": [
-            "10pc:tablea1:Seq=19:pmDE"
+            "shared-object:* eps Eri:pm_dec_masyr"
           ]
         },
         "pm_dec_error_masyr": {
-          "status": "compiled",
+          "status": "adopted",
           "sourceRefs": [
-            "10pc:tablea1:Seq=19:e_pmDE"
+            "shared-object:* eps Eri:pm_dec_error_masyr"
           ]
         },
         "radial_velocity_kms": {
-          "status": "compiled",
+          "status": "adopted",
           "sourceRefs": [
-            "10pc:tablea1:Seq=19:RV"
+            "shared-object:* eps Eri:radial_velocity_kms"
           ]
         },
         "radial_velocity_error_kms": {
-          "status": "compiled",
+          "status": "adopted",
           "sourceRefs": [
-            "10pc:tablea1:Seq=19:e_RV"
+            "shared-object:* eps Eri:radial_velocity_error_kms"
           ]
         },
         "astrometry_ref": {
-          "status": "compiled",
+          "status": "adopted",
           "sourceRefs": [
-            "10pc:tablea1:Seq=19:r_plx,r_pmDE"
+            "shared-object:* eps Eri:astrometry_ref"
           ]
         },
         "radial_velocity_ref": {
-          "status": "compiled",
+          "status": "adopted",
           "sourceRefs": [
-            "10pc:tablea1:Seq=19:r_RV"
+            "shared-object:* eps Eri:radial_velocity_ref"
           ]
         },
         "radius_solar": {
-          "status": "model-derived",
+          "status": "adopted",
           "sourceRefs": [
-            "Gaia DR3 astrophysical_parameters:5164707970261890560"
-          ],
-          "detail": "Gaia DR3 exact-ID model value; uncertainty 0.016560629999999965; quality flags 00"
+            "shared-object:* eps Eri:radius_solar"
+          ]
         },
         "metallicity_dex": {
-          "status": "model-derived",
+          "status": "adopted",
           "sourceRefs": [
-            "Gaia DR3 astrophysical_parameters:5164707970261890560"
-          ],
-          "detail": "Gaia DR3 exact-ID model value; uncertainty 0.0383; quality flags none"
+            "shared-object:* eps Eri:metallicity_dex"
+          ]
         },
         "age_gyr": {
-          "status": "model-derived",
+          "status": "adopted",
           "sourceRefs": [
-            "Gaia DR3 astrophysical_parameters:5164707970261890560"
-          ],
-          "detail": "Gaia DR3 exact-ID model value; uncertainty 2.121716; quality flags 00"
+            "shared-object:* eps Eri:age_gyr"
+          ]
         },
         "metallicity_kind": {
-          "status": "unknown",
-          "sourceRefs": []
+          "status": "adopted",
+          "sourceRefs": [
+            "shared-object:* eps Eri:metallicity_kind"
+          ]
         }
       },
       "overrides": [
@@ -10480,6 +10915,270 @@
           "mass_solar",
           "temperature_k"
         ]
+      },
+      "sharedObjectAdoption": {
+        "recordId": "* eps Eri",
+        "reviewSha256": "13b3b09260b2c461f96a27d5d13ed7dbe7975025168a9d2b93a6aaf479ac962f",
+        "scope": "Reviewed catalog object/component epsilon-eridani; aliases only, distinct companions remain separate.",
+        "fields": [
+          "absolute_mag",
+          "vx_kms",
+          "pm_dec_error_masyr",
+          "pm_ra_cosdec_masyr",
+          "pm_ra_error_masyr",
+          "vy_kms",
+          "x_pc",
+          "dec_deg",
+          "pm_dec_masyr",
+          "radial_velocity_ref",
+          "z_pc",
+          "temperature_k",
+          "mass_solar",
+          "vz_kms",
+          "astrometry_epoch",
+          "ra_deg",
+          "y_pc",
+          "radial_velocity_error_kms",
+          "astrometry_ref",
+          "epoch",
+          "constellation",
+          "parallax_mas",
+          "parallax_error_mas",
+          "radial_velocity_kms",
+          "luminosity_solar",
+          "radius_solar",
+          "metallicity_dex",
+          "metallicity_kind",
+          "age_gyr"
+        ],
+        "sourceSelections": {
+          "astrometryAndMotion": {
+            "source": "nearest-100:epsilon-eridani",
+            "fields": [
+              "x_pc",
+              "y_pc",
+              "z_pc",
+              "vx_kms",
+              "vy_kms",
+              "vz_kms",
+              "epoch",
+              "constellation",
+              "ra_deg",
+              "dec_deg",
+              "astrometry_epoch",
+              "parallax_mas",
+              "parallax_error_mas",
+              "pm_ra_cosdec_masyr",
+              "pm_ra_error_masyr",
+              "pm_dec_masyr",
+              "pm_dec_error_masyr",
+              "radial_velocity_kms",
+              "radial_velocity_error_kms",
+              "astrometry_ref",
+              "radial_velocity_ref"
+            ],
+            "decision": "Retain the curated nearest-catalog coordinate/motion bundle where available; otherwise use the later Western snapshot. For the eleven reviewed stellar objects with missing CNS5 RV but an existing adopted SIMBAD RV, use the complete Western position/motion bundle to retain full-space motion. Spectroscopic binaries and composite Porrima retain the nearest-catalog RV withholding. Keep positions, velocities, reference epoch, raw measurements, uncertainties and bibliographies together. Withheld individual/system velocities remain withheld."
+          },
+          "physical": {
+            "source": "western-constellation-stars:hip-16537",
+            "fields": [
+              "temperature_k",
+              "mass_solar",
+              "luminosity_solar",
+              "radius_solar",
+              "metallicity_dex",
+              "metallicity_kind",
+              "age_gyr"
+            ],
+            "decision": "Adopt the exact-ID Gaia DR3 model temperature and mass already used by the constellation catalog instead of legacy class estimates; retain the existing Gaia model radius, luminosity, abundance and age."
+          },
+          "photometry": {
+            "source": "nearest-100:epsilon-eridani",
+            "fields": [
+              "absolute_mag"
+            ],
+            "decision": "Use the component-resolved curated Johnson V/distance where available, otherwise the common selected astrometric snapshot; preserve the specifically reviewed Bright Star Catalogue V=0.76 for Acrux. No integrated system flux is assigned to a faint companion."
+          }
+        },
+        "sourceEvidence": "Original measurements and catalog-specific provenance are retained; the shared adopted record supersedes them for these fields."
+      },
+      "sourceFieldProvenance": {
+        "absolute_mag": {
+          "status": "adopted-existing",
+          "sourceRefs": [
+            "legacy-neighbors:epsilon-eridani"
+          ]
+        },
+        "vx_kms": {
+          "status": "adopted-existing",
+          "sourceRefs": [
+            "legacy-neighbors:epsilon-eridani"
+          ]
+        },
+        "pm_dec_error_masyr": {
+          "status": "compiled",
+          "sourceRefs": [
+            "10pc:tablea1:Seq=19:e_pmDE"
+          ]
+        },
+        "pm_ra_cosdec_masyr": {
+          "status": "compiled",
+          "sourceRefs": [
+            "10pc:tablea1:Seq=19:pmRA"
+          ]
+        },
+        "pm_ra_error_masyr": {
+          "status": "compiled",
+          "sourceRefs": [
+            "10pc:tablea1:Seq=19:e_pmRA"
+          ]
+        },
+        "vy_kms": {
+          "status": "adopted-existing",
+          "sourceRefs": [
+            "legacy-neighbors:epsilon-eridani"
+          ]
+        },
+        "x_pc": {
+          "status": "adopted-existing",
+          "sourceRefs": [
+            "legacy-neighbors:epsilon-eridani"
+          ]
+        },
+        "dec_deg": {
+          "status": "compiled",
+          "sourceRefs": [
+            "10pc:tablea1:Seq=19:DEdeg"
+          ]
+        },
+        "pm_dec_masyr": {
+          "status": "compiled",
+          "sourceRefs": [
+            "10pc:tablea1:Seq=19:pmDE"
+          ]
+        },
+        "radial_velocity_ref": {
+          "status": "compiled",
+          "sourceRefs": [
+            "10pc:tablea1:Seq=19:r_RV"
+          ]
+        },
+        "z_pc": {
+          "status": "adopted-existing",
+          "sourceRefs": [
+            "legacy-neighbors:epsilon-eridani"
+          ]
+        },
+        "temperature_k": {
+          "status": "adopted-existing",
+          "sourceRefs": [
+            "legacy-neighbors:epsilon-eridani"
+          ]
+        },
+        "mass_solar": {
+          "status": "adopted-existing",
+          "sourceRefs": [
+            "legacy-neighbors:epsilon-eridani"
+          ]
+        },
+        "vz_kms": {
+          "status": "adopted-existing",
+          "sourceRefs": [
+            "legacy-neighbors:epsilon-eridani"
+          ]
+        },
+        "astrometry_epoch": {
+          "status": "compiled",
+          "sourceRefs": [
+            "10pc:tablea1:Seq=19:Epoch"
+          ]
+        },
+        "ra_deg": {
+          "status": "compiled",
+          "sourceRefs": [
+            "10pc:tablea1:Seq=19:RAdeg"
+          ]
+        },
+        "y_pc": {
+          "status": "adopted-existing",
+          "sourceRefs": [
+            "legacy-neighbors:epsilon-eridani"
+          ]
+        },
+        "radial_velocity_error_kms": {
+          "status": "compiled",
+          "sourceRefs": [
+            "10pc:tablea1:Seq=19:e_RV"
+          ]
+        },
+        "astrometry_ref": {
+          "status": "compiled",
+          "sourceRefs": [
+            "10pc:tablea1:Seq=19:r_plx,r_pmDE"
+          ]
+        },
+        "epoch": {
+          "status": "adopted",
+          "sourceRefs": [],
+          "detail": "Static J2000.0 snapshot; source decimal years treated as Julian years TT."
+        },
+        "constellation": {
+          "status": "derived",
+          "sourceRefs": [
+            "astropy:7.1.1:Roman1987"
+          ],
+          "detail": "ICRS snapshot direction transformed to B1875 boundary coordinates; no physical motion to 1875. Canonical spelling normalization applied."
+        },
+        "parallax_mas": {
+          "status": "compiled",
+          "sourceRefs": [
+            "10pc:tablea1:Seq=19:plx"
+          ]
+        },
+        "parallax_error_mas": {
+          "status": "compiled",
+          "sourceRefs": [
+            "10pc:tablea1:Seq=19:e_plx"
+          ]
+        },
+        "radial_velocity_kms": {
+          "status": "compiled",
+          "sourceRefs": [
+            "10pc:tablea1:Seq=19:RV"
+          ]
+        },
+        "luminosity_solar": {
+          "status": "model-derived",
+          "sourceRefs": [
+            "Gaia DR3 astrophysical_parameters:5164707970261890560"
+          ],
+          "detail": "Gaia DR3 exact-ID model value; uncertainty 0.005052449999999986; quality flags 00"
+        },
+        "radius_solar": {
+          "status": "model-derived",
+          "sourceRefs": [
+            "Gaia DR3 astrophysical_parameters:5164707970261890560"
+          ],
+          "detail": "Gaia DR3 exact-ID model value; uncertainty 0.016560629999999965; quality flags 00"
+        },
+        "metallicity_dex": {
+          "status": "model-derived",
+          "sourceRefs": [
+            "Gaia DR3 astrophysical_parameters:5164707970261890560"
+          ],
+          "detail": "Gaia DR3 exact-ID model value; uncertainty 0.0383; quality flags none"
+        },
+        "metallicity_kind": {
+          "status": "unknown",
+          "sourceRefs": []
+        },
+        "age_gyr": {
+          "status": "model-derived",
+          "sourceRefs": [
+            "Gaia DR3 astrophysical_parameters:5164707970261890560"
+          ],
+          "detail": "Gaia DR3 exact-ID model value; uncertainty 2.121716; quality flags 00"
+        }
       }
     },
     {
@@ -13010,86 +13709,76 @@
           ]
         },
         "spectral_type": {
-          "status": "compiled",
+          "status": "adopted",
           "sourceRefs": [
-            "10pc:tablea1:Seq=31:SpType"
-          ],
-          "detail": "2013yCat....1.2023S"
+            "shared-object:* alf CMi:spectral_type"
+          ]
         },
         "x_pc": {
-          "status": "derived",
+          "status": "adopted",
           "sourceRefs": [
-            "10pc:tablea1:Seq=31:RAdeg,DEdeg,Epoch,plx,pmRA,pmDE,RV"
-          ],
-          "detail": "full-space-motion"
+            "shared-object:* alf CMi:x_pc"
+          ]
         },
         "y_pc": {
-          "status": "derived",
+          "status": "adopted",
           "sourceRefs": [
-            "10pc:tablea1:Seq=31:RAdeg,DEdeg,Epoch,plx,pmRA,pmDE,RV"
-          ],
-          "detail": "full-space-motion"
+            "shared-object:* alf CMi:y_pc"
+          ]
         },
         "z_pc": {
-          "status": "derived",
+          "status": "adopted",
           "sourceRefs": [
-            "10pc:tablea1:Seq=31:RAdeg,DEdeg,Epoch,plx,pmRA,pmDE,RV"
-          ],
-          "detail": "full-space-motion"
+            "shared-object:* alf CMi:z_pc"
+          ]
         },
         "vx_kms": {
-          "status": "derived",
+          "status": "adopted",
           "sourceRefs": [
-            "10pc:tablea1:Seq=31:pmRA,pmDE,RV"
-          ],
-          "detail": "Sun-relative Galactic vector; source spectroscopic RV, not an orbit solution."
+            "shared-object:* alf CMi:vx_kms"
+          ]
         },
         "vy_kms": {
-          "status": "derived",
+          "status": "adopted",
           "sourceRefs": [
-            "10pc:tablea1:Seq=31:pmRA,pmDE,RV"
-          ],
-          "detail": "Sun-relative Galactic vector; source spectroscopic RV, not an orbit solution."
+            "shared-object:* alf CMi:vy_kms"
+          ]
         },
         "vz_kms": {
-          "status": "derived",
+          "status": "adopted",
           "sourceRefs": [
-            "10pc:tablea1:Seq=31:pmRA,pmDE,RV"
-          ],
-          "detail": "Sun-relative Galactic vector; source spectroscopic RV, not an orbit solution."
+            "shared-object:* alf CMi:vz_kms"
+          ]
         },
         "temperature_k": {
-          "status": "derived",
+          "status": "adopted",
           "sourceRefs": [
-            "2012A&A...540A...5C:10pc-0031"
-          ],
-          "detail": "primary-paper; uncertainty 43.0; 3D limb-darkened interferometry and Fuhrmann bolometric flux"
+            "shared-object:* alf CMi:temperature_k"
+          ]
         },
         "mass_solar": {
-          "status": "measured",
+          "status": "adopted",
           "sourceRefs": [
-            "2015ApJ...813..106B:10pc-0031"
-          ],
-          "detail": "primary-paper; uncertainty 0.012; binary dynamical mass"
+            "shared-object:* alf CMi:mass_solar"
+          ]
         },
         "luminosity_solar": {
-          "status": "derived",
+          "status": "adopted",
           "sourceRefs": [
-            "Stefan-Boltzmann scaling"
-          ],
-          "detail": "{\"field\": \"luminosity_solar\", \"inputs\": {\"radius_solar\": 2.019, \"temperature_k\": 6591.0}, \"reference\": \"Stefan-Boltzmann scaling\", \"status\": \"derived\", \"value\": 6.930628095}"
+            "shared-object:* alf CMi:luminosity_solar"
+          ]
         },
         "absolute_mag": {
-          "status": "derived",
+          "status": "adopted",
           "sourceRefs": [
-            "1953ApJ...117..313J; 2015ApJ...813..106B"
-          ],
-          "detail": "{\"johnson_v\": 0.34, \"note\": \"primary-star visual magnitude reported by Bond et al. section 2\", \"reference\": \"1953ApJ...117..313J; 2015ApJ...813..106B\", \"uncertainty\": null}"
+            "shared-object:* alf CMi:absolute_mag"
+          ]
         },
         "epoch": {
           "status": "adopted",
-          "sourceRefs": [],
-          "detail": "Static J2000.0 snapshot; source decimal years treated as Julian years TT."
+          "sourceRefs": [
+            "shared-object:* alf CMi:epoch"
+          ]
         },
         "notes": {
           "status": "compiled",
@@ -13098,114 +13787,112 @@
           ]
         },
         "constellation": {
-          "status": "derived",
+          "status": "adopted",
           "sourceRefs": [
-            "astropy:7.1.1:Roman1987"
-          ],
-          "detail": "ICRS snapshot direction transformed to B1875 boundary coordinates; no physical motion to 1875. Canonical spelling normalization applied."
+            "shared-object:* alf CMi:constellation"
+          ]
         },
         "ra_deg": {
-          "status": "compiled",
+          "status": "adopted",
           "sourceRefs": [
-            "10pc:tablea1:Seq=31:RAdeg"
+            "shared-object:* alf CMi:ra_deg"
           ]
         },
         "dec_deg": {
-          "status": "compiled",
+          "status": "adopted",
           "sourceRefs": [
-            "10pc:tablea1:Seq=31:DEdeg"
+            "shared-object:* alf CMi:dec_deg"
           ]
         },
         "astrometry_epoch": {
-          "status": "compiled",
+          "status": "adopted",
           "sourceRefs": [
-            "10pc:tablea1:Seq=31:Epoch"
+            "shared-object:* alf CMi:astrometry_epoch"
           ]
         },
         "parallax_mas": {
-          "status": "compiled",
+          "status": "adopted",
           "sourceRefs": [
-            "10pc:tablea1:Seq=31:plx"
+            "shared-object:* alf CMi:parallax_mas"
           ]
         },
         "parallax_error_mas": {
-          "status": "compiled",
+          "status": "adopted",
           "sourceRefs": [
-            "10pc:tablea1:Seq=31:e_plx"
+            "shared-object:* alf CMi:parallax_error_mas"
           ]
         },
         "pm_ra_cosdec_masyr": {
-          "status": "compiled",
+          "status": "adopted",
           "sourceRefs": [
-            "10pc:tablea1:Seq=31:pmRA"
+            "shared-object:* alf CMi:pm_ra_cosdec_masyr"
           ]
         },
         "pm_ra_error_masyr": {
-          "status": "compiled",
+          "status": "adopted",
           "sourceRefs": [
-            "10pc:tablea1:Seq=31:e_pmRA"
+            "shared-object:* alf CMi:pm_ra_error_masyr"
           ]
         },
         "pm_dec_masyr": {
-          "status": "compiled",
+          "status": "adopted",
           "sourceRefs": [
-            "10pc:tablea1:Seq=31:pmDE"
+            "shared-object:* alf CMi:pm_dec_masyr"
           ]
         },
         "pm_dec_error_masyr": {
-          "status": "compiled",
+          "status": "adopted",
           "sourceRefs": [
-            "10pc:tablea1:Seq=31:e_pmDE"
+            "shared-object:* alf CMi:pm_dec_error_masyr"
           ]
         },
         "radial_velocity_kms": {
-          "status": "compiled",
+          "status": "adopted",
           "sourceRefs": [
-            "10pc:tablea1:Seq=31:RV"
+            "shared-object:* alf CMi:radial_velocity_kms"
           ]
         },
         "radial_velocity_error_kms": {
-          "status": "compiled",
+          "status": "adopted",
           "sourceRefs": [
-            "10pc:tablea1:Seq=31:e_RV"
+            "shared-object:* alf CMi:radial_velocity_error_kms"
           ]
         },
         "astrometry_ref": {
-          "status": "compiled",
+          "status": "adopted",
           "sourceRefs": [
-            "10pc:tablea1:Seq=31:r_plx,r_pmDE"
+            "shared-object:* alf CMi:astrometry_ref"
           ]
         },
         "radial_velocity_ref": {
-          "status": "compiled",
+          "status": "adopted",
           "sourceRefs": [
-            "10pc:tablea1:Seq=31:r_RV"
+            "shared-object:* alf CMi:radial_velocity_ref"
           ]
         },
         "radius_solar": {
-          "status": "derived",
+          "status": "adopted",
           "sourceRefs": [
-            "2012A&A...540A...5C:10pc-0031"
-          ],
-          "detail": "primary-paper; uncertainty None; Vinci angular diameter and Hipparcos parallax"
+            "shared-object:* alf CMi:radius_solar"
+          ]
         },
         "metallicity_dex": {
-          "status": "measured",
+          "status": "adopted",
           "sourceRefs": [
-            "2002ApJ...567..544A:10pc-0031"
-          ],
-          "detail": "primary-paper; uncertainty 0.03; differential solar iron abundance; 3D LTE"
+            "shared-object:* alf CMi:metallicity_dex"
+          ]
         },
         "age_gyr": {
-          "status": "model-derived",
+          "status": "adopted",
           "sourceRefs": [
-            "2015ApJ...813..106B:10pc-0031"
-          ],
-          "detail": "primary-paper; uncertainty None; preferred high core overshoot model; not a precise measured age"
+            "shared-object:* alf CMi:age_gyr"
+          ]
         },
         "metallicity_kind": {
-          "status": "unknown",
-          "sourceRefs": []
+          "status": "adopted",
+          "sourceRefs": [
+            "shared-object:* alf CMi:metallicity_kind"
+          ]
         }
       },
       "overrides": [],
@@ -13300,6 +13987,293 @@
           "radius_solar": "2012A&A...540A...5C:10pc-0031",
           "metallicity_dex": "2002ApJ...567..544A:10pc-0031",
           "age_gyr": "2015ApJ...813..106B:10pc-0031"
+        }
+      },
+      "sharedObjectAdoption": {
+        "recordId": "* alf CMi",
+        "reviewSha256": "13b3b09260b2c461f96a27d5d13ed7dbe7975025168a9d2b93a6aaf479ac962f",
+        "scope": "Reviewed catalog object/component 10pc-0031; aliases only, distinct companions remain separate.",
+        "fields": [
+          "absolute_mag",
+          "vx_kms",
+          "pm_dec_error_masyr",
+          "radial_velocity_error_kms",
+          "vz_kms",
+          "pm_ra_error_masyr",
+          "radial_velocity_ref",
+          "x_pc",
+          "z_pc",
+          "vy_kms",
+          "ra_deg",
+          "dec_deg",
+          "y_pc",
+          "spectral_type",
+          "astrometry_ref",
+          "radial_velocity_kms",
+          "luminosity_solar",
+          "epoch",
+          "constellation",
+          "astrometry_epoch",
+          "parallax_mas",
+          "parallax_error_mas",
+          "pm_ra_cosdec_masyr",
+          "pm_dec_masyr",
+          "temperature_k",
+          "mass_solar",
+          "radius_solar",
+          "metallicity_dex",
+          "metallicity_kind",
+          "age_gyr"
+        ],
+        "sourceSelections": {
+          "astrometryAndMotion": {
+            "source": "nearest-100:10pc-0031",
+            "fields": [
+              "x_pc",
+              "y_pc",
+              "z_pc",
+              "vx_kms",
+              "vy_kms",
+              "vz_kms",
+              "epoch",
+              "constellation",
+              "ra_deg",
+              "dec_deg",
+              "astrometry_epoch",
+              "parallax_mas",
+              "parallax_error_mas",
+              "pm_ra_cosdec_masyr",
+              "pm_ra_error_masyr",
+              "pm_dec_masyr",
+              "pm_dec_error_masyr",
+              "radial_velocity_kms",
+              "radial_velocity_error_kms",
+              "astrometry_ref",
+              "radial_velocity_ref"
+            ],
+            "decision": "Retain the curated nearest-catalog coordinate/motion bundle where available; otherwise use the later Western snapshot. For the eleven reviewed stellar objects with missing CNS5 RV but an existing adopted SIMBAD RV, use the complete Western position/motion bundle to retain full-space motion. Spectroscopic binaries and composite Porrima retain the nearest-catalog RV withholding. Keep positions, velocities, reference epoch, raw measurements, uncertainties and bibliographies together. Withheld individual/system velocities remain withheld."
+          },
+          "physical": {
+            "source": "nearest-100:10pc-0031",
+            "fields": [
+              "temperature_k",
+              "mass_solar",
+              "luminosity_solar",
+              "radius_solar",
+              "metallicity_dex",
+              "metallicity_kind",
+              "age_gyr"
+            ],
+            "decision": "Preserve the existing reviewed component-scoped physical parameters and their published/derived provenance."
+          },
+          "photometry": {
+            "source": "nearest-100:10pc-0031",
+            "fields": [
+              "absolute_mag"
+            ],
+            "decision": "Use the component-resolved curated Johnson V/distance where available, otherwise the common selected astrometric snapshot; preserve the specifically reviewed Bright Star Catalogue V=0.76 for Acrux. No integrated system flux is assigned to a faint companion."
+          },
+          "spectral": {
+            "value": "F5IV-V",
+            "reference": "2004A&A...413..251K",
+            "sourceUrl": "https://arxiv.org/abs/astro-ph/0309148",
+            "decision": "Primary-only Procyon A classification; the composite F5IV-V+DQZ spectrum is not appropriate for a component A row."
+          }
+        },
+        "sourceEvidence": "Original measurements and catalog-specific provenance are retained; the shared adopted record supersedes them for these fields."
+      },
+      "sourceFieldProvenance": {
+        "absolute_mag": {
+          "status": "derived",
+          "sourceRefs": [
+            "1953ApJ...117..313J; 2015ApJ...813..106B"
+          ],
+          "detail": "{\"johnson_v\": 0.34, \"note\": \"primary-star visual magnitude reported by Bond et al. section 2\", \"reference\": \"1953ApJ...117..313J; 2015ApJ...813..106B\", \"uncertainty\": null}"
+        },
+        "vx_kms": {
+          "status": "derived",
+          "sourceRefs": [
+            "10pc:tablea1:Seq=31:pmRA,pmDE,RV"
+          ],
+          "detail": "Sun-relative Galactic vector; source spectroscopic RV, not an orbit solution."
+        },
+        "pm_dec_error_masyr": {
+          "status": "compiled",
+          "sourceRefs": [
+            "10pc:tablea1:Seq=31:e_pmDE"
+          ]
+        },
+        "radial_velocity_error_kms": {
+          "status": "compiled",
+          "sourceRefs": [
+            "10pc:tablea1:Seq=31:e_RV"
+          ]
+        },
+        "vz_kms": {
+          "status": "derived",
+          "sourceRefs": [
+            "10pc:tablea1:Seq=31:pmRA,pmDE,RV"
+          ],
+          "detail": "Sun-relative Galactic vector; source spectroscopic RV, not an orbit solution."
+        },
+        "pm_ra_error_masyr": {
+          "status": "compiled",
+          "sourceRefs": [
+            "10pc:tablea1:Seq=31:e_pmRA"
+          ]
+        },
+        "radial_velocity_ref": {
+          "status": "compiled",
+          "sourceRefs": [
+            "10pc:tablea1:Seq=31:r_RV"
+          ]
+        },
+        "x_pc": {
+          "status": "derived",
+          "sourceRefs": [
+            "10pc:tablea1:Seq=31:RAdeg,DEdeg,Epoch,plx,pmRA,pmDE,RV"
+          ],
+          "detail": "full-space-motion"
+        },
+        "z_pc": {
+          "status": "derived",
+          "sourceRefs": [
+            "10pc:tablea1:Seq=31:RAdeg,DEdeg,Epoch,plx,pmRA,pmDE,RV"
+          ],
+          "detail": "full-space-motion"
+        },
+        "vy_kms": {
+          "status": "derived",
+          "sourceRefs": [
+            "10pc:tablea1:Seq=31:pmRA,pmDE,RV"
+          ],
+          "detail": "Sun-relative Galactic vector; source spectroscopic RV, not an orbit solution."
+        },
+        "ra_deg": {
+          "status": "compiled",
+          "sourceRefs": [
+            "10pc:tablea1:Seq=31:RAdeg"
+          ]
+        },
+        "dec_deg": {
+          "status": "compiled",
+          "sourceRefs": [
+            "10pc:tablea1:Seq=31:DEdeg"
+          ]
+        },
+        "y_pc": {
+          "status": "derived",
+          "sourceRefs": [
+            "10pc:tablea1:Seq=31:RAdeg,DEdeg,Epoch,plx,pmRA,pmDE,RV"
+          ],
+          "detail": "full-space-motion"
+        },
+        "spectral_type": {
+          "status": "compiled",
+          "sourceRefs": [
+            "10pc:tablea1:Seq=31:SpType"
+          ],
+          "detail": "2013yCat....1.2023S"
+        },
+        "astrometry_ref": {
+          "status": "compiled",
+          "sourceRefs": [
+            "10pc:tablea1:Seq=31:r_plx,r_pmDE"
+          ]
+        },
+        "radial_velocity_kms": {
+          "status": "compiled",
+          "sourceRefs": [
+            "10pc:tablea1:Seq=31:RV"
+          ]
+        },
+        "luminosity_solar": {
+          "status": "derived",
+          "sourceRefs": [
+            "Stefan-Boltzmann scaling"
+          ],
+          "detail": "{\"field\": \"luminosity_solar\", \"inputs\": {\"radius_solar\": 2.019, \"temperature_k\": 6591.0}, \"reference\": \"Stefan-Boltzmann scaling\", \"status\": \"derived\", \"value\": 6.930628095}"
+        },
+        "epoch": {
+          "status": "adopted",
+          "sourceRefs": [],
+          "detail": "Static J2000.0 snapshot; source decimal years treated as Julian years TT."
+        },
+        "constellation": {
+          "status": "derived",
+          "sourceRefs": [
+            "astropy:7.1.1:Roman1987"
+          ],
+          "detail": "ICRS snapshot direction transformed to B1875 boundary coordinates; no physical motion to 1875. Canonical spelling normalization applied."
+        },
+        "astrometry_epoch": {
+          "status": "compiled",
+          "sourceRefs": [
+            "10pc:tablea1:Seq=31:Epoch"
+          ]
+        },
+        "parallax_mas": {
+          "status": "compiled",
+          "sourceRefs": [
+            "10pc:tablea1:Seq=31:plx"
+          ]
+        },
+        "parallax_error_mas": {
+          "status": "compiled",
+          "sourceRefs": [
+            "10pc:tablea1:Seq=31:e_plx"
+          ]
+        },
+        "pm_ra_cosdec_masyr": {
+          "status": "compiled",
+          "sourceRefs": [
+            "10pc:tablea1:Seq=31:pmRA"
+          ]
+        },
+        "pm_dec_masyr": {
+          "status": "compiled",
+          "sourceRefs": [
+            "10pc:tablea1:Seq=31:pmDE"
+          ]
+        },
+        "temperature_k": {
+          "status": "derived",
+          "sourceRefs": [
+            "2012A&A...540A...5C:10pc-0031"
+          ],
+          "detail": "primary-paper; uncertainty 43.0; 3D limb-darkened interferometry and Fuhrmann bolometric flux"
+        },
+        "mass_solar": {
+          "status": "measured",
+          "sourceRefs": [
+            "2015ApJ...813..106B:10pc-0031"
+          ],
+          "detail": "primary-paper; uncertainty 0.012; binary dynamical mass"
+        },
+        "radius_solar": {
+          "status": "derived",
+          "sourceRefs": [
+            "2012A&A...540A...5C:10pc-0031"
+          ],
+          "detail": "primary-paper; uncertainty None; Vinci angular diameter and Hipparcos parallax"
+        },
+        "metallicity_dex": {
+          "status": "measured",
+          "sourceRefs": [
+            "2002ApJ...567..544A:10pc-0031"
+          ],
+          "detail": "primary-paper; uncertainty 0.03; differential solar iron abundance; 3D LTE"
+        },
+        "metallicity_kind": {
+          "status": "unknown",
+          "sourceRefs": []
+        },
+        "age_gyr": {
+          "status": "model-derived",
+          "sourceRefs": [
+            "2015ApJ...813..106B:10pc-0031"
+          ],
+          "detail": "primary-paper; uncertainty None; preferred high core overshoot model; not a precise measured age"
         }
       }
     },
@@ -15415,53 +16389,46 @@
           ]
         },
         "spectral_type": {
-          "status": "compiled",
+          "status": "adopted",
           "sourceRefs": [
-            "10pc:tablea1:Seq=44:SpType"
-          ],
-          "detail": "2006AJ....132..161G"
+            "shared-object:* tau Cet:spectral_type"
+          ]
         },
         "x_pc": {
-          "status": "derived",
+          "status": "adopted",
           "sourceRefs": [
-            "10pc:tablea1:Seq=44:RAdeg,DEdeg,Epoch,plx,pmRA,pmDE,RV"
-          ],
-          "detail": "full-space-motion"
+            "shared-object:* tau Cet:x_pc"
+          ]
         },
         "y_pc": {
-          "status": "derived",
+          "status": "adopted",
           "sourceRefs": [
-            "10pc:tablea1:Seq=44:RAdeg,DEdeg,Epoch,plx,pmRA,pmDE,RV"
-          ],
-          "detail": "full-space-motion"
+            "shared-object:* tau Cet:y_pc"
+          ]
         },
         "z_pc": {
-          "status": "derived",
+          "status": "adopted",
           "sourceRefs": [
-            "10pc:tablea1:Seq=44:RAdeg,DEdeg,Epoch,plx,pmRA,pmDE,RV"
-          ],
-          "detail": "full-space-motion"
+            "shared-object:* tau Cet:z_pc"
+          ]
         },
         "vx_kms": {
-          "status": "derived",
+          "status": "adopted",
           "sourceRefs": [
-            "10pc:tablea1:Seq=44:pmRA,pmDE,RV"
-          ],
-          "detail": "Sun-relative Galactic vector; source spectroscopic RV, not an orbit solution."
+            "shared-object:* tau Cet:vx_kms"
+          ]
         },
         "vy_kms": {
-          "status": "derived",
+          "status": "adopted",
           "sourceRefs": [
-            "10pc:tablea1:Seq=44:pmRA,pmDE,RV"
-          ],
-          "detail": "Sun-relative Galactic vector; source spectroscopic RV, not an orbit solution."
+            "shared-object:* tau Cet:vy_kms"
+          ]
         },
         "vz_kms": {
-          "status": "derived",
+          "status": "adopted",
           "sourceRefs": [
-            "10pc:tablea1:Seq=44:pmRA,pmDE,RV"
-          ],
-          "detail": "Sun-relative Galactic vector; source spectroscopic RV, not an orbit solution."
+            "shared-object:* tau Cet:vz_kms"
+          ]
         },
         "temperature_k": {
           "status": "measured",
@@ -15485,16 +16452,16 @@
           "detail": "primary-paper; uncertainty 0.02; interferometry plus spectroscopy"
         },
         "absolute_mag": {
-          "status": "derived",
+          "status": "adopted",
           "sourceRefs": [
-            "10pc:tablea1:Seq=44:Vmag"
-          ],
-          "detail": "Absolute Johnson V derived from 10pc Vmag=3.5 and adopted distance; negligible extinction assumed. Photometric epoch, uncertainty and individual V bibliography not supplied by compilation."
+            "shared-object:* tau Cet:absolute_mag"
+          ]
         },
         "epoch": {
           "status": "adopted",
-          "sourceRefs": [],
-          "detail": "Static J2000.0 snapshot; source decimal years treated as Julian years TT."
+          "sourceRefs": [
+            "shared-object:* tau Cet:epoch"
+          ]
         },
         "notes": {
           "status": "compiled",
@@ -15503,88 +16470,87 @@
           ]
         },
         "constellation": {
-          "status": "derived",
+          "status": "adopted",
           "sourceRefs": [
-            "astropy:7.1.1:Roman1987"
-          ],
-          "detail": "ICRS snapshot direction transformed to B1875 boundary coordinates; no physical motion to 1875. Canonical spelling normalization applied."
+            "shared-object:* tau Cet:constellation"
+          ]
         },
         "ra_deg": {
-          "status": "compiled",
+          "status": "adopted",
           "sourceRefs": [
-            "10pc:tablea1:Seq=44:RAdeg"
+            "shared-object:* tau Cet:ra_deg"
           ]
         },
         "dec_deg": {
-          "status": "compiled",
+          "status": "adopted",
           "sourceRefs": [
-            "10pc:tablea1:Seq=44:DEdeg"
+            "shared-object:* tau Cet:dec_deg"
           ]
         },
         "astrometry_epoch": {
-          "status": "compiled",
+          "status": "adopted",
           "sourceRefs": [
-            "10pc:tablea1:Seq=44:Epoch"
+            "shared-object:* tau Cet:astrometry_epoch"
           ]
         },
         "parallax_mas": {
-          "status": "compiled",
+          "status": "adopted",
           "sourceRefs": [
-            "10pc:tablea1:Seq=44:plx"
+            "shared-object:* tau Cet:parallax_mas"
           ]
         },
         "parallax_error_mas": {
-          "status": "compiled",
+          "status": "adopted",
           "sourceRefs": [
-            "10pc:tablea1:Seq=44:e_plx"
+            "shared-object:* tau Cet:parallax_error_mas"
           ]
         },
         "pm_ra_cosdec_masyr": {
-          "status": "compiled",
+          "status": "adopted",
           "sourceRefs": [
-            "10pc:tablea1:Seq=44:pmRA"
+            "shared-object:* tau Cet:pm_ra_cosdec_masyr"
           ]
         },
         "pm_ra_error_masyr": {
-          "status": "compiled",
+          "status": "adopted",
           "sourceRefs": [
-            "10pc:tablea1:Seq=44:e_pmRA"
+            "shared-object:* tau Cet:pm_ra_error_masyr"
           ]
         },
         "pm_dec_masyr": {
-          "status": "compiled",
+          "status": "adopted",
           "sourceRefs": [
-            "10pc:tablea1:Seq=44:pmDE"
+            "shared-object:* tau Cet:pm_dec_masyr"
           ]
         },
         "pm_dec_error_masyr": {
-          "status": "compiled",
+          "status": "adopted",
           "sourceRefs": [
-            "10pc:tablea1:Seq=44:e_pmDE"
+            "shared-object:* tau Cet:pm_dec_error_masyr"
           ]
         },
         "radial_velocity_kms": {
-          "status": "compiled",
+          "status": "adopted",
           "sourceRefs": [
-            "10pc:tablea1:Seq=44:RV"
+            "shared-object:* tau Cet:radial_velocity_kms"
           ]
         },
         "radial_velocity_error_kms": {
-          "status": "compiled",
+          "status": "adopted",
           "sourceRefs": [
-            "10pc:tablea1:Seq=44:e_RV"
+            "shared-object:* tau Cet:radial_velocity_error_kms"
           ]
         },
         "astrometry_ref": {
-          "status": "compiled",
+          "status": "adopted",
           "sourceRefs": [
-            "10pc:tablea1:Seq=44:r_plx,r_pmDE"
+            "shared-object:* tau Cet:astrometry_ref"
           ]
         },
         "radial_velocity_ref": {
-          "status": "compiled",
+          "status": "adopted",
           "sourceRefs": [
-            "10pc:tablea1:Seq=44:r_RV"
+            "shared-object:* tau Cet:radial_velocity_ref"
           ]
         },
         "radius_solar": {
@@ -15708,6 +16674,227 @@
           "radius_solar": "2023AJ....166..123K:10pc-0044",
           "metallicity_dex": "2015ApJ...803...90P:10pc-0044",
           "age_gyr": "2004A&A...426..601D:10pc-0044"
+        }
+      },
+      "sharedObjectAdoption": {
+        "recordId": "* tau Cet",
+        "reviewSha256": "13b3b09260b2c461f96a27d5d13ed7dbe7975025168a9d2b93a6aaf479ac962f",
+        "scope": "Reviewed catalog object/component 10pc-0044; aliases only, distinct companions remain separate.",
+        "fields": [
+          "absolute_mag",
+          "vx_kms",
+          "pm_dec_error_masyr",
+          "pm_ra_cosdec_masyr",
+          "radial_velocity_error_kms",
+          "vz_kms",
+          "pm_ra_error_masyr",
+          "astrometry_epoch",
+          "radial_velocity_ref",
+          "x_pc",
+          "z_pc",
+          "vy_kms",
+          "ra_deg",
+          "dec_deg",
+          "y_pc",
+          "spectral_type",
+          "pm_dec_masyr",
+          "astrometry_ref",
+          "epoch",
+          "constellation",
+          "parallax_mas",
+          "parallax_error_mas",
+          "radial_velocity_kms"
+        ],
+        "sourceSelections": {
+          "astrometryAndMotion": {
+            "source": "nearest-100:10pc-0044",
+            "fields": [
+              "x_pc",
+              "y_pc",
+              "z_pc",
+              "vx_kms",
+              "vy_kms",
+              "vz_kms",
+              "epoch",
+              "constellation",
+              "ra_deg",
+              "dec_deg",
+              "astrometry_epoch",
+              "parallax_mas",
+              "parallax_error_mas",
+              "pm_ra_cosdec_masyr",
+              "pm_ra_error_masyr",
+              "pm_dec_masyr",
+              "pm_dec_error_masyr",
+              "radial_velocity_kms",
+              "radial_velocity_error_kms",
+              "astrometry_ref",
+              "radial_velocity_ref"
+            ],
+            "decision": "Retain the curated nearest-catalog coordinate/motion bundle where available; otherwise use the later Western snapshot. For the eleven reviewed stellar objects with missing CNS5 RV but an existing adopted SIMBAD RV, use the complete Western position/motion bundle to retain full-space motion. Spectroscopic binaries and composite Porrima retain the nearest-catalog RV withholding. Keep positions, velocities, reference epoch, raw measurements, uncertainties and bibliographies together. Withheld individual/system velocities remain withheld."
+          },
+          "photometry": {
+            "source": "nearest-100:10pc-0044",
+            "fields": [
+              "absolute_mag"
+            ],
+            "decision": "Use the component-resolved curated Johnson V/distance where available, otherwise the common selected astrometric snapshot; preserve the specifically reviewed Bright Star Catalogue V=0.76 for Acrux. No integrated system flux is assigned to a faint companion."
+          },
+          "spectral": {
+            "value": "G8.5V",
+            "reference": "2006AJ....132..161G",
+            "sourceUrl": "https://doi.org/10.1086/504637",
+            "decision": "Retain the 2006 optical subtype cited by the 10pc census and restore its dwarf luminosity class, rather than reverting to the older G8V classification."
+          }
+        },
+        "sourceEvidence": "Original measurements and catalog-specific provenance are retained; the shared adopted record supersedes them for these fields."
+      },
+      "sourceFieldProvenance": {
+        "absolute_mag": {
+          "status": "derived",
+          "sourceRefs": [
+            "10pc:tablea1:Seq=44:Vmag"
+          ],
+          "detail": "Absolute Johnson V derived from 10pc Vmag=3.5 and adopted distance; negligible extinction assumed. Photometric epoch, uncertainty and individual V bibliography not supplied by compilation."
+        },
+        "vx_kms": {
+          "status": "derived",
+          "sourceRefs": [
+            "10pc:tablea1:Seq=44:pmRA,pmDE,RV"
+          ],
+          "detail": "Sun-relative Galactic vector; source spectroscopic RV, not an orbit solution."
+        },
+        "pm_dec_error_masyr": {
+          "status": "compiled",
+          "sourceRefs": [
+            "10pc:tablea1:Seq=44:e_pmDE"
+          ]
+        },
+        "pm_ra_cosdec_masyr": {
+          "status": "compiled",
+          "sourceRefs": [
+            "10pc:tablea1:Seq=44:pmRA"
+          ]
+        },
+        "radial_velocity_error_kms": {
+          "status": "compiled",
+          "sourceRefs": [
+            "10pc:tablea1:Seq=44:e_RV"
+          ]
+        },
+        "vz_kms": {
+          "status": "derived",
+          "sourceRefs": [
+            "10pc:tablea1:Seq=44:pmRA,pmDE,RV"
+          ],
+          "detail": "Sun-relative Galactic vector; source spectroscopic RV, not an orbit solution."
+        },
+        "pm_ra_error_masyr": {
+          "status": "compiled",
+          "sourceRefs": [
+            "10pc:tablea1:Seq=44:e_pmRA"
+          ]
+        },
+        "astrometry_epoch": {
+          "status": "compiled",
+          "sourceRefs": [
+            "10pc:tablea1:Seq=44:Epoch"
+          ]
+        },
+        "radial_velocity_ref": {
+          "status": "compiled",
+          "sourceRefs": [
+            "10pc:tablea1:Seq=44:r_RV"
+          ]
+        },
+        "x_pc": {
+          "status": "derived",
+          "sourceRefs": [
+            "10pc:tablea1:Seq=44:RAdeg,DEdeg,Epoch,plx,pmRA,pmDE,RV"
+          ],
+          "detail": "full-space-motion"
+        },
+        "z_pc": {
+          "status": "derived",
+          "sourceRefs": [
+            "10pc:tablea1:Seq=44:RAdeg,DEdeg,Epoch,plx,pmRA,pmDE,RV"
+          ],
+          "detail": "full-space-motion"
+        },
+        "vy_kms": {
+          "status": "derived",
+          "sourceRefs": [
+            "10pc:tablea1:Seq=44:pmRA,pmDE,RV"
+          ],
+          "detail": "Sun-relative Galactic vector; source spectroscopic RV, not an orbit solution."
+        },
+        "ra_deg": {
+          "status": "compiled",
+          "sourceRefs": [
+            "10pc:tablea1:Seq=44:RAdeg"
+          ]
+        },
+        "dec_deg": {
+          "status": "compiled",
+          "sourceRefs": [
+            "10pc:tablea1:Seq=44:DEdeg"
+          ]
+        },
+        "y_pc": {
+          "status": "derived",
+          "sourceRefs": [
+            "10pc:tablea1:Seq=44:RAdeg,DEdeg,Epoch,plx,pmRA,pmDE,RV"
+          ],
+          "detail": "full-space-motion"
+        },
+        "spectral_type": {
+          "status": "compiled",
+          "sourceRefs": [
+            "10pc:tablea1:Seq=44:SpType"
+          ],
+          "detail": "2006AJ....132..161G"
+        },
+        "pm_dec_masyr": {
+          "status": "compiled",
+          "sourceRefs": [
+            "10pc:tablea1:Seq=44:pmDE"
+          ]
+        },
+        "astrometry_ref": {
+          "status": "compiled",
+          "sourceRefs": [
+            "10pc:tablea1:Seq=44:r_plx,r_pmDE"
+          ]
+        },
+        "epoch": {
+          "status": "adopted",
+          "sourceRefs": [],
+          "detail": "Static J2000.0 snapshot; source decimal years treated as Julian years TT."
+        },
+        "constellation": {
+          "status": "derived",
+          "sourceRefs": [
+            "astropy:7.1.1:Roman1987"
+          ],
+          "detail": "ICRS snapshot direction transformed to B1875 boundary coordinates; no physical motion to 1875. Canonical spelling normalization applied."
+        },
+        "parallax_mas": {
+          "status": "compiled",
+          "sourceRefs": [
+            "10pc:tablea1:Seq=44:plx"
+          ]
+        },
+        "parallax_error_mas": {
+          "status": "compiled",
+          "sourceRefs": [
+            "10pc:tablea1:Seq=44:e_plx"
+          ]
+        },
+        "radial_velocity_kms": {
+          "status": "compiled",
+          "sourceRefs": [
+            "10pc:tablea1:Seq=44:RV"
+          ]
         }
       }
     },
@@ -30278,74 +31465,64 @@
           ]
         },
         "spectral_type": {
-          "status": "compiled",
+          "status": "adopted",
           "sourceRefs": [
-            "10pc:tablea1:Seq=117:SpType"
-          ],
-          "detail": "2003AJ....126.2048G"
+            "shared-object:* alf Aql:spectral_type"
+          ]
         },
         "x_pc": {
-          "status": "derived",
+          "status": "adopted",
           "sourceRefs": [
-            "10pc:tablea1:Seq=117:RAdeg,DEdeg,Epoch,plx,pmRA,pmDE,RV"
-          ],
-          "detail": "full-space-motion"
+            "shared-object:* alf Aql:x_pc"
+          ]
         },
         "y_pc": {
-          "status": "derived",
+          "status": "adopted",
           "sourceRefs": [
-            "10pc:tablea1:Seq=117:RAdeg,DEdeg,Epoch,plx,pmRA,pmDE,RV"
-          ],
-          "detail": "full-space-motion"
+            "shared-object:* alf Aql:y_pc"
+          ]
         },
         "z_pc": {
-          "status": "derived",
+          "status": "adopted",
           "sourceRefs": [
-            "10pc:tablea1:Seq=117:RAdeg,DEdeg,Epoch,plx,pmRA,pmDE,RV"
-          ],
-          "detail": "full-space-motion"
+            "shared-object:* alf Aql:z_pc"
+          ]
         },
         "vx_kms": {
-          "status": "derived",
+          "status": "adopted",
           "sourceRefs": [
-            "10pc:tablea1:Seq=117:pmRA,pmDE,RV"
-          ],
-          "detail": "Sun-relative Galactic vector; source spectroscopic RV, not an orbit solution."
+            "shared-object:* alf Aql:vx_kms"
+          ]
         },
         "vy_kms": {
-          "status": "derived",
+          "status": "adopted",
           "sourceRefs": [
-            "10pc:tablea1:Seq=117:pmRA,pmDE,RV"
-          ],
-          "detail": "Sun-relative Galactic vector; source spectroscopic RV, not an orbit solution."
+            "shared-object:* alf Aql:vy_kms"
+          ]
         },
         "vz_kms": {
-          "status": "derived",
+          "status": "adopted",
           "sourceRefs": [
-            "10pc:tablea1:Seq=117:pmRA,pmDE,RV"
-          ],
-          "detail": "Sun-relative Galactic vector; source spectroscopic RV, not an orbit solution."
+            "shared-object:* alf Aql:vz_kms"
+          ]
         },
         "temperature_k": {
-          "status": "estimated",
+          "status": "adopted",
           "sourceRefs": [
-            "pecaut-mamajek:2022.04.16"
-          ],
-          "detail": "Estimated: Pecaut-Mamajek 2022.04.16 A7V mean dwarf class, not a measured temperature."
+            "shared-object:* alf Aql:temperature_k"
+          ]
         },
         "mass_solar": {
-          "status": "model-derived",
+          "status": "adopted",
           "sourceRefs": [
-            "1999A&A...352..555A"
-          ],
-          "detail": "{\"field\": \"mass_solar\", \"identity\": \"* alf Aql\", \"reference\": \"1999A&A...352..555A\", \"sourceRecordId\": \"HIP 97649\", \"status\": \"model-derived\", \"uncertainty\": 0.09, \"value\": 1.6}"
+            "shared-object:* alf Aql:mass_solar"
+          ]
         },
         "luminosity_solar": {
-          "status": "derived",
+          "status": "adopted",
           "sourceRefs": [
-            "Stefan-Boltzmann scaling"
-          ],
-          "detail": "{\"field\": \"luminosity_solar\", \"inputs\": {\"radius_solar\": 1.818312491, \"temperature_k\": 7760.0}, \"reference\": \"Stefan-Boltzmann scaling\", \"status\": \"derived\", \"value\": 10.80136494}"
+            "shared-object:* alf Aql:luminosity_solar"
+          ]
         },
         "absolute_mag": {
           "status": "derived",
@@ -30356,8 +31533,9 @@
         },
         "epoch": {
           "status": "adopted",
-          "sourceRefs": [],
-          "detail": "Static J2000.0 snapshot; source decimal years treated as Julian years TT."
+          "sourceRefs": [
+            "shared-object:* alf Aql:epoch"
+          ]
         },
         "notes": {
           "status": "compiled",
@@ -30366,111 +31544,112 @@
           ]
         },
         "constellation": {
-          "status": "derived",
+          "status": "adopted",
           "sourceRefs": [
-            "astropy:7.1.1:Roman1987"
-          ],
-          "detail": "ICRS snapshot direction transformed to B1875 boundary coordinates; no physical motion to 1875. Canonical spelling normalization applied."
+            "shared-object:* alf Aql:constellation"
+          ]
         },
         "ra_deg": {
-          "status": "compiled",
+          "status": "adopted",
           "sourceRefs": [
-            "10pc:tablea1:Seq=117:RAdeg"
+            "shared-object:* alf Aql:ra_deg"
           ]
         },
         "dec_deg": {
-          "status": "compiled",
+          "status": "adopted",
           "sourceRefs": [
-            "10pc:tablea1:Seq=117:DEdeg"
+            "shared-object:* alf Aql:dec_deg"
           ]
         },
         "astrometry_epoch": {
-          "status": "compiled",
+          "status": "adopted",
           "sourceRefs": [
-            "10pc:tablea1:Seq=117:Epoch"
+            "shared-object:* alf Aql:astrometry_epoch"
           ]
         },
         "parallax_mas": {
-          "status": "compiled",
+          "status": "adopted",
           "sourceRefs": [
-            "10pc:tablea1:Seq=117:plx"
+            "shared-object:* alf Aql:parallax_mas"
           ]
         },
         "parallax_error_mas": {
-          "status": "compiled",
+          "status": "adopted",
           "sourceRefs": [
-            "10pc:tablea1:Seq=117:e_plx"
+            "shared-object:* alf Aql:parallax_error_mas"
           ]
         },
         "pm_ra_cosdec_masyr": {
-          "status": "compiled",
+          "status": "adopted",
           "sourceRefs": [
-            "10pc:tablea1:Seq=117:pmRA"
+            "shared-object:* alf Aql:pm_ra_cosdec_masyr"
           ]
         },
         "pm_ra_error_masyr": {
-          "status": "compiled",
+          "status": "adopted",
           "sourceRefs": [
-            "10pc:tablea1:Seq=117:e_pmRA"
+            "shared-object:* alf Aql:pm_ra_error_masyr"
           ]
         },
         "pm_dec_masyr": {
-          "status": "compiled",
+          "status": "adopted",
           "sourceRefs": [
-            "10pc:tablea1:Seq=117:pmDE"
+            "shared-object:* alf Aql:pm_dec_masyr"
           ]
         },
         "pm_dec_error_masyr": {
-          "status": "compiled",
+          "status": "adopted",
           "sourceRefs": [
-            "10pc:tablea1:Seq=117:e_pmDE"
+            "shared-object:* alf Aql:pm_dec_error_masyr"
           ]
         },
         "radial_velocity_kms": {
-          "status": "compiled",
+          "status": "adopted",
           "sourceRefs": [
-            "10pc:tablea1:Seq=117:RV"
+            "shared-object:* alf Aql:radial_velocity_kms"
           ]
         },
         "radial_velocity_error_kms": {
-          "status": "compiled",
+          "status": "adopted",
           "sourceRefs": [
-            "10pc:tablea1:Seq=117:e_RV"
+            "shared-object:* alf Aql:radial_velocity_error_kms"
           ]
         },
         "astrometry_ref": {
-          "status": "compiled",
+          "status": "adopted",
           "sourceRefs": [
-            "10pc:tablea1:Seq=117:r_plx,r_pmDE"
+            "shared-object:* alf Aql:astrometry_ref"
           ]
         },
         "radial_velocity_ref": {
-          "status": "compiled",
+          "status": "adopted",
           "sourceRefs": [
-            "10pc:tablea1:Seq=117:r_RV"
+            "shared-object:* alf Aql:radial_velocity_ref"
           ]
         },
         "radius_solar": {
-          "status": "derived",
+          "status": "adopted",
           "sourceRefs": [
-            "2018AJ....155...30B"
-          ],
-          "detail": "{\"field\": \"radius_solar\", \"identity\": \"* alf Aql\", \"reference\": \"2018AJ....155...30B\", \"status\": \"derived\", \"uncertainty\": null, \"value\": 1.818312491}"
+            "shared-object:* alf Aql:radius_solar"
+          ]
         },
         "metallicity_dex": {
-          "status": "measured",
+          "status": "adopted",
           "sourceRefs": [
-            "2024A&A...683A.125P"
-          ],
-          "detail": "{\"field\": \"metallicity_dex\", \"identity\": \"* alf Aql\", \"quantity\": \"photospheric [Fe/H]\", \"reference\": \"2024A&A...683A.125P\", \"status\": \"measured\", \"uncertainty\": null, \"value\": 0.19}"
+            "shared-object:* alf Aql:metallicity_dex"
+          ]
         },
         "age_gyr": {
           "status": "unknown",
-          "sourceRefs": []
+          "sourceRefs": [
+            "shared-object:* alf Aql:age_gyr"
+          ]
         },
         "metallicity_kind": {
-          "status": "unknown",
-          "sourceRefs": []
+          "status": "adopted",
+          "sourceRefs": [
+            "shared-object:* alf Aql:metallicity_kind"
+          ]
         }
       },
       "overrides": [],
@@ -30519,6 +31698,275 @@
             "temperature_k": 7760.0,
             "radius_solar": 1.818312491
           }
+        }
+      },
+      "sharedObjectAdoption": {
+        "recordId": "* alf Aql",
+        "reviewSha256": "13b3b09260b2c461f96a27d5d13ed7dbe7975025168a9d2b93a6aaf479ac962f",
+        "scope": "Reviewed catalog object/component 10pc-0117; aliases only, distinct companions remain separate.",
+        "fields": [
+          "radial_velocity_error_kms",
+          "vx_kms",
+          "pm_dec_error_masyr",
+          "pm_ra_error_masyr",
+          "radial_velocity_ref",
+          "x_pc",
+          "z_pc",
+          "vy_kms",
+          "ra_deg",
+          "dec_deg",
+          "temperature_k",
+          "y_pc",
+          "spectral_type",
+          "astrometry_ref",
+          "radius_solar",
+          "luminosity_solar",
+          "vz_kms",
+          "epoch",
+          "constellation",
+          "astrometry_epoch",
+          "parallax_mas",
+          "parallax_error_mas",
+          "pm_ra_cosdec_masyr",
+          "pm_dec_masyr",
+          "radial_velocity_kms",
+          "mass_solar",
+          "metallicity_dex",
+          "metallicity_kind",
+          "age_gyr"
+        ],
+        "sourceSelections": {
+          "astrometryAndMotion": {
+            "source": "nearest-100:10pc-0117",
+            "fields": [
+              "x_pc",
+              "y_pc",
+              "z_pc",
+              "vx_kms",
+              "vy_kms",
+              "vz_kms",
+              "epoch",
+              "constellation",
+              "ra_deg",
+              "dec_deg",
+              "astrometry_epoch",
+              "parallax_mas",
+              "parallax_error_mas",
+              "pm_ra_cosdec_masyr",
+              "pm_ra_error_masyr",
+              "pm_dec_masyr",
+              "pm_dec_error_masyr",
+              "radial_velocity_kms",
+              "radial_velocity_error_kms",
+              "astrometry_ref",
+              "radial_velocity_ref"
+            ],
+            "decision": "Retain the curated nearest-catalog coordinate/motion bundle where available; otherwise use the later Western snapshot. For the eleven reviewed stellar objects with missing CNS5 RV but an existing adopted SIMBAD RV, use the complete Western position/motion bundle to retain full-space motion. Spectroscopic binaries and composite Porrima retain the nearest-catalog RV withholding. Keep positions, velocities, reference epoch, raw measurements, uncertainties and bibliographies together. Withheld individual/system velocities remain withheld."
+          },
+          "physical": {
+            "source": "bright-stars:10pc-0117",
+            "fields": [
+              "temperature_k",
+              "mass_solar",
+              "luminosity_solar",
+              "radius_solar",
+              "metallicity_dex",
+              "metallicity_kind",
+              "age_gyr"
+            ],
+            "decision": "Retain the individually adopted bright-star temperature/luminosity/radius bundle rather than the A7 mean-dwarf estimate; the temperature is the 1999 evolutionary-model value, not an individual spectroscopic measurement. The frozen automatic 6246 K temperature is not adopted for this rapidly rotating A star."
+          },
+          "spectral": {
+            "value": "A7Vn",
+            "reference": "2003AJ....126.2048G",
+            "sourceUrl": "https://simbad.cds.unistra.fr/simbad/sim-basic?Ident=Altair",
+            "decision": "Full optical spectral classification, including rotation-broadened lines."
+          }
+        },
+        "sourceEvidence": "Original measurements and catalog-specific provenance are retained; the shared adopted record supersedes them for these fields."
+      },
+      "sourceFieldProvenance": {
+        "radial_velocity_error_kms": {
+          "status": "compiled",
+          "sourceRefs": [
+            "10pc:tablea1:Seq=117:e_RV"
+          ]
+        },
+        "vx_kms": {
+          "status": "derived",
+          "sourceRefs": [
+            "10pc:tablea1:Seq=117:pmRA,pmDE,RV"
+          ],
+          "detail": "Sun-relative Galactic vector; source spectroscopic RV, not an orbit solution."
+        },
+        "pm_dec_error_masyr": {
+          "status": "compiled",
+          "sourceRefs": [
+            "10pc:tablea1:Seq=117:e_pmDE"
+          ]
+        },
+        "pm_ra_error_masyr": {
+          "status": "compiled",
+          "sourceRefs": [
+            "10pc:tablea1:Seq=117:e_pmRA"
+          ]
+        },
+        "radial_velocity_ref": {
+          "status": "compiled",
+          "sourceRefs": [
+            "10pc:tablea1:Seq=117:r_RV"
+          ]
+        },
+        "x_pc": {
+          "status": "derived",
+          "sourceRefs": [
+            "10pc:tablea1:Seq=117:RAdeg,DEdeg,Epoch,plx,pmRA,pmDE,RV"
+          ],
+          "detail": "full-space-motion"
+        },
+        "z_pc": {
+          "status": "derived",
+          "sourceRefs": [
+            "10pc:tablea1:Seq=117:RAdeg,DEdeg,Epoch,plx,pmRA,pmDE,RV"
+          ],
+          "detail": "full-space-motion"
+        },
+        "vy_kms": {
+          "status": "derived",
+          "sourceRefs": [
+            "10pc:tablea1:Seq=117:pmRA,pmDE,RV"
+          ],
+          "detail": "Sun-relative Galactic vector; source spectroscopic RV, not an orbit solution."
+        },
+        "ra_deg": {
+          "status": "compiled",
+          "sourceRefs": [
+            "10pc:tablea1:Seq=117:RAdeg"
+          ]
+        },
+        "dec_deg": {
+          "status": "compiled",
+          "sourceRefs": [
+            "10pc:tablea1:Seq=117:DEdeg"
+          ]
+        },
+        "temperature_k": {
+          "status": "estimated",
+          "sourceRefs": [
+            "pecaut-mamajek:2022.04.16"
+          ],
+          "detail": "Estimated: Pecaut-Mamajek 2022.04.16 A7V mean dwarf class, not a measured temperature."
+        },
+        "y_pc": {
+          "status": "derived",
+          "sourceRefs": [
+            "10pc:tablea1:Seq=117:RAdeg,DEdeg,Epoch,plx,pmRA,pmDE,RV"
+          ],
+          "detail": "full-space-motion"
+        },
+        "spectral_type": {
+          "status": "compiled",
+          "sourceRefs": [
+            "10pc:tablea1:Seq=117:SpType"
+          ],
+          "detail": "2003AJ....126.2048G"
+        },
+        "astrometry_ref": {
+          "status": "compiled",
+          "sourceRefs": [
+            "10pc:tablea1:Seq=117:r_plx,r_pmDE"
+          ]
+        },
+        "radius_solar": {
+          "status": "derived",
+          "sourceRefs": [
+            "2018AJ....155...30B"
+          ],
+          "detail": "{\"field\": \"radius_solar\", \"identity\": \"* alf Aql\", \"reference\": \"2018AJ....155...30B\", \"status\": \"derived\", \"uncertainty\": null, \"value\": 1.818312491}"
+        },
+        "luminosity_solar": {
+          "status": "derived",
+          "sourceRefs": [
+            "Stefan-Boltzmann scaling"
+          ],
+          "detail": "{\"field\": \"luminosity_solar\", \"inputs\": {\"radius_solar\": 1.818312491, \"temperature_k\": 7760.0}, \"reference\": \"Stefan-Boltzmann scaling\", \"status\": \"derived\", \"value\": 10.80136494}"
+        },
+        "vz_kms": {
+          "status": "derived",
+          "sourceRefs": [
+            "10pc:tablea1:Seq=117:pmRA,pmDE,RV"
+          ],
+          "detail": "Sun-relative Galactic vector; source spectroscopic RV, not an orbit solution."
+        },
+        "epoch": {
+          "status": "adopted",
+          "sourceRefs": [],
+          "detail": "Static J2000.0 snapshot; source decimal years treated as Julian years TT."
+        },
+        "constellation": {
+          "status": "derived",
+          "sourceRefs": [
+            "astropy:7.1.1:Roman1987"
+          ],
+          "detail": "ICRS snapshot direction transformed to B1875 boundary coordinates; no physical motion to 1875. Canonical spelling normalization applied."
+        },
+        "astrometry_epoch": {
+          "status": "compiled",
+          "sourceRefs": [
+            "10pc:tablea1:Seq=117:Epoch"
+          ]
+        },
+        "parallax_mas": {
+          "status": "compiled",
+          "sourceRefs": [
+            "10pc:tablea1:Seq=117:plx"
+          ]
+        },
+        "parallax_error_mas": {
+          "status": "compiled",
+          "sourceRefs": [
+            "10pc:tablea1:Seq=117:e_plx"
+          ]
+        },
+        "pm_ra_cosdec_masyr": {
+          "status": "compiled",
+          "sourceRefs": [
+            "10pc:tablea1:Seq=117:pmRA"
+          ]
+        },
+        "pm_dec_masyr": {
+          "status": "compiled",
+          "sourceRefs": [
+            "10pc:tablea1:Seq=117:pmDE"
+          ]
+        },
+        "radial_velocity_kms": {
+          "status": "compiled",
+          "sourceRefs": [
+            "10pc:tablea1:Seq=117:RV"
+          ]
+        },
+        "mass_solar": {
+          "status": "model-derived",
+          "sourceRefs": [
+            "1999A&A...352..555A"
+          ],
+          "detail": "{\"field\": \"mass_solar\", \"identity\": \"* alf Aql\", \"reference\": \"1999A&A...352..555A\", \"sourceRecordId\": \"HIP 97649\", \"status\": \"model-derived\", \"uncertainty\": 0.09, \"value\": 1.6}"
+        },
+        "metallicity_dex": {
+          "status": "measured",
+          "sourceRefs": [
+            "2024A&A...683A.125P"
+          ],
+          "detail": "{\"field\": \"metallicity_dex\", \"identity\": \"* alf Aql\", \"quantity\": \"photospheric [Fe/H]\", \"reference\": \"2024A&A...683A.125P\", \"status\": \"measured\", \"uncertainty\": null, \"value\": 0.19}"
+        },
+        "metallicity_kind": {
+          "status": "unknown",
+          "sourceRefs": []
+        },
+        "age_gyr": {
+          "status": "unknown",
+          "sourceRefs": []
         }
       }
     },

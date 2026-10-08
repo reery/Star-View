@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "reviewed": "2026-10-07",
+  "reviewed": "2026-10-08",
   "policy": "Exact SIMBAD and unique Hipparcos/Gaia DR3 identities across all stellar catalogs; reviewed component-specific literature first; fill blank physical fields, preserve curated values and Gaia eligibility; spectroscopy requires valid measurements and strict-majority consensus; no generic binary mass.",
   "checksumsSha256": {
     "catalog-work/physical-supplements/crossmatch.csv": "882384928e15d2cbf5e0e5cc7dca48fb1734824da256da21276e416a10f7d733",
@@ -26,7 +26,8 @@
     "catalog-work/shared-enrichment/literature/sed.csv": "c596ddb8b4dc80f408ffcdb99e9446629c0beda30d11af75ca47aa9316c8bc14",
     "catalog-work/shared-enrichment/literature/source-manifest.json": "6f2a78d2688ee3dc8108d1e9a2dcd9c710fddf79a8248227174ab750eacd0b26",
     "catalog-work/shared-enrichment/literature/spectroscopy.adql": "c75754a01ac2ba2c142ab399ed628e25ff9f9d5613429af4633ea4a5cd9b62b8",
-    "catalog-work/shared-enrichment/literature/spectroscopy.csv": "85da8f4ab1bef2d73d791b9a72a804fe69173ac3ac84772ddda926759a4afc0e"
+    "catalog-work/shared-enrichment/literature/spectroscopy.csv": "85da8f4ab1bef2d73d791b9a72a804fe69173ac3ac84772ddda926759a4afc0e",
+    "catalog-work/shared-enrichment/reviewed-objects.json": "13b3b09260b2c461f96a27d5d13ed7dbe7975025168a9d2b93a6aaf479ac962f"
   },
   "sources": [
     {
@@ -98,7 +99,7 @@
       "url": "https://arxiv.org/html/2404.08746v1"
     },
     {
-      "name": "Neuhäuser et al. 2022, alternative Betelgeuse initial MIST track and model age (context, not adopted)",
+      "name": "Neuh\u00e4user et al. 2022, alternative Betelgeuse initial MIST track and model age (context, not adopted)",
       "url": "https://arxiv.org/abs/2207.04702"
     },
     {
@@ -106,8 +107,20 @@
       "url": "https://arxiv.org/abs/2006.09837"
     },
     {
-      "name": "Montargès et al. 2026, Betelgeuse A current mass and model age ranges adopted in companion analysis",
+      "name": "Montarg\u00e8s et al. 2026, Betelgeuse A current mass and model age ranges adopted in companion analysis",
       "url": "https://www.eso.org/public/archives/releases/sciencepapers/eso2611/eso2611a.pdf"
+    },
+    {
+      "name": "Gray et al. 2003, full optical classifications of Altair and Sirius A",
+      "url": "https://doi.org/10.1086/378365"
+    },
+    {
+      "name": "Gray et al. 2006, Tau Ceti optical subtype and luminosity class",
+      "url": "https://doi.org/10.1086/504637"
+    },
+    {
+      "name": "Kervella et al. 2004, component A spectral classification of Procyon",
+      "url": "https://arxiv.org/abs/astro-ph/0309148"
     }
   ]
 }
