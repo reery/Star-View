@@ -468,12 +468,17 @@
                 </div>
               </section>
               <section id="objects-panel" class="dock-card catalog" aria-labelledby="catalog-heading" hidden>
-                <div class="panel-heading"><h2 id="catalog-heading">Objects <span id="catalog-count"></span></h2><button id="objects-lock" class="panel-lock" type="button" aria-label="Keep Objects open" aria-pressed="false"><span id="objects-lock-icon"></span></button></div>
+                <div class="panel-heading objects-heading">
+                  <h2 id="catalog-heading">Objects <span id="catalog-count"></span></h2>
+                  <button id="objects-expand" class="panel-lock objects-expand" type="button" aria-label="Expand objects list" aria-expanded="false" aria-controls="object-database" title="Expand objects list"><span id="objects-expand-icon"></span></button>
+                  <button id="objects-lock" class="panel-lock" type="button" aria-label="Keep Objects open" aria-pressed="false"><span id="objects-lock-icon"></span></button>
+                </div>
                 <div class="object-search">
                   <label class="sr-only" for="object-search">Search objects</label>
                   <input id="object-search" type="search" placeholder="Search objects" autocomplete="off" />
                 </div>
                 <div id="star-list" class="star-list" role="group" aria-label="Nearby objects"></div>
+                <div id="object-database" class="object-database" hidden></div>
               </section>
               <section id="glossary-panel" class="dock-card glossary-card" aria-labelledby="glossary-heading" data-scene-obstacle hidden>
                 <div class="panel-heading glossary-heading">

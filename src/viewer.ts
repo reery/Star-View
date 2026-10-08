@@ -1668,15 +1668,14 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
           top = Math.max(viewport.top + 12, Math.min(top, viewport.bottom - height - 12))
           return { left, top, right: left + width, bottom: top + height }
         }
-        const candidates = [
-          clamp(anchor.x + 22, anchor.y - height / 2),
-          clamp(anchor.x - width - 22, anchor.y - height / 2),
-          clamp(anchor.x - width / 2, anchor.y + 22),
-          clamp(anchor.x - width / 2, anchor.y - height - 22),
-        ]
-        const placement = candidates.find((candidate) =>
-          selectedLabelObstacles.every((obstacle) => !overlaps(candidate, obstacle)) &&
-          (!clippedForeground || !blocked.queryAny(candidate, (obstacle) => overlaps(candidate, obstacle)))) ?? candidates[0]!
+        const candidates = ordinaryLabelCandidates(anchor, width, height).map((candidate) => ({
+          ...clamp(candidate.left, candidate.top), placement: candidate.placement,
+        }))
+        const placement = chooseOrdinaryLabelPlacement(candidates, label.placement, (candidate) =>
+          selectedLabelObstacles.some((obstacle) => overlaps(candidate, obstacle)) ||
+          (clippedForeground && blocked.queryAny(candidate, (obstacle) => overlaps(candidate, obstacle)))) ??
+          candidates.find((candidate) => candidate.placement === label.placement) ?? candidates[0]!
+        label.placement = placement.placement
         setTransform(label.text, `translate(${placement.left - anchor.x}px, ${placement.top - anchor.y}px)`)
         setHidden(label.text, false)
         if (!clippedForeground) blocked.insert(placement, placement)

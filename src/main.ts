@@ -1,5 +1,5 @@
 import './style.css'
-import { ArrowLeft, ArrowRight, BookOpen, CircleHelp, Clock, Crosshair, Earth, Eye, Filter, Focus, Grid2X2, List, Lock, Minus, Moon, Orbit, Pause, Play, Plus, RotateCcw, RotateCw, Save, Search, Settings2, Star as StarIcon, X, createElement, type IconNode } from 'lucide'
+import { ArrowLeft, ArrowRight, BookOpen, ChevronsLeftRight, ChevronsRightLeft, CircleHelp, Clock, Crosshair, Earth, Eye, Filter, Focus, Grid2X2, List, Lock, Minus, Moon, Orbit, Pause, Play, Plus, RotateCcw, RotateCw, Save, Search, Settings2, Star as StarIcon, X, createElement, type IconNode } from 'lucide'
 import { BUBBLE_OBJECT_TYPES, COMPACT_OBJECT_TYPES, describeObject, isBubbleObject, isCompactObject, isMolecularCloudObject, isNebulaObject, MOLECULAR_CLOUD_OBJECT_TYPES, NEBULA_OBJECT_TYPES, type Star } from './catalog-model'
 import { catalogSelection, mergeCatalogStars } from './catalog-runtime'
 import { objectDesignations } from './designations'
@@ -101,6 +101,7 @@ icon('info-brand-icon', Orbit)
 icon('filter-lock-icon', Lock)
 icon('preferences-lock-icon', Lock)
 icon('objects-lock-icon', Lock)
+icon('objects-expand-icon', ChevronsLeftRight)
 icon('motion-icon', Clock)
 icon('motion-lock-icon', Lock)
 icon('object-type-close-icon', X)
@@ -375,6 +376,7 @@ function panelIsOpen(name: typeof panelNames[number]): boolean {
 
 function setPanelOpen(name: typeof panelNames[number], open: boolean): void {
   if (name === 'views' && !open) closeSavedViewContextMenu()
+  if (name === 'objects' && !open) objectList.closeColumnFilter()
   element<HTMLButtonElement>(`${name}-toggle`).setAttribute('aria-expanded', String(open))
   element(`${name}-panel`).hidden = !open
 }
@@ -1500,7 +1502,7 @@ function renderCatalogRange(id: string): void {
   previewCatalogRange(index)
 }
 
-const objectList = new ObjectList(element('star-list'), selectStar, (shown, total) => text('catalog-count', `${shown}/${total}`))
+const objectList = new ObjectList(element('star-list'), selectStar, (shown, total) => text('catalog-count', `${shown}/${total}`), element('object-database'))
 objectList.setColorMode(starColorMode)
 
 function setSavedViewsStatus(message: string): void {
@@ -1761,6 +1763,28 @@ void switchCatalog('nearest-neighbors')
 if (catalogErrors.length) catalogError(catalogErrors.join('\n'))
 
 element('object-search').addEventListener('input', () => objectList.setQuery(element<HTMLInputElement>('object-search').value), { signal: events.signal })
+element('objects-expand').addEventListener('click', () => {
+  const panel = element('objects-panel')
+  const expanded = !panel.classList.contains('is-expanded')
+  const search = panel.querySelector<HTMLElement>('.object-search')!
+  if (expanded) {
+    panel.style.setProperty('--objects-height', `${panel.getBoundingClientRect().height}px`)
+    panel.querySelector('.objects-heading')!.insertBefore(search, element('objects-expand'))
+  } else {
+    panel.insertBefore(search, element('star-list'))
+    panel.style.removeProperty('--objects-height')
+  }
+  panel.classList.toggle('is-expanded', expanded)
+  element('control-dock').toggleAttribute('data-objects-expanded', expanded)
+  const button = element('objects-expand')
+  const label = expanded ? 'Collapse objects list' : 'Expand objects list'
+  button.setAttribute('aria-expanded', String(expanded))
+  button.setAttribute('aria-label', label)
+  button.title = label
+  icon('objects-expand-icon', expanded ? ChevronsRightLeft : ChevronsLeftRight)
+  objectList.setExpanded(expanded)
+  syncPanelLayout()
+}, { signal: events.signal })
 catalogRange.addEventListener('input', () => previewCatalogRange(catalogRange.valueAsNumber), { signal: events.signal })
 catalogRange.addEventListener('change', () => {
   const catalog = sliderCatalogs[catalogRange.valueAsNumber]
