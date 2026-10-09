@@ -1,12 +1,22 @@
-import { STELLAR_OBJECT_TYPES, type Star } from './catalog-model'
-import systemDefinitions from './data/star-systems.json'
+import { STELLAR_OBJECT_TYPES, type Star } from './catalog-model.ts'
+import systemDefinitions from './data/star-systems.json' with { type: 'json' }
+import companionDefinitions from './data/stellar-companions.json' with { type: 'json' }
+
+interface ComponentDefinition { starId: string; label: string; alternateStarIds?: string[] }
+interface SystemDefinition { id: string; name: string; components: ComponentDefinition[] }
+
+// The shared pool includes the existing literature reviews and the wider,
+// explicitly sourced component coverage. Its definitions supersede older copies.
+export const reviewedStarSystems: readonly SystemDefinition[] = [...new Map<string, SystemDefinition>(
+  [...systemDefinitions.systems, ...companionDefinitions.systems].map((system) => [system.id, system]),
+).values()]
 
 // Stable catalog IDs keep associations independent of common/display names.
-const reviewedComponents = new Map(systemDefinitions.systems.flatMap((system) =>
+const reviewedComponents = new Map(reviewedStarSystems.flatMap((system) =>
   system.components.flatMap((component) => {
-    const aliases = ('alternateStarIds' in component ? component.alternateStarIds : []) ?? []
+    const aliases = component.alternateStarIds ?? []
     return [component.starId, ...aliases].map((id) => [id, {
-      canonicalStarId: component.starId, name: system.name, label: component.label,
+      canonicalStarId: component.starId, systemId: system.id, name: system.name, label: component.label,
     }] as const)
   })))
 
@@ -50,6 +60,7 @@ export function coincidentComponentGroups(stars: readonly Star[]): number[][] {
 /** Group resolved, named catalog components; never infer companions from proximity. */
 export function indexStarSystems(stars: readonly Star[]): ReadonlyMap<string, StarSystem> {
   const groups = new Map<string, Map<string, Star>>()
+  const names = new Map<string, string>()
   for (const star of stars) {
     if (!STELLAR_OBJECT_TYPES.includes(star.type as never)) continue
     const component = star.name.match(/^(.+) ([A-Z][a-z]?)$/)
@@ -61,17 +72,19 @@ export function indexStarSystems(stars: readonly Star[]): ReadonlyMap<string, St
     if (!name || !label) continue
     // These are separate Trapezium cluster systems, as documented in the
     // famous-cluster catalog notes, rather than components of one system.
-    if (name === 'Theta1 Orionis') continue
-    let members = groups.get(name)
-    if (!members) groups.set(name, members = new Map())
+    if (!reviewed && name === 'Theta1 Orionis') continue
+    const key = reviewed?.systemId ?? `name:${name}`
+    names.set(key, name)
+    let members = groups.get(key)
+    if (!members) groups.set(key, members = new Map())
     members.set(label, star)
   }
   const systems = new Map<string, StarSystem>()
-  for (const [name, members] of groups) {
+  for (const [key, members] of groups) {
     if (members.size < 2) continue
     const components = [...members].sort(([a], [b]) => a.localeCompare(b, 'en'))
       .map(([label, star]) => ({ label, star }))
-    const system = { name, components }
+    const system = { name: names.get(key)!, components }
     for (const { star } of components) systems.set(star.id, system)
   }
   return systems

@@ -4,6 +4,7 @@ import { validDesignations } from './designations'
 import { mergeCatalogStarLayers } from './catalog-merge'
 import { starComponentIdentity } from './star-systems'
 import { validObjectStats } from './object-stats'
+import { completeCatalogCompanions } from './stellar-companions'
 
 export { catalogSelection } from './catalog-selection'
 
@@ -44,7 +45,7 @@ export function parseCatalogPayload(value: unknown, manifest: CatalogManifest): 
     if (star.epoch !== manifest.epoch) throw new Error('Catalog manifest epoch does not match payload.')
   }
   if (!ids.has('sun')) throw new Error('Catalog payload requires the Sun reference.')
-  return stars as unknown as Star[]
+  return completeCatalogCompanions(stars as unknown as Star[])
 }
 
 /** Fetch and parse a JSON payload once; a failed load is forgotten so it can be retried. */

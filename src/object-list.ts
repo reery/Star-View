@@ -4,6 +4,7 @@ import type { Star } from './catalog-model'
 import { objectDesignations } from './designations'
 import { formatDistance, starDisplayColor, sunRelativeMetrics, type DistanceUnit, type StarColorMode } from './astronomy'
 import { ObjectDatabase } from './object-database'
+import { companionIcon } from './companion-icon'
 
 const VIRTUAL_THRESHOLD = 200
 const ROW_HEIGHT = 36
@@ -211,6 +212,8 @@ export class ObjectList {
     const name = document.createElement('span')
     name.className = 'catalog-name'
     name.textContent = item.star.name
+    const companion = companionIcon(item.star.id)
+    if (companion) name.prepend(companion)
     const distance = document.createElement('span')
     distance.className = 'catalog-distance'
     distance.textContent = formatDistance(item.distancePc, this.unit)

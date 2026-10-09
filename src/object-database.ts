@@ -1,6 +1,7 @@
 import { ArrowDown, ArrowLeftRight, ArrowUp, ArrowUpDown, Filter, createElement, type IconNode } from 'lucide'
 import { OBJECT_TYPES, objectTypeLabel, type Star } from './catalog-model'
 import { formatDistance, type DistanceUnit } from './astronomy'
+import { companionIcon } from './companion-icon'
 
 export const OBJECT_DATABASE_COLUMNS = [
   { key: 'name', label: 'Name', width: 190 },
@@ -414,6 +415,8 @@ export class ObjectDatabase {
         name.className = 'catalog-name'
         name.textContent = item.star.name
         button.append(swatch, name)
+        const companion = companionIcon(item.star.id)
+        if (companion) button.insertBefore(companion, name)
         if (item.star.id === this.referenceId) {
           const marker = document.createElement('span')
           marker.className = 'reference-star'

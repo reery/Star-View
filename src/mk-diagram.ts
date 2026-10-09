@@ -91,8 +91,10 @@ export function mkPoint(star: Pick<Star, 'type' | 'spectral_type'>): MkPoint | n
   if (/[+/-]\s*[OBAFGKM]\d/i.test(star.spectral_type ?? '')) return null
   const luminosity = '(Iab|Ia\\+?|Ib|III|II|IV|VI|V|I)'
   // Am notation (e.g. A0mA1Va): place the star by its metallic-line type, as for Sirius A's usual A1V.
-  const spectralType = star.spectral_type?.trim().replace(/^[OBAFGKM]\d(?:\.\d+)?m([OBAFGKM]\d(?:\.\d+)?)/i, '$1')
-  const spectral = spectralType?.match(new RegExp(`^([OBAFGKM])(\\d(?:\\.\\d+)?)\\s*${luminosity}(?:[-/]${luminosity})?(?=$|[^IV])`, 'i'))
+  const spectralType = star.spectral_type?.trim()
+    .replace(/^k[OBAFGKM]\d(?:\.\d+)?h([OBAFGKM]\d(?:\.\d+)?)(?:m[OBAFGKM]\d(?:\.\d+)?)?/i, '$1')
+    .replace(/^[OBAFGKM]\d(?:\.\d+)?m([OBAFGKM]\d(?:\.\d+)?)/i, '$1')
+  const spectral = spectralType?.match(new RegExp(`^([OBAFGKM])(\\d(?:\\.\\d+)?)[?:\\s-]*\\(?\\s*${luminosity}(?:[-/]${luminosity})?(?=$|[^IV])`, 'i'))
   if (!spectral) return null
   const spectralClass = spectral[1]!.toUpperCase()
   const subtype = Number(spectral[2])
@@ -122,6 +124,8 @@ export function renderMkDiagram(card: HTMLElement, star: Star, reference: Star):
   const unavailable = (object: Star, classification: MkPoint | null) => classification ? ''
     : object.type === 'white_dwarf' ? whiteDwarfClassification(object) ? '' : `${object.name} has no supported white-dwarf D classification in the catalog.`
       : object.type === 'brown_dwarf' || object.type === 'sub_brown_dwarf' ? `${object.name} uses a substellar spectral classification, outside this M-K grid.`
+        : /[+]\s*(?:[OBAFGKM]|D[A-Z]|W[CN])/i.test(object.spectral_type ?? '') ? `${object.name} has a composite spectrum; individual stellar components need separate classifications.`
+          : /^[OBAFGKM]\d(?:\.\d+)?[?:]?$/i.test(object.spectral_type?.trim() ?? '') ? `${object.name}: luminosity class is not recorded for ${object.spectral_type}; no vertical M-K position can be assigned.`
         : `${object.name} has no supported explicit O–M subtype and luminosity class in the catalog.`
   const note = get('mk-missing')
   note.textContent = [...new Set([unavailable(star, point), unavailable(reference, referencePoint)])].filter(Boolean).join(' ')

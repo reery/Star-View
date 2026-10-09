@@ -1,0 +1,29 @@
+{
+  "schemaVersion": 1,
+  "objects": {
+    "bright-dubhe": {
+      "values": {
+        "temperature_k": 4660,
+        "mass_solar": 4.25,
+        "luminosity_solar": 316.22776601683796,
+        "radius_solar": 27.28228940134567,
+        "metallicity_dex": -0.19,
+        "metallicity_kind": "[Fe/H]",
+        "age_gyr": null
+      },
+      "source": "Guenther et al. 2000, 2000ApJ...530L..45G, sections 2.1 and 3.3",
+      "sourceUrl": "https://doi.org/10.1086/312473",
+      "scope": "Alpha Ursae Majoris A; component-resolved primary constraints",
+      "massRangeSolar": [
+        4.0,
+        4.5
+      ],
+      "luminosityLogSolar": {
+        "value": 2.5,
+        "uncertainty": 0.05
+      },
+      "radiusMethod": "Stefan-Boltzmann radius from the paper's adopted primary luminosity and 4660 K, with solar temperature 5772 K",
+      "note": "Dubhe A physical constraints from Guenther et al. (2000): pulsation-model mass 4.25 +/- 0.25 solar masses; adopted primary log L/Lsun=2.5 +/- 0.05, temperature 4660 K, [Fe/H]=-0.19. Radius follows Stefan-Boltzmann scaling. No single age adopted from the mass-dependent model grid. Secondary values are not copied from the primary."
+    }
+  }
+}

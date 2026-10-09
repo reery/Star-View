@@ -27,6 +27,7 @@ import { apparentVisualMagnitude, displayMotionForStar, formatDistance, galactic
 import { retainBrightestCoincidentComponents } from './viewer-primitives'
 import { catalogLoader, mergeCatalogStars, parseCatalogPayload } from './catalog-runtime'
 import { coincidentComponentGroups, indexStarSystems } from './star-systems'
+import { completeCatalogCompanions } from './stellar-companions'
 import { parseCompactOverlayManifest, parseCompactOverlayPayload } from './compact-overlay-model'
 
 describe('catalog packages and display settings', () => {
@@ -501,7 +502,7 @@ describe('catalog packages and display settings', () => {
     const first = load()
     const second = load()
     expect(second).toBe(first)
-    expect(await first).toEqual(stars)
+    expect(await first).toEqual(completeCatalogCompanions(stars))
     expect(await load()).toBe(await first)
     expect(fetcher).toHaveBeenCalledOnce()
   })

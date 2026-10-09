@@ -11,15 +11,14 @@ import { parseObjectIdentities, supplementObjectIdentities } from '../src/design
 import { buildCatalogClassReferences } from '../src/catalog-class-references.ts'
 import { parseObjectStats, supplementObjectStats } from '../src/object-stats.ts'
 import { auditCatalogConsistency } from '../src/catalog-consistency.ts'
+import { completeCatalogCompanions } from '../src/stellar-companions.ts'
+import { reviewedStarSystems } from '../src/star-systems.ts'
 
 const root = fileURLToPath(new URL('../', import.meta.url))
 const identities = parseObjectIdentities(JSON.parse(readFileSync(join(root, 'src/data/object-designations.json'), 'utf8')))
 const objectStats = parseObjectStats(JSON.parse(readFileSync(join(root, 'src/data/object-stats.json'), 'utf8')))
 const supplement = (stars: Parameters<typeof supplementObjectIdentities>[0]) => supplementObjectStats(supplementObjectIdentities(stars, identities), objectStats)
-const systems = JSON.parse(readFileSync(join(root, 'src/data/star-systems.json'), 'utf8')) as {
-  systems: { components: { starId: string; alternateStarIds?: string[] }[] }[]
-}
-const components = new Map(systems.systems.flatMap((system) => system.components.flatMap((component) =>
+const components = new Map(reviewedStarSystems.flatMap((system) => system.components.flatMap((component) =>
   [component.starId, ...component.alternateStarIds ?? []].map((id) => [id, { canonicalStarId: component.starId }] as const))))
 const [command, ...args] = process.argv.slice(2)
 const compactOverlayDirectory = join(root, 'src/data/overlays/compact-remnants')
@@ -89,7 +88,9 @@ function validate(directory?: string): void {
 }
 
 function requireConsistentCatalogs(catalogs: Parameters<typeof auditCatalogConsistency>[0]) {
-  const audit = auditCatalogConsistency(catalogs, identities, (id) => components.get(id))
+  const audit = auditCatalogConsistency(catalogs.map((catalog) => ({
+    ...catalog, stars: completeCatalogCompanions(catalog.stars),
+  })), identities, (id) => components.get(id))
   if (audit.conflicts.length) throw new Error(`Inconsistent adopted catalog details:\n${JSON.stringify(audit.conflicts, null, 2)}`)
   console.log(`Shared details: ${audit.sharedObjects} objects checked across ${catalogs.length} catalogs; no inconsistencies.`)
 }
@@ -112,7 +113,7 @@ function generate(): void {
   requireConsistentCatalogs(catalogs)
   const files = Object.fromEntries(catalogs.map(({ id, stars }) =>
     [`${id}.json`, JSON.stringify({ schemaVersion: 1, catalogId: id, stars }) + '\n']))
-  const references = buildCatalogClassReferences(catalogs, (id) => components.get(id))
+  const references = buildCatalogClassReferences(catalogs.map((catalog) => ({ ...catalog, stars: completeCatalogCompanions(catalog.stars) })), (id) => components.get(id))
   writeManagedFiles(safeOutputDirectory(join(root, 'src/data')), {
     'catalog-class-references.json': JSON.stringify(references, null, 2) + '\n',
   }, true)

@@ -21,6 +21,14 @@ describe('Morgan–Keenan classification', () => {
     expect(classify('G2VI')).toMatchObject({ luminosityClass: 'VI' })
   })
 
+  it('retains the explicit stages of uncertain and chemically annotated component spectra', () => {
+    expect(classify('K3:III')).toMatchObject({ spectralClass: 'K', subtype: 3, luminosityClass: 'III' })
+    expect(classify('B2:V:')).toMatchObject({ spectralClass: 'B', subtype: 2, luminosityClass: 'V' })
+    expect(classify('F7(V)')).toMatchObject({ spectralClass: 'F', subtype: 7, luminosityClass: 'V' })
+    expect(classify('kA0hA3(IV)SiSr')).toMatchObject({ spectralClass: 'A', subtype: 3, luminosityClass: 'IV' })
+    expect(classify('A7.5')).toBeNull()
+  })
+
   it('places Am stars by their metallic-line type', () => {
     expect(classify('A0mA1Va')).toMatchObject({ spectralClass: 'A', subtype: 1, luminosityClass: 'V' })
   })

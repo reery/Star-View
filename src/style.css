@@ -364,6 +364,8 @@ select:focus-visible, input:focus-visible { outline: 2px solid var(--accent); ou
 .catalog-entry:hover { background: var(--panel-hover); }
 .catalog-entry.is-selected { background: var(--panel-selected); border-color: #916b48; }
 .catalog-marker { display: flex; align-items: center; gap: 3px; min-width: 0; }
+.companion-icon { display: inline-block; flex-shrink: 0; color: var(--muted); vertical-align: middle; }
+.catalog-name > .companion-icon { margin-right: 4px; }
 .reference-target { display: inline-flex; flex-shrink: 0; color: var(--accent-vibrant); line-height: 1; }
 .info-brand { position: sticky; top: 0; z-index: 3; background: linear-gradient(145deg, #26282a, var(--panel)); display: flex; align-items: center; gap: 12px; padding: 18px 16px; border-bottom: 1px solid var(--line); }
 .info-brand-icon { display: grid; place-items: center; width: 42px; height: 42px; flex: 0 0 42px; color: var(--accent-strong); background: #171819; border: 1px solid #73583e; border-radius: 50%; box-shadow: 0 0 18px #e7a05b24; }
@@ -507,11 +509,11 @@ select:focus-visible, input:focus-visible { outline: 2px solid var(--accent); ou
 :is(#mass-card, #radius-typical-bar) .mass-ratio-fill { z-index: 1; }
 :is(#mass-card, #radius-typical-bar) .mass-ratio-marker { z-index: 2; }
 :is(#mass-card, #radius-typical-bar) .mass-typical-limit { z-index: 3; background: var(--ink); }
-/* Keep the line 4px inside the class range and 1px outside, without clipping the markers. */
-:is(#mass-card .has-class-range, #radius-typical-bar.has-class-range) .mass-ratio-track { background: none; }
-:is(#mass-card .has-class-range, #radius-typical-bar.has-class-range) .mass-ratio-track::before { content: ''; position: absolute; inset: 0; border-radius: inherit; background: #ffffff24; --mass-line-range-low: var(--mass-range-low-position); --mass-line-range-high: var(--mass-range-high-position); }
-:is(#mass-card .has-class-range, #radius-typical-bar.has-class-range) .mass-ratio-fill { --mass-line-range-low: var(--mass-fill-range-low-position); --mass-line-range-high: var(--mass-fill-range-high-position); }
-:is(#mass-card .has-class-range, #radius-typical-bar.has-class-range) .mass-ratio-track::before, :is(#mass-card .has-class-range, #radius-typical-bar.has-class-range) .mass-ratio-fill {
+/* Radius tapers outside its typical range; Mass uses the same 4px bars in every tab. */
+#radius-typical-bar.has-class-range .mass-ratio-track { background: none; }
+#radius-typical-bar.has-class-range .mass-ratio-track::before { content: ''; position: absolute; inset: 0; border-radius: inherit; background: #ffffff24; --mass-line-range-low: var(--mass-range-low-position); --mass-line-range-high: var(--mass-range-high-position); }
+#radius-typical-bar.has-class-range .mass-ratio-fill { --mass-line-range-low: var(--mass-fill-range-low-position); --mass-line-range-high: var(--mass-fill-range-high-position); }
+#radius-typical-bar.has-class-range .mass-ratio-track::before, #radius-typical-bar.has-class-range .mass-ratio-fill {
   clip-path: polygon(0 1.5px, var(--mass-line-range-low) 1.5px, var(--mass-line-range-low) 0, var(--mass-line-range-high) 0, var(--mass-line-range-high) 1.5px, 100% 1.5px, 100% 2.5px, var(--mass-line-range-high) 2.5px, var(--mass-line-range-high) 100%, var(--mass-line-range-low) 100%, var(--mass-line-range-low) 2.5px, 0 2.5px);
 }
 .mass-ratio-labels { display: grid; grid-template-columns: repeat(3, 1fr); margin-top: 4px; font-size: var(--property-text-size); line-height: 1.4; color: var(--muted); }
