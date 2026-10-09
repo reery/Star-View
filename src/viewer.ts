@@ -1405,7 +1405,9 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
         continue
       }
       if (!layoutOrdinaryLabels && !foreground) continue
-      const { width, height } = label
+      const labelScale = observerViewEnabled && clippedForeground ? 2 : 1
+      const width = label.width * labelScale
+      const height = label.height * labelScale
       if (foreground) {
         const clamp = (left: number, top: number): LabelRect => {
           left = Math.max(viewport.left + 12, Math.min(left, viewport.right - width - 12))
@@ -1420,7 +1422,7 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
           (clippedForeground && blocked.queryAny(candidate, (obstacle) => overlaps(candidate, obstacle)))) ??
           candidates.find((candidate) => candidate.placement === label.placement) ?? candidates[0]!
         label.placement = placement.placement
-        setTransform(label.text, `translate(${placement.left - anchor.x}px, ${placement.top - anchor.y}px)`)
+        setTransform(label.text, `translate(${placement.left - anchor.x}px, ${placement.top - anchor.y}px) scale(${labelScale})`)
         setHidden(label.text, false)
         if (!clippedForeground) blocked.insert(placement, placement)
         continue
@@ -1576,14 +1578,15 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
   }
 
   function setObserverView(enabled: boolean, anchorId = selectedId ?? undefined, rollRadians = 0): boolean {
-    if (enabled === observerViewEnabled) return observerViewEnabled
     const anchor = enabled && anchorId ? starsById.get(anchorId) : undefined
-    if (enabled && !anchor) return false
+    if (enabled && !anchor) return observerViewEnabled
+    if (enabled === observerViewEnabled && (!enabled || anchor?.index === observerViewAnchorIndex)) return observerViewEnabled
+    const modeChanged = enabled !== observerViewEnabled
     observerRollRadians = 0
     observerViewEnabled = enabled
     observerViewAnchorIndex = anchor?.index ?? null
     setOrbitUp(worldUp)
-    configureObserverControls(enabled)
+    if (modeChanged) configureObserverControls(enabled)
     container.dataset.observerView = String(enabled)
     canvas.classList.toggle('is-observer-view', enabled)
     focusTransition = null

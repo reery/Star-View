@@ -1,6 +1,6 @@
 import './style.css'
 import { ArrowLeft, ArrowRight, BookOpen, ChevronsLeftRight, ChevronsRightLeft, CircleHelp, Clock, Crosshair, Earth, Eye, Filter, Focus, Grid2X2, List, Lock, Minus, Moon, Orbit, Pause, Play, Plus, RotateCcw, RotateCw, Save, Search, Settings2, X, createElement, type IconNode } from 'lucide'
-import { OriginIcon } from './origin-icon'
+import { ObserverOriginIcon, OriginIcon } from './origin-icon'
 import { BUBBLE_OBJECT_TYPES, COMPACT_OBJECT_TYPES, describeObject, isBubbleObject, isCompactObject, isMolecularCloudObject, isNebulaObject, MOLECULAR_CLOUD_OBJECT_TYPES, NEBULA_OBJECT_TYPES, type Star } from './catalog-model'
 import { catalogSelection, mergeCatalogStars } from './catalog-runtime'
 import { objectDesignations } from './designations'
@@ -59,6 +59,7 @@ icon('selection-forward-icon', ArrowRight)
 icon('set-origin-icon', OriginIcon)
 icon('go-to-origin-icon', Crosshair)
 icon('observer-view-icon', Eye)
+icon('observer-view-origin-icon', ObserverOriginIcon)
 icon('observer-roll-counterclockwise-icon', RotateCcw)
 icon('observer-roll-reset-icon', Crosshair)
 icon('observer-roll-clockwise-icon', RotateCw)
@@ -206,7 +207,12 @@ function updateSelectionHistoryControls(): void {
 
 function updateReferenceControl(): void {
   const setOrigin = element<HTMLButtonElement>('set-origin')
+  const selected = stars.find((star) => star.id === selectedId)
   setOrigin.disabled = sceneBusy || selectedId === null || selectedId === referenceId
+  setOrigin.setAttribute('aria-label', `Set ${selected?.name ?? 'selected object'} as origin`)
+  text('set-origin-name', selected?.name ?? 'selected object')
+  element('set-origin-swatch').hidden = !selected
+  element('set-origin-swatch').style.background = selected ? starDisplayColor(selected, starColorMode).getStyle() : ''
   const goToOrigin = element<HTMLButtonElement>('go-to-origin')
   const origin = stars.find((star) => star.id === referenceId)
   goToOrigin.disabled = sceneBusy || !origin
@@ -220,11 +226,25 @@ function updateReferenceControl(): void {
 
 function updateObserverControl(): void {
   const button = element<HTMLButtonElement>('observer-view')
+  const selected = stars.find((star) => star.id === selectedId)
+  const origin = stars.find((star) => star.id === referenceId)
   const observer = observerViewAnchorId === null ? undefined : stars.find((star) => star.id === observerViewAnchorId)
-  button.disabled = sceneBusy || (!observerView && selectedId === null)
+  button.disabled = sceneBusy || (!observerView && !selected)
   button.setAttribute('aria-pressed', String(observerView))
-  button.setAttribute('aria-label', observerView ? 'Exit observer view' : 'Enter observer view')
-  text('observer-view-tooltip', observerView ? 'Exit observer view' : 'Observer view')
+  button.setAttribute('aria-label', observerView ? 'Exit observer view' : selected ? `Observe from ${selected.name}` : 'Enter observer view')
+  text('observer-view-tooltip', observerView ? 'Exit observer view' : 'Observe from')
+  element('observer-view-target').hidden = observerView || !selected
+  text('observer-view-target-name', selected?.name ?? '')
+  element('observer-view-target-swatch').style.background = selected ? starDisplayColor(selected, starColorMode).getStyle() : ''
+  const originButton = element<HTMLButtonElement>('observer-view-origin')
+  const observingOrigin = observerView && observerViewAnchorId === referenceId
+  originButton.disabled = sceneBusy || !origin
+  originButton.setAttribute('aria-pressed', String(observingOrigin))
+  originButton.setAttribute('aria-label', origin ? `Observe from origin ${origin.name}` : 'Observe from origin')
+  text('observer-view-origin-name', origin?.name ?? 'set origin')
+  element('observer-view-origin-swatch').hidden = !origin
+  element('observer-view-origin-swatch').style.background = origin ? starDisplayColor(origin, starColorMode).getStyle() : ''
+  element('observer-view-controls').tabIndex = button.disabled && !originButton.disabled ? 0 : -1
   element('observer-direction-card').hidden = !observerView
   const observerObject = element<HTMLButtonElement>('observer-object')
   observerObject.hidden = !observer
@@ -737,6 +757,7 @@ function syncVisibilityObserverLayout(): void {
   const motionPanel = element('motion-panel')
   if (motionPanel.hidden) return
   const panelBounds = motionPanel.getBoundingClientRect()
+  document.querySelector<HTMLElement>('.scene-wrap')!.style.setProperty('--motion-panel-clearance', `${Math.ceil(window.innerHeight - panelBounds.top + 12)}px`)
   const captionBounds = caption.getBoundingClientRect()
   const overlapsAtBottom = panelBounds.left < captionBounds.right && panelBounds.right > captionBounds.left &&
     panelBounds.top < captionBounds.bottom && panelBounds.bottom > captionBounds.top
@@ -1228,13 +1249,16 @@ function setSelectedAsOrigin(): void {
 
 function toggleObserverView(): void {
   if (!viewer || (!observerView && selectedId === null)) return
-  if (!observerView) {
-    const anchorId = selectedId
-    if (anchorId === null) return
-    observerViewAnchorId = anchorId
-    observerId = anchorId
+  setObserverViewAnchor(observerView ? null : selectedId)
+}
+
+function setObserverViewAnchor(anchorId: string | null): void {
+  if (!viewer || sceneBusy) return
+  if (anchorId !== null) {
+    if (!stars.some((star) => star.id === anchorId)) return
     observerView = viewer.setObserverView(true, anchorId)
-    if (!observerView) observerViewAnchorId = null
+    observerViewAnchorId = observerView ? anchorId : null
+    if (observerView) observerId = anchorId
   } else {
     observerView = viewer.setObserverView(false)
     observerViewAnchorId = null
@@ -2115,6 +2139,7 @@ element('go-to-origin').addEventListener('click', () => {
   selectStar(referenceId)
 }, { signal: events.signal })
 element('observer-view').addEventListener('click', toggleObserverView, { signal: events.signal })
+element('observer-view-origin').addEventListener('click', () => setObserverViewAnchor(referenceId), { signal: events.signal })
 element('observer-object').addEventListener('click', () => {
   if (observerViewAnchorId !== null) selectStar(observerViewAnchorId)
 }, { signal: events.signal })
@@ -2122,8 +2147,25 @@ element('observer-roll-counterclockwise').addEventListener('click', () => rollOb
 element('observer-roll-reset').addEventListener('click', () => rollObserverView('center'), { signal: events.signal })
 element('observer-roll-clockwise').addEventListener('click', () => rollObserverView('clockwise'), { signal: events.signal })
 
+const observerDirectionLayout = new ResizeObserver(() => {
+  const card = element('observer-direction-card')
+  const objectsPanel = element('objects-panel')
+  if (card.hidden || objectsPanel.hidden) return
+  const inspector = element('inspector')
+  const height = `${card.offsetHeight}px`
+  if (inspector.style.getPropertyValue('--observer-direction-height') !== height) {
+    inspector.style.setProperty('--observer-direction-height', height)
+  }
+  const clearance = `${Math.ceil(inspector.getBoundingClientRect().bottom - objectsPanel.getBoundingClientRect().top + 10)}px`
+  if (inspector.style.getPropertyValue('--objects-panel-clearance') !== clearance) {
+    inspector.style.setProperty('--objects-panel-clearance', clearance)
+  }
+})
+for (const id of ['inspector', 'objects-panel', 'observer-direction-card']) observerDirectionLayout.observe(element(id))
+
 import.meta.hot?.dispose(() => {
   events.abort()
+  observerDirectionLayout.disconnect()
   if (playbackFrameRequest !== null) cancelAnimationFrame(playbackFrameRequest)
   viewer?.dispose()
   disposeDistanceComparison()

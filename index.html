@@ -414,12 +414,17 @@
               <button id="selection-forward" class="icon-button" type="button" aria-label="Next selection" disabled><span id="selection-forward-icon"></span><span class="tooltip">Next selection<span id="selection-forward-object" class="selection-tooltip-object" hidden><span id="selection-forward-swatch" class="star-swatch" aria-hidden="true"></span><span id="selection-forward-name"></span></span></span></button>
               <span class="toolbar-divider"></span>
               <div id="origin-controls" class="origin-controls" role="group" aria-label="Origin controls">
-                <button id="set-origin" class="icon-button" type="button" aria-label="Set selected object as origin" disabled><span id="set-origin-icon"></span><span class="tooltip">Set as origin</span></button>
+                <button id="set-origin" class="icon-button" type="button" aria-label="Set selected object as origin" disabled><span id="set-origin-icon"></span><span class="tooltip">Set <span class="origin-tooltip-object"><span id="set-origin-swatch" class="star-swatch" aria-hidden="true"></span><span id="set-origin-name">selected object</span></span> as origin</span></button>
                 <div class="origin-options">
                   <button id="go-to-origin" class="icon-button" type="button" aria-label="Go to set origin" aria-controls="scene" disabled><span id="go-to-origin-icon"></span><span class="tooltip">Go to <span class="origin-tooltip-object"><span id="go-to-origin-swatch" class="star-swatch" aria-hidden="true"></span><span id="go-to-origin-name"></span></span></span></button>
                 </div>
               </div>
-              <button id="observer-view" class="icon-button observer-view-button" type="button" aria-label="Enter observer view" aria-pressed="false" aria-controls="scene" disabled><span id="observer-view-icon"></span><span id="observer-view-tooltip" class="tooltip">Observer view</span></button>
+              <div id="observer-view-controls" class="observer-view-controls" role="group" aria-label="Observer views">
+                <button id="observer-view" class="icon-button observer-view-button" type="button" aria-label="Enter observer view" aria-pressed="false" aria-controls="scene" disabled><span id="observer-view-icon"></span><span class="tooltip"><span id="observer-view-tooltip">Observe from</span> <span id="observer-view-target" class="origin-tooltip-object" hidden><span id="observer-view-target-swatch" class="star-swatch" aria-hidden="true"></span><span id="observer-view-target-name"></span></span></span></button>
+                <div class="observer-view-options">
+                  <button id="observer-view-origin" class="icon-button observer-view-button" type="button" aria-label="Observe from origin" aria-pressed="false" aria-controls="scene" disabled><span id="observer-view-origin-icon"></span><span class="tooltip">Observe from origin <span class="origin-tooltip-object"><span id="observer-view-origin-swatch" class="star-swatch" aria-hidden="true"></span><span id="observer-view-origin-name"></span></span></span></button>
+                </div>
+              </div>
             </div>
             <section id="views-panel" class="dock-card saved-views-card" aria-labelledby="views-heading" data-scene-obstacle hidden>
               <form id="save-view-form" class="panel-heading saved-views-heading">
@@ -449,20 +454,23 @@
                 <button id="preferences-toggle" class="icon-button panel-button" type="button" aria-label="Preferences" aria-controls="preferences-panel" aria-expanded="false"><span id="preferences-icon"></span><span class="tooltip">Preferences</span></button>
                 <button id="info-toggle" class="icon-button panel-button" type="button" aria-label="Info" aria-controls="info-panel" aria-expanded="false"><span id="info-icon"></span><span class="tooltip">Info</span></button>
               </div>
-              <section id="motion-panel" class="dock-card time-controls" aria-label="Stellar motion timeline" data-scene-obstacle hidden>
-                <button id="motion-lock" class="panel-lock time-lock" type="button" aria-label="Keep Stellar motion open" aria-pressed="false"><span id="motion-lock-icon"></span></button>
-                <div class="time-controls-body">
+              <section id="motion-panel" class="dock-card time-controls" aria-labelledby="motion-heading" data-scene-obstacle hidden>
+                <div class="panel-heading time-heading">
+                  <h2 id="motion-heading">Stellar motion</h2>
                   <div class="time-transport">
-                    <button id="time-play" class="time-button time-play" type="button" aria-label="Play stellar motion" aria-pressed="false" disabled><span id="time-play-icon"></span></button>
-                    <button id="time-now" class="time-button" type="button" aria-label="Return timeline to now" disabled><span id="time-now-icon"></span></button>
+                    <button id="time-play" class="object-section-button distance-reference-button time-button time-play" type="button" aria-label="Play stellar motion" aria-pressed="false" disabled><span id="time-play-icon"></span></button>
+                    <button id="time-now" class="object-section-button distance-reference-button time-button" type="button" aria-label="Return timeline to now" disabled><span id="time-now-icon"></span></button>
                     <div class="time-readout"><output id="time-value" for="time-slider">Now</output></div>
                     <div class="time-speed" role="group" aria-label="Motion playback controls">
-                      <button id="time-follow" class="time-speed-button time-follow" type="button" aria-label="Follow selection" aria-pressed="false" title="Follow selection" disabled><span id="time-follow-icon"></span></button>
-                      <button id="time-slower" class="time-speed-button" type="button" aria-label="Decrease playback speed" title="Slower" disabled><span id="time-slower-icon"></span></button>
-                      <button id="time-faster" class="time-speed-button" type="button" aria-label="Increase playback speed" title="Faster" disabled><span id="time-faster-icon"></span></button>
+                      <button id="time-follow" class="object-section-button distance-reference-button time-speed-button time-follow" type="button" aria-label="Follow selection" aria-pressed="false" title="Follow selection" disabled><span id="time-follow-icon"></span></button>
+                      <button id="time-slower" class="object-section-button distance-reference-button time-speed-button" type="button" aria-label="Decrease playback speed" title="Slower" disabled><span id="time-slower-icon"></span></button>
+                      <button id="time-faster" class="object-section-button distance-reference-button time-speed-button" type="button" aria-label="Increase playback speed" title="Faster" disabled><span id="time-faster-icon"></span></button>
                       <output id="time-speed-value" aria-live="polite">1k years / 1s</output>
                     </div>
                   </div>
+                  <button id="motion-lock" class="panel-lock time-lock" type="button" aria-label="Keep Stellar motion open" aria-pressed="false"><span id="motion-lock-icon"></span></button>
+                </div>
+                <div class="time-controls-body">
                   <div class="time-range">
                     <div class="time-directions" aria-hidden="true"><span>Past</span><span>Future</span></div>
                     <div class="time-slider-track">
