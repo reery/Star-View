@@ -19,6 +19,7 @@ from astropy.utils import iers
 
 from catalog_sources.adapters import eligible_gaia_physical, read_cns5, read_gaia_tap, read_simbad_tap
 from catalog_sources.enrichment import enrich_from_frozen, enrichment_sources, manifest_sha256
+from catalog_sources.ultracool_motion import enrich_reviewed_motion
 from catalog_sources.shared_objects import adopt_shared_object
 from catalog_sources.metallicity import metallicity_kind
 from catalog_sources.solar import adopt_solar_reference, solar_provenance
@@ -345,6 +346,15 @@ def normalize(record, simbad, gaia, supplements):
     if shared_enrichment:
         provenance["sharedPhysicalEnrichment"] = shared_enrichment
         provenance["fieldStatus"].update({field: observation["status"] for field, observation in shared_enrichment.items()})
+    reviewed_motion = enrich_reviewed_motion(row, simbad.identity.simbad_id)
+    if reviewed_motion:
+        provenance["reviewedMotionEnrichment"] = reviewed_motion
+        provenance["radialVelocity"] = {"status": "reviewed-literature-fallback", "observation": {
+            "sourceId": "reviewed-ultracool-rv", "sourceRecordId": reviewed_motion["sourceRecordId"],
+            "valueKms": reviewed_motion["value"], "uncertaintyKms": reviewed_motion["uncertainty"],
+            "reference": reviewed_motion["reference"], "qualityFlags": [reviewed_motion["scope"]],
+        }}
+        provenance["fieldStatus"]["radial_velocity_kms"] = "reviewed-literature-fallback"
     return row, provenance, direction.distance.to_value(units.pc)
 
 

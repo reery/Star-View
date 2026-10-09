@@ -185,6 +185,14 @@
     {
       "name": "Kervella et al. 2004, component A spectral classification of Procyon",
       "url": "https://arxiv.org/abs/astro-ph/0309148"
+    },
+    {
+      "name": "Sanghi et al. 2023, ultracool-object SED luminosities and conditional evolutionary-model estimates, UltracoolSheet v2.1.0 frozen release",
+      "url": "https://zenodo.org/records/15802304"
+    },
+    {
+      "name": "Filippazzo et al. 2015, individual ultracool-object SED and model parameters, Table 9 fallback",
+      "url": "https://cdsarc.cds.unistra.fr/viz-bin/cat/J/ApJ/810/158"
     }
   ],
   "cutoffPolicy": "Exclude Planet rows, aggregate system rows and source ObjType endings '?'. The only approved exceptions are Seq 27/28 (EZ Aquarii B/C): preserve vetted default membership and every default field, while retaining raw LM? classifications explicitly; this is not a new classification measurement. Keep all tentative buffer records for audit. Rank eligible individual non-Sun objects by unrounded adopted J2000 distance, then ASCII stable ID for exact ties; retain exactly 100 plus Sun. Rank 100 is GJ 229 A; nearby one-sigma distance intervals overlap, so membership is not statistically secure. Frozen 2023 source releases with preserved neighbor overrides; no 2026 completeness claim.",

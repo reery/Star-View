@@ -7171,6 +7171,22 @@
       "absolute_mag": {
         "method": "individual SIMBAD Johnson V and adopted component distance; no extinction correction",
         "V": 4.15
+      },
+      "reviewedPhysicalOverride": {
+        "values": {
+          "mass_solar": 1.94
+        },
+        "source": "Lane et al. 2014, 2014ApJ...783....3L, Table 7",
+        "sourceUrl": "https://doi.org/10.1088/0004-637X/783/1/3",
+        "fullTextUrl": "https://digitalscholarship.tnstate.edu/coe-research/391/",
+        "scope": "Individual 1 Gem A; WDS 06041+2316, HIP 28734 / HD 41116 system.",
+        "massUncertaintySolar": 0.01,
+        "massMethod": "Dynamical mass from joint astrometric and spectroscopic orbital solution",
+        "sourceParallaxMas": {
+          "value": 21.39,
+          "uncertainty": 0.03
+        },
+        "note": "1 Gem A dynamical mass 1.94 +/- 0.01 solar masses from Lane et al. (2014), Table 7: combined PHASES astrometry and three-component spectroscopy, not a spectral-type estimate or system-total mass."
       }
     },
     "msc-06041+2316-ba": {
@@ -7205,6 +7221,28 @@
       "photometry": {
         "source": "MSC individual subsystem magnitude",
         "V": 5.53
+      },
+      "reviewedPhysicalOverride": {
+        "values": {
+          "mass_solar": 1.707,
+          "spectral_type": "F6IV"
+        },
+        "source": "Lane et al. 2014, 2014ApJ...783....3L, Table 7",
+        "sourceUrl": "https://doi.org/10.1088/0004-637X/783/1/3",
+        "fullTextUrl": "https://digitalscholarship.tnstate.edu/coe-research/391/",
+        "scope": "Individual 1 Gem Ba; WDS 06041+2316, HIP 28734 / HD 41116 system.",
+        "massUncertaintySolar": 0.005,
+        "massMethod": "Dynamical mass from joint astrometric and spectroscopic orbital solution",
+        "sourceParallaxMas": {
+          "value": 21.39,
+          "uncertainty": 0.03
+        },
+        "note": "1 Gem Ba dynamical mass 1.707 +/- 0.005 solar masses from Lane et al. (2014), Table 7: combined PHASES astrometry and three-component spectroscopy, not a spectral-type estimate or system-total mass. Component spectrum F6IV, as reported in the introduction from Strassmeier & Fekel (1990), replaces the older MSC A8V? classification. No dwarf-sequence temperature is assigned to this subgiant. No individual atmosphere, radius, bolometric luminosity, metallicity or age is adopted.",
+        "spectralTypeEvidence": {
+          "source": "Lane et al. 2014, introduction, citing Strassmeier & Fekel 1990",
+          "status": "component spectroscopic classification",
+          "superseded": "A8V?"
+        }
       }
     },
     "msc-06041+2316-bb": {
@@ -7239,6 +7277,28 @@
       "photometry": {
         "source": "MSC individual subsystem magnitude",
         "V": 7.33
+      },
+      "reviewedPhysicalOverride": {
+        "values": {
+          "mass_solar": 1.012,
+          "spectral_type": "G2V?"
+        },
+        "source": "Lane et al. 2014, 2014ApJ...783....3L, Table 7",
+        "sourceUrl": "https://doi.org/10.1088/0004-637X/783/1/3",
+        "fullTextUrl": "https://digitalscholarship.tnstate.edu/coe-research/391/",
+        "scope": "Individual 1 Gem Bb; WDS 06041+2316, HIP 28734 / HD 41116 system.",
+        "massUncertaintySolar": 0.003,
+        "massMethod": "Dynamical mass from joint astrometric and spectroscopic orbital solution",
+        "sourceParallaxMas": {
+          "value": 21.39,
+          "uncertainty": 0.03
+        },
+        "note": "1 Gem Bb dynamical mass 1.012 +/- 0.003 solar masses from Lane et al. (2014), Table 7: combined PHASES astrometry and three-component spectroscopy, not a spectral-type estimate or system-total mass. G2V? is the paper's section 3.3 mass-based classification, not a measured spectral subtype. Spectral lines are detected, excluding a white dwarf. No individual atmosphere, radius, bolometric luminosity, metallicity or age is adopted.",
+        "spectralTypeEvidence": {
+          "source": "Lane et al. 2014, section 3.3",
+          "status": "inferred from dynamical mass; not a measured subtype",
+          "caveat": "The detected spectrum excludes a white dwarf; G2V is the paper's mass-based correspondence. The question mark retains its inferred status."
+        }
       }
     },
     "hip-29655": {
@@ -25407,7 +25467,7 @@
   "components": 696,
   "coverage": {
     "temperature_k": 409,
-    "mass_solar": 245,
+    "mass_solar": 248,
     "luminosity_solar": 261,
     "radius_solar": 267,
     "metallicity_dex": 276,
@@ -25428,7 +25488,7 @@
     "catalog-work/star-systems/catalog-companions-simbad.csv": "9cd56e663e725c3aa715acfd18918c91e6851c307e9b2efbeeb37d8f4d969042",
     "catalog-work/star-systems/catalog-companions-atmospheres.csv": "7c4ab8e29a52125e7e8879228631f210760d85200a212fd3b6e5ecc7d8d8ac5b",
     "catalog-work/star-systems/catalog-companions-gaia.csv": "5ae6a8cbe672091b57b8d6412668b55137745cdbdedce72f5dc22825e3305a24",
-    "catalog-work/star-systems/catalog-companions-overrides.json": "8a7f6bbc73d8b564e2553df82743e44161ddc357b05e513e26d478692b0bec12",
+    "catalog-work/star-systems/catalog-companions-overrides.json": "2b1cd0769305e9d17cc388f8009cfd484b8deea0320b152017f1148da74e6353",
     "catalog-work/bright-stars/simbad.csv": "8d1e328df0d1601b94f9d1cc6e051f6e78ebea3cd65b4ce5a1cfd8dad2f0eede",
     "catalog-work/western-constellation-stars/simbad.csv": "c45f9d1adb165751c0cf8f77a28efc18dfef5427760de6be0dad20f4aff92ede",
     "catalog-work/famous-cluster-stars/simbad.csv": "31f7d87d2f684fca025388ed409856ab5fbe0038de62d9a214c77b1f5a3c1c01",

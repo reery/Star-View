@@ -1,4 +1,5 @@
 import definitions from './data/planetary-systems.json'
+import { MISSING_VALUE } from './format'
 
 export interface KnownPlanet {
   readonly id: string
@@ -36,7 +37,7 @@ export function planetarySystemForStar(starId: string): PlanetarySystem | undefi
 }
 
 export function formatOrbitalDistance(planet: KnownPlanet): string {
-  if (planet.semiMajorAxisAu === null) return 'Not available'
+  if (planet.semiMajorAxisAu === null) return MISSING_VALUE
   const prefix = planet.distanceLimit === 1 ? '< ' : planet.distanceLimit === -1 ? '> ' : ''
   const precision = planet.distanceKind ? { maximumSignificantDigits: 3 } : { minimumFractionDigits: 2, maximumFractionDigits: 2 }
   return `${prefix}${planet.semiMajorAxisAu.toLocaleString('en-US', precision)} AU${planet.distanceKind === 'projected' ? ' projected' : ''}`

@@ -21,7 +21,7 @@ without a stellar detection are withheld. The pool represents confirmed coverage
 from these sources, rather than a claim that all possible companions have been
 discovered or measured. A bare binary flag is not enough to identify its members.
 
-Available individual fields: 409 temperatures, 245 masses, 261 luminosities,
+Available individual fields: 409 temperatures, 248 masses, 261 luminosities,
 267 radii, 276 metallicities, and 79 ages. Frozen SIMBAD atmosphere measurements,
 quality-filtered exact-ID Gaia DR3 fields, Cifuentes component calibrations, and
 reviewed literature provide the measurements or estimates. The existing
@@ -39,6 +39,21 @@ records Ca, Cb, and D in the wider physical hierarchy. Dubhe A's physical overri
 uses [Guenther et al. 2000](https://doi.org/10.1086/312473): 4660 K, model mass
 4.25 ± 0.25 solar masses, log luminosity 2.5, and [Fe/H] −0.19. Its radius is derived
 from that luminosity and temperature. B's unsupported physical fields stay null.
+
+1 Gem's missing masses were a source-coverage gap: the importer withholds MSC
+magnitude/spectral-type mass estimates, and the published dynamical solution had
+not yet been reviewed. [Lane et al. 2014, Table 7](https://doi.org/10.1088/0004-637X/783/1/3)
+now supplies A = 1.94 ± 0.01, Ba = 1.707 ± 0.005 and Bb = 1.012 ± 0.003 solar
+masses. These are individual dynamical masses from joint astrometry and
+three-component spectroscopy, retained at the paper's orbital parallax of
+21.39 ± 0.03 mas; the app's existing distance is unchanged. Ba's F6IV classification
+(reported in the introduction from Strassmeier & Fekel 1990) replaces MSC's A8V?.
+Bb is marked G2V? because section 3.3 infers the subtype from its mass, rather than
+measuring a spectral subtype. No individual Ba/Bb temperature, radius, bolometric
+luminosity, abundance or age is adopted. K-band luminosity ratios and absolute K
+magnitudes in the paper do not establish bolometric luminosities. Sources,
+uncertainties and classification caveats are frozen in the component overrides
+and reproduced in the audit.
 
 ## Reproduction
 

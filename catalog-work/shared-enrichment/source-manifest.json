@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "reviewed": "2026-10-08",
+  "reviewed": "2026-10-09",
   "policy": "Exact SIMBAD and unique Hipparcos/Gaia DR3 identities across all stellar catalogs; reviewed component-specific literature first; fill blank physical fields, preserve curated values and Gaia eligibility; spectroscopy requires valid measurements and strict-majority consensus; no generic binary mass.",
   "checksumsSha256": {
     "catalog-work/physical-supplements/crossmatch.csv": "882384928e15d2cbf5e0e5cc7dca48fb1734824da256da21276e416a10f7d733",
@@ -27,7 +27,9 @@
     "catalog-work/shared-enrichment/literature/source-manifest.json": "6f2a78d2688ee3dc8108d1e9a2dcd9c710fddf79a8248227174ab750eacd0b26",
     "catalog-work/shared-enrichment/literature/spectroscopy.adql": "c75754a01ac2ba2c142ab399ed628e25ff9f9d5613429af4633ea4a5cd9b62b8",
     "catalog-work/shared-enrichment/literature/spectroscopy.csv": "85da8f4ab1bef2d73d791b9a72a804fe69173ac3ac84772ddda926759a4afc0e",
-    "catalog-work/shared-enrichment/reviewed-objects.json": "13b3b09260b2c461f96a27d5d13ed7dbe7975025168a9d2b93a6aaf479ac962f"
+    "catalog-work/shared-enrichment/reviewed-objects.json": "13b3b09260b2c461f96a27d5d13ed7dbe7975025168a9d2b93a6aaf479ac962f",
+    "catalog-work/shared-enrichment/reviewed-ultracool.json": "540681df4cd2ea0390f3b73fcf4e0a91de90c0df7329fbb4493b6f940a7b5de9",
+    "catalog-work/shared-enrichment/ultracool/source-manifest.json": "233e2e3b90041608423ffad8e356eb78950e69e7eec5f8a608eec396d668ed8b"
   },
   "sources": [
     {
@@ -121,6 +123,14 @@
     {
       "name": "Kervella et al. 2004, component A spectral classification of Procyon",
       "url": "https://arxiv.org/abs/astro-ph/0309148"
+    },
+    {
+      "name": "Sanghi et al. 2023, ultracool-object SED luminosities and conditional evolutionary-model estimates, UltracoolSheet v2.1.0 frozen release",
+      "url": "https://zenodo.org/records/15802304"
+    },
+    {
+      "name": "Filippazzo et al. 2015, individual ultracool-object SED and model parameters, Table 9 fallback",
+      "url": "https://cdsarc.cds.unistra.fr/viz-bin/cat/J/ApJ/810/158"
     }
   ]
 }

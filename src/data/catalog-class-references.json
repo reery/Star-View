@@ -1565,7 +1565,7 @@
       "letter": "A",
       "subtype": 8,
       "stage": "V",
-      "count": 5,
+      "count": 4,
       "metrics": {
         "mass": {
           "value": 2.043333333333333,
@@ -5571,12 +5571,15 @@
       "letter": "F",
       "subtype": 6,
       "stage": "IV",
-      "count": 1,
+      "count": 2,
       "metrics": {
         "mass": {
-          "value": null,
-          "range": null,
-          "count": 0
+          "value": 1.707,
+          "range": [
+            1.707,
+            1.707
+          ],
+          "count": 1
         },
         "gravity": {
           "value": null,
@@ -6691,15 +6694,15 @@
       "letter": "G",
       "subtype": 2,
       "stage": "V",
-      "count": 4,
+      "count": 5,
       "metrics": {
         "mass": {
-          "value": 0.9879544000000001,
+          "value": 0.9927635200000001,
           "range": [
             0.889921,
             1.0788
           ],
-          "count": 4
+          "count": 5
         },
         "gravity": {
           "value": 236.81483495252334,
@@ -7007,44 +7010,44 @@
       "count": 7,
       "metrics": {
         "mass": {
-          "value": 2.5700000000000003,
+          "value": 2.36,
           "range": [
-            2.18,
+            1.94,
             2.96
           ],
-          "count": 2
+          "count": 3
         },
         "gravity": {
-          "value": 9.541377798140536,
+          "value": 8.88688740704408,
           "range": [
             4.067797624486703,
             15.014957971794368
           ],
-          "count": 2
+          "count": 3
         },
         "escapeKms": {
-          "value": 322.9100309328968,
+          "value": 314.34728529011505,
           "range": [
             282.7519890443104,
             363.06807282148316
           ],
-          "count": 2
+          "count": 3
         },
         "density": {
-          "value": 0.00685786264200017,
+          "value": 0.006121979476252456,
           "range": [
             0.0014806179223055772,
             0.012235107361694763
           ],
-          "count": 2
+          "count": 3
         },
         "luminosityPerMass": {
-          "value": 31.431573069055293,
+          "value": 29.197037487527723,
           "range": [
             16.738048165137613,
             46.12509797297297
           ],
-          "count": 2
+          "count": 3
         }
       }
     },

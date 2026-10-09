@@ -63,8 +63,8 @@ describe('catalog packages and display settings', () => {
       objects: 1036,
       constellations: 1036,
       rawAstrometry: 1036,
-      radialVelocities: 696,
-      transverseOnly: 340,
+      radialVelocities: 701,
+      transverseOnly: 335,
     })
     for (const star of large) expect(nearest1000.find((candidate) => candidate.id === star.id)).toEqual(star)
     const provenance = JSON.parse(nearest1000Provenance)
@@ -102,8 +102,17 @@ describe('catalog packages and display settings', () => {
       status: 'withheld-white-dwarf',
       observation: { sourceId: 'gaia-dr3', valueKms: -414.01544 },
     })
-    expect(catalogCoverage(nearest1000)).toMatchObject({ radii: 634, metallicities: 612, ages: 90, masses: 604, luminosities: 613, temperatures: 872 })
-    expect(catalogCoverage(large)).toMatchObject({ masses: 65, luminosities: 69, radii: 69 })
+    expect(catalogCoverage(nearest1000)).toMatchObject({ radii: 686, metallicities: 612, ages: 90, masses: 655, luminosities: 665, temperatures: 877 })
+    expect(catalogCoverage(large)).toMatchObject({ masses: 68, luminosities: 72, radii: 72 })
+    expect(nearest1000.find((star) => star.id === 'cns5-4566')).toMatchObject({
+      temperature_k: 985, mass_solar: 0.02068605705, radius_solar: 0.109956073,
+      luminosity_solar: 9.77237221e-6, age_gyr: null, metallicity_dex: null,
+      vx_kms: null, raw_astrometry: { radial_velocity_kms: null },
+    })
+    expect(provenance.objects.find((object: { id: string }) => object.id === 'cns5-1604')?.radialVelocity).toMatchObject({
+      status: 'reviewed-literature-fallback',
+      observation: { sourceId: 'reviewed-ultracool-rv', valueKms: 1.2, uncertaintyKms: 1, reference: '2021ApJS..257...45H' },
+    })
     expect(small.find((star) => star.id === 'barnards-star')).toMatchObject({ mass_solar: 0.144, radius_solar: 0.1931, luminosity_solar: 0.0035225088 })
     expect(nearest1000.find((star) => star.id === 'cns5-5672')).toMatchObject({ mass_solar: 0.6116, radius_solar: 0.6299 })
   })

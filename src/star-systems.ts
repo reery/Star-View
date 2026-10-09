@@ -31,6 +31,7 @@ export interface StarSystemComponent {
 }
 
 export interface StarSystem {
+  id: string
   name: string
   components: StarSystemComponent[]
 }
@@ -84,8 +85,16 @@ export function indexStarSystems(stars: readonly Star[]): ReadonlyMap<string, St
     if (members.size < 2) continue
     const components = [...members].sort(([a], [b]) => a.localeCompare(b, 'en'))
       .map(([label, star]) => ({ label, star }))
-    const system = { name: names.get(key)!, components }
+    const system = { id: key, name: names.get(key)!, components }
     for (const { star } of components) systems.set(star.id, system)
   }
   return systems
+}
+
+/** System entry always starts with A, or the first cataloged A subcomponent. */
+export function primarySystemStarId(system: StarSystem): string {
+  return (system.components.find(({ label }) => label === 'A')
+    ?? system.components.find(({ label }) => label === 'Aa')
+    ?? system.components.find(({ label }) => label.startsWith('A'))
+    ?? system.components[0]!).star.id
 }

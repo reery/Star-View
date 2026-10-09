@@ -31,6 +31,23 @@ describe('component coverage shared by every catalog', () => {
     expect(starComponentIdentity(b.id)).toMatchObject({ name: 'Dubhe', label: 'B' })
   })
 
+  it('loads the three measured 1 Gem masses without copying primary properties into Ba/Bb', () => {
+    const expanded = completeCatalogCompanions([western.find((star) => star.id === 'hip-28734')!])
+    const system = indexStarSystems(expanded).get('hip-28734')!
+    expect(system.components.map((member) => member.label)).toEqual(['A', 'Ba', 'Bb'])
+    expect(system.components.map((member) => member.star.mass_solar)).toEqual([1.94, 1.707, 1.012])
+    const ba = expanded.find((star) => star.name === '1 Gem Ba')!
+    const bb = expanded.find((star) => star.name === '1 Gem Bb')!
+    expect(ba.spectral_type).toBe('F6IV')
+    expect(bb.spectral_type).toBe('G2V?')
+    expect(mkPoint(ba)).toMatchObject({ luminosityClass: 'IV' })
+    for (const companion of [ba, bb]) {
+      expect(companion).toMatchObject({ temperature_k: null, radius_solar: null,
+        luminosity_solar: null, metallicity_dex: null, age_gyr: null })
+    }
+    expect(completeCatalogCompanions([bb])[0]).toMatchObject({ id: bb.id, mass_solar: 1.012 })
+  })
+
   it('keeps alternate selection IDs stable and merges shared-position components individually', () => {
     const fromWestern = completeCatalogCompanions([sun, western.find((star) => star.id === 'hip-54061')!])
     expect(fromWestern[1]).toMatchObject({ id: 'hip-54061', name: 'Dubhe A', spectral_type: 'G9III' })

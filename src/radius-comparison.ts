@@ -1,4 +1,5 @@
 import { starDisplayColor } from './astronomy'
+import { MISSING_VALUE } from './format'
 import { isBubbleObject, isCompactObject, isMolecularCloudObject, isNebulaObject, type Star } from './catalog-model'
 import jupiterMapUrl from './assets/radius-comparison/jupiter-map.png?url'
 import earthMapUrl from './assets/radius-comparison/earth-map.png?url'
@@ -87,7 +88,7 @@ export function radiusStats(comparison: RadiusComparison): { label: string; valu
       const formatted = value === null ? null : label === 'Surface area' || label === 'Volume'
         ? value.toExponential(3).replace('e+', 'e') : dimensionNumber(value)
       return {
-        value: formatted === null ? 'Not available' : `${formatted} ${unit}`,
+        value: formatted === null ? MISSING_VALUE : `${formatted} ${unit}`,
       }
     }),
   }))

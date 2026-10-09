@@ -1,5 +1,8 @@
 import { formatOrbitalDistance, type PlanetarySystem } from './planetary-systems'
 import { svgNode as svgElement } from './spectral-chart'
+import type { StarColorMode } from './astronomy'
+import type { StarSystem } from './star-systems'
+import { renderStellarSystem } from './stellar-system-card'
 
 const renderedSystems = new WeakMap<HTMLElement, string>()
 
@@ -59,8 +62,10 @@ export function highlightSystemPlanet(container: HTMLElement, selectedId: string
   }
 }
 
-export function renderSystemCard(container: HTMLElement, planets: PlanetarySystem | undefined, stellarCount: number, onPlanetSelect: (planetId: string) => void): void {
-  const key = `${planets?.hostStarId ?? ''}:${stellarCount}`
+export function renderSystemCard(container: HTMLElement, planets: PlanetarySystem | undefined, system: StarSystem | undefined,
+  selectedId: string, colorMode: StarColorMode, onPlanetSelect: (planetId: string) => void): void {
+  const stellarCount = system?.components.length ?? 1
+  const key = `${planets?.hostStarId ?? ''}:${system?.components.map(({ star }) => star.id).join('|') ?? ''}:${selectedId}:${colorMode}`
   if (renderedSystems.get(container) === key) return
   const content: HTMLElement[] = []
   if (planets) {
@@ -105,18 +110,7 @@ export function renderSystemCard(container: HTMLElement, planets: PlanetarySyste
     section.append(heading, figure, list)
     content.push(section)
   }
-  if (stellarCount > 1) {
-    const heading = document.createElement('h3')
-    heading.className = 'card-subgroup-heading system-stars-heading'
-    heading.textContent = `${stellarCount} stars system`
-    content.push(heading)
-  }
-  if (!planets) {
-    const empty = document.createElement('p')
-    empty.className = 'system-empty'
-    empty.textContent = 'Planet data not added for this system yet.'
-    content.push(empty)
-  }
+  if (system) content.push(renderStellarSystem(system, selectedId, colorMode))
   container.replaceChildren(...content)
   renderedSystems.set(container, key)
 }

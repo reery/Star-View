@@ -77,7 +77,7 @@ describe('radius comparison', () => {
       const comparison = radiusComparison(star('Unknown', radius), sun)
       expect(comparison.selected.radiusKm).toBeNull()
       expect(comparison.jupiterBenchmark).toBe(false)
-      expect(radiusStats(comparison).every((row) => row.values[0]!.value === 'Not available')).toBe(true)
+      expect(radiusStats(comparison).every((row) => row.values[0]!.value === '—')).toBe(true)
       expect(radiusSummary(comparison)).toContain('No catalog radius is available for Unknown')
     }
   })

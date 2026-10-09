@@ -22,7 +22,8 @@ import { renderMkDiagram } from './mk-diagram'
 import { spectralReference } from './spectral-chart'
 import { massCardAvailable } from './mass-properties'
 import { radiusComparison, radiusStats, radiusSummary, renderRadiusComparison, type RadiusReference } from './radius-comparison'
-import { indexStarSystems, type StarSystem } from './star-systems'
+import { indexStarSystems, primarySystemStarId, type StarSystem } from './star-systems'
+import { loadStellarOrbits } from './stellar-orbits'
 import { loadPlanetarySystems, planetarySystemForStar } from './planetary-systems'
 import { highlightSystemPlanet, renderSystemCard } from './system-card'
 import {
@@ -33,7 +34,7 @@ import { ObjectList } from './object-list'
 import { SelectionHistory } from './selection-history'
 import { objectTypeIntroduction } from './object-type-info'
 import { initializeGlossary } from './glossary'
-import { measurement, preciseMeasurement, quantity, scientificQuantity } from './format'
+import { MISSING_VALUE, measurement, preciseMeasurement, quantity, scientificQuantity } from './format'
 import { OBJECT_DISTANCE_STEPS_LY, readSavedViews, SAVED_VIEWS_STORAGE_KEY, type SavedView, type SavedViewSettings } from './saved-views'
 
 function element<ElementType extends HTMLElement = HTMLElement>(id: string): ElementType {
@@ -971,6 +972,7 @@ for (const section of objectSections) {
 }
 element('object-card-details').addEventListener('toggle', syncObjectSections, { signal: events.signal })
 element('known-planets-row').addEventListener('click', () => {
+  if (element<HTMLButtonElement>('known-planets').disabled) return
   activeObjectSection = 'system'
   element<HTMLDetailsElement>('object-card-details').open = true
   closeObjectTypeCard()
@@ -1004,7 +1006,10 @@ function renderSystemComponents(system: StarSystem | undefined, selectedComponen
       button.type = 'button'
       button.className = 'star-component'
       button.dataset.componentId = star.id
-      button.textContent = label
+      const preview = document.createElement('canvas')
+      preview.className = 'star-component-icon'
+      preview.setAttribute('aria-hidden', 'true')
+      button.append(preview, label)
       button.title = star.name
       button.setAttribute('aria-label', `Show ${system.name} ${label}${star.id === 'proxima-centauri' ? ' (Proxima Centauri)' : ''}`)
       return button
@@ -1012,6 +1017,8 @@ function renderSystemComponents(system: StarSystem | undefined, selectedComponen
   }
   for (const button of group.querySelectorAll<HTMLButtonElement>('button')) {
     button.setAttribute('aria-pressed', String(button.dataset.componentId === selectedComponentId))
+    const component = system.components.find(({ star }) => star.id === button.dataset.componentId)!
+    renderSelectedStarPreview(button.querySelector<HTMLCanvasElement>('canvas')!, component.star, starColorMode)
   }
 }
 
@@ -1021,7 +1028,7 @@ element('star-components').addEventListener('click', (event) => {
   // Component buttons live below the distance inside the expandable header.
   event.preventDefault()
   event.stopPropagation()
-  selectStar(button.dataset.componentId)
+  selectStar(button.dataset.componentId, true, true)
 }, { signal: events.signal })
 
 function renderSelection(): void {
@@ -1062,11 +1069,21 @@ function renderSelection(): void {
   renderSystemComponents(system, star.id)
   const knownPlanetCount = planets?.planets.length ?? star.known_planets ?? 0
   renderSelectedStarPreview(element<HTMLCanvasElement>('selected-swatch'), star, starColorMode, system?.components.map((component) => component.star), knownPlanetCount > 0)
-  renderSystemCard(element('object-system'), planets, system?.components.length ?? 1, selectSystemPlanet)
+  renderSystemCard(element('object-system'), planets, system, star.id, starColorMode, selectSystemPlanet)
   const openPlanet = activePlanetId ? planetModules?.planetDescriptionForId(activePlanetId) : undefined
   if (!planetCardLocked && openPlanet?.hostStarId !== star.id) closePlanetCard()
   if (!element('planet-card').hidden && openPlanet?.hostStarId === star.id) highlightSystemPlanet(element('object-system'), activePlanetId, activePlanetId)
-  element('object-system-toggle').setAttribute('aria-label', planets ? `System, ${planets.planets.length} known planets` : 'System')
+  const systemToggle = element<HTMLButtonElement>('object-system-toggle')
+  const systemAvailable = Boolean(planets?.planets.length || system)
+  systemToggle.disabled = !systemAvailable
+  systemToggle.title = systemAvailable ? 'System' : 'System · No data yet'
+  systemToggle.setAttribute('aria-label', systemAvailable
+    ? `System${system ? `, ${system.components.length} stars` : ''}${planets ? `, ${planets.planets.length} known planets` : ''}` : systemToggle.title)
+  element<HTMLButtonElement>('known-planets').disabled = !planets?.planets.length
+  if (!systemAvailable && activeObjectSection === 'system') {
+    activeObjectSection = 'specs'
+    syncObjectSections()
+  }
   syncObjectInfoAvailability()
   if (knownPlanetCount > 0) element<HTMLCanvasElement>('selected-swatch').title = `${knownPlanetCount} known planets · illustrative orbit`
   text('distance-value', formatDistance(metrics.distancePc, distanceUnit).split(' ')[0]!)
@@ -1077,11 +1094,11 @@ function renderSelection(): void {
   element('object-type-toggle').setAttribute('aria-label', `Learn about ${describeObject(star).toLowerCase()}`)
   if (!element('object-type-card').hidden) renderObjectTypeCard(star)
   element('constellation-row').hidden = star.id === 'sun'
-  text('constellation', star.constellation ?? 'Not available')
+  text('constellation', star.constellation ?? MISSING_VALUE)
   text('known-planets', String(knownPlanetCount))
   element('known-planets').title = 'Show confirmed planets in this system from the adopted NASA Exoplanet Archive snapshot.'
   element('known-planets').setAttribute('aria-label', `Show system with ${knownPlanetCount} known planets`)
-  text('object-subtypes', star.subtypes?.length ? star.subtypes.join(' · ') : 'Not available')
+  text('object-subtypes', star.subtypes?.length ? star.subtypes.join(' · ') : MISSING_VALUE)
   const compact = star.compact
   const compactObject = isCompactObject(star)
   const nebula = star.nebula
@@ -1101,7 +1118,7 @@ function renderSelection(): void {
   for (const row of document.querySelectorAll<HTMLElement>('.pulsar-property')) row.hidden = star.type !== 'pulsar'
   for (const row of document.querySelectorAll<HTMLElement>('.rotation-property')) row.hidden = star.type === 'black_hole' || !compactObject
   for (const row of document.querySelectorAll<HTMLElement>('.orbit-property')) row.hidden = !compact || (compact.orbital_period_days === null && compact.companion === null)
-  text('spectral-type', star.spectral_type ?? 'Not available')
+  text('spectral-type', star.spectral_type ?? MISSING_VALUE)
   element('spectral-toggle').setAttribute('aria-label', `Explore spectral type of ${star.name}`)
   if (!hrCardAvailable(star)) closeSpectralCard()
   else if (!element('spectral-card').hidden) renderSpectralCard(star)
@@ -1133,7 +1150,7 @@ function renderSelection(): void {
     text('surface-field', scientificQuantity(compact.surface_magnetic_field_gauss, 'G'))
     text('spin-down-power', scientificQuantity(compact.spin_down_power_erg_s, 'erg/s'))
     text('orbital-period', preciseMeasurement(compact.orbital_period_days, compact.orbital_period_error_days, 'days'))
-    text('compact-companion', compact.companion ?? 'Not available')
+    text('compact-companion', compact.companion ?? MISSING_VALUE)
     text('detection-method', compact.detection_method)
     const source = element<HTMLAnchorElement>('compact-source')
     source.textContent = compact.source_label
@@ -1186,16 +1203,16 @@ function renderSelection(): void {
   text('velocity-z', quantity(star.vz_kms, 'km/s'))
   const raw = star.raw_astrometry
   const fullVelocity = [star.vx_kms, star.vy_kms, star.vz_kms].every((value) => value !== null) || (raw !== null && raw.radial_velocity_kms !== null)
-  text('motion-data', fullVelocity ? 'Full space motion' : raw ? 'Transverse only; radial velocity unavailable' : 'Not available')
+  text('motion-data', fullVelocity ? 'Full space motion' : raw ? 'Transverse only; radial velocity unavailable' : MISSING_VALUE)
   const sky = raw ?? compact ?? nebula ?? null
-  text('right-ascension', sky ? `${sky.ra_deg.toLocaleString('en-US', { maximumFractionDigits: 9 })} deg` : 'Not available')
-  text('declination', sky ? `${sky.dec_deg.toLocaleString('en-US', { maximumFractionDigits: 9 })} deg` : 'Not available')
-  text('astrometry-epoch', raw ? `J${raw.epoch.toFixed(1)}` : 'Not available')
-  text('parallax', raw ? measurement(raw.parallax_mas, raw.parallax_error_mas, 'mas', 6) : 'Not available')
-  text('proper-motion-ra', raw ? measurement(raw.pm_ra_cosdec_masyr, raw.pm_ra_error_masyr, 'mas/yr', 6) : 'Not available')
-  text('proper-motion-dec', raw ? measurement(raw.pm_dec_masyr, raw.pm_dec_error_masyr, 'mas/yr', 6) : 'Not available')
-  text('radial-velocity', raw ? measurement(raw.radial_velocity_kms, raw.radial_velocity_error_kms, 'km/s', 6) : 'Not available')
-  text('astrometry-source', raw?.astrometry_ref || compact?.position_source || nebula?.position_source || molecularCloud?.position_source || bubble?.position_source || 'Not available')
+  text('right-ascension', sky ? `${sky.ra_deg.toLocaleString('en-US', { maximumFractionDigits: 9 })} deg` : MISSING_VALUE)
+  text('declination', sky ? `${sky.dec_deg.toLocaleString('en-US', { maximumFractionDigits: 9 })} deg` : MISSING_VALUE)
+  text('astrometry-epoch', raw ? `J${raw.epoch.toFixed(1)}` : MISSING_VALUE)
+  text('parallax', raw ? measurement(raw.parallax_mas, raw.parallax_error_mas, 'mas', 6) : MISSING_VALUE)
+  text('proper-motion-ra', raw ? measurement(raw.pm_ra_cosdec_masyr, raw.pm_ra_error_masyr, 'mas/yr', 6) : MISSING_VALUE)
+  text('proper-motion-dec', raw ? measurement(raw.pm_dec_masyr, raw.pm_dec_error_masyr, 'mas/yr', 6) : MISSING_VALUE)
+  text('radial-velocity', raw ? measurement(raw.radial_velocity_kms, raw.radial_velocity_error_kms, 'km/s', 6) : MISSING_VALUE)
+  text('astrometry-source', raw?.astrometry_ref || compact?.position_source || nebula?.position_source || molecularCloud?.position_source || bubble?.position_source || MISSING_VALUE)
   text('absolute-mag', quantity(star.absolute_mag))
   text('apparent-mag', quantity(star.apparent_mag ?? null))
   const designations = objectDesignations(star)
@@ -1219,8 +1236,12 @@ function updateObjectListFilter(): void {
   })
 }
 
-function selectStar(id: string | null, recordHistory = true): void {
+function selectStar(id: string | null, recordHistory = true, explicitComponent = false): void {
   if (id !== null && !stars.some((star) => star.id === id)) return
+  const system = id === null ? undefined : starSystems.get(id)
+  // Entering a system starts at its primary; component controls and history
+  // deliberately retain individual identities.
+  if (system && recordHistory && !explicitComponent) id = primarySystemStarId(system)
   if (id !== null && recordHistory) selectionHistory.record(id)
   selectedDistancePc = null
   selectedId = id
@@ -1306,6 +1327,7 @@ async function switchCatalog(id: string, refresh = false): Promise<void> {
       loadOverlay(MOLECULAR_CLOUD_OBJECT_TYPES, loadMolecularClouds),
       loadOverlay(BUBBLE_OBJECT_TYPES, loadBubbles),
       loadPlanetarySystems(),
+      loadStellarOrbits(),
     ])
     const withBrightStars = mergeCatalogStars(selectedCatalog, brightCatalog)
     const withConstellationStars = mergeCatalogStars(withBrightStars, westernConstellationCatalog)

@@ -40,6 +40,6 @@ describe('nearby exoplanet coverage and scientific qualifications', () => {
     expect(limited.comparison).toMatch(/^< /)
     const missing = extrasolarPlanets.find((planet) => planet.name === 'GJ 367 c')!
     expect(extrasolarOrbitalSpecs(missing).map((spec) => spec.id)).not.toContain('semi-major-axis')
-    expect(formatOrbitalDistance(planetarySystemForStar(missing.hostStarId)!.planets.find((planet) => planet.id === missing.id)!)).toBe('Not available')
+    expect(formatOrbitalDistance(planetarySystemForStar(missing.hostStarId)!.planets.find((planet) => planet.id === missing.id)!)).toBe('—')
   })
 })

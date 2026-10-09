@@ -8,7 +8,7 @@
   "gaiaSourceManifestSha256": "5744f1665fe2700b5acaf88fd2cc46a4f2a0e2a75d75c03290b769b64c3cb315",
   "physicalOverridesSha256": "4f739cbcda0cb71b78447213c389aa3da8456b2e83072a8dfc6b5dd40f96b3b9",
   "physicalPolicyRevision": "nearest100-reviewed-gaia-shared-v2",
-  "sharedEnrichmentManifestSha256": "fd8afad8f0f9e697c1ebbffda45ce525201ca8f7e1adc06ccce09255041b6311",
+  "sharedEnrichmentManifestSha256": "54c74c2b726f47ef2b10ca87c87c1d3c08fa46f0f88d3123be61f994becc4737",
   "sources": [
     {
       "name": "10pc census, Reyle et al., tablea1 update 2023-08-25",
@@ -189,6 +189,14 @@
     {
       "name": "Kervella et al. 2004, component A spectral classification of Procyon",
       "url": "https://arxiv.org/abs/astro-ph/0309148"
+    },
+    {
+      "name": "Sanghi et al. 2023, ultracool-object SED luminosities and conditional evolutionary-model estimates, UltracoolSheet v2.1.0 frozen release",
+      "url": "https://zenodo.org/records/15802304"
+    },
+    {
+      "name": "Filippazzo et al. 2015, individual ultracool-object SED and model parameters, Table 9 fallback",
+      "url": "https://cdsarc.cds.unistra.fr/viz-bin/cat/J/ApJ/810/158"
     }
   ],
   "sourceChecksumsSha256": {
@@ -231,9 +239,9 @@
     "constellation": 100,
     "spectral_type": 101,
     "temperature_k": 97,
-    "mass_solar": 66,
-    "luminosity_solar": 70,
-    "radius_solar": 70,
+    "mass_solar": 69,
+    "luminosity_solar": 73,
+    "radius_solar": 73,
     "metallicity_dex": 64,
     "age_gyr": 15,
     "absolute_mag": 50,
@@ -32982,21 +32990,25 @@
           "detail": "Incomplete/withheld space-motion inputs; placeholders are not exported."
         },
         "temperature_k": {
-          "status": "estimated",
+          "status": "model-derived",
           "sourceRefs": [
-            "pecaut-mamajek:2022.04.16"
+            "2015ApJ...810..158F"
           ],
-          "detail": "Estimated: Pecaut-Mamajek 2022.04.16 T6V mean dwarf class, not a measured temperature."
+          "detail": "{\"caveat\": \"Published evolutionary/SED estimate conditional on the adopted age range; not a dynamical measurement. Published source distance retained.\", \"component\": \"individual catalogued object\", \"field\": \"temperature_k\", \"identity\": \"2MASS J08173001-6155158\", \"inputs\": {\"ageLowerGyr\": 0.5, \"ageUpperGyr\": 10.0, \"sourceParallaxMas\": 203.0, \"sourceRecordId\": \"0817-6155\", \"sourceTemperatureK\": 1004.0, \"unitConversion\": 1}, \"quantity\": null, \"reference\": \"2015ApJ...810..158F\", \"scope\": \"Exact-identity individual ultracool object; no unresolved binary totals.\", \"section\": \"Table 9\", \"sourceRecordId\": \"0817-6155\", \"sourceUrl\": \"https://cdsarc.cds.unistra.fr/viz-bin/cat/J/ApJ/810/158\", \"status\": \"model-derived\", \"superseded\": {\"reference\": \"Pecaut-Mamajek 2022.04.16 dwarf sequence\", \"status\": \"estimated\", \"value\": 950.0}, \"uncertainty\": 91.0, \"value\": 1004.0}"
         },
         "mass_solar": {
-          "status": "unknown",
-          "sourceRefs": [],
-          "detail": "No vetted component measurement adopted; mean-sequence values are not substituted."
+          "status": "model-derived",
+          "sourceRefs": [
+            "2015ApJ...810..158F"
+          ],
+          "detail": "{\"caveat\": \"Published evolutionary/SED estimate conditional on the adopted age range; not a dynamical measurement. Published source distance retained.\", \"component\": \"individual catalogued object\", \"field\": \"mass_solar\", \"identity\": \"2MASS J08173001-6155158\", \"inputs\": {\"ageLowerGyr\": 0.5, \"ageUpperGyr\": 10.0, \"sourceParallaxMas\": 203.0, \"sourceRecordId\": \"0817-6155\", \"sourceTemperatureK\": 1004.0, \"unitConversion\": 0.0009545942339693249}, \"quantity\": null, \"reference\": \"2015ApJ...810..158F\", \"scope\": \"Exact-identity individual ultracool object; no unresolved binary totals.\", \"section\": \"Table 9\", \"sourceRecordId\": \"0817-6155\", \"sourceUrl\": \"https://cdsarc.cds.unistra.fr/viz-bin/cat/J/ApJ/810/158\", \"status\": \"model-derived\", \"uncertainty\": 0.02549721198932067, \"value\": 0.04219306514}"
         },
         "luminosity_solar": {
-          "status": "unknown",
-          "sourceRefs": [],
-          "detail": "No vetted component measurement adopted; mean-sequence values are not substituted."
+          "status": "derived",
+          "sourceRefs": [
+            "2015ApJ...810..158F"
+          ],
+          "detail": "{\"caveat\": \"Bolometric SED luminosity, including modeled missing flux; converted from published log10(L/Lsun), retained at the paper's distance.\", \"component\": \"individual catalogued object\", \"field\": \"luminosity_solar\", \"identity\": \"2MASS J08173001-6155158\", \"inputs\": {\"ageLowerGyr\": 0.5, \"ageUpperGyr\": 10.0, \"log_luminosity_error_dex\": 0.06, \"log_luminosity_solar\": -5.07, \"sourceParallaxMas\": 203.0, \"sourceRecordId\": \"0817-6155\", \"sourceTemperatureK\": 1004.0}, \"quantity\": null, \"reference\": \"2015ApJ...810..158F\", \"scope\": \"Exact-identity individual ultracool object; no unresolved binary totals.\", \"section\": \"Table 9\", \"sourceRecordId\": \"0817-6155\", \"sourceUrl\": \"https://cdsarc.cds.unistra.fr/viz-bin/cat/J/ApJ/810/158\", \"status\": \"derived\", \"uncertainty\": {\"lower\": 1.0982779690145827e-06, \"upper\": 1.2609918275343325e-06}, \"value\": 8.511380382e-06}"
         },
         "absolute_mag": {
           "status": "unknown",
@@ -33102,8 +33114,11 @@
           ]
         },
         "radius_solar": {
-          "status": "unknown",
-          "sourceRefs": []
+          "status": "model-derived",
+          "sourceRefs": [
+            "2015ApJ...810..158F"
+          ],
+          "detail": "{\"caveat\": \"Published evolutionary/SED estimate conditional on the adopted age range; not a dynamical measurement. Published source distance retained.\", \"component\": \"individual catalogued object\", \"field\": \"radius_solar\", \"identity\": \"2MASS J08173001-6155158\", \"inputs\": {\"ageLowerGyr\": 0.5, \"ageUpperGyr\": 10.0, \"sourceParallaxMas\": 203.0, \"sourceRecordId\": \"0817-6155\", \"sourceTemperatureK\": 1004.0, \"unitConversion\": 0.10276268506540176}, \"quantity\": null, \"reference\": \"2015ApJ...810..158F\", \"scope\": \"Exact-identity individual ultracool object; no unresolved binary totals.\", \"section\": \"Table 9\", \"sourceRecordId\": \"0817-6155\", \"sourceUrl\": \"https://cdsarc.cds.unistra.fr/viz-bin/cat/J/ApJ/810/158\", \"status\": \"model-derived\", \"uncertainty\": 0.01644202961046428, \"value\": 0.09659692396}"
         },
         "metallicity_dex": {
           "status": "unknown",
@@ -33128,6 +33143,109 @@
           "identity_method": "nearest-100 source row; frozen CNS5 match; exact SIMBAD CNS5 identity"
         },
         "eligibility": "Not a parsed K5-M9.5 dwarf spectral type (no subdwarf, giant, composite or peculiar class); supplements not applied."
+      },
+      "sharedPhysicalEnrichment": {
+        "luminosity_solar": {
+          "field": "luminosity_solar",
+          "value": 8.511380382e-06,
+          "status": "derived",
+          "reference": "2015ApJ...810..158F",
+          "uncertainty": {
+            "lower": 1.0982779690145827e-06,
+            "upper": 1.2609918275343325e-06
+          },
+          "identity": "2MASS J08173001-6155158",
+          "component": "individual catalogued object",
+          "scope": "Exact-identity individual ultracool object; no unresolved binary totals.",
+          "section": "Table 9",
+          "caveat": "Bolometric SED luminosity, including modeled missing flux; converted from published log10(L/Lsun), retained at the paper's distance.",
+          "quantity": null,
+          "sourceUrl": "https://cdsarc.cds.unistra.fr/viz-bin/cat/J/ApJ/810/158",
+          "inputs": {
+            "ageLowerGyr": 0.5,
+            "ageUpperGyr": 10.0,
+            "log_luminosity_error_dex": 0.06,
+            "log_luminosity_solar": -5.07,
+            "sourceParallaxMas": 203.0,
+            "sourceRecordId": "0817-6155",
+            "sourceTemperatureK": 1004.0
+          },
+          "sourceRecordId": "0817-6155"
+        },
+        "mass_solar": {
+          "field": "mass_solar",
+          "value": 0.04219306514,
+          "status": "model-derived",
+          "reference": "2015ApJ...810..158F",
+          "uncertainty": 0.02549721198932067,
+          "identity": "2MASS J08173001-6155158",
+          "component": "individual catalogued object",
+          "scope": "Exact-identity individual ultracool object; no unresolved binary totals.",
+          "section": "Table 9",
+          "caveat": "Published evolutionary/SED estimate conditional on the adopted age range; not a dynamical measurement. Published source distance retained.",
+          "quantity": null,
+          "sourceUrl": "https://cdsarc.cds.unistra.fr/viz-bin/cat/J/ApJ/810/158",
+          "inputs": {
+            "ageLowerGyr": 0.5,
+            "ageUpperGyr": 10.0,
+            "sourceParallaxMas": 203.0,
+            "sourceRecordId": "0817-6155",
+            "sourceTemperatureK": 1004.0,
+            "unitConversion": 0.0009545942339693249
+          },
+          "sourceRecordId": "0817-6155"
+        },
+        "radius_solar": {
+          "field": "radius_solar",
+          "value": 0.09659692396,
+          "status": "model-derived",
+          "reference": "2015ApJ...810..158F",
+          "uncertainty": 0.01644202961046428,
+          "identity": "2MASS J08173001-6155158",
+          "component": "individual catalogued object",
+          "scope": "Exact-identity individual ultracool object; no unresolved binary totals.",
+          "section": "Table 9",
+          "caveat": "Published evolutionary/SED estimate conditional on the adopted age range; not a dynamical measurement. Published source distance retained.",
+          "quantity": null,
+          "sourceUrl": "https://cdsarc.cds.unistra.fr/viz-bin/cat/J/ApJ/810/158",
+          "inputs": {
+            "ageLowerGyr": 0.5,
+            "ageUpperGyr": 10.0,
+            "sourceParallaxMas": 203.0,
+            "sourceRecordId": "0817-6155",
+            "sourceTemperatureK": 1004.0,
+            "unitConversion": 0.10276268506540176
+          },
+          "sourceRecordId": "0817-6155"
+        },
+        "temperature_k": {
+          "field": "temperature_k",
+          "value": 1004.0,
+          "status": "model-derived",
+          "reference": "2015ApJ...810..158F",
+          "uncertainty": 91.0,
+          "identity": "2MASS J08173001-6155158",
+          "component": "individual catalogued object",
+          "scope": "Exact-identity individual ultracool object; no unresolved binary totals.",
+          "section": "Table 9",
+          "caveat": "Published evolutionary/SED estimate conditional on the adopted age range; not a dynamical measurement. Published source distance retained.",
+          "quantity": null,
+          "sourceUrl": "https://cdsarc.cds.unistra.fr/viz-bin/cat/J/ApJ/810/158",
+          "inputs": {
+            "ageLowerGyr": 0.5,
+            "ageUpperGyr": 10.0,
+            "sourceParallaxMas": 203.0,
+            "sourceRecordId": "0817-6155",
+            "sourceTemperatureK": 1004.0,
+            "unitConversion": 1
+          },
+          "sourceRecordId": "0817-6155",
+          "superseded": {
+            "value": 950.0,
+            "status": "estimated",
+            "reference": "Pecaut-Mamajek 2022.04.16 dwarf sequence"
+          }
+        }
       }
     },
     {
@@ -35434,21 +35552,25 @@
           "detail": "Incomplete/withheld space-motion inputs; placeholders are not exported."
         },
         "temperature_k": {
-          "status": "estimated",
+          "status": "model-derived",
           "sourceRefs": [
-            "pecaut-mamajek:2022.04.16"
+            "2023ApJ...959...63S"
           ],
-          "detail": "Estimated: Pecaut-Mamajek 2022.04.16 T7.5V mean dwarf class, not a measured temperature."
+          "detail": "{\"caveat\": \"Evolutionary-model estimate conditional on the authors' age distribution, not a direct measurement; uncertainty can be large. Published distance and model inputs retained.\", \"component\": \"individual catalogued object\", \"field\": \"temperature_k\", \"identity\": \"2MASS J11145133-2618235\", \"inputs\": {\"ageCategory\": \"Field\", \"ageJustification\": \"UCS+BANYAN\", \"evolutionaryModel\": \"SM08\", \"log_luminosity_solar\": -5.82, \"publishedColumn\": \"teff_evo\", \"sourceParallaxMas\": 179.2, \"unitConversion\": 1}, \"quantity\": null, \"reference\": \"2023ApJ...959...63S\", \"scope\": \"Exact-identity individual ultracool object; no unresolved binary totals.\", \"section\": \"Table of Ultracool Fundamental Properties, sections 5-7\", \"sourceRecordId\": \"2MASS J11145133-2618235\", \"sourceUrl\": \"https://zenodo.org/records/15802304\", \"status\": \"model-derived\", \"superseded\": {\"reference\": \"Pecaut-Mamajek 2022.04.16 dwarf sequence\", \"status\": \"estimated\", \"value\": 750.0}, \"uncertainty\": 38.0, \"value\": 606.0}"
         },
         "mass_solar": {
-          "status": "unknown",
-          "sourceRefs": [],
-          "detail": "No vetted component measurement adopted; mean-sequence values are not substituted."
+          "status": "model-derived",
+          "sourceRefs": [
+            "2023ApJ...959...63S"
+          ],
+          "detail": "{\"caveat\": \"Evolutionary-model estimate conditional on the authors' age distribution, not a direct measurement; uncertainty can be large. Published distance and model inputs retained.\", \"component\": \"individual catalogued object\", \"field\": \"mass_solar\", \"identity\": \"2MASS J11145133-2618235\", \"inputs\": {\"ageCategory\": \"Field\", \"ageJustification\": \"UCS+BANYAN\", \"evolutionaryModel\": \"SM08\", \"log_luminosity_solar\": -5.82, \"publishedColumn\": \"mass_evo\", \"sourceParallaxMas\": 179.2, \"unitConversion\": 0.0009545942339693249}, \"quantity\": null, \"reference\": \"2023ApJ...959...63S\", \"scope\": \"Exact-identity individual ultracool object; no unresolved binary totals.\", \"section\": \"Table of Ultracool Fundamental Properties, sections 5-7\", \"sourceRecordId\": \"2MASS J11145133-2618235\", \"sourceUrl\": \"https://zenodo.org/records/15802304\", \"status\": \"model-derived\", \"uncertainty\": 0.01189424415525779, \"value\": 0.0114074011}"
         },
         "luminosity_solar": {
-          "status": "unknown",
-          "sourceRefs": [],
-          "detail": "No vetted component measurement adopted; mean-sequence values are not substituted."
+          "status": "derived",
+          "sourceRefs": [
+            "2023ApJ...959...63S"
+          ],
+          "detail": "{\"caveat\": \"Bolometric SED luminosity, including modeled missing flux; converted from published log10(L/Lsun), retained at the paper's distance.\", \"component\": \"individual catalogued object\", \"field\": \"luminosity_solar\", \"identity\": \"2MASS J11145133-2618235\", \"inputs\": {\"ageCategory\": \"Field\", \"ageJustification\": \"UCS+BANYAN\", \"evolutionaryModel\": \"SM08\", \"log_luminosity_error_dex\": 0.1, \"log_luminosity_solar\": -5.82, \"sourceParallaxMas\": 179.2}, \"quantity\": null, \"reference\": \"2023ApJ...959...63S\", \"scope\": \"Exact-identity individual ultracool object; no unresolved binary totals.\", \"section\": \"Table of Ultracool Fundamental Properties, sections 5-7\", \"sourceRecordId\": \"2MASS J11145133-2618235\", \"sourceUrl\": \"https://zenodo.org/records/15802304\", \"status\": \"derived\", \"uncertainty\": {\"lower\": 3.11296813818794e-07, \"upper\": 3.918994695270371e-07}, \"value\": 1.513561248e-06}"
         },
         "absolute_mag": {
           "status": "unknown",
@@ -35554,8 +35676,11 @@
           ]
         },
         "radius_solar": {
-          "status": "unknown",
-          "sourceRefs": []
+          "status": "model-derived",
+          "sourceRefs": [
+            "2023ApJ...959...63S"
+          ],
+          "detail": "{\"caveat\": \"Evolutionary-model estimate conditional on the authors' age distribution, not a direct measurement; uncertainty can be large. Published distance and model inputs retained.\", \"component\": \"individual catalogued object\", \"field\": \"radius_solar\", \"identity\": \"2MASS J11145133-2618235\", \"inputs\": {\"ageCategory\": \"Field\", \"ageJustification\": \"UCS+BANYAN\", \"evolutionaryModel\": \"SM08\", \"log_luminosity_solar\": -5.82, \"publishedColumn\": \"radius_evo\", \"sourceParallaxMas\": 179.2, \"unitConversion\": 0.10276268506540176}, \"quantity\": null, \"reference\": \"2023ApJ...959...63S\", \"scope\": \"Exact-identity individual ultracool object; no unresolved binary totals.\", \"section\": \"Table of Ultracool Fundamental Properties, sections 5-7\", \"sourceRecordId\": \"2MASS J11145133-2618235\", \"sourceUrl\": \"https://zenodo.org/records/15802304\", \"status\": \"model-derived\", \"uncertainty\": 0.01335914905850223, \"value\": 0.1140665804}"
         },
         "metallicity_dex": {
           "status": "unknown",
@@ -35579,6 +35704,111 @@
           "identity_method": "nearest-100 source row; frozen CNS5 match; exact SIMBAD CNS5 identity"
         },
         "eligibility": "Not a parsed K5-M9.5 dwarf spectral type (no subdwarf, giant, composite or peculiar class); supplements not applied."
+      },
+      "sharedPhysicalEnrichment": {
+        "luminosity_solar": {
+          "field": "luminosity_solar",
+          "value": 1.513561248e-06,
+          "status": "derived",
+          "reference": "2023ApJ...959...63S",
+          "uncertainty": {
+            "lower": 3.11296813818794e-07,
+            "upper": 3.918994695270371e-07
+          },
+          "identity": "2MASS J11145133-2618235",
+          "component": "individual catalogued object",
+          "scope": "Exact-identity individual ultracool object; no unresolved binary totals.",
+          "section": "Table of Ultracool Fundamental Properties, sections 5-7",
+          "caveat": "Bolometric SED luminosity, including modeled missing flux; converted from published log10(L/Lsun), retained at the paper's distance.",
+          "quantity": null,
+          "sourceUrl": "https://zenodo.org/records/15802304",
+          "inputs": {
+            "ageCategory": "Field",
+            "ageJustification": "UCS+BANYAN",
+            "evolutionaryModel": "SM08",
+            "log_luminosity_error_dex": 0.1,
+            "log_luminosity_solar": -5.82,
+            "sourceParallaxMas": 179.2
+          },
+          "sourceRecordId": "2MASS J11145133-2618235"
+        },
+        "mass_solar": {
+          "field": "mass_solar",
+          "value": 0.0114074011,
+          "status": "model-derived",
+          "reference": "2023ApJ...959...63S",
+          "uncertainty": 0.01189424415525779,
+          "identity": "2MASS J11145133-2618235",
+          "component": "individual catalogued object",
+          "scope": "Exact-identity individual ultracool object; no unresolved binary totals.",
+          "section": "Table of Ultracool Fundamental Properties, sections 5-7",
+          "caveat": "Evolutionary-model estimate conditional on the authors' age distribution, not a direct measurement; uncertainty can be large. Published distance and model inputs retained.",
+          "quantity": null,
+          "sourceUrl": "https://zenodo.org/records/15802304",
+          "inputs": {
+            "ageCategory": "Field",
+            "ageJustification": "UCS+BANYAN",
+            "evolutionaryModel": "SM08",
+            "log_luminosity_solar": -5.82,
+            "publishedColumn": "mass_evo",
+            "sourceParallaxMas": 179.2,
+            "unitConversion": 0.0009545942339693249
+          },
+          "sourceRecordId": "2MASS J11145133-2618235"
+        },
+        "radius_solar": {
+          "field": "radius_solar",
+          "value": 0.1140665804,
+          "status": "model-derived",
+          "reference": "2023ApJ...959...63S",
+          "uncertainty": 0.01335914905850223,
+          "identity": "2MASS J11145133-2618235",
+          "component": "individual catalogued object",
+          "scope": "Exact-identity individual ultracool object; no unresolved binary totals.",
+          "section": "Table of Ultracool Fundamental Properties, sections 5-7",
+          "caveat": "Evolutionary-model estimate conditional on the authors' age distribution, not a direct measurement; uncertainty can be large. Published distance and model inputs retained.",
+          "quantity": null,
+          "sourceUrl": "https://zenodo.org/records/15802304",
+          "inputs": {
+            "ageCategory": "Field",
+            "ageJustification": "UCS+BANYAN",
+            "evolutionaryModel": "SM08",
+            "log_luminosity_solar": -5.82,
+            "publishedColumn": "radius_evo",
+            "sourceParallaxMas": 179.2,
+            "unitConversion": 0.10276268506540176
+          },
+          "sourceRecordId": "2MASS J11145133-2618235"
+        },
+        "temperature_k": {
+          "field": "temperature_k",
+          "value": 606.0,
+          "status": "model-derived",
+          "reference": "2023ApJ...959...63S",
+          "uncertainty": 38.0,
+          "identity": "2MASS J11145133-2618235",
+          "component": "individual catalogued object",
+          "scope": "Exact-identity individual ultracool object; no unresolved binary totals.",
+          "section": "Table of Ultracool Fundamental Properties, sections 5-7",
+          "caveat": "Evolutionary-model estimate conditional on the authors' age distribution, not a direct measurement; uncertainty can be large. Published distance and model inputs retained.",
+          "quantity": null,
+          "sourceUrl": "https://zenodo.org/records/15802304",
+          "inputs": {
+            "ageCategory": "Field",
+            "ageJustification": "UCS+BANYAN",
+            "evolutionaryModel": "SM08",
+            "log_luminosity_solar": -5.82,
+            "publishedColumn": "teff_evo",
+            "sourceParallaxMas": 179.2,
+            "unitConversion": 1
+          },
+          "sourceRecordId": "2MASS J11145133-2618235",
+          "superseded": {
+            "value": 750.0,
+            "status": "estimated",
+            "reference": "Pecaut-Mamajek 2022.04.16 dwarf sequence"
+          }
+        }
       }
     },
     {
@@ -36661,11 +36891,11 @@
           "detail": "Sun-relative Galactic vector; source spectroscopic RV, not an orbit solution."
         },
         "temperature_k": {
-          "status": "estimated",
+          "status": "model-derived",
           "sourceRefs": [
-            "pecaut-mamajek:2022.04.16"
+            "2015ApJ...810..158F"
           ],
-          "detail": "Estimated: Pecaut-Mamajek 2022.04.16 M8.5V mean dwarf class, not a measured temperature."
+          "detail": "{\"caveat\": \"Published evolutionary/SED estimate conditional on the adopted age range; not a dynamical measurement. Published source distance retained.\", \"component\": \"individual catalogued object\", \"field\": \"temperature_k\", \"identity\": \"LSR J1835+3259\", \"inputs\": {\"ageLowerGyr\": 0.5, \"ageUpperGyr\": 10.0, \"sourceParallaxMas\": 176.5, \"sourceRecordId\": \"1835+3259\", \"sourceTemperatureK\": 2316.0, \"unitConversion\": 1}, \"quantity\": null, \"reference\": \"2015ApJ...810..158F\", \"scope\": \"Exact-identity individual ultracool object; no unresolved binary totals.\", \"section\": \"Table 9\", \"sourceRecordId\": \"1835+3259\", \"sourceUrl\": \"https://cdsarc.cds.unistra.fr/viz-bin/cat/J/ApJ/810/158\", \"status\": \"model-derived\", \"superseded\": {\"reference\": \"Pecaut-Mamajek 2022.04.16 dwarf sequence\", \"status\": \"estimated\", \"value\": 2420.0}, \"uncertainty\": 51.0, \"value\": 2316.0}"
         },
         "mass_solar": {
           "status": "empirical-relation",
@@ -36846,6 +37076,34 @@
         }
       },
       "sharedPhysicalEnrichment": {
+        "temperature_k": {
+          "field": "temperature_k",
+          "value": 2316.0,
+          "status": "model-derived",
+          "reference": "2015ApJ...810..158F",
+          "uncertainty": 51.0,
+          "identity": "LSR J1835+3259",
+          "component": "individual catalogued object",
+          "scope": "Exact-identity individual ultracool object; no unresolved binary totals.",
+          "section": "Table 9",
+          "caveat": "Published evolutionary/SED estimate conditional on the adopted age range; not a dynamical measurement. Published source distance retained.",
+          "quantity": null,
+          "sourceUrl": "https://cdsarc.cds.unistra.fr/viz-bin/cat/J/ApJ/810/158",
+          "inputs": {
+            "ageLowerGyr": 0.5,
+            "ageUpperGyr": 10.0,
+            "sourceParallaxMas": 176.5,
+            "sourceRecordId": "1835+3259",
+            "sourceTemperatureK": 2316.0,
+            "unitConversion": 1
+          },
+          "sourceRecordId": "1835+3259",
+          "superseded": {
+            "value": 2420.0,
+            "status": "estimated",
+            "reference": "Pecaut-Mamajek 2022.04.16 dwarf sequence"
+          }
+        },
         "metallicity_dex": {
           "field": "metallicity_dex",
           "value": -0.4,
@@ -37276,21 +37534,25 @@
           "detail": "Incomplete/withheld space-motion inputs; placeholders are not exported."
         },
         "temperature_k": {
-          "status": "estimated",
+          "status": "model-derived",
           "sourceRefs": [
-            "pecaut-mamajek:2022.04.16"
+            "2023ApJ...959...63S"
           ],
-          "detail": "Estimated: Pecaut-Mamajek 2022.04.16 T8V mean dwarf class, not a measured temperature."
+          "detail": "{\"caveat\": \"Evolutionary-model estimate conditional on the authors' age distribution, not a direct measurement; uncertainty can be large. Published distance and model inputs retained.\", \"component\": \"individual catalogued object\", \"field\": \"temperature_k\", \"identity\": \"2MASSI J0415195-093506\", \"inputs\": {\"ageCategory\": \"Field\", \"ageJustification\": \"UCS+BANYAN\", \"evolutionaryModel\": \"SM08\", \"log_luminosity_solar\": -5.81, \"publishedColumn\": \"teff_evo\", \"sourceParallaxMas\": 175.2, \"unitConversion\": 1}, \"quantity\": null, \"reference\": \"2023ApJ...959...63S\", \"scope\": \"Exact-identity individual ultracool object; no unresolved binary totals.\", \"section\": \"Table of Ultracool Fundamental Properties, sections 5-7\", \"sourceRecordId\": \"2MASSI J0415195-093506\", \"sourceUrl\": \"https://zenodo.org/records/15802304\", \"status\": \"model-derived\", \"superseded\": {\"reference\": \"Pecaut-Mamajek 2022.04.16 dwarf sequence\", \"status\": \"estimated\", \"value\": 680.0}, \"uncertainty\": 37.0, \"value\": 609.0}"
         },
         "mass_solar": {
-          "status": "unknown",
-          "sourceRefs": [],
-          "detail": "No vetted component measurement adopted; mean-sequence values are not substituted."
+          "status": "model-derived",
+          "sourceRefs": [
+            "2023ApJ...959...63S"
+          ],
+          "detail": "{\"caveat\": \"Evolutionary-model estimate conditional on the authors' age distribution, not a direct measurement; uncertainty can be large. Published distance and model inputs retained.\", \"component\": \"individual catalogued object\", \"field\": \"mass_solar\", \"identity\": \"2MASSI J0415195-093506\", \"inputs\": {\"ageCategory\": \"Field\", \"ageJustification\": \"UCS+BANYAN\", \"evolutionaryModel\": \"SM08\", \"log_luminosity_solar\": -5.81, \"publishedColumn\": \"mass_evo\", \"sourceParallaxMas\": 175.2, \"unitConversion\": 0.0009545942339693249}, \"quantity\": null, \"reference\": \"2023ApJ...959...63S\", \"scope\": \"Exact-identity individual ultracool object; no unresolved binary totals.\", \"section\": \"Table of Ultracool Fundamental Properties, sections 5-7\", \"sourceRecordId\": \"2MASSI J0415195-093506\", \"sourceUrl\": \"https://zenodo.org/records/15802304\", \"status\": \"model-derived\", \"uncertainty\": 0.011999249520994414, \"value\": 0.0113405795}"
         },
         "luminosity_solar": {
-          "status": "unknown",
-          "sourceRefs": [],
-          "detail": "No vetted component measurement adopted; mean-sequence values are not substituted."
+          "status": "derived",
+          "sourceRefs": [
+            "2023ApJ...959...63S"
+          ],
+          "detail": "{\"caveat\": \"Bolometric SED luminosity, including modeled missing flux; converted from published log10(L/Lsun), retained at the paper's distance.\", \"component\": \"individual catalogued object\", \"field\": \"luminosity_solar\", \"identity\": \"2MASSI J0415195-093506\", \"inputs\": {\"ageCategory\": \"Field\", \"ageJustification\": \"UCS+BANYAN\", \"evolutionaryModel\": \"SM08\", \"log_luminosity_error_dex\": 0.06, \"log_luminosity_solar\": -5.81, \"sourceParallaxMas\": 175.2}, \"quantity\": null, \"reference\": \"2023ApJ...959...63S\", \"scope\": \"Exact-identity individual ultracool object; no unresolved binary totals.\", \"section\": \"Table of Ultracool Fundamental Properties, sections 5-7\", \"sourceRecordId\": \"2MASSI J0415195-093506\", \"sourceUrl\": \"https://zenodo.org/records/15802304\", \"status\": \"derived\", \"uncertainty\": {\"lower\": 1.9985373632082673e-07, \"upper\": 2.294627911264401e-07}, \"value\": 1.548816619e-06}"
         },
         "absolute_mag": {
           "status": "unknown",
@@ -37396,8 +37658,11 @@
           ]
         },
         "radius_solar": {
-          "status": "unknown",
-          "sourceRefs": []
+          "status": "model-derived",
+          "sourceRefs": [
+            "2023ApJ...959...63S"
+          ],
+          "detail": "{\"caveat\": \"Evolutionary-model estimate conditional on the authors' age distribution, not a direct measurement; uncertainty can be large. Published distance and model inputs retained.\", \"component\": \"individual catalogued object\", \"field\": \"radius_solar\", \"identity\": \"2MASSI J0415195-093506\", \"inputs\": {\"ageCategory\": \"Field\", \"ageJustification\": \"UCS+BANYAN\", \"evolutionaryModel\": \"SM08\", \"log_luminosity_solar\": -5.81, \"publishedColumn\": \"radius_evo\", \"sourceParallaxMas\": 175.2, \"unitConversion\": 0.10276268506540176}, \"quantity\": null, \"reference\": \"2023ApJ...959...63S\", \"scope\": \"Exact-identity individual ultracool object; no unresolved binary totals.\", \"section\": \"Table of Ultracool Fundamental Properties, sections 5-7\", \"sourceRecordId\": \"2MASSI J0415195-093506\", \"sourceUrl\": \"https://zenodo.org/records/15802304\", \"status\": \"model-derived\", \"uncertainty\": 0.01335914905850223, \"value\": 0.1140665804}"
         },
         "metallicity_dex": {
           "status": "unknown",
@@ -37421,6 +37686,111 @@
           "identity_method": "nearest-100 source row; frozen CNS5 match; exact SIMBAD CNS5 identity"
         },
         "eligibility": "Not a parsed K5-M9.5 dwarf spectral type (no subdwarf, giant, composite or peculiar class); supplements not applied."
+      },
+      "sharedPhysicalEnrichment": {
+        "luminosity_solar": {
+          "field": "luminosity_solar",
+          "value": 1.548816619e-06,
+          "status": "derived",
+          "reference": "2023ApJ...959...63S",
+          "uncertainty": {
+            "lower": 1.9985373632082673e-07,
+            "upper": 2.294627911264401e-07
+          },
+          "identity": "2MASSI J0415195-093506",
+          "component": "individual catalogued object",
+          "scope": "Exact-identity individual ultracool object; no unresolved binary totals.",
+          "section": "Table of Ultracool Fundamental Properties, sections 5-7",
+          "caveat": "Bolometric SED luminosity, including modeled missing flux; converted from published log10(L/Lsun), retained at the paper's distance.",
+          "quantity": null,
+          "sourceUrl": "https://zenodo.org/records/15802304",
+          "inputs": {
+            "ageCategory": "Field",
+            "ageJustification": "UCS+BANYAN",
+            "evolutionaryModel": "SM08",
+            "log_luminosity_error_dex": 0.06,
+            "log_luminosity_solar": -5.81,
+            "sourceParallaxMas": 175.2
+          },
+          "sourceRecordId": "2MASSI J0415195-093506"
+        },
+        "mass_solar": {
+          "field": "mass_solar",
+          "value": 0.0113405795,
+          "status": "model-derived",
+          "reference": "2023ApJ...959...63S",
+          "uncertainty": 0.011999249520994414,
+          "identity": "2MASSI J0415195-093506",
+          "component": "individual catalogued object",
+          "scope": "Exact-identity individual ultracool object; no unresolved binary totals.",
+          "section": "Table of Ultracool Fundamental Properties, sections 5-7",
+          "caveat": "Evolutionary-model estimate conditional on the authors' age distribution, not a direct measurement; uncertainty can be large. Published distance and model inputs retained.",
+          "quantity": null,
+          "sourceUrl": "https://zenodo.org/records/15802304",
+          "inputs": {
+            "ageCategory": "Field",
+            "ageJustification": "UCS+BANYAN",
+            "evolutionaryModel": "SM08",
+            "log_luminosity_solar": -5.81,
+            "publishedColumn": "mass_evo",
+            "sourceParallaxMas": 175.2,
+            "unitConversion": 0.0009545942339693249
+          },
+          "sourceRecordId": "2MASSI J0415195-093506"
+        },
+        "radius_solar": {
+          "field": "radius_solar",
+          "value": 0.1140665804,
+          "status": "model-derived",
+          "reference": "2023ApJ...959...63S",
+          "uncertainty": 0.01335914905850223,
+          "identity": "2MASSI J0415195-093506",
+          "component": "individual catalogued object",
+          "scope": "Exact-identity individual ultracool object; no unresolved binary totals.",
+          "section": "Table of Ultracool Fundamental Properties, sections 5-7",
+          "caveat": "Evolutionary-model estimate conditional on the authors' age distribution, not a direct measurement; uncertainty can be large. Published distance and model inputs retained.",
+          "quantity": null,
+          "sourceUrl": "https://zenodo.org/records/15802304",
+          "inputs": {
+            "ageCategory": "Field",
+            "ageJustification": "UCS+BANYAN",
+            "evolutionaryModel": "SM08",
+            "log_luminosity_solar": -5.81,
+            "publishedColumn": "radius_evo",
+            "sourceParallaxMas": 175.2,
+            "unitConversion": 0.10276268506540176
+          },
+          "sourceRecordId": "2MASSI J0415195-093506"
+        },
+        "temperature_k": {
+          "field": "temperature_k",
+          "value": 609.0,
+          "status": "model-derived",
+          "reference": "2023ApJ...959...63S",
+          "uncertainty": 37.0,
+          "identity": "2MASSI J0415195-093506",
+          "component": "individual catalogued object",
+          "scope": "Exact-identity individual ultracool object; no unresolved binary totals.",
+          "section": "Table of Ultracool Fundamental Properties, sections 5-7",
+          "caveat": "Evolutionary-model estimate conditional on the authors' age distribution, not a direct measurement; uncertainty can be large. Published distance and model inputs retained.",
+          "quantity": null,
+          "sourceUrl": "https://zenodo.org/records/15802304",
+          "inputs": {
+            "ageCategory": "Field",
+            "ageJustification": "UCS+BANYAN",
+            "evolutionaryModel": "SM08",
+            "log_luminosity_solar": -5.81,
+            "publishedColumn": "teff_evo",
+            "sourceParallaxMas": 175.2,
+            "unitConversion": 1
+          },
+          "sourceRecordId": "2MASSI J0415195-093506",
+          "superseded": {
+            "value": 680.0,
+            "status": "estimated",
+            "reference": "Pecaut-Mamajek 2022.04.16 dwarf sequence"
+          }
+        }
       }
     },
     {

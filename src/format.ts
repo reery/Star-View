@@ -1,4 +1,4 @@
-const NOT_AVAILABLE = 'Not available'
+export const MISSING_VALUE = '—'
 
 /** Fixed decimals, falling back to significant digits so tiny nonzero values never display as 0. */
 export function formatNumber(value: number, maximumFractionDigits = 3): string {
@@ -9,12 +9,12 @@ export function formatNumber(value: number, maximumFractionDigits = 3): string {
 }
 
 export function quantity(value: number | null, unit = '', maximumFractionDigits = 3): string {
-  if (value === null) return NOT_AVAILABLE
+  if (value === null) return MISSING_VALUE
   return `${formatNumber(value, maximumFractionDigits)}${unit ? ` ${unit}` : ''}`
 }
 
 export function measurement(value: number | null, error: number | null, unit: string, maximumFractionDigits = 3): string {
-  if (value === null) return NOT_AVAILABLE
+  if (value === null) return MISSING_VALUE
   const uncertainty = error === null ? '' : ` ± ${formatNumber(error, maximumFractionDigits)}`
   return `${formatNumber(value, maximumFractionDigits)}${uncertainty} ${unit}`
 }
@@ -27,12 +27,12 @@ function significant(value: number, digits: number): string {
 }
 
 export function preciseMeasurement(value: number | null, error: number | null, unit: string): string {
-  if (value === null) return NOT_AVAILABLE
+  if (value === null) return MISSING_VALUE
   const uncertainty = error === null ? '' : ` ± ${significant(error, 3)}`
   return `${significant(value, 8)}${uncertainty} ${unit}`
 }
 
 export function scientificQuantity(value: number | null, unit: string): string {
-  if (value === null) return NOT_AVAILABLE
+  if (value === null) return MISSING_VALUE
   return `${value.toExponential(3).replace('e+', 'e')} ${unit}`
 }
