@@ -1,6 +1,6 @@
 import {
   AmbientLight, BufferGeometry, Color, DirectionalLight, DoubleSide, Euler, Float32BufferAttribute, Mesh, MeshStandardMaterial, OrthographicCamera,
-  PCFSoftShadowMap, Quaternion, RepeatWrapping, RingGeometry, Scene, SphereGeometry, SRGBColorSpace, TextureLoader, Vector2, WebGLRenderer,
+  PCFShadowMap, Quaternion, RepeatWrapping, RingGeometry, Scene, SphereGeometry, SRGBColorSpace, TextureLoader, Vector2, WebGLRenderer,
   type Texture,
 } from 'three'
 import { EffectComposer } from 'three/addons/postprocessing/EffectComposer.js'
@@ -111,7 +111,7 @@ function createPlanetGlobe(canvas: HTMLCanvasElement) {
   renderer.outputColorSpace = SRGBColorSpace
   renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2))
   renderer.shadowMap.enabled = true
-  renderer.shadowMap.type = PCFSoftShadowMap
+  renderer.shadowMap.type = PCFShadowMap
   const scene = new Scene()
   const camera = new OrthographicCamera(-2.4, 2.4, 1.2, -1.2, 0.1, 20)
   camera.position.z = 5
@@ -195,7 +195,7 @@ function createPlanetGlobe(canvas: HTMLCanvasElement) {
   scene.add(sphere, new AmbientLight(0xffffff, 0.08))
   const light = new DirectionalLight(0xffffff, 4)
   light.position.set(-3.5, 2.5, 5.5)
-  light.castShadow = true
+  light.castShadow = false
   light.shadow.mapSize.set(1024, 1024)
   light.shadow.camera.left = light.shadow.camera.bottom = -4.5
   light.shadow.camera.right = light.shadow.camera.top = 4.5
@@ -288,7 +288,7 @@ function createPlanetGlobe(canvas: HTMLCanvasElement) {
     material.roughness = appearance.roughness
     sphere.geometry = id === 'jupiter' ? jupiterGeometry : id === 'saturn' ? saturnGeometry : iceGiantGeometries.get(id) ?? geometry
     rings.visible = id === 'saturn' && ringMaterial.map !== null
-    sphere.castShadow = sphere.receiveShadow = id === 'saturn'
+    sphere.castShadow = sphere.receiveShadow = light.castShadow = id === 'saturn'
     canvas.dataset.ringsVisible = String(rings.visible)
     cloudTint.value.set(appearance.tint)
     mapBlend.value = appearance.mapBlend
@@ -296,6 +296,7 @@ function createPlanetGlobe(canvas: HTMLCanvasElement) {
     jupiterLimbHaze.value = id === 'jupiter' ? 1 : 0
     material.needsUpdate = true
     bloomPass.strength = id === 'mercury' ? 0.08 : ['jupiter', 'saturn', 'uranus', 'neptune'].includes(id) ? 0 : 0.03
+    bloomPass.enabled = bloomPass.strength > 0
     // Start with the Great Red Spot slightly left of center.
     sphere.rotation.set(id === 'saturn' ? 0.48 : 0.08, id === 'jupiter' ? 0 : -1.2, id === 'saturn' ? -0.15 : id === 'uranus' ? 97.77 * Math.PI / 180 : 0)
     canvas.dataset.planetId = id

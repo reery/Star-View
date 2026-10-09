@@ -6,7 +6,7 @@ import catalogReferences from './data/catalog-class-references.json'
 import { closestCatalogClass, type CatalogClassReference } from './catalog-class-references'
 
 export type MassReference = 'class' | 'origin' | 'sun'
-export { MASS_METRICS, massComparisonClass } from './mass-classification'
+export { MASS_METRICS, massComparisonClass, typicalMassRangePosition } from './mass-classification'
 import { massComparisonClass, type MassMetric, type MassRange } from './mass-classification'
 export type { MassMetric, MassRange } from './mass-classification'
 function mapMetrics<T>(create: (metric: MassMetric) => T): Record<MassMetric, T> {
@@ -182,24 +182,6 @@ export function typicalMassClass(star: ClassStar, catalog: readonly CatalogClass
       const values = classProperties.map((entry) => entry[metric]!).filter((value) => Number.isFinite(value) && value > 0)
       return { value: properties?.[metric] ?? null, range: [Math.min(...values), Math.max(...values)] }
     }),
-  }
-}
-
-export function typicalMassRangePosition(value: number | null, [rangeLow, rangeHigh]: MassRange, typical: number | null = null) {
-  // Keep the published range intact and extend the logarithmic axis for outliers.
-  // Zero luminosity cannot be placed on a log axis; reserve a decade below the guide.
-  const pointRange = rangeLow === rangeHigh
-  const domainLow = rangeLow <= 0 ? rangeHigh > 0 ? rangeHigh / 10 : 0.1 : pointRange ? rangeLow / Math.sqrt(10) : rangeLow
-  const domainHigh = rangeHigh <= 0 ? 1 : pointRange ? rangeHigh * Math.sqrt(10) : rangeHigh
-  const low = value === null ? domainLow : Math.min(domainLow, value > 0 ? value : domainLow / 10)
-  const high = value === null ? domainHigh : Math.max(domainHigh, value)
-  const position = (entry: number) => entry <= 0 ? 0 : Math.log(entry / low) / Math.log(high / low) * 100
-  return {
-    low, high,
-    position: value === null ? null : position(value),
-    rangeLowPosition: position(rangeLow),
-    rangeHighPosition: position(rangeHigh),
-    typicalPosition: typical === null ? null : position(typical),
   }
 }
 

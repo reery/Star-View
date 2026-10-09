@@ -3,6 +3,25 @@ import { objectTypeLabel, type Star } from './catalog-model.ts'
 export const MASS_METRICS = ['mass', 'gravity', 'escapeKms', 'density', 'luminosityPerMass'] as const
 export type MassMetric = typeof MASS_METRICS[number]
 export type MassRange = readonly [number, number]
+
+export function typicalMassRangePosition(value: number | null, [rangeLow, rangeHigh]: MassRange, typical: number | null = null) {
+  // Keep the published range intact and extend the logarithmic axis for outliers.
+  // Zero luminosity cannot be placed on a log axis; reserve a decade below the guide.
+  const pointRange = rangeLow === rangeHigh
+  const domainLow = rangeLow <= 0 ? rangeHigh > 0 ? rangeHigh / 10 : 0.1 : pointRange ? rangeLow / Math.sqrt(10) : rangeLow
+  const domainHigh = rangeHigh <= 0 ? 1 : pointRange ? rangeHigh * Math.sqrt(10) : rangeHigh
+  const low = value === null ? domainLow : Math.min(domainLow, value > 0 ? value : domainLow / 10)
+  const high = value === null ? domainHigh : Math.max(domainHigh, value)
+  const position = (entry: number) => entry <= 0 ? 0 : Math.log(entry / low) / Math.log(high / low) * 100
+  return {
+    low, high,
+    position: value === null ? null : position(value),
+    rangeLowPosition: position(rangeLow),
+    rangeHighPosition: position(rangeHigh),
+    typicalPosition: typical === null ? null : position(typical),
+  }
+}
+
 export function massComparisonClass(star: Pick<Star, 'type' | 'spectral_type'>) {
   if (star.type !== 'star') {
     if (!['white_dwarf', 'brown_dwarf', 'sub_brown_dwarf', 'neutron_star', 'pulsar', 'black_hole'].includes(star.type)) return null

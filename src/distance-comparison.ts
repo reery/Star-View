@@ -1,4 +1,4 @@
-import { BufferGeometry, Float32BufferAttribute, OrthographicCamera, Points, Scene, WebGLRenderer } from 'three'
+import { BufferGeometry, Float32BufferAttribute, OrthographicCamera, Points, Scene, Uint16BufferAttribute, Vector2, WebGLRenderer } from 'three'
 import {
   displayMotionForStar, galacticToWorld, LIGHT_YEARS_PER_PARSEC, starDisplayColor,
   type DistanceUnit, type MotionFrame, type StarColorMode,
@@ -54,6 +54,7 @@ function createPointRenderer() {
     position: 3, color: 3, coreDiameter: 1, coreFocus: 1, coreEmphasis: 1, coreWhiteStrength: 1,
     haloDiameter: 1, haloOpacity: 1, haloEmphasis: 1,
   })) geometry.setAttribute(name, new Float32BufferAttribute(new Float32Array(4 * size), size))
+  geometry.setIndex(new Uint16BufferAttribute(new Uint16Array(4), 1))
   const cores = new Points(geometry, appearance.starMaterial)
   const halos = new Points(geometry, appearance.haloMaterial)
   cores.frustumCulled = halos.frustumCulled = false
@@ -63,6 +64,7 @@ function createPointRenderer() {
   return { renderer, scene, camera, geometry, appearance }
 }
 let pointRenderer: ReturnType<typeof createPointRenderer> | undefined
+const renderSize = new Vector2()
 
 export function disposeDistanceComparison(): void {
   if (!pointRenderer) return
@@ -73,6 +75,7 @@ export function disposeDistanceComparison(): void {
   appearance.starMaterial.dispose()
   appearance.haloMaterial.dispose()
   renderer.dispose()
+  renderer.forceContextLoss()
   pointRenderer = undefined
 }
 
@@ -97,6 +100,7 @@ export function renderDistanceComparison(
   context.scale(canvas.width / WIDTH, canvas.height / HEIGHT)
   context.fillStyle = '#090b10'
   context.fillRect(0, 0, WIDTH, HEIGHT)
+  const fontFamily = getComputedStyle(canvas).fontFamily
   const line = (x1: number, y1: number, x2: number, y2: number, color = '#47515f', dashed = false) => {
     context.strokeStyle = color
     context.lineWidth = 1
@@ -109,7 +113,7 @@ export function renderDistanceComparison(
   }
   const label = (value: string, x: number, y: number, color = '#7e8999', size = 11) => {
     context.fillStyle = color
-    context.font = `${size}px system-ui`
+    context.font = `${size}px ${fontFamily}`
     context.textAlign = 'center'
     context.fillText(value, x, y)
   }
@@ -140,15 +144,18 @@ export function renderDistanceComparison(
   const distanceLabel = unit === 'ly' ? ly : pc
   const heightLabel = unit === 'ly' ? heightLy : heightPcLabel
   const secondaryValues = [unit === 'ly' ? pc : ly, unit === 'ly' ? heightPcLabel : heightLy]
-  context.font = '12px system-ui'
+  context.font = `12px ${fontFamily}`
   context.fillStyle = '#9ba4b1'
   context.textAlign = 'right'
   for (const [pane, value] of secondaryValues.entries()) {
     context.fillText(value, (pane + 1) * WIDTH / 2 - 12, HEIGHT - 12)
   }
   const points = pointRenderer ??= createPointRenderer()
-  points.renderer.setPixelRatio(ratio)
-  points.renderer.setSize(WIDTH * displayScale, HEIGHT * displayScale, false)
+  const renderWidth = WIDTH * displayScale
+  const renderHeight = HEIGHT * displayScale
+  const currentSize = points.renderer.getSize(renderSize)
+  if (points.renderer.getPixelRatio() !== ratio) points.renderer.setPixelRatio(ratio)
+  if (currentSize.x !== renderWidth || currentSize.y !== renderHeight) points.renderer.setSize(renderWidth, renderHeight, false)
   const marks = [
     { star: reference, point: left }, { star: selected, point: topStar },
     { star: reference, point: right }, { star: selected, point: sideStar },
@@ -168,9 +175,15 @@ export function renderDistanceComparison(
     for (const [name, value] of Object.entries(attributes)) points.geometry.getAttribute(name).setX(index, value)
   }
   // Keep coincident projections honest: don't move either star to invent a gap.
-  const visible = marks.flatMap(({ point }, index) => index % 2 === 1
-    && Math.hypot(point.x - marks[index - 1]!.point.x, point.y - marks[index - 1]!.point.y) < 0.01 ? [] : [index])
-  points.geometry.setIndex(visible)
+  const index = points.geometry.index!
+  let visibleCount = 0
+  for (const [markIndex, { point }] of marks.entries()) {
+    const previous = marks[markIndex - 1]?.point
+    if (markIndex % 2 === 1 && Math.hypot(point.x - previous!.x, point.y - previous!.y) < 0.01) continue
+    index.setX(visibleCount++, markIndex)
+  }
+  index.needsUpdate = true
+  points.geometry.setDrawRange(0, visibleCount)
   for (const attribute of Object.values(points.geometry.attributes)) attribute.needsUpdate = true
   points.renderer.render(points.scene, points.camera)
   // Composite light over the guides. An opaque black render target avoids
@@ -182,14 +195,14 @@ export function renderDistanceComparison(
   // Place annotation text above the glow, keeping names and measurements clear.
   type Bounds = { left: number; top: number; right: number; bottom: number }
   const occupied: Bounds[] = marks.map(({ point }) => ({ left: point.x - 8, right: point.x + 8, top: point.y - 8, bottom: point.y + 8 }))
-  context.font = '12px system-ui'
+  context.font = `12px ${fontFamily}`
   for (const [pane, value] of secondaryValues.entries()) {
     const right = (pane + 1) * WIDTH / 2 - 12
     occupied.push({ left: right - context.measureText(value).width, right, top: HEIGHT - 24, bottom: HEIGHT - 9 })
   }
   const overlaps = (a: Bounds, b: Bounds) => a.left < b.right + 3 && a.right > b.left - 3 && a.top < b.bottom + 3 && a.bottom > b.top - 3
   const annotate = (value: string, candidates: { x: number; y: number }[], pane: number, color: string, size = 11) => {
-    context.font = `${size}px system-ui`
+    context.font = `${size}px ${fontFamily}`
     // Long catalog names stay legible without crossing the pane divider.
     const maxWidth = WIDTH / 2 - 32
     let displayed = value
@@ -212,7 +225,7 @@ export function renderDistanceComparison(
     context.fillText(displayed, bounds.left, bounds.top + size)
     occupied.push(bounds)
   }
-  context.font = '12px system-ui'
+  context.font = `12px ${fontFamily}`
   const distanceWidth = context.measureText(distanceLabel).width
   const dx = topStar.x - left.x
   const dy = topStar.y - left.y
@@ -222,7 +235,7 @@ export function renderDistanceComparison(
   const midX = (left.x + topStar.x) / 2
   const midY = (left.y + topStar.y) / 2
   annotate(distanceLabel, [1, -1].map((side) => ({ x: midX + nx * 17 * side - distanceWidth / 2, y: midY + ny * 17 * side + 4 })), 0, '#e9d4c1', 12)
-  context.font = '12px system-ui'
+  context.font = `12px ${fontFamily}`
   const heightWidth = context.measureText(heightLabel).width
   annotate(heightLabel, [
     { x: sideStar.x + 12, y: (sideStar.y + right.y) / 2 + 4 },
@@ -230,7 +243,7 @@ export function renderDistanceComparison(
   ], WIDTH / 2, '#94b7da', 12)
   for (const [index, { star, point }] of marks.entries()) {
     if (index % 2 === 1 && star.id === reference.id) continue
-    context.font = '11px system-ui'
+    context.font = `11px ${fontFamily}`
     const width = context.measureText(star.name).width
     const coincident = index % 2 === 1 && Math.hypot(point.x - marks[index - 1]!.point.x, point.y - marks[index - 1]!.point.y) < 8
     const preferredY = point.y + (coincident ? 22 : -13)

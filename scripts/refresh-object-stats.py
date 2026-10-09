@@ -14,6 +14,8 @@ import urllib.request
 import urllib.error
 from pathlib import Path
 
+from catalog_sources.filesystem import write_managed_files
+
 ROOT = Path(__file__).resolve().parents[1]
 WORK = ROOT / "catalog-work/object-stats"
 SIMBAD = "https://simbad.cds.unistra.fr/simbad/sim-tap/sync"
@@ -53,19 +55,21 @@ def refresh(retrieved, planets_only=False):
         writer = csv.DictWriter(buffer, fieldnames=["main_id", "otype", "subtype"])
         writer.writeheader()
         writer.writerows(records)
-        (WORK / "simbad.csv").write_text(buffer.getvalue())
-        (WORK / "simbad.adql").write_text("\n\n".join(queries) + "\n")
         adql = "SELECT otype,description FROM otypedef ORDER BY otype"
-        (WORK / "types.csv").write_text(query(SIMBAD, adql))
-        (WORK / "types.adql").write_text(adql + "\n")
+        files = {"simbad.csv": buffer.getvalue(), "simbad.adql": "\n\n".join(queries) + "\n",
+                 "types.csv": query(SIMBAD, adql), "types.adql": adql + "\n"}
+    else:
+        # Planet-only refreshes keep the frozen SIMBAD files unchanged.
+        files = {name: (WORK / name).read_text() for name in ["simbad.csv", "simbad.adql", "types.csv", "types.adql"]}
     adql = ("SELECT hostname,pl_name,hd_name,hip_name,tic_id,gaia_dr2_id,gaia_dr3_id,cb_flag "
             "FROM pscomppars ORDER BY pl_name")
-    (WORK / "planet-hosts.csv").write_text(query(NASA, adql))
-    (WORK / "planet-hosts.adql").write_text(adql + "\n")
-    files = ["simbad.csv", "simbad.adql", "types.csv", "types.adql", "planet-hosts.csv", "planet-hosts.adql"]
+    files["planet-hosts.csv"] = query(NASA, adql)
+    files["planet-hosts.adql"] = adql + "\n"
     manifest = {"retrieved": retrieved, "sources": {"simbad": SIMBAD, "planets": NASA},
-                "checksumsSha256": {name: hashlib.sha256((WORK / name).read_bytes()).hexdigest() for name in files}}
-    (WORK / "source-manifest.json").write_text(json.dumps(manifest, indent=2) + "\n")
+                "checksumsSha256": {name: hashlib.sha256(content.encode()).hexdigest() for name, content in files.items()}}
+    files["source-manifest.json"] = json.dumps(manifest, indent=2) + "\n"
+    # Publish only after every request succeeded, so a failure never leaves a mixed snapshot.
+    write_managed_files(WORK, files, force=True)
     print(f"Frozen {len(records)} classifications and NASA planet-host snapshot.")
 
 

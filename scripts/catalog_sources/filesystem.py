@@ -17,6 +17,8 @@ def safe_output_directory(path: Path) -> Path:
 
 
 def managed_path(directory: Path, name: str) -> Path:
+    if not name or name in {".", ".."} or "/" in name or "\\" in name or "\0" in name:
+        raise ValueError(f"Managed output must be a plain file name: {name!r}")
     root = safe_output_directory(directory)
     target = root / name
     if target.is_symlink():

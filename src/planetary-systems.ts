@@ -1,5 +1,4 @@
 import definitions from './data/planetary-systems.json'
-import nearby from './data/nearby-planets.json'
 
 export interface KnownPlanet {
   readonly id: string
@@ -19,7 +18,18 @@ export interface PlanetarySystem {
 
 // Reviewed host identities only. An absent entry means coverage is unavailable,
 // rather than that the star has no planets.
-const systems = new Map<string, PlanetarySystem>([...definitions.systems, ...nearby.systems].map((system) => [system.hostStarId, system]))
+const systems = new Map<string, PlanetarySystem>(definitions.systems.map((system) => [system.hostStarId, system]))
+let nearbyLoad: Promise<void> | undefined
+
+/** The large exoplanet dataset stays out of the startup bundle. */
+export function loadPlanetarySystems(): Promise<void> {
+  return nearbyLoad ??= import('./data/nearby-planets.json').then(({ default: nearby }) => {
+    for (const system of nearby.systems) systems.set(system.hostStarId, system)
+  }).catch((error: unknown) => {
+    nearbyLoad = undefined
+    throw error
+  })
+}
 
 export function planetarySystemForStar(starId: string): PlanetarySystem | undefined {
   return systems.get(starId)

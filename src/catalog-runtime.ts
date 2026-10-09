@@ -47,12 +47,25 @@ export function parseCatalogPayload(value: unknown, manifest: CatalogManifest): 
   return stars as unknown as Star[]
 }
 
-export function catalogLoader(manifest: CatalogManifest, url: string | (() => Promise<string>), fetcher: typeof fetch = fetch): () => Promise<Star[]> {
-  let cached: Promise<Star[]> | undefined
-  const loadUrl = typeof url === 'string' ? () => Promise.resolve(url) : url
+/** Fetch and parse a JSON payload once; a failed load is forgotten so it can be retried. */
+export function memoizedPayloadLoader<T>(
+  label: string,
+  loadUrl: () => Promise<string>,
+  parse: (value: unknown) => T,
+  fetcher: typeof fetch = fetch,
+): () => Promise<T> {
+  let cached: Promise<T> | undefined
   return () => cached ??= (async () => {
     const response = await fetcher(await loadUrl())
-    if (!response.ok) throw new Error(`Could not load ${manifest.label} (${response.status}).`)
-    return parseCatalogPayload(await response.json(), manifest)
-  })()
+    if (!response.ok) throw new Error(`Could not load ${label} (${response.status}).`)
+    return parse(await response.json())
+  })().catch((error: unknown) => {
+    cached = undefined
+    throw error
+  })
+}
+
+export function catalogLoader(manifest: CatalogManifest, url: string | (() => Promise<string>), fetcher: typeof fetch = fetch): () => Promise<Star[]> {
+  const loadUrl = typeof url === 'string' ? () => Promise.resolve(url) : url
+  return memoizedPayloadLoader(manifest.label, loadUrl, (value) => parseCatalogPayload(value, manifest), fetcher)
 }

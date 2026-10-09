@@ -59,6 +59,8 @@ export function shouldRunOrdinaryLabelLayout(
   return timeMs - lastLayoutTimeMs >= ORDINARY_LABEL_LAYOUT_INTERVAL_MS
 }
 
+const budgetScratch: number[] = []
+
 export function budgetVisibleLabelIndices(
   groups: readonly { indices: readonly number[] }[],
   projections: readonly { visible: boolean; depth: number }[],
@@ -66,10 +68,12 @@ export function budgetVisibleLabelIndices(
 ): number[] {
   if (budget <= 0) return []
   const selected: number[] = []
+  const byDepth = (first: number, second: number) => projections[first]!.depth - projections[second]!.depth || first - second
   for (const group of groups) {
-    const visible = group.indices.filter((index) => projections[index]?.visible)
-      .sort((first, second) => projections[first]!.depth - projections[second]!.depth || first - second)
-    for (const index of visible) {
+    budgetScratch.length = 0
+    for (const index of group.indices) if (projections[index]?.visible) budgetScratch.push(index)
+    if (budgetScratch.length > 1) budgetScratch.sort(byDepth)
+    for (const index of budgetScratch) {
       selected.push(index)
       if (selected.length >= budget) return selected
     }

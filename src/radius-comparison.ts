@@ -174,7 +174,7 @@ export function renderRadiusComparison(canvas: HTMLCanvasElement, comparison: Ra
   context.fillRect(0, 0, WIDTH, HEIGHT)
   if (missing) {
     context.fillStyle = '#a7abb3'
-    context.font = '12px system-ui'
+    context.font = `12px ${getComputedStyle(canvas).fontFamily}`
     context.textAlign = 'center'
     context.fillText('Radius comparison unavailable', WIDTH / 2, MIDLINE)
   } else {

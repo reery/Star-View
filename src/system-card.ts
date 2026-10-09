@@ -1,14 +1,7 @@
 import { formatOrbitalDistance, type PlanetarySystem } from './planetary-systems'
-import { planetDescriptionForId } from './planet-properties'
+import { svgNode as svgElement } from './spectral-chart'
 
-const svgNamespace = 'http://www.w3.org/2000/svg'
 const renderedSystems = new WeakMap<HTMLElement, string>()
-
-function svgElement<K extends keyof SVGElementTagNameMap>(tag: K, attributes: Record<string, string | number>): SVGElementTagNameMap[K] {
-  const node = document.createElementNS(svgNamespace, tag)
-  for (const [name, value] of Object.entries(attributes)) node.setAttribute(name, String(value))
-  return node
-}
 
 function orbitalDiagram(system: PlanetarySystem, stellarCount: number): SVGSVGElement {
   const positioned = system.planets.filter((planet) => planet.semiMajorAxisAu !== null && planet.semiMajorAxisAu > 0 && !planet.distanceLimit)
@@ -29,8 +22,7 @@ function orbitalDiagram(system: PlanetarySystem, stellarCount: number): SVGSVGEl
       class: 'planet-orbit', 'data-orbit-id': planet.id })
     orbits.append(orbit)
     const body = svgElement('g', { class: 'planet-body', 'data-planet-id': planet.id })
-    const title = svgElement('title', {})
-    title.textContent = `${planet.name} · ${formatOrbitalDistance(planet)}`
+    const title = svgElement('title', {}, `${planet.name} · ${formatOrbitalDistance(planet)}`)
     // Symbol sizes preserve legibility rather than representing physical radii.
     const radius = ['jupiter', 'saturn'].includes(planet.id) ? 4.5 : ['uranus', 'neptune'].includes(planet.id) ? 3.5 : 2.5
     const marker = svgElement('circle', { cx: x, cy: centerY, r: radius, fill: planet.color, class: 'planet-marker' })
@@ -50,8 +42,7 @@ function orbitalDiagram(system: PlanetarySystem, stellarCount: number): SVGSVGEl
   star.append(svgElement('circle', { cx: sunX, cy: centerY, r: 20, fill: 'url(#system-star-glow)' }),
     svgElement('circle', { cx: sunX, cy: centerY, r: 6, fill: 'var(--selected-star-color)' }),
     svgElement('circle', { cx: sunX, cy: centerY, r: 3, fill: '#fff8ed' }))
-  const sunLabel = svgElement('text', { x: 8, y: 86, 'text-anchor': 'start', class: 'planet-diagram-label' })
-  sunLabel.textContent = system.name
+  const sunLabel = svgElement('text', { x: 8, y: 86, 'text-anchor': 'start', class: 'planet-diagram-label' }, system.name)
   svg.append(definitions, orbits, star, bodies)
   if (stellarCount > 1) svg.append(sunLabel)
   return svg
@@ -103,10 +94,8 @@ export function renderSystemCard(container: HTMLElement, planets: PlanetarySyste
       button.className = 'object-type-toggle'
       button.setAttribute('aria-label', `${planet.name}, orbital distance ${formatOrbitalDistance(planet)} from ${planets.name}`)
       button.setAttribute('aria-pressed', 'false')
-      if (planetDescriptionForId(planet.id)) {
-        button.setAttribute('aria-controls', 'planet-card')
-        button.setAttribute('aria-expanded', 'false')
-      }
+      button.setAttribute('aria-controls', 'planet-card')
+      button.setAttribute('aria-expanded', 'false')
       button.textContent = formatOrbitalDistance(planet)
       row.addEventListener('click', () => onPlanetSelect(planet.id))
       value.append(button)

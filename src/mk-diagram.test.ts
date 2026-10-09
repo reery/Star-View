@@ -21,6 +21,10 @@ describe('Morgan–Keenan classification', () => {
     expect(classify('G2VI')).toMatchObject({ luminosityClass: 'VI' })
   })
 
+  it('places Am stars by their metallic-line type', () => {
+    expect(classify('A0mA1Va')).toMatchObject({ spectralClass: 'A', subtype: 1, luminosityClass: 'V' })
+  })
+
   it('distinguishes hypergiants and the Ia, Iab, Ib and II classes', () => {
     const rows = ['Ia+', 'Ia', 'Iab', 'Ib', 'II'].map((luminosity) => classify(`B1${luminosity}`)!)
     expect(rows.map((point) => point.luminosityClass)).toEqual(['Ia+', 'Ia', 'Iab', 'Ib', 'II'])

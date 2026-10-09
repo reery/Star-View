@@ -1,5 +1,5 @@
 import type { Star } from './catalog-model'
-import { typicalMassRangePosition } from './mass-comparison'
+import { typicalMassRangePosition } from './mass-classification'
 import { JUPITER_RADIUS_KM, SOLAR_RADIUS_KM } from './radius-comparison'
 
 export interface TypicalRadiusRange {

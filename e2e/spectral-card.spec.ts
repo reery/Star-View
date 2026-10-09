@@ -185,7 +185,7 @@ test('compares with the named origin in H-R and M-K, falling back to Sun for a n
   await select('Alpha Centauri A')
   if (await card.isHidden()) await page.locator('#spectral-toggle').click()
   await expect(page.locator('#spectral-reference-name')).toHaveText('Sirius A')
-  await expect(page.locator('#spectral-reference-type')).toHaveText('A1V')
+  await expect(page.locator('#spectral-reference-type')).toHaveText('A0mA1Va')
   await expect(page.locator('.hr-reference-marker title')).toContainText('Sirius A')
   await expect(page.locator('.hr-selected-marker image')).toHaveAttribute('href', /^data:image\/png/)
   await page.screenshot({ path: testInfo.outputPath('hr-alpha-centauri-vs-sirius.png') })

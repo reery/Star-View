@@ -37,7 +37,7 @@
                       </span>
                       <span class="object-card-footer" role="group" aria-label="Object details">
                         <button id="object-specs-toggle" class="object-section-button" type="button" aria-label="Specs" title="Specs" aria-controls="object-specs" aria-expanded="false"><span id="object-specs-icon"></span></button>
-                        <button id="object-info-toggle" class="object-section-button" type="button" aria-label="Info" title="Info" aria-controls="object-info" aria-expanded="false"><span id="object-info-icon"></span></button>
+                        <button id="object-info-toggle" class="object-section-button" type="button" aria-label="Info · No data yet" title="Info · No data yet" aria-controls="object-info" aria-expanded="false" disabled><span id="object-info-icon"></span></button>
                         <button id="object-system-toggle" class="object-section-button" type="button" aria-label="System" title="System" aria-controls="object-system" aria-expanded="false"><span id="object-system-icon"></span></button>
                       </span>
                     </summary>
@@ -45,17 +45,17 @@
                       <div id="object-specs">
                         <section class="properties-section" aria-label="Object properties">
                           <dl class="properties">
-                            <div class="distance-row"><dt>Distance from Sun</dt><dd><button id="distance-toggle" class="object-type-toggle" type="button" aria-controls="distance-card" aria-expanded="false"><span id="distance-value"></span><span id="distance-unit"> ly</span></button></dd></div>
+                            <div class="distance-row"><dt>Distance from Sun</dt><dd><button id="distance-toggle" class="object-type-toggle" type="button" aria-controls="distance-card" aria-expanded="false" aria-describedby="distance-value distance-unit"><span id="distance-value"></span><span id="distance-unit"> ly</span></button></dd></div>
                             <div class="object-type-row"><dt>Object type</dt><dd><button id="object-type-toggle" class="object-type-toggle" type="button" aria-controls="object-type-card" aria-expanded="false"><span id="object-type"></span></button></dd></div>
                             <div id="known-planets-row"><dt>Known planets</dt><dd><button id="known-planets" class="object-type-toggle" type="button" aria-controls="object-system"></button></dd></div>
                             <div id="object-subtypes-row"><dt>Sub-type</dt><dd id="object-subtypes"></dd></div>
                             <div id="constellation-row"><dt>Constellation</dt><dd id="constellation"></dd></div>
-                            <div class="stellar-property spectral-row"><dt>Spectral type</dt><dd><button id="spectral-toggle" class="object-type-toggle" type="button" aria-controls="spectral-card" aria-expanded="false"><span id="spectral-type"></span></button></dd></div>
+                            <div class="stellar-property spectral-row"><dt>Spectral type</dt><dd><button id="spectral-toggle" class="object-type-toggle" type="button" aria-controls="spectral-card" aria-expanded="false" aria-describedby="spectral-type"><span id="spectral-type"></span></button></dd></div>
                             <div class="stellar-property"><dt>Temperature</dt><dd id="temperature"></dd></div>
                             <div id="luminosity-row" class="stellar-property"><dt>Bolometric luminosity</dt><dd id="luminosity"></dd></div>
-                            <div id="mass-row" class="mass-row"><dt>Mass</dt><dd><button id="mass-toggle" class="object-type-toggle" type="button" aria-controls="mass-card" aria-expanded="false"><span id="mass"></span></button></dd></div>
-                            <div class="stellar-property radius-row"><dt>Radius</dt><dd><button id="radius-toggle" class="object-type-toggle" type="button" aria-controls="radius-card" aria-expanded="false"><span id="radius"></span></button></dd></div>
-                            <div class="stellar-property metallicity-row"><dt id="metallicity-label">Metallicity</dt><dd><button id="metallicity-toggle" class="object-type-toggle" type="button" aria-controls="metallicity-card" aria-expanded="false"><span id="metallicity"></span></button></dd></div>
+                            <div id="mass-row" class="mass-row"><dt>Mass</dt><dd><button id="mass-toggle" class="object-type-toggle" type="button" aria-controls="mass-card" aria-expanded="false" aria-describedby="mass"><span id="mass"></span></button></dd></div>
+                            <div class="stellar-property radius-row"><dt>Radius</dt><dd><button id="radius-toggle" class="object-type-toggle" type="button" aria-controls="radius-card" aria-expanded="false" aria-describedby="radius"><span id="radius"></span></button></dd></div>
+                            <div class="stellar-property metallicity-row"><dt id="metallicity-label">Metallicity</dt><dd><button id="metallicity-toggle" class="object-type-toggle" type="button" aria-controls="metallicity-card" aria-expanded="false" aria-describedby="metallicity"><span id="metallicity"></span></button></dd></div>
                             <div class="stellar-property"><dt>Age</dt><dd id="age"></dd></div>
                             <div class="stellar-property"><dt>Absolute mag. (V)</dt><dd id="absolute-mag"></dd></div>
                             <div class="stellar-property"><dt>Apparent mag. (V)</dt><dd id="apparent-mag" title="Earth-view catalog V magnitude; a snapshot, not current variable-star photometry."></dd></div>
@@ -302,7 +302,7 @@
             </section>
             <section id="radius-card" class="dock-card object-type-card radius-card" aria-labelledby="radius-heading" data-scene-obstacle hidden>
               <div class="panel-heading">
-                <h2 id="radius-heading">Radius comparison</h2>
+                <h2 id="radius-heading">Radius</h2>
                 <button id="radius-close" class="panel-lock" type="button" aria-label="Close radius card"><span id="radius-close-icon"></span></button>
               </div>
               <div class="radius-body card-scroll-content">
@@ -468,9 +468,9 @@
                     <div class="time-slider-track">
                       <input id="time-slider" type="range" min="-500000" max="500000" step="any" value="0" aria-label="Simulation time" aria-valuetext="Now" disabled>
                       <div class="time-markers" aria-hidden="true">
-                        <i class="major marker-start" data-label="500k" style="--marker-position: 0%"></i><i class="major" data-label="400k" style="--marker-position: 10%"></i><i class="major" data-label="300k" style="--marker-position: 20%"></i><i class="major" data-label="200k" style="--marker-position: 30%"></i><i class="major" data-label="100k" style="--marker-position: 40%"></i>
-                        <i class="time-now-marker" style="--marker-position: 50%"></i>
-                        <i class="major" data-label="100k" style="--marker-position: 60%"></i><i class="major" data-label="200k" style="--marker-position: 70%"></i><i class="major" data-label="300k" style="--marker-position: 80%"></i><i class="major" data-label="400k" style="--marker-position: 90%"></i><i class="major marker-end" data-label="500k" style="--marker-position: 100%"></i>
+                        <i class="major marker-start" data-label="500k"></i><i class="major" data-label="400k"></i><i class="major" data-label="300k"></i><i class="major" data-label="200k"></i><i class="major" data-label="100k"></i>
+                        <i class="time-now-marker"></i>
+                        <i class="major" data-label="100k"></i><i class="major" data-label="200k"></i><i class="major" data-label="300k"></i><i class="major" data-label="400k"></i><i class="major marker-end" data-label="500k"></i>
                       </div>
                     </div>
                   </div>

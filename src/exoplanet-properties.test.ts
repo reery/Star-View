@@ -1,9 +1,11 @@
-import { describe, expect, it } from 'vitest'
+import { describe, expect, it, beforeAll } from 'vitest'
 import nearby from './data/nearby-planets.json'
 import stats from './data/object-stats.json'
 import { extrasolarPhysicalSpecs, extrasolarOrbitalSpecs, extrasolarPlanets } from './exoplanet-properties'
 import { planetDescriptionForId } from './planet-properties'
-import { planetarySystemForStar, formatOrbitalDistance } from './planetary-systems'
+import { loadPlanetarySystems, planetarySystemForStar, formatOrbitalDistance } from './planetary-systems'
+
+beforeAll(loadPlanetarySystems)
 
 describe('nearby exoplanet coverage and scientific qualifications', () => {
   it('covers every frozen host count and connects all rows to a detail card', () => {

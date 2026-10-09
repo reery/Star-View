@@ -315,7 +315,11 @@ test('sleeps when idle and redraws after interactions in both catalogs', async (
       () => page.getByRole('button', { name: 'Grid', exact: true }).click(),
       () => zoomViewer(page, 'in'),
       () => page.getByRole('button', { name: 'Reset view', exact: true }).click(),
-      () => page.getByLabel('V magnitude limit', { exact: true }).fill('12'),
+      async () => {
+        // Reset view dismisses unlocked panels.
+        await openFilter(page)
+        await page.getByLabel('V magnitude limit', { exact: true }).fill('12')
+      },
       () => page.locator('[data-star="sun"]').evaluate((button: HTMLButtonElement) => button.click()),
       async () => {
         await openPreferences(page)

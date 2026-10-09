@@ -37,10 +37,14 @@ export function chooseOrdinaryLabelPlacement(
   previous: OrdinaryLabelPlacement | undefined,
   blocked: (candidate: OrdinaryLabelCandidate, gap: number) => boolean,
 ): OrdinaryLabelCandidate | null {
-  const ordered = previous
-    ? [...candidates.filter((candidate) => candidate.placement === previous), ...candidates.filter((candidate) => candidate.placement !== previous)]
-    : candidates
-  return ordered.find((candidate) => !blocked(candidate, candidate.placement === previous ? 2 : 6)) ?? null
+  if (previous) {
+    const kept = candidates.find((candidate) => candidate.placement === previous)
+    if (kept && !blocked(kept, 2)) return kept
+  }
+  for (const candidate of candidates) {
+    if (candidate.placement !== previous && !blocked(candidate, 6)) return candidate
+  }
+  return null
 }
 
 export function centeredForegroundLabelBounds(

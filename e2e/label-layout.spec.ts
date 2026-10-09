@@ -14,7 +14,7 @@ test('keeps the selected name in front even at collisions and scene edges', { ta
   await expect(label).toHaveCSS('text-decoration-line', 'underline')
   await expect(label).toHaveCSS('text-decoration-color', 'rgb(255, 204, 79)')
   await expect(page.locator('[data-star-id="sun"] .selection-ring')).toHaveCSS('border-top-color', 'rgb(255, 204, 79)')
-  await expect(page.locator('.identity')).toHaveCSS('border-left-color', 'rgb(255, 204, 79)')
+  await expect.poll(() => page.locator('#inspector').evaluate((element) => element.style.getPropertyValue('--selected-star-color').replace(/\s/g, ''))).toBe('rgb(255,204,79)')
   await expect(label.locator('..')).toHaveCSS('z-index', '1')
   await label.evaluate((element) => {
     const bounds = element.getBoundingClientRect()
@@ -125,7 +125,8 @@ test('keeps the Sirius name visible behind the Sun in the nearest-1000 view', as
   await page.getByRole('button', { name: 'Objects', exact: true }).click()
   await page.getByRole('button', { name: 'Select Sun', exact: true }).evaluate((button: HTMLButtonElement) => button.click())
   await page.getByRole('button', { name: 'Objects', exact: true }).click()
-  await zoomViewer(page, 'in', 4)
+  // The nearest-1000 home view also frames distant overlay objects; zoom in to the local composition.
+  await zoomViewer(page, 'in', 8)
 
   const canvas = page.locator('#scene canvas')
   const bounds = (await canvas.boundingBox())!

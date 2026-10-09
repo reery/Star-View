@@ -214,6 +214,7 @@ export class ObjectList {
     const distance = document.createElement('span')
     distance.className = 'catalog-distance'
     distance.textContent = formatDistance(item.distancePc, this.unit)
+    button.setAttribute('aria-description', distance.textContent)
     button.append(marker, name, distance)
     return button
   }
@@ -242,7 +243,7 @@ export class ObjectList {
       this.renderedVirtualItems = null
       this.renderedVirtualStart = -1
       this.renderedVirtualEnd = -1
-      this.container.replaceChildren(...this.filtered.map((item, index) => this.button(item, index, false)))
+      this.replaceRows(this.filtered.map((item, index) => this.button(item, index, false)))
       return
     }
     const { start, end } = virtualRange(this.container.scrollTop, this.container.clientHeight || 320, this.filtered.length)
@@ -250,9 +251,17 @@ export class ObjectList {
     const spacer = document.createElement('div')
     spacer.className = 'catalog-virtual-spacer'
     spacer.style.height = `${this.filtered.length * ROW_HEIGHT}px`
-    this.container.replaceChildren(spacer, ...this.filtered.slice(start, end).map((item, offset) => this.button(item, start + offset, true)))
+    this.replaceRows([spacer, ...this.filtered.slice(start, end).map((item, offset) => this.button(item, start + offset, true))])
     this.renderedVirtualItems = this.filtered
     this.renderedVirtualStart = start
     this.renderedVirtualEnd = end
+  }
+
+  // Rows are rebuilt on selection; keep keyboard focus on the same object.
+  private replaceRows(rows: HTMLElement[]): void {
+    const focused = document.activeElement instanceof HTMLElement && this.container.contains(document.activeElement)
+      ? document.activeElement.dataset.star : undefined
+    this.container.replaceChildren(...rows)
+    if (focused) this.container.querySelector<HTMLElement>(`[data-star="${CSS.escape(focused)}"]`)?.focus({ preventScroll: true })
   }
 }

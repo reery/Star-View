@@ -13,6 +13,8 @@ import urllib.parse
 import urllib.request
 from pathlib import Path
 
+from catalog_sources.filesystem import atomic_write_text, write_managed_files
+
 ROOT = Path(__file__).resolve().parents[1]
 NASA = "https://exoplanetarchive.ipac.caltech.edu/TAP/sync"
 WORK = ROOT / "catalog-work/nearby-planets"
@@ -53,13 +55,11 @@ def refresh(retrieved):
     quoted = ",".join("'" + host.replace("'", "''") + "'" for host in hosts)
     adql = f"SELECT {','.join(columns)} FROM pscomppars WHERE hostname IN ({quoted}) ORDER BY pl_name"
     content = query(NASA, adql)
-    WORK.mkdir(parents=True, exist_ok=True)
-    (WORK / "planets.csv").write_text(content)
-    (WORK / "planets.adql").write_text(adql + "\n")
+    files = {"planets.csv": content, "planets.adql": adql + "\n"}
     manifest = {"retrieved": retrieved, "source": NASA,
-                "checksumsSha256": {name: hashlib.sha256((WORK / name).read_bytes()).hexdigest()
-                                    for name in ["planets.csv", "planets.adql"]}}
-    (WORK / "source-manifest.json").write_text(json.dumps(manifest, indent=2) + "\n")
+                "checksumsSha256": {name: hashlib.sha256(value.encode()).hexdigest() for name, value in files.items()}}
+    files["source-manifest.json"] = json.dumps(manifest, indent=2) + "\n"
+    write_managed_files(WORK, files, force=True)
 
 
 def numeric(value):
@@ -148,5 +148,5 @@ if __name__ == "__main__":
         if OUTPUT.read_text() != content:
             raise SystemExit("Nearby planet data differs; regenerate after review")
     else:
-        OUTPUT.write_text(content)
+        atomic_write_text(OUTPUT, content)
     print(f"{len(payload['systems'])} hosts; {len(payload['planets'])} planets")

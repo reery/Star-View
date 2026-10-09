@@ -111,7 +111,8 @@ describe('object catalog', () => {
     expect(Math.abs(equatorial.dot(radial) - radialVelocity)).toBeLessThan(0.001)
     expect(Math.abs(equatorial.dot(east) / scale - pmra)).toBeLessThan(0.15)
     expect(Math.abs(equatorial.dot(north) / scale - pmdec)).toBeLessThan(0.15)
-    expect(star.notes).toContain('Motion:')
+    // Shared adopted records cite the catalog whose motion bundle they reuse.
+    expect(star.notes).toMatch(/Motion:|motion bundle: nearest-100:/)
   })
 
   it('retains unknown motion and explicitly shares the Sirius and Alpha Centauri system vectors', () => {

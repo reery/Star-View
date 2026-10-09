@@ -2,7 +2,7 @@ import { readFileSync } from 'node:fs'
 import { expect, test, type Page } from '@playwright/test'
 import { PNG } from 'pngjs'
 import { LIGHT_YEARS_PER_PARSEC } from '../src/astronomy'
-import { hideMilkyWay, openFilter, openPreferences, openViewer, zoomViewer } from './support'
+import { hideEarthOrbit, hideMilkyWay, openFilter, openPreferences, openViewer, zoomViewer } from './support'
 
 type NebulaRow = { type: string; nebula: { distance_pc: number; puff_count: number } }
 const NEBULAE: NebulaRow[] = JSON.parse(readFileSync(new URL('../src/data/overlays/nebulae/objects.json', import.meta.url), 'utf8')).objects
@@ -37,9 +37,10 @@ async function focusOrionNebula(page: Page) {
   await page.getByRole('button', { name: 'Objects', exact: true }).click()
   await page.getByLabel('Search objects').fill('Orion')
   await page.getByRole('button', { name: 'Select Orion Nebula', exact: true }).click()
+  // Close the list first: on narrow screens it covers the canvas the pinch targets.
+  await page.getByRole('button', { name: 'Objects', exact: true }).click()
   // The home view frames every visible nebula, so Orion starts small.
   await zoomViewer(page, 'in', 15)
-  await page.getByRole('button', { name: 'Objects', exact: true }).click()
   await nextFrames(page)
 }
 
@@ -126,6 +127,8 @@ test('loads nebulae on demand through the interstellar-medium category', async (
 test('draws all nebulae in one emission call that follows the color preference and sleeps when idle', { tag: '@mobile' }, async ({ page, isMobile }, testInfo) => {
   await openViewer(page)
   await hideMilkyWay(page)
+  // Refitting the home view can bring Earth's orbit (three draws) in or out of range.
+  await hideEarthOrbit(page)
   await openFilter(page)
   await page.getByRole('switch', { name: 'Motion arrows', exact: true }).uncheck()
   await enableNebulae(page)
@@ -134,6 +137,7 @@ test('draws all nebulae in one emission call that follows the color preference a
   await zoomViewer(page, 'in')
   await nextFrames(page)
   const withNebulae = Number(await layer.getAttribute('data-draw-calls'))
+  await openFilter(page)
   await page.getByLabel('Object visibility distance', { exact: true }).fill('14')
   await expect(layer).toHaveAttribute('data-nebula-puff-count', '0')
   await expect(layer).toHaveAttribute('data-draw-calls', String(withNebulae - 1))

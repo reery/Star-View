@@ -28,6 +28,6 @@ describe('bundled solar reference', () => {
     expect(comparison.reference.radiusKm).toBe(695_700)
     expect(comparison.selected.radiusKm).not.toBeNull()
     expect(radiusSummary(comparison)).not.toContain('No catalog radius')
-    expect(radiusStats(comparison).find((row) => row.label === 'Volume')!.values[1]!.value).toBe('1 V☉')
+    expect(radiusStats(comparison).find((row) => row.label === 'Volume')!.values[1]!.value).toBe('1.410e18 km³')
   })
 })

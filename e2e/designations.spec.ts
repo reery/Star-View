@@ -1,5 +1,5 @@
 import { expect, test } from '@playwright/test'
-import { openFilter, openViewer } from './support'
+import { openFilter, openSpecs, openViewer } from './support'
 
 test('searches stellar aliases and displays a bounded designation list after magnitudes @mobile', async ({ page }, testInfo) => {
   await page.goto('/')
@@ -39,6 +39,6 @@ test('finds named pulsars by both common and formal names', async ({ page }, tes
   }
   await page.getByLabel('Search objects').fill('Geminga')
   await page.getByRole('button', { name: 'Select Geminga', exact: true }).click()
-  await page.locator('#object-card-details > summary').click()
+  await openSpecs(page)
   await page.screenshot({ path: testInfo.outputPath('pulsar-designations.png') })
 })

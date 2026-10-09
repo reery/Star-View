@@ -90,7 +90,9 @@ export function mkPoint(star: Pick<Star, 'type' | 'spectral_type'>): MkPoint | n
   if (star.type !== 'star') return null
   if (/[+/-]\s*[OBAFGKM]\d/i.test(star.spectral_type ?? '')) return null
   const luminosity = '(Iab|Ia\\+?|Ib|III|II|IV|VI|V|I)'
-  const spectral = star.spectral_type?.trim().match(new RegExp(`^([OBAFGKM])(\\d(?:\\.\\d+)?)\\s*${luminosity}(?:[-/]${luminosity})?(?=$|[^IV])`, 'i'))
+  // Am notation (e.g. A0mA1Va): place the star by its metallic-line type, as for Sirius A's usual A1V.
+  const spectralType = star.spectral_type?.trim().replace(/^[OBAFGKM]\d(?:\.\d+)?m([OBAFGKM]\d(?:\.\d+)?)/i, '$1')
+  const spectral = spectralType?.match(new RegExp(`^([OBAFGKM])(\\d(?:\\.\\d+)?)\\s*${luminosity}(?:[-/]${luminosity})?(?=$|[^IV])`, 'i'))
   if (!spectral) return null
   const spectralClass = spectral[1]!.toUpperCase()
   const subtype = Number(spectral[2])

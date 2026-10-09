@@ -15,8 +15,7 @@ import { MOTION_YEAR_OPTIONS, SIMULATION_YEAR_LIMIT, createStarViewer, type Moti
 import { isObjectMapVisible } from './viewer-primitives'
 import { renderSelectedStarPreview } from './selected-star-preview'
 import { disposeDistanceComparison, renderDistanceComparison } from './distance-comparison'
-import { renderMassCardContent } from './mass-card'
-import { type MassReference } from './mass-comparison'
+import type { MassReference } from './mass-comparison'
 import { renderRadiusBars } from './radius-card'
 import { hrCardAvailable, hrMagnitude, renderHrDiagram, type HrMagnitudeMode } from './hr-diagram'
 import { renderMkDiagram } from './mk-diagram'
@@ -24,11 +23,8 @@ import { spectralReference } from './spectral-chart'
 import { massCardAvailable } from './mass-properties'
 import { radiusComparison, radiusStats, radiusSummary, renderRadiusComparison, type RadiusReference } from './radius-comparison'
 import { indexStarSystems, type StarSystem } from './star-systems'
-import { planetarySystemForStar } from './planetary-systems'
+import { loadPlanetarySystems, planetarySystemForStar } from './planetary-systems'
 import { highlightSystemPlanet, renderSystemCard } from './system-card'
-import { planetDescriptionForId } from './planet-properties'
-import { renderPlanetCard } from './planet-card'
-import { disposePlanetGlobe } from './planet-globe'
 import {
   availableFilterKeys, categoryAvailable, DEFAULT_FILTER_CATEGORIES, DEFAULT_FILTER_SUBTYPES, effectiveFilterKeys, FILTER_CATEGORIES,
   filterCategoryForKey, filterSummary, isFilterCategoryId, isFilterKey, type FilterCategoryId, type FilterKey,
@@ -37,6 +33,8 @@ import { ObjectList } from './object-list'
 import { SelectionHistory } from './selection-history'
 import { objectTypeIntroduction } from './object-type-info'
 import { initializeGlossary } from './glossary'
+import { measurement, preciseMeasurement, quantity, scientificQuantity } from './format'
+import { OBJECT_DISTANCE_STEPS_LY, readSavedViews, SAVED_VIEWS_STORAGE_KEY, type SavedView, type SavedViewSettings } from './saved-views'
 
 function element<ElementType extends HTMLElement = HTMLElement>(id: string): ElementType {
   const found = document.getElementById(id)
@@ -50,36 +48,6 @@ function text(id: string, value: string): void {
 
 function icon(id: string, shape: IconNode): void {
   element(id).replaceChildren(createElement(shape, { width: 20, height: 20, 'stroke-width': 1.7, 'aria-hidden': 'true' }))
-}
-
-function quantity(value: number | null, unit = '', maximumFractionDigits = 3): string {
-  if (value === null) return 'Not available'
-  return `${value.toLocaleString('en-US', { maximumFractionDigits })}${unit ? ` ${unit}` : ''}`
-}
-
-function measurement(value: number | null, error: number | null, unit: string, maximumFractionDigits = 3): string {
-  if (value === null) return 'Not available'
-  const formatted = value.toLocaleString('en-US', { maximumFractionDigits })
-  const uncertainty = error === null ? '' : ` +/- ${error.toLocaleString('en-US', { maximumFractionDigits })}`
-  return `${formatted}${uncertainty} ${unit}`
-}
-
-function preciseMeasurement(value: number | null, error: number | null, unit: string): string {
-  if (value === null) return 'Not available'
-  const significant = (number: number, digits: number) => {
-    const absolute = Math.abs(number)
-    return absolute > 0 && (absolute < 1e-6 || absolute >= 1e9)
-      ? number.toExponential(digits - 1).replace('e+', 'e')
-      : number.toLocaleString('en-US', { maximumSignificantDigits: digits })
-  }
-  const formatted = significant(value, 8)
-  const uncertainty = error === null ? '' : ` +/- ${significant(error, 3)}`
-  return `${formatted}${uncertainty} ${unit}`
-}
-
-function scientificQuantity(value: number | null, unit: string): string {
-  if (value === null) return 'Not available'
-  return `${value.toExponential(3).replace('e+', 'e')} ${unit}`
 }
 
 icon('reset-icon', Focus)
@@ -177,103 +145,10 @@ const BRIGHT_CATALOG_ID = 'bright-stars'
 const WESTERN_CONSTELLATION_CATALOG_ID = 'western-constellation-stars'
 const FAMOUS_CLUSTER_CATALOG_ID = 'famous-cluster-stars'
 const ADDITIVE_CATALOG_IDS = new Set([BRIGHT_CATALOG_ID, WESTERN_CONSTELLATION_CATALOG_ID, FAMOUS_CLUSTER_CATALOG_ID])
-const SAVED_VIEWS_STORAGE_KEY = 'star-view-saved-views'
-
-interface SavedViewSettings {
-  catalogId: string
-  showAlwaysBright: boolean
-  showWesternConstellationStars: boolean
-  showFamousClusterStars: boolean
-  filterCategories: FilterCategoryId[]
-  filterSubtypes: FilterKey[]
-  magnitudeLimit: number
-  objectDistanceLimitLy: number
-  earthOrbitMode: EarthOrbitMode
-  milkyWayVisible: boolean
-  motionArrowsVisible: boolean
-  motionYears: MotionYears
-  motionFrame: MotionFrame
-  gridVisible: boolean
-  simulationYears: number
-  simulationPlaying: boolean
-  simulationDirection: 1 | -1
-  playbackSecondsPerThousandYears: number
-  followSelection: boolean
-  selectedId: string | null
-  observerId: string
-  referenceId: string
-  observerView: boolean
-  observerViewAnchorId: string | null
-  objectSearch: string
-  viewState: ViewerViewState
-}
-
-interface SavedView {
-  version: 1
-  id: string
-  name: string
-  originName: string
-  savedAt: string
-  settings: SavedViewSettings
-}
-
-function isRecord(value: unknown): value is Record<string, unknown> {
-  return typeof value === 'object' && value !== null
-}
-
-function isFiniteTuple3(value: unknown): value is [number, number, number] {
-  return Array.isArray(value) && value.length === 3 && value.every((entry) => typeof entry === 'number' && Number.isFinite(entry))
-}
-
-function isSavedView(value: unknown): value is SavedView {
-  if (!isRecord(value) || value.version !== 1 || typeof value.id !== 'string' || typeof value.name !== 'string' || !value.name.trim()
-    || typeof value.originName !== 'string' || typeof value.savedAt !== 'string' || !Number.isFinite(Date.parse(value.savedAt)) || !isRecord(value.settings)) return false
-  const settings = value.settings
-  const viewState = settings.viewState
-  return typeof settings.catalogId === 'string'
-    && typeof settings.showAlwaysBright === 'boolean'
-    && typeof settings.showWesternConstellationStars === 'boolean'
-    && typeof settings.showFamousClusterStars === 'boolean'
-    && Array.isArray(settings.filterCategories) && settings.filterCategories.every(isFilterCategoryId)
-    && Array.isArray(settings.filterSubtypes) && settings.filterSubtypes.every(isFilterKey)
-    && typeof settings.magnitudeLimit === 'number' && settings.magnitudeLimit >= 0 && settings.magnitudeLimit <= 25
-    && typeof settings.objectDistanceLimitLy === 'number' && OBJECT_DISTANCE_STEPS_LY.includes(settings.objectDistanceLimitLy as typeof OBJECT_DISTANCE_STEPS_LY[number])
-    && typeof settings.earthOrbitMode === 'string' && isEarthOrbitMode(settings.earthOrbitMode)
-    && typeof settings.milkyWayVisible === 'boolean'
-    && typeof settings.motionArrowsVisible === 'boolean'
-    && typeof settings.motionYears === 'number' && MOTION_YEAR_OPTIONS.includes(settings.motionYears as MotionYears)
-    && (settings.motionFrame === 'galactic' || settings.motionFrame === 'solar')
-    && typeof settings.gridVisible === 'boolean'
-    && typeof settings.simulationYears === 'number' && Math.abs(settings.simulationYears) <= SIMULATION_YEAR_LIMIT
-    && typeof settings.simulationPlaying === 'boolean'
-    && (settings.simulationDirection === 1 || settings.simulationDirection === -1)
-    && typeof settings.playbackSecondsPerThousandYears === 'number' && settings.playbackSecondsPerThousandYears >= 0.5 && settings.playbackSecondsPerThousandYears <= 15
-    && typeof settings.followSelection === 'boolean'
-    && (settings.selectedId === null || typeof settings.selectedId === 'string')
-    && typeof settings.observerId === 'string'
-    && typeof settings.referenceId === 'string'
-    && typeof settings.observerView === 'boolean'
-    && (settings.observerViewAnchorId === null || typeof settings.observerViewAnchorId === 'string')
-    && typeof settings.objectSearch === 'string'
-    && isRecord(viewState) && isFiniteTuple3(viewState.position) && isFiniteTuple3(viewState.target)
-    && typeof viewState.home === 'boolean' && typeof viewState.observerRollRadians === 'number' && Number.isFinite(viewState.observerRollRadians)
-}
-
-function readSavedViews(): SavedView[] {
-  try {
-    const stored = localStorage.getItem(SAVED_VIEWS_STORAGE_KEY)
-    if (!stored) return []
-    const parsed: unknown = JSON.parse(stored)
-    return Array.isArray(parsed) ? parsed.filter(isSavedView).sort((first, second) => Date.parse(second.savedAt) - Date.parse(first.savedAt)) : []
-  } catch {
-    return []
-  }
-}
 
 // Nearest-N catalogs form an ordered size progression; landmark catalogs are independent additive toggles.
 const sliderCatalogs = catalogs.filter((catalog) => !ADDITIVE_CATALOG_IDS.has(catalog.manifest.id))
   .sort((first, second) => first.manifest.objectCount - second.manifest.objectCount)
-const OBJECT_DISTANCE_STEPS_LY = [5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 60, 70, 80, 90, 100, 150, 200, 300, 500, 1000, 1500, 2000, 3000, 5000, 10000] as const
 let savedViews = readSavedViews()
 let savedViewMenuRow: HTMLTableRowElement | null = null
 try {
@@ -302,6 +177,9 @@ const cameraViewButtonIds = ['reset-view', ...cameraViews.map((view) => `${view}
 const viewButtons = [...cameraViewButtonIds, 'toggle-grid', 'views-toggle'].map((id) => element<HTMLButtonElement>(id))
 const timelineButtons = ['time-play', 'time-now', 'time-follow'].map((id) => element<HTMLButtonElement>(id))
 const timeSlider = element<HTMLInputElement>('time-slider')
+// Evenly spaced timeline ticks; set via CSSOM because the CSP forbids inline style attributes.
+const timeMarkers = document.querySelectorAll<HTMLElement>('.time-markers i')
+timeMarkers.forEach((marker, index) => marker.style.setProperty('--marker-position', `${index / (timeMarkers.length - 1) * 100}%`))
 const selectionHistory = new SelectionHistory(selectedId)
 const panelNames = ['views', 'motion', 'filter', 'objects', 'glossary', 'preferences', 'info'] as const
 const lockablePanelNames = ['motion', 'filter', 'objects', 'glossary', 'preferences'] as const
@@ -482,6 +360,23 @@ let activePlanetId: string | null = null
 let planetCardLocked = false
 const planetSections = ['specs', 'info', 'moons'] as const
 
+// Planet details, imagery and the globe renderer load only when a planet is opened.
+type PlanetModules = {
+  renderPlanetCard: typeof import('./planet-card').renderPlanetCard
+  planetDescriptionForId: typeof import('./planet-properties').planetDescriptionForId
+  disposePlanetGlobe: typeof import('./planet-globe').disposePlanetGlobe
+}
+let planetModules: PlanetModules | undefined
+async function loadPlanetModules(): Promise<PlanetModules> {
+  if (planetModules) return planetModules
+  const [card, properties, globe] = await Promise.all([import('./planet-card'), import('./planet-properties'), import('./planet-globe')])
+  return planetModules = {
+    renderPlanetCard: card.renderPlanetCard,
+    planetDescriptionForId: properties.planetDescriptionForId,
+    disposePlanetGlobe: globe.disposePlanetGlobe,
+  }
+}
+
 function showPlanetSection(section: typeof planetSections[number]): void {
   for (const candidate of planetSections) {
     element(`planet-${candidate}`).hidden = candidate !== section
@@ -506,8 +401,9 @@ function closePlanetCard(restoreFocus = false): void {
   }
 }
 
-function selectSystemPlanet(planetId: string): void {
+async function selectSystemPlanet(planetId: string): Promise<void> {
   const system = element('object-system')
+  const { planetDescriptionForId, renderPlanetCard } = await loadPlanetModules()
   const description = planetDescriptionForId(planetId)
   const selected = system.querySelector<HTMLButtonElement>(`.planet-row[data-planet-id="${planetId}"] button`)?.getAttribute('aria-pressed') === 'true'
   if (!description) {
@@ -534,8 +430,10 @@ function selectSystemPlanet(planetId: string): void {
 }
 
 let massReference: MassReference = 'class'
+let massCardModule: typeof import('./mass-card') | undefined
 
 function renderMassCard(star: Star): void {
+  if (!massCardModule) return
   const origin = stars.find((candidate) => candidate.id === referenceId) ?? stars.find((candidate) => candidate.id === 'sun')!
   const referenceMode = origin.id === 'sun' && massReference === 'origin' ? 'sun' : massReference
   text('mass-reference-origin', `vs ${origin.name}`)
@@ -545,15 +443,16 @@ function renderMassCard(star: Star): void {
   for (const mode of ['class', 'origin', 'sun'] as const) {
     element(`mass-reference-${mode}`).setAttribute('aria-pressed', String(referenceMode === mode))
   }
-  renderMassCardContent(element('mass-card'), star, origin, referenceMode)
+  massCardModule.renderMassCardContent(element('mass-card'), star, origin, referenceMode)
   syncObjectTypeLayout()
 }
 
-function toggleMassCard(): void {
+async function toggleMassCard(): Promise<void> {
   if (!element('mass-card').hidden) {
     closeMassCard(true)
     return
   }
+  massCardModule ??= await import('./mass-card')
   const star = stars.find((candidate) => candidate.id === selectedId)
   if (!star || !massCardAvailable(star)) return
   closePlanetCard()
@@ -640,7 +539,9 @@ function renderRadiusCard(star: Star): void {
   element('radius-reference-origin').setAttribute('aria-label', `Compare radius with ${origin.name}`)
   element('radius-benchmark-note').hidden = radiusReference !== 'auto' || !comparison.jupiterBenchmark
   text('radius-benchmark-note', 'Comparing with Jupiter because the selected radius is at most 2 R♃.')
-  text('radius-comparison-summary', radiusSummary(comparison))
+  const radiusMissing = comparison.selected.radiusKm === null || comparison.reference.radiusKm === null
+  text('radius-comparison-summary', radiusMissing ? radiusSummary(comparison) : '')
+  element('radius-comparison-summary').hidden = !radiusMissing
   renderRadiusBars(element('radius-card'), star, comparison)
   text('radius-scale-note', renderRadiusComparison(element<HTMLCanvasElement>('radius-comparison'), comparison))
   element('radius-stats').replaceChildren(...radiusStats(comparison).map(({ label, values }) => {
@@ -682,7 +583,6 @@ function renderMetallicityCard(star: Star): void {
   const value = star.metallicity_dex
   const iron = star.metallicity_kind === '[Fe/H]'
   const ratioName = iron ? 'iron-to-hydrogen' : 'metal-to-hydrogen'
-  const elementName = iron ? 'iron' : 'metals'
   text('metallicity-heading', `Metallicity ${star.metallicity_kind ?? ''}`.trim())
   const limit = 2
   const outsideScale = value !== null && Math.abs(value) > limit
@@ -721,14 +621,9 @@ function renderMetallicityCard(star: Star): void {
   text('metallicity-marker-value', value === null ? '' : `${value > 0 ? '+' : ''}${quantity(value, 'dex', 2)} (${percentageLabel})`)
   let description = `No metallicity measurement is available for ${star.name}. [Fe/H] measures iron relative to hydrogen; [M/H] describes overall metallicity. They are distinct quantities.`
   if (value !== null) {
-    const difference = Math.expm1(value * Math.LN10) * 100
-    const percent = Math.abs(difference).toLocaleString('en-US', { maximumFractionDigits: Math.abs(difference) < 1 ? 2 : 0 })
-    description = value === 0
-      ? `${star.name} has the same ${ratioName} ratio as the Sun.`
-      : `${star.name} has ${percent}% ${value > 0 ? 'more' : 'less'} ${elementName} relative to hydrogen compared to the Sun.`
-    description += iron
-      ? ' [Fe/H] is iron abundance; it does not measure the total abundance of all metals.'
-      : ' [M/H] is overall metallicity; it is not an iron-specific [Fe/H] measurement.'
+    description = iron
+      ? '[Fe/H] measures iron relative to hydrogen; it does not measure the total abundance of all metals.'
+      : '[M/H] measures overall metals relative to hydrogen; it is not an iron-specific [Fe/H] measurement.'
     description += ` ${metallicityContext(star)}`
     if (outsideScale) description += ' Its value is beyond the displayed −2 to +2 dex range; the marker sits at the nearest edge.'
   }
@@ -810,16 +705,21 @@ function toggleObjectTypeCard(): void {
 
 function syncObjectTypeLayout(): void {
   const motion = element('motion-panel')
-  for (const id of ['object-type-card', 'metallicity-card', 'radius-card', 'spectral-card', 'mass-card', 'distance-card', 'planet-card']) {
-    const card = element(id)
-    card.style.removeProperty('max-height')
-    if (card.hidden || motion.hidden) continue
+  const cards = ['object-type-card', 'metallicity-card', 'radius-card', 'spectral-card', 'mass-card', 'distance-card', 'planet-card'].map((id) => element(id))
+  for (const card of cards) card.style.removeProperty('max-height')
+  if (motion.hidden) return
+  // Read every rectangle before writing, so playback refreshes cause one layout.
+  const motionBounds = motion.getBoundingClientRect()
+  const limits = cards.map((card) => {
+    if (card.hidden) return null
     const bounds = card.getBoundingClientRect()
-    const motionBounds = motion.getBoundingClientRect()
-    if (bounds.left < motionBounds.right && bounds.right > motionBounds.left) {
-      card.style.maxHeight = `${Math.max(120, Math.floor(motionBounds.top - bounds.top - 10))}px`
-    }
-  }
+    return bounds.left < motionBounds.right && bounds.right > motionBounds.left
+      ? `${Math.max(120, Math.floor(motionBounds.top - bounds.top - 10))}px` : null
+  })
+  cards.forEach((card, index) => {
+    const limit = limits[index]
+    if (limit) card.style.maxHeight = limit
+  })
 }
 
 function syncSelectedObjectLayout(): void {
@@ -916,6 +816,9 @@ function formattedSimulationTime(years: number): { short: string; accessible: st
 function renderSimulationTime(): void {
   const formatted = formattedSimulationTime(simulationYears)
   timeSlider.value = String(simulationYears)
+  const position = (simulationYears + SIMULATION_YEAR_LIMIT) / (2 * SIMULATION_YEAR_LIMIT) * 100
+  timeSlider.style.setProperty('--time-fill-start', `${Math.min(50, position)}%`)
+  timeSlider.style.setProperty('--time-fill-end', `${Math.max(50, position)}%`)
   timeSlider.setAttribute('aria-valuetext', formatted.accessible)
   text('time-value', formatted.short)
 }
@@ -1001,6 +904,18 @@ function renderGridScale(scale: GridScale): void {
 
 const objectSections = ['specs', 'info', 'system'] as const
 let activeObjectSection: typeof objectSections[number] = 'specs'
+
+function syncObjectInfoAvailability(): void {
+  const toggle = element<HTMLButtonElement>('object-info-toggle')
+  const available = element('object-info').childElementCount > 0
+  toggle.disabled = !available
+  toggle.title = available ? 'Info' : 'Info · No data yet'
+  toggle.setAttribute('aria-label', toggle.title)
+  if (!available && activeObjectSection === 'info') {
+    activeObjectSection = 'specs'
+    syncObjectSections()
+  }
+}
 
 function syncObjectSections(): void {
   const details = element<HTMLDetailsElement>('object-card-details')
@@ -1127,10 +1042,11 @@ function renderSelection(): void {
   const knownPlanetCount = planets?.planets.length ?? star.known_planets ?? 0
   renderSelectedStarPreview(element<HTMLCanvasElement>('selected-swatch'), star, starColorMode, system?.components.map((component) => component.star), knownPlanetCount > 0)
   renderSystemCard(element('object-system'), planets, system?.components.length ?? 1, selectSystemPlanet)
-  const openPlanet = activePlanetId ? planetDescriptionForId(activePlanetId) : undefined
+  const openPlanet = activePlanetId ? planetModules?.planetDescriptionForId(activePlanetId) : undefined
   if (!planetCardLocked && openPlanet?.hostStarId !== star.id) closePlanetCard()
   if (!element('planet-card').hidden && openPlanet?.hostStarId === star.id) highlightSystemPlanet(element('object-system'), activePlanetId, activePlanetId)
   element('object-system-toggle').setAttribute('aria-label', planets ? `System, ${planets.planets.length} known planets` : 'System')
+  syncObjectInfoAvailability()
   if (knownPlanetCount > 0) element<HTMLCanvasElement>('selected-swatch').title = `${knownPlanetCount} known planets · illustrative orbit`
   text('distance-value', formatDistance(metrics.distancePc, distanceUnit).split(' ')[0]!)
   text('distance-unit', ` ${distanceUnit}`)
@@ -1170,14 +1086,14 @@ function renderSelection(): void {
   else if (!element('spectral-card').hidden) renderSpectralCard(star)
   text('temperature', quantity(star.temperature_k, 'K', 0))
   const luminosity = star.luminosity_solar
-  text('luminosity', luminosity !== null && luminosity < 1 ? `${luminosity.toLocaleString('en-US', { maximumSignificantDigits: 3 })} solar` : quantity(luminosity, 'solar'))
-  text('mass', compact ? preciseMeasurement(star.mass_solar, compact.mass_error_solar, 'solar') : quantity(star.mass_solar, 'solar'))
+  text('luminosity', luminosity !== null && luminosity < 1 ? `${luminosity.toLocaleString('en-US', { maximumSignificantDigits: 3 })} L☉` : quantity(luminosity, 'L☉'))
+  text('mass', compact ? preciseMeasurement(star.mass_solar, compact.mass_error_solar, 'M☉') : quantity(star.mass_solar, 'M☉'))
   element<HTMLButtonElement>('mass-toggle').disabled = !massCardAvailable(star)
   element('mass-toggle').setAttribute('aria-label', `Explore mass of ${star.name}`)
   element('mass-row').classList.toggle('mass-row', massCardAvailable(star))
   if (!massCardAvailable(star)) closeMassCard()
   else if (!element('mass-card').hidden) renderMassCard(star)
-  text('radius', quantity(star.radius_solar, 'solar'))
+  text('radius', quantity(star.radius_solar, 'R☉'))
   element('radius-toggle').setAttribute('aria-label', `Compare radius of ${star.name} with origin`)
   if (compactObject || nebulaObject || molecularCloudObject || bubbleObject) closeRadiusCard()
   else if (!element('radius-card').hidden) renderRadiusCard(star)
@@ -1355,15 +1271,18 @@ async function switchCatalog(id: string, refresh = false): Promise<void> {
     const loadAdditiveCatalog = (enabled: boolean, catalogId: string) => enabled && id !== catalogId
       ? catalogs.find((catalog) => catalog.manifest.id === catalogId)!.load()
       : Promise.resolve([])
-    const [brightCatalog, westernConstellationCatalog, famousClusterCatalog] = await Promise.all([
+    const loadOverlay = (types: readonly FilterKey[], load: () => Promise<Star[]>) =>
+      types.some((type) => visibleKeys.has(type)) ? load() : Promise.resolve([])
+    const [brightCatalog, westernConstellationCatalog, famousClusterCatalog, compactObjects, nebulae, molecularClouds, bubbles] = await Promise.all([
       loadAdditiveCatalog(showAlwaysBright, BRIGHT_CATALOG_ID),
       loadAdditiveCatalog(showWesternConstellationStars, WESTERN_CONSTELLATION_CATALOG_ID),
       loadAdditiveCatalog(showFamousClusterStars, FAMOUS_CLUSTER_CATALOG_ID),
+      loadOverlay(COMPACT_OBJECT_TYPES, loadCompactRemnants),
+      loadOverlay(NEBULA_OBJECT_TYPES, loadNebulae),
+      loadOverlay(MOLECULAR_CLOUD_OBJECT_TYPES, loadMolecularClouds),
+      loadOverlay(BUBBLE_OBJECT_TYPES, loadBubbles),
+      loadPlanetarySystems(),
     ])
-    const compactObjects = COMPACT_OBJECT_TYPES.some((type) => visibleKeys.has(type)) ? await loadCompactRemnants() : []
-    const nebulae = NEBULA_OBJECT_TYPES.some((type) => visibleKeys.has(type)) ? await loadNebulae() : []
-    const molecularClouds = MOLECULAR_CLOUD_OBJECT_TYPES.some((type) => visibleKeys.has(type)) ? await loadMolecularClouds() : []
-    const bubbles = BUBBLE_OBJECT_TYPES.some((type) => visibleKeys.has(type)) ? await loadBubbles() : []
     const withBrightStars = mergeCatalogStars(selectedCatalog, brightCatalog)
     const withConstellationStars = mergeCatalogStars(withBrightStars, westernConstellationCatalog)
     nextStars = [...mergeCatalogStars(withConstellationStars, famousClusterCatalog), ...compactObjects, ...nebulae, ...molecularClouds, ...bubbles]
@@ -2208,5 +2127,5 @@ import.meta.hot?.dispose(() => {
   if (playbackFrameRequest !== null) cancelAnimationFrame(playbackFrameRequest)
   viewer?.dispose()
   disposeDistanceComparison()
-  disposePlanetGlobe()
+  planetModules?.disposePlanetGlobe()
 })

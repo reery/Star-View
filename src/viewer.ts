@@ -1,15 +1,18 @@
 import {
-  BackSide, Box3, BoxGeometry, BufferGeometry, CanvasTexture, Color, DoubleSide, DynamicDrawUsage, Float32BufferAttribute,
-  Group, InstancedBufferAttribute, InstancedBufferGeometry, Line, LineBasicMaterial, LineDashedMaterial,
-  LinearFilter, LineSegments, Matrix4, Mesh, Object3D, PerspectiveCamera, Points, PointsMaterial, Scene, ShaderMaterial,
-  Quaternion, RepeatWrapping, Sphere, SRGBColorSpace, TextureLoader, Vector2, Vector3, Vector4, WebGLRenderer, type Texture,
+  Box3, BufferGeometry, Color, DynamicDrawUsage, Float32BufferAttribute,
+  Group, Line, LineBasicMaterial, LineDashedMaterial,
+  LineSegments, Matrix4, Object3D, PerspectiveCamera, Points, Scene,
+  Quaternion, Sphere, SRGBColorSpace, Vector3, Vector4, WebGLRenderer,
 } from 'three'
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js'
-import milkyWayImageUrl from './assets/milky-way.jpg'
 import type { Star } from './catalog-model'
 import { createStarAppearance } from './star-appearance'
+import { createMilkyWayLayer } from './milky-way-layer'
+import { createEarthOrbitLayer } from './earth-orbit-layer'
+import { createMotionArrowMesh } from './motion-arrow-layer'
+import { createMapGrid, gridOpacityForDisplay, makeGridGeometry } from './map-grid'
 import { apparentVisualMagnitude, displayMotionForStar, formatDistance, galacticToWorld, gridScaleForViewDistance, isMapVisibilityBase, LIGHT_YEARS_PER_PARSEC, starDisplayColor, type DistanceUnit, type GridScale, type MotionFrame, type MotionMode, type StarColorMode } from './astronomy'
-import { EARTH_AXIS_DISPLAY_HALF_LENGTH_PC, EARTH_ORBIT_DISPLAY_RADIUS_PC, EARTH_ORBIT_MAX_VIEW_DISTANCE_PC, earthOrbitMarker, earthOrbitPoints } from './earth-orbit'
+import { EARTH_ORBIT_DISPLAY_RADIUS_PC, EARTH_ORBIT_MAX_VIEW_DISTANCE_PC } from './earth-orbit'
 import { advanceFrameDeadline, effectiveDampingFactor, estimateRefreshRate, renderPixelRatio, targetRenderFps } from './render-scheduling'
 import { centeredForegroundLabelBounds, chooseOrdinaryLabelPlacement, ordinaryLabelCandidates, overlaps, type LabelRect, type OrdinaryLabelPlacement } from './label-layout'
 import { createNebulaLayer } from './nebula-layer'
@@ -18,7 +21,7 @@ import { createBubbleLayer } from './bubble-layer'
 import { FILTER_KEYS, isFilterKey, type FilterKey } from './object-filter'
 import { coincidentComponentGroups } from './star-systems'
 import {
-  GUIDE_DASH_PX, GUIDE_GAP_PX, MOTION_ARROW_DASH_PX, MOTION_ARROW_GAP_PX, MOTION_ARROW_HEAD_PX, MOTION_ARROW_STROKE_PX,
+  GUIDE_DASH_PX, GUIDE_GAP_PX,
   MOTION_ARROW_TAIL_OFFSET_PX,
   STAR_DIAMETER_PX, ScreenSpaceGrid, TapGesture, budgetVisibleLabelIndices,
   compareMapLabelCandidates, focusProgress,
@@ -104,7 +107,6 @@ interface MapLabel {
   width: number
   height: number
   index?: number
-  starId?: string
   measurement?: { distancePc: number; suffix: string }
   placement?: OrdinaryLabelPlacement
 }
@@ -187,15 +189,13 @@ function sameIndexSet(first: ReadonlySet<number>, second: ReadonlySet<number>): 
   return true
 }
 
-function gridOpacityForDisplay(devicePixelRatio: number): number {
-  const ratio = Number.isFinite(devicePixelRatio) && devicePixelRatio > 0 ? devicePixelRatio : 1
-  return Math.min(0.9, 0.46 + Math.max(0, ratio - 1) * 0.22)
-}
+// Catalog and overlay refreshes recreate the viewer; keep one GL context instead of leaking one per refresh.
+let sharedRenderer: WebGLRenderer | null = null
 
 export function createStarViewer(container: HTMLElement, stars: readonly Star[], options: ViewerOptions): StarViewer {
   const sun = stars.find((star) => star.id === 'sun')
   if (!sun) throw new Error('A Sun reference is required.')
-  const renderer = new WebGLRenderer({ antialias: true, alpha: true, powerPreference: 'low-power' })
+  const renderer = sharedRenderer ??= new WebGLRenderer({ antialias: true, alpha: true, powerPreference: 'low-power' })
   renderer.outputColorSpace = SRGBColorSpace
   renderer.setClearColor(0x000000, 0)
   renderer.setPixelRatio(renderPixelRatio(window.devicePixelRatio || 1, false))
@@ -215,15 +215,32 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
   controls.rotateSpeed = 0.65
   controls.screenSpacePanning = true
 
-  // OrbitControls captures camera.up only once, although Observer view can roll
-  // the camera later. Keep its spherical frame aligned with the visible screen
-  // up so mouse and touch drags remain screen-relative after a roll.
-  const orbitFrame = controls as unknown as { _quat: Quaternion; _quatInverse: Quaternion }
+  // OrbitControls captures camera.up only once. Observer view keeps its spherical
+  // frame on world up (so the pole clamp prevents flips) and rolls only the image.
+  const orbitFrame = controls as unknown as {
+    _quat: Quaternion
+    _quatInverse: Quaternion
+    _rotateLeft(angle: number): void
+    _rotateUp(angle: number): void
+  }
   const worldUp = new Vector3(0, 1, 0)
   function setOrbitUp(up: Vector3): void {
     camera.up.copy(up).normalize()
     orbitFrame._quat.setFromUnitVectors(camera.up, worldUp)
     orbitFrame._quatInverse.copy(orbitFrame._quat).invert()
+  }
+  // Rotate pointer/keyboard rotation by the observer roll so drags follow the rolled screen.
+  const rotateLeft = orbitFrame._rotateLeft.bind(controls)
+  const rotateUp = orbitFrame._rotateUp.bind(controls)
+  orbitFrame._rotateLeft = (angle) => {
+    if (!observerViewEnabled || observerRollRadians === 0) return rotateLeft(angle)
+    rotateLeft(Math.cos(observerRollRadians) * angle)
+    rotateUp(-Math.sin(observerRollRadians) * angle)
+  }
+  orbitFrame._rotateUp = (angle) => {
+    if (!observerViewEnabled || observerRollRadians === 0) return rotateUp(angle)
+    rotateLeft(Math.sin(observerRollRadians) * angle)
+    rotateUp(Math.cos(observerRollRadians) * angle)
   }
 
   const pickable = stars.map((star) => ({ id: star.id, position: galacticToWorld(star) }))
@@ -251,135 +268,21 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
   controls.maxDistance = Math.max(30, catalogSphere.radius * 24)
   camera.far = controls.maxDistance * 5
 
-  // Sample the equirectangular panorama directly rather than asking Three.js
-  // to expand it into six equally large cube faces. Besides saving GPU memory,
-  // this preserves its exact Galactic orientation: the centre points toward
-  // Galactic x, north is +world y, and increasing longitude points toward
-  // -world z, matching galacticToWorld().
-  const milkyWayUniforms = {
-    map: { value: null as Texture | null },
-    texelSize: { value: new Vector2() },
-    intensity: { value: 0.12 },
-    saturation: { value: starColorMode === 'exaggerated' ? 1.3 : 1 },
-  }
-  const milkyWayGeometry = new BoxGeometry(1, 1, 1)
-  const milkyWayMaterial = new ShaderMaterial({
-    uniforms: milkyWayUniforms,
-    side: BackSide,
-    depthTest: false,
-    depthWrite: false,
-    toneMapped: false,
-    vertexShader: `
-      varying vec3 worldDirection;
-      #include <common>
-      void main() {
-        worldDirection = transformDirection(position, modelMatrix);
-        #include <begin_vertex>
-        #include <project_vertex>
-        gl_Position.z = gl_Position.w;
-      }
-    `,
-    fragmentShader: `
-      uniform sampler2D map;
-      uniform vec2 texelSize;
-      uniform float intensity;
-      uniform float saturation;
-      varying vec3 worldDirection;
-      #include <common>
-      void main() {
-        vec2 uv = equirectUv(normalize(worldDirection));
-        vec3 panorama = texture2D(map, uv).rgb;
-        // Reduce tiny star peaks without blurring the broad dust lanes.
-        vec3 nearby = 0.25 * (
-          texture2D(map, uv + vec2(texelSize.x, 0.0)).rgb +
-          texture2D(map, uv - vec2(texelSize.x, 0.0)).rgb +
-          texture2D(map, uv + vec2(0.0, texelSize.y)).rgb +
-          texture2D(map, uv - vec2(0.0, texelSize.y)).rgb
-        );
-        panorama -= 0.25 * max(panorama - nearby, vec3(0.0));
-        float luminance = dot(panorama, vec3(0.2126, 0.7152, 0.0722));
-        vec3 skyColor = max(mix(vec3(luminance), panorama, saturation), vec3(0.0)) * intensity;
-        // Keep empty sky transparent so the DOM axis captions behind the
-        // canvas remain visible, while preserving the same color over black.
-        float skyAlpha = max(max(skyColor.r, skyColor.g), skyColor.b);
-        gl_FragColor = vec4(skyColor, skyAlpha);
-        #include <colorspace_fragment>
-      }
-    `,
-  })
-  const milkyWaySky = new Mesh(milkyWayGeometry, milkyWayMaterial)
-  milkyWaySky.frustumCulled = false
-  milkyWaySky.renderOrder = -1
-  milkyWaySky.visible = false
-  milkyWaySky.onBeforeRender = (_renderer, _scene, activeCamera) => {
-    milkyWaySky.matrixWorld.copyPosition(activeCamera.matrixWorld)
-  }
-  scene.add(milkyWaySky)
   let milkyWayVisible = options.milkyWayVisible ?? true
-  let milkyWayLoading = false
-  let milkyWayTexture: Texture | null = null
+  const milkyWay = createMilkyWayLayer(starColorMode === 'exaggerated' ? 1.3 : 1, renderer.capabilities.maxTextureSize, (ready) => {
+    container.dataset.milkyWayReady = ready ? 'true' : 'error'
+    if (ready) requestRender()
+  })
+  scene.add(milkyWay.mesh)
 
   const starViewDistance = { value: camera.position.distanceTo(controls.target) }
   const { dotTexture, haloTexture, starMaterial, haloMaterial } = createStarAppearance(starViewDistance)
 
   const initialEarthOrbitDate = options.earthOrbitDate === undefined ? new Date() : options.earthOrbitDate
-  const initialEarthMarker = earthOrbitMarker(initialEarthOrbitDate ?? new Date())
-  const earthOrbitGroup = new Group()
-  earthOrbitGroup.name = 'earth-orbit-reference'
-  earthOrbitGroup.position.copy(galacticToWorld(sun))
-  const earthOrbitLine = new Line(
-    new BufferGeometry().setFromPoints(earthOrbitPoints()),
-    new LineBasicMaterial({ color: 0x5dbfea, transparent: true, opacity: 0.82, depthTest: false, depthWrite: false, toneMapped: false }),
-  )
-  earthOrbitLine.name = 'earth-orbit-line'
-  earthOrbitLine.frustumCulled = false
-  earthOrbitLine.renderOrder = 1
-
-  const earthCanvas = document.createElement('canvas')
-  earthCanvas.width = earthCanvas.height = 64
-  const earthContext = earthCanvas.getContext('2d')!
-  const earthGlow = earthContext.createRadialGradient(29, 26, 3, 32, 32, 31)
-  earthGlow.addColorStop(0, '#d8fbffff')
-  earthGlow.addColorStop(0.28, '#51c8ffff')
-  earthGlow.addColorStop(0.62, '#176bbfff')
-  earthGlow.addColorStop(0.78, '#0b376fcc')
-  earthGlow.addColorStop(1, '#061c3a00')
-  earthContext.fillStyle = earthGlow
-  earthContext.fillRect(0, 0, 64, 64)
-  earthContext.fillStyle = '#88b77dcc'
-  earthContext.beginPath()
-  earthContext.ellipse(25, 28, 5, 2.5, -0.35, 0, Math.PI * 2)
-  earthContext.ellipse(37, 36, 4, 2, 0.55, 0, Math.PI * 2)
-  earthContext.fill()
-  const earthTexture = new CanvasTexture(earthCanvas)
-  earthTexture.colorSpace = SRGBColorSpace
-  const earthPointGeometry = new BufferGeometry().setFromPoints([initialEarthMarker.earthPosition])
-  const earthPoint = new Points(
-    earthPointGeometry,
-    new PointsMaterial({
-      color: 0xffffff, size: 11, sizeAttenuation: false, map: earthTexture, alphaTest: 0.05,
-      transparent: true, depthTest: true, depthWrite: true, toneMapped: false,
-    }),
-  )
-  earthPoint.name = 'earth-date-marker'
-  earthPoint.frustumCulled = false
-  earthPoint.renderOrder = 5
-  const earthAxisGeometry = new BufferGeometry().setFromPoints([
-    initialEarthMarker.earthPosition.clone().addScaledVector(initialEarthMarker.axisDirection, -EARTH_AXIS_DISPLAY_HALF_LENGTH_PC),
-    initialEarthMarker.earthPosition.clone().addScaledVector(initialEarthMarker.axisDirection, EARTH_AXIS_DISPLAY_HALF_LENGTH_PC),
-  ])
-  const earthAxisLine = new Line(
-    earthAxisGeometry,
-    new LineBasicMaterial({ color: 0xe2f8ff, transparent: true, opacity: 0.95, depthTest: true, depthWrite: false, toneMapped: false }),
-  )
-  earthAxisLine.name = 'earth-axis-line'
-  earthAxisLine.frustumCulled = false
-  earthAxisLine.renderOrder = 6
-  earthOrbitGroup.add(earthOrbitLine, earthAxisLine, earthPoint)
+  const earthOrbit = createEarthOrbitLayer(galacticToWorld(sun))
+  const earthOrbitGroup = earthOrbit.group
   let earthOrbitEnabled = initialEarthOrbitDate !== null
   scene.add(earthOrbitGroup)
-  const earthAxisStart = new Vector3()
-  const earthAxisEnd = new Vector3()
 
   function updateEarthOrbitVisibility(): void {
     earthOrbitGroup.visible = earthOrbitEnabled
@@ -388,16 +291,8 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
     setData(container, 'earthOrbitVisible', String(earthOrbitGroup.visible))
   }
 
-  function positionEarthMarker(date: Date, marker = earthOrbitMarker(date)): void {
-    const pointPositions = earthPointGeometry.getAttribute('position')
-    pointPositions.setXYZ(0, marker.earthPosition.x, marker.earthPosition.y, marker.earthPosition.z)
-    pointPositions.needsUpdate = true
-    const axisPositions = earthAxisGeometry.getAttribute('position')
-    earthAxisStart.copy(marker.earthPosition).addScaledVector(marker.axisDirection, -EARTH_AXIS_DISPLAY_HALF_LENGTH_PC)
-    earthAxisEnd.copy(marker.earthPosition).addScaledVector(marker.axisDirection, EARTH_AXIS_DISPLAY_HALF_LENGTH_PC)
-    axisPositions.setXYZ(0, earthAxisStart.x, earthAxisStart.y, earthAxisStart.z)
-    axisPositions.setXYZ(1, earthAxisEnd.x, earthAxisEnd.y, earthAxisEnd.z)
-    axisPositions.needsUpdate = true
+  function positionEarthMarker(date: Date): void {
+    const marker = earthOrbit.setDate(date)
     container.dataset.earthOrbitDate = date.toISOString().slice(0, 10)
     container.dataset.earthEclipticLongitudeDeg = marker.eclipticLongitudeDeg.toFixed(2)
   }
@@ -475,151 +370,19 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
     : null
   if (bubbleLayer) scene.add(bubbleLayer.mesh)
 
-  // Screen-space motion arrows: one instanced quad per arrow, positioned in canvas CSS px each frame.
   const arrowCapacity = Math.max(1, motions.filter(Boolean).length)
-  const arrowGeometry = new InstancedBufferGeometry()
-  arrowGeometry.setAttribute('position', new Float32BufferAttribute([0, -1, 0, 1, -1, 0, 1, 1, 0, 0, 1, 0], 3))
-  arrowGeometry.setIndex([0, 1, 2, 0, 2, 3])
-  const arrowPlacements = new InstancedBufferAttribute(new Float32Array(arrowCapacity * 4), 4).setUsage(DynamicDrawUsage)
-  const arrowShapes = new InstancedBufferAttribute(new Float32Array(arrowCapacity * 2), 2).setUsage(DynamicDrawUsage)
-  const arrowColors = new InstancedBufferAttribute(new Float32Array(arrowCapacity * 4), 4).setUsage(DynamicDrawUsage)
-  arrowGeometry.setAttribute('arrowPlacement', arrowPlacements)
-  arrowGeometry.setAttribute('arrowShape', arrowShapes)
-  arrowGeometry.setAttribute('arrowColor', arrowColors)
-  arrowGeometry.instanceCount = 0
-  const arrowUniforms = {
-    viewportSize: { value: new Vector2(1, 1) },
-    pixelRatio: { value: 1 },
-    strokeRadius: { value: MOTION_ARROW_STROKE_PX / 2 },
-    headSize: { value: MOTION_ARROW_HEAD_PX },
-    dashLength: { value: MOTION_ARROW_DASH_PX },
-    gapLength: { value: MOTION_ARROW_GAP_PX },
-  }
-  const arrowMaterial = new ShaderMaterial({
-    uniforms: arrowUniforms,
-    // The CSS-to-clip-space y flip reverses the quad winding.
-    side: DoubleSide,
-    transparent: true, depthTest: false, depthWrite: false, toneMapped: false,
-    vertexShader: `
-      attribute vec4 arrowPlacement;
-      attribute vec2 arrowShape;
-      attribute vec4 arrowColor;
-      uniform vec2 viewportSize;
-      uniform float pixelRatio;
-      uniform float strokeRadius;
-      uniform float headSize;
-      varying vec2 arrowPoint;
-      varying float arrowLength;
-      varying float arrowDashed;
-      varying vec4 arrowRgba;
-      void main() {
-        float pad = strokeRadius + 1.0 / pixelRatio;
-        arrowLength = arrowShape.x;
-        arrowDashed = arrowShape.y;
-        arrowRgba = arrowColor;
-        // x runs from the tail (0) to the tip (arrowLength); y spans the arrowhead.
-        float start = min(0.0, arrowLength - headSize) - pad;
-        arrowPoint = vec2(mix(start, arrowLength + pad, position.x), position.y * (headSize + pad));
-        vec2 along = arrowPlacement.zw;
-        vec2 across = vec2(-along.y, along.x);
-        vec2 screenPoint = arrowPlacement.xy + along * arrowPoint.x + across * arrowPoint.y;
-        gl_Position = vec4(screenPoint.x / viewportSize.x * 2.0 - 1.0, 1.0 - screenPoint.y / viewportSize.y * 2.0, 0.0, 1.0);
-      }
-    `,
-    fragmentShader: `
-      uniform float pixelRatio;
-      uniform float strokeRadius;
-      uniform float headSize;
-      uniform float dashLength;
-      uniform float gapLength;
-      varying vec2 arrowPoint;
-      varying float arrowLength;
-      varying float arrowDashed;
-      varying vec4 arrowRgba;
-      float segmentDistance(vec2 point, vec2 start, vec2 end) {
-        vec2 segment = end - start;
-        float along = clamp(dot(point - start, segment) / max(dot(segment, segment), 1e-6), 0.0, 1.0);
-        return length(point - start - segment * along);
-      }
-      float strokeCoverage(float offset) {
-        return clamp((strokeRadius - offset) * pixelRatio + 0.5, 0.0, 1.0);
-      }
-      void main() {
-        vec2 tip = vec2(arrowLength, 0.0);
-        float coverage = strokeCoverage(min(
-          segmentDistance(arrowPoint, tip, tip + vec2(-headSize, headSize)),
-          segmentDistance(arrowPoint, tip, tip + vec2(-headSize, -headSize))));
-        float shaft = strokeCoverage(segmentDistance(arrowPoint, vec2(0.0), tip));
-        if (arrowDashed > 0.5 && arrowPoint.x > 0.0 && arrowPoint.x < arrowLength) {
-          // Butt-capped dashes; the first dash keeps the round tail cap.
-          float period = dashLength + gapLength;
-          float phase = mod(arrowPoint.x, period);
-          float inside = phase <= dashLength
-            ? min(arrowPoint.x < dashLength ? dashLength : phase, dashLength - phase)
-            : -min(phase - dashLength, period - phase);
-          shaft *= clamp(inside * pixelRatio + 0.5, 0.0, 1.0);
-        }
-        coverage = max(coverage, shaft);
-        if (coverage <= 0.0) discard;
-        gl_FragColor = vec4(arrowRgba.rgb, arrowRgba.a * coverage);
-        #include <colorspace_fragment>
-      }
-    `,
-  })
-  const arrows = new Mesh(arrowGeometry, arrowMaterial)
-  arrows.frustumCulled = false
-  arrows.renderOrder = 4
-  arrows.visible = false
+  const {
+    mesh: arrows, geometry: arrowGeometry, material: arrowMaterial,
+    placements: arrowPlacements, shapes: arrowShapes, colors: arrowColors, uniforms: arrowUniforms,
+  } = createMotionArrowMesh(arrowCapacity)
   scene.add(arrows)
 
-  function makeGridGeometry(spacingPc: number, halfSizePc: number): BufferGeometry {
-    const limit = Math.floor(halfSizePc / spacingPc + 1e-9)
-    const positions: number[] = []
-    const colors: number[] = []
-    const center = new Color(0x756d65)
-    const ordinary = new Color(0x4a4642)
-    for (let index = -limit; index <= limit; index++) {
-      const offset = index * spacingPc
-      positions.push(-halfSizePc, 0, offset, halfSizePc, 0, offset)
-      positions.push(offset, 0, -halfSizePc, offset, 0, halfSizePc)
-      const color = index === 0 ? center : ordinary
-      colors.push(color.r, color.g, color.b, color.r, color.g, color.b)
-      colors.push(color.r, color.g, color.b, color.r, color.g, color.b)
-    }
-    const geometry = new BufferGeometry()
-    geometry.setAttribute('position', new Float32BufferAttribute(positions, 3))
-    geometry.setAttribute('color', new Float32BufferAttribute(colors, 3))
-    return geometry
-  }
   let gridScale = gridScaleForViewDistance(0, 'pc')
   let gridSpacing = gridScale.spacingPc
   let gridHalfSize = gridScale.halfSizePc
   const gridOpacity = { value: gridOpacityForDisplay(window.devicePixelRatio) }
   const gridRadius = { value: gridHalfSize }
-  const grid = new LineSegments(makeGridGeometry(gridSpacing, gridHalfSize), new ShaderMaterial({
-    uniforms: { radius: gridRadius, opacity: gridOpacity },
-    vertexColors: true, transparent: true, depthWrite: false, toneMapped: false,
-    vertexShader: `
-      varying vec2 gridPosition;
-      varying vec3 gridColor;
-      void main() {
-        gridPosition = position.xz;
-        gridColor = color;
-        gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
-      }
-    `,
-    fragmentShader: `
-      uniform float radius;
-      uniform float opacity;
-      varying vec2 gridPosition;
-      varying vec3 gridColor;
-      void main() {
-        float fade = 1.0 - smoothstep(radius * 0.55, radius, length(gridPosition));
-        gl_FragColor = vec4(gridColor, opacity * fade);
-        #include <colorspace_fragment>
-      }
-    `,
-  }))
+  const grid = createMapGrid(gridSpacing, gridHalfSize, { radius: gridRadius, opacity: gridOpacity })
   const origin = basePositions[referenceIndex]!.clone()
   grid.position.copy(origin)
   scene.add(grid)
@@ -655,21 +418,15 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
   if (bubbleLayer) labelLayer.dataset.bubbleTriangleCount = String(bubbleLayer.triangleCount())
   container.append(labelLayer)
 
-  function makeLabel(position: Vector3, content: string, className: string, starId?: string): MapLabel {
+  function makeLabel(position: Vector3, content: string, className: string): MapLabel {
     const anchor = document.createElement('div')
     anchor.className = 'map-anchor'
     const text = document.createElement('div')
     text.className = `map-label ${className}`
     text.textContent = content
-    if (starId) {
-      anchor.dataset.starId = starId
-      const ring = document.createElement('span')
-      ring.className = 'selection-ring'
-      anchor.append(ring)
-    }
     anchor.append(text)
     labelLayer.append(anchor)
-    return { anchor, text, position, starId, width: 0, height: 0 }
+    return { anchor, text, position, width: 0, height: 0 }
   }
 
   const starLabelPool: MapLabel[] = []
@@ -687,8 +444,8 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
   const guideDashEnd = new Vector3()
 
   function updateGuideDashScales(): void {
-    const width = canvas.clientWidth
-    const height = canvas.clientHeight
+    const width = renderWidth
+    const height = renderHeight
     const viewportDiagonal = Math.hypot(width, height)
     for (const object of guides.children) {
       if (!(object instanceof Line) || !(object.material instanceof LineDashedMaterial)) continue
@@ -729,6 +486,7 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
   let motionFrame: MotionFrame = 'galactic'
   let motionYears: MotionYears = 1_000
   let simulationYears = 0
+  let simulationPending = false
   let simulationPlaying = false
   let followSelection = false
   let observerViewEnabled = false
@@ -744,6 +502,7 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
   const observerViewBackward = new Vector3()
   const OBSERVER_ORBIT_RADIUS_PC = 1e-6
   const OBSERVER_ROLL_STEP = Math.PI / 12
+  const OBSERVER_POLE_MARGIN = 0.05
   let observerRollRadians = 0
   let savedOrbitSettings: {
     enablePan: boolean
@@ -769,6 +528,8 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
   const budgetedNameIndices = new Set<number>()
   const ordinaryNameIndices = new Set<number>()
   const committedOrdinaryNameIndices = new Set<number>()
+  let budgetSelectedIndex = -2
+  let budgetLimit = -1
   const starLabels: MapLabel[] = []
   const otherStarLabels: MapLabel[] = []
   const orderedLabels: MapLabel[] = []
@@ -898,8 +659,9 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
       controls.enableZoom = false
       controls.minDistance = OBSERVER_ORBIT_RADIUS_PC
       controls.maxDistance = OBSERVER_ORBIT_RADIUS_PC
-      controls.minPolarAngle = 0
-      controls.maxPolarAngle = Math.PI
+      // Stop short of the zenith and nadir, where the horizon-relative roll is undefined.
+      controls.minPolarAngle = OBSERVER_POLE_MARGIN
+      controls.maxPolarAngle = Math.PI - OBSERVER_POLE_MARGIN
       return
     }
     if (!savedOrbitSettings) return
@@ -922,7 +684,8 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
     }
     observerZeroRollUp.normalize()
     observerScreenUp.copy(observerZeroRollUp).applyAxisAngle(observerViewBackward, observerRollRadians)
-    setOrbitUp(observerScreenUp)
+    // OrbitControls' own lookAt then reproduces the roll; its orbit frame stays on world up.
+    camera.up.copy(observerScreenUp)
     camera.lookAt(controls.target)
     container.dataset.observerRollDegrees = String(Math.round(observerRollRadians * 180 / Math.PI))
     container.dataset.observerViewDirection = `${-observerViewBackward.x},${-observerViewBackward.y},${-observerViewBackward.z}`
@@ -1048,6 +811,7 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
   }
 
   function applySimulationYears(): void {
+    simulationPending = false
     for (let index = 0; index < pickable.length; index++) {
       const position = pickable[index]!.position.copy(basePositions[index]!)
       const yearlyMotion = yearlyMotionVectors[index]
@@ -1099,7 +863,6 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
   function bindStarLabel(label: MapLabel, index: number): void {
     const star = stars[index]!
     label.position = pickable[index]!.position
-    label.starId = star.id
     label.text.textContent = star.name
     label.placement = undefined
     label.anchor.dataset.starId = star.id
@@ -1170,34 +933,6 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
     }
     if (pendingFrame !== null) return
     pendingFrame = requestAnimationFrame(render)
-  }
-
-  function loadMilkyWay(): void {
-    if (milkyWayTexture || milkyWayLoading || disposed) return
-    milkyWayLoading = true
-    new TextureLoader().load(milkyWayImageUrl, (texture) => {
-      milkyWayLoading = false
-      if (disposed) {
-        texture.dispose()
-        return
-      }
-      texture.colorSpace = SRGBColorSpace
-      texture.wrapS = RepeatWrapping
-      texture.generateMipmaps = false
-      texture.minFilter = LinearFilter
-      texture.magFilter = LinearFilter
-      milkyWayTexture = texture
-      milkyWayUniforms.map.value = texture
-      const textureWidth = Math.min(texture.image.width, renderer.capabilities.maxTextureSize)
-      const textureHeight = texture.image.height * textureWidth / texture.image.width
-      milkyWayUniforms.texelSize.value.set(1 / textureWidth, 1 / textureHeight)
-      milkyWaySky.visible = milkyWayVisible
-      container.dataset.milkyWayReady = 'true'
-      requestRender()
-    }, undefined, () => {
-      milkyWayLoading = false
-      if (!disposed) container.dataset.milkyWayReady = 'error'
-    })
   }
 
   function cancelRender(): void {
@@ -1499,22 +1234,31 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
     const selectedIndex = selectedId ? starsById.get(selectedId)!.index : -1
     const selectedLabelVisible = selectedIndex >= 0 && (!observerViewEnabled || selectedIndex !== observerViewAnchorIndex)
     const ordinaryBudget = Math.max(0, labelLimit - (selectedLabelVisible && labelLimit > 0 ? 1 : 0))
-    if (ordinaryGroupSource !== rankedNameGroups) {
-      ordinaryGroupSource = rankedNameGroups
-      ordinaryGroups.length = 0
-      for (const group of rankedNameGroups) {
-        const indices = group.indices.filter((index) => index !== selectedIndex)
-        if (indices.length > 0) ordinaryGroups.push({ indices })
+    const motionActive = controlsInteracting || controlsSettling || focusTransition !== null || simulationPlaying
+    // Membership follows the same 30 Hz cadence as ordinary placement while moving.
+    const budgetStale = ordinaryGroupSource !== rankedNameGroups || budgetSelectedIndex !== selectedIndex ||
+      budgetLimit !== ordinaryBudget || ordinaryLayoutDirty || labelSizesDirty || obstacleBoundsDirty
+    let labelsChanged = false
+    if (shouldRunOrdinaryLabelLayout(time, lastOrdinaryLayoutTime, motionActive, budgetStale)) {
+      if (ordinaryGroupSource !== rankedNameGroups) {
+        ordinaryGroupSource = rankedNameGroups
+        ordinaryGroups.length = 0
+        for (const group of rankedNameGroups) {
+          const indices = group.indices.filter((index) => index !== selectedIndex)
+          if (indices.length > 0) ordinaryGroups.push({ indices })
+        }
       }
+      budgetSelectedIndex = selectedIndex
+      budgetLimit = ordinaryBudget
+      budgetedNameIndices.clear()
+      ordinaryNameIndices.clear()
+      for (const index of budgetVisibleLabelIndices(ordinaryGroups, projections, ordinaryBudget)) {
+        ordinaryNameIndices.add(index)
+        budgetedNameIndices.add(index)
+      }
+      if (selectedLabelVisible) budgetedNameIndices.add(selectedIndex)
+      labelsChanged = syncStarLabels(budgetedNameIndices, starLabels)
     }
-    budgetedNameIndices.clear()
-    ordinaryNameIndices.clear()
-    for (const index of budgetVisibleLabelIndices(ordinaryGroups, projections, ordinaryBudget)) {
-      ordinaryNameIndices.add(index)
-      budgetedNameIndices.add(index)
-    }
-    if (selectedLabelVisible) budgetedNameIndices.add(selectedIndex)
-    const labelsChanged = syncStarLabels(budgetedNameIndices, starLabels)
     setData(labelLayer, 'nameBudget', String(labelLimit))
     let labelSizesChanged = false
     if (labelSizesDirty) {
@@ -1562,7 +1306,7 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
     const layoutOrdinaryLabels = shouldRunOrdinaryLabelLayout(
       time,
       lastOrdinaryLayoutTime,
-      controlsInteracting || controlsSettling || focusTransition !== null || simulationPlaying,
+      motionActive,
       ordinaryLayoutDirty || labelsChanged || labelSizesChanged || obstacleBoundsChanged ||
         !sameIndexSet(ordinaryNameIndices, committedOrdinaryNameIndices),
     )
@@ -2064,6 +1808,8 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
       return
     }
     forceNextFrame = false
+    // Playback can outpace the render cadence; apply only the latest time on drawn frames.
+    if (simulationPending) applySimulationYears()
     sceneDirty = false
     const elapsedMs = lastRenderTime > 0 ? time - lastRenderTime : 1000 / 60
     lastRenderTime = time
@@ -2183,11 +1929,11 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
   sceneObstacleElements.forEach((element) => obstacleObserver.observe(element))
   updatePresentation()
   updateEarthOrbitVisibility()
-  if (initialEarthOrbitDate) positionEarthMarker(initialEarthOrbitDate, initialEarthMarker)
+  if (initialEarthOrbitDate) positionEarthMarker(initialEarthOrbitDate)
   container.dataset.earthOrbitRadiusPc = String(EARTH_ORBIT_DISPLAY_RADIUS_PC)
   container.dataset.milkyWayVisible = String(milkyWayVisible)
   container.dataset.simulationYears = '0'
-  if (milkyWayVisible) loadMilkyWay()
+  milkyWay.setVisible(milkyWayVisible)
   resize()
   requestRender()
   container.dataset.ready = 'true'
@@ -2261,8 +2007,7 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
       if (visible === milkyWayVisible) return
       milkyWayVisible = visible
       container.dataset.milkyWayVisible = String(visible)
-      if (visible && !milkyWayTexture) loadMilkyWay()
-      milkyWaySky.visible = visible && milkyWayTexture !== null
+      milkyWay.setVisible(visible)
       requestRender()
     },
     setMotionFrame(frame) {
@@ -2290,6 +2035,7 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
       if (playing === simulationPlaying) return
       simulationPlaying = playing
       if (!playing) {
+        if (simulationPending) applySimulationYears()
         updateSelectionGuides(true)
         lastSelectionDistanceUpdate = performance.now()
         ordinaryLayoutDirty = true
@@ -2299,7 +2045,8 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
     setSimulationYears(years) {
       if (!Number.isFinite(years) || Math.abs(years) > SIMULATION_YEAR_LIMIT || years === simulationYears) return
       simulationYears = years
-      applySimulationYears()
+      simulationPending = true
+      requestRender()
     },
     setPowerSavingMode(enabled) {
       if (enabled === powerSavingMode) return
@@ -2315,7 +2062,7 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
     setStarColorMode(mode) {
       if ((mode !== 'real' && mode !== 'exaggerated') || mode === starColorMode) return
       starColorMode = mode
-      milkyWayUniforms.saturation.value = mode === 'exaggerated' ? 1.3 : 1
+      milkyWay.setSaturation(mode === 'exaggerated' ? 1.3 : 1)
       stars.forEach((star, index) => {
         const color = starDisplayColor(star, mode)
         starColors[index] = color
@@ -2398,12 +2145,10 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
       molecularCloudLayer?.dispose()
       bubbleLayer?.dispose()
       dotTexture.dispose()
-      earthTexture.dispose()
+      earthOrbit.dispose()
       haloTexture.dispose()
-      milkyWayTexture?.dispose()
-      milkyWayGeometry.dispose()
-      milkyWayMaterial.dispose()
-      renderer.dispose()
+      milkyWay.dispose()
+      renderer.renderLists.dispose()
       canvas.remove()
       axisLayer.remove()
       labelLayer.remove()
