@@ -49,7 +49,7 @@
                             <div class="object-type-row"><dt>Object type</dt><dd><button id="object-type-toggle" class="object-type-toggle" type="button" aria-controls="object-type-card" aria-expanded="false"><span id="object-type"></span></button></dd></div>
                             <div id="known-planets-row"><dt>Known planets</dt><dd><button id="known-planets" class="object-type-toggle" type="button" aria-controls="object-system"></button></dd></div>
                             <div id="object-subtypes-row"><dt>Sub-type</dt><dd id="object-subtypes"></dd></div>
-                            <div id="constellation-row"><dt>Constellation</dt><dd id="constellation"></dd></div>
+                            <div id="constellation-row" class="constellation-row"><dt>Constellation</dt><dd><button id="constellation-toggle" class="object-type-toggle" type="button" aria-controls="constellation-card" aria-expanded="false" aria-describedby="constellation" disabled><span id="constellation"></span></button></dd></div>
                             <div class="stellar-property spectral-row"><dt>Spectral type</dt><dd><button id="spectral-toggle" class="object-type-toggle" type="button" aria-controls="spectral-card" aria-expanded="false" aria-describedby="spectral-type"><span id="spectral-type"></span></button></dd></div>
                             <div class="stellar-property"><dt>Temperature</dt><dd id="temperature"></dd></div>
                             <div id="luminosity-row" class="stellar-property"><dt>Bolometric luminosity</dt><dd id="luminosity"></dd></div>
@@ -150,6 +150,43 @@
                   </div>
                 </div>
                 <p id="metallicity-description"></p>
+              </div>
+            </section>
+            <section id="constellation-card" class="dock-card object-type-card constellation-card" aria-labelledby="constellation-heading" data-scene-obstacle hidden>
+              <div class="panel-heading constellation-heading">
+                <h2 id="constellation-heading">Constellation: Canis Major</h2>
+                <button id="constellation-lock" class="panel-lock" type="button" aria-label="Keep Constellation open" aria-pressed="false"><span id="constellation-lock-icon"></span></button>
+                <button id="constellation-close" class="panel-lock" type="button" aria-label="Close constellation card"><span id="constellation-close-icon"></span></button>
+              </div>
+              <div class="card-scroll-content">
+                <figure id="constellation-chart" class="constellation-chart"></figure>
+                <p id="constellation-missing" class="constellation-missing" hidden></p>
+                <section id="constellation-visibility" class="constellation-visibility" aria-label="Visibility from Earth">
+                  <div class="constellation-visibility-charts">
+                    <div id="constellation-visibility-map" class="constellation-visibility-map"></div>
+                    <div class="constellation-visibility-season">
+                      <div class="constellation-latitude-control">
+                        <label for="constellation-latitude">Latitude</label>
+                        <select id="constellation-latitude">
+                          <option value="80">80° N</option><option value="70">70° N</option><option value="60">60° N</option><option value="50">50° N</option><option value="40" selected>40° N</option><option value="30">30° N</option><option value="20">20° N</option><option value="10">10° N</option><option value="0">0°</option><option value="-10">10° S</option><option value="-20">20° S</option><option value="-30">30° S</option><option value="-40">40° S</option><option value="-50">50° S</option><option value="-60">60° S</option><option value="-70">70° S</option><option value="-80">80° S</option>
+                        </select>
+                      </div>
+                      <p id="constellation-visibility-time" class="constellation-visibility-time">Around 10 pm <span>· solar time</span></p>
+                      <div id="constellation-visibility-months" class="constellation-visibility-months" role="img"></div>
+                    </div>
+                  </div>
+                  <dl class="properties constellation-visibility-stats">
+                    <div><dt>Visible from latitudes</dt><dd id="constellation-visible-latitudes-value"></dd></div>
+                    <div><dt>Visible during months</dt><dd id="constellation-visible-months-value"></dd></div>
+                  </dl>
+                </section>
+                <details class="constellation-sources">
+                  <summary>Sources</summary>
+                  <p>Catalogue sky positions as seen from Earth, north up and east left. Solid figure lines follow the Stellarium Western sky culture. Spaced dashed borders use CDS J2000 IAU boundary data.</p>
+                  <div id="constellation-source-links"></div>
+                  <p>Visibility is geometric; black land can see the selected object above the horizon. Evening months use the selected latitude, a level horizon, and astronomical darkness at 10 pm local solar time on each month's 15th. Weather, terrain, and brightness limits are not modeled.</p>
+                  <div class="constellation-visibility-sources"><a href="https://aa.usno.navy.mil/faq/alt_az" target="_blank" rel="noreferrer">USNO horizon geometry</a><a href="https://aa.usno.navy.mil/faq/sun_approx" target="_blank" rel="noreferrer">USNO solar coordinates</a><a href="https://aa.usno.navy.mil/faq/RST_defs" target="_blank" rel="noreferrer">USNO twilight definitions</a><a href="https://www.naturalearthdata.com/" target="_blank" rel="noreferrer">Natural Earth land outlines</a></div>
+                </details>
               </div>
             </section>
             <section id="mass-card" class="dock-card object-type-card mass-card" aria-labelledby="mass-heading" data-scene-obstacle hidden>
@@ -588,7 +625,7 @@
                   <div id="distance-units" class="segmented-choice" role="group" aria-labelledby="distance-units-label"><span id="distance-units-label">Distances</span><div class="unit-options"><label><input id="unit-pc" type="radio" name="distance-unit" value="pc"><span>pc</span></label><label><input id="unit-ly" type="radio" name="distance-unit" value="ly" checked><span>ly</span></label></div></div>
                   <div id="star-colors" class="segmented-choice" role="group" aria-labelledby="star-colors-label"><span id="star-colors-label">Colors</span><div class="unit-options"><label><input id="star-colors-real" type="radio" name="star-color-mode" value="real"><span>Real</span></label><label><input id="star-colors-exaggerated" type="radio" name="star-color-mode" value="exaggerated" checked><span>Exaggerated</span></label></div></div>
                   <div class="range-filter">
-                    <div class="range-heading"><label for="label-limit">Star labels</label><output id="label-limit-value" for="label-limit">40</output></div>
+                    <div class="range-heading"><label for="label-limit">Labels</label><output id="label-limit-value" for="label-limit">40</output></div>
                     <input id="label-limit" type="range" min="0" max="140" step="20" value="40" aria-valuetext="40 labels">
                     <div class="range-bounds" aria-hidden="true"><span>Off</span><span>140</span></div>
                   </div>
@@ -607,7 +644,7 @@
                   <div><dt>Repository</dt><dd><a href="https://github.com/reery/Star-View" target="_blank" rel="noreferrer">GitHub</a></dd></div>
                   <div><dt>License</dt><dd>MIT</dd></div>
                   <div><dt>Sky image</dt><dd><a href="https://www.eso.org/public/images/eso0932a/" target="_blank" rel="noreferrer">ESO/S. Brunier</a><br><span class="attribution-note">resized and dimmed · <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noreferrer">CC BY 4.0</a></span></dd></div>
-                  <div><dt>Version</dt><dd>v0.4</dd></div>
+                  <div><dt>Version</dt><dd>v0.5</dd></div>
                 </dl>
               </section>
             </div>

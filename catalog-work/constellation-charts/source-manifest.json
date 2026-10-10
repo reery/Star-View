@@ -1,0 +1,27 @@
+{
+  "schemaVersion": 1,
+  "retrieved": "2026-10-10",
+  "catalog": "VI/49 (Davenhall and Leggett, 1989; updated J2000 table)",
+  "sources": {
+    "boundaries": {
+      "file": "boundaries-j2000.dat.gz",
+      "url": "https://cdsarc.cds.unistra.fr/ftp/VI/49/bound_20.dat.gz",
+      "sha256": "879cd6e7a1c908f1e19a5f5fe8cc75fb1d1077564e3890f9152a3680affe9aac"
+    },
+    "documentation": {
+      "file": "boundaries-readme.txt",
+      "url": "https://cdsarc.cds.unistra.fr/ftp/VI/49/ReadMe",
+      "sha256": "af906e494b7390de1257a06934b69ce1a87e1c4a55776d2e8c16de8e3b468705"
+    },
+    "contours": {
+      "file": "boundary-contours-b1875.dat",
+      "url": "https://cdsarc.cds.unistra.fr/ftp/VI/49/constbnd.dat",
+      "sha256": "865cdf4218f676eb304587c75c63231948d29cd0abe6892a8a8130c1c4fe3592"
+    },
+    "contourDocumentation": {
+      "file": "boundary-contours-readme.txt",
+      "url": "https://cdsarc.cds.unistra.fr/ftp/VI/49/constbnd.txt",
+      "sha256": "a3ec688bea21e9db10832842c9b845558dbe8ccf820ddedec842d664d2b74c89"
+    }
+  }
+}

@@ -21,6 +21,7 @@ import { hrCardAvailable, hrMagnitude, renderHrDiagram, type HrMagnitudeMode } f
 import { renderMkDiagram } from './mk-diagram'
 import { spectralReference } from './spectral-chart'
 import { massCardAvailable } from './mass-properties'
+import { constellationCardAvailable, loadConstellationChart, type ConstellationChart } from './constellations'
 import { radiusComparison, radiusStats, radiusSummary, renderRadiusComparison, type RadiusReference } from './radius-comparison'
 import { indexStarSystems, primarySystemStarId, type StarSystem } from './star-systems'
 import { loadStellarOrbits } from './stellar-orbits'
@@ -83,6 +84,8 @@ icon('metallicity-close-icon', X)
 icon('radius-close-icon', X)
 icon('spectral-close-icon', X)
 icon('mass-close-icon', X)
+icon('constellation-close-icon', X)
+icon('constellation-lock-icon', Lock)
 icon('distance-close-icon', X)
 icon('distance-lock-icon', Lock)
 icon('planet-lock-icon', Lock)
@@ -105,6 +108,10 @@ const events = new AbortController()
 initializeGlossary(events.signal)
 let viewer: StarViewer | undefined
 let stars: Star[] = []
+// Chart selections are explicit additions, independent of the overlay switches.
+// Retain them across catalog refreshes so origin and selection history stay valid.
+const constellationSelectedStars = new Map<string, Star>()
+let constellationSelectionRequest = 0
 let starSystems: ReadonlyMap<string, StarSystem> = new Map()
 let activeCatalogId = ''
 let selectedId: string | null = 'sirius-a'
@@ -331,6 +338,75 @@ function closeMassCard(restoreFocus = false): void {
   if (restoreFocus) element('mass-toggle').focus()
 }
 
+let constellationCardLocked = false
+let constellationOpenRequest = 0
+let constellationCardModule: typeof import('./constellation-card') | undefined
+let activeConstellationChart: ConstellationChart | null = null
+
+function closeConstellationCard(restoreFocus = false): void {
+  constellationOpenRequest++
+  const card = element('constellation-card')
+  if (card.hidden) return
+  card.hidden = true
+  element('constellation-toggle').setAttribute('aria-expanded', 'false')
+  if (restoreFocus) element('constellation-toggle').focus()
+}
+
+function renderConstellationCard(star: Star): void {
+  if (!constellationCardModule) return
+  if (activeConstellationChart?.name !== star.constellation) {
+    const request = ++constellationOpenRequest
+    void loadConstellationChart(star).then((chart) => {
+      if (!chart || request !== constellationOpenRequest || selectedId !== star.id || element('constellation-card').hidden) return
+      activeConstellationChart = chart
+      renderConstellationCard(star)
+    })
+    return
+  }
+  constellationCardModule.renderConstellationCard(element('constellation-card'), star, activeConstellationChart, {
+    objects: stars, colorMode: starColorMode, distanceUnit,
+    onSelect: (object) => { void selectConstellationStar(object) },
+  })
+  syncObjectTypeLayout()
+}
+
+async function selectConstellationStar(object: Star): Promise<void> {
+  const request = ++constellationSelectionRequest
+  const existing = stars.find((star) => star.id === object.id)
+  if (!existing) {
+    constellationSelectedStars.set(object.id, object)
+    await switchCatalog(activeCatalogId, true)
+    if (request !== constellationSelectionRequest) return
+  }
+  selectStar(object.id, true, true)
+}
+
+async function toggleConstellationCard(): Promise<void> {
+  if (!element('constellation-card').hidden) {
+    closeConstellationCard(true)
+    return
+  }
+  const star = stars.find((candidate) => candidate.id === selectedId)
+  if (!star || !constellationCardAvailable(star)) return
+  const request = ++constellationOpenRequest
+  const [module, chart] = await Promise.all([import('./constellation-card'), loadConstellationChart(star)])
+  if (!chart || request !== constellationOpenRequest || selectedId !== star.id) return
+  constellationCardModule = module
+  activeConstellationChart = chart
+  closePlanetCard()
+  closeObjectTypeCard()
+  closeMetallicityCard()
+  closeRadiusCard()
+  closeMassCard()
+  closeDistanceCard()
+  closeSpectralCard()
+  element('constellation-card').hidden = false
+  element('constellation-toggle').setAttribute('aria-expanded', 'true')
+  renderConstellationCard(star)
+  element('constellation-card').querySelector<HTMLElement>('.card-scroll-content')!.scrollTop = 0
+  element('constellation-close').focus({ preventScroll: true })
+}
+
 function closeSpectralCard(restoreFocus = false): void {
   const card = element('spectral-card')
   if (card.hidden) return
@@ -358,6 +434,7 @@ function renderSpectralCard(star: Star): void {
 }
 
 function toggleSpectralCard(): void {
+  if (element<HTMLButtonElement>('spectral-toggle').disabled) return
   if (!element('spectral-card').hidden) {
     closeSpectralCard(true)
     return
@@ -370,6 +447,7 @@ function toggleSpectralCard(): void {
   closeRadiusCard()
   closeMassCard()
   closeDistanceCard()
+  closeConstellationCard()
   element('spectral-card').hidden = false
   element('spectral-toggle').setAttribute('aria-expanded', 'true')
   renderSpectralCard(star)
@@ -443,6 +521,7 @@ async function selectSystemPlanet(planetId: string): Promise<void> {
   closeDistanceCard()
   activePlanetId = planetId
   closeSpectralCard()
+  closeConstellationCard()
   renderPlanetCard(element('planet-card'), description)
   element('planet-card').hidden = false
   highlightSystemPlanet(system, planetId, planetId)
@@ -469,19 +548,21 @@ function renderMassCard(star: Star): void {
 }
 
 async function toggleMassCard(): Promise<void> {
+  if (element<HTMLButtonElement>('mass-toggle').disabled) return
   if (!element('mass-card').hidden) {
     closeMassCard(true)
     return
   }
   massCardModule ??= await import('./mass-card')
   const star = stars.find((candidate) => candidate.id === selectedId)
-  if (!star || !massCardAvailable(star)) return
+  if (!star || !massCardAvailable(star) || element<HTMLButtonElement>('mass-toggle').disabled) return
   closePlanetCard()
   closeObjectTypeCard()
   closeMetallicityCard()
   closeRadiusCard()
   closeDistanceCard()
   closeSpectralCard()
+  closeConstellationCard()
   element('mass-card').hidden = false
   element('mass-toggle').setAttribute('aria-expanded', 'true')
   renderMassCard(star)
@@ -538,6 +619,7 @@ function toggleDistanceCard(): void {
   closeRadiusCard()
   closeMassCard()
   closeSpectralCard()
+  closeConstellationCard()
   element('distance-card').hidden = false
   element('distance-toggle').setAttribute('aria-expanded', 'true')
   renderDistanceCard(star)
@@ -582,6 +664,7 @@ function renderRadiusCard(star: Star): void {
 }
 
 function toggleRadiusCard(): void {
+  if (element<HTMLButtonElement>('radius-toggle').disabled) return
   if (!element('radius-card').hidden) {
     closeRadiusCard(true)
     return
@@ -594,6 +677,7 @@ function toggleRadiusCard(): void {
   closeDistanceCard()
   closeMassCard()
   closeSpectralCard()
+  closeConstellationCard()
   element('radius-card').hidden = false
   element('radius-toggle').setAttribute('aria-expanded', 'true')
   renderRadiusCard(star)
@@ -669,6 +753,7 @@ function metallicityContext(star: Star): string {
 }
 
 function toggleMetallicityCard(): void {
+  if (element<HTMLButtonElement>('metallicity-toggle').disabled) return
   if (!element('metallicity-card').hidden) {
     closeMetallicityCard(true)
     return
@@ -681,6 +766,7 @@ function toggleMetallicityCard(): void {
   closeMassCard()
   closeDistanceCard()
   closeSpectralCard()
+  closeConstellationCard()
   element('metallicity-card').hidden = false
   element('metallicity-toggle').setAttribute('aria-expanded', 'true')
   renderMetallicityCard(star)
@@ -718,6 +804,7 @@ function toggleObjectTypeCard(): void {
   closeMassCard()
   closeDistanceCard()
   closeSpectralCard()
+  closeConstellationCard()
   element('object-type-card').hidden = false
   element('object-type-toggle').setAttribute('aria-expanded', 'true')
   renderObjectTypeCard(star)
@@ -726,7 +813,7 @@ function toggleObjectTypeCard(): void {
 
 function syncObjectTypeLayout(): void {
   const motion = element('motion-panel')
-  const cards = ['object-type-card', 'metallicity-card', 'radius-card', 'spectral-card', 'mass-card', 'distance-card', 'planet-card'].map((id) => element(id))
+  const cards = ['object-type-card', 'metallicity-card', 'radius-card', 'spectral-card', 'mass-card', 'distance-card', 'planet-card', 'constellation-card'].map((id) => element(id))
   for (const card of cards) card.style.removeProperty('max-height')
   if (motion.hidden) return
   // Read every rectangle before writing, so playback refreshes cause one layout.
@@ -790,6 +877,7 @@ function dismissOpenPanel(): void {
   closeRadiusCard()
   closeSpectralCard()
   closeMassCard()
+  if (!constellationCardLocked) closeConstellationCard()
   if (!distanceCardLocked) closeDistanceCard()
   if (!planetCardLocked) closePlanetCard()
   let changed = false
@@ -966,6 +1054,7 @@ for (const section of objectSections) {
       closeSpectralCard()
       closeMassCard()
       closeDistanceCard()
+      closeConstellationCard()
     }
     syncObjectSections()
   }, { signal: events.signal })
@@ -981,6 +1070,7 @@ element('known-planets-row').addEventListener('click', () => {
   closeSpectralCard()
   closeMassCard()
   closeDistanceCard()
+  closeConstellationCard()
   syncObjectSections()
   element('object-system-toggle').focus({ preventScroll: true })
 }, { signal: events.signal })
@@ -1052,6 +1142,7 @@ function renderSelection(): void {
     closeMassCard()
     closeDistanceCard()
     closeSpectralCard()
+    closeConstellationCard()
     delete element('inspector').dataset.selectedStar
     element('inspector').style.removeProperty('--selected-star-color')
     text('selection-announcement', 'No object selected.')
@@ -1095,6 +1186,12 @@ function renderSelection(): void {
   if (!element('object-type-card').hidden) renderObjectTypeCard(star)
   element('constellation-row').hidden = star.id === 'sun'
   text('constellation', star.constellation ?? MISSING_VALUE)
+  const constellationAvailable = constellationCardAvailable(star)
+  element<HTMLButtonElement>('constellation-toggle').disabled = !constellationAvailable
+  element('constellation-toggle').title = constellationAvailable ? `Show ${star.constellation}` : 'Constellation chart not available yet'
+  element('constellation-toggle').setAttribute('aria-label', constellationAvailable ? `Explore ${star.constellation} constellation` : `${star.constellation ?? 'Constellation'}: chart not available yet`)
+  if (!constellationAvailable) closeConstellationCard()
+  else if (!element('constellation-card').hidden) renderConstellationCard(star)
   text('known-planets', String(knownPlanetCount))
   element('known-planets').title = 'Show confirmed planets in this system from the adopted NASA Exoplanet Archive snapshot.'
   element('known-planets').setAttribute('aria-label', `Show system with ${knownPlanetCount} known planets`)
@@ -1109,7 +1206,8 @@ function renderSelection(): void {
   const bubbleObject = isBubbleObject(star)
   element('known-planets-row').hidden = knownPlanetCount === 0 || nebulaObject || molecularCloudObject || bubbleObject
   element('object-subtypes-row').hidden = (nebulaObject || molecularCloudObject || bubbleObject) && !star.subtypes?.length
-  for (const row of document.querySelectorAll<HTMLElement>('.stellar-property')) row.hidden = compactObject || nebulaObject || molecularCloudObject || bubbleObject
+  const stellarPropertiesHidden = compactObject || nebulaObject || molecularCloudObject || bubbleObject
+  for (const row of document.querySelectorAll<HTMLElement>('.stellar-property')) row.hidden = stellarPropertiesHidden
   for (const row of document.querySelectorAll<HTMLElement>('.compact-property')) row.hidden = !compactObject
   for (const row of document.querySelectorAll<HTMLElement>('.nebula-property')) row.hidden = !nebulaObject
   for (const row of document.querySelectorAll<HTMLElement>('.molecular-cloud-property')) row.hidden = !molecularCloudObject
@@ -1119,26 +1217,28 @@ function renderSelection(): void {
   for (const row of document.querySelectorAll<HTMLElement>('.rotation-property')) row.hidden = star.type === 'black_hole' || !compactObject
   for (const row of document.querySelectorAll<HTMLElement>('.orbit-property')) row.hidden = !compact || (compact.orbital_period_days === null && compact.companion === null)
   text('spectral-type', star.spectral_type ?? MISSING_VALUE)
+  element<HTMLButtonElement>('spectral-toggle').disabled = star.spectral_type === null || !hrCardAvailable(star)
   element('spectral-toggle').setAttribute('aria-label', `Explore spectral type of ${star.name}`)
-  if (!hrCardAvailable(star)) closeSpectralCard()
+  if (element<HTMLButtonElement>('spectral-toggle').disabled) closeSpectralCard()
   else if (!element('spectral-card').hidden) renderSpectralCard(star)
   text('temperature', quantity(star.temperature_k, 'K', 0))
   const luminosity = star.luminosity_solar
   text('luminosity', luminosity !== null && luminosity < 1 ? `${luminosity.toLocaleString('en-US', { maximumSignificantDigits: 3 })} L☉` : quantity(luminosity, 'L☉'))
   text('mass', compact ? preciseMeasurement(star.mass_solar, compact.mass_error_solar, 'M☉') : quantity(star.mass_solar, 'M☉'))
-  element<HTMLButtonElement>('mass-toggle').disabled = !massCardAvailable(star)
+  element<HTMLButtonElement>('mass-toggle').disabled = star.mass_solar === null || !massCardAvailable(star)
   element('mass-toggle').setAttribute('aria-label', `Explore mass of ${star.name}`)
-  element('mass-row').classList.toggle('mass-row', massCardAvailable(star))
-  if (!massCardAvailable(star)) closeMassCard()
+  if (element<HTMLButtonElement>('mass-toggle').disabled) closeMassCard()
   else if (!element('mass-card').hidden) renderMassCard(star)
   text('radius', quantity(star.radius_solar, 'R☉'))
+  element<HTMLButtonElement>('radius-toggle').disabled = star.radius_solar === null || stellarPropertiesHidden
   element('radius-toggle').setAttribute('aria-label', `Compare radius of ${star.name} with origin`)
-  if (compactObject || nebulaObject || molecularCloudObject || bubbleObject) closeRadiusCard()
+  if (element<HTMLButtonElement>('radius-toggle').disabled) closeRadiusCard()
   else if (!element('radius-card').hidden) renderRadiusCard(star)
   text('metallicity', quantity(star.metallicity_dex, 'dex'))
+  element<HTMLButtonElement>('metallicity-toggle').disabled = star.metallicity_dex === null || stellarPropertiesHidden
   text('metallicity-label', `Metallicity ${star.metallicity_kind ?? ''}`.trim())
   element('metallicity-toggle').setAttribute('aria-label', `Explain metallicity of ${star.name}`)
-  if (compactObject || nebulaObject || molecularCloudObject || bubbleObject) closeMetallicityCard()
+  if (element<HTMLButtonElement>('metallicity-toggle').disabled) closeMetallicityCard()
   else if (!element('metallicity-card').hidden) renderMetallicityCard(star)
   text('age', quantity(star.age_gyr, 'Gyr'))
   if (compact) {
@@ -1238,6 +1338,7 @@ function updateObjectListFilter(): void {
 
 function selectStar(id: string | null, recordHistory = true, explicitComponent = false): void {
   if (id !== null && !stars.some((star) => star.id === id)) return
+  constellationSelectionRequest++
   const system = id === null ? undefined : starSystems.get(id)
   // Entering a system starts at its primary; component controls and history
   // deliberately retain individual identities.
@@ -1332,6 +1433,7 @@ async function switchCatalog(id: string, refresh = false): Promise<void> {
     const withBrightStars = mergeCatalogStars(selectedCatalog, brightCatalog)
     const withConstellationStars = mergeCatalogStars(withBrightStars, westernConstellationCatalog)
     nextStars = [...mergeCatalogStars(withConstellationStars, famousClusterCatalog), ...compactObjects, ...nebulae, ...molecularClouds, ...bubbles]
+    nextStars = mergeCatalogStars(nextStars, [...constellationSelectedStars.values()])
   } catch (error) {
     if (request !== catalogRequest) return
     catalogError(error)
@@ -1572,7 +1674,7 @@ function openSavedViewContextMenu(row: HTMLTableRowElement, x: number, y: number
   closeSavedViewContextMenu()
   const menu = element('saved-view-context-menu')
   const remove = element<HTMLButtonElement>('saved-view-context-delete')
-  remove.textContent = `Delete ${savedView.name}`
+  remove.textContent = `Delete '${savedView.name}'`
   menu.dataset.savedViewId = savedView.id
   savedViewMenuRow = row
   row.setAttribute('aria-expanded', 'true')
@@ -2041,6 +2143,10 @@ document.addEventListener('keydown', (event) => {
     }
   }
   if (event.key !== 'Escape') return
+  if (!element('constellation-card').hidden) {
+    closeConstellationCard(true)
+    return
+  }
   if (!element('planet-card').hidden) {
     closePlanetCard(true)
     return
@@ -2084,6 +2190,14 @@ element('distance-close').addEventListener('click', () => closeDistanceCard(true
 element('distance-lock').addEventListener('click', () => {
   distanceCardLocked = !distanceCardLocked
   element('distance-lock').setAttribute('aria-pressed', String(distanceCardLocked))
+}, { signal: events.signal })
+element('constellation-row').addEventListener('click', () => {
+  if (!element<HTMLButtonElement>('constellation-toggle').disabled) void toggleConstellationCard()
+}, { signal: events.signal })
+element('constellation-close').addEventListener('click', () => closeConstellationCard(true), { signal: events.signal })
+element('constellation-lock').addEventListener('click', () => {
+  constellationCardLocked = !constellationCardLocked
+  element('constellation-lock').setAttribute('aria-pressed', String(constellationCardLocked))
 }, { signal: events.signal })
 element('planet-lock').addEventListener('click', () => {
   planetCardLocked = !planetCardLocked
@@ -2191,5 +2305,6 @@ import.meta.hot?.dispose(() => {
   if (playbackFrameRequest !== null) cancelAnimationFrame(playbackFrameRequest)
   viewer?.dispose()
   disposeDistanceComparison()
+  constellationCardModule?.disposeConstellationCard()
   planetModules?.disposePlanetGlobe()
 })

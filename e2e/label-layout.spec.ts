@@ -56,7 +56,7 @@ test('keeps the selected name in front even at collisions and scene edges', { ta
 test('keeps front-camera names stable when the selected star leaves the camera view', { tag: '@mobile' }, async ({ page, isMobile }, testInfo) => {
   await openViewer(page)
   await openPreferences(page)
-  await page.getByLabel('Star labels', { exact: true }).fill(isMobile ? '80' : '140')
+  await page.getByLabel('Labels', { exact: true }).fill(isMobile ? '80' : '140')
   await openFilter(page)
   await selectCatalog(page, 'nearest-1000')
   await page.getByLabel('V magnitude limit', { exact: true }).fill('25')
@@ -118,7 +118,7 @@ test('keeps the Sirius name visible behind the Sun in the nearest-1000 view', as
   test.skip(isMobile, 'The supplied clear-space composition is a desktop viewport regression.')
   await openViewer(page)
   await openPreferences(page)
-  await page.getByLabel('Star labels', { exact: true }).fill('140')
+  await page.getByLabel('Labels', { exact: true }).fill('140')
   await openFilter(page)
   await selectCatalog(page, 'nearest-1000')
   await page.getByLabel('V magnitude limit', { exact: true }).fill('25')

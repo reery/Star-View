@@ -1,0 +1,1242 @@
+{
+  "schemaVersion": 1,
+  "abbreviation": "CMa",
+  "name": "Canis Major",
+  "center": {
+    "ra_deg": 103.27270066439672,
+    "dec_deg": -22.66666234720315
+  },
+  "stars": [
+    {
+      "hip": 30122,
+      "name": "Furud",
+      "ra_deg": 95.07830016583333,
+      "dec_deg": -30.063366733888888,
+      "magnitude_v": 3.02,
+      "bayer": "ζ",
+      "object": {
+        "x_pc": -53.613218856,
+        "y_pc": -84.227201846,
+        "z_pc": -35.226030691,
+        "vx_kms": -17.544275,
+        "vy_kms": -26.465424,
+        "vz_kms": -6.797664,
+        "temperature_k": 15227.0,
+        "mass_solar": null,
+        "luminosity_solar": 1609.3587080237753,
+        "radius_solar": 5.76435,
+        "metallicity_dex": null,
+        "age_gyr": null,
+        "absolute_mag": -2.133963,
+        "epoch": 2000.0,
+        "type": "star",
+        "id": "hip-30122",
+        "name": "Furud",
+        "constellation": "Canis Major",
+        "spectral_type": "B2.5V",
+        "metallicity_kind": null,
+        "notes": "Western constellation line-figure star (HIP 30122; Stellarium CMa). SIMBAD identity * zet CMa; SIMBAD compiled Johnson V=2.99; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, luminosity_solar; Stefan-Boltzmann scaling for radius_solar.",
+        "designations": [
+          "HIP 30122"
+        ],
+        "raw_astrometry": {
+          "ra_deg": 95.07830016583333,
+          "dec_deg": -30.063366733888888,
+          "parallax_mas": 9.0,
+          "parallax_error_mas": 0.13,
+          "pm_ra_cosdec_masyr": 7.32,
+          "pm_ra_error_masyr": null,
+          "pm_dec_masyr": 4.03,
+          "pm_dec_error_masyr": null,
+          "radial_velocity_kms": 32.2,
+          "radial_velocity_error_kms": null,
+          "epoch": 2000.0,
+          "astrometry_ref": "SIMBAD TAP snapshot 2026-10-01",
+          "radial_velocity_ref": "SIMBAD TAP snapshot 2026-10-01"
+        }
+      }
+    },
+    {
+      "hip": 30324,
+      "name": "Mirzam",
+      "ra_deg": 95.67493896958332,
+      "dec_deg": -17.955918708888888,
+      "magnitude_v": 1.98,
+      "bayer": "β",
+      "object": {
+        "x_pc": -101.586395816,
+        "y_pc": -105.415915015,
+        "z_pc": -37.22939282,
+        "vx_kms": -22.583578,
+        "vy_kms": -22.794417,
+        "vz_kms": -10.571105,
+        "temperature_k": 24072.0,
+        "mass_solar": null,
+        "luminosity_solar": 24234.2,
+        "radius_solar": 8.9504,
+        "metallicity_dex": -0.41,
+        "age_gyr": null,
+        "absolute_mag": -3.92571,
+        "epoch": 2000.0,
+        "type": "star",
+        "id": "hip-30324",
+        "name": "Mirzam",
+        "constellation": "Canis Major",
+        "spectral_type": "B1II-III",
+        "metallicity_kind": "[Fe/H]",
+        "notes": "Western constellation line-figure star (HIP 30324; Stellarium CMa). SIMBAD identity * bet CMa; SIMBAD compiled Johnson V=1.97; inverse SIMBAD compiled parallax distance; absolute V uses no extinction correction. Physical parameters: reviewed Star View values for temperature_k, luminosity_solar, radius_solar, metallicity_dex.",
+        "designations": [
+          "HIP 30324"
+        ],
+        "raw_astrometry": {
+          "ra_deg": 95.67493896958332,
+          "dec_deg": -17.955918708888888,
+          "parallax_mas": 6.62,
+          "parallax_error_mas": 0.22,
+          "pm_ra_cosdec_masyr": -3.23,
+          "pm_ra_error_masyr": null,
+          "pm_dec_masyr": -0.78,
+          "pm_dec_error_masyr": null,
+          "radial_velocity_kms": 33.7,
+          "radial_velocity_error_kms": null,
+          "epoch": 2000.0,
+          "astrometry_ref": "SIMBAD TAP snapshot 2026-10-01",
+          "radial_velocity_ref": "SIMBAD TAP snapshot 2026-10-01"
+        }
+      }
+    },
+    {
+      "hip": 31416,
+      "name": "Xi2 CMa",
+      "ra_deg": 98.76411480246001,
+      "dec_deg": -22.964795416690002,
+      "magnitude_v": 4.54,
+      "bayer": "ξ2",
+      "object": {
+        "x_pc": -74.887015565,
+        "y_pc": -95.814354749,
+        "z_pc": -29.590897689,
+        "vx_kms": -19.220431,
+        "vy_kms": -16.120205,
+        "vz_kms": 7.323334,
+        "temperature_k": 8799.0,
+        "mass_solar": null,
+        "luminosity_solar": 191.32386645695584,
+        "radius_solar": 5.952105,
+        "metallicity_dex": null,
+        "age_gyr": null,
+        "absolute_mag": -0.987262,
+        "epoch": 2000.0,
+        "type": "star",
+        "id": "hip-31416",
+        "name": "Xi2 CMa",
+        "constellation": "Canis Major",
+        "spectral_type": "A0III",
+        "metallicity_kind": null,
+        "notes": "Western constellation line-figure star (HIP 31416; Stellarium CMa). SIMBAD identity * ksi02 CMa; SIMBAD compiled Johnson V=4.5; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, luminosity_solar; Stefan-Boltzmann scaling for radius_solar.",
+        "designations": [
+          "HIP 31416"
+        ],
+        "raw_astrometry": {
+          "ra_deg": 98.76411480246001,
+          "dec_deg": -22.964795416690002,
+          "parallax_mas": 8.0342,
+          "parallax_error_mas": 0.2216,
+          "pm_ra_cosdec_masyr": 16.316,
+          "pm_ra_error_masyr": null,
+          "pm_dec_masyr": 16.885,
+          "pm_dec_error_masyr": null,
+          "radial_velocity_kms": 22.11,
+          "radial_velocity_error_kms": null,
+          "epoch": 2000.0,
+          "astrometry_ref": "SIMBAD TAP snapshot 2026-10-01",
+          "radial_velocity_ref": "SIMBAD TAP snapshot 2026-10-01"
+        }
+      }
+    },
+    {
+      "hip": 31592,
+      "name": "Nu2 CMa",
+      "ra_deg": 99.17099032848041,
+      "dec_deg": -19.25588040351555,
+      "magnitude_v": 3.95,
+      "bayer": "ν2",
+      "object": {
+        "x_pc": -13.225386636,
+        "y_pc": -15.047972584,
+        "z_pc": -4.183847496,
+        "vx_kms": 4.515332,
+        "vy_kms": -8.043724,
+        "vz_kms": 2.08591,
+        "temperature_k": 4786.0,
+        "mass_solar": 1.32,
+        "luminosity_solar": 12.531479300014174,
+        "radius_solar": 4.897788193684462,
+        "metallicity_dex": 0.24,
+        "age_gyr": null,
+        "absolute_mag": 2.354836,
+        "epoch": 2000.0,
+        "type": "star",
+        "id": "hip-31592",
+        "name": "Nu2 CMa",
+        "constellation": "Canis Major",
+        "spectral_type": "K1.5III-IVFe1",
+        "metallicity_kind": "[Fe/H]",
+        "notes": "Western constellation line-figure star (HIP 31592; Stellarium CMa). SIMBAD identity * nu.02 CMa; SIMBAD compiled Johnson V=3.91; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, mass_solar, radius_solar, luminosity_solar. Shared exact-identity physical supplements (metallicity_dex: 2024A&A...691A..53S).",
+        "designations": [
+          "HIP 31592"
+        ],
+        "raw_astrometry": {
+          "ra_deg": 99.17099032848041,
+          "dec_deg": -19.25588040351555,
+          "parallax_mas": 48.849,
+          "parallax_error_mas": 0.1323,
+          "pm_ra_cosdec_masyr": 62.66,
+          "pm_ra_error_masyr": null,
+          "pm_dec_masyr": -69.816,
+          "pm_dec_error_masyr": null,
+          "radial_velocity_kms": 2.57,
+          "radial_velocity_error_kms": null,
+          "epoch": 2000.0,
+          "astrometry_ref": "SIMBAD TAP snapshot 2026-10-01",
+          "radial_velocity_ref": "SIMBAD TAP snapshot 2026-10-01"
+        }
+      }
+    },
+    {
+      "hip": 32349,
+      "name": "Sirius",
+      "ra_deg": 101.287155333,
+      "dec_deg": -16.716115861,
+      "magnitude_v": -1.44,
+      "bayer": "α",
+      "object": {
+        "x_pc": -1.77064,
+        "y_pc": -1.914144,
+        "z_pc": -0.407875,
+        "vx_kms": 14.96,
+        "vy_kms": 0.257,
+        "vz_kms": -11.344,
+        "temperature_k": 9845.0,
+        "mass_solar": 2.063,
+        "luminosity_solar": 24.74,
+        "radius_solar": 1.7144,
+        "metallicity_dex": -0.1,
+        "age_gyr": 0.242,
+        "absolute_mag": 1.42,
+        "epoch": 2000.0,
+        "type": "star",
+        "id": "hip-32349",
+        "name": "Sirius",
+        "constellation": "Canis Major",
+        "spectral_type": "A0mA1Va",
+        "metallicity_kind": "[Fe/H]",
+        "notes": "Sirius system position and physical properties use Bond et al. (2017), including the adopted 378.9 mas parallax. The component offset is below this catalog's spatial precision. Motion: system motion shared by A and B; Hipparcos proper motion (SIMBAD HIP 32349; 2007A&A...474..653V) and true systemic RV -8.47 km/s from Bond et al. (2017) section V.1. No binary orbital motion; Galactic conversion documented in README. Sirius A reviewed physical parameters from Bond et al. (2017). The radius is interferometric, the mass dynamical, and the luminosity and temperature use the adopted parallax. The age and bulk [Fe/H] are stellar-evolution model results; the bulk metallicity is used instead of Sirius A's diffusion-altered Am photospheric abundance. Full classification of Sirius A, including metallic-line morphology; Sirius B is separate.",
+        "designations": [
+          "HIP 32349"
+        ],
+        "raw_astrometry": {
+          "ra_deg": 101.287155333,
+          "dec_deg": -16.716115861,
+          "parallax_mas": 379.21,
+          "parallax_error_mas": 1.58,
+          "pm_ra_cosdec_masyr": -546.01,
+          "pm_ra_error_masyr": 1.33,
+          "pm_dec_masyr": -1223.07,
+          "pm_dec_error_masyr": 1.24,
+          "radial_velocity_kms": -5.5,
+          "radial_velocity_error_kms": 0.4,
+          "epoch": 2000.0,
+          "astrometry_ref": "2007A&A...474..653V",
+          "radial_velocity_ref": "2006AstL...32..759G"
+        }
+      }
+    },
+    {
+      "hip": 33152,
+      "name": "Omicron1 CMa",
+      "ra_deg": 103.53313445883,
+      "dec_deg": -24.18421097264,
+      "magnitude_v": 3.89,
+      "bayer": "ο1",
+      "object": {
+        "x_pc": -442.038523924,
+        "y_pc": -630.906257708,
+        "z_pc": -138.748225823,
+        "vx_kms": -35.934464,
+        "vy_kms": -17.099966,
+        "vz_kms": -12.54646,
+        "temperature_k": 4142.0,
+        "mass_solar": null,
+        "luminosity_solar": 36643.87289979855,
+        "radius_solar": 371.734732,
+        "metallicity_dex": 0.13,
+        "age_gyr": null,
+        "absolute_mag": -5.598105,
+        "epoch": 2000.0,
+        "type": "star",
+        "id": "hip-33152",
+        "name": "Omicron1 CMa",
+        "constellation": "Canis Major",
+        "spectral_type": "K2Iab",
+        "metallicity_kind": "[Fe/H]",
+        "notes": "Western constellation line-figure star (HIP 33152; Stellarium CMa). SIMBAD identity * omi01 CMa; SIMBAD compiled Johnson V=3.87; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, luminosity_solar; Stefan-Boltzmann scaling for radius_solar. Shared exact-identity physical supplements (metallicity_dex: 2019A&A...627A.138A).",
+        "designations": [
+          "HIP 33152"
+        ],
+        "raw_astrometry": {
+          "ra_deg": 103.53313445883,
+          "dec_deg": -24.18421097264,
+          "parallax_mas": 1.2869,
+          "parallax_error_mas": 0.1209,
+          "pm_ra_cosdec_masyr": -3.771,
+          "pm_ra_error_masyr": null,
+          "pm_dec_masyr": 4.066,
+          "pm_dec_error_masyr": null,
+          "radial_velocity_kms": 36.3,
+          "radial_velocity_error_kms": null,
+          "epoch": 2000.0,
+          "astrometry_ref": "SIMBAD TAP snapshot 2026-10-01",
+          "radial_velocity_ref": "SIMBAD TAP snapshot 2026-10-01"
+        }
+      }
+    },
+    {
+      "hip": 33160,
+      "name": "Theta CMa",
+      "ra_deg": 103.54749525536,
+      "dec_deg": -12.038628101049998,
+      "magnitude_v": 4.08,
+      "bayer": "θ",
+      "object": {
+        "x_pc": -59.419655304,
+        "y_pc": -57.345043785,
+        "z_pc": -7.015689702,
+        "vx_kms": -79.177688,
+        "vy_kms": -49.837032,
+        "vz_kms": -58.442933,
+        "temperature_k": 4163.0,
+        "mass_solar": null,
+        "luminosity_solar": 317.3545139272618,
+        "radius_solar": 34.246182,
+        "metallicity_dex": -0.28,
+        "age_gyr": null,
+        "absolute_mag": -0.512134,
+        "epoch": 2000.0,
+        "type": "star",
+        "id": "hip-33160",
+        "name": "Theta CMa",
+        "constellation": "Canis Major",
+        "spectral_type": "K3/4III",
+        "metallicity_kind": "[Fe/H]",
+        "notes": "Western constellation line-figure star (HIP 33160; Stellarium CMa). SIMBAD identity * tet CMa; SIMBAD compiled Johnson V=4.08; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, luminosity_solar; Stefan-Boltzmann scaling for radius_solar. Shared exact-identity physical supplements (metallicity_dex: 2024A&A...690A..97C).",
+        "designations": [
+          "HIP 33160"
+        ],
+        "raw_astrometry": {
+          "ra_deg": 103.54749525536,
+          "dec_deg": -12.038628101049998,
+          "parallax_mas": 12.0676,
+          "parallax_error_mas": 0.1313,
+          "pm_ra_cosdec_masyr": -136.654,
+          "pm_ra_error_masyr": null,
+          "pm_dec_masyr": -14.322,
+          "pm_dec_error_masyr": null,
+          "radial_velocity_kms": 96.2,
+          "radial_velocity_error_kms": null,
+          "epoch": 2000.0,
+          "astrometry_ref": "SIMBAD TAP snapshot 2026-10-01",
+          "radial_velocity_ref": "SIMBAD TAP snapshot 2026-10-01"
+        }
+      }
+    },
+    {
+      "hip": 33347,
+      "name": "Iota CMa",
+      "ra_deg": 104.0342691434642,
+      "dec_deg": -17.05423863054111,
+      "magnitude_v": 4.36,
+      "bayer": "ι",
+      "object": {
+        "x_pc": -744.590177502,
+        "y_pc": -847.638666289,
+        "z_pc": -132.092354541,
+        "vx_kms": -24.223741,
+        "vy_kms": 8.600647,
+        "vz_kms": -10.659313,
+        "temperature_k": 9800.0,
+        "mass_solar": null,
+        "luminosity_solar": 21321.14768142988,
+        "radius_solar": 50.653071,
+        "metallicity_dex": -0.17,
+        "age_gyr": null,
+        "absolute_mag": -5.891772,
+        "epoch": 2000.0,
+        "type": "star",
+        "id": "hip-33347",
+        "name": "Iota CMa",
+        "constellation": "Canis Major",
+        "spectral_type": "B3Ib",
+        "metallicity_kind": "[Fe/H]",
+        "notes": "Western constellation line-figure star (HIP 33347; Stellarium CMa). SIMBAD identity * iot CMa; SIMBAD compiled Johnson V=4.385; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, luminosity_solar; Stefan-Boltzmann scaling for radius_solar. Shared exact-identity physical supplements (metallicity_dex: 1992ApJ...387..673G).",
+        "designations": [
+          "HIP 33347"
+        ],
+        "raw_astrometry": {
+          "ra_deg": 104.0342691434642,
+          "dec_deg": -17.05423863054111,
+          "parallax_mas": 0.9453,
+          "parallax_error_mas": 0.1857,
+          "pm_ra_cosdec_masyr": -3.547,
+          "pm_ra_error_masyr": null,
+          "pm_dec_masyr": 3.19,
+          "pm_dec_error_masyr": null,
+          "radial_velocity_kms": 10.7,
+          "radial_velocity_error_kms": null,
+          "epoch": 2000.0,
+          "astrometry_ref": "SIMBAD TAP snapshot 2026-10-01",
+          "radial_velocity_ref": "SIMBAD TAP snapshot 2026-10-01"
+        }
+      }
+    },
+    {
+      "hip": 33579,
+      "name": "Adhara",
+      "ra_deg": 104.65645315148348,
+      "dec_deg": -28.972086157360806,
+      "magnitude_v": 1.5,
+      "bayer": "ε",
+      "object": {
+        "x_pc": -61.212183573,
+        "y_pc": -105.304310156,
+        "z_pc": -24.404390175,
+        "vx_kms": -13.576172,
+        "vy_kms": -23.53839,
+        "vz_kms": -3.342974,
+        "temperature_k": 22127.0,
+        "mass_solar": null,
+        "luminosity_solar": 20729.5,
+        "radius_solar": 9.7972,
+        "metallicity_dex": null,
+        "age_gyr": null,
+        "absolute_mag": -3.971021,
+        "epoch": 2000.0,
+        "type": "star",
+        "id": "hip-33579",
+        "name": "Adhara",
+        "constellation": "Canis Major",
+        "spectral_type": "B1.5II",
+        "metallicity_kind": null,
+        "notes": "Western constellation line-figure star (HIP 33579; Stellarium CMa). SIMBAD identity * eps CMa; SIMBAD compiled Johnson V=1.5; inverse SIMBAD compiled parallax distance; absolute V uses no extinction correction. Physical parameters: reviewed Star View values for temperature_k, luminosity_solar, radius_solar.",
+        "designations": [
+          "HIP 33579"
+        ],
+        "raw_astrometry": {
+          "ra_deg": 104.65645315148348,
+          "dec_deg": -28.972086157360806,
+          "parallax_mas": 8.05,
+          "parallax_error_mas": 0.14,
+          "pm_ra_cosdec_masyr": 3.24,
+          "pm_ra_error_masyr": null,
+          "pm_dec_masyr": 1.33,
+          "pm_dec_error_masyr": null,
+          "radial_velocity_kms": 27.3,
+          "radial_velocity_error_kms": null,
+          "epoch": 2000.0,
+          "astrometry_ref": "SIMBAD TAP snapshot 2026-10-01",
+          "radial_velocity_ref": "SIMBAD TAP snapshot 2026-10-01"
+        }
+      }
+    },
+    {
+      "hip": 33856,
+      "name": "Nganurganity",
+      "ra_deg": 105.42978350186792,
+      "dec_deg": -27.934830340443888,
+      "magnitude_v": 3.49,
+      "bayer": "σ",
+      "object": {
+        "x_pc": -203.999525655,
+        "y_pc": -341.78977845,
+        "z_pc": -72.148090229,
+        "vx_kms": -21.918795,
+        "vy_kms": -11.031535,
+        "vz_kms": -9.732531,
+        "temperature_k": 3937.0,
+        "mass_solar": null,
+        "luminosity_solar": 17628.993504881073,
+        "radius_solar": 285.387912,
+        "metallicity_dex": 0.16,
+        "age_gyr": null,
+        "absolute_mag": -4.564733,
+        "epoch": 2000.0,
+        "type": "star",
+        "id": "hip-33856",
+        "name": "Nganurganity",
+        "constellation": "Canis Major",
+        "spectral_type": "K5Ib",
+        "metallicity_kind": "[Fe/H]",
+        "notes": "Western constellation line-figure star (HIP 33856; Stellarium CMa). SIMBAD identity * sig CMa; SIMBAD compiled Johnson V=3.47; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, luminosity_solar; Stefan-Boltzmann scaling for radius_solar. Shared exact-identity physical supplements (metallicity_dex: 1998A&A...338..623M).",
+        "designations": [
+          "HIP 33856"
+        ],
+        "raw_astrometry": {
+          "ra_deg": 105.42978350186792,
+          "dec_deg": -27.934830340443888,
+          "parallax_mas": 2.5085,
+          "parallax_error_mas": 0.159,
+          "pm_ra_cosdec_masyr": -5.714,
+          "pm_ra_error_masyr": null,
+          "pm_dec_masyr": 4.89,
+          "pm_dec_error_masyr": null,
+          "radial_velocity_kms": 22.11,
+          "radial_velocity_error_kms": null,
+          "epoch": 2000.0,
+          "astrometry_ref": "SIMBAD TAP snapshot 2026-10-01",
+          "radial_velocity_ref": "SIMBAD TAP snapshot 2026-10-01"
+        }
+      }
+    },
+    {
+      "hip": 33977,
+      "name": "Omicron2 CMa",
+      "ra_deg": 105.75613058900544,
+      "dec_deg": -23.833293974200288,
+      "magnitude_v": 3.02,
+      "bayer": "ο2",
+      "object": {
+        "x_pc": -811.319916735,
+        "y_pc": -1182.892154861,
+        "z_pc": -207.414298563,
+        "vx_kms": -49.856303,
+        "vy_kms": -24.071586,
+        "vz_kms": -3.660505,
+        "temperature_k": 11200.0,
+        "mass_solar": null,
+        "luminosity_solar": 154077.34997579237,
+        "radius_solar": 104.252385,
+        "metallicity_dex": null,
+        "age_gyr": null,
+        "absolute_mag": -7.785804,
+        "epoch": 2000.0,
+        "type": "star",
+        "id": "hip-33977",
+        "name": "Omicron2 CMa",
+        "constellation": "Canis Major",
+        "spectral_type": "B3Ia",
+        "metallicity_kind": null,
+        "notes": "Western constellation line-figure star (HIP 33977; Stellarium CMa). SIMBAD identity * omi02 CMa; SIMBAD compiled Johnson V=3.02; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, luminosity_solar; Stefan-Boltzmann scaling for radius_solar.",
+        "designations": [
+          "HIP 33977"
+        ],
+        "raw_astrometry": {
+          "ra_deg": 105.75613058900544,
+          "dec_deg": -23.833293974200288,
+          "parallax_mas": 0.8715,
+          "parallax_error_mas": 0.3319,
+          "pm_ra_cosdec_masyr": -1.335,
+          "pm_ra_error_masyr": null,
+          "pm_dec_masyr": 3.803,
+          "pm_dec_error_masyr": null,
+          "radial_velocity_kms": 48.08,
+          "radial_velocity_error_kms": null,
+          "epoch": 2000.0,
+          "astrometry_ref": "SIMBAD TAP snapshot 2026-10-01",
+          "radial_velocity_ref": "SIMBAD TAP snapshot 2026-10-01"
+        }
+      }
+    },
+    {
+      "hip": 34045,
+      "name": "Muliphein",
+      "ra_deg": 105.93955612216459,
+      "dec_deg": -15.633287003608888,
+      "magnitude_v": 4.11,
+      "bayer": "γ",
+      "object": {
+        "x_pc": -87.469683556,
+        "y_pc": -98.007888621,
+        "z_pc": -10.122190164,
+        "vx_kms": -15.561697,
+        "vy_kms": -27.392921,
+        "vz_kms": -5.100746,
+        "temperature_k": 11243.0,
+        "mass_solar": 4.1495156,
+        "luminosity_solar": 468.6663725167748,
+        "radius_solar": 5.6083317,
+        "metallicity_dex": 0.7876,
+        "age_gyr": null,
+        "absolute_mag": -1.478809,
+        "epoch": 2000.0,
+        "type": "star",
+        "id": "hip-34045",
+        "name": "Muliphein",
+        "constellation": "Canis Major",
+        "spectral_type": "B8II",
+        "metallicity_kind": "[M/H]",
+        "notes": "Western constellation line-figure star (HIP 34045; Stellarium CMa). SIMBAD identity * gam CMa; SIMBAD compiled Johnson V=4.12; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, luminosity_solar; Gaia DR3 model values for metallicity_dex, mass_solar, radius_solar.",
+        "designations": [
+          "HIP 34045"
+        ],
+        "raw_astrometry": {
+          "ra_deg": 105.93955612216459,
+          "dec_deg": -15.633287003608888,
+          "parallax_mas": 7.5819,
+          "parallax_error_mas": 0.1868,
+          "pm_ra_cosdec_masyr": 0.931,
+          "pm_ra_error_masyr": null,
+          "pm_dec_masyr": -11.435,
+          "pm_dec_error_masyr": null,
+          "radial_velocity_kms": 31.1,
+          "radial_velocity_error_kms": null,
+          "epoch": 2000.0,
+          "astrometry_ref": "SIMBAD TAP snapshot 2026-10-01",
+          "radial_velocity_ref": "SIMBAD TAP snapshot 2026-10-01"
+        }
+      }
+    },
+    {
+      "hip": 34444,
+      "name": "Wezen",
+      "ra_deg": 107.09785021416667,
+      "dec_deg": -26.39319957888889,
+      "magnitude_v": 1.83,
+      "bayer": "δ",
+      "object": {
+        "x_pc": -255.312672676,
+        "y_pc": -415.288368534,
+        "z_pc": -70.826882671,
+        "vx_kms": -25.866811,
+        "vy_kms": -22.685005,
+        "vz_kms": -7.924442,
+        "temperature_k": 6599.0,
+        "mass_solar": 11.59,
+        "luminosity_solar": 37477.1,
+        "radius_solar": 148.1083,
+        "metallicity_dex": -0.03,
+        "age_gyr": null,
+        "absolute_mag": -6.62252,
+        "epoch": 2000.0,
+        "type": "star",
+        "id": "hip-34444",
+        "name": "Wezen",
+        "constellation": "Canis Major",
+        "spectral_type": "F8Ia",
+        "metallicity_kind": "[Fe/H]",
+        "notes": "Western constellation line-figure star (HIP 34444; Stellarium CMa). SIMBAD identity * del CMa; SIMBAD compiled Johnson V=1.84; inverse SIMBAD compiled parallax distance; absolute V uses no extinction correction. Physical parameters: reviewed Star View values for temperature_k, mass_solar, luminosity_solar, radius_solar, metallicity_dex.",
+        "designations": [
+          "HIP 34444"
+        ],
+        "raw_astrometry": {
+          "ra_deg": 107.09785021416667,
+          "dec_deg": -26.39319957888889,
+          "parallax_mas": 2.03,
+          "parallax_error_mas": 0.38,
+          "pm_ra_cosdec_masyr": -3.12,
+          "pm_ra_error_masyr": null,
+          "pm_dec_masyr": 3.31,
+          "pm_dec_error_masyr": null,
+          "radial_velocity_kms": 33.67,
+          "radial_velocity_error_kms": null,
+          "epoch": 2000.0,
+          "astrometry_ref": "SIMBAD TAP snapshot 2026-10-01",
+          "radial_velocity_ref": "SIMBAD TAP snapshot 2026-10-01"
+        }
+      }
+    },
+    {
+      "hip": 35037,
+      "name": "Omega CMa",
+      "ra_deg": 108.70272505556083,
+      "dec_deg": -26.772667556726386,
+      "magnitude_v": 4.01,
+      "bayer": "ω",
+      "object": {
+        "x_pc": -142.554158052,
+        "y_pc": -241.114938211,
+        "z_pc": -35.147659653,
+        "vx_kms": -25.523245,
+        "vy_kms": -10.35383,
+        "vz_kms": -11.791942,
+        "temperature_k": 9061.0,
+        "mass_solar": null,
+        "luminosity_solar": 1655.1673543539757,
+        "radius_solar": 16.509022,
+        "metallicity_dex": null,
+        "age_gyr": null,
+        "absolute_mag": -3.433557,
+        "epoch": 2000.0,
+        "type": "star",
+        "id": "hip-35037",
+        "name": "Omega CMa",
+        "constellation": "Canis Major",
+        "spectral_type": "B2.5Ve",
+        "metallicity_kind": null,
+        "notes": "Western constellation line-figure star (HIP 35037; Stellarium CMa). SIMBAD identity * ome CMa; SIMBAD compiled Johnson V=3.82; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, luminosity_solar; Stefan-Boltzmann scaling for radius_solar.",
+        "designations": [
+          "HIP 35037"
+        ],
+        "raw_astrometry": {
+          "ra_deg": 108.70272505556083,
+          "dec_deg": -26.772667556726386,
+          "parallax_mas": 3.561,
+          "parallax_error_mas": 0.1524,
+          "pm_ra_cosdec_masyr": -11.617,
+          "pm_ra_error_masyr": null,
+          "pm_dec_masyr": 8.109,
+          "pm_dec_error_masyr": null,
+          "radial_velocity_kms": 23.2,
+          "radial_velocity_error_kms": null,
+          "epoch": 2000.0,
+          "astrometry_ref": "SIMBAD TAP snapshot 2026-10-01",
+          "radial_velocity_ref": "SIMBAD TAP snapshot 2026-10-01"
+        }
+      }
+    },
+    {
+      "hip": 35904,
+      "name": "Aludra",
+      "ra_deg": 111.02375950100142,
+      "dec_deg": -29.303105508471724,
+      "magnitude_v": 2.45,
+      "bayer": "η",
+      "object": {
+        "x_pc": -278.658592439,
+        "y_pc": -537.966613109,
+        "z_pc": -68.875326352,
+        "vx_kms": -36.770738,
+        "vy_kms": -26.581812,
+        "vz_kms": -7.468073,
+        "temperature_k": 10000.0,
+        "mass_solar": 19.19,
+        "luminosity_solar": 40235.6,
+        "radius_solar": 66.8279,
+        "metallicity_dex": null,
+        "age_gyr": null,
+        "absolute_mag": -6.475781,
+        "epoch": 2000.0,
+        "type": "star",
+        "id": "hip-35904",
+        "name": "Aludra",
+        "constellation": "Canis Major",
+        "spectral_type": "B5Ia",
+        "metallicity_kind": null,
+        "notes": "Western constellation line-figure star (HIP 35904; Stellarium CMa). SIMBAD identity * eta CMa; SIMBAD compiled Johnson V=2.45; inverse SIMBAD compiled parallax distance; absolute V uses no extinction correction. Physical parameters: reviewed Star View values for temperature_k, mass_solar, luminosity_solar, radius_solar.",
+        "designations": [
+          "HIP 35904"
+        ],
+        "raw_astrometry": {
+          "ra_deg": 111.02375950100142,
+          "dec_deg": -29.303105508471724,
+          "parallax_mas": 1.64,
+          "parallax_error_mas": 0.4,
+          "pm_ra_cosdec_masyr": -4.14,
+          "pm_ra_error_masyr": null,
+          "pm_dec_masyr": 5.81,
+          "pm_dec_error_masyr": null,
+          "radial_velocity_kms": 41.1,
+          "radial_velocity_error_kms": null,
+          "epoch": 2000.0,
+          "astrometry_ref": "SIMBAD TAP snapshot 2026-10-01",
+          "radial_velocity_ref": "SIMBAD TAP snapshot 2026-10-01"
+        }
+      }
+    }
+  ],
+  "lines": [
+    [
+      33160,
+      34045
+    ],
+    [
+      34045,
+      33347
+    ],
+    [
+      33347,
+      32349
+    ],
+    [
+      32349,
+      33977
+    ],
+    [
+      33977,
+      34444
+    ],
+    [
+      34444,
+      35037
+    ],
+    [
+      35037,
+      35904
+    ],
+    [
+      33579,
+      33856
+    ],
+    [
+      33856,
+      34444
+    ],
+    [
+      33856,
+      33152
+    ],
+    [
+      33152,
+      31592
+    ],
+    [
+      31592,
+      31416
+    ],
+    [
+      32349,
+      30324
+    ],
+    [
+      31592,
+      32349
+    ],
+    [
+      30122,
+      33579
+    ],
+    [
+      33347,
+      33160
+    ]
+  ],
+  "boundaries": [
+    {
+      "neighbor": "Columba",
+      "neighbor_abbreviation": "COL",
+      "points": [
+        {
+          "ra_deg": 92.992566,
+          "dec_deg": -27.2787991
+        },
+        {
+          "ra_deg": 92.980964,
+          "dec_deg": -28.0287304
+        },
+        {
+          "ra_deg": 92.965236,
+          "dec_deg": -29.0286331
+        },
+        {
+          "ra_deg": 92.949207,
+          "dec_deg": -30.0285378
+        },
+        {
+          "ra_deg": 92.932849,
+          "dec_deg": -31.0284367
+        },
+        {
+          "ra_deg": 92.916141,
+          "dec_deg": -32.0283356
+        },
+        {
+          "ra_deg": 92.899068,
+          "dec_deg": -33.0282326
+        }
+      ]
+    },
+    {
+      "neighbor": "Columba",
+      "neighbor_abbreviation": "COL",
+      "points": [
+        {
+          "ra_deg": 92.899068,
+          "dec_deg": -33.0282326
+        },
+        {
+          "ra_deg": 93.899259,
+          "dec_deg": -33.0403671
+        },
+        {
+          "ra_deg": 94.899731,
+          "dec_deg": -33.052494
+        },
+        {
+          "ra_deg": 95.900337,
+          "dec_deg": -33.0646057
+        },
+        {
+          "ra_deg": 96.900937,
+          "dec_deg": -33.0766945
+        },
+        {
+          "ra_deg": 97.901817,
+          "dec_deg": -33.0887642
+        },
+        {
+          "ra_deg": 98.902845,
+          "dec_deg": -33.1008072
+        },
+        {
+          "ra_deg": 99.903859,
+          "dec_deg": -33.1128159
+        }
+      ]
+    },
+    {
+      "neighbor": "Puppis",
+      "neighbor_abbreviation": "PUP",
+      "points": [
+        {
+          "ra_deg": 99.903859,
+          "dec_deg": -33.1128159
+        },
+        {
+          "ra_deg": 100.654779,
+          "dec_deg": -33.1218033
+        },
+        {
+          "ra_deg": 101.656179,
+          "dec_deg": -33.1337547
+        },
+        {
+          "ra_deg": 102.657717,
+          "dec_deg": -33.145668
+        },
+        {
+          "ra_deg": 103.659246,
+          "dec_deg": -33.1575317
+        },
+        {
+          "ra_deg": 104.661054,
+          "dec_deg": -33.1693535
+        },
+        {
+          "ra_deg": 105.662999,
+          "dec_deg": -33.1811256
+        },
+        {
+          "ra_deg": 106.664929,
+          "dec_deg": -33.1928368
+        },
+        {
+          "ra_deg": 107.667146,
+          "dec_deg": -33.2044945
+        },
+        {
+          "ra_deg": 108.669498,
+          "dec_deg": -33.2160912
+        },
+        {
+          "ra_deg": 109.671836,
+          "dec_deg": -33.2276192
+        },
+        {
+          "ra_deg": 110.674454,
+          "dec_deg": -33.2390785
+        },
+        {
+          "ra_deg": 111.677199,
+          "dec_deg": -33.2504692
+        }
+      ]
+    },
+    {
+      "neighbor": "Puppis",
+      "neighbor_abbreviation": "PUP",
+      "points": [
+        {
+          "ra_deg": 111.677199,
+          "dec_deg": -33.2504692
+        },
+        {
+          "ra_deg": 111.693198,
+          "dec_deg": -32.2505608
+        },
+        {
+          "ra_deg": 111.708855,
+          "dec_deg": -31.2506466
+        },
+        {
+          "ra_deg": 111.724184,
+          "dec_deg": -30.2507362
+        },
+        {
+          "ra_deg": 111.739197,
+          "dec_deg": -29.2508202
+        },
+        {
+          "ra_deg": 111.753924,
+          "dec_deg": -28.2509022
+        },
+        {
+          "ra_deg": 111.768379,
+          "dec_deg": -27.2509861
+        },
+        {
+          "ra_deg": 111.782577,
+          "dec_deg": -26.2510643
+        },
+        {
+          "ra_deg": 111.796531,
+          "dec_deg": -25.2511444
+        },
+        {
+          "ra_deg": 111.810258,
+          "dec_deg": -24.2512226
+        },
+        {
+          "ra_deg": 111.823769,
+          "dec_deg": -23.251297
+        },
+        {
+          "ra_deg": 111.837079,
+          "dec_deg": -22.2513733
+        },
+        {
+          "ra_deg": 111.850197,
+          "dec_deg": -21.2514477
+        },
+        {
+          "ra_deg": 111.863144,
+          "dec_deg": -20.2515202
+        },
+        {
+          "ra_deg": 111.875917,
+          "dec_deg": -19.2515926
+        },
+        {
+          "ra_deg": 111.888541,
+          "dec_deg": -18.2516651
+        },
+        {
+          "ra_deg": 111.901023,
+          "dec_deg": -17.2517357
+        },
+        {
+          "ra_deg": 111.913368,
+          "dec_deg": -16.2518044
+        },
+        {
+          "ra_deg": 111.925593,
+          "dec_deg": -15.2518749
+        },
+        {
+          "ra_deg": 111.937695,
+          "dec_deg": -14.2519426
+        },
+        {
+          "ra_deg": 111.949689,
+          "dec_deg": -13.2520103
+        },
+        {
+          "ra_deg": 111.961591,
+          "dec_deg": -12.252079
+        },
+        {
+          "ra_deg": 111.973399,
+          "dec_deg": -11.2521448
+        }
+      ]
+    },
+    {
+      "neighbor": "Monoceros",
+      "neighbor_abbreviation": "MON",
+      "points": [
+        {
+          "ra_deg": 111.973399,
+          "dec_deg": -11.2521448
+        },
+        {
+          "ra_deg": 111.22281,
+          "dec_deg": -11.2436275
+        },
+        {
+          "ra_deg": 110.22201,
+          "dec_deg": -11.2322044
+        },
+        {
+          "ra_deg": 109.221254,
+          "dec_deg": -11.2207117
+        },
+        {
+          "ra_deg": 108.220689,
+          "dec_deg": -11.2091532
+        },
+        {
+          "ra_deg": 107.220011,
+          "dec_deg": -11.1975298
+        },
+        {
+          "ra_deg": 106.219376,
+          "dec_deg": -11.1858463
+        },
+        {
+          "ra_deg": 105.218925,
+          "dec_deg": -11.1741085
+        },
+        {
+          "ra_deg": 104.218376,
+          "dec_deg": -11.1623154
+        },
+        {
+          "ra_deg": 103.217869,
+          "dec_deg": -11.1504736
+        },
+        {
+          "ra_deg": 102.217548,
+          "dec_deg": -11.138588
+        },
+        {
+          "ra_deg": 101.21712,
+          "dec_deg": -11.1266584
+        },
+        {
+          "ra_deg": 100.216734,
+          "dec_deg": -11.1146898
+        },
+        {
+          "ra_deg": 99.216528,
+          "dec_deg": -11.1026888
+        },
+        {
+          "ra_deg": 98.216229,
+          "dec_deg": -11.0906553
+        },
+        {
+          "ra_deg": 97.215964,
+          "dec_deg": -11.0785942
+        },
+        {
+          "ra_deg": 96.215894,
+          "dec_deg": -11.0665112
+        },
+        {
+          "ra_deg": 95.215716,
+          "dec_deg": -11.0544071
+        },
+        {
+          "ra_deg": 94.215582,
+          "dec_deg": -11.0422859
+        },
+        {
+          "ra_deg": 93.215625,
+          "dec_deg": -11.0301533
+        }
+      ]
+    },
+    {
+      "neighbor": "Lepus",
+      "neighbor_abbreviation": "LEP",
+      "points": [
+        {
+          "ra_deg": 93.215625,
+          "dec_deg": -11.0301533
+        },
+        {
+          "ra_deg": 93.212478,
+          "dec_deg": -11.2801352
+        },
+        {
+          "ra_deg": 93.199811,
+          "dec_deg": -12.280057
+        },
+        {
+          "ra_deg": 93.187051,
+          "dec_deg": -13.2799807
+        },
+        {
+          "ra_deg": 93.174183,
+          "dec_deg": -14.2799025
+        },
+        {
+          "ra_deg": 93.161202,
+          "dec_deg": -15.2798243
+        },
+        {
+          "ra_deg": 93.148091,
+          "dec_deg": -16.2797432
+        },
+        {
+          "ra_deg": 93.134851,
+          "dec_deg": -17.2796631
+        },
+        {
+          "ra_deg": 93.121469,
+          "dec_deg": -18.279583
+        },
+        {
+          "ra_deg": 93.107922,
+          "dec_deg": -19.279501
+        },
+        {
+          "ra_deg": 93.094218,
+          "dec_deg": -20.279417
+        },
+        {
+          "ra_deg": 93.080334,
+          "dec_deg": -21.2793312
+        },
+        {
+          "ra_deg": 93.066258,
+          "dec_deg": -22.2792473
+        },
+        {
+          "ra_deg": 93.051982,
+          "dec_deg": -23.2791595
+        },
+        {
+          "ra_deg": 93.037484,
+          "dec_deg": -24.2790718
+        },
+        {
+          "ra_deg": 93.022764,
+          "dec_deg": -25.2789841
+        },
+        {
+          "ra_deg": 93.007794,
+          "dec_deg": -26.2788925
+        },
+        {
+          "ra_deg": 92.992566,
+          "dec_deg": -27.2787991
+        }
+      ]
+    }
+  ],
+  "sources": [
+    {
+      "label": "Stellarium Western sky culture",
+      "url": "https://raw.githubusercontent.com/Stellarium/stellarium-skycultures/014fbb5e59233d133c22f9811af96b67d05a95c9/western/index.json",
+      "path": "catalog-work/western-constellation-stars/stellarium-western-index.json",
+      "sha256": "a861accd345249a185a5ecfc2a516f34291c0aa52f4bb8d8337ffc53e9cef6b9"
+    },
+    {
+      "label": "Adopted star positions and names",
+      "url": "https://simbad.cds.unistra.fr/simbad/",
+      "path": "src/data/catalogs/western-constellation-stars/stars.csv",
+      "sha256": "0a8b7c1dc3f7e3412c5cffb09a18cdf5b5b7424cc89ea8a0a1ffb4da57d3ad6a"
+    },
+    {
+      "label": "Hipparcos Johnson V magnitudes",
+      "url": "https://cdsarc.cds.unistra.fr/viz-bin/cat/I/239",
+      "path": "catalog-work/western-constellation-stars/hipparcos-v.csv",
+      "sha256": "eec12b740da3aac5204ba75ca5158b6f9f2f81886dda2526fe765cf9ea159320"
+    },
+    {
+      "label": "CDS / IAU constellation boundaries (J2000)",
+      "url": "https://cdsarc.cds.unistra.fr/viz-bin/cat/VI/49",
+      "path": "catalog-work/constellation-charts/boundaries-j2000.dat.gz",
+      "sha256": "879cd6e7a1c908f1e19a5f5fe8cc75fb1d1077564e3890f9152a3680affe9aac",
+      "inputs": [
+        {
+          "path": "catalog-work/constellation-charts/boundary-contours-b1875.dat",
+          "sha256": "865cdf4218f676eb304587c75c63231948d29cd0abe6892a8a8130c1c4fe3592"
+        },
+        {
+          "path": "catalog-work/constellation-charts/boundary-contours-readme.txt",
+          "sha256": "a3ec688bea21e9db10832842c9b845558dbe8ccf820ddedec842d664d2b74c89"
+        }
+      ]
+    }
+  ]
+}

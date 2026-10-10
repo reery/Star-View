@@ -1,12 +1,13 @@
 import {
   AmbientLight, BufferGeometry, Color, DirectionalLight, DoubleSide, Euler, Float32BufferAttribute, Mesh, MeshStandardMaterial, OrthographicCamera,
-  PCFShadowMap, Quaternion, RepeatWrapping, RingGeometry, Scene, SphereGeometry, SRGBColorSpace, TextureLoader, Vector2, WebGLRenderer,
+  PCFShadowMap, Quaternion, RepeatWrapping, RingGeometry, Scene, ShaderMaterial, SphereGeometry, SRGBColorSpace, TextureLoader, Vector2, Vector3, WebGLRenderer,
   type Texture,
 } from 'three'
 import { EffectComposer } from 'three/addons/postprocessing/EffectComposer.js'
 import { RenderPass } from 'three/addons/postprocessing/RenderPass.js'
 import { UnrealBloomPass } from 'three/addons/postprocessing/UnrealBloomPass.js'
 import { OutputPass } from 'three/addons/postprocessing/OutputPass.js'
+import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js'
 import mercuryMap from './assets/planets/mercury-surface-map.png'
 import venusMap from './assets/planets/venus-cloud-map.jpg'
 import earthMap from './assets/planets/earth-global-map.jpg'
@@ -18,10 +19,12 @@ import saturnMesh from './assets/planets/saturn-mesh.json'
 import uranusMap from './assets/planets/uranus-cloud-map.jpg'
 import neptuneMap from './assets/planets/neptune-cloud-map.jpg'
 import { solarPlanetDescriptionForId as planetDescriptionForId } from './planet-properties'
+import { moonGlobeAppearances } from './moon-globe-appearances'
 
-interface GlobeAppearance {
+export interface GlobeAppearance {
   readonly name: string
   readonly map: string
+  readonly model?: string
   readonly description: string
   readonly credit: string
   readonly roughness: number
@@ -30,6 +33,7 @@ interface GlobeAppearance {
 }
 
 const appearances: Record<string, GlobeAppearance> = {
+  ...moonGlobeAppearances,
   mercury: {
     name: 'Mercury', map: mercuryMap, roughness: 0.62, mapBlend: 1, tint: '#ffffff',
     description: 'Cratered surface from MESSENGER imagery.',
@@ -105,6 +109,34 @@ const jupiterLimbFragment = `
   }
 `
 
+// Titan's opaque haze softens toward the limb. The separate transparent shell
+// below blends across the silhouette rather than outlining a hard orange sphere.
+const titanCloudFragment = `
+  #ifdef USE_MAP
+    if (titanHaze > 0.0) {
+      float limb = pow(1.0 - clamp(abs(normalize(vNormal).z), 0.0, 1.0), 1.5);
+      vec2 blur = vec2(0.006, 0.012);
+      vec3 softHaze = (texture2D(map, vMapUv + vec2(blur.x, 0.0)).rgb
+        + texture2D(map, vMapUv - vec2(blur.x, 0.0)).rgb
+        + texture2D(map, vMapUv + vec2(0.0, blur.y)).rgb
+        + texture2D(map, vMapUv - vec2(0.0, blur.y)).rgb) * 0.25;
+      diffuseColor.rgb = mix(diffuseColor.rgb, softHaze, limb * 0.8);
+      // The published map is an illustrative orange haze, not surface color.
+      // Retain only its soft, broad variations in a muted gold palette.
+      // Added noise and warped bands make the opaque haze look mottled.
+      float mapBrightness = dot(diffuseColor.rgb, vec3(0.2126, 0.7152, 0.0722));
+      diffuseColor.rgb = titanHazeColor * (0.85 + mapBrightness * 0.5);
+    }
+  #endif
+`
+const titanLimbFragment = `
+  if (titanHaze > 0.0) {
+    float limb = pow(1.0 - clamp(dot(normal, geometryViewDir), 0.0, 1.0), 1.8);
+    float sunlight = smoothstep(-0.15, 0.65, dot(normal, directionalLights[0].direction));
+    outgoingLight = mix(outgoingLight, titanHazeColor * (0.04 + 0.96 * sqrt(sunlight)), limb * 0.7);
+  }
+`
+
 function createPlanetGlobe(canvas: HTMLCanvasElement) {
   const renderer = new WebGLRenderer({ canvas, antialias: true, powerPreference: 'low-power' })
   renderer.setClearColor(0x000000, 1)
@@ -143,6 +175,8 @@ function createPlanetGlobe(canvas: HTMLCanvasElement) {
   const mapBlend = { value: 1 }
   const earthOceanAdjustment = { value: 0 }
   const jupiterLimbHaze = { value: 0 }
+  const titanHaze = { value: 0 }
+  const titanHazeColor = { value: new Color('#d6ad67') }
   const oceanUniforms = 'uniform vec3 earthOceanLift;\nuniform float earthOceanAdjustment;\n'
   // Venus's visible cloud markings are faint; Earth needs a selective ocean lift.
   material.onBeforeCompile = (shader) => {
@@ -152,17 +186,73 @@ function createPlanetGlobe(canvas: HTMLCanvasElement) {
     shader.uniforms.earthOceanAdjustment = earthOceanAdjustment
     shader.uniforms.jupiterLimbHaze = jupiterLimbHaze
     shader.uniforms.jupiterHazeColor = { value: new Color('#eef0f4') }
-    shader.fragmentShader = `${oceanUniforms}uniform float jupiterLimbHaze;\nuniform vec3 jupiterHazeColor;\nuniform vec3 planetCloudTint;\nuniform float planetMapBlend;\n${shader.fragmentShader}`
+    shader.uniforms.titanHaze = titanHaze
+    shader.uniforms.titanHazeColor = titanHazeColor
+    shader.fragmentShader = `${oceanUniforms}uniform float jupiterLimbHaze;\nuniform vec3 jupiterHazeColor;\nuniform float titanHaze;\nuniform vec3 titanHazeColor;\nuniform vec3 planetCloudTint;\nuniform float planetMapBlend;\n${shader.fragmentShader}`
       .replace('#include <map_pars_fragment>', `#include <map_pars_fragment>
         #ifdef USE_MAP
           vec3 jupiterCloudSample(vec2 uv) {
             return texture2D(map, vec2(uv.x, clamp(uv.y, 0.06, 0.94))).rgb;
           }
         #endif`)
-      .replace('#include <map_fragment>', `#include <map_fragment>\n${jupiterCloudFragment}\ndiffuseColor.rgb = mix(planetCloudTint, diffuseColor.rgb, planetMapBlend);\n${earthOceanFragment}`)
-      .replace('#include <opaque_fragment>', `${jupiterLimbFragment}\n#include <opaque_fragment>`)
+      .replace('#include <map_fragment>', `#include <map_fragment>\n${jupiterCloudFragment}\n${titanCloudFragment}\ndiffuseColor.rgb = mix(planetCloudTint, diffuseColor.rgb, planetMapBlend);\n${earthOceanFragment}`)
+      .replace('#include <opaque_fragment>', `${jupiterLimbFragment}\n${titanLimbFragment}\n#include <opaque_fragment>`)
   }
   const sphere = new Mesh<BufferGeometry, MeshStandardMaterial>(geometry, material)
+  const titanAtmosphereMaterial = new ShaderMaterial({
+    transparent: true,
+    depthWrite: false,
+    uniforms: {
+      hazeColor: titanHazeColor,
+      upperHazeColor: { value: new Color('#7198bb') },
+      sunDirection: { value: new Vector3(-3.5, 2.5, 5.5).normalize() },
+    },
+    vertexShader: `
+      varying vec3 vHazeOffset;
+      void main() {
+        vec4 viewPosition = modelViewMatrix * vec4(position * 1.12, 1.0);
+        vec3 center = (modelViewMatrix * vec4(0.0, 0.0, 0.0, 1.0)).xyz;
+        float globeScale = length(modelViewMatrix[0].xyz);
+        vHazeOffset = (viewPosition.xyz - center) / globeScale;
+        gl_Position = projectionMatrix * viewPosition;
+      }
+    `,
+    fragmentShader: `
+      uniform vec3 hazeColor;
+      uniform vec3 upperHazeColor;
+      uniform vec3 sunDirection;
+      varying vec3 vHazeOffset;
+      void main() {
+        float radius = length(vHazeOffset.xy);
+        float outerZ = sqrt(max(0.0, 1.12 * 1.12 - radius * radius));
+        // Integrate only in front of the opaque globe, or through the entire
+        // atmosphere beyond the limb. Exponential density gives a diffuse edge.
+        float innerZ = radius < 1.0 ? sqrt(1.0 - radius * radius) : -outerZ;
+        float stepSize = (outerZ - innerZ) / 16.0;
+        float opacity = 0.0;
+        vec3 scatteredLight = vec3(0.0);
+        for (int i = 0; i < 16; i++) {
+          float z = outerZ - (float(i) + 0.5) * stepSize;
+          vec3 samplePosition = vec3(vHazeOffset.xy, z);
+          float altitude = max(0.0, length(samplePosition) - 1.0);
+          float lowerDensity = exp(-altitude / 0.018);
+          float upperDensity = exp(-pow((altitude - 0.05) / 0.014, 2.0)) * 0.07;
+          float density = lowerDensity + upperDensity;
+          float sampleOpacity = 1.0 - exp(-density * stepSize * 3.5);
+          float sunlight = smoothstep(-0.18, 0.65, dot(normalize(samplePosition), sunDirection));
+          vec3 color = mix(hazeColor, upperHazeColor, upperDensity / max(density, 0.0001));
+          scatteredLight += (1.0 - opacity) * sampleOpacity * color * (0.06 + 0.94 * sqrt(sunlight));
+          opacity += (1.0 - opacity) * sampleOpacity;
+        }
+        gl_FragColor = vec4(scatteredLight / max(opacity, 0.0001), opacity);
+        #include <tonemapping_fragment>
+        #include <colorspace_fragment>
+      }
+    `,
+  })
+  const titanAtmosphere = new Mesh(geometry, titanAtmosphereMaterial)
+  titanAtmosphere.visible = false
+  sphere.add(titanAtmosphere)
   const ringInnerRadius = 74658 / saturn.meanRadiusKm
   const ringOuterRadius = 139826 / saturn.meanRadiusKm
   const ringGeometry = new RingGeometry(ringInnerRadius, ringOuterRadius, 192)
@@ -278,6 +368,40 @@ function createPlanetGlobe(canvas: HTMLCanvasElement) {
   let texture: Texture | undefined
   let earthTexture: Texture | undefined
   let textureVersion = 0
+  const moonGeometries = new Map<string, BufferGeometry>()
+  const loadingModels = new Set<string>()
+  function loadMoonGeometry(id: string, appearance: GlobeAppearance): void {
+    if (!appearance.model || moonGeometries.has(id) || loadingModels.has(id)) return
+    loadingModels.add(id)
+    new GLTFLoader().load(appearance.model, (model) => {
+      loadingModels.delete(id)
+      let moonGeometry: BufferGeometry | undefined
+      model.scene.traverse((object) => {
+        if (!(object instanceof Mesh)) return
+        moonGeometry ??= object.geometry.clone()
+        object.geometry.dispose()
+        for (const modelMaterial of Array.isArray(object.material) ? object.material : [object.material]) modelMaterial.dispose()
+      })
+      if (!moonGeometry) return
+      if (disposed) { moonGeometry.dispose(); return }
+      // Preserve NASA's irregular shape, normals and atlas UVs. Recenter and
+      // uniformly scale to fit the existing frame through every rotation.
+      moonGeometry.computeBoundingSphere()
+      const { center, radius } = moonGeometry.boundingSphere!
+      moonGeometry.translate(-center.x, -center.y, -center.z)
+      moonGeometry.scale(1 / radius, 1 / radius, 1 / radius)
+      moonGeometries.set(id, moonGeometry)
+      if (planetId === id) {
+        sphere.geometry = moonGeometry
+        sphere.visible = true
+        canvas.dataset.modelReady = 'true'
+        requestRender()
+      }
+    }, undefined, () => {
+      loadingModels.delete(id)
+      if (!disposed && planetId === id) canvas.setAttribute('aria-label', `${appearance.name} 3D view. Shape model unavailable.`)
+    })
+  }
   function setPlanet(id: string, appearance: GlobeAppearance): void {
     if (planetId === id) return
     planetId = id
@@ -286,7 +410,10 @@ function createPlanetGlobe(canvas: HTMLCanvasElement) {
     texture?.dispose()
     material.map = null
     material.roughness = appearance.roughness
-    sphere.geometry = id === 'jupiter' ? jupiterGeometry : id === 'saturn' ? saturnGeometry : iceGiantGeometries.get(id) ?? geometry
+    sphere.geometry = id === 'jupiter' ? jupiterGeometry : id === 'saturn' ? saturnGeometry : moonGeometries.get(id) ?? iceGiantGeometries.get(id) ?? geometry
+    sphere.visible = !appearance.model || moonGeometries.has(id)
+    canvas.dataset.modelReady = String(sphere.visible)
+    loadMoonGeometry(id, appearance)
     rings.visible = id === 'saturn' && ringMaterial.map !== null
     sphere.castShadow = sphere.receiveShadow = light.castShadow = id === 'saturn'
     canvas.dataset.ringsVisible = String(rings.visible)
@@ -294,18 +421,21 @@ function createPlanetGlobe(canvas: HTMLCanvasElement) {
     mapBlend.value = appearance.mapBlend
     earthOceanAdjustment.value = id === 'earth' ? 1 : 0
     jupiterLimbHaze.value = id === 'jupiter' ? 1 : 0
+    titanHaze.value = id === 'titan' ? 1 : 0
+    titanAtmosphere.visible = id === 'titan'
     material.needsUpdate = true
-    bloomPass.strength = id === 'mercury' ? 0.08 : ['jupiter', 'saturn', 'uranus', 'neptune'].includes(id) ? 0 : 0.03
+    bloomPass.strength = id === 'mercury' ? 0.08 : ['jupiter', 'saturn', 'uranus', 'neptune'].includes(id) || moonGlobeAppearances[id] ? 0 : 0.03
     bloomPass.enabled = bloomPass.strength > 0
     // Start with the Great Red Spot slightly left of center.
     sphere.rotation.set(id === 'saturn' ? 0.48 : 0.08, id === 'jupiter' ? 0 : -1.2, id === 'saturn' ? -0.15 : id === 'uranus' ? 97.77 * Math.PI / 180 : 0)
     canvas.dataset.planetId = id
     canvas.dataset.textureReady = 'false'
     canvas.title = appearance.credit
-    canvas.setAttribute('aria-label', `${appearance.name} globe. ${appearance.description} Drag or use arrow keys to rotate.`)
+    canvas.setAttribute('aria-label', `${appearance.name} ${appearance.model ? '3D view' : 'globe'}. ${appearance.description} Drag or use arrow keys to rotate.`)
     texture = new TextureLoader().load(appearance.map, (map) => {
       if (disposed || version !== textureVersion) { map.dispose(); return }
       map.colorSpace = SRGBColorSpace
+      map.flipY = !appearance.model
       map.wrapS = RepeatWrapping
       map.anisotropy = Math.min(4, renderer.capabilities.getMaxAnisotropy())
       material.map = map
@@ -355,7 +485,7 @@ function createPlanetGlobe(canvas: HTMLCanvasElement) {
     const appearance = appearances[planetId ?? '']
     if (appearance) {
       canvas.title = `${appearance.credit}${comparingEarth ? ` Earth: ${appearances.earth!.credit} Both globes use the same diameter scale.` : ''}`
-      canvas.setAttribute('aria-label', `${appearance.name}${comparingEarth ? ' and Earth globes at the same diameter scale' : ' globe'}. ${appearance.description} Drag or use arrow keys to rotate${comparingEarth ? ' both globes' : ''}. Release to coast; click to stop.`)
+      canvas.setAttribute('aria-label', `${appearance.name}${comparingEarth ? ' and Earth globes at the same diameter scale' : appearance.model ? ' 3D view' : ' globe'}. ${appearance.description} Drag or use arrow keys to rotate${comparingEarth ? ' both globes' : ''}. Release to coast; click to stop.`)
     }
     if (comparingEarth && !earthTexture) {
       canvas.dataset.earthTextureReady = 'false'
@@ -465,6 +595,7 @@ function createPlanetGlobe(canvas: HTMLCanvasElement) {
       geometry.dispose()
       jupiterGeometry.dispose()
       for (const ellipsoid of iceGiantGeometries.values()) ellipsoid.dispose()
+      for (const moonGeometry of moonGeometries.values()) moonGeometry.dispose()
       saturnGeometry.dispose()
       ringGeometry.dispose()
       ringMaterial.dispose()
@@ -472,6 +603,7 @@ function createPlanetGlobe(canvas: HTMLCanvasElement) {
       light.shadow.dispose()
       material.dispose()
       earthMaterial.dispose()
+      titanAtmosphereMaterial.dispose()
       renderPass.dispose()
       bloomPass.dispose()
       outputPass.dispose()
@@ -482,14 +614,15 @@ function createPlanetGlobe(canvas: HTMLCanvasElement) {
   }
 }
 
-let globe: ReturnType<typeof createPlanetGlobe> | undefined
+const globes = new Map<HTMLCanvasElement, ReturnType<typeof createPlanetGlobe>>()
 
 export function renderPlanetGlobe(canvas: HTMLCanvasElement, planetId: string, compareEarth = false): boolean {
   const appearance = appearances[planetId]
   if (!appearance) return false
-  if (globe?.canvas !== canvas) {
-    disposePlanetGlobe()
+  let globe = globes.get(canvas)
+  if (!globe) {
     globe = createPlanetGlobe(canvas)
+    globes.set(canvas, globe)
   }
   globe.setPlanet(planetId, appearance)
   globe.setComparison(compareEarth)
@@ -497,7 +630,12 @@ export function renderPlanetGlobe(canvas: HTMLCanvasElement, planetId: string, c
   return true
 }
 
-export function disposePlanetGlobe(): void {
-  globe?.dispose()
-  globe = undefined
+export function disposePlanetGlobe(canvas?: HTMLCanvasElement): void {
+  if (canvas) {
+    globes.get(canvas)?.dispose()
+    globes.delete(canvas)
+    return
+  }
+  for (const globe of globes.values()) globe.dispose()
+  globes.clear()
 }
