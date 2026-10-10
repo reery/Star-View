@@ -1,0 +1,429 @@
+J/ApJ/810/158  M,L,T dwarfs fundamental parameters and SEDs  (Filippazzo+, 2015)
+================================================================================
+Fundamental parameters and spectral energy distributions of young and field age
+objects with masses spanning the stellar to planetary regime.
+    Filippazzo J.C., Rice E.L., Faherty J., Cruz K.L., Van Gordon M.M.,
+    Looper D.L.
+   <Astrophys. J., 810, 158 (2015)>
+   =2015ApJ...810..158F    (SIMBAD/NED BibCode)
+================================================================================
+ADC_Keywords: Stars, dwarfs ; Spectral types ; Photometry, SDSS ;
+              Photometry, UBVRIJKLMNH ; Parallaxes, trigonometric ; Stars, ages
+Keywords: brown dwarfs - stars: fundamental parameters - stars: low-mass
+
+Abstract:
+    We combine optical, near-infrared, and mid-infrared spectra and
+    photometry to construct expanded spectral energy distributions for 145
+    field age (>500 Myr) and 53 young (lower age estimate <500 Myr)
+    ultracool dwarfs (M6-T9). This range of spectral types includes very
+    low mass stars, brown dwarfs, and planetary mass objects, providing
+    fundamental parameters across both the hydrogen and deuterium burning
+    minimum masses for the largest sample assembled to date. A subsample
+    of 29 objects have well constrained ages as probable members of a
+    nearby young moving group. We use 182 parallaxes and 16 kinematic
+    distances to determine precise bolometric luminosities (L_bol_) and
+    radius estimates from evolutionary models give semi-empirical
+    effective temperatures (T_eff_) for the full range of young and field
+    age late-M, L, and T dwarfs. We construct age-sensitive relationships
+    of luminosity, temperature, and absolute magnitude as functions of
+    spectral type and absolute magnitude to disentangle the effects of
+    degenerate physical parameters such as T_eff_, surface gravity, and
+    clouds on spectral morphology. We report bolometric corrections in J
+    for both field age and young objects and find differences of up to a
+    magnitude for late-L dwarfs. Our correction in Ks shows a larger
+    dispersion but not necessarily a different relationship for young and
+    field age sequences. We also characterize the NIR-MIR reddening of low
+    gravity L dwarfs and identify a systematically cooler T_eff_ of up to
+    300 K from field age objects of the same spectral type and 400 K
+    cooler from field age objects of the same M_H_ magnitude.
+
+Description:
+    The primary sources of optical, NIR, and MIR photometry were the Sloan
+    Digital Sky Survey (SDSS; York et al. 2000AJ....120.1579Y), the 2MASS
+    (Skrutskie et al. 2006, Cat. VII/233), and WISE (Cutri et al. 2012,
+    Cat. II/311), respectively. Additional magnitudes came from the Looper
+    Near-Infrared Survey of the Southern Sky (DENIS; Epchtein et al.
+    1997Msngr..87...27E; Cat. B/denis) and the literature using the Mauna Kea
+    Observatory Near-Infrared (Simons & Tokunaga 2002PASP..114..169S;
+    Tokunaga et al. 2002PASP..114..180T), Spitzer Space Telescope IRAC and
+    Johnson-Cousins V(RI)_C_ filter sets.
+
+File Summary:
+--------------------------------------------------------------------------------
+ FileName      Lrecl  Records   Explanations
+--------------------------------------------------------------------------------
+ReadMe            80        .   This file
+table1.dat        91      198   The Sample of Ultracool Dwarfs with Measured
+                                SEDs
+table3.dat       135      129   Optical Photometry for the Sample
+table4.dat       109      197   NIR Photometry for the Sample
+table5.dat       150      197   MIR Photometry for the Sample
+table7.dat        63      197   Optical, NIR, and MIR Spectra Used to Construct
+                                SEDs
+table8.dat        61      137   Comparison of L_bol_ Values with the Literature
+table9.dat        94      197   Fundamental Parameters of the Sample
+refs1.dat        170      123   References in table1
+refs7.dat        170       76   References in table7
+--------------------------------------------------------------------------------
+
+See also:
+ I/238            : Yale Trigonometric Parallaxes, Fourth Edition
+                                                              (van Altena+ 1995)
+ II/246           : 2MASS All-Sky Catalog of Point Sources (Cutri+ 2003)
+ VII/233          : The 2MASS Extended sources (IPAC/UMass, 2003-2006)
+ B/denis          : The DENIS database (DENIS Consortium, 2005)
+ I/311            : Hipparcos, the New Reduction (van Leeuwen, 2007)
+ II/311           : WISE All-Sky Data Release (Cutri+ 2012)
+ II/328           : AllWISE Data Release (Cutri+ 2013)
+ J/AJ/103/638     : USNO Photographic Parallaxes. I. (Monet+, 1992)
+ J/AJ/123/2806    : Nearby stars in the NLTT catalogue (Reid+, 2002)
+ J/AJ/123/3409    : SDSS M, L, and T dwarfs (Hawley+, 2002)
+ J/AJ/126/1526    : IR photometry of ultracool dwarfs (Bouy+, 2003)
+ J/AJ/127/3553    : JHK photometry and spectroscopy for L and T dwarfs
+                                                                  (Knapp+, 2004)
+ J/A+A/446/515    : Distances of nearby ultracool dwarfs (Phan-Bao+, 2006)
+ J/AJ/131/2722    : New L and T dwarfs from the SDSS (Chiu+, 2006)
+ J/ApJ/651/502    : Spitzer IRAC photometry of M, L, and T dwarfs
+                                                                 (Patten+, 2006)
+ J/PASP/118/659   : RI photometry of 2MASS late M and L dwarfs (Liebert+, 2006)
+ J/AJ/133/2258    : Activity and kinematics of ultracool dwarfs (Schmidt+, 2007)
+ J/A+A/493/L27    : Parallaxes of 10 ultracool subdwarfs (Schilbach+, 2009)
+ J/AJ/137/4186    : UBVRI standards around celestial equator (Landolt, 2009)
+ J/A+A/522/A112   : i'z' photometry of L5 and later dwarf candidates
+                                                                  (Reyle+, 2010)
+ J/ApJ/710/1627   : Mid-IR photometry of cold brown dwarfs (Leggett+, 2010)
+ J/MNRAS/404/1817 : 2MASS/SDSS data for 806 ultracool dwarfs (Zhang+, 2010)
+ J/ApJS/197/19    : First brown dwarfs discovered by WISE (Kirkpatrick+, 2011)
+ J/AJ/144/148     : Infrared photometry of brown dwarf and Hyper-LIRG
+                                                               (Griffith+, 2012)
+ J/ApJ/752/56     : BDKP. III. Parallaxes for 70 ultracool dwarfs
+                                                                (Faherty+, 2012)
+ J/ApJ/753/156    : T/Y brown dwarfs with WISE photometry (Kirkpatrick+, 2012)
+ J/ApJS/201/19    : Hawaii Infrared Parallax Program. I. (Dupuy+, 2012)
+ J/A+A/549/A129   : Equivalent widths of cool stars (Cesetti+, 2013)
+ J/A+A/564/A55    : 1.1-2.4um spectra of 7 young M and L dwarfs
+                                                             (Manjavacas+, 2014)
+ J/AJ/147/94      : Solar neighborhood. XXXII. L and M dwarfs (Dieterich+, 2014)
+ J/ApJS/225/10    : Kinematic analysis of M7-L8 dwarfs (Faherty+, 2016)
+
+Byte-by-byte Description of file: table1.dat
+--------------------------------------------------------------------------------
+   Bytes Format Units    Label Explanations
+--------------------------------------------------------------------------------
+   1-  2  I2    h        RAh   Hour of Right Ascension (J2000)
+   4-  5  I2    min      RAm   Minute of Right Ascension (J2000)
+   7- 11  F5.2  s        RAs   Second of Right Ascension (J2000)
+      13  A1    ---      DE-   Sign of the Declination (J2000)
+  14- 15  I2    deg      DEd   Degree of Declination (J2000)
+  17- 18  I2    arcmin   DEm   Arcminute of Declination (J2000)
+  20- 23  F4.1  arcsec   DEs   Arcsecond of Declination (J2000)
+  25- 51  A27   ---      Name  Source name
+  53- 55  I3    ---    r_Name  [1/123] Source discovery reference
+                                (see refs1.dat file)
+  57- 70  A14   ---      SpT   Spectral type
+      72  A1    ---    n_SpT   [a] Note on SpT (1)
+  74- 79  A6    ---    r_SpT   SpT reference(s) (see refs1.dat file)
+  81- 91  A11   ---      ID    Source name as in tables 3,4,5,7,8 and 9
+--------------------------------------------------------------------------------
+Note (1): Note as follows:
+  a = We adopt a type of "0355-type" from K. Cruz et al. (2015, in preparation)
+      due to this object's spectral uniqueness compared to other M, L, and
+      T dwarfs.
+--------------------------------------------------------------------------------
+
+Byte-by-byte Description of file: table3.dat
+--------------------------------------------------------------------------------
+   Bytes Format Units   Label   Explanations
+--------------------------------------------------------------------------------
+   1- 11  A11   ---     ID      Designation of the source (HHMM+DDMM)
+  13- 18  F6.3  mag     umag    ? SDSS u-band magnitude (0.35 {mu}m)
+  20- 24  F5.3  mag   e_umag    ? Uncertainty in umag
+  26- 31  F6.3  mag     gmag    ? SDSS g-band magnitude (0.48 {mu}m)
+  33- 37  F5.3  mag   e_gmag    ? Uncertainty in gmag
+  39- 44  F6.3  mag     rmag    ? SDSS r-band magnitude (0.62 {mu}m)
+  46- 50  F5.3  mag   e_rmag    ? Uncertainty in rmag
+  52- 57  F6.3  mag     imag    ? SDSS i-band magnitude (0.76 {mu}m)
+  59- 63  F5.3  mag   e_imag    ? Uncertainty in imag
+  65- 70  F6.3  mag     zmag    ? SDSS z-band magnitude (0.91 {mu}m)
+  72- 76  F5.3  mag   e_zmag    ? Uncertainty in zmag
+  78- 83  F6.3  mag     Vmag    ? Johnson V-band magnitude (0.54 {mu}m)
+  85- 89  F5.3  mag   e_Vmag    ? Uncertainty in Vmag
+  91- 96  F6.3  mag     Rmag    ? Cousins R-band magnitude (0.64 {mu}m)
+  98-102  F5.3  mag   e_Rmag    ? Uncertainty in Rmag
+ 104-109  F6.3  mag     Imag1   ? Cousins I-band magnitude (0.80 {mu}m)
+ 111-115  F5.3  mag   e_Imag1   ? Uncertainty in Imag1
+ 117-122  F6.3  mag     Imag2   ? DENIS I-band magnitude (0.79 {mu}m)
+ 124-128  F5.3  mag   e_Imag2   ? Uncertainty in Imag2
+ 130-135  A6    ---     Ref     Reference(s) (1)
+--------------------------------------------------------------------------------
+Note (1): Reference as follows:
+   1 = Ahn et al. (2012ApJS..203...21A);
+   2 = Dieterich et al. (2014, J/AJ/147/94);
+   3 = Gizis et al. (2012AJ....144...94G);
+   4 = DENIS Consortium (2003, Cat. B/denis);
+   5 = Naud et al. (2014ApJ...787....5N);
+   6 = Liebert & Gizis (2006, J/PASP/118/659);
+   7 = Chiu et al. (2006, J/AJ/131/2722);
+   8 = Abazajian et al. (2009ApJS..182..543A);
+   9 = Leggett et al. (2012ApJ...748...74L);
+  10 = Costa et al. (2005AJ....130..337C);
+  11 = Boffin et al. (2014A&A...561L...4B);
+  12 = Landolt (2009, J/AJ/137/4186);
+  13 = Landolt (1992AJ....104..340L);
+  14 = Reyle et al. (2010, J/A+A/522/A112);
+  15 = Costa et al. (2006AJ....132.1234C);
+  16 = Adelman-McCarthy et al. (2008ApJS..175..297A);
+  17 = Liu et al. (2013ApJ...777L..20L).
+--------------------------------------------------------------------------------
+
+Byte-by-byte Description of file: table4.dat
+--------------------------------------------------------------------------------
+   Bytes Format Units   Label   Explanations
+--------------------------------------------------------------------------------
+   1- 11  A11   ---     ID      Designation of the source (HHMM+DDMM)
+  13- 18  F6.3  mag     Jmag1   ? 2MASS J-band magnitude (1.24 {mu}m)
+  20- 24  F5.3  mag   e_Jmag1   ? Uncertainty in Jmag1
+  26- 31  F6.3  mag     Hmag1   ? 2MASS H-band magnitude (1.66 {mu}m)
+  33- 37  F5.3  mag   e_Hmag1   ? Uncertainty in Hmag1
+  39- 44  F6.3  mag     Ksmag   ? 2MASS K_s_-band magnitude (2.16 {mu}m)
+  46- 50  F5.3  mag   e_Ksmag   ? Uncertainty in Ksmag
+  52- 57  F6.3  mag     Ymag    ? MKO Y-band magnitude (1.03 {mu}m)
+  59- 63  F5.3  mag   e_Ymag    ? Uncertainty in Ymag
+  65- 70  F6.3  mag     Jmag2   ? MKO J-band magnitude (1.25 {mu}m)
+  72- 76  F5.3  mag   e_Jmag2   ? Uncertainty in Jmag2
+  78- 83  F6.3  mag     Hmag2   ? MKO H-band magnitude (1.64 {mu}m)
+  85- 89  F5.3  mag   e_Hmag2   ? Uncertainty in Hmag2
+  91- 96  F6.3  mag     Kmag    ? MKO K-band magnitude (2.20 {mu}m)
+  98-102  F5.3  mag   e_Kmag    ? Uncertainty in Kmag
+ 104-109  A6    ---     Ref     Reference(s) (1)
+--------------------------------------------------------------------------------
+Note (1): Reference as follows:
+   1 = Cutri et al. (2003, Cat. II/246);
+   2 = Leggett et al. (2002ApJ...564..452L);
+   3 = Knapp et al. (2004, J/AJ/127/3553);
+   4 = Leggett et al. (2010, J/ApJ/710/1627);
+   5 = Naud et al. (2014ApJ...787....5N);
+   6 = Leggett et al. (1998ApJ...509..836L);
+   7 = Chiu et al. (2006, J/AJ/131/2722);
+   8 = Leggett et al. (2000ApJ...536L..35L);
+   9 = Hewett et al. (2006MNRAS.367..454H);
+  10 = Leggett et al. (2002MNRAS.332...78L);
+  11 = Lawrence et al. (2007MNRAS.379.1599L);
+  12 = Currie et al. (2013ApJ...776...15C);
+  13 = Golimowski et al. (2004AJ....127.3516G);
+  14 = Burgasser et al. (2013ApJ...772..129B);
+  15 = Chauvin et al. (2004A&A...425L..29C);
+  16 = Mohanty et al. (2007ApJ...657.1064M);
+  17 = Burningham et al. (2010MNRAS.404.1952B);
+  18 = Geballe et al. (2001ApJ...556..373G);
+  19 = Strauss et al. (1999ApJ...522L..61S);
+  20 = Liu et al. (2013ApJ...777L..20L);
+  21 = Luhman et al. (2007ApJ...654..570L).
+--------------------------------------------------------------------------------
+
+Byte-by-byte Description of file: table5.dat
+--------------------------------------------------------------------------------
+   Bytes Format Units   Label   Explanations
+--------------------------------------------------------------------------------
+   1- 11  A11   ---     ID      Designation of the source (HHMM+DDMM)
+  13- 18  F6.3  mag     W1mag   ? WISE W1-band magnitude (3.35 {mu}m)
+  20- 24  F5.3  mag   e_W1mag   ? Uncertainty in W1mag
+  26- 31  F6.3  mag     W2mag   ? WISE W2-band magnitude (4.60 {mu}m)
+  33- 37  F5.3  mag   e_W2mag   ? Uncertainty in W2mag
+  39- 44  F6.3  mag     W3mag   ? WISE W3-band magnitude (11.56 {mu}m)
+  46- 50  F5.3  mag   e_W3mag   ? Uncertainty in W3mag
+  52- 56  F5.3  mag     W4mag   ? WISE W4-band magnitude (22.09 {mu}m)
+  58- 62  F5.3  mag   e_W4mag   ? Uncertainty in W4mag
+  64- 69  F6.3  mag     Lmag    ? MKO L-band magnitude (3.75 {mu}m)
+  71- 75  F5.3  mag   e_Lmag    ? Uncertainty in Lmag
+  77- 82  F6.3  mag     Mmag    ? MKO M-band magnitude (4.70 {mu}m)
+  84- 88  F5.3  mag   e_Mmag    ? Uncertainty in Mmag
+  90- 95  F6.3  mag     3.6mag  ? Spitzer/IRAC 3.51{mu}m band magnitude
+  97-101  F5.3  mag   e_3.6mag  ? Uncertainty in 3.6mag
+ 103-108  F6.3  mag     4.5mag  ? Spitzer/IRAC 4.44{mu}m band magnitude
+ 110-114  F5.3  mag   e_4.5mag  ? Uncertainty in 4.5mag
+ 116-121  F6.3  mag     5.8mag  ? Spitzer/IRAC 5.63{mu}m band magnitude
+ 123-127  F5.3  mag   e_5.8mag  ? Uncertainty in 5.8mag
+ 129-134  F6.3  mag     8mag    ? Spitzer/IRAC 7.59{mu}m band magnitude
+ 136-140  F5.3  mag   e_8mag    ? Uncertainty in 8mag
+ 142-150  A9    ---     Ref     Reference(s) (1)
+--------------------------------------------------------------------------------
+Note (1): Reference as follows:
+   1 = Cutri et al. (2012, Cat. II/311);
+   2 = Patten et al. (2006, J/ApJ/651/502);
+   3 = Leggett et al. (1998ApJ...509..836L);
+   4 = Cushing et al. (2008, Precision Tests of Ultracool Dwarf Atmospheric
+       Models, Spitzer Proposal);
+   5 = Luhman et al. (2009ApJ...703..399L);
+   6 = Leggett et al. (2002ApJ...564..452L);
+   7 = Leggett et al. (2010, J/ApJ/710/1627);
+   8 = Golimowski et al. (2004AJ....127.3516G);
+   9 = Cutri et al. (2014, Cat. II/328);
+  10 = Leggett et al. (2001ApJ...548..908L);
+  11 = Burgasser et al. (2008, Direct Observations of Clouds on Brown Dwarfs:
+       A Spitzer Study of Extreme Cases, Spitzer Proposal);
+  12 = Cruz et al. (2004, The Mid-Infrared Spectrophotometric Properties of
+       a Complete Sample of the Nearest L Dwarfs, Spitzer Proposal);
+  13 = Kirkpatrick et al. (2011, J/ApJS/197/19);
+  14 = Currie et al. (2013ApJ...776...15C)
+  15 = Leggett et al. (2007ApJ...655.1079L);
+  16 = Reid & Cruz (2002, J/AJ/123/2806);
+  17 = Houck & Roellig (2004, IRS Observations of the Brown Dwarf L and T
+       Sequence, Spitzer Proposal);
+  18 = Burgasser et al. (2008ApJ...689L..53B);
+  19 = Osorio et al. (2010ApJ...715.1408Z);
+  20 = Houck et al. (2006, Disk Structure and Planet Formation around Young
+       Low-mass Stars and Brown Dwarfs, Spitzer Proposal);
+  21 = Houck & Watson (2004, Spectroscopy of Protostellar, Protoplanetary and
+       Debris Disks, Spitzer Proposal);
+  22 = Jayawardhana et al. (2003AJ....126.1515J);
+  23 = Chauvin et al. (2004A&A...425L..29C);
+  24 = Griffith et al. (2012, J/AJ/144/148);
+  25 = Burningham et al. (2010MNRAS.404.1952B);
+  26 = Jones et al. (1996MNRAS.280...77J);
+  27 = Geballe et al. (2001ApJ...556..373G);
+  28 = Dupuy & Liu (2012, J/ApJS/201/19);
+  29 = Luhman et al. (2007ApJ...654..570L).
+--------------------------------------------------------------------------------
+
+Byte-by-byte Description of file: table7.dat
+--------------------------------------------------------------------------------
+   Bytes Format Units   Label   Explanations
+--------------------------------------------------------------------------------
+   1- 11  A11   ---     ID      Designation of the source (HHMM+DDMM)
+  13- 30  A18   ---     OPT     Optical spectra used to construct SEDs
+  32- 33  I2    ---   r_OPT     [3/71]? OPT reference (see refs7.dat file)
+  36- 50  A15   ---     NIR     NIR spectra used to construct SEDs
+  52- 56  A5    ---   r_NIR     NIR reference (see refs7.dat file)
+  58- 60  A3    ---     MIR     MIR spectra used to construct SEDs
+  62- 63  I2    ---   r_MIR     [2/72]? MIR reference (see refs7.dat file)
+--------------------------------------------------------------------------------
+
+Byte-by-byte Description of file: table8.dat
+--------------------------------------------------------------------------------
+   Bytes Format Units    Label  Explanations
+--------------------------------------------------------------------------------
+   1- 11  A11   ---      ID     Designation of the source (HHMM+DDMM)
+  13- 18  F6.2  mas      Plx    Trigonometric parallax used in that work
+  20- 24  F5.2  mas    e_Plx    Uncertainty in Plx
+  26- 31  F6.3  [Lsun]   logL   Bolometric luminosity (log(L_*_/L_{sun}_)
+  33- 37  F5.3  [Lsun] e_logL   Uncertainty in logL
+  39- 44  F6.3  [Lsun]   logL1  Previously published value of bolometric
+                                 luminosity (log(L_*,Lit_/L_{sun}_)
+  46- 50  F5.3  [Lsun] e_logL1  Uncertainty in logL1
+  52- 61  A10   ---    r_logL1  logL1 reference(s) (1)
+--------------------------------------------------------------------------------
+Note (1): Reference as follows:
+   1 = van Altena et al. (1995gcts.book.....V);
+   2 = Golimowski et al. (2004AJ....127.3516G);
+   3 = Tinney et al. (1995AJ....110.3014T);
+   4 = Dieterich et al. (2014, J/AJ/147/94);
+   5 = Cushing et al. (2005ApJ...623.1115C);
+   6 = Vrba et al. (2004AJ....127.2948V);
+   7 = Zapatero Osorio et al. (2014A&A...568A...6Z);
+   8 = Dahn et al. (2002AJ....124.1170D);
+   9 = Luhman et al. (2007ApJ...654..570L);
+  10 = Gizis et al. (2015ApJ...799..203G);
+  11 = Naud et al. (2014ApJ...787....5N);
+  12 = Tinney (1996MNRAS.281..644T);
+  13 = Henry et al. (2006AJ....132.2360H);
+  14 = Gatewood & Coban (2009AJ....137..402G);
+  15 = Liu et al. (2013ApJ...777L..20L);
+  16 = Saumon et al. (2007ApJ...656.1136S);
+  17 = Dahn et al. (2002AJ....124.1170D);
+  18 = Vrba et al. (2004AJ....127.2948V);
+  19 = Leggett et al. (2012ApJ...748...74L);
+  20 = Burgasser et al. (2008ApJ...689L..53B);
+  21 = Tinney et al. (2003AJ....126..975T);
+  22 = Faherty et al. (2014ApJ...790...90F);
+  23 = Mamajek (2005ApJ...634.1385M);
+  24 = Manjavacas et al. (2014, J/A+A/564/A55);
+  25 = Burningham et al. (2011MNRAS.414.3590B);
+  26 = Geballe et al. (2001ApJ...556..373G);
+  27 = van Altena et al. (1995gcts.book.....V, Cat. I/238);
+  28 = van Leeuwen (2007A&A...474..653V, Cat. I/311);
+  29 = Monet et al. (1992, J/AJ/103/638).
+--------------------------------------------------------------------------------
+
+Byte-by-byte Description of file: table9.dat
+--------------------------------------------------------------------------------
+   Bytes Format Units     Label   Explanations
+--------------------------------------------------------------------------------
+   1- 11  A11   ---       ID      Designation of the source (HHMM+DDMM)
+  13- 18  F6.2  mas       Plx     Trigonometric parallax
+  20- 24  F5.2  mas     e_Plx     Uncertainty in Plx
+      25  A1    ---     n_Plx     [b] Note on Plx (1)
+  27- 28  I2    ---     r_Plx     [1/41] Plx reference (2)
+  30- 34  F5.2  [Lsun]    logL    Bolometric luminosity (log(L_*_/L_{sun}_)
+  36- 39  F4.2  [Lsun]  e_logL    Uncertainty in logL
+  41- 45  F5.3  Gyr     b_Age     Age range, lower value
+  47- 52  F6.3  Gyr     B_Age     Age range, upper value
+  54- 57  F4.2  Rjup      Rad     ? Radius
+  59- 62  F4.2  Rjup    e_Rad     ? Uncertainty in Rad
+  64- 67  F4.2  [cm/s2]   log(g)  ? Log surface gravity
+  69- 72  F4.2  [cm/s2] e_log(g)  ? Uncertainty in log(g)
+  74- 77  I4    K         Teff    ? Effective temperature
+  79- 81  I3    K       e_Teff    ? Uncertainty in Teff
+  83- 88  F6.2  Mjup      Mass    ? Mass
+  90- 94  F5.2  Mjup    e_Mass    ? Uncertainty in Mass
+--------------------------------------------------------------------------------
+Note (1): Note as follows:
+  b = Parallax calculated from kinematic distance.
+Note (2): Reference as follows:
+   1 = Dupuy & Liu (2012, J/ApJS/201/19);
+   2 = van Leeuwen (2007A&A...474..653V, Cat. I/311);
+   3 = Dieterich et al. (2014, J/AJ/147/94);
+   4 = Faherty et al. (2016, J/ApJS/225/10);
+   5 = Tinney et al. (1995AJ....110.3014T);
+   6 = Dahn et al. (2002AJ....124.1170D);
+   7 = Vrba et al. (2004AJ....127.2948V);
+   8 = Zapatero Osorio et al. (2014A&A...568A...6Z);
+   9 = Faherty et al. (2012, J/ApJ/752/56);
+  10 = Gizis et al. (2015ApJ...799..203G);
+  11 = Dupuy & Kraus (2013Sci...341.1492D);
+  12 = Marocco et al. (2013AJ....146..161M);
+  13 = Costa et al. (2005AJ....130..337C);
+  14 = Naud et al. (2014ApJ...787....5N);
+  15 = Marocco et al. (2010A&A...524A..38M);
+  16 = Tinney (1996MNRAS.281..644T);
+  17 = van Altena et al. (1995gcts.book.....V, Cat. I/238);
+  18 = Patten et al. (2006, J/ApJ/651/502);
+  19 = Kirkpatrick et al. (2012, J/ApJ/753/156);
+  20 = Costa et al. (2006AJ....132.1234C);
+  21 = Monet et al. (1992, J/AJ/103/638);
+  22 = Gelino et al. (2014AJ....148....6G);
+  23 = Andrei et al. (2011AJ....141...54A);
+  24 = Thorstensen & Kirkpatrick (2003PASP..115.1207T);
+  25 = Leggett et al. (2012ApJ...748...74L);
+  26 = Gatewood & Coban (2009AJ....137..402G);
+  27 = Artigau et al. (2010ApJ...718L..38A);
+  28 = Schilbach et al. (2009, J/A+A/493/L27);
+  29 = Burgasser et al. (2008ApJ...689L..53B);
+  30 = Tinney et al. (2003AJ....126..975T);
+  31 = Lurie et al. (2014AJ....148...91L);
+  32 = Boffin et al. (2014A&A...561L...4B);
+  33 = Teixeira et al. (2008A&A...489..825T);
+  34 = Weinberger et al. (2013ApJ...762..118W);
+  35 = Ducourant et al. (2008A&A...477L...1D);
+  36 = Cesetti et al. (2013, J/A+A/549/A129);
+  37 = Kirkpatrick et al. (2011, J/ApJS/197/19);
+  38 = Reid et al. (2003AJ....125..354R);
+  39 = Smart et al. (2013MNRAS.433.2054S);
+  40 = Allers et al. (2009ApJ...697..824A);
+  41 = Subasavage et al. (2009AJ....137.4547S).
+--------------------------------------------------------------------------------
+
+Byte-by-byte Description of file: refs1.dat refs7.dat
+--------------------------------------------------------------------------------
+   Bytes Format Units   Label     Explanations
+--------------------------------------------------------------------------------
+   1-  3  I3    ---     Ref       [1/123] Reference number
+   7- 38  A32   ---     Aut       Author's name(s)
+  42- 60  A19   ---     Bibcode   Reference bibcode
+  62-170  A109  ---     Com       Comment on reference
+--------------------------------------------------------------------------------
+History:
+    From electronic version of the journal
+
+================================================================================
+(End)                Prepared by Tiphaine Pouvreau [CDS]             20-Oct-2017

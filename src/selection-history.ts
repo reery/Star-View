@@ -25,6 +25,16 @@ export class SelectionHistory {
     return this.find(1, available) !== -1
   }
 
+  peekBack(available: (id: string) => boolean): string | null {
+    const destination = this.find(-1, available)
+    return destination === -1 ? null : this.entries[destination]!
+  }
+
+  peekForward(available: (id: string) => boolean): string | null {
+    const destination = this.find(1, available)
+    return destination === -1 ? null : this.entries[destination]!
+  }
+
   back(available: (id: string) => boolean): string | null {
     return this.move(-1, available)
   }

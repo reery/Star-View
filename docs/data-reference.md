@@ -24,7 +24,7 @@ The default data stays in [src/data/stars.csv](../src/data/stars.csv). Other pac
 
 All original 16 headers must occur exactly once; `constellation` is optional for legacy/custom files. Enriched files may append the complete raw-astrometry group below. A partial raw group and unknown/duplicate headers are rejected.
 
-An optional `designations` column contains alternate names separated by `|`, for example `GJ 551|HIP 70890|Alpha Centauri C`. Bundled catalogs and overlays also receive a frozen [identity supplement](object-designations.md) during browser-payload generation. It provides common display names and alternate identifiers for search without rewriting scientific CSVs or changing stable IDs. Legacy CSVs and JSON payloads may omit aliases.
+An optional `designations` column contains alternate names separated by `|`, for example `GJ 551|HIP 70890|Alpha Centauri C`. Bundled catalogs and overlays also receive a frozen [identity supplement](object-designations.md) during browser-payload generation. It provides common display names and alternate identifiers for search without rewriting scientific CSVs or changing stable IDs. Legacy CSVs and JSON payloads may omit aliases. A shared [object-statistics supplement](object-stats.md) adds sub-types and confirmed-planet counts to all bundled catalogs and overlays. The optional CSV columns `subtypes`, `known_planets` and `apparent_mag` can also be supplied independently.
 
 ```csv
 type,id,name,spectral_type,x_pc,y_pc,z_pc,vx_kms,vy_kms,vz_kms,temperature_k,mass_solar,luminosity_solar,absolute_mag,epoch,notes,constellation
@@ -50,6 +50,9 @@ Raw astrometry is source-epoch ICRS data. `pm_ra_cosdec_masyr` includes `cos(dec
 | `id` | Required, unique string; `sun` is reserved for the reference Sun |
 | `name` | Required display name |
 | `designations` | Optional alternate names, pipe-separated in CSV and a string array in browser JSON |
+| `subtypes` | Optional physical/variability classifications; pipe-separated in CSV, array in JSON |
+| `known_planets` | Optional nonnegative integer count of confirmed planets around this host; null means coverage unavailable |
+| `apparent_mag` | Optional Earth-view Johnson V catalog magnitude; independent of the selected observer |
 | `spectral_type` | Optional spectral classification |
 | `x_pc`, `y_pc`, `z_pc` | Required finite coordinates in parsecs |
 | `vx_kms`, `vy_kms`, `vz_kms` | Optional Cartesian velocities, relative to the Sun, along the same axes in km/s |
@@ -117,7 +120,7 @@ Large interstellar cavities use another non-stellar package under `src/data/over
 
 The first row is the Local Bubble. It follows O'Neill et al. (2024), who report an average dust-shell distance of 170 pc, a 70–600+ pc range, typical 35 pc thickness and coordinate spans of `x=-300..330`, `y=-355..445`, `z=-300..600` pc. The bundled 128 by 64 grid is downsampled from the authors' 786,392-sightline interactive Figure 3 surface. It retains the roughly 500–550 ly characteristic radius while keeping the much narrower 600+ pc northern chimney and lateral tunnels. It is one indexed display mesh, not a claim to reproduce the source point cloud at parsec resolution.
 
-Constellations are the Earth-view IAU regions at the adopted snapshot, assigned offline from sky directions using the IAU Roman/Delporte boundaries. They do not change with visibility observer, units or camera orientation. Every non-Sun object in all four bundled catalogs has one, even without V photometry. Sun displays Not applicable; a legacy/custom unknown displays Not available. Boundary-frame transformation is not physical motion propagation to 1875.
+Constellations are the Earth-view IAU regions at the adopted snapshot, assigned offline from sky directions using the IAU Roman/Delporte boundaries. They do not change with visibility observer, units or camera orientation. Every non-Sun object in all four bundled catalogs has one, even without V photometry. The Sun’s constellation row is hidden; a legacy/custom unknown displays Not available. Boundary-frame transformation is not physical motion propagation to 1875.
 
 ## Catalog Policy And Provenance
 

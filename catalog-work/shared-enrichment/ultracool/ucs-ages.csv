@@ -1,0 +1,287 @@
+age_category_name,age_type,age_gyr,age_upp_err,age_low_err,age_range_type,ref_age,age_notes,age_not_used
+Field,general,2.5,4.3,2,normal,Dupu17,"0.5-6.8 Gyr; note: ranges quoted here are 68% CL, but the published age distribution is not really a gaussian - see Dupuy & Liu (2017)",null
+YoungField,general,0.105,0.095,0.095,uniform,Alle13a,10-200 Myr,null
+subd,general,10,2,2,uniform,UCS_24,this is a WAG,null
+companion,null,NaN,NaN,NaN,null,null,this is a placeholder,null
+ABDMG,region,0.149,0.051,0.019,normal,Bell15,null,null
+ARG,region,0.045,0.005,0.005,uniform,Zuck19,null,null
+BPMG,region,0.024,0.003,0.003,normal,Bell15,null,null
+CAR,region,0.045,0.011,0.007,normal,Bell15,null,null
+CARN,region,0.20,0.05,0.05,uniform,Zuck06;UCS_24,Zuck06 abstract does not give uncertainty but it is in the text of the paper.  Age_range_type is a guess.,null
+COL,region,0.042,0.006,0.004,normal,Bell15,Age_range_type is a guess.,null
+ChaI,region,0.002,0.004,0.001,uniform,Luhm07d,"citing Luhm07, 2008hsf2.book..169L says median age of 2 Myr and 2008ApJ...675.1375L says 1-6 Myr",null
+ChaII,region,0.004,0.002,0.002,uniform,Spez08,null,null
+HYA,region,0.75,0.1,0.1,normal,Bran15,null,null
+IC348,region,0.003,0.001,0.003,uniform,Luhm03a;Muen03;Bell13,this corresponds to the median and range used in 2020AJ....160...57L,null
+LCC,region,0.015,0.006,0.006,normal,Peca16,errors from intrinsic age spreads (Table 12 of Peca16),null
+LkHa233,region,0.0055,0.0045,0.0045,uniform,UCS_24,"1-10 Myr (generic range, since no suitable value in literature)",null
+Lupus,region,0.006,0.001,0.001,uniform,Luhm20,assuming USco age of 10-12 Myr,null
+MBM20,region,0.0055,0.0045,0.0045,uniform,UCS_24,"aka L1642; 1-10 Myr (generic range, since no suitable value in the literature)",null
+OCT,region,0.035,0.005,0.005,uniform,Murp15c,null,null
+ONC,region,0.002,0.001,0.001,uniform,Regg11;Becc17,null,null
+PLE,region,0.112,0.005,0.005,uniform,Dahm15,null,null
+Rhea468,region,0.56,0.06,0.06,normal,Gagn23,null,null
+SOri,region,0.0018,0.0010,0.0010,uniform,Dami23,null,null
+Taurus,region,0.0015,0.0005,0.0005,uniform,Keny95,"be sure to use ""Taurus"" and not ""TAU""; should update with Krolikowski et al (2021) results (though they do not give a single value)",null
+THA,region,0.045,0.004,0.004,normal,Bell15,null,null
+TWA,region,0.01,0.003,0.003,normal,Bell15,null,null
+UCL,region,0.016,0.007,0.007,normal,Peca16,errors from intrinsic age spreads (Table 12 of Peca16),null
+UCrA,region,0.015,0.005,0.003,uniform,Espl22,"""Upper Corona Australis"" older population; distinct from the younger Coronet cluster population",null
+UMA,region,0.414,0.023,0.023,normal,Jone15,null,null
+USCO,region,0.010,0.007,0.007,normal,Peca16,errors from intrinsic age spreads (Table 12 of Peca16),null
+ROPH,region,0.001,0.001,0.0009,uniform,Wilk08;UCS_24,Wilk08 gives <2 Myr age; list here as 0.1-2.0 Myr,null
+FLD-G,gravity,2.98,4.07,2.08,normal,UCS_24,Computed from Dupu17 age distribution with >300 Myr age floor.  (Note that a gaussian is a poor match to Dupu17.),null
+INT-G,gravity,0.135,0.115,0.115,uniform,UCS_24,20-250 Myr,null
+VL-G,gravity,0.08,0.07,0.07,uniform,UCS_24,10-150 Myr,null
+beta,gravity,0.135,0.115,0.115,uniform,UCS_24,same as INT-G,null
+delta,gravity,0.08,0.07,0.07,uniform,UCS_24,same as VL-G,null
+gamma,gravity,0.08,0.07,0.07,uniform,UCS_24,same as VL-G,null
+beta+FLD-G,gravity,0.135,0.115,0.115,uniform,UCS_24,this is a guess,null
+beta+VL-G,gravity,0.13,0.12,0.12,uniform,UCS_24,10-250 Myr (range inclusive of both gravities),null
+beta+gamma,gravity,0.13,0.12,0.12,uniform,UCS_24,10-250 Myr (range inclusive of both gravities),null
+gamma+INT-G,gravity,0.13,0.12,0.12,uniform,UCS_24,10-250 Myr (range inclusive of both gravities),null
+lowg,gravity,0.155,0.145,0.145,uniform,UCS_24,10-300 Myr - this is the most expansive (least constrained) age range for young objects,null
+1RXS J160929.1-210524B,hoststar,0.0115,0.0015,0.0015,uniform,Deac14b,10-13 Myr,not used b/c in YMG/SFR
+1RXS J235133.3+312720 B,hoststar,0.1,0.05,0.05,uniform,Deac14b,5-10 Myr,not used b/c in YMG/SFR
+20 LMi B,hoststar,8.625,2.975,2.975,uniform,Stan20,5.65-11.6 Gyr; this 1-sigma interval appears ~uniform but full distribution is neither uniform nor normal (HIP 49081),null
+2MASS J00135882-1816462,hoststar,4,3,3,uniform,Baro15,1-7 Gyr; Baro15 analysis based on kinematics+Besancon and BANYAN II ,null
+2MASS J00150206+2959323,hoststar,6.5,3.5,3.5,uniform,Deac14b,NLTT 730 B,null
+2MASS J01033563-5515561(AB)b,hoststar,0.055,0.045,0.045,uniform,UCS_24,"10-100 Myr, assigned by us based on the object's position on M(G) vs G-G_RP CMD from Gagne et al (2021) being significantly above the 100 Myr YMG sequence.   See Note for more details.",null
+2MASS J01270282-5023210,hoststar,5.1,4.9,4.9,uniform,Deac14b,"Deac14b reported "">0.2"", assumed to be 0.2-10 Gyr",null
+2MASS J01303563-4445411,hoststar,3,1,1,uniform,Dhit11,Deac14b incorrectly give 0.25-0.8 Gyr from Dhit11; actual value in Dhit11 is 2-4 Gyr,null
+2MASS J02132062+3648506C,hoststar,5.5,4.5,4.5,uniform,Deac17a,null,null
+2MASS J02155892-0929121 C,none,NaN,NaN,NaN,null,null,no information other than YMG membership (previously THA in Bowl15b),null
+2MASS J03184214+0828002,none,NaN,NaN,NaN,null,null,no age information in the literature differing from field,null
+2MASS J04305157-0849007,hoststar,4.5,3.5,3.5,uniform,Deac14b,1-8 Gyr,null
+2MASS J05253876-7426008,hoststar,5.5,4.5,4.5,uniform,Muzi12b,1.0-10.0 Gyr,null
+2MASS J06195260-2903592,hoststar,0.031,0.01,0.022,normal,Liu_22,null,null
+2MASS J07003664+3157266,hoststar,0.76,0.14,0.09,normal,Dupu17,null,null
+2MASS J07193188-5051410,none,NaN,NaN,NaN,null,null,null,null
+2MASS J07394386+1305070,none,NaN,NaN,NaN,null,null,no age information in the literature differing from field,null
+2MASS J10215386+3704166,none,NaN,NaN,NaN,null,null,no age information in the literature differing from field,null
+2MASS J12594167+1001380,hoststar,4,3,3,uniform,Baro15,1-7 Gyr; Baro15 analysis based on kinematics+Besancon and BANYAN II ,null
+2MASS J13204159+0957506,hoststar,1.75,1.25,1.25,uniform,Fahe10,0.5-3.0 Gyr,null
+2MASS J13204427+0409045,hoststar,4.2,0.9,0.9,uniform,Fahe10,3.3-5.1 Gyr,null
+2MASS J13475911-7610054,hoststar,0.8,0.6,0.6,uniform,Phan08a;Deac14b,"0.2-1.4 Gyr; Deac14b cites Phan-Bao et al (2008) for the age, which appears to come from Faherty et al (2010)'s summary, but Phan-Bao et al (2008) has no age determination - strange",null
+2MASS J14044941-3159329,hoststar,3,1.3,0.8,normal,Dupu17,null,null
+2MASS J14412565+1856484,none,NaN,NaN,NaN,null,null,no age information in the literature differing from field,null
+2MASS J15594729+4403595 B,hoststar,0.125,0.075,0.075,uniform,Bowl15a,null,null
+2MASS J17114559+4028578,hoststar,3,2,2,uniform,Deac14b,1-5 Gyr,null
+2MASS J19303829-1335083,hoststar,0.195,0.105,0.105,uniform,Shko09,null,null
+2MASS J20530910-0133039,hoststar,0.195,0.105,0.105,uniform,Shko09,null,null
+2MASS J21321145+1341584,hoststar,1.44,0.37,0.26,normal,Dupu17,null,null
+2MASS J22264440-7503425,none,NaN,NaN,NaN,null,null,no age information in the literature differing from field,null
+2MASS J22362452+4751425 b,hoststar,0.149,0.051,0.019,normal,Bell15,null,null
+2MASSI J0003422-282241,hoststar,1.15,0.25,0.25,uniform,Fahe10,0.9-1.4 Gyr,null
+2MASSI J0025036+475919,hoststar,2.65,0.85,0.85,uniform,Fahe10,1.8-3.5 Gyr,null
+2MASSI J1305410+204639,hoststar,6.75,3.25,3.25,uniform,Gome13,3.5-10.0 Gyr,null
+2MASSI J1315309-264951,hoststar,5.5,4.5,4.5,uniform,Burg11c,null,null
+2MASSI J1534498-295227,hoststar,3,0.5,0.4,normal,Dupu17,null,null
+2MASSI J2331016-040619,hoststar,6.75,1.25,1.25,uniform,Caba07a,5.5-8 Gyr,null
+2MASSW J1004392-333518,hoststar,1.6125,0.9875,0.9875,uniform,Seif05b,0.625-2.6 Gyr,null
+2MASSW J1200329+204851,hoststar,4.5,0.5,0.5,uniform,Fahe10,4.0-5.0 Gyr,null
+2MASSW J1728114+394859,hoststar,3.4,2.1,2.8,normal,Dupu17,null,null
+51 Eri b,hoststar,0.024,0.003,0.003,normal,Bell15,null,null
+AB Aur b,hoststar,0.004,0.001,0.001,normal,deWa03,this is the isochrone age from deWa03; it is also a member of the local region L1517 in the broader Taurus-Auriga complex,null
+AB Pic b,hoststar,0.03,0,0,single_value,Deac14b,~0.03 Gyr,not used b/c in YMG/SFR
+AF Lep b,none,NaN,NaN,NaN,null,null,no information other than BPMG membership,null
+b Cen (AB) b,hoststar+region,0.015,0.002,0.002,normal,Peca16;Jans21a,Jans21a argue that the intrinsic age spread of UCL is not relevant for b Cen AB and so adopt the standard error on the mean from Peca16,null
+BD +01 2920B,hoststar,8.35,6.05,6.05,uniform,Pinf12,null,null
+BD+60 1417B,hoststar,0.203,0.057,0.095,normal,Stan20,0.108-0.260 Gyr (1-sigma range) full distribution appears approximately normal,null
+beta Cir B,hoststar,0.45,0.2,0.2,uniform,Desi21,null,null
+CD-28 8692 B,hoststar,4.48,0,0,single_value,Delg15,null,null
+CFBDS J111807-064016,hoststar,8,2,2,uniform,Reyl14,null,null
+COCONUTS-1B,hoststar,7.3,2.8,1.6,normal,Zhan20,PSO J058.9869+45.4296,null
+COCONUTS-2b,hoststar,0.475,0.325,0.325,uniform,Zhan21c,WISEPA J075108.79-763449.6,null
+COCONUTS-3B,hoststar,0.55,0.45,0.45,uniform,Zhan22,null,null
+DENIS J055146.0-443412,hoststar,5.05,4.95,4.95,uniform,Bill05,0.1-10 Gyr,null
+DENIS-P J003006.2-373948,hoststar,5.95,4.05,4.05,uniform,Deac14b,"Deac14b reported "">1.9"", assumed to be 1.9-10 Gyr",null
+DENIS-P J144137.2-094558,hoststar,0.65,0.15,0.15,uniform,Seif05a,0.5-0.8 Gyr,null
+DENIS-P J225210.73-173013.4,hoststar,1.11,0.22,0.19,normal,Dupu17,null,null
+eps Indi B,hoststar,4,0.3,0.3,uniform,King10,null,null
+eta Cnc B,hoststar,4.15,1.95,1.95,uniform,Mugr07b,2.2-6.1 Gyr,null
+G 196-3B,hoststar,0.18,0.12,0.12,uniform,Rebo98,0.06-0.3 Gyr,null
+G 216-7B,hoststar,5.5,4.5,4.5,uniform,Kirk01b,1-10 Gyr,null
+G 239-25B,hoststar,7.95,4.19,4.19,uniform,Mald20,Yonsei-Yale isochrones used with parallaxes & stellar parameters from HARPS spectra.   Age_range_type is a guess.,null
+G 255-34B,hoststar,5.1,4.9,4.9,uniform,Gome13,0.2-10.0 Gyr,null
+G 259-20B,none,NaN,NaN,NaN,null,null,no age information in the literature differing from field,null
+G 44-9,hoststar,0.195,0.105,0.105,uniform,Shko09,null,null
+GD 165B,hoststar,3.35,2.15,2.15,uniform,Kirk99b,1.2-5.5 Gyr; estimated from MS lifetime + WD cooling age for the primary,null
+GD 280B,hoststar,5,5,5,uniform,Deac14b,"Deac14b reported ""<10"", assumed to be 0-10 Gyr",null
+GJ 1048B,hoststar,1.3,0.7,0.7,uniform,Gizi01a,0.6-2 Gyr,null
+GJ 3629 B,hoststar,0.1625,0.1375,0.1375,uniform,Shko09,null,null
+GJ 504 B,hoststar,3.3,3.2,3.2,uniform,Skem16a,"Di Mauro et al (2022) find 1.3+/-1.3 Gyr, from isochrones + spectroscopic analysis",null
+GJ 618.1B,hoststar,6.25,5.75,5.75,uniform,Wils01b,0.5-12 Gyr,null
+GJ 758B,hoststar,8.8,0.9,0.9,normal,Zhan21a,null,null
+Gl 105 C,none,NaN,NaN,NaN,null,null,null,null
+Gl 229B,dynmass,2.45,0.2,0.2,normal,Xuan24,null,null
+Gl 337CD,hoststar,2,1.4,1.4,uniform,Wils01b,null,null
+Gl 417BC,hoststar,0.75,0.15,0.12,normal,Dupu14,"gyro age - distribution is normal in log(age). dynmass for binary gives ~600 Myr.  (Deac14b has a younger age of 0.08-0.3 Gyr, which is now obsolete)  ",null
+Gl 569B,dynmass,0.44,0.05,0.06,normal,Dupu17,from total mass and BHAC15 models,null
+Gl 584C,hoststar,1.75,0.75,0.75,uniform,Kirk01a,null,null
+Gliese 570D,hoststar,3.3,1.9,1.9,uniform,Zhan21b,null,null
+GQ Lup b,hoststar,0.001,0.001,0.001,uniform,Deac14b,"Deac14b reported ""<0.002"", assumed to be 0-0.002",not used b/c in YMG/SFR
+GSC 06214-00210B,hoststar,0.005,0,0,single_value,Deac14b,~0.005,not used b/c in YMG/SFR
+GSC 08047-00232B,hoststar,0.025,0.015,0.015,uniform,Neuh04a,0.01-0.04,null
+GU Psc b,hoststar,0.149,0.051,0.019,normal,Bell15,null,null
+HD 106906 b,hoststar,0.014,0.001,0.001,uniform,Deac14b,0.013-0.015,not used b/c in YMG/SFR
+HD 114762B,hoststar,11,3,3,normal,Bowl09,age range summarized by Bowl09 from 11 papers,null
+HD 1160B,hoststar,0.155,0.145,0.145,uniform,Niel12;Mair16,0.01-0.30,null
+HD 130948BC,hoststar,0.79,0.22,0.15,normal,Dupu09a,gyro age - distribution is normal in log(age). dynmass for binary gives ~450 Myr.,null
+HD 13724 B,hoststar,2.8,0.5,0.4,normal,Bran21b,null,null
+HD 164507B,hoststar,4.2,1.7,1.2,uniform,Vale05,null,null
+HD 176535 B,hoststar,3.59,0.87,1.15,normal,Li__23,Bayesian age analysis using Ca HK emission strength.   Age_range_type is a guess.,null
+HD 19467B,hoststar,7.3,2.7,2.7,uniform,Crep15,null,null
+HD 203030B,hoststar,0.09,0.06,0.06,uniform,Mile17,null,null
+HD 206893B,dynmass,0.17,0,0,single_value,Hink23,null,null
+HD 206893c,dynmass,0.17,0,0,single_value,Hink23,null,null
+HD 253662B,hoststar,5,5,5,uniform,Deac14b,"Deac14b reported ""<10"", assumed to be 0-10",null
+HD 2562 B,hoststar,0.6,0.3,0.3,uniform,Kono16,300-900 Myr; from combination of literature analyses,null
+HD 33632 Ab,hoststar,1.5,3.0,0.7,uniform,Curr20,null,null
+HD 3651B,hoststar,6.4,1.9,1.9,uniform,Zhan21b,null,null
+HD 4113 C,hoststar,5.0,1.3,1.7,normal,Chee18b,null,null
+HD 46588B,hoststar,3.04,1.26,1.65,normal,Casa11,null,null
+HD 4747 B,hoststar,2.9,0.4,0.5,normal,Bran21b,null,null
+HD 49197B,hoststar,0.525,0.265,0.265,uniform,Metc04a,0.26-0.79,null
+HD 65216BC,hoststar,4.5,1.5,1.5,uniform,Mugr07b,3-6,null
+HD 72946 B,hoststar,1.9,0.5,0.6,normal,Bran21b,null,null
+HD 89744B,hoststar,2.25,0.75,0.75,uniform,Wils01b,1.5-3,null
+HD 984 B,hoststar,0.115,0.085,0.085,uniform,Mesh15b,0.03-0.20,null
+HIP 11161B,hoststar,1.45,0.95,0.95,uniform,Casa11,0.5-2.4,null
+HIP 112422B,hoststar,5.05,4.95,4.95,uniform,Deac14b,0.1-10,null
+HIP 115819B,hoststar,5.1,4.9,4.9,uniform,Deac14b,0.2-10,null
+HIP 13589B,hoststar,5.2,4.8,4.8,uniform,Deac14b,0.4-10,null
+HIP 2397B,hoststar,5.25,4.75,4.75,uniform,Deac14b,0.5-10,null
+HIP 26653B,hoststar,7.45,6.35,6.35,uniform,Vale05;Casa11; Deac14b,Vale05 give 1.1-9.3 Gyr and Casa11 give 1.6-13.8 Gyr. so assume full range of 1.1-13.8 Gyr used by Deac14b,null
+HIP 32728B,hoststar,5.15,4.85,4.85,uniform,Deac14b,0.3-10,null
+HIP 37283B,hoststar,1.25,0.85,0.85,uniform,Casa11,null,null
+HIP 38939B,hoststar,0.9,1.9,0.6,normal,Deac12a,null,null
+HIP 49046B,hoststar,5.15,4.85,4.85,uniform,Deac14b,0.3-10,null
+HIP 51877B,hoststar,4.95,2.55,2.55,uniform,Vale05,2.4-7.5,null
+HIP 58918B,hoststar,5.05,4.95,4.95,uniform,Deac14b,0.1-10,null
+HIP 59310B,hoststar,5.1,4.9,4.9,uniform,Deac14b,0.2-10,null
+HIP 59933B,hoststar,1.4,1.1,1.1,uniform,Casa11,0.3-2.5,null
+HIP 6217C,hoststar,5.2,4.8,4.8,uniform,Deac14b,0.4-10,null
+HIP 63506C,hoststar,5.15,4.85,4.85,uniform,Deac14b,0.3-10,null
+HIP 6407B,hoststar,5.25,4.75,4.75,uniform,Deac14b,0.5-10,null
+HIP 64892 B,hoststar,0.016,0.015,0.007,uniform,Chee18a,"16(+15,-7) Myr; from LCC membership, ZAMS lifetime, and Li measurement from nearby star",null
+HIP 65426 b,hoststar,0.014,0.004,0.004,normal,Chau17,null,null
+HIP 65706B,hoststar,5.15,4.85,4.85,uniform,Deac14b,0.3-10,null
+HIP 70849B,hoststar,3,2,2,uniform,Segr11,null,null
+HIP 73169B,hoststar,5.15,4.85,4.85,uniform,Deac14b,0.3-10,null
+HIP 73786B,hoststar,5.8,4.2,4.2,normal,Murr11,null,null
+HIP 75056 A b,region,12,5,5,normal,Wagn20,based on the star's position and age gradient of the Peca16 Sco-Cen map,null
+HIP 76456B,hoststar,1.3,0.9,0.9,uniform,Casa11,0.4-2.2,null
+HIP 78916B,hoststar,5.2,4.8,4.8,uniform,Deac14b,0.4-10,null
+HIP 78923B,hoststar,2.2,1.8,1.8,uniform,Casa11,0.4-4.0,null
+HIP 81208 B,hoststar,0.0127,0.003,0.003,normal,Jans21b,"derived from isochrone analysis of co-moving stars (CMS method); Visw23 find 17(+3,-4) Myr using same method",null
+HIP 81208 Cb,hoststar,0.0127,0.003,0.003,normal,Jans21b,"derived from isochrone analysis of co-moving stars (CMS method); Visw23 find 17(+3,-4) Myr using same method",null
+HIP 81910B,hoststar,4.9,0.9,0.9,uniform,Vale05;Casa11;Deac14b,Casa11 give 4.0-5.8 Gyr; Vale05 give 3.2-5.0 Gyr - use larger range as done by Deac14b,null
+HIP 85365B,hoststar,1.75,0.15,0.15,uniform,Casa11,1.6-1.9,null
+HIP 9269B,hoststar,6.1,3.9,3.9,uniform,Vale05,2005ApJS..159..141V,null
+HIP 99770 b,hoststar+dynmass,0.1575,0.0425,0.0425,uniform,Curr23,"115-200 Myr; BANYAN Sigma favors ARG membership (Prob = 99.8%), but astereoseismology, HR diagram, and companion dyn mass favor older age",null
+HN Peg B,hoststar,0.3,0.2,0.2,normal,Luhm07a,null,null
+HR 3549 B,hoststar,0.225,0.175,0.175,uniform,Mawe15,50-400 Myr (loosest possible range from Mawe15),null
+HR 6037Bab,hoststar,0.3,0.1,0.1,uniform,Deac14b,0.2-0.4,not used b/c in YMG/SFR
+HR 7329B,hoststar,0.01335,0.01165,0.01165,uniform,Deac14b,0.0017-0.025,not used b/c in YMG/SFR
+HR 7672B,hoststar,1.9,0.3,0.3,normal,Bran21b,null,null
+HR 8799b,dynmass,0.042,0.024,0.016,normal,Bran21a,Maro08b give 30-160 Myr,null
+HR 8799c,dynmass,0.042,0.024,0.016,normal,Bran21a,Maro08b give 30-160 Myr,null
+HR 8799d,dynmass,0.042,0.024,0.016,normal,Bran21a,Maro08b give 30-160 Myr,null
+HR 8799e,dynmass,0.042,0.024,0.016,normal,Bran21a,Maro08b give 30-160 Myr,null
+kappa And B,hoststar,0.17,0.13,0.13,uniform,Bowl16,consensus age combining results from the literature,null
+Koenigstuhl 1B,hoststar,6,4,4,uniform,Deac14b,2-10,not used b/c in YMG/SFR
+KOI-205b,hoststar,1.7,2.5,1.2,normal,Bono15,null,null
+LHS 102BC,hoststar,5.5,4.5,4.5,uniform,Deac14b,1-10,null
+LHS 2397a,hoststar,2.8,1.5,2.1,normal,Dupu17,null,null
+LHS 2803B,hoststar,6.75,3.25,3.25,uniform,Deac12b,null,null
+LHS 3421B,none,NaN,NaN,NaN,null,null,no age information in the literature differing from field,null
+LHS 4039C,hoststar,1.8,0,0,single_value,Scho04a;Silv01,~1.8,null
+LP 213-68,none,NaN,NaN,NaN,null,null,no age information in the literature differing from field,null
+LP 261-75B,hoststar,0.15,0.05,0.05,uniform,Reid06c,null,null
+LP 349-25,dynmass,0.27,0.03,0.02,normal,Dupu17,null,null
+LSPM J0055+5948B,hoststar,10,3,3,uniform,Meis20b,WISEU J005559.88+594745.0 = listed as LSPM J0055+5948B in Main tab,null
+LSPM J0241+2553B,hoststar,5,5,5,uniform,Deac14b,"Deac14b reported ""<10"", assumed to be 0-10",null
+LSPM J0632+5053B,hoststar,5.1,4.9,4.9,uniform,Deac14b,0.2-10,null
+LSPM J0942+2351,none,NaN,NaN,NaN,null,null,no age information in the literature differing from field,null
+LSPM J1314+1320,dynmass,0.0808,0.0025,0.0025,normal,Dupu16b,null,null
+LSPM J1336+2541B,hoststar,5.15,4.85,4.85,uniform,Deac14b,0.3-10,null
+LSPM J1627+3328B,hoststar,5.15,4.85,4.85,uniform,Deac14b,0.3-10,null
+LSPM J1717+5925B,hoststar,5.1,4.9,4.9,uniform,Deac14b,0.2-10,null
+LSPM J2010+0632B,none,NaN,NaN,NaN,null,null,no age information in the literature differing from field,null
+LSPM J2049+3216W,none,NaN,NaN,NaN,null,null,no age information in the literature differing from field,null
+LSPM J2153+1157B,hoststar,5.15,4.85,4.85,uniform,Deac14b,0.3-10,null
+LT UMa B,hoststar,0.455,0.145,0.145,uniform,Maro20b,null,null
+LTT 7251B,hoststar,5.5,4.5,4.5,uniform,Casa11,null,null
+mu.02 Sco b,none,NaN,NaN,NaN,null,null,Squi22 says no information available other than its UCL membership,null
+MWC 758 b,hoststar,3.5,2.0,2.0,uniform,Meeu12,null,null
+NLTT 1011B,hoststar,5.15,4.85,4.85,uniform,Deac14b,0.3-10,null
+NLTT 18587B,hoststar,0.65,0.35,0.35,uniform,Deac14b,0.3-1,null
+NLTT 19109B,hoststar,5.15,4.85,4.85,uniform,Deac14b,0.3-10,null
+NLTT 19472,hoststar,0.665,0.565,0.565,uniform,Stan20,"0.1-1.23 Gyr (1-sigma range); no part of this distribution appears normal or uniform, maybe log-uniform (HIP 41211)",null
+NLTT 22073B,hoststar,5.2,4.8,4.8,uniform,Deac14b,0.4-10,null
+NLTT 23716B,hoststar,5.15,4.85,4.85,uniform,Deac14b,0.3-10,null
+NLTT 26746B,hoststar,5.15,4.85,4.85,uniform,Deac14b,0.3-10,null
+NLTT 27966B,hoststar,5.15,4.85,4.85,uniform,Deac14b,0.3-10,null
+NLTT 28453,none,NaN,NaN,NaN,null,null,no age information in the literature differing from field,null
+NLTT 29395B,hoststar,5.15,4.85,4.85,uniform,Deac14b,0.3-10,null
+NLTT 30510B,hoststar,5.15,4.85,4.85,uniform,Deac14b,0.3-10,null
+NLTT 31450B,hoststar,5.15,4.75,4.75,uniform,Deac14b,null,null
+NLTT 35593B,hoststar,5.15,4.85,4.85,uniform,Deac14b,0.3-10,null
+NLTT 36549,none,NaN,NaN,NaN,null,null,no age information in the literature differing from field,null
+NLTT 38489B,hoststar,5.6,4.4,4.4,uniform,Deac14b,1.2-10,null
+NLTT 39312B,hoststar,5.15,4.85,4.85,uniform,Deac14b,0.3-10,null
+NLTT 44368B,hoststar,5.15,4.85,4.85,uniform,Deac14b,0.3-10,null
+NLTT 52268B,hoststar,5.15,4.85,4.85,uniform,Deac14b,0.3-10,null
+NLTT 55219B,hoststar,5.15,4.85,4.85,uniform,Deac14b,0.3-10,null
+NLTT 8245B,hoststar,5.15,4.85,4.85,uniform,Deac14b,0.3-10,null
+PHL 5038B,hoststar,2.3,0.4,0.4,uniform,Stee09,null,null
+PM I11055+4331,none,NaN,NaN,NaN,null,null,no age information in the literature differing from field,null
+PM I13410+0542B,hoststar,5.15,4.85,4.85,uniform,Deac14b,0.3-10,null
+PM I13518+4157B,hoststar,5.15,4.85,4.85,uniform,Deac14b,0.3-10,null
+PM I22118-1005B,hoststar,5.15,4.85,4.85,uniform,Deac14b,0.3-10,null
+PM I23492+3458B,hoststar,5.15,4.85,4.85,uniform,Deac14b,null,null
+PSO J036.9069+08.5025,none,NaN,NaN,NaN,null,null,no age information in the literature differing from field,null
+Ross 19B,hoststar,7.2,3.8,3.6,uniform,Schn21,Li + Halpha + nearUV + rotation + [Fe/H] + kinematics (latter 2 have computed PDFs),null
+Ross 458C,hoststar,0.475,0.325,0.325,uniform,Burg10c,null,null
+ROXs 42Bb,hoststar,0.00225,0.00075,0.00075,uniform,Deac14b,0.0015-0.003,not used b/c in YMG/SFR
+SDSS J000649.16-085246.3,hoststar,10,2,2,uniform,Burg12b,"8-12 (Burg12b give "">=8 Gyr""), based on inactive M7 primary LP 704-48",null
+SDSS J004154.54+134135.5,hoststar,7.25,2.75,2.75,uniform,Fahe10,4.5-10.0,null
+SDSS J020735.60+135556.3,hoststar,3.5,0.5,0.5,uniform,Deac14b,3.0-4.0,null
+SDSS J084457.38+120825.4,none,NaN,NaN,NaN,null,null,no age information in the literature differing from field,null
+SDSS J085836.98+271050.8,hoststar,4,3,3,uniform,Baro15,1-7; Baro15 analysis based on kinematics+Besancon and BANYAN II ,null
+SDSS J105213.51+442255.7,hoststar,1.04,0.15,0.14,normal,Dupu15b;Dupu17,null,null
+SDSS J120250.00+420452.2,none,NaN,NaN,NaN,null,null,no age information in the literature differing from field,null
+SDSS J130433.16+090706.9,none,NaN,NaN,NaN,null,null,no age information in the literature differing from field,null
+SDSS J131633.79+573549.1,none,NaN,NaN,NaN,null,null,no age information in the literature differing from field,null
+SDSS J141126.20+200911.1B,none,NaN,NaN,NaN,null,null,"WD+BD system that underwent common envelope evolution, so an accurate age for this system is unavailable",null
+SDSS J141659.78+500626.4,hoststar,9.5,2.5,2.5,uniform,Fahe10,7.0-12.0,null
+SDSS J143317.78+101123.3B,none,NaN,NaN,NaN,null,null,"WD+BD system that underwent common envelope evolution, so an accurate age for this system is unavailable",null
+SDSS J163817.31+321144.0,none,NaN,NaN,NaN,null,null,no age information in the literature differing from field,null
+SDSS J175805.46+463311.9,hoststar,1.75,1.25,1.25,uniform,Fahe10,null,null
+SDSS J213154.43-011939.3,hoststar,5.5,4.5,4.5,uniform,Gauz19,"based on kinematics, lack of Li, lack of Halpha/Xray/UV",null
+SDSSp J042348.57-041403.5,hoststar,0.81,0.09,0.07,normal,Dupu17,null,null
+SIPS J2150-7520B,hoststar,5.25,4.75,4.75,uniform,Fahe20,same as WISEU J215018.99-752054.6 ,null
+SR12 C,hoststar,0.002,0,0,single_value,Deac14b,~0.002,not used b/c in YMG/SFR
+TVLM 513-42404B,none,NaN,NaN,NaN,null,null,no age information in the literature differing from field,null
+TWA 5B,hoststar,0.155,0.145,0.145,uniform,Deac14b,0.01-0.3,not used b/c in YMG/SFR
+ULAS J095047.28+011734.3,hoststar,6.75,3.25,3.25,uniform,Burn13,null,null
+ULAS J133943.79+010436.4,hoststar,3.23,1.24,1.59,normal,Casa11,null,null
+ULAS J141623.94+134836.3,hoststar,5.25,4.75,4.75,uniform,Fili15,null,null
+ULAS J145935.25+085751.2,hoststar,7.4,2.6,2.6,uniform,DayJ11,null,null
+Usco J161031.9-191305B,hoststar,0.0115,0.0015,0.0015,uniform,Deac14b,0.010-0.013,not used b/c in YMG/SFR
+USco1556 B,none,NaN,NaN,NaN,null,null,no information available other than its USco membership,null
+USco1621 B,none,NaN,NaN,NaN,null,null,no information available other than its USco membership,null
+V478 Lyr C,hoststar,0.235,0.135,0.135,uniform,Maro20b,null,null
+VHS J125601.92-125723.9 AB,hoststar,0.140,0.020,0.020,normal,Dupu23,null,null
+VHS J125601.92-125723.9 b,hoststar,0.140,0.020,0.020,normal,Dupu23,null,null
+WD 0806-661B,hoststar,2,0.5,0.5,normal,Luhm12a,null,null
+WISE J111838.70+312537.9,hoststar,6,4,4,uniform,Wrig13,null,null
+WISE J155755.29+591425.3,hoststar,5.15,4.85,4.85,uniform,Deac14b,0.3-10,null
+WISE J200520.38+542433.9,hoststar,10,0,0,single_value,Mace18,null,null
+WISEPC J112254.73+255021.5,none,NaN,NaN,NaN,null,null,no age estimate in Kirk11 discovery paper,null
+Wolf 940B,hoststar,4.75,1.25,1.25,uniform,Burn09,null,null
+YSES 1 b,hoststar,0.0167,0.0014,0.0014,uniform,Bohn20a,null,null
+YSES 1 c,hoststar,0.0167,0.0014,0.0014,uniform,Bohn20a,null,null
+YSES 2 b,hoststar,0.0139,0.0023,0.0023,uniform,Bohn21,null,null
+zeta Del B,hoststar,0.525,0.125,0.125,uniform,DeRo14b,null,null

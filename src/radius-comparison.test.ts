@@ -26,8 +26,8 @@ describe('radius comparison', () => {
     const comparison = radiusComparison(star('Twice solar radius', 2), sun)
     const stats = radiusStats(comparison)
     expect(stats.find((row) => row.label === 'Diameter')!.values[0]!.value).toBe('2,783,000 km')
-    expect(stats.find((row) => row.label === 'Surface area')!.values[0]!.value).toBe('4 A☉')
-    expect(stats.find((row) => row.label === 'Volume')!.values[0]!.value).toBe('8 V☉')
+    expect(stats.find((row) => row.label === 'Surface area')!.values[0]!.value).toBe('2.433e13 km²')
+    expect(stats.find((row) => row.label === 'Volume')!.values[0]!.value).toBe('1.128e19 km³')
     expect(radiusSummary(comparison)).toContain('2× the diameter of Sun, with 8× its volume')
   })
 
@@ -43,10 +43,10 @@ describe('radius comparison', () => {
   it('accounts for Jupiter flattening in the volume comparison', () => {
     const comparison = radiusComparison(star('Jupiter-sized sphere', JUPITER_RADIUS_KM / SOLAR_RADIUS_KM, 'brown_dwarf'), sun)
     const stats = radiusStats(comparison)
-    expect(stats.find((row) => row.label === 'Radius')!.values[0]!.unit).toBe('1 R♃')
+    expect(stats.find((row) => row.label === 'Radius')!.values[0]!.value).toBe('71,490 km')
     // A sphere at Jupiter's equatorial radius exceeds its oblate volume by ~6.94%.
-    expect(stats.find((row) => row.label === 'Volume')!.values[0]!.value).toBe('1.069 V♃')
-    expect(stats.find((row) => row.label === 'Volume')!.values[1]!.value).toBe('1 V♃')
+    expect(stats.find((row) => row.label === 'Volume')!.values[0]!.value).toBe('1.531e15 km³')
+    expect(stats.find((row) => row.label === 'Volume')!.values[1]!.value).toBe('1.431e15 km³')
     expect(radiusSummary(comparison)).toContain('1× the diameter of Jupiter, with 1.069× its volume')
   })
 
@@ -66,8 +66,8 @@ describe('radius comparison', () => {
     expect(jovian.reference.name).toBe('Jupiter')
     const terrestrial = radiusComparison(selected, origin, 'earth')
     expect(terrestrial.reference.radiusKm).toBe(EARTH_RADIUS_KM)
-    expect(radiusStats(terrestrial).find((row) => row.label === 'Radius')!.values[1]!.unit).toBe('1 R⊕')
-    expect(radiusStats(terrestrial).find((row) => row.label === 'Volume')!.values[1]!.value).toBe('1 V⊕')
+    expect(radiusStats(terrestrial).find((row) => row.label === 'Radius')!.values[1]!.value).toBe('6,378 km')
+    expect(radiusStats(terrestrial).find((row) => row.label === 'Volume')!.values[1]!.value).toBe('1.083e12 km³')
     expect(radiusSummary(terrestrial)).toContain('the diameter of Earth')
     expect(origin.radius_solar).toBe(5)
   })
@@ -77,7 +77,7 @@ describe('radius comparison', () => {
       const comparison = radiusComparison(star('Unknown', radius), sun)
       expect(comparison.selected.radiusKm).toBeNull()
       expect(comparison.jupiterBenchmark).toBe(false)
-      expect(radiusStats(comparison).every((row) => row.values[0]!.value === 'Not available')).toBe(true)
+      expect(radiusStats(comparison).every((row) => row.values[0]!.value === '—')).toBe(true)
       expect(radiusSummary(comparison)).toContain('No catalog radius is available for Unknown')
     }
   })

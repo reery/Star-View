@@ -1,0 +1,889 @@
+{
+  "sources": {
+    "mercury": "https://nssdc.gsfc.nasa.gov/planetary/factsheet/mercuryfact.html",
+    "venus": "https://nssdc.gsfc.nasa.gov/planetary/factsheet/venusfact.html",
+    "earth": "https://nssdc.gsfc.nasa.gov/planetary/factsheet/earthfact.html",
+    "mars": "https://nssdc.gsfc.nasa.gov/planetary/factsheet/marsfact.html",
+    "jupiter": "https://nssdc.gsfc.nasa.gov/planetary/factsheet/jupiterfact.html",
+    "jovianSatellites": "https://nssdc.gsfc.nasa.gov/planetary/factsheet/joviansatfact.html",
+    "jupiterMoons": "https://science.nasa.gov/jupiter/jupiter-facts/",
+    "definitions": "https://nssdc.gsfc.nasa.gov/planetary/factsheet/fact_notes.html",
+    "surfaceTemperatures": "https://science.nasa.gov/mercury/facts/",
+    "moon": "https://nssdc.gsfc.nasa.gov/planetary/factsheet/moonfact.html",
+    "saturn": "https://nssdc.gsfc.nasa.gov/planetary/factsheet/saturnfact.html",
+    "saturnianSatellites": "https://nssdc.gsfc.nasa.gov/planetary/factsheet/saturniansatfact.html",
+    "saturnRings": "https://nssdc.gsfc.nasa.gov/planetary/factsheet/satringfact.html",
+    "uranus": "https://nssdc.gsfc.nasa.gov/planetary/factsheet/uranusfact.html",
+    "neptune": "https://nssdc.gsfc.nasa.gov/planetary/factsheet/neptunefact.html",
+    "uranianSatellites": "https://nssdc.gsfc.nasa.gov/planetary/factsheet/uraniansatfact.html",
+    "neptunianSatellites": "https://nssdc.gsfc.nasa.gov/planetary/factsheet/neptuniansatfact.html"
+  },
+  "earth": {
+    "meanRadiusKm": 6371,
+    "flattening": 0.003353,
+    "volumeKm3": 1083210000000,
+    "massKg": 5.9722e+24,
+    "meanDensityKgM3": 5513,
+    "surfaceGravityMs2": 9.82,
+    "escapeVelocityKmS": 11.186,
+    "solarDayHours": 24,
+    "bondAlbedo": 0.294,
+    "blackBodyTemperatureK": 254,
+    "meanSurfaceTemperatureK": 288,
+    "absoluteMagnitudeV": -3.99,
+    "surfacePressurePa": 101400
+  },
+  "planets": [
+    {
+      "id": "mercury",
+      "hostStarId": "sun",
+      "name": "Mercury",
+      "color": "#aaa19b",
+      "moonCount": 0,
+      "meanRadiusKm": 2439.7,
+      "flattening": 0.0009,
+      "volumeKm3": 60830000000,
+      "massKg": 3.301e+23,
+      "meanDensityKgM3": 5429,
+      "surfaceGravityMs2": 3.7,
+      "escapeVelocityKmS": 4.3,
+      "solarDayHours": 4222.6,
+      "bondAlbedo": 0.068,
+      "blackBodyTemperatureK": 439.6,
+      "surfaceTemperatureMinK": 93,
+      "surfaceTemperatureMaxK": 703,
+      "absoluteMagnitudeV": -0.613,
+      "brightestApparentMagnitudeV": -2.43,
+      "surfacePressureUpperPa": 5e-10,
+      "composition": [
+        {
+          "symbol": "Na",
+          "name": "Sodium"
+        },
+        {
+          "symbol": "Mg",
+          "name": "Magnesium"
+        },
+        {
+          "symbol": "O",
+          "name": "Oxygen"
+        },
+        {
+          "symbol": "H",
+          "name": "Hydrogen"
+        },
+        {
+          "symbol": "He",
+          "name": "Helium"
+        },
+        {
+          "symbol": "K",
+          "name": "Potassium"
+        },
+        {
+          "symbol": "Ca",
+          "name": "Calcium"
+        }
+      ],
+      "notes": {
+        "surfaceArea": "Spherical approximation, 4πR², using the volumetric mean radius for both planets.",
+        "surfaceTemperatures": "Approximate cold nighttime and hot daytime surface temperatures, converted from NASA's −180 °C and 430 °C to Kelvin. They do not describe all permanently shadowed locations. Ratios compare both limits with Earth's mean surface temperature, 288 K.",
+        "absoluteMagnitude": "Planetary absolute V magnitude: Sun and observer each at 1 AU, zero phase angle. The Earth comparison is a magnitude difference, not a ratio.",
+        "apparentMagnitude": "Brightest apparent V magnitude from Earth, not a current measurement. It varies with phase and distance; Earth has no comparable magnitude for an observer on Earth.",
+        "atmosphere": "Mercury has a surface-bounded exosphere. The pressure is an approximate upper limit, not a measured ambient pressure. Composition lists important detected atoms without assuming fixed proportions."
+      }
+    },
+    {
+      "id": "venus",
+      "hostStarId": "sun",
+      "name": "Venus",
+      "color": "#f3efdc",
+      "moonCount": 0,
+      "meanRadiusKm": 6051.8,
+      "flattening": 0,
+      "volumeKm3": 928430000000,
+      "massKg": 4.8673e+24,
+      "meanDensityKgM3": 5243,
+      "surfaceGravityMs2": 8.87,
+      "escapeVelocityKmS": 10.36,
+      "solarDayHours": 2802,
+      "bondAlbedo": 0.77,
+      "blackBodyTemperatureK": 226.6,
+      "meanSurfaceTemperatureK": 737,
+      "absoluteMagnitudeV": -4.38,
+      "brightestApparentMagnitudeV": -4.8,
+      "surfacePressurePa": 9200000,
+      "composition": [
+        {
+          "symbol": "CO₂",
+          "name": "Carbon dioxide",
+          "abundance": "96.5%"
+        },
+        {
+          "symbol": "N₂",
+          "name": "Nitrogen",
+          "abundance": "3.5%"
+        },
+        {
+          "symbol": "SO₂",
+          "name": "Sulfur dioxide",
+          "abundance": "150 ppm"
+        },
+        {
+          "symbol": "Ar",
+          "name": "Argon",
+          "abundance": "70 ppm"
+        },
+        {
+          "symbol": "H₂O",
+          "name": "Water vapor",
+          "abundance": "20 ppm"
+        },
+        {
+          "symbol": "CO",
+          "name": "Carbon monoxide",
+          "abundance": "17 ppm"
+        },
+        {
+          "symbol": "He",
+          "name": "Helium",
+          "abundance": "12 ppm"
+        },
+        {
+          "symbol": "Ne",
+          "name": "Neon",
+          "abundance": "7 ppm"
+        }
+      ],
+      "notes": {
+        "surfaceArea": "Spherical approximation, 4πR², using the volumetric mean radius for both planets.",
+        "surfaceTemperatures": "Mean near-surface temperature, 737 K (about 464 °C), not a measured global minimum or maximum. Compared with Earth's mean surface temperature, 288 K. The dense atmosphere keeps day-night temperature differences small, while temperature varies with altitude.",
+        "absoluteMagnitude": "Planetary absolute V magnitude: Sun and observer each at 1 AU, zero phase angle. The Earth comparison is a magnitude difference, not a ratio.",
+        "apparentMagnitude": "Brightest apparent V magnitude from Earth, not a current measurement. It varies with phase and distance; Earth has no comparable magnitude for an observer on Earth.",
+        "atmosphere": "Approximate surface pressure: 92 bar = 9.2 × 10⁶ Pa. Gas composition is near-surface abundance by volume; ppm means parts per million. Major abundances are rounded. Sulfuric-acid droplets form the opaque cloud layers higher in the atmosphere and are not represented by these gas percentages."
+      }
+    },
+    {
+      "id": "earth",
+      "hostStarId": "sun",
+      "name": "Earth",
+      "color": "#769eca",
+      "moonCount": 1,
+      "meanRadiusKm": 6371,
+      "flattening": 0.003353,
+      "volumeKm3": 1083210000000,
+      "massKg": 5.9722e+24,
+      "meanDensityKgM3": 5513,
+      "surfaceGravityMs2": 9.82,
+      "escapeVelocityKmS": 11.186,
+      "solarDayHours": 24,
+      "bondAlbedo": 0.294,
+      "blackBodyTemperatureK": 254,
+      "meanSurfaceTemperatureK": 288,
+      "absoluteMagnitudeV": -3.99,
+      "brightestApparentMagnitudeV": null,
+      "surfacePressurePa": 101400,
+      "composition": [
+        {
+          "symbol": "N₂",
+          "name": "Nitrogen",
+          "abundance": "78.08%"
+        },
+        {
+          "symbol": "O₂",
+          "name": "Oxygen",
+          "abundance": "20.95%"
+        },
+        {
+          "symbol": "Ar",
+          "name": "Argon",
+          "abundance": "0.934%"
+        },
+        {
+          "symbol": "CO₂",
+          "name": "Carbon dioxide",
+          "abundance": "420 ppm (2024)"
+        },
+        {
+          "symbol": "Ne",
+          "name": "Neon",
+          "abundance": "18.18 ppm"
+        },
+        {
+          "symbol": "He",
+          "name": "Helium",
+          "abundance": "5.24 ppm"
+        },
+        {
+          "symbol": "CH₄",
+          "name": "Methane",
+          "abundance": "1.94 ppm (2024)"
+        },
+        {
+          "symbol": "Kr",
+          "name": "Krypton",
+          "abundance": "1.14 ppm"
+        },
+        {
+          "symbol": "H₂",
+          "name": "Hydrogen",
+          "abundance": "0.55 ppm"
+        },
+        {
+          "symbol": "H₂O",
+          "name": "Water vapor",
+          "abundance": "variable"
+        }
+      ],
+      "notes": {
+        "surfaceArea": "Spherical approximation, 4πR², using the volumetric mean radius. This is not the area of Earth's oblate reference ellipsoid.",
+        "surfaceTemperatures": "NASA fact-sheet reference mean, 288 K (about 15 °C), not a current global temperature or local minimum/maximum. Temperature varies with location, altitude, season and time; this fixed reference is also used for the other planets' Earth comparisons.",
+        "absoluteMagnitude": "Planetary absolute V magnitude: Sun and observer each at 1 AU, zero phase angle. This is a standardized reflected-light brightness, not how Earth appears from its own surface.",
+        "apparentMagnitude": "Not applicable for an observer on Earth. From a spacecraft or another world, Earth's apparent magnitude depends on the observer's distance and the illuminated phase; no universal brightest value is supplied.",
+        "atmosphere": "NASA fact-sheet reference surface pressure: 1014 millibars = 101,400 Pa, not a local weather measurement or the standard atmosphere of 101,325 Pa. Composition is by volume of dry air, except for separately listed variable water vapor. Carbon dioxide and methane are the dated values in NASA's November 2024 sheet, not live atmospheric measurements; ppm means parts per million. Rounded abundances need not sum to exactly 100%."
+      }
+    },
+    {
+      "id": "mars",
+      "hostStarId": "sun",
+      "name": "Mars",
+      "color": "#bd7253",
+      "moonCount": 2,
+      "meanRadiusKm": 3389.5,
+      "flattening": 0.00589,
+      "volumeKm3": 163120000000,
+      "massKg": 6.4169e+23,
+      "meanDensityKgM3": 3934,
+      "surfaceGravityMs2": 3.73,
+      "escapeVelocityKmS": 5.03,
+      "solarDayHours": 24.6597,
+      "bondAlbedo": 0.25,
+      "blackBodyTemperatureK": 209.8,
+      "surfaceTemperatureMinK": 184,
+      "surfaceTemperatureMaxK": 242,
+      "absoluteMagnitudeV": -1.6,
+      "brightestApparentMagnitudeV": -2.94,
+      "surfacePressurePa": 636,
+      "composition": [
+        {
+          "symbol": "CO₂",
+          "name": "Carbon dioxide",
+          "abundance": "95.1%"
+        },
+        {
+          "symbol": "N₂",
+          "name": "Nitrogen",
+          "abundance": "2.59%"
+        },
+        {
+          "symbol": "Ar",
+          "name": "Argon",
+          "abundance": "1.94%"
+        },
+        {
+          "symbol": "O₂",
+          "name": "Oxygen",
+          "abundance": "0.16%"
+        },
+        {
+          "symbol": "CO",
+          "name": "Carbon monoxide",
+          "abundance": "0.06%"
+        },
+        {
+          "symbol": "H₂O",
+          "name": "Water vapor",
+          "abundance": "210 ppm"
+        },
+        {
+          "symbol": "NO",
+          "name": "Nitric oxide",
+          "abundance": "100 ppm"
+        },
+        {
+          "symbol": "Ne",
+          "name": "Neon",
+          "abundance": "2.5 ppm"
+        },
+        {
+          "symbol": "HDO",
+          "name": "Hydrogen deuterium oxide",
+          "abundance": "0.85 ppm"
+        },
+        {
+          "symbol": "Kr",
+          "name": "Krypton",
+          "abundance": "0.3 ppm"
+        },
+        {
+          "symbol": "Xe",
+          "name": "Xenon",
+          "abundance": "0.08 ppm"
+        }
+      ],
+      "notes": {
+        "surfaceArea": "Spherical approximation, 4πR², using the volumetric mean radius for both planets.",
+        "surfaceTemperatures": "Diurnal temperature range measured at the Viking 1 Lander site, 184 K (−89 °C) to 242 K (−31 °C), not global minimum or maximum surface temperatures. Ratios compare both limits with Earth's mean surface temperature, 288 K.",
+        "absoluteMagnitude": "Planetary absolute V magnitude: Sun and observer each at 1 AU, zero phase angle. The Earth comparison is a magnitude difference, not a ratio.",
+        "apparentMagnitude": "Maximum apparent V magnitude from Earth, not a current measurement. It varies with phase, distance and dust storms; the mean value at opposition is about −2.0.",
+        "atmosphere": "Approximate mean surface pressure at mean radius: 6.36 mb = 636 Pa, variable from 4.0 to 8.7 mb with the season (6.9 to 9 mb at the Viking 1 Lander site). Composition is by volume; major abundances are rounded and ppm means parts per million. Suspended dust gives the sky its hazy red color and is not represented by these gas percentages."
+      }
+    },
+    {
+      "id": "jupiter",
+      "hostStarId": "sun",
+      "name": "Jupiter",
+      "color": "#c7aa85",
+      "moonCount": 115,
+      "meanRadiusKm": 69911,
+      "equatorialRadiusKm": 71492,
+      "polarRadiusKm": 66854,
+      "flattening": 0.06487,
+      "volumeKm3": 1431280000000000,
+      "massKg": 1.89813e+27,
+      "meanDensityKgM3": 1326,
+      "surfaceGravityMs2": 25.92,
+      "escapeVelocityKmS": 59.5,
+      "solarDayHours": 9.9259,
+      "bondAlbedo": 0.343,
+      "blackBodyTemperatureK": 109.9,
+      "temperatureAtOneBarK": 165,
+      "absoluteMagnitudeV": -9.4,
+      "brightestApparentMagnitudeV": -2.94,
+      "surfacePressurePa": null,
+      "composition": [
+        {
+          "symbol": "H₂",
+          "name": "Molecular hydrogen",
+          "abundance": "89.8%"
+        },
+        {
+          "symbol": "He",
+          "name": "Helium",
+          "abundance": "10.2%"
+        },
+        {
+          "symbol": "CH₄",
+          "name": "Methane",
+          "abundance": "3,000 ppm"
+        },
+        {
+          "symbol": "NH₃",
+          "name": "Ammonia",
+          "abundance": "260 ppm"
+        },
+        {
+          "symbol": "HD",
+          "name": "Hydrogen deuteride",
+          "abundance": "28 ppm"
+        },
+        {
+          "symbol": "C₂H₆",
+          "name": "Ethane",
+          "abundance": "5.8 ppm"
+        },
+        {
+          "symbol": "H₂O",
+          "name": "Water vapor",
+          "abundance": "4 ppm (varies with pressure)"
+        }
+      ],
+      "notes": {
+        "surfaceArea": "Spherical approximation, 4πR², using volumetric mean radius; Jupiter has no solid surface. The globe uses the equatorial and polar radii of its 1-bar reference level.",
+        "surfaceTemperatures": "Atmospheric temperature at the 1-bar reference level, not a solid-surface temperature. Temperature increases deeper inside. Compared with Earth’s mean surface temperature, 288 K.",
+        "absoluteMagnitude": "Planetary absolute V magnitude: Sun and observer each at 1 AU, zero phase angle. The Earth comparison is a magnitude difference, not a ratio.",
+        "apparentMagnitude": "Brightest apparent V magnitude from Earth; varies with distance and phase.",
+        "atmosphere": "No solid surface or unique surface pressure. Radius and gravity refer to the 1-bar atmospheric level. Gas abundances are by volume; ppm means parts per million. Major percentages are rounded; water varies with pressure. Cloud aerosols are separate from the gas composition."
+      }
+    },
+    {
+      "id": "saturn",
+      "hostStarId": "sun",
+      "name": "Saturn",
+      "color": "#d6bc87",
+      "moonCount": 274,
+      "meanRadiusKm": 58232,
+      "equatorialRadiusKm": 60268,
+      "polarRadiusKm": 54364,
+      "flattening": 0.09796,
+      "volumeKm3": 827130000000000,
+      "massKg": 5.6832e+26,
+      "meanDensityKgM3": 687,
+      "surfaceGravityMs2": 11.19,
+      "escapeVelocityKmS": 35.5,
+      "solarDayHours": 10.656,
+      "bondAlbedo": 0.342,
+      "blackBodyTemperatureK": 81.0,
+      "temperatureAtOneBarK": 134,
+      "absoluteMagnitudeV": -8.91,
+      "brightestApparentMagnitudeV": -0.55,
+      "surfacePressurePa": null,
+      "composition": [
+        {
+          "symbol": "H₂",
+          "name": "Molecular hydrogen",
+          "abundance": "96.3%"
+        },
+        {
+          "symbol": "He",
+          "name": "Helium",
+          "abundance": "3.25%"
+        },
+        {
+          "symbol": "CH₄",
+          "name": "Methane",
+          "abundance": "4,500 ppm"
+        },
+        {
+          "symbol": "NH₃",
+          "name": "Ammonia",
+          "abundance": "125 ppm"
+        },
+        {
+          "symbol": "HD",
+          "name": "Hydrogen deuteride",
+          "abundance": "110 ppm"
+        },
+        {
+          "symbol": "C₂H₆",
+          "name": "Ethane",
+          "abundance": "7 ppm"
+        }
+      ],
+      "notes": {
+        "surfaceArea": "Spherical approximation, 4πR², using volumetric mean radius; excludes rings. Saturn has no solid surface; globe shape uses its 1-bar radii.",
+        "surfaceTemperatures": "Atmospheric temperature at the 1-bar reference level. Compared with Earth’s mean surface temperature, 288 K.",
+        "absoluteMagnitude": "Planetary absolute V magnitude: Sun and observer each at 1 AU, zero phase angle. The Earth comparison is a magnitude difference. Ring opening affects Saturn’s observed brightness.",
+        "apparentMagnitude": "Brightest apparent V magnitude from Earth, including rings; varies with distance, phase and ring inclination. Not a current ephemeris.",
+        "atmosphere": "No solid surface or unique surface pressure; radius and gravity refer to the 1-bar level. Gas abundances are by volume with substantial uncertainty, especially helium (±2.4 percentage points); ppm means parts per million. Ammonia ice, water ice and ammonium hydrosulfide aerosols are separate from these gases."
+      }
+    },
+    {
+      "id": "uranus",
+      "hostStarId": "sun",
+      "name": "Uranus",
+      "color": "#a4ced6",
+      "moonCount": 28,
+      "meanRadiusKm": 25362,
+      "equatorialRadiusKm": 25559,
+      "polarRadiusKm": 24973,
+      "flattening": 0.02293,
+      "volumeKm3": 68330000000000.0,
+      "massKg": 8.6811e+25,
+      "meanDensityKgM3": 1270,
+      "surfaceGravityMs2": 9.01,
+      "escapeVelocityKmS": 21.3,
+      "solarDayHours": 17.24,
+      "bondAlbedo": 0.3,
+      "blackBodyTemperatureK": 58.1,
+      "temperatureAtOneBarK": 76,
+      "absoluteMagnitudeV": -7.11,
+      "brightestApparentMagnitudeV": 5.38,
+      "surfacePressurePa": null,
+      "composition": [
+        {
+          "symbol": "H₂",
+          "name": "Molecular hydrogen",
+          "abundance": "82.5%"
+        },
+        {
+          "symbol": "He",
+          "name": "Helium",
+          "abundance": "15.2%"
+        },
+        {
+          "symbol": "CH₄",
+          "name": "Methane",
+          "abundance": "2.3%"
+        },
+        {
+          "symbol": "HD",
+          "name": "Hydrogen deuteride",
+          "abundance": "148 ppm"
+        }
+      ],
+      "notes": {
+        "surfaceArea": "Spherical approximation, 4πR², using volumetric mean radius; excludes faint rings. No solid surface; globe shape uses the 1-bar radii.",
+        "surfaceTemperatures": "Atmospheric temperature at the 1-bar reference level, not a solid-surface temperature. Compared with Earth’s mean surface temperature, 288 K.",
+        "absoluteMagnitude": "Planetary absolute V magnitude: Sun and observer each at 1 AU, zero phase angle. The Earth comparison is a magnitude difference.",
+        "apparentMagnitude": "Brightest apparent V magnitude from Earth; varies with distance and phase. Not a current ephemeris.",
+        "atmosphere": "No solid surface or unique surface pressure; radius and gravity refer to the 1-bar atmospheric level. Gas abundances are by volume, with uncertainties in hydrogen and helium of about 3.3 percentage points. Rounded values need not sum to 100%; ppm means parts per million. Cloud and haze aerosols are separate from these gases."
+      }
+    },
+    {
+      "id": "neptune",
+      "hostStarId": "sun",
+      "name": "Neptune",
+      "color": "#688fc8",
+      "moonCount": 16,
+      "meanRadiusKm": 24622,
+      "equatorialRadiusKm": 24764,
+      "polarRadiusKm": 24341,
+      "flattening": 0.01708,
+      "volumeKm3": 62540000000000.0,
+      "massKg": 1.02409e+26,
+      "meanDensityKgM3": 1638,
+      "surfaceGravityMs2": 11.27,
+      "escapeVelocityKmS": 23.5,
+      "solarDayHours": 16.11,
+      "bondAlbedo": 0.29,
+      "blackBodyTemperatureK": 46.6,
+      "temperatureAtOneBarK": 72,
+      "absoluteMagnitudeV": -6.94,
+      "brightestApparentMagnitudeV": 7.67,
+      "surfacePressurePa": null,
+      "composition": [
+        {
+          "symbol": "H₂",
+          "name": "Molecular hydrogen",
+          "abundance": "80.0%"
+        },
+        {
+          "symbol": "He",
+          "name": "Helium",
+          "abundance": "19.0%"
+        },
+        {
+          "symbol": "CH₄",
+          "name": "Methane",
+          "abundance": "1.5%"
+        },
+        {
+          "symbol": "HD",
+          "name": "Hydrogen deuteride",
+          "abundance": "192 ppm"
+        },
+        {
+          "symbol": "C₂H₆",
+          "name": "Ethane",
+          "abundance": "1.5 ppm"
+        }
+      ],
+      "notes": {
+        "surfaceArea": "Spherical approximation, 4πR², using volumetric mean radius; excludes faint rings. No solid surface; globe shape uses the 1-bar radii.",
+        "surfaceTemperatures": "Atmospheric temperature at the 1-bar reference level, not a solid-surface temperature. Compared with Earth’s mean surface temperature, 288 K.",
+        "absoluteMagnitude": "Planetary absolute V magnitude: Sun and observer each at 1 AU, zero phase angle. The Earth comparison is a magnitude difference.",
+        "apparentMagnitude": "Brightest apparent V magnitude from Earth; varies with distance and phase. Not a current ephemeris.",
+        "atmosphere": "No solid surface or unique surface pressure; radius and gravity refer to the 1-bar atmospheric level. Gas abundances are by volume, with uncertainties in hydrogen and helium of about 3.2 percentage points. Rounded values need not sum to 100%; ppm means parts per million. Cloud and haze aerosols are separate from these gases."
+      }
+    }
+  ],
+  "moons": {
+    "earth": [
+      {
+        "id": "moon",
+        "name": "Moon",
+        "source": "https://nssdc.gsfc.nasa.gov/planetary/factsheet/moonfact.html",
+        "sourceLabel": "Moon fact sheet",
+        "meanRadiusKm": 1737.4,
+        "massKg": 7.346e+22,
+        "surfaceGravityMs2": 1.62,
+        "semiMajorAxisKm": 384400,
+        "siderealOrbitDays": 27.3217,
+        "phaseCycleDays": 29.53
+      }
+    ],
+    "mars": [
+      {
+        "id": "phobos",
+        "name": "Phobos",
+        "source": "https://nssdc.gsfc.nasa.gov/planetary/factsheet/marsfact.html",
+        "sourceLabel": "Mars fact sheet",
+        "meanRadiusKm": 11.05,
+        "meanRadiusDetail": "Volume-equivalent radius derived from the fact sheet's principal axis radii, 13.0 × 11.4 × 9.1 km.",
+        "massKg": 1.06e+16,
+        "surfaceGravityMs2": 0.0058,
+        "surfaceGravityDetail": "Approximate, derived from the fact sheet's mass and the volume-equivalent radius.",
+        "semiMajorAxisKm": 9378,
+        "siderealOrbitDays": 0.31891,
+        "phaseCycleDays": 0.31906,
+        "phaseCycleDetail": "Synodic phase cycle computed from the sidereal orbit and Mars's 686.98-day year."
+      },
+      {
+        "id": "deimos",
+        "name": "Deimos",
+        "source": "https://nssdc.gsfc.nasa.gov/planetary/factsheet/marsfact.html",
+        "sourceLabel": "Mars fact sheet",
+        "meanRadiusKm": 6.2,
+        "meanRadiusDetail": "Volume-equivalent radius derived from the fact sheet's principal axis radii, 7.8 × 6.0 × 5.1 km.",
+        "massKg": 2400000000000000.0,
+        "surfaceGravityMs2": 0.0042,
+        "surfaceGravityDetail": "Approximate, derived from the fact sheet's mass and the volume-equivalent radius.",
+        "semiMajorAxisKm": 23459,
+        "siderealOrbitDays": 1.26244,
+        "phaseCycleDays": 1.26476,
+        "phaseCycleDetail": "Synodic phase cycle computed from the sidereal orbit and Mars's 686.98-day year."
+      }
+    ],
+    "jupiter": [
+      {
+        "id": "io",
+        "name": "Io",
+        "source": "https://nssdc.gsfc.nasa.gov/planetary/factsheet/joviansatfact.html",
+        "sourceLabel": "Jovian Satellite fact sheet",
+        "meanRadiusKm": 1821.5,
+        "massKg": 8.932e+22,
+        "surfaceGravityMs2": 1.797,
+        "surfaceGravityDetail": "Approximate spherical gravity derived from the sourced mass and mean radius using G = 6.67430 × 10⁻¹¹ m³/(kg s²).",
+        "semiMajorAxisKm": 421800,
+        "siderealOrbitDays": 1.769138,
+        "phaseCycleDays": 1.769861,
+        "phaseCycleDetail": "Approximate synodic phase cycle as seen from Jupiter, computed from the sidereal orbit and Jupiter’s 4,332.589-day year; not an Earth-observed phase cycle."
+      },
+      {
+        "id": "europa",
+        "name": "Europa",
+        "source": "https://nssdc.gsfc.nasa.gov/planetary/factsheet/joviansatfact.html",
+        "sourceLabel": "Jovian Satellite fact sheet",
+        "meanRadiusKm": 1560.8,
+        "massKg": 4.8e+22,
+        "surfaceGravityMs2": 1.315,
+        "surfaceGravityDetail": "Approximate spherical gravity derived from the sourced mass and mean radius using G = 6.67430 × 10⁻¹¹ m³/(kg s²).",
+        "semiMajorAxisKm": 671100,
+        "siderealOrbitDays": 3.551181,
+        "phaseCycleDays": 3.554094,
+        "phaseCycleDetail": "Approximate synodic phase cycle as seen from Jupiter, computed from the sidereal orbit and Jupiter’s 4,332.589-day year; not an Earth-observed phase cycle."
+      },
+      {
+        "id": "ganymede",
+        "name": "Ganymede",
+        "source": "https://nssdc.gsfc.nasa.gov/planetary/factsheet/joviansatfact.html",
+        "sourceLabel": "Jovian Satellite fact sheet",
+        "meanRadiusKm": 2631.2,
+        "massKg": 1.4819e+23,
+        "surfaceGravityMs2": 1.429,
+        "surfaceGravityDetail": "Approximate spherical gravity derived from the sourced mass and mean radius using G = 6.67430 × 10⁻¹¹ m³/(kg s²).",
+        "semiMajorAxisKm": 1070400,
+        "siderealOrbitDays": 7.154553,
+        "phaseCycleDays": 7.166387,
+        "phaseCycleDetail": "Approximate synodic phase cycle as seen from Jupiter, computed from the sidereal orbit and Jupiter’s 4,332.589-day year; not an Earth-observed phase cycle."
+      },
+      {
+        "id": "callisto",
+        "name": "Callisto",
+        "source": "https://nssdc.gsfc.nasa.gov/planetary/factsheet/joviansatfact.html",
+        "sourceLabel": "Jovian Satellite fact sheet",
+        "meanRadiusKm": 2410.3,
+        "massKg": 1.0759e+23,
+        "surfaceGravityMs2": 1.236,
+        "surfaceGravityDetail": "Approximate spherical gravity derived from the sourced mass and mean radius using G = 6.67430 × 10⁻¹¹ m³/(kg s²).",
+        "semiMajorAxisKm": 1882700,
+        "siderealOrbitDays": 16.689017,
+        "phaseCycleDays": 16.753551,
+        "phaseCycleDetail": "Approximate synodic phase cycle as seen from Jupiter, computed from the sidereal orbit and Jupiter’s 4,332.589-day year; not an Earth-observed phase cycle."
+      }
+    ],
+    "saturn": [
+      {
+        "id": "mimas",
+        "name": "Mimas",
+        "source": "https://nssdc.gsfc.nasa.gov/planetary/factsheet/saturniansatfact.html",
+        "sourceLabel": "Saturnian Satellite fact sheet",
+        "meanRadiusKm": 198.5,
+        "massKg": 3.79e+19,
+        "surfaceGravityMs2": 0.064,
+        "surfaceGravityDetail": "Approximate spherical gravity derived from the sourced mass and radius using G = 6.67430 × 10⁻¹¹ m³/(kg s²).",
+        "semiMajorAxisKm": 185520,
+        "siderealOrbitDays": 0.9424218,
+        "phaseCycleDays": 0.942504,
+        "phaseCycleDetail": "Approximate synodic phase cycle as seen from Saturn, computed from the sidereal orbit and Saturn’s 10,755.699-day year; not an Earth-observed phase cycle.",
+        "meanRadiusDetail": "Volume-equivalent mean radius derived as the cube root of the product of NASA’s three ellipsoid semi-axes (208 × 197 × 191 km), rounded to 0.1 km."
+      },
+      {
+        "id": "enceladus",
+        "name": "Enceladus",
+        "source": "https://nssdc.gsfc.nasa.gov/planetary/factsheet/saturniansatfact.html",
+        "sourceLabel": "Saturnian Satellite fact sheet",
+        "meanRadiusKm": 252.0,
+        "massKg": 1.08e+20,
+        "surfaceGravityMs2": 0.114,
+        "surfaceGravityDetail": "Approximate spherical gravity derived from the sourced mass and radius using G = 6.67430 × 10⁻¹¹ m³/(kg s²).",
+        "semiMajorAxisKm": 238020,
+        "siderealOrbitDays": 1.370218,
+        "phaseCycleDays": 1.370393,
+        "phaseCycleDetail": "Approximate synodic phase cycle as seen from Saturn, computed from the sidereal orbit and Saturn’s 10,755.699-day year; not an Earth-observed phase cycle.",
+        "meanRadiusDetail": "Volume-equivalent mean radius derived as the cube root of the product of NASA’s three ellipsoid semi-axes (257 × 251 × 248 km), rounded to 0.1 km."
+      },
+      {
+        "id": "dione",
+        "name": "Dione",
+        "source": "https://nssdc.gsfc.nasa.gov/planetary/factsheet/saturniansatfact.html",
+        "sourceLabel": "Saturnian Satellite fact sheet",
+        "meanRadiusKm": 561.3,
+        "massKg": 1.1e+21,
+        "surfaceGravityMs2": 0.233,
+        "surfaceGravityDetail": "Approximate spherical gravity derived from the sourced mass and radius using G = 6.67430 × 10⁻¹¹ m³/(kg s²).",
+        "semiMajorAxisKm": 377400,
+        "siderealOrbitDays": 2.736915,
+        "phaseCycleDays": 2.737612,
+        "phaseCycleDetail": "Approximate synodic phase cycle as seen from Saturn, computed from the sidereal orbit and Saturn’s 10,755.699-day year; not an Earth-observed phase cycle.",
+        "meanRadiusDetail": "Volume-equivalent mean radius derived as the cube root of the product of NASA’s three ellipsoid semi-axes (563 × 561 × 560 km), rounded to 0.1 km."
+      },
+      {
+        "id": "rhea",
+        "name": "Rhea",
+        "source": "https://nssdc.gsfc.nasa.gov/planetary/factsheet/saturniansatfact.html",
+        "sourceLabel": "Saturnian Satellite fact sheet",
+        "meanRadiusKm": 763.3,
+        "massKg": 2.31e+21,
+        "surfaceGravityMs2": 0.265,
+        "surfaceGravityDetail": "Approximate spherical gravity derived from the sourced mass and radius using G = 6.67430 × 10⁻¹¹ m³/(kg s²).",
+        "semiMajorAxisKm": 527040,
+        "siderealOrbitDays": 4.5175,
+        "phaseCycleDays": 4.519398,
+        "phaseCycleDetail": "Approximate synodic phase cycle as seen from Saturn, computed from the sidereal orbit and Saturn’s 10,755.699-day year; not an Earth-observed phase cycle.",
+        "meanRadiusDetail": "Volume-equivalent mean radius derived as the cube root of the product of NASA’s three ellipsoid semi-axes (765 × 763 × 762 km), rounded to 0.1 km."
+      },
+      {
+        "id": "titan",
+        "name": "Titan",
+        "source": "https://nssdc.gsfc.nasa.gov/planetary/factsheet/saturniansatfact.html",
+        "sourceLabel": "Saturnian Satellite fact sheet",
+        "meanRadiusKm": 2575.0,
+        "massKg": 1.3455e+23,
+        "surfaceGravityMs2": 1.354,
+        "surfaceGravityDetail": "Approximate spherical gravity derived from the sourced mass and radius using G = 6.67430 × 10⁻¹¹ m³/(kg s²).",
+        "semiMajorAxisKm": 1221870,
+        "siderealOrbitDays": 15.945421,
+        "phaseCycleDays": 15.969095,
+        "phaseCycleDetail": "Approximate synodic phase cycle as seen from Saturn, computed from the sidereal orbit and Saturn’s 10,755.699-day year; not an Earth-observed phase cycle."
+      },
+      {
+        "id": "iapetus",
+        "name": "Iapetus",
+        "source": "https://nssdc.gsfc.nasa.gov/planetary/factsheet/saturniansatfact.html",
+        "sourceLabel": "Saturnian Satellite fact sheet",
+        "meanRadiusKm": 734.5,
+        "massKg": 1.81e+21,
+        "surfaceGravityMs2": 0.224,
+        "surfaceGravityDetail": "Approximate spherical gravity derived from the sourced mass and radius using G = 6.67430 × 10⁻¹¹ m³/(kg s²).",
+        "semiMajorAxisKm": 3560850,
+        "siderealOrbitDays": 79.330183,
+        "phaseCycleDays": 79.919642,
+        "phaseCycleDetail": "Approximate synodic phase cycle as seen from Saturn, computed from the sidereal orbit and Saturn’s 10,755.699-day year; not an Earth-observed phase cycle.",
+        "meanRadiusDetail": "Volume-equivalent mean radius derived as the cube root of the product of NASA’s three ellipsoid semi-axes (746 × 746 × 712 km), rounded to 0.1 km."
+      }
+    ],
+    "uranus": [
+      {
+        "id": "miranda",
+        "name": "Miranda",
+        "source": "https://nssdc.gsfc.nasa.gov/planetary/factsheet/uraniansatfact.html",
+        "sourceLabel": "Uranian Satellite fact sheet",
+        "meanRadiusKm": 235.7,
+        "massKg": 6.6e+19,
+        "surfaceGravityMs2": 0.0793,
+        "surfaceGravityDetail": "Approximate spherical gravity calculated as GM/R² from the sourced mass and volume-equivalent radius.",
+        "semiMajorAxisKm": 129900,
+        "siderealOrbitDays": 1.413479,
+        "phaseCycleDays": 1.413544,
+        "phaseCycleDetail": "Approximate mean synodic phase cycle for an observer at Uranus, using the 30,685.4-day planetary year (orbital frequencies subtract). Inclination and eccentricity make actual phase intervals variable.",
+        "meanRadiusDetail": "Volume-equivalent radius derived from the fact sheet’s ellipsoid semi-axes, 240 × 234.2 × 232.9 km."
+      },
+      {
+        "id": "ariel",
+        "name": "Ariel",
+        "source": "https://nssdc.gsfc.nasa.gov/planetary/factsheet/uraniansatfact.html",
+        "sourceLabel": "Uranian Satellite fact sheet",
+        "meanRadiusKm": 578.9,
+        "massKg": 1.29e+21,
+        "surfaceGravityMs2": 0.2569,
+        "surfaceGravityDetail": "Approximate spherical gravity calculated as GM/R² from the sourced mass and volume-equivalent radius.",
+        "semiMajorAxisKm": 190900,
+        "siderealOrbitDays": 2.520379,
+        "phaseCycleDays": 2.520586,
+        "phaseCycleDetail": "Approximate mean synodic phase cycle for an observer at Uranus, using the 30,685.4-day planetary year (orbital frequencies subtract). Inclination and eccentricity make actual phase intervals variable.",
+        "meanRadiusDetail": "Volume-equivalent radius derived from the fact sheet’s ellipsoid semi-axes, 581.1 × 577.9 × 577.7 km."
+      },
+      {
+        "id": "umbriel",
+        "name": "Umbriel",
+        "source": "https://nssdc.gsfc.nasa.gov/planetary/factsheet/uraniansatfact.html",
+        "sourceLabel": "Uranian Satellite fact sheet",
+        "meanRadiusKm": 584.7,
+        "massKg": 1.22e+21,
+        "surfaceGravityMs2": 0.2382,
+        "surfaceGravityDetail": "Approximate spherical gravity calculated as GM/R² from the sourced mass and volume-equivalent radius.",
+        "semiMajorAxisKm": 266000,
+        "siderealOrbitDays": 4.144176,
+        "phaseCycleDays": 4.144736,
+        "phaseCycleDetail": "Approximate mean synodic phase cycle for an observer at Uranus, using the 30,685.4-day planetary year (orbital frequencies subtract). Inclination and eccentricity make actual phase intervals variable."
+      },
+      {
+        "id": "titania",
+        "name": "Titania",
+        "source": "https://nssdc.gsfc.nasa.gov/planetary/factsheet/uraniansatfact.html",
+        "sourceLabel": "Uranian Satellite fact sheet",
+        "meanRadiusKm": 788.9,
+        "massKg": 3.42e+21,
+        "surfaceGravityMs2": 0.3668,
+        "surfaceGravityDetail": "Approximate spherical gravity calculated as GM/R² from the sourced mass and volume-equivalent radius.",
+        "semiMajorAxisKm": 436300,
+        "siderealOrbitDays": 8.705867,
+        "phaseCycleDays": 8.708338,
+        "phaseCycleDetail": "Approximate mean synodic phase cycle for an observer at Uranus, using the 30,685.4-day planetary year (orbital frequencies subtract). Inclination and eccentricity make actual phase intervals variable."
+      },
+      {
+        "id": "oberon",
+        "name": "Oberon",
+        "source": "https://nssdc.gsfc.nasa.gov/planetary/factsheet/uraniansatfact.html",
+        "sourceLabel": "Uranian Satellite fact sheet",
+        "meanRadiusKm": 761.4,
+        "massKg": 2.88e+21,
+        "surfaceGravityMs2": 0.3316,
+        "surfaceGravityDetail": "Approximate spherical gravity calculated as GM/R² from the sourced mass and volume-equivalent radius.",
+        "semiMajorAxisKm": 583500,
+        "siderealOrbitDays": 13.463234,
+        "phaseCycleDays": 13.469144,
+        "phaseCycleDetail": "Approximate mean synodic phase cycle for an observer at Uranus, using the 30,685.4-day planetary year (orbital frequencies subtract). Inclination and eccentricity make actual phase intervals variable."
+      }
+    ],
+    "neptune": [
+      {
+        "id": "proteus",
+        "name": "Proteus",
+        "source": "https://nssdc.gsfc.nasa.gov/planetary/factsheet/neptuniansatfact.html",
+        "sourceLabel": "Neptunian Satellite fact sheet",
+        "meanRadiusKm": 209.9,
+        "massKg": 5e+19,
+        "surfaceGravityMs2": 0.0758,
+        "surfaceGravityDetail": "Approximate spherical gravity calculated as GM/R² from the sourced mass and volume-equivalent radius.",
+        "semiMajorAxisKm": 117647,
+        "siderealOrbitDays": 1.122315,
+        "phaseCycleDays": 1.122336,
+        "phaseCycleDetail": "Approximate mean synodic phase cycle for an observer at Neptune, using the 60,189.018-day planetary year (orbital frequencies subtract). Inclination and eccentricity make actual phase intervals variable.",
+        "meanRadiusDetail": "Volume-equivalent radius derived from the fact sheet’s ellipsoid semi-axes, 220 × 208 × 202 km."
+      },
+      {
+        "id": "triton",
+        "name": "Triton",
+        "source": "https://nssdc.gsfc.nasa.gov/planetary/factsheet/neptuniansatfact.html",
+        "sourceLabel": "Neptunian Satellite fact sheet",
+        "meanRadiusKm": 1353.4,
+        "massKg": 2.14e+22,
+        "surfaceGravityMs2": 0.7798,
+        "surfaceGravityDetail": "Approximate spherical gravity calculated as GM/R² from the sourced mass and volume-equivalent radius.",
+        "semiMajorAxisKm": 354760,
+        "siderealOrbitDays": 5.876854,
+        "phaseCycleDays": 5.87628,
+        "phaseCycleDetail": "Approximate mean synodic phase cycle for an observer at Neptune, using the 60,189.018-day planetary year and retrograde motion (orbital frequencies add). Inclination and eccentricity make actual phase intervals variable.",
+        "siderealOrbitDetail": "Retrograde orbit, opposite Neptune’s rotation. The displayed period is its positive duration."
+      },
+      {
+        "id": "nereid",
+        "name": "Nereid",
+        "source": "https://nssdc.gsfc.nasa.gov/planetary/factsheet/neptuniansatfact.html",
+        "sourceLabel": "Neptunian Satellite fact sheet",
+        "meanRadiusKm": 170,
+        "massKg": 3e+19,
+        "surfaceGravityMs2": 0.0693,
+        "surfaceGravityDetail": "Approximate spherical gravity calculated as GM/R² from the sourced mass and volume-equivalent radius.",
+        "semiMajorAxisKm": 5513400,
+        "siderealOrbitDays": 360.13619,
+        "phaseCycleDays": 362.304007,
+        "phaseCycleDetail": "Approximate mean synodic phase cycle for an observer at Neptune, using the 60,189.018-day planetary year (orbital frequencies subtract). Inclination and eccentricity make actual phase intervals variable.",
+        "semiMajorAxisDetail": "Center-to-center orbital semi-major axis, not current distance. Nereid’s highly eccentric orbit (e = 0.7512) spans a wide range of distances."
+      }
+    ]
+  }
+}

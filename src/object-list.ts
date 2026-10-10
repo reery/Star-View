@@ -1,6 +1,10 @@
+import { createElement } from 'lucide'
+import { OriginIcon } from './origin-icon'
 import type { Star } from './catalog-model'
 import { objectDesignations } from './designations'
 import { formatDistance, starDisplayColor, sunRelativeMetrics, type DistanceUnit, type StarColorMode } from './astronomy'
+import { ObjectDatabase } from './object-database'
+import { companionIcon } from './companion-icon'
 
 const VIRTUAL_THRESHOLD = 200
 const ROW_HEIGHT = 36
@@ -19,7 +23,7 @@ export function normalizeObjectSearch(value: string): string {
 }
 
 export function objectSearchText(star: Star): string {
-  return normalizeObjectSearch([star.name, star.id, star.spectral_type ?? '', ...objectDesignations(star), star.molecular_cloud?.complex_name ?? ''].join(' '))
+  return normalizeObjectSearch([star.name, star.id, star.spectral_type ?? '', ...(star.subtypes ?? []), ...objectDesignations(star), star.molecular_cloud?.complex_name ?? ''].join(' '))
 }
 
 export function virtualRange(scrollTop: number, viewportHeight: number, count: number): { start: number; end: number } {
@@ -31,6 +35,7 @@ export function virtualRange(scrollTop: number, viewportHeight: number, count: n
 interface ObjectListItem {
   star: Star
   distancePc: number
+  sunDistancePc: number
   search: string
   compactSearch: string
   color: string
@@ -58,10 +63,13 @@ export class ObjectList {
   private renderedVirtualItems: ObjectListItem[] | null = null
   private renderedVirtualStart = -1
   private renderedVirtualEnd = -1
+  private readonly database: ObjectDatabase | null
+  private expanded = false
 
-  constructor(container: HTMLElement, onSelect: (id: string) => void, onCountChange: (shown: number, total: number) => void) {
+  constructor(container: HTMLElement, onSelect: (id: string) => void, onCountChange: (shown: number, total: number) => void, databaseContainer?: HTMLElement) {
     this.container = container
     this.onCountChange = onCountChange
+    this.database = databaseContainer ? new ObjectDatabase(databaseContainer, () => this.refresh(true), onSelect) : null
     container.addEventListener('scroll', () => this.scheduleScrollRender(), { passive: true })
     container.addEventListener('click', (event) => {
       const button = (event.target as HTMLElement).closest<HTMLButtonElement>('button[data-star]')
@@ -77,6 +85,7 @@ export class ObjectList {
       return {
         star,
         distancePc: sunRelativeMetrics(star, reference).distancePc,
+        sunDistancePc: sunRelativeMetrics(star, sun).distancePc,
         search,
         compactSearch: search.replace(/ /g, ''),
         color: starDisplayColor(star, this.colorMode).getStyle(),
@@ -87,6 +96,8 @@ export class ObjectList {
     this.unit = unit
     this.selectedId = selectedId
     this.referenceId = reference.id
+    this.database?.setStars(stars)
+    this.database?.setReference(reference.id, reference.name)
     this.refresh()
   }
 
@@ -95,6 +106,7 @@ export class ObjectList {
     const reference = this.items.find((item) => item.star.id === id)?.star
     if (!reference) return
     this.referenceId = id
+    this.database?.setReference(id, reference.name)
     this.items = sortObjectListItemsByDistance(this.items.map((item) => ({
       ...item,
       distancePc: sunRelativeMetrics(item.star, reference).distancePc,
@@ -113,16 +125,29 @@ export class ObjectList {
     this.refresh()
   }
 
-  private refresh(): void {
-    const filtered = this.items.filter((item) => this.filter(item.star) && (!this.query || item.search.includes(this.query) || item.compactSearch.includes(this.compactQuery)))
+  setExpanded(expanded: boolean): void {
+    this.expanded = expanded && this.database !== null
+    this.container.hidden = this.expanded
+    this.closeColumnFilter()
+    this.refresh(true)
+  }
+
+  closeColumnFilter(): void {
+    this.database?.closeFilter()
+  }
+
+  private refresh(force = false): void {
+    const matching = this.items.filter((item) => this.filter(item.star) && (!this.query || item.search.includes(this.query) || item.compactSearch.includes(this.compactQuery)))
+    const filtered = this.expanded ? this.database!.filterAndSort(matching) : matching
     if (filtered.length !== this.countedShown || this.items.length !== this.countedTotal) {
       this.countedShown = filtered.length
       this.countedTotal = this.items.length
       this.onCountChange(filtered.length, this.items.length)
     }
-    if (filtered.length === this.filtered.length && filtered.every((item, index) => item === this.filtered[index])) return
+    if (!force && filtered.length === this.filtered.length && filtered.every((item, index) => item === this.filtered[index])) return
     this.filtered = filtered
     this.container.scrollTop = 0
+    if (this.expanded) this.database!.resetScroll()
     this.render(true)
   }
 
@@ -142,6 +167,7 @@ export class ObjectList {
   setSelected(id: string | null, reveal = false): void {
     if (id === this.selectedId && !reveal) return
     this.selectedId = id
+    if (this.expanded && reveal && id) this.database!.reveal(id)
     if (reveal && id) {
       const index = this.filtered.findIndex((item) => item.star.id === id)
       if (index >= 0 && this.filtered.length > VIRTUAL_THRESHOLD) {
@@ -177,8 +203,8 @@ export class ObjectList {
     marker.append(swatch)
     if (item.star.id === this.referenceId) {
       const reference = document.createElement('span')
-      reference.className = 'reference-star'
-      reference.textContent = '\u2605'
+      reference.className = 'reference-target'
+      reference.append(createElement(OriginIcon, { width: 11, height: 11, 'stroke-width': 1.7, 'aria-hidden': 'true' }))
       reference.title = 'Origin object'
       reference.setAttribute('aria-hidden', 'true')
       marker.append(reference)
@@ -186,9 +212,12 @@ export class ObjectList {
     const name = document.createElement('span')
     name.className = 'catalog-name'
     name.textContent = item.star.name
+    const companion = companionIcon(item.star.id)
+    if (companion) name.prepend(companion)
     const distance = document.createElement('span')
     distance.className = 'catalog-distance'
     distance.textContent = formatDistance(item.distancePc, this.unit)
+    button.setAttribute('aria-description', distance.textContent)
     button.append(marker, name, distance)
     return button
   }
@@ -206,13 +235,18 @@ export class ObjectList {
       cancelAnimationFrame(this.scrollFrame)
       this.scrollFrame = null
     }
+    if (this.database) this.database.setVisible(this.expanded)
+    if (this.expanded) {
+      this.database!.render(this.filtered, this.selectedId, this.unit, force)
+      return
+    }
     const virtual = this.filtered.length > VIRTUAL_THRESHOLD
     this.container.classList.toggle('is-virtualized', virtual)
     if (!virtual) {
       this.renderedVirtualItems = null
       this.renderedVirtualStart = -1
       this.renderedVirtualEnd = -1
-      this.container.replaceChildren(...this.filtered.map((item, index) => this.button(item, index, false)))
+      this.replaceRows(this.filtered.map((item, index) => this.button(item, index, false)))
       return
     }
     const { start, end } = virtualRange(this.container.scrollTop, this.container.clientHeight || 320, this.filtered.length)
@@ -220,9 +254,17 @@ export class ObjectList {
     const spacer = document.createElement('div')
     spacer.className = 'catalog-virtual-spacer'
     spacer.style.height = `${this.filtered.length * ROW_HEIGHT}px`
-    this.container.replaceChildren(spacer, ...this.filtered.slice(start, end).map((item, offset) => this.button(item, start + offset, true)))
+    this.replaceRows([spacer, ...this.filtered.slice(start, end).map((item, offset) => this.button(item, start + offset, true))])
     this.renderedVirtualItems = this.filtered
     this.renderedVirtualStart = start
     this.renderedVirtualEnd = end
+  }
+
+  // Rows are rebuilt on selection; keep keyboard focus on the same object.
+  private replaceRows(rows: HTMLElement[]): void {
+    const focused = document.activeElement instanceof HTMLElement && this.container.contains(document.activeElement)
+      ? document.activeElement.dataset.star : undefined
+    this.container.replaceChildren(...rows)
+    if (focused) this.container.querySelector<HTMLElement>(`[data-star="${CSS.escape(focused)}"]`)?.focus({ preventScroll: true })
   }
 }

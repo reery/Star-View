@@ -27,6 +27,7 @@ export function objectDesignations(star: Star): string[] {
 
 export interface ObjectIdentity {
   name: string
+  simbadId?: string
   designations: string[]
   sources: string[]
 }
@@ -40,6 +41,7 @@ export function parseObjectIdentities(value: unknown): Record<string, ObjectIden
   for (const [id, value] of Object.entries(payload.objects)) {
     const identity = value as ObjectIdentity | null
     if (!id || !identity || typeof identity.name !== 'string' || !identity.name.trim()
+      || identity.simbadId !== undefined && (typeof identity.simbadId !== 'string' || !identity.simbadId.trim())
       || !Array.isArray(identity.designations) || !validDesignations(identity.designations)
       || !Array.isArray(identity.sources) || !identity.sources.length || !identity.sources.every((source) => typeof source === 'string' && source.trim())) {
       throw new Error(`Invalid object designations: ${id}`)

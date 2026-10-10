@@ -27,6 +27,7 @@ import { apparentVisualMagnitude, displayMotionForStar, formatDistance, galactic
 import { retainBrightestCoincidentComponents } from './viewer-primitives'
 import { catalogLoader, mergeCatalogStars, parseCatalogPayload } from './catalog-runtime'
 import { coincidentComponentGroups, indexStarSystems } from './star-systems'
+import { completeCatalogCompanions } from './stellar-companions'
 import { parseCompactOverlayManifest, parseCompactOverlayPayload } from './compact-overlay-model'
 
 describe('catalog packages and display settings', () => {
@@ -62,8 +63,8 @@ describe('catalog packages and display settings', () => {
       objects: 1036,
       constellations: 1036,
       rawAstrometry: 1036,
-      radialVelocities: 684,
-      transverseOnly: 352,
+      radialVelocities: 701,
+      transverseOnly: 335,
     })
     for (const star of large) expect(nearest1000.find((candidate) => candidate.id === star.id)).toEqual(star)
     const provenance = JSON.parse(nearest1000Provenance)
@@ -101,8 +102,17 @@ describe('catalog packages and display settings', () => {
       status: 'withheld-white-dwarf',
       observation: { sourceId: 'gaia-dr3', valueKms: -414.01544 },
     })
-    expect(catalogCoverage(nearest1000)).toMatchObject({ radii: 631, metallicities: 611, ages: 90, masses: 601, luminosities: 610, temperatures: 872 })
-    expect(catalogCoverage(large)).toMatchObject({ masses: 65, luminosities: 67, radii: 67 })
+    expect(catalogCoverage(nearest1000)).toMatchObject({ radii: 686, metallicities: 612, ages: 90, masses: 655, luminosities: 665, temperatures: 877 })
+    expect(catalogCoverage(large)).toMatchObject({ masses: 68, luminosities: 72, radii: 72 })
+    expect(nearest1000.find((star) => star.id === 'cns5-4566')).toMatchObject({
+      temperature_k: 985, mass_solar: 0.02068605705, radius_solar: 0.109956073,
+      luminosity_solar: 9.77237221e-6, age_gyr: null, metallicity_dex: null,
+      vx_kms: null, raw_astrometry: { radial_velocity_kms: null },
+    })
+    expect(provenance.objects.find((object: { id: string }) => object.id === 'cns5-1604')?.radialVelocity).toMatchObject({
+      status: 'reviewed-literature-fallback',
+      observation: { sourceId: 'reviewed-ultracool-rv', valueKms: 1.2, uncertaintyKms: 1, reference: '2021ApJS..257...45H' },
+    })
     expect(small.find((star) => star.id === 'barnards-star')).toMatchObject({ mass_solar: 0.144, radius_solar: 0.1931, luminosity_solar: 0.0035225088 })
     expect(nearest1000.find((star) => star.id === 'cns5-5672')).toMatchObject({ mass_solar: 0.6116, radius_solar: 0.6299 })
   })
@@ -110,7 +120,7 @@ describe('catalog packages and display settings', () => {
   it('keeps the bright landmark catalog bounded and merges it without duplicates', () => {
     expect(bright).toHaveLength(126)
     expect(bright.at(-1)?.name).toBe('Arneb')
-    expect(catalogCoverage(bright)).toMatchObject({ temperatures: 121, masses: 55, luminosities: 110, radii: 111, metallicities: 76, ages: 11, radialVelocities: 119 })
+    expect(catalogCoverage(bright)).toMatchObject({ temperatures: 121, masses: 56, luminosities: 110, radii: 111, metallicities: 76, ages: 12, radialVelocities: 118 })
     expect(bright.find((star) => star.name === 'Rigel')).toMatchObject({
       temperature_k: 11968, radius_solar: 74.0262, luminosity_solar: 83226.2, metallicity_dex: -0.159,
     })
@@ -121,7 +131,7 @@ describe('catalog packages and display settings', () => {
       temperature_k: 24547, mass_solar: null, radius_solar: 10.5782, luminosity_solar: 36602.6,
     })
     expect(bright.find((star) => star.name === 'Denebola')).toMatchObject({
-      temperature_k: 8710, mass_solar: 1.9, radius_solar: 1.6218, luminosity_solar: 13.639,
+      temperature_k: 8421, mass_solar: 1.9, radius_solar: 1.621810097, luminosity_solar: 11.91651817,
     })
     expect(bright.find((star) => star.name === 'Sadr')).toMatchObject({
       temperature_k: 5863, mass_solar: 12.11, radius_solar: 173.5751, luminosity_solar: 32073.7,
@@ -158,7 +168,7 @@ describe('catalog packages and display settings', () => {
     expect(merged).toHaveLength(218)
     expect(new Set(merged.map((star) => star.id)).size).toBe(merged.length)
     expect(merged.find((star) => star.name === 'Altair')).toMatchObject({
-      id: '10pc-0117', temperature_k: 7760, mass_solar: 1.6, metallicity_dex: 0.19,
+      id: '10pc-0117', spectral_type: 'A7Vn', temperature_k: 7586, mass_solar: 1.6, metallicity_dex: 0.19,
     })
     expect(merged.find((star) => star.name === 'Altair')!.radius_solar).toBeCloseTo(1.8183, 4)
     expect(large.find((star) => star.name === 'Altair')).toEqual(originalAltair)
@@ -359,7 +369,7 @@ describe('catalog packages and display settings', () => {
     expect(western).toHaveLength(714)
     expect(catalogCoverage(western)).toMatchObject({
       objects: 713, constellations: 713, magnitudes: 697, rawAstrometry: 713,
-      temperatures: 695, masses: 377, luminosities: 643, radii: 644, metallicities: 532, ages: 100,
+      temperatures: 695, masses: 377, luminosities: 643, radii: 644, metallicities: 532, ages: 101,
     })
     expect(provenance).toMatchObject({ figureConstellations: 88, uniqueHipparcosStars: 691 })
     expect(new Set(Object.values(provenance.objects).flatMap((entry: any) => entry.figureConstellations ?? [])).size).toBe(88)
@@ -374,7 +384,7 @@ describe('catalog packages and display settings', () => {
     expect(provenance.objects['hip-89341'].adoptedDistance).toMatchObject({ method: 'associated-system geometric posterior' })
     expect(provenance.objects['hip-5165'].adoptedDistance).toMatchObject({ method: 'binary-orbit parallax', sourceId: '2015AN....336..378A' })
     expect(western.find((star) => star.id === 'hip-22449')).toMatchObject({
-      name: 'Tabit', vx_kms: -25.634588, vy_kms: -14.733373, vz_kms: 4.33236,
+      name: 'Tabit', vx_kms: -25.645926, vy_kms: -14.814296, vz_kms: 4.397823,
       raw_astrometry: { radial_velocity_kms: 24.11, radial_velocity_error_kms: 0.08, radial_velocity_ref: '2010A&A...521A..12M' },
     })
     expect(western.find((star) => star.id === 'hip-81266')).toMatchObject({
@@ -430,10 +440,10 @@ describe('catalog packages and display settings', () => {
 
   it('offers reviewed overlay components and preserves shared-position companions in either merge order', () => {
     expect(mergeCatalogStars(small, bright)).toHaveLength(142)
-    expect(mergeCatalogStars(small, western)).toHaveLength(730)
-    expect(mergeCatalogStars(mergeCatalogStars(small, bright), western)).toHaveLength(731)
-    expect(mergeCatalogStars(mergeCatalogStars(small, western), cluster)).toHaveLength(765)
-    expect(mergeCatalogStars(mergeCatalogStars(mergeCatalogStars(small, bright), western), cluster)).toHaveLength(766)
+    expect(mergeCatalogStars(small, western)).toHaveLength(729)
+    expect(mergeCatalogStars(mergeCatalogStars(small, bright), western)).toHaveLength(730)
+    expect(mergeCatalogStars(mergeCatalogStars(small, western), cluster)).toHaveLength(764)
+    expect(mergeCatalogStars(mergeCatalogStars(mergeCatalogStars(small, bright), western), cluster)).toHaveLength(765)
     const expected = { 'Alpha Centauri': ['A', 'B', 'C'], Sirius: ['A', 'B'], Procyon: ['A', 'B'],
       Fomalhaut: ['A', 'B', 'C'], Capella: ['Aa', 'Ab', 'H', 'L'], Rigel: ['A', 'Ba', 'Bb', 'C'] }
     for (const stars of [bright, western, mergeCatalogStars(bright, western), mergeCatalogStars(western, bright),
@@ -454,7 +464,7 @@ describe('catalog packages and display settings', () => {
     for (const stars of [bright, western]) {
       const capella = [...indexStarSystems(stars).values()].find((system) => system.name === 'Capella')!
       expect(capella.components[0]!.star).toMatchObject({ mass_solar: 2.5687, temperature_k: 4970,
-        luminosity_solar: 78.7, age_gyr: null })
+        luminosity_solar: 78.7, age_gyr: 0.649 })
       expect(capella.components[1]!.star).toMatchObject({ mass_solar: 2.4828, temperature_k: 5730, luminosity_solar: 72.7 })
     }
     expect(indexStarSystems(western).get('hip-86974')?.components.map((item) => item.label)).toEqual(['Aa', 'Ab', 'B', 'C'])
@@ -501,7 +511,7 @@ describe('catalog packages and display settings', () => {
     const first = load()
     const second = load()
     expect(second).toBe(first)
-    expect(await first).toEqual(stars)
+    expect(await first).toEqual(completeCatalogCompanions(stars))
     expect(await load()).toBe(await first)
     expect(fetcher).toHaveBeenCalledOnce()
   })

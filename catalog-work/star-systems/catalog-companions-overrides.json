@@ -1,0 +1,89 @@
+{
+  "schemaVersion": 1,
+  "objects": {
+    "bright-dubhe": {
+      "values": {
+        "temperature_k": 4660,
+        "mass_solar": 4.25,
+        "luminosity_solar": 316.22776601683796,
+        "radius_solar": 27.28228940134567,
+        "metallicity_dex": -0.19,
+        "metallicity_kind": "[Fe/H]",
+        "age_gyr": null
+      },
+      "source": "Guenther et al. 2000, 2000ApJ...530L..45G, sections 2.1 and 3.3",
+      "sourceUrl": "https://doi.org/10.1086/312473",
+      "scope": "Alpha Ursae Majoris A; component-resolved primary constraints",
+      "massRangeSolar": [
+        4.0,
+        4.5
+      ],
+      "luminosityLogSolar": {
+        "value": 2.5,
+        "uncertainty": 0.05
+      },
+      "radiusMethod": "Stefan-Boltzmann radius from the paper's adopted primary luminosity and 4660 K, with solar temperature 5772 K",
+      "note": "Dubhe A physical constraints from Guenther et al. (2000): pulsation-model mass 4.25 +/- 0.25 solar masses; adopted primary log L/Lsun=2.5 +/- 0.05, temperature 4660 K, [Fe/H]=-0.19. Radius follows Stefan-Boltzmann scaling. No single age adopted from the mass-dependent model grid. Secondary values are not copied from the primary."
+    },
+    "hip-28734": {
+      "values": {
+        "mass_solar": 1.94
+      },
+      "source": "Lane et al. 2014, 2014ApJ...783....3L, Table 7",
+      "sourceUrl": "https://doi.org/10.1088/0004-637X/783/1/3",
+      "fullTextUrl": "https://digitalscholarship.tnstate.edu/coe-research/391/",
+      "scope": "Individual 1 Gem A; WDS 06041+2316, HIP 28734 / HD 41116 system.",
+      "massUncertaintySolar": 0.01,
+      "massMethod": "Dynamical mass from joint astrometric and spectroscopic orbital solution",
+      "sourceParallaxMas": {
+        "value": 21.39,
+        "uncertainty": 0.03
+      },
+      "note": "1 Gem A dynamical mass 1.94 +/- 0.01 solar masses from Lane et al. (2014), Table 7: combined PHASES astrometry and three-component spectroscopy, not a spectral-type estimate or system-total mass."
+    },
+    "msc-06041+2316-ba": {
+      "values": {
+        "mass_solar": 1.707,
+        "spectral_type": "F6IV"
+      },
+      "source": "Lane et al. 2014, 2014ApJ...783....3L, Table 7",
+      "sourceUrl": "https://doi.org/10.1088/0004-637X/783/1/3",
+      "fullTextUrl": "https://digitalscholarship.tnstate.edu/coe-research/391/",
+      "scope": "Individual 1 Gem Ba; WDS 06041+2316, HIP 28734 / HD 41116 system.",
+      "massUncertaintySolar": 0.005,
+      "massMethod": "Dynamical mass from joint astrometric and spectroscopic orbital solution",
+      "sourceParallaxMas": {
+        "value": 21.39,
+        "uncertainty": 0.03
+      },
+      "note": "1 Gem Ba dynamical mass 1.707 +/- 0.005 solar masses from Lane et al. (2014), Table 7: combined PHASES astrometry and three-component spectroscopy, not a spectral-type estimate or system-total mass. Component spectrum F6IV, as reported in the introduction from Strassmeier & Fekel (1990), replaces the older MSC A8V? classification. No dwarf-sequence temperature is assigned to this subgiant. No individual atmosphere, radius, bolometric luminosity, metallicity or age is adopted.",
+      "spectralTypeEvidence": {
+        "source": "Lane et al. 2014, introduction, citing Strassmeier & Fekel 1990",
+        "status": "component spectroscopic classification",
+        "superseded": "A8V?"
+      }
+    },
+    "msc-06041+2316-bb": {
+      "values": {
+        "mass_solar": 1.012,
+        "spectral_type": "G2V?"
+      },
+      "source": "Lane et al. 2014, 2014ApJ...783....3L, Table 7",
+      "sourceUrl": "https://doi.org/10.1088/0004-637X/783/1/3",
+      "fullTextUrl": "https://digitalscholarship.tnstate.edu/coe-research/391/",
+      "scope": "Individual 1 Gem Bb; WDS 06041+2316, HIP 28734 / HD 41116 system.",
+      "massUncertaintySolar": 0.003,
+      "massMethod": "Dynamical mass from joint astrometric and spectroscopic orbital solution",
+      "sourceParallaxMas": {
+        "value": 21.39,
+        "uncertainty": 0.03
+      },
+      "note": "1 Gem Bb dynamical mass 1.012 +/- 0.003 solar masses from Lane et al. (2014), Table 7: combined PHASES astrometry and three-component spectroscopy, not a spectral-type estimate or system-total mass. G2V? is the paper's section 3.3 mass-based classification, not a measured spectral subtype. Spectral lines are detected, excluding a white dwarf. No individual atmosphere, radius, bolometric luminosity, metallicity or age is adopted.",
+      "spectralTypeEvidence": {
+        "source": "Lane et al. 2014, section 3.3",
+        "status": "inferred from dynamical mass; not a measured subtype",
+        "caveat": "The detected spectrum excludes a white dwarf; G2V is the paper's mass-based correspondence. The question mark retains its inferred status."
+      }
+    }
+  }
+}

@@ -63,7 +63,7 @@ test('loads all 65 Cahlon clouds on demand and exposes sourced cloud properties'
   await page.getByRole('button', { name: 'Select Taurus Molecular Cloud', exact: true }).click()
   await expect(page.locator('#object-type')).toHaveText('Molecular cloud')
   await expect(page.locator('#molecular-cloud-complex')).toHaveText('Taurus')
-  await expect(page.locator('#mass')).toHaveText('6,352 solar')
+  await expect(page.locator('#mass')).toHaveText('6,352 M☉')
   await expect(page.locator('#molecular-cloud-radius')).toHaveText('32.9 ly')
   await expect(page.locator('#molecular-cloud-density')).toHaveText('47 H nuclei/cm³')
   await expect(page.locator('#molecular-cloud-peak-density')).toHaveText('562 H nuclei/cm³')

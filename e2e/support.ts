@@ -152,7 +152,7 @@ export async function openViewer(page: Page) {
   await page.goto('/')
   await expect(page.locator('#scene')).toHaveAttribute('data-ready', 'true')
   await expect(page.locator('#scene-status')).toBeHidden()
-  await expect(page.locator('#star-name')).toHaveText('Sirius A')
+  await expect(page.locator('#star-name')).toHaveText('Sirius')
   await page.evaluate(() => document.fonts.ready)
   await starPoint(page, 'sirius-a')
 }
@@ -195,6 +195,12 @@ export async function openPreferences(page: Page) {
 export async function openFilter(page: Page) {
   const button = page.getByRole('button', { name: 'Filter', exact: true })
   if (await button.getAttribute('aria-expanded') === 'false') await button.click()
+}
+
+// The selected-object card starts collapsed; its header centre can hit component buttons.
+export async function openSpecs(page: Page) {
+  if (!await page.locator('#object-specs').isVisible()) await page.locator('#object-specs-toggle').click()
+  await expect(page.locator('#object-specs')).toBeVisible()
 }
 
 const CATALOG_STOPS = ['nearest-neighbors', 'nearest-100', 'nearest-1000'] as const

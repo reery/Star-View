@@ -20,6 +20,8 @@ from catalog_sources.adapters import eligible_gaia_physical, read_gaia_tap, read
 from catalog_sources.metallicity import metallicity_kind
 from catalog_sources.solar import adopt_solar_reference, solar_provenance
 from catalog_sources.enrichment import enrich_from_frozen, enrichment_sources, manifest_sha256
+from catalog_sources.ultracool_motion import enrich_reviewed_motion
+from catalog_sources.shared_objects import adopt_shared_object
 from catalog_sources.filesystem import atomic_write_text, safe_output_directory, write_managed_files
 from catalog_sources.mdwarf import SUPPLEMENT_FIELDS, enrich_curated_row, format_value, load_supplements
 
@@ -429,12 +431,19 @@ def adopt_object(source, frozen, system_counts, supplements, gaia_records, revie
     supplemented, supplement_audit = enrich_curated_row(row, supplements, gaia_adopted)
     finalize_gaia_note(row, gaia_adopted, supplemented)
     shared_enrichment = enrich_from_frozen(row)
+    reviewed_motion = enrich_reviewed_motion(row)
+    if reviewed_motion:
+        for key in ("radial_velocity_kms", "radial_velocity_error_kms", "radial_velocity_ref"):
+            fields[key] = field_source("measured", reviewed_motion["reference"], json.dumps(reviewed_motion, sort_keys=True))
+        for key in ("vx_kms", "vy_kms", "vz_kms"):
+            fields[key] = field_source("derived", reviewed_motion["reference"], "Retained source astrometry plus reviewed exact-object radial velocity.")
     if row["temperature_k"]:
         row["notes"] = row["notes"].replace("No appropriate object-specific temperature adopted; dwarf sequence not applied.", "")
     for key, observation in shared_enrichment.items():
         fields[key] = field_source(observation["status"], observation["reference"], json.dumps(observation, sort_keys=True))
     for key, observation in supplemented.items():
-        fields[key] = field_source(observation.status, f"{observation.reference}:{observation.source_record_id}", f"{observation.source_id}; uncertainty {observation.uncertainty}; fills a blank field only.")
+        if key not in shared_enrichment:
+            fields[key] = field_source(observation.status, f"{observation.reference}:{observation.source_record_id}", f"{observation.source_id}; uncertainty {observation.uncertainty}; fills a blank field only.")
     provenance = {
         "id": identifier, "sourceRow": source["Seq"], "systemId": source["Sys"], "sourceObjectName": source["ObjName"], "sourceObjectType": source["ObjType"],
         "identifiers": {key: source[key] for key in ("GaiaEDR3", "GaiaDR2", "SIMBAD", "GJ", "HIP")},
@@ -442,6 +451,8 @@ def adopt_object(source, frozen, system_counts, supplements, gaia_records, revie
         "adoptedJ2000": {"frame": "ICRS", "raDeg": float(direction.ra.deg), "decDeg": float(direction.dec.deg), "distancePc": float(direction.distance.to_value(units.pc)), "method": mode},
         "fields": fields, "overrides": ["All existing neighbor values preserved; blank physical fields may be filled by the documented supplements; new source measurements are audit-only."] if legacy else [],
     }
+    if reviewed_motion:
+        provenance["reviewedMotionEnrichment"] = reviewed_motion
     if alpha_centauri_system_motion:
         provenance["overrides"].append("Akeson et al. 2021 Alpha Centauri AB barycentric astrometry and systemic radial velocity replace orbit-contaminated component proper motions for the shared long-horizon motion vector.")
     if supplement_audit:
@@ -468,6 +479,7 @@ def adopt_object(source, frozen, system_counts, supplements, gaia_records, revie
     if source["Seq"] == "1001":
         provenance["identifiers"]["GaiaEDR3"] = "6305165514134625024"
         provenance["overrides"].append("Gaia identifier recovered from explicit source ObjName, not from a numeric conversion or positional guess.")
+    adopt_shared_object(row, provenance)
     return row, provenance
 
 
@@ -632,8 +644,10 @@ def default_catalog(write=False):
             finalize_gaia_note(output, gaia_adopted, adopted)
             assert all(before[key] == output[key] or (key in adopted and (before[key] == "" or key in gaia_adopted)) or (key == "notes" and output[key].startswith(before[key])) for key in OUTPUT_HEADERS)
             enrich_from_frozen(output)
+            enrich_reviewed_motion(output)
             if adopted:
                 supplemented[row["id"]] = sorted(adopted)
+        adopt_shared_object(output)
         enriched.append(output)
     generated = io.StringIO(newline="")
     writer = csv.DictWriter(generated, fieldnames=OUTPUT_HEADERS, lineterminator="\n")

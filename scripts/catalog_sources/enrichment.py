@@ -155,7 +155,11 @@ def select_spectroscopy(observations, column):
 
 @cache
 def reviewed_physical():
-    return json.loads((ROOT / "catalog-work/shared-enrichment/reviewed-physical.json").read_text())["objects"]
+    existing = json.loads((ROOT / "catalog-work/shared-enrichment/reviewed-physical.json").read_text())["objects"]
+    ultracool = json.loads((ROOT / "catalog-work/shared-enrichment/reviewed-ultracool.json").read_text())["objects"]
+    if existing.keys() & ultracool.keys():
+        raise ValueError("Reviewed physical identities must be unique")
+    return existing | ultracool
 
 
 def derive_physical(row):
@@ -194,19 +198,31 @@ def enrich_from_frozen(row, main_id=None, aliases=(), derive=True):
         adopted[field] = {"field": field, "value": float(row[field]), "status": status,
                           "reference": reference, "uncertainty": uncertainty, "identity": key, **detail}
 
-    if row["type"] == "star" and key:
+    if row["type"] in {"star", "brown_dwarf", "sub_brown_dwarf"} and key:
         review = reviewed_physical().get(key)
         if review:
+            if review.get("objectType", row["type"]) != row["type"] or row["id"] not in review.get("starViewIds", [row["id"]]):
+                raise ValueError(f"Reviewed ultracool identity/type drifted: {key}")
             for field, observation in review["fields"].items():
                 if field not in FIELDS:
                     raise ValueError(f"Unknown reviewed physical field: {field}")
+                superseded = None
+                if field == "temperature_k" and observation.get("replaceSpectralTypeEstimate"):
+                    pattern = r"\s*(?:Estimated: Pecaut-Mamajek 2022\.04\.16 .*?mean dwarf class, not a measured temperature\.|Estimated temperature from Pecaut-Mamajek 2022\.04\.16 .*?not an object-specific measurement\.)"
+                    if row.get(field) and re.search(pattern, row["notes"]):
+                        superseded = {"value": float(row[field]), "status": "estimated", "reference": "Pecaut-Mamajek 2022.04.16 dwarf sequence"}
+                        row[field] = ""
+                        row["notes"] = re.sub(pattern, "", row["notes"])
                 adopt(field, observation["value"], observation.get("reference", review["reference"]), observation["status"],
                       observation.get("uncertainty"), component=review["component"], scope=review["scope"],
                       section=observation.get("section"), caveat=observation.get("caveat"),
                       quantity=observation.get("quantity"), sourceUrl=observation.get("url", review["url"]),
                       **{name: observation[name] for name in ("inputs", "sourceRecordId", "method") if name in observation})
+                if superseded is not None:
+                    adopted[field]["superseded"] = superseded
             if adopted:
                 row["notes"] += f" Reviewed physical values describe {review['label']}. {review['scope']} {review['note']}"
+    if row["type"] == "star" and key:
         identifiers = set(normalized_id(alias) for alias in aliases)
         identifiers.update(normalized_id(alias) for alias in source.get("ids", "").split("|"))
         # The bright subset explicitly records exact Hipparcos identifiers.
@@ -263,6 +279,8 @@ def enrich_from_frozen(row, main_id=None, aliases=(), derive=True):
                       sourceRecordId=observation.source_record_id, qualityFlags=list(observation.quality_flags),
                       quantity="[M/H]" if field == "metallicity_dex" else None)
     if adopted:
+        if "age_gyr" in adopted:
+            row["notes"] = row["notes"].replace(" No component-resolved age was adopted from the reviewed sources.", "")
         details = "; ".join(f"{field}: {item['reference']}" for field, item in adopted.items())
         row["notes"] += f" Shared exact-identity physical supplements ({details})."
     adopted.update(estimate_temperature(row))

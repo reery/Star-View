@@ -17,12 +17,14 @@ const CONTENT_TYPES: Record<string, string> = {
 const CONTENT_SECURITY_POLICY = [
   "default-src 'self'",
   "script-src 'self'",
-  "style-src 'self' 'unsafe-inline'",
+  "style-src 'self'",
   "img-src 'self' data:",
   "connect-src 'self'",
   "object-src 'none'",
   "base-uri 'none'",
   "form-action 'none'",
+  "require-trusted-types-for 'script'",
+  "trusted-types 'none'",
 ].join('; ')
 
 // Dev keeps Vite's inline HMR tooling; production pages get a same-origin-only policy.
@@ -81,6 +83,9 @@ function brotliAssets(): Plugin {
         response.setHeader('X-Content-Type-Options', 'nosniff')
         response.setHeader('Referrer-Policy', 'no-referrer')
         response.setHeader('X-Frame-Options', 'DENY')
+        response.setHeader('Content-Security-Policy', "frame-ancestors 'none'")
+        response.setHeader('Cross-Origin-Opener-Policy', 'same-origin')
+        response.setHeader('Permissions-Policy', 'camera=(), microphone=(), geolocation=(), payment=(), usb=()')
         let pathname: string
         try {
           pathname = decodeURIComponent(new URL(request.url, 'http://localhost').pathname)

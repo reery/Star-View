@@ -1,0 +1,978 @@
+{
+  "schemaVersion": 1,
+  "sources": [
+    {
+      "url": "https://www.astro.gsu.edu/wds/orb6/orb6orbits.txt",
+      "frozenInput": "catalog-work/star-systems/orb6-20261009.txt",
+      "sha256": "dbca5302763cbb9d39ec71f016cd46905d8b58e97aeb30a19cf3346043125852",
+      "retrievedOn": "2026-10-09"
+    },
+    {
+      "url": "https://www.ctio.noirlab.edu/~atokovin/stars/newmsc-20260619.tar.gz",
+      "sha256": "4471cfba7c84e9c604083c87e729cad96eb72b0813259ef8097aad136780d535",
+      "frozenInput": "catalog-work/star-systems/catalog-companions-msc.json"
+    }
+  ],
+  "policy": "Exact reviewed WDS/HIP identities only; explicit pair scopes; no positional matches, estimated wide periods or photocenter axes. Angular relative axes converted to AU with the identified catalog parallax. Unknown MSC zeros stay null.",
+  "systemsReviewed": 269,
+  "systemsWithSolutions": 169,
+  "orbitCount": 221,
+  "rejected": [
+    {
+      "systemId": "gj-4",
+      "pair": "A,F",
+      "reason": "Unresolved or overlapping component scope",
+      "reference": "Kiy2001"
+    },
+    {
+      "systemId": "msc-00084+2905",
+      "pair": "Aa,Ab",
+      "reason": "Unresolved or overlapping component scope",
+      "reference": "Doc2014h"
+    },
+    {
+      "systemId": "gj-22",
+      "pair": "B",
+      "reason": "Ambiguous ORB6 pair label"
+    },
+    {
+      "systemId": "gj-22",
+      "pair": "Aa,Ab",
+      "reason": "Unresolved or overlapping component scope",
+      "reference": "MnA2019"
+    },
+    {
+      "systemId": "msc-00567+6043",
+      "pair": "A",
+      "reason": "Ambiguous ORB6 pair label"
+    },
+    {
+      "systemId": "msc-01028+3148",
+      "pair": "",
+      "reason": "Ambiguous ORB6 pair label"
+    },
+    {
+      "systemId": "gj-105",
+      "pair": "Aa,Ab",
+      "reason": "Unresolved or overlapping component scope",
+      "reference": "Hei1994b"
+    },
+    {
+      "systemId": "msc-02449+1007",
+      "pair": "Aa,Ab",
+      "reason": "Unresolved or overlapping component scope",
+      "reference": "SAO2024"
+    },
+    {
+      "systemId": "msc-03082+4057",
+      "pair": "Aa1,Aa2",
+      "reason": "Unresolved or overlapping component scope",
+      "reference": "CIA2012b"
+    },
+    {
+      "systemId": "msc-03121-2859",
+      "pair": "",
+      "reason": "Ambiguous ORB6 pair label"
+    },
+    {
+      "systemId": "msc-04287+1552",
+      "pair": "Aa,Ab",
+      "reason": "Unresolved or overlapping component scope",
+      "reference": "Lmp2011"
+    },
+    {
+      "systemId": "msc-04382-1418",
+      "pair": "",
+      "reason": "Ambiguous ORB6 pair label"
+    },
+    {
+      "systemId": "msc-05320-0018",
+      "pair": "Aa,Ab",
+      "reason": "Unresolved or overlapping component scope",
+      "reference": "Msn2023"
+    },
+    {
+      "systemId": "msc-06024+0939",
+      "pair": "A",
+      "reason": "Ambiguous ORB6 pair label"
+    },
+    {
+      "systemId": "msc-06024+0939",
+      "pair": "B",
+      "reason": "Ambiguous ORB6 pair label"
+    },
+    {
+      "systemId": "msc-06035+1941",
+      "pair": "",
+      "reason": "Ambiguous ORB6 pair label"
+    },
+    {
+      "systemId": "gj-229",
+      "pair": "",
+      "reason": "Ambiguous ORB6 pair label"
+    },
+    {
+      "systemId": "msc-06149+2230",
+      "pair": "",
+      "reason": "Ambiguous ORB6 pair label"
+    },
+    {
+      "systemId": "msc-06290+2013",
+      "pair": "Aa,Ab",
+      "reason": "Unresolved or overlapping component scope",
+      "reference": "Msn2021a"
+    },
+    {
+      "systemId": "msc-07201+2159",
+      "pair": "A",
+      "reason": "Ambiguous ORB6 pair label"
+    },
+    {
+      "systemId": "msc-07201+2159",
+      "pair": "",
+      "reason": "Ambiguous ORB6 pair label"
+    },
+    {
+      "systemId": "msc-07292-4318",
+      "pair": "",
+      "reason": "Ambiguous ORB6 pair label"
+    },
+    {
+      "systemId": "msc-07292-4318",
+      "pair": "",
+      "reason": "Ambiguous ORB6 pair label"
+    },
+    {
+      "systemId": "msc-07346+3153",
+      "pair": "",
+      "reason": "Ambiguous ORB6 pair label"
+    },
+    {
+      "systemId": "spectroscopic-hip-50583",
+      "pair": "Ca,Cb",
+      "reason": "Unresolved or overlapping component scope",
+      "reference": "Reu1943"
+    },
+    {
+      "systemId": "msc-10223+4130",
+      "pair": "",
+      "reason": "Ambiguous ORB6 pair label"
+    },
+    {
+      "systemId": "msc-10373-4814",
+      "pair": "",
+      "reason": "Ambiguous ORB6 pair label"
+    },
+    {
+      "systemId": "msc-10429-6423",
+      "pair": "",
+      "reason": "Ambiguous ORB6 pair label"
+    },
+    {
+      "systemId": "msc-11182+3132",
+      "pair": "A",
+      "reason": "Ambiguous ORB6 pair label"
+    },
+    {
+      "systemId": "msc-11456-6644",
+      "pair": "",
+      "reason": "Ambiguous ORB6 pair label"
+    },
+    {
+      "systemId": "msc-12349+2238",
+      "pair": "",
+      "reason": "Ambiguous ORB6 pair label"
+    },
+    {
+      "systemId": "msc-12490+6607",
+      "pair": "",
+      "reason": "Ambiguous ORB6 pair label"
+    },
+    {
+      "systemId": "msc-13239+5456",
+      "pair": "",
+      "reason": "Ambiguous ORB6 pair label"
+    },
+    {
+      "systemId": "gj-570",
+      "pair": "Ba,Bb",
+      "reason": "Unresolved or overlapping component scope",
+      "reference": "MnA2019"
+    },
+    {
+      "systemId": "msc-16054-1948",
+      "pair": "",
+      "reason": "Ambiguous ORB6 pair label"
+    },
+    {
+      "systemId": "msc-16073-3645",
+      "pair": "A",
+      "reason": "Ambiguous ORB6 pair label"
+    },
+    {
+      "systemId": "gj-666",
+      "pair": "Ba,Bb",
+      "reason": "Unresolved or overlapping component scope",
+      "reference": "Tok2025a"
+    },
+    {
+      "systemId": "msc-17336-3706",
+      "pair": "Aa,Ab",
+      "reason": "Unresolved or overlapping component scope",
+      "reference": "Tng2006"
+    },
+    {
+      "systemId": "msc-18232-6130",
+      "pair": "A",
+      "reason": "Ambiguous ORB6 pair label"
+    },
+    {
+      "systemId": "msc-19307+2758",
+      "pair": "Aa,Ac",
+      "reason": "Unresolved or overlapping component scope",
+      "reference": "Rbr2018"
+    },
+    {
+      "systemId": "msc-20375+1436",
+      "pair": "B",
+      "reason": "Ambiguous ORB6 pair label"
+    },
+    {
+      "systemId": "msc-20375+1436",
+      "pair": "B",
+      "reason": "Ambiguous ORB6 pair label"
+    },
+    {
+      "systemId": "msc-20396+1555",
+      "pair": "Aa,Ab",
+      "reason": "Unresolved or overlapping component scope",
+      "reference": "CIA2021d"
+    },
+    {
+      "systemId": "msc-20396+1555",
+      "pair": "Ab1,Ab2",
+      "reason": "Unresolved or overlapping component scope",
+      "reference": "CIA2021d"
+    },
+    {
+      "systemId": "gj-810",
+      "pair": "Aa,Ab",
+      "reason": "Unresolved or overlapping component scope",
+      "reference": "TSN2022a"
+    },
+    {
+      "systemId": "msc-21069+3845",
+      "pair": "A",
+      "reason": "Ambiguous ORB6 pair label"
+    },
+    {
+      "systemId": "msc-21287+7034",
+      "pair": "Aa,Ab",
+      "reason": "Unresolved or overlapping component scope",
+      "reference": "NOI2021"
+    },
+    {
+      "systemId": "gj-835",
+      "pair": "Aa,Ab",
+      "reason": "Unresolved or overlapping component scope",
+      "reference": "Sod1999"
+    },
+    {
+      "systemId": "msc-21446+2539",
+      "pair": "B",
+      "reason": "Ambiguous ORB6 pair label"
+    },
+    {
+      "systemId": "kruger-60",
+      "pair": "C,E",
+      "reason": "Unresolved or overlapping component scope",
+      "reference": "Izm2019"
+    },
+    {
+      "systemId": "spectroscopic-hip-112158",
+      "pair": "Aa,Ab",
+      "reason": "Unresolved or overlapping component scope",
+      "reference": "MkT1998"
+    },
+    {
+      "systemId": "gj-896",
+      "pair": "Ab",
+      "reason": "Ambiguous ORB6 pair label"
+    },
+    {
+      "systemId": "gamma-cephei",
+      "pair": "Aa,Ab",
+      "reason": "Unresolved or overlapping component scope",
+      "reference": "Nhr2007"
+    },
+    {
+      "systemId": "gj-4",
+      "pair": "AB,F",
+      "reason": "Unresolved or overlapping component scope",
+      "reference": "VB6_Kiy2001 STT_547AF Gr.5"
+    },
+    {
+      "systemId": "msc-00567+6043",
+      "pair": "Aa,Ab",
+      "reason": "Unresolved or overlapping component scope",
+      "reference": "2000A&A...364L..85H"
+    },
+    {
+      "systemId": "msc-00567+6043",
+      "pair": "Aab,Ac",
+      "reason": "Unresolved or overlapping component scope",
+      "reference": "VB6_Gon2000 BU_1028A Gr.7"
+    },
+    {
+      "systemId": "msc-02321-1515",
+      "pair": "AA,Ab",
+      "reason": "Unresolved or overlapping component scope",
+      "reference": "2025AJ....169..124T combined"
+    },
+    {
+      "systemId": "msc-03579+4001",
+      "pair": "Aab,Ac",
+      "reason": "Unresolved or overlapping component scope",
+      "reference": "2006A&A...446..583L Libich+"
+    },
+    {
+      "systemId": "msc-03579+4001",
+      "pair": "Aa,Ab?",
+      "reason": "Unresolved or overlapping component scope",
+      "reference": "SB9_2402 1992ApJ...393..666M"
+    },
+    {
+      "systemId": "msc-04007+1229",
+      "pair": "Aab,Ac",
+      "reason": "Unresolved or overlapping component scope",
+      "reference": "SB9_212 1982ApJ...263..289F"
+    },
+    {
+      "systemId": "msc-04287+1552",
+      "pair": "Aa,Ab",
+      "reason": "Unresolved or overlapping component scope",
+      "reference": "VB6_Lmp2011  MKT_13Aa, Gr.1"
+    },
+    {
+      "systemId": "msc-04422+2257",
+      "pair": "Aab,Ac",
+      "reason": "Unresolved or overlapping component scope",
+      "reference": "Tok2026 Gr.2"
+    },
+    {
+      "systemId": "msc-04512+0536",
+      "pair": "",
+      "reason": "MSC does not identify both components"
+    },
+    {
+      "systemId": "msc-05320-0018",
+      "pair": "Aa,Ab",
+      "reason": "Unresolved or overlapping component scope",
+      "reference": "VB6_Msn2023  HEI_42Aa, Gr.3"
+    },
+    {
+      "systemId": "msc-05353-0524",
+      "pair": "Aa,Ab",
+      "reason": "Unresolved or overlapping component scope",
+      "reference": "SB9_340 2000Obs...120..141S"
+    },
+    {
+      "systemId": "msc-06290+2013",
+      "pair": "Aa,Ab",
+      "reason": "Unresolved or overlapping component scope",
+      "reference": "VB6_Cve2008d BTZ_1Aa, Gr.3"
+    },
+    {
+      "systemId": "msc-06290+2013",
+      "pair": "Aa,Ab",
+      "reason": "Unresolved or overlapping component scope",
+      "reference": "2021AJ....161...40G CHARA"
+    },
+    {
+      "systemId": "msc-06290+2013",
+      "pair": "Aa,Ab",
+      "reason": "Unresolved or overlapping component scope",
+      "reference": "Circ.204 Mason"
+    },
+    {
+      "systemId": "msc-07346+3153",
+      "pair": "Ca,Cb",
+      "reason": "Unresolved or overlapping component scope",
+      "reference": "SB_463"
+    },
+    {
+      "systemId": "msc-07346+3153",
+      "pair": "Cab,Cc",
+      "reason": "Unresolved or overlapping component scope",
+      "reference": "2018A&A...620A..72W A=0.0034d"
+    },
+    {
+      "systemId": "msc-07346+3153",
+      "pair": "A.B",
+      "reason": "MSC does not identify both components"
+    },
+    {
+      "systemId": "msc-08095-4720",
+      "pair": "Aa,Ab",
+      "reason": "Unresolved or overlapping component scope",
+      "reference": "SB9_500 1990Obs...110....1S"
+    },
+    {
+      "systemId": "msc-08592+4803",
+      "pair": "Aa,Ab",
+      "reason": "Unresolved or overlapping component scope",
+      "reference": "SB9_543 1965ApJS...11..429A"
+    },
+    {
+      "systemId": "msc-10429-6423",
+      "pair": "Aa,Ab",
+      "reason": "Unresolved or overlapping component scope",
+      "reference": "VB6_HIP1997d the_Car Gr.9"
+    },
+    {
+      "systemId": "gj-428",
+      "pair": "Aa,Ab",
+      "reason": "Unresolved or overlapping component scope",
+      "reference": "2025AJ....170..143T"
+    },
+    {
+      "systemId": "msc-12225+2551",
+      "pair": "AA,Ab",
+      "reason": "Unresolved or overlapping component scope",
+      "reference": "SB9_719 2007A&A...473..829M"
+    },
+    {
+      "systemId": "msc-12266-6306",
+      "pair": "Ca,Cb",
+      "reason": "Unresolved or overlapping component scope",
+      "reference": "1979RMxAA...4..297H Hernandez"
+    },
+    {
+      "systemId": "msc-12266-6306",
+      "pair": "A,B",
+      "reason": "Not a valid bound orbit solution",
+      "reference": "VB6"
+    },
+    {
+      "systemId": "gj-507",
+      "pair": "Aa,Ab",
+      "reason": "Unresolved or overlapping component scope",
+      "reference": "1997A&AS..121...71T"
+    },
+    {
+      "systemId": "msc-13239+5456",
+      "pair": "?",
+      "reason": "MSC does not identify both components"
+    },
+    {
+      "systemId": "msc-13252-1110",
+      "pair": "Aa1,Aa2",
+      "reason": "Unresolved or overlapping component scope",
+      "reference": "SB9_766 1972MNRAS.156..165S"
+    },
+    {
+      "systemId": "gj-570",
+      "pair": "Ba,Bb",
+      "reason": "Unresolved or overlapping component scope",
+      "reference": "VB6_Frv1999 H_N28Ba, Gr.3"
+    },
+    {
+      "systemId": "gj-570",
+      "pair": "Ba,Bb",
+      "reason": "Unresolved or overlapping component scope",
+      "reference": "SB9_1475 2000A&AS..145..215P"
+    },
+    {
+      "systemId": "gj-570",
+      "pair": "Ba,Bb",
+      "reason": "Unresolved or overlapping component scope",
+      "reference": "2024A&A...684A..74M"
+    },
+    {
+      "systemId": "msc-16073-3645",
+      "pair": "Aa,Ab",
+      "reason": "Unresolved or overlapping component scope",
+      "reference": "VB6_Gln2007  HJ_4831A Gr.9"
+    },
+    {
+      "systemId": "gj-666",
+      "pair": "Ba,Bb",
+      "reason": "Unresolved or overlapping component scope",
+      "reference": "2025AJ....169..124T Gr.3"
+    },
+    {
+      "systemId": "msc-17336-3706",
+      "pair": "Aa,Ab",
+      "reason": "Unresolved or overlapping component scope",
+      "reference": "VB6_Tng2006 TNG_1Aa, Gr.2"
+    },
+    {
+      "systemId": "msc-18448+3736",
+      "pair": "Aa,Ab",
+      "reason": "Unresolved or overlapping component scope",
+      "reference": "SB9_1079 1985ApJS...59..229A"
+    },
+    {
+      "systemId": "msc-19307+2758",
+      "pair": "Aa1,Aa2",
+      "reason": "Unresolved or overlapping component scope",
+      "reference": "2022A&A...661A..49J ??"
+    },
+    {
+      "systemId": "msc-20210-1447",
+      "pair": "Ab1,Ab2",
+      "reason": "Unresolved or overlapping component scope",
+      "reference": "SB9_1224 1979ApJ...228..497E"
+    },
+    {
+      "systemId": "msc-20375+1436",
+      "pair": "Ba,Bb",
+      "reason": "Unresolved or overlapping component scope",
+      "reference": "VB6_Mut2010e BU_151B Gr.9"
+    },
+    {
+      "systemId": "msc-20375+1436",
+      "pair": "Ba,Bb",
+      "reason": "Unresolved or overlapping component scope",
+      "reference": "VB6_Mut2010e BU_151B Gr.9"
+    },
+    {
+      "systemId": "msc-21287+7034",
+      "pair": "Aa,Ab",
+      "reason": "Unresolved or overlapping component scope",
+      "reference": "VB6_Ana2006 LAB_6Aa, Gr.3"
+    },
+    {
+      "systemId": "gj-835",
+      "pair": "Aa,Ab",
+      "reason": "Unresolved or overlapping component scope",
+      "reference": "VB6_Sod1999 HDS3080Aa, Gr.9"
+    },
+    {
+      "systemId": "gj-867",
+      "pair": "Aa,Ab",
+      "reason": "Unresolved or overlapping component scope",
+      "reference": "SB9_1389 1965ApJ...141..649H"
+    },
+    {
+      "systemId": "gj-867",
+      "pair": "Ba,Bb",
+      "reason": "Unresolved or overlapping component scope",
+      "reference": "2014AJ....147...26D"
+    },
+    {
+      "systemId": "gamma-cephei",
+      "pair": "Aa,Ab",
+      "reason": "Unresolved or overlapping component scope",
+      "reference": "2003ApJ...599.1383H planet"
+    },
+    {
+      "systemId": "gamma-cephei",
+      "pair": "Aa,Ab",
+      "reason": "Unresolved or overlapping component scope",
+      "reference": "VB6_Nhr2007 gam_CepAa, Gr.7"
+    }
+  ],
+  "unavailable": [
+    {
+      "systemId": "gj-412",
+      "name": "GJ 412"
+    },
+    {
+      "systemId": "fomalhaut",
+      "name": "Fomalhaut"
+    },
+    {
+      "systemId": "gj-752",
+      "name": "GJ 752"
+    },
+    {
+      "systemId": "gj-216",
+      "name": "Gamma Lep"
+    },
+    {
+      "systemId": "gj-283",
+      "name": "GJ 283"
+    },
+    {
+      "systemId": "gj-12050",
+      "name": "GJ 12050"
+    },
+    {
+      "systemId": "gj-442",
+      "name": "HD 102365"
+    },
+    {
+      "systemId": "gj-432",
+      "name": "20 Crt"
+    },
+    {
+      "systemId": "gj-680",
+      "name": "CD-48 11837"
+    },
+    {
+      "systemId": "gj-49",
+      "name": "GJ 49"
+    },
+    {
+      "systemId": "gj-231",
+      "name": "Alpha Men"
+    },
+    {
+      "systemId": "gj-653",
+      "name": "HD 154363"
+    },
+    {
+      "systemId": "gj-754-1",
+      "name": "GJ 754.1"
+    },
+    {
+      "systemId": "gj-669",
+      "name": "GJ 669"
+    },
+    {
+      "systemId": "gj-617",
+      "name": "HD 147379"
+    },
+    {
+      "systemId": "gj-9492",
+      "name": "G 239-25"
+    },
+    {
+      "systemId": "gj-2036",
+      "name": "CD-56 1032"
+    },
+    {
+      "systemId": "gj-27",
+      "name": "54 Psc"
+    },
+    {
+      "systemId": "gj-12887",
+      "name": "PM J19515-3510"
+    },
+    {
+      "systemId": "gj-4048",
+      "name": "GJ 4048"
+    },
+    {
+      "systemId": "gj-208",
+      "name": "GJ 208"
+    },
+    {
+      "systemId": "gj-3417",
+      "name": "G 250-31"
+    },
+    {
+      "systemId": "gj-189",
+      "name": "Zeta Dor"
+    },
+    {
+      "systemId": "gj-572",
+      "name": "BD+45 2247"
+    },
+    {
+      "systemId": "gj-4288",
+      "name": "GJ 4288"
+    },
+    {
+      "systemId": "gj-360",
+      "name": "GJ 360"
+    },
+    {
+      "systemId": "gj-1179",
+      "name": "GJ 1179"
+    },
+    {
+      "systemId": "gj-414",
+      "name": "HD 97101"
+    },
+    {
+      "systemId": "gj-13264",
+      "name": "PM J22403-4931"
+    },
+    {
+      "systemId": "gj-11774",
+      "name": "GJ 11774"
+    },
+    {
+      "systemId": "gj-211",
+      "name": "GJ 211"
+    },
+    {
+      "systemId": "gj-737",
+      "name": "HD 175224"
+    },
+    {
+      "systemId": "gj-1263",
+      "name": "Wolf 940"
+    },
+    {
+      "systemId": "gj-324",
+      "name": "Copernicus"
+    },
+    {
+      "systemId": "gj-3708",
+      "name": "GJ 3708"
+    },
+    {
+      "systemId": "gj-774",
+      "name": "GJ 774"
+    },
+    {
+      "systemId": "gj-11217",
+      "name": "GJ 11217"
+    },
+    {
+      "systemId": "gj-620-1",
+      "name": "GJ 620.1"
+    },
+    {
+      "systemId": "gj-395",
+      "name": "36 UMa"
+    },
+    {
+      "systemId": "gj-3304",
+      "name": "G 39-29"
+    },
+    {
+      "systemId": "gj-512",
+      "name": "Ross 486"
+    },
+    {
+      "systemId": "gj-3148",
+      "name": "GJ 3148"
+    },
+    {
+      "systemId": "gj-3371",
+      "name": "GJ 3371"
+    },
+    {
+      "systemId": "gj-61",
+      "name": "Titawin"
+    },
+    {
+      "systemId": "gj-771",
+      "name": "Alshain"
+    },
+    {
+      "systemId": "gj-3997",
+      "name": "BD+19 3268"
+    },
+    {
+      "systemId": "gj-184",
+      "name": "BD+52 911"
+    },
+    {
+      "systemId": "zeta-reticuli",
+      "name": "Zeta Reticuli"
+    },
+    {
+      "systemId": "wt-766",
+      "name": "WT 766"
+    },
+    {
+      "systemId": "gj-867",
+      "name": "GJ 867"
+    },
+    {
+      "systemId": "gj-810",
+      "name": "GJ 810"
+    },
+    {
+      "systemId": "gj-507",
+      "name": "GJ 507"
+    },
+    {
+      "systemId": "gj-1001",
+      "name": "GJ 1001"
+    },
+    {
+      "systemId": "gj-835",
+      "name": "GJ 835"
+    },
+    {
+      "systemId": "gj-783",
+      "name": "GJ 783"
+    },
+    {
+      "systemId": "hd-104304",
+      "name": "HD 104304"
+    },
+    {
+      "systemId": "msc-00567+6043",
+      "name": "Gamma Cassiopeiae"
+    },
+    {
+      "systemId": "msc-03486-3737",
+      "name": "f Eri"
+    },
+    {
+      "systemId": "msc-04406-4152",
+      "name": "Alpha Cae"
+    },
+    {
+      "systemId": "msc-04512+0536",
+      "name": "Pi4 Ori"
+    },
+    {
+      "systemId": "msc-05123-1152",
+      "name": "Iota Lep"
+    },
+    {
+      "systemId": "msc-05353-0524",
+      "name": "Theta1 Orionis"
+    },
+    {
+      "systemId": "msc-06238+0436",
+      "name": "Epsilon Mon"
+    },
+    {
+      "systemId": "msc-07038-1538",
+      "name": "Muliphein"
+    },
+    {
+      "systemId": "msc-07087-7030",
+      "name": "Gamma2 Vol"
+    },
+    {
+      "systemId": "msc-07111+3015",
+      "name": "Tau Gem"
+    },
+    {
+      "systemId": "msc-07444+2424",
+      "name": "Kappa Gem"
+    },
+    {
+      "systemId": "msc-08585+1151",
+      "name": "Acubens"
+    },
+    {
+      "systemId": "msc-12084-5043",
+      "name": "Delta Centauri"
+    },
+    {
+      "systemId": "msc-12372-6908",
+      "name": "Alpha Muscae"
+    },
+    {
+      "systemId": "msc-12560+3819",
+      "name": "Cor Caroli"
+    },
+    {
+      "systemId": "msc-13252-1110",
+      "name": "Spica"
+    },
+    {
+      "systemId": "msc-13496-4228",
+      "name": "Mu Cen"
+    },
+    {
+      "systemId": "msc-14431-0540",
+      "name": "Mu Vir"
+    },
+    {
+      "systemId": "msc-14450+2704",
+      "name": "Izar"
+    },
+    {
+      "systemId": "msc-14585-4308",
+      "name": "Beta Lupi"
+    },
+    {
+      "systemId": "msc-16001-3824",
+      "name": "Eta Lup"
+    },
+    {
+      "systemId": "msc-16073-3645",
+      "name": "HD 144415"
+    },
+    {
+      "systemId": "msc-16240+6131",
+      "name": "Athebyne"
+    },
+    {
+      "systemId": "msc-17150+2450",
+      "name": "Sarin"
+    },
+    {
+      "systemId": "msc-17237+3709",
+      "name": "Rho Her"
+    },
+    {
+      "systemId": "msc-17373-4300",
+      "name": "Sargas"
+    },
+    {
+      "systemId": "msc-18448+3736",
+      "name": "Zeta1 Lyr"
+    },
+    {
+      "systemId": "msc-18553-2618",
+      "name": "Nunki"
+    },
+    {
+      "systemId": "msc-19563+3505",
+      "name": "Eta Cyg"
+    },
+    {
+      "systemId": "msc-19588+1930",
+      "name": "Gamma Sge"
+    },
+    {
+      "systemId": "msc-21129+3014",
+      "name": "Zeta Cyg"
+    },
+    {
+      "systemId": "msc-22407-2703",
+      "name": "Epsilon PsA"
+    },
+    {
+      "systemId": "msc-22467+1210",
+      "name": "Xi Peg"
+    },
+    {
+      "systemId": "msc-23174-5814",
+      "name": "Gamma Tuc"
+    },
+    {
+      "systemId": "spectroscopic-bright-avior",
+      "name": "Avior"
+    },
+    {
+      "systemId": "spectroscopic-hip-45336",
+      "name": "Theta Hya"
+    },
+    {
+      "systemId": "spectroscopic-hip-8832",
+      "name": "Mesarthim"
+    },
+    {
+      "systemId": "spectroscopic-hip-112158",
+      "name": "Matar"
+    },
+    {
+      "systemId": "spectroscopic-hip-61199",
+      "name": "Gamma Mus"
+    },
+    {
+      "systemId": "spectroscopic-hip-30867",
+      "name": "Beta Mon"
+    },
+    {
+      "systemId": "spectroscopic-hip-108661",
+      "name": "Eta PsA"
+    },
+    {
+      "systemId": "spectroscopic-hip-97804",
+      "name": "Eta Aql"
+    },
+    {
+      "systemId": "spectroscopic-hip-26207",
+      "name": "Heka"
+    },
+    {
+      "systemId": "spectroscopic-hip-111022",
+      "name": "5 Lac"
+    }
+  ]
+}

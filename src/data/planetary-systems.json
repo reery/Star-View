@@ -1,0 +1,24 @@
+{
+  "systems": [
+    {
+      "hostStarId": "sun",
+      "name": "Solar System",
+      "source": {
+        "label": "JPL orbital elements",
+        "url": "https://ssd.jpl.nasa.gov/planets/approx_pos.html",
+        "epoch": "J2000.0",
+        "note": "Heliocentric orbital semi-major axes from Table 1. Earth's value refers to the Earth-Moon barycenter, equivalent at the displayed precision. These are orbital sizes, not instantaneous distances."
+      },
+      "planets": [
+        { "id": "mercury", "name": "Mercury", "semiMajorAxisAu": 0.38709927, "color": "#aaa19b" },
+        { "id": "venus", "name": "Venus", "semiMajorAxisAu": 0.72333566, "color": "#f3efdc" },
+        { "id": "earth", "name": "Earth", "semiMajorAxisAu": 1.00000261, "color": "#769eca" },
+        { "id": "mars", "name": "Mars", "semiMajorAxisAu": 1.52371034, "color": "#bd7253" },
+        { "id": "jupiter", "name": "Jupiter", "semiMajorAxisAu": 5.202887, "color": "#c7aa85" },
+        { "id": "saturn", "name": "Saturn", "semiMajorAxisAu": 9.53667594, "color": "#ddc28b" },
+        { "id": "uranus", "name": "Uranus", "semiMajorAxisAu": 19.18916464, "color": "#a4ced6" },
+        { "id": "neptune", "name": "Neptune", "semiMajorAxisAu": 30.06992276, "color": "#688fc8" }
+      ]
+    }
+  ]
+}

@@ -1,7 +1,7 @@
 {
   "name": "star-view",
   "private": true,
-  "version": "0.3.0",
+  "version": "0.4.0",
   "type": "module",
   "scripts": {
     "dev": "npm run catalog:generate && vite",
@@ -11,6 +11,7 @@
     "build": "npm run catalog:validate && npm run catalog:generate && tsc && vite build",
     "catalog:validate": "node scripts/catalogs.ts validate",
     "catalog:generate": "node scripts/catalogs.ts generate",
+    "catalog:companions": "python3 scripts/author-stellar-companions.py --write",
     "catalog:build": "node scripts/catalogs.ts build",
     "preview": "vite preview"
   },

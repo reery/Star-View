@@ -1,0 +1,51 @@
+{
+  "checksumsSha256": {
+    "filippazzo.ReadMe": "779bd002f1d901a9bca986c6f2d0c8693b388465e7e35bdfe11771200007cb48",
+    "sanghi-README.txt": "e93a704c3226a80b100138e5263252aaee4d9c99ae5322d78a925c5ebca613e4",
+    "table1.dat": "64ace233a3f261886a67a9d64036207f905610ec321758b746481dd7db667917",
+    "table9.dat": "34465107428bed023404b6f5de1e7f5031dd24c037eddccc060ac0378b30e917",
+    "targets.json": "8c09a732f39b82da03dbb172e8a89273ec4fa3858a79a7bfecb62ffadaa4964f",
+    "ucs-ages.csv": "42eaaee8c7c3779372bfe913f339d5278f8b72011505608064ed08a72345053e",
+    "ucs-fundamental.csv": "0c587b36ec11e0f52bb1e03e0eba01b77ffa37c741c3d70826be32b09068828b",
+    "ucs-main.csv": "409446068cc0a85042f1f5395d3434bfc76e59ae664ce57d7ca9d19a90a87244",
+    "ucs-references.csv": "a307a9690fef48f1641cd35a5837531aa37e7b336f87697ea235e270fa06d8cd"
+  },
+  "dataset": "UltracoolSheet v2.1.0, frozen Zenodo record 15802304 (2025-07-03); Sanghi et al. 2023 values; Filippazzo et al. 2015 fallback",
+  "files": {
+    "filippazzo.ReadMe": {
+      "url": "https://cdsarc.cds.unistra.fr/ftp/J/ApJ/810/158/filippazzo.ReadMe"
+    },
+    "sanghi-README.txt": {
+      "url": "https://zenodo.org/records/10086810"
+    },
+    "table1.dat": {
+      "url": "https://cdsarc.cds.unistra.fr/ftp/J/ApJ/810/158/table1.dat"
+    },
+    "table9.dat": {
+      "url": "https://cdsarc.cds.unistra.fr/ftp/J/ApJ/810/158/table9.dat"
+    },
+    "ucs-ages.csv": {
+      "originalSha256": "42eaaee8c7c3779372bfe913f339d5278f8b72011505608064ed08a72345053e",
+      "url": "https://zenodo.org/records/15802304"
+    },
+    "ucs-fundamental.csv": {
+      "frozenSubsetRows": 68,
+      "originalRows": 1054,
+      "originalSha256": "06c0e0940d114395d6c36ac8969c658c2a1a2695862ba5619ee3870d457bfed8",
+      "selection": "Rows with an exact identifier or alias among the 90 frozen 2MASS-named nearest-1000 objects; no positional matching.",
+      "url": "https://zenodo.org/records/15802304"
+    },
+    "ucs-main.csv": {
+      "frozenSubsetRows": 89,
+      "originalRows": 3890,
+      "originalSha256": "2307303072ebf729be6e7af6ec67c0a9feed6c2ab6f0adb35444bfab5724a184",
+      "selection": "Rows with an exact identifier or alias among the 90 frozen 2MASS-named nearest-1000 objects; no positional matching.",
+      "url": "https://zenodo.org/records/15802304"
+    },
+    "ucs-references.csv": {
+      "originalSha256": "a307a9690fef48f1641cd35a5837531aa37e7b336f87697ea235e270fa06d8cd",
+      "url": "https://zenodo.org/records/15802304"
+    }
+  },
+  "retrieved": "2026-10-09"
+}

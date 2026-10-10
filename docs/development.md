@@ -8,6 +8,20 @@ The production output is in `dist`. Builds validate every project catalog, gener
 
 Vite also emits Brotli sidecars for compressible production assets. The local preview server negotiates those files and gives hashed `/assets/` responses a one-year immutable cache policy while keeping HTML revalidated. Production hosting must provide the equivalent `Content-Encoding: br`, `Vary: Accept-Encoding`, `Content-Type`, and `Cache-Control` behavior; copying `.br` files alone is not sufficient.
 
+Production builds embed a strict Content Security Policy meta tag: same-origin scripts, styles, images, data and fonts only, no inline styles or scripts, no plugins, no base URL or form targets, and Trusted Types enforcement. Dynamic styles are applied through the CSSOM, never through `style` attributes. Mass, planet and exoplanet modules load on first use. A meta tag cannot set every protection, so production hosting must also send these response headers:
+
+| Header | Value |
+|---|---|
+| `Content-Security-Policy` | `frame-ancestors 'none'` (the meta policy covers the rest) |
+| `X-Frame-Options` | `DENY` |
+| `X-Content-Type-Options` | `nosniff` |
+| `Referrer-Policy` | `no-referrer` |
+| `Strict-Transport-Security` | `max-age=31536000; includeSubDomains` (HTTPS only) |
+| `Cross-Origin-Opener-Policy` | `same-origin` |
+| `Permissions-Policy` | `camera=(), microphone=(), geolocation=(), payment=(), usb=()` |
+
+`vite preview` sends all of these except `Strict-Transport-Security` for local testing.
+
 ## Rendering Efficiency
 
 The static star map renders on demand. Camera input, selection, display settings, resizing, pixel-density changes and font loading request a frame; requests within a frame are combined. Smooth focus and orbit damping keep rendering only until motion settles. An idle view performs no recurring WebGL draws or label updates, and hidden tabs suspend rendering until visible again. MSAA remains enabled.

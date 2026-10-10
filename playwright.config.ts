@@ -13,6 +13,8 @@ export default defineConfig({
     reducedMotion: 'reduce',
     trace: 'retain-on-failure',
     screenshot: 'only-on-failure',
+    // Screenshot `style` masks inject inline CSS, which the production CSP forbids; security.spec.ts re-enables it.
+    bypassCSP: true,
   },
   projects: [
     { name: 'desktop', use: { browserName: 'chromium', viewport: { width: 1440, height: 900 } } },

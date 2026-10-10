@@ -29,6 +29,7 @@ export function safeOutputDirectory(path: string): string {
 export function writeManagedFiles(outputPath: string, files: Readonly<Record<string, string>>, force: boolean): void {
   const output = safeOutputDirectory(outputPath)
   for (const name of Object.keys(files)) {
+    if (!name || name === '.' || name === '..' || /[\\/\0]/.test(name)) throw new Error(`Managed output must be a plain file name: ${name}`)
     const target = join(output, name)
     if (lstatSync(target, { throwIfNoEntry: false })?.isSymbolicLink()) throw new Error(`Managed output must not be a symbolic link: ${name}`)
     if (existsSync(target) && !force) throw new Error('Output already exists; choose a new directory or explicitly pass --force.')

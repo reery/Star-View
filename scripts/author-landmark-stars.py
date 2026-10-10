@@ -9,6 +9,7 @@ import re
 from functools import cache
 from pathlib import Path
 from catalog_sources.enrichment import enrich_from_frozen, enrichment_sources, manifest_sha256
+from catalog_sources.shared_objects import adopt_shared_objects
 from catalog_sources.overlay_companions import expand_overlay
 from catalog_sources.solar import adopt_solar_reference, solar_provenance
 
@@ -585,6 +586,7 @@ def western_catalog():
     if len({row["id"] for row in rows}) != 691:
         raise ValueError("Western figure output IDs are not unique")
     rows, expansion, companion_sources = expand_overlay("western-constellation-stars", rows, provenance)
+    adopt_shared_objects(rows, provenance)
     rows.sort(key=lambda row: math.hypot(float(row["x_pc"]), float(row["y_pc"]), float(row["z_pc"])))
     manifest = {
         "schemaVersion": 1,
@@ -663,6 +665,7 @@ def cluster_catalog():
         }
     if len({row["id"] for row in rows}) != 42:
         raise ValueError("Famous-cluster output IDs are not unique")
+    adopt_shared_objects(rows, provenance)
     manifest = {
         "schemaVersion": 1,
         "id": "famous-cluster-stars",

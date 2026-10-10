@@ -1,7 +1,53 @@
 {
   "schemaVersion": 1,
-  "reviewed": "2026-10-06",
+  "reviewed": "2026-10-07",
   "objects": {
+    "* alf Ori": {
+      "label": "Betelgeuse (Alpha Orionis)",
+      "component": "red supergiant primary",
+      "scope": "Present-day Betelgeuse A, HIP 27989 / HD 39801; not initial mass, companion mass or binary-total mass.",
+      "reference": "2020ApJ...902...63J",
+      "url": "https://arxiv.org/abs/2006.09837",
+      "note": "Joyce et al. 2020 seismic/evolutionary present-day mass range 16.5-19 solar masses and age range 8-10.5 Myr, adopted again by Montarg\u00e8s et al. 2026 (sections 4.1 and 4.3, https://www.eso.org/public/archives/releases/sciencepapers/eso2611/eso2611a.pdf). Scalar values are representative range midpoints, not published best fits; uncertainties encode range bounds, not statistical errors. Neuh\u00e4user et al. 2022 instead infer a 14-solar-mass initial MIST track and roughly 14 Myr age. Existing catalog distance and other physical values retain their independent sources.",
+      "fields": {
+        "mass_solar": {
+          "value": 17.75,
+          "uncertainty": {
+            "lower": 1.25,
+            "upper": 1.25
+          },
+          "status": "model-derived",
+          "section": "Table 2 and seismic analysis; also Montarg\u00e8s 2026 section 4.1",
+          "quantity": "present-day stellar mass",
+          "method": "Representative midpoint of the published model range",
+          "inputs": {
+            "mass_lower_solar": 16.5,
+            "mass_upper_solar": 19
+          },
+          "caveat": "Range-based representative, not a dynamical measurement or posterior best fit. Bounds are the adopted model range, not a 1-sigma confidence interval."
+        },
+        "age_gyr": {
+          "value": 0.00925,
+          "uncertainty": {
+            "lower": 0.00125,
+            "upper": 0.00125
+          },
+          "status": "model-derived",
+          "reference": "2026A&A...711L..12M",
+          "url": "https://www.eso.org/public/archives/releases/sciencepapers/eso2611/eso2611a.pdf",
+          "section": "4.3, age since arrival on the main sequence, adopting Joyce et al. 2020",
+          "quantity": "stellar age since zero-age main sequence",
+          "method": "Representative midpoint of the adopted model age range",
+          "inputs": {
+            "age_lower_myr": 8,
+            "age_upper_myr": 10.5,
+            "initial_mass_lower_solar": 18,
+            "initial_mass_upper_solar": 21
+          },
+          "caveat": "2026 adoption of earlier evolutionary models, not a new independent age measurement. Bounds are a model range, not a 1-sigma confidence interval."
+        }
+      }
+    },
     "* mu. Cas": {
       "label": "Mu Cas A",
       "component": "A",

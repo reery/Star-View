@@ -1,9 +1,9 @@
 import { expect, test } from '@playwright/test'
-import { openViewer } from './support'
+import { openSpecs, openViewer } from './support'
 
 test('opens from the whole type row and closes with X, Escape, scene clicks, and camera gestures', async ({ page }, testInfo) => {
   await openViewer(page)
-  await page.locator('#object-card-details > summary').click()
+  await openSpecs(page)
   const row = page.locator('.object-type-row')
   const toggle = page.locator('#object-type-toggle')
   const card = page.locator('#object-type-card')
@@ -13,10 +13,10 @@ test('opens from the whole type row and closes with X, Escape, scene clicks, and
   await row.locator('dt').click()
   await expect(card).toBeVisible()
   await expect(toggle).toHaveAttribute('aria-expanded', 'true')
-  await expect(page.locator('#object-type-heading')).toHaveText('White star')
-  await expect(page.locator('#object-type-description')).toContainText('Sirius A')
+  await expect(page.locator('#object-type-heading')).toHaveText('Star')
+  await expect(page.locator('#object-type-description')).toContainText('nuclear fusion')
   await expect.poll(() => page.locator('#object-type-image').evaluate((image) => (image as HTMLImageElement).naturalWidth)).toBeGreaterThan(0)
-  await expect(page.locator('#object-type-source')).toHaveAttribute('href', 'https://en.wikipedia.org/wiki/Stellar_classification')
+  await expect(page.locator('#object-type-source')).toHaveAttribute('href', 'https://en.wikipedia.org/wiki/Star')
   const selectedBounds = await page.locator('#selected-object-card').boundingBox()
   const cardBounds = await card.boundingBox()
   expect(cardBounds!.x).toBeGreaterThan(selectedBounds!.x + selectedBounds!.width)
@@ -35,7 +35,7 @@ test('opens from the whole type row and closes with X, Escape, scene clicks, and
   await page.mouse.move(1000, 450)
   await page.mouse.wheel(0, 100)
   await expect(card).toBeHidden()
-  await expect(page.locator('#star-name')).toHaveText('Sirius A')
+  await expect(page.locator('#star-name')).toHaveText('Sirius')
 
   await toggle.click()
   await page.mouse.move(1000, 450)
@@ -43,7 +43,7 @@ test('opens from the whole type row and closes with X, Escape, scene clicks, and
   await page.mouse.move(1040, 470, { steps: 4 })
   await page.mouse.up()
   await expect(card).toBeHidden()
-  await expect(page.locator('#star-name')).toHaveText('Sirius A')
+  await expect(page.locator('#star-name')).toHaveText('Sirius')
 
   await toggle.click()
   await page.locator('#scene canvas').click({ position: { x: 1000, y: 100 } })
@@ -53,14 +53,17 @@ test('opens from the whole type row and closes with X, Escape, scene clicks, and
 test('shows a planetary nebula introduction and its own image', async ({ page }, testInfo) => {
   await openViewer(page)
   await page.getByRole('button', { name: 'Filter', exact: true }).click()
+  await page.getByRole('switch', { name: 'Stellar remnants', exact: true }).check()
   await page.locator('details.filter-dropdown > summary').click()
-  await page.getByLabel('Planetary nebulae', { exact: true }).check()
+  await expect(page.getByLabel('Planetary nebulae', { exact: true })).toBeChecked()
   await page.getByLabel('Object visibility distance', { exact: true }).fill('22')
+  // Enabling an overlay reloads the catalog, which resets the object search.
+  await expect(page.locator('#scene-status')).toBeHidden()
   await page.getByRole('button', { name: 'Objects', exact: true }).click()
   await page.getByLabel('Search objects').fill('Sh 2-216')
   await page.getByRole('button', { name: 'Select Sh 2-216', exact: true }).click()
   await page.getByRole('button', { name: 'Objects', exact: true }).click()
-  if (await page.locator('#object-card-details').getAttribute('open') === null) await page.locator('#object-card-details > summary').click()
+  await openSpecs(page)
   await page.locator('#object-type-toggle').click()
   await expect(page.locator('#object-type-heading')).toHaveText('Planetary nebula')
   await expect(page.locator('#object-type-description')).toContainText('expanding shell')
@@ -73,7 +76,7 @@ test('shows a planetary nebula introduction and its own image', async ({ page },
 test('keeps the type card readable and closable on a narrow screen @mobile', async ({ page }, testInfo) => {
   await page.setViewportSize({ width: 390, height: 844 })
   await openViewer(page)
-  await page.locator('#object-card-details > summary').click()
+  await openSpecs(page)
   await page.locator('#object-type-toggle').click()
   const card = page.locator('#object-type-card')
   await expect(card).toBeVisible()
@@ -84,5 +87,5 @@ test('keeps the type card readable and closable on a narrow screen @mobile', asy
   await page.screenshot({ path: testInfo.outputPath('object-type-mobile.png') })
   await page.getByRole('button', { name: 'Close object type card' }).click()
   await expect(card).toBeHidden()
-  await expect(page.locator('#star-name')).toHaveText('Sirius A')
+  await expect(page.locator('#star-name')).toHaveText('Sirius')
 })
