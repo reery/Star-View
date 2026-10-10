@@ -1,5 +1,5 @@
 import { expect, test, type Page } from '@playwright/test'
-import { openViewer } from './support'
+import { openViewer, selectCatalog } from './support'
 
 async function selectObject(page: Page, name: string) {
   const objects = page.getByRole('button', { name: 'Objects', exact: true })
@@ -70,6 +70,55 @@ test('stellar orbit pairs, barycenters and term tooltips fit the selected card',
   expect(await system.evaluate((node) => node.scrollWidth <= node.clientWidth)).toBe(true)
   await page.locator('#selected-object-card').screenshot({ path: testInfo.outputPath('stellar-system.png') })
   expect(errors).toEqual([])
+})
+
+test('EZ Aquarii shows its A–C and AC–B orbits with exact component selection', async ({ page }, testInfo) => {
+  await openViewer(page)
+  await selectObject(page, 'EZ Aquarii A')
+  await expect(page.locator('#object-system-toggle')).toBeEnabled()
+  await page.locator('#object-system-toggle').click()
+  const system = page.locator('#object-system')
+  const diagram = system.locator('.stellar-orbit-diagram')
+  await expect(system.getByRole('button', { name: 'Show A–C orbit', exact: true })).toHaveAttribute('aria-pressed', 'true')
+  await expect(system.locator('[data-orbit-spec="period"] dd')).toHaveText('3.78652 d')
+  await expect(system.locator('[data-orbit-spec="eccentricity"] dd')).toHaveText('0')
+  await expect(diagram.locator('[data-stellar-orbit]')).toHaveCount(0)
+  await expect(system.getByRole('link', { name: 'Sgr2000' })).toHaveAttribute('title', 'ORB6 · incomplete orbital elements')
+  await page.locator('#star-components [data-component-id="ez-aquarii-c"]').click()
+  await expect(page.locator('#star-components [aria-pressed="true"]')).toHaveText('C')
+  await expect(system.getByRole('button', { name: 'Show A–C orbit', exact: true })).toHaveAttribute('aria-pressed', 'true')
+  await system.getByRole('button', { name: 'Show AC–B orbit', exact: true }).click()
+  await expect(system.locator('[data-orbit-spec="primary"] dd')).toHaveText('AC')
+  await expect(system.locator('[data-orbit-spec="eccentricity"] dd')).toHaveText('0.439')
+  await expect(system.locator('[data-orbit-spec="axis"] dd')).toHaveText('1.1829 AU')
+  await expect(diagram.locator('[data-stellar-orbit]')).toHaveCount(2)
+  await expect(diagram.locator('[data-stellar-component]')).toHaveCount(3)
+  await page.locator('#selected-object-card').screenshot({ path: testInfo.outputPath('ez-aquarii-outer-orbit.png') })
+  await page.locator('#star-components [data-component-id="ez-aquarii-b"]').click()
+  await expect(page.locator('#star-components [aria-pressed="true"]')).toHaveText('B')
+  await expect(system.getByRole('button', { name: 'Show AC–B orbit', exact: true })).toHaveAttribute('aria-pressed', 'true')
+})
+
+test('orbit coverage audit restores nearby systems and nested pair controls', async ({ page }, testInfo) => {
+  await openViewer(page)
+  await selectObject(page, 'Luhman 16 A')
+  await expect(page.locator('#object-system-toggle')).toBeEnabled()
+  await page.locator('#object-system-toggle').click()
+  const system = page.locator('#object-system')
+  await expect(system.locator('[data-orbit-spec="period"] dd')).toHaveText('26.55 yr')
+  await expect(system.locator('[data-orbit-spec="epoch"] dd')).toHaveText('J2018.06')
+  await expect(system.locator('[data-stellar-orbit]')).toHaveCount(2)
+  await selectCatalog(page, 'nearest-100')
+  await selectObject(page, 'GJ 1245 A')
+  await expect(system.getByRole('button', { name: 'Show A–C orbit', exact: true })).toBeVisible()
+  await system.getByRole('button', { name: 'Show AC–B orbit', exact: true }).click()
+  await expect(system.locator('[data-stellar-component]')).toHaveCount(3)
+  await page.locator('#selected-object-card').screenshot({ path: testInfo.outputPath('gj-1245-outer-orbit.png') })
+  await selectObject(page, 'eps Ind A')
+  await expect(page.locator('#star-components button')).toHaveCount(3)
+  await expect(system.getByRole('button', { name: 'Show Ba–Bb orbit', exact: true })).toBeVisible()
+  await page.locator('#star-components [data-component-id="10pc-0043"]').click()
+  await expect(page.locator('#star-components [aria-pressed="true"]')).toHaveText('Bb')
 })
 
 test('empty System tabs are disabled and the Sun planet view remains available', { tag: '@mobile' }, async ({ page }) => {

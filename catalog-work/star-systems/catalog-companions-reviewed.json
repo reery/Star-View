@@ -1,0 +1,56 @@
+{
+  "schemaVersion": 1,
+  "frozenInputs": [
+    "catalog-work/star-systems/adhara-b-simbad.txt"
+  ],
+  "systems": [
+    {
+      "id": "adhara",
+      "name": "Adhara",
+      "parentStarId": "bright-adhara",
+      "sourceRef": "adhara-reviewed-ab",
+      "sourceUrl": "https://simbad.cds.unistra.fr/simbad/sim-id?Ident=eps+CMa+B",
+      "evidence": {
+        "reviewedOn": "2026-10-10",
+        "source": "SIMBAD exact component identities; WDS 06586-2858 / CPO 7",
+        "primaryMainId": "* eps CMa",
+        "secondaryMainId": "* eps CMa B",
+        "primaryWdsId": "WDS J06586-2858A",
+        "secondaryWdsId": "WDS J06586-2858B",
+        "secondaryGaiaDr3Id": "5608832155887268480",
+        "secondarySimbadOid": "18696749",
+        "secondaryFrozenInput": "catalog-work/star-systems/adhara-b-simbad.txt",
+        "primaryFrozenInput": "catalog-work/bright-stars/simbad.csv",
+        "wdsNotesUrl": "https://crf.usno.navy.mil/data_products/WDS/int4/notes_06.html",
+        "scope": "Reviewed visual A/B components by explicit catalog identity. No orbit or individual B physical parameters inferred."
+      },
+      "components": [
+        {
+          "starId": "bright-adhara",
+          "label": "A",
+          "alternateStarIds": ["hip-33579"],
+          "designations": ["Adhara", "Epsilon Canis Majoris A", "WDS J06586-2858A"],
+          "note": "Adhara A is the exact SIMBAD * eps CMa / WDS J06586-2858A primary; existing primary measurements retained. Bright and Western catalog identities refer to this same component."
+        },
+        {
+          "starId": "adhara-b",
+          "label": "B",
+          "designations": ["* eps CMa B", "* 21 CMa B", "Epsilon Canis Majoris B", "WDS J06586-2858B", "** CPO 7B", "Gaia DR2 5608832155887268480", "Gaia DR3 5608832155887268480"],
+          "astrometry": {
+            "ra_deg": 104.65722781236208,
+            "dec_deg": -28.974127640268332,
+            "epoch": 2000,
+            "parallax_mas": 7.6159,
+            "parallax_error_mas": 0.0223,
+            "pm_ra_cosdec_masyr": 1.802,
+            "pm_ra_error_masyr": 0.02,
+            "pm_dec_masyr": -0.61,
+            "pm_dec_error_masyr": 0.024,
+            "astrometry_ref": "2020yCat.1350....0G; SIMBAD ICRS coordinates propagated to J2000, individual Gaia DR3 astrometry"
+          },
+          "note": "Adhara B has its own Gaia DR3 distance and sky position from exact SIMBAD * eps CMa B / WDS J06586-2858B. Spectral type, physical parameters, Johnson V photometry and radial velocity are unavailable in this frozen source. Gaia G=8.384104 is not substituted for V. No primary properties, space velocity or orbit copied or inferred."
+        }
+      ]
+    }
+  ]
+}

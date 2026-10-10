@@ -1,13 +1,21 @@
 # Stellar orbits
 
-Reviewed 2026-10-09. All **269 reviewed multiple-star systems** were checked
+Reviewed 2026-10-10. All **341 reviewed multiple-star systems** were checked
 against the downloaded [USNO Sixth Catalog of Orbits of Visual Binary Stars
 (ORB6)](https://www.astro.gsu.edu/wds/orb6.html) and the frozen June 2026
 [Multiple Star Catalog (MSC)](https://www.ctio.noirlab.edu/~atokovin/stars/index.html).
-The adopted dataset contains **221 solutions for 169 systems**. The other 100
+The adopted dataset contains **298 solutions for 238 systems**. The other 103
 systems have no safely matched solution in these inputs; this does not mean that
 no orbit has ever been published. Some adopted solutions have only partial
 elements, so not every orbit has a drawable path.
+
+The ordinary-binary companion expansion adds detected ORB6 pairs missed by the
+triple-system and composite-spectrum import. All 242 earlier solutions remain
+unchanged. When separate systems share a WDS root, explicit source pair labels
+must uniquely match their individual component labels; Theta1 Tauri Ba/Bb and
+Chamukuy Aa/Ab remain separate. Shared parent distances for newly split systems
+are recorded as approximate in the scale derivation, without assigning individual
+space motion.
 
 ## Reproduce and review
 
@@ -22,6 +30,7 @@ MSC inputs and their format are already frozen in
 
 Matching requires exact HIP/WDS cross-references belonging to the reviewed
 system. Coordinates and similar display names never establish an orbit match.
+An explicit reviewed `wdsId` can supply the identity when catalog CSVs omit it.
 Each pair identifies individual component IDs or the combined center of mass of
 an explicitly defined inner group. Reversed duplicate pairs are deduplicated.
 ORB6 takes precedence over a compiled alternative for the same scoped pair.
@@ -29,6 +38,27 @@ Published component naming differences for Capella, Mu Cassiopeiae, Chi
 Draconis, Iota Pegasi, Gamma Persei and GJ 105 are reconciled explicitly in the
 generator. Proxima's ORB6 AC solution is scoped to AB–C, consistent with the
 source's orbit around the Alpha Centauri AB center of mass.
+
+The [coverage audit](stellar-orbit-coverage-audit.md) also checks the UI's
+fallback name groups. Its complete decisions and before/after scopes are frozen
+in `catalog-work/star-systems/orbit-coverage-review.json`. Regeneration reports
+unreviewed name groups and ambiguous source identities, so omissions outside the
+explicit registry are visible. Compound pairs such as AB–C retain every member;
+Aa and Aab nodes require complete reviewed child groups. Implicit ORB6 pair names
+are recovered only when MSC supplies the same WDS, publication reference,
+designation and period (within 0.5% for compiled rounding).
+
+EZ Aquarii previously existed only as a name-grouped A/B/C system, outside the
+reviewed orbit import. Its explicit identity now links census system 14 (rows
+26–28) to WDS 22385-1519, retained in `src/data/object-designations.json`.
+[Segransan et al. 2000, Table 2](https://arxiv.org/abs/astro-ph/0010585)
+establishes the A–C inner and AC–B outer scopes. ORB6's Aa/Ab maps to A/C,
+and its visual AB maps to AC–B. The adopted periods are 3.786516 and 822.6 days;
+the outer eccentricity is 0.439 and relative axis is 1.18290191 AU, converted
+from 0.3473 arcseconds with the catalog's 293.6 mas parallax. The inner circular
+orbit has incomplete elements (ORB6 code 7): axis and sky orientation remain
+unavailable, and its 116.5° inclination adopts the paper's tentative coplanar
+branch. No inner path is invented.
 
 The axis in AU is the **relative** semi-major axis, computed as
 `angular axis in arcseconds * 1000 / parallax in mas`. Each conversion records the
@@ -48,6 +78,7 @@ Grade 9 astrometric solutions describe the photocenter: their angular axis is
 withheld from the relative stellar-axis field and their limitation is displayed.
 Grade 8 denotes an interferometric solution, not grade 8 out of 5. Grade 4/5
 relative solutions carry a visible preliminary/poorly constrained note.
+Code 7 denotes incomplete orbital elements, not a grade on the 1–5 scale.
 
 ## System view
 

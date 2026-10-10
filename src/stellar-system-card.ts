@@ -156,7 +156,7 @@ function orbitDetails(orbit: StellarOrbit | undefined): HTMLElement {
     link.target = '_blank'
     link.rel = 'noopener noreferrer'
     link.textContent = orbit.reference
-    link.title = `${orbit.catalog}${orbit.grade === 9 ? ' · photocenter solution' : orbit.grade === 8 ? ' · interferometric solution' : orbit.grade ? ` · orbit grade ${orbit.grade}/5 (1 definitive, 5 indeterminate)` : ''}`
+    link.title = `${orbit.catalog}${orbit.grade === 9 ? ' · photocenter solution' : orbit.grade === 8 ? ' · interferometric solution' : orbit.grade === 7 ? ' · incomplete orbital elements' : orbit.grade ? ` · orbit grade ${orbit.grade}/5 (1 definitive, 5 indeterminate)` : ''}`
     value.append(link)
     source.append(label, value)
     list.append(source)

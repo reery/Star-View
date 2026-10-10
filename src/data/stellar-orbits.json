@@ -39,6 +39,69 @@
       ]
     },
     {
+      "systemId": "ez-aquarii",
+      "name": "EZ Aquarii",
+      "orbits": [
+        {
+          "periodYears": 0.010366915811088296,
+          "eccentricity": 0.0,
+          "inclinationDeg": 116.5,
+          "nodeDeg": null,
+          "argumentDeg": null,
+          "periastronEpoch": 50799.808,
+          "epochKind": "MJD",
+          "grade": 7.0,
+          "reference": "Sgr2000",
+          "catalog": "ORB6",
+          "sourceUrl": "https://www.astro.gsu.edu/wds/orb6/orb6orbits.html",
+          "nodeAmbiguous": true,
+          "argumentComponent": "C",
+          "primaryIds": [
+            "ez-aquarii-a"
+          ],
+          "secondaryIds": [
+            "ez-aquarii-c"
+          ],
+          "primary": "A",
+          "secondary": "C",
+          "semiMajorAxisAu": null,
+          "axisDerivation": null,
+          "id": "ez-aquarii-0"
+        },
+        {
+          "periodYears": 2.2521560574948665,
+          "eccentricity": 0.439,
+          "inclinationDeg": 112.6,
+          "nodeDeg": 341.2,
+          "argumentDeg": 158.7,
+          "periastronEpoch": 51810.3,
+          "epochKind": "MJD",
+          "grade": 2.0,
+          "reference": "Sgr2000",
+          "catalog": "ORB6",
+          "sourceUrl": "https://www.astro.gsu.edu/wds/orb6/orb6orbits.html",
+          "nodeAmbiguous": true,
+          "argumentComponent": "B",
+          "primaryIds": [
+            "ez-aquarii-a",
+            "ez-aquarii-c"
+          ],
+          "secondaryIds": [
+            "ez-aquarii-b"
+          ],
+          "primary": "AC",
+          "secondary": "B",
+          "semiMajorAxisAu": 1.18290191,
+          "axisDerivation": {
+            "angularAxisArcsec": 0.3473,
+            "parallaxMas": 293.6,
+            "parallaxStarId": "ez-aquarii-a"
+          },
+          "id": "ez-aquarii-1"
+        }
+      ]
+    },
+    {
       "systemId": "gj-15",
       "name": "GJ 15",
       "orbits": [
@@ -286,37 +349,7 @@
           "catalog": "ORB6",
           "sourceUrl": "https://www.astro.gsu.edu/wds/orb6/orb6orbits.html",
           "nodeAmbiguous": true,
-          "argumentComponent": "B",
-          "primaryIds": [
-            "cns5-0658"
-          ],
-          "secondaryIds": [
-            "cns5-0659"
-          ],
-          "primary": "A",
-          "secondary": "B",
-          "semiMajorAxisAu": 17.2039897,
-          "axisDerivation": {
-            "angularAxisArcsec": 2.38,
-            "parallaxMas": 138.34000380964673,
-            "parallaxStarId": "cns5-0658"
-          },
-          "id": "gj-105-0"
-        },
-        {
-          "periodYears": 61.0,
-          "eccentricity": 0.67,
-          "inclinationDeg": 49.0,
-          "nodeDeg": 13.0,
-          "argumentDeg": 249.0,
-          "periastronEpoch": 1940.0,
-          "epochKind": "Julian year",
-          "grade": null,
-          "reference": "VB6_Hei1994b PLQ_32A Gr.9",
-          "catalog": "MSC",
-          "sourceUrl": "https://www.ctio.noirlab.edu/~atokovin/stars/newmsc-20260619.tar.gz",
-          "nodeAmbiguous": true,
-          "argumentComponent": null,
+          "argumentComponent": "C",
           "primaryIds": [
             "cns5-0658"
           ],
@@ -325,13 +358,13 @@
           ],
           "primary": "A",
           "secondary": "C",
-          "semiMajorAxisAu": 1.23608497,
+          "semiMajorAxisAu": 17.2039897,
           "axisDerivation": {
-            "angularAxisArcsec": 0.171,
+            "angularAxisArcsec": 2.38,
             "parallaxMas": 138.34000380964673,
             "parallaxStarId": "cns5-0658"
           },
-          "id": "gj-105-1"
+          "id": "gj-105-0"
         }
       ]
     },
@@ -1208,6 +1241,36 @@
       "name": "GJ 570",
       "orbits": [
         {
+          "periodYears": 0.84564,
+          "eccentricity": 0.76,
+          "inclinationDeg": 107.62,
+          "nodeDeg": 16.03,
+          "argumentDeg": 310.4,
+          "periastronEpoch": 58305.1,
+          "epochKind": "JD \u2212 2400000",
+          "grade": 2.0,
+          "reference": "MnA2019",
+          "catalog": "ORB6",
+          "sourceUrl": "https://www.astro.gsu.edu/wds/orb6/orb6orbits.html",
+          "nodeAmbiguous": true,
+          "argumentComponent": "C",
+          "primaryIds": [
+            "10pc-0145"
+          ],
+          "secondaryIds": [
+            "10pc-0146"
+          ],
+          "primary": "B",
+          "secondary": "C",
+          "semiMajorAxisAu": 0.84923439,
+          "axisDerivation": {
+            "angularAxisArcsec": 0.1442,
+            "parallaxMas": 169.8,
+            "parallaxStarId": "10pc-0145"
+          },
+          "id": "gj-570-0"
+        },
+        {
           "periodYears": 6488.5537,
           "eccentricity": 0.6598,
           "inclinationDeg": 80.9435,
@@ -1220,22 +1283,23 @@
           "catalog": "ORB6",
           "sourceUrl": "https://www.astro.gsu.edu/wds/orb6/orb6orbits.html",
           "nodeAmbiguous": true,
-          "argumentComponent": "B",
+          "argumentComponent": "BC",
           "primaryIds": [
             "cns5-3700"
           ],
           "secondaryIds": [
-            "10pc-0145"
+            "10pc-0145",
+            "10pc-0146"
           ],
           "primary": "A",
-          "secondary": "B",
+          "secondary": "BC",
           "semiMajorAxisAu": 510.72886181,
           "axisDerivation": {
             "angularAxisArcsec": 86.7648,
             "parallaxMas": 169.8842702825854,
             "parallaxStarId": "cns5-3700"
           },
-          "id": "gj-570-0"
+          "id": "gj-570-1"
         }
       ]
     },
@@ -1589,6 +1653,36 @@
       "name": "GJ 22",
       "orbits": [
         {
+          "periodYears": 15.4275,
+          "eccentricity": 0.1576,
+          "inclinationDeg": 44.29,
+          "nodeDeg": 176.75,
+          "argumentDeg": 104.9,
+          "periastronEpoch": 57447.0,
+          "epochKind": "JD \u2212 2400000",
+          "grade": 2.0,
+          "reference": "MnA2019",
+          "catalog": "ORB6",
+          "sourceUrl": "https://www.astro.gsu.edu/wds/orb6/orb6orbits.html",
+          "nodeAmbiguous": true,
+          "argumentComponent": "C",
+          "primaryIds": [
+            "cns5-0155"
+          ],
+          "secondaryIds": [
+            "gj-22-c"
+          ],
+          "primary": "A",
+          "secondary": "C",
+          "semiMajorAxisAu": 5.04775976,
+          "axisDerivation": {
+            "angularAxisArcsec": 0.51026,
+            "parallaxMas": 101.08642729912918,
+            "parallaxStarId": "cns5-0155"
+          },
+          "id": "gj-22-0"
+        },
+        {
           "periodYears": 222.3,
           "eccentricity": 0.296,
           "inclinationDeg": 47.3,
@@ -1603,12 +1697,13 @@
           "nodeAmbiguous": true,
           "argumentComponent": "B",
           "primaryIds": [
-            "cns5-0155"
+            "cns5-0155",
+            "gj-22-c"
           ],
           "secondaryIds": [
             "cns5-0154"
           ],
-          "primary": "A",
+          "primary": "AC",
           "secondary": "B",
           "semiMajorAxisAu": 32.74425745,
           "axisDerivation": {
@@ -1616,7 +1711,7 @@
             "parallaxMas": 101.08642729912918,
             "parallaxStarId": "cns5-0155"
           },
-          "id": "gj-22-0"
+          "id": "gj-22-1"
         }
       ]
     },
@@ -1711,12 +1806,13 @@
           "nodeAmbiguous": true,
           "argumentComponent": "C",
           "primaryIds": [
-            "cns5-4252"
+            "cns5-4252",
+            "gj-667-b"
           ],
           "secondaryIds": [
             "cns5-4253"
           ],
-          "primary": "A",
+          "primary": "AB",
           "secondary": "C",
           "semiMajorAxisAu": 489.288764,
           "axisDerivation": {
@@ -2457,6 +2553,458 @@
       ]
     },
     {
+      "systemId": "luhman-16",
+      "name": "Luhman 16",
+      "orbits": [
+        {
+          "periodYears": 26.55,
+          "eccentricity": 0.344,
+          "inclinationDeg": 79.92,
+          "nodeDeg": 130.02,
+          "argumentDeg": 136.67,
+          "periastronEpoch": 2018.06,
+          "epochKind": "Julian year",
+          "grade": 4.0,
+          "reference": "Bdi2024",
+          "catalog": "ORB6",
+          "sourceUrl": "https://www.astro.gsu.edu/wds/orb6/orb6orbits.html",
+          "nodeAmbiguous": true,
+          "argumentComponent": "B",
+          "primaryIds": [
+            "luhman-16-a"
+          ],
+          "secondaryIds": [
+            "luhman-16-b"
+          ],
+          "primary": "A",
+          "secondary": "B",
+          "semiMajorAxisAu": 3.51704791,
+          "axisDerivation": {
+            "angularAxisArcsec": 1.764,
+            "parallaxMas": 501.557,
+            "parallaxStarId": "luhman-16-a"
+          },
+          "id": "luhman-16-0"
+        }
+      ]
+    },
+    {
+      "systemId": "luyten-726-8",
+      "name": "Luyten 726-8",
+      "orbits": [
+        {
+          "periodYears": 26.351,
+          "eccentricity": 0.6143,
+          "inclinationDeg": 128.78,
+          "nodeDeg": 146.22,
+          "argumentDeg": 284.27,
+          "periastronEpoch": 2024.855,
+          "epochKind": "Besselian year",
+          "grade": 2.0,
+          "reference": "Msn2023",
+          "catalog": "ORB6",
+          "sourceUrl": "https://www.astro.gsu.edu/wds/orb6/orb6orbits.html",
+          "nodeAmbiguous": true,
+          "argumentComponent": "B",
+          "primaryIds": [
+            "luyten-726-8-a"
+          ],
+          "secondaryIds": [
+            "luyten-726-8-b"
+          ],
+          "primary": "A",
+          "secondary": "B",
+          "semiMajorAxisAu": 5.49887018,
+          "axisDerivation": {
+            "angularAxisArcsec": 2.022,
+            "parallaxMas": 367.7119,
+            "parallaxStarId": "luyten-726-8-a"
+          },
+          "id": "luyten-726-8-0"
+        }
+      ]
+    },
+    {
+      "systemId": "msc-22034-5647",
+      "name": "eps Ind",
+      "orbits": [
+        {
+          "periodYears": 11.2,
+          "eccentricity": 0.53,
+          "inclinationDeg": 102.8,
+          "nodeDeg": null,
+          "argumentDeg": null,
+          "periastronEpoch": 2010.1,
+          "epochKind": "Besselian year",
+          "grade": 7.0,
+          "reference": "Mcg2009",
+          "catalog": "ORB6",
+          "sourceUrl": "https://www.astro.gsu.edu/wds/orb6/orb6orbits.html",
+          "nodeAmbiguous": true,
+          "argumentComponent": "Bb",
+          "primaryIds": [
+            "10pc-0042"
+          ],
+          "secondaryIds": [
+            "10pc-0043"
+          ],
+          "primary": "Ba",
+          "secondary": "Bb",
+          "semiMajorAxisAu": 2.47544872,
+          "axisDerivation": {
+            "angularAxisArcsec": 0.67,
+            "parallaxMas": 270.658,
+            "parallaxStarId": "10pc-0042"
+          },
+          "id": "msc-22034-5647-0"
+        }
+      ]
+    },
+    {
+      "systemId": "scr-j1845-6357",
+      "name": "SCR J1845-6357",
+      "orbits": []
+    },
+    {
+      "systemId": "ross-614",
+      "name": "V577 Mon",
+      "orbits": [
+        {
+          "periodYears": 16.5777,
+          "eccentricity": 0.38229,
+          "inclinationDeg": 52.91,
+          "nodeDeg": 30.385,
+          "argumentDeg": 220.942,
+          "periastronEpoch": 57342.99,
+          "epochKind": "JD \u2212 2400000",
+          "grade": 2.0,
+          "reference": "MnA2019",
+          "catalog": "ORB6",
+          "sourceUrl": "https://www.astro.gsu.edu/wds/orb6/orb6orbits.html",
+          "nodeAmbiguous": true,
+          "argumentComponent": "B",
+          "primaryIds": [
+            "10pc-0066"
+          ],
+          "secondaryIds": [
+            "10pc-0067"
+          ],
+          "primary": "A",
+          "secondary": "B",
+          "semiMajorAxisAu": 4.46992767,
+          "axisDerivation": {
+            "angularAxisArcsec": 1.08604,
+            "parallaxMas": 242.9659,
+            "parallaxStarId": "10pc-0066"
+          },
+          "id": "ross-614-0"
+        }
+      ]
+    },
+    {
+      "systemId": "wolf-424",
+      "name": "FL Vir",
+      "orbits": [
+        {
+          "periodYears": 15.811,
+          "eccentricity": 0.301,
+          "inclinationDeg": 102.8,
+          "nodeDeg": 143.2,
+          "argumentDeg": 347.7,
+          "periastronEpoch": 2008.12,
+          "epochKind": "Besselian year",
+          "grade": 2.0,
+          "reference": "Lin2022b",
+          "catalog": "ORB6",
+          "sourceUrl": "https://www.astro.gsu.edu/wds/orb6/orb6orbits.html",
+          "nodeAmbiguous": true,
+          "argumentComponent": "B",
+          "primaryIds": [
+            "10pc-0074"
+          ],
+          "secondaryIds": [
+            "10pc-0075"
+          ],
+          "primary": "A",
+          "secondary": "B",
+          "semiMajorAxisAu": 3.93737412,
+          "axisDerivation": {
+            "angularAxisArcsec": 0.91,
+            "parallaxMas": 231.1185,
+            "parallaxStarId": "10pc-0074"
+          },
+          "id": "wolf-424-0"
+        }
+      ]
+    },
+    {
+      "systemId": "gj-1245",
+      "name": "GJ 1245",
+      "orbits": [
+        {
+          "periodYears": 16.8943,
+          "eccentricity": 0.34114,
+          "inclinationDeg": 135.47,
+          "nodeDeg": 80.37,
+          "argumentDeg": 216.71,
+          "periastronEpoch": 57696.0,
+          "epochKind": "JD \u2212 2400000",
+          "grade": 2.0,
+          "reference": "MnA2019",
+          "catalog": "ORB6",
+          "sourceUrl": "https://www.astro.gsu.edu/wds/orb6/orb6orbits.html",
+          "nodeAmbiguous": true,
+          "argumentComponent": "C",
+          "primaryIds": [
+            "10pc-0087"
+          ],
+          "secondaryIds": [
+            "10pc-0088"
+          ],
+          "primary": "A",
+          "secondary": "C",
+          "semiMajorAxisAu": 3.89536294,
+          "axisDerivation": {
+            "angularAxisArcsec": 0.83023,
+            "parallaxMas": 213.1329,
+            "parallaxStarId": "10pc-0087"
+          },
+          "id": "gj-1245-0"
+        },
+        {
+          "periodYears": 223.1339,
+          "eccentricity": 0.7044,
+          "inclinationDeg": 106.9223,
+          "nodeDeg": 118.2099,
+          "argumentDeg": 263.7625,
+          "periastronEpoch": 1924.4523,
+          "epochKind": "Besselian year",
+          "grade": 5.0,
+          "reference": "Kpp2020f",
+          "catalog": "ORB6",
+          "sourceUrl": "https://www.astro.gsu.edu/wds/orb6/orb6orbits.html",
+          "nodeAmbiguous": true,
+          "argumentComponent": "B",
+          "primaryIds": [
+            "10pc-0087",
+            "10pc-0088"
+          ],
+          "secondaryIds": [
+            "10pc-0089"
+          ],
+          "primary": "AC",
+          "secondary": "B",
+          "semiMajorAxisAu": 46.45270627,
+          "axisDerivation": {
+            "angularAxisArcsec": 9.9006,
+            "parallaxMas": 213.1329,
+            "parallaxStarId": "10pc-0087"
+          },
+          "id": "gj-1245-1"
+        }
+      ]
+    },
+    {
+      "systemId": "ei-cancri",
+      "name": "EI Cnc",
+      "orbits": [
+        {
+          "periodYears": 123.6412,
+          "eccentricity": 0.4888,
+          "inclinationDeg": 38.9225,
+          "nodeDeg": 139.9971,
+          "argumentDeg": 351.5415,
+          "periastronEpoch": 2002.2858,
+          "epochKind": "Besselian year",
+          "grade": 4.0,
+          "reference": "Kpp2020f",
+          "catalog": "ORB6",
+          "sourceUrl": "https://www.astro.gsu.edu/wds/orb6/orb6orbits.html",
+          "nodeAmbiguous": true,
+          "argumentComponent": "B",
+          "primaryIds": [
+            "10pc-0113"
+          ],
+          "secondaryIds": [
+            "10pc-0114"
+          ],
+          "primary": "A",
+          "secondary": "B",
+          "semiMajorAxisAu": 16.19877586,
+          "axisDerivation": {
+            "angularAxisArcsec": 3.1449,
+            "parallaxMas": 194.1443,
+            "parallaxStarId": "10pc-0113"
+          },
+          "id": "ei-cancri-0"
+        }
+      ]
+    },
+    {
+      "systemId": "stein-2051",
+      "name": "Stein 2051",
+      "orbits": [
+        {
+          "periodYears": 1799.89,
+          "eccentricity": 0.7054,
+          "inclinationDeg": 105.2509,
+          "nodeDeg": 10.3888,
+          "argumentDeg": 333.2549,
+          "periastronEpoch": 1798.9864,
+          "epochKind": "Besselian year",
+          "grade": 5.0,
+          "reference": "Kpp2020f",
+          "catalog": "ORB6",
+          "sourceUrl": "https://www.astro.gsu.edu/wds/orb6/orb6orbits.html",
+          "nodeAmbiguous": true,
+          "argumentComponent": "B",
+          "primaryIds": [
+            "10pc-0128"
+          ],
+          "secondaryIds": [
+            "10pc-0129"
+          ],
+          "primary": "A",
+          "secondary": "B",
+          "semiMajorAxisAu": 177.76663257,
+          "axisDerivation": {
+            "angularAxisArcsec": 32.2191,
+            "parallaxMas": 181.2438,
+            "parallaxStarId": "10pc-0128"
+          },
+          "id": "stein-2051-0"
+        }
+      ]
+    },
+    {
+      "systemId": "xi-bootis",
+      "name": "Xi Boo",
+      "orbits": [
+        {
+          "periodYears": 151.870304,
+          "eccentricity": 0.51168,
+          "inclinationDeg": 140.2816,
+          "nodeDeg": 167.9575,
+          "argumentDeg": 23.8399,
+          "periastronEpoch": 1909.376504,
+          "epochKind": "Besselian year",
+          "grade": 2.0,
+          "reference": "Kpp2020f",
+          "catalog": "ORB6",
+          "sourceUrl": "https://www.astro.gsu.edu/wds/orb6/orb6orbits.html",
+          "nodeAmbiguous": true,
+          "argumentComponent": "B",
+          "primaryIds": [
+            "cns5-3674"
+          ],
+          "secondaryIds": [
+            "cns5-3673"
+          ],
+          "primary": "A",
+          "secondary": "B",
+          "semiMajorAxisAu": 33.2424302,
+          "axisDerivation": {
+            "angularAxisArcsec": 4.92219,
+            "parallaxMas": 148.06949945238355,
+            "parallaxStarId": "cns5-3674"
+          },
+          "id": "xi-bootis-0"
+        }
+      ]
+    },
+    {
+      "systemId": "p-eridani",
+      "name": "p Eri",
+      "orbits": [
+        {
+          "periodYears": 467.699574,
+          "eccentricity": 0.462287,
+          "inclinationDeg": 135.4299,
+          "nodeDeg": 13.8831,
+          "argumentDeg": 18.0095,
+          "periastronEpoch": 1806.598955,
+          "epochKind": "Besselian year",
+          "grade": 4.0,
+          "reference": "Kpp2020f",
+          "catalog": "ORB6",
+          "sourceUrl": "https://www.astro.gsu.edu/wds/orb6/orb6orbits.html",
+          "nodeAmbiguous": true,
+          "argumentComponent": "B",
+          "primaryIds": [
+            "cns5-0429"
+          ],
+          "secondaryIds": [
+            "cns5-0428"
+          ],
+          "primary": "A",
+          "secondary": "B",
+          "semiMajorAxisAu": 65.15197247,
+          "axisDerivation": {
+            "angularAxisArcsec": 7.95563,
+            "parallaxMas": 122.108812649359,
+            "parallaxStarId": "cns5-0429"
+          },
+          "id": "p-eridani-0"
+        }
+      ]
+    },
+    {
+      "systemId": "wolf-1561",
+      "name": "Wolf 1561",
+      "orbits": []
+    },
+    {
+      "systemId": "l-43-72",
+      "name": "L 43-72",
+      "orbits": []
+    },
+    {
+      "systemId": "l-601-78",
+      "name": "L 601-78",
+      "orbits": [
+        {
+          "periodYears": 30.71,
+          "eccentricity": 0.774,
+          "inclinationDeg": 119.8,
+          "nodeDeg": 117.1,
+          "argumentDeg": 260.2,
+          "periastronEpoch": 1998.8,
+          "epochKind": "Besselian year",
+          "grade": 3.0,
+          "reference": "Tok2021f",
+          "catalog": "ORB6",
+          "sourceUrl": "https://www.astro.gsu.edu/wds/orb6/orb6orbits.html",
+          "nodeAmbiguous": true,
+          "argumentComponent": "B",
+          "primaryIds": [
+            "cns5-1951"
+          ],
+          "secondaryIds": [
+            "cns5-1952"
+          ],
+          "primary": "A",
+          "secondary": "B",
+          "semiMajorAxisAu": 13.20823278,
+          "axisDerivation": {
+            "angularAxisArcsec": 1.063,
+            "parallaxMas": 80.48010793149801,
+            "parallaxStarId": "cns5-1951"
+          },
+          "id": "l-601-78-0"
+        }
+      ]
+    },
+    {
+      "systemId": "vb-24",
+      "name": "VB 24",
+      "orbits": []
+    },
+    {
+      "systemId": "adhara",
+      "name": "Adhara",
+      "orbits": []
+    },
+    {
       "systemId": "msc-00022+2705",
       "name": "85 Peg",
       "orbits": [
@@ -2497,19 +3045,19 @@
       "name": "Alpheratz",
       "orbits": [
         {
-          "periodYears": 0.2648,
-          "eccentricity": 0.535,
-          "inclinationDeg": 105.6,
-          "nodeDeg": 284.4,
-          "argumentDeg": 257.4,
-          "periastronEpoch": 1988.583,
-          "epochKind": "Julian year",
-          "grade": null,
-          "reference": "VB6_Pbx2000b MKT_11Aa, Gr.2",
-          "catalog": "MSC",
-          "sourceUrl": "https://www.ctio.noirlab.edu/~atokovin/stars/newmsc-20260619.tar.gz",
+          "periodYears": 0.26475154004106777,
+          "eccentricity": 0.534812,
+          "inclinationDeg": 105.5,
+          "nodeDeg": 285.2,
+          "argumentDeg": 77.4527,
+          "periastronEpoch": 47374.6,
+          "epochKind": "MJD",
+          "grade": 2.0,
+          "reference": "Doc2014h",
+          "catalog": "ORB6",
+          "sourceUrl": "https://www.astro.gsu.edu/wds/orb6/orb6orbits.html",
           "nodeAmbiguous": true,
-          "argumentComponent": null,
+          "argumentComponent": "B",
           "primaryIds": [
             "bright-alpheratz"
           ],
@@ -2518,9 +3066,9 @@
           ],
           "primary": "A",
           "secondary": "B",
-          "semiMajorAxisAu": 0.7138608,
+          "semiMajorAxisAu": 0.7266508,
           "axisDerivation": {
-            "angularAxisArcsec": 0.024,
+            "angularAxisArcsec": 0.02443,
             "parallaxMas": 33.62,
             "parallaxStarId": "bright-alpheratz"
           },
@@ -2606,19 +3154,19 @@
       "name": "Sigma Psc",
       "orbits": [
         {
-          "periodYears": 0.2221,
-          "eccentricity": 0.896,
+          "periodYears": 0.22211156741957563,
+          "eccentricity": 0.8956,
           "inclinationDeg": 143.4,
           "nodeDeg": 167.8,
           "argumentDeg": 346.6,
-          "periastronEpoch": 1976.9841,
-          "epochKind": "Julian year",
-          "grade": null,
-          "reference": "VB6_Knc2004  sig_Psc Gr.8",
-          "catalog": "MSC",
-          "sourceUrl": "https://www.ctio.noirlab.edu/~atokovin/stars/newmsc-20260619.tar.gz",
+          "periastronEpoch": 43138.153,
+          "epochKind": "MJD",
+          "grade": 8.0,
+          "reference": "Knc2004",
+          "catalog": "ORB6",
+          "sourceUrl": "https://www.astro.gsu.edu/wds/orb6/orb6orbits.html",
           "nodeAmbiguous": true,
-          "argumentComponent": null,
+          "argumentComponent": "Ab",
           "primaryIds": [
             "hip-4889"
           ],
@@ -2627,9 +3175,9 @@
           ],
           "primary": "Aa",
           "secondary": "Ab",
-          "semiMajorAxisAu": 0.66272189,
+          "semiMajorAxisAu": 0.65798817,
           "axisDerivation": {
-            "angularAxisArcsec": 0.0056,
+            "angularAxisArcsec": 0.00556,
             "parallaxMas": 8.45,
             "parallaxStarId": "hip-4889"
           },
@@ -3105,19 +3653,19 @@
       "name": "Mu Cet",
       "orbits": [
         {
-          "periodYears": 35.9129,
-          "eccentricity": 0.884,
-          "inclinationDeg": 96.21,
-          "nodeDeg": 237.49,
-          "argumentDeg": 254.07,
-          "periastronEpoch": 2019.127,
-          "epochKind": "Julian year",
-          "grade": null,
-          "reference": "VB6_Tok2022f TOK_1Aa,Ab Gr.3",
-          "catalog": "MSC",
-          "sourceUrl": "https://www.ctio.noirlab.edu/~atokovin/stars/newmsc-20260619.tar.gz",
+          "periodYears": 33.61,
+          "eccentricity": 0.9217,
+          "inclinationDeg": 95.52,
+          "nodeDeg": 59.19,
+          "argumentDeg": 78.26,
+          "periastronEpoch": 2019.33,
+          "epochKind": "Besselian year",
+          "grade": 3.0,
+          "reference": "SAO2024",
+          "catalog": "ORB6",
+          "sourceUrl": "https://www.astro.gsu.edu/wds/orb6/orb6orbits.html",
           "nodeAmbiguous": true,
-          "argumentComponent": null,
+          "argumentComponent": "B",
           "primaryIds": [
             "hip-12828"
           ],
@@ -3126,9 +3674,9 @@
           ],
           "primary": "A",
           "secondary": "B",
-          "semiMajorAxisAu": 12.06094849,
+          "semiMajorAxisAu": 13.9682489,
           "axisDerivation": {
-            "angularAxisArcsec": 0.4534,
+            "angularAxisArcsec": 0.5251,
             "parallaxMas": 37.5924,
             "parallaxStarId": "hip-12828"
           },
@@ -3141,14 +3689,14 @@
       "name": "Algol",
       "orbits": [
         {
-          "periodYears": 1.862198494182067,
-          "eccentricity": 0.227,
-          "inclinationDeg": 83.66,
-          "nodeDeg": 132.66,
-          "argumentDeg": 310.02,
-          "periastronEpoch": 46927.22,
+          "periodYears": 0.007850316221765914,
+          "eccentricity": 0.0,
+          "inclinationDeg": 98.7,
+          "nodeDeg": 43.43,
+          "argumentDeg": 270.0,
+          "periastronEpoch": 41771.353,
           "epochKind": "JD \u2212 2400000",
-          "grade": 1.0,
+          "grade": 4.0,
           "reference": "CIA2012b",
           "catalog": "ORB6",
           "sourceUrl": "https://www.astro.gsu.edu/wds/orb6/orb6orbits.html",
@@ -3162,28 +3710,28 @@
           ],
           "primary": "Aa",
           "secondary": "Ab",
-          "semiMajorAxisAu": 2.66182336,
+          "semiMajorAxisAu": 0.06125356,
           "axisDerivation": {
-            "angularAxisArcsec": 0.09343000000000001,
+            "angularAxisArcsec": 0.00215,
             "parallaxMas": 35.1,
             "parallaxStarId": "bright-algol"
           },
           "id": "msc-03082+4057-0"
         },
         {
-          "periodYears": 1.8619,
-          "eccentricity": 0.225,
-          "inclinationDeg": 84.0,
-          "nodeDeg": 312.3,
-          "argumentDeg": 310.3,
-          "periastronEpoch": 1987.3,
-          "epochKind": "Julian year",
-          "grade": null,
-          "reference": "VB6 + SB_158 comb.",
-          "catalog": "MSC",
-          "sourceUrl": "https://www.ctio.noirlab.edu/~atokovin/stars/newmsc-20260619.tar.gz",
+          "periodYears": 1.862198494182067,
+          "eccentricity": 0.227,
+          "inclinationDeg": 83.66,
+          "nodeDeg": 132.66,
+          "argumentDeg": 310.02,
+          "periastronEpoch": 46927.22,
+          "epochKind": "JD \u2212 2400000",
+          "grade": 1.0,
+          "reference": "CIA2012b",
+          "catalog": "ORB6",
+          "sourceUrl": "https://www.astro.gsu.edu/wds/orb6/orb6orbits.html",
           "nodeAmbiguous": true,
-          "argumentComponent": "A",
+          "argumentComponent": "B",
           "primaryIds": [
             "bright-algol",
             "msc-03082+4057-ab"
@@ -3193,9 +3741,9 @@
           ],
           "primary": "A",
           "secondary": "B",
-          "semiMajorAxisAu": 2.70655271,
+          "semiMajorAxisAu": 2.66182336,
           "axisDerivation": {
-            "angularAxisArcsec": 0.095,
+            "angularAxisArcsec": 0.09343000000000001,
             "parallaxMas": 35.1,
             "parallaxStarId": "bright-algol"
           },
@@ -3408,6 +3956,33 @@
       "name": "Epsilon Per",
       "orbits": [
         {
+          "periodYears": 26.220396988364133,
+          "eccentricity": 0.474,
+          "inclinationDeg": null,
+          "nodeDeg": null,
+          "argumentDeg": 170.4,
+          "periastronEpoch": 35632.0,
+          "epochKind": "JD \u2212 2400000",
+          "grade": null,
+          "reference": "2006A&A...446..583L Libich+",
+          "catalog": "MSC",
+          "sourceUrl": "https://www.ctio.noirlab.edu/~atokovin/stars/newmsc-20260619.tar.gz",
+          "nodeAmbiguous": true,
+          "argumentComponent": "Aab",
+          "primaryIds": [
+            "hip-18532",
+            "msc-03579+4001-ab"
+          ],
+          "secondaryIds": [
+            "msc-03579+4001-ac"
+          ],
+          "primary": "Aab",
+          "secondary": "Ac",
+          "semiMajorAxisAu": null,
+          "axisDerivation": null,
+          "id": "msc-03579+4001-0"
+        },
+        {
           "periodYears": 0.03851937029431896,
           "eccentricity": 0.555,
           "inclinationDeg": null,
@@ -3431,7 +4006,7 @@
           "secondary": "Ab",
           "semiMajorAxisAu": null,
           "axisDerivation": null,
-          "id": "msc-03579+4001-0"
+          "id": "msc-03579+4001-1"
         }
       ]
     },
@@ -3464,6 +4039,33 @@
           "semiMajorAxisAu": null,
           "axisDerivation": null,
           "id": "msc-04007+1229-0"
+        },
+        {
+          "periodYears": 0.0905407255304586,
+          "eccentricity": 0.15,
+          "inclinationDeg": null,
+          "nodeDeg": null,
+          "argumentDeg": 241.0,
+          "periastronEpoch": 44667.3984,
+          "epochKind": "JD \u2212 2400000",
+          "grade": null,
+          "reference": "SB9_212 1982ApJ...263..289F",
+          "catalog": "MSC",
+          "sourceUrl": "https://www.ctio.noirlab.edu/~atokovin/stars/newmsc-20260619.tar.gz",
+          "nodeAmbiguous": true,
+          "argumentComponent": "Ac",
+          "primaryIds": [
+            "hip-18724",
+            "msc-04007+1229-ab"
+          ],
+          "secondaryIds": [
+            "msc-04007+1229-ac"
+          ],
+          "primary": "Aab",
+          "secondary": "Ac",
+          "semiMajorAxisAu": null,
+          "axisDerivation": null,
+          "id": "msc-04007+1229-1"
         }
       ]
     },
@@ -3545,18 +4147,18 @@
       "orbits": [
         {
           "periodYears": 77.2414,
-          "eccentricity": 0.661,
-          "inclinationDeg": 59.72,
-          "nodeDeg": 170.12,
-          "argumentDeg": 24.54,
-          "periastronEpoch": 1976.7365,
-          "epochKind": "Julian year",
-          "grade": null,
-          "reference": "VB6_Izm2019  KUI_18 Gr.3",
-          "catalog": "MSC",
-          "sourceUrl": "https://www.ctio.noirlab.edu/~atokovin/stars/newmsc-20260619.tar.gz",
+          "eccentricity": 0.66102,
+          "inclinationDeg": 59.716,
+          "nodeDeg": 170.117,
+          "argumentDeg": 24.538,
+          "periastronEpoch": 1976.7364,
+          "epochKind": "Besselian year",
+          "grade": 3.0,
+          "reference": "Izm2019",
+          "catalog": "ORB6",
+          "sourceUrl": "https://www.astro.gsu.edu/wds/orb6/orb6orbits.html",
           "nodeAmbiguous": true,
-          "argumentComponent": null,
+          "argumentComponent": "B",
           "primaryIds": [
             "hip-21594"
           ],
@@ -3565,9 +4167,9 @@
           ],
           "primary": "A",
           "secondary": "B",
-          "semiMajorAxisAu": 24.31008869,
+          "semiMajorAxisAu": 24.31043498,
           "axisDerivation": {
-            "angularAxisArcsec": 0.702,
+            "angularAxisArcsec": 0.70201,
             "parallaxMas": 28.8769,
             "parallaxStarId": "hip-21594"
           },
@@ -3597,6 +4199,37 @@
           "catalog": "ORB6",
           "sourceUrl": "https://www.astro.gsu.edu/wds/orb6/orb6orbits.html",
           "nodeAmbiguous": true,
+          "argumentComponent": "Ac",
+          "primaryIds": [
+            "hip-21881",
+            "msc-04422+2257-ab"
+          ],
+          "secondaryIds": [
+            "msc-04422+2257-ac"
+          ],
+          "primary": "Aab",
+          "secondary": "Ac",
+          "semiMajorAxisAu": 34.50789793,
+          "axisDerivation": {
+            "angularAxisArcsec": 0.284,
+            "parallaxMas": 8.23,
+            "parallaxStarId": "hip-21881"
+          },
+          "id": "msc-04422+2257-0"
+        },
+        {
+          "periodYears": 0.008094455852156058,
+          "eccentricity": 0.05,
+          "inclinationDeg": null,
+          "nodeDeg": null,
+          "argumentDeg": 126.7,
+          "periastronEpoch": 36425.2461,
+          "epochKind": "JD \u2212 2400000",
+          "grade": null,
+          "reference": "SB9_266 1961PDAO...11..385P",
+          "catalog": "MSC",
+          "sourceUrl": "https://www.ctio.noirlab.edu/~atokovin/stars/newmsc-20260619.tar.gz",
+          "nodeAmbiguous": true,
           "argumentComponent": "Ab",
           "primaryIds": [
             "hip-21881"
@@ -3606,13 +4239,9 @@
           ],
           "primary": "Aa",
           "secondary": "Ab",
-          "semiMajorAxisAu": 34.50789793,
-          "axisDerivation": {
-            "angularAxisArcsec": 0.284,
-            "parallaxMas": 8.23,
-            "parallaxStarId": "hip-21881"
-          },
-          "id": "msc-04422+2257-0"
+          "semiMajorAxisAu": null,
+          "axisDerivation": null,
+          "id": "msc-04422+2257-1"
         }
       ]
     },
@@ -3630,6 +4259,37 @@
       "systemId": "msc-05320-0018",
       "name": "Mintaka",
       "orbits": [
+        {
+          "periodYears": 317.4,
+          "eccentricity": 0.675,
+          "inclinationDeg": 107.3,
+          "nodeDeg": 142.8,
+          "argumentDeg": 257.0,
+          "periastronEpoch": 1960.2,
+          "epochKind": "Besselian year",
+          "grade": 4.0,
+          "reference": "Msn2023",
+          "catalog": "ORB6",
+          "sourceUrl": "https://www.astro.gsu.edu/wds/orb6/orb6orbits.html",
+          "nodeAmbiguous": true,
+          "argumentComponent": "Ab",
+          "primaryIds": [
+            "bright-mintaka",
+            "msc-05320-0018-aa2"
+          ],
+          "secondaryIds": [
+            "msc-05320-0018-ab"
+          ],
+          "primary": "Aa",
+          "secondary": "Ab",
+          "semiMajorAxisAu": 136.01532567,
+          "axisDerivation": {
+            "angularAxisArcsec": 0.355,
+            "parallaxMas": 2.61,
+            "parallaxStarId": "bright-mintaka"
+          },
+          "id": "msc-05320-0018-0"
+        },
         {
           "periodYears": 0.08202600958247776,
           "eccentricity": 0.32,
@@ -3654,7 +4314,7 @@
           "secondary": "Cb",
           "semiMajorAxisAu": null,
           "axisDerivation": null,
-          "id": "msc-05320-0018-0"
+          "id": "msc-05320-0018-1"
         },
         {
           "periodYears": 0.01569472963723477,
@@ -3680,14 +4340,41 @@
           "secondary": "Aa2",
           "semiMajorAxisAu": null,
           "axisDerivation": null,
-          "id": "msc-05320-0018-1"
+          "id": "msc-05320-0018-2"
         }
       ]
     },
     {
       "systemId": "msc-05353-0524",
       "name": "Theta1 Orionis",
-      "orbits": []
+      "orbits": [
+        {
+          "periodYears": 0.17914140999315536,
+          "eccentricity": 0.626,
+          "inclinationDeg": null,
+          "nodeDeg": null,
+          "argumentDeg": 183.28,
+          "periastronEpoch": 44195.5781,
+          "epochKind": "JD \u2212 2400000",
+          "grade": null,
+          "reference": "SB9_340 2000Obs...120..141S",
+          "catalog": "MSC",
+          "sourceUrl": "https://www.ctio.noirlab.edu/~atokovin/stars/newmsc-20260619.tar.gz",
+          "nodeAmbiguous": true,
+          "argumentComponent": "Aa2",
+          "primaryIds": [
+            "trapezium-theta1-orionis-a"
+          ],
+          "secondaryIds": [
+            "msc-05353-0524-aa2"
+          ],
+          "primary": "Aa1",
+          "secondary": "Aa2",
+          "semiMajorAxisAu": null,
+          "axisDerivation": null,
+          "id": "msc-05353-0524-0"
+        }
+      ]
     },
     {
       "systemId": "msc-05353-052D",
@@ -3797,6 +4484,32 @@
       "name": "Mu Ori",
       "orbits": [
         {
+          "periodYears": 0.012176824093086926,
+          "eccentricity": 0.0037,
+          "inclinationDeg": 47.1,
+          "nodeDeg": 50.5,
+          "argumentDeg": 304.0,
+          "periastronEpoch": 43739.69,
+          "epochKind": "MJD",
+          "grade": 9.0,
+          "reference": "Mut2008",
+          "catalog": "ORB6",
+          "sourceUrl": "https://www.astro.gsu.edu/wds/orb6/orb6orbits.html",
+          "nodeAmbiguous": true,
+          "argumentComponent": "Ab",
+          "primaryIds": [
+            "hip-28614"
+          ],
+          "secondaryIds": [
+            "msc-06024+0939-ab"
+          ],
+          "primary": "Aa",
+          "secondary": "Ab",
+          "semiMajorAxisAu": null,
+          "axisDerivation": null,
+          "id": "msc-06024+0939-0"
+        },
+        {
           "periodYears": 18.641,
           "eccentricity": 0.744,
           "inclinationDeg": 96.59,
@@ -3826,52 +4539,22 @@
             "parallaxMas": 21.05,
             "parallaxStarId": "hip-28614"
           },
-          "id": "msc-06024+0939-0"
-        },
-        {
-          "periodYears": 0.0122,
-          "eccentricity": 0.004,
-          "inclinationDeg": 47.1,
-          "nodeDeg": 50.5,
-          "argumentDeg": 304.0,
-          "periastronEpoch": 1978.6296,
-          "epochKind": "Julian year",
-          "grade": null,
-          "reference": "VB6_Mut2008 A_2715A Gr.9",
-          "catalog": "MSC",
-          "sourceUrl": "https://www.ctio.noirlab.edu/~atokovin/stars/newmsc-20260619.tar.gz",
-          "nodeAmbiguous": true,
-          "argumentComponent": null,
-          "primaryIds": [
-            "hip-28614"
-          ],
-          "secondaryIds": [
-            "msc-06024+0939-ab"
-          ],
-          "primary": "Aa",
-          "secondary": "Ab",
-          "semiMajorAxisAu": 0.0807601,
-          "axisDerivation": {
-            "angularAxisArcsec": 0.0017,
-            "parallaxMas": 21.05,
-            "parallaxStarId": "hip-28614"
-          },
           "id": "msc-06024+0939-1"
         },
         {
-          "periodYears": 0.0131,
-          "eccentricity": 0.002,
+          "periodYears": 0.013096605065023956,
+          "eccentricity": 0.0016,
           "inclinationDeg": 110.71,
           "nodeDeg": 111.3,
           "argumentDeg": 217.0,
-          "periastronEpoch": 1978.6481,
-          "epochKind": "Julian year",
-          "grade": null,
-          "reference": "VB6_Mut2008 A_2715B Gr.9",
-          "catalog": "MSC",
-          "sourceUrl": "https://www.ctio.noirlab.edu/~atokovin/stars/newmsc-20260619.tar.gz",
+          "periastronEpoch": 43746.4,
+          "epochKind": "MJD",
+          "grade": 9.0,
+          "reference": "Mut2008",
+          "catalog": "ORB6",
+          "sourceUrl": "https://www.astro.gsu.edu/wds/orb6/orb6orbits.html",
           "nodeAmbiguous": true,
-          "argumentComponent": null,
+          "argumentComponent": "Bb",
           "primaryIds": [
             "msc-06024+0939-ba"
           ],
@@ -3880,12 +4563,8 @@
           ],
           "primary": "Ba",
           "secondary": "Bb",
-          "semiMajorAxisAu": 0.0807601,
-          "axisDerivation": {
-            "angularAxisArcsec": 0.0017,
-            "parallaxMas": 21.05,
-            "parallaxStarId": "msc-06024+0939-ba"
-          },
+          "semiMajorAxisAu": null,
+          "axisDerivation": null,
           "id": "msc-06024+0939-2"
         }
       ]
@@ -4021,19 +4700,19 @@
       "name": "Propus",
       "orbits": [
         {
-          "periodYears": 473.7,
-          "eccentricity": 0.54,
-          "inclinationDeg": 142.7,
-          "nodeDeg": 84.5,
-          "argumentDeg": 26.2,
-          "periastronEpoch": 1819.7,
-          "epochKind": "Julian year",
-          "grade": null,
-          "reference": "VB6_Baz1980a BU_1008 Gr.5",
-          "catalog": "MSC",
-          "sourceUrl": "https://www.ctio.noirlab.edu/~atokovin/stars/newmsc-20260619.tar.gz",
+          "periodYears": 1031.1632,
+          "eccentricity": 0.84952,
+          "inclinationDeg": 96.646,
+          "nodeDeg": 65.006,
+          "argumentDeg": 253.622,
+          "periastronEpoch": 2078.1316,
+          "epochKind": "Besselian year",
+          "grade": 5.0,
+          "reference": "Izm2019",
+          "catalog": "ORB6",
+          "sourceUrl": "https://www.astro.gsu.edu/wds/orb6/orb6orbits.html",
           "nodeAmbiguous": true,
-          "argumentComponent": null,
+          "argumentComponent": "B",
           "primaryIds": [
             "hip-29655",
             "msc-06149+2230-ab"
@@ -4043,9 +4722,9 @@
           ],
           "primary": "A",
           "secondary": "B",
-          "semiMajorAxisAu": 127.35849057,
+          "semiMajorAxisAu": 602.54599057,
           "axisDerivation": {
-            "angularAxisArcsec": 1.08,
+            "angularAxisArcsec": 5.10959,
             "parallaxMas": 8.48,
             "parallaxStarId": "hip-29655"
           },
@@ -4183,6 +4862,37 @@
             "parallaxStarId": "hip-30883"
           },
           "id": "msc-06290+2013-1"
+        },
+        {
+          "periodYears": 19.108,
+          "eccentricity": 0.238,
+          "inclinationDeg": 74.5,
+          "nodeDeg": 300.9,
+          "argumentDeg": 42.0,
+          "periastronEpoch": 2011.35,
+          "epochKind": "Besselian year",
+          "grade": 2.0,
+          "reference": "Msn2021a",
+          "catalog": "ORB6",
+          "sourceUrl": "https://www.astro.gsu.edu/wds/orb6/orb6orbits.html",
+          "nodeAmbiguous": true,
+          "argumentComponent": "Ab",
+          "primaryIds": [
+            "hip-30883",
+            "msc-06290+2013-aa2"
+          ],
+          "secondaryIds": [
+            "msc-06290+2013-ab"
+          ],
+          "primary": "Aa",
+          "secondary": "Ab",
+          "semiMajorAxisAu": 13.66666667,
+          "axisDerivation": {
+            "angularAxisArcsec": 0.082,
+            "parallaxMas": 6.0,
+            "parallaxStarId": "hip-30883"
+          },
+          "id": "msc-06290+2013-2"
         }
       ]
     },
@@ -4242,19 +4952,19 @@
       "name": "Wasat",
       "orbits": [
         {
-          "periodYears": 6.1291,
+          "periodYears": 6.128953045859001,
           "eccentricity": 0.353,
           "inclinationDeg": 92.4,
           "nodeDeg": 70.04,
           "argumentDeg": 214.6,
-          "periastronEpoch": 1901.2216,
-          "epochKind": "Julian year",
-          "grade": null,
-          "reference": "VB6_HIP1997d STF1066A Gr.9",
-          "catalog": "MSC",
-          "sourceUrl": "https://www.ctio.noirlab.edu/~atokovin/stars/newmsc-20260619.tar.gz",
+          "periastronEpoch": 15466.5,
+          "epochKind": "JD \u2212 2400000",
+          "grade": 9.0,
+          "reference": "HIP1997d",
+          "catalog": "ORB6",
+          "sourceUrl": "https://www.astro.gsu.edu/wds/orb6/orb6orbits.html",
           "nodeAmbiguous": true,
-          "argumentComponent": null,
+          "argumentComponent": "Ab",
           "primaryIds": [
             "hip-35550"
           ],
@@ -4263,28 +4973,24 @@
           ],
           "primary": "Aa",
           "secondary": "Ab",
-          "semiMajorAxisAu": 0.24766193,
-          "axisDerivation": {
-            "angularAxisArcsec": 0.0143,
-            "parallaxMas": 57.74,
-            "parallaxStarId": "hip-35550"
-          },
+          "semiMajorAxisAu": null,
+          "axisDerivation": null,
           "id": "msc-07201+2159-0"
         },
         {
           "periodYears": 1418.4375,
-          "eccentricity": 0.709,
-          "inclinationDeg": 51.04,
-          "nodeDeg": 70.83,
-          "argumentDeg": 268.36,
-          "periastronEpoch": 2150.9834,
-          "epochKind": "Julian year",
-          "grade": null,
-          "reference": "VB6_Izm2019  STF1066 Gr.5?",
-          "catalog": "MSC",
-          "sourceUrl": "https://www.ctio.noirlab.edu/~atokovin/stars/newmsc-20260619.tar.gz",
+          "eccentricity": 0.70913,
+          "inclinationDeg": 51.036,
+          "nodeDeg": 70.828,
+          "argumentDeg": 268.361,
+          "periastronEpoch": 2150.9833,
+          "epochKind": "Besselian year",
+          "grade": 5.0,
+          "reference": "Izm2019",
+          "catalog": "ORB6",
+          "sourceUrl": "https://www.astro.gsu.edu/wds/orb6/orb6orbits.html",
           "nodeAmbiguous": true,
-          "argumentComponent": null,
+          "argumentComponent": "B",
           "primaryIds": [
             "hip-35550",
             "msc-07201+2159-ab"
@@ -4294,9 +5000,9 @@
           ],
           "primary": "A",
           "secondary": "B",
-          "semiMajorAxisAu": 134.41634915,
+          "semiMajorAxisAu": 134.41582958,
           "axisDerivation": {
-            "angularAxisArcsec": 7.7612,
+            "angularAxisArcsec": 7.76117,
             "parallaxMas": 57.74,
             "parallaxStarId": "hip-35550"
           },
@@ -4309,19 +5015,19 @@
       "name": "Hadir",
       "orbits": [
         {
-          "periodYears": 0.7058,
+          "periodYears": 0.7058179329226557,
           "eccentricity": 0.17,
           "inclinationDeg": 65.6,
-          "nodeDeg": null,
+          "nodeDeg": 0.0,
           "argumentDeg": 349.3,
-          "periastronEpoch": 1914.78,
-          "epochKind": "Julian year",
-          "grade": null,
-          "reference": "VB6_Jnc2005 sig_Pup Gr.9",
-          "catalog": "MSC",
-          "sourceUrl": "https://www.ctio.noirlab.edu/~atokovin/stars/newmsc-20260619.tar.gz",
+          "periastronEpoch": 20418.6,
+          "epochKind": "JD \u2212 2400000",
+          "grade": 9.0,
+          "reference": "Jnc2005",
+          "catalog": "ORB6",
+          "sourceUrl": "https://www.astro.gsu.edu/wds/orb6/orb6orbits.html",
           "nodeAmbiguous": true,
-          "argumentComponent": null,
+          "argumentComponent": "Ab",
           "primaryIds": [
             "hip-36377"
           ],
@@ -4330,12 +5036,8 @@
           ],
           "primary": "Aa",
           "secondary": "Ab",
-          "semiMajorAxisAu": 0.48766157,
-          "axisDerivation": {
-            "angularAxisArcsec": 0.0083,
-            "parallaxMas": 17.02,
-            "parallaxStarId": "hip-36377"
-          },
+          "semiMajorAxisAu": null,
+          "axisDerivation": null,
           "id": "msc-07292-4318-0"
         }
       ]
@@ -4421,19 +5123,21 @@
           "nodeAmbiguous": true,
           "argumentComponent": "C",
           "primaryIds": [
+            "bright-castor",
+            "msc-07346+3153-ab",
             "msc-07346+3153-ba",
             "msc-07346+3153-bb"
           ],
           "secondaryIds": [
             "msc-07346+3153-c"
           ],
-          "primary": "B",
+          "primary": "AB",
           "secondary": "C",
           "semiMajorAxisAu": 1041.28993369,
           "axisDerivation": {
             "angularAxisArcsec": 69.1,
             "parallaxMas": 66.36,
-            "parallaxStarId": "msc-07346+3153-ba"
+            "parallaxStarId": "bright-castor"
           },
           "id": "msc-07346+3153-2"
         },
@@ -4466,39 +5170,6 @@
             "parallaxStarId": "msc-07346+3153-ba"
           },
           "id": "msc-07346+3153-3"
-        },
-        {
-          "periodYears": 134630.0,
-          "eccentricity": 0.3,
-          "inclinationDeg": 34.0,
-          "nodeDeg": 343.0,
-          "argumentDeg": 290.0,
-          "periastronEpoch": 4606.0,
-          "epochKind": "Julian year",
-          "grade": null,
-          "reference": "VB6_Kiy2015 STF1110AC, Gr.5",
-          "catalog": "MSC",
-          "sourceUrl": "https://www.ctio.noirlab.edu/~atokovin/stars/newmsc-20260619.tar.gz",
-          "nodeAmbiguous": true,
-          "argumentComponent": null,
-          "primaryIds": [
-            "bright-castor",
-            "msc-07346+3153-ab",
-            "msc-07346+3153-ba",
-            "msc-07346+3153-bb"
-          ],
-          "secondaryIds": [
-            "msc-07346+3153-c"
-          ],
-          "primary": "AB",
-          "secondary": "C",
-          "semiMajorAxisAu": 1075.94936709,
-          "axisDerivation": {
-            "angularAxisArcsec": 71.4,
-            "parallaxMas": 66.36,
-            "parallaxStarId": "bright-castor"
-          },
-          "id": "msc-07346+3153-4"
         }
       ]
     },
@@ -4751,37 +5422,6 @@
           "nodeAmbiguous": true,
           "argumentComponent": "C",
           "primaryIds": [
-            "msc-08468+0625-b"
-          ],
-          "secondaryIds": [
-            "msc-08468+0625-ca",
-            "msc-08468+0625-cb"
-          ],
-          "primary": "B",
-          "secondary": "C",
-          "semiMajorAxisAu": 117.08093797,
-          "axisDerivation": {
-            "angularAxisArcsec": 3.09562,
-            "parallaxMas": 26.44,
-            "parallaxStarId": "msc-08468+0625-b"
-          },
-          "id": "msc-08468+0625-1"
-        },
-        {
-          "periodYears": 589.0,
-          "eccentricity": null,
-          "inclinationDeg": 33.2,
-          "nodeDeg": 34.5,
-          "argumentDeg": null,
-          "periastronEpoch": 2159.0,
-          "epochKind": "Julian year",
-          "grade": null,
-          "reference": "VB6_Dru2014 STF1273AB, Gr.4",
-          "catalog": "MSC",
-          "sourceUrl": "https://www.ctio.noirlab.edu/~atokovin/stars/newmsc-20260619.tar.gz",
-          "nodeAmbiguous": true,
-          "argumentComponent": null,
-          "primaryIds": [
             "hip-43109",
             "msc-08468+0625-b"
           ],
@@ -4791,13 +5431,13 @@
           ],
           "primary": "AB",
           "secondary": "C",
-          "semiMajorAxisAu": 127.45839637,
+          "semiMajorAxisAu": 117.08093797,
           "axisDerivation": {
-            "angularAxisArcsec": 3.37,
+            "angularAxisArcsec": 3.09562,
             "parallaxMas": 26.44,
             "parallaxStarId": "hip-43109"
           },
-          "id": "msc-08468+0625-2"
+          "id": "msc-08468+0625-1"
         },
         {
           "periodYears": 0.027117590691307324,
@@ -4823,7 +5463,7 @@
           "secondary": "Cb",
           "semiMajorAxisAu": null,
           "axisDerivation": null,
-          "id": "msc-08468+0625-3"
+          "id": "msc-08468+0625-2"
         }
       ]
     },
@@ -4836,6 +5476,37 @@
       "systemId": "msc-08592+4803",
       "name": "Talitha",
       "orbits": [
+        {
+          "periodYears": 486.0288,
+          "eccentricity": 0.46809,
+          "inclinationDeg": 75.659,
+          "nodeDeg": 165.245,
+          "argumentDeg": 33.303,
+          "periastronEpoch": 2101.3123,
+          "epochKind": "Besselian year",
+          "grade": 5.0,
+          "reference": "Izm2019",
+          "catalog": "ORB6",
+          "sourceUrl": "https://www.astro.gsu.edu/wds/orb6/orb6orbits.html",
+          "nodeAmbiguous": true,
+          "argumentComponent": "BC",
+          "primaryIds": [
+            "hip-44127"
+          ],
+          "secondaryIds": [
+            "msc-08592+4803-b",
+            "msc-08592+4803-c"
+          ],
+          "primary": "A",
+          "secondary": "BC",
+          "semiMajorAxisAu": 120.59997098,
+          "axisDerivation": {
+            "angularAxisArcsec": 8.31175,
+            "parallaxMas": 68.92,
+            "parallaxStarId": "hip-44127"
+          },
+          "id": "msc-08592+4803-0"
+        },
         {
           "periodYears": 39.4,
           "eccentricity": 0.35,
@@ -4863,37 +5534,6 @@
             "angularAxisArcsec": 0.7,
             "parallaxMas": 68.0,
             "parallaxStarId": "msc-08592+4803-b"
-          },
-          "id": "msc-08592+4803-0"
-        },
-        {
-          "periodYears": 2084.0,
-          "eccentricity": 0.9,
-          "inclinationDeg": 54.0,
-          "nodeDeg": 134.0,
-          "argumentDeg": 23.0,
-          "periastronEpoch": 2029.0,
-          "epochKind": "Julian year",
-          "grade": null,
-          "reference": "VB6_Zhu2012 HJ_2477A,B Gr.5",
-          "catalog": "MSC",
-          "sourceUrl": "https://www.ctio.noirlab.edu/~atokovin/stars/newmsc-20260619.tar.gz",
-          "nodeAmbiguous": true,
-          "argumentComponent": null,
-          "primaryIds": [
-            "hip-44127"
-          ],
-          "secondaryIds": [
-            "msc-08592+4803-b",
-            "msc-08592+4803-c"
-          ],
-          "primary": "A",
-          "secondary": "BC",
-          "semiMajorAxisAu": 242.30992455,
-          "axisDerivation": {
-            "angularAxisArcsec": 16.7,
-            "parallaxMas": 68.92,
-            "parallaxStarId": "hip-44127"
           },
           "id": "msc-08592+4803-1"
         }
@@ -5329,6 +5969,32 @@
       "name": "Alula Australis",
       "orbits": [
         {
+          "periodYears": 1.834,
+          "eccentricity": 0.61,
+          "inclinationDeg": 91.0,
+          "nodeDeg": 318.0,
+          "argumentDeg": 324.0,
+          "periastronEpoch": 1992.29,
+          "epochKind": "Besselian year",
+          "grade": 9.0,
+          "reference": "Hei1996b",
+          "catalog": "ORB6",
+          "sourceUrl": "https://www.astro.gsu.edu/wds/orb6/orb6orbits.html",
+          "nodeAmbiguous": false,
+          "argumentComponent": "Ab",
+          "primaryIds": [
+            "msc-11182+3132-aa"
+          ],
+          "secondaryIds": [
+            "msc-11182+3132-ab"
+          ],
+          "primary": "Aa",
+          "secondary": "Ab",
+          "semiMajorAxisAu": null,
+          "axisDerivation": null,
+          "id": "msc-11182+3132-0"
+        },
+        {
           "periodYears": 59.8903,
           "eccentricity": 0.40432,
           "inclinationDeg": 122.187,
@@ -5358,7 +6024,7 @@
             "parallaxMas": 120.6,
             "parallaxStarId": "msc-11182+3132-aa"
           },
-          "id": "msc-11182+3132-0"
+          "id": "msc-11182+3132-1"
         },
         {
           "periodYears": 0.01089801505817933,
@@ -5384,36 +6050,6 @@
           "secondary": "Bb",
           "semiMajorAxisAu": null,
           "axisDerivation": null,
-          "id": "msc-11182+3132-1"
-        },
-        {
-          "periodYears": 1.834,
-          "eccentricity": 0.61,
-          "inclinationDeg": 91.0,
-          "nodeDeg": 318.0,
-          "argumentDeg": 324.0,
-          "periastronEpoch": 1992.29,
-          "epochKind": "Julian year",
-          "grade": null,
-          "reference": "VB6_Hei1996b STF1523A Gr.9",
-          "catalog": "MSC",
-          "sourceUrl": "https://www.ctio.noirlab.edu/~atokovin/stars/newmsc-20260619.tar.gz",
-          "nodeAmbiguous": true,
-          "argumentComponent": null,
-          "primaryIds": [
-            "msc-11182+3132-aa"
-          ],
-          "secondaryIds": [
-            "msc-11182+3132-ab"
-          ],
-          "primary": "Aa",
-          "secondary": "Ab",
-          "semiMajorAxisAu": 0.44776119,
-          "axisDerivation": {
-            "angularAxisArcsec": 0.054,
-            "parallaxMas": 120.6,
-            "parallaxStarId": "msc-11182+3132-aa"
-          },
           "id": "msc-11182+3132-2"
         }
       ]
@@ -5423,19 +6059,19 @@
       "name": "Lambda Mus",
       "orbits": [
         {
-          "periodYears": 1.2389,
-          "eccentricity": 0.299,
+          "periodYears": 1.2388881587953455,
+          "eccentricity": 0.2986,
           "inclinationDeg": 134.01,
           "nodeDeg": 29.42,
           "argumentDeg": 251.46,
-          "periastronEpoch": 1991.1038,
-          "epochKind": "Julian year",
-          "grade": null,
-          "reference": "VB6_HIP1997d lam_Mus Gr.9",
-          "catalog": "MSC",
-          "sourceUrl": "https://www.ctio.noirlab.edu/~atokovin/stars/newmsc-20260619.tar.gz",
+          "periastronEpoch": 48295.2344,
+          "epochKind": "JD \u2212 2400000",
+          "grade": 9.0,
+          "reference": "HIP1997d",
+          "catalog": "ORB6",
+          "sourceUrl": "https://www.astro.gsu.edu/wds/orb6/orb6orbits.html",
           "nodeAmbiguous": true,
-          "argumentComponent": null,
+          "argumentComponent": "Ab",
           "primaryIds": [
             "hip-57363"
           ],
@@ -5444,12 +6080,8 @@
           ],
           "primary": "Aa",
           "secondary": "Ab",
-          "semiMajorAxisAu": 0.2468652,
-          "axisDerivation": {
-            "angularAxisArcsec": 0.0063,
-            "parallaxMas": 25.52,
-            "parallaxStarId": "hip-57363"
-          },
+          "semiMajorAxisAu": null,
+          "axisDerivation": null,
           "id": "msc-11456-6644-0"
         }
       ]
@@ -5537,14 +6169,14 @@
           "inclinationDeg": 119.1,
           "nodeDeg": 199.9,
           "argumentDeg": 14.7,
-          "periastronEpoch": 1960.8101,
-          "epochKind": "Julian year",
-          "grade": null,
-          "reference": "VB6_Hrt2014b WRH_12 Gr.3",
-          "catalog": "MSC",
-          "sourceUrl": "https://www.ctio.noirlab.edu/~atokovin/stars/newmsc-20260619.tar.gz",
+          "periastronEpoch": 1960.81,
+          "epochKind": "Besselian year",
+          "grade": 3.0,
+          "reference": "Hrt2014b",
+          "catalog": "ORB6",
+          "sourceUrl": "https://www.astro.gsu.edu/wds/orb6/orb6orbits.html",
           "nodeAmbiguous": true,
-          "argumentComponent": null,
+          "argumentComponent": "B",
           "primaryIds": [
             "hip-61394"
           ],
@@ -6170,6 +6802,32 @@
       "name": "Acrab",
       "orbits": [
         {
+          "periodYears": 0.01869472963723477,
+          "eccentricity": 0.291,
+          "inclinationDeg": 111.8,
+          "nodeDeg": 294.2,
+          "argumentDeg": 54.8,
+          "periastronEpoch": 49788.509,
+          "epochKind": "JD \u2212 2400000",
+          "grade": 9.0,
+          "reference": "Hol1997",
+          "catalog": "ORB6",
+          "sourceUrl": "https://www.astro.gsu.edu/wds/orb6/orb6orbits.html",
+          "nodeAmbiguous": true,
+          "argumentComponent": "Ab",
+          "primaryIds": [
+            "bright-beta-scorpii-a"
+          ],
+          "secondaryIds": [
+            "msc-16054-1948-ab"
+          ],
+          "primary": "Aa",
+          "secondary": "Ab",
+          "semiMajorAxisAu": null,
+          "axisDerivation": null,
+          "id": "msc-16054-1948-0"
+        },
+        {
           "periodYears": 220.0,
           "eccentricity": 0.685,
           "inclinationDeg": 75.7,
@@ -6198,7 +6856,7 @@
             "parallaxMas": 8.24,
             "parallaxStarId": "bright-beta-scorpii-a"
           },
-          "id": "msc-16054-1948-0"
+          "id": "msc-16054-1948-1"
         },
         {
           "periodYears": 18.953,
@@ -6229,7 +6887,7 @@
             "parallaxMas": 8.24,
             "parallaxStarId": "msc-16054-1948-c"
           },
-          "id": "msc-16054-1948-1"
+          "id": "msc-16054-1948-2"
         },
         {
           "periodYears": 0.030326351813826147,
@@ -6255,36 +6913,6 @@
           "secondary": "Eb",
           "semiMajorAxisAu": null,
           "axisDerivation": null,
-          "id": "msc-16054-1948-2"
-        },
-        {
-          "periodYears": 0.0187,
-          "eccentricity": 0.291,
-          "inclinationDeg": 111.8,
-          "nodeDeg": 294.2,
-          "argumentDeg": 54.8,
-          "periastronEpoch": 1995.1921,
-          "epochKind": "Julian year",
-          "grade": null,
-          "reference": "VB6_Hol1997 bet_Sco Gr.9",
-          "catalog": "MSC",
-          "sourceUrl": "https://www.ctio.noirlab.edu/~atokovin/stars/newmsc-20260619.tar.gz",
-          "nodeAmbiguous": true,
-          "argumentComponent": null,
-          "primaryIds": [
-            "bright-beta-scorpii-a"
-          ],
-          "secondaryIds": [
-            "msc-16054-1948-ab"
-          ],
-          "primary": "Aa",
-          "secondary": "Ab",
-          "semiMajorAxisAu": 0.16990291,
-          "axisDerivation": {
-            "angularAxisArcsec": 0.0014,
-            "parallaxMas": 8.24,
-            "parallaxStarId": "bright-beta-scorpii-a"
-          },
           "id": "msc-16054-1948-3"
         }
       ]
@@ -6541,6 +7169,37 @@
       "name": "Shaula",
       "orbits": [
         {
+          "periodYears": 2.882409308692676,
+          "eccentricity": 0.121,
+          "inclinationDeg": 77.2,
+          "nodeDeg": 271.3,
+          "argumentDeg": 74.8,
+          "periastronEpoch": 51562.3,
+          "epochKind": "MJD",
+          "grade": 2.0,
+          "reference": "Tng2006",
+          "catalog": "ORB6",
+          "sourceUrl": "https://www.astro.gsu.edu/wds/orb6/orb6orbits.html",
+          "nodeAmbiguous": true,
+          "argumentComponent": "Ab",
+          "primaryIds": [
+            "bright-shaula",
+            "msc-17336-3706-aa2"
+          ],
+          "secondaryIds": [
+            "msc-17336-3706-ab"
+          ],
+          "primary": "Aa",
+          "secondary": "Ab",
+          "semiMajorAxisAu": 5.53932584,
+          "axisDerivation": {
+            "angularAxisArcsec": 0.0493,
+            "parallaxMas": 8.9,
+            "parallaxStarId": "bright-shaula"
+          },
+          "id": "msc-17336-3706-0"
+        },
+        {
           "periodYears": 0.016295687885010266,
           "eccentricity": 0.26,
           "inclinationDeg": null,
@@ -6564,7 +7223,7 @@
           "secondary": "Aa2",
           "semiMajorAxisAu": null,
           "axisDerivation": null,
-          "id": "msc-17336-3706-0"
+          "id": "msc-17336-3706-1"
         }
       ]
     },
@@ -6646,19 +7305,19 @@
       "name": "Xi Pav",
       "orbits": [
         {
-          "periodYears": 6.0617,
+          "periodYears": 6.061601642710472,
           "eccentricity": 0.26,
           "inclinationDeg": 56.0,
           "nodeDeg": 54.6,
           "argumentDeg": 187.2,
-          "periastronEpoch": 1908.3667,
-          "epochKind": "Julian year",
-          "grade": null,
-          "reference": "VB6_Jnc2005 GLE_2A Gr.9",
-          "catalog": "MSC",
-          "sourceUrl": "https://www.ctio.noirlab.edu/~atokovin/stars/newmsc-20260619.tar.gz",
+          "periastronEpoch": 18076.2,
+          "epochKind": "JD \u2212 2400000",
+          "grade": 9.0,
+          "reference": "Jnc2005",
+          "catalog": "ORB6",
+          "sourceUrl": "https://www.astro.gsu.edu/wds/orb6/orb6orbits.html",
           "nodeAmbiguous": true,
-          "argumentComponent": null,
+          "argumentComponent": "Ab",
           "primaryIds": [
             "hip-90098"
           ],
@@ -6667,12 +7326,8 @@
           ],
           "primary": "Aa",
           "secondary": "Ab",
-          "semiMajorAxisAu": 3.64175563,
-          "axisDerivation": {
-            "angularAxisArcsec": 0.0307,
-            "parallaxMas": 8.43,
-            "parallaxStarId": "hip-90098"
-          },
+          "semiMajorAxisAu": null,
+          "axisDerivation": null,
           "id": "msc-18232-6130-0"
         }
       ]
@@ -7155,6 +7810,37 @@
       "name": "Alfirk",
       "orbits": [
         {
+          "periodYears": 26.328651608487338,
+          "eccentricity": 0.7478,
+          "inclinationDeg": 88.8,
+          "nodeDeg": 227.83,
+          "argumentDeg": 202.43,
+          "periastronEpoch": 50944.5,
+          "epochKind": "JD \u2212 2400000",
+          "grade": 3.0,
+          "reference": "NOI2021",
+          "catalog": "ORB6",
+          "sourceUrl": "https://www.astro.gsu.edu/wds/orb6/orb6orbits.html",
+          "nodeAmbiguous": true,
+          "argumentComponent": "Ab",
+          "primaryIds": [
+            "hip-106032",
+            "msc-21287+7034-aa2"
+          ],
+          "secondaryIds": [
+            "msc-21287+7034-ab"
+          ],
+          "primary": "Aa",
+          "secondary": "Ab",
+          "semiMajorAxisAu": 43.4789916,
+          "axisDerivation": {
+            "angularAxisArcsec": 0.20696,
+            "parallaxMas": 4.76,
+            "parallaxStarId": "hip-106032"
+          },
+          "id": "msc-21287+7034-0"
+        },
+        {
           "periodYears": 0.029823408624229983,
           "eccentricity": 0.52,
           "inclinationDeg": null,
@@ -7178,7 +7864,7 @@
           "secondary": "Aa2",
           "semiMajorAxisAu": null,
           "axisDerivation": null,
-          "id": "msc-21287+7034-0"
+          "id": "msc-21287+7034-1"
         }
       ]
     },
@@ -7218,19 +7904,19 @@
           "id": "msc-21446+2539-0"
         },
         {
-          "periodYears": 0.0163,
-          "eccentricity": 0.007,
+          "periodYears": 0.01634906776180698,
+          "eccentricity": 0.0073,
           "inclinationDeg": 125.7,
           "nodeDeg": 244.1,
-          "argumentDeg": 179.0,
-          "periastronEpoch": 2002.3469,
-          "epochKind": "Julian year",
-          "grade": null,
-          "reference": "VB6_Mut2008 BU_989B Gr.9",
-          "catalog": "MSC",
-          "sourceUrl": "https://www.ctio.noirlab.edu/~atokovin/stars/newmsc-20260619.tar.gz",
+          "argumentDeg": 359.0,
+          "periastronEpoch": 52402.22,
+          "epochKind": "MJD",
+          "grade": 9.0,
+          "reference": "Mut2008",
+          "catalog": "ORB6",
+          "sourceUrl": "https://www.astro.gsu.edu/wds/orb6/orb6orbits.html",
           "nodeAmbiguous": true,
-          "argumentComponent": null,
+          "argumentComponent": "Bb",
           "primaryIds": [
             "msc-21446+2539-ba"
           ],
@@ -7239,12 +7925,8 @@
           ],
           "primary": "Ba",
           "secondary": "Bb",
-          "semiMajorAxisAu": 0.08650519,
-          "axisDerivation": {
-            "angularAxisArcsec": 0.0025,
-            "parallaxMas": 28.9,
-            "parallaxStarId": "msc-21446+2539-ba"
-          },
+          "semiMajorAxisAu": null,
+          "axisDerivation": null,
           "id": "msc-21446+2539-1"
         }
       ]
@@ -7282,42 +7964,6 @@
             "parallaxStarId": "hip-107608"
           },
           "id": "msc-21477-3054-0"
-        }
-      ]
-    },
-    {
-      "systemId": "msc-22034-5647",
-      "name": "eps Ind",
-      "orbits": [
-        {
-          "periodYears": 11.2,
-          "eccentricity": 0.53,
-          "inclinationDeg": 102.8,
-          "nodeDeg": null,
-          "argumentDeg": null,
-          "periastronEpoch": 2010.1,
-          "epochKind": "Besselian year",
-          "grade": 7.0,
-          "reference": "Mcg2009",
-          "catalog": "ORB6",
-          "sourceUrl": "https://www.astro.gsu.edu/wds/orb6/orb6orbits.html",
-          "nodeAmbiguous": true,
-          "argumentComponent": "Bb",
-          "primaryIds": [
-            "msc-22034-5647-ba"
-          ],
-          "secondaryIds": [
-            "msc-22034-5647-bb"
-          ],
-          "primary": "Ba",
-          "secondary": "Bb",
-          "semiMajorAxisAu": 2.47552189,
-          "axisDerivation": {
-            "angularAxisArcsec": 0.67,
-            "parallaxMas": 270.65,
-            "parallaxStarId": "msc-22034-5647-ba"
-          },
-          "id": "msc-22034-5647-0"
         }
       ]
     },
@@ -7844,7 +8490,38 @@
     {
       "systemId": "spectroscopic-hip-112158",
       "name": "Matar",
-      "orbits": []
+      "orbits": [
+        {
+          "periodYears": 2.237946611909651,
+          "eccentricity": 0.1677,
+          "inclinationDeg": 68.28,
+          "nodeDeg": 20.9,
+          "argumentDeg": 354.5,
+          "periastronEpoch": 47140.3,
+          "epochKind": "JD \u2212 2400000",
+          "grade": 1.0,
+          "reference": "MkT1998",
+          "catalog": "ORB6",
+          "sourceUrl": "https://www.astro.gsu.edu/wds/orb6/orb6orbits.html",
+          "nodeAmbiguous": true,
+          "argumentComponent": "B",
+          "primaryIds": [
+            "hip-112158"
+          ],
+          "secondaryIds": [
+            "hip-112158-component-b"
+          ],
+          "primary": "A",
+          "secondary": "B",
+          "semiMajorAxisAu": null,
+          "axisDerivation": {
+            "angularAxisArcsec": 0.045020000000000004,
+            "parallaxMas": null,
+            "parallaxStarId": null
+          },
+          "id": "spectroscopic-hip-112158-0"
+        }
+      ]
     },
     {
       "systemId": "spectroscopic-hip-14328",
@@ -7981,6 +8658,2073 @@
             "parallaxStarId": null
           },
           "id": "spectroscopic-hip-23453-0"
+        }
+      ]
+    },
+    {
+      "systemId": "orb6-01061-4643-a-b",
+      "name": "Beta Phe",
+      "orbits": [
+        {
+          "periodYears": 170.7,
+          "eccentricity": 0.718,
+          "inclinationDeg": 144.0,
+          "nodeDeg": 126.4,
+          "argumentDeg": 293.5,
+          "periastronEpoch": 2003.41,
+          "epochKind": "Besselian year",
+          "grade": 3.0,
+          "reference": "Ary2015b",
+          "catalog": "ORB6",
+          "sourceUrl": "https://www.astro.gsu.edu/wds/orb6/orb6orbits.html",
+          "nodeAmbiguous": true,
+          "argumentComponent": "B",
+          "primaryIds": [
+            "hip-5165"
+          ],
+          "secondaryIds": [
+            "orb6-01061-4643-a-b-b"
+          ],
+          "primary": "A",
+          "secondary": "B",
+          "semiMajorAxisAu": 7883.33333333,
+          "axisDerivation": {
+            "angularAxisArcsec": 0.946,
+            "parallaxMas": 0.12,
+            "parallaxStarId": "hip-5165",
+            "distanceScope": "Shared catalog parent distance; approximate for unresolved components"
+          },
+          "id": "orb6-01061-4643-a-b-0"
+        }
+      ]
+    },
+    {
+      "systemId": "orb6-01315+1521-a-b",
+      "name": "Alpherg",
+      "orbits": [
+        {
+          "periodYears": 850.5,
+          "eccentricity": 0.469,
+          "inclinationDeg": 58.5,
+          "nodeDeg": 32.8,
+          "argumentDeg": 86.9,
+          "periastronEpoch": 2040.3,
+          "epochKind": "Besselian year",
+          "grade": 5.0,
+          "reference": "Cve2010e",
+          "catalog": "ORB6",
+          "sourceUrl": "https://www.astro.gsu.edu/wds/orb6/orb6orbits.html",
+          "nodeAmbiguous": true,
+          "argumentComponent": "B",
+          "primaryIds": [
+            "hip-7097"
+          ],
+          "secondaryIds": [
+            "orb6-01315+1521-a-b-b"
+          ],
+          "primary": "A",
+          "secondary": "B",
+          "semiMajorAxisAu": 140.60800366,
+          "axisDerivation": {
+            "angularAxisArcsec": 1.228,
+            "parallaxMas": 8.7335,
+            "parallaxStarId": "hip-7097",
+            "distanceScope": "Shared catalog parent distance; approximate for unresolved components"
+          },
+          "id": "orb6-01315+1521-a-b-0"
+        }
+      ]
+    },
+    {
+      "systemId": "orb6-01377-5714-a-b",
+      "name": "Achernar",
+      "orbits": [
+        {
+          "periodYears": 7.0389,
+          "eccentricity": 0.7258,
+          "inclinationDeg": 30.32,
+          "nodeDeg": 310.91,
+          "argumentDeg": 172.05,
+          "periastronEpoch": 54743.44,
+          "epochKind": "MJD",
+          "grade": 2.0,
+          "reference": "Krv2022",
+          "catalog": "ORB6",
+          "sourceUrl": "https://www.astro.gsu.edu/wds/orb6/orb6orbits.html",
+          "nodeAmbiguous": true,
+          "argumentComponent": "B",
+          "primaryIds": [
+            "bright-achernar"
+          ],
+          "secondaryIds": [
+            "orb6-01377-5714-a-b-b"
+          ],
+          "primary": "A",
+          "secondary": "B",
+          "semiMajorAxisAu": 7.34929457,
+          "axisDerivation": {
+            "angularAxisArcsec": 0.1719,
+            "parallaxMas": 23.39,
+            "parallaxStarId": "bright-achernar",
+            "distanceScope": "Shared catalog parent distance; approximate for unresolved components"
+          },
+          "id": "orb6-01377-5714-a-b-0"
+        }
+      ]
+    },
+    {
+      "systemId": "orb6-01546+2049-a-b",
+      "name": "Sheratan",
+      "orbits": [
+        {
+          "periodYears": 0.2929347570157427,
+          "eccentricity": 0.8801,
+          "inclinationDeg": 47.5,
+          "nodeDeg": 83.3,
+          "argumentDeg": 204.9,
+          "periastronEpoch": 44809.1016,
+          "epochKind": "JD \u2212 2400000",
+          "grade": 2.0,
+          "reference": "Pbx2000b",
+          "catalog": "ORB6",
+          "sourceUrl": "https://www.astro.gsu.edu/wds/orb6/orb6orbits.html",
+          "nodeAmbiguous": true,
+          "argumentComponent": "B",
+          "primaryIds": [
+            "bright-sheratan"
+          ],
+          "secondaryIds": [
+            "orb6-01546+2049-a-b-b"
+          ],
+          "primary": "A",
+          "secondary": "B",
+          "semiMajorAxisAu": 0.64748201,
+          "axisDerivation": {
+            "angularAxisArcsec": 0.036000000000000004,
+            "parallaxMas": 55.6,
+            "parallaxStarId": "bright-sheratan",
+            "distanceScope": "Shared catalog parent distance; approximate for unresolved components"
+          },
+          "id": "orb6-01546+2049-a-b-0"
+        }
+      ]
+    },
+    {
+      "systemId": "orb6-02095+3459-a-b",
+      "name": "Alaybasan",
+      "orbits": [
+        {
+          "periodYears": 0.08593292265571527,
+          "eccentricity": 0.44,
+          "inclinationDeg": 129.9,
+          "nodeDeg": 64.9,
+          "argumentDeg": 298.1,
+          "periastronEpoch": 47729.07,
+          "epochKind": "JD \u2212 2400000",
+          "grade": 1.0,
+          "reference": "MkT1995",
+          "catalog": "ORB6",
+          "sourceUrl": "https://www.astro.gsu.edu/wds/orb6/orb6orbits.html",
+          "nodeAmbiguous": true,
+          "argumentComponent": "B",
+          "primaryIds": [
+            "hip-10064"
+          ],
+          "secondaryIds": [
+            "orb6-02095+3459-a-b-b"
+          ],
+          "primary": "A",
+          "secondary": "B",
+          "semiMajorAxisAu": 0.31194088,
+          "axisDerivation": {
+            "angularAxisArcsec": 0.00802,
+            "parallaxMas": 25.71,
+            "parallaxStarId": "hip-10064",
+            "distanceScope": "Shared catalog parent distance; approximate for unresolved components"
+          },
+          "id": "orb6-02095+3459-a-b-0"
+        }
+      ]
+    },
+    {
+      "systemId": "orb6-02171+3413-aa-ab",
+      "name": "Delta Tri",
+      "orbits": [
+        {
+          "periodYears": 0.027432416153319646,
+          "eccentricity": 0.011,
+          "inclinationDeg": 163.0,
+          "nodeDeg": 37.0,
+          "argumentDeg": 171.0,
+          "periastronEpoch": 48919.17,
+          "epochKind": "JD \u2212 2400000",
+          "grade": 1.0,
+          "reference": "Pbx2000b",
+          "catalog": "ORB6",
+          "sourceUrl": "https://www.astro.gsu.edu/wds/orb6/orb6orbits.html",
+          "nodeAmbiguous": true,
+          "argumentComponent": "Ab",
+          "primaryIds": [
+            "cns5-0583"
+          ],
+          "secondaryIds": [
+            "orb6-02171+3413-aa-ab-ab"
+          ],
+          "primary": "Aa",
+          "secondary": "Ab",
+          "semiMajorAxisAu": 0.10568316,
+          "axisDerivation": {
+            "angularAxisArcsec": 0.009800000000000001,
+            "parallaxMas": 92.7300033569336,
+            "parallaxStarId": "cns5-0583",
+            "distanceScope": "Shared catalog parent distance; approximate for unresolved components"
+          },
+          "id": "orb6-02171+3413-aa-ab-0"
+        }
+      ]
+    },
+    {
+      "systemId": "orb6-02193-0259-aa-ab",
+      "name": "Mira",
+      "orbits": [
+        {
+          "periodYears": 497.88,
+          "eccentricity": 0.16,
+          "inclinationDeg": 112.0,
+          "nodeDeg": 138.8,
+          "argumentDeg": 258.3,
+          "periastronEpoch": 2285.75,
+          "epochKind": "Besselian year",
+          "grade": 4.0,
+          "reference": "Sca2001f",
+          "catalog": "ORB6",
+          "sourceUrl": "https://www.astro.gsu.edu/wds/orb6/orb6orbits.html",
+          "nodeAmbiguous": true,
+          "argumentComponent": "Ab",
+          "primaryIds": [
+            "hip-10826"
+          ],
+          "secondaryIds": [
+            "orb6-02193-0259-aa-ab-ab"
+          ],
+          "primary": "Aa",
+          "secondary": "Ab",
+          "semiMajorAxisAu": 73.32722273,
+          "axisDerivation": {
+            "angularAxisArcsec": 0.8,
+            "parallaxMas": 10.91,
+            "parallaxStarId": "hip-10826",
+            "distanceScope": "Shared catalog parent distance; approximate for unresolved components"
+          },
+          "id": "orb6-02193-0259-aa-ab-0"
+        }
+      ]
+    },
+    {
+      "systemId": "orb6-02396-1152-a-b",
+      "name": "Epsilon Cet",
+      "orbits": [
+        {
+          "periodYears": 2.6512,
+          "eccentricity": 0.23,
+          "inclinationDeg": 24.2,
+          "nodeDeg": 90.2,
+          "argumentDeg": 40.8,
+          "periastronEpoch": 2012.3109,
+          "epochKind": "Besselian year",
+          "grade": 1.0,
+          "reference": "Doc2013d",
+          "catalog": "ORB6",
+          "sourceUrl": "https://www.astro.gsu.edu/wds/orb6/orb6orbits.html",
+          "nodeAmbiguous": true,
+          "argumentComponent": "B",
+          "primaryIds": [
+            "hip-12390"
+          ],
+          "secondaryIds": [
+            "orb6-02396-1152-a-b-b"
+          ],
+          "primary": "A",
+          "secondary": "B",
+          "semiMajorAxisAu": 2.5019771,
+          "axisDerivation": {
+            "angularAxisArcsec": 0.1063,
+            "parallaxMas": 42.4864,
+            "parallaxStarId": "hip-12390",
+            "distanceScope": "Shared catalog parent distance; approximate for unresolved components"
+          },
+          "id": "orb6-02396-1152-a-b-0"
+        }
+      ]
+    },
+    {
+      "systemId": "orb6-04287+1552-aa-ab",
+      "name": "Chamukuy",
+      "orbits": [
+        {
+          "periodYears": 0.385298288843258,
+          "eccentricity": 0.736,
+          "inclinationDeg": 47.8,
+          "nodeDeg": 353.82,
+          "argumentDeg": 235.41,
+          "periastronEpoch": 1995.00144,
+          "epochKind": "Besselian year",
+          "grade": 1.0,
+          "reference": "Lmp2011",
+          "catalog": "ORB6",
+          "sourceUrl": "https://www.astro.gsu.edu/wds/orb6/orb6orbits.html",
+          "nodeAmbiguous": true,
+          "argumentComponent": "Ab",
+          "primaryIds": [
+            "hip-20894"
+          ],
+          "secondaryIds": [
+            "orb6-04287+1552-aa-ab-ab"
+          ],
+          "primary": "Aa",
+          "secondary": "Ab",
+          "semiMajorAxisAu": 0.8669341,
+          "axisDerivation": {
+            "angularAxisArcsec": 0.01891,
+            "parallaxMas": 21.8125,
+            "parallaxStarId": "hip-20894",
+            "distanceScope": "Shared catalog parent distance; approximate for unresolved components"
+          },
+          "id": "orb6-04287+1552-aa-ab-0"
+        }
+      ]
+    },
+    {
+      "systemId": "orb6-04340-5503-a-b",
+      "name": "Alpha Dor",
+      "orbits": [
+        {
+          "periodYears": 12.11,
+          "eccentricity": 0.777,
+          "inclinationDeg": 46.0,
+          "nodeDeg": 304.9,
+          "argumentDeg": 40.0,
+          "periastronEpoch": 1986.9,
+          "epochKind": "Besselian year",
+          "grade": 2.0,
+          "reference": "Hrt2010a",
+          "catalog": "ORB6",
+          "sourceUrl": "https://www.astro.gsu.edu/wds/orb6/orb6orbits.html",
+          "nodeAmbiguous": true,
+          "argumentComponent": "B",
+          "primaryIds": [
+            "hip-21281"
+          ],
+          "secondaryIds": [
+            "orb6-04340-5503-a-b-b"
+          ],
+          "primary": "A",
+          "secondary": "B",
+          "semiMajorAxisAu": 10.39296794,
+          "axisDerivation": {
+            "angularAxisArcsec": 0.201,
+            "parallaxMas": 19.34,
+            "parallaxStarId": "hip-21281",
+            "distanceScope": "Shared catalog parent distance; approximate for unresolved components"
+          },
+          "id": "orb6-04340-5503-a-b-0"
+        }
+      ]
+    },
+    {
+      "systemId": "orb6-04589+6435-a-b",
+      "name": "WISE J045853.89+643452.5",
+      "orbits": [
+        {
+          "periodYears": 43.0,
+          "eccentricity": 0.18,
+          "inclinationDeg": 76.5,
+          "nodeDeg": 132.0,
+          "argumentDeg": 110.0,
+          "periastronEpoch": 51994.0,
+          "epochKind": "JD \u2212 2400000",
+          "grade": 5.0,
+          "reference": "Leg2019",
+          "catalog": "ORB6",
+          "sourceUrl": "https://www.astro.gsu.edu/wds/orb6/orb6orbits.html",
+          "nodeAmbiguous": true,
+          "argumentComponent": "B",
+          "primaryIds": [
+            "cns5-1242"
+          ],
+          "secondaryIds": [
+            "orb6-04589+6435-a-b-b"
+          ],
+          "primary": "A",
+          "secondary": "B",
+          "semiMajorAxisAu": 4.98614944,
+          "axisDerivation": {
+            "angularAxisArcsec": 0.54,
+            "parallaxMas": 108.30000305175781,
+            "parallaxStarId": "cns5-1242",
+            "distanceScope": "Shared catalog parent distance; approximate for unresolved components"
+          },
+          "id": "orb6-04589+6435-a-b-0"
+        }
+      ]
+    },
+    {
+      "systemId": "orb6-05174-3522-a-b",
+      "name": "CD-35 2213",
+      "orbits": [
+        {
+          "periodYears": 0.71094,
+          "eccentricity": 0.2242,
+          "inclinationDeg": 107.94,
+          "nodeDeg": 164.26,
+          "argumentDeg": 140.7,
+          "periastronEpoch": 2022.367,
+          "epochKind": "Besselian year",
+          "grade": 2.0,
+          "reference": "Msn2023",
+          "catalog": "ORB6",
+          "sourceUrl": "https://www.astro.gsu.edu/wds/orb6/orb6orbits.html",
+          "nodeAmbiguous": true,
+          "argumentComponent": "B",
+          "primaryIds": [
+            "cns5-1322"
+          ],
+          "secondaryIds": [
+            "orb6-05174-3522-a-b-b"
+          ],
+          "primary": "A",
+          "secondary": "B",
+          "semiMajorAxisAu": 0.68468453,
+          "axisDerivation": {
+            "angularAxisArcsec": 0.05853,
+            "parallaxMas": 85.48462498355975,
+            "parallaxStarId": "cns5-1322",
+            "distanceScope": "Shared catalog parent distance; approximate for unresolved components"
+          },
+          "id": "orb6-05174-3522-a-b-0"
+        }
+      ]
+    },
+    {
+      "systemId": "orb6-05335-4257-a-b",
+      "name": "1RXS J053328.4-425713",
+      "orbits": [
+        {
+          "periodYears": 0.672,
+          "eccentricity": 0.49,
+          "inclinationDeg": 150.73,
+          "nodeDeg": 109.41,
+          "argumentDeg": 44.38,
+          "periastronEpoch": 2017.155,
+          "epochKind": "Besselian year",
+          "grade": 2.0,
+          "reference": "TSN2022a",
+          "catalog": "ORB6",
+          "sourceUrl": "https://www.astro.gsu.edu/wds/orb6/orb6orbits.html",
+          "nodeAmbiguous": true,
+          "argumentComponent": "B",
+          "primaryIds": [
+            "cns5-1381"
+          ],
+          "secondaryIds": [
+            "orb6-05335-4257-a-b-b"
+          ],
+          "primary": "A",
+          "secondary": "B",
+          "semiMajorAxisAu": 0.56693597,
+          "axisDerivation": {
+            "angularAxisArcsec": 0.0544,
+            "parallaxMas": 95.954399300963,
+            "parallaxStarId": "cns5-1381",
+            "distanceScope": "Shared catalog parent distance; approximate for unresolved components"
+          },
+          "id": "orb6-05335-4257-a-b-0"
+        }
+      ]
+    },
+    {
+      "systemId": "orb6-05353-0523-ca-cb",
+      "name": "Theta1 Orionis",
+      "orbits": [
+        {
+          "periodYears": 11.4,
+          "eccentricity": 0.59,
+          "inclinationDeg": 98.6,
+          "nodeDeg": 27.9,
+          "argumentDeg": 283.0,
+          "periastronEpoch": 2002.2,
+          "epochKind": "Besselian year",
+          "grade": 2.0,
+          "reference": "Gvt2018",
+          "catalog": "ORB6",
+          "sourceUrl": "https://www.astro.gsu.edu/wds/orb6/orb6orbits.html",
+          "nodeAmbiguous": true,
+          "argumentComponent": "Cb",
+          "primaryIds": [
+            "trapezium-theta1-orionis-c"
+          ],
+          "secondaryIds": [
+            "orb6-05353-0523-ca-cb-cb"
+          ],
+          "primary": "Ca",
+          "secondary": "Cb",
+          "semiMajorAxisAu": 17.98992564,
+          "axisDerivation": {
+            "angularAxisArcsec": 0.045,
+            "parallaxMas": 2.5014,
+            "parallaxStarId": "trapezium-theta1-orionis-c",
+            "distanceScope": "Shared catalog parent distance; approximate for unresolved components"
+          },
+          "id": "orb6-05353-0523-ca-cb-0"
+        }
+      ]
+    },
+    {
+      "systemId": "orb6-05595+4457-aa-ab",
+      "name": "Menkalinan",
+      "orbits": [
+        {
+          "periodYears": 0.01084188911704312,
+          "eccentricity": 0.0,
+          "inclinationDeg": 76.0,
+          "nodeDeg": 115.4,
+          "argumentDeg": 0.0,
+          "periastronEpoch": 47438.65,
+          "epochKind": "JD \u2212 2400000",
+          "grade": 2.0,
+          "reference": "MkT1995",
+          "catalog": "ORB6",
+          "sourceUrl": "https://www.astro.gsu.edu/wds/orb6/orb6orbits.html",
+          "nodeAmbiguous": true,
+          "argumentComponent": "Ab",
+          "primaryIds": [
+            "bright-menkalinan"
+          ],
+          "secondaryIds": [
+            "orb6-05595+4457-aa-ab-ab"
+          ],
+          "primary": "Aa",
+          "secondary": "Ab",
+          "semiMajorAxisAu": 0.08206914,
+          "axisDerivation": {
+            "angularAxisArcsec": 0.0033,
+            "parallaxMas": 40.21,
+            "parallaxStarId": "bright-menkalinan",
+            "distanceScope": "Shared catalog parent distance; approximate for unresolved components"
+          },
+          "id": "orb6-05595+4457-aa-ab-0"
+        }
+      ]
+    },
+    {
+      "systemId": "orb6-05597+3713-a-b",
+      "name": "Mahasim",
+      "orbits": [
+        {
+          "periodYears": 471.6358,
+          "eccentricity": 0.7131,
+          "inclinationDeg": 117.058,
+          "nodeDeg": 86.36,
+          "argumentDeg": 301.057,
+          "periastronEpoch": 1784.6647,
+          "epochKind": "Besselian year",
+          "grade": 5.0,
+          "reference": "Izm2019",
+          "catalog": "ORB6",
+          "sourceUrl": "https://www.astro.gsu.edu/wds/orb6/orb6orbits.html",
+          "nodeAmbiguous": true,
+          "argumentComponent": "B",
+          "primaryIds": [
+            "bright-mahasim"
+          ],
+          "secondaryIds": [
+            "orb6-05597+3713-a-b-b"
+          ],
+          "primary": "A",
+          "secondary": "B",
+          "semiMajorAxisAu": 213.89504804,
+          "axisDerivation": {
+            "angularAxisArcsec": 3.67538,
+            "parallaxMas": 17.1831,
+            "parallaxStarId": "orb6-05597+3713-a-b-b"
+          },
+          "id": "orb6-05597+3713-a-b-0"
+        }
+      ]
+    },
+    {
+      "systemId": "orb6-06377+1624-aa-ab",
+      "name": "Alhena",
+      "orbits": [
+        {
+          "periodYears": 12.634,
+          "eccentricity": 0.89,
+          "inclinationDeg": 106.7,
+          "nodeDeg": 243.6,
+          "argumentDeg": 132.6,
+          "periastronEpoch": 1979.34,
+          "epochKind": "Besselian year",
+          "grade": 5.0,
+          "reference": "Dru2014",
+          "catalog": "ORB6",
+          "sourceUrl": "https://www.astro.gsu.edu/wds/orb6/orb6orbits.html",
+          "nodeAmbiguous": true,
+          "argumentComponent": "Ab",
+          "primaryIds": [
+            "bright-alhena"
+          ],
+          "secondaryIds": [
+            "orb6-06377+1624-aa-ab-ab"
+          ],
+          "primary": "Aa",
+          "secondary": "Ab",
+          "semiMajorAxisAu": 9.15549598,
+          "axisDerivation": {
+            "angularAxisArcsec": 0.2732,
+            "parallaxMas": 29.84,
+            "parallaxStarId": "bright-alhena",
+            "distanceScope": "Shared catalog parent distance; approximate for unresolved components"
+          },
+          "id": "orb6-06377+1624-aa-ab-0"
+        }
+      ]
+    },
+    {
+      "systemId": "orb6-07006+3157-a-b",
+      "name": "2MASS J07003664+3157266",
+      "orbits": [
+        {
+          "periodYears": 23.9,
+          "eccentricity": 0.013,
+          "inclinationDeg": 88.14,
+          "nodeDeg": 102.666,
+          "argumentDeg": 80.0,
+          "periastronEpoch": 62600.0,
+          "epochKind": "JD \u2212 2400000",
+          "grade": 4.0,
+          "reference": "Dup2017",
+          "catalog": "ORB6",
+          "sourceUrl": "https://www.astro.gsu.edu/wds/orb6/orb6orbits.html",
+          "nodeAmbiguous": true,
+          "argumentComponent": "B",
+          "primaryIds": [
+            "cns5-1741"
+          ],
+          "secondaryIds": [
+            "orb6-07006+3157-a-b-b"
+          ],
+          "primary": "A",
+          "secondary": "B",
+          "semiMajorAxisAu": 4.26953553,
+          "axisDerivation": {
+            "angularAxisArcsec": 0.377,
+            "parallaxMas": 88.30000305175781,
+            "parallaxStarId": "cns5-1741",
+            "distanceScope": "Shared catalog parent distance; approximate for unresolved components"
+          },
+          "id": "orb6-07006+3157-a-b-0"
+        }
+      ]
+    },
+    {
+      "systemId": "orb6-07200-0847-a-b",
+      "name": "Scholz's star",
+      "orbits": [
+        {
+          "periodYears": 8.263735,
+          "eccentricity": 0.248445,
+          "inclinationDeg": 106.5003,
+          "nodeDeg": 59.415,
+          "argumentDeg": 182.7214,
+          "periastronEpoch": 2015.718841,
+          "epochKind": "Besselian year",
+          "grade": 4.0,
+          "reference": "Kpp2020f",
+          "catalog": "ORB6",
+          "sourceUrl": "https://www.astro.gsu.edu/wds/orb6/orb6orbits.html",
+          "nodeAmbiguous": true,
+          "argumentComponent": "B",
+          "primaryIds": [
+            "cns5-1819"
+          ],
+          "secondaryIds": [
+            "orb6-07200-0847-a-b-b"
+          ],
+          "primary": "A",
+          "secondary": "B",
+          "semiMajorAxisAu": 2.18286871,
+          "axisDerivation": {
+            "angularAxisArcsec": 0.3211,
+            "parallaxMas": 147.10000610351562,
+            "parallaxStarId": "cns5-1819",
+            "distanceScope": "Shared catalog parent distance; approximate for unresolved components"
+          },
+          "id": "orb6-07200-0847-a-b-0"
+        }
+      ]
+    },
+    {
+      "systemId": "orb6-07467+2001-a-b",
+      "name": "2MASS J07464256+2000321",
+      "orbits": [
+        {
+          "periodYears": 12.749,
+          "eccentricity": 0.4856,
+          "inclinationDeg": 138.68,
+          "nodeDeg": 29.79,
+          "argumentDeg": 355.8,
+          "periastronEpoch": 61887.0,
+          "epochKind": "JD \u2212 2400000",
+          "grade": 3.0,
+          "reference": "Dup2017",
+          "catalog": "ORB6",
+          "sourceUrl": "https://www.astro.gsu.edu/wds/orb6/orb6orbits.html",
+          "nodeAmbiguous": true,
+          "argumentComponent": "B",
+          "primaryIds": [
+            "cns5-1916"
+          ],
+          "secondaryIds": [
+            "orb6-07467+2001-a-b-b"
+          ],
+          "primary": "A",
+          "secondary": "B",
+          "semiMajorAxisAu": 2.91925168,
+          "axisDerivation": {
+            "angularAxisArcsec": 0.23716,
+            "parallaxMas": 81.23999786376953,
+            "parallaxStarId": "cns5-1916",
+            "distanceScope": "Shared catalog parent distance; approximate for unresolved components"
+          },
+          "id": "orb6-07467+2001-a-b-0"
+        }
+      ]
+    },
+    {
+      "systemId": "orb6-07490-2455-a-b",
+      "name": "188 Pup",
+      "orbits": [
+        {
+          "periodYears": 2.422,
+          "eccentricity": 0.408,
+          "inclinationDeg": 29.5,
+          "nodeDeg": 212.0,
+          "argumentDeg": 295.3,
+          "periastronEpoch": 2011.557,
+          "epochKind": "Besselian year",
+          "grade": 3.0,
+          "reference": "Tok2015c",
+          "catalog": "ORB6",
+          "sourceUrl": "https://www.astro.gsu.edu/wds/orb6/orb6orbits.html",
+          "nodeAmbiguous": true,
+          "argumentComponent": "B",
+          "primaryIds": [
+            "hip-38146"
+          ],
+          "secondaryIds": [
+            "orb6-07490-2455-a-b-b"
+          ],
+          "primary": "A",
+          "secondary": "B",
+          "semiMajorAxisAu": 2.31021064,
+          "axisDerivation": {
+            "angularAxisArcsec": 0.0374,
+            "parallaxMas": 16.189,
+            "parallaxStarId": "hip-38146",
+            "distanceScope": "Shared catalog parent distance; approximate for unresolved components"
+          },
+          "id": "orb6-07490-2455-a-b-0"
+        }
+      ]
+    },
+    {
+      "systemId": "orb6-08405+1933-aa-ab",
+      "name": "Meleph",
+      "orbits": [
+        {
+          "periodYears": 0.09621084188911705,
+          "eccentricity": 0.4195,
+          "inclinationDeg": 81.454,
+          "nodeDeg": 356.069,
+          "argumentDeg": 78.38,
+          "periastronEpoch": 48314.598,
+          "epochKind": "JD \u2212 2400000",
+          "grade": 1.0,
+          "reference": "CIA2022c",
+          "catalog": "ORB6",
+          "sourceUrl": "https://www.astro.gsu.edu/wds/orb6/orb6orbits.html",
+          "nodeAmbiguous": true,
+          "argumentComponent": "Ab",
+          "primaryIds": [
+            "hip-42556"
+          ],
+          "secondaryIds": [
+            "orb6-08405+1933-aa-ab-ab"
+          ],
+          "primary": "Aa",
+          "secondary": "Ab",
+          "semiMajorAxisAu": 0.35528271,
+          "axisDerivation": {
+            "angularAxisArcsec": 0.0019127,
+            "parallaxMas": 5.3836,
+            "parallaxStarId": "hip-42556",
+            "distanceScope": "Shared catalog parent distance; approximate for unresolved components"
+          },
+          "id": "orb6-08405+1933-aa-ab-0"
+        }
+      ]
+    },
+    {
+      "systemId": "orb6-08589+0829-a-b",
+      "name": "G 41-14",
+      "orbits": [
+        {
+          "periodYears": 5.534,
+          "eccentricity": 0.7723,
+          "inclinationDeg": 123.1,
+          "nodeDeg": 279.89,
+          "argumentDeg": 19.9,
+          "periastronEpoch": 2006.434,
+          "epochKind": "Besselian year",
+          "grade": 2.0,
+          "reference": "Msn2023",
+          "catalog": "ORB6",
+          "sourceUrl": "https://www.astro.gsu.edu/wds/orb6/orb6orbits.html",
+          "nodeAmbiguous": true,
+          "argumentComponent": "B",
+          "primaryIds": [
+            "cns5-2217"
+          ],
+          "secondaryIds": [
+            "orb6-08589+0829-a-b-b"
+          ],
+          "primary": "A",
+          "secondary": "B",
+          "semiMajorAxisAu": 2.65813355,
+          "axisDerivation": {
+            "angularAxisArcsec": 0.3925,
+            "parallaxMas": 147.66,
+            "parallaxStarId": "cns5-2217",
+            "distanceScope": "Shared catalog parent distance; approximate for unresolved components"
+          },
+          "id": "orb6-08589+0829-a-b-0"
+        }
+      ]
+    },
+    {
+      "systemId": "orb6-09024-6624-a-b",
+      "name": "Alpha Vol",
+      "orbits": [
+        {
+          "periodYears": 0.652,
+          "eccentricity": 0.041,
+          "inclinationDeg": 101.9,
+          "nodeDeg": 105.3,
+          "argumentDeg": 248.5,
+          "periastronEpoch": 2015.593,
+          "epochKind": "Besselian year",
+          "grade": 2.0,
+          "reference": "Tok2019c",
+          "catalog": "ORB6",
+          "sourceUrl": "https://www.astro.gsu.edu/wds/orb6/orb6orbits.html",
+          "nodeAmbiguous": true,
+          "argumentComponent": "B",
+          "primaryIds": [
+            "hip-44382"
+          ],
+          "secondaryIds": [
+            "orb6-09024-6624-a-b-b"
+          ],
+          "primary": "A",
+          "secondary": "B",
+          "semiMajorAxisAu": 1.23595592,
+          "axisDerivation": {
+            "angularAxisArcsec": 0.0321,
+            "parallaxMas": 25.9718,
+            "parallaxStarId": "hip-44382",
+            "distanceScope": "Shared catalog parent distance; approximate for unresolved components"
+          },
+          "id": "orb6-09024-6624-a-b-0"
+        }
+      ]
+    },
+    {
+      "systemId": "orb6-09036+4709-a-b",
+      "name": "Alkaphrah",
+      "orbits": [
+        {
+          "periodYears": 8.233264887063655,
+          "eccentricity": 0.5584,
+          "inclinationDeg": 109.41,
+          "nodeDeg": 105.641,
+          "argumentDeg": 355.63,
+          "periastronEpoch": 50404.0,
+          "epochKind": "MJD",
+          "grade": 2.0,
+          "reference": "Mut2010b",
+          "catalog": "ORB6",
+          "sourceUrl": "https://www.astro.gsu.edu/wds/orb6/orb6orbits.html",
+          "nodeAmbiguous": true,
+          "argumentComponent": "B",
+          "primaryIds": [
+            "hip-44471"
+          ],
+          "secondaryIds": [
+            "orb6-09036+4709-a-b-b"
+          ],
+          "primary": "A",
+          "secondary": "B",
+          "semiMajorAxisAu": 19.99340659,
+          "axisDerivation": {
+            "angularAxisArcsec": 0.18194,
+            "parallaxMas": 9.1,
+            "parallaxStarId": "hip-44471",
+            "distanceScope": "Shared catalog parent distance; approximate for unresolved components"
+          },
+          "id": "orb6-09036+4709-a-b-0"
+        }
+      ]
+    },
+    {
+      "systemId": "orb6-09307-4028-a-b",
+      "name": "Psi Vel",
+      "orbits": [
+        {
+          "periodYears": 34.11,
+          "eccentricity": 0.4375,
+          "inclinationDeg": 58.45,
+          "nodeDeg": 288.24,
+          "argumentDeg": 47.76,
+          "periastronEpoch": 2004.062,
+          "epochKind": "Besselian year",
+          "grade": 1.0,
+          "reference": "Msn2023",
+          "catalog": "ORB6",
+          "sourceUrl": "https://www.astro.gsu.edu/wds/orb6/orb6orbits.html",
+          "nodeAmbiguous": true,
+          "argumentComponent": "B",
+          "primaryIds": [
+            "hip-46651"
+          ],
+          "secondaryIds": [
+            "orb6-09307-4028-a-b-b"
+          ],
+          "primary": "A",
+          "secondary": "B",
+          "semiMajorAxisAu": 14.85187498,
+          "axisDerivation": {
+            "angularAxisArcsec": 0.811,
+            "parallaxMas": 54.6059,
+            "parallaxStarId": "hip-46651"
+          },
+          "id": "orb6-09307-4028-a-b-0"
+        }
+      ]
+    },
+    {
+      "systemId": "orb6-09320-0111-a-b",
+      "name": "Tau2 Hya",
+      "orbits": [
+        {
+          "periodYears": 6.021,
+          "eccentricity": 0.466,
+          "inclinationDeg": 170.2,
+          "nodeDeg": 162.0,
+          "argumentDeg": 123.7,
+          "periastronEpoch": 2015.055,
+          "epochKind": "Besselian year",
+          "grade": 2.0,
+          "reference": "Tok2021f",
+          "catalog": "ORB6",
+          "sourceUrl": "https://www.astro.gsu.edu/wds/orb6/orb6orbits.html",
+          "nodeAmbiguous": true,
+          "argumentComponent": "B",
+          "primaryIds": [
+            "hip-46776"
+          ],
+          "secondaryIds": [
+            "orb6-09320-0111-a-b-b"
+          ],
+          "primary": "A",
+          "secondary": "B",
+          "semiMajorAxisAu": 5.80562057,
+          "axisDerivation": {
+            "angularAxisArcsec": 0.032,
+            "parallaxMas": 5.5119,
+            "parallaxStarId": "hip-46776",
+            "distanceScope": "Shared catalog parent distance; approximate for unresolved components"
+          },
+          "id": "orb6-09320-0111-a-b-0"
+        }
+      ]
+    },
+    {
+      "systemId": "orb6-09521+5404-a-b",
+      "name": "Phi UMa",
+      "orbits": [
+        {
+          "periodYears": 106.35,
+          "eccentricity": 0.445,
+          "inclinationDeg": 22.2,
+          "nodeDeg": 138.9,
+          "argumentDeg": 25.6,
+          "periastronEpoch": 1987.37,
+          "epochKind": "Besselian year",
+          "grade": 2.0,
+          "reference": "USN2021b",
+          "catalog": "ORB6",
+          "sourceUrl": "https://www.astro.gsu.edu/wds/orb6/orb6orbits.html",
+          "nodeAmbiguous": true,
+          "argumentComponent": "B",
+          "primaryIds": [
+            "hip-48402"
+          ],
+          "secondaryIds": [
+            "orb6-09521+5404-a-b-b"
+          ],
+          "primary": "A",
+          "secondary": "B",
+          "semiMajorAxisAu": 52.57410296,
+          "axisDerivation": {
+            "angularAxisArcsec": 0.337,
+            "parallaxMas": 6.41,
+            "parallaxStarId": "hip-48402",
+            "distanceScope": "Shared catalog parent distance; approximate for unresolved components"
+          },
+          "id": "orb6-09521+5404-a-b-0"
+        }
+      ]
+    },
+    {
+      "systemId": "orb6-10454+3831-a-c",
+      "name": "BD+39 2376",
+      "orbits": [
+        {
+          "periodYears": 160.67,
+          "eccentricity": 0.86,
+          "inclinationDeg": 100.1,
+          "nodeDeg": 110.9,
+          "argumentDeg": 280.1,
+          "periastronEpoch": 1972.58,
+          "epochKind": "Besselian year",
+          "grade": 4.0,
+          "reference": "Mnt2000a",
+          "catalog": "ORB6",
+          "sourceUrl": "https://www.astro.gsu.edu/wds/orb6/orb6orbits.html",
+          "nodeAmbiguous": true,
+          "argumentComponent": "C",
+          "primaryIds": [
+            "cns5-2636"
+          ],
+          "secondaryIds": [
+            "orb6-10454+3831-a-c-c"
+          ],
+          "primary": "A",
+          "secondary": "C",
+          "semiMajorAxisAu": 24.82192235,
+          "axisDerivation": {
+            "angularAxisArcsec": 1.791,
+            "parallaxMas": 72.15396029561872,
+            "parallaxStarId": "cns5-2636",
+            "distanceScope": "Shared catalog parent distance; approximate for unresolved components"
+          },
+          "id": "orb6-10454+3831-a-c-0"
+        }
+      ]
+    },
+    {
+      "systemId": "orb6-10468-4925-a-b",
+      "name": "Mu Velorum",
+      "orbits": [
+        {
+          "periodYears": 142.927,
+          "eccentricity": 0.93998,
+          "inclinationDeg": 40.323,
+          "nodeDeg": 108.08,
+          "argumentDeg": 122.424,
+          "periastronEpoch": 1948.7102,
+          "epochKind": "Besselian year",
+          "grade": 4.0,
+          "reference": "Izm2019",
+          "catalog": "ORB6",
+          "sourceUrl": "https://www.astro.gsu.edu/wds/orb6/orb6orbits.html",
+          "nodeAmbiguous": true,
+          "argumentComponent": "B",
+          "primaryIds": [
+            "bright-mu-velorum"
+          ],
+          "secondaryIds": [
+            "orb6-10468-4925-a-b-b"
+          ],
+          "primary": "A",
+          "secondary": "B",
+          "semiMajorAxisAu": 49.06989873,
+          "axisDerivation": {
+            "angularAxisArcsec": 1.42551,
+            "parallaxMas": 29.0506,
+            "parallaxStarId": "bright-mu-velorum",
+            "distanceScope": "Shared catalog parent distance; approximate for unresolved components"
+          },
+          "id": "orb6-10468-4925-a-b-0"
+        }
+      ]
+    },
+    {
+      "systemId": "orb6-12236+6711-a-b",
+      "name": "G 237-64",
+      "orbits": [
+        {
+          "periodYears": 26.16,
+          "eccentricity": 0.633,
+          "inclinationDeg": 99.3,
+          "nodeDeg": 24.2,
+          "argumentDeg": 113.0,
+          "periastronEpoch": 2000.78,
+          "epochKind": "Besselian year",
+          "grade": 3.0,
+          "reference": "Mit2020",
+          "catalog": "ORB6",
+          "sourceUrl": "https://www.astro.gsu.edu/wds/orb6/orb6orbits.html",
+          "nodeAmbiguous": true,
+          "argumentComponent": "B",
+          "primaryIds": [
+            "cns5-3043"
+          ],
+          "secondaryIds": [
+            "orb6-12236+6711-a-b-b"
+          ],
+          "primary": "A",
+          "secondary": "B",
+          "semiMajorAxisAu": 7.96525703,
+          "axisDerivation": {
+            "angularAxisArcsec": 0.6023,
+            "parallaxMas": 75.61589004812846,
+            "parallaxStarId": "cns5-3043",
+            "distanceScope": "Shared catalog parent distance; approximate for unresolved components"
+          },
+          "id": "orb6-12236+6711-a-b-0"
+        }
+      ]
+    },
+    {
+      "systemId": "orb6-12335+6947-a-b",
+      "name": "Kappa Dra",
+      "orbits": [
+        {
+          "periodYears": 0.16851362080766596,
+          "eccentricity": 0.0,
+          "inclinationDeg": 130.0,
+          "nodeDeg": 118.0,
+          "argumentDeg": 180.0,
+          "periastronEpoch": 49980.4,
+          "epochKind": "JD \u2212 2400000",
+          "grade": 1.0,
+          "reference": "CIA2022g",
+          "catalog": "ORB6",
+          "sourceUrl": "https://www.astro.gsu.edu/wds/orb6/orb6orbits.html",
+          "nodeAmbiguous": true,
+          "argumentComponent": "B",
+          "primaryIds": [
+            "hip-61281"
+          ],
+          "secondaryIds": [
+            "orb6-12335+6947-a-b-b"
+          ],
+          "primary": "A",
+          "secondary": "B",
+          "semiMajorAxisAu": 0.48706718,
+          "axisDerivation": {
+            "angularAxisArcsec": 0.0034140000000000004,
+            "parallaxMas": 7.0093,
+            "parallaxStarId": "hip-61281",
+            "distanceScope": "Shared catalog parent distance; approximate for unresolved components"
+          },
+          "id": "orb6-12335+6947-a-b-0"
+        }
+      ]
+    },
+    {
+      "systemId": "orb6-12417-0127-a-b",
+      "name": "Porrima",
+      "orbits": [
+        {
+          "periodYears": 169.104,
+          "eccentricity": 0.8815,
+          "inclinationDeg": 149.46,
+          "nodeDeg": 35.34,
+          "argumentDeg": 255.02,
+          "periastronEpoch": 2005.511,
+          "epochKind": "Besselian year",
+          "grade": 2.0,
+          "reference": "Sca2007c",
+          "catalog": "ORB6",
+          "sourceUrl": "https://www.astro.gsu.edu/wds/orb6/orb6orbits.html",
+          "nodeAmbiguous": true,
+          "argumentComponent": "B",
+          "primaryIds": [
+            "cns5-3135"
+          ],
+          "secondaryIds": [
+            "orb6-12417-0127-a-b-b"
+          ],
+          "primary": "A",
+          "secondary": "B",
+          "semiMajorAxisAu": 46.34293261,
+          "axisDerivation": {
+            "angularAxisArcsec": 3.639,
+            "parallaxMas": 78.5233,
+            "parallaxStarId": "orb6-12417-0127-a-b-b"
+          },
+          "id": "orb6-12417-0127-a-b-0"
+        }
+      ]
+    },
+    {
+      "systemId": "orb6-13310-3924-a-b",
+      "name": "d Cen",
+      "orbits": [
+        {
+          "periodYears": 83.14,
+          "eccentricity": 0.521,
+          "inclinationDeg": 145.2,
+          "nodeDeg": 146.5,
+          "argumentDeg": 244.4,
+          "periastronEpoch": 1956.12,
+          "epochKind": "Besselian year",
+          "grade": 2.0,
+          "reference": "Tok2015c",
+          "catalog": "ORB6",
+          "sourceUrl": "https://www.astro.gsu.edu/wds/orb6/orb6orbits.html",
+          "nodeAmbiguous": true,
+          "argumentComponent": "B",
+          "primaryIds": [
+            "hip-65936"
+          ],
+          "secondaryIds": [
+            "orb6-13310-3924-a-b-b"
+          ],
+          "primary": "A",
+          "secondary": "B",
+          "semiMajorAxisAu": 44.72222222,
+          "axisDerivation": {
+            "angularAxisArcsec": 0.161,
+            "parallaxMas": 3.6,
+            "parallaxStarId": "hip-65936",
+            "distanceScope": "Shared catalog parent distance; approximate for unresolved components"
+          },
+          "id": "orb6-13310-3924-a-b-0"
+        }
+      ]
+    },
+    {
+      "systemId": "orb6-14044+6423-a-b",
+      "name": "Thuban",
+      "orbits": [
+        {
+          "periodYears": 0.14077303216974674,
+          "eccentricity": 0.43,
+          "inclinationDeg": 85.4,
+          "nodeDeg": 252.6,
+          "argumentDeg": 22.4,
+          "periastronEpoch": 53498.8,
+          "epochKind": "JD \u2212 2400000",
+          "grade": 1.0,
+          "reference": "Pak2022",
+          "catalog": "ORB6",
+          "sourceUrl": "https://www.astro.gsu.edu/wds/orb6/orb6orbits.html",
+          "nodeAmbiguous": true,
+          "argumentComponent": "B",
+          "primaryIds": [
+            "hip-68756"
+          ],
+          "secondaryIds": [
+            "orb6-14044+6423-a-b-b"
+          ],
+          "primary": "A",
+          "secondary": "B",
+          "semiMajorAxisAu": 0.44104957,
+          "axisDerivation": {
+            "angularAxisArcsec": 0.00552,
+            "parallaxMas": 12.5156,
+            "parallaxStarId": "hip-68756",
+            "distanceScope": "Shared catalog parent distance; approximate for unresolved components"
+          },
+          "id": "orb6-14044+6423-a-b-0"
+        }
+      ]
+    },
+    {
+      "systemId": "orb6-14262-4523-a-b",
+      "name": "Tau2 Lup",
+      "orbits": [
+        {
+          "periodYears": 26.21,
+          "eccentricity": 0.591,
+          "inclinationDeg": 83.6,
+          "nodeDeg": 177.5,
+          "argumentDeg": 222.2,
+          "periastronEpoch": 2026.46,
+          "epochKind": "Besselian year",
+          "grade": 2.0,
+          "reference": "Tok2021f",
+          "catalog": "ORB6",
+          "sourceUrl": "https://www.astro.gsu.edu/wds/orb6/orb6orbits.html",
+          "nodeAmbiguous": true,
+          "argumentComponent": "B",
+          "primaryIds": [
+            "hip-70576"
+          ],
+          "secondaryIds": [
+            "orb6-14262-4523-a-b-b"
+          ],
+          "primary": "A",
+          "secondary": "B",
+          "semiMajorAxisAu": 16.73189824,
+          "axisDerivation": {
+            "angularAxisArcsec": 0.171,
+            "parallaxMas": 10.22,
+            "parallaxStarId": "hip-70576",
+            "distanceScope": "Shared catalog parent distance; approximate for unresolved components"
+          },
+          "id": "orb6-14262-4523-a-b-0"
+        }
+      ]
+    },
+    {
+      "systemId": "orb6-14411+1344-a-b",
+      "name": "Zeta Boo",
+      "orbits": [
+        {
+          "periodYears": 125.24,
+          "eccentricity": 0.98,
+          "inclinationDeg": 126.0,
+          "nodeDeg": 176.5,
+          "argumentDeg": 61.8,
+          "periastronEpoch": 1898.58,
+          "epochKind": "Besselian year",
+          "grade": 2.0,
+          "reference": "Sca2007f",
+          "catalog": "ORB6",
+          "sourceUrl": "https://www.astro.gsu.edu/wds/orb6/orb6orbits.html",
+          "nodeAmbiguous": true,
+          "argumentComponent": "B",
+          "primaryIds": [
+            "hip-71795"
+          ],
+          "secondaryIds": [
+            "orb6-14411+1344-a-b-b"
+          ],
+          "primary": "A",
+          "secondary": "B",
+          "semiMajorAxisAu": 44.45043103,
+          "axisDerivation": {
+            "angularAxisArcsec": 0.825,
+            "parallaxMas": 18.56,
+            "parallaxStarId": "hip-71795",
+            "distanceScope": "Shared catalog parent distance; approximate for unresolved components"
+          },
+          "id": "orb6-14411+1344-a-b-0"
+        }
+      ]
+    },
+    {
+      "systemId": "orb6-15155+3319-a-b",
+      "name": "Delta Boo",
+      "orbits": [
+        {
+          "periodYears": 76000.0,
+          "eccentricity": 0.99,
+          "inclinationDeg": 74.0,
+          "nodeDeg": 91.0,
+          "argumentDeg": 136.0,
+          "periastronEpoch": 22775.0,
+          "epochKind": "Besselian year",
+          "grade": 5.0,
+          "reference": "Kis2009",
+          "catalog": "ORB6",
+          "sourceUrl": "https://www.astro.gsu.edu/wds/orb6/orb6orbits.html",
+          "nodeAmbiguous": true,
+          "argumentComponent": "B",
+          "primaryIds": [
+            "hip-74666"
+          ],
+          "secondaryIds": [
+            "orb6-15155+3319-a-b-b"
+          ],
+          "primary": "A",
+          "secondary": "B",
+          "semiMajorAxisAu": 2872.15592124,
+          "axisDerivation": {
+            "angularAxisArcsec": 78.0,
+            "parallaxMas": 27.1573,
+            "parallaxStarId": "orb6-15155+3319-a-b-b"
+          },
+          "id": "orb6-15155+3319-a-b-0"
+        }
+      ]
+    },
+    {
+      "systemId": "orb6-15278+2906-a-b",
+      "name": "Nusakan",
+      "orbits": [
+        {
+          "periodYears": 10.536728268309377,
+          "eccentricity": 0.53971,
+          "inclinationDeg": 111.452,
+          "nodeDeg": 148.041,
+          "argumentDeg": 180.21,
+          "periastronEpoch": 44412.8,
+          "epochKind": "MJD",
+          "grade": 1.0,
+          "reference": "Mut2010b",
+          "catalog": "ORB6",
+          "sourceUrl": "https://www.astro.gsu.edu/wds/orb6/orb6orbits.html",
+          "nodeAmbiguous": true,
+          "argumentComponent": "B",
+          "primaryIds": [
+            "hip-75695"
+          ],
+          "secondaryIds": [
+            "orb6-15278+2906-a-b-b"
+          ],
+          "primary": "A",
+          "secondary": "B",
+          "semiMajorAxisAu": 7.30541152,
+          "axisDerivation": {
+            "angularAxisArcsec": 0.20400800000000002,
+            "parallaxMas": 27.9256,
+            "parallaxStarId": "hip-75695",
+            "distanceScope": "Shared catalog parent distance; approximate for unresolved components"
+          },
+          "id": "orb6-15278+2906-a-b-0"
+        }
+      ]
+    },
+    {
+      "systemId": "orb6-15329+3122-a-b",
+      "name": "Theta CrB",
+      "orbits": [
+        {
+          "periodYears": 361.1,
+          "eccentricity": 0.78,
+          "inclinationDeg": 100.5,
+          "nodeDeg": 26.9,
+          "argumentDeg": 66.5,
+          "periastronEpoch": 1943.0,
+          "epochKind": "Besselian year",
+          "grade": 4.0,
+          "reference": "Ksr2021",
+          "catalog": "ORB6",
+          "sourceUrl": "https://www.astro.gsu.edu/wds/orb6/orb6orbits.html",
+          "nodeAmbiguous": true,
+          "argumentComponent": "B",
+          "primaryIds": [
+            "hip-76127"
+          ],
+          "secondaryIds": [
+            "orb6-15329+3122-a-b-b"
+          ],
+          "primary": "A",
+          "secondary": "B",
+          "semiMajorAxisAu": 95.05178366,
+          "axisDerivation": {
+            "angularAxisArcsec": 0.826,
+            "parallaxMas": 8.69,
+            "parallaxStarId": "hip-76127",
+            "distanceScope": "Shared catalog parent distance; approximate for unresolved components"
+          },
+          "id": "orb6-15329+3122-a-b-0"
+        }
+      ]
+    },
+    {
+      "systemId": "orb6-15427+2618-a-b",
+      "name": "Gamma CrB",
+      "orbits": [
+        {
+          "periodYears": 10.132785763175907,
+          "eccentricity": 0.4779,
+          "inclinationDeg": 94.263,
+          "nodeDeg": 292.043,
+          "argumentDeg": 283.4,
+          "periastronEpoch": 59947.0,
+          "epochKind": "MJD",
+          "grade": 2.0,
+          "reference": "Mut2010b",
+          "catalog": "ORB6",
+          "sourceUrl": "https://www.astro.gsu.edu/wds/orb6/orb6orbits.html",
+          "nodeAmbiguous": true,
+          "argumentComponent": "B",
+          "primaryIds": [
+            "hip-76952"
+          ],
+          "secondaryIds": [
+            "orb6-15427+2618-a-b-b"
+          ],
+          "primary": "A",
+          "secondary": "B",
+          "semiMajorAxisAu": 32.75862069,
+          "axisDerivation": {
+            "angularAxisArcsec": 0.7315,
+            "parallaxMas": 22.33,
+            "parallaxStarId": "hip-76952",
+            "distanceScope": "Shared catalog parent distance; approximate for unresolved components"
+          },
+          "id": "orb6-15427+2618-a-b-0"
+        }
+      ]
+    },
+    {
+      "systemId": "orb6-15496-0326-a-b",
+      "name": "Mu Ser",
+      "orbits": [
+        {
+          "periodYears": 71.094,
+          "eccentricity": 0.662,
+          "inclinationDeg": 104.3,
+          "nodeDeg": 284.4,
+          "argumentDeg": 120.1,
+          "periastronEpoch": 1989.836,
+          "epochKind": "Besselian year",
+          "grade": 4.0,
+          "reference": "Tok2018e",
+          "catalog": "ORB6",
+          "sourceUrl": "https://www.astro.gsu.edu/wds/orb6/orb6orbits.html",
+          "nodeAmbiguous": true,
+          "argumentComponent": "B",
+          "primaryIds": [
+            "hip-77516"
+          ],
+          "secondaryIds": [
+            "orb6-15496-0326-a-b-b"
+          ],
+          "primary": "A",
+          "secondary": "B",
+          "semiMajorAxisAu": 28.70514821,
+          "axisDerivation": {
+            "angularAxisArcsec": 0.552,
+            "parallaxMas": 19.23,
+            "parallaxStarId": "hip-77516",
+            "distanceScope": "Shared catalog parent distance; approximate for unresolved components"
+          },
+          "id": "orb6-15496-0326-a-b-0"
+        }
+      ]
+    },
+    {
+      "systemId": "orb6-16003-2237-a-b",
+      "name": "Dschubba",
+      "orbits": [
+        {
+          "periodYears": 10.808,
+          "eccentricity": 0.939,
+          "inclinationDeg": 32.074,
+          "nodeDeg": 353.867,
+          "argumentDeg": 180.822,
+          "periastronEpoch": 1979.079,
+          "epochKind": "Besselian year",
+          "grade": 1.0,
+          "reference": "Mdz2022",
+          "catalog": "ORB6",
+          "sourceUrl": "https://www.astro.gsu.edu/wds/orb6/orb6orbits.html",
+          "nodeAmbiguous": true,
+          "argumentComponent": "B",
+          "primaryIds": [
+            "bright-dschubba"
+          ],
+          "secondaryIds": [
+            "orb6-16003-2237-a-b-b"
+          ],
+          "primary": "A",
+          "secondary": "B",
+          "semiMajorAxisAu": 14.90963855,
+          "axisDerivation": {
+            "angularAxisArcsec": 0.099,
+            "parallaxMas": 6.64,
+            "parallaxStarId": "bright-dschubba",
+            "distanceScope": "Shared catalog parent distance; approximate for unresolved components"
+          },
+          "id": "orb6-16003-2237-a-b-0"
+        }
+      ]
+    },
+    {
+      "systemId": "orb6-16302+2129-aa-ab",
+      "name": "Kornephoros",
+      "orbits": [
+        {
+          "periodYears": 1.1240930869267625,
+          "eccentricity": 0.5498,
+          "inclinationDeg": 100.2,
+          "nodeDeg": 9.2,
+          "argumentDeg": 103.6,
+          "periastronEpoch": 15500.374,
+          "epochKind": "JD \u2212 2400000",
+          "grade": 4.0,
+          "reference": "MkT1992e",
+          "catalog": "ORB6",
+          "sourceUrl": "https://www.astro.gsu.edu/wds/orb6/orb6orbits.html",
+          "nodeAmbiguous": true,
+          "argumentComponent": "Ab",
+          "primaryIds": [
+            "hip-80816"
+          ],
+          "secondaryIds": [
+            "orb6-16302+2129-aa-ab-ab"
+          ],
+          "primary": "Aa",
+          "secondary": "Ab",
+          "semiMajorAxisAu": 2.8224322,
+          "axisDerivation": {
+            "angularAxisArcsec": 0.0621,
+            "parallaxMas": 22.0023,
+            "parallaxStarId": "hip-80816",
+            "distanceScope": "Shared catalog parent distance; approximate for unresolved components"
+          },
+          "id": "orb6-16302+2129-aa-ab-0"
+        }
+      ]
+    },
+    {
+      "systemId": "orb6-16341+4226-a-b",
+      "name": "Sigma Her",
+      "orbits": [
+        {
+          "periodYears": 7.409144421629021,
+          "eccentricity": 0.5135,
+          "inclinationDeg": 105.25,
+          "nodeDeg": 14.95,
+          "argumentDeg": 184.97,
+          "periastronEpoch": 50665.4,
+          "epochKind": "JD \u2212 2400000",
+          "grade": 2.0,
+          "reference": "NOI2016",
+          "catalog": "ORB6",
+          "sourceUrl": "https://www.astro.gsu.edu/wds/orb6/orb6orbits.html",
+          "nodeAmbiguous": true,
+          "argumentComponent": "B",
+          "primaryIds": [
+            "hip-81126"
+          ],
+          "secondaryIds": [
+            "orb6-16341+4226-a-b-b"
+          ],
+          "primary": "A",
+          "secondary": "B",
+          "semiMajorAxisAu": 7.02008106,
+          "axisDerivation": {
+            "angularAxisArcsec": 0.07621,
+            "parallaxMas": 10.856,
+            "parallaxStarId": "hip-81126",
+            "distanceScope": "Shared catalog parent distance; approximate for unresolved components"
+          },
+          "id": "orb6-16341+4226-a-b-0"
+        }
+      ]
+    },
+    {
+      "systemId": "orb6-17088+6543-a-b",
+      "name": "Aldhibah",
+      "orbits": [
+        {
+          "periodYears": 6.57,
+          "eccentricity": 0.225,
+          "inclinationDeg": 68.6,
+          "nodeDeg": 14.8,
+          "argumentDeg": 285.4,
+          "periastronEpoch": 1999.26,
+          "epochKind": "Besselian year",
+          "grade": 4.0,
+          "reference": "Mnt2001c",
+          "catalog": "ORB6",
+          "sourceUrl": "https://www.astro.gsu.edu/wds/orb6/orb6orbits.html",
+          "nodeAmbiguous": true,
+          "argumentComponent": "B",
+          "primaryIds": [
+            "hip-83895"
+          ],
+          "secondaryIds": [
+            "orb6-17088+6543-a-b-b"
+          ],
+          "primary": "A",
+          "secondary": "B",
+          "semiMajorAxisAu": 12.26460894,
+          "axisDerivation": {
+            "angularAxisArcsec": 0.096,
+            "parallaxMas": 7.8274,
+            "parallaxStarId": "hip-83895",
+            "distanceScope": "Shared catalog parent distance; approximate for unresolved components"
+          },
+          "id": "orb6-17088+6543-a-b-0"
+        }
+      ]
+    },
+    {
+      "systemId": "orb6-17104-1544-a-b",
+      "name": "Sabik",
+      "orbits": [
+        {
+          "periodYears": 87.76,
+          "eccentricity": 0.942,
+          "inclinationDeg": 95.6,
+          "nodeDeg": 39.2,
+          "argumentDeg": 275.3,
+          "periastronEpoch": 2024.47,
+          "epochKind": "Besselian year",
+          "grade": 2.0,
+          "reference": "Doc2023c",
+          "catalog": "ORB6",
+          "sourceUrl": "https://www.astro.gsu.edu/wds/orb6/orb6orbits.html",
+          "nodeAmbiguous": true,
+          "argumentComponent": "B",
+          "primaryIds": [
+            "bright-sabik"
+          ],
+          "secondaryIds": [
+            "orb6-17104-1544-a-b-b"
+          ],
+          "primary": "A",
+          "secondary": "B",
+          "semiMajorAxisAu": 35.41045787,
+          "axisDerivation": {
+            "angularAxisArcsec": 1.307,
+            "parallaxMas": 36.91,
+            "parallaxStarId": "bright-sabik",
+            "distanceScope": "Shared catalog parent distance; approximate for unresolved components"
+          },
+          "id": "orb6-17104-1544-a-b-0"
+        }
+      ]
+    },
+    {
+      "systemId": "orb6-17349+1234-a-b",
+      "name": "Rasalhague",
+      "orbits": [
+        {
+          "periodYears": 8.5960848733744,
+          "eccentricity": 0.93912,
+          "inclinationDeg": 130.679,
+          "nodeDeg": 236.86,
+          "argumentDeg": 170.21,
+          "periastronEpoch": 56028.22,
+          "epochKind": "JD \u2212 2400000",
+          "grade": 2.0,
+          "reference": "CIA2021c",
+          "catalog": "ORB6",
+          "sourceUrl": "https://www.astro.gsu.edu/wds/orb6/orb6orbits.html",
+          "nodeAmbiguous": true,
+          "argumentComponent": "B",
+          "primaryIds": [
+            "bright-rasalhague"
+          ],
+          "secondaryIds": [
+            "orb6-17349+1234-a-b-b"
+          ],
+          "primary": "A",
+          "secondary": "B",
+          "semiMajorAxisAu": 6.10457322,
+          "axisDerivation": {
+            "angularAxisArcsec": 0.4098,
+            "parallaxMas": 67.13,
+            "parallaxStarId": "bright-rasalhague",
+            "distanceScope": "Shared catalog parent distance; approximate for unresolved components"
+          },
+          "id": "orb6-17349+1234-a-b-0"
+        }
+      ]
+    },
+    {
+      "systemId": "orb6-19026-2953-a-b",
+      "name": "Ascella",
+      "orbits": [
+        {
+          "periodYears": 21.0,
+          "eccentricity": 0.211,
+          "inclinationDeg": 111.1,
+          "nodeDeg": 74.0,
+          "argumentDeg": 7.2,
+          "periastronEpoch": 2005.99,
+          "epochKind": "Besselian year",
+          "grade": 1.0,
+          "reference": "DRs2012",
+          "catalog": "ORB6",
+          "sourceUrl": "https://www.astro.gsu.edu/wds/orb6/orb6orbits.html",
+          "nodeAmbiguous": true,
+          "argumentComponent": "B",
+          "primaryIds": [
+            "bright-ascella"
+          ],
+          "secondaryIds": [
+            "orb6-19026-2953-a-b-b"
+          ],
+          "primary": "A",
+          "secondary": "B",
+          "semiMajorAxisAu": 13.22336398,
+          "axisDerivation": {
+            "angularAxisArcsec": 0.489,
+            "parallaxMas": 36.98,
+            "parallaxStarId": "bright-ascella",
+            "distanceScope": "Shared catalog parent distance; approximate for unresolved components"
+          },
+          "id": "orb6-19026-2953-a-b-0"
+        }
+      ]
+    },
+    {
+      "systemId": "orb6-19450+4508-a-b",
+      "name": "Fawaris",
+      "orbits": [
+        {
+          "periodYears": 657.1722,
+          "eccentricity": 0.43962,
+          "inclinationDeg": 154.254,
+          "nodeDeg": 138.595,
+          "argumentDeg": 151.114,
+          "periastronEpoch": 1866.357,
+          "epochKind": "Besselian year",
+          "grade": 4.0,
+          "reference": "Izm2019",
+          "catalog": "ORB6",
+          "sourceUrl": "https://www.astro.gsu.edu/wds/orb6/orb6orbits.html",
+          "nodeAmbiguous": true,
+          "argumentComponent": "B",
+          "primaryIds": [
+            "hip-97165"
+          ],
+          "secondaryIds": [
+            "orb6-19450+4508-a-b-b"
+          ],
+          "primary": "A",
+          "secondary": "B",
+          "semiMajorAxisAu": 127.14187087,
+          "axisDerivation": {
+            "angularAxisArcsec": 2.68872,
+            "parallaxMas": 21.1474,
+            "parallaxStarId": "hip-97165",
+            "distanceScope": "Shared catalog parent distance; approximate for unresolved components"
+          },
+          "id": "orb6-19450+4508-a-b-0"
+        }
+      ]
+    },
+    {
+      "systemId": "orb6-19482+7016-a-b",
+      "name": "Tyl",
+      "orbits": [
+        {
+          "periodYears": 2753.3257,
+          "eccentricity": 0.83937,
+          "inclinationDeg": 70.932,
+          "nodeDeg": 128.309,
+          "argumentDeg": 111.258,
+          "periastronEpoch": 1598.5654,
+          "epochKind": "Besselian year",
+          "grade": 5.0,
+          "reference": "Izm2019",
+          "catalog": "ORB6",
+          "sourceUrl": "https://www.astro.gsu.edu/wds/orb6/orb6orbits.html",
+          "nodeAmbiguous": true,
+          "argumentComponent": "B",
+          "primaryIds": [
+            "hip-97433"
+          ],
+          "secondaryIds": [
+            "orb6-19482+7016-a-b-b"
+          ],
+          "primary": "A",
+          "secondary": "B",
+          "semiMajorAxisAu": 374.66231385,
+          "axisDerivation": {
+            "angularAxisArcsec": 8.01058,
+            "parallaxMas": 21.3808,
+            "parallaxStarId": "orb6-19482+7016-a-b-b"
+          },
+          "id": "orb6-19482+7016-a-b-0"
+        }
+      ]
+    },
+    {
+      "systemId": "orb6-20298+0941-a-b",
+      "name": "G 24-16",
+      "orbits": [
+        {
+          "periodYears": 1.4694,
+          "eccentricity": 0.645,
+          "inclinationDeg": 138.0,
+          "nodeDeg": 129.6,
+          "argumentDeg": 232.7,
+          "periastronEpoch": 2019.248,
+          "epochKind": "Besselian year",
+          "grade": 2.0,
+          "reference": "Tok2019h",
+          "catalog": "ORB6",
+          "sourceUrl": "https://www.astro.gsu.edu/wds/orb6/orb6orbits.html",
+          "nodeAmbiguous": true,
+          "argumentComponent": "B",
+          "primaryIds": [
+            "cns5-5064"
+          ],
+          "secondaryIds": [
+            "orb6-20298+0941-a-b-b"
+          ],
+          "primary": "A",
+          "secondary": "B",
+          "semiMajorAxisAu": 0.97001764,
+          "axisDerivation": {
+            "angularAxisArcsec": 0.11,
+            "parallaxMas": 113.4,
+            "parallaxStarId": "cns5-5064",
+            "distanceScope": "Shared catalog parent distance; approximate for unresolved components"
+          },
+          "id": "orb6-20298+0941-a-b-0"
+        }
+      ]
+    },
+    {
+      "systemId": "orb6-20435+1504-a-b",
+      "name": "Delta Del",
+      "orbits": [
+        {
+          "periodYears": 0.11117070499657769,
+          "eccentricity": 0.6319,
+          "inclinationDeg": 14.08,
+          "nodeDeg": 65.17,
+          "argumentDeg": 67.17,
+          "periastronEpoch": 56823.604,
+          "epochKind": "JD \u2212 2400000",
+          "grade": 4.0,
+          "reference": "CIA2018a",
+          "catalog": "ORB6",
+          "sourceUrl": "https://www.astro.gsu.edu/wds/orb6/orb6orbits.html",
+          "nodeAmbiguous": true,
+          "argumentComponent": "B",
+          "primaryIds": [
+            "hip-102281"
+          ],
+          "secondaryIds": [
+            "orb6-20435+1504-a-b-b"
+          ],
+          "primary": "A",
+          "secondary": "B",
+          "semiMajorAxisAu": 0.37011955,
+          "axisDerivation": {
+            "angularAxisArcsec": 0.0054707,
+            "parallaxMas": 14.7809,
+            "parallaxStarId": "hip-102281",
+            "distanceScope": "Shared catalog parent distance; approximate for unresolved components"
+          },
+          "id": "orb6-20435+1504-a-b-0"
+        }
+      ]
+    },
+    {
+      "systemId": "orb6-20467+1607-a-b",
+      "name": "Gamma2 Del",
+      "orbits": [
+        {
+          "periodYears": 3249.0,
+          "eccentricity": 0.88,
+          "inclinationDeg": 148.78,
+          "nodeDeg": 88.06,
+          "argumentDeg": 331.16,
+          "periastronEpoch": 2305.0,
+          "epochKind": "Besselian year",
+          "grade": 4.0,
+          "reference": "Hle1994",
+          "catalog": "ORB6",
+          "sourceUrl": "https://www.astro.gsu.edu/wds/orb6/orb6orbits.html",
+          "nodeAmbiguous": false,
+          "argumentComponent": "B",
+          "primaryIds": [
+            "hip-102532"
+          ],
+          "secondaryIds": [
+            "orb6-20467+1607-a-b-b"
+          ],
+          "primary": "A",
+          "secondary": "B",
+          "semiMajorAxisAu": 363.23700326,
+          "axisDerivation": {
+            "angularAxisArcsec": 10.22,
+            "parallaxMas": 28.1359,
+            "parallaxStarId": "hip-102532",
+            "distanceScope": "Shared catalog parent distance; approximate for unresolved components"
+          },
+          "id": "orb6-20467+1607-a-b-0"
+        }
+      ]
+    },
+    {
+      "systemId": "orb6-21296+1739-a-b",
+      "name": "Ross 775",
+      "orbits": [
+        {
+          "periodYears": 0.146,
+          "eccentricity": 0.374,
+          "inclinationDeg": 133.3,
+          "nodeDeg": 222.2,
+          "argumentDeg": 300.0,
+          "periastronEpoch": 2021.2412,
+          "epochKind": "Besselian year",
+          "grade": 4.0,
+          "reference": "Tok2024b",
+          "catalog": "ORB6",
+          "sourceUrl": "https://www.astro.gsu.edu/wds/orb6/orb6orbits.html",
+          "nodeAmbiguous": true,
+          "argumentComponent": "B",
+          "primaryIds": [
+            "cns5-5297"
+          ],
+          "secondaryIds": [
+            "orb6-21296+1739-a-b-b"
+          ],
+          "primary": "A",
+          "secondary": "B",
+          "semiMajorAxisAu": 0.22976408,
+          "axisDerivation": {
+            "angularAxisArcsec": 0.0339,
+            "parallaxMas": 147.54264752190332,
+            "parallaxStarId": "cns5-5297",
+            "distanceScope": "Shared catalog parent distance; approximate for unresolved components"
+          },
+          "id": "orb6-21296+1739-a-b-0"
+        }
+      ]
+    },
+    {
+      "systemId": "orb6-22102+0612-a-b",
+      "name": "Biham",
+      "orbits": [
+        {
+          "periodYears": 10.896,
+          "eccentricity": 0.53,
+          "inclinationDeg": 52.5,
+          "nodeDeg": 193.0,
+          "argumentDeg": 61.0,
+          "periastronEpoch": 2014.85,
+          "epochKind": "Besselian year",
+          "grade": 5.0,
+          "reference": "VSP2022b",
+          "catalog": "ORB6",
+          "sourceUrl": "https://www.astro.gsu.edu/wds/orb6/orb6orbits.html",
+          "nodeAmbiguous": true,
+          "argumentComponent": "B",
+          "primaryIds": [
+            "hip-109427"
+          ],
+          "secondaryIds": [
+            "orb6-22102+0612-a-b-b"
+          ],
+          "primary": "A",
+          "secondary": "B",
+          "semiMajorAxisAu": 6.39146209,
+          "axisDerivation": {
+            "angularAxisArcsec": 0.235,
+            "parallaxMas": 36.7678,
+            "parallaxStarId": "hip-109427",
+            "distanceScope": "Shared catalog parent distance; approximate for unresolved components"
+          },
+          "id": "orb6-22102+0612-a-b-0"
         }
       ]
     }

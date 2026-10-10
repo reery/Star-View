@@ -1,0 +1,2165 @@
+{
+  "schemaVersion": 1,
+  "reviewedOn": "2026-10-10",
+  "scope": "All six stellar catalog layers plus the shared companion pool; reviewed definitions and UI fallback name groups. Frozen ORB6 2026-10-09 and MSC 2026-06-19, not an exhaustive literature search.",
+  "baseline": {
+    "systems": 270,
+    "systemsWithSolutions": 170,
+    "orbits": 223
+  },
+  "result": {
+    "systems": 284,
+    "systemsWithSolutions": 182,
+    "orbits": 242,
+    "newlyAvailableSystems": [
+      "Luhman 16",
+      "Luyten 726-8",
+      "V577 Mon",
+      "FL Vir",
+      "GJ 1245",
+      "EI Cnc",
+      "Stein 2051",
+      "Xi Boo",
+      "p Eri",
+      "L 601-78",
+      "Theta1 Orionis",
+      "Matar"
+    ],
+    "unreviewedNameGroups": []
+  },
+  "findings": [
+    "14 previously name-only systems were absent from the reviewed import. Their membership is frozen in census system IDs or corrected CNS5 component records; WDS identity comes from the existing designation registry.",
+    "Epsilon Indi Ba/Bb had separate census and MSC-generated identities. Preserve census IDs 10pc-0042/0043 and retain MSC IDs as aliases; no new astronomical components.",
+    "Compound ORB6 pair AB,C was parsed as B,C, dropping a group member. Accept complete uppercase groups on either side, then require every group member.",
+    "Nested Aa and Aab nodes were rejected although their individual children were explicitly cataloged. Resolve those complete child groups without inferring membership.",
+    "Implicit ORB6 pairs can be recovered only with an exact WDS/reference/designation/period cross-reference in frozen MSC orb.tsv; 0.5 percent maximum period tolerance accounts for compiled rounding.",
+    "ORB6 Julian-year epoch flag j was previously unrecognized; preserve it explicitly."
+  ],
+  "scopeEvidence": [
+    {
+      "systemId": "gj-105",
+      "adoptedScope": "A,C",
+      "source": "https://arxiv.org/abs/2505.08042",
+      "detail": "Ddr2025 GKI 1AB 76-year solution is GJ 105 AC. Frozen CNS5/SIMBAD labels B refer to the wider BX Cet, WDS C."
+    },
+    {
+      "systemId": "gj-22",
+      "adoptedScope": "A,C and AC,B",
+      "source": "https://arxiv.org/abs/astro-ph/0305330",
+      "detail": "Close visual orbit is Gliese 22 AC; frozen WDS names it Aa/Ab. VYS 2AB is the wide orbit."
+    },
+    {
+      "systemId": "gj-570",
+      "adoptedScope": "B,C and A,BC",
+      "source": "https://arxiv.org/abs/astro-ph/9909342",
+      "detail": "Published Gl 570 BC double-lined pair corresponds to WDS Ba/Bb. MSC hierarchy explicitly puts that pair in B."
+    },
+    {
+      "systemId": "gj-1245",
+      "adoptedScope": "A,C and AC,B",
+      "source": "https://doi.org/10.3847/0004-6256/152/5/141",
+      "detail": "Section 5.8 resolves GJ 1245 AC; census system 43 establishes the third component B."
+    },
+    {
+      "systemId": "gj-667",
+      "adoptedScope": "AB,C",
+      "frozenInput": "catalog-work/star-systems/catalog-companions-msc.json",
+      "detail": "sys.tsv 17190-3459: AB|C, HJ_4935 AC; explicit app A/B/C membership from ESO and CNS5."
+    },
+    {
+      "systemId": "msc-00084+2905",
+      "adoptedScope": "A,B",
+      "frozenInput": "catalog-work/star-systems/catalog-companions-msc.json",
+      "detail": "sys.tsv 00084+2905 A|B explicitly identifies MKT_11 Aa,Ab; flat reviewed app stars are the same spectroscopic pair."
+    },
+    {
+      "systemId": "msc-02449+1007",
+      "adoptedScope": "A,B",
+      "frozenInput": "catalog-work/star-systems/catalog-companions-msc.json",
+      "detail": "sys.tsv 02449+1007 A|B identifies TOK_1 Aa,Ab; do not resolve the speculative B subsystems."
+    },
+    {
+      "systemId": "spectroscopic-hip-112158",
+      "adoptedScope": "A,B",
+      "frozenInput": "catalog-work/star-systems/catalog-companions-audit.json",
+      "detail": "Reviewed K3III+F0V pair for exact HIP 112158; WDS BLA 11Aa,Ab is the 817.41-day stellar pair."
+    },
+    {
+      "systemId": "msc-03082+4057",
+      "adoptedScope": "Aa,Ab and A,B",
+      "frozenInput": "catalog-work/star-systems/catalog-companions-msc.json",
+      "detail": "sys.tsv distinguishes CSI_1Aa1,2 SB9_157 2.865-day inner pair from LAB_2Aa,Ab SB9_158 1.862-year outer orbit."
+    },
+    {
+      "systemId": "msc-04422+2257",
+      "adoptedScope": "Aab,Ac",
+      "frozenInput": "catalog-work/star-systems/catalog-companions-msc.json",
+      "detail": "sys.tsv explicitly labels MCA_16 Aa,Ab as Aab|Ac; SB9_266 Aa|Ab is the distinct 2.956-day pair."
+    },
+    {
+      "systemId": "msc-05353-0524",
+      "adoptedScope": "Aa1,Aa2",
+      "frozenInput": "catalog-work/star-systems/catalog-companions-msc.json",
+      "detail": "sys.tsv associates SB9_340 65.432 days with Aa1|Aa2. The Aa|Ab visual pair has a roughly 200-year estimated period; do not attach the spectroscopic orbit to it."
+    }
+  ],
+  "retainedUnavailableExamples": [
+    {
+      "systemId": "wolf-1561",
+      "reason": "BEU 22Ba,Bb is GJ 852 BC; reviewed catalog only has outer A and unresolved B. The source orbit must not be attached to A-B.",
+      "source": "https://astro.gsu.edu/~vrijmoet/Vri22/Vrijmoet_2022_Fulltables.pdf"
+    },
+    {
+      "systemId": "gj-810",
+      "reason": "TSN 195Aa,Ab describes an unresolved inner pair in A; catalog B is the outer LP 756-18."
+    },
+    {
+      "systemId": "gj-835",
+      "reason": "Old 68-year, 1.5-arcsecond photocenter solution is not safely identified with the resolved 18.5-mas close companion from the reviewed Jodar source; do not relabel it automatically."
+    },
+    {
+      "systemId": "gamma-cephei",
+      "reason": "902.9-day gam CepAa,Ab solution is a planet; keep only the separately scoped NHR 9AB stellar orbit."
+    },
+    {
+      "systemId": "msc-04287+1552",
+      "reason": "WDS Aa/Ab is Theta2 Tau, a different physical pair from cataloged Theta1 Tau Ba/Bb; keep the 16.26-year Ba/Bb orbit."
+    },
+    {
+      "wdsId": "05353-0523",
+      "reason": "Two Trapezium subsystems share a WDS cross-reference. Reject ambiguous identity matches; retain source-specific MSC orbits."
+    },
+    {
+      "systemIds": [
+        "scr-j1845-6357",
+        "l-43-72",
+        "vb-24"
+      ],
+      "reason": "No safely matched solved orbit in the frozen inputs; this does not imply no published orbit exists."
+    }
+  ],
+  "changes": [
+    {
+      "systemId": "gj-105",
+      "name": "GJ 105",
+      "before": [
+        {
+          "primary": "A",
+          "secondary": "B",
+          "primaryIds": [
+            "cns5-0658"
+          ],
+          "secondaryIds": [
+            "cns5-0659"
+          ],
+          "periodYears": 76.0,
+          "catalog": "ORB6",
+          "reference": "Ddr2025"
+        },
+        {
+          "primary": "A",
+          "secondary": "C",
+          "primaryIds": [
+            "cns5-0658"
+          ],
+          "secondaryIds": [
+            "gj-105-c"
+          ],
+          "periodYears": 61.0,
+          "catalog": "MSC",
+          "reference": "VB6_Hei1994b PLQ_32A Gr.9"
+        }
+      ],
+      "after": [
+        {
+          "primary": "A",
+          "secondary": "C",
+          "primaryIds": [
+            "cns5-0658"
+          ],
+          "secondaryIds": [
+            "gj-105-c"
+          ],
+          "periodYears": 76.0,
+          "catalog": "ORB6",
+          "reference": "Ddr2025"
+        }
+      ]
+    },
+    {
+      "systemId": "gj-570",
+      "name": "GJ 570",
+      "before": [
+        {
+          "primary": "A",
+          "secondary": "B",
+          "primaryIds": [
+            "cns5-3700"
+          ],
+          "secondaryIds": [
+            "10pc-0145"
+          ],
+          "periodYears": 6488.5537,
+          "catalog": "ORB6",
+          "reference": "Kpp2020f"
+        }
+      ],
+      "after": [
+        {
+          "primary": "B",
+          "secondary": "C",
+          "primaryIds": [
+            "10pc-0145"
+          ],
+          "secondaryIds": [
+            "10pc-0146"
+          ],
+          "periodYears": 0.84564,
+          "catalog": "ORB6",
+          "reference": "MnA2019"
+        },
+        {
+          "primary": "A",
+          "secondary": "BC",
+          "primaryIds": [
+            "cns5-3700"
+          ],
+          "secondaryIds": [
+            "10pc-0145",
+            "10pc-0146"
+          ],
+          "periodYears": 6488.5537,
+          "catalog": "ORB6",
+          "reference": "Kpp2020f"
+        }
+      ]
+    },
+    {
+      "systemId": "gj-22",
+      "name": "GJ 22",
+      "before": [
+        {
+          "primary": "A",
+          "secondary": "B",
+          "primaryIds": [
+            "cns5-0155"
+          ],
+          "secondaryIds": [
+            "cns5-0154"
+          ],
+          "periodYears": 222.3,
+          "catalog": "ORB6",
+          "reference": "Doc2006g"
+        }
+      ],
+      "after": [
+        {
+          "primary": "A",
+          "secondary": "C",
+          "primaryIds": [
+            "cns5-0155"
+          ],
+          "secondaryIds": [
+            "gj-22-c"
+          ],
+          "periodYears": 15.4275,
+          "catalog": "ORB6",
+          "reference": "MnA2019"
+        },
+        {
+          "primary": "AC",
+          "secondary": "B",
+          "primaryIds": [
+            "cns5-0155",
+            "gj-22-c"
+          ],
+          "secondaryIds": [
+            "cns5-0154"
+          ],
+          "periodYears": 222.3,
+          "catalog": "ORB6",
+          "reference": "Doc2006g"
+        }
+      ]
+    },
+    {
+      "systemId": "gj-667",
+      "name": "GJ 667",
+      "before": [
+        {
+          "primary": "A",
+          "secondary": "B",
+          "primaryIds": [
+            "cns5-4252"
+          ],
+          "secondaryIds": [
+            "gj-667-b"
+          ],
+          "periodYears": 42.152,
+          "catalog": "ORB6",
+          "reference": "Msn2023"
+        },
+        {
+          "primary": "A",
+          "secondary": "C",
+          "primaryIds": [
+            "cns5-4252"
+          ],
+          "secondaryIds": [
+            "cns5-4253"
+          ],
+          "periodYears": 2055.785396,
+          "catalog": "ORB6",
+          "reference": "Kpp2020f"
+        }
+      ],
+      "after": [
+        {
+          "primary": "A",
+          "secondary": "B",
+          "primaryIds": [
+            "cns5-4252"
+          ],
+          "secondaryIds": [
+            "gj-667-b"
+          ],
+          "periodYears": 42.152,
+          "catalog": "ORB6",
+          "reference": "Msn2023"
+        },
+        {
+          "primary": "AB",
+          "secondary": "C",
+          "primaryIds": [
+            "cns5-4252",
+            "gj-667-b"
+          ],
+          "secondaryIds": [
+            "cns5-4253"
+          ],
+          "periodYears": 2055.785396,
+          "catalog": "ORB6",
+          "reference": "Kpp2020f"
+        }
+      ]
+    },
+    {
+      "systemId": "luhman-16",
+      "name": "Luhman 16",
+      "before": [],
+      "after": [
+        {
+          "primary": "A",
+          "secondary": "B",
+          "primaryIds": [
+            "luhman-16-a"
+          ],
+          "secondaryIds": [
+            "luhman-16-b"
+          ],
+          "periodYears": 26.55,
+          "catalog": "ORB6",
+          "reference": "Bdi2024"
+        }
+      ]
+    },
+    {
+      "systemId": "luyten-726-8",
+      "name": "Luyten 726-8",
+      "before": [],
+      "after": [
+        {
+          "primary": "A",
+          "secondary": "B",
+          "primaryIds": [
+            "luyten-726-8-a"
+          ],
+          "secondaryIds": [
+            "luyten-726-8-b"
+          ],
+          "periodYears": 26.351,
+          "catalog": "ORB6",
+          "reference": "Msn2023"
+        }
+      ]
+    },
+    {
+      "systemId": "msc-22034-5647",
+      "name": "eps Ind",
+      "before": [
+        {
+          "primary": "Ba",
+          "secondary": "Bb",
+          "primaryIds": [
+            "msc-22034-5647-ba"
+          ],
+          "secondaryIds": [
+            "msc-22034-5647-bb"
+          ],
+          "periodYears": 11.2,
+          "catalog": "ORB6",
+          "reference": "Mcg2009"
+        }
+      ],
+      "after": [
+        {
+          "primary": "Ba",
+          "secondary": "Bb",
+          "primaryIds": [
+            "10pc-0042"
+          ],
+          "secondaryIds": [
+            "10pc-0043"
+          ],
+          "periodYears": 11.2,
+          "catalog": "ORB6",
+          "reference": "Mcg2009"
+        }
+      ]
+    },
+    {
+      "systemId": "scr-j1845-6357",
+      "name": "SCR J1845-6357",
+      "before": [],
+      "after": []
+    },
+    {
+      "systemId": "ross-614",
+      "name": "V577 Mon",
+      "before": [],
+      "after": [
+        {
+          "primary": "A",
+          "secondary": "B",
+          "primaryIds": [
+            "10pc-0066"
+          ],
+          "secondaryIds": [
+            "10pc-0067"
+          ],
+          "periodYears": 16.5777,
+          "catalog": "ORB6",
+          "reference": "MnA2019"
+        }
+      ]
+    },
+    {
+      "systemId": "wolf-424",
+      "name": "FL Vir",
+      "before": [],
+      "after": [
+        {
+          "primary": "A",
+          "secondary": "B",
+          "primaryIds": [
+            "10pc-0074"
+          ],
+          "secondaryIds": [
+            "10pc-0075"
+          ],
+          "periodYears": 15.811,
+          "catalog": "ORB6",
+          "reference": "Lin2022b"
+        }
+      ]
+    },
+    {
+      "systemId": "gj-1245",
+      "name": "GJ 1245",
+      "before": [],
+      "after": [
+        {
+          "primary": "A",
+          "secondary": "C",
+          "primaryIds": [
+            "10pc-0087"
+          ],
+          "secondaryIds": [
+            "10pc-0088"
+          ],
+          "periodYears": 16.8943,
+          "catalog": "ORB6",
+          "reference": "MnA2019"
+        },
+        {
+          "primary": "AC",
+          "secondary": "B",
+          "primaryIds": [
+            "10pc-0087",
+            "10pc-0088"
+          ],
+          "secondaryIds": [
+            "10pc-0089"
+          ],
+          "periodYears": 223.1339,
+          "catalog": "ORB6",
+          "reference": "Kpp2020f"
+        }
+      ]
+    },
+    {
+      "systemId": "ei-cancri",
+      "name": "EI Cnc",
+      "before": [],
+      "after": [
+        {
+          "primary": "A",
+          "secondary": "B",
+          "primaryIds": [
+            "10pc-0113"
+          ],
+          "secondaryIds": [
+            "10pc-0114"
+          ],
+          "periodYears": 123.6412,
+          "catalog": "ORB6",
+          "reference": "Kpp2020f"
+        }
+      ]
+    },
+    {
+      "systemId": "stein-2051",
+      "name": "Stein 2051",
+      "before": [],
+      "after": [
+        {
+          "primary": "A",
+          "secondary": "B",
+          "primaryIds": [
+            "10pc-0128"
+          ],
+          "secondaryIds": [
+            "10pc-0129"
+          ],
+          "periodYears": 1799.89,
+          "catalog": "ORB6",
+          "reference": "Kpp2020f"
+        }
+      ]
+    },
+    {
+      "systemId": "xi-bootis",
+      "name": "Xi Boo",
+      "before": [],
+      "after": [
+        {
+          "primary": "A",
+          "secondary": "B",
+          "primaryIds": [
+            "cns5-3674"
+          ],
+          "secondaryIds": [
+            "cns5-3673"
+          ],
+          "periodYears": 151.870304,
+          "catalog": "ORB6",
+          "reference": "Kpp2020f"
+        }
+      ]
+    },
+    {
+      "systemId": "p-eridani",
+      "name": "p Eri",
+      "before": [],
+      "after": [
+        {
+          "primary": "A",
+          "secondary": "B",
+          "primaryIds": [
+            "cns5-0429"
+          ],
+          "secondaryIds": [
+            "cns5-0428"
+          ],
+          "periodYears": 467.699574,
+          "catalog": "ORB6",
+          "reference": "Kpp2020f"
+        }
+      ]
+    },
+    {
+      "systemId": "wolf-1561",
+      "name": "Wolf 1561",
+      "before": [],
+      "after": []
+    },
+    {
+      "systemId": "l-43-72",
+      "name": "L 43-72",
+      "before": [],
+      "after": []
+    },
+    {
+      "systemId": "l-601-78",
+      "name": "L 601-78",
+      "before": [],
+      "after": [
+        {
+          "primary": "A",
+          "secondary": "B",
+          "primaryIds": [
+            "cns5-1951"
+          ],
+          "secondaryIds": [
+            "cns5-1952"
+          ],
+          "periodYears": 30.71,
+          "catalog": "ORB6",
+          "reference": "Tok2021f"
+        }
+      ]
+    },
+    {
+      "systemId": "vb-24",
+      "name": "VB 24",
+      "before": [],
+      "after": []
+    },
+    {
+      "systemId": "msc-00084+2905",
+      "name": "Alpheratz",
+      "before": [
+        {
+          "primary": "A",
+          "secondary": "B",
+          "primaryIds": [
+            "bright-alpheratz"
+          ],
+          "secondaryIds": [
+            "msc-00084+2905-b"
+          ],
+          "periodYears": 0.2648,
+          "catalog": "MSC",
+          "reference": "VB6_Pbx2000b MKT_11Aa, Gr.2"
+        }
+      ],
+      "after": [
+        {
+          "primary": "A",
+          "secondary": "B",
+          "primaryIds": [
+            "bright-alpheratz"
+          ],
+          "secondaryIds": [
+            "msc-00084+2905-b"
+          ],
+          "periodYears": 0.26475154004106777,
+          "catalog": "ORB6",
+          "reference": "Doc2014h"
+        }
+      ]
+    },
+    {
+      "systemId": "msc-01028+3148",
+      "name": "Sigma Psc",
+      "before": [
+        {
+          "primary": "Aa",
+          "secondary": "Ab",
+          "primaryIds": [
+            "hip-4889"
+          ],
+          "secondaryIds": [
+            "msc-01028+3148-ab"
+          ],
+          "periodYears": 0.2221,
+          "catalog": "MSC",
+          "reference": "VB6_Knc2004  sig_Psc Gr.8"
+        }
+      ],
+      "after": [
+        {
+          "primary": "Aa",
+          "secondary": "Ab",
+          "primaryIds": [
+            "hip-4889"
+          ],
+          "secondaryIds": [
+            "msc-01028+3148-ab"
+          ],
+          "periodYears": 0.22211156741957563,
+          "catalog": "ORB6",
+          "reference": "Knc2004"
+        }
+      ]
+    },
+    {
+      "systemId": "msc-02449+1007",
+      "name": "Mu Cet",
+      "before": [
+        {
+          "primary": "A",
+          "secondary": "B",
+          "primaryIds": [
+            "hip-12828"
+          ],
+          "secondaryIds": [
+            "msc-02449+1007-b"
+          ],
+          "periodYears": 35.9129,
+          "catalog": "MSC",
+          "reference": "VB6_Tok2022f TOK_1Aa,Ab Gr.3"
+        }
+      ],
+      "after": [
+        {
+          "primary": "A",
+          "secondary": "B",
+          "primaryIds": [
+            "hip-12828"
+          ],
+          "secondaryIds": [
+            "msc-02449+1007-b"
+          ],
+          "periodYears": 33.61,
+          "catalog": "ORB6",
+          "reference": "SAO2024"
+        }
+      ]
+    },
+    {
+      "systemId": "msc-03082+4057",
+      "name": "Algol",
+      "before": [
+        {
+          "primary": "Aa",
+          "secondary": "Ab",
+          "primaryIds": [
+            "bright-algol"
+          ],
+          "secondaryIds": [
+            "msc-03082+4057-ab"
+          ],
+          "periodYears": 1.862198494182067,
+          "catalog": "ORB6",
+          "reference": "CIA2012b"
+        },
+        {
+          "primary": "A",
+          "secondary": "B",
+          "primaryIds": [
+            "bright-algol",
+            "msc-03082+4057-ab"
+          ],
+          "secondaryIds": [
+            "msc-03082+4057-b"
+          ],
+          "periodYears": 1.8619,
+          "catalog": "MSC",
+          "reference": "VB6 + SB_158 comb."
+        }
+      ],
+      "after": [
+        {
+          "primary": "Aa",
+          "secondary": "Ab",
+          "primaryIds": [
+            "bright-algol"
+          ],
+          "secondaryIds": [
+            "msc-03082+4057-ab"
+          ],
+          "periodYears": 0.007850316221765914,
+          "catalog": "ORB6",
+          "reference": "CIA2012b"
+        },
+        {
+          "primary": "A",
+          "secondary": "B",
+          "primaryIds": [
+            "bright-algol",
+            "msc-03082+4057-ab"
+          ],
+          "secondaryIds": [
+            "msc-03082+4057-b"
+          ],
+          "periodYears": 1.862198494182067,
+          "catalog": "ORB6",
+          "reference": "CIA2012b"
+        }
+      ]
+    },
+    {
+      "systemId": "msc-03579+4001",
+      "name": "Epsilon Per",
+      "before": [
+        {
+          "primary": "Aa",
+          "secondary": "Ab",
+          "primaryIds": [
+            "hip-18532"
+          ],
+          "secondaryIds": [
+            "msc-03579+4001-ab"
+          ],
+          "periodYears": 0.03851937029431896,
+          "catalog": "MSC",
+          "reference": "2006A&A...446..583L"
+        }
+      ],
+      "after": [
+        {
+          "primary": "Aab",
+          "secondary": "Ac",
+          "primaryIds": [
+            "hip-18532",
+            "msc-03579+4001-ab"
+          ],
+          "secondaryIds": [
+            "msc-03579+4001-ac"
+          ],
+          "periodYears": 26.220396988364133,
+          "catalog": "MSC",
+          "reference": "2006A&A...446..583L Libich+"
+        },
+        {
+          "primary": "Aa",
+          "secondary": "Ab",
+          "primaryIds": [
+            "hip-18532"
+          ],
+          "secondaryIds": [
+            "msc-03579+4001-ab"
+          ],
+          "periodYears": 0.03851937029431896,
+          "catalog": "MSC",
+          "reference": "2006A&A...446..583L"
+        }
+      ]
+    },
+    {
+      "systemId": "msc-04007+1229",
+      "name": "Lambda Tau",
+      "before": [
+        {
+          "primary": "Aa",
+          "secondary": "Ab",
+          "primaryIds": [
+            "hip-18724"
+          ],
+          "secondaryIds": [
+            "msc-04007+1229-ab"
+          ],
+          "periodYears": 0.010822450376454483,
+          "catalog": "MSC",
+          "reference": "SB9_211 1982ApJ...263..289F"
+        }
+      ],
+      "after": [
+        {
+          "primary": "Aa",
+          "secondary": "Ab",
+          "primaryIds": [
+            "hip-18724"
+          ],
+          "secondaryIds": [
+            "msc-04007+1229-ab"
+          ],
+          "periodYears": 0.010822450376454483,
+          "catalog": "MSC",
+          "reference": "SB9_211 1982ApJ...263..289F"
+        },
+        {
+          "primary": "Aab",
+          "secondary": "Ac",
+          "primaryIds": [
+            "hip-18724",
+            "msc-04007+1229-ab"
+          ],
+          "secondaryIds": [
+            "msc-04007+1229-ac"
+          ],
+          "periodYears": 0.0905407255304586,
+          "catalog": "MSC",
+          "reference": "SB9_212 1982ApJ...263..289F"
+        }
+      ]
+    },
+    {
+      "systemId": "msc-04382-1418",
+      "name": "Sceptrum",
+      "before": [
+        {
+          "primary": "A",
+          "secondary": "B",
+          "primaryIds": [
+            "hip-21594"
+          ],
+          "secondaryIds": [
+            "msc-04382-1418-b"
+          ],
+          "periodYears": 77.2414,
+          "catalog": "MSC",
+          "reference": "VB6_Izm2019  KUI_18 Gr.3"
+        }
+      ],
+      "after": [
+        {
+          "primary": "A",
+          "secondary": "B",
+          "primaryIds": [
+            "hip-21594"
+          ],
+          "secondaryIds": [
+            "msc-04382-1418-b"
+          ],
+          "periodYears": 77.2414,
+          "catalog": "ORB6",
+          "reference": "Izm2019"
+        }
+      ]
+    },
+    {
+      "systemId": "msc-04422+2257",
+      "name": "Tau Tau",
+      "before": [
+        {
+          "primary": "Aa",
+          "secondary": "Ab",
+          "primaryIds": [
+            "hip-21881"
+          ],
+          "secondaryIds": [
+            "msc-04422+2257-ab"
+          ],
+          "periodYears": 57.896,
+          "catalog": "ORB6",
+          "reference": "Cve2010e"
+        }
+      ],
+      "after": [
+        {
+          "primary": "Aab",
+          "secondary": "Ac",
+          "primaryIds": [
+            "hip-21881",
+            "msc-04422+2257-ab"
+          ],
+          "secondaryIds": [
+            "msc-04422+2257-ac"
+          ],
+          "periodYears": 57.896,
+          "catalog": "ORB6",
+          "reference": "Cve2010e"
+        },
+        {
+          "primary": "Aa",
+          "secondary": "Ab",
+          "primaryIds": [
+            "hip-21881"
+          ],
+          "secondaryIds": [
+            "msc-04422+2257-ab"
+          ],
+          "periodYears": 0.008094455852156058,
+          "catalog": "MSC",
+          "reference": "SB9_266 1961PDAO...11..385P"
+        }
+      ]
+    },
+    {
+      "systemId": "msc-05320-0018",
+      "name": "Mintaka",
+      "before": [
+        {
+          "primary": "Ca",
+          "secondary": "Cb",
+          "primaryIds": [
+            "msc-05320-0018-ca"
+          ],
+          "secondaryIds": [
+            "msc-05320-0018-cb"
+          ],
+          "periodYears": 0.08202600958247776,
+          "catalog": "MSC",
+          "reference": "2010MNRAS.401.2739L"
+        },
+        {
+          "primary": "Aa1",
+          "secondary": "Aa2",
+          "primaryIds": [
+            "bright-mintaka"
+          ],
+          "secondaryIds": [
+            "msc-05320-0018-aa2"
+          ],
+          "periodYears": 0.01569472963723477,
+          "catalog": "MSC",
+          "reference": "SB9_331 1987Obs...107..205H"
+        }
+      ],
+      "after": [
+        {
+          "primary": "Aa",
+          "secondary": "Ab",
+          "primaryIds": [
+            "bright-mintaka",
+            "msc-05320-0018-aa2"
+          ],
+          "secondaryIds": [
+            "msc-05320-0018-ab"
+          ],
+          "periodYears": 317.4,
+          "catalog": "ORB6",
+          "reference": "Msn2023"
+        },
+        {
+          "primary": "Ca",
+          "secondary": "Cb",
+          "primaryIds": [
+            "msc-05320-0018-ca"
+          ],
+          "secondaryIds": [
+            "msc-05320-0018-cb"
+          ],
+          "periodYears": 0.08202600958247776,
+          "catalog": "MSC",
+          "reference": "2010MNRAS.401.2739L"
+        },
+        {
+          "primary": "Aa1",
+          "secondary": "Aa2",
+          "primaryIds": [
+            "bright-mintaka"
+          ],
+          "secondaryIds": [
+            "msc-05320-0018-aa2"
+          ],
+          "periodYears": 0.01569472963723477,
+          "catalog": "MSC",
+          "reference": "SB9_331 1987Obs...107..205H"
+        }
+      ]
+    },
+    {
+      "systemId": "msc-05353-0524",
+      "name": "Theta1 Orionis",
+      "before": [],
+      "after": [
+        {
+          "primary": "Aa1",
+          "secondary": "Aa2",
+          "primaryIds": [
+            "trapezium-theta1-orionis-a"
+          ],
+          "secondaryIds": [
+            "msc-05353-0524-aa2"
+          ],
+          "periodYears": 0.17914140999315536,
+          "catalog": "MSC",
+          "reference": "SB9_340 2000Obs...120..141S"
+        }
+      ]
+    },
+    {
+      "systemId": "msc-06024+0939",
+      "name": "Mu Ori",
+      "before": [
+        {
+          "primary": "A",
+          "secondary": "B",
+          "primaryIds": [
+            "hip-28614",
+            "msc-06024+0939-ab"
+          ],
+          "secondaryIds": [
+            "msc-06024+0939-ba",
+            "msc-06024+0939-bb"
+          ],
+          "periodYears": 18.641,
+          "catalog": "ORB6",
+          "reference": "DRs2012"
+        },
+        {
+          "primary": "Aa",
+          "secondary": "Ab",
+          "primaryIds": [
+            "hip-28614"
+          ],
+          "secondaryIds": [
+            "msc-06024+0939-ab"
+          ],
+          "periodYears": 0.0122,
+          "catalog": "MSC",
+          "reference": "VB6_Mut2008 A_2715A Gr.9"
+        },
+        {
+          "primary": "Ba",
+          "secondary": "Bb",
+          "primaryIds": [
+            "msc-06024+0939-ba"
+          ],
+          "secondaryIds": [
+            "msc-06024+0939-bb"
+          ],
+          "periodYears": 0.0131,
+          "catalog": "MSC",
+          "reference": "VB6_Mut2008 A_2715B Gr.9"
+        }
+      ],
+      "after": [
+        {
+          "primary": "Aa",
+          "secondary": "Ab",
+          "primaryIds": [
+            "hip-28614"
+          ],
+          "secondaryIds": [
+            "msc-06024+0939-ab"
+          ],
+          "periodYears": 0.012176824093086926,
+          "catalog": "ORB6",
+          "reference": "Mut2008"
+        },
+        {
+          "primary": "A",
+          "secondary": "B",
+          "primaryIds": [
+            "hip-28614",
+            "msc-06024+0939-ab"
+          ],
+          "secondaryIds": [
+            "msc-06024+0939-ba",
+            "msc-06024+0939-bb"
+          ],
+          "periodYears": 18.641,
+          "catalog": "ORB6",
+          "reference": "DRs2012"
+        },
+        {
+          "primary": "Ba",
+          "secondary": "Bb",
+          "primaryIds": [
+            "msc-06024+0939-ba"
+          ],
+          "secondaryIds": [
+            "msc-06024+0939-bb"
+          ],
+          "periodYears": 0.013096605065023956,
+          "catalog": "ORB6",
+          "reference": "Mut2008"
+        }
+      ]
+    },
+    {
+      "systemId": "msc-06149+2230",
+      "name": "Propus",
+      "before": [
+        {
+          "primary": "A",
+          "secondary": "B",
+          "primaryIds": [
+            "hip-29655",
+            "msc-06149+2230-ab"
+          ],
+          "secondaryIds": [
+            "msc-06149+2230-b"
+          ],
+          "periodYears": 473.7,
+          "catalog": "MSC",
+          "reference": "VB6_Baz1980a BU_1008 Gr.5"
+        },
+        {
+          "primary": "Aa",
+          "secondary": "Ab",
+          "primaryIds": [
+            "hip-29655"
+          ],
+          "secondaryIds": [
+            "msc-06149+2230-ab"
+          ],
+          "periodYears": 8.167008898015059,
+          "catalog": "MSC",
+          "reference": "SB9_387 1944ApJ...100...63M"
+        }
+      ],
+      "after": [
+        {
+          "primary": "A",
+          "secondary": "B",
+          "primaryIds": [
+            "hip-29655",
+            "msc-06149+2230-ab"
+          ],
+          "secondaryIds": [
+            "msc-06149+2230-b"
+          ],
+          "periodYears": 1031.1632,
+          "catalog": "ORB6",
+          "reference": "Izm2019"
+        },
+        {
+          "primary": "Aa",
+          "secondary": "Ab",
+          "primaryIds": [
+            "hip-29655"
+          ],
+          "secondaryIds": [
+            "msc-06149+2230-ab"
+          ],
+          "periodYears": 8.167008898015059,
+          "catalog": "MSC",
+          "reference": "SB9_387 1944ApJ...100...63M"
+        }
+      ]
+    },
+    {
+      "systemId": "msc-06290+2013",
+      "name": "Nu Gem",
+      "before": [
+        {
+          "primary": "Ba",
+          "secondary": "Bb",
+          "primaryIds": [
+            "msc-06290+2013-ba"
+          ],
+          "secondaryIds": [
+            "msc-06290+2013-bb"
+          ],
+          "periodYears": 103.9,
+          "catalog": "ORB6",
+          "reference": "USN2021b"
+        },
+        {
+          "primary": "Aa1",
+          "secondary": "Aa2",
+          "primaryIds": [
+            "hip-30883"
+          ],
+          "secondaryIds": [
+            "msc-06290+2013-aa2"
+          ],
+          "periodYears": 0.14722026009582476,
+          "catalog": "ORB6",
+          "reference": "CIA2021b"
+        }
+      ],
+      "after": [
+        {
+          "primary": "Ba",
+          "secondary": "Bb",
+          "primaryIds": [
+            "msc-06290+2013-ba"
+          ],
+          "secondaryIds": [
+            "msc-06290+2013-bb"
+          ],
+          "periodYears": 103.9,
+          "catalog": "ORB6",
+          "reference": "USN2021b"
+        },
+        {
+          "primary": "Aa1",
+          "secondary": "Aa2",
+          "primaryIds": [
+            "hip-30883"
+          ],
+          "secondaryIds": [
+            "msc-06290+2013-aa2"
+          ],
+          "periodYears": 0.14722026009582476,
+          "catalog": "ORB6",
+          "reference": "CIA2021b"
+        },
+        {
+          "primary": "Aa",
+          "secondary": "Ab",
+          "primaryIds": [
+            "hip-30883",
+            "msc-06290+2013-aa2"
+          ],
+          "secondaryIds": [
+            "msc-06290+2013-ab"
+          ],
+          "periodYears": 19.108,
+          "catalog": "ORB6",
+          "reference": "Msn2021a"
+        }
+      ]
+    },
+    {
+      "systemId": "msc-07201+2159",
+      "name": "Wasat",
+      "before": [
+        {
+          "primary": "Aa",
+          "secondary": "Ab",
+          "primaryIds": [
+            "hip-35550"
+          ],
+          "secondaryIds": [
+            "msc-07201+2159-ab"
+          ],
+          "periodYears": 6.1291,
+          "catalog": "MSC",
+          "reference": "VB6_HIP1997d STF1066A Gr.9"
+        },
+        {
+          "primary": "A",
+          "secondary": "B",
+          "primaryIds": [
+            "hip-35550",
+            "msc-07201+2159-ab"
+          ],
+          "secondaryIds": [
+            "msc-07201+2159-b"
+          ],
+          "periodYears": 1418.4375,
+          "catalog": "MSC",
+          "reference": "VB6_Izm2019  STF1066 Gr.5?"
+        }
+      ],
+      "after": [
+        {
+          "primary": "Aa",
+          "secondary": "Ab",
+          "primaryIds": [
+            "hip-35550"
+          ],
+          "secondaryIds": [
+            "msc-07201+2159-ab"
+          ],
+          "periodYears": 6.128953045859001,
+          "catalog": "ORB6",
+          "reference": "HIP1997d"
+        },
+        {
+          "primary": "A",
+          "secondary": "B",
+          "primaryIds": [
+            "hip-35550",
+            "msc-07201+2159-ab"
+          ],
+          "secondaryIds": [
+            "msc-07201+2159-b"
+          ],
+          "periodYears": 1418.4375,
+          "catalog": "ORB6",
+          "reference": "Izm2019"
+        }
+      ]
+    },
+    {
+      "systemId": "msc-07292-4318",
+      "name": "Hadir",
+      "before": [
+        {
+          "primary": "Aa",
+          "secondary": "Ab",
+          "primaryIds": [
+            "hip-36377"
+          ],
+          "secondaryIds": [
+            "msc-07292-4318-ab"
+          ],
+          "periodYears": 0.7058,
+          "catalog": "MSC",
+          "reference": "VB6_Jnc2005 sig_Pup Gr.9"
+        }
+      ],
+      "after": [
+        {
+          "primary": "Aa",
+          "secondary": "Ab",
+          "primaryIds": [
+            "hip-36377"
+          ],
+          "secondaryIds": [
+            "msc-07292-4318-ab"
+          ],
+          "periodYears": 0.7058179329226557,
+          "catalog": "ORB6",
+          "reference": "Jnc2005"
+        }
+      ]
+    },
+    {
+      "systemId": "msc-07346+3153",
+      "name": "Castor",
+      "before": [
+        {
+          "primary": "Aa",
+          "secondary": "Ab",
+          "primaryIds": [
+            "bright-castor"
+          ],
+          "secondaryIds": [
+            "msc-07346+3153-ab"
+          ],
+          "periodYears": 0.02522313210130048,
+          "catalog": "ORB6",
+          "reference": "CIA2022d"
+        },
+        {
+          "primary": "A",
+          "secondary": "B",
+          "primaryIds": [
+            "bright-castor",
+            "msc-07346+3153-ab"
+          ],
+          "secondaryIds": [
+            "msc-07346+3153-ba",
+            "msc-07346+3153-bb"
+          ],
+          "periodYears": 459.1,
+          "catalog": "ORB6",
+          "reference": "CIA2022d"
+        },
+        {
+          "primary": "B",
+          "secondary": "C",
+          "primaryIds": [
+            "msc-07346+3153-ba",
+            "msc-07346+3153-bb"
+          ],
+          "secondaryIds": [
+            "msc-07346+3153-c"
+          ],
+          "periodYears": 12816.999999999998,
+          "catalog": "ORB6",
+          "reference": "Kiy2015"
+        },
+        {
+          "primary": "Ba",
+          "secondary": "Bb",
+          "primaryIds": [
+            "msc-07346+3153-ba"
+          ],
+          "secondaryIds": [
+            "msc-07346+3153-bb"
+          ],
+          "periodYears": 0.00801738535249829,
+          "catalog": "ORB6",
+          "reference": "CIA2022d"
+        },
+        {
+          "primary": "AB",
+          "secondary": "C",
+          "primaryIds": [
+            "bright-castor",
+            "msc-07346+3153-ab",
+            "msc-07346+3153-ba",
+            "msc-07346+3153-bb"
+          ],
+          "secondaryIds": [
+            "msc-07346+3153-c"
+          ],
+          "periodYears": 134630.0,
+          "catalog": "MSC",
+          "reference": "VB6_Kiy2015 STF1110AC, Gr.5"
+        }
+      ],
+      "after": [
+        {
+          "primary": "Aa",
+          "secondary": "Ab",
+          "primaryIds": [
+            "bright-castor"
+          ],
+          "secondaryIds": [
+            "msc-07346+3153-ab"
+          ],
+          "periodYears": 0.02522313210130048,
+          "catalog": "ORB6",
+          "reference": "CIA2022d"
+        },
+        {
+          "primary": "A",
+          "secondary": "B",
+          "primaryIds": [
+            "bright-castor",
+            "msc-07346+3153-ab"
+          ],
+          "secondaryIds": [
+            "msc-07346+3153-ba",
+            "msc-07346+3153-bb"
+          ],
+          "periodYears": 459.1,
+          "catalog": "ORB6",
+          "reference": "CIA2022d"
+        },
+        {
+          "primary": "AB",
+          "secondary": "C",
+          "primaryIds": [
+            "bright-castor",
+            "msc-07346+3153-ab",
+            "msc-07346+3153-ba",
+            "msc-07346+3153-bb"
+          ],
+          "secondaryIds": [
+            "msc-07346+3153-c"
+          ],
+          "periodYears": 12816.999999999998,
+          "catalog": "ORB6",
+          "reference": "Kiy2015"
+        },
+        {
+          "primary": "Ba",
+          "secondary": "Bb",
+          "primaryIds": [
+            "msc-07346+3153-ba"
+          ],
+          "secondaryIds": [
+            "msc-07346+3153-bb"
+          ],
+          "periodYears": 0.00801738535249829,
+          "catalog": "ORB6",
+          "reference": "CIA2022d"
+        }
+      ]
+    },
+    {
+      "systemId": "msc-08468+0625",
+      "name": "Ashlesha",
+      "before": [
+        {
+          "primary": "A",
+          "secondary": "B",
+          "primaryIds": [
+            "hip-43109"
+          ],
+          "secondaryIds": [
+            "msc-08468+0625-b"
+          ],
+          "periodYears": 15.074,
+          "catalog": "ORB6",
+          "reference": "JAA2023"
+        },
+        {
+          "primary": "B",
+          "secondary": "C",
+          "primaryIds": [
+            "msc-08468+0625-b"
+          ],
+          "secondaryIds": [
+            "msc-08468+0625-ca",
+            "msc-08468+0625-cb"
+          ],
+          "periodYears": 371.8983,
+          "catalog": "ORB6",
+          "reference": "Izm2019"
+        },
+        {
+          "primary": "AB",
+          "secondary": "C",
+          "primaryIds": [
+            "hip-43109",
+            "msc-08468+0625-b"
+          ],
+          "secondaryIds": [
+            "msc-08468+0625-ca",
+            "msc-08468+0625-cb"
+          ],
+          "periodYears": 589.0,
+          "catalog": "MSC",
+          "reference": "VB6_Dru2014 STF1273AB, Gr.4"
+        },
+        {
+          "primary": "Ca",
+          "secondary": "Cb",
+          "primaryIds": [
+            "msc-08468+0625-ca"
+          ],
+          "secondaryIds": [
+            "msc-08468+0625-cb"
+          ],
+          "periodYears": 0.027117590691307324,
+          "catalog": "MSC",
+          "reference": "SB9_533 1926ApJ....64..172S"
+        }
+      ],
+      "after": [
+        {
+          "primary": "A",
+          "secondary": "B",
+          "primaryIds": [
+            "hip-43109"
+          ],
+          "secondaryIds": [
+            "msc-08468+0625-b"
+          ],
+          "periodYears": 15.074,
+          "catalog": "ORB6",
+          "reference": "JAA2023"
+        },
+        {
+          "primary": "AB",
+          "secondary": "C",
+          "primaryIds": [
+            "hip-43109",
+            "msc-08468+0625-b"
+          ],
+          "secondaryIds": [
+            "msc-08468+0625-ca",
+            "msc-08468+0625-cb"
+          ],
+          "periodYears": 371.8983,
+          "catalog": "ORB6",
+          "reference": "Izm2019"
+        },
+        {
+          "primary": "Ca",
+          "secondary": "Cb",
+          "primaryIds": [
+            "msc-08468+0625-ca"
+          ],
+          "secondaryIds": [
+            "msc-08468+0625-cb"
+          ],
+          "periodYears": 0.027117590691307324,
+          "catalog": "MSC",
+          "reference": "SB9_533 1926ApJ....64..172S"
+        }
+      ]
+    },
+    {
+      "systemId": "msc-08592+4803",
+      "name": "Talitha",
+      "before": [
+        {
+          "primary": "B",
+          "secondary": "C",
+          "primaryIds": [
+            "msc-08592+4803-b"
+          ],
+          "secondaryIds": [
+            "msc-08592+4803-c"
+          ],
+          "periodYears": 39.4,
+          "catalog": "ORB6",
+          "reference": "DRs2012"
+        },
+        {
+          "primary": "A",
+          "secondary": "BC",
+          "primaryIds": [
+            "hip-44127"
+          ],
+          "secondaryIds": [
+            "msc-08592+4803-b",
+            "msc-08592+4803-c"
+          ],
+          "periodYears": 2084.0,
+          "catalog": "MSC",
+          "reference": "VB6_Zhu2012 HJ_2477A,B Gr.5"
+        }
+      ],
+      "after": [
+        {
+          "primary": "A",
+          "secondary": "BC",
+          "primaryIds": [
+            "hip-44127"
+          ],
+          "secondaryIds": [
+            "msc-08592+4803-b",
+            "msc-08592+4803-c"
+          ],
+          "periodYears": 486.0288,
+          "catalog": "ORB6",
+          "reference": "Izm2019"
+        },
+        {
+          "primary": "B",
+          "secondary": "C",
+          "primaryIds": [
+            "msc-08592+4803-b"
+          ],
+          "secondaryIds": [
+            "msc-08592+4803-c"
+          ],
+          "periodYears": 39.4,
+          "catalog": "ORB6",
+          "reference": "DRs2012"
+        }
+      ]
+    },
+    {
+      "systemId": "msc-11182+3132",
+      "name": "Alula Australis",
+      "before": [
+        {
+          "primary": "A",
+          "secondary": "B",
+          "primaryIds": [
+            "msc-11182+3132-aa",
+            "msc-11182+3132-ab"
+          ],
+          "secondaryIds": [
+            "cns5-2767",
+            "msc-11182+3132-bb"
+          ],
+          "periodYears": 59.8903,
+          "catalog": "ORB6",
+          "reference": "Izm2019"
+        },
+        {
+          "primary": "Ba",
+          "secondary": "Bb",
+          "primaryIds": [
+            "cns5-2767"
+          ],
+          "secondaryIds": [
+            "msc-11182+3132-bb"
+          ],
+          "periodYears": 0.01089801505817933,
+          "catalog": "MSC",
+          "reference": "SB 667"
+        },
+        {
+          "primary": "Aa",
+          "secondary": "Ab",
+          "primaryIds": [
+            "msc-11182+3132-aa"
+          ],
+          "secondaryIds": [
+            "msc-11182+3132-ab"
+          ],
+          "periodYears": 1.834,
+          "catalog": "MSC",
+          "reference": "VB6_Hei1996b STF1523A Gr.9"
+        }
+      ],
+      "after": [
+        {
+          "primary": "Aa",
+          "secondary": "Ab",
+          "primaryIds": [
+            "msc-11182+3132-aa"
+          ],
+          "secondaryIds": [
+            "msc-11182+3132-ab"
+          ],
+          "periodYears": 1.834,
+          "catalog": "ORB6",
+          "reference": "Hei1996b"
+        },
+        {
+          "primary": "A",
+          "secondary": "B",
+          "primaryIds": [
+            "msc-11182+3132-aa",
+            "msc-11182+3132-ab"
+          ],
+          "secondaryIds": [
+            "cns5-2767",
+            "msc-11182+3132-bb"
+          ],
+          "periodYears": 59.8903,
+          "catalog": "ORB6",
+          "reference": "Izm2019"
+        },
+        {
+          "primary": "Ba",
+          "secondary": "Bb",
+          "primaryIds": [
+            "cns5-2767"
+          ],
+          "secondaryIds": [
+            "msc-11182+3132-bb"
+          ],
+          "periodYears": 0.01089801505817933,
+          "catalog": "MSC",
+          "reference": "SB 667"
+        }
+      ]
+    },
+    {
+      "systemId": "msc-11456-6644",
+      "name": "Lambda Mus",
+      "before": [
+        {
+          "primary": "Aa",
+          "secondary": "Ab",
+          "primaryIds": [
+            "hip-57363"
+          ],
+          "secondaryIds": [
+            "msc-11456-6644-ab"
+          ],
+          "periodYears": 1.2389,
+          "catalog": "MSC",
+          "reference": "VB6_HIP1997d lam_Mus Gr.9"
+        }
+      ],
+      "after": [
+        {
+          "primary": "Aa",
+          "secondary": "Ab",
+          "primaryIds": [
+            "hip-57363"
+          ],
+          "secondaryIds": [
+            "msc-11456-6644-ab"
+          ],
+          "periodYears": 1.2388881587953455,
+          "catalog": "ORB6",
+          "reference": "HIP1997d"
+        }
+      ]
+    },
+    {
+      "systemId": "msc-12349+2238",
+      "name": "Phyllon Kissinou",
+      "before": [
+        {
+          "primary": "A",
+          "secondary": "B",
+          "primaryIds": [
+            "hip-61394"
+          ],
+          "secondaryIds": [
+            "msc-12349+2238-b"
+          ],
+          "periodYears": 36.0,
+          "catalog": "MSC",
+          "reference": "VB6_Hrt2014b WRH_12 Gr.3"
+        }
+      ],
+      "after": [
+        {
+          "primary": "A",
+          "secondary": "B",
+          "primaryIds": [
+            "hip-61394"
+          ],
+          "secondaryIds": [
+            "msc-12349+2238-b"
+          ],
+          "periodYears": 36.0,
+          "catalog": "ORB6",
+          "reference": "Hrt2014b"
+        }
+      ]
+    },
+    {
+      "systemId": "msc-16054-1948",
+      "name": "Acrab",
+      "before": [
+        {
+          "primary": "A",
+          "secondary": "B",
+          "primaryIds": [
+            "bright-beta-scorpii-a",
+            "msc-16054-1948-ab"
+          ],
+          "secondaryIds": [
+            "msc-16054-1948-b"
+          ],
+          "periodYears": 220.0,
+          "catalog": "ORB6",
+          "reference": "Tok2024c"
+        },
+        {
+          "primary": "C",
+          "secondary": "E",
+          "primaryIds": [
+            "msc-16054-1948-c"
+          ],
+          "secondaryIds": [
+            "msc-16054-1948-ea",
+            "msc-16054-1948-eb"
+          ],
+          "periodYears": 18.953,
+          "catalog": "ORB6",
+          "reference": "Tok2024c"
+        },
+        {
+          "primary": "Ea",
+          "secondary": "Eb",
+          "primaryIds": [
+            "msc-16054-1948-ea"
+          ],
+          "secondaryIds": [
+            "msc-16054-1948-eb"
+          ],
+          "periodYears": 0.030326351813826147,
+          "catalog": "MSC",
+          "reference": "2014A&A...563A.138V Veramendi"
+        },
+        {
+          "primary": "Aa",
+          "secondary": "Ab",
+          "primaryIds": [
+            "bright-beta-scorpii-a"
+          ],
+          "secondaryIds": [
+            "msc-16054-1948-ab"
+          ],
+          "periodYears": 0.0187,
+          "catalog": "MSC",
+          "reference": "VB6_Hol1997 bet_Sco Gr.9"
+        }
+      ],
+      "after": [
+        {
+          "primary": "Aa",
+          "secondary": "Ab",
+          "primaryIds": [
+            "bright-beta-scorpii-a"
+          ],
+          "secondaryIds": [
+            "msc-16054-1948-ab"
+          ],
+          "periodYears": 0.01869472963723477,
+          "catalog": "ORB6",
+          "reference": "Hol1997"
+        },
+        {
+          "primary": "A",
+          "secondary": "B",
+          "primaryIds": [
+            "bright-beta-scorpii-a",
+            "msc-16054-1948-ab"
+          ],
+          "secondaryIds": [
+            "msc-16054-1948-b"
+          ],
+          "periodYears": 220.0,
+          "catalog": "ORB6",
+          "reference": "Tok2024c"
+        },
+        {
+          "primary": "C",
+          "secondary": "E",
+          "primaryIds": [
+            "msc-16054-1948-c"
+          ],
+          "secondaryIds": [
+            "msc-16054-1948-ea",
+            "msc-16054-1948-eb"
+          ],
+          "periodYears": 18.953,
+          "catalog": "ORB6",
+          "reference": "Tok2024c"
+        },
+        {
+          "primary": "Ea",
+          "secondary": "Eb",
+          "primaryIds": [
+            "msc-16054-1948-ea"
+          ],
+          "secondaryIds": [
+            "msc-16054-1948-eb"
+          ],
+          "periodYears": 0.030326351813826147,
+          "catalog": "MSC",
+          "reference": "2014A&A...563A.138V Veramendi"
+        }
+      ]
+    },
+    {
+      "systemId": "msc-17336-3706",
+      "name": "Shaula",
+      "before": [
+        {
+          "primary": "Aa1",
+          "secondary": "Aa2",
+          "primaryIds": [
+            "bright-shaula"
+          ],
+          "secondaryIds": [
+            "msc-17336-3706-aa2"
+          ],
+          "periodYears": 0.016295687885010266,
+          "catalog": "MSC",
+          "reference": "2004A&A...427..581U"
+        }
+      ],
+      "after": [
+        {
+          "primary": "Aa",
+          "secondary": "Ab",
+          "primaryIds": [
+            "bright-shaula",
+            "msc-17336-3706-aa2"
+          ],
+          "secondaryIds": [
+            "msc-17336-3706-ab"
+          ],
+          "periodYears": 2.882409308692676,
+          "catalog": "ORB6",
+          "reference": "Tng2006"
+        },
+        {
+          "primary": "Aa1",
+          "secondary": "Aa2",
+          "primaryIds": [
+            "bright-shaula"
+          ],
+          "secondaryIds": [
+            "msc-17336-3706-aa2"
+          ],
+          "periodYears": 0.016295687885010266,
+          "catalog": "MSC",
+          "reference": "2004A&A...427..581U"
+        }
+      ]
+    },
+    {
+      "systemId": "msc-18232-6130",
+      "name": "Xi Pav",
+      "before": [
+        {
+          "primary": "Aa",
+          "secondary": "Ab",
+          "primaryIds": [
+            "hip-90098"
+          ],
+          "secondaryIds": [
+            "msc-18232-6130-ab"
+          ],
+          "periodYears": 6.0617,
+          "catalog": "MSC",
+          "reference": "VB6_Jnc2005 GLE_2A Gr.9"
+        }
+      ],
+      "after": [
+        {
+          "primary": "Aa",
+          "secondary": "Ab",
+          "primaryIds": [
+            "hip-90098"
+          ],
+          "secondaryIds": [
+            "msc-18232-6130-ab"
+          ],
+          "periodYears": 6.061601642710472,
+          "catalog": "ORB6",
+          "reference": "Jnc2005"
+        }
+      ]
+    },
+    {
+      "systemId": "msc-21287+7034",
+      "name": "Alfirk",
+      "before": [
+        {
+          "primary": "Aa1",
+          "secondary": "Aa2",
+          "primaryIds": [
+            "hip-106032"
+          ],
+          "secondaryIds": [
+            "msc-21287+7034-aa2"
+          ],
+          "periodYears": 0.029823408624229983,
+          "catalog": "MSC",
+          "reference": "SB9_1310 1969ApJ...158..269F"
+        }
+      ],
+      "after": [
+        {
+          "primary": "Aa",
+          "secondary": "Ab",
+          "primaryIds": [
+            "hip-106032",
+            "msc-21287+7034-aa2"
+          ],
+          "secondaryIds": [
+            "msc-21287+7034-ab"
+          ],
+          "periodYears": 26.328651608487338,
+          "catalog": "ORB6",
+          "reference": "NOI2021"
+        },
+        {
+          "primary": "Aa1",
+          "secondary": "Aa2",
+          "primaryIds": [
+            "hip-106032"
+          ],
+          "secondaryIds": [
+            "msc-21287+7034-aa2"
+          ],
+          "periodYears": 0.029823408624229983,
+          "catalog": "MSC",
+          "reference": "SB9_1310 1969ApJ...158..269F"
+        }
+      ]
+    },
+    {
+      "systemId": "msc-21446+2539",
+      "name": "Kappa Peg",
+      "before": [
+        {
+          "primary": "A",
+          "secondary": "B",
+          "primaryIds": [
+            "hip-107354"
+          ],
+          "secondaryIds": [
+            "msc-21446+2539-ba",
+            "msc-21446+2539-bb"
+          ],
+          "periodYears": 11.566762491444218,
+          "catalog": "ORB6",
+          "reference": "Mut2008"
+        },
+        {
+          "primary": "Ba",
+          "secondary": "Bb",
+          "primaryIds": [
+            "msc-21446+2539-ba"
+          ],
+          "secondaryIds": [
+            "msc-21446+2539-bb"
+          ],
+          "periodYears": 0.0163,
+          "catalog": "MSC",
+          "reference": "VB6_Mut2008 BU_989B Gr.9"
+        }
+      ],
+      "after": [
+        {
+          "primary": "A",
+          "secondary": "B",
+          "primaryIds": [
+            "hip-107354"
+          ],
+          "secondaryIds": [
+            "msc-21446+2539-ba",
+            "msc-21446+2539-bb"
+          ],
+          "periodYears": 11.566762491444218,
+          "catalog": "ORB6",
+          "reference": "Mut2008"
+        },
+        {
+          "primary": "Ba",
+          "secondary": "Bb",
+          "primaryIds": [
+            "msc-21446+2539-ba"
+          ],
+          "secondaryIds": [
+            "msc-21446+2539-bb"
+          ],
+          "periodYears": 0.01634906776180698,
+          "catalog": "ORB6",
+          "reference": "Mut2008"
+        }
+      ]
+    },
+    {
+      "systemId": "spectroscopic-hip-112158",
+      "name": "Matar",
+      "before": [],
+      "after": [
+        {
+          "primary": "A",
+          "secondary": "B",
+          "primaryIds": [
+            "hip-112158"
+          ],
+          "secondaryIds": [
+            "hip-112158-component-b"
+          ],
+          "periodYears": 2.237946611909651,
+          "catalog": "ORB6",
+          "reference": "MkT1998"
+        }
+      ]
+    }
+  ]
+}

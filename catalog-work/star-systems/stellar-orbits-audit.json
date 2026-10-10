@@ -14,9 +14,313 @@
     }
   ],
   "policy": "Exact reviewed WDS/HIP identities only; explicit pair scopes; no positional matches, estimated wide periods or photocenter axes. Angular relative axes converted to AU with the identified catalog parallax. Unknown MSC zeros stay null.",
-  "systemsReviewed": 269,
-  "systemsWithSolutions": 169,
-  "orbitCount": 221,
+  "identityInputs": [
+    {
+      "frozenInput": "src/data/star-systems.json",
+      "sha256": "0e7e0b8097766381629c4d28e57f62948ecde0c10ac18992c09cef17cb6dfe05"
+    },
+    {
+      "frozenInput": "src/data/stellar-companions.json",
+      "sha256": "0a9cd4a5a3d67f1ba73e40f355b070614a2ded1305aa59a4daaa11a074757fd4"
+    },
+    {
+      "frozenInput": "src/data/object-designations.json",
+      "sha256": "23582139f394f90ce36cd31ebbe675697992d3d356307a2a795bd6067d3f6c00"
+    }
+  ],
+  "systemsReviewed": 341,
+  "systemsWithSolutions": 238,
+  "orbitCount": 298,
+  "reconciled": [
+    {
+      "systemId": "msc-00084+2905",
+      "catalog": "ORB6",
+      "sourcePair": "Aa,Ab",
+      "adoptedPair": "A,B",
+      "reference": "Doc2014h",
+      "evidence": "Reviewed component naming reconciliation; see orbit-coverage-review.json"
+    },
+    {
+      "systemId": "gj-22",
+      "catalog": "ORB6",
+      "sourcePair": "Aa,Ab",
+      "adoptedPair": "A,C",
+      "reference": "MnA2019",
+      "evidence": "Reviewed component naming reconciliation; see orbit-coverage-review.json"
+    },
+    {
+      "systemId": "gj-22",
+      "catalog": "ORB6",
+      "sourcePair": "AB",
+      "adoptedPair": "AC,B",
+      "reference": "Doc2006g",
+      "evidence": "Reviewed component naming reconciliation; see orbit-coverage-review.json"
+    },
+    {
+      "systemId": "msc-00567+6043",
+      "catalog": "ORB6",
+      "sourcePair": "A",
+      "adoptedPair": "Aab,Ac",
+      "reference": "Gon2000",
+      "evidence": "Exact WDS/reference/designation/period cross-reference in frozen MSC orb.tsv"
+    },
+    {
+      "systemId": "msc-01028+3148",
+      "catalog": "ORB6",
+      "sourcePair": "",
+      "adoptedPair": "Aa,Ab",
+      "reference": "Knc2004",
+      "evidence": "Exact WDS/reference/designation/period cross-reference in frozen MSC orb.tsv"
+    },
+    {
+      "systemId": "gj-105",
+      "catalog": "ORB6",
+      "sourcePair": "Aa,Ab",
+      "adoptedPair": "A,C",
+      "reference": "Hei1994b",
+      "evidence": "Reviewed component naming reconciliation; see orbit-coverage-review.json"
+    },
+    {
+      "systemId": "gj-105",
+      "catalog": "ORB6",
+      "sourcePair": "AB",
+      "adoptedPair": "A,C",
+      "reference": "Ddr2025",
+      "evidence": "Reviewed component naming reconciliation; see orbit-coverage-review.json"
+    },
+    {
+      "systemId": "msc-02449+1007",
+      "catalog": "ORB6",
+      "sourcePair": "Aa,Ab",
+      "adoptedPair": "A,B",
+      "reference": "SAO2024",
+      "evidence": "Reviewed component naming reconciliation; see orbit-coverage-review.json"
+    },
+    {
+      "systemId": "msc-03082+4057",
+      "catalog": "ORB6",
+      "sourcePair": "Aa1,2",
+      "adoptedPair": "Aa,Ab",
+      "reference": "CIA2012b",
+      "evidence": "Reviewed component naming reconciliation; see orbit-coverage-review.json"
+    },
+    {
+      "systemId": "msc-03082+4057",
+      "catalog": "ORB6",
+      "sourcePair": "Aa,Ab",
+      "adoptedPair": "A,B",
+      "reference": "CIA2012b",
+      "evidence": "Reviewed component naming reconciliation; see orbit-coverage-review.json"
+    },
+    {
+      "systemId": "msc-04382-1418",
+      "catalog": "ORB6",
+      "sourcePair": "",
+      "adoptedPair": "A,B",
+      "reference": "Izm2019",
+      "evidence": "Exact WDS/reference/designation/period cross-reference in frozen MSC orb.tsv"
+    },
+    {
+      "systemId": "msc-04422+2257",
+      "catalog": "ORB6",
+      "sourcePair": "Aa,Ab",
+      "adoptedPair": "Aab,Ac",
+      "reference": "Cve2010e",
+      "evidence": "Reviewed component naming reconciliation; see orbit-coverage-review.json"
+    },
+    {
+      "systemId": "msc-06024+0939",
+      "catalog": "ORB6",
+      "sourcePair": "A",
+      "adoptedPair": "Aa,Ab",
+      "reference": "Mut2008",
+      "evidence": "Exact WDS/reference/designation/period cross-reference in frozen MSC orb.tsv"
+    },
+    {
+      "systemId": "msc-06024+0939",
+      "catalog": "ORB6",
+      "sourcePair": "B",
+      "adoptedPair": "Ba,Bb",
+      "reference": "Mut2008",
+      "evidence": "Exact WDS/reference/designation/period cross-reference in frozen MSC orb.tsv"
+    },
+    {
+      "systemId": "msc-06149+2230",
+      "catalog": "ORB6",
+      "sourcePair": "",
+      "adoptedPair": "A,B",
+      "reference": "Izm2019",
+      "evidence": "Exact WDS/reference/designation/period cross-reference in frozen MSC orb.tsv"
+    },
+    {
+      "systemId": "msc-07201+2159",
+      "catalog": "ORB6",
+      "sourcePair": "A",
+      "adoptedPair": "Aa,Ab",
+      "reference": "HIP1997d",
+      "evidence": "Exact WDS/reference/designation/period cross-reference in frozen MSC orb.tsv"
+    },
+    {
+      "systemId": "msc-07201+2159",
+      "catalog": "ORB6",
+      "sourcePair": "",
+      "adoptedPair": "A,B",
+      "reference": "Izm2019",
+      "evidence": "Exact WDS/reference/designation/period cross-reference in frozen MSC orb.tsv"
+    },
+    {
+      "systemId": "msc-07292-4318",
+      "catalog": "ORB6",
+      "sourcePair": "",
+      "adoptedPair": "Aa,Ab",
+      "reference": "Jnc2005",
+      "evidence": "Exact WDS/reference/designation/period cross-reference in frozen MSC orb.tsv"
+    },
+    {
+      "systemId": "msc-11182+3132",
+      "catalog": "ORB6",
+      "sourcePair": "A",
+      "adoptedPair": "Aa,Ab",
+      "reference": "Hei1996b",
+      "evidence": "Exact WDS/reference/designation/period cross-reference in frozen MSC orb.tsv"
+    },
+    {
+      "systemId": "msc-11456-6644",
+      "catalog": "ORB6",
+      "sourcePair": "",
+      "adoptedPair": "Aa,Ab",
+      "reference": "HIP1997d",
+      "evidence": "Exact WDS/reference/designation/period cross-reference in frozen MSC orb.tsv"
+    },
+    {
+      "systemId": "msc-12349+2238",
+      "catalog": "ORB6",
+      "sourcePair": "",
+      "adoptedPair": "A,B",
+      "reference": "Hrt2014b",
+      "evidence": "Exact WDS/reference/designation/period cross-reference in frozen MSC orb.tsv"
+    },
+    {
+      "systemId": "gj-570",
+      "catalog": "ORB6",
+      "sourcePair": "Ba,Bb",
+      "adoptedPair": "B,C",
+      "reference": "MnA2019",
+      "evidence": "Reviewed component naming reconciliation; see orbit-coverage-review.json"
+    },
+    {
+      "systemId": "gj-570",
+      "catalog": "ORB6",
+      "sourcePair": "AB",
+      "adoptedPair": "A,BC",
+      "reference": "Kpp2020f",
+      "evidence": "Reviewed component naming reconciliation; see orbit-coverage-review.json"
+    },
+    {
+      "systemId": "msc-16054-1948",
+      "catalog": "ORB6",
+      "sourcePair": "",
+      "adoptedPair": "Aa,Ab",
+      "reference": "Hol1997",
+      "evidence": "Exact WDS/reference/designation/period cross-reference in frozen MSC orb.tsv"
+    },
+    {
+      "systemId": "msc-16073-3645",
+      "catalog": "ORB6",
+      "sourcePair": "A",
+      "adoptedPair": "Aa,Ab",
+      "reference": "Gln2007",
+      "evidence": "Exact WDS/reference/designation/period cross-reference in frozen MSC orb.tsv"
+    },
+    {
+      "systemId": "gj-667",
+      "catalog": "ORB6",
+      "sourcePair": "AC",
+      "adoptedPair": "AB,C",
+      "reference": "Kpp2020f",
+      "evidence": "Reviewed component naming reconciliation; see orbit-coverage-review.json"
+    },
+    {
+      "systemId": "msc-18232-6130",
+      "catalog": "ORB6",
+      "sourcePair": "A",
+      "adoptedPair": "Aa,Ab",
+      "reference": "Jnc2005",
+      "evidence": "Exact WDS/reference/designation/period cross-reference in frozen MSC orb.tsv"
+    },
+    {
+      "systemId": "gj-1245",
+      "catalog": "ORB6",
+      "sourcePair": "Aa,Ab",
+      "adoptedPair": "A,C",
+      "reference": "MnA2019",
+      "evidence": "Reviewed component naming reconciliation; see orbit-coverage-review.json"
+    },
+    {
+      "systemId": "gj-1245",
+      "catalog": "ORB6",
+      "sourcePair": "AB",
+      "adoptedPair": "AC,B",
+      "reference": "Kpp2020f",
+      "evidence": "Reviewed component naming reconciliation; see orbit-coverage-review.json"
+    },
+    {
+      "systemId": "msc-20375+1436",
+      "catalog": "ORB6",
+      "sourcePair": "B",
+      "adoptedPair": "Ba,Bb",
+      "reference": "Mut2010e",
+      "evidence": "Exact WDS/reference/designation/period cross-reference in frozen MSC orb.tsv"
+    },
+    {
+      "systemId": "msc-20375+1436",
+      "catalog": "ORB6",
+      "sourcePair": "B",
+      "adoptedPair": "Ba,Bb",
+      "reference": "Mut2010e",
+      "evidence": "Exact WDS/reference/designation/period cross-reference in frozen MSC orb.tsv"
+    },
+    {
+      "systemId": "msc-21446+2539",
+      "catalog": "ORB6",
+      "sourcePair": "B",
+      "adoptedPair": "Ba,Bb",
+      "reference": "Mut2008",
+      "evidence": "Exact WDS/reference/designation/period cross-reference in frozen MSC orb.tsv"
+    },
+    {
+      "systemId": "ez-aquarii",
+      "catalog": "ORB6",
+      "sourcePair": "Aa,Ab",
+      "adoptedPair": "A,C",
+      "reference": "Sgr2000",
+      "evidence": "Reviewed component naming reconciliation; see orbit-coverage-review.json"
+    },
+    {
+      "systemId": "ez-aquarii",
+      "catalog": "ORB6",
+      "sourcePair": "AB",
+      "adoptedPair": "AC,B",
+      "reference": "Sgr2000",
+      "evidence": "Reviewed component naming reconciliation; see orbit-coverage-review.json"
+    },
+    {
+      "systemId": "spectroscopic-hip-112158",
+      "catalog": "ORB6",
+      "sourcePair": "Aa,Ab",
+      "adoptedPair": "A,B",
+      "reference": "MkT1998",
+      "evidence": "Reviewed component naming reconciliation; see orbit-coverage-review.json"
+    },
+    {
+      "systemId": "msc-05353-0524",
+      "catalog": "MSC",
+      "sourcePair": "Aa,Ab",
+      "adoptedPair": "Aa1,Aa2",
+      "reference": "SB9_340 2000Obs...120..141S",
+      "evidence": "MSC sys.tsv identifies SB9_340 as Aa1/Aa2 with the same 65.432-day period"
+    }
+  ],
   "rejected": [
     {
       "systemId": "gj-4",
@@ -25,49 +329,15 @@
       "reference": "Kiy2001"
     },
     {
-      "systemId": "msc-00084+2905",
-      "pair": "Aa,Ab",
-      "reason": "Unresolved or overlapping component scope",
-      "reference": "Doc2014h"
-    },
-    {
       "systemId": "gj-22",
       "pair": "B",
       "reason": "Ambiguous ORB6 pair label"
     },
     {
-      "systemId": "gj-22",
-      "pair": "Aa,Ab",
-      "reason": "Unresolved or overlapping component scope",
-      "reference": "MnA2019"
-    },
-    {
       "systemId": "msc-00567+6043",
-      "pair": "A",
-      "reason": "Ambiguous ORB6 pair label"
-    },
-    {
-      "systemId": "msc-01028+3148",
-      "pair": "",
-      "reason": "Ambiguous ORB6 pair label"
-    },
-    {
-      "systemId": "gj-105",
-      "pair": "Aa,Ab",
+      "pair": "Aab,Ac",
       "reason": "Unresolved or overlapping component scope",
-      "reference": "Hei1994b"
-    },
-    {
-      "systemId": "msc-02449+1007",
-      "pair": "Aa,Ab",
-      "reason": "Unresolved or overlapping component scope",
-      "reference": "SAO2024"
-    },
-    {
-      "systemId": "msc-03082+4057",
-      "pair": "Aa1,Aa2",
-      "reason": "Unresolved or overlapping component scope",
-      "reference": "CIA2012b"
+      "reference": "Gon2000"
     },
     {
       "systemId": "msc-03121-2859",
@@ -75,30 +345,8 @@
       "reason": "Ambiguous ORB6 pair label"
     },
     {
-      "systemId": "msc-04287+1552",
-      "pair": "Aa,Ab",
-      "reason": "Unresolved or overlapping component scope",
-      "reference": "Lmp2011"
-    },
-    {
-      "systemId": "msc-04382-1418",
-      "pair": "",
-      "reason": "Ambiguous ORB6 pair label"
-    },
-    {
-      "systemId": "msc-05320-0018",
-      "pair": "Aa,Ab",
-      "reason": "Unresolved or overlapping component scope",
-      "reference": "Msn2023"
-    },
-    {
-      "systemId": "msc-06024+0939",
+      "systemId": "stein-2051",
       "pair": "A",
-      "reason": "Ambiguous ORB6 pair label"
-    },
-    {
-      "systemId": "msc-06024+0939",
-      "pair": "B",
       "reason": "Ambiguous ORB6 pair label"
     },
     {
@@ -108,32 +356,6 @@
     },
     {
       "systemId": "gj-229",
-      "pair": "",
-      "reason": "Ambiguous ORB6 pair label"
-    },
-    {
-      "systemId": "msc-06149+2230",
-      "pair": "",
-      "reason": "Ambiguous ORB6 pair label"
-    },
-    {
-      "systemId": "msc-06290+2013",
-      "pair": "Aa,Ab",
-      "reason": "Unresolved or overlapping component scope",
-      "reference": "Msn2021a"
-    },
-    {
-      "systemId": "msc-07201+2159",
-      "pair": "A",
-      "reason": "Ambiguous ORB6 pair label"
-    },
-    {
-      "systemId": "msc-07201+2159",
-      "pair": "",
-      "reason": "Ambiguous ORB6 pair label"
-    },
-    {
-      "systemId": "msc-07292-4318",
       "pair": "",
       "reason": "Ambiguous ORB6 pair label"
     },
@@ -169,21 +391,6 @@
       "reason": "Ambiguous ORB6 pair label"
     },
     {
-      "systemId": "msc-11182+3132",
-      "pair": "A",
-      "reason": "Ambiguous ORB6 pair label"
-    },
-    {
-      "systemId": "msc-11456-6644",
-      "pair": "",
-      "reason": "Ambiguous ORB6 pair label"
-    },
-    {
-      "systemId": "msc-12349+2238",
-      "pair": "",
-      "reason": "Ambiguous ORB6 pair label"
-    },
-    {
       "systemId": "msc-12490+6607",
       "pair": "",
       "reason": "Ambiguous ORB6 pair label"
@@ -194,37 +401,16 @@
       "reason": "Ambiguous ORB6 pair label"
     },
     {
-      "systemId": "gj-570",
-      "pair": "Ba,Bb",
-      "reason": "Unresolved or overlapping component scope",
-      "reference": "MnA2019"
-    },
-    {
-      "systemId": "msc-16054-1948",
-      "pair": "",
-      "reason": "Ambiguous ORB6 pair label"
-    },
-    {
       "systemId": "msc-16073-3645",
-      "pair": "A",
-      "reason": "Ambiguous ORB6 pair label"
+      "pair": "Aa,Ab",
+      "reason": "Unresolved or overlapping component scope",
+      "reference": "Gln2007"
     },
     {
       "systemId": "gj-666",
       "pair": "Ba,Bb",
       "reason": "Unresolved or overlapping component scope",
       "reference": "Tok2025a"
-    },
-    {
-      "systemId": "msc-17336-3706",
-      "pair": "Aa,Ab",
-      "reason": "Unresolved or overlapping component scope",
-      "reference": "Tng2006"
-    },
-    {
-      "systemId": "msc-18232-6130",
-      "pair": "A",
-      "reason": "Ambiguous ORB6 pair label"
     },
     {
       "systemId": "msc-19307+2758",
@@ -234,13 +420,15 @@
     },
     {
       "systemId": "msc-20375+1436",
-      "pair": "B",
-      "reason": "Ambiguous ORB6 pair label"
+      "pair": "Ba,Bb",
+      "reason": "Unresolved or overlapping component scope",
+      "reference": "Mut2010e"
     },
     {
       "systemId": "msc-20375+1436",
-      "pair": "B",
-      "reason": "Ambiguous ORB6 pair label"
+      "pair": "Ba,Bb",
+      "reason": "Unresolved or overlapping component scope",
+      "reference": "Mut2010e"
     },
     {
       "systemId": "msc-20396+1555",
@@ -266,33 +454,22 @@
       "reason": "Ambiguous ORB6 pair label"
     },
     {
-      "systemId": "msc-21287+7034",
-      "pair": "Aa,Ab",
-      "reason": "Unresolved or overlapping component scope",
-      "reference": "NOI2021"
-    },
-    {
       "systemId": "gj-835",
       "pair": "Aa,Ab",
       "reason": "Unresolved or overlapping component scope",
       "reference": "Sod1999"
     },
     {
-      "systemId": "msc-21446+2539",
-      "pair": "B",
-      "reason": "Ambiguous ORB6 pair label"
+      "systemId": "wolf-1561",
+      "pair": "Ba,Bb",
+      "reason": "Unresolved or overlapping component scope",
+      "reference": "Tok2022g"
     },
     {
       "systemId": "kruger-60",
       "pair": "C,E",
       "reason": "Unresolved or overlapping component scope",
       "reference": "Izm2019"
-    },
-    {
-      "systemId": "spectroscopic-hip-112158",
-      "pair": "Aa,Ab",
-      "reason": "Unresolved or overlapping component scope",
-      "reference": "MkT1998"
     },
     {
       "systemId": "gj-896",
@@ -331,68 +508,14 @@
     },
     {
       "systemId": "msc-03579+4001",
-      "pair": "Aab,Ac",
-      "reason": "Unresolved or overlapping component scope",
-      "reference": "2006A&A...446..583L Libich+"
-    },
-    {
-      "systemId": "msc-03579+4001",
       "pair": "Aa,Ab?",
       "reason": "Unresolved or overlapping component scope",
       "reference": "SB9_2402 1992ApJ...393..666M"
     },
     {
-      "systemId": "msc-04007+1229",
-      "pair": "Aab,Ac",
-      "reason": "Unresolved or overlapping component scope",
-      "reference": "SB9_212 1982ApJ...263..289F"
-    },
-    {
-      "systemId": "msc-04287+1552",
-      "pair": "Aa,Ab",
-      "reason": "Unresolved or overlapping component scope",
-      "reference": "VB6_Lmp2011  MKT_13Aa, Gr.1"
-    },
-    {
-      "systemId": "msc-04422+2257",
-      "pair": "Aab,Ac",
-      "reason": "Unresolved or overlapping component scope",
-      "reference": "Tok2026 Gr.2"
-    },
-    {
       "systemId": "msc-04512+0536",
       "pair": "",
       "reason": "MSC does not identify both components"
-    },
-    {
-      "systemId": "msc-05320-0018",
-      "pair": "Aa,Ab",
-      "reason": "Unresolved or overlapping component scope",
-      "reference": "VB6_Msn2023  HEI_42Aa, Gr.3"
-    },
-    {
-      "systemId": "msc-05353-0524",
-      "pair": "Aa,Ab",
-      "reason": "Unresolved or overlapping component scope",
-      "reference": "SB9_340 2000Obs...120..141S"
-    },
-    {
-      "systemId": "msc-06290+2013",
-      "pair": "Aa,Ab",
-      "reason": "Unresolved or overlapping component scope",
-      "reference": "VB6_Cve2008d BTZ_1Aa, Gr.3"
-    },
-    {
-      "systemId": "msc-06290+2013",
-      "pair": "Aa,Ab",
-      "reason": "Unresolved or overlapping component scope",
-      "reference": "2021AJ....161...40G CHARA"
-    },
-    {
-      "systemId": "msc-06290+2013",
-      "pair": "Aa,Ab",
-      "reason": "Unresolved or overlapping component scope",
-      "reference": "Circ.204 Mason"
     },
     {
       "systemId": "msc-07346+3153",
@@ -471,24 +594,6 @@
       "reference": "SB9_766 1972MNRAS.156..165S"
     },
     {
-      "systemId": "gj-570",
-      "pair": "Ba,Bb",
-      "reason": "Unresolved or overlapping component scope",
-      "reference": "VB6_Frv1999 H_N28Ba, Gr.3"
-    },
-    {
-      "systemId": "gj-570",
-      "pair": "Ba,Bb",
-      "reason": "Unresolved or overlapping component scope",
-      "reference": "SB9_1475 2000A&AS..145..215P"
-    },
-    {
-      "systemId": "gj-570",
-      "pair": "Ba,Bb",
-      "reason": "Unresolved or overlapping component scope",
-      "reference": "2024A&A...684A..74M"
-    },
-    {
       "systemId": "msc-16073-3645",
       "pair": "Aa,Ab",
       "reason": "Unresolved or overlapping component scope",
@@ -499,12 +604,6 @@
       "pair": "Ba,Bb",
       "reason": "Unresolved or overlapping component scope",
       "reference": "2025AJ....169..124T Gr.3"
-    },
-    {
-      "systemId": "msc-17336-3706",
-      "pair": "Aa,Ab",
-      "reason": "Unresolved or overlapping component scope",
-      "reference": "VB6_Tng2006 TNG_1Aa, Gr.2"
     },
     {
       "systemId": "msc-18448+3736",
@@ -537,12 +636,6 @@
       "reference": "VB6_Mut2010e BU_151B Gr.9"
     },
     {
-      "systemId": "msc-21287+7034",
-      "pair": "Aa,Ab",
-      "reason": "Unresolved or overlapping component scope",
-      "reference": "VB6_Ana2006 LAB_6Aa, Gr.3"
-    },
-    {
       "systemId": "gj-835",
       "pair": "Aa,Ab",
       "reason": "Unresolved or overlapping component scope",
@@ -571,6 +664,19 @@
       "pair": "Aa,Ab",
       "reason": "Unresolved or overlapping component scope",
       "reference": "VB6_Nhr2007 gam_CepAa, Gr.7"
+    }
+  ],
+  "unreviewedNameGroups": [],
+  "identityAmbiguities": [
+    {
+      "catalog": "ORB6",
+      "wdsId": "05353-0523",
+      "designation": "GVT   1Da,Dc",
+      "systemIds": [
+        "msc-05353-0524",
+        "msc-05353-052D",
+        "orb6-05353-0523-ca-cb"
+      ]
     }
   ],
   "unavailable": [
@@ -799,6 +905,26 @@
       "name": "HD 104304"
     },
     {
+      "systemId": "scr-j1845-6357",
+      "name": "SCR J1845-6357"
+    },
+    {
+      "systemId": "wolf-1561",
+      "name": "Wolf 1561"
+    },
+    {
+      "systemId": "l-43-72",
+      "name": "L 43-72"
+    },
+    {
+      "systemId": "vb-24",
+      "name": "VB 24"
+    },
+    {
+      "systemId": "adhara",
+      "name": "Adhara"
+    },
+    {
       "systemId": "msc-00567+6043",
       "name": "Gamma Cassiopeiae"
     },
@@ -817,10 +943,6 @@
     {
       "systemId": "msc-05123-1152",
       "name": "Iota Lep"
-    },
-    {
-      "systemId": "msc-05353-0524",
-      "name": "Theta1 Orionis"
     },
     {
       "systemId": "msc-06238+0436",
@@ -945,10 +1067,6 @@
     {
       "systemId": "spectroscopic-hip-8832",
       "name": "Mesarthim"
-    },
-    {
-      "systemId": "spectroscopic-hip-112158",
-      "name": "Matar"
     },
     {
       "systemId": "spectroscopic-hip-61199",

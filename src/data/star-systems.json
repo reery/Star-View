@@ -68,7 +68,7 @@
       "url": "https://citeseerx.ist.psu.edu/document?doi=632dc4feecc21ebe55cdf3c697ec4831dbbbb9e6&repid=rep1&type=pdf"
     },
     "segransan2000": {
-      "label": "Segransan et al. 2000, GJ 644 A/Ba/Bb masses and five-member system",
+      "label": "Segransan et al. 2000, GJ 644 hierarchy and EZ Aquarii AC-B/A-C orbits",
       "url": "https://arxiv.org/abs/astro-ph/0010585"
     },
     "zapatero2004": {
@@ -142,6 +142,35 @@
           "sourceRow": "34",
           "sourceObjectName": "HD 173740",
           "cns5Id": "4634"
+        }
+      ]
+    },
+    {
+      "id": "ez-aquarii",
+      "name": "EZ Aquarii",
+      "sourceRef": "reyle-2023",
+      "sourceSystemId": "14",
+      "wdsId": "22385-1519",
+      "wdsIdentityInput": "src/data/object-designations.json",
+      "orbitScopeRef": "segransan2000",
+      "components": [
+        {
+          "starId": "ez-aquarii-a",
+          "label": "A",
+          "sourceRow": "26",
+          "sourceObjectName": "GJ 866 A"
+        },
+        {
+          "starId": "ez-aquarii-b",
+          "label": "B",
+          "sourceRow": "27",
+          "sourceObjectName": "GJ 866 B"
+        },
+        {
+          "starId": "ez-aquarii-c",
+          "label": "C",
+          "sourceRow": "28",
+          "sourceObjectName": "GJ 866 C"
         }
       ]
     },
@@ -2273,6 +2302,335 @@
         }
       ],
       "note": "Grade-5 MSC system A-(Ba,Bb,C); B is a spectroscopic pair, not one individual star. The visual C companion completes the quadruple. D is not admitted; the old proposed inner companion of A was contested."
+    },
+    {
+      "id": "luhman-16",
+      "name": "Luhman 16",
+      "sourceRef": "reyle-2023",
+      "components": [
+        {
+          "starId": "luhman-16-a",
+          "label": "A",
+          "sourceRow": "6",
+          "sourceObjectName": "Luhman 16 A"
+        },
+        {
+          "starId": "luhman-16-b",
+          "label": "B",
+          "sourceRow": "7",
+          "sourceObjectName": "Luhman 16 B"
+        }
+      ],
+      "sourceSystemId": "3",
+      "wdsId": "10493-5319",
+      "wdsIdentityInput": "src/data/object-designations.json"
+    },
+    {
+      "id": "luyten-726-8",
+      "name": "Luyten 726-8",
+      "sourceRef": "reyle-2023",
+      "components": [
+        {
+          "starId": "luyten-726-8-a",
+          "label": "A",
+          "sourceRow": "15",
+          "sourceObjectName": "G 272-61 A"
+        },
+        {
+          "starId": "luyten-726-8-b",
+          "label": "B",
+          "sourceRow": "16",
+          "sourceObjectName": "G 272-61 B"
+        }
+      ],
+      "sourceSystemId": "8",
+      "wdsId": "01388-1758",
+      "wdsIdentityInput": "src/data/object-designations.json"
+    },
+    {
+      "id": "msc-22034-5647",
+      "name": "eps Ind",
+      "sourceRef": "reyle-2023",
+      "components": [
+        {
+          "starId": "10pc-0040",
+          "label": "A",
+          "sourceRow": "40",
+          "sourceObjectName": "eps Ind A"
+        },
+        {
+          "starId": "10pc-0042",
+          "label": "Ba",
+          "sourceRow": "42",
+          "sourceObjectName": "eps Ind B",
+          "alternateStarIds": [
+            "msc-22034-5647-ba"
+          ]
+        },
+        {
+          "starId": "10pc-0043",
+          "label": "Bb",
+          "sourceRow": "43",
+          "sourceObjectName": "eps Ind C",
+          "alternateStarIds": [
+            "msc-22034-5647-bb"
+          ]
+        }
+      ],
+      "sourceSystemId": "20",
+      "wdsId": "22034-5647",
+      "wdsIdentityInput": "src/data/object-designations.json",
+      "note": "Census B/C are resolved Ba/Bb. Existing MSC-generated component IDs are aliases of those same two brown dwarfs, not additional objects."
+    },
+    {
+      "id": "scr-j1845-6357",
+      "name": "SCR J1845-6357",
+      "sourceRef": "reyle-2023",
+      "components": [
+        {
+          "starId": "10pc-0063",
+          "label": "A",
+          "sourceRow": "63",
+          "sourceObjectName": "SCR J1845-6357 A"
+        },
+        {
+          "starId": "10pc-0064",
+          "label": "B",
+          "sourceRow": "64",
+          "sourceObjectName": "SCR J1845-6357 B"
+        }
+      ],
+      "sourceSystemId": "29",
+      "wdsId": "18451-6358",
+      "wdsIdentityInput": "src/data/object-designations.json"
+    },
+    {
+      "id": "ross-614",
+      "name": "V577 Mon",
+      "sourceRef": "reyle-2023",
+      "components": [
+        {
+          "starId": "10pc-0066",
+          "label": "A",
+          "sourceRow": "66",
+          "sourceObjectName": "Ross 614 A"
+        },
+        {
+          "starId": "10pc-0067",
+          "label": "B",
+          "sourceRow": "67",
+          "sourceObjectName": "Ross 614 B"
+        }
+      ],
+      "sourceSystemId": "31",
+      "wdsId": "06293-0248",
+      "wdsIdentityInput": "src/data/object-designations.json"
+    },
+    {
+      "id": "wolf-424",
+      "name": "FL Vir",
+      "sourceRef": "reyle-2023",
+      "components": [
+        {
+          "starId": "10pc-0074",
+          "label": "A",
+          "sourceRow": "74",
+          "sourceObjectName": "Wolf 424 A"
+        },
+        {
+          "starId": "10pc-0075",
+          "label": "B",
+          "sourceRow": "75",
+          "sourceObjectName": "Wolf 424 B"
+        }
+      ],
+      "sourceSystemId": "35",
+      "wdsId": "12335+0901",
+      "wdsIdentityInput": "src/data/object-designations.json"
+    },
+    {
+      "id": "gj-1245",
+      "name": "GJ 1245",
+      "sourceRef": "reyle-2023",
+      "components": [
+        {
+          "starId": "10pc-0087",
+          "label": "A",
+          "sourceRow": "87",
+          "sourceObjectName": "GJ 1245 A"
+        },
+        {
+          "starId": "10pc-0089",
+          "label": "B",
+          "sourceRow": "89",
+          "sourceObjectName": "GJ 1245 B"
+        },
+        {
+          "starId": "10pc-0088",
+          "label": "C",
+          "sourceRow": "88",
+          "sourceObjectName": "GJ 1245 C"
+        }
+      ],
+      "sourceSystemId": "43",
+      "wdsId": "19539+4425",
+      "wdsIdentityInput": "src/data/object-designations.json"
+    },
+    {
+      "id": "ei-cancri",
+      "name": "EI Cnc",
+      "sourceRef": "reyle-2023",
+      "components": [
+        {
+          "starId": "10pc-0113",
+          "label": "A",
+          "sourceRow": "113",
+          "sourceObjectName": "G 9-38 A"
+        },
+        {
+          "starId": "10pc-0114",
+          "label": "B",
+          "sourceRow": "114",
+          "sourceObjectName": "G 9-38 B"
+        }
+      ],
+      "sourceSystemId": "56",
+      "wdsId": "08582+1945",
+      "wdsIdentityInput": "src/data/object-designations.json"
+    },
+    {
+      "id": "stein-2051",
+      "name": "Stein 2051",
+      "sourceRef": "reyle-2023",
+      "components": [
+        {
+          "starId": "10pc-0128",
+          "label": "A",
+          "sourceRow": "128",
+          "sourceObjectName": "GJ 169.1 A"
+        },
+        {
+          "starId": "10pc-0129",
+          "label": "B",
+          "sourceRow": "129",
+          "sourceObjectName": "GJ 169.1 B"
+        }
+      ],
+      "sourceSystemId": "67",
+      "wdsId": "04312+5858",
+      "wdsIdentityInput": "src/data/object-designations.json"
+    },
+    {
+      "id": "xi-bootis",
+      "name": "Xi Boo",
+      "sourceRef": "cns5-2023",
+      "components": [
+        {
+          "starId": "cns5-3674",
+          "label": "A",
+          "cns5Id": "3674"
+        },
+        {
+          "starId": "cns5-3673",
+          "label": "B",
+          "cns5Id": "3673"
+        }
+      ],
+      "wdsId": "14514+1906",
+      "wdsIdentityInput": "src/data/object-designations.json"
+    },
+    {
+      "id": "p-eridani",
+      "name": "p Eri",
+      "sourceRef": "cns5-2023",
+      "components": [
+        {
+          "starId": "cns5-0429",
+          "label": "A",
+          "cns5Id": "429"
+        },
+        {
+          "starId": "cns5-0428",
+          "label": "B",
+          "cns5Id": "428"
+        }
+      ],
+      "wdsId": "01398-5612",
+      "wdsIdentityInput": "src/data/object-designations.json"
+    },
+    {
+      "id": "wolf-1561",
+      "name": "Wolf 1561",
+      "sourceRef": "cns5-2023",
+      "components": [
+        {
+          "starId": "cns5-5510",
+          "label": "A",
+          "cns5Id": "5510"
+        },
+        {
+          "starId": "cns5-5509",
+          "label": "B",
+          "cns5Id": "5509"
+        }
+      ],
+      "wdsId": "22173-0847",
+      "wdsIdentityInput": "src/data/object-designations.json"
+    },
+    {
+      "id": "l-43-72",
+      "name": "L 43-72",
+      "sourceRef": "cns5-2023",
+      "components": [
+        {
+          "starId": "cns5-4503",
+          "label": "A",
+          "cns5Id": "4503"
+        },
+        {
+          "starId": "cns5-4504",
+          "label": "B",
+          "cns5Id": "4504"
+        }
+      ],
+      "wdsId": "18113-7859",
+      "wdsIdentityInput": "src/data/object-designations.json"
+    },
+    {
+      "id": "l-601-78",
+      "name": "L 601-78",
+      "sourceRef": "cns5-2023",
+      "components": [
+        {
+          "starId": "cns5-1951",
+          "label": "A",
+          "cns5Id": "1951"
+        },
+        {
+          "starId": "cns5-1952",
+          "label": "B",
+          "cns5Id": "1952"
+        }
+      ],
+      "wdsId": "07549-2920",
+      "wdsIdentityInput": "src/data/object-designations.json"
+    },
+    {
+      "id": "vb-24",
+      "name": "VB 24",
+      "sourceRef": "cns5-2023",
+      "components": [
+        {
+          "starId": "cns5-3857",
+          "label": "A",
+          "cns5Id": "3857"
+        },
+        {
+          "starId": "cns5-3858",
+          "label": "B",
+          "cns5Id": "3858"
+        }
+      ]
     }
   ]
 }

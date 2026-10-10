@@ -1,6 +1,41 @@
 import { expect, test } from '@playwright/test'
 import { openFilter, openSpecs } from './support'
 
+test('marks Adhara in both object lists and shows its individual B component', async ({ page }, testInfo) => {
+  const errors: string[] = []
+  page.on('pageerror', (error) => errors.push(error.message))
+  await page.goto('/')
+  await expect(page.locator('#scene')).toHaveAttribute('data-ready', 'true')
+  await openFilter(page)
+  await page.getByRole('switch', { name: 'Always show bright stars', exact: true }).check()
+  await expect(page.locator('#scene-status')).toBeHidden()
+  await page.getByLabel('Object visibility distance', { exact: true }).fill('22')
+  await page.getByRole('button', { name: 'Objects', exact: true }).click()
+  await page.getByLabel('Search objects').fill('Adhara')
+  const a = page.getByRole('button', { name: 'Select Adhara A', exact: true })
+  const b = page.getByRole('button', { name: 'Select Adhara B', exact: true })
+  await expect(a.locator('.companion-icon')).toHaveAccessibleName('Adhara, stellar component A')
+  await expect(b.locator('.companion-icon')).toHaveAccessibleName('Adhara, stellar component B')
+  await page.locator('#objects-expand').click()
+  await expect(b.locator('.companion-icon')).toHaveCount(1)
+  await b.click()
+  await page.getByRole('button', { name: 'Objects', exact: true }).click()
+  await expect(page.locator('#inspector')).toHaveAttribute('data-selected-star', 'bright-adhara')
+  await expect(page.locator('#star-components .star-component')).toHaveText(['A', 'B'])
+  await page.locator('#star-components [data-component-id="adhara-b"]').click()
+  await expect(page.locator('#inspector')).toHaveAttribute('data-selected-star', 'adhara-b')
+  await expect(page.locator('#star-components .star-component')).toHaveText(['A', 'B'])
+  await expect(page.locator('#star-components [data-component-id="adhara-b"]')).toHaveAttribute('aria-pressed', 'true')
+  await openSpecs(page)
+  await expect(page.locator('#mass')).toHaveText('—')
+  await expect(page.locator('#spectral-type')).toHaveText('—')
+  await page.screenshot({ path: testInfo.outputPath('adhara-b.png') })
+  await page.locator('#star-components [data-component-id="bright-adhara"]').click()
+  await expect(page.locator('#spectral-type')).toHaveText('B1.5II')
+  await page.screenshot({ path: testInfo.outputPath('adhara-a.png') })
+  expect(errors).toEqual([])
+})
+
 test('selects Dubhe components with separate spectra and companion marks in both object lists', async ({ page }, testInfo) => {
   const errors: string[] = []
   page.on('pageerror', (error) => errors.push(error.message))

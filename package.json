@@ -9,8 +9,8 @@
     "test": "vitest run src",
     "test:e2e": "npm run build && playwright test",
     "build": "npm run catalog:validate && npm run catalog:generate && tsc && vite build",
-    "catalog:validate": "node scripts/catalogs.ts validate",
-    "catalog:generate": "node scripts/catalogs.ts generate",
+    "catalog:validate": "python3 scripts/author-stellar-companions.py --check && node scripts/catalogs.ts validate",
+    "catalog:generate": "python3 scripts/author-stellar-companions.py --check && node scripts/catalogs.ts generate",
     "catalog:companions": "python3 scripts/author-stellar-companions.py --write",
     "catalog:build": "node scripts/catalogs.ts build",
     "preview": "vite preview"

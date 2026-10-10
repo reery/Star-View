@@ -8,7 +8,7 @@
     "western-constellation-stars",
     "famous-cluster-stars"
   ],
-  "uniqueObjects": 2006,
+  "uniqueObjects": 2070,
   "classes": [
     {
       "spectral": "A0.5V",
@@ -98,7 +98,7 @@
       "letter": "A",
       "subtype": 0,
       "stage": "III",
-      "count": 6,
+      "count": 5,
       "metrics": {
         "mass": {
           "value": 2.8117958,
@@ -196,47 +196,47 @@
       "letter": "A",
       "subtype": 0,
       "stage": "V",
-      "count": 23,
+      "count": 21,
       "metrics": {
         "mass": {
-          "value": 2.621679,
+          "value": 2.5472861818181816,
           "range": [
             2.0416765,
-            3.44
+            3.36
           ],
-          "count": 12
+          "count": 11
         },
         "gravity": {
-          "value": 106.68397198660996,
+          "value": 112.80788328863896,
           "range": [
-            39.32094766429067,
+            42.62653998010415,
             196.85845654025346
           ],
-          "count": 12
+          "count": 11
         },
         "escapeKms": {
-          "value": 605.7042587535726,
+          "value": 613.7089429398917,
           "range": [
             517.4478518352926,
             739.4851410410517
           ],
-          "count": 12
+          "count": 11
         },
         "density": {
-          "value": 0.2333320892943903,
+          "value": 0.2507916561076172,
           "range": [
-            0.041276854348893936,
+            0.048547028264294606,
             0.6001882633942658
           ],
-          "count": 12
+          "count": 11
         },
         "luminosityPerMass": {
-          "value": 25.876662735426624,
+          "value": 23.08453059509543,
           "range": [
             9.287851429940051,
-            56.59011627906976
+            52.7748052515967
           ],
-          "count": 12
+          "count": 11
         }
       }
     },
@@ -286,40 +286,6 @@
             9.916770725086698
           ],
           "count": 2
-        }
-      }
-    },
-    {
-      "spectral": "A1.5IV",
-      "letter": "A",
-      "subtype": 1.5,
-      "stage": "IV",
-      "count": 1,
-      "metrics": {
-        "mass": {
-          "value": null,
-          "range": null,
-          "count": 0
-        },
-        "gravity": {
-          "value": null,
-          "range": null,
-          "count": 0
-        },
-        "escapeKms": {
-          "value": null,
-          "range": null,
-          "count": 0
-        },
-        "density": {
-          "value": null,
-          "range": null,
-          "count": 0
-        },
-        "luminosityPerMass": {
-          "value": null,
-          "range": null,
-          "count": 0
         }
       }
     },
@@ -411,7 +377,7 @@
       "letter": "A",
       "subtype": 1,
       "stage": "IV",
-      "count": 7,
+      "count": 6,
       "metrics": {
         "mass": {
           "value": 2.3966666666666665,
@@ -460,7 +426,7 @@
       "letter": "A",
       "subtype": 1,
       "stage": "V",
-      "count": 13,
+      "count": 11,
       "metrics": {
         "mass": {
           "value": 2.4840867571428573,
@@ -509,47 +475,47 @@
       "letter": "A",
       "subtype": 1,
       "stage": "V",
-      "count": 5,
+      "count": 4,
       "metrics": {
         "mass": {
-          "value": 2.2728465600000005,
+          "value": 2.3160582,
           "range": [
             2.0842328,
             2.49
           ],
-          "count": 5
+          "count": 4
         },
         "gravity": {
-          "value": 140.68189710427419,
+          "value": 149.65685700311425,
           "range": [
             94.24687835156382,
             209.6075485453231
           ],
-          "count": 5
+          "count": 4
         },
         "escapeKms": {
-          "value": 636.2841108758201,
+          "value": 649.2015547484889,
           "range": [
-            584.6143353851453,
+            594.099910170567,
             693.9548135778535
           ],
-          "count": 5
+          "count": 4
         },
         "density": {
-          "value": 0.35773526797712324,
+          "value": 0.389716364977153,
           "range": [
             0.18003238632254775,
             0.6526601779502161
           ],
-          "count": 5
+          "count": 4
         },
         "luminosityPerMass": {
-          "value": 13.988597926936606,
+          "value": 14.393047408670757,
           "range": [
             9.608098001336511,
             18.482370697027783
           ],
-          "count": 5
+          "count": 4
         }
       }
     },
@@ -557,40 +523,6 @@
       "spectral": "A1Vb",
       "letter": "A",
       "subtype": 1,
-      "stage": "V",
-      "count": 1,
-      "metrics": {
-        "mass": {
-          "value": null,
-          "range": null,
-          "count": 0
-        },
-        "gravity": {
-          "value": null,
-          "range": null,
-          "count": 0
-        },
-        "escapeKms": {
-          "value": null,
-          "range": null,
-          "count": 0
-        },
-        "density": {
-          "value": null,
-          "range": null,
-          "count": 0
-        },
-        "luminosityPerMass": {
-          "value": null,
-          "range": null,
-          "count": 0
-        }
-      }
-    },
-    {
-      "spectral": "A2.5Va",
-      "letter": "A",
-      "subtype": 2.5,
       "stage": "V",
       "count": 1,
       "metrics": {
@@ -694,7 +626,7 @@
       "letter": "A",
       "subtype": 2,
       "stage": "IV",
-      "count": 9,
+      "count": 8,
       "metrics": {
         "mass": {
           "value": 2.401666666666667,
@@ -890,7 +822,7 @@
       "letter": "A",
       "subtype": 3,
       "stage": "V",
-      "count": 6,
+      "count": 7,
       "metrics": {
         "mass": {
           "value": 2.7073986,
@@ -1131,45 +1063,11 @@
       }
     },
     {
-      "spectral": "A5III",
-      "letter": "A",
-      "subtype": 5,
-      "stage": "III",
-      "count": 1,
-      "metrics": {
-        "mass": {
-          "value": null,
-          "range": null,
-          "count": 0
-        },
-        "gravity": {
-          "value": null,
-          "range": null,
-          "count": 0
-        },
-        "escapeKms": {
-          "value": null,
-          "range": null,
-          "count": 0
-        },
-        "density": {
-          "value": null,
-          "range": null,
-          "count": 0
-        },
-        "luminosityPerMass": {
-          "value": null,
-          "range": null,
-          "count": 0
-        }
-      }
-    },
-    {
       "spectral": "A5IV",
       "letter": "A",
       "subtype": 5,
       "stage": "IV",
-      "count": 7,
+      "count": 6,
       "metrics": {
         "mass": {
           "value": 1.886064675,
@@ -1218,81 +1116,47 @@
       "letter": "A",
       "subtype": 5,
       "stage": "V",
-      "count": 6,
+      "count": 5,
       "metrics": {
         "mass": {
-          "value": 1.92993514,
+          "value": 1.887576475,
           "range": [
             1.7603059,
-            2.0993698
+            2.03
           ],
-          "count": 5
+          "count": 4
         },
         "gravity": {
-          "value": 124.81425957291822,
+          "value": 137.36439962332096,
           "range": [
             58.28592125342146,
             180.19643811652958
           ],
-          "count": 5
+          "count": 4
         },
         "escapeKms": {
-          "value": 586.4017285707844,
+          "value": 598.7535516781654,
           "range": [
             500.6195806812208,
             645.0584973982635
           ],
-          "count": 5
+          "count": 4
         },
         "density": {
-          "value": 0.3368872074341104,
+          "value": 0.38658086440155265,
           "range": [
             0.09697221794664002,
             0.5582514578087409
           ],
-          "count": 5
+          "count": 4
         },
         "luminosityPerMass": {
-          "value": 10.743971511859831,
+          "value": 9.972501583605514,
           "range": [
             6.4002881544622445,
             16.87084827586207
           ],
-          "count": 5
-        }
-      }
-    },
-    {
-      "spectral": "A5Va",
-      "letter": "A",
-      "subtype": 5,
-      "stage": "V",
-      "count": 1,
-      "metrics": {
-        "mass": {
-          "value": null,
-          "range": null,
-          "count": 0
-        },
-        "gravity": {
-          "value": null,
-          "range": null,
-          "count": 0
-        },
-        "escapeKms": {
-          "value": null,
-          "range": null,
-          "count": 0
-        },
-        "density": {
-          "value": null,
-          "range": null,
-          "count": 0
-        },
-        "luminosityPerMass": {
-          "value": null,
-          "range": null,
-          "count": 0
+          "count": 4
         }
       }
     },
@@ -1384,47 +1248,47 @@
       "letter": "A",
       "subtype": 7,
       "stage": "III",
-      "count": 2,
+      "count": 1,
       "metrics": {
         "mass": {
-          "value": 2.3449999999999998,
+          "value": 2.29,
           "range": [
             2.29,
-            2.4
+            2.29
           ],
-          "count": 2
+          "count": 1
         },
         "gravity": {
-          "value": 34.84951767376957,
+          "value": 39.618963516419484,
           "range": [
-            30.08007183111966,
+            39.618963516419484,
             39.618963516419484
           ],
-          "count": 2
+          "count": 1
         },
         "escapeKms": {
-          "value": 455.4583472863393,
+          "value": 468.46543680715496,
           "range": [
-            442.4512577655236,
+            468.46543680715496,
             468.46543680715496
           ],
-          "count": 2
+          "count": 1
         },
         "density": {
-          "value": 0.04211558442343084,
+          "value": 0.05116662522288111,
           "range": [
-            0.03306454362398056,
+            0.05116662522288111,
             0.05116662522288111
           ],
-          "count": 2
+          "count": 1
         },
         "luminosityPerMass": {
-          "value": 27.14808788355586,
+          "value": 25.642318035687335,
           "range": [
             25.642318035687335,
-            28.653857731424385
+            25.642318035687335
           ],
-          "count": 2
+          "count": 1
         }
       }
     },
@@ -1819,55 +1683,6 @@
           "range": [
             6.851990760869565,
             6.851990760869565
-          ],
-          "count": 1
-        }
-      }
-    },
-    {
-      "spectral": "B0.3IV",
-      "letter": "B",
-      "subtype": 0.3,
-      "stage": "IV",
-      "count": 1,
-      "metrics": {
-        "mass": {
-          "value": 19.61,
-          "range": [
-            19.61,
-            19.61
-          ],
-          "count": 1
-        },
-        "gravity": {
-          "value": 12.834454951726851,
-          "range": [
-            12.834454951726851,
-            12.834454951726851
-          ],
-          "count": 1
-        },
-        "escapeKms": {
-          "value": 604.5840175781894,
-          "range": [
-            604.5840175781894,
-            604.5840175781894
-          ],
-          "count": 1
-        },
-        "density": {
-          "value": 0.00322386760403717,
-          "range": [
-            0.00322386760403717,
-            0.00322386760403717
-          ],
-          "count": 1
-        },
-        "luminosityPerMass": {
-          "value": 115.32381438041816,
-          "range": [
-            115.32381438041816,
-            115.32381438041816
           ],
           "count": 1
         }
@@ -3293,7 +3108,7 @@
       "letter": "B",
       "subtype": 6,
       "stage": "III",
-      "count": 3,
+      "count": 2,
       "metrics": {
         "mass": {
           "value": null,
@@ -3376,47 +3191,47 @@
       "letter": "B",
       "subtype": 6,
       "stage": "V",
-      "count": 6,
+      "count": 4,
       "metrics": {
         "mass": {
-          "value": 4.13,
+          "value": 3.14,
           "range": [
             3.14,
-            5.39
+            3.14
           ],
-          "count": 3
+          "count": 1
         },
         "gravity": {
-          "value": 48.26801019530139,
+          "value": 43.15233100659725,
           "range": [
-            21.362906050627256,
-            80.28879352867965
+            43.15233100659725,
+            43.15233100659725
           ],
-          "count": 3
+          "count": 1
         },
         "escapeKms": {
-          "value": 550.6593935796071,
+          "value": 517.8767137456266,
           "range": [
-            497.2275460893358,
-            636.8739209038588
+            517.8767137456266,
+            517.8767137456266
           ],
-          "count": 3
+          "count": 1
         },
         "density": {
-          "value": 0.058856396931101986,
+          "value": 0.04966968624742668,
           "range": [
-            0.013205229799801805,
-            0.11369427474607746
+            0.04966968624742668,
+            0.04966968624742668
           ],
-          "count": 3
+          "count": 1
         },
         "luminosityPerMass": {
-          "value": 221.18386377339974,
+          "value": 62.773566878980894,
           "range": [
             62.773566878980894,
-            515.0241187384045
+            62.773566878980894
           ],
-          "count": 3
+          "count": 1
         }
       }
     },
@@ -3885,47 +3700,47 @@
       "letter": "B",
       "subtype": 8,
       "stage": "III",
-      "count": 8,
+      "count": 6,
       "metrics": {
         "mass": {
-          "value": 3.4166666666666665,
+          "value": 3.62,
           "range": [
-            3.01,
+            3.57,
             3.67
           ],
-          "count": 3
+          "count": 2
         },
         "gravity": {
-          "value": 51.696703768622946,
+          "value": 47.64967227118704,
           "range": [
             43.92721720815053,
-            59.790766763494766
+            51.372127334223556
           ],
-          "count": 3
+          "count": 2
         },
         "escapeKms": {
-          "value": 551.8058785325774,
+          "value": 549.7291284204714,
           "range": [
             540.869940021628,
             558.5883168193149
           ],
-          "count": 3
+          "count": 2
         },
         "density": {
-          "value": 0.06347802983253008,
+          "value": 0.053846828510823286,
           "range": [
             0.04718645544806601,
-            0.08274043247594365
+            0.06050720157358056
           ],
-          "count": 3
+          "count": 2
         },
         "luminosityPerMass": {
-          "value": 76.58381251031132,
+          "value": 92.68785740484986,
           "range": [
-            44.375722721234204,
+            83.57899159663866,
             101.79672321306109
           ],
-          "count": 3
+          "count": 2
         }
       }
     },
@@ -4100,7 +3915,7 @@
       "letter": "B",
       "subtype": 9.5,
       "stage": "III",
-      "count": 3,
+      "count": 2,
       "metrics": {
         "mass": {
           "value": 2.89,
@@ -4149,47 +3964,32 @@
       "letter": "B",
       "subtype": 9.5,
       "stage": "IV",
-      "count": 2,
+      "count": 1,
       "metrics": {
         "mass": {
-          "value": 2.93,
-          "range": [
-            2.93,
-            2.93
-          ],
-          "count": 1
+          "value": null,
+          "range": null,
+          "count": 0
         },
         "gravity": {
-          "value": 30.544656652159826,
-          "range": [
-            30.544656652159826,
-            30.544656652159826
-          ],
-          "count": 1
+          "value": null,
+          "range": null,
+          "count": 0
         },
         "escapeKms": {
-          "value": 466.8674794182069,
-          "range": [
-            466.8674794182069,
-            466.8674794182069
-          ],
-          "count": 1
+          "value": null,
+          "range": null,
+          "count": 0
         },
         "density": {
-          "value": 0.03062096769694031,
-          "range": [
-            0.03062096769694031,
-            0.03062096769694031
-          ],
-          "count": 1
+          "value": null,
+          "range": null,
+          "count": 0
         },
         "luminosityPerMass": {
-          "value": 46.137144424094366,
-          "range": [
-            46.137144424094366,
-            46.137144424094366
-          ],
-          "count": 1
+          "value": null,
+          "range": null,
+          "count": 0
         }
       }
     },
@@ -4496,47 +4296,47 @@
       "letter": "B",
       "subtype": 9,
       "stage": "V",
-      "count": 9,
+      "count": 8,
       "metrics": {
         "mass": {
-          "value": 3.7201510750000004,
+          "value": 3.851654366666667,
           "range": [
-            3.3256412,
+            3.4329998,
             4.57
           ],
-          "count": 4
+          "count": 3
         },
         "gravity": {
-          "value": 43.175191871947376,
+          "value": 45.078360041651514,
           "range": [
             30.060037404033096,
             64.21649504771119
           ],
-          "count": 4
+          "count": 3
         },
         "escapeKms": {
-          "value": 534.843979240183,
+          "value": 544.0816306213288,
           "range": [
-            507.13102509674525,
+            519.6600556786167,
             589.8908684265962
           ],
-          "count": 4
+          "count": 3
         },
         "density": {
-          "value": 0.04792184578744531,
+          "value": 0.05088087577306499,
           "range": [
             0.02393734752476791,
             0.08477845779714908
           ],
-          "count": 4
+          "count": 3
         },
         "luminosityPerMass": {
-          "value": 67.65239162077957,
+          "value": 76.37713923613212,
           "range": [
-            41.4781487747219,
+            57.633618932884794,
             109.05251641137855
           ],
-          "count": 4
+          "count": 3
         }
       }
     },
@@ -4907,47 +4707,47 @@
       "letter": "F",
       "subtype": 1,
       "stage": "V",
-      "count": 9,
+      "count": 8,
       "metrics": {
         "mass": {
-          "value": 1.6918857375,
+          "value": 1.6568305666666665,
           "range": [
             1.31,
             2.25
           ],
-          "count": 8
+          "count": 6
         },
         "gravity": {
-          "value": 127.10175593511147,
+          "value": 138.56784144955463,
           "range": [
-            30.371056588228406,
+            33.903938018711486,
             197.39626135338693
           ],
-          "count": 8
+          "count": 6
         },
         "escapeKms": {
-          "value": 556.8067572308574,
+          "value": 573.1720225758437,
           "range": [
-            434.4661545290209,
+            448.59153304357017,
             612.7140911645849
           ],
-          "count": 8
+          "count": 6
         },
         "density": {
-          "value": 0.3956931910072996,
+          "value": 0.43685380305235727,
           "range": [
-            0.034957757444201265,
+            0.040863335099629375,
             0.7523546103744334
           ],
-          "count": 8
+          "count": 6
         },
         "luminosityPerMass": {
-          "value": 10.460448464036947,
+          "value": 9.003115769661047,
           "range": [
-            3.28861670288147,
+            3.762330287070245,
             30.77817111111111
           ],
-          "count": 8
+          "count": 6
         }
       }
     },
@@ -5107,47 +4907,47 @@
       "letter": "F",
       "subtype": 2,
       "stage": "V",
-      "count": 9,
+      "count": 8,
       "metrics": {
         "mass": {
-          "value": 1.6205090625,
+          "value": 1.5634389285714287,
           "range": [
             1.4241995,
-            2.02
+            1.93
           ],
-          "count": 8
+          "count": 7
         },
         "gravity": {
-          "value": 127.99442924610712,
+          "value": 139.99412086524978,
           "range": [
-            43.99658791210842,
+            44.01745574941965,
             188.00044894449792
           ],
-          "count": 8
+          "count": 7
         },
         "escapeKms": {
-          "value": 560.0204069473946,
+          "value": 573.4442930983583,
           "range": [
             460.82758472044236,
             622.0215665600033
           ],
-          "count": 8
+          "count": 7
         },
         "density": {
-          "value": 0.39091589640797464,
+          "value": 0.43765341037386113,
           "range": [
-            0.06375329864676922,
+            0.06526924664658523,
             0.6534954227861038
           ],
-          "count": 8
+          "count": 7
         },
         "luminosityPerMass": {
-          "value": 7.502635961394792,
+          "value": 6.218405797341397,
           "range": [
             3.443797726371902,
             16.646935004321573
           ],
-          "count": 8
+          "count": 7
         }
       }
     },
@@ -5205,7 +5005,7 @@
       "letter": "F",
       "subtype": 3,
       "stage": "V",
-      "count": 5,
+      "count": 4,
       "metrics": {
         "mass": {
           "value": 1.4152545,
@@ -5371,7 +5171,7 @@
       "letter": "F",
       "subtype": 5,
       "stage": "III",
-      "count": 1,
+      "count": 2,
       "metrics": {
         "mass": {
           "value": null,
@@ -5454,7 +5254,7 @@
       "letter": "F",
       "subtype": 5,
       "stage": "V",
-      "count": 10,
+      "count": 9,
       "metrics": {
         "mass": {
           "value": 1.3926473142857143,
@@ -6079,40 +5879,6 @@
       }
     },
     {
-      "spectral": "G0.5V",
-      "letter": "G",
-      "subtype": 0.5,
-      "stage": "V",
-      "count": 1,
-      "metrics": {
-        "mass": {
-          "value": null,
-          "range": null,
-          "count": 0
-        },
-        "gravity": {
-          "value": null,
-          "range": null,
-          "count": 0
-        },
-        "escapeKms": {
-          "value": null,
-          "range": null,
-          "count": 0
-        },
-        "density": {
-          "value": null,
-          "range": null,
-          "count": 0
-        },
-        "luminosityPerMass": {
-          "value": null,
-          "range": null,
-          "count": 0
-        }
-      }
-    },
-    {
       "spectral": "G0Ib",
       "letter": "G",
       "subtype": 0,
@@ -6234,7 +6000,7 @@
       "letter": "G",
       "subtype": 0,
       "stage": "V",
-      "count": 6,
+      "count": 7,
       "metrics": {
         "mass": {
           "value": 1.02852049,
@@ -6275,55 +6041,6 @@
             2.8548262783783778
           ],
           "count": 4
-        }
-      }
-    },
-    {
-      "spectral": "G1.5III",
-      "letter": "G",
-      "subtype": 1.5,
-      "stage": "III",
-      "count": 1,
-      "metrics": {
-        "mass": {
-          "value": 2.2313535,
-          "range": [
-            2.2313535,
-            2.2313535
-          ],
-          "count": 1
-        },
-        "gravity": {
-          "value": 19.05821161365039,
-          "range": [
-            19.05821161365039,
-            19.05821161365039
-          ],
-          "count": 1
-        },
-        "escapeKms": {
-          "value": 387.61942872435395,
-          "range": [
-            387.61942872435395,
-            387.61942872435395
-          ],
-          "count": 1
-        },
-        "density": {
-          "value": 0.017293738117904096,
-          "range": [
-            0.017293738117904096,
-            0.017293738117904096
-          ],
-          "count": 1
-        },
-        "luminosityPerMass": {
-          "value": 12.167114386950283,
-          "range": [
-            12.167114386950283,
-            12.167114386950283
-          ],
-          "count": 1
         }
       }
     },
@@ -7191,47 +6908,47 @@
       "letter": "G",
       "subtype": 6,
       "stage": "III",
-      "count": 4,
+      "count": 3,
       "metrics": {
         "mass": {
-          "value": 2.32,
+          "value": 2.1399999999999997,
           "range": [
             1.15,
             3.13
           ],
-          "count": 3
+          "count": 2
         },
         "gravity": {
-          "value": 3.0230975662887816,
+          "value": 2.5154698556817547,
           "range": [
             1.8776384273037183,
-            4.038352987502836
+            3.153301284059791
           ],
-          "count": 3
+          "count": 2
         },
         "escapeKms": {
-          "value": 240.37147700908895,
+          "value": 222.90041269159005,
           "range": [
             209.4636819747231,
-            275.3136056440867
+            236.337143408457
           ],
-          "count": 3
+          "count": 2
         },
         "density": {
-          "value": 0.0012039880839030744,
+          "value": 0.0010363930870044022,
           "range": [
             0.00045153937605514984,
             0.0016212467979536546
           ],
-          "count": 3
+          "count": 2
         },
         "luminosityPerMass": {
-          "value": 58.17740193838187,
+          "value": 66.77916260906534,
           "range": [
-            40.973880597014926,
+            41.11859529207639,
             92.43972992605428
           ],
-          "count": 3
+          "count": 2
         }
       }
     },
@@ -7485,85 +7202,36 @@
       }
     },
     {
-      "spectral": "G7IIIa",
-      "letter": "G",
-      "subtype": 7,
-      "stage": "III",
-      "count": 2,
-      "metrics": {
-        "mass": {
-          "value": null,
-          "range": null,
-          "count": 0
-        },
-        "gravity": {
-          "value": null,
-          "range": null,
-          "count": 0
-        },
-        "escapeKms": {
-          "value": null,
-          "range": null,
-          "count": 0
-        },
-        "density": {
-          "value": null,
-          "range": null,
-          "count": 0
-        },
-        "luminosityPerMass": {
-          "value": null,
-          "range": null,
-          "count": 0
-        }
-      }
-    },
-    {
       "spectral": "G7IIIb",
       "letter": "G",
       "subtype": 7,
       "stage": "III",
-      "count": 4,
+      "count": 3,
       "metrics": {
         "mass": {
-          "value": 2.19,
-          "range": [
-            2.19,
-            2.19
-          ],
-          "count": 1
+          "value": null,
+          "range": null,
+          "count": 0
         },
         "gravity": {
-          "value": 6.287988549014435,
-          "range": [
-            6.287988549014435,
-            6.287988549014435
-          ],
-          "count": 1
+          "value": null,
+          "range": null,
+          "count": 0
         },
         "escapeKms": {
-          "value": 292.40303130343585,
-          "range": [
-            292.40303130343585,
-            292.40303130343585
-          ],
-          "count": 1
+          "value": null,
+          "range": null,
+          "count": 0
         },
         "density": {
-          "value": 0.0033082277923571885,
-          "range": [
-            0.0033082277923571885,
-            0.0033082277923571885
-          ],
-          "count": 1
+          "value": null,
+          "range": null,
+          "count": 0
         },
         "luminosityPerMass": {
-          "value": 29.30080968279831,
-          "range": [
-            29.30080968279831,
-            29.30080968279831
-          ],
-          "count": 1
+          "value": null,
+          "range": null,
+          "count": 0
         }
       }
     },
@@ -7802,7 +7470,7 @@
       "letter": "G",
       "subtype": 8,
       "stage": "II",
-      "count": 6,
+      "count": 5,
       "metrics": {
         "mass": {
           "value": null,
@@ -7836,47 +7504,47 @@
       "letter": "G",
       "subtype": 8,
       "stage": "III",
-      "count": 18,
+      "count": 16,
       "metrics": {
         "mass": {
-          "value": 2.024166666666667,
+          "value": 2.098181818181818,
           "range": [
-            1.21,
+            1.38,
             2.82
           ],
-          "count": 12
+          "count": 11
         },
         "gravity": {
-          "value": 4.371926503135163,
+          "value": 4.4942935456740045,
           "range": [
-            3.0258890352079124,
+            3.109113176639692,
             5.922892543103029
           ],
-          "count": 12
+          "count": 11
         },
         "escapeKms": {
-          "value": 259.05892690437594,
+          "value": 263.5217653907406,
           "range": [
-            209.96770355436465,
+            229.05567660476146,
             289.6350204187205
           ],
-          "count": 12
+          "count": 11
         },
         "density": {
-          "value": 0.002055674778071673,
+          "value": 0.002107488944699997,
           "range": [
             0.0010320962379353688,
             0.003188728307260093
           ],
-          "count": 12
+          "count": 11
         },
         "luminosityPerMass": {
-          "value": 38.81203116780477,
+          "value": 37.34886788913684,
           "range": [
             25.189612236638464,
-            54.906827233151986
+            49.36596428585308
           ],
-          "count": 12
+          "count": 11
         }
       }
     },
@@ -9276,55 +8944,6 @@
             30.489070786516855
           ],
           "count": 2
-        }
-      }
-    },
-    {
-      "spectral": "K1IV",
-      "letter": "K",
-      "subtype": 1,
-      "stage": "IV",
-      "count": 1,
-      "metrics": {
-        "mass": {
-          "value": 0.98,
-          "range": [
-            0.98,
-            0.98
-          ],
-          "count": 1
-        },
-        "gravity": {
-          "value": 5.120279907917756,
-          "range": [
-            5.120279907917756,
-            5.120279907917756
-          ],
-          "count": 1
-        },
-        "escapeKms": {
-          "value": 227.1814415673293,
-          "range": [
-            227.1814415673293,
-            227.1814415673293
-          ],
-          "count": 1
-        },
-        "density": {
-          "value": 0.00363393677254606,
-          "range": [
-            0.00363393677254606,
-            0.00363393677254606
-          ],
-          "count": 1
-        },
-        "luminosityPerMass": {
-          "value": 28.155804081632652,
-          "range": [
-            28.155804081632652,
-            28.155804081632652
-          ],
-          "count": 1
         }
       }
     },
@@ -11752,10 +11371,10 @@
       "letter": "M",
       "subtype": 3.5,
       "stage": "V",
-      "count": 52,
+      "count": 51,
       "metrics": {
         "mass": {
-          "value": 0.2969177777777778,
+          "value": 0.29320222222222225,
           "range": [
             0.17,
             0.4617
@@ -11763,15 +11382,15 @@
           "count": 45
         },
         "gravity": {
-          "value": 816.6161292373355,
+          "value": 830.4600072840065,
           "range": [
             537.0924325616269,
-            1146.9788146948679
+            1313.162600352678
           ],
           "count": 43
         },
         "escapeKms": {
-          "value": 590.2416302080368,
+          "value": 590.1340978719753,
           "range": [
             560.7052982315344,
             676.1123500540521
@@ -11779,17 +11398,17 @@
           "count": 43
         },
         "density": {
-          "value": 14.237457537300326,
+          "value": 14.795647039732486,
           "range": [
             5.687788814200918,
-            27.29622117211867
+            34.01274302260323
           ],
           "count": 43
         },
         "luminosityPerMass": {
-          "value": 0.03660096379835746,
+          "value": 0.03617889060035541,
           "range": [
-            0.02364395470588235,
+            0.019726214244833066,
             0.06146568117825428
           ],
           "count": 43
@@ -11869,7 +11488,7 @@
       "letter": "M",
       "subtype": 3,
       "stage": "V",
-      "count": 54,
+      "count": 53,
       "metrics": {
         "mass": {
           "value": 0.35329534883720937,
@@ -12035,7 +11654,7 @@
       "letter": "M",
       "subtype": 4.5,
       "stage": "V",
-      "count": 49,
+      "count": 48,
       "metrics": {
         "mass": {
           "value": 0.20173157894736843,
@@ -12348,40 +11967,6 @@
       "letter": "M",
       "subtype": 5,
       "stage": "I",
-      "count": 1,
-      "metrics": {
-        "mass": {
-          "value": null,
-          "range": null,
-          "count": 0
-        },
-        "gravity": {
-          "value": null,
-          "range": null,
-          "count": 0
-        },
-        "escapeKms": {
-          "value": null,
-          "range": null,
-          "count": 0
-        },
-        "density": {
-          "value": null,
-          "range": null,
-          "count": 0
-        },
-        "luminosityPerMass": {
-          "value": null,
-          "range": null,
-          "count": 0
-        }
-      }
-    },
-    {
-      "spectral": "M5III",
-      "letter": "M",
-      "subtype": 5,
-      "stage": "III",
       "count": 1,
       "metrics": {
         "mass": {
@@ -12868,55 +12453,6 @@
           "value": null,
           "range": null,
           "count": 0
-        }
-      }
-    },
-    {
-      "spectral": "O7V",
-      "letter": "O",
-      "subtype": 7,
-      "stage": "V",
-      "count": 1,
-      "metrics": {
-        "mass": {
-          "value": 33.4,
-          "range": [
-            33.4,
-            33.4
-          ],
-          "count": 1
-        },
-        "gravity": {
-          "value": 103.64739394925601,
-          "range": [
-            103.64739394925601,
-            103.64739394925601
-          ],
-          "count": 1
-        },
-        "escapeKms": {
-          "value": 1164.3113196415088,
-          "range": [
-            1164.3113196415088,
-            1164.3113196415088
-          ],
-          "count": 1
-        },
-        "density": {
-          "value": 0.056691010339557896,
-          "range": [
-            0.056691010339557896,
-            0.056691010339557896
-          ],
-          "count": 1
-        },
-        "luminosityPerMass": {
-          "value": 5324.189850299401,
-          "range": [
-            5324.189850299401,
-            5324.189850299401
-          ],
-          "count": 1
         }
       }
     },
