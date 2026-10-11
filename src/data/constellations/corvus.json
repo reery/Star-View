@@ -1,0 +1,665 @@
+{
+  "schemaVersion": 1,
+  "abbreviation": "Crv",
+  "name": "Corvus",
+  "center": {
+    "ra_deg": 185.47212842644566,
+    "dec_deg": -20.186194902858244
+  },
+  "stars": [
+    {
+      "hip": 59199,
+      "name": "Alchiba",
+      "ra_deg": 182.10340531836871,
+      "dec_deg": -24.728875596671113,
+      "magnitude_v": 4.02,
+      "bayer": "α",
+      "object": {
+        "x_pc": 4.21101687,
+        "y_pc": -11.168601803,
+        "z_pc": 9.032231305,
+        "vx_kms": 7.924854,
+        "vy_kms": -0.265171,
+        "vz_kms": 0.617577,
+        "temperature_k": 7079.0,
+        "mass_solar": 1.31,
+        "luminosity_solar": 4.928652676062021,
+        "radius_solar": 1.3489628825916535,
+        "metallicity_dex": -0.5055,
+        "age_gyr": 1.0341513,
+        "absolute_mag": 3.13413,
+        "epoch": 2000.0,
+        "type": "star",
+        "id": "hip-59199",
+        "name": "Alchiba",
+        "constellation": "Corvus",
+        "spectral_type": "F1V",
+        "metallicity_kind": "[M/H]",
+        "notes": "Western constellation line-figure star (HIP 59199; Stellarium Crv). SIMBAD identity * alf Crv; SIMBAD compiled Johnson V=4.01; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, mass_solar, radius_solar, luminosity_solar; Gaia DR3 model values for metallicity_dex, age_gyr.",
+        "designations": [
+          "HIP 59199"
+        ],
+        "raw_astrometry": {
+          "ra_deg": 182.10340531836871,
+          "dec_deg": -24.728875596671113,
+          "parallax_mas": 66.7696,
+          "parallax_error_mas": 0.1804,
+          "pm_ra_cosdec_masyr": 96.976,
+          "pm_ra_error_masyr": null,
+          "pm_dec_masyr": -40.023,
+          "pm_dec_error_masyr": null,
+          "radial_velocity_kms": 2.8,
+          "radial_velocity_error_kms": null,
+          "epoch": 2000.0,
+          "astrometry_ref": "SIMBAD TAP snapshot 2026-10-01",
+          "radial_velocity_ref": "SIMBAD TAP snapshot 2026-10-01"
+        }
+      }
+    },
+    {
+      "hip": 59316,
+      "name": "Minkar",
+      "ra_deg": 182.53116909374998,
+      "dec_deg": -22.6197672175,
+      "magnitude_v": 3.02,
+      "bayer": "ε",
+      "object": {
+        "x_pc": 25.667387599,
+        "y_pc": -68.322546035,
+        "z_pc": 59.652089446,
+        "vx_kms": -28.59332,
+        "vy_kms": -16.216632,
+        "vz_kms": 1.630451,
+        "temperature_k": 4360.0,
+        "mass_solar": null,
+        "luminosity_solar": null,
+        "radius_solar": null,
+        "metallicity_dex": -0.15,
+        "age_gyr": null,
+        "absolute_mag": -1.891663,
+        "epoch": 2000.0,
+        "type": "star",
+        "id": "hip-59316",
+        "name": "Minkar",
+        "constellation": "Corvus",
+        "spectral_type": "K2+IIIa",
+        "metallicity_kind": "[Fe/H]",
+        "notes": "Western constellation line-figure star (HIP 59316; Stellarium Crv). SIMBAD identity * eps Crv; SIMBAD compiled Johnson V=2.98; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Shared exact-identity physical supplements (temperature_k: 2022A&A...663A...4S; metallicity_dex: 2022A&A...663A...4S).",
+        "designations": [
+          "HIP 59316"
+        ],
+        "raw_astrometry": {
+          "ra_deg": 182.53116909374998,
+          "dec_deg": -22.6197672175,
+          "parallax_mas": 10.5984,
+          "parallax_error_mas": 0.2038,
+          "pm_ra_cosdec_masyr": -72.019,
+          "pm_ra_error_masyr": null,
+          "pm_dec_masyr": 10.637,
+          "pm_dec_error_masyr": null,
+          "radial_velocity_kms": 5.0,
+          "radial_velocity_error_kms": null,
+          "epoch": 2000.0,
+          "astrometry_ref": "SIMBAD TAP snapshot 2026-10-01",
+          "radial_velocity_ref": "SIMBAD TAP snapshot 2026-10-01"
+        }
+      }
+    },
+    {
+      "hip": 59803,
+      "name": "Gienah",
+      "ra_deg": 183.9515450373768,
+      "dec_deg": -17.541930457603193,
+      "magnitude_v": 2.58,
+      "bayer": "γ",
+      "object": {
+        "x_pc": 12.031127783,
+        "y_pc": -31.367212191,
+        "z_pc": 33.016015211,
+        "vx_kms": -33.88187,
+        "vy_kms": -11.329306,
+        "vz_kms": -4.408918,
+        "temperature_k": 11482.0,
+        "mass_solar": 3.57,
+        "luminosity_solar": 298.377,
+        "radius_solar": 4.3652,
+        "metallicity_dex": null,
+        "age_gyr": null,
+        "absolute_mag": -0.78525,
+        "epoch": 2000.0,
+        "type": "star",
+        "id": "hip-59803",
+        "name": "Gienah",
+        "constellation": "Corvus",
+        "spectral_type": "B8III",
+        "metallicity_kind": null,
+        "notes": "Western constellation line-figure star (HIP 59803; Stellarium Crv). SIMBAD identity * gam Crv; SIMBAD compiled Johnson V=2.58; inverse SIMBAD compiled parallax distance; absolute V uses no extinction correction. Physical parameters: reviewed Star View values for temperature_k, mass_solar, luminosity_solar, radius_solar.",
+        "designations": [
+          "HIP 59803"
+        ],
+        "raw_astrometry": {
+          "ra_deg": 183.9515450373768,
+          "dec_deg": -17.541930457603193,
+          "parallax_mas": 21.23,
+          "parallax_error_mas": 0.2,
+          "pm_ra_cosdec_masyr": -158.61,
+          "pm_ra_error_masyr": null,
+          "pm_dec_masyr": 21.86,
+          "pm_dec_error_masyr": null,
+          "radial_velocity_kms": -4.2,
+          "radial_velocity_error_kms": null,
+          "epoch": 2000.0,
+          "astrometry_ref": "SIMBAD TAP snapshot 2026-10-01",
+          "radial_velocity_ref": "SIMBAD TAP snapshot 2026-10-01"
+        }
+      }
+    },
+    {
+      "hip": 60965,
+      "name": "Algorab",
+      "ra_deg": 187.46606318416664,
+      "dec_deg": -16.515431261666667,
+      "magnitude_v": 2.94,
+      "bayer": "δ",
+      "object": {
+        "x_pc": 7.827520535,
+        "y_pc": -16.431264781,
+        "z_pc": 18.875850343,
+        "vx_kms": -10.993833,
+        "vy_kms": -32.118724,
+        "vz_kms": -4.091013,
+        "temperature_k": 9772.0,
+        "mass_solar": 2.44,
+        "luminosity_solar": 38.55351,
+        "radius_solar": 2.3988329190194904,
+        "metallicity_dex": -1.2939,
+        "age_gyr": 0.5827021,
+        "absolute_mag": 0.846733,
+        "epoch": 2000.0,
+        "type": "star",
+        "id": "hip-60965",
+        "name": "Algorab",
+        "constellation": "Corvus",
+        "spectral_type": "A0IV(n)kB9",
+        "metallicity_kind": "[M/H]",
+        "notes": "Western constellation line-figure star (HIP 60965; Stellarium Crv). SIMBAD identity * del Crv; SIMBAD compiled Johnson V=2.94; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, mass_solar, radius_solar; Gaia DR3 model values for metallicity_dex, luminosity_solar, age_gyr.",
+        "designations": [
+          "HIP 60965"
+        ],
+        "raw_astrometry": {
+          "ra_deg": 187.46606318416664,
+          "dec_deg": -16.515431261666667,
+          "parallax_mas": 38.06,
+          "parallax_error_mas": 0.3996,
+          "pm_ra_cosdec_masyr": -209.276,
+          "pm_ra_error_masyr": null,
+          "pm_dec_masyr": -139.184,
+          "pm_dec_error_masyr": null,
+          "radial_velocity_kms": 13.9,
+          "radial_velocity_error_kms": null,
+          "epoch": 2000.0,
+          "astrometry_ref": "SIMBAD TAP snapshot 2026-10-01",
+          "radial_velocity_ref": "SIMBAD TAP snapshot 2026-10-01"
+        }
+      }
+    },
+    {
+      "hip": 61174,
+      "name": "Eta Crv",
+      "ra_deg": 188.01761000770082,
+      "dec_deg": -16.196005170938612,
+      "magnitude_v": 4.3,
+      "bayer": "η",
+      "object": {
+        "x_pc": 5.54872701,
+        "y_pc": -11.286835638,
+        "z_pc": 13.217153871,
+        "vx_kms": -29.177853,
+        "vy_kms": -22.146624,
+        "vz_kms": -5.71049,
+        "temperature_k": 6918.0,
+        "mass_solar": 1.44,
+        "luminosity_solar": 5.1733646,
+        "radius_solar": 1.5488166189124815,
+        "metallicity_dex": -0.5383,
+        "age_gyr": 1.7988801,
+        "absolute_mag": 2.9883,
+        "epoch": 2000.0,
+        "type": "star",
+        "id": "hip-61174",
+        "name": "Eta Crv",
+        "constellation": "Corvus",
+        "spectral_type": "F2V",
+        "metallicity_kind": "[M/H]",
+        "notes": "Western constellation line-figure star (HIP 61174; Stellarium Crv). SIMBAD identity * eta Crv; SIMBAD compiled Johnson V=4.294; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, mass_solar, radius_solar; Gaia DR3 model values for metallicity_dex, luminosity_solar, age_gyr.",
+        "designations": [
+          "HIP 61174"
+        ],
+        "raw_astrometry": {
+          "ra_deg": 188.01761000770082,
+          "dec_deg": -16.196005170938612,
+          "parallax_mas": 54.8135,
+          "parallax_error_mas": 0.1562,
+          "pm_ra_cosdec_masyr": -424.597,
+          "pm_ra_error_masyr": null,
+          "pm_dec_masyr": -58.241,
+          "pm_dec_error_masyr": null,
+          "radial_velocity_kms": 0.69,
+          "radial_velocity_error_kms": null,
+          "epoch": 2000.0,
+          "astrometry_ref": "SIMBAD TAP snapshot 2026-10-01",
+          "radial_velocity_ref": "SIMBAD TAP snapshot 2026-10-01"
+        }
+      }
+    },
+    {
+      "hip": 61359,
+      "name": "Kraz",
+      "ra_deg": 188.59681217680622,
+      "dec_deg": -23.39676021620222,
+      "magnitude_v": 2.65,
+      "bayer": "β",
+      "object": {
+        "x_pc": 16.416352127,
+        "y_pc": -31.039227356,
+        "z_pc": 28.747397748,
+        "vx_kms": 2.071536,
+        "vy_kms": -1.174495,
+        "vz_kms": -14.037847,
+        "temperature_k": 5129.0,
+        "mass_solar": 3.11,
+        "luminosity_solar": 167.82,
+        "radius_solar": 15.4882,
+        "metallicity_dex": 0.05,
+        "age_gyr": null,
+        "absolute_mag": -0.644322,
+        "epoch": 2000.0,
+        "type": "star",
+        "id": "hip-61359",
+        "name": "Kraz",
+        "constellation": "Corvus",
+        "spectral_type": "G5IIBa0.3",
+        "metallicity_kind": "[Fe/H]",
+        "notes": "Western constellation line-figure star (HIP 61359; Stellarium Crv). SIMBAD identity * bet Crv; SIMBAD compiled Johnson V=2.64; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: reviewed Star View values for temperature_k, mass_solar, luminosity_solar, radius_solar, metallicity_dex.",
+        "designations": [
+          "HIP 61359"
+        ],
+        "raw_astrometry": {
+          "ra_deg": 188.59681217680622,
+          "dec_deg": -23.39676021620222,
+          "parallax_mas": 22.0049,
+          "parallax_error_mas": 0.2333,
+          "pm_ra_cosdec_masyr": 1.116,
+          "pm_ra_error_masyr": null,
+          "pm_dec_masyr": -56.704,
+          "pm_dec_error_masyr": null,
+          "radial_velocity_kms": -7.34,
+          "radial_velocity_error_kms": null,
+          "epoch": 2000.0,
+          "astrometry_ref": "SIMBAD TAP snapshot 2026-10-01",
+          "radial_velocity_ref": "SIMBAD TAP snapshot 2026-10-01"
+        }
+      }
+    }
+  ],
+  "lines": [
+    [
+      61174,
+      60965
+    ],
+    [
+      60965,
+      59803
+    ],
+    [
+      59803,
+      59316
+    ],
+    [
+      59316,
+      59199
+    ],
+    [
+      59316,
+      61359
+    ],
+    [
+      61359,
+      60965
+    ]
+  ],
+  "boundaries": [
+    {
+      "neighbor": "Hydra",
+      "neighbor_abbreviation": "HYA",
+      "points": [
+        {
+          "ra_deg": 179.091311,
+          "dec_deg": -25.1957951
+        },
+        {
+          "ra_deg": 180.097004,
+          "dec_deg": -25.1960506
+        },
+        {
+          "ra_deg": 181.102695,
+          "dec_deg": -25.1960945
+        },
+        {
+          "ra_deg": 182.108231,
+          "dec_deg": -25.1959229
+        },
+        {
+          "ra_deg": 183.113924,
+          "dec_deg": -25.1955395
+        },
+        {
+          "ra_deg": 184.119615,
+          "dec_deg": -25.1949425
+        },
+        {
+          "ra_deg": 185.125137,
+          "dec_deg": -25.1941319
+        },
+        {
+          "ra_deg": 186.1308,
+          "dec_deg": -25.1931095
+        },
+        {
+          "ra_deg": 187.136478,
+          "dec_deg": -25.1918755
+        },
+        {
+          "ra_deg": 188.141985,
+          "dec_deg": -25.1904297
+        },
+        {
+          "ra_deg": 189.147619,
+          "dec_deg": -25.1887703
+        },
+        {
+          "ra_deg": 190.153241,
+          "dec_deg": -25.1869011
+        },
+        {
+          "ra_deg": 190.404525,
+          "dec_deg": -25.1864014
+        }
+      ]
+    },
+    {
+      "neighbor": "Hydra",
+      "neighbor_abbreviation": "HYA",
+      "points": [
+        {
+          "ra_deg": 190.404525,
+          "dec_deg": -25.1864014
+        },
+        {
+          "ra_deg": 190.402094,
+          "dec_deg": -24.1864052
+        },
+        {
+          "ra_deg": 190.399689,
+          "dec_deg": -23.1864071
+        },
+        {
+          "ra_deg": 190.398502,
+          "dec_deg": -22.686409
+        }
+      ]
+    },
+    {
+      "neighbor": "Hydra",
+      "neighbor_abbreviation": "HYA",
+      "points": [
+        {
+          "ra_deg": 190.398502,
+          "dec_deg": -22.686409
+        },
+        {
+          "ra_deg": 191.403465,
+          "dec_deg": -22.6842785
+        },
+        {
+          "ra_deg": 192.408427,
+          "dec_deg": -22.6819382
+        },
+        {
+          "ra_deg": 193.413219,
+          "dec_deg": -22.67939
+        },
+        {
+          "ra_deg": 194.16687,
+          "dec_deg": -22.6773415
+        }
+      ]
+    },
+    {
+      "neighbor": "Virgo",
+      "neighbor_abbreviation": "VIR",
+      "points": [
+        {
+          "ra_deg": 194.16687,
+          "dec_deg": -22.6773415
+        },
+        {
+          "ra_deg": 194.163609,
+          "dec_deg": -21.6773453
+        },
+        {
+          "ra_deg": 194.16039,
+          "dec_deg": -20.6773491
+        },
+        {
+          "ra_deg": 194.157228,
+          "dec_deg": -19.6773548
+        },
+        {
+          "ra_deg": 194.154081,
+          "dec_deg": -18.6773586
+        },
+        {
+          "ra_deg": 194.150991,
+          "dec_deg": -17.6773624
+        },
+        {
+          "ra_deg": 194.147929,
+          "dec_deg": -16.6773682
+        },
+        {
+          "ra_deg": 194.144898,
+          "dec_deg": -15.677372
+        },
+        {
+          "ra_deg": 194.141894,
+          "dec_deg": -14.6773758
+        },
+        {
+          "ra_deg": 194.138932,
+          "dec_deg": -13.6773796
+        },
+        {
+          "ra_deg": 194.135971,
+          "dec_deg": -12.6773844
+        },
+        {
+          "ra_deg": 194.133052,
+          "dec_deg": -11.6773882
+        }
+      ]
+    },
+    {
+      "neighbor": "Virgo",
+      "neighbor_abbreviation": "VIR",
+      "points": [
+        {
+          "ra_deg": 194.133052,
+          "dec_deg": -11.6773882
+        },
+        {
+          "ra_deg": 193.130779,
+          "dec_deg": -11.6800861
+        },
+        {
+          "ra_deg": 192.128349,
+          "dec_deg": -11.6825762
+        },
+        {
+          "ra_deg": 191.125904,
+          "dec_deg": -11.6848583
+        },
+        {
+          "ra_deg": 190.123601,
+          "dec_deg": -11.6869316
+        },
+        {
+          "ra_deg": 189.121141,
+          "dec_deg": -11.6887941
+        },
+        {
+          "ra_deg": 188.118682,
+          "dec_deg": -11.6904478
+        },
+        {
+          "ra_deg": 187.116351,
+          "dec_deg": -11.6918898
+        },
+        {
+          "ra_deg": 186.113864,
+          "dec_deg": -11.69312
+        },
+        {
+          "ra_deg": 185.111389,
+          "dec_deg": -11.6941395
+        },
+        {
+          "ra_deg": 184.109058,
+          "dec_deg": -11.6949463
+        },
+        {
+          "ra_deg": 183.106571,
+          "dec_deg": -11.6955414
+        },
+        {
+          "ra_deg": 182.104081,
+          "dec_deg": -11.6959238
+        },
+        {
+          "ra_deg": 181.101736,
+          "dec_deg": -11.6960945
+        },
+        {
+          "ra_deg": 180.099249,
+          "dec_deg": -11.6960516
+        },
+        {
+          "ra_deg": 179.09676,
+          "dec_deg": -11.695797
+        }
+      ]
+    },
+    {
+      "neighbor": "Crater",
+      "neighbor_abbreviation": "CRT",
+      "points": [
+        {
+          "ra_deg": 179.09676,
+          "dec_deg": -11.695797
+        },
+        {
+          "ra_deg": 179.096374,
+          "dec_deg": -12.695797
+        },
+        {
+          "ra_deg": 179.096002,
+          "dec_deg": -13.695796
+        },
+        {
+          "ra_deg": 179.095617,
+          "dec_deg": -14.695797
+        },
+        {
+          "ra_deg": 179.09523,
+          "dec_deg": -15.695797
+        },
+        {
+          "ra_deg": 179.094844,
+          "dec_deg": -16.695797
+        },
+        {
+          "ra_deg": 179.094444,
+          "dec_deg": -17.6957951
+        },
+        {
+          "ra_deg": 179.094044,
+          "dec_deg": -18.695797
+        },
+        {
+          "ra_deg": 179.093641,
+          "dec_deg": -19.695797
+        },
+        {
+          "ra_deg": 179.093227,
+          "dec_deg": -20.6957951
+        },
+        {
+          "ra_deg": 179.092812,
+          "dec_deg": -21.695797
+        },
+        {
+          "ra_deg": 179.092398,
+          "dec_deg": -22.6957951
+        },
+        {
+          "ra_deg": 179.091969,
+          "dec_deg": -23.6957951
+        },
+        {
+          "ra_deg": 179.09154,
+          "dec_deg": -24.695797
+        },
+        {
+          "ra_deg": 179.091311,
+          "dec_deg": -25.1957951
+        }
+      ]
+    }
+  ],
+  "sources": [
+    {
+      "label": "Stellarium Western sky culture",
+      "url": "https://raw.githubusercontent.com/Stellarium/stellarium-skycultures/014fbb5e59233d133c22f9811af96b67d05a95c9/western/index.json",
+      "path": "catalog-work/western-constellation-stars/stellarium-western-index.json",
+      "sha256": "a861accd345249a185a5ecfc2a516f34291c0aa52f4bb8d8337ffc53e9cef6b9"
+    },
+    {
+      "label": "Adopted star positions and names",
+      "url": "https://simbad.cds.unistra.fr/simbad/",
+      "path": "src/data/catalogs/western-constellation-stars/stars.csv",
+      "sha256": "0a8b7c1dc3f7e3412c5cffb09a18cdf5b5b7424cc89ea8a0a1ffb4da57d3ad6a"
+    },
+    {
+      "label": "Hipparcos Johnson V magnitudes",
+      "url": "https://cdsarc.cds.unistra.fr/viz-bin/cat/I/239",
+      "path": "catalog-work/western-constellation-stars/hipparcos-v.csv",
+      "sha256": "eec12b740da3aac5204ba75ca5158b6f9f2f81886dda2526fe765cf9ea159320"
+    },
+    {
+      "label": "CDS / IAU constellation boundaries (J2000)",
+      "url": "https://cdsarc.cds.unistra.fr/viz-bin/cat/VI/49",
+      "path": "catalog-work/constellation-charts/boundaries-j2000.dat.gz",
+      "sha256": "879cd6e7a1c908f1e19a5f5fe8cc75fb1d1077564e3890f9152a3680affe9aac",
+      "inputs": [
+        {
+          "path": "catalog-work/constellation-charts/boundary-contours-b1875.dat",
+          "sha256": "865cdf4218f676eb304587c75c63231948d29cd0abe6892a8a8130c1c4fe3592"
+        },
+        {
+          "path": "catalog-work/constellation-charts/boundary-contours-readme.txt",
+          "sha256": "a3ec688bea21e9db10832842c9b845558dbe8ccf820ddedec842d664d2b74c89"
+        }
+      ]
+    }
+  ]
+}

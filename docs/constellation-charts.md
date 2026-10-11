@@ -1,13 +1,13 @@
 # Constellation charts
 
-The reviewed charts are Canis Major and Centaurus. `src/constellations.ts` registers available
-charts in a name-keyed map; other constellation names remain visible in Specs, with their
-chart button disabled until coverage is reviewed. Figure data loads only when a
-card is opened, independently of the Western constellation star overlay toggle.
+Charts cover all 88 constellations. The generated `src/data/constellations/index.ts`
+registers charts in a name-keyed map used by `src/constellations.ts`. Figure data
+loads only when a card is opened, independently of the Western constellation star
+overlay toggle. Objects without a known constellation keep the chart button disabled.
 
 ## Source path
 
-`scripts/author-constellations.py` extracts the reviewed figure from the pinned
+`scripts/author-constellations.py` extracts every figure from the pinned
 Stellarium Western sky culture already used by the landmark-star overlay:
 
 - `catalog-work/western-constellation-stars/stellarium-western-index.json`
@@ -28,7 +28,7 @@ paths, and checksums. Regenerate charts after changing their underlying catalog.
 Stellarium polyline style tokens are not star identifiers. Figure lines are a
 sky-culture choice, distinct from official IAU regions and physical star systems.
 
-## Coordinates and future coverage
+## Coordinates and coverage
 
 Membership currently follows the object's catalogued constellation. A missing
 constellation is not inferred from figure stars. The selected position uses raw
@@ -66,20 +66,24 @@ ICRS coordinates. CDS samples are sorted by RA. The authoring script uses the
 ordered B1875 contour to identify each meridian/parallel segment, match its
 original J2000 samples, and retain the source neighbor labels. The inverse
 precession is used only for matching; plotted coordinates remain untouched.
-Duplicate samples are merged, preferring original corners. Generation rejects
-unmatched samples, missing endpoints, and disconnected contours. This preserves
-Centaurus's inward notch around Crux without a constellation-specific sorting
-rule. Each additional constellation still needs a chart review before enabling
-coverage, especially for polar regions and the two Serpens contours.
+Duplicate samples, including differently rounded RA-zero corners, are merged,
+preferring original coordinates. Endpoint checks use the ordered contour's
+coordinates: the corrected polar tables and some RA-zero corners mark endpoints
+as interpolated samples. Generation rejects unmatched samples, missing endpoints,
+and disconnected contours. This preserves Centaurus's inward notch around Crux
+and the closed outlines around both poles. Serpens retains two independently
+closed contours in one chart, without a connecting boundary across Ophiuchus.
+Neighboring charts label both regions as Serpens, retaining SER1/SER2 source IDs.
 
-Add reviewed abbreviations to the authoring script's `REVIEWED` map, then register
-their lazy loaders in `src/constellations.ts`. Chart content, sky projection,
-label placement, visibility guide, and card controls are shared. Each chart stays
+The authoring script generates all charts and their lazy-loader index together,
+checking the frozen source has exactly 88 distinct figures. Chart content, sky
+projection, label placement, visibility guide, and card controls are shared. Each chart stays
 in its own lazy-loaded chunk; concurrent requests share one cached promise. The
 renderer resolves all figure identities in one catalog pass and caches only
 those matches per chart/catalog pair, using weak references so replaced catalogs
 can be collected. Authoring parses and checksums the shared source files once
-per run. A locked card follows selection across reviewed constellations.
+per run. A locked card follows selection across all constellations. Catalogue
+aliases use the same pipe-separated format as the catalogue reader.
 
 ## Visibility guide
 

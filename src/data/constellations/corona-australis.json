@@ -1,0 +1,863 @@
+{
+  "schemaVersion": 1,
+  "abbreviation": "CrA",
+  "name": "Corona Australis",
+  "center": {
+    "ra_deg": 284.6341968795689,
+    "dec_deg": -39.24457894531251
+  },
+  "stars": [
+    {
+      "hip": 90887,
+      "name": "HD 170642",
+      "ra_deg": 278.0888794852267,
+      "dec_deg": -39.70400076634167,
+      "magnitude_v": 5.16,
+      "bayer": null,
+      "object": {
+        "x_pc": 66.296572522,
+        "y_pc": -5.810041469,
+        "z_pc": -16.042673388,
+        "vx_kms": -9.799384,
+        "vy_kms": -6.026063,
+        "vz_kms": -12.710596,
+        "temperature_k": 8710.0,
+        "mass_solar": 2.19,
+        "luminosity_solar": 30.958481380319952,
+        "radius_solar": 2.344228815319922,
+        "metallicity_dex": -0.7506,
+        "age_gyr": 0.6463608,
+        "absolute_mag": 0.977911,
+        "epoch": 2000.0,
+        "type": "star",
+        "id": "hip-90887",
+        "name": "HD 170642",
+        "constellation": "Corona Australis",
+        "spectral_type": "A3V",
+        "metallicity_kind": "[M/H]",
+        "notes": "Western constellation line-figure star (HIP 90887; Stellarium CrA). SIMBAD identity HD 170642; SIMBAD compiled Johnson V=5.155; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, mass_solar, radius_solar, luminosity_solar; Gaia DR3 model values for metallicity_dex, age_gyr.",
+        "designations": [
+          "HIP 90887"
+        ],
+        "raw_astrometry": {
+          "ra_deg": 278.0888794852267,
+          "dec_deg": -39.70400076634167,
+          "parallax_mas": 14.5721,
+          "parallax_error_mas": 0.14,
+          "pm_ra_cosdec_masyr": 32.168,
+          "pm_ra_error_masyr": null,
+          "pm_dec_masyr": -37.605,
+          "pm_dec_error_masyr": null,
+          "radial_velocity_kms": -6.0,
+          "radial_velocity_error_kms": null,
+          "epoch": 2000.0,
+          "astrometry_ref": "SIMBAD TAP snapshot 2026-10-01",
+          "radial_velocity_ref": "SIMBAD TAP snapshot 2026-10-01"
+        }
+      }
+    },
+    {
+      "hip": 91875,
+      "name": "Lambda CrA",
+      "ra_deg": 280.9455916034,
+      "dec_deg": -38.32344189614,
+      "magnitude_v": 5.11,
+      "bayer": "λ",
+      "object": {
+        "x_pc": 60.456152716,
+        "y_pc": -2.943759195,
+        "z_pc": -16.259879629,
+        "vx_kms": -37.35546,
+        "vy_kms": -12.894485,
+        "vz_kms": 3.206675,
+        "temperature_k": 8710.0,
+        "mass_solar": 2.17,
+        "luminosity_solar": 27.63354891277044,
+        "radius_solar": 2.2387211385683394,
+        "metallicity_dex": -0.4117,
+        "age_gyr": 0.6480275,
+        "absolute_mag": 1.125572,
+        "epoch": 2000.0,
+        "type": "star",
+        "id": "hip-91875",
+        "name": "Lambda CrA",
+        "constellation": "Corona Australis",
+        "spectral_type": "A0/1V",
+        "metallicity_kind": "[M/H]",
+        "notes": "Western constellation line-figure star (HIP 91875; Stellarium CrA). SIMBAD identity * lam CrA; SIMBAD compiled Johnson V=5.111; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, mass_solar, radius_solar, luminosity_solar; Gaia DR3 model values for metallicity_dex, age_gyr.",
+        "designations": [
+          "HIP 91875"
+        ],
+        "raw_astrometry": {
+          "ra_deg": 280.9455916034,
+          "dec_deg": -38.32344189614,
+          "parallax_mas": 15.9521,
+          "parallax_error_mas": 0.1585,
+          "pm_ra_cosdec_masyr": 0.637,
+          "pm_ra_error_masyr": null,
+          "pm_dec_masyr": -53.975,
+          "pm_dec_error_masyr": null,
+          "radial_velocity_kms": -36.26,
+          "radial_velocity_error_kms": null,
+          "epoch": 2000.0,
+          "astrometry_ref": "SIMBAD TAP snapshot 2026-10-01",
+          "radial_velocity_ref": "SIMBAD TAP snapshot 2026-10-01"
+        }
+      }
+    },
+    {
+      "hip": 92953,
+      "name": "HD 175219",
+      "ra_deg": 284.07063020867,
+      "dec_deg": -42.71067309243,
+      "magnitude_v": 5.35,
+      "bayer": null,
+      "object": {
+        "x_pc": 90.263996154,
+        "y_pc": -9.723560738,
+        "z_pc": -30.997060248,
+        "vx_kms": -18.71688,
+        "vy_kms": -14.790351,
+        "vz_kms": 13.240243,
+        "temperature_k": 4786.0,
+        "mass_solar": 1.57,
+        "luminosity_solar": 84.15842185075745,
+        "radius_solar": 11.481536214968829,
+        "metallicity_dex": -0.5438,
+        "age_gyr": null,
+        "absolute_mag": 0.436182,
+        "epoch": 2000.0,
+        "type": "star",
+        "id": "hip-92953",
+        "name": "HD 175219",
+        "constellation": "Corona Australis",
+        "spectral_type": "K0III",
+        "metallicity_kind": "[M/H]",
+        "notes": "Western constellation line-figure star (HIP 92953; Stellarium CrA). SIMBAD identity HD 175219; SIMBAD compiled Johnson V=5.346; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, mass_solar, radius_solar, luminosity_solar; Gaia DR3 model values for metallicity_dex.",
+        "designations": [
+          "HIP 92953"
+        ],
+        "raw_astrometry": {
+          "ra_deg": 284.07063020867,
+          "dec_deg": -42.71067309243,
+          "parallax_mas": 10.3847,
+          "parallax_error_mas": 0.109,
+          "pm_ra_cosdec_masyr": -27.046,
+          "pm_ra_error_masyr": null,
+          "pm_dec_masyr": -29.284,
+          "pm_dec_error_masyr": null,
+          "radial_velocity_kms": -20.39,
+          "radial_velocity_error_kms": null,
+          "epoch": 2000.0,
+          "astrometry_ref": "SIMBAD TAP snapshot 2026-10-01",
+          "radial_velocity_ref": "SIMBAD TAP snapshot 2026-10-01"
+        }
+      }
+    },
+    {
+      "hip": 92989,
+      "name": "V686 CrA",
+      "ra_deg": 284.16869138651,
+      "dec_deg": -37.34325035042,
+      "magnitude_v": 5.36,
+      "bayer": null,
+      "object": {
+        "x_pc": 139.404242396,
+        "y_pc": -2.051205701,
+        "z_pc": -42.686816422,
+        "vx_kms": -2.515087,
+        "vy_kms": -14.250446,
+        "vz_kms": -11.969346,
+        "temperature_k": 13500.0,
+        "mass_solar": 4.060672,
+        "luminosity_solar": 279.210416968845,
+        "radius_solar": 3.0123847,
+        "metallicity_dex": 0.7971,
+        "age_gyr": null,
+        "absolute_mag": -0.438904,
+        "epoch": 2000.0,
+        "type": "star",
+        "id": "hip-92989",
+        "name": "V686 CrA",
+        "constellation": "Corona Australis",
+        "spectral_type": "B3V",
+        "metallicity_kind": "[M/H]",
+        "notes": "Western constellation line-figure star (HIP 92989; Stellarium CrA). SIMBAD identity V* V686 CrA; SIMBAD compiled Johnson V=5.38; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, luminosity_solar; Gaia DR3 model values for metallicity_dex, mass_solar, radius_solar.",
+        "designations": [
+          "HIP 92989"
+        ],
+        "raw_astrometry": {
+          "ra_deg": 284.16869138651,
+          "dec_deg": -37.34325035042,
+          "parallax_mas": 6.8427,
+          "parallax_error_mas": 0.1921,
+          "pm_ra_cosdec_masyr": 8.747,
+          "pm_ra_error_masyr": null,
+          "pm_dec_masyr": -25.654,
+          "pm_dec_error_masyr": null,
+          "radial_velocity_kms": 1.3,
+          "radial_velocity_error_kms": null,
+          "epoch": 2000.0,
+          "astrometry_ref": "SIMBAD TAP snapshot 2026-10-01",
+          "radial_velocity_ref": "SIMBAD TAP snapshot 2026-10-01"
+        }
+      }
+    },
+    {
+      "hip": 93174,
+      "name": "Epsilon CrA",
+      "ra_deg": 284.68076131022,
+      "dec_deg": -37.10732798126,
+      "magnitude_v": 4.83,
+      "bayer": "ε",
+      "object": {
+        "x_pc": 29.990946656,
+        "y_pc": -0.239457153,
+        "z_pc": -9.351179159,
+        "vx_kms": 58.947911,
+        "vy_kms": -21.197575,
+        "vz_kms": -4.919277,
+        "temperature_k": 6761.0,
+        "mass_solar": 1.5931621,
+        "luminosity_solar": 10.326506945601956,
+        "radius_solar": 2.0997708,
+        "metallicity_dex": -0.1207,
+        "age_gyr": 1.5645349,
+        "absolute_mag": 2.364252,
+        "epoch": 2000.0,
+        "type": "star",
+        "id": "hip-93174",
+        "name": "Epsilon CrA",
+        "constellation": "Corona Australis",
+        "spectral_type": "F4VFe-0.8+",
+        "metallicity_kind": "[M/H]",
+        "notes": "Western constellation line-figure star (HIP 93174; Stellarium CrA). SIMBAD identity * eps CrA; SIMBAD compiled Johnson V=4.85; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, luminosity_solar; Gaia DR3 model values for metallicity_dex, mass_solar, radius_solar, age_gyr.",
+        "designations": [
+          "HIP 93174"
+        ],
+        "raw_astrometry": {
+          "ra_deg": 284.68076131022,
+          "dec_deg": -37.10732798126,
+          "parallax_mas": 31.8084,
+          "parallax_error_mas": 0.1122,
+          "pm_ra_cosdec_masyr": -131.234,
+          "pm_ra_error_masyr": null,
+          "pm_dec_masyr": -98.23,
+          "pm_dec_error_masyr": null,
+          "radial_velocity_kms": 57.9,
+          "radial_velocity_error_kms": null,
+          "epoch": 2000.0,
+          "astrometry_ref": "SIMBAD TAP snapshot 2026-10-01",
+          "radial_velocity_ref": "SIMBAD TAP snapshot 2026-10-01"
+        }
+      }
+    },
+    {
+      "hip": 93542,
+      "name": "Zeta CrA",
+      "ra_deg": 285.7786534732604,
+      "dec_deg": -42.09510566608805,
+      "magnitude_v": 4.74,
+      "bayer": "ζ",
+      "object": {
+        "x_pc": 51.440397787,
+        "y_pc": -4.579261549,
+        "z_pc": -18.628220665,
+        "vx_kms": -18.743652,
+        "vy_kms": -4.795622,
+        "vz_kms": -12.266898,
+        "temperature_k": 10000.0,
+        "mass_solar": 2.48,
+        "luminosity_solar": 33.650196297330154,
+        "radius_solar": 2.0892961308540396,
+        "metallicity_dex": -1.1698,
+        "age_gyr": 0.31969926,
+        "absolute_mag": 1.027108,
+        "epoch": 2000.0,
+        "type": "star",
+        "id": "hip-93542",
+        "name": "Zeta CrA",
+        "constellation": "Corona Australis",
+        "spectral_type": "B9.5Vann",
+        "metallicity_kind": "[M/H]",
+        "notes": "Western constellation line-figure star (HIP 93542; Stellarium CrA). SIMBAD identity * zet CrA; SIMBAD compiled Johnson V=4.725; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, mass_solar, radius_solar, luminosity_solar; Gaia DR3 model values for metallicity_dex, age_gyr.",
+        "designations": [
+          "HIP 93542"
+        ],
+        "raw_astrometry": {
+          "ra_deg": 285.7786534732604,
+          "dec_deg": -42.09510566608805,
+          "parallax_mas": 18.2019,
+          "parallax_error_mas": 0.1261,
+          "pm_ra_cosdec_masyr": 56.27,
+          "pm_ra_error_masyr": null,
+          "pm_dec_masyr": -45.68,
+          "pm_dec_error_masyr": null,
+          "radial_velocity_kms": -13.0,
+          "radial_velocity_error_kms": null,
+          "epoch": 2000.0,
+          "astrometry_ref": "SIMBAD TAP snapshot 2026-10-01",
+          "radial_velocity_ref": "SIMBAD TAP snapshot 2026-10-01"
+        }
+      }
+    },
+    {
+      "hip": 93825,
+      "name": "Gamma CrA",
+      "ra_deg": 286.6046255931351,
+      "dec_deg": -37.06344170144111,
+      "magnitude_v": 4.23,
+      "bayer": "γ",
+      "object": {
+        "x_pc": 16.386998928,
+        "y_pc": 0.045431361,
+        "z_pc": -5.558211943,
+        "vx_kms": -53.78067,
+        "vy_kms": -19.064473,
+        "vz_kms": 1.928341,
+        "temperature_k": 6310.0,
+        "mass_solar": null,
+        "luminosity_solar": null,
+        "radius_solar": null,
+        "metallicity_dex": null,
+        "age_gyr": null,
+        "absolute_mag": 3.019263,
+        "epoch": 2000.0,
+        "type": "star",
+        "id": "hip-93825",
+        "name": "Gamma CrA",
+        "constellation": "Corona Australis",
+        "spectral_type": "F8V+F8V",
+        "metallicity_kind": null,
+        "notes": "Western constellation line-figure star (HIP 93825; Stellarium CrA). SIMBAD identity * gam CrA; SIMBAD compiled Johnson V=4.21; inverse SIMBAD compiled parallax distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k.",
+        "designations": [
+          "HIP 93825"
+        ],
+        "raw_astrometry": {
+          "ra_deg": 286.6046255931351,
+          "dec_deg": -37.06344170144111,
+          "parallax_mas": 57.79,
+          "parallax_error_mas": 0.75,
+          "pm_ra_cosdec_masyr": 96.74,
+          "pm_ra_error_masyr": null,
+          "pm_dec_masyr": -281.71,
+          "pm_dec_error_masyr": null,
+          "radial_velocity_kms": -51.6,
+          "radial_velocity_error_kms": null,
+          "epoch": 2000.0,
+          "astrometry_ref": "SIMBAD TAP snapshot 2026-10-01",
+          "radial_velocity_ref": "SIMBAD TAP snapshot 2026-10-01"
+        }
+      }
+    },
+    {
+      "hip": 94005,
+      "name": "Delta CrA",
+      "ra_deg": 287.08737371518,
+      "dec_deg": -40.49669798013,
+      "magnitude_v": 4.57,
+      "bayer": "δ",
+      "object": {
+        "x_pc": 53.148286238,
+        "y_pc": -2.913400517,
+        "z_pc": -19.630163804,
+        "vx_kms": 14.758565,
+        "vy_kms": -3.61348,
+        "vz_kms": -20.890168,
+        "temperature_k": 4677.0,
+        "mass_solar": 1.56,
+        "luminosity_solar": 57.18566079869617,
+        "radius_solar": 10.715193052376065,
+        "metallicity_dex": -0.2571,
+        "age_gyr": null,
+        "absolute_mag": 0.801842,
+        "epoch": 2000.0,
+        "type": "star",
+        "id": "hip-94005",
+        "name": "Delta CrA",
+        "constellation": "Corona Australis",
+        "spectral_type": "K1III",
+        "metallicity_kind": "[M/H]",
+        "notes": "Western constellation line-figure star (HIP 94005; Stellarium CrA). SIMBAD identity * del CrA; SIMBAD compiled Johnson V=4.571; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, mass_solar, radius_solar, luminosity_solar; Gaia DR3 model values for metallicity_dex.",
+        "designations": [
+          "HIP 94005"
+        ],
+        "raw_astrometry": {
+          "ra_deg": 287.08737371518,
+          "dec_deg": -40.49669798013,
+          "parallax_mas": 17.6582,
+          "parallax_error_mas": 0.246,
+          "pm_ra_cosdec_masyr": 47.391,
+          "pm_ra_error_masyr": null,
+          "pm_dec_masyr": -27.246,
+          "pm_dec_error_masyr": null,
+          "radial_velocity_kms": 21.24,
+          "radial_velocity_error_kms": null,
+          "epoch": 2000.0,
+          "astrometry_ref": "SIMBAD TAP snapshot 2026-10-01",
+          "radial_velocity_ref": "SIMBAD TAP snapshot 2026-10-01"
+        }
+      }
+    },
+    {
+      "hip": 94114,
+      "name": "Meridiana",
+      "ra_deg": 287.3680896456666,
+      "dec_deg": -37.90447440014084,
+      "magnitude_v": 4.11,
+      "bayer": "α",
+      "object": {
+        "x_pc": 34.667541586,
+        "y_pc": -0.277551197,
+        "z_pc": -12.340073825,
+        "vx_kms": -40.780106,
+        "vy_kms": -10.563585,
+        "vz_kms": -6.286291,
+        "temperature_k": 9120.0,
+        "mass_solar": 2.27,
+        "luminosity_solar": 24.27133718728241,
+        "radius_solar": 2.1877616239495525,
+        "metallicity_dex": 0.26,
+        "age_gyr": null,
+        "absolute_mag": 1.257799,
+        "epoch": 2000.0,
+        "type": "star",
+        "id": "hip-94114",
+        "name": "Meridiana",
+        "constellation": "Corona Australis",
+        "spectral_type": "A2Va",
+        "metallicity_kind": "[Fe/H]",
+        "notes": "Western constellation line-figure star (HIP 94114; Stellarium CrA). SIMBAD identity * alf CrA; SIMBAD compiled Johnson V=4.087; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, mass_solar, radius_solar, luminosity_solar. Shared exact-identity physical supplements (metallicity_dex: 2003A&A...398.1121E).",
+        "designations": [
+          "HIP 94114"
+        ],
+        "raw_astrometry": {
+          "ra_deg": 287.3680896456666,
+          "dec_deg": -37.90447440014084,
+          "parallax_mas": 27.0884,
+          "parallax_error_mas": 0.3566,
+          "pm_ra_cosdec_masyr": 84.65,
+          "pm_ra_error_masyr": null,
+          "pm_dec_masyr": -96.511,
+          "pm_dec_error_masyr": null,
+          "radial_velocity_kms": -36.23,
+          "radial_velocity_error_kms": null,
+          "epoch": 2000.0,
+          "astrometry_ref": "SIMBAD TAP snapshot 2026-10-01",
+          "radial_velocity_ref": "SIMBAD TAP snapshot 2026-10-01"
+        }
+      }
+    },
+    {
+      "hip": 94160,
+      "name": "Beta CrA",
+      "ra_deg": 287.5073196896108,
+      "dec_deg": -39.3407926854625,
+      "magnitude_v": 4.1,
+      "bayer": "β",
+      "object": {
+        "x_pc": 158.42608556,
+        "y_pc": -5.148302128,
+        "z_pc": -58.231779161,
+        "vx_kms": -2.930543,
+        "vy_kms": -27.736161,
+        "vz_kms": -13.350492,
+        "temperature_k": 4771.0,
+        "mass_solar": null,
+        "luminosity_solar": 838.0102426528687,
+        "radius_solar": 42.370001,
+        "metallicity_dex": null,
+        "age_gyr": null,
+        "absolute_mag": -2.042732,
+        "epoch": 2000.0,
+        "type": "star",
+        "id": "hip-94160",
+        "name": "Beta CrA",
+        "constellation": "Corona Australis",
+        "spectral_type": "K0II/IIICNIb",
+        "metallicity_kind": null,
+        "notes": "Western constellation line-figure star (HIP 94160; Stellarium CrA). SIMBAD identity * bet CrA; SIMBAD compiled Johnson V=4.095; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, luminosity_solar; Stefan-Boltzmann scaling for radius_solar.",
+        "designations": [
+          "HIP 94160"
+        ],
+        "raw_astrometry": {
+          "ra_deg": 287.5073196896108,
+          "dec_deg": -39.3407926854625,
+          "parallax_mas": 5.8645,
+          "parallax_error_mas": 0.4135,
+          "pm_ra_cosdec_masyr": 4.257,
+          "pm_ra_error_masyr": null,
+          "pm_dec_masyr": -38.243,
+          "pm_dec_error_masyr": null,
+          "radial_velocity_kms": 2.7,
+          "radial_velocity_error_kms": null,
+          "epoch": 2000.0,
+          "astrometry_ref": "SIMBAD TAP snapshot 2026-10-01",
+          "radial_velocity_ref": "SIMBAD TAP snapshot 2026-10-01"
+        }
+      }
+    }
+  ],
+  "lines": [
+    [
+      91875,
+      92989
+    ],
+    [
+      92989,
+      93174
+    ],
+    [
+      93174,
+      93825
+    ],
+    [
+      93825,
+      94114
+    ],
+    [
+      94114,
+      94160
+    ],
+    [
+      94160,
+      94005
+    ],
+    [
+      94005,
+      93542
+    ],
+    [
+      93542,
+      92953
+    ],
+    [
+      91875,
+      90887
+    ]
+  ],
+  "boundaries": [
+    {
+      "neighbor": "Ara",
+      "neighbor_abbreviation": "ARA",
+      "points": [
+        {
+          "ra_deg": 269.809284,
+          "dec_deg": -45.516346
+        },
+        {
+          "ra_deg": 270.30942,
+          "dec_deg": -45.5102692
+        },
+        {
+          "ra_deg": 271.309261,
+          "dec_deg": -45.4981232
+        },
+        {
+          "ra_deg": 272.309017,
+          "dec_deg": -45.4859734
+        }
+      ]
+    },
+    {
+      "neighbor": "Telescopium",
+      "neighbor_abbreviation": "TEL",
+      "points": [
+        {
+          "ra_deg": 272.309017,
+          "dec_deg": -45.4859734
+        },
+        {
+          "ra_deg": 272.808723,
+          "dec_deg": -45.4799042
+        },
+        {
+          "ra_deg": 273.808164,
+          "dec_deg": -45.4677658
+        },
+        {
+          "ra_deg": 274.807377,
+          "dec_deg": -45.4556389
+        },
+        {
+          "ra_deg": 275.806246,
+          "dec_deg": -45.4435272
+        },
+        {
+          "ra_deg": 276.805029,
+          "dec_deg": -45.4314346
+        },
+        {
+          "ra_deg": 277.803612,
+          "dec_deg": -45.4193649
+        },
+        {
+          "ra_deg": 278.801823,
+          "dec_deg": -45.4073219
+        },
+        {
+          "ra_deg": 279.800006,
+          "dec_deg": -45.3953056
+        },
+        {
+          "ra_deg": 280.797959,
+          "dec_deg": -45.3833199
+        },
+        {
+          "ra_deg": 281.795511,
+          "dec_deg": -45.371376
+        },
+        {
+          "ra_deg": 282.793035,
+          "dec_deg": -45.3594704
+        },
+        {
+          "ra_deg": 283.790359,
+          "dec_deg": -45.3476105
+        },
+        {
+          "ra_deg": 284.787312,
+          "dec_deg": -45.3357964
+        },
+        {
+          "ra_deg": 285.784234,
+          "dec_deg": -45.3240356
+        },
+        {
+          "ra_deg": 286.780929,
+          "dec_deg": -45.3123245
+        },
+        {
+          "ra_deg": 287.777251,
+          "dec_deg": -45.3006783
+        },
+        {
+          "ra_deg": 288.773546,
+          "dec_deg": -45.2890892
+        },
+        {
+          "ra_deg": 289.76964,
+          "dec_deg": -45.277565
+        }
+      ]
+    },
+    {
+      "neighbor": "Sagittarius",
+      "neighbor_abbreviation": "SGR",
+      "points": [
+        {
+          "ra_deg": 289.76964,
+          "dec_deg": -45.277565
+        },
+        {
+          "ra_deg": 289.758081,
+          "dec_deg": -44.7776337
+        },
+        {
+          "ra_deg": 289.735564,
+          "dec_deg": -43.7777634
+        },
+        {
+          "ra_deg": 289.713822,
+          "dec_deg": -42.7778854
+        },
+        {
+          "ra_deg": 289.692735,
+          "dec_deg": -41.7780113
+        },
+        {
+          "ra_deg": 289.672308,
+          "dec_deg": -40.7781258
+        },
+        {
+          "ra_deg": 289.652509,
+          "dec_deg": -39.7782402
+        },
+        {
+          "ra_deg": 289.633256,
+          "dec_deg": -38.7783546
+        },
+        {
+          "ra_deg": 289.614516,
+          "dec_deg": -37.7784615
+        },
+        {
+          "ra_deg": 289.596319,
+          "dec_deg": -36.7785645
+        }
+      ]
+    },
+    {
+      "neighbor": "Sagittarius",
+      "neighbor_abbreviation": "SGR",
+      "points": [
+        {
+          "ra_deg": 289.596319,
+          "dec_deg": -36.7785645
+        },
+        {
+          "ra_deg": 288.599196,
+          "dec_deg": -36.7901001
+        },
+        {
+          "ra_deg": 287.6019,
+          "dec_deg": -36.8017006
+        },
+        {
+          "ra_deg": 286.604662,
+          "dec_deg": -36.8133583
+        },
+        {
+          "ra_deg": 285.60708,
+          "dec_deg": -36.8250771
+        },
+        {
+          "ra_deg": 284.609356,
+          "dec_deg": -36.8368492
+        },
+        {
+          "ra_deg": 283.611603,
+          "dec_deg": -36.848671
+        },
+        {
+          "ra_deg": 282.613563,
+          "dec_deg": -36.8605423
+        },
+        {
+          "ra_deg": 281.615381,
+          "dec_deg": -36.8724556
+        },
+        {
+          "ra_deg": 280.617199,
+          "dec_deg": -36.884407
+        },
+        {
+          "ra_deg": 279.618702,
+          "dec_deg": -36.8963928
+        },
+        {
+          "ra_deg": 278.620034,
+          "dec_deg": -36.9084167
+        },
+        {
+          "ra_deg": 277.621365,
+          "dec_deg": -36.9204636
+        },
+        {
+          "ra_deg": 276.62241,
+          "dec_deg": -36.9325409
+        },
+        {
+          "ra_deg": 275.623284,
+          "dec_deg": -36.9446373
+        },
+        {
+          "ra_deg": 274.624128,
+          "dec_deg": -36.9567528
+        },
+        {
+          "ra_deg": 273.624687,
+          "dec_deg": -36.9688797
+        },
+        {
+          "ra_deg": 272.625075,
+          "dec_deg": -36.9810181
+        },
+        {
+          "ra_deg": 271.62549,
+          "dec_deg": -36.9931641
+        },
+        {
+          "ra_deg": 270.625563,
+          "dec_deg": -37.0053139
+        },
+        {
+          "ra_deg": 269.625464,
+          "dec_deg": -37.0174599
+        }
+      ]
+    },
+    {
+      "neighbor": "Scorpius",
+      "neighbor_abbreviation": "SCO",
+      "points": [
+        {
+          "ra_deg": 269.625464,
+          "dec_deg": -37.0174599
+        },
+        {
+          "ra_deg": 269.635077,
+          "dec_deg": -37.5174026
+        },
+        {
+          "ra_deg": 269.654617,
+          "dec_deg": -38.5172844
+        },
+        {
+          "ra_deg": 269.674759,
+          "dec_deg": -39.5171661
+        },
+        {
+          "ra_deg": 269.695444,
+          "dec_deg": -40.5170364
+        },
+        {
+          "ra_deg": 269.716788,
+          "dec_deg": -41.5169106
+        },
+        {
+          "ra_deg": 269.738789,
+          "dec_deg": -42.5167732
+        },
+        {
+          "ra_deg": 269.761504,
+          "dec_deg": -43.5166359
+        },
+        {
+          "ra_deg": 269.784994,
+          "dec_deg": -44.5164948
+        },
+        {
+          "ra_deg": 269.809284,
+          "dec_deg": -45.516346
+        }
+      ]
+    }
+  ],
+  "sources": [
+    {
+      "label": "Stellarium Western sky culture",
+      "url": "https://raw.githubusercontent.com/Stellarium/stellarium-skycultures/014fbb5e59233d133c22f9811af96b67d05a95c9/western/index.json",
+      "path": "catalog-work/western-constellation-stars/stellarium-western-index.json",
+      "sha256": "a861accd345249a185a5ecfc2a516f34291c0aa52f4bb8d8337ffc53e9cef6b9"
+    },
+    {
+      "label": "Adopted star positions and names",
+      "url": "https://simbad.cds.unistra.fr/simbad/",
+      "path": "src/data/catalogs/western-constellation-stars/stars.csv",
+      "sha256": "0a8b7c1dc3f7e3412c5cffb09a18cdf5b5b7424cc89ea8a0a1ffb4da57d3ad6a"
+    },
+    {
+      "label": "Hipparcos Johnson V magnitudes",
+      "url": "https://cdsarc.cds.unistra.fr/viz-bin/cat/I/239",
+      "path": "catalog-work/western-constellation-stars/hipparcos-v.csv",
+      "sha256": "eec12b740da3aac5204ba75ca5158b6f9f2f81886dda2526fe765cf9ea159320"
+    },
+    {
+      "label": "CDS / IAU constellation boundaries (J2000)",
+      "url": "https://cdsarc.cds.unistra.fr/viz-bin/cat/VI/49",
+      "path": "catalog-work/constellation-charts/boundaries-j2000.dat.gz",
+      "sha256": "879cd6e7a1c908f1e19a5f5fe8cc75fb1d1077564e3890f9152a3680affe9aac",
+      "inputs": [
+        {
+          "path": "catalog-work/constellation-charts/boundary-contours-b1875.dat",
+          "sha256": "865cdf4218f676eb304587c75c63231948d29cd0abe6892a8a8130c1c4fe3592"
+        },
+        {
+          "path": "catalog-work/constellation-charts/boundary-contours-readme.txt",
+          "sha256": "a3ec688bea21e9db10832842c9b845558dbe8ccf820ddedec842d664d2b74c89"
+        }
+      ]
+    }
+  ]
+}

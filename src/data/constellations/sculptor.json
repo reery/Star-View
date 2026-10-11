@@ -1,0 +1,724 @@
+{
+  "schemaVersion": 1,
+  "abbreviation": "Scl",
+  "name": "Sculptor",
+  "center": {
+    "ra_deg": 359.460159048612,
+    "dec_deg": -33.73784635793339
+  },
+  "stars": [
+    {
+      "hip": 4577,
+      "name": "Alpha Scl",
+      "ra_deg": 14.65149693501667,
+      "dec_deg": -29.3574533863875,
+      "magnitude_v": 4.3,
+      "bayer": "α",
+      "object": {
+        "x_pc": -0.349009759,
+        "y_pc": -10.233796531,
+        "z_pc": -214.627793177,
+        "vx_kms": -19.797585,
+        "vy_kms": -7.466001,
+        "vz_kms": -9.222735,
+        "temperature_k": 16260.0,
+        "mass_solar": 5.656317,
+        "luminosity_solar": 2335.3401917130727,
+        "radius_solar": 7.7052927,
+        "metallicity_dex": -0.8499,
+        "age_gyr": null,
+        "absolute_mag": -2.390898,
+        "epoch": 2000.0,
+        "type": "star",
+        "id": "hip-4577",
+        "name": "Alpha Scl",
+        "constellation": "Sculptor",
+        "spectral_type": "B7IIIp",
+        "metallicity_kind": "[M/H]",
+        "notes": "Western constellation line-figure star (HIP 4577; Stellarium Scl). SIMBAD identity * alf Scl; SIMBAD compiled Johnson V=4.27; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, luminosity_solar; Gaia DR3 model values for metallicity_dex, mass_solar, radius_solar.",
+        "designations": [
+          "HIP 4577"
+        ],
+        "raw_astrometry": {
+          "ra_deg": 14.65149693501667,
+          "dec_deg": -29.3574533863875,
+          "parallax_mas": 4.6224,
+          "parallax_error_mas": 0.1906,
+          "pm_ra_cosdec_masyr": 19.973,
+          "pm_ra_error_masyr": null,
+          "pm_dec_masyr": 5.072,
+          "pm_dec_error_masyr": null,
+          "radial_velocity_kms": 9.6,
+          "radial_velocity_error_kms": null,
+          "epoch": 2000.0,
+          "astrometry_ref": "SIMBAD TAP snapshot 2026-10-01",
+          "radial_velocity_ref": "SIMBAD TAP snapshot 2026-10-01"
+        }
+      }
+    },
+    {
+      "hip": 115102,
+      "name": "Gamma Scl",
+      "ra_deg": 349.7059899949562,
+      "dec_deg": -32.5320219169586,
+      "magnitude_v": 4.41,
+      "bayer": "γ",
+      "object": {
+        "x_pc": 20.068980203,
+        "y_pc": 4.357706714,
+        "z_pc": -54.198243191,
+        "vx_kms": 7.906012,
+        "vy_kms": -21.659887,
+        "vz_kms": -18.757994,
+        "temperature_k": 4571.0,
+        "mass_solar": 1.54,
+        "luminosity_solar": 77.62379241326873,
+        "radius_solar": 12.02264434617413,
+        "metallicity_dex": -0.2145,
+        "age_gyr": null,
+        "absolute_mag": 0.590409,
+        "epoch": 2000.0,
+        "type": "star",
+        "id": "hip-115102",
+        "name": "Gamma Scl",
+        "constellation": "Sculptor",
+        "spectral_type": "K1III",
+        "metallicity_kind": "[M/H]",
+        "notes": "Western constellation line-figure star (HIP 115102; Stellarium Scl). SIMBAD identity * gam Scl; SIMBAD compiled Johnson V=4.406; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, mass_solar, radius_solar, luminosity_solar; Gaia DR3 model values for metallicity_dex.",
+        "designations": [
+          "HIP 115102"
+        ],
+        "raw_astrometry": {
+          "ra_deg": 349.7059899949562,
+          "dec_deg": -32.5320219169586,
+          "parallax_mas": 17.2909,
+          "parallax_error_mas": 0.233,
+          "pm_ra_cosdec_masyr": 26.423,
+          "pm_ra_error_masyr": null,
+          "pm_dec_masyr": -79.989,
+          "pm_dec_error_masyr": null,
+          "radial_velocity_kms": 18.65,
+          "radial_velocity_error_kms": null,
+          "epoch": 2000.0,
+          "astrometry_ref": "SIMBAD TAP snapshot 2026-10-01",
+          "radial_velocity_ref": "SIMBAD TAP snapshot 2026-10-01"
+        }
+      }
+    },
+    {
+      "hip": 116231,
+      "name": "Beta Scl",
+      "ra_deg": 353.2427529291475,
+      "dec_deg": -37.81828488197584,
+      "magnitude_v": 4.38,
+      "bayer": "β",
+      "object": {
+        "x_pc": 18.810921859,
+        "y_pc": -1.632591978,
+        "z_pc": -52.917031683,
+        "vx_kms": -22.56137,
+        "vy_kms": -3.366827,
+        "vz_kms": -10.198999,
+        "temperature_k": 12023.0,
+        "mass_solar": 2.89,
+        "luminosity_solar": 77.91791553029583,
+        "radius_solar": 2.041737944669529,
+        "metallicity_dex": 0.1827,
+        "age_gyr": null,
+        "absolute_mag": 0.621907,
+        "epoch": 2000.0,
+        "type": "star",
+        "id": "hip-116231",
+        "name": "Beta Scl",
+        "constellation": "Sculptor",
+        "spectral_type": "B9.5IIIpHgMnSi",
+        "metallicity_kind": "[Fe/H]",
+        "notes": "Western constellation line-figure star (HIP 116231; Stellarium Scl). SIMBAD identity * bet Scl; SIMBAD compiled Johnson V=4.37; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, mass_solar, radius_solar, luminosity_solar. Shared exact-identity physical supplements (metallicity_dex: 2023ApJS..266...11B).",
+        "designations": [
+          "HIP 116231"
+        ],
+        "raw_astrometry": {
+          "ra_deg": 353.2427529291475,
+          "dec_deg": -37.81828488197584,
+          "parallax_mas": 17.8057,
+          "parallax_error_mas": 0.2096,
+          "pm_ra_cosdec_masyr": 90.311,
+          "pm_ra_error_masyr": null,
+          "pm_dec_masyr": 24.091,
+          "pm_dec_error_masyr": null,
+          "radial_velocity_kms": 2.15,
+          "radial_velocity_error_kms": null,
+          "epoch": 2000.0,
+          "astrometry_ref": "SIMBAD TAP snapshot 2026-10-01",
+          "radial_velocity_ref": "SIMBAD TAP snapshot 2026-10-01"
+        }
+      }
+    }
+  ],
+  "lines": [
+    [
+      116231,
+      4577
+    ],
+    [
+      4577,
+      115102
+    ],
+    [
+      115102,
+      116231
+    ]
+  ],
+  "boundaries": [
+    {
+      "neighbor": "Grus",
+      "neighbor_abbreviation": "GRU",
+      "points": [
+        {
+          "ra_deg": 346.727514,
+          "dec_deg": -36.3249741
+        },
+        {
+          "ra_deg": 347.718801,
+          "dec_deg": -36.3221207
+        },
+        {
+          "ra_deg": 348.709917,
+          "dec_deg": -36.3194733
+        },
+        {
+          "ra_deg": 349.701119,
+          "dec_deg": -36.3170319
+        },
+        {
+          "ra_deg": 350.69232,
+          "dec_deg": -36.3147964
+        },
+        {
+          "ra_deg": 351.683377,
+          "dec_deg": -36.312767
+        }
+      ]
+    },
+    {
+      "neighbor": "Grus",
+      "neighbor_abbreviation": "GRU",
+      "points": [
+        {
+          "ra_deg": 351.683377,
+          "dec_deg": -36.312767
+        },
+        {
+          "ra_deg": 351.686411,
+          "dec_deg": -37.312767
+        },
+        {
+          "ra_deg": 351.689501,
+          "dec_deg": -38.3127632
+        },
+        {
+          "ra_deg": 351.692704,
+          "dec_deg": -39.3127594
+        }
+      ]
+    },
+    {
+      "neighbor": "Phoenix",
+      "neighbor_abbreviation": "PHE",
+      "points": [
+        {
+          "ra_deg": 351.692704,
+          "dec_deg": -39.3127594
+        },
+        {
+          "ra_deg": 352.682849,
+          "dec_deg": -39.3109398
+        },
+        {
+          "ra_deg": 353.672962,
+          "dec_deg": -39.30933
+        },
+        {
+          "ra_deg": 354.662904,
+          "dec_deg": -39.3079262
+        },
+        {
+          "ra_deg": 355.652961,
+          "dec_deg": -39.3067322
+        },
+        {
+          "ra_deg": 356.643018,
+          "dec_deg": -39.3057442
+        },
+        {
+          "ra_deg": 357.632961,
+          "dec_deg": -39.3049698
+        },
+        {
+          "ra_deg": 358.622989,
+          "dec_deg": -39.3044014
+        },
+        {
+          "ra_deg": 359.613018,
+          "dec_deg": -39.3040466
+        },
+        {
+          "ra_deg": 0.602916,
+          "dec_deg": -39.3038979
+        },
+        {
+          "ra_deg": 1.592936,
+          "dec_deg": -39.3039627
+        },
+        {
+          "ra_deg": 2.582969,
+          "dec_deg": -39.3042336
+        },
+        {
+          "ra_deg": 3.572859,
+          "dec_deg": -39.304718
+        },
+        {
+          "ra_deg": 4.562906,
+          "dec_deg": -39.3054085
+        },
+        {
+          "ra_deg": 5.552962,
+          "dec_deg": -39.3063126
+        },
+        {
+          "ra_deg": 6.542884,
+          "dec_deg": -39.3074226
+        },
+        {
+          "ra_deg": 7.532973,
+          "dec_deg": -39.3087425
+        },
+        {
+          "ra_deg": 8.523081,
+          "dec_deg": -39.3102722
+        },
+        {
+          "ra_deg": 9.513063,
+          "dec_deg": -39.3120079
+        },
+        {
+          "ra_deg": 10.503219,
+          "dec_deg": -39.3139534
+        },
+        {
+          "ra_deg": 11.493402,
+          "dec_deg": -39.3161049
+        },
+        {
+          "ra_deg": 12.483468,
+          "dec_deg": -39.3184586
+        },
+        {
+          "ra_deg": 13.473717,
+          "dec_deg": -39.321022
+        },
+        {
+          "ra_deg": 14.464004,
+          "dec_deg": -39.3237915
+        },
+        {
+          "ra_deg": 15.454181,
+          "dec_deg": -39.3267632
+        },
+        {
+          "ra_deg": 16.444548,
+          "dec_deg": -39.329937
+        },
+        {
+          "ra_deg": 17.434959,
+          "dec_deg": -39.333313
+        },
+        {
+          "ra_deg": 18.425274,
+          "dec_deg": -39.3368912
+        },
+        {
+          "ra_deg": 19.415786,
+          "dec_deg": -39.3406715
+        },
+        {
+          "ra_deg": 20.406349,
+          "dec_deg": -39.3446465
+        },
+        {
+          "ra_deg": 21.396825,
+          "dec_deg": -39.3488235
+        },
+        {
+          "ra_deg": 22.387506,
+          "dec_deg": -39.3531952
+        },
+        {
+          "ra_deg": 23.378249,
+          "dec_deg": -39.3577614
+        },
+        {
+          "ra_deg": 24.368909,
+          "dec_deg": -39.3625221
+        },
+        {
+          "ra_deg": 25.359784,
+          "dec_deg": -39.3674774
+        },
+        {
+          "ra_deg": 26.350728,
+          "dec_deg": -39.3726234
+        }
+      ]
+    },
+    {
+      "neighbor": "Fornax",
+      "neighbor_abbreviation": "FOR",
+      "points": [
+        {
+          "ra_deg": 26.350728,
+          "dec_deg": -39.3726234
+        },
+        {
+          "ra_deg": 26.355121,
+          "dec_deg": -38.8726349
+        },
+        {
+          "ra_deg": 26.363726,
+          "dec_deg": -37.8726578
+        },
+        {
+          "ra_deg": 26.372097,
+          "dec_deg": -36.8726807
+        },
+        {
+          "ra_deg": 26.380256,
+          "dec_deg": -35.8727036
+        },
+        {
+          "ra_deg": 26.388207,
+          "dec_deg": -34.8727226
+        },
+        {
+          "ra_deg": 26.395969,
+          "dec_deg": -33.8727417
+        },
+        {
+          "ra_deg": 26.403554,
+          "dec_deg": -32.8727646
+        },
+        {
+          "ra_deg": 26.410966,
+          "dec_deg": -31.8727837
+        },
+        {
+          "ra_deg": 26.418219,
+          "dec_deg": -30.8728008
+        },
+        {
+          "ra_deg": 26.425323,
+          "dec_deg": -29.8728218
+        },
+        {
+          "ra_deg": 26.432286,
+          "dec_deg": -28.872839
+        },
+        {
+          "ra_deg": 26.439117,
+          "dec_deg": -27.872858
+        },
+        {
+          "ra_deg": 26.445822,
+          "dec_deg": -26.8728752
+        },
+        {
+          "ra_deg": 26.45241,
+          "dec_deg": -25.8728924
+        },
+        {
+          "ra_deg": 26.458889,
+          "dec_deg": -24.8729095
+        }
+      ]
+    },
+    {
+      "neighbor": "Cetus",
+      "neighbor_abbreviation": "CET",
+      "points": [
+        {
+          "ra_deg": 26.458889,
+          "dec_deg": -24.8729095
+        },
+        {
+          "ra_deg": 25.464011,
+          "dec_deg": -24.8677444
+        },
+        {
+          "ra_deg": 24.46917,
+          "dec_deg": -24.8627701
+        },
+        {
+          "ra_deg": 23.474519,
+          "dec_deg": -24.8579903
+        },
+        {
+          "ra_deg": 22.479754,
+          "dec_deg": -24.853405
+        },
+        {
+          "ra_deg": 21.485025,
+          "dec_deg": -24.8490143
+        },
+        {
+          "ra_deg": 20.490479,
+          "dec_deg": -24.8448238
+        },
+        {
+          "ra_deg": 19.495815,
+          "dec_deg": -24.8408298
+        },
+        {
+          "ra_deg": 18.50118,
+          "dec_deg": -24.8370342
+        },
+        {
+          "ra_deg": 17.506725,
+          "dec_deg": -24.8334427
+        },
+        {
+          "ra_deg": 16.512149,
+          "dec_deg": -24.8300514
+        },
+        {
+          "ra_deg": 15.517594,
+          "dec_deg": -24.8268623
+        },
+        {
+          "ra_deg": 14.523217,
+          "dec_deg": -24.8238792
+        },
+        {
+          "ra_deg": 13.528711,
+          "dec_deg": -24.8210983
+        },
+        {
+          "ra_deg": 12.534225,
+          "dec_deg": -24.8185253
+        },
+        {
+          "ra_deg": 11.539909,
+          "dec_deg": -24.8161583
+        },
+        {
+          "ra_deg": 10.545462,
+          "dec_deg": -24.8139973
+        },
+        {
+          "ra_deg": 9.551031,
+          "dec_deg": -24.8120461
+        },
+        {
+          "ra_deg": 8.556762,
+          "dec_deg": -24.8103008
+        },
+        {
+          "ra_deg": 7.562356,
+          "dec_deg": -24.8087654
+        },
+        {
+          "ra_deg": 6.567963,
+          "dec_deg": -24.8074398
+        },
+        {
+          "ra_deg": 5.573727,
+          "dec_deg": -24.806324
+        },
+        {
+          "ra_deg": 4.579351,
+          "dec_deg": -24.805418
+        },
+        {
+          "ra_deg": 3.584981,
+          "dec_deg": -24.8047237
+        },
+        {
+          "ra_deg": 2.590764,
+          "dec_deg": -24.8042393
+        },
+        {
+          "ra_deg": 1.596411,
+          "dec_deg": -24.8039646
+        },
+        {
+          "ra_deg": 1.099286,
+          "dec_deg": -24.8039074
+        },
+        {
+          "ra_deg": 0.104925,
+          "dec_deg": -24.8039494
+        },
+        {
+          "ra_deg": 359.110564,
+          "dec_deg": -24.8042011
+        }
+      ]
+    },
+    {
+      "neighbor": "Aquarius",
+      "neighbor_abbreviation": "AQR",
+      "points": [
+        {
+          "ra_deg": 359.110564,
+          "dec_deg": -24.8042011
+        },
+        {
+          "ra_deg": 358.613463,
+          "dec_deg": -24.8044071
+        },
+        {
+          "ra_deg": 357.619086,
+          "dec_deg": -24.8049755
+        },
+        {
+          "ra_deg": 356.624851,
+          "dec_deg": -24.8057556
+        },
+        {
+          "ra_deg": 355.630474,
+          "dec_deg": -24.8067455
+        },
+        {
+          "ra_deg": 354.636097,
+          "dec_deg": -24.8079453
+        },
+        {
+          "ra_deg": 353.641863,
+          "dec_deg": -24.8093548
+        },
+        {
+          "ra_deg": 352.647457,
+          "dec_deg": -24.8109722
+        },
+        {
+          "ra_deg": 351.653024,
+          "dec_deg": -24.8127995
+        },
+        {
+          "ra_deg": 350.658732,
+          "dec_deg": -24.8148346
+        },
+        {
+          "ra_deg": 349.664268,
+          "dec_deg": -24.8170776
+        },
+        {
+          "ra_deg": 348.669806,
+          "dec_deg": -24.8195286
+        },
+        {
+          "ra_deg": 347.675486,
+          "dec_deg": -24.8221836
+        },
+        {
+          "ra_deg": 346.680966,
+          "dec_deg": -24.8250446
+        }
+      ]
+    },
+    {
+      "neighbor": "Piscis Austrinus",
+      "neighbor_abbreviation": "PSA",
+      "points": [
+        {
+          "ra_deg": 346.680966,
+          "dec_deg": -24.8250446
+        },
+        {
+          "ra_deg": 346.682767,
+          "dec_deg": -25.3250408
+        },
+        {
+          "ra_deg": 346.686459,
+          "dec_deg": -26.325037
+        },
+        {
+          "ra_deg": 346.690206,
+          "dec_deg": -27.3250313
+        },
+        {
+          "ra_deg": 346.694011,
+          "dec_deg": -28.3250256
+        },
+        {
+          "ra_deg": 346.697902,
+          "dec_deg": -29.3250198
+        },
+        {
+          "ra_deg": 346.701851,
+          "dec_deg": -30.3250122
+        },
+        {
+          "ra_deg": 346.705886,
+          "dec_deg": -31.3250065
+        },
+        {
+          "ra_deg": 346.710033,
+          "dec_deg": -32.3250008
+        },
+        {
+          "ra_deg": 346.714239,
+          "dec_deg": -33.3249931
+        },
+        {
+          "ra_deg": 346.718559,
+          "dec_deg": -34.3249893
+        },
+        {
+          "ra_deg": 346.722994,
+          "dec_deg": -35.3249817
+        },
+        {
+          "ra_deg": 346.727514,
+          "dec_deg": -36.3249741
+        }
+      ]
+    }
+  ],
+  "sources": [
+    {
+      "label": "Stellarium Western sky culture",
+      "url": "https://raw.githubusercontent.com/Stellarium/stellarium-skycultures/014fbb5e59233d133c22f9811af96b67d05a95c9/western/index.json",
+      "path": "catalog-work/western-constellation-stars/stellarium-western-index.json",
+      "sha256": "a861accd345249a185a5ecfc2a516f34291c0aa52f4bb8d8337ffc53e9cef6b9"
+    },
+    {
+      "label": "Adopted star positions and names",
+      "url": "https://simbad.cds.unistra.fr/simbad/",
+      "path": "src/data/catalogs/western-constellation-stars/stars.csv",
+      "sha256": "0a8b7c1dc3f7e3412c5cffb09a18cdf5b5b7424cc89ea8a0a1ffb4da57d3ad6a"
+    },
+    {
+      "label": "Hipparcos Johnson V magnitudes",
+      "url": "https://cdsarc.cds.unistra.fr/viz-bin/cat/I/239",
+      "path": "catalog-work/western-constellation-stars/hipparcos-v.csv",
+      "sha256": "eec12b740da3aac5204ba75ca5158b6f9f2f81886dda2526fe765cf9ea159320"
+    },
+    {
+      "label": "CDS / IAU constellation boundaries (J2000)",
+      "url": "https://cdsarc.cds.unistra.fr/viz-bin/cat/VI/49",
+      "path": "catalog-work/constellation-charts/boundaries-j2000.dat.gz",
+      "sha256": "879cd6e7a1c908f1e19a5f5fe8cc75fb1d1077564e3890f9152a3680affe9aac",
+      "inputs": [
+        {
+          "path": "catalog-work/constellation-charts/boundary-contours-b1875.dat",
+          "sha256": "865cdf4218f676eb304587c75c63231948d29cd0abe6892a8a8130c1c4fe3592"
+        },
+        {
+          "path": "catalog-work/constellation-charts/boundary-contours-readme.txt",
+          "sha256": "a3ec688bea21e9db10832842c9b845558dbe8ccf820ddedec842d664d2b74c89"
+        }
+      ]
+    }
+  ]
+}

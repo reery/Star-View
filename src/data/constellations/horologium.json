@@ -1,0 +1,928 @@
+{
+  "schemaVersion": 1,
+  "abbreviation": "Hor",
+  "name": "Horologium",
+  "center": {
+    "ra_deg": 51.20152515645063,
+    "dec_deg": -52.66007280406317
+  },
+  "stars": [
+    {
+      "hip": 12484,
+      "name": "Zeta Hor",
+      "ra_deg": 40.16505561463,
+      "dec_deg": -54.54991191877,
+      "magnitude_v": 5.21,
+      "bayer": "ζ",
+      "object": {
+        "x_pc": 2.128750705,
+        "y_pc": -27.47300087,
+        "z_pc": -41.024425181,
+        "vx_kms": -6.045926,
+        "vy_kms": -3.850824,
+        "vz_kms": 3.590179,
+        "temperature_k": 6607.0,
+        "mass_solar": 1.8079402,
+        "luminosity_solar": 15.577112561889352,
+        "radius_solar": 3.2071311,
+        "metallicity_dex": -0.3184,
+        "age_gyr": 1.4474543,
+        "absolute_mag": 1.740502,
+        "epoch": 2000.0,
+        "type": "star",
+        "id": "hip-12484",
+        "name": "Zeta Hor",
+        "constellation": "Horologium",
+        "spectral_type": "F6V",
+        "metallicity_kind": "[M/H]",
+        "notes": "Western constellation line-figure star (HIP 12484; Stellarium Hor). SIMBAD identity * zet Hor; SIMBAD compiled Johnson V=5.21; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, luminosity_solar; Gaia DR3 model values for metallicity_dex, mass_solar, radius_solar, age_gyr.",
+        "designations": [
+          "HIP 12484"
+        ],
+        "raw_astrometry": {
+          "ra_deg": 40.16505561463,
+          "dec_deg": -54.54991191877,
+          "parallax_mas": 20.2364,
+          "parallax_error_mas": 0.0647,
+          "pm_ra_cosdec_masyr": 33.395,
+          "pm_ra_error_masyr": null,
+          "pm_dec_masyr": 5.812,
+          "pm_dec_error_masyr": null,
+          "radial_velocity_kms": -1.1,
+          "radial_velocity_error_kms": null,
+          "epoch": 2000.0,
+          "astrometry_ref": "SIMBAD TAP snapshot 2026-10-01",
+          "radial_velocity_ref": "SIMBAD TAP snapshot 2026-10-01"
+        }
+      }
+    },
+    {
+      "hip": 14240,
+      "name": "Mu Hor",
+      "ra_deg": 45.90341158317,
+      "dec_deg": -59.737774591039994,
+      "magnitude_v": 5.12,
+      "bayer": "μ",
+      "object": {
+        "x_pc": 3.573068425,
+        "y_pc": -27.398672579,
+        "z_pc": -33.325553766,
+        "vx_kms": 20.688884,
+        "vy_kms": -6.085252,
+        "vz_kms": -15.251686,
+        "temperature_k": 6918.0,
+        "mass_solar": 1.59,
+        "luminosity_solar": 12.9741382306449,
+        "radius_solar": 2.3988329190194904,
+        "metallicity_dex": -0.6056,
+        "age_gyr": 1.4291853,
+        "absolute_mag": 1.940049,
+        "epoch": 2000.0,
+        "type": "star",
+        "id": "hip-14240",
+        "name": "Mu Hor",
+        "constellation": "Horologium",
+        "spectral_type": "F0III/IV",
+        "metallicity_kind": "[M/H]",
+        "notes": "Western constellation line-figure star (HIP 14240; Stellarium Hor). SIMBAD identity * mu. Hor; SIMBAD compiled Johnson V=5.122; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, mass_solar, radius_solar, luminosity_solar; Gaia DR3 model values for metallicity_dex, age_gyr.",
+        "designations": [
+          "HIP 14240"
+        ],
+        "raw_astrometry": {
+          "ra_deg": 45.90341158317,
+          "dec_deg": -59.737774591039994,
+          "parallax_mas": 23.1077,
+          "parallax_error_mas": 0.0731,
+          "pm_ra_cosdec_masyr": -73.668,
+          "pm_ra_error_masyr": null,
+          "pm_dec_masyr": -63.504,
+          "pm_dec_error_masyr": null,
+          "radial_velocity_kms": 17.3,
+          "radial_velocity_error_kms": null,
+          "epoch": 2000.0,
+          "astrometry_ref": "SIMBAD TAP snapshot 2026-10-01",
+          "radial_velocity_ref": "SIMBAD TAP snapshot 2026-10-01"
+        }
+      }
+    },
+    {
+      "hip": 19747,
+      "name": "Alpha Hor",
+      "ra_deg": 63.50047592756917,
+      "dec_deg": -42.29436854309194,
+      "magnitude_v": 3.85,
+      "bayer": "α",
+      "object": {
+        "x_pc": -9.765149199,
+        "y_pc": -22.871356073,
+        "z_pc": -26.127748699,
+        "vx_kms": 22.944504,
+        "vy_kms": -33.432609,
+        "vz_kms": -9.335491,
+        "temperature_k": 4571.0,
+        "mass_solar": 1.22,
+        "luminosity_solar": 39.3599775136162,
+        "radius_solar": 10.232929922807541,
+        "metallicity_dex": -0.01,
+        "age_gyr": null,
+        "absolute_mag": 1.07421,
+        "epoch": 2000.0,
+        "type": "star",
+        "id": "hip-19747",
+        "name": "Alpha Hor",
+        "constellation": "Horologium",
+        "spectral_type": "K2III",
+        "metallicity_kind": "[Fe/H]",
+        "notes": "Western constellation line-figure star (HIP 19747; Stellarium Hor). SIMBAD identity * alf Hor; SIMBAD compiled Johnson V=3.86; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, mass_solar, radius_solar, luminosity_solar. Shared exact-identity physical supplements (metallicity_dex: 2024A&A...683A.125P).",
+        "designations": [
+          "HIP 19747"
+        ],
+        "raw_astrometry": {
+          "ra_deg": 63.50047592756917,
+          "dec_deg": -42.29436854309194,
+          "parallax_mas": 27.721,
+          "parallax_error_mas": 0.1195,
+          "pm_ra_cosdec_masyr": 41.992,
+          "pm_ra_error_masyr": null,
+          "pm_dec_masyr": -203.157,
+          "pm_dec_error_masyr": null,
+          "radial_velocity_kms": 21.749,
+          "radial_velocity_error_kms": null,
+          "epoch": 2000.0,
+          "astrometry_ref": "SIMBAD TAP snapshot 2026-10-01",
+          "radial_velocity_ref": "SIMBAD TAP snapshot 2026-10-01"
+        }
+      }
+    }
+  ],
+  "lines": [
+    [
+      19747,
+      12484
+    ],
+    [
+      12484,
+      14240
+    ]
+  ],
+  "boundaries": [
+    {
+      "neighbor": "Eridanus",
+      "neighbor_abbreviation": "ERI",
+      "points": [
+        {
+          "ra_deg": 33.584144,
+          "dec_deg": -53.4164696
+        },
+        {
+          "ra_deg": 33.574644,
+          "dec_deg": -53.9164352
+        },
+        {
+          "ra_deg": 33.554939,
+          "dec_deg": -54.9163704
+        },
+        {
+          "ra_deg": 33.534232,
+          "dec_deg": -55.9163017
+        },
+        {
+          "ra_deg": 33.512429,
+          "dec_deg": -56.9162292
+        },
+        {
+          "ra_deg": 33.489424,
+          "dec_deg": -57.9161568
+        }
+      ]
+    },
+    {
+      "neighbor": "Hydrus",
+      "neighbor_abbreviation": "HYI",
+      "points": [
+        {
+          "ra_deg": 33.489424,
+          "dec_deg": -57.9161568
+        },
+        {
+          "ra_deg": 33.465104,
+          "dec_deg": -58.916069
+        },
+        {
+          "ra_deg": 33.439332,
+          "dec_deg": -59.9159851
+        },
+        {
+          "ra_deg": 33.41196,
+          "dec_deg": -60.9158936
+        },
+        {
+          "ra_deg": 33.382812,
+          "dec_deg": -61.9157982
+        },
+        {
+          "ra_deg": 33.351696,
+          "dec_deg": -62.9156952
+        },
+        {
+          "ra_deg": 33.318379,
+          "dec_deg": -63.9155769
+        },
+        {
+          "ra_deg": 33.282599,
+          "dec_deg": -64.9154587
+        },
+        {
+          "ra_deg": 33.244046,
+          "dec_deg": -65.915329
+        },
+        {
+          "ra_deg": 33.202361,
+          "dec_deg": -66.9151917
+        }
+      ]
+    },
+    {
+      "neighbor": "Hydrus",
+      "neighbor_abbreviation": "HYI",
+      "points": [
+        {
+          "ra_deg": 33.202361,
+          "dec_deg": -66.9151917
+        },
+        {
+          "ra_deg": 33.690273,
+          "dec_deg": -66.9184723
+        },
+        {
+          "ra_deg": 34.66644,
+          "dec_deg": -66.9251556
+        },
+        {
+          "ra_deg": 35.642721,
+          "dec_deg": -66.9320068
+        },
+        {
+          "ra_deg": 36.619421,
+          "dec_deg": -66.9390335
+        },
+        {
+          "ra_deg": 37.596394,
+          "dec_deg": -66.946228
+        },
+        {
+          "ra_deg": 38.573502,
+          "dec_deg": -66.9535904
+        },
+        {
+          "ra_deg": 39.551054,
+          "dec_deg": -66.961113
+        },
+        {
+          "ra_deg": 40.528901,
+          "dec_deg": -66.9687958
+        },
+        {
+          "ra_deg": 41.506902,
+          "dec_deg": -66.9766388
+        },
+        {
+          "ra_deg": 42.485361,
+          "dec_deg": -66.984642
+        },
+        {
+          "ra_deg": 43.464135,
+          "dec_deg": -66.9927979
+        },
+        {
+          "ra_deg": 44.443087,
+          "dec_deg": -67.0011063
+        },
+        {
+          "ra_deg": 45.422516,
+          "dec_deg": -67.0095673
+        },
+        {
+          "ra_deg": 46.402281,
+          "dec_deg": -67.0181732
+        },
+        {
+          "ra_deg": 47.382234,
+          "dec_deg": -67.0269241
+        },
+        {
+          "ra_deg": 48.362689,
+          "dec_deg": -67.03582
+        }
+      ]
+    },
+    {
+      "neighbor": "Reticulum",
+      "neighbor_abbreviation": "RET",
+      "points": [
+        {
+          "ra_deg": 48.362689,
+          "dec_deg": -67.03582
+        },
+        {
+          "ra_deg": 48.420371,
+          "dec_deg": -66.036087
+        },
+        {
+          "ra_deg": 48.473697,
+          "dec_deg": -65.0363312
+        },
+        {
+          "ra_deg": 48.523167,
+          "dec_deg": -64.0365524
+        },
+        {
+          "ra_deg": 48.569216,
+          "dec_deg": -63.0367699
+        },
+        {
+          "ra_deg": 48.612206,
+          "dec_deg": -62.0369644
+        },
+        {
+          "ra_deg": 48.652464,
+          "dec_deg": -61.0371475
+        },
+        {
+          "ra_deg": 48.690258,
+          "dec_deg": -60.0373192
+        },
+        {
+          "ra_deg": 48.725832,
+          "dec_deg": -59.0374794
+        },
+        {
+          "ra_deg": 48.759394,
+          "dec_deg": -58.0376396
+        },
+        {
+          "ra_deg": 48.791131,
+          "dec_deg": -57.0377846
+        }
+      ]
+    },
+    {
+      "neighbor": "Reticulum",
+      "neighbor_abbreviation": "RET",
+      "points": [
+        {
+          "ra_deg": 48.791131,
+          "dec_deg": -57.0377846
+        },
+        {
+          "ra_deg": 49.284804,
+          "dec_deg": -57.0423164
+        },
+        {
+          "ra_deg": 50.272479,
+          "dec_deg": -57.0514793
+        },
+        {
+          "ra_deg": 51.260394,
+          "dec_deg": -57.0607834
+        },
+        {
+          "ra_deg": 52.248409,
+          "dec_deg": -57.0702171
+        },
+        {
+          "ra_deg": 53.236816,
+          "dec_deg": -57.0797844
+        }
+      ]
+    },
+    {
+      "neighbor": "Reticulum",
+      "neighbor_abbreviation": "RET",
+      "points": [
+        {
+          "ra_deg": 53.236816,
+          "dec_deg": -57.0797844
+        },
+        {
+          "ra_deg": 53.247714,
+          "dec_deg": -56.7465019
+        },
+        {
+          "ra_deg": 53.279271,
+          "dec_deg": -55.7466583
+        },
+        {
+          "ra_deg": 53.309254,
+          "dec_deg": -54.7468033
+        },
+        {
+          "ra_deg": 53.337791,
+          "dec_deg": -53.7469406
+        },
+        {
+          "ra_deg": 53.365002,
+          "dec_deg": -52.7470779
+        }
+      ]
+    },
+    {
+      "neighbor": "Reticulum",
+      "neighbor_abbreviation": "RET",
+      "points": [
+        {
+          "ra_deg": 53.365002,
+          "dec_deg": -52.7470779
+        },
+        {
+          "ra_deg": 54.355374,
+          "dec_deg": -52.7567863
+        },
+        {
+          "ra_deg": 55.345819,
+          "dec_deg": -52.7666206
+        },
+        {
+          "ra_deg": 56.336632,
+          "dec_deg": -52.776577
+        },
+        {
+          "ra_deg": 57.327672,
+          "dec_deg": -52.7866554
+        },
+        {
+          "ra_deg": 58.318788,
+          "dec_deg": -52.7968445
+        }
+      ]
+    },
+    {
+      "neighbor": "Dorado",
+      "neighbor_abbreviation": "DOR",
+      "points": [
+        {
+          "ra_deg": 58.318788,
+          "dec_deg": -52.7968445
+        },
+        {
+          "ra_deg": 58.32348,
+          "dec_deg": -52.6301994
+        },
+        {
+          "ra_deg": 58.350916,
+          "dec_deg": -51.6303406
+        },
+        {
+          "ra_deg": 58.377166,
+          "dec_deg": -50.6304779
+        }
+      ]
+    },
+    {
+      "neighbor": "Dorado",
+      "neighbor_abbreviation": "DOR",
+      "points": [
+        {
+          "ra_deg": 58.377166,
+          "dec_deg": -50.6304779
+        },
+        {
+          "ra_deg": 59.121219,
+          "dec_deg": -50.6381989
+        },
+        {
+          "ra_deg": 60.113526,
+          "dec_deg": -50.6485939
+        },
+        {
+          "ra_deg": 61.106051,
+          "dec_deg": -50.6590958
+        },
+        {
+          "ra_deg": 62.098639,
+          "dec_deg": -50.6697006
+        }
+      ]
+    },
+    {
+      "neighbor": "Dorado",
+      "neighbor_abbreviation": "DOR",
+      "points": [
+        {
+          "ra_deg": 62.098639,
+          "dec_deg": -50.6697006
+        },
+        {
+          "ra_deg": 62.124802,
+          "dec_deg": -49.669838
+        },
+        {
+          "ra_deg": 62.149908,
+          "dec_deg": -48.6699715
+        }
+      ]
+    },
+    {
+      "neighbor": "Dorado",
+      "neighbor_abbreviation": "DOR",
+      "points": [
+        {
+          "ra_deg": 62.149908,
+          "dec_deg": -48.6699715
+        },
+        {
+          "ra_deg": 62.894947,
+          "dec_deg": -48.6779976
+        },
+        {
+          "ra_deg": 63.888559,
+          "dec_deg": -48.6887817
+        },
+        {
+          "ra_deg": 64.882386,
+          "dec_deg": -48.6996651
+        }
+      ]
+    },
+    {
+      "neighbor": "Caelum",
+      "neighbor_abbreviation": "CAE",
+      "points": [
+        {
+          "ra_deg": 64.882386,
+          "dec_deg": -48.6996651
+        },
+        {
+          "ra_deg": 64.907133,
+          "dec_deg": -47.6998024
+        },
+        {
+          "ra_deg": 64.930951,
+          "dec_deg": -46.6999321
+        },
+        {
+          "ra_deg": 64.953897,
+          "dec_deg": -45.700058
+        },
+        {
+          "ra_deg": 64.976041,
+          "dec_deg": -44.7001801
+        },
+        {
+          "ra_deg": 64.997427,
+          "dec_deg": -43.7002983
+        },
+        {
+          "ra_deg": 65.018119,
+          "dec_deg": -42.7004089
+        },
+        {
+          "ra_deg": 65.038154,
+          "dec_deg": -41.7005234
+        },
+        {
+          "ra_deg": 65.057574,
+          "dec_deg": -40.7006264
+        },
+        {
+          "ra_deg": 65.076412,
+          "dec_deg": -39.7007294
+        }
+      ]
+    },
+    {
+      "neighbor": "Eridanus",
+      "neighbor_abbreviation": "ERI",
+      "points": [
+        {
+          "ra_deg": 65.076412,
+          "dec_deg": -39.7007294
+        },
+        {
+          "ra_deg": 64.080899,
+          "dec_deg": -39.6898308
+        },
+        {
+          "ra_deg": 63.085534,
+          "dec_deg": -39.6790276
+        },
+        {
+          "ra_deg": 62.090471,
+          "dec_deg": -39.6683235
+        },
+        {
+          "ra_deg": 61.095414,
+          "dec_deg": -39.6577187
+        },
+        {
+          "ra_deg": 60.1005,
+          "dec_deg": -39.6472168
+        },
+        {
+          "ra_deg": 59.105884,
+          "dec_deg": -39.6368256
+        }
+      ]
+    },
+    {
+      "neighbor": "Eridanus",
+      "neighbor_abbreviation": "ERI",
+      "points": [
+        {
+          "ra_deg": 59.105884,
+          "dec_deg": -39.6368256
+        },
+        {
+          "ra_deg": 59.088102,
+          "dec_deg": -40.636734
+        },
+        {
+          "ra_deg": 59.069781,
+          "dec_deg": -41.6366425
+        },
+        {
+          "ra_deg": 59.050881,
+          "dec_deg": -42.6365395
+        },
+        {
+          "ra_deg": 59.031364,
+          "dec_deg": -43.6364403
+        }
+      ]
+    },
+    {
+      "neighbor": "Eridanus",
+      "neighbor_abbreviation": "ERI",
+      "points": [
+        {
+          "ra_deg": 59.031364,
+          "dec_deg": -43.6364403
+        },
+        {
+          "ra_deg": 58.286043,
+          "dec_deg": -43.6287231
+        },
+        {
+          "ra_deg": 57.292374,
+          "dec_deg": -43.6185379
+        },
+        {
+          "ra_deg": 56.298873,
+          "dec_deg": -43.6084633
+        },
+        {
+          "ra_deg": 55.305684,
+          "dec_deg": -43.5985146
+        },
+        {
+          "ra_deg": 54.312504,
+          "dec_deg": -43.5886841
+        },
+        {
+          "ra_deg": 53.319483,
+          "dec_deg": -43.5789795
+        },
+        {
+          "ra_deg": 52.326772,
+          "dec_deg": -43.5694046
+        }
+      ]
+    },
+    {
+      "neighbor": "Eridanus",
+      "neighbor_abbreviation": "ERI",
+      "points": [
+        {
+          "ra_deg": 52.326772,
+          "dec_deg": -43.5694046
+        },
+        {
+          "ra_deg": 52.308211,
+          "dec_deg": -44.5693169
+        },
+        {
+          "ra_deg": 52.289002,
+          "dec_deg": -45.5692215
+        }
+      ]
+    },
+    {
+      "neighbor": "Eridanus",
+      "neighbor_abbreviation": "ERI",
+      "points": [
+        {
+          "ra_deg": 52.289002,
+          "dec_deg": -45.5692215
+        },
+        {
+          "ra_deg": 52.040906,
+          "dec_deg": -45.5668488
+        },
+        {
+          "ra_deg": 51.048768,
+          "dec_deg": -45.5574417
+        },
+        {
+          "ra_deg": 50.056944,
+          "dec_deg": -45.5481682
+        },
+        {
+          "ra_deg": 49.065131,
+          "dec_deg": -45.539032
+        },
+        {
+          "ra_deg": 48.073471,
+          "dec_deg": -45.5300369
+        },
+        {
+          "ra_deg": 47.08212,
+          "dec_deg": -45.5211868
+        },
+        {
+          "ra_deg": 46.090771,
+          "dec_deg": -45.5124779
+        }
+      ]
+    },
+    {
+      "neighbor": "Eridanus",
+      "neighbor_abbreviation": "ERI",
+      "points": [
+        {
+          "ra_deg": 46.090771,
+          "dec_deg": -45.5124779
+        },
+        {
+          "ra_deg": 46.072711,
+          "dec_deg": -46.5124016
+        },
+        {
+          "ra_deg": 46.053976,
+          "dec_deg": -47.5123215
+        },
+        {
+          "ra_deg": 46.034514,
+          "dec_deg": -48.5122337
+        }
+      ]
+    },
+    {
+      "neighbor": "Eridanus",
+      "neighbor_abbreviation": "ERI",
+      "points": [
+        {
+          "ra_deg": 46.034514,
+          "dec_deg": -48.5122337
+        },
+        {
+          "ra_deg": 45.044292,
+          "dec_deg": -48.5036812
+        },
+        {
+          "ra_deg": 44.054385,
+          "dec_deg": -48.4952812
+        },
+        {
+          "ra_deg": 43.06449,
+          "dec_deg": -48.4870338
+        },
+        {
+          "ra_deg": 42.074746,
+          "dec_deg": -48.4789391
+        },
+        {
+          "ra_deg": 41.085309,
+          "dec_deg": -48.4710045
+        }
+      ]
+    },
+    {
+      "neighbor": "Eridanus",
+      "neighbor_abbreviation": "ERI",
+      "points": [
+        {
+          "ra_deg": 41.085309,
+          "dec_deg": -48.4710045
+        },
+        {
+          "ra_deg": 41.066884,
+          "dec_deg": -49.470932
+        },
+        {
+          "ra_deg": 41.047694,
+          "dec_deg": -50.4708595
+        }
+      ]
+    },
+    {
+      "neighbor": "Eridanus",
+      "neighbor_abbreviation": "ERI",
+      "points": [
+        {
+          "ra_deg": 41.047694,
+          "dec_deg": -50.4708595
+        },
+        {
+          "ra_deg": 40.306219,
+          "dec_deg": -50.4650154
+        },
+        {
+          "ra_deg": 39.317679,
+          "dec_deg": -50.4573669
+        },
+        {
+          "ra_deg": 38.329296,
+          "dec_deg": -50.4498863
+        },
+        {
+          "ra_deg": 37.34121,
+          "dec_deg": -50.4425697
+        }
+      ]
+    },
+    {
+      "neighbor": "Eridanus",
+      "neighbor_abbreviation": "ERI",
+      "points": [
+        {
+          "ra_deg": 37.34121,
+          "dec_deg": -50.4425697
+        },
+        {
+          "ra_deg": 37.322771,
+          "dec_deg": -51.4424973
+        },
+        {
+          "ra_deg": 37.303504,
+          "dec_deg": -52.4424286
+        },
+        {
+          "ra_deg": 37.283346,
+          "dec_deg": -53.4423561
+        }
+      ]
+    },
+    {
+      "neighbor": "Eridanus",
+      "neighbor_abbreviation": "ERI",
+      "points": [
+        {
+          "ra_deg": 37.283346,
+          "dec_deg": -53.4423561
+        },
+        {
+          "ra_deg": 36.543327,
+          "dec_deg": -53.436985
+        },
+        {
+          "ra_deg": 35.556726,
+          "dec_deg": -53.4299736
+        },
+        {
+          "ra_deg": 34.570284,
+          "dec_deg": -53.4231339
+        },
+        {
+          "ra_deg": 33.584144,
+          "dec_deg": -53.4164696
+        }
+      ]
+    }
+  ],
+  "sources": [
+    {
+      "label": "Stellarium Western sky culture",
+      "url": "https://raw.githubusercontent.com/Stellarium/stellarium-skycultures/014fbb5e59233d133c22f9811af96b67d05a95c9/western/index.json",
+      "path": "catalog-work/western-constellation-stars/stellarium-western-index.json",
+      "sha256": "a861accd345249a185a5ecfc2a516f34291c0aa52f4bb8d8337ffc53e9cef6b9"
+    },
+    {
+      "label": "Adopted star positions and names",
+      "url": "https://simbad.cds.unistra.fr/simbad/",
+      "path": "src/data/catalogs/western-constellation-stars/stars.csv",
+      "sha256": "0a8b7c1dc3f7e3412c5cffb09a18cdf5b5b7424cc89ea8a0a1ffb4da57d3ad6a"
+    },
+    {
+      "label": "Hipparcos Johnson V magnitudes",
+      "url": "https://cdsarc.cds.unistra.fr/viz-bin/cat/I/239",
+      "path": "catalog-work/western-constellation-stars/hipparcos-v.csv",
+      "sha256": "eec12b740da3aac5204ba75ca5158b6f9f2f81886dda2526fe765cf9ea159320"
+    },
+    {
+      "label": "CDS / IAU constellation boundaries (J2000)",
+      "url": "https://cdsarc.cds.unistra.fr/viz-bin/cat/VI/49",
+      "path": "catalog-work/constellation-charts/boundaries-j2000.dat.gz",
+      "sha256": "879cd6e7a1c908f1e19a5f5fe8cc75fb1d1077564e3890f9152a3680affe9aac",
+      "inputs": [
+        {
+          "path": "catalog-work/constellation-charts/boundary-contours-b1875.dat",
+          "sha256": "865cdf4218f676eb304587c75c63231948d29cd0abe6892a8a8130c1c4fe3592"
+        },
+        {
+          "path": "catalog-work/constellation-charts/boundary-contours-readme.txt",
+          "sha256": "a3ec688bea21e9db10832842c9b845558dbe8ccf820ddedec842d664d2b74c89"
+        }
+      ]
+    }
+  ]
+}

@@ -28,8 +28,50 @@ describe('component coverage shared by every catalog', () => {
     expect(completeCatalogCompanions(expanded)).toEqual(expanded)
     const secondary = expanded.find((star) => star.id !== parent.id)!
     expect(completeCatalogCompanions([secondary])[0]!.id).toBe(secondary.id)
-    expect(expanded[0]).toMatchObject({ mass_solar: null, luminosity_solar: null,
-      radius_solar: null, vx_kms: null, vy_kms: null, vz_kms: null })
+    expect(expanded[0]).toMatchObject({ vx_kms: null, vy_kms: null, vz_kms: null })
+  })
+
+  it('loads reviewed Dschubba properties from either catalog while retaining direct B selection', () => {
+    const fromBright = completeCatalogCompanions([bright.find((star) => star.id === 'bright-dschubba')!])
+    const fromWestern = completeCatalogCompanions([western.find((star) => star.id === 'hip-78401')!])
+    for (const expanded of [fromBright, fromWestern]) {
+      const a = expanded.find((star) => star.name === 'Dschubba A')!
+      const b = expanded.find((star) => star.name === 'Dschubba B')!
+      expect(a).toMatchObject({ spectral_type: 'B0.3IV', temperature_k: 29700,
+        mass_solar: 15.3, luminosity_solar: 28000, age_gyr: .0073 })
+      expect(a.radius_solar).toBeCloseTo(Math.sqrt(28000) / (29700 / 5772) ** 2, 7)
+      expect(b).toMatchObject({ spectral_type: 'B1-3V', mass_solar: 8.2,
+        temperature_k: null, luminosity_solar: null, radius_solar: null, age_gyr: null,
+        apparent_mag: null, absolute_mag: null, vx_kms: null, vy_kms: null, vz_kms: null })
+      expect(completeCatalogCompanions([b])[0]).toMatchObject({ id: b.id, mass_solar: 8.2 })
+    }
+    expect(mergeCatalogStars(fromBright, fromWestern)).toHaveLength(2)
+  })
+
+  it('uses individual eclipsing-binary values and preserves unresolved source gaps', () => {
+    const expanded = completeCatalogCompanions([bright.find((star) => star.id === 'bright-menkalinan')!])
+    expect(expanded.map((star) => star.mass_solar)).toEqual([2.376, 2.291])
+    expect(expanded.map((star) => star.radius_solar)).toEqual([2.762, 2.568])
+    expect(expanded.map((star) => star.temperature_k)).toEqual([9350, 9200])
+    expect(expanded.map((star) => star.apparent_mag)).toEqual([2.602, 2.705])
+    const unreviewed = completeCatalogCompanions([western.find((star) => star.id === 'hip-61941')!])
+    expect(unreviewed[0]).toMatchObject({ mass_solar: null, luminosity_solar: null, radius_solar: null })
+  })
+
+  it('keeps the per-component gap audit synchronized with the generated pool', () => {
+    const pool = JSON.parse(readFileSync(new URL('./data/stellar-companions.json', import.meta.url), 'utf8')) as { stars: typeof bright }
+    const audit = JSON.parse(readFileSync(new URL('../catalog-work/star-systems/catalog-companions-audit.json', import.meta.url), 'utf8')) as {
+      propertyCoverage: { fields: (keyof typeof bright[number])[]; available: Record<string, number>;
+        withoutProperties: string[]; missingByComponent: Record<string, string[]> }
+    }
+    for (const field of audit.propertyCoverage.fields) {
+      expect(audit.propertyCoverage.available[field]).toBe(pool.stars.filter((star) => star[field] !== null).length)
+    }
+    for (const star of pool.stars) {
+      const missing = audit.propertyCoverage.fields.filter((field) => star[field] === null)
+      expect(audit.propertyCoverage.missingByComponent[star.id] ?? []).toEqual(missing)
+      expect(audit.propertyCoverage.withoutProperties.includes(star.id)).toBe(missing.length === audit.propertyCoverage.fields.length)
+    }
   })
 
   it('closes over every newly authored detected pair in the source coverage audit', () => {

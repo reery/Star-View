@@ -1,0 +1,1824 @@
+{
+  "schemaVersion": 1,
+  "abbreviation": "Oct",
+  "name": "Octans",
+  "center": {
+    "ra_deg": 314.49186167780186,
+    "dec_deg": -83.57817434669346
+  },
+  "stars": [
+    {
+      "hip": 70638,
+      "name": "Delta Oct",
+      "ra_deg": 216.73013379233663,
+      "dec_deg": -83.6678847301364,
+      "magnitude_v": 4.31,
+      "bayer": "δ",
+      "object": {
+        "x_pc": 49.843261117,
+        "y_pc": -69.420724616,
+        "z_pc": -33.339834655,
+        "vx_kms": -28.479195,
+        "vy_kms": -30.470648,
+        "vz_kms": 8.213058,
+        "temperature_k": 4470.0,
+        "mass_solar": null,
+        "luminosity_solar": 248.89155233318502,
+        "radius_solar": 26.305265,
+        "metallicity_dex": -0.29,
+        "age_gyr": null,
+        "absolute_mag": -0.508652,
+        "epoch": 2000.0,
+        "type": "star",
+        "id": "hip-70638",
+        "name": "Delta Oct",
+        "constellation": "Octans",
+        "spectral_type": "K2III",
+        "metallicity_kind": "[Fe/H]",
+        "notes": "Western constellation line-figure star (HIP 70638; Stellarium Oct). SIMBAD identity * del Oct; SIMBAD compiled Johnson V=4.304; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, luminosity_solar; Stefan-Boltzmann scaling for radius_solar. Shared exact-identity physical supplements (metallicity_dex: 2022A&A...663A...4S).",
+        "designations": [
+          "HIP 70638"
+        ],
+        "raw_astrometry": {
+          "ra_deg": 216.73013379233663,
+          "dec_deg": -83.6678847301364,
+          "parallax_mas": 10.8706,
+          "parallax_error_mas": 0.1131,
+          "pm_ra_cosdec_masyr": -96.184,
+          "pm_ra_error_masyr": null,
+          "pm_dec_masyr": -13.862,
+          "pm_dec_error_masyr": null,
+          "radial_velocity_kms": 4.6,
+          "radial_velocity_error_kms": null,
+          "epoch": 2000.0,
+          "astrometry_ref": "SIMBAD TAP snapshot 2026-10-01",
+          "radial_velocity_ref": "SIMBAD TAP snapshot 2026-10-01"
+        }
+      }
+    },
+    {
+      "hip": 107089,
+      "name": "Nu Oct",
+      "ra_deg": 325.3689251479717,
+      "dec_deg": -77.39000876162,
+      "magnitude_v": 3.73,
+      "bayer": "ν",
+      "object": {
+        "x_pc": 11.077271856,
+        "y_pc": -11.355761667,
+        "z_pc": -11.186034505,
+        "vx_kms": 7.192775,
+        "vy_kms": -39.219928,
+        "vz_kms": -12.756056,
+        "temperature_k": 4786.0,
+        "mass_solar": null,
+        "luminosity_solar": null,
+        "radius_solar": null,
+        "metallicity_dex": 0.124,
+        "age_gyr": null,
+        "absolute_mag": 2.287761,
+        "epoch": 2000.0,
+        "type": "star",
+        "id": "hip-107089",
+        "name": "Nu Oct",
+        "constellation": "Octans",
+        "spectral_type": "K1III",
+        "metallicity_kind": "[Fe/H]",
+        "notes": "Western constellation line-figure star (HIP 107089; Stellarium Oct). SIMBAD identity * nu. Oct; SIMBAD compiled Johnson V=3.728; inverse SIMBAD compiled parallax distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k. Shared exact-identity physical supplements (metallicity_dex: 2024A&A...691A..53S).",
+        "designations": [
+          "HIP 107089"
+        ],
+        "raw_astrometry": {
+          "ra_deg": 325.3689251479717,
+          "dec_deg": -77.39000876162,
+          "parallax_mas": 51.5172,
+          "parallax_error_mas": 0.6525,
+          "pm_ra_cosdec_masyr": 68.656,
+          "pm_ra_error_masyr": null,
+          "pm_dec_masyr": -250.044,
+          "pm_dec_error_masyr": null,
+          "radial_velocity_kms": 34.4,
+          "radial_velocity_error_kms": null,
+          "epoch": 2000.0,
+          "astrometry_ref": "SIMBAD TAP snapshot 2026-10-01",
+          "radial_velocity_ref": "SIMBAD TAP snapshot 2026-10-01"
+        }
+      }
+    },
+    {
+      "hip": 112405,
+      "name": "Beta Oct",
+      "ra_deg": 341.51462908375,
+      "dec_deg": -81.38161444027777,
+      "magnitude_v": 4.13,
+      "bayer": "β",
+      "object": {
+        "x_pc": 23.435792284,
+        "y_pc": -29.619645823,
+        "z_pc": -25.846102552,
+        "vx_kms": 19.765686,
+        "vy_kms": -8.981387,
+        "vz_kms": -5.428873,
+        "temperature_k": 7586.0,
+        "mass_solar": 1.94,
+        "luminosity_solar": 34.70482878789012,
+        "radius_solar": 3.2359365692962827,
+        "metallicity_dex": null,
+        "age_gyr": null,
+        "absolute_mag": 0.825257,
+        "epoch": 2000.0,
+        "type": "star",
+        "id": "hip-112405",
+        "name": "Beta Oct",
+        "constellation": "Octans",
+        "spectral_type": "A9IV/V",
+        "metallicity_kind": null,
+        "notes": "Western constellation line-figure star (HIP 112405; Stellarium Oct). SIMBAD identity * bet Oct; SIMBAD compiled Johnson V=4.128; inverse SIMBAD compiled parallax distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, mass_solar, radius_solar, luminosity_solar.",
+        "designations": [
+          "HIP 112405"
+        ],
+        "raw_astrometry": {
+          "ra_deg": 341.51462908375,
+          "dec_deg": -81.38161444027777,
+          "parallax_mas": 21.85,
+          "parallax_error_mas": 0.43,
+          "pm_ra_cosdec_masyr": -54.49,
+          "pm_ra_error_masyr": null,
+          "pm_dec_masyr": 1.16,
+          "pm_dec_error_masyr": null,
+          "radial_velocity_kms": 19.0,
+          "radial_velocity_error_kms": null,
+          "epoch": 2000.0,
+          "astrometry_ref": "SIMBAD TAP snapshot 2026-10-01",
+          "radial_velocity_ref": "SIMBAD TAP snapshot 2026-10-01"
+        }
+      }
+    }
+  ],
+  "lines": [
+    [
+      107089,
+      112405
+    ],
+    [
+      112405,
+      70638
+    ],
+    [
+      70638,
+      107089
+    ]
+  ],
+  "boundaries": [
+    {
+      "neighbor": "Mensa",
+      "neighbor_abbreviation": "MEN",
+      "points": [
+        {
+          "ra_deg": 109.019709,
+          "dec_deg": -85.261444
+        },
+        {
+          "ra_deg": 108.497071,
+          "dec_deg": -85.255669
+        },
+        {
+          "ra_deg": 107.454071,
+          "dec_deg": -85.244057
+        },
+        {
+          "ra_deg": 106.413567,
+          "dec_deg": -85.232391
+        },
+        {
+          "ra_deg": 105.375709,
+          "dec_deg": -85.220657
+        },
+        {
+          "ra_deg": 104.340634,
+          "dec_deg": -85.208878
+        },
+        {
+          "ra_deg": 103.308034,
+          "dec_deg": -85.197037
+        },
+        {
+          "ra_deg": 102.278052,
+          "dec_deg": -85.18515
+        },
+        {
+          "ra_deg": 101.250829,
+          "dec_deg": -85.173225
+        },
+        {
+          "ra_deg": 100.226054,
+          "dec_deg": -85.161263
+        },
+        {
+          "ra_deg": 99.203868,
+          "dec_deg": -85.149261
+        },
+        {
+          "ra_deg": 98.184406,
+          "dec_deg": -85.137222
+        },
+        {
+          "ra_deg": 97.167356,
+          "dec_deg": -85.12516
+        },
+        {
+          "ra_deg": 96.152859,
+          "dec_deg": -85.113075
+        },
+        {
+          "ra_deg": 95.141037,
+          "dec_deg": -85.100975
+        },
+        {
+          "ra_deg": 94.131596,
+          "dec_deg": -85.088852
+        },
+        {
+          "ra_deg": 93.124651,
+          "dec_deg": -85.076714
+        },
+        {
+          "ra_deg": 92.120347,
+          "dec_deg": -85.064575
+        },
+        {
+          "ra_deg": 91.118367,
+          "dec_deg": -85.052429
+        },
+        {
+          "ra_deg": 90.118833,
+          "dec_deg": -85.040276
+        },
+        {
+          "ra_deg": 89.121888,
+          "dec_deg": -85.02813
+        },
+        {
+          "ra_deg": 88.127204,
+          "dec_deg": -85.015991
+        },
+        {
+          "ra_deg": 87.134922,
+          "dec_deg": -85.003861
+        },
+        {
+          "ra_deg": 86.145165,
+          "dec_deg": -84.991745
+        },
+        {
+          "ra_deg": 85.157619,
+          "dec_deg": -84.979645
+        },
+        {
+          "ra_deg": 84.172411,
+          "dec_deg": -84.967567
+        },
+        {
+          "ra_deg": 83.189664,
+          "dec_deg": -84.955513
+        },
+        {
+          "ra_deg": 82.209056,
+          "dec_deg": -84.943481
+        },
+        {
+          "ra_deg": 81.230721,
+          "dec_deg": -84.931488
+        },
+        {
+          "ra_deg": 80.254791,
+          "dec_deg": -84.919525
+        },
+        {
+          "ra_deg": 79.280934,
+          "dec_deg": -84.9076
+        },
+        {
+          "ra_deg": 78.309288,
+          "dec_deg": -84.895714
+        },
+        {
+          "ra_deg": 77.339959,
+          "dec_deg": -84.883881
+        },
+        {
+          "ra_deg": 76.372647,
+          "dec_deg": -84.872086
+        },
+        {
+          "ra_deg": 75.407467,
+          "dec_deg": -84.860344
+        },
+        {
+          "ra_deg": 74.444539,
+          "dec_deg": -84.848663
+        },
+        {
+          "ra_deg": 73.483557,
+          "dec_deg": -84.837036
+        },
+        {
+          "ra_deg": 72.524628,
+          "dec_deg": -84.825462
+        },
+        {
+          "ra_deg": 71.567889,
+          "dec_deg": -84.813965
+        },
+        {
+          "ra_deg": 70.613001,
+          "dec_deg": -84.802528
+        },
+        {
+          "ra_deg": 69.660108,
+          "dec_deg": -84.791161
+        },
+        {
+          "ra_deg": 68.709318,
+          "dec_deg": -84.779861
+        },
+        {
+          "ra_deg": 67.760317,
+          "dec_deg": -84.768646
+        },
+        {
+          "ra_deg": 66.813225,
+          "dec_deg": -84.757507
+        },
+        {
+          "ra_deg": 65.868165,
+          "dec_deg": -84.746445
+        },
+        {
+          "ra_deg": 64.924807,
+          "dec_deg": -84.735474
+        },
+        {
+          "ra_deg": 63.983287,
+          "dec_deg": -84.724587
+        },
+        {
+          "ra_deg": 63.043713,
+          "dec_deg": -84.713791
+        },
+        {
+          "ra_deg": 62.105778,
+          "dec_deg": -84.703087
+        },
+        {
+          "ra_deg": 61.169594,
+          "dec_deg": -84.692474
+        },
+        {
+          "ra_deg": 60.235284,
+          "dec_deg": -84.681969
+        },
+        {
+          "ra_deg": 59.302518,
+          "dec_deg": -84.671555
+        },
+        {
+          "ra_deg": 58.371434,
+          "dec_deg": -84.661247
+        },
+        {
+          "ra_deg": 57.442139,
+          "dec_deg": -84.651047
+        },
+        {
+          "ra_deg": 56.514322,
+          "dec_deg": -84.640953
+        },
+        {
+          "ra_deg": 55.588102,
+          "dec_deg": -84.630974
+        },
+        {
+          "ra_deg": 54.663584,
+          "dec_deg": -84.621101
+        },
+        {
+          "ra_deg": 53.740471,
+          "dec_deg": -84.611351
+        },
+        {
+          "ra_deg": 52.818864,
+          "dec_deg": -84.601715
+        },
+        {
+          "ra_deg": 51.898891,
+          "dec_deg": -84.592201
+        },
+        {
+          "ra_deg": 50.980239,
+          "dec_deg": -84.582802
+        },
+        {
+          "ra_deg": 50.063024,
+          "dec_deg": -84.573532
+        },
+        {
+          "ra_deg": 49.147346,
+          "dec_deg": -84.564392
+        },
+        {
+          "ra_deg": 48.23292,
+          "dec_deg": -84.555382
+        }
+      ]
+    },
+    {
+      "neighbor": "Mensa",
+      "neighbor_abbreviation": "MEN",
+      "points": [
+        {
+          "ra_deg": 48.23292,
+          "dec_deg": -84.555382
+        },
+        {
+          "ra_deg": 48.728742,
+          "dec_deg": -84.057808
+        },
+        {
+          "ra_deg": 49.507617,
+          "dec_deg": -83.061607
+        },
+        {
+          "ra_deg": 50.091656,
+          "dec_deg": -82.064453
+        }
+      ]
+    },
+    {
+      "neighbor": "Hydrus",
+      "neighbor_abbreviation": "HYI",
+      "points": [
+        {
+          "ra_deg": 50.091656,
+          "dec_deg": -82.064453
+        },
+        {
+          "ra_deg": 49.620288,
+          "dec_deg": -82.059868
+        },
+        {
+          "ra_deg": 48.678171,
+          "dec_deg": -82.050789
+        },
+        {
+          "ra_deg": 47.737044,
+          "dec_deg": -82.04184
+        },
+        {
+          "ra_deg": 46.797037,
+          "dec_deg": -82.033035
+        },
+        {
+          "ra_deg": 45.857849,
+          "dec_deg": -82.024368
+        },
+        {
+          "ra_deg": 44.919591,
+          "dec_deg": -82.015839
+        },
+        {
+          "ra_deg": 43.982401,
+          "dec_deg": -82.007454
+        },
+        {
+          "ra_deg": 43.045971,
+          "dec_deg": -81.999214
+        },
+        {
+          "ra_deg": 42.110421,
+          "dec_deg": -81.991119
+        },
+        {
+          "ra_deg": 41.175877,
+          "dec_deg": -81.98317
+        },
+        {
+          "ra_deg": 40.242041,
+          "dec_deg": -81.97538
+        },
+        {
+          "ra_deg": 39.309029,
+          "dec_deg": -81.967735
+        },
+        {
+          "ra_deg": 38.376964,
+          "dec_deg": -81.960251
+        },
+        {
+          "ra_deg": 37.445554,
+          "dec_deg": -81.952919
+        },
+        {
+          "ra_deg": 36.514906,
+          "dec_deg": -81.945747
+        },
+        {
+          "ra_deg": 35.585157,
+          "dec_deg": -81.938736
+        },
+        {
+          "ra_deg": 34.656,
+          "dec_deg": -81.931885
+        },
+        {
+          "ra_deg": 33.727551,
+          "dec_deg": -81.925201
+        },
+        {
+          "ra_deg": 32.799941,
+          "dec_deg": -81.918678
+        },
+        {
+          "ra_deg": 31.872866,
+          "dec_deg": -81.912323
+        },
+        {
+          "ra_deg": 30.946444,
+          "dec_deg": -81.906136
+        },
+        {
+          "ra_deg": 30.020804,
+          "dec_deg": -81.900124
+        },
+        {
+          "ra_deg": 29.095638,
+          "dec_deg": -81.894279
+        },
+        {
+          "ra_deg": 28.171069,
+          "dec_deg": -81.888603
+        },
+        {
+          "ra_deg": 27.247222,
+          "dec_deg": -81.88311
+        },
+        {
+          "ra_deg": 26.323797,
+          "dec_deg": -81.877785
+        },
+        {
+          "ra_deg": 25.400911,
+          "dec_deg": -81.872635
+        },
+        {
+          "ra_deg": 24.478683,
+          "dec_deg": -81.867668
+        },
+        {
+          "ra_deg": 23.556822,
+          "dec_deg": -81.862885
+        },
+        {
+          "ra_deg": 22.635442,
+          "dec_deg": -81.858269
+        },
+        {
+          "ra_deg": 21.714666,
+          "dec_deg": -81.853844
+        },
+        {
+          "ra_deg": 20.794194,
+          "dec_deg": -81.849602
+        },
+        {
+          "ra_deg": 19.874146,
+          "dec_deg": -81.845535
+        },
+        {
+          "ra_deg": 18.954642,
+          "dec_deg": -81.84166
+        },
+        {
+          "ra_deg": 18.035386,
+          "dec_deg": -81.837967
+        },
+        {
+          "ra_deg": 17.116496,
+          "dec_deg": -81.834457
+        },
+        {
+          "ra_deg": 16.198091,
+          "dec_deg": -81.831139
+        },
+        {
+          "ra_deg": 15.279876,
+          "dec_deg": -81.828011
+        },
+        {
+          "ra_deg": 14.361969,
+          "dec_deg": -81.825066
+        },
+        {
+          "ra_deg": 13.444488,
+          "dec_deg": -81.822311
+        },
+        {
+          "ra_deg": 12.527139,
+          "dec_deg": -81.819748
+        },
+        {
+          "ra_deg": 11.610039,
+          "dec_deg": -81.817375
+        },
+        {
+          "ra_deg": 10.693305,
+          "dec_deg": -81.815193
+        },
+        {
+          "ra_deg": 9.776647,
+          "dec_deg": -81.813202
+        },
+        {
+          "ra_deg": 8.860179,
+          "dec_deg": -81.811401
+        },
+        {
+          "ra_deg": 7.944021,
+          "dec_deg": -81.809792
+        },
+        {
+          "ra_deg": 7.027876,
+          "dec_deg": -81.80838
+        },
+        {
+          "ra_deg": 6.111866,
+          "dec_deg": -81.807159
+        },
+        {
+          "ra_deg": 5.196105,
+          "dec_deg": -81.806129
+        },
+        {
+          "ra_deg": 4.280301,
+          "dec_deg": -81.805298
+        },
+        {
+          "ra_deg": 3.364571,
+          "dec_deg": -81.804657
+        },
+        {
+          "ra_deg": 2.449032,
+          "dec_deg": -81.804207
+        },
+        {
+          "ra_deg": 1.533391,
+          "dec_deg": -81.803955
+        }
+      ]
+    },
+    {
+      "neighbor": "Hydrus",
+      "neighbor_abbreviation": "HYI",
+      "points": [
+        {
+          "ra_deg": 1.533391,
+          "dec_deg": -81.803955
+        },
+        {
+          "ra_deg": 1.566306,
+          "dec_deg": -74.303963
+        }
+      ]
+    },
+    {
+      "neighbor": "Tucana",
+      "neighbor_abbreviation": "TUC",
+      "points": [
+        {
+          "ra_deg": 1.566306,
+          "dec_deg": -74.303963
+        },
+        {
+          "ra_deg": 0.609564,
+          "dec_deg": -74.303902
+        },
+        {
+          "ra_deg": 359.652959,
+          "dec_deg": -74.304039
+        },
+        {
+          "ra_deg": 358.696203,
+          "dec_deg": -74.304382
+        },
+        {
+          "ra_deg": 357.739421,
+          "dec_deg": -74.304932
+        },
+        {
+          "ra_deg": 356.782722,
+          "dec_deg": -74.305679
+        },
+        {
+          "ra_deg": 355.825854,
+          "dec_deg": -74.306633
+        },
+        {
+          "ra_deg": 354.868927,
+          "dec_deg": -74.307793
+        },
+        {
+          "ra_deg": 353.912086,
+          "dec_deg": -74.309143
+        },
+        {
+          "ra_deg": 352.955017,
+          "dec_deg": -74.310707
+        },
+        {
+          "ra_deg": 351.997833,
+          "dec_deg": -74.312462
+        }
+      ]
+    },
+    {
+      "neighbor": "Indus",
+      "neighbor_abbreviation": "IND",
+      "points": [
+        {
+          "ra_deg": 351.997833,
+          "dec_deg": -74.312462
+        },
+        {
+          "ra_deg": 351.040679,
+          "dec_deg": -74.314423
+        },
+        {
+          "ra_deg": 350.083294,
+          "dec_deg": -74.316582
+        },
+        {
+          "ra_deg": 349.125766,
+          "dec_deg": -74.318939
+        },
+        {
+          "ra_deg": 348.168269,
+          "dec_deg": -74.321495
+        },
+        {
+          "ra_deg": 347.210456,
+          "dec_deg": -74.324257
+        },
+        {
+          "ra_deg": 346.252441,
+          "dec_deg": -74.327209
+        },
+        {
+          "ra_deg": 345.294456,
+          "dec_deg": -74.33036
+        },
+        {
+          "ra_deg": 344.3361,
+          "dec_deg": -74.333702
+        },
+        {
+          "ra_deg": 343.377571,
+          "dec_deg": -74.337242
+        },
+        {
+          "ra_deg": 342.418986,
+          "dec_deg": -74.340981
+        },
+        {
+          "ra_deg": 341.460027,
+          "dec_deg": -74.34491
+        },
+        {
+          "ra_deg": 340.500841,
+          "dec_deg": -74.349022
+        },
+        {
+          "ra_deg": 339.541569,
+          "dec_deg": -74.353332
+        },
+        {
+          "ra_deg": 338.581896,
+          "dec_deg": -74.357834
+        },
+        {
+          "ra_deg": 337.621965,
+          "dec_deg": -74.362526
+        },
+        {
+          "ra_deg": 336.661863,
+          "dec_deg": -74.367401
+        },
+        {
+          "ra_deg": 335.701389,
+          "dec_deg": -74.372459
+        },
+        {
+          "ra_deg": 334.7406,
+          "dec_deg": -74.377708
+        },
+        {
+          "ra_deg": 333.779611,
+          "dec_deg": -74.383133
+        },
+        {
+          "ra_deg": 332.818194,
+          "dec_deg": -74.38874
+        },
+        {
+          "ra_deg": 331.85646,
+          "dec_deg": -74.394531
+        },
+        {
+          "ra_deg": 330.894528,
+          "dec_deg": -74.400505
+        },
+        {
+          "ra_deg": 329.932109,
+          "dec_deg": -74.406647
+        },
+        {
+          "ra_deg": 328.969317,
+          "dec_deg": -74.412971
+        },
+        {
+          "ra_deg": 328.006296,
+          "dec_deg": -74.419464
+        },
+        {
+          "ra_deg": 327.042761,
+          "dec_deg": -74.426125
+        },
+        {
+          "ra_deg": 326.078824,
+          "dec_deg": -74.43296
+        },
+        {
+          "ra_deg": 325.114661,
+          "dec_deg": -74.439964
+        },
+        {
+          "ra_deg": 324.149895,
+          "dec_deg": -74.447136
+        },
+        {
+          "ra_deg": 323.184757,
+          "dec_deg": -74.454468
+        }
+      ]
+    },
+    {
+      "neighbor": "Pavo",
+      "neighbor_abbreviation": "PAV",
+      "points": [
+        {
+          "ra_deg": 323.184757,
+          "dec_deg": -74.454468
+        },
+        {
+          "ra_deg": 322.219276,
+          "dec_deg": -74.461968
+        },
+        {
+          "ra_deg": 321.253252,
+          "dec_deg": -74.46962
+        },
+        {
+          "ra_deg": 320.286741,
+          "dec_deg": -74.47744
+        },
+        {
+          "ra_deg": 319.319944,
+          "dec_deg": -74.485405
+        },
+        {
+          "ra_deg": 318.352518,
+          "dec_deg": -74.49353
+        },
+        {
+          "ra_deg": 317.384606,
+          "dec_deg": -74.501808
+        },
+        {
+          "ra_deg": 316.416378,
+          "dec_deg": -74.510231
+        },
+        {
+          "ra_deg": 315.447464,
+          "dec_deg": -74.518799
+        },
+        {
+          "ra_deg": 314.478063,
+          "dec_deg": -74.527519
+        },
+        {
+          "ra_deg": 313.508262,
+          "dec_deg": -74.536369
+        },
+        {
+          "ra_deg": 312.537832,
+          "dec_deg": -74.545372
+        },
+        {
+          "ra_deg": 311.56683,
+          "dec_deg": -74.554504
+        },
+        {
+          "ra_deg": 310.595427,
+          "dec_deg": -74.563774
+        },
+        {
+          "ra_deg": 309.623337,
+          "dec_deg": -74.573173
+        },
+        {
+          "ra_deg": 308.650676,
+          "dec_deg": -74.582703
+        },
+        {
+          "ra_deg": 307.677612,
+          "dec_deg": -74.592354
+        },
+        {
+          "ra_deg": 306.703806,
+          "dec_deg": -74.602135
+        },
+        {
+          "ra_deg": 305.729399,
+          "dec_deg": -74.612038
+        },
+        {
+          "ra_deg": 304.754534,
+          "dec_deg": -74.622055
+        },
+        {
+          "ra_deg": 303.778924,
+          "dec_deg": -74.632194
+        },
+        {
+          "ra_deg": 302.802687,
+          "dec_deg": -74.642441
+        },
+        {
+          "ra_deg": 301.826019,
+          "dec_deg": -74.652794
+        },
+        {
+          "ra_deg": 300.848521,
+          "dec_deg": -74.663261
+        },
+        {
+          "ra_deg": 299.870424,
+          "dec_deg": -74.673828
+        },
+        {
+          "ra_deg": 298.891784,
+          "dec_deg": -74.684494
+        },
+        {
+          "ra_deg": 297.912369,
+          "dec_deg": -74.695259
+        },
+        {
+          "ra_deg": 296.932297,
+          "dec_deg": -74.706123
+        },
+        {
+          "ra_deg": 295.95171,
+          "dec_deg": -74.717072
+        },
+        {
+          "ra_deg": 294.970293,
+          "dec_deg": -74.728119
+        },
+        {
+          "ra_deg": 293.988189,
+          "dec_deg": -74.739243
+        },
+        {
+          "ra_deg": 293.005572,
+          "dec_deg": -74.75045
+        },
+        {
+          "ra_deg": 292.022066,
+          "dec_deg": -74.761734
+        },
+        {
+          "ra_deg": 291.037904,
+          "dec_deg": -74.773102
+        },
+        {
+          "ra_deg": 290.053139,
+          "dec_deg": -74.784531
+        },
+        {
+          "ra_deg": 289.067546,
+          "dec_deg": -74.796036
+        },
+        {
+          "ra_deg": 288.081207,
+          "dec_deg": -74.80761
+        },
+        {
+          "ra_deg": 287.094326,
+          "dec_deg": -74.819237
+        },
+        {
+          "ra_deg": 286.106529,
+          "dec_deg": -74.830925
+        },
+        {
+          "ra_deg": 285.118017,
+          "dec_deg": -74.842674
+        },
+        {
+          "ra_deg": 284.128905,
+          "dec_deg": -74.854469
+        },
+        {
+          "ra_deg": 283.138905,
+          "dec_deg": -74.866318
+        },
+        {
+          "ra_deg": 282.148161,
+          "dec_deg": -74.878204
+        },
+        {
+          "ra_deg": 281.156789,
+          "dec_deg": -74.890137
+        },
+        {
+          "ra_deg": 280.164528,
+          "dec_deg": -74.902107
+        },
+        {
+          "ra_deg": 279.171495,
+          "dec_deg": -74.914108
+        },
+        {
+          "ra_deg": 278.177862,
+          "dec_deg": -74.926147
+        },
+        {
+          "ra_deg": 277.183286,
+          "dec_deg": -74.938202
+        },
+        {
+          "ra_deg": 276.187935,
+          "dec_deg": -74.950294
+        },
+        {
+          "ra_deg": 275.191956,
+          "dec_deg": -74.962395
+        },
+        {
+          "ra_deg": 274.195061,
+          "dec_deg": -74.974518
+        }
+      ]
+    },
+    {
+      "neighbor": "Apus",
+      "neighbor_abbreviation": "APS",
+      "points": [
+        {
+          "ra_deg": 274.195061,
+          "dec_deg": -74.974518
+        },
+        {
+          "ra_deg": 274.288473,
+          "dec_deg": -75.473953
+        },
+        {
+          "ra_deg": 274.495497,
+          "dec_deg": -76.472687
+        },
+        {
+          "ra_deg": 274.734907,
+          "dec_deg": -77.471237
+        },
+        {
+          "ra_deg": 275.015029,
+          "dec_deg": -78.469536
+        },
+        {
+          "ra_deg": 275.347481,
+          "dec_deg": -79.467514
+        },
+        {
+          "ra_deg": 275.748654,
+          "dec_deg": -80.465073
+        },
+        {
+          "ra_deg": 276.242609,
+          "dec_deg": -81.462067
+        },
+        {
+          "ra_deg": 276.865998,
+          "dec_deg": -82.458275
+        }
+      ]
+    },
+    {
+      "neighbor": "Apus",
+      "neighbor_abbreviation": "APS",
+      "points": [
+        {
+          "ra_deg": 276.865998,
+          "dec_deg": -82.458275
+        },
+        {
+          "ra_deg": 275.874939,
+          "dec_deg": -82.47036
+        },
+        {
+          "ra_deg": 274.882451,
+          "dec_deg": -82.482475
+        },
+        {
+          "ra_deg": 273.888244,
+          "dec_deg": -82.494598
+        },
+        {
+          "ra_deg": 272.892436,
+          "dec_deg": -82.506737
+        },
+        {
+          "ra_deg": 271.895199,
+          "dec_deg": -82.518875
+        },
+        {
+          "ra_deg": 270.896187,
+          "dec_deg": -82.531029
+        },
+        {
+          "ra_deg": 269.895544,
+          "dec_deg": -82.543175
+        },
+        {
+          "ra_deg": 268.893414,
+          "dec_deg": -82.555321
+        },
+        {
+          "ra_deg": 267.889537,
+          "dec_deg": -82.567459
+        },
+        {
+          "ra_deg": 266.884002,
+          "dec_deg": -82.57959
+        },
+        {
+          "ra_deg": 265.877009,
+          "dec_deg": -82.591698
+        },
+        {
+          "ra_deg": 264.868155,
+          "dec_deg": -82.60379
+        },
+        {
+          "ra_deg": 263.857669,
+          "dec_deg": -82.615868
+        },
+        {
+          "ra_deg": 262.845697,
+          "dec_deg": -82.627914
+        },
+        {
+          "ra_deg": 261.831894,
+          "dec_deg": -82.639931
+        },
+        {
+          "ra_deg": 260.816431,
+          "dec_deg": -82.651909
+        },
+        {
+          "ra_deg": 259.799422,
+          "dec_deg": -82.663856
+        },
+        {
+          "ra_deg": 258.780585,
+          "dec_deg": -82.675758
+        },
+        {
+          "ra_deg": 257.760086,
+          "dec_deg": -82.687622
+        },
+        {
+          "ra_deg": 256.738099,
+          "dec_deg": -82.699432
+        },
+        {
+          "ra_deg": 255.714226,
+          "dec_deg": -82.711189
+        },
+        {
+          "ra_deg": 254.688691,
+          "dec_deg": -82.722893
+        },
+        {
+          "ra_deg": 253.661613,
+          "dec_deg": -82.734528
+        },
+        {
+          "ra_deg": 252.632704,
+          "dec_deg": -82.746109
+        },
+        {
+          "ra_deg": 251.602134,
+          "dec_deg": -82.757614
+        },
+        {
+          "ra_deg": 250.57002,
+          "dec_deg": -82.769051
+        },
+        {
+          "ra_deg": 249.536104,
+          "dec_deg": -82.780418
+        },
+        {
+          "ra_deg": 248.5005,
+          "dec_deg": -82.791695
+        },
+        {
+          "ra_deg": 247.463407,
+          "dec_deg": -82.802895
+        },
+        {
+          "ra_deg": 246.424514,
+          "dec_deg": -82.814003
+        },
+        {
+          "ra_deg": 245.383931,
+          "dec_deg": -82.825028
+        },
+        {
+          "ra_deg": 244.341859,
+          "dec_deg": -82.835953
+        },
+        {
+          "ra_deg": 243.297987,
+          "dec_deg": -82.846779
+        },
+        {
+          "ra_deg": 242.252484,
+          "dec_deg": -82.857498
+        },
+        {
+          "ra_deg": 241.205549,
+          "dec_deg": -82.868118
+        },
+        {
+          "ra_deg": 240.156813,
+          "dec_deg": -82.878624
+        },
+        {
+          "ra_deg": 239.106431,
+          "dec_deg": -82.889023
+        },
+        {
+          "ra_deg": 238.054662,
+          "dec_deg": -82.8993
+        },
+        {
+          "ra_deg": 237.001147,
+          "dec_deg": -82.909454
+        },
+        {
+          "ra_deg": 235.946044,
+          "dec_deg": -82.919495
+        },
+        {
+          "ra_deg": 234.889556,
+          "dec_deg": -82.929398
+        },
+        {
+          "ra_deg": 233.831362,
+          "dec_deg": -82.939171
+        },
+        {
+          "ra_deg": 232.771611,
+          "dec_deg": -82.948807
+        },
+        {
+          "ra_deg": 231.710529,
+          "dec_deg": -82.958305
+        },
+        {
+          "ra_deg": 230.647788,
+          "dec_deg": -82.967667
+        },
+        {
+          "ra_deg": 229.583574,
+          "dec_deg": -82.976875
+        },
+        {
+          "ra_deg": 228.518043,
+          "dec_deg": -82.985939
+        },
+        {
+          "ra_deg": 227.45091,
+          "dec_deg": -82.99485
+        },
+        {
+          "ra_deg": 226.382346,
+          "dec_deg": -83.003609
+        },
+        {
+          "ra_deg": 225.312552,
+          "dec_deg": -83.012207
+        },
+        {
+          "ra_deg": 224.241199,
+          "dec_deg": -83.020645
+        },
+        {
+          "ra_deg": 223.168473,
+          "dec_deg": -83.028915
+        },
+        {
+          "ra_deg": 222.094589,
+          "dec_deg": -83.037018
+        },
+        {
+          "ra_deg": 221.019216,
+          "dec_deg": -83.044945
+        },
+        {
+          "ra_deg": 219.942526,
+          "dec_deg": -83.052704
+        },
+        {
+          "ra_deg": 218.864751,
+          "dec_deg": -83.060288
+        },
+        {
+          "ra_deg": 217.785573,
+          "dec_deg": -83.067688
+        },
+        {
+          "ra_deg": 216.705165,
+          "dec_deg": -83.074905
+        },
+        {
+          "ra_deg": 215.623741,
+          "dec_deg": -83.081932
+        },
+        {
+          "ra_deg": 214.540987,
+          "dec_deg": -83.088776
+        },
+        {
+          "ra_deg": 213.457102,
+          "dec_deg": -83.095428
+        },
+        {
+          "ra_deg": 212.372261,
+          "dec_deg": -83.101883
+        },
+        {
+          "ra_deg": 211.286202,
+          "dec_deg": -83.108147
+        },
+        {
+          "ra_deg": 210.199084,
+          "dec_deg": -83.114212
+        },
+        {
+          "ra_deg": 209.111109,
+          "dec_deg": -83.120071
+        }
+      ]
+    },
+    {
+      "neighbor": "Chamaeleon",
+      "neighbor_abbreviation": "CHA",
+      "points": [
+        {
+          "ra_deg": 209.111109,
+          "dec_deg": -83.120071
+        },
+        {
+          "ra_deg": 208.022002,
+          "dec_deg": -83.125732
+        },
+        {
+          "ra_deg": 206.931939,
+          "dec_deg": -83.131187
+        },
+        {
+          "ra_deg": 205.841116,
+          "dec_deg": -83.136437
+        },
+        {
+          "ra_deg": 204.74925,
+          "dec_deg": -83.141472
+        },
+        {
+          "ra_deg": 203.656541,
+          "dec_deg": -83.146301
+        },
+        {
+          "ra_deg": 202.563186,
+          "dec_deg": -83.150909
+        },
+        {
+          "ra_deg": 201.468888,
+          "dec_deg": -83.155304
+        },
+        {
+          "ra_deg": 200.373831,
+          "dec_deg": -83.159485
+        },
+        {
+          "ra_deg": 199.278259,
+          "dec_deg": -83.163444
+        },
+        {
+          "ra_deg": 198.18183,
+          "dec_deg": -83.167183
+        },
+        {
+          "ra_deg": 197.084784,
+          "dec_deg": -83.1707
+        },
+        {
+          "ra_deg": 195.987311,
+          "dec_deg": -83.173996
+        },
+        {
+          "ra_deg": 194.889106,
+          "dec_deg": -83.177071
+        },
+        {
+          "ra_deg": 193.790388,
+          "dec_deg": -83.179909
+        },
+        {
+          "ra_deg": 192.691341,
+          "dec_deg": -83.182526
+        },
+        {
+          "ra_deg": 191.591706,
+          "dec_deg": -83.184921
+        },
+        {
+          "ra_deg": 190.491672,
+          "dec_deg": -83.18708
+        },
+        {
+          "ra_deg": 189.391451,
+          "dec_deg": -83.189011
+        },
+        {
+          "ra_deg": 188.290744,
+          "dec_deg": -83.190704
+        },
+        {
+          "ra_deg": 187.189751,
+          "dec_deg": -83.192177
+        },
+        {
+          "ra_deg": 186.088686,
+          "dec_deg": -83.193413
+        },
+        {
+          "ra_deg": 184.987263,
+          "dec_deg": -83.194412
+        },
+        {
+          "ra_deg": 183.885684,
+          "dec_deg": -83.195183
+        },
+        {
+          "ra_deg": 182.784162,
+          "dec_deg": -83.195724
+        },
+        {
+          "ra_deg": 181.682382,
+          "dec_deg": -83.19603
+        },
+        {
+          "ra_deg": 180.580587,
+          "dec_deg": -83.196098
+        },
+        {
+          "ra_deg": 179.478936,
+          "dec_deg": -83.195931
+        },
+        {
+          "ra_deg": 178.377199,
+          "dec_deg": -83.195534
+        },
+        {
+          "ra_deg": 177.275549,
+          "dec_deg": -83.194908
+        },
+        {
+          "ra_deg": 176.174182,
+          "dec_deg": -83.194038
+        },
+        {
+          "ra_deg": 175.072831,
+          "dec_deg": -83.192947
+        },
+        {
+          "ra_deg": 173.971696,
+          "dec_deg": -83.19162
+        },
+        {
+          "ra_deg": 172.870989,
+          "dec_deg": -83.190056
+        },
+        {
+          "ra_deg": 171.770396,
+          "dec_deg": -83.188263
+        },
+        {
+          "ra_deg": 170.670147,
+          "dec_deg": -83.186241
+        },
+        {
+          "ra_deg": 169.570426,
+          "dec_deg": -83.18399
+        },
+        {
+          "ra_deg": 168.470964,
+          "dec_deg": -83.181511
+        },
+        {
+          "ra_deg": 167.371959,
+          "dec_deg": -83.178803
+        },
+        {
+          "ra_deg": 166.273599,
+          "dec_deg": -83.175873
+        },
+        {
+          "ra_deg": 165.175609,
+          "dec_deg": -83.172707
+        },
+        {
+          "ra_deg": 164.078206,
+          "dec_deg": -83.169327
+        },
+        {
+          "ra_deg": 162.981562,
+          "dec_deg": -83.165718
+        },
+        {
+          "ra_deg": 161.885404,
+          "dec_deg": -83.161888
+        },
+        {
+          "ra_deg": 160.789934,
+          "dec_deg": -83.157844
+        },
+        {
+          "ra_deg": 159.695349,
+          "dec_deg": -83.15358
+        },
+        {
+          "ra_deg": 158.601351,
+          "dec_deg": -83.149094
+        },
+        {
+          "ra_deg": 157.508154,
+          "dec_deg": -83.144394
+        },
+        {
+          "ra_deg": 156.415944,
+          "dec_deg": -83.139488
+        },
+        {
+          "ra_deg": 155.324421,
+          "dec_deg": -83.134361
+        },
+        {
+          "ra_deg": 154.233813,
+          "dec_deg": -83.129036
+        },
+        {
+          "ra_deg": 153.144292,
+          "dec_deg": -83.123497
+        },
+        {
+          "ra_deg": 152.055544,
+          "dec_deg": -83.11776
+        },
+        {
+          "ra_deg": 150.967827,
+          "dec_deg": -83.111816
+        },
+        {
+          "ra_deg": 149.881282,
+          "dec_deg": -83.105675
+        },
+        {
+          "ra_deg": 148.795638,
+          "dec_deg": -83.099327
+        },
+        {
+          "ra_deg": 147.711081,
+          "dec_deg": -83.092796
+        },
+        {
+          "ra_deg": 146.627812,
+          "dec_deg": -83.086067
+        },
+        {
+          "ra_deg": 145.545516,
+          "dec_deg": -83.079147
+        },
+        {
+          "ra_deg": 144.464392,
+          "dec_deg": -83.072044
+        },
+        {
+          "ra_deg": 143.384643,
+          "dec_deg": -83.064751
+        },
+        {
+          "ra_deg": 142.305951,
+          "dec_deg": -83.057282
+        },
+        {
+          "ra_deg": 141.228519,
+          "dec_deg": -83.049629
+        },
+        {
+          "ra_deg": 140.15253,
+          "dec_deg": -83.041802
+        },
+        {
+          "ra_deg": 139.077659,
+          "dec_deg": -83.033798
+        },
+        {
+          "ra_deg": 138.004131,
+          "dec_deg": -83.025627
+        },
+        {
+          "ra_deg": 136.93212,
+          "dec_deg": -83.017296
+        },
+        {
+          "ra_deg": 135.861326,
+          "dec_deg": -83.008789
+        },
+        {
+          "ra_deg": 134.791919,
+          "dec_deg": -83.00013
+        },
+        {
+          "ra_deg": 133.724084,
+          "dec_deg": -82.99131
+        },
+        {
+          "ra_deg": 132.657524,
+          "dec_deg": -82.982338
+        },
+        {
+          "ra_deg": 131.592421,
+          "dec_deg": -82.973213
+        },
+        {
+          "ra_deg": 130.52895,
+          "dec_deg": -82.963943
+        },
+        {
+          "ra_deg": 129.466811,
+          "dec_deg": -82.954529
+        },
+        {
+          "ra_deg": 128.406172,
+          "dec_deg": -82.944977
+        },
+        {
+          "ra_deg": 127.347207,
+          "dec_deg": -82.93528
+        },
+        {
+          "ra_deg": 126.289616,
+          "dec_deg": -82.925453
+        },
+        {
+          "ra_deg": 125.233584,
+          "dec_deg": -82.915497
+        },
+        {
+          "ra_deg": 124.179269,
+          "dec_deg": -82.905418
+        },
+        {
+          "ra_deg": 123.126382,
+          "dec_deg": -82.89521
+        },
+        {
+          "ra_deg": 122.075071,
+          "dec_deg": -82.884888
+        },
+        {
+          "ra_deg": 121.025534,
+          "dec_deg": -82.874443
+        },
+        {
+          "ra_deg": 119.977441,
+          "dec_deg": -82.863892
+        },
+        {
+          "ra_deg": 118.930965,
+          "dec_deg": -82.853233
+        },
+        {
+          "ra_deg": 117.886276,
+          "dec_deg": -82.842468
+        },
+        {
+          "ra_deg": 116.843069,
+          "dec_deg": -82.831596
+        },
+        {
+          "ra_deg": 115.801506,
+          "dec_deg": -82.820633
+        },
+        {
+          "ra_deg": 114.761746,
+          "dec_deg": -82.809578
+        },
+        {
+          "ra_deg": 113.723489,
+          "dec_deg": -82.798431
+        },
+        {
+          "ra_deg": 112.686882,
+          "dec_deg": -82.787201
+        },
+        {
+          "ra_deg": 111.652114,
+          "dec_deg": -82.775886
+        }
+      ]
+    },
+    {
+      "neighbor": "Mensa",
+      "neighbor_abbreviation": "MEN",
+      "points": [
+        {
+          "ra_deg": 111.652114,
+          "dec_deg": -82.775886
+        },
+        {
+          "ra_deg": 111.280789,
+          "dec_deg": -83.273857
+        },
+        {
+          "ra_deg": 110.345636,
+          "dec_deg": -84.26873
+        },
+        {
+          "ra_deg": 109.019709,
+          "dec_deg": -85.261444
+        }
+      ]
+    }
+  ],
+  "sources": [
+    {
+      "label": "Stellarium Western sky culture",
+      "url": "https://raw.githubusercontent.com/Stellarium/stellarium-skycultures/014fbb5e59233d133c22f9811af96b67d05a95c9/western/index.json",
+      "path": "catalog-work/western-constellation-stars/stellarium-western-index.json",
+      "sha256": "a861accd345249a185a5ecfc2a516f34291c0aa52f4bb8d8337ffc53e9cef6b9"
+    },
+    {
+      "label": "Adopted star positions and names",
+      "url": "https://simbad.cds.unistra.fr/simbad/",
+      "path": "src/data/catalogs/western-constellation-stars/stars.csv",
+      "sha256": "0a8b7c1dc3f7e3412c5cffb09a18cdf5b5b7424cc89ea8a0a1ffb4da57d3ad6a"
+    },
+    {
+      "label": "Hipparcos Johnson V magnitudes",
+      "url": "https://cdsarc.cds.unistra.fr/viz-bin/cat/I/239",
+      "path": "catalog-work/western-constellation-stars/hipparcos-v.csv",
+      "sha256": "eec12b740da3aac5204ba75ca5158b6f9f2f81886dda2526fe765cf9ea159320"
+    },
+    {
+      "label": "CDS / IAU constellation boundaries (J2000)",
+      "url": "https://cdsarc.cds.unistra.fr/viz-bin/cat/VI/49",
+      "path": "catalog-work/constellation-charts/boundaries-j2000.dat.gz",
+      "sha256": "879cd6e7a1c908f1e19a5f5fe8cc75fb1d1077564e3890f9152a3680affe9aac",
+      "inputs": [
+        {
+          "path": "catalog-work/constellation-charts/boundary-contours-b1875.dat",
+          "sha256": "865cdf4218f676eb304587c75c63231948d29cd0abe6892a8a8130c1c4fe3592"
+        },
+        {
+          "path": "catalog-work/constellation-charts/boundary-contours-readme.txt",
+          "sha256": "a3ec688bea21e9db10832842c9b845558dbe8ccf820ddedec842d664d2b74c89"
+        }
+      ]
+    }
+  ]
+}

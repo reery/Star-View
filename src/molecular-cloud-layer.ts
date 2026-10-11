@@ -1,12 +1,17 @@
 import {
-  CanvasTexture, Color, Float32BufferAttribute, Group, InstancedBufferAttribute, InstancedBufferGeometry,
-  LinearFilter, Mesh, NormalBlending, ShaderMaterial,
+  AdditiveBlending, Camera, CanvasTexture, Color, DepthTexture, Float32BufferAttribute, Group, HalfFloatType,
+  InstancedBufferAttribute, InstancedBufferGeometry, LinearFilter, Mesh, NormalBlending, OrthographicCamera,
+  Material, PlaneGeometry, Scene, ShaderMaterial, Vector2, WebGLRenderer, WebGLRenderTarget,
 } from 'three'
 import type { Star } from './catalog-model'
 import type { StarColorMode } from './astronomy'
 
 export const MOLECULAR_CLOUD_MAX_SCREEN_FRACTION = 0.16
 const MIN_PUFF_PIXELS = 1.6
+// Illustrative attenuation only: the sampled map has no calibrated extinction.
+// Keep catalog sources readable even through a dense column of overlapping puffs.
+const SOURCE_ABSORPTION_GAIN = 1.2
+const MAX_SOURCE_DIMMING = 0.30
 
 export interface MolecularCloudPuffs {
   count: number
@@ -140,6 +145,7 @@ export interface MolecularCloudLayer {
   setViewportHeight(pixels: number): void
   setSelected(id: string | null): void
   instanceCount(): number
+  render(renderer: WebGLRenderer, scene: Scene, camera: Camera): void
   dispose(): void
 }
 
@@ -223,30 +229,64 @@ export function createMolecularCloudLayer(clouds: readonly Star[], mode: StarCol
       gl_Position = projectionMatrix * (viewCenter + vec4(position.xy * radius * screenScale * grow, 0.0, 0.0));
     }
   `
-  const bodyMaterial = new ShaderMaterial({
-    uniforms,
+  function absorptionMaterial(gain: number): ShaderMaterial {
+    return new ShaderMaterial({
+      uniforms: { ...uniforms, absorptionGain: { value: gain } },
+      transparent: true,
+      blending: NormalBlending,
+      depthTest: true,
+      depthWrite: false,
+      toneMapped: false,
+      vertexShader,
+      fragmentShader: `
+        uniform sampler2D noiseMap;
+        uniform float absorptionGain;
+        varying vec2 vUv;
+        varying vec2 vNoiseUv;
+        varying float vAlpha;
+        void main() {
+          float r2 = dot(vUv, vUv);
+          if (r2 >= 1.0) discard;
+          float falloff = pow(1.0 - r2, 1.65);
+          float noise = texture2D(noiseMap, vNoiseUv).r;
+          float filaments = smoothstep(0.18, 0.92, noise + 0.16 * sin((vUv.x - vUv.y) * 8.0));
+          // Treat the sample weight as optical depth. Overlapping puffs multiply
+          // transmission, so a denser column absorbs more light without emitting.
+          float opticalDepth = vAlpha * falloff * (0.4 + 1.4 * filaments) * absorptionGain;
+          float alpha = 1.0 - exp(-opticalDepth);
+          gl_FragColor = vec4(0.0, 0.0, 0.0, alpha);
+        }
+      `,
+    })
+  }
+  const bodyMaterial = absorptionMaterial(2.4)
+  // Accumulate optical depth in floating point, rather than blending tiny
+  // changes into an 8-bit framebuffer where faint stellar light rounds away.
+  const sourceAbsorptionMaterial = new ShaderMaterial({
+    uniforms: { ...uniforms, sceneDepth: { value: null as DepthTexture | null }, viewportSize: { value: new Vector2() } },
     transparent: true,
-    blending: NormalBlending,
-    depthTest: true,
+    blending: AdditiveBlending,
+    depthTest: false,
     depthWrite: false,
     toneMapped: false,
     vertexShader,
     fragmentShader: `
       uniform sampler2D noiseMap;
+      uniform sampler2D sceneDepth;
+      uniform vec2 viewportSize;
       varying vec2 vUv;
       varying vec2 vNoiseUv;
       varying float vAlpha;
       void main() {
         float r2 = dot(vUv, vUv);
         if (r2 >= 1.0) discard;
+        // Keep foreground opaque sources clear, using their actual scene depth.
+        if (gl_FragCoord.z > texture2D(sceneDepth, gl_FragCoord.xy / viewportSize).r) discard;
         float falloff = pow(1.0 - r2, 1.65);
         float noise = texture2D(noiseMap, vNoiseUv).r;
         float filaments = smoothstep(0.18, 0.92, noise + 0.16 * sin((vUv.x - vUv.y) * 8.0));
-        // Treat the sample weight as optical depth. Overlapping puffs multiply
-        // transmission, so a denser column absorbs more light without emitting.
-        float opticalDepth = vAlpha * falloff * (0.4 + 1.4 * filaments) * 2.4;
-        float alpha = 1.0 - exp(-opticalDepth);
-        gl_FragColor = vec4(0.0, 0.0, 0.0, alpha);
+        float opticalDepth = vAlpha * falloff * (0.4 + 1.4 * filaments);
+        gl_FragColor = vec4(opticalDepth, 0.0, 0.0, 1.0);
       }
     `,
   })
@@ -282,17 +322,74 @@ export function createMolecularCloudLayer(clouds: readonly Star[], mode: StarCol
   })
   const body = new Mesh(geometry, bodyMaterial)
   body.frustumCulled = false
-  // This sampled dust map has no calibrated extinction per voxel. Darken the
-  // background before drawing catalog sources: stellar photometry already
-  // includes observed extinction, and nebulae model their visible emitting gas.
-  // Draw every faint rim before every absorbing body.
+  // Draw every faint rim before darkening the sky. The source attenuation is
+  // composited separately and capped so dense clouds cannot erase objects.
   body.renderOrder = 1.8
   const rim = new Mesh(geometry, rimMaterial)
   rim.frustumCulled = false
   rim.renderOrder = 1.7
+  const sourceAbsorption = new Mesh(geometry, sourceAbsorptionMaterial)
+  sourceAbsorption.frustumCulled = false
   const root = new Group()
   root.add(body, rim)
   root.visible = false
+  const absorptionScene = new Scene()
+  absorptionScene.add(sourceAbsorption)
+  const compositeScene = new Scene()
+  const compositeCamera = new OrthographicCamera(-1, 1, 1, -1, 0, 1)
+  const compositeGeometry = new PlaneGeometry(2, 2)
+  const compositeMaterial = new ShaderMaterial({
+    uniforms: { sceneColor: { value: null }, opticalDepth: { value: null } },
+    depthTest: false, depthWrite: false, toneMapped: false,
+    vertexShader: `varying vec2 vUv;
+      void main() { vUv = uv; gl_Position = vec4(position.xy, 0.0, 1.0); }`,
+    fragmentShader: `
+      uniform sampler2D sceneColor;
+      uniform sampler2D opticalDepth;
+      varying vec2 vUv;
+      void main() {
+        float density = texture2D(opticalDepth, vUv).r;
+        float transmission = 1.0 - ${MAX_SOURCE_DIMMING} * (1.0 - exp(-density * ${SOURCE_ABSORPTION_GAIN}));
+        gl_FragColor = texture2D(sceneColor, vUv);
+        gl_FragColor.rgb *= transmission;
+      }
+    `,
+  })
+  const composite = new Mesh(compositeGeometry, compositeMaterial)
+  composite.frustumCulled = false
+  compositeScene.add(composite)
+  let sceneTarget: WebGLRenderTarget | undefined
+  let absorptionTarget: WebGLRenderTarget | undefined
+  const viewportSize = new Vector2()
+  const clearColor = new Color()
+  const displayCapture = { value: false }
+  const capturedMaterials = new WeakSet<Material>()
+
+  function prepareDisplayCapture(scene: Scene): void {
+    // Three renders intermediate targets in linear color. Preserve the existing
+    // display-space blending of the sky, nebulae and halos for this capture;
+    // otherwise enabling dust would make faint stellar glow brighter.
+    scene.traverse((object) => {
+      const objectMaterial = (object as Mesh).material
+      if (!objectMaterial) return
+      for (const material of Array.isArray(objectMaterial) ? objectMaterial : [objectMaterial]) {
+        if (capturedMaterials.has(material)) continue
+        capturedMaterials.add(material)
+        const compile = material.onBeforeCompile
+        const cacheKey = material.customProgramCacheKey()
+        material.onBeforeCompile = function (shader, renderer) {
+          compile.call(this, shader, renderer)
+          shader.uniforms.cloudDisplayCapture = displayCapture
+          shader.fragmentShader = `uniform bool cloudDisplayCapture;\n${shader.fragmentShader}`.replace(
+            '#include <colorspace_fragment>',
+            'if (cloudDisplayCapture) gl_FragColor = sRGBTransferOETF(gl_FragColor);\nelse {\n#include <colorspace_fragment>\n}',
+          )
+        }
+        material.customProgramCacheKey = () => `${cacheKey}:cloud-display-capture`
+        material.needsUpdate = true
+      }
+    })
+  }
   const cloudIndexById = new Map(clouds.map((cloud, index) => [cloud.id, index]))
   let visibility: boolean[] = clouds.map(() => false)
   let fraction = 1
@@ -336,9 +433,64 @@ export function createMolecularCloudLayer(clouds: readonly Star[], mode: StarCol
       uniforms.selectedCloudIndex.value = id === null ? -1 : cloudIndexById.get(id) ?? -1
     },
     instanceCount: () => geometry.instanceCount,
+    render(renderer, scene, camera) {
+      if (!root.visible) {
+        renderer.render(scene, camera)
+        return
+      }
+      const previousTarget = renderer.getRenderTarget()
+      if (previousTarget) viewportSize.set(previousTarget.width, previousTarget.height)
+      else renderer.getDrawingBufferSize(viewportSize)
+      if (!sceneTarget) {
+        sceneTarget = new WebGLRenderTarget(viewportSize.x, viewportSize.y, {
+          samples: renderer.getContext().getContextAttributes()?.antialias ? 4 : 0,
+        })
+        sceneTarget.depthTexture = new DepthTexture(viewportSize.x, viewportSize.y)
+        absorptionTarget = new WebGLRenderTarget(viewportSize.x, viewportSize.y, { type: HalfFloatType, depthBuffer: false })
+        sourceAbsorptionMaterial.uniforms.sceneDepth!.value = sceneTarget.depthTexture
+        compositeMaterial.uniforms.sceneColor!.value = sceneTarget.texture
+        compositeMaterial.uniforms.opticalDepth!.value = absorptionTarget.texture
+      }
+      sceneTarget.setSize(viewportSize.x, viewportSize.y)
+      absorptionTarget!.setSize(viewportSize.x, viewportSize.y)
+      sourceAbsorptionMaterial.uniforms.viewportSize!.value.copy(viewportSize)
+      renderer.getClearColor(clearColor)
+      const clearAlpha = renderer.getClearAlpha()
+      const background = scene.background
+      const autoReset = renderer.info.autoReset
+      if (autoReset) renderer.info.reset()
+      renderer.info.autoReset = false
+      try {
+        prepareDisplayCapture(scene)
+        displayCapture.value = true
+        if (background instanceof Color) scene.background = background.clone().convertLinearToSRGB()
+        renderer.setClearColor(clearColor.clone().convertLinearToSRGB(), clearAlpha)
+        renderer.setRenderTarget(sceneTarget)
+        renderer.render(scene, camera)
+        scene.background = background
+        displayCapture.value = false
+        renderer.setRenderTarget(absorptionTarget!)
+        renderer.setClearColor(0x000000, 0)
+        renderer.render(absorptionScene, camera)
+        renderer.setClearColor(clearColor, clearAlpha)
+        renderer.setRenderTarget(previousTarget)
+        renderer.render(compositeScene, compositeCamera)
+      } finally {
+        scene.background = background
+        displayCapture.value = false
+        renderer.setClearColor(clearColor, clearAlpha)
+        renderer.setRenderTarget(previousTarget)
+        renderer.info.autoReset = autoReset
+      }
+    },
     dispose() {
       geometry.dispose()
       bodyMaterial.dispose()
+      sourceAbsorptionMaterial.dispose()
+      sceneTarget?.dispose()
+      absorptionTarget?.dispose()
+      compositeGeometry.dispose()
+      compositeMaterial.dispose()
       rimMaterial.dispose()
       noise.dispose()
     },

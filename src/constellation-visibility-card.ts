@@ -5,6 +5,7 @@ import { MISSING_VALUE } from './format'
 import { svgNode as svg } from './spectral-chart'
 
 const states = new WeakMap<HTMLElement, { position: SkyPosition | null; name: string }>()
+const LATITUDE_STORAGE_KEY = 'star-view-constellation-latitude'
 const explanation = 'Approximate season at 10 pm local solar time on the 15th of each month. The object is above a level horizon and the Sun is at least 18° below it. Civil clock time, terrain, weather, and brightness limits are not included.'
 
 function drawVisibility(root: HTMLElement): void {
@@ -60,7 +61,15 @@ function drawVisibility(root: HTMLElement): void {
 
 export function renderConstellationVisibility(root: HTMLElement, position: SkyPosition | null, name: string): void {
   if (!states.has(root)) {
-    root.querySelector<HTMLSelectElement>('#constellation-latitude')!.addEventListener('change', () => drawVisibility(root))
+    const latitude = root.querySelector<HTMLSelectElement>('#constellation-latitude')!
+    try {
+      const stored = localStorage.getItem(LATITUDE_STORAGE_KEY)
+      if (stored !== null && [...latitude.options].some((option) => option.value === stored)) latitude.value = stored
+    } catch {}
+    latitude.addEventListener('change', () => {
+      try { localStorage.setItem(LATITUDE_STORAGE_KEY, latitude.value) } catch {}
+      drawVisibility(root)
+    })
     root.querySelector<HTMLElement>('#constellation-visibility-time')!.title = explanation
   }
   states.set(root, { position, name })

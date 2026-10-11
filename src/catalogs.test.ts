@@ -120,7 +120,7 @@ describe('catalog packages and display settings', () => {
   it('keeps the bright landmark catalog bounded and merges it without duplicates', () => {
     expect(bright).toHaveLength(126)
     expect(bright.at(-1)?.name).toBe('Arneb')
-    expect(catalogCoverage(bright)).toMatchObject({ temperatures: 121, masses: 56, luminosities: 110, radii: 111, metallicities: 76, ages: 12, radialVelocities: 118 })
+    expect(catalogCoverage(bright)).toMatchObject({ temperatures: 121, masses: 56, luminosities: 105, radii: 106, metallicities: 76, ages: 12, radialVelocities: 118 })
     expect(bright.find((star) => star.name === 'Rigel')).toMatchObject({
       temperature_k: 11968, radius_solar: 74.0262, luminosity_solar: 83226.2, metallicity_dex: -0.159,
     })
@@ -347,6 +347,53 @@ describe('catalog packages and display settings', () => {
     expect(calibrated.reviewedComponentEnrichment.review.gaiaDr3Id).toBe(calibrated.gaiaDr3Id)
   })
 
+  it('ships the reviewed hot-star corrections across every containing catalog', () => {
+    const temperatures = new Map([
+      ['hip-78820', 30540], ['hip-26451', 21478], ['hip-81377', 30700], ['hip-78401', 30900],
+      ['hip-4427', 27990], ['hip-59196', 22150], ['hip-18246', 23500], ['hip-35037', 17170],
+      ['hip-17448', 22840], ['hip-18614', 35900], ['hip-92814', 14001], ['hip-33347', 16800], ['hip-22783', 29000],
+    ])
+    const aliases = new Map([
+      ['bright-beta-scorpii-a', 'hip-78820'], ['bright-zeta-ophiuchi', 'hip-81377'],
+      ['bright-dschubba', 'hip-78401'], ['bright-gamma-cassiopeiae', 'hip-4427'], ['bright-delta-centauri', 'hip-59196'],
+    ])
+    for (const [id, temperature] of temperatures) expect(western.find((star) => star.id === id)?.temperature_k, id).toBe(temperature)
+    for (const [id, primaryId] of aliases) expect(bright.find((star) => star.id === id)?.temperature_k, id).toBe(temperatures.get(primaryId))
+    for (const star of [...western, ...bright]) {
+      const id = aliases.get(star.id) ?? star.id
+      const temperature = temperatures.get(id)
+      if (temperature === undefined) continue
+      expect(star.temperature_k, star.id).toBe(temperature)
+      if (id === 'hip-35037') {
+        expect(star.radius_solar).toBe(10.5)
+        expect(star.luminosity_solar).toBeCloseTo(10.5 ** 2 * (17170 / 5772) ** 4, 5)
+      } else {
+        expect(star.radius_solar, star.id).toBeNull()
+        expect(star.luminosity_solar, star.id).toBeNull()
+      }
+    }
+    const provenance = JSON.parse(westernProvenance).objects
+    expect(provenance['hip-81377'].sharedObjectAdoption.sourceSelections.physicalTemperatureReview.adoptedFields.temperature_k).toMatchObject({
+      reference: '2024A&A...687A.228D', uncertainty: { lower: 600, upper: 600 }, sourceRecordId: 'HD 149757',
+    })
+    expect(provenance['hip-78401'].sharedObjectAdoption.sourceSelections.physicalTemperatureReview.adoptedFields.radius_solar.status).toBe('withheld')
+  })
+
+  it('ships reviewed Zeta1 Scorpii temperature and consistent model properties', () => {
+    const star = western.find((candidate) => candidate.id === 'hip-82671')!
+    expect(star).toMatchObject({ spectral_type: 'B1.5Ia+', temperature_k: 17200, radius_solar: 103 })
+    expect(star.luminosity_solar).toBeCloseTo(10 ** 5.93, 3)
+    const color = temperatureToColor(star.temperature_k)
+    expect(color.b).toBeGreaterThan(color.r)
+    const observations = JSON.parse(westernProvenance).objects[star.id].physicalObservations
+    expect(observations.find((item: any) => item.field === 'temperature_k')).toMatchObject({
+      reference: '2012A&A...541A.145C', value: 17200, uncertainty: 500, status: 'model-derived',
+    })
+    expect(observations.find((item: any) => item.field === 'radius_solar')).toMatchObject({
+      reference: '2012A&A...541A.145C', inputs: { temperature_k: 17200, source_distance_pc: 1640 },
+    })
+  })
+
   it('ships reviewed Gorgonea Tertia properties with source uncertainties and radius inputs', () => {
     const star = western.find((candidate) => candidate.id === 'hip-14354')!
     expect(star).toMatchObject({
@@ -369,7 +416,7 @@ describe('catalog packages and display settings', () => {
     expect(western).toHaveLength(714)
     expect(catalogCoverage(western)).toMatchObject({
       objects: 713, constellations: 713, magnitudes: 697, rawAstrometry: 713,
-      temperatures: 695, masses: 377, luminosities: 643, radii: 644, metallicities: 532, ages: 101,
+      temperatures: 695, masses: 377, luminosities: 631, radii: 632, metallicities: 532, ages: 101,
     })
     expect(provenance).toMatchObject({ figureConstellations: 88, uniqueHipparcosStars: 691 })
     expect(new Set(Object.values(provenance.objects).flatMap((entry: any) => entry.figureConstellations ?? [])).size).toBe(88)

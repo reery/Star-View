@@ -8,7 +8,7 @@ import math
 import re
 from functools import cache
 from pathlib import Path
-from catalog_sources.enrichment import enrich_from_frozen, enrichment_sources, manifest_sha256
+from catalog_sources.enrichment import enrich_from_frozen, enrichment_sources, manifest_sha256, reviewed_physical
 from catalog_sources.shared_objects import adopt_shared_objects
 from catalog_sources.overlay_companions import expand_overlay
 from catalog_sources.solar import adopt_solar_reference, solar_provenance
@@ -377,6 +377,14 @@ def enrich_physical(row, source):
             "uncertainty": optional_number(override.get("uncertainty")), "status": "literature",
             "source": override["source"], "sourceId": override["source_id"], "note": override["note"],
         })
+    # Some reviewed object-specific analyses explicitly supersede unsuitable
+    # broadband fits. Apply these before published/Gaia models and derivations,
+    # retaining the higher-priority curated and targeted values above.
+    review = reviewed_physical().get(source["main_id"], {})
+    if review.get("beforeCatalogModels"):
+        reviewed = enrich_from_frozen(row, source["main_id"], aliases(source), reviewed_only=True)
+        adopted.update({field: f"shared:{item['reference']}" for field, item in reviewed.items()})
+        observations.extend(reviewed.values())
     published_values, published_observations = published_hip_physical(source)
     for field, value in published_values.items():
         if not row[field]:

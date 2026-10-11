@@ -1,0 +1,101 @@
+import hashlib
+import json
+import sys
+import tempfile
+import unittest
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parents[2]
+sys.path.insert(0, str(ROOT / "scripts"))
+from catalog_sources.companion_properties import apply_literature, complete_properties, property_coverage
+from catalog_sources.enrichment import FIELDS
+
+
+class CompanionPropertiesTests(unittest.TestCase):
+    def setUp(self):
+        self.temp = tempfile.TemporaryDirectory()
+        self.addCleanup(self.temp.cleanup)
+        self.root = Path(self.temp.name)
+        self.source = self.root / "source.dat"
+        self.source.write_text("Frozen resolved component table\n")
+        self.path = self.root / "review.json"
+        self.star = {"id": "pair-b", "name": "Pair B", "type": "star",
+                     "spectral_type": None, "notes": "", "apparent_mag": None,
+                     "absolute_mag": None, "x_pc": 10, "y_pc": 0, "z_pc": 0,
+                     **dict.fromkeys(FIELDS)}
+        self.systems = [{"id": "pair", "components": [{"starId": "pair-b", "label": "B"}]}]
+        self.review = {"expectedName": "Pair B", "systemId": "pair", "component": "B",
+                       "note": "Individual B solution", "fields": {}}
+        self.plan = {"inputSha256": {"source.dat": hashlib.sha256(self.source.read_bytes()).hexdigest()},
+                     "objects": {"pair-b": self.review}}
+        self.audit = {"componentRecords": {}}
+
+    def observation(self, value, **extra):
+        return {"value": value, "status": "measured", "reference": "resolved-paper",
+                "sourceUrl": "https://example.org/paper", "section": "Table 2", **extra}
+
+    def apply(self):
+        self.path.write_text(json.dumps(self.plan))
+        return apply_literature(self.root, self.path, self.systems, {"pair-b": self.star}, self.audit)
+
+    def test_rejects_wrong_hierarchical_member_and_changed_source(self):
+        self.review["component"] = "Ba"
+        with self.assertRaisesRegex(ValueError, "identity drifted"):
+            self.apply()
+        self.review["component"] = "B"
+        self.source.write_text("Changed source\n")
+        with self.assertRaisesRegex(ValueError, "source drifted"):
+            self.apply()
+
+    def test_keeps_curated_mass_and_derives_radius_from_new_individual_inputs(self):
+        self.star["mass_solar"] = 1.2
+        self.review["fields"] = {"mass_solar": self.observation(2),
+                                 "temperature_k": self.observation(5772),
+                                 "luminosity_solar": self.observation(4)}
+        self.apply()
+        self.assertEqual(self.star["mass_solar"], 1.2)
+        self.assertEqual(self.star["radius_solar"], 2)
+        record = self.audit["componentRecords"]["pair-b"]
+        self.assertEqual(record["radius_solar"]["inputs"], {"temperature_k": 5772, "luminosity_solar": 4})
+        self.assertEqual(record["reviewedLiterature"]["retained"]["mass_solar"]["value"], 1.2)
+
+    def test_zero_magnitude_and_negative_abundance_keep_quantity_and_source(self):
+        self.review["fields"] = {"apparent_mag": self.observation(0),
+                                 "metallicity_dex": self.observation(-.2, quantity="[Fe/H]")}
+        self.apply()
+        self.assertEqual(self.star["absolute_mag"], 0)
+        self.assertEqual(self.star["metallicity_dex"], -.2)
+        self.assertEqual(self.star["metallicity_kind"], "[Fe/H]")
+        record = self.audit["componentRecords"]["pair-b"]["reviewedLiterature"]["adopted"]
+        self.assertEqual(record["metallicity_dex"]["reference"], "resolved-paper")
+        self.assertEqual(record["absolute_mag"]["inputs"]["distance_pc"], 10)
+
+    def test_spectral_ranges_do_not_invent_scalar_temperatures(self):
+        self.review["fields"] = {"spectral_type": self.observation("B1-3V")}
+        self.apply()
+        self.assertIsNone(self.star["temperature_k"])
+        self.assertIsNone(self.star["radius_solar"])
+        self.assertIn("temperature_k", property_coverage({"pair-b": self.star})["missingByComponent"]["pair-b"])
+
+    def test_withheld_derivation_has_no_value_or_misleading_note(self):
+        self.star.update(spectral_type="G2V", notes="Withheld individual fields: temperature_k.")
+        complete_properties(self.star, {})
+        self.assertIsNone(self.star["temperature_k"])
+        self.assertNotIn("Estimated temperature", self.star["notes"])
+        self.star.update(temperature_k=5772, radius_solar=2,
+                         notes="Withheld individual fields: luminosity_solar.")
+        complete_properties(self.star, {})
+        self.assertIsNone(self.star["luminosity_solar"])
+        self.assertNotIn("derived by", self.star["notes"])
+
+    def test_refuses_missing_provenance_or_unspecified_abundance_quantity(self):
+        self.review["fields"] = {"mass_solar": {"value": 2}}
+        with self.assertRaisesRegex(ValueError, "provenance"):
+            self.apply()
+        self.review["fields"] = {"metallicity_dex": self.observation(-.2)}
+        with self.assertRaisesRegex(ValueError, "abundance quantity"):
+            self.apply()
+
+
+if __name__ == "__main__":
+    unittest.main()

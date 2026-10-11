@@ -26,6 +26,8 @@ export interface CloudRenderOptions {
   selected?: boolean
   fraction?: number
   blackSky?: boolean
+  cloudOffsetPc?: number
+  sourceBrightness?: number
   source?: 'foreground' | 'background' | 'halo' | 'nebula'
 }
 
@@ -84,7 +86,7 @@ Object.assign(window, {
       ...options.cloud,
       molecular_cloud: {
         ...options.cloud.molecular_cloud!,
-        sample_points_pc: Array(options.samples * 3).fill(0),
+        sample_points_pc: Array.from({ length: options.samples * 3 }, (_, index) => index % 3 === 0 ? options.cloudOffsetPc ?? 0 : 0),
       },
     }
     const layer = createMolecularCloudLayer([cloud], options.mode)
@@ -96,7 +98,7 @@ Object.assign(window, {
     const sourceGeometry = new BufferGeometry()
     sourceGeometry.setAttribute('position', new Float32BufferAttribute([0, 0, options.source === 'foreground' ? 10 : -10], 3))
     const sourceMaterial = new PointsMaterial({
-      color: '#ffffff', size: 12, sizeAttenuation: false,
+      color: new Color().setScalar(options.sourceBrightness ?? 1), size: 12, sizeAttenuation: false,
       transparent: true, blending: options.source === 'halo' || options.source === 'nebula' ? AdditiveBlending : NoBlending,
       depthWrite: options.source !== 'halo' && options.source !== 'nebula', toneMapped: false,
     })
@@ -105,7 +107,7 @@ Object.assign(window, {
       source.renderOrder = options.source === 'halo' ? 3 : options.source === 'nebula' ? 2.5 : 2
       scene.add(source)
     }
-    renderer.render(scene, camera)
+    layer.render(renderer, scene, camera)
     const pixels = new Uint8Array(4)
     const gl = renderer.getContext()
     gl.readPixels(64, 64, 1, 1, gl.RGBA, gl.UNSIGNED_BYTE, pixels)

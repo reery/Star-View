@@ -1,0 +1,700 @@
+{
+  "schemaVersion": 1,
+  "abbreviation": "Sge",
+  "name": "Sagitta",
+  "center": {
+    "ra_deg": 297.60886949772686,
+    "dec_deg": 18.717711111595122
+  },
+  "stars": [
+    {
+      "hip": 96757,
+      "name": "Sham",
+      "ra_deg": 295.02413054827,
+      "dec_deg": 18.01389072819,
+      "magnitude_v": 4.39,
+      "bayer": "α",
+      "object": {
+        "x_pc": 75.848435219,
+        "y_pc": 106.154814971,
+        "z_pc": -4.874417618,
+        "vx_kms": 5.817245,
+        "vy_kms": -2.765291,
+        "vz_kms": -14.352775,
+        "temperature_k": 5606.0,
+        "mass_solar": 4.079642,
+        "luminosity_solar": 271.68346428988417,
+        "radius_solar": 18.09546,
+        "metallicity_dex": 0.1711,
+        "age_gyr": null,
+        "absolute_mag": -1.19903,
+        "epoch": 2000.0,
+        "type": "star",
+        "id": "hip-96757",
+        "name": "Sham",
+        "constellation": "Sagitta",
+        "spectral_type": "G1II",
+        "metallicity_kind": "[M/H]",
+        "notes": "Western constellation line-figure star (HIP 96757; Stellarium Sge). SIMBAD identity * alf Sge; SIMBAD compiled Johnson V=4.38; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, luminosity_solar; Gaia DR3 model values for metallicity_dex, mass_solar, radius_solar.",
+        "designations": [
+          "HIP 96757"
+        ],
+        "raw_astrometry": {
+          "ra_deg": 295.02413054827,
+          "dec_deg": 18.01389072819,
+          "parallax_mas": 7.6353,
+          "parallax_error_mas": 0.1109,
+          "pm_ra_cosdec_masyr": 15.076,
+          "pm_ra_error_masyr": null,
+          "pm_dec_masyr": -20.287,
+          "pm_dec_error_masyr": null,
+          "radial_velocity_kms": 1.667,
+          "radial_velocity_error_kms": null,
+          "epoch": 2000.0,
+          "astrometry_ref": "SIMBAD TAP snapshot 2026-10-01",
+          "radial_velocity_ref": "SIMBAD TAP snapshot 2026-10-01"
+        }
+      }
+    },
+    {
+      "hip": 96837,
+      "name": "Beta Sge",
+      "ra_deg": 295.26224564633,
+      "dec_deg": 17.476042411220003,
+      "magnitude_v": 4.39,
+      "bayer": "β",
+      "object": {
+        "x_pc": 79.094179184,
+        "y_pc": 109.252863793,
+        "z_pc": -6.129181767,
+        "vx_kms": -0.29916,
+        "vy_kms": -27.460209,
+        "vz_kms": -13.997634,
+        "temperature_k": 4883.0,
+        "mass_solar": null,
+        "luminosity_solar": 393.41928652379886,
+        "radius_solar": 27.714498,
+        "metallicity_dex": 0.0,
+        "age_gyr": null,
+        "absolute_mag": -1.271945,
+        "epoch": 2000.0,
+        "type": "star",
+        "id": "hip-96837",
+        "name": "Beta Sge",
+        "constellation": "Sagitta",
+        "spectral_type": "G8IIIaCN0.5",
+        "metallicity_kind": "[Fe/H]",
+        "notes": "Western constellation line-figure star (HIP 96837; Stellarium Sge). SIMBAD identity * bet Sge; SIMBAD compiled Johnson V=4.38; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, luminosity_solar; Stefan-Boltzmann scaling for radius_solar. Shared exact-identity physical supplements (metallicity_dex: 2024A&A...682A.145S).",
+        "designations": [
+          "HIP 96837"
+        ],
+        "raw_astrometry": {
+          "ra_deg": 295.26224564633,
+          "dec_deg": 17.476042411220003,
+          "parallax_mas": 7.3764,
+          "parallax_error_mas": 0.109,
+          "pm_ra_cosdec_masyr": 8.18,
+          "pm_ra_error_masyr": null,
+          "pm_dec_masyr": -33.113,
+          "pm_dec_error_masyr": null,
+          "radial_velocity_kms": -21.76,
+          "radial_velocity_error_kms": null,
+          "epoch": 2000.0,
+          "astrometry_ref": "SIMBAD TAP snapshot 2026-10-01",
+          "radial_velocity_ref": "SIMBAD TAP snapshot 2026-10-01"
+        }
+      }
+    },
+    {
+      "hip": 97365,
+      "name": "Delta Sge",
+      "ra_deg": 296.84693998883,
+      "dec_deg": 18.534313571179997,
+      "magnitude_v": 3.68,
+      "bayer": "δ",
+      "object": {
+        "x_pc": 95.057519408,
+        "y_pc": 139.699216763,
+        "z_pc": -9.989581039,
+        "vx_kms": -1.363446,
+        "vy_kms": 3.594893,
+        "vz_kms": -5.062442,
+        "temperature_k": 3820.0,
+        "mass_solar": null,
+        "luminosity_solar": 3350.8300139441576,
+        "radius_solar": 132.160635,
+        "metallicity_dex": null,
+        "age_gyr": null,
+        "absolute_mag": -2.332872,
+        "epoch": 2000.0,
+        "type": "star",
+        "id": "hip-97365",
+        "name": "Delta Sge",
+        "constellation": "Sagitta",
+        "spectral_type": "M2II+B0V",
+        "metallicity_kind": null,
+        "notes": "Western constellation line-figure star (HIP 97365; Stellarium Sge). SIMBAD identity * del Sge; SIMBAD compiled Johnson V=3.81; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, luminosity_solar; Stefan-Boltzmann scaling for radius_solar.",
+        "designations": [
+          "HIP 97365"
+        ],
+        "raw_astrometry": {
+          "ra_deg": 296.84693998883,
+          "dec_deg": 18.534313571179997,
+          "parallax_mas": 5.9674,
+          "parallax_error_mas": 0.2597,
+          "pm_ra_cosdec_masyr": 7.277,
+          "pm_ra_error_masyr": null,
+          "pm_dec_masyr": 0.318,
+          "pm_dec_error_masyr": null,
+          "radial_velocity_kms": 2.5,
+          "radial_velocity_error_kms": null,
+          "epoch": 2000.0,
+          "astrometry_ref": "SIMBAD TAP snapshot 2026-10-01",
+          "radial_velocity_ref": "SIMBAD TAP snapshot 2026-10-01"
+        }
+      }
+    },
+    {
+      "hip": 98337,
+      "name": "Gamma Sge",
+      "ra_deg": 299.68928429315497,
+      "dec_deg": 19.492146130476666,
+      "magnitude_v": 3.51,
+      "bayer": "γ",
+      "object": {
+        "x_pc": 46.506450206,
+        "y_pc": 74.330008827,
+        "z_pc": -7.990664951,
+        "vx_kms": -37.414211,
+        "vy_kms": -18.010196,
+        "vz_kms": -15.17174,
+        "temperature_k": 3904.0,
+        "mass_solar": null,
+        "luminosity_solar": null,
+        "radius_solar": null,
+        "metallicity_dex": -0.26,
+        "age_gyr": null,
+        "absolute_mag": -1.253486,
+        "epoch": 2000.0,
+        "type": "star",
+        "id": "hip-98337",
+        "name": "Gamma Sge",
+        "constellation": "Sagitta",
+        "spectral_type": "M0-III",
+        "metallicity_kind": "[Fe/H]",
+        "notes": "Western constellation line-figure star (HIP 98337; Stellarium Sge). SIMBAD identity * gam Sge; SIMBAD compiled Johnson V=3.47; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Shared exact-identity physical supplements (temperature_k: 2025A&A...698A..93J; metallicity_dex: 2025A&A...698A..93J).",
+        "designations": [
+          "HIP 98337"
+        ],
+        "raw_astrometry": {
+          "ra_deg": 299.68928429315497,
+          "dec_deg": 19.492146130476666,
+          "parallax_mas": 11.3375,
+          "parallax_error_mas": 0.1652,
+          "pm_ra_cosdec_masyr": 65.005,
+          "pm_ra_error_masyr": null,
+          "pm_dec_masyr": 22.721,
+          "pm_dec_error_masyr": null,
+          "radial_velocity_kms": -33.591,
+          "radial_velocity_error_kms": null,
+          "epoch": 2000.0,
+          "astrometry_ref": "SIMBAD TAP snapshot 2026-10-01",
+          "radial_velocity_ref": "SIMBAD TAP snapshot 2026-10-01"
+        }
+      }
+    },
+    {
+      "hip": 98920,
+      "name": "Eta Sge",
+      "ra_deg": 301.28955392776,
+      "dec_deg": 19.99107302429,
+      "magnitude_v": 5.09,
+      "bayer": "η",
+      "object": {
+        "x_pc": 24.357557954,
+        "y_pc": 40.837019652,
+        "z_pc": -5.190952292,
+        "vx_kms": -36.743707,
+        "vy_kms": -24.487429,
+        "vz_kms": 8.145278,
+        "temperature_k": 4677.0,
+        "mass_solar": 0.99,
+        "luminosity_solar": 22.777637815838148,
+        "radius_solar": 7.762471166286917,
+        "metallicity_dex": 0.1,
+        "age_gyr": null,
+        "absolute_mag": 1.694408,
+        "epoch": 2000.0,
+        "type": "star",
+        "id": "hip-98920",
+        "name": "Eta Sge",
+        "constellation": "Sagitta",
+        "spectral_type": "K2III",
+        "metallicity_kind": "[Fe/H]",
+        "notes": "Western constellation line-figure star (HIP 98920; Stellarium Sge). SIMBAD identity * eta Sge; SIMBAD compiled Johnson V=5.093; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, mass_solar, radius_solar, luminosity_solar. Shared exact-identity physical supplements (metallicity_dex: 2024A&A...683A.125P).",
+        "designations": [
+          "HIP 98920"
+        ],
+        "raw_astrometry": {
+          "ra_deg": 301.28955392776,
+          "dec_deg": 19.99107302429,
+          "parallax_mas": 20.8671,
+          "parallax_error_mas": 0.0966,
+          "pm_ra_cosdec_masyr": 30.128,
+          "pm_ra_error_masyr": null,
+          "pm_dec_masyr": 80.0,
+          "pm_dec_error_masyr": null,
+          "radial_velocity_kms": -40.5014,
+          "radial_velocity_error_kms": null,
+          "epoch": 2000.0,
+          "astrometry_ref": "SIMBAD TAP snapshot 2026-10-01",
+          "radial_velocity_ref": "SIMBAD TAP snapshot 2026-10-01"
+        }
+      }
+    }
+  ],
+  "lines": [
+    [
+      96837,
+      97365
+    ],
+    [
+      97365,
+      96757
+    ],
+    [
+      97365,
+      98337
+    ],
+    [
+      98337,
+      98920
+    ]
+  ],
+  "boundaries": [
+    {
+      "neighbor": "Aquila",
+      "neighbor_abbreviation": "AQL",
+      "points": [
+        {
+          "ra_deg": 286.375494,
+          "dec_deg": 18.6882229
+        },
+        {
+          "ra_deg": 286.379814,
+          "dec_deg": 18.3549194
+        },
+        {
+          "ra_deg": 286.392717,
+          "dec_deg": 17.3549938
+        },
+        {
+          "ra_deg": 286.405477,
+          "dec_deg": 16.3550682
+        }
+      ]
+    },
+    {
+      "neighbor": "Aquila",
+      "neighbor_abbreviation": "AQL",
+      "points": [
+        {
+          "ra_deg": 286.405477,
+          "dec_deg": 16.3550682
+        },
+        {
+          "ra_deg": 286.90587,
+          "dec_deg": 16.3609104
+        },
+        {
+          "ra_deg": 287.906884,
+          "dec_deg": 16.3725548
+        },
+        {
+          "ra_deg": 288.907929,
+          "dec_deg": 16.3841343
+        },
+        {
+          "ra_deg": 289.908915,
+          "dec_deg": 16.395647
+        },
+        {
+          "ra_deg": 290.910072,
+          "dec_deg": 16.4070911
+        },
+        {
+          "ra_deg": 291.911316,
+          "dec_deg": 16.4184647
+        },
+        {
+          "ra_deg": 292.912473,
+          "dec_deg": 16.4297581
+        },
+        {
+          "ra_deg": 293.913831,
+          "dec_deg": 16.4409733
+        },
+        {
+          "ra_deg": 294.915247,
+          "dec_deg": 16.4521046
+        },
+        {
+          "ra_deg": 295.916549,
+          "dec_deg": 16.4631481
+        },
+        {
+          "ra_deg": 296.918077,
+          "dec_deg": 16.4741039
+        },
+        {
+          "ra_deg": 297.919665,
+          "dec_deg": 16.4849663
+        },
+        {
+          "ra_deg": 298.921166,
+          "dec_deg": 16.4957294
+        }
+      ]
+    },
+    {
+      "neighbor": "Aquila",
+      "neighbor_abbreviation": "AQL",
+      "points": [
+        {
+          "ra_deg": 298.921166,
+          "dec_deg": 16.4957294
+        },
+        {
+          "ra_deg": 298.926,
+          "dec_deg": 16.0790844
+        }
+      ]
+    },
+    {
+      "neighbor": "Aquila",
+      "neighbor_abbreviation": "AQL",
+      "points": [
+        {
+          "ra_deg": 298.926,
+          "dec_deg": 16.0790844
+        },
+        {
+          "ra_deg": 299.552049,
+          "dec_deg": 16.085762
+        },
+        {
+          "ra_deg": 300.553722,
+          "dec_deg": 16.0963612
+        },
+        {
+          "ra_deg": 301.555338,
+          "dec_deg": 16.1068554
+        },
+        {
+          "ra_deg": 302.557125,
+          "dec_deg": 16.1172409
+        },
+        {
+          "ra_deg": 303.558997,
+          "dec_deg": 16.1275158
+        }
+      ]
+    },
+    {
+      "neighbor": "Delphinus",
+      "neighbor_abbreviation": "DEL",
+      "points": [
+        {
+          "ra_deg": 303.558997,
+          "dec_deg": 16.1275158
+        },
+        {
+          "ra_deg": 304.185018,
+          "dec_deg": 16.1338768
+        },
+        {
+          "ra_deg": 305.186949,
+          "dec_deg": 16.1439629
+        }
+      ]
+    },
+    {
+      "neighbor": "Delphinus",
+      "neighbor_abbreviation": "DEL",
+      "points": [
+        {
+          "ra_deg": 305.186949,
+          "dec_deg": 16.1439629
+        },
+        {
+          "ra_deg": 305.178795,
+          "dec_deg": 16.8939228
+        },
+        {
+          "ra_deg": 305.167809,
+          "dec_deg": 17.8938675
+        },
+        {
+          "ra_deg": 305.156679,
+          "dec_deg": 18.8938122
+        },
+        {
+          "ra_deg": 305.145435,
+          "dec_deg": 19.8937569
+        },
+        {
+          "ra_deg": 305.134049,
+          "dec_deg": 20.8936996
+        }
+      ]
+    },
+    {
+      "neighbor": "Vulpecula",
+      "neighbor_abbreviation": "VUL",
+      "points": [
+        {
+          "ra_deg": 305.134049,
+          "dec_deg": 20.8936996
+        },
+        {
+          "ra_deg": 305.125409,
+          "dec_deg": 21.6436558
+        }
+      ]
+    },
+    {
+      "neighbor": "Vulpecula",
+      "neighbor_abbreviation": "VUL",
+      "points": [
+        {
+          "ra_deg": 305.125409,
+          "dec_deg": 21.6436558
+        },
+        {
+          "ra_deg": 304.874697,
+          "dec_deg": 21.6411419
+        },
+        {
+          "ra_deg": 303.872223,
+          "dec_deg": 21.6310215
+        },
+        {
+          "ra_deg": 302.869664,
+          "dec_deg": 21.6207829
+        },
+        {
+          "ra_deg": 301.867132,
+          "dec_deg": 21.6104317
+        },
+        {
+          "ra_deg": 300.864886,
+          "dec_deg": 21.5999718
+        },
+        {
+          "ra_deg": 299.862528,
+          "dec_deg": 21.5894032
+        },
+        {
+          "ra_deg": 298.860255,
+          "dec_deg": 21.5787334
+        }
+      ]
+    },
+    {
+      "neighbor": "Vulpecula",
+      "neighbor_abbreviation": "VUL",
+      "points": [
+        {
+          "ra_deg": 298.860255,
+          "dec_deg": 21.5787334
+        },
+        {
+          "ra_deg": 298.861284,
+          "dec_deg": 21.4954071
+        },
+        {
+          "ra_deg": 298.873559,
+          "dec_deg": 20.4954739
+        },
+        {
+          "ra_deg": 298.885689,
+          "dec_deg": 19.4955387
+        }
+      ]
+    },
+    {
+      "neighbor": "Vulpecula",
+      "neighbor_abbreviation": "VUL",
+      "points": [
+        {
+          "ra_deg": 298.885689,
+          "dec_deg": 19.4955387
+        },
+        {
+          "ra_deg": 298.134213,
+          "dec_deg": 19.4874725
+        },
+        {
+          "ra_deg": 297.132483,
+          "dec_deg": 19.4766331
+        },
+        {
+          "ra_deg": 296.130637,
+          "dec_deg": 19.4656982
+        },
+        {
+          "ra_deg": 295.128851,
+          "dec_deg": 19.4546719
+        },
+        {
+          "ra_deg": 294.127293,
+          "dec_deg": 19.4435596
+        },
+        {
+          "ra_deg": 293.125649,
+          "dec_deg": 19.4323616
+        },
+        {
+          "ra_deg": 292.124061,
+          "dec_deg": 19.4210815
+        },
+        {
+          "ra_deg": 291.122703,
+          "dec_deg": 19.4097271
+        },
+        {
+          "ra_deg": 290.121288,
+          "dec_deg": 19.3982983
+        }
+      ]
+    },
+    {
+      "neighbor": "Vulpecula",
+      "neighbor_abbreviation": "VUL",
+      "points": [
+        {
+          "ra_deg": 290.121288,
+          "dec_deg": 19.3982983
+        },
+        {
+          "ra_deg": 290.109416,
+          "dec_deg": 20.3148899
+        },
+        {
+          "ra_deg": 290.096311,
+          "dec_deg": 21.3148155
+        }
+      ]
+    },
+    {
+      "neighbor": "Vulpecula",
+      "neighbor_abbreviation": "VUL",
+      "points": [
+        {
+          "ra_deg": 290.096311,
+          "dec_deg": 21.3148155
+        },
+        {
+          "ra_deg": 289.345236,
+          "dec_deg": 21.3061962
+        },
+        {
+          "ra_deg": 288.343792,
+          "dec_deg": 21.2946453
+        },
+        {
+          "ra_deg": 287.342577,
+          "dec_deg": 21.2830296
+        },
+        {
+          "ra_deg": 286.341276,
+          "dec_deg": 21.2713547
+        },
+        {
+          "ra_deg": 285.340091,
+          "dec_deg": 21.2596207
+        },
+        {
+          "ra_deg": 284.339133,
+          "dec_deg": 21.2478352
+        }
+      ]
+    },
+    {
+      "neighbor": "Hercules",
+      "neighbor_abbreviation": "HER",
+      "points": [
+        {
+          "ra_deg": 284.339133,
+          "dec_deg": 21.2478352
+        },
+        {
+          "ra_deg": 284.347029,
+          "dec_deg": 20.6645527
+        },
+        {
+          "ra_deg": 284.360418,
+          "dec_deg": 19.6646309
+        },
+        {
+          "ra_deg": 284.373636,
+          "dec_deg": 18.6647091
+        }
+      ]
+    },
+    {
+      "neighbor": "Aquila",
+      "neighbor_abbreviation": "AQL",
+      "points": [
+        {
+          "ra_deg": 284.373636,
+          "dec_deg": 18.6647091
+        },
+        {
+          "ra_deg": 285.374451,
+          "dec_deg": 18.6764908
+        },
+        {
+          "ra_deg": 286.375494,
+          "dec_deg": 18.6882229
+        }
+      ]
+    }
+  ],
+  "sources": [
+    {
+      "label": "Stellarium Western sky culture",
+      "url": "https://raw.githubusercontent.com/Stellarium/stellarium-skycultures/014fbb5e59233d133c22f9811af96b67d05a95c9/western/index.json",
+      "path": "catalog-work/western-constellation-stars/stellarium-western-index.json",
+      "sha256": "a861accd345249a185a5ecfc2a516f34291c0aa52f4bb8d8337ffc53e9cef6b9"
+    },
+    {
+      "label": "Adopted star positions and names",
+      "url": "https://simbad.cds.unistra.fr/simbad/",
+      "path": "src/data/catalogs/western-constellation-stars/stars.csv",
+      "sha256": "0a8b7c1dc3f7e3412c5cffb09a18cdf5b5b7424cc89ea8a0a1ffb4da57d3ad6a"
+    },
+    {
+      "label": "Hipparcos Johnson V magnitudes",
+      "url": "https://cdsarc.cds.unistra.fr/viz-bin/cat/I/239",
+      "path": "catalog-work/western-constellation-stars/hipparcos-v.csv",
+      "sha256": "eec12b740da3aac5204ba75ca5158b6f9f2f81886dda2526fe765cf9ea159320"
+    },
+    {
+      "label": "CDS / IAU constellation boundaries (J2000)",
+      "url": "https://cdsarc.cds.unistra.fr/viz-bin/cat/VI/49",
+      "path": "catalog-work/constellation-charts/boundaries-j2000.dat.gz",
+      "sha256": "879cd6e7a1c908f1e19a5f5fe8cc75fb1d1077564e3890f9152a3680affe9aac",
+      "inputs": [
+        {
+          "path": "catalog-work/constellation-charts/boundary-contours-b1875.dat",
+          "sha256": "865cdf4218f676eb304587c75c63231948d29cd0abe6892a8a8130c1c4fe3592"
+        },
+        {
+          "path": "catalog-work/constellation-charts/boundary-contours-readme.txt",
+          "sha256": "a3ec688bea21e9db10832842c9b845558dbe8ccf820ddedec842d664d2b74c89"
+        }
+      ]
+    }
+  ]
+}

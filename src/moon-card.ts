@@ -1,5 +1,5 @@
 import { planetMoonSpecs, planetMoonsForId, type PlanetMoon, type PlanetSpec, type SolarPlanetDescription } from './planet-properties'
-import { disposePlanetGlobe, renderPlanetGlobe } from './planet-globe'
+import { disposePlanetGlobe, renderPlanetGlobe, resetPlanetGlobe } from './planet-globe'
 import { moonPhotographs } from './moon-photographs'
 import { svgNode } from './spectral-chart'
 
@@ -104,6 +104,7 @@ export function renderPlanetMoons(container: HTMLElement, planet: SolarPlanetDes
       photograph.title = photo.credit
     } else photograph.removeAttribute('src')
     const available = Boolean(photo) || renderPlanetGlobe(globe, moon.id)
+    if (!photo && available) resetPlanetGlobe(globe)
     globe.hidden = Boolean(photo) || !available
     frame.dataset.mediaType = photo ? 'photograph' : 'globe'
     frame.hidden = !available

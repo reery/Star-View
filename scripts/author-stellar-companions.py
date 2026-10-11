@@ -20,6 +20,7 @@ from statistics import median
 from catalog_sources.adapters import eligible_gaia_physical, read_gaia_tap
 from catalog_sources.enrichment import estimate_temperature, derive_physical
 from catalog_sources.ordinary_binaries import orbit_pairs, matching_members
+from catalog_sources.companion_properties import apply_literature, property_coverage
 
 ROOT = Path(__file__).resolve().parents[1]
 WORK = ROOT / "catalog-work/star-systems"
@@ -480,6 +481,8 @@ def build():
         star["notes"] += " " + override["note"]
         audit["componentRecords"].setdefault(identifier, {})["reviewedPhysicalOverride"] = override
 
+    inputs += apply_literature(ROOT, WORK / "reviewed-companion-literature.json", definitions, pool, audit)
+
     definitions = [s for s in definitions if len(s["components"]) > 1]
     required_ids = {c["starId"] for s in definitions for c in s["components"]}
     pool = {identifier: star for identifier, star in pool.items() if identifier in required_ids}
@@ -504,7 +507,8 @@ def build():
             audit['unreviewedMultiplicityRecords'].append({'id': identifier, 'name': star['name'],
                 'simbadType': source.get('otype'), 'spectralType': star['spectral_type'], 'wdsIds': wds,
                 'status': 'Needs source review; a WDS identifier or spectral/astrometric flag alone does not establish physical component membership.'})
-    audit.update(schemaVersion=1, reviewedOn="2026-10-10", systems=len(definitions), components=len(pool),
+    audit.update(schemaVersion=1, reviewedOn="2026-10-11", systems=len(definitions), components=len(pool),
+                 propertyCoverage=property_coverage(pool),
                  coverage={field: sum(s[field] is not None for s in pool.values()) for field in FIELDS},
                  inputSha256={str(path.relative_to(ROOT)): hashlib.sha256(path.read_bytes()).hexdigest() for path in inputs})
     payload = {"schemaVersion": 1, "policy": "Load every reviewed stellar component when any exact member is represented, independent of luminosity, brightness, distance and selection cutoff. No positional membership inference; unknown component fields remain null. Integrated system properties never become individual measurements.", "systems": definitions, "stars": list(pool.values())}

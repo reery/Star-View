@@ -23949,7 +23949,7 @@
       "radius_solar": null,
       "metallicity_dex": null,
       "age_gyr": null,
-      "absolute_mag": null,
+      "absolute_mag": 4.205033890408865,
       "epoch": 2000.0,
       "x_pc": -1.654636623,
       "y_pc": 6.915263564,
@@ -24035,7 +24035,7 @@
         "Chi Draconis A",
         "Chi Dra"
       ],
-      "notes": "Corrected CNS5 4539; exact source identity * chi Dra. Former system source snapshot, shared as an approximate component position and proper motion. No resolved orbital trajectory is claimed. The Table 5 masses use the paper orbital solution. Individual spectral types and blended photometry are withheld. Reviewed membership and individual physical parameters: 2010AJ....139.2308F. Individually reviewed physical values/withholding: 2010AJ....139.2308F; supersedes blended-source values for these fields. Withheld individual fields: temperature_k, luminosity_solar, radius_solar, metallicity_dex, age_gyr, absolute_mag.",
+      "notes": "Corrected CNS5 4539; exact source identity * chi Dra. Former system source snapshot, shared as an approximate component position and proper motion. No resolved orbital trajectory is claimed. The Table 5 masses use the paper orbital solution. Individual spectral types and blended photometry are withheld. Reviewed membership and individual physical parameters: 2010AJ....139.2308F. Individually reviewed physical values/withholding: 2010AJ....139.2308F; supersedes blended-source values for these fields. Withheld individual fields: temperature_k, luminosity_solar, radius_solar, metallicity_dex, age_gyr, absolute_mag. Reviewed individual literature: Piccotti et al. (2020), exact HD 170153 reviewed pair. Component Johnson V comes from Table 6 resolved-flux decomposition. Eligible masses use Table 5 orbital-parallax solution, with orbital/Hipparcos parallax consistency reviewed. Earlier individual catalog values win; ambiguous hierarchical totals and conflicting atmosphere/model estimates remain unavailable.",
       "raw_astrometry": {
         "ra_deg": 275.259744172076,
         "dec_deg": 72.73369775642335,
@@ -24056,7 +24056,7 @@
         "Variable star"
       ],
       "known_planets": 0,
-      "apparent_mag": null
+      "apparent_mag": 3.736
     },
     {
       "temperature_k": null,
@@ -24065,7 +24065,7 @@
       "radius_solar": null,
       "metallicity_dex": null,
       "age_gyr": null,
-      "absolute_mag": null,
+      "absolute_mag": 6.231033890408864,
       "epoch": 2000.0,
       "x_pc": -1.654636623,
       "y_pc": 6.915263564,
@@ -24082,7 +24082,7 @@
       "designations": [
         "Chi Draconis B"
       ],
-      "notes": "Reviewed individual companion: 2010AJ....139.2308F. The Table 5 masses use the paper orbital solution. Individual spectral types and blended photometry are withheld. Position and proper motion share the parent snapshot as an approximation. Individual radial velocity, orbital phase and unresolved physical measurements are withheld. Withheld individual fields: temperature_k, luminosity_solar, radius_solar, metallicity_dex, age_gyr, absolute_mag. Reviewed companion expansion of western-constellation-stars: Chi Draconis B; adopted nearest-1000:chi-draconis-b.",
+      "notes": "Reviewed individual companion: 2010AJ....139.2308F. The Table 5 masses use the paper orbital solution. Individual spectral types and blended photometry are withheld. Position and proper motion share the parent snapshot as an approximation. Individual radial velocity, orbital phase and unresolved physical measurements are withheld. Withheld individual fields: temperature_k, luminosity_solar, radius_solar, metallicity_dex, age_gyr, absolute_mag. Reviewed companion expansion of western-constellation-stars: Chi Draconis B; adopted nearest-1000:chi-draconis-b. Reviewed individual literature: Piccotti et al. (2020), exact HD 170153 reviewed pair. Component Johnson V comes from Table 6 resolved-flux decomposition. Eligible masses use Table 5 orbital-parallax solution, with orbital/Hipparcos parallax consistency reviewed. Earlier individual catalog values win; ambiguous hierarchical totals and conflicting atmosphere/model estimates remain unavailable.",
       "raw_astrometry": {
         "ra_deg": 275.259744172076,
         "dec_deg": 72.73369775642335,
@@ -24100,7 +24100,7 @@
       },
       "subtypes": [],
       "known_planets": null,
-      "apparent_mag": null
+      "apparent_mag": 5.762
     },
     {
       "temperature_k": 5346.0,
@@ -25835,7 +25835,7 @@
       "apparent_mag": 0.1300000007654818
     },
     {
-      "temperature_k": null,
+      "temperature_k": 10700.0,
       "mass_solar": null,
       "luminosity_solar": null,
       "radius_solar": null,
@@ -25858,7 +25858,7 @@
       "designations": [
         "Rigel Ba"
       ],
-      "notes": "Individual stellar member from MSC WDS 05145-0812. The MSC BC sky direction and primary Rigel parallax place the component approximately at J2000; Ba/Bb/C share that BC direction and the primary proper motion. No resolved inner orbital offset, phase or individual radial velocity is adopted. B/BC integrated photometry and catalogue estimated masses are withheld. Individual Johnson V and physical measurements are unknown. Reviewed companion expansion of western-constellation-stars: Rigel Ba; adopted reviewed-overlay-components:rigel-ba.",
+      "notes": "Individual stellar member from MSC WDS 05145-0812. The MSC BC sky direction and primary Rigel parallax place the component approximately at J2000; Ba/Bb/C share that BC direction and the primary proper motion. No resolved inner orbital offset, phase or individual radial velocity is adopted. B/BC integrated photometry and catalogue estimated masses are withheld. Individual Johnson V and physical measurements are unknown. Reviewed companion expansion of western-constellation-stars: Rigel Ba; adopted reviewed-overlay-components:rigel-ba. Estimated temperature from Pecaut-Mamajek 2022.04.16 B9V mean dwarf sequence (interpolation where needed); not an object-specific measurement.",
       "raw_astrometry": {
         "ra_deg": 78.633403,
         "dec_deg": -8.204067,
@@ -25925,7 +25925,7 @@
       "apparent_mag": null
     },
     {
-      "temperature_k": null,
+      "temperature_k": 10700.0,
       "mass_solar": null,
       "luminosity_solar": null,
       "radius_solar": null,
@@ -25948,7 +25948,7 @@
       "designations": [
         "Rigel C"
       ],
-      "notes": "Individual stellar member from MSC WDS 05145-0812. The MSC BC sky direction and primary Rigel parallax place the component approximately at J2000; Ba/Bb/C share that BC direction and the primary proper motion. No resolved inner orbital offset, phase or individual radial velocity is adopted. B/BC integrated photometry and catalogue estimated masses are withheld. C Johnson V=7.60 is the individual visual C value in the B,C subsystem table; no bolometric conversion is made. Reviewed companion expansion of western-constellation-stars: Rigel C; adopted reviewed-overlay-components:rigel-c.",
+      "notes": "Individual stellar member from MSC WDS 05145-0812. The MSC BC sky direction and primary Rigel parallax place the component approximately at J2000; Ba/Bb/C share that BC direction and the primary proper motion. No resolved inner orbital offset, phase or individual radial velocity is adopted. B/BC integrated photometry and catalogue estimated masses are withheld. C Johnson V=7.60 is the individual visual C value in the B,C subsystem table; no bolometric conversion is made. Reviewed companion expansion of western-constellation-stars: Rigel C; adopted reviewed-overlay-components:rigel-c. Estimated temperature from Pecaut-Mamajek 2022.04.16 B9V mean dwarf sequence (interpolation where needed); not an object-specific measurement.",
       "raw_astrometry": {
         "ra_deg": 78.633403,
         "dec_deg": -8.204067,
@@ -28624,7 +28624,7 @@
     },
     {
       "temperature_k": null,
-      "mass_solar": null,
+      "mass_solar": 1.755,
       "luminosity_solar": null,
       "radius_solar": null,
       "metallicity_dex": null,
@@ -28664,7 +28664,7 @@
         "WDS J00084+2905B"
       ],
       "subtypes": [],
-      "notes": " MSC physical hierarchy 00084+2905, component B. Shared system distance for close components is approximate. Catalog magnitude/spectral-type masses and minimum companion masses are withheld. Component-scoped catalog measurements/estimates; details in catalog-work/star-systems/catalog-companions-audit.json."
+      "notes": " MSC physical hierarchy 00084+2905, component B. Shared system distance for close components is approximate. Catalog magnitude/spectral-type masses and minimum companion masses are withheld. Component-scoped catalog measurements/estimates; details in catalog-work/star-systems/catalog-companions-audit.json. Reviewed individual literature: Piccotti et al. (2020), exact HD 358 reviewed pair. Component Johnson V comes from Table 6 resolved-flux decomposition. Eligible masses use Table 5 orbital-parallax solution, with orbital/Hipparcos parallax consistency reviewed. Earlier individual catalog values win; ambiguous hierarchical totals and conflicting atmosphere/model estimates remain unavailable."
     },
     {
       "temperature_k": 10965.0,
@@ -29226,10 +29226,10 @@
       "notes": " MSC physical hierarchy 00393+3052, component B. Shared system distance for close components is approximate. Catalog magnitude/spectral-type masses and minimum companion masses are withheld. Component-scoped catalog measurements/estimates; details in catalog-work/star-systems/catalog-companions-audit.json. Component-scoped catalog measurements/estimates; details in catalog-work/star-systems/catalog-companions-audit.json."
     },
     {
-      "temperature_k": 7664.0,
+      "temperature_k": 27990.0,
       "mass_solar": null,
-      "luminosity_solar": 2951.7,
-      "radius_solar": 30.8161,
+      "luminosity_solar": null,
+      "radius_solar": null,
       "metallicity_dex": null,
       "age_gyr": null,
       "absolute_mag": -3.7410677750457677,
@@ -29359,7 +29359,7 @@
         "** BU 1028A",
         "ADS   782 A"
       ],
-      "notes": "Western constellation line-figure star (HIP 4427; Stellarium Cas). SIMBAD identity * gam Cas; SIMBAD compiled Johnson V=2.39; inverse SIMBAD compiled parallax distance; absolute V uses no extinction correction. Physical parameters: reviewed Star View values for temperature_k, luminosity_solar, radius_solar. MSC physical hierarchy 00567+6043, component A. Shared system distance for close components is approximate. Catalog magnitude/spectral-type masses and minimum companion masses are withheld. Component-scoped catalog measurements/estimates; details in catalog-work/star-systems/catalog-companions-audit.json. Component-scoped catalog measurements/estimates; details in catalog-work/star-systems/catalog-companions-audit.json.",
+      "notes": "Western constellation line-figure star (HIP 4427; Stellarium Cas). SIMBAD identity * gam Cas; SIMBAD compiled Johnson V=2.39; inverse SIMBAD compiled parallax distance; absolute V uses no extinction correction. Reviewed hot-star temperature: 2001A&A...378..861C, HD 5394, J/A+A/378/861/table6, 27990 K. Rapidly rotating Be star: apparent adopted photospheric temperature, not polar or equatorial temperature. The table gives no individual temperature error. Does not describe the cool circumstellar disk. The old broadband SED luminosity and dependent radius are withheld; no component-safe replacement is adopted in this review. MSC physical hierarchy 00567+6043, component A. Shared system distance for close components is approximate. Catalog magnitude/spectral-type masses and minimum companion masses are withheld. Component-scoped catalog measurements/estimates; details in catalog-work/star-systems/catalog-companions-audit.json. Component-scoped catalog measurements/estimates; details in catalog-work/star-systems/catalog-companions-audit.json.",
       "raw_astrometry": {
         "ra_deg": 14.17721289375,
         "dec_deg": 60.71674002472222,
@@ -45386,7 +45386,7 @@
     },
     {
       "temperature_k": 9340,
-      "mass_solar": null,
+      "mass_solar": 2.222,
       "luminosity_solar": null,
       "radius_solar": null,
       "metallicity_dex": 0.1,
@@ -45504,11 +45504,11 @@
         "NAME Mizar A"
       ],
       "subtypes": [],
-      "notes": " MSC physical hierarchy 13239+5456, component Aa. Shared system distance for close components is approximate. Catalog magnitude/spectral-type masses and minimum companion masses are withheld. Component-scoped catalog measurements/estimates; details in catalog-work/star-systems/catalog-companions-audit.json. Component-scoped catalog measurements/estimates; details in catalog-work/star-systems/catalog-companions-audit.json."
+      "notes": " MSC physical hierarchy 13239+5456, component Aa. Shared system distance for close components is approximate. Catalog magnitude/spectral-type masses and minimum companion masses are withheld. Component-scoped catalog measurements/estimates; details in catalog-work/star-systems/catalog-companions-audit.json. Component-scoped catalog measurements/estimates; details in catalog-work/star-systems/catalog-companions-audit.json. Reviewed individual literature: Piccotti et al. (2020), exact HD 116656 reviewed pair. Component Johnson V comes from Table 6 resolved-flux decomposition. Eligible masses use Table 5 orbital-parallax solution, with orbital/Hipparcos parallax consistency reviewed. Earlier individual catalog values win; ambiguous hierarchical totals and conflicting atmosphere/model estimates remain unavailable."
     },
     {
-      "temperature_k": null,
-      "mass_solar": null,
+      "temperature_k": 9700.0,
+      "mass_solar": 2.238,
       "luminosity_solar": null,
       "radius_solar": null,
       "metallicity_dex": null,
@@ -45534,7 +45534,7 @@
         "astrometry_ref": "MSC 2026-06-19; shared parent astrometry for unresolved members (approximate)",
         "radial_velocity_ref": null
       },
-      "spectral_type": null,
+      "spectral_type": "A0V",
       "known_planets": null,
       "x_pc": -4.646009565,
       "y_pc": 10.886556637,
@@ -45548,7 +45548,7 @@
         "WDS J13239+5456Ab"
       ],
       "subtypes": [],
-      "notes": " MSC physical hierarchy 13239+5456, component Ab. Shared system distance for close components is approximate. Catalog magnitude/spectral-type masses and minimum companion masses are withheld. Component-scoped catalog measurements/estimates; details in catalog-work/star-systems/catalog-companions-audit.json."
+      "notes": " MSC physical hierarchy 13239+5456, component Ab. Shared system distance for close components is approximate. Catalog magnitude/spectral-type masses and minimum companion masses are withheld. Component-scoped catalog measurements/estimates; details in catalog-work/star-systems/catalog-companions-audit.json. Reviewed individual literature: Piccotti et al. (2020), exact HD 116656 reviewed pair. Component Johnson V comes from Table 6 resolved-flux decomposition. Eligible masses use Table 5 orbital-parallax solution, with orbital/Hipparcos parallax consistency reviewed. Earlier individual catalog values win; ambiguous hierarchical totals and conflicting atmosphere/model estimates remain unavailable. Estimated temperature from Pecaut-Mamajek 2022.04.16 A0V mean dwarf sequence (interpolation where needed); not an object-specific measurement."
     },
     {
       "temperature_k": null,
@@ -52315,7 +52315,7 @@
     },
     {
       "temperature_k": null,
-      "mass_solar": null,
+      "mass_solar": 3.514,
       "luminosity_solar": null,
       "radius_solar": null,
       "metallicity_dex": null,
@@ -52406,11 +52406,11 @@
         "hip-99473"
       ],
       "subtypes": [],
-      "notes": " MSC physical hierarchy 20113-0049, component Aa. Shared system distance for close components is approximate. Catalog magnitude/spectral-type masses and minimum companion masses are withheld. Component-scoped catalog measurements/estimates; details in catalog-work/star-systems/catalog-companions-audit.json."
+      "notes": " MSC physical hierarchy 20113-0049, component Aa. Shared system distance for close components is approximate. Catalog magnitude/spectral-type masses and minimum companion masses are withheld. Component-scoped catalog measurements/estimates; details in catalog-work/star-systems/catalog-companions-audit.json. Reviewed individual literature: Piccotti et al. (2020), exact HD 191692 reviewed pair. Component Johnson V comes from Table 6 resolved-flux decomposition. Eligible masses use Table 5 orbital-parallax solution, with orbital/Hipparcos parallax consistency reviewed. Earlier individual catalog values win; ambiguous hierarchical totals and conflicting atmosphere/model estimates remain unavailable."
     },
     {
       "temperature_k": null,
-      "mass_solar": null,
+      "mass_solar": 2.815,
       "luminosity_solar": null,
       "radius_solar": null,
       "metallicity_dex": null,
@@ -52450,7 +52450,7 @@
         "WDS J20113-0049Ab"
       ],
       "subtypes": [],
-      "notes": " MSC physical hierarchy 20113-0049, component Ab. Shared system distance for close components is approximate. Catalog magnitude/spectral-type masses and minimum companion masses are withheld. Component-scoped catalog measurements/estimates; details in catalog-work/star-systems/catalog-companions-audit.json."
+      "notes": " MSC physical hierarchy 20113-0049, component Ab. Shared system distance for close components is approximate. Catalog magnitude/spectral-type masses and minimum companion masses are withheld. Component-scoped catalog measurements/estimates; details in catalog-work/star-systems/catalog-companions-audit.json. Reviewed individual literature: Piccotti et al. (2020), exact HD 191692 reviewed pair. Component Johnson V comes from Table 6 resolved-flux decomposition. Eligible masses use Table 5 orbital-parallax solution, with orbital/Hipparcos parallax consistency reviewed. Earlier individual catalog values win; ambiguous hierarchical totals and conflicting atmosphere/model estimates remain unavailable."
     },
     {
       "temperature_k": null,
@@ -56593,14 +56593,14 @@
     },
     {
       "temperature_k": null,
-      "mass_solar": null,
+      "mass_solar": 1.197,
       "luminosity_solar": null,
       "radius_solar": null,
       "metallicity_dex": null,
       "age_gyr": null,
       "metallicity_kind": null,
-      "absolute_mag": null,
-      "apparent_mag": null,
+      "absolute_mag": 3.8015849071481727,
+      "apparent_mag": 5.136,
       "vx_kms": null,
       "vy_kms": null,
       "vz_kms": null,
@@ -56675,18 +56675,18 @@
         "Delta Equ"
       ],
       "subtypes": [],
-      "notes": "Individual A spectrum from catalog composite F7(V)+G0(V); component spectral ordering retained. Integrated system photometry and physical estimates withheld. Shared system sky position/distance is approximate; no orbital phase or individual space motion inferred. Component-scoped catalog measurements/estimates; details in catalog-work/star-systems/catalog-companions-audit.json."
+      "notes": "Individual A spectrum from catalog composite F7(V)+G0(V); component spectral ordering retained. Integrated system photometry and physical estimates withheld. Shared system sky position/distance is approximate; no orbital phase or individual space motion inferred. Component-scoped catalog measurements/estimates; details in catalog-work/star-systems/catalog-companions-audit.json. Reviewed individual literature: Piccotti et al. (2020), exact HD 202275 reviewed pair. Component Johnson V comes from Table 6 resolved-flux decomposition. Eligible masses use Table 5 orbital-parallax solution, with orbital/Hipparcos parallax consistency reviewed. Earlier individual catalog values win; ambiguous hierarchical totals and conflicting atmosphere/model estimates remain unavailable."
     },
     {
       "temperature_k": null,
-      "mass_solar": null,
+      "mass_solar": 1.121,
       "luminosity_solar": null,
       "radius_solar": null,
       "metallicity_dex": null,
       "age_gyr": null,
       "metallicity_kind": null,
-      "absolute_mag": null,
-      "apparent_mag": null,
+      "absolute_mag": 4.025584907148173,
+      "apparent_mag": 5.36,
       "vx_kms": null,
       "vy_kms": null,
       "vz_kms": null,
@@ -56705,7 +56705,7 @@
         "Delta Equ B"
       ],
       "subtypes": [],
-      "notes": "Individual B spectrum from catalog composite F7(V)+G0(V); component spectral ordering retained. Integrated system photometry and physical estimates withheld. Shared system sky position/distance is approximate; no orbital phase or individual space motion inferred. Component-scoped catalog measurements/estimates; details in catalog-work/star-systems/catalog-companions-audit.json."
+      "notes": "Individual B spectrum from catalog composite F7(V)+G0(V); component spectral ordering retained. Integrated system photometry and physical estimates withheld. Shared system sky position/distance is approximate; no orbital phase or individual space motion inferred. Component-scoped catalog measurements/estimates; details in catalog-work/star-systems/catalog-companions-audit.json. Reviewed individual literature: Piccotti et al. (2020), exact HD 202275 reviewed pair. Component Johnson V comes from Table 6 resolved-flux decomposition. Eligible masses use Table 5 orbital-parallax solution, with orbital/Hipparcos parallax consistency reviewed. Earlier individual catalog values win; ambiguous hierarchical totals and conflicting atmosphere/model estimates remain unavailable."
     },
     {
       "temperature_k": 6750.0,
@@ -56715,8 +56715,8 @@
       "metallicity_dex": null,
       "age_gyr": null,
       "metallicity_kind": null,
-      "absolute_mag": null,
-      "apparent_mag": null,
+      "absolute_mag": 2.7339858073759418,
+      "apparent_mag": 4.104,
       "vx_kms": null,
       "vy_kms": null,
       "vz_kms": null,
@@ -56795,7 +56795,7 @@
         "10 UMa"
       ],
       "subtypes": [],
-      "notes": "Individual A spectrum from catalog composite F3V+G5V; component spectral ordering retained. Integrated system photometry and physical estimates withheld. Shared system sky position/distance is approximate; no orbital phase or individual space motion inferred. Estimated temperature from Pecaut-Mamajek 2022.04.16 F3V mean dwarf sequence (interpolation where needed); not an object-specific measurement. Component-scoped catalog measurements/estimates; details in catalog-work/star-systems/catalog-companions-audit.json."
+      "notes": "Individual A spectrum from catalog composite F3V+G5V; component spectral ordering retained. Integrated system photometry and physical estimates withheld. Shared system sky position/distance is approximate; no orbital phase or individual space motion inferred. Estimated temperature from Pecaut-Mamajek 2022.04.16 F3V mean dwarf sequence (interpolation where needed); not an object-specific measurement. Component-scoped catalog measurements/estimates; details in catalog-work/star-systems/catalog-companions-audit.json. Reviewed individual literature: Piccotti et al. (2020), exact HD 76943 reviewed pair. Component Johnson V comes from Table 6 resolved-flux decomposition. Eligible masses use Table 5 orbital-parallax solution, with orbital/Hipparcos parallax consistency reviewed. Earlier individual catalog values win; ambiguous hierarchical totals and conflicting atmosphere/model estimates remain unavailable."
     },
     {
       "temperature_k": 5660.0,
@@ -56805,8 +56805,8 @@
       "metallicity_dex": null,
       "age_gyr": null,
       "metallicity_kind": null,
-      "absolute_mag": null,
-      "apparent_mag": null,
+      "absolute_mag": 4.851985807375942,
+      "apparent_mag": 6.222,
       "vx_kms": null,
       "vy_kms": null,
       "vz_kms": null,
@@ -56825,7 +56825,7 @@
         "10 UMa B"
       ],
       "subtypes": [],
-      "notes": "Individual B spectrum from catalog composite F3V+G5V; component spectral ordering retained. Integrated system photometry and physical estimates withheld. Shared system sky position/distance is approximate; no orbital phase or individual space motion inferred. Estimated temperature from Pecaut-Mamajek 2022.04.16 G5V mean dwarf sequence (interpolation where needed); not an object-specific measurement. Component-scoped catalog measurements/estimates; details in catalog-work/star-systems/catalog-companions-audit.json."
+      "notes": "Individual B spectrum from catalog composite F3V+G5V; component spectral ordering retained. Integrated system photometry and physical estimates withheld. Shared system sky position/distance is approximate; no orbital phase or individual space motion inferred. Estimated temperature from Pecaut-Mamajek 2022.04.16 G5V mean dwarf sequence (interpolation where needed); not an object-specific measurement. Component-scoped catalog measurements/estimates; details in catalog-work/star-systems/catalog-companions-audit.json. Reviewed individual literature: Piccotti et al. (2020), exact HD 76943 reviewed pair. Component Johnson V comes from Table 6 resolved-flux decomposition. Eligible masses use Table 5 orbital-parallax solution, with orbital/Hipparcos parallax consistency reviewed. Earlier individual catalog values win; ambiguous hierarchical totals and conflicting atmosphere/model estimates remain unavailable."
     },
     {
       "temperature_k": 6312,
@@ -57281,14 +57281,14 @@
     },
     {
       "temperature_k": null,
-      "mass_solar": null,
+      "mass_solar": 2.153,
       "luminosity_solar": null,
       "radius_solar": null,
       "metallicity_dex": null,
       "age_gyr": null,
       "metallicity_kind": null,
-      "absolute_mag": null,
-      "apparent_mag": null,
+      "absolute_mag": 0.6553142933684675,
+      "apparent_mag": 4.476,
       "vx_kms": null,
       "vy_kms": null,
       "vz_kms": null,
@@ -57353,18 +57353,18 @@
         "Kitalpha"
       ],
       "subtypes": [],
-      "notes": "Individual A spectrum from catalog composite G6IV+B9.5V; component spectral ordering retained. Integrated system photometry and physical estimates withheld. Shared system sky position/distance is approximate; no orbital phase or individual space motion inferred. Component-scoped catalog measurements/estimates; details in catalog-work/star-systems/catalog-companions-audit.json."
+      "notes": "Individual A spectrum from catalog composite G6IV+B9.5V; component spectral ordering retained. Integrated system photometry and physical estimates withheld. Shared system sky position/distance is approximate; no orbital phase or individual space motion inferred. Component-scoped catalog measurements/estimates; details in catalog-work/star-systems/catalog-companions-audit.json. Reviewed individual literature: Piccotti et al. (2020), exact HD 202447 reviewed pair. Component Johnson V comes from Table 6 resolved-flux decomposition. Eligible masses use Table 5 orbital-parallax solution, with orbital/Hipparcos parallax consistency reviewed. Earlier individual catalog values win; ambiguous hierarchical totals and conflicting atmosphere/model estimates remain unavailable."
     },
     {
       "temperature_k": 10400.0,
-      "mass_solar": null,
+      "mass_solar": 1.798,
       "luminosity_solar": null,
       "radius_solar": null,
       "metallicity_dex": null,
       "age_gyr": null,
       "metallicity_kind": null,
-      "absolute_mag": null,
-      "apparent_mag": null,
+      "absolute_mag": 1.1253142933684672,
+      "apparent_mag": 4.946,
       "vx_kms": null,
       "vy_kms": null,
       "vz_kms": null,
@@ -57383,7 +57383,7 @@
         "Kitalpha B"
       ],
       "subtypes": [],
-      "notes": "Individual B spectrum from catalog composite G6IV+B9.5V; component spectral ordering retained. Integrated system photometry and physical estimates withheld. Shared system sky position/distance is approximate; no orbital phase or individual space motion inferred. Estimated temperature from Pecaut-Mamajek 2022.04.16 B9.5V mean dwarf sequence (interpolation where needed); not an object-specific measurement. Component-scoped catalog measurements/estimates; details in catalog-work/star-systems/catalog-companions-audit.json."
+      "notes": "Individual B spectrum from catalog composite G6IV+B9.5V; component spectral ordering retained. Integrated system photometry and physical estimates withheld. Shared system sky position/distance is approximate; no orbital phase or individual space motion inferred. Estimated temperature from Pecaut-Mamajek 2022.04.16 B9.5V mean dwarf sequence (interpolation where needed); not an object-specific measurement. Component-scoped catalog measurements/estimates; details in catalog-work/star-systems/catalog-companions-audit.json. Reviewed individual literature: Piccotti et al. (2020), exact HD 202447 reviewed pair. Component Johnson V comes from Table 6 resolved-flux decomposition. Eligible masses use Table 5 orbital-parallax solution, with orbital/Hipparcos parallax consistency reviewed. Earlier individual catalog values win; ambiguous hierarchical totals and conflicting atmosphere/model estimates remain unavailable."
     },
     {
       "temperature_k": null,
@@ -57493,14 +57493,14 @@
     },
     {
       "temperature_k": null,
-      "mass_solar": null,
+      "mass_solar": 2.526,
       "luminosity_solar": null,
       "radius_solar": null,
       "metallicity_dex": null,
       "age_gyr": null,
       "metallicity_kind": null,
-      "absolute_mag": null,
-      "apparent_mag": null,
+      "absolute_mag": -0.9974630218329006,
+      "apparent_mag": 3.276,
       "vx_kms": null,
       "vy_kms": null,
       "vz_kms": null,
@@ -57565,18 +57565,18 @@
         "Gamma Per"
       ],
       "subtypes": [],
-      "notes": "Individual A spectrum from catalog composite G9III+A2-III:; component spectral ordering retained. Integrated system photometry and physical estimates withheld. Shared system sky position/distance is approximate; no orbital phase or individual space motion inferred. Component-scoped catalog measurements/estimates; details in catalog-work/star-systems/catalog-companions-audit.json."
+      "notes": "Individual A spectrum from catalog composite G9III+A2-III:; component spectral ordering retained. Integrated system photometry and physical estimates withheld. Shared system sky position/distance is approximate; no orbital phase or individual space motion inferred. Component-scoped catalog measurements/estimates; details in catalog-work/star-systems/catalog-companions-audit.json. Reviewed individual literature: Piccotti et al. (2020), exact HD 18925 reviewed pair. Component Johnson V comes from Table 6 resolved-flux decomposition. Eligible masses use Table 5 orbital-parallax solution, with orbital/Hipparcos parallax consistency reviewed. Earlier individual catalog values win; ambiguous hierarchical totals and conflicting atmosphere/model estimates remain unavailable."
     },
     {
       "temperature_k": null,
-      "mass_solar": null,
+      "mass_solar": 1.859,
       "luminosity_solar": null,
       "radius_solar": null,
       "metallicity_dex": null,
       "age_gyr": null,
       "metallicity_kind": null,
-      "absolute_mag": null,
-      "apparent_mag": null,
+      "absolute_mag": 0.0675369781670998,
+      "apparent_mag": 4.341,
       "vx_kms": null,
       "vy_kms": null,
       "vz_kms": null,
@@ -57595,7 +57595,7 @@
         "Gamma Per B"
       ],
       "subtypes": [],
-      "notes": "Individual B spectrum from catalog composite G9III+A2-III:; component spectral ordering retained. Integrated system photometry and physical estimates withheld. Shared system sky position/distance is approximate; no orbital phase or individual space motion inferred. Component-scoped catalog measurements/estimates; details in catalog-work/star-systems/catalog-companions-audit.json."
+      "notes": "Individual B spectrum from catalog composite G9III+A2-III:; component spectral ordering retained. Integrated system photometry and physical estimates withheld. Shared system sky position/distance is approximate; no orbital phase or individual space motion inferred. Component-scoped catalog measurements/estimates; details in catalog-work/star-systems/catalog-companions-audit.json. Reviewed individual literature: Piccotti et al. (2020), exact HD 18925 reviewed pair. Component Johnson V comes from Table 6 resolved-flux decomposition. Eligible masses use Table 5 orbital-parallax solution, with orbital/Hipparcos parallax consistency reviewed. Earlier individual catalog values win; ambiguous hierarchical totals and conflicting atmosphere/model estimates remain unavailable."
     },
     {
       "temperature_k": 15700.0,
@@ -58774,12 +58774,12 @@
       "notes": "Detected ORB6 visual pair 01315+1521 BU  506, component B. Unresolved parent photometry, physical parameters and space motion withheld. Shared parent position/distance is approximate unless individual astrometry is available. ORB6 magnitudes are withheld because their photometric band is not guaranteed to be Johnson V. Component-scoped catalog measurements/estimates; details in catalog-work/star-systems/catalog-companions-audit.json."
     },
     {
-      "temperature_k": null,
-      "mass_solar": null,
-      "luminosity_solar": null,
-      "radius_solar": null,
+      "temperature_k": 15539,
+      "mass_solar": 5.99,
+      "luminosity_solar": 3493,
+      "radius_solar": 8.14,
       "metallicity_dex": null,
-      "age_gyr": null,
+      "age_gyr": 0.063,
       "metallicity_kind": null,
       "absolute_mag": null,
       "apparent_mag": null,
@@ -58787,7 +58787,7 @@
       "vy_kms": null,
       "vz_kms": null,
       "raw_astrometry": null,
-      "spectral_type": null,
+      "spectral_type": "B3V",
       "known_planets": null,
       "x_pc": 7.881400347,
       "y_pc": -20.703032265,
@@ -58840,13 +58840,13 @@
         "hip-7588"
       ],
       "subtypes": [],
-      "notes": "Detected ORB6 visual pair 01377-5714 KRV  54, component A. Unresolved parent photometry, physical parameters and space motion withheld. Shared parent position/distance is approximate unless individual astrometry is available. ORB6 magnitudes are withheld because their photometric band is not guaranteed to be Johnson V. Component-scoped catalog measurements/estimates; details in catalog-work/star-systems/catalog-companions-audit.json."
+      "notes": "Detected ORB6 visual pair 01377-5714 KRV  54, component A. Unresolved parent photometry, physical parameters and space motion withheld. Shared parent position/distance is approximate unless individual astrometry is available. ORB6 magnitudes are withheld because their photometric band is not guaranteed to be Johnson V. Component-scoped catalog measurements/estimates; details in catalog-work/star-systems/catalog-companions-audit.json. Reviewed individual literature: Achernar: individual component constraints from Kervella et al. (2022). A mass subtracts the model-based B mass from the dynamical total; B mass is evolutionary-model based. Radii/temperatures/luminosities use component SEDs and mean limb-darkened diameters. A age is a rotating evolutionary-track estimate; no B age copied from A. A remains a fast rotator, so the scalar diameter/temperature are averages."
     },
     {
-      "temperature_k": null,
-      "mass_solar": null,
-      "luminosity_solar": null,
-      "radius_solar": null,
+      "temperature_k": 9064,
+      "mass_solar": 2.02,
+      "luminosity_solar": 17.5,
+      "radius_solar": 1.7,
       "metallicity_dex": null,
       "age_gyr": null,
       "metallicity_kind": null,
@@ -58856,7 +58856,7 @@
       "vy_kms": null,
       "vz_kms": null,
       "raw_astrometry": null,
-      "spectral_type": null,
+      "spectral_type": "A2-3V",
       "known_planets": null,
       "x_pc": 7.881400347,
       "y_pc": -20.703032265,
@@ -58870,23 +58870,23 @@
         "WDS J01377-5714B"
       ],
       "subtypes": [],
-      "notes": "Detected ORB6 visual pair 01377-5714 KRV  54, component B. Unresolved parent photometry, physical parameters and space motion withheld. Shared parent position/distance is approximate unless individual astrometry is available. ORB6 magnitudes are withheld because their photometric band is not guaranteed to be Johnson V. Component-scoped catalog measurements/estimates; details in catalog-work/star-systems/catalog-companions-audit.json."
+      "notes": "Detected ORB6 visual pair 01377-5714 KRV  54, component B. Unresolved parent photometry, physical parameters and space motion withheld. Shared parent position/distance is approximate unless individual astrometry is available. ORB6 magnitudes are withheld because their photometric band is not guaranteed to be Johnson V. Component-scoped catalog measurements/estimates; details in catalog-work/star-systems/catalog-companions-audit.json. Reviewed individual literature: Achernar: individual component constraints from Kervella et al. (2022). A mass subtracts the model-based B mass from the dynamical total; B mass is evolutionary-model based. Radii/temperatures/luminosities use component SEDs and mean limb-darkened diameters. A age is a rotating evolutionary-track estimate; no B age copied from A. A remains a fast rotator, so the scalar diameter/temperature are averages."
     },
     {
-      "temperature_k": null,
-      "mass_solar": null,
+      "temperature_k": 8600.0,
+      "mass_solar": 1.999,
       "luminosity_solar": null,
       "radius_solar": null,
       "metallicity_dex": null,
       "age_gyr": null,
       "metallicity_kind": null,
-      "absolute_mag": null,
-      "apparent_mag": null,
+      "absolute_mag": 1.437373958093486,
+      "apparent_mag": 2.712,
       "vx_kms": null,
       "vy_kms": null,
       "vz_kms": null,
       "raw_astrometry": null,
-      "spectral_type": null,
+      "spectral_type": "A3V",
       "known_planets": null,
       "x_pc": -10.943808186,
       "y_pc": 8.475152436,
@@ -58951,23 +58951,23 @@
         "hip-8903"
       ],
       "subtypes": [],
-      "notes": "Detected ORB6 visual pair 01546+2049 MKT   3, component A. Unresolved parent photometry, physical parameters and space motion withheld. Shared parent position/distance is approximate unless individual astrometry is available. ORB6 magnitudes are withheld because their photometric band is not guaranteed to be Johnson V. Component-scoped catalog measurements/estimates; details in catalog-work/star-systems/catalog-companions-audit.json."
+      "notes": "Detected ORB6 visual pair 01546+2049 MKT   3, component A. Unresolved parent photometry, physical parameters and space motion withheld. Shared parent position/distance is approximate unless individual astrometry is available. ORB6 magnitudes are withheld because their photometric band is not guaranteed to be Johnson V. Component-scoped catalog measurements/estimates; details in catalog-work/star-systems/catalog-companions-audit.json. Reviewed individual literature: Piccotti et al. (2020), exact HD 11636 reviewed pair. Component Johnson V comes from Table 6 resolved-flux decomposition. Eligible masses use Table 5 orbital-parallax solution, with orbital/Hipparcos parallax consistency reviewed. Earlier individual catalog values win; ambiguous hierarchical totals and conflicting atmosphere/model estimates remain unavailable. Estimated temperature from Pecaut-Mamajek 2022.04.16 A3V mean dwarf sequence (interpolation where needed); not an object-specific measurement."
     },
     {
-      "temperature_k": null,
-      "mass_solar": null,
+      "temperature_k": 5770.0,
+      "mass_solar": 1.023,
       "luminosity_solar": null,
       "radius_solar": null,
       "metallicity_dex": null,
       "age_gyr": null,
       "metallicity_kind": null,
-      "absolute_mag": null,
-      "apparent_mag": null,
+      "absolute_mag": 4.514373958093485,
+      "apparent_mag": 5.789,
       "vx_kms": null,
       "vy_kms": null,
       "vz_kms": null,
       "raw_astrometry": null,
-      "spectral_type": null,
+      "spectral_type": "G2V",
       "known_planets": null,
       "x_pc": -10.943808186,
       "y_pc": 8.475152436,
@@ -58981,11 +58981,11 @@
         "WDS J01546+2049B"
       ],
       "subtypes": [],
-      "notes": "Detected ORB6 visual pair 01546+2049 MKT   3, component B. Unresolved parent photometry, physical parameters and space motion withheld. Shared parent position/distance is approximate unless individual astrometry is available. ORB6 magnitudes are withheld because their photometric band is not guaranteed to be Johnson V. Component-scoped catalog measurements/estimates; details in catalog-work/star-systems/catalog-companions-audit.json."
+      "notes": "Detected ORB6 visual pair 01546+2049 MKT   3, component B. Unresolved parent photometry, physical parameters and space motion withheld. Shared parent position/distance is approximate unless individual astrometry is available. ORB6 magnitudes are withheld because their photometric band is not guaranteed to be Johnson V. Component-scoped catalog measurements/estimates; details in catalog-work/star-systems/catalog-companions-audit.json. Reviewed individual literature: Piccotti et al. (2020), exact HD 11636 reviewed pair. Component Johnson V comes from Table 6 resolved-flux decomposition. Eligible masses use Table 5 orbital-parallax solution, with orbital/Hipparcos parallax consistency reviewed. Earlier individual catalog values win; ambiguous hierarchical totals and conflicting atmosphere/model estimates remain unavailable. Estimated temperature from Pecaut-Mamajek 2022.04.16 G2V mean dwarf sequence (interpolation where needed); not an object-specific measurement."
     },
     {
       "temperature_k": null,
-      "mass_solar": null,
+      "mass_solar": 3.514,
       "luminosity_solar": null,
       "radius_solar": null,
       "metallicity_dex": null,
@@ -59056,11 +59056,11 @@
         "hip-10064"
       ],
       "subtypes": [],
-      "notes": "Detected ORB6 visual pair 02095+3459 MKT   4, component A. Unresolved parent photometry, physical parameters and space motion withheld. Shared parent position/distance is approximate unless individual astrometry is available. ORB6 magnitudes are withheld because their photometric band is not guaranteed to be Johnson V. Component-scoped catalog measurements/estimates; details in catalog-work/star-systems/catalog-companions-audit.json."
+      "notes": "Detected ORB6 visual pair 02095+3459 MKT   4, component A. Unresolved parent photometry, physical parameters and space motion withheld. Shared parent position/distance is approximate unless individual astrometry is available. ORB6 magnitudes are withheld because their photometric band is not guaranteed to be Johnson V. Component-scoped catalog measurements/estimates; details in catalog-work/star-systems/catalog-companions-audit.json. Reviewed individual literature: Piccotti et al. (2020), exact HD 13161 reviewed pair. Component Johnson V comes from Table 6 resolved-flux decomposition. Eligible masses use Table 5 orbital-parallax solution, with orbital/Hipparcos parallax consistency reviewed. Earlier individual catalog values win; ambiguous hierarchical totals and conflicting atmosphere/model estimates remain unavailable. Component photometry withheld: Table 6 makes source component 1 fainter, inconsistent with the primary scope discussed by Hummel et al. (1995) and Kennedy et al. (2012). No flux ratio is reassigned by guesswork."
     },
     {
       "temperature_k": null,
-      "mass_solar": null,
+      "mass_solar": 1.372,
       "luminosity_solar": null,
       "radius_solar": null,
       "metallicity_dex": null,
@@ -59086,23 +59086,23 @@
         "WDS J02095+3459B"
       ],
       "subtypes": [],
-      "notes": "Detected ORB6 visual pair 02095+3459 MKT   4, component B. Unresolved parent photometry, physical parameters and space motion withheld. Shared parent position/distance is approximate unless individual astrometry is available. ORB6 magnitudes are withheld because their photometric band is not guaranteed to be Johnson V. Component-scoped catalog measurements/estimates; details in catalog-work/star-systems/catalog-companions-audit.json."
+      "notes": "Detected ORB6 visual pair 02095+3459 MKT   4, component B. Unresolved parent photometry, physical parameters and space motion withheld. Shared parent position/distance is approximate unless individual astrometry is available. ORB6 magnitudes are withheld because their photometric band is not guaranteed to be Johnson V. Component-scoped catalog measurements/estimates; details in catalog-work/star-systems/catalog-companions-audit.json. Reviewed individual literature: Piccotti et al. (2020), exact HD 13161 reviewed pair. Component Johnson V comes from Table 6 resolved-flux decomposition. Eligible masses use Table 5 orbital-parallax solution, with orbital/Hipparcos parallax consistency reviewed. Earlier individual catalog values win; ambiguous hierarchical totals and conflicting atmosphere/model estimates remain unavailable. Component photometry withheld: Table 6 makes source component 1 fainter, inconsistent with the primary scope discussed by Hummel et al. (1995) and Kennedy et al. (2012). No flux ratio is reassigned by guesswork."
     },
     {
-      "temperature_k": null,
-      "mass_solar": null,
+      "temperature_k": 6215,
+      "mass_solar": 0.839,
       "luminosity_solar": null,
       "radius_solar": null,
       "metallicity_dex": null,
       "age_gyr": null,
       "metallicity_kind": null,
-      "absolute_mag": null,
-      "apparent_mag": null,
+      "absolute_mag": 4.722080522784766,
+      "apparent_mag": 4.886,
       "vx_kms": null,
       "vy_kms": null,
       "vz_kms": null,
       "raw_astrometry": null,
-      "spectral_type": null,
+      "spectral_type": "G0V",
       "known_planets": null,
       "x_pc": -7.723781231,
       "y_pc": 5.938846527,
@@ -59175,23 +59175,23 @@
         "cns5-0583"
       ],
       "subtypes": [],
-      "notes": "Detected ORB6 visual pair 02171+3413 MKT   5Aa,Ab, component Aa. Unresolved parent photometry, physical parameters and space motion withheld. Shared parent position/distance is approximate unless individual astrometry is available. ORB6 magnitudes are withheld because their photometric band is not guaranteed to be Johnson V. Component-scoped catalog measurements/estimates; details in catalog-work/star-systems/catalog-companions-audit.json."
+      "notes": "Detected ORB6 visual pair 02171+3413 MKT   5Aa,Ab, component Aa. Unresolved parent photometry, physical parameters and space motion withheld. Shared parent position/distance is approximate unless individual astrometry is available. ORB6 magnitudes are withheld because their photometric band is not guaranteed to be Johnson V. Component-scoped catalog measurements/estimates; details in catalog-work/star-systems/catalog-companions-audit.json. Reviewed individual literature: Delta Tri: individual Hipparcos-parallax dynamical masses from Piccotti et al. (2020), Table 5; low orbital-parallax masses and Table 7 M-dwarf classifications are rejected. Kim et al. (2005), Section 5.3 separately fits 6215 K and 4493 K in a two-component Kurucz SED model. Primary G0V and secondary G9V-K4V retain the published classification range. Johnson V decomposition uses Table 6; no parent radius or bolometric flux copied."
     },
     {
-      "temperature_k": null,
-      "mass_solar": null,
+      "temperature_k": 4493,
+      "mass_solar": 0.745,
       "luminosity_solar": null,
       "radius_solar": null,
       "metallicity_dex": null,
       "age_gyr": null,
       "metallicity_kind": null,
-      "absolute_mag": null,
-      "apparent_mag": null,
+      "absolute_mag": 9.282080522784765,
+      "apparent_mag": 9.446,
       "vx_kms": null,
       "vy_kms": null,
       "vz_kms": null,
       "raw_astrometry": null,
-      "spectral_type": null,
+      "spectral_type": "G9V-K4V",
       "known_planets": null,
       "x_pc": -7.723781231,
       "y_pc": 5.938846527,
@@ -59205,7 +59205,7 @@
         "WDS J02171+3413Ab"
       ],
       "subtypes": [],
-      "notes": "Detected ORB6 visual pair 02171+3413 MKT   5Aa,Ab, component Ab. Unresolved parent photometry, physical parameters and space motion withheld. Shared parent position/distance is approximate unless individual astrometry is available. ORB6 magnitudes are withheld because their photometric band is not guaranteed to be Johnson V. Component-scoped catalog measurements/estimates; details in catalog-work/star-systems/catalog-companions-audit.json."
+      "notes": "Detected ORB6 visual pair 02171+3413 MKT   5Aa,Ab, component Ab. Unresolved parent photometry, physical parameters and space motion withheld. Shared parent position/distance is approximate unless individual astrometry is available. ORB6 magnitudes are withheld because their photometric band is not guaranteed to be Johnson V. Component-scoped catalog measurements/estimates; details in catalog-work/star-systems/catalog-companions-audit.json. Reviewed individual literature: Delta Tri: individual Hipparcos-parallax dynamical masses from Piccotti et al. (2020), Table 5; low orbital-parallax masses and Table 7 M-dwarf classifications are rejected. Kim et al. (2005), Section 5.3 separately fits 6215 K and 4493 K in a two-component Kurucz SED model. Primary G0V and secondary G9V-K4V retain the published classification range. Johnson V decomposition uses Table 6; no parent radius or bolometric flux copied."
     },
     {
       "temperature_k": null,
@@ -59326,14 +59326,14 @@
     },
     {
       "temperature_k": null,
-      "mass_solar": null,
+      "mass_solar": 2.406,
       "luminosity_solar": null,
       "radius_solar": null,
       "metallicity_dex": null,
       "age_gyr": null,
       "metallicity_kind": null,
-      "absolute_mag": null,
-      "apparent_mag": null,
+      "absolute_mag": 3.4442496679645274,
+      "apparent_mag": 5.303,
       "vx_kms": null,
       "vy_kms": null,
       "vz_kms": null,
@@ -59400,18 +59400,18 @@
         "hip-12390"
       ],
       "subtypes": [],
-      "notes": "Detected ORB6 visual pair 02396-1152 FIN 312, component A. Unresolved parent photometry, physical parameters and space motion withheld. Shared parent position/distance is approximate unless individual astrometry is available. ORB6 magnitudes are withheld because their photometric band is not guaranteed to be Johnson V. Component-scoped catalog measurements/estimates; details in catalog-work/star-systems/catalog-companions-audit.json."
+      "notes": "Detected ORB6 visual pair 02396-1152 FIN 312, component A. Unresolved parent photometry, physical parameters and space motion withheld. Shared parent position/distance is approximate unless individual astrometry is available. ORB6 magnitudes are withheld because their photometric band is not guaranteed to be Johnson V. Component-scoped catalog measurements/estimates; details in catalog-work/star-systems/catalog-companions-audit.json. Reviewed individual literature: Piccotti et al. (2020), exact HD 16620 reviewed pair. Component Johnson V comes from Table 6 resolved-flux decomposition. Eligible masses use Table 5 orbital-parallax solution, with orbital/Hipparcos parallax consistency reviewed. Earlier individual catalog values win; ambiguous hierarchical totals and conflicting atmosphere/model estimates remain unavailable."
     },
     {
       "temperature_k": null,
-      "mass_solar": null,
+      "mass_solar": 1.559,
       "luminosity_solar": null,
       "radius_solar": null,
       "metallicity_dex": null,
       "age_gyr": null,
       "metallicity_kind": null,
-      "absolute_mag": null,
-      "apparent_mag": null,
+      "absolute_mag": 4.219249667964528,
+      "apparent_mag": 6.078,
       "vx_kms": null,
       "vy_kms": null,
       "vz_kms": null,
@@ -59430,23 +59430,23 @@
         "WDS J02396-1152B"
       ],
       "subtypes": [],
-      "notes": "Detected ORB6 visual pair 02396-1152 FIN 312, component B. Unresolved parent photometry, physical parameters and space motion withheld. Shared parent position/distance is approximate unless individual astrometry is available. ORB6 magnitudes are withheld because their photometric band is not guaranteed to be Johnson V. Component-scoped catalog measurements/estimates; details in catalog-work/star-systems/catalog-companions-audit.json."
+      "notes": "Detected ORB6 visual pair 02396-1152 FIN 312, component B. Unresolved parent photometry, physical parameters and space motion withheld. Shared parent position/distance is approximate unless individual astrometry is available. ORB6 magnitudes are withheld because their photometric band is not guaranteed to be Johnson V. Component-scoped catalog measurements/estimates; details in catalog-work/star-systems/catalog-companions-audit.json. Reviewed individual literature: Piccotti et al. (2020), exact HD 16620 reviewed pair. Component Johnson V comes from Table 6 resolved-flux decomposition. Eligible masses use Table 5 orbital-parallax solution, with orbital/Hipparcos parallax consistency reviewed. Earlier individual catalog values win; ambiguous hierarchical totals and conflicting atmosphere/model estimates remain unavailable."
     },
     {
       "temperature_k": null,
-      "mass_solar": null,
+      "mass_solar": 2.24,
       "luminosity_solar": null,
       "radius_solar": null,
       "metallicity_dex": null,
       "age_gyr": null,
       "metallicity_kind": null,
-      "absolute_mag": null,
-      "apparent_mag": null,
+      "absolute_mag": 0.4341901434474087,
+      "apparent_mag": 3.742,
       "vx_kms": null,
       "vy_kms": null,
       "vz_kms": null,
       "raw_astrometry": null,
-      "spectral_type": null,
+      "spectral_type": "A5III",
       "known_planets": null,
       "x_pc": -42.529266195,
       "y_pc": -0.257988852,
@@ -59517,23 +59517,23 @@
         "hip-20894"
       ],
       "subtypes": [],
-      "notes": "Detected ORB6 visual pair 04287+1552 MKT  13Aa,Ab, component Aa. Unresolved parent photometry, physical parameters and space motion withheld. Shared parent position/distance is approximate unless individual astrometry is available. ORB6 magnitudes are withheld because their photometric band is not guaranteed to be Johnson V. Component-scoped catalog measurements/estimates; details in catalog-work/star-systems/catalog-companions-audit.json."
+      "notes": "Detected ORB6 visual pair 04287+1552 MKT  13Aa,Ab, component Aa. Unresolved parent photometry, physical parameters and space motion withheld. Shared parent position/distance is approximate unless individual astrometry is available. ORB6 magnitudes are withheld because their photometric band is not guaranteed to be Johnson V. Component-scoped catalog measurements/estimates; details in catalog-work/star-systems/catalog-companions-audit.json. Reviewed individual literature: Piccotti et al. (2020), exact HD 28319 reviewed pair. Component Johnson V comes from Table 6 resolved-flux decomposition. Eligible masses use Table 5 orbital-parallax solution, with orbital/Hipparcos parallax consistency reviewed. Earlier individual catalog values win; ambiguous hierarchical totals and conflicting atmosphere/model estimates remain unavailable."
     },
     {
       "temperature_k": null,
-      "mass_solar": null,
+      "mass_solar": 1.955,
       "luminosity_solar": null,
       "radius_solar": null,
       "metallicity_dex": null,
       "age_gyr": null,
       "metallicity_kind": null,
-      "absolute_mag": null,
-      "apparent_mag": null,
+      "absolute_mag": 1.5501901434474084,
+      "apparent_mag": 4.858,
       "vx_kms": null,
       "vy_kms": null,
       "vz_kms": null,
       "raw_astrometry": null,
-      "spectral_type": null,
+      "spectral_type": "A8IV",
       "known_planets": null,
       "x_pc": -42.529266195,
       "y_pc": -0.257988852,
@@ -59547,7 +59547,7 @@
         "WDS J04287+1552Ab"
       ],
       "subtypes": [],
-      "notes": "Detected ORB6 visual pair 04287+1552 MKT  13Aa,Ab, component Ab. Unresolved parent photometry, physical parameters and space motion withheld. Shared parent position/distance is approximate unless individual astrometry is available. ORB6 magnitudes are withheld because their photometric band is not guaranteed to be Johnson V. Component-scoped catalog measurements/estimates; details in catalog-work/star-systems/catalog-companions-audit.json."
+      "notes": "Detected ORB6 visual pair 04287+1552 MKT  13Aa,Ab, component Ab. Unresolved parent photometry, physical parameters and space motion withheld. Shared parent position/distance is approximate unless individual astrometry is available. ORB6 magnitudes are withheld because their photometric band is not guaranteed to be Johnson V. Component-scoped catalog measurements/estimates; details in catalog-work/star-systems/catalog-companions-audit.json. Reviewed individual literature: Piccotti et al. (2020), exact HD 28319 reviewed pair. Component Johnson V comes from Table 6 resolved-flux decomposition. Eligible masses use Table 5 orbital-parallax solution, with orbital/Hipparcos parallax consistency reviewed. Earlier individual catalog values win; ambiguous hierarchical totals and conflicting atmosphere/model estimates remain unavailable."
     },
     {
       "temperature_k": null,
@@ -60025,20 +60025,20 @@
       "notes": "Detected ORB6 visual pair 05353-0523 WGT   1Ca,Cb, component Cb. Unresolved parent photometry, physical parameters and space motion withheld. Shared parent position/distance is approximate unless individual astrometry is available. ORB6 magnitudes are withheld because their photometric band is not guaranteed to be Johnson V. Component-scoped catalog measurements/estimates; details in catalog-work/star-systems/catalog-companions-audit.json."
     },
     {
-      "temperature_k": null,
-      "mass_solar": null,
-      "luminosity_solar": null,
-      "radius_solar": null,
+      "temperature_k": 9350,
+      "mass_solar": 2.376,
+      "luminosity_solar": 52.60172663907063,
+      "radius_solar": 2.762,
       "metallicity_dex": null,
       "age_gyr": null,
       "metallicity_kind": null,
-      "absolute_mag": null,
-      "apparent_mag": null,
+      "absolute_mag": 0.6236703656157352,
+      "apparent_mag": 2.602,
       "vx_kms": null,
       "vy_kms": null,
       "vz_kms": null,
       "raw_astrometry": null,
-      "spectral_type": null,
+      "spectral_type": "A1mIV",
       "known_planets": null,
       "x_pc": -23.876329776,
       "y_pc": 5.312128225,
@@ -60101,23 +60101,23 @@
         "hip-28360"
       ],
       "subtypes": [],
-      "notes": "Detected ORB6 visual pair 05595+4457 KOE   1Aa,Ab, component Aa. Unresolved parent photometry, physical parameters and space motion withheld. Shared parent position/distance is approximate unless individual astrometry is available. ORB6 magnitudes are withheld because their photometric band is not guaranteed to be Johnson V. Component-scoped catalog measurements/estimates; details in catalog-work/star-systems/catalog-companions-audit.json."
+      "notes": "Detected ORB6 visual pair 05595+4457 KOE   1Aa,Ab, component Aa. Unresolved parent photometry, physical parameters and space motion withheld. Shared parent position/distance is approximate unless individual astrometry is available. ORB6 magnitudes are withheld because their photometric band is not guaranteed to be Johnson V. Component-scoped catalog measurements/estimates; details in catalog-work/star-systems/catalog-companions-audit.json. Reviewed individual literature: Menkalinan: Southworth et al. (2007) individual eclipsing-binary measurements, as compiled in the frozen DEBCat beta_Aur entry. Temperature/luminosity estimates retain their calibration uncertainty. DEBCat composite V=1.89 is not copied into Aa/Ab."
     },
     {
-      "temperature_k": null,
-      "mass_solar": null,
-      "luminosity_solar": null,
-      "radius_solar": null,
+      "temperature_k": 9200,
+      "mass_solar": 2.291,
+      "luminosity_solar": 42.65795188015925,
+      "radius_solar": 2.568,
       "metallicity_dex": null,
       "age_gyr": null,
       "metallicity_kind": null,
-      "absolute_mag": null,
-      "apparent_mag": null,
+      "absolute_mag": 0.7266703656157354,
+      "apparent_mag": 2.705,
       "vx_kms": null,
       "vy_kms": null,
       "vz_kms": null,
       "raw_astrometry": null,
-      "spectral_type": null,
+      "spectral_type": "A1mIV",
       "known_planets": null,
       "x_pc": -23.876329776,
       "y_pc": 5.312128225,
@@ -60131,7 +60131,7 @@
         "WDS J05595+4457Ab"
       ],
       "subtypes": [],
-      "notes": "Detected ORB6 visual pair 05595+4457 KOE   1Aa,Ab, component Ab. Unresolved parent photometry, physical parameters and space motion withheld. Shared parent position/distance is approximate unless individual astrometry is available. ORB6 magnitudes are withheld because their photometric band is not guaranteed to be Johnson V. Component-scoped catalog measurements/estimates; details in catalog-work/star-systems/catalog-companions-audit.json."
+      "notes": "Detected ORB6 visual pair 05595+4457 KOE   1Aa,Ab, component Ab. Unresolved parent photometry, physical parameters and space motion withheld. Shared parent position/distance is approximate unless individual astrometry is available. ORB6 magnitudes are withheld because their photometric band is not guaranteed to be Johnson V. Component-scoped catalog measurements/estimates; details in catalog-work/star-systems/catalog-companions-audit.json. Reviewed individual literature: Menkalinan: Southworth et al. (2007) individual eclipsing-binary measurements, as compiled in the frozen DEBCat beta_Aur entry. Temperature/luminosity estimates retain their calibration uncertainty. DEBCat composite V=1.89 is not copied into Aa/Ab."
     },
     {
       "temperature_k": null,
@@ -60261,10 +60261,10 @@
       "notes": "Detected ORB6 visual pair 05597+3713 STT 545AB, component B. Unresolved parent photometry, physical parameters and space motion withheld. Shared parent position/distance is approximate unless individual astrometry is available. ORB6 magnitudes are withheld because their photometric band is not guaranteed to be Johnson V. Component-scoped catalog measurements/estimates; details in catalog-work/star-systems/catalog-companions-audit.json."
     },
     {
-      "temperature_k": null,
-      "mass_solar": null,
-      "luminosity_solar": null,
-      "radius_solar": null,
+      "temperature_k": 9150,
+      "mass_solar": 3.4,
+      "luminosity_solar": 102.5626371,
+      "radius_solar": 4.03,
       "metallicity_dex": null,
       "age_gyr": null,
       "metallicity_kind": null,
@@ -60274,7 +60274,7 @@
       "vy_kms": null,
       "vz_kms": null,
       "raw_astrometry": null,
-      "spectral_type": null,
+      "spectral_type": "A0IV",
       "known_planets": null,
       "x_pc": -31.989373855,
       "y_pc": -9.642078636,
@@ -60340,11 +60340,11 @@
         "hip-31681"
       ],
       "subtypes": [],
-      "notes": "Detected ORB6 visual pair 06377+1624 OCC9011Aa,Ab, component Aa. Unresolved parent photometry, physical parameters and space motion withheld. Shared parent position/distance is approximate unless individual astrometry is available. ORB6 magnitudes are withheld because their photometric band is not guaranteed to be Johnson V. Component-scoped catalog measurements/estimates; details in catalog-work/star-systems/catalog-companions-audit.json."
+      "notes": "Detected ORB6 visual pair 06377+1624 OCC9011Aa,Ab, component Aa. Unresolved parent photometry, physical parameters and space motion withheld. Shared parent position/distance is approximate unless individual astrometry is available. ORB6 magnitudes are withheld because their photometric band is not guaranteed to be Johnson V. Component-scoped catalog measurements/estimates; details in catalog-work/star-systems/catalog-companions-audit.json. Reviewed individual literature: Alhena: primary temperature 9150 +/- 310 K (Adelman et al. 2015), radius 4.03 +/- 0.1 solar radii (Royer et al. 2007), and dynamical masses 3.4 +/- 0.8 and 1.4 +/- 0.3 solar masses (Drummond 2014), as compiled by Blazere et al. (2020). G is only the resolved companion temperature class; no subtype or luminosity class invented. luminosity_solar derived by Stefan-Boltzmann scaling from adopted inputs (solar Teff=5772 K); inherits their measurement/model/estimate assumptions."
     },
     {
       "temperature_k": null,
-      "mass_solar": null,
+      "mass_solar": 1.4,
       "luminosity_solar": null,
       "radius_solar": null,
       "metallicity_dex": null,
@@ -60356,7 +60356,7 @@
       "vy_kms": null,
       "vz_kms": null,
       "raw_astrometry": null,
-      "spectral_type": null,
+      "spectral_type": "G",
       "known_planets": null,
       "x_pc": -31.989373855,
       "y_pc": -9.642078636,
@@ -60370,7 +60370,7 @@
         "WDS J06377+1624Ab"
       ],
       "subtypes": [],
-      "notes": "Detected ORB6 visual pair 06377+1624 OCC9011Aa,Ab, component Ab. Unresolved parent photometry, physical parameters and space motion withheld. Shared parent position/distance is approximate unless individual astrometry is available. ORB6 magnitudes are withheld because their photometric band is not guaranteed to be Johnson V. Component-scoped catalog measurements/estimates; details in catalog-work/star-systems/catalog-companions-audit.json."
+      "notes": "Detected ORB6 visual pair 06377+1624 OCC9011Aa,Ab, component Ab. Unresolved parent photometry, physical parameters and space motion withheld. Shared parent position/distance is approximate unless individual astrometry is available. ORB6 magnitudes are withheld because their photometric band is not guaranteed to be Johnson V. Component-scoped catalog measurements/estimates; details in catalog-work/star-systems/catalog-companions-audit.json. Reviewed individual literature: Alhena: primary temperature 9150 +/- 310 K (Adelman et al. 2015), radius 4.03 +/- 0.1 solar radii (Royer et al. 2007), and dynamical masses 3.4 +/- 0.8 and 1.4 +/- 0.3 solar masses (Drummond 2014), as compiled by Blazere et al. (2020). G is only the resolved companion temperature class; no subtype or luminosity class invented."
     },
     {
       "temperature_k": 1920.0,
@@ -62065,12 +62065,12 @@
       "notes": "Detected ORB6 visual pair 13310-3924 SEE 179, component B. Unresolved parent photometry, physical parameters and space motion withheld. Shared parent position/distance is approximate unless individual astrometry is available. ORB6 magnitudes are withheld because their photometric band is not guaranteed to be Johnson V. Component-scoped catalog measurements/estimates; details in catalog-work/star-systems/catalog-companions-audit.json."
     },
     {
-      "temperature_k": null,
-      "mass_solar": null,
-      "luminosity_solar": null,
-      "radius_solar": null,
+      "temperature_k": 10225,
+      "mass_solar": 3.186,
+      "luminosity_solar": 239.88329190194898,
+      "radius_solar": 4.932,
       "metallicity_dex": null,
-      "age_gyr": null,
+      "age_gyr": 0.28,
       "metallicity_kind": null,
       "absolute_mag": null,
       "apparent_mag": null,
@@ -62136,15 +62136,15 @@
         "hip-68756"
       ],
       "subtypes": [],
-      "notes": "Detected ORB6 visual pair 14044+6423 NOI   4, component A. Unresolved parent photometry, physical parameters and space motion withheld. Shared parent position/distance is approximate unless individual astrometry is available. ORB6 magnitudes are withheld because their photometric band is not guaranteed to be Johnson V. Component-scoped catalog measurements/estimates; details in catalog-work/star-systems/catalog-companions-audit.json."
+      "notes": "Detected ORB6 visual pair 14044+6423 NOI   4, component A. Unresolved parent photometry, physical parameters and space motion withheld. Shared parent position/distance is approximate unless individual astrometry is available. ORB6 magnitudes are withheld because their photometric band is not guaranteed to be Johnson V. Component-scoped catalog measurements/estimates; details in catalog-work/star-systems/catalog-companions-audit.json. Reviewed individual literature: Thuban: individual masses/radii/temperatures from Pavlovski et al. (2022), Table 6. Luminosities are exponentiated published log L (2.380 for A, 1.677 for B; the original paper takes precedence over DEBCat rounding/transcription). Ages are separately fitted model ages; their mismatch is retained, not forced to a shared age. System abundance and total light remain unassigned to individual components."
     },
     {
-      "temperature_k": null,
-      "mass_solar": null,
-      "luminosity_solar": null,
-      "radius_solar": null,
+      "temperature_k": 9930,
+      "mass_solar": 2.431,
+      "luminosity_solar": 47.533522594280534,
+      "radius_solar": 2.326,
       "metallicity_dex": null,
-      "age_gyr": null,
+      "age_gyr": 0.345,
       "metallicity_kind": null,
       "absolute_mag": null,
       "apparent_mag": null,
@@ -62166,7 +62166,7 @@
         "WDS J14044+6423B"
       ],
       "subtypes": [],
-      "notes": "Detected ORB6 visual pair 14044+6423 NOI   4, component B. Unresolved parent photometry, physical parameters and space motion withheld. Shared parent position/distance is approximate unless individual astrometry is available. ORB6 magnitudes are withheld because their photometric band is not guaranteed to be Johnson V. Component-scoped catalog measurements/estimates; details in catalog-work/star-systems/catalog-companions-audit.json."
+      "notes": "Detected ORB6 visual pair 14044+6423 NOI   4, component B. Unresolved parent photometry, physical parameters and space motion withheld. Shared parent position/distance is approximate unless individual astrometry is available. ORB6 magnitudes are withheld because their photometric band is not guaranteed to be Johnson V. Component-scoped catalog measurements/estimates; details in catalog-work/star-systems/catalog-companions-audit.json. Reviewed individual literature: Thuban: individual masses/radii/temperatures from Pavlovski et al. (2022), Table 6. Luminosities are exponentiated published log L (2.380 for A, 1.677 for B; the original paper takes precedence over DEBCat rounding/transcription). Ages are separately fitted model ages; their mismatch is retained, not forced to a shared age. System abundance and total light remain unassigned to individual components."
     },
     {
       "temperature_k": null,
@@ -62967,12 +62967,12 @@
       "notes": "Detected ORB6 visual pair 15496-0326 CHR 259, component B. Unresolved parent photometry, physical parameters and space motion withheld. Shared parent position/distance is approximate unless individual astrometry is available. ORB6 magnitudes are withheld because their photometric band is not guaranteed to be Johnson V. Component-scoped catalog measurements/estimates; details in catalog-work/star-systems/catalog-companions-audit.json."
     },
     {
-      "temperature_k": null,
-      "mass_solar": null,
-      "luminosity_solar": null,
-      "radius_solar": null,
+      "temperature_k": 29700,
+      "mass_solar": 15.3,
+      "luminosity_solar": 28000,
+      "radius_solar": 6.3200245,
       "metallicity_dex": null,
-      "age_gyr": null,
+      "age_gyr": 0.0073,
       "metallicity_kind": null,
       "absolute_mag": null,
       "apparent_mag": null,
@@ -62980,7 +62980,7 @@
       "vy_kms": null,
       "vz_kms": null,
       "raw_astrometry": null,
-      "spectral_type": null,
+      "spectral_type": "B0.3IV",
       "known_planets": null,
       "x_pc": 137.074815308,
       "y_pc": -23.930972545,
@@ -63050,11 +63050,11 @@
         "hip-78401"
       ],
       "subtypes": [],
-      "notes": "Detected ORB6 visual pair 16003-2237 LAB   3, component A. Unresolved parent photometry, physical parameters and space motion withheld. Shared parent position/distance is approximate unless individual astrometry is available. ORB6 magnitudes are withheld because their photometric band is not guaranteed to be Johnson V. Component-scoped catalog measurements/estimates; details in catalog-work/star-systems/catalog-companions-audit.json."
+      "notes": "Detected ORB6 visual pair 16003-2237 LAB   3, component A. Unresolved parent photometry, physical parameters and space motion withheld. Shared parent position/distance is approximate unless individual astrometry is available. ORB6 magnitudes are withheld because their photometric band is not guaranteed to be Johnson V. Component-scoped catalog measurements/estimates; details in catalog-work/star-systems/catalog-companions-audit.json. Reviewed individual literature: Dschubba A: primary-only diskless SED/rotating-star model from Suffak et al. (2020), Table 4. Model uncertainties do not include inclination, distance or reddening systematics. Scalar radius is the Stefan-Boltzmann equivalent from the adopted luminosity and effective temperature; published polar/equatorial radii are 6.4/6.8 solar radii. Existing shared catalog distance is retained; no parent photometry or velocities restored. radius_solar derived by Stefan-Boltzmann scaling from adopted inputs (solar Teff=5772 K); inherits their measurement/model/estimate assumptions."
     },
     {
       "temperature_k": null,
-      "mass_solar": null,
+      "mass_solar": 8.2,
       "luminosity_solar": null,
       "radius_solar": null,
       "metallicity_dex": null,
@@ -63066,7 +63066,7 @@
       "vy_kms": null,
       "vz_kms": null,
       "raw_astrometry": null,
-      "spectral_type": null,
+      "spectral_type": "B1-3V",
       "known_planets": null,
       "x_pc": 137.074815308,
       "y_pc": -23.930972545,
@@ -63080,7 +63080,7 @@
         "WDS J16003-2237B"
       ],
       "subtypes": [],
-      "notes": "Detected ORB6 visual pair 16003-2237 LAB   3, component B. Unresolved parent photometry, physical parameters and space motion withheld. Shared parent position/distance is approximate unless individual astrometry is available. ORB6 magnitudes are withheld because their photometric band is not guaranteed to be Johnson V. Component-scoped catalog measurements/estimates; details in catalog-work/star-systems/catalog-companions-audit.json."
+      "notes": "Detected ORB6 visual pair 16003-2237 LAB   3, component B. Unresolved parent photometry, physical parameters and space motion withheld. Shared parent position/distance is approximate unless individual astrometry is available. ORB6 magnitudes are withheld because their photometric band is not guaranteed to be Johnson V. Component-scoped catalog measurements/estimates; details in catalog-work/star-systems/catalog-companions-audit.json. Reviewed individual literature: Dschubba B: 8.2 +/- 0.6 solar masses from the evolutionary/orbit model of Miroshnichenko et al. (2013), Section 3.4. The adopted B1-B3 main-sequence classification and 20000-24000 K range remain ranges; no precise scalar temperature, bolometric luminosity, radius, abundance or individual velocity inferred."
     },
     {
       "temperature_k": null,
@@ -63509,12 +63509,12 @@
       "notes": "Detected ORB6 visual pair 17104-1544 BU 1118AB, component B. Unresolved parent photometry, physical parameters and space motion withheld. Shared parent position/distance is approximate unless individual astrometry is available. ORB6 magnitudes are withheld because their photometric band is not guaranteed to be Johnson V. Component-scoped catalog measurements/estimates; details in catalog-work/star-systems/catalog-companions-audit.json."
     },
     {
-      "temperature_k": null,
-      "mass_solar": null,
-      "luminosity_solar": null,
-      "radius_solar": null,
+      "temperature_k": 8250,
+      "mass_solar": 2.2,
+      "luminosity_solar": 30.2,
+      "radius_solar": 2.689974848,
       "metallicity_dex": null,
-      "age_gyr": null,
+      "age_gyr": 0.77,
       "metallicity_kind": null,
       "absolute_mag": null,
       "apparent_mag": null,
@@ -63522,7 +63522,7 @@
       "vy_kms": null,
       "vz_kms": null,
       "raw_astrometry": null,
-      "spectral_type": null,
+      "spectral_type": "A5IV",
       "known_planets": null,
       "x_pc": 11.143620549,
       "y_pc": 8.064782668,
@@ -63597,11 +63597,11 @@
         "hip-86032"
       ],
       "subtypes": [],
-      "notes": "Detected ORB6 visual pair 17349+1234 MCY   4, component A. Unresolved parent photometry, physical parameters and space motion withheld. Shared parent position/distance is approximate unless individual astrometry is available. ORB6 magnitudes are withheld because their photometric band is not guaranteed to be Johnson V. Component-scoped catalog measurements/estimates; details in catalog-work/star-systems/catalog-companions-audit.json."
+      "notes": "Detected ORB6 visual pair 17349+1234 MCY   4, component A. Unresolved parent photometry, physical parameters and space motion withheld. Shared parent position/distance is approximate unless individual astrometry is available. ORB6 magnitudes are withheld because their photometric band is not guaranteed to be Johnson V. Component-scoped catalog measurements/estimates; details in catalog-work/star-systems/catalog-companions-audit.json. Reviewed individual literature: Rasalhague: individual dynamical masses from Gardner et al. (2021), Table 4. A surface-averaged effective temperature/luminosity and model age are from Zhao et al. (2009), as compiled in that table. Its radius is the Stefan-Boltzmann equivalent, not a polar/equatorial radius. Secondary J/K photometry is not Johnson V or bolometric luminosity; solar composition assumed in evolution models is not a measured abundance. radius_solar derived by Stefan-Boltzmann scaling from adopted inputs (solar Teff=5772 K); inherits their measurement/model/estimate assumptions."
     },
     {
       "temperature_k": null,
-      "mass_solar": null,
+      "mass_solar": 0.824,
       "luminosity_solar": null,
       "radius_solar": null,
       "metallicity_dex": null,
@@ -63627,7 +63627,7 @@
         "WDS J17349+1234B"
       ],
       "subtypes": [],
-      "notes": "Detected ORB6 visual pair 17349+1234 MCY   4, component B. Unresolved parent photometry, physical parameters and space motion withheld. Shared parent position/distance is approximate unless individual astrometry is available. ORB6 magnitudes are withheld because their photometric band is not guaranteed to be Johnson V. Component-scoped catalog measurements/estimates; details in catalog-work/star-systems/catalog-companions-audit.json."
+      "notes": "Detected ORB6 visual pair 17349+1234 MCY   4, component B. Unresolved parent photometry, physical parameters and space motion withheld. Shared parent position/distance is approximate unless individual astrometry is available. ORB6 magnitudes are withheld because their photometric band is not guaranteed to be Johnson V. Component-scoped catalog measurements/estimates; details in catalog-work/star-systems/catalog-companions-audit.json. Reviewed individual literature: Rasalhague: individual dynamical masses from Gardner et al. (2021), Table 4. A surface-averaged effective temperature/luminosity and model age are from Zhao et al. (2009), as compiled in that table. Its radius is the Stefan-Boltzmann equivalent, not a polar/equatorial radius. Secondary J/K photometry is not Johnson V or bolometric luminosity; solar composition assumed in evolution models is not a measured abundance."
     },
     {
       "temperature_k": null,
@@ -64080,10 +64080,10 @@
       "notes": "Detected ORB6 visual pair 20298+0941 AST   2AB, component B. Unresolved parent photometry, physical parameters and space motion withheld. Shared parent position/distance is approximate unless individual astrometry is available. ORB6 magnitudes are withheld because their photometric band is not guaranteed to be Johnson V. Component-scoped catalog measurements/estimates; details in catalog-work/star-systems/catalog-companions-audit.json."
     },
     {
-      "temperature_k": null,
-      "mass_solar": null,
-      "luminosity_solar": null,
-      "radius_solar": null,
+      "temperature_k": 7440,
+      "mass_solar": 1.78,
+      "luminosity_solar": 32.4,
+      "radius_solar": 3.43,
       "metallicity_dex": null,
       "age_gyr": null,
       "metallicity_kind": null,
@@ -64148,13 +64148,13 @@
         "hip-102281"
       ],
       "subtypes": [],
-      "notes": "Detected ORB6 visual pair 20435+1504 CIA  11, component A. Unresolved parent photometry, physical parameters and space motion withheld. Shared parent position/distance is approximate unless individual astrometry is available. ORB6 magnitudes are withheld because their photometric band is not guaranteed to be Johnson V. Component-scoped catalog measurements/estimates; details in catalog-work/star-systems/catalog-companions-audit.json."
+      "notes": "Detected ORB6 visual pair 20435+1504 CIA  11, component A. Unresolved parent photometry, physical parameters and space motion withheld. Shared parent position/distance is approximate unless individual astrometry is available. ORB6 magnitudes are withheld because their photometric band is not guaranteed to be Johnson V. Component-scoped catalog measurements/estimates; details in catalog-work/star-systems/catalog-companions-audit.json. Reviewed individual literature: Delta Delphini: separate dynamical masses and interferometric/SED stellar properties from Gardner et al. (2018), Tables 6 and 11. R/H magnitudes are not adopted as Johnson V. No common age imposed: the paper finds an evolutionary age discrepancy between components."
     },
     {
-      "temperature_k": null,
-      "mass_solar": null,
-      "luminosity_solar": null,
-      "radius_solar": null,
+      "temperature_k": 7110,
+      "mass_solar": 1.62,
+      "luminosity_solar": 28.8,
+      "radius_solar": 3.48,
       "metallicity_dex": null,
       "age_gyr": null,
       "metallicity_kind": null,
@@ -64178,7 +64178,7 @@
         "WDS J20435+1504B"
       ],
       "subtypes": [],
-      "notes": "Detected ORB6 visual pair 20435+1504 CIA  11, component B. Unresolved parent photometry, physical parameters and space motion withheld. Shared parent position/distance is approximate unless individual astrometry is available. ORB6 magnitudes are withheld because their photometric band is not guaranteed to be Johnson V. Component-scoped catalog measurements/estimates; details in catalog-work/star-systems/catalog-companions-audit.json."
+      "notes": "Detected ORB6 visual pair 20435+1504 CIA  11, component B. Unresolved parent photometry, physical parameters and space motion withheld. Shared parent position/distance is approximate unless individual astrometry is available. ORB6 magnitudes are withheld because their photometric band is not guaranteed to be Johnson V. Component-scoped catalog measurements/estimates; details in catalog-work/star-systems/catalog-companions-audit.json. Reviewed individual literature: Delta Delphini: separate dynamical masses and interferometric/SED stellar properties from Gardner et al. (2018), Tables 6 and 11. R/H magnitudes are not adopted as Johnson V. No common age imposed: the paper finds an evolutionary age discrepancy between components."
     },
     {
       "temperature_k": null,

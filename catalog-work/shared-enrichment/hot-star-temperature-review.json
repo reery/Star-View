@@ -1,0 +1,730 @@
+{
+  "schemaVersion": 1,
+  "reviewed": "2026-10-11",
+  "scope": "The 13 remaining distinct, non-composite O/early-B (B0-B5) entries with catalog Teff below 10000 K flagged after the Zeta1 Sco correction. This is a reviewed candidate set, not a blanket temperature cut or full stellar-catalog audit.",
+  "policy": "Exact SIMBAD/HIP/HD and stable IDs only. Keep heterogeneous temperatures and component scope explicit. Reject dependent luminosity/radius when the original SED fit is unsuitable; do not infer a temperature from spectral type. Preserve membership, spectra, coordinates, motion and unrelated physical fields.",
+  "objects": {
+    "* bet01 Sco": {
+      "label": "Beta1 Sco",
+      "starIds": [
+        "hip-78820",
+        "bright-beta-scorpii-a"
+      ],
+      "identity": {
+        "simbadId": "* bet01 Sco",
+        "hip": 78820,
+        "hd": 144217
+      },
+      "spectralType": "B1V",
+      "previousValues": {
+        "hip-78820": {
+          "temperature_k": "9546",
+          "luminosity_solar": "1322.390",
+          "radius_solar": "13.2950"
+        },
+        "bright-beta-scorpii-a": {
+          "temperature_k": "9546",
+          "luminosity_solar": "1322.390",
+          "radius_solar": "13.2950"
+        }
+      },
+      "evidence": {
+        "HD": "144217",
+        "MK": "B1V",
+        "E(B-V)": "0.210",
+        "Teff": "30540",
+        "e_Teff": "2080",
+        "theta": "0.505",
+        "e_theta": "0.024"
+      },
+      "adoptedFields": {
+        "temperature_k": {
+          "value": 30540,
+          "status": "model-derived",
+          "uncertainty": 2080,
+          "reference": "2009A&A...501..297Z",
+          "url": "https://arxiv.org/abs/0903.5134",
+          "table": "J/A+A/501/297/catalog",
+          "sourceRecordId": "HD 144217",
+          "method": "Extinction-corrected bolometric-flux temperature with BCD diagnostics",
+          "caveat": "Unresolved named multiple: this is the apparent, primary-dominated temperature of the catalogued light, not a resolved measurement of every member. Blended angular diameter is not assigned to an individual component."
+        },
+        "luminosity_solar": {
+          "value": null,
+          "status": "withheld",
+          "reason": "Rejected zero-reddening broadband-fit luminosity; no independently verified component-safe replacement adopted in this temperature review."
+        },
+        "radius_solar": {
+          "value": null,
+          "status": "withheld",
+          "reason": "Radius inherited the rejected luminosity/temperature fit; no independently verified component-safe replacement adopted."
+        }
+      },
+      "scope": "Unresolved named multiple: this is the apparent, primary-dominated temperature of the catalogued light, not a resolved measurement of every member. Blended angular diameter is not assigned to an individual component."
+    },
+    "* zet Tau": {
+      "label": "Tianguan",
+      "starIds": [
+        "hip-26451"
+      ],
+      "identity": {
+        "simbadId": "* zet Tau",
+        "hip": 26451,
+        "hd": 37202
+      },
+      "spectralType": "B1IVe_shell",
+      "previousValues": {
+        "hip-26451": {
+          "temperature_k": "9124",
+          "luminosity_solar": "1084.4608102967445",
+          "radius_solar": "13.179199"
+        }
+      },
+      "evidence": {
+        "HD": "37202",
+        "logTeff": "4.332",
+        "logg": "4.22",
+        "Vsini": "245"
+      },
+      "adoptedFields": {
+        "temperature_k": {
+          "value": 21478,
+          "status": "model-derived",
+          "uncertainty": null,
+          "reference": "2001A&A...378..861C",
+          "url": "https://cdsarc.cds.unistra.fr/viz-bin/cat/J/A+A/378/861",
+          "table": "J/A+A/378/861/table6",
+          "sourceRecordId": "HD 37202",
+          "method": "Published apparent effective temperature, converted from log10(Teff/K)",
+          "caveat": "Rapidly rotating Be star: apparent adopted photospheric temperature, not polar or equatorial temperature. The table gives no individual temperature error. Does not describe the cool circumstellar disk."
+        },
+        "luminosity_solar": {
+          "value": null,
+          "status": "withheld",
+          "reason": "Rejected zero-reddening broadband-fit luminosity; no independently verified component-safe replacement adopted in this temperature review."
+        },
+        "radius_solar": {
+          "value": null,
+          "status": "withheld",
+          "reason": "Radius inherited the rejected luminosity/temperature fit; no independently verified component-safe replacement adopted."
+        }
+      },
+      "scope": "Rapidly rotating Be star: apparent adopted photospheric temperature, not polar or equatorial temperature. The table gives no individual temperature error. Does not describe the cool circumstellar disk."
+    },
+    "* zet Oph": {
+      "label": "Zeta Oph",
+      "starIds": [
+        "hip-81377",
+        "bright-zeta-ophiuchi"
+      ],
+      "identity": {
+        "simbadId": "* zet Oph",
+        "hip": 81377,
+        "hd": 149757
+      },
+      "spectralType": "O9.2IVnn",
+      "previousValues": {
+        "hip-81377": {
+          "temperature_k": "9199",
+          "luminosity_solar": "1004.870",
+          "radius_solar": "12.4803"
+        },
+        "bright-zeta-ophiuchi": {
+          "temperature_k": "9199",
+          "luminosity_solar": "1004.870",
+          "radius_solar": "12.4803"
+        }
+      },
+      "evidence": {
+        "Name": "HD149757",
+        "SpC": "O9.2IVnn",
+        "Teff": "30700",
+        "e_Teff": "600",
+        "E_Teff": "600",
+        "q": "1",
+        "Ref.file": "HD149757_20210622_234421_M_V85000_log.fits"
+      },
+      "adoptedFields": {
+        "temperature_k": {
+          "value": 30700,
+          "status": "model-derived",
+          "uncertainty": {
+            "lower": 600,
+            "upper": 600
+          },
+          "reference": "2024A&A...687A.228D",
+          "url": "https://arxiv.org/abs/2312.00241",
+          "table": "J/A+A/687/A228/tabled1",
+          "sourceRecordId": "HD 149757",
+          "method": "FASTWIND non-LTE optical diagnostic-line fit",
+          "caveat": "Formal asymmetric temperature uncertainties from the published fit. No temperature is inferred from the spectral label."
+        },
+        "luminosity_solar": {
+          "value": null,
+          "status": "withheld",
+          "reason": "Rejected zero-reddening broadband-fit luminosity; no independently verified component-safe replacement adopted in this temperature review."
+        },
+        "radius_solar": {
+          "value": null,
+          "status": "withheld",
+          "reason": "Radius inherited the rejected luminosity/temperature fit; no independently verified component-safe replacement adopted."
+        }
+      },
+      "scope": "Formal asymmetric temperature uncertainties from the published fit. No temperature is inferred from the spectral label."
+    },
+    "* del Sco": {
+      "label": "Dschubba",
+      "starIds": [
+        "hip-78401",
+        "bright-dschubba"
+      ],
+      "identity": {
+        "simbadId": "* del Sco",
+        "hip": 78401,
+        "hd": 143275
+      },
+      "spectralType": "B0.3IV",
+      "previousValues": {
+        "hip-78401": {
+          "temperature_k": "8798",
+          "luminosity_solar": "2261.500",
+          "radius_solar": "20.4684"
+        },
+        "bright-dschubba": {
+          "temperature_k": "8798",
+          "luminosity_solar": "2261.500",
+          "radius_solar": "20.4684"
+        }
+      },
+      "evidence": {
+        "HD": 143275,
+        "Teff_K": 30900,
+        "error_Teff_K": 309,
+        "radius_solar": 7.34,
+        "error_radius_solar": 0.15,
+        "source_distance_pc": 150,
+        "E_B_V": 0.17
+      },
+      "adoptedFields": {
+        "temperature_k": {
+          "value": 30900,
+          "status": "model-derived",
+          "uncertainty": 309,
+          "reference": "2018MNRAS.474.5287A",
+          "url": "https://arxiv.org/abs/1711.08675",
+          "table": "Table B1",
+          "sourceRecordId": "HD 143275",
+          "method": "BeSOS photometric fit cross-checked with optical spectroscopy",
+          "caveat": "Published errors are the authors' assumed 1 percent for temperature, not an independent posterior error; Be disk variability and rotational gravity darkening add systematics."
+        },
+        "luminosity_solar": {
+          "value": null,
+          "status": "withheld",
+          "reason": "Rejected zero-reddening broadband-fit luminosity; no independently verified component-safe replacement adopted in this temperature review."
+        },
+        "radius_solar": {
+          "value": null,
+          "status": "withheld",
+          "reason": "Radius inherited the rejected luminosity/temperature fit; no independently verified component-safe replacement adopted."
+        }
+      },
+      "scope": "Published errors are the authors' assumed 1 percent for temperature, not an independent posterior error; Be disk variability and rotational gravity darkening add systematics."
+    },
+    "* gam Cas": {
+      "label": "Tiansi",
+      "starIds": [
+        "hip-4427",
+        "bright-gamma-cassiopeiae"
+      ],
+      "identity": {
+        "simbadId": "* gam Cas",
+        "hip": 4427,
+        "hd": 5394
+      },
+      "spectralType": "B0.5IVpe",
+      "previousValues": {
+        "hip-4427": {
+          "temperature_k": "7664",
+          "luminosity_solar": "2951.700",
+          "radius_solar": "30.8161"
+        },
+        "bright-gamma-cassiopeiae": {
+          "temperature_k": "7664",
+          "luminosity_solar": "2951.700",
+          "radius_solar": "30.8161"
+        }
+      },
+      "evidence": {
+        "HD": "5394",
+        "logTeff": "4.447",
+        "logg": "3.32",
+        "Vsini": "432"
+      },
+      "adoptedFields": {
+        "temperature_k": {
+          "value": 27990,
+          "status": "model-derived",
+          "uncertainty": null,
+          "reference": "2001A&A...378..861C",
+          "url": "https://cdsarc.cds.unistra.fr/viz-bin/cat/J/A+A/378/861",
+          "table": "J/A+A/378/861/table6",
+          "sourceRecordId": "HD 5394",
+          "method": "Published apparent effective temperature, converted from log10(Teff/K)",
+          "caveat": "Rapidly rotating Be star: apparent adopted photospheric temperature, not polar or equatorial temperature. The table gives no individual temperature error. Does not describe the cool circumstellar disk."
+        },
+        "luminosity_solar": {
+          "value": null,
+          "status": "withheld",
+          "reason": "Rejected zero-reddening broadband-fit luminosity; no independently verified component-safe replacement adopted in this temperature review."
+        },
+        "radius_solar": {
+          "value": null,
+          "status": "withheld",
+          "reason": "Radius inherited the rejected luminosity/temperature fit; no independently verified component-safe replacement adopted."
+        }
+      },
+      "scope": "Rapidly rotating Be star: apparent adopted photospheric temperature, not polar or equatorial temperature. The table gives no individual temperature error. Does not describe the cool circumstellar disk."
+    },
+    "* del Cen": {
+      "label": "Delta Cen",
+      "starIds": [
+        "hip-59196",
+        "bright-delta-centauri"
+      ],
+      "identity": {
+        "simbadId": "* del Cen",
+        "hip": 59196,
+        "hd": 105435
+      },
+      "spectralType": "B2Vne",
+      "previousValues": {
+        "hip-59196": {
+          "temperature_k": "8850",
+          "luminosity_solar": "1308.990",
+          "radius_solar": "15.3898"
+        },
+        "bright-delta-centauri": {
+          "temperature_k": "8850",
+          "luminosity_solar": "1308.990",
+          "radius_solar": "15.3898"
+        }
+      },
+      "evidence": {
+        "HD": 105435,
+        "Teff_K": 22150,
+        "error_Teff_K": 222,
+        "radius_solar": 8.18,
+        "error_radius_solar": 0.16,
+        "source_distance_pc": 127,
+        "E_B_V": 0.15
+      },
+      "adoptedFields": {
+        "temperature_k": {
+          "value": 22150,
+          "status": "model-derived",
+          "uncertainty": 222,
+          "reference": "2018MNRAS.474.5287A",
+          "url": "https://arxiv.org/abs/1711.08675",
+          "table": "Table B1",
+          "sourceRecordId": "HD 105435",
+          "method": "BeSOS photometric fit cross-checked with optical spectroscopy",
+          "caveat": "Published errors are the authors' assumed 1 percent for temperature, not an independent posterior error; Be disk variability and rotational gravity darkening add systematics."
+        },
+        "luminosity_solar": {
+          "value": null,
+          "status": "withheld",
+          "reason": "Rejected zero-reddening broadband-fit luminosity; no independently verified component-safe replacement adopted in this temperature review."
+        },
+        "radius_solar": {
+          "value": null,
+          "status": "withheld",
+          "reason": "Radius inherited the rejected luminosity/temperature fit; no independently verified component-safe replacement adopted."
+        }
+      },
+      "scope": "Published errors are the authors' assumed 1 percent for temperature, not an independent posterior error; Be disk variability and rotational gravity darkening add systematics."
+    },
+    "* zet Per": {
+      "label": "Zeta Per",
+      "starIds": [
+        "hip-18246"
+      ],
+      "identity": {
+        "simbadId": "* zet Per",
+        "hip": 18246,
+        "hd": 24398
+      },
+      "spectralType": "B1Ib",
+      "previousValues": {
+        "hip-18246": {
+          "temperature_k": "7725",
+          "luminosity_solar": "3471.4632529180344",
+          "radius_solar": "32.893642"
+        }
+      },
+      "evidence": {
+        "Name": "HD24398",
+        "SpC": "B1Ib",
+        "Teff": "23500",
+        "e_Teff": "400",
+        "E_Teff": "300",
+        "q": "1",
+        "Ref.file": "HD24398_20091110_233259_N_V46000.fits"
+      },
+      "adoptedFields": {
+        "temperature_k": {
+          "value": 23500,
+          "status": "model-derived",
+          "uncertainty": {
+            "lower": 400,
+            "upper": 300
+          },
+          "reference": "2024A&A...687A.228D",
+          "url": "https://arxiv.org/abs/2312.00241",
+          "table": "J/A+A/687/A228/tabled1",
+          "sourceRecordId": "HD 24398",
+          "method": "FASTWIND non-LTE optical diagnostic-line fit",
+          "caveat": "Formal asymmetric temperature uncertainties from the published fit. No temperature is inferred from the spectral label."
+        },
+        "luminosity_solar": {
+          "value": null,
+          "status": "withheld",
+          "reason": "Rejected zero-reddening broadband-fit luminosity; no independently verified component-safe replacement adopted in this temperature review."
+        },
+        "radius_solar": {
+          "value": null,
+          "status": "withheld",
+          "reason": "Radius inherited the rejected luminosity/temperature fit; no independently verified component-safe replacement adopted."
+        }
+      },
+      "scope": "Formal asymmetric temperature uncertainties from the published fit. No temperature is inferred from the spectral label."
+    },
+    "* ome CMa": {
+      "label": "Omega CMa",
+      "starIds": [
+        "hip-35037"
+      ],
+      "identity": {
+        "simbadId": "* ome CMa",
+        "hip": 35037,
+        "hd": 56139
+      },
+      "spectralType": "B2.5Ve",
+      "previousValues": {
+        "hip-35037": {
+          "temperature_k": "9061",
+          "luminosity_solar": "1655.1673543539757",
+          "radius_solar": "16.509022"
+        }
+      },
+      "evidence": {
+        "HD": 56139,
+        "Teff_K": 17170,
+        "error_Teff_K": 172,
+        "radius_solar": 10.5,
+        "error_radius_solar": 0.21,
+        "source_distance_pc": 279,
+        "E_B_V": 0.06
+      },
+      "adoptedFields": {
+        "temperature_k": {
+          "value": 17170,
+          "status": "model-derived",
+          "uncertainty": 172,
+          "reference": "2018MNRAS.474.5287A",
+          "url": "https://arxiv.org/abs/1711.08675",
+          "table": "Table B1",
+          "sourceRecordId": "HD 56139",
+          "method": "BeSOS photometric fit cross-checked with optical spectroscopy",
+          "caveat": "Published errors are the authors' assumed 1 percent for temperature, not an independent posterior error; Be disk variability and rotational gravity darkening add systematics."
+        },
+        "luminosity_solar": {
+          "value": 8632.855848,
+          "status": "derived",
+          "reference": "Stefan-Boltzmann scaling",
+          "inputs": {
+            "temperature_k": 17170,
+            "radius_solar": 10.5,
+            "solar_temperature_k": 5772
+          },
+          "caveat": "Derived from the same BeSOS model temperature and radius; not an independent luminosity measurement."
+        },
+        "radius_solar": {
+          "value": 10.5,
+          "status": "model-derived",
+          "uncertainty": 0.21,
+          "reference": "2018MNRAS.474.5287A",
+          "url": "https://arxiv.org/abs/1711.08675",
+          "table": "Table B1",
+          "inputs": {
+            "source_distance_pc": 279,
+            "E_B_V": 0.06
+          },
+          "caveat": "Published photometric photospheric radius at its source distance. Assumed 2 percent error excludes distance and model systematics; retained without rescaling to catalog distance."
+        }
+      },
+      "scope": "Published errors are the authors' assumed 1 percent for temperature, not an independent posterior error; Be disk variability and rotational gravity darkening add systematics."
+    },
+    "* omi Per": {
+      "label": "Atik",
+      "starIds": [
+        "hip-17448"
+      ],
+      "identity": {
+        "simbadId": "* omi Per",
+        "hip": 17448,
+        "hd": 23180
+      },
+      "spectralType": "B1III",
+      "previousValues": {
+        "hip-17448": {
+          "temperature_k": "8200",
+          "luminosity_solar": "2533.4309098833482",
+          "radius_solar": "24.939025"
+        }
+      },
+      "evidence": {
+        "HD": "23180",
+        "MK": "B1III",
+        "E(B-V)": "0.267",
+        "Teff": "22840",
+        "e_Teff": "1470",
+        "theta": "0.384",
+        "e_theta": "0.021"
+      },
+      "adoptedFields": {
+        "temperature_k": {
+          "value": 22840,
+          "status": "model-derived",
+          "uncertainty": 1470,
+          "reference": "2009A&A...501..297Z",
+          "url": "https://arxiv.org/abs/0903.5134",
+          "table": "J/A+A/501/297/catalog",
+          "sourceRecordId": "HD 23180",
+          "method": "Extinction-corrected bolometric-flux temperature with BCD diagnostics",
+          "caveat": "Unresolved named multiple: this is the apparent, primary-dominated temperature of the catalogued light, not a resolved measurement of every member. Blended angular diameter is not assigned to an individual component."
+        },
+        "luminosity_solar": {
+          "value": null,
+          "status": "withheld",
+          "reason": "Rejected zero-reddening broadband-fit luminosity; no independently verified component-safe replacement adopted in this temperature review."
+        },
+        "radius_solar": {
+          "value": null,
+          "status": "withheld",
+          "reason": "Radius inherited the rejected luminosity/temperature fit; no independently verified component-safe replacement adopted."
+        }
+      },
+      "scope": "Unresolved named multiple: this is the apparent, primary-dominated temperature of the catalogued light, not a resolved measurement of every member. Blended angular diameter is not assigned to an individual component."
+    },
+    "* ksi Per": {
+      "label": "Menkib",
+      "starIds": [
+        "hip-18614"
+      ],
+      "identity": {
+        "simbadId": "* ksi Per",
+        "hip": 18614,
+        "hd": 24912
+      },
+      "spectralType": "O7.5III(n)((f))",
+      "previousValues": {
+        "hip-18614": {
+          "temperature_k": "8648",
+          "luminosity_solar": "3410.781522651553",
+          "radius_solar": "26.016462"
+        }
+      },
+      "evidence": {
+        "Target": "HD 24912",
+        "SpType": "O7.5",
+        "LumClass": "III  (n)((f))",
+        "l_Teff": "",
+        "Teff": "35.9",
+        "Notes": "LPV"
+      },
+      "adoptedFields": {
+        "temperature_k": {
+          "value": 35900,
+          "status": "model-derived",
+          "uncertainty": null,
+          "reference": "2022A&A...665A.150H",
+          "url": "https://cdsarc.cds.unistra.fr/viz-bin/cat/J/A+A/665/A150",
+          "table": "J/A+A/665/A150/tablef1",
+          "sourceRecordId": "HD 24912",
+          "method": "IACOB quantitative O-star spectroscopy",
+          "caveat": "Published Teff is in kK and is not a limit; no per-object uncertainty is listed in this table. logLsp is spectroscopic luminosity T^4/g, not bolometric luminosity, and is not copied into luminosity_solar."
+        },
+        "luminosity_solar": {
+          "value": null,
+          "status": "withheld",
+          "reason": "Rejected zero-reddening broadband-fit luminosity; no independently verified component-safe replacement adopted in this temperature review."
+        },
+        "radius_solar": {
+          "value": null,
+          "status": "withheld",
+          "reason": "Radius inherited the rejected luminosity/temperature fit; no independently verified component-safe replacement adopted."
+        }
+      },
+      "scope": "Published Teff is in kK and is not a limit; no per-object uncertainty is listed in this table. logLsp is spectroscopic luminosity T^4/g, not bolometric luminosity, and is not copied into luminosity_solar."
+    },
+    "HD 175156": {
+      "label": "HD 175156",
+      "starIds": [
+        "hip-92814"
+      ],
+      "identity": {
+        "simbadId": "HD 175156",
+        "hip": 92814,
+        "hd": 175156
+      },
+      "spectralType": "B3II",
+      "previousValues": {
+        "hip-92814": {
+          "temperature_k": "7292",
+          "luminosity_solar": "2154.1960291949717",
+          "radius_solar": "29.080504"
+        }
+      },
+      "evidence": {
+        "HD": 175156,
+        "Teff_K": 14001,
+        "error_Teff_K": 77,
+        "log_g": 2.753
+      },
+      "adoptedFields": {
+        "temperature_k": {
+          "value": 14001,
+          "status": "model-derived",
+          "uncertainty": 77,
+          "reference": "2008ApJ...683.1045H",
+          "url": "https://arxiv.org/abs/0805.2133",
+          "table": "Table 1",
+          "sourceRecordId": "HD 175156",
+          "method": "Object-specific H-gamma line-profile fit",
+          "caveat": "Formal fit error excludes model systematics. Other frozen library compilations quote 15750-16361 K and a cool photometric fit quotes 7945 K; retain the directly inspected H-gamma fit rather than averaging heterogeneous estimates."
+        },
+        "luminosity_solar": {
+          "value": null,
+          "status": "withheld",
+          "reason": "Rejected zero-reddening broadband-fit luminosity; no independently verified component-safe replacement adopted in this temperature review."
+        },
+        "radius_solar": {
+          "value": null,
+          "status": "withheld",
+          "reason": "Radius inherited the rejected luminosity/temperature fit; no independently verified component-safe replacement adopted."
+        }
+      },
+      "scope": "Formal fit error excludes model systematics. Other frozen library compilations quote 15750-16361 K and a cool photometric fit quotes 7945 K; retain the directly inspected H-gamma fit rather than averaging heterogeneous estimates."
+    },
+    "* iot CMa": {
+      "label": "Iota CMa",
+      "starIds": [
+        "hip-33347"
+      ],
+      "identity": {
+        "simbadId": "* iot CMa",
+        "hip": 33347,
+        "hd": 51309
+      },
+      "spectralType": "B3Ib",
+      "previousValues": {
+        "hip-33347": {
+          "temperature_k": "9800",
+          "luminosity_solar": "21321.14768142988",
+          "radius_solar": "50.653071"
+        }
+      },
+      "evidence": {
+        "Name": "HD51309",
+        "SpC": "B3Ib",
+        "Teff": "16800",
+        "e_Teff": "200",
+        "E_Teff": "200",
+        "q": "1",
+        "Ref.file": "HD51309_20171218_002857_M_V85000.fits"
+      },
+      "adoptedFields": {
+        "temperature_k": {
+          "value": 16800,
+          "status": "model-derived",
+          "uncertainty": {
+            "lower": 200,
+            "upper": 200
+          },
+          "reference": "2024A&A...687A.228D",
+          "url": "https://arxiv.org/abs/2312.00241",
+          "table": "J/A+A/687/A228/tabled1",
+          "sourceRecordId": "HD 51309",
+          "method": "FASTWIND non-LTE optical diagnostic-line fit",
+          "caveat": "Formal asymmetric temperature uncertainties from the published fit. No temperature is inferred from the spectral label."
+        },
+        "luminosity_solar": {
+          "value": null,
+          "status": "withheld",
+          "reason": "Rejected zero-reddening broadband-fit luminosity; no independently verified component-safe replacement adopted in this temperature review."
+        },
+        "radius_solar": {
+          "value": null,
+          "status": "withheld",
+          "reason": "Radius inherited the rejected luminosity/temperature fit; no independently verified component-safe replacement adopted."
+        }
+      },
+      "scope": "Formal asymmetric temperature uncertainties from the published fit. No temperature is inferred from the spectral label."
+    },
+    "* alf Cam": {
+      "label": "Alpha Cam",
+      "starIds": [
+        "hip-22783"
+      ],
+      "identity": {
+        "simbadId": "* alf Cam",
+        "hip": 22783,
+        "hd": 30614
+      },
+      "spectralType": "O9Ia",
+      "previousValues": {
+        "hip-22783": {
+          "temperature_k": "9200",
+          "luminosity_solar": "53568.29891422859",
+          "radius_solar": "91.102631"
+        }
+      },
+      "evidence": {
+        "Name": "HD30614",
+        "SpC": "O9Ia",
+        "Teff": "29000",
+        "e_Teff": "400",
+        "E_Teff": "300",
+        "q": "1",
+        "Ref.file": "HD30614_20141009_034242_M_V85000_log.fits"
+      },
+      "adoptedFields": {
+        "temperature_k": {
+          "value": 29000,
+          "status": "model-derived",
+          "uncertainty": {
+            "lower": 400,
+            "upper": 300
+          },
+          "reference": "2024A&A...687A.228D",
+          "url": "https://arxiv.org/abs/2312.00241",
+          "table": "J/A+A/687/A228/tabled1",
+          "sourceRecordId": "HD 30614",
+          "method": "FASTWIND non-LTE optical diagnostic-line fit",
+          "caveat": "Formal asymmetric temperature uncertainties from the published fit. No temperature is inferred from the spectral label."
+        },
+        "luminosity_solar": {
+          "value": null,
+          "status": "withheld",
+          "reason": "Rejected zero-reddening broadband-fit luminosity; no independently verified component-safe replacement adopted in this temperature review."
+        },
+        "radius_solar": {
+          "value": null,
+          "status": "withheld",
+          "reason": "Radius inherited the rejected luminosity/temperature fit; no independently verified component-safe replacement adopted."
+        }
+      },
+      "scope": "Formal asymmetric temperature uncertainties from the published fit. No temperature is inferred from the spectral label."
+    }
+  }
+}

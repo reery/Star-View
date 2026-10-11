@@ -1,5 +1,6 @@
 import { ICRS_TO_GALACTIC_ROWS, type Star } from './catalog-model'
 import { starComponentIdentity } from './star-systems'
+import { constellationCharts } from './data/constellations'
 
 export interface SkyPosition { ra_deg: number; dec_deg: number }
 export interface ConstellationStar extends SkyPosition { hip: number; name: string; magnitude_v: number; bayer: string | null; object: Star }
@@ -54,15 +55,10 @@ export function constellationStarObjects(chart: ConstellationChart, objects: rea
   return resolved
 }
 
-// Only reviewed charts are registered. Each is a separate lazy-loaded chunk.
-const charts = new Map<string, () => Promise<ConstellationChart>>([
-  ['Canis Major', async () => (await import('./data/constellations/canis-major.json')).default as ConstellationChart],
-  ['Centaurus', async () => (await import('./data/constellations/centaurus.json')).default as ConstellationChart],
-])
 const loaded = new Map<string, Promise<ConstellationChart>>()
 
 export function constellationCardAvailable(object: Pick<Star, 'id' | 'constellation'>): boolean {
-  return object.id !== 'sun' && charts.has(object.constellation ?? '')
+  return object.id !== 'sun' && constellationCharts.has(object.constellation ?? '')
 }
 
 export async function loadConstellationChart(object: Pick<Star, 'id' | 'constellation'>): Promise<ConstellationChart | null> {
@@ -70,7 +66,7 @@ export async function loadConstellationChart(object: Pick<Star, 'id' | 'constell
   const name = object.constellation!
   let pending = loaded.get(name)
   if (!pending) {
-    pending = charts.get(name)!().catch((error: unknown) => {
+    pending = constellationCharts.get(name)!().catch((error: unknown) => {
       loaded.delete(name)
       throw error
     })

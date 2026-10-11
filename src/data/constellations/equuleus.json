@@ -1,0 +1,509 @@
+{
+  "schemaVersion": 1,
+  "abbreviation": "Equ",
+  "name": "Equuleus",
+  "center": {
+    "ra_deg": 318.97488224372756,
+    "dec_deg": 8.051038694090234
+  },
+  "stars": [
+    {
+      "hip": 104521,
+      "name": "Gamma Equ",
+      "ra_deg": 317.58541696715,
+      "dec_deg": 10.13158110216,
+      "magnitude_v": 4.7,
+      "bayer": "γ",
+      "object": {
+        "x_pc": 16.088561024,
+        "y_pc": 27.790956093,
+        "z_pc": -14.812653944,
+        "vx_kms": 1.909246,
+        "vy_kms": -28.690337,
+        "vz_kms": -12.388209,
+        "temperature_k": 7586.0,
+        "mass_solar": 1.84,
+        "luminosity_solar": 12.607663,
+        "radius_solar": 1.9498445997580451,
+        "metallicity_dex": -0.0278,
+        "age_gyr": 1.1414027,
+        "absolute_mag": 1.937209,
+        "epoch": 2000.0,
+        "type": "star",
+        "id": "hip-104521",
+        "name": "Gamma Equ",
+        "constellation": "Equuleus",
+        "spectral_type": "A9VpSrCrEu",
+        "metallicity_kind": "[M/H]",
+        "notes": "Western constellation line-figure star (HIP 104521; Stellarium Equ). SIMBAD identity * gam Equ; SIMBAD compiled Johnson V=4.68; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, mass_solar, radius_solar; Gaia DR3 model values for metallicity_dex, luminosity_solar, age_gyr.",
+        "designations": [
+          "HIP 104521"
+        ],
+        "raw_astrometry": {
+          "ra_deg": 317.58541696715,
+          "dec_deg": 10.13158110216,
+          "parallax_mas": 28.2433,
+          "parallax_error_mas": 0.148,
+          "pm_ra_cosdec_masyr": 45.456,
+          "pm_ra_error_masyr": null,
+          "pm_dec_masyr": -152.116,
+          "pm_dec_error_masyr": null,
+          "radial_velocity_kms": -16.489,
+          "radial_velocity_error_kms": null,
+          "epoch": 2000.0,
+          "astrometry_ref": "SIMBAD TAP snapshot 2026-10-01",
+          "radial_velocity_ref": "SIMBAD TAP snapshot 2026-10-01"
+        }
+      }
+    },
+    {
+      "hip": 104858,
+      "name": "Delta Equ",
+      "ra_deg": 318.6200637820833,
+      "dec_deg": 10.006979410555555,
+      "magnitude_v": 4.47,
+      "bayer": "δ",
+      "object": {
+        "x_pc": 8.20811046,
+        "y_pc": 14.503482335,
+        "z_pc": -8.004447764,
+        "vx_kms": 5.579928,
+        "vy_kms": -28.992111,
+        "vz_kms": -10.201299,
+        "temperature_k": 6310.0,
+        "mass_solar": null,
+        "luminosity_solar": null,
+        "radius_solar": null,
+        "metallicity_dex": null,
+        "age_gyr": null,
+        "absolute_mag": 3.155585,
+        "epoch": 2000.0,
+        "type": "star",
+        "id": "hip-104858",
+        "name": "Delta Equ",
+        "constellation": "Equuleus",
+        "spectral_type": "F7(V)+G0(V)",
+        "metallicity_kind": null,
+        "notes": "Western constellation line-figure star (HIP 104858; Stellarium Equ). SIMBAD identity * del Equ; SIMBAD compiled Johnson V=4.49; inverse SIMBAD compiled parallax distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k.",
+        "designations": [
+          "HIP 104858"
+        ],
+        "raw_astrometry": {
+          "ra_deg": 318.6200637820833,
+          "dec_deg": 10.006979410555555,
+          "parallax_mas": 54.09,
+          "parallax_error_mas": 0.66,
+          "pm_ra_cosdec_masyr": 42.39,
+          "pm_ra_error_masyr": null,
+          "pm_dec_masyr": -304.19,
+          "pm_dec_error_masyr": null,
+          "radial_velocity_kms": -15.85,
+          "radial_velocity_error_kms": null,
+          "epoch": 2000.0,
+          "astrometry_ref": "SIMBAD TAP snapshot 2026-10-01",
+          "radial_velocity_ref": "SIMBAD TAP snapshot 2026-10-01"
+        }
+      }
+    },
+    {
+      "hip": 104987,
+      "name": "Kitalpha",
+      "ra_deg": 318.95598819687746,
+      "dec_deg": 5.247891952405833,
+      "magnitude_v": 3.92,
+      "bayer": "α",
+      "object": {
+        "x_pc": 28.214340578,
+        "y_pc": 42.425956252,
+        "z_pc": -27.910448762,
+        "vx_kms": -4.289687,
+        "vy_kms": -28.926651,
+        "vz_kms": -14.462338,
+        "temperature_k": 6166.0,
+        "mass_solar": null,
+        "luminosity_solar": null,
+        "radius_solar": null,
+        "metallicity_dex": 0.09,
+        "age_gyr": null,
+        "absolute_mag": 0.112314,
+        "epoch": 2000.0,
+        "type": "star",
+        "id": "hip-104987",
+        "name": "Kitalpha",
+        "constellation": "Equuleus",
+        "spectral_type": "G6IV+B9.5V",
+        "metallicity_kind": "[Fe/H]",
+        "notes": "Western constellation line-figure star (HIP 104987; Stellarium Equ). SIMBAD identity * alf Equ; SIMBAD compiled Johnson V=3.933; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k. Shared exact-identity physical supplements (metallicity_dex: 2022A&A...663A...4S).",
+        "designations": [
+          "HIP 104987"
+        ],
+        "raw_astrometry": {
+          "ra_deg": 318.95598819687746,
+          "dec_deg": 5.247891952405833,
+          "parallax_mas": 17.1985,
+          "parallax_error_mas": 0.2428,
+          "pm_ra_cosdec_masyr": 49.747,
+          "pm_ra_error_masyr": null,
+          "pm_dec_masyr": -89.846,
+          "pm_dec_error_masyr": null,
+          "radial_velocity_kms": -16.26,
+          "radial_velocity_error_kms": null,
+          "epoch": 2000.0,
+          "astrometry_ref": "SIMBAD TAP snapshot 2026-10-01",
+          "radial_velocity_ref": "SIMBAD TAP snapshot 2026-10-01"
+        }
+      }
+    },
+    {
+      "hip": 105570,
+      "name": "Beta Equ",
+      "ra_deg": 320.72338934143,
+      "dec_deg": 6.811139838180001,
+      "magnitude_v": 5.16,
+      "bayer": "β",
+      "object": {
+        "x_pc": 44.018629481,
+        "y_pc": 73.253363123,
+        "z_pc": -47.823421109,
+        "vx_kms": -25.910023,
+        "vy_kms": -6.540526,
+        "vz_kms": -9.068291,
+        "temperature_k": 8141.0,
+        "mass_solar": 2.7427154,
+        "luminosity_solar": 60.74644819151635,
+        "radius_solar": 3.674869,
+        "metallicity_dex": -0.225,
+        "age_gyr": 0.40775958,
+        "absolute_mag": 0.193366,
+        "epoch": 2000.0,
+        "type": "star",
+        "id": "hip-105570",
+        "name": "Beta Equ",
+        "constellation": "Equuleus",
+        "spectral_type": "A3V",
+        "metallicity_kind": "[M/H]",
+        "notes": "Western constellation line-figure star (HIP 105570; Stellarium Equ). SIMBAD identity * bet Equ; SIMBAD compiled Johnson V=5.148; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, luminosity_solar; Gaia DR3 model values for metallicity_dex, mass_solar, radius_solar, age_gyr.",
+        "designations": [
+          "HIP 105570"
+        ],
+        "raw_astrometry": {
+          "ra_deg": 320.72338934143,
+          "dec_deg": 6.811139838180001,
+          "parallax_mas": 10.1648,
+          "parallax_error_mas": 0.1131,
+          "pm_ra_cosdec_masyr": 53.843,
+          "pm_ra_error_masyr": null,
+          "pm_dec_masyr": 10.742,
+          "pm_dec_error_masyr": null,
+          "radial_velocity_kms": -12.11,
+          "radial_velocity_error_kms": null,
+          "epoch": 2000.0,
+          "astrometry_ref": "SIMBAD TAP snapshot 2026-10-01",
+          "radial_velocity_ref": "SIMBAD TAP snapshot 2026-10-01"
+        }
+      }
+    }
+  ],
+  "lines": [
+    [
+      104521,
+      104858
+    ],
+    [
+      104858,
+      105570
+    ],
+    [
+      105570,
+      104987
+    ],
+    [
+      104987,
+      104521
+    ]
+  ],
+  "boundaries": [
+    {
+      "neighbor": "Delphinus",
+      "neighbor_abbreviation": "DEL",
+      "points": [
+        {
+          "ra_deg": 314.045505,
+          "dec_deg": 6.4771614
+        },
+        {
+          "ra_deg": 314.054431,
+          "dec_deg": 5.4772005
+        },
+        {
+          "ra_deg": 314.063358,
+          "dec_deg": 4.4772401
+        },
+        {
+          "ra_deg": 314.072227,
+          "dec_deg": 3.4772794
+        },
+        {
+          "ra_deg": 314.081097,
+          "dec_deg": 2.4773185
+        }
+      ]
+    },
+    {
+      "neighbor": "Aquarius",
+      "neighbor_abbreviation": "AQR",
+      "points": [
+        {
+          "ra_deg": 314.081097,
+          "dec_deg": 2.4773185
+        },
+        {
+          "ra_deg": 314.581347,
+          "dec_deg": 2.4817235
+        },
+        {
+          "ra_deg": 315.581532,
+          "dec_deg": 2.4904201
+        },
+        {
+          "ra_deg": 316.581888,
+          "dec_deg": 2.4989688
+        },
+        {
+          "ra_deg": 317.582246,
+          "dec_deg": 2.5073657
+        },
+        {
+          "ra_deg": 318.582459,
+          "dec_deg": 2.5156066
+        },
+        {
+          "ra_deg": 319.582844,
+          "dec_deg": 2.5236917
+        },
+        {
+          "ra_deg": 320.583229,
+          "dec_deg": 2.5316172
+        },
+        {
+          "ra_deg": 321.583471,
+          "dec_deg": 2.5393796
+        }
+      ]
+    },
+    {
+      "neighbor": "Pegasus",
+      "neighbor_abbreviation": "PEG",
+      "points": [
+        {
+          "ra_deg": 321.583471,
+          "dec_deg": 2.5393796
+        },
+        {
+          "ra_deg": 321.579637,
+          "dec_deg": 3.0393646
+        },
+        {
+          "ra_deg": 321.571912,
+          "dec_deg": 4.0393353
+        },
+        {
+          "ra_deg": 321.564187,
+          "dec_deg": 5.0393057
+        },
+        {
+          "ra_deg": 321.556434,
+          "dec_deg": 6.0392756
+        },
+        {
+          "ra_deg": 321.548652,
+          "dec_deg": 7.0392456
+        },
+        {
+          "ra_deg": 321.540841,
+          "dec_deg": 8.039216
+        },
+        {
+          "ra_deg": 321.533002,
+          "dec_deg": 9.0391855
+        },
+        {
+          "ra_deg": 321.525106,
+          "dec_deg": 10.039155
+        },
+        {
+          "ra_deg": 321.517154,
+          "dec_deg": 11.0391254
+        },
+        {
+          "ra_deg": 321.509171,
+          "dec_deg": 12.039094
+        },
+        {
+          "ra_deg": 321.501102,
+          "dec_deg": 13.0390635
+        }
+      ]
+    },
+    {
+      "neighbor": "Pegasus",
+      "neighbor_abbreviation": "PEG",
+      "points": [
+        {
+          "ra_deg": 321.501102,
+          "dec_deg": 13.0390635
+        },
+        {
+          "ra_deg": 321.250677,
+          "dec_deg": 13.0371351
+        },
+        {
+          "ra_deg": 320.248546,
+          "dec_deg": 13.0293179
+        },
+        {
+          "ra_deg": 319.246444,
+          "dec_deg": 13.0213385
+        },
+        {
+          "ra_deg": 318.244515,
+          "dec_deg": 13.0132008
+        }
+      ]
+    },
+    {
+      "neighbor": "Pegasus",
+      "neighbor_abbreviation": "PEG",
+      "points": [
+        {
+          "ra_deg": 318.244515,
+          "dec_deg": 13.0132008
+        },
+        {
+          "ra_deg": 318.250264,
+          "dec_deg": 12.3465548
+        }
+      ]
+    },
+    {
+      "neighbor": "Pegasus",
+      "neighbor_abbreviation": "PEG",
+      "points": [
+        {
+          "ra_deg": 318.250264,
+          "dec_deg": 12.3465548
+        },
+        {
+          "ra_deg": 317.248364,
+          "dec_deg": 12.3382607
+        }
+      ]
+    },
+    {
+      "neighbor": "Delphinus",
+      "neighbor_abbreviation": "DEL",
+      "points": [
+        {
+          "ra_deg": 317.248364,
+          "dec_deg": 12.3382607
+        },
+        {
+          "ra_deg": 316.622144,
+          "dec_deg": 12.3329983
+        },
+        {
+          "ra_deg": 315.620442,
+          "dec_deg": 12.3244572
+        },
+        {
+          "ra_deg": 314.618596,
+          "dec_deg": 12.3157644
+        }
+      ]
+    },
+    {
+      "neighbor": "Delphinus",
+      "neighbor_abbreviation": "DEL",
+      "points": [
+        {
+          "ra_deg": 314.618596,
+          "dec_deg": 12.3157644
+        },
+        {
+          "ra_deg": 314.626207,
+          "dec_deg": 11.4824677
+        },
+        {
+          "ra_deg": 314.635305,
+          "dec_deg": 10.4825068
+        },
+        {
+          "ra_deg": 314.644317,
+          "dec_deg": 9.4825468
+        },
+        {
+          "ra_deg": 314.653301,
+          "dec_deg": 8.4825859
+        },
+        {
+          "ra_deg": 314.662199,
+          "dec_deg": 7.4826255
+        },
+        {
+          "ra_deg": 314.671096,
+          "dec_deg": 6.4826641
+        }
+      ]
+    },
+    {
+      "neighbor": "Delphinus",
+      "neighbor_abbreviation": "DEL",
+      "points": [
+        {
+          "ra_deg": 314.671096,
+          "dec_deg": 6.4826641
+        },
+        {
+          "ra_deg": 314.045505,
+          "dec_deg": 6.4771614
+        }
+      ]
+    }
+  ],
+  "sources": [
+    {
+      "label": "Stellarium Western sky culture",
+      "url": "https://raw.githubusercontent.com/Stellarium/stellarium-skycultures/014fbb5e59233d133c22f9811af96b67d05a95c9/western/index.json",
+      "path": "catalog-work/western-constellation-stars/stellarium-western-index.json",
+      "sha256": "a861accd345249a185a5ecfc2a516f34291c0aa52f4bb8d8337ffc53e9cef6b9"
+    },
+    {
+      "label": "Adopted star positions and names",
+      "url": "https://simbad.cds.unistra.fr/simbad/",
+      "path": "src/data/catalogs/western-constellation-stars/stars.csv",
+      "sha256": "0a8b7c1dc3f7e3412c5cffb09a18cdf5b5b7424cc89ea8a0a1ffb4da57d3ad6a"
+    },
+    {
+      "label": "Hipparcos Johnson V magnitudes",
+      "url": "https://cdsarc.cds.unistra.fr/viz-bin/cat/I/239",
+      "path": "catalog-work/western-constellation-stars/hipparcos-v.csv",
+      "sha256": "eec12b740da3aac5204ba75ca5158b6f9f2f81886dda2526fe765cf9ea159320"
+    },
+    {
+      "label": "CDS / IAU constellation boundaries (J2000)",
+      "url": "https://cdsarc.cds.unistra.fr/viz-bin/cat/VI/49",
+      "path": "catalog-work/constellation-charts/boundaries-j2000.dat.gz",
+      "sha256": "879cd6e7a1c908f1e19a5f5fe8cc75fb1d1077564e3890f9152a3680affe9aac",
+      "inputs": [
+        {
+          "path": "catalog-work/constellation-charts/boundary-contours-b1875.dat",
+          "sha256": "865cdf4218f676eb304587c75c63231948d29cd0abe6892a8a8130c1c4fe3592"
+        },
+        {
+          "path": "catalog-work/constellation-charts/boundary-contours-readme.txt",
+          "sha256": "a3ec688bea21e9db10832842c9b845558dbe8ccf820ddedec842d664d2b74c89"
+        }
+      ]
+    }
+  ]
+}

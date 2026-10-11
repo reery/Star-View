@@ -1,4 +1,6 @@
 import { expect, test, type Page } from '@playwright/test'
+import { readFileSync, readdirSync } from 'node:fs'
+import type { ConstellationChart } from '../src/constellations'
 import { openSpecs, openViewer } from './support'
 
 async function selectObject(page: Page, name: string, showSpecs = true): Promise<void> {
@@ -8,6 +10,56 @@ async function selectObject(page: Page, name: string, showSpecs = true): Promise
   await page.getByRole('button', { name: 'Objects', exact: true }).click()
   if (showSpecs) await openSpecs(page)
 }
+
+test('opens all 88 charts with finite outlines and readable labels', { tag: '@mobile' }, async ({ page }, testInfo) => {
+  test.setTimeout(180_000)
+  const errors: string[] = []
+  page.on('pageerror', (error) => errors.push(error.message))
+  const directory = new URL('../src/data/constellations/', import.meta.url)
+  const charts = readdirSync(directory).filter((name) => name.endsWith('.json'))
+    .map((name) => JSON.parse(readFileSync(new URL(name, directory), 'utf8')) as ConstellationChart)
+  expect(charts).toHaveLength(88)
+  await openViewer(page)
+  await page.getByRole('button', { name: 'Filter', exact: true }).click()
+  await page.getByLabel('Western constellation stars', { exact: true }).check()
+  await page.locator('#object-distance-limit').fill('24')
+  await page.getByRole('button', { name: 'Filter', exact: true }).click()
+  await openSpecs(page)
+  await page.locator('#constellation-toggle').click()
+  await page.locator('#constellation-lock').click()
+  const card = page.locator('#constellation-card')
+  const problems: { constellation: string; fits: boolean; overlaps: boolean; finite: boolean }[] = []
+  for (const chart of charts) {
+    const star = chart.stars.filter((star) => star.object.constellation === chart.name)
+      .sort((a, b) => a.magnitude_v - b.magnitude_v)[0]!
+    await page.getByRole('button', { name: 'Objects', exact: true }).click()
+    await page.getByLabel('Search objects').fill(`HIP ${star.hip}`)
+    await page.locator('#star-list button[data-star]').first().click()
+    await page.getByRole('button', { name: 'Objects', exact: true }).click()
+    await expect(card.locator('#constellation-heading')).toHaveText(`Constellation: ${chart.name}`)
+    await expect(card.locator('.constellation-line')).toHaveCount(chart.lines.length)
+    await expect(card.locator('.constellation-boundary')).toHaveCount(chart.boundaries.length)
+    await expect(card.locator('.constellation-selected-ring')).toHaveCount(1)
+    await expect(card.locator('.constellation-star-name')).toHaveCount(1)
+    const layout = await card.locator('#constellation-chart > svg').evaluate((diagram) => {
+      const bounds = diagram.getBoundingClientRect()
+      const labels = [...diagram.querySelectorAll('.constellation-star-name, .constellation-bayer, .constellation-neighbor')]
+        .map((label) => label.getBoundingClientRect())
+      return {
+        fits: labels.every((label) => label.left >= bounds.left && label.right <= bounds.right && label.top >= bounds.top && label.bottom <= bounds.bottom),
+        overlaps: labels.some((a, i) => labels.slice(i + 1).some((b) => a.left < b.right && a.right > b.left && a.top < b.bottom && a.bottom > b.top)),
+        finite: [...diagram.querySelectorAll('.constellation-boundary, .constellation-line')]
+          .every((line) => [...line.attributes].every((attribute) => !/NaN|Infinity/.test(attribute.value))),
+      }
+    })
+    if (!layout.fits || layout.overlaps || !layout.finite) problems.push({ constellation: chart.name, ...layout })
+    if (['Orion', 'Serpens', 'Andromeda', 'Ursa Minor', 'Octans', 'Hydra', 'Draco', 'Tucana'].includes(chart.name)) {
+      await card.screenshot({ path: testInfo.outputPath(`${chart.abbreviation}-coverage.png`) })
+    }
+  }
+  expect(problems).toEqual([])
+  expect(errors).toEqual([])
+})
 
 test('loads Centaurus on demand and follows exact components across locked charts', { tag: '@mobile' }, async ({ page }, testInfo) => {
   const chartRequests: string[] = []
@@ -171,7 +223,7 @@ test('shows a labelled Canis Major chart with orange selection, lock, and close 
   await expect(card).toBeHidden()
 })
 
-test('keeps Sirius B separate from the figure star and disables unreviewed charts', async ({ page }, testInfo) => {
+test('keeps Sirius B separate from the figure star and follows newly available charts', async ({ page }, testInfo) => {
   await openViewer(page)
   await openSpecs(page)
   await page.locator('#constellation-toggle').click()
@@ -186,8 +238,10 @@ test('keeps Sirius B separate from the figure star and disables unreviewed chart
   await card.getByText('Sources', { exact: true }).click()
   await expect(page.locator('#constellation-source-links a')).toHaveCount(4)
   await selectObject(page, 'Ross 154')
-  await expect(card).toBeHidden()
-  await expect(page.locator('#constellation-toggle')).toBeDisabled()
+  await expect(card).toBeVisible()
+  await expect(card.locator('#constellation-heading')).toHaveText('Constellation: Sagittarius')
+  await expect(card.locator('.is-selected .constellation-star-name')).toHaveText('Ross 154')
+  await expect(page.locator('#constellation-toggle')).toBeEnabled()
 })
 
 test('selects figure stars with tooltips while the constellation overlay is off', { tag: '@mobile' }, async ({ page }, testInfo) => {

@@ -1,0 +1,1138 @@
+{
+  "schemaVersion": 1,
+  "abbreviation": "Lep",
+  "name": "Lepus",
+  "center": {
+    "ra_deg": 82.86967588364102,
+    "dec_deg": -16.568559689726637
+  },
+  "stars": [
+    {
+      "hip": 23685,
+      "name": "Epsilon Lep",
+      "ra_deg": 76.36526836354416,
+      "dec_deg": -22.371034487030837,
+      "magnitude_v": 3.19,
+      "bayer": "ε",
+      "object": {
+        "x_pc": -39.283628775,
+        "y_pc": -36.949986902,
+        "z_pc": -34.664241589,
+        "vx_kms": 15.928096,
+        "vy_kms": -17.85524,
+        "vz_kms": -0.887886,
+        "temperature_k": 4235.0,
+        "mass_solar": null,
+        "luminosity_solar": 407.1619218006938,
+        "radius_solar": 37.482573,
+        "metallicity_dex": 0.01,
+        "age_gyr": null,
+        "absolute_mag": -0.854635,
+        "epoch": 2000.0,
+        "type": "star",
+        "id": "hip-23685",
+        "name": "Epsilon Lep",
+        "constellation": "Lepus",
+        "spectral_type": "K4III",
+        "metallicity_kind": "[Fe/H]",
+        "notes": "Western constellation line-figure star (HIP 23685; Stellarium Lep). SIMBAD identity * eps Lep; SIMBAD compiled Johnson V=3.18; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, luminosity_solar; Stefan-Boltzmann scaling for radius_solar. Shared exact-identity physical supplements (metallicity_dex: 2024A&A...690A..97C).",
+        "designations": [
+          "HIP 23685"
+        ],
+        "raw_astrometry": {
+          "ra_deg": 76.36526836354416,
+          "dec_deg": -22.371034487030837,
+          "parallax_mas": 15.5999,
+          "parallax_error_mas": 0.1074,
+          "pm_ra_cosdec_masyr": 24.049,
+          "pm_ra_error_masyr": null,
+          "pm_dec_masyr": -74.951,
+          "pm_dec_error_masyr": null,
+          "radial_velocity_kms": 1.011,
+          "radial_velocity_error_kms": null,
+          "epoch": 2000.0,
+          "astrometry_ref": "SIMBAD TAP snapshot 2026-10-01",
+          "radial_velocity_ref": "SIMBAD TAP snapshot 2026-10-01"
+        }
+      }
+    },
+    {
+      "hip": 24244,
+      "name": "Iota Lep",
+      "ra_deg": 78.07462743943667,
+      "dec_deg": -11.86910091103778,
+      "magnitude_v": 4.45,
+      "bayer": "ι",
+      "object": {
+        "x_pc": -52.957834357,
+        "y_pc": -33.962894093,
+        "z_pc": -32.494329152,
+        "vx_kms": -10.078794,
+        "vy_kms": -24.551239,
+        "vz_kms": -9.122377,
+        "temperature_k": 11749.0,
+        "mass_solar": 3.3262155,
+        "luminosity_solar": 87.32466346923493,
+        "radius_solar": 2.6208148,
+        "metallicity_dex": -0.7264,
+        "age_gyr": null,
+        "absolute_mag": 0.199563,
+        "epoch": 2000.0,
+        "type": "star",
+        "id": "hip-24244",
+        "name": "Iota Lep",
+        "constellation": "Lepus",
+        "spectral_type": "B7.5Vn",
+        "metallicity_kind": "[M/H]",
+        "notes": "Western constellation line-figure star (HIP 24244; Stellarium Lep). SIMBAD identity * iot Lep; SIMBAD compiled Johnson V=4.45; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, luminosity_solar; Gaia DR3 model values for metallicity_dex, mass_solar, radius_solar.",
+        "designations": [
+          "HIP 24244"
+        ],
+        "raw_astrometry": {
+          "ra_deg": 78.07462743943667,
+          "dec_deg": -11.86910091103778,
+          "parallax_mas": 14.174,
+          "parallax_error_mas": 0.3276,
+          "pm_ra_cosdec_masyr": 23.931,
+          "pm_ra_error_masyr": null,
+          "pm_dec_masyr": -38.933,
+          "pm_dec_error_masyr": null,
+          "radial_velocity_kms": 23.5,
+          "radial_velocity_error_kms": null,
+          "epoch": 2000.0,
+          "astrometry_ref": "SIMBAD TAP snapshot 2026-10-01",
+          "radial_velocity_ref": "SIMBAD TAP snapshot 2026-10-01"
+        }
+      }
+    },
+    {
+      "hip": 24305,
+      "name": "Mu Lep",
+      "ra_deg": 78.23292901709,
+      "dec_deg": -16.205463499750003,
+      "magnitude_v": 3.29,
+      "bayer": "μ",
+      "object": {
+        "x_pc": -36.410216702,
+        "y_pc": -27.687494109,
+        "z_pc": -25.257535957,
+        "vx_kms": -16.773241,
+        "vy_kms": -22.448576,
+        "vz_kms": -5.41357,
+        "temperature_k": 12023.0,
+        "mass_solar": 3.58,
+        "luminosity_solar": 132.9109653985768,
+        "radius_solar": 3.3884415613920256,
+        "metallicity_dex": 0.0,
+        "age_gyr": null,
+        "absolute_mag": -0.300504,
+        "epoch": 2000.0,
+        "type": "star",
+        "id": "hip-24305",
+        "name": "Mu Lep",
+        "constellation": "Lepus",
+        "spectral_type": "B9IV:HgMn",
+        "metallicity_kind": "[Fe/H]",
+        "notes": "Western constellation line-figure star (HIP 24305; Stellarium Lep). SIMBAD identity * mu. Lep; SIMBAD compiled Johnson V=3.29; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, mass_solar, radius_solar, luminosity_solar. Shared exact-identity physical supplements (metallicity_dex: 2024A&A...683A.125P).",
+        "designations": [
+          "HIP 24305"
+        ],
+        "raw_astrometry": {
+          "ra_deg": 78.23292901709,
+          "dec_deg": -16.205463499750003,
+          "parallax_mas": 19.1775,
+          "parallax_error_mas": 0.3265,
+          "pm_ra_cosdec_masyr": 42.803,
+          "pm_ra_error_masyr": null,
+          "pm_dec_masyr": -16.017,
+          "pm_dec_error_masyr": null,
+          "radial_velocity_kms": 26.2,
+          "radial_velocity_error_kms": null,
+          "epoch": 2000.0,
+          "astrometry_ref": "SIMBAD TAP snapshot 2026-10-01",
+          "radial_velocity_ref": "SIMBAD TAP snapshot 2026-10-01"
+        }
+      }
+    },
+    {
+      "hip": 24327,
+      "name": "Kappa Lep",
+      "ra_deg": 78.30782095595,
+      "dec_deg": -12.94129245532,
+      "magnitude_v": 4.36,
+      "bayer": "κ",
+      "object": {
+        "x_pc": -105.006290433,
+        "y_pc": -70.506399255,
+        "z_pc": -65.983224735,
+        "vx_kms": -13.666867,
+        "vy_kms": -6.058162,
+        "vz_kms": -16.74724,
+        "temperature_k": 10138.0,
+        "mass_solar": null,
+        "luminosity_solar": 367.9897816487248,
+        "radius_solar": 6.218218,
+        "metallicity_dex": null,
+        "age_gyr": null,
+        "absolute_mag": -1.331478,
+        "epoch": 2000.0,
+        "type": "star",
+        "id": "hip-24327",
+        "name": "Kappa Lep",
+        "constellation": "Lepus",
+        "spectral_type": "B7V",
+        "metallicity_kind": null,
+        "notes": "Western constellation line-figure star (HIP 24327; Stellarium Lep). SIMBAD identity * kap Lep; SIMBAD compiled Johnson V=4.44; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, luminosity_solar; Stefan-Boltzmann scaling for radius_solar.",
+        "designations": [
+          "HIP 24327"
+        ],
+        "raw_astrometry": {
+          "ra_deg": 78.30782095595,
+          "dec_deg": -12.94129245532,
+          "parallax_mas": 6.9828,
+          "parallax_error_mas": 0.1877,
+          "pm_ra_cosdec_masyr": -12.414,
+          "pm_ra_error_masyr": null,
+          "pm_dec_masyr": -1.352,
+          "pm_dec_error_masyr": null,
+          "radial_velocity_kms": 20.8,
+          "radial_velocity_error_kms": null,
+          "epoch": 2000.0,
+          "astrometry_ref": "SIMBAD TAP snapshot 2026-10-01",
+          "radial_velocity_ref": "SIMBAD TAP snapshot 2026-10-01"
+        }
+      }
+    },
+    {
+      "hip": 24845,
+      "name": "Lambda Lep",
+      "ra_deg": 79.89384295078916,
+      "dec_deg": -13.176769401368889,
+      "magnitude_v": 4.29,
+      "bayer": "λ",
+      "object": {
+        "x_pc": -219.892162092,
+        "y_pc": -152.977083131,
+        "z_pc": -132.01275933,
+        "vx_kms": -10.751905,
+        "vy_kms": -17.176083,
+        "vz_kms": -7.882484,
+        "temperature_k": 22237.0,
+        "mass_solar": null,
+        "luminosity_solar": 9648.527003276371,
+        "radius_solar": 6.618061,
+        "metallicity_dex": 0.0031,
+        "age_gyr": null,
+        "absolute_mag": -3.085692,
+        "epoch": 2000.0,
+        "type": "star",
+        "id": "hip-24845",
+        "name": "Lambda Lep",
+        "constellation": "Lepus",
+        "spectral_type": "B0.5V",
+        "metallicity_kind": "[M/H]",
+        "notes": "Western constellation line-figure star (HIP 24845; Stellarium Lep). SIMBAD identity * lam Lep; SIMBAD compiled Johnson V=4.29; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, luminosity_solar; Gaia DR3 model values for metallicity_dex; Stefan-Boltzmann scaling for radius_solar.",
+        "designations": [
+          "HIP 24845"
+        ],
+        "raw_astrometry": {
+          "ra_deg": 79.89384295078916,
+          "dec_deg": -13.176769401368889,
+          "parallax_mas": 3.3378,
+          "parallax_error_mas": 0.179,
+          "pm_ra_cosdec_masyr": 3.04,
+          "pm_ra_error_masyr": null,
+          "pm_dec_masyr": -4.801,
+          "pm_dec_error_masyr": null,
+          "radial_velocity_kms": 20.2,
+          "radial_velocity_error_kms": null,
+          "epoch": 2000.0,
+          "astrometry_ref": "SIMBAD TAP snapshot 2026-10-01",
+          "radial_velocity_ref": "SIMBAD TAP snapshot 2026-10-01"
+        }
+      }
+    },
+    {
+      "hip": 24873,
+      "name": "Nu Lep",
+      "ra_deg": 79.9959299667,
+      "dec_deg": -12.31558626441,
+      "magnitude_v": 5.29,
+      "bayer": "ν",
+      "object": {
+        "x_pc": -80.59741451,
+        "y_pc": -54.358117783,
+        "z_pc": -46.977563499,
+        "vx_kms": -13.848642,
+        "vy_kms": -1.872017,
+        "vz_kms": -10.847834,
+        "temperature_k": 11906.0,
+        "mass_solar": null,
+        "luminosity_solar": 124.54811731997674,
+        "radius_solar": 2.622947,
+        "metallicity_dex": null,
+        "age_gyr": null,
+        "absolute_mag": 0.117473,
+        "epoch": 2000.0,
+        "type": "star",
+        "id": "hip-24873",
+        "name": "Nu Lep",
+        "constellation": "Lepus",
+        "spectral_type": "B7/8V",
+        "metallicity_kind": null,
+        "notes": "Western constellation line-figure star (HIP 24873; Stellarium Lep). SIMBAD identity * nu. Lep; SIMBAD compiled Johnson V=5.284; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, luminosity_solar; Stefan-Boltzmann scaling for radius_solar.",
+        "designations": [
+          "HIP 24873"
+        ],
+        "raw_astrometry": {
+          "ra_deg": 79.9959299667,
+          "dec_deg": -12.31558626441,
+          "parallax_mas": 9.2226,
+          "parallax_error_mas": 0.1036,
+          "pm_ra_cosdec_masyr": -12.675,
+          "pm_ra_error_masyr": null,
+          "pm_dec_masyr": 7.536,
+          "pm_dec_error_masyr": null,
+          "radial_velocity_kms": 16.0,
+          "radial_velocity_error_kms": null,
+          "epoch": 2000.0,
+          "astrometry_ref": "SIMBAD TAP snapshot 2026-10-01",
+          "radial_velocity_ref": "SIMBAD TAP snapshot 2026-10-01"
+        }
+      }
+    },
+    {
+      "hip": 25606,
+      "name": "Nihal",
+      "ra_deg": 82.06134536679916,
+      "dec_deg": -20.759443885748333,
+      "magnitude_v": 2.81,
+      "bayer": "β",
+      "object": {
+        "x_pc": -30.906386471,
+        "y_pc": -29.391895061,
+        "z_pc": -21.920765381,
+        "vx_kms": 23.72333,
+        "vy_kms": -1.349645,
+        "vz_kms": -0.574054,
+        "temperature_k": 5248.0,
+        "mass_solar": 3.18,
+        "luminosity_solar": 165.15044068024332,
+        "radius_solar": 15.848931924611133,
+        "metallicity_dex": -0.31,
+        "age_gyr": null,
+        "absolute_mag": -0.564135,
+        "epoch": 2000.0,
+        "type": "star",
+        "id": "hip-25606",
+        "name": "Nihal",
+        "constellation": "Lepus",
+        "spectral_type": "G5II-IIIa:",
+        "metallicity_kind": "[Fe/H]",
+        "notes": "Western constellation line-figure star (HIP 25606; Stellarium Lep). SIMBAD identity * bet Lep; SIMBAD compiled Johnson V=2.84; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, mass_solar, radius_solar, luminosity_solar. Shared exact-identity physical supplements (metallicity_dex: 2024A&A...690A..97C).",
+        "designations": [
+          "HIP 25606"
+        ],
+        "raw_astrometry": {
+          "ra_deg": 82.06134536679916,
+          "dec_deg": -20.759443885748333,
+          "parallax_mas": 20.8697,
+          "parallax_error_mas": 0.2047,
+          "pm_ra_cosdec_masyr": -5.748,
+          "pm_ra_error_masyr": null,
+          "pm_dec_masyr": -83.65,
+          "pm_dec_error_masyr": null,
+          "radial_velocity_kms": -14.2,
+          "radial_velocity_error_kms": null,
+          "epoch": 2000.0,
+          "astrometry_ref": "SIMBAD TAP snapshot 2026-10-01",
+          "radial_velocity_ref": "SIMBAD TAP snapshot 2026-10-01"
+        }
+      }
+    },
+    {
+      "hip": 25985,
+      "name": "Arneb",
+      "ra_deg": 83.18256716166667,
+      "dec_deg": -17.82228927222222,
+      "magnitude_v": 2.58,
+      "bayer": "α",
+      "object": {
+        "x_pc": -465.141518022,
+        "y_pc": -403.588285952,
+        "z_pc": -289.015580416,
+        "vx_kms": -20.497523,
+        "vy_kms": -18.869869,
+        "vz_kms": 0.259769,
+        "temperature_k": 7001.0,
+        "mass_solar": null,
+        "luminosity_solar": 31409.5,
+        "radius_solar": 120.4656,
+        "metallicity_dex": 0.01,
+        "age_gyr": null,
+        "absolute_mag": -6.593413,
+        "epoch": 2000.0,
+        "type": "star",
+        "id": "hip-25985",
+        "name": "Arneb",
+        "constellation": "Lepus",
+        "spectral_type": "F0Ib",
+        "metallicity_kind": "[Fe/H]",
+        "notes": "Western constellation line-figure star (HIP 25985; Stellarium Lep). SIMBAD identity * alf Lep; SIMBAD compiled Johnson V=2.57; inverse SIMBAD compiled parallax distance; absolute V uses no extinction correction. Physical parameters: reviewed Star View values for temperature_k, luminosity_solar, radius_solar, metallicity_dex.",
+        "designations": [
+          "HIP 25985"
+        ],
+        "raw_astrometry": {
+          "ra_deg": 83.18256716166667,
+          "dec_deg": -17.82228927222222,
+          "parallax_mas": 1.47,
+          "parallax_error_mas": 0.14,
+          "pm_ra_cosdec_masyr": 3.56,
+          "pm_ra_error_masyr": null,
+          "pm_dec_masyr": 1.18,
+          "pm_dec_error_masyr": null,
+          "radial_velocity_kms": 25.1,
+          "radial_velocity_error_kms": null,
+          "epoch": 2000.0,
+          "astrometry_ref": "SIMBAD TAP snapshot 2026-10-01",
+          "radial_velocity_ref": "SIMBAD TAP snapshot 2026-10-01"
+        }
+      }
+    },
+    {
+      "hip": 27072,
+      "name": "Gamma Lep",
+      "ra_deg": 86.11439122579156,
+      "dec_deg": -22.45002336420253,
+      "magnitude_v": 3.59,
+      "bayer": "γ",
+      "object": {
+        "x_pc": -5.557544195,
+        "y_pc": -5.917306237,
+        "z_pc": -3.660798846,
+        "vx_kms": 17.820088,
+        "vy_kms": 4.113849,
+        "vz_kms": -11.833527,
+        "temperature_k": 6149.0,
+        "mass_solar": 1.1713959,
+        "luminosity_solar": 2.4326253,
+        "radius_solar": 1.3741645,
+        "metallicity_dex": -0.6854,
+        "age_gyr": 4.001788,
+        "absolute_mag": 3.851786,
+        "epoch": 2000.0,
+        "type": "star",
+        "id": "hip-27072",
+        "name": "Gamma Lep",
+        "constellation": "Lepus",
+        "spectral_type": "F6V",
+        "metallicity_kind": "[M/H]",
+        "notes": "Corrected CNS5 1427; J2000 Sun-relative Galactic position. SIMBAD exact CNS5 identity. Full source space motion using exact-ID Gaia DR3 radial velocity fallback.",
+        "designations": [
+          "HIP 27072"
+        ],
+        "raw_astrometry": {
+          "ra_deg": 86.11439122579156,
+          "dec_deg": -22.45002336420253,
+          "parallax_mas": 112.29602820037746,
+          "parallax_error_mas": 0.16656762,
+          "pm_ra_cosdec_masyr": -291.75677673534847,
+          "pm_ra_error_masyr": 0.08734714984893799,
+          "pm_dec_masyr": -368.5208157670237,
+          "pm_dec_error_masyr": 0.13357414305210114,
+          "radial_velocity_kms": -8.989398,
+          "radial_velocity_error_kms": 0.14734523,
+          "epoch": 2016.0,
+          "astrometry_ref": "2020yCat.1350....0G",
+          "radial_velocity_ref": "Gaia DR3"
+        }
+      }
+    },
+    {
+      "hip": 27288,
+      "name": "Zeta Lep",
+      "ra_deg": 86.73892235277415,
+      "dec_deg": -14.82195015846389,
+      "magnitude_v": 3.55,
+      "bayer": "ζ",
+      "object": {
+        "x_pc": -16.141740386,
+        "y_pc": -13.258645248,
+        "z_pc": -7.946009102,
+        "vx_kms": -17.790428,
+        "vy_kms": -13.923496,
+        "vz_kms": -10.099404,
+        "temperature_k": 8511.0,
+        "mass_solar": 1.85,
+        "luminosity_solar": 14.738845060333537,
+        "radius_solar": 1.6595869074375607,
+        "metallicity_dex": -0.7842,
+        "age_gyr": 0.62519914,
+        "absolute_mag": 1.778691,
+        "epoch": 2000.0,
+        "type": "star",
+        "id": "hip-27288",
+        "name": "Zeta Lep",
+        "constellation": "Lepus",
+        "spectral_type": "A2IV-V(n)",
+        "metallicity_kind": "[M/H]",
+        "notes": "Western constellation line-figure star (HIP 27288; Stellarium Lep). SIMBAD identity * zet Lep; SIMBAD compiled Johnson V=3.525; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, mass_solar, radius_solar, luminosity_solar; Gaia DR3 model values for metallicity_dex, age_gyr.",
+        "designations": [
+          "HIP 27288"
+        ],
+        "raw_astrometry": {
+          "ra_deg": 86.73892235277415,
+          "dec_deg": -14.82195015846389,
+          "parallax_mas": 44.794,
+          "parallax_error_mas": 0.2466,
+          "pm_ra_cosdec_masyr": -14.203,
+          "pm_ra_error_masyr": null,
+          "pm_dec_masyr": -0.776,
+          "pm_dec_error_masyr": null,
+          "radial_velocity_kms": 24.7,
+          "radial_velocity_error_kms": null,
+          "epoch": 2000.0,
+          "astrometry_ref": "SIMBAD TAP snapshot 2026-10-01",
+          "radial_velocity_ref": "SIMBAD TAP snapshot 2026-10-01"
+        }
+      }
+    },
+    {
+      "hip": 27654,
+      "name": "Delta Lep",
+      "ra_deg": 87.83040011603666,
+      "dec_deg": -20.87909184884028,
+      "magnitude_v": 3.76,
+      "bayer": "δ",
+      "object": {
+        "x_pc": -22.656971535,
+        "y_pc": -23.326683835,
+        "z_pc": -13.282899449,
+        "vx_kms": 17.610861,
+        "vy_kms": -145.976335,
+        "vz_kms": -42.791194,
+        "temperature_k": 4898.0,
+        "mass_solar": 1.8,
+        "luminosity_solar": 41.187917,
+        "radius_solar": 8.912509381337454,
+        "metallicity_dex": -0.81,
+        "age_gyr": null,
+        "absolute_mag": 1.121793,
+        "epoch": 2000.0,
+        "type": "star",
+        "id": "hip-27654",
+        "name": "Delta Lep",
+        "constellation": "Lepus",
+        "spectral_type": "K0IIIbFe-1.5CH0.5",
+        "metallicity_kind": "[Fe/H]",
+        "notes": "Western constellation line-figure star (HIP 27654; Stellarium Lep). SIMBAD identity * del Lep; SIMBAD compiled Johnson V=3.85; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, mass_solar, radius_solar; Stefan-Boltzmann scaling for luminosity_solar. Shared exact-identity physical supplements (metallicity_dex: 2022A&A...663A...4S).",
+        "designations": [
+          "HIP 27654"
+        ],
+        "raw_astrometry": {
+          "ra_deg": 87.83040011603666,
+          "dec_deg": -20.87909184884028,
+          "parallax_mas": 28.4234,
+          "parallax_error_mas": 0.169,
+          "pm_ra_cosdec_masyr": 229.027,
+          "pm_ra_error_masyr": null,
+          "pm_dec_masyr": -647.93,
+          "pm_dec_error_masyr": null,
+          "radial_velocity_kms": 101.76,
+          "radial_velocity_error_kms": null,
+          "epoch": 2000.0,
+          "astrometry_ref": "SIMBAD TAP snapshot 2026-10-01",
+          "radial_velocity_ref": "SIMBAD TAP snapshot 2026-10-01"
+        }
+      }
+    },
+    {
+      "hip": 28103,
+      "name": "Eta Lep",
+      "ra_deg": 89.10122287687543,
+      "dec_deg": -14.167699537670277,
+      "magnitude_v": 3.71,
+      "bayer": "η",
+      "object": {
+        "x_pc": -10.902622701,
+        "y_pc": -9.069315088,
+        "z_pc": -4.737247061,
+        "vx_kms": -5.301248,
+        "vy_kms": 8.862333,
+        "vz_kms": 1.988374,
+        "temperature_k": 7079.0,
+        "mass_solar": 1.51,
+        "luminosity_solar": 5.6491694,
+        "radius_solar": 1.5488166189124815,
+        "metallicity_dex": 0.0758,
+        "age_gyr": 1.525508,
+        "absolute_mag": 2.846509,
+        "epoch": 2000.0,
+        "type": "star",
+        "id": "hip-28103",
+        "name": "Eta Lep",
+        "constellation": "Lepus",
+        "spectral_type": "F2V",
+        "metallicity_kind": "[M/H]",
+        "notes": "Western constellation line-figure star (HIP 28103; Stellarium Lep). SIMBAD identity * eta Lep; SIMBAD compiled Johnson V=3.72; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, mass_solar, radius_solar; Gaia DR3 model values for metallicity_dex, luminosity_solar, age_gyr.",
+        "designations": [
+          "HIP 28103"
+        ],
+        "raw_astrometry": {
+          "ra_deg": 89.10122287687543,
+          "dec_deg": -14.167699537670277,
+          "parallax_mas": 66.8573,
+          "parallax_error_mas": 0.1759,
+          "pm_ra_cosdec_masyr": -41.474,
+          "pm_ra_error_masyr": null,
+          "pm_dec_masyr": 139.222,
+          "pm_dec_error_masyr": null,
+          "radial_velocity_kms": -2.14,
+          "radial_velocity_error_kms": null,
+          "epoch": 2000.0,
+          "astrometry_ref": "SIMBAD TAP snapshot 2026-10-01",
+          "radial_velocity_ref": "SIMBAD TAP snapshot 2026-10-01"
+        }
+      }
+    },
+    {
+      "hip": 28910,
+      "name": "Theta Lep",
+      "ra_deg": 91.53884947064,
+      "dec_deg": -14.93525538716,
+      "magnitude_v": 4.67,
+      "bayer": "θ",
+      "object": {
+        "x_pc": -36.769230041,
+        "y_pc": -32.540481387,
+        "z_pc": -14.672831253,
+        "vx_kms": -22.646552,
+        "vy_kms": -13.878653,
+        "vz_kms": -10.366826,
+        "temperature_k": 9120.0,
+        "mass_solar": 2.27,
+        "luminosity_solar": 28.266154031729506,
+        "radius_solar": 2.1877616239495525,
+        "metallicity_dex": 0.0,
+        "age_gyr": null,
+        "absolute_mag": 1.114701,
+        "epoch": 2000.0,
+        "type": "star",
+        "id": "hip-28910",
+        "name": "Theta Lep",
+        "constellation": "Lepus",
+        "spectral_type": "A0V",
+        "metallicity_kind": "[Fe/H]",
+        "notes": "Western constellation line-figure star (HIP 28910; Stellarium Lep). SIMBAD identity * tet Lep; SIMBAD compiled Johnson V=4.663; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, mass_solar, radius_solar, luminosity_solar. Shared exact-identity physical supplements (metallicity_dex: 2024A&A...683A.125P).",
+        "designations": [
+          "HIP 28910"
+        ],
+        "raw_astrometry": {
+          "ra_deg": 91.53884947064,
+          "dec_deg": -14.93525538716,
+          "parallax_mas": 19.4991,
+          "parallax_error_mas": 0.117,
+          "pm_ra_cosdec_masyr": -17.005,
+          "pm_ra_error_masyr": null,
+          "pm_dec_masyr": 13.152,
+          "pm_dec_error_masyr": null,
+          "radial_velocity_kms": 28.03,
+          "radial_velocity_error_kms": null,
+          "epoch": 2000.0,
+          "astrometry_ref": "SIMBAD TAP snapshot 2026-10-01",
+          "radial_velocity_ref": "SIMBAD TAP snapshot 2026-10-01"
+        }
+      }
+    }
+  ],
+  "lines": [
+    [
+      28910,
+      28103
+    ],
+    [
+      28103,
+      27288
+    ],
+    [
+      27288,
+      25985
+    ],
+    [
+      25985,
+      24305
+    ],
+    [
+      25985,
+      27654
+    ],
+    [
+      27654,
+      27072
+    ],
+    [
+      27072,
+      25606
+    ],
+    [
+      25606,
+      23685
+    ],
+    [
+      25985,
+      25606
+    ],
+    [
+      24305,
+      24845
+    ],
+    [
+      24305,
+      24327
+    ],
+    [
+      23685,
+      24305
+    ],
+    [
+      24327,
+      24244
+    ],
+    [
+      24845,
+      24873
+    ]
+  ],
+  "boundaries": [
+    {
+      "neighbor": "Caelum",
+      "neighbor_abbreviation": "CAE",
+      "points": [
+        {
+          "ra_deg": 73.759296,
+          "dec_deg": -27.0479794
+        },
+        {
+          "ra_deg": 74.757507,
+          "dec_deg": -27.0596256
+        },
+        {
+          "ra_deg": 75.755819,
+          "dec_deg": -27.071331
+        },
+        {
+          "ra_deg": 76.254937,
+          "dec_deg": -27.0772038
+        }
+      ]
+    },
+    {
+      "neighbor": "Columba",
+      "neighbor_abbreviation": "COL",
+      "points": [
+        {
+          "ra_deg": 76.254937,
+          "dec_deg": -27.0772038
+        },
+        {
+          "ra_deg": 77.253406,
+          "dec_deg": -27.0889893
+        },
+        {
+          "ra_deg": 78.251832,
+          "dec_deg": -27.1008244
+        },
+        {
+          "ra_deg": 79.250508,
+          "dec_deg": -27.1127052
+        },
+        {
+          "ra_deg": 80.249291,
+          "dec_deg": -27.12463
+        },
+        {
+          "ra_deg": 81.248031,
+          "dec_deg": -27.136591
+        },
+        {
+          "ra_deg": 82.247028,
+          "dec_deg": -27.1485901
+        },
+        {
+          "ra_deg": 83.246126,
+          "dec_deg": -27.1606197
+        },
+        {
+          "ra_deg": 84.245196,
+          "dec_deg": -27.1726742
+        },
+        {
+          "ra_deg": 85.244516,
+          "dec_deg": -27.1847553
+        },
+        {
+          "ra_deg": 86.243934,
+          "dec_deg": -27.1968575
+        },
+        {
+          "ra_deg": 87.243318,
+          "dec_deg": -27.2089748
+        },
+        {
+          "ra_deg": 88.24296,
+          "dec_deg": -27.2211075
+        },
+        {
+          "ra_deg": 89.242716,
+          "dec_deg": -27.2332497
+        },
+        {
+          "ra_deg": 90.242421,
+          "dec_deg": -27.2453957
+        },
+        {
+          "ra_deg": 91.242399,
+          "dec_deg": -27.2575436
+        },
+        {
+          "ra_deg": 92.242477,
+          "dec_deg": -27.2696915
+        },
+        {
+          "ra_deg": 92.992566,
+          "dec_deg": -27.2787991
+        }
+      ]
+    },
+    {
+      "neighbor": "Canis Major",
+      "neighbor_abbreviation": "CMA",
+      "points": [
+        {
+          "ra_deg": 92.992566,
+          "dec_deg": -27.2787991
+        },
+        {
+          "ra_deg": 93.007794,
+          "dec_deg": -26.2788925
+        },
+        {
+          "ra_deg": 93.022764,
+          "dec_deg": -25.2789841
+        },
+        {
+          "ra_deg": 93.037484,
+          "dec_deg": -24.2790718
+        },
+        {
+          "ra_deg": 93.051982,
+          "dec_deg": -23.2791595
+        },
+        {
+          "ra_deg": 93.066258,
+          "dec_deg": -22.2792473
+        },
+        {
+          "ra_deg": 93.080334,
+          "dec_deg": -21.2793312
+        },
+        {
+          "ra_deg": 93.094218,
+          "dec_deg": -20.279417
+        },
+        {
+          "ra_deg": 93.107922,
+          "dec_deg": -19.279501
+        },
+        {
+          "ra_deg": 93.121469,
+          "dec_deg": -18.279583
+        },
+        {
+          "ra_deg": 93.134851,
+          "dec_deg": -17.2796631
+        },
+        {
+          "ra_deg": 93.148091,
+          "dec_deg": -16.2797432
+        },
+        {
+          "ra_deg": 93.161202,
+          "dec_deg": -15.2798243
+        },
+        {
+          "ra_deg": 93.174183,
+          "dec_deg": -14.2799025
+        },
+        {
+          "ra_deg": 93.187051,
+          "dec_deg": -13.2799807
+        },
+        {
+          "ra_deg": 93.199811,
+          "dec_deg": -12.280057
+        },
+        {
+          "ra_deg": 93.212478,
+          "dec_deg": -11.2801352
+        },
+        {
+          "ra_deg": 93.215625,
+          "dec_deg": -11.0301533
+        }
+      ]
+    },
+    {
+      "neighbor": "Monoceros",
+      "neighbor_abbreviation": "MON",
+      "points": [
+        {
+          "ra_deg": 93.215625,
+          "dec_deg": -11.0301533
+        },
+        {
+          "ra_deg": 92.215576,
+          "dec_deg": -11.0180111
+        },
+        {
+          "ra_deg": 91.215562,
+          "dec_deg": -11.0058632
+        },
+        {
+          "ra_deg": 90.215736,
+          "dec_deg": -10.9937153
+        },
+        {
+          "ra_deg": 89.215807,
+          "dec_deg": -10.9815683
+        },
+        {
+          "ra_deg": 88.965791,
+          "dec_deg": -10.9785318
+        }
+      ]
+    },
+    {
+      "neighbor": "Orion",
+      "neighbor_abbreviation": "ORI",
+      "points": [
+        {
+          "ra_deg": 88.965791,
+          "dec_deg": -10.9785318
+        },
+        {
+          "ra_deg": 87.966063,
+          "dec_deg": -10.9663944
+        },
+        {
+          "ra_deg": 86.966221,
+          "dec_deg": -10.9542656
+        },
+        {
+          "ra_deg": 85.966429,
+          "dec_deg": -10.9421501
+        },
+        {
+          "ra_deg": 84.966817,
+          "dec_deg": -10.9300556
+        },
+        {
+          "ra_deg": 83.967097,
+          "dec_deg": -10.9179802
+        },
+        {
+          "ra_deg": 82.967419,
+          "dec_deg": -10.9059305
+        },
+        {
+          "ra_deg": 81.967935,
+          "dec_deg": -10.8939104
+        },
+        {
+          "ra_deg": 80.968336,
+          "dec_deg": -10.8819218
+        },
+        {
+          "ra_deg": 79.968781,
+          "dec_deg": -10.8699694
+        },
+        {
+          "ra_deg": 78.969412,
+          "dec_deg": -10.8580589
+        },
+        {
+          "ra_deg": 77.969928,
+          "dec_deg": -10.8461895
+        },
+        {
+          "ra_deg": 77.720031,
+          "dec_deg": -10.8432293
+        }
+      ]
+    },
+    {
+      "neighbor": "Eridanus",
+      "neighbor_abbreviation": "ERI",
+      "points": [
+        {
+          "ra_deg": 77.720031,
+          "dec_deg": -10.8432293
+        },
+        {
+          "ra_deg": 76.720755,
+          "dec_deg": -10.8314209
+        },
+        {
+          "ra_deg": 75.721364,
+          "dec_deg": -10.819663
+        },
+        {
+          "ra_deg": 75.221751,
+          "dec_deg": -10.8138046
+        }
+      ]
+    },
+    {
+      "neighbor": "Eridanus",
+      "neighbor_abbreviation": "ERI",
+      "points": [
+        {
+          "ra_deg": 75.221751,
+          "dec_deg": -10.8138046
+        },
+        {
+          "ra_deg": 75.209569,
+          "dec_deg": -11.8137341
+        },
+        {
+          "ra_deg": 75.197304,
+          "dec_deg": -12.8136616
+        },
+        {
+          "ra_deg": 75.184936,
+          "dec_deg": -13.8135891
+        },
+        {
+          "ra_deg": 75.178714,
+          "dec_deg": -14.3135529
+        }
+      ]
+    },
+    {
+      "neighbor": "Eridanus",
+      "neighbor_abbreviation": "ERI",
+      "points": [
+        {
+          "ra_deg": 75.178714,
+          "dec_deg": -14.3135529
+        },
+        {
+          "ra_deg": 74.179602,
+          "dec_deg": -14.3018808
+        },
+        {
+          "ra_deg": 73.929798,
+          "dec_deg": -14.2989721
+        }
+      ]
+    },
+    {
+      "neighbor": "Eridanus",
+      "neighbor_abbreviation": "ERI",
+      "points": [
+        {
+          "ra_deg": 73.929798,
+          "dec_deg": -14.2989721
+        },
+        {
+          "ra_deg": 73.917346,
+          "dec_deg": -15.2988997
+        },
+        {
+          "ra_deg": 73.904779,
+          "dec_deg": -16.2988281
+        },
+        {
+          "ra_deg": 73.892084,
+          "dec_deg": -17.2987537
+        },
+        {
+          "ra_deg": 73.879245,
+          "dec_deg": -18.2986774
+        },
+        {
+          "ra_deg": 73.866255,
+          "dec_deg": -19.2986031
+        },
+        {
+          "ra_deg": 73.853116,
+          "dec_deg": -20.2985268
+        },
+        {
+          "ra_deg": 73.839798,
+          "dec_deg": -21.2984486
+        },
+        {
+          "ra_deg": 73.826301,
+          "dec_deg": -22.2983704
+        },
+        {
+          "ra_deg": 73.812604,
+          "dec_deg": -23.2982903
+        },
+        {
+          "ra_deg": 73.798707,
+          "dec_deg": -24.2982082
+        },
+        {
+          "ra_deg": 73.784587,
+          "dec_deg": -25.2981281
+        },
+        {
+          "ra_deg": 73.770225,
+          "dec_deg": -26.2980442
+        },
+        {
+          "ra_deg": 73.759296,
+          "dec_deg": -27.0479794
+        }
+      ]
+    }
+  ],
+  "sources": [
+    {
+      "label": "Stellarium Western sky culture",
+      "url": "https://raw.githubusercontent.com/Stellarium/stellarium-skycultures/014fbb5e59233d133c22f9811af96b67d05a95c9/western/index.json",
+      "path": "catalog-work/western-constellation-stars/stellarium-western-index.json",
+      "sha256": "a861accd345249a185a5ecfc2a516f34291c0aa52f4bb8d8337ffc53e9cef6b9"
+    },
+    {
+      "label": "Adopted star positions and names",
+      "url": "https://simbad.cds.unistra.fr/simbad/",
+      "path": "src/data/catalogs/western-constellation-stars/stars.csv",
+      "sha256": "0a8b7c1dc3f7e3412c5cffb09a18cdf5b5b7424cc89ea8a0a1ffb4da57d3ad6a"
+    },
+    {
+      "label": "Hipparcos Johnson V magnitudes",
+      "url": "https://cdsarc.cds.unistra.fr/viz-bin/cat/I/239",
+      "path": "catalog-work/western-constellation-stars/hipparcos-v.csv",
+      "sha256": "eec12b740da3aac5204ba75ca5158b6f9f2f81886dda2526fe765cf9ea159320"
+    },
+    {
+      "label": "CDS / IAU constellation boundaries (J2000)",
+      "url": "https://cdsarc.cds.unistra.fr/viz-bin/cat/VI/49",
+      "path": "catalog-work/constellation-charts/boundaries-j2000.dat.gz",
+      "sha256": "879cd6e7a1c908f1e19a5f5fe8cc75fb1d1077564e3890f9152a3680affe9aac",
+      "inputs": [
+        {
+          "path": "catalog-work/constellation-charts/boundary-contours-b1875.dat",
+          "sha256": "865cdf4218f676eb304587c75c63231948d29cd0abe6892a8a8130c1c4fe3592"
+        },
+        {
+          "path": "catalog-work/constellation-charts/boundary-contours-readme.txt",
+          "sha256": "a3ec688bea21e9db10832842c9b845558dbe8ccf820ddedec842d664d2b74c89"
+        }
+      ]
+    }
+  ]
+}

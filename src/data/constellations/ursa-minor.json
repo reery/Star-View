@@ -1,0 +1,2446 @@
+{
+  "schemaVersion": 1,
+  "abbreviation": "UMi",
+  "name": "Ursa Minor",
+  "center": {
+    "ra_deg": 236.44879411070232,
+    "dec_deg": 80.01881304236086
+  },
+  "stars": [
+    {
+      "hip": 11767,
+      "name": "Polaris",
+      "ra_deg": 37.954560670189856,
+      "dec_deg": 89.26410896994187,
+      "magnitude_v": 1.97,
+      "bayer": "α",
+      "object": {
+        "x_pc": -65.152550801,
+        "y_pc": 99.258713449,
+        "z_pc": 59.097439851,
+        "vx_kms": -14.52738,
+        "vy_kms": -29.803178,
+        "vz_kms": -2.808744,
+        "temperature_k": 6741.0,
+        "mass_solar": null,
+        "luminosity_solar": 2570.36,
+        "radius_solar": 37.1707,
+        "metallicity_dex": 0.03,
+        "age_gyr": null,
+        "absolute_mag": -3.593143,
+        "epoch": 2000.0,
+        "type": "star",
+        "id": "hip-11767",
+        "name": "Polaris",
+        "constellation": "Ursa Minor",
+        "spectral_type": "F8Ib",
+        "metallicity_kind": "[Fe/H]",
+        "notes": "Western constellation line-figure star (HIP 11767; Stellarium UMi). SIMBAD identity * alf UMi; SIMBAD compiled Johnson V=2.02; inverse SIMBAD compiled parallax distance; absolute V uses no extinction correction. Physical parameters: reviewed Star View values for temperature_k, luminosity_solar, radius_solar, metallicity_dex.",
+        "designations": [
+          "HIP 11767"
+        ],
+        "raw_astrometry": {
+          "ra_deg": 37.954560670189856,
+          "dec_deg": 89.26410896994187,
+          "parallax_mas": 7.54,
+          "parallax_error_mas": 0.11,
+          "pm_ra_cosdec_masyr": 44.48,
+          "pm_ra_error_masyr": null,
+          "pm_dec_masyr": -11.85,
+          "pm_dec_error_masyr": null,
+          "radial_velocity_kms": -16.42,
+          "radial_velocity_error_kms": null,
+          "epoch": 2000.0,
+          "astrometry_ref": "SIMBAD TAP snapshot 2026-10-01",
+          "radial_velocity_ref": "SIMBAD TAP snapshot 2026-10-01"
+        }
+      }
+    },
+    {
+      "hip": 72607,
+      "name": "Kochab",
+      "ra_deg": 222.67635749796767,
+      "dec_deg": 74.15550393675127,
+      "magnitude_v": 2.07,
+      "bayer": "β",
+      "object": {
+        "x_pc": -11.753805037,
+        "y_pc": 28.171256539,
+        "z_pc": 26.073183161,
+        "vx_kms": -10.329133,
+        "vy_kms": 8.365845,
+        "vz_kms": 12.417665,
+        "temperature_k": 4200.0,
+        "mass_solar": null,
+        "luminosity_solar": 464.68,
+        "radius_solar": 40.7128,
+        "metallicity_dex": -0.29,
+        "age_gyr": null,
+        "absolute_mag": -0.938131,
+        "epoch": 2000.0,
+        "type": "star",
+        "id": "hip-72607",
+        "name": "Kochab",
+        "constellation": "Ursa Minor",
+        "spectral_type": "K4-III",
+        "metallicity_kind": "[Fe/H]",
+        "notes": "Western constellation line-figure star (HIP 72607; Stellarium UMi). SIMBAD identity * bet UMi; SIMBAD compiled Johnson V=2.08; inverse SIMBAD compiled parallax distance; absolute V uses no extinction correction. Physical parameters: reviewed Star View values for temperature_k, luminosity_solar, radius_solar, metallicity_dex.",
+        "designations": [
+          "HIP 72607"
+        ],
+        "raw_astrometry": {
+          "ra_deg": 222.67635749796767,
+          "dec_deg": 74.15550393675127,
+          "parallax_mas": 24.91,
+          "parallax_error_mas": 0.12,
+          "pm_ra_cosdec_masyr": -32.61,
+          "pm_ra_error_masyr": null,
+          "pm_dec_masyr": 11.42,
+          "pm_dec_error_masyr": null,
+          "radial_velocity_kms": 16.96,
+          "radial_velocity_error_kms": null,
+          "epoch": 2000.0,
+          "astrometry_ref": "SIMBAD TAP snapshot 2026-10-01",
+          "radial_velocity_ref": "SIMBAD TAP snapshot 2026-10-01"
+        }
+      }
+    },
+    {
+      "hip": 75097,
+      "name": "Pherkad",
+      "ra_deg": 230.18209804850082,
+      "dec_deg": 71.83402545491221,
+      "magnitude_v": 3.0,
+      "bayer": "γ",
+      "object": {
+        "x_pc": -36.876315023,
+        "y_pc": 110.445894795,
+        "z_pc": 100.639829451,
+        "vx_kms": -15.346266,
+        "vy_kms": -7.896453,
+        "vz_kms": -2.921405,
+        "temperature_k": 8162.0,
+        "mass_solar": null,
+        "luminosity_solar": 1107.7893391574237,
+        "radius_solar": 16.645163,
+        "metallicity_dex": null,
+        "age_gyr": null,
+        "absolute_mag": -2.934254,
+        "epoch": 2000.0,
+        "type": "star",
+        "id": "hip-75097",
+        "name": "Pherkad",
+        "constellation": "Ursa Minor",
+        "spectral_type": "A2III",
+        "metallicity_kind": null,
+        "notes": "Western constellation line-figure star (HIP 75097; Stellarium UMi). SIMBAD identity * gam UMi; SIMBAD compiled Johnson V=3.002; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, luminosity_solar; Stefan-Boltzmann scaling for radius_solar.",
+        "designations": [
+          "HIP 75097"
+        ],
+        "raw_astrometry": {
+          "ra_deg": 230.18209804850082,
+          "dec_deg": 71.83402545491221,
+          "parallax_mas": 6.5959,
+          "parallax_error_mas": 0.2943,
+          "pm_ra_cosdec_masyr": -15.908,
+          "pm_ra_error_masyr": null,
+          "pm_dec_masyr": 17.146,
+          "pm_dec_error_masyr": null,
+          "radial_velocity_kms": -3.9,
+          "radial_velocity_error_kms": null,
+          "epoch": 2000.0,
+          "astrometry_ref": "SIMBAD TAP snapshot 2026-10-01",
+          "radial_velocity_ref": "SIMBAD TAP snapshot 2026-10-01"
+        }
+      }
+    },
+    {
+      "hip": 77055,
+      "name": "Zeta UMi",
+      "ra_deg": 236.01466070576328,
+      "dec_deg": 77.79449312481054,
+      "magnitude_v": 4.29,
+      "bayer": "ζ",
+      "object": {
+        "x_pc": -34.447775178,
+        "y_pc": 82.429959692,
+        "z_pc": 64.095947999,
+        "vx_kms": 9.605118,
+        "vy_kms": -3.062795,
+        "vz_kms": -13.371232,
+        "temperature_k": 7856.0,
+        "mass_solar": 3.4142776,
+        "luminosity_solar": 179.85934797184208,
+        "radius_solar": 6.124758,
+        "metallicity_dex": 0.1306,
+        "age_gyr": 0.25093675,
+        "absolute_mag": -0.932033,
+        "epoch": 2000.0,
+        "type": "star",
+        "id": "hip-77055",
+        "name": "Zeta UMi",
+        "constellation": "Ursa Minor",
+        "spectral_type": "A3Vn",
+        "metallicity_kind": "[M/H]",
+        "notes": "Western constellation line-figure star (HIP 77055; Stellarium UMi). SIMBAD identity * zet UMi; SIMBAD compiled Johnson V=4.274; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, luminosity_solar; Gaia DR3 model values for metallicity_dex, mass_solar, radius_solar, age_gyr.",
+        "designations": [
+          "HIP 77055"
+        ],
+        "raw_astrometry": {
+          "ra_deg": 236.01466070576328,
+          "dec_deg": 77.79449312481054,
+          "parallax_mas": 9.0827,
+          "parallax_error_mas": 0.1422,
+          "pm_ra_cosdec_masyr": 19.906,
+          "pm_ra_error_masyr": null,
+          "pm_dec_masyr": -2.072,
+          "pm_dec_error_masyr": null,
+          "radial_velocity_kms": -13.1,
+          "radial_velocity_error_kms": null,
+          "epoch": 2000.0,
+          "astrometry_ref": "SIMBAD TAP snapshot 2026-10-01",
+          "radial_velocity_ref": "SIMBAD TAP snapshot 2026-10-01"
+        }
+      }
+    },
+    {
+      "hip": 79822,
+      "name": "Eta UMi",
+      "ra_deg": 244.37612604568994,
+      "dec_deg": 75.75534307839,
+      "magnitude_v": 4.95,
+      "bayer": "η",
+      "object": {
+        "x_pc": -8.052309117,
+        "y_pc": 23.024414986,
+        "z_pc": 17.287600831,
+        "vx_kms": -32.179898,
+        "vy_kms": -15.415552,
+        "vz_kms": -13.481009,
+        "temperature_k": 6918.0,
+        "mass_solar": 1.52,
+        "luminosity_solar": 7.7251925,
+        "radius_solar": 1.9054607179632472,
+        "metallicity_dex": -0.5662,
+        "age_gyr": 1.742627,
+        "absolute_mag": 2.571869,
+        "epoch": 2000.0,
+        "type": "star",
+        "id": "hip-79822",
+        "name": "Eta UMi",
+        "constellation": "Ursa Minor",
+        "spectral_type": "F5V",
+        "metallicity_kind": "[M/H]",
+        "notes": "Western constellation line-figure star (HIP 79822; Stellarium UMi). SIMBAD identity * eta UMi; Hipparcos Johnson V=4.95 (SIMBAD V unavailable); Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, mass_solar, radius_solar; Gaia DR3 model values for metallicity_dex, luminosity_solar, age_gyr.",
+        "designations": [
+          "HIP 79822"
+        ],
+        "raw_astrometry": {
+          "ra_deg": 244.37612604568994,
+          "dec_deg": 75.75534307839,
+          "parallax_mas": 33.419,
+          "parallax_error_mas": 0.1103,
+          "pm_ra_cosdec_masyr": -77.647,
+          "pm_ra_error_masyr": null,
+          "pm_dec_masyr": 245.726,
+          "pm_dec_error_masyr": null,
+          "radial_velocity_kms": -11.0,
+          "radial_velocity_error_kms": null,
+          "epoch": 2000.0,
+          "astrometry_ref": "SIMBAD TAP snapshot 2026-10-01",
+          "radial_velocity_ref": "SIMBAD TAP snapshot 2026-10-01"
+        }
+      }
+    },
+    {
+      "hip": 82080,
+      "name": "Epsilon UMi",
+      "ra_deg": 251.49268168439,
+      "dec_deg": 82.03725828429,
+      "magnitude_v": 4.21,
+      "bayer": "ε",
+      "object": {
+        "x_pc": -36.628677812,
+        "y_pc": 78.564354549,
+        "z_pc": 52.184274486,
+        "vx_kms": 4.819587,
+        "vy_kms": -2.857368,
+        "vz_kms": -12.809243,
+        "temperature_k": 5323.0,
+        "mass_solar": null,
+        "luminosity_solar": 202.60548434172972,
+        "radius_solar": 20.030296,
+        "metallicity_dex": -0.6811,
+        "age_gyr": null,
+        "absolute_mag": -0.813455,
+        "epoch": 2000.0,
+        "type": "star",
+        "id": "hip-82080",
+        "name": "Epsilon UMi",
+        "constellation": "Ursa Minor",
+        "spectral_type": "G5III",
+        "metallicity_kind": "[M/H]",
+        "notes": "Western constellation line-figure star (HIP 82080; Stellarium UMi). SIMBAD identity * eps UMi; SIMBAD compiled Johnson V=4.212; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, luminosity_solar; Gaia DR3 model values for metallicity_dex, radius_solar.",
+        "designations": [
+          "HIP 82080"
+        ],
+        "raw_astrometry": {
+          "ra_deg": 251.49268168439,
+          "dec_deg": 82.03725828429,
+          "parallax_mas": 9.8637,
+          "parallax_error_mas": 0.1431,
+          "pm_ra_cosdec_masyr": 18.925,
+          "pm_ra_error_masyr": null,
+          "pm_dec_masyr": 2.423,
+          "pm_dec_error_masyr": null,
+          "radial_velocity_kms": -10.57,
+          "radial_velocity_error_kms": null,
+          "epoch": 2000.0,
+          "astrometry_ref": "SIMBAD TAP snapshot 2026-10-01",
+          "radial_velocity_ref": "SIMBAD TAP snapshot 2026-10-01"
+        }
+      }
+    },
+    {
+      "hip": 85822,
+      "name": "Yildun",
+      "ra_deg": 263.0541592214034,
+      "dec_deg": 86.58645960557529,
+      "magnitude_v": 4.35,
+      "bayer": "δ",
+      "object": {
+        "x_pc": -24.088037285,
+        "y_pc": 42.948695841,
+        "z_pc": 26.445272674,
+        "vx_kms": -8.923147,
+        "vy_kms": -10.229962,
+        "vz_kms": -10.366883,
+        "temperature_k": 9120.0,
+        "mass_solar": 2.49,
+        "luminosity_solar": 46.02110303559918,
+        "radius_solar": 2.6915348039269156,
+        "metallicity_dex": -0.6718,
+        "age_gyr": 0.5382995,
+        "absolute_mag": 0.599161,
+        "epoch": 2000.0,
+        "type": "star",
+        "id": "hip-85822",
+        "name": "Yildun",
+        "constellation": "Ursa Minor",
+        "spectral_type": "A1Van",
+        "metallicity_kind": "[M/H]",
+        "notes": "Western constellation line-figure star (HIP 85822; Stellarium UMi). SIMBAD identity * del UMi; SIMBAD compiled Johnson V=4.336; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, mass_solar, radius_solar, luminosity_solar; Gaia DR3 model values for metallicity_dex, age_gyr.",
+        "designations": [
+          "HIP 85822"
+        ],
+        "raw_astrometry": {
+          "ra_deg": 263.0541592214034,
+          "dec_deg": 86.58645960557529,
+          "parallax_mas": 17.8802,
+          "parallax_error_mas": 0.0922,
+          "pm_ra_cosdec_masyr": 10.025,
+          "pm_ra_error_masyr": null,
+          "pm_dec_masyr": 54.053,
+          "pm_dec_error_masyr": null,
+          "radial_velocity_kms": -8.92,
+          "radial_velocity_error_kms": null,
+          "epoch": 2000.0,
+          "astrometry_ref": "SIMBAD TAP snapshot 2026-10-01",
+          "radial_velocity_ref": "SIMBAD TAP snapshot 2026-10-01"
+        }
+      }
+    }
+  ],
+  "lines": [
+    [
+      11767,
+      85822
+    ],
+    [
+      85822,
+      82080
+    ],
+    [
+      82080,
+      77055
+    ],
+    [
+      77055,
+      79822
+    ],
+    [
+      79822,
+      75097
+    ],
+    [
+      75097,
+      72607
+    ],
+    [
+      72607,
+      77055
+    ]
+  ],
+  "boundaries": [
+    {
+      "neighbor": "Camelopardalis",
+      "neighbor_abbreviation": "CAM",
+      "points": [
+        {
+          "ra_deg": 203.809189,
+          "dec_deg": 79.36293
+        },
+        {
+          "ra_deg": 203.944759,
+          "dec_deg": 78.363281
+        },
+        {
+          "ra_deg": 204.059144,
+          "dec_deg": 77.363563
+        },
+        {
+          "ra_deg": 204.157019,
+          "dec_deg": 76.363815
+        }
+      ]
+    },
+    {
+      "neighbor": "Camelopardalis",
+      "neighbor_abbreviation": "CAM",
+      "points": [
+        {
+          "ra_deg": 204.157019,
+          "dec_deg": 76.363815
+        },
+        {
+          "ra_deg": 203.203326,
+          "dec_deg": 76.359093
+        },
+        {
+          "ra_deg": 202.249774,
+          "dec_deg": 76.354553
+        },
+        {
+          "ra_deg": 201.296524,
+          "dec_deg": 76.350205
+        },
+        {
+          "ra_deg": 200.343675,
+          "dec_deg": 76.346046
+        },
+        {
+          "ra_deg": 199.390969,
+          "dec_deg": 76.342079
+        },
+        {
+          "ra_deg": 198.438506,
+          "dec_deg": 76.338303
+        },
+        {
+          "ra_deg": 197.486429,
+          "dec_deg": 76.334717
+        },
+        {
+          "ra_deg": 196.534424,
+          "dec_deg": 76.331322
+        },
+        {
+          "ra_deg": 195.820612,
+          "dec_deg": 76.328911
+        }
+      ]
+    },
+    {
+      "neighbor": "Draco",
+      "neighbor_abbreviation": "DRA",
+      "points": [
+        {
+          "ra_deg": 195.820612,
+          "dec_deg": 76.328911
+        },
+        {
+          "ra_deg": 195.875874,
+          "dec_deg": 75.328995
+        },
+        {
+          "ra_deg": 195.924225,
+          "dec_deg": 74.329079
+        },
+        {
+          "ra_deg": 195.966912,
+          "dec_deg": 73.329147
+        },
+        {
+          "ra_deg": 196.004892,
+          "dec_deg": 72.329216
+        },
+        {
+          "ra_deg": 196.038937,
+          "dec_deg": 71.329269
+        },
+        {
+          "ra_deg": 196.069636,
+          "dec_deg": 70.329315
+        },
+        {
+          "ra_deg": 196.097474,
+          "dec_deg": 69.329361
+        }
+      ]
+    },
+    {
+      "neighbor": "Draco",
+      "neighbor_abbreviation": "DRA",
+      "points": [
+        {
+          "ra_deg": 196.097474,
+          "dec_deg": 69.329361
+        },
+        {
+          "ra_deg": 197.06646,
+          "dec_deg": 69.332665
+        },
+        {
+          "ra_deg": 198.035445,
+          "dec_deg": 69.336166
+        },
+        {
+          "ra_deg": 199.004731,
+          "dec_deg": 69.339867
+        },
+        {
+          "ra_deg": 199.974174,
+          "dec_deg": 69.343758
+        },
+        {
+          "ra_deg": 200.94366,
+          "dec_deg": 69.347847
+        },
+        {
+          "ra_deg": 201.913461,
+          "dec_deg": 69.352127
+        },
+        {
+          "ra_deg": 202.883448,
+          "dec_deg": 69.356598
+        },
+        {
+          "ra_deg": 203.853507,
+          "dec_deg": 69.36126
+        },
+        {
+          "ra_deg": 204.823909,
+          "dec_deg": 69.366112
+        },
+        {
+          "ra_deg": 205.794525,
+          "dec_deg": 69.371155
+        },
+        {
+          "ra_deg": 206.765212,
+          "dec_deg": 69.376381
+        },
+        {
+          "ra_deg": 207.736287,
+          "dec_deg": 69.38179
+        },
+        {
+          "ra_deg": 208.707589,
+          "dec_deg": 69.387383
+        },
+        {
+          "ra_deg": 209.678992,
+          "dec_deg": 69.393158
+        },
+        {
+          "ra_deg": 210.650811,
+          "dec_deg": 69.399117
+        }
+      ]
+    },
+    {
+      "neighbor": "Draco",
+      "neighbor_abbreviation": "DRA",
+      "points": [
+        {
+          "ra_deg": 210.650811,
+          "dec_deg": 69.399117
+        },
+        {
+          "ra_deg": 210.698834,
+          "dec_deg": 68.399269
+        },
+        {
+          "ra_deg": 210.742807,
+          "dec_deg": 67.399406
+        },
+        {
+          "ra_deg": 210.783234,
+          "dec_deg": 66.399536
+        },
+        {
+          "ra_deg": 210.820556,
+          "dec_deg": 65.399651
+        }
+      ]
+    },
+    {
+      "neighbor": "Draco",
+      "neighbor_abbreviation": "DRA",
+      "points": [
+        {
+          "ra_deg": 210.820556,
+          "dec_deg": 65.399651
+        },
+        {
+          "ra_deg": 211.797666,
+          "dec_deg": 65.405815
+        },
+        {
+          "ra_deg": 212.774849,
+          "dec_deg": 65.412163
+        },
+        {
+          "ra_deg": 213.752431,
+          "dec_deg": 65.418686
+        },
+        {
+          "ra_deg": 214.730229,
+          "dec_deg": 65.425377
+        },
+        {
+          "ra_deg": 215.708142,
+          "dec_deg": 65.432243
+        },
+        {
+          "ra_deg": 216.686467,
+          "dec_deg": 65.439285
+        },
+        {
+          "ra_deg": 217.665024,
+          "dec_deg": 65.446487
+        },
+        {
+          "ra_deg": 218.643708,
+          "dec_deg": 65.453857
+        },
+        {
+          "ra_deg": 219.622822,
+          "dec_deg": 65.461395
+        },
+        {
+          "ra_deg": 220.602207,
+          "dec_deg": 65.469093
+        },
+        {
+          "ra_deg": 221.581722,
+          "dec_deg": 65.476944
+        },
+        {
+          "ra_deg": 222.561679,
+          "dec_deg": 65.484962
+        },
+        {
+          "ra_deg": 223.541922,
+          "dec_deg": 65.493126
+        },
+        {
+          "ra_deg": 224.522339,
+          "dec_deg": 65.50145
+        },
+        {
+          "ra_deg": 225.503196,
+          "dec_deg": 65.509918
+        },
+        {
+          "ra_deg": 226.48437,
+          "dec_deg": 65.518539
+        },
+        {
+          "ra_deg": 227.465715,
+          "dec_deg": 65.527306
+        },
+        {
+          "ra_deg": 228.447547,
+          "dec_deg": 65.536217
+        },
+        {
+          "ra_deg": 229.429707,
+          "dec_deg": 65.545265
+        },
+        {
+          "ra_deg": 230.412041,
+          "dec_deg": 65.554443
+        },
+        {
+          "ra_deg": 231.394872,
+          "dec_deg": 65.563766
+        },
+        {
+          "ra_deg": 232.378049,
+          "dec_deg": 65.573219
+        },
+        {
+          "ra_deg": 233.361411,
+          "dec_deg": 65.582802
+        },
+        {
+          "ra_deg": 234.345316,
+          "dec_deg": 65.592514
+        },
+        {
+          "ra_deg": 235.329566,
+          "dec_deg": 65.602348
+        }
+      ]
+    },
+    {
+      "neighbor": "Draco",
+      "neighbor_abbreviation": "DRA",
+      "points": [
+        {
+          "ra_deg": 235.329566,
+          "dec_deg": 65.602348
+        },
+        {
+          "ra_deg": 235.268311,
+          "dec_deg": 66.602035
+        },
+        {
+          "ra_deg": 235.201921,
+          "dec_deg": 67.6017
+        },
+        {
+          "ra_deg": 235.129638,
+          "dec_deg": 68.601341
+        },
+        {
+          "ra_deg": 235.05063,
+          "dec_deg": 69.600944
+        }
+      ]
+    },
+    {
+      "neighbor": "Draco",
+      "neighbor_abbreviation": "DRA",
+      "points": [
+        {
+          "ra_deg": 235.05063,
+          "dec_deg": 69.600944
+        },
+        {
+          "ra_deg": 236.031589,
+          "dec_deg": 69.610863
+        },
+        {
+          "ra_deg": 237.013149,
+          "dec_deg": 69.620903
+        },
+        {
+          "ra_deg": 237.995167,
+          "dec_deg": 69.631058
+        },
+        {
+          "ra_deg": 238.977499,
+          "dec_deg": 69.641319
+        },
+        {
+          "ra_deg": 239.960446,
+          "dec_deg": 69.651695
+        },
+        {
+          "ra_deg": 240.943879,
+          "dec_deg": 69.662186
+        },
+        {
+          "ra_deg": 241.927614,
+          "dec_deg": 69.672768
+        },
+        {
+          "ra_deg": 242.911979,
+          "dec_deg": 69.683456
+        },
+        {
+          "ra_deg": 243.896856,
+          "dec_deg": 69.694244
+        },
+        {
+          "ra_deg": 244.882079,
+          "dec_deg": 69.705124
+        },
+        {
+          "ra_deg": 245.867958,
+          "dec_deg": 69.716103
+        },
+        {
+          "ra_deg": 246.854325,
+          "dec_deg": 69.727158
+        },
+        {
+          "ra_deg": 247.841062,
+          "dec_deg": 69.738304
+        }
+      ]
+    },
+    {
+      "neighbor": "Draco",
+      "neighbor_abbreviation": "DRA",
+      "points": [
+        {
+          "ra_deg": 247.841062,
+          "dec_deg": 69.738304
+        },
+        {
+          "ra_deg": 247.741927,
+          "dec_deg": 70.737747
+        },
+        {
+          "ra_deg": 247.632379,
+          "dec_deg": 71.737122
+        },
+        {
+          "ra_deg": 247.510586,
+          "dec_deg": 72.736435
+        },
+        {
+          "ra_deg": 247.374315,
+          "dec_deg": 73.735657
+        },
+        {
+          "ra_deg": 247.220707,
+          "dec_deg": 74.734787
+        }
+      ]
+    },
+    {
+      "neighbor": "Draco",
+      "neighbor_abbreviation": "DRA",
+      "points": [
+        {
+          "ra_deg": 247.220707,
+          "dec_deg": 74.734787
+        },
+        {
+          "ra_deg": 248.203211,
+          "dec_deg": 74.745964
+        },
+        {
+          "ra_deg": 249.186431,
+          "dec_deg": 74.757217
+        },
+        {
+          "ra_deg": 250.170164,
+          "dec_deg": 74.768555
+        },
+        {
+          "ra_deg": 251.154784,
+          "dec_deg": 74.779961
+        },
+        {
+          "ra_deg": 252.140092,
+          "dec_deg": 74.791435
+        },
+        {
+          "ra_deg": 253.126002,
+          "dec_deg": 74.802978
+        },
+        {
+          "ra_deg": 254.112739,
+          "dec_deg": 74.814583
+        },
+        {
+          "ra_deg": 255.100249,
+          "dec_deg": 74.826256
+        },
+        {
+          "ra_deg": 256.088304,
+          "dec_deg": 74.837975
+        },
+        {
+          "ra_deg": 257.077245,
+          "dec_deg": 74.849754
+        },
+        {
+          "ra_deg": 258.066989,
+          "dec_deg": 74.86158
+        },
+        {
+          "ra_deg": 259.057274,
+          "dec_deg": 74.873451
+        },
+        {
+          "ra_deg": 260.048475,
+          "dec_deg": 74.885368
+        },
+        {
+          "ra_deg": 261.040449,
+          "dec_deg": 74.897324
+        },
+        {
+          "ra_deg": 261.536637,
+          "dec_deg": 74.903313
+        }
+      ]
+    },
+    {
+      "neighbor": "Draco",
+      "neighbor_abbreviation": "DRA",
+      "points": [
+        {
+          "ra_deg": 261.536637,
+          "dec_deg": 74.903313
+        },
+        {
+          "ra_deg": 261.346436,
+          "dec_deg": 75.902168
+        },
+        {
+          "ra_deg": 261.127882,
+          "dec_deg": 76.900848
+        },
+        {
+          "ra_deg": 260.873909,
+          "dec_deg": 77.899315
+        },
+        {
+          "ra_deg": 260.575019,
+          "dec_deg": 78.897514
+        },
+        {
+          "ra_deg": 260.217904,
+          "dec_deg": 79.895348
+        }
+      ]
+    },
+    {
+      "neighbor": "Draco",
+      "neighbor_abbreviation": "DRA",
+      "points": [
+        {
+          "ra_deg": 260.217904,
+          "dec_deg": 79.895348
+        },
+        {
+          "ra_deg": 261.205931,
+          "dec_deg": 79.90731
+        },
+        {
+          "ra_deg": 262.194957,
+          "dec_deg": 79.919304
+        },
+        {
+          "ra_deg": 263.185301,
+          "dec_deg": 79.931335
+        },
+        {
+          "ra_deg": 264.176789,
+          "dec_deg": 79.94339
+        },
+        {
+          "ra_deg": 265.169306,
+          "dec_deg": 79.955467
+        },
+        {
+          "ra_deg": 266.163139,
+          "dec_deg": 79.967567
+        },
+        {
+          "ra_deg": 267.158146,
+          "dec_deg": 79.979683
+        },
+        {
+          "ra_deg": 267.656021,
+          "dec_deg": 79.985748
+        }
+      ]
+    },
+    {
+      "neighbor": "Draco",
+      "neighbor_abbreviation": "DRA",
+      "points": [
+        {
+          "ra_deg": 267.656021,
+          "dec_deg": 79.985748
+        },
+        {
+          "ra_deg": 267.210303,
+          "dec_deg": 80.98304
+        },
+        {
+          "ra_deg": 266.654806,
+          "dec_deg": 81.97966
+        },
+        {
+          "ra_deg": 265.942897,
+          "dec_deg": 82.975326
+        },
+        {
+          "ra_deg": 264.997416,
+          "dec_deg": 83.969566
+        },
+        {
+          "ra_deg": 263.680744,
+          "dec_deg": 84.961533
+        },
+        {
+          "ra_deg": 261.722231,
+          "dec_deg": 85.94957
+        }
+      ]
+    },
+    {
+      "neighbor": "Draco",
+      "neighbor_abbreviation": "DRA",
+      "points": [
+        {
+          "ra_deg": 261.722231,
+          "dec_deg": 85.94957
+        },
+        {
+          "ra_deg": 262.696524,
+          "dec_deg": 85.961578
+        },
+        {
+          "ra_deg": 263.673534,
+          "dec_deg": 85.973618
+        },
+        {
+          "ra_deg": 264.65352,
+          "dec_deg": 85.985687
+        },
+        {
+          "ra_deg": 265.636425,
+          "dec_deg": 85.99778
+        },
+        {
+          "ra_deg": 266.622076,
+          "dec_deg": 86.009888
+        },
+        {
+          "ra_deg": 267.610816,
+          "dec_deg": 86.022011
+        },
+        {
+          "ra_deg": 268.602591,
+          "dec_deg": 86.034149
+        },
+        {
+          "ra_deg": 269.597224,
+          "dec_deg": 86.046288
+        },
+        {
+          "ra_deg": 270.595035,
+          "dec_deg": 86.058441
+        },
+        {
+          "ra_deg": 271.595907,
+          "dec_deg": 86.070587
+        },
+        {
+          "ra_deg": 272.599725,
+          "dec_deg": 86.082733
+        },
+        {
+          "ra_deg": 273.606834,
+          "dec_deg": 86.094871
+        },
+        {
+          "ra_deg": 274.617147,
+          "dec_deg": 86.107002
+        },
+        {
+          "ra_deg": 275.630436,
+          "dec_deg": 86.11911
+        },
+        {
+          "ra_deg": 276.6471,
+          "dec_deg": 86.13121
+        },
+        {
+          "ra_deg": 277.666998,
+          "dec_deg": 86.143288
+        },
+        {
+          "ra_deg": 278.690014,
+          "dec_deg": 86.155334
+        },
+        {
+          "ra_deg": 279.716434,
+          "dec_deg": 86.167351
+        },
+        {
+          "ra_deg": 280.746174,
+          "dec_deg": 86.179337
+        },
+        {
+          "ra_deg": 281.779061,
+          "dec_deg": 86.191284
+        },
+        {
+          "ra_deg": 282.815466,
+          "dec_deg": 86.203186
+        },
+        {
+          "ra_deg": 283.855248,
+          "dec_deg": 86.21505
+        },
+        {
+          "ra_deg": 284.898262,
+          "dec_deg": 86.226852
+        },
+        {
+          "ra_deg": 285.944796,
+          "dec_deg": 86.238609
+        },
+        {
+          "ra_deg": 286.994763,
+          "dec_deg": 86.250313
+        },
+        {
+          "ra_deg": 288.048019,
+          "dec_deg": 86.26194
+        },
+        {
+          "ra_deg": 289.104852,
+          "dec_deg": 86.273514
+        },
+        {
+          "ra_deg": 290.165148,
+          "dec_deg": 86.285011
+        },
+        {
+          "ra_deg": 291.228734,
+          "dec_deg": 86.296432
+        },
+        {
+          "ra_deg": 292.295952,
+          "dec_deg": 86.307777
+        },
+        {
+          "ra_deg": 293.366661,
+          "dec_deg": 86.319038
+        },
+        {
+          "ra_deg": 294.440689,
+          "dec_deg": 86.330215
+        },
+        {
+          "ra_deg": 295.518379,
+          "dec_deg": 86.341301
+        },
+        {
+          "ra_deg": 296.59956,
+          "dec_deg": 86.352287
+        },
+        {
+          "ra_deg": 297.68403,
+          "dec_deg": 86.363174
+        },
+        {
+          "ra_deg": 298.772191,
+          "dec_deg": 86.373955
+        },
+        {
+          "ra_deg": 299.863844,
+          "dec_deg": 86.384636
+        },
+        {
+          "ra_deg": 300.958815,
+          "dec_deg": 86.395195
+        },
+        {
+          "ra_deg": 302.057389,
+          "dec_deg": 86.40564
+        },
+        {
+          "ra_deg": 303.159456,
+          "dec_deg": 86.415962
+        },
+        {
+          "ra_deg": 304.264841,
+          "dec_deg": 86.426163
+        },
+        {
+          "ra_deg": 305.373802,
+          "dec_deg": 86.436234
+        },
+        {
+          "ra_deg": 306.486196,
+          "dec_deg": 86.446167
+        },
+        {
+          "ra_deg": 307.601794,
+          "dec_deg": 86.455963
+        },
+        {
+          "ra_deg": 308.72097,
+          "dec_deg": 86.465622
+        }
+      ]
+    },
+    {
+      "neighbor": "Cepheus",
+      "neighbor_abbreviation": "CEP",
+      "points": [
+        {
+          "ra_deg": 308.72097,
+          "dec_deg": 86.465622
+        },
+        {
+          "ra_deg": 308.331356,
+          "dec_deg": 86.6306305
+        }
+      ]
+    },
+    {
+      "neighbor": "Cepheus",
+      "neighbor_abbreviation": "CEP",
+      "points": [
+        {
+          "ra_deg": 308.331356,
+          "dec_deg": 86.6306305
+        },
+        {
+          "ra_deg": 309.458827,
+          "dec_deg": 86.6401901
+        },
+        {
+          "ra_deg": 310.589704,
+          "dec_deg": 86.6495972
+        },
+        {
+          "ra_deg": 311.724243,
+          "dec_deg": 86.6588593
+        },
+        {
+          "ra_deg": 312.862301,
+          "dec_deg": 86.6679611
+        },
+        {
+          "ra_deg": 314.003649,
+          "dec_deg": 86.6768951
+        },
+        {
+          "ra_deg": 315.148574,
+          "dec_deg": 86.6856689
+        },
+        {
+          "ra_deg": 316.296873,
+          "dec_deg": 86.6942749
+        },
+        {
+          "ra_deg": 317.448349,
+          "dec_deg": 86.7026978
+        },
+        {
+          "ra_deg": 318.603315,
+          "dec_deg": 86.7109528
+        },
+        {
+          "ra_deg": 319.761543,
+          "dec_deg": 86.719017
+        },
+        {
+          "ra_deg": 320.922804,
+          "dec_deg": 86.7269058
+        },
+        {
+          "ra_deg": 322.087383,
+          "dec_deg": 86.7345963
+        },
+        {
+          "ra_deg": 323.255052,
+          "dec_deg": 86.7420959
+        },
+        {
+          "ra_deg": 324.425583,
+          "dec_deg": 86.7494049
+        },
+        {
+          "ra_deg": 325.599289,
+          "dec_deg": 86.7565079
+        },
+        {
+          "ra_deg": 326.775885,
+          "dec_deg": 86.7634048
+        },
+        {
+          "ra_deg": 327.95517,
+          "dec_deg": 86.7701035
+        },
+        {
+          "ra_deg": 329.137401,
+          "dec_deg": 86.7765884
+        },
+        {
+          "ra_deg": 330.322323,
+          "dec_deg": 86.7828522
+        },
+        {
+          "ra_deg": 331.509734,
+          "dec_deg": 86.7889099
+        },
+        {
+          "ra_deg": 332.699834,
+          "dec_deg": 86.7947388
+        },
+        {
+          "ra_deg": 333.892422,
+          "dec_deg": 86.800354
+        },
+        {
+          "ra_deg": 335.087186,
+          "dec_deg": 86.8057404
+        },
+        {
+          "ra_deg": 336.284437,
+          "dec_deg": 86.8108902
+        },
+        {
+          "ra_deg": 337.483893,
+          "dec_deg": 86.8158188
+        },
+        {
+          "ra_deg": 338.685292,
+          "dec_deg": 86.8205109
+        },
+        {
+          "ra_deg": 339.888897,
+          "dec_deg": 86.8249664
+        },
+        {
+          "ra_deg": 341.094417,
+          "dec_deg": 86.8291855
+        },
+        {
+          "ra_deg": 342.301541,
+          "dec_deg": 86.8331604
+        },
+        {
+          "ra_deg": 343.510666,
+          "dec_deg": 86.8368912
+        }
+      ]
+    },
+    {
+      "neighbor": "Cepheus",
+      "neighbor_abbreviation": "CEP",
+      "points": [
+        {
+          "ra_deg": 343.510666,
+          "dec_deg": 86.8368912
+        },
+        {
+          "ra_deg": 342.081042,
+          "dec_deg": 87.8347626
+        },
+        {
+          "ra_deg": 339.260988,
+          "dec_deg": 88.663887
+        }
+      ]
+    },
+    {
+      "neighbor": "Cepheus",
+      "neighbor_abbreviation": "CEP",
+      "points": [
+        {
+          "ra_deg": 339.260988,
+          "dec_deg": 88.663887
+        },
+        {
+          "ra_deg": 340.748719,
+          "dec_deg": 88.6681976
+        },
+        {
+          "ra_deg": 342.242403,
+          "dec_deg": 88.6722107
+        },
+        {
+          "ra_deg": 343.742122,
+          "dec_deg": 88.6759262
+        },
+        {
+          "ra_deg": 345.247249,
+          "dec_deg": 88.6793442
+        },
+        {
+          "ra_deg": 346.757126,
+          "dec_deg": 88.6824417
+        },
+        {
+          "ra_deg": 348.271752,
+          "dec_deg": 88.6852341
+        },
+        {
+          "ra_deg": 349.790467,
+          "dec_deg": 88.6877136
+        },
+        {
+          "ra_deg": 351.312532,
+          "dec_deg": 88.6898727
+        },
+        {
+          "ra_deg": 352.837972,
+          "dec_deg": 88.6917191
+        },
+        {
+          "ra_deg": 354.366045,
+          "dec_deg": 88.6932373
+        },
+        {
+          "ra_deg": 355.896063,
+          "dec_deg": 88.6944427
+        },
+        {
+          "ra_deg": 357.427912,
+          "dec_deg": 88.6953201
+        },
+        {
+          "ra_deg": 358.960905,
+          "dec_deg": 88.6958694
+        },
+        {
+          "ra_deg": 0.494321,
+          "dec_deg": 88.6960983
+        },
+        {
+          "ra_deg": 2.028036,
+          "dec_deg": 88.6959991
+        },
+        {
+          "ra_deg": 3.561326,
+          "dec_deg": 88.6955795
+        },
+        {
+          "ra_deg": 5.093474,
+          "dec_deg": 88.6948318
+        },
+        {
+          "ra_deg": 6.624416,
+          "dec_deg": 88.6937561
+        },
+        {
+          "ra_deg": 8.153414,
+          "dec_deg": 88.6923676
+        },
+        {
+          "ra_deg": 9.679739,
+          "dec_deg": 88.6906509
+        },
+        {
+          "ra_deg": 11.203356,
+          "dec_deg": 88.6886139
+        },
+        {
+          "ra_deg": 12.723556,
+          "dec_deg": 88.686264
+        },
+        {
+          "ra_deg": 14.239639,
+          "dec_deg": 88.6835938
+        },
+        {
+          "ra_deg": 15.751602,
+          "dec_deg": 88.6806183
+        },
+        {
+          "ra_deg": 17.258764,
+          "dec_deg": 88.67733
+        },
+        {
+          "ra_deg": 18.760476,
+          "dec_deg": 88.6737366
+        },
+        {
+          "ra_deg": 20.256774,
+          "dec_deg": 88.669838
+        },
+        {
+          "ra_deg": 21.747026,
+          "dec_deg": 88.6656418
+        },
+        {
+          "ra_deg": 23.230632,
+          "dec_deg": 88.6611557
+        },
+        {
+          "ra_deg": 26.17758,
+          "dec_deg": 88.6513062
+        },
+        {
+          "ra_deg": 27.639811,
+          "dec_deg": 88.6459579
+        },
+        {
+          "ra_deg": 29.094496,
+          "dec_deg": 88.6403351
+        },
+        {
+          "ra_deg": 30.541131,
+          "dec_deg": 88.6344452
+        },
+        {
+          "ra_deg": 31.979231,
+          "dec_deg": 88.6282883
+        },
+        {
+          "ra_deg": 33.408984,
+          "dec_deg": 88.6218643
+        },
+        {
+          "ra_deg": 34.829947,
+          "dec_deg": 88.6151962
+        },
+        {
+          "ra_deg": 36.241701,
+          "dec_deg": 88.6082687
+        },
+        {
+          "ra_deg": 37.644481,
+          "dec_deg": 88.6011047
+        },
+        {
+          "ra_deg": 39.037911,
+          "dec_deg": 88.5937042
+        },
+        {
+          "ra_deg": 40.421629,
+          "dec_deg": 88.5860672
+        },
+        {
+          "ra_deg": 41.795926,
+          "dec_deg": 88.5782089
+        },
+        {
+          "ra_deg": 43.160474,
+          "dec_deg": 88.5701294
+        },
+        {
+          "ra_deg": 44.514978,
+          "dec_deg": 88.5618439
+        },
+        {
+          "ra_deg": 45.859773,
+          "dec_deg": 88.5533447
+        },
+        {
+          "ra_deg": 47.194576,
+          "dec_deg": 88.5446472
+        },
+        {
+          "ra_deg": 48.519154,
+          "dec_deg": 88.5357513
+        },
+        {
+          "ra_deg": 49.833873,
+          "dec_deg": 88.5266724
+        },
+        {
+          "ra_deg": 51.138507,
+          "dec_deg": 88.5174026
+        },
+        {
+          "ra_deg": 52.432859,
+          "dec_deg": 88.5079651
+        },
+        {
+          "ra_deg": 53.717332,
+          "dec_deg": 88.4983597
+        },
+        {
+          "ra_deg": 54.99174,
+          "dec_deg": 88.4885864
+        },
+        {
+          "ra_deg": 56.255929,
+          "dec_deg": 88.478653
+        },
+        {
+          "ra_deg": 57.510327,
+          "dec_deg": 88.4685745
+        },
+        {
+          "ra_deg": 58.754779,
+          "dec_deg": 88.4583435
+        },
+        {
+          "ra_deg": 59.989171,
+          "dec_deg": 88.4479828
+        },
+        {
+          "ra_deg": 61.213947,
+          "dec_deg": 88.4374771
+        },
+        {
+          "ra_deg": 62.42898,
+          "dec_deg": 88.4268494
+        },
+        {
+          "ra_deg": 63.634179,
+          "dec_deg": 88.4160995
+        },
+        {
+          "ra_deg": 64.830007,
+          "dec_deg": 88.4052353
+        },
+        {
+          "ra_deg": 66.016366,
+          "dec_deg": 88.3942566
+        },
+        {
+          "ra_deg": 67.193191,
+          "dec_deg": 88.3831787
+        },
+        {
+          "ra_deg": 68.360932,
+          "dec_deg": 88.371994
+        },
+        {
+          "ra_deg": 69.519525,
+          "dec_deg": 88.3607178
+        },
+        {
+          "ra_deg": 70.668912,
+          "dec_deg": 88.3493576
+        },
+        {
+          "ra_deg": 71.809566,
+          "dec_deg": 88.3379059
+        },
+        {
+          "ra_deg": 72.941422,
+          "dec_deg": 88.3263855
+        },
+        {
+          "ra_deg": 74.064438,
+          "dec_deg": 88.3147812
+        },
+        {
+          "ra_deg": 75.179079,
+          "dec_deg": 88.3031158
+        },
+        {
+          "ra_deg": 76.285308,
+          "dec_deg": 88.2913818
+        },
+        {
+          "ra_deg": 77.383081,
+          "dec_deg": 88.2795944
+        },
+        {
+          "ra_deg": 78.472867,
+          "dec_deg": 88.2677536
+        },
+        {
+          "ra_deg": 79.554619,
+          "dec_deg": 88.2558594
+        },
+        {
+          "ra_deg": 80.628333,
+          "dec_deg": 88.2439194
+        },
+        {
+          "ra_deg": 81.694436,
+          "dec_deg": 88.2319412
+        },
+        {
+          "ra_deg": 82.752907,
+          "dec_deg": 88.2199326
+        },
+        {
+          "ra_deg": 83.803732,
+          "dec_deg": 88.2078857
+        },
+        {
+          "ra_deg": 84.847347,
+          "dec_deg": 88.195816
+        },
+        {
+          "ra_deg": 85.883739,
+          "dec_deg": 88.1837234
+        },
+        {
+          "ra_deg": 86.912877,
+          "dec_deg": 88.171608
+        },
+        {
+          "ra_deg": 87.935193,
+          "dec_deg": 88.1594849
+        },
+        {
+          "ra_deg": 88.950671,
+          "dec_deg": 88.1473389
+        },
+        {
+          "ra_deg": 89.959287,
+          "dec_deg": 88.1352005
+        },
+        {
+          "ra_deg": 90.961469,
+          "dec_deg": 88.1230469
+        },
+        {
+          "ra_deg": 91.957197,
+          "dec_deg": 88.1109009
+        },
+        {
+          "ra_deg": 92.946453,
+          "dec_deg": 88.0987549
+        },
+        {
+          "ra_deg": 93.929637,
+          "dec_deg": 88.0866241
+        },
+        {
+          "ra_deg": 94.90674,
+          "dec_deg": 88.0744934
+        },
+        {
+          "ra_deg": 95.877729,
+          "dec_deg": 88.0623856
+        },
+        {
+          "ra_deg": 96.843016,
+          "dec_deg": 88.050293
+        },
+        {
+          "ra_deg": 97.802581,
+          "dec_deg": 88.0382233
+        },
+        {
+          "ra_deg": 98.756389,
+          "dec_deg": 88.0261765
+        },
+        {
+          "ra_deg": 99.704839,
+          "dec_deg": 88.0141602
+        },
+        {
+          "ra_deg": 100.647904,
+          "dec_deg": 88.0021744
+        },
+        {
+          "ra_deg": 101.585554,
+          "dec_deg": 87.9902191
+        },
+        {
+          "ra_deg": 102.518176,
+          "dec_deg": 87.9783096
+        },
+        {
+          "ra_deg": 103.445742,
+          "dec_deg": 87.9664307
+        },
+        {
+          "ra_deg": 104.368222,
+          "dec_deg": 87.9545975
+        },
+        {
+          "ra_deg": 105.285989,
+          "dec_deg": 87.9428101
+        },
+        {
+          "ra_deg": 106.198998,
+          "dec_deg": 87.931076
+        },
+        {
+          "ra_deg": 107.107229,
+          "dec_deg": 87.9193878
+        },
+        {
+          "ra_deg": 108.011047,
+          "dec_deg": 87.907753
+        },
+        {
+          "ra_deg": 108.91041,
+          "dec_deg": 87.8961792
+        },
+        {
+          "ra_deg": 109.805281,
+          "dec_deg": 87.8846588
+        },
+        {
+          "ra_deg": 110.696032,
+          "dec_deg": 87.8732071
+        },
+        {
+          "ra_deg": 111.582599,
+          "dec_deg": 87.8618164
+        },
+        {
+          "ra_deg": 112.46496,
+          "dec_deg": 87.8504868
+        },
+        {
+          "ra_deg": 113.343451,
+          "dec_deg": 87.8392334
+        },
+        {
+          "ra_deg": 114.218037,
+          "dec_deg": 87.8280487
+        },
+        {
+          "ra_deg": 115.088669,
+          "dec_deg": 87.8169403
+        },
+        {
+          "ra_deg": 115.955694,
+          "dec_deg": 87.8059006
+        },
+        {
+          "ra_deg": 116.819058,
+          "dec_deg": 87.7949448
+        },
+        {
+          "ra_deg": 117.678716,
+          "dec_deg": 87.7840652
+        },
+        {
+          "ra_deg": 118.534999,
+          "dec_deg": 87.7732697
+        },
+        {
+          "ra_deg": 119.387869,
+          "dec_deg": 87.762558
+        },
+        {
+          "ra_deg": 120.237264,
+          "dec_deg": 87.7519379
+        },
+        {
+          "ra_deg": 121.083513,
+          "dec_deg": 87.7414017
+        },
+        {
+          "ra_deg": 121.926555,
+          "dec_deg": 87.730957
+        },
+        {
+          "ra_deg": 122.766351,
+          "dec_deg": 87.7206039
+        },
+        {
+          "ra_deg": 123.603214,
+          "dec_deg": 87.7103424
+        },
+        {
+          "ra_deg": 124.437089,
+          "dec_deg": 87.7001801
+        },
+        {
+          "ra_deg": 125.267916,
+          "dec_deg": 87.6901169
+        },
+        {
+          "ra_deg": 126.096024,
+          "dec_deg": 87.6801453
+        },
+        {
+          "ra_deg": 126.92133,
+          "dec_deg": 87.6702805
+        },
+        {
+          "ra_deg": 127.743787,
+          "dec_deg": 87.6605225
+        },
+        {
+          "ra_deg": 128.563699,
+          "dec_deg": 87.6508636
+        },
+        {
+          "ra_deg": 129.381007,
+          "dec_deg": 87.6413116
+        },
+        {
+          "ra_deg": 130.195656,
+          "dec_deg": 87.6318665
+        },
+        {
+          "ra_deg": 131.007957,
+          "dec_deg": 87.6225357
+        },
+        {
+          "ra_deg": 131.817813,
+          "dec_deg": 87.6133118
+        },
+        {
+          "ra_deg": 132.625179,
+          "dec_deg": 87.6042023
+        },
+        {
+          "ra_deg": 133.430371,
+          "dec_deg": 87.5952072
+        },
+        {
+          "ra_deg": 134.233304,
+          "dec_deg": 87.5863266
+        },
+        {
+          "ra_deg": 135.033903,
+          "dec_deg": 87.5775604
+        },
+        {
+          "ra_deg": 135.832471,
+          "dec_deg": 87.5689163
+        }
+      ]
+    },
+    {
+      "neighbor": "Cepheus",
+      "neighbor_abbreviation": "CEP",
+      "points": [
+        {
+          "ra_deg": 135.832471,
+          "dec_deg": 87.5689163
+        },
+        {
+          "ra_deg": 130.402751,
+          "dec_deg": 86.097542
+        }
+      ]
+    },
+    {
+      "neighbor": "Camelopardalis",
+      "neighbor_abbreviation": "CAM",
+      "points": [
+        {
+          "ra_deg": 130.402751,
+          "dec_deg": 86.097542
+        },
+        {
+          "ra_deg": 131.28828,
+          "dec_deg": 86.088242
+        },
+        {
+          "ra_deg": 132.171851,
+          "dec_deg": 86.079063
+        },
+        {
+          "ra_deg": 133.053789,
+          "dec_deg": 86.070007
+        },
+        {
+          "ra_deg": 133.933983,
+          "dec_deg": 86.061081
+        },
+        {
+          "ra_deg": 134.812346,
+          "dec_deg": 86.052277
+        },
+        {
+          "ra_deg": 135.689163,
+          "dec_deg": 86.043602
+        },
+        {
+          "ra_deg": 136.56435,
+          "dec_deg": 86.035065
+        },
+        {
+          "ra_deg": 137.437821,
+          "dec_deg": 86.026657
+        },
+        {
+          "ra_deg": 138.309846,
+          "dec_deg": 86.018379
+        },
+        {
+          "ra_deg": 139.180369,
+          "dec_deg": 86.010246
+        },
+        {
+          "ra_deg": 140.049247,
+          "dec_deg": 86.002243
+        },
+        {
+          "ra_deg": 140.91681,
+          "dec_deg": 85.994385
+        },
+        {
+          "ra_deg": 141.782941,
+          "dec_deg": 85.986664
+        },
+        {
+          "ra_deg": 142.647543,
+          "dec_deg": 85.979088
+        },
+        {
+          "ra_deg": 143.510943,
+          "dec_deg": 85.971649
+        },
+        {
+          "ra_deg": 144.372997,
+          "dec_deg": 85.964363
+        },
+        {
+          "ra_deg": 145.233649,
+          "dec_deg": 85.957222
+        },
+        {
+          "ra_deg": 146.093174,
+          "dec_deg": 85.950233
+        },
+        {
+          "ra_deg": 146.951466,
+          "dec_deg": 85.94339
+        },
+        {
+          "ra_deg": 147.808441,
+          "dec_deg": 85.936699
+        },
+        {
+          "ra_deg": 148.664403,
+          "dec_deg": 85.93016
+        },
+        {
+          "ra_deg": 149.519234,
+          "dec_deg": 85.923775
+        },
+        {
+          "ra_deg": 150.372834,
+          "dec_deg": 85.917541
+        },
+        {
+          "ra_deg": 151.225504,
+          "dec_deg": 85.911468
+        },
+        {
+          "ra_deg": 152.077146,
+          "dec_deg": 85.905548
+        },
+        {
+          "ra_deg": 152.927656,
+          "dec_deg": 85.899795
+        },
+        {
+          "ra_deg": 153.777322,
+          "dec_deg": 85.894196
+        },
+        {
+          "ra_deg": 154.62606,
+          "dec_deg": 85.888756
+        },
+        {
+          "ra_deg": 155.473767,
+          "dec_deg": 85.883476
+        },
+        {
+          "ra_deg": 156.320715,
+          "dec_deg": 85.878357
+        },
+        {
+          "ra_deg": 157.166834,
+          "dec_deg": 85.873406
+        },
+        {
+          "ra_deg": 158.012009,
+          "dec_deg": 85.868622
+        },
+        {
+          "ra_deg": 158.856525,
+          "dec_deg": 85.863998
+        },
+        {
+          "ra_deg": 159.700299,
+          "dec_deg": 85.859535
+        },
+        {
+          "ra_deg": 160.543199,
+          "dec_deg": 85.855248
+        },
+        {
+          "ra_deg": 161.385541,
+          "dec_deg": 85.851128
+        },
+        {
+          "ra_deg": 162.227226,
+          "dec_deg": 85.847168
+        },
+        {
+          "ra_deg": 163.068151,
+          "dec_deg": 85.843384
+        },
+        {
+          "ra_deg": 163.908591,
+          "dec_deg": 85.839775
+        },
+        {
+          "ra_deg": 164.748459,
+          "dec_deg": 85.836327
+        },
+        {
+          "ra_deg": 165.587654,
+          "dec_deg": 85.833054
+        },
+        {
+          "ra_deg": 166.426449,
+          "dec_deg": 85.829948
+        },
+        {
+          "ra_deg": 167.264757,
+          "dec_deg": 85.827019
+        },
+        {
+          "ra_deg": 168.102494,
+          "dec_deg": 85.824264
+        },
+        {
+          "ra_deg": 168.939915,
+          "dec_deg": 85.821678
+        },
+        {
+          "ra_deg": 169.776936,
+          "dec_deg": 85.819267
+        },
+        {
+          "ra_deg": 170.613469,
+          "dec_deg": 85.817032
+        },
+        {
+          "ra_deg": 171.449775,
+          "dec_deg": 85.814972
+        },
+        {
+          "ra_deg": 172.285767,
+          "dec_deg": 85.813087
+        },
+        {
+          "ra_deg": 173.121342,
+          "dec_deg": 85.811379
+        },
+        {
+          "ra_deg": 173.956776,
+          "dec_deg": 85.809837
+        },
+        {
+          "ra_deg": 174.791994,
+          "dec_deg": 85.808479
+        },
+        {
+          "ra_deg": 175.626869,
+          "dec_deg": 85.807297
+        },
+        {
+          "ra_deg": 176.461701,
+          "dec_deg": 85.80629
+        },
+        {
+          "ra_deg": 177.296391,
+          "dec_deg": 85.805458
+        },
+        {
+          "ra_deg": 178.130836,
+          "dec_deg": 85.804802
+        },
+        {
+          "ra_deg": 178.965311,
+          "dec_deg": 85.804329
+        },
+        {
+          "ra_deg": 179.799729,
+          "dec_deg": 85.804024
+        },
+        {
+          "ra_deg": 180.634002,
+          "dec_deg": 85.803902
+        },
+        {
+          "ra_deg": 181.468377,
+          "dec_deg": 85.803955
+        },
+        {
+          "ra_deg": 182.302781,
+          "dec_deg": 85.804184
+        },
+        {
+          "ra_deg": 183.137097,
+          "dec_deg": 85.804588
+        },
+        {
+          "ra_deg": 183.971629,
+          "dec_deg": 85.805176
+        },
+        {
+          "ra_deg": 184.806261,
+          "dec_deg": 85.805939
+        },
+        {
+          "ra_deg": 185.640907,
+          "dec_deg": 85.80687
+        },
+        {
+          "ra_deg": 186.475854,
+          "dec_deg": 85.807983
+        },
+        {
+          "ra_deg": 187.310971,
+          "dec_deg": 85.809273
+        },
+        {
+          "ra_deg": 188.146191,
+          "dec_deg": 85.810738
+        },
+        {
+          "ra_deg": 188.981781,
+          "dec_deg": 85.812386
+        },
+        {
+          "ra_deg": 189.817657,
+          "dec_deg": 85.814201
+        },
+        {
+          "ra_deg": 190.65372,
+          "dec_deg": 85.816193
+        },
+        {
+          "ra_deg": 191.490226,
+          "dec_deg": 85.818359
+        },
+        {
+          "ra_deg": 192.32709,
+          "dec_deg": 85.820694
+        },
+        {
+          "ra_deg": 193.164225,
+          "dec_deg": 85.823212
+        },
+        {
+          "ra_deg": 194.001903,
+          "dec_deg": 85.825897
+        },
+        {
+          "ra_deg": 194.84004,
+          "dec_deg": 85.828758
+        },
+        {
+          "ra_deg": 195.678506,
+          "dec_deg": 85.831795
+        },
+        {
+          "ra_deg": 196.517616,
+          "dec_deg": 85.834999
+        },
+        {
+          "ra_deg": 197.357268,
+          "dec_deg": 85.838379
+        },
+        {
+          "ra_deg": 198.197351,
+          "dec_deg": 85.841919
+        },
+        {
+          "ra_deg": 199.038149,
+          "dec_deg": 85.845642
+        },
+        {
+          "ra_deg": 199.879575,
+          "dec_deg": 85.849525
+        },
+        {
+          "ra_deg": 200.721531,
+          "dec_deg": 85.853584
+        },
+        {
+          "ra_deg": 201.564288,
+          "dec_deg": 85.857803
+        },
+        {
+          "ra_deg": 202.407761,
+          "dec_deg": 85.862198
+        },
+        {
+          "ra_deg": 203.251848,
+          "dec_deg": 85.866753
+        },
+        {
+          "ra_deg": 204.096822,
+          "dec_deg": 85.871475
+        },
+        {
+          "ra_deg": 204.942612,
+          "dec_deg": 85.876358
+        },
+        {
+          "ra_deg": 205.789089,
+          "dec_deg": 85.881409
+        },
+        {
+          "ra_deg": 206.636566,
+          "dec_deg": 85.886627
+        },
+        {
+          "ra_deg": 207.484947,
+          "dec_deg": 85.891998
+        },
+        {
+          "ra_deg": 208.334112,
+          "dec_deg": 85.897537
+        },
+        {
+          "ra_deg": 209.184366,
+          "dec_deg": 85.903229
+        },
+        {
+          "ra_deg": 210.035591,
+          "dec_deg": 85.909088
+        },
+        {
+          "ra_deg": 210.887718,
+          "dec_deg": 85.9151
+        },
+        {
+          "ra_deg": 211.741032,
+          "dec_deg": 85.921265
+        },
+        {
+          "ra_deg": 212.59542,
+          "dec_deg": 85.927589
+        },
+        {
+          "ra_deg": 213.022957,
+          "dec_deg": 85.930809
+        }
+      ]
+    },
+    {
+      "neighbor": "Camelopardalis",
+      "neighbor_abbreviation": "CAM",
+      "points": [
+        {
+          "ra_deg": 213.022957,
+          "dec_deg": 85.930809
+        },
+        {
+          "ra_deg": 214.224972,
+          "dec_deg": 84.935349
+        },
+        {
+          "ra_deg": 215.032683,
+          "dec_deg": 83.938393
+        },
+        {
+          "ra_deg": 215.612869,
+          "dec_deg": 82.940575
+        },
+        {
+          "ra_deg": 216.049934,
+          "dec_deg": 81.942223
+        },
+        {
+          "ra_deg": 216.391182,
+          "dec_deg": 80.943512
+        },
+        {
+          "ra_deg": 216.665139,
+          "dec_deg": 79.944542
+        },
+        {
+          "ra_deg": 216.782856,
+          "dec_deg": 79.444984
+        }
+      ]
+    },
+    {
+      "neighbor": "Camelopardalis",
+      "neighbor_abbreviation": "CAM",
+      "points": [
+        {
+          "ra_deg": 216.782856,
+          "dec_deg": 79.444984
+        },
+        {
+          "ra_deg": 215.835944,
+          "dec_deg": 79.437927
+        },
+        {
+          "ra_deg": 214.889745,
+          "dec_deg": 79.431038
+        },
+        {
+          "ra_deg": 213.943977,
+          "dec_deg": 79.424309
+        },
+        {
+          "ra_deg": 212.998767,
+          "dec_deg": 79.417748
+        },
+        {
+          "ra_deg": 212.054229,
+          "dec_deg": 79.411362
+        },
+        {
+          "ra_deg": 211.110076,
+          "dec_deg": 79.405144
+        },
+        {
+          "ra_deg": 210.166425,
+          "dec_deg": 79.399101
+        },
+        {
+          "ra_deg": 209.223404,
+          "dec_deg": 79.393227
+        },
+        {
+          "ra_deg": 208.280711,
+          "dec_deg": 79.387535
+        },
+        {
+          "ra_deg": 207.33849,
+          "dec_deg": 79.382019
+        },
+        {
+          "ra_deg": 206.396856,
+          "dec_deg": 79.376678
+        },
+        {
+          "ra_deg": 205.455522,
+          "dec_deg": 79.371521
+        },
+        {
+          "ra_deg": 204.51459,
+          "dec_deg": 79.366547
+        },
+        {
+          "ra_deg": 203.809189,
+          "dec_deg": 79.36293
+        }
+      ]
+    }
+  ],
+  "sources": [
+    {
+      "label": "Stellarium Western sky culture",
+      "url": "https://raw.githubusercontent.com/Stellarium/stellarium-skycultures/014fbb5e59233d133c22f9811af96b67d05a95c9/western/index.json",
+      "path": "catalog-work/western-constellation-stars/stellarium-western-index.json",
+      "sha256": "a861accd345249a185a5ecfc2a516f34291c0aa52f4bb8d8337ffc53e9cef6b9"
+    },
+    {
+      "label": "Adopted star positions and names",
+      "url": "https://simbad.cds.unistra.fr/simbad/",
+      "path": "src/data/catalogs/western-constellation-stars/stars.csv",
+      "sha256": "0a8b7c1dc3f7e3412c5cffb09a18cdf5b5b7424cc89ea8a0a1ffb4da57d3ad6a"
+    },
+    {
+      "label": "Hipparcos Johnson V magnitudes",
+      "url": "https://cdsarc.cds.unistra.fr/viz-bin/cat/I/239",
+      "path": "catalog-work/western-constellation-stars/hipparcos-v.csv",
+      "sha256": "eec12b740da3aac5204ba75ca5158b6f9f2f81886dda2526fe765cf9ea159320"
+    },
+    {
+      "label": "CDS / IAU constellation boundaries (J2000)",
+      "url": "https://cdsarc.cds.unistra.fr/viz-bin/cat/VI/49",
+      "path": "catalog-work/constellation-charts/boundaries-j2000.dat.gz",
+      "sha256": "879cd6e7a1c908f1e19a5f5fe8cc75fb1d1077564e3890f9152a3680affe9aac",
+      "inputs": [
+        {
+          "path": "catalog-work/constellation-charts/boundary-contours-b1875.dat",
+          "sha256": "865cdf4218f676eb304587c75c63231948d29cd0abe6892a8a8130c1c4fe3592"
+        },
+        {
+          "path": "catalog-work/constellation-charts/boundary-contours-readme.txt",
+          "sha256": "a3ec688bea21e9db10832842c9b845558dbe8ccf820ddedec842d664d2b74c89"
+        }
+      ]
+    }
+  ]
+}

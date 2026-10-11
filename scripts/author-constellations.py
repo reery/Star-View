@@ -1,4 +1,4 @@
-"""Author reviewed constellation charts from the existing offline source chain."""
+"""Author all 88 constellation charts from the existing offline source chain."""
 
 import argparse
 import csv
@@ -17,8 +17,6 @@ SOURCE = ROOT / "catalog-work/western-constellation-stars"
 CATALOG = ROOT / "src/data/catalogs/western-constellation-stars/stars.csv"
 OUTPUT = ROOT / "src/data/constellations"
 BOUNDARIES = ROOT / "catalog-work/constellation-charts"
-# Add a constellation here after reviewing its figure and labels in the card.
-REVIEWED = {"CMa": ("Canis Major", "canis-major"), "Cen": ("Centaurus", "centaurus")}
 GREEK = dict(zip(
     ("alf", "bet", "gam", "del", "eps", "zet", "eta", "tet", "iot", "kap", "lam", "mu.",
      "nu.", "ksi", "omi", "pi.", "rho", "sig", "tau", "ups", "phi", "chi", "psi", "ome"),
@@ -35,7 +33,7 @@ def catalog_object(row):
                 "mass_solar", "luminosity_solar", "radius_solar", "metallicity_dex", "age_gyr", "absolute_mag", "epoch")
     result = {key: float(row[key]) if row[key] else None for key in physical}
     result.update({key: row.get(key) or None for key in ("type", "id", "name", "constellation", "spectral_type", "metallicity_kind", "notes")})
-    result["designations"] = json.loads(row["designations"]) if row.get("designations") else []
+    result["designations"] = list(filter(None, (row.get("designations") or "").split("|")))
     raw = ("ra_deg", "dec_deg", "parallax_mas", "parallax_error_mas", "pm_ra_cosdec_masyr",
            "pm_ra_error_masyr", "pm_dec_masyr", "pm_dec_error_masyr", "radial_velocity_kms", "radial_velocity_error_kms")
     result["raw_astrometry"] = {key: float(row[key]) if row[key] else None for key in raw}
@@ -77,16 +75,37 @@ def boundary_inputs():
     contours = defaultdict(list)
     for row in (BOUNDARIES / manifest["sources"]["contours"]["file"]).read_text().splitlines():
         contours[row[19:23].strip().upper()].append((float(row[:8]) * 15, float(row[9:18]), row[24:28].strip().upper()))
-    return {name: list(points.values()) for name, points in vertices.items()}, contours, manifest
+    unique_vertices = {}
+    for name, points in vertices.items():
+        # RA-zero corners can repeat with slightly different decimal rounding.
+        # Keep the original coordinate when present, without moving any samples.
+        unique = []
+        for point in sorted(points.values(), key=lambda p: not p["original"]):
+            if not any(abs(point["dec_deg"] - p["dec_deg"]) < 0.0001 and
+                       abs((point["ra_deg"] - p["ra_deg"] + 180) % 360 - 180) < 0.0001 for p in unique):
+                unique.append(point)
+        unique_vertices[name] = unique
+    return unique_vertices, contours, manifest
 
 
 def chart_boundaries(abbreviation, center, culture):
+    # Serpens is one constellation with two independently closed regions.
+    regions = ["SER1", "SER2"] if abbreviation == "Ser" else [abbreviation.upper()]
+    result = []
+    for region in regions:
+        boundaries, manifest = region_boundaries(region, center, culture)
+        result.extend(boundaries)
+    return result, manifest
+
+
+def region_boundaries(region, center, culture):
     vertices_by_name, contours, manifest = boundary_inputs()
-    vertices = vertices_by_name[abbreviation.upper()]
-    contour = contours[abbreviation.upper()]
+    vertices = vertices_by_name[region]
+    contour = contours[region]
     if not contour or contour[0][:2] != contour[-1][:2]:
-        raise ValueError(f"Missing closed boundary contour: {abbreviation}")
+        raise ValueError(f"Missing closed boundary contour: {region}")
     names = {c["iau"].upper(): c["common_name"]["native"] for c in culture["constellations"]}
+    names.update(SER1="Serpens", SER2="Serpens")
     result = []
     used = set()
     tolerance = 0.001  # Degrees; much smaller than the source's 1-degree sampling.
@@ -108,20 +127,23 @@ def chart_boundaries(abbreviation, center, culture):
                 used.add(index)
         samples.sort(key=lambda sample: sample[0])
         segment = [vertex for _, vertex in samples]
-        if len(segment) < 2 or not segment[0]["original"] or not segment[-1]["original"]:
-            raise ValueError(f"Missing sampled boundary endpoints: {abbreviation}, {a}, {b}")
+        # The corrected polar tables and some RA-zero corners are marked I.
+        # Verify their coordinates against the contour rather than requiring O.
+        edge_length = max(abs(delta_ra), abs(delta_dec))
+        if len(segment) < 2 or abs(samples[0][0]) * edge_length > tolerance or abs(samples[-1][0] - 1) * edge_length > tolerance:
+            raise ValueError(f"Missing sampled boundary endpoints: {region}, {a}, {b}")
         neighbor = b[2]
         result.append({"neighbor": names[neighbor], "neighbor_abbreviation": neighbor,
                        "points": [{"ra_deg": p["ra_deg"], "dec_deg": p["dec_deg"]} for p in reversed(segment)]})
     if len(used) != len(vertices):
-        raise ValueError(f"Unmatched boundary samples: {abbreviation}, {len(vertices) - len(used)}")
+        raise ValueError(f"Unmatched boundary samples: {region}, {len(vertices) - len(used)}")
     # Stable winding and starting edge preserve the first chart's authored layout.
     result.reverse()
     start = min(range(len(result)), key=lambda i: math.atan2(result[i]["points"][0]["dec_deg"] - center["dec_deg"],
         ((result[i]["points"][0]["ra_deg"] - center["ra_deg"] + 180) % 360 - 180) * math.cos(math.radians(center["dec_deg"]))))
     result = result[start:] + result[:start]
     if any(a["points"][-1] != b["points"][0] for a, b in zip(result, result[1:] + result[:1])):
-        raise ValueError(f"Disconnected sampled boundary: {abbreviation}")
+        raise ValueError(f"Disconnected sampled boundary: {region}")
     return result, manifest
 
 
@@ -167,7 +189,8 @@ def author(abbreviation):
                 math.cos(math.radians(s["dec_deg"])) * math.sin(math.radians(s["ra_deg"])),
                 math.sin(math.radians(s["dec_deg"]))) for s in stars]
     x, y, z = (sum(v[i] for v in vectors) for i in range(3))
-    name, slug = REVIEWED[abbreviation]
+    name = figure["common_name"]["native"]
+    slug = name.lower().replace(" ", "-")
     center = {"ra_deg": math.degrees(math.atan2(y, x)) % 360,
               "dec_deg": math.degrees(math.atan2(z, math.hypot(x, y)))}
     boundaries, boundary_source = chart_boundaries(abbreviation, center, culture)
@@ -198,16 +221,32 @@ def author(abbreviation):
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--write", action="store_true", help="Write reviewed chart data")
+    parser.add_argument("--write", action="store_true", help="Write chart data and the lazy-loader index")
     args = parser.parse_args()
-    for abbreviation in REVIEWED:
+    _, culture, *_ = figure_inputs()
+    figures = sorted(culture["constellations"], key=lambda figure: figure["common_name"]["native"])
+    if len(figures) != 88 or len({figure["iau"] for figure in figures}) != 88:
+        raise ValueError("Expected exactly 88 distinct constellation figures")
+    outputs = []
+    for figure in figures:
+        abbreviation = figure["iau"]
         path, content = author(abbreviation)
+        outputs.append((path, content))
+    index = "// Generated by scripts/author-constellations.py. Each chart is a separate lazy chunk.\n"
+    index += "import type { ConstellationChart } from '../../constellations'\n\n"
+    index += "export const constellationCharts = new Map<string, () => Promise<ConstellationChart>>([\n"
+    for path, content in outputs:
+        name = json.loads(content)["name"]
+        index += f"  ['{name}', () => import('./{path.name}').then((module) => module.default as ConstellationChart)],\n"
+    index += "])\n"
+    outputs.append((OUTPUT / "index.ts", index))
+    for path, content in outputs:
         if args.write:
             path.parent.mkdir(parents=True, exist_ok=True)
             path.write_text(content)
         elif not path.exists() or path.read_text() != content:
             raise SystemExit(f"Chart differs: {path.relative_to(ROOT)}; regenerate with --write")
-        print(f"{abbreviation}: {path.relative_to(ROOT)}")
+    print(f"88 constellation charts {'written' if args.write else 'verified'} with their lazy-loader index")
 
 
 if __name__ == "__main__":

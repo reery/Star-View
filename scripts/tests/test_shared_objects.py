@@ -1,4 +1,5 @@
 """Focused checks for adopted shared details and component isolation."""
+import json
 import sys
 import unittest
 from pathlib import Path
@@ -8,6 +9,32 @@ from catalog_sources.shared_objects import adopt_shared_object
 
 
 class SharedObjectTests(unittest.TestCase):
+    def test_hot_star_corrections_replace_bad_models_and_preserve_other_fields(self):
+        review = json.loads((Path(__file__).resolve().parents[2] / "catalog-work/shared-enrichment/hot-star-temperature-review.json").read_text())
+        self.assertEqual(len(review["objects"]), 13)
+        for key, record in review["objects"].items():
+            for identifier in record["starIds"]:
+                with self.subTest(identity=key, identifier=identifier):
+                    row = {"id": identifier, "name": "catalog display name", "spectral_type": record["spectralType"],
+                           "mass_solar": "19.61", "metallicity_dex": "-0.2", "notes": "old model",
+                           **record["previousValues"][identifier]}
+                    provenance = {"physicalObservations": [{"field": "temperature_k", "value": float(row["temperature_k"])}]}
+                    adopt_shared_object(row, provenance)
+                    for field, decision in record["adoptedFields"].items():
+                        if decision["status"] == "withheld":
+                            self.assertEqual(row[field], "")
+                        else:
+                            self.assertEqual(float(row[field]), decision["value"])
+                    self.assertEqual(row["name"], "catalog display name")
+                    self.assertEqual(row["spectral_type"], record["spectralType"])
+                    self.assertEqual(row["mass_solar"], "19.61")
+                    self.assertEqual(row["metallicity_dex"], "-0.2")
+                    self.assertEqual(provenance["physicalObservations"][0]["value"], float(record["previousValues"][identifier]["temperature_k"]))
+                    self.assertEqual(provenance["sharedObjectAdoption"]["sourceSelections"]["physicalTemperatureReview"]["recordId"], key)
+                    before = dict(row)
+                    adopt_shared_object(row, provenance)
+                    self.assertEqual(row, before)
+
     def test_altair_adopts_full_class_and_object_parameters_preserving_identity(self):
         row = {"id": "10pc-0117", "name": "Altair", "spectral_type": "A7", "temperature_k": "7760", "notes": "source"}
         provenance = {"fields": {"spectral_type": {"status": "compiled", "sourceRefs": ["census"]}}}

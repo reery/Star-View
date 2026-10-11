@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest'
 import { equatorialToGalacticPc, type Star } from './catalog-model'
 import { constellationCardAvailable, constellationStarObject, constellationStarObjects, loadConstellationChart, objectSkyPosition, projectConstellationPosition } from './constellations'
+import culture from '../catalog-work/western-constellation-stars/stellarium-western-index.json'
 
 const object = (overrides: Partial<Star> = {}): Star => ({
   type: 'star', id: 'sirius-a', name: 'Sirius A', constellation: 'Canis Major', spectral_type: 'A1V',
@@ -10,13 +11,14 @@ const object = (overrides: Partial<Star> = {}): Star => ({
   absolute_mag: null, epoch: 2000, notes: '', raw_astrometry: null, ...overrides,
 })
 
-describe('reviewed constellation chart coverage', () => {
-  it('opens reviewed charts for every supported object type and keeps other charts unavailable', () => {
+describe('all 88 constellation charts', () => {
+  it('opens charts for every supported object type and requires a known constellation', () => {
     expect(constellationCardAvailable(object())).toBe(true)
     expect(constellationCardAvailable(object({ type: 'pulsar' }))).toBe(true)
     expect(constellationCardAvailable(object({ type: 'molecular_cloud' }))).toBe(true)
     expect(constellationCardAvailable(object({ constellation: 'Centaurus' }))).toBe(true)
-    expect(constellationCardAvailable(object({ constellation: 'Orion' }))).toBe(false)
+    expect(constellationCardAvailable(object({ constellation: 'Orion' }))).toBe(true)
+    expect(constellationCardAvailable(object({ constellation: 'Unknown' }))).toBe(false)
     expect(constellationCardAvailable(object({ constellation: null }))).toBe(false)
     expect(constellationCardAvailable(object({ id: 'sun' }))).toBe(false)
   })
@@ -29,7 +31,62 @@ describe('reviewed constellation chart coverage', () => {
     const ids = new Set(chart.stars.map((star) => star.hip))
     expect(chart.lines.every((line) => line.length === 2 && line.every((id) => ids.has(id)))).toBe(true)
     expect(chart.sources[0]!.url).toContain('014fbb5e59233d133c22f9811af96b67d05a95c9')
-    expect(await loadConstellationChart(object({ constellation: 'Orion' }))).toBeNull()
+    expect(await loadConstellationChart(object({ constellation: null }))).toBeNull()
+  })
+
+  it('loads every source figure with complete endpoints, closed regions, and finite sky geometry', async () => {
+    expect(culture.constellations).toHaveLength(88)
+    for (const figure of culture.constellations) {
+      const name = figure.common_name.native
+      const selected = object({ constellation: name })
+      expect(constellationCardAvailable(selected), name).toBe(true)
+      const chart = (await loadConstellationChart(selected))!
+      expect(chart.name).toBe(name)
+      expect(chart.abbreviation).toBe(figure.iau)
+      const ids = new Set(chart.stars.map((star) => star.hip))
+      const sourceLines = (figure.lines as (number | string)[][]).map((line) => line.filter((hip): hip is number => typeof hip === 'number'))
+      expect(chart.lines).toEqual(sourceLines.flatMap((line) => line.slice(1).map((hip, i) => [line[i], hip])))
+      expect([...ids].sort((a, b) => a - b)).toEqual([...new Set(sourceLines.flat())].sort((a, b) => a - b))
+      expect(chart.lines.every((line) => line.every((hip) => ids.has(hip)))).toBe(true)
+      const starts = chart.boundaries.map((boundary) => JSON.stringify(boundary.points[0])).sort()
+      const ends = chart.boundaries.map((boundary) => JSON.stringify(boundary.points.at(-1))).sort()
+      expect(ends, `${name} region closure`).toEqual(starts)
+      for (const point of [...chart.stars, ...chart.boundaries.flatMap((boundary) => boundary.points)]) {
+        const projected = projectConstellationPosition(point, chart.center)
+        expect(projected, name).not.toBeNull()
+        expect(Number.isFinite(projected!.x) && Number.isFinite(projected!.y), name).toBe(true)
+      }
+      expect(chart.boundaries.every((boundary) => culture.constellations.some((neighbor) => neighbor.common_name.native === boundary.neighbor))).toBe(true)
+      expect(chart.sources.every((source) => /^[a-f0-9]{64}$/.test(source.sha256))).toBe(true)
+    }
+  })
+
+  it('keeps Serpens as two closed regions without joining across Ophiuchus', async () => {
+    const chart = (await loadConstellationChart(object({ constellation: 'Serpens' })))!
+    const jumps = chart.boundaries.filter((boundary, index) => JSON.stringify(boundary.points.at(-1)) !== JSON.stringify(chart.boundaries[(index + 1) % chart.boundaries.length]!.points[0]))
+    expect(jumps).toHaveLength(2)
+    expect(chart.stars).toHaveLength(12)
+    expect(chart.lines.every(([a, b]) => (a < 80000) === (b < 80000))).toBe(true)
+    const neighbors = (await loadConstellationChart(object({ constellation: 'Ophiuchus' })))!.boundaries
+    expect(neighbors.filter((boundary) => boundary.neighbor === 'Serpens').map((boundary) => boundary.neighbor_abbreviation))
+      .toEqual(expect.arrayContaining(['SER1', 'SER2']))
+  })
+
+  it('encloses both celestial poles and retains pipe-separated catalogue aliases', async () => {
+    for (const [name, declination] of [['Ursa Minor', 90], ['Octans', -90]] as const) {
+      const chart = (await loadConstellationChart(object({ constellation: name })))!
+      const pole = projectConstellationPosition({ ra_deg: 0, dec_deg: declination }, chart.center)!
+      const polygon = chart.boundaries.flatMap((boundary) => boundary.points.slice(0, -1))
+        .map((point) => projectConstellationPosition(point, chart.center)!)
+      let inside = false
+      for (let i = 0, j = polygon.length - 1; i < polygon.length; j = i++) {
+        const a = polygon[i]!, b = polygon[j]!
+        if ((a.y > pole.y) !== (b.y > pole.y) && pole.x < (b.x - a.x) * (pole.y - a.y) / (b.y - a.y) + a.x) inside = !inside
+      }
+      expect(inside, name).toBe(true)
+    }
+    const auriga = (await loadConstellationChart(object({ constellation: 'Auriga' })))!
+    expect(auriga.stars.find((star) => star.hip === 24608)!.object.designations).toContain('Capella')
   })
 
   it('keeps Bayer identities and sourced J2000 neighboring boundaries', async () => {

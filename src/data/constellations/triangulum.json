@@ -1,0 +1,642 @@
+{
+  "schemaVersion": 1,
+  "abbreviation": "Tri",
+  "name": "Triangulum",
+  "center": {
+    "ra_deg": 31.606040016053758,
+    "dec_deg": 32.83058037662928
+  },
+  "stars": [
+    {
+      "hip": 8796,
+      "name": "Mothallah",
+      "ra_deg": 28.2704392446475,
+      "dec_deg": 29.578818669729724,
+      "magnitude_v": 3.42,
+      "bayer": "α",
+      "object": {
+        "x_pc": -12.480543597,
+        "y_pc": 10.986666736,
+        "z_pc": -10.151567674,
+        "vx_kms": 11.372528,
+        "vy_kms": -19.415335,
+        "vz_kms": -10.814039,
+        "temperature_k": 6310.0,
+        "mass_solar": null,
+        "luminosity_solar": null,
+        "radius_solar": null,
+        "metallicity_dex": 0.0,
+        "age_gyr": null,
+        "absolute_mag": 1.971899,
+        "epoch": 2000.0,
+        "type": "star",
+        "id": "hip-8796",
+        "name": "Mothallah",
+        "constellation": "Triangulum",
+        "spectral_type": "F5III",
+        "metallicity_kind": "[Fe/H]",
+        "notes": "Western constellation line-figure star (HIP 8796; Stellarium Tri). SIMBAD identity * alf Tri; SIMBAD compiled Johnson V=3.42; inverse SIMBAD compiled parallax distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k. Shared exact-identity physical supplements (metallicity_dex: 2022A&A...663A...4S).",
+        "designations": [
+          "HIP 8796"
+        ],
+        "raw_astrometry": {
+          "ra_deg": 28.2704392446475,
+          "dec_deg": 29.578818669729724,
+          "parallax_mas": 51.331,
+          "parallax_error_mas": 0.5563,
+          "pm_ra_cosdec_masyr": 12.341,
+          "pm_ra_error_masyr": null,
+          "pm_dec_masyr": -233.04,
+          "pm_dec_error_masyr": null,
+          "radial_velocity_kms": -12.6,
+          "radial_velocity_error_kms": null,
+          "epoch": 2000.0,
+          "astrometry_ref": "SIMBAD TAP snapshot 2026-10-01",
+          "radial_velocity_ref": "SIMBAD TAP snapshot 2026-10-01"
+        }
+      }
+    },
+    {
+      "hip": 10064,
+      "name": "Alaybasan",
+      "ra_deg": 32.38594634196055,
+      "dec_deg": 34.98729706469149,
+      "magnitude_v": 3.0,
+      "bayer": "β",
+      "object": {
+        "x_pc": -27.175320585,
+        "y_pc": 22.363410574,
+        "z_pc": -16.559883416,
+        "vx_kms": -27.33842,
+        "vy_kms": -14.209748,
+        "vz_kms": -3.216276,
+        "temperature_k": 7943.0,
+        "mass_solar": null,
+        "luminosity_solar": null,
+        "radius_solar": null,
+        "metallicity_dex": -0.4,
+        "age_gyr": null,
+        "absolute_mag": 0.05051,
+        "epoch": 2000.0,
+        "type": "star",
+        "id": "hip-10064",
+        "name": "Alaybasan",
+        "constellation": "Triangulum",
+        "spectral_type": "A5III",
+        "metallicity_kind": "[Fe/H]",
+        "notes": "Western constellation line-figure star (HIP 10064; Stellarium Tri). SIMBAD identity * bet Tri; SIMBAD compiled Johnson V=3.0; inverse SIMBAD compiled parallax distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k. Shared exact-identity physical supplements (metallicity_dex: 2016A&A...589A..83G).",
+        "designations": [
+          "HIP 10064"
+        ],
+        "raw_astrometry": {
+          "ra_deg": 32.38594634196055,
+          "dec_deg": 34.98729706469149,
+          "parallax_mas": 25.71,
+          "parallax_error_mas": 0.34,
+          "pm_ra_cosdec_masyr": 149.16,
+          "pm_ra_error_masyr": null,
+          "pm_dec_masyr": -39.1,
+          "pm_dec_error_masyr": null,
+          "radial_velocity_kms": 12.3,
+          "radial_velocity_error_kms": null,
+          "epoch": 2000.0,
+          "astrometry_ref": "SIMBAD TAP snapshot 2026-10-01",
+          "radial_velocity_ref": "SIMBAD TAP snapshot 2026-10-01"
+        }
+      }
+    },
+    {
+      "hip": 10670,
+      "name": "Apdu",
+      "ra_deg": 34.32861363899208,
+      "dec_deg": 33.84719681816611,
+      "magnitude_v": 4.03,
+      "bayer": "γ",
+      "object": {
+        "x_pc": -25.538839664,
+        "y_pc": 19.490876636,
+        "z_pc": -15.472033896,
+        "vx_kms": -8.030048,
+        "vy_kms": -6.893651,
+        "vz_kms": -7.206475,
+        "temperature_k": 9333.0,
+        "mass_solar": 2.32,
+        "luminosity_solar": 25.899451911990063,
+        "radius_solar": 2.041737944669529,
+        "metallicity_dex": -1.2,
+        "age_gyr": null,
+        "absolute_mag": 1.2392,
+        "epoch": 2000.0,
+        "type": "star",
+        "id": "hip-10670",
+        "name": "Apdu",
+        "constellation": "Triangulum",
+        "spectral_type": "A1Vnn",
+        "metallicity_kind": "[Fe/H]",
+        "notes": "Western constellation line-figure star (HIP 10670; Stellarium Tri). SIMBAD identity * gam Tri; SIMBAD compiled Johnson V=4.0; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, mass_solar, radius_solar, luminosity_solar. Shared exact-identity physical supplements (metallicity_dex: 2016A&A...589A..83G).",
+        "designations": [
+          "HIP 10670"
+        ],
+        "raw_astrometry": {
+          "ra_deg": 34.32861363899208,
+          "dec_deg": 33.84719681816611,
+          "parallax_mas": 27.9795,
+          "parallax_error_mas": 0.4608,
+          "pm_ra_cosdec_masyr": 45.253,
+          "pm_ra_error_masyr": null,
+          "pm_dec_masyr": -52.685,
+          "pm_dec_error_masyr": null,
+          "radial_velocity_kms": 5.11,
+          "radial_velocity_error_kms": null,
+          "epoch": 2000.0,
+          "astrometry_ref": "SIMBAD TAP snapshot 2026-10-01",
+          "radial_velocity_ref": "SIMBAD TAP snapshot 2026-10-01"
+        }
+      }
+    }
+  ],
+  "lines": [
+    [
+      10670,
+      10064
+    ],
+    [
+      10064,
+      8796
+    ],
+    [
+      8796,
+      10670
+    ]
+  ],
+  "boundaries": [
+    {
+      "neighbor": "Pisces",
+      "neighbor_abbreviation": "PSC",
+      "points": [
+        {
+          "ra_deg": 22.86642,
+          "dec_deg": 28.6454391
+        },
+        {
+          "ra_deg": 23.746819,
+          "dec_deg": 28.6413689
+        },
+        {
+          "ra_deg": 24.752731,
+          "dec_deg": 28.6365356
+        },
+        {
+          "ra_deg": 25.758747,
+          "dec_deg": 28.631506
+        },
+        {
+          "ra_deg": 26.76471,
+          "dec_deg": 28.6262817
+        }
+      ]
+    },
+    {
+      "neighbor": "Pisces",
+      "neighbor_abbreviation": "PSC",
+      "points": [
+        {
+          "ra_deg": 26.76471,
+          "dec_deg": 28.6262817
+        },
+        {
+          "ra_deg": 26.757911,
+          "dec_deg": 27.6263008
+        },
+        {
+          "ra_deg": 26.751236,
+          "dec_deg": 26.626318
+        },
+        {
+          "ra_deg": 26.744674,
+          "dec_deg": 25.6263351
+        }
+      ]
+    },
+    {
+      "neighbor": "Aries",
+      "neighbor_abbreviation": "ARI",
+      "points": [
+        {
+          "ra_deg": 26.744674,
+          "dec_deg": 25.6263351
+        },
+        {
+          "ra_deg": 27.498539,
+          "dec_deg": 25.6222954
+        },
+        {
+          "ra_deg": 28.503543,
+          "dec_deg": 25.6167431
+        },
+        {
+          "ra_deg": 29.508654,
+          "dec_deg": 25.6110001
+        },
+        {
+          "ra_deg": 30.513711,
+          "dec_deg": 25.6050701
+        }
+      ]
+    },
+    {
+      "neighbor": "Aries",
+      "neighbor_abbreviation": "ARI",
+      "points": [
+        {
+          "ra_deg": 30.513711,
+          "dec_deg": 25.6050701
+        },
+        {
+          "ra_deg": 30.515556,
+          "dec_deg": 25.8550663
+        },
+        {
+          "ra_deg": 30.52302,
+          "dec_deg": 26.8550434
+        },
+        {
+          "ra_deg": 30.530616,
+          "dec_deg": 27.8550186
+        }
+      ]
+    },
+    {
+      "neighbor": "Aries",
+      "neighbor_abbreviation": "ARI",
+      "points": [
+        {
+          "ra_deg": 30.530616,
+          "dec_deg": 27.8550186
+        },
+        {
+          "ra_deg": 31.033312,
+          "dec_deg": 27.851984
+        },
+        {
+          "ra_deg": 32.038804,
+          "dec_deg": 27.8457756
+        },
+        {
+          "ra_deg": 33.044085,
+          "dec_deg": 27.8393841
+        },
+        {
+          "ra_deg": 34.049456,
+          "dec_deg": 27.8328133
+        },
+        {
+          "ra_deg": 35.054769,
+          "dec_deg": 27.8260632
+        },
+        {
+          "ra_deg": 36.059861,
+          "dec_deg": 27.8191376
+        },
+        {
+          "ra_deg": 37.065039,
+          "dec_deg": 27.8120365
+        },
+        {
+          "ra_deg": 38.070149,
+          "dec_deg": 27.8047638
+        }
+      ]
+    },
+    {
+      "neighbor": "Aries",
+      "neighbor_abbreviation": "ARI",
+      "points": [
+        {
+          "ra_deg": 38.070149,
+          "dec_deg": 27.8047638
+        },
+        {
+          "ra_deg": 38.074061,
+          "dec_deg": 28.2214203
+        },
+        {
+          "ra_deg": 38.083581,
+          "dec_deg": 29.221386
+        },
+        {
+          "ra_deg": 38.093287,
+          "dec_deg": 30.2213516
+        },
+        {
+          "ra_deg": 38.103194,
+          "dec_deg": 31.2213154
+        }
+      ]
+    },
+    {
+      "neighbor": "Aries",
+      "neighbor_abbreviation": "ARI",
+      "points": [
+        {
+          "ra_deg": 38.103194,
+          "dec_deg": 31.2213154
+        },
+        {
+          "ra_deg": 38.606022,
+          "dec_deg": 31.2176132
+        },
+        {
+          "ra_deg": 39.611775,
+          "dec_deg": 31.210083
+        },
+        {
+          "ra_deg": 40.617296,
+          "dec_deg": 31.2023869
+        },
+        {
+          "ra_deg": 41.622881,
+          "dec_deg": 31.1945248
+        },
+        {
+          "ra_deg": 42.62838,
+          "dec_deg": 31.1865025
+        }
+      ]
+    },
+    {
+      "neighbor": "Perseus",
+      "neighbor_abbreviation": "PER",
+      "points": [
+        {
+          "ra_deg": 42.62838,
+          "dec_deg": 31.1865025
+        },
+        {
+          "ra_deg": 42.632064,
+          "dec_deg": 31.5198135
+        },
+        {
+          "ra_deg": 42.643275,
+          "dec_deg": 32.5197716
+        },
+        {
+          "ra_deg": 42.654736,
+          "dec_deg": 33.5197258
+        },
+        {
+          "ra_deg": 42.666468,
+          "dec_deg": 34.5196762
+        }
+      ]
+    },
+    {
+      "neighbor": "Perseus",
+      "neighbor_abbreviation": "PER",
+      "points": [
+        {
+          "ra_deg": 42.666468,
+          "dec_deg": 34.5196762
+        },
+        {
+          "ra_deg": 42.414876,
+          "dec_deg": 34.521698
+        },
+        {
+          "ra_deg": 41.408604,
+          "dec_deg": 34.529686
+        },
+        {
+          "ra_deg": 40.402383,
+          "dec_deg": 34.5375137
+        }
+      ]
+    },
+    {
+      "neighbor": "Perseus",
+      "neighbor_abbreviation": "PER",
+      "points": [
+        {
+          "ra_deg": 40.402383,
+          "dec_deg": 34.5375137
+        },
+        {
+          "ra_deg": 40.410966,
+          "dec_deg": 35.2874832
+        },
+        {
+          "ra_deg": 40.42266,
+          "dec_deg": 36.2874336
+        },
+        {
+          "ra_deg": 40.434659,
+          "dec_deg": 37.2873878
+        }
+      ]
+    },
+    {
+      "neighbor": "Perseus",
+      "neighbor_abbreviation": "PER",
+      "points": [
+        {
+          "ra_deg": 40.434659,
+          "dec_deg": 37.2873878
+        },
+        {
+          "ra_deg": 39.679341,
+          "dec_deg": 37.2931557
+        }
+      ]
+    },
+    {
+      "neighbor": "Andromeda",
+      "neighbor_abbreviation": "AND",
+      "points": [
+        {
+          "ra_deg": 39.679341,
+          "dec_deg": 37.2931557
+        },
+        {
+          "ra_deg": 38.923966,
+          "dec_deg": 37.2988281
+        },
+        {
+          "ra_deg": 37.916658,
+          "dec_deg": 37.3062439
+        },
+        {
+          "ra_deg": 36.909249,
+          "dec_deg": 37.313488
+        },
+        {
+          "ra_deg": 35.901894,
+          "dec_deg": 37.3205605
+        },
+        {
+          "ra_deg": 34.894294,
+          "dec_deg": 37.3274612
+        },
+        {
+          "ra_deg": 33.886596,
+          "dec_deg": 37.3341827
+        },
+        {
+          "ra_deg": 32.878965,
+          "dec_deg": 37.3407249
+        },
+        {
+          "ra_deg": 31.871091,
+          "dec_deg": 37.347084
+        }
+      ]
+    },
+    {
+      "neighbor": "Andromeda",
+      "neighbor_abbreviation": "AND",
+      "points": [
+        {
+          "ra_deg": 31.871091,
+          "dec_deg": 37.347084
+        },
+        {
+          "ra_deg": 31.863781,
+          "dec_deg": 36.5971069
+        },
+        {
+          "ra_deg": 31.854251,
+          "dec_deg": 35.5971375
+        }
+      ]
+    },
+    {
+      "neighbor": "Andromeda",
+      "neighbor_abbreviation": "AND",
+      "points": [
+        {
+          "ra_deg": 31.854251,
+          "dec_deg": 35.5971375
+        },
+        {
+          "ra_deg": 30.972816,
+          "dec_deg": 35.6025505
+        },
+        {
+          "ra_deg": 29.965279,
+          "dec_deg": 35.6085625
+        },
+        {
+          "ra_deg": 28.957668,
+          "dec_deg": 35.6143913
+        },
+        {
+          "ra_deg": 27.950134,
+          "dec_deg": 35.6200294
+        },
+        {
+          "ra_deg": 26.942376,
+          "dec_deg": 35.6254768
+        },
+        {
+          "ra_deg": 25.934551,
+          "dec_deg": 35.6307335
+        },
+        {
+          "ra_deg": 24.926809,
+          "dec_deg": 35.6357956
+        },
+        {
+          "ra_deg": 23.918853,
+          "dec_deg": 35.640667
+        },
+        {
+          "ra_deg": 22.910835,
+          "dec_deg": 35.6453362
+        }
+      ]
+    },
+    {
+      "neighbor": "Andromeda",
+      "neighbor_abbreviation": "AND",
+      "points": [
+        {
+          "ra_deg": 22.910835,
+          "dec_deg": 35.6453362
+        },
+        {
+          "ra_deg": 22.904051,
+          "dec_deg": 34.6453514
+        },
+        {
+          "ra_deg": 22.897426,
+          "dec_deg": 33.6453705
+        }
+      ]
+    },
+    {
+      "neighbor": "Pisces",
+      "neighbor_abbreviation": "PSC",
+      "points": [
+        {
+          "ra_deg": 22.897426,
+          "dec_deg": 33.6453705
+        },
+        {
+          "ra_deg": 22.890956,
+          "dec_deg": 32.6453819
+        },
+        {
+          "ra_deg": 22.884627,
+          "dec_deg": 31.6453953
+        },
+        {
+          "ra_deg": 22.878434,
+          "dec_deg": 30.6454124
+        },
+        {
+          "ra_deg": 22.872367,
+          "dec_deg": 29.6454239
+        },
+        {
+          "ra_deg": 22.86642,
+          "dec_deg": 28.6454391
+        }
+      ]
+    }
+  ],
+  "sources": [
+    {
+      "label": "Stellarium Western sky culture",
+      "url": "https://raw.githubusercontent.com/Stellarium/stellarium-skycultures/014fbb5e59233d133c22f9811af96b67d05a95c9/western/index.json",
+      "path": "catalog-work/western-constellation-stars/stellarium-western-index.json",
+      "sha256": "a861accd345249a185a5ecfc2a516f34291c0aa52f4bb8d8337ffc53e9cef6b9"
+    },
+    {
+      "label": "Adopted star positions and names",
+      "url": "https://simbad.cds.unistra.fr/simbad/",
+      "path": "src/data/catalogs/western-constellation-stars/stars.csv",
+      "sha256": "0a8b7c1dc3f7e3412c5cffb09a18cdf5b5b7424cc89ea8a0a1ffb4da57d3ad6a"
+    },
+    {
+      "label": "Hipparcos Johnson V magnitudes",
+      "url": "https://cdsarc.cds.unistra.fr/viz-bin/cat/I/239",
+      "path": "catalog-work/western-constellation-stars/hipparcos-v.csv",
+      "sha256": "eec12b740da3aac5204ba75ca5158b6f9f2f81886dda2526fe765cf9ea159320"
+    },
+    {
+      "label": "CDS / IAU constellation boundaries (J2000)",
+      "url": "https://cdsarc.cds.unistra.fr/viz-bin/cat/VI/49",
+      "path": "catalog-work/constellation-charts/boundaries-j2000.dat.gz",
+      "sha256": "879cd6e7a1c908f1e19a5f5fe8cc75fb1d1077564e3890f9152a3680affe9aac",
+      "inputs": [
+        {
+          "path": "catalog-work/constellation-charts/boundary-contours-b1875.dat",
+          "sha256": "865cdf4218f676eb304587c75c63231948d29cd0abe6892a8a8130c1c4fe3592"
+        },
+        {
+          "path": "catalog-work/constellation-charts/boundary-contours-readme.txt",
+          "sha256": "a3ec688bea21e9db10832842c9b845558dbe8ccf820ddedec842d664d2b74c89"
+        }
+      ]
+    }
+  ]
+}

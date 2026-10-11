@@ -1,0 +1,1424 @@
+{
+  "schemaVersion": 1,
+  "abbreviation": "Leo",
+  "name": "Leo",
+  "center": {
+    "ra_deg": 158.11540710694086,
+    "dec_deg": 19.424331223117086
+  },
+  "stars": [
+    {
+      "hip": 47908,
+      "name": "Epsilon Leo",
+      "ra_deg": 146.46280673687792,
+      "dec_deg": 23.77425377711222,
+      "magnitude_v": 2.97,
+      "bayer": "ε",
+      "object": {
+        "x_pc": -41.43307261,
+        "y_pc": -20.944690803,
+        "z_pc": 51.932804727,
+        "vx_kms": -13.17763,
+        "vy_kms": -6.173038,
+        "vz_kms": -7.205759,
+        "temperature_k": 5370.0,
+        "mass_solar": 3.79,
+        "luminosity_solar": 302.0465856984042,
+        "radius_solar": 21.87761623949553,
+        "metallicity_dex": -0.05,
+        "age_gyr": null,
+        "absolute_mag": -1.234891,
+        "epoch": 2000.0,
+        "type": "star",
+        "id": "hip-47908",
+        "name": "Epsilon Leo",
+        "constellation": "Leo",
+        "spectral_type": "G1IIIa",
+        "metallicity_kind": "[Fe/H]",
+        "notes": "Western constellation line-figure star (HIP 47908; Stellarium Leo). SIMBAD identity * eps Leo; SIMBAD compiled Johnson V=2.98; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, mass_solar, radius_solar, luminosity_solar. Shared exact-identity physical supplements (metallicity_dex: 2025A&A...696A..23B).",
+        "designations": [
+          "HIP 47908"
+        ],
+        "raw_astrometry": {
+          "ra_deg": 146.46280673687792,
+          "dec_deg": 23.77425377711222,
+          "parallax_mas": 14.3394,
+          "parallax_error_mas": 0.3209,
+          "pm_ra_cosdec_masyr": -46.154,
+          "pm_ra_error_masyr": null,
+          "pm_dec_masyr": -10.799,
+          "pm_dec_error_masyr": null,
+          "radial_velocity_kms": 4.322,
+          "radial_velocity_error_kms": null,
+          "epoch": 2000.0,
+          "astrometry_ref": "SIMBAD TAP snapshot 2026-10-01",
+          "radial_velocity_ref": "SIMBAD TAP snapshot 2026-10-01"
+        }
+      }
+    },
+    {
+      "hip": 48455,
+      "name": "Rasalas",
+      "ra_deg": 148.190904223595,
+      "dec_deg": 26.00695118609,
+      "magnitude_v": 3.88,
+      "bayer": "μ",
+      "object": {
+        "x_pc": -22.350887029,
+        "y_pc": -9.972380029,
+        "z_pc": 29.423193134,
+        "vx_kms": -35.693671,
+        "vy_kms": -17.753147,
+        "vz_kms": -15.380056,
+        "temperature_k": 4467.0,
+        "mass_solar": 1.31,
+        "luminosity_solar": 65.276749,
+        "radius_solar": 13.489628825916533,
+        "metallicity_dex": 0.27,
+        "age_gyr": null,
+        "absolute_mag": 0.965602,
+        "epoch": 2000.0,
+        "type": "star",
+        "id": "hip-48455",
+        "name": "Rasalas",
+        "constellation": "Leo",
+        "spectral_type": "K2IIIbCN1Ca1",
+        "metallicity_kind": "[Fe/H]",
+        "notes": "Western constellation line-figure star (HIP 48455; Stellarium Leo). SIMBAD identity * mu. Leo; SIMBAD compiled Johnson V=3.88; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, mass_solar, radius_solar; Stefan-Boltzmann scaling for luminosity_solar. Shared exact-identity physical supplements (metallicity_dex: 2025A&A...698A..93J).",
+        "designations": [
+          "HIP 48455"
+        ],
+        "raw_astrometry": {
+          "ra_deg": 148.190904223595,
+          "dec_deg": 26.00695118609,
+          "parallax_mas": 26.0971,
+          "parallax_error_mas": 0.1974,
+          "pm_ra_cosdec_masyr": -216.266,
+          "pm_ra_error_masyr": null,
+          "pm_dec_masyr": -55.125,
+          "pm_dec_error_masyr": null,
+          "radial_velocity_kms": 13.647,
+          "radial_velocity_error_kms": null,
+          "epoch": 2000.0,
+          "astrometry_ref": "SIMBAD TAP snapshot 2026-10-01",
+          "radial_velocity_ref": "SIMBAD TAP snapshot 2026-10-01"
+        }
+      }
+    },
+    {
+      "hip": 49583,
+      "name": "Eta Leo",
+      "ra_deg": 151.83313496465667,
+      "dec_deg": 16.762663324555,
+      "magnitude_v": 3.48,
+      "bayer": "η",
+      "object": {
+        "x_pc": -292.154420317,
+        "y_pc": -241.091080287,
+        "z_pc": 463.612416636,
+        "vx_kms": -3.235409,
+        "vy_kms": -3.315508,
+        "vz_kms": -0.121451,
+        "temperature_k": 9000.0,
+        "mass_solar": null,
+        "luminosity_solar": 12047.092237774896,
+        "radius_solar": 45.144905,
+        "metallicity_dex": 0.19,
+        "age_gyr": null,
+        "absolute_mag": -5.475967,
+        "epoch": 2000.0,
+        "type": "star",
+        "id": "hip-49583",
+        "name": "Eta Leo",
+        "constellation": "Leo",
+        "spectral_type": "A0Ib",
+        "metallicity_kind": "[Fe/H]",
+        "notes": "Western constellation line-figure star (HIP 49583; Stellarium Leo). SIMBAD identity * eta Leo; SIMBAD compiled Johnson V=3.41; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, luminosity_solar; Stefan-Boltzmann scaling for radius_solar. Shared exact-identity physical supplements (metallicity_dex: 2023ApJS..266...41P).",
+        "designations": [
+          "HIP 49583"
+        ],
+        "raw_astrometry": {
+          "ra_deg": 151.83313496465667,
+          "dec_deg": 16.762663324555,
+          "parallax_mas": 1.7965,
+          "parallax_error_mas": 0.3051,
+          "pm_ra_cosdec_masyr": -1.118,
+          "pm_ra_error_masyr": null,
+          "pm_dec_masyr": -0.655,
+          "pm_dec_error_masyr": null,
+          "radial_velocity_kms": 2.82,
+          "radial_velocity_error_kms": null,
+          "epoch": 2000.0,
+          "astrometry_ref": "SIMBAD TAP snapshot 2026-10-01",
+          "radial_velocity_ref": "SIMBAD TAP snapshot 2026-10-01"
+        }
+      }
+    },
+    {
+      "hip": 49669,
+      "name": "Regulus",
+      "ra_deg": 152.09296243828146,
+      "dec_deg": 11.967208776100023,
+      "magnitude_v": 1.36,
+      "bayer": "α",
+      "object": {
+        "x_pc": -11.009029659,
+        "y_pc": -11.571672948,
+        "z_pc": 18.331041438,
+        "vx_kms": -23.44636,
+        "vy_kms": -4.424984,
+        "vz_kms": -15.920115,
+        "temperature_k": 10965.0,
+        "mass_solar": 3.23,
+        "luminosity_solar": 246.227,
+        "radius_solar": 4.3481,
+        "metallicity_dex": 0.1668,
+        "age_gyr": null,
+        "absolute_mag": -0.529206,
+        "epoch": 2000.0,
+        "type": "star",
+        "id": "hip-49669",
+        "name": "Regulus",
+        "constellation": "Leo",
+        "spectral_type": "B8IVn",
+        "metallicity_kind": "[Fe/H]",
+        "notes": "Western constellation line-figure star (HIP 49669; Stellarium Leo). SIMBAD identity * alf Leo; SIMBAD compiled Johnson V=1.4; inverse SIMBAD compiled parallax distance; absolute V uses no extinction correction. Physical parameters: reviewed Star View values for temperature_k, mass_solar, luminosity_solar, radius_solar, metallicity_dex.",
+        "designations": [
+          "HIP 49669"
+        ],
+        "raw_astrometry": {
+          "ra_deg": 152.09296243828146,
+          "dec_deg": 11.967208776100023,
+          "parallax_mas": 41.13,
+          "parallax_error_mas": 0.35,
+          "pm_ra_cosdec_masyr": -248.73,
+          "pm_ra_error_masyr": null,
+          "pm_dec_masyr": 5.59,
+          "pm_dec_error_masyr": null,
+          "radial_velocity_kms": 0.719522,
+          "radial_velocity_error_kms": null,
+          "epoch": 2000.0,
+          "astrometry_ref": "SIMBAD TAP snapshot 2026-10-01",
+          "radial_velocity_ref": "SIMBAD TAP snapshot 2026-10-01"
+        }
+      }
+    },
+    {
+      "hip": 50335,
+      "name": "Adhafera",
+      "ra_deg": 154.17256318434792,
+      "dec_deg": 23.417316988991107,
+      "magnitude_v": 3.43,
+      "bayer": "ζ",
+      "object": {
+        "x_pc": -35.211221217,
+        "y_pc": -20.516252785,
+        "z_pc": 58.103000673,
+        "vx_kms": 12.748137,
+        "vy_kms": 2.268513,
+        "vz_kms": -6.521668,
+        "temperature_k": 7079.0,
+        "mass_solar": 3.12,
+        "luminosity_solar": 164.81722308170475,
+        "radius_solar": 9.33254300796991,
+        "metallicity_dex": 0.11,
+        "age_gyr": null,
+        "absolute_mag": -0.845366,
+        "epoch": 2000.0,
+        "type": "star",
+        "id": "hip-50335",
+        "name": "Adhafera",
+        "constellation": "Leo",
+        "spectral_type": "F0IIIa",
+        "metallicity_kind": "[Fe/H]",
+        "notes": "Western constellation line-figure star (HIP 50335; Stellarium Leo). SIMBAD identity * zet Leo; SIMBAD compiled Johnson V=3.41; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, mass_solar, radius_solar, luminosity_solar. Shared exact-identity physical supplements (metallicity_dex: 2014ApJ...791...58A).",
+        "designations": [
+          "HIP 50335"
+        ],
+        "raw_astrometry": {
+          "ra_deg": 154.17256318434792,
+          "dec_deg": 23.417316988991107,
+          "parallax_mas": 14.0377,
+          "parallax_error_mas": 0.2883,
+          "pm_ra_cosdec_masyr": 21.161,
+          "pm_ra_error_masyr": null,
+          "pm_dec_masyr": -8.263,
+          "pm_dec_error_masyr": null,
+          "radial_velocity_kms": -12.32,
+          "radial_velocity_error_kms": null,
+          "epoch": 2000.0,
+          "astrometry_ref": "SIMBAD TAP snapshot 2026-10-01",
+          "radial_velocity_ref": "SIMBAD TAP snapshot 2026-10-01"
+        }
+      }
+    },
+    {
+      "hip": 50583,
+      "name": "Algieba",
+      "ra_deg": 154.99312733272745,
+      "dec_deg": 19.84148521911754,
+      "magnitude_v": 2.01,
+      "bayer": "γ",
+      "object": {
+        "x_pc": -18.538101462,
+        "y_pc": -13.743344435,
+        "z_pc": 32.535162055,
+        "vx_kms": 73.836812,
+        "vy_kms": -3.129868,
+        "vz_kms": -3.68134,
+        "temperature_k": 4292.0,
+        "mass_solar": null,
+        "luminosity_solar": null,
+        "radius_solar": null,
+        "metallicity_dex": -0.54,
+        "age_gyr": null,
+        "absolute_mag": -0.994228,
+        "epoch": 2000.0,
+        "type": "star",
+        "id": "hip-50583",
+        "name": "Algieba",
+        "constellation": "Leo",
+        "spectral_type": "K1-III+G7IIIb",
+        "metallicity_kind": "[Fe/H]",
+        "notes": "Western constellation line-figure star (HIP 50583; Stellarium Leo). SIMBAD identity * gam Leo; Hipparcos Johnson V=2.01 (SIMBAD V unavailable); inverse SIMBAD compiled parallax distance; absolute V uses no extinction correction. Shared exact-identity physical supplements (temperature_k: 2022A&A...668A..88N; metallicity_dex: 2022A&A...668A..88N).",
+        "designations": [
+          "HIP 50583"
+        ],
+        "raw_astrometry": {
+          "ra_deg": 154.99312733272745,
+          "dec_deg": 19.84148521911754,
+          "parallax_mas": 25.07,
+          "parallax_error_mas": 0.52,
+          "pm_ra_cosdec_masyr": 304.3,
+          "pm_ra_error_masyr": null,
+          "pm_dec_masyr": -154.28,
+          "pm_dec_error_masyr": null,
+          "radial_velocity_kms": -36.24,
+          "radial_velocity_error_kms": null,
+          "epoch": 2000.0,
+          "astrometry_ref": "SIMBAD TAP snapshot 2026-10-01",
+          "radial_velocity_ref": "SIMBAD TAP snapshot 2026-10-01"
+        }
+      }
+    },
+    {
+      "hip": 54872,
+      "name": "Zosma",
+      "ra_deg": 168.52708926588556,
+      "dec_deg": 20.523718139047475,
+      "magnitude_v": 2.56,
+      "bayer": "δ",
+      "object": {
+        "x_pc": -5.051381058,
+        "y_pc": -4.91714498,
+        "z_pc": 16.469445616,
+        "vx_kms": 20.985914,
+        "vy_kms": -0.081756,
+        "vz_kms": -16.321857,
+        "temperature_k": 8318.0,
+        "mass_solar": 2.08,
+        "luminosity_solar": 23.97,
+        "radius_solar": 2.2387,
+        "metallicity_dex": null,
+        "age_gyr": null,
+        "absolute_mag": 1.263949,
+        "epoch": 2000.0,
+        "type": "star",
+        "id": "hip-54872",
+        "name": "Zosma",
+        "constellation": "Leo",
+        "spectral_type": "A5IV(n)",
+        "metallicity_kind": null,
+        "notes": "Western constellation line-figure star (HIP 54872; Stellarium Leo). SIMBAD identity * del Leo; SIMBAD compiled Johnson V=2.53; inverse SIMBAD compiled parallax distance; absolute V uses no extinction correction. Physical parameters: reviewed Star View values for temperature_k, mass_solar, luminosity_solar, radius_solar.",
+        "designations": [
+          "HIP 54872"
+        ],
+        "raw_astrometry": {
+          "ra_deg": 168.52708926588556,
+          "dec_deg": 20.523718139047475,
+          "parallax_mas": 55.82,
+          "parallax_error_mas": 0.25,
+          "pm_ra_cosdec_masyr": 143.42,
+          "pm_ra_error_masyr": null,
+          "pm_dec_masyr": -129.88,
+          "pm_dec_error_masyr": null,
+          "radial_velocity_kms": -20.9,
+          "radial_velocity_error_kms": null,
+          "epoch": 2000.0,
+          "astrometry_ref": "SIMBAD TAP snapshot 2026-10-01",
+          "radial_velocity_ref": "SIMBAD TAP snapshot 2026-10-01"
+        }
+      }
+    },
+    {
+      "hip": 54879,
+      "name": "Chertan",
+      "ra_deg": 168.56002362722833,
+      "dec_deg": 15.429571086424442,
+      "magnitude_v": 3.33,
+      "bayer": "θ",
+      "object": {
+        "x_pc": -12.003872035,
+        "y_pc": -17.382561928,
+        "z_pc": 44.458075622,
+        "vx_kms": -6.105774,
+        "vy_kms": -23.450374,
+        "vz_kms": -2.473936,
+        "temperature_k": 9120.0,
+        "mass_solar": 2.73,
+        "luminosity_solar": 87.42827476507604,
+        "radius_solar": 4.265795188015927,
+        "metallicity_dex": 0.02,
+        "age_gyr": null,
+        "absolute_mag": -0.110779,
+        "epoch": 2000.0,
+        "type": "star",
+        "id": "hip-54879",
+        "name": "Chertan",
+        "constellation": "Leo",
+        "spectral_type": "A2IV",
+        "metallicity_kind": "[Fe/H]",
+        "notes": "Western constellation line-figure star (HIP 54879; Stellarium Leo). SIMBAD identity * tet Leo; SIMBAD compiled Johnson V=3.35; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, mass_solar, radius_solar, luminosity_solar. Shared exact-identity physical supplements (metallicity_dex: 2021MNRAS.505.4496G).",
+        "designations": [
+          "HIP 54879"
+        ],
+        "raw_astrometry": {
+          "ra_deg": 168.56002362722833,
+          "dec_deg": 15.429571086424442,
+          "parallax_mas": 20.316,
+          "parallax_error_mas": 0.3262,
+          "pm_ra_cosdec_masyr": -60.538,
+          "pm_ra_error_masyr": null,
+          "pm_dec_masyr": -78.675,
+          "pm_dec_error_masyr": null,
+          "radial_velocity_kms": 7.536,
+          "radial_velocity_error_kms": null,
+          "epoch": 2000.0,
+          "astrometry_ref": "SIMBAD TAP snapshot 2026-10-01",
+          "radial_velocity_ref": "SIMBAD TAP snapshot 2026-10-01"
+        }
+      }
+    },
+    {
+      "hip": 57632,
+      "name": "Denebola",
+      "ra_deg": 177.26490975591017,
+      "dec_deg": 14.572058064829658,
+      "magnitude_v": 2.14,
+      "bayer": "β",
+      "object": {
+        "x_pc": -1.199207251,
+        "y_pc": -3.412991003,
+        "z_pc": 10.388020717,
+        "vx_kms": -19.867449,
+        "vy_kms": -15.954117,
+        "vz_kms": -7.747041,
+        "temperature_k": 8421.0,
+        "mass_solar": 1.9,
+        "luminosity_solar": 11.91651817,
+        "radius_solar": 1.621810097,
+        "metallicity_dex": 0.07,
+        "age_gyr": null,
+        "absolute_mag": 1.923058,
+        "epoch": 2000.0,
+        "type": "star",
+        "id": "hip-57632",
+        "name": "Denebola",
+        "constellation": "Leo",
+        "spectral_type": "A3Va",
+        "metallicity_kind": "[Fe/H]",
+        "notes": "Corrected CNS5 2899; J2000 Sun-relative Galactic position. SIMBAD exact CNS5 identity.  Shared exact-identity physical supplements (temperature_k: 2013ApJ...771...40B; metallicity_dex: 2003A&A...398.1121E; mass_solar: 1999A&A...352..555A; radius_solar: 1999A&A...352..555A). luminosity_solar derived by Stefan-Boltzmann scaling from adopted inputs (solar Teff=5772 K); inherits their measurement/model/estimate assumptions. Adopted coordinate/motion bundle: western-constellation-stars:hip-57632. Prefer the published 2013 object-specific temperature over the 1999 model temperature; retain the precise adopted radius and its Stefan-Boltzmann luminosity.",
+        "designations": [
+          "HIP 57632"
+        ],
+        "raw_astrometry": {
+          "ra_deg": 177.26490975591017,
+          "dec_deg": 14.572058064829658,
+          "parallax_mas": 90.91,
+          "parallax_error_mas": 0.52,
+          "pm_ra_cosdec_masyr": -497.68,
+          "pm_ra_error_masyr": null,
+          "pm_dec_masyr": -114.67,
+          "pm_dec_error_masyr": null,
+          "radial_velocity_kms": -0.2,
+          "radial_velocity_error_kms": null,
+          "epoch": 2000.0,
+          "astrometry_ref": "SIMBAD TAP snapshot 2026-10-01",
+          "radial_velocity_ref": "SIMBAD TAP snapshot 2026-10-01"
+        }
+      }
+    }
+  ],
+  "lines": [
+    [
+      57632,
+      54879
+    ],
+    [
+      54879,
+      49669
+    ],
+    [
+      49669,
+      49583
+    ],
+    [
+      49583,
+      50583
+    ],
+    [
+      50583,
+      54872
+    ],
+    [
+      54872,
+      57632
+    ],
+    [
+      50583,
+      50335
+    ],
+    [
+      50335,
+      48455
+    ],
+    [
+      48455,
+      47908
+    ],
+    [
+      54872,
+      54879
+    ]
+  ],
+  "boundaries": [
+    {
+      "neighbor": "Hydra",
+      "neighbor_abbreviation": "HYA",
+      "points": [
+        {
+          "ra_deg": 140.404259,
+          "dec_deg": 6.4700689
+        },
+        {
+          "ra_deg": 141.403184,
+          "dec_deg": 6.4622765
+        },
+        {
+          "ra_deg": 142.401939,
+          "dec_deg": 6.4546485
+        },
+        {
+          "ra_deg": 143.400836,
+          "dec_deg": 6.447185
+        },
+        {
+          "ra_deg": 144.399705,
+          "dec_deg": 6.4398904
+        },
+        {
+          "ra_deg": 145.398417,
+          "dec_deg": 6.4327669
+        }
+      ]
+    },
+    {
+      "neighbor": "Sextans",
+      "neighbor_abbreviation": "SEX",
+      "points": [
+        {
+          "ra_deg": 145.398417,
+          "dec_deg": 6.4327669
+        },
+        {
+          "ra_deg": 145.897923,
+          "dec_deg": 6.4292688
+        },
+        {
+          "ra_deg": 146.896634,
+          "dec_deg": 6.4224052
+        },
+        {
+          "ra_deg": 147.895459,
+          "dec_deg": 6.4157166
+        },
+        {
+          "ra_deg": 148.894286,
+          "dec_deg": 6.4092054
+        },
+        {
+          "ra_deg": 149.892941,
+          "dec_deg": 6.4028749
+        },
+        {
+          "ra_deg": 150.891751,
+          "dec_deg": 6.3967257
+        },
+        {
+          "ra_deg": 151.890536,
+          "dec_deg": 6.3907595
+        },
+        {
+          "ra_deg": 152.889161,
+          "dec_deg": 6.3849797
+        },
+        {
+          "ra_deg": 153.887929,
+          "dec_deg": 6.3793864
+        },
+        {
+          "ra_deg": 154.886685,
+          "dec_deg": 6.373982
+        },
+        {
+          "ra_deg": 155.885296,
+          "dec_deg": 6.3687687
+        },
+        {
+          "ra_deg": 156.884036,
+          "dec_deg": 6.3637466
+        },
+        {
+          "ra_deg": 157.882762,
+          "dec_deg": 6.3589182
+        },
+        {
+          "ra_deg": 158.881346,
+          "dec_deg": 6.3542852
+        },
+        {
+          "ra_deg": 159.880071,
+          "dec_deg": 6.3498483
+        },
+        {
+          "ra_deg": 160.878783,
+          "dec_deg": 6.3456092
+        },
+        {
+          "ra_deg": 161.877322,
+          "dec_deg": 6.3415694
+        },
+        {
+          "ra_deg": 162.876019,
+          "dec_deg": 6.3377299
+        }
+      ]
+    },
+    {
+      "neighbor": "Sextans",
+      "neighbor_abbreviation": "SEX",
+      "points": [
+        {
+          "ra_deg": 162.876019,
+          "dec_deg": 6.3377299
+        },
+        {
+          "ra_deg": 162.872242,
+          "dec_deg": 5.3377371
+        },
+        {
+          "ra_deg": 162.868467,
+          "dec_deg": 4.3377438
+        },
+        {
+          "ra_deg": 162.864704,
+          "dec_deg": 3.3377509
+        },
+        {
+          "ra_deg": 162.860956,
+          "dec_deg": 2.3377581
+        },
+        {
+          "ra_deg": 162.857208,
+          "dec_deg": 1.3377649
+        },
+        {
+          "ra_deg": 162.853461,
+          "dec_deg": 0.3377719
+        },
+        {
+          "ra_deg": 162.849712,
+          "dec_deg": -0.6622211
+        }
+      ]
+    },
+    {
+      "neighbor": "Sextans",
+      "neighbor_abbreviation": "SEX",
+      "points": [
+        {
+          "ra_deg": 162.849712,
+          "dec_deg": -0.6622211
+        },
+        {
+          "ra_deg": 162.845964,
+          "dec_deg": -1.662214
+        },
+        {
+          "ra_deg": 162.842217,
+          "dec_deg": -2.6622071
+        },
+        {
+          "ra_deg": 162.838469,
+          "dec_deg": -3.6622002
+        },
+        {
+          "ra_deg": 162.834706,
+          "dec_deg": -4.6621928
+        },
+        {
+          "ra_deg": 162.830929,
+          "dec_deg": -5.6621857
+        },
+        {
+          "ra_deg": 162.827139,
+          "dec_deg": -6.662179
+        }
+      ]
+    },
+    {
+      "neighbor": "Crater",
+      "neighbor_abbreviation": "CRT",
+      "points": [
+        {
+          "ra_deg": 162.827139,
+          "dec_deg": -6.662179
+        },
+        {
+          "ra_deg": 163.327717,
+          "dec_deg": -6.6640282
+        },
+        {
+          "ra_deg": 164.329047,
+          "dec_deg": -6.6675744
+        },
+        {
+          "ra_deg": 165.330405,
+          "dec_deg": -6.6709175
+        },
+        {
+          "ra_deg": 166.331606,
+          "dec_deg": -6.6740551
+        },
+        {
+          "ra_deg": 167.332964,
+          "dec_deg": -6.6769881
+        },
+        {
+          "ra_deg": 168.334321,
+          "dec_deg": -6.6797142
+        },
+        {
+          "ra_deg": 169.335537,
+          "dec_deg": -6.6822329
+        },
+        {
+          "ra_deg": 170.33691,
+          "dec_deg": -6.6845436
+        },
+        {
+          "ra_deg": 171.338296,
+          "dec_deg": -6.6866455
+        },
+        {
+          "ra_deg": 172.339526,
+          "dec_deg": -6.6885381
+        },
+        {
+          "ra_deg": 173.340912,
+          "dec_deg": -6.6902204
+        },
+        {
+          "ra_deg": 174.342299,
+          "dec_deg": -6.6916924
+        }
+      ]
+    },
+    {
+      "neighbor": "Virgo",
+      "neighbor_abbreviation": "VIR",
+      "points": [
+        {
+          "ra_deg": 174.342299,
+          "dec_deg": -6.6916924
+        },
+        {
+          "ra_deg": 174.343672,
+          "dec_deg": -5.6916928
+        },
+        {
+          "ra_deg": 174.34506,
+          "dec_deg": -4.6916943
+        },
+        {
+          "ra_deg": 174.346432,
+          "dec_deg": -3.6916952
+        },
+        {
+          "ra_deg": 174.347791,
+          "dec_deg": -2.6916959
+        },
+        {
+          "ra_deg": 174.349166,
+          "dec_deg": -1.6916969
+        },
+        {
+          "ra_deg": 174.350524,
+          "dec_deg": -0.6916979
+        }
+      ]
+    },
+    {
+      "neighbor": "Virgo",
+      "neighbor_abbreviation": "VIR",
+      "points": [
+        {
+          "ra_deg": 174.350524,
+          "dec_deg": -0.6916979
+        },
+        {
+          "ra_deg": 174.351897,
+          "dec_deg": 0.3083012
+        },
+        {
+          "ra_deg": 174.353256,
+          "dec_deg": 1.3083003
+        },
+        {
+          "ra_deg": 174.35463,
+          "dec_deg": 2.3082993
+        },
+        {
+          "ra_deg": 174.355989,
+          "dec_deg": 3.3082983
+        },
+        {
+          "ra_deg": 174.357361,
+          "dec_deg": 4.3082972
+        },
+        {
+          "ra_deg": 174.358736,
+          "dec_deg": 5.3082967
+        },
+        {
+          "ra_deg": 174.360123,
+          "dec_deg": 6.3082957
+        },
+        {
+          "ra_deg": 174.361496,
+          "dec_deg": 7.3082948
+        },
+        {
+          "ra_deg": 174.362883,
+          "dec_deg": 8.3082943
+        },
+        {
+          "ra_deg": 174.364286,
+          "dec_deg": 9.3082924
+        },
+        {
+          "ra_deg": 174.365688,
+          "dec_deg": 10.3082914
+        }
+      ]
+    },
+    {
+      "neighbor": "Virgo",
+      "neighbor_abbreviation": "VIR",
+      "points": [
+        {
+          "ra_deg": 174.365688,
+          "dec_deg": 10.3082914
+        },
+        {
+          "ra_deg": 174.615026,
+          "dec_deg": 10.3079576
+        },
+        {
+          "ra_deg": 175.612807,
+          "dec_deg": 10.3067541
+        },
+        {
+          "ra_deg": 176.610574,
+          "dec_deg": 10.3057613
+        },
+        {
+          "ra_deg": 177.608199,
+          "dec_deg": 10.3049793
+        },
+        {
+          "ra_deg": 178.605966,
+          "dec_deg": 10.3044081
+        },
+        {
+          "ra_deg": 179.603734,
+          "dec_deg": 10.3040485
+        }
+      ]
+    },
+    {
+      "neighbor": "Virgo",
+      "neighbor_abbreviation": "VIR",
+      "points": [
+        {
+          "ra_deg": 179.603734,
+          "dec_deg": 10.3040485
+        },
+        {
+          "ra_deg": 179.604006,
+          "dec_deg": 11.3040485
+        },
+        {
+          "ra_deg": 179.604264,
+          "dec_deg": 12.3040485
+        },
+        {
+          "ra_deg": 179.604536,
+          "dec_deg": 13.3040485
+        }
+      ]
+    },
+    {
+      "neighbor": "Coma Berenices",
+      "neighbor_abbreviation": "COM",
+      "points": [
+        {
+          "ra_deg": 179.604536,
+          "dec_deg": 13.3040485
+        },
+        {
+          "ra_deg": 179.604807,
+          "dec_deg": 14.3040485
+        },
+        {
+          "ra_deg": 179.605079,
+          "dec_deg": 15.3040485
+        },
+        {
+          "ra_deg": 179.60535,
+          "dec_deg": 16.3040485
+        },
+        {
+          "ra_deg": 179.605623,
+          "dec_deg": 17.3040485
+        },
+        {
+          "ra_deg": 179.605908,
+          "dec_deg": 18.3040485
+        },
+        {
+          "ra_deg": 179.606194,
+          "dec_deg": 19.3040466
+        },
+        {
+          "ra_deg": 179.606481,
+          "dec_deg": 20.3040485
+        },
+        {
+          "ra_deg": 179.606766,
+          "dec_deg": 21.3040485
+        },
+        {
+          "ra_deg": 179.607067,
+          "dec_deg": 22.3040466
+        },
+        {
+          "ra_deg": 179.607367,
+          "dec_deg": 23.3040485
+        },
+        {
+          "ra_deg": 179.607667,
+          "dec_deg": 24.3040485
+        },
+        {
+          "ra_deg": 179.607982,
+          "dec_deg": 25.3040466
+        },
+        {
+          "ra_deg": 179.608282,
+          "dec_deg": 26.3040485
+        },
+        {
+          "ra_deg": 179.608612,
+          "dec_deg": 27.3040485
+        },
+        {
+          "ra_deg": 179.608941,
+          "dec_deg": 28.3040466
+        }
+      ]
+    },
+    {
+      "neighbor": "Ursa Major",
+      "neighbor_abbreviation": "UMA",
+      "points": [
+        {
+          "ra_deg": 179.608941,
+          "dec_deg": 28.3040466
+        },
+        {
+          "ra_deg": 178.615494,
+          "dec_deg": 28.3044052
+        },
+        {
+          "ra_deg": 177.622061,
+          "dec_deg": 28.3049736
+        },
+        {
+          "ra_deg": 176.628771,
+          "dec_deg": 28.3057518
+        },
+        {
+          "ra_deg": 175.635309,
+          "dec_deg": 28.3067417
+        },
+        {
+          "ra_deg": 174.641847,
+          "dec_deg": 28.3079395
+        },
+        {
+          "ra_deg": 173.648514,
+          "dec_deg": 28.3093472
+        },
+        {
+          "ra_deg": 172.655039,
+          "dec_deg": 28.3109646
+        },
+        {
+          "ra_deg": 171.661534,
+          "dec_deg": 28.3127899
+        },
+        {
+          "ra_deg": 170.668158,
+          "dec_deg": 28.3148251
+        },
+        {
+          "ra_deg": 169.674611,
+          "dec_deg": 28.3170643
+        },
+        {
+          "ra_deg": 168.681049,
+          "dec_deg": 28.3195133
+        },
+        {
+          "ra_deg": 167.687602,
+          "dec_deg": 28.3221664
+        },
+        {
+          "ra_deg": 166.693998,
+          "dec_deg": 28.3250256
+        }
+      ]
+    },
+    {
+      "neighbor": "Leo Minor",
+      "neighbor_abbreviation": "LMI",
+      "points": [
+        {
+          "ra_deg": 166.693998,
+          "dec_deg": 28.3250256
+        },
+        {
+          "ra_deg": 166.692081,
+          "dec_deg": 27.8250294
+        },
+        {
+          "ra_deg": 166.688304,
+          "dec_deg": 26.8250332
+        },
+        {
+          "ra_deg": 166.684584,
+          "dec_deg": 25.8250389
+        },
+        {
+          "ra_deg": 166.680937,
+          "dec_deg": 24.8250446
+        }
+      ]
+    },
+    {
+      "neighbor": "Leo Minor",
+      "neighbor_abbreviation": "LMI",
+      "points": [
+        {
+          "ra_deg": 166.680937,
+          "dec_deg": 24.8250446
+        },
+        {
+          "ra_deg": 165.935082,
+          "dec_deg": 24.8273258
+        },
+        {
+          "ra_deg": 164.940534,
+          "dec_deg": 24.8305454
+        },
+        {
+          "ra_deg": 163.9461,
+          "dec_deg": 24.8339653
+        },
+        {
+          "ra_deg": 162.951494,
+          "dec_deg": 24.8375893
+        }
+      ]
+    },
+    {
+      "neighbor": "Leo Minor",
+      "neighbor_abbreviation": "LMI",
+      "points": [
+        {
+          "ra_deg": 162.951494,
+          "dec_deg": 24.8375893
+        },
+        {
+          "ra_deg": 162.946972,
+          "dec_deg": 23.8375969
+        },
+        {
+          "ra_deg": 162.942539,
+          "dec_deg": 22.8376045
+        }
+      ]
+    },
+    {
+      "neighbor": "Leo Minor",
+      "neighbor_abbreviation": "LMI",
+      "points": [
+        {
+          "ra_deg": 162.942539,
+          "dec_deg": 22.8376045
+        },
+        {
+          "ra_deg": 162.196241,
+          "dec_deg": 22.840456
+        },
+        {
+          "ra_deg": 161.201091,
+          "dec_deg": 22.8444309
+        },
+        {
+          "ra_deg": 160.206071,
+          "dec_deg": 22.8486061
+        },
+        {
+          "ra_deg": 159.210877,
+          "dec_deg": 22.8529778
+        }
+      ]
+    },
+    {
+      "neighbor": "Leo Minor",
+      "neighbor_abbreviation": "LMI",
+      "points": [
+        {
+          "ra_deg": 159.210877,
+          "dec_deg": 22.8529778
+        },
+        {
+          "ra_deg": 159.216199,
+          "dec_deg": 23.8529663
+        },
+        {
+          "ra_deg": 159.221621,
+          "dec_deg": 24.8529549
+        },
+        {
+          "ra_deg": 159.227114,
+          "dec_deg": 25.8529415
+        },
+        {
+          "ra_deg": 159.232707,
+          "dec_deg": 26.8529282
+        },
+        {
+          "ra_deg": 159.238401,
+          "dec_deg": 27.8529167
+        }
+      ]
+    },
+    {
+      "neighbor": "Leo Minor",
+      "neighbor_abbreviation": "LMI",
+      "points": [
+        {
+          "ra_deg": 159.238401,
+          "dec_deg": 27.8529167
+        },
+        {
+          "ra_deg": 158.989878,
+          "dec_deg": 27.8540401
+        },
+        {
+          "ra_deg": 157.995972,
+          "dec_deg": 27.8586502
+        },
+        {
+          "ra_deg": 157.001896,
+          "dec_deg": 27.8634567
+        },
+        {
+          "ra_deg": 156.007776,
+          "dec_deg": 27.8684559
+        },
+        {
+          "ra_deg": 155.013757,
+          "dec_deg": 27.8736458
+        },
+        {
+          "ra_deg": 154.019551,
+          "dec_deg": 27.8790245
+        },
+        {
+          "ra_deg": 153.025289,
+          "dec_deg": 27.884594
+        },
+        {
+          "ra_deg": 152.031126,
+          "dec_deg": 27.8903465
+        },
+        {
+          "ra_deg": 151.036762,
+          "dec_deg": 27.896286
+        },
+        {
+          "ra_deg": 150.042344,
+          "dec_deg": 27.9024086
+        }
+      ]
+    },
+    {
+      "neighbor": "Leo Minor",
+      "neighbor_abbreviation": "LMI",
+      "points": [
+        {
+          "ra_deg": 150.042344,
+          "dec_deg": 27.9024086
+        },
+        {
+          "ra_deg": 150.050411,
+          "dec_deg": 28.9023838
+        },
+        {
+          "ra_deg": 150.058651,
+          "dec_deg": 29.902359
+        },
+        {
+          "ra_deg": 150.067049,
+          "dec_deg": 30.9023304
+        },
+        {
+          "ra_deg": 150.075631,
+          "dec_deg": 31.9023056
+        },
+        {
+          "ra_deg": 150.084386,
+          "dec_deg": 32.9022789
+        }
+      ]
+    },
+    {
+      "neighbor": "Leo Minor",
+      "neighbor_abbreviation": "LMI",
+      "points": [
+        {
+          "ra_deg": 150.084386,
+          "dec_deg": 32.9022789
+        },
+        {
+          "ra_deg": 149.587841,
+          "dec_deg": 32.9054031
+        },
+        {
+          "ra_deg": 148.594551,
+          "dec_deg": 32.9117889
+        },
+        {
+          "ra_deg": 147.601347,
+          "dec_deg": 32.918354
+        },
+        {
+          "ra_deg": 146.607914,
+          "dec_deg": 32.9250946
+        },
+        {
+          "ra_deg": 145.614409,
+          "dec_deg": 32.9320068
+        },
+        {
+          "ra_deg": 144.620976,
+          "dec_deg": 32.9390945
+        },
+        {
+          "ra_deg": 143.627314,
+          "dec_deg": 32.9463501
+        },
+        {
+          "ra_deg": 142.633567,
+          "dec_deg": 32.9537735
+        },
+        {
+          "ra_deg": 141.639904,
+          "dec_deg": 32.9613647
+        },
+        {
+          "ra_deg": 140.645985,
+          "dec_deg": 32.9691162
+        }
+      ]
+    },
+    {
+      "neighbor": "Cancer",
+      "neighbor_abbreviation": "CNC",
+      "points": [
+        {
+          "ra_deg": 140.645985,
+          "dec_deg": 32.9691162
+        },
+        {
+          "ra_deg": 140.640421,
+          "dec_deg": 32.4691391
+        },
+        {
+          "ra_deg": 140.629462,
+          "dec_deg": 31.4691811
+        },
+        {
+          "ra_deg": 140.618748,
+          "dec_deg": 30.469223
+        },
+        {
+          "ra_deg": 140.608248,
+          "dec_deg": 29.469265
+        },
+        {
+          "ra_deg": 140.597949,
+          "dec_deg": 28.469305
+        },
+        {
+          "ra_deg": 140.587836,
+          "dec_deg": 27.4693451
+        },
+        {
+          "ra_deg": 140.577922,
+          "dec_deg": 26.4693851
+        },
+        {
+          "ra_deg": 140.568166,
+          "dec_deg": 25.4694233
+        },
+        {
+          "ra_deg": 140.558566,
+          "dec_deg": 24.4694614
+        },
+        {
+          "ra_deg": 140.549141,
+          "dec_deg": 23.4694996
+        },
+        {
+          "ra_deg": 140.539842,
+          "dec_deg": 22.4695339
+        },
+        {
+          "ra_deg": 140.530672,
+          "dec_deg": 21.4695702
+        },
+        {
+          "ra_deg": 140.521631,
+          "dec_deg": 20.4696064
+        },
+        {
+          "ra_deg": 140.512706,
+          "dec_deg": 19.4696407
+        },
+        {
+          "ra_deg": 140.503893,
+          "dec_deg": 18.469677
+        },
+        {
+          "ra_deg": 140.495181,
+          "dec_deg": 17.4697113
+        },
+        {
+          "ra_deg": 140.486569,
+          "dec_deg": 16.4697437
+        },
+        {
+          "ra_deg": 140.478044,
+          "dec_deg": 15.4697781
+        },
+        {
+          "ra_deg": 140.469589,
+          "dec_deg": 14.4698114
+        },
+        {
+          "ra_deg": 140.461221,
+          "dec_deg": 13.4698448
+        },
+        {
+          "ra_deg": 140.452924,
+          "dec_deg": 12.4698772
+        },
+        {
+          "ra_deg": 140.444684,
+          "dec_deg": 11.4699097
+        },
+        {
+          "ra_deg": 140.436501,
+          "dec_deg": 10.4699421
+        },
+        {
+          "ra_deg": 140.428376,
+          "dec_deg": 9.4699736
+        },
+        {
+          "ra_deg": 140.420309,
+          "dec_deg": 8.470006
+        },
+        {
+          "ra_deg": 140.412269,
+          "dec_deg": 7.4700375
+        },
+        {
+          "ra_deg": 140.404259,
+          "dec_deg": 6.4700689
+        }
+      ]
+    }
+  ],
+  "sources": [
+    {
+      "label": "Stellarium Western sky culture",
+      "url": "https://raw.githubusercontent.com/Stellarium/stellarium-skycultures/014fbb5e59233d133c22f9811af96b67d05a95c9/western/index.json",
+      "path": "catalog-work/western-constellation-stars/stellarium-western-index.json",
+      "sha256": "a861accd345249a185a5ecfc2a516f34291c0aa52f4bb8d8337ffc53e9cef6b9"
+    },
+    {
+      "label": "Adopted star positions and names",
+      "url": "https://simbad.cds.unistra.fr/simbad/",
+      "path": "src/data/catalogs/western-constellation-stars/stars.csv",
+      "sha256": "0a8b7c1dc3f7e3412c5cffb09a18cdf5b5b7424cc89ea8a0a1ffb4da57d3ad6a"
+    },
+    {
+      "label": "Hipparcos Johnson V magnitudes",
+      "url": "https://cdsarc.cds.unistra.fr/viz-bin/cat/I/239",
+      "path": "catalog-work/western-constellation-stars/hipparcos-v.csv",
+      "sha256": "eec12b740da3aac5204ba75ca5158b6f9f2f81886dda2526fe765cf9ea159320"
+    },
+    {
+      "label": "CDS / IAU constellation boundaries (J2000)",
+      "url": "https://cdsarc.cds.unistra.fr/viz-bin/cat/VI/49",
+      "path": "catalog-work/constellation-charts/boundaries-j2000.dat.gz",
+      "sha256": "879cd6e7a1c908f1e19a5f5fe8cc75fb1d1077564e3890f9152a3680affe9aac",
+      "inputs": [
+        {
+          "path": "catalog-work/constellation-charts/boundary-contours-b1875.dat",
+          "sha256": "865cdf4218f676eb304587c75c63231948d29cd0abe6892a8a8130c1c4fe3592"
+        },
+        {
+          "path": "catalog-work/constellation-charts/boundary-contours-readme.txt",
+          "sha256": "a3ec688bea21e9db10832842c9b845558dbe8ccf820ddedec842d664d2b74c89"
+        }
+      ]
+    }
+  ]
+}

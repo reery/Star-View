@@ -1,5 +1,7 @@
 """Focused checks for cross-catalog physical enrichment."""
 
+import csv
+import importlib.util
 import sys
 import unittest
 from pathlib import Path
@@ -14,6 +16,27 @@ def empty_row(**values):
 
 
 class EnrichmentTests(unittest.TestCase):
+    def test_zeta_sco_review_precedes_reddened_sed_and_derived_radius(self):
+        spec = importlib.util.spec_from_file_location("landmark_author", Path(__file__).resolve().parents[1] / "author-landmark-stars.py")
+        author = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(author)
+        with author.WESTERN_SOURCE.joinpath("simbad.csv").open() as handle:
+            source = next(item for item in csv.DictReader(handle) if item["main_id"] == "* zet01 Sco")
+        row = empty_row(id="hip-82671", name="Zeta1 Sco", spectral_type="B1.5Ia+")
+        provenance = author.enrich_physical(row, source)
+        self.assertEqual(row["temperature_k"], "17200")
+        self.assertEqual(float(row["radius_solar"]), 103)
+        self.assertAlmostEqual(float(row["luminosity_solar"]), 10 ** 5.93, places=3)
+        for field in ("temperature_k", "luminosity_solar", "radius_solar"):
+            self.assertEqual(provenance["adoptedPhysicalFields"][field], "shared:2012A&A...541A.145C")
+            observation = next(item for item in provenance["physicalObservations"] if item["field"] == field)
+            self.assertEqual(observation["reference"], "2012A&A...541A.145C")
+            self.assertEqual(observation["status"], "model-derived")
+        temperature = next(item for item in provenance["physicalObservations"] if item["field"] == "temperature_k")
+        self.assertEqual(temperature["uncertainty"], 500)
+        self.assertIn("zero-reddening", row["notes"])
+        self.assertEqual(enrich_from_frozen(empty_row(), "* zet02 Sco", reviewed_only=True), {})
+
     def test_betelgeuse_review_preserves_other_fields_and_current_mass_range(self):
         row = empty_row(id="bright-betelgeuse", temperature_k="3659", luminosity_solar="73524.200",
                         radius_solar="674.7501", metallicity_dex="-0.111",

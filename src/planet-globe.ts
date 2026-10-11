@@ -426,8 +426,7 @@ function createPlanetGlobe(canvas: HTMLCanvasElement) {
     material.needsUpdate = true
     bloomPass.strength = id === 'mercury' ? 0.08 : ['jupiter', 'saturn', 'uranus', 'neptune'].includes(id) || moonGlobeAppearances[id] ? 0 : 0.03
     bloomPass.enabled = bloomPass.strength > 0
-    // Start with the Great Red Spot slightly left of center.
-    sphere.rotation.set(id === 'saturn' ? 0.48 : 0.08, id === 'jupiter' ? 0 : -1.2, id === 'saturn' ? -0.15 : id === 'uranus' ? 97.77 * Math.PI / 180 : 0)
+    resetRotation()
     canvas.dataset.planetId = id
     canvas.dataset.textureReady = 'false'
     canvas.title = appearance.credit
@@ -522,6 +521,18 @@ function createPlanetGlobe(canvas: HTMLCanvasElement) {
     requestRender()
   }
   let drag: { id: number; x: number; y: number; time: number } | null = null
+  function resetRotation(): void {
+    stopInertia()
+    const pointerId = drag?.id
+    drag = null
+    canvas.classList.remove('is-dragging')
+    if (pointerId !== undefined && canvas.hasPointerCapture(pointerId)) canvas.releasePointerCapture(pointerId)
+    // Start with the Great Red Spot slightly left of center.
+    sphere.rotation.set(planetId === 'saturn' ? 0.48 : 0.08, planetId === 'jupiter' ? 0 : -1.2,
+      planetId === 'saturn' ? -0.15 : planetId === 'uranus' ? 97.77 * Math.PI / 180 : 0)
+    earthSphere.quaternion.copy(sphere.quaternion)
+    requestRender()
+  }
   canvas.addEventListener('pointerdown', (event) => {
     if (drag || event.button !== 0) return
     event.preventDefault()
@@ -581,6 +592,7 @@ function createPlanetGlobe(canvas: HTMLCanvasElement) {
     canvas,
     setPlanet,
     setComparison,
+    resetRotation,
     requestRender,
     dispose() {
       disposed = true
@@ -638,4 +650,8 @@ export function disposePlanetGlobe(canvas?: HTMLCanvasElement): void {
   }
   for (const globe of globes.values()) globe.dispose()
   globes.clear()
+}
+
+export function resetPlanetGlobe(canvas: HTMLCanvasElement): void {
+  globes.get(canvas)?.resetRotation()
 }

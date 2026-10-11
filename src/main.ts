@@ -464,6 +464,7 @@ type PlanetModules = {
   renderPlanetCard: typeof import('./planet-card').renderPlanetCard
   planetDescriptionForId: typeof import('./planet-properties').planetDescriptionForId
   disposePlanetGlobe: typeof import('./planet-globe').disposePlanetGlobe
+  resetPlanetGlobe: typeof import('./planet-globe').resetPlanetGlobe
 }
 let planetModules: PlanetModules | undefined
 async function loadPlanetModules(): Promise<PlanetModules> {
@@ -473,6 +474,7 @@ async function loadPlanetModules(): Promise<PlanetModules> {
     renderPlanetCard: card.renderPlanetCard,
     planetDescriptionForId: properties.planetDescriptionForId,
     disposePlanetGlobe: globe.disposePlanetGlobe,
+    resetPlanetGlobe: globe.resetPlanetGlobe,
   }
 }
 
@@ -481,6 +483,8 @@ function showPlanetSection(section: typeof planetSections[number]): void {
     element(`planet-${candidate}`).hidden = candidate !== section
     element(`planet-${candidate}-toggle`).setAttribute('aria-expanded', String(candidate === section))
   }
+  const globe = element(`planet-${section}`).querySelector<HTMLCanvasElement>('canvas')
+  if (globe) planetModules?.resetPlanetGlobe(globe)
   element('planet-card').querySelector<HTMLElement>('.card-scroll-content')!.scrollTop = 0
   syncObjectTypeLayout()
 }
