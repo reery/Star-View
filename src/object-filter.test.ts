@@ -7,11 +7,10 @@ import {
 describe('object filter taxonomy', () => {
   it('lists the requested categories and subtypes in order', () => {
     expect(FILTER_CATEGORIES.map((category) => category.label)).toEqual([
-      'Compact objects', 'Stellar systems', 'Interstellar medium', 'Stellar remnants', 'Large-scale structures',
+      'Compact objects', 'Interstellar medium', 'Stellar remnants', 'Large-scale structures',
     ])
     expect(FILTER_CATEGORIES.map((category) => category.subtypes.map((subtype) => subtype.label))).toEqual([
       ['Sun', 'Stars', 'Brown dwarfs', 'White dwarfs', 'Neutron stars', 'Pulsars', 'Black holes'],
-      ['Binaries', 'Multiple systems'],
       ['Molecular clouds', 'Dark nebulae', 'Reflection nebulae', 'H II regions'],
       ['Planetary nebulae', 'Supernova remnants', 'Pulsar-wind nebulae'],
       ['Bubbles', 'Superbubbles', 'Dust sheets'],
@@ -35,7 +34,6 @@ describe('object filter taxonomy', () => {
     const available = availableFilterKeys({ pulsar: 266, neutron_star: 0, black_hole: 2 }, { reflection_nebula: 1, hii_region: 1 })
     expect([...available].sort()).toEqual(['black_hole', 'brown_dwarf', 'hii_region', 'pulsar', 'reflection_nebula', 'star', 'sun', 'white_dwarf'])
     expect(categoryAvailable('interstellar_medium', available)).toBe(true)
-    expect(categoryAvailable('stellar_systems', available)).toBe(false)
     expect(categoryAvailable('large_scale_structures', available)).toBe(false)
   })
 

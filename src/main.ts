@@ -14,6 +14,7 @@ import { EARTH_ORBIT_MODES, earthOrbitDateForMode, earthOrbitModeLabel, isEarthO
 import { MOTION_YEAR_OPTIONS, SIMULATION_YEAR_LIMIT, createStarViewer, type MotionYears, type StarViewer, type ViewerViewState } from './viewer'
 import { isObjectMapVisible } from './viewer-primitives'
 import { renderSelectedStarPreview } from './selected-star-preview'
+import { renderStarInfo } from './star-info'
 import { disposeDistanceComparison, renderDistanceComparison } from './distance-comparison'
 import type { MassReference } from './mass-comparison'
 import { renderRadiusBars } from './radius-card'
@@ -74,6 +75,7 @@ icon('glossary-lock-icon', Lock)
 icon('info-icon', CircleHelp)
 icon('info-brand-icon', Orbit)
 icon('filter-lock-icon', Lock)
+icon('filter-reset-icon', RotateCcw)
 icon('preferences-lock-icon', Lock)
 icon('objects-lock-icon', Lock)
 icon('objects-expand-icon', ChevronsLeftRight)
@@ -1147,6 +1149,8 @@ function renderSelection(): void {
     closeDistanceCard()
     closeSpectralCard()
     closeConstellationCard()
+    renderStarInfo(element('object-info'), null)
+    syncObjectInfoAvailability()
     delete element('inspector').dataset.selectedStar
     element('inspector').style.removeProperty('--selected-star-color')
     text('selection-announcement', 'No object selected.')
@@ -1164,7 +1168,7 @@ function renderSelection(): void {
   renderSystemComponents(system, star.id)
   const knownPlanetCount = planets?.planets.length ?? star.known_planets ?? 0
   renderSelectedStarPreview(element<HTMLCanvasElement>('selected-swatch'), star, starColorMode, system?.components.map((component) => component.star), knownPlanetCount > 0)
-  renderSystemCard(element('object-system'), planets, system, star.id, starColorMode, selectSystemPlanet)
+  renderSystemCard(element('object-system'), planets, system, star, starColorMode, selectSystemPlanet)
   const openPlanet = activePlanetId ? planetModules?.planetDescriptionForId(activePlanetId) : undefined
   if (!planetCardLocked && openPlanet?.hostStarId !== star.id) closePlanetCard()
   if (!element('planet-card').hidden && openPlanet?.hostStarId === star.id) highlightSystemPlanet(element('object-system'), activePlanetId, activePlanetId)
@@ -1179,6 +1183,7 @@ function renderSelection(): void {
     activeObjectSection = 'specs'
     syncObjectSections()
   }
+  renderStarInfo(element('object-info'), star.id)
   syncObjectInfoAvailability()
   if (knownPlanetCount > 0) element<HTMLCanvasElement>('selected-swatch').title = `${knownPlanetCount} known planets · illustrative orbit`
   text('distance-value', formatDistance(metrics.distancePc, distanceUnit).split(' ')[0]!)
@@ -1321,6 +1326,9 @@ function renderSelection(): void {
   text('apparent-mag', quantity(star.apparent_mag ?? null))
   const designations = objectDesignations(star)
   element('designations-row').hidden = designations.length === 0
+  element('designations-empty-row').hidden = designations.length > 0
+  text('designations-empty', MISSING_VALUE)
+  if (designations.length === 0) element<HTMLDetailsElement>('designations-row').open = false
   element('object-designations').replaceChildren(...designations.map((name) => {
     const item = document.createElement('li')
     item.textContent = name
@@ -1780,7 +1788,7 @@ function saveCurrentView(): void {
   renderSavedViews()
 }
 
-function syncSavedSettingsInputs(): void {
+function syncFilterInputs(): void {
   renderCatalogRange(activeCatalogId)
   element<HTMLInputElement>('show-always-bright').checked = showAlwaysBright
   element<HTMLInputElement>('show-western-constellation-stars').checked = showWesternConstellationStars
@@ -1793,6 +1801,10 @@ function syncSavedSettingsInputs(): void {
   const magnitudeInput = element<HTMLInputElement>('magnitude-limit')
   magnitudeInput.value = String(magnitudeLimit)
   text('magnitude-limit-value', String(magnitudeLimit))
+  renderObjectFilter()
+}
+
+function syncSceneAndMotionInputs(): void {
   earthOrbitModeInput.value = String(EARTH_ORBIT_MODES.indexOf(earthOrbitMode))
   earthOrbitModeInput.setAttribute('aria-valuetext', earthOrbitModeLabel(earthOrbitMode))
   text('earth-orbit-mode-value', earthOrbitModeLabel(earthOrbitMode))
@@ -1800,11 +1812,31 @@ function syncSavedSettingsInputs(): void {
   element<HTMLInputElement>('motion-arrows-visible').checked = motionArrowsVisible
   element<HTMLSelectElement>('motion-years').value = String(motionYears)
   element<HTMLInputElement>(`motion-frame-${motionFrame}`).checked = true
+}
+
+function resetAllFilters(): void {
+  showAlwaysBright = false
+  showWesternConstellationStars = false
+  showFamousClusterStars = false
+  filterCategories.clear()
+  DEFAULT_FILTER_CATEGORIES.forEach((category) => filterCategories.add(category))
+  filterSubtypes.clear()
+  DEFAULT_FILTER_SUBTYPES.forEach((subtype) => filterSubtypes.add(subtype))
+  visibleKeys = effectiveFilterKeys(filterCategories, filterSubtypes, availableKeys)
+  objectDistanceLimitLy = 100
+  magnitudeLimit = 7
+  syncFilterInputs()
+  renderCatalogRange('nearest-neighbors')
+  void switchCatalog('nearest-neighbors', true)
+}
+
+function syncSavedSettingsInputs(): void {
+  syncFilterInputs()
+  syncSceneAndMotionInputs()
   const gridButton = element<HTMLButtonElement>('toggle-grid')
   gridButton.setAttribute('aria-pressed', String(gridVisible))
   text('grid-tooltip', gridVisible ? 'Hide grid' : 'Show grid')
   element('grid-legend').hidden = !gridVisible
-  renderObjectFilter()
   renderSimulationTime()
   renderPlaybackState()
   renderPlaybackSpeed()
@@ -1921,6 +1953,7 @@ element('objects-expand').addEventListener('click', () => {
   syncPanelLayout()
 }, { signal: events.signal })
 catalogRange.addEventListener('input', () => previewCatalogRange(catalogRange.valueAsNumber), { signal: events.signal })
+element('filter-reset').addEventListener('click', resetAllFilters, { signal: events.signal })
 catalogRange.addEventListener('change', () => {
   const catalog = sliderCatalogs[catalogRange.valueAsNumber]
   if (catalog) void switchCatalog(catalog.manifest.id)

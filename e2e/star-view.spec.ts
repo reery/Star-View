@@ -194,7 +194,7 @@ test('positions Earth from the orbit slider and remembers its stop', async ({ pa
   expect(longitude).toBeGreaterThanOrEqual(0)
   expect(longitude).toBeLessThan(360)
 
-  await openFilter(page)
+  await openPreferences(page)
   const slider = page.getByRole('slider', { name: 'Earth’s orbit' })
   await expect(slider).toHaveValue('1')
   await expect(slider).toHaveAttribute('aria-valuetext', 'Now')
@@ -222,7 +222,7 @@ test('positions Earth from the orbit slider and remembers its stop', async ({ pa
 
   await slider.fill('2')
   await openViewer(page)
-  await openFilter(page)
+  await openPreferences(page)
   await expect(page.getByRole('slider', { name: 'Earth’s orbit' })).toHaveValue('2')
   await expect(page.locator('#earth-orbit-mode-value')).toHaveText('Jan')
   await expect(scene).toHaveAttribute('data-earth-orbit-date', `${year}-01-15`)
@@ -234,10 +234,11 @@ test('toggles the optimized Milky Way backdrop and remembers the choice', async 
   const canvas = scene.locator('canvas')
   await expect(scene).toHaveAttribute('data-milky-way-visible', 'true')
   await expect(scene).toHaveAttribute('data-milky-way-ready', 'true')
-  await openFilter(page)
+  await openPreferences(page)
   const toggle = page.getByRole('switch', { name: 'Show Milky Way' })
   await expect(toggle).toBeChecked()
-  await expect(toggle.locator('xpath=ancestor::label/following-sibling::label[1]')).toContainText('Motion arrows')
+  await expect(page.locator('#preferences-panel #milky-way-visible')).toBeVisible()
+  await expect(page.locator('#filter-panel #milky-way-visible')).toHaveCount(0)
 
   const backdrop = await canvas.screenshot({ scale: 'css', path: testInfo.outputPath('milky-way-on.png') })
   await toggle.uncheck()
@@ -245,7 +246,7 @@ test('toggles the optimized Milky Way backdrop and remembers the choice', async 
   expect(changedPixels(backdrop, await canvas.screenshot({ scale: 'css' }))).toBeGreaterThan(10_000)
 
   await openViewer(page)
-  await openFilter(page)
+  await openPreferences(page)
   await expect(page.getByRole('switch', { name: 'Show Milky Way' })).not.toBeChecked()
   await expect(scene).toHaveAttribute('data-milky-way-visible', 'false')
   await expect(scene).not.toHaveAttribute('data-milky-way-ready')
@@ -313,6 +314,7 @@ test('switches project catalogs while preserving settings and compatible selecti
   await expect(page.getByLabel('ly', { exact: true })).toBeChecked()
   await page.getByLabel('V magnitude limit', { exact: true }).fill('9')
   await page.getByLabel('Object visibility distance', { exact: true }).fill('3')
+  await openPreferences(page)
   await page.getByLabel('Arrow length', { exact: true }).selectOption('50000')
   await page.getByRole('button', { name: 'Grid', exact: true }).click()
   await zoomViewer(page, 'in')
@@ -357,6 +359,7 @@ test('searches the virtualized nearest-1000 list within bounded name budgets', {
   await openViewer(page)
   await selectCatalog(page, 'nearest-1000')
   await expect(page.locator('#catalog-count')).toHaveText(/\/1037$/)
+  await openPreferences(page)
   await page.getByLabel('Arrow length', { exact: true }).selectOption('50000')
   const nameBudget = 40
   const activeAnchors = await page.locator('.map-anchor[data-star-id]').count()
@@ -636,10 +639,10 @@ test('presents the selected object beside an expandable control dock', async ({ 
   await expect(catalogSlider).toHaveAttribute('max', '2')
   await expect(catalogSlider).toHaveAttribute('aria-valuetext', 'Nearest neighbors')
   await expect(page.locator('#catalog-range-bounds span')).toHaveText(['22 objects', '1037 objects'])
-  const categoryNames = ['Compact objects', 'Stellar systems', 'Interstellar medium', 'Stellar remnants', 'Large-scale structures']
+  const categoryNames = ['Compact objects', 'Interstellar medium', 'Stellar remnants', 'Large-scale structures']
   await expect(page.locator('#object-categories .toggle-text > span:first-child')).toHaveText(categoryNames)
   for (const [name, checked, available] of [
-    ['Compact objects', true, true], ['Stellar systems', false, false], ['Interstellar medium', false, true],
+    ['Compact objects', true, true], ['Interstellar medium', false, true],
     ['Stellar remnants', false, true], ['Large-scale structures', false, true],
   ] as const) {
     const toggle = page.getByRole('switch', { name, exact: true })
@@ -669,7 +672,6 @@ test('presents the selected object beside an expandable control dock', async ({ 
 
   const typeGroups = [
     ['Sun', 'Stars', 'Brown dwarfs', 'White dwarfs', 'Neutron stars', 'Pulsars', 'Black holes'],
-    ['Binaries', 'Multiple systems'],
     ['Molecular clouds', 'Dark nebulae', 'Reflection nebulae', 'H II regions'],
     ['Planetary nebulae', 'Supernova remnants', 'Pulsar-wind nebulae'],
     ['Bubbles', 'Superbubbles', 'Dust sheets'],
@@ -697,7 +699,7 @@ test('presents the selected object beside an expandable control dock', async ({ 
   }
   await expect(option('Bubbles')).toBeChecked()
   await expect(option('Bubbles')).toBeDisabled()
-  for (const name of [...typeGroups[1]!, ...typeGroups[2]!.slice(1, 2), ...typeGroups[3]!.slice(1), ...typeGroups[4]!.slice(1)]) {
+  for (const name of [...typeGroups[1]!.slice(1, 2), ...typeGroups[2]!.slice(1), ...typeGroups[3]!.slice(1)]) {
     await expect(option(name)).not.toBeChecked()
     await expect(option(name)).toBeDisabled()
     await expect(option(name)).toHaveAccessibleDescription('No data yet')
@@ -1054,6 +1056,7 @@ test('shrinks distant star cores while retaining bright glare around a 1,000-lig
   await openFilter(page)
   await page.getByRole('switch', { name: 'Always show bright stars' }).check()
   await expect.poll(() => page.locator('#catalog-count').textContent()).not.toBe('22/22')
+  await openPreferences(page)
   await page.getByRole('switch', { name: 'Motion arrows' }).uncheck()
   await page.locator('[data-star="sun"]').evaluate((button: HTMLButtonElement) => button.click())
   await page.getByRole('button', { name: 'Reset view', exact: true }).click()
@@ -1113,6 +1116,7 @@ test('keeps the magnitude-7 all-catalog overview from washing out at roughly 1,0
   await expect.poll(async () => Number(await page.locator('.projected-labels').getAttribute('data-core-count'))).toBeGreaterThan(1000)
   await page.getByLabel('Object visibility distance', { exact: true }).fill('19')
   await page.getByLabel('V magnitude limit', { exact: true }).fill('7')
+  await openPreferences(page)
   await page.getByRole('switch', { name: 'Motion arrows' }).uncheck()
   await page.locator('[data-star="sun"]').evaluate((button: HTMLButtonElement) => button.click())
   await page.getByRole('button', { name: 'Grid', exact: true }).click()
@@ -1148,6 +1152,7 @@ test('makes Sirius glow larger and brighter than Barnard with zoom-stable magnit
   await openFilter(page)
   // Keep the arrow mask present at both zoom levels so it cannot enter the
   // sampled halo annulus midway through this halo-only comparison.
+  await openPreferences(page)
   await page.getByLabel('Arrow length', { exact: true }).selectOption('50000')
   await page.getByRole('button', { name: 'Grid', exact: true }).click()
   await page.getByRole('button', { name: 'Objects', exact: true }).click()
@@ -1279,9 +1284,9 @@ test('keeps bright and selected halos strongly temperature-tinted without clippi
 test('toggles the grid without moving stars and preserves its state across reset', { tag: '@mobile' }, async ({ page, isMobile }, testInfo) => {
   await openViewer(page)
   await hideMilkyWay(page)
-  await openFilter(page)
+  await openPreferences(page)
   await page.getByLabel('Arrow length', { exact: true }).selectOption('50000')
-  await page.getByRole('button', { name: 'Filter', exact: true }).click()
+  await page.getByRole('button', { name: 'Preferences', exact: true }).click()
   const grid = page.getByRole('button', { name: 'Grid', exact: true })
   await expect(grid).toBeEnabled()
   await expect(grid).toHaveAttribute('aria-pressed', 'true')
@@ -1864,9 +1869,9 @@ test('scrubs and plays the physical stellar-motion timeline in both directions',
   await expect(page.locator('#time-speed-value')).toHaveText('1k years / 15s')
   await expect(slower).toBeDisabled()
 
-  await openFilter(page)
+  await openPreferences(page)
   await page.getByLabel('Arrow length', { exact: true }).selectOption('50000')
-  await page.getByRole('button', { name: 'Filter', exact: true }).click()
+  await page.getByRole('button', { name: 'Preferences', exact: true }).click()
   await page.getByRole('button', { name: 'Stellar motion', exact: true }).click()
   await page.locator('[data-star="sirius-a"]').evaluate((button: HTMLButtonElement) => button.click())
   const distanceLabel = page.locator('.dimension-label')
@@ -1936,6 +1941,7 @@ test('shows attached travel-length motion arrows with selectable horizons', { ta
   await expect(page.locator('.star-label-detail')).toHaveCount(0)
   await expect(page.locator('[data-star-id="sirius-a"] .star-label')).toHaveText('Sirius A')
   const homeSun = await starPoint(page, 'sun')
+  await openPreferences(page)
   const horizon = page.getByLabel('Arrow length', { exact: true })
   const motionArrowsToggle = page.getByRole('switch', { name: 'Motion arrows' })
   const motionFrame = page.getByRole('group', { name: 'Motion frame' })
@@ -1984,7 +1990,7 @@ test('shows attached travel-length motion arrows with selectable horizons', { ta
   expect(shortSirius.projectedDistance).toBeCloseTo(siriusArrow.projectedDistance / 2, 2)
   await horizon.selectOption('50000')
   await expect.poll(async () => arrowFor(await motionArrows(page), 'sirius-a')?.projectedDistance).toBeCloseTo(siriusArrow.projectedDistance, 3)
-  await page.getByRole('button', { name: 'Filter', exact: true }).click()
+  await page.getByRole('button', { name: 'Preferences', exact: true }).click()
   const bounds = (await page.locator('#scene canvas').boundingBox())!
   await page.mouse.move(bounds.x + bounds.width * 0.3, bounds.y + bounds.height * 0.3)
   await page.mouse.down()
@@ -2050,9 +2056,9 @@ test('draws dashed transverse and solid full-motion shafts with a zoom-stable st
     // Full Galactic-rest velocities are generally much faster than the
     // transverse-only subset, so use a horizon that keeps each mode measurable.
     for (const [mode, years] of [['full', '5000'], ['transverse', '25000']] as const) {
-      await openFilter(page)
+      await openPreferences(page)
       await page.getByLabel('Arrow length', { exact: true }).selectOption(years)
-      await page.getByRole('button', { name: 'Filter', exact: true }).click()
+      await page.getByRole('button', { name: 'Preferences', exact: true }).click()
       const arrows = await motionArrows(page)
       const image = PNG.sync.read(await canvas.screenshot({ scale: 'css', style, path: testInfo.outputPath(`shafts-${strokeWidths.length}-${mode}.png`) }))
       for (const arrow of isolatedArrows(arrows, bounds).filter((candidate) => candidate.mode === mode)) {

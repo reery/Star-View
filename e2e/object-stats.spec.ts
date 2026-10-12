@@ -9,6 +9,8 @@ test('shows selected-object stats and hides empty Sun metadata @mobile', async (
   await page.getByRole('button', { name: 'Specs', exact: true }).click()
   await expect(page.locator('#constellation-row')).toBeHidden()
   await expect(page.locator('#designations-row')).toBeHidden()
+  await expect(page.locator('#designations-empty-row')).toBeVisible()
+  await expect(page.locator('#designations-empty')).toHaveText('—')
   await expect(page.locator('#known-planets')).toHaveText('8')
   await expect(page.locator('#object-subtypes')).toHaveText('Main-sequence')
   await expect(page.locator('#apparent-mag')).toHaveText('-26.74')
@@ -22,6 +24,8 @@ test('shows selected-object stats and hides empty Sun metadata @mobile', async (
   }
   await expect(page.locator('#constellation-row')).toBeVisible()
   await expect(page.locator('#designations-row')).toBeVisible()
+  await expect(page.locator('#designations-row > summary')).toHaveCSS('font-weight', '400')
+  await expect(page.locator('#designations-empty-row')).toBeHidden()
   await expect(page.locator('#known-planets')).toHaveText('2')
   await expect(page.locator('#object-subtypes')).toContainText('variable')
   await expect(page.locator('#apparent-mag')).toHaveText('11.103')

@@ -85,8 +85,12 @@
                             <div class="bubble-property" hidden><dt>Shell distance range</dt><dd id="bubble-surface-range"></dd></div>
                             <div class="bubble-property" hidden><dt>Typical shell thickness</dt><dd id="bubble-shell-thickness"></dd></div>
                             <div class="bubble-property" hidden><dt>Source</dt><dd><a id="bubble-source" target="_blank" rel="noreferrer"></a></dd></div>
-                            <div id="designations-row" class="designations-property"><dt>Designations</dt><dd><ul id="object-designations" class="designation-list"></ul></dd></div>
+                            <div id="designations-empty-row" hidden><dt>Designations</dt><dd id="designations-empty"></dd></div>
                           </dl>
+                          <details id="designations-row" class="designation-details" hidden>
+                            <summary>Designations</summary>
+                            <ul id="object-designations" class="designation-list"></ul>
+                          </details>
                         </section>
                         <details class="source-details">
                           <summary>Coordinates &amp; source</summary>
@@ -112,7 +116,7 @@
                           <p id="star-notes" class="star-notes"></p>
                         </details>
                       </div>
-                      <section id="object-info" aria-label="Wikipedia summary" hidden></section>
+                      <section id="object-info" aria-label="About this star system" hidden></section>
                       <section id="object-system" aria-label="Star and planet system" hidden></section>
                     </div>
                   </details>
@@ -522,7 +526,11 @@
                 </div>
               </section>
               <section id="filter-panel" class="dock-card filter-section" aria-labelledby="filter-heading" hidden>
-                <div class="panel-heading"><h2 id="filter-heading">Filter</h2><button id="filter-lock" class="panel-lock" type="button" aria-label="Keep Filter open" aria-pressed="false"><span id="filter-lock-icon"></span></button></div>
+                <div class="panel-heading filter-heading">
+                  <h2 id="filter-heading">Filter</h2>
+                  <button id="filter-reset" class="panel-lock" type="button" aria-label="Reset all filters" title="Reset all"><span id="filter-reset-icon"></span></button>
+                  <button id="filter-lock" class="panel-lock" type="button" aria-label="Keep Filter open" aria-pressed="false"><span id="filter-lock-icon"></span></button>
+                </div>
                 <div class="filter-controls card-scroll-content">
                   <div class="range-filter">
                     <div class="range-heading"><label for="catalog-range">Catalog</label><output id="catalog-range-value" for="catalog-range"></output></div>
@@ -554,23 +562,6 @@
                     <input id="magnitude-limit" type="range" min="0" max="25" step="0.5" value="7">
                     <div class="range-bounds" aria-hidden="true"><span>0</span><span>25</span></div>
                   </div>
-                  <div class="range-filter">
-                    <div class="range-heading"><label for="earth-orbit-mode">Earth’s orbit</label><output id="earth-orbit-mode-value" for="earth-orbit-mode">Now</output></div>
-                    <input id="earth-orbit-mode" type="range" min="0" max="13" step="1" value="1" list="earth-orbit-mode-stops" aria-valuetext="Now" aria-describedby="earth-orbit-mode-description">
-                    <datalist id="earth-orbit-mode-stops"><option value="0" label="Off"></option><option value="1" label="Now"></option><option value="2" label="Jan"></option><option value="3" label="Feb"></option><option value="4" label="Mar"></option><option value="5" label="Apr"></option><option value="6" label="May"></option><option value="7" label="Jun"></option><option value="8" label="Jul"></option><option value="9" label="Aug"></option><option value="10" label="Sep"></option><option value="11" label="Oct"></option><option value="12" label="Nov"></option><option value="13" label="Dec"></option></datalist>
-                    <div class="range-bounds" aria-hidden="true"><span>Off</span><span>Dec</span></div>
-                    <span id="earth-orbit-mode-description" class="sr-only">Stops are Off, Now, January, February, March, April, May, June, July, August, September, October, November, and December.</span>
-                  </div>
-                  <label class="filter-toggle" for="milky-way-visible">
-                    <span>Show Milky Way</span>
-                    <span class="switch-control"><input id="milky-way-visible" type="checkbox" role="switch" checked><span class="switch-track" aria-hidden="true"></span></span>
-                  </label>
-                  <label class="filter-toggle" for="motion-arrows-visible">
-                    <span>Motion arrows</span>
-                    <span class="switch-control"><input id="motion-arrows-visible" type="checkbox" role="switch" checked><span class="switch-track" aria-hidden="true"></span></span>
-                  </label>
-                  <div class="catalog-choice"><label for="motion-years">Arrow length</label><select id="motion-years"><option value="1000" selected>1k years</option><option value="5000">5k years</option><option value="10000">10k years</option><option value="25000">25k years</option><option value="50000">50k years</option></select></div>
-                  <div id="motion-frame" class="segmented-choice" role="group" aria-labelledby="motion-frame-label"><span id="motion-frame-label">Motion frame</span><div class="unit-options"><label><input id="motion-frame-galactic" type="radio" name="motion-frame" value="galactic" checked><span>Galactic</span></label><label><input id="motion-frame-solar" type="radio" name="motion-frame" value="solar"><span>Solar</span></label></div></div>
                   <details class="filter-dropdown">
                     <summary><span>Object type</span><span id="object-type-filter-summary">All</span></summary>
                     <fieldset id="object-type-filter" class="type-filter">
@@ -633,6 +624,29 @@
                     <span>Power saving mode</span>
                     <span class="switch-control"><input id="power-saving-mode" type="checkbox" role="switch"><span class="switch-track" aria-hidden="true"></span></span>
                   </label>
+                  <section class="preferences-group" aria-labelledby="scene-preferences-heading">
+                    <h3 id="scene-preferences-heading" class="card-subgroup-heading">Scene</h3>
+                    <div class="range-filter">
+                      <div class="range-heading"><label for="earth-orbit-mode">Earth’s orbit</label><output id="earth-orbit-mode-value" for="earth-orbit-mode">Now</output></div>
+                      <input id="earth-orbit-mode" type="range" min="0" max="13" step="1" value="1" list="earth-orbit-mode-stops" aria-valuetext="Now" aria-describedby="earth-orbit-mode-description">
+                      <datalist id="earth-orbit-mode-stops"><option value="0" label="Off"></option><option value="1" label="Now"></option><option value="2" label="Jan"></option><option value="3" label="Feb"></option><option value="4" label="Mar"></option><option value="5" label="Apr"></option><option value="6" label="May"></option><option value="7" label="Jun"></option><option value="8" label="Jul"></option><option value="9" label="Aug"></option><option value="10" label="Sep"></option><option value="11" label="Oct"></option><option value="12" label="Nov"></option><option value="13" label="Dec"></option></datalist>
+                      <div class="range-bounds" aria-hidden="true"><span>Off</span><span>Dec</span></div>
+                      <span id="earth-orbit-mode-description" class="sr-only">Stops are Off, Now, January, February, March, April, May, June, July, August, September, October, November, and December.</span>
+                    </div>
+                    <label class="filter-toggle" for="milky-way-visible">
+                      <span>Show Milky Way</span>
+                      <span class="switch-control"><input id="milky-way-visible" type="checkbox" role="switch" checked><span class="switch-track" aria-hidden="true"></span></span>
+                    </label>
+                  </section>
+                  <section class="preferences-group" aria-labelledby="motion-preferences-heading">
+                    <h3 id="motion-preferences-heading" class="card-subgroup-heading">Motion arrows</h3>
+                    <label class="filter-toggle" for="motion-arrows-visible">
+                      <span>Motion arrows</span>
+                      <span class="switch-control"><input id="motion-arrows-visible" type="checkbox" role="switch" checked><span class="switch-track" aria-hidden="true"></span></span>
+                    </label>
+                    <div class="catalog-choice"><label for="motion-years">Arrow length</label><select id="motion-years"><option value="1000" selected>1k years</option><option value="5000">5k years</option><option value="10000">10k years</option><option value="25000">25k years</option><option value="50000">50k years</option></select></div>
+                    <div id="motion-frame" class="segmented-choice" role="group" aria-labelledby="motion-frame-label"><span id="motion-frame-label">Motion frame</span><div class="unit-options"><label><input id="motion-frame-galactic" type="radio" name="motion-frame" value="galactic" checked><span>Galactic</span></label><label><input id="motion-frame-solar" type="radio" name="motion-frame" value="solar"><span>Solar</span></label></div></div>
+                  </section>
                 </div>
               </section>
               <section id="info-panel" class="dock-card info-card" aria-labelledby="info-heading" hidden>

@@ -129,8 +129,9 @@ test('draws all nebulae in one emission call that follows the color preference a
   await hideMilkyWay(page)
   // Refitting the home view can bring Earth's orbit (three draws) in or out of range.
   await hideEarthOrbit(page)
-  await openFilter(page)
+  await openPreferences(page)
   await page.getByRole('switch', { name: 'Motion arrows', exact: true }).uncheck()
+  await openFilter(page)
   await enableNebulae(page)
   const layer = page.locator('.projected-labels')
   await expect(layer).toHaveAttribute('data-nebula-puff-count', expectedPuffs(1500))
@@ -167,8 +168,9 @@ test('draws all nebulae in one emission call that follows the color preference a
 test('keeps the Orion Nebula visible with bright and constellation stars enabled', { tag: '@mobile' }, async ({ page }, testInfo) => {
   await openViewer(page)
   await hideMilkyWay(page)
-  await openFilter(page)
+  await openPreferences(page)
   await page.getByRole('switch', { name: 'Motion arrows', exact: true }).uncheck()
+  await openFilter(page)
   await page.getByRole('switch', { name: 'Always show bright stars', exact: true }).check()
   await page.getByRole('switch', { name: 'Western constellation stars', exact: true }).check()
   await enableNebulae(page)
