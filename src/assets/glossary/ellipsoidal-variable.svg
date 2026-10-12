@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 840 360" role="img" aria-labelledby="title desc">
+  <title id="title">Ellipsoidal variability</title>
+  <desc id="desc">A stretched star seen broadside appears brighter than when seen end-on because its projected area changes. The stars do not eclipse one another in this example.</desc>
+  <defs><radialGradient id="star"><stop stop-color="#ffdf9e"/><stop offset="1" stop-color="#d99655"/></radialGradient></defs>
+  <rect width="840" height="360" fill="#101112"/>
+  <g font-family="system-ui, sans-serif" text-anchor="middle" fill="#ded8ce" font-size="28">
+    <text x="225" y="44">Broadside</text><text x="620" y="44">End-on</text>
+    <ellipse cx="225" cy="165" rx="108" ry="62" fill="url(#star)"/>
+    <ellipse cx="620" cy="165" rx="62" ry="62" fill="url(#star)"/>
+    <text x="225" y="280">More area visible</text><text x="620" y="280">Less area visible</text>
+    <text x="225" y="320" fill="#ffba68">Brighter</text><text x="620" y="320" fill="#8da9d6">Fainter</text>
+  </g>
+  <path d="M390 155H458M443 140L458 155 443 170" fill="none" stroke="#a5a29e" stroke-width="3"/>
+</svg>

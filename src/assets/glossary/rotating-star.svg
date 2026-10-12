@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 840 360" role="img" aria-labelledby="title desc">
+  <title id="title">Surface patches on a rotating star</title>
+  <desc id="desc">Rotation changes which surface patches face the observer. A darker patch appears near the limb, crosses the visible face, and moves out of sight.</desc>
+  <defs>
+    <radialGradient id="star"><stop stop-color="#ffdf9e"/><stop offset="1" stop-color="#d99655"/></radialGradient>
+    <marker id="arrow" markerWidth="9" markerHeight="9" refX="7" refY="4" orient="auto"><path d="M0 0L8 4 0 8" fill="none" stroke="#8da9d6" stroke-width="1.5"/></marker>
+  </defs>
+  <rect width="840" height="360" fill="#101112"/>
+  <g fill="url(#star)"><circle cx="150" cy="165" r="75"/><circle cx="420" cy="165" r="75"/><circle cx="690" cy="165" r="75"/></g>
+  <g fill="#583a2c"><ellipse cx="88" cy="163" rx="9" ry="23"/><ellipse cx="420" cy="163" rx="24" ry="23"/><ellipse cx="752" cy="163" rx="9" ry="23"/></g>
+  <g stroke="#8da9d6" stroke-width="3" fill="none" marker-end="url(#arrow)">
+    <path d="M102 62C122 47 183 48 201 64"/><path d="M372 62C392 47 453 48 471 64"/><path d="M642 62C662 47 723 48 741 64"/>
+  </g>
+  <g font-family="system-ui, sans-serif" text-anchor="middle" fill="#ded8ce" font-size="28">
+    <text x="150" y="298">Patch appears</text><text x="420" y="298">Patch faces us</text><text x="690" y="298">Patch leaves view</text>
+    <text x="420" y="338" fill="#a5a29e" font-size="24">Observed brightness changes with rotation</text>
+  </g>
+</svg>

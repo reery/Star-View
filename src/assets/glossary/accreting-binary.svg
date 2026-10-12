@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 840 360" role="img" aria-labelledby="title desc">
+  <title id="title">Accretion in a binary system</title>
+  <desc id="desc">Gas flows from a companion star into an accretion disk around a compact object. This drawing represents a possible binary geometry rather than a specific observed system.</desc>
+  <defs>
+    <radialGradient id="star"><stop stop-color="#ffe3ad"/><stop offset="1" stop-color="#bd7747"/></radialGradient>
+    <marker id="arrow" markerWidth="9" markerHeight="9" refX="7" refY="4" orient="auto"><path d="M0 0L8 4 0 8" fill="none" stroke="#ffba68" stroke-width="1.5"/></marker>
+  </defs>
+  <rect width="840" height="360" fill="#101112"/>
+  <path d="M250 155C343 119 349 224 480 181S596 134 627 180" fill="none" stroke="#ffba68" stroke-width="8" opacity=".6"/>
+  <path d="M300 143C360 157 364 199 416 195" fill="none" stroke="#ffba68" stroke-width="3" marker-end="url(#arrow)"/>
+  <circle cx="180" cy="168" r="85" fill="url(#star)"/>
+  <g transform="translate(620 178) rotate(-16)">
+    <ellipse rx="115" ry="44" fill="#8da9d6" fill-opacity=".2" stroke="#8da9d6" stroke-width="3"/>
+    <ellipse rx="88" ry="32" fill="none" stroke="#d99655" stroke-width="5"/>
+    <ellipse rx="57" ry="21" fill="none" stroke="#ffba68" stroke-width="8"/>
+    <circle r="15" fill="#ded8ce"/>
+  </g>
+  <g font-family="system-ui, sans-serif" text-anchor="middle" fill="#ded8ce" font-size="28">
+    <text x="180" y="55">Companion star</text><text x="420" y="93" fill="#ffba68">Gas flow</text>
+    <text x="620" y="286">Accretion disk</text><text x="620" y="326" fill="#a5a29e" font-size="25">around a compact object</text>
+  </g>
+  <path d="M620 55V133" stroke="#a5a29e" stroke-width="2"/>
+  <text x="620" y="42" text-anchor="middle" font-family="system-ui, sans-serif" font-size="26" fill="#ded8ce">Compact object</text>
+</svg>

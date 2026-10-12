@@ -8,8 +8,12 @@ reviewed SIMBAD identity used by the authoring step.
 The Specs card hides Designations when its alternate-name list is empty and
 hides Constellation for the Sun. Known planets follows Object type; Sub-type
 follows the planet count. Apparent mag. (V) follows Absolute mag. (V). Existing
-card styles and font sizes are retained; long sub-type lists wrap inside the
-value column. Sub-types also participate in object search.
+card styles and font sizes are retained. Sub-type uses the same native disclosure
+triangle as Designations, with only the count on the right. Expanding it shows
+each recorded label in bold with a brief plain-language description below and
+a small gap before Constellation. Stars without sub-types show the usual `—`;
+extended objects without sub-types keep this row hidden. Sub-types also
+participate in object search.
 
 ## Sub-types
 
@@ -25,6 +29,22 @@ Unambiguous luminosity classes in the adopted spectral string also provide
 Main-sequence, Subgiant, Giant or Supergiant labels. Brown-dwarf spectra can
 provide L-, T- or Y-type labels. Composite spectra can describe more than one
 component of an unresolved marker. Missing classifications stay unavailable.
+
+The display descriptions in `src/object-subtype-info.ts` explain the class rather
+than reassess the selected object. Candidate labels retain their name and an
+explicit unconfirmed qualifier. Unrecognized custom-CSV labels remain visible
+with a description-unavailable message. Descriptions use the
+[AAVSO variable-type guide](https://vsx.aavso.org/index.php?view=about.vartypes),
+[IVOA object-type vocabulary](https://www.ivoa.net/rdf/object-type),
+[NASA stellar overview](https://science.nasa.gov/universe/stars/types/), and
+[IPAC L/T dwarf classification overview](https://www.ipac.caltech.edu/2mass/overview/dwarfs.html).
+
+The glossary reuses these descriptions for all 61 supported subtype terms.
+Its Object sub-types group adds 59 articles; Pulsar and Neutron star keep their
+existing Object types articles. Candidate labels are searchable under the base
+term, with the unconfirmed qualifier explained in the subtype articles. Eight
+original SVG schematics illustrate physical mechanisms where a drawing helps;
+captions identify them as schematics, and text alternatives describe each image.
 
 ## Known planets
 

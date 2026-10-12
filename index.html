@@ -48,11 +48,17 @@
                             <div class="distance-row"><dt>Distance from Sun</dt><dd><button id="distance-toggle" class="object-type-toggle" type="button" aria-controls="distance-card" aria-expanded="false" aria-describedby="distance-value distance-unit"><span id="distance-value"></span><span id="distance-unit"> ly</span></button></dd></div>
                             <div class="object-type-row"><dt>Object type</dt><dd><button id="object-type-toggle" class="object-type-toggle" type="button" aria-controls="object-type-card" aria-expanded="false"><span id="object-type"></span></button></dd></div>
                             <div id="known-planets-row"><dt>Known planets</dt><dd><button id="known-planets" class="object-type-toggle" type="button" aria-controls="object-system"></button></dd></div>
-                            <div id="object-subtypes-row"><dt>Sub-type</dt><dd id="object-subtypes"></dd></div>
+                          </dl>
+                          <details id="object-subtypes-row" class="designation-details subtype-details" hidden>
+                            <summary><span>Sub-type</span><span id="object-subtypes-count" class="subtype-count"></span></summary>
+                            <ul id="object-subtypes" class="subtype-list"></ul>
+                          </details>
+                          <dl class="properties">
+                            <div id="object-subtypes-empty-row"><dt>Sub-type</dt><dd>—</dd></div>
                             <div id="constellation-row" class="constellation-row"><dt>Constellation</dt><dd><button id="constellation-toggle" class="object-type-toggle" type="button" aria-controls="constellation-card" aria-expanded="false" aria-describedby="constellation" disabled><span id="constellation"></span></button></dd></div>
                             <div class="stellar-property spectral-row"><dt>Spectral type</dt><dd><button id="spectral-toggle" class="object-type-toggle" type="button" aria-controls="spectral-card" aria-expanded="false" aria-describedby="spectral-type"><span id="spectral-type"></span></button></dd></div>
                             <div class="stellar-property"><dt>Temperature</dt><dd id="temperature"></dd></div>
-                            <div id="luminosity-row" class="stellar-property"><dt>Bolometric luminosity</dt><dd id="luminosity"></dd></div>
+                            <div id="luminosity-row" class="stellar-property luminosity-row"><dt>Bolometric luminosity</dt><dd><button id="luminosity-toggle" class="object-type-toggle" type="button" aria-controls="luminosity-card" aria-expanded="false" aria-describedby="luminosity"><span id="luminosity"></span></button></dd></div>
                             <div id="mass-row" class="mass-row"><dt>Mass</dt><dd><button id="mass-toggle" class="object-type-toggle" type="button" aria-controls="mass-card" aria-expanded="false" aria-describedby="mass"><span id="mass"></span></button></dd></div>
                             <div class="stellar-property radius-row"><dt>Radius</dt><dd><button id="radius-toggle" class="object-type-toggle" type="button" aria-controls="radius-card" aria-expanded="false" aria-describedby="radius"><span id="radius"></span></button></dd></div>
                             <div class="stellar-property metallicity-row"><dt id="metallicity-label">Metallicity</dt><dd><button id="metallicity-toggle" class="object-type-toggle" type="button" aria-controls="metallicity-card" aria-expanded="false" aria-describedby="metallicity"><span id="metallicity"></span></button></dd></div>
@@ -271,6 +277,63 @@
                   <p id="mass-end-state-comment" class="mass-note"></p>
                 </section>
                 <details class="mass-method"><summary>Calculations &amp; sources</summary><p id="mass-class-method"></p><a id="mass-class-source" target="_blank" rel="noreferrer" hidden></a><p>Derived from catalog values, which may be measured or model-derived. Gravity = GM/r²; escape speed = √(2GM/r); mean density = 3M/(4πr³). These spherical Newtonian estimates omit rotation, radiation pressure, and relativity. Extra digits do not imply extra accuracy.</p><p>Solar reference: GM☉ = 1.3271244 × 10²⁰ m³/s²; R☉ = 695,700 km. Mass in kg uses G = 6.67430 × 10⁻¹¹ m³/(kg s²). Earth gravity reference = 9.80665 m/s²; Earth surface escape speed = 11.186 km/s. Water density is approximately 1 g/cm³. Evolution describes broad single-star trends, not an individual prediction.</p><a href="https://arxiv.org/abs/1510.07674" target="_blank" rel="noreferrer">IAU conversion constants ↗</a> · <a href="https://physics.nist.gov/cuu/Constants/Table/allascii.txt" target="_blank" rel="noreferrer">Gravitational constant ↗</a> · <a href="https://science.nasa.gov/universe/stars/types/" target="_blank" rel="noreferrer">NASA: stellar evolution ↗</a> · <a href="https://nssdc.gsfc.nasa.gov/planetary/factsheet/earthfact.html" target="_blank" rel="noreferrer">NASA: Earth references ↗</a></details>
+              </div>
+            </section>
+            <section id="luminosity-card" class="dock-card object-type-card luminosity-card" aria-labelledby="luminosity-heading" data-scene-obstacle hidden>
+              <div class="panel-heading">
+                <h2 id="luminosity-heading">Bolometric luminosity</h2>
+                <button id="luminosity-close" class="panel-lock" type="button" aria-label="Close bolometric luminosity card"><span id="luminosity-close-icon"></span></button>
+              </div>
+              <div class="mass-body luminosity-body card-scroll-content">
+                <div class="luminosity-equation" role="group" aria-label="Surface area relative to the Sun times radiated power per square meter relative to the Sun equals bolometric luminosity in solar units">
+                  <div class="luminosity-factor"><strong id="luminosity-area"></strong><span>Sun’s surface area</span></div>
+                  <span class="luminosity-equation-symbol" aria-hidden="true">×</span>
+                  <div class="luminosity-factor"><strong id="luminosity-surface-flux"></strong><span>Sun’s power per m²</span></div>
+                  <span class="luminosity-equation-symbol" aria-hidden="true">=</span>
+                  <strong id="luminosity-calculated-solar"><span id="luminosity-calculated-value"></span><span id="luminosity-calculated-unit" class="luminosity-result-unit"> L☉</span></strong>
+                </div>
+                <p id="luminosity-calculation-note" class="mass-note" hidden></p>
+                <section class="mass-section" aria-labelledby="luminosity-flux-heading">
+                  <h3 id="luminosity-flux-heading" class="card-subgroup-heading">Earth at the same flux</h3>
+                  <div id="luminosity-flux-origin" class="mass-metric luminosity-flux-row">
+                    <div class="mass-metric-copy luminosity-flux-copy"><canvas id="luminosity-flux-origin-star" width="32" height="32" aria-hidden="true"></canvas><div><h4 id="luminosity-flux-origin-name" class="mass-metric-heading"></h4><small class="mass-benchmark">Origin</small></div></div>
+                    <div class="mass-metric-ratio"><div><strong id="luminosity-flux-origin-distance"></strong> <span id="luminosity-flux-origin-orbit" class="luminosity-orbit-comparison" hidden></span></div><small id="luminosity-flux-origin-value"></small></div>
+                    <div id="luminosity-flux-origin-bar" class="mass-ratio-bar luminosity-distance-bar" role="img"><div class="mass-ratio-track"><span class="mass-ratio-fill"></span><span class="mass-typical-limit luminosity-distance-low"></span><span class="mass-typical-limit luminosity-distance-high"></span><span class="mass-ratio-marker"></span></div></div>
+                  </div>
+                  <div id="luminosity-flux-selected" class="mass-metric luminosity-flux-row">
+                    <div class="mass-metric-copy luminosity-flux-copy"><canvas id="luminosity-flux-selected-star" width="32" height="32" aria-hidden="true"></canvas><h4 id="luminosity-flux-selected-name" class="mass-metric-heading"></h4></div>
+                    <div class="mass-metric-ratio"><div><strong id="luminosity-flux-selected-distance"></strong> <span id="luminosity-flux-selected-orbit" class="luminosity-orbit-comparison" hidden></span></div></div>
+                    <div id="luminosity-flux-selected-bar" class="mass-ratio-bar luminosity-distance-bar" role="img"><div class="mass-ratio-track"><span class="mass-ratio-fill"></span><span class="mass-typical-limit luminosity-distance-low"></span><span class="mass-typical-limit luminosity-distance-high"></span><span class="mass-ratio-marker"></span></div></div>
+                  </div>
+                  <div id="luminosity-flux-sun" class="mass-metric luminosity-flux-row">
+                    <div class="mass-metric-copy luminosity-flux-copy"><canvas id="luminosity-flux-sun-star" width="32" height="32" aria-hidden="true"></canvas><h4 id="luminosity-flux-sun-name" class="mass-metric-heading"></h4></div>
+                    <div class="mass-metric-ratio"><div><strong id="luminosity-flux-sun-distance"></strong> <span id="luminosity-flux-sun-orbit" class="luminosity-orbit-comparison" hidden></span></div></div>
+                    <div id="luminosity-flux-sun-bar" class="mass-ratio-bar luminosity-distance-bar" role="img"><div class="mass-ratio-track"><span class="mass-ratio-fill"></span><span class="mass-typical-limit luminosity-distance-low"></span><span class="mass-typical-limit luminosity-distance-high"></span><span class="mass-ratio-marker"></span></div></div>
+                  </div>
+                  <div id="luminosity-distance-axis" class="mass-ratio-labels luminosity-distance-axis" aria-hidden="true"><span>0 AU</span><span id="luminosity-distance-axis-high"></span></div>
+                  <p id="luminosity-flux-note" class="mass-note" hidden></p>
+                </section>
+                <section class="mass-section" aria-labelledby="luminosity-scales-heading">
+                  <h3 id="luminosity-scales-heading" class="card-subgroup-heading">Luminosity scales</h3>
+                  <div class="mass-metric radius-metric">
+                    <h4 class="mass-metric-heading">Very dim → very bright</h4>
+                    <div class="mass-metric-ratio"><strong id="luminosity-scale-value"></strong></div>
+                    <div id="luminosity-scale" class="mass-ratio-bar radius-ratio-bar luminosity-scale" role="img"><div class="mass-ratio-track"><span class="mass-ratio-sun"></span><span class="mass-ratio-marker"></span></div><div class="mass-ratio-labels" aria-hidden="true"><span id="luminosity-scale-low"></span><span>Sun · 1 L☉</span><span id="luminosity-scale-high"></span></div></div>
+                  </div>
+                  <div class="mass-metric radius-metric">
+                    <h4 id="luminosity-class-heading" class="mass-metric-heading">Spectral class</h4>
+                    <div id="luminosity-class-bar" class="mass-ratio-bar radius-ratio-bar luminosity-class-bar" role="img"><div class="mass-ratio-track"><span class="luminosity-class-range"></span><span class="mass-typical-limit mass-typical-low"></span><span class="mass-typical-limit mass-typical-high"></span><span class="mass-ratio-sun luminosity-class-median"></span><span class="mass-ratio-marker"></span></div><div class="mass-ratio-labels" aria-hidden="true"><span id="luminosity-class-low"></span><span id="luminosity-class-median-value"></span><span id="luminosity-class-high"></span></div></div>
+                    <small id="luminosity-class-context" class="mass-benchmark luminosity-class-context"></small>
+                  </div>
+                </section>
+                <details class="mass-method"><summary>Calculations &amp; sources</summary>
+                  <p>Surface area × power per m² = 4πR² × σT<sub>eff</sub>⁴. Both factors are shown relative to the Sun: solar surface area = 4πR☉² and solar power per m² = L☉/(4πR☉²). Their product gives luminosity in L☉. T is the catalog effective temperature. This is a spherical photosphere calculation; the spectrum need not be an exact blackbody. Radius, temperature and luminosity can come from different measured or model-derived sources and need not agree exactly. The catalog luminosity is retained for both comparisons and scales; missing radius or temperature is not inferred.</p>
+                  <p>Incident flux F = L/(4πd²). To match the origin’s flux at 1 AU, d = √(L/L<sub>origin</sub>) AU. Distances share a linear scale from the star’s center. Flux is measured above an atmosphere on a surface facing the star, not averaged over Earth. Equal bolometric flux does not imply the same spectrum, climate or habitability. These comparisons omit extinction, variability and companion illumination; distances inside a known photosphere are unavailable. Orbit comparisons use the closest Solar System planet’s semi-major axis, Mercury through Neptune, only within 20%; these are orbital sizes, not current planet positions.</p>
+                  <p>Both luminosity scales are logarithmic. The broad scale spans 10⁻⁶–10⁶ L☉ and expands for outliers; these endpoints are display limits. Marker color follows the app’s stellar color setting, not luminosity.</p>
+                  <p id="luminosity-class-method"></p><a id="luminosity-class-source" target="_blank" rel="noreferrer" hidden></a>
+                  <p>1 L☉ = 3.828 × 10²⁶ W; R☉ = 695,700 km; 1 AU = 149,597,870,700 m; σ = 5.670374419 × 10⁻⁸ W m⁻² K⁻⁴. The nominal solar luminosity gives approximately 1,361 W/m² at 1 AU. Displayed values use three significant digits.</p>
+                  <a href="https://arxiv.org/abs/1510.07674" target="_blank" rel="noreferrer">IAU nominal solar constants ↗</a> · <a href="https://lhea.gsfc.nasa.gov/archive/mwmw/mmw_bbody.html" target="_blank" rel="noreferrer">NASA: radiation laws ↗</a> · <a href="https://ssd.jpl.nasa.gov/planets/approx_pos.html" target="_blank" rel="noreferrer">JPL: planetary orbits ↗</a>
+                </details>
               </div>
             </section>
             <section id="spectral-card" class="dock-card object-type-card spectral-card" aria-labelledby="spectral-heading" data-scene-obstacle hidden>
@@ -604,7 +667,7 @@
                     </figure>
                     <p id="glossary-description" class="glossary-description"></p>
                     <a id="glossary-source" class="glossary-source" target="_blank" rel="noreferrer">Read more on Wikipedia <span aria-hidden="true">↗</span></a>
-                    <p class="glossary-attribution">Summarized from Wikipedia · <a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noreferrer">CC BY-SA 4.0</a></p>
+                    <p id="glossary-attribution" class="glossary-attribution">Summarized from Wikipedia · <a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noreferrer">CC BY-SA 4.0</a></p>
                     <p id="glossary-image-credit" class="glossary-image-credit" hidden></p>
                   </article>
                   <p id="glossary-empty" class="glossary-empty" role="status" hidden>No matching terms. Try another search.</p>

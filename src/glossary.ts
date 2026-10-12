@@ -12,13 +12,20 @@ export function initializeGlossary(signal: AbortSignal): void {
     selectedId = entry.id
     get('glossary-term-heading').textContent = entry.title
     get('glossary-description').textContent = entry.description
-    get<HTMLAnchorElement>('glossary-source').href = entry.source
+    const source = get<HTMLAnchorElement>('glossary-source')
+    source.href = entry.source
+    const arrow = document.createElement('span')
+    arrow.textContent = '↗'
+    arrow.setAttribute('aria-hidden', 'true')
+    source.replaceChildren(`Read more on ${entry.sourceLabel ?? 'Wikipedia'} `, arrow)
+    get('glossary-attribution').hidden = entry.sourceLabel !== undefined
     const image = get<HTMLImageElement>('glossary-image')
     get('glossary-figure').hidden = !entry.image
     if (entry.image) {
       image.src = entry.image
-      image.alt = entry.caption ?? entry.title
+      image.alt = entry.imageAlt ?? entry.caption ?? entry.title
       image.style.objectPosition = entry.imagePosition ?? 'center'
+      image.style.objectFit = entry.imageFit ?? 'cover'
       get('glossary-caption').textContent = entry.caption ?? ''
     } else {
       image.removeAttribute('src')

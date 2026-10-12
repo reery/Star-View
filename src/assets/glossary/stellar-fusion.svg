@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 840 360" role="img" aria-labelledby="title desc">
+  <title id="title">Core and shell fusion</title>
+  <desc id="desc">Main-sequence stars fuse hydrogen in the core. Horizontal-branch stars fuse helium in the core and hydrogen in a shell. Asymptotic giant branch stars have hydrogen and helium fusion shells around a carbon–oxygen core.</desc>
+  <rect width="840" height="360" fill="#101112"/>
+  <g font-family="system-ui, sans-serif" text-anchor="middle" fill="#ded8ce" font-size="27">
+    <text x="140" y="42">Main sequence</text><text x="420" y="42">Horizontal branch</text><text x="700" y="42">AGB</text>
+    <g stroke="#d99655" stroke-width="2">
+      <circle cx="140" cy="167" r="85" fill="#714428"/><circle cx="140" cy="167" r="40" fill="#ffba68"/>
+      <circle cx="420" cy="167" r="85" fill="#714428"/><circle cx="420" cy="167" r="52" fill="#ffba68"/><circle cx="420" cy="167" r="42" fill="#8da9d6"/>
+      <circle cx="700" cy="167" r="85" fill="#714428"/><circle cx="700" cy="167" r="52" fill="#ffba68"/><circle cx="700" cy="167" r="42" fill="#8da9d6"/><circle cx="700" cy="167" r="29" fill="#343638" stroke="#ded8ce"/>
+    </g>
+    <text x="140" y="177" fill="#101112">H</text><text x="420" y="177" fill="#101112">He</text><text x="700" y="176" font-size="21">C/O</text>
+    <text x="140" y="295">Hydrogen core</text><text x="140" y="329" fill="#a5a29e" font-size="23">fusion</text>
+    <text x="420" y="295">Helium core fusion</text><text x="420" y="329" fill="#a5a29e" font-size="23">+ hydrogen shell</text>
+    <text x="700" y="295">C/O core</text><text x="700" y="329" fill="#a5a29e" font-size="23">+ He and H shells</text>
+  </g>
+</svg>

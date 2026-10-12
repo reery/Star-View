@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 840 360" role="img" aria-labelledby="title desc">
+  <title id="title">Radial stellar pulsation</title>
+  <desc id="desc">A star alternately contracts and expands, while its brightness varies. The light curve is separate from the radius drawings and does not imply an exact phase relation.</desc>
+  <defs><radialGradient id="star"><stop stop-color="#ffdf9e"/><stop offset="1" stop-color="#d99655"/></radialGradient></defs>
+  <rect width="840" height="360" fill="#101112"/>
+  <g font-family="system-ui, sans-serif" text-anchor="middle" fill="#ded8ce" font-size="28">
+    <text x="235" y="42">Contracted</text><text x="610" y="42">Expanded</text>
+    <circle cx="235" cy="133" r="43" fill="url(#star)"/><circle cx="610" cy="133" r="70" fill="url(#star)"/>
+    <text x="420" y="345" fill="#a5a29e" font-size="25">Time →</text>
+  </g>
+  <path d="M350 122H485M470 107L485 122 470 137M485 150H350M365 135L350 150 365 165" fill="none" stroke="#a5a29e" stroke-width="3"/>
+  <path d="M65 234V318H790" fill="none" stroke="#77736e" stroke-width="2"/>
+  <path d="M75 276C105 227 135 227 165 276S225 325 255 276 315 227 345 276 405 325 435 276 495 227 525 276 585 325 615 276 675 227 705 276 765 325 795 276" fill="none" stroke="#ffba68" stroke-width="5"/>
+  <text x="80" y="228" font-family="system-ui, sans-serif" font-size="23" fill="#a5a29e">Brightness varies</text>
+</svg>

@@ -580,7 +580,7 @@ test('presents the selected object beside an expandable control dock', async ({ 
   await page.screenshot({ path: testInfo.outputPath('compact-default.png'), fullPage: true })
   await openSpecs(page)
   await expect(page.locator('.properties-section')).toBeVisible()
-  expect(await page.locator('.properties-section dt:visible').allTextContents()).toEqual([
+  expect(await page.locator('.properties-section dt:visible, #object-subtypes-row > summary > span:first-child').allTextContents()).toEqual([
     'Distance from Sun', 'Object type', 'Sub-type', 'Constellation', 'Spectral type', 'Temperature',
     'Bolometric luminosity', 'Mass', 'Radius', 'Metallicity [Fe/H]', 'Age', 'Absolute mag. (V)', 'Apparent mag. (V)', 'Designations',
   ])

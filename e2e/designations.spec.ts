@@ -14,7 +14,7 @@ test('searches stellar aliases and displays a bounded designation list after mag
   await expect(aliases).toBeHidden()
   await page.locator('#designations-row > summary').click()
   await expect(aliases.locator('li', { hasText: /^HD 48915$/ })).toBeVisible()
-  const labels = await page.locator('.properties-section dt:visible, .properties-section summary:visible').allTextContents()
+  const labels = await page.locator('.properties-section dt:visible, #object-subtypes-row > summary > span:first-child, #designations-row > summary:visible').allTextContents()
   expect(labels[labels.indexOf('Apparent mag. (V)') + 1]).toBe('Designations')
   expect(await aliases.evaluate((element) => element.scrollHeight > element.clientHeight)).toBe(true)
   expect(await aliases.evaluate((element) => element.getBoundingClientRect().height)).toBeLessThanOrEqual(156)
