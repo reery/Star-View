@@ -818,6 +818,17 @@ function toggleObjectTypeCard(): void {
 }
 
 function syncObjectTypeLayout(): void {
+  const inspector = element('inspector')
+  const selectedCard = element('selected-object-card')
+  if (!selectedCard.hidden && !element<HTMLDetailsElement>('object-card-details').open) {
+    const inspectorBounds = inspector.getBoundingClientRect()
+    const selectedBounds = selectedCard.getBoundingClientRect()
+    inspector.style.setProperty('--object-detail-top', `${selectedBounds.bottom - inspectorBounds.top + 12}px`)
+    inspector.style.setProperty('--object-detail-left', `${selectedBounds.left - inspectorBounds.left}px`)
+  } else {
+    inspector.style.removeProperty('--object-detail-top')
+    inspector.style.removeProperty('--object-detail-left')
+  }
   const motion = element('motion-panel')
   const cards = ['object-type-card', 'metallicity-card', 'radius-card', 'spectral-card', 'mass-card', 'distance-card', 'planet-card', 'constellation-card'].map((id) => element(id))
   for (const card of cards) card.style.removeProperty('max-height')
@@ -1042,6 +1053,7 @@ function syncObjectSections(): void {
   }
   element('known-planets').setAttribute('aria-expanded', String(details.open && activeObjectSection === 'system'))
   syncSelectedObjectLayout()
+  syncObjectTypeLayout()
 }
 
 for (const section of objectSections) {
@@ -2320,6 +2332,9 @@ element('observer-roll-counterclockwise').addEventListener('click', () => rollOb
 element('observer-roll-reset').addEventListener('click', () => rollObserverView('center'), { signal: events.signal })
 element('observer-roll-clockwise').addEventListener('click', () => rollObserverView('clockwise'), { signal: events.signal })
 
+const selectedObjectLayout = new ResizeObserver(syncObjectTypeLayout)
+selectedObjectLayout.observe(element('selected-object-card'))
+
 const observerDirectionLayout = new ResizeObserver(() => {
   const card = element('observer-direction-card')
   const objectsPanel = element('objects-panel')
@@ -2338,6 +2353,7 @@ for (const id of ['inspector', 'objects-panel', 'observer-direction-card']) obse
 
 import.meta.hot?.dispose(() => {
   events.abort()
+  selectedObjectLayout.disconnect()
   observerDirectionLayout.disconnect()
   if (playbackFrameRequest !== null) cancelAnimationFrame(playbackFrameRequest)
   viewer?.dispose()

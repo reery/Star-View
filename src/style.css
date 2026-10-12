@@ -464,7 +464,7 @@ select:focus-visible, input:focus-visible { outline: 2px solid var(--accent); ou
 .properties > div:hover .object-type-toggle:not(:disabled)::before, .object-type-toggle:not(:disabled)[aria-expanded="true"]::before { background: var(--panel-selected); }
 .object-type-toggle:focus-visible { outline: none; }
 .object-type-toggle:focus-visible::before { outline: 2px solid var(--accent); outline-offset: 1px; }
-.dock-card.object-type-card { position: absolute; top: 20px; left: 324px; width: min(380px, calc(100vw - 402px)); max-height: calc(100dvh - 40px); overflow: auto; overscroll-behavior: contain; scrollbar-width: thin; scrollbar-color: #776a5c transparent; pointer-events: auto; background: linear-gradient(145deg, #26282a, var(--panel)); }
+.dock-card.object-type-card { position: absolute; top: var(--object-detail-top, 20px); left: var(--object-detail-left, 324px); width: min(380px, calc(100vw - 402px)); max-height: calc(100dvh - var(--object-detail-top, 20px) - 20px); overflow: auto; overscroll-behavior: contain; scrollbar-width: thin; scrollbar-color: #776a5c transparent; pointer-events: auto; background: linear-gradient(145deg, #26282a, var(--panel)); }
 .dock-card:has(> .card-scroll-content), .dock-card.catalog { display: flex; flex-direction: column; overflow: hidden; }
 .dock-card:has(> .card-scroll-content) > .panel-heading, .catalog > .panel-heading, .catalog > .object-search { flex-shrink: 0; }
 .card-scroll-content { min-height: 0; overflow: auto; overscroll-behavior: contain; scrollbar-width: thin; scrollbar-color: #776a5c transparent; }
@@ -586,11 +586,11 @@ select:focus-visible, input:focus-visible { outline: 2px solid var(--accent); ou
 :is(#mass-card, #radius-typical-bar) .mass-ratio-fill { z-index: 1; }
 :is(#mass-card, #radius-typical-bar) .mass-ratio-marker { z-index: 2; }
 :is(#mass-card, #radius-typical-bar) .mass-typical-limit { z-index: 3; background: var(--ink); }
-/* Radius tapers outside its typical range; Mass uses the same 4px bars in every tab. */
-#radius-typical-bar.has-class-range .mass-ratio-track { background: none; }
-#radius-typical-bar.has-class-range .mass-ratio-track::before { content: ''; position: absolute; inset: 0; border-radius: inherit; background: #ffffff24; --mass-line-range-low: var(--mass-range-low-position); --mass-line-range-high: var(--mass-range-high-position); }
-#radius-typical-bar.has-class-range .mass-ratio-fill { --mass-line-range-low: var(--mass-fill-range-low-position); --mass-line-range-high: var(--mass-fill-range-high-position); }
-#radius-typical-bar.has-class-range .mass-ratio-track::before, #radius-typical-bar.has-class-range .mass-ratio-fill {
+/* Keep the 4px class range, with 1px tails outside its limits. */
+:is(#mass-card .has-class-range, #radius-typical-bar.has-class-range) .mass-ratio-track { background: none; }
+:is(#mass-card .has-class-range, #radius-typical-bar.has-class-range) .mass-ratio-track::before { content: ''; position: absolute; inset: 0; border-radius: inherit; background: #ffffff24; --mass-line-range-low: var(--mass-range-low-position); --mass-line-range-high: var(--mass-range-high-position); }
+:is(#mass-card .has-class-range, #radius-typical-bar.has-class-range) .mass-ratio-fill { --mass-line-range-low: var(--mass-fill-range-low-position); --mass-line-range-high: var(--mass-fill-range-high-position); }
+:is(#mass-card .has-class-range, #radius-typical-bar.has-class-range) .mass-ratio-track::before, :is(#mass-card .has-class-range, #radius-typical-bar.has-class-range) .mass-ratio-fill {
   clip-path: polygon(0 1.5px, var(--mass-line-range-low) 1.5px, var(--mass-line-range-low) 0, var(--mass-line-range-high) 0, var(--mass-line-range-high) 1.5px, 100% 1.5px, 100% 2.5px, var(--mass-line-range-high) 2.5px, var(--mass-line-range-high) 100%, var(--mass-line-range-low) 100%, var(--mass-line-range-low) 2.5px, 0 2.5px);
 }
 .mass-ratio-labels { display: grid; grid-template-columns: repeat(3, 1fr); margin-top: 4px; font-size: var(--property-text-size); line-height: 1.4; color: var(--muted); }
@@ -856,7 +856,7 @@ select:focus-visible, input:focus-visible { outline: 2px solid var(--accent); ou
   .scene-legend { left: 18px; bottom: 16px; font-size: 10px; }
   .visibility-observer { right: 66px; bottom: 16px; max-width: 42%; font-size: 10px; }
   .identity .star-name { font-size: 22px; }
-  .dock-card.object-type-card { z-index: 1; top: 90px; left: 12px; width: min(380px, calc(100vw - 78px)); max-height: calc(100dvh - 114px); }
+  .dock-card.object-type-card { z-index: 1; top: var(--object-detail-top, 90px); left: var(--object-detail-left, 12px); width: min(380px, calc(100vw - 78px)); max-height: calc(100dvh - var(--object-detail-top, 90px) - 24px); }
   .dock-card.object-type-card.distance-card { width: min(560px, calc(100vw - 78px)); }
   .dock-card.object-type-card.constellation-card { width: min(420px, calc(100vw - 90px)); }
   .dock-card.object-type-card.planet-card { width: min(420px, calc(100vw - 78px)); }

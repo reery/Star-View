@@ -1073,7 +1073,7 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
   function makeMeasurement(position: Vector3, distancePc: number, className: string, suffix = ''): MapLabel {
     const label = makeLabel(position, `${formatDistance(distancePc, distanceUnit)}${suffix}`, className)
     label.measurement = { distancePc, suffix }
-    label.anchor.style.zIndex = '3'
+    label.anchor.style.zIndex = '0'
     return label
   }
 
@@ -1326,9 +1326,6 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
     selectedLabelObstacles.length = 0
     for (const obstacle of obstacles) {
       if (obstacle.blocksSelected) selectedLabelObstacles.push(obstacle.bounds)
-    }
-    for (const placement of measurementPlacements.values()) {
-      if (placement !== null) selectedLabelObstacles.push(placement)
     }
     for (const label of axisLabels) {
       const visible = grid.visible && projectWorldPointInto(label.position, viewProjection, viewport, axisClip, axisProjection)

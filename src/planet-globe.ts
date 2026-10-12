@@ -8,6 +8,7 @@ import { RenderPass } from 'three/addons/postprocessing/RenderPass.js'
 import { UnrealBloomPass } from 'three/addons/postprocessing/UnrealBloomPass.js'
 import { OutputPass } from 'three/addons/postprocessing/OutputPass.js'
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js'
+import { OrbitControls } from 'three/addons/controls/OrbitControls.js'
 import mercuryMap from './assets/planets/mercury-surface-map.png'
 import venusMap from './assets/planets/venus-cloud-map.jpg'
 import earthMap from './assets/planets/earth-global-map.jpg'
@@ -147,6 +148,14 @@ function createPlanetGlobe(canvas: HTMLCanvasElement) {
   const scene = new Scene()
   const camera = new OrthographicCamera(-2.4, 2.4, 1.2, -1.2, 0.1, 20)
   camera.position.z = 5
+  const controls = new OrbitControls(camera, canvas)
+  // Keep globe rotation and its coast, while sharing the main view's zoom/pan gestures.
+  controls.enableRotate = false
+  controls.touches.ONE = undefined
+  controls.screenSpacePanning = true
+  controls.minZoom = 1
+  controls.maxZoom = 2.5
+  controls.cursorStyle = 'grab'
   const geometry = new SphereGeometry(1, 64, 48)
   const jupiter = planetDescriptionForId('jupiter')!
   const jupiterGeometry = geometry.clone()
@@ -318,6 +327,15 @@ function createPlanetGlobe(canvas: HTMLCanvasElement) {
     inertiaTime = null
     canvas.dataset.spinning = 'false'
   }
+  function constrainCamera(): void {
+    // Keep the globe's center in the middle half of the frame, even when zoomed.
+    const maxX = (camera.right - camera.left) / (4 * camera.zoom)
+    const maxY = (camera.top - camera.bottom) / (4 * camera.zoom)
+    controls.target.x = Math.max(-maxX, Math.min(maxX, controls.target.x))
+    controls.target.y = Math.max(-maxY, Math.min(maxY, controls.target.y))
+    camera.position.x = controls.target.x
+    camera.position.y = controls.target.y
+  }
   function layoutGlobes(): void {
     const hasRings = planetId === 'saturn'
     sphere.scale.setScalar(comparingEarth ? selectedRadius : 1)
@@ -332,6 +350,7 @@ function createPlanetGlobe(canvas: HTMLCanvasElement) {
     camera.left = -halfHeight * aspect
     camera.right = halfHeight * aspect
     camera.updateProjectionMatrix()
+    constrainCamera()
   }
   function requestRender(): void {
     if (disposed || frame !== null) return
@@ -474,7 +493,10 @@ function createPlanetGlobe(canvas: HTMLCanvasElement) {
   }
   function setComparison(enabled: boolean): void {
     if (enabled && !comparingEarth) earthSphere.quaternion.copy(sphere.quaternion)
-    comparingEarth = enabled && planetId !== 'earth'
+    const nextComparison = enabled && planetId !== 'earth'
+    if (comparingEarth !== nextComparison) controls.reset()
+    comparingEarth = nextComparison
+    controls.enableZoom = controls.enablePan = !comparingEarth
     const radius = planetDescriptionForId(planetId ?? '')?.meanRadiusKm ?? 1
     const earthMeanRadius = planetDescriptionForId('earth')!.meanRadiusKm
     const largestRadius = Math.max(radius, earthMeanRadius)
@@ -484,7 +506,7 @@ function createPlanetGlobe(canvas: HTMLCanvasElement) {
     const appearance = appearances[planetId ?? '']
     if (appearance) {
       canvas.title = `${appearance.credit}${comparingEarth ? ` Earth: ${appearances.earth!.credit} Both globes use the same diameter scale.` : ''}`
-      canvas.setAttribute('aria-label', `${appearance.name}${comparingEarth ? ' and Earth globes at the same diameter scale' : appearance.model ? ' 3D view' : ' globe'}. ${appearance.description} Drag or use arrow keys to rotate${comparingEarth ? ' both globes' : ''}. Release to coast; click to stop.`)
+      canvas.setAttribute('aria-label', `${appearance.name}${comparingEarth ? ' and Earth globes at the same diameter scale' : appearance.model ? ' 3D view' : ' globe'}. ${appearance.description} Drag or use arrow keys to rotate${comparingEarth ? ' both globes' : ''}. Release to coast; click to stop.${comparingEarth ? '' : ' Scroll or pinch to zoom; Command/Ctrl-drag or drag with two fingers to pan.'}`)
     }
     if (comparingEarth && !earthTexture) {
       canvas.dataset.earthTextureReady = 'false'
@@ -511,6 +533,15 @@ function createPlanetGlobe(canvas: HTMLCanvasElement) {
   }
   const events = new AbortController()
   const options = { signal: events.signal }
+  controls.addEventListener('start', stopInertia)
+  controls.addEventListener('change', () => {
+    constrainCamera()
+    requestRender()
+  })
+  canvas.addEventListener('wheel', (event) => {
+    // Disabled comparison zoom must not scroll or overscroll the containing card.
+    if (comparingEarth) event.preventDefault()
+  }, { ...options, passive: false })
   const turn = new Quaternion()
   const angles = new Euler(0, 0, 0, 'YXZ')
   function rotate(x: number, y: number): void {
@@ -521,8 +552,10 @@ function createPlanetGlobe(canvas: HTMLCanvasElement) {
     requestRender()
   }
   let drag: { id: number; x: number; y: number; time: number } | null = null
+  const touchPointers = new Set<number>()
   function resetRotation(): void {
     stopInertia()
+    controls.reset()
     const pointerId = drag?.id
     drag = null
     canvas.classList.remove('is-dragging')
@@ -534,6 +567,16 @@ function createPlanetGlobe(canvas: HTMLCanvasElement) {
     requestRender()
   }
   canvas.addEventListener('pointerdown', (event) => {
+    if (event.pointerType === 'touch') {
+      touchPointers.add(event.pointerId)
+      if (touchPointers.size > 1) {
+        drag = null
+        stopInertia()
+        canvas.classList.remove('is-dragging')
+        return
+      }
+    }
+    if (event.ctrlKey || event.metaKey || event.shiftKey) return
     if (drag || event.button !== 0) return
     event.preventDefault()
     stopInertia()
@@ -557,6 +600,7 @@ function createPlanetGlobe(canvas: HTMLCanvasElement) {
     drag.time = event.timeStamp
   }, options)
   const stopDrag = (event: PointerEvent) => {
+    touchPointers.delete(event.pointerId)
     if (drag?.id !== event.pointerId) return
     // A pause before release means the user has already stopped the globe.
     if (event.timeStamp - drag.time > 80) stopInertia()
@@ -598,6 +642,7 @@ function createPlanetGlobe(canvas: HTMLCanvasElement) {
       disposed = true
       stopInertia()
       events.abort()
+      controls.dispose()
       resizeObserver.disconnect()
       if (frame !== null) cancelAnimationFrame(frame)
       if (drag && canvas.hasPointerCapture(drag.id)) canvas.releasePointerCapture(drag.id)

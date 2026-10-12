@@ -1,4 +1,4 @@
-import { expect, test, type Page } from '@playwright/test'
+import { expect, test, type Locator, type Page } from '@playwright/test'
 import { PNG } from 'pngjs'
 
 async function openPlanet(page: Page, id = 'mars') {
@@ -393,4 +393,151 @@ test('a dragged globe coasts, a second click stops it, and momentum settles', as
   expect((await canvas.screenshot()).equals(stopped)).toBe(true)
   await pull()
   await expect(canvas).toHaveAttribute('data-spinning', 'false', { timeout: 5000 })
+})
+
+async function globePixels(canvas: Locator) {
+  const image = PNG.sync.read(await canvas.screenshot())
+  let count = 0
+  let totalX = 0
+  let totalY = 0
+  // Exclude the focus outline and measure the rendered globe itself.
+  for (let y = 4; y < image.height - 4; y++) {
+    for (let x = 4; x < image.width - 4; x++) {
+      const offset = (y * image.width + x) * 4
+      if (Math.max(image.data[offset]!, image.data[offset + 1]!, image.data[offset + 2]!) <= 60) continue
+      count++
+      totalX += x
+      totalY += y
+    }
+  }
+  return { count, x: totalX / count, y: totalY / count, width: image.width, height: image.height }
+}
+
+async function waitForGlobeFrame(page: Page) {
+  await page.evaluate(() => new Promise<void>((resolve) => requestAnimationFrame(() => requestAnimationFrame(() => resolve()))))
+}
+
+test('globe camera zoom and modifier panning are bounded and disabled for Earth comparison', async ({ page }) => {
+  await openPlanet(page)
+  const canvas = page.locator('#planet-globe')
+  await canvas.focus()
+  const bounds = (await canvas.boundingBox())!
+  const center = { x: bounds.x + bounds.width / 2, y: bounds.y + bounds.height / 2 }
+  const initial = await globePixels(canvas)
+  await page.mouse.move(center.x, center.y)
+  await page.mouse.wheel(0, -120)
+  await waitForGlobeFrame(page)
+  expect((await globePixels(canvas)).count).toBeGreaterThan(initial.count * 1.05)
+
+  const pan = async (modifier: 'Control' | 'Meta', deltaX: number, deltaY = 0) => {
+    await page.keyboard.down(modifier)
+    await page.mouse.move(center.x, center.y)
+    await page.mouse.down()
+    await page.mouse.move(center.x + deltaX, center.y + deltaY, { steps: 5 })
+    await page.mouse.up()
+    await page.keyboard.up(modifier)
+    await waitForGlobeFrame(page)
+  }
+  for (const modifier of ['Control', 'Meta'] as const) {
+    const before = await globePixels(canvas)
+    await pan(modifier, 25)
+    expect((await globePixels(canvas)).x).toBeGreaterThan(before.x + 20)
+    await expect(canvas).toHaveAttribute('data-spinning', 'false')
+  }
+  await pan('Control', 600, 400)
+  const atPanLimit = await canvas.screenshot()
+  await pan('Control', 600, 400)
+  expect((await canvas.screenshot()).equals(atPanLimit)).toBe(true)
+  const panned = await globePixels(canvas)
+  expect(panned.count).toBeGreaterThan(initial.count / 2)
+  expect(panned.x).toBeLessThan(panned.width * 0.85)
+  expect(panned.y).toBeLessThan(panned.height * 0.85)
+
+  await page.mouse.move(center.x, center.y)
+  await page.mouse.wheel(0, -10000)
+  await waitForGlobeFrame(page)
+  const atZoomLimit = await canvas.screenshot()
+  await page.mouse.wheel(0, -10000)
+  await waitForGlobeFrame(page)
+  expect((await canvas.screenshot()).equals(atZoomLimit)).toBe(true)
+  await page.mouse.wheel(0, 10000)
+  await waitForGlobeFrame(page)
+  const atZoomOutLimit = await canvas.screenshot()
+  await page.mouse.wheel(0, 10000)
+  await waitForGlobeFrame(page)
+  expect((await canvas.screenshot()).equals(atZoomOutLimit)).toBe(true)
+
+  await page.locator('#planet-add-earth').click()
+  await expect(canvas).toHaveAttribute('data-earth-texture-ready', 'true')
+  await canvas.focus()
+  // Ignore the focus outline, which changes when switching between keyboard and mouse input.
+  const comparison = await globePixels(canvas)
+  await page.mouse.move(center.x, center.y)
+  await page.mouse.wheel(0, -10000)
+  await waitForGlobeFrame(page)
+  expect(await globePixels(canvas)).toEqual(comparison)
+  await pan('Control', 80, 40)
+  expect(await globePixels(canvas)).toEqual(comparison)
+  await pan('Meta', -80, -40)
+  expect(await globePixels(canvas)).toEqual(comparison)
+
+  await page.locator('#planet-add-earth').click()
+  await canvas.focus()
+  const reset = await globePixels(canvas)
+  expect(reset.count).toBe(initial.count)
+  expect(reset.x).toBeCloseTo(initial.x, 1)
+  expect(reset.y).toBeCloseTo(initial.y, 1)
+  await page.mouse.move(center.x, center.y)
+  await page.mouse.wheel(0, -120)
+  await waitForGlobeFrame(page)
+  expect((await globePixels(canvas)).count).toBeGreaterThan(initial.count * 1.05)
+})
+
+test('planet and moon globes support touch pinch and pan without rotating or coasting', { tag: '@mobile' }, async ({ page }) => {
+  await openPlanet(page, 'jupiter')
+  const session = await page.context().newCDPSession(page)
+  const gesture = async (canvas: Locator, spread: number, deltaX = 0, deltaY = 0) => {
+    const bounds = (await canvas.boundingBox())!
+    const x = bounds.x + bounds.width / 2
+    const y = bounds.y + bounds.height / 2
+    const touches = (distance: number, offsetX = 0, offsetY = 0) => [
+      { x: x - distance + offsetX, y: y + offsetY, id: 0 },
+      { x: x + distance + offsetX, y: y + offsetY, id: 1 },
+    ]
+    await session.send('Input.dispatchTouchEvent', { type: 'touchStart', touchPoints: touches(35) })
+    await session.send('Input.dispatchTouchEvent', { type: 'touchMove', touchPoints: touches(spread, deltaX, deltaY) })
+    // Lifting one finger first must not turn the remaining finger into a pinch or a rotation.
+    await session.send('Input.dispatchTouchEvent', { type: 'touchEnd', touchPoints: touches(spread, deltaX, deltaY).slice(0, 1) })
+    await session.send('Input.dispatchTouchEvent', { type: 'touchMove', touchPoints: touches(spread, deltaX + 5, deltaY).slice(0, 1) })
+    await session.send('Input.dispatchTouchEvent', { type: 'touchEnd', touchPoints: [] })
+    await waitForGlobeFrame(page)
+  }
+  const planet = page.locator('#planet-globe')
+  const errors: string[] = []
+  page.on('pageerror', (error) => errors.push(error.message))
+  for (const canvas of [planet, page.locator('#planet-moon-globe')]) {
+    if (canvas !== planet) {
+      await page.locator('#planet-moons-toggle').click()
+      await expect(canvas).toHaveAttribute('data-texture-ready', 'true')
+    }
+    const initial = await globePixels(canvas)
+    await gesture(canvas, 38)
+    const zoomed = await globePixels(canvas)
+    expect(zoomed.count).toBeGreaterThan(initial.count * 1.05)
+    await gesture(canvas, 35, 25)
+    const panned = await globePixels(canvas)
+    expect(panned.x - zoomed.x).toBeGreaterThan(20 * (panned.width / (await canvas.boundingBox())!.width))
+    await expect(canvas).toHaveAttribute('data-spinning', 'false')
+    const stopped = await canvas.screenshot()
+    await page.waitForTimeout(100)
+    expect((await canvas.screenshot()).equals(stopped)).toBe(true)
+  }
+  await page.locator('#planet-specs-toggle').click()
+  await page.locator('#planet-add-earth').click()
+  await expect(planet).toHaveAttribute('data-earth-texture-ready', 'true')
+  const comparison = await planet.screenshot()
+  await gesture(planet, 60, 25, 15)
+  expect((await planet.screenshot()).equals(comparison)).toBe(true)
+  expect(errors).toEqual([])
+  await session.detach()
 })

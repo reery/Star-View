@@ -215,9 +215,9 @@ test('keeps the Sirius name visible behind the Sun in the nearest-1000 view', as
   await page.screenshot({ path: testInfo.outputPath('sun-sirius-label.png'), fullPage: true })
 })
 
-test('keeps star names steady and the foreground distance centered during rotation', { tag: '@mobile' }, async ({ page }) => {
+test('keeps star names steady and the distance centered behind only the selected name during rotation', { tag: '@mobile' }, async ({ page }) => {
   await openViewer(page)
-  await expect(page.locator('.distance-label').locator('..')).toHaveCSS('z-index', '3')
+  await expect(page.locator('.distance-label').locator('..')).toHaveCSS('z-index', '0')
   const bounds = (await page.locator('#scene canvas').boundingBox())!
   await page.mouse.move(bounds.x + bounds.width * 0.4, bounds.y + bounds.height * 0.7)
   await page.mouse.down()
