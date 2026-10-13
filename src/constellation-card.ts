@@ -232,7 +232,7 @@ function drawChart(root: HTMLElement, object: Star, chart: ConstellationChart, o
 
 export function renderConstellationCard(root: HTMLElement, object: Star, chart: ConstellationChart, options: CardOptions): void {
   active = { root, object, chart, options }
-  root.querySelector<HTMLElement>('#constellation-heading')!.textContent = `Constellation: ${chart.name}`
+  root.querySelector<HTMLElement>('#constellation-heading')!.textContent = chart.name
   root.dataset.constellation = chart.abbreviation
   const links = root.querySelector<HTMLElement>('#constellation-source-links')!
   links.replaceChildren(...chart.sources.map((source) => {

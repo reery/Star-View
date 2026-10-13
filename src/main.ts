@@ -1,5 +1,5 @@
 import './style.css'
-import { ArrowLeft, ArrowRight, BookOpen, ChevronsLeftRight, ChevronsRightLeft, CircleHelp, Clock, Crosshair, Earth, Eye, Filter, Focus, Grid2X2, List, Lock, Minus, Moon, Orbit, Pause, Play, Plus, RotateCcw, RotateCw, Save, Search, Settings2, X, createElement, type IconNode } from 'lucide'
+import { ArrowLeft, ArrowRight, BookOpen, ChevronsLeftRight, ChevronsRightLeft, CircleHelp, Clock, Crosshair, Earth, Eye, Filter, Focus, Grid2X2, List, Lock, Minus, Moon, Orbit, Pause, Play, Plus, RotateCcw, RotateCw, Save, Search, Settings2, Sun, X, createElement, type IconNode } from 'lucide'
 import { ObserverOriginIcon, OriginIcon } from './origin-icon'
 import { BUBBLE_OBJECT_TYPES, COMPACT_OBJECT_TYPES, describeObject, isBubbleObject, isCompactObject, isMolecularCloudObject, isNebulaObject, MOLECULAR_CLOUD_OBJECT_TYPES, NEBULA_OBJECT_TYPES, type Star } from './catalog-model'
 import { catalogSelection, mergeCatalogStars } from './catalog-runtime'
@@ -25,6 +25,7 @@ import { renderMkDiagram } from './mk-diagram'
 import { spectralReference } from './spectral-chart'
 import { massCardAvailable } from './mass-properties'
 import { luminosityCardAvailable } from './luminosity-properties'
+import { magnitudeCardAvailable, renderMagnitudeCard as renderMagnitudeComparison } from './magnitude-card'
 import { constellationCardAvailable, loadConstellationChart, type ConstellationChart } from './constellations'
 import { radiusComparison, radiusStats, radiusSummary, renderRadiusComparison, type RadiusReference } from './radius-comparison'
 import { indexStarSystems, primarySystemStarId, type StarSystem } from './star-systems'
@@ -110,6 +111,10 @@ icon('radius-close-icon', X)
 icon('spectral-close-icon', X)
 icon('mass-close-icon', X)
 icon('luminosity-close-icon', X)
+icon('magnitude-close-icon', X)
+icon('magnitude-lock-icon', Lock)
+icon('magnitude-absolute-icon', Sun)
+icon('magnitude-apparent-icon', Eye)
 icon('constellation-close-icon', X)
 icon('constellation-lock-icon', Lock)
 icon('distance-close-icon', X)
@@ -372,6 +377,16 @@ function closeLuminosityCard(restoreFocus = false): void {
   if (restoreFocus) element('luminosity-toggle').focus()
 }
 
+let magnitudeCardLocked = false
+
+function closeMagnitudeCard(restoreFocus = false): void {
+  const card = element('magnitude-card')
+  if (card.hidden) return
+  card.hidden = true
+  element('magnitude-toggle').setAttribute('aria-expanded', 'false')
+  if (restoreFocus) element('magnitude-toggle').focus()
+}
+
 let constellationCardLocked = false
 let constellationOpenRequest = 0
 let constellationCardModule: typeof import('./constellation-card') | undefined
@@ -433,6 +448,7 @@ async function toggleConstellationCard(): Promise<void> {
   closeRadiusCard()
   closeMassCard()
   closeLuminosityCard()
+  closeMagnitudeCard()
   closeDistanceCard()
   closeSpectralCard()
   element('constellation-card').hidden = false
@@ -482,6 +498,7 @@ function toggleSpectralCard(): void {
   closeRadiusCard()
   closeMassCard()
   closeLuminosityCard()
+  closeMagnitudeCard()
   closeDistanceCard()
   closeConstellationCard()
   element('spectral-card').hidden = false
@@ -559,6 +576,7 @@ async function selectSystemPlanet(planetId: string): Promise<void> {
   closeRadiusCard()
   closeMassCard()
   closeLuminosityCard()
+  closeMagnitudeCard()
   closeDistanceCard()
   activePlanetId = planetId
   closeSpectralCard()
@@ -581,6 +599,37 @@ function renderLuminosityCard(star: Star): void {
   syncObjectTypeLayout()
 }
 
+function renderMagnitudeCard(star: Star): void {
+  const sun = stars.find((candidate) => candidate.id === 'sun')!
+  const origin = stars.find((candidate) => candidate.id === referenceId) ?? sun
+  renderMagnitudeComparison(element('magnitude-card'), star, origin, sun, starColorMode, stars.find((candidate) => candidate.id === 'sirius-a'))
+  syncObjectTypeLayout()
+}
+
+function toggleMagnitudeCard(): void {
+  if (element<HTMLButtonElement>('magnitude-toggle').disabled) return
+  if (!element('magnitude-card').hidden) {
+    closeMagnitudeCard(true)
+    return
+  }
+  const star = stars.find((candidate) => candidate.id === selectedId)
+  if (!star) return
+  closePlanetCard()
+  closeObjectTypeCard()
+  closeMetallicityCard()
+  closeRadiusCard()
+  closeMassCard()
+  closeLuminosityCard()
+  closeDistanceCard()
+  closeSpectralCard()
+  closeConstellationCard()
+  element('magnitude-card').hidden = false
+  element('magnitude-toggle').setAttribute('aria-expanded', 'true')
+  renderMagnitudeCard(star)
+  element('magnitude-card').querySelector<HTMLElement>('.card-scroll-content')!.scrollTop = 0
+  element('magnitude-close').focus({ preventScroll: true })
+}
+
 async function toggleLuminosityCard(): Promise<void> {
   if (element<HTMLButtonElement>('luminosity-toggle').disabled) return
   if (!element('luminosity-card').hidden) {
@@ -590,6 +639,7 @@ async function toggleLuminosityCard(): Promise<void> {
   luminosityCardModule ??= await import('./luminosity-card')
   const star = stars.find((candidate) => candidate.id === selectedId)
   if (!star || !luminosityCardAvailable(star) || element<HTMLButtonElement>('luminosity-toggle').disabled) return
+  closeMagnitudeCard()
   closePlanetCard()
   closeObjectTypeCard()
   closeMetallicityCard()
@@ -632,6 +682,7 @@ async function toggleMassCard(): Promise<void> {
   const star = stars.find((candidate) => candidate.id === selectedId)
   if (!star || !massCardAvailable(star) || element<HTMLButtonElement>('mass-toggle').disabled) return
   closeLuminosityCard()
+  closeMagnitudeCard()
   closePlanetCard()
   closeObjectTypeCard()
   closeMetallicityCard()
@@ -695,6 +746,7 @@ function toggleDistanceCard(): void {
   closeRadiusCard()
   closeMassCard()
   closeLuminosityCard()
+  closeMagnitudeCard()
   closeSpectralCard()
   closeConstellationCard()
   element('distance-card').hidden = false
@@ -754,6 +806,7 @@ function toggleRadiusCard(): void {
   closeDistanceCard()
   closeMassCard()
   closeLuminosityCard()
+  closeMagnitudeCard()
   closeSpectralCard()
   closeConstellationCard()
   element('radius-card').hidden = false
@@ -843,6 +896,7 @@ function toggleMetallicityCard(): void {
   closeRadiusCard()
   closeMassCard()
   closeLuminosityCard()
+  closeMagnitudeCard()
   closeDistanceCard()
   closeSpectralCard()
   closeConstellationCard()
@@ -882,6 +936,7 @@ function toggleObjectTypeCard(): void {
   closeRadiusCard()
   closeMassCard()
   closeLuminosityCard()
+  closeMagnitudeCard()
   closeDistanceCard()
   closeSpectralCard()
   closeConstellationCard()
@@ -904,7 +959,7 @@ function syncObjectTypeLayout(): void {
     inspector.style.removeProperty('--object-detail-left')
   }
   const motion = element('motion-panel')
-  const cards = ['object-type-card', 'metallicity-card', 'radius-card', 'spectral-card', 'mass-card', 'luminosity-card', 'distance-card', 'planet-card', 'constellation-card'].map((id) => element(id))
+  const cards = ['object-type-card', 'metallicity-card', 'radius-card', 'spectral-card', 'mass-card', 'luminosity-card', 'magnitude-card', 'distance-card', 'planet-card', 'constellation-card'].map((id) => element(id))
   for (const card of cards) card.style.removeProperty('max-height')
   if (motion.hidden) return
   // Read every rectangle before writing, so playback refreshes cause one layout.
@@ -969,6 +1024,7 @@ function dismissOpenPanel(): void {
   closeSpectralCard()
   closeMassCard()
   closeLuminosityCard()
+  if (!magnitudeCardLocked) closeMagnitudeCard()
   if (!constellationCardLocked) closeConstellationCard()
   if (!distanceCardLocked) closeDistanceCard()
   if (!planetCardLocked) closePlanetCard()
@@ -1147,6 +1203,7 @@ for (const section of objectSections) {
       closeSpectralCard()
       closeMassCard()
       closeLuminosityCard()
+      closeMagnitudeCard()
       closeDistanceCard()
       closeConstellationCard()
     }
@@ -1164,6 +1221,7 @@ element('known-planets-row').addEventListener('click', () => {
   closeSpectralCard()
   closeMassCard()
   closeLuminosityCard()
+  closeMagnitudeCard()
   closeDistanceCard()
   closeConstellationCard()
   syncObjectSections()
@@ -1236,6 +1294,7 @@ function renderSelection(): void {
     closeRadiusCard()
     closeMassCard()
     closeLuminosityCard()
+    closeMagnitudeCard()
     closeDistanceCard()
     closeSpectralCard()
     closeConstellationCard()
@@ -1450,6 +1509,10 @@ function renderSelection(): void {
     ? `${unresolvedPhotometry.scope}. ${unresolvedPhotometry.source}. Earth-view snapshot; component fluxes are not separated.`
     : 'Earth-view catalog V magnitude; a snapshot, not current variable-star photometry.'
   if (star.apparent_mag == null && !unresolvedPhotometry) sourceMeasurement('apparent-mag', star, 'apparent_mag', (value: number | null) => quantity(value))
+  element<HTMLButtonElement>('magnitude-toggle').disabled = !magnitudeCardAvailable(star) || stellarPropertiesHidden
+  element('magnitude-toggle').setAttribute('aria-label', `Explore absolute and apparent magnitude of ${star.name}`)
+  if (element<HTMLButtonElement>('magnitude-toggle').disabled) closeMagnitudeCard()
+  else if (!element('magnitude-card').hidden) renderMagnitudeCard(star)
   const designations = objectDesignations(star)
   element('designations-row').hidden = designations.length === 0
   element('designations-empty-row').hidden = designations.length > 0
@@ -2220,6 +2283,7 @@ window.addEventListener('resize', () => {
   if (star && !element('radius-card').hidden) renderRadiusCard(star)
   if (star && !element('mass-card').hidden) renderMassCard(star)
   if (star && !element('luminosity-card').hidden) renderLuminosityCard(star)
+  if (star && !element('magnitude-card').hidden) renderMagnitudeCard(star)
   refreshDistanceCard()
 }, { signal: events.signal })
 categoryOptions.addEventListener('change', (event) => {
@@ -2328,6 +2392,10 @@ document.addEventListener('keydown', (event) => {
     closeLuminosityCard(true)
     return
   }
+  if (!element('magnitude-card').hidden) {
+    closeMagnitudeCard(true)
+    return
+  }
   if (!element('distance-card').hidden) {
     closeDistanceCard(true)
     return
@@ -2388,6 +2456,12 @@ for (const mode of ['origin', 'sun'] as const) {
 element('mass-row').addEventListener('click', toggleMassCard, { signal: events.signal })
 element('luminosity-row').addEventListener('click', toggleLuminosityCard, { signal: events.signal })
 element('luminosity-close').addEventListener('click', () => closeLuminosityCard(true), { signal: events.signal })
+element('magnitude-row').addEventListener('click', toggleMagnitudeCard, { signal: events.signal })
+element('magnitude-close').addEventListener('click', () => closeMagnitudeCard(true), { signal: events.signal })
+element('magnitude-lock').addEventListener('click', () => {
+  magnitudeCardLocked = !magnitudeCardLocked
+  element('magnitude-lock').setAttribute('aria-pressed', String(magnitudeCardLocked))
+}, { signal: events.signal })
 element('mass-close').addEventListener('click', () => closeMassCard(true), { signal: events.signal })
 for (const mode of ['class', 'origin', 'sun'] as const) {
   element(`mass-reference-${mode}`).addEventListener('click', () => {

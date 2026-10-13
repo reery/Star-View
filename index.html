@@ -63,8 +63,7 @@
                             <div id="radius-row" class="stellar-property radius-row"><dt>Radius</dt><dd><button id="radius-toggle" class="object-type-toggle" type="button" aria-controls="radius-card" aria-expanded="false" aria-describedby="radius"><span id="radius"></span></button><span id="radius-source-tooltip" class="tooltip mass-metric-tooltip" role="tooltip" hidden></span></dd></div>
                             <div class="stellar-property metallicity-row"><dt id="metallicity-label">Metallicity</dt><dd><button id="metallicity-toggle" class="object-type-toggle" type="button" aria-controls="metallicity-card" aria-expanded="false" aria-describedby="metallicity"><span id="metallicity"></span></button></dd></div>
                             <div class="stellar-property"><dt>Age</dt><dd id="age"></dd></div>
-                            <div class="stellar-property"><dt>Absolute mag. (V)</dt><dd id="absolute-mag"></dd></div>
-                            <div class="stellar-property"><dt id="apparent-mag-label">Apparent mag. (V)</dt><dd id="apparent-mag" title="Earth-view catalog V magnitude; a snapshot, not current variable-star photometry."></dd></div>
+                            <div id="magnitude-row" class="stellar-property magnitude-row"><dt><span>Absolute mag. (V)</span><span id="apparent-mag-label">Apparent mag. (V)</span></dt><dd><button id="magnitude-toggle" class="object-type-toggle" type="button" aria-controls="magnitude-card" aria-expanded="false" aria-describedby="absolute-mag apparent-mag"><span id="absolute-mag"></span><span id="apparent-mag" title="Earth-view catalog V magnitude; a snapshot, not current variable-star photometry."></span></button></dd></div>
                             <div class="compact-property" hidden><dt>Status</dt><dd id="compact-status"></dd></div>
                             <div class="compact-property rotation-property" hidden><dt>Rotation</dt><dd id="rotation-period"></dd></div>
                             <div class="compact-property pulsar-property" hidden><dt>Radio luminosity (1400 MHz)</dt><dd id="radio-luminosity"></dd></div>
@@ -164,7 +163,7 @@
             </section>
             <section id="constellation-card" class="dock-card object-type-card constellation-card" aria-labelledby="constellation-heading" data-scene-obstacle hidden>
               <div class="panel-heading constellation-heading">
-                <h2 id="constellation-heading">Constellation: Canis Major</h2>
+                <h2 id="constellation-heading">Canis Major</h2>
                 <button id="constellation-lock" class="panel-lock" type="button" aria-label="Keep Constellation open" aria-pressed="false"><span id="constellation-lock-icon"></span></button>
                 <button id="constellation-close" class="panel-lock" type="button" aria-label="Close constellation card"><span id="constellation-close-icon"></span></button>
               </div>
@@ -333,6 +332,32 @@
                   <p id="luminosity-class-method"></p><a id="luminosity-class-source" target="_blank" rel="noreferrer" hidden></a>
                   <p>1 L☉ = 3.828 × 10²⁶ W; R☉ = 695,700 km; 1 AU = 149,597,870,700 m; σ = 5.670374419 × 10⁻⁸ W m⁻² K⁻⁴. The nominal solar luminosity gives approximately 1,361 W/m² at 1 AU. Displayed values use three significant digits.</p>
                   <a href="https://arxiv.org/abs/1510.07674" target="_blank" rel="noreferrer">IAU nominal solar constants ↗</a> · <a href="https://lhea.gsfc.nasa.gov/archive/mwmw/mmw_bbody.html" target="_blank" rel="noreferrer">NASA: radiation laws ↗</a> · <a href="https://ssd.jpl.nasa.gov/planets/approx_pos.html" target="_blank" rel="noreferrer">JPL: planetary orbits ↗</a>
+                </details>
+              </div>
+            </section>
+            <section id="magnitude-card" class="dock-card object-type-card magnitude-card" aria-labelledby="magnitude-heading" data-scene-obstacle hidden>
+              <div class="panel-heading magnitude-heading"><h2 id="magnitude-heading">Magnitude</h2><button id="magnitude-lock" class="panel-lock" type="button" aria-label="Keep Magnitude open" aria-pressed="false"><span id="magnitude-lock-icon"></span></button><button id="magnitude-close" class="panel-lock" type="button" aria-label="Close magnitude card"><span id="magnitude-close-icon"></span></button></div>
+              <div class="card-scroll-content mass-body magnitude-body">
+                <section class="magnitude-section" aria-labelledby="magnitude-absolute-heading">
+                  <div class="magnitude-value-heading"><h3 id="magnitude-absolute-heading" class="mass-metric-heading"><span id="magnitude-absolute-icon" class="magnitude-heading-icon" aria-hidden="true"></span><span>Absolute magnitude</span><small>V</small></h3><strong id="magnitude-absolute-value"></strong></div>
+                  <p class="mass-benchmark">Intrinsic brightness at a distance of 10 pc (32.6 ly).</p>
+                  <p id="magnitude-visible-comparison" class="magnitude-visible-comparison" hidden><strong id="magnitude-visible-ratio"></strong><span id="magnitude-visible-reference"></span></p>
+                  <div id="magnitude-absolute-scale" class="mass-ratio-bar magnitude-scale" role="img"><div class="mass-ratio-labels magnitude-axis" aria-hidden="true"><span id="magnitude-absolute-faint"></span><span id="magnitude-absolute-bright"></span></div><div class="magnitude-plot"></div></div>
+                  <p id="magnitude-absolute-note" class="mass-benchmark" hidden></p>
+                </section>
+                <section class="magnitude-section" aria-labelledby="magnitude-apparent-heading">
+                  <div class="magnitude-value-heading"><h3 id="magnitude-apparent-heading" class="mass-metric-heading"><span id="magnitude-apparent-icon" class="magnitude-heading-icon" aria-hidden="true"></span><span>Apparent magnitude</span><small>V</small></h3><strong id="magnitude-apparent-value"></strong></div>
+                  <p class="mass-benchmark">How bright it looks from Earth.</p>
+                  <div id="magnitude-apparent-scale" class="mass-ratio-bar magnitude-scale" role="img"><div class="mass-ratio-labels magnitude-axis" aria-hidden="true"><span id="magnitude-apparent-faint"></span><span id="magnitude-apparent-bright"></span></div><div class="magnitude-plot"></div></div>
+                  <p class="mass-benchmark magnitude-visibility-key"><span aria-hidden="true"></span>Naked eye visibility (about +6)</p>
+                  <p id="magnitude-apparent-note" class="mass-benchmark" hidden></p>
+                </section>
+                <details class="mass-method"><summary>About the scales &amp; sources</summary>
+                  <p>Lower magnitudes mean brighter light. A difference of 5 magnitudes means 100 times the visible brightness. The equal-distance visible brightness ratio is 10<sup>0.4(M<sub>Sun</sub> − M<sub>selected</sub>)</sup>, using the adopted absolute V magnitudes. V measures visible light in the Johnson V band, rather than total bolometric luminosity.</p>
+                  <p>Each bar uses equal steps in magnitude, with fainter objects on the left and brighter ones on the right. The apparent bar focuses on nighttime objects, normally +16 to −6, and expands for outliers. The Sun is omitted from that bar.</p>
+                  <p>Absolute magnitude compares stars at the same distance. Apparent values remain Earth-view catalog snapshots when the origin changes; they do not predict current variable-star brightness. Missing individual measurements are left unavailable. Unresolved system photometry is not plotted as an individual component.</p>
+                  <p>Venus is shown near its brightest (−4.9); Sirius at −1.46. The naked-eye band fades from +4 toward the approximate +6 dark-sky limit. It is a brightness guide, not a guarantee of visibility; sky brightness, eyesight and an object's extent also matter. Marker colors follow the app's stellar color setting.</p>
+                  <a href="https://promenade.imcce.fr/en/pages1/101.html" target="_blank" rel="noreferrer">IMCCE: magnitude scales ↗</a> · <a href="https://nssdc.gsfc.nasa.gov/planetary/factsheet/sunfact.html" target="_blank" rel="noreferrer">NASA: Sun ↗</a> · <a href="https://www.jpl.nasa.gov/videos/whats-up-for-december-2013/" target="_blank" rel="noreferrer">NASA/JPL: Venus ↗</a> · <a href="https://www.eso.org/~hboffin/Teaching/CMD_notebook.pdf" target="_blank" rel="noreferrer">ESO: Sirius ↗</a>
                 </details>
               </div>
             </section>

@@ -462,7 +462,8 @@ select:focus-visible, input:focus-visible { outline: 2px solid var(--accent); ou
 .properties > div { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 10px; align-items: baseline; padding: 3px 0; font-size: var(--property-text-size); line-height: 1.2; }
 .properties dt { color: var(--muted); }
 .properties dd { text-align: right; font-weight: 500; font-variant-numeric: tabular-nums; }
-.properties > :is(.object-type-row, .metallicity-row, .radius-row, .spectral-row, .distance-row, .mass-row, .luminosity-row, .constellation-row, #known-planets-row) { position: relative; isolation: isolate; }
+.properties > :is(.object-type-row, .metallicity-row, .radius-row, .spectral-row, .distance-row, .mass-row, .luminosity-row, .magnitude-row, .constellation-row, #known-planets-row) { position: relative; isolation: isolate; }
+.magnitude-row dt, .magnitude-row .object-type-toggle { display: grid; gap: 6px; }
 .properties > div:has(.object-type-toggle:not(:disabled)) { cursor: pointer; }
 .object-type-toggle { padding: 0; border: 0; background: transparent; color: inherit; font: inherit; text-align: right; }
 .object-type-toggle::before { content: ''; position: absolute; z-index: -1; inset: -1px -8px; border-radius: 5px; }
@@ -489,8 +490,8 @@ select:focus-visible, input:focus-visible { outline: 2px solid var(--accent); ou
 .metallicity-body { padding: 0 20px 20px; }
 .object-type-toggle:disabled { cursor: default; opacity: 1; }
 .dock-card.object-type-card.constellation-card { width: min(380px, calc(100vw - 402px)); }
-.panel-heading.constellation-heading { padding-right: 98px; }
-.panel-heading #constellation-lock { right: 43px; border-radius: 0; }
+.panel-heading:is(.constellation-heading, .magnitude-heading) { padding-right: 98px; }
+.panel-heading :is(#constellation-lock, #magnitude-lock) { right: 43px; border-radius: 0; }
 .constellation-chart { position: relative; margin: 0; background: #090b10; }
 .constellation-chart > svg { position: relative; width: 100%; height: auto; }
 .constellation-star-canvas { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; mix-blend-mode: screen; }
@@ -634,7 +635,7 @@ select:focus-visible, input:focus-visible { outline: 2px solid var(--accent); ou
 .luminosity-distance-high { left: 100%; }
 .luminosity-distance-axis { grid-template-columns: 1fr 1fr; margin: -8px 5px 0 0; font-size: 12px; }
 .luminosity-distance-axis > :last-child { text-align: right; }
-.luminosity-scale .mass-ratio-track { background: linear-gradient(90deg, #ffffff14, #ffffff50 50%, #ffffffb8); }
+:is(.luminosity-scale, .magnitude-scale) .mass-ratio-track { background: linear-gradient(90deg, #ffffff14, #ffffff50 50%, #ffffffb8); }
 .luminosity-scale .mass-ratio-labels { position: relative; display: flex; justify-content: space-between; font-size: 12px; }
 .luminosity-scale .mass-ratio-labels > :nth-child(2) { position: absolute; left: var(--luminosity-sun-position); transform: translateX(-50%); }
 .luminosity-body :is(.luminosity-scale, .luminosity-class-bar) .mass-ratio-marker { z-index: 2; background: var(--luminosity-star-color); box-shadow: 0 0 7px color-mix(in srgb, var(--luminosity-star-color) 50%, transparent); }
@@ -643,6 +644,33 @@ select:focus-visible, input:focus-visible { outline: 2px solid var(--accent); ou
 .luminosity-class-bar .mass-ratio-labels { font-size: 12px; }
 .luminosity-body #luminosity-class-heading { grid-column: 1 / -1; }
 .luminosity-class-context { grid-column: 1 / -1; margin-top: 0; }
+.magnitude-card { --magnitude-visible-color: var(--accent-strong); }
+.magnitude-card #magnitude-close { right: 0; }
+.magnitude-body { padding-bottom: 14px; }
+.magnitude-section + .magnitude-section { margin-top: 12px; padding-top: 12px; border-top: var(--mass-metric-divider); }
+.magnitude-value-heading { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; font-variant-numeric: tabular-nums; }
+.magnitude-value-heading h3 { display: flex; align-items: center; gap: 6px; font-size: 16px; font-weight: 700; color: var(--ink); }
+.magnitude-heading-icon { display: flex; flex: 0 0 16px; }
+.magnitude-heading-icon svg { width: 16px; height: 16px; }
+.magnitude-value-heading h3 small { font-size: 12px; font-weight: 400; color: var(--muted); }
+.magnitude-value-heading > strong { color: var(--ink); font-size: 18px; line-height: 1.25; font-weight: 600; }
+.magnitude-visible-comparison { margin-top: 6px; font-size: 13px; color: var(--ink); }
+.magnitude-visible-comparison strong { color: var(--accent-strong); font-weight: 600; }
+.magnitude-scale { margin-top: 10px; padding-top: 5px; }
+.magnitude-plot { display: grid; align-items: center; padding-bottom: calc(4px + var(--magnitude-label-lanes, 1) * 20px); }
+.magnitude-visible-band { position: absolute; inset: 0 0 0 auto; background: linear-gradient(90deg, transparent, var(--magnitude-visible-color) var(--magnitude-visibility-fade-end), var(--magnitude-visible-color)); border-radius: inherit; }
+.magnitude-eye-limit { position: absolute; top: -3px; width: 1px; height: 10px; background: var(--magnitude-visible-color); opacity: 0.35; }
+.magnitude-marker { top: -3px; height: 8px; width: 2px; transform: translateX(-50%); background: var(--magnitude-marker-color); z-index: 1; }
+.magnitude-selected { top: -4px; height: 10px; width: 3px; z-index: 2; }
+.magnitude-marker::after { content: ''; position: absolute; left: 50%; top: 8px; width: 1px; height: calc(var(--magnitude-label-lane, 0) * 20px); background: var(--magnitude-marker-color); opacity: 0.3; }
+.magnitude-marker > span { width: max-content; top: calc(12px + var(--magnitude-label-lane, 0) * 20px); max-width: var(--magnitude-label-max, 240px); overflow: hidden; text-overflow: ellipsis; line-height: 1.35; text-align: center; }
+.magnitude-marker > span small { font-size: inherit; }
+.magnitude-selected > span { color: var(--ink); font-weight: 600; }
+.magnitude-axis { grid-template-columns: 1fr 1fr; margin: 0 0 8px; font-size: 12px; }
+.magnitude-axis > span { display: grid; gap: 1px; }
+.magnitude-visibility-key { display: flex; align-items: center; gap: 6px; margin-top: 6px; }
+.magnitude-visibility-key > span { flex: 0 0 12px; height: 4px; border-radius: 2px; background: var(--magnitude-visible-color); }
+.magnitude-body .mass-method { margin-top: 12px; padding-top: 10px; font-size: 12px; }
 .dock-card.object-type-card.distance-card { width: min(560px, calc(100vw - 402px)); }
 .dock-card.object-type-card.planet-card { width: min(420px, calc(100vw - 402px)); }
 .planet-heading { gap: 12px; padding-right: 54px; }
