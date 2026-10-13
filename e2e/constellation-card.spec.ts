@@ -1,7 +1,7 @@
 import { expect, test, type Page } from '@playwright/test'
 import { readFileSync, readdirSync } from 'node:fs'
 import type { ConstellationChart } from '../src/constellations'
-import { openSpecs, openViewer } from './support'
+import { openFilter, openSpecs, openViewer } from './support'
 
 async function selectObject(page: Page, name: string, showSpecs = true): Promise<void> {
   await page.getByRole('button', { name: 'Objects', exact: true }).click()
@@ -10,6 +10,65 @@ async function selectObject(page: Page, name: string, showSpecs = true): Promise
   await page.getByRole('button', { name: 'Objects', exact: true }).click()
   if (showSpecs) await openSpecs(page)
 }
+
+test('keeps Furud components and scoped cards identical from a clean chart and the loaded catalog', async ({ page }, testInfo) => {
+  const errors: string[] = []
+  page.on('pageerror', (error) => errors.push(error.message))
+  const checkFurud = async () => {
+    await openSpecs(page)
+    await expect(page.locator('#inspector')).toHaveAttribute('data-selected-star', 'hip-30122')
+    await expect(page.locator('#star-components button')).toHaveText(['Aa', 'Ab'])
+    await expect(page.getByRole('button', { name: 'Show Furud Aa', exact: true })).toHaveAttribute('aria-pressed', 'true')
+    await expect(page.locator('#luminosity')).toHaveText('1,609.359 L☉')
+    await expect(page.locator('#radius')).toHaveText('5.764 R☉')
+    for (const metric of ['luminosity', 'radius']) {
+      await expect(page.locator(`#${metric}-toggle`)).toBeDisabled()
+      await page.locator(`#${metric}-row`).focus()
+      await expect(page.locator(`#${metric}-source-tooltip`)).toBeVisible()
+      await expect(page.locator(`#${metric}-source-tooltip`)).toContainText(`Furud Aa’s individual ${metric} is unavailable`)
+      await page.locator(`#${metric}-row dt`).click()
+      await expect(page.locator(`#${metric}-card`)).toBeHidden()
+    }
+    await page.getByRole('button', { name: 'Show Furud Ab', exact: true }).click()
+    await expect(page.locator('#luminosity')).toHaveText('—')
+    await expect(page.locator('#radius')).toHaveText('—')
+    await expect(page.locator('#luminosity-source-tooltip')).toBeHidden()
+    await expect(page.locator('#radius-source-tooltip')).toBeHidden()
+    await page.getByRole('button', { name: 'Show Furud Aa', exact: true }).click()
+  }
+
+  await openViewer(page)
+  await openSpecs(page)
+  await page.locator('#constellation-toggle').click()
+  await page.locator('#constellation-card [data-hip="30122"]').click()
+  await page.locator('#constellation-close').click()
+  await checkFurud()
+  await page.locator('#radius-row').focus()
+  await page.locator('#selected-object-card').screenshot({ path: testInfo.outputPath('furud-radius-source.png') })
+  // A catalog refresh must retain the explicitly added companion too.
+  await openFilter(page)
+  await page.getByLabel('Object visibility distance', { exact: true }).fill('24')
+  await page.getByRole('switch', { name: 'Always show bright stars', exact: true }).check()
+  await page.getByRole('button', { name: 'Filter', exact: true }).click()
+  await checkFurud()
+
+  await page.reload()
+  await expect(page.locator('#scene')).toHaveAttribute('data-ready', 'true')
+  await openFilter(page)
+  for (const name of ['Always show bright stars', 'Western constellation stars', 'Famous cluster stars']) {
+    await page.getByRole('switch', { name, exact: true }).check()
+  }
+  for (const category of await page.locator('#object-categories input:enabled').all()) await category.check()
+  await page.locator('details.filter-dropdown > summary').click()
+  for (const subtype of await page.locator('input[data-filter-key]:enabled').all()) await subtype.check()
+  await expect(page.locator('#object-type-filter-summary')).toHaveText('All')
+  await page.getByLabel('Object visibility distance', { exact: true }).fill('24')
+  await expect(page.locator('#object-distance-limit-value')).toHaveText('10000 ly')
+  await page.getByRole('button', { name: 'Filter', exact: true }).click()
+  await selectObject(page, 'Furud Aa')
+  await checkFurud()
+  expect(errors).toEqual([])
+})
 
 test('opens all 88 charts with finite outlines and readable labels', { tag: '@mobile' }, async ({ page }, testInfo) => {
   test.setTimeout(180_000)
@@ -142,10 +201,10 @@ test('maps visible latitudes and updates the evening month bar for the selected 
   await expect(card.locator('.constellation-visibility-month.is-visible')).toHaveCount(0)
   await page.getByLabel('Latitude', { exact: true }).selectOption('0')
   await expect(card.locator('#constellation-visible-months-value')).toHaveText('Nov–Apr')
-  await card.getByRole('button', { name: 'Select Adhara', exact: true }).click()
+  await card.getByRole('button', { name: 'Select Adhara A', exact: true }).click()
   await expect(page.getByLabel('Latitude', { exact: true })).toHaveValue('0')
   await expect(card.locator('#constellation-visible-latitudes-value')).toHaveText('90° S–61.0° N')
-  await expect(card.locator('#constellation-visibility-months')).toHaveAttribute('aria-label', /^Adhara at 0°/)
+  await expect(card.locator('#constellation-visibility-months')).toHaveAttribute('aria-label', /^Adhara A at 0°/)
 })
 
 test('shows a labelled Canis Major chart with orange selection, lock, and close controls', { tag: '@mobile' }, async ({ page }, testInfo) => {
@@ -272,9 +331,9 @@ test('selects figure stars with tooltips while the constellation overlay is off'
   await expect(card.locator('.is-selected .constellation-star-name')).toHaveText('Mirzam')
   await expect(card.locator('.constellation-star-name')).toHaveCount(1)
   await expect(card).toBeVisible()
-  await card.getByRole('button', { name: 'Select Adhara', exact: true }).click()
+  await card.getByRole('button', { name: 'Select Adhara A', exact: true }).click()
   await expect(page.locator('#star-name')).toHaveText('Adhara')
-  await expect(card.locator('.is-selected .constellation-star-name')).toHaveText('Adhara')
+  await expect(card.locator('.is-selected .constellation-star-name')).toHaveText('Adhara A')
   await expect(page.locator('#show-western-constellation-stars')).not.toBeChecked()
 })
 

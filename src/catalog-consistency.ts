@@ -6,7 +6,7 @@ const scientificFields = [
   'luminosity_solar', 'metallicity_dex', 'metallicity_kind', 'age_gyr',
   'absolute_mag', 'constellation', 'epoch', 'x_pc', 'y_pc', 'z_pc',
   'vx_kms', 'vy_kms', 'vz_kms', 'raw_astrometry',
-  'subtypes', 'known_planets', 'apparent_mag',
+  'subtypes', 'known_planets', 'apparent_mag', 'unresolved_photometry', 'catalog_sources',
 ] as const satisfies readonly (keyof Star)[]
 
 /** Exact identities only; shared system identifiers must not merge components. */

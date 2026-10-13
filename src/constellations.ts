@@ -1,5 +1,6 @@
 import { ICRS_TO_GALACTIC_ROWS, type Star } from './catalog-model'
 import { starComponentIdentity } from './star-systems'
+import { completeCatalogCompanions } from './stellar-companions'
 import { constellationCharts } from './data/constellations'
 
 export interface SkyPosition { ra_deg: number; dec_deg: number }
@@ -35,7 +36,8 @@ function resolveFigureObjects(figures: readonly ConstellationStar[], objects: re
   }
   return new Map(figures.map((figure) => {
     const id = canonicalIds.get(figure.hip)!
-    return [figure.hip, canonical.get(id) ?? aliases.get(figure.hip) ?? { ...figure.object, id }]
+    // Embedded chart snapshots must obey the same component scope as loaded catalogs.
+    return [figure.hip, canonical.get(id) ?? aliases.get(figure.hip) ?? completeCatalogCompanions([{ ...figure.object, id }])[0]!]
   }))
 }
 

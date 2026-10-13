@@ -112,7 +112,7 @@ export function renderLuminosityCard(card: HTMLElement, star: Star, origin: Star
     preview.hidden = !STELLAR_OBJECT_TYPES.some((type) => type === row.object.type)
     if (row.visible && !preview.hidden) {
       // Use the scene's exact core/halo materials at a fixed illustrative size.
-      renderConstellationStars(preview, [{ object: row.object, x: 16, y: 16, magnitude: null }], 32, 32, colorMode)
+      renderConstellationStars(preview, [{ object: row.object, x: 16, y: 16, magnitude: null }], 32, 32, colorMode, true)
     }
     const bar = get(`luminosity-flux-${row.id}-bar`)
     const track = bar.querySelector<HTMLElement>('.mass-ratio-track')!

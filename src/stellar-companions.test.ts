@@ -1,10 +1,13 @@
 import { describe, expect, it } from 'vitest'
-import { readFileSync } from 'node:fs'
+import { readFileSync, readdirSync } from 'node:fs'
 import { parseStarCatalog } from './catalog'
 import { completeCatalogCompanions } from './stellar-companions'
 import { indexStarSystems, reviewedStarSystems, starComponentIdentity } from './star-systems'
 import { mergeCatalogStars } from './catalog-runtime'
 import { mkPoint } from './mk-diagram'
+import { catalogMeasurement, missingCatalogMeasurements } from './catalog-source'
+import { parseObjectStats, supplementObjectStats } from './object-stats'
+import { parseObjectIdentities, supplementObjectIdentities } from './designations'
 
 const bright = parseStarCatalog(readFileSync(new URL('./data/catalogs/bright-stars/stars.csv', import.meta.url), 'utf8'))
 const western = parseStarCatalog(readFileSync(new URL('./data/catalogs/western-constellation-stars/stars.csv', import.meta.url), 'utf8'))
@@ -12,6 +15,72 @@ const dubhe = bright.find((star) => star.id === 'bright-dubhe')!
 const sun = bright.find((star) => star.id === 'sun')!
 
 describe('component coverage shared by every catalog', () => {
+  it('retains Furud source photometry without assigning unresolved flux or variability to Aa/Ab', () => {
+    const furud = western.find((star) => star.id === 'hip-30122')!
+    const expanded = completeCatalogCompanions([furud])
+    const a = expanded.find((star) => star.id === furud.id)!
+    const b = expanded.find((star) => star.name === 'Furud Ab')!
+    expect(a).toMatchObject({ spectral_type: 'B2.5V', subtypes: ['Main-sequence'],
+      apparent_mag: null, absolute_mag: null, mass_solar: null, luminosity_solar: null,
+      unresolved_photometry: { magnitude_v: 2.99, error_mag: .01 } })
+    expect(a.unresolved_photometry?.scope).toContain('Aa+Ab')
+    expect(catalogMeasurement(a, 'luminosity_solar')).toBe(furud.luminosity_solar)
+    expect(catalogMeasurement(a, 'radius_solar')).toBe(furud.radius_solar)
+    expect(catalogMeasurement(a, 'absolute_mag')).toBe(furud.absolute_mag)
+    expect(catalogMeasurement(a, 'temperature_k')).toBe(18500)
+    expect(missingCatalogMeasurements(furud, a)).toEqual([])
+    expect(b).toMatchObject({ apparent_mag: null, absolute_mag: null, spectral_type: null, subtypes: [] })
+    expect(b.unresolved_photometry).toBeUndefined()
+    expect(b.catalog_sources).toBeUndefined()
+    expect(completeCatalogCompanions([b]).find((star) => star.id === furud.id)).toEqual(a)
+  })
+
+  it('preserves every known source measurement and uncertainty across all six catalogs', () => {
+    const identities = parseObjectIdentities(JSON.parse(readFileSync(new URL('./data/object-designations.json', import.meta.url), 'utf8')))
+    const stats = parseObjectStats(JSON.parse(readFileSync(new URL('./data/object-stats.json', import.meta.url), 'utf8')))
+    const paths = [new URL('./data/stars.csv', import.meta.url),
+      ...readdirSync(new URL('./data/catalogs/', import.meta.url)).map((id) => new URL(`./data/catalogs/${id}/stars.csv`, import.meta.url))]
+    for (const path of paths) {
+      const original = supplementObjectStats(supplementObjectIdentities(parseStarCatalog(readFileSync(path, 'utf8')), identities), stats)
+      const expanded = new Map(completeCatalogCompanions(original).map((star) => [star.id, star]))
+      for (const source of original) {
+        expect(expanded.has(source.id), source.id).toBe(true)
+        expect(missingCatalogMeasurements(source, expanded.get(source.id)!), source.id).toEqual([])
+      }
+    }
+  })
+
+  it('detects replacement loss of physical values and nested astrometric uncertainties', () => {
+    const source = western.find((star) => star.id === 'hip-30122')!
+    const a = completeCatalogCompanions([source])[0]!
+    expect(missingCatalogMeasurements(source, { ...a, catalog_sources: undefined })).toContain('luminosity_solar')
+    expect(missingCatalogMeasurements(source, { ...a, catalog_sources: undefined })).toContain('raw_astrometry.parallax_error_mas')
+    expect(missingCatalogMeasurements(source, a)).toEqual([])
+  })
+
+  it('retains new input measurements when a bundled component lacks them', () => {
+    const furud = western.find((star) => star.id === 'hip-30122')!
+    const input = { ...furud, mass_solar: 7.7 }
+    const expanded = completeCatalogCompanions([input])
+    const a = expanded[0]!
+    expect(a.mass_solar).toBeNull()
+    expect(catalogMeasurement(a, 'mass_solar')).toBe(7.7)
+    expect(missingCatalogMeasurements(input, a)).toEqual([])
+    expect(completeCatalogCompanions(expanded)).toEqual(expanded)
+    expect(expanded.find((star) => star.name === 'Furud Ab')?.catalog_sources).toBeUndefined()
+  })
+
+  it('classifies new components from their own spectra while keeping ambiguous stages unavailable', () => {
+    const pool = JSON.parse(readFileSync(new URL('./data/stellar-companions.json', import.meta.url), 'utf8')) as { stars: typeof bright }
+    const byId = new Map(pool.stars.map((star) => [star.id, star]))
+    expect(byId.get('hip-45336')?.subtypes).toEqual(['Main-sequence'])
+    expect(byId.get('hip-112158')?.subtypes).toEqual(['Bright giant'])
+    expect(byId.get('orb6-16003-2237-a-b-b')?.subtypes).toEqual(['Main-sequence'])
+    expect(byId.get('cns5-2182')?.subtypes).toEqual([]) // IV-V cannot select one stage.
+    const individual = pool.stars.filter((star) => star.apparent_mag != null)
+    expect(individual.every((star) => star.unresolved_photometry === undefined)).toBe(true)
+  })
+
   it.each([
     ['Achernar', 'bright-achernar', ['A', 'B']],
     ['Porrima', 'hip-61941', ['A', 'B']],

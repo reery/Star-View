@@ -33,7 +33,7 @@ function createRenderer() {
 }
 let points: ReturnType<typeof createRenderer> | undefined
 
-export function renderConstellationStars(canvas: HTMLCanvasElement, marks: readonly ConstellationMarker[], width: number, height: number, colorMode: StarColorMode): void {
+export function renderConstellationStars(canvas: HTMLCanvasElement, marks: readonly ConstellationMarker[], width: number, height: number, colorMode: StarColorMode, transparentBackground = false): void {
   const state = points ??= createRenderer()
   const ratio = Math.min(3, window.devicePixelRatio || 1)
   state.renderer.setPixelRatio(ratio)
@@ -77,6 +77,19 @@ export function renderConstellationStars(canvas: HTMLCanvasElement, marks: reado
   const context = canvas.getContext('2d')!
   context.globalCompositeOperation = 'screen'
   context.drawImage(state.renderer.domElement, 0, 0)
+  if (transparentBackground) {
+    // Give small card icons real transparency, so a CSS blending failure cannot
+    // expose the opaque render target. Preserve the light's premultiplied color.
+    const pixels = context.getImageData(0, 0, canvas.width, canvas.height)
+    const data = pixels.data
+    for (let index = 0; index < data.length; index += 4) {
+      const intensity = Math.max(data[index]!, data[index + 1]!, data[index + 2]!)
+      data[index + 3] = data[index + 3]! * intensity / 255
+      if (intensity === 0) continue
+      for (let channel = 0; channel < 3; channel++) data[index + channel] = data[index + channel]! * 255 / intensity
+    }
+    context.putImageData(pixels, 0, 0)
+  }
 }
 
 export function disposeConstellationStars(): void {

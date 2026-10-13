@@ -79,6 +79,8 @@ const references = {
   'Main-sequence': evolution('main sequence dwarf luminosity class V', 'In the Morgan–Keenan spectral system, luminosity class V usually identifies this stage.', fusion),
   'Subgiant': { source: 'https://heasarc.gsfc.nasa.gov/W3Browse/rosat/rassdwarf.html', sourceLabel: 'NASA', aliases: 'luminosity class IV stellar evolution', context: 'Luminosity class IV identifies subgiant spectra; it is a spectral classification, rather than an age measurement.' },
   'Giant': evolution('luminosity class III evolved star', 'Luminosity class III identifies giant spectra. A giant need not be red.'),
+  'Bright giant': { source: 'https://archive.stsci.edu/spec_class/spec_class_tables.html', sourceLabel: 'STScI', aliases: 'luminosity class II bright giant', context: 'This label follows the adopted spectral luminosity class; it does not supply a mass or age.' },
+  'Subdwarf': { source: 'https://archive.stsci.edu/spec_class/spec_class_tables.html', sourceLabel: 'STScI', aliases: 'luminosity class VI subdwarf sd', context: 'This is a spectral luminosity classification, distinct from the hot-subdwarf object subtype.' },
   'Supergiant': evolution('luminosity class I Ia Iab Ib massive star', 'Supergiants can have red, yellow or blue surfaces; size and color are separate properties.'),
   'Evolved supergiant': simbad('sg*', 'evolved supergiant luminosity class I'),
   'Red giant': simbad('RG*', 'RGB red giant branch cool evolved star'),

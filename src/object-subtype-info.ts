@@ -7,6 +7,8 @@ const descriptions = {
   'Main-sequence': 'A star in its long, stable phase of life, powered by hydrogen fusion in its core. The Sun is one.',
   'Subgiant': 'A star beginning to expand after using up the hydrogen fuel in its core, on its way toward becoming a giant.',
   'Giant': 'An evolved star with an expanded outer envelope, larger and usually brighter than a main-sequence star of the same temperature.',
+  'Bright giant': 'A luminosity-class II star, between ordinary giants and supergiants in its spectral classification.',
+  'Subdwarf': 'A luminosity-class VI star, fainter than a typical main-sequence star of the same spectral type.',
   'Supergiant': 'An exceptionally large, luminous star. This class describes its spectrum and can include different stages of stellar evolution.',
   'Evolved supergiant': 'A very luminous, expanded star that has moved beyond the hydrogen-burning stage of its core.',
   'Red giant': 'An aging star whose outer layers have expanded and cooled, giving it an orange or reddish appearance.',

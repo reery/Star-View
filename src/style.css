@@ -576,8 +576,12 @@ select:focus-visible, input:focus-visible { outline: 2px solid var(--accent); ou
 .mass-scale-help .mass-metric-tooltip { top: calc(100% + 8px); bottom: auto; left: var(--mass-tooltip-offset, 0px); width: var(--mass-tooltip-width, 220px); max-width: none; }
 .mass-scale-help .mass-metric-tooltip::before { top: -5px; bottom: auto; left: var(--mass-tooltip-arrow, 14px); border: 0; border-top: 1px solid var(--line); border-left: 1px solid var(--line); }
 .mass-metric-copy:focus-within .mass-metric-tooltip { display: block; }
+:is(.luminosity-row, .radius-row)[tabindex="0"] { cursor: help; }
+:is(.luminosity-row, .radius-row):focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; border-radius: 5px; }
+:is(.luminosity-row, .radius-row):focus-within .mass-metric-tooltip:not([hidden]) { display: block; }
 @media (hover: hover) and (pointer: fine) {
   .mass-metric-copy:has(.mass-metric-help:hover) .mass-metric-tooltip { display: block; }
+  :is(.luminosity-row, .radius-row):hover .mass-metric-tooltip:not([hidden]) { display: block; }
 }
 .mass-ratio-bar { grid-column: 1; min-width: 0; padding-top: 5px; }
 .mass-ratio-track, .metallicity-track { position: relative; height: 4px; background: #ffffff24; border-radius: 2px; }

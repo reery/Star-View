@@ -2,6 +2,9 @@ import { describe, expect, it } from 'vitest'
 import { equatorialToGalacticPc, type Star } from './catalog-model'
 import { constellationCardAvailable, constellationStarObject, constellationStarObjects, loadConstellationChart, objectSkyPosition, projectConstellationPosition } from './constellations'
 import culture from '../catalog-work/western-constellation-stars/stellarium-western-index.json'
+import { completeCatalogCompanions } from './stellar-companions'
+import { catalogMeasurement, missingCatalogMeasurements } from './catalog-source'
+import { luminosityCardAvailable } from './luminosity-properties'
 
 const object = (overrides: Partial<Star> = {}): Star => ({
   type: 'star', id: 'sirius-a', name: 'Sirius A', constellation: 'Canis Major', spectral_type: 'A1V',
@@ -111,6 +114,20 @@ describe('all 88 constellation charts', () => {
     const loaded = { ...mirzam.object, id: 'custom-mirzam', designations: ['HIP 30324'] }
     expect(constellationStarObject(mirzam, [loaded])).toBe(loaded)
     expect(constellationStarObject(mirzam, []).id).toBe(mirzam.object.id)
+  })
+
+  it('resolves unloaded Furud through the reviewed component data and preserves its source measurements', async () => {
+    const chart = (await loadConstellationChart(object()))!
+    const figure = chart.stars.find((star) => star.hip === 30122)!
+    const fallback = constellationStarObjects(chart, [object()]).get(figure.hip)!
+    expect(fallback).toMatchObject({ id: 'hip-30122', name: 'Furud Aa', luminosity_solar: null, radius_solar: null })
+    const components = completeCatalogCompanions([fallback])
+    expect(components.map((star) => star.name)).toEqual(['Furud Aa', 'Furud Ab'])
+    expect(constellationStarObject(figure, components)).toEqual(fallback)
+    expect(luminosityCardAvailable(fallback)).toBe(false)
+    expect(catalogMeasurement(fallback, 'luminosity_solar')).toBe(figure.object.luminosity_solar)
+    expect(catalogMeasurement(fallback, 'radius_solar')).toBe(figure.object.radius_solar)
+    expect(missingCatalogMeasurements(figure.object, fallback)).toEqual([])
   })
 
   it('loads Centaurus once with all figure stars and its concave Crux boundary', async () => {

@@ -1,5 +1,36 @@
 import { expect, test } from '@playwright/test'
-import { openSpecs } from './support'
+import { openFilter, openSpecs } from './support'
+
+test('shows Furud subtype and scoped V uncertainty without borrowing Aa flux for Ab @mobile', async ({ page }, testInfo) => {
+  await page.goto('/')
+  await expect(page.locator('#scene')).toHaveAttribute('data-ready', 'true')
+  await openFilter(page)
+  await page.getByRole('switch', { name: 'Western constellation stars' }).check()
+  await page.getByLabel('Object visibility distance', { exact: true }).fill('24')
+  await page.getByRole('button', { name: 'Filter', exact: true }).click()
+  await page.getByRole('button', { name: 'Objects', exact: true }).click()
+  await page.getByLabel('Search objects').fill('Furud')
+  await page.getByRole('button', { name: 'Select Furud Aa', exact: true }).click()
+  await page.getByRole('button', { name: 'Objects', exact: true }).click()
+  await openSpecs(page)
+  await expect(page.locator('#object-subtypes-count')).toHaveText('1')
+  await page.locator('#object-subtypes-row > summary').click()
+  await expect(page.locator('#object-subtypes strong')).toHaveText('Main-sequence')
+  await expect(page.locator('#apparent-mag-label')).toHaveText('Apparent mag. (V)')
+  await expect(page.locator('#apparent-mag')).toHaveText('2.99 ± 0.01')
+  await expect(page.locator('#apparent-mag')).toHaveAttribute('title', /Aa\+Ab.*not an individual Aa/)
+  await expect(page.locator('#luminosity')).toHaveText('1,609.359 L☉')
+  await expect(page.locator('#radius')).toHaveText('5.764 R☉')
+  await expect(page.locator('#absolute-mag')).toHaveText('-2.134')
+  await expect(page.locator('#catalog-sources-row')).toHaveCount(0)
+  await expect(page.locator('#object-specs')).not.toContainText('(source)')
+  await page.locator('#apparent-mag').scrollIntoViewIfNeeded()
+  await page.locator('#selected-object-card').screenshot({ path: testInfo.outputPath('furud-photometry.png') })
+  await page.getByRole('button', { name: 'Show Furud Ab', exact: true }).click()
+  await expect(page.locator('#apparent-mag-label')).toHaveText('Apparent mag. (V)')
+  await expect(page.locator('#apparent-mag')).toHaveText('—')
+  await expect(page.locator('#object-subtypes-empty-row')).toBeVisible()
+})
 
 test('expands sub-type descriptions and handles one or no classifications @mobile', async ({ page }, testInfo) => {
   await page.goto('/')

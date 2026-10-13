@@ -12,6 +12,7 @@ import { buildCatalogClassReferences } from '../src/catalog-class-references.ts'
 import { parseObjectStats, supplementObjectStats } from '../src/object-stats.ts'
 import { auditCatalogConsistency } from '../src/catalog-consistency.ts'
 import { completeCatalogCompanions } from '../src/stellar-companions.ts'
+import { missingCatalogMeasurements } from '../src/catalog-source.ts'
 import { reviewedStarSystems } from '../src/star-systems.ts'
 
 const root = fileURLToPath(new URL('../', import.meta.url))
@@ -88,6 +89,15 @@ function validate(directory?: string): void {
 }
 
 function requireConsistentCatalogs(catalogs: Parameters<typeof auditCatalogConsistency>[0]) {
+  for (const catalog of catalogs) {
+    const adopted = new Map(completeCatalogCompanions(catalog.stars).map((star) => [star.id, star]))
+    for (const source of catalog.stars) {
+      const component = adopted.get(source.id)
+      if (!component) throw new Error(`Lost catalog record: ${catalog.id}/${source.id}`)
+      const missing = missingCatalogMeasurements(source, component)
+      if (missing.length) throw new Error(`Lost catalog measurements: ${catalog.id}/${source.id}: ${missing.join(', ')}`)
+    }
+  }
   const audit = auditCatalogConsistency(catalogs.map((catalog) => ({
     ...catalog, stars: completeCatalogCompanions(catalog.stars),
   })), identities, (id) => components.get(id))
