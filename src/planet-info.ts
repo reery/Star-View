@@ -9,6 +9,7 @@ import uranusVoyager from './assets/planets/uranus-voyager.jpg'
 import neptuneVoyager from './assets/planets/neptune-voyager.jpg'
 
 import { renderObjectInfoContent, type InfoSource, type ObjectInfo as PlanetInfo } from './object-info-content'
+import { smallBodyInfo } from './small-body-info'
 
 const mercuryFacts: InfoSource = {
   title: 'NASA: Mercury facts',
@@ -741,5 +742,5 @@ const neptuneInfo: PlanetInfo = {
 const planetInfo: Readonly<Record<string, PlanetInfo>> = { mercury: mercuryInfo, venus: venusInfo, earth: earthInfo, mars: marsInfo, jupiter: jupiterInfo, saturn: saturnInfo, uranus: uranusInfo, neptune: neptuneInfo }
 
 export function renderPlanetInfo(container: HTMLElement, planetId: string): boolean {
-  return renderObjectInfoContent(container, planetInfo[planetId])
+  return renderObjectInfoContent(container, planetInfo[planetId] ?? smallBodyInfo(planetId))
 }

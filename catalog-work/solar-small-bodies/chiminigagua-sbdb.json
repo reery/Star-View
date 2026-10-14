@@ -1,0 +1,161 @@
+{
+  "signature": {
+    "source": "NASA/JPL Small-Body Database (SBDB) API",
+    "version": "1.3"
+  },
+  "object": {
+    "shortname": "532037 Chiminigagua",
+    "spkid": "20532037",
+    "kind": "an",
+    "neo": false,
+    "fullname": "532037 Chiminigagua (2013 FY27)",
+    "prefix": null,
+    "des": "532037",
+    "orbit_class": {
+      "code": "TNO",
+      "name": "TransNeptunian Object"
+    },
+    "orbit_id": "18",
+    "pha": false
+  },
+  "discovery": {
+    "location": "Haleakala",
+    "discovery": "",
+    "site": null,
+    "who": "Pan-STARRS 1",
+    "date": "2011-Mar-15",
+    "citation": "Chiminigagua is the creator of light and the world of the Muisca people that inhabit the Andes mountains in the central part of Colombia.  Before Chiminigagua, there was only darkness.",
+    "cref": "WGSBN Bull. 5, #19, 11",
+    "ref": "",
+    "name": "Chiminigagua"
+  },
+  "phys_par": [
+    {
+      "ref": "MPO905275",
+      "title": "absolute magnitude",
+      "notes": null,
+      "name": "H",
+      "units": null,
+      "sigma": null,
+      "value": "3.09",
+      "desc": "absolute magnitude (magnitude at 1 au from Sun and observer)"
+    }
+  ],
+  "orbit": {
+    "orbit_id": "18",
+    "soln_date": "2025-04-10 00:42:40",
+    "pe_used": "DE441",
+    "last_obs": "2025-02-22",
+    "moid_jup": "31.2364",
+    "source": "JPL",
+    "two_body": null,
+    "n_del_obs_used": null,
+    "not_valid_before": null,
+    "equinox": "J2000",
+    "n_obs_used": 139,
+    "rms": ".51625",
+    "n_dop_obs_used": null,
+    "not_valid_after": null,
+    "epoch": "2461200.5",
+    "comment": null,
+    "moid": "34.9281",
+    "t_jup": "5.276",
+    "producer": "Otto Matic",
+    "data_arc": "5093",
+    "first_obs": "2011-03-15",
+    "condition_code": "4",
+    "cov_epoch": "2457864.5",
+    "sb_used": "SB441-N16",
+    "model_pars": [],
+    "elements": [
+      {
+        "value": ".3909366841447515",
+        "name": "e",
+        "sigma": "3.6807E-5",
+        "units": null,
+        "title": "eccentricity",
+        "label": "e"
+      },
+      {
+        "label": "a",
+        "title": "semi-major axis",
+        "name": "a",
+        "sigma": ".0019755",
+        "units": "au",
+        "value": "58.89795676466917"
+      },
+      {
+        "value": "35.87258484418847",
+        "name": "q",
+        "units": "au",
+        "sigma": ".0027628",
+        "title": "perihelion distance",
+        "label": "q"
+      },
+      {
+        "label": "i",
+        "title": "inclination; angle with respect to x-y ecliptic plane",
+        "sigma": ".00019338",
+        "units": "deg",
+        "name": "i",
+        "value": "33.10715673878931"
+      },
+      {
+        "units": "deg",
+        "sigma": ".00016918",
+        "name": "om",
+        "value": "187.0591745566242",
+        "label": "node",
+        "title": "longitude of the ascending node"
+      },
+      {
+        "name": "w",
+        "units": "deg",
+        "sigma": ".011402",
+        "value": "139.3034730116309",
+        "label": "peri",
+        "title": "argument of perihelion"
+      },
+      {
+        "sigma": ".024331",
+        "units": "deg",
+        "name": "ma",
+        "value": "218.7009524211624",
+        "label": "M",
+        "title": "mean anomaly"
+      },
+      {
+        "value": "2526002.066411821936",
+        "name": "tp",
+        "units": "TDB",
+        "sigma": "10.25",
+        "title": "time of perihelion passage",
+        "label": "tp"
+      },
+      {
+        "label": "period",
+        "title": "sidereal orbital period",
+        "units": "d",
+        "sigma": "8.3067",
+        "name": "per",
+        "value": "165100.6451068948"
+      },
+      {
+        "value": ".002180488148710244",
+        "name": "n",
+        "units": "deg/d",
+        "sigma": "1.0971E-7",
+        "title": "mean motion",
+        "label": "n"
+      },
+      {
+        "label": "Q",
+        "title": "aphelion distance",
+        "units": "au",
+        "sigma": ".0027479",
+        "name": "ad",
+        "value": "81.92332868514987"
+      }
+    ]
+  }
+}

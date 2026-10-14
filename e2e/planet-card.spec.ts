@@ -29,7 +29,7 @@ test('Mars has sourced Info sections and its existing moons', async ({ page }, t
   await expect(page.locator('#planet-moons')).toContainText('Deimos')
 })
 
-test('Jupiter has a photographic globe, gas-giant specs and only four Galilean moons', { tag: '@mobile' }, async ({ page }, testInfo) => {
+test('Jupiter has a photographic globe, gas-giant specs and eight selected moons', { tag: '@mobile' }, async ({ page }, testInfo) => {
   const errors: string[] = []
   page.on('pageerror', (error) => errors.push(error.message))
   await openPlanet(page, 'jupiter')
@@ -57,8 +57,8 @@ test('Jupiter has a photographic globe, gas-giant specs and only four Galilean m
   await expect(page.locator('#planet-info img')).toHaveJSProperty('naturalHeight', 2400)
   await card.screenshot({ path: testInfo.outputPath('jupiter-info.png') })
   await page.locator('#planet-moons-toggle').click()
-  await expect(page.locator('#planet-moons .moon-row')).toHaveCount(4)
-  await expect(page.locator('#planet-moons .moon-row dt')).toHaveText(['Io', 'Europa', 'Ganymede', 'Callisto'])
+  await expect(page.locator('#planet-moons .moon-row')).toHaveCount(8)
+  await expect(page.locator('#planet-moons .moon-row dt')).toHaveText(['Metis', 'Adrastea', 'Amalthea', 'Thebe', 'Io', 'Europa', 'Ganymede', 'Callisto'])
   await card.screenshot({ path: testInfo.outputPath('jupiter-moons.png') })
   // Switching planets must clear the limited moon list and the size comparison.
   await page.keyboard.press('Escape')
@@ -71,7 +71,7 @@ test('Jupiter has a photographic globe, gas-giant specs and only four Galilean m
   expect(errors).toEqual([])
 })
 
-test('Saturn has rotating rings, gas-giant specs and six selected moons', { tag: '@mobile' }, async ({ page }, testInfo) => {
+test('Saturn has rotating rings, gas-giant specs and eight selected moons', { tag: '@mobile' }, async ({ page }, testInfo) => {
   const errors: string[] = []
   page.on('pageerror', (error) => errors.push(error.message))
   page.on('console', (message) => { if (message.type() === 'error') errors.push(message.text()) })
@@ -100,13 +100,14 @@ test('Saturn has rotating rings, gas-giant specs and six selected moons', { tag:
   await expect(page.locator('#planet-info img')).toHaveJSProperty('naturalHeight', 1834)
   await card.screenshot({ path: testInfo.outputPath('saturn-info.png') })
   await page.locator('#planet-moons-toggle').click()
-  await expect(page.locator('#planet-moons .moon-row')).toHaveCount(6)
-  await expect(page.locator('#planet-moons .moon-row dt')).toHaveText(['Mimas', 'Enceladus', 'Dione', 'Rhea', 'Titan', 'Iapetus'])
+  await expect(page.locator('#planet-moons .moon-row')).toHaveCount(8)
+  await expect(page.locator('#planet-moons .moon-row dt')).toHaveText(['Mimas', 'Enceladus', 'Tethys', 'Dione', 'Rhea', 'Titan', 'Hyperion', 'Iapetus'])
   await card.screenshot({ path: testInfo.outputPath('saturn-moons.png') })
   const moonGlobe = page.locator('#planet-moon-globe')
   for (const [id, name, description] of [
     ['mimas', 'Mimas', /Herschel crater from Cassini/],
     ['enceladus', 'Enceladus', /southern tiger stripes from Cassini/],
+    ['tethys', 'Tethys', /Odysseus crater and Ithaca Chasma from Cassini/],
     ['dione', 'Dione', /bright fractured cliffs from Cassini/],
     ['rhea', 'Rhea', /bright wispy fractures from Cassini/],
     ['titan', 'Titan', /soft edge and a faint blue upper layer/],
@@ -125,7 +126,38 @@ test('Saturn has rotating rings, gas-giant specs and six selected moons', { tag:
       await moonGlobe.screenshot({ path: testInfo.outputPath('titan-globe-rotated.png') })
     }
   }
-  // Returning to an icy moon must clear Titan's atmospheric treatment.
+  const moons = page.locator('#planet-moons')
+  const moonImage = page.locator('#planet-moon-image')
+  await moons.getByRole('button', { name: /^Hyperion, orbital distance/ }).click()
+  await expect(moons).toHaveAttribute('data-selected-moon-id', 'hyperion')
+  await expect(moonGlobe).toBeHidden()
+  await expect(moonImage).toBeVisible()
+  await expect(moonImage).toHaveJSProperty('naturalWidth', 310)
+  await expect(moonImage).toHaveJSProperty('naturalHeight', 344)
+  await expect(moonImage).toHaveAttribute('alt', /Cassini natural-color mosaic of Hyperion/)
+  await expect(moonImage).toHaveAttribute('title', /Gordan Ugarkovic.*CC BY-NC-SA 2.0/)
+  await expect(moonImage).toHaveCSS('object-fit', 'contain')
+  await expect(moons.locator('[data-planet-spec="moon-hyperion-mean-radius"]')).toContainText('135.1 km')
+  await expect(moons.locator('[data-planet-spec="moon-hyperion-semi-major-axis"]')).toContainText('1,500,930 km')
+  await expect(moons.locator('#planet-moon-hyperion-surface-gravity-detail-tooltip')).toContainText('local surface gravity varies with position')
+  await expect(moons.locator('.moon-globe-unavailable')).toBeHidden()
+  await card.screenshot({ path: testInfo.outputPath('hyperion-photo.png') })
+
+  // Returning from a photograph must restore the globe and its rotation controls.
+  await moons.getByRole('button', { name: /^Tethys, orbital distance/ }).click()
+  await expect(moonImage).toBeHidden()
+  await expect(moonGlobe).toBeVisible()
+  await expect(moonGlobe).toHaveAttribute('data-planet-id', 'tethys')
+  await expect(moonGlobe).toHaveAttribute('data-texture-ready', 'true')
+  await expect(moons.locator('[data-planet-spec="moon-tethys-mean-radius"]')).toContainText('530.6 km')
+  await expect(moons.locator('[data-planet-spec="moon-tethys-semi-major-axis"]')).toContainText('294,660 km')
+  const tethys = await moonGlobe.screenshot()
+  await moonGlobe.focus()
+  await page.keyboard.press('ArrowRight')
+  await expect.poll(async () => (await moonGlobe.screenshot()).equals(tethys)).toBe(false)
+  await moonGlobe.screenshot({ path: testInfo.outputPath('tethys-after-hyperion.png') })
+
+  // Returning to another icy moon must clear previous visual treatments.
   await page.locator('#planet-moons').getByRole('button', { name: /^Mimas, orbital distance/ }).click()
   await expect(moonGlobe).toHaveAttribute('data-texture-ready', 'true')
   await expect(moonGlobe).toHaveAttribute('aria-label', /Cratered surface/)
@@ -138,7 +170,65 @@ test('Saturn has rotating rings, gas-giant specs and six selected moons', { tag:
   await expect(canvas).toHaveAttribute('data-rings-visible', 'false')
   await expect(canvas).toHaveAttribute('data-comparing-earth', 'false')
   await page.locator('#planet-moons-toggle').click()
-  await expect(page.locator('#planet-moons .moon-row dt')).toHaveText(['Io', 'Europa', 'Ganymede', 'Callisto'])
+  await expect(page.locator('#planet-moons .moon-row dt')).toHaveText(['Metis', 'Adrastea', 'Amalthea', 'Thebe', 'Io', 'Europa', 'Ganymede', 'Callisto'])
+  expect(errors).toEqual([])
+})
+
+test('Neptune inner moons select photographs and preserve unavailable measurements', async ({ page }, testInfo) => {
+  const errors: string[] = []
+  page.on('pageerror', (error) => errors.push(error.message))
+  await openPlanet(page, 'neptune')
+  await page.locator('#planet-moons-toggle').click()
+  const moons = page.locator('#planet-moons')
+  const image = page.locator('#planet-moon-image')
+  const globe = page.locator('#planet-moon-globe')
+  await expect(moons.locator('.moon-row dt')).toHaveText([
+    'Naiad', 'Thalassa', 'Despina', 'Galatea', 'Larissa', 'Hippocamp', 'Proteus', 'Triton', 'Nereid',
+  ])
+  // Closely spaced orbits must still have distinct schematic markers.
+  const markers = await moons.locator('.planet-body .planet-marker').evaluateAll((nodes) => nodes.map((node) => ({
+    x: Number(node.getAttribute('cx')), y: Number(node.getAttribute('cy')),
+  })))
+  for (let i = 0; i < markers.length; i++) for (let j = i + 1; j < markers.length; j++) {
+    expect(Math.hypot(markers[i]!.x - markers[j]!.x, markers[i]!.y - markers[j]!.y)).toBeGreaterThan(8)
+  }
+  for (const name of ['Naiad', 'Thalassa', 'Despina', 'Galatea', 'Larissa', 'Hippocamp', 'Proteus', 'Triton', 'Nereid']) {
+    const id = name.toLowerCase()
+    await moons.getByRole('button', { name: new RegExp(`^${name}, orbital distance`) }).click()
+    await expect(moons).toHaveAttribute('data-selected-moon-id', id)
+    await expect(moons.locator('.planet-orbit.is-highlighted')).toHaveAttribute('data-orbit-id', id)
+    await expect(moons.locator('#planet-moon-details')).toHaveAttribute('aria-label', `${name} specifications`)
+    await expect(globe).toBeHidden()
+    await expect(image).toBeVisible()
+    await expect(image).toHaveAttribute('alt', new RegExp(name))
+    await expect.poll(() => image.evaluate((node: HTMLImageElement) => node.complete && node.naturalWidth > 0)).toBe(true)
+    await expect(image).toHaveCSS('object-fit', 'contain')
+    await expect(moons.locator('.moon-globe-unavailable')).toBeHidden()
+    await expect(moons).not.toContainText(/NaN|Infinity/)
+    if (['despina', 'galatea', 'larissa', 'hippocamp'].includes(id)) {
+      await expect(moons.locator(`[data-planet-spec="moon-${id}-mass"] dd`)).toHaveText('—')
+      await expect(moons.locator(`[data-planet-spec="moon-${id}-surface-gravity"] dd`)).toHaveText('—')
+    } else if (id === 'naiad' || id === 'thalassa') {
+      await expect(moons.locator(`[data-planet-spec="moon-${id}-mass"] dd`)).toContainText('≈')
+      await expect(moons.locator(`#planet-moon-${id}-mass-detail-tooltip`)).toContainText('quoted GM uncertainty')
+    }
+    if (id === 'thalassa') await expect(image).toHaveAttribute('alt', /1989 N5/)
+    if (id === 'hippocamp') {
+      await expect(image).toHaveAttribute('alt', /S\/2004 N 1/)
+      await expect(image).toHaveAttribute('title', /shape and surface are unresolved/)
+    }
+    if (['naiad', 'thalassa', 'hippocamp'].includes(id)) {
+      await page.locator('#planet-card').screenshot({ path: testInfo.outputPath(`${id}-neptune-moons.png`) })
+    }
+  }
+  // A photograph selection must not leave stale imagery when changing to a 3D moon.
+  await page.keyboard.press('Escape')
+  await page.locator('.planet-row[data-planet-id="mars"] button').click()
+  await page.locator('#planet-moons-toggle').click()
+  await expect(image).toBeHidden()
+  await expect(globe).toBeVisible()
+  await expect(globe).toHaveAttribute('data-planet-id', 'phobos')
+  await expect(globe).toHaveAttribute('data-model-ready', 'true')
   expect(errors).toEqual([])
 })
 
@@ -153,17 +243,51 @@ test('moon tab keeps orbit selection, globe and specs together', { tag: '@mobile
   const originalWidth = (await card.boundingBox())!.width
   await page.locator('#planet-moons-toggle').click()
   expect((await card.boundingBox())!.width).toBe(originalWidth)
+  await expect(moons).toHaveAttribute('data-selected-moon-id', 'metis')
+  await expect(moons.locator('.moon-row dt')).toHaveText(['Metis', 'Adrastea', 'Amalthea', 'Thebe', 'Io', 'Europa', 'Ganymede', 'Callisto'])
+  const moonPhoto = moons.locator('#planet-moon-image')
+  for (const [id, name, radius, product] of [
+    ['metis', 'Metis', '21.5 km', 'PIA02531'],
+    ['adrastea', 'Adrastea', '8.2 km', 'PIA01624'],
+    ['amalthea', 'Amalthea', '83.5 km', 'PIA02531'],
+    ['thebe', 'Thebe', '49.3 km', 'PIA02531'],
+  ] as const) {
+    await moons.getByRole('button', { name: new RegExp(`^${name}, orbital distance`) }).click()
+    await expect(moons).toHaveAttribute('data-selected-moon-id', id)
+    await expect(moonGlobe).toBeHidden()
+    await expect(moonPhoto).toBeVisible()
+    await expect(moonPhoto).toHaveAttribute('alt', new RegExp(name))
+    await expect(moonPhoto).toHaveAttribute('title', new RegExp(product))
+    await expect(moons.locator(`[data-planet-spec="moon-${id}-mean-radius"]`)).toContainText(radius)
+    await expect.poll(() => moonPhoto.evaluate((image: HTMLImageElement) => image.complete && image.naturalWidth > 0)).toBe(true)
+    await expect(moons.locator('.moon-globe-unavailable')).toBeHidden()
+    await expect(moons).not.toContainText(/NaN|Infinity/)
+    if (id === 'adrastea') {
+      await expect(moons.locator('[data-planet-spec="moon-adrastea-mass"] dd')).toHaveText('—')
+      await expect(moons.locator('[data-planet-spec="moon-adrastea-surface-gravity"] dd')).toHaveText('—')
+      await expect(moons.locator('#planet-moon-adrastea-mass-detail-tooltip')).toContainText('uncertainty larger than the value')
+    }
+    await card.screenshot({ path: testInfo.outputPath(`${id}-moon-browser.png`) })
+  }
+  await moons.getByRole('button', { name: /^Io, orbital distance/ }).click()
+  await expect(moonPhoto).toBeHidden()
+  await expect(moonGlobe).toBeVisible()
   await expect(moonGlobe).toHaveAttribute('data-texture-ready', 'true')
-  await expect(moons.locator('.moon-row dt')).toHaveText(['Io', 'Europa', 'Ganymede', 'Callisto'])
   await expect(moonGlobe).toHaveAttribute('aria-label', /Sulfur-colored terrain/)
-  await expect(moons.locator('.moon-row dd')).toHaveText(['421.8 K km', '671.1 K km', '1,070.4 K km', '1,882.7 K km'])
+  await expect(moons.locator('.moon-row dd')).toHaveText(['128 K km', '129 K km', '181.4 K km', '221.9 K km', '421.8 K km', '671.1 K km', '1,070.4 K km', '1,882.7 K km'])
   const header = (await card.locator('.planet-heading').boundingBox())!
   const orbit = (await moons.locator('figure').boundingBox())!
   const list = (await moons.locator('.moon-list').boundingBox())!
+  const visual = (await moons.locator('.moon-visual').boundingBox())!
   const details = (await moons.locator('.moon-details').boundingBox())!
   expect(Math.abs(orbit.y - (header.y + header.height))).toBeLessThan(2)
-  expect(list.x + list.width).toBeLessThanOrEqual(details.x + 1)
-  expect(Math.abs(list.width - details.width)).toBeLessThan(1)
+  expect(list.x + list.width).toBeLessThanOrEqual(visual.x + 1)
+  expect(Math.abs(list.width - visual.width)).toBeLessThan(1)
+  expect(Math.abs(list.height - visual.height)).toBeLessThan(1)
+  expect(details.x).toBe(list.x)
+  expect(Math.abs(details.width - list.width - visual.width)).toBeLessThan(1)
+  expect(Math.abs(details.y - list.y - list.height)).toBeLessThan(1)
+  expect(await moons.locator('.moon-list').evaluate((element) => element.scrollHeight > element.clientHeight)).toBe(true)
   for (const row of await moons.locator('.moon-row').all()) {
     const rowBounds = (await row.boundingBox())!
     const distanceBounds = (await row.locator('dd').boundingBox())!
@@ -172,7 +296,7 @@ test('moon tab keeps orbit selection, globe and specs together', { tag: '@mobile
   const firstName = (await moons.locator('.moon-row dt').first().boundingBox())!
   const firstDistance = (await moons.locator('.moon-row dd').first().boundingBox())!
   expect(Math.abs(firstName.y - firstDistance.y)).toBeLessThan(1)
-  expect(Math.abs(list.y - details.y)).toBeLessThan(1)
+  expect(Math.abs(list.y - visual.y)).toBeLessThan(1)
   expect(await card.evaluate((element) => element.scrollWidth <= element.clientWidth)).toBe(true)
   await expect(moons.locator('h3')).toHaveCount(0)
   await card.screenshot({ path: testInfo.outputPath('jupiter-moon-browser.png') })
@@ -238,7 +362,7 @@ test('moon tab keeps orbit selection, globe and specs together', { tag: '@mobile
   await expect(moonGlobe).toHaveAttribute('data-comparing-earth', 'false')
 
   for (const [planetId, count, selectedId] of [
-    ['earth', 1, 'moon'], ['saturn', 6, 'mimas'], ['uranus', 5, 'miranda'], ['neptune', 3, 'proteus'], ['mars', 2, 'phobos'],
+    ['earth', 1, 'moon'], ['saturn', 8, 'mimas'], ['uranus', 5, 'miranda'], ['neptune', 9, 'naiad'], ['mars', 2, 'phobos'],
   ] as const) {
     await page.keyboard.press('Escape')
     await page.locator(`.planet-row[data-planet-id="${planetId}"] button`).click()
@@ -369,6 +493,43 @@ test('pins the globe and header and compares planets with Earth at one scale', {
       await expect(canvas).toHaveAttribute('data-comparing-earth', 'true')
     }
   }
+  // Both fact pages stay available without disturbing the independent globe comparison.
+  await page.keyboard.press('Escape')
+  await page.locator('.planet-row[data-planet-id="mercury"] button').click()
+  const facts = page.locator('#planet-physical-specs')
+  const stats = page.locator('#planet-stats-toggle')
+  const ids = () => facts.locator('[data-planet-spec]').evaluateAll((rows) => rows.map((row) => (row as HTMLElement).dataset.planetSpec!))
+  const primaryIds = await ids()
+  expect(primaryIds).toEqual(['mean-diameter', 'mean-radius', 'mass', 'volume', 'mean-density', 'surface-gravity', 'escape-velocity', 'synodic-rotation-period', 'surface-temperature', 'temperature'])
+  await page.locator('#planet-card').screenshot({ path: testInfo.outputPath('mercury-key-facts.png') })
+  await page.locator('#planet-add-earth').click()
+  await stats.focus()
+  await page.keyboard.press('Enter')
+  await expect(facts).toHaveAttribute('data-stats-page', '2')
+  expect(await ids()).toEqual(['flattening', 'surface-area', 'albedo', 'absolute-magnitude', 'apparent-magnitude'])
+  await expect(canvas).toHaveAttribute('data-comparing-earth', 'true')
+  await page.locator('#planet-card').screenshot({ path: testInfo.outputPath('mercury-more-facts.png') })
+  await stats.click()
+  expect(await ids()).toEqual(primaryIds)
+  const atmosphere = page.locator('#planet-atmosphere-section')
+  await atmosphere.scrollIntoViewIfNeeded()
+  const pressure = await atmosphere.locator('[data-planet-spec="surface-pressure"]').boundingBox()
+  const composition = await atmosphere.locator('[data-planet-spec="composition"]').boundingBox()
+  expect(pressure!.x + pressure!.width).toBeLessThanOrEqual(composition!.x)
+  expect(pressure!.y).toBeCloseTo(composition!.y, 0)
+  await expect(atmosphere.locator('li')).toHaveText(['Sodium (Na)', 'Magnesium (Mg)', 'Oxygen (O)', 'Hydrogen (H)', 'Helium (He)', 'Potassium (K)', 'Calcium (Ca)'])
+  await atmosphere.locator('summary').click()
+  await expect(atmosphere.locator('dl')).toBeHidden()
+  await atmosphere.locator('summary').click()
+  await expect(atmosphere.locator('dl')).toBeVisible()
+  expect(await facts.evaluate((element) => element.scrollWidth <= element.clientWidth)).toBe(true)
+  await stats.click()
+  await page.keyboard.press('Escape')
+  await page.locator('.planet-row[data-planet-id="jupiter"] button').click()
+  await expect(facts).toHaveAttribute('data-stats-page', '1')
+  await expect(page.locator('[data-planet-spec="surface-temperature"]')).toContainText('Temperature at 1 bar')
+  await expect(page.locator('[data-planet-spec="surface-pressure"]')).toContainText('No solid surface')
+  await expect(stats).toHaveAttribute('aria-pressed', 'false')
 })
 
 test('a dragged globe coasts, a second click stops it, and momentum settles', async ({ page }) => {

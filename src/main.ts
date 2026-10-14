@@ -1,5 +1,5 @@
 import './style.css'
-import { ArrowLeft, ArrowRight, BookOpen, ChevronsLeftRight, ChevronsRightLeft, CircleHelp, Clock, Crosshair, Earth, Eye, Filter, Focus, Grid2X2, List, Lock, Minus, Moon, Orbit, Pause, Play, Plus, RotateCcw, RotateCw, Save, Search, Settings2, Sun, X, createElement, type IconNode } from 'lucide'
+import { ArrowLeft, ArrowLeftRight, ArrowRight, BookOpen, ChevronUp, ChevronsLeftRight, ChevronsRightLeft, CircleHelp, Clock, Cloud, Crosshair, Earth, Eye, Filter, Focus, Grid2X2, List, Lock, Minus, Moon, Orbit, Pause, Play, Plus, RotateCcw, RotateCw, Save, Search, Settings2, Sun, X, createElement, type IconNode } from 'lucide'
 import { ObserverOriginIcon, OriginIcon } from './origin-icon'
 import { BUBBLE_OBJECT_TYPES, COMPACT_OBJECT_TYPES, describeObject, isBubbleObject, isCompactObject, isMolecularCloudObject, isNebulaObject, MOLECULAR_CLOUD_OBJECT_TYPES, NEBULA_OBJECT_TYPES, type Star } from './catalog-model'
 import { catalogSelection, mergeCatalogStars } from './catalog-runtime'
@@ -116,6 +116,7 @@ icon('magnitude-lock-icon', Lock)
 icon('magnitude-absolute-icon', Sun)
 icon('magnitude-apparent-icon', Eye)
 icon('constellation-close-icon', X)
+icon('constellation-magnify-icon', Search)
 icon('constellation-lock-icon', Lock)
 icon('distance-close-icon', X)
 icon('distance-lock-icon', Lock)
@@ -126,6 +127,9 @@ icon('planet-moons-icon', Moon)
 icon('planet-earth-icon', Earth)
 icon('planet-earth-plus-icon', Plus)
 icon('planet-earth-minus-icon', Minus)
+icon('planet-stats-icon', ArrowLeftRight)
+icon('planet-atmosphere-icon', Cloud)
+icon('planet-atmosphere-chevron', ChevronUp)
 icon('time-play-icon', Play)
 icon('time-now-icon', RotateCcw)
 icon('time-follow-icon', Crosshair)
@@ -388,6 +392,7 @@ function closeMagnitudeCard(restoreFocus = false): void {
 }
 
 let constellationCardLocked = false
+let constellationMagnified = false
 let constellationOpenRequest = 0
 let constellationCardModule: typeof import('./constellation-card') | undefined
 let activeConstellationChart: ConstellationChart | null = null
@@ -413,7 +418,7 @@ function renderConstellationCard(star: Star): void {
     return
   }
   constellationCardModule.renderConstellationCard(element('constellation-card'), star, activeConstellationChart, {
-    objects: stars, colorMode: starColorMode, distanceUnit,
+    objects: stars, colorMode: starColorMode, distanceUnit, magnified: constellationMagnified,
     onSelect: (object) => { void selectConstellationStar(object) },
   })
   syncObjectTypeLayout()
@@ -2436,6 +2441,12 @@ element('constellation-row').addEventListener('click', () => {
   if (!element<HTMLButtonElement>('constellation-toggle').disabled) void toggleConstellationCard()
 }, { signal: events.signal })
 element('constellation-close').addEventListener('click', () => closeConstellationCard(true), { signal: events.signal })
+element('constellation-magnify').addEventListener('click', () => {
+  const star = stars.find((candidate) => candidate.id === selectedId)
+  if (!star) return
+  constellationMagnified = !constellationMagnified
+  renderConstellationCard(star)
+}, { signal: events.signal })
 element('constellation-lock').addEventListener('click', () => {
   constellationCardLocked = !constellationCardLocked
   element('constellation-lock').setAttribute('aria-pressed', String(constellationCardLocked))

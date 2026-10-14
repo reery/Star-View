@@ -26,6 +26,7 @@
   --card-radius: 11px;
   --property-text-size: 14px;
   --mass-metric-divider: 1px dashed var(--line);
+  --planet-earth-reference: #a7bdcc;
 }
 
 * { box-sizing: border-box; }
@@ -435,6 +436,8 @@ select:focus-visible, input:focus-visible { outline: 2px solid var(--accent); ou
 .planet-diagram-label { font: inherit; font-size: 11px; fill: var(--muted); }
 .planet-list .planet-row { position: relative; isolation: isolate; cursor: pointer; }
 .planet-row dt { display: flex; align-items: center; gap: 7px; }
+.system-body-group { margin-top: 8px; padding-top: 8px; border-top: var(--mass-metric-divider); }
+.system-body-group > .planet-list { margin-top: 4px; }
 .planet-row .object-type-toggle[aria-pressed="true"]::before, .planet-row:hover .object-type-toggle::before { background: var(--panel-selected); }
 .planet-row:has([aria-pressed="true"]) dt, .planet-row .object-type-toggle[aria-pressed="true"] { color: var(--accent-strong); }
 .stellar-system-section:not(:first-child) { margin-top: 12px; }
@@ -490,7 +493,9 @@ select:focus-visible, input:focus-visible { outline: 2px solid var(--accent); ou
 .metallicity-body { padding: 0 20px 20px; }
 .object-type-toggle:disabled { cursor: default; opacity: 1; }
 .dock-card.object-type-card.constellation-card { width: min(380px, calc(100vw - 402px)); }
-.panel-heading:is(.constellation-heading, .magnitude-heading) { padding-right: 98px; }
+.panel-heading.constellation-heading { padding-right: 142px; }
+.panel-heading.magnitude-heading { padding-right: 98px; }
+.panel-heading #constellation-magnify { right: 87px; border-radius: 0; }
 .panel-heading :is(#constellation-lock, #magnitude-lock) { right: 43px; border-radius: 0; }
 .constellation-chart { position: relative; margin: 0; background: #090b10; }
 .constellation-chart > svg { position: relative; width: 100%; height: auto; }
@@ -682,14 +687,14 @@ select:focus-visible, input:focus-visible { outline: 2px solid var(--accent); ou
 .planet-heading .planet-section-button:nth-last-child(1 of :not([hidden])) { border-right-color: var(--line); }
 .planet-heading .planet-section-button[aria-expanded="true"] { color: var(--accent-vibrant); background: #ff8a2a14; border-bottom-color: #ff8a2a70; }
 .planet-card #planet-lock { right: 0; }
-.planet-card-body { padding: 0 16px 12px; }
+.planet-card-body { padding: 0 16px 12px; container-type: inline-size; }
 .planet-card-body .card-subgroup-heading { margin-bottom: 7px; }
 .planet-card-body section + section { margin-top: 12px; }
-.planet-specs-sticky { position: sticky; top: 0; z-index: 5; margin: 0 -16px 7px; background: var(--panel); }
+.planet-specs-sticky { position: sticky; top: 0; z-index: 5; margin: 0 -16px 8px; background: var(--panel); }
 .planet-specs-sticky .planet-globe-frame { margin: 0; }
 .planet-physical-header { display: flex; align-items: stretch; border-top: 1px solid var(--line); }
 .planet-card-body .planet-physical-header .card-subgroup-heading { display: flex; align-items: center; flex: 1; margin: 0; border: 0; }
-.planet-earth-button { height: auto; min-height: 44px; border-left-color: var(--line); border-radius: 0; }
+.planet-earth-button, .planet-stats-button { height: auto; min-height: 44px; border-left-color: var(--line); border-radius: 0; }
 .planet-earth-symbol { position: relative; display: block; width: 28px; height: 28px; }
 #planet-earth-icon { position: absolute; bottom: 0; left: 0; }
 .planet-earth-mark { position: absolute; top: 0; right: 0; }
@@ -700,28 +705,84 @@ select:focus-visible, input:focus-visible { outline: 2px solid var(--accent); ou
 .planet-properties > div { grid-template-columns: minmax(0, min(160px, 38%)) minmax(0, 1fr); gap: 10px; }
 .planet-properties dd { text-align: left; }
 .planet-metric-tooltip > span { display: block; }
+.planet-facts-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+.planet-facts-grid > .planet-fact-tile { position: relative; display: grid; grid-template-columns: minmax(0, 1fr); align-content: center; align-items: start; gap: 4px; min-width: 0; min-height: 78px; padding: 10px; background: #18191a55; border: 1px solid var(--line); border-radius: 8px; }
+.planet-fact-tile dt, .planet-fact-tile dd { min-width: 0; margin-left: 30px; }
+.planet-fact-tile dt { font-size: 12px; line-height: 1.25; }
+.planet-fact-icon { position: absolute; top: 12px; left: 9px; color: var(--accent-strong); }
+.planet-fact-value { display: block; font-size: 16px; line-height: 1.25; font-weight: 600; }
+.planet-fact-tile .mass-metric-help { font-weight: inherit; }
+.planet-fact-tile .planet-metric-tooltip { font-size: 12px; font-weight: 400; }
+.planet-fact-label { display: block; }
+.planet-facts-grid:not(.moon-properties) .planet-metric-tooltip { max-width: min(280px, calc(100cqw - 40px)); }
+.planet-facts-grid:not(.moon-properties) > :nth-child(even) .planet-metric-tooltip { left: auto; right: 0; }
+.planet-facts-grid:not(.moon-properties) > :nth-child(even) .planet-metric-tooltip::before { left: auto; right: 14px; }
+.planet-ratio-row { display: grid; grid-template-columns: 14px auto minmax(24px, 1fr); align-items: center; gap: 5px; margin-top: 6px; font-size: 12px; line-height: 1.2; font-weight: 400; color: var(--muted); }
+.planet-ratio-row > svg { color: var(--planet-earth-reference); }
+.planet-ratio-value { white-space: nowrap; }
+.planet-ratio-track { height: 6px; border-radius: 4px; }
+.planet-ratio-fill { position: absolute; inset: 0 auto 0 0; background: linear-gradient(90deg, var(--accent), var(--accent-strong)); border-radius: inherit; }
+.planet-ratio-earth { position: absolute; left: 50%; top: -3px; height: 12px; width: 2px; background: var(--planet-earth-reference); border-radius: 1px; transform: translateX(-50%); box-shadow: 0 0 0 1px var(--panel); }
+.planet-ratio-track.is-range { background: none; }
+.planet-ratio-range { position: absolute; top: 3px; border-top: var(--mass-metric-divider); }
+.planet-ratio-endpoint { position: absolute; top: -1px; width: 8px; height: 8px; border-radius: 50%; background: var(--accent); transform: translateX(-50%); }
+.planet-ratio-endpoint.is-high { background: var(--muted); }
+.planet-magnitude-comparison { display: block; margin-top: 18px; color: var(--muted); font-size: 12px; line-height: 1.2; font-weight: 400; --magnitude-visible-color: var(--accent-strong); }
+.planet-magnitude-track { display: block; }
+.planet-magnitude-limit { height: 12px; transform: translateX(-50%); opacity: 0.65; }
+.planet-magnitude-limit > span { position: absolute; bottom: calc(100% + 2px); left: 50%; transform: translateX(-50%); white-space: nowrap; }
+.planet-magnitude-selected { position: absolute; top: -3px; width: 3px; height: 12px; transform: translateX(-50%); border-radius: 1px; background: var(--accent-vibrant); box-shadow: 0 0 0 1px var(--panel); }
+.planet-magnitude-labels { display: flex; justify-content: space-between; gap: 6px; margin-top: 5px; }
+.planet-fact-note { display: block; margin-top: 6px; color: var(--muted); font-size: 12px; font-weight: 400; }
+.planet-atmosphere { margin-top: 8px; border: 1px solid var(--line); border-radius: 8px; background: #18191a55; }
+.planet-card-body .planet-atmosphere > summary { display: flex; align-items: center; gap: 10px; margin: 0; padding: 9px 12px; border: 0; border-radius: 7px; list-style: none; cursor: pointer; }
+.planet-atmosphere > summary::-webkit-details-marker { display: none; }
+.planet-atmosphere[open] > summary { border-radius: 7px 7px 0 0; }
+#planet-atmosphere-chevron { margin-left: auto; }
+.planet-atmosphere:not([open]) #planet-atmosphere-chevron { transform: rotate(180deg); }
+.planet-atmosphere-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); padding: 10px 12px 12px; gap: 12px; }
+.planet-atmosphere-grid > div { display: block; min-width: 0; padding: 0; }
+.planet-atmosphere-grid dt { margin-bottom: 5px; font-size: 12px; line-height: 1.25; }
+.planet-atmosphere-grid dd { font-size: 14px; line-height: 1.3; font-weight: 600; }
+.planet-atmosphere-grid > .planet-composition-row { padding-left: 12px; border-left: var(--mass-metric-divider); }
+.planet-atmosphere-grid .planet-ratio-row { grid-template-columns: 14px minmax(0, auto) minmax(24px, 1fr); }
+.planet-atmosphere-grid .planet-ratio-value { white-space: normal; }
+@container (max-width: 340px) {
+  .planet-facts-grid { grid-template-columns: minmax(0, 1fr); }
+  .planet-facts-grid > .planet-fact-tile { min-height: 76px; }
+  .planet-fact-tile dt, .planet-fact-tile dd { margin-left: 34px; }
+  .planet-ratio-row { grid-template-columns: 14px auto minmax(24px, 1fr); }
+}
 .planet-globe-frame { position: relative; margin: 0 -16px; background: #000; }
 #planet-globe, #planet-moon-globe { display: block; width: 100%; height: 172px; touch-action: none; cursor: grab; }
+#planet-image { display: block; width: 100%; height: 172px; object-fit: contain; }
 #planet-globe.is-dragging, #planet-moon-globe.is-dragging { cursor: grabbing; }
 #planet-globe:focus-visible, #planet-moon-globe:focus-visible { outline: 2px solid var(--accent); outline-offset: -3px; }
 #planet-moons { margin-top: 0; }
 .moon-system-figure { margin-bottom: 0; border-bottom: 1px solid var(--line); }
-.moon-browser { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); margin: 0 -16px -12px; }
-.moon-list { align-self: start; padding: 10px 12px 12px; }
+.moon-browser { --moon-media-height: 172px; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); grid-template-rows: var(--moon-media-height) auto; margin: 0 -16px -12px; }
+.moon-list { min-height: 0; overflow: auto; overscroll-behavior: contain; scrollbar-width: thin; scrollbar-color: #776a5c transparent; padding: 10px 12px 12px; }
 .moon-list .moon-row { display: flex; flex-wrap: wrap; gap: 3px 8px; padding: 7px 0; }
 .moon-row dt { flex: 0 0 auto; min-width: 0; white-space: nowrap; }
 .moon-row .star-swatch { flex-shrink: 0; }
 .moon-row dd { flex: 0 0 auto; margin-left: auto; white-space: nowrap; }
 .moon-row dd, .moon-row .object-type-toggle { text-align: right; }
-.moon-details { min-width: 0; padding: 0 16px 12px; border-left: 1px solid var(--line); }
-.moon-globe-frame { margin-bottom: 0; }
-#planet-moon-image { display: block; width: 100%; height: 172px; object-fit: contain; }
+.moon-visual { min-width: 0; border-left: 1px solid var(--line); }
+.moon-details { grid-column: 1 / -1; min-width: 0; padding: 0 16px 12px; border-top: 1px solid var(--line); }
+.moon-globe-frame { margin: 0; }
+#planet-moon-globe, #planet-moon-image { height: var(--moon-media-height); }
+#planet-moon-image { display: block; width: 100%; object-fit: contain; }
 #planet-moons[data-selected-moon-id="triton"] #planet-moon-image { padding: 8px; }
-.moon-properties { padding-top: 8px; }
-.moon-details .moon-properties > div { grid-template-columns: minmax(0, 1fr); gap: 3px; }
-.moon-details .moon-properties > div + div { margin-top: 5px; padding-top: 8px; border-top: var(--mass-metric-divider); }
+.moon-details .moon-properties { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 6px; padding-top: 8px; }
+.moon-details .moon-properties > .planet-fact-tile { min-height: 0; padding: 8px; gap: 3px; }
+.moon-properties .planet-fact-tile dt, .moon-properties .planet-fact-tile dd { margin-left: 24px; }
+.moon-properties .planet-fact-icon { top: 0; left: -24px; width: 18px; height: 18px; }
+.moon-properties .planet-fact-value { font-size: var(--property-text-size); }
+.moon-properties .planet-metric-tooltip { left: -8px; right: auto; max-width: min(300px, calc(100cqw - 32px)); }
+.moon-properties > :nth-child(even) .planet-metric-tooltip { left: auto; right: -8px; }
+.moon-properties > :nth-child(even) .planet-metric-tooltip::before { left: auto; right: 14px; }
 .moon-properties dt, .moon-properties dd { overflow-wrap: anywhere; }
-.moon-globe-unavailable { margin: 0 -16px; padding: 20px 16px; background: #000; }
+.moon-globe-unavailable { min-height: var(--moon-media-height); padding: 20px 16px; background: #000; }
 .planet-earth-comparison { color: var(--muted); font-weight: 400; }
 .planet-composition { margin: 0; padding: 0; list-style: none; }
 .planet-composition li { padding: 1px 0; }
@@ -926,7 +987,7 @@ select:focus-visible, input:focus-visible { outline: 2px solid var(--accent); ou
   .dock-card.object-type-card.distance-card { width: min(560px, calc(100vw - 78px)); }
   .dock-card.object-type-card.constellation-card { width: min(420px, calc(100vw - 90px)); }
   .dock-card.object-type-card.planet-card { width: min(420px, calc(100vw - 78px)); }
-  #planet-moon-globe, #planet-moon-image { height: 156px; }
+  .moon-browser { --moon-media-height: 156px; }
   .planet-heading { gap: 5px; padding-left: 10px; }
   .planet-heading h2 { gap: 5px; }
   .object-type-hero { height: 180px; }

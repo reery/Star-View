@@ -29,6 +29,13 @@ The old Voyager maps had extensive white fill in unmapped regions. These replace
 - **dione-map.jpg:** [Map of Dione – October 2010, PIA12814](https://science.nasa.gov/photojournal/map-of-dione-october-2010/), NASA / JPL / Space Science Institute. Cassini mosaic with Voyager gap coverage. [NASA resized JPEG](https://assets.science.nasa.gov/dynamicimage/assets/science/psd/photojournal/pia/pia12/pia12814/PIA12814.jpg?fit=clip&w=2048&h=1024).
 - **rhea-map.jpg:** [Map of Rhea – March 2012, PIA14928](https://science.nasa.gov/photojournal/map-of-rhea-march-2012/), NASA / JPL-Caltech / Space Science Institute. Mostly Cassini, with six Voyager images providing north-polar coverage. [NASA resized JPEG](https://assets.science.nasa.gov/dynamicimage/assets/science/psd/photojournal/pia/pia14/pia14928/PIA14928.jpg?fit=clip&w=2048&h=1024).
 
+## Tethys globe and Hyperion photograph
+
+Added October 14, 2026, using the same media frame and specification rows as the existing Saturnian moons.
+
+- **tethys-map.jpg:** [Map of Tethys – June 2012, PIA14931](https://science.nasa.gov/photojournal/map-of-tethys-june-2012/), NASA / JPL-Caltech / Space Science Institute. Cassini-only unannotated grayscale global mosaic in a simple-cylindrical projection, served at 2048 × 1024 using the [NASA resized JPEG](https://assets.science.nasa.gov/dynamicimage/assets/science/psd/photojournal/pia/pia14/pia14931/PIA14931.jpg?fit=clip&w=2048&h=1024). The original 11520 × 5760 mosaic samples 293 m/pixel at the equator; local image resolution and illumination vary. The map supplies surface brightness only, with no inferred relief. Reuse follows the NASA and JPL policies linked above. The [2014 color maps, PIA18439](https://science.nasa.gov/photojournal/color-maps-of-tethys-2014/), were reviewed, but their enhanced ultraviolet/infrared colors are unsuitable for this natural-appearance globe.
+- **hyperion-photo.jpg:** [Saturn’s Hyperion in Natural Color, NASA APOD, May 14, 2018](https://science.nasa.gov/image-article/apod-2018-may-14-saturns-hyperion-in-natural-color/). [Published JPEG](https://assets.science.nasa.gov/content/dam/science/cds/apod/apod/2018/may/HyperionTrue_CassiniUgarkovic_1800.jpg), 1800 × 2000 source, served at 310 × 344 including embedded attribution. Six-image natural-color composition from Cassini’s 2005 encounter; credit NASA / JPL / Space Science Institute, composition by [Gordan Ugarkovic](https://www.flickr.com/photos/ugordan/221141517/in/dateposted/). The composition is licensed [CC BY-NC-SA 2.0](https://creativecommons.org/licenses/by-nc-sa/2.0/), requiring attribution, noncommercial reuse and the same license for adaptations. This image retains that license; the app’s code is separate. It is an approximate natural-color mosaic of photographed terrain, not a continuous global map. The complete published outline, lighting and colors are shown with `object-fit: contain`; no missing terrain, artificial sharpening or additional detail is added. The 2015 final-flyby view [Spongy Surface, PIA17194](https://science.nasa.gov/photojournal/spongy-surface/), was also reviewed; the 2005 mosaic provides a more detailed natural-color portrait.
+
 ## NASA model textures: Galilean moons and Iapetus
 
 The base-color images are extracted from official NASA VTAD GLB models, without model shading, grid lines or annotations. These replace the older Voyager maps. Io retains pale sulfur tones and volcanic markings; Europa retains pale cream ice and reddish-brown linework; Ganymede and Callisto retain brown-gray cratered terrain; Iapetus retains its real dark/bright hemisphere contrast. They are visualization mosaics with approximate natural colors and uneven resolution, not calibrated global true-color observations. Ganymede's map improves the large blurred patches of the older Voyager texture.
@@ -54,7 +61,39 @@ Credit: NASA / JPL-Caltech. Both source GLBs contain one mesh with positions, no
 
 ## Spacecraft photographs for incomplete coverage
 
-Uranian moons and Triton have limited mapped terrain; Proteus and Nereid lack suitable continuous textures for this view. The following published photographs and mosaics replace partial-map spheres. CSS uses `object-fit: contain` in the same fixed-height frame; Triton's mosaic has an 8 px inset so its complete outline stays inside the box. Files are unchanged downloads, with no added color or new detail; the source's color processing is identified below. All credit NASA / JPL and Voyager 2; Triton's mosaic also credits USGS. Observed geometry and lighting are retained.
+The photograph frame is at most 209 × 172 CSS pixels. JPEGs served by the card fit within 418 × 344 pixels for 2× high-DPI displays, preserve their aspect ratio and are never upscaled. Larger sources were downsampled with `sips -z <height> <width>` and JPEG quality 80; Despina and Galatea already fit and retain their downloaded files. Original source dimensions in the tables below describe the published downloads. Photographic content, color, lighting, annotations and attribution are retained; no sharpening or new detail is added. Continuous globe textures and shape-model atlases are separate assets.
+
+| Served photograph | Pixels |
+| --- | --- |
+| miranda-photo.jpg | 338 × 344 |
+| ariel-photo.jpg | 418 × 322 |
+| umbriel-photo.jpg, titania-photo.jpg | 344 × 344 |
+| oberon-photo.jpg | 418 × 228 |
+| triton-photo.jpg | 418 × 325 |
+| naiad-photo.jpg, inner-neptunian-moons-photo.jpg, larissa-photo.jpg, proteus-photo.jpg, nereid-photo.jpg | 418 × 297 |
+| despina-photo.jpg | 320 × 226 |
+| galatea-photo.jpg | 320 × 320 |
+| hippocamp-photo.jpg | 418 × 334 |
+| hyperion-photo.jpg | 310 × 344 |
+
+### Inner Neptune additions
+
+Added October 14, 2026. No suitable observed continuous global textures were found for these six moons. Their published photographs are shown with `object-fit: contain`, preserving the complete composition, annotations and lighting at the card's display resolution. Low resolution and motion smear are described in accessible text and credits; no missing surface detail is synthesized. Thalassa and Hippocamp use labelled discovery images to identify their unresolved detections. Proteus was already included.
+
+| Local file | Source and download | Representation / credit |
+| --- | --- | --- |
+| naiad-photo.jpg | [NASA Naiad](https://science.nasa.gov/neptune/moons/naiad/); [published JPEG](https://assets.science.nasa.gov/dynamicimage/assets/science/psd/solar/2023/07/Naiad-732X520.jpg), 732 × 520 | NASA / JPL, Voyager 2, 1989. Grayscale, motion-smeared portrait; apparent elongation does not establish the moon's shape |
+| inner-neptunian-moons-photo.jpg | [NASA Thalassa](https://science.nasa.gov/neptune/moons/thalassa/); [published JPEG](https://assets.science.nasa.gov/dynamicimage/assets/science/psd/solar/2023/07/Neptune_Trio732X520.jpg), 732 × 520 | NASA / JPL, Voyager 2, 1989, from 5.9 million km. Thalassa is circled as **1989 N5**; Despina and Naiad are labelled 1989 N3 and 1989 N6. Faint, streaked detections, without resolved surface detail |
+| despina-photo.jpg | [Archived NASA portrait and reuse record](https://commons.wikimedia.org/wiki/File:Despina.jpg); [unchanged JPEG](https://upload.wikimedia.org/wikipedia/commons/5/5f/Despina.jpg), 320 × 226 | NASA / JPL / Calvin J. Hamilton, Voyager 2, 1989. Grayscale, horizontally smeared portrait. Commons preserves the former NASA Solar System Exploration source and identifies the image as public domain. The current NASA Despina page shows a Hubble system discovery image, so this archived portrait is used |
+| galatea-photo.jpg | [Archived NASA portrait and reuse record](https://commons.wikimedia.org/wiki/File:Galatea_moon.jpg); [unchanged JPEG](https://upload.wikimedia.org/wikipedia/commons/d/d8/Galatea_moon.jpg), 320 × 320 | NASA / JPL, Voyager 2, 1989. Published enlargement of a low-resolution, motion-smeared grayscale portrait, preserved without further processing. Commons identifies the former NASA source and public-domain status; elongation is an imaging artifact |
+| larissa-photo.jpg | [NASA Larissa](https://science.nasa.gov/neptune/moons/larissa/); [published JPEG](https://assets.science.nasa.gov/dynamicimage/assets/science/psd/solar/2023/07/Larissa_732X520.jpg), 732 × 520 | NASA / JPL, Voyager 2, 1989. Two grayscale photographed views of the irregular, cratered moon, without continuous global coverage |
+| hippocamp-photo.jpg | [NASA: Neptune's Moon Hippocamp](https://science.nasa.gov/resource/neptunes-moon-hippocamp/); [highest-resolution annotated JPEG](https://assets.science.nasa.gov/content/dam/science/psd/solar/2023/09/h/Hippocamp_Highest.jpg), 3000 × 2400 | NASA / ESA / M. Showalter (SETI Institute), Hubble WFC3, 2009; published by NASA February 20, 2019. Hippocamp is the faint detection circled as **S/2004 N 1**. Shape and surface are unresolved. The separate color inset is Neptune; original annotations and embedded attribution are retained |
+
+NASA/JPL images follow the [NASA media guidelines](https://www.nasa.gov/nasa-brand-center/images-and-media/) and [JPL image-use policy](https://www.jpl.nasa.gov/jpl-image-use-policy/), retaining attribution. Hubble imagery also follows the [STScI copyright guidance](https://hubblesite.org/copyright), with NASA, ESA and investigator credit retained.
+
+### Existing outer-planet photographs
+
+Uranian moons and Triton have limited mapped terrain; Proteus and Nereid lack suitable continuous textures for this view. The following published photographs and mosaics replace partial-map spheres. CSS uses `object-fit: contain` in the same fixed-height frame; Triton's mosaic has an 8 px inset so its complete outline stays inside the box. Downloads are downsampled to the dimensions above, with no added color or new detail; the source's color processing is identified below. All credit NASA / JPL and Voyager 2; Triton's mosaic also credits USGS. Observed geometry and lighting are retained.
 
 | Local file | Primary source | Download | Representation |
 | --- | --- | --- | --- |
@@ -68,6 +107,19 @@ Uranian moons and Triton have limited mapped terrain; Proteus and Nereid lack su
 | nereid-photo.jpg | [Nereid](https://science.nasa.gov/neptune/moons/nereid/) | [Nereid-browse-732X520.jpg](https://assets.science.nasa.gov/dynamicimage/assets/science/psd/solar/2023/07/Nereid-browse-732X520.jpg) | Barely resolved grayscale disk; fine surface detail unavailable |
 
 Reuse follows NASA's media guidelines and JPL's image-use policy linked above, with attribution and limitations retained in the visual's tooltip. No logos or endorsement are used.
+
+## Inner Jovian moon photographs
+
+Added October 14, 2026. No recent, suitable continuous globe texture was identified for Metis, Adrastea, Amalthea or Thebe. The observed panels from two NASA/JPL montages are prepared as small individual JPEGs, so the card loads only the selected moon. The exact source-pixel crops below retain their black margins, photographed outline and illumination. These grayscale views are preferred to illustrative maps and shape reconstructions.
+
+| Local file | Source / download | Selected observed panels |
+| --- | --- | --- |
+| inner-jovian-moons-photo.jpg | [Best images yet of Thebe, Amalthea and Metis, PIA02531](https://www.jpl.nasa.gov/images/pia02531-best-images-yet-of-thebe-amalthea-and-metis/) · [Published JPEG](https://d2pn8kiwq2w21t.cloudfront.net/original_images/jpegPIA02531.jpg), 748 × 381 | January 4, 2000 Galileo observations. Thebe: crop `(29, 77, 225, 225)`, features about 2 km across resolved; Amalthea: crop `(276, 27, 300, 326)`, about 2.4 km; Metis: crop `(595, 121, 136, 136)`, about 3 km. Amalthea's bright Gaea patch is overexposed in the source |
+| inner-jovian-moons-shapes-photo.jpg | [Shapes of the Small Inner Satellites of Jupiter, PIA01624](https://www.jpl.nasa.gov/images/pia01624-shapes-of-the-small-inner-satellites-of-jupiter/) · [Published JPEG](https://d2pn8kiwq2w21t.cloudfront.net/original_images/jpegPIA01624.jpg), 1539 × 1066 | Adrastea: crop `(1057, 150, 128, 128)` selects only the observed upper-row photograph. The lower-row reconstructed shape model and annotations are excluded. Published September 15, 1998; fine surface features are unresolved |
+
+Credit: NASA / JPL / Cornell University. The two unchanged source montages are retained as preparation references but are not imported or downloaded by the app. `sips -c <height> <width> --cropOffset <y> <x>` extracts the same original-pixel rectangles previously selected in the card, with JPEG quality 88 and no upscaling. The served files are `metis-photo.jpg` (136 × 136), `adrastea-photo.jpg` (128 × 128), `amalthea-photo.jpg` (300 × 326) and `thebe-photo.jpg` (225 × 225). The source product's common size scale is not retained between separately framed moons. Tooltips retain mission, date, product ID and limitations. Reuse follows the NASA and JPL policies linked above.
+
+The recent [Juno Thebe photograph, PIA26751](https://science.nasa.gov/photojournal/nasas-juno-misson-captures-jupiter-moon-thebe/), acquired May 1, 2026, was reviewed. Its approximately 3 km/pixel sampling and grainy star-camera view offer less visible surface detail than Galileo's PIA02531 panel; the older image is selected for this view. No artificial sharpening, colorization or generated surface detail is applied.
 
 ## Titan atmospheric rendering
 

@@ -19,7 +19,9 @@ import saturnRingMap from './assets/planets/saturn-rings.png'
 import saturnMesh from './assets/planets/saturn-mesh.json'
 import uranusMap from './assets/planets/uranus-cloud-map.jpg'
 import neptuneMap from './assets/planets/neptune-cloud-map.jpg'
+import plutoMap from './assets/small-bodies/pluto-map.jpg'
 import { solarPlanetDescriptionForId as planetDescriptionForId } from './planet-properties'
+import { smallBodies } from './small-body-properties'
 import { moonGlobeAppearances } from './moon-globe-appearances'
 
 export interface GlobeAppearance {
@@ -35,6 +37,11 @@ export interface GlobeAppearance {
 
 const appearances: Record<string, GlobeAppearance> = {
   ...moonGlobeAppearances,
+  pluto: {
+    name: 'Pluto', map: plutoMap, roughness: 1, mapBlend: 1, tint: '#ffffff',
+    description: 'New Horizons surface imagery in approximate natural color. The non-encounter hemisphere has lower resolution; the unobserved southern cap is plain gray.',
+    credit: 'NASA / JHUAPL / SwRI / VTAD · texture from NASA’s Pluto model (2023 archive). Approximate photographic color, not a calibrated global true-color map. Unobserved terrain south of 30° S is masked to plain gray. Lighting and orientation are illustrative.',
+  },
   mercury: {
     name: 'Mercury', map: mercuryMap, roughness: 0.62, mapBlend: 1, tint: '#ffffff',
     description: 'Cratered surface from MESSENGER imagery.',
@@ -183,6 +190,7 @@ function createPlanetGlobe(canvas: HTMLCanvasElement) {
   const cloudTint = { value: new Color('#ffffff') }
   const mapBlend = { value: 1 }
   const earthOceanAdjustment = { value: 0 }
+  const plutoUnobservedCap = { value: 0 }
   const jupiterLimbHaze = { value: 0 }
   const titanHaze = { value: 0 }
   const titanHazeColor = { value: new Color('#d6ad67') }
@@ -193,18 +201,22 @@ function createPlanetGlobe(canvas: HTMLCanvasElement) {
     shader.uniforms.planetMapBlend = mapBlend
     shader.uniforms.earthOceanLift = { value: earthOceanLift }
     shader.uniforms.earthOceanAdjustment = earthOceanAdjustment
+    shader.uniforms.plutoUnobservedCap = plutoUnobservedCap
     shader.uniforms.jupiterLimbHaze = jupiterLimbHaze
     shader.uniforms.jupiterHazeColor = { value: new Color('#eef0f4') }
     shader.uniforms.titanHaze = titanHaze
     shader.uniforms.titanHazeColor = titanHazeColor
-    shader.fragmentShader = `${oceanUniforms}uniform float jupiterLimbHaze;\nuniform vec3 jupiterHazeColor;\nuniform float titanHaze;\nuniform vec3 titanHazeColor;\nuniform vec3 planetCloudTint;\nuniform float planetMapBlend;\n${shader.fragmentShader}`
+    shader.fragmentShader = `${oceanUniforms}uniform float plutoUnobservedCap;\nuniform float jupiterLimbHaze;\nuniform vec3 jupiterHazeColor;\nuniform float titanHaze;\nuniform vec3 titanHazeColor;\nuniform vec3 planetCloudTint;\nuniform float planetMapBlend;\n${shader.fragmentShader}`
       .replace('#include <map_pars_fragment>', `#include <map_pars_fragment>
         #ifdef USE_MAP
           vec3 jupiterCloudSample(vec2 uv) {
             return texture2D(map, vec2(uv.x, clamp(uv.y, 0.06, 0.94))).rgb;
           }
         #endif`)
-      .replace('#include <map_fragment>', `#include <map_fragment>\n${jupiterCloudFragment}\n${titanCloudFragment}\ndiffuseColor.rgb = mix(planetCloudTint, diffuseColor.rgb, planetMapBlend);\n${earthOceanFragment}`)
+      .replace('#include <map_fragment>', `#include <map_fragment>\n${jupiterCloudFragment}\n${titanCloudFragment}\ndiffuseColor.rgb = mix(planetCloudTint, diffuseColor.rgb, planetMapBlend);\n${earthOceanFragment}
+        #ifdef USE_MAP
+          if (plutoUnobservedCap > 0.0 && vMapUv.y < plutoUnobservedCap) diffuseColor.rgb = vec3(0.12);
+        #endif`)
       .replace('#include <opaque_fragment>', `${jupiterLimbFragment}\n${titanLimbFragment}\n#include <opaque_fragment>`)
   }
   const sphere = new Mesh<BufferGeometry, MeshStandardMaterial>(geometry, material)
@@ -439,6 +451,7 @@ function createPlanetGlobe(canvas: HTMLCanvasElement) {
     cloudTint.value.set(appearance.tint)
     mapBlend.value = appearance.mapBlend
     earthOceanAdjustment.value = id === 'earth' ? 1 : 0
+    plutoUnobservedCap.value = id === 'pluto' ? 1 / 3 : 0
     jupiterLimbHaze.value = id === 'jupiter' ? 1 : 0
     titanHaze.value = id === 'titan' ? 1 : 0
     titanAtmosphere.visible = id === 'titan'
@@ -497,7 +510,8 @@ function createPlanetGlobe(canvas: HTMLCanvasElement) {
     if (comparingEarth !== nextComparison) controls.reset()
     comparingEarth = nextComparison
     controls.enableZoom = controls.enablePan = !comparingEarth
-    const radius = planetDescriptionForId(planetId ?? '')?.meanRadiusKm ?? 1
+    const radius = planetDescriptionForId(planetId ?? '')?.meanRadiusKm
+      ?? smallBodies.find((body) => body.id === planetId)?.metrics['mean-radius']?.value ?? 1
     const earthMeanRadius = planetDescriptionForId('earth')!.meanRadiusKm
     const largestRadius = Math.max(radius, earthMeanRadius)
     selectedRadius = radius / largestRadius
@@ -561,7 +575,7 @@ function createPlanetGlobe(canvas: HTMLCanvasElement) {
     canvas.classList.remove('is-dragging')
     if (pointerId !== undefined && canvas.hasPointerCapture(pointerId)) canvas.releasePointerCapture(pointerId)
     // Start with the Great Red Spot slightly left of center.
-    sphere.rotation.set(planetId === 'saturn' ? 0.48 : 0.08, planetId === 'jupiter' ? 0 : -1.2,
+    sphere.rotation.set(planetId === 'saturn' ? 0.48 : planetId === 'pluto' ? 0.45 : 0.08, planetId === 'jupiter' ? 0 : planetId === 'pluto' ? 2.8 : -1.2,
       planetId === 'saturn' ? -0.15 : planetId === 'uranus' ? 97.77 * Math.PI / 180 : 0)
     earthSphere.quaternion.copy(sphere.quaternion)
     requestRender()
@@ -672,6 +686,10 @@ function createPlanetGlobe(canvas: HTMLCanvasElement) {
 }
 
 const globes = new Map<HTMLCanvasElement, ReturnType<typeof createPlanetGlobe>>()
+
+export function planetHasGlobe(planetId: string): boolean {
+  return Boolean(appearances[planetId])
+}
 
 export function renderPlanetGlobe(canvas: HTMLCanvasElement, planetId: string, compareEarth = false): boolean {
   const appearance = appearances[planetId]

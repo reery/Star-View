@@ -10,7 +10,8 @@ import { svgNode as svg } from './spectral-chart'
 type Point = { x: number; y: number }
 type Box = { left: number; top: number; right: number; bottom: number }
 const intersects = (a: Box, b: Box) => a.left < b.right && a.right > b.left && a.top < b.bottom && a.bottom > b.top
-interface CardOptions { objects: readonly Star[]; colorMode: StarColorMode; distanceUnit: DistanceUnit; onSelect: (object: Star) => void }
+interface CardOptions { objects: readonly Star[]; colorMode: StarColorMode; distanceUnit: DistanceUnit; magnified: boolean; onSelect: (object: Star) => void }
+const MAGNIFICATION = 3
 let active: { root: HTMLElement; object: Star; chart: ConstellationChart; options: CardOptions } | undefined
 let observer: ResizeObserver | undefined
 let lastWidth = 0
@@ -83,6 +84,11 @@ function drawChart(root: HTMLElement, object: Star, chart: ConstellationChart, o
   lastWidth = container.clientWidth
   const position = objectSkyPosition(object)
   const selectedPoint = position && projectConstellationPosition(position, chart.center)
+  const magnified = Boolean(options.magnified && selectedPoint)
+  const magnifyButton = root.querySelector<HTMLButtonElement>('#constellation-magnify')!
+  magnifyButton.disabled = !selectedPoint
+  magnifyButton.setAttribute('aria-pressed', String(magnified))
+  magnifyButton.title = magnified ? 'Reset constellation view' : 'Magnify selected star'
   const points = chart.stars.map((star) => ({ star, point: projectConstellationPosition(star, chart.center)! }))
   const borders = chart.boundaries.map((boundary) => ({ ...boundary, projected: boundary.points.map((point) => projectConstellationPosition(point, chart.center)!) }))
   // Favor a large figure, with just enough room to keep the IAU outline visible.
@@ -92,14 +98,19 @@ function drawChart(root: HTMLElement, object: Star, chart: ConstellationChart, o
   const outline = [...all, ...borders.flatMap((border) => border.projected)]
   const outlineLeft = Math.min(...outline.map((p) => p.x)), outlineRight = Math.max(...outline.map((p) => p.x))
   const outlineTop = Math.min(...outline.map((p) => p.y)), outlineBottom = Math.max(...outline.map((p) => p.y))
-  const scale = Math.min((width - 56) / Math.max(right - left, 0.01), (height - 72) / Math.max(bottom - top, 0.01),
+  let scale = Math.min((width - 56) / Math.max(right - left, 0.01), (height - 72) / Math.max(bottom - top, 0.01),
     (width - 28) / Math.max(outlineRight - outlineLeft, 0.01), (height - 28) / Math.max(outlineBottom - outlineTop, 0.01))
   const halfWidth = (width / 2 - 14) / scale, halfHeight = (height / 2 - 14) / scale
-  const centerX = Math.max(outlineRight - halfWidth, Math.min(outlineLeft + halfWidth, (left + right) / 2))
-  const centerY = Math.max(outlineBottom - halfHeight, Math.min(outlineTop + halfHeight, (top + bottom) / 2))
+  let centerX = Math.max(outlineRight - halfWidth, Math.min(outlineLeft + halfWidth, (left + right) / 2))
+  let centerY = Math.max(outlineBottom - halfHeight, Math.min(outlineTop + halfHeight, (top + bottom) / 2))
+  if (options.magnified && selectedPoint) {
+    scale *= MAGNIFICATION
+    centerX = selectedPoint.x
+    centerY = selectedPoint.y
+  }
   const screen = (p: Point): Point => ({ x: width / 2 + (p.x - centerX) * scale, y: height / 2 + (p.y - centerY) * scale })
   const diagram = svg('svg', { viewBox: `0 0 ${width} ${height}`, role: 'group', 'aria-label': `${chart.name}: ${object.name}`, 'aria-describedby': 'constellation-chart-description' })
-  diagram.append(svg('desc', { id: 'constellation-chart-description' }, `Catalogue sky view from Earth, north up and east left. ${selectedPoint ? `${object.name} is circled in orange.` : `A sky position is unavailable for ${object.name}.`} Figure stars: ${chart.stars.map((star) => star.name).join(', ')}. Solid lines show the Western figure; spaced dashed lines show IAU boundaries. Neighboring constellations: ${[...new Set(borders.map((border) => border.neighbor))].join(', ')}. Stars can be selected; focus or hover reveals their distance from the Sun and apparent magnitude.`))
+  diagram.append(svg('desc', { id: 'constellation-chart-description' }, `Catalogue sky view from Earth, north up and east left. ${magnified ? `Magnified around ${object.name}. ` : ''}${selectedPoint ? `${object.name} is circled in orange.` : `A sky position is unavailable for ${object.name}.`} Figure stars: ${chart.stars.map((star) => star.name).join(', ')}. Solid lines show the Western figure; spaced dashed lines show IAU boundaries. Neighboring constellations: ${[...new Set(borders.map((border) => border.neighbor))].join(', ')}. Stars can be selected; focus or hover reveals their distance from the Sun and apparent magnitude.`))
   const lineMask = svg('mask', { id: 'constellation-line-mask', maskUnits: 'userSpaceOnUse', x: 0, y: 0, width, height })
   lineMask.append(svg('rect', { x: 0, y: 0, width, height, fill: 'white' }))
   const definitions = svg('defs')
@@ -113,7 +124,7 @@ function drawChart(root: HTMLElement, object: Star, chart: ConstellationChart, o
     const previous = neighborEdges.get(boundary.neighbor)
     if (!previous || boundary.projected.length > previous.projected.length) neighborEdges.set(boundary.neighbor, boundary)
   }
-  const neighbors = [...neighborEdges].map(([name, edge]) => ({ name, point: screen(edge.projected[Math.floor(edge.projected.length / 2)]!) }))
+  const neighbors = (magnified ? [] : [...neighborEdges]).map(([name, edge]) => ({ name, point: screen(edge.projected[Math.floor(edge.projected.length / 2)]!) }))
     .sort((a, b) => a.point.x - b.point.x)
   const split = Math.ceil(neighbors.length / 2)
   for (const [side, group] of [neighbors.slice(0, split), neighbors.slice(split)].entries()) {
@@ -190,6 +201,8 @@ function drawChart(root: HTMLElement, object: Star, chart: ConstellationChart, o
     const selected = canonicalId === figureId || knownObject.id === object.id
     const physical = selected ? object : knownObject
     const p = screen(selected && selectedPoint ? selectedPoint : point)
+    // Cropped stars must not leave invisible buttons or labels in the zoomed view.
+    if (magnified && (p.x < 12 || p.x > width - 12 || p.y < 12 || p.y > height - 12)) continue
     const magnitude = physical.apparent_mag ?? star.magnitude_v
     marks.push({ object: physical, x: p.x, y: p.y, magnitude })
     const marker = svg('g', { class: `constellation-star${selected ? ' is-selected' : ''}`, 'data-hip': star.hip, 'data-x': p.x, 'data-y': p.y,

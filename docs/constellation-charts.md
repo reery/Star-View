@@ -56,6 +56,11 @@ with its colored icon and name, show distance with one decimal place below 50 ly
 and show apparent magnitude with one decimal place.
 The figure fills the chart, with neighboring regions indicated at the corners
 and a narrow margin keeping the full IAU outline visible.
+The magnifier beside the lock toggles a threefold closer view centered on the
+selected object, keeping star symbols and label sizes unchanged. It follows
+selection while active; switching it off restores the full constellation framing.
+Stars outside the close view are omitted from its controls, and neighboring
+region labels appear only in the full view.
 Clicks and Enter/Space select exact star components. Stars absent from the active
 catalog are retained as explicit selections across refreshes, independently of
 overlay switches, so selection history and origin controls keep working.

@@ -6,6 +6,7 @@ import ganymedeMap from './assets/moons/ganymede-map.jpg'
 import callistoMap from './assets/moons/callisto-map.jpg'
 import mimasMap from './assets/moons/mimas-map.jpg'
 import enceladusMap from './assets/moons/enceladus-map.jpg'
+import tethysMap from './assets/moons/tethys-map.jpg'
 import dioneMap from './assets/moons/dione-map.jpg'
 import rheaMap from './assets/moons/rhea-map.jpg'
 import titanMap from './assets/moons/titan-map.jpg'
@@ -30,6 +31,11 @@ export const moonGlobeAppearances: Readonly<Record<string, GlobeAppearance>> = {
     name: 'Enceladus', map: enceladusMap, roughness: 1, mapBlend: 1, tint: '#ffffff',
     description: 'Cratered ice, fractured plains and southern tiger stripes from Cassini’s global mosaic.',
     credit: 'NASA / JPL / Space Science Institute · Cassini global mosaic, February 2010 (PIA12564), with Voyager 2 north-polar coverage. Grayscale, with varying image resolution and illumination; no surface relief is inferred. Spherical approximation; lighting and orientation are illustrative.',
+  },
+  tethys: {
+    name: 'Tethys', map: tethysMap, roughness: 1, mapBlend: 1, tint: '#ffffff',
+    description: 'Cratered ice, the large Odysseus crater and Ithaca Chasma from Cassini’s June 2012 global mosaic.',
+    credit: 'NASA / JPL-Caltech / Space Science Institute · Cassini global mosaic, June 2012 (PIA14931). Grayscale, with varying image resolution and illumination; no surface relief is inferred. Spherical approximation; lighting and orientation are illustrative.',
   },
   dione: {
     name: 'Dione', map: dioneMap, roughness: 1, mapBlend: 1, tint: '#ffffff',

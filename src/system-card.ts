@@ -1,4 +1,5 @@
-import { formatOrbitalDistance, type PlanetarySystem } from './planetary-systems'
+import { formatOrbitalDistance, type KnownPlanet, type PlanetarySystem } from './planetary-systems'
+import { smallBodies } from './small-body-properties'
 import { svgNode as svgElement } from './spectral-chart'
 import type { StarColorMode } from './astronomy'
 import type { StarSystem } from './star-systems'
@@ -9,11 +10,14 @@ import { habitableZoneForStar, type HabitableZone } from './habitable-zone'
 
 const renderedSystems = new WeakMap<HTMLElement, string>()
 const habitableZoneVisibility = new WeakMap<HTMLElement, { hostStarId: string; visible: boolean }>()
+const diagramUpdates = new WeakMap<HTMLElement, (selectedId: string | null) => void>()
 
-function orbitalDiagram(system: PlanetarySystem, stellarCount: number, zone: HabitableZone | null = null): SVGSVGElement {
-  const positioned = system.planets.filter((planet) => planet.semiMajorAxisAu !== null && planet.semiMajorAxisAu > 0 && !planet.distanceLimit)
+function orbitalDiagram(system: PlanetarySystem, stellarCount: number, zone: HabitableZone | null = null, selectedId: string | null = null): SVGSVGElement {
+  const selectedBody = system.hostStarId === 'sun' ? smallBodies.find((body) => body.id === selectedId) : undefined
+  const displayed = selectedBody ? [...system.planets, selectedBody] : system.planets
+  const positioned = displayed.filter((planet) => planet.semiMajorAxisAu !== null && planet.semiMajorAxisAu > 0 && !('distanceLimit' in planet && planet.distanceLimit))
   const svg = svgElement('svg', { viewBox: '0 0 260 94', class: 'planet-orbit-diagram', role: 'img',
-    'aria-label': `${system.name}: ${system.planets.map((planet) => `${planet.name} ${formatOrbitalDistance(planet)}`).join(', ')}. Logarithmic orbital distance scale; body sizes and orbits are schematic, not current positions.` })
+    'aria-label': `${system.name}: ${displayed.map((planet) => `${planet.name} ${formatOrbitalDistance(planet)}`).join(', ')}. Logarithmic orbital distance scale; body sizes and orbits are schematic, not current positions.` })
   const distances = positioned.map((planet) => planet.semiMajorAxisAu!)
   // Include both zone edges in the same distance scale, even when all known
   // planets lie closer to the host or beyond the zone.
@@ -74,6 +78,7 @@ function orbitalDiagram(system: PlanetarySystem, stellarCount: number, zone: Hab
 }
 
 export function highlightSystemPlanet(container: HTMLElement, selectedId: string | null, openId: string | null = null): void {
+  diagramUpdates.get(container)?.(selectedId)
   for (const row of container.querySelectorAll<HTMLElement>('.planet-row')) {
     const button = row.querySelector<HTMLButtonElement>('button')!
     button.setAttribute('aria-pressed', String(row.dataset.planetId === selectedId))
@@ -84,12 +89,44 @@ export function highlightSystemPlanet(container: HTMLElement, selectedId: string
   }
 }
 
+function planetList(planets: readonly KnownPlanet[], hostName: string, onPlanetSelect: (id: string) => void): HTMLDListElement {
+  const list = document.createElement('dl')
+  list.className = 'properties planet-list'
+  list.setAttribute('aria-label', `Orbital distances from ${hostName}`)
+  for (const planet of planets) {
+    const row = document.createElement('div')
+    row.className = 'planet-row'
+    row.dataset.planetId = planet.id
+    const name = document.createElement('dt')
+    const swatch = document.createElement('span')
+    swatch.className = 'star-swatch'
+    swatch.style.backgroundColor = planet.color
+    swatch.setAttribute('aria-hidden', 'true')
+    name.append(swatch, planet.name)
+    const value = document.createElement('dd')
+    const button = document.createElement('button')
+    button.type = 'button'
+    button.className = 'object-type-toggle'
+    button.setAttribute('aria-label', `${planet.name}, orbital distance ${formatOrbitalDistance(planet)} from ${hostName}`)
+    button.setAttribute('aria-pressed', 'false')
+    button.setAttribute('aria-controls', 'planet-card')
+    button.setAttribute('aria-expanded', 'false')
+    button.textContent = formatOrbitalDistance(planet)
+    row.addEventListener('click', () => onPlanetSelect(planet.id))
+    value.append(button)
+    row.append(name, value)
+    list.append(row)
+  }
+  return list
+}
+
 export function renderSystemCard(container: HTMLElement, planets: PlanetarySystem | undefined, system: StarSystem | undefined,
   selectedStar: Star, colorMode: StarColorMode, onPlanetSelect: (planetId: string) => void): void {
   const selectedId = selectedStar.id
   const stellarCount = system?.components.length ?? 1
   const key = `${planets?.hostStarId ?? ''}:${system?.components.map(({ star }) => star.id).join('|') ?? ''}:${selectedId}:${colorMode}:${selectedStar.luminosity_solar}:${selectedStar.temperature_k}`
   if (renderedSystems.get(container) === key) return
+  diagramUpdates.delete(container)
   const content: HTMLElement[] = []
   if (planets?.planets.length) {
     const section = document.createElement('section')
@@ -113,52 +150,41 @@ export function renderSystemCard(container: HTMLElement, planets: PlanetarySyste
     zoneToggle.setAttribute('aria-label', 'Habitable zone')
     zoneToggle.setAttribute('aria-controls', figure.id)
     zoneToggle.append(createElement(Leaf, { width: 18, height: 18, 'stroke-width': 1.7, 'aria-hidden': 'true' }))
-    function updateDiagram(): void {
+    function updateDiagram(resetSelection = false): void {
       zoneToggle.setAttribute('aria-pressed', String(zoneVisible))
       zoneToggle.title = zoneToggle.disabled
         ? 'Habitable zone unavailable · Requires orbital distances, host luminosity and temperature within 2600–7200 K'
         : `${zoneVisible ? 'Hide' : 'Show'} habitable zone · ${zone!.innerAu.toPrecision(3)}–${zone!.outerAu.toPrecision(3)} AU · Kopparapu (2014), conservative, 1 Earth mass, host star only`
-      figure.replaceChildren(orbitalDiagram(planets!, stellarCount, zoneVisible ? zone : null))
-      const selectedPlanet = container.querySelector<HTMLElement>('.planet-row:has(button[aria-pressed="true"])')?.dataset.planetId ?? null
+      const selectedPlanet = resetSelection ? null : container.querySelector<HTMLElement>('.planet-row:has(button[aria-pressed="true"])')?.dataset.planetId ?? null
       const openPlanet = container.querySelector<HTMLElement>('.planet-row:has(button[aria-expanded="true"])')?.dataset.planetId ?? null
       highlightSystemPlanet(container, selectedPlanet, openPlanet)
     }
+    diagramUpdates.set(container, (selectedPlanet) => {
+      figure.replaceChildren(orbitalDiagram(planets, stellarCount, zoneVisible ? zone : null, selectedPlanet))
+    })
     zoneToggle.addEventListener('click', () => {
       zoneVisible = !zoneVisible
       habitableZoneVisibility.set(container, { hostStarId: planets.hostStarId, visible: zoneVisible })
       updateDiagram()
     })
-    updateDiagram()
+    updateDiagram(true)
     heading.append(zoneToggle)
-    const list = document.createElement('dl')
-    list.className = 'properties planet-list'
-    list.setAttribute('aria-label', `Planet orbital distances from ${planets.name}`)
+    const list = planetList(planets.planets, planets.name, onPlanetSelect)
     list.title = planets.source.note
-    for (const planet of planets.planets) {
-      const row = document.createElement('div')
-      row.className = 'planet-row'
-      row.dataset.planetId = planet.id
-      const name = document.createElement('dt')
-      const swatch = document.createElement('span')
-      swatch.className = 'star-swatch'
-      swatch.style.backgroundColor = planet.color
-      swatch.setAttribute('aria-hidden', 'true')
-      name.append(swatch, planet.name)
-      const value = document.createElement('dd')
-      const button = document.createElement('button')
-      button.type = 'button'
-      button.className = 'object-type-toggle'
-      button.setAttribute('aria-label', `${planet.name}, orbital distance ${formatOrbitalDistance(planet)} from ${planets.name}`)
-      button.setAttribute('aria-pressed', 'false')
-      button.setAttribute('aria-controls', 'planet-card')
-      button.setAttribute('aria-expanded', 'false')
-      button.textContent = formatOrbitalDistance(planet)
-      row.addEventListener('click', () => onPlanetSelect(planet.id))
-      value.append(button)
-      row.append(name, value)
-      list.append(row)
-    }
     section.append(heading, figure, list)
+    if (planets.hostStarId === 'sun') {
+      for (const [group, label] of [['asteroid-belt', 'Asteroid belt'], ['dwarf-planets', 'Dwarf planets']] as const) {
+        const disclosure = document.createElement('details')
+        disclosure.className = 'designation-details system-body-group'
+        disclosure.dataset.bodyGroup = group
+        const summary = document.createElement('summary')
+        summary.textContent = label
+        const bodies = planetList(smallBodies.filter((body) => body.group === group), planets.name, onPlanetSelect)
+        bodies.title = 'JPL osculating heliocentric orbital semi-major axes; epochs and provenance in each object’s Specs. Not current distances.'
+        disclosure.append(summary, bodies)
+        section.append(disclosure)
+      }
+    }
     content.push(section)
   }
   if (system) content.push(renderStellarSystem(system, selectedId, colorMode))

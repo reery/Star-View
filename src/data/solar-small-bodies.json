@@ -1,0 +1,1657 @@
+{
+  "reviewed": "2026-10-14",
+  "sourcePolicy": "Exact numbered JPL identities. Individual measurements only; unadopted and system-scoped measurements remain in frozen source records. Missing values are unknown.",
+  "objects": [
+    {
+      "kind": "small-body",
+      "id": "ceres",
+      "name": "Ceres",
+      "hostStarId": "sun",
+      "group": "asteroid-belt",
+      "number": 1,
+      "designation": "1 Ceres (A801 AA)",
+      "color": "#aaa59e",
+      "moonCount": 0,
+      "semiMajorAxisAu": 2.765552595034094,
+      "orbitEpoch": "JD 2461200.5 TDB, J2000 ecliptic",
+      "metrics": {
+        "semi-major-axis": {
+          "value": 2.765552595034094,
+          "uncertainty": "1.0134E-11",
+          "source": "https://ssd.jpl.nasa.gov/tools/sbdb_lookup.html#/?sstr=1",
+          "detail": "Osculating heliocentric orbital semi-major axis, not an instantaneous distance. Epoch: JD 2461200.5 TDB, J2000 ecliptic. JPL reference: orbital solution 48."
+        },
+        "orbital-period": {
+          "value": 4.5991871861984475,
+          "uncertainty": "±2.528e-11 yr (converted from days)",
+          "source": "https://ssd.jpl.nasa.gov/tools/sbdb_lookup.html#/?sstr=1",
+          "detail": "Osculating Keplerian period expressed in Julian years. Epoch: JD 2461200.5 TDB, J2000 ecliptic. JPL reference: orbital solution 48."
+        },
+        "eccentricity": {
+          "value": 0.07969229514816586,
+          "uncertainty": "4.7755E-12",
+          "source": "https://ssd.jpl.nasa.gov/tools/sbdb_lookup.html#/?sstr=1",
+          "detail": "Orbital eccentricity. Epoch: JD 2461200.5 TDB, J2000 ecliptic. JPL reference: orbital solution 48."
+        },
+        "inclination": {
+          "value": 10.58802780183462,
+          "uncertainty": "4.6124E-9",
+          "source": "https://ssd.jpl.nasa.gov/tools/sbdb_lookup.html#/?sstr=1",
+          "detail": "Inclination to the J2000 ecliptic. Epoch: JD 2461200.5 TDB, J2000 ecliptic. JPL reference: orbital solution 48."
+        },
+        "perihelion": {
+          "value": 2.545159361382861,
+          "uncertainty": "1.9113E-11",
+          "source": "https://ssd.jpl.nasa.gov/tools/sbdb_lookup.html#/?sstr=1",
+          "detail": "Perihelion distance for this osculating solution. Epoch: JD 2461200.5 TDB, J2000 ecliptic. JPL reference: orbital solution 48."
+        },
+        "aphelion": {
+          "value": 2.985945828685327,
+          "uncertainty": "1.0942E-11",
+          "source": "https://ssd.jpl.nasa.gov/tools/sbdb_lookup.html#/?sstr=1",
+          "detail": "Aphelion distance for this osculating solution. Epoch: JD 2461200.5 TDB, J2000 ecliptic. JPL reference: orbital solution 48."
+        },
+        "absolute-magnitude": {
+          "value": 3.34,
+          "uncertainty": null,
+          "source": "https://ssd.jpl.nasa.gov/tools/sbdb_lookup.html#/?sstr=1",
+          "detail": "Absolute visual magnitude H: 1 AU from both Sun and observer, at zero phase. JPL reference: MPO980521. IRAS observations used: 15"
+        },
+        "mean-diameter": {
+          "value": 939.4,
+          "uncertainty": "0.2",
+          "source": "https://ssd.jpl.nasa.gov/tools/sbdb_lookup.html#/?sstr=1",
+          "detail": "effective body diameter JPL reference: Nature vol. 537, pp515-517 (22 September 2016)."
+        },
+        "mean-radius": {
+          "value": 469.7,
+          "uncertainty": "Half the diameter uncertainty: 0.2",
+          "source": "https://ssd.jpl.nasa.gov/tools/sbdb_lookup.html#/?sstr=1",
+          "detail": "Half the adopted diameter. effective body diameter JPL reference: Nature vol. 537, pp515-517 (22 September 2016)."
+        },
+        "mean-density": {
+          "value": 2.162,
+          "uncertainty": "0.008",
+          "source": "https://ssd.jpl.nasa.gov/tools/sbdb_lookup.html#/?sstr=1",
+          "detail": "Bulk density in g/cm³. JPL reference: Nature vol. 537, pp515-517 (22 September 2016)."
+        },
+        "geometric-albedo": {
+          "value": 0.09,
+          "uncertainty": "0.003",
+          "source": "https://ssd.jpl.nasa.gov/tools/sbdb_lookup.html#/?sstr=1",
+          "detail": "Geometric visible albedo; not Bond albedo. JPL reference: Li et al. (2006) Icarus v182:pp143-160. V-band geometric albedo"
+        },
+        "sidereal-rotation-period": {
+          "value": 9.07417,
+          "uncertainty": "0.000001",
+          "source": "https://ssd.jpl.nasa.gov/tools/sbdb_lookup.html#/?sstr=1",
+          "detail": "Sidereal rotation in hours, relative to the stars; not the solar day. JPL reference: Nature vol. 537, pp515-517 (22 September 2016). derived from published value: 952.1532 +/- 0.0001 deg./day"
+        },
+        "mass": {
+          "value": 9.3835158743239e+20,
+          "uncertainty": "Original GM uncertainty: 0.0009 km³/s²; uncertainty in G is not propagated.",
+          "source": "https://ssd.jpl.nasa.gov/tools/sbdb_lookup.html#/?sstr=1",
+          "detail": "Individual-body mass derived from the measured GM using G = 6.67430 × 10⁻¹¹ m³ kg⁻¹ s⁻². JPL reference: Nature vol. 537, pp515-517 (22 September 2016)."
+        }
+      }
+    },
+    {
+      "kind": "small-body",
+      "id": "vesta",
+      "name": "Vesta",
+      "hostStarId": "sun",
+      "group": "asteroid-belt",
+      "number": 4,
+      "designation": "4 Vesta (A807 FA)",
+      "color": "#b5a28c",
+      "moonCount": 0,
+      "semiMajorAxisAu": 2.361365965127599,
+      "orbitEpoch": "JD 2461200.5 TDB, J2000 ecliptic",
+      "metrics": {
+        "semi-major-axis": {
+          "value": 2.361365965127599,
+          "uncertainty": "1.5328E-9",
+          "source": "https://ssd.jpl.nasa.gov/tools/sbdb_lookup.html#/?sstr=4",
+          "detail": "Osculating heliocentric orbital semi-major axis, not an instantaneous distance. Epoch: JD 2461200.5 TDB, J2000 ecliptic. JPL reference: orbital solution 36."
+        },
+        "orbital-period": {
+          "value": 3.62871743439042,
+          "uncertainty": "±3.533e-09 yr (converted from days)",
+          "source": "https://ssd.jpl.nasa.gov/tools/sbdb_lookup.html#/?sstr=4",
+          "detail": "Osculating Keplerian period expressed in Julian years. Epoch: JD 2461200.5 TDB, J2000 ecliptic. JPL reference: orbital solution 36."
+        },
+        "eccentricity": {
+          "value": 0.09020374382834395,
+          "uncertainty": "2.2909E-10",
+          "source": "https://ssd.jpl.nasa.gov/tools/sbdb_lookup.html#/?sstr=4",
+          "detail": "Orbital eccentricity. Epoch: JD 2461200.5 TDB, J2000 ecliptic. JPL reference: orbital solution 36."
+        },
+        "inclination": {
+          "value": 7.143925545058711,
+          "uncertainty": "2.1704E-7",
+          "source": "https://ssd.jpl.nasa.gov/tools/sbdb_lookup.html#/?sstr=4",
+          "detail": "Inclination to the J2000 ecliptic. Epoch: JD 2461200.5 TDB, J2000 ecliptic. JPL reference: orbital solution 36."
+        },
+        "perihelion": {
+          "value": 2.148361914524259,
+          "uncertainty": "1.9335E-9",
+          "source": "https://ssd.jpl.nasa.gov/tools/sbdb_lookup.html#/?sstr=4",
+          "detail": "Perihelion distance for this osculating solution. Epoch: JD 2461200.5 TDB, J2000 ecliptic. JPL reference: orbital solution 36."
+        },
+        "aphelion": {
+          "value": 2.574370015730939,
+          "uncertainty": "1.6711E-9",
+          "source": "https://ssd.jpl.nasa.gov/tools/sbdb_lookup.html#/?sstr=4",
+          "detail": "Aphelion distance for this osculating solution. Epoch: JD 2461200.5 TDB, J2000 ecliptic. JPL reference: orbital solution 36."
+        },
+        "absolute-magnitude": {
+          "value": 3.25,
+          "uncertainty": null,
+          "source": "https://ssd.jpl.nasa.gov/tools/sbdb_lookup.html#/?sstr=4",
+          "detail": "Absolute visual magnitude H: 1 AU from both Sun and observer, at zero phase. JPL reference: E2024D82. IRAS observations used: 2"
+        },
+        "mean-diameter": {
+          "value": 522.77,
+          "uncertainty": "0.1",
+          "source": "https://ssd.jpl.nasa.gov/tools/sbdb_lookup.html#/?sstr=4",
+          "detail": "effective body diameter JPL reference: Park, R.S. et al. 2025, Nat Astron, DOI: 10.1038/s41550-025-02533-7."
+        },
+        "mean-radius": {
+          "value": 261.385,
+          "uncertainty": "Half the diameter uncertainty: 0.1",
+          "source": "https://ssd.jpl.nasa.gov/tools/sbdb_lookup.html#/?sstr=4",
+          "detail": "Half the adopted diameter. effective body diameter JPL reference: Park, R.S. et al. 2025, Nat Astron, DOI: 10.1038/s41550-025-02533-7."
+        },
+        "mean-density": {
+          "value": 3.46,
+          "uncertainty": "0.005",
+          "source": "https://ssd.jpl.nasa.gov/tools/sbdb_lookup.html#/?sstr=4",
+          "detail": "Bulk density in g/cm³. JPL reference: Park, R.S. et al. 2025, Nat Astron, DOI: 10.1038/s41550-025-02533-7."
+        },
+        "geometric-albedo": {
+          "value": 0.4228,
+          "uncertainty": "0.053",
+          "source": "https://ssd.jpl.nasa.gov/tools/sbdb_lookup.html#/?sstr=4",
+          "detail": "Geometric visible albedo; not Bond albedo. JPL reference: IRAS-A-FPA-3-RDR-IMPS-V6.0. IRAS observations used: 2"
+        },
+        "sidereal-rotation-period": {
+          "value": 5.3421276322,
+          "uncertainty": "0.0000000004",
+          "source": "https://ssd.jpl.nasa.gov/tools/sbdb_lookup.html#/?sstr=4",
+          "detail": "Sidereal rotation in hours, relative to the stars; not the solar day. JPL reference: Park, R.S. et al. 2025, Nat Astron, DOI: 10.1038/s41550-025-02533-7. Rotation rate (deg/day): 1617.33312922 +/- 0.00000013"
+        },
+        "mass": {
+          "value": 2.5902767930719325e+20,
+          "uncertainty": "Original GM uncertainty: 0.0000030 km³/s²; uncertainty in G is not propagated.",
+          "source": "https://ssd.jpl.nasa.gov/tools/sbdb_lookup.html#/?sstr=4",
+          "detail": "Individual-body mass derived from the measured GM using G = 6.67430 × 10⁻¹¹ m³ kg⁻¹ s⁻². JPL reference: Park, R.S. et al. 2025, Nat Astron, DOI: 10.1038/s41550-025-02533-7."
+        }
+      }
+    },
+    {
+      "kind": "small-body",
+      "id": "pallas",
+      "name": "Pallas",
+      "hostStarId": "sun",
+      "group": "asteroid-belt",
+      "number": 2,
+      "designation": "2 Pallas (A802 FA)",
+      "color": "#aaaeb1",
+      "moonCount": 0,
+      "semiMajorAxisAu": 2.769559010737709,
+      "orbitEpoch": "JD 2461200.5 TDB, J2000 ecliptic",
+      "metrics": {
+        "semi-major-axis": {
+          "value": 2.769559010737709,
+          "uncertainty": "1.7736E-9",
+          "source": "https://ssd.jpl.nasa.gov/tools/sbdb_lookup.html#/?sstr=2",
+          "detail": "Osculating heliocentric orbital semi-major axis, not an instantaneous distance. Epoch: JD 2461200.5 TDB, J2000 ecliptic. JPL reference: orbital solution 74."
+        },
+        "orbital-period": {
+          "value": 4.609184968007759,
+          "uncertainty": "±4.428e-09 yr (converted from days)",
+          "source": "https://ssd.jpl.nasa.gov/tools/sbdb_lookup.html#/?sstr=2",
+          "detail": "Osculating Keplerian period expressed in Julian years. Epoch: JD 2461200.5 TDB, J2000 ecliptic. JPL reference: orbital solution 74."
+        },
+        "eccentricity": {
+          "value": 0.2307000995648547,
+          "uncertainty": "5.7536E-9",
+          "source": "https://ssd.jpl.nasa.gov/tools/sbdb_lookup.html#/?sstr=2",
+          "detail": "Orbital eccentricity. Epoch: JD 2461200.5 TDB, J2000 ecliptic. JPL reference: orbital solution 74."
+        },
+        "inclination": {
+          "value": 34.93279321851542,
+          "uncertainty": "6.9364E-7",
+          "source": "https://ssd.jpl.nasa.gov/tools/sbdb_lookup.html#/?sstr=2",
+          "detail": "Inclination to the J2000 ecliptic. Epoch: JD 2461200.5 TDB, J2000 ecliptic. JPL reference: orbital solution 74."
+        },
+        "perihelion": {
+          "value": 2.130621471209779,
+          "uncertainty": "1.5815E-8",
+          "source": "https://ssd.jpl.nasa.gov/tools/sbdb_lookup.html#/?sstr=2",
+          "detail": "Perihelion distance for this osculating solution. Epoch: JD 2461200.5 TDB, J2000 ecliptic. JPL reference: orbital solution 74."
+        },
+        "aphelion": {
+          "value": 3.408496550265638,
+          "uncertainty": "2.1828E-9",
+          "source": "https://ssd.jpl.nasa.gov/tools/sbdb_lookup.html#/?sstr=2",
+          "detail": "Aphelion distance for this osculating solution. Epoch: JD 2461200.5 TDB, J2000 ecliptic. JPL reference: orbital solution 74."
+        },
+        "absolute-magnitude": {
+          "value": 4.12,
+          "uncertainty": null,
+          "source": "https://ssd.jpl.nasa.gov/tools/sbdb_lookup.html#/?sstr=2",
+          "detail": "Absolute visual magnitude H: 1 AU from both Sun and observer, at zero phase. JPL reference: MPO980521. IRAS observations used: 19"
+        },
+        "mean-diameter": {
+          "value": 513.0,
+          "uncertainty": "6",
+          "source": "https://ssd.jpl.nasa.gov/tools/sbdb_lookup.html#/?sstr=2",
+          "detail": "effective body diameter JPL reference: Marsset et al., Nature Astronomy 4, 569-576 (2020)."
+        },
+        "mean-radius": {
+          "value": 256.5,
+          "uncertainty": "Half the diameter uncertainty: 6",
+          "source": "https://ssd.jpl.nasa.gov/tools/sbdb_lookup.html#/?sstr=2",
+          "detail": "Half the adopted diameter. effective body diameter JPL reference: Marsset et al., Nature Astronomy 4, 569-576 (2020)."
+        },
+        "mean-density": {
+          "value": 2.89,
+          "uncertainty": "0.08",
+          "source": "https://ssd.jpl.nasa.gov/tools/sbdb_lookup.html#/?sstr=2",
+          "detail": "Bulk density in g/cm³. JPL reference: Marsset et al., Nature Astronomy 4, 569-576 (2020)."
+        },
+        "geometric-albedo": {
+          "value": 0.155,
+          "uncertainty": null,
+          "source": "https://ssd.jpl.nasa.gov/tools/sbdb_lookup.html#/?sstr=2",
+          "detail": "Geometric visible albedo; not Bond albedo. JPL reference: Vernazza et al., A&A 654, A56 (2021)."
+        },
+        "sidereal-rotation-period": {
+          "value": 7.8132214,
+          "uncertainty": "0.000002",
+          "source": "https://ssd.jpl.nasa.gov/tools/sbdb_lookup.html#/?sstr=2",
+          "detail": "Sidereal rotation in hours, relative to the stars; not the solar day. JPL reference: Carry et al., Icarus 205, 460-472 (2010)."
+        },
+        "mass": {
+          "value": 2.0421617248250757e+20,
+          "uncertainty": "Original GM uncertainty: 0.18 km³/s²; uncertainty in G is not propagated.",
+          "source": "https://ssd.jpl.nasa.gov/tools/sbdb_lookup.html#/?sstr=2",
+          "detail": "Individual-body mass derived from the measured GM using G = 6.67430 × 10⁻¹¹ m³ kg⁻¹ s⁻². JPL reference: Vernazza et al., A&A 654, A56 (2021)."
+        }
+      }
+    },
+    {
+      "kind": "small-body",
+      "id": "hygiea",
+      "name": "Hygiea",
+      "hostStarId": "sun",
+      "group": "asteroid-belt",
+      "number": 10,
+      "designation": "10 Hygiea (A849 GA)",
+      "color": "#8b8580",
+      "moonCount": 0,
+      "semiMajorAxisAu": 3.150974033963701,
+      "orbitEpoch": "JD 2461200.5 TDB, J2000 ecliptic",
+      "metrics": {
+        "semi-major-axis": {
+          "value": 3.150974033963701,
+          "uncertainty": "2.4864E-9",
+          "source": "https://ssd.jpl.nasa.gov/tools/sbdb_lookup.html#/?sstr=10",
+          "detail": "Osculating heliocentric orbital semi-major axis, not an instantaneous distance. Epoch: JD 2461200.5 TDB, J2000 ecliptic. JPL reference: orbital solution 129."
+        },
+        "orbital-period": {
+          "value": 5.593394341819649,
+          "uncertainty": "±6.621e-09 yr (converted from days)",
+          "source": "https://ssd.jpl.nasa.gov/tools/sbdb_lookup.html#/?sstr=10",
+          "detail": "Osculating Keplerian period expressed in Julian years. Epoch: JD 2461200.5 TDB, J2000 ecliptic. JPL reference: orbital solution 129."
+        },
+        "eccentricity": {
+          "value": 0.1067092741240963,
+          "uncertainty": "4.3184E-9",
+          "source": "https://ssd.jpl.nasa.gov/tools/sbdb_lookup.html#/?sstr=10",
+          "detail": "Orbital eccentricity. Epoch: JD 2461200.5 TDB, J2000 ecliptic. JPL reference: orbital solution 129."
+        },
+        "inclination": {
+          "value": 3.829529946447122,
+          "uncertainty": "3.7979E-7",
+          "source": "https://ssd.jpl.nasa.gov/tools/sbdb_lookup.html#/?sstr=10",
+          "detail": "Inclination to the J2000 ecliptic. Epoch: JD 2461200.5 TDB, J2000 ecliptic. JPL reference: orbital solution 129."
+        },
+        "perihelion": {
+          "value": 2.814735882015559,
+          "uncertainty": "1.3021E-8",
+          "source": "https://ssd.jpl.nasa.gov/tools/sbdb_lookup.html#/?sstr=10",
+          "detail": "Perihelion distance for this osculating solution. Epoch: JD 2461200.5 TDB, J2000 ecliptic. JPL reference: orbital solution 129."
+        },
+        "aphelion": {
+          "value": 3.487212185911843,
+          "uncertainty": "2.7517E-9",
+          "source": "https://ssd.jpl.nasa.gov/tools/sbdb_lookup.html#/?sstr=10",
+          "detail": "Aphelion distance for this osculating solution. Epoch: JD 2461200.5 TDB, J2000 ecliptic. JPL reference: orbital solution 129."
+        },
+        "absolute-magnitude": {
+          "value": 5.65,
+          "uncertainty": null,
+          "source": "https://ssd.jpl.nasa.gov/tools/sbdb_lookup.html#/?sstr=10",
+          "detail": "Absolute visual magnitude H: 1 AU from both Sun and observer, at zero phase. JPL reference: E2026E39. IRAS observations used: 22"
+        },
+        "mean-diameter": {
+          "value": 407.12,
+          "uncertainty": "6.8",
+          "source": "https://ssd.jpl.nasa.gov/tools/sbdb_lookup.html#/?sstr=10",
+          "detail": "effective body diameter JPL reference: IRAS-A-FPA-3-RDR-IMPS-V6.0. IRAS observations used: 22"
+        },
+        "mean-radius": {
+          "value": 203.56,
+          "uncertainty": "Half the diameter uncertainty: 6.8",
+          "source": "https://ssd.jpl.nasa.gov/tools/sbdb_lookup.html#/?sstr=10",
+          "detail": "Half the adopted diameter. effective body diameter JPL reference: IRAS-A-FPA-3-RDR-IMPS-V6.0. IRAS observations used: 22"
+        },
+        "geometric-albedo": {
+          "value": 0.0717,
+          "uncertainty": "0.002",
+          "source": "https://ssd.jpl.nasa.gov/tools/sbdb_lookup.html#/?sstr=10",
+          "detail": "Geometric visible albedo; not Bond albedo. JPL reference: IRAS-A-FPA-3-RDR-IMPS-V6.0. IRAS observations used: 22"
+        },
+        "sidereal-rotation-period": {
+          "value": 13.828,
+          "uncertainty": null,
+          "source": "https://ssd.jpl.nasa.gov/tools/sbdb_lookup.html#/?sstr=10",
+          "detail": "Sidereal rotation in hours, relative to the stars; not the solar day. JPL reference: LCDB (Rev. 2023-October); Warner et al., 2009. REFERENCE LIST:[Pilcher, F. (2020) Minor Planet Bull. 47, 133-135.], [Vernazza, P.; Jorda, L.; Sevecek, P.; Broz, M.; et al. (2020) Nature Astronomy 4, 136-141.], [Ferrais, M.; Jehin, E.; Vernazza, P.; Jorda, L.; et al. (2021) Minor Planet Bull. 48, 166-167.], [Vernazza, P.; Ferrais, M.; Jorda, L.; Hanus, J.; et al. (2021) Astron. Astrophys 654, id. A56.]"
+        },
+        "mass": {
+          "value": 1.048799125001873e+20,
+          "uncertainty": "Original GM uncertainty: None km³/s²; uncertainty in G is not propagated.",
+          "source": "https://ssd.jpl.nasa.gov/tools/sbdb_lookup.html#/?sstr=10",
+          "detail": "Individual-body mass derived from the measured GM using G = 6.67430 × 10⁻¹¹ m³ kg⁻¹ s⁻². JPL reference: Scholl et al., A&A, v.179, p.311, 1987."
+        }
+      }
+    },
+    {
+      "kind": "small-body",
+      "id": "pluto",
+      "name": "Pluto",
+      "hostStarId": "sun",
+      "group": "dwarf-planets",
+      "number": 134340,
+      "designation": "134340 Pluto (1930 BM)",
+      "color": "#c6ad95",
+      "moonCount": 5,
+      "semiMajorAxisAu": 39.58862938517124,
+      "orbitEpoch": "JD 2457588.5 TDB, J2000 ecliptic",
+      "metrics": {
+        "semi-major-axis": {
+          "value": 39.58862938517124,
+          "uncertainty": null,
+          "source": "https://ssd.jpl.nasa.gov/tools/sbdb_lookup.html#/?sstr=134340",
+          "detail": "Osculating heliocentric orbital semi-major axis, not an instantaneous distance. Epoch: JD 2457588.5 TDB, J2000 ecliptic. JPL reference: orbital solution 1."
+        },
+        "orbital-period": {
+          "value": 249.09436407168639,
+          "uncertainty": null,
+          "source": "https://ssd.jpl.nasa.gov/tools/sbdb_lookup.html#/?sstr=134340",
+          "detail": "Osculating Keplerian period expressed in Julian years. Epoch: JD 2457588.5 TDB, J2000 ecliptic. JPL reference: orbital solution 1."
+        },
+        "eccentricity": {
+          "value": 0.2518378778576892,
+          "uncertainty": null,
+          "source": "https://ssd.jpl.nasa.gov/tools/sbdb_lookup.html#/?sstr=134340",
+          "detail": "Orbital eccentricity. Epoch: JD 2457588.5 TDB, J2000 ecliptic. JPL reference: orbital solution 1."
+        },
+        "inclination": {
+          "value": 17.14771140999114,
+          "uncertainty": null,
+          "source": "https://ssd.jpl.nasa.gov/tools/sbdb_lookup.html#/?sstr=134340",
+          "detail": "Inclination to the J2000 ecliptic. Epoch: JD 2457588.5 TDB, J2000 ecliptic. JPL reference: orbital solution 1."
+        },
+        "perihelion": {
+          "value": 29.61871297351516,
+          "uncertainty": null,
+          "source": "https://ssd.jpl.nasa.gov/tools/sbdb_lookup.html#/?sstr=134340",
+          "detail": "Perihelion distance for this osculating solution. Epoch: JD 2457588.5 TDB, J2000 ecliptic. JPL reference: orbital solution 1."
+        },
+        "aphelion": {
+          "value": 49.55854579682732,
+          "uncertainty": null,
+          "source": "https://ssd.jpl.nasa.gov/tools/sbdb_lookup.html#/?sstr=134340",
+          "detail": "Aphelion distance for this osculating solution. Epoch: JD 2457588.5 TDB, J2000 ecliptic. JPL reference: orbital solution 1."
+        },
+        "mean-diameter": {
+          "value": 2376.6,
+          "uncertainty": "±3.2 km",
+          "source": "https://doi.org/10.1016/j.icarus.2016.06.027",
+          "detail": "Twice the New Horizons volumetric mean radius, 1188.3 ± 1.6 km."
+        },
+        "mean-radius": {
+          "value": 1188.3,
+          "uncertainty": "Half the diameter uncertainty: ±3.2 km",
+          "source": "https://doi.org/10.1016/j.icarus.2016.06.027",
+          "detail": "Half the adopted diameter. Twice the New Horizons volumetric mean radius, 1188.3 ± 1.6 km."
+        },
+        "sidereal-rotation-period": {
+          "value": 153.2935,
+          "uncertainty": null,
+          "source": "https://ssd.jpl.nasa.gov/tools/sbdb_lookup.html#/?sstr=134340",
+          "detail": "Sidereal rotation in hours; positive duration. Pluto rotates retrograde. JPL reference: LCDB (Rev. 2023-October); Warner et al., 2009. REFERENCE LIST:[Walker, M.F.; Hardie, R. (1955) Pub. Ast. Soc. Pacific 67, 224.], [Tholen, D.J.; Buie, M.W. (1997) in Pluto and Charon (S.A. Stern and D.J. Tholen, eds.) pp 193-219. Univ. Arizon Press, Tucson.]"
+        },
+        "mass": {
+          "value": 1.303e+22,
+          "uncertainty": null,
+          "source": "https://nssdc.gsfc.nasa.gov/planetary/factsheet/plutofact.html",
+          "detail": "Individual Pluto mass; excludes Charon and the other moons."
+        },
+        "mean-density": {
+          "value": 1.854,
+          "uncertainty": null,
+          "source": "https://nssdc.gsfc.nasa.gov/planetary/factsheet/plutofact.html",
+          "detail": "Individual Pluto bulk density."
+        },
+        "surface-gravity": {
+          "value": 0.62,
+          "uncertainty": null,
+          "source": "https://nssdc.gsfc.nasa.gov/planetary/factsheet/plutofact.html",
+          "detail": "NASA mean surface gravity."
+        }
+      }
+    },
+    {
+      "kind": "small-body",
+      "id": "eris",
+      "name": "Eris",
+      "hostStarId": "sun",
+      "group": "dwarf-planets",
+      "number": 136199,
+      "designation": "136199 Eris (2003 UB313)",
+      "color": "#e0ded7",
+      "moonCount": 1,
+      "semiMajorAxisAu": 67.93394687853566,
+      "orbitEpoch": "JD 2461200.5 TDB, J2000 ecliptic",
+      "metrics": {
+        "semi-major-axis": {
+          "value": 67.93394687853566,
+          "uncertainty": ".0002545",
+          "source": "https://ssd.jpl.nasa.gov/tools/sbdb_lookup.html#/?sstr=136199",
+          "detail": "Osculating heliocentric orbital semi-major axis, not an instantaneous distance. Epoch: JD 2461200.5 TDB, J2000 ecliptic. JPL reference: orbital solution 103."
+        },
+        "orbital-period": {
+          "value": 559.9361066203236,
+          "uncertainty": "±0.003147 yr (converted from days)",
+          "source": "https://ssd.jpl.nasa.gov/tools/sbdb_lookup.html#/?sstr=136199",
+          "detail": "Osculating Keplerian period expressed in Julian years. Epoch: JD 2461200.5 TDB, J2000 ecliptic. JPL reference: orbital solution 103."
+        },
+        "eccentricity": {
+          "value": 0.4382385347971672,
+          "uncertainty": "3.4663E-6",
+          "source": "https://ssd.jpl.nasa.gov/tools/sbdb_lookup.html#/?sstr=136199",
+          "detail": "Orbital eccentricity. Epoch: JD 2461200.5 TDB, J2000 ecliptic. JPL reference: orbital solution 103."
+        },
+        "inclination": {
+          "value": 43.9258279471791,
+          "uncertainty": "3.1852E-5",
+          "source": "https://ssd.jpl.nasa.gov/tools/sbdb_lookup.html#/?sstr=136199",
+          "detail": "Inclination to the J2000 ecliptic. Epoch: JD 2461200.5 TDB, J2000 ecliptic. JPL reference: orbital solution 103."
+        },
+        "perihelion": {
+          "value": 38.16267353549761,
+          "uncertainty": ".00015516",
+          "source": "https://ssd.jpl.nasa.gov/tools/sbdb_lookup.html#/?sstr=136199",
+          "detail": "Perihelion distance for this osculating solution. Epoch: JD 2461200.5 TDB, J2000 ecliptic. JPL reference: orbital solution 103."
+        },
+        "aphelion": {
+          "value": 97.70522022157373,
+          "uncertainty": ".00036603",
+          "source": "https://ssd.jpl.nasa.gov/tools/sbdb_lookup.html#/?sstr=136199",
+          "detail": "Aphelion distance for this osculating solution. Epoch: JD 2461200.5 TDB, J2000 ecliptic. JPL reference: orbital solution 103."
+        },
+        "mean-diameter": {
+          "value": 2326,
+          "uncertainty": "±12 km",
+          "source": "https://doi.org/10.1038/nature10550",
+          "detail": "Stellar-occultation diameter of Eris alone."
+        },
+        "mean-radius": {
+          "value": 1163.0,
+          "uncertainty": "Half the diameter uncertainty: ±12 km",
+          "source": "https://doi.org/10.1038/nature10550",
+          "detail": "Half the adopted diameter. Stellar-occultation diameter of Eris alone."
+        },
+        "sidereal-rotation-period": {
+          "value": 378.8616,
+          "uncertainty": "±0.0012 h",
+          "source": "https://arxiv.org/abs/2303.13445",
+          "detail": "Synchronous rotation with Dysnomia; replaces the older 25.9-hour value retained in the raw JPL record."
+        }
+      }
+    },
+    {
+      "kind": "small-body",
+      "id": "haumea",
+      "name": "Haumea",
+      "hostStarId": "sun",
+      "group": "dwarf-planets",
+      "number": 136108,
+      "designation": "136108 Haumea (2003 EL61)",
+      "color": "#d7d3c8",
+      "moonCount": 2,
+      "semiMajorAxisAu": 43.06029023650952,
+      "orbitEpoch": "JD 2461200.5 TDB, J2000 ecliptic",
+      "metrics": {
+        "semi-major-axis": {
+          "value": 43.06029023650952,
+          "uncertainty": "4.0486E-5",
+          "source": "https://ssd.jpl.nasa.gov/tools/sbdb_lookup.html#/?sstr=136108",
+          "detail": "Osculating heliocentric orbital semi-major axis, not an instantaneous distance. Epoch: JD 2461200.5 TDB, J2000 ecliptic. JPL reference: orbital solution 132."
+        },
+        "orbital-period": {
+          "value": 282.5684252987318,
+          "uncertainty": "±0.0003985 yr (converted from days)",
+          "source": "https://ssd.jpl.nasa.gov/tools/sbdb_lookup.html#/?sstr=136108",
+          "detail": "Osculating Keplerian period expressed in Julian years. Epoch: JD 2461200.5 TDB, J2000 ecliptic. JPL reference: orbital solution 132."
+        },
+        "eccentricity": {
+          "value": 0.1944430148898797,
+          "uncertainty": "1.1561E-6",
+          "source": "https://ssd.jpl.nasa.gov/tools/sbdb_lookup.html#/?sstr=136108",
+          "detail": "Orbital eccentricity. Epoch: JD 2461200.5 TDB, J2000 ecliptic. JPL reference: orbital solution 132."
+        },
+        "inclination": {
+          "value": 28.20847393040364,
+          "uncertainty": "1.1546E-6",
+          "source": "https://ssd.jpl.nasa.gov/tools/sbdb_lookup.html#/?sstr=136108",
+          "detail": "Inclination to the J2000 ecliptic. Epoch: JD 2461200.5 TDB, J2000 ecliptic. JPL reference: orbital solution 132."
+        },
+        "perihelion": {
+          "value": 34.68751758088936,
+          "uncertainty": "6.4457E-5",
+          "source": "https://ssd.jpl.nasa.gov/tools/sbdb_lookup.html#/?sstr=136108",
+          "detail": "Perihelion distance for this osculating solution. Epoch: JD 2461200.5 TDB, J2000 ecliptic. JPL reference: orbital solution 132."
+        },
+        "aphelion": {
+          "value": 51.43306289212968,
+          "uncertainty": "4.8358E-5",
+          "source": "https://ssd.jpl.nasa.gov/tools/sbdb_lookup.html#/?sstr=136108",
+          "detail": "Aphelion distance for this osculating solution. Epoch: JD 2461200.5 TDB, J2000 ecliptic. JPL reference: orbital solution 132."
+        },
+        "mean-diameter": {
+          "value": 1595,
+          "uncertainty": null,
+          "source": "https://doi.org/10.1038/nature24051",
+          "detail": "Volume-equivalent diameter calculated from the model axes 2322 × 1704 × 1026 km. Haumea is strongly elongated; this is not its longest dimension."
+        },
+        "mean-radius": {
+          "value": 797.5,
+          "uncertainty": null,
+          "source": "https://doi.org/10.1038/nature24051",
+          "detail": "Half the adopted diameter. Volume-equivalent diameter calculated from the model axes 2322 × 1704 × 1026 km. Haumea is strongly elongated; this is not its longest dimension."
+        },
+        "sidereal-rotation-period": {
+          "value": 3.9154,
+          "uncertainty": null,
+          "source": "https://ssd.jpl.nasa.gov/tools/sbdb_lookup.html#/?sstr=136108",
+          "detail": "Sidereal rotation in hours; positive duration. JPL reference: LCDB (Rev. 2023-October); Warner et al., 2009. REFERENCE LIST:[Rabinowitz, D.L.; Barkume, K.; Brown, M.E.; Roe, H.; et al. (2006) Astrophys. J. 639, 1238-1251.], [Rabinowitz, D.L.; Schaefer, B.E.; Tourtellotte, S.W. (2007) Astron. J. 133, 26-43.], [Lellouch, E.; Kiss, C.; Santos-Sanz, P.; Muller, T.G.; et al. (2010) Astron. Astrophys. 518, L147.], [Thirouin, A.; Ortiz, J.L.; Duffard, R.; Santos-Sanz, P.; et al. (2010) Astron. Astrophys. 522, A93.], [Behrend, R. (2011) Observatoire de Geneve web site, http://obswww.unige.ch/~behrend/page_cou.html], [Behrend, R. (2014) Observatoire de Geneve web site, http://obswww.unige.ch/~behrend/page_cou.html], [Lockwood, A.C.; Brown, M.E.; Stansberry, J. (2014) Earth, Moon, and Planets 111, 127-37.], [Clark, M. (2016) Minor Planet Bull. 43, 2-5.], [Behrend, R. (2017) Observatoire de Geneve web site, http://obswww.unige.ch/~behrend/page_cou.html], [Ortiz, J.L.; Santos-Sanz, P.; Sicardy, B.; Benedetti-Rossi, G.; et al. (2017) Nature 550, 219-223.]"
+        }
+      }
+    },
+    {
+      "kind": "small-body",
+      "id": "makemake",
+      "name": "Makemake",
+      "hostStarId": "sun",
+      "group": "dwarf-planets",
+      "number": 136472,
+      "designation": "136472 Makemake (2005 FY9)",
+      "color": "#bba28b",
+      "moonCount": 1,
+      "semiMajorAxisAu": 45.57093317300052,
+      "orbitEpoch": "JD 2461200.5 TDB, J2000 ecliptic",
+      "metrics": {
+        "semi-major-axis": {
+          "value": 45.57093317300052,
+          "uncertainty": "5.3653E-5",
+          "source": "https://ssd.jpl.nasa.gov/tools/sbdb_lookup.html#/?sstr=136472",
+          "detail": "Osculating heliocentric orbital semi-major axis, not an instantaneous distance. Epoch: JD 2461200.5 TDB, J2000 ecliptic. JPL reference: orbital solution 130."
+        },
+        "orbital-period": {
+          "value": 307.6380749521886,
+          "uncertainty": "±0.0005433 yr (converted from days)",
+          "source": "https://ssd.jpl.nasa.gov/tools/sbdb_lookup.html#/?sstr=136472",
+          "detail": "Osculating Keplerian period expressed in Julian years. Epoch: JD 2461200.5 TDB, J2000 ecliptic. JPL reference: orbital solution 130."
+        },
+        "eccentricity": {
+          "value": 0.1588889953992523,
+          "uncertainty": "1.185E-6",
+          "source": "https://ssd.jpl.nasa.gov/tools/sbdb_lookup.html#/?sstr=136472",
+          "detail": "Orbital eccentricity. Epoch: JD 2461200.5 TDB, J2000 ecliptic. JPL reference: orbital solution 130."
+        },
+        "inclination": {
+          "value": 29.02785603743067,
+          "uncertainty": "1.4175E-6",
+          "source": "https://ssd.jpl.nasa.gov/tools/sbdb_lookup.html#/?sstr=136472",
+          "detail": "Inclination to the J2000 ecliptic. Epoch: JD 2461200.5 TDB, J2000 ecliptic. JPL reference: orbital solution 130."
+        },
+        "perihelion": {
+          "value": 38.33021338173601,
+          "uncertainty": "9.0359E-5",
+          "source": "https://ssd.jpl.nasa.gov/tools/sbdb_lookup.html#/?sstr=136472",
+          "detail": "Perihelion distance for this osculating solution. Epoch: JD 2461200.5 TDB, J2000 ecliptic. JPL reference: orbital solution 130."
+        },
+        "aphelion": {
+          "value": 52.81165296426503,
+          "uncertainty": "6.2178E-5",
+          "source": "https://ssd.jpl.nasa.gov/tools/sbdb_lookup.html#/?sstr=136472",
+          "detail": "Aphelion distance for this osculating solution. Epoch: JD 2461200.5 TDB, J2000 ecliptic. JPL reference: orbital solution 130."
+        },
+        "mean-diameter": {
+          "value": 1430,
+          "uncertainty": "±9 km",
+          "source": "https://doi.org/10.1038/nature11597",
+          "detail": "Occultation equivalent diameter; spherical interpretation of the projected limb."
+        },
+        "mean-radius": {
+          "value": 715.0,
+          "uncertainty": "Half the diameter uncertainty: ±9 km",
+          "source": "https://doi.org/10.1038/nature11597",
+          "detail": "Half the adopted diameter. Occultation equivalent diameter; spherical interpretation of the projected limb."
+        }
+      }
+    },
+    {
+      "kind": "small-body",
+      "id": "gonggong",
+      "name": "Gonggong",
+      "hostStarId": "sun",
+      "group": "dwarf-planets",
+      "number": 225088,
+      "designation": "225088 Gonggong (2007 OR10)",
+      "color": "#ad816f",
+      "moonCount": 1,
+      "semiMajorAxisAu": 66.86666567773766,
+      "orbitEpoch": "JD 2461200.5 TDB, J2000 ecliptic",
+      "metrics": {
+        "semi-major-axis": {
+          "value": 66.86666567773766,
+          "uncertainty": ".002095",
+          "source": "https://ssd.jpl.nasa.gov/tools/sbdb_lookup.html#/?sstr=225088",
+          "detail": "Osculating heliocentric orbital semi-major axis, not an instantaneous distance. Epoch: JD 2461200.5 TDB, J2000 ecliptic. JPL reference: orbital solution 25."
+        },
+        "orbital-period": {
+          "value": 546.7926946191261,
+          "uncertainty": "±0.0257 yr (converted from days)",
+          "source": "https://ssd.jpl.nasa.gov/tools/sbdb_lookup.html#/?sstr=225088",
+          "detail": "Osculating Keplerian period expressed in Julian years. Epoch: JD 2461200.5 TDB, J2000 ecliptic. JPL reference: orbital solution 25."
+        },
+        "eccentricity": {
+          "value": 0.5042510000302973,
+          "uncertainty": "1.8857E-5",
+          "source": "https://ssd.jpl.nasa.gov/tools/sbdb_lookup.html#/?sstr=225088",
+          "detail": "Orbital eccentricity. Epoch: JD 2461200.5 TDB, J2000 ecliptic. JPL reference: orbital solution 25."
+        },
+        "inclination": {
+          "value": 30.89906721170288,
+          "uncertainty": ".00010916",
+          "source": "https://ssd.jpl.nasa.gov/tools/sbdb_lookup.html#/?sstr=225088",
+          "detail": "Inclination to the J2000 ecliptic. Epoch: JD 2461200.5 TDB, J2000 ecliptic. JPL reference: orbital solution 25."
+        },
+        "perihelion": {
+          "value": 33.14908264104688,
+          "uncertainty": ".0011603",
+          "source": "https://ssd.jpl.nasa.gov/tools/sbdb_lookup.html#/?sstr=225088",
+          "detail": "Perihelion distance for this osculating solution. Epoch: JD 2461200.5 TDB, J2000 ecliptic. JPL reference: orbital solution 25."
+        },
+        "aphelion": {
+          "value": 100.5842487144284,
+          "uncertainty": ".0031514",
+          "source": "https://ssd.jpl.nasa.gov/tools/sbdb_lookup.html#/?sstr=225088",
+          "detail": "Aphelion distance for this osculating solution. Epoch: JD 2461200.5 TDB, J2000 ecliptic. JPL reference: orbital solution 25."
+        },
+        "mean-diameter": {
+          "value": 1230,
+          "uncertainty": "±50 km",
+          "source": "https://doi.org/10.1016/j.icarus.2019.03.013",
+          "detail": "Thermal-model diameter of the primary, accounting for its satellite."
+        },
+        "mean-radius": {
+          "value": 615.0,
+          "uncertainty": "Half the diameter uncertainty: ±50 km",
+          "source": "https://doi.org/10.1016/j.icarus.2019.03.013",
+          "detail": "Half the adopted diameter. Thermal-model diameter of the primary, accounting for its satellite."
+        }
+      }
+    },
+    {
+      "kind": "small-body",
+      "id": "quaoar",
+      "name": "Quaoar",
+      "hostStarId": "sun",
+      "group": "dwarf-planets",
+      "number": 50000,
+      "designation": "50000 Quaoar (2002 LM60)",
+      "color": "#b49a84",
+      "moonCount": 2,
+      "semiMajorAxisAu": 43.15617622670811,
+      "orbitEpoch": "JD 2461200.5 TDB, J2000 ecliptic",
+      "metrics": {
+        "semi-major-axis": {
+          "value": 43.15617622670811,
+          "uncertainty": "2.8726E-5",
+          "source": "https://ssd.jpl.nasa.gov/tools/sbdb_lookup.html#/?sstr=50000",
+          "detail": "Osculating heliocentric orbital semi-major axis, not an instantaneous distance. Epoch: JD 2461200.5 TDB, J2000 ecliptic. JPL reference: orbital solution 52."
+        },
+        "orbital-period": {
+          "value": 283.512779046878,
+          "uncertainty": "±0.0002831 yr (converted from days)",
+          "source": "https://ssd.jpl.nasa.gov/tools/sbdb_lookup.html#/?sstr=50000",
+          "detail": "Osculating Keplerian period expressed in Julian years. Epoch: JD 2461200.5 TDB, J2000 ecliptic. JPL reference: orbital solution 52."
+        },
+        "eccentricity": {
+          "value": 0.03520019261837198,
+          "uncertainty": "1.6333E-6",
+          "source": "https://ssd.jpl.nasa.gov/tools/sbdb_lookup.html#/?sstr=50000",
+          "detail": "Orbital eccentricity. Epoch: JD 2461200.5 TDB, J2000 ecliptic. JPL reference: orbital solution 52."
+        },
+        "inclination": {
+          "value": 7.991575800732639,
+          "uncertainty": "6.7774E-7",
+          "source": "https://ssd.jpl.nasa.gov/tools/sbdb_lookup.html#/?sstr=50000",
+          "detail": "Inclination to the J2000 ecliptic. Epoch: JD 2461200.5 TDB, J2000 ecliptic. JPL reference: orbital solution 52."
+        },
+        "perihelion": {
+          "value": 41.63707051085558,
+          "uncertainty": "7.0451E-5",
+          "source": "https://ssd.jpl.nasa.gov/tools/sbdb_lookup.html#/?sstr=50000",
+          "detail": "Perihelion distance for this osculating solution. Epoch: JD 2461200.5 TDB, J2000 ecliptic. JPL reference: orbital solution 52."
+        },
+        "aphelion": {
+          "value": 44.67528194256064,
+          "uncertainty": "2.9737E-5",
+          "source": "https://ssd.jpl.nasa.gov/tools/sbdb_lookup.html#/?sstr=50000",
+          "detail": "Aphelion distance for this osculating solution. Epoch: JD 2461200.5 TDB, J2000 ecliptic. JPL reference: orbital solution 52."
+        },
+        "mean-diameter": {
+          "value": 1094.4,
+          "uncertainty": "±4.6 km",
+          "source": "https://arxiv.org/abs/2607.06450",
+          "detail": "Volumetric equivalent diameter from the 2026 joint analysis of 37 stellar occultations. Supersedes the earlier projected 1110 km estimate."
+        },
+        "mean-radius": {
+          "value": 547.2,
+          "uncertainty": "Half the diameter uncertainty: ±4.6 km",
+          "source": "https://arxiv.org/abs/2607.06450",
+          "detail": "Half the adopted diameter. Volumetric equivalent diameter from the 2026 joint analysis of 37 stellar occultations. Supersedes the earlier projected 1110 km estimate."
+        }
+      }
+    },
+    {
+      "kind": "small-body",
+      "id": "orcus",
+      "name": "Orcus",
+      "hostStarId": "sun",
+      "group": "dwarf-planets",
+      "number": 90482,
+      "designation": "90482 Orcus (2004 DW)",
+      "color": "#b9bbb8",
+      "moonCount": 1,
+      "semiMajorAxisAu": 39.37686537914865,
+      "orbitEpoch": "JD 2461200.5 TDB, J2000 ecliptic",
+      "metrics": {
+        "semi-major-axis": {
+          "value": 39.37686537914865,
+          "uncertainty": "2.1925E-5",
+          "source": "https://ssd.jpl.nasa.gov/tools/sbdb_lookup.html#/?sstr=90482",
+          "detail": "Osculating heliocentric orbital semi-major axis, not an instantaneous distance. Epoch: JD 2461200.5 TDB, J2000 ecliptic. JPL reference: orbital solution 61."
+        },
+        "orbital-period": {
+          "value": 247.09838879366208,
+          "uncertainty": "±0.0002064 yr (converted from days)",
+          "source": "https://ssd.jpl.nasa.gov/tools/sbdb_lookup.html#/?sstr=90482",
+          "detail": "Osculating Keplerian period expressed in Julian years. Epoch: JD 2461200.5 TDB, J2000 ecliptic. JPL reference: orbital solution 61."
+        },
+        "eccentricity": {
+          "value": 0.2205240628250881,
+          "uncertainty": "4.9013E-7",
+          "source": "https://ssd.jpl.nasa.gov/tools/sbdb_lookup.html#/?sstr=90482",
+          "detail": "Orbital eccentricity. Epoch: JD 2461200.5 TDB, J2000 ecliptic. JPL reference: orbital solution 61."
+        },
+        "inclination": {
+          "value": 20.55681019612,
+          "uncertainty": "1.9955E-6",
+          "source": "https://ssd.jpl.nasa.gov/tools/sbdb_lookup.html#/?sstr=90482",
+          "detail": "Inclination to the J2000 ecliptic. Epoch: JD 2461200.5 TDB, J2000 ecliptic. JPL reference: orbital solution 61."
+        },
+        "perihelion": {
+          "value": 30.69331904442224,
+          "uncertainty": "3.6081E-5",
+          "source": "https://ssd.jpl.nasa.gov/tools/sbdb_lookup.html#/?sstr=90482",
+          "detail": "Perihelion distance for this osculating solution. Epoch: JD 2461200.5 TDB, J2000 ecliptic. JPL reference: orbital solution 61."
+        },
+        "aphelion": {
+          "value": 48.06041171387506,
+          "uncertainty": "2.676E-5",
+          "source": "https://ssd.jpl.nasa.gov/tools/sbdb_lookup.html#/?sstr=90482",
+          "detail": "Aphelion distance for this osculating solution. Epoch: JD 2461200.5 TDB, J2000 ecliptic. JPL reference: orbital solution 61."
+        },
+        "mean-diameter": {
+          "value": 910,
+          "uncertainty": "+50 / −40 km",
+          "source": "https://doi.org/10.3847/1538-3881/aad9f2",
+          "detail": "ALMA radiometric diameter resolved separately from Vanth."
+        },
+        "mean-radius": {
+          "value": 455.0,
+          "uncertainty": "Half the diameter uncertainty: +50 / −40 km",
+          "source": "https://doi.org/10.3847/1538-3881/aad9f2",
+          "detail": "Half the adopted diameter. ALMA radiometric diameter resolved separately from Vanth."
+        }
+      }
+    },
+    {
+      "kind": "small-body",
+      "id": "sedna",
+      "name": "Sedna",
+      "hostStarId": "sun",
+      "group": "dwarf-planets",
+      "number": 90377,
+      "designation": "90377 Sedna (2003 VB12)",
+      "color": "#b97867",
+      "moonCount": 0,
+      "semiMajorAxisAu": 543.7195289104732,
+      "orbitEpoch": "JD 2461200.5 TDB, J2000 ecliptic",
+      "metrics": {
+        "semi-major-axis": {
+          "value": 543.7195289104732,
+          "uncertainty": ".1459",
+          "source": "https://ssd.jpl.nasa.gov/tools/sbdb_lookup.html#/?sstr=90377",
+          "detail": "Osculating heliocentric orbital semi-major axis, not an instantaneous distance. Epoch: JD 2461200.5 TDB, J2000 ecliptic. JPL reference: orbital solution 51."
+        },
+        "orbital-period": {
+          "value": 12678.57955808601,
+          "uncertainty": "±5.103 yr (converted from days)",
+          "source": "https://ssd.jpl.nasa.gov/tools/sbdb_lookup.html#/?sstr=90377",
+          "detail": "Osculating Keplerian period expressed in Julian years. Epoch: JD 2461200.5 TDB, J2000 ecliptic. JPL reference: orbital solution 51."
+        },
+        "eccentricity": {
+          "value": 0.8598824585187618,
+          "uncertainty": "3.7251E-5",
+          "source": "https://ssd.jpl.nasa.gov/tools/sbdb_lookup.html#/?sstr=90377",
+          "detail": "Orbital eccentricity. Epoch: JD 2461200.5 TDB, J2000 ecliptic. JPL reference: orbital solution 51."
+        },
+        "inclination": {
+          "value": 11.92527582847476,
+          "uncertainty": "3.3169E-6",
+          "source": "https://ssd.jpl.nasa.gov/tools/sbdb_lookup.html#/?sstr=90377",
+          "detail": "Inclination to the J2000 ecliptic. Epoch: JD 2461200.5 TDB, J2000 ecliptic. JPL reference: orbital solution 51."
+        },
+        "perihelion": {
+          "value": 76.18464364627253,
+          "uncertainty": ".0011033",
+          "source": "https://ssd.jpl.nasa.gov/tools/sbdb_lookup.html#/?sstr=90377",
+          "detail": "Perihelion distance for this osculating solution. Epoch: JD 2461200.5 TDB, J2000 ecliptic. JPL reference: orbital solution 51."
+        },
+        "aphelion": {
+          "value": 1011.254414174674,
+          "uncertainty": ".27137",
+          "source": "https://ssd.jpl.nasa.gov/tools/sbdb_lookup.html#/?sstr=90377",
+          "detail": "Aphelion distance for this osculating solution. Epoch: JD 2461200.5 TDB, J2000 ecliptic. JPL reference: orbital solution 51."
+        },
+        "absolute-magnitude": {
+          "value": 1.5,
+          "uncertainty": null,
+          "source": "https://ssd.jpl.nasa.gov/tools/sbdb_lookup.html#/?sstr=90377",
+          "detail": "Absolute visual magnitude H: 1 AU from both Sun and observer, at zero phase. JPL reference: MPO981708."
+        },
+        "mean-diameter": {
+          "value": 995,
+          "uncertainty": "±80 km",
+          "source": "https://doi.org/10.1051/0004-6361/201219935",
+          "detail": "Herschel thermal-model diameter; model dependent, not a resolved surface."
+        },
+        "mean-radius": {
+          "value": 497.5,
+          "uncertainty": "Half the diameter uncertainty: ±80 km",
+          "source": "https://doi.org/10.1051/0004-6361/201219935",
+          "detail": "Half the adopted diameter. Herschel thermal-model diameter; model dependent, not a resolved surface."
+        },
+        "sidereal-rotation-period": {
+          "value": 10.273,
+          "uncertainty": null,
+          "source": "https://ssd.jpl.nasa.gov/tools/sbdb_lookup.html#/?sstr=90377",
+          "detail": "Sidereal rotation in hours; positive duration. JPL reference: LCDB (Rev. 2023-October); Warner et al., 2009. [Result based on less than full coverage, so that the period may be wrong by 30 percent or so.]  REFERENCE LIST:[Gaudi, B.S.; Stanek, K.Z.; Hartman, J.D.; Holman, M.J.; McLeod, B.A. (2005) Astrophys. J. Let. 629, L49-L52.]"
+        }
+      }
+    },
+    {
+      "kind": "small-body",
+      "id": "salacia",
+      "name": "Salacia",
+      "hostStarId": "sun",
+      "group": "dwarf-planets",
+      "number": 120347,
+      "designation": "120347 Salacia (2004 SB60)",
+      "color": "#b7afa4",
+      "moonCount": 1,
+      "semiMajorAxisAu": 42.05521225409177,
+      "orbitEpoch": "JD 2461200.5 TDB, J2000 ecliptic",
+      "metrics": {
+        "semi-major-axis": {
+          "value": 42.05521225409177,
+          "uncertainty": "4.1114E-5",
+          "source": "https://ssd.jpl.nasa.gov/tools/sbdb_lookup.html#/?sstr=120347",
+          "detail": "Osculating heliocentric orbital semi-major axis, not an instantaneous distance. Epoch: JD 2461200.5 TDB, J2000 ecliptic. JPL reference: orbital solution 42."
+        },
+        "orbital-period": {
+          "value": 272.7331610414745,
+          "uncertainty": "±0.0003999 yr (converted from days)",
+          "source": "https://ssd.jpl.nasa.gov/tools/sbdb_lookup.html#/?sstr=120347",
+          "detail": "Osculating Keplerian period expressed in Julian years. Epoch: JD 2461200.5 TDB, J2000 ecliptic. JPL reference: orbital solution 42."
+        },
+        "eccentricity": {
+          "value": 0.1046039838127425,
+          "uncertainty": "1.4838E-6",
+          "source": "https://ssd.jpl.nasa.gov/tools/sbdb_lookup.html#/?sstr=120347",
+          "detail": "Orbital eccentricity. Epoch: JD 2461200.5 TDB, J2000 ecliptic. JPL reference: orbital solution 42."
+        },
+        "inclination": {
+          "value": 23.92719899399624,
+          "uncertainty": "1.0286E-6",
+          "source": "https://ssd.jpl.nasa.gov/tools/sbdb_lookup.html#/?sstr=120347",
+          "detail": "Inclination to the J2000 ecliptic. Epoch: JD 2461200.5 TDB, J2000 ecliptic. JPL reference: orbital solution 42."
+        },
+        "perihelion": {
+          "value": 37.6560695122233,
+          "uncertainty": "6.6109E-5",
+          "source": "https://ssd.jpl.nasa.gov/tools/sbdb_lookup.html#/?sstr=120347",
+          "detail": "Perihelion distance for this osculating solution. Epoch: JD 2461200.5 TDB, J2000 ecliptic. JPL reference: orbital solution 42."
+        },
+        "aphelion": {
+          "value": 46.45435499596024,
+          "uncertainty": "4.5415E-5",
+          "source": "https://ssd.jpl.nasa.gov/tools/sbdb_lookup.html#/?sstr=120347",
+          "detail": "Aphelion distance for this osculating solution. Epoch: JD 2461200.5 TDB, J2000 ecliptic. JPL reference: orbital solution 42."
+        },
+        "mean-diameter": {
+          "value": 846,
+          "uncertainty": "±21 km",
+          "source": "https://www2.lowell.edu/users/grundy/abstracts/preprints/2019.TNB_orbits.pdf",
+          "detail": "Primary diameter inferred by splitting combined thermal area with the measured brightness difference, assuming equal albedos."
+        },
+        "mean-radius": {
+          "value": 423.0,
+          "uncertainty": "Half the diameter uncertainty: ±21 km",
+          "source": "https://www2.lowell.edu/users/grundy/abstracts/preprints/2019.TNB_orbits.pdf",
+          "detail": "Half the adopted diameter. Primary diameter inferred by splitting combined thermal area with the measured brightness difference, assuming equal albedos."
+        }
+      }
+    },
+    {
+      "kind": "small-body",
+      "id": "mani",
+      "name": "Máni",
+      "hostStarId": "sun",
+      "group": "dwarf-planets",
+      "number": 307261,
+      "designation": "307261 Mani (2002 MS4)",
+      "color": "#b7afa4",
+      "moonCount": 1,
+      "semiMajorAxisAu": 41.58863664738092,
+      "orbitEpoch": "JD 2461200.5 TDB, J2000 ecliptic",
+      "metrics": {
+        "semi-major-axis": {
+          "value": 41.58863664738092,
+          "uncertainty": "2.8423E-5",
+          "source": "https://ssd.jpl.nasa.gov/tools/sbdb_lookup.html#/?sstr=307261",
+          "detail": "Osculating heliocentric orbital semi-major axis, not an instantaneous distance. Epoch: JD 2461200.5 TDB, J2000 ecliptic. JPL reference: orbital solution 25."
+        },
+        "orbital-period": {
+          "value": 268.2070736595585,
+          "uncertainty": "±0.000275 yr (converted from days)",
+          "source": "https://ssd.jpl.nasa.gov/tools/sbdb_lookup.html#/?sstr=307261",
+          "detail": "Osculating Keplerian period expressed in Julian years. Epoch: JD 2461200.5 TDB, J2000 ecliptic. JPL reference: orbital solution 25."
+        },
+        "eccentricity": {
+          "value": 0.1482654554299753,
+          "uncertainty": "1.5349E-6",
+          "source": "https://ssd.jpl.nasa.gov/tools/sbdb_lookup.html#/?sstr=307261",
+          "detail": "Orbital eccentricity. Epoch: JD 2461200.5 TDB, J2000 ecliptic. JPL reference: orbital solution 25."
+        },
+        "inclination": {
+          "value": 17.69991360489779,
+          "uncertainty": "2.2422E-6",
+          "source": "https://ssd.jpl.nasa.gov/tools/sbdb_lookup.html#/?sstr=307261",
+          "detail": "Inclination to the J2000 ecliptic. Epoch: JD 2461200.5 TDB, J2000 ecliptic. JPL reference: orbital solution 25."
+        },
+        "perihelion": {
+          "value": 35.42247849414523,
+          "uncertainty": "5.7752E-5",
+          "source": "https://ssd.jpl.nasa.gov/tools/sbdb_lookup.html#/?sstr=307261",
+          "detail": "Perihelion distance for this osculating solution. Epoch: JD 2461200.5 TDB, J2000 ecliptic. JPL reference: orbital solution 25."
+        },
+        "aphelion": {
+          "value": 47.75479480061662,
+          "uncertainty": "3.2637E-5",
+          "source": "https://ssd.jpl.nasa.gov/tools/sbdb_lookup.html#/?sstr=307261",
+          "detail": "Aphelion distance for this osculating solution. Epoch: JD 2461200.5 TDB, J2000 ecliptic. JPL reference: orbital solution 25."
+        },
+        "mean-diameter": {
+          "value": 796,
+          "uncertainty": "±24 km",
+          "source": "https://arxiv.org/abs/2308.08062",
+          "detail": "Projected area-equivalent diameter from the 8 August 2020 stellar occultation; not a volumetric diameter."
+        },
+        "mean-radius": {
+          "value": 398.0,
+          "uncertainty": "Half the diameter uncertainty: ±24 km",
+          "source": "https://arxiv.org/abs/2308.08062",
+          "detail": "Half the adopted diameter. Projected area-equivalent diameter from the 8 August 2020 stellar occultation; not a volumetric diameter."
+        }
+      }
+    },
+    {
+      "kind": "small-body",
+      "id": "aya",
+      "name": "Aya",
+      "hostStarId": "sun",
+      "group": "dwarf-planets",
+      "number": 55565,
+      "designation": "55565 Aya (2002 AW197)",
+      "color": "#b7afa4",
+      "moonCount": 0,
+      "semiMajorAxisAu": 47.36875987690542,
+      "orbitEpoch": "JD 2461200.5 TDB, J2000 ecliptic",
+      "metrics": {
+        "semi-major-axis": {
+          "value": 47.36875987690542,
+          "uncertainty": "3.0015E-5",
+          "source": "https://ssd.jpl.nasa.gov/tools/sbdb_lookup.html#/?sstr=55565",
+          "detail": "Osculating heliocentric orbital semi-major axis, not an instantaneous distance. Epoch: JD 2461200.5 TDB, J2000 ecliptic. JPL reference: orbital solution 39."
+        },
+        "orbital-period": {
+          "value": 326.0214875895967,
+          "uncertainty": "±0.0003099 yr (converted from days)",
+          "source": "https://ssd.jpl.nasa.gov/tools/sbdb_lookup.html#/?sstr=55565",
+          "detail": "Osculating Keplerian period expressed in Julian years. Epoch: JD 2461200.5 TDB, J2000 ecliptic. JPL reference: orbital solution 39."
+        },
+        "eccentricity": {
+          "value": 0.1286825927917718,
+          "uncertainty": "1.4533E-6",
+          "source": "https://ssd.jpl.nasa.gov/tools/sbdb_lookup.html#/?sstr=55565",
+          "detail": "Orbital eccentricity. Epoch: JD 2461200.5 TDB, J2000 ecliptic. JPL reference: orbital solution 39."
+        },
+        "inclination": {
+          "value": 24.34033767915258,
+          "uncertainty": "2.6887E-6",
+          "source": "https://ssd.jpl.nasa.gov/tools/sbdb_lookup.html#/?sstr=55565",
+          "detail": "Inclination to the J2000 ecliptic. Epoch: JD 2461200.5 TDB, J2000 ecliptic. JPL reference: orbital solution 39."
+        },
+        "perihelion": {
+          "value": 41.27322503861438,
+          "uncertainty": "5.3155E-5",
+          "source": "https://ssd.jpl.nasa.gov/tools/sbdb_lookup.html#/?sstr=55565",
+          "detail": "Perihelion distance for this osculating solution. Epoch: JD 2461200.5 TDB, J2000 ecliptic. JPL reference: orbital solution 39."
+        },
+        "aphelion": {
+          "value": 53.46429471519647,
+          "uncertainty": "3.3878E-5",
+          "source": "https://ssd.jpl.nasa.gov/tools/sbdb_lookup.html#/?sstr=55565",
+          "detail": "Aphelion distance for this osculating solution. Epoch: JD 2461200.5 TDB, J2000 ecliptic. JPL reference: orbital solution 39."
+        },
+        "absolute-magnitude": {
+          "value": 3.44,
+          "uncertainty": null,
+          "source": "https://ssd.jpl.nasa.gov/tools/sbdb_lookup.html#/?sstr=55565",
+          "detail": "Absolute visual magnitude H: 1 AU from both Sun and observer, at zero phase. JPL reference: E2025G76."
+        },
+        "mean-diameter": {
+          "value": 768,
+          "uncertainty": "±38 km",
+          "source": "https://arxiv.org/abs/1204.0697",
+          "detail": "Herschel thermal-model diameter of 2002 AW197; model dependent."
+        },
+        "mean-radius": {
+          "value": 384.0,
+          "uncertainty": "Half the diameter uncertainty: ±38 km",
+          "source": "https://arxiv.org/abs/1204.0697",
+          "detail": "Half the adopted diameter. Herschel thermal-model diameter of 2002 AW197; model dependent."
+        }
+      }
+    },
+    {
+      "kind": "small-body",
+      "id": "varda",
+      "name": "Varda",
+      "hostStarId": "sun",
+      "group": "dwarf-planets",
+      "number": 174567,
+      "designation": "174567 Varda (2003 MW12)",
+      "color": "#b7afa4",
+      "moonCount": 1,
+      "semiMajorAxisAu": 45.553792965197,
+      "orbitEpoch": "JD 2461200.5 TDB, J2000 ecliptic",
+      "metrics": {
+        "semi-major-axis": {
+          "value": 45.553792965197,
+          "uncertainty": "4.6997E-5",
+          "source": "https://ssd.jpl.nasa.gov/tools/sbdb_lookup.html#/?sstr=174567",
+          "detail": "Osculating heliocentric orbital semi-major axis, not an instantaneous distance. Epoch: JD 2461200.5 TDB, J2000 ecliptic. JPL reference: orbital solution 17."
+        },
+        "orbital-period": {
+          "value": 307.46452733155377,
+          "uncertainty": "±0.0004758 yr (converted from days)",
+          "source": "https://ssd.jpl.nasa.gov/tools/sbdb_lookup.html#/?sstr=174567",
+          "detail": "Osculating Keplerian period expressed in Julian years. Epoch: JD 2461200.5 TDB, J2000 ecliptic. JPL reference: orbital solution 17."
+        },
+        "eccentricity": {
+          "value": 0.1422792008234468,
+          "uncertainty": "3.0081E-6",
+          "source": "https://ssd.jpl.nasa.gov/tools/sbdb_lookup.html#/?sstr=174567",
+          "detail": "Orbital eccentricity. Epoch: JD 2461200.5 TDB, J2000 ecliptic. JPL reference: orbital solution 17."
+        },
+        "inclination": {
+          "value": 21.51272002644964,
+          "uncertainty": "1.3919E-6",
+          "source": "https://ssd.jpl.nasa.gov/tools/sbdb_lookup.html#/?sstr=174567",
+          "detail": "Inclination to the J2000 ecliptic. Epoch: JD 2461200.5 TDB, J2000 ecliptic. JPL reference: orbital solution 17."
+        },
+        "perihelion": {
+          "value": 39.07243570763202,
+          "uncertainty": ".00010771",
+          "source": "https://ssd.jpl.nasa.gov/tools/sbdb_lookup.html#/?sstr=174567",
+          "detail": "Perihelion distance for this osculating solution. Epoch: JD 2461200.5 TDB, J2000 ecliptic. JPL reference: orbital solution 17."
+        },
+        "aphelion": {
+          "value": 52.03515022276198,
+          "uncertainty": "5.3683E-5",
+          "source": "https://ssd.jpl.nasa.gov/tools/sbdb_lookup.html#/?sstr=174567",
+          "detail": "Aphelion distance for this osculating solution. Epoch: JD 2461200.5 TDB, J2000 ecliptic. JPL reference: orbital solution 17."
+        },
+        "mean-diameter": {
+          "value": 740,
+          "uncertainty": "±14 km",
+          "source": "https://arxiv.org/abs/2008.04818",
+          "detail": "Projected area-equivalent diameter from the 2018 occultation. Not a volumetric radius or the unresolved Varda–Ilmarë diameter; 2026 work still cannot fully constrain the three-dimensional shape."
+        },
+        "mean-radius": {
+          "value": 370.0,
+          "uncertainty": "Half the diameter uncertainty: ±14 km",
+          "source": "https://arxiv.org/abs/2008.04818",
+          "detail": "Half the adopted diameter. Projected area-equivalent diameter from the 2018 occultation. Not a volumetric radius or the unresolved Varda–Ilmarë diameter; 2026 work still cannot fully constrain the three-dimensional shape."
+        }
+      }
+    },
+    {
+      "kind": "small-body",
+      "id": "chiminigagua",
+      "name": "Chiminigagua",
+      "hostStarId": "sun",
+      "group": "dwarf-planets",
+      "number": 532037,
+      "designation": "532037 Chiminigagua (2013 FY27)",
+      "color": "#b7afa4",
+      "moonCount": 1,
+      "semiMajorAxisAu": 58.89795676466917,
+      "orbitEpoch": "JD 2461200.5 TDB, J2000 ecliptic",
+      "metrics": {
+        "semi-major-axis": {
+          "value": 58.89795676466917,
+          "uncertainty": ".0019755",
+          "source": "https://ssd.jpl.nasa.gov/tools/sbdb_lookup.html#/?sstr=532037",
+          "detail": "Osculating heliocentric orbital semi-major axis, not an instantaneous distance. Epoch: JD 2461200.5 TDB, J2000 ecliptic. JPL reference: orbital solution 18."
+        },
+        "orbital-period": {
+          "value": 452.02093116192964,
+          "uncertainty": "±0.02274 yr (converted from days)",
+          "source": "https://ssd.jpl.nasa.gov/tools/sbdb_lookup.html#/?sstr=532037",
+          "detail": "Osculating Keplerian period expressed in Julian years. Epoch: JD 2461200.5 TDB, J2000 ecliptic. JPL reference: orbital solution 18."
+        },
+        "eccentricity": {
+          "value": 0.3909366841447515,
+          "uncertainty": "3.6807E-5",
+          "source": "https://ssd.jpl.nasa.gov/tools/sbdb_lookup.html#/?sstr=532037",
+          "detail": "Orbital eccentricity. Epoch: JD 2461200.5 TDB, J2000 ecliptic. JPL reference: orbital solution 18."
+        },
+        "inclination": {
+          "value": 33.10715673878931,
+          "uncertainty": ".00019338",
+          "source": "https://ssd.jpl.nasa.gov/tools/sbdb_lookup.html#/?sstr=532037",
+          "detail": "Inclination to the J2000 ecliptic. Epoch: JD 2461200.5 TDB, J2000 ecliptic. JPL reference: orbital solution 18."
+        },
+        "perihelion": {
+          "value": 35.87258484418847,
+          "uncertainty": ".0027628",
+          "source": "https://ssd.jpl.nasa.gov/tools/sbdb_lookup.html#/?sstr=532037",
+          "detail": "Perihelion distance for this osculating solution. Epoch: JD 2461200.5 TDB, J2000 ecliptic. JPL reference: orbital solution 18."
+        },
+        "aphelion": {
+          "value": 81.92332868514987,
+          "uncertainty": ".0027479",
+          "source": "https://ssd.jpl.nasa.gov/tools/sbdb_lookup.html#/?sstr=532037",
+          "detail": "Aphelion distance for this osculating solution. Epoch: JD 2461200.5 TDB, J2000 ecliptic. JPL reference: orbital solution 18."
+        },
+        "mean-diameter": {
+          "value": 740,
+          "uncertainty": "+85 / −90 km",
+          "source": "https://arxiv.org/abs/1809.02184",
+          "detail": "Primary diameter after removing the satellite’s light, assuming equal albedos. The combined system diameter of 765 km is not assigned to the primary."
+        },
+        "mean-radius": {
+          "value": 370.0,
+          "uncertainty": "Half the diameter uncertainty: +85 / −90 km",
+          "source": "https://arxiv.org/abs/1809.02184",
+          "detail": "Half the adopted diameter. Primary diameter after removing the satellite’s light, assuming equal albedos. The combined system diameter of 765 km is not assigned to the primary."
+        }
+      }
+    },
+    {
+      "kind": "small-body",
+      "id": "achlys",
+      "name": "Achlys",
+      "hostStarId": "sun",
+      "group": "dwarf-planets",
+      "number": 208996,
+      "designation": "208996 Achlys (2003 AZ84)",
+      "color": "#b7afa4",
+      "moonCount": 1,
+      "semiMajorAxisAu": 39.65674190908469,
+      "orbitEpoch": "JD 2461200.5 TDB, J2000 ecliptic",
+      "metrics": {
+        "semi-major-axis": {
+          "value": 39.65674190908469,
+          "uncertainty": "2.2315E-5",
+          "source": "https://ssd.jpl.nasa.gov/tools/sbdb_lookup.html#/?sstr=208996",
+          "detail": "Osculating heliocentric orbital semi-major axis, not an instantaneous distance. Epoch: JD 2461200.5 TDB, J2000 ecliptic. JPL reference: orbital solution 52."
+        },
+        "orbital-period": {
+          "value": 249.73749349010032,
+          "uncertainty": "±0.0002108 yr (converted from days)",
+          "source": "https://ssd.jpl.nasa.gov/tools/sbdb_lookup.html#/?sstr=208996",
+          "detail": "Osculating Keplerian period expressed in Julian years. Epoch: JD 2461200.5 TDB, J2000 ecliptic. JPL reference: orbital solution 52."
+        },
+        "eccentricity": {
+          "value": 0.1749643183262652,
+          "uncertainty": "9.8538E-7",
+          "source": "https://ssd.jpl.nasa.gov/tools/sbdb_lookup.html#/?sstr=208996",
+          "detail": "Orbital eccentricity. Epoch: JD 2461200.5 TDB, J2000 ecliptic. JPL reference: orbital solution 52."
+        },
+        "inclination": {
+          "value": 13.54857109263982,
+          "uncertainty": "1.8311E-6",
+          "source": "https://ssd.jpl.nasa.gov/tools/sbdb_lookup.html#/?sstr=208996",
+          "detail": "Inclination to the J2000 ecliptic. Epoch: JD 2461200.5 TDB, J2000 ecliptic. JPL reference: orbital solution 52."
+        },
+        "perihelion": {
+          "value": 32.71822709392106,
+          "uncertainty": "3.6722E-5",
+          "source": "https://ssd.jpl.nasa.gov/tools/sbdb_lookup.html#/?sstr=208996",
+          "detail": "Perihelion distance for this osculating solution. Epoch: JD 2461200.5 TDB, J2000 ecliptic. JPL reference: orbital solution 52."
+        },
+        "aphelion": {
+          "value": 46.59525672424833,
+          "uncertainty": "2.6219E-5",
+          "source": "https://ssd.jpl.nasa.gov/tools/sbdb_lookup.html#/?sstr=208996",
+          "detail": "Aphelion distance for this osculating solution. Epoch: JD 2461200.5 TDB, J2000 ecliptic. JPL reference: orbital solution 52."
+        },
+        "mean-diameter": {
+          "value": 706.6172486307659,
+          "uncertainty": null,
+          "source": "https://arxiv.org/abs/1705.10895",
+          "detail": "Volume-equivalent diameter calculated from the 2017 Jacobi ellipsoid model with semi-axes 470 × 383 × 245 km. Model dependent; published axis uncertainties are ±20, ±10 and ±8 km and have not been propagated."
+        },
+        "mean-radius": {
+          "value": 353.30862431538293,
+          "uncertainty": null,
+          "source": "https://arxiv.org/abs/1705.10895",
+          "detail": "Half the adopted diameter. Volume-equivalent diameter calculated from the 2017 Jacobi ellipsoid model with semi-axes 470 × 383 × 245 km. Model dependent; published axis uncertainties are ±20, ±10 and ±8 km and have not been propagated."
+        }
+      }
+    }
+  ],
+  "moons": {
+    "pluto": [
+      {
+        "id": "charon",
+        "name": "Charon",
+        "source": "https://nssdc.gsfc.nasa.gov/planetary/factsheet/plutofact.html",
+        "sourceLabel": "Reviewed published satellite measurements",
+        "meanRadiusKm": 606,
+        "massKg": 1.586e+21,
+        "surfaceGravityMs2": 0.29,
+        "semiMajorAxisKm": 19596,
+        "siderealOrbitDays": 6.3872,
+        "phaseCycleDays": null,
+        "phaseCycleDetail": "No adopted phase-cycle measurement. It is not inferred from an unknown orbital direction or unresolved orbit."
+      },
+      {
+        "id": "styx",
+        "name": "Styx",
+        "source": "https://nssdc.gsfc.nasa.gov/planetary/factsheet/plutofact.html",
+        "sourceLabel": "Reviewed published satellite measurements",
+        "meanRadiusKm": 5.25,
+        "massKg": null,
+        "surfaceGravityMs2": null,
+        "semiMajorAxisKm": 42413,
+        "siderealOrbitDays": 20.16,
+        "phaseCycleDays": null,
+        "meanRadiusDetail": "Orbital elements are relative to the Pluto–Charon barycenter, not Pluto’s center. Radius is the volume-equivalent radius from the NASA reference dimensions; the body is irregular.",
+        "massDetail": "Orbital elements are relative to the Pluto–Charon barycenter, not Pluto’s center. Radius is the volume-equivalent radius from the NASA reference dimensions; the body is irregular.",
+        "surfaceGravityDetail": "Orbital elements are relative to the Pluto–Charon barycenter, not Pluto’s center. Radius is the volume-equivalent radius from the NASA reference dimensions; the body is irregular.",
+        "semiMajorAxisDetail": "Orbital elements are relative to the Pluto–Charon barycenter, not Pluto’s center. Radius is the volume-equivalent radius from the NASA reference dimensions; the body is irregular.",
+        "siderealOrbitDetail": "Orbital elements are relative to the Pluto–Charon barycenter, not Pluto’s center. Radius is the volume-equivalent radius from the NASA reference dimensions; the body is irregular.",
+        "phaseCycleDetail": "No adopted phase-cycle measurement. It is not inferred from an unknown orbital direction or unresolved orbit.",
+        "orbitReference": "barycenter"
+      },
+      {
+        "id": "nix",
+        "name": "Nix",
+        "source": "https://nssdc.gsfc.nasa.gov/planetary/factsheet/plutofact.html",
+        "sourceLabel": "Reviewed published satellite measurements",
+        "meanRadiusKm": 18.59,
+        "massKg": null,
+        "surfaceGravityMs2": null,
+        "semiMajorAxisKm": 48690,
+        "siderealOrbitDays": 24.85,
+        "phaseCycleDays": null,
+        "meanRadiusDetail": "Orbital elements are relative to the Pluto–Charon barycenter, not Pluto’s center. Radius is the volume-equivalent radius from the NASA reference dimensions; the body is irregular.",
+        "massDetail": "Orbital elements are relative to the Pluto–Charon barycenter, not Pluto’s center. Radius is the volume-equivalent radius from the NASA reference dimensions; the body is irregular.",
+        "surfaceGravityDetail": "Orbital elements are relative to the Pluto–Charon barycenter, not Pluto’s center. Radius is the volume-equivalent radius from the NASA reference dimensions; the body is irregular.",
+        "semiMajorAxisDetail": "Orbital elements are relative to the Pluto–Charon barycenter, not Pluto’s center. Radius is the volume-equivalent radius from the NASA reference dimensions; the body is irregular.",
+        "siderealOrbitDetail": "Orbital elements are relative to the Pluto–Charon barycenter, not Pluto’s center. Radius is the volume-equivalent radius from the NASA reference dimensions; the body is irregular.",
+        "phaseCycleDetail": "No adopted phase-cycle measurement. It is not inferred from an unknown orbital direction or unresolved orbit.",
+        "orbitReference": "barycenter"
+      },
+      {
+        "id": "kerberos",
+        "name": "Kerberos",
+        "source": "https://nssdc.gsfc.nasa.gov/planetary/factsheet/plutofact.html",
+        "sourceLabel": "Reviewed published satellite measurements",
+        "meanRadiusKm": 5.98,
+        "massKg": null,
+        "surfaceGravityMs2": null,
+        "semiMajorAxisKm": 57750,
+        "siderealOrbitDays": 32.17,
+        "phaseCycleDays": null,
+        "meanRadiusDetail": "Orbital elements are relative to the Pluto–Charon barycenter, not Pluto’s center. Radius is the volume-equivalent radius from the NASA reference dimensions; the body is irregular.",
+        "massDetail": "Orbital elements are relative to the Pluto–Charon barycenter, not Pluto’s center. Radius is the volume-equivalent radius from the NASA reference dimensions; the body is irregular.",
+        "surfaceGravityDetail": "Orbital elements are relative to the Pluto–Charon barycenter, not Pluto’s center. Radius is the volume-equivalent radius from the NASA reference dimensions; the body is irregular.",
+        "semiMajorAxisDetail": "Orbital elements are relative to the Pluto–Charon barycenter, not Pluto’s center. Radius is the volume-equivalent radius from the NASA reference dimensions; the body is irregular.",
+        "siderealOrbitDetail": "Orbital elements are relative to the Pluto–Charon barycenter, not Pluto’s center. Radius is the volume-equivalent radius from the NASA reference dimensions; the body is irregular.",
+        "phaseCycleDetail": "No adopted phase-cycle measurement. It is not inferred from an unknown orbital direction or unresolved orbit.",
+        "orbitReference": "barycenter"
+      },
+      {
+        "id": "hydra",
+        "name": "Hydra",
+        "source": "https://nssdc.gsfc.nasa.gov/planetary/factsheet/plutofact.html",
+        "sourceLabel": "Reviewed published satellite measurements",
+        "meanRadiusKm": 20.24,
+        "massKg": null,
+        "surfaceGravityMs2": null,
+        "semiMajorAxisKm": 64721,
+        "siderealOrbitDays": 38.2,
+        "phaseCycleDays": null,
+        "meanRadiusDetail": "Orbital elements are relative to the Pluto–Charon barycenter, not Pluto’s center. Radius is the volume-equivalent radius from the NASA reference dimensions; the body is irregular.",
+        "massDetail": "Orbital elements are relative to the Pluto–Charon barycenter, not Pluto’s center. Radius is the volume-equivalent radius from the NASA reference dimensions; the body is irregular.",
+        "surfaceGravityDetail": "Orbital elements are relative to the Pluto–Charon barycenter, not Pluto’s center. Radius is the volume-equivalent radius from the NASA reference dimensions; the body is irregular.",
+        "semiMajorAxisDetail": "Orbital elements are relative to the Pluto–Charon barycenter, not Pluto’s center. Radius is the volume-equivalent radius from the NASA reference dimensions; the body is irregular.",
+        "siderealOrbitDetail": "Orbital elements are relative to the Pluto–Charon barycenter, not Pluto’s center. Radius is the volume-equivalent radius from the NASA reference dimensions; the body is irregular.",
+        "phaseCycleDetail": "No adopted phase-cycle measurement. It is not inferred from an unknown orbital direction or unresolved orbit.",
+        "orbitReference": "barycenter"
+      }
+    ],
+    "eris": [
+      {
+        "id": "dysnomia",
+        "name": "Dysnomia",
+        "source": "https://ntrs.nasa.gov/citations/20210012932",
+        "sourceLabel": "Reviewed published satellite measurements",
+        "meanRadiusKm": null,
+        "massKg": null,
+        "surfaceGravityMs2": null,
+        "semiMajorAxisKm": 37273,
+        "siderealOrbitDays": 15.785899,
+        "phaseCycleDays": null,
+        "meanRadiusDetail": "Moon size and mass are not assigned from the total Eris–Dysnomia system. Orbital semi-major axis and period: Holler et al. (2021).",
+        "massDetail": "Moon size and mass are not assigned from the total Eris–Dysnomia system. Orbital semi-major axis and period: Holler et al. (2021).",
+        "surfaceGravityDetail": "Moon size and mass are not assigned from the total Eris–Dysnomia system. Orbital semi-major axis and period: Holler et al. (2021).",
+        "semiMajorAxisDetail": "Moon size and mass are not assigned from the total Eris–Dysnomia system. Orbital semi-major axis and period: Holler et al. (2021).",
+        "siderealOrbitDetail": "Moon size and mass are not assigned from the total Eris–Dysnomia system. Orbital semi-major axis and period: Holler et al. (2021).",
+        "phaseCycleDetail": "No adopted phase-cycle measurement. It is not inferred from an unknown orbital direction or unresolved orbit."
+      }
+    ],
+    "haumea": [
+      {
+        "id": "namaka",
+        "name": "Namaka",
+        "source": "https://doi.org/10.1088/0004-6256/137/6/4766",
+        "sourceLabel": "Reviewed published satellite measurements",
+        "meanRadiusKm": null,
+        "massKg": null,
+        "surfaceGravityMs2": null,
+        "semiMajorAxisKm": 25657,
+        "siderealOrbitDays": 18.2783,
+        "phaseCycleDays": null,
+        "meanRadiusDetail": "Orbital solution: Ragozzine & Brown (2009). Individual size and mass are model dependent and not adopted here.",
+        "massDetail": "Orbital solution: Ragozzine & Brown (2009). Individual size and mass are model dependent and not adopted here.",
+        "surfaceGravityDetail": "Orbital solution: Ragozzine & Brown (2009). Individual size and mass are model dependent and not adopted here.",
+        "semiMajorAxisDetail": "Orbital solution: Ragozzine & Brown (2009). Individual size and mass are model dependent and not adopted here.",
+        "siderealOrbitDetail": "Orbital solution: Ragozzine & Brown (2009). Individual size and mass are model dependent and not adopted here.",
+        "phaseCycleDetail": "No adopted phase-cycle measurement. It is not inferred from an unknown orbital direction or unresolved orbit."
+      },
+      {
+        "id": "hiiaka",
+        "name": "Hiʻiaka",
+        "source": "https://doi.org/10.1088/0004-6256/137/6/4766",
+        "sourceLabel": "Reviewed published satellite measurements",
+        "meanRadiusKm": null,
+        "massKg": null,
+        "surfaceGravityMs2": null,
+        "semiMajorAxisKm": 49880,
+        "siderealOrbitDays": 49.462,
+        "phaseCycleDays": null,
+        "meanRadiusDetail": "Orbital solution: Ragozzine & Brown (2009). Individual size and mass are model dependent and not adopted here.",
+        "massDetail": "Orbital solution: Ragozzine & Brown (2009). Individual size and mass are model dependent and not adopted here.",
+        "surfaceGravityDetail": "Orbital solution: Ragozzine & Brown (2009). Individual size and mass are model dependent and not adopted here.",
+        "semiMajorAxisDetail": "Orbital solution: Ragozzine & Brown (2009). Individual size and mass are model dependent and not adopted here.",
+        "siderealOrbitDetail": "Orbital solution: Ragozzine & Brown (2009). Individual size and mass are model dependent and not adopted here.",
+        "phaseCycleDetail": "No adopted phase-cycle measurement. It is not inferred from an unknown orbital direction or unresolved orbit."
+      }
+    ],
+    "makemake": [
+      {
+        "id": "mk2",
+        "name": "S/2015 (136472) 1",
+        "source": "https://arxiv.org/abs/2509.05880",
+        "sourceLabel": "Reviewed published satellite measurements",
+        "meanRadiusKm": null,
+        "massKg": null,
+        "surfaceGravityMs2": null,
+        "semiMajorAxisKm": null,
+        "siderealOrbitDays": null,
+        "phaseCycleDays": null,
+        "meanRadiusDetail": "Also called MK2. A preliminary 2025 orbit has multiple possible solutions; no unique orbital size or period is adopted.",
+        "massDetail": "Also called MK2. A preliminary 2025 orbit has multiple possible solutions; no unique orbital size or period is adopted.",
+        "surfaceGravityDetail": "Also called MK2. A preliminary 2025 orbit has multiple possible solutions; no unique orbital size or period is adopted.",
+        "semiMajorAxisDetail": "Also called MK2. A preliminary 2025 orbit has multiple possible solutions; no unique orbital size or period is adopted.",
+        "siderealOrbitDetail": "Also called MK2. A preliminary 2025 orbit has multiple possible solutions; no unique orbital size or period is adopted.",
+        "phaseCycleDetail": "No adopted phase-cycle measurement. It is not inferred from an unknown orbital direction or unresolved orbit."
+      }
+    ],
+    "gonggong": [
+      {
+        "id": "xiangliu",
+        "name": "Xiangliu",
+        "source": "https://doi.org/10.1016/j.icarus.2019.03.013",
+        "sourceLabel": "Reviewed published satellite measurements",
+        "meanRadiusKm": null,
+        "massKg": null,
+        "surfaceGravityMs2": null,
+        "semiMajorAxisKm": 24021,
+        "siderealOrbitDays": 25.22073,
+        "phaseCycleDays": null,
+        "meanRadiusDetail": "Published mutual-orbit solution. Individual moon size and mass remain model dependent.",
+        "massDetail": "Published mutual-orbit solution. Individual moon size and mass remain model dependent.",
+        "surfaceGravityDetail": "Published mutual-orbit solution. Individual moon size and mass remain model dependent.",
+        "semiMajorAxisDetail": "Published mutual-orbit solution. Individual moon size and mass remain model dependent.",
+        "siderealOrbitDetail": "Published mutual-orbit solution. Individual moon size and mass remain model dependent.",
+        "phaseCycleDetail": "No adopted phase-cycle measurement. It is not inferred from an unknown orbital direction or unresolved orbit."
+      }
+    ],
+    "quaoar": [
+      {
+        "id": "weywot",
+        "name": "Weywot",
+        "source": "https://doi.org/10.1016/j.icarus.2012.11.018",
+        "sourceLabel": "Reviewed published satellite measurements",
+        "meanRadiusKm": null,
+        "massKg": null,
+        "surfaceGravityMs2": null,
+        "semiMajorAxisKm": 13289,
+        "siderealOrbitDays": 12.438,
+        "phaseCycleDays": null,
+        "meanRadiusDetail": "Mutual-orbit solution, Fraser et al. (2013). Moon size is not assigned from unresolved system photometry.",
+        "massDetail": "Mutual-orbit solution, Fraser et al. (2013). Moon size is not assigned from unresolved system photometry.",
+        "surfaceGravityDetail": "Mutual-orbit solution, Fraser et al. (2013). Moon size is not assigned from unresolved system photometry.",
+        "semiMajorAxisDetail": "Mutual-orbit solution, Fraser et al. (2013). Moon size is not assigned from unresolved system photometry.",
+        "siderealOrbitDetail": "Mutual-orbit solution, Fraser et al. (2013). Moon size is not assigned from unresolved system photometry.",
+        "phaseCycleDetail": "No adopted phase-cycle measurement. It is not inferred from an unknown orbital direction or unresolved orbit."
+      },
+      {
+        "id": "quaoar-candidate",
+        "name": "Possible moon / arc",
+        "source": "https://doi.org/10.3847/2041-8213/ae4751",
+        "sourceLabel": "Reviewed published satellite measurements",
+        "meanRadiusKm": null,
+        "massKg": null,
+        "surfaceGravityMs2": null,
+        "semiMajorAxisKm": null,
+        "siderealOrbitDays": null,
+        "phaseCycleDays": null,
+        "meanRadiusDetail": "An opaque feature detected by a June 2025 occultation. A small satellite and a dense ring arc remain alternative interpretations; no confirmed second moon or unique orbital elements are asserted.",
+        "massDetail": "An opaque feature detected by a June 2025 occultation. A small satellite and a dense ring arc remain alternative interpretations; no confirmed second moon or unique orbital elements are asserted.",
+        "surfaceGravityDetail": "An opaque feature detected by a June 2025 occultation. A small satellite and a dense ring arc remain alternative interpretations; no confirmed second moon or unique orbital elements are asserted.",
+        "semiMajorAxisDetail": "An opaque feature detected by a June 2025 occultation. A small satellite and a dense ring arc remain alternative interpretations; no confirmed second moon or unique orbital elements are asserted.",
+        "siderealOrbitDetail": "An opaque feature detected by a June 2025 occultation. A small satellite and a dense ring arc remain alternative interpretations; no confirmed second moon or unique orbital elements are asserted.",
+        "phaseCycleDetail": "No adopted phase-cycle measurement. It is not inferred from an unknown orbital direction or unresolved orbit."
+      }
+    ],
+    "orcus": [
+      {
+        "id": "vanth",
+        "name": "Vanth",
+        "source": "https://doi.org/10.3847/1538-3881/aad9f2",
+        "sourceLabel": "Reviewed published satellite measurements",
+        "meanRadiusKm": 237.5,
+        "massKg": null,
+        "surfaceGravityMs2": null,
+        "semiMajorAxisKm": 8980,
+        "siderealOrbitDays": 9.5393,
+        "phaseCycleDays": null,
+        "meanRadiusDetail": "Resolved ALMA thermal diameter 475 ± 75 km gives radius 237.5 ± 37.5 km. Orbit: Brown et al. (2010), https://doi.org/10.1088/0004-6256/139/6/2700 .",
+        "massDetail": "Resolved ALMA thermal diameter 475 ± 75 km gives radius 237.5 ± 37.5 km. Orbit: Brown et al. (2010), https://doi.org/10.1088/0004-6256/139/6/2700 .",
+        "surfaceGravityDetail": "Resolved ALMA thermal diameter 475 ± 75 km gives radius 237.5 ± 37.5 km. Orbit: Brown et al. (2010), https://doi.org/10.1088/0004-6256/139/6/2700 .",
+        "semiMajorAxisDetail": "Resolved ALMA thermal diameter 475 ± 75 km gives radius 237.5 ± 37.5 km. Orbit: Brown et al. (2010), https://doi.org/10.1088/0004-6256/139/6/2700 .",
+        "siderealOrbitDetail": "Resolved ALMA thermal diameter 475 ± 75 km gives radius 237.5 ± 37.5 km. Orbit: Brown et al. (2010), https://doi.org/10.1088/0004-6256/139/6/2700 .",
+        "phaseCycleDetail": "No adopted phase-cycle measurement. It is not inferred from an unknown orbital direction or unresolved orbit."
+      }
+    ],
+    "salacia": [
+      {
+        "id": "actaea",
+        "name": "Actaea",
+        "source": "https://www2.lowell.edu/users/grundy/abstracts/preprints/2019.TNB_orbits.pdf",
+        "sourceLabel": "Reviewed published satellite measurements",
+        "meanRadiusKm": 142,
+        "massKg": null,
+        "surfaceGravityMs2": null,
+        "semiMajorAxisKm": 5619,
+        "siderealOrbitDays": 5.4938,
+        "phaseCycleDays": null,
+        "meanRadiusDetail": "Radius 142 ± 5 km assumes the same albedo as Salacia; it is not directly resolved. Mutual orbit: Grundy et al. (2019).",
+        "massDetail": "Radius 142 ± 5 km assumes the same albedo as Salacia; it is not directly resolved. Mutual orbit: Grundy et al. (2019).",
+        "surfaceGravityDetail": "Radius 142 ± 5 km assumes the same albedo as Salacia; it is not directly resolved. Mutual orbit: Grundy et al. (2019).",
+        "semiMajorAxisDetail": "Radius 142 ± 5 km assumes the same albedo as Salacia; it is not directly resolved. Mutual orbit: Grundy et al. (2019).",
+        "siderealOrbitDetail": "Radius 142 ± 5 km assumes the same albedo as Salacia; it is not directly resolved. Mutual orbit: Grundy et al. (2019).",
+        "phaseCycleDetail": "No adopted phase-cycle measurement. It is not inferred from an unknown orbital direction or unresolved orbit."
+      }
+    ],
+    "varda": [
+      {
+        "id": "ilmare",
+        "name": "Ilmarë",
+        "source": "https://doi.org/10.1016/j.icarus.2015.03.036",
+        "sourceLabel": "Reviewed published satellite measurements",
+        "meanRadiusKm": null,
+        "massKg": null,
+        "surfaceGravityMs2": null,
+        "semiMajorAxisKm": 4809,
+        "siderealOrbitDays": 5.75058,
+        "phaseCycleDays": null,
+        "meanRadiusDetail": "Grundy et al. (2015) mutual orbit. No individual size or mass is adopted from the combined thermal measurement.",
+        "massDetail": "Grundy et al. (2015) mutual orbit. No individual size or mass is adopted from the combined thermal measurement.",
+        "surfaceGravityDetail": "Grundy et al. (2015) mutual orbit. No individual size or mass is adopted from the combined thermal measurement.",
+        "semiMajorAxisDetail": "Grundy et al. (2015) mutual orbit. No individual size or mass is adopted from the combined thermal measurement.",
+        "siderealOrbitDetail": "Grundy et al. (2015) mutual orbit. No individual size or mass is adopted from the combined thermal measurement.",
+        "phaseCycleDetail": "No adopted phase-cycle measurement. It is not inferred from an unknown orbital direction or unresolved orbit."
+      }
+    ],
+    "chiminigagua": [
+      {
+        "id": "chiminigagua-companion",
+        "name": "Unnamed companion",
+        "source": "https://arxiv.org/abs/1809.02184",
+        "sourceLabel": "Reviewed published satellite measurements",
+        "meanRadiusKm": 95,
+        "massKg": null,
+        "surfaceGravityMs2": null,
+        "semiMajorAxisKm": null,
+        "siderealOrbitDays": null,
+        "phaseCycleDays": null,
+        "meanRadiusDetail": "Diameter about 190 km assumes equal albedos. Detected by Hubble in 2018; no unique mutual-orbit solution adopted. No official satellite name is assigned here.",
+        "massDetail": "Diameter about 190 km assumes equal albedos. Detected by Hubble in 2018; no unique mutual-orbit solution adopted. No official satellite name is assigned here.",
+        "surfaceGravityDetail": "Diameter about 190 km assumes equal albedos. Detected by Hubble in 2018; no unique mutual-orbit solution adopted. No official satellite name is assigned here.",
+        "semiMajorAxisDetail": "Diameter about 190 km assumes equal albedos. Detected by Hubble in 2018; no unique mutual-orbit solution adopted. No official satellite name is assigned here.",
+        "siderealOrbitDetail": "Diameter about 190 km assumes equal albedos. Detected by Hubble in 2018; no unique mutual-orbit solution adopted. No official satellite name is assigned here.",
+        "phaseCycleDetail": "No adopted phase-cycle measurement. It is not inferred from an unknown orbital direction or unresolved orbit."
+      }
+    ],
+    "achlys": [
+      {
+        "id": "achlys-companion",
+        "name": "Reported companion",
+        "source": "https://arxiv.org/abs/1705.10895",
+        "sourceLabel": "Reviewed published satellite measurements",
+        "meanRadiusKm": null,
+        "massKg": null,
+        "surfaceGravityMs2": null,
+        "semiMajorAxisKm": null,
+        "siderealOrbitDays": null,
+        "phaseCycleDays": null,
+        "meanRadiusDetail": "Faint companion reported in 2005, with uncertain recovery and orbit. Treat as a reported satellite rather than a securely characterized moon; physical values are unavailable.",
+        "massDetail": "Faint companion reported in 2005, with uncertain recovery and orbit. Treat as a reported satellite rather than a securely characterized moon; physical values are unavailable.",
+        "surfaceGravityDetail": "Faint companion reported in 2005, with uncertain recovery and orbit. Treat as a reported satellite rather than a securely characterized moon; physical values are unavailable.",
+        "semiMajorAxisDetail": "Faint companion reported in 2005, with uncertain recovery and orbit. Treat as a reported satellite rather than a securely characterized moon; physical values are unavailable.",
+        "siderealOrbitDetail": "Faint companion reported in 2005, with uncertain recovery and orbit. Treat as a reported satellite rather than a securely characterized moon; physical values are unavailable.",
+        "phaseCycleDetail": "No adopted phase-cycle measurement. It is not inferred from an unknown orbital direction or unresolved orbit."
+      }
+    ],
+    "mani": [
+      {
+        "id": "mani-candidate",
+        "name": "Possible companion",
+        "source": "https://arxiv.org/abs/2605.22296",
+        "sourceLabel": "Reviewed published satellite measurements",
+        "meanRadiusKm": null,
+        "massKg": null,
+        "surfaceGravityMs2": null,
+        "semiMajorAxisKm": null,
+        "siderealOrbitDays": null,
+        "phaseCycleDays": null,
+        "meanRadiusDetail": "A 2026 thermal-versus-occultation analysis suggests an unresolved companion. This is indirect evidence, not a directly detected or confirmed moon; no physical values or orbital solution are adopted.",
+        "massDetail": "A 2026 thermal-versus-occultation analysis suggests an unresolved companion. This is indirect evidence, not a directly detected or confirmed moon; no physical values or orbital solution are adopted.",
+        "surfaceGravityDetail": "A 2026 thermal-versus-occultation analysis suggests an unresolved companion. This is indirect evidence, not a directly detected or confirmed moon; no physical values or orbital solution are adopted.",
+        "semiMajorAxisDetail": "A 2026 thermal-versus-occultation analysis suggests an unresolved companion. This is indirect evidence, not a directly detected or confirmed moon; no physical values or orbital solution are adopted.",
+        "siderealOrbitDetail": "A 2026 thermal-versus-occultation analysis suggests an unresolved companion. This is indirect evidence, not a directly detected or confirmed moon; no physical values or orbital solution are adopted.",
+        "phaseCycleDetail": "No adopted phase-cycle measurement. It is not inferred from an unknown orbital direction or unresolved orbit."
+      }
+    ]
+  }
+}

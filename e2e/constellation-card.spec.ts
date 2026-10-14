@@ -11,6 +11,63 @@ async function selectObject(page: Page, name: string, showSpecs = true): Promise
   if (showSpecs) await openSpecs(page)
 }
 
+test('magnifies the selected star and restores the constellation overview', { tag: '@mobile' }, async ({ page }, testInfo) => {
+  const errors: string[] = []
+  page.on('pageerror', (error) => errors.push(error.message))
+  await openViewer(page)
+  await openSpecs(page)
+  await page.locator('#constellation-toggle').click()
+  const card = page.locator('#constellation-card')
+  const magnifier = card.getByRole('button', { name: 'Magnify selected star', exact: true })
+  const snapshot = () => card.locator('#constellation-chart > svg').evaluate((diagram) => {
+    const { width, height } = (diagram as SVGSVGElement).viewBox.baseVal
+    const selected = diagram.querySelector<SVGGElement>('.is-selected')!
+    const line = diagram.querySelector<SVGLineElement>('.constellation-line')!
+    const markers = [...diagram.querySelectorAll<SVGGElement>('.constellation-star')]
+    return {
+      width, height, x: Number(selected.dataset.x), y: Number(selected.dataset.y),
+      fontSize: getComputedStyle(selected.querySelector('.constellation-star-name')!).fontSize,
+      lineLength: Math.hypot(line.x2.baseVal.value - line.x1.baseVal.value, line.y2.baseVal.value - line.y1.baseVal.value),
+      positions: markers.map((marker) => [marker.dataset.hip, Number(marker.dataset.x), Number(marker.dataset.y)]),
+      visible: markers.every((marker) => Number(marker.dataset.x) >= 12 && Number(marker.dataset.x) <= width - 12
+        && Number(marker.dataset.y) >= 12 && Number(marker.dataset.y) <= height - 12),
+    }
+  })
+  await expect(magnifier).toHaveAttribute('aria-pressed', 'false')
+  const magnifierBox = (await magnifier.boundingBox())!
+  const lockBox = (await card.locator('#constellation-lock').boundingBox())!
+  const headingBox = (await card.locator('h2').boundingBox())!
+  expect(magnifierBox.width).toBe(44)
+  expect(magnifierBox.x + magnifierBox.width).toBeCloseTo(lockBox.x)
+  expect(headingBox.x + headingBox.width).toBeLessThanOrEqual(magnifierBox.x)
+  const overview = await snapshot()
+  await magnifier.click()
+  await expect(magnifier).toHaveAttribute('aria-pressed', 'true')
+  const closeView = await snapshot()
+  expect(closeView.x).toBeCloseTo(closeView.width / 2)
+  expect(closeView.y).toBeCloseTo(closeView.height / 2)
+  expect(closeView.lineLength).toBeGreaterThan(overview.lineLength * 2)
+  expect(closeView.fontSize).toBe(overview.fontSize)
+  expect(closeView.visible).toBe(true)
+  await expect(card.locator('.constellation-neighbor')).toHaveCount(0)
+  await card.screenshot({ path: testInfo.outputPath('constellation-magnified.png') })
+  await magnifier.press('Space')
+  await expect(magnifier).toHaveAttribute('aria-pressed', 'false')
+  expect(await snapshot()).toEqual(overview)
+  await card.screenshot({ path: testInfo.outputPath('constellation-overview.png') })
+  await magnifier.click()
+  await card.getByRole('button', { name: 'Select Iota CMa', exact: true }).click()
+  await expect(card.locator('.is-selected .constellation-star-name')).toHaveText('Iota CMa')
+  await expect(magnifier).toHaveAttribute('aria-pressed', 'true')
+  const following = await snapshot()
+  expect(following.x).toBeCloseTo(following.width / 2)
+  expect(following.y).toBeCloseTo(following.height / 2)
+  await magnifier.click()
+  await expect(card.locator('.constellation-neighbor')).toHaveCount(4)
+  await expect(card.locator('.constellation-star')).toHaveCount(15)
+  expect(errors).toEqual([])
+})
+
 test('keeps Furud components and scoped cards identical from a clean chart and the loaded catalog', async ({ page }, testInfo) => {
   const errors: string[] = []
   page.on('pageerror', (error) => errors.push(error.message))
