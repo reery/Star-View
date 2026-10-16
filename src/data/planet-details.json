@@ -94,7 +94,9 @@
         "absoluteMagnitude": "Planetary absolute V magnitude: Sun and observer each at 1 AU, zero phase angle. The Earth comparison is a magnitude difference, not a ratio.",
         "apparentMagnitude": "Brightest apparent V magnitude from Earth, not a current measurement. It varies with phase and distance; Earth has no comparable magnitude for an observer on Earth.",
         "atmosphere": "Mercury has a surface-bounded exosphere. The pressure is an approximate upper limit, not a measured ambient pressure. Composition lists important detected atoms without assuming fixed proportions."
-      }
+      },
+      "orbitInclinationDeg": 7.004,
+      "axialTiltDeg": 0.034
     },
     {
       "id": "venus",
@@ -164,7 +166,9 @@
         "absoluteMagnitude": "Planetary absolute V magnitude: Sun and observer each at 1 AU, zero phase angle. The Earth comparison is a magnitude difference, not a ratio.",
         "apparentMagnitude": "Brightest apparent V magnitude from Earth, not a current measurement. It varies with phase and distance; Earth has no comparable magnitude for an observer on Earth.",
         "atmosphere": "Approximate surface pressure: 92 bar = 9.2 × 10⁶ Pa. Gas composition is near-surface abundance by volume; ppm means parts per million. Major abundances are rounded. Sulfuric-acid droplets form the opaque cloud layers higher in the atmosphere and are not represented by these gas percentages."
-      }
+      },
+      "orbitInclinationDeg": 3.395,
+      "axialTiltDeg": 177.36
     },
     {
       "id": "earth",
@@ -244,7 +248,9 @@
         "absoluteMagnitude": "Planetary absolute V magnitude: Sun and observer each at 1 AU, zero phase angle. This is a standardized reflected-light brightness, not how Earth appears from its own surface.",
         "apparentMagnitude": "Not applicable for an observer on Earth. From a spacecraft or another world, Earth's apparent magnitude depends on the observer's distance and the illuminated phase; no universal brightest value is supplied.",
         "atmosphere": "NASA fact-sheet reference surface pressure: 1014 millibars = 101,400 Pa, not a local weather measurement or the standard atmosphere of 101,325 Pa. Composition is by volume of dry air, except for separately listed variable water vapor. Carbon dioxide and methane are the dated values in NASA's November 2024 sheet, not live atmospheric measurements; ppm means parts per million. Rounded abundances need not sum to exactly 100%."
-      }
+      },
+      "orbitInclinationDeg": 0,
+      "axialTiltDeg": 23.44
     },
     {
       "id": "mars",
@@ -330,7 +336,9 @@
         "absoluteMagnitude": "Planetary absolute V magnitude: Sun and observer each at 1 AU, zero phase angle. The Earth comparison is a magnitude difference, not a ratio.",
         "apparentMagnitude": "Maximum apparent V magnitude from Earth, not a current measurement. It varies with phase, distance and dust storms; the mean value at opposition is about −2.0.",
         "atmosphere": "Approximate mean surface pressure at mean radius: 6.36 mb = 636 Pa, variable from 4.0 to 8.7 mb with the season (6.9 to 9 mb at the Viking 1 Lander site). Composition is by volume; major abundances are rounded and ppm means parts per million. Suspended dust gives the sky its hazy red color and is not represented by these gas percentages."
-      }
+      },
+      "orbitInclinationDeg": 1.848,
+      "axialTiltDeg": 25.19
     },
     {
       "id": "jupiter",
@@ -397,7 +405,9 @@
         "absoluteMagnitude": "Planetary absolute V magnitude: Sun and observer each at 1 AU, zero phase angle. The Earth comparison is a magnitude difference, not a ratio.",
         "apparentMagnitude": "Brightest apparent V magnitude from Earth; varies with distance and phase.",
         "atmosphere": "No solid surface or unique surface pressure. Radius and gravity refer to the 1-bar atmospheric level. Gas abundances are by volume; ppm means parts per million. Major percentages are rounded; water varies with pressure. Cloud aerosols are separate from the gas composition."
-      }
+      },
+      "orbitInclinationDeg": 1.304,
+      "axialTiltDeg": 3.13
     },
     {
       "id": "saturn",
@@ -459,7 +469,9 @@
         "absoluteMagnitude": "Planetary absolute V magnitude: Sun and observer each at 1 AU, zero phase angle. The Earth comparison is a magnitude difference. Ring opening affects Saturn’s observed brightness.",
         "apparentMagnitude": "Brightest apparent V magnitude from Earth, including rings; varies with distance, phase and ring inclination. Not a current ephemeris.",
         "atmosphere": "No solid surface or unique surface pressure; radius and gravity refer to the 1-bar level. Gas abundances are by volume with substantial uncertainty, especially helium (±2.4 percentage points); ppm means parts per million. Ammonia ice, water ice and ammonium hydrosulfide aerosols are separate from these gases."
-      }
+      },
+      "orbitInclinationDeg": 2.486,
+      "axialTiltDeg": 26.73
     },
     {
       "id": "uranus",
@@ -511,7 +523,9 @@
         "absoluteMagnitude": "Planetary absolute V magnitude: Sun and observer each at 1 AU, zero phase angle. The Earth comparison is a magnitude difference.",
         "apparentMagnitude": "Brightest apparent V magnitude from Earth; varies with distance and phase. Not a current ephemeris.",
         "atmosphere": "No solid surface or unique surface pressure; radius and gravity refer to the 1-bar atmospheric level. Gas abundances are by volume, with uncertainties in hydrogen and helium of about 3.3 percentage points. Rounded values need not sum to 100%; ppm means parts per million. Cloud and haze aerosols are separate from these gases."
-      }
+      },
+      "orbitInclinationDeg": 0.77,
+      "axialTiltDeg": 97.77
     },
     {
       "id": "neptune",
@@ -568,7 +582,9 @@
         "absoluteMagnitude": "Planetary absolute V magnitude: Sun and observer each at 1 AU, zero phase angle. The Earth comparison is a magnitude difference.",
         "apparentMagnitude": "Brightest apparent V magnitude from Earth; varies with distance and phase. Not a current ephemeris.",
         "atmosphere": "No solid surface or unique surface pressure; radius and gravity refer to the 1-bar atmospheric level. Gas abundances are by volume, with uncertainties in hydrogen and helium of about 3.2 percentage points. Rounded values need not sum to 100%; ppm means parts per million. Cloud and haze aerosols are separate from these gases."
-      }
+      },
+      "orbitInclinationDeg": 1.77,
+      "axialTiltDeg": 28.32
     }
   ],
   "moons": {

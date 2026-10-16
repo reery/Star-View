@@ -55,6 +55,7 @@ function sourceMeasurement<T extends Parameters<typeof catalogSourceFor>[1]>(id:
   const source = catalogSourceFor(star, field)
   text(id, format(catalogMeasurement(star, field)))
   element(id).title = source?.scope ?? ''
+  element(id).classList.toggle('unresolved-measurement', Boolean(source))
 }
 
 function sourceCardTooltip(metric: 'luminosity' | 'radius' | 'temperature', star: Star, propertiesHidden: boolean): void {
@@ -832,7 +833,8 @@ let radiusModules: { comparison: typeof import('./radius-comparison'); card: typ
 function renderRadiusCard(star: Star): void {
   if (!radiusModules) return
   const { radiusComparison, radiusStats, radiusSummary, renderRadiusComparison } = radiusModules.comparison
-  const origin = stars.find((candidate) => candidate.id === referenceId) ?? stars.find((candidate) => candidate.id === 'sun')!
+  const sun = stars.find((candidate) => candidate.id === 'sun')!
+  const origin = star.id === referenceId ? sun : stars.find((candidate) => candidate.id === referenceId) ?? sun
   const comparison = radiusComparison(star, origin, radiusReference)
   text('radius-selected-name', comparison.selected.name)
   text('radius-selected-column', comparison.selected.name)
@@ -897,10 +899,12 @@ async function toggleRadiusCard(): Promise<void> {
 }
 
 function renderMetallicityCard(star: Star): void {
-  const value = star.metallicity_dex
-  const iron = star.metallicity_kind === '[Fe/H]'
+  const source = catalogSourceFor(star, 'metallicity_dex')
+  const value = catalogMeasurement(star, 'metallicity_dex')
+  const kind = source?.record.metallicity_kind ?? star.metallicity_kind
+  const iron = kind === '[Fe/H]'
   const ratioName = iron ? 'iron-to-hydrogen' : 'metal-to-hydrogen'
-  text('metallicity-heading', `Metallicity ${star.metallicity_kind ?? ''}`.trim())
+  text('metallicity-heading', `Metallicity ${kind ?? ''}${source ? ' · system' : ''}`.trim())
   const limit = 2
   const outsideScale = value !== null && Math.abs(value) > limit
   const position = value === null ? 50 : Math.max(0, Math.min(100, (value + limit) / (2 * limit) * 100))
@@ -914,7 +918,7 @@ function renderMetallicityCard(star: Star): void {
   }).replace('K', 'k')}%`
   const solarPercent = value === null ? null : 10 ** value * 100
   const percentageLabel = solarPercent === null ? '' : `${formatPercent(solarPercent)} of Sun`
-  scale.setAttribute('aria-label', `${star.name}: ${quantity(value, 'dex')}${value === null ? '' : `, ${percentageLabel}`}. Scale −2 to +2 dex: 1%, 10%, 100%, 10 times and 100 times the Sun’s ${ratioName} ratio.${outsideScale ? ' Value is outside the scale; marker shown at the nearest edge.' : ''}`)
+  scale.setAttribute('aria-label', `${star.name}${source ? ', unresolved system measurement' : ''}: ${quantity(value, 'dex')}${value === null ? '' : `, ${percentageLabel}`}. Scale −2 to +2 dex: 1%, 10%, 100%, 10 times and 100 times the Sun’s ${ratioName} ratio.${outsideScale ? ' Value is outside the scale; marker shown at the nearest edge.' : ''}`)
   const ticks = [
     { dex: -2, ratio: '1%' }, { dex: -1, ratio: '10%' }, { dex: 0, ratio: '100%' },
     { dex: 1, ratio: '10x' }, { dex: 2, ratio: '100x' },
@@ -941,7 +945,7 @@ function renderMetallicityCard(star: Star): void {
     description = iron
       ? '[Fe/H] measures iron relative to hydrogen; it does not measure the total abundance of all metals.'
       : '[M/H] measures overall metals relative to hydrogen; it is not an iron-specific [Fe/H] measurement.'
-    description += ` ${metallicityContext(star)}`
+    description += source ? ` Unresolved system value; ${star.name}’s individual metallicity is unavailable. ${source.scope}` : ` ${metallicityContext(star)}`
     if (outsideScale) description += ' Its value is beyond the displayed −2 to +2 dex range; the marker sits at the nearest edge.'
   }
   text('metallicity-description', description)
@@ -1406,6 +1410,11 @@ function renderSelection(): void {
   const sun = stars.find((star) => star.id === 'sun')!
   const reference = stars.find((star) => star.id === referenceId) ?? sun
   const star = stars.find((candidate) => candidate.id === selectedId)
+  const magnitudeCard = element('magnitude-card')
+  if (magnitudeCard.dataset.objectId !== (star?.id ?? '')) {
+    magnitudeCard.dataset.objectId = star?.id ?? ''
+    magnitudeCard.dataset.visibilityGuide = 'eye'
+  }
   text('reference-base', reference.name)
   text('visibility-base', stars.find((candidate) => candidate.id === observerId)?.name ?? 'Sun')
   element('selected-object-card').hidden = !star
@@ -1535,6 +1544,7 @@ function renderSelection(): void {
   element('temperature-row').querySelector('dt')!.textContent = atmosphereTemperature ? 'Temperature T*' : 'Temperature'
   if (atmosphereTemperature && !stellarPropertiesHidden) {
     text('temperature', `${atmosphereTemperature.value_k.toLocaleString('en-US')} ± ${quantity(atmosphereTemperature.error_k, 'K', 0)}`)
+    element('temperature').classList.remove('unresolved-measurement')
     element('temperature').removeAttribute('title')
     element('temperature-source-tooltip').hidden = false
     text('temperature-source-tooltip', atmosphereTemperature.scope)
@@ -1558,6 +1568,7 @@ function renderSelection(): void {
   text('mass-label', massRange ? 'Mass (model)' : 'Mass')
   if (massRange) {
     text('mass', `${quantity(massRange.min_jupiter)}–${quantity(massRange.max_jupiter)} M♃`)
+    element('mass').classList.remove('unresolved-measurement')
     element('mass').title = `${massRange.reference}. ${massRange.scope}`
     element('mass').setAttribute('aria-label', `Model mass: ${massRange.min_jupiter} to ${massRange.max_jupiter} Jupiter masses, assuming an age of ${massRange.assumed_age_min_gyr} to ${massRange.assumed_age_max_gyr} billion years.`)
   } else element('mass').removeAttribute('aria-label')
@@ -1572,7 +1583,7 @@ function renderSelection(): void {
   if (element<HTMLButtonElement>('radius-toggle').disabled) closeRadiusCard()
   else if (!element('radius-card').hidden) renderRadiusCard(star)
   sourceMeasurement('metallicity', star, 'metallicity_dex', (value: number | null) => quantity(value, 'dex'))
-  element<HTMLButtonElement>('metallicity-toggle').disabled = star.metallicity_dex === null || stellarPropertiesHidden
+  element<HTMLButtonElement>('metallicity-toggle').disabled = catalogMeasurement(star, 'metallicity_dex') === null || stellarPropertiesHidden
   const metallicitySource = catalogSourceFor(star, 'metallicity_dex')
   text('metallicity-label', `Metallicity ${(metallicitySource ? metallicitySource.record.metallicity_kind : star.metallicity_kind) ?? ''}`.trim())
   element('metallicity-toggle').setAttribute('aria-label', `Explain metallicity of ${star.name}`)
@@ -1683,6 +1694,7 @@ function renderSelection(): void {
     : unresolvedPhotometry
     ? measurement(unresolvedPhotometry.magnitude_v, unresolvedPhotometry.error_mag, '').trim()
     : quantity(star.apparent_mag ?? null))
+  element('apparent-mag').classList.toggle('unresolved-measurement', Boolean(unresolvedPhotometry))
   element('apparent-mag').title = resolvedPhotometry
     ? `${resolvedPhotometry.reference}; ${resolvedPhotometry.observed_on}. ${resolvedPhotometry.scope}`
     : unresolvedPhotometry

@@ -506,7 +506,7 @@ test('pins the globe and header and compares planets with Earth at one scale', {
   await stats.focus()
   await page.keyboard.press('Enter')
   await expect(facts).toHaveAttribute('data-stats-page', '2')
-  expect(await ids()).toEqual(['flattening', 'surface-area', 'albedo', 'absolute-magnitude', 'apparent-magnitude'])
+  expect(await ids()).toEqual(['flattening', 'surface-area', 'orbit-inclination', 'axial-inclination', 'albedo', 'absolute-magnitude', 'apparent-magnitude'])
   await expect(canvas).toHaveAttribute('data-comparing-earth', 'true')
   await page.locator('#planet-card').screenshot({ path: testInfo.outputPath('mercury-more-facts.png') })
   await stats.click()

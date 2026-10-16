@@ -91,9 +91,12 @@ export function renderLuminosityCard(card: HTMLElement, star: Star, origin: Star
   set('luminosity-flux-origin-value', flux === null ? '' : `${number(flux)} W/m²`)
   get('luminosity-flux-origin-value').hidden = flux === null
   const rows = [['origin', origin], ['selected', star], ['sun', sun]] as const
+  const shownObjects = new Set<string>()
   const distances = rows.map(([id, object]) => {
     const comparison = equalFluxDistance(object, origin)
-    return { id, object, ...comparison, visible: id !== 'sun' || origin.id !== sun.id }
+    const visible = !shownObjects.has(object.id)
+    shownObjects.add(object.id)
+    return { id, object, ...comparison, visible }
   })
   const maximum = Math.max(1, ...distances.flatMap((row) => row.visible && !row.insidePhotosphere && row.distanceAu !== null ? [row.distanceAu] : [])) * 1.08
   const orbitMarkers = flux === null ? [] : solarOrbitMarkers(maximum)

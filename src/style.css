@@ -470,6 +470,7 @@ select:focus-visible, input:focus-visible { outline: 2px solid var(--accent); ou
 .properties > div { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 10px; align-items: baseline; padding: 3px 0; font-size: var(--property-text-size); line-height: 1.2; }
 .properties dt { color: var(--muted); }
 .properties dd { text-align: right; font-weight: 500; font-variant-numeric: tabular-nums; }
+.properties .unresolved-measurement { color: var(--muted); }
 .properties > :is(.object-type-row, .metallicity-row, .radius-row, .spectral-row, .temperature-row, .distance-row, .mass-row, .luminosity-row, .magnitude-row, .constellation-row, #known-planets-row) { position: relative; isolation: isolate; }
 .magnitude-row dt, .magnitude-row .object-type-toggle { display: grid; gap: 6px; }
 .properties > div:has(.object-type-toggle:not(:disabled)) { cursor: pointer; }
@@ -559,6 +560,16 @@ select:focus-visible, input:focus-visible { outline: 2px solid var(--accent); ou
 .panel-heading.mass-heading, .panel-heading.spectral-heading { gap: 10px; }
 .mass-heading h2, .spectral-heading h2 { flex-shrink: 0; }
 .mass-heading .distance-reference-button, .spectral-heading .distance-reference-button { padding: 0 8px; }
+.mass-reference-option { position: relative; display: flex; min-width: 0; }
+.mass-reference-option:has(> button[hidden]) { display: none; }
+.mass-reference-option > .distance-reference-button { width: 100%; }
+.mass-reference-option + .mass-reference-option > .distance-reference-button { border-left: 0; }
+.mass-reference-option .mass-metric-tooltip { top: calc(100% + 8px); bottom: auto; left: var(--mass-tooltip-offset, 0px); width: max-content; max-width: var(--mass-tooltip-width, 240px); }
+.mass-reference-option .mass-metric-tooltip::before { top: -5px; bottom: auto; left: var(--mass-tooltip-arrow, 14px); border: 0; border-top: 1px solid var(--line); border-left: 1px solid var(--line); }
+.mass-reference-option[data-clipped="true"]:focus-within .tooltip { display: block; }
+@media (hover: hover) and (pointer: fine) {
+  .mass-reference-option[data-clipped="true"]:hover .tooltip { display: block; }
+}
 .mass-reference-context { margin-bottom: 14px; color: var(--muted); }
 .mass-benchmark { display: block; margin-top: 4px; color: var(--muted); font-size: 12px; line-height: 1.4; }
 #mass-card-uncertainty { color: var(--muted); }
@@ -716,7 +727,7 @@ select:focus-visible, input:focus-visible { outline: 2px solid var(--accent); ou
 .temperature-spectrum-curve { stroke: var(--temperature-color); stroke-width: 2.5; stroke-linejoin: round; }
 .temperature-spectrum-reference { stroke: var(--temperature-reference-color); stroke-width: 2; stroke-dasharray: 5 4; stroke-linejoin: round; }
 .temperature-facts { margin-top: 14px; }
-.temperature-facts.planet-facts-grid > .planet-fact-tile { grid-template-columns: 20px minmax(0, 1fr); align-content: center; align-items: start; gap: 8px; min-height: 0; padding: 12px; }
+.temperature-facts.planet-facts-grid > .planet-fact-tile { grid-template-columns: 20px minmax(0, 1fr); align-content: center; align-items: center; gap: 8px; min-height: 0; padding: 12px; }
 .temperature-facts .planet-fact-icon { position: static; display: flex; align-items: center; justify-content: center; width: 20px; height: 20px; grid-column: 1; grid-row: 1; }
 .temperature-facts .planet-fact-value { font-size: var(--property-text-size); }
 .temperature-facts .planet-fact-tile dd { grid-column: 2; grid-row: 1; margin: 0; }
@@ -1033,6 +1044,8 @@ select:focus-visible, input:focus-visible { outline: 2px solid var(--accent); ou
   .object-type-card > .panel-heading > [role="group"] { flex: 0 0 100%; margin: 0; border-top: 1px solid var(--line); }
   .object-type-card > .panel-heading > [role="group"] > button { height: 44px; margin: 0; border-top: 0; border-bottom: 0; }
   .object-type-card > .panel-heading > [role="group"] > button:first-child { border-left: 0; }
+  .mass-heading > [role="group"] > .mass-reference-option > button { height: 44px; margin: 0; border-top: 0; border-bottom: 0; }
+  .mass-heading > [role="group"] > .mass-reference-option:first-child > button { border-left: 0; }
   .moon-browser { --moon-media-height: 156px; }
   .planet-heading h2 { gap: 5px; }
   .object-type-hero { height: 180px; }

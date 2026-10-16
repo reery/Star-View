@@ -171,3 +171,9 @@ working-tree state immediately before these repairs verifies unchanged
 membership, all existing numeric values, astrometry, motion and nested retained
 source measurements. Original CSV source records are unchanged; generated
 browser catalogs are completed from the reviewed shared pool.
+
+Validation completed: production build (including catalog preservation,
+cross-catalog validation and TypeScript), nine focused Python tests, five
+focused component/Kruger 60 unit tests, and one desktop browser test passed.
+The browser test checks exact component selection, mass and V magnitudes in
+both Nearest 100 and Nearest 1000. The full test suite was not run.
