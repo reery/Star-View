@@ -28,6 +28,7 @@ from catalog_sources.preservation import pool_losses
 ROOT = Path(__file__).resolve().parents[1]
 WORK = ROOT / "catalog-work/star-systems"
 OUTPUT = ROOT / "src/data/stellar-companions.json"
+IDENTITIES = ROOT / "src/data/stellar-system-identities.json"
 FIELDS = ("temperature_k", "mass_solar", "luminosity_solar", "radius_solar", "metallicity_dex", "age_gyr")
 COMPOSITE = re.compile(r"\+\s*(?:[OBAFGKM](?:\d|:|$)|D[A-Z]|W[CN])", re.I)
 
@@ -689,7 +690,16 @@ def main():
     parser.add_argument("--check", action="store_true", help="Fail if the shared pool or membership audit is stale")
     args = parser.parse_args()
     payload, audit = build()
-    if args.check and (read_json(OUTPUT) != payload or read_json(WORK / 'catalog-companions-audit.json') != json.loads(json.dumps(audit))):
+    systems = {system['id']: system for system in read_json(ROOT / 'src/data/star-systems.json')['systems']}
+    systems.update({system['id']: system for system in payload['systems']})
+    # Runtime identity only; the full authored files retain all source metadata.
+    identities = {'systems': [
+        {'id': system['id'], 'name': system['name'], 'components': [
+            {key: component[key] for key in ('starId', 'label', 'alternateStarIds') if key in component}
+            for component in system['components']]}
+        for system in systems.values()]}
+    if args.check and (read_json(OUTPUT) != payload or read_json(WORK / 'catalog-companions-audit.json') != json.loads(json.dumps(audit))
+                       or not IDENTITIES.exists() or read_json(IDENTITIES) != identities):
         raise SystemExit('Stale companion coverage; run npm run catalog:companions and review the membership audit.')
     if args.write:
         previous = read_json(OUTPUT)
@@ -698,6 +708,7 @@ def main():
         if errors:
             raise SystemExit("Refusing companion regeneration that loses existing data:\n" + "\n".join(errors))
         OUTPUT.write_text(json.dumps(payload, indent=2) + "\n")
+        IDENTITIES.write_text(json.dumps(identities, indent=2) + "\n")
         (WORK / "catalog-companions-audit.json").write_text(json.dumps(audit, indent=2) + "\n")
     print(f"{audit['systems']} systems, {audit['components']} individual records; coverage {audit['coverage']}; unresolved composite records {len(audit['remainingCompositeRecords'])}")
 

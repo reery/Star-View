@@ -4,7 +4,7 @@ import { ObserverOriginIcon, OriginIcon } from './origin-icon'
 import { BUBBLE_OBJECT_TYPES, COMPACT_OBJECT_TYPES, describeObject, isBubbleObject, isCompactObject, isMolecularCloudObject, isNebulaObject, MOLECULAR_CLOUD_OBJECT_TYPES, NEBULA_OBJECT_TYPES, type Star } from './catalog-model'
 import { catalogSelection, mergeCatalogStars } from './catalog-runtime'
 import { catalogMeasurement, catalogSourceFor } from './catalog-source'
-import { completeCatalogCompanions } from './stellar-companions'
+import { completeLoadedCompanions as completeCatalogCompanions } from './constellation-companions'
 import { objectDesignations } from './designations'
 import { compactOverlayManifest, loadCompactRemnants } from './compact-overlay'
 import { loadNebulae, nebulaOverlayManifest } from './nebula-overlay'
@@ -16,10 +16,8 @@ import { EARTH_ORBIT_MODES, earthOrbitDateForMode, earthOrbitModeLabel, isEarthO
 import { MOTION_YEAR_OPTIONS, SIMULATION_YEAR_LIMIT, createStarViewer, type MotionYears, type StarViewer, type ViewerViewState } from './viewer'
 import { isObjectMapVisible } from './viewer-primitives'
 import { renderSelectedStarPreview } from './selected-star-preview'
-import { renderStarInfo } from './star-info'
-import { disposeDistanceComparison, renderDistanceComparison } from './distance-comparison'
+import { starInfoAvailable } from './star-info-availability'
 import type { MassReference } from './mass-comparison'
-import { renderRadiusBars } from './radius-card'
 import { hrCardAvailable, hrMagnitude, renderHrDiagram, type HrMagnitudeMode } from './hr-diagram'
 import { renderMkDiagram } from './mk-diagram'
 import { spectralReference } from './spectral-chart'
@@ -27,13 +25,11 @@ import { massCardAvailable } from './mass-properties'
 import { luminosityCardAvailable } from './luminosity-properties'
 import { initializeMagnitudeVisibility, magnitudeCardAvailable, renderMagnitudeCard as renderMagnitudeComparison } from './magnitude-card'
 import { temperatureCardAvailable } from './temperature-properties'
-import { renderTemperatureCard as renderTemperatureContent } from './temperature-card'
 import { constellationCardAvailable, loadConstellationChart, type ConstellationChart } from './constellations'
-import { radiusComparison, radiusStats, radiusSummary, renderRadiusComparison, type RadiusReference } from './radius-comparison'
+import type { RadiusReference } from './radius-comparison'
 import { indexStarSystems, type StarSystem } from './star-systems'
 import { loadStellarOrbits } from './stellar-orbits'
-import { loadPlanetarySystems, planetarySystemForStar } from './planetary-systems'
-import { highlightSystemPlanet, renderSystemCard } from './system-card'
+import { loadPlanetarySystems, planetCountForStar, planetarySystemForStar } from './planetary-systems'
 import {
   availableFilterKeys, categoryAvailable, DEFAULT_FILTER_CATEGORIES, DEFAULT_FILTER_SUBTYPES, effectiveFilterKeys, FILTER_CATEGORIES,
   filterCategoryForKey, filterSummary, isFilterCategoryId, isFilterKey, type FilterCategoryId, type FilterKey,
@@ -42,7 +38,6 @@ import { ObjectList } from './object-list'
 import { SelectionHistory } from './selection-history'
 import { objectTypeIntroduction } from './object-type-info'
 import { objectSubtypeDescription } from './object-subtype-info'
-import { initializeGlossary } from './glossary'
 import { MISSING_VALUE, measurement, preciseMeasurement, quantity, scientificQuantity } from './format'
 import { OBJECT_DISTANCE_STEPS_LY, readSavedViews, SAVED_VIEWS_STORAGE_KEY, type SavedView, type SavedViewSettings } from './saved-views'
 
@@ -149,7 +144,7 @@ icon('object-info-icon', BookOpen)
 icon('object-system-icon', Orbit)
 
 const events = new AbortController()
-initializeGlossary(events.signal)
+let glossaryLoad: Promise<void> | undefined
 let viewer: StarViewer | undefined
 let stars: Star[] = []
 // Chart selections are explicit additions, independent of the overlay switches.
@@ -334,6 +329,10 @@ function setPanelOpen(name: typeof panelNames[number], open: boolean): void {
   if (name === 'objects' && !open) objectList.closeColumnFilter()
   element<HTMLButtonElement>(`${name}-toggle`).setAttribute('aria-expanded', String(open))
   element(`${name}-panel`).hidden = !open
+  if (name === 'glossary' && open) {
+    glossaryLoad ??= import('./glossary').then(({ initializeGlossary }) => initializeGlossary(events.signal))
+      .catch((error: unknown) => { glossaryLoad = undefined; console.error('Could not load the glossary.', error) })
+  }
 }
 
 function syncPanelLayout(): void {
@@ -538,6 +537,7 @@ type PlanetModules = {
   planetDescriptionForId: typeof import('./planet-properties').planetDescriptionForId
   disposePlanetGlobe: typeof import('./planet-globe').disposePlanetGlobe
   resetPlanetGlobe: typeof import('./planet-globe').resetPlanetGlobe
+  renderPlanetSection: typeof import('./planet-card').renderPlanetSection
 }
 let planetModules: PlanetModules | undefined
 async function loadPlanetModules(): Promise<PlanetModules> {
@@ -548,6 +548,7 @@ async function loadPlanetModules(): Promise<PlanetModules> {
     planetDescriptionForId: properties.planetDescriptionForId,
     disposePlanetGlobe: globe.disposePlanetGlobe,
     resetPlanetGlobe: globe.resetPlanetGlobe,
+    renderPlanetSection: card.renderPlanetSection,
   }
 }
 
@@ -556,6 +557,7 @@ function showPlanetSection(section: typeof planetSections[number]): void {
     element(`planet-${candidate}`).hidden = candidate !== section
     element(`planet-${candidate}-toggle`).setAttribute('aria-expanded', String(candidate === section))
   }
+  void planetModules?.renderPlanetSection(element('planet-card'), section).then(syncObjectTypeLayout)
   const globe = element(`planet-${section}`).querySelector<HTMLCanvasElement>('canvas')
   if (globe) planetModules?.resetPlanetGlobe(globe)
   element('planet-card').querySelector<HTMLElement>('.card-scroll-content')!.scrollTop = 0
@@ -621,13 +623,16 @@ function renderLuminosityCard(star: Star): void {
 }
 
 function renderTemperatureCard(star: Star): void {
+  if (!temperatureCardModule) return
   const sun = stars.find((candidate) => candidate.id === 'sun')!
   const origin = stars.find((candidate) => candidate.id === referenceId) ?? sun
-  renderTemperatureContent(element('temperature-card'), star, origin, sun, starColorMode)
+  temperatureCardModule.renderTemperatureCard(element('temperature-card'), star, origin, sun, starColorMode)
   syncObjectTypeLayout()
 }
 
-function toggleTemperatureCard(): void {
+let temperatureCardModule: typeof import('./temperature-card') | undefined
+
+async function toggleTemperatureCard(): Promise<void> {
   if (element<HTMLButtonElement>('temperature-toggle').disabled) return
   if (!element('temperature-card').hidden) {
     closeTemperatureCard(true)
@@ -647,7 +652,10 @@ function toggleTemperatureCard(): void {
   closeConstellationCard()
   element('temperature-card').hidden = false
   element('temperature-toggle').setAttribute('aria-expanded', 'true')
-  renderTemperatureCard(star)
+  temperatureCardModule ??= await import('./temperature-card')
+  const current = stars.find((candidate) => candidate.id === selectedId)
+  if (!current || element('temperature-card').hidden) return
+  renderTemperatureCard(current)
   element('temperature-card').querySelector<HTMLElement>('.card-scroll-content')!.scrollTop = 0
   element('temperature-close').focus({ preventScroll: true })
 }
@@ -755,6 +763,7 @@ async function toggleMassCard(): Promise<void> {
 
 let distanceReference: 'origin' | 'sun' = 'origin'
 let lastDistanceCardRender = -Infinity
+let distanceCardModule: typeof import('./distance-comparison') | undefined
 
 function closeDistanceCard(restoreFocus = false): void {
   const card = element('distance-card')
@@ -765,6 +774,7 @@ function closeDistanceCard(restoreFocus = false): void {
 }
 
 function renderDistanceCard(star: Star): void {
+  if (!distanceCardModule) return
   const sun = stars.find((candidate) => candidate.id === 'sun')!
   const origin = stars.find((candidate) => candidate.id === referenceId) ?? sun
   const referenceMode = origin.id === 'sun' ? 'sun' : distanceReference
@@ -777,7 +787,7 @@ function renderDistanceCard(star: Star): void {
     element(`distance-reference-${mode}`).setAttribute('aria-pressed', String(referenceMode === mode))
   }
   const reference = referenceMode === 'sun' ? sun : origin
-  renderDistanceComparison(element<HTMLCanvasElement>('distance-comparison'), star, reference, starColorMode, distanceUnit, simulationYears, motionFrame)
+  distanceCardModule.renderDistanceComparison(element<HTMLCanvasElement>('distance-comparison'), star, reference, starColorMode, distanceUnit, simulationYears, motionFrame)
   lastDistanceCardRender = performance.now()
   syncObjectTypeLayout()
 }
@@ -788,7 +798,7 @@ function refreshDistanceCard(): void {
   if (star) renderDistanceCard(star)
 }
 
-function toggleDistanceCard(): void {
+async function toggleDistanceCard(): Promise<void> {
   if (!element('distance-card').hidden) {
     closeDistanceCard(true)
     return
@@ -807,13 +817,19 @@ function toggleDistanceCard(): void {
   closeConstellationCard()
   element('distance-card').hidden = false
   element('distance-toggle').setAttribute('aria-expanded', 'true')
-  renderDistanceCard(star)
+  distanceCardModule ??= await import('./distance-comparison')
+  const current = stars.find((candidate) => candidate.id === selectedId)
+  if (!current || element('distance-card').hidden) return
+  renderDistanceCard(current)
   element('distance-close').focus({ preventScroll: true })
 }
 
 let radiusReference: RadiusReference = 'auto'
+let radiusModules: { comparison: typeof import('./radius-comparison'); card: typeof import('./radius-card') } | undefined
 
 function renderRadiusCard(star: Star): void {
+  if (!radiusModules) return
+  const { radiusComparison, radiusStats, radiusSummary, renderRadiusComparison } = radiusModules.comparison
   const origin = stars.find((candidate) => candidate.id === referenceId) ?? stars.find((candidate) => candidate.id === 'sun')!
   const comparison = radiusComparison(star, origin, radiusReference)
   text('radius-selected-name', comparison.selected.name)
@@ -830,7 +846,7 @@ function renderRadiusCard(star: Star): void {
   const radiusMissing = comparison.selected.radiusKm === null || comparison.reference.radiusKm === null
   text('radius-comparison-summary', radiusMissing ? radiusSummary(comparison) : '')
   element('radius-comparison-summary').hidden = !radiusMissing
-  renderRadiusBars(element('radius-card'), star, comparison)
+  radiusModules.card.renderRadiusBars(element('radius-card'), star, comparison)
   text('radius-scale-note', renderRadiusComparison(element<HTMLCanvasElement>('radius-comparison'), comparison))
   element('radius-stats').replaceChildren(...radiusStats(comparison).map(({ label, values }) => {
     const row = document.createElement('tr')
@@ -848,7 +864,7 @@ function renderRadiusCard(star: Star): void {
   syncObjectTypeLayout()
 }
 
-function toggleRadiusCard(): void {
+async function toggleRadiusCard(): Promise<void> {
   if (element<HTMLButtonElement>('radius-toggle').disabled) return
   if (!element('radius-card').hidden) {
     closeRadiusCard(true)
@@ -868,7 +884,13 @@ function toggleRadiusCard(): void {
   closeConstellationCard()
   element('radius-card').hidden = false
   element('radius-toggle').setAttribute('aria-expanded', 'true')
-  renderRadiusCard(star)
+  if (!radiusModules) {
+    const [comparison, card] = await Promise.all([import('./radius-comparison'), import('./radius-card')])
+    radiusModules = { comparison, card }
+  }
+  const current = stars.find((candidate) => candidate.id === selectedId)
+  if (!current || element('radius-card').hidden) return
+  renderRadiusCard(current)
   element('radius-close').focus({ preventScroll: true })
 }
 
@@ -1214,10 +1236,59 @@ function renderGridScale(scale: GridScale): void {
 
 const objectSections = ['specs', 'info', 'system'] as const
 let activeObjectSection: typeof objectSections[number] = 'specs'
+let objectSectionRequest = 0
+let systemCardModule: typeof import('./system-card') | undefined
+let systemLoad: Promise<void> | undefined
+let starInfoModule: typeof import('./star-info') | undefined
+let infoContentStarId: string | null = null
+
+function highlightSystemPlanet(...args: Parameters<typeof import('./system-card').highlightSystemPlanet>): void {
+  systemCardModule?.highlightSystemPlanet(...args)
+}
+
+async function renderActiveObjectSection(): Promise<void> {
+  const request = ++objectSectionRequest
+  const section = activeObjectSection
+  const star = stars.find((candidate) => candidate.id === selectedId)
+  if (!star || !element<HTMLDetailsElement>('object-card-details').open || section === 'specs') return
+  const container = element(`object-${section}`)
+  try {
+    if (section === 'info') {
+      if (infoContentStarId === star.id) return
+      starInfoModule ??= await import('./star-info')
+    } else {
+      systemLoad ??= Promise.all([import('./system-card'), loadPlanetarySystems(), loadStellarOrbits()])
+        .then(([module]) => { systemCardModule = module })
+        .catch((error: unknown) => { systemLoad = undefined; throw error })
+      await systemLoad
+    }
+    if (request !== objectSectionRequest || selectedId !== star.id || container.hidden || !element<HTMLDetailsElement>('object-card-details').open) return
+    if (section === 'info') {
+      starInfoModule!.renderStarInfo(container, star.id)
+      infoContentStarId = star.id
+    } else {
+      systemCardModule!.renderSystemCard(container, planetarySystemForStar(star.id), starSystems.get(star.id), star, starColorMode, selectSystemPlanet)
+      if (activePlanetId && !element('planet-card').hidden) highlightSystemPlanet(container, activePlanetId, activePlanetId)
+    }
+    syncSelectedObjectLayout()
+    syncObjectTypeLayout()
+  } catch (error) {
+    if (request !== objectSectionRequest) return
+    const message = document.createElement('p')
+    message.textContent = `Could not load ${section === 'info' ? 'Info' : 'System'}.`
+    const retry = document.createElement('button')
+    retry.type = 'button'
+    retry.className = 'object-type-toggle'
+    retry.textContent = 'Retry'
+    retry.addEventListener('click', () => { void renderActiveObjectSection() }, { once: true })
+    container.replaceChildren(message, retry)
+    console.error(`Could not load object ${section}.`, error)
+  }
+}
 
 function syncObjectInfoAvailability(): void {
   const toggle = element<HTMLButtonElement>('object-info-toggle')
-  const available = element('object-info').childElementCount > 0
+  const available = selectedId !== null && starInfoAvailable(selectedId)
   toggle.disabled = !available
   toggle.title = available ? 'Info' : 'Info · No data yet'
   toggle.setAttribute('aria-label', toggle.title)
@@ -1237,6 +1308,7 @@ function syncObjectSections(): void {
   element('known-planets').setAttribute('aria-expanded', String(details.open && activeObjectSection === 'system'))
   syncSelectedObjectLayout()
   syncObjectTypeLayout()
+  void renderActiveObjectSection()
 }
 
 for (const section of objectSections) {
@@ -1353,7 +1425,8 @@ function renderSelection(): void {
     closeDistanceCard()
     closeSpectralCard()
     closeConstellationCard()
-    renderStarInfo(element('object-info'), null)
+    element('object-info').replaceChildren()
+    infoContentStarId = null
     syncObjectInfoAvailability()
     delete element('inspector').dataset.selectedStar
     element('inspector').style.removeProperty('--selected-star-color')
@@ -1366,29 +1439,36 @@ function renderSelection(): void {
   element('inspector').dataset.selectedStar = star.id
   element('inspector').style.setProperty('--selected-star-color', color)
   const system = starSystems.get(star.id)
-  const planets = planetarySystemForStar(star.id)
   text('star-name', system?.name ?? star.name)
   renderSelectedDistance(displayedDistancePc)
   renderSystemComponents(system, star.id)
-  const knownPlanetCount = planets?.planets.length ?? star.known_planets ?? 0
+  const availablePlanetCount = planetCountForStar(star.id) ?? 0
+  const knownPlanetCount = planetCountForStar(star.id) ?? star.known_planets ?? 0
   renderSelectedStarPreview(element<HTMLCanvasElement>('selected-swatch'), star, starColorMode, system?.components.map((component) => component.star), knownPlanetCount > 0)
-  renderSystemCard(element('object-system'), planets, system, star, starColorMode, selectSystemPlanet)
+  if (infoContentStarId !== star.id) {
+    element('object-info').replaceChildren()
+    infoContentStarId = null
+  }
+  if (element('object-system').dataset.starId !== star.id) {
+    element('object-system').replaceChildren()
+    element('object-system').dataset.starId = star.id
+  }
   const openPlanet = activePlanetId ? planetModules?.planetDescriptionForId(activePlanetId) : undefined
   if (!lockedDetailCards.has('planet') && openPlanet?.hostStarId !== star.id) closePlanetCard()
   if (!element('planet-card').hidden && openPlanet?.hostStarId === star.id) highlightSystemPlanet(element('object-system'), activePlanetId, activePlanetId)
   const systemToggle = element<HTMLButtonElement>('object-system-toggle')
-  const systemAvailable = Boolean(planets?.planets.length || system)
+  const systemAvailable = Boolean(availablePlanetCount || system)
   systemToggle.disabled = !systemAvailable
   systemToggle.title = systemAvailable ? 'System' : 'System · No data yet'
   systemToggle.setAttribute('aria-label', systemAvailable
-    ? `System${system ? `, ${system.components.length} stars` : ''}${planets ? `, ${planets.planets.length} known planets` : ''}` : systemToggle.title)
-  element<HTMLButtonElement>('known-planets').disabled = !planets?.planets.length
+    ? `System${system ? `, ${system.components.length} stars` : ''}${availablePlanetCount ? `, ${availablePlanetCount} known planets` : ''}` : systemToggle.title)
+  element<HTMLButtonElement>('known-planets').disabled = !availablePlanetCount
   if (!systemAvailable && activeObjectSection === 'system') {
     activeObjectSection = 'specs'
     syncObjectSections()
   }
-  renderStarInfo(element('object-info'), star.id)
   syncObjectInfoAvailability()
+  void renderActiveObjectSection()
   if (knownPlanetCount > 0) element<HTMLCanvasElement>('selected-swatch').title = `${knownPlanetCount} known planets · illustrative orbit`
   text('distance-value', formatDistance(metrics.distancePc, distanceUnit).split(' ')[0]!)
   text('distance-unit', ` ${distanceUnit}`)
@@ -1737,8 +1817,6 @@ async function switchCatalog(id: string, refresh = false): Promise<void> {
       loadOverlay(NEBULA_OBJECT_TYPES, loadNebulae),
       loadOverlay(MOLECULAR_CLOUD_OBJECT_TYPES, loadMolecularClouds),
       loadOverlay(BUBBLE_OBJECT_TYPES, loadBubbles),
-      loadPlanetarySystems(),
-      loadStellarOrbits(),
     ])
     const withBrightStars = mergeCatalogStars(selectedCatalog, brightCatalog)
     const withConstellationStars = mergeCatalogStars(withBrightStars, westernConstellationCatalog)
@@ -2660,7 +2738,7 @@ import.meta.hot?.dispose(() => {
   observerDirectionLayout.disconnect()
   if (playbackFrameRequest !== null) cancelAnimationFrame(playbackFrameRequest)
   viewer?.dispose()
-  disposeDistanceComparison()
+  distanceCardModule?.disposeDistanceComparison()
   luminosityCardModule?.disposeLuminosityCard()
   constellationCardModule?.disposeConstellationCard()
   planetModules?.disposePlanetGlobe()

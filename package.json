@@ -5,7 +5,9 @@
   "type": "module",
   "scripts": {
     "dev": "npm run catalog:generate && vite",
+    "pretypecheck": "npm run catalog:generate",
     "typecheck": "tsc --noEmit",
+    "pretest": "npm run catalog:generate",
     "test": "vitest run src",
     "test:e2e": "npm run build && playwright test",
     "build": "npm run catalog:validate && npm run catalog:generate && tsc && vite build",

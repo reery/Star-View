@@ -52,7 +52,7 @@ describe('scoped WISE 0855-0714 observations', () => {
     const wise = stars.find((star) => star.id === 'wise-0855-0714')!
     expect(() => supplementStellarObservations([{ ...wise, name: 'Different object' }])).toThrow('identity drifted')
     expect(() => supplementStellarObservations([{ ...wise, designations: [] }])).toThrow('identity drifted')
-    const loaded = parseCatalogPayload({ schemaVersion: 1, catalogId: DEFAULT_CATALOG_MANIFEST.id, stars }, DEFAULT_CATALOG_MANIFEST)
+    const loaded = parseCatalogPayload({ schemaVersion: 2, catalogId: DEFAULT_CATALOG_MANIFEST.id, sourceObjectCount: stars.length, stars }, DEFAULT_CATALOG_MANIFEST)
     expect(loaded.find((star) => star.id === wise.id)?.stellar_observations).toEqual(wise.stellar_observations)
     const { stellar_observations: _observations, ...withoutObservations } = wise
     expect(mergeCatalogStars([withoutObservations], [wise])[0]?.stellar_observations).toEqual(wise.stellar_observations)

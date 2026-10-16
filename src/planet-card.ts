@@ -2,13 +2,43 @@ import { isExtrasolarPlanet, isSmallBody, planetApparentMagnitudeRange, planetAt
 import { smallBodyMedia } from './small-body-media'
 import { magnitudeNumber, NAKED_EYE_MAGNITUDE } from './magnitude-card'
 import { extrasolarOrbitalSpecs } from './exoplanet-properties'
-import { renderPlanetInfo } from './planet-info'
+import index from './data/generated/startup-index.json'
 import { disposePlanetGlobe, planetHasGlobe, renderPlanetGlobe, resetPlanetGlobe } from './planet-globe'
-import { renderPlanetMoons } from './moon-card'
 import { ArrowDownToLine, ArrowUpRight, Atom, Box, Diameter, Earth, Eye, Orbit, Radius, ScanLine, Sun, Thermometer, Weight, createElement, type IconNode } from 'lucide'
 
 const primarySpecIds = ['mean-diameter', 'mean-radius', 'mass', 'volume', 'mean-density', 'surface-gravity',
   'escape-velocity', 'synodic-rotation-period', 'sidereal-rotation-period', 'surface-temperature', 'temperature']
+const infoIds = new Set(index.planetInfoIds)
+const sections = new WeakMap<HTMLElement, { planet: PlanetDescription; info: boolean; moons: boolean }>()
+
+export async function renderPlanetSection(card: HTMLElement, section: 'specs' | 'info' | 'moons'): Promise<void> {
+  const state = sections.get(card)
+  if (!state || section === 'specs' || state[section]) return
+  const container = card.querySelector<HTMLElement>(`#planet-${section}`)!
+  try {
+    if (section === 'moons') {
+      const { renderPlanetMoons } = await import('./moon-card')
+      if (sections.get(card) !== state || card.hidden || container.hidden || state[section]) return
+      renderPlanetMoons(container, state.planet, (spec) => factTile(spec, true))
+    } else {
+      const { renderPlanetInfo } = await import('./planet-info')
+      if (sections.get(card) !== state || card.hidden || container.hidden || state[section]) return
+      renderPlanetInfo(container, state.planet.id)
+    }
+    state[section] = true
+  } catch (error) {
+    if (sections.get(card) !== state || container.hidden) return
+    const message = document.createElement('p')
+    message.textContent = `Could not load ${section === 'moons' ? 'Moons' : 'Info'}.`
+    const retry = document.createElement('button')
+    retry.type = 'button'
+    retry.className = 'object-type-toggle'
+    retry.textContent = 'Retry'
+    retry.addEventListener('click', () => { void renderPlanetSection(card, section) }, { once: true })
+    container.replaceChildren(message, retry)
+    console.error(`Could not load planet ${section}.`, error)
+  }
+}
 const specIcons: Readonly<Record<string, IconNode>> = {
   'mean-diameter': Diameter, 'mean-radius': Radius, mass: Weight, volume: Box,
   'mean-density': Atom, 'surface-gravity': ArrowDownToLine, 'escape-velocity': ArrowUpRight,
@@ -307,6 +337,7 @@ function factTile(spec: PlanetSpec, showDetailTooltip = true): HTMLDivElement {
 }
 
 export function renderPlanetCard(card: HTMLElement, planet: PlanetDescription): void {
+  sections.set(card, { planet, info: false, moons: false })
   const extrasolar = isExtrasolarPlanet(planet)
   card.dataset.planetId = planet.id
   card.querySelector<HTMLElement>('#planet-name')!.textContent = planet.name
@@ -350,12 +381,12 @@ export function renderPlanetCard(card: HTMLElement, planet: PlanetDescription): 
   if (previousMoonGlobe) disposePlanetGlobe(previousMoonGlobe)
   delete moons.dataset.selectedMoonId
   moons.replaceChildren()
-  card.querySelector<HTMLButtonElement>('#planet-moons-toggle')!.disabled = extrasolar || !renderPlanetMoons(moons, planet, (spec) => factTile(spec, true))
+  card.querySelector<HTMLButtonElement>('#planet-moons-toggle')!.disabled = extrasolar || planet.moonCount === 0
   const infoToggle = card.querySelector<HTMLButtonElement>('#planet-info-toggle')!
   infoToggle.hidden = extrasolar
   const info = card.querySelector<HTMLElement>('#planet-info')!
   info.replaceChildren()
-  infoToggle.disabled = extrasolar || !renderPlanetInfo(info, planet.id)
+  infoToggle.disabled = extrasolar || !infoIds.has(planet.id)
   const physical = card.querySelector<HTMLElement>('#planet-physical-specs')!
   const physicalSpecs = planetPhysicalSpecs(planet)
   const statsToggle = card.querySelector<HTMLButtonElement>('#planet-stats-toggle')!

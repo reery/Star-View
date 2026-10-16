@@ -125,7 +125,7 @@ export function renderSystemCard(container: HTMLElement, planets: PlanetarySyste
   const selectedId = selectedStar.id
   const stellarCount = system?.components.length ?? 1
   const key = `${planets?.hostStarId ?? ''}:${system?.components.map(({ star }) => star.id).join('|') ?? ''}:${selectedId}:${colorMode}:${selectedStar.luminosity_solar}:${selectedStar.temperature_k}`
-  if (renderedSystems.get(container) === key) return
+  if (renderedSystems.get(container) === key && container.childElementCount > 0) return
   diagramUpdates.delete(container)
   const content: HTMLElement[] = []
   if (planets?.planets.length) {

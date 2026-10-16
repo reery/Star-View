@@ -7,7 +7,6 @@ import { EffectComposer } from 'three/addons/postprocessing/EffectComposer.js'
 import { RenderPass } from 'three/addons/postprocessing/RenderPass.js'
 import { UnrealBloomPass } from 'three/addons/postprocessing/UnrealBloomPass.js'
 import { OutputPass } from 'three/addons/postprocessing/OutputPass.js'
-import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js'
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js'
 import mercuryMap from './assets/planets/mercury-surface-map.png'
 import venusMap from './assets/planets/venus-cloud-map.jpg'
@@ -22,7 +21,6 @@ import neptuneMap from './assets/planets/neptune-cloud-map.jpg'
 import plutoMap from './assets/small-bodies/pluto-map.jpg'
 import { solarPlanetDescriptionForId as planetDescriptionForId } from './planet-properties'
 import { smallBodies } from './small-body-properties'
-import { moonGlobeAppearances } from './moon-globe-appearances'
 
 export interface GlobeAppearance {
   readonly name: string
@@ -36,7 +34,6 @@ export interface GlobeAppearance {
 }
 
 const appearances: Record<string, GlobeAppearance> = {
-  ...moonGlobeAppearances,
   pluto: {
     name: 'Pluto', map: plutoMap, roughness: 1, mapBlend: 1, tint: '#ffffff',
     description: 'New Horizons surface imagery in approximate natural color. The non-encounter hemisphere has lower resolution; the unobserved southern cap is plain gray.',
@@ -404,34 +401,38 @@ function createPlanetGlobe(canvas: HTMLCanvasElement) {
   function loadMoonGeometry(id: string, appearance: GlobeAppearance): void {
     if (!appearance.model || moonGeometries.has(id) || loadingModels.has(id)) return
     loadingModels.add(id)
-    new GLTFLoader().load(appearance.model, (model) => {
-      loadingModels.delete(id)
-      let moonGeometry: BufferGeometry | undefined
-      model.scene.traverse((object) => {
-        if (!(object instanceof Mesh)) return
-        moonGeometry ??= object.geometry.clone()
-        object.geometry.dispose()
-        for (const modelMaterial of Array.isArray(object.material) ? object.material : [object.material]) modelMaterial.dispose()
-      })
-      if (!moonGeometry) return
-      if (disposed) { moonGeometry.dispose(); return }
-      // Preserve NASA's irregular shape, normals and atlas UVs. Recenter and
-      // uniformly scale to fit the existing frame through every rotation.
-      moonGeometry.computeBoundingSphere()
-      const { center, radius } = moonGeometry.boundingSphere!
-      moonGeometry.translate(-center.x, -center.y, -center.z)
-      moonGeometry.scale(1 / radius, 1 / radius, 1 / radius)
-      moonGeometries.set(id, moonGeometry)
-      if (planetId === id) {
-        sphere.geometry = moonGeometry
-        sphere.visible = true
-        canvas.dataset.modelReady = 'true'
-        requestRender()
-      }
-    }, undefined, () => {
+    const failed = () => {
       loadingModels.delete(id)
       if (!disposed && planetId === id) canvas.setAttribute('aria-label', `${appearance.name} 3D view. Shape model unavailable.`)
-    })
+    }
+    void import('three/addons/loaders/GLTFLoader.js').then(({ GLTFLoader }) => {
+      if (disposed) { loadingModels.delete(id); return }
+      new GLTFLoader().load(appearance.model!, (model) => {
+        loadingModels.delete(id)
+        let moonGeometry: BufferGeometry | undefined
+        model.scene.traverse((object) => {
+          if (!(object instanceof Mesh)) return
+          moonGeometry ??= object.geometry.clone()
+          object.geometry.dispose()
+          for (const modelMaterial of Array.isArray(object.material) ? object.material : [object.material]) modelMaterial.dispose()
+        })
+        if (!moonGeometry) return
+        if (disposed) { moonGeometry.dispose(); return }
+        // Preserve NASA's irregular shape, normals and atlas UVs. Recenter and
+        // uniformly scale to fit the existing frame through every rotation.
+        moonGeometry.computeBoundingSphere()
+        const { center, radius } = moonGeometry.boundingSphere!
+        moonGeometry.translate(-center.x, -center.y, -center.z)
+        moonGeometry.scale(1 / radius, 1 / radius, 1 / radius)
+        moonGeometries.set(id, moonGeometry)
+        if (planetId === id) {
+          sphere.geometry = moonGeometry
+          sphere.visible = true
+          canvas.dataset.modelReady = 'true'
+          requestRender()
+        }
+      }, undefined, failed)
+    }).catch(failed)
   }
   function setPlanet(id: string, appearance: GlobeAppearance): void {
     if (planetId === id) return
@@ -456,7 +457,7 @@ function createPlanetGlobe(canvas: HTMLCanvasElement) {
     titanHaze.value = id === 'titan' ? 1 : 0
     titanAtmosphere.visible = id === 'titan'
     material.needsUpdate = true
-    bloomPass.strength = id === 'mercury' ? 0.08 : ['jupiter', 'saturn', 'uranus', 'neptune'].includes(id) || moonGlobeAppearances[id] ? 0 : 0.03
+    bloomPass.strength = id === 'mercury' ? 0.08 : ['jupiter', 'saturn', 'uranus', 'neptune'].includes(id) || moonAppearanceIds.has(id) ? 0 : 0.03
     bloomPass.enabled = bloomPass.strength > 0
     resetRotation()
     canvas.dataset.planetId = id
@@ -686,13 +687,18 @@ function createPlanetGlobe(canvas: HTMLCanvasElement) {
 }
 
 const globes = new Map<HTMLCanvasElement, ReturnType<typeof createPlanetGlobe>>()
+const moonAppearanceIds = new Set<string>()
 
 export function planetHasGlobe(planetId: string): boolean {
   return Boolean(appearances[planetId])
 }
 
-export function renderPlanetGlobe(canvas: HTMLCanvasElement, planetId: string, compareEarth = false): boolean {
-  const appearance = appearances[planetId]
+export function renderPlanetGlobe(canvas: HTMLCanvasElement, planetId: string, compareEarth = false, moonAppearance?: GlobeAppearance): boolean {
+  if (moonAppearance) {
+    appearances[planetId] = moonAppearance
+    moonAppearanceIds.add(planetId)
+  }
+  const appearance = moonAppearance ?? appearances[planetId]
   if (!appearance) return false
   let globe = globes.get(canvas)
   if (!globe) {

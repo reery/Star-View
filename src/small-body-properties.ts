@@ -1,5 +1,5 @@
-import definitions from './data/solar-small-bodies.json'
-import type { PlanetSpec, PlanetMoon } from './planet-properties'
+import definitions from './data/generated/small-body-details.json'
+import type { PlanetSpec } from './planet-properties'
 import { scientificPlanetValue } from './planet-value'
 
 export interface SmallBodyMeasurement {
@@ -25,7 +25,6 @@ export interface SmallBodyDescription {
 }
 
 export const smallBodies = definitions.objects as readonly SmallBodyDescription[]
-export const smallBodyMoons = definitions.moons as Readonly<Record<string, readonly PlanetMoon[]>>
 
 export function isSmallBody(planet: { readonly id: string; readonly kind?: string }): planet is SmallBodyDescription {
   return planet.kind === 'small-body'

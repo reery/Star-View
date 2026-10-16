@@ -314,7 +314,7 @@ describe('catalog packages and display settings', () => {
     const blank = { ...source, metallicity_dex: null, metallicity_kind: null }
     expect(mergeCatalogStars([blank], [source])[0]).toMatchObject({ metallicity_dex: -0.23, metallicity_kind: '[Fe/H]' })
     const metadata = parseCatalogManifest(nearest1000Manifest)
-    expect(() => parseCatalogPayload({ schemaVersion: 1, catalogId: metadata.id, stars: nearest1000.map((star) => star.id === source.id ? { ...star, metallicity_kind: null } : star) }, metadata)).toThrow('metallicity quantity')
+    expect(() => parseCatalogPayload({ schemaVersion: 2, catalogId: metadata.id, sourceObjectCount: metadata.objectCount, stars: nearest1000.map((star) => star.id === source.id ? { ...star, metallicity_kind: null } : star) }, metadata)).toThrow('metallicity quantity')
   })
 
   it('keeps the Mu Cas primary bright when its shared-position companion remains the visibility reference', () => {
@@ -578,10 +578,19 @@ describe('catalog packages and display settings', () => {
     expect(catalogSelection(small, 'absent', 'absent')).toEqual({ selectedId: null, observerId: 'sun' })
   })
 
+  it('validates the completed browser records for every catalog without further enrichment', () => {
+    const manifests = [DEFAULT_CATALOG_MANIFEST, ...[manifest, nearest1000Manifest, brightManifest, westernManifest, clusterManifest].map(parseCatalogManifest)]
+    for (const metadata of manifests) {
+      const payload = JSON.parse(readFileSync(new URL(`./data/generated/catalogs/${metadata.id}.json`, import.meta.url), 'utf8'))
+      const loaded = parseCatalogPayload(payload, metadata)
+      expect(completeCatalogCompanions(loaded), metadata.id).toEqual(loaded)
+    }
+  })
+
   it('fetches and parses each browser catalog payload once', async () => {
     const manifest = { ...DEFAULT_CATALOG_MANIFEST, objectCount: 22 }
     const stars = parseStarCatalog(csv)
-    const fetcher = vi.fn(async () => new Response(JSON.stringify({ schemaVersion: 1, catalogId: manifest.id, stars })))
+    const fetcher = vi.fn(async () => new Response(JSON.stringify({ schemaVersion: 2, catalogId: manifest.id, sourceObjectCount: stars.length, stars: completeCatalogCompanions(stars) })))
     const load = catalogLoader(manifest, '/assets/nearest-neighbors.json', fetcher)
     const first = load()
     const second = load()

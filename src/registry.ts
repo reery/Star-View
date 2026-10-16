@@ -2,7 +2,7 @@ import { DEFAULT_CATALOG_MANIFEST, parseCatalogManifest } from './catalog-manife
 import { catalogLoader, type CatalogDefinition } from './catalog-runtime'
 
 const manifests = import.meta.glob<string>('./data/catalogs/*/catalog.json', { query: '?raw', import: 'default', eager: true })
-const payloads = import.meta.glob<string>('./data/generated/catalogs/*.json', { query: '?url&no-inline', import: 'default' })
+const payloads = import.meta.glob<string>('./data/generated/catalogs/*.json', { query: '?url&no-inline', import: 'default', eager: true })
 
 function definition(manifest: typeof DEFAULT_CATALOG_MANIFEST): CatalogDefinition {
   const loadUrl = payloads[`./data/generated/catalogs/${manifest.id}.json`]

@@ -1,6 +1,6 @@
 import { ICRS_TO_GALACTIC_ROWS, type Star } from './catalog-model'
 import { starComponentIdentity } from './star-systems'
-import { completeCatalogCompanions } from './stellar-companions'
+import { completeLoadedCompanions as completeCatalogCompanions, loadConstellationCompanions } from './constellation-companions'
 import { constellationCharts } from './data/constellations'
 
 export interface SkyPosition { ra_deg: number; dec_deg: number }
@@ -68,7 +68,7 @@ export async function loadConstellationChart(object: Pick<Star, 'id' | 'constell
   const name = object.constellation!
   let pending = loaded.get(name)
   if (!pending) {
-    pending = constellationCharts.get(name)!().catch((error: unknown) => {
+    pending = Promise.all([constellationCharts.get(name)!(), loadConstellationCompanions(name)]).then(([chart]) => chart).catch((error: unknown) => {
       loaded.delete(name)
       throw error
     })

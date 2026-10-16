@@ -1,5 +1,7 @@
-import { planetMoonSpecs, planetMoonsForId, type PlanetMoon, type PlanetSpec } from './planet-properties'
+import type { PlanetMoon, PlanetSpec } from './planet-properties'
+import { planetMoonSpecs, planetMoonsForId } from './moon-properties'
 import { disposePlanetGlobe, renderPlanetGlobe, resetPlanetGlobe } from './planet-globe'
+import { moonGlobeAppearances } from './moon-globe-appearances'
 import { moonPhotographs } from './moon-photographs'
 import { svgNode } from './spectral-chart'
 
@@ -135,7 +137,7 @@ export function renderPlanetMoons(container: HTMLElement, planet: MoonHost,
       photograph.alt = photo.description
       photograph.title = photo.credit
     } else photograph.removeAttribute('src')
-    const available = Boolean(photo) || renderPlanetGlobe(globe, moon.id)
+    const available = Boolean(photo) || renderPlanetGlobe(globe, moon.id, false, moonGlobeAppearances[moon.id])
     if (!photo && available) resetPlanetGlobe(globe)
     globe.hidden = Boolean(photo) || !available
     frame.dataset.mediaType = photo ? 'photograph' : 'globe'
