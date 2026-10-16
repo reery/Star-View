@@ -8,6 +8,7 @@ import { mkPoint } from './mk-diagram'
 import { catalogMeasurement, missingCatalogMeasurements } from './catalog-source'
 import { parseObjectStats, supplementObjectStats } from './object-stats'
 import { parseObjectIdentities, supplementObjectIdentities } from './designations'
+import { apparentVisualMagnitude } from './astronomy'
 
 const bright = parseStarCatalog(readFileSync(new URL('./data/catalogs/bright-stars/stars.csv', import.meta.url), 'utf8'))
 const western = parseStarCatalog(readFileSync(new URL('./data/catalogs/western-constellation-stars/stars.csv', import.meta.url), 'utf8'))
@@ -15,6 +16,17 @@ const dubhe = bright.find((star) => star.id === 'bright-dubhe')!
 const sun = bright.find((star) => star.id === 'sun')!
 
 describe('component coverage shared by every catalog', () => {
+  it('recovers individual Orion photometry from the final adopted component distances', () => {
+    const inputs = [...bright, ...western.filter((star) => star.id === 'hip-26207')]
+    const components = completeCatalogCompanions(inputs)
+    for (const [id, magnitude] of [['bright-alnitak', 2], ['bright-mintaka', 2.76], ['hip-26207', 3.47]] as const) {
+      const star = components.find((star) => star.id === id)!
+      const distance = Math.hypot(star.x_pc, star.y_pc, star.z_pc)
+      expect(star.apparent_mag, star.name).toBe(magnitude)
+      expect(apparentVisualMagnitude(star.absolute_mag, distance), star.name).toBeCloseTo(magnitude, 6)
+    }
+  })
+
   it('retains Furud source photometry without assigning unresolved flux or variability to Aa/Ab', () => {
     const furud = western.find((star) => star.id === 'hip-30122')!
     const expanded = completeCatalogCompanions([furud])

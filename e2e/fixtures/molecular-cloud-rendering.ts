@@ -7,6 +7,8 @@ import type { StarColorMode } from '../../src/astronomy'
 import { createMolecularCloudLayer } from '../../src/molecular-cloud-layer'
 import { galacticToWorld } from '../../src/astronomy'
 import { createStarViewer, type StarViewer } from '../../src/viewer'
+import { renderConstellationStars } from '../../src/constellation-star-appearance'
+import { FILTER_KEYS } from '../../src/object-filter'
 
 export interface ViewerRenderOptions {
   stars: Star[]
@@ -17,6 +19,7 @@ export interface ViewerRenderOptions {
   targetDistancePc?: number
   orbitDistancePc?: number
   powerSaving?: boolean
+  hideSun?: boolean
 }
 
 export interface CloudRenderOptions {
@@ -42,11 +45,17 @@ const viewerContainer = document.createElement('div')
 viewerContainer.style.cssText = 'position:fixed;inset:0;background:black;'
 viewerContainer.hidden = true
 document.body.append(viewerContainer)
+const earthChart = document.createElement('canvas')
+earthChart.id = 'earth-chart'
+earthChart.style.cssText = 'position:fixed;inset:0;background:black;'
+earthChart.hidden = true
+document.body.append(earthChart)
 
 // Exercise the production shader and render ordering in a controlled scene.
 Object.assign(window, {
   async renderViewer(options: ViewerRenderOptions): Promise<Record<string, { x: number; y: number }>> {
     viewer?.dispose()
+    earthChart.hidden = true
     renderer.domElement.hidden = true
     viewerContainer.hidden = false
     const stars = options.stars.filter((star) => options.showClouds || !star.molecular_cloud)
@@ -56,6 +65,7 @@ Object.assign(window, {
     })
     viewer.setObjectDistanceLimit(2000)
     viewer.setVisibility('sun', 7)
+    if (options.hideSun) viewer.setObjectFilter(FILTER_KEYS.filter((key) => key !== 'sun'))
     viewer.setGridVisible(false)
     viewer.setMotionArrowsVisible(false)
     viewer.setLabelLimit(0)
@@ -78,6 +88,13 @@ Object.assign(window, {
       const position = galacticToWorld(star).project(camera)
       return [star.id, { x: (position.x + 1) * viewerContainer.clientWidth / 2, y: (1 - position.y) * viewerContainer.clientHeight / 2 }]
     }))
+  },
+  renderEarthChart(stars: Star[], points: Record<string, { x: number; y: number }>, mode: StarColorMode): void {
+    viewerContainer.hidden = true
+    earthChart.hidden = false
+    renderConstellationStars(earthChart, stars.filter((star) => star.id !== 'sun').map((object) => ({
+      object, ...points[object.id]!, magnitude: object.apparent_mag ?? null,
+    })), window.innerWidth, window.innerHeight, mode)
   },
   renderCloud(options: CloudRenderOptions): number[] {
     const scene = new Scene()

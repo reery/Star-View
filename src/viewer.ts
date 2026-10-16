@@ -27,7 +27,7 @@ import {
   compareMapLabelCandidates, focusProgress,
   guideDashScale, isObjectMapVisible, motionArrowGeometryInto, motionTravelDistancePc, pickProjectedStarAtScreenPoint,
   projectMotionDirectionInto, projectSelectedAnchor, projectWorldPointInto,
-  retainBrightestCoincidentComponents, shouldRunOrdinaryLabelLayout, starBlocksLabels, starCoreWhiteStrength, starHaloDiameter, starHaloEmphasis, starHaloOpacity,
+  retainBrightestCoincidentComponents, shouldRunOrdinaryLabelLayout, starApparentDiameter, starBlocksLabels, starCoreWhiteStrength, starHaloDiameter, starHaloEmphasis, starHaloOpacity,
   type MotionArrowGeometry, type ProjectedPickable,
 } from './viewer-primitives'
 
@@ -305,10 +305,8 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
   starGeometry.setIndex(stars.map((_, index) => index))
   const coreIndices = starGeometry.getIndex()!
   const coreDiameters = new Float32BufferAttribute(stars.map(() => STAR_DIAMETER_PX), 1)
-  const coreFocuses = new Float32BufferAttribute(stars.map(() => 0), 1)
   const coreEmphases = new Float32BufferAttribute(stars.map(() => 0), 1)
   starGeometry.setAttribute('coreDiameter', coreDiameters)
-  starGeometry.setAttribute('coreFocus', coreFocuses)
   starGeometry.setAttribute('coreEmphasis', coreEmphases)
   starGeometry.setAttribute('coreWhiteStrength', new Float32BufferAttribute(stars.map(starCoreWhiteStrength), 1))
   const starPoints = new Points(starGeometry, starMaterial)
@@ -333,10 +331,8 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
   let pointVisibilityInitialized = false
   const haloOpacities = new Float32BufferAttribute(stars.map(() => 0), 1)
   const haloDiameters = new Float32BufferAttribute(stars.map(() => 30), 1)
-  const haloEmphases = new Float32BufferAttribute(stars.map(() => 0), 1)
   haloGeometry.setAttribute('haloOpacity', haloOpacities)
   haloGeometry.setAttribute('haloDiameter', haloDiameters)
-  haloGeometry.setAttribute('haloEmphasis', haloEmphases)
   const halos = new Points(haloGeometry, haloMaterial)
   halos.frustumCulled = false
   halos.renderOrder = 3
@@ -997,12 +993,11 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
       mapVisible[index] = visible ? 1 : 0
       const haloMagnitude = tier === 'base' ? star.absolute_mag : magnitude
       const haloEmphasis = starHaloEmphasis(haloMagnitude)
-      coreDiameters.setX(index, tier === 'background' ? 3 : STAR_DIAMETER_PX)
-      coreFocuses.setX(index, star.id === visibilityBase.id || star.id === selectedId ? 1 : 0)
+      const diameter = starApparentDiameter(haloMagnitude)
+      coreDiameters.setX(index, tier === 'background' ? 3 : diameter)
       coreEmphases.setX(index, haloEmphasis)
       haloOpacities.setX(index, tier === 'background' ? 0 : starHaloOpacity(haloMagnitude, star.id === selectedId))
-      haloDiameters.setX(index, starHaloDiameter(haloMagnitude))
-      haloEmphases.setX(index, haloEmphasis)
+      haloDiameters.setX(index, starHaloDiameter(haloMagnitude) * Math.sqrt(diameter / STAR_DIAMETER_PX))
     })
     if (nebulaLayer) {
       nebulaLayer.setVisible(nebulaIndices.map((index) => mapVisible[index] === 1 && index !== observerIndex))
@@ -1018,11 +1013,9 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
       labelLayer.dataset.bubbleVisibleCount = String(bubbleVisibility.filter(Boolean).length)
     }
     coreDiameters.needsUpdate = true
-    coreFocuses.needsUpdate = true
     coreEmphases.needsUpdate = true
     haloOpacities.needsUpdate = true
     haloDiameters.needsUpdate = true
-    haloEmphases.needsUpdate = true
     updatePointVisibility()
     guides.visible = !observerViewEnabled && selectedId !== null && mapVisible[starsById.get(selectedId)!.index] === 1
     rankedNameGroups = []
@@ -1864,7 +1857,12 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
     }
     camera.updateMatrixWorld()
     if (earthOrbitEnabled) updateEarthOrbitVisibility()
-    starViewDistance.value = camera.position.distanceTo(controls.target)
+    // Looking at a distant object from the origin is still a close sky view.
+    // Fade the overview only after retreating from both origin and orbit target.
+    starViewDistance.value = observerViewEnabled ? 0 : Math.min(
+      camera.position.distanceTo(controls.target),
+      camera.position.distanceTo(pickable[referenceIndex]!.position),
+    )
     const visibilityBaseIndex = starsById.get(visibilityBase.id)!.index
     const viewerDistance = camera.position.distanceTo(pickable[visibilityBaseIndex]!.position)
     updateGridScale(viewerDistance)

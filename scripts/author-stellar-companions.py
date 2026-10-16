@@ -343,6 +343,8 @@ def build():
                 if existing:
                     retain_unresolved_photometry(star, existing, identities, evidence)
             inherited_spectrum = record[10] if label == source_label and "+" not in record[10] else None
+            if not existing or unresolved:
+                place(star, float(record[1]), float(record[2]), number(record[3]) or (parent["raw_astrometry"] or {}).get("parallax_mas"), number(record[5]), number(record[6]), 2000, "MSC 2026-06-19; shared parent astrometry for unresolved members (approximate)")
             if ancestry:
                 branch, side = ancestry
                 inherited_spectrum = branch[11 + side * 2] or inherited_spectrum
@@ -352,14 +354,14 @@ def build():
                 photometry_blended = label != source_label and side == 0 and not number(branch[12])
                 if visual and not photometry_blended:
                     star["apparent_mag"] = visual
-                    star["absolute_mag"] = visual - 5 * math.log10(math.hypot(parent["x_pc"], parent["y_pc"], parent["z_pc"]) / 10)
-                    evidence["photometry"] = {"source": "MSC individual subsystem magnitude", "V": visual}
+                    distance = math.hypot(star["x_pc"], star["y_pc"], star["z_pc"])
+                    star["absolute_mag"] = visual - 5 * math.log10(distance / 10)
+                    evidence["photometry"] = {"source": "MSC individual subsystem magnitude", "V": visual,
+                        "distancePc": distance, "method": "Individual V and adopted component distance; no extinction correction"}
                 elif visual:
                     evidence["withheldPhotometry"] = {"V": visual, "reason": "Unresolved parent flux; secondary brightness unavailable"}
             star["spectral_type"] = spectrum(inherited_spectrum)
             star["notes"] += f" MSC physical hierarchy {wds}, component {label}. Shared system distance for close components is approximate. Catalog magnitude/spectral-type masses and minimum companion masses are withheld."
-            if not existing or unresolved:
-                place(star, float(record[1]), float(record[2]), number(record[3]) or (parent["raw_astrometry"] or {}).get("parallax_mas"), number(record[5]), number(record[6]), 2000, "MSC 2026-06-19; shared parent astrometry for unresolved members (approximate)")
             # Prefer the explicitly named individual measurement to a compiled alternate class.
             if source and not COMPOSITE.search(source["sp_type"]) and number(source["V"]) is not None:
                 star["absolute_mag"] = None

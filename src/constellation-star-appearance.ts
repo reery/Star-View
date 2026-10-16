@@ -2,15 +2,11 @@ import { BufferGeometry, Float32BufferAttribute, OrthographicCamera, Points, Sce
 import { starDisplayColor, type StarColorMode } from './astronomy'
 import type { Star } from './catalog-model'
 import { createStarAppearance } from './star-appearance'
-import { STAR_DIAMETER_PX, starCoreWhiteStrength, starHaloDiameter, starHaloEmphasis, starHaloOpacity } from './viewer-primitives'
+import { STAR_DIAMETER_PX, starApparentDiameter, starCoreWhiteStrength, starHaloDiameter, starHaloEmphasis, starHaloOpacity } from './viewer-primitives'
 
 export interface ConstellationMarker { object: Star; x: number; y: number; magnitude: number | null }
 
-/** A bounded, illustrative size scale for Earth-view apparent magnitude. */
-export function constellationStarDiameter(magnitude: number | null): number {
-  if (magnitude === null || !Number.isFinite(magnitude)) return STAR_DIAMETER_PX
-  return Math.max(3, Math.min(14, STAR_DIAMETER_PX * 10 ** (-0.1 * magnitude)))
-}
+export { starApparentDiameter as constellationStarDiameter } from './viewer-primitives'
 
 function createRenderer() {
   const renderer = new WebGLRenderer({ antialias: true })
@@ -18,7 +14,7 @@ function createRenderer() {
   // Keep every star at the same full-strength virtual distance. The selected
   // object's position and distance never attenuate these diagram sprites.
   const distance = { value: 1 }
-  const appearance = createStarAppearance(distance, distance)
+  const appearance = createStarAppearance(distance)
   const scene = new Scene()
   const camera = new OrthographicCamera(0, 1, 0, -1, 0.1, 100)
   camera.position.z = 10
@@ -42,20 +38,18 @@ export function renderConstellationStars(canvas: HTMLCanvasElement, marks: reado
   state.camera.bottom = -height
   state.camera.updateProjectionMatrix()
   const positions: number[] = [], colors: number[] = []
-  const attributes: Record<string, number[]> = { coreDiameter: [], coreFocus: [], coreEmphasis: [], coreWhiteStrength: [], haloDiameter: [], haloOpacity: [], haloEmphasis: [] }
+  const attributes: Record<string, number[]> = { coreDiameter: [], coreEmphasis: [], coreWhiteStrength: [], haloDiameter: [], haloOpacity: [] }
   for (const { object, x, y, magnitude } of marks) {
     const color = starDisplayColor(object, colorMode)
     positions.push(x, -y, 0)
     colors.push(color.r, color.g, color.b)
     const emphasis = starHaloEmphasis(magnitude)
-    const diameter = constellationStarDiameter(magnitude)
+    const diameter = starApparentDiameter(magnitude)
     attributes.coreDiameter!.push(diameter)
-    attributes.coreFocus!.push(1)
     attributes.coreEmphasis!.push(emphasis)
     attributes.coreWhiteStrength!.push(starCoreWhiteStrength(object))
     attributes.haloDiameter!.push(starHaloDiameter(magnitude) * Math.sqrt(diameter / STAR_DIAMETER_PX))
     attributes.haloOpacity!.push(starHaloOpacity(magnitude))
-    attributes.haloEmphasis!.push(emphasis)
   }
   if (state.geometry.getAttribute('position')?.count !== marks.length) state.geometry.dispose()
   const update = (name: string, values: number[], size: number) => {

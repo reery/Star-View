@@ -5,6 +5,7 @@ import { build } from 'vite'
 import { PNG } from 'pngjs'
 import { parseStarCatalog, type Star } from '../src/catalog'
 import { generateMolecularCloudPuffs } from '../src/molecular-cloud-layer'
+import type { StarColorMode } from '../src/astronomy'
 import type { CloudRenderOptions, ViewerRenderOptions } from './fixtures/molecular-cloud-rendering'
 
 const cloud = JSON.parse(readFileSync(new URL('../src/data/overlays/molecular-clouds/objects.json', import.meta.url), 'utf8')).objects
@@ -178,13 +179,13 @@ test('keeps Orion emission and belt stars visible with its molecular clouds', { 
   }
 })
 
-test('retains restrained star glow when switching to Observer view', async ({ page }, testInfo) => {
+test('uses apparent brightness once in both views while retaining map zoom restraint', async ({ page }, testInfo) => {
   const landmark = landmarks.find((star) => star.id === 'bright-alnilam')!
-  const lights: number[] = []
-  for (const distance of [20, 600]) {
+  const lights: number[][] = []
+  for (const [distance, magnitude] of [[20, 2], [600, 2], [600, 6]] as const) {
     const star: Star = {
       ...landmark, id: 'equal-brightness-source', x_pc: -distance, y_pc: 0, z_pc: 0,
-      absolute_mag: 2 - 5 * (Math.log10(distance) - 1),
+      absolute_mag: magnitude - 5 * (Math.log10(distance) - 1),
     }
     const modeLights: number[] = []
     for (const observerView of [false, true]) {
@@ -194,17 +195,64 @@ test('retains restrained star glow when switching to Observer view', async ({ pa
         (window as unknown as { renderViewer(options: ViewerRenderOptions): Promise<Record<string, { x: number; y: number }>> }).renderViewer(input),
       { stars: [sun, star], targetId: star.id, observerView, orbitDistancePc: 0.08, mode: 'real', showClouds: false } satisfies ViewerRenderOptions)
       const image = PNG.sync.read(await page.locator('div canvas').screenshot({
-        scale: 'css', path: testInfo.outputPath(`star-${distance}pc-${observerView ? 'observer' : 'map'}.png`),
+        scale: 'css', path: testInfo.outputPath(`star-${distance}pc-mag${magnitude}-${observerView ? 'observer' : 'map'}.png`),
       }))
       modeLights.push(regionLight(image, points[star.id]!, 40))
     }
-    expect(modeLights[1]! / modeLights[0]!).toBeGreaterThan(0.98)
-    expect(modeLights[1]! / modeLights[0]!).toBeLessThan(1.02)
-    lights.push(modeLights[1]!)
+    lights.push(modeLights)
   }
-  expect(lights[0]).toBeGreaterThan(5000)
-  expect(lights[1]).toBeGreaterThan(500)
-  expect(lights[1]!).toBeLessThan(lights[0]! * 0.5)
+  const [near, distant, faint] = lights as [number[], number[], number[]]
+  // Equal apparent magnitudes must render equally, even at different distances.
+  expect(distant[0]! / near[0]!).toBeGreaterThan(0.98)
+  expect(distant[0]! / near[0]!).toBeLessThan(1.02)
+  expect(distant[1]! / near[1]!).toBeGreaterThan(0.98)
+  expect(distant[1]! / near[1]!).toBeLessThan(1.02)
+  expect(distant[0]! / distant[1]!).toBeGreaterThan(0.98)
+  expect(distant[0]! / distant[1]!).toBeLessThan(1.02)
+  expect(distant[1]!).toBeGreaterThan(3000)
+  expect(faint[0]!).toBeLessThan(distant[0]! * 0.5)
+  expect(faint[1]!).toBeLessThan(distant[1]! * 0.5)
+
+  const star: Star = { ...landmark, id: 'overview-source', x_pc: -600, y_pc: 0, z_pc: 0,
+    absolute_mag: 2 - 5 * (Math.log10(600) - 1) }
+  const points = await page.evaluate((input) =>
+    (window as unknown as { renderViewer(options: ViewerRenderOptions): Promise<Record<string, { x: number; y: number }>> }).renderViewer(input),
+  { stars: [sun, star], targetId: star.id, observerView: false, targetDistancePc: 1200, hideSun: true,
+    mode: 'real', showClouds: false } satisfies ViewerRenderOptions)
+  const overview = PNG.sync.read(await page.locator('div canvas').screenshot({
+    scale: 'css', path: testInfo.outputPath('star-map-zoomed-out.png'),
+  }))
+  expect(regionLight(overview, points[star.id]!, 40)).toBeLessThan(distant[0]! * 0.5)
+})
+
+test('matches Earth-chart brightness for Heka A and the Orion belt from the Sun in both views', async ({ page }, testInfo) => {
+  const components: Star[] = JSON.parse(readFileSync(new URL('../src/data/stellar-companions.json', import.meta.url), 'utf8')).stars
+  const ids = ['hip-26207', 'bright-alnitak', 'bright-mintaka', 'bright-alnilam']
+  const stars = [sun, ...components.filter((star) => ids.includes(star.id)),
+    { ...landmarks.find((star) => star.id === 'bright-alnilam')!, apparent_mag: 1.69 }]
+  for (const mode of ['real', 'exaggerated'] as const) {
+    for (const observerView of [false, true]) {
+      const points = await page.evaluate((input) =>
+        (window as unknown as { renderViewer(options: ViewerRenderOptions): Promise<Record<string, { x: number; y: number }>> }).renderViewer(input),
+      { stars, targetId: 'bright-alnilam', observerView, mode, showClouds: false } satisfies ViewerRenderOptions)
+      const view = PNG.sync.read(await page.locator('div canvas').screenshot({
+        scale: 'css', path: testInfo.outputPath(`orion-components-${observerView ? 'observer' : 'map'}-${mode}.png`),
+      }))
+      await page.evaluate(({ stars, points, mode }) =>
+        (window as unknown as { renderEarthChart(stars: Star[], points: Record<string, { x: number; y: number }>, mode: StarColorMode): void })
+          .renderEarthChart(stars, points, mode), { stars, points, mode })
+      const chart = PNG.sync.read(await page.locator('#earth-chart').screenshot({
+        scale: 'css', path: testInfo.outputPath(`orion-components-earth-chart-${observerView ? 'observer' : 'map'}-${mode}.png`),
+      }))
+      for (const id of ids) {
+        const viewLight = regionLight(view, points[id]!, 40)
+        const chartLight = regionLight(chart, points[id]!, 40)
+        expect(viewLight, id).toBeGreaterThan(1000)
+        expect(viewLight / chartLight, id).toBeGreaterThan(0.95)
+        expect(viewLight / chartLight, id).toBeLessThan(1.05)
+      }
+    }
+  }
 })
 
 test('renders a continuous long-exposure nebula with a bright core and faint wings', { tag: '@mobile' }, async ({ page }, testInfo) => {

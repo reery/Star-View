@@ -7,7 +7,6 @@ import { filterKeyForObject, type FilterKey } from './object-filter'
 export const STAR_DIAMETER_PX = 10
 export const STAR_CORE_FULL_STRENGTH_DISTANCE_PC = 200 / LIGHT_YEARS_PER_PARSEC
 export const STAR_CORE_VIEW_DISTANCE_FALLOFF_POWER = 1.6
-export const STAR_CORE_PHYSICAL_FULL_STRENGTH_DISTANCE_PC = 50 / LIGHT_YEARS_PER_PARSEC
 export const STAR_HALO_FULL_STRENGTH_DISTANCE_PC = 50 / LIGHT_YEARS_PER_PARSEC
 export const STAR_CORE_MIN_DIAMETER_PX = 2
 export const STAR_CORE_MIN_VIEW_SCALE = 0.3
@@ -15,6 +14,12 @@ export const STAR_HALO_MIN_VIEW_SCALE = 0.3
 export const STAR_HALO_MIN_OPACITY_SCALE = 0.08
 export const GUIDE_DASH_PX = 4
 export const GUIDE_GAP_PX = 3
+
+/** Bounded, illustrative core size from apparent magnitude. */
+export function starApparentDiameter(magnitude: number | null): number {
+  if (magnitude === null || !Number.isFinite(magnitude)) return STAR_DIAMETER_PX
+  return Math.max(3, Math.min(14, STAR_DIAMETER_PX * 10 ** (-0.1 * magnitude)))
+}
 
 /** Mutate the drawable-point mask without merging objects or their positions. */
 export function retainBrightestCoincidentComponents(groups: readonly (readonly number[])[], positions: readonly Vector3[], enabled: Uint8Array): void {
