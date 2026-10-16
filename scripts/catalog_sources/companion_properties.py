@@ -8,6 +8,7 @@ import hashlib
 import json
 import math
 import re
+import copy
 
 from .enrichment import FIELDS, derive_physical, estimate_temperature
 
@@ -35,6 +36,29 @@ def complete_properties(star, evidence):
     star["notes"] = row["notes"]
 
 
+def reconcile_component_notes(star, evidence):
+    """Retain superseded source statements without presenting them as current."""
+    superseded = []
+    for field, statement in (
+        ("absolute_mag", "Component-resolved Johnson V not independently established; multi-star system V withheld."),
+        ("temperature_k", "No appropriate object-specific temperature adopted; dwarf sequence not applied."),
+    ):
+        if star.get(field) is not None and statement in star["notes"]:
+            star["notes"] = star["notes"].replace(statement, "")
+            superseded.append({"text": statement, "reason": f"Individual {field} is now available."})
+    def remaining(match):
+        original = match.group(0)
+        fields = [field for field in match.group(1).split(", ") if star.get(field) is None]
+        replacement = "Withheld individual fields: " + ", ".join(fields) + "." if fields else ""
+        if replacement != original:
+            superseded.append({"text": original, "reason": "Later reviewed individual values supersede part of this source withholding."})
+        return replacement
+    star["notes"] = re.sub(r"Withheld individual fields: ([a-z_, ]+)\.", remaining, star["notes"])
+    if superseded:
+        star["notes"] = re.sub(r" {2,}", " ", star["notes"]).strip()
+        evidence.setdefault("supersededNotes", []).extend(superseded)
+
+
 def apply_literature(root, path, systems, pool, audit):
     plan = json.loads(path.read_text())
     inputs = [path]
@@ -50,7 +74,14 @@ def apply_literature(root, path, systems, pool, audit):
         if not star or star["name"] != review["expectedName"] or members.get(
                 (review["systemId"], identifier)) != review["component"]:
             raise ValueError(f"Reviewed literature component identity drifted: {identifier}")
-        adopted, retained = {}, {}
+        if review.get("expectedType") and star["type"] != review["expectedType"]:
+            raise ValueError(f"Reviewed literature object type drifted: {identifier}")
+        if review.get("gaiaDr3Id"):
+            designation = "Gaia DR3 " + review["gaiaDr3Id"]
+            matches = {sid for sid, candidate in pool.items() if designation in candidate.get("designations", [])}
+            if matches != {identifier}:
+                raise ValueError(f"Reviewed literature Gaia identity is not a unique component: {identifier}")
+        adopted, retained, replaced = {}, {}, {}
         for field, observation in review["fields"].items():
             if any(not observation.get(key) for key in ("status", "reference", "sourceUrl", "section")):
                 raise ValueError(f"Missing component literature provenance: {identifier}:{field}")
@@ -65,7 +96,13 @@ def apply_literature(root, path, systems, pool, audit):
                 raise ValueError(f"Invalid component literature value: {identifier}:{field}")
             if field == "metallicity_dex" and observation.get("quantity") not in {"[Fe/H]", "[M/H]"}:
                 raise ValueError(f"Missing component abundance quantity: {identifier}")
-            if star.get(field) is not None:
+            replacement = observation.get("replaces")
+            if replacement is not None:
+                if star.get(field) != replacement["value"]:
+                    raise ValueError(f"Reviewed literature replacement input drifted: {identifier}:{field}")
+                replaced[field] = {"value": star[field], "sourceEvidence": copy.deepcopy(
+                    audit["componentRecords"].get(identifier, {}).get(field))}
+            elif star.get(field) is not None:
                 retained[field] = {"value": star[field], "unusedLiterature": observation}
                 continue
             # Keep the apparent/absolute pair consistent with existing photometry.
@@ -84,11 +121,14 @@ def apply_literature(root, path, systems, pool, audit):
                 "method": "Component Johnson V and adopted catalog distance; no extinction correction",
                 "inputs": {"apparent_mag": star["apparent_mag"], "distance_pc": distance}}
         evidence = audit["componentRecords"].setdefault(identifier, {})
-        evidence["reviewedLiterature"] = {**review, "adopted": adopted, "retained": retained}
+        evidence["reviewedLiterature"] = {**review, "adopted": adopted, "retained": retained,
+            **({"replaced": replaced} if replaced else {})}
         if adopted:
             star["notes"] += " Reviewed individual literature: " + review["note"]
     for identifier, star in pool.items():
-        complete_properties(star, audit["componentRecords"].setdefault(identifier, {}))
+        evidence = audit["componentRecords"].setdefault(identifier, {})
+        complete_properties(star, evidence)
+        reconcile_component_notes(star, evidence)
     return inputs
 
 

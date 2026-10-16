@@ -93,12 +93,14 @@ icon('objects-icon', List)
 icon('glossary-icon', BookOpen)
 icon('glossary-search-icon', Search)
 icon('glossary-lock-icon', Lock)
+icon('glossary-close-icon', X)
 icon('info-icon', CircleHelp)
 icon('info-brand-icon', Orbit)
 icon('filter-lock-icon', Lock)
 icon('filter-reset-icon', RotateCcw)
 icon('preferences-lock-icon', Lock)
 icon('objects-lock-icon', Lock)
+icon('objects-close-icon', X)
 icon('objects-expand-icon', ChevronsLeftRight)
 icon('motion-icon', Clock)
 icon('motion-lock-icon', Lock)
@@ -2492,6 +2494,13 @@ for (const name of panelNames) {
 }
 for (const name of lockablePanelNames) {
   element(`${name}-lock`).addEventListener('click', () => togglePanelLock(name), { signal: events.signal })
+}
+for (const name of ['objects', 'glossary'] as const) {
+  element(`${name}-close`).addEventListener('click', () => {
+    setPanelOpen(name, false)
+    syncPanelLayout()
+    element(`${name}-toggle`).focus()
+  }, { signal: events.signal })
 }
 element<HTMLFormElement>('save-view-form').addEventListener('submit', (event) => {
   event.preventDefault()

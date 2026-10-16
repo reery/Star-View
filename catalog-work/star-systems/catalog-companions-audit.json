@@ -19189,6 +19189,93 @@
         "reference": "Pecaut-Mamajek 2022.04.16",
         "spectralType": "M3.0V"
       },
+      "reviewedLiterature": {
+        "expectedName": "G 202-45 Aa",
+        "systemId": "msc-16240+4822",
+        "component": "Aa",
+        "expectedType": "star",
+        "fields": {
+          "mass_solar": {
+            "value": 0.379,
+            "uncertainty": 0.007,
+            "status": "measured",
+            "reference": "2016AJ....152..141B",
+            "section": "Table 10",
+            "sourceUrl": "https://www.astro.gsu.edu/RECONS/published37.pdf",
+            "scope": "GJ 623 A (internal Aa); individual component measurement, not pair-total mass."
+          },
+          "apparent_mag": {
+            "value": 10.288357027713023,
+            "uncertainty": 0.030009796979974458,
+            "status": "derived",
+            "passband": "Johnson V",
+            "reference": "2016AJ....152..141B",
+            "sourceUrl": "https://www.astro.gsu.edu/RECONS/published37.pdf",
+            "section": "Table 10 and section 6",
+            "inputs": {
+              "publishedPair": "GJ 623 AB",
+              "starIds": [
+                "cns5-4014",
+                "msc-16240+4822-ab"
+              ],
+              "systemJohnsonV": 10.28,
+              "systemJohnsonVUncertainty": 0.03,
+              "deltaVSecondaryMinusPrimary": 5.28,
+              "deltaVUncertainty": 0.1,
+              "epoch": null,
+              "reference": "2016AJ....152..141B:Table 10; section 6",
+              "scope": "Flux of the named pair only. GJ 1245 AC excludes wide B; GJ 22 AC excludes wide B.",
+              "method": "V_primary = V_pair + 2.5 log10(1 + 10^(-0.4 deltaV)); V_secondary = V_primary + deltaV. First-order error propagation assumes independent pair V and deltaV; component magnitudes are correlated.",
+              "caveat": "Published compiled baseline photometry, including transformed HST F583W contrasts; not a dated flare observation. Preserve A/B/C identities when the secondary is slightly brighter."
+            },
+            "scope": "Individual G 202-45 Aa; deblended from the named pair, not assigned its total flux."
+          }
+        },
+        "note": "GJ 623 A (internal Aa): reviewed individual literature. Dynamical masses retain their formal uncertainties. Johnson V, where absent, is deblended using Benedict et al. (2016) Table 10 and the retained component distance; existing photometry is preserved. No individual orbital velocity or age is inferred.",
+        "sourceComponentMapping": "Retain formal uncertainties, source parallax and the source-to-internal component mapping. Wolf 424 has a slight V-band brightness reversal; do not reorder the A/B identities by brightness.",
+        "adopted": {
+          "mass_solar": {
+            "value": 0.379,
+            "uncertainty": 0.007,
+            "status": "measured",
+            "reference": "2016AJ....152..141B",
+            "section": "Table 10",
+            "sourceUrl": "https://www.astro.gsu.edu/RECONS/published37.pdf",
+            "scope": "GJ 623 A (internal Aa); individual component measurement, not pair-total mass."
+          }
+        },
+        "retained": {
+          "apparent_mag": {
+            "value": 10.44,
+            "unusedLiterature": {
+              "value": 10.288357027713023,
+              "uncertainty": 0.030009796979974458,
+              "status": "derived",
+              "passband": "Johnson V",
+              "reference": "2016AJ....152..141B",
+              "sourceUrl": "https://www.astro.gsu.edu/RECONS/published37.pdf",
+              "section": "Table 10 and section 6",
+              "inputs": {
+                "publishedPair": "GJ 623 AB",
+                "starIds": [
+                  "cns5-4014",
+                  "msc-16240+4822-ab"
+                ],
+                "systemJohnsonV": 10.28,
+                "systemJohnsonVUncertainty": 0.03,
+                "deltaVSecondaryMinusPrimary": 5.28,
+                "deltaVUncertainty": 0.1,
+                "epoch": null,
+                "reference": "2016AJ....152..141B:Table 10; section 6",
+                "scope": "Flux of the named pair only. GJ 1245 AC excludes wide B; GJ 22 AC excludes wide B.",
+                "method": "V_primary = V_pair + 2.5 log10(1 + 10^(-0.4 deltaV)); V_secondary = V_primary + deltaV. First-order error propagation assumes independent pair V and deltaV; component magnitudes are correlated.",
+                "caveat": "Published compiled baseline photometry, including transformed HST F583W contrasts; not a dated flare observation. Preserve A/B/C identities when the secondary is slightly brighter."
+              },
+              "scope": "Individual G 202-45 Aa; deblended from the named pair, not assigned its total flux."
+            }
+          }
+        }
+      },
       "spectralSubtypes": {
         "spectralType": "M3.0V",
         "labels": [
@@ -19231,6 +19318,93 @@
         "V": 15.0,
         "distancePc": 7.844367743813671,
         "method": "Individual V and adopted component distance; no extinction correction"
+      },
+      "reviewedLiterature": {
+        "expectedName": "G 202-45 Ab",
+        "systemId": "msc-16240+4822",
+        "component": "Ab",
+        "expectedType": "star",
+        "fields": {
+          "mass_solar": {
+            "value": 0.114,
+            "uncertainty": 0.002,
+            "status": "measured",
+            "reference": "2016AJ....152..141B",
+            "section": "Table 10",
+            "sourceUrl": "https://www.astro.gsu.edu/RECONS/published37.pdf",
+            "scope": "GJ 623 B (internal Ab); individual component measurement, not pair-total mass."
+          },
+          "apparent_mag": {
+            "value": 15.568357027713024,
+            "uncertainty": 0.10366888015564471,
+            "status": "derived",
+            "passband": "Johnson V",
+            "reference": "2016AJ....152..141B",
+            "sourceUrl": "https://www.astro.gsu.edu/RECONS/published37.pdf",
+            "section": "Table 10 and section 6",
+            "inputs": {
+              "publishedPair": "GJ 623 AB",
+              "starIds": [
+                "cns5-4014",
+                "msc-16240+4822-ab"
+              ],
+              "systemJohnsonV": 10.28,
+              "systemJohnsonVUncertainty": 0.03,
+              "deltaVSecondaryMinusPrimary": 5.28,
+              "deltaVUncertainty": 0.1,
+              "epoch": null,
+              "reference": "2016AJ....152..141B:Table 10; section 6",
+              "scope": "Flux of the named pair only. GJ 1245 AC excludes wide B; GJ 22 AC excludes wide B.",
+              "method": "V_primary = V_pair + 2.5 log10(1 + 10^(-0.4 deltaV)); V_secondary = V_primary + deltaV. First-order error propagation assumes independent pair V and deltaV; component magnitudes are correlated.",
+              "caveat": "Published compiled baseline photometry, including transformed HST F583W contrasts; not a dated flare observation. Preserve A/B/C identities when the secondary is slightly brighter."
+            },
+            "scope": "Individual G 202-45 Ab; deblended from the named pair, not assigned its total flux."
+          }
+        },
+        "note": "GJ 623 B (internal Ab): reviewed individual literature. Dynamical masses retain their formal uncertainties. Johnson V, where absent, is deblended using Benedict et al. (2016) Table 10 and the retained component distance; existing photometry is preserved. No individual orbital velocity or age is inferred.",
+        "sourceComponentMapping": "Retain formal uncertainties, source parallax and the source-to-internal component mapping. Wolf 424 has a slight V-band brightness reversal; do not reorder the A/B identities by brightness.",
+        "adopted": {
+          "mass_solar": {
+            "value": 0.114,
+            "uncertainty": 0.002,
+            "status": "measured",
+            "reference": "2016AJ....152..141B",
+            "section": "Table 10",
+            "sourceUrl": "https://www.astro.gsu.edu/RECONS/published37.pdf",
+            "scope": "GJ 623 B (internal Ab); individual component measurement, not pair-total mass."
+          }
+        },
+        "retained": {
+          "apparent_mag": {
+            "value": 15.0,
+            "unusedLiterature": {
+              "value": 15.568357027713024,
+              "uncertainty": 0.10366888015564471,
+              "status": "derived",
+              "passband": "Johnson V",
+              "reference": "2016AJ....152..141B",
+              "sourceUrl": "https://www.astro.gsu.edu/RECONS/published37.pdf",
+              "section": "Table 10 and section 6",
+              "inputs": {
+                "publishedPair": "GJ 623 AB",
+                "starIds": [
+                  "cns5-4014",
+                  "msc-16240+4822-ab"
+                ],
+                "systemJohnsonV": 10.28,
+                "systemJohnsonVUncertainty": 0.03,
+                "deltaVSecondaryMinusPrimary": 5.28,
+                "deltaVUncertainty": 0.1,
+                "epoch": null,
+                "reference": "2016AJ....152..141B:Table 10; section 6",
+                "scope": "Flux of the named pair only. GJ 1245 AC excludes wide B; GJ 22 AC excludes wide B.",
+                "method": "V_primary = V_pair + 2.5 log10(1 + 10^(-0.4 deltaV)); V_secondary = V_primary + deltaV. First-order error propagation assumes independent pair V and deltaV; component magnitudes are correlated.",
+                "caveat": "Published compiled baseline photometry, including transformed HST F583W contrasts; not a dated flare observation. Preserve A/B/C identities when the secondary is slightly brighter."
+              },
+              "scope": "Individual G 202-45 Ab; deblended from the named pair, not assigned its total flux."
+            }
+          }
+        }
       }
     },
     "hip-80331": {
@@ -21000,6 +21174,12 @@
         "distancePc": 5.113421607145904,
         "method": "Individual V and adopted component distance; no extinction correction"
       },
+      "supersededNotes": [
+        {
+          "text": "Component-resolved Johnson V not independently established; multi-star system V withheld.",
+          "reason": "Individual absolute_mag is now available."
+        }
+      ],
       "spectralSubtypes": {
         "spectralType": "K0V",
         "labels": [
@@ -21052,6 +21232,12 @@
         "sourceReview": "catalog-work/shared-enrichment/70-ophiuchi-review.json",
         "note": "70 Oph B component classification K4V from Li et al. (2026), Table 1; section 2.2 notes the published K4-K5V range. Restores the missing individual luminosity class after MSC authoring; does not classify B from the primary spectrum."
       },
+      "supersededNotes": [
+        {
+          "text": "Component-resolved Johnson V not independently established; multi-star system V withheld.",
+          "reason": "Individual absolute_mag is now available."
+        }
+      ],
       "spectralSubtypes": {
         "spectralType": "K4V",
         "labels": [
@@ -23917,6 +24103,12 @@
         "distancePc": 3.497643507866488,
         "method": "Individual V and adopted component distance; no extinction correction"
       },
+      "supersededNotes": [
+        {
+          "text": "Component-resolved Johnson V not independently established; multi-star system V withheld.",
+          "reason": "Individual absolute_mag is now available."
+        }
+      ],
       "spectralSubtypes": {
         "spectralType": "K5V",
         "labels": [
@@ -23959,6 +24151,49 @@
         "distancePc": 3.4974893911483127,
         "method": "Individual V and adopted component distance; no extinction correction"
       },
+      "reviewedLiterature": {
+        "expectedName": "61 Cyg B",
+        "systemId": "msc-21069+3845",
+        "component": "B",
+        "expectedType": "star",
+        "fields": {
+          "mass_solar": {
+            "value": 0.6289,
+            "uncertainty": {
+              "minus": 0.0092,
+              "plus": 0.0094
+            },
+            "status": "measured",
+            "reference": "2025AJ....170...52G",
+            "section": "section V.2 and Table 6",
+            "sourceUrl": "https://arxiv.org/html/2505.12563v1",
+            "scope": "61 Cygni B; individual component measurement, not pair-total mass."
+          }
+        },
+        "note": "61 Cygni B: reviewed individual literature. Dynamical masses retain their formal uncertainties. Johnson V, where absent, is deblended using Benedict et al. (2016) Table 10 and the retained component distance; existing photometry is preserved. No individual orbital velocity or age is inferred.",
+        "sourceComponentMapping": "Table 6 uses 61 Cyg B as the fitted primary, reversing the familiar A/B labels. Section V.2 explicitly resolves the assignment; do not copy its primary/secondary columns mechanically.",
+        "adopted": {
+          "mass_solar": {
+            "value": 0.6289,
+            "uncertainty": {
+              "minus": 0.0092,
+              "plus": 0.0094
+            },
+            "status": "measured",
+            "reference": "2025AJ....170...52G",
+            "section": "section V.2 and Table 6",
+            "sourceUrl": "https://arxiv.org/html/2505.12563v1",
+            "scope": "61 Cygni B; individual component measurement, not pair-total mass."
+          }
+        },
+        "retained": {}
+      },
+      "supersededNotes": [
+        {
+          "text": "Component-resolved Johnson V not independently established; multi-star system V withheld.",
+          "reason": "Individual absolute_mag is now available."
+        }
+      ],
       "spectralSubtypes": {
         "spectralType": "K7V",
         "labels": [
@@ -26062,6 +26297,12 @@
         "method": "individual SIMBAD Johnson V and adopted component distance; no extinction correction",
         "V": 4.43
       },
+      "supersededNotes": [
+        {
+          "text": "Component-resolved Johnson V not independently established; multi-star system V withheld.",
+          "reason": "Individual absolute_mag is now available."
+        }
+      ],
       "spectralSubtypes": {
         "spectralType": "K0V",
         "labels": [
@@ -26081,6 +26322,12 @@
         "method": "individual SIMBAD Johnson V and adopted component distance; no extinction correction",
         "V": 11.17
       },
+      "supersededNotes": [
+        {
+          "text": "Component-resolved Johnson V not independently established; multi-star system V withheld.",
+          "reason": "Individual absolute_mag is now available."
+        }
+      ],
       "spectralSubtypes": {
         "spectralType": "M4.5V",
         "labels": [
@@ -26089,7 +26336,58 @@
         "method": "Physical subtype from this component's own adopted spectrum; no aggregate-label inheritance"
       }
     },
-    "10pc-0035": {},
+    "10pc-0035": {
+      "reviewedLiterature": {
+        "expectedName": "GX And",
+        "systemId": "gj-15",
+        "component": "A",
+        "expectedType": "star",
+        "fields": {
+          "spectral_type": {
+            "value": "M1.0V",
+            "status": "compiled",
+            "reference": "2025A&A...693A.228C:Alo15a",
+            "sourceUrl": "https://arxiv.org/html/2412.12264v1",
+            "section": "Table A.1, row 43",
+            "scope": "Exact resolved individual Gaia component; not an aggregate spectrum.",
+            "replaces": {
+              "value": "M1"
+            },
+            "sourceComponentMapping": "Published and app individual component labels agree."
+          }
+        },
+        "note": "Resolved individual main-sequence luminosity class restored from Cifuentes et al. (2025) Table A.1, attributed there to Alonso-Floriano et al. (2015). Existing numeric physical values and motion are preserved.",
+        "gaiaDr3Id": "385334230892516480",
+        "adopted": {
+          "spectral_type": {
+            "value": "M1.0V",
+            "status": "compiled",
+            "reference": "2025A&A...693A.228C:Alo15a",
+            "sourceUrl": "https://arxiv.org/html/2412.12264v1",
+            "section": "Table A.1, row 43",
+            "scope": "Exact resolved individual Gaia component; not an aggregate spectrum.",
+            "replaces": {
+              "value": "M1"
+            },
+            "sourceComponentMapping": "Published and app individual component labels agree."
+          }
+        },
+        "retained": {},
+        "replaced": {
+          "spectral_type": {
+            "value": "M1",
+            "sourceEvidence": null
+          }
+        }
+      },
+      "spectralSubtypes": {
+        "spectralType": "M1.0V",
+        "labels": [
+          "Main-sequence"
+        ],
+        "method": "Physical subtype from this component's own adopted spectrum; no aggregate-label inheritance"
+      }
+    },
     "10pc-0038": {},
     "10pc-0128": {
       "mass_solar": {
@@ -26341,8 +26639,110 @@
     "cns5-2403": {},
     "cns5-0289": {},
     "cns5-0298": {},
-    "10pc-0100": {},
-    "10pc-0101": {},
+    "10pc-0100": {
+      "reviewedLiterature": {
+        "expectedName": "BD+44 2051 A",
+        "systemId": "gj-412",
+        "component": "A",
+        "expectedType": "star",
+        "fields": {
+          "spectral_type": {
+            "value": "M1.0V",
+            "status": "compiled",
+            "reference": "2025A&A...693A.228C:Alo15a",
+            "sourceUrl": "https://arxiv.org/html/2412.12264v1",
+            "section": "Table A.1, row 1290",
+            "scope": "Exact resolved individual Gaia component; not an aggregate spectrum.",
+            "replaces": {
+              "value": "M1"
+            },
+            "sourceComponentMapping": "Published and app individual component labels agree."
+          }
+        },
+        "note": "Resolved individual main-sequence luminosity class restored from Cifuentes et al. (2025) Table A.1, attributed there to Alonso-Floriano et al. (2015). Existing numeric physical values and motion are preserved.",
+        "gaiaDr3Id": "778947814402602752",
+        "adopted": {
+          "spectral_type": {
+            "value": "M1.0V",
+            "status": "compiled",
+            "reference": "2025A&A...693A.228C:Alo15a",
+            "sourceUrl": "https://arxiv.org/html/2412.12264v1",
+            "section": "Table A.1, row 1290",
+            "scope": "Exact resolved individual Gaia component; not an aggregate spectrum.",
+            "replaces": {
+              "value": "M1"
+            },
+            "sourceComponentMapping": "Published and app individual component labels agree."
+          }
+        },
+        "retained": {},
+        "replaced": {
+          "spectral_type": {
+            "value": "M1",
+            "sourceEvidence": null
+          }
+        }
+      },
+      "spectralSubtypes": {
+        "spectralType": "M1.0V",
+        "labels": [
+          "Main-sequence"
+        ],
+        "method": "Physical subtype from this component's own adopted spectrum; no aggregate-label inheritance"
+      }
+    },
+    "10pc-0101": {
+      "reviewedLiterature": {
+        "expectedName": "WX UMa",
+        "systemId": "gj-412",
+        "component": "B",
+        "expectedType": "star",
+        "fields": {
+          "spectral_type": {
+            "value": "M5.5V",
+            "status": "compiled",
+            "reference": "2025A&A...693A.228C:Alo15a",
+            "sourceUrl": "https://arxiv.org/html/2412.12264v1",
+            "section": "Table A.1, row 1291",
+            "scope": "Exact resolved individual Gaia component; not an aggregate spectrum.",
+            "replaces": {
+              "value": "M5.5"
+            },
+            "sourceComponentMapping": "Published and app individual component labels agree."
+          }
+        },
+        "note": "Resolved individual main-sequence luminosity class restored from Cifuentes et al. (2025) Table A.1, attributed there to Alonso-Floriano et al. (2015). Existing numeric physical values and motion are preserved.",
+        "gaiaDr3Id": "778947608243864320",
+        "adopted": {
+          "spectral_type": {
+            "value": "M5.5V",
+            "status": "compiled",
+            "reference": "2025A&A...693A.228C:Alo15a",
+            "sourceUrl": "https://arxiv.org/html/2412.12264v1",
+            "section": "Table A.1, row 1291",
+            "scope": "Exact resolved individual Gaia component; not an aggregate spectrum.",
+            "replaces": {
+              "value": "M5.5"
+            },
+            "sourceComponentMapping": "Published and app individual component labels agree."
+          }
+        },
+        "retained": {},
+        "replaced": {
+          "spectral_type": {
+            "value": "M5.5",
+            "sourceEvidence": null
+          }
+        }
+      },
+      "spectralSubtypes": {
+        "spectralType": "M5.5V",
+        "labels": [
+          "Main-sequence"
+        ],
+        "method": "Physical subtype from this component's own adopted spectrum; no aggregate-label inheritance"
+      }
+    },
     "cns5-2724": {},
     "cns5-2723": {},
     "cns5-2778": {
@@ -26646,6 +27046,56 @@
         "source": "2025A&A...693A.228C:Table A.1",
         "recordId": "2084",
         "method": "published component measurement/calibration estimate"
+      },
+      "reviewedLiterature": {
+        "expectedName": "HD 173739",
+        "systemId": "gj-725",
+        "component": "A",
+        "expectedType": "star",
+        "fields": {
+          "spectral_type": {
+            "value": "M3.0V",
+            "status": "compiled",
+            "reference": "2025A&A...693A.228C:Alo15a",
+            "sourceUrl": "https://arxiv.org/html/2412.12264v1",
+            "section": "Table A.1, row 2084",
+            "scope": "Exact resolved individual Gaia component; not an aggregate spectrum.",
+            "replaces": {
+              "value": "M3"
+            },
+            "sourceComponentMapping": "Published and app individual component labels agree."
+          }
+        },
+        "note": "Resolved individual main-sequence luminosity class restored from Cifuentes et al. (2025) Table A.1, attributed there to Alonso-Floriano et al. (2015). Existing numeric physical values and motion are preserved.",
+        "gaiaDr3Id": "2154880616774131840",
+        "adopted": {
+          "spectral_type": {
+            "value": "M3.0V",
+            "status": "compiled",
+            "reference": "2025A&A...693A.228C:Alo15a",
+            "sourceUrl": "https://arxiv.org/html/2412.12264v1",
+            "section": "Table A.1, row 2084",
+            "scope": "Exact resolved individual Gaia component; not an aggregate spectrum.",
+            "replaces": {
+              "value": "M3"
+            },
+            "sourceComponentMapping": "Published and app individual component labels agree."
+          }
+        },
+        "retained": {},
+        "replaced": {
+          "spectral_type": {
+            "value": "M3",
+            "sourceEvidence": null
+          }
+        }
+      },
+      "spectralSubtypes": {
+        "spectralType": "M3.0V",
+        "labels": [
+          "Main-sequence"
+        ],
+        "method": "Physical subtype from this component's own adopted spectrum; no aggregate-label inheritance"
       }
     },
     "10pc-0034": {
@@ -26653,6 +27103,56 @@
         "source": "2025A&A...693A.228C:Table A.1",
         "recordId": "2085",
         "method": "published component measurement/calibration estimate"
+      },
+      "reviewedLiterature": {
+        "expectedName": "HD 173740",
+        "systemId": "gj-725",
+        "component": "B",
+        "expectedType": "star",
+        "fields": {
+          "spectral_type": {
+            "value": "M3.5V",
+            "status": "compiled",
+            "reference": "2025A&A...693A.228C:Alo15a",
+            "sourceUrl": "https://arxiv.org/html/2412.12264v1",
+            "section": "Table A.1, row 2085",
+            "scope": "Exact resolved individual Gaia component; not an aggregate spectrum.",
+            "replaces": {
+              "value": "M3.5"
+            },
+            "sourceComponentMapping": "Published and app individual component labels agree."
+          }
+        },
+        "note": "Resolved individual main-sequence luminosity class restored from Cifuentes et al. (2025) Table A.1, attributed there to Alonso-Floriano et al. (2015). Existing numeric physical values and motion are preserved.",
+        "gaiaDr3Id": "2154880616774131712",
+        "adopted": {
+          "spectral_type": {
+            "value": "M3.5V",
+            "status": "compiled",
+            "reference": "2025A&A...693A.228C:Alo15a",
+            "sourceUrl": "https://arxiv.org/html/2412.12264v1",
+            "section": "Table A.1, row 2085",
+            "scope": "Exact resolved individual Gaia component; not an aggregate spectrum.",
+            "replaces": {
+              "value": "M3.5"
+            },
+            "sourceComponentMapping": "Published and app individual component labels agree."
+          }
+        },
+        "retained": {},
+        "replaced": {
+          "spectral_type": {
+            "value": "M3.5",
+            "sourceEvidence": null
+          }
+        }
+      },
+      "spectralSubtypes": {
+        "spectralType": "M3.5V",
+        "labels": [
+          "Main-sequence"
+        ],
+        "method": "Physical subtype from this component's own adopted spectrum; no aggregate-label inheritance"
       }
     },
     "cns5-4747": {},
@@ -26677,6 +27177,56 @@
         "source": "2025A&A...693A.228C:Table A.1",
         "recordId": "2196",
         "method": "published component measurement/calibration estimate"
+      },
+      "reviewedLiterature": {
+        "expectedName": "GJ 1245 B",
+        "systemId": "gj-1245",
+        "component": "B",
+        "expectedType": "star",
+        "fields": {
+          "spectral_type": {
+            "value": "M5.5V",
+            "status": "compiled",
+            "reference": "2025A&A...693A.228C:Alo15a",
+            "sourceUrl": "https://arxiv.org/html/2412.12264v1",
+            "section": "Table A.1, row 2196",
+            "scope": "Exact resolved individual Gaia component; not an aggregate spectrum.",
+            "replaces": {
+              "value": "M5.5"
+            },
+            "sourceComponentMapping": "Source name GJ 1245 B maps to the app wide B; the compilation labels it C. Gaia identity is unique and distinct from unresolved A/C."
+          }
+        },
+        "note": "Resolved individual main-sequence luminosity class restored from Cifuentes et al. (2025) Table A.1, attributed there to Alonso-Floriano et al. (2015). Existing numeric physical values and motion are preserved.",
+        "gaiaDr3Id": "2079073928612821760",
+        "adopted": {
+          "spectral_type": {
+            "value": "M5.5V",
+            "status": "compiled",
+            "reference": "2025A&A...693A.228C:Alo15a",
+            "sourceUrl": "https://arxiv.org/html/2412.12264v1",
+            "section": "Table A.1, row 2196",
+            "scope": "Exact resolved individual Gaia component; not an aggregate spectrum.",
+            "replaces": {
+              "value": "M5.5"
+            },
+            "sourceComponentMapping": "Source name GJ 1245 B maps to the app wide B; the compilation labels it C. Gaia identity is unique and distinct from unresolved A/C."
+          }
+        },
+        "retained": {},
+        "replaced": {
+          "spectral_type": {
+            "value": "M5.5",
+            "sourceEvidence": null
+          }
+        }
+      },
+      "spectralSubtypes": {
+        "spectralType": "M5.5V",
+        "labels": [
+          "Main-sequence"
+        ],
+        "method": "Physical subtype from this component's own adopted spectrum; no aggregate-label inheritance"
       }
     },
     "cns5-5128": {
@@ -26742,30 +27292,21 @@
       }
     },
     "10pc-0062": {
-      "mass_solar": {
-        "source": "2025A&A...693A.228C:Table A.1",
-        "recordId": "2458",
-        "method": "published component measurement/calibration estimate"
+      "reviewedPhysicalOverride": {
+        "values": {
+          "spectral_type": "M4V"
+        },
+        "source": "Henry et al. 1999, section 3.1 and Table 1; resolved MMT spectra on 1990-09-13",
+        "sourceUrl": "https://www.as.utexas.edu/~fritz/astrometry/Papers_in_pdf/%7BHen99%7DMLR.pdf",
+        "scope": "Individual Kruger 60 B; confirmed resolved spectrum, not the AB composite.",
+        "note": "Kruger 60 B luminosity class V restored from its resolved MMT spectrum (Henry et al. 1999 section 3.1)."
       },
-      "radius_solar": {
-        "source": "2025A&A...693A.228C:Table A.1",
-        "recordId": "2458",
-        "method": "published component measurement/calibration estimate"
-      },
-      "metallicity_dex": {
-        "source": "2025A&A...693A.228C:Table A.1",
-        "recordId": "2458",
-        "method": "published component measurement/calibration estimate"
-      },
-      "luminosity_solar": {
-        "field": "luminosity_solar",
-        "value": 0.004158406668,
-        "status": "derived",
-        "reference": "Stefan-Boltzmann scaling",
-        "inputs": {
-          "temperature_k": 3210.0,
-          "radius_solar": 0.2085
-        }
+      "spectralSubtypes": {
+        "spectralType": "M4V",
+        "labels": [
+          "Main-sequence"
+        ],
+        "method": "Physical subtype from this component's own adopted spectrum; no aggregate-label inheritance"
       }
     },
     "cns5-5800": {},
@@ -34963,6 +35504,98 @@
       "withheldIntegratedFields": {
         "temperature_k": 3000.0,
         "metallicity_dex": 0.07
+      },
+      "reviewedLiterature": {
+        "expectedName": "G 24-16 A",
+        "systemId": "orb6-20298+0941-a-b",
+        "component": "A",
+        "expectedType": "star",
+        "fields": {
+          "mass_solar": {
+            "value": 0.237,
+            "uncertainty": 0.004,
+            "status": "measured",
+            "reference": "2016AJ....152..141B",
+            "section": "Table 10",
+            "sourceUrl": "https://www.astro.gsu.edu/RECONS/published37.pdf",
+            "scope": "GJ 791.2 A; individual component measurement, not pair-total mass."
+          },
+          "apparent_mag": {
+            "value": 13.182149796031004,
+            "uncertainty": 0.04027397151618193,
+            "status": "derived",
+            "passband": "Johnson V",
+            "reference": "2016AJ....152..141B",
+            "sourceUrl": "https://www.astro.gsu.edu/RECONS/published37.pdf",
+            "section": "Table 10 and section 6",
+            "inputs": {
+              "publishedPair": "GJ 791.2 AB",
+              "starIds": [
+                "cns5-5064",
+                "orb6-20298+0941-a-b-b"
+              ],
+              "systemJohnsonV": 13.13,
+              "systemJohnsonVUncertainty": 0.04,
+              "deltaVSecondaryMinusPrimary": 3.27,
+              "deltaVUncertainty": 0.1,
+              "epoch": null,
+              "reference": "2016AJ....152..141B:Table 10; section 6",
+              "scope": "Flux of the named pair only. GJ 1245 AC excludes wide B; GJ 22 AC excludes wide B.",
+              "method": "V_primary = V_pair + 2.5 log10(1 + 10^(-0.4 deltaV)); V_secondary = V_primary + deltaV. First-order error propagation assumes independent pair V and deltaV; component magnitudes are correlated.",
+              "caveat": "Published compiled baseline photometry, including transformed HST F583W contrasts; not a dated flare observation. Preserve A/B/C identities when the secondary is slightly brighter."
+            },
+            "scope": "Individual G 24-16 A; deblended from the named pair, not assigned its total flux."
+          }
+        },
+        "note": "GJ 791.2 A: reviewed individual literature. Dynamical masses retain their formal uncertainties. Johnson V, where absent, is deblended using Benedict et al. (2016) Table 10 and the retained component distance; existing photometry is preserved. No individual orbital velocity or age is inferred.",
+        "sourceComponentMapping": "Retain formal uncertainties, source parallax and the source-to-internal component mapping. Wolf 424 has a slight V-band brightness reversal; do not reorder the A/B identities by brightness.",
+        "adopted": {
+          "mass_solar": {
+            "value": 0.237,
+            "uncertainty": 0.004,
+            "status": "measured",
+            "reference": "2016AJ....152..141B",
+            "section": "Table 10",
+            "sourceUrl": "https://www.astro.gsu.edu/RECONS/published37.pdf",
+            "scope": "GJ 791.2 A; individual component measurement, not pair-total mass."
+          },
+          "apparent_mag": {
+            "value": 13.182149796031004,
+            "uncertainty": 0.04027397151618193,
+            "status": "derived",
+            "passband": "Johnson V",
+            "reference": "2016AJ....152..141B",
+            "sourceUrl": "https://www.astro.gsu.edu/RECONS/published37.pdf",
+            "section": "Table 10 and section 6",
+            "inputs": {
+              "publishedPair": "GJ 791.2 AB",
+              "starIds": [
+                "cns5-5064",
+                "orb6-20298+0941-a-b-b"
+              ],
+              "systemJohnsonV": 13.13,
+              "systemJohnsonVUncertainty": 0.04,
+              "deltaVSecondaryMinusPrimary": 3.27,
+              "deltaVUncertainty": 0.1,
+              "epoch": null,
+              "reference": "2016AJ....152..141B:Table 10; section 6",
+              "scope": "Flux of the named pair only. GJ 1245 AC excludes wide B; GJ 22 AC excludes wide B.",
+              "method": "V_primary = V_pair + 2.5 log10(1 + 10^(-0.4 deltaV)); V_secondary = V_primary + deltaV. First-order error propagation assumes independent pair V and deltaV; component magnitudes are correlated.",
+              "caveat": "Published compiled baseline photometry, including transformed HST F583W contrasts; not a dated flare observation. Preserve A/B/C identities when the secondary is slightly brighter."
+            },
+            "scope": "Individual G 24-16 A; deblended from the named pair, not assigned its total flux."
+          },
+          "absolute_mag": {
+            "value": 13.455215060334927,
+            "status": "derived",
+            "method": "Component Johnson V and adopted catalog distance; no extinction correction",
+            "inputs": {
+              "apparent_mag": 13.182149796031004,
+              "distance_pc": 8.818342186114826
+            }
+          }
+        },
+        "retained": {}
       }
     },
     "orb6-20298+0941-a-b-b": {
@@ -34984,7 +35617,99 @@
           "cns5-5064"
         ]
       },
-      "withheldIntegratedFields": {}
+      "withheldIntegratedFields": {},
+      "reviewedLiterature": {
+        "expectedName": "G 24-16 B",
+        "systemId": "orb6-20298+0941-a-b",
+        "component": "B",
+        "expectedType": "star",
+        "fields": {
+          "mass_solar": {
+            "value": 0.114,
+            "uncertainty": 0.002,
+            "status": "measured",
+            "reference": "2016AJ....152..141B",
+            "section": "Table 10",
+            "sourceUrl": "https://www.astro.gsu.edu/RECONS/published37.pdf",
+            "scope": "GJ 791.2 B; individual component measurement, not pair-total mass."
+          },
+          "apparent_mag": {
+            "value": 16.452149796031005,
+            "uncertainty": 0.10336374382400072,
+            "status": "derived",
+            "passband": "Johnson V",
+            "reference": "2016AJ....152..141B",
+            "sourceUrl": "https://www.astro.gsu.edu/RECONS/published37.pdf",
+            "section": "Table 10 and section 6",
+            "inputs": {
+              "publishedPair": "GJ 791.2 AB",
+              "starIds": [
+                "cns5-5064",
+                "orb6-20298+0941-a-b-b"
+              ],
+              "systemJohnsonV": 13.13,
+              "systemJohnsonVUncertainty": 0.04,
+              "deltaVSecondaryMinusPrimary": 3.27,
+              "deltaVUncertainty": 0.1,
+              "epoch": null,
+              "reference": "2016AJ....152..141B:Table 10; section 6",
+              "scope": "Flux of the named pair only. GJ 1245 AC excludes wide B; GJ 22 AC excludes wide B.",
+              "method": "V_primary = V_pair + 2.5 log10(1 + 10^(-0.4 deltaV)); V_secondary = V_primary + deltaV. First-order error propagation assumes independent pair V and deltaV; component magnitudes are correlated.",
+              "caveat": "Published compiled baseline photometry, including transformed HST F583W contrasts; not a dated flare observation. Preserve A/B/C identities when the secondary is slightly brighter."
+            },
+            "scope": "Individual G 24-16 B; deblended from the named pair, not assigned its total flux."
+          }
+        },
+        "note": "GJ 791.2 B: reviewed individual literature. Dynamical masses retain their formal uncertainties. Johnson V, where absent, is deblended using Benedict et al. (2016) Table 10 and the retained component distance; existing photometry is preserved. No individual orbital velocity or age is inferred.",
+        "sourceComponentMapping": "Retain formal uncertainties, source parallax and the source-to-internal component mapping. Wolf 424 has a slight V-band brightness reversal; do not reorder the A/B identities by brightness.",
+        "adopted": {
+          "mass_solar": {
+            "value": 0.114,
+            "uncertainty": 0.002,
+            "status": "measured",
+            "reference": "2016AJ....152..141B",
+            "section": "Table 10",
+            "sourceUrl": "https://www.astro.gsu.edu/RECONS/published37.pdf",
+            "scope": "GJ 791.2 B; individual component measurement, not pair-total mass."
+          },
+          "apparent_mag": {
+            "value": 16.452149796031005,
+            "uncertainty": 0.10336374382400072,
+            "status": "derived",
+            "passband": "Johnson V",
+            "reference": "2016AJ....152..141B",
+            "sourceUrl": "https://www.astro.gsu.edu/RECONS/published37.pdf",
+            "section": "Table 10 and section 6",
+            "inputs": {
+              "publishedPair": "GJ 791.2 AB",
+              "starIds": [
+                "cns5-5064",
+                "orb6-20298+0941-a-b-b"
+              ],
+              "systemJohnsonV": 13.13,
+              "systemJohnsonVUncertainty": 0.04,
+              "deltaVSecondaryMinusPrimary": 3.27,
+              "deltaVUncertainty": 0.1,
+              "epoch": null,
+              "reference": "2016AJ....152..141B:Table 10; section 6",
+              "scope": "Flux of the named pair only. GJ 1245 AC excludes wide B; GJ 22 AC excludes wide B.",
+              "method": "V_primary = V_pair + 2.5 log10(1 + 10^(-0.4 deltaV)); V_secondary = V_primary + deltaV. First-order error propagation assumes independent pair V and deltaV; component magnitudes are correlated.",
+              "caveat": "Published compiled baseline photometry, including transformed HST F583W contrasts; not a dated flare observation. Preserve A/B/C identities when the secondary is slightly brighter."
+            },
+            "scope": "Individual G 24-16 B; deblended from the named pair, not assigned its total flux."
+          },
+          "absolute_mag": {
+            "value": 16.72521506033493,
+            "status": "derived",
+            "method": "Component Johnson V and adopted catalog distance; no extinction correction",
+            "inputs": {
+              "apparent_mag": 16.452149796031005,
+              "distance_pc": 8.818342186114826
+            }
+          }
+        },
+        "retained": {}
+      }
     },
     "hip-102281": {
       "membership": {
@@ -35441,7 +36166,98 @@
       "absolute_mag": {
         "method": "individual SIMBAD Johnson V and adopted component distance; no extinction correction",
         "V": 9.53
-      }
+      },
+      "reviewedLiterature": {
+        "expectedName": "GJ 166 B",
+        "systemId": "keid",
+        "component": "B",
+        "expectedType": "white_dwarf",
+        "fields": {
+          "mass_solar": {
+            "value": 0.573,
+            "uncertainty": 0.018,
+            "status": "measured",
+            "reference": "arXiv:1709.00478",
+            "section": "Table 1; mass attributed to Mason et al. 2017",
+            "sourceUrl": "https://arxiv.org/pdf/1709.00478",
+            "scope": "40 Eridani B / GJ 166 B; individual component measurement, not pair-total mass."
+          },
+          "radius_solar": {
+            "value": 0.01308,
+            "uncertainty": 0.0002,
+            "status": "derived",
+            "reference": "arXiv:1709.00478",
+            "section": "Table 1",
+            "sourceUrl": "https://arxiv.org/pdf/1709.00478",
+            "scope": "40 Eridani B / GJ 166 B; individual component measurement, not pair-total mass."
+          },
+          "luminosity_solar": {
+            "value": 0.01349,
+            "uncertainty": 0.00054,
+            "status": "model-derived",
+            "reference": "2017ApJ...848...11B",
+            "sourceUrl": "https://arxiv.org/pdf/1709.00478",
+            "section": "section 4",
+            "scope": "40 Eridani B individually resolved white dwarf",
+            "inputs": {
+              "source_temperature_k": 17200,
+              "source_temperature_uncertainty_k": 110,
+              "source_radius_solar": 0.01308,
+              "source_radius_uncertainty_solar": 0.0002
+            },
+            "caveat": "Published atmosphere/parallax luminosity. The existing catalog Teff=17099 K is retained as an independent measurement; do not force an exact Stefan-Boltzmann match."
+          }
+        },
+        "note": "40 Eridani B / GJ 166 B: reviewed individual literature. Dynamical masses retain their formal uncertainties. Johnson V, where absent, is deblended using Benedict et al. (2016) Table 10 and the retained component distance; existing photometry is preserved. No individual orbital velocity or age is inferred.",
+        "sourceComponentMapping": "Dedicated white dwarf analysis is available. Resolve the preferred literature release and distance before adoption; do not use an M-dwarf G-band calibration for this star.",
+        "adopted": {
+          "mass_solar": {
+            "value": 0.573,
+            "uncertainty": 0.018,
+            "status": "measured",
+            "reference": "arXiv:1709.00478",
+            "section": "Table 1; mass attributed to Mason et al. 2017",
+            "sourceUrl": "https://arxiv.org/pdf/1709.00478",
+            "scope": "40 Eridani B / GJ 166 B; individual component measurement, not pair-total mass."
+          },
+          "radius_solar": {
+            "value": 0.01308,
+            "uncertainty": 0.0002,
+            "status": "derived",
+            "reference": "arXiv:1709.00478",
+            "section": "Table 1",
+            "sourceUrl": "https://arxiv.org/pdf/1709.00478",
+            "scope": "40 Eridani B / GJ 166 B; individual component measurement, not pair-total mass."
+          },
+          "luminosity_solar": {
+            "value": 0.01349,
+            "uncertainty": 0.00054,
+            "status": "model-derived",
+            "reference": "2017ApJ...848...11B",
+            "sourceUrl": "https://arxiv.org/pdf/1709.00478",
+            "section": "section 4",
+            "scope": "40 Eridani B individually resolved white dwarf",
+            "inputs": {
+              "source_temperature_k": 17200,
+              "source_temperature_uncertainty_k": 110,
+              "source_radius_solar": 0.01308,
+              "source_radius_uncertainty_solar": 0.0002
+            },
+            "caveat": "Published atmosphere/parallax luminosity. The existing catalog Teff=17099 K is retained as an independent measurement; do not force an exact Stefan-Boltzmann match."
+          }
+        },
+        "retained": {}
+      },
+      "supersededNotes": [
+        {
+          "text": "Component-resolved Johnson V not independently established; multi-star system V withheld.",
+          "reason": "Individual absolute_mag is now available."
+        },
+        {
+          "text": "No appropriate object-specific temperature adopted; dwarf sequence not applied.",
+          "reason": "Individual temperature_k is now available."
+        }
+      ]
     },
     "cns5-4232": {
       "simbad": {
@@ -35595,6 +36411,12 @@
         "method": "individual SIMBAD Johnson V and adopted component distance; no extinction correction",
         "V": 8.125
       },
+      "supersededNotes": [
+        {
+          "text": "Component-resolved Johnson V not independently established; multi-star system V withheld.",
+          "reason": "Individual absolute_mag is now available."
+        }
+      ],
       "spectralSubtypes": {
         "spectralType": "M1V",
         "labels": [
@@ -35953,6 +36775,12 @@
         "method": "individual SIMBAD Johnson V and adopted component distance; no extinction correction",
         "V": 4.69
       },
+      "supersededNotes": [
+        {
+          "text": "Component-resolved Johnson V not independently established; multi-star system V withheld.",
+          "reason": "Individual absolute_mag is now available."
+        }
+      ],
       "spectralSubtypes": {
         "spectralType": "K5V",
         "labels": [
@@ -35971,7 +36799,13 @@
       "absolute_mag": {
         "method": "individual SIMBAD Johnson V and adopted component distance; no extinction correction",
         "V": 24.12
-      }
+      },
+      "supersededNotes": [
+        {
+          "text": "Component-resolved Johnson V not independently established; multi-star system V withheld.",
+          "reason": "Individual absolute_mag is now available."
+        }
+      ]
     },
     "10pc-0043": {
       "simbad": {
@@ -35983,6 +36817,30 @@
       "absolute_mag": {
         "method": "individual SIMBAD Johnson V and adopted component distance; no extinction correction",
         "V": 24.12
+      },
+      "supersededNotes": [
+        {
+          "text": "Component-resolved Johnson V not independently established; multi-star system V withheld.",
+          "reason": "Individual absolute_mag is now available."
+        }
+      ]
+    },
+    "10pc-0061": {
+      "reviewedPhysicalOverride": {
+        "values": {
+          "spectral_type": "M3V"
+        },
+        "source": "Henry et al. 1999, section 3.1 and Table 1; resolved MMT spectra on 1990-09-13",
+        "sourceUrl": "https://www.as.utexas.edu/~fritz/astrometry/Papers_in_pdf/%7BHen99%7DMLR.pdf",
+        "scope": "Individual Kruger 60 A; confirmed resolved spectrum, not the AB composite.",
+        "note": "Kruger 60 A luminosity class V restored from its resolved MMT spectrum (Henry et al. 1999 section 3.1)."
+      },
+      "spectralSubtypes": {
+        "spectralType": "M3V",
+        "labels": [
+          "Main-sequence"
+        ],
+        "method": "Physical subtype from this component's own adopted spectrum; no aggregate-label inheritance"
       }
     },
     "capella-ab": {
@@ -36104,7 +36962,13 @@
             }
           }
         }
-      }
+      },
+      "supersededNotes": [
+        {
+          "text": "Withheld individual fields: temperature_k, luminosity_solar, radius_solar, metallicity_dex, age_gyr, absolute_mag.",
+          "reason": "Later reviewed individual values supersede part of this source withholding."
+        }
+      ]
     },
     "chi-draconis-b": {
       "reviewedLiterature": {
@@ -36168,12 +37032,922 @@
             }
           }
         }
+      },
+      "supersededNotes": [
+        {
+          "text": "Withheld individual fields: temperature_k, luminosity_solar, radius_solar, metallicity_dex, age_gyr, absolute_mag.",
+          "reason": "Later reviewed individual values supersede part of this source withholding."
+        }
+      ]
+    },
+    "cns5-0155": {
+      "reviewedLiterature": {
+        "expectedName": "GJ 22 A",
+        "systemId": "gj-22",
+        "component": "A",
+        "expectedType": "star",
+        "fields": {
+          "mass_solar": {
+            "value": 0.405,
+            "uncertainty": 0.008,
+            "status": "measured",
+            "reference": "2016AJ....152..141B",
+            "section": "Table 10",
+            "sourceUrl": "https://www.astro.gsu.edu/RECONS/published37.pdf",
+            "scope": "GJ 22 A; individual component measurement, not pair-total mass."
+          },
+          "apparent_mag": {
+            "value": 10.34184389466865,
+            "uncertainty": 0.030506665883273026,
+            "status": "derived",
+            "passband": "Johnson V",
+            "reference": "2016AJ....152..141B",
+            "sourceUrl": "https://www.astro.gsu.edu/RECONS/published37.pdf",
+            "section": "Table 10 and section 6",
+            "inputs": {
+              "publishedPair": "GJ 22 AC",
+              "starIds": [
+                "cns5-0155",
+                "gj-22-c"
+              ],
+              "systemJohnsonV": 10.28,
+              "systemJohnsonVUncertainty": 0.03,
+              "deltaVSecondaryMinusPrimary": 3.08,
+              "deltaVUncertainty": 0.1,
+              "epoch": null,
+              "reference": "2016AJ....152..141B:Table 10; section 6",
+              "scope": "Flux of the named pair only. GJ 1245 AC excludes wide B; GJ 22 AC excludes wide B.",
+              "method": "V_primary = V_pair + 2.5 log10(1 + 10^(-0.4 deltaV)); V_secondary = V_primary + deltaV. First-order error propagation assumes independent pair V and deltaV; component magnitudes are correlated.",
+              "caveat": "Published compiled baseline photometry, including transformed HST F583W contrasts; not a dated flare observation. Preserve A/B/C identities when the secondary is slightly brighter."
+            },
+            "scope": "Individual GJ 22 A; deblended from the named pair, not assigned its total flux."
+          }
+        },
+        "note": "GJ 22 A: reviewed individual literature. Dynamical masses retain their formal uncertainties. Johnson V, where absent, is deblended using Benedict et al. (2016) Table 10 and the retained component distance; existing photometry is preserved. No individual orbital velocity or age is inferred.",
+        "sourceComponentMapping": "Retain formal uncertainties, source parallax and the source-to-internal component mapping. Wolf 424 has a slight V-band brightness reversal; do not reorder the A/B identities by brightness.",
+        "adopted": {
+          "mass_solar": {
+            "value": 0.405,
+            "uncertainty": 0.008,
+            "status": "measured",
+            "reference": "2016AJ....152..141B",
+            "section": "Table 10",
+            "sourceUrl": "https://www.astro.gsu.edu/RECONS/published37.pdf",
+            "scope": "GJ 22 A; individual component measurement, not pair-total mass."
+          },
+          "apparent_mag": {
+            "value": 10.34184389466865,
+            "uncertainty": 0.030506665883273026,
+            "status": "derived",
+            "passband": "Johnson V",
+            "reference": "2016AJ....152..141B",
+            "sourceUrl": "https://www.astro.gsu.edu/RECONS/published37.pdf",
+            "section": "Table 10 and section 6",
+            "inputs": {
+              "publishedPair": "GJ 22 AC",
+              "starIds": [
+                "cns5-0155",
+                "gj-22-c"
+              ],
+              "systemJohnsonV": 10.28,
+              "systemJohnsonVUncertainty": 0.03,
+              "deltaVSecondaryMinusPrimary": 3.08,
+              "deltaVUncertainty": 0.1,
+              "epoch": null,
+              "reference": "2016AJ....152..141B:Table 10; section 6",
+              "scope": "Flux of the named pair only. GJ 1245 AC excludes wide B; GJ 22 AC excludes wide B.",
+              "method": "V_primary = V_pair + 2.5 log10(1 + 10^(-0.4 deltaV)); V_secondary = V_primary + deltaV. First-order error propagation assumes independent pair V and deltaV; component magnitudes are correlated.",
+              "caveat": "Published compiled baseline photometry, including transformed HST F583W contrasts; not a dated flare observation. Preserve A/B/C identities when the secondary is slightly brighter."
+            },
+            "scope": "Individual GJ 22 A; deblended from the named pair, not assigned its total flux."
+          },
+          "absolute_mag": {
+            "value": 10.36529364086887,
+            "status": "derived",
+            "method": "Component Johnson V and adopted catalog distance; no extinction correction",
+            "inputs": {
+              "apparent_mag": 10.34184389466865,
+              "distance_pc": 9.892590927426387
+            }
+          }
+        },
+        "retained": {}
+      },
+      "supersededNotes": [
+        {
+          "text": "Withheld individual fields: temperature_k, mass_solar, luminosity_solar, radius_solar, metallicity_dex, age_gyr, absolute_mag.",
+          "reason": "Later reviewed individual values supersede part of this source withholding."
+        }
+      ]
+    },
+    "gj-22-c": {
+      "reviewedLiterature": {
+        "expectedName": "GJ 22 C",
+        "systemId": "gj-22",
+        "component": "C",
+        "expectedType": "star",
+        "fields": {
+          "mass_solar": {
+            "value": 0.157,
+            "uncertainty": 0.003,
+            "status": "measured",
+            "reference": "2016AJ....152..141B",
+            "section": "Table 10",
+            "sourceUrl": "https://www.astro.gsu.edu/RECONS/published37.pdf",
+            "scope": "GJ 22 C; individual component measurement, not pair-total mass."
+          },
+          "apparent_mag": {
+            "value": 13.42184389466865,
+            "uncertainty": 0.09911249905529507,
+            "status": "derived",
+            "passband": "Johnson V",
+            "reference": "2016AJ....152..141B",
+            "sourceUrl": "https://www.astro.gsu.edu/RECONS/published37.pdf",
+            "section": "Table 10 and section 6",
+            "inputs": {
+              "publishedPair": "GJ 22 AC",
+              "starIds": [
+                "cns5-0155",
+                "gj-22-c"
+              ],
+              "systemJohnsonV": 10.28,
+              "systemJohnsonVUncertainty": 0.03,
+              "deltaVSecondaryMinusPrimary": 3.08,
+              "deltaVUncertainty": 0.1,
+              "epoch": null,
+              "reference": "2016AJ....152..141B:Table 10; section 6",
+              "scope": "Flux of the named pair only. GJ 1245 AC excludes wide B; GJ 22 AC excludes wide B.",
+              "method": "V_primary = V_pair + 2.5 log10(1 + 10^(-0.4 deltaV)); V_secondary = V_primary + deltaV. First-order error propagation assumes independent pair V and deltaV; component magnitudes are correlated.",
+              "caveat": "Published compiled baseline photometry, including transformed HST F583W contrasts; not a dated flare observation. Preserve A/B/C identities when the secondary is slightly brighter."
+            },
+            "scope": "Individual GJ 22 C; deblended from the named pair, not assigned its total flux."
+          }
+        },
+        "note": "GJ 22 C: reviewed individual literature. Dynamical masses retain their formal uncertainties. Johnson V, where absent, is deblended using Benedict et al. (2016) Table 10 and the retained component distance; existing photometry is preserved. No individual orbital velocity or age is inferred.",
+        "sourceComponentMapping": "Retain formal uncertainties, source parallax and the source-to-internal component mapping. Wolf 424 has a slight V-band brightness reversal; do not reorder the A/B identities by brightness.",
+        "adopted": {
+          "mass_solar": {
+            "value": 0.157,
+            "uncertainty": 0.003,
+            "status": "measured",
+            "reference": "2016AJ....152..141B",
+            "section": "Table 10",
+            "sourceUrl": "https://www.astro.gsu.edu/RECONS/published37.pdf",
+            "scope": "GJ 22 C; individual component measurement, not pair-total mass."
+          },
+          "apparent_mag": {
+            "value": 13.42184389466865,
+            "uncertainty": 0.09911249905529507,
+            "status": "derived",
+            "passband": "Johnson V",
+            "reference": "2016AJ....152..141B",
+            "sourceUrl": "https://www.astro.gsu.edu/RECONS/published37.pdf",
+            "section": "Table 10 and section 6",
+            "inputs": {
+              "publishedPair": "GJ 22 AC",
+              "starIds": [
+                "cns5-0155",
+                "gj-22-c"
+              ],
+              "systemJohnsonV": 10.28,
+              "systemJohnsonVUncertainty": 0.03,
+              "deltaVSecondaryMinusPrimary": 3.08,
+              "deltaVUncertainty": 0.1,
+              "epoch": null,
+              "reference": "2016AJ....152..141B:Table 10; section 6",
+              "scope": "Flux of the named pair only. GJ 1245 AC excludes wide B; GJ 22 AC excludes wide B.",
+              "method": "V_primary = V_pair + 2.5 log10(1 + 10^(-0.4 deltaV)); V_secondary = V_primary + deltaV. First-order error propagation assumes independent pair V and deltaV; component magnitudes are correlated.",
+              "caveat": "Published compiled baseline photometry, including transformed HST F583W contrasts; not a dated flare observation. Preserve A/B/C identities when the secondary is slightly brighter."
+            },
+            "scope": "Individual GJ 22 C; deblended from the named pair, not assigned its total flux."
+          },
+          "absolute_mag": {
+            "value": 13.44529364086887,
+            "status": "derived",
+            "method": "Component Johnson V and adopted catalog distance; no extinction correction",
+            "inputs": {
+              "apparent_mag": 13.42184389466865,
+              "distance_pc": 9.892590927426387
+            }
+          }
+        },
+        "retained": {}
+      },
+      "supersededNotes": [
+        {
+          "text": "Withheld individual fields: temperature_k, mass_solar, luminosity_solar, radius_solar, metallicity_dex, age_gyr, absolute_mag.",
+          "reason": "Later reviewed individual values supersede part of this source withholding."
+        }
+      ]
+    },
+    "10pc-0066": {
+      "reviewedLiterature": {
+        "expectedName": "V577 Mon A",
+        "systemId": "ross-614",
+        "component": "A",
+        "expectedType": "star",
+        "fields": {
+          "mass_solar": {
+            "value": 0.223,
+            "uncertainty": 0.002,
+            "status": "measured",
+            "reference": "2016AJ....152..141B",
+            "section": "Table 10",
+            "sourceUrl": "https://www.astro.gsu.edu/RECONS/published37.pdf",
+            "scope": "GJ 234 A / Ross 614 A; individual component measurement, not pair-total mass."
+          },
+          "apparent_mag": {
+            "value": 11.20184389466865,
+            "uncertainty": 0.03012746530706514,
+            "status": "derived",
+            "passband": "Johnson V",
+            "reference": "2016AJ....152..141B",
+            "sourceUrl": "https://www.astro.gsu.edu/RECONS/published37.pdf",
+            "section": "Table 10 and section 6",
+            "inputs": {
+              "publishedPair": "GJ 234 AB",
+              "starIds": [
+                "10pc-0066",
+                "10pc-0067"
+              ],
+              "systemJohnsonV": 11.14,
+              "systemJohnsonVUncertainty": 0.03,
+              "deltaVSecondaryMinusPrimary": 3.08,
+              "deltaVUncertainty": 0.05,
+              "epoch": null,
+              "reference": "2016AJ....152..141B:Table 10; section 6",
+              "scope": "Flux of the named pair only. GJ 1245 AC excludes wide B; GJ 22 AC excludes wide B.",
+              "method": "V_primary = V_pair + 2.5 log10(1 + 10^(-0.4 deltaV)); V_secondary = V_primary + deltaV. First-order error propagation assumes independent pair V and deltaV; component magnitudes are correlated.",
+              "caveat": "Published compiled baseline photometry, including transformed HST F583W contrasts; not a dated flare observation. Preserve A/B/C identities when the secondary is slightly brighter."
+            },
+            "scope": "Individual V577 Mon A; deblended from the named pair, not assigned its total flux."
+          }
+        },
+        "note": "GJ 234 A / Ross 614 A: reviewed individual literature. Dynamical masses retain their formal uncertainties. Johnson V, where absent, is deblended using Benedict et al. (2016) Table 10 and the retained component distance; existing photometry is preserved. No individual orbital velocity or age is inferred.",
+        "sourceComponentMapping": "Retain formal uncertainties, source parallax and the source-to-internal component mapping. Wolf 424 has a slight V-band brightness reversal; do not reorder the A/B identities by brightness.",
+        "adopted": {
+          "mass_solar": {
+            "value": 0.223,
+            "uncertainty": 0.002,
+            "status": "measured",
+            "reference": "2016AJ....152..141B",
+            "section": "Table 10",
+            "sourceUrl": "https://www.astro.gsu.edu/RECONS/published37.pdf",
+            "scope": "GJ 234 A / Ross 614 A; individual component measurement, not pair-total mass."
+          },
+          "apparent_mag": {
+            "value": 11.20184389466865,
+            "uncertainty": 0.03012746530706514,
+            "status": "derived",
+            "passband": "Johnson V",
+            "reference": "2016AJ....152..141B",
+            "sourceUrl": "https://www.astro.gsu.edu/RECONS/published37.pdf",
+            "section": "Table 10 and section 6",
+            "inputs": {
+              "publishedPair": "GJ 234 AB",
+              "starIds": [
+                "10pc-0066",
+                "10pc-0067"
+              ],
+              "systemJohnsonV": 11.14,
+              "systemJohnsonVUncertainty": 0.03,
+              "deltaVSecondaryMinusPrimary": 3.08,
+              "deltaVUncertainty": 0.05,
+              "epoch": null,
+              "reference": "2016AJ....152..141B:Table 10; section 6",
+              "scope": "Flux of the named pair only. GJ 1245 AC excludes wide B; GJ 22 AC excludes wide B.",
+              "method": "V_primary = V_pair + 2.5 log10(1 + 10^(-0.4 deltaV)); V_secondary = V_primary + deltaV. First-order error propagation assumes independent pair V and deltaV; component magnitudes are correlated.",
+              "caveat": "Published compiled baseline photometry, including transformed HST F583W contrasts; not a dated flare observation. Preserve A/B/C identities when the secondary is slightly brighter."
+            },
+            "scope": "Individual V577 Mon A; deblended from the named pair, not assigned its total flux."
+          },
+          "absolute_mag": {
+            "value": 13.129714681517347,
+            "status": "derived",
+            "method": "Component Johnson V and adopted catalog distance; no extinction correction",
+            "inputs": {
+              "apparent_mag": 11.20184389466865,
+              "distance_pc": 4.115530671125719
+            }
+          }
+        },
+        "retained": {}
+      },
+      "supersededNotes": [
+        {
+          "text": "Component-resolved Johnson V not independently established; multi-star system V withheld.",
+          "reason": "Individual absolute_mag is now available."
+        }
+      ]
+    },
+    "10pc-0067": {
+      "reviewedLiterature": {
+        "expectedName": "V577 Mon B",
+        "systemId": "ross-614",
+        "component": "B",
+        "expectedType": "star",
+        "fields": {
+          "mass_solar": {
+            "value": 0.109,
+            "uncertainty": 0.001,
+            "status": "measured",
+            "reference": "2016AJ....152..141B",
+            "section": "Table 10",
+            "sourceUrl": "https://www.astro.gsu.edu/RECONS/published37.pdf",
+            "scope": "GJ 234 B / Ross 614 B; individual component measurement, not pair-total mass."
+          },
+          "apparent_mag": {
+            "value": 14.28184389466865,
+            "uncertainty": 0.055953747571065034,
+            "status": "derived",
+            "passband": "Johnson V",
+            "reference": "2016AJ....152..141B",
+            "sourceUrl": "https://www.astro.gsu.edu/RECONS/published37.pdf",
+            "section": "Table 10 and section 6",
+            "inputs": {
+              "publishedPair": "GJ 234 AB",
+              "starIds": [
+                "10pc-0066",
+                "10pc-0067"
+              ],
+              "systemJohnsonV": 11.14,
+              "systemJohnsonVUncertainty": 0.03,
+              "deltaVSecondaryMinusPrimary": 3.08,
+              "deltaVUncertainty": 0.05,
+              "epoch": null,
+              "reference": "2016AJ....152..141B:Table 10; section 6",
+              "scope": "Flux of the named pair only. GJ 1245 AC excludes wide B; GJ 22 AC excludes wide B.",
+              "method": "V_primary = V_pair + 2.5 log10(1 + 10^(-0.4 deltaV)); V_secondary = V_primary + deltaV. First-order error propagation assumes independent pair V and deltaV; component magnitudes are correlated.",
+              "caveat": "Published compiled baseline photometry, including transformed HST F583W contrasts; not a dated flare observation. Preserve A/B/C identities when the secondary is slightly brighter."
+            },
+            "scope": "Individual V577 Mon B; deblended from the named pair, not assigned its total flux."
+          }
+        },
+        "note": "GJ 234 B / Ross 614 B: reviewed individual literature. Dynamical masses retain their formal uncertainties. Johnson V, where absent, is deblended using Benedict et al. (2016) Table 10 and the retained component distance; existing photometry is preserved. No individual orbital velocity or age is inferred.",
+        "sourceComponentMapping": "Retain formal uncertainties, source parallax and the source-to-internal component mapping. Wolf 424 has a slight V-band brightness reversal; do not reorder the A/B identities by brightness.",
+        "adopted": {
+          "mass_solar": {
+            "value": 0.109,
+            "uncertainty": 0.001,
+            "status": "measured",
+            "reference": "2016AJ....152..141B",
+            "section": "Table 10",
+            "sourceUrl": "https://www.astro.gsu.edu/RECONS/published37.pdf",
+            "scope": "GJ 234 B / Ross 614 B; individual component measurement, not pair-total mass."
+          },
+          "apparent_mag": {
+            "value": 14.28184389466865,
+            "uncertainty": 0.055953747571065034,
+            "status": "derived",
+            "passband": "Johnson V",
+            "reference": "2016AJ....152..141B",
+            "sourceUrl": "https://www.astro.gsu.edu/RECONS/published37.pdf",
+            "section": "Table 10 and section 6",
+            "inputs": {
+              "publishedPair": "GJ 234 AB",
+              "starIds": [
+                "10pc-0066",
+                "10pc-0067"
+              ],
+              "systemJohnsonV": 11.14,
+              "systemJohnsonVUncertainty": 0.03,
+              "deltaVSecondaryMinusPrimary": 3.08,
+              "deltaVUncertainty": 0.05,
+              "epoch": null,
+              "reference": "2016AJ....152..141B:Table 10; section 6",
+              "scope": "Flux of the named pair only. GJ 1245 AC excludes wide B; GJ 22 AC excludes wide B.",
+              "method": "V_primary = V_pair + 2.5 log10(1 + 10^(-0.4 deltaV)); V_secondary = V_primary + deltaV. First-order error propagation assumes independent pair V and deltaV; component magnitudes are correlated.",
+              "caveat": "Published compiled baseline photometry, including transformed HST F583W contrasts; not a dated flare observation. Preserve A/B/C identities when the secondary is slightly brighter."
+            },
+            "scope": "Individual V577 Mon B; deblended from the named pair, not assigned its total flux."
+          },
+          "absolute_mag": {
+            "value": 16.209570505893733,
+            "status": "derived",
+            "method": "Component Johnson V and adopted catalog distance; no extinction correction",
+            "inputs": {
+              "apparent_mag": 14.28184389466865,
+              "distance_pc": 4.115803932207458
+            }
+          }
+        },
+        "retained": {}
+      },
+      "supersededNotes": [
+        {
+          "text": "Component-resolved Johnson V not independently established; multi-star system V withheld.",
+          "reason": "Individual absolute_mag is now available."
+        }
+      ]
+    },
+    "10pc-0074": {
+      "reviewedLiterature": {
+        "expectedName": "FL Vir A",
+        "systemId": "wolf-424",
+        "component": "A",
+        "expectedType": "star",
+        "fields": {
+          "mass_solar": {
+            "value": 0.124,
+            "uncertainty": 0.005,
+            "status": "measured",
+            "reference": "2016AJ....152..141B",
+            "section": "Table 10",
+            "sourceUrl": "https://www.astro.gsu.edu/RECONS/published37.pdf",
+            "scope": "GJ 473 A / Wolf 424 A; individual component measurement, not pair-total mass."
+          },
+          "apparent_mag": {
+            "value": 13.227586502044725,
+            "uncertainty": 0.04723102451352433,
+            "status": "derived",
+            "passband": "Johnson V",
+            "reference": "2016AJ....152..141B",
+            "sourceUrl": "https://www.astro.gsu.edu/RECONS/published37.pdf",
+            "section": "Table 10 and section 6",
+            "inputs": {
+              "publishedPair": "GJ 473 AB",
+              "starIds": [
+                "10pc-0074",
+                "10pc-0075"
+              ],
+              "systemJohnsonV": 12.47,
+              "systemJohnsonVUncertainty": 0.04,
+              "deltaVSecondaryMinusPrimary": -0.01,
+              "deltaVUncertainty": 0.05,
+              "epoch": null,
+              "reference": "2016AJ....152..141B:Table 10; section 6",
+              "scope": "Flux of the named pair only. GJ 1245 AC excludes wide B; GJ 22 AC excludes wide B.",
+              "method": "V_primary = V_pair + 2.5 log10(1 + 10^(-0.4 deltaV)); V_secondary = V_primary + deltaV. First-order error propagation assumes independent pair V and deltaV; component magnitudes are correlated.",
+              "caveat": "Published compiled baseline photometry, including transformed HST F583W contrasts; not a dated flare observation. Preserve A/B/C identities when the secondary is slightly brighter."
+            },
+            "scope": "Individual FL Vir A; deblended from the named pair, not assigned its total flux."
+          }
+        },
+        "note": "GJ 473 A / Wolf 424 A: reviewed individual literature. Dynamical masses retain their formal uncertainties. Johnson V, where absent, is deblended using Benedict et al. (2016) Table 10 and the retained component distance; existing photometry is preserved. No individual orbital velocity or age is inferred.",
+        "sourceComponentMapping": "Retain formal uncertainties, source parallax and the source-to-internal component mapping. Wolf 424 has a slight V-band brightness reversal; do not reorder the A/B identities by brightness.",
+        "adopted": {
+          "mass_solar": {
+            "value": 0.124,
+            "uncertainty": 0.005,
+            "status": "measured",
+            "reference": "2016AJ....152..141B",
+            "section": "Table 10",
+            "sourceUrl": "https://www.astro.gsu.edu/RECONS/published37.pdf",
+            "scope": "GJ 473 A / Wolf 424 A; individual component measurement, not pair-total mass."
+          },
+          "apparent_mag": {
+            "value": 13.227586502044725,
+            "uncertainty": 0.04723102451352433,
+            "status": "derived",
+            "passband": "Johnson V",
+            "reference": "2016AJ....152..141B",
+            "sourceUrl": "https://www.astro.gsu.edu/RECONS/published37.pdf",
+            "section": "Table 10 and section 6",
+            "inputs": {
+              "publishedPair": "GJ 473 AB",
+              "starIds": [
+                "10pc-0074",
+                "10pc-0075"
+              ],
+              "systemJohnsonV": 12.47,
+              "systemJohnsonVUncertainty": 0.04,
+              "deltaVSecondaryMinusPrimary": -0.01,
+              "deltaVUncertainty": 0.05,
+              "epoch": null,
+              "reference": "2016AJ....152..141B:Table 10; section 6",
+              "scope": "Flux of the named pair only. GJ 1245 AC excludes wide B; GJ 22 AC excludes wide B.",
+              "method": "V_primary = V_pair + 2.5 log10(1 + 10^(-0.4 deltaV)); V_secondary = V_primary + deltaV. First-order error propagation assumes independent pair V and deltaV; component magnitudes are correlated.",
+              "caveat": "Published compiled baseline photometry, including transformed HST F583W contrasts; not a dated flare observation. Preserve A/B/C identities when the secondary is slightly brighter."
+            },
+            "scope": "Individual FL Vir A; deblended from the named pair, not assigned its total flux."
+          },
+          "absolute_mag": {
+            "value": 15.046768225096228,
+            "status": "derived",
+            "method": "Component Johnson V and adopted catalog distance; no extinction correction",
+            "inputs": {
+              "apparent_mag": 13.227586502044725,
+              "distance_pc": 4.326768461338192
+            }
+          }
+        },
+        "retained": {}
+      },
+      "supersededNotes": [
+        {
+          "text": "Component-resolved Johnson V not independently established; multi-star system V withheld.",
+          "reason": "Individual absolute_mag is now available."
+        }
+      ]
+    },
+    "10pc-0075": {
+      "reviewedLiterature": {
+        "expectedName": "FL Vir B",
+        "systemId": "wolf-424",
+        "component": "B",
+        "expectedType": "star",
+        "fields": {
+          "mass_solar": {
+            "value": 0.113,
+            "uncertainty": 0.005,
+            "status": "measured",
+            "reference": "2016AJ....152..141B",
+            "section": "Table 10",
+            "sourceUrl": "https://www.astro.gsu.edu/RECONS/published37.pdf",
+            "scope": "GJ 473 B / Wolf 424 B; individual component measurement, not pair-total mass."
+          },
+          "apparent_mag": {
+            "value": 13.217586502044725,
+            "uncertainty": 0.04710898887174951,
+            "status": "derived",
+            "passband": "Johnson V",
+            "reference": "2016AJ....152..141B",
+            "sourceUrl": "https://www.astro.gsu.edu/RECONS/published37.pdf",
+            "section": "Table 10 and section 6",
+            "inputs": {
+              "publishedPair": "GJ 473 AB",
+              "starIds": [
+                "10pc-0074",
+                "10pc-0075"
+              ],
+              "systemJohnsonV": 12.47,
+              "systemJohnsonVUncertainty": 0.04,
+              "deltaVSecondaryMinusPrimary": -0.01,
+              "deltaVUncertainty": 0.05,
+              "epoch": null,
+              "reference": "2016AJ....152..141B:Table 10; section 6",
+              "scope": "Flux of the named pair only. GJ 1245 AC excludes wide B; GJ 22 AC excludes wide B.",
+              "method": "V_primary = V_pair + 2.5 log10(1 + 10^(-0.4 deltaV)); V_secondary = V_primary + deltaV. First-order error propagation assumes independent pair V and deltaV; component magnitudes are correlated.",
+              "caveat": "Published compiled baseline photometry, including transformed HST F583W contrasts; not a dated flare observation. Preserve A/B/C identities when the secondary is slightly brighter."
+            },
+            "scope": "Individual FL Vir B; deblended from the named pair, not assigned its total flux."
+          }
+        },
+        "note": "GJ 473 B / Wolf 424 B: reviewed individual literature. Dynamical masses retain their formal uncertainties. Johnson V, where absent, is deblended using Benedict et al. (2016) Table 10 and the retained component distance; existing photometry is preserved. No individual orbital velocity or age is inferred.",
+        "sourceComponentMapping": "Retain formal uncertainties, source parallax and the source-to-internal component mapping. Wolf 424 has a slight V-band brightness reversal; do not reorder the A/B identities by brightness.",
+        "adopted": {
+          "mass_solar": {
+            "value": 0.113,
+            "uncertainty": 0.005,
+            "status": "measured",
+            "reference": "2016AJ....152..141B",
+            "section": "Table 10",
+            "sourceUrl": "https://www.astro.gsu.edu/RECONS/published37.pdf",
+            "scope": "GJ 473 B / Wolf 424 B; individual component measurement, not pair-total mass."
+          },
+          "apparent_mag": {
+            "value": 13.217586502044725,
+            "uncertainty": 0.04710898887174951,
+            "status": "derived",
+            "passband": "Johnson V",
+            "reference": "2016AJ....152..141B",
+            "sourceUrl": "https://www.astro.gsu.edu/RECONS/published37.pdf",
+            "section": "Table 10 and section 6",
+            "inputs": {
+              "publishedPair": "GJ 473 AB",
+              "starIds": [
+                "10pc-0074",
+                "10pc-0075"
+              ],
+              "systemJohnsonV": 12.47,
+              "systemJohnsonVUncertainty": 0.04,
+              "deltaVSecondaryMinusPrimary": -0.01,
+              "deltaVUncertainty": 0.05,
+              "epoch": null,
+              "reference": "2016AJ....152..141B:Table 10; section 6",
+              "scope": "Flux of the named pair only. GJ 1245 AC excludes wide B; GJ 22 AC excludes wide B.",
+              "method": "V_primary = V_pair + 2.5 log10(1 + 10^(-0.4 deltaV)); V_secondary = V_primary + deltaV. First-order error propagation assumes independent pair V and deltaV; component magnitudes are correlated.",
+              "caveat": "Published compiled baseline photometry, including transformed HST F583W contrasts; not a dated flare observation. Preserve A/B/C identities when the secondary is slightly brighter."
+            },
+            "scope": "Individual FL Vir B; deblended from the named pair, not assigned its total flux."
+          },
+          "absolute_mag": {
+            "value": 14.963755486641562,
+            "status": "derived",
+            "method": "Component Johnson V and adopted catalog distance; no extinction correction",
+            "inputs": {
+              "apparent_mag": 13.217586502044725,
+              "distance_pc": 4.474723482680215
+            }
+          }
+        },
+        "retained": {}
+      },
+      "supersededNotes": [
+        {
+          "text": "Component-resolved Johnson V not independently established; multi-star system V withheld.",
+          "reason": "Individual absolute_mag is now available."
+        }
+      ]
+    },
+    "10pc-0087": {
+      "reviewedLiterature": {
+        "expectedName": "GJ 1245 A",
+        "systemId": "gj-1245",
+        "component": "A",
+        "expectedType": "star",
+        "fields": {
+          "mass_solar": {
+            "value": 0.111,
+            "uncertainty": 0.001,
+            "status": "measured",
+            "reference": "2016AJ....152..141B",
+            "section": "Table 10",
+            "sourceUrl": "https://www.astro.gsu.edu/RECONS/published37.pdf",
+            "scope": "GJ 1245 A; individual component measurement, not pair-total mass."
+          },
+          "apparent_mag": {
+            "value": 13.461220054668278,
+            "uncertainty": 0.030088343323712557,
+            "status": "derived",
+            "passband": "Johnson V",
+            "reference": "2016AJ....152..141B",
+            "sourceUrl": "https://www.astro.gsu.edu/RECONS/published37.pdf",
+            "section": "Table 10 and section 6",
+            "inputs": {
+              "publishedPair": "GJ 1245 AC",
+              "starIds": [
+                "10pc-0087",
+                "10pc-0088"
+              ],
+              "systemJohnsonV": 13.41,
+              "systemJohnsonVUncertainty": 0.03,
+              "deltaVSecondaryMinusPrimary": 3.29,
+              "deltaVUncertainty": 0.05,
+              "epoch": null,
+              "reference": "2016AJ....152..141B:Table 10; section 6",
+              "scope": "Flux of the named pair only. GJ 1245 AC excludes wide B; GJ 22 AC excludes wide B.",
+              "method": "V_primary = V_pair + 2.5 log10(1 + 10^(-0.4 deltaV)); V_secondary = V_primary + deltaV. First-order error propagation assumes independent pair V and deltaV; component magnitudes are correlated.",
+              "caveat": "Published compiled baseline photometry, including transformed HST F583W contrasts; not a dated flare observation. Preserve A/B/C identities when the secondary is slightly brighter."
+            },
+            "scope": "Individual GJ 1245 A; deblended from the named pair, not assigned its total flux."
+          }
+        },
+        "note": "GJ 1245 A: reviewed individual literature. Dynamical masses retain their formal uncertainties. Johnson V, where absent, is deblended using Benedict et al. (2016) Table 10 and the retained component distance; existing photometry is preserved. No individual orbital velocity or age is inferred.",
+        "sourceComponentMapping": "Retain formal uncertainties, source parallax and the source-to-internal component mapping. Wolf 424 has a slight V-band brightness reversal; do not reorder the A/B identities by brightness.",
+        "adopted": {
+          "mass_solar": {
+            "value": 0.111,
+            "uncertainty": 0.001,
+            "status": "measured",
+            "reference": "2016AJ....152..141B",
+            "section": "Table 10",
+            "sourceUrl": "https://www.astro.gsu.edu/RECONS/published37.pdf",
+            "scope": "GJ 1245 A; individual component measurement, not pair-total mass."
+          },
+          "apparent_mag": {
+            "value": 13.461220054668278,
+            "uncertainty": 0.030088343323712557,
+            "status": "derived",
+            "passband": "Johnson V",
+            "reference": "2016AJ....152..141B",
+            "sourceUrl": "https://www.astro.gsu.edu/RECONS/published37.pdf",
+            "section": "Table 10 and section 6",
+            "inputs": {
+              "publishedPair": "GJ 1245 AC",
+              "starIds": [
+                "10pc-0087",
+                "10pc-0088"
+              ],
+              "systemJohnsonV": 13.41,
+              "systemJohnsonVUncertainty": 0.03,
+              "deltaVSecondaryMinusPrimary": 3.29,
+              "deltaVUncertainty": 0.05,
+              "epoch": null,
+              "reference": "2016AJ....152..141B:Table 10; section 6",
+              "scope": "Flux of the named pair only. GJ 1245 AC excludes wide B; GJ 22 AC excludes wide B.",
+              "method": "V_primary = V_pair + 2.5 log10(1 + 10^(-0.4 deltaV)); V_secondary = V_primary + deltaV. First-order error propagation assumes independent pair V and deltaV; component magnitudes are correlated.",
+              "caveat": "Published compiled baseline photometry, including transformed HST F583W contrasts; not a dated flare observation. Preserve A/B/C identities when the secondary is slightly brighter."
+            },
+            "scope": "Individual GJ 1245 A; deblended from the named pair, not assigned its total flux."
+          },
+          "absolute_mag": {
+            "value": 15.104495240548594,
+            "status": "derived",
+            "method": "Component Johnson V and adopted catalog distance; no extinction correction",
+            "inputs": {
+              "apparent_mag": 13.461220054668278,
+              "distance_pc": 4.691859114792192
+            }
+          }
+        },
+        "retained": {}
+      },
+      "supersededNotes": [
+        {
+          "text": "Component-resolved Johnson V not independently established; multi-star system V withheld.",
+          "reason": "Individual absolute_mag is now available."
+        }
+      ]
+    },
+    "10pc-0088": {
+      "reviewedLiterature": {
+        "expectedName": "GJ 1245 C",
+        "systemId": "gj-1245",
+        "component": "C",
+        "expectedType": "star",
+        "fields": {
+          "mass_solar": {
+            "value": 0.076,
+            "uncertainty": 0.001,
+            "status": "measured",
+            "reference": "2016AJ....152..141B",
+            "section": "Table 10",
+            "sourceUrl": "https://www.astro.gsu.edu/RECONS/published37.pdf",
+            "scope": "GJ 1245 C; individual component measurement, not pair-total mass."
+          },
+          "apparent_mag": {
+            "value": 16.751220054668277,
+            "uncertainty": 0.056346327876171144,
+            "status": "derived",
+            "passband": "Johnson V",
+            "reference": "2016AJ....152..141B",
+            "sourceUrl": "https://www.astro.gsu.edu/RECONS/published37.pdf",
+            "section": "Table 10 and section 6",
+            "inputs": {
+              "publishedPair": "GJ 1245 AC",
+              "starIds": [
+                "10pc-0087",
+                "10pc-0088"
+              ],
+              "systemJohnsonV": 13.41,
+              "systemJohnsonVUncertainty": 0.03,
+              "deltaVSecondaryMinusPrimary": 3.29,
+              "deltaVUncertainty": 0.05,
+              "epoch": null,
+              "reference": "2016AJ....152..141B:Table 10; section 6",
+              "scope": "Flux of the named pair only. GJ 1245 AC excludes wide B; GJ 22 AC excludes wide B.",
+              "method": "V_primary = V_pair + 2.5 log10(1 + 10^(-0.4 deltaV)); V_secondary = V_primary + deltaV. First-order error propagation assumes independent pair V and deltaV; component magnitudes are correlated.",
+              "caveat": "Published compiled baseline photometry, including transformed HST F583W contrasts; not a dated flare observation. Preserve A/B/C identities when the secondary is slightly brighter."
+            },
+            "scope": "Individual GJ 1245 C; deblended from the named pair, not assigned its total flux."
+          }
+        },
+        "note": "GJ 1245 C: reviewed individual literature. Dynamical masses retain their formal uncertainties. Johnson V, where absent, is deblended using Benedict et al. (2016) Table 10 and the retained component distance; existing photometry is preserved. No individual orbital velocity or age is inferred.",
+        "sourceComponentMapping": "Retain formal uncertainties, source parallax and the source-to-internal component mapping. Wolf 424 has a slight V-band brightness reversal; do not reorder the A/B identities by brightness.",
+        "adopted": {
+          "mass_solar": {
+            "value": 0.076,
+            "uncertainty": 0.001,
+            "status": "measured",
+            "reference": "2016AJ....152..141B",
+            "section": "Table 10",
+            "sourceUrl": "https://www.astro.gsu.edu/RECONS/published37.pdf",
+            "scope": "GJ 1245 C; individual component measurement, not pair-total mass."
+          },
+          "apparent_mag": {
+            "value": 16.751220054668277,
+            "uncertainty": 0.056346327876171144,
+            "status": "derived",
+            "passband": "Johnson V",
+            "reference": "2016AJ....152..141B",
+            "sourceUrl": "https://www.astro.gsu.edu/RECONS/published37.pdf",
+            "section": "Table 10 and section 6",
+            "inputs": {
+              "publishedPair": "GJ 1245 AC",
+              "starIds": [
+                "10pc-0087",
+                "10pc-0088"
+              ],
+              "systemJohnsonV": 13.41,
+              "systemJohnsonVUncertainty": 0.03,
+              "deltaVSecondaryMinusPrimary": 3.29,
+              "deltaVUncertainty": 0.05,
+              "epoch": null,
+              "reference": "2016AJ....152..141B:Table 10; section 6",
+              "scope": "Flux of the named pair only. GJ 1245 AC excludes wide B; GJ 22 AC excludes wide B.",
+              "method": "V_primary = V_pair + 2.5 log10(1 + 10^(-0.4 deltaV)); V_secondary = V_primary + deltaV. First-order error propagation assumes independent pair V and deltaV; component magnitudes are correlated.",
+              "caveat": "Published compiled baseline photometry, including transformed HST F583W contrasts; not a dated flare observation. Preserve A/B/C identities when the secondary is slightly brighter."
+            },
+            "scope": "Individual GJ 1245 C; deblended from the named pair, not assigned its total flux."
+          },
+          "absolute_mag": {
+            "value": 18.394472520846676,
+            "status": "derived",
+            "method": "Component Johnson V and adopted catalog distance; no extinction correction",
+            "inputs": {
+              "apparent_mag": 16.751220054668277,
+              "distance_pc": 4.6919082050766105
+            }
+          }
+        },
+        "retained": {}
+      },
+      "supersededNotes": [
+        {
+          "text": "Component-resolved Johnson V not independently established; multi-star system V withheld.",
+          "reason": "Individual absolute_mag is now available."
+        }
+      ]
+    },
+    "cns5-3857": {
+      "reviewedLiterature": {
+        "expectedName": "VB 24 A",
+        "systemId": "vb-24",
+        "component": "A",
+        "expectedType": "star",
+        "fields": {
+          "mass_solar": {
+            "value": 0.2883,
+            "uncertainty": 0.013,
+            "status": "estimated",
+            "reference": "2025A&A...693A.228C",
+            "sourceUrl": "https://arxiv.org/html/2412.12264v1",
+            "section": "Table A.1, row 1793; section 4.2",
+            "sourceRecordId": "1793",
+            "scope": "Individual Gaia DR3 1391241478857408768, VB 24 A / GJ 1194 A",
+            "inputs": {
+              "source_temperature_k": 3400,
+              "source_temperature_error_k": 50
+            },
+            "caveat": "Published SED-based empirical estimates. Retain the stronger independent 3571 K spectroscopic temperature already adopted; these estimates retain their source temperature."
+          },
+          "radius_solar": {
+            "value": 0.296,
+            "uncertainty": 0.0087,
+            "status": "SED-derived",
+            "reference": "2025A&A...693A.228C",
+            "sourceUrl": "https://arxiv.org/html/2412.12264v1",
+            "section": "Table A.1, row 1793; section 4.2",
+            "sourceRecordId": "1793",
+            "scope": "Individual Gaia DR3 1391241478857408768, VB 24 A / GJ 1194 A",
+            "inputs": {
+              "source_temperature_k": 3400,
+              "source_temperature_error_k": 50
+            },
+            "caveat": "Published SED-based empirical estimates. Retain the stronger independent 3571 K spectroscopic temperature already adopted; these estimates retain their source temperature."
+          },
+          "luminosity_solar": {
+            "value": 0.0105504,
+            "uncertainty": 5.0728e-05,
+            "status": "SED-derived",
+            "reference": "2025A&A...693A.228C",
+            "sourceUrl": "https://arxiv.org/html/2412.12264v1",
+            "section": "Table A.1, row 1793; section 4.2",
+            "sourceRecordId": "1793",
+            "scope": "Individual Gaia DR3 1391241478857408768, VB 24 A / GJ 1194 A",
+            "inputs": {
+              "source_temperature_k": 3400,
+              "source_temperature_error_k": 50
+            },
+            "caveat": "Published SED-based empirical estimates. Retain the stronger independent 3571 K spectroscopic temperature already adopted; these estimates retain their source temperature."
+          }
+        },
+        "note": "VB 24 A: exact component exception to the Category=3 import filter, using published SED/empirical mass, radius and bolometric luminosity from Cifuentes et al. (2025), Table A.1. No source multiplicity criteria are flagged. Existing spectroscopic temperature, abundance, positions and motion remain unchanged.",
+        "gaiaDr3Id": "1391241478857408768",
+        "adopted": {
+          "mass_solar": {
+            "value": 0.2883,
+            "uncertainty": 0.013,
+            "status": "estimated",
+            "reference": "2025A&A...693A.228C",
+            "sourceUrl": "https://arxiv.org/html/2412.12264v1",
+            "section": "Table A.1, row 1793; section 4.2",
+            "sourceRecordId": "1793",
+            "scope": "Individual Gaia DR3 1391241478857408768, VB 24 A / GJ 1194 A",
+            "inputs": {
+              "source_temperature_k": 3400,
+              "source_temperature_error_k": 50
+            },
+            "caveat": "Published SED-based empirical estimates. Retain the stronger independent 3571 K spectroscopic temperature already adopted; these estimates retain their source temperature."
+          },
+          "radius_solar": {
+            "value": 0.296,
+            "uncertainty": 0.0087,
+            "status": "SED-derived",
+            "reference": "2025A&A...693A.228C",
+            "sourceUrl": "https://arxiv.org/html/2412.12264v1",
+            "section": "Table A.1, row 1793; section 4.2",
+            "sourceRecordId": "1793",
+            "scope": "Individual Gaia DR3 1391241478857408768, VB 24 A / GJ 1194 A",
+            "inputs": {
+              "source_temperature_k": 3400,
+              "source_temperature_error_k": 50
+            },
+            "caveat": "Published SED-based empirical estimates. Retain the stronger independent 3571 K spectroscopic temperature already adopted; these estimates retain their source temperature."
+          },
+          "luminosity_solar": {
+            "value": 0.0105504,
+            "uncertainty": 5.0728e-05,
+            "status": "SED-derived",
+            "reference": "2025A&A...693A.228C",
+            "sourceUrl": "https://arxiv.org/html/2412.12264v1",
+            "section": "Table A.1, row 1793; section 4.2",
+            "sourceRecordId": "1793",
+            "scope": "Individual Gaia DR3 1391241478857408768, VB 24 A / GJ 1194 A",
+            "inputs": {
+              "source_temperature_k": 3400,
+              "source_temperature_error_k": 50
+            },
+            "caveat": "Published SED-based empirical estimates. Retain the stronger independent 3571 K spectroscopic temperature already adopted; these estimates retain their source temperature."
+          }
+        },
+        "retained": {}
       }
     },
     "ez-aquarii-a": {},
     "ez-aquarii-b": {},
     "ez-aquarii-c": {},
-    "10pc-0061": {},
     "cns5-5665": {},
     "cns5-5660": {},
     "cns5-5623": {},
@@ -36275,8 +38049,6 @@
     "cns5-0011": {},
     "gj-1001-c": {},
     "cns5-1866": {},
-    "cns5-0155": {},
-    "gj-22-c": {},
     "cns5-5330": {},
     "gj-835-c": {},
     "cns5-1703": {},
@@ -36376,12 +38148,6 @@
     "luyten-726-8-a": {},
     "10pc-0063": {},
     "10pc-0064": {},
-    "10pc-0066": {},
-    "10pc-0067": {},
-    "10pc-0074": {},
-    "10pc-0075": {},
-    "10pc-0087": {},
-    "10pc-0088": {},
     "10pc-0113": {},
     "10pc-0129": {},
     "cns5-3674": {},
@@ -36393,8 +38159,7 @@
     "cns5-4503": {},
     "cns5-4504": {},
     "cns5-1951": {},
-    "cns5-1952": {},
-    "cns5-3857": {}
+    "cns5-1952": {}
   },
   "remainingCompositeRecords": [],
   "ordinaryBinaryCoverage": [
@@ -46487,13 +48252,10 @@
   "systems": 341,
   "components": 844,
   "selectedFieldCoverage": {
-    "individualApparentMagnitude": 518,
+    "individualApparentMagnitude": 530,
     "unresolvedSourcePhotometry": 62,
-    "subtypes": 511,
+    "subtypes": 514,
     "missingSubtypes": [
-      "10pc-0034",
-      "10pc-0061",
-      "10pc-0100",
       "gj-105-c",
       "cns5-1723",
       "cns5-1264",
@@ -46830,8 +48592,6 @@
       "10pc-0034",
       "10pc-0035",
       "10pc-0038",
-      "10pc-0061",
-      "10pc-0062",
       "10pc-0100",
       "10pc-0101",
       "cns5-5801",
@@ -46904,8 +48664,6 @@
       "gj-1001-c",
       "cns5-1865",
       "cns5-1866",
-      "cns5-0155",
-      "gj-22-c",
       "cns5-5330",
       "cns5-5331",
       "gj-835-c",
@@ -46936,13 +48694,7 @@
       "rigel-bb",
       "10pc-0063",
       "10pc-0064",
-      "10pc-0066",
-      "10pc-0067",
-      "10pc-0074",
-      "10pc-0075",
-      "10pc-0087",
       "10pc-0089",
-      "10pc-0088",
       "10pc-0113",
       "10pc-0114",
       "10pc-0128",
@@ -47084,8 +48836,6 @@
       "orb6-17088+6543-a-b-b",
       "orb6-17349+1234-a-b-b",
       "orb6-19026-2953-a-b-b",
-      "cns5-5064",
-      "orb6-20298+0941-a-b-b",
       "orb6-20435+1504-a-b-b",
       "orb6-20467+1607-a-b-b",
       "orb6-21296+1739-a-b-b",
@@ -47106,12 +48856,12 @@
     "available": {
       "spectral_type": 595,
       "temperature_k": 469,
-      "mass_solar": 305,
-      "luminosity_solar": 292,
-      "radius_solar": 298,
+      "mass_solar": 321,
+      "luminosity_solar": 295,
+      "radius_solar": 301,
       "metallicity_dex": 290,
       "age_gyr": 93,
-      "absolute_mag": 518
+      "absolute_mag": 530
     },
     "withoutProperties": [
       "cns5-1615",
@@ -47119,7 +48869,6 @@
       "cns5-4917",
       "cns5-3682",
       "cns5-2075",
-      "gj-22-c",
       "hd-50281-bb",
       "cns5-2945",
       "rigel-bb",
@@ -47229,8 +48978,6 @@
       "orb6-19026-2953-a-b-b",
       "hip-97165",
       "hip-97433",
-      "cns5-5064",
-      "orb6-20298+0941-a-b-b",
       "hip-102532",
       "orb6-20467+1607-a-b-b",
       "cns5-5297",
@@ -47274,16 +49021,11 @@
         "absolute_mag"
       ],
       "10pc-0061": [
-        "mass_solar",
-        "luminosity_solar",
-        "radius_solar",
         "metallicity_dex",
-        "age_gyr",
-        "absolute_mag"
+        "age_gyr"
       ],
       "10pc-0062": [
-        "age_gyr",
-        "absolute_mag"
+        "age_gyr"
       ],
       "10pc-0100": [
         "age_gyr",
@@ -47297,9 +49039,6 @@
         "age_gyr"
       ],
       "10pc-0110": [
-        "mass_solar",
-        "luminosity_solar",
-        "radius_solar",
         "metallicity_dex",
         "age_gyr"
       ],
@@ -48087,12 +49826,10 @@
       ],
       "cns5-0155": [
         "temperature_k",
-        "mass_solar",
         "luminosity_solar",
         "radius_solar",
         "metallicity_dex",
-        "age_gyr",
-        "absolute_mag"
+        "age_gyr"
       ],
       "cns5-0154": [
         "age_gyr"
@@ -48100,12 +49837,10 @@
       "gj-22-c": [
         "spectral_type",
         "temperature_k",
-        "mass_solar",
         "luminosity_solar",
         "radius_solar",
         "metallicity_dex",
-        "age_gyr",
-        "absolute_mag"
+        "age_gyr"
       ],
       "cns5-5330": [
         "temperature_k",
@@ -48457,55 +50192,43 @@
         "absolute_mag"
       ],
       "10pc-0066": [
-        "mass_solar",
         "luminosity_solar",
         "radius_solar",
-        "age_gyr",
-        "absolute_mag"
+        "age_gyr"
       ],
       "10pc-0067": [
-        "mass_solar",
         "luminosity_solar",
         "radius_solar",
         "metallicity_dex",
-        "age_gyr",
-        "absolute_mag"
+        "age_gyr"
       ],
       "10pc-0074": [
-        "mass_solar",
         "luminosity_solar",
         "radius_solar",
         "metallicity_dex",
-        "age_gyr",
-        "absolute_mag"
+        "age_gyr"
       ],
       "10pc-0075": [
-        "mass_solar",
         "luminosity_solar",
         "radius_solar",
         "metallicity_dex",
-        "age_gyr",
-        "absolute_mag"
+        "age_gyr"
       ],
       "10pc-0087": [
-        "mass_solar",
         "luminosity_solar",
         "radius_solar",
         "metallicity_dex",
-        "age_gyr",
-        "absolute_mag"
+        "age_gyr"
       ],
       "10pc-0089": [
         "age_gyr",
         "absolute_mag"
       ],
       "10pc-0088": [
-        "mass_solar",
         "luminosity_solar",
         "radius_solar",
         "metallicity_dex",
-        "age_gyr",
-        "absolute_mag"
+        "age_gyr"
       ],
       "10pc-0113": [
         "mass_solar",
@@ -48587,9 +50310,6 @@
         "absolute_mag"
       ],
       "cns5-3857": [
-        "mass_solar",
-        "luminosity_solar",
-        "radius_solar",
         "age_gyr",
         "absolute_mag"
       ],
@@ -50703,7 +52423,6 @@
         "age_gyr"
       ],
       "cns5-4014": [
-        "mass_solar",
         "luminosity_solar",
         "radius_solar",
         "metallicity_dex",
@@ -50712,7 +52431,6 @@
       "msc-16240+4822-ab": [
         "spectral_type",
         "temperature_k",
-        "mass_solar",
         "luminosity_solar",
         "radius_solar",
         "metallicity_dex",
@@ -51164,7 +52882,6 @@
         "age_gyr"
       ],
       "10pc-0030": [
-        "mass_solar",
         "age_gyr"
       ],
       "hip-104732": [
@@ -52594,22 +54311,18 @@
       "cns5-5064": [
         "spectral_type",
         "temperature_k",
-        "mass_solar",
         "luminosity_solar",
         "radius_solar",
         "metallicity_dex",
-        "age_gyr",
-        "absolute_mag"
+        "age_gyr"
       ],
       "orb6-20298+0941-a-b-b": [
         "spectral_type",
         "temperature_k",
-        "mass_solar",
         "luminosity_solar",
         "radius_solar",
         "metallicity_dex",
-        "age_gyr",
-        "absolute_mag"
+        "age_gyr"
       ],
       "hip-102281": [
         "spectral_type",
@@ -52686,8 +54399,8 @@
     }
   },
   "sourcePreservation": {
-    "componentRecordsWithSources": 246,
-    "sourceRecords": 302,
+    "componentRecordsWithSources": 264,
+    "sourceRecords": 337,
     "missingIndividualFieldsWithSourceValues": {
       "temperature_k": 71,
       "mass_solar": 33,
@@ -52705,9 +54418,9 @@
   },
   "coverage": {
     "temperature_k": 469,
-    "mass_solar": 305,
-    "luminosity_solar": 292,
-    "radius_solar": 298,
+    "mass_solar": 321,
+    "luminosity_solar": 295,
+    "radius_solar": 301,
     "metallicity_dex": 290,
     "age_gyr": 93
   },
@@ -52717,8 +54430,8 @@
     "src/data/object-stats.json": "642d5bf070e7ab685ceac280896a934163b47cb39a977823e69e9854bd9f4d00",
     "src/data/catalogs/bright-stars/stars.csv": "b643a244ca07093ba1e84b1b4cd945a189309d7a16de49f35554826050b6e053",
     "src/data/catalogs/famous-cluster-stars/stars.csv": "b1bc0a3a492b3d4c9ee3330b5e80a4572d4bf95d1119f8062849d59cb430fa0f",
-    "src/data/catalogs/nearest-100/stars.csv": "ffcf7cb2558b5859b088078742377ae9b50bbf039fcab100bec7823d6eb20cfa",
-    "src/data/catalogs/nearest-1000/stars.csv": "53018e0e609b4f37a23425754c50e016fae34ea1293570fd8457e5edf38b20e8",
+    "src/data/catalogs/nearest-100/stars.csv": "cff17df64b2d9eda930ff45e2c62740a733923c42ca97bede8448cb416259cdd",
+    "src/data/catalogs/nearest-1000/stars.csv": "7219d545385c332cc6e8f246155b52bdac4bc821e876290c965a67552127e8ae",
     "src/data/catalogs/western-constellation-stars/stars.csv": "1fe6932084497edf69f6a6af5df7d61089ad48b3818401dd56e8dd1daa66434a",
     "src/data/stars.csv": "a2d6b4e7ab8c67779a470dadbd8170e4eb4e8c9bbf46f73f30ce2e522d33436e",
     "catalog-work/star-systems/catalog-companions-msc.json": "b81210724ff9914c3c286c5971155df5bf20613252baaa9472eee085f0cd0f41",
@@ -52726,7 +54439,7 @@
     "catalog-work/star-systems/catalog-companions-simbad.csv": "9cd56e663e725c3aa715acfd18918c91e6851c307e9b2efbeeb37d8f4d969042",
     "catalog-work/star-systems/catalog-companions-atmospheres.csv": "7c4ab8e29a52125e7e8879228631f210760d85200a212fd3b6e5ecc7d8d8ac5b",
     "catalog-work/star-systems/catalog-companions-gaia.csv": "5ae6a8cbe672091b57b8d6412668b55137745cdbdedce72f5dc22825e3305a24",
-    "catalog-work/star-systems/catalog-companions-overrides.json": "d8218ad58304344aefc7a6d2026179938e1bf33dba441a3cf100c0480d89ade3",
+    "catalog-work/star-systems/catalog-companions-overrides.json": "1854eb74214d8bf90f729002322a62e101e1d73db557cb0c0a05c6329efe2fa0",
     "catalog-work/star-systems/reviewed-regor.json": "8e88908ce6de75b304b830edc18ef7fe470ed98777287dccca91fdd2b783fc09",
     "catalog-work/star-systems/catalog-companions-reviewed.json": "564f60caa1af1d60bf08571d9ef48e091116760cc31bc6fcdd31541a77291a08",
     "catalog-work/star-systems/adhara-b-simbad.txt": "4392455cb01b0101e38dd2404558b26d1913c10daf5dd0bcf42322508b4b4c81",
@@ -52738,7 +54451,7 @@
     "catalog-work/star-systems/ordinary-binaries-simbad.csv": "15d6867d9fb08a27265f771a67cba8c879619ffdc2a654d3badee757d3a333da",
     "catalog-work/star-systems/ordinary-binaries-simbad.adql": "0369959ac428054150a68dac473067d040aaffb03ea6798141919f70f8778969",
     "catalog-work/star-systems/ordinary-binaries-review.json": "911d2d4551bb611b19639472161d84deb34125f40b7dc42e7d5f1afd2af3f600",
-    "catalog-work/star-systems/reviewed-companion-literature.json": "629b03eb2f55115fd02db08a9629aed5cd7d0a9324660649ba024dbd14563b0c",
+    "catalog-work/star-systems/reviewed-companion-literature.json": "750cdd68d55ad25818ce915e45e57d57b110379cc39cf5eeb02c1d8df2dfb150",
     "catalog-work/star-systems/literature-components/debcat-20261011.dat": "51af2a4e465a4e2dd8a5671926a1e1069b49eadd80402c4a8bec6785c3505bbe",
     "catalog-work/star-systems/literature-components/piccotti-2020-ReadMe": "d36919462d3dc36e85f4cde8e93ce83b8c9da8b49fc92c546112bbcbaeeccd06",
     "catalog-work/star-systems/literature-components/piccotti-2020-table1.dat": "f5c73a9e5b438837432968eafafdc53b94abd9ccbfe7c633765234cd15a6f89c",
@@ -52746,8 +54459,10 @@
     "catalog-work/star-systems/literature-components/piccotti-2020-table5.dat": "1be4e48fe411904a5d72703c69850687b3bd2bfef6b0445d3141ff6ead6060db",
     "catalog-work/star-systems/literature-components/piccotti-2020-table6.dat": "46da7d326f4deee9b76fefab2171fc4834a1222d2ca59873a65c1f5c4bee5864",
     "catalog-work/star-systems/literature-components/piccotti-2020-table7.dat": "ce64da40f7d8aea35ffdba9ee16541323622430ee9d671880b81c467c0b0e1d2",
-    "catalog-work/nearest-100/physical-overrides.json": "dae7b9c432bc714fdd4d867b1ada1711883d0f7be750529ff22ef1eb61c1a60d",
-    "catalog-work/shared-enrichment/source-manifest.json": "acd107d193c427bf7f01507d00cf089617158b36cb70ae8b173c29bcf8eccf59",
+    "catalog-work/star-systems/component-gap-adoptions.json": "1a85f8171211ecfbe16809bf8c400341ddeced623994b958b2d38d4fc09d4537",
+    "catalog-work/star-systems/component-gap-literature-review.json": "cf48db55ac96e9b22e4b212b02f49f1af08b407c10bf38ee5e88e71aec03b8eb",
+    "catalog-work/nearest-100/physical-overrides.json": "21125920c7039be1394dda156d0b8c6db962f98b03c86b7a3f602e893e3f5872",
+    "catalog-work/shared-enrichment/source-manifest.json": "e6a6d8d3df859cd8aea4553a49b29d5cf64e211398bbbb3d91dc87bc39c8b347",
     "catalog-work/star-systems/reviewed-unresolved-photometry.json": "291165120291df05fe0c334b4623e6aaa6f75fc0a729786ae0f7f0a7d2100209"
   }
 }

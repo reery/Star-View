@@ -161,7 +161,8 @@ button, p, h2, dd { overflow-wrap: anywhere; }
 .panel-heading #filter-reset { right: 43px; border-radius: 0; }
 .control-dock[data-open="glossary"] { grid-template-columns: min(640px, calc(100vw - 100px)) 44px; }
 .dock-card.glossary-card { display: flex; flex-direction: column; width: min(640px, calc(100vw - 100px)); height: min(520px, calc(100dvh - 100px)); overflow: hidden; }
-.panel-heading.glossary-heading { flex: 0 0 45px; gap: 18px; }
+.panel-heading.glossary-heading { flex: 0 0 45px; gap: 18px; padding-right: 98px; }
+.panel-heading:is(.objects-heading, .glossary-heading) > .panel-lock[aria-pressed] { right: 43px; border-radius: 0; }
 .glossary-heading h2 { flex: 0 0 auto; }
 .glossary-search { position: relative; flex: 1; min-width: 0; }
 .glossary-search > span { position: absolute; top: 50%; left: 9px; transform: translateY(-50%); color: var(--muted); pointer-events: none; }
@@ -327,9 +328,9 @@ select:focus-visible, input:focus-visible { outline: 2px solid var(--accent); ou
 .object-type-option:has(input:disabled) { color: var(--muted); cursor: default; }
 .object-type-option .filter-hint { margin-left: auto; }
 #catalog-count { color: var(--muted); font-size: 12px; font-variant-numeric: tabular-nums; font-weight: 500; }
-.panel-heading.objects-heading { gap: 12px; padding-right: 98px; }
+.panel-heading.objects-heading { gap: 12px; padding-right: 142px; }
 .objects-heading h2 { flex: 0 0 auto; white-space: nowrap; }
-.panel-heading .objects-expand { right: 43px; border-radius: 0; }
+.panel-heading .objects-expand { right: 87px; border-radius: 0; }
 .control-dock[data-open="objects"][data-objects-expanded] { grid-template-columns: min(1760px, calc(100vw - 100px)) 44px; }
 .dock-card.catalog.is-expanded { width: min(1760px, calc(100vw - 100px)); height: var(--objects-height); }
 .inspector:has(> .observer-direction-card:not([hidden])) .control-dock[data-open="objects"] .catalog { max-height: calc(100dvh - 40px - var(--observer-direction-height, 68px) - 10px); }
@@ -1039,7 +1040,7 @@ select:focus-visible, input:focus-visible { outline: 2px solid var(--accent); ou
 
 @media (max-width: 400px) {
   .properties > div { gap: 8px; }
-  .panel-heading.glossary-heading { gap: 8px; padding-left: 10px; padding-right: 50px; }
+  .panel-heading.glossary-heading { gap: 8px; padding-left: 10px; }
   .glossary-search > span { display: none; }
   .glossary-search input { padding-left: 7px; }
   .glossary-group-heading, .glossary-term { padding-left: 10px; padding-right: 8px; }

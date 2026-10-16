@@ -16,6 +16,80 @@ const dubhe = bright.find((star) => star.id === 'bright-dubhe')!
 const sun = bright.find((star) => star.id === 'sun')!
 
 describe('component coverage shared by every catalog', () => {
+  it.each(['nearest-100', 'nearest-1000'])('applies reviewed component gap repairs and preserves pair flux in %s', (catalog) => {
+    const input = parseStarCatalog(readFileSync(new URL(`./data/catalogs/${catalog}/stars.csv`, import.meta.url), 'utf8'))
+    const stars = new Map(completeCatalogCompanions(input).map((star) => [star.id, star]))
+    for (const [aId, bId, aMass, bMass, pairV, deltaV] of [
+      ['10pc-0066', '10pc-0067', .223, .109, 11.14, 3.08],
+      ['10pc-0074', '10pc-0075', .124, .113, 12.47, -.01],
+      ['10pc-0087', '10pc-0088', .111, .076, 13.41, 3.29],
+    ] as const) {
+      const a = stars.get(aId)!, b = stars.get(bId)!
+      expect(a.mass_solar).toBe(aMass)
+      expect(b.mass_solar).toBe(bMass)
+      expect(b.apparent_mag! - a.apparent_mag!).toBeCloseTo(deltaV, 8)
+      expect(-2.5 * Math.log10(10 ** (-.4 * a.apparent_mag!) + 10 ** (-.4 * b.apparent_mag!)))
+        .toBeCloseTo(pairV, 8)
+      for (const star of [a, b]) {
+        expect(star.absolute_mag).not.toBeNull()
+        expect(star.notes).not.toContain('multi-star system V withheld')
+      }
+    }
+    expect(stars.get('10pc-0030')?.mass_solar).toBe(.6289) // 61 Cyg B is the fit's primary.
+    expect(stars.get('10pc-0110')).toMatchObject({ mass_solar: .573, radius_solar: .01308, luminosity_solar: .01349 })
+  })
+
+  it('keeps reviewed component gap repairs exact through hierarchical and filtered component completion', () => {
+    const pool = JSON.parse(readFileSync(new URL('./data/stellar-companions.json', import.meta.url), 'utf8')) as { stars: typeof bright }
+    const byId = new Map(pool.stars.map((star) => [star.id, star]))
+    for (const [id, mass] of [['cns5-0155', .405], ['gj-22-c', .157],
+      ['cns5-4014', .379], ['msc-16240+4822-ab', .114],
+      ['cns5-5064', .237], ['orb6-20298+0941-a-b-b', .114]] as const) {
+      const star = byId.get(id)!
+      expect(star.mass_solar).toBe(mass)
+      expect(completeCatalogCompanions([star]).find((candidate) => candidate.id === id)?.mass_solar).toBe(mass)
+    }
+    expect(byId.get('cns5-3857')).toMatchObject({ temperature_k: 3571, mass_solar: .2883,
+      radius_solar: .296, luminosity_solar: .0105504 })
+    // These source rows are flagged or aggregated; the exception must not spread.
+    for (const id of ['cns5-3682', 'cns5-1155', 'cns5-1702', 'hd-50281-bb']) {
+      expect(byId.get(id)?.mass_solar, id).toBeNull()
+    }
+    expect(byId.get('10pc-0035')?.spectral_type).toBe('M1.0V')
+    expect(byId.get('10pc-0089')?.spectral_type).toBe('M5.5V')
+  })
+
+  it.each(['nearest-100', 'nearest-1000'])('keeps reviewed Kruger 60 components and source motion intact in %s', (catalog) => {
+    const input = parseStarCatalog(readFileSync(new URL(`./data/catalogs/${catalog}/stars.csv`, import.meta.url), 'utf8'))
+    const expanded = completeCatalogCompanions(input)
+    const review = JSON.parse(readFileSync(new URL('../catalog-work/shared-enrichment/kruger-60-review.json', import.meta.url), 'utf8'))
+    const a = expanded.find((star) => star.id === '10pc-0061')!
+    const b = expanded.find((star) => star.id === '10pc-0062')!
+    expect(a).toMatchObject({ name: 'Kruger 60 A', spectral_type: 'M3V', temperature_k: 3342,
+      mass_solar: .268, radius_solar: .3085, luminosity_solar: .00983, age_gyr: null, metallicity_dex: null })
+    expect(b).toMatchObject({ name: 'DO Cep', spectral_type: 'M4V', temperature_k: 3097,
+      mass_solar: .172, radius_solar: .2085, luminosity_solar: .00393, age_gyr: null,
+      metallicity_dex: -.25, metallicity_kind: '[Fe/H]' })
+    for (const star of [a, b]) {
+      const before = review.objects[star.id].previousEffectiveComponent
+      expect(star.raw_astrometry).toEqual(before.raw_astrometry)
+      for (const field of ['x_pc', 'y_pc', 'z_pc', 'vx_kms', 'vy_kms', 'vz_kms'] as const) {
+        expect(star[field]).toBe(before[field])
+      }
+      expect(star.subtypes).toContain('Main-sequence')
+      expect(star.notes).not.toContain('multi-star system V withheld')
+      const source = input.find((candidate) => candidate.id === star.id)!
+      expect(missingCatalogMeasurements(source, star)).toEqual([])
+      expect(apparentVisualMagnitude(star.absolute_mag, Math.hypot(star.x_pc, star.y_pc, star.z_pc)))
+        .toBeCloseTo(star.apparent_mag!, 6)
+    }
+    expect(b.subtypes).toContain('Eruptive variable')
+    expect(b.apparent_mag! - a.apparent_mag!).toBeCloseTo(1.61, 5)
+    // Deblended components must reproduce the observed system flux, not each inherit it.
+    expect(-2.5 * Math.log10(10 ** (-.4 * a.apparent_mag!) + 10 ** (-.4 * b.apparent_mag!)))
+      .toBeCloseTo(9.57, 6)
+  })
+
   it('recovers individual Orion photometry from the final adopted component distances', () => {
     const inputs = [...bright, ...western.filter((star) => star.id === 'hip-26207')]
     const components = completeCatalogCompanions(inputs)

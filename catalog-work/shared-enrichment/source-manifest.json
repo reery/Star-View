@@ -18,7 +18,7 @@
     "catalog-work/landmark-stars/sed.csv": "19b6662da85caf0ec75c57e6ba0b862d321fdc441dfcafc8bc9a56cab712e5ea",
     "catalog-work/landmark-stars/gaia.csv": "851bbf5865d45987d14cdda74691fd8b1b291e0af6353a8096bdb1524ef35d72",
     "catalog-work/nearest-100/source-input.json": "ab8a3ab6e0b0edb1372f7c58cdf4f121fe1d5d204a9a0541e6d302a5ac18c84a",
-    "catalog-work/nearest-100/physical-overrides.json": "dae7b9c432bc714fdd4d867b1ada1711883d0f7be750529ff22ef1eb61c1a60d",
+    "catalog-work/nearest-100/physical-overrides.json": "21125920c7039be1394dda156d0b8c6db962f98b03c86b7a3f602e893e3f5872",
     "catalog-work/shared-enrichment/reviewed-physical.json": "2dcb63be0f2c010af2d48a3e85fdb70616503aac0c5f2dc2fa9a6dcf67467353",
     "catalog-work/shared-enrichment/literature/fundamental.adql": "8127e71c93bc01fbc3ebc6de69bb2399d0d8a7dd38af1de099323e6e384d2048",
     "catalog-work/shared-enrichment/literature/fundamental.csv": "87e9d805d41c01526cf5501b8520b2dba4f34ea825b80acddc2de4ff04e988a4",
@@ -31,7 +31,9 @@
     "catalog-work/shared-enrichment/reviewed-ultracool.json": "540681df4cd2ea0390f3b73fcf4e0a91de90c0df7329fbb4493b6f940a7b5de9",
     "catalog-work/shared-enrichment/ultracool/source-manifest.json": "233e2e3b90041608423ffad8e356eb78950e69e7eec5f8a608eec396d668ed8b",
     "catalog-work/shared-enrichment/hot-star-temperature-review.json": "281b229abf68b70eae174ae1dc17dd7deee2487f4662a29e26eedda2327017d5",
-    "catalog-work/shared-enrichment/70-ophiuchi-review.json": "6c61477d62a7cb265c389a9f9261892c40373c245fbfe5481e8e77ae80f06be2"
+    "catalog-work/shared-enrichment/70-ophiuchi-review.json": "6c61477d62a7cb265c389a9f9261892c40373c245fbfe5481e8e77ae80f06be2",
+    "catalog-work/shared-enrichment/kruger-60-review.json": "6d7565088750c4564714401d0adc6d986075c36c200df7d97d339127ef6b785b",
+    "catalog-work/shared-enrichment/kruger-60-bioverse.tsv": "da55282c822e545fb9f57c4dab79dcb27fda7fdfa6f1bfa8d36d58f149cc8c6c"
   },
   "sources": [
     {
@@ -173,6 +175,22 @@
     {
       "name": "Eggenberger et al. 2008, Table 2 and section 2.3, component bolometric luminosities",
       "url": "https://arxiv.org/pdf/0802.3576"
+    },
+    {
+      "name": "Benedict et al. 2016, Table 11, GJ 860 A/B dynamical masses; original references Tamazian et al. 2006 / Henry et al. 1999",
+      "url": "https://www.astro.gsu.edu/RECONS/published37.pdf"
+    },
+    {
+      "name": "Cifuentes et al. 2025, Table A.1 rows 2457/2458; section 4.2 Gaia absolute-G radius calibration",
+      "url": "https://arxiv.org/html/2412.12264v1#S4.SS2"
+    },
+    {
+      "name": "Hardegree-Ullman et al. 2023, Table 1 exact Gaia rows 2007876324466455040 / 2007876324472098432; sections 2.4-2.5",
+      "url": "https://arxiv.org/html/2304.12490v1"
+    },
+    {
+      "name": "Henry et al. 1999, Table 3 and footnote h; section 3.1 resolved spectra",
+      "url": "https://www.as.utexas.edu/~fritz/astrometry/Papers_in_pdf/%7BHen99%7DMLR.pdf"
     }
   ]
 }

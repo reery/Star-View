@@ -6,9 +6,9 @@
   "inputSha256": "ab8a3ab6e0b0edb1372f7c58cdf4f121fe1d5d204a9a0541e6d302a5ac18c84a",
   "supplementManifestSha256": "92cb2daae1b7319401890f4e1de7f904d1d1b0375b3ac2dc93c8c41c5ecd0073",
   "gaiaSourceManifestSha256": "5744f1665fe2700b5acaf88fd2cc46a4f2a0e2a75d75c03290b769b64c3cb315",
-  "physicalOverridesSha256": "dae7b9c432bc714fdd4d867b1ada1711883d0f7be750529ff22ef1eb61c1a60d",
+  "physicalOverridesSha256": "21125920c7039be1394dda156d0b8c6db962f98b03c86b7a3f602e893e3f5872",
   "physicalPolicyRevision": "nearest100-reviewed-gaia-shared-v2",
-  "sharedEnrichmentManifestSha256": "acd107d193c427bf7f01507d00cf089617158b36cb70ae8b173c29bcf8eccf59",
+  "sharedEnrichmentManifestSha256": "e6a6d8d3df859cd8aea4553a49b29d5cf64e211398bbbb3d91dc87bc39c8b347",
   "sources": [
     {
       "name": "10pc census, Reyle et al., tablea1 update 2023-08-25",
@@ -245,6 +245,22 @@
     {
       "name": "Eggenberger et al. 2008, Table 2 and section 2.3, component bolometric luminosities",
       "url": "https://arxiv.org/pdf/0802.3576"
+    },
+    {
+      "name": "Benedict et al. 2016, Table 11, GJ 860 A/B dynamical masses; original references Tamazian et al. 2006 / Henry et al. 1999",
+      "url": "https://www.astro.gsu.edu/RECONS/published37.pdf"
+    },
+    {
+      "name": "Cifuentes et al. 2025, Table A.1 rows 2457/2458; section 4.2 Gaia absolute-G radius calibration",
+      "url": "https://arxiv.org/html/2412.12264v1#S4.SS2"
+    },
+    {
+      "name": "Hardegree-Ullman et al. 2023, Table 1 exact Gaia rows 2007876324466455040 / 2007876324472098432; sections 2.4-2.5",
+      "url": "https://arxiv.org/html/2304.12490v1"
+    },
+    {
+      "name": "Henry et al. 1999, Table 3 and footnote h; section 3.1 resolved spectra",
+      "url": "https://www.as.utexas.edu/~fritz/astrometry/Papers_in_pdf/%7BHen99%7DMLR.pdf"
     }
   ],
   "sourceChecksumsSha256": {
@@ -287,12 +303,12 @@
     "constellation": 100,
     "spectral_type": 101,
     "temperature_k": 97,
-    "mass_solar": 70,
-    "luminosity_solar": 74,
-    "radius_solar": 74,
-    "metallicity_dex": 64,
+    "mass_solar": 72,
+    "luminosity_solar": 76,
+    "radius_solar": 76,
+    "metallicity_dex": 65,
     "age_gyr": 16,
-    "absolute_mag": 52,
+    "absolute_mag": 54,
     "fullVelocity": 75,
     "rawAstrometry": 100,
     "radialVelocity": 73,
@@ -5747,7 +5763,7 @@
         "eligibility": "Not a parsed K5-M9.5 dwarf spectral type (no subdwarf, giant, composite or peculiar class); supplements not applied."
       },
       "reviewedPhysical": {
-        "inputSha256": "dae7b9c432bc714fdd4d867b1ada1711883d0f7be750529ff22ef1eb61c1a60d",
+        "inputSha256": "21125920c7039be1394dda156d0b8c6db962f98b03c86b7a3f602e893e3f5872",
         "observations": [
           {
             "source_id": "primary-paper",
@@ -6097,7 +6113,7 @@
         "eligibility": "Not a parsed K5-M9.5 dwarf spectral type (no subdwarf, giant, composite or peculiar class); supplements not applied."
       },
       "reviewedPhysical": {
-        "inputSha256": "dae7b9c432bc714fdd4d867b1ada1711883d0f7be750529ff22ef1eb61c1a60d",
+        "inputSha256": "21125920c7039be1394dda156d0b8c6db962f98b03c86b7a3f602e893e3f5872",
         "observations": [
           {
             "source_id": "primary-paper",
@@ -7020,7 +7036,7 @@
         }
       },
       "reviewedPhysical": {
-        "inputSha256": "dae7b9c432bc714fdd4d867b1ada1711883d0f7be750529ff22ef1eb61c1a60d",
+        "inputSha256": "21125920c7039be1394dda156d0b8c6db962f98b03c86b7a3f602e893e3f5872",
         "observations": [
           {
             "source_id": "primary-paper",
@@ -7381,7 +7397,7 @@
         }
       },
       "reviewedPhysical": {
-        "inputSha256": "dae7b9c432bc714fdd4d867b1ada1711883d0f7be750529ff22ef1eb61c1a60d",
+        "inputSha256": "21125920c7039be1394dda156d0b8c6db962f98b03c86b7a3f602e893e3f5872",
         "observations": [
           {
             "source_id": "primary-paper",
@@ -7737,7 +7753,7 @@
         }
       },
       "reviewedPhysical": {
-        "inputSha256": "dae7b9c432bc714fdd4d867b1ada1711883d0f7be750529ff22ef1eb61c1a60d",
+        "inputSha256": "21125920c7039be1394dda156d0b8c6db962f98b03c86b7a3f602e893e3f5872",
         "observations": [
           {
             "source_id": "primary-paper",
@@ -8664,7 +8680,7 @@
         "eligibility": "Not a parsed K5-M9.5 dwarf spectral type (no subdwarf, giant, composite or peculiar class); supplements not applied."
       },
       "reviewedPhysical": {
-        "inputSha256": "dae7b9c432bc714fdd4d867b1ada1711883d0f7be750529ff22ef1eb61c1a60d",
+        "inputSha256": "21125920c7039be1394dda156d0b8c6db962f98b03c86b7a3f602e893e3f5872",
         "observations": [
           {
             "source_id": "primary-paper",
@@ -9226,7 +9242,7 @@
         "eligibility": "Not a parsed K5-M9.5 dwarf spectral type (no subdwarf, giant, composite or peculiar class); supplements not applied."
       },
       "reviewedPhysical": {
-        "inputSha256": "dae7b9c432bc714fdd4d867b1ada1711883d0f7be750529ff22ef1eb61c1a60d",
+        "inputSha256": "21125920c7039be1394dda156d0b8c6db962f98b03c86b7a3f602e893e3f5872",
         "observations": [
           {
             "source_id": "primary-paper",
@@ -9630,7 +9646,7 @@
         }
       },
       "reviewedPhysical": {
-        "inputSha256": "dae7b9c432bc714fdd4d867b1ada1711883d0f7be750529ff22ef1eb61c1a60d",
+        "inputSha256": "21125920c7039be1394dda156d0b8c6db962f98b03c86b7a3f602e893e3f5872",
         "observations": [
           {
             "source_id": "primary-paper",
@@ -9976,7 +9992,7 @@
         }
       },
       "reviewedPhysical": {
-        "inputSha256": "dae7b9c432bc714fdd4d867b1ada1711883d0f7be750529ff22ef1eb61c1a60d",
+        "inputSha256": "21125920c7039be1394dda156d0b8c6db962f98b03c86b7a3f602e893e3f5872",
         "observations": [
           {
             "source_id": "primary-paper",
@@ -13947,7 +13963,7 @@
         }
       },
       "reviewedPhysical": {
-        "inputSha256": "dae7b9c432bc714fdd4d867b1ada1711883d0f7be750529ff22ef1eb61c1a60d",
+        "inputSha256": "21125920c7039be1394dda156d0b8c6db962f98b03c86b7a3f602e893e3f5872",
         "observations": [
           {
             "source_id": "primary-paper",
@@ -14278,7 +14294,7 @@
         }
       },
       "reviewedPhysical": {
-        "inputSha256": "dae7b9c432bc714fdd4d867b1ada1711883d0f7be750529ff22ef1eb61c1a60d",
+        "inputSha256": "21125920c7039be1394dda156d0b8c6db962f98b03c86b7a3f602e893e3f5872",
         "observations": [
           {
             "source_id": "primary-paper",
@@ -16951,7 +16967,7 @@
         "eligibility": "Not a parsed K5-M9.5 dwarf spectral type (no subdwarf, giant, composite or peculiar class); supplements not applied."
       },
       "reviewedPhysical": {
-        "inputSha256": "dae7b9c432bc714fdd4d867b1ada1711883d0f7be750529ff22ef1eb61c1a60d",
+        "inputSha256": "21125920c7039be1394dda156d0b8c6db962f98b03c86b7a3f602e893e3f5872",
         "observations": [
           {
             "source_id": "primary-paper",
@@ -17849,7 +17865,7 @@
         }
       },
       "reviewedPhysical": {
-        "inputSha256": "dae7b9c432bc714fdd4d867b1ada1711883d0f7be750529ff22ef1eb61c1a60d",
+        "inputSha256": "21125920c7039be1394dda156d0b8c6db962f98b03c86b7a3f602e893e3f5872",
         "observations": [
           {
             "source_id": "primary-paper",
@@ -18173,7 +18189,7 @@
         }
       },
       "reviewedPhysical": {
-        "inputSha256": "dae7b9c432bc714fdd4d867b1ada1711883d0f7be750529ff22ef1eb61c1a60d",
+        "inputSha256": "21125920c7039be1394dda156d0b8c6db962f98b03c86b7a3f602e893e3f5872",
         "observations": [
           {
             "source_id": "primary-paper",
@@ -19921,26 +19937,30 @@
         "temperature_k": {
           "status": "estimated",
           "sourceRefs": [
-            "pecaut-mamajek:2022.04.16"
+            "2023AJ....165..267H:Table 1:10pc-0062"
           ],
-          "detail": "Estimated: Pecaut-Mamajek 2022.04.16 M4V mean dwarf class, not a measured temperature."
+          "detail": "primary-paper; uncertainty 111.0; exact Gaia DR3 component ID, Gaia BP-RP empirical color-temperature calibration; not a class-only or spectroscopic temperature, close companion photometric systematics possible"
         },
         "mass_solar": {
-          "status": "unknown",
-          "sourceRefs": [],
-          "detail": "No vetted component measurement adopted; mean-sequence values are not substituted."
+          "status": "measured",
+          "sourceRefs": [
+            "2016AJ....152..141B:Table 11:10pc-0062"
+          ],
+          "detail": "primary-paper; uncertainty 0.008; individual dynamical mass, original source Henry et al. 1999"
         },
         "luminosity_solar": {
-          "status": "unknown",
-          "sourceRefs": [],
-          "detail": "No vetted component measurement adopted; mean-sequence values are not substituted."
+          "status": "derived",
+          "sourceRefs": [
+            "2023AJ....165..267H:Table 1:10pc-0062"
+          ],
+          "detail": "primary-paper; uncertainty 0.000116; Gaia G absolute magnitude plus model bolometric correction, source distance 4.001 pc, possible close companion photometric systematics beyond formal uncertainty"
         },
         "absolute_mag": {
-          "status": "unknown",
+          "status": "derived",
           "sourceRefs": [
-            "10pc:tablea1:Seq=62:Vmag"
+            "1999ApJ...512..864H:Table 3, Gl 860 B, footnote h"
           ],
-          "detail": "Component-resolved Johnson V not independently established; multi-star system V withheld."
+          "detail": "{\"inputs\": {\"deltaVUncertainty\": 0.06, \"deltaV_BminusA\": 1.61, \"epoch\": null, \"reference\": \"1999ApJ...512..864H:Table 3, Gl 860 B, footnote h\", \"systemJohnsonV\": 9.57, \"systemJohnsonVUncertainty\": 0.03}, \"johnson_v\": 11.40209944789242, \"method\": \"V_A = V_AB + 2.5 log10(1 + 10^(-0.4 deltaV)); V_B = V_A + deltaV. First-order errors assume independent V_AB and deltaV; the derived A/B magnitudes are correlated. Individual absolute V uses each retained catalog distance.\", \"reference\": \"1999ApJ...512..864H:Table 3, Gl 860 B, footnote h\", \"scope\": \"Kruger 60 B individual Johnson V deblended from the AB system flux and published delta V; no flare model.\", \"source_url\": \"https://www.as.utexas.edu/~fritz/astrometry/Papers_in_pdf/%7BHen99%7DMLR.pdf\", \"status\": \"derived\", \"uncertainty\": 0.05736931901693091}"
         },
         "epoch": {
           "status": "adopted",
@@ -20039,12 +20059,18 @@
           ]
         },
         "radius_solar": {
-          "status": "unknown",
-          "sourceRefs": []
+          "status": "estimated",
+          "sourceRefs": [
+            "2025A&A...693A.228C:Table A.1:10pc-0062"
+          ],
+          "detail": "primary-paper; uncertainty 0.0174; individual absolute-G calibration; not interferometric radius, within calibrated absolute-G range 7.5-14 mag, not forced into exact Stefan-Boltzmann agreement with independent temperature/luminosity"
         },
         "metallicity_dex": {
-          "status": "unknown",
-          "sourceRefs": []
+          "status": "compiled",
+          "sourceRefs": [
+            "2025A&A...693A.228C:Table A.1:Zbo98:10pc-0062"
+          ],
+          "detail": "primary-paper; uncertainty None; retains existing effective B component abundance, no uncertainty supplied by compilation"
         },
         "age_gyr": {
           "status": "unknown",
@@ -20070,6 +20096,86 @@
           "reasons": [
             "No unique 2MASS identifier"
           ]
+        }
+      },
+      "reviewedPhysical": {
+        "inputSha256": "21125920c7039be1394dda156d0b8c6db962f98b03c86b7a3f602e893e3f5872",
+        "observations": [
+          {
+            "source_id": "primary-paper",
+            "source_record_id": "10pc-0062",
+            "field": "temperature_k",
+            "value": 3097.0,
+            "uncertainty": 111.0,
+            "status": "estimated",
+            "reference": "2023AJ....165..267H:Table 1",
+            "quality_flags": [
+              "exact Gaia DR3 component ID",
+              "Gaia BP-RP empirical color-temperature calibration; not a class-only or spectroscopic temperature",
+              "close companion photometric systematics possible"
+            ]
+          },
+          {
+            "source_id": "primary-paper",
+            "source_record_id": "10pc-0062",
+            "field": "mass_solar",
+            "value": 0.172,
+            "uncertainty": 0.008,
+            "status": "measured",
+            "reference": "2016AJ....152..141B:Table 11",
+            "quality_flags": [
+              "individual dynamical mass",
+              "original source Henry et al. 1999"
+            ]
+          },
+          {
+            "source_id": "primary-paper",
+            "source_record_id": "10pc-0062",
+            "field": "luminosity_solar",
+            "value": 0.00393,
+            "uncertainty": 0.000116,
+            "status": "derived",
+            "reference": "2023AJ....165..267H:Table 1",
+            "quality_flags": [
+              "Gaia G absolute magnitude plus model bolometric correction",
+              "source distance 4.001 pc",
+              "possible close companion photometric systematics beyond formal uncertainty"
+            ]
+          },
+          {
+            "source_id": "primary-paper",
+            "source_record_id": "10pc-0062",
+            "field": "radius_solar",
+            "value": 0.2085,
+            "uncertainty": 0.0174,
+            "status": "estimated",
+            "reference": "2025A&A...693A.228C:Table A.1",
+            "quality_flags": [
+              "individual absolute-G calibration; not interferometric radius",
+              "within calibrated absolute-G range 7.5-14 mag",
+              "not forced into exact Stefan-Boltzmann agreement with independent temperature/luminosity"
+            ]
+          },
+          {
+            "source_id": "primary-paper",
+            "source_record_id": "10pc-0062",
+            "field": "metallicity_dex",
+            "value": -0.25,
+            "uncertainty": null,
+            "status": "compiled",
+            "reference": "2025A&A...693A.228C:Table A.1:Zbo98",
+            "quality_flags": [
+              "retains existing effective B component abundance",
+              "no uncertainty supplied by compilation"
+            ]
+          }
+        ],
+        "adopted": {
+          "temperature_k": "2023AJ....165..267H:Table 1:10pc-0062",
+          "mass_solar": "2016AJ....152..141B:Table 11:10pc-0062",
+          "luminosity_solar": "2023AJ....165..267H:Table 1:10pc-0062",
+          "radius_solar": "2025A&A...693A.228C:Table A.1:10pc-0062",
+          "metallicity_dex": "2025A&A...693A.228C:Table A.1:Zbo98:10pc-0062"
         }
       }
     },
@@ -20736,26 +20842,30 @@
         "temperature_k": {
           "status": "estimated",
           "sourceRefs": [
-            "pecaut-mamajek:2022.04.16"
+            "2023AJ....165..267H:Table 1:10pc-0061"
           ],
-          "detail": "Estimated: Pecaut-Mamajek 2022.04.16 M3V mean dwarf class, not a measured temperature."
+          "detail": "primary-paper; uncertainty 111.0; exact Gaia DR3 component ID, Gaia BP-RP empirical color-temperature calibration; not a class-only or spectroscopic temperature, close companion photometric systematics possible"
         },
         "mass_solar": {
-          "status": "unknown",
-          "sourceRefs": [],
-          "detail": "No vetted component measurement adopted; mean-sequence values are not substituted."
+          "status": "measured",
+          "sourceRefs": [
+            "2016AJ....152..141B:Table 11:10pc-0061"
+          ],
+          "detail": "primary-paper; uncertainty 0.02; individual dynamical mass, original source Tamazian et al. 2006"
         },
         "luminosity_solar": {
-          "status": "unknown",
-          "sourceRefs": [],
-          "detail": "No vetted component measurement adopted; mean-sequence values are not substituted."
+          "status": "derived",
+          "sourceRefs": [
+            "2023AJ....165..267H:Table 1:10pc-0061"
+          ],
+          "detail": "primary-paper; uncertainty 0.000254; Gaia G absolute magnitude plus model bolometric correction, source distance 4.010 pc, possible close companion photometric systematics beyond formal uncertainty"
         },
         "absolute_mag": {
-          "status": "unknown",
+          "status": "derived",
           "sourceRefs": [
-            "10pc:tablea1:Seq=61:Vmag"
+            "1999ApJ...512..864H:Table 3, Gl 860 B, footnote h"
           ],
-          "detail": "Component-resolved Johnson V not independently established; multi-star system V withheld."
+          "detail": "{\"inputs\": {\"deltaVUncertainty\": 0.06, \"deltaV_BminusA\": 1.61, \"epoch\": null, \"reference\": \"1999ApJ...512..864H:Table 3, Gl 860 B, footnote h\", \"systemJohnsonV\": 9.57, \"systemJohnsonVUncertainty\": 0.03}, \"johnson_v\": 9.79209944789242, \"method\": \"V_A = V_AB + 2.5 log10(1 + 10^(-0.4 deltaV)); V_B = V_A + deltaV. First-order errors assume independent V_AB and deltaV; the derived A/B magnitudes are correlated. Individual absolute V uses each retained catalog distance.\", \"reference\": \"1999ApJ...512..864H:Table 3, Gl 860 B, footnote h\", \"scope\": \"Kruger 60 A individual Johnson V deblended from the AB system flux and published delta V; no flare model.\", \"source_url\": \"https://www.as.utexas.edu/~fritz/astrometry/Papers_in_pdf/%7BHen99%7DMLR.pdf\", \"status\": \"derived\", \"uncertainty\": 0.03198755180923881}"
         },
         "epoch": {
           "status": "adopted",
@@ -20854,8 +20964,11 @@
           ]
         },
         "radius_solar": {
-          "status": "unknown",
-          "sourceRefs": []
+          "status": "estimated",
+          "sourceRefs": [
+            "2025A&A...693A.228C:Table A.1:10pc-0061"
+          ],
+          "detail": "primary-paper; uncertainty 0.0154; individual absolute-G calibration; not interferometric radius, within calibrated absolute-G range 7.5-14 mag, not forced into exact Stefan-Boltzmann agreement with independent temperature/luminosity"
         },
         "metallicity_dex": {
           "status": "unknown",
@@ -20892,6 +21005,72 @@
           "reasons": [
             "No unique 2MASS identifier"
           ]
+        }
+      },
+      "reviewedPhysical": {
+        "inputSha256": "21125920c7039be1394dda156d0b8c6db962f98b03c86b7a3f602e893e3f5872",
+        "observations": [
+          {
+            "source_id": "primary-paper",
+            "source_record_id": "10pc-0061",
+            "field": "temperature_k",
+            "value": 3342.0,
+            "uncertainty": 111.0,
+            "status": "estimated",
+            "reference": "2023AJ....165..267H:Table 1",
+            "quality_flags": [
+              "exact Gaia DR3 component ID",
+              "Gaia BP-RP empirical color-temperature calibration; not a class-only or spectroscopic temperature",
+              "close companion photometric systematics possible"
+            ]
+          },
+          {
+            "source_id": "primary-paper",
+            "source_record_id": "10pc-0061",
+            "field": "mass_solar",
+            "value": 0.268,
+            "uncertainty": 0.02,
+            "status": "measured",
+            "reference": "2016AJ....152..141B:Table 11",
+            "quality_flags": [
+              "individual dynamical mass",
+              "original source Tamazian et al. 2006"
+            ]
+          },
+          {
+            "source_id": "primary-paper",
+            "source_record_id": "10pc-0061",
+            "field": "luminosity_solar",
+            "value": 0.00983,
+            "uncertainty": 0.000254,
+            "status": "derived",
+            "reference": "2023AJ....165..267H:Table 1",
+            "quality_flags": [
+              "Gaia G absolute magnitude plus model bolometric correction",
+              "source distance 4.010 pc",
+              "possible close companion photometric systematics beyond formal uncertainty"
+            ]
+          },
+          {
+            "source_id": "primary-paper",
+            "source_record_id": "10pc-0061",
+            "field": "radius_solar",
+            "value": 0.3085,
+            "uncertainty": 0.0154,
+            "status": "estimated",
+            "reference": "2025A&A...693A.228C:Table A.1",
+            "quality_flags": [
+              "individual absolute-G calibration; not interferometric radius",
+              "within calibrated absolute-G range 7.5-14 mag",
+              "not forced into exact Stefan-Boltzmann agreement with independent temperature/luminosity"
+            ]
+          }
+        ],
+        "adopted": {
+          "temperature_k": "2023AJ....165..267H:Table 1:10pc-0061",
+          "mass_solar": "2016AJ....152..141B:Table 11:10pc-0061",
+          "luminosity_solar": "2023AJ....165..267H:Table 1:10pc-0061",
+          "radius_solar": "2025A&A...693A.228C:Table A.1:10pc-0061"
         }
       }
     },
@@ -25282,7 +25461,7 @@
         }
       },
       "reviewedPhysical": {
-        "inputSha256": "dae7b9c432bc714fdd4d867b1ada1711883d0f7be750529ff22ef1eb61c1a60d",
+        "inputSha256": "21125920c7039be1394dda156d0b8c6db962f98b03c86b7a3f602e893e3f5872",
         "observations": [
           {
             "source_id": "primary-paper",
@@ -31416,7 +31595,7 @@
         }
       },
       "reviewedPhysical": {
-        "inputSha256": "dae7b9c432bc714fdd4d867b1ada1711883d0f7be750529ff22ef1eb61c1a60d",
+        "inputSha256": "21125920c7039be1394dda156d0b8c6db962f98b03c86b7a3f602e893e3f5872",
         "observations": [
           {
             "source_id": "primary-paper",
@@ -31762,7 +31941,7 @@
         "eligibility": "Not a parsed K5-M9.5 dwarf spectral type (no subdwarf, giant, composite or peculiar class); supplements not applied."
       },
       "reviewedPhysical": {
-        "inputSha256": "dae7b9c432bc714fdd4d867b1ada1711883d0f7be750529ff22ef1eb61c1a60d",
+        "inputSha256": "21125920c7039be1394dda156d0b8c6db962f98b03c86b7a3f602e893e3f5872",
         "observations": [
           {
             "source_id": "primary-paper",
@@ -35598,7 +35777,7 @@
         "eligibility": "Not a parsed K5-M9.5 dwarf spectral type (no subdwarf, giant, composite or peculiar class); supplements not applied."
       },
       "reviewedPhysical": {
-        "inputSha256": "dae7b9c432bc714fdd4d867b1ada1711883d0f7be750529ff22ef1eb61c1a60d",
+        "inputSha256": "21125920c7039be1394dda156d0b8c6db962f98b03c86b7a3f602e893e3f5872",
         "observations": [
           {
             "source_id": "primary-paper",

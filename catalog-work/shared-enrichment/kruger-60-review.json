@@ -1,0 +1,1360 @@
+{
+  "schemaVersion": 1,
+  "reviewedOn": "2026-10-16",
+  "policy": "Exact GJ 860 A/B identities. Adopt individual dynamical masses, Gaia-resolved photometric temperature/luminosity estimates and calibrated radii. Deblend Johnson V with the published system V and delta V. Preserve all previous effective records and source uncertainties. No binary-total flux, abundance, age or systemic velocity is assigned to an individual.",
+  "pipelineCause": [
+    "Nearest-100 withheld Johnson V for every new multi-star system pending resolved passband evidence; both components retained only generic M3/M4 dwarf temperatures.",
+    "The shared companion pool alone filled B mass/radius/abundance from Cifuentes 2025; A was excluded by the generic Category=3 filter. Category=3 describes the available data in that survey, not whether this established visual binary exists.",
+    "The nearest-1000 component-property subset did not include either Kruger 60 star. A dedicated review was missing."
+  ],
+  "sources": [
+    {
+      "name": "Benedict et al. 2016, Table 11, GJ 860 A/B dynamical masses; original references Tamazian et al. 2006 / Henry et al. 1999",
+      "url": "https://www.astro.gsu.edu/RECONS/published37.pdf"
+    },
+    {
+      "name": "Cifuentes et al. 2025, Table A.1 rows 2457/2458; section 4.2 Gaia absolute-G radius calibration",
+      "url": "https://arxiv.org/html/2412.12264v1#S4.SS2"
+    },
+    {
+      "name": "Hardegree-Ullman et al. 2023, Table 1 exact Gaia rows 2007876324466455040 / 2007876324472098432; sections 2.4-2.5",
+      "url": "https://arxiv.org/html/2304.12490v1"
+    },
+    {
+      "name": "Henry et al. 1999, Table 3 and footnote h; section 3.1 resolved spectra",
+      "url": "https://www.as.utexas.edu/~fritz/astrometry/Papers_in_pdf/%7BHen99%7DMLR.pdf"
+    }
+  ],
+  "inputSha256": {
+    "catalog-work/shared-enrichment/kruger-60-bioverse.tsv": "da55282c822e545fb9f57c4dab79dcb27fda7fdfa6f1bfa8d36d58f149cc8c6c"
+  },
+  "photometryInputs": {
+    "systemJohnsonV": 9.57,
+    "systemJohnsonVUncertainty": 0.03,
+    "deltaV_BminusA": 1.61,
+    "deltaVUncertainty": 0.06,
+    "reference": "1999ApJ...512..864H:Table 3, Gl 860 B, footnote h",
+    "method": "V_A = V_AB + 2.5 log10(1 + 10^(-0.4 deltaV)); V_B = V_A + deltaV. First-order errors assume independent V_AB and deltaV; the derived A/B magnitudes are correlated. Individual absolute V uses each retained catalog distance.",
+    "epoch": null,
+    "caveat": "Published compiled/deblended baseline photometry; no observing date or flare light curve is supplied. Hipparcos delta magnitude is adopted as delta V by Henry et al., not reclassified here as a direct resolved Johnson exposure."
+  },
+  "withheld": {
+    "age_gyr": "No sufficiently supported scalar component/system age adopted.",
+    "A_metallicity": "Newton 2014 comparison row LSPM J2227+5741a explicitly names Gl 860 AB. The -0.04 +/- 0.12 dex result is not adopted as an independent A abundance or copied to B.",
+    "Bioverse_Vmag": "Its A row lists V=11.410 +/- 0.050, inconsistent with the established brighter A component; retain this frozen source entry without adopting it. Its temperature uses Gaia BP-RP and luminosity uses Gaia G plus a bolometric correction, not that V value.",
+    "Bioverse_binary_flags": "All binary flags are false for these known binary components. Do not use those flags as membership evidence. Gaia resolves both source IDs; photometric T/L remain empirical estimates with possible close-companion contamination/systematic errors, not direct SED/interferometric measurements.",
+    "radial_velocity": "Retain the existing separate 1953 component RVs, raw astrometry, errors and motion vectors; no newer systemic solution reviewed here."
+  },
+  "previousCatalogRecords": {
+    "nearest-100": {
+      "10pc-0061": {
+        "record": {
+          "type": "star",
+          "id": "10pc-0061",
+          "name": "Kruger 60 A",
+          "spectral_type": "M3",
+          "x_pc": "-1.016721093",
+          "y_pc": "3.879105492",
+          "z_pc": "-0.000263571",
+          "vx_kms": "19.604535",
+          "vy_kms": "-19.672926",
+          "vz_kms": "3.565194",
+          "temperature_k": "3430",
+          "mass_solar": "",
+          "luminosity_solar": "",
+          "radius_solar": "",
+          "metallicity_dex": "",
+          "age_gyr": "",
+          "metallicity_kind": "",
+          "absolute_mag": "",
+          "epoch": "2000.0",
+          "notes": "10pc census (2023-08-25), object 61, system 28; HD 239960 A. J2000 Sun-relative Galactic position via Astropy; full-space-motion. Estimated: Pecaut-Mamajek 2022.04.16 M3V mean dwarf class, not a measured temperature. Component-resolved Johnson V not independently established; multi-star system V withheld. No orbital model.",
+          "constellation": "Cepheus",
+          "ra_deg": "336.992112906",
+          "dec_deg": "57.694032053",
+          "astrometry_epoch": "2016.0",
+          "parallax_mas": "249.3926",
+          "parallax_error_mas": "0.1653",
+          "pm_ra_cosdec_masyr": "-725.227",
+          "pm_ra_error_masyr": "0.537",
+          "pm_dec_masyr": "-223.461",
+          "pm_dec_error_masyr": "0.348",
+          "radial_velocity_kms": "-24.0",
+          "radial_velocity_error_kms": "5.0",
+          "astrometry_ref": "2018yCat.1345....0G",
+          "radial_velocity_ref": "1953GCRV..C......0W"
+        },
+        "provenance": {
+          "id": "10pc-0061",
+          "sourceRow": "61",
+          "systemId": "28",
+          "sourceObjectName": "HD 239960 A",
+          "sourceObjectType": "LM",
+          "identifiers": {
+            "GaiaEDR3": "2007876324466455040",
+            "GaiaDR2": "2007876324466455424",
+            "SIMBAD": "HD 239960A",
+            "GJ": "GJ 860 A",
+            "HIP": null
+          },
+          "sourceMeasurements": {
+            "RAdeg": "336.992112906",
+            "DEdeg": "57.694032053",
+            "Epoch": "2016.0",
+            "plx": "249.3926",
+            "e_plx": "0.1653",
+            "r_plx": "2018yCat.1345....0G",
+            "pmRA": "-725.227",
+            "e_pmRA": "0.537",
+            "pmDE": "-223.461",
+            "e_pmDE": "0.348",
+            "r_pmDE": "2018yCat.1345....0G",
+            "RV": "-24.0",
+            "e_RV": "5.0",
+            "r_RV": "1953GCRV..C......0W",
+            "SpType": "M3",
+            "r_SpType": "2002AJ....123.2002H",
+            "SpMethod": "Opt Spec",
+            "Vmag": "11.41",
+            "r_Sys": "1951PASP...63..141V",
+            "Com": "..."
+          },
+          "adoptedJ2000": {
+            "frame": "ICRS",
+            "raDeg": 336.99814352014795,
+            "decDeg": 57.69502497237454,
+            "distancePc": 4.0101348191484645,
+            "method": "full-space-motion"
+          },
+          "fields": {
+            "type": {
+              "status": "compiled",
+              "sourceRefs": [
+                "10pc:tablea1:Seq=61:ObjType"
+              ]
+            },
+            "id": {
+              "status": "assigned",
+              "sourceRefs": [
+                "10pc:tablea1:Seq=61"
+              ],
+              "detail": "Stable component identity; existing shared IDs take precedence."
+            },
+            "name": {
+              "status": "compiled",
+              "sourceRefs": [
+                "10pc:tablea1:Seq=61"
+              ]
+            },
+            "spectral_type": {
+              "status": "compiled",
+              "sourceRefs": [
+                "10pc:tablea1:Seq=61:SpType"
+              ],
+              "detail": "2002AJ....123.2002H"
+            },
+            "x_pc": {
+              "status": "derived",
+              "sourceRefs": [
+                "10pc:tablea1:Seq=61:RAdeg,DEdeg,Epoch,plx,pmRA,pmDE,RV"
+              ],
+              "detail": "full-space-motion"
+            },
+            "y_pc": {
+              "status": "derived",
+              "sourceRefs": [
+                "10pc:tablea1:Seq=61:RAdeg,DEdeg,Epoch,plx,pmRA,pmDE,RV"
+              ],
+              "detail": "full-space-motion"
+            },
+            "z_pc": {
+              "status": "derived",
+              "sourceRefs": [
+                "10pc:tablea1:Seq=61:RAdeg,DEdeg,Epoch,plx,pmRA,pmDE,RV"
+              ],
+              "detail": "full-space-motion"
+            },
+            "vx_kms": {
+              "status": "derived",
+              "sourceRefs": [
+                "10pc:tablea1:Seq=61:pmRA,pmDE,RV"
+              ],
+              "detail": "Sun-relative Galactic vector; source spectroscopic RV, not an orbit solution."
+            },
+            "vy_kms": {
+              "status": "derived",
+              "sourceRefs": [
+                "10pc:tablea1:Seq=61:pmRA,pmDE,RV"
+              ],
+              "detail": "Sun-relative Galactic vector; source spectroscopic RV, not an orbit solution."
+            },
+            "vz_kms": {
+              "status": "derived",
+              "sourceRefs": [
+                "10pc:tablea1:Seq=61:pmRA,pmDE,RV"
+              ],
+              "detail": "Sun-relative Galactic vector; source spectroscopic RV, not an orbit solution."
+            },
+            "temperature_k": {
+              "status": "estimated",
+              "sourceRefs": [
+                "pecaut-mamajek:2022.04.16"
+              ],
+              "detail": "Estimated: Pecaut-Mamajek 2022.04.16 M3V mean dwarf class, not a measured temperature."
+            },
+            "mass_solar": {
+              "status": "unknown",
+              "sourceRefs": [],
+              "detail": "No vetted component measurement adopted; mean-sequence values are not substituted."
+            },
+            "luminosity_solar": {
+              "status": "unknown",
+              "sourceRefs": [],
+              "detail": "No vetted component measurement adopted; mean-sequence values are not substituted."
+            },
+            "absolute_mag": {
+              "status": "unknown",
+              "sourceRefs": [
+                "10pc:tablea1:Seq=61:Vmag"
+              ],
+              "detail": "Component-resolved Johnson V not independently established; multi-star system V withheld."
+            },
+            "epoch": {
+              "status": "adopted",
+              "sourceRefs": [],
+              "detail": "Static J2000.0 snapshot; source decimal years treated as Julian years TT."
+            },
+            "notes": {
+              "status": "compiled",
+              "sourceRefs": [
+                "10pc:tablea1:Seq=61"
+              ]
+            },
+            "constellation": {
+              "status": "derived",
+              "sourceRefs": [
+                "astropy:7.1.1:Roman1987"
+              ],
+              "detail": "ICRS snapshot direction transformed to B1875 boundary coordinates; no physical motion to 1875. Canonical spelling normalization applied."
+            },
+            "ra_deg": {
+              "status": "compiled",
+              "sourceRefs": [
+                "10pc:tablea1:Seq=61:RAdeg"
+              ]
+            },
+            "dec_deg": {
+              "status": "compiled",
+              "sourceRefs": [
+                "10pc:tablea1:Seq=61:DEdeg"
+              ]
+            },
+            "astrometry_epoch": {
+              "status": "compiled",
+              "sourceRefs": [
+                "10pc:tablea1:Seq=61:Epoch"
+              ]
+            },
+            "parallax_mas": {
+              "status": "compiled",
+              "sourceRefs": [
+                "10pc:tablea1:Seq=61:plx"
+              ]
+            },
+            "parallax_error_mas": {
+              "status": "compiled",
+              "sourceRefs": [
+                "10pc:tablea1:Seq=61:e_plx"
+              ]
+            },
+            "pm_ra_cosdec_masyr": {
+              "status": "compiled",
+              "sourceRefs": [
+                "10pc:tablea1:Seq=61:pmRA"
+              ]
+            },
+            "pm_ra_error_masyr": {
+              "status": "compiled",
+              "sourceRefs": [
+                "10pc:tablea1:Seq=61:e_pmRA"
+              ]
+            },
+            "pm_dec_masyr": {
+              "status": "compiled",
+              "sourceRefs": [
+                "10pc:tablea1:Seq=61:pmDE"
+              ]
+            },
+            "pm_dec_error_masyr": {
+              "status": "compiled",
+              "sourceRefs": [
+                "10pc:tablea1:Seq=61:e_pmDE"
+              ]
+            },
+            "radial_velocity_kms": {
+              "status": "compiled",
+              "sourceRefs": [
+                "10pc:tablea1:Seq=61:RV"
+              ]
+            },
+            "radial_velocity_error_kms": {
+              "status": "compiled",
+              "sourceRefs": [
+                "10pc:tablea1:Seq=61:e_RV"
+              ]
+            },
+            "astrometry_ref": {
+              "status": "compiled",
+              "sourceRefs": [
+                "10pc:tablea1:Seq=61:r_plx,r_pmDE"
+              ]
+            },
+            "radial_velocity_ref": {
+              "status": "compiled",
+              "sourceRefs": [
+                "10pc:tablea1:Seq=61:r_RV"
+              ]
+            },
+            "radius_solar": {
+              "status": "unknown",
+              "sourceRefs": []
+            },
+            "metallicity_dex": {
+              "status": "unknown",
+              "sourceRefs": []
+            },
+            "age_gyr": {
+              "status": "unknown",
+              "sourceRefs": []
+            },
+            "metallicity_kind": {
+              "status": "unknown",
+              "sourceRefs": []
+            }
+          },
+          "overrides": [],
+          "physicalSupplements": {
+            "identity": {
+              "gaia_dr2": "2007876324466455424",
+              "identity_method": "10pc Gaia DR2 identifier only; CNS5 identity shared by several components or absent"
+            },
+            "cifuentes2020": {
+              "record": "J22279+576",
+              "matchedBy": "Gaia DR2",
+              "distancePc": 4.009742,
+              "status": "withheld",
+              "fields": [],
+              "reasons": [
+                "Cifuentes close multiple (<5 arcsec)"
+              ]
+            },
+            "mann": {
+              "twomass": null,
+              "status": "withheld",
+              "reasons": [
+                "No unique 2MASS identifier"
+              ]
+            }
+          }
+        }
+      },
+      "10pc-0062": {
+        "record": {
+          "type": "star",
+          "id": "10pc-0062",
+          "name": "DO Cep",
+          "spectral_type": "M4",
+          "x_pc": "-1.014508377",
+          "y_pc": "3.870231218",
+          "z_pc": "-0.000155991",
+          "vx_kms": "28.283950",
+          "vy_kms": "-21.534010",
+          "vz_kms": "-1.865868",
+          "temperature_k": "3210",
+          "mass_solar": "",
+          "luminosity_solar": "",
+          "radius_solar": "",
+          "metallicity_dex": "",
+          "age_gyr": "",
+          "metallicity_kind": "",
+          "absolute_mag": "",
+          "epoch": "2000.0",
+          "notes": "10pc census (2023-08-25), object 62, system 28; HD 239960 B. J2000 Sun-relative Galactic position via Astropy; full-space-motion. Estimated: Pecaut-Mamajek 2022.04.16 M4V mean dwarf class, not a measured temperature. Component-resolved Johnson V not independently established; multi-star system V withheld. No orbital model.",
+          "constellation": "Cepheus",
+          "ra_deg": "336.991386092",
+          "dec_deg": "57.69410078",
+          "astrometry_epoch": "2016.0",
+          "parallax_mas": "249.9668",
+          "parallax_error_mas": "0.7414",
+          "pm_ra_cosdec_masyr": "-934.098",
+          "pm_ra_error_masyr": "1.319",
+          "pm_dec_masyr": "-686.244",
+          "pm_dec_error_masyr": "1.41",
+          "radial_velocity_kms": "-28.0",
+          "radial_velocity_error_kms": "5.0",
+          "astrometry_ref": "2018yCat.1345....0G",
+          "radial_velocity_ref": "1953GCRV..C......0W"
+        },
+        "provenance": {
+          "id": "10pc-0062",
+          "sourceRow": "62",
+          "systemId": "28",
+          "sourceObjectName": "HD 239960 B",
+          "sourceObjectType": "LM",
+          "identifiers": {
+            "GaiaEDR3": "2007876324472098432",
+            "GaiaDR2": "2007876324472098432",
+            "SIMBAD": "HD 239960B",
+            "GJ": "GJ 860 B",
+            "HIP": null
+          },
+          "sourceMeasurements": {
+            "RAdeg": "336.991386092",
+            "DEdeg": "57.69410078",
+            "Epoch": "2016.0",
+            "plx": "249.9668",
+            "e_plx": "0.7414",
+            "r_plx": "2018yCat.1345....0G",
+            "pmRA": "-934.098",
+            "e_pmRA": "1.319",
+            "pmDE": "-686.244",
+            "e_pmDE": "1.41",
+            "r_pmDE": "2018yCat.1345....0G",
+            "RV": "-28.0",
+            "e_RV": "5.0",
+            "r_RV": "1953GCRV..C......0W",
+            "SpType": "M4",
+            "r_SpType": "2002AJ....123.2002H",
+            "SpMethod": "Opt Spec",
+            "Vmag": null,
+            "r_Sys": "1951PASP...63..141V",
+            "Com": "..."
+          },
+          "adoptedJ2000": {
+            "frame": "ICRS",
+            "raDeg": 336.99915389662647,
+            "decDeg": 57.6971501662059,
+            "distancePc": 4.000989496354937,
+            "method": "full-space-motion"
+          },
+          "fields": {
+            "type": {
+              "status": "compiled",
+              "sourceRefs": [
+                "10pc:tablea1:Seq=62:ObjType"
+              ]
+            },
+            "id": {
+              "status": "assigned",
+              "sourceRefs": [
+                "10pc:tablea1:Seq=62"
+              ],
+              "detail": "Stable component identity; existing shared IDs take precedence."
+            },
+            "name": {
+              "status": "compiled",
+              "sourceRefs": [
+                "10pc:tablea1:Seq=62"
+              ]
+            },
+            "spectral_type": {
+              "status": "compiled",
+              "sourceRefs": [
+                "10pc:tablea1:Seq=62:SpType"
+              ],
+              "detail": "2002AJ....123.2002H"
+            },
+            "x_pc": {
+              "status": "derived",
+              "sourceRefs": [
+                "10pc:tablea1:Seq=62:RAdeg,DEdeg,Epoch,plx,pmRA,pmDE,RV"
+              ],
+              "detail": "full-space-motion"
+            },
+            "y_pc": {
+              "status": "derived",
+              "sourceRefs": [
+                "10pc:tablea1:Seq=62:RAdeg,DEdeg,Epoch,plx,pmRA,pmDE,RV"
+              ],
+              "detail": "full-space-motion"
+            },
+            "z_pc": {
+              "status": "derived",
+              "sourceRefs": [
+                "10pc:tablea1:Seq=62:RAdeg,DEdeg,Epoch,plx,pmRA,pmDE,RV"
+              ],
+              "detail": "full-space-motion"
+            },
+            "vx_kms": {
+              "status": "derived",
+              "sourceRefs": [
+                "10pc:tablea1:Seq=62:pmRA,pmDE,RV"
+              ],
+              "detail": "Sun-relative Galactic vector; source spectroscopic RV, not an orbit solution."
+            },
+            "vy_kms": {
+              "status": "derived",
+              "sourceRefs": [
+                "10pc:tablea1:Seq=62:pmRA,pmDE,RV"
+              ],
+              "detail": "Sun-relative Galactic vector; source spectroscopic RV, not an orbit solution."
+            },
+            "vz_kms": {
+              "status": "derived",
+              "sourceRefs": [
+                "10pc:tablea1:Seq=62:pmRA,pmDE,RV"
+              ],
+              "detail": "Sun-relative Galactic vector; source spectroscopic RV, not an orbit solution."
+            },
+            "temperature_k": {
+              "status": "estimated",
+              "sourceRefs": [
+                "pecaut-mamajek:2022.04.16"
+              ],
+              "detail": "Estimated: Pecaut-Mamajek 2022.04.16 M4V mean dwarf class, not a measured temperature."
+            },
+            "mass_solar": {
+              "status": "unknown",
+              "sourceRefs": [],
+              "detail": "No vetted component measurement adopted; mean-sequence values are not substituted."
+            },
+            "luminosity_solar": {
+              "status": "unknown",
+              "sourceRefs": [],
+              "detail": "No vetted component measurement adopted; mean-sequence values are not substituted."
+            },
+            "absolute_mag": {
+              "status": "unknown",
+              "sourceRefs": [
+                "10pc:tablea1:Seq=62:Vmag"
+              ],
+              "detail": "Component-resolved Johnson V not independently established; multi-star system V withheld."
+            },
+            "epoch": {
+              "status": "adopted",
+              "sourceRefs": [],
+              "detail": "Static J2000.0 snapshot; source decimal years treated as Julian years TT."
+            },
+            "notes": {
+              "status": "compiled",
+              "sourceRefs": [
+                "10pc:tablea1:Seq=62"
+              ]
+            },
+            "constellation": {
+              "status": "derived",
+              "sourceRefs": [
+                "astropy:7.1.1:Roman1987"
+              ],
+              "detail": "ICRS snapshot direction transformed to B1875 boundary coordinates; no physical motion to 1875. Canonical spelling normalization applied."
+            },
+            "ra_deg": {
+              "status": "compiled",
+              "sourceRefs": [
+                "10pc:tablea1:Seq=62:RAdeg"
+              ]
+            },
+            "dec_deg": {
+              "status": "compiled",
+              "sourceRefs": [
+                "10pc:tablea1:Seq=62:DEdeg"
+              ]
+            },
+            "astrometry_epoch": {
+              "status": "compiled",
+              "sourceRefs": [
+                "10pc:tablea1:Seq=62:Epoch"
+              ]
+            },
+            "parallax_mas": {
+              "status": "compiled",
+              "sourceRefs": [
+                "10pc:tablea1:Seq=62:plx"
+              ]
+            },
+            "parallax_error_mas": {
+              "status": "compiled",
+              "sourceRefs": [
+                "10pc:tablea1:Seq=62:e_plx"
+              ]
+            },
+            "pm_ra_cosdec_masyr": {
+              "status": "compiled",
+              "sourceRefs": [
+                "10pc:tablea1:Seq=62:pmRA"
+              ]
+            },
+            "pm_ra_error_masyr": {
+              "status": "compiled",
+              "sourceRefs": [
+                "10pc:tablea1:Seq=62:e_pmRA"
+              ]
+            },
+            "pm_dec_masyr": {
+              "status": "compiled",
+              "sourceRefs": [
+                "10pc:tablea1:Seq=62:pmDE"
+              ]
+            },
+            "pm_dec_error_masyr": {
+              "status": "compiled",
+              "sourceRefs": [
+                "10pc:tablea1:Seq=62:e_pmDE"
+              ]
+            },
+            "radial_velocity_kms": {
+              "status": "compiled",
+              "sourceRefs": [
+                "10pc:tablea1:Seq=62:RV"
+              ]
+            },
+            "radial_velocity_error_kms": {
+              "status": "compiled",
+              "sourceRefs": [
+                "10pc:tablea1:Seq=62:e_RV"
+              ]
+            },
+            "astrometry_ref": {
+              "status": "compiled",
+              "sourceRefs": [
+                "10pc:tablea1:Seq=62:r_plx,r_pmDE"
+              ]
+            },
+            "radial_velocity_ref": {
+              "status": "compiled",
+              "sourceRefs": [
+                "10pc:tablea1:Seq=62:r_RV"
+              ]
+            },
+            "radius_solar": {
+              "status": "unknown",
+              "sourceRefs": []
+            },
+            "metallicity_dex": {
+              "status": "unknown",
+              "sourceRefs": []
+            },
+            "age_gyr": {
+              "status": "unknown",
+              "sourceRefs": []
+            },
+            "metallicity_kind": {
+              "status": "unknown",
+              "sourceRefs": []
+            }
+          },
+          "overrides": [],
+          "physicalSupplements": {
+            "identity": {
+              "gaia_dr2": "2007876324472098432",
+              "identity_method": "10pc Gaia DR2 identifier only; CNS5 identity shared by several components or absent"
+            },
+            "cifuentes2020": {
+              "status": "no exact identifier match"
+            },
+            "mann": {
+              "twomass": null,
+              "status": "withheld",
+              "reasons": [
+                "No unique 2MASS identifier"
+              ]
+            }
+          }
+        }
+      }
+    },
+    "nearest-1000": {
+      "10pc-0061": {
+        "record": {
+          "type": "star",
+          "id": "10pc-0061",
+          "name": "Kruger 60 A",
+          "designations": "",
+          "spectral_type": "M3",
+          "x_pc": "-1.016721093",
+          "y_pc": "3.879105492",
+          "z_pc": "-0.000263571",
+          "vx_kms": "19.604535",
+          "vy_kms": "-19.672926",
+          "vz_kms": "3.565194",
+          "temperature_k": "3430",
+          "mass_solar": "",
+          "luminosity_solar": "",
+          "radius_solar": "",
+          "metallicity_dex": "",
+          "metallicity_kind": "",
+          "age_gyr": "",
+          "absolute_mag": "",
+          "epoch": "2000.0",
+          "notes": "10pc census (2023-08-25), object 61, system 28; HD 239960 A. J2000 Sun-relative Galactic position via Astropy; full-space-motion. Estimated: Pecaut-Mamajek 2022.04.16 M3V mean dwarf class, not a measured temperature. Component-resolved Johnson V not independently established; multi-star system V withheld. No orbital model.",
+          "constellation": "Cepheus",
+          "ra_deg": "336.992112906",
+          "dec_deg": "57.694032053",
+          "astrometry_epoch": "2016.0",
+          "parallax_mas": "249.3926",
+          "parallax_error_mas": "0.1653",
+          "pm_ra_cosdec_masyr": "-725.227",
+          "pm_ra_error_masyr": "0.537",
+          "pm_dec_masyr": "-223.461",
+          "pm_dec_error_masyr": "0.348",
+          "radial_velocity_kms": "-24.0",
+          "radial_velocity_error_kms": "5.0",
+          "astrometry_ref": "2018yCat.1345....0G",
+          "radial_velocity_ref": "1953GCRV..C......0W"
+        },
+        "provenance": {
+          "id": "10pc-0061",
+          "status": "higher-curation nearest-100 override"
+        }
+      },
+      "10pc-0062": {
+        "record": {
+          "type": "star",
+          "id": "10pc-0062",
+          "name": "DO Cep",
+          "designations": "",
+          "spectral_type": "M4",
+          "x_pc": "-1.014508377",
+          "y_pc": "3.870231218",
+          "z_pc": "-0.000155991",
+          "vx_kms": "28.283950",
+          "vy_kms": "-21.534010",
+          "vz_kms": "-1.865868",
+          "temperature_k": "3210",
+          "mass_solar": "",
+          "luminosity_solar": "",
+          "radius_solar": "",
+          "metallicity_dex": "",
+          "metallicity_kind": "",
+          "age_gyr": "",
+          "absolute_mag": "",
+          "epoch": "2000.0",
+          "notes": "10pc census (2023-08-25), object 62, system 28; HD 239960 B. J2000 Sun-relative Galactic position via Astropy; full-space-motion. Estimated: Pecaut-Mamajek 2022.04.16 M4V mean dwarf class, not a measured temperature. Component-resolved Johnson V not independently established; multi-star system V withheld. No orbital model.",
+          "constellation": "Cepheus",
+          "ra_deg": "336.991386092",
+          "dec_deg": "57.69410078",
+          "astrometry_epoch": "2016.0",
+          "parallax_mas": "249.9668",
+          "parallax_error_mas": "0.7414",
+          "pm_ra_cosdec_masyr": "-934.098",
+          "pm_ra_error_masyr": "1.319",
+          "pm_dec_masyr": "-686.244",
+          "pm_dec_error_masyr": "1.41",
+          "radial_velocity_kms": "-28.0",
+          "radial_velocity_error_kms": "5.0",
+          "astrometry_ref": "2018yCat.1345....0G",
+          "radial_velocity_ref": "1953GCRV..C......0W"
+        },
+        "provenance": {
+          "id": "10pc-0062",
+          "status": "higher-curation nearest-100 override"
+        }
+      }
+    }
+  },
+  "objects": {
+    "10pc-0061": {
+      "starViewId": "10pc-0061",
+      "expectedName": "Kruger 60 A",
+      "componentDesignation": "WDS J22280+5742A",
+      "gaiaDr3Id": "2007876324466455040",
+      "note": "Kruger 60 A: individual dynamical mass from Benedict et al. (2016) Table 11; Gaia-resolved photometric temperature and bolometric luminosity estimates from Hardegree-Ullman et al. (2023) Table 1, not direct measurements; calibrated Gaia absolute-G radius from Cifuentes et al. (2025) Table A.1/section 4.2. These independent empirical estimates retain their original inputs and may have close-companion photometric systematics. Johnson V is deblended from Henry et al. (1999) Table 3; no flare/epoch model. No age adopted.",
+      "physical": [
+        {
+          "field": "temperature_k",
+          "value": 3342,
+          "uncertainty": 111,
+          "status": "estimated",
+          "reference": "2023AJ....165..267H:Table 1",
+          "qualityFlags": [
+            "exact Gaia DR3 component ID",
+            "Gaia BP-RP empirical color-temperature calibration; not a class-only or spectroscopic temperature",
+            "close companion photometric systematics possible"
+          ]
+        },
+        {
+          "field": "mass_solar",
+          "value": 0.268,
+          "uncertainty": 0.02,
+          "status": "measured",
+          "reference": "2016AJ....152..141B:Table 11",
+          "qualityFlags": [
+            "individual dynamical mass",
+            "original source Tamazian et al. 2006"
+          ]
+        },
+        {
+          "field": "luminosity_solar",
+          "value": 0.00983,
+          "uncertainty": 0.000254,
+          "status": "derived",
+          "reference": "2023AJ....165..267H:Table 1",
+          "qualityFlags": [
+            "Gaia G absolute magnitude plus model bolometric correction",
+            "source distance 4.010 pc",
+            "possible close companion photometric systematics beyond formal uncertainty"
+          ]
+        },
+        {
+          "field": "radius_solar",
+          "value": 0.3085,
+          "uncertainty": 0.0154,
+          "status": "estimated",
+          "reference": "2025A&A...693A.228C:Table A.1",
+          "qualityFlags": [
+            "individual absolute-G calibration; not interferometric radius",
+            "within calibrated absolute-G range 7.5-14 mag",
+            "not forced into exact Stefan-Boltzmann agreement with independent temperature/luminosity"
+          ]
+        }
+      ],
+      "photometry": {
+        "johnson_v": 9.79209944789242,
+        "uncertainty": 0.03198755180923881,
+        "reference": "1999ApJ...512..864H:Table 3, Gl 860 B, footnote h",
+        "source_url": "https://www.as.utexas.edu/~fritz/astrometry/Papers_in_pdf/%7BHen99%7DMLR.pdf",
+        "scope": "Kruger 60 A individual Johnson V deblended from the AB system flux and published delta V; no flare model.",
+        "status": "derived",
+        "method": "V_A = V_AB + 2.5 log10(1 + 10^(-0.4 deltaV)); V_B = V_A + deltaV. First-order errors assume independent V_AB and deltaV; the derived A/B magnitudes are correlated. Individual absolute V uses each retained catalog distance.",
+        "inputs": {
+          "systemJohnsonV": 9.57,
+          "systemJohnsonVUncertainty": 0.03,
+          "deltaV_BminusA": 1.61,
+          "deltaVUncertainty": 0.06,
+          "reference": "1999ApJ...512..864H:Table 3, Gl 860 B, footnote h",
+          "epoch": null
+        }
+      },
+      "previousEffectiveComponent": {
+        "temperature_k": 3430.0,
+        "mass_solar": null,
+        "luminosity_solar": null,
+        "radius_solar": null,
+        "metallicity_dex": null,
+        "age_gyr": null,
+        "absolute_mag": null,
+        "epoch": 2000.0,
+        "x_pc": -1.016721093,
+        "y_pc": 3.879105492,
+        "z_pc": -0.000263571,
+        "vx_kms": 19.604535,
+        "vy_kms": -19.672926,
+        "vz_kms": 3.565194,
+        "type": "star",
+        "id": "10pc-0061",
+        "name": "Kruger 60 A",
+        "spectral_type": "M3",
+        "constellation": "Cepheus",
+        "metallicity_kind": null,
+        "designations": [
+          "GJ 860 A",
+          "HD 239960 A",
+          "HD 239960A",
+          "8pc 249.52A",
+          "[RHG95] 3537",
+          "ADS 15972 A",
+          "BD+56 2783A",
+          "CCDM J22281+5741A",
+          "CSI+56 2783 1",
+          "Gaia DR2 2007876324466455424",
+          "Gaia DR3 2007876324466455040",
+          "Gaia EDR3 2007876324466455040",
+          "GCRV 14123",
+          "KR 60A",
+          "LFT 1719",
+          "LHS 3814",
+          "LSPM J2227+5741A",
+          "LTT 16592",
+          "NLTT 53952",
+          "PM J22279+5741W",
+          "TIC 2016398813",
+          "TYC 3991-92-1",
+          "WDS J22280+5742A",
+          "Zkh 331",
+          "Kruger 60 A"
+        ],
+        "notes": "10pc census (2023-08-25), object 61, system 28; HD 239960 A. J2000 Sun-relative Galactic position via Astropy; full-space-motion. Estimated: Pecaut-Mamajek 2022.04.16 M3V mean dwarf class, not a measured temperature. Component-resolved Johnson V not independently established; multi-star system V withheld. No orbital model.",
+        "raw_astrometry": {
+          "ra_deg": 336.992112906,
+          "dec_deg": 57.694032053,
+          "parallax_mas": 249.3926,
+          "parallax_error_mas": 0.1653,
+          "pm_ra_cosdec_masyr": -725.227,
+          "pm_ra_error_masyr": 0.537,
+          "pm_dec_masyr": -223.461,
+          "pm_dec_error_masyr": 0.348,
+          "radial_velocity_kms": -24.0,
+          "radial_velocity_error_kms": 5.0,
+          "epoch": 2016.0,
+          "astrometry_ref": "2018yCat.1345....0G",
+          "radial_velocity_ref": "1953GCRV..C......0W"
+        },
+        "subtypes": [],
+        "known_planets": 0,
+        "apparent_mag": null
+      },
+      "previousComponentEvidence": {},
+      "cifuentesSource": {
+        "recno": "2457",
+        "IDstar": "2457",
+        "IDsystem": "672",
+        "Name": "HD 239960A",
+        "GJ": "860 A",
+        "Karmn": "J22279+576",
+        "RA_ICRS": "22 27 58.11",
+        "DE_ICRS": "+57 41 38.5",
+        "SpType": "M3.0 V",
+        "SpTypenum": "73.0",
+        "r_SpType": "Rei95",
+        "Type": "Multiple",
+        "Class": "Double",
+        "Comp": "A",
+        "System": "AB",
+        "SB": "",
+        "r_SB": "",
+        "Disc": "",
+        "Group": "",
+        "r_Group": "",
+        "Nplanet": "0",
+        "r_Nplanet": "",
+        "Category": "3",
+        "Remarks": "",
+        "WDS": "",
+        "WDS-comp": "",
+        "WDS-Obs1": "",
+        "WDS-Obs2": "",
+        "WDS-Nobs": "",
+        "WDS-PA2": "",
+        "WDS-Sep2": "",
+        "WDS-mag1": "",
+        "WDS-mag2": "",
+        "Sep01": "",
+        "rho01": "",
+        "theta01": "",
+        "r_Sep01": "",
+        "Sep02": "",
+        "rho02": "",
+        "theta02": "",
+        "muratio": "",
+        "deltaPA": "",
+        "deltad": "",
+        "Mass": "0.3060",
+        "e_Mass": "0.0344",
+        "Rad": "0.3085",
+        "e_Rad": "0.0154",
+        "r_Mass": "This work",
+        "LBol": "",
+        "e_LBol": "",
+        "r_LBol": "---",
+        "GMAG": "10.6538",
+        "e_GMAG": "0.0032",
+        "Teff": "",
+        "e_Teff": "",
+        "r_Teff": "---",
+        "logg": "",
+        "e_logg": "",
+        "[Fe/H]": "",
+        "r_[Fe/H]": "---",
+        "q": "",
+        "l_P01": "",
+        "P01": "",
+        "e_P01": "",
+        "r_P01": "",
+        "P02": "",
+        "e_P02": "",
+        "Ug": "",
+        "e_Ug": "",
+        "crit1": "F",
+        "crit2": "F",
+        "crit3": "F",
+        "crit4": "F",
+        "crit5": "F",
+        "crit6": "F",
+        "crit7": "0",
+        "critDR3NS": "",
+        "Candidate": "F",
+        "GaiaDR3": "2007876324466455040",
+        "2MASS": "22275958+5741453",
+        "AllWISE": "J222758.54+574141.3",
+        "RAGdeg": "336.992112905612998",
+        "e_RAGdeg": "0.746885657310485951",
+        "DEGdeg": "57.69403205293490089",
+        "e_DEGdeg": "0.738444805145264005",
+        "plx": "249.39262934847901",
+        "e_plx": "0.1653218501210590",
+        "r_plx": "DR2",
+        "pmRA": "-725.226706090263974",
+        "e_pmRA": "0.5370507541274920",
+        "pmDE": "-223.4605611720959928",
+        "e_pmDE": "0.3475539878013530",
+        "r_pmRA": "DR2",
+        "RV": "-24.0000000000000",
+        "e_RV": "5.00000000000000",
+        "r_RV": "Wil53",
+        "RUWE": "",
+        "epsi": "9.9216642379760707",
+        "sepsi": "8.4178734375000000000000e+04",
+        "E(BP/RP)": "1.6927392",
+        "NBPblend": "34",
+        "NRPblend": "39",
+        "VarFlag": "NOT_AVAILABLE",
+        "RVchi2": "",
+        "RVamp": "",
+        "o_RV": "",
+        "RVrnorm": "",
+        "NAL": "406",
+        "NgAL": "405",
+        "IPDgofha": "1.87064744532108e-02",
+        "IPDfmp": "15",
+        "Dup": "F",
+        "BPmag": "9.9497",
+        "e_BPmag": "0.0125",
+        "Gmag": "8.6694",
+        "e_Gmag": "0.0029",
+        "RPmag": "7.3118",
+        "e_RPmag": "0.0136",
+        "Jmag": "5.575",
+        "e_Jmag": "0.027",
+        "Hmag": "5.038",
+        "e_Hmag": "0.034",
+        "Ksmag": "4.777",
+        "e_Ksmag": "0.029",
+        "Qf2M": "AAA",
+        "W1mag": "4.529",
+        "e_W1mag": "0.303",
+        "W2mag": "4.045",
+        "e_W2mag": "0.162",
+        "W3mag": "4.355",
+        "e_W3mag": "0.051",
+        "W4mag": "4.132",
+        "e_W4mag": "0.033",
+        "QfW": "BBAA",
+        "_RA.icrs": "22 27 59.56",
+        "_DE.icrs": "+57 41 42.1"
+      }
+    },
+    "10pc-0062": {
+      "starViewId": "10pc-0062",
+      "expectedName": "DO Cep",
+      "componentDesignation": "WDS J22280+5742B",
+      "gaiaDr3Id": "2007876324472098432",
+      "note": "Kruger 60 B: individual dynamical mass from Benedict et al. (2016) Table 11; Gaia-resolved photometric temperature and bolometric luminosity estimates from Hardegree-Ullman et al. (2023) Table 1, not direct measurements; calibrated Gaia absolute-G radius from Cifuentes et al. (2025) Table A.1/section 4.2. These independent empirical estimates retain their original inputs and may have close-companion photometric systematics. Johnson V is deblended from Henry et al. (1999) Table 3; no flare/epoch model. No age adopted.",
+      "physical": [
+        {
+          "field": "temperature_k",
+          "value": 3097,
+          "uncertainty": 111,
+          "status": "estimated",
+          "reference": "2023AJ....165..267H:Table 1",
+          "qualityFlags": [
+            "exact Gaia DR3 component ID",
+            "Gaia BP-RP empirical color-temperature calibration; not a class-only or spectroscopic temperature",
+            "close companion photometric systematics possible"
+          ]
+        },
+        {
+          "field": "mass_solar",
+          "value": 0.172,
+          "uncertainty": 0.008,
+          "status": "measured",
+          "reference": "2016AJ....152..141B:Table 11",
+          "qualityFlags": [
+            "individual dynamical mass",
+            "original source Henry et al. 1999"
+          ]
+        },
+        {
+          "field": "luminosity_solar",
+          "value": 0.00393,
+          "uncertainty": 0.000116,
+          "status": "derived",
+          "reference": "2023AJ....165..267H:Table 1",
+          "qualityFlags": [
+            "Gaia G absolute magnitude plus model bolometric correction",
+            "source distance 4.001 pc",
+            "possible close companion photometric systematics beyond formal uncertainty"
+          ]
+        },
+        {
+          "field": "radius_solar",
+          "value": 0.2085,
+          "uncertainty": 0.0174,
+          "status": "estimated",
+          "reference": "2025A&A...693A.228C:Table A.1",
+          "qualityFlags": [
+            "individual absolute-G calibration; not interferometric radius",
+            "within calibrated absolute-G range 7.5-14 mag",
+            "not forced into exact Stefan-Boltzmann agreement with independent temperature/luminosity"
+          ]
+        },
+        {
+          "field": "metallicity_dex",
+          "value": -0.25,
+          "uncertainty": null,
+          "status": "compiled",
+          "reference": "2025A&A...693A.228C:Table A.1:Zbo98",
+          "qualityFlags": [
+            "retains existing effective B component abundance",
+            "no uncertainty supplied by compilation"
+          ],
+          "quantity": "[Fe/H]"
+        }
+      ],
+      "photometry": {
+        "johnson_v": 11.40209944789242,
+        "uncertainty": 0.05736931901693091,
+        "reference": "1999ApJ...512..864H:Table 3, Gl 860 B, footnote h",
+        "source_url": "https://www.as.utexas.edu/~fritz/astrometry/Papers_in_pdf/%7BHen99%7DMLR.pdf",
+        "scope": "Kruger 60 B individual Johnson V deblended from the AB system flux and published delta V; no flare model.",
+        "status": "derived",
+        "method": "V_A = V_AB + 2.5 log10(1 + 10^(-0.4 deltaV)); V_B = V_A + deltaV. First-order errors assume independent V_AB and deltaV; the derived A/B magnitudes are correlated. Individual absolute V uses each retained catalog distance.",
+        "inputs": {
+          "systemJohnsonV": 9.57,
+          "systemJohnsonVUncertainty": 0.03,
+          "deltaV_BminusA": 1.61,
+          "deltaVUncertainty": 0.06,
+          "reference": "1999ApJ...512..864H:Table 3, Gl 860 B, footnote h",
+          "epoch": null
+        }
+      },
+      "previousEffectiveComponent": {
+        "temperature_k": 3210.0,
+        "mass_solar": 0.1991,
+        "luminosity_solar": 0.004158406668,
+        "radius_solar": 0.2085,
+        "metallicity_dex": -0.25,
+        "age_gyr": null,
+        "absolute_mag": null,
+        "epoch": 2000.0,
+        "x_pc": -1.014508377,
+        "y_pc": 3.870231218,
+        "z_pc": -0.000155991,
+        "vx_kms": 28.28395,
+        "vy_kms": -21.53401,
+        "vz_kms": -1.865868,
+        "type": "star",
+        "id": "10pc-0062",
+        "name": "DO Cep",
+        "spectral_type": "M4",
+        "constellation": "Cepheus",
+        "metallicity_kind": "[Fe/H]",
+        "designations": [
+          "GJ 860 B",
+          "HD 239960 B",
+          "HD 239960B",
+          "2E 4613",
+          "8pc 249.52B",
+          "[GKL99] 425",
+          "[RHG95] 3538",
+          "ADS 15972 B",
+          "BD+56 2783B",
+          "CCDM J22281+5741B",
+          "CSI+56 2783 9",
+          "Gaia DR2 2007876324472098432",
+          "Gaia DR3 2007876324472098432",
+          "Gaia EDR3 2007876324472098432",
+          "GCRV 14124",
+          "KR 60B",
+          "LFT 1720",
+          "LHS 3815",
+          "LSPM J2227+5741B",
+          "LTT 16593",
+          "NLTT 53953",
+          "PM J22279+5741E",
+          "TIC 2016398819",
+          "TYC 3991-92-2",
+          "WDS J22280+5742B",
+          "WEB 19856",
+          "Zkh 332",
+          "DO Cep"
+        ],
+        "notes": "10pc census (2023-08-25), object 62, system 28; HD 239960 B. J2000 Sun-relative Galactic position via Astropy; full-space-motion. Estimated: Pecaut-Mamajek 2022.04.16 M4V mean dwarf class, not a measured temperature. Component-resolved Johnson V not independently established; multi-star system V withheld. No orbital model. luminosity_solar derived by Stefan-Boltzmann scaling from adopted inputs (solar Teff=5772 K); inherits their measurement/model/estimate assumptions. Component-scoped catalog measurements/estimates; details in catalog-work/star-systems/catalog-companions-audit.json.",
+        "raw_astrometry": {
+          "ra_deg": 336.991386092,
+          "dec_deg": 57.69410078,
+          "parallax_mas": 249.9668,
+          "parallax_error_mas": 0.7414,
+          "pm_ra_cosdec_masyr": -934.098,
+          "pm_ra_error_masyr": 1.319,
+          "pm_dec_masyr": -686.244,
+          "pm_dec_error_masyr": 1.41,
+          "radial_velocity_kms": -28.0,
+          "radial_velocity_error_kms": 5.0,
+          "epoch": 2016.0,
+          "astrometry_ref": "2018yCat.1345....0G",
+          "radial_velocity_ref": "1953GCRV..C......0W"
+        },
+        "subtypes": [
+          "Eruptive variable"
+        ],
+        "known_planets": 0,
+        "apparent_mag": null
+      },
+      "previousComponentEvidence": {
+        "mass_solar": {
+          "source": "2025A&A...693A.228C:Table A.1",
+          "recordId": "2458",
+          "method": "published component measurement/calibration estimate"
+        },
+        "radius_solar": {
+          "source": "2025A&A...693A.228C:Table A.1",
+          "recordId": "2458",
+          "method": "published component measurement/calibration estimate"
+        },
+        "metallicity_dex": {
+          "source": "2025A&A...693A.228C:Table A.1",
+          "recordId": "2458",
+          "method": "published component measurement/calibration estimate"
+        },
+        "luminosity_solar": {
+          "field": "luminosity_solar",
+          "value": 0.004158406668,
+          "status": "derived",
+          "reference": "Stefan-Boltzmann scaling",
+          "inputs": {
+            "temperature_k": 3210.0,
+            "radius_solar": 0.2085
+          }
+        }
+      },
+      "cifuentesSource": {
+        "recno": "2458",
+        "IDstar": "2458",
+        "IDsystem": "672",
+        "Name": "DO Cep",
+        "GJ": "860 B",
+        "Karmn": "",
+        "RA_ICRS": "22 27 57.93",
+        "DE_ICRS": "+57 41 38.8",
+        "SpType": "M4.0 V",
+        "SpTypenum": "74.0",
+        "r_SpType": "Hen02",
+        "Type": "Multiple",
+        "Class": "Double",
+        "Comp": "B",
+        "System": "",
+        "SB": "",
+        "r_SB": "",
+        "Disc": "KR60",
+        "Group": "",
+        "r_Group": "",
+        "Nplanet": "0",
+        "r_Nplanet": "",
+        "Category": "2",
+        "Remarks": "",
+        "WDS": "22280+5742",
+        "WDS-comp": "AB",
+        "WDS-Obs1": "1890",
+        "WDS-Obs2": "2020",
+        "WDS-Nobs": "317",
+        "WDS-PA2": "206.5",
+        "WDS-Sep2": "2.052",
+        "WDS-mag1": "9.93",
+        "WDS-mag2": "11.41",
+        "Sep01": "8.228000",
+        "rho01": "2.0520",
+        "theta01": "206.50",
+        "r_Sep01": "",
+        "Sep02": "",
+        "rho02": "",
+        "theta02": "",
+        "muratio": "0.4381",
+        "deltaPA": "19.1778",
+        "deltad": "0.0023",
+        "Mass": "0.1991",
+        "e_Mass": "0.0387",
+        "Rad": "0.2085",
+        "e_Rad": "0.0174",
+        "r_Mass": "This work",
+        "LBol": "",
+        "e_LBol": "",
+        "r_LBol": "---",
+        "GMAG": "11.9696",
+        "e_GMAG": "0.0079",
+        "Teff": "",
+        "e_Teff": "",
+        "r_Teff": "---",
+        "logg": "",
+        "e_logg": "",
+        "[Fe/H]": "-0.25",
+        "r_[Fe/H]": "Zbo98",
+        "q": "0.6507",
+        "l_P01": "",
+        "P01": "",
+        "e_P01": "",
+        "r_P01": "",
+        "P02": "3.32100000e+01",
+        "e_P02": "1.70",
+        "Ug": "1.3060e+37",
+        "e_Ug": "2.9330e+36",
+        "crit1": "F",
+        "crit2": "F",
+        "crit3": "F",
+        "crit4": "F",
+        "crit5": "F",
+        "crit6": "F",
+        "crit7": "0",
+        "critDR3NS": "",
+        "Candidate": "F",
+        "GaiaDR3": "2007876324472098432",
+        "2MASS": "",
+        "AllWISE": "",
+        "RAGdeg": "336.991386092436983",
+        "e_RAGdeg": "1.558080673217770107",
+        "DEGdeg": "57.69410078047840074",
+        "e_DEGdeg": "1.923710584640500043",
+        "plx": "249.96684028962900",
+        "e_plx": "0.7413701739934770",
+        "r_plx": "DR2",
+        "pmRA": "-934.097955200026945",
+        "e_pmRA": "1.3190680597266700",
+        "pmDE": "-686.2438406391199806",
+        "e_pmDE": "1.4100194252815501",
+        "r_pmRA": "DR2",
+        "RV": "-28.0000000000000",
+        "e_RV": "5.00000000000000",
+        "r_RV": "Wil53",
+        "RUWE": "",
+        "epsi": "16.5271530151367010",
+        "sepsi": "1.9988115625000000000000e+05",
+        "E(BP/RP)": "4.4030040",
+        "NBPblend": "9",
+        "NRPblend": "11",
+        "VarFlag": "VARIABLE",
+        "RVchi2": "",
+        "RVamp": "",
+        "o_RV": "",
+        "RVrnorm": "",
+        "NAL": "276",
+        "NgAL": "276",
+        "IPDgofha": "1.99262816458941e-02",
+        "IPDfmp": "16",
+        "Dup": "F",
+        "BPmag": "10.8378",
+        "e_BPmag": "0.1314",
+        "Gmag": "9.9802",
+        "e_Gmag": "0.0046",
+        "RPmag": "7.5157",
+        "e_RPmag": "0.0805",
+        "Jmag": "",
+        "e_Jmag": "",
+        "Hmag": "",
+        "e_Hmag": "",
+        "Ksmag": "",
+        "e_Ksmag": "",
+        "Qf2M": "",
+        "W1mag": "",
+        "e_W1mag": "",
+        "W2mag": "",
+        "e_W2mag": "",
+        "W3mag": "",
+        "e_W3mag": "",
+        "W4mag": "",
+        "e_W4mag": "",
+        "QfW": "",
+        "_RA.icrs": "22 27 59.79",
+        "_DE.icrs": "+57 41 49.8"
+      }
+    }
+  }
+}

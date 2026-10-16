@@ -94,6 +94,24 @@
       "scope": "70 Oph B only; WDS J18055+0230B; Gaia DR3 4468557611977674496.",
       "sourceReview": "catalog-work/shared-enrichment/70-ophiuchi-review.json",
       "note": "70 Oph B component classification K4V from Li et al. (2026), Table 1; section 2.2 notes the published K4-K5V range. Restores the missing individual luminosity class after MSC authoring; does not classify B from the primary spectrum."
+    },
+    "10pc-0061": {
+      "values": {
+        "spectral_type": "M3V"
+      },
+      "source": "Henry et al. 1999, section 3.1 and Table 1; resolved MMT spectra on 1990-09-13",
+      "sourceUrl": "https://www.as.utexas.edu/~fritz/astrometry/Papers_in_pdf/%7BHen99%7DMLR.pdf",
+      "scope": "Individual Kruger 60 A; confirmed resolved spectrum, not the AB composite.",
+      "note": "Kruger 60 A luminosity class V restored from its resolved MMT spectrum (Henry et al. 1999 section 3.1)."
+    },
+    "10pc-0062": {
+      "values": {
+        "spectral_type": "M4V"
+      },
+      "source": "Henry et al. 1999, section 3.1 and Table 1; resolved MMT spectra on 1990-09-13",
+      "sourceUrl": "https://www.as.utexas.edu/~fritz/astrometry/Papers_in_pdf/%7BHen99%7DMLR.pdf",
+      "scope": "Individual Kruger 60 B; confirmed resolved spectrum, not the AB composite.",
+      "note": "Kruger 60 B luminosity class V restored from its resolved MMT spectrum (Henry et al. 1999 section 3.1)."
     }
   }
 }

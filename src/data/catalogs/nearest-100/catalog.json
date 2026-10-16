@@ -241,6 +241,22 @@
     {
       "name": "Eggenberger et al. 2008, Table 2 and section 2.3, component bolometric luminosities",
       "url": "https://arxiv.org/pdf/0802.3576"
+    },
+    {
+      "name": "Benedict et al. 2016, Table 11, GJ 860 A/B dynamical masses; original references Tamazian et al. 2006 / Henry et al. 1999",
+      "url": "https://www.astro.gsu.edu/RECONS/published37.pdf"
+    },
+    {
+      "name": "Cifuentes et al. 2025, Table A.1 rows 2457/2458; section 4.2 Gaia absolute-G radius calibration",
+      "url": "https://arxiv.org/html/2412.12264v1#S4.SS2"
+    },
+    {
+      "name": "Hardegree-Ullman et al. 2023, Table 1 exact Gaia rows 2007876324466455040 / 2007876324472098432; sections 2.4-2.5",
+      "url": "https://arxiv.org/html/2304.12490v1"
+    },
+    {
+      "name": "Henry et al. 1999, Table 3 and footnote h; section 3.1 resolved spectra",
+      "url": "https://www.as.utexas.edu/~fritz/astrometry/Papers_in_pdf/%7BHen99%7DMLR.pdf"
     }
   ],
   "cutoffPolicy": "Exclude Planet rows, aggregate system rows and source ObjType endings '?'. The only approved exceptions are Seq 27/28 (EZ Aquarii B/C): preserve vetted default membership and every default field, while retaining raw LM? classifications explicitly; this is not a new classification measurement. Keep all tentative buffer records for audit. Rank eligible individual non-Sun objects by unrounded adopted J2000 distance, then ASCII stable ID for exact ties; retain exactly 100 plus Sun. Rank 100 is GJ 229 A; nearby one-sigma distance intervals overlap, so membership is not statistically secure. Frozen 2023 source releases with preserved neighbor overrides; no 2026 completeness claim.",

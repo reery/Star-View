@@ -7,7 +7,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT / "scripts"))
-from catalog_sources.companion_properties import apply_literature, complete_properties, property_coverage
+from catalog_sources.companion_properties import apply_literature, complete_properties, property_coverage, reconcile_component_notes
 from catalog_sources.enrichment import FIELDS
 
 
@@ -95,6 +95,46 @@ class CompanionPropertiesTests(unittest.TestCase):
         self.review["fields"] = {"metallicity_dex": self.observation(-.2)}
         with self.assertRaisesRegex(ValueError, "abundance quantity"):
             self.apply()
+
+    def test_gaia_identity_must_identify_only_the_reviewed_leaf(self):
+        self.review['gaiaDr3Id'] = '123'
+        self.star['designations'] = ['Gaia DR3 999']
+        with self.assertRaisesRegex(ValueError, 'unique component'):
+            self.apply()
+        self.star['designations'] = ['Gaia DR3 123']
+        self.review['fields'] = {'mass_solar': self.observation(.2)}
+        self.apply()
+        self.assertEqual(self.star['mass_solar'], .2)
+        other = {**self.star, 'id': 'pair-a'}
+        self.path.write_text(json.dumps(self.plan))
+        with self.assertRaisesRegex(ValueError, 'unique component'):
+            apply_literature(self.root, self.path, self.systems,
+                             {'pair-b': self.star, 'pair-a': other}, self.audit)
+
+    def test_classification_correction_checks_and_retains_previous_value(self):
+        self.star['spectral_type'] = 'M3'
+        self.review['fields'] = {'spectral_type': self.observation('M3V', replaces={'value': 'M3'})}
+        self.apply()
+        self.assertEqual(self.star['spectral_type'], 'M3V')
+        self.assertEqual(self.audit['componentRecords']['pair-b']['reviewedLiterature']['replaced']
+                         ['spectral_type']['value'], 'M3')
+        self.star['spectral_type'] = 'M4'
+        with self.assertRaisesRegex(ValueError, 'replacement input drifted'):
+            self.apply()
+
+    def test_notes_are_superseded_only_when_individual_values_exist(self):
+        statement = 'Component-resolved Johnson V not independently established; multi-star system V withheld.'
+        self.star['notes'] = statement + ' Withheld individual fields: mass_solar, absolute_mag.'
+        evidence = {}
+        reconcile_component_notes(self.star, evidence)
+        self.assertIn(statement, self.star['notes'])
+        self.assertEqual(evidence, {})
+        self.star['absolute_mag'] = 12
+        reconcile_component_notes(self.star, evidence)
+        self.assertNotIn(statement, self.star['notes'])
+        self.assertIn('Withheld individual fields: mass_solar.', self.star['notes'])
+        self.assertIsNone(self.star['mass_solar'])
+        self.assertEqual(evidence['supersededNotes'][0]['text'], statement)
 
 
 if __name__ == "__main__":
