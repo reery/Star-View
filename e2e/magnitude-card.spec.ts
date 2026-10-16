@@ -112,6 +112,16 @@ test('opens one magnitude card from either row and shows readable visual scales'
   const luminosityBrightness = await page.locator('.luminosity-scale .mass-ratio-track').evaluate((track) => getComputedStyle(track).backgroundImage)
   expect(brightness).toBe(luminosityBrightness)
   expect(brightness).toContain('255, 255, 255')
+  const glow = await page.locator('#magnitude-absolute-scale .mass-ratio-track').evaluate((track) => {
+    const style = getComputedStyle(track, '::before')
+    return { content: style.content, background: style.backgroundImage, filter: style.filter }
+  })
+  const luminosityGlow = await page.locator('.luminosity-scale .mass-ratio-track').evaluate((track) => {
+    const style = getComputedStyle(track, '::before')
+    return { content: style.content, background: style.backgroundImage, filter: style.filter }
+  })
+  expect(glow).toEqual(luminosityGlow)
+  expect(glow.filter).toBe('blur(5px)')
   for (const [id, name, limit, faint] of [
     ['binoculars', 'Binoculars', 10, 16], ['telescope', 'Telescope', 13, 16],
     ['observatory', 'Observatory', 27, 28], ['eye', 'Naked eye', 6, 16],

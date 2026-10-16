@@ -276,7 +276,7 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
   scene.add(milkyWay.mesh)
 
   const starViewDistance = { value: camera.position.distanceTo(controls.target) }
-  const { dotTexture, haloTexture, starMaterial, haloMaterial } = createStarAppearance(starViewDistance)
+  const { dotTexture, haloTexture, starMaterial, haloMaterial } = createStarAppearance(starViewDistance, true)
 
   const initialEarthOrbitDate = options.earthOrbitDate === undefined ? new Date() : options.earthOrbitDate
   const earthOrbit = createEarthOrbitLayer(galacticToWorld(sun))
@@ -306,6 +306,9 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
   const coreIndices = starGeometry.getIndex()!
   const coreDiameters = new Float32BufferAttribute(stars.map(() => STAR_DIAMETER_PX), 1)
   const coreEmphases = new Float32BufferAttribute(stars.map(() => 0), 1)
+  // Selection is a screen-space marker, independent of photometry and map zoom.
+  const selectionEmphases = new Float32BufferAttribute(stars.map(() => 0), 1)
+  starGeometry.setAttribute('selectionEmphasis', selectionEmphases)
   starGeometry.setAttribute('coreDiameter', coreDiameters)
   starGeometry.setAttribute('coreEmphasis', coreEmphases)
   starGeometry.setAttribute('coreWhiteStrength', new Float32BufferAttribute(stars.map(starCoreWhiteStrength), 1))
@@ -318,6 +321,7 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
   // Shared with the cores so positions/colors occupy a single GPU buffer each.
   haloGeometry.setAttribute('position', starGeometry.getAttribute('position'))
   haloGeometry.setAttribute('color', starColorAttribute)
+  haloGeometry.setAttribute('selectionEmphasis', selectionEmphases)
   // Reuse a fixed-capacity index buffer; zero-opacity halos should never reach
   // the rasterizer. The visible subset only changes with selection/settings.
   haloGeometry.setIndex(stars.map((_, index) => index))
@@ -980,7 +984,7 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
     stars.forEach((star, index) => {
       const magnitude = apparentMagnitudes[index]!
       // Extended nebulae have no point magnitude; their names stay eligible.
-      const tier = isMapVisibilityBase(star, visibilityBase) ? 'base' : isNebula[index] || isMolecularCloud[index] || isBubble[index] || magnitude <= magnitudeLimit ? 'eligible' : 'background'
+      const tier = isMapVisibilityBase(star, visibilityBase) ? 'base' : star.id === selectedId || isNebula[index] || isMolecularCloud[index] || isBubble[index] || magnitude <= magnitudeLimit ? 'eligible' : 'background'
       const visible = isObjectMapVisible(
         star,
         visibleKeys,
@@ -996,6 +1000,7 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
       const diameter = starApparentDiameter(haloMagnitude)
       coreDiameters.setX(index, tier === 'background' ? 3 : diameter)
       coreEmphases.setX(index, haloEmphasis)
+      selectionEmphases.setX(index, star.id === selectedId ? 1 : 0)
       haloOpacities.setX(index, tier === 'background' ? 0 : starHaloOpacity(haloMagnitude, star.id === selectedId))
       haloDiameters.setX(index, starHaloDiameter(haloMagnitude) * Math.sqrt(diameter / STAR_DIAMETER_PX))
     })
@@ -1014,6 +1019,7 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
     }
     coreDiameters.needsUpdate = true
     coreEmphases.needsUpdate = true
+    selectionEmphases.needsUpdate = true
     haloOpacities.needsUpdate = true
     haloDiameters.needsUpdate = true
     updatePointVisibility()

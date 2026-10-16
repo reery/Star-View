@@ -20,6 +20,8 @@ export interface ViewerRenderOptions {
   orbitDistancePc?: number
   powerSaving?: boolean
   hideSun?: boolean
+  selectedId?: string
+  cameraOffsetPc?: [number, number, number]
 }
 
 export interface CloudRenderOptions {
@@ -70,9 +72,10 @@ Object.assign(window, {
     viewer.setMotionArrowsVisible(false)
     viewer.setLabelLimit(0)
     viewer.setPowerSavingMode(options.powerSaving ?? false)
-    viewer.select(null, false)
+    viewer.select(options.selectedId ?? null, false)
     const target = galacticToWorld(stars.find((star) => star.id === options.targetId)!)
-    const position = options.targetDistancePc === undefined ? new Vector3()
+    const position = options.cameraOffsetPc ? target.clone().add(new Vector3(...options.cameraOffsetPc))
+      : options.targetDistancePc === undefined ? new Vector3()
       : target.clone().addScaledVector(target.clone().normalize(), -options.targetDistancePc)
     const orbitTarget = options.orbitDistancePc === undefined ? target
       : target.clone().sub(position).setLength(options.orbitDistancePc).add(position)
@@ -88,6 +91,10 @@ Object.assign(window, {
       const position = galacticToWorld(star).project(camera)
       return [star.id, { x: (position.x + 1) * viewerContainer.clientWidth / 2, y: (1 - position.y) * viewerContainer.clientHeight / 2 }]
     }))
+  },
+  async selectViewer(id: string | null): Promise<void> {
+    viewer!.select(id, false)
+    await new Promise<void>((resolve) => requestAnimationFrame(() => requestAnimationFrame(() => resolve())))
   },
   renderEarthChart(stars: Star[], points: Record<string, { x: number; y: number }>, mode: StarColorMode): void {
     viewerContainer.hidden = true

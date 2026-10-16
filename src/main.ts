@@ -82,6 +82,7 @@ icon('save-view-icon', Save)
 icon('selection-back-icon', ArrowLeft)
 icon('selection-forward-icon', ArrowRight)
 icon('set-origin-icon', OriginIcon)
+icon('set-sun-origin-icon', Sun)
 icon('go-to-origin-icon', Crosshair)
 icon('observer-view-icon', Eye)
 icon('observer-view-origin-icon', ObserverOriginIcon)
@@ -256,6 +257,9 @@ function updateSelectionHistoryControls(): void {
 }
 
 function updateReferenceControl(): void {
+  const sun = stars.find((star) => star.id === 'sun')
+  element<HTMLButtonElement>('set-sun-origin').disabled = sceneBusy || !sun || referenceId === 'sun'
+  element('set-sun-origin-swatch').style.background = sun ? starDisplayColor(sun, starColorMode).getStyle() : ''
   const setOrigin = element<HTMLButtonElement>('set-origin')
   const selected = stars.find((star) => star.id === selectedId)
   setOrigin.disabled = sceneBusy || selectedId === null || selectedId === referenceId
@@ -288,7 +292,7 @@ function updateObserverControl(): void {
   element('observer-view-target-swatch').style.background = selected ? starDisplayColor(selected, starColorMode).getStyle() : ''
   const originButton = element<HTMLButtonElement>('observer-view-origin')
   const observingOrigin = observerView && observerViewAnchorId === referenceId
-  originButton.disabled = sceneBusy || !origin
+  originButton.disabled = sceneBusy || !origin || selectedId === referenceId
   originButton.setAttribute('aria-pressed', String(observingOrigin))
   originButton.setAttribute('aria-label', origin ? `Observe from origin ${origin.name}` : 'Observe from origin')
   text('observer-view-origin-name', origin?.name ?? 'set origin')
@@ -1764,8 +1768,12 @@ function navigateSelectionHistory(direction: 'back' | 'forward'): void {
 }
 
 function setSelectedAsOrigin(): void {
-  if (selectedId === null || selectedId === referenceId) return
-  referenceId = selectedId
+  if (selectedId !== null) setOrigin(selectedId)
+}
+
+function setOrigin(id: string): void {
+  if (sceneBusy || id === referenceId || !stars.some((star) => star.id === id)) return
+  referenceId = id
   selectedDistancePc = null
   objectList.setReference(referenceId)
   updateObjectListFilter()
@@ -2720,6 +2728,7 @@ element('toggle-grid').addEventListener('click', () => {
 element('selection-back').addEventListener('click', () => navigateSelectionHistory('back'), { signal: events.signal })
 element('selection-forward').addEventListener('click', () => navigateSelectionHistory('forward'), { signal: events.signal })
 element('set-origin').addEventListener('click', setSelectedAsOrigin, { signal: events.signal })
+element('set-sun-origin').addEventListener('click', () => setOrigin('sun'), { signal: events.signal })
 element('go-to-origin').addEventListener('click', () => {
   dismissOpenPanel()
   if (observerView) toggleObserverView()

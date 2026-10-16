@@ -6,7 +6,9 @@ import {
 } from './viewer-primitives'
 
 // Shared by the map and distance card: identical textures, colors and shaders.
-export function createStarAppearance(starViewDistance: { value: number }) {
+export function createStarAppearance(starViewDistance: { value: number }, selectionEnabled = false) {
+  const selectionAttribute = selectionEnabled ? 'attribute float selectionEmphasis;' : ''
+  const selection = selectionEnabled ? 'selectionEmphasis' : '0.0'
   // Magnitude already includes the source's distance. Only zooming out of the
   // map adds display restraint; point depth must not attenuate the light again.
   const textureCanvas = document.createElement('canvas')
@@ -29,11 +31,12 @@ export function createStarAppearance(starViewDistance: { value: number }) {
   })
   starMaterial.onBeforeCompile = (shader) => {
     shader.uniforms.starViewDistance = starViewDistance
-    shader.vertexShader = `uniform float starViewDistance;\nattribute float coreDiameter;\nattribute float coreEmphasis;\nattribute float coreWhiteStrength;\nvarying float vCoreDiameter;\nvarying float vCoreEmphasis;\nvarying float vCoreWhiteStrength;\n${shader.vertexShader}`
+    shader.vertexShader = `${selectionAttribute}\nuniform float starViewDistance;\nattribute float coreDiameter;\nattribute float coreEmphasis;\nattribute float coreWhiteStrength;\nvarying float vCoreDiameter;\nvarying float vCoreEmphasis;\nvarying float vCoreWhiteStrength;\n${shader.vertexShader}`
       .replace('gl_PointSize = size;', `float coreOverviewRatio = pow(min(1.0, ${STAR_CORE_FULL_STRENGTH_DISTANCE_PC} / max(starViewDistance, ${STAR_CORE_FULL_STRENGTH_DISTANCE_PC})), ${STAR_CORE_VIEW_DISTANCE_FALLOFF_POWER});
       float coreViewScale = max(${STAR_CORE_MIN_VIEW_SCALE}, sqrt(coreOverviewRatio));
-      gl_PointSize = size * max(${STAR_CORE_MIN_DIAMETER_PX}.0, coreDiameter * coreViewScale);
-      vCoreDiameter = coreDiameter * coreViewScale;
+      float displayDiameter = max(coreDiameter * coreViewScale, 10.0 * ${selection});
+      gl_PointSize = size * max(${STAR_CORE_MIN_DIAMETER_PX}.0, displayDiameter);
+      vCoreDiameter = displayDiameter;
       vCoreEmphasis = coreEmphasis;
       vCoreWhiteStrength = coreWhiteStrength;`)
     shader.fragmentShader = `varying float vCoreDiameter;\nvarying float vCoreEmphasis;\nvarying float vCoreWhiteStrength;\n${shader.fragmentShader}`.replace(
@@ -93,12 +96,12 @@ export function createStarAppearance(starViewDistance: { value: number }) {
   })
   haloMaterial.onBeforeCompile = (shader) => {
     shader.uniforms.starViewDistance = starViewDistance
-    shader.vertexShader = `uniform float starViewDistance;\nattribute float haloDiameter;\nattribute float haloOpacity;\nvarying float vHaloOpacity;\n${shader.vertexShader}`
+    shader.vertexShader = `${selectionAttribute}\nuniform float starViewDistance;\nattribute float haloDiameter;\nattribute float haloOpacity;\nvarying float vHaloOpacity;\n${shader.vertexShader}`
       .replace('gl_PointSize = size;', `float overviewRatio = min(1.0, ${STAR_HALO_FULL_STRENGTH_DISTANCE_PC} / max(starViewDistance, ${STAR_HALO_FULL_STRENGTH_DISTANCE_PC}));
       float haloViewScale = max(${STAR_HALO_MIN_VIEW_SCALE}, sqrt(sqrt(overviewRatio)));
       float haloViewOpacityScale = max(${STAR_HALO_MIN_OPACITY_SCALE}, sqrt(overviewRatio));
-      gl_PointSize = size * haloDiameter * haloViewScale;
-      vHaloOpacity = haloOpacity * haloViewOpacityScale;`)
+      gl_PointSize = size * max(haloDiameter * haloViewScale, 68.0 * ${selection});
+      vHaloOpacity = max(haloOpacity * haloViewOpacityScale, 0.75 * ${selection});`)
     shader.fragmentShader = `varying float vHaloOpacity;\n${shader.fragmentShader}`
       .replace('#include <map_particle_fragment>', '#include <map_particle_fragment>\ndiffuseColor.a *= vHaloOpacity;')
   }

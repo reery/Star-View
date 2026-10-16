@@ -8,7 +8,7 @@
   "gaiaSourceManifestSha256": "5744f1665fe2700b5acaf88fd2cc46a4f2a0e2a75d75c03290b769b64c3cb315",
   "physicalOverridesSha256": "21125920c7039be1394dda156d0b8c6db962f98b03c86b7a3f602e893e3f5872",
   "physicalPolicyRevision": "nearest100-reviewed-gaia-shared-v2",
-  "sharedEnrichmentManifestSha256": "e6a6d8d3df859cd8aea4553a49b29d5cf64e211398bbbb3d91dc87bc39c8b347",
+  "sharedEnrichmentManifestSha256": "d621cff54d4fb040a005fc88eaa7296f43055e77e0b26852d7591bde5824fee3",
   "sources": [
     {
       "name": "10pc census, Reyle et al., tablea1 update 2023-08-25",
@@ -261,6 +261,14 @@
     {
       "name": "Henry et al. 1999, Table 3 and footnote h; section 3.1 resolved spectra",
       "url": "https://www.as.utexas.edu/~fritz/astrometry/Papers_in_pdf/%7BHen99%7DMLR.pdf"
+    },
+    {
+      "name": "Carvalho-Silva et al. 2025, Delta Pav differential HARPS iron abundance and isochrone mass/age, Table 1 HIP 99240",
+      "url": "https://arxiv.org/abs/2504.17482"
+    },
+    {
+      "name": "Rains et al. 2020, Delta Pav VLTI/PIONIER radius and bolometric temperature/luminosity, Table 4 HD 190248",
+      "url": "https://arxiv.org/abs/2004.02343"
     }
   ],
   "sourceChecksumsSha256": {
@@ -6200,7 +6208,7 @@
       },
       "sharedObjectAdoption": {
         "recordId": "* alf Cen A",
-        "reviewSha256": "6e7fde855309f18d2f89432978d47bf46f1cec61be30ca1b97f698b2fe67d9df",
+        "reviewSha256": "8a84ed2e2c7ec7639d762f0129f3372c04d8aed9698ae34458ce00c20aa8d15a",
         "scope": "Reviewed catalog object/component alpha-centauri-a; aliases only, distinct companions remain separate.",
         "fields": [
           "absolute_mag",
@@ -8767,7 +8775,7 @@
       },
       "sharedObjectAdoption": {
         "recordId": "* alf CMa",
-        "reviewSha256": "6e7fde855309f18d2f89432978d47bf46f1cec61be30ca1b97f698b2fe67d9df",
+        "reviewSha256": "8a84ed2e2c7ec7639d762f0129f3372c04d8aed9698ae34458ce00c20aa8d15a",
         "scope": "Reviewed catalog object/component sirius-a; aliases only, distinct companions remain separate.",
         "fields": [
           "absolute_mag",
@@ -11042,7 +11050,7 @@
       },
       "sharedObjectAdoption": {
         "recordId": "* eps Eri",
-        "reviewSha256": "6e7fde855309f18d2f89432978d47bf46f1cec61be30ca1b97f698b2fe67d9df",
+        "reviewSha256": "8a84ed2e2c7ec7639d762f0129f3372c04d8aed9698ae34458ce00c20aa8d15a",
         "scope": "Reviewed catalog object/component epsilon-eridani; aliases only, distinct companions remain separate.",
         "fields": [
           "absolute_mag",
@@ -12243,7 +12251,7 @@
       },
       "sharedObjectAdoption": {
         "recordId": "GJ 866 A",
-        "reviewSha256": "6e7fde855309f18d2f89432978d47bf46f1cec61be30ca1b97f698b2fe67d9df",
+        "reviewSha256": "8a84ed2e2c7ec7639d762f0129f3372c04d8aed9698ae34458ce00c20aa8d15a",
         "scope": "EZ Aquarii A retains its exact component identity. Motion uses the shared EZ Aquarii ABC center-of-mass radial velocity; individual orbital velocities are not modeled.",
         "fields": [
           "vx_kms",
@@ -12579,7 +12587,7 @@
       },
       "sharedObjectAdoption": {
         "recordId": "GJ 866 B",
-        "reviewSha256": "6e7fde855309f18d2f89432978d47bf46f1cec61be30ca1b97f698b2fe67d9df",
+        "reviewSha256": "8a84ed2e2c7ec7639d762f0129f3372c04d8aed9698ae34458ce00c20aa8d15a",
         "scope": "EZ Aquarii B retains its exact component identity. Motion uses the shared EZ Aquarii ABC center-of-mass radial velocity; individual orbital velocities are not modeled.",
         "fields": [
           "vx_kms",
@@ -12915,7 +12923,7 @@
       },
       "sharedObjectAdoption": {
         "recordId": "GJ 866 C",
-        "reviewSha256": "6e7fde855309f18d2f89432978d47bf46f1cec61be30ca1b97f698b2fe67d9df",
+        "reviewSha256": "8a84ed2e2c7ec7639d762f0129f3372c04d8aed9698ae34458ce00c20aa8d15a",
         "scope": "EZ Aquarii C retains its exact component identity. Motion uses the shared EZ Aquarii ABC center-of-mass radial velocity; individual orbital velocities are not modeled.",
         "fields": [
           "vx_kms",
@@ -14367,7 +14375,7 @@
       },
       "sharedObjectAdoption": {
         "recordId": "* alf CMi",
-        "reviewSha256": "6e7fde855309f18d2f89432978d47bf46f1cec61be30ca1b97f698b2fe67d9df",
+        "reviewSha256": "8a84ed2e2c7ec7639d762f0129f3372c04d8aed9698ae34458ce00c20aa8d15a",
         "scope": "Reviewed catalog object/component 10pc-0031; aliases only, distinct companions remain separate.",
         "fields": [
           "absolute_mag",
@@ -17054,7 +17062,7 @@
       },
       "sharedObjectAdoption": {
         "recordId": "* tau Cet",
-        "reviewSha256": "6e7fde855309f18d2f89432978d47bf46f1cec61be30ca1b97f698b2fe67d9df",
+        "reviewSha256": "8a84ed2e2c7ec7639d762f0129f3372c04d8aed9698ae34458ce00c20aa8d15a",
         "scope": "Reviewed catalog object/component 10pc-0044; aliases only, distinct companions remain separate.",
         "fields": [
           "absolute_mag",
@@ -32400,7 +32408,7 @@
       },
       "sharedObjectAdoption": {
         "recordId": "* alf Aql",
-        "reviewSha256": "6e7fde855309f18d2f89432978d47bf46f1cec61be30ca1b97f698b2fe67d9df",
+        "reviewSha256": "8a84ed2e2c7ec7639d762f0129f3372c04d8aed9698ae34458ce00c20aa8d15a",
         "scope": "Reviewed catalog object/component 10pc-0117; aliases only, distinct companions remain separate.",
         "fields": [
           "radial_velocity_error_kms",
