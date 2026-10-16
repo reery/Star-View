@@ -25,10 +25,12 @@ import { renderMkDiagram } from './mk-diagram'
 import { spectralReference } from './spectral-chart'
 import { massCardAvailable } from './mass-properties'
 import { luminosityCardAvailable } from './luminosity-properties'
-import { magnitudeCardAvailable, renderMagnitudeCard as renderMagnitudeComparison } from './magnitude-card'
+import { initializeMagnitudeVisibility, magnitudeCardAvailable, renderMagnitudeCard as renderMagnitudeComparison } from './magnitude-card'
+import { temperatureCardAvailable } from './temperature-properties'
+import { renderTemperatureCard as renderTemperatureContent } from './temperature-card'
 import { constellationCardAvailable, loadConstellationChart, type ConstellationChart } from './constellations'
 import { radiusComparison, radiusStats, radiusSummary, renderRadiusComparison, type RadiusReference } from './radius-comparison'
-import { indexStarSystems, primarySystemStarId, type StarSystem } from './star-systems'
+import { indexStarSystems, type StarSystem } from './star-systems'
 import { loadStellarOrbits } from './stellar-orbits'
 import { loadPlanetarySystems, planetarySystemForStar } from './planetary-systems'
 import { highlightSystemPlanet, renderSystemCard } from './system-card'
@@ -60,8 +62,8 @@ function sourceMeasurement<T extends Parameters<typeof catalogSourceFor>[1]>(id:
   element(id).title = source?.scope ?? ''
 }
 
-function sourceCardTooltip(metric: 'luminosity' | 'radius', star: Star, propertiesHidden: boolean): void {
-  const visible = catalogSourceFor(star, `${metric}_solar`) !== undefined && !propertiesHidden
+function sourceCardTooltip(metric: 'luminosity' | 'radius' | 'temperature', star: Star, propertiesHidden: boolean): void {
+  const visible = catalogSourceFor(star, metric === 'temperature' ? 'temperature_k' : `${metric}_solar`) !== undefined && !propertiesHidden
   const row = element(`${metric}-row`)
   element(`${metric}-source-tooltip`).hidden = !visible
   text(`${metric}-source-tooltip`, visible
@@ -105,22 +107,29 @@ icon('objects-lock-icon', Lock)
 icon('objects-expand-icon', ChevronsLeftRight)
 icon('motion-icon', Clock)
 icon('motion-lock-icon', Lock)
-icon('object-type-close-icon', X)
-icon('metallicity-close-icon', X)
-icon('radius-close-icon', X)
-icon('spectral-close-icon', X)
-icon('mass-close-icon', X)
-icon('luminosity-close-icon', X)
-icon('magnitude-close-icon', X)
-icon('magnitude-lock-icon', Lock)
+const detailCardClosers = {
+  'object-type': closeObjectTypeCard,
+  metallicity: closeMetallicityCard,
+  radius: closeRadiusCard,
+  spectral: closeSpectralCard,
+  mass: closeMassCard,
+  luminosity: closeLuminosityCard,
+  temperature: closeTemperatureCard,
+  magnitude: closeMagnitudeCard,
+  constellation: closeConstellationCard,
+  distance: closeDistanceCard,
+  planet: closePlanetCard,
+}
+type DetailCardName = keyof typeof detailCardClosers
+const detailCardNames = Object.keys(detailCardClosers) as DetailCardName[]
+const lockedDetailCards = new Set<DetailCardName>()
+for (const name of detailCardNames) {
+  icon(`${name}-close-icon`, X)
+  icon(`${name}-lock-icon`, Lock)
+}
 icon('magnitude-absolute-icon', Sun)
 icon('magnitude-apparent-icon', Eye)
-icon('constellation-close-icon', X)
 icon('constellation-magnify-icon', Search)
-icon('constellation-lock-icon', Lock)
-icon('distance-close-icon', X)
-icon('distance-lock-icon', Lock)
-icon('planet-lock-icon', Lock)
 icon('planet-specs-icon', List)
 icon('planet-info-icon', BookOpen)
 icon('planet-moons-icon', Moon)
@@ -373,6 +382,14 @@ function closeMassCard(restoreFocus = false): void {
   if (restoreFocus) element('mass-toggle').focus()
 }
 
+function closeTemperatureCard(restoreFocus = false): void {
+  const card = element('temperature-card')
+  if (card.hidden) return
+  card.hidden = true
+  element('temperature-toggle').setAttribute('aria-expanded', 'false')
+  if (restoreFocus) element('temperature-toggle').focus()
+}
+
 function closeLuminosityCard(restoreFocus = false): void {
   const card = element('luminosity-card')
   if (card.hidden) return
@@ -380,8 +397,6 @@ function closeLuminosityCard(restoreFocus = false): void {
   element('luminosity-toggle').setAttribute('aria-expanded', 'false')
   if (restoreFocus) element('luminosity-toggle').focus()
 }
-
-let magnitudeCardLocked = false
 
 function closeMagnitudeCard(restoreFocus = false): void {
   const card = element('magnitude-card')
@@ -391,7 +406,6 @@ function closeMagnitudeCard(restoreFocus = false): void {
   if (restoreFocus) element('magnitude-toggle').focus()
 }
 
-let constellationCardLocked = false
 let constellationMagnified = false
 let constellationOpenRequest = 0
 let constellationCardModule: typeof import('./constellation-card') | undefined
@@ -432,7 +446,7 @@ async function selectConstellationStar(object: Star): Promise<void> {
     await switchCatalog(activeCatalogId, true)
     if (request !== constellationSelectionRequest) return
   }
-  selectStar(object.id, true, true)
+  selectStar(object.id)
 }
 
 async function toggleConstellationCard(): Promise<void> {
@@ -453,6 +467,7 @@ async function toggleConstellationCard(): Promise<void> {
   closeRadiusCard()
   closeMassCard()
   closeLuminosityCard()
+  closeTemperatureCard()
   closeMagnitudeCard()
   closeDistanceCard()
   closeSpectralCard()
@@ -503,6 +518,7 @@ function toggleSpectralCard(): void {
   closeRadiusCard()
   closeMassCard()
   closeLuminosityCard()
+  closeTemperatureCard()
   closeMagnitudeCard()
   closeDistanceCard()
   closeConstellationCard()
@@ -514,7 +530,6 @@ function toggleSpectralCard(): void {
 }
 
 let activePlanetId: string | null = null
-let planetCardLocked = false
 const planetSections = ['specs', 'info', 'moons'] as const
 
 // Planet details, imagery and the globe renderer load only when a planet is opened.
@@ -568,7 +583,7 @@ async function selectSystemPlanet(planetId: string): Promise<void> {
   const description = planetDescriptionForId(planetId)
   const selected = system.querySelector<HTMLButtonElement>(`.planet-row[data-planet-id="${planetId}"] button`)?.getAttribute('aria-pressed') === 'true'
   if (!description) {
-    if (!planetCardLocked) closePlanetCard()
+    if (!lockedDetailCards.has('planet')) closePlanetCard()
     highlightSystemPlanet(system, selected ? null : planetId, element('planet-card').hidden ? null : activePlanetId)
     return
   }
@@ -581,6 +596,7 @@ async function selectSystemPlanet(planetId: string): Promise<void> {
   closeRadiusCard()
   closeMassCard()
   closeLuminosityCard()
+  closeTemperatureCard()
   closeMagnitudeCard()
   closeDistanceCard()
   activePlanetId = planetId
@@ -604,6 +620,38 @@ function renderLuminosityCard(star: Star): void {
   syncObjectTypeLayout()
 }
 
+function renderTemperatureCard(star: Star): void {
+  const sun = stars.find((candidate) => candidate.id === 'sun')!
+  const origin = stars.find((candidate) => candidate.id === referenceId) ?? sun
+  renderTemperatureContent(element('temperature-card'), star, origin, sun, starColorMode)
+  syncObjectTypeLayout()
+}
+
+function toggleTemperatureCard(): void {
+  if (element<HTMLButtonElement>('temperature-toggle').disabled) return
+  if (!element('temperature-card').hidden) {
+    closeTemperatureCard(true)
+    return
+  }
+  const star = stars.find((candidate) => candidate.id === selectedId)
+  if (!star || !temperatureCardAvailable(star)) return
+  closePlanetCard()
+  closeObjectTypeCard()
+  closeMetallicityCard()
+  closeRadiusCard()
+  closeMassCard()
+  closeLuminosityCard()
+  closeMagnitudeCard()
+  closeDistanceCard()
+  closeSpectralCard()
+  closeConstellationCard()
+  element('temperature-card').hidden = false
+  element('temperature-toggle').setAttribute('aria-expanded', 'true')
+  renderTemperatureCard(star)
+  element('temperature-card').querySelector<HTMLElement>('.card-scroll-content')!.scrollTop = 0
+  element('temperature-close').focus({ preventScroll: true })
+}
+
 function renderMagnitudeCard(star: Star): void {
   const sun = stars.find((candidate) => candidate.id === 'sun')!
   const origin = stars.find((candidate) => candidate.id === referenceId) ?? sun
@@ -625,6 +673,7 @@ function toggleMagnitudeCard(): void {
   closeRadiusCard()
   closeMassCard()
   closeLuminosityCard()
+  closeTemperatureCard()
   closeDistanceCard()
   closeSpectralCard()
   closeConstellationCard()
@@ -644,6 +693,7 @@ async function toggleLuminosityCard(): Promise<void> {
   luminosityCardModule ??= await import('./luminosity-card')
   const star = stars.find((candidate) => candidate.id === selectedId)
   if (!star || !luminosityCardAvailable(star) || element<HTMLButtonElement>('luminosity-toggle').disabled) return
+  closeTemperatureCard()
   closeMagnitudeCard()
   closePlanetCard()
   closeObjectTypeCard()
@@ -687,6 +737,7 @@ async function toggleMassCard(): Promise<void> {
   const star = stars.find((candidate) => candidate.id === selectedId)
   if (!star || !massCardAvailable(star) || element<HTMLButtonElement>('mass-toggle').disabled) return
   closeLuminosityCard()
+  closeTemperatureCard()
   closeMagnitudeCard()
   closePlanetCard()
   closeObjectTypeCard()
@@ -703,7 +754,6 @@ async function toggleMassCard(): Promise<void> {
 }
 
 let distanceReference: 'origin' | 'sun' = 'origin'
-let distanceCardLocked = false
 let lastDistanceCardRender = -Infinity
 
 function closeDistanceCard(restoreFocus = false): void {
@@ -751,6 +801,7 @@ function toggleDistanceCard(): void {
   closeRadiusCard()
   closeMassCard()
   closeLuminosityCard()
+  closeTemperatureCard()
   closeMagnitudeCard()
   closeSpectralCard()
   closeConstellationCard()
@@ -811,6 +862,7 @@ function toggleRadiusCard(): void {
   closeDistanceCard()
   closeMassCard()
   closeLuminosityCard()
+  closeTemperatureCard()
   closeMagnitudeCard()
   closeSpectralCard()
   closeConstellationCard()
@@ -901,6 +953,7 @@ function toggleMetallicityCard(): void {
   closeRadiusCard()
   closeMassCard()
   closeLuminosityCard()
+  closeTemperatureCard()
   closeMagnitudeCard()
   closeDistanceCard()
   closeSpectralCard()
@@ -941,6 +994,7 @@ function toggleObjectTypeCard(): void {
   closeRadiusCard()
   closeMassCard()
   closeLuminosityCard()
+  closeTemperatureCard()
   closeMagnitudeCard()
   closeDistanceCard()
   closeSpectralCard()
@@ -964,7 +1018,7 @@ function syncObjectTypeLayout(): void {
     inspector.style.removeProperty('--object-detail-left')
   }
   const motion = element('motion-panel')
-  const cards = ['object-type-card', 'metallicity-card', 'radius-card', 'spectral-card', 'mass-card', 'luminosity-card', 'magnitude-card', 'distance-card', 'planet-card', 'constellation-card'].map((id) => element(id))
+  const cards = detailCardNames.map((name) => element(`${name}-card`))
   for (const card of cards) card.style.removeProperty('max-height')
   if (motion.hidden) return
   // Read every rectangle before writing, so playback refreshes cause one layout.
@@ -1023,16 +1077,9 @@ function togglePanel(name: typeof panelNames[number]): void {
 }
 
 function dismissOpenPanel(): void {
-  closeObjectTypeCard()
-  closeMetallicityCard()
-  closeRadiusCard()
-  closeSpectralCard()
-  closeMassCard()
-  closeLuminosityCard()
-  if (!magnitudeCardLocked) closeMagnitudeCard()
-  if (!constellationCardLocked) closeConstellationCard()
-  if (!distanceCardLocked) closeDistanceCard()
-  if (!planetCardLocked) closePlanetCard()
+  for (const name of detailCardNames) {
+    if (!lockedDetailCards.has(name)) detailCardClosers[name]()
+  }
   let changed = false
   for (const name of panelNames) {
     if (!panelIsOpen(name)) continue
@@ -1200,7 +1247,7 @@ for (const section of objectSections) {
     const opening = !details.open || activeObjectSection !== section
     activeObjectSection = section
     details.open = opening
-    if (section !== 'system' && !planetCardLocked) closePlanetCard()
+    if (section !== 'system' && !lockedDetailCards.has('planet')) closePlanetCard()
     if (section !== 'specs') {
       closeObjectTypeCard()
       closeMetallicityCard()
@@ -1208,6 +1255,7 @@ for (const section of objectSections) {
       closeSpectralCard()
       closeMassCard()
       closeLuminosityCard()
+      closeTemperatureCard()
       closeMagnitudeCard()
       closeDistanceCard()
       closeConstellationCard()
@@ -1226,6 +1274,7 @@ element('known-planets-row').addEventListener('click', () => {
   closeSpectralCard()
   closeMassCard()
   closeLuminosityCard()
+  closeTemperatureCard()
   closeMagnitudeCard()
   closeDistanceCard()
   closeConstellationCard()
@@ -1276,7 +1325,7 @@ element('star-components').addEventListener('click', (event) => {
   // Component buttons live below the distance inside the expandable header.
   event.preventDefault()
   event.stopPropagation()
-  selectStar(button.dataset.componentId, true, true)
+  selectStar(button.dataset.componentId)
 }, { signal: events.signal })
 
 function renderSelection(): void {
@@ -1293,12 +1342,13 @@ function renderSelection(): void {
   updateReferenceControl()
   updateObserverControl()
   if (!star) {
-    if (!planetCardLocked) closePlanetCard()
+    if (!lockedDetailCards.has('planet')) closePlanetCard()
     closeObjectTypeCard()
     closeMetallicityCard()
     closeRadiusCard()
     closeMassCard()
     closeLuminosityCard()
+    closeTemperatureCard()
     closeMagnitudeCard()
     closeDistanceCard()
     closeSpectralCard()
@@ -1324,7 +1374,7 @@ function renderSelection(): void {
   renderSelectedStarPreview(element<HTMLCanvasElement>('selected-swatch'), star, starColorMode, system?.components.map((component) => component.star), knownPlanetCount > 0)
   renderSystemCard(element('object-system'), planets, system, star, starColorMode, selectSystemPlanet)
   const openPlanet = activePlanetId ? planetModules?.planetDescriptionForId(activePlanetId) : undefined
-  if (!planetCardLocked && openPlanet?.hostStarId !== star.id) closePlanetCard()
+  if (!lockedDetailCards.has('planet') && openPlanet?.hostStarId !== star.id) closePlanetCard()
   if (!element('planet-card').hidden && openPlanet?.hostStarId === star.id) highlightSystemPlanet(element('object-system'), activePlanetId, activePlanetId)
   const systemToggle = element<HTMLButtonElement>('object-system-toggle')
   const systemAvailable = Boolean(planets?.planets.length || system)
@@ -1398,6 +1448,21 @@ function renderSelection(): void {
   if (element<HTMLButtonElement>('spectral-toggle').disabled) closeSpectralCard()
   else if (!element('spectral-card').hidden) renderSpectralCard(star)
   sourceMeasurement('temperature', star, 'temperature_k', (value: number | null) => quantity(value, 'K', 0))
+  sourceCardTooltip('temperature', star, stellarPropertiesHidden)
+  const atmosphereTemperature = star.temperature_k === null ? star.stellar_observations?.atmosphere_temperature : undefined
+  element('temperature-row').querySelector('dt')!.textContent = atmosphereTemperature ? 'Temperature T*' : 'Temperature'
+  if (atmosphereTemperature && !stellarPropertiesHidden) {
+    text('temperature', `${atmosphereTemperature.value_k.toLocaleString('en-US')} ± ${quantity(atmosphereTemperature.error_k, 'K', 0)}`)
+    element('temperature').removeAttribute('title')
+    element('temperature-source-tooltip').hidden = false
+    text('temperature-source-tooltip', atmosphereTemperature.scope)
+    element('temperature-row').tabIndex = 0
+    element('temperature-row').setAttribute('aria-describedby', 'temperature-source-tooltip')
+  }
+  element<HTMLButtonElement>('temperature-toggle').disabled = !temperatureCardAvailable(star) || stellarPropertiesHidden
+  element('temperature-toggle').setAttribute('aria-label', `Explore temperature of ${star.name}`)
+  if (element<HTMLButtonElement>('temperature-toggle').disabled) closeTemperatureCard()
+  else if (!element('temperature-card').hidden) renderTemperatureCard(star)
   sourceMeasurement('luminosity', star, 'luminosity_solar', (value: number | null) => value !== null && value < 1
     ? `${value.toLocaleString('en-US', { maximumSignificantDigits: 3 })} L☉` : quantity(value, 'L☉'))
   sourceCardTooltip('luminosity', star, stellarPropertiesHidden)
@@ -1407,6 +1472,13 @@ function renderSelection(): void {
   else if (!element('luminosity-card').hidden) renderLuminosityCard(star)
   sourceMeasurement('mass', star, 'mass_solar', (value: number | null) => compact
     ? preciseMeasurement(value, compact.mass_error_solar, 'M☉') : quantity(value, 'M☉'))
+  const massRange = star.mass_solar === null ? star.stellar_observations?.mass_range : undefined
+  text('mass-label', massRange ? 'Mass (model)' : 'Mass')
+  if (massRange) {
+    text('mass', `${quantity(massRange.min_jupiter)}–${quantity(massRange.max_jupiter)} M♃`)
+    element('mass').title = `${massRange.reference}. ${massRange.scope}`
+    element('mass').setAttribute('aria-label', `Model mass: ${massRange.min_jupiter} to ${massRange.max_jupiter} Jupiter masses, assuming an age of ${massRange.assumed_age_min_gyr} to ${massRange.assumed_age_max_gyr} billion years.`)
+  } else element('mass').removeAttribute('aria-label')
   element<HTMLButtonElement>('mass-toggle').disabled = star.mass_solar === null || !massCardAvailable(star)
   element('mass-toggle').setAttribute('aria-label', `Explore mass of ${star.name}`)
   if (element<HTMLButtonElement>('mass-toggle').disabled) closeMassCard()
@@ -1487,7 +1559,9 @@ function renderSelection(): void {
   sourceMeasurement('velocity-z', star, 'vz_kms', (value: number | null) => quantity(value, 'km/s'))
   const raw = star.raw_astrometry
   const fullVelocity = [star.vx_kms, star.vy_kms, star.vz_kms].every((value) => value !== null) || (raw !== null && raw.radial_velocity_kms !== null)
-  text('motion-data', fullVelocity ? 'Full space motion' : raw ? 'Transverse only; radial velocity unavailable' : MISSING_VALUE)
+  const systemicMotion = raw?.radial_velocity_ref?.includes('; shared systemic velocity approximation') ?? false
+  text('motion-data', fullVelocity ? systemicMotion ? 'System bulk motion' : 'Full space motion' : raw ? 'Transverse only; radial velocity unavailable' : MISSING_VALUE)
+  element('motion-data').title = systemicMotion ? 'Approximate system bulk motion using a shared center-of-mass radial velocity; individual orbital velocities are not modeled.' : ''
   const sky = raw ?? compact ?? nebula ?? null
   text('right-ascension', sky ? `${sky.ra_deg.toLocaleString('en-US', { maximumFractionDigits: 9 })} deg` : MISSING_VALUE)
   text('declination', sky ? `${sky.dec_deg.toLocaleString('en-US', { maximumFractionDigits: 9 })} deg` : MISSING_VALUE)
@@ -1502,18 +1576,43 @@ function renderSelection(): void {
     text('radial-velocity', measurement(sourceRaw.radial_velocity_kms, sourceRaw.radial_velocity_error_kms, 'km/s', 6))
     if (!fullVelocity && raw) text('motion-data', 'Transverse component motion')
   }
-  element('radial-velocity').title = sourceRv?.scope ?? ''
+  element('radial-velocity').title = sourceRv?.scope ?? raw?.radial_velocity_ref ?? ''
+  const rvReview = star.stellar_observations?.radial_velocity_review
+  if (rvReview && raw?.radial_velocity_kms == null && !sourceRv) {
+    element('radial-velocity').title = `${rvReview.reference}. ${rvReview.reason}`
+    element('motion-data').title = rvReview.reason
+  }
+  const observedRv = star.radial_velocity_observation
+  if (observedRv) {
+    text('radial-velocity', measurement(observedRv.value_kms, observedRv.error_kms, 'km/s', 6))
+    element('radial-velocity').title = `${observedRv.reference}; ${observedRv.observed_from} to ${observedRv.observed_to}. ${observedRv.uncertainty_kind} ${observedRv.scope}`
+    if (!fullVelocity && raw) {
+      text('motion-data', 'Transverse only')
+      element('motion-data').title = 'The measured component radial velocity includes orbital motion and belongs to a different epoch from the catalog proper motion; a constant bulk space-motion vector is not inferred.'
+    }
+  }
   text('astrometry-source', raw?.astrometry_ref || compact?.position_source || nebula?.position_source || molecularCloud?.position_source || bubble?.position_source || MISSING_VALUE)
   sourceMeasurement('absolute-mag', star, 'absolute_mag', (value: number | null) => quantity(value))
   const unresolvedPhotometry = star.apparent_mag == null ? star.unresolved_photometry : undefined
+  const resolvedPhotometry = star.resolved_photometry
   text('apparent-mag-label', 'Apparent mag. (V)')
-  text('apparent-mag', unresolvedPhotometry
+  text('apparent-mag', resolvedPhotometry
+    ? measurement(resolvedPhotometry.magnitude_v, resolvedPhotometry.error_mag, '').trim()
+    : unresolvedPhotometry
     ? measurement(unresolvedPhotometry.magnitude_v, unresolvedPhotometry.error_mag, '').trim()
     : quantity(star.apparent_mag ?? null))
-  element('apparent-mag').title = unresolvedPhotometry
+  element('apparent-mag').title = resolvedPhotometry
+    ? `${resolvedPhotometry.reference}; ${resolvedPhotometry.observed_on}. ${resolvedPhotometry.scope}`
+    : unresolvedPhotometry
     ? `${unresolvedPhotometry.scope}. ${unresolvedPhotometry.source}. Earth-view snapshot; component fluxes are not separated.`
     : 'Earth-view catalog V magnitude; a snapshot, not current variable-star photometry.'
   if (star.apparent_mag == null && !unresolvedPhotometry) sourceMeasurement('apparent-mag', star, 'apparent_mag', (value: number | null) => quantity(value))
+  const infrared = star.stellar_observations?.infrared_photometry
+  element('infrared-magnitude-row').hidden = !infrared || stellarPropertiesHidden
+  text('infrared-magnitude-label', infrared ? `Apparent mag. (${infrared.band})` : '')
+  text('infrared-magnitude', infrared ? measurement(infrared.magnitude, infrared.error_mag, '').trim() : '')
+  element('infrared-magnitude').title = infrared
+    ? `${infrared.instrument} ${infrared.band}, ${infrared.wavelength_microns} μm, ${infrared.system} system; ${infrared.observed_on.join(', ')}. ${infrared.reference}. ${infrared.scope}` : ''
   element<HTMLButtonElement>('magnitude-toggle').disabled = !magnitudeCardAvailable(star) || stellarPropertiesHidden
   element('magnitude-toggle').setAttribute('aria-label', `Explore absolute and apparent magnitude of ${star.name}`)
   if (element<HTMLButtonElement>('magnitude-toggle').disabled) closeMagnitudeCard()
@@ -1532,7 +1631,11 @@ function renderSelection(): void {
     'metallicity_dex', 'age_gyr', 'absolute_mag', 'vx_kms', 'vy_kms', 'vz_kms'].map((field) =>
     catalogSourceFor(star, field as Parameters<typeof catalogSourceFor>[1])).filter((source) => source !== undefined))
   if (sourceRv) sourceNotes.add(sourceRv)
-  text('star-notes', [star.notes, ...[...sourceNotes].map((source) => `${source.scope} ${source.record.notes}`)]
+  const observations = star.stellar_observations
+  const observationNotes = [observations?.mass_range, observations?.infrared_photometry, observations?.radial_velocity_review, observations?.atmosphere_temperature]
+    .filter((observation) => observation !== undefined)
+    .map((observation) => `${'scope' in observation ? observation.scope : observation.reason} ${observation.reference}: ${observation.source_url}`)
+  text('star-notes', [star.notes, ...observationNotes, ...[...sourceNotes].map((source) => `${source.scope} ${source.record.notes}`)]
     .filter(Boolean).join('\n\n') || 'No source notes available.')
   const referenceName = reference.id === 'sun' ? 'the Sun' : reference.name
   text('selection-announcement', `${star.name}, ${formatDistance(displayedDistancePc, distanceUnit)} from ${referenceName}.`)
@@ -1547,13 +1650,9 @@ function updateObjectListFilter(): void {
   })
 }
 
-function selectStar(id: string | null, recordHistory = true, explicitComponent = false): void {
+function selectStar(id: string | null, recordHistory = true): void {
   if (id !== null && !stars.some((star) => star.id === id)) return
   constellationSelectionRequest++
-  const system = id === null ? undefined : starSystems.get(id)
-  // Entering a system starts at its primary; component controls and history
-  // deliberately retain individual identities.
-  if (system && recordHistory && !explicitComponent) id = primarySystemStarId(system)
   if (id !== null && recordHistory) selectionHistory.record(id)
   selectedDistancePc = null
   selectedId = id
@@ -2288,6 +2387,7 @@ window.addEventListener('resize', () => {
   if (star && !element('radius-card').hidden) renderRadiusCard(star)
   if (star && !element('mass-card').hidden) renderMassCard(star)
   if (star && !element('luminosity-card').hidden) renderLuminosityCard(star)
+  if (star && !element('temperature-card').hidden) renderTemperatureCard(star)
   if (star && !element('magnitude-card').hidden) renderMagnitudeCard(star)
   refreshDistanceCard()
 }, { signal: events.signal })
@@ -2393,6 +2493,10 @@ document.addEventListener('keydown', (event) => {
     closeMassCard(true)
     return
   }
+  if (!element('temperature-card').hidden) {
+    closeTemperatureCard(true)
+    return
+  }
   if (!element('luminosity-card').hidden) {
     closeLuminosityCard(true)
     return
@@ -2427,33 +2531,25 @@ document.addEventListener('keydown', (event) => {
   togglePanel(open)
   element(`${open}-toggle`).focus()
 }, { signal: events.signal })
+for (const name of detailCardNames) {
+  element(`${name}-close`).addEventListener('click', () => detailCardClosers[name](true), { signal: events.signal })
+  element(`${name}-lock`).addEventListener('click', () => {
+    if (lockedDetailCards.has(name)) lockedDetailCards.delete(name)
+    else lockedDetailCards.add(name)
+    element(`${name}-lock`).setAttribute('aria-pressed', String(lockedDetailCards.has(name)))
+  }, { signal: events.signal })
+}
 document.querySelector('.object-type-row')!.addEventListener('click', toggleObjectTypeCard, { signal: events.signal })
-element('object-type-close').addEventListener('click', () => closeObjectTypeCard(true), { signal: events.signal })
 document.querySelector('.metallicity-row')!.addEventListener('click', toggleMetallicityCard, { signal: events.signal })
-element('metallicity-close').addEventListener('click', () => closeMetallicityCard(true), { signal: events.signal })
 document.querySelector('.distance-row')!.addEventListener('click', toggleDistanceCard, { signal: events.signal })
-element('distance-close').addEventListener('click', () => closeDistanceCard(true), { signal: events.signal })
-element('distance-lock').addEventListener('click', () => {
-  distanceCardLocked = !distanceCardLocked
-  element('distance-lock').setAttribute('aria-pressed', String(distanceCardLocked))
-}, { signal: events.signal })
 element('constellation-row').addEventListener('click', () => {
   if (!element<HTMLButtonElement>('constellation-toggle').disabled) void toggleConstellationCard()
 }, { signal: events.signal })
-element('constellation-close').addEventListener('click', () => closeConstellationCard(true), { signal: events.signal })
 element('constellation-magnify').addEventListener('click', () => {
   const star = stars.find((candidate) => candidate.id === selectedId)
   if (!star) return
   constellationMagnified = !constellationMagnified
   renderConstellationCard(star)
-}, { signal: events.signal })
-element('constellation-lock').addEventListener('click', () => {
-  constellationCardLocked = !constellationCardLocked
-  element('constellation-lock').setAttribute('aria-pressed', String(constellationCardLocked))
-}, { signal: events.signal })
-element('planet-lock').addEventListener('click', () => {
-  planetCardLocked = !planetCardLocked
-  element('planet-lock').setAttribute('aria-pressed', String(planetCardLocked))
 }, { signal: events.signal })
 for (const section of planetSections) {
   element(`planet-${section}-toggle`).addEventListener('click', () => showPlanetSection(section), { signal: events.signal })
@@ -2465,15 +2561,13 @@ for (const mode of ['origin', 'sun'] as const) {
   }, { signal: events.signal })
 }
 element('mass-row').addEventListener('click', toggleMassCard, { signal: events.signal })
+element('temperature-row').addEventListener('click', toggleTemperatureCard, { signal: events.signal })
 element('luminosity-row').addEventListener('click', toggleLuminosityCard, { signal: events.signal })
-element('luminosity-close').addEventListener('click', () => closeLuminosityCard(true), { signal: events.signal })
 element('magnitude-row').addEventListener('click', toggleMagnitudeCard, { signal: events.signal })
-element('magnitude-close').addEventListener('click', () => closeMagnitudeCard(true), { signal: events.signal })
-element('magnitude-lock').addEventListener('click', () => {
-  magnitudeCardLocked = !magnitudeCardLocked
-  element('magnitude-lock').setAttribute('aria-pressed', String(magnitudeCardLocked))
-}, { signal: events.signal })
-element('mass-close').addEventListener('click', () => closeMassCard(true), { signal: events.signal })
+initializeMagnitudeVisibility(element('magnitude-card'), () => {
+  const star = stars.find((candidate) => candidate.id === selectedId)
+  if (star && !element('magnitude-card').hidden) renderMagnitudeCard(star)
+}, events.signal)
 for (const mode of ['class', 'origin', 'sun'] as const) {
   element(`mass-reference-${mode}`).addEventListener('click', () => {
     massReference = mode
@@ -2482,9 +2576,7 @@ for (const mode of ['class', 'origin', 'sun'] as const) {
   }, { signal: events.signal })
 }
 document.querySelector('.radius-row')!.addEventListener('click', toggleRadiusCard, { signal: events.signal })
-element('radius-close').addEventListener('click', () => closeRadiusCard(true), { signal: events.signal })
 document.querySelector('.spectral-row')!.addEventListener('click', toggleSpectralCard, { signal: events.signal })
-element('spectral-close').addEventListener('click', () => closeSpectralCard(true), { signal: events.signal })
 for (const diagram of ['hr', 'mk'] as const) {
   element(`spectral-${diagram}`).addEventListener('click', () => {
     spectralDiagram = diagram

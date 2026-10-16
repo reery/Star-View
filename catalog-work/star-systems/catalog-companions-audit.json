@@ -10307,27 +10307,27 @@
       "membership": {
         "source": "MSC 2026-06-19",
         "wds": "08095-4720",
-        "component": "A",
+        "component": "Aa",
         "subsystem": [
           "08095-4720",
-          "A",
-          "B",
-          "t",
-          "Crmh",
-          "177.0000",
-          "k",
-          "40.300",
-          "\"",
-          "221.0",
+          "Aa",
+          "Ab",
+          "Aab",
+          "S2",
+          "78.5000",
+          "d",
+          "7.266",
+          "m",
+          "0.0",
           "1.78",
           "WC8",
-          "4.27",
-          "B2III",
-          "20.16",
-          "s",
-          "14.71",
-          "s",
-          "DUN_65 AB"
+          "0.00",
+          "O9I",
+          "90.00",
+          "r",
+          "50.00",
+          "a",
+          "SB9_500 i<70"
         ]
       },
       "astrometryScope": "Individual source direction when available; shared system distance/motion for unresolved close members; no orbital phase or individual radial velocity inferred.",
@@ -10349,9 +10349,46 @@
         "sourceNotes": "Western constellation line-figure star (HIP 39953; Stellarium Vel). SIMBAD identity * gam02 Vel; SIMBAD compiled Johnson V=1.83; inverse SIMBAD compiled parallax distance; absolute V uses no extinction correction. Physical parameters: reviewed Star View values for temperature_k, luminosity_solar, radius_solar.",
         "policy": "Observed catalog-source photometry only; no individual component flux inferred."
       },
-      "photometry": {
-        "source": "MSC individual subsystem magnitude",
-        "V": 1.78
+      "withheldPhotometry": {
+        "V": 1.78,
+        "reason": "Unresolved parent flux; secondary brightness unavailable"
+      },
+      "reviewedHierarchy": {
+        "reference": "MSC 2026-06-19 comp.tsv, sys.tsv and notes.tsv; Schmutz et al. 2026 (preprint)",
+        "scope": "Gamma2 Velorum is the confirmed WC8 + O7.5III-V 78.5-day binary. Preserve the MSC convention Aa=WR, Ab=O; retain the existing bright-regor / hip-39953 identity on the WR component. Gamma1 Velorum is the separate Ba/Bb spectroscopic pair. C is the MSC Cphr common-parallax/photometry/RV companion.",
+        "repair": "The uncertain Aab-Ac link disconnects the confirmed Aa-Ab subtree from A-B in automatic MSC traversal. Two outer relationships also reuse parent t, hiding C. Select only the exact confirmed source branches; do not accept the uncertain Ac source.",
+        "excluded": "Ac (Cp?; uncertain association), D/E (no reviewed physical membership), and the reportedly spurious WSI 55 visual Ba/Bb detections. Retain the independently measured 1.4826-day spectroscopic Ba/Bb solution, without visual geometry.",
+        "frozenInput": "catalog-work/star-systems/catalog-companions-msc.json"
+      },
+      "retainedUnresolvedMscPhotometry": {
+        "apparentMagnitudeV": 1.78,
+        "absoluteMagnitudeVAtCatalogDistance": -5.8930857428409436,
+        "source": "MSC 2026-06-19 comp.tsv A and sys.tsv Aa/Ab",
+        "scope": "Integrated Gamma2 Velorum Aa+Ab flux. Previously shown as Regor A; not a measurement of the WR star alone. Source photometry is retained here and in the frozen MSC rows. The original bright/western catalog measurements, errors and provenance remain in catalog_sources."
+      },
+      "reviewedPhysicalOverride": {
+        "values": {
+          "temperature_k": null,
+          "mass_solar": 8.3,
+          "radius_solar": 3.4,
+          "luminosity_solar": 110000,
+          "absolute_mag": null,
+          "apparent_mag": null
+        },
+        "source": "Schmutz et al. 2026, arXiv:2606.27265v1 (preprint), Table 4 and Section 6.3",
+        "sourceUrl": "https://arxiv.org/html/2606.27265v1",
+        "scope": "Individual Gamma2 Velorum WR component; MSC Aa. Source is the June 2026 preprint, not a refereed journal version.",
+        "uncertainties": {
+          "mass_solar": 0.7,
+          "radius_solar": 0.5,
+          "luminosity_solar": 40000
+        },
+        "methods": {
+          "mass": "Relative visual orbit, Kepler system mass and spectroscopic mass ratio at assumed cluster distance 336 +/- 1 pc",
+          "radius": "O-star Ks flux/model radius; WR radius from optical O/WR radius ratio, not the disputed infrared size",
+          "luminosity": "Atmosphere-model temperature and adopted radius"
+        },
+        "note": "Gamma2 Velorum Aa (WR), MSC Aa=WC8: mass 8.3 +/- 0.7 solar masses, model radius R*=3.4 +/- 0.5 solar radii, bolometric luminosity 110000 +/- 40000 solar luminosities. Atmosphere inner-boundary T*=57100 +/- 1700 K is separately retained, not used as photospheric Teff. Withheld individual fields: temperature_k, absolute_mag, metallicity_dex, age_gyr. Schmutz et al. 2026 preprint: https://arxiv.org/html/2606.27265v1. No unresolved Johnson V flux, system radial velocity or minimum mass is assigned to either individual star."
       },
       "spectralSubtypes": {
         "spectralType": "WC8",
@@ -10359,6 +10396,69 @@
           "Wolf\u2013Rayet"
         ],
         "method": "Physical subtype from this component's own adopted spectrum; no aggregate-label inheritance"
+      }
+    },
+    "msc-08095-4720-ab": {
+      "membership": {
+        "source": "MSC 2026-06-19",
+        "wds": "08095-4720",
+        "component": "Ab",
+        "subsystem": [
+          "08095-4720",
+          "Aa",
+          "Ab",
+          "Aab",
+          "S2",
+          "78.5000",
+          "d",
+          "7.266",
+          "m",
+          "0.0",
+          "1.78",
+          "WC8",
+          "0.00",
+          "O9I",
+          "90.00",
+          "r",
+          "50.00",
+          "a",
+          "SB9_500 i<70"
+        ]
+      },
+      "astrometryScope": "Individual source direction when available; shared system distance/motion for unresolved close members; no orbital phase or individual radial velocity inferred.",
+      "withheldIntegratedFields": {},
+      "reviewedHierarchy": {
+        "reference": "MSC 2026-06-19 comp.tsv, sys.tsv and notes.tsv; Schmutz et al. 2026 (preprint)",
+        "scope": "Gamma2 Velorum is the confirmed WC8 + O7.5III-V 78.5-day binary. Preserve the MSC convention Aa=WR, Ab=O; retain the existing bright-regor / hip-39953 identity on the WR component. Gamma1 Velorum is the separate Ba/Bb spectroscopic pair. C is the MSC Cphr common-parallax/photometry/RV companion.",
+        "repair": "The uncertain Aab-Ac link disconnects the confirmed Aa-Ab subtree from A-B in automatic MSC traversal. Two outer relationships also reuse parent t, hiding C. Select only the exact confirmed source branches; do not accept the uncertain Ac source.",
+        "excluded": "Ac (Cp?; uncertain association), D/E (no reviewed physical membership), and the reportedly spurious WSI 55 visual Ba/Bb detections. Retain the independently measured 1.4826-day spectroscopic Ba/Bb solution, without visual geometry.",
+        "frozenInput": "catalog-work/star-systems/catalog-companions-msc.json"
+      },
+      "reviewedPhysicalOverride": {
+        "values": {
+          "spectral_type": "O7.5III-V",
+          "temperature_k": 35000,
+          "mass_solar": 26.4,
+          "radius_solar": 13.5,
+          "luminosity_solar": 250000,
+          "age_gyr": 0.0069,
+          "subtypes": []
+        },
+        "source": "Schmutz et al. 2026, arXiv:2606.27265v1 (preprint), Table 4 and Section 6.3",
+        "sourceUrl": "https://arxiv.org/html/2606.27265v1",
+        "scope": "Individual Gamma2 Velorum O component; MSC Ab. Source is the June 2026 preprint, not a refereed journal version.",
+        "uncertainties": {
+          "temperature_k": 300,
+          "mass_solar": 0.5,
+          "radius_solar": 1.0,
+          "luminosity_solar": 40000
+        },
+        "methods": {
+          "mass": "Relative visual orbit, Kepler system mass and spectroscopic mass ratio at assumed cluster distance 336 +/- 1 pc",
+          "radius": "O-star Ks flux/model radius; WR radius from optical O/WR radius ratio, not the disputed infrared size",
+          "luminosity": "Atmosphere-model temperature and adopted radius"
+        },
+        "note": "Gamma2 Velorum Ab (O7.5III-V): mass 26.4 +/- 0.5 solar masses, radius 13.5 +/- 1.0 solar radii, Teff 35000 +/- 300 K, bolometric luminosity 250000 +/- 40000 solar luminosities. Age 6.9 Myr is a rotational evolutionary-track estimate for the O star (Section 6.4), without a published uncertainty; it is not copied to the WR star. The III-V classification does not select one luminosity class. Withheld individual fields: absolute_mag, metallicity_dex. Schmutz et al. 2026 preprint: https://arxiv.org/html/2606.27265v1. No unresolved Johnson V flux, system radial velocity or minimum mass is assigned to either individual star."
       }
     },
     "msc-08095-4720-ba": {
@@ -10393,6 +10493,13 @@
       "withheldPhotometry": {
         "V": 4.27,
         "reason": "Unresolved parent flux; secondary brightness unavailable"
+      },
+      "reviewedHierarchy": {
+        "reference": "MSC 2026-06-19 comp.tsv, sys.tsv and notes.tsv; Schmutz et al. 2026 (preprint)",
+        "scope": "Gamma2 Velorum is the confirmed WC8 + O7.5III-V 78.5-day binary. Preserve the MSC convention Aa=WR, Ab=O; retain the existing bright-regor / hip-39953 identity on the WR component. Gamma1 Velorum is the separate Ba/Bb spectroscopic pair. C is the MSC Cphr common-parallax/photometry/RV companion.",
+        "repair": "The uncertain Aab-Ac link disconnects the confirmed Aa-Ab subtree from A-B in automatic MSC traversal. Two outer relationships also reuse parent t, hiding C. Select only the exact confirmed source branches; do not accept the uncertain Ac source.",
+        "excluded": "Ac (Cp?; uncertain association), D/E (no reviewed physical membership), and the reportedly spurious WSI 55 visual Ba/Bb detections. Retain the independently measured 1.4826-day spectroscopic Ba/Bb solution, without visual geometry.",
+        "frozenInput": "catalog-work/star-systems/catalog-companions-msc.json"
       },
       "spectralSubtypes": {
         "spectralType": "B2III",
@@ -10430,7 +10537,127 @@
         ]
       },
       "astrometryScope": "Individual source direction when available; shared system distance/motion for unresolved close members; no orbital phase or individual radial velocity inferred.",
-      "withheldIntegratedFields": {}
+      "withheldIntegratedFields": {},
+      "reviewedHierarchy": {
+        "reference": "MSC 2026-06-19 comp.tsv, sys.tsv and notes.tsv; Schmutz et al. 2026 (preprint)",
+        "scope": "Gamma2 Velorum is the confirmed WC8 + O7.5III-V 78.5-day binary. Preserve the MSC convention Aa=WR, Ab=O; retain the existing bright-regor / hip-39953 identity on the WR component. Gamma1 Velorum is the separate Ba/Bb spectroscopic pair. C is the MSC Cphr common-parallax/photometry/RV companion.",
+        "repair": "The uncertain Aab-Ac link disconnects the confirmed Aa-Ab subtree from A-B in automatic MSC traversal. Two outer relationships also reuse parent t, hiding C. Select only the exact confirmed source branches; do not accept the uncertain Ac source.",
+        "excluded": "Ac (Cp?; uncertain association), D/E (no reviewed physical membership), and the reportedly spurious WSI 55 visual Ba/Bb detections. Retain the independently measured 1.4826-day spectroscopic Ba/Bb solution, without visual geometry.",
+        "frozenInput": "catalog-work/star-systems/catalog-companions-msc.json"
+      }
+    },
+    "msc-08095-4720-c": {
+      "membership": {
+        "source": "MSC 2026-06-19",
+        "wds": "08095-4720",
+        "component": "C",
+        "subsystem": [
+          "08095-4720",
+          "A",
+          "C",
+          "t",
+          "Cphr",
+          "165.0000",
+          "k",
+          "61.500",
+          "\"",
+          "152.0",
+          "1.78",
+          "WC8",
+          "7.65",
+          "B6V",
+          "140.56",
+          "s",
+          "2.86",
+          "v",
+          "DUN_65 AC"
+        ]
+      },
+      "astrometryScope": "Individual source direction when available; shared system distance/motion for unresolved close members; no orbital phase or individual radial velocity inferred.",
+      "photometry": {
+        "source": "MSC individual subsystem magnitude",
+        "V": 7.65
+      },
+      "simbad": {
+        "queryId": "WDS J08095-4720C",
+        "mainId": "CD-46  3848",
+        "oid": "2993901",
+        "spectralBibcode": "1976AJ.....81..541A"
+      },
+      "temperature_k": {
+        "source_id": "gaia-dr3",
+        "source_record_id": "5519219999721187968",
+        "field": "temperature_k",
+        "value": 14395.302,
+        "uncertainty": 103.6880000000001,
+        "status": "model-derived",
+        "reference": "Gaia DR3 astrophysical_parameters",
+        "quality_flags": []
+      },
+      "metallicity_dex": {
+        "source_id": "gaia-dr3",
+        "source_record_id": "5519219999721187968",
+        "field": "metallicity_dex",
+        "value": -0.7088,
+        "uncertainty": 0.06969999999999998,
+        "status": "model-derived",
+        "reference": "Gaia DR3 astrophysical_parameters",
+        "quality_flags": []
+      },
+      "mass_solar": {
+        "source_id": "gaia-dr3",
+        "source_record_id": "5519219999721187968",
+        "field": "mass_solar",
+        "value": 3.9511719,
+        "uncertainty": 0.051430899999999724,
+        "status": "model-derived",
+        "reference": "Gaia DR3 astrophysical_parameters",
+        "quality_flags": [
+          "00"
+        ]
+      },
+      "luminosity_solar": {
+        "source_id": "gaia-dr3",
+        "source_record_id": "5519219999721187968",
+        "field": "luminosity_solar",
+        "value": 254.30576,
+        "uncertainty": 6.707120000000003,
+        "status": "model-derived",
+        "reference": "Gaia DR3 astrophysical_parameters",
+        "quality_flags": [
+          "00"
+        ]
+      },
+      "radius_solar": {
+        "source_id": "gaia-dr3",
+        "source_record_id": "5519219999721187968",
+        "field": "radius_solar",
+        "value": 2.5668871,
+        "uncertainty": 0.06149289999999974,
+        "status": "model-derived",
+        "reference": "Gaia DR3 astrophysical_parameters",
+        "quality_flags": [
+          "00"
+        ]
+      },
+      "absolute_mag": {
+        "method": "individual SIMBAD Johnson V and adopted component distance; no extinction correction",
+        "V": 7.29
+      },
+      "reviewedHierarchy": {
+        "reference": "MSC 2026-06-19 comp.tsv, sys.tsv and notes.tsv; Schmutz et al. 2026 (preprint)",
+        "scope": "Gamma2 Velorum is the confirmed WC8 + O7.5III-V 78.5-day binary. Preserve the MSC convention Aa=WR, Ab=O; retain the existing bright-regor / hip-39953 identity on the WR component. Gamma1 Velorum is the separate Ba/Bb spectroscopic pair. C is the MSC Cphr common-parallax/photometry/RV companion.",
+        "repair": "The uncertain Aab-Ac link disconnects the confirmed Aa-Ab subtree from A-B in automatic MSC traversal. Two outer relationships also reuse parent t, hiding C. Select only the exact confirmed source branches; do not accept the uncertain Ac source.",
+        "excluded": "Ac (Cp?; uncertain association), D/E (no reviewed physical membership), and the reportedly spurious WSI 55 visual Ba/Bb detections. Retain the independently measured 1.4826-day spectroscopic Ba/Bb solution, without visual geometry.",
+        "frozenInput": "catalog-work/star-systems/catalog-companions-msc.json"
+      },
+      "spectralSubtypes": {
+        "spectralType": "B6V",
+        "labels": [
+          "Main-sequence"
+        ],
+        "method": "Physical subtype from this component's own adopted spectrum; no aggregate-label inheritance"
+      }
     },
     "hip-42504": {
       "membership": {
@@ -20356,6 +20583,23 @@
       "photometry": {
         "source": "MSC individual subsystem magnitude",
         "V": 6.17
+      },
+      "reviewedPhysicalOverride": {
+        "values": {
+          "spectral_type": "K4V"
+        },
+        "source": "Li et al. 2026, revised v2 Table 1 and section 2.2",
+        "sourceUrl": "https://arxiv.org/html/2603.20044v2",
+        "scope": "70 Oph B only; WDS J18055+0230B; Gaia DR3 4468557611977674496.",
+        "sourceReview": "catalog-work/shared-enrichment/70-ophiuchi-review.json",
+        "note": "70 Oph B component classification K4V from Li et al. (2026), Table 1; section 2.2 notes the published K4-K5V range. Restores the missing individual luminosity class after MSC authoring; does not classify B from the primary spectrum."
+      },
+      "spectralSubtypes": {
+        "spectralType": "K4V",
+        "labels": [
+          "Main-sequence"
+        ],
+        "method": "Physical subtype from this component's own adopted spectrum; no aggregate-label inheritance"
       }
     },
     "hip-90098": {
@@ -35511,8 +35755,52 @@
         "spectralType": "B9V"
       }
     },
-    "luhman-16-a": {},
-    "luhman-16-b": {},
+    "luhman-16-a": {
+      "resolvedObservations": {
+        "photometry": {
+          "magnitude_v": 23.25,
+          "error_mag": 0.1,
+          "observed_on": "2013-06-16",
+          "reference": "2014A&A...561L...4B:Table 2",
+          "source_url": "https://arxiv.org/pdf/1312.1303",
+          "scope": "Resolved Johnson V photometry of Luhman 16 A; FORS2 v_HIGH, calibrated with standards E5 and LTT4816. Snapshot photometry; not the unresolved pair."
+        },
+        "radialVelocity": {
+          "value_kms": 16.7,
+          "error_kms": 0.3,
+          "uncertainty_kind": "Unbiased weighted standard deviation across 46 spectral orders; not a formal standard error.",
+          "observed_from": "2018-04-21",
+          "observed_to": "2018-06-29",
+          "reference": "2025MNRAS.539.1088I:Table 2",
+          "source_url": "https://arxiv.org/html/2503.19322v1#S4.T2",
+          "scope": "Resolved Luhman 16 A spectroscopic radial velocity from barycentric-corrected IGRINS spectra. Includes component orbital motion; not the binary systemic velocity. Display-only observation; not combined with the different-epoch catalog proper motion to infer bulk space motion."
+        },
+        "motionPolicy": "Component spectroscopic RV retained separately; catalog astrometry and transverse motion unchanged."
+      }
+    },
+    "luhman-16-b": {
+      "resolvedObservations": {
+        "photometry": {
+          "magnitude_v": 24.07,
+          "error_mag": 0.1,
+          "observed_on": "2013-06-16",
+          "reference": "2014A&A...561L...4B:Table 2",
+          "source_url": "https://arxiv.org/pdf/1312.1303",
+          "scope": "Resolved Johnson V photometry of Luhman 16 B; FORS2 v_HIGH, calibrated with standards E5 and LTT4816. Snapshot photometry; not the unresolved pair."
+        },
+        "radialVelocity": {
+          "value_kms": 20.4,
+          "error_kms": 0.4,
+          "uncertainty_kind": "Unbiased weighted standard deviation across 46 spectral orders; not a formal standard error.",
+          "observed_from": "2018-04-21",
+          "observed_to": "2018-06-29",
+          "reference": "2025MNRAS.539.1088I:Table 2",
+          "source_url": "https://arxiv.org/html/2503.19322v1#S4.T2",
+          "scope": "Resolved Luhman 16 B spectroscopic radial velocity from barycentric-corrected IGRINS spectra. Includes component orbital motion; not the binary systemic velocity. Display-only observation; not combined with the different-epoch catalog proper motion to infer bulk space motion."
+        },
+        "motionPolicy": "Component spectroscopic RV retained separately; catalog astrometry and transverse motion unchanged."
+      }
+    },
     "luyten-726-8-a": {},
     "10pc-0063": {},
     "10pc-0064": {},
@@ -45625,11 +45913,11 @@
   "schemaVersion": 1,
   "reviewedOn": "2026-10-13",
   "systems": 341,
-  "components": 842,
+  "components": 844,
   "selectedFieldCoverage": {
-    "individualApparentMagnitude": 516,
-    "unresolvedSourcePhotometry": 61,
-    "subtypes": 510,
+    "individualApparentMagnitude": 518,
+    "unresolvedSourcePhotometry": 62,
+    "subtypes": 511,
     "missingSubtypes": [
       "10pc-0034",
       "10pc-0061",
@@ -45759,6 +46047,7 @@
       "msc-07444+2424-b",
       "msc-08079-6837-ab",
       "msc-08079-6837-b",
+      "msc-08095-4720-ab",
       "msc-08095-4720-bb",
       "msc-08400-5303-ab",
       "msc-08424-5307-ab",
@@ -46073,8 +46362,6 @@
       "gamma-cephei-b",
       "rigel-ba",
       "rigel-bb",
-      "luhman-16-a",
-      "luhman-16-b",
       "10pc-0063",
       "10pc-0064",
       "10pc-0066",
@@ -46123,6 +46410,7 @@
       "msc-07346+3153-ba",
       "msc-07346+3153-bb",
       "msc-08079-6837-ab",
+      "msc-08095-4720-ab",
       "msc-08095-4720-ba",
       "msc-08095-4720-bb",
       "msc-08400-5303-ab",
@@ -46244,14 +46532,14 @@
       "absolute_mag"
     ],
     "available": {
-      "spectral_type": 592,
-      "temperature_k": 467,
-      "mass_solar": 301,
-      "luminosity_solar": 288,
-      "radius_solar": 294,
-      "metallicity_dex": 289,
-      "age_gyr": 91,
-      "absolute_mag": 516
+      "spectral_type": 595,
+      "temperature_k": 469,
+      "mass_solar": 305,
+      "luminosity_solar": 292,
+      "radius_solar": 298,
+      "metallicity_dex": 290,
+      "age_gyr": 93,
+      "absolute_mag": 518
     },
     "withoutProperties": [
       "cns5-1615",
@@ -47566,12 +47854,10 @@
         "age_gyr"
       ],
       "luhman-16-a": [
-        "metallicity_dex",
-        "absolute_mag"
+        "metallicity_dex"
       ],
       "luhman-16-b": [
-        "metallicity_dex",
-        "absolute_mag"
+        "metallicity_dex"
       ],
       "luyten-726-8-a": [
         "age_gyr"
@@ -48850,11 +49136,13 @@
       ],
       "bright-regor": [
         "temperature_k",
-        "mass_solar",
-        "luminosity_solar",
-        "radius_solar",
         "metallicity_dex",
-        "age_gyr"
+        "age_gyr",
+        "absolute_mag"
+      ],
+      "msc-08095-4720-ab": [
+        "metallicity_dex",
+        "absolute_mag"
       ],
       "msc-08095-4720-ba": [
         "temperature_k",
@@ -48874,6 +49162,9 @@
         "metallicity_dex",
         "age_gyr",
         "absolute_mag"
+      ],
+      "msc-08095-4720-c": [
+        "age_gyr"
       ],
       "hip-42504": [
         "age_gyr"
@@ -50052,13 +50343,6 @@
       ],
       "msc-17376-1524-b": [
         "mass_solar",
-        "age_gyr"
-      ],
-      "10pc-0116": [
-        "spectral_type",
-        "mass_solar",
-        "luminosity_solar",
-        "radius_solar",
         "age_gyr"
       ],
       "hip-90098": [
@@ -51835,25 +52119,25 @@
     "missingIndividualFieldsWithSourceValues": {
       "temperature_k": 71,
       "mass_solar": 33,
-      "luminosity_solar": 104,
-      "radius_solar": 106,
+      "luminosity_solar": 103,
+      "radius_solar": 105,
       "metallicity_dex": 57,
       "age_gyr": 10,
-      "absolute_mag": 61,
-      "apparent_mag": 61,
-      "spectral_type": 41,
+      "absolute_mag": 62,
+      "apparent_mag": 62,
+      "spectral_type": 40,
       "vx_kms": 156,
       "vy_kms": 156,
       "vz_kms": 156
     }
   },
   "coverage": {
-    "temperature_k": 467,
-    "mass_solar": 301,
-    "luminosity_solar": 288,
-    "radius_solar": 294,
-    "metallicity_dex": 289,
-    "age_gyr": 91
+    "temperature_k": 469,
+    "mass_solar": 305,
+    "luminosity_solar": 292,
+    "radius_solar": 298,
+    "metallicity_dex": 290,
+    "age_gyr": 93
   },
   "inputSha256": {
     "src/data/star-systems.json": "0e7e0b8097766381629c4d28e57f62948ecde0c10ac18992c09cef17cb6dfe05",
@@ -51861,16 +52145,17 @@
     "src/data/object-stats.json": "642d5bf070e7ab685ceac280896a934163b47cb39a977823e69e9854bd9f4d00",
     "src/data/catalogs/bright-stars/stars.csv": "b643a244ca07093ba1e84b1b4cd945a189309d7a16de49f35554826050b6e053",
     "src/data/catalogs/famous-cluster-stars/stars.csv": "b1bc0a3a492b3d4c9ee3330b5e80a4572d4bf95d1119f8062849d59cb430fa0f",
-    "src/data/catalogs/nearest-100/stars.csv": "6099baf6399996a394ec7f8496d4f3fe5af99af849ed006f0317f1cd14720719",
-    "src/data/catalogs/nearest-1000/stars.csv": "ea6f21afb5dce758bbdd1222df304db672f71e6e0f6b98a79c8167341d078802",
+    "src/data/catalogs/nearest-100/stars.csv": "ffcf7cb2558b5859b088078742377ae9b50bbf039fcab100bec7823d6eb20cfa",
+    "src/data/catalogs/nearest-1000/stars.csv": "53018e0e609b4f37a23425754c50e016fae34ea1293570fd8457e5edf38b20e8",
     "src/data/catalogs/western-constellation-stars/stars.csv": "1fe6932084497edf69f6a6af5df7d61089ad48b3818401dd56e8dd1daa66434a",
-    "src/data/stars.csv": "b6de8ed239d9be247dbaf5d44f3c0ede0d7dab518cde9f003c75ad822c6ca23b",
+    "src/data/stars.csv": "a2d6b4e7ab8c67779a470dadbd8170e4eb4e8c9bbf46f73f30ce2e522d33436e",
     "catalog-work/star-systems/catalog-companions-msc.json": "b81210724ff9914c3c286c5971155df5bf20613252baaa9472eee085f0cd0f41",
     "catalog-work/star-systems/catalog-companions-cifuentes.json": "bdd35ae8d422a55660f6055417684ec7dbe7bf8df6ec1657129b448bc73346b8",
     "catalog-work/star-systems/catalog-companions-simbad.csv": "9cd56e663e725c3aa715acfd18918c91e6851c307e9b2efbeeb37d8f4d969042",
     "catalog-work/star-systems/catalog-companions-atmospheres.csv": "7c4ab8e29a52125e7e8879228631f210760d85200a212fd3b6e5ecc7d8d8ac5b",
     "catalog-work/star-systems/catalog-companions-gaia.csv": "5ae6a8cbe672091b57b8d6412668b55137745cdbdedce72f5dc22825e3305a24",
-    "catalog-work/star-systems/catalog-companions-overrides.json": "2b1cd0769305e9d17cc388f8009cfd484b8deea0320b152017f1148da74e6353",
+    "catalog-work/star-systems/catalog-companions-overrides.json": "d8218ad58304344aefc7a6d2026179938e1bf33dba441a3cf100c0480d89ade3",
+    "catalog-work/star-systems/reviewed-regor.json": "8e88908ce6de75b304b830edc18ef7fe470ed98777287dccca91fdd2b783fc09",
     "catalog-work/star-systems/catalog-companions-reviewed.json": "564f60caa1af1d60bf08571d9ef48e091116760cc31bc6fcdd31541a77291a08",
     "catalog-work/star-systems/adhara-b-simbad.txt": "4392455cb01b0101e38dd2404558b26d1913c10daf5dd0bcf42322508b4b4c81",
     "catalog-work/bright-stars/simbad.csv": "8d1e328df0d1601b94f9d1cc6e051f6e78ebea3cd65b4ce5a1cfd8dad2f0eede",
@@ -51889,6 +52174,8 @@
     "catalog-work/star-systems/literature-components/piccotti-2020-table5.dat": "1be4e48fe411904a5d72703c69850687b3bd2bfef6b0445d3141ff6ead6060db",
     "catalog-work/star-systems/literature-components/piccotti-2020-table6.dat": "46da7d326f4deee9b76fefab2171fc4834a1222d2ca59873a65c1f5c4bee5864",
     "catalog-work/star-systems/literature-components/piccotti-2020-table7.dat": "ce64da40f7d8aea35ffdba9ee16541323622430ee9d671880b81c467c0b0e1d2",
+    "catalog-work/nearest-100/physical-overrides.json": "dae7b9c432bc714fdd4d867b1ada1711883d0f7be750529ff22ef1eb61c1a60d",
+    "catalog-work/shared-enrichment/source-manifest.json": "acd107d193c427bf7f01507d00cf089617158b36cb70ae8b173c29bcf8eccf59",
     "catalog-work/star-systems/reviewed-unresolved-photometry.json": "291165120291df05fe0c334b4623e6aaa6f75fc0a729786ae0f7f0a7d2100209"
   }
 }

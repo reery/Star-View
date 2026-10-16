@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "retrievedOn": "2026-10-09",
+  "retrievedOn": "2026-10-15",
   "systems": [
     {
       "systemId": "gj-725",
@@ -5215,6 +5215,57 @@
       "name": "Regor",
       "orbits": [
         {
+          "primary": "Aa",
+          "secondary": "Ab",
+          "primaryIds": [
+            "bright-regor"
+          ],
+          "secondaryIds": [
+            "msc-08095-4720-ab"
+          ],
+          "periodYears": 0.21498699520876113,
+          "semiMajorAxisAu": 1.17,
+          "eccentricity": 0.322,
+          "inclinationDeg": 65.0,
+          "nodeDeg": 247.0,
+          "argumentDeg": 67.5,
+          "argumentComponent": "Aa",
+          "periastronEpoch": 60250.44,
+          "epochKind": "MJD",
+          "grade": null,
+          "catalog": "Reviewed literature (preprint)",
+          "reference": "Schmutz et al. 2026 (preprint), Table 4",
+          "sourceUrl": "https://arxiv.org/html/2606.27265v1",
+          "nodeAmbiguous": false,
+          "uncertainties": {
+            "periodDays": 0.002,
+            "semiMajorAxisAu": 0.004,
+            "eccentricity": 0.004,
+            "inclinationDeg": 0.3,
+            "nodeDeg": 0.2,
+            "argumentDeg": 0.4,
+            "periastronEpochDays": 0.07
+          },
+          "axisSource": {
+            "angularAxisMas": 3.483,
+            "angularAxisErrorMas": 0.008,
+            "adoptedDistancePc": 336,
+            "adoptedDistanceErrorPc": 1,
+            "scope": "Published relative axis from the adopted cluster distance, not rescaled with the legacy catalog parallax. The cluster-distance assumption is explicit in Table 4."
+          },
+          "scope": "GRAVITY+AMBER relative stellar orbit; omega is published for the WR component (MSC Aa). The app projects secondary Ab relative to primary Aa with the required 180-degree argument conversion. No wide A-B or A-C orbit is inferred. The source reports omega_WR=67.5 and node-line PA Omega=247 degrees. For the app convention (secondary O relative to primary WR, with primary omega converted by 180 degrees), the equivalent projection node is 67 degrees. This normalization reproduces the signed RA/Dec offsets of Table 1; using 247 directly would reverse both stars. Preserve the reported node and argument for display.",
+          "projectionNodeDeg": 67,
+          "orientationDerivation": {
+            "sourceNodeDeg": 247,
+            "projectionNodeDeg": 67,
+            "sourceArgumentComponent": "Aa (WR)",
+            "scope": "The source reports omega_WR=67.5 and node-line PA Omega=247 degrees. For the app convention (secondary O relative to primary WR, with primary omega converted by 180 degrees), the equivalent projection node is 67 degrees. This normalization reproduces the signed RA/Dec offsets of Table 1; using 247 directly would reverse both stars. Preserve the reported node and argument for display.",
+            "validation": "GRAVITY/VLTI offsets in Table 1, including 2023-11-13: WR relative to O at RA=-2.26 mas, Dec=-1.58 mas."
+          },
+          "axisDerivation": null,
+          "id": "msc-08095-4720-0"
+        },
+        {
           "periodYears": 0.004059137577002053,
           "eccentricity": 0.06,
           "inclinationDeg": null,
@@ -5238,7 +5289,7 @@
           "secondary": "Bb",
           "semiMajorAxisAu": null,
           "axisDerivation": null,
-          "id": "msc-08095-4720-0"
+          "id": "msc-08095-4720-1"
         }
       ]
     },

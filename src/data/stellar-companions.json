@@ -3627,10 +3627,14 @@
       "components": [
         {
           "starId": "bright-regor",
-          "label": "A",
+          "label": "Aa",
           "alternateStarIds": [
             "hip-39953"
           ]
+        },
+        {
+          "starId": "msc-08095-4720-ab",
+          "label": "Ab"
         },
         {
           "starId": "msc-08095-4720-ba",
@@ -3639,6 +3643,10 @@
         {
           "starId": "msc-08095-4720-bb",
           "label": "Bb"
+        },
+        {
+          "starId": "msc-08095-4720-c",
+          "label": "C"
         }
       ]
     },
@@ -7152,9 +7160,9 @@
       "x_pc": 1.264192,
       "y_pc": 1.35902,
       "z_pc": -2.855815,
-      "vx_kms": null,
-      "vy_kms": null,
-      "vz_kms": null,
+      "vx_kms": -64.727748,
+      "vy_kms": 3.589095,
+      "vz_kms": 32.798766,
       "type": "star",
       "id": "ez-aquarii-a",
       "name": "EZ Aquarii A",
@@ -7210,7 +7218,7 @@
         "Zkh 333",
         "EZ Aquarii A"
       ],
-      "notes": "System position from J2000 direction and 293.60 mas parallax compiled by Torres et al. (2010). Temperature is the unresolved M5V system class estimate.",
+      "notes": "System position from J2000 direction and 293.60 mas parallax compiled by Torres et al. (2010). Temperature is the unresolved M5V system class estimate. Motion: Segransan et al. (2000), Table 2, gives the shared EZ Aquarii ABC systemic radial velocity V0 = -50.08 +/- 0.01 km/s. The uncertainty is the published orbital-fit uncertainty on V0. Combined with the retained system position, parallax and proper motion, this supplies approximate system bulk motion for A, B and C; individual orbital velocities and orbital phase are not modeled. Frozen J2000 positions are retained.",
       "raw_astrometry": {
         "ra_deg": 339.650693945,
         "dec_deg": -15.289647052,
@@ -7220,11 +7228,11 @@
         "pm_ra_error_masyr": 8.0,
         "pm_dec_masyr": 2295.3,
         "pm_dec_error_masyr": 8.0,
-        "radial_velocity_kms": null,
-        "radial_velocity_error_kms": null,
+        "radial_velocity_kms": -50.08,
+        "radial_velocity_error_kms": 0.01,
         "epoch": 2016.0,
         "astrometry_ref": "2010A&ARv..18...67T; 2012yCat.1322....0Z",
-        "radial_velocity_ref": null
+        "radial_velocity_ref": "2000A&A...364..665S:Table 2; shared systemic velocity approximation; EZ Aquarii ABC"
       },
       "subtypes": [
         "Eruptive variable",
@@ -7245,9 +7253,9 @@
       "x_pc": 1.264192,
       "y_pc": 1.35902,
       "z_pc": -2.855815,
-      "vx_kms": null,
-      "vy_kms": null,
-      "vz_kms": null,
+      "vx_kms": -64.727748,
+      "vy_kms": 3.589095,
+      "vz_kms": 32.798766,
       "type": "star",
       "id": "ez-aquarii-b",
       "name": "EZ Aquarii B",
@@ -7302,7 +7310,7 @@
         "Zkh 333",
         "EZ Aquarii B"
       ],
-      "notes": "System position from J2000 direction and 293.60 mas parallax compiled by Torres et al. (2010). Individual subtype is uncertain; temperature uses the unresolved M5V system estimate.",
+      "notes": "System position from J2000 direction and 293.60 mas parallax compiled by Torres et al. (2010). Individual subtype is uncertain; temperature uses the unresolved M5V system estimate. Motion: Segransan et al. (2000), Table 2, gives the shared EZ Aquarii ABC systemic radial velocity V0 = -50.08 +/- 0.01 km/s. The uncertainty is the published orbital-fit uncertainty on V0. Combined with the retained system position, parallax and proper motion, this supplies approximate system bulk motion for A, B and C; individual orbital velocities and orbital phase are not modeled. Frozen J2000 positions are retained.",
       "raw_astrometry": {
         "ra_deg": 339.650693945,
         "dec_deg": -15.289647052,
@@ -7312,11 +7320,11 @@
         "pm_ra_error_masyr": 8.0,
         "pm_dec_masyr": 2295.3,
         "pm_dec_error_masyr": 8.0,
-        "radial_velocity_kms": null,
-        "radial_velocity_error_kms": null,
+        "radial_velocity_kms": -50.08,
+        "radial_velocity_error_kms": 0.01,
         "epoch": 2016.0,
         "astrometry_ref": "FROM:GJ866A",
-        "radial_velocity_ref": null
+        "radial_velocity_ref": "2000A&A...364..665S:Table 2; shared systemic velocity approximation; EZ Aquarii ABC"
       },
       "subtypes": [
         "Eruptive variable"
@@ -7336,9 +7344,9 @@
       "x_pc": 1.264192,
       "y_pc": 1.35902,
       "z_pc": -2.855815,
-      "vx_kms": null,
-      "vy_kms": null,
-      "vz_kms": null,
+      "vx_kms": -64.727748,
+      "vy_kms": 3.589095,
+      "vz_kms": 32.798766,
       "type": "star",
       "id": "ez-aquarii-c",
       "name": "EZ Aquarii C",
@@ -7393,7 +7401,7 @@
         "Zkh 333",
         "EZ Aquarii C"
       ],
-      "notes": "System position from J2000 direction and 293.60 mas parallax compiled by Torres et al. (2010). Included with A and B because all three components tie across the cutoff.",
+      "notes": "System position from J2000 direction and 293.60 mas parallax compiled by Torres et al. (2010). Included with A and B because all three components tie across the cutoff. Motion: Segransan et al. (2000), Table 2, gives the shared EZ Aquarii ABC systemic radial velocity V0 = -50.08 +/- 0.01 km/s. The uncertainty is the published orbital-fit uncertainty on V0. Combined with the retained system position, parallax and proper motion, this supplies approximate system bulk motion for A, B and C; individual orbital velocities and orbital phase are not modeled. Frozen J2000 positions are retained.",
       "raw_astrometry": {
         "ra_deg": 339.650693945,
         "dec_deg": -15.289647052,
@@ -7403,11 +7411,11 @@
         "pm_ra_error_masyr": 8.0,
         "pm_dec_masyr": 2295.3,
         "pm_dec_error_masyr": 8.0,
-        "radial_velocity_kms": null,
-        "radial_velocity_error_kms": null,
+        "radial_velocity_kms": -50.08,
+        "radial_velocity_error_kms": 0.01,
         "epoch": 2016.0,
         "astrometry_ref": "FROM:GJ866A",
-        "radial_velocity_ref": null
+        "radial_velocity_ref": "2000A&A...364..665S:Table 2; shared systemic velocity approximation; EZ Aquarii ABC"
       },
       "subtypes": [
         "Eruptive variable"
@@ -29123,7 +29131,7 @@
       "radius_solar": 0.09150218405,
       "metallicity_dex": null,
       "age_gyr": 0.51,
-      "absolute_mag": null,
+      "absolute_mag": 26.749159,
       "epoch": 2000.0,
       "x_pc": 0.520723,
       "y_pc": -1.9181,
@@ -29145,7 +29153,7 @@
         "WDS J10493-5319A",
         "Luhman 16 A"
       ],
-      "notes": "System position uses the J2000 direction and 500.993 mas parallax from Bedin et al. (2024). L8+/-1 classification is from Luhman (2013); Luhman 16 A reviewed component parameters. Bedin et al. (2024) measure the individual dynamical mass. Lodieu et al. (2015) derive the resolved temperature and bolometric luminosity from spectroscopy and the spectral energy distribution. The displayed age is the Oceanus moving-group age supported, but not established, by Bedin et al.; their evolutionary-model comparison still shows component-age tension. radius_solar derived by Stefan-Boltzmann scaling from adopted inputs (solar Teff=5772 K); inherits their measurement/model/estimate assumptions.",
+      "notes": "System position uses the J2000 direction and 500.993 mas parallax from Bedin et al. (2024). L8+/-1 classification is from Luhman (2013); Luhman 16 A reviewed component parameters. Bedin et al. (2024) measure the individual dynamical mass. Lodieu et al. (2015) derive the resolved temperature and bolometric luminosity from spectroscopy and the spectral energy distribution. The displayed age is the Oceanus moving-group age supported, but not established, by Bedin et al.; their evolutionary-model comparison still shows component-age tension. Resolved V photometry is from Boffin et al. (2014), Table 2, observed 2013-06-16 (uncertainty 0.10 mag). Ishikawa et al. (2025), Table 2, provide a separate component radial-velocity observation from 2018-04-21 to 2018-06-29; it includes orbital motion and is not adopted for the long-horizon space-motion vector. Component-resolved Johnson V=23.25 from 2014A&A...561L...4B:Table 2; absolute V uses the adopted distance. radius_solar derived by Stefan-Boltzmann scaling from adopted inputs (solar Teff=5772 K); inherits their measurement/model/estimate assumptions.",
       "raw_astrometry": {
         "ra_deg": 162.308643669,
         "dec_deg": -53.318044753,
@@ -29165,7 +29173,25 @@
         "L-type"
       ],
       "known_planets": 1,
-      "apparent_mag": null
+      "apparent_mag": 23.250000387170996,
+      "resolved_photometry": {
+        "magnitude_v": 23.25,
+        "error_mag": 0.1,
+        "observed_on": "2013-06-16",
+        "reference": "2014A&A...561L...4B:Table 2",
+        "source_url": "https://arxiv.org/pdf/1312.1303",
+        "scope": "Resolved Johnson V photometry of Luhman 16 A; FORS2 v_HIGH, calibrated with standards E5 and LTT4816. Snapshot photometry; not the unresolved pair."
+      },
+      "radial_velocity_observation": {
+        "value_kms": 16.7,
+        "error_kms": 0.3,
+        "uncertainty_kind": "Unbiased weighted standard deviation across 46 spectral orders; not a formal standard error.",
+        "observed_from": "2018-04-21",
+        "observed_to": "2018-06-29",
+        "reference": "2025MNRAS.539.1088I:Table 2",
+        "source_url": "https://arxiv.org/html/2503.19322v1#S4.T2",
+        "scope": "Resolved Luhman 16 A spectroscopic radial velocity from barycentric-corrected IGRINS spectra. Includes component orbital motion; not the binary systemic velocity. Display-only observation; not combined with the different-epoch catalog proper motion to infer bulk space motion."
+      }
     },
     {
       "temperature_k": 1320.0,
@@ -29174,7 +29200,7 @@
       "radius_solar": 0.08739874261,
       "metallicity_dex": null,
       "age_gyr": 0.51,
-      "absolute_mag": null,
+      "absolute_mag": 27.569159,
       "epoch": 2000.0,
       "x_pc": 0.520723,
       "y_pc": -1.9181,
@@ -29196,7 +29222,7 @@
         "WDS J10493-5319B",
         "Luhman 16 B"
       ],
-      "notes": "System position uses the J2000 direction and 500.993 mas parallax from Bedin et al. (2024). T1+/-2 classification is from Luhman (2013); Luhman 16 B reviewed component parameters. Bedin et al. (2024) measure the individual dynamical mass. Lodieu et al. (2015) derive the resolved temperature and bolometric luminosity from spectroscopy and the spectral energy distribution. The displayed age is the Oceanus moving-group age supported, but not established, by Bedin et al.; their evolutionary-model comparison still shows component-age tension. radius_solar derived by Stefan-Boltzmann scaling from adopted inputs (solar Teff=5772 K); inherits their measurement/model/estimate assumptions.",
+      "notes": "System position uses the J2000 direction and 500.993 mas parallax from Bedin et al. (2024). T1+/-2 classification is from Luhman (2013); Luhman 16 B reviewed component parameters. Bedin et al. (2024) measure the individual dynamical mass. Lodieu et al. (2015) derive the resolved temperature and bolometric luminosity from spectroscopy and the spectral energy distribution. The displayed age is the Oceanus moving-group age supported, but not established, by Bedin et al.; their evolutionary-model comparison still shows component-age tension. Resolved V photometry is from Boffin et al. (2014), Table 2, observed 2013-06-16 (uncertainty 0.10 mag). Ishikawa et al. (2025), Table 2, provide a separate component radial-velocity observation from 2018-04-21 to 2018-06-29; it includes orbital motion and is not adopted for the long-horizon space-motion vector. Component-resolved Johnson V=24.07 from 2014A&A...561L...4B:Table 2; absolute V uses the adopted distance. radius_solar derived by Stefan-Boltzmann scaling from adopted inputs (solar Teff=5772 K); inherits their measurement/model/estimate assumptions.",
       "raw_astrometry": {
         "ra_deg": 162.308402229,
         "dec_deg": -53.31827781,
@@ -29216,7 +29242,25 @@
         "T-type"
       ],
       "known_planets": 0,
-      "apparent_mag": null
+      "apparent_mag": 24.070000387170996,
+      "resolved_photometry": {
+        "magnitude_v": 24.07,
+        "error_mag": 0.1,
+        "observed_on": "2013-06-16",
+        "reference": "2014A&A...561L...4B:Table 2",
+        "source_url": "https://arxiv.org/pdf/1312.1303",
+        "scope": "Resolved Johnson V photometry of Luhman 16 B; FORS2 v_HIGH, calibrated with standards E5 and LTT4816. Snapshot photometry; not the unresolved pair."
+      },
+      "radial_velocity_observation": {
+        "value_kms": 20.4,
+        "error_kms": 0.4,
+        "uncertainty_kind": "Unbiased weighted standard deviation across 46 spectral orders; not a formal standard error.",
+        "observed_from": "2018-04-21",
+        "observed_to": "2018-06-29",
+        "reference": "2025MNRAS.539.1088I:Table 2",
+        "source_url": "https://arxiv.org/html/2503.19322v1#S4.T2",
+        "scope": "Resolved Luhman 16 B spectroscopic radial velocity from barycentric-corrected IGRINS spectra. Includes component orbital motion; not the binary systemic velocity. Display-only observation; not combined with the different-epoch catalog proper motion to infer bulk space motion."
+      }
     },
     {
       "temperature_k": 2784.0,
@@ -49522,14 +49566,14 @@
     },
     {
       "temperature_k": null,
-      "mass_solar": null,
-      "luminosity_solar": null,
-      "radius_solar": null,
+      "mass_solar": 8.3,
+      "luminosity_solar": 110000,
+      "radius_solar": 3.4,
       "metallicity_dex": null,
       "age_gyr": null,
       "metallicity_kind": null,
-      "absolute_mag": -5.8930857428409436,
-      "apparent_mag": 1.78,
+      "absolute_mag": null,
+      "apparent_mag": null,
       "vx_kms": null,
       "vy_kms": null,
       "vz_kms": null,
@@ -49556,7 +49600,7 @@
       "epoch": 2000.0,
       "constellation": "Vela",
       "id": "bright-regor",
-      "name": "Regor A",
+      "name": "Regor Aa",
       "type": "star",
       "designations": [
         "Gamma Velorum",
@@ -49618,13 +49662,32 @@
         "WEB 7786",
         "WR 11",
         "Regor",
+        "WDS J08095-4720Aa",
         "bright-regor",
         "hip-39953"
       ],
       "subtypes": [
         "Wolf\u2013Rayet"
       ],
-      "notes": " MSC physical hierarchy 08095-4720, component A. Shared system distance for close components is approximate. Catalog magnitude/spectral-type masses and minimum companion masses are withheld. Component-scoped catalog measurements/estimates; details in catalog-work/star-systems/catalog-companions-audit.json.",
+      "notes": " MSC physical hierarchy 08095-4720, component Aa. Shared system distance for close components is approximate. Catalog magnitude/spectral-type masses and minimum companion masses are withheld. Component-scoped catalog measurements/estimates; details in catalog-work/star-systems/catalog-companions-audit.json. Gamma2 Velorum Aa (WR), MSC Aa=WC8: mass 8.3 +/- 0.7 solar masses, model radius R*=3.4 +/- 0.5 solar radii, bolometric luminosity 110000 +/- 40000 solar luminosities. Atmosphere inner-boundary T*=57100 +/- 1700 K is separately retained, not used as photospheric Teff. Withheld individual fields: temperature_k, absolute_mag, metallicity_dex, age_gyr. Schmutz et al. 2026 preprint: https://arxiv.org/html/2606.27265v1. No unresolved Johnson V flux, system radial velocity or minimum mass is assigned to either individual star.",
+      "unresolved_photometry": {
+        "magnitude_v": 1.83,
+        "error_mag": null,
+        "scope": "Regor catalog source; unresolved component contributions",
+        "source": "Reviewed parent catalog Johnson V; inverse of its adopted distance modulus",
+        "source_url": "https://simbad.cds.unistra.fr/simbad/sim-id?Ident=%2A+gam02+Vel"
+      },
+      "stellar_observations": {
+        "atmosphere_temperature": {
+          "value_k": 57100,
+          "error_k": 1700,
+          "quantity": "T*",
+          "status": "model-derived",
+          "reference": "Schmutz et al. 2026, arXiv:2606.27265v1 (preprint), Table 4 and Section 6.3",
+          "source_url": "https://arxiv.org/html/2606.27265v1",
+          "scope": "WR inner-boundary atmosphere temperature T*, paired with model radius R*=3.4 +/- 0.5 solar radii. Not a photospheric effective temperature. De Marco et al. 2000 wind-model temperature retained by Schmutz et al. 2026; the discrepant infrared continuum radius (4.2 solar radii) and interferometric emitting-region sizes are not adopted as stellar radii."
+        }
+      },
       "catalog_sources": [
         {
           "catalog_id": "bright-stars",
@@ -49851,6 +49914,50 @@
       ]
     },
     {
+      "temperature_k": 35000,
+      "mass_solar": 26.4,
+      "luminosity_solar": 250000,
+      "radius_solar": 13.5,
+      "metallicity_dex": null,
+      "age_gyr": 0.0069,
+      "metallicity_kind": null,
+      "absolute_mag": null,
+      "apparent_mag": null,
+      "vx_kms": null,
+      "vy_kms": null,
+      "vz_kms": null,
+      "raw_astrometry": {
+        "ra_deg": 122.383161,
+        "dec_deg": -47.336609,
+        "epoch": 2000,
+        "parallax_mas": 2.92,
+        "parallax_error_mas": null,
+        "pm_ra_cosdec_masyr": -6.1,
+        "pm_ra_error_masyr": null,
+        "pm_dec_masyr": 10.0,
+        "pm_dec_error_masyr": null,
+        "radial_velocity_kms": null,
+        "radial_velocity_error_kms": null,
+        "astrometry_ref": "MSC 2026-06-19; shared parent astrometry for unresolved members (approximate)",
+        "radial_velocity_ref": null
+      },
+      "spectral_type": "O7.5III-V",
+      "known_planets": null,
+      "x_pc": -42.521566826,
+      "y_pc": -336.714893798,
+      "z_pc": -45.801625804,
+      "epoch": 2000.0,
+      "constellation": "Vela",
+      "id": "msc-08095-4720-ab",
+      "name": "Regor Ab",
+      "type": "star",
+      "designations": [
+        "WDS J08095-4720Ab"
+      ],
+      "subtypes": [],
+      "notes": " MSC physical hierarchy 08095-4720, component Ab. Shared system distance for close components is approximate. Catalog magnitude/spectral-type masses and minimum companion masses are withheld. Component-scoped catalog measurements/estimates; details in catalog-work/star-systems/catalog-companions-audit.json. Gamma2 Velorum Ab (O7.5III-V): mass 26.4 +/- 0.5 solar masses, radius 13.5 +/- 1.0 solar radii, Teff 35000 +/- 300 K, bolometric luminosity 250000 +/- 40000 solar luminosities. Age 6.9 Myr is a rotational evolutionary-track estimate for the O star (Section 6.4), without a published uncertainty; it is not copied to the WR star. The III-V classification does not select one luminosity class. Withheld individual fields: absolute_mag, metallicity_dex. Schmutz et al. 2026 preprint: https://arxiv.org/html/2606.27265v1. No unresolved Johnson V flux, system radial velocity or minimum mass is assigned to either individual star."
+    },
+    {
       "temperature_k": null,
       "mass_solar": null,
       "luminosity_solar": null,
@@ -49939,6 +50046,71 @@
       ],
       "subtypes": [],
       "notes": " MSC physical hierarchy 08095-4720, component Bb. Shared system distance for close components is approximate. Catalog magnitude/spectral-type masses and minimum companion masses are withheld. Component-scoped catalog measurements/estimates; details in catalog-work/star-systems/catalog-companions-audit.json."
+    },
+    {
+      "temperature_k": 14395.302,
+      "mass_solar": 3.9511719,
+      "luminosity_solar": 254.30576,
+      "radius_solar": 2.5668871,
+      "metallicity_dex": -0.7088,
+      "age_gyr": null,
+      "metallicity_kind": "[M/H]",
+      "absolute_mag": -0.38308574283612895,
+      "apparent_mag": 7.29,
+      "vx_kms": null,
+      "vy_kms": null,
+      "vz_kms": null,
+      "raw_astrometry": {
+        "ra_deg": 122.395096,
+        "dec_deg": -47.351938,
+        "epoch": 2000,
+        "parallax_mas": 2.92,
+        "parallax_error_mas": null,
+        "pm_ra_cosdec_masyr": -6.7,
+        "pm_ra_error_masyr": null,
+        "pm_dec_masyr": 9.2,
+        "pm_dec_error_masyr": null,
+        "radial_velocity_kms": null,
+        "radial_velocity_error_kms": null,
+        "astrometry_ref": "MSC 2026-06-19; shared parent astrometry for unresolved members (approximate)",
+        "radial_velocity_ref": null
+      },
+      "spectral_type": "B6V",
+      "known_planets": null,
+      "x_pc": -42.418954502,
+      "y_pc": -336.72677348,
+      "z_pc": -45.809437869,
+      "epoch": 2000.0,
+      "constellation": "Vela",
+      "id": "msc-08095-4720-c",
+      "name": "Regor C",
+      "type": "star",
+      "designations": [
+        "WDS J08095-4720C",
+        "CD-46  3848",
+        "TIC 354825478",
+        "Gaia DR3 5519219999721187968",
+        "2MASS J08093482-4721069",
+        "CCDM J08095-4721C",
+        "CPC  0  5441",
+        "CPD-46  2202C",
+        "GC 11106",
+        "GSC 08140-06535",
+        "IDS 08065-4703 C",
+        "PPM 312663",
+        "SAO 219505",
+        "TYC 8140-6535-1",
+        "[ALL76] C",
+        "uvby98 -004603848",
+        "[HHC2008] 277",
+        "** DUN   65C",
+        "PMSC 08065-4702C",
+        "Gaia DR2 5519219999721187968"
+      ],
+      "subtypes": [
+        "Main-sequence"
+      ],
+      "notes": " MSC physical hierarchy 08095-4720, component C. Shared system distance for close components is approximate. Catalog magnitude/spectral-type masses and minimum companion masses are withheld. Component-scoped catalog measurements/estimates; details in catalog-work/star-systems/catalog-companions-audit.json. Component-scoped catalog measurements/estimates; details in catalog-work/star-systems/catalog-companions-audit.json."
     },
     {
       "temperature_k": 16678,
@@ -68237,12 +68409,12 @@
       "notes": " MSC physical hierarchy 17376-1524, component B. Shared system distance for close components is approximate. Catalog magnitude/spectral-type masses and minimum companion masses are withheld. Component-scoped catalog measurements/estimates; details in catalog-work/star-systems/catalog-companions-audit.json. Component-scoped catalog measurements/estimates; details in catalog-work/star-systems/catalog-companions-audit.json."
     },
     {
-      "temperature_k": 5270.0,
-      "mass_solar": 0.8256458,
-      "luminosity_solar": 0.5142145,
-      "radius_solar": 0.8819471,
+      "temperature_k": 5301.0,
+      "mass_solar": 0.8827,
+      "luminosity_solar": 0.53,
+      "radius_solar": 0.831,
       "metallicity_dex": -0.1421,
-      "age_gyr": 13.452476,
+      "age_gyr": 2.81,
       "absolute_mag": 5.67644198873547,
       "epoch": 2000.0,
       "x_pc": 4.346143231,
@@ -68291,7 +68463,7 @@
         "70 Oph A",
         "10pc-0115"
       ],
-      "notes": "10pc census (2023-08-25), object 115, system 57; 70 Oph A. J2000 Sun-relative Galactic position via Astropy; full-space-motion. Estimated: Pecaut-Mamajek 2022.04.16 K0V mean dwarf class, not a measured temperature. Component-resolved Johnson V not independently established; multi-star system V withheld. No orbital model. Gaia DR3 exact-ID model values for metallicity, mass, luminosity, radius, age. MSC physical hierarchy 18055+0230, component A. Shared system distance for close components is approximate. Catalog magnitude/spectral-type masses and minimum companion masses are withheld. Component-scoped catalog measurements/estimates; details in catalog-work/star-systems/catalog-companions-audit.json.",
+      "notes": "10pc census (2023-08-25), object 115, system 57; 70 Oph A. J2000 Sun-relative Galactic position via Astropy; full-space-motion. Component-resolved Johnson V not independently established; multi-star system V withheld. No orbital model. 70 Oph A: individual dynamical mass from Li et al. (2026), revised v2 Table 2; component temperature and radius as compiled in Table 1, replacing the dwarf-class temperature estimate. Component bolometric luminosity from Eggenberger et al. (2008), Table 2. Age is the component activity-model median from Li et al., not a direct measurement: 2.81 +1.65/-0.8 Gyr; the older 6.2 +/- 1.0 Gyr asteroseismic system age remains discrepant. Existing individual photometry, photospheric abundance and astrometry are retained. Gaia DR3 exact-ID model values for metallicity. MSC physical hierarchy 18055+0230, component A. Shared system distance for close components is approximate. Catalog magnitude/spectral-type masses and minimum companion masses are withheld. Component-scoped catalog measurements/estimates; details in catalog-work/star-systems/catalog-companions-audit.json.",
       "raw_astrometry": {
         "ra_deg": 271.364453818,
         "dec_deg": 2.495224096,
@@ -68318,12 +68490,12 @@
         {
           "catalog_id": "nearest-100",
           "record": {
-            "temperature_k": 5270.0,
-            "mass_solar": 0.8256458,
-            "luminosity_solar": 0.5142145,
-            "radius_solar": 0.8819471,
+            "temperature_k": 5301.0,
+            "mass_solar": 0.8827,
+            "luminosity_solar": 0.53,
+            "radius_solar": 0.831,
             "metallicity_dex": -0.1421,
-            "age_gyr": 13.452476,
+            "age_gyr": 2.81,
             "absolute_mag": null,
             "epoch": 2000.0,
             "x_pc": 4.346143231,
@@ -68371,7 +68543,7 @@
               "Zkh 271",
               "70 Oph A"
             ],
-            "notes": "10pc census (2023-08-25), object 115, system 57; 70 Oph A. J2000 Sun-relative Galactic position via Astropy; full-space-motion. Estimated: Pecaut-Mamajek 2022.04.16 K0V mean dwarf class, not a measured temperature. Component-resolved Johnson V not independently established; multi-star system V withheld. No orbital model. Gaia DR3 exact-ID model values for metallicity, mass, luminosity, radius, age.",
+            "notes": "10pc census (2023-08-25), object 115, system 57; 70 Oph A. J2000 Sun-relative Galactic position via Astropy; full-space-motion. Component-resolved Johnson V not independently established; multi-star system V withheld. No orbital model. 70 Oph A: individual dynamical mass from Li et al. (2026), revised v2 Table 2; component temperature and radius as compiled in Table 1, replacing the dwarf-class temperature estimate. Component bolometric luminosity from Eggenberger et al. (2008), Table 2. Age is the component activity-model median from Li et al., not a direct measurement: 2.81 +1.65/-0.8 Gyr; the older 6.2 +/- 1.0 Gyr asteroseismic system age remains discrepant. Existing individual photometry, photospheric abundance and astrometry are retained. Gaia DR3 exact-ID model values for metallicity.",
             "raw_astrometry": {
               "ra_deg": 271.364453818,
               "dec_deg": 2.495224096,
@@ -68399,12 +68571,12 @@
         {
           "catalog_id": "nearest-1000",
           "record": {
-            "temperature_k": 5270.0,
-            "mass_solar": 0.8256458,
-            "luminosity_solar": 0.5142145,
-            "radius_solar": 0.8819471,
+            "temperature_k": 5301.0,
+            "mass_solar": 0.8827,
+            "luminosity_solar": 0.53,
+            "radius_solar": 0.831,
             "metallicity_dex": -0.1421,
-            "age_gyr": 13.452476,
+            "age_gyr": 2.81,
             "absolute_mag": null,
             "epoch": 2000.0,
             "x_pc": 4.346143231,
@@ -68452,7 +68624,7 @@
               "Zkh 271",
               "70 Oph A"
             ],
-            "notes": "10pc census (2023-08-25), object 115, system 57; 70 Oph A. J2000 Sun-relative Galactic position via Astropy; full-space-motion. Estimated: Pecaut-Mamajek 2022.04.16 K0V mean dwarf class, not a measured temperature. Component-resolved Johnson V not independently established; multi-star system V withheld. No orbital model. Gaia DR3 exact-ID model values for metallicity, mass, luminosity, radius, age.",
+            "notes": "10pc census (2023-08-25), object 115, system 57; 70 Oph A. J2000 Sun-relative Galactic position via Astropy; full-space-motion. Component-resolved Johnson V not independently established; multi-star system V withheld. No orbital model. 70 Oph A: individual dynamical mass from Li et al. (2026), revised v2 Table 2; component temperature and radius as compiled in Table 1, replacing the dwarf-class temperature estimate. Component bolometric luminosity from Eggenberger et al. (2008), Table 2. Age is the component activity-model median from Li et al., not a direct measurement: 2.81 +1.65/-0.8 Gyr; the older 6.2 +/- 1.0 Gyr asteroseismic system age remains discrepant. Existing individual photometry, photospheric abundance and astrometry are retained. Gaia DR3 exact-ID model values for metallicity.",
             "raw_astrometry": {
               "ra_deg": 271.364453818,
               "dec_deg": 2.495224096,
@@ -68480,12 +68652,12 @@
       ]
     },
     {
-      "temperature_k": 4600.0,
-      "mass_solar": null,
-      "luminosity_solar": null,
-      "radius_solar": null,
+      "temperature_k": 4465.0,
+      "mass_solar": 0.7319,
+      "luminosity_solar": 0.15,
+      "radius_solar": 0.67,
       "metallicity_dex": -0.07,
-      "age_gyr": null,
+      "age_gyr": 2.99,
       "absolute_mag": 7.62644198873547,
       "epoch": 2000.0,
       "x_pc": 4.339833232,
@@ -68497,7 +68669,7 @@
       "type": "star",
       "id": "10pc-0116",
       "name": "70 Oph B",
-      "spectral_type": null,
+      "spectral_type": "K4V",
       "constellation": "Ophiuchus",
       "metallicity_kind": "[Fe/H]",
       "designations": [
@@ -68533,7 +68705,7 @@
         "70 Oph B",
         "10pc-0116"
       ],
-      "notes": "10pc census (2023-08-25), object 116, system 57; 70 Oph B. J2000 Sun-relative Galactic position via Astropy; full-space-motion. Estimated: Pecaut-Mamajek 2022.04.16 K4V mean dwarf class, not a measured temperature. Component-resolved Johnson V not independently established; multi-star system V withheld. No orbital model. Shared exact-identity physical supplements (metallicity_dex: 2024A&A...690A..97C). MSC physical hierarchy 18055+0230, component B. Shared system distance for close components is approximate. Catalog magnitude/spectral-type masses and minimum companion masses are withheld. Component-scoped catalog measurements/estimates; details in catalog-work/star-systems/catalog-companions-audit.json.",
+      "notes": "10pc census (2023-08-25), object 116, system 57; 70 Oph B. J2000 Sun-relative Galactic position via Astropy; full-space-motion. Component-resolved Johnson V not independently established; multi-star system V withheld. No orbital model. 70 Oph B: individual dynamical mass from Li et al. (2026), revised v2 Table 2; component temperature and radius as compiled in Table 1, replacing the dwarf-class temperature estimate. Component bolometric luminosity from Eggenberger et al. (2008), Table 2. Age is the component activity-model median from Li et al., not a direct measurement: 2.99 +0.66/-0.51 Gyr; the older 6.2 +/- 1.0 Gyr asteroseismic system age remains discrepant. Existing individual photometry, photospheric abundance and astrometry are retained. Shared exact-identity physical supplements (metallicity_dex: 2024A&A...690A..97C). MSC physical hierarchy 18055+0230, component B. Shared system distance for close components is approximate. Catalog magnitude/spectral-type masses and minimum companion masses are withheld. Component-scoped catalog measurements/estimates; details in catalog-work/star-systems/catalog-companions-audit.json. 70 Oph B component classification K4V from Li et al. (2026), Table 1; section 2.2 notes the published K4-K5V range. Restores the missing individual luminosity class after MSC authoring; does not classify B from the primary spectrum.",
       "raw_astrometry": {
         "ra_deg": 271.365911609,
         "dec_deg": 2.494198758,
@@ -68550,7 +68722,8 @@
         "radial_velocity_ref": "2022yCat.1355....0G"
       },
       "subtypes": [
-        "Rotating variable"
+        "Rotating variable",
+        "Main-sequence"
       ],
       "known_planets": 0,
       "apparent_mag": 6.17,
@@ -68558,12 +68731,12 @@
         {
           "catalog_id": "nearest-100",
           "record": {
-            "temperature_k": 4600.0,
-            "mass_solar": null,
-            "luminosity_solar": null,
-            "radius_solar": null,
+            "temperature_k": 4465.0,
+            "mass_solar": 0.7319,
+            "luminosity_solar": 0.15,
+            "radius_solar": 0.67,
             "metallicity_dex": -0.07,
-            "age_gyr": null,
+            "age_gyr": 2.99,
             "absolute_mag": null,
             "epoch": 2000.0,
             "x_pc": 4.339833232,
@@ -68610,7 +68783,7 @@
               "Zkh 272",
               "70 Oph B"
             ],
-            "notes": "10pc census (2023-08-25), object 116, system 57; 70 Oph B. J2000 Sun-relative Galactic position via Astropy; full-space-motion. Estimated: Pecaut-Mamajek 2022.04.16 K4V mean dwarf class, not a measured temperature. Component-resolved Johnson V not independently established; multi-star system V withheld. No orbital model. Shared exact-identity physical supplements (metallicity_dex: 2024A&A...690A..97C).",
+            "notes": "10pc census (2023-08-25), object 116, system 57; 70 Oph B. J2000 Sun-relative Galactic position via Astropy; full-space-motion. Component-resolved Johnson V not independently established; multi-star system V withheld. No orbital model. 70 Oph B: individual dynamical mass from Li et al. (2026), revised v2 Table 2; component temperature and radius as compiled in Table 1, replacing the dwarf-class temperature estimate. Component bolometric luminosity from Eggenberger et al. (2008), Table 2. Age is the component activity-model median from Li et al., not a direct measurement: 2.99 +0.66/-0.51 Gyr; the older 6.2 +/- 1.0 Gyr asteroseismic system age remains discrepant. Existing individual photometry, photospheric abundance and astrometry are retained. Shared exact-identity physical supplements (metallicity_dex: 2024A&A...690A..97C).",
             "raw_astrometry": {
               "ra_deg": 271.365911609,
               "dec_deg": 2.494198758,
@@ -68637,12 +68810,12 @@
         {
           "catalog_id": "nearest-1000",
           "record": {
-            "temperature_k": 4600.0,
-            "mass_solar": null,
-            "luminosity_solar": null,
-            "radius_solar": null,
+            "temperature_k": 4465.0,
+            "mass_solar": 0.7319,
+            "luminosity_solar": 0.15,
+            "radius_solar": 0.67,
             "metallicity_dex": -0.07,
-            "age_gyr": null,
+            "age_gyr": 2.99,
             "absolute_mag": null,
             "epoch": 2000.0,
             "x_pc": 4.339833232,
@@ -68689,7 +68862,7 @@
               "Zkh 272",
               "70 Oph B"
             ],
-            "notes": "10pc census (2023-08-25), object 116, system 57; 70 Oph B. J2000 Sun-relative Galactic position via Astropy; full-space-motion. Estimated: Pecaut-Mamajek 2022.04.16 K4V mean dwarf class, not a measured temperature. Component-resolved Johnson V not independently established; multi-star system V withheld. No orbital model. Shared exact-identity physical supplements (metallicity_dex: 2024A&A...690A..97C).",
+            "notes": "10pc census (2023-08-25), object 116, system 57; 70 Oph B. J2000 Sun-relative Galactic position via Astropy; full-space-motion. Component-resolved Johnson V not independently established; multi-star system V withheld. No orbital model. 70 Oph B: individual dynamical mass from Li et al. (2026), revised v2 Table 2; component temperature and radius as compiled in Table 1, replacing the dwarf-class temperature estimate. Component bolometric luminosity from Eggenberger et al. (2008), Table 2. Age is the component activity-model median from Li et al., not a direct measurement: 2.99 +0.66/-0.51 Gyr; the older 6.2 +/- 1.0 Gyr asteroseismic system age remains discrepant. Existing individual photometry, photospheric abundance and astrometry are retained. Shared exact-identity physical supplements (metallicity_dex: 2024A&A...690A..97C).",
             "raw_astrometry": {
               "ra_deg": 271.365911609,
               "dec_deg": 2.494198758,

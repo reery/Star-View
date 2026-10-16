@@ -64,8 +64,8 @@ test('opens one magnitude card from either row and shows readable visual scales'
     trackHeight: element.querySelector('.mass-ratio-track')!.getBoundingClientRect().height,
   }))
   expect(hierarchy.bottom).toBeLessThanOrEqual(hierarchy.viewportHeight)
-  expect(hierarchy.valueSize).toBe('18px')
-  expect(hierarchy.headingSize).toBe('16px')
+  expect(hierarchy.valueSize).toBe('28px')
+  expect(hierarchy.headingSize).toBe('18px')
   expect(hierarchy.headingWeight).toBe('700')
   const luminosityTrackHeight = await page.locator('.luminosity-scale .mass-ratio-track').first().evaluate((track) => Number.parseFloat(getComputedStyle(track).height))
   expect(hierarchy.trackHeight).toBe(luminosityTrackHeight)
@@ -92,10 +92,10 @@ test('opens one magnitude card from either row and shows readable visual scales'
     }
   }
   const band = await card.evaluate((element) => {
-    const key = getComputedStyle(element.querySelector('.magnitude-visibility-key > span')!)
+    const key = getComputedStyle(element.querySelector('.magnitude-visibility-button[aria-pressed="true"]')!)
     const band = element.querySelector('.magnitude-visible-band')!
     const fill = getComputedStyle(band)
-    return { keyColor: key.backgroundColor, gradient: fill.backgroundImage,
+    return { keyColor: key.color, gradient: fill.backgroundImage,
       fadeEnd: fill.getPropertyValue('--magnitude-visibility-fade-end'),
       height: band.getBoundingClientRect().height,
       trackHeight: band.parentElement!.getBoundingClientRect().height }
@@ -105,6 +105,36 @@ test('opens one magnitude card from either row and shows readable visual scales'
   expect(band.gradient).toContain(band.keyColor)
   expect(band.gradient).toContain('rgba(0, 0, 0, 0)')
   expect(Number.parseFloat(band.fadeEnd)).toBeCloseTo(100 / 6, 3)
+  const visibility = page.getByRole('group', { name: 'Visibility guide', exact: true })
+  await expect(visibility.getByRole('button')).toHaveCount(4)
+  const absoluteScaleBefore = await page.locator('#magnitude-absolute-scale').getAttribute('aria-label')
+  const brightness = await page.locator('#magnitude-absolute-scale .mass-ratio-track').evaluate((track) => getComputedStyle(track).backgroundImage)
+  const luminosityBrightness = await page.locator('.luminosity-scale .mass-ratio-track').evaluate((track) => getComputedStyle(track).backgroundImage)
+  expect(brightness).toBe(luminosityBrightness)
+  expect(brightness).toContain('255, 255, 255')
+  for (const [id, name, limit, faint] of [
+    ['binoculars', 'Binoculars', 10, 16], ['telescope', 'Telescope', 13, 16],
+    ['observatory', 'Observatory', 27, 28], ['eye', 'Naked eye', 6, 16],
+  ] as const) {
+    const button = visibility.getByRole('button', { name: `${name} visibility (about +${limit})`, exact: true })
+    await expect(button.locator('svg')).toBeVisible()
+    await button.click()
+    await expect(button).toHaveAttribute('aria-pressed', 'true')
+    await expect(visibility.locator('[aria-pressed="true"]')).toHaveCount(1)
+    await expect(page.locator(`#magnitude-${id}-tooltip`)).toBeVisible()
+    await expect(page.locator('#magnitude-apparent-scale')).toHaveAttribute('aria-label', new RegExp(`${name} brightness band: approximately \\+${limit}`))
+    await expect(page.locator('#magnitude-apparent-faint')).toHaveText(`Fainter+${faint}`)
+    const start = await page.locator('.magnitude-visible-band').evaluate((element) => parseFloat((element as HTMLElement).style.left))
+    expect(start).toBeCloseTo((faint - limit) / (faint + 6) * 100, 3)
+    const tooltipBox = (await page.locator(`#magnitude-${id}-tooltip`).boundingBox())!
+    const cardBox = (await card.boundingBox())!
+    expect(tooltipBox.x).toBeGreaterThanOrEqual(cardBox.x)
+    expect(tooltipBox.x + tooltipBox.width).toBeLessThanOrEqual(cardBox.x + cardBox.width)
+    await expect(page.locator('#magnitude-absolute-scale')).toHaveAttribute('aria-label', absoluteScaleBefore!)
+    await expect(page.locator('#magnitude-apparent-value')).toHaveText('−1.47')
+    await checkLabels(page)
+  }
+  await page.locator('#magnitude-absolute-value').click()
   const lock = page.getByRole('button', { name: 'Keep Magnitude open', exact: true })
   await expect(lock).toHaveAttribute('aria-pressed', 'false')
   const lockBounds = (await lock.boundingBox())!

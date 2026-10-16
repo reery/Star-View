@@ -1,4 +1,4 @@
-"""Match frozen ORB6/MSC solutions to reviewed component identities, never positions."""
+"""Match frozen catalog/literature orbits to reviewed identities, never positions."""
 import collections
 import csv
 import hashlib
@@ -127,7 +127,7 @@ def main():
         data.update(primaryIds=primary, secondaryIds=secondary, primary=first, secondary=second)
         plx, plx_id = parallax(sid, primary)
         angular = data.pop('angularAxisArcsec', None)
-        data['semiMajorAxisAu'] = round(angular * 1000 / plx, 8) if angular and plx else None
+        data['semiMajorAxisAu'] = round(angular * 1000 / plx, 8) if angular and plx else data.get('semiMajorAxisAu')
         data['axisDerivation'] = {'angularAxisArcsec': angular, 'parallaxMas': plx, 'parallaxStarId': plx_id} if angular else None
         if data['axisDerivation'] and systems[sid].get('adoptedDistance') and not stars.get(plx_id, {}).get('raw_astrometry'):
             data['axisDerivation']['distanceScope'] = systems[sid]['adoptedDistance']['scope']
@@ -274,13 +274,28 @@ def main():
             'nodeAmbiguous': True, 'argumentComponent': first if row[12] == 'A' else second if row[12] == 'B' else None,
         }, (1 if angular else 2, 0))
 
+    # Reviewed relative solutions may supply their own physical axis/distance.
+    # Do not rescale them with a different catalog parallax or lose the older
+    # compiled solution when adopting a newer, explicitly scoped publication.
+    review_path = WORK / 'reviewed-regor.json'
+    review = json.loads(review_path.read_text())
+    superseded = []
+    for orbit in review['orbits']:
+        sid, first, second = review['systemId'], orbit['primary'], orbit['secondary']
+        if identities.get(sid, {}).get(first) != orbit['primaryIds'][0] or identities.get(sid, {}).get(second) != orbit['secondaryIds'][0]:
+            raise ValueError('Reviewed Regor orbit component identity drifted')
+        for _, old in results[sid].values():
+            if old['primaryIds'] == orbit['primaryIds'] and old['secondaryIds'] == orbit['secondaryIds']:
+                superseded.append({'systemId': sid, 'adoptedReference': orbit['reference'], 'retainedSolution': old})
+        add(sid, first, second, dict(orbit), (-1, 0))
+
     output = []
     for sid, system in systems.items():
         orbits = [data for _, data in results[sid].values()]
         for index, orbit in enumerate(orbits):
             orbit['id'] = f'{sid}-{index}'
         output.append({'systemId': sid, 'name': system['name'], 'orbits': orbits})
-    payload = {'schemaVersion': 1, 'retrievedOn': '2026-10-09', 'systems': output}
+    payload = {'schemaVersion': 1, 'retrievedOn': max('2026-10-09', review['reviewedOn']), 'systems': output}
     (ROOT / 'src/data/stellar-orbits.json').write_text(json.dumps(payload, indent=2) + '\n')
     # Audit the UI's fallback name groups too: these were previously invisible
     # to the source-coverage report and caused the EZ Aquarii omission.
@@ -295,12 +310,15 @@ def main():
     audit = {'schemaVersion': 1, 'sources': [
         {'url': 'https://www.astro.gsu.edu/wds/orb6/orb6orbits.txt', 'frozenInput': 'catalog-work/star-systems/orb6-20261009.txt',
          'sha256': hashlib.sha256((WORK / 'orb6-20261009.txt').read_bytes()).hexdigest(), 'retrievedOn': '2026-10-09'},
-        {'url': msc['url'], 'sha256': msc['archiveSha256'], 'frozenInput': 'catalog-work/star-systems/catalog-companions-msc.json'}],
-        'policy': 'Exact reviewed WDS/HIP identities only; explicit pair scopes; no positional matches, estimated wide periods or photocenter axes. Angular relative axes converted to AU with the identified catalog parallax. Unknown MSC zeros stay null.',
+        {'url': msc['url'], 'sha256': msc['archiveSha256'], 'frozenInput': 'catalog-work/star-systems/catalog-companions-msc.json'},
+        {'url': review['sourceUrl'], 'sha256': hashlib.sha256(review_path.read_bytes()).hexdigest(),
+         'frozenInput': str(review_path.relative_to(ROOT)), 'retrievedOn': review['reviewedOn']}],
+        'policy': 'Exact reviewed WDS/HIP identities only; explicit pair scopes; no positional matches, estimated wide periods or photocenter axes. Angular relative axes converted to AU with the identified catalog parallax. Reviewed published physical axes retain their source distance; component conventions are checked against measured offsets. Unknown MSC zeros stay null.',
         'identityInputs': [{'frozenInput': path, 'sha256': hashlib.sha256((ROOT / path).read_bytes()).hexdigest()}
                            for path in ['src/data/star-systems.json', 'src/data/stellar-companions.json', 'src/data/object-designations.json']],
         'systemsReviewed': len(output), 'systemsWithSolutions': sum(bool(s['orbits']) for s in output),
         'orbitCount': sum(len(s['orbits']) for s in output), 'reconciled': reconciled, 'rejected': rejected,
+        'superseded': superseded,
         'unreviewedNameGroups': [{'name': name, 'components': components} for name, components in name_groups.items() if len(components) > 1],
         'identityAmbiguities': identity_ambiguities,
         'unavailable': [{'systemId': s['systemId'], 'name': s['name']} for s in output if not s['orbits']]}

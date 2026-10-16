@@ -18,7 +18,7 @@
     "catalog-work/landmark-stars/sed.csv": "19b6662da85caf0ec75c57e6ba0b862d321fdc441dfcafc8bc9a56cab712e5ea",
     "catalog-work/landmark-stars/gaia.csv": "851bbf5865d45987d14cdda74691fd8b1b291e0af6353a8096bdb1524ef35d72",
     "catalog-work/nearest-100/source-input.json": "ab8a3ab6e0b0edb1372f7c58cdf4f121fe1d5d204a9a0541e6d302a5ac18c84a",
-    "catalog-work/nearest-100/physical-overrides.json": "4f739cbcda0cb71b78447213c389aa3da8456b2e83072a8dfc6b5dd40f96b3b9",
+    "catalog-work/nearest-100/physical-overrides.json": "dae7b9c432bc714fdd4d867b1ada1711883d0f7be750529ff22ef1eb61c1a60d",
     "catalog-work/shared-enrichment/reviewed-physical.json": "2dcb63be0f2c010af2d48a3e85fdb70616503aac0c5f2dc2fa9a6dcf67467353",
     "catalog-work/shared-enrichment/literature/fundamental.adql": "8127e71c93bc01fbc3ebc6de69bb2399d0d8a7dd38af1de099323e6e384d2048",
     "catalog-work/shared-enrichment/literature/fundamental.csv": "87e9d805d41c01526cf5501b8520b2dba4f34ea825b80acddc2de4ff04e988a4",
@@ -27,10 +27,11 @@
     "catalog-work/shared-enrichment/literature/source-manifest.json": "6f2a78d2688ee3dc8108d1e9a2dcd9c710fddf79a8248227174ab750eacd0b26",
     "catalog-work/shared-enrichment/literature/spectroscopy.adql": "c75754a01ac2ba2c142ab399ed628e25ff9f9d5613429af4633ea4a5cd9b62b8",
     "catalog-work/shared-enrichment/literature/spectroscopy.csv": "85da8f4ab1bef2d73d791b9a72a804fe69173ac3ac84772ddda926759a4afc0e",
-    "catalog-work/shared-enrichment/reviewed-objects.json": "e2ca0b48c3c122a878a0cad107077833f66a18c7ab7c7d42bc9a14f01ca3b8fe",
+    "catalog-work/shared-enrichment/reviewed-objects.json": "6e7fde855309f18d2f89432978d47bf46f1cec61be30ca1b97f698b2fe67d9df",
     "catalog-work/shared-enrichment/reviewed-ultracool.json": "540681df4cd2ea0390f3b73fcf4e0a91de90c0df7329fbb4493b6f940a7b5de9",
     "catalog-work/shared-enrichment/ultracool/source-manifest.json": "233e2e3b90041608423ffad8e356eb78950e69e7eec5f8a608eec396d668ed8b",
-    "catalog-work/shared-enrichment/hot-star-temperature-review.json": "281b229abf68b70eae174ae1dc17dd7deee2487f4662a29e26eedda2327017d5"
+    "catalog-work/shared-enrichment/hot-star-temperature-review.json": "281b229abf68b70eae174ae1dc17dd7deee2487f4662a29e26eedda2327017d5",
+    "catalog-work/shared-enrichment/70-ophiuchi-review.json": "6c61477d62a7cb265c389a9f9261892c40373c245fbfe5481e8e77ae80f06be2"
   },
   "sources": [
     {
@@ -160,6 +161,18 @@
     {
       "name": "2008ApJ...683.1045H, reviewed hot-star temperature evidence (Table 1)",
       "url": "https://arxiv.org/abs/0805.2133"
+    },
+    {
+      "name": "Segransan et al. 2000, Table 2, Gl 866 (EZ Aquarii ABC) systemic radial velocity; shared bulk-motion approximation",
+      "url": "https://arxiv.org/abs/astro-ph/0010585"
+    },
+    {
+      "name": "Li et al. 2026, revised manuscript v2, Tables 1 and 2; sections 2.2 and 2.4",
+      "url": "https://arxiv.org/html/2603.20044v2"
+    },
+    {
+      "name": "Eggenberger et al. 2008, Table 2 and section 2.3, component bolometric luminosities",
+      "url": "https://arxiv.org/pdf/0802.3576"
     }
   ]
 }

@@ -1,0 +1,304 @@
+{
+  "reviewedOn": "2026-10-15",
+  "baseline": "Working-tree snapshot immediately before Regor edits; existing unrelated user edits included. HEAD preservation audit run separately.",
+  "sourceCatalogAndProvenanceChecks": [
+    {
+      "path": "src/data/stars.csv",
+      "beforeSha256": "a2d6b4e7ab8c67779a470dadbd8170e4eb4e8c9bbf46f73f30ce2e522d33436e",
+      "afterSha256": "a2d6b4e7ab8c67779a470dadbd8170e4eb4e8c9bbf46f73f30ce2e522d33436e"
+    },
+    {
+      "path": "src/data/object-designations.json",
+      "beforeSha256": "23582139f394f90ce36cd31ebbe675697992d3d356307a2a795bd6067d3f6c00",
+      "afterSha256": "23582139f394f90ce36cd31ebbe675697992d3d356307a2a795bd6067d3f6c00"
+    },
+    {
+      "path": "src/data/object-stats.json",
+      "beforeSha256": "642d5bf070e7ab685ceac280896a934163b47cb39a977823e69e9854bd9f4d00",
+      "afterSha256": "642d5bf070e7ab685ceac280896a934163b47cb39a977823e69e9854bd9f4d00"
+    },
+    {
+      "path": "src/data/constellations/vela.json",
+      "beforeSha256": "1e36481aa6ef90b6aa3003a771532fdca857faf56bc6b29655ab58cc1c26eed2",
+      "afterSha256": "1e36481aa6ef90b6aa3003a771532fdca857faf56bc6b29655ab58cc1c26eed2"
+    },
+    {
+      "path": "src/data/catalogs/bright-stars/catalog.json",
+      "beforeSha256": "8483d24f7742de2580cdb1cb88d90aeeb53c826b25f91daaea9a963f5204e455",
+      "afterSha256": "8483d24f7742de2580cdb1cb88d90aeeb53c826b25f91daaea9a963f5204e455"
+    },
+    {
+      "path": "src/data/catalogs/bright-stars/stars.csv",
+      "beforeSha256": "b643a244ca07093ba1e84b1b4cd945a189309d7a16de49f35554826050b6e053",
+      "afterSha256": "b643a244ca07093ba1e84b1b4cd945a189309d7a16de49f35554826050b6e053"
+    },
+    {
+      "path": "src/data/catalogs/bright-stars/provenance.json",
+      "beforeSha256": "b9b90c148f89047204a068b21e4870b83c9428f565da4e5027441ae788a4855f",
+      "afterSha256": "b9b90c148f89047204a068b21e4870b83c9428f565da4e5027441ae788a4855f"
+    },
+    {
+      "path": "src/data/catalogs/nearest-100/catalog.json",
+      "beforeSha256": "8d2e7104f26e020c66e5adb8273e4461210d7818323f6f695b9d20c5315efffc",
+      "afterSha256": "8d2e7104f26e020c66e5adb8273e4461210d7818323f6f695b9d20c5315efffc"
+    },
+    {
+      "path": "src/data/catalogs/nearest-100/stars.csv",
+      "beforeSha256": "ffcf7cb2558b5859b088078742377ae9b50bbf039fcab100bec7823d6eb20cfa",
+      "afterSha256": "ffcf7cb2558b5859b088078742377ae9b50bbf039fcab100bec7823d6eb20cfa"
+    },
+    {
+      "path": "src/data/catalogs/nearest-100/provenance.json",
+      "beforeSha256": "b41cc54873ff567e408e8224d499f341bd8be508965e9c366fab3a7b85568ab3",
+      "afterSha256": "b41cc54873ff567e408e8224d499f341bd8be508965e9c366fab3a7b85568ab3"
+    },
+    {
+      "path": "src/data/catalogs/nearest-1000/catalog.json",
+      "beforeSha256": "63dff0c271f1b0179595e3d3cb228fdc8abcf0027d272e35d69d8f2fe75b1036",
+      "afterSha256": "63dff0c271f1b0179595e3d3cb228fdc8abcf0027d272e35d69d8f2fe75b1036"
+    },
+    {
+      "path": "src/data/catalogs/nearest-1000/stars.csv",
+      "beforeSha256": "53018e0e609b4f37a23425754c50e016fae34ea1293570fd8457e5edf38b20e8",
+      "afterSha256": "53018e0e609b4f37a23425754c50e016fae34ea1293570fd8457e5edf38b20e8"
+    },
+    {
+      "path": "src/data/catalogs/nearest-1000/provenance.json",
+      "beforeSha256": "93d85819eef0335b895a1a741d8ded63e45107f36ef1812b0fddbfaf2db5c9ab",
+      "afterSha256": "93d85819eef0335b895a1a741d8ded63e45107f36ef1812b0fddbfaf2db5c9ab"
+    },
+    {
+      "path": "src/data/catalogs/famous-cluster-stars/catalog.json",
+      "beforeSha256": "6ae57dd6417cb61b04e7c6e3b80d0eb348bc891653116300ea09c76bea9b4abe",
+      "afterSha256": "6ae57dd6417cb61b04e7c6e3b80d0eb348bc891653116300ea09c76bea9b4abe"
+    },
+    {
+      "path": "src/data/catalogs/famous-cluster-stars/stars.csv",
+      "beforeSha256": "b1bc0a3a492b3d4c9ee3330b5e80a4572d4bf95d1119f8062849d59cb430fa0f",
+      "afterSha256": "b1bc0a3a492b3d4c9ee3330b5e80a4572d4bf95d1119f8062849d59cb430fa0f"
+    },
+    {
+      "path": "src/data/catalogs/famous-cluster-stars/provenance.json",
+      "beforeSha256": "24cd20b28d9a38722e3ed0d39932012e2df2e160e7d99d36f29d3b356151e361",
+      "afterSha256": "24cd20b28d9a38722e3ed0d39932012e2df2e160e7d99d36f29d3b356151e361"
+    },
+    {
+      "path": "src/data/catalogs/western-constellation-stars/catalog.json",
+      "beforeSha256": "dfa738af01a46116474a6bf4ef0d08103fb363d7d26f5945b6279947b4037aa6",
+      "afterSha256": "dfa738af01a46116474a6bf4ef0d08103fb363d7d26f5945b6279947b4037aa6"
+    },
+    {
+      "path": "src/data/catalogs/western-constellation-stars/stars.csv",
+      "beforeSha256": "1fe6932084497edf69f6a6af5df7d61089ad48b3818401dd56e8dd1daa66434a",
+      "afterSha256": "1fe6932084497edf69f6a6af5df7d61089ad48b3818401dd56e8dd1daa66434a"
+    },
+    {
+      "path": "src/data/catalogs/western-constellation-stars/provenance.json",
+      "beforeSha256": "5bc9c69662fe2875f8e3ad7bab0777afd419bb246bf723fa4160e77e9e501990",
+      "afterSha256": "5bc9c69662fe2875f8e3ad7bab0777afd419bb246bf723fa4160e77e9e501990"
+    }
+  ],
+  "previousComponents": 842,
+  "currentComponents": 844,
+  "missingComponents": [],
+  "addedComponents": [
+    "msc-08095-4720-ab",
+    "msc-08095-4720-c"
+  ],
+  "changedExistingComponents": [
+    "bright-regor"
+  ],
+  "changedFields": {
+    "bright-regor": {
+      "notes": {
+        "before": " MSC physical hierarchy 08095-4720, component A. Shared system distance for close components is approximate. Catalog magnitude/spectral-type masses and minimum companion masses are withheld. Component-scoped catalog measurements/estimates; details in catalog-work/star-systems/catalog-companions-audit.json.",
+        "after": " MSC physical hierarchy 08095-4720, component Aa. Shared system distance for close components is approximate. Catalog magnitude/spectral-type masses and minimum companion masses are withheld. Component-scoped catalog measurements/estimates; details in catalog-work/star-systems/catalog-companions-audit.json. Gamma2 Velorum Aa (WR), MSC Aa=WC8: mass 8.3 +/- 0.7 solar masses, model radius R*=3.4 +/- 0.5 solar radii, bolometric luminosity 110000 +/- 40000 solar luminosities. Atmosphere inner-boundary T*=57100 +/- 1700 K is separately retained, not used as photospheric Teff. Withheld individual fields: temperature_k, absolute_mag, metallicity_dex, age_gyr. Schmutz et al. 2026 preprint: https://arxiv.org/html/2606.27265v1. No unresolved Johnson V flux, system radial velocity or minimum mass is assigned to either individual star."
+      },
+      "designations": {
+        "before": [
+          "Gamma Velorum",
+          "Gamma2 Velorum",
+          "HD 68273",
+          "HIP 39953",
+          "1ES 0807-47.1",
+          "1RXS J080933.7-472027",
+          "2E 0808.0-4711",
+          "2E 1936",
+          "2MASS J08093195-4720115",
+          "2XMM J080931.9-472011",
+          "[ALL76] A",
+          "ALS 980",
+          "AT20G J080931-472011",
+          "CCDM J08095-4721A",
+          "CD-46 3840",
+          "CD-46 3847",
+          "CEL 2193",
+          "CPC 0 5440",
+          "CPD-46 2202",
+          "DUN 65A",
+          "FK5 309",
+          "gam Vel",
+          "gam02 Vel",
+          "GC 11105",
+          "GCRV 5419",
+          "GEN# +1.00068273",
+          "GOS G262.80-07.69 01",
+          "GSC 08140-06533",
+          "GUM 12a",
+          "Hen 3-127",
+          "HIC 39953",
+          "HR 3207",
+          "IDS 08065-4703 A",
+          "IRAS 08079-4711",
+          "JP11 1639",
+          "LS 980",
+          "MOST 0807-471",
+          "MR 12",
+          "N30 1888",
+          "PLX 1940.01",
+          "PMSC 08065-4702A",
+          "PMSC 08065-4702Aab",
+          "PMSC 08065-4702AP",
+          "PPM 312662",
+          "SACS 178",
+          "SAO 219504",
+          "SBC7 334",
+          "SBC9 500",
+          "SKY# 15412",
+          "TIC 354825513",
+          "TOK 2",
+          "TYC 8140-6533-1",
+          "UBV 7815",
+          "UCAC4 214-020008",
+          "WDS J08095-4720A",
+          "WDS J08095-4720Aa,Ab",
+          "WEB 7786",
+          "WR 11",
+          "Regor",
+          "bright-regor",
+          "hip-39953"
+        ],
+        "after": [
+          "Gamma Velorum",
+          "Gamma2 Velorum",
+          "HD 68273",
+          "HIP 39953",
+          "1ES 0807-47.1",
+          "1RXS J080933.7-472027",
+          "2E 0808.0-4711",
+          "2E 1936",
+          "2MASS J08093195-4720115",
+          "2XMM J080931.9-472011",
+          "[ALL76] A",
+          "ALS 980",
+          "AT20G J080931-472011",
+          "CCDM J08095-4721A",
+          "CD-46 3840",
+          "CD-46 3847",
+          "CEL 2193",
+          "CPC 0 5440",
+          "CPD-46 2202",
+          "DUN 65A",
+          "FK5 309",
+          "gam Vel",
+          "gam02 Vel",
+          "GC 11105",
+          "GCRV 5419",
+          "GEN# +1.00068273",
+          "GOS G262.80-07.69 01",
+          "GSC 08140-06533",
+          "GUM 12a",
+          "Hen 3-127",
+          "HIC 39953",
+          "HR 3207",
+          "IDS 08065-4703 A",
+          "IRAS 08079-4711",
+          "JP11 1639",
+          "LS 980",
+          "MOST 0807-471",
+          "MR 12",
+          "N30 1888",
+          "PLX 1940.01",
+          "PMSC 08065-4702A",
+          "PMSC 08065-4702Aab",
+          "PMSC 08065-4702AP",
+          "PPM 312662",
+          "SACS 178",
+          "SAO 219504",
+          "SBC7 334",
+          "SBC9 500",
+          "SKY# 15412",
+          "TIC 354825513",
+          "TOK 2",
+          "TYC 8140-6533-1",
+          "UBV 7815",
+          "UCAC4 214-020008",
+          "WDS J08095-4720A",
+          "WDS J08095-4720Aa,Ab",
+          "WEB 7786",
+          "WR 11",
+          "Regor",
+          "WDS J08095-4720Aa",
+          "bright-regor",
+          "hip-39953"
+        ]
+      },
+      "luminosity_solar": {
+        "before": null,
+        "after": 110000
+      },
+      "mass_solar": {
+        "before": null,
+        "after": 8.3
+      },
+      "unresolved_photometry": {
+        "before": null,
+        "after": {
+          "magnitude_v": 1.83,
+          "error_mag": null,
+          "scope": "Regor catalog source; unresolved component contributions",
+          "source": "Reviewed parent catalog Johnson V; inverse of its adopted distance modulus",
+          "source_url": "https://simbad.cds.unistra.fr/simbad/sim-id?Ident=%2A+gam02+Vel"
+        }
+      },
+      "absolute_mag": {
+        "before": -5.8930857428409436,
+        "after": null
+      },
+      "stellar_observations": {
+        "before": null,
+        "after": {
+          "atmosphere_temperature": {
+            "value_k": 57100,
+            "error_k": 1700,
+            "quantity": "T*",
+            "status": "model-derived",
+            "reference": "Schmutz et al. 2026, arXiv:2606.27265v1 (preprint), Table 4 and Section 6.3",
+            "source_url": "https://arxiv.org/html/2606.27265v1",
+            "scope": "WR inner-boundary atmosphere temperature T*, paired with model radius R*=3.4 +/- 0.5 solar radii. Not a photospheric effective temperature. De Marco et al. 2000 wind-model temperature retained by Schmutz et al. 2026; the discrepant infrared continuum radius (4.2 solar radii) and interferometric emitting-region sizes are not adopted as stellar radii."
+          }
+        }
+      },
+      "radius_solar": {
+        "before": null,
+        "after": 3.4
+      },
+      "apparent_mag": {
+        "before": 1.78,
+        "after": null
+      },
+      "name": {
+        "before": "Regor A",
+        "after": "Regor Aa"
+      }
+    }
+  },
+  "preserved": {
+    "allExistingRawAstrometryAndUncertainties": true,
+    "originalRegorCatalogSourcesAndProvenance": true,
+    "allUnrelatedComponentsAndOrbits": true,
+    "baBbSpectroscopicOrbit": true
+  },
+  "scopeCorrection": "The previously adopted MSC A apparent/absolute V now belongs to unresolved Aa+Ab. Exact original values and scope are retained in reviewed-regor.json and the component audit.",
+  "missingFieldFailures": []
+}

@@ -11,9 +11,15 @@
       "url": "https://www.ctio.noirlab.edu/~atokovin/stars/newmsc-20260619.tar.gz",
       "sha256": "4471cfba7c84e9c604083c87e729cad96eb72b0813259ef8097aad136780d535",
       "frozenInput": "catalog-work/star-systems/catalog-companions-msc.json"
+    },
+    {
+      "url": "https://arxiv.org/html/2606.27265v1",
+      "sha256": "8e88908ce6de75b304b830edc18ef7fe470ed98777287dccca91fdd2b783fc09",
+      "frozenInput": "catalog-work/star-systems/reviewed-regor.json",
+      "retrievedOn": "2026-10-15"
     }
   ],
-  "policy": "Exact reviewed WDS/HIP identities only; explicit pair scopes; no positional matches, estimated wide periods or photocenter axes. Angular relative axes converted to AU with the identified catalog parallax. Unknown MSC zeros stay null.",
+  "policy": "Exact reviewed WDS/HIP identities only; explicit pair scopes; no positional matches, estimated wide periods or photocenter axes. Angular relative axes converted to AU with the identified catalog parallax. Reviewed published physical axes retain their source distance; component conventions are checked against measured offsets. Unknown MSC zeros stay null.",
   "identityInputs": [
     {
       "frozenInput": "src/data/star-systems.json",
@@ -21,7 +27,7 @@
     },
     {
       "frozenInput": "src/data/stellar-companions.json",
-      "sha256": "0a9cd4a5a3d67f1ba73e40f355b070614a2ded1305aa59a4daaa11a074757fd4"
+      "sha256": "83a315a191415a3eb4f22bf3f45394a85cc2e9a896e928eed93a322d2ee8751c"
     },
     {
       "frozenInput": "src/data/object-designations.json",
@@ -30,7 +36,7 @@
   ],
   "systemsReviewed": 341,
   "systemsWithSolutions": 238,
-  "orbitCount": 298,
+  "orbitCount": 299,
   "reconciled": [
     {
       "systemId": "msc-00084+2905",
@@ -535,12 +541,6 @@
       "reason": "MSC does not identify both components"
     },
     {
-      "systemId": "msc-08095-4720",
-      "pair": "Aa,Ab",
-      "reason": "Unresolved or overlapping component scope",
-      "reference": "SB9_500 1990Obs...110....1S"
-    },
-    {
       "systemId": "msc-08592+4803",
       "pair": "Aa,Ab",
       "reason": "Unresolved or overlapping component scope",
@@ -664,6 +664,37 @@
       "pair": "Aa,Ab",
       "reason": "Unresolved or overlapping component scope",
       "reference": "VB6_Nhr2007 gam_CepAa, Gr.7"
+    }
+  ],
+  "superseded": [
+    {
+      "systemId": "msc-08095-4720",
+      "adoptedReference": "Schmutz et al. 2026 (preprint), Table 4",
+      "retainedSolution": {
+        "periodYears": 0.21497330595482547,
+        "eccentricity": 0.53,
+        "inclinationDeg": null,
+        "nodeDeg": null,
+        "argumentDeg": 221.0,
+        "periastronEpoch": 43597.5,
+        "epochKind": "JD \u2212 2400000",
+        "grade": null,
+        "reference": "SB9_500 1990Obs...110....1S",
+        "catalog": "MSC",
+        "sourceUrl": "https://www.ctio.noirlab.edu/~atokovin/stars/newmsc-20260619.tar.gz",
+        "nodeAmbiguous": true,
+        "argumentComponent": "Ab",
+        "primaryIds": [
+          "bright-regor"
+        ],
+        "secondaryIds": [
+          "msc-08095-4720-ab"
+        ],
+        "primary": "Aa",
+        "secondary": "Ab",
+        "semiMajorAxisAu": null,
+        "axisDerivation": null
+      }
     }
   ],
   "unreviewedNameGroups": [],

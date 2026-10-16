@@ -25,11 +25,15 @@ def main():
         "provenance": ROOT / "src/data/catalogs/nearest-1000/provenance.json",
         "systems": ROOT / "src/data/star-systems.json",
         "review": ROOT / "catalog-work/star-systems/reviewed-component-properties.json",
+        "components": ROOT / "src/data/stellar-companions.json",
     }
     with paths["catalog"].open(newline="") as handle:
         stars = {row["id"]: row for row in csv.DictReader(handle)}
     provenance = {row["id"]: row for row in json.loads(paths["provenance"].read_text())["objects"]}
     definitions = json.loads(paths["systems"].read_text())
+    observations = {row["id"]: row["radial_velocity_observation"]
+                    for row in json.loads(paths["components"].read_text())["stars"]
+                    if row.get("radial_velocity_observation")}
     reviewed = {
         sid: (system["name"], component["label"])
         for system in definitions["systems"] for component in system["components"]
@@ -61,6 +65,9 @@ def main():
     report = {
         "schemaVersion": 1,
         "scope": "Represented nearest-1000 component-card members, including primaries. Not a complete companion census or an assertion that all published measurements have been exhausted.",
+        "radialVelocityPolicy": "radial_velocity_kms counts RVs adopted with the catalog motion astrometry. Separately dated component spectroscopic measurements remain in radialVelocityObservations; they do not imply a systemic velocity or a complete bulk motion vector.",
+        "radialVelocityObservations": {row["starId"]: observations[row["starId"]]
+                                       for row in members if row["starId"] in observations},
         "inputSha256": {str(path.relative_to(ROOT)): hashlib.sha256(path.read_bytes()).hexdigest() for path in paths.values()},
         "systems": len(groups), "members": len(members),
         "supplementedMembers": sum(bool(row["supplementedFields"]) for row in members),

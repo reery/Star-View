@@ -1,5 +1,30 @@
 # Offline Catalog Sourcing
 
+## WISE 0855-0714 scoped observations (2026-10-15)
+
+The reviewed supplement in `src/data/stellar-observations.json` is applied after
+exact object identities during browser-payload generation. All three nearby
+catalogs receive the same observations, and cross-catalog consistency checks
+include this metadata. Existing CSV measurements and effective components are
+preserved.
+
+- **Mass:** 3–10 Jupiter masses from [Luhman (2014), Section 3.2](https://arxiv.org/pdf/1404.6501),
+  conditional on an assumed age of 1–10 Gyr; this is a model range, not a
+  dynamical measurement or confidence interval. The inspector labels it
+  “Mass (model)”; scalar mass, measured age and mass-derived physics stay
+  unavailable. The earlier Zapatero Osorio (2016) context remains preserved.
+- **Magnitude:** WISE W2 (4.6 μm, Vega) apparent magnitude **13.89 ± 0.05**,
+  from Luhman (2014), Table 1. This is the moving object's photometry after
+  correction for the two stationary background sources, not the blended
+  All-Sky W2 value of 13.63. Its observing dates, uncertainty and correction
+  scope remain attached. A separate W2 row preserves the Johnson V fields and
+  visible-light comparisons as unavailable.
+- **Radial velocity:** [Rowland et al. (2024), Appendix B, Figure 7](https://arxiv.org/html/2411.14541v2)
+  reports discrepant retrieval velocities attributed to wavelength calibration.
+  These fits are not adopted as bulk radial velocity. The reason is retained
+  in the inspector tooltip and source notes; the existing proper motion,
+  astrometric uncertainties and transverse-only motion remain intact.
+
 ## Shared enrichment policy (2026-10-05)
 
 Every stellar catalog builder now consults the same frozen physical-source pool
@@ -211,6 +236,8 @@ Possible companions mentioned only in source comments are not invented as extra 
 ## Astrometry and Unknown Values
 
 Enriched runtime rows retain source ICRS right ascension, declination, source epoch, parallax, `mu_alpha cos(delta)`, declination proper motion, uncertainties, compact references, and nullable radial velocity. These measurements are distinct from the adopted Cartesian J2000 snapshot. A full Cartesian triplet remains authoritative when already curated. Otherwise raw astrometry with RV can produce full motion; raw proper motion without RV produces only a Sun-relative transverse vector. Missing RV is never stored or computed as zero.
+
+Luhman 16 A/B use resolved Johnson V snapshots of `23.25 +/- 0.10` and `24.07 +/- 0.10` from [Boffin et al. (2014), Table 2](https://arxiv.org/pdf/1312.1303), observed on 2013-06-16. Absolute V is derived with the retained catalog distance, giving approximately `26.75` and `27.57`. The frozen primary overrides also retain the [Ishikawa et al. (2025), Table 2](https://arxiv.org/html/2503.19322v1#S4.T2) component RVs, `16.7 +/- 0.3` and `20.4 +/- 0.4 km/s`, from 2018-04-21 through 2018-06-29. Those uncertainties are weighted scatter across spectral orders, not formal standard errors. The shared component pool exposes these as independent `radial_velocity_observation` records with their dates and scope; the inspector displays them without treating them as systemic velocities or combining them with different-epoch proper motions into a constant bulk vector. Original astrometry, physical properties, and nullable Cartesian velocities remain preserved across the default, nearest-100 and nearest-1000 catalogs.
 
 Targeted landmark overrides are stored in `catalog-work/landmark-stars/radial-velocity-overrides.csv` instead of altering the frozen SIMBAD exports. Tabit adopts `24.11 +/- 0.08 km/s` from Maldonado et al. (2010). Tau Scorpii adopts `3.15 +/- 0.70 km/s`, the mean of Cazorla et al.'s two same-epoch HEROS measurements while retaining their individual uncertainty, in place of the frozen `-650.47 km/s` survey outlier. Theta Carinae is an SB1, so it adopts Hubrig et al.'s orbital systemic velocity `20.18 +/- 0.04 km/s` rather than the frozen `+459.7 km/s` survey value. The rejected values, adopted measurements, references, and rationale remain together in provenance.
 

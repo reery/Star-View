@@ -54,7 +54,7 @@ describe('catalog packages and display settings', () => {
       vz_kms: null,
       raw_astrometry: { pm_ra_cosdec_masyr: 1012.444720371, pm_dec_masyr: -554.030838673, radial_velocity_kms: null },
     })
-    expect(catalogCoverage(large)).toMatchObject({ rawAstrometry: 100, radialVelocities: 70, transverseOnly: 30 })
+    expect(catalogCoverage(large)).toMatchObject({ rawAstrometry: 100, radialVelocities: 73, transverseOnly: 27 })
   })
 
   it('validates the nearest-1000 release and preserves every curated shared row', () => {
@@ -63,8 +63,8 @@ describe('catalog packages and display settings', () => {
       objects: 1036,
       constellations: 1036,
       rawAstrometry: 1036,
-      radialVelocities: 701,
-      transverseOnly: 335,
+      radialVelocities: 704,
+      transverseOnly: 332,
     })
     for (const star of large) expect(nearest1000.find((candidate) => candidate.id === star.id)).toEqual(star)
     const provenance = JSON.parse(nearest1000Provenance)
@@ -237,6 +237,34 @@ describe('catalog packages and display settings', () => {
     const age = JSON.parse(nearest1000Provenance).objects.find((item: any) => item.id === secondary.id).reviewedComponentEnrichment.adopted.age_gyr
     expect(age.scope).toContain('not an independent B age')
     expect(secondary.notes).not.toContain('absolute_mag,')
+  })
+
+  it('uses the published EZ Aquarii systemic velocity consistently across catalogs and effective components', () => {
+    const provenance = JSON.parse(nearest1000Provenance)
+    for (const catalog of [small, large, nearest1000]) {
+      const effective = completeCatalogCompanions(catalog)
+      for (const id of ['ez-aquarii-a', 'ez-aquarii-b', 'ez-aquarii-c']) {
+        const source = catalog.find((star) => star.id === id)!
+        const star = effective.find((star) => star.id === id)!
+        for (const record of [source, star]) {
+          expect(record.raw_astrometry).toMatchObject({
+            radial_velocity_kms: -50.08, radial_velocity_error_kms: 0.01,
+            radial_velocity_ref: '2000A&A...364..665S:Table 2; shared systemic velocity approximation; EZ Aquarii ABC',
+            parallax_mas: 293.6, parallax_error_mas: 0.9,
+            pm_ra_cosdec_masyr: 2314.8, pm_dec_masyr: 2295.3,
+          })
+          expect(record).toMatchObject({ vx_kms: -64.727748, vy_kms: 3.589095, vz_kms: 32.798766 })
+          expect(displayMotionForStar(record, 'solar')?.mode).toBe('full')
+          expect(record.notes).toContain('individual orbital velocities and orbital phase are not modeled')
+        }
+        const adopted = provenance.objects.find((item: any) => item.id === id).sharedObjectAdoption
+        expect(adopted.sourceSelections.astrometryAndMotion).toMatchObject({
+          status: 'systemic-approximation', valueKms: -50.08, uncertaintyKms: 0.01,
+          source: 'literature-system:gl866-abc', reference: '2000A&A...364..665S:Table 2',
+        })
+        expect(adopted.scope).toContain('shared EZ Aquarii ABC center-of-mass radial velocity')
+      }
+    }
   })
 
   it('uses comparable resolved Achird iron measurements and restores B physical properties', () => {

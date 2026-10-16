@@ -9,6 +9,7 @@ function supplementPhysicalFields(primary: Star, additional: Star): Star {
   const supplemented = { ...primary }
   supplemented.subtypes = uniqueDesignations([...(primary.subtypes ?? []), ...(additional.subtypes ?? [])])
   supplemented.known_planets = primary.known_planets ?? additional.known_planets ?? null
+  supplemented.stellar_observations = primary.stellar_observations ?? additional.stellar_observations
   supplemented.designations = uniqueDesignations([...objectDesignations(primary), additional.name, ...objectDesignations(additional)], primary.name)
   // A reviewed component may deliberately withhold blended system estimates.
   // An overlapping legacy overlay must not restore those rejected values.

@@ -185,6 +185,47 @@ export interface RawAstrometry {
   radial_velocity_ref: string | null
 }
 
+/** Observations whose passband or conditional scope prevents scalar adoption. */
+export interface StellarObservations {
+  atmosphere_temperature?: {
+    value_k: number
+    error_k: number
+    quantity: 'T*'
+    status: 'model-derived'
+    reference: string
+    source_url: string
+    scope: string
+  }
+  mass_range?: {
+    min_jupiter: number
+    max_jupiter: number
+    assumed_age_min_gyr: number
+    assumed_age_max_gyr: number
+    status: 'model-derived'
+    reference: string
+    source_url: string
+    scope: string
+  }
+  infrared_photometry?: {
+    band: string
+    instrument: string
+    wavelength_microns: number
+    system: 'Vega' | 'AB'
+    magnitude: number
+    error_mag: number | null
+    observed_on: string[]
+    reference: string
+    source_url: string
+    scope: string
+  }
+  radial_velocity_review?: {
+    status: 'withheld'
+    reference: string
+    source_url: string
+    reason: string
+  }
+}
+
 export interface Star {
   type: ObjectType
   id: string
@@ -195,6 +236,28 @@ export interface Star {
   known_planets?: number | null
   // Earth-view Johnson V snapshot, independent of the map's observer.
   apparent_mag?: number | null
+  stellar_observations?: StellarObservations
+  // Resolved V snapshot metadata; uncertainties and epoch belong to this measurement.
+  resolved_photometry?: {
+    magnitude_v: number
+    error_mag: number | null
+    observed_on: string
+    reference: string
+    source_url: string
+    scope: string
+  }
+  // Observed component RV is independent of the astrometry/motion bundle.
+  // Orbital motion and a different observing epoch can prevent a bulk vector.
+  radial_velocity_observation?: {
+    value_kms: number
+    error_kms: number | null
+    uncertainty_kind: string
+    observed_from: string
+    observed_to: string
+    reference: string
+    source_url: string
+    scope: string
+  }
   // Observed parent-source flux, kept separate from individual component V.
   // Never use for stellar luminosity, absolute magnitude or observer rendering.
   unresolved_photometry?: {

@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "reviewed": "2026-10-11",
+  "reviewed": "2026-10-15",
   "policy": "One adopted scientific record per exact shared object/component across catalogs. Keep source coordinate/motion/photometry bundles intact, preserve stronger component reviews, prefer object-specific measured temperatures over class/old-model estimates, retain derived inputs and uncertainties, and never merge distinct components merely because SIMBAD supplies a system identifier. Catalog membership, stable IDs, display names, aliases and selection evidence remain catalog-specific. This reconciles existing frozen sources; it is not a new live survey.",
   "objects": {
     "* alf Cen A": {
@@ -8910,6 +8910,150 @@
               "reason": "Radius inherited the rejected luminosity/temperature fit; no independently verified component-safe replacement adopted."
             }
           }
+        }
+      }
+    },
+    "GJ 866 A": {
+      "label": "EZ Aquarii A",
+      "starIds": [
+        "ez-aquarii-a"
+      ],
+      "scope": "EZ Aquarii A retains its exact component identity. Motion uses the shared EZ Aquarii ABC center-of-mass radial velocity; individual orbital velocities are not modeled.",
+      "values": {
+        "vx_kms": "-64.727748",
+        "vy_kms": "3.589095",
+        "vz_kms": "32.798766",
+        "radial_velocity_kms": "-50.08",
+        "radial_velocity_error_kms": "0.01",
+        "radial_velocity_ref": "2000A&A...364..665S:Table 2; shared systemic velocity approximation; EZ Aquarii ABC"
+      },
+      "notes": "System position from J2000 direction and 293.60 mas parallax compiled by Torres et al. (2010). Temperature is the unresolved M5V system class estimate. Motion: Segransan et al. (2000), Table 2, gives the shared EZ Aquarii ABC systemic radial velocity V0 = -50.08 +/- 0.01 km/s. The uncertainty is the published orbital-fit uncertainty on V0. Combined with the retained system position, parallax and proper motion, this supplies approximate system bulk motion for A, B and C; individual orbital velocities and orbital phase are not modeled. Frozen J2000 positions are retained.",
+      "sourceSelections": {
+        "astrometryAndMotion": {
+          "source": "literature-system:gl866-abc",
+          "fields": [
+            "vx_kms",
+            "vy_kms",
+            "vz_kms",
+            "radial_velocity_kms",
+            "radial_velocity_error_kms",
+            "radial_velocity_ref"
+          ],
+          "status": "systemic-approximation",
+          "reference": "2000A&A...364..665S:Table 2",
+          "sourceUrl": "https://arxiv.org/abs/astro-ph/0010585",
+          "valueKms": -50.08,
+          "uncertaintyKms": 0.01,
+          "scope": "Shared EZ Aquarii ABC systemic velocity V0, not an individual component observation",
+          "astrometryInputs": {
+            "ra_deg": "339.650693945",
+            "dec_deg": "-15.289647052",
+            "parallax_mas": "293.6",
+            "parallax_error_mas": "0.9",
+            "pm_ra_cosdec_masyr": "2314.8",
+            "pm_ra_error_masyr": "8.0",
+            "pm_dec_masyr": "2295.3",
+            "pm_dec_error_masyr": "8.0",
+            "astrometry_epoch": "2016.0",
+            "astrometry_ref": "2010A&ARv..18...67T; 2012yCat.1322....0Z"
+          },
+          "decision": "Motion: Segransan et al. (2000), Table 2, gives the shared EZ Aquarii ABC systemic radial velocity V0 = -50.08 +/- 0.01 km/s. The uncertainty is the published orbital-fit uncertainty on V0. Combined with the retained system position, parallax and proper motion, this supplies approximate system bulk motion for A, B and C; individual orbital velocities and orbital phase are not modeled. Frozen J2000 positions are retained."
+        }
+      }
+    },
+    "GJ 866 B": {
+      "label": "EZ Aquarii B",
+      "starIds": [
+        "ez-aquarii-b"
+      ],
+      "scope": "EZ Aquarii B retains its exact component identity. Motion uses the shared EZ Aquarii ABC center-of-mass radial velocity; individual orbital velocities are not modeled.",
+      "values": {
+        "vx_kms": "-64.727748",
+        "vy_kms": "3.589095",
+        "vz_kms": "32.798766",
+        "radial_velocity_kms": "-50.08",
+        "radial_velocity_error_kms": "0.01",
+        "radial_velocity_ref": "2000A&A...364..665S:Table 2; shared systemic velocity approximation; EZ Aquarii ABC"
+      },
+      "notes": "System position from J2000 direction and 293.60 mas parallax compiled by Torres et al. (2010). Individual subtype is uncertain; temperature uses the unresolved M5V system estimate. Motion: Segransan et al. (2000), Table 2, gives the shared EZ Aquarii ABC systemic radial velocity V0 = -50.08 +/- 0.01 km/s. The uncertainty is the published orbital-fit uncertainty on V0. Combined with the retained system position, parallax and proper motion, this supplies approximate system bulk motion for A, B and C; individual orbital velocities and orbital phase are not modeled. Frozen J2000 positions are retained.",
+      "sourceSelections": {
+        "astrometryAndMotion": {
+          "source": "literature-system:gl866-abc",
+          "fields": [
+            "vx_kms",
+            "vy_kms",
+            "vz_kms",
+            "radial_velocity_kms",
+            "radial_velocity_error_kms",
+            "radial_velocity_ref"
+          ],
+          "status": "systemic-approximation",
+          "reference": "2000A&A...364..665S:Table 2",
+          "sourceUrl": "https://arxiv.org/abs/astro-ph/0010585",
+          "valueKms": -50.08,
+          "uncertaintyKms": 0.01,
+          "scope": "Shared EZ Aquarii ABC systemic velocity V0, not an individual component observation",
+          "astrometryInputs": {
+            "ra_deg": "339.650693945",
+            "dec_deg": "-15.289647052",
+            "parallax_mas": "293.6",
+            "parallax_error_mas": "0.9",
+            "pm_ra_cosdec_masyr": "2314.8",
+            "pm_ra_error_masyr": "8.0",
+            "pm_dec_masyr": "2295.3",
+            "pm_dec_error_masyr": "8.0",
+            "astrometry_epoch": "2016.0",
+            "astrometry_ref": "FROM:GJ866A"
+          },
+          "decision": "Motion: Segransan et al. (2000), Table 2, gives the shared EZ Aquarii ABC systemic radial velocity V0 = -50.08 +/- 0.01 km/s. The uncertainty is the published orbital-fit uncertainty on V0. Combined with the retained system position, parallax and proper motion, this supplies approximate system bulk motion for A, B and C; individual orbital velocities and orbital phase are not modeled. Frozen J2000 positions are retained."
+        }
+      }
+    },
+    "GJ 866 C": {
+      "label": "EZ Aquarii C",
+      "starIds": [
+        "ez-aquarii-c"
+      ],
+      "scope": "EZ Aquarii C retains its exact component identity. Motion uses the shared EZ Aquarii ABC center-of-mass radial velocity; individual orbital velocities are not modeled.",
+      "values": {
+        "vx_kms": "-64.727748",
+        "vy_kms": "3.589095",
+        "vz_kms": "32.798766",
+        "radial_velocity_kms": "-50.08",
+        "radial_velocity_error_kms": "0.01",
+        "radial_velocity_ref": "2000A&A...364..665S:Table 2; shared systemic velocity approximation; EZ Aquarii ABC"
+      },
+      "notes": "System position from J2000 direction and 293.60 mas parallax compiled by Torres et al. (2010). Included with A and B because all three components tie across the cutoff. Motion: Segransan et al. (2000), Table 2, gives the shared EZ Aquarii ABC systemic radial velocity V0 = -50.08 +/- 0.01 km/s. The uncertainty is the published orbital-fit uncertainty on V0. Combined with the retained system position, parallax and proper motion, this supplies approximate system bulk motion for A, B and C; individual orbital velocities and orbital phase are not modeled. Frozen J2000 positions are retained.",
+      "sourceSelections": {
+        "astrometryAndMotion": {
+          "source": "literature-system:gl866-abc",
+          "fields": [
+            "vx_kms",
+            "vy_kms",
+            "vz_kms",
+            "radial_velocity_kms",
+            "radial_velocity_error_kms",
+            "radial_velocity_ref"
+          ],
+          "status": "systemic-approximation",
+          "reference": "2000A&A...364..665S:Table 2",
+          "sourceUrl": "https://arxiv.org/abs/astro-ph/0010585",
+          "valueKms": -50.08,
+          "uncertaintyKms": 0.01,
+          "scope": "Shared EZ Aquarii ABC systemic velocity V0, not an individual component observation",
+          "astrometryInputs": {
+            "ra_deg": "339.650693945",
+            "dec_deg": "-15.289647052",
+            "parallax_mas": "293.6",
+            "parallax_error_mas": "0.9",
+            "pm_ra_cosdec_masyr": "2314.8",
+            "pm_ra_error_masyr": "8.0",
+            "pm_dec_masyr": "2295.3",
+            "pm_dec_error_masyr": "8.0",
+            "astrometry_epoch": "2016.0",
+            "astrometry_ref": "FROM:GJ866A"
+          },
+          "decision": "Motion: Segransan et al. (2000), Table 2, gives the shared EZ Aquarii ABC systemic radial velocity V0 = -50.08 +/- 0.01 km/s. The uncertainty is the published orbital-fit uncertainty on V0. Combined with the retained system position, parallax and proper motion, this supplies approximate system bulk motion for A, B and C; individual orbital velocities and orbital phase are not modeled. Frozen J2000 positions are retained."
         }
       }
     }
@@ -24953,6 +25097,15 @@
         "simbadId": "* iot Psc",
         "sourceType": "PM*"
       }
+    },
+    "literature-system:gl866-abc": {
+      "reference": "2000A&A...364..665S:Table 2",
+      "sourceUrl": "https://arxiv.org/abs/astro-ph/0010585",
+      "sourceRecordId": "Gl 866AC-B",
+      "scope": "EZ Aquarii ABC center-of-mass systemic radial velocity from a simultaneous outer/inner orbital fit",
+      "valueKms": -50.08,
+      "uncertaintyKms": 0.01,
+      "uncertaintyScope": "Published fit uncertainty on V0, not a component velocity uncertainty or the uncertainty of the derived bulk space-motion vector"
     }
   }
 }

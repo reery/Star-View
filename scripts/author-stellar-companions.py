@@ -163,6 +163,9 @@ def build():
              [("msc", "json"), ("cifuentes", "json"), ("simbad", "csv"), ("atmospheres", "csv"), ("gaia", "csv"), ("overrides", "json")]]
     inputs += files
     msc, cifuentes = read_json(files[0]), read_json(files[1])
+    hierarchy_path = WORK / "reviewed-regor.json"
+    hierarchy_review = read_json(hierarchy_path)
+    inputs.append(hierarchy_path)
     simbad_rows, atmosphere_rows = read_csv(files[2]), read_csv(files[3])
     gaia = {r.identity.gaia_dr3_id: r for r in read_gaia_tap(files[4])}
     simbad = {" ".join(r["query_id"].split()): r for r in simbad_rows}
@@ -299,6 +302,19 @@ def build():
             return [*leaves(row[1], (row, 0)), *leaves(row[2], (row, 1))]
         choices = [leaves(root) for root in roots]
         members = next((values for values in choices if any(label.startswith(matched) for label, _ in values for matched in matches)), [])
+        # Regor's uncertain Aab-Ac link disconnects the confirmed Aa-Ab pair,
+        # while two outer rows share the same MSC parent label. Reconcile only
+        # the exact reviewed branches, without accepting the uncertain Ac star.
+        if wds == hierarchy_review["wdsId"]:
+            if [label for label, _ in members] != hierarchy_review["expectedAutomaticComponents"]:
+                raise ValueError("Reviewed Regor automatic hierarchy drifted")
+            members = []
+            for member in hierarchy_review["components"]:
+                branches = [row for row in subsystems[wds] if row[1:4] == member["branch"]]
+                if len(branches) != 1 or member["label"] not in branches[0][1:3]:
+                    raise ValueError(f"Reviewed Regor source branch drifted: {member['label']}")
+                branch = branches[0]
+                members.append((member["label"], (branch, branch[1:3].index(member["label"]))))
         if len(members) < 2:
             continue
         primary_label = next((label for label, _ in members if any(label.startswith(key) for key in matches)), members[0][0])
@@ -348,6 +364,12 @@ def build():
             if source and not COMPOSITE.search(source["sp_type"]) and number(source["V"]) is not None:
                 star["absolute_mag"] = None
             enrich(star, source, evidence)
+            if wds == hierarchy_review["wdsId"]:
+                evidence["reviewedHierarchy"] = hierarchy_review["membership"]
+                if observation := hierarchy_review.get("observations", {}).get(identifier):
+                    star["stellar_observations"] = observation
+                if label == "Aa":
+                    evidence["retainedUnresolvedMscPhotometry"] = hierarchy_review["retainedUnresolvedMscPhotometry"]
             component = {"starId": identifier, "label": label}
             if len(ids) > 1:
                 component["alternateStarIds"] = ids[1:]
@@ -519,7 +541,10 @@ def build():
         if len(candidates) == 1:
             enrich(star, next(iter(candidates.values())), audit["componentRecords"].get(identifier, {}))
 
-    for identifier, override in read_json(files[5])["objects"].items():
+    overrides = read_json(files[5])["objects"]
+    if overrides.keys() & hierarchy_review["physicalOverrides"].keys():
+        raise ValueError("Duplicate reviewed Regor physical override")
+    for identifier, override in {**overrides, **hierarchy_review["physicalOverrides"]}.items():
         if identifier not in pool:
             raise ValueError(f"Component override has no exact member: {identifier}")
         star = pool[identifier]
@@ -528,6 +553,38 @@ def build():
         audit["componentRecords"].setdefault(identifier, {})["reviewedPhysicalOverride"] = override
 
     inputs += apply_literature(ROOT, WORK / "reviewed-companion-literature.json", definitions, pool, audit)
+
+    # Resolved observations retain their own epoch and uncertainty semantics.
+    # A spectroscopic component RV must not complete a different-epoch bulk
+    # astrometry bundle or create a constant space-motion vector.
+    primary_path = ROOT / "catalog-work/nearest-100/physical-overrides.json"
+    manifest_path = ROOT / "catalog-work/shared-enrichment/source-manifest.json"
+    inputs += [primary_path, manifest_path]
+    expected_hash = read_json(manifest_path)["checksumsSha256"][str(primary_path.relative_to(ROOT))]
+    if hashlib.sha256(primary_path.read_bytes()).hexdigest() != expected_hash:
+        raise ValueError("Reviewed primary observation checksum drifted")
+    for review in read_json(primary_path)["records"]:
+        photometry = review.get("photometry", {})
+        velocity = review.get("radialVelocityObservation")
+        if not photometry.get("observed_on") and not velocity:
+            continue
+        identifier = review["starViewId"]
+        star = pool[identifier]
+        if star["name"] != review["expectedName"] or review["componentDesignation"] not in star["designations"]:
+            raise ValueError(f"Resolved observation component identity drifted: {identifier}")
+        if photometry.get("observed_on"):
+            if star["apparent_mag"] is None or not math.isclose(star["apparent_mag"], photometry["johnson_v"], abs_tol=1e-6):
+                raise ValueError(f"Resolved photometry adoption drifted: {identifier}")
+            star["resolved_photometry"] = {
+                "magnitude_v": photometry["johnson_v"], "error_mag": photometry["uncertainty"],
+                **{key: photometry[key] for key in ("observed_on", "reference", "source_url", "scope")},
+            }
+        if velocity:
+            star["radial_velocity_observation"] = velocity
+        audit["componentRecords"].setdefault(identifier, {})["resolvedObservations"] = {
+            "photometry": star.get("resolved_photometry"), "radialVelocity": velocity,
+            "motionPolicy": "Component spectroscopic RV retained separately; catalog astrometry and transverse motion unchanged.",
+        }
 
     photometry_path = WORK / "reviewed-unresolved-photometry.json"
     inputs.append(photometry_path)

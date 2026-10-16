@@ -90,11 +90,3 @@ export function indexStarSystems(stars: readonly Star[]): ReadonlyMap<string, St
   }
   return systems
 }
-
-/** System entry always starts with A, or the first cataloged A subcomponent. */
-export function primarySystemStarId(system: StarSystem): string {
-  return (system.components.find(({ label }) => label === 'A')
-    ?? system.components.find(({ label }) => label === 'Aa')
-    ?? system.components.find(({ label }) => label.startsWith('A'))
-    ?? system.components[0]!).star.id
-}

@@ -10732,14 +10732,14 @@
   ],
   "catalogId": "nearest-1000",
   "coverage": {
-    "absolute_mag": 552,
-    "age_gyr": 90,
+    "absolute_mag": 554,
+    "age_gyr": 91,
     "constellation": 1036,
-    "luminosity_solar": 665,
-    "mass_solar": 655,
+    "luminosity_solar": 666,
+    "mass_solar": 656,
     "metallicity_dex": 612,
-    "radial_velocity_kms": 701,
-    "radius_solar": 686,
+    "radial_velocity_kms": 704,
+    "radius_solar": 687,
     "spectral_type": 976,
     "temperature_k": 877
   },
@@ -10860,7 +10860,7 @@
           "constellation"
         ],
         "recordId": "* alf Cen A",
-        "reviewSha256": "13b3b09260b2c461f96a27d5d13ed7dbe7975025168a9d2b93a6aaf479ac962f",
+        "reviewSha256": "6e7fde855309f18d2f89432978d47bf46f1cec61be30ca1b97f698b2fe67d9df",
         "scope": "Reviewed catalog object/component alpha-centauri-a; aliases only, distinct companions remain separate.",
         "sourceEvidence": "Original measurements and catalog-specific provenance are retained; the shared adopted record supersedes them for these fields.",
         "sourceSelections": {
@@ -10955,7 +10955,7 @@
           "radial_velocity_kms"
         ],
         "recordId": "* alf CMa",
-        "reviewSha256": "13b3b09260b2c461f96a27d5d13ed7dbe7975025168a9d2b93a6aaf479ac962f",
+        "reviewSha256": "6e7fde855309f18d2f89432978d47bf46f1cec61be30ca1b97f698b2fe67d9df",
         "scope": "Reviewed catalog object/component sirius-a; aliases only, distinct companions remain separate.",
         "sourceEvidence": "Original measurements and catalog-specific provenance are retained; the shared adopted record supersedes them for these fields.",
         "sourceSelections": {
@@ -11058,7 +11058,7 @@
           "age_gyr"
         ],
         "recordId": "* eps Eri",
-        "reviewSha256": "13b3b09260b2c461f96a27d5d13ed7dbe7975025168a9d2b93a6aaf479ac962f",
+        "reviewSha256": "6e7fde855309f18d2f89432978d47bf46f1cec61be30ca1b97f698b2fe67d9df",
         "scope": "Reviewed catalog object/component epsilon-eridani; aliases only, distinct companions remain separate.",
         "sourceEvidence": "Original measurements and catalog-specific provenance are retained; the shared adopted record supersedes them for these fields.",
         "sourceSelections": {
@@ -11123,14 +11123,152 @@
     },
     {
       "id": "ez-aquarii-a",
+      "sharedObjectAdoption": {
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "radial_velocity_kms",
+          "radial_velocity_error_kms",
+          "radial_velocity_ref"
+        ],
+        "recordId": "GJ 866 A",
+        "reviewSha256": "6e7fde855309f18d2f89432978d47bf46f1cec61be30ca1b97f698b2fe67d9df",
+        "scope": "EZ Aquarii A retains its exact component identity. Motion uses the shared EZ Aquarii ABC center-of-mass radial velocity; individual orbital velocities are not modeled.",
+        "sourceEvidence": "Original measurements and catalog-specific provenance are retained; the shared adopted record supersedes them for these fields.",
+        "sourceSelections": {
+          "astrometryAndMotion": {
+            "astrometryInputs": {
+              "astrometry_epoch": "2016.0",
+              "astrometry_ref": "2010A&ARv..18...67T; 2012yCat.1322....0Z",
+              "dec_deg": "-15.289647052",
+              "parallax_error_mas": "0.9",
+              "parallax_mas": "293.6",
+              "pm_dec_error_masyr": "8.0",
+              "pm_dec_masyr": "2295.3",
+              "pm_ra_cosdec_masyr": "2314.8",
+              "pm_ra_error_masyr": "8.0",
+              "ra_deg": "339.650693945"
+            },
+            "decision": "Motion: Segransan et al. (2000), Table 2, gives the shared EZ Aquarii ABC systemic radial velocity V0 = -50.08 +/- 0.01 km/s. The uncertainty is the published orbital-fit uncertainty on V0. Combined with the retained system position, parallax and proper motion, this supplies approximate system bulk motion for A, B and C; individual orbital velocities and orbital phase are not modeled. Frozen J2000 positions are retained.",
+            "fields": [
+              "vx_kms",
+              "vy_kms",
+              "vz_kms",
+              "radial_velocity_kms",
+              "radial_velocity_error_kms",
+              "radial_velocity_ref"
+            ],
+            "reference": "2000A&A...364..665S:Table 2",
+            "scope": "Shared EZ Aquarii ABC systemic velocity V0, not an individual component observation",
+            "source": "literature-system:gl866-abc",
+            "sourceUrl": "https://arxiv.org/abs/astro-ph/0010585",
+            "status": "systemic-approximation",
+            "uncertaintyKms": 0.01,
+            "valueKms": -50.08
+          }
+        }
+      },
       "status": "higher-curation nearest-100 override"
     },
     {
       "id": "ez-aquarii-b",
+      "sharedObjectAdoption": {
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "radial_velocity_kms",
+          "radial_velocity_error_kms",
+          "radial_velocity_ref"
+        ],
+        "recordId": "GJ 866 B",
+        "reviewSha256": "6e7fde855309f18d2f89432978d47bf46f1cec61be30ca1b97f698b2fe67d9df",
+        "scope": "EZ Aquarii B retains its exact component identity. Motion uses the shared EZ Aquarii ABC center-of-mass radial velocity; individual orbital velocities are not modeled.",
+        "sourceEvidence": "Original measurements and catalog-specific provenance are retained; the shared adopted record supersedes them for these fields.",
+        "sourceSelections": {
+          "astrometryAndMotion": {
+            "astrometryInputs": {
+              "astrometry_epoch": "2016.0",
+              "astrometry_ref": "FROM:GJ866A",
+              "dec_deg": "-15.289647052",
+              "parallax_error_mas": "0.9",
+              "parallax_mas": "293.6",
+              "pm_dec_error_masyr": "8.0",
+              "pm_dec_masyr": "2295.3",
+              "pm_ra_cosdec_masyr": "2314.8",
+              "pm_ra_error_masyr": "8.0",
+              "ra_deg": "339.650693945"
+            },
+            "decision": "Motion: Segransan et al. (2000), Table 2, gives the shared EZ Aquarii ABC systemic radial velocity V0 = -50.08 +/- 0.01 km/s. The uncertainty is the published orbital-fit uncertainty on V0. Combined with the retained system position, parallax and proper motion, this supplies approximate system bulk motion for A, B and C; individual orbital velocities and orbital phase are not modeled. Frozen J2000 positions are retained.",
+            "fields": [
+              "vx_kms",
+              "vy_kms",
+              "vz_kms",
+              "radial_velocity_kms",
+              "radial_velocity_error_kms",
+              "radial_velocity_ref"
+            ],
+            "reference": "2000A&A...364..665S:Table 2",
+            "scope": "Shared EZ Aquarii ABC systemic velocity V0, not an individual component observation",
+            "source": "literature-system:gl866-abc",
+            "sourceUrl": "https://arxiv.org/abs/astro-ph/0010585",
+            "status": "systemic-approximation",
+            "uncertaintyKms": 0.01,
+            "valueKms": -50.08
+          }
+        }
+      },
       "status": "higher-curation nearest-100 override"
     },
     {
       "id": "ez-aquarii-c",
+      "sharedObjectAdoption": {
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "radial_velocity_kms",
+          "radial_velocity_error_kms",
+          "radial_velocity_ref"
+        ],
+        "recordId": "GJ 866 C",
+        "reviewSha256": "6e7fde855309f18d2f89432978d47bf46f1cec61be30ca1b97f698b2fe67d9df",
+        "scope": "EZ Aquarii C retains its exact component identity. Motion uses the shared EZ Aquarii ABC center-of-mass radial velocity; individual orbital velocities are not modeled.",
+        "sourceEvidence": "Original measurements and catalog-specific provenance are retained; the shared adopted record supersedes them for these fields.",
+        "sourceSelections": {
+          "astrometryAndMotion": {
+            "astrometryInputs": {
+              "astrometry_epoch": "2016.0",
+              "astrometry_ref": "FROM:GJ866A",
+              "dec_deg": "-15.289647052",
+              "parallax_error_mas": "0.9",
+              "parallax_mas": "293.6",
+              "pm_dec_error_masyr": "8.0",
+              "pm_dec_masyr": "2295.3",
+              "pm_ra_cosdec_masyr": "2314.8",
+              "pm_ra_error_masyr": "8.0",
+              "ra_deg": "339.650693945"
+            },
+            "decision": "Motion: Segransan et al. (2000), Table 2, gives the shared EZ Aquarii ABC systemic radial velocity V0 = -50.08 +/- 0.01 km/s. The uncertainty is the published orbital-fit uncertainty on V0. Combined with the retained system position, parallax and proper motion, this supplies approximate system bulk motion for A, B and C; individual orbital velocities and orbital phase are not modeled. Frozen J2000 positions are retained.",
+            "fields": [
+              "vx_kms",
+              "vy_kms",
+              "vz_kms",
+              "radial_velocity_kms",
+              "radial_velocity_error_kms",
+              "radial_velocity_ref"
+            ],
+            "reference": "2000A&A...364..665S:Table 2",
+            "scope": "Shared EZ Aquarii ABC systemic velocity V0, not an individual component observation",
+            "source": "literature-system:gl866-abc",
+            "sourceUrl": "https://arxiv.org/abs/astro-ph/0010585",
+            "status": "systemic-approximation",
+            "uncertaintyKms": 0.01,
+            "valueKms": -50.08
+          }
+        }
+      },
       "status": "higher-curation nearest-100 override"
     },
     {
@@ -11181,7 +11319,7 @@
           "age_gyr"
         ],
         "recordId": "* alf CMi",
-        "reviewSha256": "13b3b09260b2c461f96a27d5d13ed7dbe7975025168a9d2b93a6aaf479ac962f",
+        "reviewSha256": "6e7fde855309f18d2f89432978d47bf46f1cec61be30ca1b97f698b2fe67d9df",
         "scope": "Reviewed catalog object/component 10pc-0031; aliases only, distinct companions remain separate.",
         "sourceEvidence": "Original measurements and catalog-specific provenance are retained; the shared adopted record supersedes them for these fields.",
         "sourceSelections": {
@@ -11295,7 +11433,7 @@
           "radial_velocity_kms"
         ],
         "recordId": "* tau Cet",
-        "reviewSha256": "13b3b09260b2c461f96a27d5d13ed7dbe7975025168a9d2b93a6aaf479ac962f",
+        "reviewSha256": "6e7fde855309f18d2f89432978d47bf46f1cec61be30ca1b97f698b2fe67d9df",
         "scope": "Reviewed catalog object/component 10pc-0044; aliases only, distinct companions remain separate.",
         "sourceEvidence": "Original measurements and catalog-specific provenance are retained; the shared adopted record supersedes them for these fields.",
         "sourceSelections": {
@@ -11570,7 +11708,7 @@
           "age_gyr"
         ],
         "recordId": "* alf Aql",
-        "reviewSha256": "13b3b09260b2c461f96a27d5d13ed7dbe7975025168a9d2b93a6aaf479ac962f",
+        "reviewSha256": "6e7fde855309f18d2f89432978d47bf46f1cec61be30ca1b97f698b2fe67d9df",
         "scope": "Reviewed catalog object/component 10pc-0117; aliases only, distinct companions remain separate.",
         "sourceEvidence": "Original measurements and catalog-specific provenance are retained; the shared adopted record supersedes them for these fields.",
         "sourceSelections": {
@@ -15607,7 +15745,7 @@
           "constellation"
         ],
         "recordId": "* e Eri",
-        "reviewSha256": "13b3b09260b2c461f96a27d5d13ed7dbe7975025168a9d2b93a6aaf479ac962f",
+        "reviewSha256": "6e7fde855309f18d2f89432978d47bf46f1cec61be30ca1b97f698b2fe67d9df",
         "scope": "Reviewed catalog object/component cns5-0843; aliases only, distinct companions remain separate.",
         "sourceEvidence": "Original measurements and catalog-specific provenance are retained; the shared adopted record supersedes them for these fields.",
         "sourceSelections": {
@@ -16023,7 +16161,7 @@
           "radial_velocity_error_kms"
         ],
         "recordId": "* del Pav",
-        "reviewSha256": "13b3b09260b2c461f96a27d5d13ed7dbe7975025168a9d2b93a6aaf479ac962f",
+        "reviewSha256": "6e7fde855309f18d2f89432978d47bf46f1cec61be30ca1b97f698b2fe67d9df",
         "scope": "Reviewed catalog object/component cns5-4994; aliases only, distinct companions remain separate.",
         "sourceEvidence": "Original measurements and catalog-specific provenance are retained; the shared adopted record supersedes them for these fields.",
         "sourceSelections": {
@@ -24257,7 +24395,7 @@
           "radial_velocity_error_kms"
         ],
         "recordId": "* bet Hyi",
-        "reviewSha256": "13b3b09260b2c461f96a27d5d13ed7dbe7975025168a9d2b93a6aaf479ac962f",
+        "reviewSha256": "6e7fde855309f18d2f89432978d47bf46f1cec61be30ca1b97f698b2fe67d9df",
         "scope": "Reviewed catalog object/component cns5-0125; aliases only, distinct companions remain separate.",
         "sourceEvidence": "Original measurements and catalog-specific provenance are retained; the shared adopted record supersedes them for these fields.",
         "sourceSelections": {
@@ -26627,7 +26765,7 @@
           "age_gyr"
         ],
         "recordId": "* alf Lyr",
-        "reviewSha256": "13b3b09260b2c461f96a27d5d13ed7dbe7975025168a9d2b93a6aaf479ac962f",
+        "reviewSha256": "6e7fde855309f18d2f89432978d47bf46f1cec61be30ca1b97f698b2fe67d9df",
         "scope": "Reviewed catalog object/component cns5-4607; aliases only, distinct companions remain separate.",
         "sourceEvidence": "Original measurements and catalog-specific provenance are retained; the shared adopted record supersedes them for these fields.",
         "sourceSelections": {
@@ -26823,7 +26961,7 @@
           "age_gyr"
         ],
         "recordId": "* alf PsA",
-        "reviewSha256": "13b3b09260b2c461f96a27d5d13ed7dbe7975025168a9d2b93a6aaf479ac962f",
+        "reviewSha256": "6e7fde855309f18d2f89432978d47bf46f1cec61be30ca1b97f698b2fe67d9df",
         "scope": "Reviewed catalog object/component cns5-5665; aliases only, distinct companions remain separate.",
         "sourceEvidence": "Original measurements and catalog-specific provenance are retained; the shared adopted record supersedes them for these fields.",
         "sourceSelections": {
@@ -29650,7 +29788,7 @@
           "radial_velocity_ref"
         ],
         "recordId": "* pi.03 Ori",
-        "reviewSha256": "13b3b09260b2c461f96a27d5d13ed7dbe7975025168a9d2b93a6aaf479ac962f",
+        "reviewSha256": "6e7fde855309f18d2f89432978d47bf46f1cec61be30ca1b97f698b2fe67d9df",
         "scope": "Reviewed catalog object/component cns5-1208; aliases only, distinct companions remain separate.",
         "sourceEvidence": "Original measurements and catalog-specific provenance are retained; the shared adopted record supersedes them for these fields.",
         "sourceSelections": {
@@ -34202,7 +34340,7 @@
           "constellation"
         ],
         "recordId": "* zet Tuc",
-        "reviewSha256": "13b3b09260b2c461f96a27d5d13ed7dbe7975025168a9d2b93a6aaf479ac962f",
+        "reviewSha256": "6e7fde855309f18d2f89432978d47bf46f1cec61be30ca1b97f698b2fe67d9df",
         "scope": "Reviewed catalog object/component cns5-0102; aliases only, distinct companions remain separate.",
         "sourceEvidence": "Original measurements and catalog-specific provenance are retained; the shared adopted record supersedes them for these fields.",
         "sourceSelections": {
@@ -38955,7 +39093,7 @@
           "constellation"
         ],
         "recordId": "* gam Lep",
-        "reviewSha256": "13b3b09260b2c461f96a27d5d13ed7dbe7975025168a9d2b93a6aaf479ac962f",
+        "reviewSha256": "6e7fde855309f18d2f89432978d47bf46f1cec61be30ca1b97f698b2fe67d9df",
         "scope": "Reviewed catalog object/component cns5-1427; aliases only, distinct companions remain separate.",
         "sourceEvidence": "Original measurements and catalog-specific provenance are retained; the shared adopted record supersedes them for these fields.",
         "sourceSelections": {
@@ -39293,7 +39431,7 @@
           "radial_velocity_error_kms"
         ],
         "recordId": "* del Eri",
-        "reviewSha256": "13b3b09260b2c461f96a27d5d13ed7dbe7975025168a9d2b93a6aaf479ac962f",
+        "reviewSha256": "6e7fde855309f18d2f89432978d47bf46f1cec61be30ca1b97f698b2fe67d9df",
         "scope": "Reviewed catalog object/component cns5-0938; aliases only, distinct companions remain separate.",
         "sourceEvidence": "Original measurements and catalog-specific provenance are retained; the shared adopted record supersedes them for these fields.",
         "sourceSelections": {
@@ -40430,7 +40568,7 @@
           "constellation"
         ],
         "recordId": "* bet Com",
-        "reviewSha256": "13b3b09260b2c461f96a27d5d13ed7dbe7975025168a9d2b93a6aaf479ac962f",
+        "reviewSha256": "6e7fde855309f18d2f89432978d47bf46f1cec61be30ca1b97f698b2fe67d9df",
         "scope": "Reviewed catalog object/component cns5-3247; aliases only, distinct companions remain separate.",
         "sourceEvidence": "Original measurements and catalog-specific provenance are retained; the shared adopted record supersedes them for these fields.",
         "sourceSelections": {
@@ -41803,7 +41941,7 @@
           "constellation"
         ],
         "recordId": "* gam Pav",
-        "reviewSha256": "13b3b09260b2c461f96a27d5d13ed7dbe7975025168a9d2b93a6aaf479ac962f",
+        "reviewSha256": "6e7fde855309f18d2f89432978d47bf46f1cec61be30ca1b97f698b2fe67d9df",
         "scope": "Reviewed catalog object/component cns5-5277; aliases only, distinct companions remain separate.",
         "sourceEvidence": "Original measurements and catalog-specific provenance are retained; the shared adopted record supersedes them for these fields.",
         "sourceSelections": {
@@ -55808,7 +55946,7 @@
           "age_gyr"
         ],
         "recordId": "* bet Gem",
-        "reviewSha256": "13b3b09260b2c461f96a27d5d13ed7dbe7975025168a9d2b93a6aaf479ac962f",
+        "reviewSha256": "6e7fde855309f18d2f89432978d47bf46f1cec61be30ca1b97f698b2fe67d9df",
         "scope": "Reviewed catalog object/component cns5-1912; aliases only, distinct companions remain separate.",
         "sourceEvidence": "Original measurements and catalog-specific provenance are retained; the shared adopted record supersedes them for these fields.",
         "sourceSelections": {
@@ -68930,7 +69068,7 @@
           "age_gyr"
         ],
         "recordId": "* bet Leo",
-        "reviewSha256": "13b3b09260b2c461f96a27d5d13ed7dbe7975025168a9d2b93a6aaf479ac962f",
+        "reviewSha256": "6e7fde855309f18d2f89432978d47bf46f1cec61be30ca1b97f698b2fe67d9df",
         "scope": "Reviewed catalog object/component cns5-2899; aliases only, distinct companions remain separate.",
         "sourceEvidence": "Original measurements and catalog-specific provenance are retained; the shared adopted record supersedes them for these fields.",
         "sourceSelections": {
@@ -74033,7 +74171,7 @@
           "constellation"
         ],
         "recordId": "* gam Ser",
-        "reviewSha256": "13b3b09260b2c461f96a27d5d13ed7dbe7975025168a9d2b93a6aaf479ac962f",
+        "reviewSha256": "6e7fde855309f18d2f89432978d47bf46f1cec61be30ca1b97f698b2fe67d9df",
         "scope": "Reviewed catalog object/component cns5-3922; aliases only, distinct companions remain separate.",
         "sourceEvidence": "Original measurements and catalog-specific provenance are retained; the shared adopted record supersedes them for these fields.",
         "sourceSelections": {
@@ -74333,7 +74471,7 @@
           "age_gyr"
         ],
         "recordId": "* alf Boo",
-        "reviewSha256": "13b3b09260b2c461f96a27d5d13ed7dbe7975025168a9d2b93a6aaf479ac962f",
+        "reviewSha256": "6e7fde855309f18d2f89432978d47bf46f1cec61be30ca1b97f698b2fe67d9df",
         "scope": "Reviewed catalog object/component cns5-3517; aliases only, distinct companions remain separate.",
         "sourceEvidence": "Original measurements and catalog-specific provenance are retained; the shared adopted record supersedes them for these fields.",
         "sourceSelections": {
@@ -76398,7 +76536,7 @@
           "age_gyr"
         ],
         "recordId": "* eta Boo",
-        "reviewSha256": "13b3b09260b2c461f96a27d5d13ed7dbe7975025168a9d2b93a6aaf479ac962f",
+        "reviewSha256": "6e7fde855309f18d2f89432978d47bf46f1cec61be30ca1b97f698b2fe67d9df",
         "scope": "Reviewed catalog object/component cns5-3442; aliases only, distinct companions remain separate.",
         "sourceEvidence": "Original measurements and catalog-specific provenance are retained; the shared adopted record supersedes them for these fields.",
         "sourceSelections": {
@@ -86009,7 +86147,7 @@
           "radial_velocity_error_kms"
         ],
         "recordId": "* del Cap",
-        "reviewSha256": "13b3b09260b2c461f96a27d5d13ed7dbe7975025168a9d2b93a6aaf479ac962f",
+        "reviewSha256": "6e7fde855309f18d2f89432978d47bf46f1cec61be30ca1b97f698b2fe67d9df",
         "scope": "Reviewed catalog object/component cns5-5370; aliases only, distinct companions remain separate.",
         "sourceEvidence": "Original measurements and catalog-specific provenance are retained; the shared adopted record supersedes them for these fields.",
         "sourceSelections": {
@@ -90724,7 +90862,7 @@
           "radial_velocity_error_kms"
         ],
         "recordId": "* gam Vir",
-        "reviewSha256": "13b3b09260b2c461f96a27d5d13ed7dbe7975025168a9d2b93a6aaf479ac962f",
+        "reviewSha256": "6e7fde855309f18d2f89432978d47bf46f1cec61be30ca1b97f698b2fe67d9df",
         "scope": "Reviewed catalog object/component cns5-3135; aliases only, distinct companions remain separate.",
         "sourceEvidence": "Original measurements and catalog-specific provenance are retained; the shared adopted record supersedes them for these fields.",
         "sourceSelections": {
@@ -97590,7 +97728,7 @@
           "radial_velocity_error_kms"
         ],
         "recordId": "* bet TrA",
-        "reviewSha256": "13b3b09260b2c461f96a27d5d13ed7dbe7975025168a9d2b93a6aaf479ac962f",
+        "reviewSha256": "6e7fde855309f18d2f89432978d47bf46f1cec61be30ca1b97f698b2fe67d9df",
         "scope": "Reviewed catalog object/component cns5-3915; aliases only, distinct companions remain separate.",
         "sourceEvidence": "Original measurements and catalog-specific provenance are retained; the shared adopted record supersedes them for these fields.",
         "sourceSelections": {
@@ -123396,7 +123534,7 @@
           "radial_velocity_error_kms"
         ],
         "recordId": "* tet UMa",
-        "reviewSha256": "13b3b09260b2c461f96a27d5d13ed7dbe7975025168a9d2b93a6aaf479ac962f",
+        "reviewSha256": "6e7fde855309f18d2f89432978d47bf46f1cec61be30ca1b97f698b2fe67d9df",
         "scope": "Reviewed catalog object/component cns5-2366; aliases only, distinct companions remain separate.",
         "sourceEvidence": "Original measurements and catalog-specific provenance are retained; the shared adopted record supersedes them for these fields.",
         "sourceSelections": {
@@ -127116,7 +127254,7 @@
           "radial_velocity_error_kms"
         ],
         "recordId": "* bet Aql",
-        "reviewSha256": "13b3b09260b2c461f96a27d5d13ed7dbe7975025168a9d2b93a6aaf479ac962f",
+        "reviewSha256": "6e7fde855309f18d2f89432978d47bf46f1cec61be30ca1b97f698b2fe67d9df",
         "scope": "Reviewed catalog object/component cns5-4929; aliases only, distinct companions remain separate.",
         "sourceEvidence": "Original measurements and catalog-specific provenance are retained; the shared adopted record supersedes them for these fields.",
         "sourceSelections": {
@@ -129075,7 +129213,7 @@
           "constellation"
         ],
         "recordId": "* iot Psc",
-        "reviewSha256": "13b3b09260b2c461f96a27d5d13ed7dbe7975025168a9d2b93a6aaf479ac962f",
+        "reviewSha256": "6e7fde855309f18d2f89432978d47bf46f1cec61be30ca1b97f698b2fe67d9df",
         "scope": "Reviewed catalog object/component cns5-5836; aliases only, distinct companions remain separate.",
         "sourceEvidence": "Original measurements and catalog-specific provenance are retained; the shared adopted record supersedes them for these fields.",
         "sourceSelections": {
@@ -133935,7 +134073,7 @@
   "reviewedCompanionsSha256": "3e45616a65aef9ba731644d2dc6ace421b9b26d53470bb289baf95f054bc8d96",
   "reviewedComponentPropertiesSha256": "e3c4e01fa4a9c823c48f1f9bbe7f31a3426bb76e1a59563c1006a10bcc0222c1",
   "schemaVersion": 1,
-  "sharedEnrichmentManifestSha256": "54c74c2b726f47ef2b10ca87c87c1d3c08fa46f0f88d3123be61f994becc4737",
+  "sharedEnrichmentManifestSha256": "acd107d193c427bf7f01507d00cf089617158b36cb70ae8b173c29bcf8eccf59",
   "sourceManifestSha256": "5744f1665fe2700b5acaf88fd2cc46a4f2a0e2a75d75c03290b769b64c3cb315",
   "sources": [
     {
@@ -134193,6 +134331,46 @@
     {
       "name": "Filippazzo et al. 2015, individual ultracool-object SED and model parameters, Table 9 fallback",
       "url": "https://cdsarc.cds.unistra.fr/viz-bin/cat/J/ApJ/810/158"
+    },
+    {
+      "name": "Clark et al. 2012, Zeta1 Scorpii non-LTE temperature and extinction-corrected model luminosity/radius",
+      "url": "https://arxiv.org/abs/1202.3991"
+    },
+    {
+      "name": "2024A&A...687A.228D, reviewed hot-star temperature evidence (J/A+A/687/A228/tabled1)",
+      "url": "https://arxiv.org/abs/2312.00241"
+    },
+    {
+      "name": "2009A&A...501..297Z, reviewed hot-star temperature evidence (J/A+A/501/297/catalog)",
+      "url": "https://arxiv.org/abs/0903.5134"
+    },
+    {
+      "name": "2001A&A...378..861C, reviewed hot-star temperature evidence (J/A+A/378/861/table6)",
+      "url": "https://cdsarc.cds.unistra.fr/viz-bin/cat/J/A+A/378/861"
+    },
+    {
+      "name": "2018MNRAS.474.5287A, reviewed hot-star temperature evidence (Table B1)",
+      "url": "https://arxiv.org/abs/1711.08675"
+    },
+    {
+      "name": "2022A&A...665A.150H, reviewed hot-star temperature evidence (J/A+A/665/A150/tablef1)",
+      "url": "https://cdsarc.cds.unistra.fr/viz-bin/cat/J/A+A/665/A150"
+    },
+    {
+      "name": "2008ApJ...683.1045H, reviewed hot-star temperature evidence (Table 1)",
+      "url": "https://arxiv.org/abs/0805.2133"
+    },
+    {
+      "name": "Segransan et al. 2000, Table 2, Gl 866 (EZ Aquarii ABC) systemic radial velocity; shared bulk-motion approximation",
+      "url": "https://arxiv.org/abs/astro-ph/0010585"
+    },
+    {
+      "name": "Li et al. 2026, revised manuscript v2, Tables 1 and 2; sections 2.2 and 2.4",
+      "url": "https://arxiv.org/html/2603.20044v2"
+    },
+    {
+      "name": "Eggenberger et al. 2008, Table 2 and section 2.3, component bolometric luminosities",
+      "url": "https://arxiv.org/pdf/0802.3576"
     },
     {
       "name": "Cifuentes et al. 2025, resolved companion model/photometric estimates, Table A.1",

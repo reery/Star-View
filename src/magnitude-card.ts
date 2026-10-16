@@ -1,3 +1,4 @@
+import { Binoculars, Eye, Telescope, createElement, type IconNode } from 'lucide'
 import { starDisplayColor, type StarColorMode } from './astronomy'
 import type { Star } from './catalog-model'
 import { catalogSourceFor } from './catalog-source'
@@ -5,6 +6,46 @@ import { MISSING_VALUE } from './format'
 
 type MagnitudeKind = 'absolute' | 'apparent'
 export const NAKED_EYE_MAGNITUDE = 6
+// Representative stellar limits, rather than averages across unlike instruments.
+// Celestron's visual limits span sky conditions and apertures; ESO's FORS V-band
+// direct-imaging table reaches about +27 with a large telescope and long exposure.
+export const MAGNITUDE_VISIBILITY_GUIDES = [
+  { id: 'eye', name: 'Naked eye', limit: NAKED_EYE_MAGNITUDE, detail: 'Dark skies and dark-adapted eyesight.', icon: Eye },
+  { id: 'binoculars', name: 'Binoculars', limit: 10, detail: 'Typical 40–50 mm binoculars; sky conditions matter.', icon: Binoculars },
+  { id: 'telescope', name: 'Telescope', limit: 13, detail: 'Typical 100–150 mm amateur telescope under good skies.', icon: Telescope },
+  { id: 'observatory', name: 'Observatory', limit: 27, detail: 'Long-exposure camera imaging with a large professional telescope.', icon: [
+    ['path', { d: 'M4 12a8 8 0 0 1 16 0M3 12h18v8H3zM2 20h20M12 4v8M15 4.6V12' }],
+    ['path', { d: 'M10 20v-4h4v4' }],
+  ] as IconNode },
+] as const
+type VisibilityGuide = typeof MAGNITUDE_VISIBILITY_GUIDES[number]
+
+export function initializeMagnitudeVisibility(card: HTMLElement, onChange: () => void, signal: AbortSignal): void {
+  const controls = card.querySelector<HTMLElement>('#magnitude-visibility-controls')!
+  controls.replaceChildren(...MAGNITUDE_VISIBILITY_GUIDES.map((guide, index) => {
+    const button = document.createElement('button')
+    button.type = 'button'
+    button.className = 'icon-button magnitude-visibility-button'
+    button.dataset.visibility = guide.id
+    const label = `${guide.name} visibility (about +${guide.limit})`
+    button.setAttribute('aria-label', label)
+    button.setAttribute('aria-pressed', String(index === 0))
+    button.setAttribute('aria-controls', 'magnitude-apparent-scale')
+    const tooltip = document.createElement('span')
+    tooltip.id = `magnitude-${guide.id}-tooltip`
+    tooltip.className = 'tooltip mass-metric-tooltip'
+    tooltip.setAttribute('role', 'tooltip')
+    tooltip.textContent = `${label}. ${guide.detail}`
+    tooltip.style.setProperty('--magnitude-tooltip-arrow', `${18 + index * 40}px`)
+    button.setAttribute('aria-describedby', tooltip.id)
+    button.append(createElement(guide.icon, { width: 20, height: 20, 'stroke-width': 1.7, 'aria-hidden': 'true' }), tooltip)
+    button.addEventListener('click', () => {
+      card.dataset.visibilityGuide = guide.id
+      onChange()
+    }, { signal })
+    return button
+  }))
+}
 const finiteMagnitude = (value: number | null | undefined): value is number => typeof value === 'number' && Number.isFinite(value)
 export const magnitudeNumber = (value: number | null | undefined): string => !finiteMagnitude(value) ? MISSING_VALUE
   : `${value < 0 ? '−' : value > 0 ? '+' : ''}${Math.abs(value).toLocaleString('en-US', { maximumFractionDigits: 2 })}`
@@ -57,14 +98,14 @@ export function magnitudeAxis(kind: MagnitudeKind, values: number[]) {
   return { faint, bright, position: (value: number) => (faint - value) / (faint - bright) * 100 }
 }
 
-function renderScale(card: HTMLElement, kind: MagnitudeKind, points: MagnitudePoint[], sun: Star, colorMode: StarColorMode): void {
+function renderScale(card: HTMLElement, kind: MagnitudeKind, points: MagnitudePoint[], sun: Star, colorMode: StarColorMode, visibility: VisibilityGuide): void {
   const scale = card.querySelector<HTMLElement>(`#magnitude-${kind}-scale`)!
   const plot = scale.querySelector<HTMLElement>('.magnitude-plot')!
   plot.replaceChildren()
   const track = document.createElement('div')
   track.className = 'mass-ratio-track'
   plot.append(track)
-  const axis = magnitudeAxis(kind, points.map(({ value }) => value))
+  const axis = magnitudeAxis(kind, [...points.map(({ value }) => value), ...(kind === 'apparent' ? [visibility.limit] : [])])
   const set = (suffix: string, label: string, value: number) => {
     const caption = document.createElement('span')
     caption.textContent = label
@@ -77,13 +118,13 @@ function renderScale(card: HTMLElement, kind: MagnitudeKind, points: MagnitudePo
   if (kind === 'apparent') {
     const band = document.createElement('span')
     band.className = 'magnitude-visible-band'
-    const faintPosition = axis.position(NAKED_EYE_MAGNITUDE)
+    const faintPosition = axis.position(visibility.limit)
     band.style.left = `${faintPosition}%`
-    band.style.setProperty('--magnitude-visibility-fade-end', `${(axis.position(4) - faintPosition) / (100 - faintPosition) * 100}%`)
+    band.style.setProperty('--magnitude-visibility-fade-end', `${(axis.position(visibility.limit - 2) - faintPosition) / (100 - faintPosition) * 100}%`)
     band.setAttribute('aria-hidden', 'true')
     track.append(band)
     const limit = document.createElement('span')
-    limit.className = 'magnitude-eye-limit'
+    limit.className = 'magnitude-visibility-limit'
     limit.style.left = band.style.left
     limit.setAttribute('aria-hidden', 'true')
     track.append(limit)
@@ -130,10 +171,14 @@ function renderScale(card: HTMLElement, kind: MagnitudeKind, points: MagnitudePo
     tick.style.setProperty('--magnitude-label-lane', String(lane))
   }
   scale.style.setProperty('--magnitude-label-lanes', String(Math.max(1, occupied.length)))
-  scale.setAttribute('aria-label', `${kind === 'absolute' ? 'Absolute V magnitude at 10 parsecs' : 'Apparent V magnitude from Earth'}. ${kind === 'apparent' ? 'Nighttime scale: ' : ''}fainter ${magnitudeNumber(axis.faint)} to brighter ${magnitudeNumber(axis.bright)}. ${points.map((point) => `${point.name}${point.selected ? ', selected' : ''}${point.origin ? ', origin' : ''}: ${magnitudeNumber(point.value)}`).join('; ')}.${kind === 'apparent' ? ' Naked-eye brightness band: approximately +6 or brighter under dark skies, fading between +4 and +6.' : ''}`)
+  scale.setAttribute('aria-label', `${kind === 'absolute' ? 'Absolute V magnitude at 10 parsecs' : 'Apparent V magnitude from Earth'}. ${kind === 'apparent' ? 'Nighttime scale: ' : ''}fainter ${magnitudeNumber(axis.faint)} to brighter ${magnitudeNumber(axis.bright)}. ${points.map((point) => `${point.name}${point.selected ? ', selected' : ''}${point.origin ? ', origin' : ''}: ${magnitudeNumber(point.value)}`).join('; ')}.${kind === 'apparent' ? ` ${visibility.name} brightness band: approximately +${visibility.limit} or brighter, fading between +${visibility.limit - 2} and +${visibility.limit}. ${visibility.detail}` : ''}`)
 }
 
 export function renderMagnitudeCard(card: HTMLElement, star: Star, origin: Star, sun: Star, colorMode: StarColorMode, sirius?: Star): void {
+  const visibility = MAGNITUDE_VISIBILITY_GUIDES.find((guide) => guide.id === card.dataset.visibilityGuide) ?? MAGNITUDE_VISIBILITY_GUIDES[0]
+  for (const button of card.querySelectorAll<HTMLButtonElement>('[data-visibility]')) {
+    button.setAttribute('aria-pressed', String(button.dataset.visibility === visibility.id))
+  }
   const comparison = card.querySelector<HTMLElement>('#magnitude-visible-comparison')!
   const ratio = magnitudeBrightnessRatio(star.absolute_mag, sun.absolute_mag)
   comparison.hidden = ratio === null || star.id === sun.id
@@ -158,6 +203,6 @@ export function renderMagnitudeCard(card: HTMLElement, star: Star, origin: Star,
     const note = card.querySelector<HTMLElement>(`#magnitude-${kind}-note`)!
     note.textContent = notes.join(' ')
     note.hidden = notes.length === 0
-    renderScale(card, kind, magnitudePoints(kind, star, origin, sun, sirius), sun, colorMode)
+    renderScale(card, kind, magnitudePoints(kind, star, origin, sun, sirius), sun, colorMode, visibility)
   }
 }

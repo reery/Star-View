@@ -12,7 +12,9 @@
           "uncertainty": 19,
           "status": "derived",
           "reference": "2017A&A...597A.137K",
-          "qualityFlags": ["interferometric radius plus bolometric flux"]
+          "qualityFlags": [
+            "interferometric radius plus bolometric flux"
+          ]
         },
         {
           "field": "mass_solar",
@@ -20,7 +22,9 @@
           "uncertainty": 0.0029,
           "status": "measured",
           "reference": "2021AJ....162...14A",
-          "qualityFlags": ["binary dynamical mass"]
+          "qualityFlags": [
+            "binary dynamical mass"
+          ]
         },
         {
           "field": "luminosity_solar",
@@ -28,7 +32,9 @@
           "uncertainty": 0.0019,
           "status": "derived",
           "reference": "2021AJ....162...14A",
-          "qualityFlags": ["bolometric flux plus revised orbital parallax"]
+          "qualityFlags": [
+            "bolometric flux plus revised orbital parallax"
+          ]
         },
         {
           "field": "radius_solar",
@@ -36,7 +42,9 @@
           "uncertainty": 0.0055,
           "status": "derived",
           "reference": "2021AJ....162...14A",
-          "qualityFlags": ["interferometric angular diameter plus revised orbital parallax"]
+          "qualityFlags": [
+            "interferometric angular diameter plus revised orbital parallax"
+          ]
         },
         {
           "field": "metallicity_dex",
@@ -44,7 +52,9 @@
           "uncertainty": 0.007,
           "status": "measured",
           "reference": "2018A&A...615A.172M",
-          "qualityFlags": ["differential HARPS spectroscopic [Fe/H]"],
+          "qualityFlags": [
+            "differential HARPS spectroscopic [Fe/H]"
+          ],
           "quantity": "[Fe/H]"
         },
         {
@@ -53,7 +63,10 @@
           "uncertainty": 0.3,
           "status": "model-derived",
           "reference": "2018ApJ...864...99J",
-          "qualityFlags": ["shared binary age", "classical plus asteroseismic stellar models"]
+          "qualityFlags": [
+            "shared binary age",
+            "classical plus asteroseismic stellar models"
+          ]
         }
       ]
     },
@@ -68,7 +81,9 @@
           "uncertainty": 21,
           "status": "derived",
           "reference": "2017A&A...597A.137K",
-          "qualityFlags": ["interferometric radius plus bolometric flux"]
+          "qualityFlags": [
+            "interferometric radius plus bolometric flux"
+          ]
         },
         {
           "field": "mass_solar",
@@ -76,7 +91,9 @@
           "uncertainty": 0.0025,
           "status": "measured",
           "reference": "2021AJ....162...14A",
-          "qualityFlags": ["binary dynamical mass"]
+          "qualityFlags": [
+            "binary dynamical mass"
+          ]
         },
         {
           "field": "luminosity_solar",
@@ -84,7 +101,9 @@
           "uncertainty": 0.0007,
           "status": "derived",
           "reference": "2021AJ....162...14A",
-          "qualityFlags": ["bolometric flux plus revised orbital parallax"]
+          "qualityFlags": [
+            "bolometric flux plus revised orbital parallax"
+          ]
         },
         {
           "field": "radius_solar",
@@ -92,7 +111,9 @@
           "uncertainty": 0.0036,
           "status": "derived",
           "reference": "2021AJ....162...14A",
-          "qualityFlags": ["interferometric angular diameter plus revised orbital parallax"]
+          "qualityFlags": [
+            "interferometric angular diameter plus revised orbital parallax"
+          ]
         },
         {
           "field": "metallicity_dex",
@@ -100,7 +121,9 @@
           "uncertainty": 0.016,
           "status": "measured",
           "reference": "2018A&A...615A.172M",
-          "qualityFlags": ["differential HARPS spectroscopic [Fe/H]"],
+          "qualityFlags": [
+            "differential HARPS spectroscopic [Fe/H]"
+          ],
           "quantity": "[Fe/H]"
         },
         {
@@ -109,14 +132,17 @@
           "uncertainty": 0.3,
           "status": "model-derived",
           "reference": "2018ApJ...864...99J",
-          "qualityFlags": ["shared binary age", "classical plus asteroseismic stellar models"]
+          "qualityFlags": [
+            "shared binary age",
+            "classical plus asteroseismic stellar models"
+          ]
         }
       ]
     },
     {
       "starViewId": "luhman-16-a",
       "gaiaDr3Id": "5353626573555863424",
-      "note": "Luhman 16 A reviewed component parameters. Bedin et al. (2024) measure the individual dynamical mass. Lodieu et al. (2015) derive the resolved temperature and bolometric luminosity from spectroscopy and the spectral energy distribution. The displayed age is the Oceanus moving-group age supported, but not established, by Bedin et al.; their evolutionary-model comparison still shows component-age tension.",
+      "note": "Luhman 16 A reviewed component parameters. Bedin et al. (2024) measure the individual dynamical mass. Lodieu et al. (2015) derive the resolved temperature and bolometric luminosity from spectroscopy and the spectral energy distribution. The displayed age is the Oceanus moving-group age supported, but not established, by Bedin et al.; their evolutionary-model comparison still shows component-age tension. Resolved V photometry is from Boffin et al. (2014), Table 2, observed 2013-06-16 (uncertainty 0.10 mag). Ishikawa et al. (2025), Table 2, provide a separate component radial-velocity observation from 2018-04-21 to 2018-06-29; it includes orbital motion and is not adopted for the long-horizon space-motion vector.",
       "physical": [
         {
           "field": "temperature_k",
@@ -124,7 +150,10 @@
           "uncertainty": 180,
           "status": "model-derived",
           "reference": "2015A&A...581A..73L",
-          "qualityFlags": ["resolved spectroscopy", "asymmetric uncertainty represented by its larger side"]
+          "qualityFlags": [
+            "resolved spectroscopy",
+            "asymmetric uncertainty represented by its larger side"
+          ]
         },
         {
           "field": "mass_solar",
@@ -132,15 +161,20 @@
           "uncertainty": 0.0002,
           "status": "measured",
           "reference": "2024AN....34530158B",
-          "qualityFlags": ["35.4 +/- 0.2 Jupiter masses converted to solar masses"]
+          "qualityFlags": [
+            "35.4 +/- 0.2 Jupiter masses converted to solar masses"
+          ]
         },
         {
           "field": "luminosity_solar",
-          "value": 0.0000218776,
-          "uncertainty": 0.00000443,
+          "value": 2.18776e-05,
+          "uncertainty": 4.43e-06,
           "status": "derived",
           "reference": "2015A&A...581A..73L",
-          "qualityFlags": ["resolved bolometric SED", "converted from log(L/Lsun) = -4.66 +/- 0.08 dex"]
+          "qualityFlags": [
+            "resolved bolometric SED",
+            "converted from log(L/Lsun) = -4.66 +/- 0.08 dex"
+          ]
         },
         {
           "field": "age_gyr",
@@ -148,14 +182,37 @@
           "uncertainty": 0.095,
           "status": "model-derived",
           "reference": "2024AN....34530158B",
-          "qualityFlags": ["assuming Oceanus moving-group membership", "evolutionary-model component ages remain discrepant"]
+          "qualityFlags": [
+            "assuming Oceanus moving-group membership",
+            "evolutionary-model component ages remain discrepant"
+          ]
         }
-      ]
+      ],
+      "expectedName": "Luhman 16 A",
+      "componentDesignation": "WDS J10493-5319A",
+      "photometry": {
+        "johnson_v": 23.25,
+        "uncertainty": 0.1,
+        "reference": "2014A&A...561L...4B:Table 2",
+        "source_url": "https://arxiv.org/pdf/1312.1303",
+        "observed_on": "2013-06-16",
+        "scope": "Resolved Johnson V photometry of Luhman 16 A; FORS2 v_HIGH, calibrated with standards E5 and LTT4816. Snapshot photometry; not the unresolved pair."
+      },
+      "radialVelocityObservation": {
+        "value_kms": 16.7,
+        "error_kms": 0.3,
+        "uncertainty_kind": "Unbiased weighted standard deviation across 46 spectral orders; not a formal standard error.",
+        "observed_from": "2018-04-21",
+        "observed_to": "2018-06-29",
+        "reference": "2025MNRAS.539.1088I:Table 2",
+        "source_url": "https://arxiv.org/html/2503.19322v1#S4.T2",
+        "scope": "Resolved Luhman 16 A spectroscopic radial velocity from barycentric-corrected IGRINS spectra. Includes component orbital motion; not the binary systemic velocity. Display-only observation; not combined with the different-epoch catalog proper motion to infer bulk space motion."
+      }
     },
     {
       "starViewId": "luhman-16-b",
       "gaiaDr3Id": null,
-      "note": "Luhman 16 B reviewed component parameters. Bedin et al. (2024) measure the individual dynamical mass. Lodieu et al. (2015) derive the resolved temperature and bolometric luminosity from spectroscopy and the spectral energy distribution. The displayed age is the Oceanus moving-group age supported, but not established, by Bedin et al.; their evolutionary-model comparison still shows component-age tension.",
+      "note": "Luhman 16 B reviewed component parameters. Bedin et al. (2024) measure the individual dynamical mass. Lodieu et al. (2015) derive the resolved temperature and bolometric luminosity from spectroscopy and the spectral energy distribution. The displayed age is the Oceanus moving-group age supported, but not established, by Bedin et al.; their evolutionary-model comparison still shows component-age tension. Resolved V photometry is from Boffin et al. (2014), Table 2, observed 2013-06-16 (uncertainty 0.10 mag). Ishikawa et al. (2025), Table 2, provide a separate component radial-velocity observation from 2018-04-21 to 2018-06-29; it includes orbital motion and is not adopted for the long-horizon space-motion vector.",
       "physical": [
         {
           "field": "temperature_k",
@@ -163,7 +220,10 @@
           "uncertainty": 185,
           "status": "model-derived",
           "reference": "2015A&A...581A..73L",
-          "qualityFlags": ["resolved spectroscopy", "asymmetric uncertainty represented by its larger side"]
+          "qualityFlags": [
+            "resolved spectroscopy",
+            "asymmetric uncertainty represented by its larger side"
+          ]
         },
         {
           "field": "mass_solar",
@@ -171,15 +231,20 @@
           "uncertainty": 0.0002,
           "status": "measured",
           "reference": "2024AN....34530158B",
-          "qualityFlags": ["29.4 +/- 0.2 Jupiter masses converted to solar masses"]
+          "qualityFlags": [
+            "29.4 +/- 0.2 Jupiter masses converted to solar masses"
+          ]
         },
         {
           "field": "luminosity_solar",
-          "value": 0.000020893,
-          "uncertainty": 0.00000729,
+          "value": 2.0893e-05,
+          "uncertainty": 7.29e-06,
           "status": "derived",
           "reference": "2015A&A...581A..73L",
-          "qualityFlags": ["resolved bolometric SED", "converted from log(L/Lsun) = -4.68 +/- 0.13 dex"]
+          "qualityFlags": [
+            "resolved bolometric SED",
+            "converted from log(L/Lsun) = -4.68 +/- 0.13 dex"
+          ]
         },
         {
           "field": "age_gyr",
@@ -187,9 +252,32 @@
           "uncertainty": 0.095,
           "status": "model-derived",
           "reference": "2024AN....34530158B",
-          "qualityFlags": ["assuming Oceanus moving-group membership", "evolutionary-model component ages remain discrepant"]
+          "qualityFlags": [
+            "assuming Oceanus moving-group membership",
+            "evolutionary-model component ages remain discrepant"
+          ]
         }
-      ]
+      ],
+      "expectedName": "Luhman 16 B",
+      "componentDesignation": "WDS J10493-5319B",
+      "photometry": {
+        "johnson_v": 24.07,
+        "uncertainty": 0.1,
+        "reference": "2014A&A...561L...4B:Table 2",
+        "source_url": "https://arxiv.org/pdf/1312.1303",
+        "observed_on": "2013-06-16",
+        "scope": "Resolved Johnson V photometry of Luhman 16 B; FORS2 v_HIGH, calibrated with standards E5 and LTT4816. Snapshot photometry; not the unresolved pair."
+      },
+      "radialVelocityObservation": {
+        "value_kms": 20.4,
+        "error_kms": 0.4,
+        "uncertainty_kind": "Unbiased weighted standard deviation across 46 spectral orders; not a formal standard error.",
+        "observed_from": "2018-04-21",
+        "observed_to": "2018-06-29",
+        "reference": "2025MNRAS.539.1088I:Table 2",
+        "source_url": "https://arxiv.org/html/2503.19322v1#S4.T2",
+        "scope": "Resolved Luhman 16 B spectroscopic radial velocity from barycentric-corrected IGRINS spectra. Includes component orbital motion; not the binary systemic velocity. Display-only observation; not combined with the different-epoch catalog proper motion to infer bulk space motion."
+      }
     },
     {
       "starViewId": "wise-0855-0714",
@@ -198,11 +286,14 @@
       "physical": [
         {
           "field": "luminosity_solar",
-          "value": 0.00000000269153,
+          "value": 2.69153e-09,
           "uncertainty": null,
           "status": "model-derived",
           "reference": "2016A&A...592A..80Z",
-          "qualityFlags": ["converted from log(L/Lsun) = -8.57", "best-fit atmosphere has acknowledged surface-gravity tension"]
+          "qualityFlags": [
+            "converted from log(L/Lsun) = -8.57",
+            "best-fit atmosphere has acknowledged surface-gravity tension"
+          ]
         }
       ]
     },
@@ -217,7 +308,9 @@
           "uncertainty": 64,
           "status": "derived",
           "reference": "2017ApJ...840...70B",
-          "qualityFlags": ["interferometric radius plus bolometric flux"]
+          "qualityFlags": [
+            "interferometric radius plus bolometric flux"
+          ]
         },
         {
           "field": "mass_solar",
@@ -225,31 +318,40 @@
           "uncertainty": 0.023,
           "status": "measured",
           "reference": "2017ApJ...840...70B",
-          "qualityFlags": ["binary dynamical mass"]
+          "qualityFlags": [
+            "binary dynamical mass"
+          ]
         },
         {
           "field": "luminosity_solar",
           "value": 24.74,
-          "uncertainty": 0.70,
+          "uncertainty": 0.7,
           "status": "derived",
           "reference": "2017ApJ...840...70B",
-          "qualityFlags": ["bolometric flux plus adopted parallax"]
+          "qualityFlags": [
+            "bolometric flux plus adopted parallax"
+          ]
         },
         {
           "field": "radius_solar",
           "value": 1.7144,
-          "uncertainty": 0.0090,
+          "uncertainty": 0.009,
           "status": "measured",
           "reference": "2017ApJ...840...70B",
-          "qualityFlags": ["interferometric radius"]
+          "qualityFlags": [
+            "interferometric radius"
+          ]
         },
         {
           "field": "metallicity_dex",
-          "value": -0.10,
+          "value": -0.1,
           "uncertainty": 0.03,
           "status": "model-derived",
           "reference": "2017ApJ...840...70B",
-          "qualityFlags": ["bulk [Fe/H] midpoint of -0.13 to -0.07 model range", "not the diffusion-altered photospheric abundance"],
+          "qualityFlags": [
+            "bulk [Fe/H] midpoint of -0.13 to -0.07 model range",
+            "not the diffusion-altered photospheric abundance"
+          ],
           "quantity": "[Fe/H]"
         },
         {
@@ -258,7 +360,9 @@
           "uncertainty": 0.015,
           "status": "model-derived",
           "reference": "2017ApJ...840...70B",
-          "qualityFlags": ["midpoint of independent 237-247 Myr model results"]
+          "qualityFlags": [
+            "midpoint of independent 237-247 Myr model results"
+          ]
         }
       ]
     },
@@ -273,7 +377,9 @@
           "uncertainty": 46,
           "status": "measured",
           "reference": "2017ApJ...840...70B",
-          "qualityFlags": ["HST/STIS atmosphere fit"]
+          "qualityFlags": [
+            "HST/STIS atmosphere fit"
+          ]
         },
         {
           "field": "mass_solar",
@@ -281,7 +387,9 @@
           "uncertainty": 0.011,
           "status": "measured",
           "reference": "2017ApJ...840...70B",
-          "qualityFlags": ["binary dynamical mass"]
+          "qualityFlags": [
+            "binary dynamical mass"
+          ]
         },
         {
           "field": "luminosity_solar",
@@ -289,23 +397,30 @@
           "uncertainty": 0.00033,
           "status": "derived",
           "reference": "2017ApJ...840...70B",
-          "qualityFlags": ["HST/STIS absolute-flux fit"]
+          "qualityFlags": [
+            "HST/STIS absolute-flux fit"
+          ]
         },
         {
           "field": "radius_solar",
           "value": 0.008098,
-          "uncertainty": 0.000046,
+          "uncertainty": 4.6e-05,
           "status": "derived",
           "reference": "2017ApJ...840...70B",
-          "qualityFlags": ["HST/STIS absolute-flux fit"]
+          "qualityFlags": [
+            "HST/STIS absolute-flux fit"
+          ]
         },
         {
           "field": "age_gyr",
           "value": 0.228,
-          "uncertainty": 0.010,
+          "uncertainty": 0.01,
           "status": "model-derived",
           "reference": "2017ApJ...840...70B",
-          "qualityFlags": ["total age including progenitor lifetime", "not the 126 Myr cooling age"]
+          "qualityFlags": [
+            "total age including progenitor lifetime",
+            "not the 126 Myr cooling age"
+          ]
         }
       ]
     },
@@ -320,7 +435,9 @@
           "uncertainty": 40,
           "status": "measured",
           "reference": "2023AJ....166..123K",
-          "qualityFlags": ["EXPRES spectroscopy"]
+          "qualityFlags": [
+            "EXPRES spectroscopy"
+          ]
         },
         {
           "field": "mass_solar",
@@ -328,7 +445,9 @@
           "uncertainty": 0.09,
           "status": "derived",
           "reference": "2023AJ....166..123K",
-          "qualityFlags": ["spectroscopic surface gravity plus interferometric radius"]
+          "qualityFlags": [
+            "spectroscopic surface gravity plus interferometric radius"
+          ]
         },
         {
           "field": "luminosity_solar",
@@ -336,7 +455,9 @@
           "uncertainty": 0.02,
           "status": "derived",
           "reference": "2023AJ....166..123K",
-          "qualityFlags": ["interferometry plus spectroscopy"]
+          "qualityFlags": [
+            "interferometry plus spectroscopy"
+          ]
         },
         {
           "field": "radius_solar",
@@ -344,7 +465,9 @@
           "uncertainty": 0.004,
           "status": "derived",
           "reference": "2023AJ....166..123K",
-          "qualityFlags": ["CHARA limb-darkened diameter plus Gaia parallax"]
+          "qualityFlags": [
+            "CHARA limb-darkened diameter plus Gaia parallax"
+          ]
         },
         {
           "field": "metallicity_dex",
@@ -352,7 +475,9 @@
           "uncertainty": 0.08,
           "status": "measured",
           "reference": "2015ApJ...803...90P",
-          "qualityFlags": ["spectroscopic [Fe/H]"],
+          "qualityFlags": [
+            "spectroscopic [Fe/H]"
+          ],
           "quantity": "[Fe/H]"
         },
         {
@@ -361,7 +486,10 @@
           "uncertainty": null,
           "status": "model-derived",
           "reference": "2004A&A...426..601D",
-          "qualityFlags": ["stellar-evolution model", "adopted by 2023AJ....166..123K"]
+          "qualityFlags": [
+            "stellar-evolution model",
+            "adopted by 2023AJ....166..123K"
+          ]
         }
       ]
     },
@@ -715,6 +843,151 @@
           ]
         }
       ]
+    },
+    {
+      "starViewId": "10pc-0115",
+      "expectedName": "70 Oph A",
+      "componentDesignation": "WDS J18055+0230A",
+      "gaiaDr3Id": "4468557611984384512",
+      "note": "70 Oph A: individual dynamical mass from Li et al. (2026), revised v2 Table 2; component temperature and radius as compiled in Table 1, replacing the dwarf-class temperature estimate. Component bolometric luminosity from Eggenberger et al. (2008), Table 2. Age is the component activity-model median from Li et al., not a direct measurement: 2.81 +1.65/-0.8 Gyr; the older 6.2 +/- 1.0 Gyr asteroseismic system age remains discrepant. Existing individual photometry, photospheric abundance and astrometry are retained.",
+      "physical": [
+        {
+          "field": "temperature_k",
+          "value": 5301,
+          "uncertainty": 67,
+          "status": "measured",
+          "reference": "arXiv:2603.20044v2:Table 1",
+          "qualityFlags": [
+            "component-specific published atmospheric temperature; attributed there to Yee et al. 2017"
+          ]
+        },
+        {
+          "field": "mass_solar",
+          "value": 0.8827,
+          "uncertainty": 0.0044,
+          "status": "measured",
+          "reference": "arXiv:2603.20044v2:Table 2",
+          "qualityFlags": [
+            "individual dynamical mass from joint RV/astrometric fit",
+            "asymmetric uncertainty represented by its larger side"
+          ]
+        },
+        {
+          "field": "radius_solar",
+          "value": 0.831,
+          "uncertainty": 0.004,
+          "status": "derived",
+          "reference": "arXiv:2603.20044v2:Table 1",
+          "qualityFlags": [
+            "published component radius as compiled by Li et al.; not newly derived from adopted luminosity/temperature"
+          ]
+        },
+        {
+          "field": "luminosity_solar",
+          "value": 0.53,
+          "uncertainty": 0.02,
+          "status": "derived",
+          "reference": "2008A&A...482..631E:Table 2",
+          "qualityFlags": [
+            "component-resolved bolometric luminosity; source parallax and bolometric correction retained"
+          ]
+        },
+        {
+          "field": "age_gyr",
+          "value": 2.81,
+          "uncertainty": 1.65,
+          "status": "model-derived",
+          "reference": "arXiv:2603.20044v2:Table 1;Section 2.4",
+          "qualityFlags": [
+            "activity-based age posterior median",
+            "asymmetric uncertainty represented by its larger side",
+            "disagrees with 6.2 +/- 1.0 Gyr asteroseismic age"
+          ]
+        }
+      ],
+      "sourceReview": "catalog-work/shared-enrichment/70-ophiuchi-review.json",
+      "sourceUncertainties": {
+        "mass_solar": {
+          "minus": 0.0043,
+          "plus": 0.0044
+        },
+        "age_gyr": {
+          "minus": 0.8,
+          "plus": 1.65
+        }
+      }
+    },
+    {
+      "starViewId": "10pc-0116",
+      "expectedName": "70 Oph B",
+      "componentDesignation": "WDS J18055+0230B",
+      "gaiaDr3Id": "4468557611977674496",
+      "note": "70 Oph B: individual dynamical mass from Li et al. (2026), revised v2 Table 2; component temperature and radius as compiled in Table 1, replacing the dwarf-class temperature estimate. Component bolometric luminosity from Eggenberger et al. (2008), Table 2. Age is the component activity-model median from Li et al., not a direct measurement: 2.99 +0.66/-0.51 Gyr; the older 6.2 +/- 1.0 Gyr asteroseismic system age remains discrepant. Existing individual photometry, photospheric abundance and astrometry are retained.",
+      "physical": [
+        {
+          "field": "temperature_k",
+          "value": 4465,
+          "uncertainty": 65,
+          "status": "measured",
+          "reference": "arXiv:2603.20044v2:Table 1",
+          "qualityFlags": [
+            "component-specific published atmospheric temperature; attributed there to Yee et al. 2017"
+          ]
+        },
+        {
+          "field": "mass_solar",
+          "value": 0.7319,
+          "uncertainty": 0.0031,
+          "status": "measured",
+          "reference": "arXiv:2603.20044v2:Table 2",
+          "qualityFlags": [
+            "individual dynamical mass from joint RV/astrometric fit"
+          ]
+        },
+        {
+          "field": "radius_solar",
+          "value": 0.67,
+          "uncertainty": 0.009,
+          "status": "derived",
+          "reference": "arXiv:2603.20044v2:Table 1",
+          "qualityFlags": [
+            "published component radius as compiled by Li et al.; not newly derived from adopted luminosity/temperature"
+          ]
+        },
+        {
+          "field": "luminosity_solar",
+          "value": 0.15,
+          "uncertainty": 0.02,
+          "status": "derived",
+          "reference": "2008A&A...482..631E:Table 2",
+          "qualityFlags": [
+            "component-resolved bolometric luminosity; source parallax and bolometric correction retained"
+          ]
+        },
+        {
+          "field": "age_gyr",
+          "value": 2.99,
+          "uncertainty": 0.66,
+          "status": "model-derived",
+          "reference": "arXiv:2603.20044v2:Table 1;Section 2.4",
+          "qualityFlags": [
+            "activity-based age posterior median",
+            "asymmetric uncertainty represented by its larger side",
+            "disagrees with 6.2 +/- 1.0 Gyr asteroseismic age"
+          ]
+        }
+      ],
+      "sourceReview": "catalog-work/shared-enrichment/70-ophiuchi-review.json",
+      "sourceUncertainties": {
+        "mass_solar": {
+          "minus": 0.0031,
+          "plus": 0.0031
+        },
+        "age_gyr": {
+          "minus": 0.51,
+          "plus": 0.66
+        }
+      }
     }
   ]
 }

@@ -84,6 +84,16 @@
         "status": "inferred from dynamical mass; not a measured subtype",
         "caveat": "The detected spectrum excludes a white dwarf; G2V is the paper's mass-based correspondence. The question mark retains its inferred status."
       }
+    },
+    "10pc-0116": {
+      "values": {
+        "spectral_type": "K4V"
+      },
+      "source": "Li et al. 2026, revised v2 Table 1 and section 2.2",
+      "sourceUrl": "https://arxiv.org/html/2603.20044v2",
+      "scope": "70 Oph B only; WDS J18055+0230B; Gaia DR3 4468557611977674496.",
+      "sourceReview": "catalog-work/shared-enrichment/70-ophiuchi-review.json",
+      "note": "70 Oph B component classification K4V from Li et al. (2026), Table 1; section 2.2 notes the published K4-K5V range. Restores the missing individual luminosity class after MSC authoring; does not classify B from the primary spectrum."
     }
   }
 }

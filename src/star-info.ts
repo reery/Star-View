@@ -1,5 +1,6 @@
 import definitions from './data/star-info.json'
-import { renderObjectInfoContent, type InfoImage, type ObjectInfo } from './object-info-content'
+import nearest100Definitions from './data/nearest-100-info.json'
+import { renderObjectInfoContent, type InfoImage, type InfoSource, type ObjectInfo } from './object-info-content'
 import { starComponentIdentity } from './star-systems'
 import sun from './assets/stars/sun.jpg'
 import alphaCentauri from './assets/stars/alpha-centauri.jpg'
@@ -80,18 +81,40 @@ const images: Readonly<Record<string, InfoImage>> = {
   },
 }
 
-const articles: ReadonlyMap<string, ObjectInfo> = new Map(Object.entries(definitions.articles).map(([id, article]) => {
-  const wikipedia = { title: `Wikipedia: ${article.name} · reviewed ${definitions.reviewedAt}`, url: article.wikipedia }
-  return [id, {
-    image: images[id],
-    introduction: { label: article.name, text: article.introduction, source: wikipedia },
-    sections: article.sections.map((section) => ({
-      id: section.id, title: section.title,
-      source: 'source' in section ? section.source : wikipedia,
-      paragraphs: [{ text: section.text }],
-    })),
-  }]
-}))
+interface ArticleDefinitions {
+  reviewedAt: string
+  articles: Record<string, {
+    name: string
+    introduction: string
+    wikipedia?: string
+    source?: InfoSource
+    sections: { id: string; title: string; text: string; source?: InfoSource }[]
+  }>
+}
+
+function articleEntries(dataset: ArticleDefinitions): [string, ObjectInfo][] {
+  return Object.entries(dataset.articles).map(([id, article]) => {
+    const source = article.source
+      ? { ...article.source, title: `${article.source.title} · reviewed ${dataset.reviewedAt}` }
+      : article.wikipedia
+        ? { title: `Wikipedia: ${article.name} · reviewed ${dataset.reviewedAt}`, url: article.wikipedia }
+        : undefined
+    return [id, {
+      image: images[id],
+      introduction: { label: article.name, text: article.introduction, source },
+      sections: article.sections.map((section) => ({
+        id: section.id, title: section.title,
+        source: section.source ?? source,
+        paragraphs: [{ text: section.text }],
+      })),
+    }]
+  })
+}
+
+const articles: ReadonlyMap<string, ObjectInfo> = new Map([
+  ...articleEntries(definitions),
+  ...articleEntries(nearest100Definitions),
+])
 
 /** Resolve explicit catalog identities so every component shares its system article. */
 export function starInfoForId(starId: string): ObjectInfo | undefined {

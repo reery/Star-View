@@ -2,7 +2,7 @@ import { describe, expect, it, beforeAll } from 'vitest'
 import { readFileSync } from 'node:fs'
 import { parseStarCatalog } from './catalog'
 import { completeCatalogCompanions } from './stellar-companions'
-import { indexStarSystems, primarySystemStarId, reviewedStarSystems } from './star-systems'
+import { indexStarSystems, reviewedStarSystems } from './star-systems'
 import { loadStellarOrbits, orbitalPlanePoint, orbitBarycenterVisible, orbitHasGeometry, orbitMassFraction, projectedOrbitPoint, stellarOrbitsForSystem, type StellarOrbit } from './stellar-orbits'
 import data from './data/stellar-orbits.json'
 import audit from '../catalog-work/star-systems/stellar-orbits-audit.json'
@@ -46,7 +46,6 @@ describe('reviewed stellar orbits', () => {
     const fraction = orbitMassFraction(system, orbit!)!
     expect(fraction).toBeGreaterThan(0.3)
     expect(fraction).toBeLessThan(0.4)
-    expect(primarySystemStarId(system)).toBe('sirius-a')
   })
 
   it('matches both EZ Aquarii orbits to the A/C inner pair and AC–B outer pair', () => {
@@ -69,7 +68,6 @@ describe('reviewed stellar orbits', () => {
     expect(outer.eccentricity).toBe(0.439)
     expect(outer.semiMajorAxisAu).toBeCloseTo(0.3473 * 1000 / 293.6, 7)
     expect(orbitHasGeometry(outer)).toBe(true)
-    expect(primarySystemStarId(system)).toBe('ez-aquarii-a')
     expect(stellarOrbitsForSystem({ ...system, components: system.components.filter((c) => c.label !== 'C') })).toHaveLength(0)
   })
 

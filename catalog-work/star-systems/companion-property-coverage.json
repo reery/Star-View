@@ -1,11 +1,35 @@
 {
   "schemaVersion": 1,
   "scope": "Represented nearest-1000 component-card members, including primaries. Not a complete companion census or an assertion that all published measurements have been exhausted.",
+  "radialVelocityPolicy": "radial_velocity_kms counts RVs adopted with the catalog motion astrometry. Separately dated component spectroscopic measurements remain in radialVelocityObservations; they do not imply a systemic velocity or a complete bulk motion vector.",
+  "radialVelocityObservations": {
+    "luhman-16-a": {
+      "value_kms": 16.7,
+      "error_kms": 0.3,
+      "uncertainty_kind": "Unbiased weighted standard deviation across 46 spectral orders; not a formal standard error.",
+      "observed_from": "2018-04-21",
+      "observed_to": "2018-06-29",
+      "reference": "2025MNRAS.539.1088I:Table 2",
+      "source_url": "https://arxiv.org/html/2503.19322v1#S4.T2",
+      "scope": "Resolved Luhman 16 A spectroscopic radial velocity from barycentric-corrected IGRINS spectra. Includes component orbital motion; not the binary systemic velocity. Display-only observation; not combined with the different-epoch catalog proper motion to infer bulk space motion."
+    },
+    "luhman-16-b": {
+      "value_kms": 20.4,
+      "error_kms": 0.4,
+      "uncertainty_kind": "Unbiased weighted standard deviation across 46 spectral orders; not a formal standard error.",
+      "observed_from": "2018-04-21",
+      "observed_to": "2018-06-29",
+      "reference": "2025MNRAS.539.1088I:Table 2",
+      "source_url": "https://arxiv.org/html/2503.19322v1#S4.T2",
+      "scope": "Resolved Luhman 16 B spectroscopic radial velocity from barycentric-corrected IGRINS spectra. Includes component orbital motion; not the binary systemic velocity. Display-only observation; not combined with the different-epoch catalog proper motion to infer bulk space motion."
+    }
+  },
   "inputSha256": {
-    "src/data/catalogs/nearest-1000/stars.csv": "e967f1b32deaf7af0a1fd13af95d17ee25865133717d6ecc3dc0eb3b72cdc738",
-    "src/data/catalogs/nearest-1000/provenance.json": "8fe99b893b44461d99f74b2c6009dda32182d5c1ccce7bc78517eda664cef54c",
-    "src/data/star-systems.json": "22a77579b11e4f5035f19be704fda78f1a6a5d409ca7ce0d5bc74aab8eaa599b",
-    "catalog-work/star-systems/reviewed-component-properties.json": "e3c4e01fa4a9c823c48f1f9bbe7f31a3426bb76e1a59563c1006a10bcc0222c1"
+    "src/data/catalogs/nearest-1000/stars.csv": "53018e0e609b4f37a23425754c50e016fae34ea1293570fd8457e5edf38b20e8",
+    "src/data/catalogs/nearest-1000/provenance.json": "93d85819eef0335b895a1a741d8ded63e45107f36ef1812b0fddbfaf2db5c9ab",
+    "src/data/star-systems.json": "0e7e0b8097766381629c4d28e57f62948ecde0c10ac18992c09cef17cb6dfe05",
+    "catalog-work/star-systems/reviewed-component-properties.json": "e3c4e01fa4a9c823c48f1f9bbe7f31a3426bb76e1a59563c1006a10bcc0222c1",
+    "src/data/stellar-companions.json": "83a315a191415a3eb4f22bf3f45394a85cc2e9a896e928eed93a322d2ee8751c"
   },
   "systems": 128,
   "members": 284,
@@ -13,36 +37,36 @@
   "supplementedFieldCount": 116,
   "coverage": {
     "absolute_mag": {
-      "available": 143,
-      "missing": 141
+      "available": 145,
+      "missing": 139
     },
     "radial_velocity_kms": {
-      "available": 185,
-      "missing": 99
+      "available": 190,
+      "missing": 94
     },
     "temperature_k": {
       "available": 219,
       "missing": 65
     },
     "mass_solar": {
-      "available": 168,
-      "missing": 116
+      "available": 170,
+      "missing": 114
     },
     "luminosity_solar": {
-      "available": 159,
-      "missing": 125
+      "available": 162,
+      "missing": 122
     },
     "radius_solar": {
-      "available": 168,
-      "missing": 116
+      "available": 171,
+      "missing": 113
     },
     "metallicity_dex": {
-      "available": 161,
-      "missing": 123
+      "available": 162,
+      "missing": 122
     },
     "age_gyr": {
-      "available": 50,
-      "missing": 234
+      "available": 51,
+      "missing": 233
     },
     "spectral_type": {
       "available": 244,
@@ -240,11 +264,7 @@
       "system": "70 Oph",
       "component": "B",
       "missingFields": [
-        "absolute_mag",
-        "mass_solar",
-        "luminosity_solar",
-        "radius_solar",
-        "age_gyr"
+        "absolute_mag"
       ],
       "supplementedFields": {}
     },
@@ -358,7 +378,6 @@
       "system": "Alshain",
       "component": "A",
       "missingFields": [
-        "radial_velocity_kms",
         "age_gyr"
       ],
       "supplementedFields": {}
@@ -787,7 +806,6 @@
       "system": "EZ Aquarii",
       "component": "A",
       "missingFields": [
-        "radial_velocity_kms",
         "luminosity_solar",
         "radius_solar",
         "metallicity_dex",
@@ -801,7 +819,6 @@
       "system": "EZ Aquarii",
       "component": "B",
       "missingFields": [
-        "radial_velocity_kms",
         "luminosity_solar",
         "radius_solar",
         "metallicity_dex",
@@ -815,7 +832,6 @@
       "system": "EZ Aquarii",
       "component": "C",
       "missingFields": [
-        "radial_velocity_kms",
         "luminosity_solar",
         "radius_solar",
         "metallicity_dex",
@@ -860,8 +876,6 @@
       "system": "Fomalhaut",
       "component": "A",
       "missingFields": [
-        "radial_velocity_kms",
-        "mass_solar",
         "age_gyr"
       ],
       "supplementedFields": {}
@@ -2963,7 +2977,6 @@
       "system": "Luhman 16",
       "component": "A",
       "missingFields": [
-        "absolute_mag",
         "radial_velocity_kms",
         "metallicity_dex"
       ],
@@ -2975,7 +2988,6 @@
       "system": "Luhman 16",
       "component": "B",
       "missingFields": [
-        "absolute_mag",
         "radial_velocity_kms",
         "metallicity_dex"
       ],
@@ -2988,9 +3000,6 @@
       "component": "A",
       "missingFields": [
         "radial_velocity_kms",
-        "luminosity_solar",
-        "radius_solar",
-        "metallicity_dex",
         "age_gyr"
       ],
       "supplementedFields": {}
@@ -3002,8 +3011,6 @@
       "component": "B",
       "missingFields": [
         "radial_velocity_kms",
-        "luminosity_solar",
-        "radius_solar",
         "age_gyr"
       ],
       "supplementedFields": {}

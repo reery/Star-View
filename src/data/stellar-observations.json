@@ -1,0 +1,41 @@
+{
+  "schemaVersion": 1,
+  "reviewed": "2026-10-15",
+  "policy": "Exact reviewed object identities only. Passband-specific photometry, conditional model ranges and withheld radial-velocity evidence are display metadata; they never fill Johnson V, scalar mass or the space-motion astrometry bundle.",
+  "objects": {
+    "wise-0855-0714": {
+      "expected_name": "WISE 0855-0714",
+      "expected_designation": "WISE J085510.83-071442.5",
+      "observations": {
+        "mass_range": {
+          "min_jupiter": 3,
+          "max_jupiter": 10,
+          "assumed_age_min_gyr": 1,
+          "assumed_age_max_gyr": 10,
+          "status": "model-derived",
+          "reference": "Luhman 2014, ApJL 786 L18, abstract and Section 3.2",
+          "source_url": "https://arxiv.org/pdf/1404.6501",
+          "scope": "Evolutionary-model mass range for WISE 0855-0714, conditional on an assumed age of 1-10 Gyr. Neither a dynamical mass measurement nor a confidence interval; no midpoint mass or measured age is adopted. The 3-10 Jupiter-mass range is also supported by Rowland et al. 2024, Section IV (https://arxiv.org/html/2411.14541v2)."
+        },
+        "infrared_photometry": {
+          "band": "W2",
+          "instrument": "WISE",
+          "wavelength_microns": 4.6,
+          "system": "Vega",
+          "magnitude": 13.89,
+          "error_mag": 0.05,
+          "observed_on": ["2010-05-04", "2010-11-11"],
+          "reference": "Luhman 2014, ApJL 786 L18, Table 1 and Section 2.3",
+          "source_url": "https://arxiv.org/pdf/1404.6501",
+          "scope": "Apparent W2 magnitude of the moving WISE 0855-0714 object after subtracting the two stationary background sources using their Spitzer [4.5] photometry. Preserves the published 0.05 mag uncertainty. Infrared snapshot photometry, not Johnson V and not the blended All-Sky W2=13.63 measurement."
+        },
+        "radial_velocity_review": {
+          "status": "withheld",
+          "reference": "Rowland et al. 2024, Appendix B, Figure 7",
+          "source_url": "https://arxiv.org/html/2411.14541v2",
+          "reason": "JWST/NIRSpec atmospheric retrievals fit radial velocity, but the authors attribute the discrepant results from the two datasets to wavelength-calibration differences. No calibrated bulk radial velocity is adopted from these fits. Proper-motion-derived tangential speed cannot substitute for radial velocity; space motion remains transverse only."
+        }
+      }
+    }
+  }
+}
