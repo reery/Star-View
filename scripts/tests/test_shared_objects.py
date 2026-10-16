@@ -1,4 +1,5 @@
 """Focused checks for adopted shared details and component isolation."""
+import csv
 import json
 import sys
 import unittest
@@ -9,6 +10,31 @@ from catalog_sources.shared_objects import adopt_shared_object
 
 
 class SharedObjectTests(unittest.TestCase):
+    def test_delta_pav_catalogs_follow_published_iron_quantity_and_error_columns(self):
+        root = Path(__file__).resolve().parents[2]
+        work = root / "catalog-work/shared-enrichment"
+        published = next(line.split() for line in (work / "delta-pav-2025-table1.txt").read_text().splitlines()
+                         if line.split() and line.split()[0] == "99240")
+        review = json.loads((work / "delta-pav-review.json").read_text())
+        fields = review["adoptedFields"]
+        # The machine-readable paper defines lower then upper age errors.
+        # Swapping these reproduces the Wikipedia transcription error.
+        self.assertEqual(fields["age_gyr"]["uncertainty"],
+                         {"lower": float(published[11]), "upper": float(published[12])})
+        for catalog, identifier in [("nearest-1000", "cns5-4994"),
+                                    ("western-constellation-stars", "hip-99240")]:
+            with self.subTest(catalog=catalog):
+                path = root / "src/data/catalogs" / catalog / "stars.csv"
+                with path.open() as handle:
+                    row = next(row for row in csv.DictReader(handle) if row["id"] == identifier)
+                self.assertEqual(row["metallicity_kind"], "[Fe/H]")
+                for field, column in [("mass_solar", 7), ("metallicity_dex", 5), ("age_gyr", 10)]:
+                    self.assertEqual(float(row[field]), float(published[column]))
+                before = review["previousCatalogRecords"][f"{catalog}:{identifier}"]["row"]
+                for field, value in before.items():
+                    if field not in {*fields, "metallicity_kind", "notes"}:
+                        self.assertEqual(row[field], value, field)
+
     def test_hot_star_corrections_replace_bad_models_and_preserve_other_fields(self):
         review = json.loads((Path(__file__).resolve().parents[2] / "catalog-work/shared-enrichment/hot-star-temperature-review.json").read_text())
         self.assertEqual(len(review["objects"]), 13)

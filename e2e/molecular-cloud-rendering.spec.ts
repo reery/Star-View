@@ -225,6 +225,59 @@ test('uses apparent brightness once in both views while retaining map zoom restr
   expect(regionLight(overview, points[star.id]!, 40)).toBeLessThan(distant[0]! * 0.5)
 })
 
+test('keeps selected point objects clear at close and overview zoom and restores their normal appearance', { tag: '@mobile' }, async ({ page }, testInfo) => {
+  const errors: string[] = []
+  page.on('pageerror', (error) => errors.push(error.message))
+  const dwarf: Star = { ...sun, id: 'faint-dwarf', name: 'Faint dwarf', x_pc: -10,
+    temperature_k: 2930, spectral_type: 'M5.5Ve', absolute_mag: 15.5 }
+  const select = (id: string | null) => page.evaluate((id) =>
+    (window as unknown as { selectViewer(id: string | null): Promise<void> }).selectViewer(id), id)
+  const capture = async (name: string) => PNG.sync.read(await page.locator('div canvas').screenshot({
+    scale: 'css', style: '.projected-labels, .projected-axes { visibility: hidden !important; }',
+    path: testInfo.outputPath(`${name}.png`),
+  }))
+  for (const mode of ['real', 'exaggerated'] as const) {
+    for (const target of [sun, dwarf]) {
+      for (const distance of [20, 2000]) {
+        const name = `selected-${target.id}-${mode}-${distance}pc`
+        const points = await page.evaluate((options) =>
+          (window as unknown as { renderViewer(options: ViewerRenderOptions): Promise<Record<string, { x: number; y: number }>> }).renderViewer(options),
+        { stars: [sun, dwarf], targetId: target.id, selectedId: target.id, cameraOffsetPc: [0, 0, distance],
+          observerView: false, mode, showClouds: false } satisfies ViewerRenderOptions)
+        await select(null)
+        const normal = regionLight(await capture(`${name}-normal`), points[target.id]!, 40)
+        await select(target.id)
+        const selected = await capture(name)
+        const selectedLight = regionLight(selected, points[target.id]!, 40)
+        expect(selectedLight).toBeGreaterThan(20_000)
+        expect(selectedLight).toBeGreaterThan(normal * 2)
+        await select(null)
+        const restored = regionLight(await capture(`${name}-restored`), points[target.id]!, 40)
+        expect(restored).toBe(normal)
+      }
+    }
+  }
+  expect(errors).toEqual([])
+})
+
+test('highlights a selected faint star in Observer view without retaining the highlight after deselection', async ({ page }, testInfo) => {
+  const faint: Star = { ...sun, id: 'faint-observer-source', name: 'Faint source', x_pc: -10, absolute_mag: 15.5 }
+  const points = await page.evaluate((options) =>
+    (window as unknown as { renderViewer(options: ViewerRenderOptions): Promise<Record<string, { x: number; y: number }>> }).renderViewer(options),
+  { stars: [sun, faint], targetId: faint.id, observerView: true, mode: 'real', showClouds: false } satisfies ViewerRenderOptions)
+  const capture = async (name: string) => regionLight(PNG.sync.read(await page.locator('div canvas').screenshot({
+    scale: 'css', style: '.projected-labels, .projected-axes { visibility: hidden !important; }',
+    path: testInfo.outputPath(`${name}.png`),
+  })), points[faint.id]!, 40)
+  const normal = await capture('observer-faint-normal')
+  await page.evaluate((id) => (window as unknown as { selectViewer(id: string | null): Promise<void> }).selectViewer(id), faint.id)
+  const selected = await capture('observer-faint-selected')
+  expect(selected).toBeGreaterThan(20_000)
+  expect(selected).toBeGreaterThan(normal * 2)
+  await page.evaluate(() => (window as unknown as { selectViewer(id: string | null): Promise<void> }).selectViewer(null))
+  expect(await capture('observer-faint-restored')).toBe(normal)
+})
+
 test('matches Earth-chart brightness for Heka A and the Orion belt from the Sun in both views', async ({ page }, testInfo) => {
   const components: Star[] = JSON.parse(readFileSync(new URL('../src/data/stellar-companions.json', import.meta.url), 'utf8')).stars
   const ids = ['hip-26207', 'bright-alnitak', 'bright-mintaka', 'bright-alnilam']

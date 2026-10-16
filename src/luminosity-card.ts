@@ -1,3 +1,4 @@
+import { Globe, Sun, createElement } from 'lucide'
 import { starDisplayColor, type StarColorMode } from './astronomy'
 import { STELLAR_OBJECT_TYPES, type Star } from './catalog-model'
 import { disposeConstellationStars, renderConstellationStars } from './constellation-star-appearance'
@@ -19,7 +20,7 @@ const scientific = (value: number | null, unit: string) => {
 }
 const solar = (value: number) => `${value < 0.001 || value >= 1e6 ? scientific(value, '').trim() : value >= 1000 ? `${number(value / 1000)}k` : number(value)} L☉`
 const factor = (value: number | null) => value === null ? MISSING_VALUE
-  : value < 0.001 || value >= 1e6 ? scientific(value, '').replace(' × ', '·').trim()
+  : value < 0.001 || value >= 1e6 ? scientific(value, '').replace(' × ', ' · ').trim()
     : value >= 1000 ? `${number(value / 1000)}k` : number(value)
 
 export function nearbySolarOrbit(distanceAu: number): string | null {
@@ -76,10 +77,18 @@ export function renderLuminosityCard(card: HTMLElement, star: Star, origin: Star
   const luminosity = star.luminosity_solar!
   const color = starDisplayColor(star, colorMode).getStyle()
   card.style.setProperty('--luminosity-star-color', color)
+  // The result illustrates perceived color, independent of exaggerated scene colors.
+  card.style.setProperty('--luminosity-real-color', starDisplayColor(star, 'real').getStyle())
+  for (const [id, shape] of [['luminosity-area-icon', Globe], ['luminosity-surface-flux-icon', Sun]] as const) {
+    get(id).replaceChildren(createElement(shape, { width: 36, height: 36, 'stroke-width': 1.3, 'aria-hidden': 'true' }))
+  }
   const properties = luminosityProperties(star)
   set('luminosity-area', factor(properties.areaSolar))
   set('luminosity-surface-flux', factor(properties.surfaceFluxSolar))
   set('luminosity-calculated-value', factor(properties.calculatedSolar))
+  for (const id of ['luminosity-area', 'luminosity-surface-flux', 'luminosity-calculated-value']) {
+    get(id).classList.toggle('luminosity-long-value', get(id).textContent!.length > 5)
+  }
   get('luminosity-calculated-unit').hidden = properties.calculatedSolar === null
   const missing = [properties.areaM2 === null ? 'radius' : '', properties.surfaceFlux === null ? 'effective temperature' : ''].filter(Boolean)
   const difference = properties.calculatedSolar === null ? 0 : Math.abs(properties.calculatedSolar / luminosity - 1)
@@ -87,13 +96,15 @@ export function renderLuminosityCard(card: HTMLElement, star: Star, origin: Star
     : difference > 0.05 ? `Catalog R, T and L differ by ${number(difference * 100)}%; comparisons use catalog L.` : '')
   get('luminosity-calculation-note').hidden = !get('luminosity-calculation-note').textContent
 
-  const flux = originFluxAtAu(origin)
-  set('luminosity-flux-origin-value', flux === null ? '' : `${number(flux)} W/m²`)
-  get('luminosity-flux-origin-value').hidden = flux === null
+  const originFlux = originFluxAtAu(origin)
+  const reference = originFlux === null ? sun : origin
+  const flux = originFluxAtAu(reference)
+  set('luminosity-flux-origin-value', originFlux === null ? '' : `${number(originFlux)} W/m²`)
+  get('luminosity-flux-origin-value').hidden = originFlux === null
   const rows = [['origin', origin], ['selected', star], ['sun', sun]] as const
   const shownObjects = new Set<string>()
   const distances = rows.map(([id, object]) => {
-    const comparison = equalFluxDistance(object, origin)
+    const comparison = equalFluxDistance(object, reference)
     const visible = !shownObjects.has(object.id)
     shownObjects.add(object.id)
     return { id, object, ...comparison, visible }
@@ -102,7 +113,10 @@ export function renderLuminosityCard(card: HTMLElement, star: Star, origin: Star
   const orbitMarkers = flux === null ? [] : solarOrbitMarkers(maximum)
   const bottomBarId = distances.findLast((row) => row.visible && !row.insidePhotosphere && row.distanceAu !== null)?.id
   const notes: string[] = []
-  if (flux === null) notes.push(origin.luminosity_solar === null ? `${origin.name} has no catalog bolometric luminosity.` : 'The origin is not a supported radiating star, or 1 AU is inside its photosphere.')
+  if (originFlux === null) {
+    notes.push(origin.luminosity_solar === null ? `${origin.name} has no catalog bolometric luminosity.` : 'The origin is not a supported radiating star, or 1 AU is inside its photosphere.')
+    if (flux !== null) notes.push(`Using the Sun’s flux at 1 AU (${number(flux)} W/m²) as the reference.`)
+  }
   for (const row of distances) {
     get(`luminosity-flux-${row.id}`).hidden = !row.visible
     set(`luminosity-flux-${row.id}-name`, row.object.name)
@@ -141,7 +155,7 @@ export function renderLuminosityCard(card: HTMLElement, star: Star, origin: Star
       bar.style.setProperty('--mass-ratio-position', `${row.distanceAu! / maximum * 100}%`)
       const references = markers.length ? ` Solar orbit references: ${markers.map((marker) => `${marker.name} at ${number(marker.distanceAu)} AU`).join(', ')}.` : ''
       bar.setAttribute('aria-label', `${row.object.name}: Earth at ${number(row.distanceAu!)} AU receives ${number(flux!)} watts per square meter. Shared linear distance scale from zero to ${number(maximum)} AU.${references}`)
-    } else if (flux !== null && row.visible) notes.push(row.insidePhotosphere ? `${row.object.name}: the calculated distance lies inside its photosphere.` : `${row.object.name}: bolometric luminosity unavailable.`)
+    } else if (flux !== null && row.visible && !(row.id === 'origin' && originFlux === null)) notes.push(row.insidePhotosphere ? `${row.object.name}: the calculated distance lies inside its photosphere.` : `${row.object.name}: bolometric luminosity unavailable.`)
   }
   set('luminosity-distance-axis-high', `${number(maximum)} AU`)
   get('luminosity-distance-axis').hidden = flux === null

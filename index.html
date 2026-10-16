@@ -321,12 +321,12 @@
                 <button id="luminosity-close" class="panel-lock" type="button" aria-label="Close bolometric luminosity card"><span id="luminosity-close-icon"></span></button>
               </div>
               <div class="mass-body luminosity-body card-scroll-content">
-                <div class="luminosity-equation" role="group" aria-label="Surface area relative to the Sun times radiated power per square meter relative to the Sun equals bolometric luminosity in solar units">
-                  <div class="luminosity-factor"><strong id="luminosity-area"></strong><span>Sun’s surface area</span></div>
+                <div class="planet-facts-grid luminosity-equation" role="group" aria-label="Surface area relative to the Sun times radiated power per square meter relative to the Sun equals bolometric luminosity in solar units">
+                  <div class="planet-fact-tile luminosity-factor" role="group" aria-label="Surface area in solar surface areas"><h3 class="luminosity-factor-title">Surface area</h3><span id="luminosity-area-icon" class="luminosity-factor-icon" aria-hidden="true"></span><div class="luminosity-factor-quantity"><strong id="luminosity-area"></strong><span class="luminosity-factor-unit" title="Solar surface area, 4πR☉²">A☉</span></div></div>
                   <span class="luminosity-equation-symbol" aria-hidden="true">×</span>
-                  <div class="luminosity-factor"><strong id="luminosity-surface-flux"></strong><span>Sun’s power per m²</span></div>
+                  <div class="planet-fact-tile luminosity-factor" role="group" aria-label="Flux per area in solar surface fluxes"><h3 class="luminosity-factor-title">Flux per area</h3><span id="luminosity-surface-flux-icon" class="luminosity-factor-icon" aria-hidden="true"></span><div class="luminosity-factor-quantity"><strong id="luminosity-surface-flux"></strong><span class="luminosity-factor-unit" title="Solar surface flux, L☉/(4πR☉²)">F☉</span></div></div>
                   <span class="luminosity-equation-symbol" aria-hidden="true">=</span>
-                  <strong id="luminosity-calculated-solar"><span id="luminosity-calculated-value"></span><span id="luminosity-calculated-unit" class="luminosity-result-unit"> L☉</span></strong>
+                  <div class="planet-fact-tile luminosity-factor luminosity-result"><h3 class="luminosity-factor-title">Bolometric luminosity</h3><span class="luminosity-factor-icon" aria-hidden="true"><span id="luminosity-result-star"></span></span><strong id="luminosity-calculated-solar" class="luminosity-factor-quantity"><span id="luminosity-calculated-value"></span><span id="luminosity-calculated-unit" class="luminosity-factor-unit"> L☉</span></strong></div>
                 </div>
                 <p id="luminosity-calculation-note" class="mass-note" hidden></p>
                 <section class="mass-section" aria-labelledby="luminosity-flux-heading">
@@ -363,8 +363,8 @@
                   </div>
                 </section>
                 <details class="mass-method"><summary>Calculations &amp; sources</summary>
-                  <p>Surface area × power per m² = 4πR² × σT<sub>eff</sub>⁴. Both factors are shown relative to the Sun: solar surface area = 4πR☉² and solar power per m² = L☉/(4πR☉²). Their product gives luminosity in L☉. T is the catalog effective temperature. This is a spherical photosphere calculation; the spectrum need not be an exact blackbody. Radius, temperature and luminosity can come from different measured or model-derived sources and need not agree exactly. The catalog luminosity is retained for both comparisons and scales; missing radius or temperature is not inferred.</p>
-                  <p>Incident flux F = L/(4πd²). To match the origin’s flux at 1 AU, d = √(L/L<sub>origin</sub>) AU. Distances share a linear scale from the star’s center. Flux is measured above an atmosphere on a surface facing the star, not averaged over Earth. Equal bolometric flux does not imply the same spectrum, climate or habitability. These comparisons omit extinction, variability and companion illumination; distances inside a known photosphere are unavailable. Orbit comparisons use the closest Solar System planet’s semi-major axis, Mercury through Neptune, only within 20%; these are orbital sizes, not current planet positions.</p>
+                  <p>Surface area × power per m² = 4πR² × σT<sub>eff</sub>⁴. Both factors are shown relative to the Sun: solar surface area A☉ = 4πR☉² and solar power per m² F☉ = L☉/A☉. Their product gives luminosity in L☉. T is the catalog effective temperature. This is a spherical photosphere calculation; the spectrum need not be an exact blackbody. Radius, temperature and luminosity can come from different measured or model-derived sources and need not agree exactly. The catalog luminosity is retained for both comparisons and scales; missing radius or temperature is not inferred.</p>
+                  <p>Incident flux F = L/(4πd²). To match the origin’s flux at 1 AU, d = √(L/L<sub>origin</sub>) AU. When the origin’s flux is unavailable, the Sun’s flux at 1 AU is used instead. Distances share a linear scale from the star’s center. Flux is measured above an atmosphere on a surface facing the star, not averaged over Earth. Equal bolometric flux does not imply the same spectrum, climate or habitability. These comparisons omit extinction, variability and companion illumination; distances inside a known photosphere are unavailable. Orbit comparisons use the closest Solar System planet’s semi-major axis, Mercury through Neptune, only within 20%; these are orbital sizes, not current planet positions.</p>
                   <p>Both luminosity scales are logarithmic. The broad scale spans 10⁻⁶–10⁶ L☉ and expands for outliers; these endpoints are display limits. Marker color follows the app’s stellar color setting, not luminosity.</p>
                   <p id="luminosity-class-method"></p><a id="luminosity-class-source" target="_blank" rel="noreferrer" hidden></a>
                   <p>1 L☉ = 3.828 × 10²⁶ W; R☉ = 695,700 km; 1 AU = 149,597,870,700 m; σ = 5.670374419 × 10⁻⁸ W m⁻² K⁻⁴. The nominal solar luminosity gives approximately 1,361 W/m² at 1 AU. Displayed values use three significant digits.</p>
@@ -593,6 +593,7 @@
               <div id="origin-controls" class="origin-controls" role="group" aria-label="Origin controls">
                 <button id="set-origin" class="icon-button" type="button" aria-label="Set selected object as origin" disabled><span id="set-origin-icon"></span><span class="tooltip">Set <span class="origin-tooltip-object"><span id="set-origin-swatch" class="star-swatch" aria-hidden="true"></span><span id="set-origin-name">selected object</span></span> as origin</span></button>
                 <div class="origin-options">
+                  <button id="set-sun-origin" class="icon-button" type="button" aria-label="Set Sun as origin" aria-controls="scene" disabled><span id="set-sun-origin-icon"></span><span class="tooltip">Set <span class="origin-tooltip-object"><span id="set-sun-origin-swatch" class="star-swatch" aria-hidden="true"></span>Sun</span> as origin</span></button>
                   <button id="go-to-origin" class="icon-button" type="button" aria-label="Go to set origin" aria-controls="scene" disabled><span id="go-to-origin-icon"></span><span class="tooltip">Go to <span class="origin-tooltip-object"><span id="go-to-origin-swatch" class="star-swatch" aria-hidden="true"></span><span id="go-to-origin-name"></span></span></span></button>
                 </div>
               </div>
@@ -796,6 +797,7 @@
                   <div><dt>Repository</dt><dd><a href="https://github.com/reery/Star-View" target="_blank" rel="noreferrer">GitHub</a></dd></div>
                   <div><dt>License</dt><dd>MIT</dd></div>
                   <div><dt>Sky image</dt><dd><a href="https://www.eso.org/public/images/eso0932a/" target="_blank" rel="noreferrer">ESO/S. Brunier</a><br><span class="attribution-note">resized and dimmed · <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noreferrer">CC BY 4.0</a></span></dd></div>
+                  <div><dt>Catalog updated</dt><dd><time datetime="2026-10-16">16 October 2026</time></dd></div>
                   <div><dt>Version</dt><dd>v0.5</dd></div>
                 </dl>
               </section>

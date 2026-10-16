@@ -1,0 +1,558 @@
+{
+  "schemaVersion": 1,
+  "reviewed": "2026-10-16",
+  "identity": {
+    "simbadId": "* del Pav",
+    "hip": 99240,
+    "hd": 190248,
+    "cns5Id": "4994",
+    "gaiaDr3Id": "6427464123776727168",
+    "starIds": [
+      "cns5-4994",
+      "hip-99240"
+    ]
+  },
+  "adoptedFields": {
+    "mass_solar": {
+      "value": 1.07,
+      "uncertainty": {
+        "lower": 0.01,
+        "upper": 0.01
+      },
+      "status": "model-derived",
+      "quantity": "present-day stellar mass",
+      "reference": "2025ApJ...983L..31C",
+      "url": "https://arxiv.org/abs/2504.17482",
+      "table": "Table 1, machine-readable HIP 99240",
+      "sourceRecordId": "HIP 99240",
+      "method": "Yonsei-Yale isochrone probability fit constrained by differential HARPS spectroscopy, Gaia DR3 parallax and V photometry",
+      "caveat": "Internal model uncertainty, not a dynamical mass or a complete systematic error budget."
+    },
+    "metallicity_dex": {
+      "value": 0.371,
+      "uncertainty": 0.008,
+      "status": "measured",
+      "quantity": "photospheric [Fe/H]",
+      "reference": "2025ApJ...983L..31C",
+      "url": "https://arxiv.org/abs/2504.17482",
+      "table": "Table 1, machine-readable HIP 99240",
+      "sourceRecordId": "HIP 99240",
+      "method": "High-SNR HARPS line-by-line differential Fe I/Fe II spectroscopy relative to the Sun; MOOG/q2",
+      "caveat": "Internal differential precision; iron abundance, not Gaia overall [M/H]. Other published spectroscopic values differ by more than this formal error."
+    },
+    "age_gyr": {
+      "value": 6.1,
+      "uncertainty": {
+        "lower": 0.26,
+        "upper": 0.25
+      },
+      "status": "model-derived",
+      "quantity": "isochronal stellar age",
+      "reference": "2025ApJ...983L..31C",
+      "url": "https://arxiv.org/abs/2504.17482",
+      "table": "Table 1, machine-readable HIP 99240",
+      "sourceRecordId": "HIP 99240",
+      "method": "Yonsei-Yale isochrone probability fit; solar-normalized diffusion correction and Mg/Fe alpha enhancement",
+      "caveat": "Model-dependent isochronal age. Use the machine-readable table lower/upper errors; these are reversed in the current Wikipedia infobox. Not an extrapolation of the paper age-activity relation beyond its calibrated metallicity range."
+    },
+    "temperature_k": {
+      "value": 5571,
+      "uncertainty": 48,
+      "status": "derived",
+      "quantity": "effective temperature",
+      "reference": "2020MNRAS.493.2377R",
+      "url": "https://arxiv.org/abs/2004.02343",
+      "table": "Table 4, Delta Pav",
+      "sourceRecordId": "HD 190248",
+      "method": "Interferometric limb-darkened angular diameter plus bolometric flux; Stefan-Boltzmann relation",
+      "caveat": "Retained at the published parallax 164.05 +/- 0.36 mas, consistent with the unchanged catalog parallax 163.9544 mas. Temperature, radius and luminosity form one internally consistent interferometric solution."
+    },
+    "radius_solar": {
+      "value": 1.197,
+      "uncertainty": 0.016,
+      "status": "derived",
+      "quantity": "photospheric radius",
+      "reference": "2020MNRAS.493.2377R",
+      "url": "https://arxiv.org/abs/2004.02343",
+      "table": "Table 4, Delta Pav",
+      "sourceRecordId": "HD 190248",
+      "method": "VLTI/PIONIER limb-darkened angular diameter plus parallax",
+      "caveat": "Retained at the published parallax 164.05 +/- 0.36 mas, consistent with the unchanged catalog parallax 163.9544 mas. Temperature, radius and luminosity form one internally consistent interferometric solution."
+    },
+    "luminosity_solar": {
+      "value": 1.24,
+      "uncertainty": 0.03,
+      "status": "derived",
+      "quantity": "bolometric luminosity",
+      "reference": "2020MNRAS.493.2377R",
+      "url": "https://arxiv.org/abs/2004.02343",
+      "table": "Table 4, Delta Pav",
+      "sourceRecordId": "HD 190248",
+      "method": "Bolometric flux plus parallax",
+      "caveat": "Retained at the published parallax 164.05 +/- 0.36 mas, consistent with the unchanged catalog parallax 163.9544 mas. Temperature, radius and luminosity form one internally consistent interferometric solution."
+    }
+  },
+  "sources": [
+    {
+      "reference": "2025ApJ...983L..31C",
+      "url": "https://arxiv.org/abs/2504.17482",
+      "dataUrl": "https://content.cld.iop.org/journals/2041-8205/983/2/L31/revision1/apjladc382t1_mrt.txt",
+      "frozenFile": "delta-pav-2025-table1.txt",
+      "exactRow": " 99240 5609  8 4.29 0.02  0.371 0.008 1.07 0.01 0.01  6.10 0.26 0.25  "
+    },
+    {
+      "reference": "2020MNRAS.493.2377R",
+      "url": "https://arxiv.org/html/2004.02343v1",
+      "table": "Table 4",
+      "exactRow": {
+        "theta_ud_mas": [
+          1.785,
+          0.025
+        ],
+        "theta_ld_mas": [
+          1.828,
+          0.025
+        ],
+        "radius_solar": [
+          1.197,
+          0.016
+        ],
+        "fbol_1e8_cgs": [
+          107.2,
+          2.5
+        ],
+        "temperature_k": [
+          5571,
+          48
+        ],
+        "luminosity_solar": [
+          1.24,
+          0.03
+        ]
+      }
+    }
+  ],
+  "alternatives": {
+    "2025SpectroscopicTemperature": {
+      "value": 5609,
+      "uncertainty": 8,
+      "unit": "K",
+      "reference": "2025ApJ...983L..31C",
+      "reasonNotAdopted": "Prefer the more direct, internally consistent angular-diameter/bolometric-flux temperature. Agreement is within the interferometric uncertainty; the smaller differential spectroscopic error is internal precision."
+    },
+    "modernSpectroscopicScatter": "Rains 2020 Table 1 compiles Delgado Mena 2017 [Fe/H]=+0.33 +/- 0.03 dex; SIMBAD latest listed Contursi 2024 AMBRE result is +0.26 dex. These support metal enrichment but demonstrate method-dependent scatter beyond the 2025 formal error."
+  },
+  "previousCatalogRecords": {
+    "nearest-1000:cns5-4994": {
+      "row": {
+        "type": "star",
+        "id": "cns5-4994",
+        "name": "Delta Pav",
+        "designations": "",
+        "spectral_type": "G8IV",
+        "x_pc": "4.448540256",
+        "y_pc": "-2.592507484",
+        "z_pc": "-3.269631894",
+        "vx_kms": "-48.480003",
+        "vy_kms": "-13.472607",
+        "vz_kms": "-15.090638",
+        "temperature_k": "5438",
+        "mass_solar": "0.94",
+        "luminosity_solar": "1.2535083",
+        "radius_solar": "1.2615935",
+        "metallicity_dex": "0.0321",
+        "metallicity_kind": "[M/H]",
+        "age_gyr": "",
+        "absolute_mag": "4.633611",
+        "epoch": "2000.0",
+        "notes": "Western constellation line-figure star (HIP 99240; Stellarium Pav). SIMBAD identity * del Pav; SIMBAD compiled Johnson V=3.56; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: reviewed Star View values for temperature_k, mass_solar, luminosity_solar, radius_solar, metallicity_dex.",
+        "constellation": "Pavo",
+        "ra_deg": "302.1817036316884",
+        "dec_deg": "-66.18206743589695",
+        "astrometry_epoch": "2000.0",
+        "parallax_mas": "163.9544",
+        "parallax_error_mas": "0.1222",
+        "pm_ra_cosdec_masyr": "1211.761",
+        "pm_ra_error_masyr": "",
+        "pm_dec_masyr": "-1130.237",
+        "pm_dec_error_masyr": "",
+        "radial_velocity_kms": "-21.543",
+        "radial_velocity_error_kms": "",
+        "astrometry_ref": "SIMBAD TAP snapshot 2026-10-01",
+        "radial_velocity_ref": "SIMBAD TAP snapshot 2026-10-01"
+      },
+      "provenance": {
+        "astrometry": {
+          "astrometry_ref": "2020yCat.1350....0G",
+          "dec_deg": -66.18709128441725,
+          "epoch": 2016.0,
+          "parallax_error_mas": 0.14019509,
+          "parallax_mas": 163.9544145383167,
+          "pm_dec_error_masyr": 0.1032792180776596,
+          "pm_dec_masyr": -1130.2369049548956,
+          "pm_ra_cosdec_masyr": 1211.7606270999615,
+          "pm_ra_error_masyr": 0.07212468981742859,
+          "quality_flags": [],
+          "ra_deg": 302.19503988923026,
+          "radial_velocity_error_kms": null,
+          "radial_velocity_kms": null,
+          "radial_velocity_ref": null,
+          "source_id": "cns5",
+          "source_record_id": "4994"
+        },
+        "cns5Id": "4994",
+        "fieldStatus": {
+          "absolute_mag": "adopted",
+          "age_gyr": "unknown",
+          "astrometry_epoch": "adopted",
+          "astrometry_ref": "adopted",
+          "constellation": "adopted",
+          "dec_deg": "adopted",
+          "epoch": "adopted",
+          "luminosity_solar": "model-derived",
+          "mass_solar": "model-derived",
+          "metallicity_dex": "model-derived",
+          "parallax_error_mas": "adopted",
+          "parallax_mas": "adopted",
+          "pm_dec_error_masyr": "unknown",
+          "pm_dec_masyr": "adopted",
+          "pm_ra_cosdec_masyr": "adopted",
+          "pm_ra_error_masyr": "unknown",
+          "ra_deg": "adopted",
+          "radial_velocity_error_kms": "unknown",
+          "radial_velocity_kms": "adopted",
+          "radial_velocity_ref": "adopted",
+          "radius_solar": "model-derived",
+          "temperature_k": "model-derived",
+          "vx_kms": "adopted",
+          "vy_kms": "adopted",
+          "vz_kms": "adopted",
+          "x_pc": "adopted",
+          "y_pc": "adopted",
+          "z_pc": "adopted"
+        },
+        "gaiaDr3Id": "6427464123776727168",
+        "id": "cns5-4994",
+        "identityMethod": "exact CNS5 identifier; exact Gaia DR3 identifier when present",
+        "physicalObservations": [
+          {
+            "field": "temperature_k",
+            "quality_flags": [],
+            "reference": "Gaia DR3 astrophysical_parameters",
+            "source_id": "gaia-dr3",
+            "source_record_id": "6427464123776727168",
+            "status": "model-derived",
+            "uncertainty": 1.7664000000004307,
+            "value": 5437.5474
+          },
+          {
+            "field": "metallicity_dex",
+            "quality_flags": [],
+            "reference": "Gaia DR3 astrophysical_parameters",
+            "source_id": "gaia-dr3",
+            "source_record_id": "6427464123776727168",
+            "status": "model-derived",
+            "uncertainty": 0.006000000000000005,
+            "value": 0.0321
+          },
+          {
+            "field": "luminosity_solar",
+            "quality_flags": [
+              "20"
+            ],
+            "reference": "Gaia DR3 astrophysical_parameters",
+            "source_id": "gaia-dr3",
+            "source_record_id": "6427464123776727168",
+            "status": "model-derived",
+            "uncertainty": 0.005378399999999894,
+            "value": 1.2535083
+          },
+          {
+            "field": "radius_solar",
+            "quality_flags": [
+              "20"
+            ],
+            "reference": "Gaia DR3 astrophysical_parameters",
+            "source_id": "gaia-dr3",
+            "source_record_id": "6427464123776727168",
+            "status": "model-derived",
+            "uncertainty": 0.025376499999999913,
+            "value": 1.2615935
+          }
+        ],
+        "physicalSupplements": {
+          "adopted": {},
+          "eligibility": "Not a parsed K5-M9.5 dwarf spectral type (no subdwarf, giant, composite or peculiar class); supplements not applied.",
+          "identity": {
+            "cns5_id": "4994",
+            "gaia_dr2": "6427464325637241728",
+            "identity_method": "exact SIMBAD CNS5 identity",
+            "simbad_id": "* del Pav",
+            "twomass": "20084376-6610563"
+          }
+        },
+        "radialVelocity": {
+          "status": "unknown"
+        },
+        "sharedObjectAdoption": {
+          "fields": [
+            "absolute_mag",
+            "vx_kms",
+            "pm_dec_error_masyr",
+            "pm_ra_cosdec_masyr",
+            "pm_ra_error_masyr",
+            "vy_kms",
+            "x_pc",
+            "dec_deg",
+            "pm_dec_masyr",
+            "radial_velocity_ref",
+            "z_pc",
+            "parallax_mas",
+            "vz_kms",
+            "astrometry_epoch",
+            "ra_deg",
+            "parallax_error_mas",
+            "y_pc",
+            "radial_velocity_kms",
+            "astrometry_ref",
+            "epoch",
+            "constellation",
+            "radial_velocity_error_kms"
+          ],
+          "recordId": "* del Pav",
+          "reviewSha256": "6e7fde855309f18d2f89432978d47bf46f1cec61be30ca1b97f698b2fe67d9df",
+          "scope": "Reviewed catalog object/component cns5-4994; aliases only, distinct companions remain separate.",
+          "sourceEvidence": "Original measurements and catalog-specific provenance are retained; the shared adopted record supersedes them for these fields.",
+          "sourceSelections": {
+            "astrometryAndMotion": {
+              "decision": "Retain the curated nearest-catalog coordinate/motion bundle where available; otherwise use the later Western snapshot. For the eleven reviewed stellar objects with missing CNS5 RV but an existing adopted SIMBAD RV, use the complete Western position/motion bundle to retain full-space motion. Spectroscopic binaries and composite Porrima retain the nearest-catalog RV withholding. Keep positions, velocities, reference epoch, raw measurements, uncertainties and bibliographies together. Withheld individual/system velocities remain withheld.",
+              "fields": [
+                "x_pc",
+                "y_pc",
+                "z_pc",
+                "vx_kms",
+                "vy_kms",
+                "vz_kms",
+                "epoch",
+                "constellation",
+                "ra_deg",
+                "dec_deg",
+                "astrometry_epoch",
+                "parallax_mas",
+                "parallax_error_mas",
+                "pm_ra_cosdec_masyr",
+                "pm_ra_error_masyr",
+                "pm_dec_masyr",
+                "pm_dec_error_masyr",
+                "radial_velocity_kms",
+                "radial_velocity_error_kms",
+                "astrometry_ref",
+                "radial_velocity_ref"
+              ],
+              "source": "western-constellation-stars:hip-99240"
+            },
+            "photometry": {
+              "decision": "Use the component-resolved curated Johnson V/distance where available, otherwise the common selected astrometric snapshot; preserve the specifically reviewed Bright Star Catalogue V=0.76 for Acrux. No integrated system flux is assigned to a faint companion.",
+              "fields": [
+                "absolute_mag"
+              ],
+              "source": "western-constellation-stars:hip-99240"
+            }
+          }
+        },
+        "sharedPhysicalEnrichment": {
+          "mass_solar": {
+            "field": "mass_solar",
+            "identity": "* del Pav",
+            "reference": "1999A&A...352..555A",
+            "sourceRecordId": "HIP 99240",
+            "status": "model-derived",
+            "uncertainty": 0.07,
+            "value": 0.94
+          }
+        },
+        "simbadId": "* del Pav",
+        "sourceType": "PM*"
+      }
+    },
+    "western-constellation-stars:hip-99240": {
+      "row": {
+        "type": "star",
+        "id": "hip-99240",
+        "name": "Delta Pav",
+        "designations": "",
+        "spectral_type": "G8IV",
+        "x_pc": "4.448540256",
+        "y_pc": "-2.592507484",
+        "z_pc": "-3.269631894",
+        "vx_kms": "-48.480003",
+        "vy_kms": "-13.472607",
+        "vz_kms": "-15.090638",
+        "temperature_k": "5438",
+        "mass_solar": "0.94",
+        "luminosity_solar": "1.2535083",
+        "radius_solar": "1.2615935",
+        "metallicity_dex": "0.0321",
+        "metallicity_kind": "[M/H]",
+        "age_gyr": "",
+        "absolute_mag": "4.633611",
+        "epoch": "2000.0",
+        "notes": "Western constellation line-figure star (HIP 99240; Stellarium Pav). SIMBAD identity * del Pav; SIMBAD compiled Johnson V=3.56; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: reviewed Star View values for temperature_k, mass_solar, luminosity_solar, radius_solar, metallicity_dex.",
+        "constellation": "Pavo",
+        "ra_deg": "302.1817036316884",
+        "dec_deg": "-66.18206743589695",
+        "astrometry_epoch": "2000.0",
+        "parallax_mas": "163.9544",
+        "parallax_error_mas": "0.1222",
+        "pm_ra_cosdec_masyr": "1211.761",
+        "pm_ra_error_masyr": "",
+        "pm_dec_masyr": "-1130.237",
+        "pm_dec_error_masyr": "",
+        "radial_velocity_kms": "-21.543",
+        "radial_velocity_error_kms": "",
+        "astrometry_ref": "SIMBAD TAP snapshot 2026-10-01",
+        "radial_velocity_ref": "SIMBAD TAP snapshot 2026-10-01"
+      },
+      "provenance": {
+        "hip": 99240,
+        "figureConstellations": [
+          "Pav"
+        ],
+        "displayConstellation": "Pavo",
+        "simbadId": "* del Pav",
+        "visualMagnitudeSource": "SIMBAD compiled Johnson V",
+        "adoptedDistance": {
+          "method": "Bailer-Jones EDR3 geometric posterior median",
+          "distancePc": 6.0992703,
+          "lowerPc": 6.0946636,
+          "upperPc": 6.104048,
+          "source": "Bailer-Jones et al. 2021",
+          "sourceId": "6427464123776727168"
+        },
+        "radialVelocity": {
+          "status": "simbad-compiled",
+          "frozenSimbadValueKms": -21.543,
+          "adoptedValueKms": -21.543,
+          "uncertaintyKms": null,
+          "reference": "SIMBAD TAP snapshot 2026-10-01"
+        },
+        "gaiaDr3Id": "6427464123776727168",
+        "adoptedPhysicalFields": {
+          "temperature_k": "nearest-1000:cns5-4994",
+          "mass_solar": "nearest-1000:cns5-4994",
+          "luminosity_solar": "nearest-1000:cns5-4994",
+          "radius_solar": "nearest-1000:cns5-4994",
+          "metallicity_dex": "nearest-1000:cns5-4994"
+        },
+        "physicalObservations": [
+          {
+            "field": "temperature_k",
+            "value": 5438.0,
+            "status": "inherited",
+            "source": "nearest-1000",
+            "sourceId": "cns5-4994"
+          },
+          {
+            "field": "mass_solar",
+            "value": 0.94,
+            "status": "inherited",
+            "source": "nearest-1000",
+            "sourceId": "cns5-4994"
+          },
+          {
+            "field": "luminosity_solar",
+            "value": 1.2535083,
+            "status": "inherited",
+            "source": "nearest-1000",
+            "sourceId": "cns5-4994"
+          },
+          {
+            "field": "radius_solar",
+            "value": 1.2615935,
+            "status": "inherited",
+            "source": "nearest-1000",
+            "sourceId": "cns5-4994"
+          },
+          {
+            "field": "metallicity_dex",
+            "value": 0.0321,
+            "status": "inherited",
+            "source": "nearest-1000",
+            "sourceId": "cns5-4994"
+          }
+        ],
+        "sharedObjectAdoption": {
+          "recordId": "* del Pav",
+          "reviewSha256": "e2ca0b48c3c122a878a0cad107077833f66a18c7ab7c7d42bc9a14f01ca3b8fe",
+          "scope": "Reviewed catalog object/component cns5-4994; aliases only, distinct companions remain separate.",
+          "fields": [
+            "absolute_mag",
+            "vx_kms",
+            "pm_dec_error_masyr",
+            "pm_ra_cosdec_masyr",
+            "pm_ra_error_masyr",
+            "vy_kms",
+            "x_pc",
+            "dec_deg",
+            "pm_dec_masyr",
+            "radial_velocity_ref",
+            "z_pc",
+            "parallax_mas",
+            "vz_kms",
+            "astrometry_epoch",
+            "ra_deg",
+            "parallax_error_mas",
+            "y_pc",
+            "radial_velocity_kms",
+            "astrometry_ref",
+            "epoch",
+            "constellation",
+            "radial_velocity_error_kms"
+          ],
+          "sourceSelections": {
+            "astrometryAndMotion": {
+              "source": "western-constellation-stars:hip-99240",
+              "fields": [
+                "x_pc",
+                "y_pc",
+                "z_pc",
+                "vx_kms",
+                "vy_kms",
+                "vz_kms",
+                "epoch",
+                "constellation",
+                "ra_deg",
+                "dec_deg",
+                "astrometry_epoch",
+                "parallax_mas",
+                "parallax_error_mas",
+                "pm_ra_cosdec_masyr",
+                "pm_ra_error_masyr",
+                "pm_dec_masyr",
+                "pm_dec_error_masyr",
+                "radial_velocity_kms",
+                "radial_velocity_error_kms",
+                "astrometry_ref",
+                "radial_velocity_ref"
+              ],
+              "decision": "Retain the curated nearest-catalog coordinate/motion bundle where available; otherwise use the later Western snapshot. For the eleven reviewed stellar objects with missing CNS5 RV but an existing adopted SIMBAD RV, use the complete Western position/motion bundle to retain full-space motion. Spectroscopic binaries and composite Porrima retain the nearest-catalog RV withholding. Keep positions, velocities, reference epoch, raw measurements, uncertainties and bibliographies together. Withheld individual/system velocities remain withheld."
+            },
+            "photometry": {
+              "source": "western-constellation-stars:hip-99240",
+              "fields": [
+                "absolute_mag"
+              ],
+              "decision": "Use the component-resolved curated Johnson V/distance where available, otherwise the common selected astrometric snapshot; preserve the specifically reviewed Bright Star Catalogue V=0.76 for Acrux. No integrated system flux is assigned to a faint companion."
+            }
+          },
+          "sourceEvidence": "Original measurements and catalog-specific provenance are retained; the shared adopted record supersedes them for these fields."
+        }
+      }
+    }
+  },
+  "effectiveComponentPoolBefore": {
+    "present": false,
+    "reason": "Delta Pav is a single catalogued star; neither stable ID occurs in the companion pool."
+  },
+  "preservationScope": "Only these six physical fields and metallicity quantity kind change. Existing membership, component identity, positions, velocities, raw astrometry, uncertainties and Johnson V photometry remain unchanged. Full prior rows/provenance retained above."
+}

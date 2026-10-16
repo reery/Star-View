@@ -7500,9 +7500,16 @@
         "astrometry_ref": "SIMBAD TAP snapshot 2026-10-01",
         "epoch": "2000.0",
         "constellation": "Pavo",
-        "radial_velocity_error_kms": ""
+        "radial_velocity_error_kms": "",
+        "mass_solar": "1.07",
+        "metallicity_dex": "0.371",
+        "age_gyr": "6.1",
+        "temperature_k": "5571",
+        "radius_solar": "1.197",
+        "luminosity_solar": "1.24",
+        "metallicity_kind": "[Fe/H]"
       },
-      "notes": "Western constellation line-figure star (HIP 99240; Stellarium Pav). SIMBAD identity * del Pav; SIMBAD compiled Johnson V=3.56; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: reviewed Star View values for temperature_k, mass_solar, luminosity_solar, radius_solar, metallicity_dex.",
+      "notes": "Western constellation line-figure star (HIP 99240; Stellarium Pav). SIMBAD identity * del Pav; SIMBAD compiled Johnson V=3.56; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Reviewed physical parameters: Carvalho-Silva et al. 2025 Table 1 (HIP 99240): mass 1.07 +/- 0.01 solar (isochrone-derived), [Fe/H] +0.371 +/- 0.008 dex (differential HARPS spectroscopy), isochronal age 6.10 -0.26/+0.25 Gyr. Rains et al. 2020 Table 4 (HD 190248): interferometric/bolometric Teff 5571 +/- 48 K, radius 1.197 +/- 0.016 solar, luminosity 1.24 +/- 0.03 solar. Formal internal errors do not include all method systematics; previous catalog models and the alternative 2025 spectroscopic temperature 5609 +/- 8 K are retained in the frozen Delta Pav review.",
       "sourceSelections": {
         "astrometryAndMotion": {
           "source": "western-constellation-stars:hip-99240",
@@ -7537,6 +7544,100 @@
             "absolute_mag"
           ],
           "decision": "Use the component-resolved curated Johnson V/distance where available, otherwise the common selected astrometric snapshot; preserve the specifically reviewed Bright Star Catalogue V=0.76 for Acrux. No integrated system flux is assigned to a faint companion."
+        },
+        "physicalLiteratureReview": {
+          "source": "catalog-work/shared-enrichment/delta-pav-review.json",
+          "recordId": "* del Pav",
+          "fields": [
+            "mass_solar",
+            "metallicity_dex",
+            "age_gyr",
+            "temperature_k",
+            "radius_solar",
+            "luminosity_solar",
+            "metallicity_kind"
+          ],
+          "decision": "Replace older broad catalog models with verified differential spectroscopy/isochrones and interferometric/bolometric quantities. Keep Fe/H distinct from M/H; retain all previous records, errors and provenance.",
+          "adoptedFields": {
+            "mass_solar": {
+              "value": 1.07,
+              "uncertainty": {
+                "lower": 0.01,
+                "upper": 0.01
+              },
+              "status": "model-derived",
+              "quantity": "present-day stellar mass",
+              "reference": "2025ApJ...983L..31C",
+              "url": "https://arxiv.org/abs/2504.17482",
+              "table": "Table 1, machine-readable HIP 99240",
+              "sourceRecordId": "HIP 99240",
+              "method": "Yonsei-Yale isochrone probability fit constrained by differential HARPS spectroscopy, Gaia DR3 parallax and V photometry",
+              "caveat": "Internal model uncertainty, not a dynamical mass or a complete systematic error budget."
+            },
+            "metallicity_dex": {
+              "value": 0.371,
+              "uncertainty": 0.008,
+              "status": "measured",
+              "quantity": "photospheric [Fe/H]",
+              "reference": "2025ApJ...983L..31C",
+              "url": "https://arxiv.org/abs/2504.17482",
+              "table": "Table 1, machine-readable HIP 99240",
+              "sourceRecordId": "HIP 99240",
+              "method": "High-SNR HARPS line-by-line differential Fe I/Fe II spectroscopy relative to the Sun; MOOG/q2",
+              "caveat": "Internal differential precision; iron abundance, not Gaia overall [M/H]. Other published spectroscopic values differ by more than this formal error."
+            },
+            "age_gyr": {
+              "value": 6.1,
+              "uncertainty": {
+                "lower": 0.26,
+                "upper": 0.25
+              },
+              "status": "model-derived",
+              "quantity": "isochronal stellar age",
+              "reference": "2025ApJ...983L..31C",
+              "url": "https://arxiv.org/abs/2504.17482",
+              "table": "Table 1, machine-readable HIP 99240",
+              "sourceRecordId": "HIP 99240",
+              "method": "Yonsei-Yale isochrone probability fit; solar-normalized diffusion correction and Mg/Fe alpha enhancement",
+              "caveat": "Model-dependent isochronal age. Use the machine-readable table lower/upper errors; these are reversed in the current Wikipedia infobox. Not an extrapolation of the paper age-activity relation beyond its calibrated metallicity range."
+            },
+            "temperature_k": {
+              "value": 5571,
+              "uncertainty": 48,
+              "status": "derived",
+              "quantity": "effective temperature",
+              "reference": "2020MNRAS.493.2377R",
+              "url": "https://arxiv.org/abs/2004.02343",
+              "table": "Table 4, Delta Pav",
+              "sourceRecordId": "HD 190248",
+              "method": "Interferometric limb-darkened angular diameter plus bolometric flux; Stefan-Boltzmann relation",
+              "caveat": "Retained at the published parallax 164.05 +/- 0.36 mas, consistent with the unchanged catalog parallax 163.9544 mas. Temperature, radius and luminosity form one internally consistent interferometric solution."
+            },
+            "radius_solar": {
+              "value": 1.197,
+              "uncertainty": 0.016,
+              "status": "derived",
+              "quantity": "photospheric radius",
+              "reference": "2020MNRAS.493.2377R",
+              "url": "https://arxiv.org/abs/2004.02343",
+              "table": "Table 4, Delta Pav",
+              "sourceRecordId": "HD 190248",
+              "method": "VLTI/PIONIER limb-darkened angular diameter plus parallax",
+              "caveat": "Retained at the published parallax 164.05 +/- 0.36 mas, consistent with the unchanged catalog parallax 163.9544 mas. Temperature, radius and luminosity form one internally consistent interferometric solution."
+            },
+            "luminosity_solar": {
+              "value": 1.24,
+              "uncertainty": 0.03,
+              "status": "derived",
+              "quantity": "bolometric luminosity",
+              "reference": "2020MNRAS.493.2377R",
+              "url": "https://arxiv.org/abs/2004.02343",
+              "table": "Table 4, Delta Pav",
+              "sourceRecordId": "HD 190248",
+              "method": "Bolometric flux plus parallax",
+              "caveat": "Retained at the published parallax 164.05 +/- 0.36 mas, consistent with the unchanged catalog parallax 163.9544 mas. Temperature, radius and luminosity form one internally consistent interferometric solution."
+            }
+          }
         }
       }
     },
