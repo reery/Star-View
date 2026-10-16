@@ -1,0 +1,241 @@
+{
+  "orbit": {
+    "source": "JPL",
+    "n_obs_used": 5207,
+    "equinox": "J2000",
+    "first_obs": "1849-05-26",
+    "moid_jup": "1.53954",
+    "sb_used": "SB441-N16",
+    "model_pars": [],
+    "rms": ".47797",
+    "moid": "1.80514",
+    "not_valid_before": null,
+    "two_body": null,
+    "orbit_id": "129",
+    "n_del_obs_used": null,
+    "cov_epoch": "2458286.5",
+    "not_valid_after": null,
+    "n_dop_obs_used": null,
+    "condition_code": "0",
+    "producer": "Otto Matic",
+    "elements": [
+      {
+        "units": null,
+        "value": ".1067092741240963",
+        "sigma": "4.3184E-9",
+        "name": "e",
+        "label": "e",
+        "title": "eccentricity"
+      },
+      {
+        "title": "semi-major axis",
+        "label": "a",
+        "sigma": "2.4864E-9",
+        "value": "3.150974033963701",
+        "name": "a",
+        "units": "au"
+      },
+      {
+        "units": "au",
+        "name": "q",
+        "value": "2.814735882015559",
+        "sigma": "1.3021E-8",
+        "label": "q",
+        "title": "perihelion distance"
+      },
+      {
+        "units": "deg",
+        "name": "i",
+        "value": "3.829529946447122",
+        "sigma": "3.7979E-7",
+        "label": "i",
+        "title": "inclination; angle with respect to x-y ecliptic plane"
+      },
+      {
+        "units": "deg",
+        "name": "om",
+        "sigma": "5.3532E-6",
+        "value": "283.1198927508594",
+        "label": "node",
+        "title": "longitude of the ascending node"
+      },
+      {
+        "name": "w",
+        "value": "312.4242387344704",
+        "sigma": "5.5908E-6",
+        "units": "deg",
+        "title": "argument of perihelion",
+        "label": "peri"
+      },
+      {
+        "name": "ma",
+        "sigma": "2.1489E-6",
+        "value": "252.0344242359649",
+        "units": "deg",
+        "title": "mean anomaly",
+        "label": "M"
+      },
+      {
+        "title": "time of perihelion passage",
+        "label": "tp",
+        "value": "2461813.200828681790",
+        "sigma": "1.269E-5",
+        "name": "tp",
+        "units": "TDB"
+      },
+      {
+        "name": "per",
+        "sigma": "2.4182E-6",
+        "value": "2042.987283349627",
+        "units": "d",
+        "title": "sidereal orbital period",
+        "label": "period"
+      },
+      {
+        "title": "mean motion",
+        "label": "n",
+        "name": "n",
+        "value": ".1762125505792448",
+        "sigma": "2.0857E-10",
+        "units": "deg/d"
+      },
+      {
+        "title": "aphelion distance",
+        "label": "Q",
+        "value": "3.487212185911843",
+        "sigma": "2.7517E-9",
+        "name": "ad",
+        "units": "au"
+      }
+    ],
+    "comment": null,
+    "soln_date": "2026-06-16 11:32:04",
+    "last_obs": "2026-04-07",
+    "t_jup": "3.195",
+    "epoch": "2461200.5",
+    "data_arc": "64599",
+    "pe_used": "DE441"
+  },
+  "phys_par": [
+    {
+      "title": "absolute magnitude",
+      "desc": "absolute magnitude (magnitude at 1 au from Sun and observer)",
+      "notes": "IRAS observations used: 22",
+      "sigma": null,
+      "value": "5.65",
+      "name": "H",
+      "units": null,
+      "ref": "E2026E39"
+    },
+    {
+      "desc": "effective body diameter",
+      "notes": "IRAS observations used: 22",
+      "title": "diameter",
+      "ref": "IRAS-A-FPA-3-RDR-IMPS-V6.0",
+      "units": "km",
+      "name": "diameter",
+      "value": "407.12",
+      "sigma": "6.8"
+    },
+    {
+      "notes": null,
+      "desc": "standard gravitational parameter: product of the mass (M) and gravitational constant (G)",
+      "title": "GM",
+      "ref": "Scholl et al., A&A, v.179, p.311, 1987",
+      "units": "km^3/s^2",
+      "value": "7.",
+      "sigma": null,
+      "name": "GM"
+    },
+    {
+      "ref": "LCDB (Rev. 2023-October); Warner et al., 2009",
+      "units": "h",
+      "value": "13.828",
+      "sigma": null,
+      "name": "rot_per",
+      "notes": "REFERENCE LIST:[Pilcher, F. (2020) Minor Planet Bull. 47, 133-135.], [Vernazza, P.; Jorda, L.; Sevecek, P.; Broz, M.; et al. (2020) Nature Astronomy 4, 136-141.], [Ferrais, M.; Jehin, E.; Vernazza, P.; Jorda, L.; et al. (2021) Minor Planet Bull. 48, 166-167.], [Vernazza, P.; Ferrais, M.; Jorda, L.; Hanus, J.; et al. (2021) Astron. Astrophys 654, id. A56.]",
+      "desc": "body rotation period (synodic)",
+      "title": "rotation period"
+    },
+    {
+      "value": "0.0717",
+      "sigma": "0.002",
+      "name": "albedo",
+      "units": null,
+      "ref": "IRAS-A-FPA-3-RDR-IMPS-V6.0",
+      "title": "geometric albedo",
+      "notes": "IRAS observations used: 22",
+      "desc": "geometric albedo"
+    },
+    {
+      "units": null,
+      "ref": "EAR-A-5-DDR-UBV-MEAN-VALUES-V1.2",
+      "name": "BV",
+      "value": "0.696",
+      "sigma": "0.020",
+      "notes": "#obs=11; phase (min.=4.77, mean=10.97, max.=18.25) deg.",
+      "desc": "color index B-V magnitude difference",
+      "title": "B-V"
+    },
+    {
+      "title": "U-B",
+      "notes": "#obs=11; phase (min.=4.77, mean=10.97, max.=18.25) deg.",
+      "desc": "color index U-B magnitude difference",
+      "value": "0.351",
+      "sigma": "0.034",
+      "name": "UB",
+      "units": null,
+      "ref": "EAR-A-5-DDR-UBV-MEAN-VALUES-V1.2"
+    },
+    {
+      "value": "C",
+      "sigma": null,
+      "name": "spec_T",
+      "units": null,
+      "ref": "EAR-A-5-DDR-TAXONOMY-V4.0",
+      "title": "Tholen spectral type",
+      "notes": "used 7 color indices; used ground-based radiometric albedo",
+      "desc": "Tholen spectral taxonomic classification"
+    },
+    {
+      "units": null,
+      "ref": "EAR-A-5-DDR-TAXONOMY-V4.0",
+      "name": "spec_B",
+      "value": "C",
+      "sigma": null,
+      "notes": "based on a high-resolution spectrum by Xu et al. (1995) or Bus and Binzel (2002)",
+      "desc": "SMASSII spectral taxonomic classification",
+      "title": "SMASSII spectral type"
+    }
+  ],
+  "signature": {
+    "version": "1.3",
+    "source": "NASA/JPL Small-Body Database (SBDB) API"
+  },
+  "discovery": {
+    "who": "De Gasparis, A.",
+    "name": null,
+    "citation": null,
+    "site": null,
+    "location": "Naples",
+    "ref": "DISCOVERY.DB",
+    "discovery": "Discovered 1849-04-12 by De Gasparis, A. at Naples",
+    "cref": null,
+    "date": "1849-Apr-12"
+  },
+  "object": {
+    "pha": false,
+    "kind": "an",
+    "neo": false,
+    "spkid": "20000010",
+    "shortname": "10 Hygiea",
+    "prefix": null,
+    "orbit_class": {
+      "name": "Main-belt Asteroid",
+      "code": "MBA"
+    },
+    "orbit_id": "129",
+    "fullname": "10 Hygiea (A849 GA)",
+    "des": "10"
+  }
+}

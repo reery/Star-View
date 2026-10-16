@@ -1,0 +1,690 @@
+{
+  "schemaVersion": 1,
+  "abbreviation": "Com",
+  "name": "Coma Berenices",
+  "center": {
+    "ra_deg": 194.16693655950527,
+    "dec_deg": 24.65196813279682
+  },
+  "stars": [
+    {
+      "hip": 60742,
+      "name": "Gamma Com",
+      "ra_deg": 186.73446876829124,
+      "dec_deg": 28.268421801423333,
+      "magnitude_v": 4.35,
+      "bayer": "γ",
+      "object": {
+        "x_pc": -4.563477202,
+        "y_pc": -1.629054948,
+        "z_pc": 49.948231609,
+        "vx_kms": -7.675072,
+        "vy_kms": -26.638984,
+        "vz_kms": 1.825814,
+        "temperature_k": 4571.0,
+        "mass_solar": 1.34,
+        "luminosity_solar": 59.530509,
+        "radius_solar": 12.302687708123818,
+        "metallicity_dex": 0.17,
+        "age_gyr": null,
+        "absolute_mag": 0.837229,
+        "epoch": 2000.0,
+        "type": "star",
+        "id": "hip-60742",
+        "name": "Gamma Com",
+        "constellation": "Coma Berenices",
+        "spectral_type": "K1IIIFe0.5",
+        "metallicity_kind": "[Fe/H]",
+        "notes": "Western constellation line-figure star (HIP 60742; Stellarium Com). SIMBAD identity * gam Com; SIMBAD compiled Johnson V=4.34; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, mass_solar, radius_solar; Stefan-Boltzmann scaling for luminosity_solar. Shared exact-identity physical supplements (metallicity_dex: 2022A&A...663A...4S).",
+        "designations": [
+          "HIP 60742"
+        ],
+        "raw_astrometry": {
+          "ra_deg": 186.73446876829124,
+          "dec_deg": 28.268421801423333,
+          "parallax_mas": 19.8641,
+          "parallax_error_mas": 0.1147,
+          "pm_ra_cosdec_masyr": -83.006,
+          "pm_ra_error_masyr": null,
+          "pm_dec_masyr": -80.917,
+          "pm_dec_error_masyr": null,
+          "radial_velocity_kms": 3.38,
+          "radial_velocity_error_kms": null,
+          "epoch": 2000.0,
+          "astrometry_ref": "SIMBAD TAP snapshot 2026-10-01",
+          "radial_velocity_ref": "SIMBAD TAP snapshot 2026-10-01"
+        }
+      }
+    },
+    {
+      "hip": 64241,
+      "name": "Diadem",
+      "ra_deg": 197.49702168569598,
+      "dec_deg": 17.52945526166217,
+      "magnitude_v": 4.32,
+      "bayer": "α",
+      "object": {
+        "x_pc": 2.75555358,
+        "y_pc": -1.726314861,
+        "z_pc": 17.526223419,
+        "vx_kms": -39.43329,
+        "vy_kms": -9.426895,
+        "vz_kms": -13.875925,
+        "temperature_k": 6607.0,
+        "mass_solar": null,
+        "luminosity_solar": null,
+        "radius_solar": null,
+        "metallicity_dex": -0.16,
+        "age_gyr": null,
+        "absolute_mag": 3.064814,
+        "epoch": 2000.0,
+        "type": "star",
+        "id": "hip-64241",
+        "name": "Diadem",
+        "constellation": "Coma Berenices",
+        "spectral_type": "F5V+F6V",
+        "metallicity_kind": "[Fe/H]",
+        "notes": "Western constellation line-figure star (HIP 64241; Stellarium Com). SIMBAD identity * alf Com; SIMBAD compiled Johnson V=4.32; inverse SIMBAD compiled parallax distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k. Shared exact-identity physical supplements (metallicity_dex: 2022A&A...663A...4S).",
+        "designations": [
+          "HIP 64241"
+        ],
+        "raw_astrometry": {
+          "ra_deg": 197.49702168569598,
+          "dec_deg": 17.52945526166217,
+          "parallax_mas": 56.1,
+          "parallax_error_mas": 0.89,
+          "pm_ra_cosdec_masyr": -433.13,
+          "pm_ra_error_masyr": null,
+          "pm_dec_masyr": 141.24,
+          "pm_dec_error_masyr": null,
+          "radial_velocity_kms": -18.826,
+          "radial_velocity_error_kms": null,
+          "epoch": 2000.0,
+          "astrometry_ref": "SIMBAD TAP snapshot 2026-10-01",
+          "radial_velocity_ref": "SIMBAD TAP snapshot 2026-10-01"
+        }
+      }
+    },
+    {
+      "hip": 64394,
+      "name": "Beta Com",
+      "ra_deg": 197.9642816133702,
+      "dec_deg": 27.882105372524595,
+      "magnitude_v": 4.23,
+      "bayer": "β",
+      "object": {
+        "x_pc": 0.530207356,
+        "y_pc": 0.503200591,
+        "z_pc": 9.099681006,
+        "vx_kms": -49.97028,
+        "vy_kms": 11.491749,
+        "vz_kms": 7.89033,
+        "temperature_k": 5899.0,
+        "mass_solar": 1.0293616,
+        "luminosity_solar": 1.4362096,
+        "radius_solar": 1.1473675,
+        "metallicity_dex": -0.2884,
+        "age_gyr": 6.3486595,
+        "absolute_mag": 4.447885,
+        "epoch": 2000.0,
+        "type": "star",
+        "id": "hip-64394",
+        "name": "Beta Com",
+        "constellation": "Coma Berenices",
+        "spectral_type": "F9.5V",
+        "metallicity_kind": "[M/H]",
+        "notes": "Corrected CNS5 3247; J2000 Sun-relative Galactic position. SIMBAD exact CNS5 identity. Full source space motion.",
+        "designations": [
+          "HIP 64394"
+        ],
+        "raw_astrometry": {
+          "ra_deg": 197.9642816133702,
+          "dec_deg": 27.882105372524595,
+          "parallax_mas": 109.54000091552734,
+          "parallax_error_mas": 0.17,
+          "pm_ra_cosdec_masyr": -801.44,
+          "pm_ra_error_masyr": 0.14000000059604645,
+          "pm_dec_masyr": 882.04,
+          "pm_dec_error_masyr": 0.10000000149011612,
+          "radial_velocity_kms": 5.6009521484375,
+          "radial_velocity_error_kms": 0.18892623484134674,
+          "epoch": 2016.0,
+          "astrometry_ref": "2020yCat.1350....0G; 2007A&A...474..653V",
+          "radial_velocity_ref": "2020yCat.1350....0G"
+        }
+      }
+    }
+  ],
+  "lines": [
+    [
+      64241,
+      64394
+    ],
+    [
+      64394,
+      60742
+    ]
+  ],
+  "boundaries": [
+    {
+      "neighbor": "Virgo",
+      "neighbor_abbreviation": "VIR",
+      "points": [
+        {
+          "ra_deg": 179.604536,
+          "dec_deg": 13.3040485
+        },
+        {
+          "ra_deg": 180.103011,
+          "dec_deg": 13.3039484
+        },
+        {
+          "ra_deg": 181.100121,
+          "dec_deg": 13.3039055
+        },
+        {
+          "ra_deg": 182.097072,
+          "dec_deg": 13.3040752
+        },
+        {
+          "ra_deg": 183.094167,
+          "dec_deg": 13.3044558
+        },
+        {
+          "ra_deg": 184.091277,
+          "dec_deg": 13.305047
+        },
+        {
+          "ra_deg": 185.088243,
+          "dec_deg": 13.30585
+        },
+        {
+          "ra_deg": 186.085353,
+          "dec_deg": 13.3068638
+        },
+        {
+          "ra_deg": 187.082476,
+          "dec_deg": 13.3080883
+        },
+        {
+          "ra_deg": 188.079457,
+          "dec_deg": 13.3095226
+        },
+        {
+          "ra_deg": 189.076581,
+          "dec_deg": 13.3111668
+        },
+        {
+          "ra_deg": 190.073719,
+          "dec_deg": 13.3130198
+        },
+        {
+          "ra_deg": 191.070699,
+          "dec_deg": 13.3150816
+        },
+        {
+          "ra_deg": 192.067852,
+          "dec_deg": 13.3173513
+        },
+        {
+          "ra_deg": 193.065018,
+          "dec_deg": 13.319829
+        },
+        {
+          "ra_deg": 194.062027,
+          "dec_deg": 13.3225126
+        }
+      ]
+    },
+    {
+      "neighbor": "Virgo",
+      "neighbor_abbreviation": "VIR",
+      "points": [
+        {
+          "ra_deg": 194.062027,
+          "dec_deg": 13.3225126
+        },
+        {
+          "ra_deg": 194.059066,
+          "dec_deg": 14.3225088
+        }
+      ]
+    },
+    {
+      "neighbor": "Virgo",
+      "neighbor_abbreviation": "VIR",
+      "points": [
+        {
+          "ra_deg": 194.059066,
+          "dec_deg": 14.3225088
+        },
+        {
+          "ra_deg": 195.056032,
+          "dec_deg": 14.3253975
+        },
+        {
+          "ra_deg": 196.053,
+          "dec_deg": 14.3284922
+        },
+        {
+          "ra_deg": 197.049837,
+          "dec_deg": 14.33179
+        },
+        {
+          "ra_deg": 198.046846,
+          "dec_deg": 14.3352909
+        },
+        {
+          "ra_deg": 199.043884,
+          "dec_deg": 14.3389931
+        },
+        {
+          "ra_deg": 200.040765,
+          "dec_deg": 14.3428965
+        },
+        {
+          "ra_deg": 201.037816,
+          "dec_deg": 14.3470001
+        },
+        {
+          "ra_deg": 202.034883,
+          "dec_deg": 14.3513012
+        },
+        {
+          "ra_deg": 203.031822,
+          "dec_deg": 14.3557997
+        },
+        {
+          "ra_deg": 204.028931,
+          "dec_deg": 14.3604937
+        }
+      ]
+    },
+    {
+      "neighbor": "Bootes",
+      "neighbor_abbreviation": "BOO",
+      "points": [
+        {
+          "ra_deg": 204.028931,
+          "dec_deg": 14.3604937
+        },
+        {
+          "ra_deg": 204.026355,
+          "dec_deg": 14.860486
+        },
+        {
+          "ra_deg": 204.021192,
+          "dec_deg": 15.8604746
+        },
+        {
+          "ra_deg": 204.015971,
+          "dec_deg": 16.8604622
+        },
+        {
+          "ra_deg": 204.010692,
+          "dec_deg": 17.8604488
+        },
+        {
+          "ra_deg": 204.005356,
+          "dec_deg": 18.8604374
+        },
+        {
+          "ra_deg": 203.999962,
+          "dec_deg": 19.860424
+        },
+        {
+          "ra_deg": 203.994498,
+          "dec_deg": 20.8604107
+        },
+        {
+          "ra_deg": 203.988948,
+          "dec_deg": 21.8603973
+        },
+        {
+          "ra_deg": 203.983341,
+          "dec_deg": 22.860384
+        },
+        {
+          "ra_deg": 203.977632,
+          "dec_deg": 23.8603687
+        },
+        {
+          "ra_deg": 203.971839,
+          "dec_deg": 24.8603573
+        },
+        {
+          "ra_deg": 203.965959,
+          "dec_deg": 25.860342
+        },
+        {
+          "ra_deg": 203.959965,
+          "dec_deg": 26.8603268
+        },
+        {
+          "ra_deg": 203.953872,
+          "dec_deg": 27.8603134
+        }
+      ]
+    },
+    {
+      "neighbor": "Canes Venatici",
+      "neighbor_abbreviation": "CVN",
+      "points": [
+        {
+          "ra_deg": 203.953872,
+          "dec_deg": 27.8603134
+        },
+        {
+          "ra_deg": 203.208375,
+          "dec_deg": 27.8567848
+        },
+        {
+          "ra_deg": 202.214355,
+          "dec_deg": 27.8522511
+        },
+        {
+          "ra_deg": 201.220522,
+          "dec_deg": 27.8479156
+        },
+        {
+          "ra_deg": 200.226574,
+          "dec_deg": 27.8437748
+        }
+      ]
+    },
+    {
+      "neighbor": "Canes Venatici",
+      "neighbor_abbreviation": "CVN",
+      "points": [
+        {
+          "ra_deg": 200.226574,
+          "dec_deg": 27.8437748
+        },
+        {
+          "ra_deg": 200.223956,
+          "dec_deg": 28.3437691
+        },
+        {
+          "ra_deg": 200.218664,
+          "dec_deg": 29.3437595
+        },
+        {
+          "ra_deg": 200.213256,
+          "dec_deg": 30.3437462
+        },
+        {
+          "ra_deg": 200.207748,
+          "dec_deg": 31.3437366
+        }
+      ]
+    },
+    {
+      "neighbor": "Canes Venatici",
+      "neighbor_abbreviation": "CVN",
+      "points": [
+        {
+          "ra_deg": 200.207748,
+          "dec_deg": 31.3437366
+        },
+        {
+          "ra_deg": 199.463052,
+          "dec_deg": 31.3407631
+        },
+        {
+          "ra_deg": 198.470106,
+          "dec_deg": 31.336977
+        },
+        {
+          "ra_deg": 197.477346,
+          "dec_deg": 31.3333893
+        },
+        {
+          "ra_deg": 196.484471,
+          "dec_deg": 31.3300037
+        },
+        {
+          "ra_deg": 195.491639,
+          "dec_deg": 31.3268204
+        },
+        {
+          "ra_deg": 194.498977,
+          "dec_deg": 31.323843
+        },
+        {
+          "ra_deg": 193.506202,
+          "dec_deg": 31.3210678
+        },
+        {
+          "ra_deg": 192.513456,
+          "dec_deg": 31.3184986
+        },
+        {
+          "ra_deg": 191.520867,
+          "dec_deg": 31.3161354
+        },
+        {
+          "ra_deg": 190.528164,
+          "dec_deg": 31.3139782
+        },
+        {
+          "ra_deg": 189.535474,
+          "dec_deg": 31.3120289
+        },
+        {
+          "ra_deg": 188.542971,
+          "dec_deg": 31.3102894
+        },
+        {
+          "ra_deg": 187.550325,
+          "dec_deg": 31.3087559
+        },
+        {
+          "ra_deg": 186.557694,
+          "dec_deg": 31.3074341
+        }
+      ]
+    },
+    {
+      "neighbor": "Canes Venatici",
+      "neighbor_abbreviation": "CVN",
+      "points": [
+        {
+          "ra_deg": 186.557694,
+          "dec_deg": 31.3074341
+        },
+        {
+          "ra_deg": 186.555991,
+          "dec_deg": 32.3074341
+        },
+        {
+          "ra_deg": 186.554261,
+          "dec_deg": 33.3074303
+        }
+      ]
+    },
+    {
+      "neighbor": "Canes Venatici",
+      "neighbor_abbreviation": "CVN",
+      "points": [
+        {
+          "ra_deg": 186.554261,
+          "dec_deg": 33.3074303
+        },
+        {
+          "ra_deg": 185.562372,
+          "dec_deg": 33.3063164
+        },
+        {
+          "ra_deg": 184.570369,
+          "dec_deg": 33.3054123
+        },
+        {
+          "ra_deg": 183.578354,
+          "dec_deg": 33.304718
+        },
+        {
+          "ra_deg": 182.586509,
+          "dec_deg": 33.3042374
+        },
+        {
+          "ra_deg": 181.594506,
+          "dec_deg": 33.3039627
+        }
+      ]
+    },
+    {
+      "neighbor": "Ursa Major",
+      "neighbor_abbreviation": "UMA",
+      "points": [
+        {
+          "ra_deg": 181.594506,
+          "dec_deg": 33.3039627
+        },
+        {
+          "ra_deg": 181.594749,
+          "dec_deg": 32.3039627
+        },
+        {
+          "ra_deg": 181.594992,
+          "dec_deg": 31.3039627
+        },
+        {
+          "ra_deg": 181.59522,
+          "dec_deg": 30.3039627
+        },
+        {
+          "ra_deg": 181.595449,
+          "dec_deg": 29.3039646
+        },
+        {
+          "ra_deg": 181.595664,
+          "dec_deg": 28.3039627
+        }
+      ]
+    },
+    {
+      "neighbor": "Ursa Major",
+      "neighbor_abbreviation": "UMA",
+      "points": [
+        {
+          "ra_deg": 181.595664,
+          "dec_deg": 28.3039627
+        },
+        {
+          "ra_deg": 180.602231,
+          "dec_deg": 28.3038998
+        },
+        {
+          "ra_deg": 179.608941,
+          "dec_deg": 28.3040466
+        }
+      ]
+    },
+    {
+      "neighbor": "Leo",
+      "neighbor_abbreviation": "LEO",
+      "points": [
+        {
+          "ra_deg": 179.608941,
+          "dec_deg": 28.3040466
+        },
+        {
+          "ra_deg": 179.608612,
+          "dec_deg": 27.3040485
+        },
+        {
+          "ra_deg": 179.608282,
+          "dec_deg": 26.3040485
+        },
+        {
+          "ra_deg": 179.607982,
+          "dec_deg": 25.3040466
+        },
+        {
+          "ra_deg": 179.607667,
+          "dec_deg": 24.3040485
+        },
+        {
+          "ra_deg": 179.607367,
+          "dec_deg": 23.3040485
+        },
+        {
+          "ra_deg": 179.607067,
+          "dec_deg": 22.3040466
+        },
+        {
+          "ra_deg": 179.606766,
+          "dec_deg": 21.3040485
+        },
+        {
+          "ra_deg": 179.606481,
+          "dec_deg": 20.3040485
+        },
+        {
+          "ra_deg": 179.606194,
+          "dec_deg": 19.3040466
+        },
+        {
+          "ra_deg": 179.605908,
+          "dec_deg": 18.3040485
+        },
+        {
+          "ra_deg": 179.605623,
+          "dec_deg": 17.3040485
+        },
+        {
+          "ra_deg": 179.60535,
+          "dec_deg": 16.3040485
+        },
+        {
+          "ra_deg": 179.605079,
+          "dec_deg": 15.3040485
+        },
+        {
+          "ra_deg": 179.604807,
+          "dec_deg": 14.3040485
+        },
+        {
+          "ra_deg": 179.604536,
+          "dec_deg": 13.3040485
+        }
+      ]
+    }
+  ],
+  "sources": [
+    {
+      "label": "Stellarium Western sky culture",
+      "url": "https://raw.githubusercontent.com/Stellarium/stellarium-skycultures/014fbb5e59233d133c22f9811af96b67d05a95c9/western/index.json",
+      "path": "catalog-work/western-constellation-stars/stellarium-western-index.json",
+      "sha256": "a861accd345249a185a5ecfc2a516f34291c0aa52f4bb8d8337ffc53e9cef6b9"
+    },
+    {
+      "label": "Adopted star positions and names",
+      "url": "https://simbad.cds.unistra.fr/simbad/",
+      "path": "src/data/catalogs/western-constellation-stars/stars.csv",
+      "sha256": "0a8b7c1dc3f7e3412c5cffb09a18cdf5b5b7424cc89ea8a0a1ffb4da57d3ad6a"
+    },
+    {
+      "label": "Hipparcos Johnson V magnitudes",
+      "url": "https://cdsarc.cds.unistra.fr/viz-bin/cat/I/239",
+      "path": "catalog-work/western-constellation-stars/hipparcos-v.csv",
+      "sha256": "eec12b740da3aac5204ba75ca5158b6f9f2f81886dda2526fe765cf9ea159320"
+    },
+    {
+      "label": "CDS / IAU constellation boundaries (J2000)",
+      "url": "https://cdsarc.cds.unistra.fr/viz-bin/cat/VI/49",
+      "path": "catalog-work/constellation-charts/boundaries-j2000.dat.gz",
+      "sha256": "879cd6e7a1c908f1e19a5f5fe8cc75fb1d1077564e3890f9152a3680affe9aac",
+      "inputs": [
+        {
+          "path": "catalog-work/constellation-charts/boundary-contours-b1875.dat",
+          "sha256": "865cdf4218f676eb304587c75c63231948d29cd0abe6892a8a8130c1c4fe3592"
+        },
+        {
+          "path": "catalog-work/constellation-charts/boundary-contours-readme.txt",
+          "sha256": "a3ec688bea21e9db10832842c9b845558dbe8ccf820ddedec842d664d2b74c89"
+        }
+      ]
+    }
+  ]
+}

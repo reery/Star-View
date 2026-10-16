@@ -11,12 +11,17 @@ test('searches stellar aliases and displays a bounded designation list after mag
   await page.getByRole('button', { name: 'Objects', exact: true }).click()
   await page.getByRole('button', { name: 'Specs', exact: true }).click()
   const aliases = page.locator('#object-designations')
+  await expect(aliases).toBeHidden()
+  await page.locator('#designations-row > summary').click()
   await expect(aliases.locator('li', { hasText: /^HD 48915$/ })).toBeVisible()
-  const labels = await page.locator('.properties-section dt:visible').allTextContents()
+  const labels = await page.locator('.properties-section dt:visible, #object-subtypes-row > summary > span:first-child, #designations-row > summary:visible').allTextContents()
   expect(labels[labels.indexOf('Apparent mag. (V)') + 1]).toBe('Designations')
   expect(await aliases.evaluate((element) => element.scrollHeight > element.clientHeight)).toBe(true)
   expect(await aliases.evaluate((element) => element.getBoundingClientRect().height)).toBeLessThanOrEqual(156)
   await page.screenshot({ path: testInfo.outputPath('stellar-designations.png') })
+  await page.locator('#designations-row > summary').focus()
+  await page.keyboard.press('Enter')
+  await expect(aliases).toBeHidden()
 })
 
 test('finds named pulsars by both common and formal names', async ({ page }, testInfo) => {

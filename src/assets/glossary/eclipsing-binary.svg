@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 840 360" role="img" aria-labelledby="title desc">
+  <title id="title">An eclipsing binary</title>
+  <desc id="desc">Three views show a smaller star passing in front of a larger star. A schematic light curve dips while part of the larger star is hidden.</desc>
+  <defs><radialGradient id="star"><stop stop-color="#ffdf9e"/><stop offset="1" stop-color="#d99655"/></radialGradient></defs>
+  <rect width="840" height="360" fill="#101112"/>
+  <g font-family="system-ui, sans-serif" text-anchor="middle" fill="#ded8ce" font-size="28">
+    <text x="150" y="40">Before</text><text x="420" y="40">During eclipse</text><text x="690" y="40">After</text>
+    <circle cx="150" cy="120" r="48" fill="url(#star)"/><circle cx="70" cy="120" r="26" fill="#8da9d6"/>
+    <circle cx="420" cy="120" r="48" fill="url(#star)"/><circle cx="427" cy="120" r="26" fill="#8da9d6"/>
+    <circle cx="690" cy="120" r="48" fill="url(#star)"/><circle cx="770" cy="120" r="26" fill="#8da9d6"/>
+    <text x="420" y="345" fill="#a5a29e" font-size="25">Time →</text>
+  </g>
+  <path d="M65 207V309H790" fill="none" stroke="#77736e" stroke-width="2"/>
+  <path d="M75 224H285C334 224 334 289 382 289H458C506 289 506 224 555 224H780" fill="none" stroke="#ffba68" stroke-width="5"/>
+  <text x="80" y="201" font-family="system-ui, sans-serif" font-size="23" fill="#a5a29e">Combined brightness</text>
+</svg>

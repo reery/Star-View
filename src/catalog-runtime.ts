@@ -4,7 +4,6 @@ import { validDesignations } from './designations'
 import { mergeCatalogStarLayers } from './catalog-merge'
 import { starComponentIdentity } from './star-systems'
 import { validObjectStats } from './object-stats'
-import { completeCatalogCompanions } from './stellar-companions'
 
 export { catalogSelection } from './catalog-selection'
 
@@ -21,11 +20,11 @@ export function mergeCatalogStars(primary: readonly Star[], additional: readonly
 export function parseCatalogPayload(value: unknown, manifest: CatalogManifest): Star[] {
   if (!value || typeof value !== 'object') throw new Error('Catalog payload must be an object.')
   const payload = value as Record<string, unknown>
-  if (payload.schemaVersion !== 1 || payload.catalogId !== manifest.id || !Array.isArray(payload.stars)) {
+  if (payload.schemaVersion !== 2 || payload.catalogId !== manifest.id || !Array.isArray(payload.stars)) {
     throw new Error(`Invalid catalog payload: ${manifest.id}`)
   }
   const stars = payload.stars as Record<string, unknown>[]
-  if (stars.length !== manifest.objectCount) throw new Error('Catalog objectCount does not match payload rows.')
+  if (payload.sourceObjectCount !== manifest.objectCount || stars.length < manifest.objectCount) throw new Error('Catalog objectCount does not match payload rows.')
   const ids = new Set<string>()
   for (const star of stars) {
     if (!star || typeof star !== 'object' || typeof star.id !== 'string' || !star.id || ids.has(star.id) ||
@@ -45,7 +44,9 @@ export function parseCatalogPayload(value: unknown, manifest: CatalogManifest): 
     if (star.epoch !== manifest.epoch) throw new Error('Catalog manifest epoch does not match payload.')
   }
   if (!ids.has('sun')) throw new Error('Catalog payload requires the Sun reference.')
-  return completeCatalogCompanions(stars as unknown as Star[])
+  // Companion completion happens during generation, preserving the effective records
+  // without downloading the complete physical-data pool in the browser.
+  return stars as unknown as Star[]
 }
 
 /** Fetch and parse a JSON payload once; a failed load is forgotten so it can be retried. */

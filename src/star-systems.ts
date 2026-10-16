@@ -1,15 +1,12 @@
 import { STELLAR_OBJECT_TYPES, type Star } from './catalog-model.ts'
-import systemDefinitions from './data/star-systems.json' with { type: 'json' }
-import companionDefinitions from './data/stellar-companions.json' with { type: 'json' }
+import definitions from './data/stellar-system-identities.json' with { type: 'json' }
 
 interface ComponentDefinition { starId: string; label: string; alternateStarIds?: string[] }
 interface SystemDefinition { id: string; name: string; components: ComponentDefinition[] }
 
 // The shared pool includes the existing literature reviews and the wider,
 // explicitly sourced component coverage. Its definitions supersede older copies.
-export const reviewedStarSystems: readonly SystemDefinition[] = [...new Map<string, SystemDefinition>(
-  [...systemDefinitions.systems, ...companionDefinitions.systems].map((system) => [system.id, system]),
-).values()]
+export const reviewedStarSystems: readonly SystemDefinition[] = definitions.systems
 
 // Stable catalog IDs keep associations independent of common/display names.
 const reviewedComponents = new Map(reviewedStarSystems.flatMap((system) =>
@@ -89,12 +86,4 @@ export function indexStarSystems(stars: readonly Star[]): ReadonlyMap<string, St
     for (const { star } of components) systems.set(star.id, system)
   }
   return systems
-}
-
-/** System entry always starts with A, or the first cataloged A subcomponent. */
-export function primarySystemStarId(system: StarSystem): string {
-  return (system.components.find(({ label }) => label === 'A')
-    ?? system.components.find(({ label }) => label === 'Aa')
-    ?? system.components.find(({ label }) => label.startsWith('A'))
-    ?? system.components[0]!).star.id
 }

@@ -15,14 +15,6 @@ export const FILTER_CATEGORIES = [
     ],
   },
   {
-    id: 'stellar_systems',
-    label: 'Stellar systems',
-    subtypes: [
-      { key: 'binary', label: 'Binaries' },
-      { key: 'multiple_system', label: 'Multiple systems' },
-    ],
-  },
-  {
     id: 'interstellar_medium',
     label: 'Interstellar medium',
     subtypes: [

@@ -54,7 +54,7 @@ describe('catalog packages and display settings', () => {
       vz_kms: null,
       raw_astrometry: { pm_ra_cosdec_masyr: 1012.444720371, pm_dec_masyr: -554.030838673, radial_velocity_kms: null },
     })
-    expect(catalogCoverage(large)).toMatchObject({ rawAstrometry: 100, radialVelocities: 70, transverseOnly: 30 })
+    expect(catalogCoverage(large)).toMatchObject({ rawAstrometry: 100, radialVelocities: 73, transverseOnly: 27 })
   })
 
   it('validates the nearest-1000 release and preserves every curated shared row', () => {
@@ -63,8 +63,8 @@ describe('catalog packages and display settings', () => {
       objects: 1036,
       constellations: 1036,
       rawAstrometry: 1036,
-      radialVelocities: 701,
-      transverseOnly: 335,
+      radialVelocities: 704,
+      transverseOnly: 332,
     })
     for (const star of large) expect(nearest1000.find((candidate) => candidate.id === star.id)).toEqual(star)
     const provenance = JSON.parse(nearest1000Provenance)
@@ -120,7 +120,7 @@ describe('catalog packages and display settings', () => {
   it('keeps the bright landmark catalog bounded and merges it without duplicates', () => {
     expect(bright).toHaveLength(126)
     expect(bright.at(-1)?.name).toBe('Arneb')
-    expect(catalogCoverage(bright)).toMatchObject({ temperatures: 121, masses: 56, luminosities: 110, radii: 111, metallicities: 76, ages: 12, radialVelocities: 118 })
+    expect(catalogCoverage(bright)).toMatchObject({ temperatures: 121, masses: 56, luminosities: 105, radii: 106, metallicities: 76, ages: 12, radialVelocities: 118 })
     expect(bright.find((star) => star.name === 'Rigel')).toMatchObject({
       temperature_k: 11968, radius_solar: 74.0262, luminosity_solar: 83226.2, metallicity_dex: -0.159,
     })
@@ -239,6 +239,34 @@ describe('catalog packages and display settings', () => {
     expect(secondary.notes).not.toContain('absolute_mag,')
   })
 
+  it('uses the published EZ Aquarii systemic velocity consistently across catalogs and effective components', () => {
+    const provenance = JSON.parse(nearest1000Provenance)
+    for (const catalog of [small, large, nearest1000]) {
+      const effective = completeCatalogCompanions(catalog)
+      for (const id of ['ez-aquarii-a', 'ez-aquarii-b', 'ez-aquarii-c']) {
+        const source = catalog.find((star) => star.id === id)!
+        const star = effective.find((star) => star.id === id)!
+        for (const record of [source, star]) {
+          expect(record.raw_astrometry).toMatchObject({
+            radial_velocity_kms: -50.08, radial_velocity_error_kms: 0.01,
+            radial_velocity_ref: '2000A&A...364..665S:Table 2; shared systemic velocity approximation; EZ Aquarii ABC',
+            parallax_mas: 293.6, parallax_error_mas: 0.9,
+            pm_ra_cosdec_masyr: 2314.8, pm_dec_masyr: 2295.3,
+          })
+          expect(record).toMatchObject({ vx_kms: -64.727748, vy_kms: 3.589095, vz_kms: 32.798766 })
+          expect(displayMotionForStar(record, 'solar')?.mode).toBe('full')
+          expect(record.notes).toContain('individual orbital velocities and orbital phase are not modeled')
+        }
+        const adopted = provenance.objects.find((item: any) => item.id === id).sharedObjectAdoption
+        expect(adopted.sourceSelections.astrometryAndMotion).toMatchObject({
+          status: 'systemic-approximation', valueKms: -50.08, uncertaintyKms: 0.01,
+          source: 'literature-system:gl866-abc', reference: '2000A&A...364..665S:Table 2',
+        })
+        expect(adopted.scope).toContain('shared EZ Aquarii ABC center-of-mass radial velocity')
+      }
+    }
+  })
+
   it('uses comparable resolved Achird iron measurements and restores B physical properties', () => {
     const primary = nearest1000.find((star) => star.id === 'cns5-0239')!
     const secondary = nearest1000.find((star) => star.id === 'cns5-0238')!
@@ -286,7 +314,7 @@ describe('catalog packages and display settings', () => {
     const blank = { ...source, metallicity_dex: null, metallicity_kind: null }
     expect(mergeCatalogStars([blank], [source])[0]).toMatchObject({ metallicity_dex: -0.23, metallicity_kind: '[Fe/H]' })
     const metadata = parseCatalogManifest(nearest1000Manifest)
-    expect(() => parseCatalogPayload({ schemaVersion: 1, catalogId: metadata.id, stars: nearest1000.map((star) => star.id === source.id ? { ...star, metallicity_kind: null } : star) }, metadata)).toThrow('metallicity quantity')
+    expect(() => parseCatalogPayload({ schemaVersion: 2, catalogId: metadata.id, sourceObjectCount: metadata.objectCount, stars: nearest1000.map((star) => star.id === source.id ? { ...star, metallicity_kind: null } : star) }, metadata)).toThrow('metallicity quantity')
   })
 
   it('keeps the Mu Cas primary bright when its shared-position companion remains the visibility reference', () => {
@@ -347,6 +375,53 @@ describe('catalog packages and display settings', () => {
     expect(calibrated.reviewedComponentEnrichment.review.gaiaDr3Id).toBe(calibrated.gaiaDr3Id)
   })
 
+  it('ships the reviewed hot-star corrections across every containing catalog', () => {
+    const temperatures = new Map([
+      ['hip-78820', 30540], ['hip-26451', 21478], ['hip-81377', 30700], ['hip-78401', 30900],
+      ['hip-4427', 27990], ['hip-59196', 22150], ['hip-18246', 23500], ['hip-35037', 17170],
+      ['hip-17448', 22840], ['hip-18614', 35900], ['hip-92814', 14001], ['hip-33347', 16800], ['hip-22783', 29000],
+    ])
+    const aliases = new Map([
+      ['bright-beta-scorpii-a', 'hip-78820'], ['bright-zeta-ophiuchi', 'hip-81377'],
+      ['bright-dschubba', 'hip-78401'], ['bright-gamma-cassiopeiae', 'hip-4427'], ['bright-delta-centauri', 'hip-59196'],
+    ])
+    for (const [id, temperature] of temperatures) expect(western.find((star) => star.id === id)?.temperature_k, id).toBe(temperature)
+    for (const [id, primaryId] of aliases) expect(bright.find((star) => star.id === id)?.temperature_k, id).toBe(temperatures.get(primaryId))
+    for (const star of [...western, ...bright]) {
+      const id = aliases.get(star.id) ?? star.id
+      const temperature = temperatures.get(id)
+      if (temperature === undefined) continue
+      expect(star.temperature_k, star.id).toBe(temperature)
+      if (id === 'hip-35037') {
+        expect(star.radius_solar).toBe(10.5)
+        expect(star.luminosity_solar).toBeCloseTo(10.5 ** 2 * (17170 / 5772) ** 4, 5)
+      } else {
+        expect(star.radius_solar, star.id).toBeNull()
+        expect(star.luminosity_solar, star.id).toBeNull()
+      }
+    }
+    const provenance = JSON.parse(westernProvenance).objects
+    expect(provenance['hip-81377'].sharedObjectAdoption.sourceSelections.physicalTemperatureReview.adoptedFields.temperature_k).toMatchObject({
+      reference: '2024A&A...687A.228D', uncertainty: { lower: 600, upper: 600 }, sourceRecordId: 'HD 149757',
+    })
+    expect(provenance['hip-78401'].sharedObjectAdoption.sourceSelections.physicalTemperatureReview.adoptedFields.radius_solar.status).toBe('withheld')
+  })
+
+  it('ships reviewed Zeta1 Scorpii temperature and consistent model properties', () => {
+    const star = western.find((candidate) => candidate.id === 'hip-82671')!
+    expect(star).toMatchObject({ spectral_type: 'B1.5Ia+', temperature_k: 17200, radius_solar: 103 })
+    expect(star.luminosity_solar).toBeCloseTo(10 ** 5.93, 3)
+    const color = temperatureToColor(star.temperature_k)
+    expect(color.b).toBeGreaterThan(color.r)
+    const observations = JSON.parse(westernProvenance).objects[star.id].physicalObservations
+    expect(observations.find((item: any) => item.field === 'temperature_k')).toMatchObject({
+      reference: '2012A&A...541A.145C', value: 17200, uncertainty: 500, status: 'model-derived',
+    })
+    expect(observations.find((item: any) => item.field === 'radius_solar')).toMatchObject({
+      reference: '2012A&A...541A.145C', inputs: { temperature_k: 17200, source_distance_pc: 1640 },
+    })
+  })
+
   it('ships reviewed Gorgonea Tertia properties with source uncertainties and radius inputs', () => {
     const star = western.find((candidate) => candidate.id === 'hip-14354')!
     expect(star).toMatchObject({
@@ -369,7 +444,7 @@ describe('catalog packages and display settings', () => {
     expect(western).toHaveLength(714)
     expect(catalogCoverage(western)).toMatchObject({
       objects: 713, constellations: 713, magnitudes: 697, rawAstrometry: 713,
-      temperatures: 695, masses: 377, luminosities: 643, radii: 644, metallicities: 532, ages: 101,
+      temperatures: 695, masses: 377, luminosities: 631, radii: 632, metallicities: 532, ages: 101,
     })
     expect(provenance).toMatchObject({ figureConstellations: 88, uniqueHipparcosStars: 691 })
     expect(new Set(Object.values(provenance.objects).flatMap((entry: any) => entry.figureConstellations ?? [])).size).toBe(88)
@@ -503,10 +578,19 @@ describe('catalog packages and display settings', () => {
     expect(catalogSelection(small, 'absent', 'absent')).toEqual({ selectedId: null, observerId: 'sun' })
   })
 
+  it('validates the completed browser records for every catalog without further enrichment', () => {
+    const manifests = [DEFAULT_CATALOG_MANIFEST, ...[manifest, nearest1000Manifest, brightManifest, westernManifest, clusterManifest].map(parseCatalogManifest)]
+    for (const metadata of manifests) {
+      const payload = JSON.parse(readFileSync(new URL(`./data/generated/catalogs/${metadata.id}.json`, import.meta.url), 'utf8'))
+      const loaded = parseCatalogPayload(payload, metadata)
+      expect(completeCatalogCompanions(loaded), metadata.id).toEqual(loaded)
+    }
+  })
+
   it('fetches and parses each browser catalog payload once', async () => {
     const manifest = { ...DEFAULT_CATALOG_MANIFEST, objectCount: 22 }
     const stars = parseStarCatalog(csv)
-    const fetcher = vi.fn(async () => new Response(JSON.stringify({ schemaVersion: 1, catalogId: manifest.id, stars })))
+    const fetcher = vi.fn(async () => new Response(JSON.stringify({ schemaVersion: 2, catalogId: manifest.id, sourceObjectCount: stars.length, stars: completeCatalogCompanions(stars) })))
     const load = catalogLoader(manifest, '/assets/nearest-neighbors.json', fetcher)
     const first = load()
     const second = load()

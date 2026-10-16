@@ -1,0 +1,622 @@
+{
+  "schemaVersion": 1,
+  "abbreviation": "Cae",
+  "name": "Caelum",
+  "center": {
+    "ra_deg": 69.50808717193964,
+    "dec_deg": -41.327563418394966
+  },
+  "stars": [
+    {
+      "hip": 21060,
+      "name": "Delta Cae",
+      "ra_deg": 67.70874890824,
+      "dec_deg": -44.95374990107,
+      "magnitude_v": 5.07,
+      "bayer": "δ",
+      "object": {
+        "x_pc": -51.116247408,
+        "y_pc": -143.325626892,
+        "z_pc": -142.985744347,
+        "vx_kms": -1.059822,
+        "vy_kms": -11.940046,
+        "vz_kms": -8.389363,
+        "temperature_k": 18000.0,
+        "mass_solar": 6.7767787,
+        "luminosity_solar": 1424.8622833240497,
+        "radius_solar": 3.9446597,
+        "metallicity_dex": -0.4996,
+        "age_gyr": null,
+        "absolute_mag": -1.539717,
+        "epoch": 2000.0,
+        "type": "star",
+        "id": "hip-21060",
+        "name": "Delta Cae",
+        "constellation": "Caelum",
+        "spectral_type": "B2IV/V",
+        "metallicity_kind": "[M/H]",
+        "notes": "Western constellation line-figure star (HIP 21060; Stellarium Cae). SIMBAD identity * del Cae; SIMBAD compiled Johnson V=5.059; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, luminosity_solar; Gaia DR3 model values for metallicity_dex, mass_solar, radius_solar.",
+        "designations": [
+          "HIP 21060"
+        ],
+        "raw_astrometry": {
+          "ra_deg": 67.70874890824,
+          "dec_deg": -44.95374990107,
+          "parallax_mas": 4.7826,
+          "parallax_error_mas": 0.0889,
+          "pm_ra_cosdec_masyr": 1.683,
+          "pm_ra_error_masyr": null,
+          "pm_dec_masyr": -3.139,
+          "pm_dec_error_masyr": null,
+          "radial_velocity_kms": 14.2,
+          "radial_velocity_error_kms": null,
+          "epoch": 2000.0,
+          "astrometry_ref": "SIMBAD TAP snapshot 2026-10-01",
+          "radial_velocity_ref": "SIMBAD TAP snapshot 2026-10-01"
+        }
+      }
+    },
+    {
+      "hip": 21770,
+      "name": "Alpha Cae",
+      "ra_deg": 70.14046880567959,
+      "dec_deg": -41.863751263843064,
+      "magnitude_v": 4.44,
+      "bayer": "α",
+      "object": {
+        "x_pc": -6.171812409,
+        "y_pc": -13.964308725,
+        "z_pc": -13.505433699,
+        "vx_kms": 9.850083,
+        "vy_kms": 5.030943,
+        "vz_kms": -10.68428,
+        "temperature_k": 7079.0,
+        "mass_solar": 1.5,
+        "luminosity_solar": 5.780496372917788,
+        "radius_solar": 1.4791083881682074,
+        "metallicity_dex": -0.5668,
+        "age_gyr": 1.3364022,
+        "absolute_mag": 2.903599,
+        "epoch": 2000.0,
+        "type": "star",
+        "id": "hip-21770",
+        "name": "Alpha Cae",
+        "constellation": "Caelum",
+        "spectral_type": "F2V",
+        "metallicity_kind": "[M/H]",
+        "notes": "Western constellation line-figure star (HIP 21770; Stellarium Cae). SIMBAD identity * alf Cae; SIMBAD compiled Johnson V=4.45; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, mass_solar, radius_solar, luminosity_solar; Gaia DR3 model values for metallicity_dex, age_gyr.",
+        "designations": [
+          "HIP 21770"
+        ],
+        "raw_astrometry": {
+          "ra_deg": 70.14046880567959,
+          "dec_deg": -41.863751263843064,
+          "parallax_mas": 49.062,
+          "parallax_error_mas": 0.0937,
+          "pm_ra_cosdec_masyr": -139.843,
+          "pm_ra_error_masyr": null,
+          "pm_dec_masyr": -75.677,
+          "pm_dec_error_masyr": null,
+          "radial_velocity_kms": 0.65,
+          "radial_velocity_error_kms": null,
+          "epoch": 2000.0,
+          "astrometry_ref": "SIMBAD TAP snapshot 2026-10-01",
+          "radial_velocity_ref": "SIMBAD TAP snapshot 2026-10-01"
+        }
+      }
+    },
+    {
+      "hip": 21861,
+      "name": "Beta Cae",
+      "ra_deg": 70.51450957648,
+      "dec_deg": -37.144330240340004,
+      "magnitude_v": 5.04,
+      "bayer": "β",
+      "object": {
+        "x_pc": -10.941518776,
+        "y_pc": -18.88908231,
+        "z_pc": -18.916474441,
+        "vx_kms": -38.599218,
+        "vy_kms": -9.991693,
+        "vz_kms": -12.711876,
+        "temperature_k": 7079.0,
+        "mass_solar": 1.57,
+        "luminosity_solar": 6.6152864,
+        "radius_solar": 1.62181009735893,
+        "metallicity_dex": -0.4828,
+        "age_gyr": 1.9405756,
+        "absolute_mag": 2.746633,
+        "epoch": 2000.0,
+        "type": "star",
+        "id": "hip-21861",
+        "name": "Beta Cae",
+        "constellation": "Caelum",
+        "spectral_type": "F3IV",
+        "metallicity_kind": "[M/H]",
+        "notes": "Western constellation line-figure star (HIP 21861; Stellarium Cae). SIMBAD identity * bet Cae; SIMBAD compiled Johnson V=5.05; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, mass_solar, radius_solar; Gaia DR3 model values for metallicity_dex, luminosity_solar, age_gyr.",
+        "designations": [
+          "HIP 21861"
+        ],
+        "raw_astrometry": {
+          "ra_deg": 70.51450957648,
+          "dec_deg": -37.144330240340004,
+          "parallax_mas": 34.6088,
+          "parallax_error_mas": 0.0531,
+          "pm_ra_cosdec_masyr": 42.561,
+          "pm_ra_error_masyr": null,
+          "pm_dec_masyr": 212.705,
+          "pm_dec_error_masyr": null,
+          "radial_velocity_kms": 29.48,
+          "radial_velocity_error_kms": null,
+          "epoch": 2000.0,
+          "astrometry_ref": "SIMBAD TAP snapshot 2026-10-01",
+          "radial_velocity_ref": "SIMBAD TAP snapshot 2026-10-01"
+        }
+      }
+    }
+  ],
+  "lines": [
+    [
+      21060,
+      21770
+    ],
+    [
+      21770,
+      21861
+    ]
+  ],
+  "boundaries": [
+    {
+      "neighbor": "Dorado",
+      "neighbor_abbreviation": "DOR",
+      "points": [
+        {
+          "ra_deg": 64.882386,
+          "dec_deg": -48.6996651
+        },
+        {
+          "ra_deg": 65.876283,
+          "dec_deg": -48.7106361
+        },
+        {
+          "ra_deg": 66.870532,
+          "dec_deg": -48.7216988
+        },
+        {
+          "ra_deg": 67.865002,
+          "dec_deg": -48.7328453
+        },
+        {
+          "ra_deg": 68.362248,
+          "dec_deg": -48.7384491
+        }
+      ]
+    },
+    {
+      "neighbor": "Pictor",
+      "neighbor_abbreviation": "PIC",
+      "points": [
+        {
+          "ra_deg": 68.362248,
+          "dec_deg": -48.7384491
+        },
+        {
+          "ra_deg": 68.387697,
+          "dec_deg": -47.7385941
+        },
+        {
+          "ra_deg": 68.412187,
+          "dec_deg": -46.7387314
+        },
+        {
+          "ra_deg": 68.424096,
+          "dec_deg": -46.2387962
+        }
+      ]
+    },
+    {
+      "neighbor": "Pictor",
+      "neighbor_abbreviation": "PIC",
+      "points": [
+        {
+          "ra_deg": 68.424096,
+          "dec_deg": -46.2387962
+        },
+        {
+          "ra_deg": 69.419339,
+          "dec_deg": -46.2500725
+        },
+        {
+          "ra_deg": 70.414638,
+          "dec_deg": -46.2614212
+        },
+        {
+          "ra_deg": 71.410296,
+          "dec_deg": -46.2728462
+        },
+        {
+          "ra_deg": 72.406169,
+          "dec_deg": -46.2843399
+        },
+        {
+          "ra_deg": 73.402083,
+          "dec_deg": -46.2959023
+        }
+      ]
+    },
+    {
+      "neighbor": "Pictor",
+      "neighbor_abbreviation": "PIC",
+      "points": [
+        {
+          "ra_deg": 73.402083,
+          "dec_deg": -46.2959023
+        },
+        {
+          "ra_deg": 73.426029,
+          "dec_deg": -45.2960396
+        },
+        {
+          "ra_deg": 73.449139,
+          "dec_deg": -44.2961769
+        },
+        {
+          "ra_deg": 73.471477,
+          "dec_deg": -43.2963066
+        },
+        {
+          "ra_deg": 73.482371,
+          "dec_deg": -42.7963676
+        }
+      ]
+    },
+    {
+      "neighbor": "Pictor",
+      "neighbor_abbreviation": "PIC",
+      "points": [
+        {
+          "ra_deg": 73.482371,
+          "dec_deg": -42.7963676
+        },
+        {
+          "ra_deg": 74.479086,
+          "dec_deg": -42.8079987
+        },
+        {
+          "ra_deg": 75.475995,
+          "dec_deg": -42.8196869
+        },
+        {
+          "ra_deg": 75.974444,
+          "dec_deg": -42.8255501
+        }
+      ]
+    },
+    {
+      "neighbor": "Columba",
+      "neighbor_abbreviation": "COL",
+      "points": [
+        {
+          "ra_deg": 75.974444,
+          "dec_deg": -42.8255501
+        },
+        {
+          "ra_deg": 75.995994,
+          "dec_deg": -41.8256798
+        },
+        {
+          "ra_deg": 76.016879,
+          "dec_deg": -40.8258018
+        },
+        {
+          "ra_deg": 76.037142,
+          "dec_deg": -39.8259201
+        },
+        {
+          "ra_deg": 76.056826,
+          "dec_deg": -38.8260384
+        },
+        {
+          "ra_deg": 76.075966,
+          "dec_deg": -37.826149
+        },
+        {
+          "ra_deg": 76.094592,
+          "dec_deg": -36.8262596
+        },
+        {
+          "ra_deg": 76.112737,
+          "dec_deg": -35.8263664
+        },
+        {
+          "ra_deg": 76.130433,
+          "dec_deg": -34.8264694
+        },
+        {
+          "ra_deg": 76.147707,
+          "dec_deg": -33.8265724
+        },
+        {
+          "ra_deg": 76.164579,
+          "dec_deg": -32.8266716
+        },
+        {
+          "ra_deg": 76.181073,
+          "dec_deg": -31.8267689
+        },
+        {
+          "ra_deg": 76.197216,
+          "dec_deg": -30.8268623
+        },
+        {
+          "ra_deg": 76.213023,
+          "dec_deg": -29.8269577
+        },
+        {
+          "ra_deg": 76.228516,
+          "dec_deg": -28.8270493
+        },
+        {
+          "ra_deg": 76.243722,
+          "dec_deg": -27.8271389
+        },
+        {
+          "ra_deg": 76.254937,
+          "dec_deg": -27.0772038
+        }
+      ]
+    },
+    {
+      "neighbor": "Lepus",
+      "neighbor_abbreviation": "LEP",
+      "points": [
+        {
+          "ra_deg": 76.254937,
+          "dec_deg": -27.0772038
+        },
+        {
+          "ra_deg": 75.256576,
+          "dec_deg": -27.0654716
+        },
+        {
+          "ra_deg": 74.258466,
+          "dec_deg": -27.0537968
+        },
+        {
+          "ra_deg": 73.759296,
+          "dec_deg": -27.0479794
+        }
+      ]
+    },
+    {
+      "neighbor": "Eridanus",
+      "neighbor_abbreviation": "ERI",
+      "points": [
+        {
+          "ra_deg": 73.759296,
+          "dec_deg": -27.0479794
+        },
+        {
+          "ra_deg": 72.761343,
+          "dec_deg": -27.036396
+        },
+        {
+          "ra_deg": 71.763331,
+          "dec_deg": -27.0248775
+        }
+      ]
+    },
+    {
+      "neighbor": "Eridanus",
+      "neighbor_abbreviation": "ERI",
+      "points": [
+        {
+          "ra_deg": 71.763331,
+          "dec_deg": -27.0248775
+        },
+        {
+          "ra_deg": 71.748697,
+          "dec_deg": -28.0247955
+        },
+        {
+          "ra_deg": 71.733792,
+          "dec_deg": -29.0247097
+        },
+        {
+          "ra_deg": 71.722419,
+          "dec_deg": -29.7746429
+        }
+      ]
+    },
+    {
+      "neighbor": "Eridanus",
+      "neighbor_abbreviation": "ERI",
+      "points": [
+        {
+          "ra_deg": 71.722419,
+          "dec_deg": -29.7746429
+        },
+        {
+          "ra_deg": 70.724774,
+          "dec_deg": -29.7631969
+        },
+        {
+          "ra_deg": 69.976651,
+          "dec_deg": -29.7546597
+        }
+      ]
+    },
+    {
+      "neighbor": "Eridanus",
+      "neighbor_abbreviation": "ERI",
+      "points": [
+        {
+          "ra_deg": 69.976651,
+          "dec_deg": -29.7546597
+        },
+        {
+          "ra_deg": 69.961395,
+          "dec_deg": -30.75457
+        },
+        {
+          "ra_deg": 69.945817,
+          "dec_deg": -31.7544823
+        },
+        {
+          "ra_deg": 69.929895,
+          "dec_deg": -32.7543945
+        },
+        {
+          "ra_deg": 69.913623,
+          "dec_deg": -33.7542992
+        },
+        {
+          "ra_deg": 69.896958,
+          "dec_deg": -34.7542038
+        },
+        {
+          "ra_deg": 69.879885,
+          "dec_deg": -35.7541084
+        },
+        {
+          "ra_deg": 69.862376,
+          "dec_deg": -36.7540054
+        }
+      ]
+    },
+    {
+      "neighbor": "Eridanus",
+      "neighbor_abbreviation": "ERI",
+      "points": [
+        {
+          "ra_deg": 69.862376,
+          "dec_deg": -36.7540054
+        },
+        {
+          "ra_deg": 68.865867,
+          "dec_deg": -36.7426987
+        },
+        {
+          "ra_deg": 67.869344,
+          "dec_deg": -36.7314682
+        },
+        {
+          "ra_deg": 66.872977,
+          "dec_deg": -36.7203217
+        },
+        {
+          "ra_deg": 65.876899,
+          "dec_deg": -36.7092628
+        },
+        {
+          "ra_deg": 65.12985,
+          "dec_deg": -36.7010231
+        }
+      ]
+    },
+    {
+      "neighbor": "Eridanus",
+      "neighbor_abbreviation": "ERI",
+      "points": [
+        {
+          "ra_deg": 65.12985,
+          "dec_deg": -36.7010231
+        },
+        {
+          "ra_deg": 65.112526,
+          "dec_deg": -37.7009277
+        },
+        {
+          "ra_deg": 65.094723,
+          "dec_deg": -38.7008324
+        },
+        {
+          "ra_deg": 65.076412,
+          "dec_deg": -39.7007294
+        }
+      ]
+    },
+    {
+      "neighbor": "Horologium",
+      "neighbor_abbreviation": "HOR",
+      "points": [
+        {
+          "ra_deg": 65.076412,
+          "dec_deg": -39.7007294
+        },
+        {
+          "ra_deg": 65.057574,
+          "dec_deg": -40.7006264
+        },
+        {
+          "ra_deg": 65.038154,
+          "dec_deg": -41.7005234
+        },
+        {
+          "ra_deg": 65.018119,
+          "dec_deg": -42.7004089
+        },
+        {
+          "ra_deg": 64.997427,
+          "dec_deg": -43.7002983
+        },
+        {
+          "ra_deg": 64.976041,
+          "dec_deg": -44.7001801
+        },
+        {
+          "ra_deg": 64.953897,
+          "dec_deg": -45.700058
+        },
+        {
+          "ra_deg": 64.930951,
+          "dec_deg": -46.6999321
+        },
+        {
+          "ra_deg": 64.907133,
+          "dec_deg": -47.6998024
+        },
+        {
+          "ra_deg": 64.882386,
+          "dec_deg": -48.6996651
+        }
+      ]
+    }
+  ],
+  "sources": [
+    {
+      "label": "Stellarium Western sky culture",
+      "url": "https://raw.githubusercontent.com/Stellarium/stellarium-skycultures/014fbb5e59233d133c22f9811af96b67d05a95c9/western/index.json",
+      "path": "catalog-work/western-constellation-stars/stellarium-western-index.json",
+      "sha256": "a861accd345249a185a5ecfc2a516f34291c0aa52f4bb8d8337ffc53e9cef6b9"
+    },
+    {
+      "label": "Adopted star positions and names",
+      "url": "https://simbad.cds.unistra.fr/simbad/",
+      "path": "src/data/catalogs/western-constellation-stars/stars.csv",
+      "sha256": "0a8b7c1dc3f7e3412c5cffb09a18cdf5b5b7424cc89ea8a0a1ffb4da57d3ad6a"
+    },
+    {
+      "label": "Hipparcos Johnson V magnitudes",
+      "url": "https://cdsarc.cds.unistra.fr/viz-bin/cat/I/239",
+      "path": "catalog-work/western-constellation-stars/hipparcos-v.csv",
+      "sha256": "eec12b740da3aac5204ba75ca5158b6f9f2f81886dda2526fe765cf9ea159320"
+    },
+    {
+      "label": "CDS / IAU constellation boundaries (J2000)",
+      "url": "https://cdsarc.cds.unistra.fr/viz-bin/cat/VI/49",
+      "path": "catalog-work/constellation-charts/boundaries-j2000.dat.gz",
+      "sha256": "879cd6e7a1c908f1e19a5f5fe8cc75fb1d1077564e3890f9152a3680affe9aac",
+      "inputs": [
+        {
+          "path": "catalog-work/constellation-charts/boundary-contours-b1875.dat",
+          "sha256": "865cdf4218f676eb304587c75c63231948d29cd0abe6892a8a8130c1c4fe3592"
+        },
+        {
+          "path": "catalog-work/constellation-charts/boundary-contours-readme.txt",
+          "sha256": "a3ec688bea21e9db10832842c9b845558dbe8ccf820ddedec842d664d2b74c89"
+        }
+      ]
+    }
+  ]
+}

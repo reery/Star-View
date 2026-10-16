@@ -1,0 +1,3107 @@
+{
+  "schemaVersion": 1,
+  "reviewedOn": "2026-10-16",
+  "catalogChangesApplied": false,
+  "scope": "All six bundled stellar CSVs and all shared effective component records. Exact-ID frozen Cifuentes source comparison plus a targeted primary-literature review. Not an exhaustive literature search of every stellar object or every nullable field.",
+  "policy": "Raw source-file gaps are separated from effective app gaps. Source candidates, source alternatives and hierarchy/type conflicts must be reviewed; no catalog values or memberships are changed by this audit.",
+  "inputSha256": {
+    "src/data/stars.csv": "a2d6b4e7ab8c67779a470dadbd8170e4eb4e8c9bbf46f73f30ce2e522d33436e",
+    "src/data/catalogs/bright-stars/stars.csv": "b643a244ca07093ba1e84b1b4cd945a189309d7a16de49f35554826050b6e053",
+    "src/data/catalogs/famous-cluster-stars/stars.csv": "b1bc0a3a492b3d4c9ee3330b5e80a4572d4bf95d1119f8062849d59cb430fa0f",
+    "src/data/catalogs/nearest-100/stars.csv": "cff17df64b2d9eda930ff45e2c62740a733923c42ca97bede8448cb416259cdd",
+    "src/data/catalogs/nearest-1000/stars.csv": "7219d545385c332cc6e8f246155b52bdac4bc821e876290c965a67552127e8ae",
+    "src/data/catalogs/western-constellation-stars/stars.csv": "1fe6932084497edf69f6a6af5df7d61089ad48b3818401dd56e8dd1daa66434a",
+    "src/data/stellar-companions.json": "3ffadc22ccdce0505e14f76e8d349b0878984b2fda534ce5ef0ca6ed22832493",
+    "src/data/stellar-system-identities.json": "6829742489698f9c1c6767372f4e6eedfbde26f6a63c18464ee13bf04b55ddb7",
+    "catalog-work/star-systems/catalog-companions-cifuentes.json": "bdd35ae8d422a55660f6055417684ec7dbe7bf8df6ec1657129b448bc73346b8",
+    "catalog-work/star-systems/component-gap-literature-review.json": "cf48db55ac96e9b22e4b212b02f49f1af08b407c10bf38ee5e88e71aec03b8eb"
+  },
+  "summary": {
+    "catalogs": 6,
+    "sharedSystems": 341,
+    "effectiveComponents": 844,
+    "rawGapRowsAlreadyCompleted": 123,
+    "rawGapDistinctComponentsAlreadyCompleted": 85,
+    "rawGapFieldsAlreadyCompleted": 241,
+    "frozenSourcePhysicalCandidates": 25,
+    "frozenSourcePhysicalCandidateFields": 42,
+    "category3PhysicalCandidates": 14,
+    "missingOrIncompleteSpectraWithSourceCandidates": 16,
+    "primaryLiteratureGapComponents": 0,
+    "primaryLiteratureMissingFields": 0,
+    "staleWithholdingNotes": 0
+  },
+  "catalogs": [
+    {
+      "catalogId": "nearest-neighbors",
+      "sourceRows": 22,
+      "componentRows": 12,
+      "rawGapRowsAlreadyCompleted": 0,
+      "rawGapFieldsAlreadyCompleted": 0
+    },
+    {
+      "catalogId": "bright-stars",
+      "sourceRows": 126,
+      "componentRows": 56,
+      "rawGapRowsAlreadyCompleted": 12,
+      "rawGapFieldsAlreadyCompleted": 17
+    },
+    {
+      "catalogId": "famous-cluster-stars",
+      "sourceRows": 43,
+      "componentRows": 15,
+      "rawGapRowsAlreadyCompleted": 0,
+      "rawGapFieldsAlreadyCompleted": 0
+    },
+    {
+      "catalogId": "nearest-100",
+      "sourceRows": 101,
+      "componentRows": 46,
+      "rawGapRowsAlreadyCompleted": 22,
+      "rawGapFieldsAlreadyCompleted": 42
+    },
+    {
+      "catalogId": "nearest-1000",
+      "sourceRows": 1037,
+      "componentRows": 306,
+      "rawGapRowsAlreadyCompleted": 60,
+      "rawGapFieldsAlreadyCompleted": 131
+    },
+    {
+      "catalogId": "western-constellation-stars",
+      "sourceRows": 714,
+      "componentRows": 219,
+      "rawGapRowsAlreadyCompleted": 29,
+      "rawGapFieldsAlreadyCompleted": 51
+    }
+  ],
+  "rawCatalogGapsAlreadyCompleted": [
+    {
+      "catalogId": "bright-stars",
+      "sourceStarId": "bright-rasalhague",
+      "starId": "bright-rasalhague",
+      "name": "Rasalhague A",
+      "systemId": "orb6-17349+1234-a-b",
+      "systemName": "Rasalhague",
+      "component": "A",
+      "fieldsAlreadySuppliedByPool": [
+        "mass_solar",
+        "radius_solar",
+        "luminosity_solar",
+        "age_gyr"
+      ],
+      "interpretation": "Raw catalog-file gap; already supplied to the app by completeCatalogCompanions."
+    },
+    {
+      "catalogId": "bright-stars",
+      "sourceStarId": "bright-sheratan",
+      "starId": "bright-sheratan",
+      "name": "Sheratan A",
+      "systemId": "orb6-01546+2049-a-b",
+      "systemName": "Sheratan",
+      "component": "A",
+      "fieldsAlreadySuppliedByPool": [
+        "mass_solar"
+      ],
+      "interpretation": "Raw catalog-file gap; already supplied to the app by completeCatalogCompanions."
+    },
+    {
+      "catalogId": "bright-stars",
+      "sourceStarId": "bright-mizar-a",
+      "starId": "bright-mizar-a",
+      "name": "Mizar Aa",
+      "systemId": "msc-13239+5456",
+      "systemName": "Mizar",
+      "component": "Aa",
+      "fieldsAlreadySuppliedByPool": [
+        "mass_solar"
+      ],
+      "interpretation": "Raw catalog-file gap; already supplied to the app by completeCatalogCompanions."
+    },
+    {
+      "catalogId": "bright-stars",
+      "sourceStarId": "bright-menkalinan",
+      "starId": "bright-menkalinan",
+      "name": "Menkalinan Aa",
+      "systemId": "orb6-05595+4457-aa-ab",
+      "systemName": "Menkalinan",
+      "component": "Aa",
+      "fieldsAlreadySuppliedByPool": [
+        "mass_solar"
+      ],
+      "interpretation": "Raw catalog-file gap; already supplied to the app by completeCatalogCompanions."
+    },
+    {
+      "catalogId": "bright-stars",
+      "sourceStarId": "bright-alhena",
+      "starId": "bright-alhena",
+      "name": "Alhena Aa",
+      "systemId": "orb6-06377+1624-aa-ab",
+      "systemName": "Alhena",
+      "component": "Aa",
+      "fieldsAlreadySuppliedByPool": [
+        "mass_solar"
+      ],
+      "interpretation": "Raw catalog-file gap; already supplied to the app by completeCatalogCompanions."
+    },
+    {
+      "catalogId": "bright-stars",
+      "sourceStarId": "bright-dubhe",
+      "starId": "bright-dubhe",
+      "name": "Dubhe A",
+      "systemId": "msc-11037+6145",
+      "systemName": "Dubhe",
+      "component": "A",
+      "fieldsAlreadySuppliedByPool": [
+        "mass_solar"
+      ],
+      "interpretation": "Raw catalog-file gap; already supplied to the app by completeCatalogCompanions."
+    },
+    {
+      "catalogId": "bright-stars",
+      "sourceStarId": "bright-achernar",
+      "starId": "bright-achernar",
+      "name": "Achernar A",
+      "systemId": "orb6-01377-5714-a-b",
+      "systemName": "Achernar",
+      "component": "A",
+      "fieldsAlreadySuppliedByPool": [
+        "age_gyr"
+      ],
+      "interpretation": "Raw catalog-file gap; already supplied to the app by completeCatalogCompanions."
+    },
+    {
+      "catalogId": "bright-stars",
+      "sourceStarId": "bright-dschubba",
+      "starId": "bright-dschubba",
+      "name": "Dschubba A",
+      "systemId": "orb6-16003-2237-a-b",
+      "systemName": "Dschubba",
+      "component": "A",
+      "fieldsAlreadySuppliedByPool": [
+        "radius_solar",
+        "luminosity_solar",
+        "age_gyr"
+      ],
+      "interpretation": "Raw catalog-file gap; already supplied to the app by completeCatalogCompanions."
+    },
+    {
+      "catalogId": "bright-stars",
+      "sourceStarId": "bright-avior",
+      "starId": "bright-avior",
+      "name": "Avior A",
+      "systemId": "spectroscopic-bright-avior",
+      "systemName": "Avior",
+      "component": "A",
+      "fieldsAlreadySuppliedByPool": [
+        "metallicity_dex"
+      ],
+      "interpretation": "Raw catalog-file gap; already supplied to the app by completeCatalogCompanions."
+    },
+    {
+      "catalogId": "bright-stars",
+      "sourceStarId": "rigel-ba",
+      "starId": "rigel-ba",
+      "name": "Rigel Ba",
+      "systemId": "rigel",
+      "systemName": "Rigel",
+      "component": "Ba",
+      "fieldsAlreadySuppliedByPool": [
+        "temperature_k"
+      ],
+      "interpretation": "Raw catalog-file gap; already supplied to the app by completeCatalogCompanions."
+    },
+    {
+      "catalogId": "bright-stars",
+      "sourceStarId": "rigel-c",
+      "starId": "rigel-c",
+      "name": "Rigel C",
+      "systemId": "rigel",
+      "systemName": "Rigel",
+      "component": "C",
+      "fieldsAlreadySuppliedByPool": [
+        "temperature_k"
+      ],
+      "interpretation": "Raw catalog-file gap; already supplied to the app by completeCatalogCompanions."
+    },
+    {
+      "catalogId": "bright-stars",
+      "sourceStarId": "bright-regor",
+      "starId": "bright-regor",
+      "name": "Regor Aa",
+      "systemId": "msc-08095-4720",
+      "systemName": "Regor",
+      "component": "Aa",
+      "fieldsAlreadySuppliedByPool": [
+        "mass_solar"
+      ],
+      "interpretation": "Raw catalog-file gap; already supplied to the app by completeCatalogCompanions."
+    },
+    {
+      "catalogId": "nearest-100",
+      "sourceStarId": "10pc-0030",
+      "starId": "10pc-0030",
+      "name": "61 Cyg B",
+      "systemId": "msc-21069+3845",
+      "systemName": "61 Cyg",
+      "component": "B",
+      "fieldsAlreadySuppliedByPool": [
+        "mass_solar",
+        "absolute_mag"
+      ],
+      "interpretation": "Raw catalog-file gap; already supplied to the app by completeCatalogCompanions."
+    },
+    {
+      "catalogId": "nearest-100",
+      "sourceStarId": "10pc-0029",
+      "starId": "10pc-0029",
+      "name": "61 Cyg A",
+      "systemId": "msc-21069+3845",
+      "systemName": "61 Cyg",
+      "component": "A",
+      "fieldsAlreadySuppliedByPool": [
+        "absolute_mag"
+      ],
+      "interpretation": "Raw catalog-file gap; already supplied to the app by completeCatalogCompanions."
+    },
+    {
+      "catalogId": "nearest-100",
+      "sourceStarId": "10pc-0034",
+      "starId": "10pc-0034",
+      "name": "HD 173740",
+      "systemId": "gj-725",
+      "systemName": "GJ 725",
+      "component": "B",
+      "fieldsAlreadySuppliedByPool": [
+        "mass_solar"
+      ],
+      "interpretation": "Raw catalog-file gap; already supplied to the app by completeCatalogCompanions."
+    },
+    {
+      "catalogId": "nearest-100",
+      "sourceStarId": "10pc-0033",
+      "starId": "10pc-0033",
+      "name": "HD 173739",
+      "systemId": "gj-725",
+      "systemName": "GJ 725",
+      "component": "A",
+      "fieldsAlreadySuppliedByPool": [
+        "mass_solar"
+      ],
+      "interpretation": "Raw catalog-file gap; already supplied to the app by completeCatalogCompanions."
+    },
+    {
+      "catalogId": "nearest-100",
+      "sourceStarId": "10pc-0040",
+      "starId": "10pc-0040",
+      "name": "eps Ind A",
+      "systemId": "msc-22034-5647",
+      "systemName": "eps Ind",
+      "component": "A",
+      "fieldsAlreadySuppliedByPool": [
+        "absolute_mag"
+      ],
+      "interpretation": "Raw catalog-file gap; already supplied to the app by completeCatalogCompanions."
+    },
+    {
+      "catalogId": "nearest-100",
+      "sourceStarId": "10pc-0042",
+      "starId": "10pc-0042",
+      "name": "eps Ind Ba",
+      "systemId": "msc-22034-5647",
+      "systemName": "eps Ind",
+      "component": "Ba",
+      "fieldsAlreadySuppliedByPool": [
+        "absolute_mag"
+      ],
+      "interpretation": "Raw catalog-file gap; already supplied to the app by completeCatalogCompanions."
+    },
+    {
+      "catalogId": "nearest-100",
+      "sourceStarId": "10pc-0043",
+      "starId": "10pc-0043",
+      "name": "eps Ind Bb",
+      "systemId": "msc-22034-5647",
+      "systemName": "eps Ind",
+      "component": "Bb",
+      "fieldsAlreadySuppliedByPool": [
+        "absolute_mag"
+      ],
+      "interpretation": "Raw catalog-file gap; already supplied to the app by completeCatalogCompanions."
+    },
+    {
+      "catalogId": "nearest-100",
+      "sourceStarId": "10pc-0066",
+      "starId": "10pc-0066",
+      "name": "V577 Mon A",
+      "systemId": "ross-614",
+      "systemName": "V577 Mon",
+      "component": "A",
+      "fieldsAlreadySuppliedByPool": [
+        "mass_solar",
+        "absolute_mag"
+      ],
+      "interpretation": "Raw catalog-file gap; already supplied to the app by completeCatalogCompanions."
+    },
+    {
+      "catalogId": "nearest-100",
+      "sourceStarId": "10pc-0067",
+      "starId": "10pc-0067",
+      "name": "V577 Mon B",
+      "systemId": "ross-614",
+      "systemName": "V577 Mon",
+      "component": "B",
+      "fieldsAlreadySuppliedByPool": [
+        "mass_solar",
+        "absolute_mag"
+      ],
+      "interpretation": "Raw catalog-file gap; already supplied to the app by completeCatalogCompanions."
+    },
+    {
+      "catalogId": "nearest-100",
+      "sourceStarId": "10pc-0074",
+      "starId": "10pc-0074",
+      "name": "FL Vir A",
+      "systemId": "wolf-424",
+      "systemName": "FL Vir",
+      "component": "A",
+      "fieldsAlreadySuppliedByPool": [
+        "mass_solar",
+        "absolute_mag"
+      ],
+      "interpretation": "Raw catalog-file gap; already supplied to the app by completeCatalogCompanions."
+    },
+    {
+      "catalogId": "nearest-100",
+      "sourceStarId": "10pc-0075",
+      "starId": "10pc-0075",
+      "name": "FL Vir B",
+      "systemId": "wolf-424",
+      "systemName": "FL Vir",
+      "component": "B",
+      "fieldsAlreadySuppliedByPool": [
+        "mass_solar",
+        "absolute_mag"
+      ],
+      "interpretation": "Raw catalog-file gap; already supplied to the app by completeCatalogCompanions."
+    },
+    {
+      "catalogId": "nearest-100",
+      "sourceStarId": "10pc-0089",
+      "starId": "10pc-0089",
+      "name": "GJ 1245 B",
+      "systemId": "gj-1245",
+      "systemName": "GJ 1245",
+      "component": "B",
+      "fieldsAlreadySuppliedByPool": [
+        "mass_solar",
+        "radius_solar",
+        "luminosity_solar"
+      ],
+      "interpretation": "Raw catalog-file gap; already supplied to the app by completeCatalogCompanions."
+    },
+    {
+      "catalogId": "nearest-100",
+      "sourceStarId": "10pc-0087",
+      "starId": "10pc-0087",
+      "name": "GJ 1245 A",
+      "systemId": "gj-1245",
+      "systemName": "GJ 1245",
+      "component": "A",
+      "fieldsAlreadySuppliedByPool": [
+        "mass_solar",
+        "absolute_mag"
+      ],
+      "interpretation": "Raw catalog-file gap; already supplied to the app by completeCatalogCompanions."
+    },
+    {
+      "catalogId": "nearest-100",
+      "sourceStarId": "10pc-0088",
+      "starId": "10pc-0088",
+      "name": "GJ 1245 C",
+      "systemId": "gj-1245",
+      "systemName": "GJ 1245",
+      "component": "C",
+      "fieldsAlreadySuppliedByPool": [
+        "mass_solar",
+        "absolute_mag"
+      ],
+      "interpretation": "Raw catalog-file gap; already supplied to the app by completeCatalogCompanions."
+    },
+    {
+      "catalogId": "nearest-100",
+      "sourceStarId": "10pc-0110",
+      "starId": "10pc-0110",
+      "name": "GJ 166 B",
+      "systemId": "keid",
+      "systemName": "Keid",
+      "component": "B",
+      "fieldsAlreadySuppliedByPool": [
+        "temperature_k",
+        "mass_solar",
+        "radius_solar",
+        "luminosity_solar",
+        "absolute_mag"
+      ],
+      "interpretation": "Raw catalog-file gap; already supplied to the app by completeCatalogCompanions."
+    },
+    {
+      "catalogId": "nearest-100",
+      "sourceStarId": "10pc-0109",
+      "starId": "10pc-0109",
+      "name": "Keid",
+      "systemId": "keid",
+      "systemName": "Keid",
+      "component": "A",
+      "fieldsAlreadySuppliedByPool": [
+        "mass_solar",
+        "radius_solar",
+        "luminosity_solar",
+        "absolute_mag"
+      ],
+      "interpretation": "Raw catalog-file gap; already supplied to the app by completeCatalogCompanions."
+    },
+    {
+      "catalogId": "nearest-100",
+      "sourceStarId": "10pc-0111",
+      "starId": "10pc-0111",
+      "name": "DY Eri",
+      "systemId": "keid",
+      "systemName": "Keid",
+      "component": "C",
+      "fieldsAlreadySuppliedByPool": [
+        "absolute_mag"
+      ],
+      "interpretation": "Raw catalog-file gap; already supplied to the app by completeCatalogCompanions."
+    },
+    {
+      "catalogId": "nearest-100",
+      "sourceStarId": "10pc-0114",
+      "starId": "10pc-0114",
+      "name": "EI Cnc B",
+      "systemId": "ei-cancri",
+      "systemName": "EI Cnc",
+      "component": "B",
+      "fieldsAlreadySuppliedByPool": [
+        "mass_solar",
+        "radius_solar",
+        "luminosity_solar"
+      ],
+      "interpretation": "Raw catalog-file gap; already supplied to the app by completeCatalogCompanions."
+    },
+    {
+      "catalogId": "nearest-100",
+      "sourceStarId": "10pc-0116",
+      "starId": "10pc-0116",
+      "name": "70 Oph B",
+      "systemId": "msc-18055+0230",
+      "systemName": "70 Oph",
+      "component": "B",
+      "fieldsAlreadySuppliedByPool": [
+        "absolute_mag"
+      ],
+      "interpretation": "Raw catalog-file gap; already supplied to the app by completeCatalogCompanions."
+    },
+    {
+      "catalogId": "nearest-100",
+      "sourceStarId": "10pc-0115",
+      "starId": "10pc-0115",
+      "name": "70 Oph A",
+      "systemId": "msc-18055+0230",
+      "systemName": "70 Oph",
+      "component": "A",
+      "fieldsAlreadySuppliedByPool": [
+        "absolute_mag"
+      ],
+      "interpretation": "Raw catalog-file gap; already supplied to the app by completeCatalogCompanions."
+    },
+    {
+      "catalogId": "nearest-100",
+      "sourceStarId": "10pc-0128",
+      "starId": "10pc-0128",
+      "name": "Stein 2051 A",
+      "systemId": "stein-2051",
+      "systemName": "Stein 2051",
+      "component": "A",
+      "fieldsAlreadySuppliedByPool": [
+        "mass_solar",
+        "radius_solar",
+        "luminosity_solar"
+      ],
+      "interpretation": "Raw catalog-file gap; already supplied to the app by completeCatalogCompanions."
+    },
+    {
+      "catalogId": "nearest-100",
+      "sourceStarId": "10pc-0138",
+      "starId": "10pc-0138",
+      "name": "GJ 229 A",
+      "systemId": "gj-229",
+      "systemName": "GJ 229",
+      "component": "A",
+      "fieldsAlreadySuppliedByPool": [
+        "absolute_mag"
+      ],
+      "interpretation": "Raw catalog-file gap; already supplied to the app by completeCatalogCompanions."
+    },
+    {
+      "catalogId": "nearest-1000",
+      "sourceStarId": "10pc-0030",
+      "starId": "10pc-0030",
+      "name": "61 Cyg B",
+      "systemId": "msc-21069+3845",
+      "systemName": "61 Cyg",
+      "component": "B",
+      "fieldsAlreadySuppliedByPool": [
+        "mass_solar",
+        "absolute_mag"
+      ],
+      "interpretation": "Raw catalog-file gap; already supplied to the app by completeCatalogCompanions."
+    },
+    {
+      "catalogId": "nearest-1000",
+      "sourceStarId": "10pc-0029",
+      "starId": "10pc-0029",
+      "name": "61 Cyg A",
+      "systemId": "msc-21069+3845",
+      "systemName": "61 Cyg",
+      "component": "A",
+      "fieldsAlreadySuppliedByPool": [
+        "absolute_mag"
+      ],
+      "interpretation": "Raw catalog-file gap; already supplied to the app by completeCatalogCompanions."
+    },
+    {
+      "catalogId": "nearest-1000",
+      "sourceStarId": "10pc-0034",
+      "starId": "10pc-0034",
+      "name": "HD 173740",
+      "systemId": "gj-725",
+      "systemName": "GJ 725",
+      "component": "B",
+      "fieldsAlreadySuppliedByPool": [
+        "mass_solar"
+      ],
+      "interpretation": "Raw catalog-file gap; already supplied to the app by completeCatalogCompanions."
+    },
+    {
+      "catalogId": "nearest-1000",
+      "sourceStarId": "10pc-0033",
+      "starId": "10pc-0033",
+      "name": "HD 173739",
+      "systemId": "gj-725",
+      "systemName": "GJ 725",
+      "component": "A",
+      "fieldsAlreadySuppliedByPool": [
+        "mass_solar"
+      ],
+      "interpretation": "Raw catalog-file gap; already supplied to the app by completeCatalogCompanions."
+    },
+    {
+      "catalogId": "nearest-1000",
+      "sourceStarId": "10pc-0040",
+      "starId": "10pc-0040",
+      "name": "eps Ind A",
+      "systemId": "msc-22034-5647",
+      "systemName": "eps Ind",
+      "component": "A",
+      "fieldsAlreadySuppliedByPool": [
+        "absolute_mag"
+      ],
+      "interpretation": "Raw catalog-file gap; already supplied to the app by completeCatalogCompanions."
+    },
+    {
+      "catalogId": "nearest-1000",
+      "sourceStarId": "10pc-0042",
+      "starId": "10pc-0042",
+      "name": "eps Ind Ba",
+      "systemId": "msc-22034-5647",
+      "systemName": "eps Ind",
+      "component": "Ba",
+      "fieldsAlreadySuppliedByPool": [
+        "absolute_mag"
+      ],
+      "interpretation": "Raw catalog-file gap; already supplied to the app by completeCatalogCompanions."
+    },
+    {
+      "catalogId": "nearest-1000",
+      "sourceStarId": "10pc-0043",
+      "starId": "10pc-0043",
+      "name": "eps Ind Bb",
+      "systemId": "msc-22034-5647",
+      "systemName": "eps Ind",
+      "component": "Bb",
+      "fieldsAlreadySuppliedByPool": [
+        "absolute_mag"
+      ],
+      "interpretation": "Raw catalog-file gap; already supplied to the app by completeCatalogCompanions."
+    },
+    {
+      "catalogId": "nearest-1000",
+      "sourceStarId": "10pc-0066",
+      "starId": "10pc-0066",
+      "name": "V577 Mon A",
+      "systemId": "ross-614",
+      "systemName": "V577 Mon",
+      "component": "A",
+      "fieldsAlreadySuppliedByPool": [
+        "mass_solar",
+        "absolute_mag"
+      ],
+      "interpretation": "Raw catalog-file gap; already supplied to the app by completeCatalogCompanions."
+    },
+    {
+      "catalogId": "nearest-1000",
+      "sourceStarId": "10pc-0067",
+      "starId": "10pc-0067",
+      "name": "V577 Mon B",
+      "systemId": "ross-614",
+      "systemName": "V577 Mon",
+      "component": "B",
+      "fieldsAlreadySuppliedByPool": [
+        "mass_solar",
+        "absolute_mag"
+      ],
+      "interpretation": "Raw catalog-file gap; already supplied to the app by completeCatalogCompanions."
+    },
+    {
+      "catalogId": "nearest-1000",
+      "sourceStarId": "10pc-0074",
+      "starId": "10pc-0074",
+      "name": "FL Vir A",
+      "systemId": "wolf-424",
+      "systemName": "FL Vir",
+      "component": "A",
+      "fieldsAlreadySuppliedByPool": [
+        "mass_solar",
+        "absolute_mag"
+      ],
+      "interpretation": "Raw catalog-file gap; already supplied to the app by completeCatalogCompanions."
+    },
+    {
+      "catalogId": "nearest-1000",
+      "sourceStarId": "10pc-0075",
+      "starId": "10pc-0075",
+      "name": "FL Vir B",
+      "systemId": "wolf-424",
+      "systemName": "FL Vir",
+      "component": "B",
+      "fieldsAlreadySuppliedByPool": [
+        "mass_solar",
+        "absolute_mag"
+      ],
+      "interpretation": "Raw catalog-file gap; already supplied to the app by completeCatalogCompanions."
+    },
+    {
+      "catalogId": "nearest-1000",
+      "sourceStarId": "10pc-0089",
+      "starId": "10pc-0089",
+      "name": "GJ 1245 B",
+      "systemId": "gj-1245",
+      "systemName": "GJ 1245",
+      "component": "B",
+      "fieldsAlreadySuppliedByPool": [
+        "mass_solar",
+        "radius_solar",
+        "luminosity_solar"
+      ],
+      "interpretation": "Raw catalog-file gap; already supplied to the app by completeCatalogCompanions."
+    },
+    {
+      "catalogId": "nearest-1000",
+      "sourceStarId": "10pc-0087",
+      "starId": "10pc-0087",
+      "name": "GJ 1245 A",
+      "systemId": "gj-1245",
+      "systemName": "GJ 1245",
+      "component": "A",
+      "fieldsAlreadySuppliedByPool": [
+        "mass_solar",
+        "absolute_mag"
+      ],
+      "interpretation": "Raw catalog-file gap; already supplied to the app by completeCatalogCompanions."
+    },
+    {
+      "catalogId": "nearest-1000",
+      "sourceStarId": "10pc-0088",
+      "starId": "10pc-0088",
+      "name": "GJ 1245 C",
+      "systemId": "gj-1245",
+      "systemName": "GJ 1245",
+      "component": "C",
+      "fieldsAlreadySuppliedByPool": [
+        "mass_solar",
+        "absolute_mag"
+      ],
+      "interpretation": "Raw catalog-file gap; already supplied to the app by completeCatalogCompanions."
+    },
+    {
+      "catalogId": "nearest-1000",
+      "sourceStarId": "10pc-0110",
+      "starId": "10pc-0110",
+      "name": "GJ 166 B",
+      "systemId": "keid",
+      "systemName": "Keid",
+      "component": "B",
+      "fieldsAlreadySuppliedByPool": [
+        "temperature_k",
+        "mass_solar",
+        "radius_solar",
+        "luminosity_solar",
+        "absolute_mag"
+      ],
+      "interpretation": "Raw catalog-file gap; already supplied to the app by completeCatalogCompanions."
+    },
+    {
+      "catalogId": "nearest-1000",
+      "sourceStarId": "10pc-0109",
+      "starId": "10pc-0109",
+      "name": "Keid",
+      "systemId": "keid",
+      "systemName": "Keid",
+      "component": "A",
+      "fieldsAlreadySuppliedByPool": [
+        "mass_solar",
+        "radius_solar",
+        "luminosity_solar",
+        "absolute_mag"
+      ],
+      "interpretation": "Raw catalog-file gap; already supplied to the app by completeCatalogCompanions."
+    },
+    {
+      "catalogId": "nearest-1000",
+      "sourceStarId": "10pc-0111",
+      "starId": "10pc-0111",
+      "name": "DY Eri",
+      "systemId": "keid",
+      "systemName": "Keid",
+      "component": "C",
+      "fieldsAlreadySuppliedByPool": [
+        "absolute_mag"
+      ],
+      "interpretation": "Raw catalog-file gap; already supplied to the app by completeCatalogCompanions."
+    },
+    {
+      "catalogId": "nearest-1000",
+      "sourceStarId": "10pc-0114",
+      "starId": "10pc-0114",
+      "name": "EI Cnc B",
+      "systemId": "ei-cancri",
+      "systemName": "EI Cnc",
+      "component": "B",
+      "fieldsAlreadySuppliedByPool": [
+        "mass_solar",
+        "radius_solar",
+        "luminosity_solar"
+      ],
+      "interpretation": "Raw catalog-file gap; already supplied to the app by completeCatalogCompanions."
+    },
+    {
+      "catalogId": "nearest-1000",
+      "sourceStarId": "10pc-0116",
+      "starId": "10pc-0116",
+      "name": "70 Oph B",
+      "systemId": "msc-18055+0230",
+      "systemName": "70 Oph",
+      "component": "B",
+      "fieldsAlreadySuppliedByPool": [
+        "absolute_mag"
+      ],
+      "interpretation": "Raw catalog-file gap; already supplied to the app by completeCatalogCompanions."
+    },
+    {
+      "catalogId": "nearest-1000",
+      "sourceStarId": "10pc-0115",
+      "starId": "10pc-0115",
+      "name": "70 Oph A",
+      "systemId": "msc-18055+0230",
+      "systemName": "70 Oph",
+      "component": "A",
+      "fieldsAlreadySuppliedByPool": [
+        "absolute_mag"
+      ],
+      "interpretation": "Raw catalog-file gap; already supplied to the app by completeCatalogCompanions."
+    },
+    {
+      "catalogId": "nearest-1000",
+      "sourceStarId": "10pc-0128",
+      "starId": "10pc-0128",
+      "name": "Stein 2051 A",
+      "systemId": "stein-2051",
+      "systemName": "Stein 2051",
+      "component": "A",
+      "fieldsAlreadySuppliedByPool": [
+        "mass_solar",
+        "radius_solar",
+        "luminosity_solar"
+      ],
+      "interpretation": "Raw catalog-file gap; already supplied to the app by completeCatalogCompanions."
+    },
+    {
+      "catalogId": "nearest-1000",
+      "sourceStarId": "cns5-1529",
+      "starId": "cns5-1529",
+      "name": "GJ 229 Ba",
+      "systemId": "gj-229",
+      "systemName": "GJ 229",
+      "component": "Ba",
+      "fieldsAlreadySuppliedByPool": [
+        "spectral_type"
+      ],
+      "interpretation": "Raw catalog-file gap; already supplied to the app by completeCatalogCompanions."
+    },
+    {
+      "catalogId": "nearest-1000",
+      "sourceStarId": "10pc-0138",
+      "starId": "10pc-0138",
+      "name": "GJ 229 A",
+      "systemId": "gj-229",
+      "systemName": "GJ 229",
+      "component": "A",
+      "fieldsAlreadySuppliedByPool": [
+        "absolute_mag"
+      ],
+      "interpretation": "Raw catalog-file gap; already supplied to the app by completeCatalogCompanions."
+    },
+    {
+      "catalogId": "nearest-1000",
+      "sourceStarId": "cns5-3699",
+      "starId": "cns5-3699",
+      "name": "GJ 570 D",
+      "systemId": "gj-570",
+      "systemName": "GJ 570",
+      "component": "D",
+      "fieldsAlreadySuppliedByPool": [
+        "metallicity_dex"
+      ],
+      "interpretation": "Raw catalog-file gap; already supplied to the app by completeCatalogCompanions."
+    },
+    {
+      "catalogId": "nearest-1000",
+      "sourceStarId": "cns5-4136",
+      "starId": "cns5-4136",
+      "name": "GJ 644 A",
+      "systemId": "gj-644",
+      "systemName": "GJ 644",
+      "component": "A",
+      "fieldsAlreadySuppliedByPool": [
+        "spectral_type"
+      ],
+      "interpretation": "Raw catalog-file gap; already supplied to the app by completeCatalogCompanions."
+    },
+    {
+      "catalogId": "nearest-1000",
+      "sourceStarId": "cns5-4137",
+      "starId": "cns5-4137",
+      "name": "VB 8",
+      "systemId": "gj-644",
+      "systemName": "GJ 644",
+      "component": "C",
+      "fieldsAlreadySuppliedByPool": [
+        "metallicity_dex"
+      ],
+      "interpretation": "Raw catalog-file gap; already supplied to the app by completeCatalogCompanions."
+    },
+    {
+      "catalogId": "nearest-1000",
+      "sourceStarId": "cns5-4014",
+      "starId": "cns5-4014",
+      "name": "G 202-45 Aa",
+      "systemId": "msc-16240+4822",
+      "systemName": "G 202-45",
+      "component": "Aa",
+      "fieldsAlreadySuppliedByPool": [
+        "mass_solar",
+        "absolute_mag"
+      ],
+      "interpretation": "Raw catalog-file gap; already supplied to the app by completeCatalogCompanions."
+    },
+    {
+      "catalogId": "nearest-1000",
+      "sourceStarId": "chi-draconis-b",
+      "starId": "chi-draconis-b",
+      "name": "Chi Draconis B",
+      "systemId": "chi-draconis",
+      "systemName": "Chi Draconis",
+      "component": "B",
+      "fieldsAlreadySuppliedByPool": [
+        "absolute_mag"
+      ],
+      "interpretation": "Raw catalog-file gap; already supplied to the app by completeCatalogCompanions."
+    },
+    {
+      "catalogId": "nearest-1000",
+      "sourceStarId": "cns5-4539",
+      "starId": "cns5-4539",
+      "name": "Chi Draconis A",
+      "systemId": "chi-draconis",
+      "systemName": "Chi Draconis",
+      "component": "A",
+      "fieldsAlreadySuppliedByPool": [
+        "absolute_mag"
+      ],
+      "interpretation": "Raw catalog-file gap; already supplied to the app by completeCatalogCompanions."
+    },
+    {
+      "catalogId": "nearest-1000",
+      "sourceStarId": "cns5-4399",
+      "starId": "cns5-4399",
+      "name": "Mu Her C",
+      "systemId": "gj-695",
+      "systemName": "Mu Her",
+      "component": "C",
+      "fieldsAlreadySuppliedByPool": [
+        "temperature_k",
+        "radius_solar",
+        "luminosity_solar",
+        "spectral_type"
+      ],
+      "interpretation": "Raw catalog-file gap; already supplied to the app by completeCatalogCompanions."
+    },
+    {
+      "catalogId": "nearest-1000",
+      "sourceStarId": "cns5-4400",
+      "starId": "cns5-4400",
+      "name": "Mu Her B",
+      "systemId": "gj-695",
+      "systemName": "Mu Her",
+      "component": "B",
+      "fieldsAlreadySuppliedByPool": [
+        "temperature_k",
+        "radius_solar",
+        "luminosity_solar",
+        "spectral_type"
+      ],
+      "interpretation": "Raw catalog-file gap; already supplied to the app by completeCatalogCompanions."
+    },
+    {
+      "catalogId": "nearest-1000",
+      "sourceStarId": "cns5-1263",
+      "starId": "cns5-1263",
+      "name": "HD 32450B",
+      "systemId": "gj-185",
+      "systemName": "HD 32450",
+      "component": "B",
+      "fieldsAlreadySuppliedByPool": [
+        "temperature_k",
+        "luminosity_solar",
+        "spectral_type"
+      ],
+      "interpretation": "Raw catalog-file gap; already supplied to the app by completeCatalogCompanions."
+    },
+    {
+      "catalogId": "nearest-1000",
+      "sourceStarId": "cns5-2771",
+      "starId": "cns5-2771",
+      "name": "Alula Australis D",
+      "systemId": "msc-11182+3132",
+      "systemName": "Alula Australis",
+      "component": "D",
+      "fieldsAlreadySuppliedByPool": [
+        "absolute_mag"
+      ],
+      "interpretation": "Raw catalog-file gap; already supplied to the app by completeCatalogCompanions."
+    },
+    {
+      "catalogId": "nearest-1000",
+      "sourceStarId": "cns5-1702",
+      "starId": "cns5-1702",
+      "name": "HD 50281 Ba",
+      "systemId": "gj-250",
+      "systemName": "HD 50281",
+      "component": "Ba",
+      "fieldsAlreadySuppliedByPool": [
+        "spectral_type"
+      ],
+      "interpretation": "Raw catalog-file gap; already supplied to the app by completeCatalogCompanions."
+    },
+    {
+      "catalogId": "nearest-1000",
+      "sourceStarId": "cns5-5064",
+      "starId": "cns5-5064",
+      "name": "G 24-16 A",
+      "systemId": "orb6-20298+0941-a-b",
+      "systemName": "G 24-16",
+      "component": "A",
+      "fieldsAlreadySuppliedByPool": [
+        "mass_solar",
+        "absolute_mag"
+      ],
+      "interpretation": "Raw catalog-file gap; already supplied to the app by completeCatalogCompanions."
+    },
+    {
+      "catalogId": "nearest-1000",
+      "sourceStarId": "cns5-5128",
+      "starId": "cns5-5128",
+      "name": "HD 197481",
+      "systemId": "msc-20452-3120",
+      "systemName": "AT Mic",
+      "component": "A",
+      "fieldsAlreadySuppliedByPool": [
+        "mass_solar",
+        "radius_solar",
+        "luminosity_solar"
+      ],
+      "interpretation": "Raw catalog-file gap; already supplied to the app by completeCatalogCompanions."
+    },
+    {
+      "catalogId": "nearest-1000",
+      "sourceStarId": "cns5-5104",
+      "starId": "cns5-5104",
+      "name": "AT Mic C",
+      "systemId": "msc-20452-3120",
+      "systemName": "AT Mic",
+      "component": "C",
+      "fieldsAlreadySuppliedByPool": [
+        "mass_solar"
+      ],
+      "interpretation": "Raw catalog-file gap; already supplied to the app by completeCatalogCompanions."
+    },
+    {
+      "catalogId": "nearest-1000",
+      "sourceStarId": "cns5-0155",
+      "starId": "cns5-0155",
+      "name": "GJ 22 A",
+      "systemId": "gj-22",
+      "systemName": "GJ 22",
+      "component": "A",
+      "fieldsAlreadySuppliedByPool": [
+        "mass_solar",
+        "absolute_mag"
+      ],
+      "interpretation": "Raw catalog-file gap; already supplied to the app by completeCatalogCompanions."
+    },
+    {
+      "catalogId": "nearest-1000",
+      "sourceStarId": "gj-22-c",
+      "starId": "gj-22-c",
+      "name": "GJ 22 C",
+      "systemId": "gj-22",
+      "systemName": "GJ 22",
+      "component": "C",
+      "fieldsAlreadySuppliedByPool": [
+        "mass_solar",
+        "absolute_mag"
+      ],
+      "interpretation": "Raw catalog-file gap; already supplied to the app by completeCatalogCompanions."
+    },
+    {
+      "catalogId": "nearest-1000",
+      "sourceStarId": "cns5-5103",
+      "starId": "cns5-5103",
+      "name": "AT Mic B",
+      "systemId": "msc-20452-3120",
+      "systemName": "AT Mic",
+      "component": "B",
+      "fieldsAlreadySuppliedByPool": [
+        "mass_solar",
+        "radius_solar",
+        "luminosity_solar"
+      ],
+      "interpretation": "Raw catalog-file gap; already supplied to the app by completeCatalogCompanions."
+    },
+    {
+      "catalogId": "nearest-1000",
+      "sourceStarId": "cns5-4626",
+      "starId": "cns5-4626",
+      "name": "G 184-19B",
+      "systemId": "gj-1230",
+      "systemName": "GJ 1230",
+      "component": "B",
+      "fieldsAlreadySuppliedByPool": [
+        "mass_solar",
+        "radius_solar"
+      ],
+      "interpretation": "Raw catalog-file gap; already supplied to the app by completeCatalogCompanions."
+    },
+    {
+      "catalogId": "nearest-1000",
+      "sourceStarId": "cns5-0154",
+      "starId": "cns5-0154",
+      "name": "BD+66 34B",
+      "systemId": "gj-22",
+      "systemName": "GJ 22",
+      "component": "B",
+      "fieldsAlreadySuppliedByPool": [
+        "luminosity_solar"
+      ],
+      "interpretation": "Raw catalog-file gap; already supplied to the app by completeCatalogCompanions."
+    },
+    {
+      "catalogId": "nearest-1000",
+      "sourceStarId": "cns5-0583",
+      "starId": "cns5-0583",
+      "name": "Delta Tri Aa",
+      "systemId": "orb6-02171+3413-aa-ab",
+      "systemName": "Delta Tri",
+      "component": "Aa",
+      "fieldsAlreadySuppliedByPool": [
+        "mass_solar",
+        "absolute_mag"
+      ],
+      "interpretation": "Raw catalog-file gap; already supplied to the app by completeCatalogCompanions."
+    },
+    {
+      "catalogId": "nearest-1000",
+      "sourceStarId": "cns5-3637",
+      "starId": "cns5-3637",
+      "name": "G 239-25B",
+      "systemId": "gj-9492",
+      "systemName": "G 239-25",
+      "component": "B",
+      "fieldsAlreadySuppliedByPool": [
+        "mass_solar",
+        "radius_solar"
+      ],
+      "interpretation": "Raw catalog-file gap; already supplied to the app by completeCatalogCompanions."
+    },
+    {
+      "catalogId": "nearest-1000",
+      "sourceStarId": "cns5-1741",
+      "starId": "cns5-1741",
+      "name": "2MASS J07003664+3157266 A",
+      "systemId": "orb6-07006+3157-a-b",
+      "systemName": "2MASS J07003664+3157266",
+      "component": "A",
+      "fieldsAlreadySuppliedByPool": [
+        "temperature_k"
+      ],
+      "interpretation": "Raw catalog-file gap; already supplied to the app by completeCatalogCompanions."
+    },
+    {
+      "catalogId": "nearest-1000",
+      "sourceStarId": "cns5-1725",
+      "starId": "cns5-1725",
+      "name": "G 250-31B",
+      "systemId": "gj-3417",
+      "systemName": "G 250-31",
+      "component": "B",
+      "fieldsAlreadySuppliedByPool": [
+        "luminosity_solar"
+      ],
+      "interpretation": "Raw catalog-file gap; already supplied to the app by completeCatalogCompanions."
+    },
+    {
+      "catalogId": "nearest-1000",
+      "sourceStarId": "cns5-3212",
+      "starId": "cns5-3212",
+      "name": "BD+13 2618C",
+      "systemId": "gj-494",
+      "systemName": "Ross 458",
+      "component": "C",
+      "fieldsAlreadySuppliedByPool": [
+        "temperature_k",
+        "metallicity_dex"
+      ],
+      "interpretation": "Raw catalog-file gap; already supplied to the app by completeCatalogCompanions."
+    },
+    {
+      "catalogId": "nearest-1000",
+      "sourceStarId": "cns5-0021",
+      "starId": "cns5-0021",
+      "name": "HD 38B",
+      "systemId": "gj-4",
+      "systemName": "GJ 4",
+      "component": "B",
+      "fieldsAlreadySuppliedByPool": [
+        "luminosity_solar"
+      ],
+      "interpretation": "Raw catalog-file gap; already supplied to the app by completeCatalogCompanions."
+    },
+    {
+      "catalogId": "nearest-1000",
+      "sourceStarId": "cns5-3683",
+      "starId": "cns5-3683",
+      "name": "Ross 52B",
+      "systemId": "gj-568",
+      "systemName": "Ross 52",
+      "component": "B",
+      "fieldsAlreadySuppliedByPool": [
+        "temperature_k",
+        "mass_solar",
+        "radius_solar",
+        "luminosity_solar",
+        "spectral_type"
+      ],
+      "interpretation": "Raw catalog-file gap; already supplied to the app by completeCatalogCompanions."
+    },
+    {
+      "catalogId": "nearest-1000",
+      "sourceStarId": "cns5-3711",
+      "starId": "cns5-3711",
+      "name": "BD+45 2247B",
+      "systemId": "gj-572",
+      "systemName": "BD+45 2247",
+      "component": "B",
+      "fieldsAlreadySuppliedByPool": [
+        "temperature_k",
+        "luminosity_solar",
+        "spectral_type"
+      ],
+      "interpretation": "Raw catalog-file gap; already supplied to the app by completeCatalogCompanions."
+    },
+    {
+      "catalogId": "nearest-1000",
+      "sourceStarId": "cns5-1865",
+      "starId": "cns5-1865",
+      "name": "VV Lyn B",
+      "systemId": "gj-277",
+      "systemName": "VV Lyn",
+      "component": "Ab",
+      "fieldsAlreadySuppliedByPool": [
+        "temperature_k",
+        "mass_solar",
+        "radius_solar",
+        "luminosity_solar",
+        "metallicity_dex",
+        "spectral_type"
+      ],
+      "interpretation": "Raw catalog-file gap; already supplied to the app by completeCatalogCompanions."
+    },
+    {
+      "catalogId": "nearest-1000",
+      "sourceStarId": "cns5-1916",
+      "starId": "cns5-1916",
+      "name": "2MASS J07464256+2000321 A",
+      "systemId": "orb6-07467+2001-a-b",
+      "systemName": "2MASS J07464256+2000321",
+      "component": "A",
+      "fieldsAlreadySuppliedByPool": [
+        "temperature_k"
+      ],
+      "interpretation": "Raw catalog-file gap; already supplied to the app by completeCatalogCompanions."
+    },
+    {
+      "catalogId": "nearest-1000",
+      "sourceStarId": "cns5-3857",
+      "starId": "cns5-3857",
+      "name": "VB 24 A",
+      "systemId": "vb-24",
+      "systemName": "VB 24",
+      "component": "A",
+      "fieldsAlreadySuppliedByPool": [
+        "mass_solar",
+        "radius_solar",
+        "luminosity_solar"
+      ],
+      "interpretation": "Raw catalog-file gap; already supplied to the app by completeCatalogCompanions."
+    },
+    {
+      "catalogId": "nearest-1000",
+      "sourceStarId": "cns5-3858",
+      "starId": "cns5-3858",
+      "name": "VB 24 B",
+      "systemId": "vb-24",
+      "systemName": "VB 24",
+      "component": "B",
+      "fieldsAlreadySuppliedByPool": [
+        "mass_solar",
+        "radius_solar",
+        "luminosity_solar"
+      ],
+      "interpretation": "Raw catalog-file gap; already supplied to the app by completeCatalogCompanions."
+    },
+    {
+      "catalogId": "nearest-1000",
+      "sourceStarId": "cns5-5331",
+      "starId": "cns5-5331",
+      "name": "BD+27 4120B",
+      "systemId": "gj-835",
+      "systemName": "GJ 835",
+      "component": "B",
+      "fieldsAlreadySuppliedByPool": [
+        "temperature_k",
+        "mass_solar",
+        "radius_solar",
+        "luminosity_solar",
+        "spectral_type"
+      ],
+      "interpretation": "Raw catalog-file gap; already supplied to the app by completeCatalogCompanions."
+    },
+    {
+      "catalogId": "nearest-1000",
+      "sourceStarId": "cns5-1154",
+      "starId": "cns5-1154",
+      "name": "G 39-29B",
+      "systemId": "gj-3304",
+      "systemName": "G 39-29",
+      "component": "B",
+      "fieldsAlreadySuppliedByPool": [
+        "mass_solar",
+        "radius_solar"
+      ],
+      "interpretation": "Raw catalog-file gap; already supplied to the app by completeCatalogCompanions."
+    },
+    {
+      "catalogId": "nearest-1000",
+      "sourceStarId": "cns5-2778",
+      "starId": "cns5-2778",
+      "name": "HD 98712B",
+      "systemId": "gj-425",
+      "systemName": "HD 98712",
+      "component": "B",
+      "fieldsAlreadySuppliedByPool": [
+        "luminosity_solar",
+        "metallicity_dex"
+      ],
+      "interpretation": "Raw catalog-file gap; already supplied to the app by completeCatalogCompanions."
+    },
+    {
+      "catalogId": "nearest-1000",
+      "sourceStarId": "cns5-3318",
+      "starId": "cns5-3318",
+      "name": "Ross 486B",
+      "systemId": "gj-512",
+      "systemName": "Ross 486",
+      "component": "B",
+      "fieldsAlreadySuppliedByPool": [
+        "mass_solar",
+        "radius_solar",
+        "luminosity_solar"
+      ],
+      "interpretation": "Raw catalog-file gap; already supplied to the app by completeCatalogCompanions."
+    },
+    {
+      "catalogId": "nearest-1000",
+      "sourceStarId": "cns5-4234",
+      "starId": "cns5-4234",
+      "name": "BD+19 3268B",
+      "systemId": "gj-3997",
+      "systemName": "BD+19 3268",
+      "component": "B",
+      "fieldsAlreadySuppliedByPool": [
+        "temperature_k",
+        "mass_solar",
+        "radius_solar",
+        "luminosity_solar",
+        "spectral_type"
+      ],
+      "interpretation": "Raw catalog-file gap; already supplied to the app by completeCatalogCompanions."
+    },
+    {
+      "catalogId": "nearest-1000",
+      "sourceStarId": "cns5-1271",
+      "starId": "cns5-1271",
+      "name": "BD+52 911B",
+      "systemId": "gj-184",
+      "systemName": "BD+52 911",
+      "component": "B",
+      "fieldsAlreadySuppliedByPool": [
+        "temperature_k",
+        "mass_solar",
+        "radius_solar",
+        "luminosity_solar",
+        "spectral_type"
+      ],
+      "interpretation": "Raw catalog-file gap; already supplied to the app by completeCatalogCompanions."
+    },
+    {
+      "catalogId": "western-constellation-stars",
+      "sourceStarId": "hip-89937",
+      "starId": "cns5-4539",
+      "name": "Chi Draconis A",
+      "systemId": "chi-draconis",
+      "systemName": "Chi Draconis",
+      "component": "A",
+      "fieldsAlreadySuppliedByPool": [
+        "absolute_mag"
+      ],
+      "interpretation": "Raw catalog-file gap; already supplied to the app by completeCatalogCompanions."
+    },
+    {
+      "catalogId": "western-constellation-stars",
+      "sourceStarId": "chi-draconis-b",
+      "starId": "chi-draconis-b",
+      "name": "Chi Draconis B",
+      "systemId": "chi-draconis",
+      "systemName": "Chi Draconis",
+      "component": "B",
+      "fieldsAlreadySuppliedByPool": [
+        "absolute_mag"
+      ],
+      "interpretation": "Raw catalog-file gap; already supplied to the app by completeCatalogCompanions."
+    },
+    {
+      "catalogId": "western-constellation-stars",
+      "sourceStarId": "cns5-4399",
+      "starId": "cns5-4399",
+      "name": "Mu Her C",
+      "systemId": "gj-695",
+      "systemName": "Mu Her",
+      "component": "C",
+      "fieldsAlreadySuppliedByPool": [
+        "temperature_k",
+        "radius_solar",
+        "luminosity_solar",
+        "spectral_type"
+      ],
+      "interpretation": "Raw catalog-file gap; already supplied to the app by completeCatalogCompanions."
+    },
+    {
+      "catalogId": "western-constellation-stars",
+      "sourceStarId": "cns5-4400",
+      "starId": "cns5-4400",
+      "name": "Mu Her B",
+      "systemId": "gj-695",
+      "systemName": "Mu Her",
+      "component": "B",
+      "fieldsAlreadySuppliedByPool": [
+        "temperature_k",
+        "radius_solar",
+        "luminosity_solar",
+        "spectral_type"
+      ],
+      "interpretation": "Raw catalog-file gap; already supplied to the app by completeCatalogCompanions."
+    },
+    {
+      "catalogId": "western-constellation-stars",
+      "sourceStarId": "hip-44127",
+      "starId": "hip-44127",
+      "name": "Talitha A",
+      "systemId": "msc-08592+4803",
+      "systemName": "Talitha",
+      "component": "A",
+      "fieldsAlreadySuppliedByPool": [
+        "mass_solar",
+        "radius_solar",
+        "luminosity_solar",
+        "age_gyr"
+      ],
+      "interpretation": "Raw catalog-file gap; already supplied to the app by completeCatalogCompanions."
+    },
+    {
+      "catalogId": "western-constellation-stars",
+      "sourceStarId": "hip-86032",
+      "starId": "bright-rasalhague",
+      "name": "Rasalhague A",
+      "systemId": "orb6-17349+1234-a-b",
+      "systemName": "Rasalhague",
+      "component": "A",
+      "fieldsAlreadySuppliedByPool": [
+        "mass_solar",
+        "radius_solar",
+        "luminosity_solar",
+        "age_gyr"
+      ],
+      "interpretation": "Raw catalog-file gap; already supplied to the app by completeCatalogCompanions."
+    },
+    {
+      "catalogId": "western-constellation-stars",
+      "sourceStarId": "hip-93825",
+      "starId": "hip-93825",
+      "name": "Gamma CrA A",
+      "systemId": "spectroscopic-hip-93825",
+      "systemName": "Gamma CrA",
+      "component": "A",
+      "fieldsAlreadySuppliedByPool": [
+        "metallicity_dex"
+      ],
+      "interpretation": "Raw catalog-file gap; already supplied to the app by completeCatalogCompanions."
+    },
+    {
+      "catalogId": "western-constellation-stars",
+      "sourceStarId": "hip-8903",
+      "starId": "bright-sheratan",
+      "name": "Sheratan A",
+      "systemId": "orb6-01546+2049-a-b",
+      "systemName": "Sheratan",
+      "component": "A",
+      "fieldsAlreadySuppliedByPool": [
+        "mass_solar"
+      ],
+      "interpretation": "Raw catalog-file gap; already supplied to the app by completeCatalogCompanions."
+    },
+    {
+      "catalogId": "western-constellation-stars",
+      "sourceStarId": "hip-104858",
+      "starId": "hip-104858",
+      "name": "Delta Equ A",
+      "systemId": "spectroscopic-hip-104858",
+      "systemName": "Delta Equ",
+      "component": "A",
+      "fieldsAlreadySuppliedByPool": [
+        "mass_solar"
+      ],
+      "interpretation": "Raw catalog-file gap; already supplied to the app by completeCatalogCompanions."
+    },
+    {
+      "catalogId": "western-constellation-stars",
+      "sourceStarId": "hip-107310",
+      "starId": "hip-107310",
+      "name": "Mu Cyg A",
+      "systemId": "spectroscopic-hip-107310",
+      "systemName": "Mu Cyg",
+      "component": "A",
+      "fieldsAlreadySuppliedByPool": [
+        "mass_solar",
+        "radius_solar",
+        "luminosity_solar",
+        "metallicity_dex",
+        "age_gyr"
+      ],
+      "interpretation": "Raw catalog-file gap; already supplied to the app by completeCatalogCompanions."
+    },
+    {
+      "catalogId": "western-constellation-stars",
+      "sourceStarId": "hip-12390",
+      "starId": "hip-12390",
+      "name": "Epsilon Cet A",
+      "systemId": "orb6-02396-1152-a-b",
+      "systemName": "Epsilon Cet",
+      "component": "A",
+      "fieldsAlreadySuppliedByPool": [
+        "mass_solar"
+      ],
+      "interpretation": "Raw catalog-file gap; already supplied to the app by completeCatalogCompanions."
+    },
+    {
+      "catalogId": "western-constellation-stars",
+      "sourceStarId": "hip-28360",
+      "starId": "bright-menkalinan",
+      "name": "Menkalinan Aa",
+      "systemId": "orb6-05595+4457-aa-ab",
+      "systemName": "Menkalinan",
+      "component": "Aa",
+      "fieldsAlreadySuppliedByPool": [
+        "mass_solar"
+      ],
+      "interpretation": "Raw catalog-file gap; already supplied to the app by completeCatalogCompanions."
+    },
+    {
+      "catalogId": "western-constellation-stars",
+      "sourceStarId": "hip-65378",
+      "starId": "bright-mizar-a",
+      "name": "Mizar Aa",
+      "systemId": "msc-13239+5456",
+      "systemName": "Mizar",
+      "component": "Aa",
+      "fieldsAlreadySuppliedByPool": [
+        "mass_solar",
+        "spectral_type"
+      ],
+      "interpretation": "Raw catalog-file gap; already supplied to the app by completeCatalogCompanions."
+    },
+    {
+      "catalogId": "western-constellation-stars",
+      "sourceStarId": "hip-31681",
+      "starId": "bright-alhena",
+      "name": "Alhena Aa",
+      "systemId": "orb6-06377+1624-aa-ab",
+      "systemName": "Alhena",
+      "component": "Aa",
+      "fieldsAlreadySuppliedByPool": [
+        "mass_solar"
+      ],
+      "interpretation": "Raw catalog-file gap; already supplied to the app by completeCatalogCompanions."
+    },
+    {
+      "catalogId": "western-constellation-stars",
+      "sourceStarId": "hip-54061",
+      "starId": "bright-dubhe",
+      "name": "Dubhe A",
+      "systemId": "msc-11037+6145",
+      "systemName": "Dubhe",
+      "component": "A",
+      "fieldsAlreadySuppliedByPool": [
+        "mass_solar"
+      ],
+      "interpretation": "Raw catalog-file gap; already supplied to the app by completeCatalogCompanions."
+    },
+    {
+      "catalogId": "western-constellation-stars",
+      "sourceStarId": "hip-10064",
+      "starId": "hip-10064",
+      "name": "Alaybasan A",
+      "systemId": "orb6-02095+3459-a-b",
+      "systemName": "Alaybasan",
+      "component": "A",
+      "fieldsAlreadySuppliedByPool": [
+        "mass_solar"
+      ],
+      "interpretation": "Raw catalog-file gap; already supplied to the app by completeCatalogCompanions."
+    },
+    {
+      "catalogId": "western-constellation-stars",
+      "sourceStarId": "hip-114131",
+      "starId": "hip-114131",
+      "name": "Theta Gru A",
+      "systemId": "msc-23069-4331",
+      "systemName": "Theta Gru",
+      "component": "A",
+      "fieldsAlreadySuppliedByPool": [
+        "mass_solar",
+        "metallicity_dex",
+        "age_gyr"
+      ],
+      "interpretation": "Raw catalog-file gap; already supplied to the app by completeCatalogCompanions."
+    },
+    {
+      "catalogId": "western-constellation-stars",
+      "sourceStarId": "hip-7588",
+      "starId": "bright-achernar",
+      "name": "Achernar A",
+      "systemId": "orb6-01377-5714-a-b",
+      "systemName": "Achernar",
+      "component": "A",
+      "fieldsAlreadySuppliedByPool": [
+        "age_gyr"
+      ],
+      "interpretation": "Raw catalog-file gap; already supplied to the app by completeCatalogCompanions."
+    },
+    {
+      "catalogId": "western-constellation-stars",
+      "sourceStarId": "hip-28734",
+      "starId": "hip-28734",
+      "name": "1 Gem A",
+      "systemId": "msc-06041+2316",
+      "systemName": "1 Gem",
+      "component": "A",
+      "fieldsAlreadySuppliedByPool": [
+        "mass_solar"
+      ],
+      "interpretation": "Raw catalog-file gap; already supplied to the app by completeCatalogCompanions."
+    },
+    {
+      "catalogId": "western-constellation-stars",
+      "sourceStarId": "hip-17797",
+      "starId": "hip-17797",
+      "name": "f Eri Aa",
+      "systemId": "msc-03486-3737",
+      "systemName": "f Eri",
+      "component": "Aa",
+      "fieldsAlreadySuppliedByPool": [
+        "spectral_type"
+      ],
+      "interpretation": "Raw catalog-file gap; already supplied to the app by completeCatalogCompanions."
+    },
+    {
+      "catalogId": "western-constellation-stars",
+      "sourceStarId": "hip-104987",
+      "starId": "hip-104987",
+      "name": "Kitalpha A",
+      "systemId": "spectroscopic-hip-104987",
+      "systemName": "Kitalpha",
+      "component": "A",
+      "fieldsAlreadySuppliedByPool": [
+        "mass_solar"
+      ],
+      "interpretation": "Raw catalog-file gap; already supplied to the app by completeCatalogCompanions."
+    },
+    {
+      "catalogId": "western-constellation-stars",
+      "sourceStarId": "hip-14328",
+      "starId": "hip-14328",
+      "name": "Gamma Per A",
+      "systemId": "spectroscopic-hip-14328",
+      "systemName": "Gamma Per",
+      "component": "A",
+      "fieldsAlreadySuppliedByPool": [
+        "mass_solar"
+      ],
+      "interpretation": "Raw catalog-file gap; already supplied to the app by completeCatalogCompanions."
+    },
+    {
+      "catalogId": "western-constellation-stars",
+      "sourceStarId": "hip-68756",
+      "starId": "hip-68756",
+      "name": "Thuban A",
+      "systemId": "orb6-14044+6423-a-b",
+      "systemName": "Thuban",
+      "component": "A",
+      "fieldsAlreadySuppliedByPool": [
+        "mass_solar",
+        "age_gyr"
+      ],
+      "interpretation": "Raw catalog-file gap; already supplied to the app by completeCatalogCompanions."
+    },
+    {
+      "catalogId": "western-constellation-stars",
+      "sourceStarId": "hip-78401",
+      "starId": "bright-dschubba",
+      "name": "Dschubba A",
+      "systemId": "orb6-16003-2237-a-b",
+      "systemName": "Dschubba",
+      "component": "A",
+      "fieldsAlreadySuppliedByPool": [
+        "radius_solar",
+        "luminosity_solar",
+        "age_gyr"
+      ],
+      "interpretation": "Raw catalog-file gap; already supplied to the app by completeCatalogCompanions."
+    },
+    {
+      "catalogId": "western-constellation-stars",
+      "sourceStarId": "hip-41037",
+      "starId": "bright-avior",
+      "name": "Avior A",
+      "systemId": "spectroscopic-bright-avior",
+      "systemName": "Avior",
+      "component": "A",
+      "fieldsAlreadySuppliedByPool": [
+        "metallicity_dex"
+      ],
+      "interpretation": "Raw catalog-file gap; already supplied to the app by completeCatalogCompanions."
+    },
+    {
+      "catalogId": "western-constellation-stars",
+      "sourceStarId": "hip-30867",
+      "starId": "hip-30867",
+      "name": "Beta Mon A",
+      "systemId": "spectroscopic-hip-30867",
+      "systemName": "Beta Mon",
+      "component": "A",
+      "fieldsAlreadySuppliedByPool": [
+        "temperature_k"
+      ],
+      "interpretation": "Raw catalog-file gap; already supplied to the app by completeCatalogCompanions."
+    },
+    {
+      "catalogId": "western-constellation-stars",
+      "sourceStarId": "rigel-ba",
+      "starId": "rigel-ba",
+      "name": "Rigel Ba",
+      "systemId": "rigel",
+      "systemName": "Rigel",
+      "component": "Ba",
+      "fieldsAlreadySuppliedByPool": [
+        "temperature_k"
+      ],
+      "interpretation": "Raw catalog-file gap; already supplied to the app by completeCatalogCompanions."
+    },
+    {
+      "catalogId": "western-constellation-stars",
+      "sourceStarId": "rigel-c",
+      "starId": "rigel-c",
+      "name": "Rigel C",
+      "systemId": "rigel",
+      "systemName": "Rigel",
+      "component": "C",
+      "fieldsAlreadySuppliedByPool": [
+        "temperature_k"
+      ],
+      "interpretation": "Raw catalog-file gap; already supplied to the app by completeCatalogCompanions."
+    },
+    {
+      "catalogId": "western-constellation-stars",
+      "sourceStarId": "hip-39953",
+      "starId": "bright-regor",
+      "name": "Regor Aa",
+      "systemId": "msc-08095-4720",
+      "systemName": "Regor",
+      "component": "Aa",
+      "fieldsAlreadySuppliedByPool": [
+        "mass_solar"
+      ],
+      "interpretation": "Raw catalog-file gap; already supplied to the app by completeCatalogCompanions."
+    }
+  ],
+  "primaryLiteratureGaps": [],
+  "frozenSourcePhysicalCandidates": [
+    {
+      "starId": "cns5-3682",
+      "name": "Ross 52A",
+      "systemId": "gj-568",
+      "systemName": "Ross 52",
+      "component": "A",
+      "catalogIds": [
+        "nearest-1000"
+      ],
+      "gaiaDr3Id": "1266092694561970432",
+      "sourceRecordId": "1717",
+      "sourceName": "Ross 52A",
+      "sourceComponent": "A",
+      "sourceCategory": "3",
+      "sourceSpectrum": "M3.5 V",
+      "sourceAbsoluteG": "10.4379",
+      "sourceQuality": {
+        "RUWE": "1.90527340",
+        "IPDfmp": "57",
+        "crit1": "F",
+        "crit2": "F",
+        "crit3": "F",
+        "crit4": "F",
+        "crit5": "T",
+        "crit6": "F"
+      },
+      "missingFieldsWithSourceCandidates": {
+        "mass_solar": {
+          "value": 0.3272,
+          "uncertainty": 0.0337,
+          "sourceMethod": "This work"
+        },
+        "radius_solar": {
+          "value": 0.328,
+          "uncertainty": 0.0151,
+          "sourceMethod": null
+        }
+      },
+      "reviewReasons": [
+        "Excluded by generic Category=3 companion-source filter",
+        "Gaia astrometric/photometric/spectroscopic quality or multiplicity criteria flagged: crit5"
+      ],
+      "decision": "Research candidate only; no automatic adoption. Exact Gaia ID alone does not establish leaf scope."
+    },
+    {
+      "starId": "cns5-1155",
+      "name": "G 39-29A",
+      "systemId": "gj-3304",
+      "systemName": "G 39-29",
+      "component": "A",
+      "catalogIds": [
+        "nearest-1000"
+      ],
+      "gaiaDr3Id": "157915536473892224",
+      "sourceRecordId": "556",
+      "sourceName": "GJ 3304 A",
+      "sourceComponent": "A",
+      "sourceCategory": "3",
+      "sourceSpectrum": "M4.0 V",
+      "sourceAbsoluteG": "11.0786",
+      "sourceQuality": {
+        "RUWE": "1.19788600",
+        "IPDfmp": "52",
+        "crit1": "F",
+        "crit2": "F",
+        "crit3": "F",
+        "crit4": "F",
+        "crit5": "T",
+        "crit6": "F"
+      },
+      "missingFieldsWithSourceCandidates": {
+        "mass_solar": {
+          "value": 0.2672,
+          "uncertainty": 0.0357,
+          "sourceMethod": "This work"
+        },
+        "radius_solar": {
+          "value": 0.2727,
+          "uncertainty": 0.016,
+          "sourceMethod": null
+        }
+      },
+      "reviewReasons": [
+        "Excluded by generic Category=3 companion-source filter",
+        "Gaia astrometric/photometric/spectroscopic quality or multiplicity criteria flagged: crit5"
+      ],
+      "decision": "Research candidate only; no automatic adoption. Exact Gaia ID alone does not establish leaf scope."
+    },
+    {
+      "starId": "cns5-1264",
+      "name": "HD 32450A",
+      "systemId": "gj-185",
+      "systemName": "HD 32450",
+      "component": "A",
+      "catalogIds": [
+        "nearest-1000"
+      ],
+      "gaiaDr3Id": "2974726131970829952",
+      "sourceRecordId": "620",
+      "sourceName": "HD 32450A",
+      "sourceComponent": "A",
+      "sourceCategory": "3",
+      "sourceSpectrum": "M0.0 V",
+      "sourceAbsoluteG": "8.1806",
+      "sourceQuality": {
+        "RUWE": "1.81842370",
+        "IPDfmp": "47",
+        "crit1": "F",
+        "crit2": "F",
+        "crit3": "F",
+        "crit4": "F",
+        "crit5": "T",
+        "crit6": "F"
+      },
+      "missingFieldsWithSourceCandidates": {
+        "mass_solar": {
+          "value": 0.6114,
+          "uncertainty": 0.0272,
+          "sourceMethod": "This work"
+        },
+        "radius_solar": {
+          "value": 0.584,
+          "uncertainty": 0.0122,
+          "sourceMethod": null
+        }
+      },
+      "reviewReasons": [
+        "Excluded by generic Category=3 companion-source filter",
+        "Gaia astrometric/photometric/spectroscopic quality or multiplicity criteria flagged: crit5",
+        "Published and adopted spectral classifications differ"
+      ],
+      "decision": "Research candidate only; no automatic adoption. Exact Gaia ID alone does not establish leaf scope."
+    },
+    {
+      "starId": "cns5-1702",
+      "name": "HD 50281 Ba",
+      "systemId": "gj-250",
+      "systemName": "HD 50281",
+      "component": "Ba",
+      "catalogIds": [
+        "nearest-1000"
+      ],
+      "gaiaDr3Id": "3101920046552857728",
+      "sourceRecordId": "826",
+      "sourceName": "HD 50281B",
+      "sourceComponent": "B",
+      "sourceCategory": "2",
+      "sourceSpectrum": "M2.0 V",
+      "sourceAbsoluteG": "9.3876",
+      "sourceQuality": {
+        "RUWE": "1.15111820",
+        "IPDfmp": "0",
+        "crit1": "F",
+        "crit2": "F",
+        "crit3": "F",
+        "crit4": "F",
+        "crit5": "F",
+        "crit6": "F"
+      },
+      "missingFieldsWithSourceCandidates": {
+        "mass_solar": {
+          "value": 0.4453,
+          "uncertainty": 0.0305,
+          "sourceMethod": "This work"
+        },
+        "radius_solar": {
+          "value": 0.4353,
+          "uncertainty": 0.0137,
+          "sourceMethod": null
+        }
+      },
+      "reviewReasons": [
+        "Published component label differs from the internal leaf; hierarchy mapping needs review",
+        "Existing explicit withholding/split-parent scope"
+      ],
+      "decision": "Research candidate only; no automatic adoption. Exact Gaia ID alone does not establish leaf scope."
+    },
+    {
+      "starId": "cns5-1726",
+      "name": "G 250-31A",
+      "systemId": "gj-3417",
+      "systemName": "G 250-31",
+      "component": "A",
+      "catalogIds": [
+        "nearest-1000"
+      ],
+      "gaiaDr3Id": "1099288633074163328",
+      "sourceRecordId": "836",
+      "sourceName": "GJ 3417 A",
+      "sourceComponent": "A",
+      "sourceCategory": "3",
+      "sourceSpectrum": "M4.5 V",
+      "sourceAbsoluteG": "11.8469",
+      "sourceQuality": {
+        "RUWE": "1.93164650",
+        "IPDfmp": "52",
+        "crit1": "F",
+        "crit2": "F",
+        "crit3": "F",
+        "crit4": "F",
+        "crit5": "T",
+        "crit6": "F"
+      },
+      "missingFieldsWithSourceCandidates": {
+        "mass_solar": {
+          "value": 0.2074,
+          "uncertainty": 0.0383,
+          "sourceMethod": "This work"
+        },
+        "radius_solar": {
+          "value": 0.2165,
+          "uncertainty": 0.0172,
+          "sourceMethod": null
+        }
+      },
+      "reviewReasons": [
+        "Excluded by generic Category=3 companion-source filter",
+        "Gaia astrometric/photometric/spectroscopic quality or multiplicity criteria flagged: crit5",
+        "Published and adopted spectral classifications differ"
+      ],
+      "decision": "Research candidate only; no automatic adoption. Exact Gaia ID alone does not establish leaf scope."
+    },
+    {
+      "starId": "cns5-1784",
+      "name": "GJ 268 A",
+      "systemId": "gj-268",
+      "systemName": "GJ 268",
+      "component": "A",
+      "catalogIds": [
+        "nearest-1000"
+      ],
+      "gaiaDr3Id": "946632924007399936",
+      "sourceRecordId": "858",
+      "sourceName": "QY Aur",
+      "sourceComponent": "Aab",
+      "sourceCategory": "1",
+      "sourceSpectrum": "M4.5 V",
+      "sourceAbsoluteG": "11.0249",
+      "sourceQuality": {
+        "RUWE": "1.13608520",
+        "IPDfmp": "3",
+        "crit1": "F",
+        "crit2": "F",
+        "crit3": "F",
+        "crit4": "F",
+        "crit5": "F",
+        "crit6": "F"
+      },
+      "missingFieldsWithSourceCandidates": {
+        "mass_solar": {
+          "value": 0.3985,
+          "uncertainty": 0.0008,
+          "sourceMethod": "Win20"
+        }
+      },
+      "reviewReasons": [
+        "Source component is an aggregate/hierarchy",
+        "Published component label differs from the internal leaf; hierarchy mapping needs review",
+        "Source is flagged spectroscopic: SB2",
+        "Existing explicit withholding/split-parent scope",
+        "Published and adopted spectral classifications differ"
+      ],
+      "decision": "Research candidate only; no automatic adoption. Exact Gaia ID alone does not establish leaf scope."
+    },
+    {
+      "starId": "cns5-1866",
+      "name": "VV Lyn A",
+      "systemId": "gj-277",
+      "systemName": "VV Lyn",
+      "component": "Aa",
+      "catalogIds": [
+        "nearest-1000"
+      ],
+      "gaiaDr3Id": "898506093171335424",
+      "sourceRecordId": "893",
+      "sourceName": "VV LynA",
+      "sourceComponent": "A",
+      "sourceCategory": "3",
+      "sourceSpectrum": "M2.5 V",
+      "sourceAbsoluteG": "9.2065",
+      "sourceQuality": {
+        "RUWE": "2.51065440",
+        "IPDfmp": "0",
+        "crit1": "T",
+        "crit2": "F",
+        "crit3": "F",
+        "crit4": "F",
+        "crit5": "F",
+        "crit6": "F"
+      },
+      "missingFieldsWithSourceCandidates": {
+        "mass_solar": {
+          "value": 0.4681,
+          "uncertainty": 0.03,
+          "sourceMethod": "This work"
+        }
+      },
+      "reviewReasons": [
+        "Excluded by generic Category=3 companion-source filter",
+        "Published component label differs from the internal leaf; hierarchy mapping needs review",
+        "Gaia astrometric/photometric/spectroscopic quality or multiplicity criteria flagged: crit1"
+      ],
+      "decision": "Research candidate only; no automatic adoption. Exact Gaia ID alone does not establish leaf scope."
+    },
+    {
+      "starId": "cns5-1901",
+      "name": "LAWD 25",
+      "systemId": "gj-283",
+      "systemName": "GJ 283",
+      "component": "A",
+      "catalogIds": [
+        "nearest-1000"
+      ],
+      "gaiaDr3Id": "5717278911884258176",
+      "sourceRecordId": "924",
+      "sourceName": "GJ 283 A",
+      "sourceComponent": "A",
+      "sourceCategory": "3",
+      "sourceSpectrum": "DZQA6",
+      "sourceAbsoluteG": "13.1642",
+      "sourceQuality": {
+        "RUWE": "1.02218400",
+        "IPDfmp": "0",
+        "crit1": "F",
+        "crit2": "F",
+        "crit3": "F",
+        "crit4": "F",
+        "crit5": "F",
+        "crit6": "T"
+      },
+      "missingFieldsWithSourceCandidates": {
+        "mass_solar": {
+          "value": 0.6,
+          "uncertainty": 0.1,
+          "sourceMethod": "Bed20"
+        }
+      },
+      "reviewReasons": [
+        "Excluded by generic Category=3 companion-source filter",
+        "Gaia astrometric/photometric/spectroscopic quality or multiplicity criteria flagged: crit6",
+        "White dwarf: review dedicated literature; M-dwarf calibration does not apply"
+      ],
+      "decision": "Research candidate only; no automatic adoption. Exact Gaia ID alone does not establish leaf scope."
+    },
+    {
+      "starId": "10pc-0113",
+      "name": "EI Cnc A",
+      "systemId": "ei-cancri",
+      "systemName": "EI Cnc",
+      "component": "A",
+      "catalogIds": [
+        "nearest-100",
+        "nearest-1000"
+      ],
+      "gaiaDr3Id": "660597997696173440",
+      "sourceRecordId": "1036",
+      "sourceName": "GJ 1116 A",
+      "sourceComponent": "A",
+      "sourceCategory": "3",
+      "sourceSpectrum": "M5.5 V",
+      "sourceAbsoluteG": "13.4069",
+      "sourceQuality": {
+        "RUWE": "2.57378460",
+        "IPDfmp": "7",
+        "crit1": "T",
+        "crit2": "F",
+        "crit3": "F",
+        "crit4": "F",
+        "crit5": "F",
+        "crit6": "F"
+      },
+      "missingFieldsWithSourceCandidates": {
+        "mass_solar": {
+          "value": 0.1266,
+          "uncertainty": 0.0438,
+          "sourceMethod": "This work"
+        },
+        "radius_solar": {
+          "value": 0.1362,
+          "uncertainty": 0.0196,
+          "sourceMethod": null
+        }
+      },
+      "reviewReasons": [
+        "Excluded by generic Category=3 companion-source filter",
+        "Gaia astrometric/photometric/spectroscopic quality or multiplicity criteria flagged: crit1",
+        "Published and adopted spectral classifications differ"
+      ],
+      "decision": "Research candidate only; no automatic adoption. Exact Gaia ID alone does not establish leaf scope."
+    },
+    {
+      "starId": "cns5-2636",
+      "name": "BD+39 2376 A",
+      "systemId": "orb6-10454+3831-a-c",
+      "systemName": "BD+39 2376",
+      "component": "A",
+      "catalogIds": [
+        "nearest-1000"
+      ],
+      "gaiaDr3Id": "776067089642433664",
+      "sourceRecordId": "1248",
+      "sourceName": "GJ 400 A",
+      "sourceComponent": "A",
+      "sourceCategory": "3",
+      "sourceSpectrum": "M0.5 V",
+      "sourceAbsoluteG": "7.9819",
+      "sourceQuality": {
+        "RUWE": "3.03309500",
+        "IPDfmp": "41",
+        "crit1": "T",
+        "crit2": "T",
+        "crit3": "F",
+        "crit4": "F",
+        "crit5": "T",
+        "crit6": "F"
+      },
+      "missingFieldsWithSourceCandidates": {
+        "mass_solar": {
+          "value": 0.6419,
+          "uncertainty": 0.0267,
+          "sourceMethod": "This work"
+        },
+        "radius_solar": {
+          "value": 0.6111,
+          "uncertainty": 0.012,
+          "sourceMethod": null
+        }
+      },
+      "reviewReasons": [
+        "Excluded by generic Category=3 companion-source filter",
+        "Gaia astrometric/photometric/spectroscopic quality or multiplicity criteria flagged: crit1, crit2, crit5",
+        "Existing explicit withholding/split-parent scope"
+      ],
+      "decision": "Research candidate only; no automatic adoption. Exact Gaia ID alone does not establish leaf scope."
+    },
+    {
+      "starId": "cns5-2779",
+      "name": "HD 98712A",
+      "systemId": "gj-425",
+      "systemName": "HD 98712",
+      "component": "A",
+      "catalogIds": [
+        "nearest-1000"
+      ],
+      "gaiaDr3Id": "3545469496823737856",
+      "sourceRecordId": "1317",
+      "sourceName": "HD 98712A",
+      "sourceComponent": "A",
+      "sourceCategory": "3",
+      "sourceSpectrum": "K7 V",
+      "sourceAbsoluteG": "7.4377",
+      "sourceQuality": {
+        "RUWE": "18.14477300",
+        "IPDfmp": "1",
+        "crit1": "T",
+        "crit2": "F",
+        "crit3": "T",
+        "crit4": "F",
+        "crit5": "F",
+        "crit6": "F"
+      },
+      "missingFieldsWithSourceCandidates": {
+        "mass_solar": {
+          "value": 0.6498,
+          "uncertainty": 0.0975,
+          "sourceMethod": "Pec13"
+        },
+        "radius_solar": {
+          "value": 0.6394,
+          "uncertainty": 0.0959,
+          "sourceMethod": null
+        }
+      },
+      "reviewReasons": [
+        "Excluded by generic Category=3 companion-source filter",
+        "Gaia astrometric/photometric/spectroscopic quality or multiplicity criteria flagged: crit1, crit3",
+        "Generic spectral-class mass; not an independent individual mass measurement"
+      ],
+      "decision": "Research candidate only; no automatic adoption. Exact Gaia ID alone does not establish leaf scope."
+    },
+    {
+      "starId": "cns5-3032",
+      "name": "G 148-48",
+      "systemId": "gj-11774",
+      "systemName": "GJ 11774",
+      "component": "A",
+      "catalogIds": [
+        "nearest-1000"
+      ],
+      "gaiaDr3Id": "4015042738059517440",
+      "sourceRecordId": "1427",
+      "sourceName": "G 148-48",
+      "sourceComponent": "A",
+      "sourceCategory": "3",
+      "sourceSpectrum": "M5.0 V",
+      "sourceAbsoluteG": "12.9756",
+      "sourceQuality": {
+        "RUWE": "0.92616373",
+        "IPDfmp": "0",
+        "crit1": "F",
+        "crit2": "F",
+        "crit3": "T",
+        "crit4": "F",
+        "crit5": "F",
+        "crit6": "F"
+      },
+      "missingFieldsWithSourceCandidates": {
+        "temperature_k": {
+          "value": 3000.0,
+          "uncertainty": 50.0,
+          "sourceMethod": "This work"
+        },
+        "mass_solar": {
+          "value": 0.1441,
+          "uncertainty": 0.0099,
+          "sourceMethod": "This work"
+        },
+        "radius_solar": {
+          "value": 0.1593,
+          "uncertainty": 0.0054,
+          "sourceMethod": null
+        },
+        "luminosity_solar": {
+          "value": 0.00185263,
+          "uncertainty": 2.13183e-05,
+          "sourceMethod": "This work"
+        }
+      },
+      "reviewReasons": [
+        "Excluded by generic Category=3 companion-source filter",
+        "Gaia astrometric/photometric/spectroscopic quality or multiplicity criteria flagged: crit3",
+        "Object type conflicts with an ordinary M-dwarf calibration"
+      ],
+      "decision": "Research candidate only; no automatic adoption. Exact Gaia ID alone does not establish leaf scope."
+    },
+    {
+      "starId": "cns5-3169",
+      "name": "G 237-78 Aa",
+      "systemId": "msc-12490+6607",
+      "systemName": "G 237-78",
+      "component": "Aa",
+      "catalogIds": [
+        "nearest-1000"
+      ],
+      "gaiaDr3Id": "1677568531661779072",
+      "sourceRecordId": "1485",
+      "sourceName": "DP Dra",
+      "sourceComponent": "AabB",
+      "sourceCategory": "1",
+      "sourceSpectrum": "M3.0 V",
+      "sourceAbsoluteG": "9.7981",
+      "sourceQuality": {
+        "RUWE": "",
+        "IPDfmp": "45",
+        "crit1": "F",
+        "crit2": "F",
+        "crit3": "F",
+        "crit4": "F",
+        "crit5": "T",
+        "crit6": "F"
+      },
+      "missingFieldsWithSourceCandidates": {
+        "mass_solar": {
+          "value": 0.463,
+          "uncertainty": 0.0014,
+          "sourceMethod": "Del99b"
+        }
+      },
+      "reviewReasons": [
+        "Source component is an aggregate/hierarchy",
+        "Published component label differs from the internal leaf; hierarchy mapping needs review",
+        "Source is flagged spectroscopic: ST3",
+        "Gaia astrometric/photometric/spectroscopic quality or multiplicity criteria flagged: crit5"
+      ],
+      "decision": "Research candidate only; no automatic adoption. Exact Gaia ID alone does not establish leaf scope."
+    },
+    {
+      "starId": "cns5-3277",
+      "name": "BD+35 2436",
+      "systemId": "gj-507",
+      "systemName": "GJ 507",
+      "component": "A",
+      "catalogIds": [
+        "nearest-1000"
+      ],
+      "gaiaDr3Id": "1473166433840438016",
+      "sourceRecordId": "1527",
+      "sourceName": "GJ 507 A",
+      "sourceComponent": "AB",
+      "sourceCategory": "2",
+      "sourceSpectrum": "M0.5 V",
+      "sourceAbsoluteG": "8.0099",
+      "sourceQuality": {
+        "RUWE": "19.27489300",
+        "IPDfmp": "0",
+        "crit1": "T",
+        "crit2": "F",
+        "crit3": "F",
+        "crit4": "F",
+        "crit5": "F",
+        "crit6": "F"
+      },
+      "missingFieldsWithSourceCandidates": {
+        "mass_solar": {
+          "value": 0.684,
+          "uncertainty": 0.0225,
+          "sourceMethod": "Tok97"
+        }
+      },
+      "reviewReasons": [
+        "Source component is an aggregate/hierarchy",
+        "Published component label differs from the internal leaf; hierarchy mapping needs review",
+        "Gaia astrometric/photometric/spectroscopic quality or multiplicity criteria flagged: crit1",
+        "Published and adopted spectral classifications differ"
+      ],
+      "decision": "Research candidate only; no automatic adoption. Exact Gaia ID alone does not establish leaf scope."
+    },
+    {
+      "starId": "cns5-3412",
+      "name": "EGGR 438",
+      "systemId": "gj-1179",
+      "systemName": "GJ 1179",
+      "component": "B",
+      "catalogIds": [
+        "nearest-1000"
+      ],
+      "gaiaDr3Id": "1251824057289839744",
+      "sourceRecordId": "1600",
+      "sourceName": "GJ 1179 B",
+      "sourceComponent": "A",
+      "sourceCategory": "3",
+      "sourceSpectrum": "DC9",
+      "sourceAbsoluteG": "14.9675",
+      "sourceQuality": {
+        "RUWE": "1.01363310",
+        "IPDfmp": "0",
+        "crit1": "F",
+        "crit2": "F",
+        "crit3": "F",
+        "crit4": "F",
+        "crit5": "F",
+        "crit6": "F"
+      },
+      "missingFieldsWithSourceCandidates": {
+        "temperature_k": {
+          "value": 4576.0,
+          "uncertainty": null,
+          "sourceMethod": "MWDD"
+        },
+        "mass_solar": {
+          "value": 0.457,
+          "uncertainty": 0.007,
+          "sourceMethod": "MWDD"
+        },
+        "luminosity_solar": {
+          "value": 8.12831e-05,
+          "uncertainty": null,
+          "sourceMethod": "MWDD"
+        }
+      },
+      "reviewReasons": [
+        "Excluded by generic Category=3 companion-source filter",
+        "Published component label differs from the internal leaf; hierarchy mapping needs review",
+        "White dwarf: review dedicated literature; M-dwarf calibration does not apply"
+      ],
+      "decision": "Research candidate only; no automatic adoption. Exact Gaia ID alone does not establish leaf scope."
+    },
+    {
+      "starId": "cns5-3687",
+      "name": "GJ 569 Ba",
+      "systemId": "gj-569",
+      "systemName": "GJ 569",
+      "component": "Ba",
+      "catalogIds": [
+        "nearest-1000"
+      ],
+      "gaiaDr3Id": "1187851653286799488",
+      "sourceRecordId": "1720",
+      "sourceName": "GJ 569 B",
+      "sourceComponent": "BC",
+      "sourceCategory": "2",
+      "sourceSpectrum": "M8.5 V",
+      "sourceAbsoluteG": "15.1699",
+      "sourceQuality": {
+        "RUWE": "",
+        "IPDfmp": "0",
+        "crit1": "F",
+        "crit2": "F",
+        "crit3": "F",
+        "crit4": "F",
+        "crit5": "F",
+        "crit6": "F"
+      },
+      "missingFieldsWithSourceCandidates": {
+        "mass_solar": {
+          "value": 0.125,
+          "uncertainty": 0.0156,
+          "sourceMethod": "Zap04"
+        }
+      },
+      "reviewReasons": [
+        "Source component is an aggregate/hierarchy",
+        "Published component label differs from the internal leaf; hierarchy mapping needs review",
+        "Existing explicit withholding/split-parent scope"
+      ],
+      "decision": "Research candidate only; no automatic adoption. Exact Gaia ID alone does not establish leaf scope."
+    },
+    {
+      "starId": "cns5-3700",
+      "name": "HD 131977",
+      "systemId": "gj-570",
+      "systemName": "GJ 570",
+      "component": "A",
+      "catalogIds": [
+        "nearest-1000"
+      ],
+      "gaiaDr3Id": "6232511606838403968",
+      "sourceRecordId": "1726",
+      "sourceName": "KX Lib",
+      "sourceComponent": "A",
+      "sourceCategory": "3",
+      "sourceSpectrum": "K4 V",
+      "sourceAbsoluteG": "6.5148",
+      "sourceQuality": {
+        "RUWE": "1.29782870",
+        "IPDfmp": "0",
+        "crit1": "F",
+        "crit2": "F",
+        "crit3": "F",
+        "crit4": "F",
+        "crit5": "F",
+        "crit6": "F"
+      },
+      "missingFieldsWithSourceCandidates": {
+        "mass_solar": {
+          "value": 0.746,
+          "uncertainty": 0.1119,
+          "sourceMethod": "Pec13"
+        }
+      },
+      "reviewReasons": [
+        "Excluded by generic Category=3 companion-source filter",
+        "Generic spectral-class mass; not an independent individual mass measurement"
+      ],
+      "decision": "Research candidate only; no automatic adoption. Exact Gaia ID alone does not establish leaf scope."
+    },
+    {
+      "starId": "cns5-4235",
+      "name": "BD+19 3268A",
+      "systemId": "gj-3997",
+      "systemName": "BD+19 3268",
+      "component": "A",
+      "catalogIds": [
+        "nearest-1000"
+      ],
+      "gaiaDr3Id": "4548562265603840768",
+      "sourceRecordId": "1941",
+      "sourceName": "GJ 3997",
+      "sourceComponent": "A",
+      "sourceCategory": "3",
+      "sourceSpectrum": "M0.5 V",
+      "sourceAbsoluteG": "8.9694",
+      "sourceQuality": {
+        "RUWE": "2.17915900",
+        "IPDfmp": "9",
+        "crit1": "T",
+        "crit2": "F",
+        "crit3": "F",
+        "crit4": "F",
+        "crit5": "F",
+        "crit6": "F"
+      },
+      "missingFieldsWithSourceCandidates": {
+        "mass_solar": {
+          "value": 0.4992,
+          "uncertainty": 0.0293,
+          "sourceMethod": "This work"
+        }
+      },
+      "reviewReasons": [
+        "Excluded by generic Category=3 companion-source filter",
+        "Gaia astrometric/photometric/spectroscopic quality or multiplicity criteria flagged: crit1"
+      ],
+      "decision": "Research candidate only; no automatic adoption. Exact Gaia ID alone does not establish leaf scope."
+    },
+    {
+      "starId": "cns5-4625",
+      "name": "G 184-19",
+      "systemId": "gj-1230",
+      "systemName": "GJ 1230",
+      "component": "A",
+      "catalogIds": [
+        "nearest-1000"
+      ],
+      "gaiaDr3Id": "4535928365908540416",
+      "sourceRecordId": "2079",
+      "sourceName": "GJ 1230 A",
+      "sourceComponent": "Aab",
+      "sourceCategory": "1",
+      "sourceSpectrum": "M4.5 V",
+      "sourceAbsoluteG": "10.7403",
+      "sourceQuality": {
+        "RUWE": "1.15850510",
+        "IPDfmp": "4",
+        "crit1": "F",
+        "crit2": "F",
+        "crit3": "F",
+        "crit4": "F",
+        "crit5": "F",
+        "crit6": "F"
+      },
+      "missingFieldsWithSourceCandidates": {
+        "mass_solar": {
+          "value": 0.463,
+          "uncertainty": 0.0014,
+          "sourceMethod": "Del99b"
+        }
+      },
+      "reviewReasons": [
+        "Source component is an aggregate/hierarchy",
+        "Published component label differs from the internal leaf; hierarchy mapping needs review",
+        "Source is flagged spectroscopic: SB2"
+      ],
+      "decision": "Research candidate only; no automatic adoption. Exact Gaia ID alone does not establish leaf scope."
+    },
+    {
+      "starId": "cns5-4799",
+      "name": "LAWD 74",
+      "systemId": "gj-754-1",
+      "systemName": "GJ 754.1",
+      "component": "A",
+      "catalogIds": [
+        "nearest-1000"
+      ],
+      "gaiaDr3Id": "4201781696994073472",
+      "sourceRecordId": "2147",
+      "sourceName": "GJ 754.1 A",
+      "sourceComponent": "A",
+      "sourceCategory": "3",
+      "sourceSpectrum": "DBQA5",
+      "sourceAbsoluteG": "12.1461",
+      "sourceQuality": {
+        "RUWE": "1.01142620",
+        "IPDfmp": "1",
+        "crit1": "F",
+        "crit2": "F",
+        "crit3": "F",
+        "crit4": "F",
+        "crit5": "F",
+        "crit6": "F"
+      },
+      "missingFieldsWithSourceCandidates": {
+        "temperature_k": {
+          "value": 10805.0,
+          "uncertainty": null,
+          "sourceMethod": "MWDD"
+        },
+        "mass_solar": {
+          "value": 0.612,
+          "uncertainty": 0.014,
+          "sourceMethod": "MWDD"
+        },
+        "luminosity_solar": {
+          "value": 0.00186209,
+          "uncertainty": null,
+          "sourceMethod": "MWDD"
+        }
+      },
+      "reviewReasons": [
+        "Excluded by generic Category=3 companion-source filter",
+        "White dwarf: review dedicated literature; M-dwarf calibration does not apply"
+      ],
+      "decision": "Research candidate only; no automatic adoption. Exact Gaia ID alone does not establish leaf scope."
+    },
+    {
+      "starId": "cns5-5173",
+      "name": "LP 756-19",
+      "systemId": "gj-810",
+      "systemName": "GJ 810",
+      "component": "A",
+      "catalogIds": [
+        "nearest-1000"
+      ],
+      "gaiaDr3Id": "6887029163498137856",
+      "sourceRecordId": "2288",
+      "sourceName": "GJ 810 A",
+      "sourceComponent": "Aab",
+      "sourceCategory": "1",
+      "sourceSpectrum": "M4.0 V",
+      "sourceAbsoluteG": "10.7054",
+      "sourceQuality": {
+        "RUWE": "15.30122600",
+        "IPDfmp": "1",
+        "crit1": "T",
+        "crit2": "F",
+        "crit3": "F",
+        "crit4": "F",
+        "crit5": "F",
+        "crit6": "F"
+      },
+      "missingFieldsWithSourceCandidates": {
+        "mass_solar": {
+          "value": 0.447,
+          "uncertainty": 0.0297,
+          "sourceMethod": "Bar18"
+        }
+      },
+      "reviewReasons": [
+        "Source component is an aggregate/hierarchy",
+        "Published component label differs from the internal leaf; hierarchy mapping needs review",
+        "Source is flagged spectroscopic: SB2",
+        "Gaia astrometric/photometric/spectroscopic quality or multiplicity criteria flagged: crit1"
+      ],
+      "decision": "Research candidate only; no automatic adoption. Exact Gaia ID alone does not establish leaf scope."
+    },
+    {
+      "starId": "cns5-5297",
+      "name": "Ross 775 A",
+      "systemId": "orb6-21296+1739-a-b",
+      "systemName": "Ross 775",
+      "component": "A",
+      "catalogIds": [
+        "nearest-1000"
+      ],
+      "gaiaDr3Id": "1784473016438653056",
+      "sourceRecordId": "2344",
+      "sourceName": "Ross 775",
+      "sourceComponent": "Aab",
+      "sourceCategory": "1",
+      "sourceSpectrum": "M3.5 V",
+      "sourceAbsoluteG": "9.9524",
+      "sourceQuality": {
+        "RUWE": "1.14444510",
+        "IPDfmp": "0",
+        "crit1": "F",
+        "crit2": "F",
+        "crit3": "F",
+        "crit4": "F",
+        "crit5": "F",
+        "crit6": "F"
+      },
+      "missingFieldsWithSourceCandidates": {
+        "mass_solar": {
+          "value": 0.228,
+          "uncertainty": 0.0014,
+          "sourceMethod": "Del99b"
+        }
+      },
+      "reviewReasons": [
+        "Source component is an aggregate/hierarchy",
+        "Published component label differs from the internal leaf; hierarchy mapping needs review",
+        "Source is flagged spectroscopic: SB2",
+        "Existing explicit withholding/split-parent scope"
+      ],
+      "decision": "Research candidate only; no automatic adoption. Exact Gaia ID alone does not establish leaf scope."
+    },
+    {
+      "starId": "cns5-5510",
+      "name": "Wolf 1561 A",
+      "systemId": "wolf-1561",
+      "systemName": "Wolf 1561",
+      "component": "A",
+      "catalogIds": [
+        "nearest-1000"
+      ],
+      "gaiaDr3Id": "2616132101175106816",
+      "sourceRecordId": "2440",
+      "sourceName": "FG Aqr",
+      "sourceComponent": "A",
+      "sourceCategory": "2",
+      "sourceSpectrum": "M4.0 V",
+      "sourceAbsoluteG": "11.8694",
+      "sourceQuality": {
+        "RUWE": "10.06519500",
+        "IPDfmp": "0",
+        "crit1": "T",
+        "crit2": "F",
+        "crit3": "F",
+        "crit4": "F",
+        "crit5": "F",
+        "crit6": "F"
+      },
+      "missingFieldsWithSourceCandidates": {
+        "mass_solar": {
+          "value": 0.195,
+          "uncertainty": 0.0109,
+          "sourceMethod": "This work"
+        },
+        "radius_solar": {
+          "value": 0.2076,
+          "uncertainty": 0.0066,
+          "sourceMethod": null
+        },
+        "luminosity_solar": {
+          "value": 0.00407082,
+          "uncertainty": 4.74362e-05,
+          "sourceMethod": "This work"
+        }
+      },
+      "reviewReasons": [
+        "Source includes candidate multiplicity",
+        "Gaia astrometric/photometric/spectroscopic quality or multiplicity criteria flagged: crit1"
+      ],
+      "decision": "Research candidate only; no automatic adoption. Exact Gaia ID alone does not establish leaf scope."
+    },
+    {
+      "starId": "cns5-5588",
+      "name": "GJ 867 A",
+      "systemId": "gj-867",
+      "systemName": "GJ 867",
+      "component": "A",
+      "catalogIds": [
+        "nearest-1000"
+      ],
+      "gaiaDr3Id": "2400808142038361088",
+      "sourceRecordId": "2477",
+      "sourceName": "FK Aqr",
+      "sourceComponent": "Aab",
+      "sourceCategory": "1",
+      "sourceSpectrum": "M1.5 V",
+      "sourceAbsoluteG": "8.4240",
+      "sourceQuality": {
+        "RUWE": "2.93616580",
+        "IPDfmp": "1",
+        "crit1": "T",
+        "crit2": "F",
+        "crit3": "F",
+        "crit4": "F",
+        "crit5": "F",
+        "crit6": "F"
+      },
+      "missingFieldsWithSourceCandidates": {
+        "mass_solar": {
+          "value": 0.489,
+          "uncertainty": 0.0078,
+          "sourceMethod": "Her65"
+        }
+      },
+      "reviewReasons": [
+        "Source component is an aggregate/hierarchy",
+        "Published component label differs from the internal leaf; hierarchy mapping needs review",
+        "Source is flagged spectroscopic: SB2",
+        "Gaia astrometric/photometric/spectroscopic quality or multiplicity criteria flagged: crit1",
+        "Existing explicit withholding/split-parent scope",
+        "Published and adopted spectral classifications differ"
+      ],
+      "decision": "Research candidate only; no automatic adoption. Exact Gaia ID alone does not establish leaf scope."
+    },
+    {
+      "starId": "cns5-5587",
+      "name": "FL Aqr",
+      "systemId": "gj-867",
+      "systemName": "GJ 867",
+      "component": "B",
+      "catalogIds": [
+        "nearest-1000"
+      ],
+      "gaiaDr3Id": "2400808245117576704",
+      "sourceRecordId": "2478",
+      "sourceName": "FL Aqr",
+      "sourceComponent": "Bab",
+      "sourceCategory": "1",
+      "sourceSpectrum": "M3.5 V",
+      "sourceAbsoluteG": "10.4773",
+      "sourceQuality": {
+        "RUWE": "1.94344820",
+        "IPDfmp": "1",
+        "crit1": "F",
+        "crit2": "F",
+        "crit3": "T",
+        "crit4": "F",
+        "crit5": "F",
+        "crit6": "F"
+      },
+      "missingFieldsWithSourceCandidates": {
+        "mass_solar": {
+          "value": 0.2956,
+          "uncertainty": 0.06,
+          "sourceMethod": "Dav14"
+        }
+      },
+      "reviewReasons": [
+        "Source component is an aggregate/hierarchy",
+        "Published component label differs from the internal leaf; hierarchy mapping needs review",
+        "Source is flagged spectroscopic: SB1",
+        "Gaia astrometric/photometric/spectroscopic quality or multiplicity criteria flagged: crit3"
+      ],
+      "decision": "Research candidate only; no automatic adoption. Exact Gaia ID alone does not establish leaf scope."
+    }
+  ],
+  "missingOrIncompleteSpectra": [
+    {
+      "starId": "cns5-0155",
+      "name": "GJ 22 A",
+      "systemId": "gj-22",
+      "systemName": "GJ 22",
+      "component": "A",
+      "currentSpectrum": "M2",
+      "sourceSpectrum": "M2.0 V",
+      "sourceRecordId": "69",
+      "category": "2",
+      "decision": "Missing or incomplete classification; review exact component scope before adoption."
+    },
+    {
+      "starId": "cns5-0527",
+      "name": "BD-18 359 A",
+      "systemId": "msc-02051-1737",
+      "systemName": "BD-18 359",
+      "component": "A",
+      "currentSpectrum": "M2.5",
+      "sourceSpectrum": "M2.5 V",
+      "sourceRecordId": "229",
+      "category": "2",
+      "decision": "Missing or incomplete classification; review exact component scope before adoption."
+    },
+    {
+      "starId": "cns5-3682",
+      "name": "Ross 52A",
+      "systemId": "gj-568",
+      "systemName": "Ross 52",
+      "component": "A",
+      "currentSpectrum": null,
+      "sourceSpectrum": "M3.5 V",
+      "sourceRecordId": "1717",
+      "category": "3",
+      "decision": "Missing or incomplete classification; review exact component scope before adoption."
+    },
+    {
+      "starId": "cns5-1155",
+      "name": "G 39-29A",
+      "systemId": "gj-3304",
+      "systemName": "G 39-29",
+      "component": "A",
+      "currentSpectrum": "M4.0",
+      "sourceSpectrum": "M4.0 V",
+      "sourceRecordId": "556",
+      "category": "3",
+      "decision": "Missing or incomplete classification; review exact component scope before adoption."
+    },
+    {
+      "starId": "cns5-1154",
+      "name": "G 39-29B",
+      "systemId": "gj-3304",
+      "systemName": "G 39-29",
+      "component": "B",
+      "currentSpectrum": "M4.5",
+      "sourceSpectrum": "M4.5 V",
+      "sourceRecordId": "557",
+      "category": "2",
+      "decision": "Missing or incomplete classification; review exact component scope before adoption."
+    },
+    {
+      "starId": "cns5-1819",
+      "name": "Scholz's star A",
+      "systemId": "orb6-07200-0847-a-b",
+      "systemName": "Scholz's star",
+      "component": "A",
+      "currentSpectrum": "M9.5",
+      "sourceSpectrum": "M9.5 V",
+      "sourceRecordId": "877",
+      "category": "2",
+      "decision": "Missing or incomplete classification; review exact component scope before adoption."
+    },
+    {
+      "starId": "cns5-1866",
+      "name": "VV Lyn A",
+      "systemId": "gj-277",
+      "systemName": "VV Lyn",
+      "component": "Aa",
+      "currentSpectrum": null,
+      "sourceSpectrum": "M2.5 V",
+      "sourceRecordId": "893",
+      "category": "3",
+      "decision": "Missing or incomplete classification; review exact component scope before adoption."
+    },
+    {
+      "starId": "cns5-2636",
+      "name": "BD+39 2376 A",
+      "systemId": "orb6-10454+3831-a-c",
+      "systemName": "BD+39 2376",
+      "component": "A",
+      "currentSpectrum": null,
+      "sourceSpectrum": "M0.5 V",
+      "sourceRecordId": "1248",
+      "category": "3",
+      "decision": "Missing or incomplete classification; review exact component scope before adoption."
+    },
+    {
+      "starId": "cns5-3032",
+      "name": "G 148-48",
+      "systemId": "gj-11774",
+      "systemName": "GJ 11774",
+      "component": "A",
+      "currentSpectrum": "M5",
+      "sourceSpectrum": "M5.0 V",
+      "sourceRecordId": "1427",
+      "category": "3",
+      "decision": "Missing or incomplete classification; review exact component scope before adoption."
+    },
+    {
+      "starId": "cns5-3043",
+      "name": "G 237-64 A",
+      "systemId": "orb6-12236+6711-a-b",
+      "systemName": "G 237-64",
+      "component": "A",
+      "currentSpectrum": null,
+      "sourceSpectrum": "M2.5 V",
+      "sourceRecordId": "1437",
+      "category": "2",
+      "decision": "Missing or incomplete classification; review exact component scope before adoption."
+    },
+    {
+      "starId": "cns5-3169",
+      "name": "G 237-78 Aa",
+      "systemId": "msc-12490+6607",
+      "systemName": "G 237-78",
+      "component": "Aa",
+      "currentSpectrum": "M3",
+      "sourceSpectrum": "M3.0 V",
+      "sourceRecordId": "1485",
+      "category": "1",
+      "decision": "Missing or incomplete classification; review exact component scope before adoption."
+    },
+    {
+      "starId": "cns5-3687",
+      "name": "GJ 569 Ba",
+      "systemId": "gj-569",
+      "systemName": "GJ 569",
+      "component": "Ba",
+      "currentSpectrum": "M8.5",
+      "sourceSpectrum": "M8.5 V",
+      "sourceRecordId": "1720",
+      "category": "2",
+      "decision": "Missing or incomplete classification; review exact component scope before adoption."
+    },
+    {
+      "starId": "cns5-4235",
+      "name": "BD+19 3268A",
+      "systemId": "gj-3997",
+      "systemName": "BD+19 3268",
+      "component": "A",
+      "currentSpectrum": null,
+      "sourceSpectrum": "M0.5 V",
+      "sourceRecordId": "1941",
+      "category": "3",
+      "decision": "Missing or incomplete classification; review exact component scope before adoption."
+    },
+    {
+      "starId": "cns5-5064",
+      "name": "G 24-16 A",
+      "systemId": "orb6-20298+0941-a-b",
+      "systemName": "G 24-16",
+      "component": "A",
+      "currentSpectrum": null,
+      "sourceSpectrum": "M4.5 V",
+      "sourceRecordId": "2249",
+      "category": "2",
+      "decision": "Missing or incomplete classification; review exact component scope before adoption."
+    },
+    {
+      "starId": "cns5-5297",
+      "name": "Ross 775 A",
+      "systemId": "orb6-21296+1739-a-b",
+      "systemName": "Ross 775",
+      "component": "A",
+      "currentSpectrum": null,
+      "sourceSpectrum": "M3.5 V",
+      "sourceRecordId": "2344",
+      "category": "1",
+      "decision": "Missing or incomplete classification; review exact component scope before adoption."
+    },
+    {
+      "starId": "cns5-5330",
+      "name": "GJ 835 A",
+      "systemId": "gj-835",
+      "systemName": "GJ 835",
+      "component": "A",
+      "currentSpectrum": "M0",
+      "sourceSpectrum": "M0.0 V",
+      "sourceRecordId": "2359",
+      "category": "2",
+      "decision": "Missing or incomplete classification; review exact component scope before adoption."
+    }
+  ],
+  "sharedGaiaSourcesNotIndividual": [
+    {
+      "gaiaDr3Id": "2079074130463898624",
+      "sourceName": "V1581 Cyg",
+      "sourceComponent": "AB",
+      "matchedStarIds": [
+        "10pc-0087",
+        "10pc-0088"
+      ],
+      "decision": "Shared unresolved Gaia identifier; cannot assign source values to individual leaves."
+    },
+    {
+      "gaiaDr3Id": "2596740426913080576",
+      "sourceName": "EZ Aqr",
+      "sourceComponent": "AabB",
+      "matchedStarIds": [
+        "ez-aquarii-a",
+        "ez-aquarii-b",
+        "ez-aquarii-c"
+      ],
+      "decision": "Shared unresolved Gaia identifier; cannot assign source values to individual leaves."
+    }
+  ],
+  "staleWithholdingNotes": []
+}

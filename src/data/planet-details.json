@@ -5,6 +5,7 @@
     "earth": "https://nssdc.gsfc.nasa.gov/planetary/factsheet/earthfact.html",
     "mars": "https://nssdc.gsfc.nasa.gov/planetary/factsheet/marsfact.html",
     "jupiter": "https://nssdc.gsfc.nasa.gov/planetary/factsheet/jupiterfact.html",
+    "jovianSatellitePhysicalParameters": "https://ssd.jpl.nasa.gov/sats/phys_par/",
     "jovianSatellites": "https://nssdc.gsfc.nasa.gov/planetary/factsheet/joviansatfact.html",
     "jupiterMoons": "https://science.nasa.gov/jupiter/jupiter-facts/",
     "definitions": "https://nssdc.gsfc.nasa.gov/planetary/factsheet/fact_notes.html",
@@ -16,7 +17,9 @@
     "uranus": "https://nssdc.gsfc.nasa.gov/planetary/factsheet/uranusfact.html",
     "neptune": "https://nssdc.gsfc.nasa.gov/planetary/factsheet/neptunefact.html",
     "uranianSatellites": "https://nssdc.gsfc.nasa.gov/planetary/factsheet/uraniansatfact.html",
-    "neptunianSatellites": "https://nssdc.gsfc.nasa.gov/planetary/factsheet/neptuniansatfact.html"
+    "neptunianSatellites": "https://nssdc.gsfc.nasa.gov/planetary/factsheet/neptuniansatfact.html",
+    "neptunianSatellitePhysicalParameters": "https://ssd.jpl.nasa.gov/sats/phys_par/",
+    "hippocampDiscovery": "https://doi.org/10.1038/s41586-019-0909-9"
   },
   "earth": {
     "meanRadiusKm": 6371,
@@ -91,7 +94,9 @@
         "absoluteMagnitude": "Planetary absolute V magnitude: Sun and observer each at 1 AU, zero phase angle. The Earth comparison is a magnitude difference, not a ratio.",
         "apparentMagnitude": "Brightest apparent V magnitude from Earth, not a current measurement. It varies with phase and distance; Earth has no comparable magnitude for an observer on Earth.",
         "atmosphere": "Mercury has a surface-bounded exosphere. The pressure is an approximate upper limit, not a measured ambient pressure. Composition lists important detected atoms without assuming fixed proportions."
-      }
+      },
+      "orbitInclinationDeg": 7.004,
+      "axialTiltDeg": 0.034
     },
     {
       "id": "venus",
@@ -161,7 +166,9 @@
         "absoluteMagnitude": "Planetary absolute V magnitude: Sun and observer each at 1 AU, zero phase angle. The Earth comparison is a magnitude difference, not a ratio.",
         "apparentMagnitude": "Brightest apparent V magnitude from Earth, not a current measurement. It varies with phase and distance; Earth has no comparable magnitude for an observer on Earth.",
         "atmosphere": "Approximate surface pressure: 92 bar = 9.2 × 10⁶ Pa. Gas composition is near-surface abundance by volume; ppm means parts per million. Major abundances are rounded. Sulfuric-acid droplets form the opaque cloud layers higher in the atmosphere and are not represented by these gas percentages."
-      }
+      },
+      "orbitInclinationDeg": 3.395,
+      "axialTiltDeg": 177.36
     },
     {
       "id": "earth",
@@ -241,7 +248,9 @@
         "absoluteMagnitude": "Planetary absolute V magnitude: Sun and observer each at 1 AU, zero phase angle. This is a standardized reflected-light brightness, not how Earth appears from its own surface.",
         "apparentMagnitude": "Not applicable for an observer on Earth. From a spacecraft or another world, Earth's apparent magnitude depends on the observer's distance and the illuminated phase; no universal brightest value is supplied.",
         "atmosphere": "NASA fact-sheet reference surface pressure: 1014 millibars = 101,400 Pa, not a local weather measurement or the standard atmosphere of 101,325 Pa. Composition is by volume of dry air, except for separately listed variable water vapor. Carbon dioxide and methane are the dated values in NASA's November 2024 sheet, not live atmospheric measurements; ppm means parts per million. Rounded abundances need not sum to exactly 100%."
-      }
+      },
+      "orbitInclinationDeg": 0,
+      "axialTiltDeg": 23.44
     },
     {
       "id": "mars",
@@ -327,7 +336,9 @@
         "absoluteMagnitude": "Planetary absolute V magnitude: Sun and observer each at 1 AU, zero phase angle. The Earth comparison is a magnitude difference, not a ratio.",
         "apparentMagnitude": "Maximum apparent V magnitude from Earth, not a current measurement. It varies with phase, distance and dust storms; the mean value at opposition is about −2.0.",
         "atmosphere": "Approximate mean surface pressure at mean radius: 6.36 mb = 636 Pa, variable from 4.0 to 8.7 mb with the season (6.9 to 9 mb at the Viking 1 Lander site). Composition is by volume; major abundances are rounded and ppm means parts per million. Suspended dust gives the sky its hazy red color and is not represented by these gas percentages."
-      }
+      },
+      "orbitInclinationDeg": 1.848,
+      "axialTiltDeg": 25.19
     },
     {
       "id": "jupiter",
@@ -394,7 +405,9 @@
         "absoluteMagnitude": "Planetary absolute V magnitude: Sun and observer each at 1 AU, zero phase angle. The Earth comparison is a magnitude difference, not a ratio.",
         "apparentMagnitude": "Brightest apparent V magnitude from Earth; varies with distance and phase.",
         "atmosphere": "No solid surface or unique surface pressure. Radius and gravity refer to the 1-bar atmospheric level. Gas abundances are by volume; ppm means parts per million. Major percentages are rounded; water varies with pressure. Cloud aerosols are separate from the gas composition."
-      }
+      },
+      "orbitInclinationDeg": 1.304,
+      "axialTiltDeg": 3.13
     },
     {
       "id": "saturn",
@@ -456,7 +469,9 @@
         "absoluteMagnitude": "Planetary absolute V magnitude: Sun and observer each at 1 AU, zero phase angle. The Earth comparison is a magnitude difference. Ring opening affects Saturn’s observed brightness.",
         "apparentMagnitude": "Brightest apparent V magnitude from Earth, including rings; varies with distance, phase and ring inclination. Not a current ephemeris.",
         "atmosphere": "No solid surface or unique surface pressure; radius and gravity refer to the 1-bar level. Gas abundances are by volume with substantial uncertainty, especially helium (±2.4 percentage points); ppm means parts per million. Ammonia ice, water ice and ammonium hydrosulfide aerosols are separate from these gases."
-      }
+      },
+      "orbitInclinationDeg": 2.486,
+      "axialTiltDeg": 26.73
     },
     {
       "id": "uranus",
@@ -508,7 +523,9 @@
         "absoluteMagnitude": "Planetary absolute V magnitude: Sun and observer each at 1 AU, zero phase angle. The Earth comparison is a magnitude difference.",
         "apparentMagnitude": "Brightest apparent V magnitude from Earth; varies with distance and phase. Not a current ephemeris.",
         "atmosphere": "No solid surface or unique surface pressure; radius and gravity refer to the 1-bar atmospheric level. Gas abundances are by volume, with uncertainties in hydrogen and helium of about 3.3 percentage points. Rounded values need not sum to 100%; ppm means parts per million. Cloud and haze aerosols are separate from these gases."
-      }
+      },
+      "orbitInclinationDeg": 0.77,
+      "axialTiltDeg": 97.77
     },
     {
       "id": "neptune",
@@ -565,7 +582,9 @@
         "absoluteMagnitude": "Planetary absolute V magnitude: Sun and observer each at 1 AU, zero phase angle. The Earth comparison is a magnitude difference.",
         "apparentMagnitude": "Brightest apparent V magnitude from Earth; varies with distance and phase. Not a current ephemeris.",
         "atmosphere": "No solid surface or unique surface pressure; radius and gravity refer to the 1-bar atmospheric level. Gas abundances are by volume, with uncertainties in hydrogen and helium of about 3.2 percentage points. Rounded values need not sum to 100%; ppm means parts per million. Cloud and haze aerosols are separate from these gases."
-      }
+      },
+      "orbitInclinationDeg": 1.77,
+      "axialTiltDeg": 28.32
     }
   ],
   "moons": {
@@ -616,6 +635,94 @@
       }
     ],
     "jupiter": [
+      {
+        "id": "metis",
+        "name": "Metis",
+        "source": "https://nssdc.gsfc.nasa.gov/planetary/factsheet/joviansatfact.html",
+        "sourceLabel": "Jovian Satellite fact sheet (orbit); JPL satellite physical parameters (size and GM)",
+        "physicalSource": "https://ssd.jpl.nasa.gov/sats/phys_par/",
+        "physicalEphemeris": "JUP365",
+        "meanRadiusKm": 21.5,
+        "meanRadiusUncertaintyKm": 4,
+        "meanRadiusDetail": "Volume-equivalent radius of this irregular moon; quoted uncertainty ±4 km.",
+        "gravitationalParameterKm3S2": 0.0025,
+        "gravitationalParameterUncertaintyKm3S2": 0.0016,
+        "massKg": 3.7e+16,
+        "massEstimated": true,
+        "massDetail": "Approximate mass derived from the orbital solution’s gravitational parameter, GM = 0.0025 ± 0.0016 km³/s², using G = 6.67430 × 10⁻¹¹ m³/(kg s²). The quoted GM uncertainty is about 64% of its value.",
+        "surfaceGravityMs2": 0.0054,
+        "surfaceGravityDetail": "Approximate spherical gravity from GM/R² using the volume-equivalent radius. Actual gravity varies across this irregular body; uncertainty in GM and size limits this estimate.",
+        "semiMajorAxisKm": 128000,
+        "siderealOrbitDays": 0.294779,
+        "phaseCycleDays": 0.294799,
+        "phaseCycleDetail": "Approximate synodic phase cycle as seen from Jupiter, computed from the sidereal orbit and Jupiter’s 4,332.589-day year; not an Earth-observed phase cycle."
+      },
+      {
+        "id": "adrastea",
+        "name": "Adrastea",
+        "source": "https://nssdc.gsfc.nasa.gov/planetary/factsheet/joviansatfact.html",
+        "sourceLabel": "Jovian Satellite fact sheet (orbit); JPL satellite physical parameters (size and GM)",
+        "physicalSource": "https://ssd.jpl.nasa.gov/sats/phys_par/",
+        "physicalEphemeris": "JUP365",
+        "meanRadiusKm": 8.2,
+        "meanRadiusUncertaintyKm": 4,
+        "meanRadiusDetail": "Volume-equivalent radius of this irregular moon; quoted uncertainty ±4 km.",
+        "gravitationalParameterKm3S2": 0.00014,
+        "gravitationalParameterUncertaintyKm3S2": 0.0002,
+        "massKg": null,
+        "massEstimated": false,
+        "massDetail": "Mass is poorly constrained: the orbital solution gives GM = 0.00014 ± 0.00020 km³/s², with uncertainty larger than the value. This source measurement is retained, but no reliable individual mass is displayed.",
+        "surfaceGravityMs2": null,
+        "surfaceGravityDetail": "A reliable surface-gravity estimate is unavailable because the mass is poorly constrained.",
+        "semiMajorAxisKm": 129000,
+        "siderealOrbitDays": 0.29826,
+        "phaseCycleDays": 0.298281,
+        "phaseCycleDetail": "Approximate synodic phase cycle as seen from Jupiter, computed from the sidereal orbit and Jupiter’s 4,332.589-day year; not an Earth-observed phase cycle."
+      },
+      {
+        "id": "amalthea",
+        "name": "Amalthea",
+        "source": "https://nssdc.gsfc.nasa.gov/planetary/factsheet/joviansatfact.html",
+        "sourceLabel": "Jovian Satellite fact sheet (orbit); JPL satellite physical parameters (size and GM)",
+        "physicalSource": "https://ssd.jpl.nasa.gov/sats/phys_par/",
+        "physicalEphemeris": "JUP365",
+        "meanRadiusKm": 83.5,
+        "meanRadiusUncertaintyKm": 3,
+        "meanRadiusDetail": "Volume-equivalent radius of this irregular moon; quoted uncertainty ±3 km.",
+        "gravitationalParameterKm3S2": 0.16456,
+        "gravitationalParameterUncertaintyKm3S2": 0.00867,
+        "massKg": 2.466e+18,
+        "massEstimated": true,
+        "massDetail": "Approximate mass derived from the orbital solution’s gravitational parameter, GM = 0.16456 ± 0.00867 km³/s², using G = 6.67430 × 10⁻¹¹ m³/(kg s²). The quoted GM uncertainty is about 5% of its value.",
+        "surfaceGravityMs2": 0.0236,
+        "surfaceGravityDetail": "Approximate spherical gravity from GM/R² using the volume-equivalent radius. Actual gravity varies across this irregular body; uncertainty in GM and size limits this estimate.",
+        "semiMajorAxisKm": 181400,
+        "siderealOrbitDays": 0.498179,
+        "phaseCycleDays": 0.498236,
+        "phaseCycleDetail": "Approximate synodic phase cycle as seen from Jupiter, computed from the sidereal orbit and Jupiter’s 4,332.589-day year; not an Earth-observed phase cycle."
+      },
+      {
+        "id": "thebe",
+        "name": "Thebe",
+        "source": "https://nssdc.gsfc.nasa.gov/planetary/factsheet/joviansatfact.html",
+        "sourceLabel": "Jovian Satellite fact sheet (orbit); JPL satellite physical parameters (size and GM)",
+        "physicalSource": "https://ssd.jpl.nasa.gov/sats/phys_par/",
+        "physicalEphemeris": "JUP365",
+        "meanRadiusKm": 49.3,
+        "meanRadiusUncertaintyKm": 4,
+        "meanRadiusDetail": "Volume-equivalent radius of this irregular moon; quoted uncertainty ±4 km.",
+        "gravitationalParameterKm3S2": 0.03015,
+        "gravitationalParameterUncertaintyKm3S2": 0.0125,
+        "massKg": 4.5e+17,
+        "massEstimated": true,
+        "massDetail": "Approximate mass derived from the orbital solution’s gravitational parameter, GM = 0.03015 ± 0.0125 km³/s², using G = 6.67430 × 10⁻¹¹ m³/(kg s²). The quoted GM uncertainty is about 41% of its value.",
+        "surfaceGravityMs2": 0.0124,
+        "surfaceGravityDetail": "Approximate spherical gravity from GM/R² using the volume-equivalent radius. Actual gravity varies across this irregular body; uncertainty in GM and size limits this estimate.",
+        "semiMajorAxisKm": 221900,
+        "siderealOrbitDays": 0.6745,
+        "phaseCycleDays": 0.674605,
+        "phaseCycleDetail": "Approximate synodic phase cycle as seen from Jupiter, computed from the sidereal orbit and Jupiter’s 4,332.589-day year; not an Earth-observed phase cycle."
+      },
       {
         "id": "io",
         "name": "Io",
@@ -705,6 +812,21 @@
         "meanRadiusDetail": "Volume-equivalent mean radius derived as the cube root of the product of NASA’s three ellipsoid semi-axes (257 × 251 × 248 km), rounded to 0.1 km."
       },
       {
+        "id": "tethys",
+        "name": "Tethys",
+        "source": "https://nssdc.gsfc.nasa.gov/planetary/factsheet/saturniansatfact.html",
+        "sourceLabel": "Saturnian Satellite fact sheet",
+        "meanRadiusKm": 530.6,
+        "massKg": 6.18e+20,
+        "surfaceGravityMs2": 0.146,
+        "surfaceGravityDetail": "Approximate spherical gravity derived from the sourced mass and unrounded volume-equivalent radius using G = 6.67430 × 10⁻¹¹ m³/(kg s²).",
+        "semiMajorAxisKm": 294660,
+        "siderealOrbitDays": 1.887802,
+        "phaseCycleDays": 1.888133,
+        "phaseCycleDetail": "Approximate synodic phase cycle as seen from Saturn, computed from the sidereal orbit and Saturn’s 10,755.699-day year; not an Earth-observed phase cycle.",
+        "meanRadiusDetail": "Volume-equivalent mean radius derived as the cube root of the product of NASA’s three ellipsoid semi-axes (538 × 528 × 526 km), rounded to 0.1 km."
+      },
+      {
         "id": "dione",
         "name": "Dione",
         "source": "https://nssdc.gsfc.nasa.gov/planetary/factsheet/saturniansatfact.html",
@@ -747,6 +869,21 @@
         "siderealOrbitDays": 15.945421,
         "phaseCycleDays": 15.969095,
         "phaseCycleDetail": "Approximate synodic phase cycle as seen from Saturn, computed from the sidereal orbit and Saturn’s 10,755.699-day year; not an Earth-observed phase cycle."
+      },
+      {
+        "id": "hyperion",
+        "name": "Hyperion",
+        "source": "https://nssdc.gsfc.nasa.gov/planetary/factsheet/saturniansatfact.html",
+        "sourceLabel": "Saturnian Satellite fact sheet",
+        "meanRadiusKm": 135.1,
+        "massKg": 5.6e+18,
+        "surfaceGravityMs2": 0.02,
+        "surfaceGravityDetail": "Approximate spherical gravity derived from the sourced mass and unrounded volume-equivalent radius using G = 6.67430 × 10⁻¹¹ m³/(kg s²). Hyperion is highly irregular; local surface gravity varies with position.",
+        "semiMajorAxisKm": 1500930,
+        "siderealOrbitDays": 21.276609,
+        "phaseCycleDays": 21.318781,
+        "phaseCycleDetail": "Approximate synodic phase cycle as seen from Saturn, computed from the sidereal orbit and Saturn’s 10,755.699-day year; not an Earth-observed phase cycle.",
+        "meanRadiusDetail": "Volume-equivalent mean radius derived as the cube root of the product of NASA’s three ellipsoid semi-axes (180 × 133 × 103 km), rounded to 0.1 km; not the radius of a spherical body."
       },
       {
         "id": "iapetus",
@@ -839,6 +976,142 @@
       }
     ],
     "neptune": [
+      {
+        "id": "naiad",
+        "name": "Naiad",
+        "source": "https://nssdc.gsfc.nasa.gov/planetary/factsheet/neptuniansatfact.html",
+        "sourceLabel": "Neptunian Satellite fact sheet (orbit); JPL satellite physical parameters (size and GM)",
+        "physicalSource": "https://ssd.jpl.nasa.gov/sats/phys_par/",
+        "physicalEphemeris": "NEP097",
+        "meanRadiusKm": 29,
+        "meanRadiusUncertaintyKm": 6,
+        "meanRadiusDetail": "Volume-equivalent radius of this irregular moon from JPL’s physical-parameter table; quoted uncertainty ±6 km.",
+        "gravitationalParameterKm3S2": 0.00853,
+        "gravitationalParameterUncertaintyKm3S2": 0.0048,
+        "massKg": 1.3e+17,
+        "massEstimated": true,
+        "massDetail": "Approximate mass derived from the JPL NEP097 orbital solution’s gravitational parameter, GM = 0.00853 ± 0.00480 km³/s², using G = 6.67430 × 10⁻¹¹ m³/(kg s²). The quoted GM uncertainty is about 56% of its value.",
+        "surfaceGravityMs2": 0.0101,
+        "surfaceGravityDetail": "Approximate spherical gravity from GM/R² using the volume-equivalent radius. Actual gravity varies across this irregular body; uncertainty in GM and size limits this estimate.",
+        "semiMajorAxisKm": 48227,
+        "semiMajorAxisDetail": "Center-to-center orbital semi-major axis from the Neptunian Satellite fact sheet, not a current distance.",
+        "siderealOrbitDays": 0.294396,
+        "phaseCycleDays": 0.294397,
+        "phaseCycleDetail": "Approximate mean synodic phase cycle as seen from Neptune, computed from the sidereal orbit and Neptune’s 60,189.018-day year; not an Earth-observed phase cycle. Inclination and eccentricity make actual phase intervals variable."
+      },
+      {
+        "id": "thalassa",
+        "name": "Thalassa",
+        "source": "https://nssdc.gsfc.nasa.gov/planetary/factsheet/neptuniansatfact.html",
+        "sourceLabel": "Neptunian Satellite fact sheet (orbit); JPL satellite physical parameters (size and GM)",
+        "physicalSource": "https://ssd.jpl.nasa.gov/sats/phys_par/",
+        "physicalEphemeris": "NEP097",
+        "meanRadiusKm": 40,
+        "meanRadiusUncertaintyKm": 8,
+        "meanRadiusDetail": "Volume-equivalent radius of this irregular moon from JPL’s physical-parameter table; quoted uncertainty ±8 km.",
+        "gravitationalParameterKm3S2": 0.02359,
+        "gravitationalParameterUncertaintyKm3S2": 0.00522,
+        "massKg": 3.5e+17,
+        "massEstimated": true,
+        "massDetail": "Approximate mass derived from the JPL NEP097 orbital solution’s gravitational parameter, GM = 0.02359 ± 0.00522 km³/s², using G = 6.67430 × 10⁻¹¹ m³/(kg s²). The quoted GM uncertainty is about 22% of its value.",
+        "surfaceGravityMs2": 0.0147,
+        "surfaceGravityDetail": "Approximate spherical gravity from GM/R² using the volume-equivalent radius. Actual gravity varies across this irregular body; uncertainty in GM and size limits this estimate.",
+        "semiMajorAxisKm": 50075,
+        "semiMajorAxisDetail": "Center-to-center orbital semi-major axis from the Neptunian Satellite fact sheet, not a current distance.",
+        "siderealOrbitDays": 0.311485,
+        "phaseCycleDays": 0.311487,
+        "phaseCycleDetail": "Approximate mean synodic phase cycle as seen from Neptune, computed from the sidereal orbit and Neptune’s 60,189.018-day year; not an Earth-observed phase cycle. Inclination and eccentricity make actual phase intervals variable."
+      },
+      {
+        "id": "despina",
+        "name": "Despina",
+        "source": "https://nssdc.gsfc.nasa.gov/planetary/factsheet/neptuniansatfact.html",
+        "sourceLabel": "Neptunian Satellite fact sheet (orbit); JPL satellite physical parameters (size and GM)",
+        "physicalSource": "https://ssd.jpl.nasa.gov/sats/phys_par/",
+        "physicalEphemeris": "NEP097",
+        "meanRadiusKm": 74,
+        "meanRadiusUncertaintyKm": 10,
+        "meanRadiusDetail": "Volume-equivalent radius of this irregular moon from JPL’s physical-parameter table; quoted uncertainty ±10 km.",
+        "gravitationalParameterKm3S2": 0.11673,
+        "gravitationalParameterUncertaintyKm3S2": 0.25263,
+        "massKg": null,
+        "massEstimated": false,
+        "massDetail": "Mass is poorly constrained: JPL NEP097 gives GM = 0.11673 ± 0.25263 km³/s², with uncertainty larger than the value. This source measurement is retained, but no reliable individual mass is displayed.",
+        "surfaceGravityMs2": null,
+        "surfaceGravityDetail": "A reliable surface-gravity estimate is unavailable because the mass is poorly constrained.",
+        "semiMajorAxisKm": 52526,
+        "semiMajorAxisDetail": "Center-to-center orbital semi-major axis from the Neptunian Satellite fact sheet, not a current distance.",
+        "siderealOrbitDays": 0.334655,
+        "phaseCycleDays": 0.334657,
+        "phaseCycleDetail": "Approximate mean synodic phase cycle as seen from Neptune, computed from the sidereal orbit and Neptune’s 60,189.018-day year; not an Earth-observed phase cycle. Inclination and eccentricity make actual phase intervals variable."
+      },
+      {
+        "id": "galatea",
+        "name": "Galatea",
+        "source": "https://nssdc.gsfc.nasa.gov/planetary/factsheet/neptuniansatfact.html",
+        "sourceLabel": "Neptunian Satellite fact sheet (orbit); JPL satellite physical parameters (size and GM)",
+        "physicalSource": "https://ssd.jpl.nasa.gov/sats/phys_par/",
+        "physicalEphemeris": "NEP097",
+        "meanRadiusKm": 79,
+        "meanRadiusUncertaintyKm": 12,
+        "meanRadiusDetail": "Volume-equivalent radius of this irregular moon from JPL’s physical-parameter table; quoted uncertainty ±12 km.",
+        "gravitationalParameterKm3S2": 0.1899,
+        "gravitationalParameterUncertaintyKm3S2": 0.76278,
+        "massKg": null,
+        "massEstimated": false,
+        "massDetail": "Mass is poorly constrained: JPL NEP097 gives GM = 0.18990 ± 0.76278 km³/s², with uncertainty larger than the value. This source measurement is retained, but no reliable individual mass is displayed.",
+        "surfaceGravityMs2": null,
+        "surfaceGravityDetail": "A reliable surface-gravity estimate is unavailable because the mass is poorly constrained.",
+        "semiMajorAxisKm": 61953,
+        "semiMajorAxisDetail": "Center-to-center orbital semi-major axis from the Neptunian Satellite fact sheet, not a current distance.",
+        "siderealOrbitDays": 0.428745,
+        "phaseCycleDays": 0.428748,
+        "phaseCycleDetail": "Approximate mean synodic phase cycle as seen from Neptune, computed from the sidereal orbit and Neptune’s 60,189.018-day year; not an Earth-observed phase cycle. Inclination and eccentricity make actual phase intervals variable."
+      },
+      {
+        "id": "larissa",
+        "name": "Larissa",
+        "source": "https://nssdc.gsfc.nasa.gov/planetary/factsheet/neptuniansatfact.html",
+        "sourceLabel": "Neptunian Satellite fact sheet (orbit); JPL satellite physical parameters (size and GM)",
+        "physicalSource": "https://ssd.jpl.nasa.gov/sats/phys_par/",
+        "physicalEphemeris": "NEP097",
+        "meanRadiusKm": 96,
+        "meanRadiusUncertaintyKm": 7,
+        "meanRadiusDetail": "Volume-equivalent radius of this irregular moon from JPL’s physical-parameter table; quoted uncertainty ±7 km.",
+        "gravitationalParameterKm3S2": 0.25484,
+        "gravitationalParameterUncertaintyKm3S2": 3.1223,
+        "massKg": null,
+        "massEstimated": false,
+        "massDetail": "Mass is poorly constrained: JPL NEP097 gives GM = 0.25484 ± 3.12230 km³/s², with uncertainty larger than the value. This source measurement is retained, but no reliable individual mass is displayed.",
+        "surfaceGravityMs2": null,
+        "surfaceGravityDetail": "A reliable surface-gravity estimate is unavailable because the mass is poorly constrained.",
+        "semiMajorAxisKm": 73548,
+        "semiMajorAxisDetail": "Center-to-center orbital semi-major axis from the Neptunian Satellite fact sheet, not a current distance.",
+        "siderealOrbitDays": 0.554654,
+        "phaseCycleDays": 0.554659,
+        "phaseCycleDetail": "Approximate mean synodic phase cycle as seen from Neptune, computed from the sidereal orbit and Neptune’s 60,189.018-day year; not an Earth-observed phase cycle. Inclination and eccentricity make actual phase intervals variable."
+      },
+      {
+        "id": "hippocamp",
+        "name": "Hippocamp",
+        "source": "https://nssdc.gsfc.nasa.gov/planetary/factsheet/neptuniansatfact.html",
+        "sourceLabel": "Neptunian Satellite fact sheet; Showalter et al. (2019), Hubble discovery and photometry",
+        "sizeSource": "https://doi.org/10.1038/s41586-019-0909-9",
+        "meanRadiusKm": 17,
+        "meanRadiusDetail": "Photometric radius estimate from the Neptunian Satellite fact sheet. Hubble does not resolve the surface; the inferred size depends on an assumed albedo. The discovery paper gives about 16 km for an assumed geometric albedo of 0.09 ± 0.01.",
+        "sourceMassEstimateKg": 3e+16,
+        "sourceMassEstimateScope": "Neptunian Satellite fact-sheet estimate; not adopted as a measured individual mass.",
+        "massKg": null,
+        "massDetail": "No reliable dynamical mass measurement is available. The fact sheet’s rough 3 × 10¹⁶ kg estimate is retained separately as a source estimate, rather than displayed as a measured mass.",
+        "surfaceGravityMs2": null,
+        "surfaceGravityDetail": "A reliable surface-gravity estimate is unavailable because the mass is not measured.",
+        "semiMajorAxisKm": 105300,
+        "semiMajorAxisDetail": "Center-to-center orbital semi-major axis from the Neptunian Satellite fact sheet, rounded to 100 km; not a current distance.",
+        "siderealOrbitDays": 0.95,
+        "siderealOrbitDetail": "Fact-sheet period rounded to 0.001 day.",
+        "phaseCycleDays": 0.950015,
+        "phaseCycleDetail": "Approximate mean synodic phase cycle as seen from Neptune, computed from the rounded sidereal orbit and Neptune’s 60,189.018-day year; not an Earth-observed phase cycle."
+      },
       {
         "id": "proteus",
         "name": "Proteus",

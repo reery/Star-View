@@ -48,11 +48,11 @@ function createPointRenderer() {
   camera.position.z = 100
   // These are close-up illustrations, independent of the pair's separation.
   const previewDistance = { value: 1 }
-  const appearance = createStarAppearance(previewDistance, previewDistance)
+  const appearance = createStarAppearance(previewDistance)
   const geometry = new BufferGeometry()
   for (const [name, size] of Object.entries({
-    position: 3, color: 3, coreDiameter: 1, coreFocus: 1, coreEmphasis: 1, coreWhiteStrength: 1,
-    haloDiameter: 1, haloOpacity: 1, haloEmphasis: 1,
+    position: 3, color: 3, coreDiameter: 1, coreEmphasis: 1, coreWhiteStrength: 1,
+    haloDiameter: 1, haloOpacity: 1,
   })) geometry.setAttribute(name, new Float32BufferAttribute(new Float32Array(4 * size), size))
   geometry.setIndex(new Uint16BufferAttribute(new Uint16Array(4), 1))
   const cores = new Points(geometry, appearance.starMaterial)
@@ -168,9 +168,9 @@ export function renderDistanceComparison(
     points.geometry.getAttribute('position').setXYZ(index, point.x, -point.y, 0)
     points.geometry.getAttribute('color').setXYZ(index, color.r, color.g, color.b)
     const attributes = {
-      coreDiameter: STAR_DIAMETER_PX * displayScale, coreFocus: 1, coreEmphasis: emphasis,
+      coreDiameter: STAR_DIAMETER_PX * displayScale, coreEmphasis: emphasis,
       coreWhiteStrength: starCoreWhiteStrength(star), haloDiameter: Math.max(36, starHaloDiameter(magnitude)) * displayScale,
-      haloOpacity: Math.max(0.5, starHaloOpacity(magnitude, isSelected)), haloEmphasis: emphasis,
+      haloOpacity: Math.max(0.5, starHaloOpacity(magnitude, isSelected)),
     }
     for (const [name, value] of Object.entries(attributes)) points.geometry.getAttribute(name).setX(index, value)
   }

@@ -4,6 +4,8 @@ import { expect, test } from '@playwright/test'
 import { build } from 'vite'
 import { PNG } from 'pngjs'
 import { parseStarCatalog, type Star } from '../src/catalog'
+import { generateMolecularCloudPuffs } from '../src/molecular-cloud-layer'
+import type { StarColorMode } from '../src/astronomy'
 import type { CloudRenderOptions, ViewerRenderOptions } from './fixtures/molecular-cloud-rendering'
 
 const cloud = JSON.parse(readFileSync(new URL('../src/data/overlays/molecular-clouds/objects.json', import.meta.url), 'utf8')).objects
@@ -39,7 +41,7 @@ test.beforeAll(async () => {
   fixtureScript = bundle.code
 })
 
-test('dense clouds darken the sky without adding extinction to catalog sources', async ({ page }) => {
+test('dense clouds darken the sky and gently dim overlapping catalog sources', async ({ page }) => {
   const errors: string[] = []
   page.on('pageerror', (error) => errors.push(error.message))
   page.on('console', (message) => { if (message.type() === 'error') errors.push(message.text()) })
@@ -62,10 +64,27 @@ test('dense clouds darken the sky without adding extinction to catalog sources',
     expect(black.slice(0, 3)).toEqual([0, 0, 0])
     expect(black[3]).toBeGreaterThan(240)
 
-    for (const source of ['foreground', 'background', 'halo', 'nebula'] as const) {
-      const clear = await render({ samples: 0, mode, source })
-      const obscured = await render({ samples: 16, mode, source })
-      expect(obscured.slice(0, 3)).toEqual(clear.slice(0, 3))
+    const foreground = await render({ samples: 0, mode, source: 'foreground' })
+    expect(await render({ samples: 64, mode, source: 'foreground' })).toEqual(foreground)
+
+    for (const source of ['background', 'halo', 'nebula'] as const) {
+      for (const sourceBrightness of [1, 0.02]) {
+        const options = { mode, source, sourceBrightness, blackSky: true }
+        const clear = await render({ ...options, samples: 0 })
+        const obscured = await render({ ...options, samples: 16 })
+        const dense = await render({ ...options, samples: 64 })
+        for (let channel = 0; channel < 3; channel++) {
+          expect(obscured[channel]).toBeLessThan(clear[channel]! * 0.95)
+          expect(dense[channel]).toBeLessThan(obscured[channel]!)
+          expect(dense[channel]).toBeGreaterThan(clear[channel]! * 0.7)
+        }
+        expect(await render({ ...options, samples: 16, selected: true })).toEqual(obscured)
+        const reduced = await render({ ...options, samples: 16, fraction: 0.4 })
+        // Prefix sampling changes the filament/noise mixture. Keep its visible
+        // attenuation within two percent of the full-density rendering.
+        expect(Math.abs(reduced[0]! - obscured[0]!)).toBeLessThan(clear[0]! * 0.02 + 1)
+        expect(await render({ ...options, samples: 64, cloudOffsetPc: 10 })).toEqual(clear)
+      }
     }
   }
   expect(errors).toEqual([])
@@ -83,6 +102,55 @@ function regionLight(image: PNG, point: { x: number; y: number }, radius: number
   return light
 }
 
+test('visibly dims a distant star through the actual dense Taurus cloud samples', async ({ page }, testInfo) => {
+  const puffs = generateMolecularCloudPuffs(cloud, 0)
+  // Choose the densest source-backed sightline, rather than stacking artificial
+  // samples at one position or assuming a catalog star lies behind the cloud.
+  let bestPoint = 0
+  let bestDensity = 0
+  for (let candidate = 0; candidate < puffs.count; candidate++) {
+    const offset = candidate * 3
+    const direction = Array.from(puffs.centers.slice(offset, offset + 3))
+    const length = Math.hypot(...direction)
+    const [dx, dy, dz] = direction.map((value) => value / length) as [number, number, number]
+    let density = 0
+    for (let index = 0; index < puffs.count; index++) {
+      const x = puffs.centers[index * 3]!
+      const y = puffs.centers[index * 3 + 1]!
+      const z = puffs.centers[index * 3 + 2]!
+      const depth = x * dx + y * dy + z * dz
+      const r2 = Math.max(0, x * x + y * y + z * z - depth * depth) / puffs.shapes[index * 4]! ** 2
+      if (r2 < 1) density += puffs.shapes[index * 4 + 1]! * (1 - r2) ** 1.65
+    }
+    if (density > bestDensity) { bestDensity = density; bestPoint = candidate }
+  }
+  const source: Star = {
+    ...landmarks.find((star) => star.id === 'bright-alnilam')!,
+    id: 'taurus-background-star',
+    x_pc: puffs.centers[bestPoint * 3]! * 2,
+    y_pc: -puffs.centers[bestPoint * 3 + 2]! * 2,
+    z_pc: puffs.centers[bestPoint * 3 + 1]! * 2,
+    absolute_mag: -5,
+  }
+  for (const mode of ['real', 'exaggerated'] as const) {
+    for (const powerSaving of [false, true]) {
+      const render = (showClouds: boolean) => page.evaluate((input) =>
+        (window as unknown as { renderViewer(options: ViewerRenderOptions): Promise<Record<string, { x: number; y: number }>> }).renderViewer(input),
+      { stars: [sun, source, cloud], targetId: source.id, observerView: true, mode, showClouds, powerSaving } satisfies ViewerRenderOptions)
+      const points = await render(false)
+      const capture = async (dust: string) => PNG.sync.read(await page.locator('div canvas').screenshot({
+        scale: 'css', path: testInfo.outputPath(`taurus-${mode}-${powerSaving ? 'reduced' : 'full'}-${dust}.png`),
+      }))
+      const clear = await capture('clear')
+      await render(true)
+      const dusty = await capture('dusty')
+      const ratio = regionLight(dusty, points[source.id]!, 12) / regionLight(clear, points[source.id]!, 12)
+      expect(ratio).toBeLessThan(0.9)
+      expect(ratio).toBeGreaterThan(0.7)
+    }
+  }
+})
+
 test('keeps Orion emission and belt stars visible with its molecular clouds', { tag: '@mobile' }, async ({ page }, testInfo) => {
   const stars = [sun, ...landmarks.filter((star) => star.constellation === 'Orion'), ...nebulae, ...clouds]
   const render = (options: Omit<ViewerRenderOptions, 'stars' | 'targetId'>) => page.evaluate((input) =>
@@ -99,23 +167,25 @@ test('keeps Orion emission and belt stars visible with its molecular clouds', { 
       const dusty = await screenshot(`orion-${observerView ? 'sky' : 'map'}-${mode}.png`)
       const nebulaLight = regionLight(dusty, points['orion-nebula']!, 18)
       expect(nebulaLight).toBeGreaterThan(2500)
-      expect(nebulaLight).toBeGreaterThan(regionLight(clear, points['orion-nebula']!, 18) * 0.95)
+      // Dense dust may visibly attenuate emitting gas and stars, but its
+      // capped absorption must preserve at least 70% of their displayed light.
+      expect(nebulaLight).toBeGreaterThan(regionLight(clear, points['orion-nebula']!, 18) * 0.7)
       for (const id of ['bright-mintaka', 'bright-alnitak', 'bright-alnilam']) {
         const light = regionLight(dusty, points[id]!, 24)
         expect(light).toBeGreaterThan(1000)
-        expect(light).toBeGreaterThan(regionLight(clear, points[id]!, 24) * 0.95)
+        expect(light).toBeGreaterThan(regionLight(clear, points[id]!, 24) * 0.7)
       }
     }
   }
 })
 
-test('retains restrained star glow when switching to Observer view', async ({ page }, testInfo) => {
+test('uses apparent brightness once in both views while retaining map zoom restraint', async ({ page }, testInfo) => {
   const landmark = landmarks.find((star) => star.id === 'bright-alnilam')!
-  const lights: number[] = []
-  for (const distance of [20, 600]) {
+  const lights: number[][] = []
+  for (const [distance, magnitude] of [[20, 2], [600, 2], [600, 6]] as const) {
     const star: Star = {
       ...landmark, id: 'equal-brightness-source', x_pc: -distance, y_pc: 0, z_pc: 0,
-      absolute_mag: 2 - 5 * (Math.log10(distance) - 1),
+      absolute_mag: magnitude - 5 * (Math.log10(distance) - 1),
     }
     const modeLights: number[] = []
     for (const observerView of [false, true]) {
@@ -125,17 +195,64 @@ test('retains restrained star glow when switching to Observer view', async ({ pa
         (window as unknown as { renderViewer(options: ViewerRenderOptions): Promise<Record<string, { x: number; y: number }>> }).renderViewer(input),
       { stars: [sun, star], targetId: star.id, observerView, orbitDistancePc: 0.08, mode: 'real', showClouds: false } satisfies ViewerRenderOptions)
       const image = PNG.sync.read(await page.locator('div canvas').screenshot({
-        scale: 'css', path: testInfo.outputPath(`star-${distance}pc-${observerView ? 'observer' : 'map'}.png`),
+        scale: 'css', path: testInfo.outputPath(`star-${distance}pc-mag${magnitude}-${observerView ? 'observer' : 'map'}.png`),
       }))
       modeLights.push(regionLight(image, points[star.id]!, 40))
     }
-    expect(modeLights[1]! / modeLights[0]!).toBeGreaterThan(0.98)
-    expect(modeLights[1]! / modeLights[0]!).toBeLessThan(1.02)
-    lights.push(modeLights[1]!)
+    lights.push(modeLights)
   }
-  expect(lights[0]).toBeGreaterThan(5000)
-  expect(lights[1]).toBeGreaterThan(500)
-  expect(lights[1]!).toBeLessThan(lights[0]! * 0.5)
+  const [near, distant, faint] = lights as [number[], number[], number[]]
+  // Equal apparent magnitudes must render equally, even at different distances.
+  expect(distant[0]! / near[0]!).toBeGreaterThan(0.98)
+  expect(distant[0]! / near[0]!).toBeLessThan(1.02)
+  expect(distant[1]! / near[1]!).toBeGreaterThan(0.98)
+  expect(distant[1]! / near[1]!).toBeLessThan(1.02)
+  expect(distant[0]! / distant[1]!).toBeGreaterThan(0.98)
+  expect(distant[0]! / distant[1]!).toBeLessThan(1.02)
+  expect(distant[1]!).toBeGreaterThan(3000)
+  expect(faint[0]!).toBeLessThan(distant[0]! * 0.5)
+  expect(faint[1]!).toBeLessThan(distant[1]! * 0.5)
+
+  const star: Star = { ...landmark, id: 'overview-source', x_pc: -600, y_pc: 0, z_pc: 0,
+    absolute_mag: 2 - 5 * (Math.log10(600) - 1) }
+  const points = await page.evaluate((input) =>
+    (window as unknown as { renderViewer(options: ViewerRenderOptions): Promise<Record<string, { x: number; y: number }>> }).renderViewer(input),
+  { stars: [sun, star], targetId: star.id, observerView: false, targetDistancePc: 1200, hideSun: true,
+    mode: 'real', showClouds: false } satisfies ViewerRenderOptions)
+  const overview = PNG.sync.read(await page.locator('div canvas').screenshot({
+    scale: 'css', path: testInfo.outputPath('star-map-zoomed-out.png'),
+  }))
+  expect(regionLight(overview, points[star.id]!, 40)).toBeLessThan(distant[0]! * 0.5)
+})
+
+test('matches Earth-chart brightness for Heka A and the Orion belt from the Sun in both views', async ({ page }, testInfo) => {
+  const components: Star[] = JSON.parse(readFileSync(new URL('../src/data/stellar-companions.json', import.meta.url), 'utf8')).stars
+  const ids = ['hip-26207', 'bright-alnitak', 'bright-mintaka', 'bright-alnilam']
+  const stars = [sun, ...components.filter((star) => ids.includes(star.id)),
+    { ...landmarks.find((star) => star.id === 'bright-alnilam')!, apparent_mag: 1.69 }]
+  for (const mode of ['real', 'exaggerated'] as const) {
+    for (const observerView of [false, true]) {
+      const points = await page.evaluate((input) =>
+        (window as unknown as { renderViewer(options: ViewerRenderOptions): Promise<Record<string, { x: number; y: number }>> }).renderViewer(input),
+      { stars, targetId: 'bright-alnilam', observerView, mode, showClouds: false } satisfies ViewerRenderOptions)
+      const view = PNG.sync.read(await page.locator('div canvas').screenshot({
+        scale: 'css', path: testInfo.outputPath(`orion-components-${observerView ? 'observer' : 'map'}-${mode}.png`),
+      }))
+      await page.evaluate(({ stars, points, mode }) =>
+        (window as unknown as { renderEarthChart(stars: Star[], points: Record<string, { x: number; y: number }>, mode: StarColorMode): void })
+          .renderEarthChart(stars, points, mode), { stars, points, mode })
+      const chart = PNG.sync.read(await page.locator('#earth-chart').screenshot({
+        scale: 'css', path: testInfo.outputPath(`orion-components-earth-chart-${observerView ? 'observer' : 'map'}-${mode}.png`),
+      }))
+      for (const id of ids) {
+        const viewLight = regionLight(view, points[id]!, 40)
+        const chartLight = regionLight(chart, points[id]!, 40)
+        expect(viewLight, id).toBeGreaterThan(1000)
+        expect(viewLight / chartLight, id).toBeGreaterThan(0.95)
+        expect(viewLight / chartLight, id).toBeLessThan(1.05)
+      }
+    }
+  }
 })
 
 test('renders a continuous long-exposure nebula with a bright core and faint wings', { tag: '@mobile' }, async ({ page }, testInfo) => {

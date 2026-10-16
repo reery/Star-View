@@ -11,6 +11,8 @@ export interface StellarOrbit {
   eccentricity: number | null
   inclinationDeg: number | null
   nodeDeg: number | null
+  // Optional source-convention normalization; retain the published node above.
+  projectionNodeDeg?: number
   argumentDeg: number | null
   argumentComponent: string | null
   periastronEpoch: number | null
@@ -21,6 +23,7 @@ export interface StellarOrbit {
   reference: string
   sourceUrl: string
   axisDerivation: { angularAxisArcsec: number; parallaxMas: number | null; parallaxStarId: string | null } | null
+  axisSource?: { adoptedDistancePc: number; scope: string }
 }
 
 const solutions = new Map<string, readonly StellarOrbit[]>()
@@ -49,7 +52,7 @@ export function orbitHasGeometry(orbit: StellarOrbit): boolean {
 export function projectedOrbitPoint(orbit: StellarOrbit, eccentricAnomaly: number): { x: number; y: number } {
   const radians = Math.PI / 180
   const omega = (orbit.argumentDeg! + (orbit.argumentComponent === orbit.primary ? 180 : 0)) * radians
-  const node = orbit.nodeDeg! * radians
+  const node = (orbit.projectionNodeDeg ?? orbit.nodeDeg!) * radians
   const inclination = orbit.inclinationDeg! * radians
   const plane = orbitalPlanePoint(orbit, eccentricAnomaly)
   const x = plane.x, y = -plane.y

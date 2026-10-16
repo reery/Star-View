@@ -25,6 +25,7 @@ describe('Morgan–Keenan classification', () => {
     expect(classify('K3:III')).toMatchObject({ spectralClass: 'K', subtype: 3, luminosityClass: 'III' })
     expect(classify('B2:V:')).toMatchObject({ spectralClass: 'B', subtype: 2, luminosityClass: 'V' })
     expect(classify('F7(V)')).toMatchObject({ spectralClass: 'F', subtype: 7, luminosityClass: 'V' })
+    expect(classify('A1mIV')).toMatchObject({ spectralClass: 'A', subtype: 1, luminosityClass: 'IV' })
     expect(classify('kA0hA3(IV)SiSr')).toMatchObject({ spectralClass: 'A', subtype: 3, luminosityClass: 'IV' })
     expect(classify('A7.5')).toBeNull()
   })
@@ -46,7 +47,7 @@ describe('Morgan–Keenan classification', () => {
   })
 
   it('does not guess a luminosity class or map other schemes into the O–M grid', () => {
-    for (const spectral of [null, 'G2', 'G', 'M3?', 'DA2', 'L8V', 'T1V', 'Y4', 'sdM4', 'WN5', 'G2V+K1V']) expect(classify(spectral)).toBeNull()
+    for (const spectral of [null, 'G2', 'G', 'M3?', 'DA2', 'L8V', 'T1V', 'Y4', 'sdM4', 'WN5', 'G2V+K1V', 'B1-3V', 'A2-3V', 'G9V-K4V']) expect(classify(spectral)).toBeNull()
     expect(mkPoint({ type: 'white_dwarf', spectral_type: 'DA2' })).toBeNull()
     expect(mkPoint({ type: 'brown_dwarf', spectral_type: 'M8V' })).toBeNull()
   })

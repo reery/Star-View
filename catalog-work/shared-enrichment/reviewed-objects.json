@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "reviewed": "2026-10-08",
+  "reviewed": "2026-10-15",
   "policy": "One adopted scientific record per exact shared object/component across catalogs. Keep source coordinate/motion/photometry bundles intact, preserve stronger component reviews, prefer object-specific measured temperatures over class/old-model estimates, retain derived inputs and uncertainties, and never merge distinct components merely because SIMBAD supplies a system identifier. Catalog membership, stable IDs, display names, aliases and selection evidence remain catalog-specific. This reconciles existing frozen sources; it is not a new live survey.",
   "objects": {
     "* alf Cen A": {
@@ -5065,9 +5065,12 @@
         "pm_dec_masyr": "-24.04",
         "pm_dec_error_masyr": "",
         "radial_velocity_kms": "-1.0",
-        "radial_velocity_error_kms": ""
+        "radial_velocity_error_kms": "",
+        "temperature_k": "30540",
+        "luminosity_solar": "",
+        "radius_solar": ""
       },
-      "notes": "Western constellation line-figure star (HIP 78820; Stellarium Sco). SIMBAD identity * bet01 Sco; SIMBAD compiled Johnson V=2.62; inverse SIMBAD compiled parallax distance; absolute V uses no extinction correction. Physical parameters: reviewed Star View values for temperature_k, luminosity_solar, radius_solar.",
+      "notes": "Western constellation line-figure star (HIP 78820; Stellarium Sco). SIMBAD identity * bet01 Sco; SIMBAD compiled Johnson V=2.62; inverse SIMBAD compiled parallax distance; absolute V uses no extinction correction. Reviewed hot-star temperature: 2009A&A...501..297Z, HD 144217, J/A+A/501/297/catalog, 30540 K. Unresolved named multiple: this is the apparent, primary-dominated temperature of the catalogued light, not a resolved measurement of every member. Blended angular diameter is not assigned to an individual component. The old broadband SED luminosity and dependent radius are withheld; no component-safe replacement is adopted in this review.",
       "sourceSelections": {
         "astrometryAndMotion": {
           "source": "western-constellation-stars:hip-78820",
@@ -5095,6 +5098,39 @@
             "radial_velocity_ref"
           ],
           "decision": "Retain the curated nearest-catalog coordinate/motion bundle where available; otherwise use the later Western snapshot. For the eleven reviewed stellar objects with missing CNS5 RV but an existing adopted SIMBAD RV, use the complete Western position/motion bundle to retain full-space motion. Spectroscopic binaries and composite Porrima retain the nearest-catalog RV withholding. Keep positions, velocities, reference epoch, raw measurements, uncertainties and bibliographies together. Withheld individual/system velocities remain withheld."
+        },
+        "physicalTemperatureReview": {
+          "source": "catalog-work/shared-enrichment/hot-star-temperature-review.json",
+          "recordId": "* bet01 Sco",
+          "fields": [
+            "temperature_k",
+            "luminosity_solar",
+            "radius_solar"
+          ],
+          "decision": "Supersede the unsuitable cool broadband fit with inspected object-specific evidence; withhold its dependent fields unless separately supported.",
+          "adoptedFields": {
+            "temperature_k": {
+              "value": 30540,
+              "status": "model-derived",
+              "uncertainty": 2080,
+              "reference": "2009A&A...501..297Z",
+              "url": "https://arxiv.org/abs/0903.5134",
+              "table": "J/A+A/501/297/catalog",
+              "sourceRecordId": "HD 144217",
+              "method": "Extinction-corrected bolometric-flux temperature with BCD diagnostics",
+              "caveat": "Unresolved named multiple: this is the apparent, primary-dominated temperature of the catalogued light, not a resolved measurement of every member. Blended angular diameter is not assigned to an individual component."
+            },
+            "luminosity_solar": {
+              "value": null,
+              "status": "withheld",
+              "reason": "Rejected zero-reddening broadband-fit luminosity; no independently verified component-safe replacement adopted in this temperature review."
+            },
+            "radius_solar": {
+              "value": null,
+              "status": "withheld",
+              "reason": "Radius inherited the rejected luminosity/temperature fit; no independently verified component-safe replacement adopted."
+            }
+          }
         }
       }
     },
@@ -5379,9 +5415,12 @@
         "pm_dec_masyr": "24.742",
         "pm_dec_error_masyr": "",
         "radial_velocity_kms": "-9.0",
-        "radial_velocity_error_kms": ""
+        "radial_velocity_error_kms": "",
+        "temperature_k": "30700",
+        "luminosity_solar": "",
+        "radius_solar": ""
       },
-      "notes": "Western constellation line-figure star (HIP 81377; Stellarium Oph). SIMBAD identity * zet Oph; SIMBAD compiled Johnson V=2.56; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: reviewed Star View values for temperature_k, luminosity_solar, radius_solar.",
+      "notes": "Western constellation line-figure star (HIP 81377; Stellarium Oph). SIMBAD identity * zet Oph; SIMBAD compiled Johnson V=2.56; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Reviewed hot-star temperature: 2024A&A...687A.228D, HD 149757, J/A+A/687/A228/tabled1, 30700 K. Formal asymmetric temperature uncertainties from the published fit. No temperature is inferred from the spectral label. The old broadband SED luminosity and dependent radius are withheld; no component-safe replacement is adopted in this review.",
       "sourceSelections": {
         "astrometryAndMotion": {
           "source": "western-constellation-stars:hip-81377",
@@ -5416,6 +5455,42 @@
             "absolute_mag"
           ],
           "decision": "Use the component-resolved curated Johnson V/distance where available, otherwise the common selected astrometric snapshot; preserve the specifically reviewed Bright Star Catalogue V=0.76 for Acrux. No integrated system flux is assigned to a faint companion."
+        },
+        "physicalTemperatureReview": {
+          "source": "catalog-work/shared-enrichment/hot-star-temperature-review.json",
+          "recordId": "* zet Oph",
+          "fields": [
+            "temperature_k",
+            "luminosity_solar",
+            "radius_solar"
+          ],
+          "decision": "Supersede the unsuitable cool broadband fit with inspected object-specific evidence; withhold its dependent fields unless separately supported.",
+          "adoptedFields": {
+            "temperature_k": {
+              "value": 30700,
+              "status": "model-derived",
+              "uncertainty": {
+                "lower": 600,
+                "upper": 600
+              },
+              "reference": "2024A&A...687A.228D",
+              "url": "https://arxiv.org/abs/2312.00241",
+              "table": "J/A+A/687/A228/tabled1",
+              "sourceRecordId": "HD 149757",
+              "method": "FASTWIND non-LTE optical diagnostic-line fit",
+              "caveat": "Formal asymmetric temperature uncertainties from the published fit. No temperature is inferred from the spectral label."
+            },
+            "luminosity_solar": {
+              "value": null,
+              "status": "withheld",
+              "reason": "Rejected zero-reddening broadband-fit luminosity; no independently verified component-safe replacement adopted in this temperature review."
+            },
+            "radius_solar": {
+              "value": null,
+              "status": "withheld",
+              "reason": "Radius inherited the rejected luminosity/temperature fit; no independently verified component-safe replacement adopted."
+            }
+          }
         }
       }
     },
@@ -5638,9 +5713,12 @@
         "pm_dec_masyr": "-35.41",
         "pm_dec_error_masyr": "",
         "radial_velocity_kms": "-6.0",
-        "radial_velocity_error_kms": ""
+        "radial_velocity_error_kms": "",
+        "temperature_k": "30900",
+        "luminosity_solar": "",
+        "radius_solar": ""
       },
-      "notes": "Western constellation line-figure star (HIP 78401; Stellarium Sco). SIMBAD identity * del Sco; SIMBAD compiled Johnson V=2.32; inverse SIMBAD compiled parallax distance; absolute V uses no extinction correction. Physical parameters: reviewed Star View values for temperature_k, mass_solar, luminosity_solar, radius_solar.",
+      "notes": "Western constellation line-figure star (HIP 78401; Stellarium Sco). SIMBAD identity * del Sco; SIMBAD compiled Johnson V=2.32; inverse SIMBAD compiled parallax distance; absolute V uses no extinction correction. Reviewed hot-star temperature: 2018MNRAS.474.5287A, HD 143275, Table B1, 30900 K. Published errors are the authors' assumed 1 percent for temperature, not an independent posterior error; Be disk variability and rotational gravity darkening add systematics. The old broadband SED luminosity and dependent radius are withheld; no component-safe replacement is adopted in this review.",
       "sourceSelections": {
         "astrometryAndMotion": {
           "source": "western-constellation-stars:hip-78401",
@@ -5668,6 +5746,39 @@
             "radial_velocity_ref"
           ],
           "decision": "Retain the curated nearest-catalog coordinate/motion bundle where available; otherwise use the later Western snapshot. For the eleven reviewed stellar objects with missing CNS5 RV but an existing adopted SIMBAD RV, use the complete Western position/motion bundle to retain full-space motion. Spectroscopic binaries and composite Porrima retain the nearest-catalog RV withholding. Keep positions, velocities, reference epoch, raw measurements, uncertainties and bibliographies together. Withheld individual/system velocities remain withheld."
+        },
+        "physicalTemperatureReview": {
+          "source": "catalog-work/shared-enrichment/hot-star-temperature-review.json",
+          "recordId": "* del Sco",
+          "fields": [
+            "temperature_k",
+            "luminosity_solar",
+            "radius_solar"
+          ],
+          "decision": "Supersede the unsuitable cool broadband fit with inspected object-specific evidence; withhold its dependent fields unless separately supported.",
+          "adoptedFields": {
+            "temperature_k": {
+              "value": 30900,
+              "status": "model-derived",
+              "uncertainty": 309,
+              "reference": "2018MNRAS.474.5287A",
+              "url": "https://arxiv.org/abs/1711.08675",
+              "table": "Table B1",
+              "sourceRecordId": "HD 143275",
+              "method": "BeSOS photometric fit cross-checked with optical spectroscopy",
+              "caveat": "Published errors are the authors' assumed 1 percent for temperature, not an independent posterior error; Be disk variability and rotational gravity darkening add systematics."
+            },
+            "luminosity_solar": {
+              "value": null,
+              "status": "withheld",
+              "reason": "Rejected zero-reddening broadband-fit luminosity; no independently verified component-safe replacement adopted in this temperature review."
+            },
+            "radius_solar": {
+              "value": null,
+              "status": "withheld",
+              "reason": "Radius inherited the rejected luminosity/temperature fit; no independently verified component-safe replacement adopted."
+            }
+          }
         }
       }
     },
@@ -5943,9 +6054,12 @@
         "pm_dec_masyr": "-3.92",
         "pm_dec_error_masyr": "",
         "radial_velocity_kms": "-6.8",
-        "radial_velocity_error_kms": ""
+        "radial_velocity_error_kms": "",
+        "temperature_k": "27990",
+        "luminosity_solar": "",
+        "radius_solar": ""
       },
-      "notes": "Western constellation line-figure star (HIP 4427; Stellarium Cas). SIMBAD identity * gam Cas; SIMBAD compiled Johnson V=2.39; inverse SIMBAD compiled parallax distance; absolute V uses no extinction correction. Physical parameters: reviewed Star View values for temperature_k, luminosity_solar, radius_solar.",
+      "notes": "Western constellation line-figure star (HIP 4427; Stellarium Cas). SIMBAD identity * gam Cas; SIMBAD compiled Johnson V=2.39; inverse SIMBAD compiled parallax distance; absolute V uses no extinction correction. Reviewed hot-star temperature: 2001A&A...378..861C, HD 5394, J/A+A/378/861/table6, 27990 K. Rapidly rotating Be star: apparent adopted photospheric temperature, not polar or equatorial temperature. The table gives no individual temperature error. Does not describe the cool circumstellar disk. The old broadband SED luminosity and dependent radius are withheld; no component-safe replacement is adopted in this review.",
       "sourceSelections": {
         "astrometryAndMotion": {
           "source": "western-constellation-stars:hip-4427",
@@ -5973,6 +6087,39 @@
             "radial_velocity_ref"
           ],
           "decision": "Retain the curated nearest-catalog coordinate/motion bundle where available; otherwise use the later Western snapshot. For the eleven reviewed stellar objects with missing CNS5 RV but an existing adopted SIMBAD RV, use the complete Western position/motion bundle to retain full-space motion. Spectroscopic binaries and composite Porrima retain the nearest-catalog RV withholding. Keep positions, velocities, reference epoch, raw measurements, uncertainties and bibliographies together. Withheld individual/system velocities remain withheld."
+        },
+        "physicalTemperatureReview": {
+          "source": "catalog-work/shared-enrichment/hot-star-temperature-review.json",
+          "recordId": "* gam Cas",
+          "fields": [
+            "temperature_k",
+            "luminosity_solar",
+            "radius_solar"
+          ],
+          "decision": "Supersede the unsuitable cool broadband fit with inspected object-specific evidence; withhold its dependent fields unless separately supported.",
+          "adoptedFields": {
+            "temperature_k": {
+              "value": 27990,
+              "status": "model-derived",
+              "uncertainty": null,
+              "reference": "2001A&A...378..861C",
+              "url": "https://cdsarc.cds.unistra.fr/viz-bin/cat/J/A+A/378/861",
+              "table": "J/A+A/378/861/table6",
+              "sourceRecordId": "HD 5394",
+              "method": "Published apparent effective temperature, converted from log10(Teff/K)",
+              "caveat": "Rapidly rotating Be star: apparent adopted photospheric temperature, not polar or equatorial temperature. The table gives no individual temperature error. Does not describe the cool circumstellar disk."
+            },
+            "luminosity_solar": {
+              "value": null,
+              "status": "withheld",
+              "reason": "Rejected zero-reddening broadband-fit luminosity; no independently verified component-safe replacement adopted in this temperature review."
+            },
+            "radius_solar": {
+              "value": null,
+              "status": "withheld",
+              "reason": "Radius inherited the rejected luminosity/temperature fit; no independently verified component-safe replacement adopted."
+            }
+          }
         }
       }
     },
@@ -6066,9 +6213,12 @@
         "pm_dec_masyr": "-11.135",
         "pm_dec_error_masyr": "",
         "radial_velocity_kms": "11.0",
-        "radial_velocity_error_kms": ""
+        "radial_velocity_error_kms": "",
+        "temperature_k": "22150",
+        "luminosity_solar": "",
+        "radius_solar": ""
       },
-      "notes": "Western constellation line-figure star (HIP 59196; Stellarium Cen). SIMBAD identity * del Cen; SIMBAD compiled Johnson V=2.52; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: reviewed Star View values for temperature_k, luminosity_solar, radius_solar.",
+      "notes": "Western constellation line-figure star (HIP 59196; Stellarium Cen). SIMBAD identity * del Cen; SIMBAD compiled Johnson V=2.52; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Reviewed hot-star temperature: 2018MNRAS.474.5287A, HD 105435, Table B1, 22150 K. Published errors are the authors' assumed 1 percent for temperature, not an independent posterior error; Be disk variability and rotational gravity darkening add systematics. The old broadband SED luminosity and dependent radius are withheld; no component-safe replacement is adopted in this review.",
       "sourceSelections": {
         "astrometryAndMotion": {
           "source": "western-constellation-stars:hip-59196",
@@ -6103,6 +6253,39 @@
             "absolute_mag"
           ],
           "decision": "Use the component-resolved curated Johnson V/distance where available, otherwise the common selected astrometric snapshot; preserve the specifically reviewed Bright Star Catalogue V=0.76 for Acrux. No integrated system flux is assigned to a faint companion."
+        },
+        "physicalTemperatureReview": {
+          "source": "catalog-work/shared-enrichment/hot-star-temperature-review.json",
+          "recordId": "* del Cen",
+          "fields": [
+            "temperature_k",
+            "luminosity_solar",
+            "radius_solar"
+          ],
+          "decision": "Supersede the unsuitable cool broadband fit with inspected object-specific evidence; withhold its dependent fields unless separately supported.",
+          "adoptedFields": {
+            "temperature_k": {
+              "value": 22150,
+              "status": "model-derived",
+              "uncertainty": 222,
+              "reference": "2018MNRAS.474.5287A",
+              "url": "https://arxiv.org/abs/1711.08675",
+              "table": "Table B1",
+              "sourceRecordId": "HD 105435",
+              "method": "BeSOS photometric fit cross-checked with optical spectroscopy",
+              "caveat": "Published errors are the authors' assumed 1 percent for temperature, not an independent posterior error; Be disk variability and rotational gravity darkening add systematics."
+            },
+            "luminosity_solar": {
+              "value": null,
+              "status": "withheld",
+              "reason": "Rejected zero-reddening broadband-fit luminosity; no independently verified component-safe replacement adopted in this temperature review."
+            },
+            "radius_solar": {
+              "value": null,
+              "status": "withheld",
+              "reason": "Radius inherited the rejected luminosity/temperature fit; no independently verified component-safe replacement adopted."
+            }
+          }
         }
       }
     },
@@ -8320,6 +8503,557 @@
             "absolute_mag"
           ],
           "decision": "Use the component-resolved curated Johnson V/distance where available, otherwise the common selected astrometric snapshot; preserve the specifically reviewed Bright Star Catalogue V=0.76 for Acrux. No integrated system flux is assigned to a faint companion."
+        }
+      }
+    },
+    "* zet Tau": {
+      "label": "Tianguan",
+      "starIds": [
+        "hip-26451"
+      ],
+      "scope": "Exact named catalog object * zet Tau / HIP 26451 / HD 37202; distinct companions are excluded.",
+      "values": {
+        "temperature_k": "21478",
+        "luminosity_solar": "",
+        "radius_solar": ""
+      },
+      "notes": "Western constellation line-figure star (HIP 26451; Stellarium Tau). SIMBAD identity * zet Tau; SIMBAD compiled Johnson V=3.03; inverse SIMBAD compiled parallax distance; absolute V uses no extinction correction. Shared exact-identity physical supplements (metallicity_dex: 2023ApJS..266...41P). Reviewed hot-star temperature: 2001A&A...378..861C, HD 37202, J/A+A/378/861/table6, 21478 K. Rapidly rotating Be star: apparent adopted photospheric temperature, not polar or equatorial temperature. The table gives no individual temperature error. Does not describe the cool circumstellar disk. The old broadband SED luminosity and dependent radius are withheld; no component-safe replacement is adopted in this review.",
+      "sourceSelections": {
+        "physicalTemperatureReview": {
+          "source": "catalog-work/shared-enrichment/hot-star-temperature-review.json",
+          "recordId": "* zet Tau",
+          "fields": [
+            "temperature_k",
+            "luminosity_solar",
+            "radius_solar"
+          ],
+          "decision": "Supersede the unsuitable cool broadband fit with inspected object-specific evidence; withhold its dependent fields unless separately supported.",
+          "adoptedFields": {
+            "temperature_k": {
+              "value": 21478,
+              "status": "model-derived",
+              "uncertainty": null,
+              "reference": "2001A&A...378..861C",
+              "url": "https://cdsarc.cds.unistra.fr/viz-bin/cat/J/A+A/378/861",
+              "table": "J/A+A/378/861/table6",
+              "sourceRecordId": "HD 37202",
+              "method": "Published apparent effective temperature, converted from log10(Teff/K)",
+              "caveat": "Rapidly rotating Be star: apparent adopted photospheric temperature, not polar or equatorial temperature. The table gives no individual temperature error. Does not describe the cool circumstellar disk."
+            },
+            "luminosity_solar": {
+              "value": null,
+              "status": "withheld",
+              "reason": "Rejected zero-reddening broadband-fit luminosity; no independently verified component-safe replacement adopted in this temperature review."
+            },
+            "radius_solar": {
+              "value": null,
+              "status": "withheld",
+              "reason": "Radius inherited the rejected luminosity/temperature fit; no independently verified component-safe replacement adopted."
+            }
+          }
+        }
+      }
+    },
+    "* zet Per": {
+      "label": "Zeta Per",
+      "starIds": [
+        "hip-18246"
+      ],
+      "scope": "Exact named catalog object * zet Per / HIP 18246 / HD 24398; distinct companions are excluded.",
+      "values": {
+        "temperature_k": "23500",
+        "luminosity_solar": "",
+        "radius_solar": ""
+      },
+      "notes": "Western constellation line-figure star (HIP 18246; Stellarium Per). SIMBAD identity * zet Per; SIMBAD compiled Johnson V=2.85; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Reviewed hot-star temperature: 2024A&A...687A.228D, HD 24398, J/A+A/687/A228/tabled1, 23500 K. Formal asymmetric temperature uncertainties from the published fit. No temperature is inferred from the spectral label. The old broadband SED luminosity and dependent radius are withheld; no component-safe replacement is adopted in this review.",
+      "sourceSelections": {
+        "physicalTemperatureReview": {
+          "source": "catalog-work/shared-enrichment/hot-star-temperature-review.json",
+          "recordId": "* zet Per",
+          "fields": [
+            "temperature_k",
+            "luminosity_solar",
+            "radius_solar"
+          ],
+          "decision": "Supersede the unsuitable cool broadband fit with inspected object-specific evidence; withhold its dependent fields unless separately supported.",
+          "adoptedFields": {
+            "temperature_k": {
+              "value": 23500,
+              "status": "model-derived",
+              "uncertainty": {
+                "lower": 400,
+                "upper": 300
+              },
+              "reference": "2024A&A...687A.228D",
+              "url": "https://arxiv.org/abs/2312.00241",
+              "table": "J/A+A/687/A228/tabled1",
+              "sourceRecordId": "HD 24398",
+              "method": "FASTWIND non-LTE optical diagnostic-line fit",
+              "caveat": "Formal asymmetric temperature uncertainties from the published fit. No temperature is inferred from the spectral label."
+            },
+            "luminosity_solar": {
+              "value": null,
+              "status": "withheld",
+              "reason": "Rejected zero-reddening broadband-fit luminosity; no independently verified component-safe replacement adopted in this temperature review."
+            },
+            "radius_solar": {
+              "value": null,
+              "status": "withheld",
+              "reason": "Radius inherited the rejected luminosity/temperature fit; no independently verified component-safe replacement adopted."
+            }
+          }
+        }
+      }
+    },
+    "* ome CMa": {
+      "label": "Omega CMa",
+      "starIds": [
+        "hip-35037"
+      ],
+      "scope": "Exact named catalog object * ome CMa / HIP 35037 / HD 56139; distinct companions are excluded.",
+      "values": {
+        "temperature_k": "17170",
+        "luminosity_solar": "8632.855848",
+        "radius_solar": "10.5"
+      },
+      "notes": "Western constellation line-figure star (HIP 35037; Stellarium CMa). SIMBAD identity * ome CMa; SIMBAD compiled Johnson V=3.82; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Reviewed hot-star temperature: 2018MNRAS.474.5287A, HD 56139, Table B1, 17170 K. Published errors are the authors' assumed 1 percent for temperature, not an independent posterior error; Be disk variability and rotational gravity darkening add systematics. Photospheric radius 10.5 solar radii is retained from the same BeSOS model at 279 pc; luminosity is derived from its own temperature/radius by Stefan-Boltzmann scaling.",
+      "sourceSelections": {
+        "physicalTemperatureReview": {
+          "source": "catalog-work/shared-enrichment/hot-star-temperature-review.json",
+          "recordId": "* ome CMa",
+          "fields": [
+            "temperature_k",
+            "luminosity_solar",
+            "radius_solar"
+          ],
+          "decision": "Supersede the unsuitable cool broadband fit with inspected object-specific evidence; withhold its dependent fields unless separately supported.",
+          "adoptedFields": {
+            "temperature_k": {
+              "value": 17170,
+              "status": "model-derived",
+              "uncertainty": 172,
+              "reference": "2018MNRAS.474.5287A",
+              "url": "https://arxiv.org/abs/1711.08675",
+              "table": "Table B1",
+              "sourceRecordId": "HD 56139",
+              "method": "BeSOS photometric fit cross-checked with optical spectroscopy",
+              "caveat": "Published errors are the authors' assumed 1 percent for temperature, not an independent posterior error; Be disk variability and rotational gravity darkening add systematics."
+            },
+            "luminosity_solar": {
+              "value": 8632.855848,
+              "status": "derived",
+              "reference": "Stefan-Boltzmann scaling",
+              "inputs": {
+                "temperature_k": 17170,
+                "radius_solar": 10.5,
+                "solar_temperature_k": 5772
+              },
+              "caveat": "Derived from the same BeSOS model temperature and radius; not an independent luminosity measurement."
+            },
+            "radius_solar": {
+              "value": 10.5,
+              "status": "model-derived",
+              "uncertainty": 0.21,
+              "reference": "2018MNRAS.474.5287A",
+              "url": "https://arxiv.org/abs/1711.08675",
+              "table": "Table B1",
+              "inputs": {
+                "source_distance_pc": 279,
+                "E_B_V": 0.06
+              },
+              "caveat": "Published photometric photospheric radius at its source distance. Assumed 2 percent error excludes distance and model systematics; retained without rescaling to catalog distance."
+            }
+          }
+        }
+      }
+    },
+    "* omi Per": {
+      "label": "Atik",
+      "starIds": [
+        "hip-17448"
+      ],
+      "scope": "Exact named catalog object * omi Per / HIP 17448 / HD 23180; distinct companions are excluded.",
+      "values": {
+        "temperature_k": "22840",
+        "luminosity_solar": "",
+        "radius_solar": ""
+      },
+      "notes": "Western constellation line-figure star (HIP 17448; Stellarium Per). SIMBAD identity * omi Per; SIMBAD compiled Johnson V=3.91; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Reviewed hot-star temperature: 2009A&A...501..297Z, HD 23180, J/A+A/501/297/catalog, 22840 K. Unresolved named multiple: this is the apparent, primary-dominated temperature of the catalogued light, not a resolved measurement of every member. Blended angular diameter is not assigned to an individual component. The old broadband SED luminosity and dependent radius are withheld; no component-safe replacement is adopted in this review.",
+      "sourceSelections": {
+        "physicalTemperatureReview": {
+          "source": "catalog-work/shared-enrichment/hot-star-temperature-review.json",
+          "recordId": "* omi Per",
+          "fields": [
+            "temperature_k",
+            "luminosity_solar",
+            "radius_solar"
+          ],
+          "decision": "Supersede the unsuitable cool broadband fit with inspected object-specific evidence; withhold its dependent fields unless separately supported.",
+          "adoptedFields": {
+            "temperature_k": {
+              "value": 22840,
+              "status": "model-derived",
+              "uncertainty": 1470,
+              "reference": "2009A&A...501..297Z",
+              "url": "https://arxiv.org/abs/0903.5134",
+              "table": "J/A+A/501/297/catalog",
+              "sourceRecordId": "HD 23180",
+              "method": "Extinction-corrected bolometric-flux temperature with BCD diagnostics",
+              "caveat": "Unresolved named multiple: this is the apparent, primary-dominated temperature of the catalogued light, not a resolved measurement of every member. Blended angular diameter is not assigned to an individual component."
+            },
+            "luminosity_solar": {
+              "value": null,
+              "status": "withheld",
+              "reason": "Rejected zero-reddening broadband-fit luminosity; no independently verified component-safe replacement adopted in this temperature review."
+            },
+            "radius_solar": {
+              "value": null,
+              "status": "withheld",
+              "reason": "Radius inherited the rejected luminosity/temperature fit; no independently verified component-safe replacement adopted."
+            }
+          }
+        }
+      }
+    },
+    "* ksi Per": {
+      "label": "Menkib",
+      "starIds": [
+        "hip-18614"
+      ],
+      "scope": "Exact named catalog object * ksi Per / HIP 18614 / HD 24912; distinct companions are excluded.",
+      "values": {
+        "temperature_k": "35900",
+        "luminosity_solar": "",
+        "radius_solar": ""
+      },
+      "notes": "Western constellation line-figure star (HIP 18614; Stellarium Per). SIMBAD identity * ksi Per; SIMBAD compiled Johnson V=4.06; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Reviewed hot-star temperature: 2022A&A...665A.150H, HD 24912, J/A+A/665/A150/tablef1, 35900 K. Published Teff is in kK and is not a limit; no per-object uncertainty is listed in this table. logLsp is spectroscopic luminosity T^4/g, not bolometric luminosity, and is not copied into luminosity_solar. The old broadband SED luminosity and dependent radius are withheld; no component-safe replacement is adopted in this review.",
+      "sourceSelections": {
+        "physicalTemperatureReview": {
+          "source": "catalog-work/shared-enrichment/hot-star-temperature-review.json",
+          "recordId": "* ksi Per",
+          "fields": [
+            "temperature_k",
+            "luminosity_solar",
+            "radius_solar"
+          ],
+          "decision": "Supersede the unsuitable cool broadband fit with inspected object-specific evidence; withhold its dependent fields unless separately supported.",
+          "adoptedFields": {
+            "temperature_k": {
+              "value": 35900,
+              "status": "model-derived",
+              "uncertainty": null,
+              "reference": "2022A&A...665A.150H",
+              "url": "https://cdsarc.cds.unistra.fr/viz-bin/cat/J/A+A/665/A150",
+              "table": "J/A+A/665/A150/tablef1",
+              "sourceRecordId": "HD 24912",
+              "method": "IACOB quantitative O-star spectroscopy",
+              "caveat": "Published Teff is in kK and is not a limit; no per-object uncertainty is listed in this table. logLsp is spectroscopic luminosity T^4/g, not bolometric luminosity, and is not copied into luminosity_solar."
+            },
+            "luminosity_solar": {
+              "value": null,
+              "status": "withheld",
+              "reason": "Rejected zero-reddening broadband-fit luminosity; no independently verified component-safe replacement adopted in this temperature review."
+            },
+            "radius_solar": {
+              "value": null,
+              "status": "withheld",
+              "reason": "Radius inherited the rejected luminosity/temperature fit; no independently verified component-safe replacement adopted."
+            }
+          }
+        }
+      }
+    },
+    "HD 175156": {
+      "label": "HD 175156",
+      "starIds": [
+        "hip-92814"
+      ],
+      "scope": "Exact named catalog object HD 175156 / HIP 92814 / HD 175156; distinct companions are excluded.",
+      "values": {
+        "temperature_k": "14001",
+        "luminosity_solar": "",
+        "radius_solar": ""
+      },
+      "notes": "Western constellation line-figure star (HIP 92814; Stellarium Sct). SIMBAD identity HD 175156; SIMBAD compiled Johnson V=5.086; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Shared exact-identity physical supplements (metallicity_dex: 2023ApJS..266...41P). Reviewed hot-star temperature: 2008ApJ...683.1045H, HD 175156, Table 1, 14001 K. Formal fit error excludes model systematics. Other frozen library compilations quote 15750-16361 K and a cool photometric fit quotes 7945 K; retain the directly inspected H-gamma fit rather than averaging heterogeneous estimates. The old broadband SED luminosity and dependent radius are withheld; no component-safe replacement is adopted in this review.",
+      "sourceSelections": {
+        "physicalTemperatureReview": {
+          "source": "catalog-work/shared-enrichment/hot-star-temperature-review.json",
+          "recordId": "HD 175156",
+          "fields": [
+            "temperature_k",
+            "luminosity_solar",
+            "radius_solar"
+          ],
+          "decision": "Supersede the unsuitable cool broadband fit with inspected object-specific evidence; withhold its dependent fields unless separately supported.",
+          "adoptedFields": {
+            "temperature_k": {
+              "value": 14001,
+              "status": "model-derived",
+              "uncertainty": 77,
+              "reference": "2008ApJ...683.1045H",
+              "url": "https://arxiv.org/abs/0805.2133",
+              "table": "Table 1",
+              "sourceRecordId": "HD 175156",
+              "method": "Object-specific H-gamma line-profile fit",
+              "caveat": "Formal fit error excludes model systematics. Other frozen library compilations quote 15750-16361 K and a cool photometric fit quotes 7945 K; retain the directly inspected H-gamma fit rather than averaging heterogeneous estimates."
+            },
+            "luminosity_solar": {
+              "value": null,
+              "status": "withheld",
+              "reason": "Rejected zero-reddening broadband-fit luminosity; no independently verified component-safe replacement adopted in this temperature review."
+            },
+            "radius_solar": {
+              "value": null,
+              "status": "withheld",
+              "reason": "Radius inherited the rejected luminosity/temperature fit; no independently verified component-safe replacement adopted."
+            }
+          }
+        }
+      }
+    },
+    "* iot CMa": {
+      "label": "Iota CMa",
+      "starIds": [
+        "hip-33347"
+      ],
+      "scope": "Exact named catalog object * iot CMa / HIP 33347 / HD 51309; distinct companions are excluded.",
+      "values": {
+        "temperature_k": "16800",
+        "luminosity_solar": "",
+        "radius_solar": ""
+      },
+      "notes": "Western constellation line-figure star (HIP 33347; Stellarium CMa). SIMBAD identity * iot CMa; SIMBAD compiled Johnson V=4.385; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Shared exact-identity physical supplements (metallicity_dex: 1992ApJ...387..673G). Reviewed hot-star temperature: 2024A&A...687A.228D, HD 51309, J/A+A/687/A228/tabled1, 16800 K. Formal asymmetric temperature uncertainties from the published fit. No temperature is inferred from the spectral label. The old broadband SED luminosity and dependent radius are withheld; no component-safe replacement is adopted in this review.",
+      "sourceSelections": {
+        "physicalTemperatureReview": {
+          "source": "catalog-work/shared-enrichment/hot-star-temperature-review.json",
+          "recordId": "* iot CMa",
+          "fields": [
+            "temperature_k",
+            "luminosity_solar",
+            "radius_solar"
+          ],
+          "decision": "Supersede the unsuitable cool broadband fit with inspected object-specific evidence; withhold its dependent fields unless separately supported.",
+          "adoptedFields": {
+            "temperature_k": {
+              "value": 16800,
+              "status": "model-derived",
+              "uncertainty": {
+                "lower": 200,
+                "upper": 200
+              },
+              "reference": "2024A&A...687A.228D",
+              "url": "https://arxiv.org/abs/2312.00241",
+              "table": "J/A+A/687/A228/tabled1",
+              "sourceRecordId": "HD 51309",
+              "method": "FASTWIND non-LTE optical diagnostic-line fit",
+              "caveat": "Formal asymmetric temperature uncertainties from the published fit. No temperature is inferred from the spectral label."
+            },
+            "luminosity_solar": {
+              "value": null,
+              "status": "withheld",
+              "reason": "Rejected zero-reddening broadband-fit luminosity; no independently verified component-safe replacement adopted in this temperature review."
+            },
+            "radius_solar": {
+              "value": null,
+              "status": "withheld",
+              "reason": "Radius inherited the rejected luminosity/temperature fit; no independently verified component-safe replacement adopted."
+            }
+          }
+        }
+      }
+    },
+    "* alf Cam": {
+      "label": "Alpha Cam",
+      "starIds": [
+        "hip-22783"
+      ],
+      "scope": "Exact named catalog object * alf Cam / HIP 22783 / HD 30614; distinct companions are excluded.",
+      "values": {
+        "temperature_k": "29000",
+        "luminosity_solar": "",
+        "radius_solar": ""
+      },
+      "notes": "Western constellation line-figure star (HIP 22783; Stellarium Cam). SIMBAD identity * alf Cam; SIMBAD compiled Johnson V=4.29; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Reviewed hot-star temperature: 2024A&A...687A.228D, HD 30614, J/A+A/687/A228/tabled1, 29000 K. Formal asymmetric temperature uncertainties from the published fit. No temperature is inferred from the spectral label. The old broadband SED luminosity and dependent radius are withheld; no component-safe replacement is adopted in this review.",
+      "sourceSelections": {
+        "physicalTemperatureReview": {
+          "source": "catalog-work/shared-enrichment/hot-star-temperature-review.json",
+          "recordId": "* alf Cam",
+          "fields": [
+            "temperature_k",
+            "luminosity_solar",
+            "radius_solar"
+          ],
+          "decision": "Supersede the unsuitable cool broadband fit with inspected object-specific evidence; withhold its dependent fields unless separately supported.",
+          "adoptedFields": {
+            "temperature_k": {
+              "value": 29000,
+              "status": "model-derived",
+              "uncertainty": {
+                "lower": 400,
+                "upper": 300
+              },
+              "reference": "2024A&A...687A.228D",
+              "url": "https://arxiv.org/abs/2312.00241",
+              "table": "J/A+A/687/A228/tabled1",
+              "sourceRecordId": "HD 30614",
+              "method": "FASTWIND non-LTE optical diagnostic-line fit",
+              "caveat": "Formal asymmetric temperature uncertainties from the published fit. No temperature is inferred from the spectral label."
+            },
+            "luminosity_solar": {
+              "value": null,
+              "status": "withheld",
+              "reason": "Rejected zero-reddening broadband-fit luminosity; no independently verified component-safe replacement adopted in this temperature review."
+            },
+            "radius_solar": {
+              "value": null,
+              "status": "withheld",
+              "reason": "Radius inherited the rejected luminosity/temperature fit; no independently verified component-safe replacement adopted."
+            }
+          }
+        }
+      }
+    },
+    "GJ 866 A": {
+      "label": "EZ Aquarii A",
+      "starIds": [
+        "ez-aquarii-a"
+      ],
+      "scope": "EZ Aquarii A retains its exact component identity. Motion uses the shared EZ Aquarii ABC center-of-mass radial velocity; individual orbital velocities are not modeled.",
+      "values": {
+        "vx_kms": "-64.727748",
+        "vy_kms": "3.589095",
+        "vz_kms": "32.798766",
+        "radial_velocity_kms": "-50.08",
+        "radial_velocity_error_kms": "0.01",
+        "radial_velocity_ref": "2000A&A...364..665S:Table 2; shared systemic velocity approximation; EZ Aquarii ABC"
+      },
+      "notes": "System position from J2000 direction and 293.60 mas parallax compiled by Torres et al. (2010). Temperature is the unresolved M5V system class estimate. Motion: Segransan et al. (2000), Table 2, gives the shared EZ Aquarii ABC systemic radial velocity V0 = -50.08 +/- 0.01 km/s. The uncertainty is the published orbital-fit uncertainty on V0. Combined with the retained system position, parallax and proper motion, this supplies approximate system bulk motion for A, B and C; individual orbital velocities and orbital phase are not modeled. Frozen J2000 positions are retained.",
+      "sourceSelections": {
+        "astrometryAndMotion": {
+          "source": "literature-system:gl866-abc",
+          "fields": [
+            "vx_kms",
+            "vy_kms",
+            "vz_kms",
+            "radial_velocity_kms",
+            "radial_velocity_error_kms",
+            "radial_velocity_ref"
+          ],
+          "status": "systemic-approximation",
+          "reference": "2000A&A...364..665S:Table 2",
+          "sourceUrl": "https://arxiv.org/abs/astro-ph/0010585",
+          "valueKms": -50.08,
+          "uncertaintyKms": 0.01,
+          "scope": "Shared EZ Aquarii ABC systemic velocity V0, not an individual component observation",
+          "astrometryInputs": {
+            "ra_deg": "339.650693945",
+            "dec_deg": "-15.289647052",
+            "parallax_mas": "293.6",
+            "parallax_error_mas": "0.9",
+            "pm_ra_cosdec_masyr": "2314.8",
+            "pm_ra_error_masyr": "8.0",
+            "pm_dec_masyr": "2295.3",
+            "pm_dec_error_masyr": "8.0",
+            "astrometry_epoch": "2016.0",
+            "astrometry_ref": "2010A&ARv..18...67T; 2012yCat.1322....0Z"
+          },
+          "decision": "Motion: Segransan et al. (2000), Table 2, gives the shared EZ Aquarii ABC systemic radial velocity V0 = -50.08 +/- 0.01 km/s. The uncertainty is the published orbital-fit uncertainty on V0. Combined with the retained system position, parallax and proper motion, this supplies approximate system bulk motion for A, B and C; individual orbital velocities and orbital phase are not modeled. Frozen J2000 positions are retained."
+        }
+      }
+    },
+    "GJ 866 B": {
+      "label": "EZ Aquarii B",
+      "starIds": [
+        "ez-aquarii-b"
+      ],
+      "scope": "EZ Aquarii B retains its exact component identity. Motion uses the shared EZ Aquarii ABC center-of-mass radial velocity; individual orbital velocities are not modeled.",
+      "values": {
+        "vx_kms": "-64.727748",
+        "vy_kms": "3.589095",
+        "vz_kms": "32.798766",
+        "radial_velocity_kms": "-50.08",
+        "radial_velocity_error_kms": "0.01",
+        "radial_velocity_ref": "2000A&A...364..665S:Table 2; shared systemic velocity approximation; EZ Aquarii ABC"
+      },
+      "notes": "System position from J2000 direction and 293.60 mas parallax compiled by Torres et al. (2010). Individual subtype is uncertain; temperature uses the unresolved M5V system estimate. Motion: Segransan et al. (2000), Table 2, gives the shared EZ Aquarii ABC systemic radial velocity V0 = -50.08 +/- 0.01 km/s. The uncertainty is the published orbital-fit uncertainty on V0. Combined with the retained system position, parallax and proper motion, this supplies approximate system bulk motion for A, B and C; individual orbital velocities and orbital phase are not modeled. Frozen J2000 positions are retained.",
+      "sourceSelections": {
+        "astrometryAndMotion": {
+          "source": "literature-system:gl866-abc",
+          "fields": [
+            "vx_kms",
+            "vy_kms",
+            "vz_kms",
+            "radial_velocity_kms",
+            "radial_velocity_error_kms",
+            "radial_velocity_ref"
+          ],
+          "status": "systemic-approximation",
+          "reference": "2000A&A...364..665S:Table 2",
+          "sourceUrl": "https://arxiv.org/abs/astro-ph/0010585",
+          "valueKms": -50.08,
+          "uncertaintyKms": 0.01,
+          "scope": "Shared EZ Aquarii ABC systemic velocity V0, not an individual component observation",
+          "astrometryInputs": {
+            "ra_deg": "339.650693945",
+            "dec_deg": "-15.289647052",
+            "parallax_mas": "293.6",
+            "parallax_error_mas": "0.9",
+            "pm_ra_cosdec_masyr": "2314.8",
+            "pm_ra_error_masyr": "8.0",
+            "pm_dec_masyr": "2295.3",
+            "pm_dec_error_masyr": "8.0",
+            "astrometry_epoch": "2016.0",
+            "astrometry_ref": "FROM:GJ866A"
+          },
+          "decision": "Motion: Segransan et al. (2000), Table 2, gives the shared EZ Aquarii ABC systemic radial velocity V0 = -50.08 +/- 0.01 km/s. The uncertainty is the published orbital-fit uncertainty on V0. Combined with the retained system position, parallax and proper motion, this supplies approximate system bulk motion for A, B and C; individual orbital velocities and orbital phase are not modeled. Frozen J2000 positions are retained."
+        }
+      }
+    },
+    "GJ 866 C": {
+      "label": "EZ Aquarii C",
+      "starIds": [
+        "ez-aquarii-c"
+      ],
+      "scope": "EZ Aquarii C retains its exact component identity. Motion uses the shared EZ Aquarii ABC center-of-mass radial velocity; individual orbital velocities are not modeled.",
+      "values": {
+        "vx_kms": "-64.727748",
+        "vy_kms": "3.589095",
+        "vz_kms": "32.798766",
+        "radial_velocity_kms": "-50.08",
+        "radial_velocity_error_kms": "0.01",
+        "radial_velocity_ref": "2000A&A...364..665S:Table 2; shared systemic velocity approximation; EZ Aquarii ABC"
+      },
+      "notes": "System position from J2000 direction and 293.60 mas parallax compiled by Torres et al. (2010). Included with A and B because all three components tie across the cutoff. Motion: Segransan et al. (2000), Table 2, gives the shared EZ Aquarii ABC systemic radial velocity V0 = -50.08 +/- 0.01 km/s. The uncertainty is the published orbital-fit uncertainty on V0. Combined with the retained system position, parallax and proper motion, this supplies approximate system bulk motion for A, B and C; individual orbital velocities and orbital phase are not modeled. Frozen J2000 positions are retained.",
+      "sourceSelections": {
+        "astrometryAndMotion": {
+          "source": "literature-system:gl866-abc",
+          "fields": [
+            "vx_kms",
+            "vy_kms",
+            "vz_kms",
+            "radial_velocity_kms",
+            "radial_velocity_error_kms",
+            "radial_velocity_ref"
+          ],
+          "status": "systemic-approximation",
+          "reference": "2000A&A...364..665S:Table 2",
+          "sourceUrl": "https://arxiv.org/abs/astro-ph/0010585",
+          "valueKms": -50.08,
+          "uncertaintyKms": 0.01,
+          "scope": "Shared EZ Aquarii ABC systemic velocity V0, not an individual component observation",
+          "astrometryInputs": {
+            "ra_deg": "339.650693945",
+            "dec_deg": "-15.289647052",
+            "parallax_mas": "293.6",
+            "parallax_error_mas": "0.9",
+            "pm_ra_cosdec_masyr": "2314.8",
+            "pm_ra_error_masyr": "8.0",
+            "pm_dec_masyr": "2295.3",
+            "pm_dec_error_masyr": "8.0",
+            "astrometry_epoch": "2016.0",
+            "astrometry_ref": "FROM:GJ866A"
+          },
+          "decision": "Motion: Segransan et al. (2000), Table 2, gives the shared EZ Aquarii ABC systemic radial velocity V0 = -50.08 +/- 0.01 km/s. The uncertainty is the published orbital-fit uncertainty on V0. Combined with the retained system position, parallax and proper motion, this supplies approximate system bulk motion for A, B and C; individual orbital velocities and orbital phase are not modeled. Frozen J2000 positions are retained."
         }
       }
     }
@@ -24363,6 +25097,15 @@
         "simbadId": "* iot Psc",
         "sourceType": "PM*"
       }
+    },
+    "literature-system:gl866-abc": {
+      "reference": "2000A&A...364..665S:Table 2",
+      "sourceUrl": "https://arxiv.org/abs/astro-ph/0010585",
+      "sourceRecordId": "Gl 866AC-B",
+      "scope": "EZ Aquarii ABC center-of-mass systemic radial velocity from a simultaneous outer/inner orbital fit",
+      "valueKms": -50.08,
+      "uncertaintyKms": 0.01,
+      "uncertaintyScope": "Published fit uncertainty on V0, not a component velocity uncertainty or the uncertainty of the derived bulk space-motion vector"
     }
   }
 }

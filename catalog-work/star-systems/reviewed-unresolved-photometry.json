@@ -1,0 +1,20 @@
+{
+  "schemaVersion": 1,
+  "reviewedOn": "2026-10-13",
+  "policy": "Observed Johnson V for the exact unresolved source. Measurement error does not quantify unknown companion light or variability. Never adopt as individual stellar photometry.",
+  "objects": {
+    "hip-30122": {
+      "expectedName": "Furud Aa",
+      "expectedMagnitudeV": 2.99,
+      "identities": ["* zet CMa", "HIP 30122", "HD 44402"],
+      "observation": {
+        "magnitude_v": 2.99,
+        "error_mag": 0.01,
+        "scope": "Furud Aa+Ab unresolved source; not an individual Aa measurement",
+        "source": "SIMBAD Johnson V, 2000A&A...355L..27H (Tycho-2); quality D; retrieved 2026-10-13",
+        "source_url": "https://simbad.u-strasbg.fr/simbad/sim-id?Ident=ZET+CMA&bibdisplay=none&protocol=html"
+      },
+      "note": "SIMBAD lists B2.5V and observed V=2.99 +/- 0.01. The faint spectroscopic companion has no adopted individual flux; the photometric error does not deblend Aa/Ab. Retain individual apparent/absolute magnitude and unsupported physical properties as null."
+    }
+  }
+}

@@ -1,0 +1,171 @@
+{
+  "object": {
+    "pha": false,
+    "orbit_id": "17",
+    "orbit_class": {
+      "code": "TNO",
+      "name": "TransNeptunian Object"
+    },
+    "neo": false,
+    "spkid": "20174567",
+    "shortname": "174567 Varda",
+    "fullname": "174567 Varda (2003 MW12)",
+    "kind": "an",
+    "des": "174567",
+    "prefix": null
+  },
+  "discovery": {
+    "who": "Larsen, J. A.",
+    "cref": "MPC batch dated 2014-01-16",
+    "site": null,
+    "discovery": "Discovered 2003 June 21 by J. A. Larsen at Kitt Peak.",
+    "ref": "20080122/Numbers.arc",
+    "citation": "In J.R.R. Tolkien's mythology, Varda is the queen of the stars, the star-kindler.  She is the deity who, prior to the birth of the first humans, created the stars and constellations.  She also set the vessels of the Sun and Moon upon their appointed courses above the girdle of the Earth.  Ilmarë is Varda's handmaid.  Ilmarë: Secondary discovered in 2009 by K. S. Noll <i>et al.</i> using the Hubble Space Telescope.",
+    "date": "2003-Jun-21",
+    "name": "Varda",
+    "location": "Kitt Peak"
+  },
+  "phys_par": [
+    {
+      "name": "H",
+      "sigma": null,
+      "title": "absolute magnitude",
+      "units": null,
+      "notes": null,
+      "desc": "absolute magnitude (magnitude at 1 au from Sun and observer)",
+      "value": "3.46",
+      "ref": "MPO842632"
+    },
+    {
+      "notes": "[Result based on less than full coverage, so that the period may be wrong by 30 percent or so.]  REFERENCE LIST:[Thirouin, A.; Ortiz, J.L.; Duffard, R.; Santos-Sanz, P.; et al. (2010) Astron. Astrophys. 522, A93.], [Thirouin, A.; Noll, K.S.; Ortiz, J.L.; Morales, N. (2014) Astron. Astrophys. 563, A3.]",
+      "desc": "body rotation period (synodic)",
+      "ref": "LCDB (Rev. 2023-October); Warner et al., 2009",
+      "value": "5.91",
+      "name": "rot_per",
+      "sigma": null,
+      "units": "h",
+      "title": "rotation period"
+    }
+  ],
+  "orbit": {
+    "cov_epoch": "2457122.5",
+    "two_body": null,
+    "model_pars": [],
+    "rms": ".59884",
+    "moid": "38.0711",
+    "n_dop_obs_used": null,
+    "last_obs": "2024-08-11",
+    "condition_code": "1",
+    "comment": null,
+    "first_obs": "1980-03-19",
+    "sb_used": "SB441-N16",
+    "data_arc": "16216",
+    "source": "JPL",
+    "soln_date": "2024-10-11 19:47:55",
+    "orbit_id": "17",
+    "elements": [
+      {
+        "value": ".1422792008234468",
+        "sigma": "3.0081E-6",
+        "title": "eccentricity",
+        "units": null,
+        "label": "e",
+        "name": "e"
+      },
+      {
+        "name": "a",
+        "label": "a",
+        "sigma": "4.6997E-5",
+        "title": "semi-major axis",
+        "units": "au",
+        "value": "45.553792965197"
+      },
+      {
+        "name": "q",
+        "label": "q",
+        "units": "au",
+        "sigma": ".00010771",
+        "title": "perihelion distance",
+        "value": "39.07243570763202"
+      },
+      {
+        "sigma": "1.3919E-6",
+        "title": "inclination; angle with respect to x-y ecliptic plane",
+        "units": "deg",
+        "label": "i",
+        "name": "i",
+        "value": "21.51272002644964"
+      },
+      {
+        "name": "om",
+        "label": "node",
+        "sigma": "1.4135E-5",
+        "units": "deg",
+        "title": "longitude of the ascending node",
+        "value": "184.0761905128264"
+      },
+      {
+        "name": "w",
+        "units": "deg",
+        "sigma": ".00044954",
+        "title": "argument of perihelion",
+        "label": "peri",
+        "value": "184.8433524049403"
+      },
+      {
+        "value": "277.2915511778176",
+        "label": "M",
+        "units": "deg",
+        "sigma": ".00079498",
+        "title": "mean anomaly",
+        "name": "ma"
+      },
+      {
+        "name": "tp",
+        "label": "tp",
+        "sigma": ".21178",
+        "units": "TDB",
+        "title": "time of perihelion passage",
+        "value": "2487001.267037738442"
+      },
+      {
+        "label": "period",
+        "units": "d",
+        "sigma": ".17379",
+        "title": "sidereal orbital period",
+        "name": "per",
+        "value": "112301.41860785"
+      },
+      {
+        "value": ".003205658525624677",
+        "title": "mean motion",
+        "sigma": "4.9608E-9",
+        "units": "deg/d",
+        "label": "n",
+        "name": "n"
+      },
+      {
+        "value": "52.03515022276198",
+        "name": "ad",
+        "units": "au",
+        "sigma": "5.3683E-5",
+        "title": "aphelion distance",
+        "label": "Q"
+      }
+    ],
+    "not_valid_before": null,
+    "equinox": "J2000",
+    "epoch": "2461200.5",
+    "moid_jup": "34.1136",
+    "n_del_obs_used": null,
+    "not_valid_after": null,
+    "t_jup": "5.564",
+    "pe_used": "DE441",
+    "n_obs_used": 747,
+    "producer": "Otto Matic"
+  },
+  "signature": {
+    "source": "NASA/JPL Small-Body Database (SBDB) API",
+    "version": "1.3"
+  }
+}

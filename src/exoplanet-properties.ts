@@ -1,5 +1,5 @@
 import nearby from './data/nearby-planets.json'
-import earthDefinitions from './data/planet-details.json'
+import earthDefinitions from './data/generated/planet-details.json'
 import type { PlanetSpec } from './planet-properties'
 import { scientificPlanetValue } from './planet-value'
 

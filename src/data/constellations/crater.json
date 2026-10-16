@@ -1,0 +1,857 @@
+{
+  "schemaVersion": 1,
+  "abbreviation": "Crt",
+  "name": "Crater",
+  "center": {
+    "ra_deg": 171.82669046173726,
+    "dec_deg": -16.261212807409237
+  },
+  "stars": [
+    {
+      "hip": 53740,
+      "name": "Alkes",
+      "ra_deg": 164.94360481576166,
+      "dec_deg": -18.298786220615558,
+      "magnitude_v": 4.08,
+      "bayer": "α",
+      "object": {
+        "x_pc": -0.645453371,
+        "y_pc": -38.995830564,
+        "z_pc": 29.518141908,
+        "vx_kms": -107.894769,
+        "vy_kms": -54.588641,
+        "vz_kms": 4.299723,
+        "temperature_k": 4677.0,
+        "mass_solar": 1.45,
+        "luminosity_solar": 66.80098,
+        "radius_solar": 13.489628825916533,
+        "metallicity_dex": -0.6534,
+        "age_gyr": null,
+        "absolute_mag": 0.62291,
+        "epoch": 2000.0,
+        "type": "star",
+        "id": "hip-53740",
+        "name": "Alkes",
+        "constellation": "Crater",
+        "spectral_type": "K0IIIb",
+        "metallicity_kind": "[M/H]",
+        "notes": "Western constellation line-figure star (HIP 53740; Stellarium Crt). SIMBAD identity * alf Crt; SIMBAD compiled Johnson V=4.07; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, mass_solar, radius_solar; Gaia DR3 model values for metallicity_dex, luminosity_solar.",
+        "designations": [
+          "HIP 53740"
+        ],
+        "raw_astrometry": {
+          "ra_deg": 164.94360481576166,
+          "dec_deg": -18.298786220615558,
+          "parallax_mas": 20.3693,
+          "parallax_error_mas": 0.1704,
+          "pm_ra_cosdec_masyr": -462.303,
+          "pm_ra_error_masyr": null,
+          "pm_dec_masyr": 128.614,
+          "pm_dec_error_masyr": null,
+          "radial_velocity_kms": 47.54,
+          "radial_velocity_error_kms": null,
+          "epoch": 2000.0,
+          "astrometry_ref": "SIMBAD TAP snapshot 2026-10-01",
+          "radial_velocity_ref": "SIMBAD TAP snapshot 2026-10-01"
+        }
+      }
+    },
+    {
+      "hip": 54682,
+      "name": "Beta Crt",
+      "ra_deg": 167.91449465302,
+      "dec_deg": -22.82584804833,
+      "magnitude_v": 4.46,
+      "bayer": "β",
+      "object": {
+        "x_pc": 6.630456992,
+        "y_pc": -79.346504018,
+        "z_pc": 54.790658052,
+        "vx_kms": 27.052518,
+        "vy_kms": -27.407364,
+        "vz_kms": -28.622732,
+        "temperature_k": 8913.0,
+        "mass_solar": null,
+        "luminosity_solar": 126.1378713942046,
+        "radius_solar": 4.710072,
+        "metallicity_dex": null,
+        "age_gyr": null,
+        "absolute_mag": -0.477082,
+        "epoch": 2000.0,
+        "type": "star",
+        "id": "hip-54682",
+        "name": "Beta Crt",
+        "constellation": "Crater",
+        "spectral_type": "A1V",
+        "metallicity_kind": null,
+        "notes": "Western constellation line-figure star (HIP 54682; Stellarium Crt). SIMBAD identity * bet Crt; SIMBAD compiled Johnson V=4.449; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, luminosity_solar; Stefan-Boltzmann scaling for radius_solar.",
+        "designations": [
+          "HIP 54682"
+        ],
+        "raw_astrometry": {
+          "ra_deg": 167.91449465302,
+          "dec_deg": -22.82584804833,
+          "parallax_mas": 10.3043,
+          "parallax_error_mas": 0.1166,
+          "pm_ra_cosdec_masyr": 7.827,
+          "pm_ra_error_masyr": null,
+          "pm_dec_masyr": -102.911,
+          "pm_dec_error_masyr": null,
+          "radial_velocity_kms": 8.13,
+          "radial_velocity_error_kms": null,
+          "epoch": 2000.0,
+          "astrometry_ref": "SIMBAD TAP snapshot 2026-10-01",
+          "radial_velocity_ref": "SIMBAD TAP snapshot 2026-10-01"
+        }
+      }
+    },
+    {
+      "hip": 55282,
+      "name": "Delta Crt",
+      "ra_deg": 169.83519729807168,
+      "dec_deg": -14.778539835960277,
+      "magnitude_v": 3.56,
+      "bayer": "δ",
+      "object": {
+        "x_pc": 1.559211033,
+        "y_pc": -43.182723582,
+        "z_pc": 39.605205397,
+        "vx_kms": -58.2244,
+        "vy_kms": 24.92861,
+        "vz_kms": 22.161479,
+        "temperature_k": 4571.0,
+        "mass_solar": 2.2,
+        "luminosity_solar": 156.581192,
+        "radius_solar": 19.952623149688797,
+        "metallicity_dex": -0.46,
+        "age_gyr": null,
+        "absolute_mag": -0.280054,
+        "epoch": 2000.0,
+        "type": "star",
+        "id": "hip-55282",
+        "name": "Delta Crt",
+        "constellation": "Crater",
+        "spectral_type": "G9IIICH0.5",
+        "metallicity_kind": "[Fe/H]",
+        "notes": "Western constellation line-figure star (HIP 55282; Stellarium Crt). SIMBAD identity * del Crt; SIMBAD compiled Johnson V=3.56; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, mass_solar, radius_solar; Stefan-Boltzmann scaling for luminosity_solar. Shared exact-identity physical supplements (metallicity_dex: 2024A&A...683A.125P).",
+        "designations": [
+          "HIP 55282"
+        ],
+        "raw_astrometry": {
+          "ra_deg": 169.83519729807168,
+          "dec_deg": -14.778539835960277,
+          "parallax_mas": 17.017,
+          "parallax_error_mas": 0.1617,
+          "pm_ra_cosdec_masyr": -122.958,
+          "pm_ra_error_masyr": null,
+          "pm_dec_masyr": 207.083,
+          "pm_dec_error_masyr": null,
+          "radial_velocity_kms": -4.94,
+          "radial_velocity_error_kms": null,
+          "epoch": 2000.0,
+          "astrometry_ref": "SIMBAD TAP snapshot 2026-10-01",
+          "radial_velocity_ref": "SIMBAD TAP snapshot 2026-10-01"
+        }
+      }
+    },
+    {
+      "hip": 55687,
+      "name": "Epsilon Crt",
+      "ra_deg": 171.15246338381,
+      "dec_deg": -10.85932652882,
+      "magnitude_v": 4.81,
+      "bayer": "ε",
+      "object": {
+        "x_pc": 1.515395546,
+        "y_pc": -83.526955592,
+        "z_pc": 88.235866749,
+        "vx_kms": -19.574176,
+        "vy_kms": 2.299191,
+        "vz_kms": 5.266866,
+        "temperature_k": 3979.0,
+        "mass_solar": null,
+        "luminosity_solar": 433.58310541255787,
+        "radius_solar": 43.816829,
+        "metallicity_dex": -0.29,
+        "age_gyr": null,
+        "absolute_mag": -0.621055,
+        "epoch": 2000.0,
+        "type": "star",
+        "id": "hip-55687",
+        "name": "Epsilon Crt",
+        "constellation": "Crater",
+        "spectral_type": "K4III",
+        "metallicity_kind": "[Fe/H]",
+        "notes": "Western constellation line-figure star (HIP 55687; Stellarium Crt). SIMBAD identity * eps Crt; SIMBAD compiled Johnson V=4.802; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, luminosity_solar; Stefan-Boltzmann scaling for radius_solar. Shared exact-identity physical supplements (metallicity_dex: 2006A&A...458..609D).",
+        "designations": [
+          "HIP 55687"
+        ],
+        "raw_astrometry": {
+          "ra_deg": 171.15246338381,
+          "dec_deg": -10.85932652882,
+          "parallax_mas": 8.178,
+          "parallax_error_mas": 0.1653,
+          "pm_ra_cosdec_masyr": -25.154,
+          "pm_ra_error_masyr": null,
+          "pm_dec_masyr": 24.689,
+          "pm_dec_error_masyr": null,
+          "radial_velocity_kms": 2.0,
+          "radial_velocity_error_kms": null,
+          "epoch": 2000.0,
+          "astrometry_ref": "SIMBAD TAP snapshot 2026-10-01",
+          "radial_velocity_ref": "SIMBAD TAP snapshot 2026-10-01"
+        }
+      }
+    },
+    {
+      "hip": 55705,
+      "name": "Gamma Crt",
+      "ra_deg": 171.2205150667429,
+      "dec_deg": -17.684011879005833,
+      "magnitude_v": 4.06,
+      "bayer": "γ",
+      "object": {
+        "x_pc": 1.897677732,
+        "y_pc": -20.051295586,
+        "z_pc": 17.211782473,
+        "vx_kms": -10.777972,
+        "vy_kms": -4.618354,
+        "vz_kms": -3.299175,
+        "temperature_k": 7943.0,
+        "mass_solar": 1.87,
+        "luminosity_solar": 13.045145245222445,
+        "radius_solar": 1.7782794100389228,
+        "metallicity_dex": -0.11,
+        "age_gyr": null,
+        "absolute_mag": 1.94431,
+        "epoch": 2000.0,
+        "type": "star",
+        "id": "hip-55705",
+        "name": "Gamma Crt",
+        "constellation": "Crater",
+        "spectral_type": "A7V(n)",
+        "metallicity_kind": "[Fe/H]",
+        "notes": "Western constellation line-figure star (HIP 55705; Stellarium Crt). SIMBAD identity * gam Crt; SIMBAD compiled Johnson V=4.06; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, mass_solar, radius_solar, luminosity_solar. Shared exact-identity physical supplements (metallicity_dex: 2003A&A...398.1121E).",
+        "designations": [
+          "HIP 55705"
+        ],
+        "raw_astrometry": {
+          "ra_deg": 171.2205150667429,
+          "dec_deg": -17.684011879005833,
+          "parallax_mas": 37.7065,
+          "parallax_error_mas": 0.1972,
+          "pm_ra_cosdec_masyr": -96.811,
+          "pm_ra_error_masyr": null,
+          "pm_dec_masyr": 3.65,
+          "pm_dec_error_masyr": null,
+          "radial_velocity_kms": 0.58,
+          "radial_velocity_error_kms": null,
+          "epoch": 2000.0,
+          "astrometry_ref": "SIMBAD TAP snapshot 2026-10-01",
+          "radial_velocity_ref": "SIMBAD TAP snapshot 2026-10-01"
+        }
+      }
+    },
+    {
+      "hip": 56633,
+      "name": "Theta Crt",
+      "ra_deg": 174.17045502168125,
+      "dec_deg": -9.802222701550557,
+      "magnitude_v": 4.7,
+      "bayer": "θ",
+      "object": {
+        "x_pc": 4.482304043,
+        "y_pc": -60.325601818,
+        "z_pc": 69.249430054,
+        "vx_kms": -23.908277,
+        "vy_kms": -6.365844,
+        "vz_kms": -9.627892,
+        "temperature_k": 10471.0,
+        "mass_solar": 2.99,
+        "luminosity_solar": 122.07682725142988,
+        "radius_solar": 3.3884415613920256,
+        "metallicity_dex": -0.6924,
+        "age_gyr": 0.2895535,
+        "absolute_mag": -0.144752,
+        "epoch": 2000.0,
+        "type": "star",
+        "id": "hip-56633",
+        "name": "Theta Crt",
+        "constellation": "Crater",
+        "spectral_type": "B9.5V",
+        "metallicity_kind": "[M/H]",
+        "notes": "Western constellation line-figure star (HIP 56633; Stellarium Crt). SIMBAD identity * tet Crt; SIMBAD compiled Johnson V=4.673; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, mass_solar, radius_solar, luminosity_solar; Gaia DR3 model values for metallicity_dex, age_gyr.",
+        "designations": [
+          "HIP 56633"
+        ],
+        "raw_astrometry": {
+          "ra_deg": 174.17045502168125,
+          "dec_deg": -9.802222701550557,
+          "parallax_mas": 10.8503,
+          "parallax_error_mas": 0.1871,
+          "pm_ra_cosdec_masyr": -59.995,
+          "pm_ra_error_masyr": null,
+          "pm_dec_masyr": 3.959,
+          "pm_dec_error_masyr": null,
+          "radial_velocity_kms": -4.24,
+          "radial_velocity_error_kms": null,
+          "epoch": 2000.0,
+          "astrometry_ref": "SIMBAD TAP snapshot 2026-10-01",
+          "radial_velocity_ref": "SIMBAD TAP snapshot 2026-10-01"
+        }
+      }
+    },
+    {
+      "hip": 57283,
+      "name": "Zeta Crt",
+      "ra_deg": 176.19073323219,
+      "dec_deg": -18.3506763721,
+      "magnitude_v": 4.71,
+      "bayer": "ζ",
+      "object": {
+        "x_pc": 15.606817813,
+        "y_pc": -76.472327593,
+        "z_pc": 69.622288069,
+        "vx_kms": 16.925193,
+        "vy_kms": 1.571695,
+        "vz_kms": -7.53582,
+        "temperature_k": 5133.0,
+        "mass_solar": null,
+        "luminosity_solar": 146.2863933205915,
+        "radius_solar": 16.823544,
+        "metallicity_dex": -0.1423,
+        "age_gyr": null,
+        "absolute_mag": -0.391429,
+        "epoch": 2000.0,
+        "type": "star",
+        "id": "hip-57283",
+        "name": "Zeta Crt",
+        "constellation": "Crater",
+        "spectral_type": "G8.5III",
+        "metallicity_kind": "[M/H]",
+        "notes": "Western constellation line-figure star (HIP 57283; Stellarium Crt). SIMBAD identity * zet Crt; SIMBAD compiled Johnson V=4.706; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, luminosity_solar; Gaia DR3 model values for metallicity_dex, radius_solar.",
+        "designations": [
+          "HIP 57283"
+        ],
+        "raw_astrometry": {
+          "ra_deg": 176.19073323219,
+          "dec_deg": -18.3506763721,
+          "parallax_mas": 9.5113,
+          "parallax_error_mas": 0.2042,
+          "pm_ra_cosdec_masyr": 27.298,
+          "pm_ra_error_masyr": null,
+          "pm_dec_masyr": -24.644,
+          "pm_dec_error_masyr": null,
+          "radial_velocity_kms": -3.64,
+          "radial_velocity_error_kms": null,
+          "epoch": 2000.0,
+          "astrometry_ref": "SIMBAD TAP snapshot 2026-10-01",
+          "radial_velocity_ref": "SIMBAD TAP snapshot 2026-10-01"
+        }
+      }
+    },
+    {
+      "hip": 58188,
+      "name": "Eta Crt",
+      "ra_deg": 179.00397547303,
+      "dec_deg": -17.15082446912,
+      "magnitude_v": 5.17,
+      "bayer": "η",
+      "object": {
+        "x_pc": 13.888056988,
+        "y_pc": -53.809935543,
+        "z_pc": 53.154155122,
+        "vx_kms": -11.142724,
+        "vy_kms": -22.894523,
+        "vz_kms": 7.121407,
+        "temperature_k": 9772.0,
+        "mass_solar": 2.54,
+        "luminosity_solar": 48.27970482217004,
+        "radius_solar": 2.6915348039269156,
+        "metallicity_dex": null,
+        "age_gyr": null,
+        "absolute_mag": 0.730342,
+        "epoch": 2000.0,
+        "type": "star",
+        "id": "hip-58188",
+        "name": "Eta Crt",
+        "constellation": "Crater",
+        "spectral_type": "A0V",
+        "metallicity_kind": null,
+        "notes": "Western constellation line-figure star (HIP 58188; Stellarium Crt). SIMBAD identity * eta Crt; SIMBAD compiled Johnson V=5.16; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, mass_solar, radius_solar, luminosity_solar.",
+        "designations": [
+          "HIP 58188"
+        ],
+        "raw_astrometry": {
+          "ra_deg": 179.00397547303,
+          "dec_deg": -17.15082446912,
+          "parallax_mas": 13.0075,
+          "parallax_error_mas": 0.1226,
+          "pm_ra_cosdec_masyr": -49.952,
+          "pm_ra_error_masyr": null,
+          "pm_dec_masyr": -8.271,
+          "pm_dec_error_masyr": null,
+          "radial_velocity_kms": 18.93,
+          "radial_velocity_error_kms": null,
+          "epoch": 2000.0,
+          "astrometry_ref": "SIMBAD TAP snapshot 2026-10-01",
+          "radial_velocity_ref": "SIMBAD TAP snapshot 2026-10-01"
+        }
+      }
+    }
+  ],
+  "lines": [
+    [
+      53740,
+      54682
+    ],
+    [
+      54682,
+      55705
+    ],
+    [
+      55705,
+      55282
+    ],
+    [
+      55282,
+      53740
+    ],
+    [
+      55282,
+      55687
+    ],
+    [
+      55687,
+      56633
+    ],
+    [
+      56633,
+      58188
+    ],
+    [
+      58188,
+      57283
+    ],
+    [
+      57283,
+      55705
+    ]
+  ],
+  "boundaries": [
+    {
+      "neighbor": "Hydra",
+      "neighbor_abbreviation": "HYA",
+      "points": [
+        {
+          "ra_deg": 162.775541,
+          "dec_deg": -19.6620827
+        },
+        {
+          "ra_deg": 163.77966,
+          "dec_deg": -19.665741
+        },
+        {
+          "ra_deg": 164.030586,
+          "dec_deg": -19.6666222
+        }
+      ]
+    },
+    {
+      "neighbor": "Hydra",
+      "neighbor_abbreviation": "HYA",
+      "points": [
+        {
+          "ra_deg": 164.030586,
+          "dec_deg": -19.6666222
+        },
+        {
+          "ra_deg": 164.026623,
+          "dec_deg": -20.6666145
+        },
+        {
+          "ra_deg": 164.022603,
+          "dec_deg": -21.6666088
+        },
+        {
+          "ra_deg": 164.018541,
+          "dec_deg": -22.6666012
+        },
+        {
+          "ra_deg": 164.014406,
+          "dec_deg": -23.6665936
+        },
+        {
+          "ra_deg": 164.010214,
+          "dec_deg": -24.6665878
+        },
+        {
+          "ra_deg": 164.008083,
+          "dec_deg": -25.1665821
+        }
+      ]
+    },
+    {
+      "neighbor": "Hydra",
+      "neighbor_abbreviation": "HYA",
+      "points": [
+        {
+          "ra_deg": 164.008083,
+          "dec_deg": -25.1665821
+        },
+        {
+          "ra_deg": 165.013546,
+          "dec_deg": -25.1699905
+        },
+        {
+          "ra_deg": 166.019025,
+          "dec_deg": -25.173193
+        },
+        {
+          "ra_deg": 167.024388,
+          "dec_deg": -25.1761894
+        },
+        {
+          "ra_deg": 168.029924,
+          "dec_deg": -25.1789799
+        },
+        {
+          "ra_deg": 169.035472,
+          "dec_deg": -25.1815605
+        },
+        {
+          "ra_deg": 170.040907,
+          "dec_deg": -25.1839333
+        },
+        {
+          "ra_deg": 171.0465,
+          "dec_deg": -25.1860962
+        },
+        {
+          "ra_deg": 172.052107,
+          "dec_deg": -25.1880493
+        },
+        {
+          "ra_deg": 173.057599,
+          "dec_deg": -25.1897926
+        },
+        {
+          "ra_deg": 174.063249,
+          "dec_deg": -25.1913223
+        },
+        {
+          "ra_deg": 175.068912,
+          "dec_deg": -25.1926422
+        },
+        {
+          "ra_deg": 176.074419,
+          "dec_deg": -25.1937504
+        },
+        {
+          "ra_deg": 177.080097,
+          "dec_deg": -25.1946449
+        },
+        {
+          "ra_deg": 178.085775,
+          "dec_deg": -25.1953259
+        },
+        {
+          "ra_deg": 179.091311,
+          "dec_deg": -25.1957951
+        }
+      ]
+    },
+    {
+      "neighbor": "Corvus",
+      "neighbor_abbreviation": "CRV",
+      "points": [
+        {
+          "ra_deg": 179.091311,
+          "dec_deg": -25.1957951
+        },
+        {
+          "ra_deg": 179.091754,
+          "dec_deg": -24.1957951
+        },
+        {
+          "ra_deg": 179.092184,
+          "dec_deg": -23.195797
+        },
+        {
+          "ra_deg": 179.092612,
+          "dec_deg": -22.1957951
+        },
+        {
+          "ra_deg": 179.093026,
+          "dec_deg": -21.195797
+        },
+        {
+          "ra_deg": 179.093442,
+          "dec_deg": -20.195797
+        },
+        {
+          "ra_deg": 179.093842,
+          "dec_deg": -19.1957951
+        },
+        {
+          "ra_deg": 179.094243,
+          "dec_deg": -18.195797
+        },
+        {
+          "ra_deg": 179.094644,
+          "dec_deg": -17.195797
+        },
+        {
+          "ra_deg": 179.095031,
+          "dec_deg": -16.1957951
+        },
+        {
+          "ra_deg": 179.095416,
+          "dec_deg": -15.195796
+        },
+        {
+          "ra_deg": 179.095803,
+          "dec_deg": -14.195797
+        },
+        {
+          "ra_deg": 179.096189,
+          "dec_deg": -13.195797
+        },
+        {
+          "ra_deg": 179.096561,
+          "dec_deg": -12.195796
+        },
+        {
+          "ra_deg": 179.09676,
+          "dec_deg": -11.695797
+        }
+      ]
+    },
+    {
+      "neighbor": "Virgo",
+      "neighbor_abbreviation": "VIR",
+      "points": [
+        {
+          "ra_deg": 179.09676,
+          "dec_deg": -11.695797
+        },
+        {
+          "ra_deg": 179.097132,
+          "dec_deg": -10.695797
+        },
+        {
+          "ra_deg": 179.097504,
+          "dec_deg": -9.695797
+        },
+        {
+          "ra_deg": 179.097876,
+          "dec_deg": -8.695797
+        },
+        {
+          "ra_deg": 179.098234,
+          "dec_deg": -7.695797
+        },
+        {
+          "ra_deg": 179.098606,
+          "dec_deg": -6.6957974
+        }
+      ]
+    },
+    {
+      "neighbor": "Virgo",
+      "neighbor_abbreviation": "VIR",
+      "points": [
+        {
+          "ra_deg": 179.098606,
+          "dec_deg": -6.6957974
+        },
+        {
+          "ra_deg": 178.097362,
+          "dec_deg": -6.6953301
+        },
+        {
+          "ra_deg": 177.095961,
+          "dec_deg": -6.6946511
+        },
+        {
+          "ra_deg": 176.094561,
+          "dec_deg": -6.6937604
+        },
+        {
+          "ra_deg": 175.093317,
+          "dec_deg": -6.6926579
+        },
+        {
+          "ra_deg": 174.342299,
+          "dec_deg": -6.6916924
+        }
+      ]
+    },
+    {
+      "neighbor": "Leo",
+      "neighbor_abbreviation": "LEO",
+      "points": [
+        {
+          "ra_deg": 174.342299,
+          "dec_deg": -6.6916924
+        },
+        {
+          "ra_deg": 173.340912,
+          "dec_deg": -6.6902204
+        },
+        {
+          "ra_deg": 172.339526,
+          "dec_deg": -6.6885381
+        },
+        {
+          "ra_deg": 171.338296,
+          "dec_deg": -6.6866455
+        },
+        {
+          "ra_deg": 170.33691,
+          "dec_deg": -6.6845436
+        },
+        {
+          "ra_deg": 169.335537,
+          "dec_deg": -6.6822329
+        },
+        {
+          "ra_deg": 168.334321,
+          "dec_deg": -6.6797142
+        },
+        {
+          "ra_deg": 167.332964,
+          "dec_deg": -6.6769881
+        },
+        {
+          "ra_deg": 166.331606,
+          "dec_deg": -6.6740551
+        },
+        {
+          "ra_deg": 165.330405,
+          "dec_deg": -6.6709175
+        },
+        {
+          "ra_deg": 164.329047,
+          "dec_deg": -6.6675744
+        },
+        {
+          "ra_deg": 163.327717,
+          "dec_deg": -6.6640282
+        },
+        {
+          "ra_deg": 162.827139,
+          "dec_deg": -6.662179
+        }
+      ]
+    },
+    {
+      "neighbor": "Sextans",
+      "neighbor_abbreviation": "SEX",
+      "points": [
+        {
+          "ra_deg": 162.827139,
+          "dec_deg": -6.662179
+        },
+        {
+          "ra_deg": 162.823334,
+          "dec_deg": -7.6621718
+        },
+        {
+          "ra_deg": 162.819514,
+          "dec_deg": -8.6621647
+        },
+        {
+          "ra_deg": 162.815666,
+          "dec_deg": -9.662158
+        },
+        {
+          "ra_deg": 162.811804,
+          "dec_deg": -10.6621494
+        },
+        {
+          "ra_deg": 162.807914,
+          "dec_deg": -11.6621428
+        }
+      ]
+    },
+    {
+      "neighbor": "Hydra",
+      "neighbor_abbreviation": "HYA",
+      "points": [
+        {
+          "ra_deg": 162.807914,
+          "dec_deg": -11.6621428
+        },
+        {
+          "ra_deg": 162.803992,
+          "dec_deg": -12.6621361
+        },
+        {
+          "ra_deg": 162.800044,
+          "dec_deg": -13.6621275
+        },
+        {
+          "ra_deg": 162.796068,
+          "dec_deg": -14.6621208
+        },
+        {
+          "ra_deg": 162.792048,
+          "dec_deg": -15.6621132
+        },
+        {
+          "ra_deg": 162.787986,
+          "dec_deg": -16.6621056
+        },
+        {
+          "ra_deg": 162.783894,
+          "dec_deg": -17.6620979
+        },
+        {
+          "ra_deg": 162.779746,
+          "dec_deg": -18.6620903
+        },
+        {
+          "ra_deg": 162.775541,
+          "dec_deg": -19.6620827
+        }
+      ]
+    }
+  ],
+  "sources": [
+    {
+      "label": "Stellarium Western sky culture",
+      "url": "https://raw.githubusercontent.com/Stellarium/stellarium-skycultures/014fbb5e59233d133c22f9811af96b67d05a95c9/western/index.json",
+      "path": "catalog-work/western-constellation-stars/stellarium-western-index.json",
+      "sha256": "a861accd345249a185a5ecfc2a516f34291c0aa52f4bb8d8337ffc53e9cef6b9"
+    },
+    {
+      "label": "Adopted star positions and names",
+      "url": "https://simbad.cds.unistra.fr/simbad/",
+      "path": "src/data/catalogs/western-constellation-stars/stars.csv",
+      "sha256": "0a8b7c1dc3f7e3412c5cffb09a18cdf5b5b7424cc89ea8a0a1ffb4da57d3ad6a"
+    },
+    {
+      "label": "Hipparcos Johnson V magnitudes",
+      "url": "https://cdsarc.cds.unistra.fr/viz-bin/cat/I/239",
+      "path": "catalog-work/western-constellation-stars/hipparcos-v.csv",
+      "sha256": "eec12b740da3aac5204ba75ca5158b6f9f2f81886dda2526fe765cf9ea159320"
+    },
+    {
+      "label": "CDS / IAU constellation boundaries (J2000)",
+      "url": "https://cdsarc.cds.unistra.fr/viz-bin/cat/VI/49",
+      "path": "catalog-work/constellation-charts/boundaries-j2000.dat.gz",
+      "sha256": "879cd6e7a1c908f1e19a5f5fe8cc75fb1d1077564e3890f9152a3680affe9aac",
+      "inputs": [
+        {
+          "path": "catalog-work/constellation-charts/boundary-contours-b1875.dat",
+          "sha256": "865cdf4218f676eb304587c75c63231948d29cd0abe6892a8a8130c1c4fe3592"
+        },
+        {
+          "path": "catalog-work/constellation-charts/boundary-contours-readme.txt",
+          "sha256": "a3ec688bea21e9db10832842c9b845558dbe8ccf820ddedec842d664d2b74c89"
+        }
+      ]
+    }
+  ]
+}

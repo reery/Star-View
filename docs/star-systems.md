@@ -4,11 +4,9 @@ The selected-object card uses the shared system name for separately cataloged
 stellar components. The small distance sits beside the name, and component
 buttons directly below that line select the actual component
 record, including its physical properties, source notes, coordinates, and motion.
-Selecting a system from the scene or Object Browser opens A, or Aa where the
-primary is itself resolved. This resets on each new selection, independently of
-the previously selected system's component. Explicit component buttons, selection
-history and saved views retain individual component identities. Switching buttons
-preserves the card's expanded state.
+Selecting a star from the scene or Object Browser opens that exact component.
+Component buttons, selection history and saved views also retain individual
+component identities. Switching buttons preserves the card's expanded state.
 
 The header's bottom border contains icons for Specs (list), Info (book), and
 System (orbit), with accessible names, hover labels, and the lock buttons'
@@ -40,7 +38,7 @@ nearest-1000, using the published
 [Fomalhaut system membership](https://arxiv.org/abs/1310.0764) and corrected CNS5
 component labels. The explicit IDs handle A's unsuffixed display name and the
 source's reciprocal primary pointers. Selecting Fomalhaut B or C opens that
-component through its button. C's individual membership is a reviewed generator exception
+component directly. C's individual membership is a reviewed generator exception
 in `catalog-work/nearest-1000/individual-object-overrides.json`; its measurements
 come from its own exact CNS5/Gaia identity and existing physical supplements.
 Reviewed companions are additive to the nearest-1000 baseline. The wider

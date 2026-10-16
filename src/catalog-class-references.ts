@@ -2,6 +2,7 @@ import type { Star } from './catalog-model.ts'
 import { mergeCatalogStarLayers } from './catalog-merge.ts'
 import { MASS_METRICS, massComparisonClass, type MassMetric, type MassRange } from './mass-classification.ts'
 import { massProperties } from './mass-properties.ts'
+import { buildLuminosityClassReferences } from './luminosity-properties.ts'
 
 export interface CatalogClassReference {
   spectral: string
@@ -43,7 +44,7 @@ export function buildCatalogClassReferences(
     })) as CatalogClassReference['metrics']
     return { spectral, letter: classification.letter!, subtype: classification.subtype!, stage: classification.stage!, count: members.length, metrics }
   })
-  return { schemaVersion: 1, catalogIds: ordered.map(({ id }) => id), uniqueObjects: stars.length, classes }
+  return { schemaVersion: 1, catalogIds: ordered.map(({ id }) => id), uniqueObjects: stars.length, classes, luminosityClasses: buildLuminosityClassReferences(stars) }
 }
 
 /** Prefer the exact subtype/stage, then its nearest subtype in the same family and stage. */

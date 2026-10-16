@@ -1,0 +1,556 @@
+{
+  "schemaVersion": 1,
+  "abbreviation": "Sct",
+  "name": "Scutum",
+  "center": {
+    "ra_deg": 280.69092510166354,
+    "dec_deg": -9.779752911513166
+  },
+  "stars": [
+    {
+      "hip": 90595,
+      "name": "Gamma Sct",
+      "ra_deg": 277.29937738049796,
+      "dec_deg": -14.565802914842225,
+      "magnitude_v": 4.67,
+      "bayer": "γ",
+      "object": {
+        "x_pc": 91.994896299,
+        "y_pc": 28.940658193,
+        "z_pc": -3.012011454,
+        "vx_kms": -31.716725,
+        "vy_kms": -12.226615,
+        "vz_kms": -4.083762,
+        "temperature_k": 8511.0,
+        "mass_solar": 2.49,
+        "luminosity_solar": 91.63876824783719,
+        "radius_solar": 4.073802778041127,
+        "metallicity_dex": 0.0183,
+        "age_gyr": 0.34644097,
+        "absolute_mag": -0.247339,
+        "epoch": 2000.0,
+        "type": "star",
+        "id": "hip-90595",
+        "name": "Gamma Sct",
+        "constellation": "Scutum",
+        "spectral_type": "A1IV/V",
+        "metallicity_kind": "[M/H]",
+        "notes": "Western constellation line-figure star (HIP 90595; Stellarium Sct). SIMBAD identity * gam Sct; SIMBAD compiled Johnson V=4.675; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, mass_solar, radius_solar, luminosity_solar; Gaia DR3 model values for metallicity_dex, age_gyr.",
+        "designations": [
+          "HIP 90595"
+        ],
+        "raw_astrometry": {
+          "ra_deg": 277.29937738049796,
+          "dec_deg": -14.565802914842225,
+          "parallax_mas": 10.3621,
+          "parallax_error_mas": 0.1378,
+          "pm_ra_cosdec_masyr": 7.788,
+          "pm_ra_error_masyr": null,
+          "pm_dec_masyr": -9.363,
+          "pm_dec_error_masyr": null,
+          "radial_velocity_kms": -33.78,
+          "radial_velocity_error_kms": null,
+          "epoch": 2000.0,
+          "astrometry_ref": "SIMBAD TAP snapshot 2026-10-01",
+          "radial_velocity_ref": "SIMBAD TAP snapshot 2026-10-01"
+        }
+      }
+    },
+    {
+      "hip": 91117,
+      "name": "Alpha Sct",
+      "ra_deg": 278.8017798215825,
+      "dec_deg": -8.24407051095861,
+      "magnitude_v": 3.85,
+      "bayer": "α",
+      "object": {
+        "x_pc": 51.51410754,
+        "y_pc": 22.668051931,
+        "z_pc": -0.172102578,
+        "vx_kms": 64.156594,
+        "vy_kms": -55.436058,
+        "vz_kms": -34.40728,
+        "temperature_k": 4266.0,
+        "mass_solar": 1.33,
+        "luminosity_solar": 141.0708508435992,
+        "radius_solar": 19.952623149688797,
+        "metallicity_dex": -0.07,
+        "age_gyr": null,
+        "absolute_mag": 0.078183,
+        "epoch": 2000.0,
+        "type": "star",
+        "id": "hip-91117",
+        "name": "Alpha Sct",
+        "constellation": "Scutum",
+        "spectral_type": "K3III",
+        "metallicity_kind": "[Fe/H]",
+        "notes": "Western constellation line-figure star (HIP 91117; Stellarium Sct). SIMBAD identity * alf Sct; SIMBAD compiled Johnson V=3.83; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, mass_solar, radius_solar, luminosity_solar. Shared exact-identity physical supplements (metallicity_dex: 2022A&A...663A...4S).",
+        "designations": [
+          "HIP 91117"
+        ],
+        "raw_astrometry": {
+          "ra_deg": 278.8017798215825,
+          "dec_deg": -8.24407051095861,
+          "parallax_mas": 17.6952,
+          "parallax_error_mas": 0.1911,
+          "pm_ra_cosdec_masyr": -18.006,
+          "pm_ra_error_masyr": null,
+          "pm_dec_masyr": -313.989,
+          "pm_dec_error_masyr": null,
+          "radial_velocity_kms": 36.5,
+          "radial_velocity_error_kms": null,
+          "epoch": 2000.0,
+          "astrometry_ref": "SIMBAD TAP snapshot 2026-10-01",
+          "radial_velocity_ref": "SIMBAD TAP snapshot 2026-10-01"
+        }
+      }
+    },
+    {
+      "hip": 92175,
+      "name": "Beta Sct",
+      "ra_deg": 281.79364256535,
+      "dec_deg": -4.74787304458,
+      "magnitude_v": 4.22,
+      "bayer": "β",
+      "object": {
+        "x_pc": 186.474780396,
+        "y_pc": 100.07292331,
+        "z_pc": -4.496934226,
+        "vx_kms": -10.12133,
+        "vy_kms": -26.191438,
+        "vz_kms": 0.070911,
+        "temperature_k": 4800.0,
+        "mass_solar": null,
+        "luminosity_solar": 1186.7058469600604,
+        "radius_solar": 49.812887,
+        "metallicity_dex": -0.15,
+        "age_gyr": null,
+        "absolute_mag": -2.408381,
+        "epoch": 2000.0,
+        "type": "star",
+        "id": "hip-92175",
+        "name": "Beta Sct",
+        "constellation": "Scutum",
+        "spectral_type": "G4IIa",
+        "metallicity_kind": "[Fe/H]",
+        "notes": "Western constellation line-figure star (HIP 92175; Stellarium Sct). SIMBAD identity * bet Sct; SIMBAD compiled Johnson V=4.22; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, luminosity_solar; Stefan-Boltzmann scaling for radius_solar. Shared exact-identity physical supplements (metallicity_dex: 2022A&A...663A...4S).",
+        "designations": [
+          "HIP 92175"
+        ],
+        "raw_astrometry": {
+          "ra_deg": 281.79364256535,
+          "dec_deg": -4.74787304458,
+          "parallax_mas": 4.8549,
+          "parallax_error_mas": 0.3403,
+          "pm_ra_cosdec_masyr": -7.972,
+          "pm_ra_error_masyr": null,
+          "pm_dec_masyr": -16.398,
+          "pm_dec_error_masyr": null,
+          "radial_velocity_kms": -21.3,
+          "radial_velocity_error_kms": null,
+          "epoch": 2000.0,
+          "astrometry_ref": "SIMBAD TAP snapshot 2026-10-01",
+          "radial_velocity_ref": "SIMBAD TAP snapshot 2026-10-01"
+        }
+      }
+    },
+    {
+      "hip": 92202,
+      "name": "R Sct",
+      "ra_deg": 281.87062457251,
+      "dec_deg": -5.7051507255,
+      "magnitude_v": 5.38,
+      "bayer": null,
+      "object": {
+        "x_pc": 347.244689208,
+        "y_pc": 180.018196777,
+        "z_pc": -11.757194136,
+        "vx_kms": 73.486446,
+        "vy_kms": -64.075861,
+        "vz_kms": 45.054375,
+        "temperature_k": 4300.0,
+        "mass_solar": null,
+        "luminosity_solar": 2178.470695559085,
+        "radius_solar": 69.20777,
+        "metallicity_dex": -0.7448,
+        "age_gyr": null,
+        "absolute_mag": -2.762606,
+        "epoch": 2000.0,
+        "type": "star",
+        "id": "hip-92202",
+        "name": "R Sct",
+        "constellation": "Scutum",
+        "spectral_type": "K4/5pec",
+        "metallicity_kind": "[M/H]",
+        "notes": "Western constellation line-figure star (HIP 92202; Stellarium Sct). SIMBAD identity V* R Sct; SIMBAD compiled Johnson V=5.2; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, luminosity_solar; Gaia DR3 model values for metallicity_dex, radius_solar.",
+        "designations": [
+          "HIP 92202"
+        ],
+        "raw_astrometry": {
+          "ra_deg": 281.87062457251,
+          "dec_deg": -5.7051507255,
+          "parallax_mas": 2.5351,
+          "parallax_error_mas": 0.0871,
+          "pm_ra_cosdec_masyr": -44.4,
+          "pm_ra_error_masyr": null,
+          "pm_dec_masyr": -32.212,
+          "pm_dec_error_masyr": null,
+          "radial_velocity_kms": 34.38,
+          "radial_velocity_error_kms": null,
+          "epoch": 2000.0,
+          "astrometry_ref": "SIMBAD TAP snapshot 2026-10-01",
+          "radial_velocity_ref": "SIMBAD TAP snapshot 2026-10-01"
+        }
+      }
+    },
+    {
+      "hip": 92814,
+      "name": "HD 175156",
+      "ra_deg": 283.6796401973133,
+      "dec_deg": -15.603036856645835,
+      "magnitude_v": 5.08,
+      "bayer": null,
+      "object": {
+        "x_pc": 530.966476517,
+        "y_pc": 186.210664366,
+        "z_pc": -76.614044236,
+        "vx_kms": 3.208898,
+        "vy_kms": -18.648132,
+        "vz_kms": -2.331749,
+        "temperature_k": 7292.0,
+        "mass_solar": null,
+        "luminosity_solar": 2154.1960291949717,
+        "radius_solar": 29.080504,
+        "metallicity_dex": 0.17,
+        "age_gyr": null,
+        "absolute_mag": -3.685222,
+        "epoch": 2000.0,
+        "type": "star",
+        "id": "hip-92814",
+        "name": "HD 175156",
+        "constellation": "Scutum",
+        "spectral_type": "B3II",
+        "metallicity_kind": "[Fe/H]",
+        "notes": "Western constellation line-figure star (HIP 92814; Stellarium Sct). SIMBAD identity HD 175156; SIMBAD compiled Johnson V=5.086; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, luminosity_solar; Stefan-Boltzmann scaling for radius_solar. Shared exact-identity physical supplements (metallicity_dex: 2023ApJS..266...41P).",
+        "designations": [
+          "HIP 92814"
+        ],
+        "raw_astrometry": {
+          "ra_deg": 283.6796401973133,
+          "dec_deg": -15.603036856645835,
+          "parallax_mas": 1.7668,
+          "parallax_error_mas": 0.1256,
+          "pm_ra_cosdec_masyr": -2.136,
+          "pm_ra_error_masyr": null,
+          "pm_dec_masyr": -6.672,
+          "pm_dec_error_masyr": null,
+          "radial_velocity_kms": -2.8,
+          "radial_velocity_error_kms": null,
+          "epoch": 2000.0,
+          "astrometry_ref": "SIMBAD TAP snapshot 2026-10-01",
+          "radial_velocity_ref": "SIMBAD TAP snapshot 2026-10-01"
+        }
+      }
+    }
+  ],
+  "lines": [
+    [
+      92175,
+      92202
+    ],
+    [
+      92202,
+      92814
+    ],
+    [
+      92814,
+      90595
+    ],
+    [
+      90595,
+      91117
+    ],
+    [
+      91117,
+      92175
+    ]
+  ],
+  "boundaries": [
+    {
+      "neighbor": "Sagittarius",
+      "neighbor_abbreviation": "SGR",
+      "points": [
+        {
+          "ra_deg": 275.549526,
+          "dec_deg": -15.943572
+        },
+        {
+          "ra_deg": 276.549196,
+          "dec_deg": -15.9314737
+        },
+        {
+          "ra_deg": 277.548637,
+          "dec_deg": -15.9193974
+        },
+        {
+          "ra_deg": 278.548192,
+          "dec_deg": -15.9073458
+        },
+        {
+          "ra_deg": 279.547662,
+          "dec_deg": -15.8953218
+        },
+        {
+          "ra_deg": 280.546932,
+          "dec_deg": -15.8833323
+        },
+        {
+          "ra_deg": 281.546287,
+          "dec_deg": -15.871376
+        },
+        {
+          "ra_deg": 282.545614,
+          "dec_deg": -15.8594599
+        },
+        {
+          "ra_deg": 283.544684,
+          "dec_deg": -15.8475885
+        },
+        {
+          "ra_deg": 284.543866,
+          "dec_deg": -15.835762
+        },
+        {
+          "ra_deg": 284.79372,
+          "dec_deg": -15.8328123
+        }
+      ]
+    },
+    {
+      "neighbor": "Sagittarius",
+      "neighbor_abbreviation": "SGR",
+      "points": [
+        {
+          "ra_deg": 284.79372,
+          "dec_deg": -15.8328123
+        },
+        {
+          "ra_deg": 284.781018,
+          "dec_deg": -14.8328886
+        },
+        {
+          "ra_deg": 284.768457,
+          "dec_deg": -13.832962
+        },
+        {
+          "ra_deg": 284.756011,
+          "dec_deg": -12.8330355
+        },
+        {
+          "ra_deg": 284.744054,
+          "dec_deg": -11.866436
+        }
+      ]
+    },
+    {
+      "neighbor": "Aquila",
+      "neighbor_abbreviation": "AQL",
+      "points": [
+        {
+          "ra_deg": 284.744054,
+          "dec_deg": -11.866436
+        },
+        {
+          "ra_deg": 284.731779,
+          "dec_deg": -10.8665075
+        },
+        {
+          "ra_deg": 284.719591,
+          "dec_deg": -9.86658
+        },
+        {
+          "ra_deg": 284.707461,
+          "dec_deg": -8.8666515
+        },
+        {
+          "ra_deg": 284.695416,
+          "dec_deg": -7.8667231
+        },
+        {
+          "ra_deg": 284.683399,
+          "dec_deg": -6.8667936
+        },
+        {
+          "ra_deg": 284.671469,
+          "dec_deg": -5.8668642
+        },
+        {
+          "ra_deg": 284.659567,
+          "dec_deg": -4.8669343
+        },
+        {
+          "ra_deg": 284.647694,
+          "dec_deg": -3.8670044
+        },
+        {
+          "ra_deg": 284.647293,
+          "dec_deg": -3.8336766
+        }
+      ]
+    },
+    {
+      "neighbor": "Aquila",
+      "neighbor_abbreviation": "AQL",
+      "points": [
+        {
+          "ra_deg": 284.647293,
+          "dec_deg": -3.8336766
+        },
+        {
+          "ra_deg": 283.64748,
+          "dec_deg": -3.8454983
+        },
+        {
+          "ra_deg": 282.647696,
+          "dec_deg": -3.8573668
+        },
+        {
+          "ra_deg": 281.648025,
+          "dec_deg": -3.8692768
+        },
+        {
+          "ra_deg": 280.648212,
+          "dec_deg": -3.8812284
+        },
+        {
+          "ra_deg": 280.398187,
+          "dec_deg": -3.884223
+        }
+      ]
+    },
+    {
+      "neighbor": "Serpens",
+      "neighbor_abbreviation": "SER2",
+      "points": [
+        {
+          "ra_deg": 280.398187,
+          "dec_deg": -3.884223
+        },
+        {
+          "ra_deg": 279.398517,
+          "dec_deg": -3.8962176
+        },
+        {
+          "ra_deg": 278.398647,
+          "dec_deg": -3.9082458
+        },
+        {
+          "ra_deg": 277.398777,
+          "dec_deg": -3.9203022
+        },
+        {
+          "ra_deg": 276.399021,
+          "dec_deg": -3.9323814
+        },
+        {
+          "ra_deg": 275.399122,
+          "dec_deg": -3.9444826
+        }
+      ]
+    },
+    {
+      "neighbor": "Serpens",
+      "neighbor_abbreviation": "SER2",
+      "points": [
+        {
+          "ra_deg": 275.399122,
+          "dec_deg": -3.9444826
+        },
+        {
+          "ra_deg": 275.41131,
+          "dec_deg": -4.9444089
+        },
+        {
+          "ra_deg": 275.423527,
+          "dec_deg": -5.944335
+        },
+        {
+          "ra_deg": 275.435801,
+          "dec_deg": -6.9442606
+        },
+        {
+          "ra_deg": 275.448132,
+          "dec_deg": -7.9441862
+        },
+        {
+          "ra_deg": 275.460491,
+          "dec_deg": -8.9441109
+        },
+        {
+          "ra_deg": 275.472936,
+          "dec_deg": -9.9440355
+        },
+        {
+          "ra_deg": 275.485469,
+          "dec_deg": -10.9439602
+        },
+        {
+          "ra_deg": 275.498085,
+          "dec_deg": -11.9438839
+        },
+        {
+          "ra_deg": 275.510789,
+          "dec_deg": -12.9438066
+        },
+        {
+          "ra_deg": 275.523576,
+          "dec_deg": -13.9437294
+        },
+        {
+          "ra_deg": 275.536481,
+          "dec_deg": -14.9436512
+        },
+        {
+          "ra_deg": 275.549526,
+          "dec_deg": -15.943572
+        }
+      ]
+    }
+  ],
+  "sources": [
+    {
+      "label": "Stellarium Western sky culture",
+      "url": "https://raw.githubusercontent.com/Stellarium/stellarium-skycultures/014fbb5e59233d133c22f9811af96b67d05a95c9/western/index.json",
+      "path": "catalog-work/western-constellation-stars/stellarium-western-index.json",
+      "sha256": "a861accd345249a185a5ecfc2a516f34291c0aa52f4bb8d8337ffc53e9cef6b9"
+    },
+    {
+      "label": "Adopted star positions and names",
+      "url": "https://simbad.cds.unistra.fr/simbad/",
+      "path": "src/data/catalogs/western-constellation-stars/stars.csv",
+      "sha256": "0a8b7c1dc3f7e3412c5cffb09a18cdf5b5b7424cc89ea8a0a1ffb4da57d3ad6a"
+    },
+    {
+      "label": "Hipparcos Johnson V magnitudes",
+      "url": "https://cdsarc.cds.unistra.fr/viz-bin/cat/I/239",
+      "path": "catalog-work/western-constellation-stars/hipparcos-v.csv",
+      "sha256": "eec12b740da3aac5204ba75ca5158b6f9f2f81886dda2526fe765cf9ea159320"
+    },
+    {
+      "label": "CDS / IAU constellation boundaries (J2000)",
+      "url": "https://cdsarc.cds.unistra.fr/viz-bin/cat/VI/49",
+      "path": "catalog-work/constellation-charts/boundaries-j2000.dat.gz",
+      "sha256": "879cd6e7a1c908f1e19a5f5fe8cc75fb1d1077564e3890f9152a3680affe9aac",
+      "inputs": [
+        {
+          "path": "catalog-work/constellation-charts/boundary-contours-b1875.dat",
+          "sha256": "865cdf4218f676eb304587c75c63231948d29cd0abe6892a8a8130c1c4fe3592"
+        },
+        {
+          "path": "catalog-work/constellation-charts/boundary-contours-readme.txt",
+          "sha256": "a3ec688bea21e9db10832842c9b845558dbe8ccf820ddedec842d664d2b74c89"
+        }
+      ]
+    }
+  ]
+}

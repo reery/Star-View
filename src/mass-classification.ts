@@ -28,7 +28,7 @@ export function massComparisonClass(star: Pick<Star, 'type' | 'spectral_type'>) 
     return { spectral: star.type, key: star.type, label: objectTypeLabel(star.type), letter: null, subtype: null, stage: null, assumedStage: false }
   }
   // Ignore chemical/rotation annotations, while retaining the stated luminosity stage.
-  // Transition classes use the first subtype/stage (B2IV-V -> B2IV).
+  // Transition luminosity stages use the first stage (B2IV-V -> B2IV).
   // Composite spectra are not treated as a single spectral class.
   let spectrum = star.spectral_type?.trim() ?? ''
   if (/\+\s*(?:[OBAFGKM]\d|D[A-Z]|W[CN])/i.test(spectrum)) return null
@@ -37,6 +37,9 @@ export function massComparisonClass(star: Pick<Star, 'type' | 'spectral_type'>) 
   spectrum = spectrum.replace(/^sd(?=[OBAFGKM])/i, '').replace(/^d(?=[OBAFGKM])/i, '')
   // For metallic-line classifications, use the hydrogen-line subtype.
   spectrum = spectrum.replace(/^k[OBAFGKM]\d(?:\.\d+)?(?:V)?h([OBAFGKM]\d(?:\.\d+)?)(?:m[OBAFGKM]\d(?:\.\d+)?)?/i, '$1')
+  // A subtype range cannot supply an exact class sample or comparison subtype.
+  if (/^[OBAFGKM]\d(?:\.\d+)?(?:[IV]+)?\s*[-/–]\s*(?:[OBAFGKM])?\d/i.test(spectrum)) return null
+  spectrum = spectrum.replace(/^([OBAFGKM]\d(?:\.\d+)?)m(?=[IV])/i, '$1')
   const match = spectrum.match(/^([OBAFGKM])(\d(?:\.\d+)?)(?:\s*[-/]\s*[OBAFGKM]?\d(?:\.\d+)?)?[+\-:\s]*(?:\()?\s*(III|II|IV|VI|V|I)?(ab|a|b)?/i)
   if (!match) return null
   const letter = match[1]!.toUpperCase()

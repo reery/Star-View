@@ -48,17 +48,23 @@
                             <div class="distance-row"><dt>Distance from Sun</dt><dd><button id="distance-toggle" class="object-type-toggle" type="button" aria-controls="distance-card" aria-expanded="false" aria-describedby="distance-value distance-unit"><span id="distance-value"></span><span id="distance-unit"> ly</span></button></dd></div>
                             <div class="object-type-row"><dt>Object type</dt><dd><button id="object-type-toggle" class="object-type-toggle" type="button" aria-controls="object-type-card" aria-expanded="false"><span id="object-type"></span></button></dd></div>
                             <div id="known-planets-row"><dt>Known planets</dt><dd><button id="known-planets" class="object-type-toggle" type="button" aria-controls="object-system"></button></dd></div>
-                            <div id="object-subtypes-row"><dt>Sub-type</dt><dd id="object-subtypes"></dd></div>
-                            <div id="constellation-row"><dt>Constellation</dt><dd id="constellation"></dd></div>
+                          </dl>
+                          <details id="object-subtypes-row" class="designation-details subtype-details" hidden>
+                            <summary><span>Sub-type</span><span id="object-subtypes-count" class="subtype-count"></span></summary>
+                            <ul id="object-subtypes" class="subtype-list"></ul>
+                          </details>
+                          <dl class="properties">
+                            <div id="object-subtypes-empty-row"><dt>Sub-type</dt><dd>—</dd></div>
+                            <div id="constellation-row" class="constellation-row"><dt>Constellation</dt><dd><button id="constellation-toggle" class="object-type-toggle" type="button" aria-controls="constellation-card" aria-expanded="false" aria-describedby="constellation" disabled><span id="constellation"></span></button></dd></div>
                             <div class="stellar-property spectral-row"><dt>Spectral type</dt><dd><button id="spectral-toggle" class="object-type-toggle" type="button" aria-controls="spectral-card" aria-expanded="false" aria-describedby="spectral-type"><span id="spectral-type"></span></button></dd></div>
-                            <div class="stellar-property"><dt>Temperature</dt><dd id="temperature"></dd></div>
-                            <div id="luminosity-row" class="stellar-property"><dt>Bolometric luminosity</dt><dd id="luminosity"></dd></div>
-                            <div id="mass-row" class="mass-row"><dt>Mass</dt><dd><button id="mass-toggle" class="object-type-toggle" type="button" aria-controls="mass-card" aria-expanded="false" aria-describedby="mass"><span id="mass"></span></button></dd></div>
-                            <div class="stellar-property radius-row"><dt>Radius</dt><dd><button id="radius-toggle" class="object-type-toggle" type="button" aria-controls="radius-card" aria-expanded="false" aria-describedby="radius"><span id="radius"></span></button></dd></div>
+                            <div id="temperature-row" class="stellar-property temperature-row"><dt>Temperature</dt><dd><button id="temperature-toggle" class="object-type-toggle" type="button" aria-controls="temperature-card" aria-expanded="false" aria-describedby="temperature"><span id="temperature"></span></button><span id="temperature-source-tooltip" class="tooltip mass-metric-tooltip" role="tooltip" hidden></span></dd></div>
+                            <div id="luminosity-row" class="stellar-property luminosity-row"><dt>Bolometric luminosity</dt><dd><button id="luminosity-toggle" class="object-type-toggle" type="button" aria-controls="luminosity-card" aria-expanded="false" aria-describedby="luminosity"><span id="luminosity"></span></button><span id="luminosity-source-tooltip" class="tooltip mass-metric-tooltip" role="tooltip" hidden></span></dd></div>
+                            <div id="mass-row" class="mass-row"><dt id="mass-label">Mass</dt><dd><button id="mass-toggle" class="object-type-toggle" type="button" aria-controls="mass-card" aria-expanded="false" aria-describedby="mass"><span id="mass"></span></button></dd></div>
+                            <div id="radius-row" class="stellar-property radius-row"><dt>Radius</dt><dd><button id="radius-toggle" class="object-type-toggle" type="button" aria-controls="radius-card" aria-expanded="false" aria-describedby="radius"><span id="radius"></span></button><span id="radius-source-tooltip" class="tooltip mass-metric-tooltip" role="tooltip" hidden></span></dd></div>
                             <div class="stellar-property metallicity-row"><dt id="metallicity-label">Metallicity</dt><dd><button id="metallicity-toggle" class="object-type-toggle" type="button" aria-controls="metallicity-card" aria-expanded="false" aria-describedby="metallicity"><span id="metallicity"></span></button></dd></div>
                             <div class="stellar-property"><dt>Age</dt><dd id="age"></dd></div>
-                            <div class="stellar-property"><dt>Absolute mag. (V)</dt><dd id="absolute-mag"></dd></div>
-                            <div class="stellar-property"><dt>Apparent mag. (V)</dt><dd id="apparent-mag" title="Earth-view catalog V magnitude; a snapshot, not current variable-star photometry."></dd></div>
+                            <div id="magnitude-row" class="stellar-property magnitude-row"><dt><span>Absolute mag. (V)</span><span id="apparent-mag-label">Apparent mag. (V)</span></dt><dd><button id="magnitude-toggle" class="object-type-toggle" type="button" aria-controls="magnitude-card" aria-expanded="false" aria-describedby="absolute-mag apparent-mag"><span id="absolute-mag"></span><span id="apparent-mag" title="Earth-view catalog V magnitude; a snapshot, not current variable-star photometry."></span></button></dd></div>
+                            <div id="infrared-magnitude-row" class="stellar-property" hidden><dt id="infrared-magnitude-label"></dt><dd id="infrared-magnitude"></dd></div>
                             <div class="compact-property" hidden><dt>Status</dt><dd id="compact-status"></dd></div>
                             <div class="compact-property rotation-property" hidden><dt>Rotation</dt><dd id="rotation-period"></dd></div>
                             <div class="compact-property pulsar-property" hidden><dt>Radio luminosity (1400 MHz)</dt><dd id="radio-luminosity"></dd></div>
@@ -85,8 +91,12 @@
                             <div class="bubble-property" hidden><dt>Shell distance range</dt><dd id="bubble-surface-range"></dd></div>
                             <div class="bubble-property" hidden><dt>Typical shell thickness</dt><dd id="bubble-shell-thickness"></dd></div>
                             <div class="bubble-property" hidden><dt>Source</dt><dd><a id="bubble-source" target="_blank" rel="noreferrer"></a></dd></div>
-                            <div id="designations-row" class="designations-property"><dt>Designations</dt><dd><ul id="object-designations" class="designation-list"></ul></dd></div>
+                            <div id="designations-empty-row" hidden><dt>Designations</dt><dd id="designations-empty"></dd></div>
                           </dl>
+                          <details id="designations-row" class="designation-details" hidden>
+                            <summary>Designations</summary>
+                            <ul id="object-designations" class="designation-list"></ul>
+                          </details>
                         </section>
                         <details class="source-details">
                           <summary>Coordinates &amp; source</summary>
@@ -112,7 +122,7 @@
                           <p id="star-notes" class="star-notes"></p>
                         </details>
                       </div>
-                      <section id="object-info" aria-label="Wikipedia summary" hidden></section>
+                      <section id="object-info" aria-label="About this star system" hidden></section>
                       <section id="object-system" aria-label="Star and planet system" hidden></section>
                     </div>
                   </details>
@@ -122,6 +132,7 @@
             <section id="object-type-card" class="dock-card object-type-card" aria-labelledby="object-type-heading" data-scene-obstacle hidden>
               <div class="panel-heading">
                 <h2 id="object-type-heading"></h2>
+                <button id="object-type-lock" class="panel-lock" type="button" aria-label="Keep Object type open" aria-pressed="false"><span id="object-type-lock-icon"></span></button>
                 <button id="object-type-close" class="panel-lock" type="button" aria-label="Close object type card"><span id="object-type-close-icon"></span></button>
               </div>
               <div class="card-scroll-content">
@@ -138,6 +149,7 @@
             <section id="metallicity-card" class="dock-card object-type-card metallicity-card" aria-labelledby="metallicity-heading" data-scene-obstacle hidden>
               <div class="panel-heading">
                 <h2 id="metallicity-heading">Metallicity</h2>
+                <button id="metallicity-lock" class="panel-lock" type="button" aria-label="Keep Metallicity open" aria-pressed="false"><span id="metallicity-lock-icon"></span></button>
                 <button id="metallicity-close" class="panel-lock" type="button" aria-label="Close metallicity card"><span id="metallicity-close-icon"></span></button>
               </div>
               <div class="metallicity-body card-scroll-content">
@@ -152,14 +164,53 @@
                 <p id="metallicity-description"></p>
               </div>
             </section>
+            <section id="constellation-card" class="dock-card object-type-card constellation-card" aria-labelledby="constellation-heading" data-scene-obstacle hidden>
+              <div class="panel-heading constellation-heading">
+                <h2 id="constellation-heading">Canis Major</h2>
+                <button id="constellation-magnify" class="panel-lock" type="button" aria-label="Magnify selected star" aria-pressed="false" aria-controls="constellation-chart" title="Magnify selected star"><span id="constellation-magnify-icon"></span></button>
+                <button id="constellation-lock" class="panel-lock" type="button" aria-label="Keep Constellation open" aria-pressed="false"><span id="constellation-lock-icon"></span></button>
+                <button id="constellation-close" class="panel-lock" type="button" aria-label="Close constellation card"><span id="constellation-close-icon"></span></button>
+              </div>
+              <div class="card-scroll-content">
+                <figure id="constellation-chart" class="constellation-chart"></figure>
+                <p id="constellation-missing" class="constellation-missing" hidden></p>
+                <section id="constellation-visibility" class="constellation-visibility" aria-label="Visibility from Earth">
+                  <div class="constellation-visibility-charts">
+                    <div id="constellation-visibility-map" class="constellation-visibility-map"></div>
+                    <div class="constellation-visibility-season">
+                      <div class="constellation-latitude-control">
+                        <label for="constellation-latitude">Latitude</label>
+                        <select id="constellation-latitude">
+                          <option value="80">80° N</option><option value="70">70° N</option><option value="60">60° N</option><option value="50">50° N</option><option value="40" selected>40° N</option><option value="30">30° N</option><option value="20">20° N</option><option value="10">10° N</option><option value="0">0°</option><option value="-10">10° S</option><option value="-20">20° S</option><option value="-30">30° S</option><option value="-40">40° S</option><option value="-50">50° S</option><option value="-60">60° S</option><option value="-70">70° S</option><option value="-80">80° S</option>
+                        </select>
+                      </div>
+                      <p id="constellation-visibility-time" class="constellation-visibility-time">Around 10 pm <span>· solar time</span></p>
+                      <div id="constellation-visibility-months" class="constellation-visibility-months" role="img"></div>
+                    </div>
+                  </div>
+                  <dl class="properties constellation-visibility-stats">
+                    <div><dt>Visible from latitudes</dt><dd id="constellation-visible-latitudes-value"></dd></div>
+                    <div><dt>Visible during months</dt><dd id="constellation-visible-months-value"></dd></div>
+                  </dl>
+                </section>
+                <details class="constellation-sources">
+                  <summary>Sources</summary>
+                  <p>Catalogue sky positions as seen from Earth, north up and east left. Solid figure lines follow the Stellarium Western sky culture. Spaced dashed borders use CDS J2000 IAU boundary data.</p>
+                  <div id="constellation-source-links"></div>
+                  <p>Visibility is geometric; black land can see the selected object above the horizon. Evening months use the selected latitude, a level horizon, and astronomical darkness at 10 pm local solar time on each month's 15th. Weather, terrain, and brightness limits are not modeled.</p>
+                  <div class="constellation-visibility-sources"><a href="https://aa.usno.navy.mil/faq/alt_az" target="_blank" rel="noreferrer">USNO horizon geometry</a><a href="https://aa.usno.navy.mil/faq/sun_approx" target="_blank" rel="noreferrer">USNO solar coordinates</a><a href="https://aa.usno.navy.mil/faq/RST_defs" target="_blank" rel="noreferrer">USNO twilight definitions</a><a href="https://www.naturalearthdata.com/" target="_blank" rel="noreferrer">Natural Earth land outlines</a></div>
+                </details>
+              </div>
+            </section>
             <section id="mass-card" class="dock-card object-type-card mass-card" aria-labelledby="mass-heading" data-scene-obstacle hidden>
               <div class="panel-heading mass-heading">
                 <h2 id="mass-heading">Mass</h2>
                 <div class="distance-reference-buttons" role="group" aria-label="Mass comparison reference">
-                  <button id="mass-reference-class" class="object-section-button distance-reference-button" type="button" aria-pressed="true">vs spectral type</button>
-                  <button id="mass-reference-origin" class="object-section-button distance-reference-button" type="button" aria-pressed="false" hidden>vs Sun</button>
-                  <button id="mass-reference-sun" class="object-section-button distance-reference-button" type="button" aria-pressed="false">vs Sun</button>
+                  <span class="mass-reference-option"><button id="mass-reference-class" class="object-section-button distance-reference-button" type="button" aria-pressed="true">vs spectral type</button><span id="mass-reference-class-tooltip" class="tooltip mass-metric-tooltip" role="tooltip"></span></span>
+                  <span class="mass-reference-option"><button id="mass-reference-origin" class="object-section-button distance-reference-button" type="button" aria-pressed="false" hidden>vs Sun</button><span id="mass-reference-origin-tooltip" class="tooltip mass-metric-tooltip" role="tooltip"></span></span>
+                  <span class="mass-reference-option"><button id="mass-reference-sun" class="object-section-button distance-reference-button" type="button" aria-pressed="false">vs Sun</button><span id="mass-reference-sun-tooltip" class="tooltip mass-metric-tooltip" role="tooltip"></span></span>
                 </div>
+                <button id="mass-lock" class="panel-lock" type="button" aria-label="Keep Mass open" aria-pressed="false"><span id="mass-lock-icon"></span></button>
                 <button id="mass-close" class="panel-lock" type="button" aria-label="Close mass card"><span id="mass-close-icon"></span></button>
               </div>
               <div class="mass-body card-scroll-content">
@@ -232,6 +283,128 @@
                 <details class="mass-method"><summary>Calculations &amp; sources</summary><p id="mass-class-method"></p><a id="mass-class-source" target="_blank" rel="noreferrer" hidden></a><p>Derived from catalog values, which may be measured or model-derived. Gravity = GM/r²; escape speed = √(2GM/r); mean density = 3M/(4πr³). These spherical Newtonian estimates omit rotation, radiation pressure, and relativity. Extra digits do not imply extra accuracy.</p><p>Solar reference: GM☉ = 1.3271244 × 10²⁰ m³/s²; R☉ = 695,700 km. Mass in kg uses G = 6.67430 × 10⁻¹¹ m³/(kg s²). Earth gravity reference = 9.80665 m/s²; Earth surface escape speed = 11.186 km/s. Water density is approximately 1 g/cm³. Evolution describes broad single-star trends, not an individual prediction.</p><a href="https://arxiv.org/abs/1510.07674" target="_blank" rel="noreferrer">IAU conversion constants ↗</a> · <a href="https://physics.nist.gov/cuu/Constants/Table/allascii.txt" target="_blank" rel="noreferrer">Gravitational constant ↗</a> · <a href="https://science.nasa.gov/universe/stars/types/" target="_blank" rel="noreferrer">NASA: stellar evolution ↗</a> · <a href="https://nssdc.gsfc.nasa.gov/planetary/factsheet/earthfact.html" target="_blank" rel="noreferrer">NASA: Earth references ↗</a></details>
               </div>
             </section>
+            <section id="temperature-card" class="dock-card object-type-card temperature-card" aria-labelledby="temperature-heading" data-scene-obstacle hidden>
+              <div class="panel-heading temperature-heading"><h2 id="temperature-heading">Temperature</h2><button id="temperature-lock" class="panel-lock" type="button" aria-label="Keep Temperature open" aria-pressed="false"><span id="temperature-lock-icon"></span></button><button id="temperature-close" class="panel-lock" type="button" aria-label="Close temperature card"><span id="temperature-close-icon"></span></button></div>
+              <div class="card-scroll-content mass-body temperature-body">
+                <div class="temperature-overview">
+                  <span id="temperature-value-icon" aria-hidden="true"></span>
+                  <div><strong id="temperature-value"></strong><span class="mass-benchmark">Effective temperature</span></div>
+                  <div class="temperature-conversions"><span id="temperature-celsius"></span><span id="temperature-fahrenheit"></span></div>
+                </div>
+                <section class="temperature-scale-section" aria-label="Temperature and spectral classes">
+                  <div id="temperature-scale" class="temperature-scale" role="img"><div class="temperature-track"></div><div class="temperature-classes" aria-hidden="true"></div><div class="temperature-scale-limits" aria-hidden="true"><span>2,400 K</span><span>30,000 K</span></div></div>
+                  <p id="temperature-scale-note" class="mass-benchmark" hidden></p><p id="temperature-origin-note" class="mass-benchmark" hidden></p>
+                </section>
+                <section class="mass-section" aria-labelledby="temperature-spectrum-heading">
+                  <h3 id="temperature-spectrum-heading" class="card-subgroup-heading">Emission spectrum</h3>
+                  <p class="mass-benchmark">Blackbody approximation, normalized per curve</p>
+                  <div id="temperature-spectrum-legend" class="temperature-spectrum-legend" hidden></div>
+                  <div id="temperature-spectrum"></div>
+                </section>
+                <dl class="planet-facts-grid temperature-facts">
+                  <div class="planet-fact-tile"><span id="temperature-color-star" class="planet-fact-icon" aria-hidden="true"></span><dt class="sr-only">Perceived color</dt><dd><strong id="temperature-appearance" class="planet-fact-value"></strong><small id="temperature-appearance-note" class="planet-fact-note"></small></dd></div>
+                  <div class="planet-fact-tile"><span id="temperature-ratio-icon" class="planet-fact-icon" aria-hidden="true"></span><dt class="sr-only">Kelvin comparison</dt><dd><strong id="temperature-solar-ratio" class="planet-fact-value"></strong></dd></div>
+                </dl>
+                <details class="mass-method"><summary>About temperature &amp; the spectrum</summary>
+                  <p>Effective temperature describes the temperature of a blackbody emitting the same total power per unit surface area as the object. It is not the core temperature. Catalog values may be measured, estimated or model-derived; missing individual temperatures are not inferred.</p>
+                  <p>The curves use Planck’s law for emission per unit wavelength, each scaled to its own peak of 1 to compare spectral shape rather than brightness. The dashed curve represents the origin when it has a known individual temperature and differs from the selected object; otherwise it represents the Sun, when distinct. Wien’s law gives λ<sub>peak</sub> = 2,897,772 nm K / T. This is a continuum estimate, not an observed spectrum; absorption lines, atmospheres, dust and companion light are omitted. The wavelength axis is logarithmic. A peak in visible light does not mean the star looks that single color: its appearance combines many wavelengths.</p>
+                  <p>The temperature bar is logarithmic, with approximate M–O temperature guides for main-sequence stars. O stars extend beyond 30,000 K. Giants, white dwarfs and brown dwarfs have different spectral calibrations. Out-of-range temperatures are marked at the nearest endpoint with an arrow. Marker colors follow the scene setting; the perceived-color glow uses the app’s approximate real colors, brightened for visibility. The Sun’s nominal effective temperature is 5,772 K.</p>
+                  <p>Temperature ratios use kelvin: 2× means twice the absolute temperature.</p>
+                  <a href="https://asd.gsfc.nasa.gov/archive/mwmw/mmw_bbody.html" target="_blank" rel="noreferrer">NASA: radiation laws ↗</a> · <a href="https://arxiv.org/abs/1510.07674" target="_blank" rel="noreferrer">IAU: nominal solar constants ↗</a>
+                </details>
+              </div>
+            </section>
+            <section id="luminosity-card" class="dock-card object-type-card luminosity-card" aria-labelledby="luminosity-heading" data-scene-obstacle hidden>
+              <div class="panel-heading">
+                <h2 id="luminosity-heading">Bolometric luminosity</h2>
+                <button id="luminosity-lock" class="panel-lock" type="button" aria-label="Keep Bolometric luminosity open" aria-pressed="false"><span id="luminosity-lock-icon"></span></button>
+                <button id="luminosity-close" class="panel-lock" type="button" aria-label="Close bolometric luminosity card"><span id="luminosity-close-icon"></span></button>
+              </div>
+              <div class="mass-body luminosity-body card-scroll-content">
+                <div class="luminosity-equation" role="group" aria-label="Surface area relative to the Sun times radiated power per square meter relative to the Sun equals bolometric luminosity in solar units">
+                  <div class="luminosity-factor"><strong id="luminosity-area"></strong><span>Sun’s surface area</span></div>
+                  <span class="luminosity-equation-symbol" aria-hidden="true">×</span>
+                  <div class="luminosity-factor"><strong id="luminosity-surface-flux"></strong><span>Sun’s power per m²</span></div>
+                  <span class="luminosity-equation-symbol" aria-hidden="true">=</span>
+                  <strong id="luminosity-calculated-solar"><span id="luminosity-calculated-value"></span><span id="luminosity-calculated-unit" class="luminosity-result-unit"> L☉</span></strong>
+                </div>
+                <p id="luminosity-calculation-note" class="mass-note" hidden></p>
+                <section class="mass-section" aria-labelledby="luminosity-flux-heading">
+                  <h3 id="luminosity-flux-heading" class="card-subgroup-heading">Earth at the same flux</h3>
+                  <div id="luminosity-flux-origin" class="mass-metric luminosity-flux-row">
+                    <div class="mass-metric-copy luminosity-flux-copy"><canvas id="luminosity-flux-origin-star" width="32" height="32" aria-hidden="true"></canvas><div><h4 id="luminosity-flux-origin-name" class="mass-metric-heading"></h4><small class="mass-benchmark">Origin</small></div></div>
+                    <div class="mass-metric-ratio"><div><strong id="luminosity-flux-origin-distance"></strong> <span id="luminosity-flux-origin-orbit" class="luminosity-orbit-comparison" hidden></span></div><small id="luminosity-flux-origin-value"></small></div>
+                    <div id="luminosity-flux-origin-bar" class="mass-ratio-bar luminosity-distance-bar" role="img"><div class="mass-ratio-track"><span class="mass-ratio-fill"></span><span class="mass-typical-limit luminosity-distance-low"></span><span class="mass-typical-limit luminosity-distance-high"></span><span class="mass-ratio-marker"></span></div></div>
+                  </div>
+                  <div id="luminosity-flux-selected" class="mass-metric luminosity-flux-row">
+                    <div class="mass-metric-copy luminosity-flux-copy"><canvas id="luminosity-flux-selected-star" width="32" height="32" aria-hidden="true"></canvas><h4 id="luminosity-flux-selected-name" class="mass-metric-heading"></h4></div>
+                    <div class="mass-metric-ratio"><div><strong id="luminosity-flux-selected-distance"></strong> <span id="luminosity-flux-selected-orbit" class="luminosity-orbit-comparison" hidden></span></div></div>
+                    <div id="luminosity-flux-selected-bar" class="mass-ratio-bar luminosity-distance-bar" role="img"><div class="mass-ratio-track"><span class="mass-ratio-fill"></span><span class="mass-typical-limit luminosity-distance-low"></span><span class="mass-typical-limit luminosity-distance-high"></span><span class="mass-ratio-marker"></span></div></div>
+                  </div>
+                  <div id="luminosity-flux-sun" class="mass-metric luminosity-flux-row">
+                    <div class="mass-metric-copy luminosity-flux-copy"><canvas id="luminosity-flux-sun-star" width="32" height="32" aria-hidden="true"></canvas><h4 id="luminosity-flux-sun-name" class="mass-metric-heading"></h4></div>
+                    <div class="mass-metric-ratio"><div><strong id="luminosity-flux-sun-distance"></strong> <span id="luminosity-flux-sun-orbit" class="luminosity-orbit-comparison" hidden></span></div></div>
+                    <div id="luminosity-flux-sun-bar" class="mass-ratio-bar luminosity-distance-bar" role="img"><div class="mass-ratio-track"><span class="mass-ratio-fill"></span><span class="mass-typical-limit luminosity-distance-low"></span><span class="mass-typical-limit luminosity-distance-high"></span><span class="mass-ratio-marker"></span></div></div>
+                  </div>
+                  <div id="luminosity-distance-axis" class="mass-ratio-labels luminosity-distance-axis" aria-hidden="true"><span>0 AU</span><span id="luminosity-distance-axis-high"></span></div>
+                  <p id="luminosity-flux-note" class="mass-note" hidden></p>
+                </section>
+                <section class="mass-section" aria-labelledby="luminosity-scales-heading">
+                  <h3 id="luminosity-scales-heading" class="card-subgroup-heading">Luminosity scales</h3>
+                  <div class="mass-metric radius-metric">
+                    <h4 class="mass-metric-heading">Very dim → very bright</h4>
+                    <div class="mass-metric-ratio"><strong id="luminosity-scale-value"></strong></div>
+                    <div id="luminosity-scale" class="mass-ratio-bar radius-ratio-bar luminosity-scale" role="img"><div class="mass-ratio-track"><span class="mass-ratio-sun"></span><span class="mass-ratio-marker"></span></div><div class="mass-ratio-labels" aria-hidden="true"><span id="luminosity-scale-low"></span><span>Sun · 1 L☉</span><span id="luminosity-scale-high"></span></div></div>
+                  </div>
+                  <div class="mass-metric radius-metric">
+                    <h4 id="luminosity-class-heading" class="mass-metric-heading">Spectral class</h4>
+                    <div id="luminosity-class-bar" class="mass-ratio-bar radius-ratio-bar luminosity-class-bar" role="img"><div class="mass-ratio-track"><span class="luminosity-class-range"></span><span class="mass-typical-limit mass-typical-low"></span><span class="mass-typical-limit mass-typical-high"></span><span class="mass-ratio-sun luminosity-class-median"></span><span class="mass-ratio-marker"></span></div><div class="mass-ratio-labels" aria-hidden="true"><span id="luminosity-class-low"></span><span id="luminosity-class-median-value"></span><span id="luminosity-class-high"></span></div></div>
+                    <small id="luminosity-class-context" class="mass-benchmark luminosity-class-context"></small>
+                  </div>
+                </section>
+                <details class="mass-method"><summary>Calculations &amp; sources</summary>
+                  <p>Surface area × power per m² = 4πR² × σT<sub>eff</sub>⁴. Both factors are shown relative to the Sun: solar surface area = 4πR☉² and solar power per m² = L☉/(4πR☉²). Their product gives luminosity in L☉. T is the catalog effective temperature. This is a spherical photosphere calculation; the spectrum need not be an exact blackbody. Radius, temperature and luminosity can come from different measured or model-derived sources and need not agree exactly. The catalog luminosity is retained for both comparisons and scales; missing radius or temperature is not inferred.</p>
+                  <p>Incident flux F = L/(4πd²). To match the origin’s flux at 1 AU, d = √(L/L<sub>origin</sub>) AU. Distances share a linear scale from the star’s center. Flux is measured above an atmosphere on a surface facing the star, not averaged over Earth. Equal bolometric flux does not imply the same spectrum, climate or habitability. These comparisons omit extinction, variability and companion illumination; distances inside a known photosphere are unavailable. Orbit comparisons use the closest Solar System planet’s semi-major axis, Mercury through Neptune, only within 20%; these are orbital sizes, not current planet positions.</p>
+                  <p>Both luminosity scales are logarithmic. The broad scale spans 10⁻⁶–10⁶ L☉ and expands for outliers; these endpoints are display limits. Marker color follows the app’s stellar color setting, not luminosity.</p>
+                  <p id="luminosity-class-method"></p><a id="luminosity-class-source" target="_blank" rel="noreferrer" hidden></a>
+                  <p>1 L☉ = 3.828 × 10²⁶ W; R☉ = 695,700 km; 1 AU = 149,597,870,700 m; σ = 5.670374419 × 10⁻⁸ W m⁻² K⁻⁴. The nominal solar luminosity gives approximately 1,361 W/m² at 1 AU. Displayed values use three significant digits.</p>
+                  <a href="https://arxiv.org/abs/1510.07674" target="_blank" rel="noreferrer">IAU nominal solar constants ↗</a> · <a href="https://lhea.gsfc.nasa.gov/archive/mwmw/mmw_bbody.html" target="_blank" rel="noreferrer">NASA: radiation laws ↗</a> · <a href="https://ssd.jpl.nasa.gov/planets/approx_pos.html" target="_blank" rel="noreferrer">JPL: planetary orbits ↗</a>
+                </details>
+              </div>
+            </section>
+            <section id="magnitude-card" class="dock-card object-type-card magnitude-card" aria-labelledby="magnitude-heading" data-scene-obstacle hidden>
+              <div class="panel-heading magnitude-heading"><h2 id="magnitude-heading">Magnitude</h2><button id="magnitude-lock" class="panel-lock" type="button" aria-label="Keep Magnitude open" aria-pressed="false"><span id="magnitude-lock-icon"></span></button><button id="magnitude-close" class="panel-lock" type="button" aria-label="Close magnitude card"><span id="magnitude-close-icon"></span></button></div>
+              <div class="card-scroll-content mass-body magnitude-body">
+                <section class="magnitude-section" aria-labelledby="magnitude-absolute-heading">
+                  <div class="magnitude-value-heading">
+                    <span id="magnitude-absolute-icon" class="magnitude-heading-icon" aria-hidden="true"></span>
+                    <div class="magnitude-heading-copy"><h3 id="magnitude-absolute-heading" class="mass-metric-heading">Absolute magnitude <small>(V)</small></h3><p class="mass-benchmark">Intrinsic brightness at a distance of 10 pc (32.6 ly).</p></div>
+                    <strong id="magnitude-absolute-value"></strong>
+                  </div>
+                  <p id="magnitude-visible-comparison" class="magnitude-visible-comparison" hidden><strong id="magnitude-visible-ratio"></strong><span id="magnitude-visible-reference"></span></p>
+                  <div id="magnitude-absolute-scale" class="mass-ratio-bar magnitude-scale" role="img"><div class="mass-ratio-labels magnitude-axis" aria-hidden="true"><span id="magnitude-absolute-faint"></span><span id="magnitude-absolute-bright"></span></div><div class="magnitude-plot"></div></div>
+                  <p id="magnitude-absolute-note" class="mass-benchmark" hidden></p>
+                </section>
+                <section class="magnitude-section" aria-labelledby="magnitude-apparent-heading">
+                  <div class="magnitude-value-heading">
+                    <span id="magnitude-apparent-icon" class="magnitude-heading-icon" aria-hidden="true"></span>
+                    <div class="magnitude-heading-copy"><h3 id="magnitude-apparent-heading" class="mass-metric-heading">Apparent magnitude <small>(V)</small></h3><p class="mass-benchmark">How bright it looks from Earth.</p></div>
+                    <strong id="magnitude-apparent-value"></strong>
+                  </div>
+                  <div id="magnitude-apparent-scale" class="mass-ratio-bar magnitude-scale" role="img"><div class="mass-ratio-labels magnitude-axis" aria-hidden="true"><span id="magnitude-apparent-faint"></span><span id="magnitude-apparent-bright"></span></div><div class="magnitude-plot"></div></div>
+                  <div id="magnitude-visibility-controls" class="magnitude-visibility-controls" role="group" aria-label="Visibility guide"></div>
+                  <p id="magnitude-apparent-note" class="mass-benchmark" hidden></p>
+                </section>
+                <details class="mass-method"><summary>About the scales &amp; sources</summary>
+                  <p>Lower magnitudes mean brighter light. A difference of 5 magnitudes means 100 times the visible brightness. The equal-distance visible brightness ratio is 10<sup>0.4(M<sub>Sun</sub> − M<sub>selected</sub>)</sup>, using the adopted absolute V magnitudes. V measures visible light in the Johnson V band, rather than total bolometric luminosity.</p>
+                  <p>Each bar uses equal steps in magnitude, with fainter objects on the left and brighter ones on the right. The apparent bar focuses on nighttime objects, normally +16 to −6, and expands for outliers or the selected visibility guide. The Sun is omitted from that bar.</p>
+                  <p>Absolute magnitude compares stars at the same distance. Apparent values remain Earth-view catalog snapshots when the origin changes; they do not predict current variable-star brightness. Missing individual measurements are left unavailable. Unresolved system photometry is not plotted as an individual component.</p>
+                  <p>Venus is shown near its brightest (−4.9); Sirius at −1.46. The icon buttons select approximate stellar visibility limits: naked eye +6, typical 40–50 mm binoculars +10, a 100–150 mm amateur telescope +13, or a large professional observatory near +27 with long-exposure imaging. These are representative guides, not universal averages. Each band fades over the two magnitudes approaching its limit; actual detection depends on sky brightness, equipment, exposure, eyesight and an object's extent. Observatory imaging is a camera detection limit, rather than an eyepiece view. Marker colors follow the app's stellar color setting.</p>
+                  <a href="https://promenade.imcce.fr/en/pages1/101.html" target="_blank" rel="noreferrer">IMCCE: magnitude scales ↗</a> · <a href="https://nssdc.gsfc.nasa.gov/planetary/factsheet/sunfact.html" target="_blank" rel="noreferrer">NASA: Sun ↗</a> · <a href="https://www.jpl.nasa.gov/videos/whats-up-for-december-2013/" target="_blank" rel="noreferrer">NASA/JPL: Venus ↗</a> · <a href="https://www.eso.org/~hboffin/Teaching/CMD_notebook.pdf" target="_blank" rel="noreferrer">ESO: Sirius ↗</a>
+                  <br /><a href="https://www.celestron.com/blogs/knowledgebase/what-is-stellar-magnitude-how-can-understanding-magnitude-help-me-as-an-amateur-astronomer" target="_blank" rel="noreferrer">Celestron: visual instrument limits ↗</a> · <a href="https://www.eso.org/sci/libraries/historicaldocuments/VLT_White_Book/VLT_Whitebook.pdf" target="_blank" rel="noreferrer">ESO: FORS imaging limits ↗</a>
+                </details>
+              </div>
+            </section>
             <section id="spectral-card" class="dock-card object-type-card spectral-card" aria-labelledby="spectral-heading" data-scene-obstacle hidden>
               <div class="panel-heading spectral-heading">
                 <h2 id="spectral-heading">Spectral type</h2>
@@ -239,6 +412,7 @@
                   <button id="spectral-hr" class="object-section-button distance-reference-button" type="button" aria-pressed="true" aria-controls="spectral-hr-content">H-R</button>
                   <button id="spectral-mk" class="object-section-button distance-reference-button" type="button" aria-pressed="false" aria-controls="spectral-mk-content">M-K</button>
                 </div>
+                <button id="spectral-lock" class="panel-lock" type="button" aria-label="Keep Spectral type open" aria-pressed="false"><span id="spectral-lock-icon"></span></button>
                 <button id="spectral-close" class="panel-lock" type="button" aria-label="Close spectral type card"><span id="spectral-close-icon"></span></button>
               </div>
               <div class="spectral-body card-scroll-content">
@@ -303,6 +477,7 @@
             <section id="radius-card" class="dock-card object-type-card radius-card" aria-labelledby="radius-heading" data-scene-obstacle hidden>
               <div class="panel-heading">
                 <h2 id="radius-heading">Radius</h2>
+                <button id="radius-lock" class="panel-lock" type="button" aria-label="Keep Radius open" aria-pressed="false"><span id="radius-lock-icon"></span></button>
                 <button id="radius-close" class="panel-lock" type="button" aria-label="Close radius card"><span id="radius-close-icon"></span></button>
               </div>
               <div class="radius-body card-scroll-content">
@@ -367,6 +542,7 @@
                   <button id="planet-moons-toggle" class="panel-lock planet-section-button" type="button" aria-label="Moons" title="Moons" aria-controls="planet-moons" aria-expanded="false" disabled hidden><span id="planet-moons-icon"></span></button>
                 </div>
                 <button id="planet-lock" class="panel-lock" type="button" aria-label="Keep planet card open" aria-pressed="false"><span id="planet-lock-icon"></span></button>
+                <button id="planet-close" class="panel-lock" type="button" aria-label="Close planet card"><span id="planet-close-icon"></span></button>
               </div>
               <div class="card-scroll-content planet-card-body">
                 <div id="planet-specs">
@@ -375,10 +551,11 @@
                       <canvas id="planet-globe" role="img" tabindex="0" aria-label="Planet globe. Drag or use arrow keys to rotate."></canvas>
                     </div>
                     <div class="planet-physical-header">
-                      <h3 id="planet-physical-heading" class="card-subgroup-heading">Physical characteristics</h3>
+                      <h3 id="planet-physical-heading" class="card-subgroup-heading">Key facts</h3>
                       <button id="planet-add-earth" class="panel-lock planet-earth-button" type="button" aria-label="Add Earth" title="Add Earth for size comparison" aria-pressed="false" aria-controls="planet-globe">
                         <span class="planet-earth-symbol" aria-hidden="true"><span id="planet-earth-icon"></span><span id="planet-earth-plus-icon" class="planet-earth-mark"></span><span id="planet-earth-minus-icon" class="planet-earth-mark"></span></span>
                       </button>
+                      <button id="planet-stats-toggle" class="panel-lock planet-stats-button" type="button" aria-label="Show more stats" title="Show more stats (page 2 of 2)" aria-pressed="false" aria-controls="planet-physical-specs"><span id="planet-stats-icon"></span></button>
                     </div>
                   </div>
                   <section aria-labelledby="planet-physical-heading">
@@ -388,10 +565,10 @@
                     <h3 id="planet-orbit-heading" class="card-subgroup-heading">Orbit and discovery</h3>
                     <dl id="planet-orbit-specs" class="properties planet-properties"></dl>
                   </section>
-                  <section id="planet-atmosphere-section" aria-labelledby="planet-atmosphere-heading">
-                    <h3 id="planet-atmosphere-heading" class="card-subgroup-heading">Atmosphere</h3>
-                    <dl id="planet-atmosphere-specs" class="properties planet-properties"></dl>
-                  </section>
+                  <details id="planet-atmosphere-section" class="planet-atmosphere" aria-labelledby="planet-atmosphere-heading" open>
+                    <summary class="card-subgroup-heading"><span id="planet-atmosphere-icon" aria-hidden="true"></span><span id="planet-atmosphere-heading">Atmosphere</span><span id="planet-atmosphere-chevron" aria-hidden="true"></span></summary>
+                    <dl id="planet-atmosphere-specs" class="properties planet-properties planet-atmosphere-grid"></dl>
+                  </details>
                 </div>
                 <section id="planet-info" aria-label="Planet information" hidden></section>
                 <section id="planet-moons" hidden></section>
@@ -485,7 +662,11 @@
                 </div>
               </section>
               <section id="filter-panel" class="dock-card filter-section" aria-labelledby="filter-heading" hidden>
-                <div class="panel-heading"><h2 id="filter-heading">Filter</h2><button id="filter-lock" class="panel-lock" type="button" aria-label="Keep Filter open" aria-pressed="false"><span id="filter-lock-icon"></span></button></div>
+                <div class="panel-heading filter-heading">
+                  <h2 id="filter-heading">Filter</h2>
+                  <button id="filter-reset" class="panel-lock" type="button" aria-label="Reset all filters" title="Reset all"><span id="filter-reset-icon"></span></button>
+                  <button id="filter-lock" class="panel-lock" type="button" aria-label="Keep Filter open" aria-pressed="false"><span id="filter-lock-icon"></span></button>
+                </div>
                 <div class="filter-controls card-scroll-content">
                   <div class="range-filter">
                     <div class="range-heading"><label for="catalog-range">Catalog</label><output id="catalog-range-value" for="catalog-range"></output></div>
@@ -517,23 +698,6 @@
                     <input id="magnitude-limit" type="range" min="0" max="25" step="0.5" value="7">
                     <div class="range-bounds" aria-hidden="true"><span>0</span><span>25</span></div>
                   </div>
-                  <div class="range-filter">
-                    <div class="range-heading"><label for="earth-orbit-mode">Earth’s orbit</label><output id="earth-orbit-mode-value" for="earth-orbit-mode">Now</output></div>
-                    <input id="earth-orbit-mode" type="range" min="0" max="13" step="1" value="1" list="earth-orbit-mode-stops" aria-valuetext="Now" aria-describedby="earth-orbit-mode-description">
-                    <datalist id="earth-orbit-mode-stops"><option value="0" label="Off"></option><option value="1" label="Now"></option><option value="2" label="Jan"></option><option value="3" label="Feb"></option><option value="4" label="Mar"></option><option value="5" label="Apr"></option><option value="6" label="May"></option><option value="7" label="Jun"></option><option value="8" label="Jul"></option><option value="9" label="Aug"></option><option value="10" label="Sep"></option><option value="11" label="Oct"></option><option value="12" label="Nov"></option><option value="13" label="Dec"></option></datalist>
-                    <div class="range-bounds" aria-hidden="true"><span>Off</span><span>Dec</span></div>
-                    <span id="earth-orbit-mode-description" class="sr-only">Stops are Off, Now, January, February, March, April, May, June, July, August, September, October, November, and December.</span>
-                  </div>
-                  <label class="filter-toggle" for="milky-way-visible">
-                    <span>Show Milky Way</span>
-                    <span class="switch-control"><input id="milky-way-visible" type="checkbox" role="switch" checked><span class="switch-track" aria-hidden="true"></span></span>
-                  </label>
-                  <label class="filter-toggle" for="motion-arrows-visible">
-                    <span>Motion arrows</span>
-                    <span class="switch-control"><input id="motion-arrows-visible" type="checkbox" role="switch" checked><span class="switch-track" aria-hidden="true"></span></span>
-                  </label>
-                  <div class="catalog-choice"><label for="motion-years">Arrow length</label><select id="motion-years"><option value="1000" selected>1k years</option><option value="5000">5k years</option><option value="10000">10k years</option><option value="25000">25k years</option><option value="50000">50k years</option></select></div>
-                  <div id="motion-frame" class="segmented-choice" role="group" aria-labelledby="motion-frame-label"><span id="motion-frame-label">Motion frame</span><div class="unit-options"><label><input id="motion-frame-galactic" type="radio" name="motion-frame" value="galactic" checked><span>Galactic</span></label><label><input id="motion-frame-solar" type="radio" name="motion-frame" value="solar"><span>Solar</span></label></div></div>
                   <details class="filter-dropdown">
                     <summary><span>Object type</span><span id="object-type-filter-summary">All</span></summary>
                     <fieldset id="object-type-filter" class="type-filter">
@@ -548,6 +712,7 @@
                   <h2 id="catalog-heading">Objects <span id="catalog-count"></span></h2>
                   <button id="objects-expand" class="panel-lock objects-expand" type="button" aria-label="Expand objects list" aria-expanded="false" aria-controls="object-database" title="Expand objects list"><span id="objects-expand-icon"></span></button>
                   <button id="objects-lock" class="panel-lock" type="button" aria-label="Keep Objects open" aria-pressed="false"><span id="objects-lock-icon"></span></button>
+                  <button id="objects-close" class="panel-lock" type="button" aria-label="Close objects card"><span id="objects-close-icon"></span></button>
                 </div>
                 <div class="object-search">
                   <label class="sr-only" for="object-search">Search objects</label>
@@ -565,6 +730,7 @@
                     <input id="glossary-search" type="search" placeholder="Search terms" autocomplete="off" spellcheck="false" />
                   </div>
                   <button id="glossary-lock" class="panel-lock" type="button" aria-label="Keep Glossary open" aria-pressed="false"><span id="glossary-lock-icon"></span></button>
+                  <button id="glossary-close" class="panel-lock" type="button" aria-label="Close glossary card"><span id="glossary-close-icon"></span></button>
                 </div>
                 <div class="glossary-body">
                   <nav id="glossary-terms" class="glossary-terms" aria-label="Glossary terms"></nav>
@@ -576,7 +742,7 @@
                     </figure>
                     <p id="glossary-description" class="glossary-description"></p>
                     <a id="glossary-source" class="glossary-source" target="_blank" rel="noreferrer">Read more on Wikipedia <span aria-hidden="true">↗</span></a>
-                    <p class="glossary-attribution">Summarized from Wikipedia · <a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noreferrer">CC BY-SA 4.0</a></p>
+                    <p id="glossary-attribution" class="glossary-attribution">Summarized from Wikipedia · <a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noreferrer">CC BY-SA 4.0</a></p>
                     <p id="glossary-image-credit" class="glossary-image-credit" hidden></p>
                   </article>
                   <p id="glossary-empty" class="glossary-empty" role="status" hidden>No matching terms. Try another search.</p>
@@ -588,7 +754,7 @@
                   <div id="distance-units" class="segmented-choice" role="group" aria-labelledby="distance-units-label"><span id="distance-units-label">Distances</span><div class="unit-options"><label><input id="unit-pc" type="radio" name="distance-unit" value="pc"><span>pc</span></label><label><input id="unit-ly" type="radio" name="distance-unit" value="ly" checked><span>ly</span></label></div></div>
                   <div id="star-colors" class="segmented-choice" role="group" aria-labelledby="star-colors-label"><span id="star-colors-label">Colors</span><div class="unit-options"><label><input id="star-colors-real" type="radio" name="star-color-mode" value="real"><span>Real</span></label><label><input id="star-colors-exaggerated" type="radio" name="star-color-mode" value="exaggerated" checked><span>Exaggerated</span></label></div></div>
                   <div class="range-filter">
-                    <div class="range-heading"><label for="label-limit">Star labels</label><output id="label-limit-value" for="label-limit">40</output></div>
+                    <div class="range-heading"><label for="label-limit">Labels</label><output id="label-limit-value" for="label-limit">40</output></div>
                     <input id="label-limit" type="range" min="0" max="140" step="20" value="40" aria-valuetext="40 labels">
                     <div class="range-bounds" aria-hidden="true"><span>Off</span><span>140</span></div>
                   </div>
@@ -596,6 +762,29 @@
                     <span>Power saving mode</span>
                     <span class="switch-control"><input id="power-saving-mode" type="checkbox" role="switch"><span class="switch-track" aria-hidden="true"></span></span>
                   </label>
+                  <section class="preferences-group" aria-labelledby="scene-preferences-heading">
+                    <h3 id="scene-preferences-heading" class="card-subgroup-heading">Scene</h3>
+                    <div class="range-filter">
+                      <div class="range-heading"><label for="earth-orbit-mode">Earth’s orbit</label><output id="earth-orbit-mode-value" for="earth-orbit-mode">Now</output></div>
+                      <input id="earth-orbit-mode" type="range" min="0" max="13" step="1" value="1" list="earth-orbit-mode-stops" aria-valuetext="Now" aria-describedby="earth-orbit-mode-description">
+                      <datalist id="earth-orbit-mode-stops"><option value="0" label="Off"></option><option value="1" label="Now"></option><option value="2" label="Jan"></option><option value="3" label="Feb"></option><option value="4" label="Mar"></option><option value="5" label="Apr"></option><option value="6" label="May"></option><option value="7" label="Jun"></option><option value="8" label="Jul"></option><option value="9" label="Aug"></option><option value="10" label="Sep"></option><option value="11" label="Oct"></option><option value="12" label="Nov"></option><option value="13" label="Dec"></option></datalist>
+                      <div class="range-bounds" aria-hidden="true"><span>Off</span><span>Dec</span></div>
+                      <span id="earth-orbit-mode-description" class="sr-only">Stops are Off, Now, January, February, March, April, May, June, July, August, September, October, November, and December.</span>
+                    </div>
+                    <label class="filter-toggle" for="milky-way-visible">
+                      <span>Show Milky Way</span>
+                      <span class="switch-control"><input id="milky-way-visible" type="checkbox" role="switch" checked><span class="switch-track" aria-hidden="true"></span></span>
+                    </label>
+                  </section>
+                  <section class="preferences-group" aria-labelledby="motion-preferences-heading">
+                    <h3 id="motion-preferences-heading" class="card-subgroup-heading">Motion arrows</h3>
+                    <label class="filter-toggle" for="motion-arrows-visible">
+                      <span>Motion arrows</span>
+                      <span class="switch-control"><input id="motion-arrows-visible" type="checkbox" role="switch" checked><span class="switch-track" aria-hidden="true"></span></span>
+                    </label>
+                    <div class="catalog-choice"><label for="motion-years">Arrow length</label><select id="motion-years"><option value="1000" selected>1k years</option><option value="5000">5k years</option><option value="10000">10k years</option><option value="25000">25k years</option><option value="50000">50k years</option></select></div>
+                    <div id="motion-frame" class="segmented-choice" role="group" aria-labelledby="motion-frame-label"><span id="motion-frame-label">Motion frame</span><div class="unit-options"><label><input id="motion-frame-galactic" type="radio" name="motion-frame" value="galactic" checked><span>Galactic</span></label><label><input id="motion-frame-solar" type="radio" name="motion-frame" value="solar"><span>Solar</span></label></div></div>
+                  </section>
                 </div>
               </section>
               <section id="info-panel" class="dock-card info-card" aria-labelledby="info-heading" hidden>
@@ -607,7 +796,7 @@
                   <div><dt>Repository</dt><dd><a href="https://github.com/reery/Star-View" target="_blank" rel="noreferrer">GitHub</a></dd></div>
                   <div><dt>License</dt><dd>MIT</dd></div>
                   <div><dt>Sky image</dt><dd><a href="https://www.eso.org/public/images/eso0932a/" target="_blank" rel="noreferrer">ESO/S. Brunier</a><br><span class="attribution-note">resized and dimmed · <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noreferrer">CC BY 4.0</a></span></dd></div>
-                  <div><dt>Version</dt><dd>v0.4</dd></div>
+                  <div><dt>Version</dt><dd>v0.5</dd></div>
                 </dl>
               </section>
             </div>

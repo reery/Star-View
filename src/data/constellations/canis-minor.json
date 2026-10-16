@@ -1,0 +1,563 @@
+{
+  "schemaVersion": 1,
+  "abbreviation": "CMi",
+  "name": "Canis Minor",
+  "center": {
+    "ra_deg": 113.3114007440491,
+    "dec_deg": 6.7595047571910545
+  },
+  "stars": [
+    {
+      "hip": 36188,
+      "name": "Gomeisa",
+      "ra_deg": 111.78767390541668,
+      "dec_deg": 8.2893157625,
+      "magnitude_v": 2.89,
+      "bayer": "β",
+      "object": {
+        "x_pc": -42.249406896,
+        "y_pc": -23.922964378,
+        "z_pc": 10.035695821,
+        "vx_kms": -20.028627,
+        "vy_kms": -14.468471,
+        "vz_kms": -10.123614,
+        "temperature_k": 11220.0,
+        "mass_solar": 3.39,
+        "luminosity_solar": 165.35054181375813,
+        "radius_solar": 4.168693834703354,
+        "metallicity_dex": null,
+        "age_gyr": null,
+        "absolute_mag": -0.586471,
+        "epoch": 2000.0,
+        "type": "star",
+        "id": "hip-36188",
+        "name": "Gomeisa",
+        "constellation": "Canis Minor",
+        "spectral_type": "B8Ve",
+        "metallicity_kind": null,
+        "notes": "Western constellation line-figure star (HIP 36188; Stellarium CMi). SIMBAD identity * bet CMi; SIMBAD compiled Johnson V=2.89; inverse SIMBAD compiled parallax distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, mass_solar, radius_solar, luminosity_solar.",
+        "designations": [
+          "HIP 36188"
+        ],
+        "raw_astrometry": {
+          "ra_deg": 111.78767390541668,
+          "dec_deg": 8.2893157625,
+          "parallax_mas": 20.17,
+          "parallax_error_mas": 0.2,
+          "pm_ra_cosdec_masyr": -51.76,
+          "pm_ra_error_masyr": null,
+          "pm_dec_masyr": -38.29,
+          "pm_dec_error_masyr": null,
+          "radial_velocity_kms": 22.0,
+          "radial_velocity_error_kms": null,
+          "epoch": 2000.0,
+          "astrometry_ref": "SIMBAD TAP snapshot 2026-10-01",
+          "radial_velocity_ref": "SIMBAD TAP snapshot 2026-10-01"
+        }
+      }
+    },
+    {
+      "hip": 37279,
+      "name": "Procyon",
+      "ra_deg": 114.825497908,
+      "dec_deg": 5.224987557,
+      "magnitude_v": 0.4,
+      "bayer": "α",
+      "object": {
+        "x_pc": -2.848420862,
+        "y_pc": -1.899821564,
+        "z_pc": 0.791681555,
+        "vx_kms": 4.746767,
+        "vy_kms": -8.964451,
+        "vz_kms": -18.638174,
+        "temperature_k": 6591.0,
+        "mass_solar": 1.478,
+        "luminosity_solar": 6.930628095,
+        "radius_solar": 2.019,
+        "metallicity_dex": -0.05,
+        "age_gyr": 2.7,
+        "absolute_mag": 2.610869,
+        "epoch": 2000.0,
+        "type": "star",
+        "id": "hip-37279",
+        "name": "Procyon",
+        "constellation": "Canis Minor",
+        "spectral_type": "F5IV-V",
+        "metallicity_kind": "[Fe/H]",
+        "notes": "10pc census (2023-08-25), object 31, system 16; alf CMi A. J2000 Sun-relative Galactic position via Astropy; full-space-motion.   No orbital model. Procyon A component parameters: dynamical mass and preferred 2.70 Gyr high-core-overshoot age from Bond et al. (2015); age is model-dependent (alternative tracks 1.673 and 1.817 Gyr). Chiavassa et al. (2012) provide 6591 +/- 43 K and the 2.019 solar interferometric radius; the alternative bolometric flux gives 6556 +/- 84 K. Photospheric [Fe/H] is the differential 3D LTE result of Allende Prieto et al. (2002). Component-resolved Johnson V=0.34 from 1953ApJ...117..313J; 2015ApJ...813..106B; absolute V uses the adopted distance. luminosity_solar derived by Stefan-Boltzmann scaling from adopted inputs (solar Teff=5772 K); inherits their measurement/model/estimate assumptions. Preserve the existing reviewed component-scoped physical parameters and their published/derived provenance. Primary-only Procyon A classification; the composite F5IV-V+DQZ spectrum is not appropriate for a component A row.",
+        "designations": [
+          "HIP 37279"
+        ],
+        "raw_astrometry": {
+          "ra_deg": 114.825497908,
+          "dec_deg": 5.224987557,
+          "parallax_mas": 284.56,
+          "parallax_error_mas": 1.26,
+          "pm_ra_cosdec_masyr": -714.59,
+          "pm_ra_error_masyr": 2.6,
+          "pm_dec_masyr": -1036.8,
+          "pm_dec_error_masyr": 1.15,
+          "radial_velocity_kms": -3.2,
+          "radial_velocity_error_kms": 0.9,
+          "epoch": 2000.0,
+          "astrometry_ref": "2007A&A...474..653V",
+          "radial_velocity_ref": "1953GCRV..C......0W"
+        }
+      }
+    }
+  ],
+  "lines": [
+    [
+      37279,
+      36188
+    ]
+  ],
+  "boundaries": [
+    {
+      "neighbor": "Monoceros",
+      "neighbor_abbreviation": "MON",
+      "points": [
+        {
+          "ra_deg": 106.664322,
+          "dec_deg": 5.3100886
+        },
+        {
+          "ra_deg": 106.914274,
+          "dec_deg": 5.307168
+        }
+      ]
+    },
+    {
+      "neighbor": "Monoceros",
+      "neighbor_abbreviation": "MON",
+      "points": [
+        {
+          "ra_deg": 106.914274,
+          "dec_deg": 5.307168
+        },
+        {
+          "ra_deg": 106.902516,
+          "dec_deg": 4.3072371
+        },
+        {
+          "ra_deg": 106.890794,
+          "dec_deg": 3.3073053
+        },
+        {
+          "ra_deg": 106.879084,
+          "dec_deg": 2.3073735
+        },
+        {
+          "ra_deg": 106.867396,
+          "dec_deg": 1.3074419
+        }
+      ]
+    },
+    {
+      "neighbor": "Monoceros",
+      "neighbor_abbreviation": "MON",
+      "points": [
+        {
+          "ra_deg": 106.867396,
+          "dec_deg": 1.3074419
+        },
+        {
+          "ra_deg": 107.617278,
+          "dec_deg": 1.2987028
+        },
+        {
+          "ra_deg": 108.617026,
+          "dec_deg": 1.2871058
+        },
+        {
+          "ra_deg": 109.616919,
+          "dec_deg": 1.2755718
+        }
+      ]
+    },
+    {
+      "neighbor": "Monoceros",
+      "neighbor_abbreviation": "MON",
+      "points": [
+        {
+          "ra_deg": 109.616919,
+          "dec_deg": 1.2755718
+        },
+        {
+          "ra_deg": 109.611168,
+          "dec_deg": 0.7756049
+        },
+        {
+          "ra_deg": 109.599666,
+          "dec_deg": -0.224329
+        }
+      ]
+    },
+    {
+      "neighbor": "Monoceros",
+      "neighbor_abbreviation": "MON",
+      "points": [
+        {
+          "ra_deg": 109.599666,
+          "dec_deg": -0.224329
+        },
+        {
+          "ra_deg": 109.849698,
+          "dec_deg": -0.2272026
+        },
+        {
+          "ra_deg": 110.849539,
+          "dec_deg": -0.2386499
+        },
+        {
+          "ra_deg": 111.849532,
+          "dec_deg": -0.2500264
+        },
+        {
+          "ra_deg": 112.849539,
+          "dec_deg": -0.2613267
+        },
+        {
+          "ra_deg": 113.849381,
+          "dec_deg": -0.2725457
+        },
+        {
+          "ra_deg": 114.849379,
+          "dec_deg": -0.2836833
+        },
+        {
+          "ra_deg": 115.849379,
+          "dec_deg": -0.2947346
+        },
+        {
+          "ra_deg": 116.849234,
+          "dec_deg": -0.3056944
+        },
+        {
+          "ra_deg": 117.84924,
+          "dec_deg": -0.3165627
+        },
+        {
+          "ra_deg": 118.849246,
+          "dec_deg": -0.3273346
+        },
+        {
+          "ra_deg": 119.849103,
+          "dec_deg": -0.3380053
+        },
+        {
+          "ra_deg": 120.849108,
+          "dec_deg": -0.3485745
+        },
+        {
+          "ra_deg": 121.849137,
+          "dec_deg": -0.3590378
+        },
+        {
+          "ra_deg": 122.849007,
+          "dec_deg": -0.36939
+        }
+      ]
+    },
+    {
+      "neighbor": "Hydra",
+      "neighbor_abbreviation": "HYA",
+      "points": [
+        {
+          "ra_deg": 122.849007,
+          "dec_deg": -0.36939
+        },
+        {
+          "ra_deg": 122.859306,
+          "dec_deg": 0.630557
+        },
+        {
+          "ra_deg": 122.869606,
+          "dec_deg": 1.630504
+        },
+        {
+          "ra_deg": 122.879921,
+          "dec_deg": 2.630451
+        },
+        {
+          "ra_deg": 122.890248,
+          "dec_deg": 3.6303976
+        },
+        {
+          "ra_deg": 122.900591,
+          "dec_deg": 4.6303444
+        },
+        {
+          "ra_deg": 122.910976,
+          "dec_deg": 5.630291
+        },
+        {
+          "ra_deg": 122.921391,
+          "dec_deg": 6.6302376
+        }
+      ]
+    },
+    {
+      "neighbor": "Cancer",
+      "neighbor_abbreviation": "CNC",
+      "points": [
+        {
+          "ra_deg": 122.921391,
+          "dec_deg": 6.6302376
+        },
+        {
+          "ra_deg": 122.546697,
+          "dec_deg": 6.6341038
+        },
+        {
+          "ra_deg": 121.547613,
+          "dec_deg": 6.6444893
+        },
+        {
+          "ra_deg": 120.548343,
+          "dec_deg": 6.654985
+        }
+      ]
+    },
+    {
+      "neighbor": "Cancer",
+      "neighbor_abbreviation": "CNC",
+      "points": [
+        {
+          "ra_deg": 120.548343,
+          "dec_deg": 6.654985
+        },
+        {
+          "ra_deg": 120.559072,
+          "dec_deg": 7.6549282
+        },
+        {
+          "ra_deg": 120.569844,
+          "dec_deg": 8.6548719
+        },
+        {
+          "ra_deg": 120.580672,
+          "dec_deg": 9.6548138
+        }
+      ]
+    },
+    {
+      "neighbor": "Cancer",
+      "neighbor_abbreviation": "CNC",
+      "points": [
+        {
+          "ra_deg": 120.580672,
+          "dec_deg": 9.6548138
+        },
+        {
+          "ra_deg": 119.831478,
+          "dec_deg": 9.6627522
+        },
+        {
+          "ra_deg": 118.832489,
+          "dec_deg": 9.6734257
+        }
+      ]
+    },
+    {
+      "neighbor": "Cancer",
+      "neighbor_abbreviation": "CNC",
+      "points": [
+        {
+          "ra_deg": 118.832489,
+          "dec_deg": 9.6734257
+        },
+        {
+          "ra_deg": 118.838024,
+          "dec_deg": 10.1733961
+        },
+        {
+          "ra_deg": 118.849139,
+          "dec_deg": 11.173336
+        },
+        {
+          "ra_deg": 118.860333,
+          "dec_deg": 12.1732769
+        },
+        {
+          "ra_deg": 118.871606,
+          "dec_deg": 13.1732168
+        }
+      ]
+    },
+    {
+      "neighbor": "Gemini",
+      "neighbor_abbreviation": "GEM",
+      "points": [
+        {
+          "ra_deg": 118.871606,
+          "dec_deg": 13.1732168
+        },
+        {
+          "ra_deg": 118.247587,
+          "dec_deg": 13.1799345
+        },
+        {
+          "ra_deg": 117.248904,
+          "dec_deg": 13.1907644
+        },
+        {
+          "ra_deg": 116.250171,
+          "dec_deg": 13.2016897
+        },
+        {
+          "ra_deg": 115.251546,
+          "dec_deg": 13.2127037
+        },
+        {
+          "ra_deg": 114.252727,
+          "dec_deg": 13.2238064
+        }
+      ]
+    },
+    {
+      "neighbor": "Gemini",
+      "neighbor_abbreviation": "GEM",
+      "points": [
+        {
+          "ra_deg": 114.252727,
+          "dec_deg": 13.2238064
+        },
+        {
+          "ra_deg": 114.241004,
+          "dec_deg": 12.2238722
+        }
+      ]
+    },
+    {
+      "neighbor": "Gemini",
+      "neighbor_abbreviation": "GEM",
+      "points": [
+        {
+          "ra_deg": 114.241004,
+          "dec_deg": 12.2238722
+        },
+        {
+          "ra_deg": 113.741606,
+          "dec_deg": 12.229455
+        },
+        {
+          "ra_deg": 112.742636,
+          "dec_deg": 12.2406845
+        },
+        {
+          "ra_deg": 111.743624,
+          "dec_deg": 12.2519932
+        },
+        {
+          "ra_deg": 110.744719,
+          "dec_deg": 12.2633753
+        },
+        {
+          "ra_deg": 109.745629,
+          "dec_deg": 12.2748318
+        },
+        {
+          "ra_deg": 108.746481,
+          "dec_deg": 12.2863569
+        },
+        {
+          "ra_deg": 107.747448,
+          "dec_deg": 12.297946
+        },
+        {
+          "ra_deg": 106.748227,
+          "dec_deg": 12.309598
+        }
+      ]
+    },
+    {
+      "neighbor": "Gemini",
+      "neighbor_abbreviation": "GEM",
+      "points": [
+        {
+          "ra_deg": 106.748227,
+          "dec_deg": 12.309598
+        },
+        {
+          "ra_deg": 106.742112,
+          "dec_deg": 11.8096342
+        },
+        {
+          "ra_deg": 106.729953,
+          "dec_deg": 10.8097048
+        },
+        {
+          "ra_deg": 106.717879,
+          "dec_deg": 9.8097754
+        }
+      ]
+    },
+    {
+      "neighbor": "Monoceros",
+      "neighbor_abbreviation": "MON",
+      "points": [
+        {
+          "ra_deg": 106.717879,
+          "dec_deg": 9.8097754
+        },
+        {
+          "ra_deg": 106.711872,
+          "dec_deg": 9.3098106
+        },
+        {
+          "ra_deg": 106.699897,
+          "dec_deg": 8.3098803
+        },
+        {
+          "ra_deg": 106.687989,
+          "dec_deg": 7.3099504
+        },
+        {
+          "ra_deg": 106.67613,
+          "dec_deg": 6.3100195
+        },
+        {
+          "ra_deg": 106.664322,
+          "dec_deg": 5.3100886
+        }
+      ]
+    }
+  ],
+  "sources": [
+    {
+      "label": "Stellarium Western sky culture",
+      "url": "https://raw.githubusercontent.com/Stellarium/stellarium-skycultures/014fbb5e59233d133c22f9811af96b67d05a95c9/western/index.json",
+      "path": "catalog-work/western-constellation-stars/stellarium-western-index.json",
+      "sha256": "a861accd345249a185a5ecfc2a516f34291c0aa52f4bb8d8337ffc53e9cef6b9"
+    },
+    {
+      "label": "Adopted star positions and names",
+      "url": "https://simbad.cds.unistra.fr/simbad/",
+      "path": "src/data/catalogs/western-constellation-stars/stars.csv",
+      "sha256": "0a8b7c1dc3f7e3412c5cffb09a18cdf5b5b7424cc89ea8a0a1ffb4da57d3ad6a"
+    },
+    {
+      "label": "Hipparcos Johnson V magnitudes",
+      "url": "https://cdsarc.cds.unistra.fr/viz-bin/cat/I/239",
+      "path": "catalog-work/western-constellation-stars/hipparcos-v.csv",
+      "sha256": "eec12b740da3aac5204ba75ca5158b6f9f2f81886dda2526fe765cf9ea159320"
+    },
+    {
+      "label": "CDS / IAU constellation boundaries (J2000)",
+      "url": "https://cdsarc.cds.unistra.fr/viz-bin/cat/VI/49",
+      "path": "catalog-work/constellation-charts/boundaries-j2000.dat.gz",
+      "sha256": "879cd6e7a1c908f1e19a5f5fe8cc75fb1d1077564e3890f9152a3680affe9aac",
+      "inputs": [
+        {
+          "path": "catalog-work/constellation-charts/boundary-contours-b1875.dat",
+          "sha256": "865cdf4218f676eb304587c75c63231948d29cd0abe6892a8a8130c1c4fe3592"
+        },
+        {
+          "path": "catalog-work/constellation-charts/boundary-contours-readme.txt",
+          "sha256": "a3ec688bea21e9db10832842c9b845558dbe8ccf820ddedec842d664d2b74c89"
+        }
+      ]
+    }
+  ]
+}

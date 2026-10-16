@@ -1,0 +1,171 @@
+{
+  "phys_par": [
+    {
+      "sigma": null,
+      "units": null,
+      "name": "H",
+      "value": "0.14",
+      "ref": "E2025R45",
+      "notes": null,
+      "title": "absolute magnitude",
+      "desc": "absolute magnitude (magnitude at 1 au from Sun and observer)"
+    },
+    {
+      "desc": "body rotation period (synodic)",
+      "value": "3.9154",
+      "units": "h",
+      "sigma": null,
+      "name": "rot_per",
+      "notes": "REFERENCE LIST:[Rabinowitz, D.L.; Barkume, K.; Brown, M.E.; Roe, H.; et al. (2006) Astrophys. J. 639, 1238-1251.], [Rabinowitz, D.L.; Schaefer, B.E.; Tourtellotte, S.W. (2007) Astron. J. 133, 26-43.], [Lellouch, E.; Kiss, C.; Santos-Sanz, P.; Muller, T.G.; et al. (2010) Astron. Astrophys. 518, L147.], [Thirouin, A.; Ortiz, J.L.; Duffard, R.; Santos-Sanz, P.; et al. (2010) Astron. Astrophys. 522, A93.], [Behrend, R. (2011) Observatoire de Geneve web site, http://obswww.unige.ch/~behrend/page_cou.html], [Behrend, R. (2014) Observatoire de Geneve web site, http://obswww.unige.ch/~behrend/page_cou.html], [Lockwood, A.C.; Brown, M.E.; Stansberry, J. (2014) Earth, Moon, and Planets 111, 127-37.], [Clark, M. (2016) Minor Planet Bull. 43, 2-5.], [Behrend, R. (2017) Observatoire de Geneve web site, http://obswww.unige.ch/~behrend/page_cou.html], [Ortiz, J.L.; Santos-Sanz, P.; Sicardy, B.; Benedetti-Rossi, G.; et al. (2017) Nature 550, 219-223.]",
+      "title": "rotation period",
+      "ref": "LCDB (Rev. 2023-October); Warner et al., 2009"
+    }
+  ],
+  "discovery": {
+    "name": "Haumea",
+    "cref": "20080917/MPCPages.arc",
+    "ref": "20060907/Numbers.arc",
+    "citation": "Haumea is the goddess of childbirth and fertility in Hawaiian mythology. Her many children sprang from different parts of her body.  She takes many different forms and has experienced many different rebirths.  As the goddess of the earth, she represents the element of stone.  The satellites (136108) Haumea I and II were discovered by M. E. Brown, A. H. Bouchez and the Keck Observatory Adaptive Optics teams.  Haumea I, discovered 2005 Jan. 26, is named Hi'iaka, who was born from the mouth of Haumea and carried by her sister Pele in egg form from their distant home to Hawaii.  Hi'iaka danced the first Hula on the shores of Puna and is the patron goddess of the island of Hawaii and of hula dancers.  Haumea II, discovered 2005 Nov. 7, is named Namaka, for a water spirit in Hawaiian mythology.  Namaka was born from the body of Haumea and is the sister of Pele.  When Pele sends her burning lava into the sea, Namaka cools the lava to become new land.",
+    "who": "Aceituno, F. J., Santos-Sanz, P., Ortiz, J. L.",
+    "site": null,
+    "discovery": "Discovered 2003 Mar. 7 at the Sierra Nevada Observatory.",
+    "location": "Sierra Nevada",
+    "date": "2003-Mar-07"
+  },
+  "orbit": {
+    "source": "JPL",
+    "two_body": null,
+    "n_del_obs_used": null,
+    "orbit_id": "132",
+    "soln_date": "2026-06-06 21:06:04",
+    "last_obs": "2026-04-14",
+    "moid_jup": "30.1423",
+    "pe_used": "DE441",
+    "data_arc": "25956",
+    "first_obs": "1955-03-22",
+    "condition_code": "1",
+    "cov_epoch": "2458570.5",
+    "sb_used": "SB441-N16",
+    "model_pars": [],
+    "elements": [
+      {
+        "units": null,
+        "sigma": "1.1561E-6",
+        "name": "e",
+        "value": ".1944430148898797",
+        "label": "e",
+        "title": "eccentricity"
+      },
+      {
+        "title": "semi-major axis",
+        "label": "a",
+        "value": "43.06029023650952",
+        "units": "au",
+        "sigma": "4.0486E-5",
+        "name": "a"
+      },
+      {
+        "title": "perihelion distance",
+        "label": "q",
+        "value": "34.68751758088936",
+        "units": "au",
+        "sigma": "6.4457E-5",
+        "name": "q"
+      },
+      {
+        "label": "i",
+        "title": "inclination; angle with respect to x-y ecliptic plane",
+        "units": "deg",
+        "sigma": "1.1546E-6",
+        "name": "i",
+        "value": "28.20847393040364"
+      },
+      {
+        "label": "node",
+        "title": "longitude of the ascending node",
+        "name": "om",
+        "sigma": "1.8066E-5",
+        "units": "deg",
+        "value": "121.7860561329425"
+      },
+      {
+        "label": "peri",
+        "title": "argument of perihelion",
+        "units": "deg",
+        "sigma": ".0006965",
+        "name": "w",
+        "value": "240.6905472508661"
+      },
+      {
+        "title": "mean anomaly",
+        "label": "M",
+        "value": "223.2104118812299",
+        "units": "deg",
+        "sigma": ".0010214",
+        "name": "ma"
+      },
+      {
+        "value": "2500416.599615282750",
+        "units": "TDB",
+        "sigma": ".27214",
+        "name": "tp",
+        "title": "time of perihelion passage",
+        "label": "tp"
+      },
+      {
+        "value": "103208.1173403618",
+        "name": "per",
+        "sigma": ".14556",
+        "units": "d",
+        "title": "sidereal orbital period",
+        "label": "period"
+      },
+      {
+        "label": "n",
+        "title": "mean motion",
+        "sigma": "4.9193E-9",
+        "units": "deg/d",
+        "name": "n",
+        "value": ".003488097731816818"
+      },
+      {
+        "label": "Q",
+        "title": "aphelion distance",
+        "name": "ad",
+        "sigma": "4.8358E-5",
+        "units": "au",
+        "value": "51.43306289212968"
+      }
+    ],
+    "n_obs_used": 6692,
+    "equinox": "J2000",
+    "not_valid_before": null,
+    "n_dop_obs_used": null,
+    "rms": ".25427",
+    "epoch": "2461200.5",
+    "not_valid_after": null,
+    "moid": "33.7736",
+    "comment": null,
+    "producer": "Otto Matic",
+    "t_jup": "5.094"
+  },
+  "object": {
+    "prefix": null,
+    "des": "136108",
+    "orbit_class": {
+      "name": "TransNeptunian Object",
+      "code": "TNO"
+    },
+    "pha": false,
+    "orbit_id": "132",
+    "shortname": "136108 Haumea",
+    "spkid": "20136108",
+    "kind": "an",
+    "neo": false,
+    "fullname": "136108 Haumea (2003 EL61)"
+  },
+  "signature": {
+    "source": "NASA/JPL Small-Body Database (SBDB) API",
+    "version": "1.3"
+  }
+}

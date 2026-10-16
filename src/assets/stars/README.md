@@ -1,0 +1,18 @@
+# Nearby-star Info images
+
+Retrieved and reviewed on 2026-10-11. Files are local so the production same-origin image policy remains intact. Images are downloaded from the publishers without local cropping, recoloring, or resampling. Publication/processing dates are distinguished from observation dates in the captions and credit tooltips in `src/star-info.ts`.
+
+| File | Observation or publication | Credit and source | Reuse |
+| --- | --- | --- | --- |
+| `sun.jpg` | Observed 2025-03-09; published 2025-04-24. Extreme-ultraviolet mosaic, false color. Publisher's 6272 × 6272 low-resolution download. | ESA & NASA/Solar Orbiter/EUI Team, E. Kraaikamp (ROB). [ESA image page](https://www.esa.int/ESA_Multimedia/Images/2025/04/Solar_Orbiter_s_widest_high-res_view_of_the_Sun) | [CC BY-SA 3.0 IGO](https://creativecommons.org/licenses/by-sa/3.0/igo/) |
+| `alpha-centauri.jpg` | Archival DSS2 composite, released 2016-08-24. Proxima circled; A/B blended. | Digitized Sky Survey 2. Acknowledgement: Davide De Martin/ Mahdi Zamani. [ESO eso1629i](https://www.eso.org/public/images/eso1629i/) | [ESO CC BY 4.0 terms](https://www.eso.org/public/copyright/) |
+| `barnards-star.jpg` | Archival DSS2 exposures, released 2018-11-14. Three colors show motion between exposures, not companions. | ESO/Digitized Sky Survey 2. Acknowledgement: Davide De Martin. [ESO eso1837d](https://www.eso.org/public/images/eso1837d/) | [ESO CC BY 4.0 terms](https://www.eso.org/public/copyright/) |
+| `luhman-16.jpg` | Archival VLT/MUSE data, reprocessed and published 2026-05-25. Visible spectral bands combined; author corrected the brightness of the upper quarter. | ESO VLT MUSE; Melina Thévenot. [Commons file and license](https://commons.wikimedia.org/wiki/File:Luhman_16_in_visible_light_ESO_VLT_MUSE.jpg); [MUSE spectral cube](https://archive.eso.org/dataset/ADP.2016-07-25T13:16:34.370) | [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/) |
+| `wise-0855.gif` | Webb/NIRCam infrared images from 2022-11-19 and 2023-04-27; animation published 2024-06-09. False color, F200W/F444W. | NASA/ESA/CSA JWST NIRCam; Alves de Oliveira et al. Processing: Melina Thévenot; animation: 文爻林夕. [Commons file and license](https://commons.wikimedia.org/wiki/File:WISE_0855-0714_NIRCam_gif.gif) | [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/) |
+| `wolf-359.jpg` | Telescope photograph, 2009-03-21. Wolf 359 is slightly above center; north up, east left. | Klaus Hohmann. [Commons file and public-domain dedication](https://commons.wikimedia.org/wiki/File:Wolf359.jpg) | Public domain, dedicated by photographer |
+| `epsilon-eridani.jpg` | Artist's concept, 2006-10. Does not depict a direct planet detection or an adopted modern orbit. Publisher's 800 × 652 rendition. | NASA, ESA, and A. Feild (STScI). [NASA image page](https://science.nasa.gov/asset/hubble/epsilon-eridanis-tilt/) | NASA/STScI outreach image, retain credit |
+| `ross-128.jpg` | Archival DSS2 composite, released 2017-11-15. Planet not resolved. | Digitized Sky Survey 2. Acknowledgement: Davide De Martin. [ESO eso1736b](https://www.eso.org/public/images/eso1736b/) | [ESO CC BY 4.0 terms](https://www.eso.org/public/copyright/) |
+
+Sirius reuses `../object-types/white_star.jpg`: NASA, ESA, H. Bond (STScI), and M. Barstow (University of Leicester), Hubble observation 2003-10-15, release 2005-12-13. [ESA/Hubble heic0516a](https://esahubble.org/images/heic0516a/).
+
+Full credits are visible in captions, with observing/processing details in tooltips. Epsilon Eridani's image is explicitly labeled an artist's concept. The six remaining articles have no hero image: a generic star illustration is not substituted for an observed portrait.

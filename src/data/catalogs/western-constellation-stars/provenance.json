@@ -160,9 +160,9 @@
     ],
     "inputSha256": {
       "catalog-work/star-systems/overlay-companions.json": "0155d05f01e61ef80496c0d515b35946c8e6dcdd06342bb7fa8eda653e39485b",
-      "src/data/star-systems.json": "22a77579b11e4f5035f19be704fda78f1a6a5d409ca7ce0d5bc74aab8eaa599b",
-      "src/data/catalogs/nearest-1000/stars.csv": "c147ac7171f6e336c96807d1d60245b02cb22a6dd0b794dec225a8e8f3a42fc0",
-      "src/data/catalogs/nearest-1000/provenance.json": "492d9c42208cd1bf8c80f5b27cea7cc3e24f54a37fd39c5a70cc44e346afda67",
+      "src/data/star-systems.json": "0e7e0b8097766381629c4d28e57f62948ecde0c10ac18992c09cef17cb6dfe05",
+      "src/data/catalogs/nearest-1000/stars.csv": "ea6f21afb5dce758bbdd1222df304db672f71e6e0f6b98a79c8167341d078802",
+      "src/data/catalogs/nearest-1000/provenance.json": "662e64c8fe338db75ee1f43e03e047eac183d4d600df75189821af4dcd108ec5",
       "catalog-work/star-systems/overlay-individual-components.json": "b4fbcf92e682c639a11c5e488a378d43a0b43aaa10e0e8b16b2db70dc9a10741",
       "catalog-work/star-systems/msc-20260619-rigel.json": "0bc6740e8537705363c915a78b203822b46a9a31330f325f6b4a783091e40e97",
       "catalog-work/star-systems/msc-20260619.Readme": "d0906632b078a3b97b4e7247ad76830e2cc13bae6300ae145d69ce30a8e859b8"
@@ -171,12 +171,12 @@
   "physicalCoverage": {
     "temperature_k": 695,
     "mass_solar": 377,
-    "luminosity_solar": 643,
-    "radius_solar": 644,
+    "luminosity_solar": 631,
+    "radius_solar": 632,
     "metallicity_dex": 532,
     "age_gyr": 101
   },
-  "sharedEnrichmentManifestSha256": "fd8afad8f0f9e697c1ebbffda45ce525201ca8f7e1adc06ccce09255041b6311",
+  "sharedEnrichmentManifestSha256": "4925b3a9ffcb75c94d53ff5a221d1e9a22848bf0082641abc0ae1e1a8e532a3f",
   "objects": {
     "sun": {
       "id": "sun",
@@ -315,7 +315,7 @@
       ],
       "sharedObjectAdoption": {
         "recordId": "* alf And",
-        "reviewSha256": "13b3b09260b2c461f96a27d5d13ed7dbe7975025168a9d2b93a6aaf479ac962f",
+        "reviewSha256": "e2ca0b48c3c122a878a0cad107077833f66a18c7ab7c7d42bc9a14f01ca3b8fe",
         "scope": "Reviewed catalog object/component hip-677; aliases only, distinct companions remain separate.",
         "fields": [
           "radial_velocity_ref",
@@ -433,7 +433,7 @@
       ],
       "sharedObjectAdoption": {
         "recordId": "* bet Cas",
-        "reviewSha256": "13b3b09260b2c461f96a27d5d13ed7dbe7975025168a9d2b93a6aaf479ac962f",
+        "reviewSha256": "e2ca0b48c3c122a878a0cad107077833f66a18c7ab7c7d42bc9a14f01ca3b8fe",
         "scope": "Reviewed catalog object/component hip-746; aliases only, distinct companions remain separate.",
         "fields": [
           "radial_velocity_ref",
@@ -782,7 +782,7 @@
       ],
       "sharedObjectAdoption": {
         "recordId": "* zet Tuc",
-        "reviewSha256": "13b3b09260b2c461f96a27d5d13ed7dbe7975025168a9d2b93a6aaf479ac962f",
+        "reviewSha256": "e2ca0b48c3c122a878a0cad107077833f66a18c7ab7c7d42bc9a14f01ca3b8fe",
         "scope": "Reviewed catalog object/component cns5-0102; aliases only, distinct companions remain separate.",
         "fields": [
           "absolute_mag",
@@ -986,7 +986,7 @@
       ],
       "sharedObjectAdoption": {
         "recordId": "* bet Hyi",
-        "reviewSha256": "13b3b09260b2c461f96a27d5d13ed7dbe7975025168a9d2b93a6aaf479ac962f",
+        "reviewSha256": "e2ca0b48c3c122a878a0cad107077833f66a18c7ab7c7d42bc9a14f01ca3b8fe",
         "scope": "Reviewed catalog object/component cns5-0125; aliases only, distinct companions remain separate.",
         "fields": [
           "absolute_mag",
@@ -1179,7 +1179,7 @@
       ],
       "sharedObjectAdoption": {
         "recordId": "* alf Phe",
-        "reviewSha256": "13b3b09260b2c461f96a27d5d13ed7dbe7975025168a9d2b93a6aaf479ac962f",
+        "reviewSha256": "e2ca0b48c3c122a878a0cad107077833f66a18c7ab7c7d42bc9a14f01ca3b8fe",
         "scope": "Reviewed catalog object/component hip-2081; aliases only, distinct companions remain separate.",
         "fields": [
           "absolute_mag",
@@ -1437,7 +1437,7 @@
       ],
       "sharedObjectAdoption": {
         "recordId": "* alf Cas",
-        "reviewSha256": "13b3b09260b2c461f96a27d5d13ed7dbe7975025168a9d2b93a6aaf479ac962f",
+        "reviewSha256": "e2ca0b48c3c122a878a0cad107077833f66a18c7ab7c7d42bc9a14f01ca3b8fe",
         "scope": "Reviewed catalog object/component hip-3179; aliases only, distinct companions remain separate.",
         "fields": [
           "absolute_mag",
@@ -1571,7 +1571,7 @@
       ],
       "sharedObjectAdoption": {
         "recordId": "* bet Cet",
-        "reviewSha256": "13b3b09260b2c461f96a27d5d13ed7dbe7975025168a9d2b93a6aaf479ac962f",
+        "reviewSha256": "e2ca0b48c3c122a878a0cad107077833f66a18c7ab7c7d42bc9a14f01ca3b8fe",
         "scope": "Reviewed catalog object/component hip-3419; aliases only, distinct companions remain separate.",
         "fields": [
           "radial_velocity_ref",
@@ -1801,35 +1801,36 @@
       "gaiaDr3Id": "426558460884582016",
       "adoptedPhysicalFields": {
         "temperature_k": "bright-stars:bright-gamma-cassiopeiae",
-        "luminosity_solar": "bright-stars:bright-gamma-cassiopeiae",
-        "radius_solar": "bright-stars:bright-gamma-cassiopeiae"
+        "luminosity_solar": "published:2012MNRAS.427..343M:HIP-4427",
+        "radius_solar": "derived:stefan-boltzmann"
       },
       "physicalObservations": [
         {
           "field": "temperature_k",
-          "value": 7664.0,
+          "value": 27990.0,
           "status": "inherited",
           "source": "bright-stars",
           "sourceId": "bright-gamma-cassiopeiae"
         },
         {
           "field": "luminosity_solar",
-          "value": 2951.7,
-          "status": "inherited",
-          "source": "bright-stars",
-          "sourceId": "bright-gamma-cassiopeiae"
+          "value": 2951.705903408855,
+          "uncertainty": null,
+          "status": "model-derived",
+          "source": "McDonald et al. 2012 SED rescaled to adopted distance",
+          "sourceId": "HIP 4427",
+          "bibcode": "2012MNRAS.427..343M"
         },
         {
           "field": "radius_solar",
-          "value": 30.8161,
-          "status": "inherited",
-          "source": "bright-stars",
-          "sourceId": "bright-gamma-cassiopeiae"
+          "value": 2.310379858765857,
+          "status": "derived",
+          "source": "Stefan-Boltzmann scaling"
         }
       ],
       "sharedObjectAdoption": {
         "recordId": "* gam Cas",
-        "reviewSha256": "13b3b09260b2c461f96a27d5d13ed7dbe7975025168a9d2b93a6aaf479ac962f",
+        "reviewSha256": "e2ca0b48c3c122a878a0cad107077833f66a18c7ab7c7d42bc9a14f01ca3b8fe",
         "scope": "Reviewed catalog object/component hip-4427; aliases only, distinct companions remain separate.",
         "fields": [
           "radial_velocity_ref",
@@ -1852,7 +1853,10 @@
           "pm_dec_masyr",
           "pm_dec_error_masyr",
           "radial_velocity_kms",
-          "radial_velocity_error_kms"
+          "radial_velocity_error_kms",
+          "temperature_k",
+          "luminosity_solar",
+          "radius_solar"
         ],
         "sourceSelections": {
           "astrometryAndMotion": {
@@ -1881,6 +1885,39 @@
               "radial_velocity_ref"
             ],
             "decision": "Retain the curated nearest-catalog coordinate/motion bundle where available; otherwise use the later Western snapshot. For the eleven reviewed stellar objects with missing CNS5 RV but an existing adopted SIMBAD RV, use the complete Western position/motion bundle to retain full-space motion. Spectroscopic binaries and composite Porrima retain the nearest-catalog RV withholding. Keep positions, velocities, reference epoch, raw measurements, uncertainties and bibliographies together. Withheld individual/system velocities remain withheld."
+          },
+          "physicalTemperatureReview": {
+            "source": "catalog-work/shared-enrichment/hot-star-temperature-review.json",
+            "recordId": "* gam Cas",
+            "fields": [
+              "temperature_k",
+              "luminosity_solar",
+              "radius_solar"
+            ],
+            "decision": "Supersede the unsuitable cool broadband fit with inspected object-specific evidence; withhold its dependent fields unless separately supported.",
+            "adoptedFields": {
+              "temperature_k": {
+                "value": 27990,
+                "status": "model-derived",
+                "uncertainty": null,
+                "reference": "2001A&A...378..861C",
+                "url": "https://cdsarc.cds.unistra.fr/viz-bin/cat/J/A+A/378/861",
+                "table": "J/A+A/378/861/table6",
+                "sourceRecordId": "HD 5394",
+                "method": "Published apparent effective temperature, converted from log10(Teff/K)",
+                "caveat": "Rapidly rotating Be star: apparent adopted photospheric temperature, not polar or equatorial temperature. The table gives no individual temperature error. Does not describe the cool circumstellar disk."
+              },
+              "luminosity_solar": {
+                "value": null,
+                "status": "withheld",
+                "reason": "Rejected zero-reddening broadband-fit luminosity; no independently verified component-safe replacement adopted in this temperature review."
+              },
+              "radius_solar": {
+                "value": null,
+                "status": "withheld",
+                "reason": "Radius inherited the rejected luminosity/temperature fit; no independently verified component-safe replacement adopted."
+              }
+            }
           }
         },
         "sourceEvidence": "Original measurements and catalog-specific provenance are retained; the shared adopted record supersedes them for these fields."
@@ -2485,7 +2522,7 @@
       ],
       "sharedObjectAdoption": {
         "recordId": "* bet And",
-        "reviewSha256": "13b3b09260b2c461f96a27d5d13ed7dbe7975025168a9d2b93a6aaf479ac962f",
+        "reviewSha256": "e2ca0b48c3c122a878a0cad107077833f66a18c7ab7c7d42bc9a14f01ca3b8fe",
         "scope": "Reviewed catalog object/component hip-5447; aliases only, distinct companions remain separate.",
         "fields": [
           "dec_deg",
@@ -2805,7 +2842,7 @@
       ],
       "sharedObjectAdoption": {
         "recordId": "* del Cas",
-        "reviewSha256": "13b3b09260b2c461f96a27d5d13ed7dbe7975025168a9d2b93a6aaf479ac962f",
+        "reviewSha256": "e2ca0b48c3c122a878a0cad107077833f66a18c7ab7c7d42bc9a14f01ca3b8fe",
         "scope": "Reviewed catalog object/component hip-6686; aliases only, distinct companions remain separate.",
         "fields": [
           "absolute_mag",
@@ -3169,7 +3206,7 @@
       ],
       "sharedObjectAdoption": {
         "recordId": "* alf Eri",
-        "reviewSha256": "13b3b09260b2c461f96a27d5d13ed7dbe7975025168a9d2b93a6aaf479ac962f",
+        "reviewSha256": "e2ca0b48c3c122a878a0cad107077833f66a18c7ab7c7d42bc9a14f01ca3b8fe",
         "scope": "Reviewed catalog object/component hip-7588; aliases only, distinct companions remain separate.",
         "fields": [
           "radial_velocity_ref",
@@ -3373,7 +3410,7 @@
       ],
       "sharedObjectAdoption": {
         "recordId": "* tau Cet",
-        "reviewSha256": "13b3b09260b2c461f96a27d5d13ed7dbe7975025168a9d2b93a6aaf479ac962f",
+        "reviewSha256": "e2ca0b48c3c122a878a0cad107077833f66a18c7ab7c7d42bc9a14f01ca3b8fe",
         "scope": "Reviewed catalog object/component 10pc-0044; aliases only, distinct companions remain separate.",
         "fields": [
           "absolute_mag",
@@ -3976,7 +4013,7 @@
       ],
       "sharedObjectAdoption": {
         "recordId": "* bet Ari",
-        "reviewSha256": "13b3b09260b2c461f96a27d5d13ed7dbe7975025168a9d2b93a6aaf479ac962f",
+        "reviewSha256": "e2ca0b48c3c122a878a0cad107077833f66a18c7ab7c7d42bc9a14f01ca3b8fe",
         "scope": "Reviewed catalog object/component hip-8903; aliases only, distinct companions remain separate.",
         "fields": [
           "radial_velocity_ref",
@@ -4298,7 +4335,7 @@
       ],
       "sharedObjectAdoption": {
         "recordId": "* gam01 And",
-        "reviewSha256": "13b3b09260b2c461f96a27d5d13ed7dbe7975025168a9d2b93a6aaf479ac962f",
+        "reviewSha256": "e2ca0b48c3c122a878a0cad107077833f66a18c7ab7c7d42bc9a14f01ca3b8fe",
         "scope": "Reviewed catalog object/component hip-9640; aliases only, distinct companions remain separate.",
         "fields": [
           "radial_velocity_ref",
@@ -4424,7 +4461,7 @@
       ],
       "sharedObjectAdoption": {
         "recordId": "* alf Ari",
-        "reviewSha256": "13b3b09260b2c461f96a27d5d13ed7dbe7975025168a9d2b93a6aaf479ac962f",
+        "reviewSha256": "e2ca0b48c3c122a878a0cad107077833f66a18c7ab7c7d42bc9a14f01ca3b8fe",
         "scope": "Reviewed catalog object/component hip-9884; aliases only, distinct companions remain separate.",
         "fields": [
           "radial_velocity_ref",
@@ -5147,7 +5184,7 @@
       ],
       "sharedObjectAdoption": {
         "recordId": "* alf UMi",
-        "reviewSha256": "13b3b09260b2c461f96a27d5d13ed7dbe7975025168a9d2b93a6aaf479ac962f",
+        "reviewSha256": "e2ca0b48c3c122a878a0cad107077833f66a18c7ab7c7d42bc9a14f01ca3b8fe",
         "scope": "Reviewed catalog object/component hip-11767; aliases only, distinct companions remain separate.",
         "fields": [
           "radial_velocity_ref",
@@ -6554,7 +6591,7 @@
       ],
       "sharedObjectAdoption": {
         "recordId": "* alf Cet",
-        "reviewSha256": "13b3b09260b2c461f96a27d5d13ed7dbe7975025168a9d2b93a6aaf479ac962f",
+        "reviewSha256": "e2ca0b48c3c122a878a0cad107077833f66a18c7ab7c7d42bc9a14f01ca3b8fe",
         "scope": "Reviewed catalog object/component hip-14135; aliases only, distinct companions remain separate.",
         "fields": [
           "radial_velocity_ref",
@@ -7005,7 +7042,7 @@
       ],
       "sharedObjectAdoption": {
         "recordId": "* bet Per",
-        "reviewSha256": "13b3b09260b2c461f96a27d5d13ed7dbe7975025168a9d2b93a6aaf479ac962f",
+        "reviewSha256": "e2ca0b48c3c122a878a0cad107077833f66a18c7ab7c7d42bc9a14f01ca3b8fe",
         "scope": "Reviewed catalog object/component hip-14576; aliases only, distinct companions remain separate.",
         "fields": [
           "radial_velocity_ref",
@@ -7341,7 +7378,7 @@
       ],
       "sharedObjectAdoption": {
         "recordId": "* e Eri",
-        "reviewSha256": "13b3b09260b2c461f96a27d5d13ed7dbe7975025168a9d2b93a6aaf479ac962f",
+        "reviewSha256": "e2ca0b48c3c122a878a0cad107077833f66a18c7ab7c7d42bc9a14f01ca3b8fe",
         "scope": "Reviewed catalog object/component cns5-0843; aliases only, distinct companions remain separate.",
         "fields": [
           "absolute_mag",
@@ -7467,7 +7504,7 @@
       ],
       "sharedObjectAdoption": {
         "recordId": "* alf Per",
-        "reviewSha256": "13b3b09260b2c461f96a27d5d13ed7dbe7975025168a9d2b93a6aaf479ac962f",
+        "reviewSha256": "e2ca0b48c3c122a878a0cad107077833f66a18c7ab7c7d42bc9a14f01ca3b8fe",
         "scope": "Reviewed catalog object/component hip-15863; aliases only, distinct companions remain separate.",
         "fields": [
           "radial_velocity_ref",
@@ -7739,7 +7776,7 @@
       ],
       "sharedObjectAdoption": {
         "recordId": "* eps Eri",
-        "reviewSha256": "13b3b09260b2c461f96a27d5d13ed7dbe7975025168a9d2b93a6aaf479ac962f",
+        "reviewSha256": "e2ca0b48c3c122a878a0cad107077833f66a18c7ab7c7d42bc9a14f01ca3b8fe",
         "scope": "Reviewed catalog object/component epsilon-eridani; aliases only, distinct companions remain separate.",
         "fields": [
           "absolute_mag",
@@ -8029,7 +8066,7 @@
       ],
       "sharedObjectAdoption": {
         "recordId": "* del Eri",
-        "reviewSha256": "13b3b09260b2c461f96a27d5d13ed7dbe7975025168a9d2b93a6aaf479ac962f",
+        "reviewSha256": "e2ca0b48c3c122a878a0cad107077833f66a18c7ab7c7d42bc9a14f01ca3b8fe",
         "scope": "Reviewed catalog object/component cns5-0938; aliases only, distinct companions remain separate.",
         "fields": [
           "absolute_mag",
@@ -8200,7 +8237,53 @@
           "status": "derived",
           "source": "Stefan-Boltzmann scaling"
         }
-      ]
+      ],
+      "sharedObjectAdoption": {
+        "recordId": "* omi Per",
+        "reviewSha256": "e2ca0b48c3c122a878a0cad107077833f66a18c7ab7c7d42bc9a14f01ca3b8fe",
+        "scope": "Exact named catalog object * omi Per / HIP 17448 / HD 23180; distinct companions are excluded.",
+        "fields": [
+          "temperature_k",
+          "luminosity_solar",
+          "radius_solar"
+        ],
+        "sourceSelections": {
+          "physicalTemperatureReview": {
+            "source": "catalog-work/shared-enrichment/hot-star-temperature-review.json",
+            "recordId": "* omi Per",
+            "fields": [
+              "temperature_k",
+              "luminosity_solar",
+              "radius_solar"
+            ],
+            "decision": "Supersede the unsuitable cool broadband fit with inspected object-specific evidence; withhold its dependent fields unless separately supported.",
+            "adoptedFields": {
+              "temperature_k": {
+                "value": 22840,
+                "status": "model-derived",
+                "uncertainty": 1470,
+                "reference": "2009A&A...501..297Z",
+                "url": "https://arxiv.org/abs/0903.5134",
+                "table": "J/A+A/501/297/catalog",
+                "sourceRecordId": "HD 23180",
+                "method": "Extinction-corrected bolometric-flux temperature with BCD diagnostics",
+                "caveat": "Unresolved named multiple: this is the apparent, primary-dominated temperature of the catalogued light, not a resolved measurement of every member. Blended angular diameter is not assigned to an individual component."
+              },
+              "luminosity_solar": {
+                "value": null,
+                "status": "withheld",
+                "reason": "Rejected zero-reddening broadband-fit luminosity; no independently verified component-safe replacement adopted in this temperature review."
+              },
+              "radius_solar": {
+                "value": null,
+                "status": "withheld",
+                "reason": "Radius inherited the rejected luminosity/temperature fit; no independently verified component-safe replacement adopted."
+              }
+            }
+          }
+        },
+        "sourceEvidence": "Original measurements and catalog-specific provenance are retained; the shared adopted record supersedes them for these fields."
+      }
     },
     "hip-17651": {
       "hip": 17651,
@@ -8683,7 +8766,56 @@
           "status": "derived",
           "source": "Stefan-Boltzmann scaling"
         }
-      ]
+      ],
+      "sharedObjectAdoption": {
+        "recordId": "* zet Per",
+        "reviewSha256": "e2ca0b48c3c122a878a0cad107077833f66a18c7ab7c7d42bc9a14f01ca3b8fe",
+        "scope": "Exact named catalog object * zet Per / HIP 18246 / HD 24398; distinct companions are excluded.",
+        "fields": [
+          "temperature_k",
+          "luminosity_solar",
+          "radius_solar"
+        ],
+        "sourceSelections": {
+          "physicalTemperatureReview": {
+            "source": "catalog-work/shared-enrichment/hot-star-temperature-review.json",
+            "recordId": "* zet Per",
+            "fields": [
+              "temperature_k",
+              "luminosity_solar",
+              "radius_solar"
+            ],
+            "decision": "Supersede the unsuitable cool broadband fit with inspected object-specific evidence; withhold its dependent fields unless separately supported.",
+            "adoptedFields": {
+              "temperature_k": {
+                "value": 23500,
+                "status": "model-derived",
+                "uncertainty": {
+                  "lower": 400,
+                  "upper": 300
+                },
+                "reference": "2024A&A...687A.228D",
+                "url": "https://arxiv.org/abs/2312.00241",
+                "table": "J/A+A/687/A228/tabled1",
+                "sourceRecordId": "HD 24398",
+                "method": "FASTWIND non-LTE optical diagnostic-line fit",
+                "caveat": "Formal asymmetric temperature uncertainties from the published fit. No temperature is inferred from the spectral label."
+              },
+              "luminosity_solar": {
+                "value": null,
+                "status": "withheld",
+                "reason": "Rejected zero-reddening broadband-fit luminosity; no independently verified component-safe replacement adopted in this temperature review."
+              },
+              "radius_solar": {
+                "value": null,
+                "status": "withheld",
+                "reason": "Radius inherited the rejected luminosity/temperature fit; no independently verified component-safe replacement adopted."
+              }
+            }
+          }
+        },
+        "sourceEvidence": "Original measurements and catalog-specific provenance are retained; the shared adopted record supersedes them for these fields."
+      }
     },
     "hip-18505": {
       "hip": 18505,
@@ -8927,7 +9059,53 @@
           "status": "derived",
           "source": "Stefan-Boltzmann scaling"
         }
-      ]
+      ],
+      "sharedObjectAdoption": {
+        "recordId": "* ksi Per",
+        "reviewSha256": "e2ca0b48c3c122a878a0cad107077833f66a18c7ab7c7d42bc9a14f01ca3b8fe",
+        "scope": "Exact named catalog object * ksi Per / HIP 18614 / HD 24912; distinct companions are excluded.",
+        "fields": [
+          "temperature_k",
+          "luminosity_solar",
+          "radius_solar"
+        ],
+        "sourceSelections": {
+          "physicalTemperatureReview": {
+            "source": "catalog-work/shared-enrichment/hot-star-temperature-review.json",
+            "recordId": "* ksi Per",
+            "fields": [
+              "temperature_k",
+              "luminosity_solar",
+              "radius_solar"
+            ],
+            "decision": "Supersede the unsuitable cool broadband fit with inspected object-specific evidence; withhold its dependent fields unless separately supported.",
+            "adoptedFields": {
+              "temperature_k": {
+                "value": 35900,
+                "status": "model-derived",
+                "uncertainty": null,
+                "reference": "2022A&A...665A.150H",
+                "url": "https://cdsarc.cds.unistra.fr/viz-bin/cat/J/A+A/665/A150",
+                "table": "J/A+A/665/A150/tablef1",
+                "sourceRecordId": "HD 24912",
+                "method": "IACOB quantitative O-star spectroscopy",
+                "caveat": "Published Teff is in kK and is not a limit; no per-object uncertainty is listed in this table. logLsp is spectroscopic luminosity T^4/g, not bolometric luminosity, and is not copied into luminosity_solar."
+              },
+              "luminosity_solar": {
+                "value": null,
+                "status": "withheld",
+                "reason": "Rejected zero-reddening broadband-fit luminosity; no independently verified component-safe replacement adopted in this temperature review."
+              },
+              "radius_solar": {
+                "value": null,
+                "status": "withheld",
+                "reason": "Radius inherited the rejected luminosity/temperature fit; no independently verified component-safe replacement adopted."
+              }
+            }
+          }
+        },
+        "sourceEvidence": "Original measurements and catalog-specific provenance are retained; the shared adopted record supersedes them for these fields."
+      }
     },
     "hip-18724": {
       "hip": 18724,
@@ -10143,7 +10321,7 @@
       ],
       "sharedObjectAdoption": {
         "recordId": "* alf Tau",
-        "reviewSha256": "13b3b09260b2c461f96a27d5d13ed7dbe7975025168a9d2b93a6aaf479ac962f",
+        "reviewSha256": "e2ca0b48c3c122a878a0cad107077833f66a18c7ab7c7d42bc9a14f01ca3b8fe",
         "scope": "Reviewed catalog object/component hip-21421; aliases only, distinct companions remain separate.",
         "fields": [
           "radial_velocity_ref",
@@ -10831,7 +11009,7 @@
       ],
       "sharedObjectAdoption": {
         "recordId": "* pi.03 Ori",
-        "reviewSha256": "13b3b09260b2c461f96a27d5d13ed7dbe7975025168a9d2b93a6aaf479ac962f",
+        "reviewSha256": "e2ca0b48c3c122a878a0cad107077833f66a18c7ab7c7d42bc9a14f01ca3b8fe",
         "scope": "Reviewed catalog object/component cns5-1208; aliases only, distinct companions remain separate.",
         "fields": [
           "absolute_mag",
@@ -11230,7 +11408,56 @@
           "status": "derived",
           "source": "Stefan-Boltzmann scaling"
         }
-      ]
+      ],
+      "sharedObjectAdoption": {
+        "recordId": "* alf Cam",
+        "reviewSha256": "e2ca0b48c3c122a878a0cad107077833f66a18c7ab7c7d42bc9a14f01ca3b8fe",
+        "scope": "Exact named catalog object * alf Cam / HIP 22783 / HD 30614; distinct companions are excluded.",
+        "fields": [
+          "temperature_k",
+          "luminosity_solar",
+          "radius_solar"
+        ],
+        "sourceSelections": {
+          "physicalTemperatureReview": {
+            "source": "catalog-work/shared-enrichment/hot-star-temperature-review.json",
+            "recordId": "* alf Cam",
+            "fields": [
+              "temperature_k",
+              "luminosity_solar",
+              "radius_solar"
+            ],
+            "decision": "Supersede the unsuitable cool broadband fit with inspected object-specific evidence; withhold its dependent fields unless separately supported.",
+            "adoptedFields": {
+              "temperature_k": {
+                "value": 29000,
+                "status": "model-derived",
+                "uncertainty": {
+                  "lower": 400,
+                  "upper": 300
+                },
+                "reference": "2024A&A...687A.228D",
+                "url": "https://arxiv.org/abs/2312.00241",
+                "table": "J/A+A/687/A228/tabled1",
+                "sourceRecordId": "HD 30614",
+                "method": "FASTWIND non-LTE optical diagnostic-line fit",
+                "caveat": "Formal asymmetric temperature uncertainties from the published fit. No temperature is inferred from the spectral label."
+              },
+              "luminosity_solar": {
+                "value": null,
+                "status": "withheld",
+                "reason": "Rejected zero-reddening broadband-fit luminosity; no independently verified component-safe replacement adopted in this temperature review."
+              },
+              "radius_solar": {
+                "value": null,
+                "status": "withheld",
+                "reason": "Radius inherited the rejected luminosity/temperature fit; no independently verified component-safe replacement adopted."
+              }
+            }
+          }
+        },
+        "sourceEvidence": "Original measurements and catalog-specific provenance are retained; the shared adopted record supersedes them for these fields."
+      }
     },
     "hip-22845": {
       "hip": 22845,
@@ -11363,7 +11590,7 @@
       ],
       "sharedObjectAdoption": {
         "recordId": "* iot Aur",
-        "reviewSha256": "13b3b09260b2c461f96a27d5d13ed7dbe7975025168a9d2b93a6aaf479ac962f",
+        "reviewSha256": "e2ca0b48c3c122a878a0cad107077833f66a18c7ab7c7d42bc9a14f01ca3b8fe",
         "scope": "Reviewed catalog object/component hip-23015; aliases only, distinct companions remain separate.",
         "fields": [
           "absolute_mag",
@@ -12069,7 +12296,7 @@
       },
       "sharedObjectAdoption": {
         "recordId": "* bet Ori",
-        "reviewSha256": "13b3b09260b2c461f96a27d5d13ed7dbe7975025168a9d2b93a6aaf479ac962f",
+        "reviewSha256": "e2ca0b48c3c122a878a0cad107077833f66a18c7ab7c7d42bc9a14f01ca3b8fe",
         "scope": "Reviewed catalog object/component bright-rigel; aliases only, distinct companions remain separate.",
         "fields": [
           "radial_velocity_ref",
@@ -12743,7 +12970,7 @@
       ],
       "sharedObjectAdoption": {
         "recordId": "* gam Ori",
-        "reviewSha256": "13b3b09260b2c461f96a27d5d13ed7dbe7975025168a9d2b93a6aaf479ac962f",
+        "reviewSha256": "e2ca0b48c3c122a878a0cad107077833f66a18c7ab7c7d42bc9a14f01ca3b8fe",
         "scope": "Reviewed catalog object/component hip-25336; aliases only, distinct companions remain separate.",
         "fields": [
           "radial_velocity_ref",
@@ -12870,7 +13097,7 @@
       ],
       "sharedObjectAdoption": {
         "recordId": "* bet Tau",
-        "reviewSha256": "13b3b09260b2c461f96a27d5d13ed7dbe7975025168a9d2b93a6aaf479ac962f",
+        "reviewSha256": "e2ca0b48c3c122a878a0cad107077833f66a18c7ab7c7d42bc9a14f01ca3b8fe",
         "scope": "Reviewed catalog object/component hip-25428; aliases only, distinct companions remain separate.",
         "fields": [
           "radial_velocity_ref",
@@ -13210,7 +13437,7 @@
       ],
       "sharedObjectAdoption": {
         "recordId": "* del Ori",
-        "reviewSha256": "13b3b09260b2c461f96a27d5d13ed7dbe7975025168a9d2b93a6aaf479ac962f",
+        "reviewSha256": "e2ca0b48c3c122a878a0cad107077833f66a18c7ab7c7d42bc9a14f01ca3b8fe",
         "scope": "Reviewed catalog object/component hip-25930; aliases only, distinct companions remain separate.",
         "fields": [
           "radial_velocity_ref",
@@ -13328,7 +13555,7 @@
       ],
       "sharedObjectAdoption": {
         "recordId": "* alf Lep",
-        "reviewSha256": "13b3b09260b2c461f96a27d5d13ed7dbe7975025168a9d2b93a6aaf479ac962f",
+        "reviewSha256": "e2ca0b48c3c122a878a0cad107077833f66a18c7ab7c7d42bc9a14f01ca3b8fe",
         "scope": "Reviewed catalog object/component hip-25985; aliases only, distinct companions remain separate.",
         "fields": [
           "radial_velocity_ref",
@@ -13580,7 +13807,7 @@
       ],
       "sharedObjectAdoption": {
         "recordId": "* eps Ori",
-        "reviewSha256": "13b3b09260b2c461f96a27d5d13ed7dbe7975025168a9d2b93a6aaf479ac962f",
+        "reviewSha256": "e2ca0b48c3c122a878a0cad107077833f66a18c7ab7c7d42bc9a14f01ca3b8fe",
         "scope": "Reviewed catalog object/component hip-26311; aliases only, distinct companions remain separate.",
         "fields": [
           "radial_velocity_ref",
@@ -13703,7 +13930,53 @@
           "selection": "Newest within 0.3 dex / 10 percent of the median; strict majority required for multiple observations",
           "scope": "catalogued stellar object"
         }
-      ]
+      ],
+      "sharedObjectAdoption": {
+        "recordId": "* zet Tau",
+        "reviewSha256": "e2ca0b48c3c122a878a0cad107077833f66a18c7ab7c7d42bc9a14f01ca3b8fe",
+        "scope": "Exact named catalog object * zet Tau / HIP 26451 / HD 37202; distinct companions are excluded.",
+        "fields": [
+          "temperature_k",
+          "luminosity_solar",
+          "radius_solar"
+        ],
+        "sourceSelections": {
+          "physicalTemperatureReview": {
+            "source": "catalog-work/shared-enrichment/hot-star-temperature-review.json",
+            "recordId": "* zet Tau",
+            "fields": [
+              "temperature_k",
+              "luminosity_solar",
+              "radius_solar"
+            ],
+            "decision": "Supersede the unsuitable cool broadband fit with inspected object-specific evidence; withhold its dependent fields unless separately supported.",
+            "adoptedFields": {
+              "temperature_k": {
+                "value": 21478,
+                "status": "model-derived",
+                "uncertainty": null,
+                "reference": "2001A&A...378..861C",
+                "url": "https://cdsarc.cds.unistra.fr/viz-bin/cat/J/A+A/378/861",
+                "table": "J/A+A/378/861/table6",
+                "sourceRecordId": "HD 37202",
+                "method": "Published apparent effective temperature, converted from log10(Teff/K)",
+                "caveat": "Rapidly rotating Be star: apparent adopted photospheric temperature, not polar or equatorial temperature. The table gives no individual temperature error. Does not describe the cool circumstellar disk."
+              },
+              "luminosity_solar": {
+                "value": null,
+                "status": "withheld",
+                "reason": "Rejected zero-reddening broadband-fit luminosity; no independently verified component-safe replacement adopted in this temperature review."
+              },
+              "radius_solar": {
+                "value": null,
+                "status": "withheld",
+                "reason": "Radius inherited the rejected luminosity/temperature fit; no independently verified component-safe replacement adopted."
+              }
+            }
+          }
+        },
+        "sourceEvidence": "Original measurements and catalog-specific provenance are retained; the shared adopted record supersedes them for these fields."
+      }
     },
     "hip-26634": {
       "hip": 26634,
@@ -13767,7 +14040,7 @@
       ],
       "sharedObjectAdoption": {
         "recordId": "* alf Col",
-        "reviewSha256": "13b3b09260b2c461f96a27d5d13ed7dbe7975025168a9d2b93a6aaf479ac962f",
+        "reviewSha256": "e2ca0b48c3c122a878a0cad107077833f66a18c7ab7c7d42bc9a14f01ca3b8fe",
         "scope": "Reviewed catalog object/component hip-26634; aliases only, distinct companions remain separate.",
         "fields": [
           "absolute_mag",
@@ -13885,7 +14158,7 @@
       ],
       "sharedObjectAdoption": {
         "recordId": "* zet Ori",
-        "reviewSha256": "13b3b09260b2c461f96a27d5d13ed7dbe7975025168a9d2b93a6aaf479ac962f",
+        "reviewSha256": "e2ca0b48c3c122a878a0cad107077833f66a18c7ab7c7d42bc9a14f01ca3b8fe",
         "scope": "Reviewed catalog object/component hip-26727; aliases only, distinct companions remain separate.",
         "fields": [
           "radial_velocity_ref",
@@ -14030,7 +14303,7 @@
       },
       "sharedObjectAdoption": {
         "recordId": "* gam Lep",
-        "reviewSha256": "13b3b09260b2c461f96a27d5d13ed7dbe7975025168a9d2b93a6aaf479ac962f",
+        "reviewSha256": "e2ca0b48c3c122a878a0cad107077833f66a18c7ab7c7d42bc9a14f01ca3b8fe",
         "scope": "Reviewed catalog object/component cns5-1427; aliases only, distinct companions remain separate.",
         "fields": [
           "absolute_mag",
@@ -14423,7 +14696,7 @@
       ],
       "sharedObjectAdoption": {
         "recordId": "* kap Ori",
-        "reviewSha256": "13b3b09260b2c461f96a27d5d13ed7dbe7975025168a9d2b93a6aaf479ac962f",
+        "reviewSha256": "e2ca0b48c3c122a878a0cad107077833f66a18c7ab7c7d42bc9a14f01ca3b8fe",
         "scope": "Reviewed catalog object/component hip-27366; aliases only, distinct companions remain separate.",
         "fields": [
           "radial_velocity_ref",
@@ -15293,7 +15566,7 @@
       ],
       "sharedObjectAdoption": {
         "recordId": "* alf Ori",
-        "reviewSha256": "13b3b09260b2c461f96a27d5d13ed7dbe7975025168a9d2b93a6aaf479ac962f",
+        "reviewSha256": "e2ca0b48c3c122a878a0cad107077833f66a18c7ab7c7d42bc9a14f01ca3b8fe",
         "scope": "Reviewed catalog object/component hip-27989; aliases only, distinct companions remain separate.",
         "fields": [
           "radial_velocity_ref",
@@ -15635,7 +15908,7 @@
       ],
       "sharedObjectAdoption": {
         "recordId": "* bet Aur",
-        "reviewSha256": "13b3b09260b2c461f96a27d5d13ed7dbe7975025168a9d2b93a6aaf479ac962f",
+        "reviewSha256": "e2ca0b48c3c122a878a0cad107077833f66a18c7ab7c7d42bc9a14f01ca3b8fe",
         "scope": "Reviewed catalog object/component hip-28360; aliases only, distinct companions remain separate.",
         "fields": [
           "radial_velocity_ref",
@@ -15753,7 +16026,7 @@
       ],
       "sharedObjectAdoption": {
         "recordId": "* tet Aur",
-        "reviewSha256": "13b3b09260b2c461f96a27d5d13ed7dbe7975025168a9d2b93a6aaf479ac962f",
+        "reviewSha256": "e2ca0b48c3c122a878a0cad107077833f66a18c7ab7c7d42bc9a14f01ca3b8fe",
         "scope": "Reviewed catalog object/component hip-28380; aliases only, distinct companions remain separate.",
         "fields": [
           "radial_velocity_ref",
@@ -16802,7 +17075,7 @@
       ],
       "sharedObjectAdoption": {
         "recordId": "* bet CMa",
-        "reviewSha256": "13b3b09260b2c461f96a27d5d13ed7dbe7975025168a9d2b93a6aaf479ac962f",
+        "reviewSha256": "e2ca0b48c3c122a878a0cad107077833f66a18c7ab7c7d42bc9a14f01ca3b8fe",
         "scope": "Reviewed catalog object/component hip-30324; aliases only, distinct companions remain separate.",
         "fields": [
           "radial_velocity_ref",
@@ -17070,7 +17343,7 @@
       ],
       "sharedObjectAdoption": {
         "recordId": "* alf Car",
-        "reviewSha256": "13b3b09260b2c461f96a27d5d13ed7dbe7975025168a9d2b93a6aaf479ac962f",
+        "reviewSha256": "e2ca0b48c3c122a878a0cad107077833f66a18c7ab7c7d42bc9a14f01ca3b8fe",
         "scope": "Reviewed catalog object/component hip-30438; aliases only, distinct companions remain separate.",
         "fields": [
           "radial_velocity_ref",
@@ -17431,7 +17704,7 @@
       ],
       "sharedObjectAdoption": {
         "recordId": "* gam Gem",
-        "reviewSha256": "13b3b09260b2c461f96a27d5d13ed7dbe7975025168a9d2b93a6aaf479ac962f",
+        "reviewSha256": "e2ca0b48c3c122a878a0cad107077833f66a18c7ab7c7d42bc9a14f01ca3b8fe",
         "scope": "Reviewed catalog object/component hip-31681; aliases only, distinct companions remain separate.",
         "fields": [
           "radial_velocity_ref",
@@ -17701,7 +17974,7 @@
       },
       "sharedObjectAdoption": {
         "recordId": "* alf CMa",
-        "reviewSha256": "13b3b09260b2c461f96a27d5d13ed7dbe7975025168a9d2b93a6aaf479ac962f",
+        "reviewSha256": "e2ca0b48c3c122a878a0cad107077833f66a18c7ab7c7d42bc9a14f01ca3b8fe",
         "scope": "Reviewed catalog object/component sirius-a; aliases only, distinct companions remain separate.",
         "fields": [
           "absolute_mag",
@@ -18273,7 +18546,56 @@
           "selection": "Newest within 0.3 dex / 10 percent of the median; strict majority required for multiple observations",
           "scope": "SIMBAD object as catalogued; unresolved spectra may be primary-dominated"
         }
-      ]
+      ],
+      "sharedObjectAdoption": {
+        "recordId": "* iot CMa",
+        "reviewSha256": "e2ca0b48c3c122a878a0cad107077833f66a18c7ab7c7d42bc9a14f01ca3b8fe",
+        "scope": "Exact named catalog object * iot CMa / HIP 33347 / HD 51309; distinct companions are excluded.",
+        "fields": [
+          "temperature_k",
+          "luminosity_solar",
+          "radius_solar"
+        ],
+        "sourceSelections": {
+          "physicalTemperatureReview": {
+            "source": "catalog-work/shared-enrichment/hot-star-temperature-review.json",
+            "recordId": "* iot CMa",
+            "fields": [
+              "temperature_k",
+              "luminosity_solar",
+              "radius_solar"
+            ],
+            "decision": "Supersede the unsuitable cool broadband fit with inspected object-specific evidence; withhold its dependent fields unless separately supported.",
+            "adoptedFields": {
+              "temperature_k": {
+                "value": 16800,
+                "status": "model-derived",
+                "uncertainty": {
+                  "lower": 200,
+                  "upper": 200
+                },
+                "reference": "2024A&A...687A.228D",
+                "url": "https://arxiv.org/abs/2312.00241",
+                "table": "J/A+A/687/A228/tabled1",
+                "sourceRecordId": "HD 51309",
+                "method": "FASTWIND non-LTE optical diagnostic-line fit",
+                "caveat": "Formal asymmetric temperature uncertainties from the published fit. No temperature is inferred from the spectral label."
+              },
+              "luminosity_solar": {
+                "value": null,
+                "status": "withheld",
+                "reason": "Rejected zero-reddening broadband-fit luminosity; no independently verified component-safe replacement adopted in this temperature review."
+              },
+              "radius_solar": {
+                "value": null,
+                "status": "withheld",
+                "reason": "Radius inherited the rejected luminosity/temperature fit; no independently verified component-safe replacement adopted."
+              }
+            }
+          }
+        },
+        "sourceEvidence": "Original measurements and catalog-specific provenance are retained; the shared adopted record supersedes them for these fields."
+      }
     },
     "hip-33449": {
       "hip": 33449,
@@ -18396,7 +18718,7 @@
       ],
       "sharedObjectAdoption": {
         "recordId": "* eps CMa",
-        "reviewSha256": "13b3b09260b2c461f96a27d5d13ed7dbe7975025168a9d2b93a6aaf479ac962f",
+        "reviewSha256": "e2ca0b48c3c122a878a0cad107077833f66a18c7ab7c7d42bc9a14f01ca3b8fe",
         "scope": "Reviewed catalog object/component hip-33579; aliases only, distinct companions remain separate.",
         "fields": [
           "radial_velocity_ref",
@@ -18795,7 +19117,7 @@
       ],
       "sharedObjectAdoption": {
         "recordId": "* del CMa",
-        "reviewSha256": "13b3b09260b2c461f96a27d5d13ed7dbe7975025168a9d2b93a6aaf479ac962f",
+        "reviewSha256": "e2ca0b48c3c122a878a0cad107077833f66a18c7ab7c7d42bc9a14f01ca3b8fe",
         "scope": "Reviewed catalog object/component hip-34444; aliases only, distinct companions remain separate.",
         "fields": [
           "radial_velocity_ref",
@@ -19113,7 +19435,67 @@
           "status": "derived",
           "source": "Stefan-Boltzmann scaling"
         }
-      ]
+      ],
+      "sharedObjectAdoption": {
+        "recordId": "* ome CMa",
+        "reviewSha256": "e2ca0b48c3c122a878a0cad107077833f66a18c7ab7c7d42bc9a14f01ca3b8fe",
+        "scope": "Exact named catalog object * ome CMa / HIP 35037 / HD 56139; distinct companions are excluded.",
+        "fields": [
+          "temperature_k",
+          "luminosity_solar",
+          "radius_solar"
+        ],
+        "sourceSelections": {
+          "physicalTemperatureReview": {
+            "source": "catalog-work/shared-enrichment/hot-star-temperature-review.json",
+            "recordId": "* ome CMa",
+            "fields": [
+              "temperature_k",
+              "luminosity_solar",
+              "radius_solar"
+            ],
+            "decision": "Supersede the unsuitable cool broadband fit with inspected object-specific evidence; withhold its dependent fields unless separately supported.",
+            "adoptedFields": {
+              "temperature_k": {
+                "value": 17170,
+                "status": "model-derived",
+                "uncertainty": 172,
+                "reference": "2018MNRAS.474.5287A",
+                "url": "https://arxiv.org/abs/1711.08675",
+                "table": "Table B1",
+                "sourceRecordId": "HD 56139",
+                "method": "BeSOS photometric fit cross-checked with optical spectroscopy",
+                "caveat": "Published errors are the authors' assumed 1 percent for temperature, not an independent posterior error; Be disk variability and rotational gravity darkening add systematics."
+              },
+              "luminosity_solar": {
+                "value": 8632.855848,
+                "status": "derived",
+                "reference": "Stefan-Boltzmann scaling",
+                "inputs": {
+                  "temperature_k": 17170,
+                  "radius_solar": 10.5,
+                  "solar_temperature_k": 5772
+                },
+                "caveat": "Derived from the same BeSOS model temperature and radius; not an independent luminosity measurement."
+              },
+              "radius_solar": {
+                "value": 10.5,
+                "status": "model-derived",
+                "uncertainty": 0.21,
+                "reference": "2018MNRAS.474.5287A",
+                "url": "https://arxiv.org/abs/1711.08675",
+                "table": "Table B1",
+                "inputs": {
+                  "source_distance_pc": 279,
+                  "E_B_V": 0.06
+                },
+                "caveat": "Published photometric photospheric radius at its source distance. Assumed 2 percent error excludes distance and model systematics; retained without rescaling to catalog distance."
+              }
+            }
+          }
+        },
+        "sourceEvidence": "Original measurements and catalog-specific provenance are retained; the shared adopted record supersedes them for these fields."
+      }
     },
     "hip-35228": {
       "hip": 35228,
@@ -19426,7 +19808,7 @@
       ],
       "sharedObjectAdoption": {
         "recordId": "* eta CMa",
-        "reviewSha256": "13b3b09260b2c461f96a27d5d13ed7dbe7975025168a9d2b93a6aaf479ac962f",
+        "reviewSha256": "e2ca0b48c3c122a878a0cad107077833f66a18c7ab7c7d42bc9a14f01ca3b8fe",
         "scope": "Reviewed catalog object/component hip-35904; aliases only, distinct companions remain separate.",
         "fields": [
           "radial_velocity_ref",
@@ -19800,7 +20182,7 @@
       ],
       "sharedObjectAdoption": {
         "recordId": "* alf Gem",
-        "reviewSha256": "13b3b09260b2c461f96a27d5d13ed7dbe7975025168a9d2b93a6aaf479ac962f",
+        "reviewSha256": "e2ca0b48c3c122a878a0cad107077833f66a18c7ab7c7d42bc9a14f01ca3b8fe",
         "scope": "Reviewed catalog object/component hip-36850; aliases only, distinct companions remain separate.",
         "fields": [
           "radial_velocity_ref",
@@ -20000,7 +20382,7 @@
       },
       "sharedObjectAdoption": {
         "recordId": "* alf CMi",
-        "reviewSha256": "13b3b09260b2c461f96a27d5d13ed7dbe7975025168a9d2b93a6aaf479ac962f",
+        "reviewSha256": "e2ca0b48c3c122a878a0cad107077833f66a18c7ab7c7d42bc9a14f01ca3b8fe",
         "scope": "Reviewed catalog object/component 10pc-0031; aliases only, distinct companions remain separate.",
         "fields": [
           "absolute_mag",
@@ -20401,7 +20783,7 @@
       ],
       "sharedObjectAdoption": {
         "recordId": "* bet Gem",
-        "reviewSha256": "13b3b09260b2c461f96a27d5d13ed7dbe7975025168a9d2b93a6aaf479ac962f",
+        "reviewSha256": "e2ca0b48c3c122a878a0cad107077833f66a18c7ab7c7d42bc9a14f01ca3b8fe",
         "scope": "Reviewed catalog object/component cns5-1912; aliases only, distinct companions remain separate.",
         "fields": [
           "vx_kms",
@@ -20629,7 +21011,7 @@
       ],
       "sharedObjectAdoption": {
         "recordId": "* zet Pup",
-        "reviewSha256": "13b3b09260b2c461f96a27d5d13ed7dbe7975025168a9d2b93a6aaf479ac962f",
+        "reviewSha256": "e2ca0b48c3c122a878a0cad107077833f66a18c7ab7c7d42bc9a14f01ca3b8fe",
         "scope": "Reviewed catalog object/component hip-39429; aliases only, distinct companions remain separate.",
         "fields": [
           "radial_velocity_ref",
@@ -20956,7 +21338,7 @@
       ],
       "sharedObjectAdoption": {
         "recordId": "* gam02 Vel",
-        "reviewSha256": "13b3b09260b2c461f96a27d5d13ed7dbe7975025168a9d2b93a6aaf479ac962f",
+        "reviewSha256": "e2ca0b48c3c122a878a0cad107077833f66a18c7ab7c7d42bc9a14f01ca3b8fe",
         "scope": "Reviewed catalog object/component hip-39953; aliases only, distinct companions remain separate.",
         "fields": [
           "radial_velocity_ref",
@@ -21313,7 +21695,7 @@
       ],
       "sharedObjectAdoption": {
         "recordId": "* eps Car",
-        "reviewSha256": "13b3b09260b2c461f96a27d5d13ed7dbe7975025168a9d2b93a6aaf479ac962f",
+        "reviewSha256": "e2ca0b48c3c122a878a0cad107077833f66a18c7ab7c7d42bc9a14f01ca3b8fe",
         "scope": "Reviewed catalog object/component hip-41037; aliases only, distinct companions remain separate.",
         "fields": [
           "radial_velocity_ref",
@@ -23078,7 +23460,7 @@
       ],
       "sharedObjectAdoption": {
         "recordId": "* lam Vel",
-        "reviewSha256": "13b3b09260b2c461f96a27d5d13ed7dbe7975025168a9d2b93a6aaf479ac962f",
+        "reviewSha256": "e2ca0b48c3c122a878a0cad107077833f66a18c7ab7c7d42bc9a14f01ca3b8fe",
         "scope": "Reviewed catalog object/component hip-44816; aliases only, distinct companions remain separate.",
         "fields": [
           "radial_velocity_ref",
@@ -23275,7 +23657,7 @@
       ],
       "sharedObjectAdoption": {
         "recordId": "* bet Car",
-        "reviewSha256": "13b3b09260b2c461f96a27d5d13ed7dbe7975025168a9d2b93a6aaf479ac962f",
+        "reviewSha256": "e2ca0b48c3c122a878a0cad107077833f66a18c7ab7c7d42bc9a14f01ca3b8fe",
         "scope": "Reviewed catalog object/component hip-45238; aliases only, distinct companions remain separate.",
         "fields": [
           "radial_velocity_ref",
@@ -23445,7 +23827,7 @@
       ],
       "sharedObjectAdoption": {
         "recordId": "* iot Car",
-        "reviewSha256": "13b3b09260b2c461f96a27d5d13ed7dbe7975025168a9d2b93a6aaf479ac962f",
+        "reviewSha256": "e2ca0b48c3c122a878a0cad107077833f66a18c7ab7c7d42bc9a14f01ca3b8fe",
         "scope": "Reviewed catalog object/component hip-45556; aliases only, distinct companions remain separate.",
         "fields": [
           "radial_velocity_ref",
@@ -23679,7 +24061,7 @@
       ],
       "sharedObjectAdoption": {
         "recordId": "* kap Vel",
-        "reviewSha256": "13b3b09260b2c461f96a27d5d13ed7dbe7975025168a9d2b93a6aaf479ac962f",
+        "reviewSha256": "e2ca0b48c3c122a878a0cad107077833f66a18c7ab7c7d42bc9a14f01ca3b8fe",
         "scope": "Reviewed catalog object/component hip-45941; aliases only, distinct companions remain separate.",
         "fields": [
           "radial_velocity_ref",
@@ -23797,7 +24179,7 @@
       ],
       "sharedObjectAdoption": {
         "recordId": "* alf Hya",
-        "reviewSha256": "13b3b09260b2c461f96a27d5d13ed7dbe7975025168a9d2b93a6aaf479ac962f",
+        "reviewSha256": "e2ca0b48c3c122a878a0cad107077833f66a18c7ab7c7d42bc9a14f01ca3b8fe",
         "scope": "Reviewed catalog object/component hip-46390; aliases only, distinct companions remain separate.",
         "fields": [
           "radial_velocity_ref",
@@ -24189,7 +24571,7 @@
       ],
       "sharedObjectAdoption": {
         "recordId": "* tet UMa",
-        "reviewSha256": "13b3b09260b2c461f96a27d5d13ed7dbe7975025168a9d2b93a6aaf479ac962f",
+        "reviewSha256": "e2ca0b48c3c122a878a0cad107077833f66a18c7ab7c7d42bc9a14f01ca3b8fe",
         "scope": "Reviewed catalog object/component cns5-2366; aliases only, distinct companions remain separate.",
         "fields": [
           "absolute_mag",
@@ -25130,7 +25512,7 @@
       ],
       "sharedObjectAdoption": {
         "recordId": "* alf Leo",
-        "reviewSha256": "13b3b09260b2c461f96a27d5d13ed7dbe7975025168a9d2b93a6aaf479ac962f",
+        "reviewSha256": "e2ca0b48c3c122a878a0cad107077833f66a18c7ab7c7d42bc9a14f01ca3b8fe",
         "scope": "Reviewed catalog object/component hip-49669; aliases only, distinct companions remain separate.",
         "fields": [
           "radial_velocity_ref",
@@ -26422,7 +26804,7 @@
       ],
       "sharedObjectAdoption": {
         "recordId": "* mu. Vel",
-        "reviewSha256": "13b3b09260b2c461f96a27d5d13ed7dbe7975025168a9d2b93a6aaf479ac962f",
+        "reviewSha256": "e2ca0b48c3c122a878a0cad107077833f66a18c7ab7c7d42bc9a14f01ca3b8fe",
         "scope": "Reviewed catalog object/component hip-52727; aliases only, distinct companions remain separate.",
         "fields": [
           "absolute_mag",
@@ -26858,7 +27240,7 @@
       ],
       "sharedObjectAdoption": {
         "recordId": "* bet UMa",
-        "reviewSha256": "13b3b09260b2c461f96a27d5d13ed7dbe7975025168a9d2b93a6aaf479ac962f",
+        "reviewSha256": "e2ca0b48c3c122a878a0cad107077833f66a18c7ab7c7d42bc9a14f01ca3b8fe",
         "scope": "Reviewed catalog object/component hip-53910; aliases only, distinct companions remain separate.",
         "fields": [
           "absolute_mag",
@@ -26984,7 +27366,7 @@
       ],
       "sharedObjectAdoption": {
         "recordId": "* alf UMa",
-        "reviewSha256": "13b3b09260b2c461f96a27d5d13ed7dbe7975025168a9d2b93a6aaf479ac962f",
+        "reviewSha256": "e2ca0b48c3c122a878a0cad107077833f66a18c7ab7c7d42bc9a14f01ca3b8fe",
         "scope": "Reviewed catalog object/component hip-54061; aliases only, distinct companions remain separate.",
         "fields": [
           "radial_velocity_ref",
@@ -27310,7 +27692,7 @@
       ],
       "sharedObjectAdoption": {
         "recordId": "* del Leo",
-        "reviewSha256": "13b3b09260b2c461f96a27d5d13ed7dbe7975025168a9d2b93a6aaf479ac962f",
+        "reviewSha256": "e2ca0b48c3c122a878a0cad107077833f66a18c7ab7c7d42bc9a14f01ca3b8fe",
         "scope": "Reviewed catalog object/component hip-54872; aliases only, distinct companions remain separate.",
         "fields": [
           "radial_velocity_ref",
@@ -28411,7 +28793,7 @@
       ],
       "sharedObjectAdoption": {
         "recordId": "* bet Leo",
-        "reviewSha256": "13b3b09260b2c461f96a27d5d13ed7dbe7975025168a9d2b93a6aaf479ac962f",
+        "reviewSha256": "e2ca0b48c3c122a878a0cad107077833f66a18c7ab7c7d42bc9a14f01ca3b8fe",
         "scope": "Reviewed catalog object/component cns5-2899; aliases only, distinct companions remain separate.",
         "fields": [
           "vx_kms",
@@ -28596,7 +28978,7 @@
       ],
       "sharedObjectAdoption": {
         "recordId": "* gam UMa",
-        "reviewSha256": "13b3b09260b2c461f96a27d5d13ed7dbe7975025168a9d2b93a6aaf479ac962f",
+        "reviewSha256": "e2ca0b48c3c122a878a0cad107077833f66a18c7ab7c7d42bc9a14f01ca3b8fe",
         "scope": "Reviewed catalog object/component hip-58001; aliases only, distinct companions remain separate.",
         "fields": [
           "radial_velocity_ref",
@@ -28748,35 +29130,36 @@
       "gaiaDr3Id": "6126469654585981952",
       "adoptedPhysicalFields": {
         "temperature_k": "bright-stars:bright-delta-centauri",
-        "luminosity_solar": "bright-stars:bright-delta-centauri",
-        "radius_solar": "bright-stars:bright-delta-centauri"
+        "luminosity_solar": "published:2012MNRAS.427..343M:HIP-59196",
+        "radius_solar": "derived:stefan-boltzmann"
       },
       "physicalObservations": [
         {
           "field": "temperature_k",
-          "value": 8850.0,
+          "value": 22150.0,
           "status": "inherited",
           "source": "bright-stars",
           "sourceId": "bright-delta-centauri"
         },
         {
           "field": "luminosity_solar",
-          "value": 1308.99,
-          "status": "inherited",
-          "source": "bright-stars",
-          "sourceId": "bright-delta-centauri"
+          "value": 2841.63286251296,
+          "uncertainty": null,
+          "status": "model-derived",
+          "source": "McDonald et al. 2012 SED rescaled to adopted distance",
+          "sourceId": "HIP 59196",
+          "bibcode": "2012MNRAS.427..343M"
         },
         {
           "field": "radius_solar",
-          "value": 15.3898,
-          "status": "inherited",
-          "source": "bright-stars",
-          "sourceId": "bright-delta-centauri"
+          "value": 3.619838268401442,
+          "status": "derived",
+          "source": "Stefan-Boltzmann scaling"
         }
       ],
       "sharedObjectAdoption": {
         "recordId": "* del Cen",
-        "reviewSha256": "13b3b09260b2c461f96a27d5d13ed7dbe7975025168a9d2b93a6aaf479ac962f",
+        "reviewSha256": "e2ca0b48c3c122a878a0cad107077833f66a18c7ab7c7d42bc9a14f01ca3b8fe",
         "scope": "Reviewed catalog object/component hip-59196; aliases only, distinct companions remain separate.",
         "fields": [
           "absolute_mag",
@@ -28800,7 +29183,10 @@
           "pm_dec_masyr",
           "pm_dec_error_masyr",
           "radial_velocity_kms",
-          "radial_velocity_error_kms"
+          "radial_velocity_error_kms",
+          "temperature_k",
+          "luminosity_solar",
+          "radius_solar"
         ],
         "sourceSelections": {
           "astrometryAndMotion": {
@@ -28836,6 +29222,39 @@
               "absolute_mag"
             ],
             "decision": "Use the component-resolved curated Johnson V/distance where available, otherwise the common selected astrometric snapshot; preserve the specifically reviewed Bright Star Catalogue V=0.76 for Acrux. No integrated system flux is assigned to a faint companion."
+          },
+          "physicalTemperatureReview": {
+            "source": "catalog-work/shared-enrichment/hot-star-temperature-review.json",
+            "recordId": "* del Cen",
+            "fields": [
+              "temperature_k",
+              "luminosity_solar",
+              "radius_solar"
+            ],
+            "decision": "Supersede the unsuitable cool broadband fit with inspected object-specific evidence; withhold its dependent fields unless separately supported.",
+            "adoptedFields": {
+              "temperature_k": {
+                "value": 22150,
+                "status": "model-derived",
+                "uncertainty": 222,
+                "reference": "2018MNRAS.474.5287A",
+                "url": "https://arxiv.org/abs/1711.08675",
+                "table": "Table B1",
+                "sourceRecordId": "HD 105435",
+                "method": "BeSOS photometric fit cross-checked with optical spectroscopy",
+                "caveat": "Published errors are the authors' assumed 1 percent for temperature, not an independent posterior error; Be disk variability and rotational gravity darkening add systematics."
+              },
+              "luminosity_solar": {
+                "value": null,
+                "status": "withheld",
+                "reason": "Rejected zero-reddening broadband-fit luminosity; no independently verified component-safe replacement adopted in this temperature review."
+              },
+              "radius_solar": {
+                "value": null,
+                "status": "withheld",
+                "reason": "Radius inherited the rejected luminosity/temperature fit; no independently verified component-safe replacement adopted."
+              }
+            }
           }
         },
         "sourceEvidence": "Original measurements and catalog-specific provenance are retained; the shared adopted record supersedes them for these fields."
@@ -29191,7 +29610,7 @@
       ],
       "sharedObjectAdoption": {
         "recordId": "* gam Crv",
-        "reviewSha256": "13b3b09260b2c461f96a27d5d13ed7dbe7975025168a9d2b93a6aaf479ac962f",
+        "reviewSha256": "e2ca0b48c3c122a878a0cad107077833f66a18c7ab7c7d42bc9a14f01ca3b8fe",
         "scope": "Reviewed catalog object/component hip-59803; aliases only, distinct companions remain separate.",
         "fields": [
           "radial_velocity_ref",
@@ -29449,7 +29868,7 @@
       ],
       "sharedObjectAdoption": {
         "recordId": "* alf Cru",
-        "reviewSha256": "13b3b09260b2c461f96a27d5d13ed7dbe7975025168a9d2b93a6aaf479ac962f",
+        "reviewSha256": "e2ca0b48c3c122a878a0cad107077833f66a18c7ab7c7d42bc9a14f01ca3b8fe",
         "scope": "Reviewed catalog object/component hip-60718; aliases only, distinct companions remain separate.",
         "fields": [
           "absolute_mag",
@@ -29814,7 +30233,7 @@
       ],
       "sharedObjectAdoption": {
         "recordId": "* gam Cru",
-        "reviewSha256": "13b3b09260b2c461f96a27d5d13ed7dbe7975025168a9d2b93a6aaf479ac962f",
+        "reviewSha256": "e2ca0b48c3c122a878a0cad107077833f66a18c7ab7c7d42bc9a14f01ca3b8fe",
         "scope": "Reviewed catalog object/component hip-61084; aliases only, distinct companions remain separate.",
         "fields": [
           "radial_velocity_ref",
@@ -30267,7 +30686,7 @@
       ],
       "sharedObjectAdoption": {
         "recordId": "* bet Crv",
-        "reviewSha256": "13b3b09260b2c461f96a27d5d13ed7dbe7975025168a9d2b93a6aaf479ac962f",
+        "reviewSha256": "e2ca0b48c3c122a878a0cad107077833f66a18c7ab7c7d42bc9a14f01ca3b8fe",
         "scope": "Reviewed catalog object/component hip-61359; aliases only, distinct companions remain separate.",
         "fields": [
           "absolute_mag",
@@ -30385,7 +30804,7 @@
       ],
       "sharedObjectAdoption": {
         "recordId": "* alf Mus",
-        "reviewSha256": "13b3b09260b2c461f96a27d5d13ed7dbe7975025168a9d2b93a6aaf479ac962f",
+        "reviewSha256": "e2ca0b48c3c122a878a0cad107077833f66a18c7ab7c7d42bc9a14f01ca3b8fe",
         "scope": "Reviewed catalog object/component hip-61585; aliases only, distinct companions remain separate.",
         "fields": [
           "radial_velocity_ref",
@@ -30479,7 +30898,7 @@
       ],
       "sharedObjectAdoption": {
         "recordId": "* gam Cen",
-        "reviewSha256": "13b3b09260b2c461f96a27d5d13ed7dbe7975025168a9d2b93a6aaf479ac962f",
+        "reviewSha256": "e2ca0b48c3c122a878a0cad107077833f66a18c7ab7c7d42bc9a14f01ca3b8fe",
         "scope": "Reviewed catalog object/component hip-61932; aliases only, distinct companions remain separate.",
         "fields": [
           "radial_velocity_ref",
@@ -30614,7 +31033,7 @@
       ],
       "sharedObjectAdoption": {
         "recordId": "* gam Vir",
-        "reviewSha256": "13b3b09260b2c461f96a27d5d13ed7dbe7975025168a9d2b93a6aaf479ac962f",
+        "reviewSha256": "e2ca0b48c3c122a878a0cad107077833f66a18c7ab7c7d42bc9a14f01ca3b8fe",
         "scope": "Reviewed catalog object/component cns5-3135; aliases only, distinct companions remain separate.",
         "fields": [
           "absolute_mag",
@@ -30795,7 +31214,7 @@
       ],
       "sharedObjectAdoption": {
         "recordId": "* bet Cru",
-        "reviewSha256": "13b3b09260b2c461f96a27d5d13ed7dbe7975025168a9d2b93a6aaf479ac962f",
+        "reviewSha256": "e2ca0b48c3c122a878a0cad107077833f66a18c7ab7c7d42bc9a14f01ca3b8fe",
         "scope": "Reviewed catalog object/component hip-62434; aliases only, distinct companions remain separate.",
         "fields": [
           "radial_velocity_ref",
@@ -30921,7 +31340,7 @@
       ],
       "sharedObjectAdoption": {
         "recordId": "* eps UMa",
-        "reviewSha256": "13b3b09260b2c461f96a27d5d13ed7dbe7975025168a9d2b93a6aaf479ac962f",
+        "reviewSha256": "e2ca0b48c3c122a878a0cad107077833f66a18c7ab7c7d42bc9a14f01ca3b8fe",
         "scope": "Reviewed catalog object/component hip-62956; aliases only, distinct companions remain separate.",
         "fields": [
           "radial_velocity_ref",
@@ -31402,7 +31821,7 @@
       ],
       "sharedObjectAdoption": {
         "recordId": "* bet Com",
-        "reviewSha256": "13b3b09260b2c461f96a27d5d13ed7dbe7975025168a9d2b93a6aaf479ac962f",
+        "reviewSha256": "e2ca0b48c3c122a878a0cad107077833f66a18c7ab7c7d42bc9a14f01ca3b8fe",
         "scope": "Reviewed catalog object/component cns5-3247; aliases only, distinct companions remain separate.",
         "fields": [
           "absolute_mag",
@@ -31706,7 +32125,7 @@
       ],
       "sharedObjectAdoption": {
         "recordId": "* alf Vir",
-        "reviewSha256": "13b3b09260b2c461f96a27d5d13ed7dbe7975025168a9d2b93a6aaf479ac962f",
+        "reviewSha256": "e2ca0b48c3c122a878a0cad107077833f66a18c7ab7c7d42bc9a14f01ca3b8fe",
         "scope": "Reviewed catalog object/component hip-65474; aliases only, distinct companions remain separate.",
         "fields": [
           "radial_velocity_ref",
@@ -31981,7 +32400,7 @@
       ],
       "sharedObjectAdoption": {
         "recordId": "* eps Cen",
-        "reviewSha256": "13b3b09260b2c461f96a27d5d13ed7dbe7975025168a9d2b93a6aaf479ac962f",
+        "reviewSha256": "e2ca0b48c3c122a878a0cad107077833f66a18c7ab7c7d42bc9a14f01ca3b8fe",
         "scope": "Reviewed catalog object/component hip-66657; aliases only, distinct companions remain separate.",
         "fields": [
           "radial_velocity_ref",
@@ -32099,7 +32518,7 @@
       ],
       "sharedObjectAdoption": {
         "recordId": "* eta UMa",
-        "reviewSha256": "13b3b09260b2c461f96a27d5d13ed7dbe7975025168a9d2b93a6aaf479ac962f",
+        "reviewSha256": "e2ca0b48c3c122a878a0cad107077833f66a18c7ab7c7d42bc9a14f01ca3b8fe",
         "scope": "Reviewed catalog object/component hip-67301; aliases only, distinct companions remain separate.",
         "fields": [
           "radial_velocity_ref",
@@ -32415,7 +32834,7 @@
       ],
       "sharedObjectAdoption": {
         "recordId": "* eta Boo",
-        "reviewSha256": "13b3b09260b2c461f96a27d5d13ed7dbe7975025168a9d2b93a6aaf479ac962f",
+        "reviewSha256": "e2ca0b48c3c122a878a0cad107077833f66a18c7ab7c7d42bc9a14f01ca3b8fe",
         "scope": "Reviewed catalog object/component cns5-3442; aliases only, distinct companions remain separate.",
         "fields": [
           "vx_kms",
@@ -32545,7 +32964,7 @@
       ],
       "sharedObjectAdoption": {
         "recordId": "* zet Cen",
-        "reviewSha256": "13b3b09260b2c461f96a27d5d13ed7dbe7975025168a9d2b93a6aaf479ac962f",
+        "reviewSha256": "e2ca0b48c3c122a878a0cad107077833f66a18c7ab7c7d42bc9a14f01ca3b8fe",
         "scope": "Reviewed catalog object/component hip-68002; aliases only, distinct companions remain separate.",
         "fields": [
           "radial_velocity_ref",
@@ -32800,7 +33219,7 @@
       ],
       "sharedObjectAdoption": {
         "recordId": "* bet Cen",
-        "reviewSha256": "13b3b09260b2c461f96a27d5d13ed7dbe7975025168a9d2b93a6aaf479ac962f",
+        "reviewSha256": "e2ca0b48c3c122a878a0cad107077833f66a18c7ab7c7d42bc9a14f01ca3b8fe",
         "scope": "Reviewed catalog object/component hip-68702; aliases only, distinct companions remain separate.",
         "fields": [
           "radial_velocity_ref",
@@ -32982,7 +33401,7 @@
       ],
       "sharedObjectAdoption": {
         "recordId": "* tet Cen",
-        "reviewSha256": "13b3b09260b2c461f96a27d5d13ed7dbe7975025168a9d2b93a6aaf479ac962f",
+        "reviewSha256": "e2ca0b48c3c122a878a0cad107077833f66a18c7ab7c7d42bc9a14f01ca3b8fe",
         "scope": "Reviewed catalog object/component hip-68933; aliases only, distinct companions remain separate.",
         "fields": [
           "radial_velocity_ref",
@@ -33189,7 +33608,7 @@
       ],
       "sharedObjectAdoption": {
         "recordId": "* alf Boo",
-        "reviewSha256": "13b3b09260b2c461f96a27d5d13ed7dbe7975025168a9d2b93a6aaf479ac962f",
+        "reviewSha256": "e2ca0b48c3c122a878a0cad107077833f66a18c7ab7c7d42bc9a14f01ca3b8fe",
         "scope": "Reviewed catalog object/component cns5-3517; aliases only, distinct companions remain separate.",
         "fields": [
           "vx_kms",
@@ -33698,7 +34117,7 @@
       ],
       "sharedObjectAdoption": {
         "recordId": "* eta Cen",
-        "reviewSha256": "13b3b09260b2c461f96a27d5d13ed7dbe7975025168a9d2b93a6aaf479ac962f",
+        "reviewSha256": "e2ca0b48c3c122a878a0cad107077833f66a18c7ab7c7d42bc9a14f01ca3b8fe",
         "scope": "Reviewed catalog object/component hip-71352; aliases only, distinct companions remain separate.",
         "fields": [
           "radial_velocity_ref",
@@ -33921,7 +34340,7 @@
       },
       "sharedObjectAdoption": {
         "recordId": "* alf Cen A",
-        "reviewSha256": "13b3b09260b2c461f96a27d5d13ed7dbe7975025168a9d2b93a6aaf479ac962f",
+        "reviewSha256": "e2ca0b48c3c122a878a0cad107077833f66a18c7ab7c7d42bc9a14f01ca3b8fe",
         "scope": "Reviewed catalog object/component alpha-centauri-a; aliases only, distinct companions remain separate.",
         "fields": [
           "absolute_mag",
@@ -34094,7 +34513,7 @@
       ],
       "sharedObjectAdoption": {
         "recordId": "* alf Lup",
-        "reviewSha256": "13b3b09260b2c461f96a27d5d13ed7dbe7975025168a9d2b93a6aaf479ac962f",
+        "reviewSha256": "e2ca0b48c3c122a878a0cad107077833f66a18c7ab7c7d42bc9a14f01ca3b8fe",
         "scope": "Reviewed catalog object/component hip-71860; aliases only, distinct companions remain separate.",
         "fields": [
           "radial_velocity_ref",
@@ -34377,7 +34796,7 @@
       ],
       "sharedObjectAdoption": {
         "recordId": "* eps Boo",
-        "reviewSha256": "13b3b09260b2c461f96a27d5d13ed7dbe7975025168a9d2b93a6aaf479ac962f",
+        "reviewSha256": "e2ca0b48c3c122a878a0cad107077833f66a18c7ab7c7d42bc9a14f01ca3b8fe",
         "scope": "Reviewed catalog object/component hip-72105; aliases only, distinct companions remain separate.",
         "fields": [
           "absolute_mag",
@@ -34661,7 +35080,7 @@
       ],
       "sharedObjectAdoption": {
         "recordId": "* bet UMi",
-        "reviewSha256": "13b3b09260b2c461f96a27d5d13ed7dbe7975025168a9d2b93a6aaf479ac962f",
+        "reviewSha256": "e2ca0b48c3c122a878a0cad107077833f66a18c7ab7c7d42bc9a14f01ca3b8fe",
         "scope": "Reviewed catalog object/component hip-72607; aliases only, distinct companions remain separate.",
         "fields": [
           "radial_velocity_ref",
@@ -34839,7 +35258,7 @@
       ],
       "sharedObjectAdoption": {
         "recordId": "* bet Lup",
-        "reviewSha256": "13b3b09260b2c461f96a27d5d13ed7dbe7975025168a9d2b93a6aaf479ac962f",
+        "reviewSha256": "e2ca0b48c3c122a878a0cad107077833f66a18c7ab7c7d42bc9a14f01ca3b8fe",
         "scope": "Reviewed catalog object/component hip-73273; aliases only, distinct companions remain separate.",
         "fields": [
           "radial_velocity_ref",
@@ -35327,7 +35746,7 @@
       ],
       "sharedObjectAdoption": {
         "recordId": "* bet Lib",
-        "reviewSha256": "13b3b09260b2c461f96a27d5d13ed7dbe7975025168a9d2b93a6aaf479ac962f",
+        "reviewSha256": "e2ca0b48c3c122a878a0cad107077833f66a18c7ab7c7d42bc9a14f01ca3b8fe",
         "scope": "Reviewed catalog object/component hip-74785; aliases only, distinct companions remain separate.",
         "fields": [
           "radial_velocity_ref",
@@ -36071,7 +36490,7 @@
       ],
       "sharedObjectAdoption": {
         "recordId": "* alf CrB",
-        "reviewSha256": "13b3b09260b2c461f96a27d5d13ed7dbe7975025168a9d2b93a6aaf479ac962f",
+        "reviewSha256": "e2ca0b48c3c122a878a0cad107077833f66a18c7ab7c7d42bc9a14f01ca3b8fe",
         "scope": "Reviewed catalog object/component hip-76267; aliases only, distinct companions remain separate.",
         "fields": [
           "absolute_mag",
@@ -36556,7 +36975,7 @@
       ],
       "sharedObjectAdoption": {
         "recordId": "* alf Ser",
-        "reviewSha256": "13b3b09260b2c461f96a27d5d13ed7dbe7975025168a9d2b93a6aaf479ac962f",
+        "reviewSha256": "e2ca0b48c3c122a878a0cad107077833f66a18c7ab7c7d42bc9a14f01ca3b8fe",
         "scope": "Reviewed catalog object/component hip-77070; aliases only, distinct companions remain separate.",
         "fields": [
           "absolute_mag",
@@ -37291,7 +37710,7 @@
       ],
       "sharedObjectAdoption": {
         "recordId": "* bet TrA",
-        "reviewSha256": "13b3b09260b2c461f96a27d5d13ed7dbe7975025168a9d2b93a6aaf479ac962f",
+        "reviewSha256": "e2ca0b48c3c122a878a0cad107077833f66a18c7ab7c7d42bc9a14f01ca3b8fe",
         "scope": "Reviewed catalog object/component cns5-3915; aliases only, distinct companions remain separate.",
         "fields": [
           "absolute_mag",
@@ -37434,7 +37853,7 @@
       ],
       "sharedObjectAdoption": {
         "recordId": "* gam Ser",
-        "reviewSha256": "13b3b09260b2c461f96a27d5d13ed7dbe7975025168a9d2b93a6aaf479ac962f",
+        "reviewSha256": "e2ca0b48c3c122a878a0cad107077833f66a18c7ab7c7d42bc9a14f01ca3b8fe",
         "scope": "Reviewed catalog object/component cns5-3922; aliases only, distinct companions remain separate.",
         "fields": [
           "absolute_mag",
@@ -37716,13 +38135,13 @@
       "adoptedPhysicalFields": {
         "temperature_k": "bright-stars:bright-dschubba",
         "mass_solar": "bright-stars:bright-dschubba",
-        "luminosity_solar": "bright-stars:bright-dschubba",
-        "radius_solar": "bright-stars:bright-dschubba"
+        "luminosity_solar": "published:2012MNRAS.427..343M:HIP-78401",
+        "radius_solar": "derived:stefan-boltzmann"
       },
       "physicalObservations": [
         {
           "field": "temperature_k",
-          "value": 8798.0,
+          "value": 30900.0,
           "status": "inherited",
           "source": "bright-stars",
           "sourceId": "bright-dschubba"
@@ -37736,22 +38155,23 @@
         },
         {
           "field": "luminosity_solar",
-          "value": 2261.5,
-          "status": "inherited",
-          "source": "bright-stars",
-          "sourceId": "bright-dschubba"
+          "value": 2261.57236973687,
+          "uncertainty": null,
+          "status": "model-derived",
+          "source": "McDonald et al. 2012 SED rescaled to adopted distance",
+          "sourceId": "HIP 78401",
+          "bibcode": "2012MNRAS.427..343M"
         },
         {
           "field": "radius_solar",
-          "value": 20.4684,
-          "status": "inherited",
-          "source": "bright-stars",
-          "sourceId": "bright-dschubba"
+          "value": 1.6593611992921085,
+          "status": "derived",
+          "source": "Stefan-Boltzmann scaling"
         }
       ],
       "sharedObjectAdoption": {
         "recordId": "* del Sco",
-        "reviewSha256": "13b3b09260b2c461f96a27d5d13ed7dbe7975025168a9d2b93a6aaf479ac962f",
+        "reviewSha256": "e2ca0b48c3c122a878a0cad107077833f66a18c7ab7c7d42bc9a14f01ca3b8fe",
         "scope": "Reviewed catalog object/component hip-78401; aliases only, distinct companions remain separate.",
         "fields": [
           "radial_velocity_ref",
@@ -37774,7 +38194,10 @@
           "pm_dec_masyr",
           "pm_dec_error_masyr",
           "radial_velocity_kms",
-          "radial_velocity_error_kms"
+          "radial_velocity_error_kms",
+          "temperature_k",
+          "luminosity_solar",
+          "radius_solar"
         ],
         "sourceSelections": {
           "astrometryAndMotion": {
@@ -37803,6 +38226,39 @@
               "radial_velocity_ref"
             ],
             "decision": "Retain the curated nearest-catalog coordinate/motion bundle where available; otherwise use the later Western snapshot. For the eleven reviewed stellar objects with missing CNS5 RV but an existing adopted SIMBAD RV, use the complete Western position/motion bundle to retain full-space motion. Spectroscopic binaries and composite Porrima retain the nearest-catalog RV withholding. Keep positions, velocities, reference epoch, raw measurements, uncertainties and bibliographies together. Withheld individual/system velocities remain withheld."
+          },
+          "physicalTemperatureReview": {
+            "source": "catalog-work/shared-enrichment/hot-star-temperature-review.json",
+            "recordId": "* del Sco",
+            "fields": [
+              "temperature_k",
+              "luminosity_solar",
+              "radius_solar"
+            ],
+            "decision": "Supersede the unsuitable cool broadband fit with inspected object-specific evidence; withhold its dependent fields unless separately supported.",
+            "adoptedFields": {
+              "temperature_k": {
+                "value": 30900,
+                "status": "model-derived",
+                "uncertainty": 309,
+                "reference": "2018MNRAS.474.5287A",
+                "url": "https://arxiv.org/abs/1711.08675",
+                "table": "Table B1",
+                "sourceRecordId": "HD 143275",
+                "method": "BeSOS photometric fit cross-checked with optical spectroscopy",
+                "caveat": "Published errors are the authors' assumed 1 percent for temperature, not an independent posterior error; Be disk variability and rotational gravity darkening add systematics."
+              },
+              "luminosity_solar": {
+                "value": null,
+                "status": "withheld",
+                "reason": "Rejected zero-reddening broadband-fit luminosity; no independently verified component-safe replacement adopted in this temperature review."
+              },
+              "radius_solar": {
+                "value": null,
+                "status": "withheld",
+                "reason": "Radius inherited the rejected luminosity/temperature fit; no independently verified component-safe replacement adopted."
+              }
+            }
           }
         },
         "sourceEvidence": "Original measurements and catalog-specific provenance are retained; the shared adopted record supersedes them for these fields."
@@ -38090,35 +38546,36 @@
       "gaiaDr3Id": "6247207266946218112",
       "adoptedPhysicalFields": {
         "temperature_k": "bright-stars:bright-beta-scorpii-a",
-        "luminosity_solar": "bright-stars:bright-beta-scorpii-a",
-        "radius_solar": "bright-stars:bright-beta-scorpii-a"
+        "luminosity_solar": "published:2012MNRAS.427..343M:HIP-78820",
+        "radius_solar": "derived:stefan-boltzmann"
       },
       "physicalObservations": [
         {
           "field": "temperature_k",
-          "value": 9546.0,
+          "value": 30540.0,
           "status": "inherited",
           "source": "bright-stars",
           "sourceId": "bright-beta-scorpii-a"
         },
         {
           "field": "luminosity_solar",
-          "value": 1322.39,
-          "status": "inherited",
-          "source": "bright-stars",
-          "sourceId": "bright-beta-scorpii-a"
+          "value": 1322.2990242623748,
+          "uncertainty": null,
+          "status": "model-derived",
+          "source": "McDonald et al. 2012 SED rescaled to adopted distance",
+          "sourceId": "HIP 78820",
+          "bibcode": "2012MNRAS.427..343M"
         },
         {
           "field": "radius_solar",
-          "value": 13.295,
-          "status": "inherited",
-          "source": "bright-stars",
-          "sourceId": "bright-beta-scorpii-a"
+          "value": 1.2989110701013045,
+          "status": "derived",
+          "source": "Stefan-Boltzmann scaling"
         }
       ],
       "sharedObjectAdoption": {
         "recordId": "* bet01 Sco",
-        "reviewSha256": "13b3b09260b2c461f96a27d5d13ed7dbe7975025168a9d2b93a6aaf479ac962f",
+        "reviewSha256": "e2ca0b48c3c122a878a0cad107077833f66a18c7ab7c7d42bc9a14f01ca3b8fe",
         "scope": "Reviewed catalog object/component hip-78820; aliases only, distinct companions remain separate.",
         "fields": [
           "radial_velocity_ref",
@@ -38141,7 +38598,10 @@
           "pm_dec_masyr",
           "pm_dec_error_masyr",
           "radial_velocity_kms",
-          "radial_velocity_error_kms"
+          "radial_velocity_error_kms",
+          "temperature_k",
+          "luminosity_solar",
+          "radius_solar"
         ],
         "sourceSelections": {
           "astrometryAndMotion": {
@@ -38170,6 +38630,39 @@
               "radial_velocity_ref"
             ],
             "decision": "Retain the curated nearest-catalog coordinate/motion bundle where available; otherwise use the later Western snapshot. For the eleven reviewed stellar objects with missing CNS5 RV but an existing adopted SIMBAD RV, use the complete Western position/motion bundle to retain full-space motion. Spectroscopic binaries and composite Porrima retain the nearest-catalog RV withholding. Keep positions, velocities, reference epoch, raw measurements, uncertainties and bibliographies together. Withheld individual/system velocities remain withheld."
+          },
+          "physicalTemperatureReview": {
+            "source": "catalog-work/shared-enrichment/hot-star-temperature-review.json",
+            "recordId": "* bet01 Sco",
+            "fields": [
+              "temperature_k",
+              "luminosity_solar",
+              "radius_solar"
+            ],
+            "decision": "Supersede the unsuitable cool broadband fit with inspected object-specific evidence; withhold its dependent fields unless separately supported.",
+            "adoptedFields": {
+              "temperature_k": {
+                "value": 30540,
+                "status": "model-derived",
+                "uncertainty": 2080,
+                "reference": "2009A&A...501..297Z",
+                "url": "https://arxiv.org/abs/0903.5134",
+                "table": "J/A+A/501/297/catalog",
+                "sourceRecordId": "HD 144217",
+                "method": "Extinction-corrected bolometric-flux temperature with BCD diagnostics",
+                "caveat": "Unresolved named multiple: this is the apparent, primary-dominated temperature of the catalogued light, not a resolved measurement of every member. Blended angular diameter is not assigned to an individual component."
+              },
+              "luminosity_solar": {
+                "value": null,
+                "status": "withheld",
+                "reason": "Rejected zero-reddening broadband-fit luminosity; no independently verified component-safe replacement adopted in this temperature review."
+              },
+              "radius_solar": {
+                "value": null,
+                "status": "withheld",
+                "reason": "Radius inherited the rejected luminosity/temperature fit; no independently verified component-safe replacement adopted."
+              }
+            }
           }
         },
         "sourceEvidence": "Original measurements and catalog-specific provenance are retained; the shared adopted record supersedes them for these fields."
@@ -38961,7 +39454,7 @@
       ],
       "sharedObjectAdoption": {
         "recordId": "* alf Sco",
-        "reviewSha256": "13b3b09260b2c461f96a27d5d13ed7dbe7975025168a9d2b93a6aaf479ac962f",
+        "reviewSha256": "e2ca0b48c3c122a878a0cad107077833f66a18c7ab7c7d42bc9a14f01ca3b8fe",
         "scope": "Reviewed catalog object/component hip-80763; aliases only, distinct companions remain separate.",
         "fields": [
           "radial_velocity_ref",
@@ -39355,35 +39848,36 @@
       "gaiaDr3Id": "4337352305320149760",
       "adoptedPhysicalFields": {
         "temperature_k": "bright-stars:bright-zeta-ophiuchi",
-        "luminosity_solar": "bright-stars:bright-zeta-ophiuchi",
-        "radius_solar": "bright-stars:bright-zeta-ophiuchi"
+        "luminosity_solar": "published:2012MNRAS.427..343M:HIP-81377",
+        "radius_solar": "derived:stefan-boltzmann"
       },
       "physicalObservations": [
         {
           "field": "temperature_k",
-          "value": 9199.0,
+          "value": 30700.0,
           "status": "inherited",
           "source": "bright-stars",
           "sourceId": "bright-zeta-ophiuchi"
         },
         {
           "field": "luminosity_solar",
-          "value": 1004.87,
-          "status": "inherited",
-          "source": "bright-stars",
-          "sourceId": "bright-zeta-ophiuchi"
+          "value": 1531.9195816227507,
+          "uncertainty": null,
+          "status": "model-derived",
+          "source": "McDonald et al. 2012 SED rescaled to adopted distance",
+          "sourceId": "HIP 81377",
+          "bibcode": "2012MNRAS.427..343M"
         },
         {
           "field": "radius_solar",
-          "value": 12.4803,
-          "status": "inherited",
-          "source": "bright-stars",
-          "sourceId": "bright-zeta-ophiuchi"
+          "value": 1.3835468746689281,
+          "status": "derived",
+          "source": "Stefan-Boltzmann scaling"
         }
       ],
       "sharedObjectAdoption": {
         "recordId": "* zet Oph",
-        "reviewSha256": "13b3b09260b2c461f96a27d5d13ed7dbe7975025168a9d2b93a6aaf479ac962f",
+        "reviewSha256": "e2ca0b48c3c122a878a0cad107077833f66a18c7ab7c7d42bc9a14f01ca3b8fe",
         "scope": "Reviewed catalog object/component hip-81377; aliases only, distinct companions remain separate.",
         "fields": [
           "absolute_mag",
@@ -39407,7 +39901,10 @@
           "pm_dec_masyr",
           "pm_dec_error_masyr",
           "radial_velocity_kms",
-          "radial_velocity_error_kms"
+          "radial_velocity_error_kms",
+          "temperature_k",
+          "luminosity_solar",
+          "radius_solar"
         ],
         "sourceSelections": {
           "astrometryAndMotion": {
@@ -39443,6 +39940,42 @@
               "absolute_mag"
             ],
             "decision": "Use the component-resolved curated Johnson V/distance where available, otherwise the common selected astrometric snapshot; preserve the specifically reviewed Bright Star Catalogue V=0.76 for Acrux. No integrated system flux is assigned to a faint companion."
+          },
+          "physicalTemperatureReview": {
+            "source": "catalog-work/shared-enrichment/hot-star-temperature-review.json",
+            "recordId": "* zet Oph",
+            "fields": [
+              "temperature_k",
+              "luminosity_solar",
+              "radius_solar"
+            ],
+            "decision": "Supersede the unsuitable cool broadband fit with inspected object-specific evidence; withhold its dependent fields unless separately supported.",
+            "adoptedFields": {
+              "temperature_k": {
+                "value": 30700,
+                "status": "model-derived",
+                "uncertainty": {
+                  "lower": 600,
+                  "upper": 600
+                },
+                "reference": "2024A&A...687A.228D",
+                "url": "https://arxiv.org/abs/2312.00241",
+                "table": "J/A+A/687/A228/tabled1",
+                "sourceRecordId": "HD 149757",
+                "method": "FASTWIND non-LTE optical diagnostic-line fit",
+                "caveat": "Formal asymmetric temperature uncertainties from the published fit. No temperature is inferred from the spectral label."
+              },
+              "luminosity_solar": {
+                "value": null,
+                "status": "withheld",
+                "reason": "Rejected zero-reddening broadband-fit luminosity; no independently verified component-safe replacement adopted in this temperature review."
+              },
+              "radius_solar": {
+                "value": null,
+                "status": "withheld",
+                "reason": "Radius inherited the rejected luminosity/temperature fit; no independently verified component-safe replacement adopted."
+              }
+            }
           }
         },
         "sourceEvidence": "Original measurements and catalog-specific provenance are retained; the shared adopted record supersedes them for these fields."
@@ -40080,7 +40613,7 @@
       ],
       "sharedObjectAdoption": {
         "recordId": "* alf TrA",
-        "reviewSha256": "13b3b09260b2c461f96a27d5d13ed7dbe7975025168a9d2b93a6aaf479ac962f",
+        "reviewSha256": "e2ca0b48c3c122a878a0cad107077833f66a18c7ab7c7d42bc9a14f01ca3b8fe",
         "scope": "Reviewed catalog object/component hip-82273; aliases only, distinct companions remain separate.",
         "fields": [
           "radial_velocity_ref",
@@ -40275,7 +40808,7 @@
       ],
       "sharedObjectAdoption": {
         "recordId": "* eps Sco",
-        "reviewSha256": "13b3b09260b2c461f96a27d5d13ed7dbe7975025168a9d2b93a6aaf479ac962f",
+        "reviewSha256": "e2ca0b48c3c122a878a0cad107077833f66a18c7ab7c7d42bc9a14f01ca3b8fe",
         "scope": "Reviewed catalog object/component hip-82396; aliases only, distinct companions remain separate.",
         "fields": [
           "radial_velocity_ref",
@@ -40423,29 +40956,63 @@
       },
       "gaiaDr3Id": "5964986649547042944",
       "adoptedPhysicalFields": {
-        "temperature_k": "published:2012MNRAS.427..343M:HIP-82671",
-        "luminosity_solar": "published:2012MNRAS.427..343M:HIP-82671",
-        "metallicity_dex": "gaia-dr3:5964986649547042944",
-        "radius_solar": "derived:stefan-boltzmann"
+        "temperature_k": "shared:2012A&A...541A.145C",
+        "luminosity_solar": "shared:2012A&A...541A.145C",
+        "radius_solar": "shared:2012A&A...541A.145C",
+        "metallicity_dex": "gaia-dr3:5964986649547042944"
       },
       "physicalObservations": [
         {
           "field": "temperature_k",
-          "value": 5830.0,
-          "uncertainty": null,
+          "value": 17200.0,
           "status": "model-derived",
-          "source": "McDonald et al. 2012",
-          "sourceId": "HIP 82671",
-          "bibcode": "2012MNRAS.427..343M"
+          "reference": "2012A&A...541A.145C",
+          "uncertainty": 500,
+          "identity": "* zet01 Sco",
+          "component": "blue hypergiant",
+          "scope": "Exact SIMBAD * zet01 Sco / HIP 82671 / HD 152236; not the unrelated visual neighbour Zeta2 Scorpii.",
+          "section": "Table 4 and section 4.2",
+          "caveat": "Object-specific ionization-equilibrium fit including the photosphere-wind transition; not a dwarf spectral-type calibration.",
+          "quantity": "non-LTE spectroscopic effective temperature",
+          "sourceUrl": "https://arxiv.org/abs/1202.3991",
+          "sourceRecordId": "HD 152236"
         },
         {
           "field": "luminosity_solar",
-          "value": 34155.497402783134,
-          "uncertainty": null,
+          "value": 851138.0382,
           "status": "model-derived",
-          "source": "McDonald et al. 2012 SED rescaled to adopted distance",
-          "sourceId": "HIP 82671",
-          "bibcode": "2012MNRAS.427..343M"
+          "reference": "2012A&A...541A.145C",
+          "uncertainty": null,
+          "identity": "* zet01 Sco",
+          "component": "blue hypergiant",
+          "scope": "Exact SIMBAD * zet01 Sco / HIP 82671 / HD 152236; not the unrelated visual neighbour Zeta2 Scorpii.",
+          "section": "Table 4, first Zeta1 Sco distance solution",
+          "caveat": "Published extinction-corrected model luminosity at 1.64 kpc; distance-dependent. No symmetric uncertainty is adopted from the alternative 2-kpc solution.",
+          "quantity": null,
+          "sourceUrl": "https://arxiv.org/abs/1202.3991",
+          "inputs": {
+            "log_luminosity_solar": 5.93,
+            "source_distance_pc": 1640
+          }
+        },
+        {
+          "field": "radius_solar",
+          "value": 103.0,
+          "status": "model-derived",
+          "reference": "2012A&A...541A.145C",
+          "uncertainty": null,
+          "identity": "* zet01 Sco",
+          "component": "blue hypergiant",
+          "scope": "Exact SIMBAD * zet01 Sco / HIP 82671 / HD 152236; not the unrelated visual neighbour Zeta2 Scorpii.",
+          "section": "Table 4, first Zeta1 Sco distance solution",
+          "caveat": "Published model photospheric radius, not a direct angular-diameter measurement; retained with its published luminosity and temperature.",
+          "quantity": null,
+          "sourceUrl": "https://arxiv.org/abs/1202.3991",
+          "inputs": {
+            "temperature_k": 17200,
+            "log_luminosity_solar": 5.93,
+            "source_distance_pc": 1640
+          }
         },
         {
           "field": "metallicity_dex",
@@ -40455,12 +41022,6 @@
           "source": "Gaia DR3 astrophysical_parameters",
           "sourceId": "5964986649547042944",
           "qualityFlags": ""
-        },
-        {
-          "field": "radius_solar",
-          "value": 181.15313008869384,
-          "status": "derived",
-          "source": "Stefan-Boltzmann scaling"
         }
       ]
     },
@@ -40810,7 +41371,7 @@
       ],
       "sharedObjectAdoption": {
         "recordId": "* eta Oph",
-        "reviewSha256": "13b3b09260b2c461f96a27d5d13ed7dbe7975025168a9d2b93a6aaf479ac962f",
+        "reviewSha256": "e2ca0b48c3c122a878a0cad107077833f66a18c7ab7c7d42bc9a14f01ca3b8fe",
         "scope": "Reviewed catalog object/component hip-84012; aliases only, distinct companions remain separate.",
         "fields": [
           "radial_velocity_ref",
@@ -42052,7 +42613,7 @@
       ],
       "sharedObjectAdoption": {
         "recordId": "* lam Sco",
-        "reviewSha256": "13b3b09260b2c461f96a27d5d13ed7dbe7975025168a9d2b93a6aaf479ac962f",
+        "reviewSha256": "e2ca0b48c3c122a878a0cad107077833f66a18c7ab7c7d42bc9a14f01ca3b8fe",
         "scope": "Reviewed catalog object/component hip-85927; aliases only, distinct companions remain separate.",
         "fields": [
           "radial_velocity_ref",
@@ -42154,7 +42715,7 @@
       ],
       "sharedObjectAdoption": {
         "recordId": "* alf Oph",
-        "reviewSha256": "13b3b09260b2c461f96a27d5d13ed7dbe7975025168a9d2b93a6aaf479ac962f",
+        "reviewSha256": "e2ca0b48c3c122a878a0cad107077833f66a18c7ab7c7d42bc9a14f01ca3b8fe",
         "scope": "Reviewed catalog object/component hip-86032; aliases only, distinct companions remain separate.",
         "fields": [
           "radial_velocity_ref",
@@ -42280,7 +42841,7 @@
       ],
       "sharedObjectAdoption": {
         "recordId": "* tet Sco",
-        "reviewSha256": "13b3b09260b2c461f96a27d5d13ed7dbe7975025168a9d2b93a6aaf479ac962f",
+        "reviewSha256": "e2ca0b48c3c122a878a0cad107077833f66a18c7ab7c7d42bc9a14f01ca3b8fe",
         "scope": "Reviewed catalog object/component hip-86228; aliases only, distinct companions remain separate.",
         "fields": [
           "radial_velocity_ref",
@@ -42620,7 +43181,7 @@
       ],
       "sharedObjectAdoption": {
         "recordId": "* kap Sco",
-        "reviewSha256": "13b3b09260b2c461f96a27d5d13ed7dbe7975025168a9d2b93a6aaf479ac962f",
+        "reviewSha256": "e2ca0b48c3c122a878a0cad107077833f66a18c7ab7c7d42bc9a14f01ca3b8fe",
         "scope": "Reviewed catalog object/component hip-86670; aliases only, distinct companions remain separate.",
         "fields": [
           "radial_velocity_ref",
@@ -43431,7 +43992,7 @@
       ],
       "sharedObjectAdoption": {
         "recordId": "* gam Dra",
-        "reviewSha256": "13b3b09260b2c461f96a27d5d13ed7dbe7975025168a9d2b93a6aaf479ac962f",
+        "reviewSha256": "e2ca0b48c3c122a878a0cad107077833f66a18c7ab7c7d42bc9a14f01ca3b8fe",
         "scope": "Reviewed catalog object/component hip-87833; aliases only, distinct companions remain separate.",
         "fields": [
           "radial_velocity_ref",
@@ -44027,7 +44588,7 @@
       ],
       "sharedObjectAdoption": {
         "recordId": "* del Sgr",
-        "reviewSha256": "13b3b09260b2c461f96a27d5d13ed7dbe7975025168a9d2b93a6aaf479ac962f",
+        "reviewSha256": "e2ca0b48c3c122a878a0cad107077833f66a18c7ab7c7d42bc9a14f01ca3b8fe",
         "scope": "Reviewed catalog object/component hip-89931; aliases only, distinct companions remain separate.",
         "fields": [
           "absolute_mag",
@@ -44555,7 +45116,7 @@
       ],
       "sharedObjectAdoption": {
         "recordId": "* eps Sgr",
-        "reviewSha256": "13b3b09260b2c461f96a27d5d13ed7dbe7975025168a9d2b93a6aaf479ac962f",
+        "reviewSha256": "e2ca0b48c3c122a878a0cad107077833f66a18c7ab7c7d42bc9a14f01ca3b8fe",
         "scope": "Reviewed catalog object/component hip-90185; aliases only, distinct companions remain separate.",
         "fields": [
           "radial_velocity_ref",
@@ -45168,7 +45729,7 @@
       ],
       "sharedObjectAdoption": {
         "recordId": "* alf Lyr",
-        "reviewSha256": "13b3b09260b2c461f96a27d5d13ed7dbe7975025168a9d2b93a6aaf479ac962f",
+        "reviewSha256": "e2ca0b48c3c122a878a0cad107077833f66a18c7ab7c7d42bc9a14f01ca3b8fe",
         "scope": "Reviewed catalog object/component cns5-4607; aliases only, distinct companions remain separate.",
         "fields": [
           "vx_kms",
@@ -45973,7 +46534,53 @@
           "selection": "Newest within 0.3 dex / 10 percent of the median; strict majority required for multiple observations",
           "scope": "catalogued stellar object"
         }
-      ]
+      ],
+      "sharedObjectAdoption": {
+        "recordId": "HD 175156",
+        "reviewSha256": "e2ca0b48c3c122a878a0cad107077833f66a18c7ab7c7d42bc9a14f01ca3b8fe",
+        "scope": "Exact named catalog object HD 175156 / HIP 92814 / HD 175156; distinct companions are excluded.",
+        "fields": [
+          "temperature_k",
+          "luminosity_solar",
+          "radius_solar"
+        ],
+        "sourceSelections": {
+          "physicalTemperatureReview": {
+            "source": "catalog-work/shared-enrichment/hot-star-temperature-review.json",
+            "recordId": "HD 175156",
+            "fields": [
+              "temperature_k",
+              "luminosity_solar",
+              "radius_solar"
+            ],
+            "decision": "Supersede the unsuitable cool broadband fit with inspected object-specific evidence; withhold its dependent fields unless separately supported.",
+            "adoptedFields": {
+              "temperature_k": {
+                "value": 14001,
+                "status": "model-derived",
+                "uncertainty": 77,
+                "reference": "2008ApJ...683.1045H",
+                "url": "https://arxiv.org/abs/0805.2133",
+                "table": "Table 1",
+                "sourceRecordId": "HD 175156",
+                "method": "Object-specific H-gamma line-profile fit",
+                "caveat": "Formal fit error excludes model systematics. Other frozen library compilations quote 15750-16361 K and a cool photometric fit quotes 7945 K; retain the directly inspected H-gamma fit rather than averaging heterogeneous estimates."
+              },
+              "luminosity_solar": {
+                "value": null,
+                "status": "withheld",
+                "reason": "Rejected zero-reddening broadband-fit luminosity; no independently verified component-safe replacement adopted in this temperature review."
+              },
+              "radius_solar": {
+                "value": null,
+                "status": "withheld",
+                "reason": "Radius inherited the rejected luminosity/temperature fit; no independently verified component-safe replacement adopted."
+              }
+            }
+          }
+        },
+        "sourceEvidence": "Original measurements and catalog-specific provenance are retained; the shared adopted record supersedes them for these fields."
+      }
     },
     "hip-92855": {
       "hip": 92855,
@@ -46028,7 +46635,7 @@
       ],
       "sharedObjectAdoption": {
         "recordId": "* sig Sgr",
-        "reviewSha256": "13b3b09260b2c461f96a27d5d13ed7dbe7975025168a9d2b93a6aaf479ac962f",
+        "reviewSha256": "e2ca0b48c3c122a878a0cad107077833f66a18c7ab7c7d42bc9a14f01ca3b8fe",
         "scope": "Reviewed catalog object/component hip-92855; aliases only, distinct companions remain separate.",
         "fields": [
           "radial_velocity_ref",
@@ -46743,7 +47350,7 @@
       ],
       "sharedObjectAdoption": {
         "recordId": "* zet Sgr",
-        "reviewSha256": "13b3b09260b2c461f96a27d5d13ed7dbe7975025168a9d2b93a6aaf479ac962f",
+        "reviewSha256": "e2ca0b48c3c122a878a0cad107077833f66a18c7ab7c7d42bc9a14f01ca3b8fe",
         "scope": "Reviewed catalog object/component hip-93506; aliases only, distinct companions remain separate.",
         "fields": [
           "radial_velocity_ref",
@@ -48879,7 +49486,7 @@
       ],
       "sharedObjectAdoption": {
         "recordId": "* alf Aql",
-        "reviewSha256": "13b3b09260b2c461f96a27d5d13ed7dbe7975025168a9d2b93a6aaf479ac962f",
+        "reviewSha256": "e2ca0b48c3c122a878a0cad107077833f66a18c7ab7c7d42bc9a14f01ca3b8fe",
         "scope": "Reviewed catalog object/component 10pc-0117; aliases only, distinct companions remain separate.",
         "fields": [
           "radial_velocity_error_kms",
@@ -49194,7 +49801,7 @@
       },
       "sharedObjectAdoption": {
         "recordId": "* bet Aql",
-        "reviewSha256": "13b3b09260b2c461f96a27d5d13ed7dbe7975025168a9d2b93a6aaf479ac962f",
+        "reviewSha256": "e2ca0b48c3c122a878a0cad107077833f66a18c7ab7c7d42bc9a14f01ca3b8fe",
         "scope": "Reviewed catalog object/component cns5-4929; aliases only, distinct companions remain separate.",
         "fields": [
           "absolute_mag",
@@ -49831,7 +50438,7 @@
       ],
       "sharedObjectAdoption": {
         "recordId": "* del Pav",
-        "reviewSha256": "13b3b09260b2c461f96a27d5d13ed7dbe7975025168a9d2b93a6aaf479ac962f",
+        "reviewSha256": "e2ca0b48c3c122a878a0cad107077833f66a18c7ab7c7d42bc9a14f01ca3b8fe",
         "scope": "Reviewed catalog object/component cns5-4994; aliases only, distinct companions remain separate.",
         "fields": [
           "absolute_mag",
@@ -50195,7 +50802,7 @@
       ],
       "sharedObjectAdoption": {
         "recordId": "* gam Cyg",
-        "reviewSha256": "13b3b09260b2c461f96a27d5d13ed7dbe7975025168a9d2b93a6aaf479ac962f",
+        "reviewSha256": "e2ca0b48c3c122a878a0cad107077833f66a18c7ab7c7d42bc9a14f01ca3b8fe",
         "scope": "Reviewed catalog object/component hip-100453; aliases only, distinct companions remain separate.",
         "fields": [
           "radial_velocity_ref",
@@ -50305,7 +50912,7 @@
       ],
       "sharedObjectAdoption": {
         "recordId": "* alf Pav",
-        "reviewSha256": "13b3b09260b2c461f96a27d5d13ed7dbe7975025168a9d2b93a6aaf479ac962f",
+        "reviewSha256": "e2ca0b48c3c122a878a0cad107077833f66a18c7ab7c7d42bc9a14f01ca3b8fe",
         "scope": "Reviewed catalog object/component hip-100751; aliases only, distinct companions remain separate.",
         "fields": [
           "radial_velocity_ref",
@@ -50708,7 +51315,7 @@
       ],
       "sharedObjectAdoption": {
         "recordId": "* alf Cyg",
-        "reviewSha256": "13b3b09260b2c461f96a27d5d13ed7dbe7975025168a9d2b93a6aaf479ac962f",
+        "reviewSha256": "e2ca0b48c3c122a878a0cad107077833f66a18c7ab7c7d42bc9a14f01ca3b8fe",
         "scope": "Reviewed catalog object/component hip-102098; aliases only, distinct companions remain separate.",
         "fields": [
           "radial_velocity_ref",
@@ -51053,7 +51660,7 @@
       ],
       "sharedObjectAdoption": {
         "recordId": "* eps Cyg",
-        "reviewSha256": "13b3b09260b2c461f96a27d5d13ed7dbe7975025168a9d2b93a6aaf479ac962f",
+        "reviewSha256": "e2ca0b48c3c122a878a0cad107077833f66a18c7ab7c7d42bc9a14f01ca3b8fe",
         "scope": "Reviewed catalog object/component hip-102488; aliases only, distinct companions remain separate.",
         "fields": [
           "radial_velocity_ref",
@@ -52008,7 +52615,7 @@
       ],
       "sharedObjectAdoption": {
         "recordId": "* alf Cep",
-        "reviewSha256": "13b3b09260b2c461f96a27d5d13ed7dbe7975025168a9d2b93a6aaf479ac962f",
+        "reviewSha256": "e2ca0b48c3c122a878a0cad107077833f66a18c7ab7c7d42bc9a14f01ca3b8fe",
         "scope": "Reviewed catalog object/component hip-105199; aliases only, distinct companions remain separate.",
         "fields": [
           "radial_velocity_ref",
@@ -52400,7 +53007,7 @@
       ],
       "sharedObjectAdoption": {
         "recordId": "* gam Pav",
-        "reviewSha256": "13b3b09260b2c461f96a27d5d13ed7dbe7975025168a9d2b93a6aaf479ac962f",
+        "reviewSha256": "e2ca0b48c3c122a878a0cad107077833f66a18c7ab7c7d42bc9a14f01ca3b8fe",
         "scope": "Reviewed catalog object/component cns5-5277; aliases only, distinct companions remain separate.",
         "fields": [
           "absolute_mag",
@@ -52920,7 +53527,7 @@
       ],
       "sharedObjectAdoption": {
         "recordId": "* eps Peg",
-        "reviewSha256": "13b3b09260b2c461f96a27d5d13ed7dbe7975025168a9d2b93a6aaf479ac962f",
+        "reviewSha256": "e2ca0b48c3c122a878a0cad107077833f66a18c7ab7c7d42bc9a14f01ca3b8fe",
         "scope": "Reviewed catalog object/component hip-107315; aliases only, distinct companions remain separate.",
         "fields": [
           "radial_velocity_ref",
@@ -53091,7 +53698,7 @@
       ],
       "sharedObjectAdoption": {
         "recordId": "* del Cap",
-        "reviewSha256": "13b3b09260b2c461f96a27d5d13ed7dbe7975025168a9d2b93a6aaf479ac962f",
+        "reviewSha256": "e2ca0b48c3c122a878a0cad107077833f66a18c7ab7c7d42bc9a14f01ca3b8fe",
         "scope": "Reviewed catalog object/component cns5-5370; aliases only, distinct companions remain separate.",
         "fields": [
           "absolute_mag",
@@ -53973,7 +54580,7 @@
       ],
       "sharedObjectAdoption": {
         "recordId": "* alf Gru",
-        "reviewSha256": "13b3b09260b2c461f96a27d5d13ed7dbe7975025168a9d2b93a6aaf479ac962f",
+        "reviewSha256": "e2ca0b48c3c122a878a0cad107077833f66a18c7ab7c7d42bc9a14f01ca3b8fe",
         "scope": "Reviewed catalog object/component hip-109268; aliases only, distinct companions remain separate.",
         "fields": [
           "radial_velocity_ref",
@@ -55568,7 +56175,7 @@
       ],
       "sharedObjectAdoption": {
         "recordId": "* bet Gru",
-        "reviewSha256": "13b3b09260b2c461f96a27d5d13ed7dbe7975025168a9d2b93a6aaf479ac962f",
+        "reviewSha256": "e2ca0b48c3c122a878a0cad107077833f66a18c7ab7c7d42bc9a14f01ca3b8fe",
         "scope": "Reviewed catalog object/component hip-112122; aliases only, distinct companions remain separate.",
         "fields": [
           "radial_velocity_ref",
@@ -56469,7 +57076,7 @@
       },
       "sharedObjectAdoption": {
         "recordId": "* alf PsA",
-        "reviewSha256": "13b3b09260b2c461f96a27d5d13ed7dbe7975025168a9d2b93a6aaf479ac962f",
+        "reviewSha256": "e2ca0b48c3c122a878a0cad107077833f66a18c7ab7c7d42bc9a14f01ca3b8fe",
         "scope": "Reviewed catalog object/component cns5-5665; aliases only, distinct companions remain separate.",
         "fields": [
           "vx_kms",
@@ -56680,7 +57287,7 @@
       ],
       "sharedObjectAdoption": {
         "recordId": "* bet Peg",
-        "reviewSha256": "13b3b09260b2c461f96a27d5d13ed7dbe7975025168a9d2b93a6aaf479ac962f",
+        "reviewSha256": "e2ca0b48c3c122a878a0cad107077833f66a18c7ab7c7d42bc9a14f01ca3b8fe",
         "scope": "Reviewed catalog object/component hip-113881; aliases only, distinct companions remain separate.",
         "fields": [
           "radial_velocity_ref",
@@ -56806,7 +57413,7 @@
       ],
       "sharedObjectAdoption": {
         "recordId": "* alf Peg",
-        "reviewSha256": "13b3b09260b2c461f96a27d5d13ed7dbe7975025168a9d2b93a6aaf479ac962f",
+        "reviewSha256": "e2ca0b48c3c122a878a0cad107077833f66a18c7ab7c7d42bc9a14f01ca3b8fe",
         "scope": "Reviewed catalog object/component hip-113963; aliases only, distinct companions remain separate.",
         "fields": [
           "radial_velocity_ref",
@@ -58084,7 +58691,7 @@
       ],
       "sharedObjectAdoption": {
         "recordId": "* iot Psc",
-        "reviewSha256": "13b3b09260b2c461f96a27d5d13ed7dbe7975025168a9d2b93a6aaf479ac962f",
+        "reviewSha256": "e2ca0b48c3c122a878a0cad107077833f66a18c7ab7c7d42bc9a14f01ca3b8fe",
         "scope": "Reviewed catalog object/component cns5-5836; aliases only, distinct companions remain separate.",
         "fields": [
           "absolute_mag",

@@ -44,4 +44,16 @@ describe('adopted catalog consistency', () => {
     ], identities, component)
     expect(result.conflicts.map((row) => row.field)).toEqual(['mass_solar', 'raw_astrometry'])
   })
+
+  it('checks observed-source magnitude uncertainty and scope separately from individual photometry', () => {
+    const star = { ...template, id: 'primary', apparent_mag: null, absolute_mag: null,
+      unresolved_photometry: { magnitude_v: 2.99, error_mag: .01,
+        scope: 'Aa+Ab', source: 'reviewed source', source_url: null } }
+    const result = auditCatalogConsistency([
+      { id: 'one', stars: [star] },
+      { id: 'two', stars: [{ ...star, id: 'alias',
+        unresolved_photometry: { ...star.unresolved_photometry, scope: 'Aa' } }] },
+    ], identities, component)
+    expect(result.conflicts.map((row) => row.field)).toEqual(['unresolved_photometry'])
+  })
 })

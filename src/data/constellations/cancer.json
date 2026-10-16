@@ -1,0 +1,889 @@
+{
+  "schemaVersion": 1,
+  "abbreviation": "Cnc",
+  "name": "Cancer",
+  "center": {
+    "ra_deg": 129.5805131593867,
+    "dec_deg": 19.48184837211594
+  },
+  "stars": [
+    {
+      "hip": 40526,
+      "name": "Tarf",
+      "ra_deg": 124.12883745353416,
+      "dec_deg": 9.185543957090834,
+      "magnitude_v": 3.53,
+      "bayer": "β",
+      "object": {
+        "x_pc": -75.474481029,
+        "y_pc": -51.394858241,
+        "z_pc": 38.849046428,
+        "vx_kms": -20.404316,
+        "vy_kms": -28.02692,
+        "vz_kms": -18.122776,
+        "temperature_k": 4227.0,
+        "mass_solar": null,
+        "luminosity_solar": 701.2101137267251,
+        "radius_solar": 49.375583,
+        "metallicity_dex": -0.29,
+        "age_gyr": null,
+        "absolute_mag": -1.463268,
+        "epoch": 2000.0,
+        "type": "star",
+        "id": "hip-40526",
+        "name": "Tarf",
+        "constellation": "Cancer",
+        "spectral_type": "K4IIIBa0.5:",
+        "metallicity_kind": "[Fe/H]",
+        "notes": "Western constellation line-figure star (HIP 40526; Stellarium Cnc). SIMBAD identity * bet Cnc; SIMBAD compiled Johnson V=3.52; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, luminosity_solar; Stefan-Boltzmann scaling for radius_solar. Shared exact-identity physical supplements (metallicity_dex: 2024A&A...691A..53S).",
+        "designations": [
+          "HIP 40526"
+        ],
+        "raw_astrometry": {
+          "ra_deg": 124.12883745353416,
+          "dec_deg": 9.185543957090834,
+          "parallax_mas": 10.1026,
+          "parallax_error_mas": 0.3141,
+          "pm_ra_cosdec_masyr": -45.679,
+          "pm_ra_error_masyr": null,
+          "pm_dec_masyr": -49.505,
+          "pm_dec_error_masyr": null,
+          "radial_velocity_kms": 22.94,
+          "radial_velocity_error_kms": null,
+          "epoch": 2000.0,
+          "astrometry_ref": "SIMBAD TAP snapshot 2026-10-01",
+          "radial_velocity_ref": "SIMBAD TAP snapshot 2026-10-01"
+        }
+      }
+    },
+    {
+      "hip": 40843,
+      "name": "Chi Cnc",
+      "ra_deg": 125.01608650106499,
+      "dec_deg": 27.217705047748055,
+      "magnitude_v": 5.13,
+      "bayer": "χ",
+      "object": {
+        "x_pc": -15.103032236,
+        "y_pc": -4.269189872,
+        "z_pc": 9.232723066,
+        "vx_kms": -24.06294,
+        "vy_kms": -38.690061,
+        "vz_kms": 7.099274,
+        "temperature_k": 6457.0,
+        "mass_solar": 1.25,
+        "luminosity_solar": 2.511733,
+        "radius_solar": 1.202264434617413,
+        "metallicity_dex": -0.5936,
+        "age_gyr": 3.7354858,
+        "absolute_mag": 3.82856,
+        "epoch": 2000.0,
+        "type": "star",
+        "id": "hip-40843",
+        "name": "Chi Cnc",
+        "constellation": "Cancer",
+        "spectral_type": "F6V",
+        "metallicity_kind": "[M/H]",
+        "notes": "Western constellation line-figure star (HIP 40843; Stellarium Cnc). SIMBAD identity * chi Cnc; Hipparcos Johnson V=5.13 (SIMBAD V unavailable); Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, mass_solar, radius_solar; Gaia DR3 model values for metallicity_dex, luminosity_solar, age_gyr.",
+        "designations": [
+          "HIP 40843"
+        ],
+        "raw_astrometry": {
+          "ra_deg": 125.01608650106499,
+          "dec_deg": 27.217705047748055,
+          "parallax_mas": 54.8749,
+          "parallax_error_mas": 0.0906,
+          "pm_ra_cosdec_masyr": -17.475,
+          "pm_ra_error_masyr": null,
+          "pm_dec_masyr": -377.072,
+          "pm_dec_error_masyr": null,
+          "radial_velocity_kms": 32.629,
+          "radial_velocity_error_kms": null,
+          "epoch": 2000.0,
+          "astrometry_ref": "SIMBAD TAP snapshot 2026-10-01",
+          "radial_velocity_ref": "SIMBAD TAP snapshot 2026-10-01"
+        }
+      }
+    },
+    {
+      "hip": 42806,
+      "name": "Asellus Borealis",
+      "ra_deg": 130.82144642293792,
+      "dec_deg": 21.468498799990275,
+      "magnitude_v": 4.66,
+      "bayer": "γ",
+      "object": {
+        "x_pc": -40.628935807,
+        "y_pc": -18.229932594,
+        "z_pc": 29.728921427,
+        "vx_kms": -41.686638,
+        "vy_kms": -19.391746,
+        "vz_kms": -3.718424,
+        "temperature_k": 9550.0,
+        "mass_solar": 2.32,
+        "luminosity_solar": 33.024951871386094,
+        "radius_solar": 2.041737944669529,
+        "metallicity_dex": null,
+        "age_gyr": null,
+        "absolute_mag": 1.008488,
+        "epoch": 2000.0,
+        "type": "star",
+        "id": "hip-42806",
+        "name": "Asellus Borealis",
+        "constellation": "Cancer",
+        "spectral_type": "A1Va",
+        "metallicity_kind": null,
+        "notes": "Western constellation line-figure star (HIP 42806; Stellarium Cnc). SIMBAD identity * gam Cnc; SIMBAD compiled Johnson V=4.652; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, mass_solar, radius_solar, luminosity_solar.",
+        "designations": [
+          "HIP 42806"
+        ],
+        "raw_astrometry": {
+          "ra_deg": 130.82144642293792,
+          "dec_deg": 21.468498799990275,
+          "parallax_mas": 18.6431,
+          "parallax_error_mas": 0.19,
+          "pm_ra_cosdec_masyr": -105.76,
+          "pm_ra_error_masyr": null,
+          "pm_dec_masyr": -39.157,
+          "pm_dec_error_masyr": null,
+          "radial_velocity_kms": 36.17,
+          "radial_velocity_error_kms": null,
+          "epoch": 2000.0,
+          "astrometry_ref": "SIMBAD TAP snapshot 2026-10-01",
+          "radial_velocity_ref": "SIMBAD TAP snapshot 2026-10-01"
+        }
+      }
+    },
+    {
+      "hip": 42911,
+      "name": "Asellus Australis",
+      "ra_deg": 131.17124658768913,
+      "dec_deg": 18.154308069054167,
+      "magnitude_v": 3.94,
+      "bayer": "δ",
+      "object": {
+        "x_pc": -30.984183552,
+        "y_pc": -16.492571243,
+        "z_pc": 22.706275826,
+        "vx_kms": -2.939509,
+        "vy_kms": -47.803336,
+        "vz_kms": -7.17654,
+        "temperature_k": 4677.0,
+        "mass_solar": null,
+        "luminosity_solar": null,
+        "radius_solar": null,
+        "metallicity_dex": -0.02,
+        "age_gyr": null,
+        "absolute_mag": 0.833895,
+        "epoch": 2000.0,
+        "type": "star",
+        "id": "hip-42911",
+        "name": "Asellus Australis",
+        "constellation": "Cancer",
+        "spectral_type": "K0+IIIb",
+        "metallicity_kind": "[Fe/H]",
+        "notes": "Western constellation line-figure star (HIP 42911; Stellarium Cnc). SIMBAD identity * del Cnc; SIMBAD compiled Johnson V=3.94; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k. Shared exact-identity physical supplements (metallicity_dex: 2022A&A...663A...4S).",
+        "designations": [
+          "HIP 42911"
+        ],
+        "raw_astrometry": {
+          "ra_deg": 131.17124658768913,
+          "dec_deg": 18.154308069054167,
+          "parallax_mas": 23.8271,
+          "parallax_error_mas": 0.1853,
+          "pm_ra_cosdec_masyr": -18.435,
+          "pm_ra_error_masyr": null,
+          "pm_dec_masyr": -227.813,
+          "pm_dec_error_masyr": null,
+          "radial_velocity_kms": 17.14,
+          "radial_velocity_error_kms": null,
+          "epoch": 2000.0,
+          "astrometry_ref": "SIMBAD TAP snapshot 2026-10-01",
+          "radial_velocity_ref": "SIMBAD TAP snapshot 2026-10-01"
+        }
+      }
+    },
+    {
+      "hip": 43103,
+      "name": "Iota Cnc",
+      "ra_deg": 131.67425181855,
+      "dec_deg": 28.759893136039995,
+      "magnitude_v": 4.03,
+      "bayer": "ι",
+      "object": {
+        "x_pc": -81.978739167,
+        "y_pc": -23.32641017,
+        "z_pc": 63.169310394,
+        "vx_kms": -16.254759,
+        "vy_kms": -24.025636,
+        "vz_kms": -3.5322,
+        "temperature_k": 4898.0,
+        "mass_solar": 3.1,
+        "luminosity_solar": 289.45853100346807,
+        "radius_solar": 19.498445997580454,
+        "metallicity_dex": 0.03,
+        "age_gyr": null,
+        "absolute_mag": -1.110363,
+        "epoch": 2000.0,
+        "type": "star",
+        "id": "hip-43103",
+        "name": "Iota Cnc",
+        "constellation": "Cancer",
+        "spectral_type": "G8IIIaBa0.2",
+        "metallicity_kind": "[Fe/H]",
+        "notes": "Western constellation line-figure star (HIP 43103; Stellarium Cnc). SIMBAD identity * iot Cnc; SIMBAD compiled Johnson V=4.018; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, mass_solar, radius_solar, luminosity_solar. Shared exact-identity physical supplements (metallicity_dex: 2022A&A...663A...4S).",
+        "designations": [
+          "HIP 43103"
+        ],
+        "raw_astrometry": {
+          "ra_deg": 131.67425181855,
+          "dec_deg": 28.759893136039995,
+          "parallax_mas": 9.4124,
+          "parallax_error_mas": 0.1621,
+          "pm_ra_cosdec_masyr": -22.07,
+          "pm_ra_error_masyr": null,
+          "pm_dec_masyr": -43.699,
+          "pm_dec_error_masyr": null,
+          "radial_velocity_kms": 15.74,
+          "radial_velocity_error_kms": null,
+          "epoch": 2000.0,
+          "astrometry_ref": "SIMBAD TAP snapshot 2026-10-01",
+          "radial_velocity_ref": "SIMBAD TAP snapshot 2026-10-01"
+        }
+      }
+    },
+    {
+      "hip": 44066,
+      "name": "Acubens",
+      "ra_deg": 134.62168421127,
+      "dec_deg": 11.8576804028,
+      "magnitude_v": 4.26,
+      "bayer": "α",
+      "object": {
+        "x_pc": -36.477527385,
+        "y_pc": -27.001680026,
+        "z_pc": 30.058343076,
+        "vx_kms": 19.858008,
+        "vy_kms": -0.065419,
+        "vz_kms": -2.744458,
+        "temperature_k": 7943.0,
+        "mass_solar": 2.13,
+        "luminosity_solar": 44.9292591163934,
+        "radius_solar": 3.311311214825911,
+        "metallicity_dex": null,
+        "age_gyr": null,
+        "absolute_mag": 0.569596,
+        "epoch": 2000.0,
+        "type": "star",
+        "id": "hip-44066",
+        "name": "Acubens",
+        "constellation": "Cancer",
+        "spectral_type": "kA7VmF0/2III/IVSr",
+        "metallicity_kind": null,
+        "notes": "Western constellation line-figure star (HIP 44066; Stellarium Cnc). SIMBAD identity * alf Cnc; SIMBAD compiled Johnson V=4.249; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, mass_solar, radius_solar, luminosity_solar.",
+        "designations": [
+          "HIP 44066"
+        ],
+        "raw_astrometry": {
+          "ra_deg": 134.62168421127,
+          "dec_deg": 11.8576804028,
+          "parallax_mas": 18.3304,
+          "parallax_error_mas": 0.3216,
+          "pm_ra_cosdec_masyr": 42.181,
+          "pm_ra_error_masyr": null,
+          "pm_dec_masyr": -31.16,
+          "pm_dec_error_masyr": null,
+          "radial_velocity_kms": -14.79,
+          "radial_velocity_error_kms": null,
+          "epoch": 2000.0,
+          "astrometry_ref": "SIMBAD TAP snapshot 2026-10-01",
+          "radial_velocity_ref": "SIMBAD TAP snapshot 2026-10-01"
+        }
+      }
+    }
+  ],
+  "lines": [
+    [
+      43103,
+      42806
+    ],
+    [
+      42806,
+      40843
+    ],
+    [
+      42806,
+      42911
+    ],
+    [
+      42911,
+      40526
+    ],
+    [
+      42911,
+      44066
+    ]
+  ],
+  "boundaries": [
+    {
+      "neighbor": "Canis Minor",
+      "neighbor_abbreviation": "CMI",
+      "points": [
+        {
+          "ra_deg": 118.871606,
+          "dec_deg": 13.1732168
+        },
+        {
+          "ra_deg": 118.865955,
+          "dec_deg": 12.6732464
+        },
+        {
+          "ra_deg": 118.854726,
+          "dec_deg": 11.6733074
+        },
+        {
+          "ra_deg": 118.843567,
+          "dec_deg": 10.6733665
+        },
+        {
+          "ra_deg": 118.832489,
+          "dec_deg": 9.6734257
+        }
+      ]
+    },
+    {
+      "neighbor": "Canis Minor",
+      "neighbor_abbreviation": "CMI",
+      "points": [
+        {
+          "ra_deg": 118.832489,
+          "dec_deg": 9.6734257
+        },
+        {
+          "ra_deg": 119.581704,
+          "dec_deg": 9.665411
+        },
+        {
+          "ra_deg": 120.580672,
+          "dec_deg": 9.6548138
+        }
+      ]
+    },
+    {
+      "neighbor": "Canis Minor",
+      "neighbor_abbreviation": "CMI",
+      "points": [
+        {
+          "ra_deg": 120.580672,
+          "dec_deg": 9.6548138
+        },
+        {
+          "ra_deg": 120.569844,
+          "dec_deg": 8.6548719
+        },
+        {
+          "ra_deg": 120.559072,
+          "dec_deg": 7.6549282
+        },
+        {
+          "ra_deg": 120.548343,
+          "dec_deg": 6.654985
+        }
+      ]
+    },
+    {
+      "neighbor": "Canis Minor",
+      "neighbor_abbreviation": "CMI",
+      "points": [
+        {
+          "ra_deg": 120.548343,
+          "dec_deg": 6.654985
+        },
+        {
+          "ra_deg": 120.923037,
+          "dec_deg": 6.6510367
+        },
+        {
+          "ra_deg": 121.922307,
+          "dec_deg": 6.6405816
+        },
+        {
+          "ra_deg": 122.921391,
+          "dec_deg": 6.6302376
+        }
+      ]
+    },
+    {
+      "neighbor": "Hydra",
+      "neighbor_abbreviation": "HYA",
+      "points": [
+        {
+          "ra_deg": 122.921391,
+          "dec_deg": 6.6302376
+        },
+        {
+          "ra_deg": 123.421068,
+          "dec_deg": 6.6251059
+        },
+        {
+          "ra_deg": 124.420124,
+          "dec_deg": 6.6149321
+        },
+        {
+          "ra_deg": 125.419306,
+          "dec_deg": 6.6048737
+        },
+        {
+          "ra_deg": 126.418476,
+          "dec_deg": 6.5949359
+        },
+        {
+          "ra_deg": 127.417474,
+          "dec_deg": 6.5851231
+        },
+        {
+          "ra_deg": 128.416614,
+          "dec_deg": 6.5754347
+        },
+        {
+          "ra_deg": 129.415726,
+          "dec_deg": 6.565876
+        },
+        {
+          "ra_deg": 130.414681,
+          "dec_deg": 6.5564508
+        },
+        {
+          "ra_deg": 131.413751,
+          "dec_deg": 6.5471592
+        },
+        {
+          "ra_deg": 132.412806,
+          "dec_deg": 6.5380054
+        },
+        {
+          "ra_deg": 133.411702,
+          "dec_deg": 6.5289941
+        },
+        {
+          "ra_deg": 134.410729,
+          "dec_deg": 6.5201244
+        },
+        {
+          "ra_deg": 135.409741,
+          "dec_deg": 6.5114012
+        },
+        {
+          "ra_deg": 136.408581,
+          "dec_deg": 6.5028276
+        },
+        {
+          "ra_deg": 137.407551,
+          "dec_deg": 6.4944043
+        },
+        {
+          "ra_deg": 138.406519,
+          "dec_deg": 6.486135
+        },
+        {
+          "ra_deg": 139.405317,
+          "dec_deg": 6.4780231
+        },
+        {
+          "ra_deg": 140.404259,
+          "dec_deg": 6.4700689
+        }
+      ]
+    },
+    {
+      "neighbor": "Leo",
+      "neighbor_abbreviation": "LEO",
+      "points": [
+        {
+          "ra_deg": 140.404259,
+          "dec_deg": 6.4700689
+        },
+        {
+          "ra_deg": 140.408264,
+          "dec_deg": 6.9700532
+        },
+        {
+          "ra_deg": 140.416274,
+          "dec_deg": 7.9700212
+        },
+        {
+          "ra_deg": 140.424342,
+          "dec_deg": 8.9699898
+        },
+        {
+          "ra_deg": 140.432439,
+          "dec_deg": 9.9699583
+        },
+        {
+          "ra_deg": 140.440593,
+          "dec_deg": 10.9699259
+        },
+        {
+          "ra_deg": 140.448789,
+          "dec_deg": 11.9698935
+        },
+        {
+          "ra_deg": 140.457059,
+          "dec_deg": 12.969861
+        },
+        {
+          "ra_deg": 140.465399,
+          "dec_deg": 13.9698277
+        },
+        {
+          "ra_deg": 140.473809,
+          "dec_deg": 14.9697943
+        },
+        {
+          "ra_deg": 140.482291,
+          "dec_deg": 15.9697618
+        },
+        {
+          "ra_deg": 140.490861,
+          "dec_deg": 16.9697285
+        },
+        {
+          "ra_deg": 140.499529,
+          "dec_deg": 17.9696922
+        },
+        {
+          "ra_deg": 140.508285,
+          "dec_deg": 18.9696598
+        },
+        {
+          "ra_deg": 140.517153,
+          "dec_deg": 19.9696236
+        },
+        {
+          "ra_deg": 140.526138,
+          "dec_deg": 20.9695873
+        },
+        {
+          "ra_deg": 140.535236,
+          "dec_deg": 21.969553
+        },
+        {
+          "ra_deg": 140.544462,
+          "dec_deg": 22.9695168
+        },
+        {
+          "ra_deg": 140.553832,
+          "dec_deg": 23.9694786
+        },
+        {
+          "ra_deg": 140.563346,
+          "dec_deg": 24.9694424
+        },
+        {
+          "ra_deg": 140.573014,
+          "dec_deg": 25.9694042
+        },
+        {
+          "ra_deg": 140.582857,
+          "dec_deg": 26.9693642
+        },
+        {
+          "ra_deg": 140.59287,
+          "dec_deg": 27.969326
+        },
+        {
+          "ra_deg": 140.60307,
+          "dec_deg": 28.969286
+        },
+        {
+          "ra_deg": 140.613469,
+          "dec_deg": 29.9692459
+        },
+        {
+          "ra_deg": 140.624085,
+          "dec_deg": 30.969202
+        },
+        {
+          "ra_deg": 140.634914,
+          "dec_deg": 31.9691601
+        },
+        {
+          "ra_deg": 140.645985,
+          "dec_deg": 32.9691162
+        }
+      ]
+    },
+    {
+      "neighbor": "Lynx",
+      "neighbor_abbreviation": "LYN",
+      "points": [
+        {
+          "ra_deg": 140.645985,
+          "dec_deg": 32.9691162
+        },
+        {
+          "ra_deg": 139.900531,
+          "dec_deg": 32.9750404
+        },
+        {
+          "ra_deg": 138.906469,
+          "dec_deg": 32.9830742
+        },
+        {
+          "ra_deg": 137.912464,
+          "dec_deg": 32.9912643
+        },
+        {
+          "ra_deg": 136.91823,
+          "dec_deg": 32.9996071
+        },
+        {
+          "ra_deg": 135.923881,
+          "dec_deg": 33.0081062
+        },
+        {
+          "ra_deg": 134.929605,
+          "dec_deg": 33.0167503
+        },
+        {
+          "ra_deg": 133.935084,
+          "dec_deg": 33.0255432
+        },
+        {
+          "ra_deg": 132.940449,
+          "dec_deg": 33.034481
+        },
+        {
+          "ra_deg": 131.945886,
+          "dec_deg": 33.04356
+        },
+        {
+          "ra_deg": 130.951038,
+          "dec_deg": 33.0527802
+        },
+        {
+          "ra_deg": 129.956116,
+          "dec_deg": 33.0621338
+        },
+        {
+          "ra_deg": 128.961225,
+          "dec_deg": 33.0716171
+        },
+        {
+          "ra_deg": 127.966089,
+          "dec_deg": 33.0812378
+        },
+        {
+          "ra_deg": 126.970839,
+          "dec_deg": 33.0909805
+        },
+        {
+          "ra_deg": 125.975632,
+          "dec_deg": 33.1008492
+        },
+        {
+          "ra_deg": 124.980168,
+          "dec_deg": 33.1108398
+        },
+        {
+          "ra_deg": 123.984589,
+          "dec_deg": 33.1209526
+        },
+        {
+          "ra_deg": 122.989039,
+          "dec_deg": 33.131176
+        },
+        {
+          "ra_deg": 121.993231,
+          "dec_deg": 33.1415138
+        }
+      ]
+    },
+    {
+      "neighbor": "Gemini",
+      "neighbor_abbreviation": "GEM",
+      "points": [
+        {
+          "ra_deg": 121.993231,
+          "dec_deg": 33.1415138
+        },
+        {
+          "ra_deg": 121.985836,
+          "dec_deg": 32.641552
+        },
+        {
+          "ra_deg": 121.971273,
+          "dec_deg": 31.6416264
+        },
+        {
+          "ra_deg": 121.957026,
+          "dec_deg": 30.6416988
+        },
+        {
+          "ra_deg": 121.943077,
+          "dec_deg": 29.6417751
+        },
+        {
+          "ra_deg": 121.929389,
+          "dec_deg": 28.6418438
+        },
+        {
+          "ra_deg": 121.915969,
+          "dec_deg": 27.6419144
+        }
+      ]
+    },
+    {
+      "neighbor": "Gemini",
+      "neighbor_abbreviation": "GEM",
+      "points": [
+        {
+          "ra_deg": 121.915969,
+          "dec_deg": 27.6419144
+        },
+        {
+          "ra_deg": 121.168456,
+          "dec_deg": 27.6497459
+        },
+        {
+          "ra_deg": 120.171646,
+          "dec_deg": 27.6602821
+        }
+      ]
+    },
+    {
+      "neighbor": "Gemini",
+      "neighbor_abbreviation": "GEM",
+      "points": [
+        {
+          "ra_deg": 120.171646,
+          "dec_deg": 27.6602821
+        },
+        {
+          "ra_deg": 120.158242,
+          "dec_deg": 26.6603546
+        },
+        {
+          "ra_deg": 120.145054,
+          "dec_deg": 25.6604233
+        },
+        {
+          "ra_deg": 120.132093,
+          "dec_deg": 24.6604919
+        },
+        {
+          "ra_deg": 120.119334,
+          "dec_deg": 23.6605606
+        },
+        {
+          "ra_deg": 120.106759,
+          "dec_deg": 22.6606255
+        },
+        {
+          "ra_deg": 120.094384,
+          "dec_deg": 21.6606922
+        },
+        {
+          "ra_deg": 120.082169,
+          "dec_deg": 20.6607571
+        },
+        {
+          "ra_deg": 120.070124,
+          "dec_deg": 19.66082
+        }
+      ]
+    },
+    {
+      "neighbor": "Gemini",
+      "neighbor_abbreviation": "GEM",
+      "points": [
+        {
+          "ra_deg": 120.070124,
+          "dec_deg": 19.66082
+        },
+        {
+          "ra_deg": 119.945441,
+          "dec_deg": 19.6621456
+        },
+        {
+          "ra_deg": 118.947544,
+          "dec_deg": 19.6728077
+        }
+      ]
+    },
+    {
+      "neighbor": "Gemini",
+      "neighbor_abbreviation": "GEM",
+      "points": [
+        {
+          "ra_deg": 118.947544,
+          "dec_deg": 19.6728077
+        },
+        {
+          "ra_deg": 118.941514,
+          "dec_deg": 19.172842
+        },
+        {
+          "ra_deg": 118.929549,
+          "dec_deg": 18.172905
+        },
+        {
+          "ra_deg": 118.917724,
+          "dec_deg": 17.1729679
+        },
+        {
+          "ra_deg": 118.906031,
+          "dec_deg": 16.1730309
+        },
+        {
+          "ra_deg": 118.894451,
+          "dec_deg": 15.1730928
+        },
+        {
+          "ra_deg": 118.882979,
+          "dec_deg": 14.1731548
+        },
+        {
+          "ra_deg": 118.871606,
+          "dec_deg": 13.1732168
+        }
+      ]
+    }
+  ],
+  "sources": [
+    {
+      "label": "Stellarium Western sky culture",
+      "url": "https://raw.githubusercontent.com/Stellarium/stellarium-skycultures/014fbb5e59233d133c22f9811af96b67d05a95c9/western/index.json",
+      "path": "catalog-work/western-constellation-stars/stellarium-western-index.json",
+      "sha256": "a861accd345249a185a5ecfc2a516f34291c0aa52f4bb8d8337ffc53e9cef6b9"
+    },
+    {
+      "label": "Adopted star positions and names",
+      "url": "https://simbad.cds.unistra.fr/simbad/",
+      "path": "src/data/catalogs/western-constellation-stars/stars.csv",
+      "sha256": "0a8b7c1dc3f7e3412c5cffb09a18cdf5b5b7424cc89ea8a0a1ffb4da57d3ad6a"
+    },
+    {
+      "label": "Hipparcos Johnson V magnitudes",
+      "url": "https://cdsarc.cds.unistra.fr/viz-bin/cat/I/239",
+      "path": "catalog-work/western-constellation-stars/hipparcos-v.csv",
+      "sha256": "eec12b740da3aac5204ba75ca5158b6f9f2f81886dda2526fe765cf9ea159320"
+    },
+    {
+      "label": "CDS / IAU constellation boundaries (J2000)",
+      "url": "https://cdsarc.cds.unistra.fr/viz-bin/cat/VI/49",
+      "path": "catalog-work/constellation-charts/boundaries-j2000.dat.gz",
+      "sha256": "879cd6e7a1c908f1e19a5f5fe8cc75fb1d1077564e3890f9152a3680affe9aac",
+      "inputs": [
+        {
+          "path": "catalog-work/constellation-charts/boundary-contours-b1875.dat",
+          "sha256": "865cdf4218f676eb304587c75c63231948d29cd0abe6892a8a8130c1c4fe3592"
+        },
+        {
+          "path": "catalog-work/constellation-charts/boundary-contours-readme.txt",
+          "sha256": "a3ec688bea21e9db10832842c9b845558dbe8ccf820ddedec842d664d2b74c89"
+        }
+      ]
+    }
+  ]
+}

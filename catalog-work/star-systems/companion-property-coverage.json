@@ -1,52 +1,77 @@
 {
   "schemaVersion": 1,
-  "scope": "Represented nearest-1000 component-card members, including primaries. Not a complete companion census or an assertion that all published measurements have been exhausted.",
-  "inputSha256": {
-    "src/data/catalogs/nearest-1000/stars.csv": "e967f1b32deaf7af0a1fd13af95d17ee25865133717d6ecc3dc0eb3b72cdc738",
-    "src/data/catalogs/nearest-1000/provenance.json": "8fe99b893b44461d99f74b2c6009dda32182d5c1ccce7bc78517eda664cef54c",
-    "src/data/star-systems.json": "22a77579b11e4f5035f19be704fda78f1a6a5d409ca7ce0d5bc74aab8eaa599b",
-    "catalog-work/star-systems/reviewed-component-properties.json": "e3c4e01fa4a9c823c48f1f9bbe7f31a3426bb76e1a59563c1006a10bcc0222c1"
+  "scope": "Effective component records for every reviewed system represented in nearest-1000, including companion-pool additions. Raw catalog gaps are reported separately. Not an exhaustive literature search.",
+  "radialVelocityPolicy": "radial_velocity_kms counts RVs adopted with the catalog motion astrometry. Separately dated component spectroscopic measurements remain in radialVelocityObservations; they do not imply a systemic velocity or a complete bulk motion vector.",
+  "radialVelocityObservations": {
+    "luhman-16-a": {
+      "value_kms": 16.7,
+      "error_kms": 0.3,
+      "uncertainty_kind": "Unbiased weighted standard deviation across 46 spectral orders; not a formal standard error.",
+      "observed_from": "2018-04-21",
+      "observed_to": "2018-06-29",
+      "reference": "2025MNRAS.539.1088I:Table 2",
+      "source_url": "https://arxiv.org/html/2503.19322v1#S4.T2",
+      "scope": "Resolved Luhman 16 A spectroscopic radial velocity from barycentric-corrected IGRINS spectra. Includes component orbital motion; not the binary systemic velocity. Display-only observation; not combined with the different-epoch catalog proper motion to infer bulk space motion."
+    },
+    "luhman-16-b": {
+      "value_kms": 20.4,
+      "error_kms": 0.4,
+      "uncertainty_kind": "Unbiased weighted standard deviation across 46 spectral orders; not a formal standard error.",
+      "observed_from": "2018-04-21",
+      "observed_to": "2018-06-29",
+      "reference": "2025MNRAS.539.1088I:Table 2",
+      "source_url": "https://arxiv.org/html/2503.19322v1#S4.T2",
+      "scope": "Resolved Luhman 16 B spectroscopic radial velocity from barycentric-corrected IGRINS spectra. Includes component orbital motion; not the binary systemic velocity. Display-only observation; not combined with the different-epoch catalog proper motion to infer bulk space motion."
+    }
   },
-  "systems": 128,
-  "members": 284,
-  "supplementedMembers": 56,
-  "supplementedFieldCount": 116,
+  "inputSha256": {
+    "src/data/catalogs/nearest-1000/stars.csv": "7219d545385c332cc6e8f246155b52bdac4bc821e876290c965a67552127e8ae",
+    "src/data/catalogs/nearest-1000/provenance.json": "afb561d4340eb6e26270737b93139b6319c222381413e333e9a47e7d2480f185",
+    "src/data/star-systems.json": "0e7e0b8097766381629c4d28e57f62948ecde0c10ac18992c09cef17cb6dfe05",
+    "catalog-work/star-systems/reviewed-component-properties.json": "e3c4e01fa4a9c823c48f1f9bbe7f31a3426bb76e1a59563c1006a10bcc0222c1",
+    "src/data/stellar-companions.json": "3ffadc22ccdce0505e14f76e8d349b0878984b2fda534ce5ef0ca6ed22832493",
+    "catalog-work/star-systems/catalog-companions-audit.json": "b9b19ab15c201fc736c1606ef629c70aa80e09c8cedd7d8940287c7f63c4b49d"
+  },
+  "systems": 147,
+  "members": 329,
+  "supplementedMembers": 81,
+  "supplementedFieldCount": 175,
   "coverage": {
     "absolute_mag": {
-      "available": 143,
-      "missing": 141
+      "available": 187,
+      "missing": 142
     },
     "radial_velocity_kms": {
-      "available": 185,
-      "missing": 99
+      "available": 194,
+      "missing": 135
     },
     "temperature_k": {
-      "available": 219,
-      "missing": 65
+      "available": 249,
+      "missing": 80
     },
     "mass_solar": {
-      "available": 168,
-      "missing": 116
+      "available": 210,
+      "missing": 119
     },
     "luminosity_solar": {
-      "available": 159,
-      "missing": 125
+      "available": 189,
+      "missing": 140
     },
     "radius_solar": {
-      "available": 168,
-      "missing": 116
+      "available": 195,
+      "missing": 134
     },
     "metallicity_dex": {
-      "available": 161,
-      "missing": 123
+      "available": 173,
+      "missing": 156
     },
     "age_gyr": {
-      "available": 50,
-      "missing": 234
+      "available": 51,
+      "missing": 278
     },
     "spectral_type": {
-      "available": 244,
-      "missing": 40
+      "available": 281,
+      "missing": 48
     }
   },
   "records": [
@@ -56,6 +81,9 @@
       "system": "11 LMi",
       "component": "A",
       "missingFields": [
+        "age_gyr"
+      ],
+      "rawCatalogMissingFields": [
         "age_gyr"
       ],
       "supplementedFields": {}
@@ -74,6 +102,69 @@
         "age_gyr",
         "spectral_type"
       ],
+      "rawCatalogMissingFields": [
+        "temperature_k",
+        "mass_solar",
+        "luminosity_solar",
+        "radius_solar",
+        "metallicity_dex",
+        "age_gyr",
+        "spectral_type"
+      ],
+      "supplementedFields": {}
+    },
+    {
+      "starId": "cns5-1381",
+      "name": "1RXS J053328.4-425713 A",
+      "system": "1RXS J053328.4-425713",
+      "component": "A",
+      "missingFields": [
+        "absolute_mag",
+        "radial_velocity_kms",
+        "temperature_k",
+        "mass_solar",
+        "luminosity_solar",
+        "radius_solar",
+        "metallicity_dex",
+        "age_gyr",
+        "spectral_type"
+      ],
+      "rawCatalogMissingFields": [
+        "absolute_mag",
+        "temperature_k",
+        "luminosity_solar",
+        "metallicity_dex",
+        "age_gyr"
+      ],
+      "supplementedFields": {}
+    },
+    {
+      "starId": "orb6-05335-4257-a-b-b",
+      "name": "1RXS J053328.4-425713 B",
+      "system": "1RXS J053328.4-425713",
+      "component": "B",
+      "missingFields": [
+        "absolute_mag",
+        "radial_velocity_kms",
+        "temperature_k",
+        "mass_solar",
+        "luminosity_solar",
+        "radius_solar",
+        "metallicity_dex",
+        "age_gyr",
+        "spectral_type"
+      ],
+      "rawCatalogMissingFields": [
+        "absolute_mag",
+        "radial_velocity_kms",
+        "temperature_k",
+        "mass_solar",
+        "luminosity_solar",
+        "radius_solar",
+        "metallicity_dex",
+        "age_gyr",
+        "spectral_type"
+      ],
       "supplementedFields": {}
     },
     {
@@ -82,6 +173,9 @@
       "system": "20 Crt",
       "component": "A",
       "missingFields": [
+        "age_gyr"
+      ],
+      "rawCatalogMissingFields": [
         "age_gyr"
       ],
       "supplementedFields": {}
@@ -100,6 +194,120 @@
         "metallicity_dex",
         "age_gyr"
       ],
+      "rawCatalogMissingFields": [
+        "radial_velocity_kms",
+        "temperature_k",
+        "mass_solar",
+        "luminosity_solar",
+        "radius_solar",
+        "metallicity_dex",
+        "age_gyr"
+      ],
+      "supplementedFields": {}
+    },
+    {
+      "starId": "cns5-1741",
+      "name": "2MASS J07003664+3157266 A",
+      "system": "2MASS J07003664+3157266",
+      "component": "A",
+      "missingFields": [
+        "absolute_mag",
+        "radial_velocity_kms",
+        "mass_solar",
+        "luminosity_solar",
+        "radius_solar",
+        "metallicity_dex",
+        "age_gyr"
+      ],
+      "rawCatalogMissingFields": [
+        "absolute_mag",
+        "temperature_k",
+        "mass_solar",
+        "luminosity_solar",
+        "radius_solar",
+        "metallicity_dex",
+        "age_gyr"
+      ],
+      "supplementedFields": {}
+    },
+    {
+      "starId": "orb6-07006+3157-a-b-b",
+      "name": "2MASS J07003664+3157266 B",
+      "system": "2MASS J07003664+3157266",
+      "component": "B",
+      "missingFields": [
+        "absolute_mag",
+        "radial_velocity_kms",
+        "mass_solar",
+        "luminosity_solar",
+        "radius_solar",
+        "metallicity_dex",
+        "age_gyr"
+      ],
+      "rawCatalogMissingFields": [
+        "absolute_mag",
+        "radial_velocity_kms",
+        "temperature_k",
+        "mass_solar",
+        "luminosity_solar",
+        "radius_solar",
+        "metallicity_dex",
+        "age_gyr",
+        "spectral_type"
+      ],
+      "supplementedFields": {}
+    },
+    {
+      "starId": "cns5-1916",
+      "name": "2MASS J07464256+2000321 A",
+      "system": "2MASS J07464256+2000321",
+      "component": "A",
+      "missingFields": [
+        "absolute_mag",
+        "radial_velocity_kms",
+        "mass_solar",
+        "luminosity_solar",
+        "radius_solar",
+        "metallicity_dex",
+        "age_gyr"
+      ],
+      "rawCatalogMissingFields": [
+        "absolute_mag",
+        "radial_velocity_kms",
+        "temperature_k",
+        "mass_solar",
+        "luminosity_solar",
+        "radius_solar",
+        "metallicity_dex",
+        "age_gyr"
+      ],
+      "supplementedFields": {}
+    },
+    {
+      "starId": "orb6-07467+2001-a-b-b",
+      "name": "2MASS J07464256+2000321 B",
+      "system": "2MASS J07464256+2000321",
+      "component": "B",
+      "missingFields": [
+        "absolute_mag",
+        "radial_velocity_kms",
+        "mass_solar",
+        "luminosity_solar",
+        "radius_solar",
+        "metallicity_dex",
+        "age_gyr"
+      ],
+      "rawCatalogMissingFields": [
+        "absolute_mag",
+        "radial_velocity_kms",
+        "temperature_k",
+        "mass_solar",
+        "luminosity_solar",
+        "radius_solar",
+        "metallicity_dex",
+        "age_gyr",
+        "spectral_type"
+      ],
       "supplementedFields": {}
     },
     {
@@ -108,6 +316,7 @@
       "system": "36 Oph",
       "component": "A",
       "missingFields": [],
+      "rawCatalogMissingFields": [],
       "supplementedFields": {}
     },
     {
@@ -116,6 +325,9 @@
       "system": "36 Oph",
       "component": "B",
       "missingFields": [
+        "radial_velocity_kms"
+      ],
+      "rawCatalogMissingFields": [
         "radial_velocity_kms"
       ],
       "supplementedFields": {}
@@ -128,6 +340,9 @@
       "missingFields": [
         "age_gyr"
       ],
+      "rawCatalogMissingFields": [
+        "age_gyr"
+      ],
       "supplementedFields": {}
     },
     {
@@ -136,6 +351,9 @@
       "system": "36 UMa",
       "component": "A",
       "missingFields": [
+        "absolute_mag"
+      ],
+      "rawCatalogMissingFields": [
         "absolute_mag"
       ],
       "supplementedFields": {}
@@ -149,6 +367,10 @@
         "absolute_mag",
         "age_gyr"
       ],
+      "rawCatalogMissingFields": [
+        "absolute_mag",
+        "age_gyr"
+      ],
       "supplementedFields": {}
     },
     {
@@ -157,6 +379,7 @@
       "system": "41 Ara",
       "component": "A",
       "missingFields": [],
+      "rawCatalogMissingFields": [],
       "supplementedFields": {}
     },
     {
@@ -172,6 +395,14 @@
         "metallicity_dex",
         "age_gyr"
       ],
+      "rawCatalogMissingFields": [
+        "temperature_k",
+        "mass_solar",
+        "luminosity_solar",
+        "radius_solar",
+        "metallicity_dex",
+        "age_gyr"
+      ],
       "supplementedFields": {}
     },
     {
@@ -180,6 +411,10 @@
       "system": "54 Psc",
       "component": "A",
       "missingFields": [
+        "mass_solar",
+        "age_gyr"
+      ],
+      "rawCatalogMissingFields": [
         "mass_solar",
         "age_gyr"
       ],
@@ -199,6 +434,15 @@
         "metallicity_dex",
         "age_gyr"
       ],
+      "rawCatalogMissingFields": [
+        "absolute_mag",
+        "radial_velocity_kms",
+        "mass_solar",
+        "luminosity_solar",
+        "radius_solar",
+        "metallicity_dex",
+        "age_gyr"
+      ],
       "supplementedFields": {}
     },
     {
@@ -207,6 +451,9 @@
       "system": "61 Cyg",
       "component": "A",
       "missingFields": [
+        "age_gyr"
+      ],
+      "rawCatalogMissingFields": [
         "absolute_mag",
         "age_gyr"
       ],
@@ -218,18 +465,24 @@
       "system": "61 Cyg",
       "component": "B",
       "missingFields": [
+        "age_gyr"
+      ],
+      "rawCatalogMissingFields": [
         "absolute_mag",
         "mass_solar",
         "age_gyr"
       ],
-      "supplementedFields": {}
+      "supplementedFields": {
+        "mass_solar": "measured"
+      }
     },
     {
       "starId": "10pc-0115",
       "name": "70 Oph A",
       "system": "70 Oph",
       "component": "A",
-      "missingFields": [
+      "missingFields": [],
+      "rawCatalogMissingFields": [
         "absolute_mag"
       ],
       "supplementedFields": {}
@@ -239,8 +492,68 @@
       "name": "70 Oph B",
       "system": "70 Oph",
       "component": "B",
+      "missingFields": [],
+      "rawCatalogMissingFields": [
+        "absolute_mag"
+      ],
+      "supplementedFields": {}
+    },
+    {
+      "starId": "cns5-0006",
+      "name": "85 Peg A",
+      "system": "85 Peg",
+      "component": "A",
       "missingFields": [
+        "mass_solar",
+        "luminosity_solar",
+        "radius_solar",
+        "age_gyr"
+      ],
+      "rawCatalogMissingFields": [
+        "mass_solar",
+        "luminosity_solar",
+        "radius_solar",
+        "age_gyr"
+      ],
+      "supplementedFields": {}
+    },
+    {
+      "starId": "msc-00022+2705-b",
+      "name": "85 Peg B",
+      "system": "85 Peg",
+      "component": "B",
+      "missingFields": [
+        "radial_velocity_kms",
+        "temperature_k",
+        "mass_solar",
+        "luminosity_solar",
+        "radius_solar",
+        "metallicity_dex",
+        "age_gyr",
+        "spectral_type"
+      ],
+      "rawCatalogMissingFields": [
         "absolute_mag",
+        "radial_velocity_kms",
+        "temperature_k",
+        "mass_solar",
+        "luminosity_solar",
+        "radius_solar",
+        "metallicity_dex",
+        "age_gyr",
+        "spectral_type"
+      ],
+      "supplementedFields": {}
+    },
+    {
+      "starId": "cns5-5128",
+      "name": "HD 197481",
+      "system": "AT Mic",
+      "component": "A",
+      "missingFields": [
+        "age_gyr"
+      ],
+      "rawCatalogMissingFields": [
         "mass_solar",
         "luminosity_solar",
         "radius_solar",
@@ -250,10 +563,14 @@
     },
     {
       "starId": "cns5-5103",
-      "name": "AT Mic A",
+      "name": "AT Mic B",
       "system": "AT Mic",
-      "component": "A",
+      "component": "B",
       "missingFields": [
+        "metallicity_dex",
+        "age_gyr"
+      ],
+      "rawCatalogMissingFields": [
         "mass_solar",
         "luminosity_solar",
         "radius_solar",
@@ -264,10 +581,13 @@
     },
     {
       "starId": "cns5-5104",
-      "name": "AT Mic B",
+      "name": "AT Mic C",
       "system": "AT Mic",
-      "component": "B",
+      "component": "C",
       "missingFields": [
+        "age_gyr"
+      ],
+      "rawCatalogMissingFields": [
         "mass_solar",
         "age_gyr"
       ],
@@ -279,6 +599,7 @@
       "system": "Achird",
       "component": "A",
       "missingFields": [],
+      "rawCatalogMissingFields": [],
       "supplementedFields": {
         "metallicity_dex": "measured"
       }
@@ -289,6 +610,9 @@
       "system": "Achird",
       "component": "B",
       "missingFields": [
+        "age_gyr"
+      ],
+      "rawCatalogMissingFields": [
         "age_gyr"
       ],
       "supplementedFields": {
@@ -305,6 +629,7 @@
       "system": "Alpha Centauri",
       "component": "A",
       "missingFields": [],
+      "rawCatalogMissingFields": [],
       "supplementedFields": {}
     },
     {
@@ -313,6 +638,7 @@
       "system": "Alpha Centauri",
       "component": "B",
       "missingFields": [],
+      "rawCatalogMissingFields": [],
       "supplementedFields": {}
     },
     {
@@ -323,6 +649,9 @@
       "missingFields": [
         "age_gyr"
       ],
+      "rawCatalogMissingFields": [
+        "age_gyr"
+      ],
       "supplementedFields": {}
     },
     {
@@ -331,6 +660,9 @@
       "system": "Alpha Men",
       "component": "A",
       "missingFields": [
+        "age_gyr"
+      ],
+      "rawCatalogMissingFields": [
         "age_gyr"
       ],
       "supplementedFields": {}
@@ -350,6 +682,16 @@
         "metallicity_dex",
         "age_gyr"
       ],
+      "rawCatalogMissingFields": [
+        "absolute_mag",
+        "radial_velocity_kms",
+        "temperature_k",
+        "mass_solar",
+        "luminosity_solar",
+        "radius_solar",
+        "metallicity_dex",
+        "age_gyr"
+      ],
       "supplementedFields": {}
     },
     {
@@ -358,7 +700,9 @@
       "system": "Alshain",
       "component": "A",
       "missingFields": [
-        "radial_velocity_kms",
+        "age_gyr"
+      ],
+      "rawCatalogMissingFields": [
         "age_gyr"
       ],
       "supplementedFields": {}
@@ -371,6 +715,141 @@
       "missingFields": [
         "radial_velocity_kms",
         "mass_solar",
+        "age_gyr"
+      ],
+      "rawCatalogMissingFields": [
+        "radial_velocity_kms",
+        "mass_solar",
+        "age_gyr"
+      ],
+      "supplementedFields": {}
+    },
+    {
+      "starId": "msc-11182+3132-aa",
+      "name": "Alula Australis Aa",
+      "system": "Alula Australis",
+      "component": "Aa",
+      "missingFields": [
+        "absolute_mag",
+        "radial_velocity_kms",
+        "mass_solar",
+        "luminosity_solar",
+        "radius_solar",
+        "metallicity_dex",
+        "age_gyr"
+      ],
+      "rawCatalogMissingFields": [
+        "absolute_mag",
+        "radial_velocity_kms",
+        "temperature_k",
+        "mass_solar",
+        "luminosity_solar",
+        "radius_solar",
+        "metallicity_dex",
+        "age_gyr",
+        "spectral_type"
+      ],
+      "supplementedFields": {}
+    },
+    {
+      "starId": "msc-11182+3132-ab",
+      "name": "Alula Australis Ab",
+      "system": "Alula Australis",
+      "component": "Ab",
+      "missingFields": [
+        "absolute_mag",
+        "radial_velocity_kms",
+        "temperature_k",
+        "mass_solar",
+        "luminosity_solar",
+        "radius_solar",
+        "metallicity_dex",
+        "age_gyr"
+      ],
+      "rawCatalogMissingFields": [
+        "absolute_mag",
+        "radial_velocity_kms",
+        "temperature_k",
+        "mass_solar",
+        "luminosity_solar",
+        "radius_solar",
+        "metallicity_dex",
+        "age_gyr",
+        "spectral_type"
+      ],
+      "supplementedFields": {}
+    },
+    {
+      "starId": "cns5-2767",
+      "name": "Alula Australis Ba",
+      "system": "Alula Australis",
+      "component": "Ba",
+      "missingFields": [
+        "absolute_mag",
+        "radial_velocity_kms",
+        "mass_solar",
+        "luminosity_solar",
+        "radius_solar",
+        "metallicity_dex",
+        "age_gyr"
+      ],
+      "rawCatalogMissingFields": [
+        "radial_velocity_kms",
+        "mass_solar",
+        "luminosity_solar",
+        "radius_solar",
+        "age_gyr"
+      ],
+      "supplementedFields": {}
+    },
+    {
+      "starId": "msc-11182+3132-bb",
+      "name": "Alula Australis Bb",
+      "system": "Alula Australis",
+      "component": "Bb",
+      "missingFields": [
+        "absolute_mag",
+        "radial_velocity_kms",
+        "temperature_k",
+        "mass_solar",
+        "luminosity_solar",
+        "radius_solar",
+        "metallicity_dex",
+        "age_gyr"
+      ],
+      "rawCatalogMissingFields": [
+        "absolute_mag",
+        "radial_velocity_kms",
+        "temperature_k",
+        "mass_solar",
+        "luminosity_solar",
+        "radius_solar",
+        "metallicity_dex",
+        "age_gyr",
+        "spectral_type"
+      ],
+      "supplementedFields": {}
+    },
+    {
+      "starId": "cns5-2771",
+      "name": "Alula Australis D",
+      "system": "Alula Australis",
+      "component": "D",
+      "missingFields": [
+        "radial_velocity_kms",
+        "mass_solar",
+        "luminosity_solar",
+        "radius_solar",
+        "metallicity_dex",
+        "age_gyr"
+      ],
+      "rawCatalogMissingFields": [
+        "absolute_mag",
+        "radial_velocity_kms",
+        "mass_solar",
+        "luminosity_solar",
+        "radius_solar",
+        "metallicity_dex",
         "age_gyr"
       ],
       "supplementedFields": {}
@@ -386,6 +865,12 @@
         "age_gyr",
         "spectral_type"
       ],
+      "rawCatalogMissingFields": [
+        "absolute_mag",
+        "mass_solar",
+        "age_gyr",
+        "spectral_type"
+      ],
       "supplementedFields": {}
     },
     {
@@ -394,6 +879,11 @@
       "system": "BD+19 3268",
       "component": "B",
       "missingFields": [
+        "absolute_mag",
+        "metallicity_dex",
+        "age_gyr"
+      ],
+      "rawCatalogMissingFields": [
         "absolute_mag",
         "temperature_k",
         "mass_solar",
@@ -416,6 +906,12 @@
         "radius_solar",
         "age_gyr"
       ],
+      "rawCatalogMissingFields": [
+        "mass_solar",
+        "luminosity_solar",
+        "radius_solar",
+        "age_gyr"
+      ],
       "supplementedFields": {}
     },
     {
@@ -431,6 +927,72 @@
         "radius_solar",
         "age_gyr"
       ],
+      "rawCatalogMissingFields": [
+        "absolute_mag",
+        "radial_velocity_kms",
+        "mass_solar",
+        "luminosity_solar",
+        "radius_solar",
+        "age_gyr"
+      ],
+      "supplementedFields": {}
+    },
+    {
+      "starId": "cns5-2636",
+      "name": "BD+39 2376 A",
+      "system": "BD+39 2376",
+      "component": "A",
+      "missingFields": [
+        "absolute_mag",
+        "radial_velocity_kms",
+        "temperature_k",
+        "mass_solar",
+        "luminosity_solar",
+        "radius_solar",
+        "metallicity_dex",
+        "age_gyr",
+        "spectral_type"
+      ],
+      "rawCatalogMissingFields": [
+        "absolute_mag",
+        "radial_velocity_kms",
+        "temperature_k",
+        "mass_solar",
+        "luminosity_solar",
+        "radius_solar",
+        "metallicity_dex",
+        "age_gyr",
+        "spectral_type"
+      ],
+      "supplementedFields": {}
+    },
+    {
+      "starId": "orb6-10454+3831-a-c-c",
+      "name": "BD+39 2376 C",
+      "system": "BD+39 2376",
+      "component": "C",
+      "missingFields": [
+        "absolute_mag",
+        "radial_velocity_kms",
+        "temperature_k",
+        "mass_solar",
+        "luminosity_solar",
+        "radius_solar",
+        "metallicity_dex",
+        "age_gyr",
+        "spectral_type"
+      ],
+      "rawCatalogMissingFields": [
+        "absolute_mag",
+        "radial_velocity_kms",
+        "temperature_k",
+        "mass_solar",
+        "luminosity_solar",
+        "radius_solar",
+        "metallicity_dex",
+        "age_gyr",
+        "spectral_type"
+      ],
       "supplementedFields": {}
     },
     {
@@ -439,6 +1001,10 @@
       "system": "BD+45 2247",
       "component": "A",
       "missingFields": [
+        "absolute_mag",
+        "age_gyr"
+      ],
+      "rawCatalogMissingFields": [
         "absolute_mag",
         "age_gyr"
       ],
@@ -452,6 +1018,12 @@
       "system": "BD+45 2247",
       "component": "B",
       "missingFields": [
+        "absolute_mag",
+        "radial_velocity_kms",
+        "metallicity_dex",
+        "age_gyr"
+      ],
+      "rawCatalogMissingFields": [
         "absolute_mag",
         "radial_velocity_kms",
         "temperature_k",
@@ -474,6 +1046,10 @@
         "absolute_mag",
         "age_gyr"
       ],
+      "rawCatalogMissingFields": [
+        "absolute_mag",
+        "age_gyr"
+      ],
       "supplementedFields": {
         "mass_solar": "estimated"
       }
@@ -484,6 +1060,10 @@
       "system": "BD+47 2112",
       "component": "B",
       "missingFields": [
+        "absolute_mag",
+        "age_gyr"
+      ],
+      "rawCatalogMissingFields": [
         "absolute_mag",
         "age_gyr"
       ],
@@ -499,6 +1079,9 @@
       "missingFields": [
         "age_gyr"
       ],
+      "rawCatalogMissingFields": [
+        "age_gyr"
+      ],
       "supplementedFields": {}
     },
     {
@@ -507,6 +1090,112 @@
       "system": "BD+52 911",
       "component": "B",
       "missingFields": [
+        "absolute_mag",
+        "radial_velocity_kms",
+        "metallicity_dex",
+        "age_gyr"
+      ],
+      "rawCatalogMissingFields": [
+        "absolute_mag",
+        "radial_velocity_kms",
+        "temperature_k",
+        "mass_solar",
+        "luminosity_solar",
+        "radius_solar",
+        "metallicity_dex",
+        "age_gyr",
+        "spectral_type"
+      ],
+      "supplementedFields": {}
+    },
+    {
+      "starId": "cns5-0527",
+      "name": "BD-18 359 A",
+      "system": "BD-18 359",
+      "component": "A",
+      "missingFields": [
+        "mass_solar",
+        "luminosity_solar",
+        "radius_solar",
+        "age_gyr"
+      ],
+      "rawCatalogMissingFields": [
+        "mass_solar",
+        "luminosity_solar",
+        "radius_solar",
+        "age_gyr"
+      ],
+      "supplementedFields": {}
+    },
+    {
+      "starId": "msc-02051-1737-b",
+      "name": "BD-18 359 B",
+      "system": "BD-18 359",
+      "component": "B",
+      "missingFields": [
+        "radial_velocity_kms",
+        "temperature_k",
+        "mass_solar",
+        "luminosity_solar",
+        "radius_solar",
+        "metallicity_dex",
+        "age_gyr",
+        "spectral_type"
+      ],
+      "rawCatalogMissingFields": [
+        "absolute_mag",
+        "radial_velocity_kms",
+        "temperature_k",
+        "mass_solar",
+        "luminosity_solar",
+        "radius_solar",
+        "metallicity_dex",
+        "age_gyr",
+        "spectral_type"
+      ],
+      "supplementedFields": {}
+    },
+    {
+      "starId": "cns5-1322",
+      "name": "CD-35 2213 A",
+      "system": "CD-35 2213",
+      "component": "A",
+      "missingFields": [
+        "absolute_mag",
+        "radial_velocity_kms",
+        "temperature_k",
+        "mass_solar",
+        "luminosity_solar",
+        "radius_solar",
+        "metallicity_dex",
+        "age_gyr",
+        "spectral_type"
+      ],
+      "rawCatalogMissingFields": [
+        "temperature_k",
+        "luminosity_solar",
+        "metallicity_dex",
+        "age_gyr"
+      ],
+      "supplementedFields": {}
+    },
+    {
+      "starId": "orb6-05174-3522-a-b-b",
+      "name": "CD-35 2213 B",
+      "system": "CD-35 2213",
+      "component": "B",
+      "missingFields": [
+        "absolute_mag",
+        "radial_velocity_kms",
+        "temperature_k",
+        "mass_solar",
+        "luminosity_solar",
+        "radius_solar",
+        "metallicity_dex",
+        "age_gyr",
+        "spectral_type"
+      ],
+      "rawCatalogMissingFields": [
         "absolute_mag",
         "radial_velocity_kms",
         "temperature_k",
@@ -528,6 +1217,10 @@
         "mass_solar",
         "age_gyr"
       ],
+      "rawCatalogMissingFields": [
+        "mass_solar",
+        "age_gyr"
+      ],
       "supplementedFields": {}
     },
     {
@@ -536,6 +1229,14 @@
       "system": "CD-37 10765",
       "component": "B",
       "missingFields": [
+        "absolute_mag",
+        "radial_velocity_kms",
+        "mass_solar",
+        "luminosity_solar",
+        "radius_solar",
+        "age_gyr"
+      ],
+      "rawCatalogMissingFields": [
         "absolute_mag",
         "radial_velocity_kms",
         "mass_solar",
@@ -555,6 +1256,11 @@
         "mass_solar",
         "age_gyr"
       ],
+      "rawCatalogMissingFields": [
+        "radial_velocity_kms",
+        "mass_solar",
+        "age_gyr"
+      ],
       "supplementedFields": {}
     },
     {
@@ -563,6 +1269,11 @@
       "system": "CD-44 3045",
       "component": "B",
       "missingFields": [
+        "radial_velocity_kms",
+        "mass_solar",
+        "age_gyr"
+      ],
+      "rawCatalogMissingFields": [
         "radial_velocity_kms",
         "mass_solar",
         "age_gyr"
@@ -578,6 +1289,10 @@
         "mass_solar",
         "age_gyr"
       ],
+      "rawCatalogMissingFields": [
+        "mass_solar",
+        "age_gyr"
+      ],
       "supplementedFields": {}
     },
     {
@@ -586,6 +1301,11 @@
       "system": "CD-48 11837",
       "component": "B",
       "missingFields": [
+        "absolute_mag",
+        "mass_solar",
+        "age_gyr"
+      ],
+      "rawCatalogMissingFields": [
         "absolute_mag",
         "mass_solar",
         "age_gyr"
@@ -600,6 +1320,9 @@
       "missingFields": [
         "age_gyr"
       ],
+      "rawCatalogMissingFields": [
+        "age_gyr"
+      ],
       "supplementedFields": {}
     },
     {
@@ -610,6 +1333,9 @@
       "missingFields": [
         "age_gyr"
       ],
+      "rawCatalogMissingFields": [
+        "age_gyr"
+      ],
       "supplementedFields": {}
     },
     {
@@ -618,6 +1344,7 @@
       "system": "Capella",
       "component": "Aa",
       "missingFields": [],
+      "rawCatalogMissingFields": [],
       "supplementedFields": {
         "age_gyr": "model-derived",
         "radial_velocity_kms": "systemic-approximation"
@@ -629,6 +1356,7 @@
       "system": "Capella",
       "component": "Ab",
       "missingFields": [],
+      "rawCatalogMissingFields": [],
       "supplementedFields": {
         "age_gyr": "model-derived",
         "radial_velocity_kms": "systemic-approximation"
@@ -642,6 +1370,9 @@
       "missingFields": [
         "absolute_mag"
       ],
+      "rawCatalogMissingFields": [
+        "absolute_mag"
+      ],
       "supplementedFields": {}
     },
     {
@@ -650,6 +1381,14 @@
       "system": "Capella",
       "component": "L",
       "missingFields": [
+        "absolute_mag",
+        "radial_velocity_kms",
+        "temperature_k",
+        "luminosity_solar",
+        "metallicity_dex",
+        "age_gyr"
+      ],
+      "rawCatalogMissingFields": [
         "absolute_mag",
         "radial_velocity_kms",
         "temperature_k",
@@ -668,6 +1407,15 @@
       "system": "Chi Draconis",
       "component": "A",
       "missingFields": [
+        "radial_velocity_kms",
+        "temperature_k",
+        "luminosity_solar",
+        "radius_solar",
+        "metallicity_dex",
+        "age_gyr",
+        "spectral_type"
+      ],
+      "rawCatalogMissingFields": [
         "absolute_mag",
         "radial_velocity_kms",
         "temperature_k",
@@ -677,7 +1425,10 @@
         "age_gyr",
         "spectral_type"
       ],
-      "supplementedFields": {}
+      "supplementedFields": {
+        "apparent_mag": "decomposed-photometry",
+        "absolute_mag": "derived"
+      }
     },
     {
       "starId": "chi-draconis-b",
@@ -685,6 +1436,15 @@
       "system": "Chi Draconis",
       "component": "B",
       "missingFields": [
+        "radial_velocity_kms",
+        "temperature_k",
+        "luminosity_solar",
+        "radius_solar",
+        "metallicity_dex",
+        "age_gyr",
+        "spectral_type"
+      ],
+      "rawCatalogMissingFields": [
         "absolute_mag",
         "radial_velocity_kms",
         "temperature_k",
@@ -694,7 +1454,10 @@
         "age_gyr",
         "spectral_type"
       ],
-      "supplementedFields": {}
+      "supplementedFields": {
+        "apparent_mag": "decomposed-photometry",
+        "absolute_mag": "derived"
+      }
     },
     {
       "starId": "cns5-1464",
@@ -702,6 +1465,12 @@
       "system": "Chi1 Orionis",
       "component": "A",
       "missingFields": [
+        "absolute_mag",
+        "radial_velocity_kms",
+        "age_gyr",
+        "spectral_type"
+      ],
+      "rawCatalogMissingFields": [
         "absolute_mag",
         "radial_velocity_kms",
         "age_gyr",
@@ -729,6 +1498,16 @@
         "age_gyr",
         "spectral_type"
       ],
+      "rawCatalogMissingFields": [
+        "absolute_mag",
+        "radial_velocity_kms",
+        "temperature_k",
+        "luminosity_solar",
+        "radius_solar",
+        "metallicity_dex",
+        "age_gyr",
+        "spectral_type"
+      ],
       "supplementedFields": {}
     },
     {
@@ -737,6 +1516,10 @@
       "system": "Copernicus",
       "component": "A",
       "missingFields": [
+        "absolute_mag",
+        "age_gyr"
+      ],
+      "rawCatalogMissingFields": [
         "absolute_mag",
         "age_gyr"
       ],
@@ -751,7 +1534,69 @@
         "absolute_mag",
         "age_gyr"
       ],
+      "rawCatalogMissingFields": [
+        "absolute_mag",
+        "age_gyr"
+      ],
       "supplementedFields": {}
+    },
+    {
+      "starId": "cns5-0583",
+      "name": "Delta Tri Aa",
+      "system": "Delta Tri",
+      "component": "Aa",
+      "missingFields": [
+        "radial_velocity_kms",
+        "luminosity_solar",
+        "radius_solar",
+        "metallicity_dex",
+        "age_gyr"
+      ],
+      "rawCatalogMissingFields": [
+        "absolute_mag",
+        "mass_solar",
+        "luminosity_solar",
+        "radius_solar",
+        "age_gyr"
+      ],
+      "supplementedFields": {
+        "mass_solar": "dynamical",
+        "apparent_mag": "decomposed-photometry",
+        "temperature_k": "SED-model",
+        "spectral_type": "compiled",
+        "absolute_mag": "derived"
+      }
+    },
+    {
+      "starId": "orb6-02171+3413-aa-ab-ab",
+      "name": "Delta Tri Ab",
+      "system": "Delta Tri",
+      "component": "Ab",
+      "missingFields": [
+        "radial_velocity_kms",
+        "luminosity_solar",
+        "radius_solar",
+        "metallicity_dex",
+        "age_gyr"
+      ],
+      "rawCatalogMissingFields": [
+        "absolute_mag",
+        "radial_velocity_kms",
+        "temperature_k",
+        "mass_solar",
+        "luminosity_solar",
+        "radius_solar",
+        "metallicity_dex",
+        "age_gyr",
+        "spectral_type"
+      ],
+      "supplementedFields": {
+        "mass_solar": "dynamical",
+        "apparent_mag": "decomposed-photometry",
+        "temperature_k": "SED-model",
+        "spectral_type": "estimated-range",
+        "absolute_mag": "derived"
+      }
     },
     {
       "starId": "10pc-0113",
@@ -759,6 +1604,13 @@
       "system": "EI Cnc",
       "component": "A",
       "missingFields": [
+        "absolute_mag",
+        "mass_solar",
+        "luminosity_solar",
+        "radius_solar",
+        "age_gyr"
+      ],
+      "rawCatalogMissingFields": [
         "absolute_mag",
         "mass_solar",
         "luminosity_solar",
@@ -774,6 +1626,10 @@
       "component": "B",
       "missingFields": [
         "absolute_mag",
+        "age_gyr"
+      ],
+      "rawCatalogMissingFields": [
+        "absolute_mag",
         "mass_solar",
         "luminosity_solar",
         "radius_solar",
@@ -787,7 +1643,12 @@
       "system": "EZ Aquarii",
       "component": "A",
       "missingFields": [
-        "radial_velocity_kms",
+        "luminosity_solar",
+        "radius_solar",
+        "metallicity_dex",
+        "age_gyr"
+      ],
+      "rawCatalogMissingFields": [
         "luminosity_solar",
         "radius_solar",
         "metallicity_dex",
@@ -801,7 +1662,12 @@
       "system": "EZ Aquarii",
       "component": "B",
       "missingFields": [
-        "radial_velocity_kms",
+        "luminosity_solar",
+        "radius_solar",
+        "metallicity_dex",
+        "age_gyr"
+      ],
+      "rawCatalogMissingFields": [
         "luminosity_solar",
         "radius_solar",
         "metallicity_dex",
@@ -815,7 +1681,12 @@
       "system": "EZ Aquarii",
       "component": "C",
       "missingFields": [
-        "radial_velocity_kms",
+        "luminosity_solar",
+        "radius_solar",
+        "metallicity_dex",
+        "age_gyr"
+      ],
+      "rawCatalogMissingFields": [
         "luminosity_solar",
         "radius_solar",
         "metallicity_dex",
@@ -829,6 +1700,12 @@
       "system": "FL Vir",
       "component": "A",
       "missingFields": [
+        "luminosity_solar",
+        "radius_solar",
+        "metallicity_dex",
+        "age_gyr"
+      ],
+      "rawCatalogMissingFields": [
         "absolute_mag",
         "mass_solar",
         "luminosity_solar",
@@ -836,7 +1713,11 @@
         "metallicity_dex",
         "age_gyr"
       ],
-      "supplementedFields": {}
+      "supplementedFields": {
+        "mass_solar": "measured",
+        "apparent_mag": "derived",
+        "absolute_mag": "derived"
+      }
     },
     {
       "starId": "10pc-0075",
@@ -844,6 +1725,13 @@
       "system": "FL Vir",
       "component": "B",
       "missingFields": [
+        "radial_velocity_kms",
+        "luminosity_solar",
+        "radius_solar",
+        "metallicity_dex",
+        "age_gyr"
+      ],
+      "rawCatalogMissingFields": [
         "absolute_mag",
         "radial_velocity_kms",
         "mass_solar",
@@ -852,7 +1740,11 @@
         "metallicity_dex",
         "age_gyr"
       ],
-      "supplementedFields": {}
+      "supplementedFields": {
+        "mass_solar": "measured",
+        "apparent_mag": "derived",
+        "absolute_mag": "derived"
+      }
     },
     {
       "starId": "cns5-5665",
@@ -860,8 +1752,9 @@
       "system": "Fomalhaut",
       "component": "A",
       "missingFields": [
-        "radial_velocity_kms",
-        "mass_solar",
+        "age_gyr"
+      ],
+      "rawCatalogMissingFields": [
         "age_gyr"
       ],
       "supplementedFields": {}
@@ -872,6 +1765,7 @@
       "system": "Fomalhaut",
       "component": "B",
       "missingFields": [],
+      "rawCatalogMissingFields": [],
       "supplementedFields": {}
     },
     {
@@ -882,6 +1776,200 @@
       "missingFields": [
         "age_gyr"
       ],
+      "rawCatalogMissingFields": [
+        "age_gyr"
+      ],
+      "supplementedFields": {}
+    },
+    {
+      "starId": "cns5-4014",
+      "name": "G 202-45 Aa",
+      "system": "G 202-45",
+      "component": "Aa",
+      "missingFields": [
+        "radial_velocity_kms",
+        "luminosity_solar",
+        "radius_solar",
+        "metallicity_dex",
+        "age_gyr"
+      ],
+      "rawCatalogMissingFields": [
+        "absolute_mag",
+        "radial_velocity_kms",
+        "mass_solar",
+        "luminosity_solar",
+        "radius_solar",
+        "age_gyr"
+      ],
+      "supplementedFields": {
+        "mass_solar": "measured"
+      }
+    },
+    {
+      "starId": "msc-16240+4822-ab",
+      "name": "G 202-45 Ab",
+      "system": "G 202-45",
+      "component": "Ab",
+      "missingFields": [
+        "radial_velocity_kms",
+        "temperature_k",
+        "luminosity_solar",
+        "radius_solar",
+        "metallicity_dex",
+        "age_gyr",
+        "spectral_type"
+      ],
+      "rawCatalogMissingFields": [
+        "absolute_mag",
+        "radial_velocity_kms",
+        "temperature_k",
+        "mass_solar",
+        "luminosity_solar",
+        "radius_solar",
+        "metallicity_dex",
+        "age_gyr",
+        "spectral_type"
+      ],
+      "supplementedFields": {
+        "mass_solar": "measured"
+      }
+    },
+    {
+      "starId": "cns5-3043",
+      "name": "G 237-64 A",
+      "system": "G 237-64",
+      "component": "A",
+      "missingFields": [
+        "absolute_mag",
+        "radial_velocity_kms",
+        "temperature_k",
+        "mass_solar",
+        "luminosity_solar",
+        "radius_solar",
+        "metallicity_dex",
+        "age_gyr",
+        "spectral_type"
+      ],
+      "rawCatalogMissingFields": [
+        "absolute_mag",
+        "radial_velocity_kms",
+        "temperature_k",
+        "mass_solar",
+        "luminosity_solar",
+        "radius_solar",
+        "metallicity_dex",
+        "age_gyr",
+        "spectral_type"
+      ],
+      "supplementedFields": {}
+    },
+    {
+      "starId": "orb6-12236+6711-a-b-b",
+      "name": "G 237-64 B",
+      "system": "G 237-64",
+      "component": "B",
+      "missingFields": [
+        "absolute_mag",
+        "radial_velocity_kms",
+        "temperature_k",
+        "mass_solar",
+        "luminosity_solar",
+        "radius_solar",
+        "metallicity_dex",
+        "age_gyr",
+        "spectral_type"
+      ],
+      "rawCatalogMissingFields": [
+        "absolute_mag",
+        "radial_velocity_kms",
+        "temperature_k",
+        "mass_solar",
+        "luminosity_solar",
+        "radius_solar",
+        "metallicity_dex",
+        "age_gyr",
+        "spectral_type"
+      ],
+      "supplementedFields": {}
+    },
+    {
+      "starId": "cns5-3169",
+      "name": "G 237-78 Aa",
+      "system": "G 237-78",
+      "component": "Aa",
+      "missingFields": [
+        "radial_velocity_kms",
+        "temperature_k",
+        "mass_solar",
+        "luminosity_solar",
+        "radius_solar",
+        "metallicity_dex",
+        "age_gyr"
+      ],
+      "rawCatalogMissingFields": [
+        "radial_velocity_kms",
+        "mass_solar",
+        "luminosity_solar",
+        "radius_solar",
+        "metallicity_dex",
+        "age_gyr"
+      ],
+      "supplementedFields": {}
+    },
+    {
+      "starId": "msc-12490+6607-ab",
+      "name": "G 237-78 Ab",
+      "system": "G 237-78",
+      "component": "Ab",
+      "missingFields": [
+        "radial_velocity_kms",
+        "temperature_k",
+        "mass_solar",
+        "luminosity_solar",
+        "radius_solar",
+        "metallicity_dex",
+        "age_gyr",
+        "spectral_type"
+      ],
+      "rawCatalogMissingFields": [
+        "absolute_mag",
+        "radial_velocity_kms",
+        "temperature_k",
+        "mass_solar",
+        "luminosity_solar",
+        "radius_solar",
+        "metallicity_dex",
+        "age_gyr",
+        "spectral_type"
+      ],
+      "supplementedFields": {}
+    },
+    {
+      "starId": "msc-12490+6607-b",
+      "name": "G 237-78 B",
+      "system": "G 237-78",
+      "component": "B",
+      "missingFields": [
+        "radial_velocity_kms",
+        "temperature_k",
+        "mass_solar",
+        "luminosity_solar",
+        "radius_solar",
+        "metallicity_dex",
+        "age_gyr",
+        "spectral_type"
+      ],
+      "rawCatalogMissingFields": [
+        "absolute_mag",
+        "radial_velocity_kms",
+        "temperature_k",
+        "mass_solar",
+        "luminosity_solar",
+        "radius_solar",
+        "metallicity_dex",
+        "age_gyr",
+        "spectral_type"
+      ],
       "supplementedFields": {}
     },
     {
@@ -890,6 +1978,9 @@
       "system": "G 239-25",
       "component": "A",
       "missingFields": [
+        "age_gyr"
+      ],
+      "rawCatalogMissingFields": [
         "age_gyr"
       ],
       "supplementedFields": {
@@ -904,6 +1995,13 @@
       "missingFields": [
         "radial_velocity_kms",
         "temperature_k",
+        "luminosity_solar",
+        "metallicity_dex",
+        "age_gyr"
+      ],
+      "rawCatalogMissingFields": [
+        "radial_velocity_kms",
+        "temperature_k",
         "mass_solar",
         "luminosity_solar",
         "radius_solar",
@@ -913,11 +2011,79 @@
       "supplementedFields": {}
     },
     {
+      "starId": "cns5-5064",
+      "name": "G 24-16 A",
+      "system": "G 24-16",
+      "component": "A",
+      "missingFields": [
+        "radial_velocity_kms",
+        "temperature_k",
+        "luminosity_solar",
+        "radius_solar",
+        "metallicity_dex",
+        "age_gyr",
+        "spectral_type"
+      ],
+      "rawCatalogMissingFields": [
+        "absolute_mag",
+        "radial_velocity_kms",
+        "mass_solar",
+        "luminosity_solar",
+        "radius_solar",
+        "age_gyr"
+      ],
+      "supplementedFields": {
+        "mass_solar": "measured",
+        "apparent_mag": "derived",
+        "absolute_mag": "derived"
+      }
+    },
+    {
+      "starId": "orb6-20298+0941-a-b-b",
+      "name": "G 24-16 B",
+      "system": "G 24-16",
+      "component": "B",
+      "missingFields": [
+        "radial_velocity_kms",
+        "temperature_k",
+        "luminosity_solar",
+        "radius_solar",
+        "metallicity_dex",
+        "age_gyr",
+        "spectral_type"
+      ],
+      "rawCatalogMissingFields": [
+        "absolute_mag",
+        "radial_velocity_kms",
+        "temperature_k",
+        "mass_solar",
+        "luminosity_solar",
+        "radius_solar",
+        "metallicity_dex",
+        "age_gyr",
+        "spectral_type"
+      ],
+      "supplementedFields": {
+        "mass_solar": "measured",
+        "apparent_mag": "derived",
+        "absolute_mag": "derived"
+      }
+    },
+    {
       "starId": "cns5-1726",
       "name": "G 250-31A",
       "system": "G 250-31",
       "component": "A",
       "missingFields": [
+        "absolute_mag",
+        "radial_velocity_kms",
+        "mass_solar",
+        "luminosity_solar",
+        "radius_solar",
+        "metallicity_dex",
+        "age_gyr"
+      ],
+      "rawCatalogMissingFields": [
         "absolute_mag",
         "radial_velocity_kms",
         "mass_solar",
@@ -934,6 +2100,12 @@
       "system": "G 250-31",
       "component": "B",
       "missingFields": [
+        "absolute_mag",
+        "radial_velocity_kms",
+        "metallicity_dex",
+        "age_gyr"
+      ],
+      "rawCatalogMissingFields": [
         "absolute_mag",
         "radial_velocity_kms",
         "luminosity_solar",
@@ -959,14 +2131,7 @@
         "metallicity_dex",
         "age_gyr"
       ],
-      "supplementedFields": {}
-    },
-    {
-      "starId": "cns5-1154",
-      "name": "G 39-29B",
-      "system": "G 39-29",
-      "component": "B",
-      "missingFields": [
+      "rawCatalogMissingFields": [
         "absolute_mag",
         "temperature_k",
         "mass_solar",
@@ -978,11 +2143,88 @@
       "supplementedFields": {}
     },
     {
+      "starId": "cns5-1154",
+      "name": "G 39-29B",
+      "system": "G 39-29",
+      "component": "B",
+      "missingFields": [
+        "absolute_mag",
+        "temperature_k",
+        "luminosity_solar",
+        "metallicity_dex",
+        "age_gyr"
+      ],
+      "rawCatalogMissingFields": [
+        "absolute_mag",
+        "temperature_k",
+        "mass_solar",
+        "luminosity_solar",
+        "radius_solar",
+        "metallicity_dex",
+        "age_gyr"
+      ],
+      "supplementedFields": {}
+    },
+    {
+      "starId": "cns5-2217",
+      "name": "G 41-14 A",
+      "system": "G 41-14",
+      "component": "A",
+      "missingFields": [
+        "absolute_mag",
+        "radial_velocity_kms",
+        "temperature_k",
+        "mass_solar",
+        "luminosity_solar",
+        "radius_solar",
+        "metallicity_dex",
+        "age_gyr",
+        "spectral_type"
+      ],
+      "rawCatalogMissingFields": [
+        "radial_velocity_kms",
+        "age_gyr"
+      ],
+      "supplementedFields": {}
+    },
+    {
+      "starId": "orb6-08589+0829-a-b-b",
+      "name": "G 41-14 B",
+      "system": "G 41-14",
+      "component": "B",
+      "missingFields": [
+        "absolute_mag",
+        "radial_velocity_kms",
+        "temperature_k",
+        "mass_solar",
+        "luminosity_solar",
+        "radius_solar",
+        "metallicity_dex",
+        "age_gyr",
+        "spectral_type"
+      ],
+      "rawCatalogMissingFields": [
+        "absolute_mag",
+        "radial_velocity_kms",
+        "temperature_k",
+        "mass_solar",
+        "luminosity_solar",
+        "radius_solar",
+        "metallicity_dex",
+        "age_gyr",
+        "spectral_type"
+      ],
+      "supplementedFields": {}
+    },
+    {
       "starId": "cns5-0012",
       "name": "L 362-29",
       "system": "GJ 1001",
       "component": "A",
       "missingFields": [
+        "age_gyr"
+      ],
+      "rawCatalogMissingFields": [
         "age_gyr"
       ],
       "supplementedFields": {}
@@ -993,6 +2235,15 @@
       "system": "GJ 1001",
       "component": "B",
       "missingFields": [
+        "absolute_mag",
+        "radial_velocity_kms",
+        "mass_solar",
+        "luminosity_solar",
+        "radius_solar",
+        "metallicity_dex",
+        "age_gyr"
+      ],
+      "rawCatalogMissingFields": [
         "absolute_mag",
         "radial_velocity_kms",
         "mass_solar",
@@ -1019,6 +2270,15 @@
         "metallicity_dex",
         "age_gyr"
       ],
+      "rawCatalogMissingFields": [
+        "absolute_mag",
+        "radial_velocity_kms",
+        "mass_solar",
+        "luminosity_solar",
+        "radius_solar",
+        "metallicity_dex",
+        "age_gyr"
+      ],
       "supplementedFields": {
         "temperature_k": "estimated"
       }
@@ -1035,6 +2295,13 @@
         "radius_solar",
         "age_gyr"
       ],
+      "rawCatalogMissingFields": [
+        "absolute_mag",
+        "mass_solar",
+        "luminosity_solar",
+        "radius_solar",
+        "age_gyr"
+      ],
       "supplementedFields": {}
     },
     {
@@ -1043,6 +2310,10 @@
       "system": "GJ 105",
       "component": "B",
       "missingFields": [
+        "absolute_mag",
+        "age_gyr"
+      ],
+      "rawCatalogMissingFields": [
         "absolute_mag",
         "age_gyr"
       ],
@@ -1062,6 +2333,15 @@
         "metallicity_dex",
         "age_gyr"
       ],
+      "rawCatalogMissingFields": [
+        "absolute_mag",
+        "radial_velocity_kms",
+        "temperature_k",
+        "luminosity_solar",
+        "radius_solar",
+        "metallicity_dex",
+        "age_gyr"
+      ],
       "supplementedFields": {}
     },
     {
@@ -1072,6 +2352,9 @@
       "missingFields": [
         "age_gyr"
       ],
+      "rawCatalogMissingFields": [
+        "age_gyr"
+      ],
       "supplementedFields": {}
     },
     {
@@ -1080,6 +2363,9 @@
       "system": "GJ 10949",
       "component": "B",
       "missingFields": [
+        "age_gyr"
+      ],
+      "rawCatalogMissingFields": [
         "age_gyr"
       ],
       "supplementedFields": {}
@@ -1096,6 +2382,13 @@
         "metallicity_dex",
         "age_gyr"
       ],
+      "rawCatalogMissingFields": [
+        "absolute_mag",
+        "temperature_k",
+        "luminosity_solar",
+        "metallicity_dex",
+        "age_gyr"
+      ],
       "supplementedFields": {}
     },
     {
@@ -1104,6 +2397,17 @@
       "system": "GJ 11217",
       "component": "B",
       "missingFields": [
+        "absolute_mag",
+        "radial_velocity_kms",
+        "temperature_k",
+        "mass_solar",
+        "luminosity_solar",
+        "radius_solar",
+        "metallicity_dex",
+        "age_gyr",
+        "spectral_type"
+      ],
+      "rawCatalogMissingFields": [
         "absolute_mag",
         "radial_velocity_kms",
         "temperature_k",
@@ -1130,6 +2434,15 @@
         "metallicity_dex",
         "age_gyr"
       ],
+      "rawCatalogMissingFields": [
+        "absolute_mag",
+        "temperature_k",
+        "mass_solar",
+        "luminosity_solar",
+        "radius_solar",
+        "metallicity_dex",
+        "age_gyr"
+      ],
       "supplementedFields": {}
     },
     {
@@ -1138,6 +2451,13 @@
       "system": "GJ 11774",
       "component": "B",
       "missingFields": [
+        "absolute_mag",
+        "temperature_k",
+        "luminosity_solar",
+        "metallicity_dex",
+        "age_gyr"
+      ],
+      "rawCatalogMissingFields": [
         "absolute_mag",
         "temperature_k",
         "luminosity_solar",
@@ -1158,6 +2478,10 @@
         "absolute_mag",
         "age_gyr"
       ],
+      "rawCatalogMissingFields": [
+        "absolute_mag",
+        "age_gyr"
+      ],
       "supplementedFields": {}
     },
     {
@@ -1166,6 +2490,16 @@
       "system": "GJ 1179",
       "component": "B",
       "missingFields": [
+        "absolute_mag",
+        "radial_velocity_kms",
+        "temperature_k",
+        "mass_solar",
+        "luminosity_solar",
+        "radius_solar",
+        "metallicity_dex",
+        "age_gyr"
+      ],
+      "rawCatalogMissingFields": [
         "absolute_mag",
         "radial_velocity_kms",
         "temperature_k",
@@ -1191,6 +2525,15 @@
         "metallicity_dex",
         "age_gyr"
       ],
+      "rawCatalogMissingFields": [
+        "absolute_mag",
+        "radial_velocity_kms",
+        "mass_solar",
+        "luminosity_solar",
+        "radius_solar",
+        "metallicity_dex",
+        "age_gyr"
+      ],
       "supplementedFields": {}
     },
     {
@@ -1199,6 +2542,16 @@
       "system": "GJ 12050",
       "component": "B",
       "missingFields": [
+        "absolute_mag",
+        "radial_velocity_kms",
+        "temperature_k",
+        "mass_solar",
+        "luminosity_solar",
+        "radius_solar",
+        "metallicity_dex",
+        "age_gyr"
+      ],
+      "rawCatalogMissingFields": [
         "absolute_mag",
         "radial_velocity_kms",
         "temperature_k",
@@ -1223,6 +2576,14 @@
         "radius_solar",
         "age_gyr"
       ],
+      "rawCatalogMissingFields": [
+        "absolute_mag",
+        "radial_velocity_kms",
+        "mass_solar",
+        "luminosity_solar",
+        "radius_solar",
+        "age_gyr"
+      ],
       "supplementedFields": {}
     },
     {
@@ -1231,6 +2592,12 @@
       "system": "GJ 1230",
       "component": "B",
       "missingFields": [
+        "temperature_k",
+        "luminosity_solar",
+        "metallicity_dex",
+        "age_gyr"
+      ],
+      "rawCatalogMissingFields": [
         "temperature_k",
         "mass_solar",
         "luminosity_solar",
@@ -1246,6 +2613,12 @@
       "system": "GJ 1245",
       "component": "A",
       "missingFields": [
+        "luminosity_solar",
+        "radius_solar",
+        "metallicity_dex",
+        "age_gyr"
+      ],
+      "rawCatalogMissingFields": [
         "absolute_mag",
         "mass_solar",
         "luminosity_solar",
@@ -1253,7 +2626,11 @@
         "metallicity_dex",
         "age_gyr"
       ],
-      "supplementedFields": {}
+      "supplementedFields": {
+        "mass_solar": "measured",
+        "apparent_mag": "derived",
+        "absolute_mag": "derived"
+      }
     },
     {
       "starId": "10pc-0089",
@@ -1262,12 +2639,18 @@
       "component": "B",
       "missingFields": [
         "absolute_mag",
+        "age_gyr"
+      ],
+      "rawCatalogMissingFields": [
+        "absolute_mag",
         "mass_solar",
         "luminosity_solar",
         "radius_solar",
         "age_gyr"
       ],
-      "supplementedFields": {}
+      "supplementedFields": {
+        "spectral_type": "compiled"
+      }
     },
     {
       "starId": "10pc-0088",
@@ -1275,6 +2658,13 @@
       "system": "GJ 1245",
       "component": "C",
       "missingFields": [
+        "radial_velocity_kms",
+        "luminosity_solar",
+        "radius_solar",
+        "metallicity_dex",
+        "age_gyr"
+      ],
+      "rawCatalogMissingFields": [
         "absolute_mag",
         "radial_velocity_kms",
         "mass_solar",
@@ -1283,7 +2673,11 @@
         "metallicity_dex",
         "age_gyr"
       ],
-      "supplementedFields": {}
+      "supplementedFields": {
+        "mass_solar": "measured",
+        "apparent_mag": "derived",
+        "absolute_mag": "derived"
+      }
     },
     {
       "starId": "10pc-0035",
@@ -1294,7 +2688,13 @@
         "absolute_mag",
         "age_gyr"
       ],
-      "supplementedFields": {}
+      "rawCatalogMissingFields": [
+        "absolute_mag",
+        "age_gyr"
+      ],
+      "supplementedFields": {
+        "spectral_type": "compiled"
+      }
     },
     {
       "starId": "10pc-0038",
@@ -1302,6 +2702,10 @@
       "system": "GJ 15",
       "component": "B",
       "missingFields": [
+        "absolute_mag",
+        "age_gyr"
+      ],
+      "rawCatalogMissingFields": [
         "absolute_mag",
         "age_gyr"
       ],
@@ -1315,6 +2719,9 @@
       "missingFields": [
         "age_gyr"
       ],
+      "rawCatalogMissingFields": [
+        "age_gyr"
+      ],
       "supplementedFields": {}
     },
     {
@@ -1325,6 +2732,9 @@
       "missingFields": [
         "age_gyr"
       ],
+      "rawCatalogMissingFields": [
+        "age_gyr"
+      ],
       "supplementedFields": {}
     },
     {
@@ -1333,6 +2743,9 @@
       "system": "GJ 211",
       "component": "A",
       "missingFields": [
+        "age_gyr"
+      ],
+      "rawCatalogMissingFields": [
         "age_gyr"
       ],
       "supplementedFields": {}
@@ -1346,6 +2759,10 @@
         "absolute_mag",
         "age_gyr"
       ],
+      "rawCatalogMissingFields": [
+        "absolute_mag",
+        "age_gyr"
+      ],
       "supplementedFields": {}
     },
     {
@@ -1354,6 +2771,14 @@
       "system": "GJ 22",
       "component": "A",
       "missingFields": [
+        "radial_velocity_kms",
+        "temperature_k",
+        "luminosity_solar",
+        "radius_solar",
+        "metallicity_dex",
+        "age_gyr"
+      ],
+      "rawCatalogMissingFields": [
         "absolute_mag",
         "radial_velocity_kms",
         "temperature_k",
@@ -1363,7 +2788,11 @@
         "metallicity_dex",
         "age_gyr"
       ],
-      "supplementedFields": {}
+      "supplementedFields": {
+        "mass_solar": "measured",
+        "apparent_mag": "derived",
+        "absolute_mag": "derived"
+      }
     },
     {
       "starId": "cns5-0154",
@@ -1371,6 +2800,9 @@
       "system": "GJ 22",
       "component": "B",
       "missingFields": [
+        "age_gyr"
+      ],
+      "rawCatalogMissingFields": [
         "luminosity_solar",
         "age_gyr"
       ],
@@ -1385,6 +2817,15 @@
       "system": "GJ 22",
       "component": "C",
       "missingFields": [
+        "radial_velocity_kms",
+        "temperature_k",
+        "luminosity_solar",
+        "radius_solar",
+        "metallicity_dex",
+        "age_gyr",
+        "spectral_type"
+      ],
+      "rawCatalogMissingFields": [
         "absolute_mag",
         "radial_velocity_kms",
         "temperature_k",
@@ -1395,7 +2836,11 @@
         "age_gyr",
         "spectral_type"
       ],
-      "supplementedFields": {}
+      "supplementedFields": {
+        "mass_solar": "measured",
+        "apparent_mag": "derived",
+        "absolute_mag": "derived"
+      }
     },
     {
       "starId": "10pc-0138",
@@ -1403,6 +2848,9 @@
       "system": "GJ 229",
       "component": "A",
       "missingFields": [
+        "age_gyr"
+      ],
+      "rawCatalogMissingFields": [
         "absolute_mag",
         "age_gyr"
       ],
@@ -1414,6 +2862,11 @@
       "system": "GJ 229",
       "component": "Ba",
       "missingFields": [
+        "absolute_mag",
+        "radial_velocity_kms",
+        "metallicity_dex"
+      ],
+      "rawCatalogMissingFields": [
         "absolute_mag",
         "radial_velocity_kms",
         "metallicity_dex",
@@ -1434,6 +2887,12 @@
         "metallicity_dex",
         "spectral_type"
       ],
+      "rawCatalogMissingFields": [
+        "absolute_mag",
+        "radial_velocity_kms",
+        "metallicity_dex",
+        "spectral_type"
+      ],
       "supplementedFields": {
         "radius_solar": "derived"
       }
@@ -1444,6 +2903,16 @@
       "system": "GJ 268",
       "component": "A",
       "missingFields": [
+        "absolute_mag",
+        "radial_velocity_kms",
+        "temperature_k",
+        "mass_solar",
+        "luminosity_solar",
+        "radius_solar",
+        "metallicity_dex",
+        "age_gyr"
+      ],
+      "rawCatalogMissingFields": [
         "absolute_mag",
         "radial_velocity_kms",
         "temperature_k",
@@ -1470,6 +2939,16 @@
         "metallicity_dex",
         "age_gyr"
       ],
+      "rawCatalogMissingFields": [
+        "absolute_mag",
+        "radial_velocity_kms",
+        "temperature_k",
+        "mass_solar",
+        "luminosity_solar",
+        "radius_solar",
+        "metallicity_dex",
+        "age_gyr"
+      ],
       "supplementedFields": {}
     },
     {
@@ -1478,6 +2957,15 @@
       "system": "GJ 283",
       "component": "A",
       "missingFields": [
+        "radial_velocity_kms",
+        "temperature_k",
+        "mass_solar",
+        "luminosity_solar",
+        "radius_solar",
+        "metallicity_dex",
+        "age_gyr"
+      ],
+      "rawCatalogMissingFields": [
         "radial_velocity_kms",
         "temperature_k",
         "mass_solar",
@@ -1496,6 +2984,9 @@
       "missingFields": [
         "age_gyr"
       ],
+      "rawCatalogMissingFields": [
+        "age_gyr"
+      ],
       "supplementedFields": {}
     },
     {
@@ -1504,6 +2995,9 @@
       "system": "GJ 3148",
       "component": "A",
       "missingFields": [
+        "age_gyr"
+      ],
+      "rawCatalogMissingFields": [
         "age_gyr"
       ],
       "supplementedFields": {}
@@ -1516,6 +3010,9 @@
       "missingFields": [
         "age_gyr"
       ],
+      "rawCatalogMissingFields": [
+        "age_gyr"
+      ],
       "supplementedFields": {}
     },
     {
@@ -1524,6 +3021,9 @@
       "system": "GJ 325",
       "component": "A",
       "missingFields": [
+        "radial_velocity_kms"
+      ],
+      "rawCatalogMissingFields": [
         "radial_velocity_kms"
       ],
       "supplementedFields": {}
@@ -1536,6 +3036,9 @@
       "missingFields": [
         "radial_velocity_kms"
       ],
+      "rawCatalogMissingFields": [
+        "radial_velocity_kms"
+      ],
       "supplementedFields": {}
     },
     {
@@ -1544,6 +3047,10 @@
       "system": "GJ 3371",
       "component": "A",
       "missingFields": [
+        "absolute_mag",
+        "age_gyr"
+      ],
+      "rawCatalogMissingFields": [
         "absolute_mag",
         "age_gyr"
       ],
@@ -1558,6 +3065,10 @@
         "absolute_mag",
         "age_gyr"
       ],
+      "rawCatalogMissingFields": [
+        "absolute_mag",
+        "age_gyr"
+      ],
       "supplementedFields": {}
     },
     {
@@ -1566,6 +3077,10 @@
       "system": "GJ 338",
       "component": "A",
       "missingFields": [
+        "absolute_mag",
+        "age_gyr"
+      ],
+      "rawCatalogMissingFields": [
         "absolute_mag",
         "age_gyr"
       ],
@@ -1580,6 +3095,10 @@
         "absolute_mag",
         "age_gyr"
       ],
+      "rawCatalogMissingFields": [
+        "absolute_mag",
+        "age_gyr"
+      ],
       "supplementedFields": {}
     },
     {
@@ -1588,6 +3107,9 @@
       "system": "GJ 360",
       "component": "A",
       "missingFields": [
+        "age_gyr"
+      ],
+      "rawCatalogMissingFields": [
         "age_gyr"
       ],
       "supplementedFields": {}
@@ -1601,6 +3123,10 @@
         "absolute_mag",
         "age_gyr"
       ],
+      "rawCatalogMissingFields": [
+        "absolute_mag",
+        "age_gyr"
+      ],
       "supplementedFields": {}
     },
     {
@@ -1611,6 +3137,9 @@
       "missingFields": [
         "age_gyr"
       ],
+      "rawCatalogMissingFields": [
+        "age_gyr"
+      ],
       "supplementedFields": {}
     },
     {
@@ -1619,6 +3148,9 @@
       "system": "GJ 3708",
       "component": "B",
       "missingFields": [
+        "age_gyr"
+      ],
+      "rawCatalogMissingFields": [
         "age_gyr"
       ],
       "supplementedFields": {
@@ -1636,6 +3168,12 @@
         "radius_solar",
         "age_gyr"
       ],
+      "rawCatalogMissingFields": [
+        "mass_solar",
+        "luminosity_solar",
+        "radius_solar",
+        "age_gyr"
+      ],
       "supplementedFields": {}
     },
     {
@@ -1644,6 +3182,9 @@
       "system": "GJ 4",
       "component": "B",
       "missingFields": [
+        "age_gyr"
+      ],
+      "rawCatalogMissingFields": [
         "luminosity_solar",
         "age_gyr"
       ],
@@ -1653,11 +3194,29 @@
       }
     },
     {
+      "starId": "cns5-0015",
+      "name": "BD+44 4548",
+      "system": "GJ 4",
+      "component": "C",
+      "missingFields": [
+        "absolute_mag",
+        "age_gyr"
+      ],
+      "rawCatalogMissingFields": [
+        "absolute_mag",
+        "age_gyr"
+      ],
+      "supplementedFields": {}
+    },
+    {
       "starId": "cns5-4529",
       "name": "G 204-58",
       "system": "GJ 4048",
       "component": "A",
       "missingFields": [
+        "age_gyr"
+      ],
+      "rawCatalogMissingFields": [
         "age_gyr"
       ],
       "supplementedFields": {}
@@ -1668,6 +3227,9 @@
       "system": "GJ 4048",
       "component": "B",
       "missingFields": [
+        "age_gyr"
+      ],
+      "rawCatalogMissingFields": [
         "age_gyr"
       ],
       "supplementedFields": {}
@@ -1681,7 +3243,13 @@
         "absolute_mag",
         "age_gyr"
       ],
-      "supplementedFields": {}
+      "rawCatalogMissingFields": [
+        "absolute_mag",
+        "age_gyr"
+      ],
+      "supplementedFields": {
+        "spectral_type": "compiled"
+      }
     },
     {
       "starId": "10pc-0101",
@@ -1692,7 +3260,13 @@
         "absolute_mag",
         "age_gyr"
       ],
-      "supplementedFields": {}
+      "rawCatalogMissingFields": [
+        "absolute_mag",
+        "age_gyr"
+      ],
+      "supplementedFields": {
+        "spectral_type": "compiled"
+      }
     },
     {
       "starId": "cns5-5583",
@@ -1700,6 +3274,9 @@
       "system": "GJ 4288",
       "component": "A",
       "missingFields": [
+        "age_gyr"
+      ],
+      "rawCatalogMissingFields": [
         "age_gyr"
       ],
       "supplementedFields": {}
@@ -1710,6 +3287,10 @@
       "system": "GJ 4288",
       "component": "B",
       "missingFields": [
+        "metallicity_dex",
+        "age_gyr"
+      ],
+      "rawCatalogMissingFields": [
         "metallicity_dex",
         "age_gyr"
       ],
@@ -1724,6 +3305,10 @@
         "absolute_mag",
         "age_gyr"
       ],
+      "rawCatalogMissingFields": [
+        "absolute_mag",
+        "age_gyr"
+      ],
       "supplementedFields": {}
     },
     {
@@ -1732,6 +3317,10 @@
       "system": "GJ 49",
       "component": "B",
       "missingFields": [
+        "radial_velocity_kms",
+        "age_gyr"
+      ],
+      "rawCatalogMissingFields": [
         "radial_velocity_kms",
         "age_gyr"
       ],
@@ -1749,6 +3338,13 @@
         "radius_solar",
         "age_gyr"
       ],
+      "rawCatalogMissingFields": [
+        "absolute_mag",
+        "mass_solar",
+        "luminosity_solar",
+        "radius_solar",
+        "age_gyr"
+      ],
       "supplementedFields": {}
     },
     {
@@ -1757,6 +3353,10 @@
       "system": "GJ 507",
       "component": "B",
       "missingFields": [
+        "mass_solar",
+        "age_gyr"
+      ],
+      "rawCatalogMissingFields": [
         "mass_solar",
         "age_gyr"
       ],
@@ -1770,6 +3370,9 @@
       "missingFields": [
         "age_gyr"
       ],
+      "rawCatalogMissingFields": [
+        "age_gyr"
+      ],
       "supplementedFields": {
         "mass_solar": "estimated"
       }
@@ -1780,6 +3383,13 @@
       "system": "GJ 569",
       "component": "Ba",
       "missingFields": [
+        "absolute_mag",
+        "radial_velocity_kms",
+        "mass_solar",
+        "metallicity_dex",
+        "age_gyr"
+      ],
+      "rawCatalogMissingFields": [
         "absolute_mag",
         "radial_velocity_kms",
         "mass_solar",
@@ -1804,6 +3414,13 @@
         "metallicity_dex",
         "age_gyr"
       ],
+      "rawCatalogMissingFields": [
+        "absolute_mag",
+        "radial_velocity_kms",
+        "mass_solar",
+        "metallicity_dex",
+        "age_gyr"
+      ],
       "supplementedFields": {
         "luminosity_solar": "derived",
         "radius_solar": "derived",
@@ -1819,6 +3436,10 @@
         "mass_solar",
         "age_gyr"
       ],
+      "rawCatalogMissingFields": [
+        "mass_solar",
+        "age_gyr"
+      ],
       "supplementedFields": {}
     },
     {
@@ -1827,6 +3448,12 @@
       "system": "GJ 570",
       "component": "B",
       "missingFields": [
+        "luminosity_solar",
+        "radius_solar",
+        "metallicity_dex",
+        "age_gyr"
+      ],
+      "rawCatalogMissingFields": [
         "luminosity_solar",
         "radius_solar",
         "metallicity_dex",
@@ -1848,6 +3475,12 @@
         "metallicity_dex",
         "age_gyr"
       ],
+      "rawCatalogMissingFields": [
+        "luminosity_solar",
+        "radius_solar",
+        "metallicity_dex",
+        "age_gyr"
+      ],
       "supplementedFields": {
         "absolute_mag": "derived",
         "radial_velocity_kms": "systemic-approximation"
@@ -1864,6 +3497,14 @@
         "mass_solar",
         "luminosity_solar",
         "radius_solar",
+        "age_gyr"
+      ],
+      "rawCatalogMissingFields": [
+        "absolute_mag",
+        "radial_velocity_kms",
+        "mass_solar",
+        "luminosity_solar",
+        "radius_solar",
         "metallicity_dex",
         "age_gyr"
       ],
@@ -1875,6 +3516,7 @@
       "system": "GJ 620.1",
       "component": "A",
       "missingFields": [],
+      "rawCatalogMissingFields": [],
       "supplementedFields": {}
     },
     {
@@ -1891,6 +3533,15 @@
         "metallicity_dex",
         "age_gyr"
       ],
+      "rawCatalogMissingFields": [
+        "radial_velocity_kms",
+        "temperature_k",
+        "mass_solar",
+        "luminosity_solar",
+        "radius_solar",
+        "metallicity_dex",
+        "age_gyr"
+      ],
       "supplementedFields": {}
     },
     {
@@ -1899,6 +3550,13 @@
       "system": "GJ 644",
       "component": "A",
       "missingFields": [
+        "temperature_k",
+        "luminosity_solar",
+        "radius_solar",
+        "metallicity_dex",
+        "age_gyr"
+      ],
+      "rawCatalogMissingFields": [
         "temperature_k",
         "luminosity_solar",
         "radius_solar",
@@ -1924,6 +3582,14 @@
         "age_gyr",
         "spectral_type"
       ],
+      "rawCatalogMissingFields": [
+        "temperature_k",
+        "luminosity_solar",
+        "radius_solar",
+        "metallicity_dex",
+        "age_gyr",
+        "spectral_type"
+      ],
       "supplementedFields": {
         "absolute_mag": "derived",
         "radial_velocity_kms": "systemic-approximation"
@@ -1942,6 +3608,14 @@
         "age_gyr",
         "spectral_type"
       ],
+      "rawCatalogMissingFields": [
+        "temperature_k",
+        "luminosity_solar",
+        "radius_solar",
+        "metallicity_dex",
+        "age_gyr",
+        "spectral_type"
+      ],
       "supplementedFields": {
         "absolute_mag": "derived",
         "radial_velocity_kms": "systemic-approximation"
@@ -1953,6 +3627,9 @@
       "system": "GJ 644",
       "component": "C",
       "missingFields": [
+        "age_gyr"
+      ],
+      "rawCatalogMissingFields": [
         "metallicity_dex",
         "age_gyr"
       ],
@@ -1966,6 +3643,9 @@
       "missingFields": [
         "age_gyr"
       ],
+      "rawCatalogMissingFields": [
+        "age_gyr"
+      ],
       "supplementedFields": {}
     },
     {
@@ -1974,6 +3654,13 @@
       "system": "GJ 661",
       "component": "A",
       "missingFields": [
+        "radial_velocity_kms",
+        "luminosity_solar",
+        "radius_solar",
+        "metallicity_dex",
+        "age_gyr"
+      ],
+      "rawCatalogMissingFields": [
         "radial_velocity_kms",
         "luminosity_solar",
         "radius_solar",
@@ -1992,6 +3679,13 @@
       "system": "GJ 661",
       "component": "B",
       "missingFields": [
+        "radial_velocity_kms",
+        "luminosity_solar",
+        "radius_solar",
+        "metallicity_dex",
+        "age_gyr"
+      ],
+      "rawCatalogMissingFields": [
         "radial_velocity_kms",
         "luminosity_solar",
         "radius_solar",
@@ -2017,6 +3711,14 @@
         "metallicity_dex",
         "age_gyr"
       ],
+      "rawCatalogMissingFields": [
+        "radial_velocity_kms",
+        "mass_solar",
+        "luminosity_solar",
+        "radius_solar",
+        "metallicity_dex",
+        "age_gyr"
+      ],
       "supplementedFields": {
         "absolute_mag": "derived",
         "temperature_k": "estimated"
@@ -2028,6 +3730,14 @@
       "system": "GJ 667",
       "component": "B",
       "missingFields": [
+        "radial_velocity_kms",
+        "mass_solar",
+        "luminosity_solar",
+        "radius_solar",
+        "metallicity_dex",
+        "age_gyr"
+      ],
+      "rawCatalogMissingFields": [
         "radial_velocity_kms",
         "mass_solar",
         "luminosity_solar",
@@ -2048,6 +3758,9 @@
       "missingFields": [
         "age_gyr"
       ],
+      "rawCatalogMissingFields": [
+        "age_gyr"
+      ],
       "supplementedFields": {}
     },
     {
@@ -2056,6 +3769,9 @@
       "system": "GJ 669",
       "component": "A",
       "missingFields": [
+        "age_gyr"
+      ],
+      "rawCatalogMissingFields": [
         "age_gyr"
       ],
       "supplementedFields": {
@@ -2068,6 +3784,10 @@
       "system": "GJ 669",
       "component": "B",
       "missingFields": [
+        "absolute_mag",
+        "age_gyr"
+      ],
+      "rawCatalogMissingFields": [
         "absolute_mag",
         "age_gyr"
       ],
@@ -2084,10 +3804,16 @@
       "component": "A",
       "missingFields": [
         "absolute_mag",
+        "age_gyr"
+      ],
+      "rawCatalogMissingFields": [
+        "absolute_mag",
         "mass_solar",
         "age_gyr"
       ],
-      "supplementedFields": {}
+      "supplementedFields": {
+        "spectral_type": "compiled"
+      }
     },
     {
       "starId": "10pc-0034",
@@ -2096,10 +3822,16 @@
       "component": "B",
       "missingFields": [
         "absolute_mag",
+        "age_gyr"
+      ],
+      "rawCatalogMissingFields": [
+        "absolute_mag",
         "mass_solar",
         "age_gyr"
       ],
-      "supplementedFields": {}
+      "supplementedFields": {
+        "spectral_type": "compiled"
+      }
     },
     {
       "starId": "cns5-4746",
@@ -2107,6 +3839,9 @@
       "system": "GJ 745",
       "component": "A",
       "missingFields": [
+        "age_gyr"
+      ],
+      "rawCatalogMissingFields": [
         "age_gyr"
       ],
       "supplementedFields": {}
@@ -2119,6 +3854,9 @@
       "missingFields": [
         "age_gyr"
       ],
+      "rawCatalogMissingFields": [
+        "age_gyr"
+      ],
       "supplementedFields": {}
     },
     {
@@ -2129,6 +3867,9 @@
       "missingFields": [
         "age_gyr"
       ],
+      "rawCatalogMissingFields": [
+        "age_gyr"
+      ],
       "supplementedFields": {}
     },
     {
@@ -2137,6 +3878,9 @@
       "system": "GJ 752",
       "component": "B",
       "missingFields": [
+        "age_gyr"
+      ],
+      "rawCatalogMissingFields": [
         "age_gyr"
       ],
       "supplementedFields": {
@@ -2158,6 +3902,15 @@
         "metallicity_dex",
         "age_gyr"
       ],
+      "rawCatalogMissingFields": [
+        "radial_velocity_kms",
+        "temperature_k",
+        "mass_solar",
+        "luminosity_solar",
+        "radius_solar",
+        "metallicity_dex",
+        "age_gyr"
+      ],
       "supplementedFields": {}
     },
     {
@@ -2166,6 +3919,9 @@
       "system": "GJ 754.1",
       "component": "B",
       "missingFields": [
+        "age_gyr"
+      ],
+      "rawCatalogMissingFields": [
         "age_gyr"
       ],
       "supplementedFields": {
@@ -2178,6 +3934,10 @@
       "system": "GJ 766",
       "component": "A",
       "missingFields": [
+        "absolute_mag",
+        "age_gyr"
+      ],
+      "rawCatalogMissingFields": [
         "absolute_mag",
         "age_gyr"
       ],
@@ -2194,6 +3954,10 @@
         "absolute_mag",
         "age_gyr"
       ],
+      "rawCatalogMissingFields": [
+        "absolute_mag",
+        "age_gyr"
+      ],
       "supplementedFields": {
         "mass_solar": "estimated"
       }
@@ -2204,6 +3968,9 @@
       "system": "GJ 774",
       "component": "A",
       "missingFields": [
+        "age_gyr"
+      ],
+      "rawCatalogMissingFields": [
         "age_gyr"
       ],
       "supplementedFields": {}
@@ -2218,6 +3985,11 @@
         "metallicity_dex",
         "age_gyr"
       ],
+      "rawCatalogMissingFields": [
+        "absolute_mag",
+        "metallicity_dex",
+        "age_gyr"
+      ],
       "supplementedFields": {}
     },
     {
@@ -2226,6 +3998,16 @@
       "system": "GJ 783",
       "component": "A",
       "missingFields": [
+        "absolute_mag",
+        "radial_velocity_kms",
+        "temperature_k",
+        "mass_solar",
+        "luminosity_solar",
+        "radius_solar",
+        "metallicity_dex",
+        "age_gyr"
+      ],
+      "rawCatalogMissingFields": [
         "absolute_mag",
         "radial_velocity_kms",
         "temperature_k",
@@ -2252,6 +4034,16 @@
         "metallicity_dex",
         "age_gyr"
       ],
+      "rawCatalogMissingFields": [
+        "absolute_mag",
+        "radial_velocity_kms",
+        "temperature_k",
+        "mass_solar",
+        "luminosity_solar",
+        "radius_solar",
+        "metallicity_dex",
+        "age_gyr"
+      ],
       "supplementedFields": {}
     },
     {
@@ -2265,6 +4057,12 @@
         "radius_solar",
         "age_gyr"
       ],
+      "rawCatalogMissingFields": [
+        "mass_solar",
+        "luminosity_solar",
+        "radius_solar",
+        "age_gyr"
+      ],
       "supplementedFields": {}
     },
     {
@@ -2273,6 +4071,9 @@
       "system": "GJ 810",
       "component": "B",
       "missingFields": [
+        "age_gyr"
+      ],
+      "rawCatalogMissingFields": [
         "age_gyr"
       ],
       "supplementedFields": {}
@@ -2292,6 +4093,16 @@
         "metallicity_dex",
         "age_gyr"
       ],
+      "rawCatalogMissingFields": [
+        "absolute_mag",
+        "radial_velocity_kms",
+        "temperature_k",
+        "mass_solar",
+        "luminosity_solar",
+        "radius_solar",
+        "metallicity_dex",
+        "age_gyr"
+      ],
       "supplementedFields": {}
     },
     {
@@ -2300,6 +4111,12 @@
       "system": "GJ 835",
       "component": "B",
       "missingFields": [
+        "absolute_mag",
+        "radial_velocity_kms",
+        "metallicity_dex",
+        "age_gyr"
+      ],
+      "rawCatalogMissingFields": [
         "absolute_mag",
         "radial_velocity_kms",
         "temperature_k",
@@ -2327,6 +4144,16 @@
         "metallicity_dex",
         "age_gyr"
       ],
+      "rawCatalogMissingFields": [
+        "absolute_mag",
+        "radial_velocity_kms",
+        "temperature_k",
+        "mass_solar",
+        "luminosity_solar",
+        "radius_solar",
+        "metallicity_dex",
+        "age_gyr"
+      ],
       "supplementedFields": {}
     },
     {
@@ -2335,6 +4162,16 @@
       "system": "GJ 867",
       "component": "A",
       "missingFields": [
+        "absolute_mag",
+        "radial_velocity_kms",
+        "temperature_k",
+        "mass_solar",
+        "luminosity_solar",
+        "radius_solar",
+        "metallicity_dex",
+        "age_gyr"
+      ],
+      "rawCatalogMissingFields": [
         "absolute_mag",
         "radial_velocity_kms",
         "temperature_k",
@@ -2355,6 +4192,10 @@
         "mass_solar",
         "age_gyr"
       ],
+      "rawCatalogMissingFields": [
+        "mass_solar",
+        "age_gyr"
+      ],
       "supplementedFields": {}
     },
     {
@@ -2363,6 +4204,16 @@
       "system": "GJ 867",
       "component": "C",
       "missingFields": [
+        "absolute_mag",
+        "radial_velocity_kms",
+        "temperature_k",
+        "mass_solar",
+        "luminosity_solar",
+        "radius_solar",
+        "metallicity_dex",
+        "age_gyr"
+      ],
+      "rawCatalogMissingFields": [
         "absolute_mag",
         "radial_velocity_kms",
         "temperature_k",
@@ -2387,6 +4238,14 @@
         "metallicity_dex",
         "age_gyr"
       ],
+      "rawCatalogMissingFields": [
+        "absolute_mag",
+        "temperature_k",
+        "luminosity_solar",
+        "radius_solar",
+        "metallicity_dex",
+        "age_gyr"
+      ],
       "supplementedFields": {
         "mass_solar": "dynamical",
         "radial_velocity_kms": "systemic-approximation"
@@ -2398,6 +4257,13 @@
       "system": "Gamma Cephei",
       "component": "B",
       "missingFields": [
+        "absolute_mag",
+        "luminosity_solar",
+        "radius_solar",
+        "metallicity_dex",
+        "age_gyr"
+      ],
+      "rawCatalogMissingFields": [
         "absolute_mag",
         "luminosity_solar",
         "radius_solar",
@@ -2417,6 +4283,7 @@
       "system": "Gamma Lep",
       "component": "A",
       "missingFields": [],
+      "rawCatalogMissingFields": [],
       "supplementedFields": {}
     },
     {
@@ -2425,6 +4292,7 @@
       "system": "Gamma Lep",
       "component": "B",
       "missingFields": [],
+      "rawCatalogMissingFields": [],
       "supplementedFields": {}
     },
     {
@@ -2433,6 +4301,7 @@
       "system": "HD 102365",
       "component": "A",
       "missingFields": [],
+      "rawCatalogMissingFields": [],
       "supplementedFields": {}
     },
     {
@@ -2443,6 +4312,9 @@
       "missingFields": [
         "age_gyr"
       ],
+      "rawCatalogMissingFields": [
+        "age_gyr"
+      ],
       "supplementedFields": {}
     },
     {
@@ -2451,6 +4323,17 @@
       "system": "HD 104304",
       "component": "A",
       "missingFields": [
+        "absolute_mag",
+        "radial_velocity_kms",
+        "temperature_k",
+        "mass_solar",
+        "luminosity_solar",
+        "radius_solar",
+        "metallicity_dex",
+        "age_gyr",
+        "spectral_type"
+      ],
+      "rawCatalogMissingFields": [
         "absolute_mag",
         "radial_velocity_kms",
         "temperature_k",
@@ -2476,6 +4359,14 @@
         "metallicity_dex",
         "age_gyr"
       ],
+      "rawCatalogMissingFields": [
+        "absolute_mag",
+        "radial_velocity_kms",
+        "luminosity_solar",
+        "radius_solar",
+        "metallicity_dex",
+        "age_gyr"
+      ],
       "supplementedFields": {
         "temperature_k": "estimated"
       }
@@ -2486,6 +4377,7 @@
       "system": "HD 115404",
       "component": "A",
       "missingFields": [],
+      "rawCatalogMissingFields": [],
       "supplementedFields": {}
     },
     {
@@ -2494,6 +4386,9 @@
       "system": "HD 115404",
       "component": "B",
       "missingFields": [
+        "age_gyr"
+      ],
+      "rawCatalogMissingFields": [
         "age_gyr"
       ],
       "supplementedFields": {
@@ -2506,6 +4401,11 @@
       "system": "HD 120476",
       "component": "A",
       "missingFields": [
+        "radial_velocity_kms",
+        "mass_solar",
+        "age_gyr"
+      ],
+      "rawCatalogMissingFields": [
         "radial_velocity_kms",
         "mass_solar",
         "age_gyr"
@@ -2524,6 +4424,13 @@
         "radius_solar",
         "age_gyr"
       ],
+      "rawCatalogMissingFields": [
+        "radial_velocity_kms",
+        "mass_solar",
+        "luminosity_solar",
+        "radius_solar",
+        "age_gyr"
+      ],
       "supplementedFields": {}
     },
     {
@@ -2532,6 +4439,7 @@
       "system": "HD 13445",
       "component": "A",
       "missingFields": [],
+      "rawCatalogMissingFields": [],
       "supplementedFields": {}
     },
     {
@@ -2540,6 +4448,16 @@
       "system": "HD 13445",
       "component": "B",
       "missingFields": [
+        "absolute_mag",
+        "radial_velocity_kms",
+        "temperature_k",
+        "mass_solar",
+        "luminosity_solar",
+        "radius_solar",
+        "metallicity_dex",
+        "age_gyr"
+      ],
+      "rawCatalogMissingFields": [
         "absolute_mag",
         "radial_velocity_kms",
         "temperature_k",
@@ -2560,6 +4478,10 @@
         "absolute_mag",
         "age_gyr"
       ],
+      "rawCatalogMissingFields": [
+        "absolute_mag",
+        "age_gyr"
+      ],
       "supplementedFields": {}
     },
     {
@@ -2571,6 +4493,10 @@
         "absolute_mag",
         "age_gyr"
       ],
+      "rawCatalogMissingFields": [
+        "absolute_mag",
+        "age_gyr"
+      ],
       "supplementedFields": {}
     },
     {
@@ -2579,6 +4505,7 @@
       "system": "HD 154363",
       "component": "A",
       "missingFields": [],
+      "rawCatalogMissingFields": [],
       "supplementedFields": {}
     },
     {
@@ -2587,6 +4514,9 @@
       "system": "HD 154363",
       "component": "B",
       "missingFields": [
+        "age_gyr"
+      ],
+      "rawCatalogMissingFields": [
         "age_gyr"
       ],
       "supplementedFields": {}
@@ -2603,6 +4533,13 @@
         "metallicity_dex",
         "age_gyr"
       ],
+      "rawCatalogMissingFields": [
+        "mass_solar",
+        "luminosity_solar",
+        "radius_solar",
+        "metallicity_dex",
+        "age_gyr"
+      ],
       "supplementedFields": {}
     },
     {
@@ -2611,6 +4548,75 @@
       "system": "HD 175224",
       "component": "B",
       "missingFields": [],
+      "rawCatalogMissingFields": [],
+      "supplementedFields": {}
+    },
+    {
+      "starId": "cns5-5888",
+      "name": "HD 223778 Aa",
+      "system": "HD 223778",
+      "component": "Aa",
+      "missingFields": [
+        "radial_velocity_kms",
+        "age_gyr"
+      ],
+      "rawCatalogMissingFields": [
+        "radial_velocity_kms",
+        "age_gyr"
+      ],
+      "supplementedFields": {}
+    },
+    {
+      "starId": "msc-23524+7533-ab",
+      "name": "HD 223778 Ab",
+      "system": "HD 223778",
+      "component": "Ab",
+      "missingFields": [
+        "radial_velocity_kms",
+        "mass_solar",
+        "luminosity_solar",
+        "radius_solar",
+        "metallicity_dex",
+        "age_gyr"
+      ],
+      "rawCatalogMissingFields": [
+        "absolute_mag",
+        "radial_velocity_kms",
+        "temperature_k",
+        "mass_solar",
+        "luminosity_solar",
+        "radius_solar",
+        "metallicity_dex",
+        "age_gyr",
+        "spectral_type"
+      ],
+      "supplementedFields": {}
+    },
+    {
+      "starId": "msc-23524+7533-b",
+      "name": "HD 223778 B",
+      "system": "HD 223778",
+      "component": "B",
+      "missingFields": [
+        "radial_velocity_kms",
+        "temperature_k",
+        "mass_solar",
+        "luminosity_solar",
+        "radius_solar",
+        "metallicity_dex",
+        "age_gyr"
+      ],
+      "rawCatalogMissingFields": [
+        "absolute_mag",
+        "radial_velocity_kms",
+        "temperature_k",
+        "mass_solar",
+        "luminosity_solar",
+        "radius_solar",
+        "metallicity_dex",
+        "age_gyr",
+        "spectral_type"
+      ],
       "supplementedFields": {}
     },
     {
@@ -2627,6 +4633,15 @@
         "metallicity_dex",
         "age_gyr"
       ],
+      "rawCatalogMissingFields": [
+        "radial_velocity_kms",
+        "temperature_k",
+        "mass_solar",
+        "luminosity_solar",
+        "radius_solar",
+        "metallicity_dex",
+        "age_gyr"
+      ],
       "supplementedFields": {}
     },
     {
@@ -2635,6 +4650,11 @@
       "system": "HD 32450",
       "component": "B",
       "missingFields": [
+        "radial_velocity_kms",
+        "metallicity_dex",
+        "age_gyr"
+      ],
+      "rawCatalogMissingFields": [
         "radial_velocity_kms",
         "temperature_k",
         "luminosity_solar",
@@ -2653,6 +4673,7 @@
       "system": "HD 331161",
       "component": "A",
       "missingFields": [],
+      "rawCatalogMissingFields": [],
       "supplementedFields": {}
     },
     {
@@ -2661,6 +4682,9 @@
       "system": "HD 331161",
       "component": "B",
       "missingFields": [
+        "age_gyr"
+      ],
+      "rawCatalogMissingFields": [
         "age_gyr"
       ],
       "supplementedFields": {
@@ -2673,6 +4697,7 @@
       "system": "HD 50281",
       "component": "A",
       "missingFields": [],
+      "rawCatalogMissingFields": [],
       "supplementedFields": {}
     },
     {
@@ -2681,6 +4706,16 @@
       "system": "HD 50281",
       "component": "Ba",
       "missingFields": [
+        "absolute_mag",
+        "radial_velocity_kms",
+        "temperature_k",
+        "mass_solar",
+        "luminosity_solar",
+        "radius_solar",
+        "metallicity_dex",
+        "age_gyr"
+      ],
+      "rawCatalogMissingFields": [
         "absolute_mag",
         "radial_velocity_kms",
         "temperature_k",
@@ -2709,6 +4744,17 @@
         "age_gyr",
         "spectral_type"
       ],
+      "rawCatalogMissingFields": [
+        "absolute_mag",
+        "radial_velocity_kms",
+        "temperature_k",
+        "mass_solar",
+        "luminosity_solar",
+        "radius_solar",
+        "metallicity_dex",
+        "age_gyr",
+        "spectral_type"
+      ],
       "supplementedFields": {}
     },
     {
@@ -2719,6 +4765,9 @@
       "missingFields": [
         "absolute_mag"
       ],
+      "rawCatalogMissingFields": [
+        "absolute_mag"
+      ],
       "supplementedFields": {}
     },
     {
@@ -2727,6 +4776,9 @@
       "system": "HD 97101",
       "component": "B",
       "missingFields": [
+        "age_gyr"
+      ],
+      "rawCatalogMissingFields": [
         "age_gyr"
       ],
       "supplementedFields": {}
@@ -2742,6 +4794,12 @@
         "radius_solar",
         "age_gyr"
       ],
+      "rawCatalogMissingFields": [
+        "mass_solar",
+        "luminosity_solar",
+        "radius_solar",
+        "age_gyr"
+      ],
       "supplementedFields": {}
     },
     {
@@ -2750,6 +4808,9 @@
       "system": "HD 98712",
       "component": "B",
       "missingFields": [
+        "age_gyr"
+      ],
+      "rawCatalogMissingFields": [
         "luminosity_solar",
         "metallicity_dex",
         "age_gyr"
@@ -2771,6 +4832,13 @@
         "radius_solar",
         "age_gyr"
       ],
+      "rawCatalogMissingFields": [
+        "radial_velocity_kms",
+        "mass_solar",
+        "luminosity_solar",
+        "radius_solar",
+        "age_gyr"
+      ],
       "supplementedFields": {}
     },
     {
@@ -2779,6 +4847,7 @@
       "system": "HD 99279",
       "component": "B",
       "missingFields": [],
+      "rawCatalogMissingFields": [],
       "supplementedFields": {}
     },
     {
@@ -2787,6 +4856,11 @@
       "system": "Iota Pegasi",
       "component": "A",
       "missingFields": [
+        "absolute_mag",
+        "radial_velocity_kms",
+        "metallicity_dex"
+      ],
+      "rawCatalogMissingFields": [
         "absolute_mag",
         "radial_velocity_kms",
         "metallicity_dex"
@@ -2809,6 +4883,11 @@
         "radial_velocity_kms",
         "metallicity_dex"
       ],
+      "rawCatalogMissingFields": [
+        "absolute_mag",
+        "radial_velocity_kms",
+        "metallicity_dex"
+      ],
       "supplementedFields": {
         "age_gyr": "model-derived",
         "luminosity_solar": "derived",
@@ -2823,6 +4902,9 @@
       "system": "Keid",
       "component": "A",
       "missingFields": [
+        "age_gyr"
+      ],
+      "rawCatalogMissingFields": [
         "absolute_mag",
         "mass_solar",
         "luminosity_solar",
@@ -2837,6 +4919,11 @@
       "system": "Keid",
       "component": "B",
       "missingFields": [
+        "radial_velocity_kms",
+        "metallicity_dex",
+        "age_gyr"
+      ],
+      "rawCatalogMissingFields": [
         "absolute_mag",
         "radial_velocity_kms",
         "temperature_k",
@@ -2846,7 +4933,11 @@
         "metallicity_dex",
         "age_gyr"
       ],
-      "supplementedFields": {}
+      "supplementedFields": {
+        "mass_solar": "measured",
+        "radius_solar": "derived",
+        "luminosity_solar": "model-derived"
+      }
     },
     {
       "starId": "10pc-0111",
@@ -2854,6 +4945,9 @@
       "system": "Keid",
       "component": "C",
       "missingFields": [
+        "age_gyr"
+      ],
+      "rawCatalogMissingFields": [
         "absolute_mag",
         "age_gyr"
       ],
@@ -2865,10 +4959,10 @@
       "system": "Kruger 60",
       "component": "A",
       "missingFields": [
-        "absolute_mag",
-        "mass_solar",
-        "luminosity_solar",
-        "radius_solar",
+        "metallicity_dex",
+        "age_gyr"
+      ],
+      "rawCatalogMissingFields": [
         "metallicity_dex",
         "age_gyr"
       ],
@@ -2880,11 +4974,9 @@
       "system": "Kruger 60",
       "component": "B",
       "missingFields": [
-        "absolute_mag",
-        "mass_solar",
-        "luminosity_solar",
-        "radius_solar",
-        "metallicity_dex",
+        "age_gyr"
+      ],
+      "rawCatalogMissingFields": [
         "age_gyr"
       ],
       "supplementedFields": {}
@@ -2895,6 +4987,16 @@
       "system": "L 43-72",
       "component": "A",
       "missingFields": [
+        "absolute_mag",
+        "temperature_k",
+        "mass_solar",
+        "luminosity_solar",
+        "radius_solar",
+        "metallicity_dex",
+        "age_gyr",
+        "spectral_type"
+      ],
+      "rawCatalogMissingFields": [
         "absolute_mag",
         "temperature_k",
         "mass_solar",
@@ -2921,6 +5023,16 @@
         "age_gyr",
         "spectral_type"
       ],
+      "rawCatalogMissingFields": [
+        "absolute_mag",
+        "temperature_k",
+        "mass_solar",
+        "luminosity_solar",
+        "radius_solar",
+        "metallicity_dex",
+        "age_gyr",
+        "spectral_type"
+      ],
       "supplementedFields": {}
     },
     {
@@ -2929,6 +5041,16 @@
       "system": "L 601-78",
       "component": "A",
       "missingFields": [
+        "absolute_mag",
+        "temperature_k",
+        "mass_solar",
+        "luminosity_solar",
+        "radius_solar",
+        "metallicity_dex",
+        "age_gyr",
+        "spectral_type"
+      ],
+      "rawCatalogMissingFields": [
         "absolute_mag",
         "temperature_k",
         "mass_solar",
@@ -2955,6 +5077,16 @@
         "age_gyr",
         "spectral_type"
       ],
+      "rawCatalogMissingFields": [
+        "absolute_mag",
+        "temperature_k",
+        "mass_solar",
+        "luminosity_solar",
+        "radius_solar",
+        "metallicity_dex",
+        "age_gyr",
+        "spectral_type"
+      ],
       "supplementedFields": {}
     },
     {
@@ -2963,7 +5095,10 @@
       "system": "Luhman 16",
       "component": "A",
       "missingFields": [
-        "absolute_mag",
+        "radial_velocity_kms",
+        "metallicity_dex"
+      ],
+      "rawCatalogMissingFields": [
         "radial_velocity_kms",
         "metallicity_dex"
       ],
@@ -2975,7 +5110,10 @@
       "system": "Luhman 16",
       "component": "B",
       "missingFields": [
-        "absolute_mag",
+        "radial_velocity_kms",
+        "metallicity_dex"
+      ],
+      "rawCatalogMissingFields": [
         "radial_velocity_kms",
         "metallicity_dex"
       ],
@@ -2988,9 +5126,10 @@
       "component": "A",
       "missingFields": [
         "radial_velocity_kms",
-        "luminosity_solar",
-        "radius_solar",
-        "metallicity_dex",
+        "age_gyr"
+      ],
+      "rawCatalogMissingFields": [
+        "radial_velocity_kms",
         "age_gyr"
       ],
       "supplementedFields": {}
@@ -3002,8 +5141,10 @@
       "component": "B",
       "missingFields": [
         "radial_velocity_kms",
-        "luminosity_solar",
-        "radius_solar",
+        "age_gyr"
+      ],
+      "rawCatalogMissingFields": [
+        "radial_velocity_kms",
         "age_gyr"
       ],
       "supplementedFields": {}
@@ -3014,6 +5155,7 @@
       "system": "Mu Cassiopeiae",
       "component": "A",
       "missingFields": [],
+      "rawCatalogMissingFields": [],
       "supplementedFields": {
         "absolute_mag": "model-derived",
         "radial_velocity_kms": "systemic-approximation"
@@ -3025,6 +5167,10 @@
       "system": "Mu Cassiopeiae",
       "component": "B",
       "missingFields": [
+        "metallicity_dex",
+        "spectral_type"
+      ],
+      "rawCatalogMissingFields": [
         "metallicity_dex",
         "spectral_type"
       ],
@@ -3051,6 +5197,15 @@
         "metallicity_dex",
         "age_gyr"
       ],
+      "rawCatalogMissingFields": [
+        "absolute_mag",
+        "radial_velocity_kms",
+        "temperature_k",
+        "luminosity_solar",
+        "radius_solar",
+        "metallicity_dex",
+        "age_gyr"
+      ],
       "supplementedFields": {}
     },
     {
@@ -3059,6 +5214,16 @@
       "system": "Mu Her",
       "component": "Ab",
       "missingFields": [
+        "absolute_mag",
+        "radial_velocity_kms",
+        "temperature_k",
+        "luminosity_solar",
+        "radius_solar",
+        "metallicity_dex",
+        "age_gyr",
+        "spectral_type"
+      ],
+      "rawCatalogMissingFields": [
         "absolute_mag",
         "radial_velocity_kms",
         "temperature_k",
@@ -3078,6 +5243,12 @@
       "missingFields": [
         "absolute_mag",
         "radial_velocity_kms",
+        "metallicity_dex",
+        "age_gyr"
+      ],
+      "rawCatalogMissingFields": [
+        "absolute_mag",
+        "radial_velocity_kms",
         "temperature_k",
         "luminosity_solar",
         "radius_solar",
@@ -3093,6 +5264,12 @@
       "system": "Mu Her",
       "component": "C",
       "missingFields": [
+        "absolute_mag",
+        "radial_velocity_kms",
+        "metallicity_dex",
+        "age_gyr"
+      ],
+      "rawCatalogMissingFields": [
         "absolute_mag",
         "radial_velocity_kms",
         "temperature_k",
@@ -3115,6 +5292,12 @@
         "age_gyr",
         "spectral_type"
       ],
+      "rawCatalogMissingFields": [
+        "absolute_mag",
+        "mass_solar",
+        "age_gyr",
+        "spectral_type"
+      ],
       "supplementedFields": {}
     },
     {
@@ -3123,6 +5306,16 @@
       "system": "PM J19515-3510",
       "component": "B",
       "missingFields": [
+        "absolute_mag",
+        "temperature_k",
+        "mass_solar",
+        "luminosity_solar",
+        "radius_solar",
+        "metallicity_dex",
+        "age_gyr",
+        "spectral_type"
+      ],
+      "rawCatalogMissingFields": [
         "absolute_mag",
         "temperature_k",
         "mass_solar",
@@ -3147,6 +5340,14 @@
         "metallicity_dex",
         "age_gyr"
       ],
+      "rawCatalogMissingFields": [
+        "temperature_k",
+        "mass_solar",
+        "luminosity_solar",
+        "radius_solar",
+        "metallicity_dex",
+        "age_gyr"
+      ],
       "supplementedFields": {}
     },
     {
@@ -3163,6 +5364,63 @@
         "age_gyr",
         "spectral_type"
       ],
+      "rawCatalogMissingFields": [
+        "absolute_mag",
+        "mass_solar",
+        "luminosity_solar",
+        "radius_solar",
+        "metallicity_dex",
+        "age_gyr",
+        "spectral_type"
+      ],
+      "supplementedFields": {}
+    },
+    {
+      "starId": "cns5-3135",
+      "name": "Porrima A",
+      "system": "Porrima",
+      "component": "A",
+      "missingFields": [
+        "absolute_mag",
+        "radial_velocity_kms",
+        "temperature_k",
+        "mass_solar",
+        "luminosity_solar",
+        "radius_solar",
+        "metallicity_dex",
+        "age_gyr",
+        "spectral_type"
+      ],
+      "rawCatalogMissingFields": [
+        "radial_velocity_kms"
+      ],
+      "supplementedFields": {}
+    },
+    {
+      "starId": "orb6-12417-0127-a-b-b",
+      "name": "Porrima B",
+      "system": "Porrima",
+      "component": "B",
+      "missingFields": [
+        "radial_velocity_kms",
+        "temperature_k",
+        "mass_solar",
+        "luminosity_solar",
+        "radius_solar",
+        "metallicity_dex",
+        "age_gyr"
+      ],
+      "rawCatalogMissingFields": [
+        "absolute_mag",
+        "radial_velocity_kms",
+        "temperature_k",
+        "mass_solar",
+        "luminosity_solar",
+        "radius_solar",
+        "metallicity_dex",
+        "age_gyr",
+        "spectral_type"
+      ],
       "supplementedFields": {}
     },
     {
@@ -3171,6 +5429,7 @@
       "system": "Procyon",
       "component": "A",
       "missingFields": [],
+      "rawCatalogMissingFields": [],
       "supplementedFields": {}
     },
     {
@@ -3182,6 +5441,10 @@
         "radial_velocity_kms",
         "metallicity_dex"
       ],
+      "rawCatalogMissingFields": [
+        "radial_velocity_kms",
+        "metallicity_dex"
+      ],
       "supplementedFields": {}
     },
     {
@@ -3190,6 +5453,9 @@
       "system": "Ross 370",
       "component": "A",
       "missingFields": [
+        "age_gyr"
+      ],
+      "rawCatalogMissingFields": [
         "age_gyr"
       ],
       "supplementedFields": {
@@ -3205,6 +5471,10 @@
         "absolute_mag",
         "age_gyr"
       ],
+      "rawCatalogMissingFields": [
+        "absolute_mag",
+        "age_gyr"
+      ],
       "supplementedFields": {
         "mass_solar": "model-derived"
       }
@@ -3215,6 +5485,16 @@
       "system": "Ross 458",
       "component": "A",
       "missingFields": [
+        "absolute_mag",
+        "radial_velocity_kms",
+        "temperature_k",
+        "mass_solar",
+        "luminosity_solar",
+        "radius_solar",
+        "metallicity_dex",
+        "age_gyr"
+      ],
+      "rawCatalogMissingFields": [
         "absolute_mag",
         "radial_velocity_kms",
         "temperature_k",
@@ -3240,6 +5520,15 @@
         "metallicity_dex",
         "age_gyr"
       ],
+      "rawCatalogMissingFields": [
+        "absolute_mag",
+        "radial_velocity_kms",
+        "mass_solar",
+        "luminosity_solar",
+        "radius_solar",
+        "metallicity_dex",
+        "age_gyr"
+      ],
       "supplementedFields": {
         "temperature_k": "estimated"
       }
@@ -3250,6 +5539,14 @@
       "system": "Ross 458",
       "component": "C",
       "missingFields": [
+        "absolute_mag",
+        "radial_velocity_kms",
+        "mass_solar",
+        "luminosity_solar",
+        "radius_solar",
+        "age_gyr"
+      ],
+      "rawCatalogMissingFields": [
         "absolute_mag",
         "radial_velocity_kms",
         "temperature_k",
@@ -3269,6 +5566,9 @@
       "missingFields": [
         "age_gyr"
       ],
+      "rawCatalogMissingFields": [
+        "age_gyr"
+      ],
       "supplementedFields": {}
     },
     {
@@ -3277,6 +5577,10 @@
       "system": "Ross 486",
       "component": "B",
       "missingFields": [
+        "metallicity_dex",
+        "age_gyr"
+      ],
+      "rawCatalogMissingFields": [
         "mass_solar",
         "luminosity_solar",
         "radius_solar",
@@ -3301,6 +5605,17 @@
         "age_gyr",
         "spectral_type"
       ],
+      "rawCatalogMissingFields": [
+        "absolute_mag",
+        "radial_velocity_kms",
+        "temperature_k",
+        "mass_solar",
+        "luminosity_solar",
+        "radius_solar",
+        "metallicity_dex",
+        "age_gyr",
+        "spectral_type"
+      ],
       "supplementedFields": {}
     },
     {
@@ -3310,6 +5625,65 @@
       "component": "B",
       "missingFields": [
         "absolute_mag",
+        "metallicity_dex",
+        "age_gyr"
+      ],
+      "rawCatalogMissingFields": [
+        "absolute_mag",
+        "temperature_k",
+        "mass_solar",
+        "luminosity_solar",
+        "radius_solar",
+        "metallicity_dex",
+        "age_gyr",
+        "spectral_type"
+      ],
+      "supplementedFields": {}
+    },
+    {
+      "starId": "cns5-5297",
+      "name": "Ross 775 A",
+      "system": "Ross 775",
+      "component": "A",
+      "missingFields": [
+        "absolute_mag",
+        "radial_velocity_kms",
+        "temperature_k",
+        "mass_solar",
+        "luminosity_solar",
+        "radius_solar",
+        "metallicity_dex",
+        "age_gyr",
+        "spectral_type"
+      ],
+      "rawCatalogMissingFields": [
+        "radial_velocity_kms",
+        "mass_solar",
+        "luminosity_solar",
+        "radius_solar",
+        "age_gyr"
+      ],
+      "supplementedFields": {}
+    },
+    {
+      "starId": "orb6-21296+1739-a-b-b",
+      "name": "Ross 775 B",
+      "system": "Ross 775",
+      "component": "B",
+      "missingFields": [
+        "absolute_mag",
+        "radial_velocity_kms",
+        "temperature_k",
+        "mass_solar",
+        "luminosity_solar",
+        "radius_solar",
+        "metallicity_dex",
+        "age_gyr",
+        "spectral_type"
+      ],
+      "rawCatalogMissingFields": [
+        "absolute_mag",
+        "radial_velocity_kms",
         "temperature_k",
         "mass_solar",
         "luminosity_solar",
@@ -3326,6 +5700,17 @@
       "system": "SCR J0630-7643",
       "component": "A",
       "missingFields": [
+        "absolute_mag",
+        "radial_velocity_kms",
+        "temperature_k",
+        "mass_solar",
+        "luminosity_solar",
+        "radius_solar",
+        "metallicity_dex",
+        "age_gyr",
+        "spectral_type"
+      ],
+      "rawCatalogMissingFields": [
         "absolute_mag",
         "radial_velocity_kms",
         "temperature_k",
@@ -3354,6 +5739,17 @@
         "age_gyr",
         "spectral_type"
       ],
+      "rawCatalogMissingFields": [
+        "absolute_mag",
+        "radial_velocity_kms",
+        "temperature_k",
+        "mass_solar",
+        "luminosity_solar",
+        "radius_solar",
+        "metallicity_dex",
+        "age_gyr",
+        "spectral_type"
+      ],
       "supplementedFields": {}
     },
     {
@@ -3362,6 +5758,11 @@
       "system": "SCR J1845-6357",
       "component": "A",
       "missingFields": [
+        "absolute_mag",
+        "metallicity_dex",
+        "age_gyr"
+      ],
+      "rawCatalogMissingFields": [
         "absolute_mag",
         "metallicity_dex",
         "age_gyr"
@@ -3382,6 +5783,68 @@
         "metallicity_dex",
         "age_gyr"
       ],
+      "rawCatalogMissingFields": [
+        "absolute_mag",
+        "radial_velocity_kms",
+        "mass_solar",
+        "luminosity_solar",
+        "radius_solar",
+        "metallicity_dex",
+        "age_gyr"
+      ],
+      "supplementedFields": {}
+    },
+    {
+      "starId": "cns5-1819",
+      "name": "Scholz's star A",
+      "system": "Scholz's star",
+      "component": "A",
+      "missingFields": [
+        "absolute_mag",
+        "radial_velocity_kms",
+        "temperature_k",
+        "mass_solar",
+        "luminosity_solar",
+        "radius_solar",
+        "metallicity_dex",
+        "age_gyr"
+      ],
+      "rawCatalogMissingFields": [
+        "absolute_mag",
+        "temperature_k",
+        "mass_solar",
+        "luminosity_solar",
+        "radius_solar",
+        "metallicity_dex",
+        "age_gyr"
+      ],
+      "supplementedFields": {}
+    },
+    {
+      "starId": "orb6-07200-0847-a-b-b",
+      "name": "Scholz's star B",
+      "system": "Scholz's star",
+      "component": "B",
+      "missingFields": [
+        "absolute_mag",
+        "radial_velocity_kms",
+        "mass_solar",
+        "luminosity_solar",
+        "radius_solar",
+        "metallicity_dex",
+        "age_gyr"
+      ],
+      "rawCatalogMissingFields": [
+        "absolute_mag",
+        "radial_velocity_kms",
+        "temperature_k",
+        "mass_solar",
+        "luminosity_solar",
+        "radius_solar",
+        "metallicity_dex",
+        "age_gyr",
+        "spectral_type"
+      ],
       "supplementedFields": {}
     },
     {
@@ -3390,6 +5853,7 @@
       "system": "Sirius",
       "component": "A",
       "missingFields": [],
+      "rawCatalogMissingFields": [],
       "supplementedFields": {}
     },
     {
@@ -3401,6 +5865,10 @@
         "radial_velocity_kms",
         "metallicity_dex"
       ],
+      "rawCatalogMissingFields": [
+        "radial_velocity_kms",
+        "metallicity_dex"
+      ],
       "supplementedFields": {}
     },
     {
@@ -3409,6 +5877,10 @@
       "system": "Stein 2051",
       "component": "A",
       "missingFields": [
+        "absolute_mag",
+        "age_gyr"
+      ],
+      "rawCatalogMissingFields": [
         "absolute_mag",
         "mass_solar",
         "luminosity_solar",
@@ -3428,6 +5900,12 @@
         "metallicity_dex",
         "age_gyr"
       ],
+      "rawCatalogMissingFields": [
+        "absolute_mag",
+        "radial_velocity_kms",
+        "metallicity_dex",
+        "age_gyr"
+      ],
       "supplementedFields": {}
     },
     {
@@ -3436,6 +5914,7 @@
       "system": "Theta Per",
       "component": "A",
       "missingFields": [],
+      "rawCatalogMissingFields": [],
       "supplementedFields": {}
     },
     {
@@ -3444,6 +5923,9 @@
       "system": "Theta Per",
       "component": "B",
       "missingFields": [
+        "age_gyr"
+      ],
+      "rawCatalogMissingFields": [
         "age_gyr"
       ],
       "supplementedFields": {
@@ -3456,6 +5938,7 @@
       "system": "Titawin",
       "component": "A",
       "missingFields": [],
+      "rawCatalogMissingFields": [],
       "supplementedFields": {}
     },
     {
@@ -3468,6 +5951,11 @@
         "metallicity_dex",
         "age_gyr"
       ],
+      "rawCatalogMissingFields": [
+        "absolute_mag",
+        "metallicity_dex",
+        "age_gyr"
+      ],
       "supplementedFields": {}
     },
     {
@@ -3476,13 +5964,22 @@
       "system": "V577 Mon",
       "component": "A",
       "missingFields": [
+        "luminosity_solar",
+        "radius_solar",
+        "age_gyr"
+      ],
+      "rawCatalogMissingFields": [
         "absolute_mag",
         "mass_solar",
         "luminosity_solar",
         "radius_solar",
         "age_gyr"
       ],
-      "supplementedFields": {}
+      "supplementedFields": {
+        "mass_solar": "measured",
+        "apparent_mag": "derived",
+        "absolute_mag": "derived"
+      }
     },
     {
       "starId": "10pc-0067",
@@ -3490,6 +5987,13 @@
       "system": "V577 Mon",
       "component": "B",
       "missingFields": [
+        "radial_velocity_kms",
+        "luminosity_solar",
+        "radius_solar",
+        "metallicity_dex",
+        "age_gyr"
+      ],
+      "rawCatalogMissingFields": [
         "absolute_mag",
         "radial_velocity_kms",
         "mass_solar",
@@ -3498,7 +6002,11 @@
         "metallicity_dex",
         "age_gyr"
       ],
-      "supplementedFields": {}
+      "supplementedFields": {
+        "mass_solar": "measured",
+        "apparent_mag": "derived",
+        "absolute_mag": "derived"
+      }
     },
     {
       "starId": "cns5-3857",
@@ -3507,12 +6015,20 @@
       "component": "A",
       "missingFields": [
         "absolute_mag",
+        "age_gyr"
+      ],
+      "rawCatalogMissingFields": [
+        "absolute_mag",
         "mass_solar",
         "luminosity_solar",
         "radius_solar",
         "age_gyr"
       ],
-      "supplementedFields": {}
+      "supplementedFields": {
+        "mass_solar": "estimated",
+        "radius_solar": "SED-derived",
+        "luminosity_solar": "SED-derived"
+      }
     },
     {
       "starId": "cns5-3858",
@@ -3520,6 +6036,10 @@
       "system": "VB 24",
       "component": "B",
       "missingFields": [
+        "metallicity_dex",
+        "age_gyr"
+      ],
+      "rawCatalogMissingFields": [
         "mass_solar",
         "luminosity_solar",
         "radius_solar",
@@ -3539,6 +6059,12 @@
         "age_gyr",
         "spectral_type"
       ],
+      "rawCatalogMissingFields": [
+        "absolute_mag",
+        "mass_solar",
+        "age_gyr",
+        "spectral_type"
+      ],
       "supplementedFields": {}
     },
     {
@@ -3547,6 +6073,10 @@
       "system": "VV Lyn",
       "component": "Ab",
       "missingFields": [
+        "absolute_mag",
+        "age_gyr"
+      ],
+      "rawCatalogMissingFields": [
         "absolute_mag",
         "temperature_k",
         "mass_solar",
@@ -3566,6 +6096,61 @@
       "missingFields": [
         "age_gyr"
       ],
+      "rawCatalogMissingFields": [
+        "age_gyr"
+      ],
+      "supplementedFields": {}
+    },
+    {
+      "starId": "cns5-1242",
+      "name": "WISE J045853.89+643452.5 A",
+      "system": "WISE J045853.89+643452.5",
+      "component": "A",
+      "missingFields": [
+        "absolute_mag",
+        "radial_velocity_kms",
+        "mass_solar",
+        "luminosity_solar",
+        "radius_solar",
+        "metallicity_dex",
+        "age_gyr"
+      ],
+      "rawCatalogMissingFields": [
+        "absolute_mag",
+        "radial_velocity_kms",
+        "mass_solar",
+        "luminosity_solar",
+        "radius_solar",
+        "metallicity_dex",
+        "age_gyr"
+      ],
+      "supplementedFields": {}
+    },
+    {
+      "starId": "orb6-04589+6435-a-b-b",
+      "name": "WISE J045853.89+643452.5 B",
+      "system": "WISE J045853.89+643452.5",
+      "component": "B",
+      "missingFields": [
+        "absolute_mag",
+        "radial_velocity_kms",
+        "mass_solar",
+        "luminosity_solar",
+        "radius_solar",
+        "metallicity_dex",
+        "age_gyr"
+      ],
+      "rawCatalogMissingFields": [
+        "absolute_mag",
+        "radial_velocity_kms",
+        "temperature_k",
+        "mass_solar",
+        "luminosity_solar",
+        "radius_solar",
+        "metallicity_dex",
+        "age_gyr",
+        "spectral_type"
+      ],
       "supplementedFields": {}
     },
     {
@@ -3579,6 +6164,12 @@
         "metallicity_dex",
         "age_gyr"
       ],
+      "rawCatalogMissingFields": [
+        "luminosity_solar",
+        "radius_solar",
+        "metallicity_dex",
+        "age_gyr"
+      ],
       "supplementedFields": {}
     },
     {
@@ -3587,6 +6178,12 @@
       "system": "WT 766",
       "component": "Ab",
       "missingFields": [
+        "absolute_mag",
+        "radial_velocity_kms",
+        "metallicity_dex",
+        "spectral_type"
+      ],
+      "rawCatalogMissingFields": [
         "absolute_mag",
         "radial_velocity_kms",
         "metallicity_dex",
@@ -3610,6 +6207,15 @@
         "metallicity_dex",
         "age_gyr"
       ],
+      "rawCatalogMissingFields": [
+        "radial_velocity_kms",
+        "temperature_k",
+        "mass_solar",
+        "luminosity_solar",
+        "radius_solar",
+        "metallicity_dex",
+        "age_gyr"
+      ],
       "supplementedFields": {}
     },
     {
@@ -3618,6 +6224,13 @@
       "system": "Wolf 1561",
       "component": "A",
       "missingFields": [
+        "absolute_mag",
+        "mass_solar",
+        "luminosity_solar",
+        "radius_solar",
+        "age_gyr"
+      ],
+      "rawCatalogMissingFields": [
         "absolute_mag",
         "mass_solar",
         "luminosity_solar",
@@ -3639,6 +6252,14 @@
         "metallicity_dex",
         "age_gyr"
       ],
+      "rawCatalogMissingFields": [
+        "absolute_mag",
+        "mass_solar",
+        "luminosity_solar",
+        "radius_solar",
+        "metallicity_dex",
+        "age_gyr"
+      ],
       "supplementedFields": {}
     },
     {
@@ -3647,6 +6268,9 @@
       "system": "Wolf 940",
       "component": "A",
       "missingFields": [
+        "age_gyr"
+      ],
+      "rawCatalogMissingFields": [
         "age_gyr"
       ],
       "supplementedFields": {}
@@ -3665,6 +6289,15 @@
         "metallicity_dex",
         "age_gyr"
       ],
+      "rawCatalogMissingFields": [
+        "absolute_mag",
+        "radial_velocity_kms",
+        "mass_solar",
+        "luminosity_solar",
+        "radius_solar",
+        "metallicity_dex",
+        "age_gyr"
+      ],
       "supplementedFields": {}
     },
     {
@@ -3673,6 +6306,7 @@
       "system": "Xi Boo",
       "component": "A",
       "missingFields": [],
+      "rawCatalogMissingFields": [],
       "supplementedFields": {}
     },
     {
@@ -3684,6 +6318,10 @@
         "mass_solar",
         "age_gyr"
       ],
+      "rawCatalogMissingFields": [
+        "mass_solar",
+        "age_gyr"
+      ],
       "supplementedFields": {}
     },
     {
@@ -3692,6 +6330,7 @@
       "system": "Zeta Dor",
       "component": "A",
       "missingFields": [],
+      "rawCatalogMissingFields": [],
       "supplementedFields": {}
     },
     {
@@ -3702,6 +6341,9 @@
       "missingFields": [
         "age_gyr"
       ],
+      "rawCatalogMissingFields": [
+        "age_gyr"
+      ],
       "supplementedFields": {}
     },
     {
@@ -3710,6 +6352,11 @@
       "system": "Zeta Herculis",
       "component": "A",
       "missingFields": [
+        "radial_velocity_kms",
+        "mass_solar",
+        "age_gyr"
+      ],
+      "rawCatalogMissingFields": [
         "radial_velocity_kms",
         "mass_solar",
         "age_gyr"
@@ -3734,6 +6381,13 @@
         "age_gyr",
         "spectral_type"
       ],
+      "rawCatalogMissingFields": [
+        "radial_velocity_kms",
+        "mass_solar",
+        "metallicity_dex",
+        "age_gyr",
+        "spectral_type"
+      ],
       "supplementedFields": {
         "absolute_mag": "derived",
         "luminosity_solar": "derived",
@@ -3747,6 +6401,7 @@
       "system": "Zeta Reticuli",
       "component": "A",
       "missingFields": [],
+      "rawCatalogMissingFields": [],
       "supplementedFields": {}
     },
     {
@@ -3755,6 +6410,7 @@
       "system": "Zeta Reticuli",
       "component": "B",
       "missingFields": [],
+      "rawCatalogMissingFields": [],
       "supplementedFields": {}
     },
     {
@@ -3762,7 +6418,8 @@
       "name": "eps Ind A",
       "system": "eps Ind",
       "component": "A",
-      "missingFields": [
+      "missingFields": [],
+      "rawCatalogMissingFields": [
         "absolute_mag"
       ],
       "supplementedFields": {}
@@ -3773,6 +6430,10 @@
       "system": "eps Ind",
       "component": "Ba",
       "missingFields": [
+        "radial_velocity_kms",
+        "metallicity_dex"
+      ],
+      "rawCatalogMissingFields": [
         "absolute_mag",
         "radial_velocity_kms",
         "metallicity_dex"
@@ -3785,6 +6446,10 @@
       "system": "eps Ind",
       "component": "Bb",
       "missingFields": [
+        "radial_velocity_kms",
+        "metallicity_dex"
+      ],
+      "rawCatalogMissingFields": [
         "absolute_mag",
         "radial_velocity_kms",
         "metallicity_dex"
@@ -3797,6 +6462,7 @@
       "system": "p Eri",
       "component": "A",
       "missingFields": [],
+      "rawCatalogMissingFields": [],
       "supplementedFields": {}
     },
     {
@@ -3805,6 +6471,7 @@
       "system": "p Eri",
       "component": "B",
       "missingFields": [],
+      "rawCatalogMissingFields": [],
       "supplementedFields": {}
     }
   ]

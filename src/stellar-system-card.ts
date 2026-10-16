@@ -137,6 +137,8 @@ function orbitDetails(orbit: StellarOrbit | undefined): HTMLElement {
     tooltip.setAttribute('role', 'tooltip')
     tooltip.textContent = detail
     if (id === 'axis' && orbit?.axisDerivation) tooltip.textContent += ' Converted from the published angular axis using the catalog parallax.'
+    if (id === 'axis' && orbit?.axisSource) tooltip.textContent += ` Published physical axis at an adopted distance of ${orbit.axisSource.adoptedDistancePc} pc.`
+    if (id === 'node' && orbit?.projectionNodeDeg !== undefined) tooltip.textContent += ` The diagram uses the equivalent ${orbit.projectionNodeDeg}° node for its component convention, verified against the published sky positions.`
     if (id === 'argument' && orbit?.argumentComponent) tooltip.textContent += orbit.grade === 9 ? ' This solution describes the system’s center of light (photocenter).' : ` This source uses component ${orbit.argumentComponent}.`
     if (id === 'epoch' && orbit?.epochKind) tooltip.textContent += ` Source convention: ${orbit.epochKind}; B and J denote Besselian and Julian years, JD denotes Julian date.`
     help.setAttribute('aria-describedby', tooltip.id)
@@ -156,7 +158,7 @@ function orbitDetails(orbit: StellarOrbit | undefined): HTMLElement {
     link.target = '_blank'
     link.rel = 'noopener noreferrer'
     link.textContent = orbit.reference
-    link.title = `${orbit.catalog}${orbit.grade === 9 ? ' · photocenter solution' : orbit.grade === 8 ? ' · interferometric solution' : orbit.grade ? ` · orbit grade ${orbit.grade}/5 (1 definitive, 5 indeterminate)` : ''}`
+    link.title = `${orbit.catalog}${orbit.grade === 9 ? ' · photocenter solution' : orbit.grade === 8 ? ' · interferometric solution' : orbit.grade === 7 ? ' · incomplete orbital elements' : orbit.grade ? ` · orbit grade ${orbit.grade}/5 (1 definitive, 5 indeterminate)` : ''}`
     value.append(link)
     source.append(label, value)
     list.append(source)

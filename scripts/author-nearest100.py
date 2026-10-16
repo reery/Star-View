@@ -100,6 +100,8 @@ GAIA_PHYSICAL_SOURCES = [
     {"name": "Gaia DR3 TAP snapshot; exact-ID GSP-Phot/FLAME physical estimates, quality-filtered and used only for blank fields", "url": "https://gea.esac.esa.int/tap-server/tap/sync"},
 ]
 REVIEWED_PHYSICAL_SOURCES = [
+    {"name": "Boffin et al. 2014, Table 2, resolved Luhman 16 A/B Johnson V photometry", "url": "https://arxiv.org/pdf/1312.1303"},
+    {"name": "Ishikawa et al. 2025, Table 2, resolved Luhman 16 A/B spectroscopic radial velocities from April-June 2018; separate from systemic motion", "url": "https://doi.org/10.1093/mnras/staf487"},
     {"name": "Kervella et al. 2017, Alpha Centauri AB interferometric radii and effective temperatures", "url": "https://doi.org/10.1051/0004-6361/201629505"},
     {"name": "Morel 2018, Alpha Centauri AB differential spectroscopic abundances", "url": "https://doi.org/10.1051/0004-6361/201833125"},
     {"name": "Joyce & Chaboyer 2018, Alpha Centauri AB asteroseismic stellar-model age", "url": "https://doi.org/10.3847/1538-4357/aad464"},
@@ -249,6 +251,8 @@ def field_source(status, source, detail=None):
 def apply_reviewed_and_gaia_physical(row, reviewed, gaia, fields=None):
     reviewed_adopted = {}
     if reviewed is not None:
+        if reviewed.raw.get("expectedName") and row["name"] != reviewed.raw["expectedName"]:
+            raise ValueError(f"Reviewed primary component identity drifted: {row['id']}")
         by_field = {item.field: item for item in reviewed.physical}
         if len(by_field) != len(reviewed.physical):
             raise ValueError(f"Duplicate reviewed physical field for {row['id']}")
@@ -465,6 +469,17 @@ def adopt_object(source, frozen, system_counts, supplements, gaia_records, revie
             "observations": [item.to_dict() for item in reviewed.physical],
             "adopted": {field: f"{item.reference}:{item.source_record_id}" for field, item in reviewed_adopted.items()},
         }
+        photometry = reviewed.raw.get("photometry")
+        if photometry and photometry.get("observed_on"):
+            provenance["reviewedPhysical"]["photometry"] = photometry
+            provenance["reviewedPhysical"]["absoluteMagnitudeDerivation"] = {
+                "value": float(row["absolute_mag"]), "status": "derived",
+                "method": "MV = V - 5 log10(d / 10 pc); local extinction neglected",
+                "distancePc": math.hypot(*(float(row[key]) for key in ("x_pc", "y_pc", "z_pc"))),
+                "apparentMagnitudeUncertainty": photometry.get("uncertainty"),
+            }
+        if reviewed.raw.get("radialVelocityObservation"):
+            provenance["radialVelocityObservation"] = reviewed.raw["radialVelocityObservation"]
     if gaia_eligible:
         provenance["gaiaPhysical"] = {
             "gaiaDr3Id": gaia.identity.gaia_dr3_id,

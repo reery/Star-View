@@ -1,0 +1,24 @@
+{
+  "schemaVersion": 1,
+  "systemNames": {
+    "10454+3831": "BD+39 2376",
+    "12236+6711": "G 237-64",
+    "07467+2001": "2MASS J07464256+2000321"
+  },
+  "componentClassifications": {
+    "04589+6435": {
+      "source": "Burgasser et al. 2012, resolved Keck imaging and spectroscopy of WISE J0458+6434 AB",
+      "sourceUrl": "https://arxiv.org/abs/1110.4664",
+      "components": {
+        "A": {"type": "brown_dwarf", "spectral_type": "T8.5"},
+        "B": {"type": "brown_dwarf", "spectral_type": "T9.5"}
+      }
+    }
+  },
+  "systems": {
+    "05473-5104": {
+      "reason": "Beta Pictoris b is a directly imaged planet, not a stellar companion. Its ORB6 visual orbit does not establish another star.",
+      "sourceUrl": "https://www.eso.org/public/news/eso0842/"
+    }
+  }
+}

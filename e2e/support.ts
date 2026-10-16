@@ -221,7 +221,7 @@ export async function hideMilkyWay(page: Page) {
 }
 
 export async function hideEarthOrbit(page: Page) {
-  await openFilter(page)
+  await openPreferences(page)
   await page.getByLabel('Earth’s orbit', { exact: true }).fill('0')
   await expect(page.locator('#scene')).toHaveAttribute('data-earth-orbit-visible', 'false')
 }

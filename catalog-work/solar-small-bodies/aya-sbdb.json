@@ -1,0 +1,171 @@
+{
+  "orbit": {
+    "sb_used": "SB441-N16",
+    "data_arc": "10220",
+    "source": "JPL",
+    "soln_date": "2026-03-13 04:27:08",
+    "first_obs": "1997-12-29",
+    "n_dop_obs_used": null,
+    "last_obs": "2025-12-22",
+    "moid": "40.3379",
+    "condition_code": "0",
+    "comment": null,
+    "cov_epoch": "2458011.5",
+    "two_body": null,
+    "model_pars": [],
+    "rms": ".48246",
+    "not_valid_after": null,
+    "t_jup": "5.562",
+    "producer": "Otto Matic",
+    "n_obs_used": 1262,
+    "pe_used": "DE441",
+    "moid_jup": "36.3536",
+    "n_del_obs_used": null,
+    "not_valid_before": null,
+    "elements": [
+      {
+        "name": "e",
+        "label": "e",
+        "sigma": "1.4533E-6",
+        "units": null,
+        "title": "eccentricity",
+        "value": ".1286825927917718"
+      },
+      {
+        "sigma": "3.0015E-5",
+        "title": "semi-major axis",
+        "units": "au",
+        "label": "a",
+        "name": "a",
+        "value": "47.36875987690542"
+      },
+      {
+        "value": "41.27322503861438",
+        "label": "q",
+        "units": "au",
+        "sigma": "5.3155E-5",
+        "title": "perihelion distance",
+        "name": "q"
+      },
+      {
+        "label": "i",
+        "sigma": "2.6887E-6",
+        "units": "deg",
+        "title": "inclination; angle with respect to x-y ecliptic plane",
+        "name": "i",
+        "value": "24.34033767915258"
+      },
+      {
+        "title": "longitude of the ascending node",
+        "sigma": "4.4279E-6",
+        "units": "deg",
+        "label": "node",
+        "name": "om",
+        "value": "297.3697786526271"
+      },
+      {
+        "title": "argument of perihelion",
+        "sigma": ".00018212",
+        "units": "deg",
+        "label": "peri",
+        "name": "w",
+        "value": "294.1459414012872"
+      },
+      {
+        "label": "M",
+        "sigma": ".00015542",
+        "title": "mean anomaly",
+        "units": "deg",
+        "name": "ma",
+        "value": "304.3075781031964"
+      },
+      {
+        "value": "2479622.214741846361",
+        "name": "tp",
+        "units": "TDB",
+        "sigma": ".035698",
+        "title": "time of perihelion passage",
+        "label": "tp"
+      },
+      {
+        "name": "per",
+        "title": "sidereal orbital period",
+        "sigma": ".11318",
+        "units": "d",
+        "label": "period",
+        "value": "119079.3483421002"
+      },
+      {
+        "label": "n",
+        "sigma": "2.8735E-9",
+        "units": "deg/d",
+        "title": "mean motion",
+        "name": "n",
+        "value": ".00302319423990938"
+      },
+      {
+        "value": "53.46429471519647",
+        "name": "ad",
+        "sigma": "3.3878E-5",
+        "title": "aphelion distance",
+        "units": "au",
+        "label": "Q"
+      }
+    ],
+    "equinox": "J2000",
+    "epoch": "2461200.5",
+    "orbit_id": "39"
+  },
+  "signature": {
+    "source": "NASA/JPL Small-Body Database (SBDB) API",
+    "version": "1.3"
+  },
+  "object": {
+    "shortname": "55565 Aya",
+    "spkid": "20055565",
+    "neo": false,
+    "orbit_id": "39",
+    "orbit_class": {
+      "code": "TNO",
+      "name": "TransNeptunian Object"
+    },
+    "pha": false,
+    "prefix": null,
+    "des": "55565",
+    "kind": "an",
+    "fullname": "55565 Aya (2002 AW197)"
+  },
+  "discovery": {
+    "location": "Palomar",
+    "name": "Aya",
+    "site": null,
+    "cref": "WGSBN Bull. 5, #15, 15",
+    "who": "Palomar",
+    "date": "2002-Jan-10",
+    "ref": "20030216/Numbers.arc",
+    "citation": "Aya is the goddess of the dawn in Akkadian mythology.  Aya was the consort of the Sun god, Shamash.",
+    "discovery": ""
+  },
+  "phys_par": [
+    {
+      "name": "H",
+      "sigma": null,
+      "units": null,
+      "title": "absolute magnitude",
+      "notes": null,
+      "desc": "absolute magnitude (magnitude at 1 au from Sun and observer)",
+      "ref": "E2025G76",
+      "value": "3.44"
+    },
+    {
+      "ref": "LCDB (Rev. 2023-October); Warner et al., 2009",
+      "value": "8.86",
+      "desc": "body rotation period (synodic)",
+      "notes": "[Result based on less than full coverage, so that the period may be wrong by 30 percent or so.]  REFERENCE LIST:[Ortiz, J.L.; Gutierrez, P.J.; Santos-Sanz, P.; Casanova, V.; Sota, A. (2006) Astron. Astrophys. 447, 1131-1144.], [Thirouin, A.; Ortiz, J.L.; Duffard, R.; Santos-Sanz, P.; et al. (2010) Astron. Astrophys. 522, A93.]",
+      "sigma": null,
+      "title": "rotation period",
+      "units": "h",
+      "name": "rot_per"
+    }
+  ]
+}

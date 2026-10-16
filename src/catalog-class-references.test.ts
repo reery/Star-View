@@ -59,6 +59,11 @@ describe('catalog class statistics', () => {
     expect(massComparisonClass(star('x', { spectral_type: 'kA5hF0VpSr' }))?.spectral).toBe('F0V')
     expect(massComparisonClass(star('x', { spectral_type: 'kF3VhF5mF5(II-III)' }))?.spectral).toBe('F5II')
     expect(massComparisonClass(star('x', { spectral_type: 'B2IV+B3V' }))).toBeNull()
+    expect(massComparisonClass(star('x', { spectral_type: 'A1mIV' }))?.spectral).toBe('A1IV')
+    for (const spectral_type of ['B1-3V', 'A2-3V', 'G9V-K4V', 'K2/K3III']) {
+      expect(massComparisonClass(star('range', { spectral_type }))).toBeNull()
+      expect(buildCatalogClassReferences([{ id: 'all', stars: [star('range', { spectral_type })] }]).classes).toEqual([])
+    }
     const result = buildCatalogClassReferences([{ id: 'all', stars: [star('a'), star('b', { spectral_type: 'A0VpSi' }),
       star('c', { spectral_type: 'B2IV-V' }), star('d', { spectral_type: 'B2IV' }), star('uncertain', { spectral_type: 'B2' })] }])
     expect(result.classes.map(({ spectral, count }) => [spectral, count])).toEqual([['A0V', 2], ['B2IV', 2]])

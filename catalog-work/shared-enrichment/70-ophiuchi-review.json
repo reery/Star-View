@@ -1,0 +1,651 @@
+{
+  "schemaVersion": 1,
+  "reviewedOn": "2026-10-15",
+  "policy": "Exact resolved A/B identities. Adopt individual dynamical masses and published component physical parameters; retain earlier measurements and uncertainties. Existing photometry, abundance and astrometry remain unchanged. Ages are activity-model estimates with unresolved asteroseismic disagreement.",
+  "sources": [
+    {
+      "name": "Li et al. 2026, revised manuscript v2, Tables 1 and 2; sections 2.2 and 2.4",
+      "url": "https://arxiv.org/html/2603.20044v2"
+    },
+    {
+      "name": "Eggenberger et al. 2008, Table 2 and section 2.3, component bolometric luminosities",
+      "url": "https://arxiv.org/pdf/0802.3576"
+    }
+  ],
+  "objects": {
+    "10pc-0115": {
+      "expectedName": "70 Oph A",
+      "componentDesignation": "WDS J18055+0230A",
+      "gaiaDr3Id": "4468557611984384512",
+      "spectralType": "K0V",
+      "physical": [
+        {
+          "field": "temperature_k",
+          "value": 5301,
+          "uncertainty": 67,
+          "status": "measured",
+          "reference": "arXiv:2603.20044v2:Table 1",
+          "qualityFlags": [
+            "component-specific published atmospheric temperature; attributed there to Yee et al. 2017"
+          ]
+        },
+        {
+          "field": "mass_solar",
+          "value": 0.8827,
+          "uncertainty": 0.0044,
+          "status": "measured",
+          "reference": "arXiv:2603.20044v2:Table 2",
+          "qualityFlags": [
+            "individual dynamical mass from joint RV/astrometric fit",
+            "asymmetric uncertainty represented by its larger side"
+          ]
+        },
+        {
+          "field": "radius_solar",
+          "value": 0.831,
+          "uncertainty": 0.004,
+          "status": "derived",
+          "reference": "arXiv:2603.20044v2:Table 1",
+          "qualityFlags": [
+            "published component radius as compiled by Li et al.; not newly derived from adopted luminosity/temperature"
+          ]
+        },
+        {
+          "field": "luminosity_solar",
+          "value": 0.53,
+          "uncertainty": 0.02,
+          "status": "derived",
+          "reference": "2008A&A...482..631E:Table 2",
+          "qualityFlags": [
+            "component-resolved bolometric luminosity; source parallax and bolometric correction retained"
+          ]
+        },
+        {
+          "field": "age_gyr",
+          "value": 2.81,
+          "uncertainty": 1.65,
+          "status": "model-derived",
+          "reference": "arXiv:2603.20044v2:Table 1;Section 2.4",
+          "qualityFlags": [
+            "activity-based age posterior median",
+            "asymmetric uncertainty represented by its larger side",
+            "disagrees with 6.2 +/- 1.0 Gyr asteroseismic age"
+          ]
+        }
+      ],
+      "sourceUncertainties": {
+        "mass_solar": {
+          "minus": 0.0043,
+          "plus": 0.0044
+        },
+        "age_gyr": {
+          "minus": 0.8,
+          "plus": 1.65
+        }
+      },
+      "alternativeAge": {
+        "value_gyr": 6.2,
+        "uncertainty_gyr": 1.0,
+        "scope": "asteroseismic calibration of system, driven by A",
+        "reference": "2008A&A...482..631E"
+      },
+      "note": "70 Oph A: individual dynamical mass from Li et al. (2026), revised v2 Table 2; component temperature and radius as compiled in Table 1, replacing the dwarf-class temperature estimate. Component bolometric luminosity from Eggenberger et al. (2008), Table 2. Age is the component activity-model median from Li et al., not a direct measurement: 2.81 +1.65/-0.8 Gyr; the older 6.2 +/- 1.0 Gyr asteroseismic system age remains discrepant. Existing individual photometry, photospheric abundance and astrometry are retained.",
+      "previousEffectiveComponent": {
+        "temperature_k": 5270.0,
+        "mass_solar": 0.8256458,
+        "luminosity_solar": 0.5142145,
+        "radius_solar": 0.8819471,
+        "metallicity_dex": -0.1421,
+        "age_gyr": 13.452476,
+        "absolute_mag": 5.67644198873547,
+        "epoch": 2000.0,
+        "x_pc": 4.346143231,
+        "y_pc": 2.498478462,
+        "z_pc": 1.007831793,
+        "vx_kms": 8.686596,
+        "vy_kms": -19.914141,
+        "vz_kms": -17.530888,
+        "type": "star",
+        "id": "10pc-0115",
+        "name": "70 Oph A",
+        "spectral_type": "K0V",
+        "constellation": "Ophiuchus",
+        "metallicity_kind": "[M/H]",
+        "designations": [
+          "GJ 702 A",
+          "HD 165341A",
+          "HIP 88601",
+          "8pc 196.62A",
+          "ADS 11046 A",
+          "ASCC 1153899",
+          "BD+02 3482A",
+          "CCDM J18055+0230A",
+          "CNS5 4473",
+          "CSI+02 3482 10",
+          "Gaia DR2 4468557611977678336",
+          "Gaia DR3 4468557611984384512",
+          "Gaia EDR3 4468557611984384512",
+          "GCRV 10531",
+          "IDS 18004+0232 A",
+          "LFT 1390",
+          "LHS 458",
+          "LSPM J1805+0229A",
+          "LTT 15337",
+          "NLTT 45899",
+          "ROT 3523",
+          "SPOCS 2969",
+          "STF 2272A",
+          "TIC 1674663309",
+          "TYC 434-5213-1",
+          "UBV 15377",
+          "USNO 877",
+          "USNO-B1.0 0924-00457807",
+          "WDS J18055+0230A",
+          "Zkh 271",
+          "70 Oph A",
+          "10pc-0115"
+        ],
+        "notes": "10pc census (2023-08-25), object 115, system 57; 70 Oph A. J2000 Sun-relative Galactic position via Astropy; full-space-motion. Estimated: Pecaut-Mamajek 2022.04.16 K0V mean dwarf class, not a measured temperature. Component-resolved Johnson V not independently established; multi-star system V withheld. No orbital model. Gaia DR3 exact-ID model values for metallicity, mass, luminosity, radius, age. MSC physical hierarchy 18055+0230, component A. Shared system distance for close components is approximate. Catalog magnitude/spectral-type masses and minimum companion masses are withheld. Component-scoped catalog measurements/estimates; details in catalog-work/star-systems/catalog-companions-audit.json.",
+        "raw_astrometry": {
+          "ra_deg": 271.364453818,
+          "dec_deg": 2.495224096,
+          "parallax_mas": 195.5674,
+          "parallax_error_mas": 0.1964,
+          "pm_ra_cosdec_masyr": 206.525003106,
+          "pm_ra_error_masyr": 0.24627137,
+          "pm_dec_masyr": -1107.491929164,
+          "pm_dec_error_masyr": 0.1637304,
+          "radial_velocity_kms": -5.8,
+          "radial_velocity_error_kms": 0.0222,
+          "epoch": 2016.0,
+          "astrometry_ref": "2020yCat.1350....0G",
+          "radial_velocity_ref": "2018A&A...616A...7S"
+        },
+        "subtypes": [
+          "Rotating variable",
+          "Spectroscopic binary",
+          "Main-sequence"
+        ],
+        "known_planets": 0,
+        "apparent_mag": 4.22,
+        "catalog_sources": [
+          {
+            "catalog_id": "nearest-100",
+            "record": {
+              "temperature_k": 5270.0,
+              "mass_solar": 0.8256458,
+              "luminosity_solar": 0.5142145,
+              "radius_solar": 0.8819471,
+              "metallicity_dex": -0.1421,
+              "age_gyr": 13.452476,
+              "absolute_mag": null,
+              "epoch": 2000.0,
+              "x_pc": 4.346143231,
+              "y_pc": 2.498478462,
+              "z_pc": 1.007831793,
+              "vx_kms": 8.686596,
+              "vy_kms": -19.914141,
+              "vz_kms": -17.530888,
+              "type": "star",
+              "id": "10pc-0115",
+              "name": "70 Oph A",
+              "spectral_type": "K0",
+              "constellation": "Ophiuchus",
+              "metallicity_kind": "[M/H]",
+              "designations": [
+                "GJ 702 A",
+                "HD 165341A",
+                "HIP 88601",
+                "8pc 196.62A",
+                "ADS 11046 A",
+                "ASCC 1153899",
+                "BD+02 3482A",
+                "CCDM J18055+0230A",
+                "CNS5 4473",
+                "CSI+02 3482 10",
+                "Gaia DR2 4468557611977678336",
+                "Gaia DR3 4468557611984384512",
+                "Gaia EDR3 4468557611984384512",
+                "GCRV 10531",
+                "IDS 18004+0232 A",
+                "LFT 1390",
+                "LHS 458",
+                "LSPM J1805+0229A",
+                "LTT 15337",
+                "NLTT 45899",
+                "ROT 3523",
+                "SPOCS 2969",
+                "STF 2272A",
+                "TIC 1674663309",
+                "TYC 434-5213-1",
+                "UBV 15377",
+                "USNO 877",
+                "USNO-B1.0 0924-00457807",
+                "WDS J18055+0230A",
+                "Zkh 271",
+                "70 Oph A"
+              ],
+              "notes": "10pc census (2023-08-25), object 115, system 57; 70 Oph A. J2000 Sun-relative Galactic position via Astropy; full-space-motion. Estimated: Pecaut-Mamajek 2022.04.16 K0V mean dwarf class, not a measured temperature. Component-resolved Johnson V not independently established; multi-star system V withheld. No orbital model. Gaia DR3 exact-ID model values for metallicity, mass, luminosity, radius, age.",
+              "raw_astrometry": {
+                "ra_deg": 271.364453818,
+                "dec_deg": 2.495224096,
+                "parallax_mas": 195.5674,
+                "parallax_error_mas": 0.1964,
+                "pm_ra_cosdec_masyr": 206.525003106,
+                "pm_ra_error_masyr": 0.24627137,
+                "pm_dec_masyr": -1107.491929164,
+                "pm_dec_error_masyr": 0.1637304,
+                "radial_velocity_kms": -5.8,
+                "radial_velocity_error_kms": 0.0222,
+                "epoch": 2016.0,
+                "astrometry_ref": "2020yCat.1350....0G",
+                "radial_velocity_ref": "2018A&A...616A...7S"
+              },
+              "subtypes": [
+                "Rotating variable",
+                "Spectroscopic binary"
+              ],
+              "known_planets": 0,
+              "apparent_mag": null
+            },
+            "scope": "Original 70 Oph A catalog source; component contributions are not separated here. Retained source measurements, not individual component measurements."
+          },
+          {
+            "catalog_id": "nearest-1000",
+            "record": {
+              "temperature_k": 5270.0,
+              "mass_solar": 0.8256458,
+              "luminosity_solar": 0.5142145,
+              "radius_solar": 0.8819471,
+              "metallicity_dex": -0.1421,
+              "age_gyr": 13.452476,
+              "absolute_mag": null,
+              "epoch": 2000.0,
+              "x_pc": 4.346143231,
+              "y_pc": 2.498478462,
+              "z_pc": 1.007831793,
+              "vx_kms": 8.686596,
+              "vy_kms": -19.914141,
+              "vz_kms": -17.530888,
+              "type": "star",
+              "id": "10pc-0115",
+              "name": "70 Oph A",
+              "spectral_type": "K0",
+              "constellation": "Ophiuchus",
+              "metallicity_kind": "[M/H]",
+              "designations": [
+                "GJ 702 A",
+                "HD 165341A",
+                "HIP 88601",
+                "8pc 196.62A",
+                "ADS 11046 A",
+                "ASCC 1153899",
+                "BD+02 3482A",
+                "CCDM J18055+0230A",
+                "CNS5 4473",
+                "CSI+02 3482 10",
+                "Gaia DR2 4468557611977678336",
+                "Gaia DR3 4468557611984384512",
+                "Gaia EDR3 4468557611984384512",
+                "GCRV 10531",
+                "IDS 18004+0232 A",
+                "LFT 1390",
+                "LHS 458",
+                "LSPM J1805+0229A",
+                "LTT 15337",
+                "NLTT 45899",
+                "ROT 3523",
+                "SPOCS 2969",
+                "STF 2272A",
+                "TIC 1674663309",
+                "TYC 434-5213-1",
+                "UBV 15377",
+                "USNO 877",
+                "USNO-B1.0 0924-00457807",
+                "WDS J18055+0230A",
+                "Zkh 271",
+                "70 Oph A"
+              ],
+              "notes": "10pc census (2023-08-25), object 115, system 57; 70 Oph A. J2000 Sun-relative Galactic position via Astropy; full-space-motion. Estimated: Pecaut-Mamajek 2022.04.16 K0V mean dwarf class, not a measured temperature. Component-resolved Johnson V not independently established; multi-star system V withheld. No orbital model. Gaia DR3 exact-ID model values for metallicity, mass, luminosity, radius, age.",
+              "raw_astrometry": {
+                "ra_deg": 271.364453818,
+                "dec_deg": 2.495224096,
+                "parallax_mas": 195.5674,
+                "parallax_error_mas": 0.1964,
+                "pm_ra_cosdec_masyr": 206.525003106,
+                "pm_ra_error_masyr": 0.24627137,
+                "pm_dec_masyr": -1107.491929164,
+                "pm_dec_error_masyr": 0.1637304,
+                "radial_velocity_kms": -5.8,
+                "radial_velocity_error_kms": 0.0222,
+                "epoch": 2016.0,
+                "astrometry_ref": "2020yCat.1350....0G",
+                "radial_velocity_ref": "2018A&A...616A...7S"
+              },
+              "subtypes": [
+                "Rotating variable",
+                "Spectroscopic binary"
+              ],
+              "known_planets": 0,
+              "apparent_mag": null
+            },
+            "scope": "Original 70 Oph A catalog source; component contributions are not separated here. Retained source measurements, not individual component measurements."
+          }
+        ]
+      }
+    },
+    "10pc-0116": {
+      "expectedName": "70 Oph B",
+      "componentDesignation": "WDS J18055+0230B",
+      "gaiaDr3Id": "4468557611977674496",
+      "spectralType": "K4V",
+      "physical": [
+        {
+          "field": "temperature_k",
+          "value": 4465,
+          "uncertainty": 65,
+          "status": "measured",
+          "reference": "arXiv:2603.20044v2:Table 1",
+          "qualityFlags": [
+            "component-specific published atmospheric temperature; attributed there to Yee et al. 2017"
+          ]
+        },
+        {
+          "field": "mass_solar",
+          "value": 0.7319,
+          "uncertainty": 0.0031,
+          "status": "measured",
+          "reference": "arXiv:2603.20044v2:Table 2",
+          "qualityFlags": [
+            "individual dynamical mass from joint RV/astrometric fit"
+          ]
+        },
+        {
+          "field": "radius_solar",
+          "value": 0.67,
+          "uncertainty": 0.009,
+          "status": "derived",
+          "reference": "arXiv:2603.20044v2:Table 1",
+          "qualityFlags": [
+            "published component radius as compiled by Li et al.; not newly derived from adopted luminosity/temperature"
+          ]
+        },
+        {
+          "field": "luminosity_solar",
+          "value": 0.15,
+          "uncertainty": 0.02,
+          "status": "derived",
+          "reference": "2008A&A...482..631E:Table 2",
+          "qualityFlags": [
+            "component-resolved bolometric luminosity; source parallax and bolometric correction retained"
+          ]
+        },
+        {
+          "field": "age_gyr",
+          "value": 2.99,
+          "uncertainty": 0.66,
+          "status": "model-derived",
+          "reference": "arXiv:2603.20044v2:Table 1;Section 2.4",
+          "qualityFlags": [
+            "activity-based age posterior median",
+            "asymmetric uncertainty represented by its larger side",
+            "disagrees with 6.2 +/- 1.0 Gyr asteroseismic age"
+          ]
+        }
+      ],
+      "sourceUncertainties": {
+        "mass_solar": {
+          "minus": 0.0031,
+          "plus": 0.0031
+        },
+        "age_gyr": {
+          "minus": 0.51,
+          "plus": 0.66
+        }
+      },
+      "alternativeAge": {
+        "value_gyr": 6.2,
+        "uncertainty_gyr": 1.0,
+        "scope": "asteroseismic calibration of system, driven by A",
+        "reference": "2008A&A...482..631E"
+      },
+      "note": "70 Oph B: individual dynamical mass from Li et al. (2026), revised v2 Table 2; component temperature and radius as compiled in Table 1, replacing the dwarf-class temperature estimate. Component bolometric luminosity from Eggenberger et al. (2008), Table 2. Age is the component activity-model median from Li et al., not a direct measurement: 2.99 +0.66/-0.51 Gyr; the older 6.2 +/- 1.0 Gyr asteroseismic system age remains discrepant. Existing individual photometry, photospheric abundance and astrometry are retained.",
+      "previousEffectiveComponent": {
+        "temperature_k": 4600.0,
+        "mass_solar": null,
+        "luminosity_solar": null,
+        "radius_solar": null,
+        "metallicity_dex": -0.07,
+        "age_gyr": null,
+        "absolute_mag": 7.62644198873547,
+        "epoch": 2000.0,
+        "x_pc": 4.339833232,
+        "y_pc": 2.494783276,
+        "z_pc": 1.006239766,
+        "vx_kms": 4.822953,
+        "vy_kms": -19.509552,
+        "vz_kms": -20.480844,
+        "type": "star",
+        "id": "10pc-0116",
+        "name": "70 Oph B",
+        "spectral_type": null,
+        "constellation": "Ophiuchus",
+        "metallicity_kind": "[Fe/H]",
+        "designations": [
+          "GJ 702 B",
+          "HD 165341B",
+          "1E 1802.9+0229",
+          "2XMM J180527.3+022955",
+          "8pc 196.62B",
+          "ADS 11046 B",
+          "ASCC 1153898",
+          "BD+02 3482B",
+          "CCDM J18055+0230B",
+          "CNS5 4474",
+          "CSI+02 3482 11",
+          "Gaia DR2 4468557611977674496",
+          "Gaia DR3 4468557611977674496",
+          "Gaia EDR3 4468557611977674496",
+          "GCRV 10532",
+          "IDS 18004+0232 B",
+          "LFT 1391",
+          "LHS 459",
+          "LSPM J1805+0229B",
+          "LTT 15338",
+          "NLTT 45900",
+          "ROT 3570",
+          "STF 2272B",
+          "TIC 1674663308",
+          "TYC 434-5212-1",
+          "UBV 15378",
+          "UCAC4 463-073987",
+          "WDS J18055+0230B",
+          "Zkh 272",
+          "70 Oph B",
+          "10pc-0116"
+        ],
+        "notes": "10pc census (2023-08-25), object 116, system 57; 70 Oph B. J2000 Sun-relative Galactic position via Astropy; full-space-motion. Estimated: Pecaut-Mamajek 2022.04.16 K4V mean dwarf class, not a measured temperature. Component-resolved Johnson V not independently established; multi-star system V withheld. No orbital model. Shared exact-identity physical supplements (metallicity_dex: 2024A&A...690A..97C). MSC physical hierarchy 18055+0230, component B. Shared system distance for close components is approximate. Catalog magnitude/spectral-type masses and minimum companion masses are withheld. Component-scoped catalog measurements/estimates; details in catalog-work/star-systems/catalog-companions-audit.json.",
+        "raw_astrometry": {
+          "ra_deg": 271.365911609,
+          "dec_deg": 2.494198758,
+          "parallax_mas": 195.8563,
+          "parallax_error_mas": 0.2535,
+          "pm_ra_cosdec_masyr": 333.292098308,
+          "pm_ra_error_masyr": 0.26375088,
+          "pm_dec_masyr": -1068.353909556,
+          "pm_dec_error_masyr": 0.21460679,
+          "radial_velocity_kms": -9.467,
+          "radial_velocity_error_kms": 0.223,
+          "epoch": 2016.0,
+          "astrometry_ref": "2020yCat.1350....0G",
+          "radial_velocity_ref": "2022yCat.1355....0G"
+        },
+        "subtypes": [
+          "Rotating variable"
+        ],
+        "known_planets": 0,
+        "apparent_mag": 6.17,
+        "catalog_sources": [
+          {
+            "catalog_id": "nearest-100",
+            "record": {
+              "temperature_k": 4600.0,
+              "mass_solar": null,
+              "luminosity_solar": null,
+              "radius_solar": null,
+              "metallicity_dex": -0.07,
+              "age_gyr": null,
+              "absolute_mag": null,
+              "epoch": 2000.0,
+              "x_pc": 4.339833232,
+              "y_pc": 2.494783276,
+              "z_pc": 1.006239766,
+              "vx_kms": 4.822953,
+              "vy_kms": -19.509552,
+              "vz_kms": -20.480844,
+              "type": "star",
+              "id": "10pc-0116",
+              "name": "70 Oph B",
+              "spectral_type": "K4",
+              "constellation": "Ophiuchus",
+              "metallicity_kind": "[Fe/H]",
+              "designations": [
+                "GJ 702 B",
+                "HD 165341B",
+                "1E 1802.9+0229",
+                "2XMM J180527.3+022955",
+                "8pc 196.62B",
+                "ADS 11046 B",
+                "ASCC 1153898",
+                "BD+02 3482B",
+                "CCDM J18055+0230B",
+                "CNS5 4474",
+                "CSI+02 3482 11",
+                "Gaia DR2 4468557611977674496",
+                "Gaia DR3 4468557611977674496",
+                "Gaia EDR3 4468557611977674496",
+                "GCRV 10532",
+                "IDS 18004+0232 B",
+                "LFT 1391",
+                "LHS 459",
+                "LSPM J1805+0229B",
+                "LTT 15338",
+                "NLTT 45900",
+                "ROT 3570",
+                "STF 2272B",
+                "TIC 1674663308",
+                "TYC 434-5212-1",
+                "UBV 15378",
+                "UCAC4 463-073987",
+                "WDS J18055+0230B",
+                "Zkh 272",
+                "70 Oph B"
+              ],
+              "notes": "10pc census (2023-08-25), object 116, system 57; 70 Oph B. J2000 Sun-relative Galactic position via Astropy; full-space-motion. Estimated: Pecaut-Mamajek 2022.04.16 K4V mean dwarf class, not a measured temperature. Component-resolved Johnson V not independently established; multi-star system V withheld. No orbital model. Shared exact-identity physical supplements (metallicity_dex: 2024A&A...690A..97C).",
+              "raw_astrometry": {
+                "ra_deg": 271.365911609,
+                "dec_deg": 2.494198758,
+                "parallax_mas": 195.8563,
+                "parallax_error_mas": 0.2535,
+                "pm_ra_cosdec_masyr": 333.292098308,
+                "pm_ra_error_masyr": 0.26375088,
+                "pm_dec_masyr": -1068.353909556,
+                "pm_dec_error_masyr": 0.21460679,
+                "radial_velocity_kms": -9.467,
+                "radial_velocity_error_kms": 0.223,
+                "epoch": 2016.0,
+                "astrometry_ref": "2020yCat.1350....0G",
+                "radial_velocity_ref": "2022yCat.1355....0G"
+              },
+              "subtypes": [
+                "Rotating variable"
+              ],
+              "known_planets": 0,
+              "apparent_mag": null
+            },
+            "scope": "Original 70 Oph B catalog source; component contributions are not separated here. Retained source measurements, not individual component measurements."
+          },
+          {
+            "catalog_id": "nearest-1000",
+            "record": {
+              "temperature_k": 4600.0,
+              "mass_solar": null,
+              "luminosity_solar": null,
+              "radius_solar": null,
+              "metallicity_dex": -0.07,
+              "age_gyr": null,
+              "absolute_mag": null,
+              "epoch": 2000.0,
+              "x_pc": 4.339833232,
+              "y_pc": 2.494783276,
+              "z_pc": 1.006239766,
+              "vx_kms": 4.822953,
+              "vy_kms": -19.509552,
+              "vz_kms": -20.480844,
+              "type": "star",
+              "id": "10pc-0116",
+              "name": "70 Oph B",
+              "spectral_type": "K4",
+              "constellation": "Ophiuchus",
+              "metallicity_kind": "[Fe/H]",
+              "designations": [
+                "GJ 702 B",
+                "HD 165341B",
+                "1E 1802.9+0229",
+                "2XMM J180527.3+022955",
+                "8pc 196.62B",
+                "ADS 11046 B",
+                "ASCC 1153898",
+                "BD+02 3482B",
+                "CCDM J18055+0230B",
+                "CNS5 4474",
+                "CSI+02 3482 11",
+                "Gaia DR2 4468557611977674496",
+                "Gaia DR3 4468557611977674496",
+                "Gaia EDR3 4468557611977674496",
+                "GCRV 10532",
+                "IDS 18004+0232 B",
+                "LFT 1391",
+                "LHS 459",
+                "LSPM J1805+0229B",
+                "LTT 15338",
+                "NLTT 45900",
+                "ROT 3570",
+                "STF 2272B",
+                "TIC 1674663308",
+                "TYC 434-5212-1",
+                "UBV 15378",
+                "UCAC4 463-073987",
+                "WDS J18055+0230B",
+                "Zkh 272",
+                "70 Oph B"
+              ],
+              "notes": "10pc census (2023-08-25), object 116, system 57; 70 Oph B. J2000 Sun-relative Galactic position via Astropy; full-space-motion. Estimated: Pecaut-Mamajek 2022.04.16 K4V mean dwarf class, not a measured temperature. Component-resolved Johnson V not independently established; multi-star system V withheld. No orbital model. Shared exact-identity physical supplements (metallicity_dex: 2024A&A...690A..97C).",
+              "raw_astrometry": {
+                "ra_deg": 271.365911609,
+                "dec_deg": 2.494198758,
+                "parallax_mas": 195.8563,
+                "parallax_error_mas": 0.2535,
+                "pm_ra_cosdec_masyr": 333.292098308,
+                "pm_ra_error_masyr": 0.26375088,
+                "pm_dec_masyr": -1068.353909556,
+                "pm_dec_error_masyr": 0.21460679,
+                "radial_velocity_kms": -9.467,
+                "radial_velocity_error_kms": 0.223,
+                "epoch": 2016.0,
+                "astrometry_ref": "2020yCat.1350....0G",
+                "radial_velocity_ref": "2022yCat.1355....0G"
+              },
+              "subtypes": [
+                "Rotating variable"
+              ],
+              "known_planets": 0,
+              "apparent_mag": null
+            },
+            "scope": "Original 70 Oph B catalog source; component contributions are not separated here. Retained source measurements, not individual component measurements."
+          }
+        ]
+      }
+    }
+  }
+}

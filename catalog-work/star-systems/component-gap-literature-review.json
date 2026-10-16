@@ -1,0 +1,852 @@
+{
+  "schemaVersion": 1,
+  "reviewedOn": "2026-10-16",
+  "scope": "Evidence of missing existing-component properties. Research queue only; no automatic adoption, catalog membership or source precedence change.",
+  "catalogChangesApplied": false,
+  "objects": [
+    {
+      "starId": "cns5-0155",
+      "expectedName": "GJ 22 A",
+      "systemId": "gj-22",
+      "systemName": "GJ 22",
+      "component": "A",
+      "publishedComponent": "GJ 22 A",
+      "identityEvidence": {
+        "designations": [
+          "GJ 22 C",
+          "2MASS J00322970+6714080",
+          "[RHG95] 92",
+          "ADS 433 AC",
+          "ADS 440 AC",
+          "BD+66 34A",
+          "CCDM J00325+6714A",
+          "CNS5 155",
+          "Gaia DR2 527956488339113472",
+          "Gaia DR3 527956488340229632",
+          "IDS 00263+6642 A",
+          "LFT 47",
+          "LHS 114",
+          "LSPM J0032+6714N",
+          "LTT 10178",
+          "MCY 1",
+          "NLTT 1707",
+          "PM J00324+6714",
+          "PMSC 00263+6642A",
+          "PMSC 00263+6642Aab",
+          "TIC 420470817",
+          "TIC 608170820",
+          "TYC 4027-803-1",
+          "UCAC4 787-000993",
+          "V547 Cas",
+          "VYS 2A",
+          "WDS J00321+6715A",
+          "WDS J00321+6715Aa,Ab",
+          "Zkh 10",
+          "Zkh 12",
+          "GJ 22 A"
+        ],
+        "decision": "Published system/component mapped to the existing reviewed component identity; shared Gaia or parent aliases alone must not select the leaf."
+      },
+      "fields": {
+        "mass_solar": {
+          "value": 0.405,
+          "uncertainty": 0.008,
+          "status": "dynamical",
+          "reference": "2016AJ....152..141B",
+          "section": "Table 10",
+          "sourceUrl": "https://www.astro.gsu.edu/RECONS/published37.pdf"
+        },
+        "absolute_mag": {
+          "value": 10.32,
+          "uncertainty": 0.03,
+          "status": "derived",
+          "passband": "Johnson V",
+          "scope": "Individual absolute V at the paper parallax. For adoption at the current catalog distance, use Table 10 system V and delta V; do not treat absolute V as an observed apparent magnitude.",
+          "reference": "2016AJ....152..141B",
+          "section": "Table 10",
+          "sourceUrl": "https://www.astro.gsu.edu/RECONS/published37.pdf"
+        }
+      },
+      "adoptionStatus": "research-only; not applied",
+      "caveat": "Retain formal uncertainties, source parallax and the source-to-internal component mapping. Wolf 424 has a slight V-band brightness reversal; do not reorder the A/B identities by brightness."
+    },
+    {
+      "starId": "gj-22-c",
+      "expectedName": "GJ 22 C",
+      "systemId": "gj-22",
+      "systemName": "GJ 22",
+      "component": "C",
+      "publishedComponent": "GJ 22 C",
+      "identityEvidence": {
+        "designations": [
+          "GJ 22 C"
+        ],
+        "decision": "Published system/component mapped to the existing reviewed component identity; shared Gaia or parent aliases alone must not select the leaf."
+      },
+      "fields": {
+        "mass_solar": {
+          "value": 0.157,
+          "uncertainty": 0.003,
+          "status": "dynamical",
+          "reference": "2016AJ....152..141B",
+          "section": "Table 10",
+          "sourceUrl": "https://www.astro.gsu.edu/RECONS/published37.pdf"
+        },
+        "absolute_mag": {
+          "value": 13.4,
+          "uncertainty": 0.1,
+          "status": "derived",
+          "passband": "Johnson V",
+          "scope": "Individual absolute V at the paper parallax. For adoption at the current catalog distance, use Table 10 system V and delta V; do not treat absolute V as an observed apparent magnitude.",
+          "reference": "2016AJ....152..141B",
+          "section": "Table 10",
+          "sourceUrl": "https://www.astro.gsu.edu/RECONS/published37.pdf"
+        }
+      },
+      "adoptionStatus": "research-only; not applied",
+      "caveat": "Retain formal uncertainties, source parallax and the source-to-internal component mapping. Wolf 424 has a slight V-band brightness reversal; do not reorder the A/B identities by brightness."
+    },
+    {
+      "starId": "10pc-0066",
+      "expectedName": "V577 Mon A",
+      "systemId": "ross-614",
+      "systemName": "V577 Mon",
+      "component": "A",
+      "publishedComponent": "GJ 234 A / Ross 614 A",
+      "identityEvidence": {
+        "designations": [
+          "GJ 234",
+          "GJ 234 A",
+          "HIP 30920",
+          "0ES 0626-02.7",
+          "1RXS J062923.1-024845",
+          "2E 0626.8-0246",
+          "2E 1663",
+          "2EUVE J0629-02.8",
+          "2MASS J06292339-0248499",
+          "2RE J0629-024",
+          "2RE J062923-024802",
+          "8pc 242.89A",
+          "[FS2003] 0369",
+          "[GKL99] 158",
+          "[GKL99] 159",
+          "[KW97] 29-9",
+          "[RHG95] 1048",
+          "B 2601A",
+          "CCDM J06294-0249A",
+          "Ci 20 390",
+          "CNS5 1610",
+          "CSI-02-06268 1",
+          "EUVE J0629-02.7",
+          "EUVE J0629-02.8",
+          "G 106-49",
+          "G 108-3",
+          "Gaia DR2 3117120863523946368",
+          "GAT 1306",
+          "GCRV 4143",
+          "GEN# +6.10010234D",
+          "HIC 30920",
+          "IDS 06243-0244 A",
+          "JP11 5118",
+          "JP11 5119",
+          "LFT 473",
+          "LHS 1849",
+          "LPM 239",
+          "LTT 2564",
+          "NLTT 16580",
+          "PLX 1509",
+          "PM J06293-0248",
+          "RE J0629-024",
+          "RE J062922-024830",
+          "Ross 614",
+          "Ross 614 A",
+          "Ross 614A",
+          "TIC 43085522",
+          "TIC 711366839",
+          "TYC 4789-3303-1",
+          "UCAC4 436-017625",
+          "V577 Mon",
+          "WDS J06293-0248A",
+          "WEB 6159",
+          "WISEA J062923.89-024858.0",
+          "Zkh 88",
+          "V577 Mon A"
+        ],
+        "decision": "Published system/component mapped to the existing reviewed component identity; shared Gaia or parent aliases alone must not select the leaf."
+      },
+      "fields": {
+        "mass_solar": {
+          "value": 0.223,
+          "uncertainty": 0.002,
+          "status": "dynamical",
+          "reference": "2016AJ....152..141B",
+          "section": "Table 10",
+          "sourceUrl": "https://www.astro.gsu.edu/RECONS/published37.pdf"
+        },
+        "absolute_mag": {
+          "value": 13.11,
+          "uncertainty": 0.03,
+          "status": "derived",
+          "passband": "Johnson V",
+          "scope": "Individual absolute V at the paper parallax. For adoption at the current catalog distance, use Table 10 system V and delta V; do not treat absolute V as an observed apparent magnitude.",
+          "reference": "2016AJ....152..141B",
+          "section": "Table 10",
+          "sourceUrl": "https://www.astro.gsu.edu/RECONS/published37.pdf"
+        }
+      },
+      "adoptionStatus": "research-only; not applied",
+      "caveat": "Retain formal uncertainties, source parallax and the source-to-internal component mapping. Wolf 424 has a slight V-band brightness reversal; do not reorder the A/B identities by brightness."
+    },
+    {
+      "starId": "10pc-0067",
+      "expectedName": "V577 Mon B",
+      "systemId": "ross-614",
+      "systemName": "V577 Mon",
+      "component": "B",
+      "publishedComponent": "GJ 234 B / Ross 614 B",
+      "identityEvidence": {
+        "designations": [
+          "GJ 234 B",
+          "8pc 242.89B",
+          "[RHG95] 1049",
+          "B 2601B",
+          "CCDM J06294-0249B",
+          "CSI-02-06268 2",
+          "IDS 06243-0244 B",
+          "LHS 1850",
+          "NLTT 16581",
+          "Ross 614 B",
+          "Ross 614B",
+          "WDS J06293-0248B",
+          "Zkh 89",
+          "V577 Mon B"
+        ],
+        "decision": "Published system/component mapped to the existing reviewed component identity; shared Gaia or parent aliases alone must not select the leaf."
+      },
+      "fields": {
+        "mass_solar": {
+          "value": 0.109,
+          "uncertainty": 0.001,
+          "status": "dynamical",
+          "reference": "2016AJ....152..141B",
+          "section": "Table 10",
+          "sourceUrl": "https://www.astro.gsu.edu/RECONS/published37.pdf"
+        },
+        "absolute_mag": {
+          "value": 16.19,
+          "uncertainty": 0.06,
+          "status": "derived",
+          "passband": "Johnson V",
+          "scope": "Individual absolute V at the paper parallax. For adoption at the current catalog distance, use Table 10 system V and delta V; do not treat absolute V as an observed apparent magnitude.",
+          "reference": "2016AJ....152..141B",
+          "section": "Table 10",
+          "sourceUrl": "https://www.astro.gsu.edu/RECONS/published37.pdf"
+        }
+      },
+      "adoptionStatus": "research-only; not applied",
+      "caveat": "Retain formal uncertainties, source parallax and the source-to-internal component mapping. Wolf 424 has a slight V-band brightness reversal; do not reorder the A/B identities by brightness."
+    },
+    {
+      "starId": "10pc-0074",
+      "expectedName": "FL Vir A",
+      "systemId": "wolf-424",
+      "systemName": "FL Vir",
+      "component": "A",
+      "publishedComponent": "GJ 473 A / Wolf 424 A",
+      "identityEvidence": {
+        "designations": [
+          "GJ 473",
+          "1RXS J123319.0+090110",
+          "2E 1230.7+0918",
+          "2E 2769",
+          "2MASS J12331738+0901157",
+          "[FS2003] 0637",
+          "[GKL99] 264",
+          "[GKL99] 265",
+          "[RHG95] 1972",
+          "[RHG95] 1973",
+          "Ci 20 716",
+          "Cl* Melotte 25 EGG 43",
+          "CSI+09-12309 1",
+          "CSI+09-12309 2",
+          "FL Vir",
+          "G 12-43",
+          "G 60-14",
+          "GCRV 7553",
+          "GSC 00874-00306",
+          "IDS 12309+0918 AB",
+          "IRAS F12307+0917",
+          "JP11 5148",
+          "JP11 5149",
+          "Karmn J12332+090",
+          "LFT 923",
+          "LHS 333",
+          "LSPM J1233+0901",
+          "LTT 13546",
+          "NLTT 31083",
+          "PLX 2890",
+          "PLX 2890.00",
+          "PM 12308+0918",
+          "PM J12332+0901",
+          "RBS 1128",
+          "REU 1",
+          "RX J1233.3+0901",
+          "StKM 2-849",
+          "TIC 399087412",
+          "UBV 11279",
+          "UCAC4 496-058936",
+          "USNO-B1.0 0990-00217846",
+          "VVO 74",
+          "WDS J12335+0901AB",
+          "WEB 10904",
+          "WISEA J123316.13+090118.0",
+          "Wolf 424",
+          "Wolf 424 A",
+          "Zkh 179",
+          "Zkh 180",
+          "FL Vir A"
+        ],
+        "decision": "Published system/component mapped to the existing reviewed component identity; shared Gaia or parent aliases alone must not select the leaf."
+      },
+      "fields": {
+        "mass_solar": {
+          "value": 0.124,
+          "uncertainty": 0.005,
+          "status": "dynamical",
+          "reference": "2016AJ....152..141B",
+          "section": "Table 10",
+          "sourceUrl": "https://www.astro.gsu.edu/RECONS/published37.pdf"
+        },
+        "absolute_mag": {
+          "value": 15.09,
+          "uncertainty": 0.05,
+          "status": "derived",
+          "passband": "Johnson V",
+          "scope": "Individual absolute V at the paper parallax. For adoption at the current catalog distance, use Table 10 system V and delta V; do not treat absolute V as an observed apparent magnitude.",
+          "reference": "2016AJ....152..141B",
+          "section": "Table 10",
+          "sourceUrl": "https://www.astro.gsu.edu/RECONS/published37.pdf"
+        }
+      },
+      "adoptionStatus": "research-only; not applied",
+      "caveat": "Retain formal uncertainties, source parallax and the source-to-internal component mapping. Wolf 424 has a slight V-band brightness reversal; do not reorder the A/B identities by brightness."
+    },
+    {
+      "starId": "10pc-0075",
+      "expectedName": "FL Vir B",
+      "systemId": "wolf-424",
+      "systemName": "FL Vir",
+      "component": "B",
+      "publishedComponent": "GJ 473 B / Wolf 424 B",
+      "identityEvidence": {
+        "designations": [
+          "GJ 473",
+          "1RXS J123319.0+090110",
+          "2E 1230.7+0918",
+          "2E 2769",
+          "2MASS J12331738+0901157",
+          "[FS2003] 0637",
+          "[GKL99] 264",
+          "[GKL99] 265",
+          "[RHG95] 1972",
+          "[RHG95] 1973",
+          "Ci 20 716",
+          "Cl* Melotte 25 EGG 43",
+          "CSI+09-12309 1",
+          "CSI+09-12309 2",
+          "FL Vir",
+          "G 12-43",
+          "G 60-14",
+          "GCRV 7553",
+          "GSC 00874-00306",
+          "IDS 12309+0918 AB",
+          "IRAS F12307+0917",
+          "JP11 5148",
+          "JP11 5149",
+          "Karmn J12332+090",
+          "LFT 923",
+          "LHS 333",
+          "LSPM J1233+0901",
+          "LTT 13546",
+          "NLTT 31083",
+          "PLX 2890",
+          "PLX 2890.00",
+          "PM 12308+0918",
+          "PM J12332+0901",
+          "RBS 1128",
+          "REU 1",
+          "RX J1233.3+0901",
+          "StKM 2-849",
+          "TIC 399087412",
+          "UBV 11279",
+          "UCAC4 496-058936",
+          "USNO-B1.0 0990-00217846",
+          "VVO 74",
+          "WDS J12335+0901AB",
+          "WEB 10904",
+          "WISEA J123316.13+090118.0",
+          "Wolf 424",
+          "Wolf 424 B",
+          "Zkh 179",
+          "Zkh 180",
+          "FL Vir B"
+        ],
+        "decision": "Published system/component mapped to the existing reviewed component identity; shared Gaia or parent aliases alone must not select the leaf."
+      },
+      "fields": {
+        "mass_solar": {
+          "value": 0.113,
+          "uncertainty": 0.005,
+          "status": "dynamical",
+          "reference": "2016AJ....152..141B",
+          "section": "Table 10",
+          "sourceUrl": "https://www.astro.gsu.edu/RECONS/published37.pdf"
+        },
+        "absolute_mag": {
+          "value": 15.08,
+          "uncertainty": 0.05,
+          "status": "derived",
+          "passband": "Johnson V",
+          "scope": "Individual absolute V at the paper parallax. For adoption at the current catalog distance, use Table 10 system V and delta V; do not treat absolute V as an observed apparent magnitude.",
+          "reference": "2016AJ....152..141B",
+          "section": "Table 10",
+          "sourceUrl": "https://www.astro.gsu.edu/RECONS/published37.pdf"
+        }
+      },
+      "adoptionStatus": "research-only; not applied",
+      "caveat": "Retain formal uncertainties, source parallax and the source-to-internal component mapping. Wolf 424 has a slight V-band brightness reversal; do not reorder the A/B identities by brightness."
+    },
+    {
+      "starId": "10pc-0087",
+      "expectedName": "GJ 1245 A",
+      "systemId": "gj-1245",
+      "systemName": "GJ 1245",
+      "component": "A",
+      "publishedComponent": "GJ 1245 A",
+      "identityEvidence": {
+        "designations": [
+          "GJ 1245 C",
+          "1RXS J195354.7+442454",
+          "2E 1952.2+4416",
+          "2E 4298",
+          "2MASS J19535443+4424541",
+          "8pc 220.20A",
+          "8pc 220.20C",
+          "[GKL99] 378",
+          "[GKL99] 379",
+          "[RHG95] 3120",
+          "AP J19535443+4424541",
+          "G 208-44",
+          "Gaia DR2 2079073928612819840",
+          "Gaia DR3 2079074130463898624",
+          "Gaia EDR3 2079074130463898624",
+          "GEN# +9.80208044",
+          "GIC 159A",
+          "HAT 155-00965",
+          "Karmn J19539+444W",
+          "Karmn J19539+444WAB",
+          "KIC 8451868",
+          "LHS 3494",
+          "LSPM J1953+4424W",
+          "MCY 3",
+          "NLTT 48414",
+          "PM J19539+4424W",
+          "PMSC 19506+4410AC",
+          "TIC 274127410",
+          "UCAC4 673-080522",
+          "USNO 353",
+          "USNO 892",
+          "V1581 Cyg",
+          "WDS J19539+4425A",
+          "WDS J19539+4425Aa,Ab",
+          "Zkh 298",
+          "GJ 1245 A"
+        ],
+        "decision": "Published system/component mapped to the existing reviewed component identity; shared Gaia or parent aliases alone must not select the leaf."
+      },
+      "fields": {
+        "mass_solar": {
+          "value": 0.111,
+          "uncertainty": 0.001,
+          "status": "dynamical",
+          "reference": "2016AJ....152..141B",
+          "section": "Table 10",
+          "sourceUrl": "https://www.astro.gsu.edu/RECONS/published37.pdf"
+        },
+        "absolute_mag": {
+          "value": 15.17,
+          "uncertainty": 0.03,
+          "status": "derived",
+          "passband": "Johnson V",
+          "scope": "Individual absolute V at the paper parallax. For adoption at the current catalog distance, use Table 10 system V and delta V; do not treat absolute V as an observed apparent magnitude.",
+          "reference": "2016AJ....152..141B",
+          "section": "Table 10",
+          "sourceUrl": "https://www.astro.gsu.edu/RECONS/published37.pdf"
+        }
+      },
+      "adoptionStatus": "research-only; not applied",
+      "caveat": "Retain formal uncertainties, source parallax and the source-to-internal component mapping. Wolf 424 has a slight V-band brightness reversal; do not reorder the A/B identities by brightness."
+    },
+    {
+      "starId": "10pc-0088",
+      "expectedName": "GJ 1245 C",
+      "systemId": "gj-1245",
+      "systemName": "GJ 1245",
+      "component": "C",
+      "publishedComponent": "GJ 1245 C",
+      "identityEvidence": {
+        "designations": [
+          "GJ 1245 A",
+          "1RXS J195354.7+442454",
+          "2E 1952.2+4416",
+          "2E 4298",
+          "2MASS J19535443+4424541",
+          "8pc 220.20A",
+          "8pc 220.20C",
+          "[GKL99] 378",
+          "[GKL99] 379",
+          "[RHG95] 3120",
+          "AP J19535443+4424541",
+          "G 208-44",
+          "Gaia DR2 2079073928612819840",
+          "Gaia DR3 2079074130463898624",
+          "GEN# +9.80208044",
+          "GIC 159A",
+          "HAT 155-00965",
+          "Karmn J19539+444W",
+          "Karmn J19539+444WAB",
+          "KIC 8451868",
+          "LHS 3494",
+          "LSPM J1953+4424W",
+          "MCY 3",
+          "NLTT 48414",
+          "PM J19539+4424W",
+          "PMSC 19506+4410AC",
+          "TIC 274127410",
+          "UCAC4 673-080522",
+          "USNO 353",
+          "USNO 892",
+          "V1581 Cyg",
+          "WDS J19539+4425A",
+          "WDS J19539+4425Aa,Ab",
+          "Zkh 298",
+          "GJ 1245 C"
+        ],
+        "decision": "Published system/component mapped to the existing reviewed component identity; shared Gaia or parent aliases alone must not select the leaf."
+      },
+      "fields": {
+        "mass_solar": {
+          "value": 0.076,
+          "uncertainty": 0.001,
+          "status": "dynamical",
+          "reference": "2016AJ....152..141B",
+          "section": "Table 10",
+          "sourceUrl": "https://www.astro.gsu.edu/RECONS/published37.pdf"
+        },
+        "absolute_mag": {
+          "value": 18.46,
+          "uncertainty": 0.06,
+          "status": "derived",
+          "passband": "Johnson V",
+          "scope": "Individual absolute V at the paper parallax. For adoption at the current catalog distance, use Table 10 system V and delta V; do not treat absolute V as an observed apparent magnitude.",
+          "reference": "2016AJ....152..141B",
+          "section": "Table 10",
+          "sourceUrl": "https://www.astro.gsu.edu/RECONS/published37.pdf"
+        }
+      },
+      "adoptionStatus": "research-only; not applied",
+      "caveat": "Retain formal uncertainties, source parallax and the source-to-internal component mapping. Wolf 424 has a slight V-band brightness reversal; do not reorder the A/B identities by brightness."
+    },
+    {
+      "starId": "cns5-4014",
+      "expectedName": "G 202-45 Aa",
+      "systemId": "msc-16240+4822",
+      "systemName": "G 202-45",
+      "component": "Aa",
+      "publishedComponent": "GJ 623 A (internal Aa)",
+      "identityEvidence": {
+        "designations": [
+          "GJ 623",
+          "GJ 623 A",
+          "GJ 623 B",
+          "HIP 80346",
+          "2MASS J16240913+4821112",
+          "[RHG95] 2583",
+          "AC +48 1595-89",
+          "ASCC 335180",
+          "BUP 168A",
+          "CCDM J16240+4821A",
+          "Ci 20 986",
+          "CNS5 4014",
+          "CSI+48 2399 2",
+          "CSI+48-16226",
+          "CSI+48-16227",
+          "Gaia DR2 1411178510887026048",
+          "Gaia DR3 1411178510887026048",
+          "GCRV 9443",
+          "GEN# +9.80202045",
+          "GSC 03495-00601",
+          "HEN 1",
+          "HIC 80346",
+          "IDS 16212+4836 A",
+          "Karmn J16241+483",
+          "L 1707-1",
+          "LFT 1273",
+          "LHS 417",
+          "LSPM J1624+4821",
+          "LTT 14885",
+          "MCC 163",
+          "NLTT 42730",
+          "PLX 3733",
+          "PLX 3733.00",
+          "PM 16226+4828",
+          "PM J16241+4821",
+          "SBC9 1542",
+          "TIC 162673762",
+          "TYC 3495-601-1",
+          "UCAC4 692-054679",
+          "USNO-B1.0 1383-00279084",
+          "VVO 139",
+          "WDS J16240+4822Aa,Ab",
+          "WEB 13595",
+          "WISEA J162410.51+482105.8",
+          "Zkh 225",
+          "G 202-45",
+          "WDS J16240+4822Aa",
+          "cns5-4014"
+        ],
+        "decision": "Published system/component mapped to the existing reviewed component identity; shared Gaia or parent aliases alone must not select the leaf."
+      },
+      "fields": {
+        "mass_solar": {
+          "value": 0.379,
+          "uncertainty": 0.007,
+          "status": "dynamical",
+          "reference": "2016AJ....152..141B",
+          "section": "Table 10",
+          "sourceUrl": "https://www.astro.gsu.edu/RECONS/published37.pdf"
+        },
+        "absolute_mag": {
+          "value": 10.77,
+          "uncertainty": 0.03,
+          "status": "derived",
+          "passband": "Johnson V",
+          "scope": "Individual absolute V at the paper parallax. For adoption at the current catalog distance, use Table 10 system V and delta V; do not treat absolute V as an observed apparent magnitude.",
+          "reference": "2016AJ....152..141B",
+          "section": "Table 10",
+          "sourceUrl": "https://www.astro.gsu.edu/RECONS/published37.pdf"
+        }
+      },
+      "adoptionStatus": "research-only; not applied",
+      "caveat": "Retain formal uncertainties, source parallax and the source-to-internal component mapping. Wolf 424 has a slight V-band brightness reversal; do not reorder the A/B identities by brightness."
+    },
+    {
+      "starId": "msc-16240+4822-ab",
+      "expectedName": "G 202-45 Ab",
+      "systemId": "msc-16240+4822",
+      "systemName": "G 202-45",
+      "component": "Ab",
+      "publishedComponent": "GJ 623 B (internal Ab)",
+      "identityEvidence": {
+        "designations": [
+          "WDS J16240+4822Ab"
+        ],
+        "decision": "Published system/component mapped to the existing reviewed component identity; shared Gaia or parent aliases alone must not select the leaf."
+      },
+      "fields": {
+        "mass_solar": {
+          "value": 0.114,
+          "uncertainty": 0.002,
+          "status": "dynamical",
+          "reference": "2016AJ....152..141B",
+          "section": "Table 10",
+          "sourceUrl": "https://www.astro.gsu.edu/RECONS/published37.pdf"
+        },
+        "absolute_mag": {
+          "value": 16.05,
+          "uncertainty": 0.1,
+          "status": "derived",
+          "passband": "Johnson V",
+          "scope": "Individual absolute V at the paper parallax. For adoption at the current catalog distance, use Table 10 system V and delta V; do not treat absolute V as an observed apparent magnitude.",
+          "reference": "2016AJ....152..141B",
+          "section": "Table 10",
+          "sourceUrl": "https://www.astro.gsu.edu/RECONS/published37.pdf"
+        }
+      },
+      "adoptionStatus": "research-only; not applied",
+      "caveat": "Retain formal uncertainties, source parallax and the source-to-internal component mapping. Wolf 424 has a slight V-band brightness reversal; do not reorder the A/B identities by brightness."
+    },
+    {
+      "starId": "cns5-5064",
+      "expectedName": "G 24-16 A",
+      "systemId": "orb6-20298+0941-a-b",
+      "systemName": "G 24-16",
+      "component": "A",
+      "publishedComponent": "GJ 791.2 A",
+      "identityEvidence": {
+        "designations": [
+          "GJ 791.2",
+          "GJ 791.2 A",
+          "GJ 791.2 B",
+          "1RXS J202947.8+094118",
+          "2E 2027.3+0931",
+          "2E 4369",
+          "2EUVE J2029+09.7",
+          "2MASS J20294834+0941202",
+          "[GKL99] 385",
+          "[RHG95] 3198",
+          "AST 2",
+          "CCDM J20298+0941AB",
+          "CNS5 5064",
+          "CSI+09-20274",
+          "EUVE J2029+09.6",
+          "EUVE J2029+09.7",
+          "G 144-8",
+          "Gaia DR2 1752805741531173632",
+          "Gaia DR3 1752805741531173632",
+          "GEN# +9.80024016",
+          "HU Del",
+          "JP11 5099",
+          "Karmn J20298+096",
+          "LHS 3556",
+          "LSPM J2029+0941",
+          "LTT 15983",
+          "NLTT 49339",
+          "PLX 4874.01",
+          "PM 20274+0931",
+          "PM J20298+0941",
+          "TIC 374416052",
+          "UBV 17774",
+          "UBV M 53482",
+          "UCAC4 499-131384",
+          "USNO 78",
+          "USNO-B1.0 0996-00559739",
+          "WDS J20298+0941AB",
+          "WISEA J202948.79+094121.5",
+          "WISEP J202948.79+094121.5",
+          "Zkh 306",
+          "Zkh 307",
+          "G 24-16",
+          "WDS J20298+0941A",
+          "cns5-5064"
+        ],
+        "decision": "Published system/component mapped to the existing reviewed component identity; shared Gaia or parent aliases alone must not select the leaf."
+      },
+      "fields": {
+        "mass_solar": {
+          "value": 0.237,
+          "uncertainty": 0.004,
+          "status": "dynamical",
+          "reference": "2016AJ....152..141B",
+          "section": "Table 10",
+          "sourceUrl": "https://www.astro.gsu.edu/RECONS/published37.pdf"
+        },
+        "absolute_mag": {
+          "value": 13.46,
+          "uncertainty": 0.04,
+          "status": "derived",
+          "passband": "Johnson V",
+          "scope": "Individual absolute V at the paper parallax. For adoption at the current catalog distance, use Table 10 system V and delta V; do not treat absolute V as an observed apparent magnitude.",
+          "reference": "2016AJ....152..141B",
+          "section": "Table 10",
+          "sourceUrl": "https://www.astro.gsu.edu/RECONS/published37.pdf"
+        }
+      },
+      "adoptionStatus": "research-only; not applied",
+      "caveat": "Retain formal uncertainties, source parallax and the source-to-internal component mapping. Wolf 424 has a slight V-band brightness reversal; do not reorder the A/B identities by brightness."
+    },
+    {
+      "starId": "orb6-20298+0941-a-b-b",
+      "expectedName": "G 24-16 B",
+      "systemId": "orb6-20298+0941-a-b",
+      "systemName": "G 24-16",
+      "component": "B",
+      "publishedComponent": "GJ 791.2 B",
+      "identityEvidence": {
+        "designations": [
+          "WDS J20298+0941B"
+        ],
+        "decision": "Published system/component mapped to the existing reviewed component identity; shared Gaia or parent aliases alone must not select the leaf."
+      },
+      "fields": {
+        "mass_solar": {
+          "value": 0.114,
+          "uncertainty": 0.002,
+          "status": "dynamical",
+          "reference": "2016AJ....152..141B",
+          "section": "Table 10",
+          "sourceUrl": "https://www.astro.gsu.edu/RECONS/published37.pdf"
+        },
+        "absolute_mag": {
+          "value": 16.73,
+          "uncertainty": 0.1,
+          "status": "derived",
+          "passband": "Johnson V",
+          "scope": "Individual absolute V at the paper parallax. For adoption at the current catalog distance, use Table 10 system V and delta V; do not treat absolute V as an observed apparent magnitude.",
+          "reference": "2016AJ....152..141B",
+          "section": "Table 10",
+          "sourceUrl": "https://www.astro.gsu.edu/RECONS/published37.pdf"
+        }
+      },
+      "adoptionStatus": "research-only; not applied",
+      "caveat": "Retain formal uncertainties, source parallax and the source-to-internal component mapping. Wolf 424 has a slight V-band brightness reversal; do not reorder the A/B identities by brightness."
+    },
+    {
+      "starId": "10pc-0110",
+      "expectedName": "GJ 166 B",
+      "systemId": "keid",
+      "systemName": "Keid",
+      "component": "B",
+      "publishedComponent": "40 Eridani B / GJ 166 B",
+      "identityEvidence": {
+        "designation": "WDS J04153-0739B"
+      },
+      "fields": {
+        "mass_solar": {
+          "value": 0.573,
+          "uncertainty": 0.018,
+          "status": "dynamical",
+          "reference": "arXiv:1709.00478",
+          "section": "Table 1; mass attributed to Mason et al. 2017",
+          "sourceUrl": "https://arxiv.org/pdf/1709.00478"
+        },
+        "radius_solar": {
+          "value": 0.01308,
+          "uncertainty": 0.0002,
+          "status": "derived",
+          "reference": "arXiv:1709.00478",
+          "section": "Table 1",
+          "sourceUrl": "https://arxiv.org/pdf/1709.00478"
+        }
+      },
+      "adoptionStatus": "research-only; not applied",
+      "caveat": "Dedicated white dwarf analysis is available. Resolve the preferred literature release and distance before adoption; do not use an M-dwarf G-band calibration for this star."
+    },
+    {
+      "starId": "10pc-0030",
+      "expectedName": "61 Cyg B",
+      "systemId": "msc-21069+3845",
+      "systemName": "61 Cyg",
+      "component": "B",
+      "publishedComponent": "61 Cygni B",
+      "identityEvidence": {
+        "designation": "GJ 820 B"
+      },
+      "fields": {
+        "mass_solar": {
+          "value": 0.6289,
+          "uncertainty": {
+            "minus": 0.0092,
+            "plus": 0.0094
+          },
+          "status": "dynamical",
+          "reference": "2025AJ....170...52G",
+          "section": "section V.2 and Table 6",
+          "sourceUrl": "https://arxiv.org/html/2505.12563v1"
+        }
+      },
+      "adoptionStatus": "research-only; not applied",
+      "caveat": "Table 6 uses 61 Cyg B as the fitted primary, reversing the familiar A/B labels. Section V.2 explicitly resolves the assignment; do not copy its primary/secondary columns mechanically."
+    }
+  ]
+}

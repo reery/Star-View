@@ -1,0 +1,619 @@
+{
+  "schemaVersion": 1,
+  "abbreviation": "Ant",
+  "name": "Antlia",
+  "center": {
+    "ra_deg": 153.35145588674484,
+    "dec_deg": -33.52956425228079
+  },
+  "stars": [
+    {
+      "hip": 48926,
+      "name": "Eta Ant",
+      "ra_deg": 149.71781426255,
+      "dec_deg": -35.8909728992,
+      "magnitude_v": 5.23,
+      "bayer": "η",
+      "object": {
+        "x_pc": -1.15641966,
+        "y_pc": -32.097963658,
+        "z_pc": 8.604724614,
+        "vx_kms": -10.344621,
+        "vy_kms": -26.05333,
+        "vz_kms": -4.17085,
+        "temperature_k": 7244.0,
+        "mass_solar": 1.54,
+        "luminosity_solar": 6.975406688669904,
+        "radius_solar": 1.5848931924611136,
+        "metallicity_dex": -0.6254,
+        "age_gyr": 1.2920353,
+        "absolute_mag": 2.612948,
+        "epoch": 2000.0,
+        "type": "star",
+        "id": "hip-48926",
+        "name": "Eta Ant",
+        "constellation": "Antlia",
+        "spectral_type": "F1V",
+        "metallicity_kind": "[M/H]",
+        "notes": "Western constellation line-figure star (HIP 48926; Stellarium Ant). SIMBAD identity * eta Ant; SIMBAD compiled Johnson V=5.222; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, mass_solar, radius_solar, luminosity_solar; Gaia DR3 model values for metallicity_dex, age_gyr.",
+        "designations": [
+          "HIP 48926"
+        ],
+        "raw_astrometry": {
+          "ra_deg": 149.71781426255,
+          "dec_deg": -35.8909728992,
+          "parallax_mas": 30.0499,
+          "parallax_error_mas": 0.0776,
+          "pm_ra_cosdec_masyr": -89.728,
+          "pm_ra_error_masyr": null,
+          "pm_dec_masyr": -15.945,
+          "pm_dec_error_masyr": null,
+          "radial_velocity_kms": 24.43,
+          "radial_velocity_error_kms": null,
+          "epoch": 2000.0,
+          "astrometry_ref": "SIMBAD TAP snapshot 2026-10-01",
+          "radial_velocity_ref": "SIMBAD TAP snapshot 2026-10-01"
+        }
+      }
+    },
+    {
+      "hip": 51172,
+      "name": "Alpha Ant",
+      "ra_deg": 156.7879193306,
+      "dec_deg": -31.06777913925,
+      "magnitude_v": 4.28,
+      "bayer": "α",
+      "object": {
+        "x_pc": -0.222422434,
+        "y_pc": -103.389876451,
+        "z_pc": 42.587240626,
+        "vx_kms": -38.498434,
+        "vy_kms": -18.872185,
+        "vz_kms": -13.984949,
+        "temperature_k": 4247.0,
+        "mass_solar": null,
+        "luminosity_solar": 445.1508604715339,
+        "radius_solar": 40.02883,
+        "metallicity_dex": -0.25,
+        "age_gyr": null,
+        "absolute_mag": -0.992552,
+        "epoch": 2000.0,
+        "type": "star",
+        "id": "hip-51172",
+        "name": "Alpha Ant",
+        "constellation": "Antlia",
+        "spectral_type": "K3III",
+        "metallicity_kind": "[M/H]",
+        "notes": "Western constellation line-figure star (HIP 51172; Stellarium Ant). SIMBAD identity * alf Ant; SIMBAD compiled Johnson V=4.25; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, luminosity_solar; Gaia DR3 model values for metallicity_dex, radius_solar.",
+        "designations": [
+          "HIP 51172"
+        ],
+        "raw_astrometry": {
+          "ra_deg": 156.7879193306,
+          "dec_deg": -31.06777913925,
+          "parallax_mas": 8.9069,
+          "parallax_error_mas": 0.1513,
+          "pm_ra_cosdec_masyr": -81.32,
+          "pm_ra_error_masyr": null,
+          "pm_dec_masyr": 9.798,
+          "pm_dec_error_masyr": null,
+          "radial_velocity_kms": 12.2,
+          "radial_velocity_error_kms": null,
+          "epoch": 2000.0,
+          "astrometry_ref": "SIMBAD TAP snapshot 2026-10-01",
+          "radial_velocity_ref": "SIMBAD TAP snapshot 2026-10-01"
+        }
+      }
+    }
+  ],
+  "lines": [
+    [
+      51172,
+      48926
+    ]
+  ],
+  "boundaries": [
+    {
+      "neighbor": "Vela",
+      "neighbor_abbreviation": "VEL",
+      "points": [
+        {
+          "ra_deg": 141.771599,
+          "dec_deg": -37.2920151
+        },
+        {
+          "ra_deg": 141.759438,
+          "dec_deg": -38.2919693
+        },
+        {
+          "ra_deg": 141.746936,
+          "dec_deg": -39.2919197
+        },
+        {
+          "ra_deg": 141.734061,
+          "dec_deg": -40.2918739
+        }
+      ]
+    },
+    {
+      "neighbor": "Vela",
+      "neighbor_abbreviation": "VEL",
+      "points": [
+        {
+          "ra_deg": 141.734061,
+          "dec_deg": -40.2918739
+        },
+        {
+          "ra_deg": 142.741942,
+          "dec_deg": -40.2994461
+        },
+        {
+          "ra_deg": 143.750096,
+          "dec_deg": -40.3068504
+        },
+        {
+          "ra_deg": 144.758349,
+          "dec_deg": -40.3140831
+        },
+        {
+          "ra_deg": 145.766559,
+          "dec_deg": -40.3211441
+        },
+        {
+          "ra_deg": 146.775027,
+          "dec_deg": -40.3280334
+        },
+        {
+          "ra_deg": 147.783609,
+          "dec_deg": -40.3347435
+        },
+        {
+          "ra_deg": 148.792134,
+          "dec_deg": -40.3412704
+        },
+        {
+          "ra_deg": 149.800916,
+          "dec_deg": -40.3476181
+        },
+        {
+          "ra_deg": 150.809784,
+          "dec_deg": -40.3537865
+        },
+        {
+          "ra_deg": 151.818596,
+          "dec_deg": -40.3597641
+        },
+        {
+          "ra_deg": 152.827649,
+          "dec_deg": -40.3655586
+        },
+        {
+          "ra_deg": 153.836789,
+          "dec_deg": -40.3711624
+        },
+        {
+          "ra_deg": 154.845858,
+          "dec_deg": -40.3765755
+        },
+        {
+          "ra_deg": 155.855169,
+          "dec_deg": -40.381794
+        },
+        {
+          "ra_deg": 156.864552,
+          "dec_deg": -40.3868217
+        },
+        {
+          "ra_deg": 157.873849,
+          "dec_deg": -40.3916512
+        },
+        {
+          "ra_deg": 158.88339,
+          "dec_deg": -40.396286
+        },
+        {
+          "ra_deg": 159.892987,
+          "dec_deg": -40.4007225
+        },
+        {
+          "ra_deg": 160.902499,
+          "dec_deg": -40.4049568
+        },
+        {
+          "ra_deg": 161.912256,
+          "dec_deg": -40.4089928
+        },
+        {
+          "ra_deg": 162.922039,
+          "dec_deg": -40.4128227
+        },
+        {
+          "ra_deg": 163.931737,
+          "dec_deg": -40.4164505
+        },
+        {
+          "ra_deg": 164.941635,
+          "dec_deg": -40.4198723
+        },
+        {
+          "ra_deg": 165.951591,
+          "dec_deg": -40.4230919
+        },
+        {
+          "ra_deg": 166.456504,
+          "dec_deg": -40.4246216
+        }
+      ]
+    },
+    {
+      "neighbor": "Centaurus",
+      "neighbor_abbreviation": "CEN",
+      "points": [
+        {
+          "ra_deg": 166.456504,
+          "dec_deg": -40.4246216
+        },
+        {
+          "ra_deg": 166.461569,
+          "dec_deg": -39.4246292
+        },
+        {
+          "ra_deg": 166.466504,
+          "dec_deg": -38.4246368
+        },
+        {
+          "ra_deg": 166.471281,
+          "dec_deg": -37.4246445
+        },
+        {
+          "ra_deg": 166.475944,
+          "dec_deg": -36.4246483
+        },
+        {
+          "ra_deg": 166.479363,
+          "dec_deg": -35.6746559
+        }
+      ]
+    },
+    {
+      "neighbor": "Hydra",
+      "neighbor_abbreviation": "HYA",
+      "points": [
+        {
+          "ra_deg": 166.479363,
+          "dec_deg": -35.6746559
+        },
+        {
+          "ra_deg": 165.470967,
+          "dec_deg": -35.6715469
+        },
+        {
+          "ra_deg": 164.462757,
+          "dec_deg": -35.668232
+        },
+        {
+          "ra_deg": 163.958516,
+          "dec_deg": -35.6664963
+        }
+      ]
+    },
+    {
+      "neighbor": "Hydra",
+      "neighbor_abbreviation": "HYA",
+      "points": [
+        {
+          "ra_deg": 163.958516,
+          "dec_deg": -35.6664963
+        },
+        {
+          "ra_deg": 163.963737,
+          "dec_deg": -34.6665039
+        },
+        {
+          "ra_deg": 163.968844,
+          "dec_deg": -33.6665154
+        },
+        {
+          "ra_deg": 163.973823,
+          "dec_deg": -32.666523
+        },
+        {
+          "ra_deg": 163.977885,
+          "dec_deg": -31.8332005
+        }
+      ]
+    },
+    {
+      "neighbor": "Hydra",
+      "neighbor_abbreviation": "HYA",
+      "points": [
+        {
+          "ra_deg": 163.977885,
+          "dec_deg": -31.8332005
+        },
+        {
+          "ra_deg": 162.970863,
+          "dec_deg": -31.8295822
+        },
+        {
+          "ra_deg": 161.963739,
+          "dec_deg": -31.8257599
+        },
+        {
+          "ra_deg": 160.95663,
+          "dec_deg": -31.8217373
+        },
+        {
+          "ra_deg": 160.201379,
+          "dec_deg": -31.8185863
+        }
+      ]
+    },
+    {
+      "neighbor": "Hydra",
+      "neighbor_abbreviation": "HYA",
+      "points": [
+        {
+          "ra_deg": 160.201379,
+          "dec_deg": -31.8185863
+        },
+        {
+          "ra_deg": 160.2072,
+          "dec_deg": -30.8186016
+        },
+        {
+          "ra_deg": 160.212894,
+          "dec_deg": -29.8186131
+        }
+      ]
+    },
+    {
+      "neighbor": "Hydra",
+      "neighbor_abbreviation": "HYA",
+      "points": [
+        {
+          "ra_deg": 160.212894,
+          "dec_deg": -29.8186131
+        },
+        {
+          "ra_deg": 159.206571,
+          "dec_deg": -29.8142414
+        },
+        {
+          "ra_deg": 158.200149,
+          "dec_deg": -29.8096714
+        },
+        {
+          "ra_deg": 157.193771,
+          "dec_deg": -29.804903
+        },
+        {
+          "ra_deg": 156.187591,
+          "dec_deg": -29.799942
+        },
+        {
+          "ra_deg": 155.181327,
+          "dec_deg": -29.7947845
+        }
+      ]
+    },
+    {
+      "neighbor": "Hydra",
+      "neighbor_abbreviation": "HYA",
+      "points": [
+        {
+          "ra_deg": 155.181327,
+          "dec_deg": -29.7947845
+        },
+        {
+          "ra_deg": 155.188194,
+          "dec_deg": -28.7948036
+        },
+        {
+          "ra_deg": 155.194917,
+          "dec_deg": -27.7948189
+        },
+        {
+          "ra_deg": 155.199337,
+          "dec_deg": -27.1281624
+        }
+      ]
+    },
+    {
+      "neighbor": "Hydra",
+      "neighbor_abbreviation": "HYA",
+      "points": [
+        {
+          "ra_deg": 155.199337,
+          "dec_deg": -27.1281624
+        },
+        {
+          "ra_deg": 154.193774,
+          "dec_deg": -27.1228161
+        },
+        {
+          "ra_deg": 153.188411,
+          "dec_deg": -27.117281
+        },
+        {
+          "ra_deg": 152.182946,
+          "dec_deg": -27.1115551
+        },
+        {
+          "ra_deg": 151.177526,
+          "dec_deg": -27.1056423
+        },
+        {
+          "ra_deg": 150.172334,
+          "dec_deg": -27.0995464
+        },
+        {
+          "ra_deg": 149.167027,
+          "dec_deg": -27.0932636
+        },
+        {
+          "ra_deg": 148.161794,
+          "dec_deg": -27.0868015
+        },
+        {
+          "ra_deg": 147.659283,
+          "dec_deg": -27.0835037
+        }
+      ]
+    },
+    {
+      "neighbor": "Hydra",
+      "neighbor_abbreviation": "HYA",
+      "points": [
+        {
+          "ra_deg": 147.659283,
+          "dec_deg": -27.0835037
+        },
+        {
+          "ra_deg": 147.667536,
+          "dec_deg": -26.0835304
+        },
+        {
+          "ra_deg": 147.675661,
+          "dec_deg": -25.0835571
+        },
+        {
+          "ra_deg": 147.679681,
+          "dec_deg": -24.5835705
+        }
+      ]
+    },
+    {
+      "neighbor": "Hydra",
+      "neighbor_abbreviation": "HYA",
+      "points": [
+        {
+          "ra_deg": 147.679681,
+          "dec_deg": -24.5835705
+        },
+        {
+          "ra_deg": 146.675076,
+          "dec_deg": -24.5768433
+        },
+        {
+          "ra_deg": 145.670671,
+          "dec_deg": -24.5699406
+        },
+        {
+          "ra_deg": 144.66618,
+          "dec_deg": -24.5628624
+        },
+        {
+          "ra_deg": 143.661747,
+          "dec_deg": -24.5556126
+        },
+        {
+          "ra_deg": 142.657529,
+          "dec_deg": -24.5481949
+        },
+        {
+          "ra_deg": 141.904335,
+          "dec_deg": -24.5425186
+        }
+      ]
+    },
+    {
+      "neighbor": "Pyxis",
+      "neighbor_abbreviation": "PYX",
+      "points": [
+        {
+          "ra_deg": 141.904335,
+          "dec_deg": -24.5425186
+        },
+        {
+          "ra_deg": 141.89508,
+          "dec_deg": -25.5424843
+        },
+        {
+          "ra_deg": 141.885667,
+          "dec_deg": -26.542448
+        },
+        {
+          "ra_deg": 141.876096,
+          "dec_deg": -27.5424118
+        },
+        {
+          "ra_deg": 141.86634,
+          "dec_deg": -28.5423756
+        },
+        {
+          "ra_deg": 141.856398,
+          "dec_deg": -29.5423374
+        },
+        {
+          "ra_deg": 141.846256,
+          "dec_deg": -30.5422993
+        },
+        {
+          "ra_deg": 141.835914,
+          "dec_deg": -31.5422573
+        },
+        {
+          "ra_deg": 141.825342,
+          "dec_deg": -32.5422173
+        },
+        {
+          "ra_deg": 141.814527,
+          "dec_deg": -33.5421791
+        },
+        {
+          "ra_deg": 141.803469,
+          "dec_deg": -34.5421333
+        },
+        {
+          "ra_deg": 141.792139,
+          "dec_deg": -35.5420914
+        },
+        {
+          "ra_deg": 141.780525,
+          "dec_deg": -36.5420494
+        },
+        {
+          "ra_deg": 141.771599,
+          "dec_deg": -37.2920151
+        }
+      ]
+    }
+  ],
+  "sources": [
+    {
+      "label": "Stellarium Western sky culture",
+      "url": "https://raw.githubusercontent.com/Stellarium/stellarium-skycultures/014fbb5e59233d133c22f9811af96b67d05a95c9/western/index.json",
+      "path": "catalog-work/western-constellation-stars/stellarium-western-index.json",
+      "sha256": "a861accd345249a185a5ecfc2a516f34291c0aa52f4bb8d8337ffc53e9cef6b9"
+    },
+    {
+      "label": "Adopted star positions and names",
+      "url": "https://simbad.cds.unistra.fr/simbad/",
+      "path": "src/data/catalogs/western-constellation-stars/stars.csv",
+      "sha256": "0a8b7c1dc3f7e3412c5cffb09a18cdf5b5b7424cc89ea8a0a1ffb4da57d3ad6a"
+    },
+    {
+      "label": "Hipparcos Johnson V magnitudes",
+      "url": "https://cdsarc.cds.unistra.fr/viz-bin/cat/I/239",
+      "path": "catalog-work/western-constellation-stars/hipparcos-v.csv",
+      "sha256": "eec12b740da3aac5204ba75ca5158b6f9f2f81886dda2526fe765cf9ea159320"
+    },
+    {
+      "label": "CDS / IAU constellation boundaries (J2000)",
+      "url": "https://cdsarc.cds.unistra.fr/viz-bin/cat/VI/49",
+      "path": "catalog-work/constellation-charts/boundaries-j2000.dat.gz",
+      "sha256": "879cd6e7a1c908f1e19a5f5fe8cc75fb1d1077564e3890f9152a3680affe9aac",
+      "inputs": [
+        {
+          "path": "catalog-work/constellation-charts/boundary-contours-b1875.dat",
+          "sha256": "865cdf4218f676eb304587c75c63231948d29cd0abe6892a8a8130c1c4fe3592"
+        },
+        {
+          "path": "catalog-work/constellation-charts/boundary-contours-readme.txt",
+          "sha256": "a3ec688bea21e9db10832842c9b845558dbe8ccf820ddedec842d664d2b74c89"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,161 @@
+{
+  "discovery": {
+    "who": "Trujillo, C. A., Brown, M. E.",
+    "cref": "WGSBN Bull. 5, #11, 13",
+    "site": null,
+    "discovery": "",
+    "citation": "Máni is a personification of the Moon from Old Norse as described in the <i>Prose Edda</i>.  Máni is the son of Mundilfari and the brother of Sól, the Sun.",
+    "ref": "20111210/Numbers.arc",
+    "date": "2002-Jun-18",
+    "location": "Palomar",
+    "name": "Máni"
+  },
+  "phys_par": [
+    {
+      "ref": "MPO916462",
+      "value": "3.64",
+      "notes": null,
+      "desc": "absolute magnitude (magnitude at 1 au from Sun and observer)",
+      "sigma": null,
+      "units": null,
+      "title": "absolute magnitude",
+      "name": "H"
+    }
+  ],
+  "object": {
+    "prefix": null,
+    "kind": "an",
+    "des": "307261",
+    "fullname": "307261 Mani (2002 MS4)",
+    "spkid": "20307261",
+    "shortname": "307261 Mani",
+    "pha": false,
+    "neo": false,
+    "orbit_class": {
+      "name": "TransNeptunian Object",
+      "code": "TNO"
+    },
+    "orbit_id": "25"
+  },
+  "signature": {
+    "source": "NASA/JPL Small-Body Database (SBDB) API",
+    "version": "1.3"
+  },
+  "orbit": {
+    "source": "JPL",
+    "soln_date": "2026-03-14 07:51:28",
+    "data_arc": "25288",
+    "sb_used": "SB441-N16",
+    "first_obs": "1954-04-08",
+    "comment": null,
+    "condition_code": "1",
+    "n_dop_obs_used": null,
+    "moid": "34.4517",
+    "last_obs": "2023-07-03",
+    "rms": ".61667",
+    "two_body": null,
+    "cov_epoch": "2458378.5",
+    "model_pars": [],
+    "t_jup": "5.452",
+    "n_obs_used": 496,
+    "producer": "Otto Matic",
+    "pe_used": "DE441",
+    "not_valid_after": null,
+    "n_del_obs_used": null,
+    "moid_jup": "30.4436",
+    "equinox": "J2000",
+    "epoch": "2461200.5",
+    "not_valid_before": null,
+    "elements": [
+      {
+        "name": "e",
+        "sigma": "1.5349E-6",
+        "units": null,
+        "title": "eccentricity",
+        "label": "e",
+        "value": ".1482654554299753"
+      },
+      {
+        "title": "semi-major axis",
+        "sigma": "2.8423E-5",
+        "units": "au",
+        "label": "a",
+        "name": "a",
+        "value": "41.58863664738092"
+      },
+      {
+        "sigma": "5.7752E-5",
+        "units": "au",
+        "title": "perihelion distance",
+        "label": "q",
+        "name": "q",
+        "value": "35.42247849414523"
+      },
+      {
+        "value": "17.69991360489779",
+        "name": "i",
+        "units": "deg",
+        "sigma": "2.2422E-6",
+        "title": "inclination; angle with respect to x-y ecliptic plane",
+        "label": "i"
+      },
+      {
+        "name": "om",
+        "label": "node",
+        "sigma": "1.5678E-5",
+        "title": "longitude of the ascending node",
+        "units": "deg",
+        "value": "216.1403186984926"
+      },
+      {
+        "name": "w",
+        "label": "peri",
+        "title": "argument of perihelion",
+        "sigma": ".001016",
+        "units": "deg",
+        "value": "215.4842690316302"
+      },
+      {
+        "value": "230.3015162420507",
+        "name": "ma",
+        "label": "M",
+        "sigma": ".0013948",
+        "units": "deg",
+        "title": "mean anomaly"
+      },
+      {
+        "value": "2496493.847360775530",
+        "label": "tp",
+        "sigma": ".35628",
+        "title": "time of perihelion passage",
+        "units": "TDB",
+        "name": "tp"
+      },
+      {
+        "name": "per",
+        "label": "period",
+        "sigma": ".10043",
+        "title": "sidereal orbital period",
+        "units": "d",
+        "value": "97962.63365415373"
+      },
+      {
+        "title": "mean motion",
+        "sigma": "3.7672E-9",
+        "units": "deg/d",
+        "label": "n",
+        "name": "n",
+        "value": ".003674870576376502"
+      },
+      {
+        "sigma": "3.2637E-5",
+        "units": "au",
+        "title": "aphelion distance",
+        "label": "Q",
+        "name": "ad",
+        "value": "47.75479480061662"
+      }
+    ],
+    "orbit_id": "25"
+  }
+}

@@ -4708,8 +4708,7 @@
     "10pc-0031": {
       "subtypes": [
         "Rotating variable",
-        "Spectroscopic binary",
-        "Subgiant"
+        "Spectroscopic binary"
       ],
       "known_planets": 0,
       "simbadId": "* alf CMi",
@@ -6135,8 +6134,7 @@
     },
     "bright-acrux": {
       "subtypes": [
-        "Spectroscopic binary",
-        "Subgiant"
+        "Spectroscopic binary"
       ],
       "known_planets": 0,
       "simbadId": "* alf Cru",
@@ -6152,7 +6150,9 @@
       "planetHosts": []
     },
     "bright-adhara": {
-      "subtypes": [],
+      "subtypes": [
+        "Bright giant"
+      ],
       "known_planets": 0,
       "simbadId": "* eps CMa",
       "sourceTypes": [
@@ -6167,7 +6167,8 @@
     },
     "bright-aldebaran": {
       "subtypes": [
-        "Long-period variable candidate"
+        "Long-period variable candidate",
+        "Giant"
       ],
       "known_planets": 1,
       "simbadId": "* alf Tau",
@@ -6228,8 +6229,7 @@
     },
     "bright-alhena": {
       "subtypes": [
-        "Spectroscopic binary",
-        "Subgiant"
+        "Spectroscopic binary"
       ],
       "known_planets": 0,
       "simbadId": "* gam Gem",
@@ -6246,8 +6246,7 @@
     },
     "bright-alioth": {
       "subtypes": [
-        "Alpha² CVn variable",
-        "Giant"
+        "Alpha² CVn variable"
       ],
       "known_planets": 0,
       "simbadId": "* eps UMa",
@@ -6298,7 +6297,9 @@
       "planetHosts": []
     },
     "bright-almach": {
-      "subtypes": [],
+      "subtypes": [
+        "Bright giant"
+      ],
       "known_planets": 0,
       "simbadId": "* gam01 And",
       "sourceTypes": [
@@ -6354,8 +6355,7 @@
     "bright-alnitak": {
       "subtypes": [
         "Emission-line star",
-        "Variable star",
-        "Supergiant"
+        "Variable star"
       ],
       "known_planets": 0,
       "simbadId": "* zet Ori",
@@ -6457,8 +6457,7 @@
     "bright-alpheratz": {
       "subtypes": [
         "Spectroscopic binary",
-        "Alpha² CVn variable",
-        "Subgiant"
+        "Alpha² CVn variable"
       ],
       "known_planets": 0,
       "simbadId": "* alf And",
@@ -6712,7 +6711,9 @@
       "planetHosts": []
     },
     "bright-canopus": {
-      "subtypes": [],
+      "subtypes": [
+        "Bright giant"
+      ],
       "known_planets": 0,
       "simbadId": "* alf Car",
       "sourceTypes": [
@@ -6746,8 +6747,7 @@
     },
     "bright-castor": {
       "subtypes": [
-        "Variable star",
-        "Main-sequence"
+        "Variable star"
       ],
       "known_planets": 0,
       "simbadId": "* alf Gem",
@@ -6866,8 +6866,7 @@
     "bright-dubhe": {
       "subtypes": [
         "Spectroscopic binary",
-        "Variable star",
-        "Giant"
+        "Variable star"
       ],
       "known_planets": 0,
       "simbadId": "* alf UMa",
@@ -6918,8 +6917,7 @@
     "bright-enif": {
       "subtypes": [
         "Long-period variable",
-        "Chemically peculiar",
-        "Supergiant"
+        "Chemically peculiar"
       ],
       "known_planets": 0,
       "simbadId": "* eps Peg",
@@ -7036,9 +7034,7 @@
       "planetHosts": []
     },
     "bright-gamma-centauri": {
-      "subtypes": [
-        "Subgiant"
-      ],
+      "subtypes": [],
       "known_planets": 0,
       "simbadId": "* gam Cen",
       "sourceTypes": [
@@ -7090,7 +7086,8 @@
     },
     "bright-hamal": {
       "subtypes": [
-        "Variable star"
+        "Variable star",
+        "Giant"
       ],
       "known_planets": 1,
       "simbadId": "* alf Ari",
@@ -7155,7 +7152,7 @@
     },
     "bright-kaus-australis": {
       "subtypes": [
-        "Subgiant"
+        "Subgiant candidate"
       ],
       "known_planets": 0,
       "simbadId": "* eps Sgr",
@@ -7192,7 +7189,8 @@
     },
     "bright-kochab": {
       "subtypes": [
-        "Variable star"
+        "Variable star",
+        "Giant"
       ],
       "known_planets": 1,
       "simbadId": "* bet UMi",
@@ -7210,7 +7208,8 @@
     },
     "bright-kraz": {
       "subtypes": [
-        "Variable star"
+        "Variable star",
+        "Bright giant"
       ],
       "known_planets": 0,
       "simbadId": "* bet Crv",
@@ -7313,8 +7312,7 @@
       "subtypes": [
         "Eclipsing binary",
         "Spectroscopic binary",
-        "Variable star",
-        "Subgiant"
+        "Variable star"
       ],
       "known_planets": 0,
       "simbadId": "* bet Aur",
@@ -7348,7 +7346,9 @@
       "planetHosts": []
     },
     "bright-menkent": {
-      "subtypes": [],
+      "subtypes": [
+        "Giant"
+      ],
       "known_planets": 0,
       "simbadId": "* tet Cen",
       "sourceTypes": [
@@ -7420,7 +7420,8 @@
       "subtypes": [
         "Eclipsing binary",
         "Spectroscopic binary",
-        "Variable star"
+        "Variable star",
+        "Bright giant"
       ],
       "known_planets": 0,
       "simbadId": "* del Ori",
@@ -7439,7 +7440,8 @@
     },
     "bright-mirach": {
       "subtypes": [
-        "Variable star"
+        "Variable star",
+        "Giant"
       ],
       "known_planets": 1,
       "simbadId": "* bet And",
@@ -7654,8 +7656,7 @@
     "bright-procyon": {
       "subtypes": [
         "Rotating variable",
-        "Spectroscopic binary",
-        "Subgiant"
+        "Spectroscopic binary"
       ],
       "known_planets": 0,
       "simbadId": "* alf CMi",
@@ -7699,8 +7700,7 @@
         "Wolf–Rayet",
         "Emission-line star",
         "Spectroscopic binary",
-        "Variable star",
-        "Giant"
+        "Variable star"
       ],
       "known_planets": 0,
       "simbadId": "* gam02 Vel",
@@ -7785,9 +7785,7 @@
       "planetHosts": []
     },
     "bright-sabik": {
-      "subtypes": [
-        "Subgiant"
-      ],
+      "subtypes": [],
       "known_planets": 0,
       "simbadId": "* eta Oph",
       "sourceTypes": [
@@ -7872,7 +7870,8 @@
     },
     "bright-schedar": {
       "subtypes": [
-        "Variable star"
+        "Variable star",
+        "Giant"
       ],
       "known_planets": 0,
       "simbadId": "* alf Cas",
@@ -7891,8 +7890,7 @@
       "subtypes": [
         "Eclipsing binary",
         "Beta Cephei variable",
-        "Beta Cephei variable candidate",
-        "Subgiant"
+        "Beta Cephei variable candidate"
       ],
       "known_planets": 0,
       "simbadId": "* lam Sco",
@@ -9822,7 +9820,8 @@
     },
     "cns5-0529": {
       "subtypes": [
-        "Rotating variable"
+        "Rotating variable",
+        "Main-sequence"
       ],
       "known_planets": 0,
       "simbadId": "CD-30   731",
@@ -10939,9 +10938,7 @@
       "planetHosts": []
     },
     "cns5-0923": {
-      "subtypes": [
-        "Subgiant"
-      ],
+      "subtypes": [],
       "known_planets": 0,
       "simbadId": "*  10 Tau",
       "sourceTypes": [
@@ -11008,7 +11005,8 @@
     },
     "cns5-0938": {
       "subtypes": [
-        "Rotating variable"
+        "Rotating variable",
+        "Subgiant"
       ],
       "known_planets": 0,
       "simbadId": "* del Eri",
@@ -11252,7 +11250,9 @@
       "planetHosts": []
     },
     "cns5-1074": {
-      "subtypes": [],
+      "subtypes": [
+        "Main-sequence"
+      ],
       "known_planets": 0,
       "simbadId": "LSR J0419+4233",
       "sourceTypes": [
@@ -11550,8 +11550,7 @@
     "cns5-1198": {
       "subtypes": [
         "BY Draconis variable",
-        "Rotating variable",
-        "Subgiant"
+        "Rotating variable"
       ],
       "known_planets": 0,
       "simbadId": "*  58 Eri",
@@ -11747,7 +11746,8 @@
     },
     "cns5-1252": {
       "subtypes": [
-        "Rotating variable"
+        "Rotating variable",
+        "Main-sequence"
       ],
       "known_planets": 0,
       "simbadId": "HD  32147",
@@ -12018,9 +12018,7 @@
       "planetHosts": []
     },
     "cns5-1332": {
-      "subtypes": [
-        "Subgiant"
-      ],
+      "subtypes": [],
       "known_planets": 0,
       "simbadId": "* lam Aur",
       "sourceTypes": [
@@ -13841,7 +13839,9 @@
       ]
     },
     "cns5-2059": {
-      "subtypes": [],
+      "subtypes": [
+        "Main-sequence"
+      ],
       "known_planets": 3,
       "simbadId": "HD  69830",
       "sourceTypes": [
@@ -14170,9 +14170,7 @@
       "planetHosts": []
     },
     "cns5-2182": {
-      "subtypes": [
-        "Subgiant"
-      ],
+      "subtypes": [],
       "known_planets": 5,
       "simbadId": "* rho01 Cnc",
       "sourceTypes": [
@@ -15291,7 +15289,9 @@
       "planetHosts": []
     },
     "cns5-2685": {
-      "subtypes": [],
+      "subtypes": [
+        "Main-sequence"
+      ],
       "known_planets": 3,
       "simbadId": "*  47 UMa",
       "sourceTypes": [
@@ -15445,8 +15445,7 @@
     },
     "cns5-2767": {
       "subtypes": [
-        "RS CVn variable",
-        "Main-sequence"
+        "RS CVn variable"
       ],
       "known_planets": 0,
       "simbadId": "* ksi UMa",
@@ -15559,7 +15558,9 @@
       "planetHosts": []
     },
     "cns5-2800": {
-      "subtypes": [],
+      "subtypes": [
+        "Main-sequence"
+      ],
       "known_planets": 0,
       "simbadId": "HD  99279B",
       "sourceTypes": [
@@ -15573,7 +15574,8 @@
     },
     "cns5-2803": {
       "subtypes": [
-        "Spectroscopic binary"
+        "Spectroscopic binary",
+        "Main-sequence"
       ],
       "known_planets": 0,
       "simbadId": "HD  99279A",
@@ -16019,7 +16021,9 @@
       "planetHosts": []
     },
     "cns5-2932": {
-      "subtypes": [],
+      "subtypes": [
+        "Main-sequence"
+      ],
       "known_planets": 0,
       "simbadId": "HD 103932",
       "sourceTypes": [
@@ -17294,7 +17298,7 @@
     },
     "cns5-3506": {
       "subtypes": [
-        "Main-sequence"
+        "Main-sequence candidate"
       ],
       "known_planets": 0,
       "simbadId": "CD-56  5362",
@@ -18256,7 +18260,8 @@
     "cns5-3881": {
       "subtypes": [
         "Rotating variable",
-        "Spectroscopic binary"
+        "Spectroscopic binary",
+        "Main-sequence"
       ],
       "known_planets": 1,
       "simbadId": "* lam Ser",
@@ -18474,7 +18479,8 @@
     },
     "cns5-3993": {
       "subtypes": [
-        "Variable star"
+        "Variable star",
+        "Main-sequence"
       ],
       "known_planets": 1,
       "simbadId": "HD 147379",
@@ -19028,7 +19034,9 @@
       ]
     },
     "cns5-4183": {
-      "subtypes": [],
+      "subtypes": [
+        "Main-sequence"
+      ],
       "known_planets": 0,
       "simbadId": "HD 154363",
       "sourceTypes": [
@@ -19588,7 +19596,8 @@
     "cns5-4363": {
       "subtypes": [
         "Rotating variable",
-        "Spectroscopic binary"
+        "Spectroscopic binary",
+        "Main-sequence"
       ],
       "known_planets": 0,
       "simbadId": "HD 160346",
@@ -20612,7 +20621,8 @@
       "subtypes": [
         "Eruptive variable",
         "Rotating variable",
-        "Spectroscopic binary"
+        "Spectroscopic binary",
+        "Main-sequence"
       ],
       "known_planets": 1,
       "simbadId": "HD 180617",
@@ -21176,7 +21186,8 @@
     },
     "cns5-5023": {
       "subtypes": [
-        "Variable star"
+        "Variable star",
+        "Main-sequence"
       ],
       "known_planets": 2,
       "simbadId": "HD 192310",
@@ -22369,7 +22380,8 @@
       "subtypes": [
         "Eruptive variable",
         "Rotating variable",
-        "Spectroscopic binary"
+        "Spectroscopic binary",
+        "Main-sequence"
       ],
       "known_planets": 0,
       "simbadId": "V* FK Aqr",
@@ -22595,7 +22607,9 @@
       "planetHosts": []
     },
     "cns5-5672": {
-      "subtypes": [],
+      "subtypes": [
+        "Main-sequence"
+      ],
       "known_planets": 0,
       "simbadId": "HD 217357",
       "sourceTypes": [
@@ -22903,8 +22917,7 @@
     "cns5-5833": {
       "subtypes": [
         "Spectroscopic binary",
-        "Variable star",
-        "Giant"
+        "Variable star"
       ],
       "known_planets": 1,
       "simbadId": "* gam Cep",
@@ -22923,7 +22936,9 @@
       ]
     },
     "cns5-5834": {
-      "subtypes": [],
+      "subtypes": [
+        "Main-sequence"
+      ],
       "known_planets": 1,
       "simbadId": "HD 222237",
       "sourceTypes": [
@@ -23316,7 +23331,9 @@
       "planetHosts": []
     },
     "gj-867-c": {
-      "subtypes": [],
+      "subtypes": [
+        "Main-sequence"
+      ],
       "known_planets": null,
       "simbadId": null,
       "sourceTypes": [],
@@ -23474,9 +23491,7 @@
       "planetHosts": []
     },
     "hip-101772": {
-      "subtypes": [
-        "Giant"
-      ],
+      "subtypes": [],
       "known_planets": 0,
       "simbadId": "* alf Ind",
       "sourceTypes": [
@@ -23654,7 +23669,9 @@
       "planetHosts": []
     },
     "hip-103227": {
-      "subtypes": [],
+      "subtypes": [
+        "Bright giant"
+      ],
       "known_planets": 0,
       "simbadId": "* bet Ind",
       "sourceTypes": [
@@ -23742,7 +23759,8 @@
     "hip-104732": {
       "subtypes": [
         "Chemically peculiar",
-        "Spectroscopic binary"
+        "Spectroscopic binary",
+        "Giant"
       ],
       "known_planets": 0,
       "simbadId": "* zet Cyg",
@@ -23778,8 +23796,7 @@
     },
     "hip-104987": {
       "subtypes": [
-        "Spectroscopic binary",
-        "Subgiant"
+        "Spectroscopic binary"
       ],
       "known_planets": 0,
       "simbadId": "* alf Equ",
@@ -23832,8 +23849,7 @@
     "hip-105319": {
       "subtypes": [
         "Pulsating variable",
-        "Rotating variable",
-        "Subgiant"
+        "Rotating variable"
       ],
       "known_planets": 0,
       "simbadId": "* tet Ind",
@@ -23911,7 +23927,7 @@
         "Chemically peculiar",
         "Spectroscopic binary",
         "Variable star",
-        "Supergiant"
+        "Supergiant candidate"
       ],
       "known_planets": 0,
       "simbadId": "* zet Cap",
@@ -24061,9 +24077,7 @@
       ]
     },
     "hip-107310": {
-      "subtypes": [
-        "Main-sequence"
-      ],
+      "subtypes": [],
       "known_planets": 0,
       "simbadId": "* mu. Cyg",
       "sourceTypes": [
@@ -24079,8 +24093,7 @@
     "hip-107315": {
       "subtypes": [
         "Long-period variable",
-        "Chemically peculiar",
-        "Supergiant"
+        "Chemically peculiar"
       ],
       "known_planets": 0,
       "simbadId": "* eps Peg",
@@ -24155,8 +24168,7 @@
     },
     "hip-108085": {
       "subtypes": [
-        "Rotating variable",
-        "Subgiant"
+        "Rotating variable"
       ],
       "known_planets": 0,
       "simbadId": "* gam Gru",
@@ -24175,7 +24187,8 @@
         "Asymptotic giant branch",
         "Emission-line star",
         "Mira variable",
-        "Asymptotic giant branch candidate"
+        "Asymptotic giant branch candidate",
+        "Giant"
       ],
       "known_planets": 0,
       "simbadId": "* omi Cet",
@@ -24202,8 +24215,7 @@
       "subtypes": [
         "Be star",
         "Emission-line star",
-        "Pulsating variable",
-        "Giant"
+        "Pulsating variable"
       ],
       "known_planets": 0,
       "simbadId": "* eta PsA",
@@ -24313,7 +24325,7 @@
     "hip-109352": {
       "subtypes": [
         "Red giant",
-        "Giant"
+        "Giant candidate"
       ],
       "known_planets": 0,
       "simbadId": "* pi.01 Peg",
@@ -24394,7 +24406,9 @@
       "planetHosts": []
     },
     "hip-110003": {
-      "subtypes": [],
+      "subtypes": [
+        "Bright giant"
+      ],
       "known_planets": 0,
       "simbadId": "* tet Aqr",
       "sourceTypes": [
@@ -24490,9 +24504,7 @@
       "planetHosts": []
     },
     "hip-110960": {
-      "subtypes": [
-        "Subgiant"
-      ],
+      "subtypes": [],
       "known_planets": 0,
       "simbadId": "* zet Aqr",
       "sourceTypes": [
@@ -24508,7 +24520,8 @@
     },
     "hip-110997": {
       "subtypes": [
-        "Variable star"
+        "Variable star",
+        "Giant"
       ],
       "known_planets": 0,
       "simbadId": "* del01 Gru",
@@ -24606,7 +24619,9 @@
       "planetHosts": []
     },
     "hip-111497": {
-      "subtypes": [],
+      "subtypes": [
+        "Main-sequence"
+      ],
       "known_planets": 0,
       "simbadId": "* eta Aqr",
       "sourceTypes": [
@@ -24679,8 +24694,7 @@
     "hip-112158": {
       "subtypes": [
         "Spectroscopic binary",
-        "Variable star",
-        "Main-sequence"
+        "Variable star"
       ],
       "known_planets": 0,
       "simbadId": "* eta Peg",
@@ -24696,9 +24710,7 @@
       "planetHosts": []
     },
     "hip-112405": {
-      "subtypes": [
-        "Subgiant"
-      ],
+      "subtypes": [],
       "known_planets": 0,
       "simbadId": "* bet Oct",
       "sourceTypes": [
@@ -24781,7 +24793,8 @@
     },
     "hip-112724": {
       "subtypes": [
-        "Variable star"
+        "Variable star",
+        "Giant"
       ],
       "known_planets": 0,
       "simbadId": "* iot Cep",
@@ -24797,7 +24810,9 @@
       "planetHosts": []
     },
     "hip-112748": {
-      "subtypes": [],
+      "subtypes": [
+        "Giant"
+      ],
       "known_planets": 0,
       "simbadId": "* mu. Peg",
       "sourceTypes": [
@@ -25019,7 +25034,9 @@
       "planetHosts": []
     },
     "hip-114855": {
-      "subtypes": [],
+      "subtypes": [
+        "Giant"
+      ],
       "known_planets": 1,
       "simbadId": "* psi01 Aqr",
       "sourceTypes": [
@@ -25036,7 +25053,7 @@
     },
     "hip-114971": {
       "subtypes": [
-        "Giant"
+        "Giant candidate"
       ],
       "known_planets": 1,
       "simbadId": "* gam Psc",
@@ -25155,8 +25172,7 @@
     "hip-116727": {
       "subtypes": [
         "Spectroscopic binary",
-        "Variable star",
-        "Giant"
+        "Variable star"
       ],
       "known_planets": 1,
       "simbadId": "* gam Cep",
@@ -25397,9 +25413,7 @@
       "planetHosts": []
     },
     "hip-12706": {
-      "subtypes": [
-        "Main-sequence"
-      ],
+      "subtypes": [],
       "known_planets": 0,
       "simbadId": "* gam Cet",
       "sourceTypes": [
@@ -25540,7 +25554,8 @@
     },
     "hip-13701": {
       "subtypes": [
-        "Variable star"
+        "Variable star",
+        "Giant"
       ],
       "known_planets": 0,
       "simbadId": "* eta Eri",
@@ -25604,9 +25619,7 @@
       "planetHosts": []
     },
     "hip-14146": {
-      "subtypes": [
-        "Subgiant"
-      ],
+      "subtypes": [],
       "known_planets": 0,
       "simbadId": "* tau03 Eri",
       "sourceTypes": [
@@ -25619,9 +25632,7 @@
       "planetHosts": []
     },
     "hip-14240": {
-      "subtypes": [
-        "Giant"
-      ],
+      "subtypes": [],
       "known_planets": 0,
       "simbadId": "* mu. Hor",
       "sourceTypes": [
@@ -25637,8 +25648,7 @@
       "subtypes": [
         "Eclipsing binary",
         "Spectroscopic binary",
-        "Variable star",
-        "Giant"
+        "Variable star"
       ],
       "known_planets": 0,
       "simbadId": "* gam Per",
@@ -25657,7 +25667,8 @@
     },
     "hip-14354": {
       "subtypes": [
-        "Long-period variable"
+        "Long-period variable",
+        "Giant"
       ],
       "known_planets": 0,
       "simbadId": "* rho Per",
@@ -25772,7 +25783,8 @@
     },
     "hip-1562": {
       "subtypes": [
-        "Variable star"
+        "Variable star",
+        "Giant"
       ],
       "known_planets": 0,
       "simbadId": "* iot Cet",
@@ -25939,7 +25951,8 @@
     },
     "hip-17378": {
       "subtypes": [
-        "Rotating variable"
+        "Rotating variable",
+        "Subgiant"
       ],
       "known_planets": 0,
       "simbadId": "* del Eri",
@@ -25957,7 +25970,8 @@
     "hip-17440": {
       "subtypes": [
         "Red giant",
-        "Spectroscopic binary"
+        "Spectroscopic binary",
+        "Giant"
       ],
       "known_planets": 0,
       "simbadId": "* bet Ret",
@@ -26120,9 +26134,7 @@
       "planetHosts": []
     },
     "hip-17651": {
-      "subtypes": [
-        "Subgiant"
-      ],
+      "subtypes": [],
       "known_planets": 0,
       "simbadId": "* tau06 Eri",
       "sourceTypes": [
@@ -26390,7 +26402,7 @@
     },
     "hip-19780": {
       "subtypes": [
-        "Giant"
+        "Giant candidate"
       ],
       "known_planets": 0,
       "simbadId": "* alf Ret",
@@ -26447,8 +26459,7 @@
     "hip-20042": {
       "subtypes": [
         "Spectroscopic binary",
-        "Spectroscopic binary candidate",
-        "Main-sequence"
+        "Spectroscopic binary candidate"
       ],
       "known_planets": 0,
       "simbadId": "* ups04 Eri",
@@ -26540,8 +26551,7 @@
     },
     "hip-20635": {
       "subtypes": [
-        "Variable star",
-        "Subgiant"
+        "Variable star"
       ],
       "known_planets": 0,
       "simbadId": "* kap01 Tau",
@@ -26558,8 +26568,7 @@
     },
     "hip-20648": {
       "subtypes": [
-        "Alpha² CVn variable",
-        "Subgiant"
+        "Alpha² CVn variable"
       ],
       "known_planets": 0,
       "simbadId": "* del03 Tau",
@@ -26686,9 +26695,7 @@
       "planetHosts": []
     },
     "hip-21060": {
-      "subtypes": [
-        "Subgiant"
-      ],
+      "subtypes": [],
       "known_planets": 0,
       "simbadId": "* del Cae",
       "sourceTypes": [
@@ -26717,7 +26724,9 @@
       "planetHosts": []
     },
     "hip-21393": {
-      "subtypes": [],
+      "subtypes": [
+        "Giant"
+      ],
       "known_planets": 0,
       "simbadId": "* ups02 Eri",
       "sourceTypes": [
@@ -26731,7 +26740,8 @@
     },
     "hip-21421": {
       "subtypes": [
-        "Long-period variable candidate"
+        "Long-period variable candidate",
+        "Giant"
       ],
       "known_planets": 1,
       "simbadId": "* alf Tau",
@@ -26789,7 +26799,9 @@
       "planetHosts": []
     },
     "hip-21594": {
-      "subtypes": [],
+      "subtypes": [
+        "Giant"
+      ],
       "known_planets": 0,
       "simbadId": "* l Eri",
       "sourceTypes": [
@@ -27026,7 +27038,8 @@
     },
     "hip-23123": {
       "subtypes": [
-        "Variable star"
+        "Variable star",
+        "Bright giant"
       ],
       "known_planets": 0,
       "simbadId": "* pi.06 Ori",
@@ -27042,8 +27055,7 @@
     "hip-23453": {
       "subtypes": [
         "Spectroscopic binary",
-        "Variable star",
-        "Main-sequence"
+        "Variable star"
       ],
       "known_planets": 0,
       "simbadId": "* zet Aur",
@@ -27132,7 +27144,7 @@
     "hip-24305": {
       "subtypes": [
         "Alpha² CVn variable",
-        "Subgiant"
+        "Subgiant candidate"
       ],
       "known_planets": 0,
       "simbadId": "* mu. Lep",
@@ -27243,7 +27255,9 @@
       "planetHosts": []
     },
     "hip-24873": {
-      "subtypes": [],
+      "subtypes": [
+        "Main-sequence"
+      ],
       "known_planets": 0,
       "simbadId": "* nu. Lep",
       "sourceTypes": [
@@ -27359,7 +27373,8 @@
       "subtypes": [
         "Eclipsing binary",
         "Spectroscopic binary",
-        "Variable star"
+        "Variable star",
+        "Bright giant"
       ],
       "known_planets": 0,
       "simbadId": "* del Ori",
@@ -27415,8 +27430,7 @@
     },
     "hip-26207": {
       "subtypes": [
-        "Variable star",
-        "Giant"
+        "Variable star"
       ],
       "known_planets": 0,
       "simbadId": "* lam Ori",
@@ -27499,8 +27513,7 @@
     "hip-26727": {
       "subtypes": [
         "Emission-line star",
-        "Variable star",
-        "Supergiant"
+        "Variable star"
       ],
       "known_planets": 0,
       "simbadId": "* zet Ori",
@@ -27550,9 +27563,7 @@
       "planetHosts": []
     },
     "hip-27288": {
-      "subtypes": [
-        "Subgiant"
-      ],
+      "subtypes": [],
       "known_planets": 0,
       "simbadId": "* zet Lep",
       "sourceTypes": [
@@ -27650,9 +27661,7 @@
       "planetHosts": []
     },
     "hip-27890": {
-      "subtypes": [
-        "Giant"
-      ],
+      "subtypes": [],
       "known_planets": 0,
       "simbadId": "*  36 Dor",
       "sourceTypes": [
@@ -27744,7 +27753,9 @@
       "planetHosts": []
     },
     "hip-28328": {
-      "subtypes": [],
+      "subtypes": [
+        "Bright giant"
+      ],
       "known_planets": 0,
       "simbadId": "* eta Col",
       "sourceTypes": [
@@ -27759,8 +27770,7 @@
       "subtypes": [
         "Eclipsing binary",
         "Spectroscopic binary",
-        "Variable star",
-        "Subgiant"
+        "Variable star"
       ],
       "known_planets": 0,
       "simbadId": "* bet Aur",
@@ -27800,8 +27810,7 @@
     "hip-28614": {
       "subtypes": [
         "Spectroscopic binary",
-        "Variable star",
-        "Main-sequence"
+        "Variable star"
       ],
       "known_planets": 0,
       "simbadId": "* mu. Ori",
@@ -27920,7 +27929,7 @@
     },
     "hip-29651": {
       "subtypes": [
-        "Giant"
+        "Giant candidate"
       ],
       "known_planets": 0,
       "simbadId": "* gam Mon",
@@ -28020,7 +28029,8 @@
     },
     "hip-30277": {
       "subtypes": [
-        "Spectroscopic binary"
+        "Spectroscopic binary",
+        "Bright giant"
       ],
       "known_planets": 0,
       "simbadId": "* del Col",
@@ -28086,7 +28096,9 @@
       "planetHosts": []
     },
     "hip-30438": {
-      "subtypes": [],
+      "subtypes": [
+        "Bright giant"
+      ],
       "known_planets": 0,
       "simbadId": "* alf Car",
       "sourceTypes": [
@@ -28099,9 +28111,7 @@
       "planetHosts": []
     },
     "hip-30867": {
-      "subtypes": [
-        "Main-sequence"
-      ],
+      "subtypes": [],
       "known_planets": 0,
       "simbadId": "* bet Mon",
       "sourceTypes": [
@@ -28170,8 +28180,7 @@
     },
     "hip-31592": {
       "subtypes": [
-        "Variable star",
-        "Giant"
+        "Variable star"
       ],
       "known_planets": 2,
       "simbadId": "* nu.02 CMa",
@@ -28190,8 +28199,7 @@
     },
     "hip-31681": {
       "subtypes": [
-        "Spectroscopic binary",
-        "Subgiant"
+        "Spectroscopic binary"
       ],
       "known_planets": 0,
       "simbadId": "* gam Gem",
@@ -28224,7 +28232,8 @@
     },
     "hip-3179": {
       "subtypes": [
-        "Variable star"
+        "Variable star",
+        "Giant"
       ],
       "known_planets": 0,
       "simbadId": "* alf Cas",
@@ -28280,8 +28289,7 @@
     "hip-32362": {
       "subtypes": [
         "Red giant",
-        "Variable star",
-        "Subgiant"
+        "Variable star"
       ],
       "known_planets": 0,
       "simbadId": "* ksi Gem",
@@ -28373,7 +28381,9 @@
       "planetHosts": []
     },
     "hip-33160": {
-      "subtypes": [],
+      "subtypes": [
+        "Giant"
+      ],
       "known_planets": 0,
       "simbadId": "* tet CMa",
       "sourceTypes": [
@@ -28422,7 +28432,9 @@
       "planetHosts": []
     },
     "hip-33579": {
-      "subtypes": [],
+      "subtypes": [
+        "Bright giant"
+      ],
       "known_planets": 0,
       "simbadId": "* eps CMa",
       "sourceTypes": [
@@ -28473,7 +28485,9 @@
       "planetHosts": []
     },
     "hip-34045": {
-      "subtypes": [],
+      "subtypes": [
+        "Bright giant"
+      ],
       "known_planets": 0,
       "simbadId": "* gam CMa",
       "sourceTypes": [
@@ -28613,9 +28627,7 @@
       "planetHosts": []
     },
     "hip-35228": {
-      "subtypes": [
-        "Supergiant"
-      ],
+      "subtypes": [],
       "known_planets": 0,
       "simbadId": "* del Vol",
       "sourceTypes": [
@@ -28778,8 +28790,7 @@
     },
     "hip-36850": {
       "subtypes": [
-        "Variable star",
-        "Main-sequence"
+        "Variable star"
       ],
       "known_planets": 0,
       "simbadId": "* alf Gem",
@@ -28816,8 +28827,7 @@
     "hip-37279": {
       "subtypes": [
         "Rotating variable",
-        "Spectroscopic binary",
-        "Subgiant"
+        "Spectroscopic binary"
       ],
       "known_planets": 0,
       "simbadId": "* alf CMi",
@@ -28909,7 +28919,9 @@
       ]
     },
     "hip-3786": {
-      "subtypes": [],
+      "subtypes": [
+        "Giant"
+      ],
       "known_planets": 0,
       "simbadId": "* del Psc",
       "sourceTypes": [
@@ -28978,7 +28990,8 @@
     },
     "hip-39757": {
       "subtypes": [
-        "Delta Scuti variable"
+        "Delta Scuti variable",
+        "Bright giant"
       ],
       "known_planets": 0,
       "simbadId": "* rho Pup",
@@ -29035,8 +29048,7 @@
         "Wolf–Rayet",
         "Emission-line star",
         "Spectroscopic binary",
-        "Variable star",
-        "Giant"
+        "Variable star"
       ],
       "known_planets": 0,
       "simbadId": "* gam02 Vel",
@@ -29127,7 +29139,8 @@
     },
     "hip-41075": {
       "subtypes": [
-        "Long-period variable"
+        "Long-period variable",
+        "Giant"
       ],
       "known_planets": 0,
       "simbadId": "*  31 Lyn",
@@ -29162,7 +29175,7 @@
     "hip-41704": {
       "subtypes": [
         "Variable star",
-        "Giant"
+        "Giant candidate"
       ],
       "known_planets": 1,
       "simbadId": "* omi UMa",
@@ -29298,7 +29311,8 @@
     },
     "hip-42516": {
       "subtypes": [
-        "Variable star"
+        "Variable star",
+        "Giant"
       ],
       "known_planets": 0,
       "simbadId": "*  39 Cnc",
@@ -29329,7 +29343,8 @@
     },
     "hip-42536": {
       "subtypes": [
-        "Pulsating variable"
+        "Pulsating variable",
+        "Main-sequence"
       ],
       "known_planets": 0,
       "simbadId": "* omi Vel",
@@ -29482,7 +29497,9 @@
       "planetHosts": []
     },
     "hip-42911": {
-      "subtypes": [],
+      "subtypes": [
+        "Giant"
+      ],
       "known_planets": 0,
       "simbadId": "* del Cnc",
       "sourceTypes": [
@@ -29498,8 +29515,7 @@
     "hip-42913": {
       "subtypes": [
         "Eclipsing binary",
-        "Variable star",
-        "Subgiant"
+        "Variable star"
       ],
       "known_planets": 0,
       "simbadId": "* del01 Vel",
@@ -29536,8 +29552,7 @@
     "hip-43109": {
       "subtypes": [
         "Rotating variable",
-        "Spectroscopic binary",
-        "Giant"
+        "Spectroscopic binary"
       ],
       "known_planets": 0,
       "simbadId": "* eps Hya",
@@ -29640,8 +29655,7 @@
     },
     "hip-44248": {
       "subtypes": [
-        "Spectroscopic binary",
-        "Main-sequence"
+        "Spectroscopic binary"
       ],
       "known_planets": 0,
       "simbadId": "*  10 UMa",
@@ -29732,7 +29746,8 @@
     },
     "hip-44700": {
       "subtypes": [
-        "Chemically peculiar"
+        "Chemically peculiar",
+        "Bright giant"
       ],
       "known_planets": 0,
       "simbadId": "HD  77912",
@@ -29767,8 +29782,7 @@
     "hip-45080": {
       "subtypes": [
         "Spectroscopic binary",
-        "Variable star",
-        "Subgiant"
+        "Variable star"
       ],
       "known_planets": 0,
       "simbadId": "* a Car",
@@ -29800,8 +29814,7 @@
     },
     "hip-45336": {
       "subtypes": [
-        "Spectroscopic binary",
-        "Main-sequence"
+        "Spectroscopic binary"
       ],
       "known_planets": 0,
       "simbadId": "* tet Hya",
@@ -30317,7 +30330,8 @@
     },
     "hip-50371": {
       "subtypes": [
-        "Long-period variable"
+        "Long-period variable",
+        "Bright giant"
       ],
       "known_planets": 0,
       "simbadId": "* q Car",
@@ -30347,9 +30361,7 @@
       "planetHosts": []
     },
     "hip-50583": {
-      "subtypes": [
-        "Giant"
-      ],
+      "subtypes": [],
       "known_planets": 1,
       "simbadId": "* gam Leo",
       "sourceTypes": [
@@ -30416,7 +30428,8 @@
     },
     "hip-51232": {
       "subtypes": [
-        "Variable star"
+        "Variable star",
+        "Bright giant"
       ],
       "known_planets": 0,
       "simbadId": "* s Car",
@@ -30573,7 +30586,9 @@
       "planetHosts": []
     },
     "hip-52502": {
-      "subtypes": [],
+      "subtypes": [
+        "Main-sequence"
+      ],
       "known_planets": 0,
       "simbadId": "HD  93194",
       "sourceTypes": [
@@ -30587,7 +30602,8 @@
     "hip-52701": {
       "subtypes": [
         "Pulsating variable",
-        "Spectroscopic binary"
+        "Spectroscopic binary",
+        "Main-sequence"
       ],
       "known_planets": 0,
       "simbadId": "HD  93549",
@@ -30687,8 +30703,7 @@
       "subtypes": [
         "Eclipsing binary",
         "Spectroscopic binary",
-        "Variable star",
-        "Main-sequence"
+        "Variable star"
       ],
       "known_planets": 0,
       "simbadId": "* zet Phe",
@@ -30705,7 +30720,8 @@
     },
     "hip-5364": {
       "subtypes": [
-        "Horizontal-branch"
+        "Horizontal-branch",
+        "Giant"
       ],
       "known_planets": 0,
       "simbadId": "* eta Cet",
@@ -30755,8 +30771,7 @@
     "hip-54061": {
       "subtypes": [
         "Spectroscopic binary",
-        "Variable star",
-        "Giant"
+        "Variable star"
       ],
       "known_planets": 0,
       "simbadId": "* alf UMa",
@@ -30791,7 +30806,8 @@
     },
     "hip-5447": {
       "subtypes": [
-        "Variable star"
+        "Variable star",
+        "Giant"
       ],
       "known_planets": 1,
       "simbadId": "* bet And",
@@ -31054,7 +31070,7 @@
     "hip-57399": {
       "subtypes": [
         "Variable star",
-        "Giant"
+        "Giant candidate"
       ],
       "known_planets": 0,
       "simbadId": "* chi UMa",
@@ -31205,7 +31221,8 @@
     },
     "hip-59316": {
       "subtypes": [
-        "Variable star"
+        "Variable star",
+        "Giant"
       ],
       "known_planets": 0,
       "simbadId": "* eps Crv",
@@ -31309,9 +31326,7 @@
       "planetHosts": []
     },
     "hip-60030": {
-      "subtypes": [
-        "Subgiant"
-      ],
+      "subtypes": [],
       "known_planets": 0,
       "simbadId": "*  13 Vir",
       "sourceTypes": [
@@ -31324,8 +31339,7 @@
     "hip-60351": {
       "subtypes": [
         "Spectroscopic binary",
-        "Variable star",
-        "Giant"
+        "Variable star"
       ],
       "known_planets": 0,
       "simbadId": "*  12 Com",
@@ -31343,7 +31357,7 @@
     "hip-60697": {
       "subtypes": [
         "Variable star",
-        "Subgiant"
+        "Subgiant candidate"
       ],
       "known_planets": 0,
       "simbadId": "*  14 Com",
@@ -31358,8 +31372,7 @@
     },
     "hip-60718": {
       "subtypes": [
-        "Spectroscopic binary",
-        "Subgiant"
+        "Spectroscopic binary"
       ],
       "known_planets": 0,
       "simbadId": "* alf Cru",
@@ -31469,8 +31482,7 @@
     "hip-61199": {
       "subtypes": [
         "Pulsating variable",
-        "Spectroscopic binary",
-        "Main-sequence"
+        "Spectroscopic binary"
       ],
       "known_planets": 0,
       "simbadId": "* gam Mus",
@@ -31534,7 +31546,8 @@
     },
     "hip-61359": {
       "subtypes": [
-        "Variable star"
+        "Variable star",
+        "Bright giant"
       ],
       "known_planets": 0,
       "simbadId": "* bet Crv",
@@ -31600,9 +31613,7 @@
       "planetHosts": []
     },
     "hip-61932": {
-      "subtypes": [
-        "Subgiant"
-      ],
+      "subtypes": [],
       "known_planets": 0,
       "simbadId": "* gam Cen",
       "sourceTypes": [
@@ -31638,8 +31649,7 @@
       "subtypes": [
         "Pulsating variable",
         "Spectroscopic binary",
-        "Beta Cephei variable candidate",
-        "Main-sequence"
+        "Beta Cephei variable candidate"
       ],
       "known_planets": 0,
       "simbadId": "* bet Mus",
@@ -31700,8 +31710,7 @@
     },
     "hip-62956": {
       "subtypes": [
-        "Alpha² CVn variable",
-        "Giant"
+        "Alpha² CVn variable"
       ],
       "known_planets": 0,
       "simbadId": "* eps UMa",
@@ -31720,7 +31729,8 @@
     "hip-63090": {
       "subtypes": [
         "Red giant",
-        "Variable star"
+        "Variable star",
+        "Giant"
       ],
       "known_planets": 1,
       "simbadId": "* del Vir",
@@ -31796,8 +31806,7 @@
     },
     "hip-64241": {
       "subtypes": [
-        "Variable star",
-        "Main-sequence"
+        "Variable star"
       ],
       "known_planets": 0,
       "simbadId": "* alf Com",
@@ -32077,8 +32086,7 @@
     "hip-677": {
       "subtypes": [
         "Spectroscopic binary",
-        "Alpha² CVn variable",
-        "Subgiant"
+        "Alpha² CVn variable"
       ],
       "known_planets": 0,
       "simbadId": "* alf And",
@@ -32133,8 +32141,7 @@
     },
     "hip-68282": {
       "subtypes": [
-        "Pulsating variable",
-        "Subgiant"
+        "Pulsating variable"
       ],
       "known_planets": 0,
       "simbadId": "* ups01 Cen",
@@ -32149,9 +32156,7 @@
       "planetHosts": []
     },
     "hip-68520": {
-      "subtypes": [
-        "Subgiant"
-      ],
+      "subtypes": [],
       "known_planets": 0,
       "simbadId": "* tau Vir",
       "sourceTypes": [
@@ -32222,7 +32227,9 @@
       "planetHosts": []
     },
     "hip-68933": {
-      "subtypes": [],
+      "subtypes": [
+        "Giant"
+      ],
       "known_planets": 0,
       "simbadId": "* tet Cen",
       "sourceTypes": [
@@ -32373,7 +32380,8 @@
     },
     "hip-71053": {
       "subtypes": [
-        "Variable star"
+        "Variable star",
+        "Giant"
       ],
       "known_planets": 0,
       "simbadId": "* rho Boo",
@@ -32430,7 +32438,8 @@
     },
     "hip-71536": {
       "subtypes": [
-        "Variable star"
+        "Variable star",
+        "Main-sequence"
       ],
       "known_planets": 0,
       "simbadId": "* rho Lup",
@@ -32581,7 +32590,8 @@
     },
     "hip-72607": {
       "subtypes": [
-        "Variable star"
+        "Variable star",
+        "Giant"
       ],
       "known_planets": 1,
       "simbadId": "* bet UMi",
@@ -32600,8 +32610,7 @@
     "hip-72622": {
       "subtypes": [
         "Spectroscopic binary",
-        "Variable star",
-        "Subgiant"
+        "Variable star"
       ],
       "known_planets": 0,
       "simbadId": "* alf02 Lib",
@@ -32853,8 +32862,7 @@
     "hip-75323": {
       "subtypes": [
         "Be star",
-        "Variable star",
-        "Main-sequence"
+        "Variable star"
       ],
       "known_planets": 0,
       "simbadId": "* gam Cir",
@@ -33147,8 +33155,7 @@
     },
     "hip-77512": {
       "subtypes": [
-        "RS CVn variable",
-        "Giant"
+        "RS CVn variable"
       ],
       "known_planets": 0,
       "simbadId": "* del CrB",
@@ -33305,8 +33312,7 @@
       "subtypes": [
         "Eclipsing binary",
         "Spectroscopic binary",
-        "Variable star",
-        "Main-sequence"
+        "Variable star"
       ],
       "known_planets": 0,
       "simbadId": "* pi. Sco",
@@ -33449,7 +33455,9 @@
       "planetHosts": []
     },
     "hip-78970": {
-      "subtypes": [],
+      "subtypes": [
+        "Main-sequence"
+      ],
       "known_planets": 0,
       "simbadId": "HD 144415",
       "sourceTypes": [
@@ -33565,7 +33573,8 @@
     },
     "hip-80331": {
       "subtypes": [
-        "Variable star"
+        "Variable star",
+        "Giant"
       ],
       "known_planets": 0,
       "simbadId": "* eta Dra",
@@ -33877,8 +33886,7 @@
         "Be star",
         "Eclipsing binary",
         "Spectroscopic binary",
-        "Variable star",
-        "Main-sequence"
+        "Variable star"
       ],
       "known_planets": 0,
       "simbadId": "* mu.01 Sco",
@@ -33979,9 +33987,7 @@
       "planetHosts": []
     },
     "hip-84012": {
-      "subtypes": [
-        "Subgiant"
-      ],
+      "subtypes": [],
       "known_planets": 0,
       "simbadId": "* eta Oph",
       "sourceTypes": [
@@ -34013,8 +34019,7 @@
     },
     "hip-84345": {
       "subtypes": [
-        "Variable star",
-        "Supergiant"
+        "Variable star"
       ],
       "known_planets": 0,
       "simbadId": "* alf Her",
@@ -34051,7 +34056,8 @@
     },
     "hip-84380": {
       "subtypes": [
-        "Variable star"
+        "Variable star",
+        "Bright giant"
       ],
       "known_planets": 0,
       "simbadId": "* pi. Her",
@@ -34083,7 +34089,9 @@
       "planetHosts": []
     },
     "hip-84880": {
-      "subtypes": [],
+      "subtypes": [
+        "Main-sequence"
+      ],
       "known_planets": 0,
       "simbadId": "* nu. Ser",
       "sourceTypes": [
@@ -34095,9 +34103,7 @@
       "planetHosts": []
     },
     "hip-85112": {
-      "subtypes": [
-        "Giant"
-      ],
+      "subtypes": [],
       "known_planets": 0,
       "simbadId": "* rho Her",
       "sourceTypes": [
@@ -34142,9 +34148,7 @@
       "planetHosts": []
     },
     "hip-85670": {
-      "subtypes": [
-        "Supergiant"
-      ],
+      "subtypes": [],
       "known_planets": 0,
       "simbadId": "* bet Dra",
       "sourceTypes": [
@@ -34277,8 +34281,7 @@
       "subtypes": [
         "Eclipsing binary",
         "Beta Cephei variable",
-        "Beta Cephei variable candidate",
-        "Subgiant"
+        "Beta Cephei variable candidate"
       ],
       "known_planets": 0,
       "simbadId": "* lam Sco",
@@ -34448,7 +34451,9 @@
       "planetHosts": []
     },
     "hip-86929": {
-      "subtypes": [],
+      "subtypes": [
+        "Bright giant"
+      ],
       "known_planets": 0,
       "simbadId": "* eta Pav",
       "sourceTypes": [
@@ -34481,7 +34486,8 @@
       "subtypes": [
         "Spectroscopic binary",
         "Variable star",
-        "Classical Cepheid"
+        "Classical Cepheid",
+        "Bright giant"
       ],
       "known_planets": 0,
       "simbadId": "V* X Sgr",
@@ -34537,7 +34543,8 @@
     },
     "hip-87808": {
       "subtypes": [
-        "Variable star"
+        "Variable star",
+        "Bright giant"
       ],
       "known_planets": 0,
       "simbadId": "* tet Her",
@@ -34608,8 +34615,7 @@
     },
     "hip-8832": {
       "subtypes": [
-        "Alpha² CVn variable",
-        "Subgiant"
+        "Alpha² CVn variable"
       ],
       "known_planets": 0,
       "simbadId": "* gam Ari",
@@ -34661,7 +34667,8 @@
     },
     "hip-88635": {
       "subtypes": [
-        "Variable star"
+        "Variable star",
+        "Giant"
       ],
       "known_planets": 0,
       "simbadId": "* gam02 Sgr",
@@ -34848,8 +34855,7 @@
     },
     "hip-89962": {
       "subtypes": [
-        "Variable star",
-        "Giant"
+        "Variable star"
       ],
       "known_planets": 0,
       "simbadId": "* eta Ser",
@@ -34904,7 +34910,7 @@
     },
     "hip-90185": {
       "subtypes": [
-        "Subgiant"
+        "Subgiant candidate"
       ],
       "known_planets": 0,
       "simbadId": "* eps Sgr",
@@ -34955,9 +34961,7 @@
       "planetHosts": []
     },
     "hip-90568": {
-      "subtypes": [
-        "Giant"
-      ],
+      "subtypes": [],
       "known_planets": 0,
       "simbadId": "* zet Tel",
       "sourceTypes": [
@@ -34971,9 +34975,7 @@
       "planetHosts": []
     },
     "hip-90595": {
-      "subtypes": [
-        "Subgiant"
-      ],
+      "subtypes": [],
       "known_planets": 0,
       "simbadId": "* gam Sct",
       "sourceTypes": [
@@ -35054,7 +35056,9 @@
       "planetHosts": []
     },
     "hip-91875": {
-      "subtypes": [],
+      "subtypes": [
+        "Main-sequence"
+      ],
       "known_planets": 0,
       "simbadId": "* lam CrA",
       "sourceTypes": [
@@ -35104,7 +35108,8 @@
     "hip-92175": {
       "subtypes": [
         "Emission-line star",
-        "Spectroscopic binary"
+        "Spectroscopic binary",
+        "Bright giant"
       ],
       "known_planets": 0,
       "simbadId": "* bet Sct",
@@ -35163,8 +35168,7 @@
         "Eclipsing binary",
         "Emission-line star",
         "Spectroscopic binary",
-        "Variable star",
-        "Supergiant"
+        "Variable star"
       ],
       "known_planets": 0,
       "simbadId": "* bet Lyr",
@@ -35207,7 +35211,8 @@
     },
     "hip-92791": {
       "subtypes": [
-        "Long-period variable"
+        "Long-period variable",
+        "Bright giant"
       ],
       "known_planets": 0,
       "simbadId": "* del02 Lyr",
@@ -35221,7 +35226,9 @@
       "planetHosts": []
     },
     "hip-92814": {
-      "subtypes": [],
+      "subtypes": [
+        "Bright giant"
+      ],
       "known_planets": 0,
       "simbadId": "HD 175156",
       "sourceTypes": [
@@ -35326,8 +35333,7 @@
       "subtypes": [
         "Eclipsing binary",
         "Spectroscopic binary",
-        "Variable star",
-        "Main-sequence"
+        "Variable star"
       ],
       "known_planets": 0,
       "simbadId": "* eps CrA",
@@ -35362,7 +35368,8 @@
     },
     "hip-93244": {
       "subtypes": [
-        "Spectroscopic binary"
+        "Spectroscopic binary",
+        "Giant"
       ],
       "known_planets": 0,
       "simbadId": "* eps Aql",
@@ -35426,9 +35433,7 @@
       "planetHosts": []
     },
     "hip-93747": {
-      "subtypes": [
-        "Subgiant"
-      ],
+      "subtypes": [],
       "known_planets": 0,
       "simbadId": "* zet Aql",
       "sourceTypes": [
@@ -35459,9 +35464,7 @@
       "planetHosts": []
     },
     "hip-93825": {
-      "subtypes": [
-        "Main-sequence"
-      ],
+      "subtypes": [],
       "known_planets": 0,
       "simbadId": "* gam CrA",
       "sourceTypes": [
@@ -35553,7 +35556,8 @@
     "hip-94648": {
       "subtypes": [
         "Red giant",
-        "Variable star"
+        "Variable star",
+        "Giant"
       ],
       "known_planets": 0,
       "simbadId": "* tau Dra",
@@ -35598,7 +35602,8 @@
     },
     "hip-9487": {
       "subtypes": [
-        "Alpha² CVn variable"
+        "Alpha² CVn variable",
+        "Subgiant"
       ],
       "known_planets": 0,
       "simbadId": "* alf Psc",
@@ -35632,7 +35637,9 @@
       "planetHosts": []
     },
     "hip-95294": {
-      "subtypes": [],
+      "subtypes": [
+        "Main-sequence"
+      ],
       "known_planets": 0,
       "simbadId": "* bet02 Sgr",
       "sourceTypes": [
@@ -35662,8 +35669,7 @@
     },
     "hip-95501": {
       "subtypes": [
-        "Variable star",
-        "Subgiant"
+        "Variable star"
       ],
       "known_planets": 0,
       "simbadId": "* del Aql",
@@ -35714,8 +35720,7 @@
     },
     "hip-95947": {
       "subtypes": [
-        "Variable star",
-        "Main-sequence"
+        "Variable star"
       ],
       "known_planets": 0,
       "simbadId": "* bet01 Cyg",
@@ -35730,7 +35735,9 @@
       "planetHosts": []
     },
     "hip-9640": {
-      "subtypes": [],
+      "subtypes": [
+        "Bright giant"
+      ],
       "known_planets": 0,
       "simbadId": "* gam01 And",
       "sourceTypes": [
@@ -35759,7 +35766,9 @@
       "planetHosts": []
     },
     "hip-96757": {
-      "subtypes": [],
+      "subtypes": [
+        "Bright giant"
+      ],
       "known_planets": 0,
       "simbadId": "* alf Sge",
       "sourceTypes": [
@@ -35807,7 +35816,8 @@
     },
     "hip-97278": {
       "subtypes": [
-        "Variable star"
+        "Variable star",
+        "Bright giant"
       ],
       "known_planets": 0,
       "simbadId": "* gam Aql",
@@ -35825,8 +35835,7 @@
     "hip-97365": {
       "subtypes": [
         "Spectroscopic binary",
-        "Long-period variable candidate",
-        "Main-sequence"
+        "Long-period variable candidate"
       ],
       "known_planets": 0,
       "simbadId": "* del Sge",
@@ -35883,8 +35892,7 @@
     "hip-97804": {
       "subtypes": [
         "Variable star",
-        "Classical Cepheid",
-        "Supergiant"
+        "Classical Cepheid"
       ],
       "known_planets": 0,
       "simbadId": "* eta Aql",
@@ -35952,7 +35960,8 @@
     },
     "hip-98337": {
       "subtypes": [
-        "Variable star"
+        "Variable star",
+        "Giant"
       ],
       "known_planets": 0,
       "simbadId": "* gam Sge",
@@ -36035,7 +36044,8 @@
     },
     "hip-9884": {
       "subtypes": [
-        "Variable star"
+        "Variable star",
+        "Giant"
       ],
       "known_planets": 1,
       "simbadId": "* alf Ari",

@@ -1,0 +1,171 @@
+{
+  "orbit": {
+    "data_arc": "10947",
+    "pe_used": "DE441",
+    "soln_date": "2026-06-07 03:31:43",
+    "last_obs": "2026-03-09",
+    "comment": null,
+    "producer": "Otto Matic",
+    "elements": [
+      {
+        "title": "eccentricity",
+        "label": "e",
+        "name": "e",
+        "value": ".1749643183262652",
+        "sigma": "9.8538E-7",
+        "units": null
+      },
+      {
+        "title": "semi-major axis",
+        "label": "a",
+        "value": "39.65674190908469",
+        "sigma": "2.2315E-5",
+        "name": "a",
+        "units": "au"
+      },
+      {
+        "units": "au",
+        "value": "32.71822709392106",
+        "sigma": "3.6722E-5",
+        "name": "q",
+        "label": "q",
+        "title": "perihelion distance"
+      },
+      {
+        "units": "deg",
+        "value": "13.54857109263982",
+        "sigma": "1.8311E-6",
+        "name": "i",
+        "label": "i",
+        "title": "inclination; angle with respect to x-y ecliptic plane"
+      },
+      {
+        "title": "longitude of the ascending node",
+        "label": "node",
+        "name": "om",
+        "value": "251.8991700940268",
+        "sigma": "9.5228E-6",
+        "units": "deg"
+      },
+      {
+        "units": "deg",
+        "value": "14.06755482579046",
+        "sigma": ".00040944",
+        "name": "w",
+        "label": "peri",
+        "title": "argument of perihelion"
+      },
+      {
+        "label": "M",
+        "title": "mean anomaly",
+        "units": "deg",
+        "name": "ma",
+        "sigma": ".00059514",
+        "value": "243.992287720534"
+      },
+      {
+        "units": "TDB",
+        "name": "tp",
+        "sigma": ".13462",
+        "value": "2490594.475971509903",
+        "label": "tp",
+        "title": "time of perihelion passage"
+      },
+      {
+        "value": "91216.61949725915",
+        "sigma": ".076992",
+        "name": "per",
+        "units": "d",
+        "title": "sidereal orbital period",
+        "label": "period"
+      },
+      {
+        "label": "n",
+        "title": "mean motion",
+        "units": "deg/d",
+        "name": "n",
+        "value": ".003946649217918202",
+        "sigma": "3.3312E-9"
+      },
+      {
+        "title": "aphelion distance",
+        "label": "Q",
+        "name": "ad",
+        "value": "46.59525672424833",
+        "sigma": "2.6219E-5",
+        "units": "au"
+      }
+    ],
+    "epoch": "2461200.5",
+    "t_jup": "5.416",
+    "n_dop_obs_used": null,
+    "not_valid_after": null,
+    "cov_epoch": "2458151.5",
+    "condition_code": "1",
+    "n_del_obs_used": null,
+    "moid": "31.704",
+    "orbit_id": "52",
+    "two_body": null,
+    "not_valid_before": null,
+    "model_pars": [],
+    "rms": ".53383",
+    "moid_jup": "27.4321",
+    "sb_used": "SB441-N16",
+    "equinox": "J2000",
+    "first_obs": "1996-03-19",
+    "n_obs_used": 1108,
+    "source": "JPL"
+  },
+  "phys_par": [
+    {
+      "name": "H",
+      "sigma": null,
+      "value": "3.71",
+      "ref": "E2026E92",
+      "units": null,
+      "title": "absolute magnitude",
+      "desc": "absolute magnitude (magnitude at 1 au from Sun and observer)",
+      "notes": null
+    },
+    {
+      "units": "h",
+      "ref": "LCDB (Rev. 2023-October); Warner et al., 2009",
+      "value": "13.42",
+      "sigma": null,
+      "name": "rot_per",
+      "notes": "[Result based on less than full coverage, so that the period may be wrong by 30 percent or so.]",
+      "desc": "body rotation period (synodic)",
+      "title": "rotation period"
+    }
+  ],
+  "signature": {
+    "version": "1.3",
+    "source": "NASA/JPL Small-Body Database (SBDB) API"
+  },
+  "discovery": {
+    "date": "2003-Jan-13",
+    "discovery": "",
+    "cref": "WGSBN Bull. 5, #15, 16",
+    "location": "Palomar",
+    "site": null,
+    "ref": "20090311/Numbers.arc",
+    "name": "Achlys",
+    "who": "Trujillo, C. A., Brown, M. E.",
+    "citation": "Achlys is a personification of sorrow and grief described in the Greek epic poem, the Shield of Heracles.  It is also used by Homer in the Iliad to describe the mist that covers the eyes of the dying."
+  },
+  "object": {
+    "pha": false,
+    "kind": "an",
+    "spkid": "20208996",
+    "neo": false,
+    "shortname": "208996 Achlys",
+    "prefix": null,
+    "orbit_class": {
+      "name": "TransNeptunian Object",
+      "code": "TNO"
+    },
+    "orbit_id": "52",
+    "des": "208996",
+    "fullname": "208996 Achlys (2003 AZ84)"
+  }
+}

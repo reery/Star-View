@@ -1,0 +1,171 @@
+{
+  "orbit": {
+    "not_valid_after": null,
+    "t_jup": "10.221",
+    "pe_used": "DE441",
+    "producer": "Otto Matic",
+    "n_obs_used": 671,
+    "moid_jup": "71.0876",
+    "n_del_obs_used": null,
+    "not_valid_before": null,
+    "elements": [
+      {
+        "name": "e",
+        "label": "e",
+        "units": null,
+        "sigma": "3.7251E-5",
+        "title": "eccentricity",
+        "value": ".8598824585187618"
+      },
+      {
+        "name": "a",
+        "sigma": ".1459",
+        "title": "semi-major axis",
+        "units": "au",
+        "label": "a",
+        "value": "543.7195289104732"
+      },
+      {
+        "value": "76.18464364627253",
+        "name": "q",
+        "label": "q",
+        "sigma": ".0011033",
+        "title": "perihelion distance",
+        "units": "au"
+      },
+      {
+        "units": "deg",
+        "sigma": "3.3169E-6",
+        "title": "inclination; angle with respect to x-y ecliptic plane",
+        "label": "i",
+        "name": "i",
+        "value": "11.92527582847476"
+      },
+      {
+        "value": "144.5061662673739",
+        "label": "node",
+        "title": "longitude of the ascending node",
+        "sigma": ".00026058",
+        "units": "deg",
+        "name": "om"
+      },
+      {
+        "value": "311.0987725939751",
+        "name": "w",
+        "sigma": ".0019143",
+        "title": "argument of perihelion",
+        "units": "deg",
+        "label": "peri"
+      },
+      {
+        "value": "358.5956944005428",
+        "sigma": ".0005731",
+        "units": "deg",
+        "title": "mean anomaly",
+        "label": "M",
+        "name": "ma"
+      },
+      {
+        "value": "2479264.750687138669",
+        "name": "tp",
+        "sigma": ".71422",
+        "units": "TDB",
+        "title": "time of perihelion passage",
+        "label": "tp"
+      },
+      {
+        "name": "per",
+        "label": "period",
+        "title": "sidereal orbital period",
+        "sigma": "1864.",
+        "units": "d",
+        "value": "4630851.183590915"
+      },
+      {
+        "label": "n",
+        "sigma": "3.1292E-8",
+        "units": "deg/d",
+        "title": "mean motion",
+        "name": "n",
+        "value": "7.773948799642578E-5"
+      },
+      {
+        "value": "1011.254414174674",
+        "name": "ad",
+        "units": "au",
+        "sigma": ".27137",
+        "title": "aphelion distance",
+        "label": "Q"
+      }
+    ],
+    "epoch": "2461200.5",
+    "equinox": "J2000",
+    "orbit_id": "51",
+    "sb_used": "SB441-N16",
+    "data_arc": "12939",
+    "source": "JPL",
+    "soln_date": "2026-06-06 14:12:24",
+    "first_obs": "1990-09-25",
+    "moid": "75.2131",
+    "n_dop_obs_used": null,
+    "last_obs": "2026-02-27",
+    "condition_code": "1",
+    "comment": null,
+    "cov_epoch": "2458411.5",
+    "two_body": null,
+    "model_pars": [],
+    "rms": ".38596"
+  },
+  "signature": {
+    "source": "NASA/JPL Small-Body Database (SBDB) API",
+    "version": "1.3"
+  },
+  "object": {
+    "shortname": "90377 Sedna",
+    "spkid": "20090377",
+    "neo": false,
+    "orbit_id": "51",
+    "orbit_class": {
+      "name": "TransNeptunian Object",
+      "code": "TNO"
+    },
+    "pha": false,
+    "prefix": null,
+    "des": "90377",
+    "kind": "an",
+    "fullname": "90377 Sedna (2003 VB12)"
+  },
+  "phys_par": [
+    {
+      "notes": null,
+      "desc": "absolute magnitude (magnitude at 1 au from Sun and observer)",
+      "value": "1.50",
+      "ref": "MPO981708",
+      "name": "H",
+      "sigma": null,
+      "title": "absolute magnitude",
+      "units": null
+    },
+    {
+      "value": "10.273",
+      "ref": "LCDB (Rev. 2023-October); Warner et al., 2009",
+      "notes": "[Result based on less than full coverage, so that the period may be wrong by 30 percent or so.]  REFERENCE LIST:[Gaudi, B.S.; Stanek, K.Z.; Hartman, J.D.; Holman, M.J.; McLeod, B.A. (2005) Astrophys. J. Let. 629, L49-L52.]",
+      "desc": "body rotation period (synodic)",
+      "units": "h",
+      "sigma": null,
+      "title": "rotation period",
+      "name": "rot_per"
+    }
+  ],
+  "discovery": {
+    "location": "Palomar",
+    "name": "Sedna",
+    "who": "Brown, M. E., Trujillo, C. A., Rabinowitz, D.",
+    "cref": "20040928/MPCPages.arc",
+    "site": null,
+    "discovery": "Discovered 2003 Nov. 14 by M. E. Brown, C. A. Trujillo and D. Rabinowitz at Palomar.",
+    "ref": "20040830/Numbers.arc",
+    "citation": "Sedna is the Inuit goddess of the sea and the mother of all sea creatures. She rewards the people of the land with food from the sea. Without her blessing, hunts fail and the people starve. She is thus one of the most important figures in Inuit legend.",
+    "date": "2003-Nov-14"
+  }
+}

@@ -1,7 +1,8 @@
 import { OBJECT_TYPES } from './catalog-model'
 import { objectTypeIntroduction } from './object-type-info'
+import { GLOSSARY_SUBTYPES } from './glossary-subtypes'
 
-export const GLOSSARY_GROUPS = ['Object types', 'Distance & units', 'Stellar properties', 'Position & motion', 'Remnant properties'] as const
+export const GLOSSARY_GROUPS = ['Object types', 'Object sub-types', 'Distance & units', 'Stellar properties', 'Position & motion', 'Remnant properties'] as const
 type GlossaryGroup = typeof GLOSSARY_GROUPS[number]
 
 export interface GlossaryEntry {
@@ -10,9 +11,12 @@ export interface GlossaryEntry {
   group: GlossaryGroup
   description: string
   source: string
+  sourceLabel?: string
   aliases?: string
   image?: string
   imagePosition?: string
+  imageFit?: 'cover' | 'contain'
+  imageAlt?: string
   caption?: string
   imageCredit?: string
   imageSource?: string
@@ -28,6 +32,7 @@ const objectTypes: GlossaryEntry[] = OBJECT_TYPES.map((type) => ({
   ...objectTypeIntroduction({ type, spectral_type: null }),
   id: type,
   group: 'Object types',
+  aliases: type === 'neutron_star' || type === 'pulsar' ? `${type.replace(/_/g, ' ')} candidate` : undefined,
 }))
 
 const stellarClasses: GlossaryEntry[] = [
@@ -50,6 +55,7 @@ const stellarClasses: GlossaryEntry[] = [
 export const GLOSSARY_ENTRIES: readonly GlossaryEntry[] = [
   ...objectTypes,
   ...stellarClasses,
+  ...GLOSSARY_SUBTYPES,
   {
     ...objectTypeIntroduction({ type: 'star', spectral_type: null }),
     ...entry('sun', 'Sun', 'Object types', 'Sun', 'The Sun is the star at the center of the Solar System. It is a G-type main-sequence star powered by hydrogen fusion in its core. Its mass, radius, and luminosity provide useful reference units for comparing other stars.'),

@@ -16,13 +16,19 @@ import math
 import re
 from pathlib import Path
 from statistics import median
+from urllib.parse import urlencode
 
 from catalog_sources.adapters import eligible_gaia_physical, read_gaia_tap
 from catalog_sources.enrichment import estimate_temperature, derive_physical
+from catalog_sources.ordinary_binaries import orbit_pairs, matching_members
+from catalog_sources.companion_properties import apply_literature, property_coverage
+from catalog_sources.classification import spectral_labels
+from catalog_sources.preservation import pool_losses
 
 ROOT = Path(__file__).resolve().parents[1]
 WORK = ROOT / "catalog-work/star-systems"
 OUTPUT = ROOT / "src/data/stellar-companions.json"
+IDENTITIES = ROOT / "src/data/stellar-system-identities.json"
 FIELDS = ("temperature_k", "mass_solar", "luminosity_solar", "radius_solar", "metallicity_dex", "age_gyr")
 COMPOSITE = re.compile(r"\+\s*(?:[OBAFGKM](?:\d|:|$)|D[A-Z]|W[CN])", re.I)
 
@@ -47,6 +53,16 @@ def unique(values):
     return list(dict.fromkeys(value for value in values if value))
 
 
+def retained_measurement(original, adopted):
+    if isinstance(original, (int, float)) and isinstance(adopted, (int, float)):
+        return math.isclose(original, adopted, rel_tol=1e-9, abs_tol=1e-9)
+    if isinstance(original, dict) and isinstance(adopted, dict):
+        return all(value is None or retained_measurement(value, adopted.get(key)) for key, value in original.items())
+    if isinstance(original, list) and isinstance(adopted, list):
+        return all(value in adopted for value in original)
+    return original == adopted
+
+
 def spectrum(value):
     return re.sub(r"\s+", "", value or "") or None
 
@@ -63,8 +79,11 @@ def csv_star(row, identities, stats):
         star["raw_astrometry"] = {field: number(row.get(field)) for field in ("ra_deg", "dec_deg", "parallax_mas", "parallax_error_mas", "pm_ra_cosdec_masyr", "pm_ra_error_masyr", "pm_dec_masyr", "pm_dec_error_masyr", "radial_velocity_kms", "radial_velocity_error_kms")}
         star["raw_astrometry"].update(epoch=number(row["astrometry_epoch"]), astrometry_ref=row["astrometry_ref"], radial_velocity_ref=row.get("radial_velocity_ref") or None)
     adopted_stats = stats.get(row["id"], {})
-    star.update(subtypes=adopted_stats.get("subtypes", []), known_planets=adopted_stats.get("known_planets"))
-    star["apparent_mag"] = star["absolute_mag"] + 5 * math.log10(math.hypot(star["x_pc"], star["y_pc"], star["z_pc"]) / 10) if star["id"] != "sun" and star["absolute_mag"] is not None else None
+    star.update(subtypes=unique(row.get("subtypes", "").split("|")) or adopted_stats.get("subtypes", []),
+                known_planets=number(row.get("known_planets")) if row.get("known_planets") else adopted_stats.get("known_planets"))
+    star["apparent_mag"] = number(row.get("apparent_mag"))
+    if star["apparent_mag"] is None:
+        star["apparent_mag"] = -26.74 if star["id"] == "sun" else star["absolute_mag"] + 5 * math.log10(math.hypot(star["x_pc"], star["y_pc"], star["z_pc"]) / 10) if star["absolute_mag"] is not None else None
     return star
 
 
@@ -96,6 +115,27 @@ def blank_component(identifier, name, parent):
     return star
 
 
+def retain_unresolved_photometry(star, parent, identities, evidence):
+    """Keep the observed catalog-source flux separate from individual fields.
+
+    The source aperture/companion contribution is not deblended. This value
+    must never feed individual absolute magnitude or physical derivations.
+    """
+    if parent["apparent_mag"] is None:
+        return
+    main = identities.get(parent["id"], {}).get("simbadId")
+    photometry = {"magnitude_v": round(parent["apparent_mag"], 6), "error_mag": None,
+                  "scope": f"{parent['name']} catalog source; unresolved component contributions",
+                  "source": "Reviewed parent catalog Johnson V; inverse of its adopted distance modulus",
+                  "source_url": "https://simbad.cds.unistra.fr/simbad/sim-id?" + urlencode({"Ident": main}) if main else None}
+    star["unresolved_photometry"] = photometry
+    evidence["unresolvedPhotometry"] = {**photometry, "sourceStarId": parent["id"],
+        "sourceAbsoluteMagnitude": parent["absolute_mag"],
+        "sourceDistancePc": math.hypot(parent["x_pc"], parent["y_pc"], parent["z_pc"]),
+        "sourceNotes": parent["notes"],
+        "policy": "Observed catalog-source photometry only; no individual component flux inferred."}
+
+
 def build():
     inputs = [ROOT / "src/data/star-systems.json", ROOT / "src/data/object-designations.json", ROOT / "src/data/object-stats.json"]
     original = read_json(inputs[0])
@@ -103,10 +143,13 @@ def build():
     definitions = copy.deepcopy(original["systems"])
     aliases = {identifier: c["starId"] for s in definitions for c in s["components"] for identifier in [c["starId"], *c.get("alternateStarIds", [])]}
     stars = {}
+    catalog_sources = []
     for path in [*sorted((ROOT / "src/data/catalogs").glob("*/stars.csv")), ROOT / "src/data/stars.csv"]:
         inputs.append(path)
+        catalog_id = read_json(path.parent / "catalog.json")["id"] if path.parent != ROOT / "src/data" else "nearest-neighbors"
         for row in read_csv(path):
             star = csv_star(row, identities, stats)
+            catalog_sources.append({"catalog_id": catalog_id, "record": copy.deepcopy(star)})
             canonical = aliases.get(star["id"], star["id"])
             # Reviewed nearby individual records outrank legacy overlay copies.
             if canonical not in stars or star["id"] == canonical:
@@ -121,6 +164,9 @@ def build():
              [("msc", "json"), ("cifuentes", "json"), ("simbad", "csv"), ("atmospheres", "csv"), ("gaia", "csv"), ("overrides", "json")]]
     inputs += files
     msc, cifuentes = read_json(files[0]), read_json(files[1])
+    hierarchy_path = WORK / "reviewed-regor.json"
+    hierarchy_review = read_json(hierarchy_path)
+    inputs.append(hierarchy_path)
     simbad_rows, atmosphere_rows = read_csv(files[2]), read_csv(files[3])
     gaia = {r.identity.gaia_dr3_id: r for r in read_gaia_tap(files[4])}
     simbad = {" ".join(r["query_id"].split()): r for r in simbad_rows}
@@ -186,7 +232,35 @@ def build():
                 raise ValueError(f"Missing reviewed component {component['starId']}")
             pool[component["starId"]] = copy.deepcopy(stars[component["starId"]])
 
-    reviewed_ids = set(pool)
+    # Explicit source-reviewed pairs also cover ordinary binaries absent from
+    # MSC (three or more stars) and single-primary spectral classifications.
+    reviewed_path = WORK / "catalog-companions-reviewed.json"
+    reviewed = read_json(reviewed_path)
+    inputs += [reviewed_path, *(ROOT / path for path in reviewed["frozenInputs"])]
+    for review in reviewed["systems"]:
+        parent = stars[review["parentStarId"]]
+        system = {key: review[key] for key in ("id", "name", "sourceRef", "sourceUrl")}
+        system["components"] = []
+        for member in review["components"]:
+            identifier, label = member["starId"], member["label"]
+            if identifier in pool:
+                raise ValueError(f"Reviewed addition duplicates a component: {identifier}")
+            star = copy.deepcopy(stars[identifier]) if identifier in stars else blank_component(identifier, f"{review['name']} {label}", parent)
+            star["name"] = f"{review['name']} {label}"
+            star["designations"] = unique([*star["designations"], *member["designations"]])
+            if astrometry := member.get("astrometry"):
+                place(star, astrometry["ra_deg"], astrometry["dec_deg"], astrometry["parallax_mas"],
+                      astrometry["pm_ra_cosdec_masyr"], astrometry["pm_dec_masyr"], astrometry["epoch"], astrometry["astrometry_ref"])
+                star["raw_astrometry"].update(astrometry)
+            star["notes"] += " " + member["note"]
+            pool[identifier] = star
+            audit["componentRecords"][identifier] = {"membership": review["evidence"],
+                "component": label, "astrometryScope": member["note"]}
+            component = {key: member[key] for key in ("starId", "label", "alternateStarIds") if key in member}
+            system["components"].append(component)
+        definitions.append(system)
+
+    reviewed_ids = set(pool) | {alias for s in reviewed["systems"] for c in s["components"] for alias in c.get("alternateStarIds", [])}
     comp = collections.defaultdict(dict)
     for line in msc["tables"]["comp.tsv"]:
         row = list(map(str.strip, line.split("|")))
@@ -229,6 +303,19 @@ def build():
             return [*leaves(row[1], (row, 0)), *leaves(row[2], (row, 1))]
         choices = [leaves(root) for root in roots]
         members = next((values for values in choices if any(label.startswith(matched) for label, _ in values for matched in matches)), [])
+        # Regor's uncertain Aab-Ac link disconnects the confirmed Aa-Ab pair,
+        # while two outer rows share the same MSC parent label. Reconcile only
+        # the exact reviewed branches, without accepting the uncertain Ac star.
+        if wds == hierarchy_review["wdsId"]:
+            if [label for label, _ in members] != hierarchy_review["expectedAutomaticComponents"]:
+                raise ValueError("Reviewed Regor automatic hierarchy drifted")
+            members = []
+            for member in hierarchy_review["components"]:
+                branches = [row for row in subsystems[wds] if row[1:4] == member["branch"]]
+                if len(branches) != 1 or member["label"] not in branches[0][1:3]:
+                    raise ValueError(f"Reviewed Regor source branch drifted: {member['label']}")
+                branch = branches[0]
+                members.append((member["label"], (branch, branch[1:3].index(member["label"]))))
         if len(members) < 2:
             continue
         primary_label = next((label for label, _ in members if any(label.startswith(key) for key in matches)), members[0][0])
@@ -254,7 +341,11 @@ def build():
             evidence = {"membership": {"source": "MSC 2026-06-19", "wds": wds, "component": label, "subsystem": ancestry[0] if ancestry else None}, "astrometryScope": "Individual source direction when available; shared system distance/motion for unresolved close members; no orbital phase or individual radial velocity inferred."}
             if unresolved:
                 evidence["withheldIntegratedFields"] = {field: existing[field] for field in (*FIELDS, "absolute_mag") if existing and existing[field] is not None}
+                if existing:
+                    retain_unresolved_photometry(star, existing, identities, evidence)
             inherited_spectrum = record[10] if label == source_label and "+" not in record[10] else None
+            if not existing or unresolved:
+                place(star, float(record[1]), float(record[2]), number(record[3]) or (parent["raw_astrometry"] or {}).get("parallax_mas"), number(record[5]), number(record[6]), 2000, "MSC 2026-06-19; shared parent astrometry for unresolved members (approximate)")
             if ancestry:
                 branch, side = ancestry
                 inherited_spectrum = branch[11 + side * 2] or inherited_spectrum
@@ -264,18 +355,24 @@ def build():
                 photometry_blended = label != source_label and side == 0 and not number(branch[12])
                 if visual and not photometry_blended:
                     star["apparent_mag"] = visual
-                    star["absolute_mag"] = visual - 5 * math.log10(math.hypot(parent["x_pc"], parent["y_pc"], parent["z_pc"]) / 10)
-                    evidence["photometry"] = {"source": "MSC individual subsystem magnitude", "V": visual}
+                    distance = math.hypot(star["x_pc"], star["y_pc"], star["z_pc"])
+                    star["absolute_mag"] = visual - 5 * math.log10(distance / 10)
+                    evidence["photometry"] = {"source": "MSC individual subsystem magnitude", "V": visual,
+                        "distancePc": distance, "method": "Individual V and adopted component distance; no extinction correction"}
                 elif visual:
                     evidence["withheldPhotometry"] = {"V": visual, "reason": "Unresolved parent flux; secondary brightness unavailable"}
             star["spectral_type"] = spectrum(inherited_spectrum)
             star["notes"] += f" MSC physical hierarchy {wds}, component {label}. Shared system distance for close components is approximate. Catalog magnitude/spectral-type masses and minimum companion masses are withheld."
-            if not existing or unresolved:
-                place(star, float(record[1]), float(record[2]), number(record[3]) or (parent["raw_astrometry"] or {}).get("parallax_mas"), number(record[5]), number(record[6]), 2000, "MSC 2026-06-19; shared parent astrometry for unresolved members (approximate)")
             # Prefer the explicitly named individual measurement to a compiled alternate class.
             if source and not COMPOSITE.search(source["sp_type"]) and number(source["V"]) is not None:
                 star["absolute_mag"] = None
             enrich(star, source, evidence)
+            if wds == hierarchy_review["wdsId"]:
+                evidence["reviewedHierarchy"] = hierarchy_review["membership"]
+                if observation := hierarchy_review.get("observations", {}).get(identifier):
+                    star["stellar_observations"] = observation
+                if label == "Aa":
+                    evidence["retainedUnresolvedMscPhotometry"] = hierarchy_review["retainedUnresolvedMscPhotometry"]
             component = {"starId": identifier, "label": label}
             if len(ids) > 1:
                 component["alternateStarIds"] = ids[1:]
@@ -332,7 +429,7 @@ def build():
     for identifier, parent in stars.items():
         if identifier in reviewed_ids or not COMPOSITE.search(parent["spectral_type"] or ""):
             continue
-        parts = [part for part in re.split(r"\++(?=\s*(?:[OBAFGKM]|D[A-Z]|W[CN]))", parent["spectral_type"]) if part]
+        parts = [part for part in re.split(r"\++(?=\s*(?:[OBAFGKMLTY]|D[A-Z]|W[CN]))", parent["spectral_type"]) if part]
         if len(parts) < 2:
             continue
         matched_names = [" ".join(name.split()) for name in [identities.get(identifier, {}).get("simbadId", ""), *parent["designations"]] if " ".join(name.split()) in source_aliases]
@@ -352,14 +449,92 @@ def build():
             component_id = identifier if index == 0 else f"{identifier}-component-{label.lower()}"
             star = blank_component(component_id, f"{name} {label}", parent)
             star["spectral_type"] = spectrum(part)
-            star["type"] = "white_dwarf" if part.startswith("D") else "star"
+            star["type"] = "white_dwarf" if part.startswith("D") else "brown_dwarf" if part.startswith(('L', 'T', 'Y')) else "star"
             star["designations"] = unique([*parent["designations"], parent["name"]]) if index == 0 else [f"{name} {label}"]
             star["notes"] = f"Individual {label} spectrum from catalog composite {parent['spectral_type']}; component spectral ordering retained. Integrated system photometry and physical estimates withheld. Shared system sky position/distance is approximate; no orbital phase or individual space motion inferred."
             evidence = {"membership": {"source": "frozen SIMBAD composite spectral classification", "mainId": main, "originalSpectralType": parent["spectral_type"], "spectralBibcode": source_row.get("sp_bibcode")}, "withheldIntegratedFields": {field: parent[field] for field in (*FIELDS, "absolute_mag") if parent[field] is not None}}
+            if index == 0:
+                retain_unresolved_photometry(star, parent, identities, evidence)
             enrich(star, simbad.get(f"{main} {label}") if main else None, evidence)
             system["components"].append({"starId": component_id, "label": label})
         definitions.append(system)
         reviewed_ids.add(identifier)
+
+    # Ordinary visual binaries are absent from a catalog of triple hierarchies.
+    # ORB6 supplies detected pair membership independently of composite spectra.
+    orbit_path = WORK / 'orb6-20261009.txt'
+    ordinary_path = WORK / 'ordinary-binaries-simbad.csv'
+    exclusions_path = WORK / 'ordinary-binaries-review.json'
+    inputs += [orbit_path, ordinary_path, WORK / 'ordinary-binaries-simbad.adql', exclusions_path]
+    ordinary_sources = {" ".join(r['query_id'].split()): r for r in read_csv(ordinary_path)}
+    ordinary_review = read_json(exclusions_path)
+    exclusions = ordinary_review['systems']
+    audit['ordinaryBinaryCoverage'] = []
+    reviewed_ids.update(identifier for s in definitions for c in s['components'] for identifier in [c['starId'], *c.get('alternateStarIds', [])])
+    for pair in orbit_pairs(stars, identity_ids, orbit_path.read_text().splitlines()):
+        review = {key: value for key, value in pair.items() if key != 'sourceLine'}
+        groups = matching_members(pair, stars)
+        review['relevantCatalogIds'] = sorted({identifier for ids in groups.values() for identifier in ids})
+        if any(identifier in reviewed_ids for identifier in review['relevantCatalogIds']):
+            review['decision'] = 'covered-reviewed-system'
+        elif pair['wds'] in exclusions:
+            review.update(decision='withheld-reviewed-exclusion', evidence=exclusions[pair['wds']])
+        elif pair['decision'] == 'detected-visual-pair':
+            if not groups:
+                review['decision'] = 'withheld-unrelated-subsystem'
+            else:
+                parent = stars[next(iter(groups.values()))[0]]
+                name = ordinary_review['systemNames'].get(pair['wds'], re.sub(r" [A-Z][a-z]?$", "", parent['name']))
+                system = dict(id=f"orb6-{pair['wds']}-{'-'.join(pair['labels']).lower()}", name=name,
+                    wdsId=pair['wds'], sourceRef='catalog-companions-orb6',
+                    sourceUrl='https://crf.usno.navy.mil/wds-orb6', components=[])
+                if parent.get('raw_astrometry'):
+                    system['adoptedDistance'] = {'parallaxMas': parent['raw_astrometry']['parallax_mas'],
+                        'sourceStarId': parent['id'], 'scope': 'Shared catalog parent distance; approximate for unresolved components'}
+                for label in pair['labels']:
+                    ids = groups.get(label, [])
+                    identifier = ids[0] if ids else f"{system['id']}-{label.lower()}"
+                    existing = stars.get(identifier)
+                    star = blank_component(identifier, f'{name} {label}', parent)
+                    # An unresolved parent's physical values/flux/RV have no
+                    # individual scope, even when its spectrum has no plus sign.
+                    star['designations'] = unique([*(existing['designations'] if existing else []),
+                        f"WDS J{pair['wds']}{label}", *(ids if ids else [])])
+                    classified_parts = re.split(r'\++(?=\s*(?:[OBAFGKMLTY]|D[A-Z]|W[CN]))', parent['spectral_type'] or '')
+                    if len(classified_parts) == len(pair['labels']) and len(classified_parts) > 1:
+                        star['spectral_type'] = spectrum(classified_parts[pair['labels'].index(label)])
+                        star['type'] = 'white_dwarf' if star['spectral_type'].startswith('D') else 'brown_dwarf' if star['spectral_type'].startswith(('L', 'T', 'Y')) else 'star'
+                    source = ordinary_sources.get(f"WDS J{pair['wds']}{label}")
+                    if source is None:
+                        main = identities.get(parent['id'], {}).get('simbadId', '')
+                        source = ordinary_sources.get(f'{main} {label}')
+                    individual = source and bool(re.search(r'\s' + re.escape(label) + r'$', source['main_id'])) and source['otype'] not in {'**', 'SB*', 'EB*'} and len(re.split(r'\++(?=\s*(?:[OBAFGKMLTY]|D[A-Z]|W[CN]))', source['sp_type'])) == 1
+                    evidence = {'membership': review.copy(), 'withheldIntegratedFields':
+                        {field: existing[field] for field in (*FIELDS, 'absolute_mag', 'vx_kms', 'vy_kms', 'vz_kms') if existing and existing[field] is not None}}
+                    if existing:
+                        retain_unresolved_photometry(star, existing, identities, evidence)
+                    if star['spectral_type']:
+                        evidence['spectralClassification'] = {'method': 'Frozen component spectra in a source composite, with independent ORB6 detection', 'parentSpectralType': parent['spectral_type']}
+                    classification = ordinary_review['componentClassifications'].get(pair['wds'])
+                    if classification and label in classification['components']:
+                        star.update(classification['components'][label])
+                        evidence['reviewedSpectralClassification'] = classification
+                    star['notes'] = f"Detected ORB6 visual pair {pair['wds']} {pair['designation']}, component {label}. Unresolved parent photometry, physical parameters and space motion withheld. Shared parent position/distance is approximate unless individual astrometry is available. ORB6 magnitudes are withheld because their photometric band is not guaranteed to be Johnson V."
+                    if individual:
+                        place(star, number(source['ra']), number(source['dec']), number(source['plx_value']),
+                            number(source['pmra']), number(source['pmdec']), 2000,
+                            'Frozen exact-component SIMBAD astrometry; ICRS J2000')
+                        if star['raw_astrometry']:
+                            star['raw_astrometry']['parallax_error_mas'] = number(source['plx_err'])
+                    enrich(star, source if individual else None, evidence)
+                    component = {'starId': identifier, 'label': label}
+                    if len(ids) > 1:
+                        component['alternateStarIds'] = ids[1:]
+                    system['components'].append(component)
+                definitions.append(system)
+                reviewed_ids.update(i for c in system['components'] for i in [c['starId'], *c.get('alternateStarIds', [])])
+                review.update(decision='authored-detected-pair', systemId=system['id'])
+        audit['ordinaryBinaryCoverage'].append(review)
 
     # Fill remaining blanks on previously reviewed individuals too, using their
     # own exact source identities; do not borrow a parent's Gaia/atmosphere row.
@@ -369,13 +544,76 @@ def build():
         if len(candidates) == 1:
             enrich(star, next(iter(candidates.values())), audit["componentRecords"].get(identifier, {}))
 
-    for identifier, override in read_json(files[5])["objects"].items():
+    overrides = read_json(files[5])["objects"]
+    if overrides.keys() & hierarchy_review["physicalOverrides"].keys():
+        raise ValueError("Duplicate reviewed Regor physical override")
+    for identifier, override in {**overrides, **hierarchy_review["physicalOverrides"]}.items():
         if identifier not in pool:
             raise ValueError(f"Component override has no exact member: {identifier}")
         star = pool[identifier]
         star.update(override["values"])
         star["notes"] += " " + override["note"]
         audit["componentRecords"].setdefault(identifier, {})["reviewedPhysicalOverride"] = override
+
+    inputs += apply_literature(ROOT, WORK / "reviewed-companion-literature.json", definitions, pool, audit)
+
+    # Resolved observations retain their own epoch and uncertainty semantics.
+    # A spectroscopic component RV must not complete a different-epoch bulk
+    # astrometry bundle or create a constant space-motion vector.
+    primary_path = ROOT / "catalog-work/nearest-100/physical-overrides.json"
+    manifest_path = ROOT / "catalog-work/shared-enrichment/source-manifest.json"
+    inputs += [primary_path, manifest_path]
+    expected_hash = read_json(manifest_path)["checksumsSha256"][str(primary_path.relative_to(ROOT))]
+    if hashlib.sha256(primary_path.read_bytes()).hexdigest() != expected_hash:
+        raise ValueError("Reviewed primary observation checksum drifted")
+    for review in read_json(primary_path)["records"]:
+        photometry = review.get("photometry", {})
+        velocity = review.get("radialVelocityObservation")
+        if not photometry.get("observed_on") and not velocity:
+            continue
+        identifier = review["starViewId"]
+        star = pool[identifier]
+        if star["name"] != review["expectedName"] or review["componentDesignation"] not in star["designations"]:
+            raise ValueError(f"Resolved observation component identity drifted: {identifier}")
+        if photometry.get("observed_on"):
+            if star["apparent_mag"] is None or not math.isclose(star["apparent_mag"], photometry["johnson_v"], abs_tol=1e-6):
+                raise ValueError(f"Resolved photometry adoption drifted: {identifier}")
+            star["resolved_photometry"] = {
+                "magnitude_v": photometry["johnson_v"], "error_mag": photometry["uncertainty"],
+                **{key: photometry[key] for key in ("observed_on", "reference", "source_url", "scope")},
+            }
+        if velocity:
+            star["radial_velocity_observation"] = velocity
+        audit["componentRecords"].setdefault(identifier, {})["resolvedObservations"] = {
+            "photometry": star.get("resolved_photometry"), "radialVelocity": velocity,
+            "motionPolicy": "Component spectroscopic RV retained separately; catalog astrometry and transverse motion unchanged.",
+        }
+
+    photometry_path = WORK / "reviewed-unresolved-photometry.json"
+    inputs.append(photometry_path)
+    for identifier, review in read_json(photometry_path)["objects"].items():
+        star = pool[identifier]
+        observation = star.get("unresolved_photometry")
+        if star["name"] != review["expectedName"] or observation is None or abs(
+                observation["magnitude_v"] - review["expectedMagnitudeV"]) > 0.001:
+            raise ValueError(f"Unresolved photometry identity/source drifted: {identifier}")
+        star["unresolved_photometry"] = review["observation"]
+        audit["componentRecords"][identifier]["unresolvedPhotometry"]["reviewedObservation"] = review
+
+    # Freshly split records have no inherited stats. Use only their own
+    # classification, never the aggregate's variability or planetary labels.
+    for identifier, star in pool.items():
+        if star["apparent_mag"] is not None:
+            # The card should prefer its reviewed individual flux. Retain the
+            # older unresolved observation in provenance only.
+            star.pop("unresolved_photometry", None)
+        labels = spectral_labels(star)
+        added_labels = [label for label in labels if label not in star["subtypes"]]
+        star["subtypes"] = unique([*star["subtypes"], *labels])
+        if added_labels:
+            audit["componentRecords"].setdefault(identifier, {})["spectralSubtypes"] = {
+                "spectralType": star["spectral_type"], "labels": added_labels,
+                "method": "Physical subtype from this component's own adopted spectrum; no aggregate-label inheritance"}
 
     definitions = [s for s in definitions if len(s["components"]) > 1]
     required_ids = {c["starId"] for s in definitions for c in s["components"]}
@@ -387,10 +625,59 @@ def build():
                 if identifier in aliases and aliases[identifier] != component["starId"]:
                     raise ValueError(f"Ambiguous component identity: {identifier}")
                 aliases[identifier] = component["starId"]
+    # Replacing a catalog source with a reviewed component must be additive.
+    # Retain the complete source snapshot, including values, uncertainties,
+    # astrometry and notes, instead of discarding non-component-scoped fields.
+    # Do not copy these measurements into individual component quantities.
+    for source in catalog_sources:
+        original = source["record"]
+        identifier = aliases.get(original["id"])
+        if identifier not in pool:
+            continue
+        fields = (*FIELDS, "type", "metallicity_kind", "spectral_type", "absolute_mag", "apparent_mag", "constellation",
+                  "epoch", "x_pc", "y_pc", "z_pc", "vx_kms", "vy_kms", "vz_kms", "raw_astrometry", "subtypes", "known_planets")
+        # Avoid duplicating records whose measurements and notes already survive.
+        changed = any(original.get(field) is not None and original.get(field) != []
+            and not retained_measurement(original[field], pool[identifier].get(field)) for field in fields)
+        if not changed and original["notes"] in pool[identifier]["notes"]:
+            continue
+        source["scope"] = (f"Original {original['name']} catalog source; "
+                           "component contributions are not separated here. "
+                           "Retained source measurements, not individual component measurements.")
+        pool[identifier].setdefault("catalog_sources", []).append(source)
+    for identifier, star in pool.items():
+        if star.get("catalog_sources"):
+            star["catalog_sources"].sort(key=lambda source: (source["record"]["id"] != identifier, source["catalog_id"]))
     for identifier, star in stars.items():
         if COMPOSITE.search(star["spectral_type"] or "") and identifier not in aliases:
             audit["remainingCompositeRecords"].append({"id": identifier, "name": star["name"], "spectralType": star["spectral_type"]})
-    audit.update(schemaVersion=1, reviewedOn="2026-10-09", systems=len(definitions), components=len(pool),
+    audit['unreviewedMultiplicityRecords'] = []
+    for identifier, star in stars.items():
+        if identifier in aliases:
+            continue
+        main = " ".join(identities.get(identifier, {}).get('simbadId', '').split())
+        source = source_aliases.get(main, {})
+        wds = [name for name in star['designations'] if name.startswith('WDS J')]
+        if wds or source.get('otype') in {'SB*', '**', 'EB*'} or re.search(r'\+[LTY]\d', star['spectral_type'] or ''):
+            audit['unreviewedMultiplicityRecords'].append({'id': identifier, 'name': star['name'],
+                'simbadType': source.get('otype'), 'spectralType': star['spectral_type'], 'wdsIds': wds,
+                'status': 'Needs source review; a WDS identifier or spectral/astrometric flag alone does not establish physical component membership.'})
+    audit.update(schemaVersion=1, reviewedOn="2026-10-13", systems=len(definitions), components=len(pool),
+                 selectedFieldCoverage={
+                     "individualApparentMagnitude": sum(s["apparent_mag"] is not None for s in pool.values()),
+                     "unresolvedSourcePhotometry": sum(bool(s.get("unresolved_photometry")) for s in pool.values()),
+                     "subtypes": sum(bool(s["subtypes"]) for s in pool.values()),
+                     "missingSubtypes": [identifier for identifier, s in pool.items() if not s["subtypes"]],
+                     "missingVisualPhotometry": [identifier for identifier, s in pool.items()
+                                                 if s["apparent_mag"] is None and not s.get("unresolved_photometry")]},
+                 propertyCoverage=property_coverage(pool),
+                 sourcePreservation={
+                     "componentRecordsWithSources": sum(bool(s.get("catalog_sources")) for s in pool.values()),
+                     "sourceRecords": sum(len(s.get("catalog_sources", [])) for s in pool.values()),
+                     "missingIndividualFieldsWithSourceValues": {
+                         field: sum(s.get(field) is None and any(source["record"].get(field) is not None
+                             for source in s.get("catalog_sources", [])) for s in pool.values())
+                         for field in (*FIELDS, "absolute_mag", "apparent_mag", "spectral_type", "vx_kms", "vy_kms", "vz_kms")}},
                  coverage={field: sum(s[field] is not None for s in pool.values()) for field in FIELDS},
                  inputSha256={str(path.relative_to(ROOT)): hashlib.sha256(path.read_bytes()).hexdigest() for path in inputs})
     payload = {"schemaVersion": 1, "policy": "Load every reviewed stellar component when any exact member is represented, independent of luminosity, brightness, distance and selection cutoff. No positional membership inference; unknown component fields remain null. Integrated system properties never become individual measurements.", "systems": definitions, "stars": list(pool.values())}
@@ -400,10 +687,28 @@ def build():
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--write", action="store_true")
+    parser.add_argument("--check", action="store_true", help="Fail if the shared pool or membership audit is stale")
     args = parser.parse_args()
     payload, audit = build()
+    systems = {system['id']: system for system in read_json(ROOT / 'src/data/star-systems.json')['systems']}
+    systems.update({system['id']: system for system in payload['systems']})
+    # Runtime identity only; the full authored files retain all source metadata.
+    identities = {'systems': [
+        {'id': system['id'], 'name': system['name'], 'components': [
+            {key: component[key] for key in ('starId', 'label', 'alternateStarIds') if key in component}
+            for component in system['components']]}
+        for system in systems.values()]}
+    if args.check and (read_json(OUTPUT) != payload or read_json(WORK / 'catalog-companions-audit.json') != json.loads(json.dumps(audit))
+                       or not IDENTITIES.exists() or read_json(IDENTITIES) != identities):
+        raise SystemExit('Stale companion coverage; run npm run catalog:companions and review the membership audit.')
     if args.write:
+        previous = read_json(OUTPUT)
+        retirements = read_json(ROOT / "catalog-work/reviewed-data-retirements.json")["retirements"]
+        errors = pool_losses(previous, payload, retirements)
+        if errors:
+            raise SystemExit("Refusing companion regeneration that loses existing data:\n" + "\n".join(errors))
         OUTPUT.write_text(json.dumps(payload, indent=2) + "\n")
+        IDENTITIES.write_text(json.dumps(identities, indent=2) + "\n")
         (WORK / "catalog-companions-audit.json").write_text(json.dumps(audit, indent=2) + "\n")
     print(f"{audit['systems']} systems, {audit['components']} individual records; coverage {audit['coverage']}; unresolved composite records {len(audit['remainingCompositeRecords'])}")
 

@@ -8,6 +8,8 @@ import re
 from collections import defaultdict
 from pathlib import Path
 
+from catalog_sources.classification import spectral_labels
+
 ROOT = Path(__file__).resolve().parents[1]
 WORK = ROOT / "catalog-work/object-stats"
 OUTPUT = ROOT / "src/data/object-stats.json"
@@ -42,28 +44,6 @@ def key(value):
 def csv_rows(path):
     with path.open(newline="") as handle:
         return list(csv.DictReader(handle))
-
-
-def spectral_labels(row):
-    spectrum = row.get("spectral_type") or ""
-    if row["type"] in {"brown_dwarf", "sub_brown_dwarf"}:
-        match = re.match(r"([LTY])\d", spectrum)
-        return [f"{match[1]}-type"] if match else []
-    if row["type"] != "star":
-        return []
-    labels = []
-    if re.search(r"(?:^|\+)W[NCOR]\d", spectrum):
-        labels.append("Wolf–Rayet")
-    # Only unambiguous luminosity classes; never assume a class for a bare spectrum.
-    if re.search(r"[OBAFGKM]\d(?:\.\d)?(?:Iab|Ia|Ib|I)(?![IV])", spectrum):
-        labels.append("Supergiant")
-    elif re.search(r"[OBAFGKM]\d(?:\.\d)?III(?![IV])", spectrum):
-        labels.append("Giant")
-    elif re.search(r"[OBAFGKM]\d(?:\.\d)?IV(?![IV])", spectrum):
-        labels.append("Subgiant")
-    elif re.search(r"[OBAFGKM]\d(?:\.\d)?V(?!I)", spectrum):
-        labels.append("Main-sequence")
-    return labels
 
 
 def build():

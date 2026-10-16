@@ -109,7 +109,7 @@ describe('object designations', () => {
   })
 
   it('rejects malformed alias payloads and leaves legacy and custom identities usable', () => {
-    expect(() => parseCatalogPayload({ schemaVersion: 1, catalogId: DEFAULT_CATALOG_MANIFEST.id, stars: stars.map((star) => ({ ...star, designations: [42] })) }, DEFAULT_CATALOG_MANIFEST)).toThrow('Invalid catalog payload row')
+    expect(() => parseCatalogPayload({ schemaVersion: 2, catalogId: DEFAULT_CATALOG_MANIFEST.id, sourceObjectCount: stars.length, stars: stars.map((star) => ({ ...star, designations: [42] })) }, DEFAULT_CATALOG_MANIFEST)).toThrow('Invalid catalog payload row')
     expect(() => parseObjectIdentities({ schemaVersion: 1, objects: { bad: { name: 'Bad', designations: [''], sources: ['source'] } } })).toThrow('Invalid object designations')
     const custom = { ...stars[1]!, id: 'toString', name: 'Custom star', designations: ['Custom identifier'] }
     expect(supplementObjectIdentities([custom], identities)[0]).toEqual(custom)

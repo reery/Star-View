@@ -1,0 +1,38 @@
+{
+  "schemaVersion": 1,
+  "policy": "Only exact reviewed corrections may bypass known-to-missing preservation checks. Never use this list to waive accidental data loss.",
+  "retirements": [
+    {
+      "path": "src/data/stellar-companions.json",
+      "id": "cns5-2182",
+      "field": "subtypes",
+      "expectedPrevious": ["Subgiant"],
+      "expectedCurrent": [],
+      "reason": "The retained spectrum K0IV-V spans subgiant and main-sequence classes. The previous parser incorrectly selected Subgiant from this mixed class. Keep the original spectrum; do not assert a single stage."
+    },
+    {
+      "path": "src/data/stellar-companions.json",
+      "id": "cns5-5833",
+      "field": "subtypes",
+      "expectedPrevious": ["Spectroscopic binary", "Variable star", "Giant"],
+      "expectedCurrent": ["Spectroscopic binary", "Variable star"],
+      "reason": "K1III-IV spans giant and subgiant classes. Retain the spectrum and supported binary/variability labels without selecting one evolutionary stage."
+    },
+    {
+      "path": "src/data/stellar-companions.json",
+      "id": "10pc-0031",
+      "field": "subtypes",
+      "expectedPrevious": ["Rotating variable", "Spectroscopic binary", "Subgiant"],
+      "expectedCurrent": ["Rotating variable", "Spectroscopic binary"],
+      "reason": "F5IV-V spans subgiant and main-sequence classes. Retain the spectrum and supported binary/variability labels without selecting one evolutionary stage."
+    },
+    {
+      "path": "src/data/stellar-companions.json",
+      "id": "hip-105319",
+      "field": "subtypes",
+      "expectedPrevious": ["Pulsating variable", "Rotating variable", "Subgiant"],
+      "expectedCurrent": ["Pulsating variable", "Rotating variable"],
+      "reason": "A5IV-V spans subgiant and main-sequence classes. Retain the spectrum and supported variability labels without selecting one evolutionary stage."
+    }
+  ]
+}

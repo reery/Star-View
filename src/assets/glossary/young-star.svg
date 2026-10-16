@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 840 360" role="img" aria-labelledby="title desc">
+  <title id="title">A young star and its disk</title>
+  <desc id="desc">A young star is surrounded by a disk of gas and dust. Some material moves inward toward the star. Not every young star retains a disk.</desc>
+  <defs>
+    <radialGradient id="star"><stop stop-color="#fff0c9"/><stop offset="1" stop-color="#d99655"/></radialGradient>
+    <marker id="arrow" markerWidth="9" markerHeight="9" refX="7" refY="4" orient="auto"><path d="M0 0L8 4 0 8" fill="none" stroke="#8da9d6" stroke-width="1.5"/></marker>
+  </defs>
+  <rect width="840" height="360" fill="#101112"/>
+  <g transform="translate(420 184) rotate(-12)">
+    <ellipse rx="260" ry="73" fill="#714428" fill-opacity=".4" stroke="#d99655" stroke-width="3"/>
+    <ellipse rx="190" ry="53" fill="none" stroke="#d99655" stroke-width="14" opacity=".4"/>
+    <ellipse rx="118" ry="33" fill="none" stroke="#ffba68" stroke-width="20" opacity=".45"/>
+    <circle r="42" fill="url(#star)"/>
+    <path d="M-229 0H-105" fill="none" stroke="#8da9d6" stroke-width="4" marker-end="url(#arrow)"/>
+    <path d="M229 0H105" fill="none" stroke="#8da9d6" stroke-width="4" marker-end="url(#arrow)"/>
+  </g>
+  <g font-family="system-ui, sans-serif" text-anchor="middle" fill="#ded8ce" font-size="29">
+    <text x="420" y="43">Young star</text><text x="420" y="306">Surrounding gas-and-dust disk</text>
+    <text x="420" y="341" fill="#8da9d6" font-size="25">Material can move inward</text>
+  </g>
+  <path d="M420 55V133" stroke="#a5a29e" stroke-width="2"/>
+</svg>

@@ -9,6 +9,7 @@
   color: var(--ink);
   background: #000000;
   --panel: #202224;
+  --card-header-gradient: linear-gradient(305deg, #393029 0%, #2a2b32 55%, var(--panel) 100%);
   --panel-glass: #202224f2;
   --panel-hover: #2d2d2e;
   --panel-selected: #3b322b;
@@ -25,6 +26,11 @@
   --card-radius: 11px;
   --property-text-size: 14px;
   --mass-metric-divider: 1px dashed var(--line);
+  --stat-bar-height: 6px;
+  --stat-bar-radius: 4px;
+  --stat-bar-fill: linear-gradient(90deg, var(--accent), var(--accent-strong));
+  --stat-bar-reference: #a7bdcc;
+  --planet-earth-reference: var(--stat-bar-reference);
 }
 
 * { box-sizing: border-box; }
@@ -51,10 +57,17 @@ button, p, h2, dd { overflow-wrap: anywhere; }
 .selected-object, .dock-card, .observer-direction-card { color: var(--ink); background: linear-gradient(145deg, #26282af7, var(--panel-glass)); border: 1px solid #5a5148; border-radius: var(--card-radius); box-shadow: 0 14px 38px #00000080, inset 0 1px #ffffff0a; }
 .selected-object, .dock-card { isolation: isolate; }
 .selected-object { position: absolute; top: 20px; left: 20px; width: 292px; max-height: calc(100dvh - 40px); overflow: auto; overscroll-behavior: contain; scrollbar-width: thin; scrollbar-color: #776a5c transparent; pointer-events: auto; }
-.properties .designations-property { grid-template-columns: 1fr; gap: 6px; }
-.properties .designations-property dd { text-align: left; }
-.designation-list { max-height: 156px; overflow: auto; margin: 0; padding: 0; list-style: none; scrollbar-width: thin; scrollbar-color: #776a5c transparent; }
+.designation-details { font-size: var(--property-text-size); line-height: 1.2; }
+.designation-details summary { padding: 3px 0; color: var(--muted); font-weight: 400; cursor: pointer; }
+.designation-details[open] summary { margin-bottom: 6px; }
+.designation-list, .subtype-list { margin: 0; padding: 8px 10px; list-style: none; background: var(--surface-control); border: 1px solid var(--line); border-radius: 6px; }
+.designation-list { max-height: 156px; overflow: auto; scrollbar-width: thin; scrollbar-color: #776a5c transparent; }
 .designation-list li { padding: 3px 0; overflow-wrap: anywhere; }
+.subtype-count { float: right; color: var(--ink); font-weight: 500; font-variant-numeric: tabular-nums; }
+.subtype-list { margin-bottom: 8px; }
+.subtype-list li + li { margin-top: 10px; }
+.subtype-list strong { display: block; font-weight: 600; overflow-wrap: anywhere; }
+.subtype-list p { margin-top: 3px; color: var(--muted); font-weight: 400; line-height: 1.4; }
 .scene-toolbar { position: absolute; top: 20px; right: 18px; display: flex; flex-direction: column; align-items: center; gap: 4px; pointer-events: auto; }
 .dock-card.saved-views-card { position: absolute; top: 20px; right: 72px; width: min(400px, calc(100vw - 110px)); max-height: calc(100dvh - 40px); overflow: hidden; pointer-events: auto; }
 .saved-view-context-delete:focus-visible, .saved-views-table tbody tr:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; }
@@ -138,15 +151,18 @@ button, p, h2, dd { overflow-wrap: anywhere; }
 .control-dock[data-open="motion"] .dock-rail { grid-column: 1; }
 .dock-card { grid-column: 1; grid-row: 1; align-self: end; width: 276px; max-height: calc(100dvh - 40px); overflow: auto; overscroll-behavior: contain; scrollbar-width: thin; scrollbar-color: #776a5c transparent; }
 .control-dock[data-motion-open] .time-controls { width: min(760px, calc(100vw - 100px)); }
-.panel-heading { position: sticky; top: 0; z-index: 3; background: linear-gradient(145deg, #26282a, var(--panel)); display: flex; align-items: center; min-height: 44px; padding: 0 54px 0 14px; border-bottom: 1px solid var(--line); font-size: 16px; line-height: 1.25; font-weight: 600; }
+.panel-heading { position: sticky; top: 0; z-index: 3; background: var(--card-header-gradient); display: flex; align-items: center; min-height: 44px; padding: 0 54px 0 14px; border-bottom: 1px solid var(--line); font-size: 16px; line-height: 1.25; font-weight: 600; }
 .panel-heading h2 { font: inherit; min-width: 0; }
 .panel-lock, .save-view-button { display: grid; place-items: center; width: 44px; height: 44px; flex: 0 0 44px; padding: 0; color: var(--ink); background: transparent; border: 1px solid transparent; border-radius: 6px; transition: color 120ms ease, background 120ms ease, border-color 120ms ease; }
 .panel-heading .panel-lock, .panel-heading .save-view-button { position: absolute; z-index: 1; top: -1px; right: -1px; height: 45px; border-color: transparent transparent var(--line) var(--line); border-radius: 0 var(--card-radius) 0 0; background: var(--surface-raised); }
 .panel-lock[aria-pressed="true"] { color: var(--accent-vibrant); background: #ff8a2a14; border-color: #ff8a2a70; }
 .panel-lock:focus-visible, .save-view-button:focus-visible { outline-color: var(--accent-vibrant); }
+.panel-heading.filter-heading { padding-right: 98px; }
+.panel-heading #filter-reset { right: 43px; border-radius: 0; }
 .control-dock[data-open="glossary"] { grid-template-columns: min(640px, calc(100vw - 100px)) 44px; }
 .dock-card.glossary-card { display: flex; flex-direction: column; width: min(640px, calc(100vw - 100px)); height: min(520px, calc(100dvh - 100px)); overflow: hidden; }
-.panel-heading.glossary-heading { flex: 0 0 45px; gap: 18px; }
+.panel-heading.glossary-heading { flex: 0 0 45px; gap: 18px; padding-right: 98px; }
+.panel-heading:is(.objects-heading, .glossary-heading) > .panel-lock[aria-pressed] { right: 43px; border-radius: 0; }
 .glossary-heading h2 { flex: 0 0 auto; }
 .glossary-search { position: relative; flex: 1; min-width: 0; }
 .glossary-search > span { position: absolute; top: 50%; left: 9px; transform: translateY(-50%); color: var(--muted); pointer-events: none; }
@@ -214,14 +230,14 @@ button, p, h2, dd { overflow-wrap: anywhere; }
 }
 .toolbar-divider { width: 20px; height: 1px; background: var(--line); margin: 4px 12px; }
 .tooltip { display: none; position: absolute; right: calc(100% + 10px); white-space: nowrap; font-size: 12px; font-weight: 400; background: var(--panel); border: 1px solid var(--line); color: var(--ink); padding: 7px 10px; border-radius: 5px; pointer-events: none; z-index: 5; box-shadow: 0 6px 18px #00000070; }
-.icon-button:focus-visible .tooltip { display: block; }
+.icon-button:focus-visible:not(:disabled) .tooltip { display: block; }
 .selection-tooltip-object { display: flex; align-items: center; gap: 6px; margin-top: 5px; }
 .selection-tooltip-object[hidden] { display: none; }
 .origin-tooltip-object { display: inline-flex; align-items: center; gap: 6px; vertical-align: middle; }
 @media (hover: hover) and (pointer: fine) {
   .icon-button:hover:not(:disabled) { background: var(--panel-selected); color: var(--accent-strong); border-color: var(--border-active); }
   .observer-view-button[aria-pressed="true"]:hover:not(:disabled) { color: #ff9a78; background: #46251d; border-color: #d66b47; }
-  .icon-button:hover .tooltip { display: block; }
+  .icon-button:hover:not(:disabled) .tooltip { display: block; }
 }
 
 .scene-legend, .visibility-observer { position: absolute; bottom: 22px; color: var(--muted); font-size: 11px; display: flex; align-items: center; gap: 9px; pointer-events: none; }
@@ -261,6 +277,8 @@ button, p, h2, dd { overflow-wrap: anywhere; }
 
 .display-settings, .filter-controls { font-size: 14px; line-height: 1.35; color: var(--ink); }
 .display-settings { display: grid; gap: 12px; padding: 12px 14px 14px; }
+.preferences-group { display: grid; gap: 12px; }
+.preferences-group > .card-subgroup-heading { margin: 0 -14px; padding-inline: 14px; }
 .catalog-choice { display: flex; align-items: center; gap: 10px; min-height: 40px; }
 .catalog-choice label { flex: 0 0 auto; }
 select, input { font: inherit; accent-color: var(--accent); }
@@ -299,7 +317,7 @@ select:focus-visible, input:focus-visible { outline: 2px solid var(--accent); ou
 .range-bounds { color: var(--muted); font-size: 10px; }
 .filter-dropdown { border-top: 1px solid var(--line); }
 .filter-dropdown > summary { min-height: 44px; padding: 10px 0; color: var(--ink); cursor: pointer; }
-.filter-dropdown > summary::marker, .source-details summary::marker { color: var(--accent); }
+.filter-dropdown > summary::marker, .source-details summary::marker, .designation-details summary::marker { color: var(--accent); }
 #object-type-filter-summary { float: right; margin-left: 12px; color: var(--muted); font-size: 11px; }
 .type-filter { margin: 0; padding: 2px 0 0 18px; border: 0; min-width: 0; }
 .filter-options { display: grid; }
@@ -310,9 +328,9 @@ select:focus-visible, input:focus-visible { outline: 2px solid var(--accent); ou
 .object-type-option:has(input:disabled) { color: var(--muted); cursor: default; }
 .object-type-option .filter-hint { margin-left: auto; }
 #catalog-count { color: var(--muted); font-size: 12px; font-variant-numeric: tabular-nums; font-weight: 500; }
-.panel-heading.objects-heading { gap: 12px; padding-right: 98px; }
+.panel-heading.objects-heading { gap: 12px; padding-right: 142px; }
 .objects-heading h2 { flex: 0 0 auto; white-space: nowrap; }
-.panel-heading .objects-expand { right: 43px; border-radius: 0; }
+.panel-heading .objects-expand { right: 87px; border-radius: 0; }
 .control-dock[data-open="objects"][data-objects-expanded] { grid-template-columns: min(1760px, calc(100vw - 100px)) 44px; }
 .dock-card.catalog.is-expanded { width: min(1760px, calc(100vw - 100px)); height: var(--objects-height); }
 .inspector:has(> .observer-direction-card:not([hidden])) .control-dock[data-open="objects"] .catalog { max-height: calc(100dvh - 40px - var(--observer-direction-height, 68px) - 10px); }
@@ -367,7 +385,7 @@ select:focus-visible, input:focus-visible { outline: 2px solid var(--accent); ou
 .companion-icon { display: inline-block; flex-shrink: 0; color: var(--muted); vertical-align: middle; }
 .catalog-name > .companion-icon { margin-right: 4px; }
 .reference-target { display: inline-flex; flex-shrink: 0; color: var(--accent-vibrant); line-height: 1; }
-.info-brand { position: sticky; top: 0; z-index: 3; background: linear-gradient(145deg, #26282a, var(--panel)); display: flex; align-items: center; gap: 12px; padding: 18px 16px; border-bottom: 1px solid var(--line); }
+.info-brand { position: sticky; top: 0; z-index: 3; background: linear-gradient(125deg, #393029 0%, #2a2b32 55%, var(--panel) 100%); display: flex; align-items: center; gap: 12px; padding: 18px 16px; border-bottom: 1px solid var(--line); }
 .info-brand-icon { display: grid; place-items: center; width: 42px; height: 42px; flex: 0 0 42px; color: var(--accent-strong); background: #171819; border: 1px solid #73583e; border-radius: 50%; box-shadow: 0 0 18px #e7a05b24; }
 .info-brand h2 { font-size: 19px; line-height: 1.2; font-weight: 600; }
 .info-brand p { margin-top: 3px; color: var(--muted); font-size: 12px; line-height: 1.4; }
@@ -382,7 +400,7 @@ select:focus-visible, input:focus-visible { outline: 2px solid var(--accent); ou
 .star-swatch { display: inline-block; width: 8px; height: 8px; border-radius: 50%; border: 1px solid #ffffff40; flex-shrink: 0; }
 .catalog-name { font-size: 12px; font-weight: 500; min-width: 0; }
 .catalog-distance { color: var(--muted); font-size: 10px; white-space: nowrap; font-variant-numeric: tabular-nums; }
-#object-card-details > .selection-summary { position: sticky; top: 0; z-index: 3; background: linear-gradient(145deg, #26282a, var(--panel)); display: block; padding: 0; cursor: pointer; list-style: none; }
+#object-card-details > .selection-summary { position: sticky; top: 0; z-index: 3; background: var(--card-header-gradient); display: block; padding: 0; cursor: pointer; list-style: none; }
 #object-card-details > .selection-summary::-webkit-details-marker { display: none; }
 .identity { display: flex; align-items: center; gap: 8px; min-width: 0; width: 100%; min-height: 68px; padding: 8px 12px; }
 #selected-swatch { display: block; width: 56px; height: 56px; flex: 0 0 56px; pointer-events: none; }
@@ -410,7 +428,8 @@ select:focus-visible, input:focus-visible { outline: 2px solid var(--accent); ou
 #object-card-details[open] .object-card-footer { border-bottom: 1px solid var(--line); }
 #object-card-details[open] .object-section-button { border-radius: 0; }
 #object-specs { padding-top: 8px; }
-#object-system { padding: 0 16px 12px; }
+#object-system, #object-info { padding: 0 16px 12px; }
+#object-info > p:first-child { padding-top: 10px; }
 #object-system .card-subgroup-heading { margin-bottom: 0; }
 .planet-system-figure { margin: 0 -16px 9px; background: #000; }
 .planet-orbit-diagram { display: block; width: 100%; height: auto; overflow: hidden; }
@@ -422,6 +441,8 @@ select:focus-visible, input:focus-visible { outline: 2px solid var(--accent); ou
 .planet-diagram-label { font: inherit; font-size: 11px; fill: var(--muted); }
 .planet-list .planet-row { position: relative; isolation: isolate; cursor: pointer; }
 .planet-row dt { display: flex; align-items: center; gap: 7px; }
+.system-body-group { margin-top: 8px; padding-top: 8px; border-top: var(--mass-metric-divider); }
+.system-body-group > .planet-list { margin-top: 4px; }
 .planet-row .object-type-toggle[aria-pressed="true"]::before, .planet-row:hover .object-type-toggle::before { background: var(--panel-selected); }
 .planet-row:has([aria-pressed="true"]) dt, .planet-row .object-type-toggle[aria-pressed="true"] { color: var(--accent-strong); }
 .stellar-system-section:not(:first-child) { margin-top: 12px; }
@@ -429,6 +450,8 @@ select:focus-visible, input:focus-visible { outline: 2px solid var(--accent); ou
 .stellar-system-heading { position: relative; padding-right: 56px; }
 .stellar-header-control { width: 40px; height: auto; border-left: 1px solid var(--line); border-radius: 0; }
 .stellar-orbit-view-toggle { position: absolute; top: 0; right: 0; height: 100%; }
+.habitable-zone-toggle[aria-pressed="true"] { color: #8cbd9b; background: #8cbd9b14; border-color: #8cbd9b70; }
+.planet-habitable-zone path { fill: #8cbd9b; fill-opacity: 0.14; stroke: #8cbd9b; stroke-opacity: 0.4; stroke-width: 0.6; }
 .stellar-orbit-heading { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
 .stellar-orbit-heading h3 { margin: 0; font: inherit; flex-shrink: 0; }
 .stellar-orbit-controls { display: flex; flex-wrap: wrap; align-self: stretch; margin: -9px -16px -9px 0; justify-content: flex-end; }
@@ -447,16 +470,20 @@ select:focus-visible, input:focus-visible { outline: 2px solid var(--accent); ou
 .properties > div { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 10px; align-items: baseline; padding: 3px 0; font-size: var(--property-text-size); line-height: 1.2; }
 .properties dt { color: var(--muted); }
 .properties dd { text-align: right; font-weight: 500; font-variant-numeric: tabular-nums; }
-.properties > #object-subtypes-row { grid-template-columns: auto minmax(0, 1fr); }
-.properties > .object-type-row, .properties > .metallicity-row, .properties > .radius-row, .properties > .spectral-row, .properties > .distance-row { position: relative; isolation: isolate; cursor: pointer; }
+.properties .unresolved-measurement { color: var(--muted); }
+.properties > :is(.object-type-row, .metallicity-row, .radius-row, .spectral-row, .temperature-row, .distance-row, .mass-row, .luminosity-row, .magnitude-row, .constellation-row, #known-planets-row) { position: relative; isolation: isolate; }
+.magnitude-row dt, .magnitude-row .object-type-toggle { display: grid; gap: 6px; }
+.properties > div:has(.object-type-toggle:not(:disabled)) { cursor: pointer; }
 .object-type-toggle { padding: 0; border: 0; background: transparent; color: inherit; font: inherit; text-align: right; }
 .object-type-toggle::before { content: ''; position: absolute; z-index: -1; inset: -1px -8px; border-radius: 5px; }
-.object-type-row:hover .object-type-toggle::before, .metallicity-row:hover .object-type-toggle::before, .radius-row:hover .object-type-toggle::before, .spectral-row:hover .object-type-toggle::before, .distance-row:hover .object-type-toggle::before, .object-type-toggle[aria-expanded="true"]::before { background: var(--panel-selected); }
+.properties > div:hover .object-type-toggle:not(:disabled)::before, .object-type-toggle:not(:disabled)[aria-expanded="true"]::before { background: var(--panel-selected); }
 .object-type-toggle:focus-visible { outline: none; }
 .object-type-toggle:focus-visible::before { outline: 2px solid var(--accent); outline-offset: 1px; }
-.dock-card.object-type-card { position: absolute; top: 20px; left: 324px; width: min(380px, calc(100vw - 402px)); max-height: calc(100dvh - 40px); overflow: auto; overscroll-behavior: contain; scrollbar-width: thin; scrollbar-color: #776a5c transparent; pointer-events: auto; background: linear-gradient(145deg, #26282a, var(--panel)); }
+.dock-card.object-type-card { position: absolute; top: var(--object-detail-top, 20px); left: var(--object-detail-left, 324px); width: min(380px, calc(100vw - 402px)); max-height: calc(100dvh - var(--object-detail-top, 20px) - 20px); overflow: auto; overscroll-behavior: contain; scrollbar-width: thin; scrollbar-color: #776a5c transparent; pointer-events: auto; background: linear-gradient(145deg, #26282a, var(--panel)); }
 .dock-card:has(> .card-scroll-content), .dock-card.catalog { display: flex; flex-direction: column; overflow: hidden; }
 .dock-card:has(> .card-scroll-content) > .panel-heading, .catalog > .panel-heading, .catalog > .object-search { flex-shrink: 0; }
+.object-type-card > .panel-heading { padding-right: 98px; }
+.object-type-card > .panel-heading > .panel-lock[aria-pressed] { right: 43px; border-radius: 0; }
 .card-scroll-content { min-height: 0; overflow: auto; overscroll-behavior: contain; scrollbar-width: thin; scrollbar-color: #776a5c transparent; }
 .catalog > .star-list { min-height: 0; }
 .object-type-hero { position: relative; height: 210px; overflow: hidden; background: #090b10; }
@@ -472,23 +499,84 @@ select:focus-visible, input:focus-visible { outline: 2px solid var(--accent); ou
 .object-type-credit { margin-top: 18px; padding-top: 10px; border-top: 1px solid var(--line); font-size: 10px; line-height: 1.5; color: var(--muted); }
 .object-type-credit a { color: inherit; }
 .metallicity-body { padding: 0 20px 20px; }
-.properties > .mass-row { position: relative; isolation: isolate; cursor: pointer; }
-#known-planets-row { position: relative; isolation: isolate; cursor: pointer; }
-#known-planets-row:hover .object-type-toggle::before { background: var(--panel-selected); }
-.mass-row:hover .object-type-toggle::before { background: var(--panel-selected); }
-.object-type-toggle:disabled { cursor: default; }
-.mass-card #mass-close { right: 0; }
+.object-type-toggle:disabled { cursor: default; opacity: 1; }
+.dock-card.object-type-card.constellation-card { width: min(380px, calc(100vw - 402px)); }
+.panel-heading.constellation-heading { padding-right: 142px; }
+.panel-heading #constellation-magnify { right: 87px; border-radius: 0; }
+.constellation-chart { position: relative; margin: 0; background: #090b10; }
+.constellation-chart > svg { position: relative; width: 100%; height: auto; }
+.constellation-star-canvas { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; mix-blend-mode: screen; }
+.constellation-line { stroke: var(--muted); stroke-width: 1; stroke-opacity: 0.55; }
+.constellation-boundary { fill: none; stroke: var(--muted); stroke-width: 0.8; stroke-dasharray: 5 7; stroke-opacity: 0.6; }
+.constellation-neighbor { fill: var(--muted); font-size: 11px; opacity: 0.8; paint-order: stroke; stroke: #090b10; stroke-width: 3px; }
+.constellation-star[role="button"] { cursor: pointer; }
+.constellation-star-hit { fill: transparent; stroke: transparent; }
+.constellation-star[role="button"]:focus-visible { outline: none; }
+.constellation-star[role="button"]:focus-visible .constellation-star-hit, .constellation-star[role="button"]:hover .constellation-star-hit { stroke: var(--constellation-star-color); stroke-width: 1; }
+.constellation-star-name, .constellation-bayer { fill: var(--ink); font-size: 12px; font-weight: 400; paint-order: stroke; stroke: #090b10; stroke-width: 4px; stroke-linejoin: round; }
+.constellation-selected-ring { fill: none; stroke: var(--accent-vibrant); stroke-width: 1.8; }
+.constellation-star.is-selected .constellation-star-name, .constellation-star.is-selected .constellation-bayer { fill: var(--accent-vibrant); font-size: var(--property-text-size); font-weight: 600; }
+.constellation-label-leader { stroke: var(--muted); stroke-width: 0.7; stroke-opacity: 0.5; }
+.constellation-star.is-selected .constellation-label-leader { stroke: var(--accent-vibrant); }
+.constellation-sources { padding: 10px 16px 12px; border-top: 1px solid var(--line); color: var(--muted); font-size: 12px; line-height: 1.55; }
+.constellation-chart .constellation-tooltip { right: auto; bottom: auto; transform: translateY(-100%); max-width: none; }
+.constellation-tooltip.is-visible { display: block; }
+.constellation-chart .constellation-tooltip::before { left: var(--constellation-tooltip-arrow, 14px); }
+.constellation-tooltip-metric { display: flex; justify-content: space-between; gap: 10px; }
+.constellation-tooltip-metric > span { color: var(--muted); }
+.constellation-tooltip-object { display: flex; align-items: center; gap: 6px; margin-bottom: 5px; }
+.constellation-tooltip strong { font-weight: 500; font-variant-numeric: tabular-nums; }
+.constellation-sources summary { cursor: pointer; }
+.constellation-sources p { margin-top: 8px; }
+#constellation-source-links { display: grid; gap: 5px; margin-top: 8px; }
+#constellation-source-links a { color: var(--accent-strong); text-underline-offset: 3px; }
+.constellation-missing { padding: 10px 16px; color: var(--muted); font-size: var(--property-text-size); }
+.constellation-visibility { padding: 14px 16px 12px; border-top: 1px solid var(--line); }
+.constellation-visibility-charts { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); align-items: center; gap: 12px; }
+.constellation-visibility-map, .constellation-visibility-season { min-width: 0; }
+.constellation-visibility-map svg { width: 100%; height: auto; }
+.constellation-map-ocean { fill: #b4aa9c; }
+.constellation-map-land { fill: #7b7369; }
+.constellation-map-visible-band { fill: #000; fill-opacity: 0.16; }
+.constellation-map-visible-land { fill: #000; }
+.constellation-map-latitude { stroke: #e8ddd0; stroke-width: 0.5; stroke-opacity: 0.65; }
+.constellation-map-observer { stroke: var(--accent-vibrant); stroke-width: 1.5; }
+.constellation-latitude-control { display: flex; align-items: center; gap: 8px; color: var(--muted); font-size: 12px; }
+.constellation-latitude-control select { flex: 1; min-height: 36px; padding: 6px 8px; font-size: 13px; }
+.constellation-visibility-time { margin: 10px 0 6px; color: var(--muted); font-size: 12px; }
+.constellation-visibility-time span { white-space: nowrap; }
+.constellation-visibility-months { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 2px; }
+.constellation-visibility-month { display: grid; gap: 5px; color: var(--muted); text-align: center; font-size: 11px; }
+.constellation-visibility-month i { height: 16px; background: #ffffff24; }
+.constellation-visibility-month.is-visible { color: var(--accent-strong); }
+.constellation-visibility-month.is-visible i { background: #ffab628c; }
+.constellation-visibility-stats { margin-top: 14px; }
+.constellation-visibility-stats > div { padding: 7px 0; }
+.constellation-visibility-stats > div + div { border-top: var(--mass-metric-divider); }
+.constellation-visibility-stats dd { font-variant-numeric: tabular-nums; }
+.constellation-visibility-sources { display: grid; gap: 5px; margin-top: 8px; }
+.constellation-visibility-sources a { color: var(--accent-strong); text-underline-offset: 3px; }
 .mass-body { padding: 14px 16px 18px; font-size: var(--property-text-size); line-height: 1.55; }
-.panel-heading.mass-heading, .panel-heading.spectral-heading { gap: 10px; padding-right: 43px; }
+.panel-heading.mass-heading, .panel-heading.spectral-heading { gap: 10px; }
 .mass-heading h2, .spectral-heading h2 { flex-shrink: 0; }
 .mass-heading .distance-reference-button, .spectral-heading .distance-reference-button { padding: 0 8px; }
+.mass-reference-option { position: relative; display: flex; min-width: 0; }
+.mass-reference-option:has(> button[hidden]) { display: none; }
+.mass-reference-option > .distance-reference-button { width: 100%; }
+.mass-reference-option + .mass-reference-option > .distance-reference-button { border-left: 0; }
+.mass-reference-option .mass-metric-tooltip { top: calc(100% + 8px); bottom: auto; left: var(--mass-tooltip-offset, 0px); width: max-content; max-width: var(--mass-tooltip-width, 240px); }
+.mass-reference-option .mass-metric-tooltip::before { top: -5px; bottom: auto; left: var(--mass-tooltip-arrow, 14px); border: 0; border-top: 1px solid var(--line); border-left: 1px solid var(--line); }
+.mass-reference-option[data-clipped="true"]:focus-within .tooltip { display: block; }
+@media (hover: hover) and (pointer: fine) {
+  .mass-reference-option[data-clipped="true"]:hover .tooltip { display: block; }
+}
 .mass-reference-context { margin-bottom: 14px; color: var(--muted); }
 .mass-benchmark { display: block; margin-top: 4px; color: var(--muted); font-size: 12px; line-height: 1.4; }
 #mass-card-uncertainty { color: var(--muted); }
 .mass-scale { padding-bottom: calc(var(--mass-tick-rows, 1) * 28px); font-variant-numeric: tabular-nums; }
-.mass-scale-tick { position: absolute; top: -2px; width: 1px; height: 8px; background: var(--muted); }
-.mass-scale-tick > span { position: absolute; top: calc(12px + var(--mass-tick-row, 0) * 28px); left: 50%; transform: translateX(var(--mass-tick-offset, -50%)); white-space: nowrap; font-size: 12px; color: var(--muted); }
-.mass-sun-tick { top: -3px; height: 10px; background: var(--ink); }
+.mass-scale-tick { position: absolute; top: -2px; width: 1px; height: calc(var(--stat-bar-height) + 4px); border-radius: 1px; background: var(--muted); }
+.mass-scale-tick > span { position: absolute; top: calc(14px + var(--mass-tick-row, 0) * 28px); left: 50%; transform: translateX(var(--mass-tick-offset, -50%)); white-space: nowrap; font-size: 12px; color: var(--muted); }
+.mass-sun-tick { top: -3px; width: 2px; height: calc(var(--stat-bar-height) + 6px); background: var(--stat-bar-reference); box-shadow: 0 0 0 1px var(--panel); }
 .mass-sun-tick > span { color: var(--ink); font-weight: 500; }
 .mass-note { margin-top: 8px; color: var(--muted); }
 .mass-section { margin-top: 16px; }
@@ -509,29 +597,34 @@ select:focus-visible, input:focus-visible { outline: 2px solid var(--accent); ou
 .mass-scale-help .mass-metric-tooltip { top: calc(100% + 8px); bottom: auto; left: var(--mass-tooltip-offset, 0px); width: var(--mass-tooltip-width, 220px); max-width: none; }
 .mass-scale-help .mass-metric-tooltip::before { top: -5px; bottom: auto; left: var(--mass-tooltip-arrow, 14px); border: 0; border-top: 1px solid var(--line); border-left: 1px solid var(--line); }
 .mass-metric-copy:focus-within .mass-metric-tooltip { display: block; }
+:is(.luminosity-row, .radius-row, .temperature-row)[tabindex="0"] { cursor: help; }
+:is(.luminosity-row, .radius-row, .temperature-row):focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; border-radius: 5px; }
+:is(.luminosity-row, .radius-row, .temperature-row):focus-within .mass-metric-tooltip:not([hidden]) { display: block; }
 @media (hover: hover) and (pointer: fine) {
   .mass-metric-copy:has(.mass-metric-help:hover) .mass-metric-tooltip { display: block; }
+  :is(.luminosity-row, .radius-row, .temperature-row):hover .mass-metric-tooltip:not([hidden]) { display: block; }
 }
 .mass-ratio-bar { grid-column: 1; min-width: 0; padding-top: 5px; }
-.mass-ratio-track, .metallicity-track { position: relative; height: 4px; background: #ffffff24; border-radius: 2px; }
-.mass-ratio-fill, .metallicity-fill { position: absolute; inset: 0 auto 0 0; width: var(--mass-ratio-position, var(--metallicity-position)); background: #ffab628c; border-radius: inherit; }
-.mass-ratio-sun, .mass-typical-limit { position: absolute; top: -3px; width: 1px; height: 10px; }
-.mass-ratio-sun { left: 50%; background: var(--ink); }
+.mass-ratio-track, .metallicity-track, .temperature-track { position: relative; height: var(--stat-bar-height); background: #ffffff24; border-radius: var(--stat-bar-radius); }
+.mass-ratio-fill, .metallicity-fill, .planet-ratio-fill { position: absolute; inset: 0 auto 0 0; background: var(--stat-bar-fill); border-radius: inherit; }
+.mass-ratio-fill, .metallicity-fill { width: var(--mass-ratio-position, var(--metallicity-position)); }
+.mass-ratio-sun, .mass-typical-limit { position: absolute; top: -3px; width: 2px; height: calc(var(--stat-bar-height) + 6px); border-radius: 1px; transform: translateX(-50%); box-shadow: 0 0 0 1px var(--panel); }
+.mass-ratio-sun { left: 50%; background: var(--stat-bar-reference); }
 .mass-typical-limit { background: var(--muted); }
-.mass-ratio-marker, .metallicity-marker { position: absolute; left: var(--mass-ratio-position, var(--metallicity-position, 50%)); top: -3px; width: 3px; height: 10px; transform: translateX(-50%); background: var(--accent-vibrant); }
+.mass-ratio-marker, .metallicity-marker { position: absolute; left: var(--mass-ratio-position, var(--metallicity-position, 50%)); top: -3px; width: 3px; height: calc(var(--stat-bar-height) + 6px); border-radius: 1px; transform: translateX(-50%); background: var(--accent-vibrant); box-shadow: 0 0 0 1px var(--panel); }
 :is(#mass-card, #radius-typical-bar) .mass-ratio-track { isolation: isolate; }
-:is(#mass-card, #radius-typical-bar) .mass-ratio-sun { z-index: 0; background: var(--muted); }
+:is(#mass-card, #radius-typical-bar) .mass-ratio-sun { z-index: 0; }
 :is(#mass-card, #radius-typical-bar) .mass-ratio-fill { z-index: 1; }
 :is(#mass-card, #radius-typical-bar) .mass-ratio-marker { z-index: 2; }
 :is(#mass-card, #radius-typical-bar) .mass-typical-limit { z-index: 3; background: var(--ink); }
-/* Radius tapers outside its typical range; Mass uses the same 4px bars in every tab. */
-#radius-typical-bar.has-class-range .mass-ratio-track { background: none; }
-#radius-typical-bar.has-class-range .mass-ratio-track::before { content: ''; position: absolute; inset: 0; border-radius: inherit; background: #ffffff24; --mass-line-range-low: var(--mass-range-low-position); --mass-line-range-high: var(--mass-range-high-position); }
-#radius-typical-bar.has-class-range .mass-ratio-fill { --mass-line-range-low: var(--mass-fill-range-low-position); --mass-line-range-high: var(--mass-fill-range-high-position); }
-#radius-typical-bar.has-class-range .mass-ratio-track::before, #radius-typical-bar.has-class-range .mass-ratio-fill {
-  clip-path: polygon(0 1.5px, var(--mass-line-range-low) 1.5px, var(--mass-line-range-low) 0, var(--mass-line-range-high) 0, var(--mass-line-range-high) 1.5px, 100% 1.5px, 100% 2.5px, var(--mass-line-range-high) 2.5px, var(--mass-line-range-high) 100%, var(--mass-line-range-low) 100%, var(--mass-line-range-low) 2.5px, 0 2.5px);
+/* Keep the full bar thickness within the class range, with 1px tails outside its limits. */
+:is(#mass-card .has-class-range, #radius-typical-bar.has-class-range) .mass-ratio-track { background: none; }
+:is(#mass-card .has-class-range, #radius-typical-bar.has-class-range) .mass-ratio-track::before { content: ''; position: absolute; inset: 0; border-radius: inherit; background: #ffffff24; --mass-line-range-low: var(--mass-range-low-position); --mass-line-range-high: var(--mass-range-high-position); }
+:is(#mass-card .has-class-range, #radius-typical-bar.has-class-range) .mass-ratio-fill { --mass-line-range-low: var(--mass-fill-range-low-position); --mass-line-range-high: var(--mass-fill-range-high-position); }
+:is(#mass-card .has-class-range, #radius-typical-bar.has-class-range) .mass-ratio-track::before, :is(#mass-card .has-class-range, #radius-typical-bar.has-class-range) .mass-ratio-fill {
+  clip-path: polygon(0 calc(50% - 0.5px), var(--mass-line-range-low) calc(50% - 0.5px), var(--mass-line-range-low) 0, var(--mass-line-range-high) 0, var(--mass-line-range-high) calc(50% - 0.5px), 100% calc(50% - 0.5px), 100% calc(50% + 0.5px), var(--mass-line-range-high) calc(50% + 0.5px), var(--mass-line-range-high) 100%, var(--mass-line-range-low) 100%, var(--mass-line-range-low) calc(50% + 0.5px), 0 calc(50% + 0.5px));
 }
-.mass-ratio-labels { display: grid; grid-template-columns: repeat(3, 1fr); margin-top: 4px; font-size: var(--property-text-size); line-height: 1.4; color: var(--muted); }
+.mass-ratio-labels { display: grid; grid-template-columns: repeat(3, 1fr); margin-top: 5px; font-size: var(--property-text-size); line-height: 1.4; color: var(--muted); }
 .mass-ratio-labels > :nth-child(2) { text-align: center; }
 .mass-ratio-labels > :last-child { text-align: right; }
 .mass-metric-ratio { grid-column: 2; grid-row: 1 / span 2; display: grid; align-content: start; gap: 3px; text-align: right; color: var(--accent-strong); }
@@ -543,25 +636,121 @@ select:focus-visible, input:focus-visible { outline: 2px solid var(--accent); ou
 .mass-method summary, .radius-method summary { cursor: pointer; }
 .mass-method p, .radius-method p { margin-top: 8px; }
 .mass-method a, .radius-method a { display: inline-block; margin-top: 8px; color: var(--accent-strong); text-underline-offset: 3px; }
+.luminosity-equation { display: grid; grid-template-columns: minmax(0, 1fr) 10px minmax(0, 1fr) 10px auto; align-items: baseline; gap: 8px; font-variant-numeric: tabular-nums; }
+.luminosity-factor { display: grid; gap: 4px; text-align: center; }
+.luminosity-factor > span { color: var(--muted); font-size: 12px; }
+.luminosity-equation strong { font-size: 18px; line-height: 1.25; font-weight: 600; white-space: nowrap; }
+.luminosity-equation #luminosity-calculated-solar { font-size: 24px; color: var(--accent-strong); }
+.luminosity-result-unit { font-size: var(--property-text-size); }
+.luminosity-equation-symbol { text-align: center; line-height: 1.25; color: var(--accent-strong); }
+.luminosity-flux-row { grid-template-columns: minmax(0, 1fr) fit-content(56%); gap: 8px; }
+.luminosity-flux-row:has(.luminosity-orbit-tick) { padding-bottom: 0; }
+.luminosity-flux-row .mass-metric-ratio { grid-row: 1; }
+.luminosity-flux-copy { display: flex; align-items: center; gap: 8px; }
+.luminosity-flux-copy canvas { display: block; width: 32px; height: 32px; flex: 0 0 32px; mix-blend-mode: screen; pointer-events: none; }
+.luminosity-orbit-comparison { display: inline-block; color: var(--muted); font-size: 12px; font-weight: 400; }
+.luminosity-distance-bar { grid-column: 1 / -1; margin: 0 5px 0 0; }
+.luminosity-distance-bar .mass-ratio-marker { z-index: 2; background: var(--luminosity-star-color); }
+.luminosity-distance-low { left: 0; }
+.luminosity-distance-high { left: 100%; }
+.luminosity-distance-axis { grid-template-columns: 1fr 1fr; margin: -8px 5px 0 0; font-size: 12px; }
+.luminosity-distance-axis > :last-child { text-align: right; }
+:is(.luminosity-scale, .magnitude-scale) .mass-ratio-track { background: linear-gradient(90deg, #ffffff14, #ffffff50 50%, #ffffffb8); }
+.luminosity-scale .mass-ratio-track::before { content: ''; position: absolute; inset: 0 0 0 65%; border-radius: inherit; background: linear-gradient(90deg, transparent, #ffffff78); filter: blur(5px); pointer-events: none; }
+#magnitude-apparent-scale .mass-ratio-track { background: #ffffff24; }
+.luminosity-scale .mass-ratio-labels { position: relative; display: flex; justify-content: space-between; font-size: 12px; }
+.luminosity-scale .mass-ratio-labels > :nth-child(2) { position: absolute; left: var(--luminosity-sun-position); transform: translateX(-50%); }
+.luminosity-body :is(.luminosity-scale, .luminosity-class-bar) .mass-ratio-marker { z-index: 2; background: var(--luminosity-star-color); }
+.luminosity-class-range { position: absolute; top: 0; bottom: 0; left: var(--luminosity-distribution-low-position); width: calc(var(--luminosity-distribution-high-position) - var(--luminosity-distribution-low-position)); background: var(--stat-bar-fill); border-radius: inherit; }
+.luminosity-class-median { z-index: 1; }
+.luminosity-class-bar .mass-ratio-labels { font-size: 12px; }
+.luminosity-body #luminosity-class-heading { grid-column: 1 / -1; }
+.luminosity-class-context { grid-column: 1 / -1; margin-top: 0; }
+.magnitude-card { --magnitude-visible-color: var(--accent-strong); }
+.magnitude-body { padding-bottom: 14px; }
+.magnitude-section + .magnitude-section { margin-top: 12px; padding-top: 12px; border-top: var(--mass-metric-divider); }
+.magnitude-value-heading { display: grid; grid-template-columns: 20px minmax(0, 1fr) auto; align-items: start; gap: 10px; font-variant-numeric: tabular-nums; }
+.magnitude-value-heading h3 { font-size: 18px; font-weight: 700; color: var(--ink); }
+.magnitude-heading-icon { display: flex; margin-top: 1px; }
+.magnitude-heading-icon svg { width: 20px; height: 20px; }
+.magnitude-value-heading h3 small { font-size: inherit; font-weight: 400; color: var(--muted); white-space: nowrap; }
+.magnitude-value-heading > strong { color: var(--ink); font-size: 28px; line-height: 1.1; font-weight: 700; white-space: nowrap; text-align: right; }
+.magnitude-visible-comparison { margin-top: 6px; margin-inline-start: 30px; font-size: 13px; color: var(--ink); }
+.magnitude-visible-comparison strong { color: var(--accent-strong); font-weight: 600; }
+.magnitude-scale { margin-top: 10px; padding-top: 5px; }
+.magnitude-plot { display: grid; align-items: center; padding-bottom: calc(8px + var(--magnitude-label-lanes, 1) * 20px); }
+.magnitude-visible-band { position: absolute; inset: 0 0 0 auto; background: linear-gradient(90deg, transparent, var(--magnitude-visible-color) var(--magnitude-visibility-fade-end), var(--magnitude-visible-color)); border-radius: inherit; }
+.magnitude-visibility-limit, .magnitude-eye-limit { position: absolute; top: -3px; width: 1px; height: calc(var(--stat-bar-height) + 6px); background: var(--magnitude-visible-color); opacity: 0.35; }
+.magnitude-marker { top: -3px; height: calc(var(--stat-bar-height) + 6px); width: 2px; transform: translateX(-50%); background: var(--magnitude-marker-color); box-shadow: 0 0 0 1px var(--panel); z-index: 1; }
+.magnitude-selected { width: 3px; z-index: 2; }
+.magnitude-marker::after { content: ''; position: absolute; left: 50%; top: calc(var(--stat-bar-height) + 6px); width: 1px; height: calc(4px + var(--magnitude-label-lane, 0) * 20px); background: var(--magnitude-marker-color); opacity: 0.3; }
+.magnitude-marker > span { width: max-content; top: calc(16px + var(--magnitude-label-lane, 0) * 20px); max-width: var(--magnitude-label-max, 240px); overflow: hidden; text-overflow: ellipsis; line-height: 1.35; text-align: center; }
+.magnitude-marker > span small { font-size: inherit; }
+.magnitude-selected > span { color: var(--ink); font-weight: 600; }
+.magnitude-axis { grid-template-columns: 1fr 1fr; margin: 0 0 8px; font-size: 12px; }
+.magnitude-axis > span { display: grid; gap: 1px; }
+.magnitude-visibility-controls { position: relative; display: flex; gap: 4px; margin-top: 6px; }
+.magnitude-visibility-button { position: static; width: 36px; height: 32px; box-shadow: none; }
+.magnitude-visibility-button .mass-metric-tooltip { max-width: min(280px, 100%); }
+.magnitude-visibility-button .mass-metric-tooltip::before { left: var(--magnitude-tooltip-arrow); }
+.magnitude-visibility-button:focus .tooltip { display: block; }
+.magnitude-body .mass-method { margin-top: 12px; padding-top: 10px; font-size: 12px; }
+.temperature-body { container-type: inline-size; }
+.temperature-overview { display: flex; align-items: center; gap: 10px; font-variant-numeric: tabular-nums; }
+#temperature-value-icon { display: flex; color: var(--ink); }
+#temperature-value-icon svg { width: 28px; height: 28px; }
+.temperature-overview > div:nth-child(2) { min-width: 0; }
+.temperature-overview .mass-benchmark { margin-top: 0; }
+#temperature-value { display: block; font-size: 28px; font-weight: 700; line-height: 1.3; white-space: nowrap; }
+.temperature-conversions { display: grid; gap: 3px; margin-left: auto; color: var(--muted); font-size: 12px; text-align: right; white-space: nowrap; }
+.temperature-scale-section { margin-top: 20px; }
+.temperature-scale { padding-top: calc(var(--temperature-label-lanes, 1) * 20px + 7px); font-variant-numeric: tabular-nums; }
+.temperature-track { box-shadow: inset 0 0 0 1px #ffffff20; }
+.temperature-marker { position: absolute; top: -3px; width: 2px; height: calc(var(--stat-bar-height) + 6px); border-radius: 1px; transform: translateX(-50%); background: var(--temperature-marker-color); box-shadow: 0 0 0 1px var(--panel); z-index: 1; }
+.temperature-marker.is-selected { width: 3px; z-index: 2; }
+.temperature-marker::before { content: ''; position: absolute; bottom: 100%; left: 50%; height: calc(5px + var(--temperature-label-lane) * 20px); width: 1px; background: var(--temperature-marker-color); opacity: 0.5; }
+.temperature-marker > span { position: absolute; bottom: calc(100% + 5px + var(--temperature-label-lane) * 20px); width: max-content; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 12px; color: var(--muted); line-height: 1.3; }
+.temperature-marker.is-selected > span { color: var(--ink); font-weight: 600; }
+.temperature-classes { position: relative; height: 23px; margin-top: 5px; font-size: 12px; font-weight: 600; }
+.temperature-classes > span { position: absolute; transform: translateX(-50%); }
+.temperature-classes > span:last-child { transform: translateX(-100%); }
+.temperature-scale-limits { display: flex; justify-content: space-between; color: var(--muted); font-size: 12px; }
+.temperature-spectrum-legend { margin-top: 8px; font-size: 12px; line-height: 1.9; }
+.temperature-spectrum-key { display: inline-block; margin-right: 16px; white-space: nowrap; }
+.temperature-spectrum-key:last-child { margin-right: 0; }
+.temperature-spectrum-key > i { display: inline-block; width: 18px; margin-right: 6px; vertical-align: middle; border-top: 2px solid var(--temperature-color); }
+.temperature-spectrum-key.is-reference > i { border-top: 2px dashed var(--temperature-reference-color); }
+#temperature-spectrum { margin-top: 12px; }
+#temperature-spectrum svg { display: block; width: 100%; overflow: visible; font-family: inherit; }
+.temperature-graph-caption { fill: var(--muted); font-size: 12px; }
+.temperature-graph-grid { stroke: var(--line); stroke-width: 1; }
+.temperature-spectrum-curve { stroke: var(--temperature-color); stroke-width: 2.5; stroke-linejoin: round; }
+.temperature-spectrum-reference { stroke: var(--temperature-reference-color); stroke-width: 2; stroke-dasharray: 5 4; stroke-linejoin: round; }
+.temperature-facts { margin-top: 14px; }
+.temperature-facts.planet-facts-grid > .planet-fact-tile { grid-template-columns: 20px minmax(0, 1fr); align-content: center; align-items: center; gap: 8px; min-height: 0; padding: 12px; }
+.temperature-facts .planet-fact-icon { position: static; display: flex; align-items: center; justify-content: center; width: 20px; height: 20px; grid-column: 1; grid-row: 1; }
+.temperature-facts .planet-fact-value { font-size: var(--property-text-size); }
+.temperature-facts .planet-fact-tile dd { grid-column: 2; grid-row: 1; margin: 0; }
+#temperature-color-star { border-radius: 50%; background: radial-gradient(circle, #fff 0%, var(--temperature-swatch-color) 65%, transparent 100%); box-shadow: 0 0 10px var(--temperature-swatch-color); }
+.temperature-body .mass-method { font-size: 12px; }
 .dock-card.object-type-card.distance-card { width: min(560px, calc(100vw - 402px)); }
-.dock-card.object-type-card.planet-card { width: min(380px, calc(100vw - 402px)); }
-.planet-heading { gap: 12px; padding-right: 54px; }
+.dock-card.object-type-card.planet-card { width: min(420px, calc(100vw - 402px)); }
+.planet-heading { gap: 12px; }
 .planet-heading h2 { display: flex; align-items: center; gap: 8px; }
 #planet-name { min-width: 0; overflow-wrap: anywhere; }
 .planet-icon { display: inline-block; width: 24px; height: 24px; flex: 0 0 24px; border-radius: 50%; background: radial-gradient(circle at 30% 28%, #e2dcd5, var(--planet-color) 42%, #494441 78%, #242221); box-shadow: inset -3px -2px 5px #0006; }
 .planet-section-buttons { display: flex; align-self: stretch; flex-shrink: 0; margin: -1px 0; }
 .planet-heading .planet-section-button { position: static; height: 45px; border-radius: 0; border-color: transparent transparent var(--line) var(--line); }
-.planet-heading .planet-section-button:last-child { border-right-color: var(--line); }
+.planet-heading .planet-section-button:nth-last-child(1 of :not([hidden])) { border-right-color: var(--line); }
 .planet-heading .planet-section-button[aria-expanded="true"] { color: var(--accent-vibrant); background: #ff8a2a14; border-bottom-color: #ff8a2a70; }
-.planet-card #planet-lock { right: 0; }
-.planet-card-body { padding: 0 16px 12px; }
+.planet-card-body { padding: 0 16px 12px; container-type: inline-size; }
 .planet-card-body .card-subgroup-heading { margin-bottom: 7px; }
 .planet-card-body section + section { margin-top: 12px; }
-.planet-specs-sticky { position: sticky; top: 0; z-index: 5; margin: 0 -16px 7px; background: var(--panel); }
+.planet-specs-sticky { position: sticky; top: 0; z-index: 5; margin: 0 -16px 8px; background: var(--panel); }
 .planet-specs-sticky .planet-globe-frame { margin: 0; }
 .planet-physical-header { display: flex; align-items: stretch; border-top: 1px solid var(--line); }
 .planet-card-body .planet-physical-header .card-subgroup-heading { display: flex; align-items: center; flex: 1; margin: 0; border: 0; }
-.planet-earth-button { height: auto; min-height: 44px; border-left-color: var(--line); border-radius: 0; }
+.planet-earth-button, .planet-stats-button { height: auto; min-height: 44px; border-left-color: var(--line); border-radius: 0; }
 .planet-earth-symbol { position: relative; display: block; width: 28px; height: 28px; }
 #planet-earth-icon { position: absolute; bottom: 0; left: 0; }
 .planet-earth-mark { position: absolute; top: 0; right: 0; }
@@ -571,31 +760,101 @@ select:focus-visible, input:focus-visible { outline: 2px solid var(--accent); ou
 .planet-earth-button:disabled { color: var(--muted); }
 .planet-properties > div { grid-template-columns: minmax(0, min(160px, 38%)) minmax(0, 1fr); gap: 10px; }
 .planet-properties dd { text-align: left; }
+.planet-metric-tooltip[popover] { position: fixed; inset: auto; margin: 0; max-width: none; overflow: visible; font-size: 12px; font-weight: 400; }
+.planet-metric-tooltip[popover]:not(:popover-open) { display: none !important; }
+.planet-metric-tooltip:popover-open { display: block; }
+.planet-metric-tooltip[popover]::before { left: var(--planet-tooltip-arrow); right: auto; }
+.planet-metric-tooltip[data-placement="below"]::before { top: -5px; bottom: auto; border: 0; border-top: 1px solid var(--line); border-left: 1px solid var(--line); }
 .planet-metric-tooltip > span { display: block; }
+.planet-facts-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+.planet-facts-grid > .planet-fact-tile { position: relative; display: grid; grid-template-columns: minmax(0, 1fr); align-content: center; align-items: start; gap: 4px; min-width: 0; min-height: 78px; padding: 10px; background: #18191a55; border: 1px solid var(--line); border-radius: 8px; }
+.planet-fact-tile dt, .planet-fact-tile dd { min-width: 0; margin-left: 30px; }
+.planet-fact-tile dt { font-size: 12px; line-height: 1.25; }
+.planet-fact-icon { position: absolute; top: 12px; left: 9px; color: var(--accent-strong); }
+.planet-fact-value { display: block; font-size: 16px; line-height: 1.25; font-weight: 600; }
+.planet-fact-tile .mass-metric-help { font-weight: inherit; }
+.planet-fact-tile .planet-metric-tooltip { font-size: 12px; font-weight: 400; }
+.planet-fact-label { display: block; }
+.planet-ratio-row { display: grid; grid-template-columns: 14px auto minmax(24px, 1fr); align-items: center; gap: 5px; margin-top: 6px; font-size: 12px; line-height: 1.2; font-weight: 400; color: var(--muted); }
+.planet-ratio-row > svg { color: var(--planet-earth-reference); }
+.planet-ratio-value { white-space: nowrap; }
+.planet-ratio-earth { position: absolute; left: 50%; top: -3px; height: 12px; width: 2px; background: var(--planet-earth-reference); border-radius: 1px; transform: translateX(-50%); box-shadow: 0 0 0 1px var(--panel); }
+.planet-ratio-track.is-range { background: none; }
+.planet-ratio-range { position: absolute; top: 3px; border-top: var(--mass-metric-divider); }
+.planet-ratio-endpoint { position: absolute; top: -1px; width: 8px; height: 8px; border-radius: 50%; background: var(--accent); transform: translateX(-50%); }
+.planet-ratio-endpoint.is-high { background: var(--muted); }
+.planet-magnitude-comparison { display: block; margin-top: 18px; color: var(--muted); font-size: 12px; line-height: 1.2; font-weight: 400; --magnitude-visible-color: var(--accent-strong); }
+.planet-magnitude-track { display: block; }
+.planet-magnitude-limit { height: 12px; transform: translateX(-50%); opacity: 0.65; }
+.planet-magnitude-limit > span { position: absolute; bottom: calc(100% + 2px); left: 50%; transform: translateX(-50%); white-space: nowrap; }
+.planet-magnitude-selected { position: absolute; top: -3px; width: 3px; height: 12px; transform: translateX(-50%); border-radius: 1px; background: var(--accent-vibrant); box-shadow: 0 0 0 1px var(--panel); }
+.planet-magnitude-labels { display: flex; justify-content: space-between; gap: 6px; margin-top: 5px; }
+.planet-fact-note { display: block; margin-top: 6px; color: var(--muted); font-size: 12px; font-weight: 400; }
+.planet-atmosphere { margin-top: 8px; border: 1px solid var(--line); border-radius: 8px; background: #18191a55; }
+.planet-card-body .planet-atmosphere > summary { display: flex; align-items: center; gap: 10px; margin: 0; padding: 9px 12px; border: 0; border-radius: 7px; list-style: none; cursor: pointer; }
+.planet-atmosphere > summary::-webkit-details-marker { display: none; }
+.planet-atmosphere[open] > summary { border-radius: 7px 7px 0 0; }
+#planet-atmosphere-chevron { margin-left: auto; }
+.planet-atmosphere:not([open]) #planet-atmosphere-chevron { transform: rotate(180deg); }
+.planet-atmosphere-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); padding: 10px 12px 12px; gap: 12px; }
+.planet-atmosphere-grid > div { display: block; min-width: 0; padding: 0; }
+.planet-atmosphere-grid dt { margin-bottom: 5px; font-size: 12px; line-height: 1.25; }
+.planet-atmosphere-grid dd { font-size: 14px; line-height: 1.3; font-weight: 600; }
+.planet-atmosphere-grid > .planet-composition-row { padding-left: 12px; border-left: var(--mass-metric-divider); }
+.planet-atmosphere-grid .planet-ratio-row { grid-template-columns: 14px minmax(0, auto) minmax(24px, 1fr); }
+.planet-atmosphere-grid .planet-ratio-value { white-space: normal; }
+@container (max-width: 340px) {
+  .planet-facts-grid { grid-template-columns: minmax(0, 1fr); }
+  .planet-facts-grid > .planet-fact-tile { min-height: 76px; }
+  .planet-fact-tile dt, .planet-fact-tile dd { margin-left: 34px; }
+  .planet-ratio-row { grid-template-columns: 14px auto minmax(24px, 1fr); }
+}
 .planet-globe-frame { position: relative; margin: 0 -16px; background: #000; }
-#planet-globe { display: block; width: 100%; height: 172px; touch-action: none; cursor: grab; }
-#planet-globe.is-dragging { cursor: grabbing; }
-#planet-globe:focus-visible { outline: 2px solid var(--accent); outline-offset: -3px; }
+#planet-globe, #planet-moon-globe { display: block; width: 100%; height: 172px; touch-action: none; cursor: grab; }
+#planet-image { display: block; width: 100%; height: 172px; object-fit: contain; }
+#planet-globe.is-dragging, #planet-moon-globe.is-dragging { cursor: grabbing; }
+#planet-globe:focus-visible, #planet-moon-globe:focus-visible { outline: 2px solid var(--accent); outline-offset: -3px; }
+#planet-moons { margin-top: 0; }
+.moon-system-figure { margin-bottom: 0; border-bottom: 1px solid var(--line); }
+.moon-browser { --moon-media-height: 172px; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); grid-template-rows: var(--moon-media-height) auto; margin: 0 -16px -12px; }
+.moon-list { min-height: 0; overflow: auto; overscroll-behavior: contain; scrollbar-width: thin; scrollbar-color: #776a5c transparent; padding: 10px 12px 12px; }
+.moon-list .moon-row { display: flex; flex-wrap: wrap; gap: 3px 8px; padding: 7px 0; }
+.moon-row dt { flex: 0 0 auto; min-width: 0; white-space: nowrap; }
+.moon-row .star-swatch { flex-shrink: 0; }
+.moon-row dd { flex: 0 0 auto; margin-left: auto; white-space: nowrap; }
+.moon-row dd, .moon-row .object-type-toggle { text-align: right; }
+.moon-visual { min-width: 0; border-left: 1px solid var(--line); }
+.moon-details { grid-column: 1 / -1; min-width: 0; padding: 0 16px 12px; border-top: 1px solid var(--line); }
+.moon-globe-frame { margin: 0; }
+#planet-moon-globe, #planet-moon-image { height: var(--moon-media-height); }
+#planet-moon-image { display: block; width: 100%; object-fit: contain; }
+#planet-moons[data-selected-moon-id="triton"] #planet-moon-image { padding: 8px; }
+.moon-details .moon-properties { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 6px; padding-top: 8px; }
+.moon-details .moon-properties > .planet-fact-tile { min-height: 0; padding: 8px; gap: 3px; }
+.moon-properties .planet-fact-tile dt, .moon-properties .planet-fact-tile dd { margin-left: 24px; }
+.moon-properties .planet-fact-icon { top: 0; left: -24px; width: 18px; height: 18px; }
+.moon-properties .planet-fact-value { font-size: var(--property-text-size); }
+.moon-properties dt, .moon-properties dd { overflow-wrap: anywhere; }
+.moon-globe-unavailable { min-height: var(--moon-media-height); padding: 20px 16px; background: #000; }
 .planet-earth-comparison { color: var(--muted); font-weight: 400; }
 .planet-composition { margin: 0; padding: 0; list-style: none; }
 .planet-composition li { padding: 1px 0; }
-#planet-info { font-size: var(--property-text-size); line-height: 1.5; }
-#planet-info p { margin: 0 0 10px; }
-#planet-info > section { margin-top: 12px; }
-#planet-info > section > :last-child { margin-bottom: 0; }
-.planet-properties a, #planet-info a, #planet-moons a { color: var(--accent-strong); text-underline-offset: 3px; }
-.planet-properties a:hover, #planet-info a:hover, #planet-moons a:hover { color: #fff0dc; }
-.planet-properties a:focus-visible, #planet-info a:focus-visible, #planet-moons a:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+:is(#planet-info, #object-info) { font-size: var(--property-text-size); line-height: 1.5; }
+:is(#planet-info, #object-info) p { margin: 0 0 10px; }
+:is(#planet-info, #object-info) > section { margin-top: 12px; }
+:is(#planet-info, #object-info) > section > :last-child { margin-bottom: 0; }
+.planet-properties a, :is(#planet-info, #object-info) a, #planet-moons a { color: var(--accent-strong); text-underline-offset: 3px; }
+.planet-properties a:hover, :is(#planet-info, #object-info) a:hover, #planet-moons a:hover { color: #fff0dc; }
+.planet-properties a:focus-visible, :is(#planet-info, #object-info) a:focus-visible, #planet-moons a:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
 .planet-info-figure { margin: 10px 0 0; }
 .planet-info-figure > a { display: block; background: #000; }
 .planet-info-figure img { display: block; width: 100%; height: auto; object-fit: contain; }
 .planet-info-figure figcaption { padding: 5px 0; color: var(--muted); font-size: 11px; line-height: 1.4; }
 .planet-info-hero { margin: 0 -16px 10px; }
 .planet-info-hero figcaption { padding-right: 16px; padding-left: 16px; }
-#planet-info .card-subgroup-heading { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+:is(#planet-info, #object-info) .card-subgroup-heading { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
 .planet-info-source { flex-shrink: 0; padding: 0 4px; font-size: var(--property-text-size); }
-.panel-heading.distance-heading { gap: 10px; padding-right: 98px; }
-.panel-heading #distance-lock { right: 43px; border-radius: 0; }
+.panel-heading.distance-heading { gap: 10px; }
 .distance-heading h2 { flex-shrink: 0; }
 .distance-reference-buttons { display: flex; flex: 0 1 auto; align-self: stretch; align-items: stretch; gap: 0; min-width: 0; }
 .object-section-button.distance-reference-button { display: block; min-width: 0; min-height: 44px; margin: -1px 0; padding: 0 10px; color: var(--ink); background: var(--surface-raised); border: 1px solid var(--line); border-top-color: transparent; border-radius: 0; font-size: 13px; font-weight: 400; line-height: 1.2; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; transition: color 120ms ease, background 120ms ease, border-color 120ms ease; }
@@ -711,13 +970,13 @@ select:focus-visible, input:focus-visible { outline: 2px solid var(--accent); ou
 .white-dwarf-star-name { justify-self: start; text-decoration: underline dashed var(--ink); text-underline-offset: 5px; }
 .white-dwarf-star.is-selected .white-dwarf-star-name { color: var(--accent-strong); text-decoration: underline solid var(--accent-vibrant); text-decoration-thickness: 2px; }
 .metallicity-scale { margin: 64px 0 16px; padding: 0 8px 32px; font-size: 12px; font-variant-numeric: tabular-nums; }
-.metallicity-tick { position: absolute; top: -2px; width: 1px; height: 8px; background: var(--muted); }
+.metallicity-tick { position: absolute; top: -2px; width: 1px; height: calc(var(--stat-bar-height) + 4px); border-radius: 1px; background: var(--muted); }
 .metallicity-tick > span { position: absolute; left: 50%; transform: translateX(-50%); color: var(--muted); white-space: nowrap; }
 .metallicity-tick-dex { bottom: 18px; }
 .metallicity-tick-ratio { top: 11px; font-size: 10px; }
 .metallicity-tick:first-child > span { transform: none; }
 .metallicity-tick:last-child > span { transform: translateX(-100%); }
-.metallicity-tick-sun { top: -3px; height: 10px; transform: translateX(-50%); background: var(--ink); }
+.metallicity-tick-sun { top: -3px; width: 2px; height: calc(var(--stat-bar-height) + 6px); transform: translateX(-50%); background: var(--stat-bar-reference); box-shadow: 0 0 0 1px var(--panel); }
 .metallicity-tick-sun > span { color: var(--ink); font-weight: 600; }
 .metallicity-marker-value { position: absolute; bottom: 44px; left: 50%; transform: translateX(var(--metallicity-label-offset, -50%)); color: var(--ink); white-space: nowrap; font-weight: 500; }
 .metallicity-sun-name { position: absolute; top: 23px; left: 50%; transform: translateX(-50%); color: var(--ink); }
@@ -776,17 +1035,25 @@ select:focus-visible, input:focus-visible { outline: 2px solid var(--accent); ou
   .scene-legend { left: 18px; bottom: 16px; font-size: 10px; }
   .visibility-observer { right: 66px; bottom: 16px; max-width: 42%; font-size: 10px; }
   .identity .star-name { font-size: 22px; }
-  .dock-card.object-type-card { z-index: 1; top: 90px; left: 12px; width: min(380px, calc(100vw - 78px)); max-height: calc(100dvh - 114px); }
+  .dock-card.object-type-card { z-index: 1; top: var(--object-detail-top, 90px); left: var(--object-detail-left, 12px); width: min(380px, calc(100vw - 78px)); max-height: calc(100dvh - var(--object-detail-top, 90px) - 24px); }
   .dock-card.object-type-card.distance-card { width: min(560px, calc(100vw - 78px)); }
-  .dock-card.object-type-card.planet-card { width: min(380px, calc(100vw - 78px)); }
-  .planet-heading { gap: 5px; padding-left: 10px; }
+  .dock-card.object-type-card.constellation-card { width: min(420px, calc(100vw - 90px)); }
+  .dock-card.object-type-card.planet-card { width: min(420px, calc(100vw - 78px)); }
+  .object-type-card > .panel-heading:has(> [role="group"]) { flex-wrap: wrap; gap: 0; padding: 0; }
+  .object-type-card > .panel-heading:has(> [role="group"]) > h2 { display: flex; align-items: center; flex: 0 0 calc(100% - 98px); min-height: 44px; margin-right: 98px; padding: 0 14px; }
+  .object-type-card > .panel-heading > [role="group"] { flex: 0 0 100%; margin: 0; border-top: 1px solid var(--line); }
+  .object-type-card > .panel-heading > [role="group"] > button { height: 44px; margin: 0; border-top: 0; border-bottom: 0; }
+  .object-type-card > .panel-heading > [role="group"] > button:first-child { border-left: 0; }
+  .mass-heading > [role="group"] > .mass-reference-option > button { height: 44px; margin: 0; border-top: 0; border-bottom: 0; }
+  .mass-heading > [role="group"] > .mass-reference-option:first-child > button { border-left: 0; }
+  .moon-browser { --moon-media-height: 156px; }
   .planet-heading h2 { gap: 5px; }
   .object-type-hero { height: 180px; }
 }
 
 @media (max-width: 400px) {
   .properties > div { gap: 8px; }
-  .panel-heading.glossary-heading { gap: 8px; padding-left: 10px; padding-right: 50px; }
+  .panel-heading.glossary-heading { gap: 8px; padding-left: 10px; }
   .glossary-search > span { display: none; }
   .glossary-search input { padding-left: 7px; }
   .glossary-group-heading, .glossary-term { padding-left: 10px; padding-right: 8px; }

@@ -4,11 +4,13 @@
 
 The development server port advances automatically if its default port is already occupied.
 
-The production output is in `dist`. Builds validate every project catalog, generate deterministic browser-ready JSON from the authored CSV, and emit each catalog as a separate hashed asset. Catalogs load only when selected and each payload is fetched and parsed at most once per page session. Papa Parse remains an authoring/test dependency and is not shipped in the browser bundle. Normal builds never download astronomy data or require Python.
+The production output is in `dist`. Builds validate every project catalog, generate deterministic browser-ready JSON from the authored CSV, and emit each catalog as a separate hashed asset. Version 2 payloads already contain the reviewed companion completion and original source measurements; `sourceObjectCount` records the authored catalog size before companion expansion. Catalogs load only when selected, directly from their hashed JSON URL, and each payload is fetched and parsed at most once per page session. Startup carries a compact component identity index rather than the full physical companion pool. Each constellation chart loads only its relevant companion records. Papa Parse remains an authoring/test dependency and is not shipped in the browser bundle. Normal builds never download astronomy data; validation uses Python.
 
 Vite also emits Brotli sidecars for compressible production assets. The local preview server negotiates those files and gives hashed `/assets/` responses a one-year immutable cache policy while keeping HTML revalidated. Production hosting must provide the equivalent `Content-Encoding: br`, `Vary: Accept-Encoding`, `Content-Type`, and `Cache-Control` behavior; copying `.br` files alone is not sufficient.
 
-Production builds embed a strict Content Security Policy meta tag: same-origin scripts, styles, images, data and fonts only, no inline styles or scripts, no plugins, no base URL or form targets, and Trusted Types enforcement. Dynamic styles are applied through the CSSOM, never through `style` attributes. Mass, planet and exoplanet modules load on first use. A meta tag cannot set every protection, so production hosting must also send these response headers:
+Production builds embed a strict Content Security Policy meta tag: same-origin scripts, styles, images, data and fonts only, no inline styles or scripts, no plugins, no base URL or form targets, and Trusted Types enforcement. Dynamic styles are applied through the CSSOM, never through `style` attributes. Glossary, Info, System, Distance, Radius, Temperature, Mass, Luminosity, constellation and planet content load on first use. Lightweight counts keep System controls available before exoplanet and stellar-orbit data load. Planet Info and Moons have their own loading boundaries; moon data, textures and shape models are not initialized by opening the planet's Specs. Scene brightness and color helpers remain shared and immediately available.
+
+A meta tag cannot set every protection, so production hosting must also send these response headers:
 
 | Header | Value |
 |---|---|
@@ -45,6 +47,8 @@ To compare power use in Safari, use `npm run build && npm run preview`, leave th
 ## Tests
 
 Unit tests cover CSV parsing and validation, all supported object classes, coordinate and velocity handedness, sourced motion conversion, Sun-relative distances, motion travel conversion, temperature colors, bounded halo gain and missing-value fallback, focus easing, camera clipping, projected motion direction and scale, screen-space picking, gesture suppression, the object-filter taxonomy and availability, nebula and molecular-cloud overlay validation, deterministic volume sampling and level-of-detail packing. Browser scenarios run against the **production build** on desktop and touch-emulated mobile viewports, including 320 px and narrow landscape layouts. Extended-object scenarios verify on-demand loading, distance and subtype filtering, power-saving sample counts, sourced inspector facts, visual output and idle suspension.
+
+`npm test` and `npm run typecheck` generate their derived catalog and loading-index inputs first. Before running focused checks directly with `npx vitest`, run `npm run catalog:generate` once if those ignored inputs are absent or stale.
 
 ```sh
 npx playwright install chromium

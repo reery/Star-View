@@ -1,0 +1,774 @@
+{
+  "schemaVersion": 1,
+  "abbreviation": "PsA",
+  "name": "Piscis Austrinus",
+  "center": {
+    "ra_deg": 336.5911317720719,
+    "dec_deg": -30.646817074799348
+  },
+  "stars": [
+    {
+      "hip": 107608,
+      "name": "Theta PsA",
+      "ra_deg": 326.93395804458333,
+      "dec_deg": -30.8983062925,
+      "magnitude_v": 5.02,
+      "bayer": "θ",
+      "object": {
+        "x_pc": 60.818434841,
+        "y_pc": 17.71532864,
+        "z_pc": -75.331298208,
+        "vx_kms": 20.145649,
+        "vy_kms": 3.923687,
+        "vz_kms": 0.463204,
+        "temperature_k": 8790.0,
+        "mass_solar": null,
+        "luminosity_solar": 77.48243752957733,
+        "radius_solar": 3.795566,
+        "metallicity_dex": null,
+        "age_gyr": null,
+        "absolute_mag": 0.051469,
+        "epoch": 2000.0,
+        "type": "star",
+        "id": "hip-107608",
+        "name": "Theta PsA",
+        "constellation": "Piscis Austrinus",
+        "spectral_type": "A1V",
+        "metallicity_kind": null,
+        "notes": "Western constellation line-figure star (HIP 107608; Stellarium PsA). SIMBAD identity * tet PsA; SIMBAD compiled Johnson V=5.017; inverse SIMBAD compiled parallax distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, luminosity_solar; Stefan-Boltzmann scaling for radius_solar.",
+        "designations": [
+          "HIP 107608"
+        ],
+        "raw_astrometry": {
+          "ra_deg": 326.93395804458333,
+          "dec_deg": -30.8983062925,
+          "parallax_mas": 10.16,
+          "parallax_error_mas": 0.4,
+          "pm_ra_cosdec_masyr": -34.4,
+          "pm_ra_error_masyr": null,
+          "pm_dec_masyr": -0.08,
+          "pm_dec_error_masyr": null,
+          "radial_velocity_kms": 12.8,
+          "radial_velocity_error_kms": null,
+          "epoch": 2000.0,
+          "astrometry_ref": "SIMBAD TAP snapshot 2026-10-01",
+          "radial_velocity_ref": "SIMBAD TAP snapshot 2026-10-01"
+        }
+      }
+    },
+    {
+      "hip": 108661,
+      "name": "Eta PsA",
+      "ra_deg": 330.20927239329757,
+      "dec_deg": -28.453739983465898,
+      "magnitude_v": 5.43,
+      "bayer": "η",
+      "object": {
+        "x_pc": 142.90332266,
+        "y_pc": 53.990365138,
+        "z_pc": -198.689095419,
+        "vx_kms": -17.081997,
+        "vy_kms": -4.859695,
+        "vz_kms": -7.299434,
+        "temperature_k": 10542.0,
+        "mass_solar": null,
+        "luminosity_solar": 462.92731570466276,
+        "radius_solar": 6.450049,
+        "metallicity_dex": null,
+        "age_gyr": null,
+        "absolute_mag": -1.565136,
+        "epoch": 2000.0,
+        "type": "star",
+        "id": "hip-108661",
+        "name": "Eta PsA",
+        "constellation": "Piscis Austrinus",
+        "spectral_type": "B8III_sh+B8.5IV",
+        "metallicity_kind": null,
+        "notes": "Western constellation line-figure star (HIP 108661; Stellarium PsA). SIMBAD identity * eta PsA; Hipparcos Johnson V=5.43 (SIMBAD V unavailable); inverse SIMBAD compiled parallax distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, luminosity_solar; Stefan-Boltzmann scaling for radius_solar.",
+        "designations": [
+          "HIP 108661"
+        ],
+        "raw_astrometry": {
+          "ra_deg": 330.20927239329757,
+          "dec_deg": -28.453739983465898,
+          "parallax_mas": 3.99,
+          "parallax_error_mas": 0.48,
+          "pm_ra_cosdec_masyr": 15.57,
+          "pm_ra_error_masyr": null,
+          "pm_dec_masyr": -1.03,
+          "pm_dec_error_masyr": null,
+          "radial_velocity_kms": -5.0,
+          "radial_velocity_error_kms": null,
+          "epoch": 2000.0,
+          "astrometry_ref": "SIMBAD TAP snapshot 2026-10-01",
+          "radial_velocity_ref": "SIMBAD TAP snapshot 2026-10-01"
+        }
+      }
+    },
+    {
+      "hip": 109422,
+      "name": "Tau PsA",
+      "ra_deg": 332.53658414455214,
+      "dec_deg": -32.54840841508611,
+      "magnitude_v": 4.94,
+      "bayer": "τ",
+      "object": {
+        "x_pc": 10.309330342,
+        "y_pc": 2.594004147,
+        "z_pc": -15.077863906,
+        "vx_kms": -39.156988,
+        "vy_kms": -7.342413,
+        "vz_kms": -8.579329,
+        "temperature_k": 6310.0,
+        "mass_solar": 1.16,
+        "luminosity_solar": 3.0170095,
+        "radius_solar": 1.4125375446227544,
+        "metallicity_dex": -0.4239,
+        "age_gyr": 3.3200555,
+        "absolute_mag": 3.590176,
+        "epoch": 2000.0,
+        "type": "star",
+        "id": "hip-109422",
+        "name": "Tau PsA",
+        "constellation": "Piscis Austrinus",
+        "spectral_type": "F6V",
+        "metallicity_kind": "[M/H]",
+        "notes": "Western constellation line-figure star (HIP 109422; Stellarium PsA). SIMBAD identity * tau PsA; SIMBAD compiled Johnson V=4.92; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, mass_solar, radius_solar; Gaia DR3 model values for metallicity_dex, luminosity_solar, age_gyr.",
+        "designations": [
+          "HIP 109422"
+        ],
+        "raw_astrometry": {
+          "ra_deg": 332.53658414455214,
+          "dec_deg": -32.54840841508611,
+          "parallax_mas": 54.1773,
+          "parallax_error_mas": 0.094,
+          "pm_ra_cosdec_masyr": 428.832,
+          "pm_ra_error_masyr": null,
+          "pm_dec_masyr": 13.475,
+          "pm_dec_error_masyr": null,
+          "radial_velocity_kms": -15.902,
+          "radial_velocity_error_kms": null,
+          "epoch": 2000.0,
+          "astrometry_ref": "SIMBAD TAP snapshot 2026-10-01",
+          "radial_velocity_ref": "SIMBAD TAP snapshot 2026-10-01"
+        }
+      }
+    },
+    {
+      "hip": 111188,
+      "name": "Beta PsA",
+      "ra_deg": 337.8763771806121,
+      "dec_deg": -32.34607529737001,
+      "magnitude_v": 4.29,
+      "bayer": "β",
+      "object": {
+        "x_pc": 22.317465936,
+        "y_pc": 5.810814704,
+        "z_pc": -38.866640981,
+        "vx_kms": -6.880649,
+        "vy_kms": -6.090777,
+        "vz_kms": -10.733578,
+        "temperature_k": 9333.0,
+        "mass_solar": 2.37,
+        "luminosity_solar": 36.134982095288755,
+        "radius_solar": 2.137962089502232,
+        "metallicity_dex": -1.074,
+        "age_gyr": 0.44603023,
+        "absolute_mag": 1.014621,
+        "epoch": 2000.0,
+        "type": "star",
+        "id": "hip-111188",
+        "name": "Beta PsA",
+        "constellation": "Piscis Austrinus",
+        "spectral_type": "A1Va",
+        "metallicity_kind": "[M/H]",
+        "notes": "Western constellation line-figure star (HIP 111188; Stellarium PsA). SIMBAD identity * bet PsA; SIMBAD compiled Johnson V=4.29; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, mass_solar, radius_solar, luminosity_solar; Gaia DR3 model values for metallicity_dex, age_gyr.",
+        "designations": [
+          "HIP 111188"
+        ],
+        "raw_astrometry": {
+          "ra_deg": 337.8763771806121,
+          "dec_deg": -32.34607529737001,
+          "parallax_mas": 22.0836,
+          "parallax_error_mas": 0.2117,
+          "pm_ra_cosdec_masyr": 58.64,
+          "pm_ra_error_masyr": null,
+          "pm_dec_masyr": -18.857,
+          "pm_dec_error_masyr": null,
+          "radial_velocity_kms": 5.05,
+          "radial_velocity_error_kms": null,
+          "epoch": 2000.0,
+          "astrometry_ref": "SIMBAD TAP snapshot 2026-10-01",
+          "radial_velocity_ref": "SIMBAD TAP snapshot 2026-10-01"
+        }
+      }
+    },
+    {
+      "hip": 111954,
+      "name": "Epsilon PsA",
+      "ra_deg": 340.16395106838996,
+      "dec_deg": -27.04361529214,
+      "magnitude_v": 4.18,
+      "bayer": "ε",
+      "object": {
+        "x_pc": 74.042737534,
+        "y_pc": 35.295346894,
+        "z_pc": -147.820005182,
+        "vx_kms": -13.81684,
+        "vy_kms": -5.362163,
+        "vz_kms": -9.459167,
+        "temperature_k": 11300.0,
+        "mass_solar": 4.515881,
+        "luminosity_solar": 756.3996702187295,
+        "radius_solar": 7.3426356,
+        "metallicity_dex": -0.6379,
+        "age_gyr": null,
+        "absolute_mag": -1.963112,
+        "epoch": 2000.0,
+        "type": "star",
+        "id": "hip-111954",
+        "name": "Epsilon PsA",
+        "constellation": "Piscis Austrinus",
+        "spectral_type": "B7III",
+        "metallicity_kind": "[M/H]",
+        "notes": "Western constellation line-figure star (HIP 111954; Stellarium PsA). SIMBAD identity * eps PsA; SIMBAD compiled Johnson V=4.177; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, luminosity_solar; Gaia DR3 model values for metallicity_dex, mass_solar, radius_solar.",
+        "designations": [
+          "HIP 111954"
+        ],
+        "raw_astrometry": {
+          "ra_deg": 340.16395106838996,
+          "dec_deg": -27.04361529214,
+          "parallax_mas": 5.9219,
+          "parallax_error_mas": 0.2931,
+          "pm_ra_cosdec_masyr": 21.839,
+          "pm_ra_error_masyr": null,
+          "pm_dec_masyr": -1.588,
+          "pm_dec_error_masyr": null,
+          "radial_velocity_kms": 1.1,
+          "radial_velocity_error_kms": null,
+          "epoch": 2000.0,
+          "astrometry_ref": "SIMBAD TAP snapshot 2026-10-01",
+          "radial_velocity_ref": "SIMBAD TAP snapshot 2026-10-01"
+        }
+      }
+    },
+    {
+      "hip": 113246,
+      "name": "Delta PsA",
+      "ra_deg": 343.98708414699,
+      "dec_deg": -32.53962393681,
+      "magnitude_v": 4.2,
+      "bayer": "δ",
+      "object": {
+        "x_pc": 21.857113754,
+        "y_pc": 5.324113959,
+        "z_pc": -47.078894747,
+        "vx_kms": -9.410127,
+        "vy_kms": 5.750863,
+        "vz_kms": 8.129302,
+        "temperature_k": 4898.0,
+        "mass_solar": 1.44,
+        "luminosity_solar": 63.33589413076077,
+        "radius_solar": 10.471285480508996,
+        "metallicity_dex": -0.7734,
+        "age_gyr": null,
+        "absolute_mag": 0.62058,
+        "epoch": 2000.0,
+        "type": "star",
+        "id": "hip-113246",
+        "name": "Delta PsA",
+        "constellation": "Piscis Austrinus",
+        "spectral_type": "G8III",
+        "metallicity_kind": "[M/H]",
+        "notes": "Western constellation line-figure star (HIP 113246; Stellarium PsA). SIMBAD identity * del PsA; SIMBAD compiled Johnson V=4.208; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, mass_solar, radius_solar, luminosity_solar; Gaia DR3 model values for metallicity_dex.",
+        "designations": [
+          "HIP 113246"
+        ],
+        "raw_astrometry": {
+          "ra_deg": 343.98708414699,
+          "dec_deg": -32.53962393681,
+          "parallax_mas": 19.1618,
+          "parallax_error_mas": 0.1347,
+          "pm_ra_cosdec_masyr": 11.62,
+          "pm_ra_error_masyr": null,
+          "pm_dec_masyr": 32.638,
+          "pm_dec_error_masyr": null,
+          "radial_velocity_kms": -10.69,
+          "radial_velocity_error_kms": null,
+          "epoch": 2000.0,
+          "astrometry_ref": "SIMBAD TAP snapshot 2026-10-01",
+          "radial_velocity_ref": "SIMBAD TAP snapshot 2026-10-01"
+        }
+      }
+    },
+    {
+      "hip": 113368,
+      "name": "Fomalhaut",
+      "ra_deg": 344.4126927211701,
+      "dec_deg": -29.622237033389442,
+      "magnitude_v": 1.17,
+      "bayer": "α",
+      "object": {
+        "x_pc": 3.060044899,
+        "y_pc": 1.143381695,
+        "z_pc": -6.976657094,
+        "vx_kms": -5.712903,
+        "vy_kms": -8.26225,
+        "vz_kms": -11.037067,
+        "temperature_k": 8745.0,
+        "mass_solar": 1.97,
+        "luminosity_solar": 17.28347433,
+        "radius_solar": 1.811125485,
+        "metallicity_dex": 0.31,
+        "age_gyr": null,
+        "absolute_mag": 1.726541,
+        "epoch": 2000.0,
+        "type": "star",
+        "id": "hip-113368",
+        "name": "Fomalhaut",
+        "constellation": "Piscis Austrinus",
+        "spectral_type": "A4V",
+        "metallicity_kind": "[Fe/H]",
+        "notes": "Corrected CNS5 5665; J2000 Sun-relative Galactic position. SIMBAD exact CNS5 identity.  Shared exact-identity physical supplements (temperature_k: 2021A&A...647A..49S; metallicity_dex: 2017AJ....153...21L; radius_solar: 2007ApJ...660.1556R). luminosity_solar derived by Stefan-Boltzmann scaling from adopted inputs (solar Teff=5772 K); inherits their measurement/model/estimate assumptions. Adopted coordinate/motion bundle: western-constellation-stars:hip-113368. Prefer the frozen 2021 measured temperature over the 1999 model temperature, retaining the precise interferometric radius and its Stefan-Boltzmann luminosity. Preserve the previously curated 1999 model mass separately; it is not a new dynamical mass measurement. Retain the existing explicitly curated Allende Prieto & Lambert 1999 model mass, with its original model scope; do not reinterpret it as a dynamical measurement.",
+        "designations": [
+          "HIP 113368"
+        ],
+        "raw_astrometry": {
+          "ra_deg": 344.4126927211701,
+          "dec_deg": -29.622237033389442,
+          "parallax_mas": 129.81,
+          "parallax_error_mas": 0.47,
+          "pm_ra_cosdec_masyr": 328.95,
+          "pm_ra_error_masyr": null,
+          "pm_dec_masyr": -164.67,
+          "pm_dec_error_masyr": null,
+          "radial_velocity_kms": 6.5,
+          "radial_velocity_error_kms": null,
+          "epoch": 2000.0,
+          "astrometry_ref": "SIMBAD TAP snapshot 2026-10-01",
+          "radial_velocity_ref": "SIMBAD TAP snapshot 2026-10-01"
+        }
+      }
+    }
+  ],
+  "lines": [
+    [
+      113368,
+      111954
+    ],
+    [
+      111954,
+      108661
+    ],
+    [
+      108661,
+      107608
+    ],
+    [
+      107608,
+      109422
+    ],
+    [
+      109422,
+      111188
+    ],
+    [
+      111188,
+      113246
+    ]
+  ],
+  "boundaries": [
+    {
+      "neighbor": "Grus",
+      "neighbor_abbreviation": "GRU",
+      "points": [
+        {
+          "ra_deg": 321.928053,
+          "dec_deg": -36.4592972
+        },
+        {
+          "ra_deg": 322.920999,
+          "dec_deg": -36.4517555
+        },
+        {
+          "ra_deg": 323.913831,
+          "dec_deg": -36.4443779
+        },
+        {
+          "ra_deg": 324.906435,
+          "dec_deg": -36.4371719
+        },
+        {
+          "ra_deg": 325.899096,
+          "dec_deg": -36.4301338
+        },
+        {
+          "ra_deg": 326.89167,
+          "dec_deg": -36.4232674
+        },
+        {
+          "ra_deg": 327.884044,
+          "dec_deg": -36.4165802
+        },
+        {
+          "ra_deg": 328.876447,
+          "dec_deg": -36.4100647
+        },
+        {
+          "ra_deg": 329.868765,
+          "dec_deg": -36.4037285
+        },
+        {
+          "ra_deg": 330.860853,
+          "dec_deg": -36.3975754
+        },
+        {
+          "ra_deg": 331.853028,
+          "dec_deg": -36.3916054
+        },
+        {
+          "ra_deg": 332.845144,
+          "dec_deg": -36.3858147
+        },
+        {
+          "ra_deg": 333.837033,
+          "dec_deg": -36.3802147
+        },
+        {
+          "ra_deg": 334.829006,
+          "dec_deg": -36.3747978
+        },
+        {
+          "ra_deg": 335.820894,
+          "dec_deg": -36.3695717
+        },
+        {
+          "ra_deg": 336.812581,
+          "dec_deg": -36.3645401
+        },
+        {
+          "ra_deg": 337.804356,
+          "dec_deg": -36.3596954
+        },
+        {
+          "ra_deg": 338.796072,
+          "dec_deg": -36.3550453
+        },
+        {
+          "ra_deg": 339.78756,
+          "dec_deg": -36.3505936
+        },
+        {
+          "ra_deg": 340.779162,
+          "dec_deg": -36.3463326
+        },
+        {
+          "ra_deg": 341.770736,
+          "dec_deg": -36.3422737
+        },
+        {
+          "ra_deg": 342.762079,
+          "dec_deg": -36.3384132
+        },
+        {
+          "ra_deg": 343.753537,
+          "dec_deg": -36.3347511
+        },
+        {
+          "ra_deg": 344.744969,
+          "dec_deg": -36.3312874
+        },
+        {
+          "ra_deg": 345.73617,
+          "dec_deg": -36.3280296
+        },
+        {
+          "ra_deg": 346.727514,
+          "dec_deg": -36.3249741
+        }
+      ]
+    },
+    {
+      "neighbor": "Sculptor",
+      "neighbor_abbreviation": "SCL",
+      "points": [
+        {
+          "ra_deg": 346.727514,
+          "dec_deg": -36.3249741
+        },
+        {
+          "ra_deg": 346.722994,
+          "dec_deg": -35.3249817
+        },
+        {
+          "ra_deg": 346.718559,
+          "dec_deg": -34.3249893
+        },
+        {
+          "ra_deg": 346.714239,
+          "dec_deg": -33.3249931
+        },
+        {
+          "ra_deg": 346.710033,
+          "dec_deg": -32.3250008
+        },
+        {
+          "ra_deg": 346.705886,
+          "dec_deg": -31.3250065
+        },
+        {
+          "ra_deg": 346.701851,
+          "dec_deg": -30.3250122
+        },
+        {
+          "ra_deg": 346.697902,
+          "dec_deg": -29.3250198
+        },
+        {
+          "ra_deg": 346.694011,
+          "dec_deg": -28.3250256
+        },
+        {
+          "ra_deg": 346.690206,
+          "dec_deg": -27.3250313
+        },
+        {
+          "ra_deg": 346.686459,
+          "dec_deg": -26.325037
+        },
+        {
+          "ra_deg": 346.682767,
+          "dec_deg": -25.3250408
+        },
+        {
+          "ra_deg": 346.680966,
+          "dec_deg": -24.8250446
+        }
+      ]
+    },
+    {
+      "neighbor": "Aquarius",
+      "neighbor_abbreviation": "AQR",
+      "points": [
+        {
+          "ra_deg": 346.680966,
+          "dec_deg": -24.8250446
+        },
+        {
+          "ra_deg": 345.686388,
+          "dec_deg": -24.8281116
+        },
+        {
+          "ra_deg": 344.692011,
+          "dec_deg": -24.8313808
+        },
+        {
+          "ra_deg": 343.697404,
+          "dec_deg": -24.8348522
+        },
+        {
+          "ra_deg": 342.702799,
+          "dec_deg": -24.8385258
+        },
+        {
+          "ra_deg": 341.708279,
+          "dec_deg": -24.8423996
+        },
+        {
+          "ra_deg": 340.713615,
+          "dec_deg": -24.8464737
+        },
+        {
+          "ra_deg": 339.718894,
+          "dec_deg": -24.8507462
+        },
+        {
+          "ra_deg": 338.724318,
+          "dec_deg": -24.8552132
+        },
+        {
+          "ra_deg": 337.729541,
+          "dec_deg": -24.8598766
+        },
+        {
+          "ra_deg": 336.734733,
+          "dec_deg": -24.8647346
+        },
+        {
+          "ra_deg": 335.740012,
+          "dec_deg": -24.8697853
+        },
+        {
+          "ra_deg": 334.745121,
+          "dec_deg": -24.8750267
+        },
+        {
+          "ra_deg": 333.750201,
+          "dec_deg": -24.8804569
+        },
+        {
+          "ra_deg": 332.755336,
+          "dec_deg": -24.886076
+        },
+        {
+          "ra_deg": 331.760329,
+          "dec_deg": -24.89188
+        },
+        {
+          "ra_deg": 330.765239,
+          "dec_deg": -24.897871
+        },
+        {
+          "ra_deg": 329.770289,
+          "dec_deg": -24.9040413
+        }
+      ]
+    },
+    {
+      "neighbor": "Capricornus",
+      "neighbor_abbreviation": "CAP",
+      "points": [
+        {
+          "ra_deg": 329.770289,
+          "dec_deg": -24.9040413
+        },
+        {
+          "ra_deg": 328.775139,
+          "dec_deg": -24.9103947
+        },
+        {
+          "ra_deg": 327.779904,
+          "dec_deg": -24.9169273
+        },
+        {
+          "ra_deg": 326.784783,
+          "dec_deg": -24.9236355
+        },
+        {
+          "ra_deg": 325.789461,
+          "dec_deg": -24.9305191
+        },
+        {
+          "ra_deg": 324.794082,
+          "dec_deg": -24.9375744
+        },
+        {
+          "ra_deg": 323.798819,
+          "dec_deg": -24.9448013
+        },
+        {
+          "ra_deg": 322.803326,
+          "dec_deg": -24.952198
+        },
+        {
+          "ra_deg": 321.807776,
+          "dec_deg": -24.9597607
+        }
+      ]
+    },
+    {
+      "neighbor": "Capricornus",
+      "neighbor_abbreviation": "CAP",
+      "points": [
+        {
+          "ra_deg": 321.807776,
+          "dec_deg": -24.9597607
+        },
+        {
+          "ra_deg": 321.817188,
+          "dec_deg": -25.9597225
+        },
+        {
+          "ra_deg": 321.826773,
+          "dec_deg": -26.9596863
+        },
+        {
+          "ra_deg": 321.831636,
+          "dec_deg": -27.4596672
+        }
+      ]
+    },
+    {
+      "neighbor": "Microscopium",
+      "neighbor_abbreviation": "MIC",
+      "points": [
+        {
+          "ra_deg": 321.831636,
+          "dec_deg": -27.4596672
+        },
+        {
+          "ra_deg": 321.841479,
+          "dec_deg": -28.4596291
+        },
+        {
+          "ra_deg": 321.851491,
+          "dec_deg": -29.4595928
+        },
+        {
+          "ra_deg": 321.861735,
+          "dec_deg": -30.4595509
+        },
+        {
+          "ra_deg": 321.872176,
+          "dec_deg": -31.4595127
+        },
+        {
+          "ra_deg": 321.882849,
+          "dec_deg": -32.4594727
+        },
+        {
+          "ra_deg": 321.893749,
+          "dec_deg": -33.4594269
+        },
+        {
+          "ra_deg": 321.904906,
+          "dec_deg": -34.4593849
+        },
+        {
+          "ra_deg": 321.916351,
+          "dec_deg": -35.459343
+        },
+        {
+          "ra_deg": 321.928053,
+          "dec_deg": -36.4592972
+        }
+      ]
+    }
+  ],
+  "sources": [
+    {
+      "label": "Stellarium Western sky culture",
+      "url": "https://raw.githubusercontent.com/Stellarium/stellarium-skycultures/014fbb5e59233d133c22f9811af96b67d05a95c9/western/index.json",
+      "path": "catalog-work/western-constellation-stars/stellarium-western-index.json",
+      "sha256": "a861accd345249a185a5ecfc2a516f34291c0aa52f4bb8d8337ffc53e9cef6b9"
+    },
+    {
+      "label": "Adopted star positions and names",
+      "url": "https://simbad.cds.unistra.fr/simbad/",
+      "path": "src/data/catalogs/western-constellation-stars/stars.csv",
+      "sha256": "0a8b7c1dc3f7e3412c5cffb09a18cdf5b5b7424cc89ea8a0a1ffb4da57d3ad6a"
+    },
+    {
+      "label": "Hipparcos Johnson V magnitudes",
+      "url": "https://cdsarc.cds.unistra.fr/viz-bin/cat/I/239",
+      "path": "catalog-work/western-constellation-stars/hipparcos-v.csv",
+      "sha256": "eec12b740da3aac5204ba75ca5158b6f9f2f81886dda2526fe765cf9ea159320"
+    },
+    {
+      "label": "CDS / IAU constellation boundaries (J2000)",
+      "url": "https://cdsarc.cds.unistra.fr/viz-bin/cat/VI/49",
+      "path": "catalog-work/constellation-charts/boundaries-j2000.dat.gz",
+      "sha256": "879cd6e7a1c908f1e19a5f5fe8cc75fb1d1077564e3890f9152a3680affe9aac",
+      "inputs": [
+        {
+          "path": "catalog-work/constellation-charts/boundary-contours-b1875.dat",
+          "sha256": "865cdf4218f676eb304587c75c63231948d29cd0abe6892a8a8130c1c4fe3592"
+        },
+        {
+          "path": "catalog-work/constellation-charts/boundary-contours-readme.txt",
+          "sha256": "a3ec688bea21e9db10832842c9b845558dbe8ccf820ddedec842d664d2b74c89"
+        }
+      ]
+    }
+  ]
+}

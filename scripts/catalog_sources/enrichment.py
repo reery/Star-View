@@ -182,7 +182,7 @@ def derive_physical(row):
     return {field: {"field": field, "value": float(row[field]), "status": "derived", "reference": "Stefan-Boltzmann scaling", "inputs": inputs}}
 
 
-def enrich_from_frozen(row, main_id=None, aliases=(), derive=True):
+def enrich_from_frozen(row, main_id=None, aliases=(), derive=True, reviewed_only=False):
     sources, identities, fundamental, sed, measured, diameters, gaia, bright_hips = source_index()
     key = normalized_id(main_id or identities.get(row["id"]))
     source = sources.get(key, {})
@@ -222,6 +222,10 @@ def enrich_from_frozen(row, main_id=None, aliases=(), derive=True):
                     adopted[field]["superseded"] = superseded
             if adopted:
                 row["notes"] += f" Reviewed physical values describe {review['label']}. {review['scope']} {review['note']}"
+    if reviewed_only:
+        # Let explicitly reviewed corrections precede an overlay's automatic
+        # catalog models without also pulling in other fallback sources.
+        return adopted
     if row["type"] == "star" and key:
         identifiers = set(normalized_id(alias) for alias in aliases)
         identifiers.update(normalized_id(alias) for alias in source.get("ids", "").split("|"))

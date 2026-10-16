@@ -1,7 +1,51 @@
 {
   "schemaVersion": 1,
-  "reviewed": "2026-10-07",
+  "reviewed": "2026-10-11",
   "objects": {
+    "* zet01 Sco": {
+      "label": "Zeta1 Scorpii (HD 152236)",
+      "component": "blue hypergiant",
+      "starViewIds": [
+        "hip-82671"
+      ],
+      "beforeCatalogModels": true,
+      "scope": "Exact SIMBAD * zet01 Sco / HIP 82671 / HD 152236; not the unrelated visual neighbour Zeta2 Scorpii.",
+      "reference": "2012A&A...541A.145C",
+      "url": "https://arxiv.org/abs/1202.3991",
+      "note": "Clark et al. 2012 Table 4 and section 4.2: dedicated non-LTE atmosphere analysis, including reddening E(B-V)=0.66 and R_V=3.3. Supersedes the McDonald et al. 2012 zero-reddening broadband SED fit (HIP 82671: 5830 K, 7204.66 solar luminosities at 787.4 pc) and its derived radius. Adopt the internally consistent published 1.64-kpc solution (log L/Lsun=5.93, R=103 solar radii); the paper also gives a 2-kpc solution. Luminosity/radius remain at the publication distance rather than rescaled to the catalog distance. No mass, age or metallicity correction is adopted here.",
+      "fields": {
+        "temperature_k": {
+          "value": 17200,
+          "uncertainty": 500,
+          "status": "model-derived",
+          "section": "Table 4 and section 4.2",
+          "quantity": "non-LTE spectroscopic effective temperature",
+          "sourceRecordId": "HD 152236",
+          "caveat": "Object-specific ionization-equilibrium fit including the photosphere-wind transition; not a dwarf spectral-type calibration."
+        },
+        "luminosity_solar": {
+          "value": 851138.038202,
+          "status": "model-derived",
+          "section": "Table 4, first Zeta1 Sco distance solution",
+          "inputs": {
+            "log_luminosity_solar": 5.93,
+            "source_distance_pc": 1640
+          },
+          "caveat": "Published extinction-corrected model luminosity at 1.64 kpc; distance-dependent. No symmetric uncertainty is adopted from the alternative 2-kpc solution."
+        },
+        "radius_solar": {
+          "value": 103,
+          "status": "model-derived",
+          "section": "Table 4, first Zeta1 Sco distance solution",
+          "inputs": {
+            "temperature_k": 17200,
+            "log_luminosity_solar": 5.93,
+            "source_distance_pc": 1640
+          },
+          "caveat": "Published model photospheric radius, not a direct angular-diameter measurement; retained with its published luminosity and temperature."
+        }
+      }
+    },
     "* alf Ori": {
       "label": "Betelgeuse (Alpha Orionis)",
       "component": "red supergiant primary",

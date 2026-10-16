@@ -1,0 +1,171 @@
+{
+  "orbit": {
+    "producer": "Otto Matic",
+    "t_jup": "5.292",
+    "comment": null,
+    "moid": "36.6974",
+    "n_dop_obs_used": null,
+    "rms": ".6377",
+    "epoch": "2461200.5",
+    "not_valid_after": null,
+    "n_obs_used": 751,
+    "equinox": "J2000",
+    "not_valid_before": null,
+    "model_pars": [],
+    "elements": [
+      {
+        "title": "eccentricity",
+        "label": "e",
+        "value": ".1046039838127425",
+        "sigma": "1.4838E-6",
+        "units": null,
+        "name": "e"
+      },
+      {
+        "value": "42.05521225409177",
+        "name": "a",
+        "sigma": "4.1114E-5",
+        "units": "au",
+        "title": "semi-major axis",
+        "label": "a"
+      },
+      {
+        "value": "37.6560695122233",
+        "name": "q",
+        "units": "au",
+        "sigma": "6.6109E-5",
+        "title": "perihelion distance",
+        "label": "q"
+      },
+      {
+        "value": "23.92719899399624",
+        "name": "i",
+        "sigma": "1.0286E-6",
+        "units": "deg",
+        "title": "inclination; angle with respect to x-y ecliptic plane",
+        "label": "i"
+      },
+      {
+        "name": "om",
+        "sigma": "1.3907E-5",
+        "units": "deg",
+        "value": "280.254342318715",
+        "label": "node",
+        "title": "longitude of the ascending node"
+      },
+      {
+        "value": "308.9773054038262",
+        "name": "w",
+        "units": "deg",
+        "sigma": ".00083597",
+        "title": "argument of perihelion",
+        "label": "peri"
+      },
+      {
+        "value": "134.6779349662037",
+        "sigma": ".0010756",
+        "units": "deg",
+        "name": "ma",
+        "title": "mean anomaly",
+        "label": "M"
+      },
+      {
+        "title": "time of perihelion passage",
+        "label": "tp",
+        "value": "2423933.698631460196",
+        "sigma": ".26172",
+        "units": "TDB",
+        "name": "tp"
+      },
+      {
+        "value": "99615.78707039855",
+        "name": "per",
+        "sigma": ".14608",
+        "units": "d",
+        "title": "sidereal orbital period",
+        "label": "period"
+      },
+      {
+        "units": "deg/d",
+        "sigma": "5.2996E-9",
+        "name": "n",
+        "value": ".00361388501348273",
+        "label": "n",
+        "title": "mean motion"
+      },
+      {
+        "value": "46.45435499596024",
+        "sigma": "4.5415E-5",
+        "units": "au",
+        "name": "ad",
+        "title": "aphelion distance",
+        "label": "Q"
+      }
+    ],
+    "cov_epoch": "2458819.5",
+    "sb_used": "SB441-N16",
+    "condition_code": "1",
+    "first_obs": "1982-07-25",
+    "data_arc": "15805",
+    "soln_date": "2025-11-07 12:48:45",
+    "moid_jup": "32.5794",
+    "last_obs": "2025-11-01",
+    "pe_used": "DE441",
+    "orbit_id": "42",
+    "n_del_obs_used": null,
+    "two_body": null,
+    "source": "JPL"
+  },
+  "discovery": {
+    "date": "2004-Sep-22",
+    "discovery": "Discovered 2004 Sept. 22 by H. G. Roe, M. E. Brown and K. M. Barkume at Palomar.",
+    "location": "Palomar",
+    "site": null,
+    "who": "Roe, H. G., Brown, M. E., Barkume, K. M.",
+    "citation": "Salacia is the Roman goddess of the calm and sunlit ocean.  At first afraid of Neptune's advances, she was convinced to agree to marriage by the dolphin Delphinus.",
+    "ref": "20051116/Numbers.arc",
+    "cref": "20110218/MPCPages.arc",
+    "name": "Salacia"
+  },
+  "phys_par": [
+    {
+      "title": "absolute magnitude",
+      "notes": null,
+      "ref": "MPO951975",
+      "value": "4.12",
+      "name": "H",
+      "sigma": null,
+      "units": null,
+      "desc": "absolute magnitude (magnitude at 1 au from Sun and observer)"
+    },
+    {
+      "ref": "LCDB (Rev. 2023-October); Warner et al., 2009",
+      "notes": "[Result based on less than full coverage, so that the period may be wrong by 30 percent or so.]  REFERENCE LIST:[Thirouin, A.; Ortiz, J.L.; Duffard, R.; Santos-Sanz, P.; et al. (2010) Astron. Astrophys. 522, A93.]",
+      "title": "rotation period",
+      "sigma": null,
+      "units": "h",
+      "name": "rot_per",
+      "value": "6.09",
+      "desc": "body rotation period (synodic)"
+    }
+  ],
+  "object": {
+    "des": "120347",
+    "prefix": null,
+    "orbit_class": {
+      "code": "TNO",
+      "name": "TransNeptunian Object"
+    },
+    "pha": false,
+    "orbit_id": "42",
+    "shortname": "120347 Salacia",
+    "spkid": "20120347",
+    "kind": "an",
+    "neo": false,
+    "fullname": "120347 Salacia (2004 SB60)"
+  },
+  "signature": {
+    "source": "NASA/JPL Small-Body Database (SBDB) API",
+    "version": "1.3"
+  }
+}

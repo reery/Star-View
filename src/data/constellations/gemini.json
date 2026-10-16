@@ -1,0 +1,1680 @@
+{
+  "schemaVersion": 1,
+  "abbreviation": "Gem",
+  "name": "Gemini",
+  "center": {
+    "ra_deg": 105.02823341673417,
+    "dec_deg": 24.03473114646927
+  },
+  "stars": [
+    {
+      "hip": 28734,
+      "name": "1 Gem",
+      "ra_deg": 91.03006433050544,
+      "dec_deg": 23.26334447236106,
+      "magnitude_v": 4.16,
+      "bayer": null,
+      "object": {
+        "x_pc": -47.193745084,
+        "y_pc": -5.788520119,
+        "z_pc": 0.593490075,
+        "vx_kms": -19.580715,
+        "vy_kms": -25.632845,
+        "vz_kms": -13.132493,
+        "temperature_k": 5248.0,
+        "mass_solar": null,
+        "luminosity_solar": 47.9722546694768,
+        "radius_solar": 8.37838,
+        "metallicity_dex": 0.03,
+        "age_gyr": null,
+        "absolute_mag": 0.764196,
+        "epoch": 2000.0,
+        "type": "star",
+        "id": "hip-28734",
+        "name": "1 Gem",
+        "constellation": "Gemini",
+        "spectral_type": "G5III",
+        "metallicity_kind": "[Fe/H]",
+        "notes": "Western constellation line-figure star (HIP 28734; Stellarium Gem). SIMBAD identity *   1 Gem; SIMBAD compiled Johnson V=4.15; inverse SIMBAD compiled parallax distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, luminosity_solar; Stefan-Boltzmann scaling for radius_solar. Shared exact-identity physical supplements (metallicity_dex: 2022A&A...663A...4S).",
+        "designations": [
+          "HIP 28734"
+        ],
+        "raw_astrometry": {
+          "ra_deg": 91.03006433050544,
+          "dec_deg": 23.26334447236106,
+          "parallax_mas": 21.03,
+          "parallax_error_mas": 0.9,
+          "pm_ra_cosdec_masyr": -1.61,
+          "pm_ra_error_masyr": null,
+          "pm_dec_masyr": -118.33,
+          "pm_dec_error_masyr": null,
+          "radial_velocity_kms": 22.39,
+          "radial_velocity_error_kms": null,
+          "epoch": 2000.0,
+          "astrometry_ref": "SIMBAD TAP snapshot 2026-10-01",
+          "radial_velocity_ref": "SIMBAD TAP snapshot 2026-10-01"
+        }
+      }
+    },
+    {
+      "hip": 29655,
+      "name": "Propus",
+      "ra_deg": 93.71935536055373,
+      "dec_deg": 22.506787327170834,
+      "magnitude_v": 3.31,
+      "bayer": "η",
+      "object": {
+        "x_pc": -208.642941184,
+        "y_pc": -32.498111328,
+        "z_pc": 9.287503598,
+        "vx_kms": -27.855121,
+        "vy_kms": 17.458792,
+        "vz_kms": -55.125891,
+        "temperature_k": 3580.0,
+        "mass_solar": null,
+        "luminosity_solar": 12513.755826651777,
+        "radius_solar": 290.790644,
+        "metallicity_dex": 0.04,
+        "age_gyr": null,
+        "absolute_mag": -3.345143,
+        "epoch": 2000.0,
+        "type": "star",
+        "id": "hip-29655",
+        "name": "Propus",
+        "constellation": "Gemini",
+        "spectral_type": "M2IIIa",
+        "metallicity_kind": "[Fe/H]",
+        "notes": "Western constellation line-figure star (HIP 29655; Stellarium Gem). SIMBAD identity * eta Gem; SIMBAD compiled Johnson V=3.28; inverse SIMBAD compiled parallax distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, luminosity_solar; Stefan-Boltzmann scaling for radius_solar. Shared exact-identity physical supplements (metallicity_dex: 1998A&A...338..623M).",
+        "designations": [
+          "HIP 29655"
+        ],
+        "raw_astrometry": {
+          "ra_deg": 93.71935536055373,
+          "dec_deg": 22.506787327170834,
+          "parallax_mas": 4.7312,
+          "parallax_error_mas": 1.0207,
+          "pm_ra_cosdec_masyr": -59.53,
+          "pm_ra_error_masyr": null,
+          "pm_dec_masyr": -7.766,
+          "pm_dec_error_masyr": null,
+          "radial_velocity_kms": 22.39,
+          "radial_velocity_error_kms": null,
+          "epoch": 2000.0,
+          "astrometry_ref": "SIMBAD TAP snapshot 2026-10-01",
+          "radial_velocity_ref": "SIMBAD TAP snapshot 2026-10-01"
+        }
+      }
+    },
+    {
+      "hip": 30343,
+      "name": "Tejat",
+      "ra_deg": 95.74011192619564,
+      "dec_deg": 22.513582745904277,
+      "magnitude_v": 2.87,
+      "bayer": "μ",
+      "object": {
+        "x_pc": -69.816548743,
+        "y_pc": -11.967298054,
+        "z_pc": 5.163437588,
+        "vx_kms": -46.453034,
+        "vy_kms": -50.194345,
+        "vz_kms": 3.550868,
+        "temperature_k": 3638.0,
+        "mass_solar": null,
+        "luminosity_solar": 1717.0118639793168,
+        "radius_solar": 104.307108,
+        "metallicity_dex": 0.0,
+        "age_gyr": null,
+        "absolute_mag": -1.386987,
+        "epoch": 2000.0,
+        "type": "star",
+        "id": "hip-30343",
+        "name": "Tejat",
+        "constellation": "Gemini",
+        "spectral_type": "M3IIIab",
+        "metallicity_kind": "[Fe/H]",
+        "notes": "Western constellation line-figure star (HIP 30343; Stellarium Gem). SIMBAD identity * mu. Gem; SIMBAD compiled Johnson V=2.87; inverse SIMBAD compiled parallax distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, luminosity_solar; Stefan-Boltzmann scaling for radius_solar. Shared exact-identity physical supplements (metallicity_dex: 2008AJ....135..209M).",
+        "designations": [
+          "HIP 30343"
+        ],
+        "raw_astrometry": {
+          "ra_deg": 95.74011192619564,
+          "dec_deg": 22.513582745904277,
+          "parallax_mas": 14.08,
+          "parallax_error_mas": 0.71,
+          "pm_ra_cosdec_masyr": 56.39,
+          "pm_ra_error_masyr": null,
+          "pm_dec_masyr": -110.03,
+          "pm_dec_error_masyr": null,
+          "radial_velocity_kms": 54.38,
+          "radial_velocity_error_kms": null,
+          "epoch": 2000.0,
+          "astrometry_ref": "SIMBAD TAP snapshot 2026-10-01",
+          "radial_velocity_ref": "SIMBAD TAP snapshot 2026-10-01"
+        }
+      }
+    },
+    {
+      "hip": 30883,
+      "name": "Nu Gem",
+      "ra_deg": 97.24077555916666,
+      "dec_deg": 20.212134895555558,
+      "magnitude_v": 4.13,
+      "bayer": "ν",
+      "object": {
+        "x_pc": -218.393257563,
+        "y_pc": -48.099643243,
+        "z_pc": 16.993124025,
+        "vx_kms": -37.372622,
+        "vy_kms": -17.488436,
+        "vz_kms": -9.815557,
+        "temperature_k": 10400.0,
+        "mass_solar": 5.6251197,
+        "luminosity_solar": 1150.2182632223873,
+        "radius_solar": 9.641543,
+        "metallicity_dex": -1.4197,
+        "age_gyr": null,
+        "absolute_mag": -2.613876,
+        "epoch": 2000.0,
+        "type": "star",
+        "id": "hip-30883",
+        "name": "Nu Gem",
+        "constellation": "Gemini",
+        "spectral_type": "B6IVe",
+        "metallicity_kind": "[M/H]",
+        "notes": "Western constellation line-figure star (HIP 30883; Stellarium Gem). SIMBAD identity * nu. Gem; SIMBAD compiled Johnson V=4.14; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, luminosity_solar; Gaia DR3 model values for metallicity_dex, mass_solar, radius_solar.",
+        "designations": [
+          "HIP 30883"
+        ],
+        "raw_astrometry": {
+          "ra_deg": 97.24077555916666,
+          "dec_deg": 20.212134895555558,
+          "parallax_mas": 5.99,
+          "parallax_error_mas": 0.28,
+          "pm_ra_cosdec_masyr": -6.82,
+          "pm_ra_error_masyr": null,
+          "pm_dec_masyr": -13.1,
+          "pm_dec_error_masyr": null,
+          "radial_velocity_kms": 39.4,
+          "radial_velocity_error_kms": null,
+          "epoch": 2000.0,
+          "astrometry_ref": "SIMBAD TAP snapshot 2026-10-01",
+          "radial_velocity_ref": "SIMBAD TAP snapshot 2026-10-01"
+        }
+      }
+    },
+    {
+      "hip": 31681,
+      "name": "Alhena",
+      "ra_deg": 99.42796042942895,
+      "dec_deg": 16.399280426663772,
+      "magnitude_v": 1.93,
+      "bayer": "γ",
+      "object": {
+        "x_pc": -31.989373855,
+        "y_pc": -9.642078636,
+        "z_pc": 2.601679536,
+        "vx_kms": 14.43952,
+        "vy_kms": -4.813507,
+        "vz_kms": -2.982069,
+        "temperature_k": 9120.0,
+        "mass_solar": null,
+        "luminosity_solar": 163.45,
+        "radius_solar": 5.121,
+        "metallicity_dex": -0.1,
+        "age_gyr": null,
+        "absolute_mag": -0.706006,
+        "epoch": 2000.0,
+        "type": "star",
+        "id": "hip-31681",
+        "name": "Alhena",
+        "constellation": "Gemini",
+        "spectral_type": "A1.5IV+",
+        "metallicity_kind": "[Fe/H]",
+        "notes": "Western constellation line-figure star (HIP 31681; Stellarium Gem). SIMBAD identity * gam Gem; SIMBAD compiled Johnson V=1.92; inverse SIMBAD compiled parallax distance; absolute V uses no extinction correction. Physical parameters: reviewed Star View values for temperature_k, luminosity_solar, radius_solar, metallicity_dex.",
+        "designations": [
+          "HIP 31681"
+        ],
+        "raw_astrometry": {
+          "ra_deg": 99.42796042942895,
+          "dec_deg": 16.399280426663772,
+          "parallax_mas": 29.84,
+          "parallax_error_mas": 2.23,
+          "pm_ra_cosdec_masyr": 13.81,
+          "pm_ra_error_masyr": null,
+          "pm_dec_masyr": -54.96,
+          "pm_dec_error_masyr": null,
+          "radial_velocity_kms": -12.63,
+          "radial_velocity_error_kms": null,
+          "epoch": 2000.0,
+          "astrometry_ref": "SIMBAD TAP snapshot 2026-10-01",
+          "radial_velocity_ref": "SIMBAD TAP snapshot 2026-10-01"
+        }
+      }
+    },
+    {
+      "hip": 32246,
+      "name": "Mebsuta",
+      "ra_deg": 100.98302979662667,
+      "dec_deg": 25.131127192367778,
+      "magnitude_v": 3.06,
+      "bayer": "ε",
+      "object": {
+        "x_pc": -258.018630661,
+        "y_pc": -43.34430954,
+        "z_pc": 44.388604308,
+        "vx_kms": -7.738721,
+        "vy_kms": -12.187694,
+        "vz_kms": -10.431852,
+        "temperature_k": 4692.0,
+        "mass_solar": null,
+        "luminosity_solar": 6114.663653709485,
+        "radius_solar": 118.337646,
+        "metallicity_dex": -0.33,
+        "age_gyr": null,
+        "absolute_mag": -4.139282,
+        "epoch": 2000.0,
+        "type": "star",
+        "id": "hip-32246",
+        "name": "Mebsuta",
+        "constellation": "Gemini",
+        "spectral_type": "G8Ib",
+        "metallicity_kind": "[Fe/H]",
+        "notes": "Western constellation line-figure star (HIP 32246; Stellarium Gem). SIMBAD identity * eps Gem; SIMBAD compiled Johnson V=2.98; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, luminosity_solar; Stefan-Boltzmann scaling for radius_solar. Shared exact-identity physical supplements (metallicity_dex: 2024A&A...692A.189R).",
+        "designations": [
+          "HIP 32246"
+        ],
+        "raw_astrometry": {
+          "ra_deg": 100.98302979662667,
+          "dec_deg": 25.131127192367778,
+          "parallax_mas": 3.7477,
+          "parallax_error_mas": 0.184,
+          "pm_ra_cosdec_masyr": -4.853,
+          "pm_ra_error_masyr": null,
+          "pm_dec_masyr": -11.78,
+          "pm_dec_error_masyr": null,
+          "radial_velocity_kms": 7.77,
+          "radial_velocity_error_kms": null,
+          "epoch": 2000.0,
+          "astrometry_ref": "SIMBAD TAP snapshot 2026-10-01",
+          "radial_velocity_ref": "SIMBAD TAP snapshot 2026-10-01"
+        }
+      }
+    },
+    {
+      "hip": 32362,
+      "name": "Alzirr",
+      "ra_deg": 101.32235202269875,
+      "dec_deg": 12.895594959796389,
+      "magnitude_v": 3.35,
+      "bayer": "ξ",
+      "object": {
+        "x_pc": -17.170149536,
+        "y_pc": -6.501539347,
+        "z_pc": 1.445574249,
+        "vx_kms": -22.878348,
+        "vy_kms": -19.805529,
+        "vz_kms": -14.290281,
+        "temperature_k": 6607.0,
+        "mass_solar": 1.63,
+        "luminosity_solar": 10.344558,
+        "radius_solar": 2.4547089156850306,
+        "metallicity_dex": 0.14,
+        "age_gyr": null,
+        "absolute_mag": 2.033944,
+        "epoch": 2000.0,
+        "type": "star",
+        "id": "hip-32362",
+        "name": "Alzirr",
+        "constellation": "Gemini",
+        "spectral_type": "F5IV-V",
+        "metallicity_kind": "[Fe/H]",
+        "notes": "Western constellation line-figure star (HIP 32362; Stellarium Gem). SIMBAD identity * ksi Gem; SIMBAD compiled Johnson V=3.36; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, mass_solar, radius_solar; Stefan-Boltzmann scaling for luminosity_solar. Shared exact-identity physical supplements (metallicity_dex: 2024A&A...682A.145S).",
+        "designations": [
+          "HIP 32362"
+        ],
+        "raw_astrometry": {
+          "ra_deg": 101.32235202269875,
+          "dec_deg": 12.895594959796389,
+          "parallax_mas": 54.1894,
+          "parallax_error_mas": 0.2369,
+          "pm_ra_cosdec_masyr": -114.564,
+          "pm_ra_error_masyr": null,
+          "pm_dec_masyr": -191.671,
+          "pm_dec_error_masyr": null,
+          "radial_velocity_kms": 27.2,
+          "radial_velocity_error_kms": null,
+          "epoch": 2000.0,
+          "astrometry_ref": "SIMBAD TAP snapshot 2026-10-01",
+          "radial_velocity_ref": "SIMBAD TAP snapshot 2026-10-01"
+        }
+      }
+    },
+    {
+      "hip": 33018,
+      "name": "Theta Gem",
+      "ra_deg": 103.1972452606746,
+      "dec_deg": 33.96125676049195,
+      "magnitude_v": 3.6,
+      "bayer": "θ",
+      "object": {
+        "x_pc": -57.330065735,
+        "y_pc": -2.107418598,
+        "z_pc": 15.388455917,
+        "vx_kms": -33.217157,
+        "vy_kms": -13.286746,
+        "vz_kms": 3.2316,
+        "temperature_k": 8128.0,
+        "mass_solar": 2.63,
+        "luminosity_solar": 97.27742894608241,
+        "radius_solar": 4.786300923226384,
+        "metallicity_dex": null,
+        "age_gyr": null,
+        "absolute_mag": -0.268816,
+        "epoch": 2000.0,
+        "type": "star",
+        "id": "hip-33018",
+        "name": "Theta Gem",
+        "constellation": "Gemini",
+        "spectral_type": "A2IV",
+        "metallicity_kind": null,
+        "notes": "Western constellation line-figure star (HIP 33018; Stellarium Gem). SIMBAD identity * tet Gem; SIMBAD compiled Johnson V=3.6; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, mass_solar, radius_solar, luminosity_solar.",
+        "designations": [
+          "HIP 33018"
+        ],
+        "raw_astrometry": {
+          "ra_deg": 103.1972452606746,
+          "dec_deg": 33.96125676049195,
+          "parallax_mas": 16.8701,
+          "parallax_error_mas": 0.2598,
+          "pm_ra_cosdec_masyr": -1.705,
+          "pm_ra_error_masyr": null,
+          "pm_dec_masyr": -47.193,
+          "pm_dec_error_masyr": null,
+          "radial_velocity_kms": 33.37,
+          "radial_velocity_error_kms": null,
+          "epoch": 2000.0,
+          "astrometry_ref": "SIMBAD TAP snapshot 2026-10-01",
+          "radial_velocity_ref": "SIMBAD TAP snapshot 2026-10-01"
+        }
+      }
+    },
+    {
+      "hip": 34088,
+      "name": "Mekbuda",
+      "ra_deg": 106.02721349362085,
+      "dec_deg": 20.570298465267225,
+      "magnitude_v": 4.01,
+      "bayer": "ζ",
+      "object": {
+        "x_pc": -307.321722895,
+        "y_pc": -86.653284322,
+        "z_pc": 67.306107427,
+        "vx_kms": -12.257112,
+        "vy_kms": 0.37397,
+        "vz_kms": -9.268311,
+        "temperature_k": 5300.0,
+        "mass_solar": null,
+        "luminosity_solar": 2674.7086919233593,
+        "radius_solar": 61.339347,
+        "metallicity_dex": 0.12,
+        "age_gyr": null,
+        "absolute_mag": -3.778227,
+        "epoch": 2000.0,
+        "type": "star",
+        "id": "hip-34088",
+        "name": "Mekbuda",
+        "constellation": "Gemini",
+        "spectral_type": "G1Ib",
+        "metallicity_kind": "[Fe/H]",
+        "notes": "Western constellation line-figure star (HIP 34088; Stellarium Gem). SIMBAD identity * zet Gem; SIMBAD compiled Johnson V=3.79; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, luminosity_solar; Stefan-Boltzmann scaling for radius_solar. Shared exact-identity physical supplements (metallicity_dex: 2023ApJS..266...41P).",
+        "designations": [
+          "HIP 34088"
+        ],
+        "raw_astrometry": {
+          "ra_deg": 106.02721349362085,
+          "dec_deg": 20.570298465267225,
+          "parallax_mas": 3.0729,
+          "parallax_error_mas": 0.2177,
+          "pm_ra_cosdec_masyr": -7.738,
+          "pm_ra_error_masyr": null,
+          "pm_dec_masyr": -0.943,
+          "pm_dec_error_masyr": null,
+          "radial_velocity_kms": 9.5325,
+          "radial_velocity_error_kms": null,
+          "epoch": 2000.0,
+          "astrometry_ref": "SIMBAD TAP snapshot 2026-10-01",
+          "radial_velocity_ref": "SIMBAD TAP snapshot 2026-10-01"
+        }
+      }
+    },
+    {
+      "hip": 34693,
+      "name": "Tau Gem",
+      "ra_deg": 107.78487630737042,
+      "dec_deg": 30.24516376985388,
+      "magnitude_v": 4.41,
+      "bayer": "τ",
+      "object": {
+        "x_pc": -114.214768257,
+        "y_pc": -14.46641751,
+        "z_pc": 35.635606873,
+        "vx_kms": -25.550395,
+        "vy_kms": -22.58561,
+        "vz_kms": -19.126456,
+        "temperature_k": 4641.0,
+        "mass_solar": null,
+        "luminosity_solar": 327.5880520184759,
+        "radius_solar": 30.136698,
+        "metallicity_dex": 0.201,
+        "age_gyr": null,
+        "absolute_mag": -0.98523,
+        "epoch": 2000.0,
+        "type": "star",
+        "id": "hip-34693",
+        "name": "Tau Gem",
+        "constellation": "Gemini",
+        "spectral_type": "K2III",
+        "metallicity_kind": "[M/H]",
+        "notes": "Western constellation line-figure star (HIP 34693; Stellarium Gem). SIMBAD identity * tau Gem; SIMBAD compiled Johnson V=4.42; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, luminosity_solar; Gaia DR3 model values for metallicity_dex, radius_solar.",
+        "designations": [
+          "HIP 34693"
+        ],
+        "raw_astrometry": {
+          "ra_deg": 107.78487630737042,
+          "dec_deg": 30.24516376985388,
+          "parallax_mas": 8.3261,
+          "parallax_error_mas": 0.1591,
+          "pm_ra_cosdec_masyr": -30.725,
+          "pm_ra_error_masyr": null,
+          "pm_dec_masyr": -48.515,
+          "pm_dec_error_masyr": null,
+          "radial_velocity_kms": 21.27,
+          "radial_velocity_error_kms": null,
+          "epoch": 2000.0,
+          "astrometry_ref": "SIMBAD TAP snapshot 2026-10-01",
+          "radial_velocity_ref": "SIMBAD TAP snapshot 2026-10-01"
+        }
+      }
+    },
+    {
+      "hip": 35350,
+      "name": "Lambda Gem",
+      "ra_deg": 109.52324549807,
+      "dec_deg": 16.54038599479,
+      "magnitude_v": 3.58,
+      "bayer": "λ",
+      "object": {
+        "x_pc": -27.836589401,
+        "y_pc": -10.639085815,
+        "z_pc": 7.004697684,
+        "vx_kms": 12.873555,
+        "vy_kms": 2.843898,
+        "vz_kms": -11.56153,
+        "temperature_k": 8511.0,
+        "mass_solar": 2.17,
+        "luminosity_solar": 25.53770083351017,
+        "radius_solar": 2.1877616239495525,
+        "metallicity_dex": null,
+        "age_gyr": null,
+        "absolute_mag": 1.129498,
+        "epoch": 2000.0,
+        "type": "star",
+        "id": "hip-35350",
+        "name": "Lambda Gem",
+        "constellation": "Gemini",
+        "spectral_type": "A4IV",
+        "metallicity_kind": null,
+        "notes": "Western constellation line-figure star (HIP 35350; Stellarium Gem). SIMBAD identity * lam Gem; SIMBAD compiled Johnson V=3.559; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, mass_solar, radius_solar, luminosity_solar.",
+        "designations": [
+          "HIP 35350"
+        ],
+        "raw_astrometry": {
+          "ra_deg": 109.52324549807,
+          "dec_deg": 16.54038599479,
+          "parallax_mas": 32.6068,
+          "parallax_error_mas": 0.2062,
+          "pm_ra_cosdec_masyr": -46.157,
+          "pm_ra_error_masyr": null,
+          "pm_dec_masyr": -36.007,
+          "pm_dec_error_masyr": null,
+          "radial_velocity_kms": -15.34,
+          "radial_velocity_error_kms": null,
+          "epoch": 2000.0,
+          "astrometry_ref": "SIMBAD TAP snapshot 2026-10-01",
+          "radial_velocity_ref": "SIMBAD TAP snapshot 2026-10-01"
+        }
+      }
+    },
+    {
+      "hip": 35550,
+      "name": "Wasat",
+      "ra_deg": 110.03072735754377,
+      "dec_deg": 21.98230404962861,
+      "magnitude_v": 3.5,
+      "bayer": "δ",
+      "object": {
+        "x_pc": -17.195888178,
+        "y_pc": -4.92594176,
+        "z_pc": 5.09035892,
+        "vx_kms": -4.455632,
+        "vy_kms": -1.506473,
+        "vz_kms": -1.530087,
+        "temperature_k": 11994.0,
+        "mass_solar": null,
+        "luminosity_solar": 23.032749773820683,
+        "radius_solar": 1.111469,
+        "metallicity_dex": null,
+        "age_gyr": null,
+        "absolute_mag": 2.182701,
+        "epoch": 2000.0,
+        "type": "star",
+        "id": "hip-35550",
+        "name": "Wasat",
+        "constellation": "Gemini",
+        "spectral_type": "F2VkF0mF0",
+        "metallicity_kind": null,
+        "notes": "Western constellation line-figure star (HIP 35550; Stellarium Gem). SIMBAD identity * del Gem; SIMBAD compiled Johnson V=3.53; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, luminosity_solar; Stefan-Boltzmann scaling for radius_solar.",
+        "designations": [
+          "HIP 35550"
+        ],
+        "raw_astrometry": {
+          "ra_deg": 110.03072735754377,
+          "dec_deg": 21.98230404962861,
+          "parallax_mas": 53.7692,
+          "parallax_error_mas": 0.2403,
+          "pm_ra_cosdec_masyr": -27.722,
+          "pm_ra_error_masyr": null,
+          "pm_dec_masyr": -14.702,
+          "pm_dec_error_masyr": null,
+          "radial_velocity_kms": 4.1,
+          "radial_velocity_error_kms": null,
+          "epoch": 2000.0,
+          "astrometry_ref": "SIMBAD TAP snapshot 2026-10-01",
+          "radial_velocity_ref": "SIMBAD TAP snapshot 2026-10-01"
+        }
+      }
+    },
+    {
+      "hip": 36046,
+      "name": "Iota Gem",
+      "ra_deg": 111.43164850380958,
+      "dec_deg": 27.79807970844639,
+      "magnitude_v": 3.78,
+      "bayer": "ι",
+      "object": {
+        "x_pc": -38.438351163,
+        "y_pc": -7.364705344,
+        "z_pc": 13.681794969,
+        "vx_kms": -14.798476,
+        "vy_kms": -9.881488,
+        "vz_kms": -24.373413,
+        "temperature_k": 4786.0,
+        "mass_solar": 1.95,
+        "luminosity_solar": 49.497753,
+        "radius_solar": 10.232929922807541,
+        "metallicity_dex": -0.07,
+        "age_gyr": null,
+        "absolute_mag": 0.70185,
+        "epoch": 2000.0,
+        "type": "star",
+        "id": "hip-36046",
+        "name": "Iota Gem",
+        "constellation": "Gemini",
+        "spectral_type": "G9IIIb",
+        "metallicity_kind": "[Fe/H]",
+        "notes": "Western constellation line-figure star (HIP 36046; Stellarium Gem). SIMBAD identity * iot Gem; SIMBAD compiled Johnson V=3.79; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, mass_solar, radius_solar; Stefan-Boltzmann scaling for luminosity_solar. Shared exact-identity physical supplements (metallicity_dex: 2025A&A...703A.128B).",
+        "designations": [
+          "HIP 36046"
+        ],
+        "raw_astrometry": {
+          "ra_deg": 111.43164850380958,
+          "dec_deg": 27.79807970844639,
+          "parallax_mas": 24.0201,
+          "parallax_error_mas": 0.1873,
+          "pm_ra_cosdec_masyr": -122.06,
+          "pm_ra_error_masyr": null,
+          "pm_dec_masyr": -85.133,
+          "pm_dec_error_masyr": null,
+          "radial_velocity_kms": 7.432,
+          "radial_velocity_error_kms": null,
+          "epoch": 2000.0,
+          "astrometry_ref": "SIMBAD TAP snapshot 2026-10-01",
+          "radial_velocity_ref": "SIMBAD TAP snapshot 2026-10-01"
+        }
+      }
+    },
+    {
+      "hip": 36850,
+      "name": "Castor",
+      "ra_deg": 113.64947163976585,
+      "dec_deg": 31.88828221646326,
+      "magnitude_v": 1.58,
+      "bayer": "α",
+      "object": {
+        "x_pc": -14.289404041,
+        "y_pc": -1.866266103,
+        "z_pc": 5.96302349,
+        "vx_kms": 4.616378,
+        "vy_kms": -5.017993,
+        "vz_kms": -19.879173,
+        "temperature_k": 8913.0,
+        "mass_solar": null,
+        "luminosity_solar": 46.52,
+        "radius_solar": 2.8604,
+        "metallicity_dex": 0.1921,
+        "age_gyr": null,
+        "absolute_mag": 0.614968,
+        "epoch": 2000.0,
+        "type": "star",
+        "id": "hip-36850",
+        "name": "Castor",
+        "constellation": "Gemini",
+        "spectral_type": "A1V+A2Vm",
+        "metallicity_kind": "[Fe/H]",
+        "notes": "Western constellation line-figure star (HIP 36850; Stellarium Gem). SIMBAD identity * alf Gem; SIMBAD compiled Johnson V=1.58; inverse SIMBAD compiled parallax distance; absolute V uses no extinction correction. Physical parameters: reviewed Star View values for temperature_k, luminosity_solar, radius_solar, metallicity_dex.",
+        "designations": [
+          "HIP 36850"
+        ],
+        "raw_astrometry": {
+          "ra_deg": 113.64947163976585,
+          "dec_deg": 31.88828221646326,
+          "parallax_mas": 64.12,
+          "parallax_error_mas": 3.75,
+          "pm_ra_cosdec_masyr": -191.45,
+          "pm_ra_error_masyr": null,
+          "pm_dec_masyr": -145.19,
+          "pm_dec_error_masyr": null,
+          "radial_velocity_kms": -11.23,
+          "radial_velocity_error_kms": null,
+          "epoch": 2000.0,
+          "astrometry_ref": "SIMBAD TAP snapshot 2026-10-01",
+          "radial_velocity_ref": "SIMBAD TAP snapshot 2026-10-01"
+        }
+      }
+    },
+    {
+      "hip": 36962,
+      "name": "Upsilon Gem",
+      "ra_deg": 113.98062505905,
+      "dec_deg": 26.8957444986,
+      "magnitude_v": 4.06,
+      "bayer": "υ",
+      "object": {
+        "x_pc": -70.490160972,
+        "y_pc": -15.763372226,
+        "z_pc": 27.81583333,
+        "vx_kms": 17.932492,
+        "vy_kms": -28.932586,
+        "vz_kms": -31.085453,
+        "temperature_k": 3940.0,
+        "mass_solar": null,
+        "luminosity_solar": 379.69099412014936,
+        "radius_solar": 41.819164,
+        "metallicity_dex": null,
+        "age_gyr": null,
+        "absolute_mag": -0.38376,
+        "epoch": 2000.0,
+        "type": "star",
+        "id": "hip-36962",
+        "name": "Upsilon Gem",
+        "constellation": "Gemini",
+        "spectral_type": "M0III",
+        "metallicity_kind": null,
+        "notes": "Western constellation line-figure star (HIP 36962; Stellarium Gem). SIMBAD identity * ups Gem; SIMBAD compiled Johnson V=4.06; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, luminosity_solar; Stefan-Boltzmann scaling for radius_solar.",
+        "designations": [
+          "HIP 36962"
+        ],
+        "raw_astrometry": {
+          "ra_deg": 113.98062505905,
+          "dec_deg": 26.8957444986,
+          "parallax_mas": 12.8761,
+          "parallax_error_mas": 0.2288,
+          "pm_ra_cosdec_masyr": -32.841,
+          "pm_ra_error_masyr": null,
+          "pm_dec_masyr": -106.002,
+          "pm_dec_error_masyr": null,
+          "radial_velocity_kms": -21.61,
+          "radial_velocity_error_kms": null,
+          "epoch": 2000.0,
+          "astrometry_ref": "SIMBAD TAP snapshot 2026-10-01",
+          "radial_velocity_ref": "SIMBAD TAP snapshot 2026-10-01"
+        }
+      }
+    },
+    {
+      "hip": 37740,
+      "name": "Kappa Gem",
+      "ra_deg": 116.11184921750542,
+      "dec_deg": 24.397996469691666,
+      "magnitude_v": 3.57,
+      "bayer": "κ",
+      "object": {
+        "x_pc": -40.362244954,
+        "y_pc": -11.457880888,
+        "z_pc": 16.928053481,
+        "vx_kms": -19.241762,
+        "vy_kms": -13.755986,
+        "vz_kms": -1.335264,
+        "temperature_k": 5012.0,
+        "mass_solar": 2.21,
+        "luminosity_solar": 75.75769793145972,
+        "radius_solar": 11.481536214968829,
+        "metallicity_dex": -0.827,
+        "age_gyr": null,
+        "absolute_mag": 0.29223,
+        "epoch": 2000.0,
+        "type": "star",
+        "id": "hip-37740",
+        "name": "Kappa Gem",
+        "constellation": "Gemini",
+        "spectral_type": "G8III-IIIb",
+        "metallicity_kind": "[M/H]",
+        "notes": "Western constellation line-figure star (HIP 37740; Stellarium Gem). SIMBAD identity * kap Gem; SIMBAD compiled Johnson V=3.57; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, mass_solar, radius_solar, luminosity_solar; Gaia DR3 model values for metallicity_dex.",
+        "designations": [
+          "HIP 37740"
+        ],
+        "raw_astrometry": {
+          "ra_deg": 116.11184921750542,
+          "dec_deg": 24.397996469691666,
+          "parallax_mas": 22.0907,
+          "parallax_error_mas": 0.1727,
+          "pm_ra_cosdec_masyr": -28.403,
+          "pm_ra_error_masyr": null,
+          "pm_dec_masyr": -50.675,
+          "pm_dec_error_masyr": null,
+          "radial_velocity_kms": 20.15,
+          "radial_velocity_error_kms": null,
+          "epoch": 2000.0,
+          "astrometry_ref": "SIMBAD TAP snapshot 2026-10-01",
+          "radial_velocity_ref": "SIMBAD TAP snapshot 2026-10-01"
+        }
+      }
+    },
+    {
+      "hip": 37826,
+      "name": "Pollux",
+      "ra_deg": 116.32895777437875,
+      "dec_deg": 28.02619889009357,
+      "magnitude_v": 1.16,
+      "bayer": "β",
+      "object": {
+        "x_pc": -9.29030735,
+        "y_pc": -2.013605824,
+        "z_pc": 4.114856647,
+        "vx_kms": -16.313918,
+        "vy_kms": 4.759853,
+        "vz_kms": -25.96725,
+        "temperature_k": 4868.0,
+        "mass_solar": 1.7,
+        "luminosity_solar": 41.48910638,
+        "radius_solar": 9.055627426,
+        "metallicity_dex": 0.04,
+        "age_gyr": null,
+        "absolute_mag": 1.063536,
+        "epoch": 2000.0,
+        "type": "star",
+        "id": "hip-37826",
+        "name": "Pollux",
+        "constellation": "Gemini",
+        "spectral_type": "K0IIIb",
+        "metallicity_kind": "[Fe/H]",
+        "notes": "Corrected CNS5 1912; J2000 Sun-relative Galactic position. SIMBAD exact CNS5 identity.  Shared exact-identity physical supplements (temperature_k: 2025A&A...703A.128B; metallicity_dex: 2025A&A...703A.128B; radius_solar: 2018AJ....155...30B; mass_solar: 1999A&A...352..555A). luminosity_solar derived by Stefan-Boltzmann scaling from adopted inputs (solar Teff=5772 K); inherits their measurement/model/estimate assumptions. Adopted coordinate/motion bundle: western-constellation-stars:hip-37826. Prefer the frozen 2025 spectroscopic temperature over the 1999 model temperature; retain the precise interferometric radius and recomputed Stefan-Boltzmann luminosity.",
+        "designations": [
+          "HIP 37826"
+        ],
+        "raw_astrometry": {
+          "ra_deg": 116.32895777437875,
+          "dec_deg": 28.02619889009357,
+          "parallax_mas": 96.54,
+          "parallax_error_mas": 0.27,
+          "pm_ra_cosdec_masyr": -626.55,
+          "pm_ra_error_masyr": null,
+          "pm_dec_masyr": -45.8,
+          "pm_dec_error_masyr": null,
+          "radial_velocity_kms": 3.391,
+          "radial_velocity_error_kms": null,
+          "epoch": 2000.0,
+          "astrometry_ref": "SIMBAD TAP snapshot 2026-10-01",
+          "radial_velocity_ref": "SIMBAD TAP snapshot 2026-10-01"
+        }
+      }
+    }
+  ],
+  "lines": [
+    [
+      31681,
+      34088
+    ],
+    [
+      34088,
+      35550
+    ],
+    [
+      35550,
+      35350
+    ],
+    [
+      35350,
+      32362
+    ],
+    [
+      35550,
+      36962
+    ],
+    [
+      36962,
+      37740
+    ],
+    [
+      36962,
+      37826
+    ],
+    [
+      36962,
+      36046
+    ],
+    [
+      36046,
+      34693
+    ],
+    [
+      34693,
+      36850
+    ],
+    [
+      34693,
+      33018
+    ],
+    [
+      34693,
+      32246
+    ],
+    [
+      32246,
+      30883
+    ],
+    [
+      32246,
+      30343
+    ],
+    [
+      30343,
+      29655
+    ],
+    [
+      29655,
+      28734
+    ]
+  ],
+  "boundaries": [
+    {
+      "neighbor": "Orion",
+      "neighbor_abbreviation": "ORI",
+      "points": [
+        {
+          "ra_deg": 90.144037,
+          "dec_deg": 22.8430862
+        },
+        {
+          "ra_deg": 90.139289,
+          "dec_deg": 22.5097866
+        },
+        {
+          "ra_deg": 90.125156,
+          "dec_deg": 21.5098724
+        }
+      ]
+    },
+    {
+      "neighbor": "Orion",
+      "neighbor_abbreviation": "ORI",
+      "points": [
+        {
+          "ra_deg": 90.125156,
+          "dec_deg": 21.5098724
+        },
+        {
+          "ra_deg": 91.125139,
+          "dec_deg": 21.4977226
+        },
+        {
+          "ra_deg": 92.125047,
+          "dec_deg": 21.4855747
+        },
+        {
+          "ra_deg": 93.124724,
+          "dec_deg": 21.4734325
+        },
+        {
+          "ra_deg": 94.124459,
+          "dec_deg": 21.461298
+        },
+        {
+          "ra_deg": 95.124127,
+          "dec_deg": 21.4491768
+        }
+      ]
+    },
+    {
+      "neighbor": "Orion",
+      "neighbor_abbreviation": "ORI",
+      "points": [
+        {
+          "ra_deg": 95.124127,
+          "dec_deg": 21.4491768
+        },
+        {
+          "ra_deg": 95.11023,
+          "dec_deg": 20.4492607
+        },
+        {
+          "ra_deg": 95.096512,
+          "dec_deg": 19.4493446
+        },
+        {
+          "ra_deg": 95.082964,
+          "dec_deg": 18.4494247
+        },
+        {
+          "ra_deg": 95.069576,
+          "dec_deg": 17.4495068
+        }
+      ]
+    },
+    {
+      "neighbor": "Orion",
+      "neighbor_abbreviation": "ORI",
+      "points": [
+        {
+          "ra_deg": 95.069576,
+          "dec_deg": 17.4495068
+        },
+        {
+          "ra_deg": 95.444433,
+          "dec_deg": 17.4449654
+        },
+        {
+          "ra_deg": 96.443917,
+          "dec_deg": 17.4328651
+        }
+      ]
+    },
+    {
+      "neighbor": "Orion",
+      "neighbor_abbreviation": "ORI",
+      "points": [
+        {
+          "ra_deg": 96.443917,
+          "dec_deg": 17.4328651
+        },
+        {
+          "ra_deg": 96.437295,
+          "dec_deg": 16.9329052
+        },
+        {
+          "ra_deg": 96.424141,
+          "dec_deg": 15.9329853
+        },
+        {
+          "ra_deg": 96.411131,
+          "dec_deg": 14.9330645
+        },
+        {
+          "ra_deg": 96.398235,
+          "dec_deg": 13.9331427
+        },
+        {
+          "ra_deg": 96.385446,
+          "dec_deg": 12.9332199
+        },
+        {
+          "ra_deg": 96.372764,
+          "dec_deg": 11.9332972
+        }
+      ]
+    },
+    {
+      "neighbor": "Monoceros",
+      "neighbor_abbreviation": "MON",
+      "points": [
+        {
+          "ra_deg": 96.372764,
+          "dec_deg": 11.9332972
+        },
+        {
+          "ra_deg": 96.747637,
+          "dec_deg": 11.9287643
+        },
+        {
+          "ra_deg": 97.747329,
+          "dec_deg": 11.9166908
+        },
+        {
+          "ra_deg": 98.746977,
+          "dec_deg": 11.904644
+        },
+        {
+          "ra_deg": 99.746426,
+          "dec_deg": 11.8926287
+        },
+        {
+          "ra_deg": 100.745981,
+          "dec_deg": 11.8806438
+        },
+        {
+          "ra_deg": 101.745494,
+          "dec_deg": 11.8686953
+        },
+        {
+          "ra_deg": 102.744813,
+          "dec_deg": 11.8567896
+        },
+        {
+          "ra_deg": 103.744241,
+          "dec_deg": 11.8449249
+        },
+        {
+          "ra_deg": 104.743623,
+          "dec_deg": 11.8331089
+        },
+        {
+          "ra_deg": 105.742815,
+          "dec_deg": 11.8213453
+        }
+      ]
+    },
+    {
+      "neighbor": "Monoceros",
+      "neighbor_abbreviation": "MON",
+      "points": [
+        {
+          "ra_deg": 105.742815,
+          "dec_deg": 11.8213453
+        },
+        {
+          "ra_deg": 105.730597,
+          "dec_deg": 10.8214169
+        },
+        {
+          "ra_deg": 105.718459,
+          "dec_deg": 9.8214874
+        }
+      ]
+    },
+    {
+      "neighbor": "Monoceros",
+      "neighbor_abbreviation": "MON",
+      "points": [
+        {
+          "ra_deg": 105.718459,
+          "dec_deg": 9.8214874
+        },
+        {
+          "ra_deg": 106.717879,
+          "dec_deg": 9.8097754
+        }
+      ]
+    },
+    {
+      "neighbor": "Canis Minor",
+      "neighbor_abbreviation": "CMI",
+      "points": [
+        {
+          "ra_deg": 106.717879,
+          "dec_deg": 9.8097754
+        },
+        {
+          "ra_deg": 106.723909,
+          "dec_deg": 10.309741
+        },
+        {
+          "ra_deg": 106.736026,
+          "dec_deg": 11.3096695
+        },
+        {
+          "ra_deg": 106.748227,
+          "dec_deg": 12.309598
+        }
+      ]
+    },
+    {
+      "neighbor": "Canis Minor",
+      "neighbor_abbreviation": "CMI",
+      "points": [
+        {
+          "ra_deg": 106.748227,
+          "dec_deg": 12.309598
+        },
+        {
+          "ra_deg": 107.247769,
+          "dec_deg": 12.3037653
+        },
+        {
+          "ra_deg": 108.246975,
+          "dec_deg": 12.2921438
+        },
+        {
+          "ra_deg": 109.246129,
+          "dec_deg": 12.2805853
+        },
+        {
+          "ra_deg": 110.245106,
+          "dec_deg": 12.2690954
+        },
+        {
+          "ra_deg": 111.244182,
+          "dec_deg": 12.2576752
+        },
+        {
+          "ra_deg": 112.243209,
+          "dec_deg": 12.2463284
+        },
+        {
+          "ra_deg": 113.242049,
+          "dec_deg": 12.2350607
+        },
+        {
+          "ra_deg": 114.241004,
+          "dec_deg": 12.2238722
+        }
+      ]
+    },
+    {
+      "neighbor": "Canis Minor",
+      "neighbor_abbreviation": "CMI",
+      "points": [
+        {
+          "ra_deg": 114.241004,
+          "dec_deg": 12.2238722
+        },
+        {
+          "ra_deg": 114.252727,
+          "dec_deg": 13.2238064
+        }
+      ]
+    },
+    {
+      "neighbor": "Canis Minor",
+      "neighbor_abbreviation": "CMI",
+      "points": [
+        {
+          "ra_deg": 114.252727,
+          "dec_deg": 13.2238064
+        },
+        {
+          "ra_deg": 114.877017,
+          "dec_deg": 13.216857
+        },
+        {
+          "ra_deg": 115.875657,
+          "dec_deg": 13.2058096
+        },
+        {
+          "ra_deg": 116.874397,
+          "dec_deg": 13.1948509
+        },
+        {
+          "ra_deg": 117.873101,
+          "dec_deg": 13.1839848
+        },
+        {
+          "ra_deg": 118.871606,
+          "dec_deg": 13.1732168
+        }
+      ]
+    },
+    {
+      "neighbor": "Cancer",
+      "neighbor_abbreviation": "CNC",
+      "points": [
+        {
+          "ra_deg": 118.871606,
+          "dec_deg": 13.1732168
+        },
+        {
+          "ra_deg": 118.877284,
+          "dec_deg": 13.6731853
+        },
+        {
+          "ra_deg": 118.888699,
+          "dec_deg": 14.6731243
+        },
+        {
+          "ra_deg": 118.900222,
+          "dec_deg": 15.6730623
+        },
+        {
+          "ra_deg": 118.911859,
+          "dec_deg": 16.6729984
+        },
+        {
+          "ra_deg": 118.923619,
+          "dec_deg": 17.6729374
+        },
+        {
+          "ra_deg": 118.935513,
+          "dec_deg": 18.6728725
+        },
+        {
+          "ra_deg": 118.947544,
+          "dec_deg": 19.6728077
+        }
+      ]
+    },
+    {
+      "neighbor": "Cancer",
+      "neighbor_abbreviation": "CNC",
+      "points": [
+        {
+          "ra_deg": 118.947544,
+          "dec_deg": 19.6728077
+        },
+        {
+          "ra_deg": 119.072385,
+          "dec_deg": 19.6714687
+        },
+        {
+          "ra_deg": 120.070124,
+          "dec_deg": 19.66082
+        }
+      ]
+    },
+    {
+      "neighbor": "Cancer",
+      "neighbor_abbreviation": "CNC",
+      "points": [
+        {
+          "ra_deg": 120.070124,
+          "dec_deg": 19.66082
+        },
+        {
+          "ra_deg": 120.082169,
+          "dec_deg": 20.6607571
+        },
+        {
+          "ra_deg": 120.094384,
+          "dec_deg": 21.6606922
+        },
+        {
+          "ra_deg": 120.106759,
+          "dec_deg": 22.6606255
+        },
+        {
+          "ra_deg": 120.119334,
+          "dec_deg": 23.6605606
+        },
+        {
+          "ra_deg": 120.132093,
+          "dec_deg": 24.6604919
+        },
+        {
+          "ra_deg": 120.145054,
+          "dec_deg": 25.6604233
+        },
+        {
+          "ra_deg": 120.158242,
+          "dec_deg": 26.6603546
+        },
+        {
+          "ra_deg": 120.171646,
+          "dec_deg": 27.6602821
+        }
+      ]
+    },
+    {
+      "neighbor": "Cancer",
+      "neighbor_abbreviation": "CNC",
+      "points": [
+        {
+          "ra_deg": 120.171646,
+          "dec_deg": 27.6602821
+        },
+        {
+          "ra_deg": 120.919233,
+          "dec_deg": 27.6523705
+        },
+        {
+          "ra_deg": 121.915969,
+          "dec_deg": 27.6419144
+        }
+      ]
+    },
+    {
+      "neighbor": "Cancer",
+      "neighbor_abbreviation": "CNC",
+      "points": [
+        {
+          "ra_deg": 121.915969,
+          "dec_deg": 27.6419144
+        },
+        {
+          "ra_deg": 121.922651,
+          "dec_deg": 28.14188
+        },
+        {
+          "ra_deg": 121.936197,
+          "dec_deg": 29.1418095
+        },
+        {
+          "ra_deg": 121.950016,
+          "dec_deg": 30.1417389
+        },
+        {
+          "ra_deg": 121.964121,
+          "dec_deg": 31.1416626
+        },
+        {
+          "ra_deg": 121.978512,
+          "dec_deg": 32.1415901
+        },
+        {
+          "ra_deg": 121.993231,
+          "dec_deg": 33.1415138
+        }
+      ]
+    },
+    {
+      "neighbor": "Lynx",
+      "neighbor_abbreviation": "LYN",
+      "points": [
+        {
+          "ra_deg": 121.993231,
+          "dec_deg": 33.1415138
+        },
+        {
+          "ra_deg": 121.246319,
+          "dec_deg": 33.1493378
+        },
+        {
+          "ra_deg": 120.250311,
+          "dec_deg": 33.1598663
+        },
+        {
+          "ra_deg": 119.254332,
+          "dec_deg": 33.1704941
+        },
+        {
+          "ra_deg": 118.25808,
+          "dec_deg": 33.1812286
+        }
+      ]
+    },
+    {
+      "neighbor": "Lynx",
+      "neighbor_abbreviation": "LYN",
+      "points": [
+        {
+          "ra_deg": 118.25808,
+          "dec_deg": 33.1812286
+        },
+        {
+          "ra_deg": 118.273701,
+          "dec_deg": 34.1811409
+        },
+        {
+          "ra_deg": 118.289709,
+          "dec_deg": 35.1810532
+        }
+      ]
+    },
+    {
+      "neighbor": "Lynx",
+      "neighbor_abbreviation": "LYN",
+      "points": [
+        {
+          "ra_deg": 118.289709,
+          "dec_deg": 35.1810532
+        },
+        {
+          "ra_deg": 117.542696,
+          "dec_deg": 35.1891632
+        },
+        {
+          "ra_deg": 116.546509,
+          "dec_deg": 35.2000618
+        },
+        {
+          "ra_deg": 115.550329,
+          "dec_deg": 35.2110481
+        },
+        {
+          "ra_deg": 114.553878,
+          "dec_deg": 35.222126
+        },
+        {
+          "ra_deg": 113.557291,
+          "dec_deg": 35.2332878
+        },
+        {
+          "ra_deg": 112.560719,
+          "dec_deg": 35.2445297
+        }
+      ]
+    },
+    {
+      "neighbor": "Auriga",
+      "neighbor_abbreviation": "AUR",
+      "points": [
+        {
+          "ra_deg": 112.560719,
+          "dec_deg": 35.2445297
+        },
+        {
+          "ra_deg": 112.062228,
+          "dec_deg": 35.2501831
+        },
+        {
+          "ra_deg": 111.065448,
+          "dec_deg": 35.2615433
+        },
+        {
+          "ra_deg": 110.068381,
+          "dec_deg": 35.2729759
+        },
+        {
+          "ra_deg": 109.071164,
+          "dec_deg": 35.284481
+        },
+        {
+          "ra_deg": 108.073962,
+          "dec_deg": 35.2960472
+        },
+        {
+          "ra_deg": 107.076466,
+          "dec_deg": 35.3076782
+        },
+        {
+          "ra_deg": 106.078834,
+          "dec_deg": 35.3193703
+        },
+        {
+          "ra_deg": 105.081202,
+          "dec_deg": 35.3311157
+        },
+        {
+          "ra_deg": 104.083286,
+          "dec_deg": 35.3429184
+        },
+        {
+          "ra_deg": 103.085211,
+          "dec_deg": 35.3547668
+        },
+        {
+          "ra_deg": 102.087142,
+          "dec_deg": 35.3666573
+        },
+        {
+          "ra_deg": 101.088781,
+          "dec_deg": 35.3785934
+        },
+        {
+          "ra_deg": 100.090276,
+          "dec_deg": 35.390564
+        }
+      ]
+    },
+    {
+      "neighbor": "Auriga",
+      "neighbor_abbreviation": "AUR",
+      "points": [
+        {
+          "ra_deg": 100.090276,
+          "dec_deg": 35.390564
+        },
+        {
+          "ra_deg": 100.081293,
+          "dec_deg": 34.8906174
+        },
+        {
+          "ra_deg": 100.063662,
+          "dec_deg": 33.8907204
+        },
+        {
+          "ra_deg": 100.046439,
+          "dec_deg": 32.8908272
+        },
+        {
+          "ra_deg": 100.029601,
+          "dec_deg": 31.8909283
+        },
+        {
+          "ra_deg": 100.013122,
+          "dec_deg": 30.8910255
+        },
+        {
+          "ra_deg": 99.996987,
+          "dec_deg": 29.8911247
+        },
+        {
+          "ra_deg": 99.981172,
+          "dec_deg": 28.8912182
+        },
+        {
+          "ra_deg": 99.965658,
+          "dec_deg": 27.8913116
+        }
+      ]
+    },
+    {
+      "neighbor": "Auriga",
+      "neighbor_abbreviation": "AUR",
+      "points": [
+        {
+          "ra_deg": 99.965658,
+          "dec_deg": 27.8913116
+        },
+        {
+          "ra_deg": 99.21645,
+          "dec_deg": 27.9003162
+        },
+        {
+          "ra_deg": 98.217509,
+          "dec_deg": 27.9123478
+        },
+        {
+          "ra_deg": 97.218311,
+          "dec_deg": 27.9244099
+        },
+        {
+          "ra_deg": 96.218999,
+          "dec_deg": 27.9364948
+        },
+        {
+          "ra_deg": 95.219729,
+          "dec_deg": 27.948597
+        },
+        {
+          "ra_deg": 94.220187,
+          "dec_deg": 27.9607182
+        },
+        {
+          "ra_deg": 93.220539,
+          "dec_deg": 27.9728527
+        },
+        {
+          "ra_deg": 92.220933,
+          "dec_deg": 27.984993
+        },
+        {
+          "ra_deg": 91.221056,
+          "dec_deg": 27.9971409
+        },
+        {
+          "ra_deg": 90.221071,
+          "dec_deg": 28.0092907
+        }
+      ]
+    },
+    {
+      "neighbor": "Taurus",
+      "neighbor_abbreviation": "TAU",
+      "points": [
+        {
+          "ra_deg": 90.221071,
+          "dec_deg": 28.0092907
+        },
+        {
+          "ra_deg": 90.218482,
+          "dec_deg": 27.8426361
+        },
+        {
+          "ra_deg": 90.203082,
+          "dec_deg": 26.8427296
+        },
+        {
+          "ra_deg": 90.187962,
+          "dec_deg": 25.8428211
+        },
+        {
+          "ra_deg": 90.173085,
+          "dec_deg": 24.8429108
+        },
+        {
+          "ra_deg": 90.158451,
+          "dec_deg": 23.8430004
+        },
+        {
+          "ra_deg": 90.144037,
+          "dec_deg": 22.8430862
+        }
+      ]
+    }
+  ],
+  "sources": [
+    {
+      "label": "Stellarium Western sky culture",
+      "url": "https://raw.githubusercontent.com/Stellarium/stellarium-skycultures/014fbb5e59233d133c22f9811af96b67d05a95c9/western/index.json",
+      "path": "catalog-work/western-constellation-stars/stellarium-western-index.json",
+      "sha256": "a861accd345249a185a5ecfc2a516f34291c0aa52f4bb8d8337ffc53e9cef6b9"
+    },
+    {
+      "label": "Adopted star positions and names",
+      "url": "https://simbad.cds.unistra.fr/simbad/",
+      "path": "src/data/catalogs/western-constellation-stars/stars.csv",
+      "sha256": "0a8b7c1dc3f7e3412c5cffb09a18cdf5b5b7424cc89ea8a0a1ffb4da57d3ad6a"
+    },
+    {
+      "label": "Hipparcos Johnson V magnitudes",
+      "url": "https://cdsarc.cds.unistra.fr/viz-bin/cat/I/239",
+      "path": "catalog-work/western-constellation-stars/hipparcos-v.csv",
+      "sha256": "eec12b740da3aac5204ba75ca5158b6f9f2f81886dda2526fe765cf9ea159320"
+    },
+    {
+      "label": "CDS / IAU constellation boundaries (J2000)",
+      "url": "https://cdsarc.cds.unistra.fr/viz-bin/cat/VI/49",
+      "path": "catalog-work/constellation-charts/boundaries-j2000.dat.gz",
+      "sha256": "879cd6e7a1c908f1e19a5f5fe8cc75fb1d1077564e3890f9152a3680affe9aac",
+      "inputs": [
+        {
+          "path": "catalog-work/constellation-charts/boundary-contours-b1875.dat",
+          "sha256": "865cdf4218f676eb304587c75c63231948d29cd0abe6892a8a8130c1c4fe3592"
+        },
+        {
+          "path": "catalog-work/constellation-charts/boundary-contours-readme.txt",
+          "sha256": "a3ec688bea21e9db10832842c9b845558dbe8ccf820ddedec842d664d2b74c89"
+        }
+      ]
+    }
+  ]
+}

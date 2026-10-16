@@ -1,6 +1,65 @@
 import { expect, test } from '@playwright/test'
 import { arrowIntersectsRect, motionArrows, openFilter, openPreferences, openViewer, selectCatalog, zoomViewer } from './support'
 
+test('shows selected Dschubba component names from the Sun without individual visual magnitudes', async ({ page }, testInfo) => {
+  await openViewer(page)
+  await openFilter(page)
+  await page.getByRole('switch', { name: 'Always show bright stars', exact: true }).check()
+  await expect(page.locator('#scene-status')).toBeHidden()
+  await page.getByLabel('Object visibility distance', { exact: true }).fill('22')
+  await page.getByRole('button', { name: 'Filter', exact: true }).click()
+  await page.getByRole('button', { name: 'Objects', exact: true }).click()
+  await page.getByLabel('Search objects').fill('Sun')
+  await page.getByRole('button', { name: 'Select Sun', exact: true }).click()
+  await page.getByRole('button', { name: 'Objects', exact: true }).click()
+  await page.getByRole('button', { name: 'Observe from Sun', exact: true }).click()
+  await expect(page.locator('#scene')).toHaveAttribute('data-observer-view', 'true')
+  await expect(page.locator('#visibility-base')).toHaveText('Sun')
+
+  await page.getByRole('button', { name: 'Objects', exact: true }).click()
+  await page.getByLabel('Search objects').fill('Dschubba')
+  await page.getByRole('button', { name: 'Select Dschubba A', exact: true }).click()
+  await page.getByRole('button', { name: 'Objects', exact: true }).click()
+
+  for (const [id, name] of [['bright-dschubba', 'Dschubba A'], ['orb6-16003-2237-a-b-b', 'Dschubba B']] as const) {
+    await page.locator(`#star-components [data-component-id="${id}"]`).click()
+    await expect(page.locator('#inspector')).toHaveAttribute('data-selected-star', id)
+    await page.evaluate(() => new Promise(requestAnimationFrame))
+    const label = page.locator(`[data-star-id="${id}"].is-selected .star-label`)
+    await expect(label).toBeVisible()
+    await expect(label).toHaveText(name)
+    await expect(label).toBeInViewport()
+    expect(await label.evaluate((element: HTMLElement) => {
+      element.style.pointerEvents = 'auto'
+      const bounds = element.getBoundingClientRect()
+      const hit = document.elementFromPoint(bounds.left + bounds.width / 2, bounds.top + bounds.height / 2)
+      element.style.removeProperty('pointer-events')
+      return hit === element
+    }), `${name} is clear of control panels`).toBe(true)
+    await expect(page.locator('#visibility-base')).toHaveText('Sun')
+  }
+  await openPreferences(page)
+  await page.getByLabel('Labels', { exact: true }).fill('140')
+  await page.getByRole('button', { name: 'Preferences', exact: true }).click()
+  const offscreenLabel = page.locator('[data-star-id="orb6-16003-2237-a-b-b"].is-clipped .star-label')
+  await expect(offscreenLabel).toBeVisible()
+  await page.evaluate(() => new Promise(requestAnimationFrame))
+  const steadyBounds = await offscreenLabel.boundingBox()
+  for (let frame = 0; frame < 8; frame++) {
+    // Queue a fresh ordinary layout without changing the camera direction.
+    await page.getByRole('button', { name: 'Reset view roll', exact: true }).click()
+    await page.evaluate(() => new Promise(requestAnimationFrame))
+    await expect(offscreenLabel).toBeVisible()
+    expect(await offscreenLabel.boundingBox(), `offscreen name jumps at frame ${frame}`).toEqual(steadyBounds)
+  }
+  await page.screenshot({ path: testInfo.outputPath('sun-observer-dschubba-b.png') })
+
+  // The explicit zero-label preference still hides the selected name.
+  await openPreferences(page)
+  await page.getByLabel('Labels', { exact: true }).fill('0')
+  await expect(page.locator('[data-star-id="orb6-16003-2237-a-b-b"] .star-label')).toBeHidden()
+})
+
 test('keeps the selected name in front even at collisions and scene edges', { tag: '@mobile' }, async ({ page }) => {
   await openViewer(page)
   await page.getByRole('button', { name: 'Objects', exact: true }).click()
@@ -56,7 +115,7 @@ test('keeps the selected name in front even at collisions and scene edges', { ta
 test('keeps front-camera names stable when the selected star leaves the camera view', { tag: '@mobile' }, async ({ page, isMobile }, testInfo) => {
   await openViewer(page)
   await openPreferences(page)
-  await page.getByLabel('Star labels', { exact: true }).fill(isMobile ? '80' : '140')
+  await page.getByLabel('Labels', { exact: true }).fill(isMobile ? '80' : '140')
   await openFilter(page)
   await selectCatalog(page, 'nearest-1000')
   await page.getByLabel('V magnitude limit', { exact: true }).fill('25')
@@ -118,7 +177,7 @@ test('keeps the Sirius name visible behind the Sun in the nearest-1000 view', as
   test.skip(isMobile, 'The supplied clear-space composition is a desktop viewport regression.')
   await openViewer(page)
   await openPreferences(page)
-  await page.getByLabel('Star labels', { exact: true }).fill('140')
+  await page.getByLabel('Labels', { exact: true }).fill('140')
   await openFilter(page)
   await selectCatalog(page, 'nearest-1000')
   await page.getByLabel('V magnitude limit', { exact: true }).fill('25')
@@ -156,9 +215,9 @@ test('keeps the Sirius name visible behind the Sun in the nearest-1000 view', as
   await page.screenshot({ path: testInfo.outputPath('sun-sirius-label.png'), fullPage: true })
 })
 
-test('keeps star names steady and the foreground distance centered during rotation', { tag: '@mobile' }, async ({ page }) => {
+test('keeps star names steady and the distance centered behind only the selected name during rotation', { tag: '@mobile' }, async ({ page }) => {
   await openViewer(page)
-  await expect(page.locator('.distance-label').locator('..')).toHaveCSS('z-index', '3')
+  await expect(page.locator('.distance-label').locator('..')).toHaveCSS('z-index', '0')
   const bounds = (await page.locator('#scene canvas').boundingBox())!
   await page.mouse.move(bounds.x + bounds.width * 0.4, bounds.y + bounds.height * 0.7)
   await page.mouse.down()

@@ -1,0 +1,183 @@
+{
+  "schemaVersion": 1,
+  "reviewedOn": "2026-10-15",
+  "systemId": "msc-08095-4720",
+  "wdsId": "08095-4720",
+  "sourceUrl": "https://arxiv.org/html/2606.27265v1",
+  "membership": {
+    "reference": "MSC 2026-06-19 comp.tsv, sys.tsv and notes.tsv; Schmutz et al. 2026 (preprint)",
+    "scope": "Gamma2 Velorum is the confirmed WC8 + O7.5III-V 78.5-day binary. Preserve the MSC convention Aa=WR, Ab=O; retain the existing bright-regor / hip-39953 identity on the WR component. Gamma1 Velorum is the separate Ba/Bb spectroscopic pair. C is the MSC Cphr common-parallax/photometry/RV companion.",
+    "repair": "The uncertain Aab-Ac link disconnects the confirmed Aa-Ab subtree from A-B in automatic MSC traversal. Two outer relationships also reuse parent t, hiding C. Select only the exact confirmed source branches; do not accept the uncertain Ac source.",
+    "excluded": "Ac (Cp?; uncertain association), D/E (no reviewed physical membership), and the reportedly spurious WSI 55 visual Ba/Bb detections. Retain the independently measured 1.4826-day spectroscopic Ba/Bb solution, without visual geometry.",
+    "frozenInput": "catalog-work/star-systems/catalog-companions-msc.json"
+  },
+  "expectedAutomaticComponents": [
+    "A",
+    "Ba",
+    "Bb"
+  ],
+  "components": [
+    {
+      "label": "Aa",
+      "branch": [
+        "Aa",
+        "Ab",
+        "Aab"
+      ]
+    },
+    {
+      "label": "Ab",
+      "branch": [
+        "Aa",
+        "Ab",
+        "Aab"
+      ]
+    },
+    {
+      "label": "Ba",
+      "branch": [
+        "Ba",
+        "Bb",
+        "B"
+      ]
+    },
+    {
+      "label": "Bb",
+      "branch": [
+        "Ba",
+        "Bb",
+        "B"
+      ]
+    },
+    {
+      "label": "C",
+      "branch": [
+        "A",
+        "C",
+        "t"
+      ]
+    }
+  ],
+  "retainedUnresolvedMscPhotometry": {
+    "apparentMagnitudeV": 1.78,
+    "absoluteMagnitudeVAtCatalogDistance": -5.8930857428409436,
+    "source": "MSC 2026-06-19 comp.tsv A and sys.tsv Aa/Ab",
+    "scope": "Integrated Gamma2 Velorum Aa+Ab flux. Previously shown as Regor A; not a measurement of the WR star alone. Source photometry is retained here and in the frozen MSC rows. The original bright/western catalog measurements, errors and provenance remain in catalog_sources."
+  },
+  "physicalOverrides": {
+    "bright-regor": {
+      "values": {
+        "temperature_k": null,
+        "mass_solar": 8.3,
+        "radius_solar": 3.4,
+        "luminosity_solar": 110000,
+        "absolute_mag": null,
+        "apparent_mag": null
+      },
+      "source": "Schmutz et al. 2026, arXiv:2606.27265v1 (preprint), Table 4 and Section 6.3",
+      "sourceUrl": "https://arxiv.org/html/2606.27265v1",
+      "scope": "Individual Gamma2 Velorum WR component; MSC Aa. Source is the June 2026 preprint, not a refereed journal version.",
+      "uncertainties": {
+        "mass_solar": 0.7,
+        "radius_solar": 0.5,
+        "luminosity_solar": 40000
+      },
+      "methods": {
+        "mass": "Relative visual orbit, Kepler system mass and spectroscopic mass ratio at assumed cluster distance 336 +/- 1 pc",
+        "radius": "O-star Ks flux/model radius; WR radius from optical O/WR radius ratio, not the disputed infrared size",
+        "luminosity": "Atmosphere-model temperature and adopted radius"
+      },
+      "note": "Gamma2 Velorum Aa (WR), MSC Aa=WC8: mass 8.3 +/- 0.7 solar masses, model radius R*=3.4 +/- 0.5 solar radii, bolometric luminosity 110000 +/- 40000 solar luminosities. Atmosphere inner-boundary T*=57100 +/- 1700 K is separately retained, not used as photospheric Teff. Withheld individual fields: temperature_k, absolute_mag, metallicity_dex, age_gyr. Schmutz et al. 2026 preprint: https://arxiv.org/html/2606.27265v1. No unresolved Johnson V flux, system radial velocity or minimum mass is assigned to either individual star."
+    },
+    "msc-08095-4720-ab": {
+      "values": {
+        "spectral_type": "O7.5III-V",
+        "temperature_k": 35000,
+        "mass_solar": 26.4,
+        "radius_solar": 13.5,
+        "luminosity_solar": 250000,
+        "age_gyr": 0.0069,
+        "subtypes": []
+      },
+      "source": "Schmutz et al. 2026, arXiv:2606.27265v1 (preprint), Table 4 and Section 6.3",
+      "sourceUrl": "https://arxiv.org/html/2606.27265v1",
+      "scope": "Individual Gamma2 Velorum O component; MSC Ab. Source is the June 2026 preprint, not a refereed journal version.",
+      "uncertainties": {
+        "temperature_k": 300,
+        "mass_solar": 0.5,
+        "radius_solar": 1.0,
+        "luminosity_solar": 40000
+      },
+      "methods": {
+        "mass": "Relative visual orbit, Kepler system mass and spectroscopic mass ratio at assumed cluster distance 336 +/- 1 pc",
+        "radius": "O-star Ks flux/model radius; WR radius from optical O/WR radius ratio, not the disputed infrared size",
+        "luminosity": "Atmosphere-model temperature and adopted radius"
+      },
+      "note": "Gamma2 Velorum Ab (O7.5III-V): mass 26.4 +/- 0.5 solar masses, radius 13.5 +/- 1.0 solar radii, Teff 35000 +/- 300 K, bolometric luminosity 250000 +/- 40000 solar luminosities. Age 6.9 Myr is a rotational evolutionary-track estimate for the O star (Section 6.4), without a published uncertainty; it is not copied to the WR star. The III-V classification does not select one luminosity class. Withheld individual fields: absolute_mag, metallicity_dex. Schmutz et al. 2026 preprint: https://arxiv.org/html/2606.27265v1. No unresolved Johnson V flux, system radial velocity or minimum mass is assigned to either individual star."
+    }
+  },
+  "observations": {
+    "bright-regor": {
+      "atmosphere_temperature": {
+        "value_k": 57100,
+        "error_k": 1700,
+        "quantity": "T*",
+        "status": "model-derived",
+        "reference": "Schmutz et al. 2026, arXiv:2606.27265v1 (preprint), Table 4 and Section 6.3",
+        "source_url": "https://arxiv.org/html/2606.27265v1",
+        "scope": "WR inner-boundary atmosphere temperature T*, paired with model radius R*=3.4 +/- 0.5 solar radii. Not a photospheric effective temperature. De Marco et al. 2000 wind-model temperature retained by Schmutz et al. 2026; the discrepant infrared continuum radius (4.2 solar radii) and interferometric emitting-region sizes are not adopted as stellar radii."
+      }
+    }
+  },
+  "orbits": [
+    {
+      "primary": "Aa",
+      "secondary": "Ab",
+      "primaryIds": [
+        "bright-regor"
+      ],
+      "secondaryIds": [
+        "msc-08095-4720-ab"
+      ],
+      "periodYears": 0.21498699520876113,
+      "semiMajorAxisAu": 1.17,
+      "eccentricity": 0.322,
+      "inclinationDeg": 65.0,
+      "nodeDeg": 247.0,
+      "argumentDeg": 67.5,
+      "argumentComponent": "Aa",
+      "periastronEpoch": 60250.44,
+      "epochKind": "MJD",
+      "grade": null,
+      "catalog": "Reviewed literature (preprint)",
+      "reference": "Schmutz et al. 2026 (preprint), Table 4",
+      "sourceUrl": "https://arxiv.org/html/2606.27265v1",
+      "nodeAmbiguous": false,
+      "uncertainties": {
+        "periodDays": 0.002,
+        "semiMajorAxisAu": 0.004,
+        "eccentricity": 0.004,
+        "inclinationDeg": 0.3,
+        "nodeDeg": 0.2,
+        "argumentDeg": 0.4,
+        "periastronEpochDays": 0.07
+      },
+      "axisSource": {
+        "angularAxisMas": 3.483,
+        "angularAxisErrorMas": 0.008,
+        "adoptedDistancePc": 336,
+        "adoptedDistanceErrorPc": 1,
+        "scope": "Published relative axis from the adopted cluster distance, not rescaled with the legacy catalog parallax. The cluster-distance assumption is explicit in Table 4."
+      },
+      "scope": "GRAVITY+AMBER relative stellar orbit; omega is published for the WR component (MSC Aa). The app projects secondary Ab relative to primary Aa with the required 180-degree argument conversion. No wide A-B or A-C orbit is inferred. The source reports omega_WR=67.5 and node-line PA Omega=247 degrees. For the app convention (secondary O relative to primary WR, with primary omega converted by 180 degrees), the equivalent projection node is 67 degrees. This normalization reproduces the signed RA/Dec offsets of Table 1; using 247 directly would reverse both stars. Preserve the reported node and argument for display.",
+      "projectionNodeDeg": 67,
+      "orientationDerivation": {
+        "sourceNodeDeg": 247,
+        "projectionNodeDeg": 67,
+        "sourceArgumentComponent": "Aa (WR)",
+        "scope": "The source reports omega_WR=67.5 and node-line PA Omega=247 degrees. For the app convention (secondary O relative to primary WR, with primary omega converted by 180 degrees), the equivalent projection node is 67 degrees. This normalization reproduces the signed RA/Dec offsets of Table 1; using 247 directly would reverse both stars. Preserve the reported node and argument for display.",
+        "validation": "GRAVITY/VLTI offsets in Table 1, including 2023-11-13: WR relative to O at RA=-2.26 mas, Dec=-1.58 mas."
+      }
+    }
+  ]
+}

@@ -94,7 +94,7 @@ export function mkPoint(star: Pick<Star, 'type' | 'spectral_type'>): MkPoint | n
   const spectralType = star.spectral_type?.trim()
     .replace(/^k[OBAFGKM]\d(?:\.\d+)?h([OBAFGKM]\d(?:\.\d+)?)(?:m[OBAFGKM]\d(?:\.\d+)?)?/i, '$1')
     .replace(/^[OBAFGKM]\d(?:\.\d+)?m([OBAFGKM]\d(?:\.\d+)?)/i, '$1')
-  const spectral = spectralType?.match(new RegExp(`^([OBAFGKM])(\\d(?:\\.\\d+)?)[?:\\s-]*\\(?\\s*${luminosity}(?:[-/]${luminosity})?(?=$|[^IV])`, 'i'))
+  const spectral = spectralType?.replace(/^([OBAFGKM]\d(?:\.\d+)?)m(?=[IV])/i, '$1').match(new RegExp(`^([OBAFGKM])(\\d(?:\\.\\d+)?)[?:\\s-]*\\(?\\s*${luminosity}(?:[-/]${luminosity})?(?=$|[^IV])`, 'i'))
   if (!spectral) return null
   const spectralClass = spectral[1]!.toUpperCase()
   const subtype = Number(spectral[2])

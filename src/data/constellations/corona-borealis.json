@@ -1,0 +1,774 @@
+{
+  "schemaVersion": 1,
+  "abbreviation": "CrB",
+  "name": "Corona Borealis",
+  "center": {
+    "ra_deg": 235.9692471236174,
+    "dec_deg": 28.0705823848516
+  },
+  "stars": [
+    {
+      "hip": 75695,
+      "name": "Nusakan",
+      "ra_deg": 231.95730858154164,
+      "dec_deg": 29.10569295567611,
+      "magnitude_v": 3.66,
+      "bayer": "β",
+      "object": {
+        "x_pc": 14.069505734,
+        "y_pc": 14.360722444,
+        "z_pc": 29.379650265,
+        "vx_kms": -39.580068,
+        "vy_kms": -23.638497,
+        "vz_kms": -2.08636,
+        "temperature_k": 7244.0,
+        "mass_solar": 2.02,
+        "luminosity_solar": 33.314339161732484,
+        "radius_solar": 3.548133892335755,
+        "metallicity_dex": -0.8792,
+        "age_gyr": 0.8251587,
+        "absolute_mag": 0.922763,
+        "epoch": 2000.0,
+        "type": "star",
+        "id": "hip-75695",
+        "name": "Nusakan",
+        "constellation": "Corona Borealis",
+        "spectral_type": "F2VpSrCrEuSi",
+        "metallicity_kind": "[M/H]",
+        "notes": "Western constellation line-figure star (HIP 75695; Stellarium CrB). SIMBAD identity * bet CrB; SIMBAD compiled Johnson V=3.68; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, mass_solar, radius_solar, luminosity_solar; Gaia DR3 model values for metallicity_dex, age_gyr.",
+        "designations": [
+          "HIP 75695"
+        ],
+        "raw_astrometry": {
+          "ra_deg": 231.95730858154164,
+          "dec_deg": 29.10569295567611,
+          "parallax_mas": 27.9256,
+          "parallax_error_mas": 0.9703,
+          "pm_ra_cosdec_masyr": -202.069,
+          "pm_ra_error_masyr": null,
+          "pm_dec_masyr": 92.412,
+          "pm_dec_error_masyr": null,
+          "radial_velocity_kms": -26.9,
+          "radial_velocity_error_kms": null,
+          "epoch": 2000.0,
+          "astrometry_ref": "SIMBAD TAP snapshot 2026-10-01",
+          "radial_velocity_ref": "SIMBAD TAP snapshot 2026-10-01"
+        }
+      }
+    },
+    {
+      "hip": 76127,
+      "name": "Theta CrB",
+      "ra_deg": 233.23242559618694,
+      "dec_deg": 31.359132267070578,
+      "magnitude_v": 4.14,
+      "bayer": "θ",
+      "object": {
+        "x_pc": 43.00767712,
+        "y_pc": 50.685976078,
+        "z_pc": 93.933384985,
+        "vx_kms": -10.799592,
+        "vy_kms": -21.703278,
+        "vz_kms": -14.828648,
+        "temperature_k": 12589.0,
+        "mass_solar": 3.86,
+        "luminosity_solar": 331.0100760128617,
+        "radius_solar": 3.630780547701014,
+        "metallicity_dex": 0.13,
+        "age_gyr": null,
+        "absolute_mag": -1.174901,
+        "epoch": 2000.0,
+        "type": "star",
+        "id": "hip-76127",
+        "name": "Theta CrB",
+        "constellation": "Corona Borealis",
+        "spectral_type": "B6Vnne",
+        "metallicity_kind": "[Fe/H]",
+        "notes": "Western constellation line-figure star (HIP 76127; Stellarium CrB). SIMBAD identity * tet CrB; SIMBAD compiled Johnson V=4.13; inverse SIMBAD compiled parallax distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, mass_solar, radius_solar, luminosity_solar. Shared exact-identity physical supplements (metallicity_dex: 2023ApJS..266...41P).",
+        "designations": [
+          "HIP 76127"
+        ],
+        "raw_astrometry": {
+          "ra_deg": 233.23242559618694,
+          "dec_deg": 31.359132267070578,
+          "parallax_mas": 8.69,
+          "parallax_error_mas": 0.46,
+          "pm_ra_cosdec_masyr": -20.15,
+          "pm_ra_error_masyr": null,
+          "pm_dec_masyr": -9.39,
+          "pm_dec_error_masyr": null,
+          "radial_velocity_kms": -25.7,
+          "radial_velocity_error_kms": null,
+          "epoch": 2000.0,
+          "astrometry_ref": "SIMBAD TAP snapshot 2026-10-01",
+          "radial_velocity_ref": "SIMBAD TAP snapshot 2026-10-01"
+        }
+      }
+    },
+    {
+      "hip": 76267,
+      "name": "Alphecca",
+      "ra_deg": 233.67195203403162,
+      "dec_deg": 26.714685000024716,
+      "magnitude_v": 2.22,
+      "bayer": "α",
+      "object": {
+        "x_pc": 10.424691491,
+        "y_pc": 9.343602803,
+        "z_pc": 19.108088188,
+        "vx_kms": 14.583866,
+        "vy_kms": 3.224649,
+        "vz_kms": -7.425832,
+        "temperature_k": 8913.0,
+        "mass_solar": null,
+        "luminosity_solar": 68.46,
+        "radius_solar": 3.47,
+        "metallicity_dex": 0.2,
+        "age_gyr": null,
+        "absolute_mag": 0.367407,
+        "epoch": 2000.0,
+        "type": "star",
+        "id": "hip-76267",
+        "name": "Alphecca",
+        "constellation": "Corona Borealis",
+        "spectral_type": "A1IV",
+        "metallicity_kind": "[Fe/H]",
+        "notes": "Western constellation line-figure star (HIP 76267; Stellarium CrB). SIMBAD identity * alf CrB; SIMBAD compiled Johnson V=2.24; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: reviewed Star View values for temperature_k, luminosity_solar, radius_solar, metallicity_dex.",
+        "designations": [
+          "HIP 76267"
+        ],
+        "raw_astrometry": {
+          "ra_deg": 233.67195203403162,
+          "dec_deg": 26.714685000024716,
+          "parallax_mas": 42.2408,
+          "parallax_error_mas": 0.977,
+          "pm_ra_cosdec_masyr": 118.927,
+          "pm_ra_error_masyr": null,
+          "pm_dec_masyr": -87.711,
+          "pm_dec_error_masyr": null,
+          "radial_velocity_kms": 1.7,
+          "radial_velocity_error_kms": null,
+          "epoch": 2000.0,
+          "astrometry_ref": "SIMBAD TAP snapshot 2026-10-01",
+          "radial_velocity_ref": "SIMBAD TAP snapshot 2026-10-01"
+        }
+      }
+    },
+    {
+      "hip": 76952,
+      "name": "Gamma CrB",
+      "ra_deg": 235.68568963508966,
+      "dec_deg": 26.29563463104609,
+      "magnitude_v": 3.81,
+      "bayer": "γ",
+      "object": {
+        "x_pc": 20.607388495,
+        "y_pc": 18.387123637,
+        "z_pc": 35.252641098,
+        "vx_kms": -24.22824,
+        "vy_kms": -13.958714,
+        "vz_kms": 6.072436,
+        "temperature_k": 9120.0,
+        "mass_solar": null,
+        "luminosity_solar": 49.006135376105824,
+        "radius_solar": 2.804066,
+        "metallicity_dex": null,
+        "age_gyr": null,
+        "absolute_mag": 0.554444,
+        "epoch": 2000.0,
+        "type": "star",
+        "id": "hip-76952",
+        "name": "Gamma CrB",
+        "constellation": "Corona Borealis",
+        "spectral_type": "A0V",
+        "metallicity_kind": null,
+        "notes": "Western constellation line-figure star (HIP 76952; Stellarium CrB). SIMBAD identity * gam CrB; Hipparcos Johnson V=3.81 (SIMBAD V unavailable); inverse SIMBAD compiled parallax distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, luminosity_solar; Stefan-Boltzmann scaling for radius_solar.",
+        "designations": [
+          "HIP 76952"
+        ],
+        "raw_astrometry": {
+          "ra_deg": 235.68568963508966,
+          "dec_deg": 26.29563463104609,
+          "parallax_mas": 22.33,
+          "parallax_error_mas": 0.5,
+          "pm_ra_cosdec_masyr": -111.65,
+          "pm_ra_error_masyr": null,
+          "pm_dec_masyr": 49.52,
+          "pm_dec_error_masyr": null,
+          "radial_velocity_kms": -12.1,
+          "radial_velocity_error_kms": null,
+          "epoch": 2000.0,
+          "astrometry_ref": "SIMBAD TAP snapshot 2026-10-01",
+          "radial_velocity_ref": "SIMBAD TAP snapshot 2026-10-01"
+        }
+      }
+    },
+    {
+      "hip": 77512,
+      "name": "Delta CrB",
+      "ra_deg": 237.39852915443,
+      "dec_deg": 26.068392863920003,
+      "magnitude_v": 4.59,
+      "bayer": "δ",
+      "object": {
+        "x_pc": 24.315446575,
+        "y_pc": 21.79806514,
+        "z_pc": 39.435168349,
+        "vx_kms": -5.653383,
+        "vy_kms": -31.047868,
+        "vz_kms": -5.786757,
+        "temperature_k": 5370.0,
+        "mass_solar": 2.18,
+        "luminosity_solar": 36.488945,
+        "radius_solar": 6.309573444801933,
+        "metallicity_dex": -0.5275,
+        "age_gyr": null,
+        "absolute_mag": 1.083613,
+        "epoch": 2000.0,
+        "type": "star",
+        "id": "hip-77512",
+        "name": "Delta CrB",
+        "constellation": "Corona Borealis",
+        "spectral_type": "G5III-IVFe-1",
+        "metallicity_kind": "[M/H]",
+        "notes": "Western constellation line-figure star (HIP 77512; Stellarium CrB). SIMBAD identity * del CrB; SIMBAD compiled Johnson V=4.63; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, mass_solar, radius_solar; Gaia DR3 model values for metallicity_dex, luminosity_solar.",
+        "designations": [
+          "HIP 77512"
+        ],
+        "raw_astrometry": {
+          "ra_deg": 237.39852915443,
+          "dec_deg": 26.068392863920003,
+          "parallax_mas": 19.4965,
+          "parallax_error_mas": 0.085,
+          "pm_ra_cosdec_masyr": -78.907,
+          "pm_ra_error_masyr": null,
+          "pm_dec_masyr": -64.894,
+          "pm_dec_error_masyr": null,
+          "radial_velocity_kms": -20.36,
+          "radial_velocity_error_kms": null,
+          "epoch": 2000.0,
+          "astrometry_ref": "SIMBAD TAP snapshot 2026-10-01",
+          "radial_velocity_ref": "SIMBAD TAP snapshot 2026-10-01"
+        }
+      }
+    },
+    {
+      "hip": 78159,
+      "name": "Epsilon CrB",
+      "ra_deg": 239.39688084174207,
+      "dec_deg": 26.877879625768056,
+      "magnitude_v": 4.14,
+      "bayer": "ε",
+      "object": {
+        "x_pc": 35.27505679,
+        "y_pc": 33.654245297,
+        "z_pc": 55.657230107,
+        "vx_kms": -9.521703,
+        "vy_kms": -45.491258,
+        "vz_kms": -9.557339,
+        "temperature_k": 4453.0,
+        "mass_solar": null,
+        "luminosity_solar": 138.55770612935586,
+        "radius_solar": 19.777099,
+        "metallicity_dex": -0.32,
+        "age_gyr": null,
+        "absolute_mag": -0.215894,
+        "epoch": 2000.0,
+        "type": "star",
+        "id": "hip-78159",
+        "name": "Epsilon CrB",
+        "constellation": "Corona Borealis",
+        "spectral_type": "K2IIIab",
+        "metallicity_kind": "[Fe/H]",
+        "notes": "Western constellation line-figure star (HIP 78159; Stellarium CrB). SIMBAD identity * eps CrB; SIMBAD compiled Johnson V=4.13; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, luminosity_solar; Stefan-Boltzmann scaling for radius_solar. Shared exact-identity physical supplements (metallicity_dex: 2024A&A...691A.160S).",
+        "designations": [
+          "HIP 78159"
+        ],
+        "raw_astrometry": {
+          "ra_deg": 239.39688084174207,
+          "dec_deg": 26.877879625768056,
+          "parallax_mas": 13.4922,
+          "parallax_error_mas": 0.1023,
+          "pm_ra_cosdec_masyr": -77.716,
+          "pm_ra_error_masyr": null,
+          "pm_dec_masyr": -60.971,
+          "pm_dec_error_masyr": null,
+          "radial_velocity_kms": -32.42,
+          "radial_velocity_error_kms": null,
+          "epoch": 2000.0,
+          "astrometry_ref": "SIMBAD TAP snapshot 2026-10-01",
+          "radial_velocity_ref": "SIMBAD TAP snapshot 2026-10-01"
+        }
+      }
+    },
+    {
+      "hip": 78493,
+      "name": "Iota CrB",
+      "ra_deg": 240.36068716353998,
+      "dec_deg": 29.851060946760004,
+      "magnitude_v": 4.98,
+      "bayer": "ι",
+      "object": {
+        "x_pc": 50.055473572,
+        "y_pc": 56.189823416,
+        "z_pc": 84.924869018,
+        "vx_kms": -15.034193,
+        "vy_kms": -26.926625,
+        "vz_kms": -4.454149,
+        "temperature_k": 9800.0,
+        "mass_solar": 3.1553874,
+        "luminosity_solar": 127.25245340329579,
+        "radius_solar": 3.7996461,
+        "metallicity_dex": -0.5947,
+        "age_gyr": 0.27314398,
+        "absolute_mag": -0.303375,
+        "epoch": 2000.0,
+        "type": "star",
+        "id": "hip-78493",
+        "name": "Iota CrB",
+        "constellation": "Corona Borealis",
+        "spectral_type": "A0IIIspHgMnEu",
+        "metallicity_kind": "[M/H]",
+        "notes": "Western constellation line-figure star (HIP 78493; Stellarium CrB). SIMBAD identity * iot CrB; SIMBAD compiled Johnson V=4.971; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, luminosity_solar; Gaia DR3 model values for metallicity_dex, mass_solar, radius_solar, age_gyr.",
+        "designations": [
+          "HIP 78493"
+        ],
+        "raw_astrometry": {
+          "ra_deg": 240.36068716353998,
+          "dec_deg": 29.851060946760004,
+          "parallax_mas": 8.7701,
+          "parallax_error_mas": 0.0857,
+          "pm_ra_cosdec_masyr": -37.817,
+          "pm_ra_error_masyr": null,
+          "pm_dec_masyr": -7.016,
+          "pm_dec_error_masyr": null,
+          "radial_velocity_kms": -23.3,
+          "radial_velocity_error_kms": null,
+          "epoch": 2000.0,
+          "astrometry_ref": "SIMBAD TAP snapshot 2026-10-01",
+          "radial_velocity_ref": "SIMBAD TAP snapshot 2026-10-01"
+        }
+      }
+    }
+  ],
+  "lines": [
+    [
+      76127,
+      75695
+    ],
+    [
+      75695,
+      76267
+    ],
+    [
+      76267,
+      76952
+    ],
+    [
+      76952,
+      77512
+    ],
+    [
+      77512,
+      78159
+    ],
+    [
+      78159,
+      78493
+    ]
+  ],
+  "boundaries": [
+    {
+      "neighbor": "Serpens",
+      "neighbor_abbreviation": "SER1",
+      "points": [
+        {
+          "ra_deg": 229.099516,
+          "dec_deg": 25.5380573
+        },
+        {
+          "ra_deg": 229.846574,
+          "dec_deg": 25.544899
+        },
+        {
+          "ra_deg": 230.842796,
+          "dec_deg": 25.5541439
+        },
+        {
+          "ra_deg": 231.839074,
+          "dec_deg": 25.5635242
+        },
+        {
+          "ra_deg": 232.835283,
+          "dec_deg": 25.5730362
+        },
+        {
+          "ra_deg": 233.831721,
+          "dec_deg": 25.5826778
+        },
+        {
+          "ra_deg": 234.828229,
+          "dec_deg": 25.5924492
+        },
+        {
+          "ra_deg": 235.824694,
+          "dec_deg": 25.6023426
+        },
+        {
+          "ra_deg": 236.821376,
+          "dec_deg": 25.6123581
+        },
+        {
+          "ra_deg": 237.818141,
+          "dec_deg": 25.6224899
+        },
+        {
+          "ra_deg": 238.814821,
+          "dec_deg": 25.6327381
+        },
+        {
+          "ra_deg": 239.811744,
+          "dec_deg": 25.6430988
+        },
+        {
+          "ra_deg": 240.808754,
+          "dec_deg": 25.6535683
+        },
+        {
+          "ra_deg": 241.805734,
+          "dec_deg": 25.6641407
+        }
+      ]
+    },
+    {
+      "neighbor": "Hercules",
+      "neighbor_abbreviation": "HER",
+      "points": [
+        {
+          "ra_deg": 241.805734,
+          "dec_deg": 25.6641407
+        },
+        {
+          "ra_deg": 242.802915,
+          "dec_deg": 25.674818
+        },
+        {
+          "ra_deg": 243.800182,
+          "dec_deg": 25.6855946
+        }
+      ]
+    },
+    {
+      "neighbor": "Hercules",
+      "neighbor_abbreviation": "HER",
+      "points": [
+        {
+          "ra_deg": 243.800182,
+          "dec_deg": 25.6855946
+        },
+        {
+          "ra_deg": 243.786706,
+          "dec_deg": 26.685524
+        }
+      ]
+    },
+    {
+      "neighbor": "Hercules",
+      "neighbor_abbreviation": "HER",
+      "points": [
+        {
+          "ra_deg": 243.786706,
+          "dec_deg": 26.685524
+        },
+        {
+          "ra_deg": 244.285241,
+          "dec_deg": 26.6909466
+        },
+        {
+          "ra_deg": 245.282535,
+          "dec_deg": 26.7018642
+        },
+        {
+          "ra_deg": 246.279802,
+          "dec_deg": 26.7128716
+        }
+      ]
+    },
+    {
+      "neighbor": "Hercules",
+      "neighbor_abbreviation": "HER",
+      "points": [
+        {
+          "ra_deg": 246.279802,
+          "dec_deg": 26.7128716
+        },
+        {
+          "ra_deg": 246.265784,
+          "dec_deg": 27.7127934
+        },
+        {
+          "ra_deg": 246.251506,
+          "dec_deg": 28.7127151
+        },
+        {
+          "ra_deg": 246.236973,
+          "dec_deg": 29.712635
+        },
+        {
+          "ra_deg": 246.222124,
+          "dec_deg": 30.7125511
+        },
+        {
+          "ra_deg": 246.206961,
+          "dec_deg": 31.7124672
+        },
+        {
+          "ra_deg": 246.191482,
+          "dec_deg": 32.7123833
+        },
+        {
+          "ra_deg": 246.175661,
+          "dec_deg": 33.7122917
+        },
+        {
+          "ra_deg": 246.159468,
+          "dec_deg": 34.712204
+        },
+        {
+          "ra_deg": 246.142845,
+          "dec_deg": 35.7121124
+        },
+        {
+          "ra_deg": 246.125821,
+          "dec_deg": 36.7120171
+        },
+        {
+          "ra_deg": 246.108371,
+          "dec_deg": 37.7119217
+        },
+        {
+          "ra_deg": 246.090402,
+          "dec_deg": 38.7118225
+        },
+        {
+          "ra_deg": 246.071949,
+          "dec_deg": 39.7117195
+        }
+      ]
+    },
+    {
+      "neighbor": "Hercules",
+      "neighbor_abbreviation": "HER",
+      "points": [
+        {
+          "ra_deg": 246.071949,
+          "dec_deg": 39.7117195
+        },
+        {
+          "ra_deg": 245.325194,
+          "dec_deg": 39.7034683
+        },
+        {
+          "ra_deg": 244.329814,
+          "dec_deg": 39.6925468
+        },
+        {
+          "ra_deg": 243.334409,
+          "dec_deg": 39.6817207
+        },
+        {
+          "ra_deg": 242.339144,
+          "dec_deg": 39.6709862
+        },
+        {
+          "ra_deg": 241.344195,
+          "dec_deg": 39.6603584
+        },
+        {
+          "ra_deg": 240.349245,
+          "dec_deg": 39.6498337
+        },
+        {
+          "ra_deg": 239.354452,
+          "dec_deg": 39.6394119
+        },
+        {
+          "ra_deg": 238.359961,
+          "dec_deg": 39.6291046
+        },
+        {
+          "ra_deg": 237.365427,
+          "dec_deg": 39.6189079
+        }
+      ]
+    },
+    {
+      "neighbor": "Bootes",
+      "neighbor_abbreviation": "BOO",
+      "points": [
+        {
+          "ra_deg": 237.365427,
+          "dec_deg": 39.6189079
+        },
+        {
+          "ra_deg": 236.619702,
+          "dec_deg": 39.6113358
+        },
+        {
+          "ra_deg": 235.625439,
+          "dec_deg": 39.6013451
+        },
+        {
+          "ra_deg": 234.631462,
+          "dec_deg": 39.5914764
+        },
+        {
+          "ra_deg": 233.637486,
+          "dec_deg": 39.5817337
+        },
+        {
+          "ra_deg": 232.643652,
+          "dec_deg": 39.572113
+        }
+      ]
+    },
+    {
+      "neighbor": "Bootes",
+      "neighbor_abbreviation": "BOO",
+      "points": [
+        {
+          "ra_deg": 232.643652,
+          "dec_deg": 39.572113
+        },
+        {
+          "ra_deg": 232.659601,
+          "dec_deg": 38.5721931
+        },
+        {
+          "ra_deg": 232.675109,
+          "dec_deg": 37.5722656
+        },
+        {
+          "ra_deg": 232.690215,
+          "dec_deg": 36.5723381
+        },
+        {
+          "ra_deg": 232.704921,
+          "dec_deg": 35.5724106
+        },
+        {
+          "ra_deg": 232.719284,
+          "dec_deg": 34.5724792
+        },
+        {
+          "ra_deg": 232.733287,
+          "dec_deg": 33.5725441
+        },
+        {
+          "ra_deg": 232.746978,
+          "dec_deg": 32.5726128
+        }
+      ]
+    },
+    {
+      "neighbor": "Bootes",
+      "neighbor_abbreviation": "BOO",
+      "points": [
+        {
+          "ra_deg": 232.746978,
+          "dec_deg": 32.5726128
+        },
+        {
+          "ra_deg": 232.000665,
+          "dec_deg": 32.5654755
+        },
+        {
+          "ra_deg": 231.005745,
+          "dec_deg": 32.5560722
+        },
+        {
+          "ra_deg": 230.010781,
+          "dec_deg": 32.5468063
+        },
+        {
+          "ra_deg": 229.015919,
+          "dec_deg": 32.5376778
+        }
+      ]
+    },
+    {
+      "neighbor": "Bootes",
+      "neighbor_abbreviation": "BOO",
+      "points": [
+        {
+          "ra_deg": 229.015919,
+          "dec_deg": 32.5376778
+        },
+        {
+          "ra_deg": 229.028592,
+          "dec_deg": 31.537735
+        },
+        {
+          "ra_deg": 229.040994,
+          "dec_deg": 30.5377903
+        },
+        {
+          "ra_deg": 229.053154,
+          "dec_deg": 29.5378475
+        },
+        {
+          "ra_deg": 229.065071,
+          "dec_deg": 28.5379009
+        },
+        {
+          "ra_deg": 229.076757,
+          "dec_deg": 27.5379543
+        },
+        {
+          "ra_deg": 229.088231,
+          "dec_deg": 26.5380058
+        },
+        {
+          "ra_deg": 229.099516,
+          "dec_deg": 25.5380573
+        }
+      ]
+    }
+  ],
+  "sources": [
+    {
+      "label": "Stellarium Western sky culture",
+      "url": "https://raw.githubusercontent.com/Stellarium/stellarium-skycultures/014fbb5e59233d133c22f9811af96b67d05a95c9/western/index.json",
+      "path": "catalog-work/western-constellation-stars/stellarium-western-index.json",
+      "sha256": "a861accd345249a185a5ecfc2a516f34291c0aa52f4bb8d8337ffc53e9cef6b9"
+    },
+    {
+      "label": "Adopted star positions and names",
+      "url": "https://simbad.cds.unistra.fr/simbad/",
+      "path": "src/data/catalogs/western-constellation-stars/stars.csv",
+      "sha256": "0a8b7c1dc3f7e3412c5cffb09a18cdf5b5b7424cc89ea8a0a1ffb4da57d3ad6a"
+    },
+    {
+      "label": "Hipparcos Johnson V magnitudes",
+      "url": "https://cdsarc.cds.unistra.fr/viz-bin/cat/I/239",
+      "path": "catalog-work/western-constellation-stars/hipparcos-v.csv",
+      "sha256": "eec12b740da3aac5204ba75ca5158b6f9f2f81886dda2526fe765cf9ea159320"
+    },
+    {
+      "label": "CDS / IAU constellation boundaries (J2000)",
+      "url": "https://cdsarc.cds.unistra.fr/viz-bin/cat/VI/49",
+      "path": "catalog-work/constellation-charts/boundaries-j2000.dat.gz",
+      "sha256": "879cd6e7a1c908f1e19a5f5fe8cc75fb1d1077564e3890f9152a3680affe9aac",
+      "inputs": [
+        {
+          "path": "catalog-work/constellation-charts/boundary-contours-b1875.dat",
+          "sha256": "865cdf4218f676eb304587c75c63231948d29cd0abe6892a8a8130c1c4fe3592"
+        },
+        {
+          "path": "catalog-work/constellation-charts/boundary-contours-readme.txt",
+          "sha256": "a3ec688bea21e9db10832842c9b845558dbe8ccf820ddedec842d664d2b74c89"
+        }
+      ]
+    }
+  ]
+}

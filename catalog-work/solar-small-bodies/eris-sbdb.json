@@ -1,0 +1,171 @@
+{
+  "signature": {
+    "source": "NASA/JPL Small-Body Database (SBDB) API",
+    "version": "1.3"
+  },
+  "orbit": {
+    "epoch": "2461200.5",
+    "equinox": "J2000",
+    "elements": [
+      {
+        "value": ".4382385347971672",
+        "sigma": "3.4663E-6",
+        "units": null,
+        "title": "eccentricity",
+        "label": "e",
+        "name": "e"
+      },
+      {
+        "value": "67.93394687853566",
+        "sigma": ".0002545",
+        "title": "semi-major axis",
+        "units": "au",
+        "label": "a",
+        "name": "a"
+      },
+      {
+        "value": "38.16267353549761",
+        "sigma": ".00015516",
+        "units": "au",
+        "title": "perihelion distance",
+        "label": "q",
+        "name": "q"
+      },
+      {
+        "value": "43.9258279471791",
+        "units": "deg",
+        "sigma": "3.1852E-5",
+        "title": "inclination; angle with respect to x-y ecliptic plane",
+        "label": "i",
+        "name": "i"
+      },
+      {
+        "label": "node",
+        "units": "deg",
+        "sigma": "1.4831E-5",
+        "title": "longitude of the ascending node",
+        "name": "om",
+        "value": "36.00477044417249"
+      },
+      {
+        "value": "150.7949235840312",
+        "name": "w",
+        "label": "peri",
+        "sigma": ".0021022",
+        "title": "argument of perihelion",
+        "units": "deg"
+      },
+      {
+        "value": "211.774434275007",
+        "units": "deg",
+        "sigma": ".0048207",
+        "title": "mean anomaly",
+        "label": "M",
+        "name": "ma"
+      },
+      {
+        "name": "tp",
+        "sigma": "2.3016",
+        "title": "time of perihelion passage",
+        "units": "TDB",
+        "label": "tp",
+        "value": "2545407.716847013144"
+      },
+      {
+        "value": "204516.6629430732",
+        "name": "per",
+        "label": "period",
+        "sigma": "1.1493",
+        "title": "sidereal orbital period",
+        "units": "d"
+      },
+      {
+        "label": "n",
+        "sigma": "9.8915E-9",
+        "units": "deg/d",
+        "title": "mean motion",
+        "name": "n",
+        "value": ".001760247770619088"
+      },
+      {
+        "sigma": ".00036603",
+        "units": "au",
+        "title": "aphelion distance",
+        "label": "Q",
+        "name": "ad",
+        "value": "97.70522022157373"
+      }
+    ],
+    "not_valid_before": null,
+    "orbit_id": "103",
+    "t_jup": "4.755",
+    "producer": "Otto Matic",
+    "pe_used": "DE441",
+    "n_obs_used": 4064,
+    "not_valid_after": null,
+    "n_del_obs_used": null,
+    "moid_jup": "32.9726",
+    "comment": null,
+    "condition_code": "3",
+    "moid": "37.221",
+    "n_dop_obs_used": null,
+    "last_obs": "2026-02-06",
+    "rms": ".36712",
+    "cov_epoch": "2458430.5",
+    "two_body": null,
+    "model_pars": [],
+    "source": "JPL",
+    "soln_date": "2026-06-06 21:06:42",
+    "data_arc": "26089",
+    "sb_used": "SB441-N16",
+    "first_obs": "1954-09-03"
+  },
+  "discovery": {
+    "discovery": "Discovered 2003 Oct. 21 by M. E. Brown, C. A. Trujillo and D. Rabinowitz at Palomar.",
+    "citation": "Eris is the Greek goddess of discord and strife. She stirs up jealousy and envy to cause fighting and anger among men. At the wedding of Peleus and Thetis all the gods were invited with the exception of Eris, and, enraged at her exclusion, she spitefully caused a quarrel among the goddesses that led to the Trojan war.",
+    "ref": "20060907/Numbers.arc",
+    "date": "2003-Oct-21",
+    "who": "Brown, M. E., Trujillo, C. A., Rabinowitz, D.",
+    "cref": "20061009/MPCPages.arc",
+    "site": null,
+    "location": "Palomar",
+    "name": "Eris"
+  },
+  "phys_par": [
+    {
+      "ref": "MPO966273",
+      "value": "-1.26",
+      "desc": "absolute magnitude (magnitude at 1 au from Sun and observer)",
+      "notes": null,
+      "title": "absolute magnitude",
+      "sigma": null,
+      "units": null,
+      "name": "H"
+    },
+    {
+      "notes": "[Result based on less than full coverage, so that the period may be wrong by 30 percent or so.]  REFERENCE LIST:[Roe, H. G.; Pike, R.E.; Brown, M.E. (2008) Icarus 198, 459-464.]",
+      "desc": "body rotation period (synodic)",
+      "ref": "LCDB (Rev. 2023-October); Warner et al., 2009",
+      "value": "25.9",
+      "name": "rot_per",
+      "sigma": null,
+      "title": "rotation period",
+      "units": "h"
+    }
+  ],
+  "object": {
+    "shortname": "136199 Eris",
+    "spkid": "20136199",
+    "neo": false,
+    "orbit_id": "103",
+    "orbit_class": {
+      "name": "TransNeptunian Object",
+      "code": "TNO"
+    },
+    "pha": false,
+    "prefix": null,
+    "kind": "an",
+    "des": "136199",
+    "fullname": "136199 Eris (2003 UB313)"
+  }
+}

@@ -12,12 +12,23 @@ import { buildCatalogClassReferences } from '../src/catalog-class-references.ts'
 import { parseObjectStats, supplementObjectStats } from '../src/object-stats.ts'
 import { auditCatalogConsistency } from '../src/catalog-consistency.ts'
 import { completeCatalogCompanions } from '../src/stellar-companions.ts'
+import { missingCatalogMeasurements } from '../src/catalog-source.ts'
 import { reviewedStarSystems } from '../src/star-systems.ts'
+import { supplementStellarObservations } from '../src/stellar-observations.ts'
+import companionData from '../src/data/stellar-companions.json' with { type: 'json' }
+import planetarySystems from '../src/data/planetary-systems.json' with { type: 'json' }
+import nearbyPlanets from '../src/data/nearby-planets.json' with { type: 'json' }
+import planetDetails from '../src/data/planet-details.json' with { type: 'json' }
+import smallBodies from '../src/data/solar-small-bodies.json' with { type: 'json' }
+import starInfo from '../src/data/star-info.json' with { type: 'json' }
+import nearest100Info from '../src/data/nearest-100-info.json' with { type: 'json' }
+import { starComponentIdentity } from '../src/star-systems.ts'
+import type { ConstellationChart } from '../src/constellations.ts'
 
 const root = fileURLToPath(new URL('../', import.meta.url))
 const identities = parseObjectIdentities(JSON.parse(readFileSync(join(root, 'src/data/object-designations.json'), 'utf8')))
 const objectStats = parseObjectStats(JSON.parse(readFileSync(join(root, 'src/data/object-stats.json'), 'utf8')))
-const supplement = (stars: Parameters<typeof supplementObjectIdentities>[0]) => supplementObjectStats(supplementObjectIdentities(stars, identities), objectStats)
+const supplement = (stars: Parameters<typeof supplementObjectIdentities>[0]) => supplementStellarObservations(supplementObjectStats(supplementObjectIdentities(stars, identities), objectStats))
 const components = new Map(reviewedStarSystems.flatMap((system) => system.components.flatMap((component) =>
   [component.starId, ...component.alternateStarIds ?? []].map((id) => [id, { canonicalStarId: component.starId }] as const))))
 const [command, ...args] = process.argv.slice(2)
@@ -88,6 +99,15 @@ function validate(directory?: string): void {
 }
 
 function requireConsistentCatalogs(catalogs: Parameters<typeof auditCatalogConsistency>[0]) {
+  for (const catalog of catalogs) {
+    const adopted = new Map(completeCatalogCompanions(catalog.stars).map((star) => [star.id, star]))
+    for (const source of catalog.stars) {
+      const component = adopted.get(source.id)
+      if (!component) throw new Error(`Lost catalog record: ${catalog.id}/${source.id}`)
+      const missing = missingCatalogMeasurements(source, component)
+      if (missing.length) throw new Error(`Lost catalog measurements: ${catalog.id}/${source.id}: ${missing.join(', ')}`)
+    }
+  }
   const audit = auditCatalogConsistency(catalogs.map((catalog) => ({
     ...catalog, stars: completeCatalogCompanions(catalog.stars),
   })), identities, (id) => components.get(id))
@@ -112,7 +132,7 @@ function generate(): void {
   }))
   requireConsistentCatalogs(catalogs)
   const files = Object.fromEntries(catalogs.map(({ id, stars }) =>
-    [`${id}.json`, JSON.stringify({ schemaVersion: 1, catalogId: id, stars }) + '\n']))
+    [`${id}.json`, JSON.stringify({ schemaVersion: 2, catalogId: id, sourceObjectCount: stars.length, stars: completeCatalogCompanions(stars) }) + '\n']))
   const references = buildCatalogClassReferences(catalogs.map((catalog) => ({ ...catalog, stars: completeCatalogCompanions(catalog.stars) })), (id) => components.get(id))
   writeManagedFiles(safeOutputDirectory(join(root, 'src/data')), {
     'catalog-class-references.json': JSON.stringify(references, null, 2) + '\n',
@@ -124,6 +144,21 @@ function generate(): void {
     if (entry.isFile() && entry.name.endsWith('.json') && !Object.hasOwn(files, entry.name)) rmSync(join(output, entry.name))
   }
   console.log(`Generated ${Object.keys(files).length} browser catalog payloads.`)
+  const chartCompanions: Record<string, string> = {}
+  for (const file of readdirSync(join(root, 'src/data/constellations')).filter((file) => file.endsWith('.json'))) {
+    const chart = JSON.parse(readFileSync(join(root, 'src/data/constellations', file), 'utf8')) as ConstellationChart
+    const needed = new Set(completeCatalogCompanions(chart.stars.map((figure) => figure.object))
+      .map((star) => starComponentIdentity(star.id)?.canonicalStarId ?? star.id))
+    chartCompanions[`${chart.name}.json`] = JSON.stringify(companionData.stars.filter((star) => needed.has(star.id))) + '\n'
+  }
+  writeManagedFiles(safeOutputDirectory(join(root, 'src/data/generated/constellation-companions')), chartCompanions, true)
+  const planetCounts = Object.fromEntries([...planetarySystems.systems, ...nearbyPlanets.systems].map((system) => [system.hostStarId, system.planets.length]))
+  writeManagedFiles(safeOutputDirectory(join(root, 'src/data/generated')), {
+    'startup-index.json': JSON.stringify({ planetCounts, starInfoIds: [...new Set([...Object.keys(starInfo.articles), ...Object.keys(nearest100Info.articles)])], planetInfoIds: [...planetDetails.planets, ...smallBodies.objects].map((planet) => planet.id) }) + '\n',
+    'planet-details.json': JSON.stringify({ earth: planetDetails.earth, planets: planetDetails.planets }) + '\n',
+    'planet-moons.json': JSON.stringify({ ...planetDetails.moons, ...smallBodies.moons }) + '\n',
+    'small-body-details.json': JSON.stringify({ objects: smallBodies.objects }) + '\n',
+  }, true)
   const { manifest: overlayManifest, objects } = loadCompactOverlay()
   const nebulae = loadNebulaOverlay()
   const molecularClouds = loadMolecularCloudOverlay()
