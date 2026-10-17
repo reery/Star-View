@@ -18,7 +18,7 @@
     "catalog-work/landmark-stars/sed.csv": "19b6662da85caf0ec75c57e6ba0b862d321fdc441dfcafc8bc9a56cab712e5ea",
     "catalog-work/landmark-stars/gaia.csv": "851bbf5865d45987d14cdda74691fd8b1b291e0af6353a8096bdb1524ef35d72",
     "catalog-work/nearest-100/source-input.json": "ab8a3ab6e0b0edb1372f7c58cdf4f121fe1d5d204a9a0541e6d302a5ac18c84a",
-    "catalog-work/nearest-100/physical-overrides.json": "21125920c7039be1394dda156d0b8c6db962f98b03c86b7a3f602e893e3f5872",
+    "catalog-work/nearest-100/physical-overrides.json": "9bbfe6982d5fad43b205a5cbf36fc9bb3ac967d285959292cc544abd3f1bd297",
     "catalog-work/shared-enrichment/reviewed-physical.json": "2dcb63be0f2c010af2d48a3e85fdb70616503aac0c5f2dc2fa9a6dcf67467353",
     "catalog-work/shared-enrichment/literature/fundamental.adql": "8127e71c93bc01fbc3ebc6de69bb2399d0d8a7dd38af1de099323e6e384d2048",
     "catalog-work/shared-enrichment/literature/fundamental.csv": "87e9d805d41c01526cf5501b8520b2dba4f34ea825b80acddc2de4ff04e988a4",
@@ -35,7 +35,10 @@
     "catalog-work/shared-enrichment/kruger-60-review.json": "6d7565088750c4564714401d0adc6d986075c36c200df7d97d339127ef6b785b",
     "catalog-work/shared-enrichment/kruger-60-bioverse.tsv": "da55282c822e545fb9f57c4dab79dcb27fda7fdfa6f1bfa8d36d58f149cc8c6c",
     "catalog-work/shared-enrichment/delta-pav-review.json": "111e346d2dd2a5f9806ffa63068b03286bdec444682665a84e1c7d6a415a72c4",
-    "catalog-work/shared-enrichment/delta-pav-2025-table1.txt": "610b4c09dfbf6876eb1ffdb90822f3693e47567f6650215d37d7104e4e5145c9"
+    "catalog-work/shared-enrichment/delta-pav-2025-table1.txt": "610b4c09dfbf6876eb1ffdb90822f3693e47567f6650215d37d7104e4e5145c9",
+    "catalog-work/shared-enrichment/van-maanen-review.json": "7171f3e3c10ba2ae48091429e19b25bb8010ff273baea94aac1c60623ab73fd3",
+    "catalog-work/shared-enrichment/cold-brown-dwarfs-review.json": "ebe17a6e6d187da64da73eb1a3a69a219e5d68c141fec8399927107e7cd40875",
+    "src/data/stellar-observations.json": "18240a8440404652cc6db3ecd603c38e34b8b7a8f90a95fbe8cbfaa2ab9e4823"
   },
   "sources": [
     {
@@ -107,7 +110,7 @@
       "url": "https://arxiv.org/html/2404.08746v1"
     },
     {
-      "name": "Neuhäuser et al. 2022, alternative Betelgeuse initial MIST track and model age (context, not adopted)",
+      "name": "Neuh\u00e4user et al. 2022, alternative Betelgeuse initial MIST track and model age (context, not adopted)",
       "url": "https://arxiv.org/abs/2207.04702"
     },
     {
@@ -115,7 +118,7 @@
       "url": "https://arxiv.org/abs/2006.09837"
     },
     {
-      "name": "Montargès et al. 2026, Betelgeuse A current mass and model age ranges adopted in companion analysis",
+      "name": "Montarg\u00e8s et al. 2026, Betelgeuse A current mass and model age ranges adopted in companion analysis",
       "url": "https://www.eso.org/public/archives/releases/sciencepapers/eso2611/eso2611a.pdf"
     },
     {
@@ -201,6 +204,38 @@
     {
       "name": "Rains et al. 2020, Delta Pav VLTI/PIONIER radius and bolometric temperature/luminosity, Table 4 HD 190248",
       "url": "https://arxiv.org/abs/2004.02343"
+    },
+    {
+      "name": "Giammichele et al. 2012, Table 2, van Maanen 2 atmospheric and physical parameters",
+      "url": "https://arxiv.org/abs/1202.5581"
+    },
+    {
+      "name": "Burleigh et al. 2008, van Maanen 2 progenitor and total evolutionary age",
+      "url": "https://arxiv.org/abs/0801.2917"
+    },
+    {
+      "name": "Lindegren & Dravins 2021, Table 1, van Maanen 2 astrometric radial velocity",
+      "url": "https://arxiv.org/abs/2105.09014"
+    },
+    {
+      "name": "Hood et al. 2023, UGPS J0722 preferred FIRE radial velocity; unphysical retrieval radius withheld",
+      "url": "https://arxiv.org/abs/2303.04885"
+    },
+    {
+      "name": "Bochanski et al. 2011, UGPS J0722 earlier radial velocity retained as non-adopted source",
+      "url": "https://arxiv.org/abs/1109.2897"
+    },
+    {
+      "name": "Dupuy & Kraus 2013, UGPS J0722 bolometric luminosity and age-conditioned evolutionary scenarios, Table S5",
+      "url": "https://arxiv.org/abs/1309.1422"
+    },
+    {
+      "name": "Fontanive et al. 2023, WISE J1639 HST photometry and ATMO 2020 estimates, Table 3 and section 3.2",
+      "url": "https://arxiv.org/abs/2309.09923"
+    },
+    {
+      "name": "Albert et al. 2025, exact-coordinate-identified JWST infrared photometry, Tables 2 and 4",
+      "url": "https://arxiv.org/abs/2501.14100"
     }
   ]
 }

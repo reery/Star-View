@@ -10733,15 +10733,15 @@
   "catalogId": "nearest-1000",
   "coverage": {
     "absolute_mag": 556,
-    "age_gyr": 92,
+    "age_gyr": 93,
     "constellation": 1036,
-    "luminosity_solar": 668,
-    "mass_solar": 658,
+    "luminosity_solar": 673,
+    "mass_solar": 662,
     "metallicity_dex": 613,
-    "radial_velocity_kms": 704,
-    "radius_solar": 689,
+    "radial_velocity_kms": 706,
+    "radius_solar": 693,
     "spectral_type": 976,
-    "temperature_k": 877
+    "temperature_k": 879
   },
   "cutoff": {
     "baselineRank": 1000,
@@ -134175,7 +134175,7 @@
   "reviewedCompanionsSha256": "3e45616a65aef9ba731644d2dc6ace421b9b26d53470bb289baf95f054bc8d96",
   "reviewedComponentPropertiesSha256": "e3c4e01fa4a9c823c48f1f9bbe7f31a3426bb76e1a59563c1006a10bcc0222c1",
   "schemaVersion": 1,
-  "sharedEnrichmentManifestSha256": "d621cff54d4fb040a005fc88eaa7296f43055e77e0b26852d7591bde5824fee3",
+  "sharedEnrichmentManifestSha256": "4ecadb31d72afc48f1deb32f3f501def9e2b043dfc62222f50709eaad961926f",
   "sourceManifestSha256": "5744f1665fe2700b5acaf88fd2cc46a4f2a0e2a75d75c03290b769b64c3cb315",
   "sources": [
     {
@@ -134497,6 +134497,38 @@
     {
       "name": "Rains et al. 2020, Delta Pav VLTI/PIONIER radius and bolometric temperature/luminosity, Table 4 HD 190248",
       "url": "https://arxiv.org/abs/2004.02343"
+    },
+    {
+      "name": "Giammichele et al. 2012, Table 2, van Maanen 2 atmospheric and physical parameters",
+      "url": "https://arxiv.org/abs/1202.5581"
+    },
+    {
+      "name": "Burleigh et al. 2008, van Maanen 2 progenitor and total evolutionary age",
+      "url": "https://arxiv.org/abs/0801.2917"
+    },
+    {
+      "name": "Lindegren & Dravins 2021, Table 1, van Maanen 2 astrometric radial velocity",
+      "url": "https://arxiv.org/abs/2105.09014"
+    },
+    {
+      "name": "Hood et al. 2023, UGPS J0722 preferred FIRE radial velocity; unphysical retrieval radius withheld",
+      "url": "https://arxiv.org/abs/2303.04885"
+    },
+    {
+      "name": "Bochanski et al. 2011, UGPS J0722 earlier radial velocity retained as non-adopted source",
+      "url": "https://arxiv.org/abs/1109.2897"
+    },
+    {
+      "name": "Dupuy & Kraus 2013, UGPS J0722 bolometric luminosity and age-conditioned evolutionary scenarios, Table S5",
+      "url": "https://arxiv.org/abs/1309.1422"
+    },
+    {
+      "name": "Fontanive et al. 2023, WISE J1639 HST photometry and ATMO 2020 estimates, Table 3 and section 3.2",
+      "url": "https://arxiv.org/abs/2309.09923"
+    },
+    {
+      "name": "Albert et al. 2025, exact-coordinate-identified JWST infrared photometry, Tables 2 and 4",
+      "url": "https://arxiv.org/abs/2501.14100"
     },
     {
       "name": "Cifuentes et al. 2025, resolved companion model/photometric estimates, Table A.1",

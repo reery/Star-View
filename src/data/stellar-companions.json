@@ -33978,9 +33978,9 @@
     },
     {
       "temperature_k": 2680.0,
-      "mass_solar": null,
-      "luminosity_solar": null,
-      "radius_solar": null,
+      "mass_solar": 0.12,
+      "luminosity_solar": 0.00101802236,
+      "radius_solar": 0.148,
       "metallicity_dex": 0.14,
       "age_gyr": null,
       "absolute_mag": null,
@@ -34016,7 +34016,7 @@
         "Zkh 123",
         "EI Cnc A"
       ],
-      "notes": "10pc census (2023-08-25), object 113, system 56; G 9-38 A. J2000 Sun-relative Galactic position via Astropy; full-space-motion. Estimated: Pecaut-Mamajek 2022.04.16 M7V mean dwarf class, not a measured temperature. Component-resolved Johnson V not independently established; multi-star system V withheld. No orbital model. Shared exact-identity physical supplements (metallicity_dex: 2014AJ....147...20N).",
+      "notes": "10pc census (2023-08-25), object 113, system 56; G 9-38 A. J2000 Sun-relative Galactic position via Astropy; full-space-motion. Estimated: Pecaut-Mamajek 2022.04.16 M7V mean dwarf class, not a measured temperature. Component-resolved Johnson V not independently established; multi-star system V withheld. No orbital model. EI Cnc A: individual empirical mass-luminosity mass from Winters et al. (2021), and radius from the Pineda et al. (2021) empirical mass-radius relation, as tabulated with uncertainties by Silverstein et al. (2025) Table 1 (arXiv preprint). These are estimates, not dynamical masses or directly measured radii. The retained 2680 K is a generic M7 class temperature; any Stefan-Boltzmann luminosity inherits that assumption. Shared exact-identity physical supplements (metallicity_dex: 2014AJ....147...20N). luminosity_solar derived by Stefan-Boltzmann scaling from adopted inputs (solar Teff=5772 K); inherits their measurement/model/estimate assumptions.",
       "raw_astrometry": {
         "ra_deg": 134.559189679,
         "dec_deg": 19.762959843,
@@ -34040,9 +34040,9 @@
     },
     {
       "temperature_k": 2680.0,
-      "mass_solar": 0.1112,
-      "luminosity_solar": 0.0006570487534,
-      "radius_solar": 0.1189,
+      "mass_solar": 0.103,
+      "luminosity_solar": 0.0008098074146,
+      "radius_solar": 0.132,
       "metallicity_dex": 0.08,
       "age_gyr": null,
       "absolute_mag": null,
@@ -34080,7 +34080,7 @@
         "Zkh 124",
         "EI Cnc B"
       ],
-      "notes": "10pc census (2023-08-25), object 114, system 56; G 9-38 B. J2000 Sun-relative Galactic position via Astropy; full-space-motion. Estimated: Pecaut-Mamajek 2022.04.16 M7V mean dwarf class, not a measured temperature. Component-resolved Johnson V not independently established; multi-star system V withheld. No orbital model. Shared exact-identity physical supplements (metallicity_dex: 2014AJ....147...20N). luminosity_solar derived by Stefan-Boltzmann scaling from adopted inputs (solar Teff=5772 K); inherits their measurement/model/estimate assumptions. Component-scoped catalog measurements/estimates; details in catalog-work/star-systems/catalog-companions-audit.json.",
+      "notes": "10pc census (2023-08-25), object 114, system 56; G 9-38 B. J2000 Sun-relative Galactic position via Astropy; full-space-motion. Estimated: Pecaut-Mamajek 2022.04.16 M7V mean dwarf class, not a measured temperature. Component-resolved Johnson V not independently established; multi-star system V withheld. No orbital model. EI Cnc B: individual empirical mass-luminosity mass from Winters et al. (2021), and radius from the Pineda et al. (2021) empirical mass-radius relation, as tabulated with uncertainties by Silverstein et al. (2025) Table 1 (arXiv preprint). These are estimates, not dynamical masses or directly measured radii. The retained 2680 K is a generic M7 class temperature; any Stefan-Boltzmann luminosity inherits that assumption. Shared exact-identity physical supplements (metallicity_dex: 2014AJ....147...20N). luminosity_solar derived by Stefan-Boltzmann scaling from adopted inputs (solar Teff=5772 K); inherits their measurement/model/estimate assumptions. Component-scoped catalog measurements/estimates; details in catalog-work/star-systems/catalog-companions-audit.json.",
       "raw_astrometry": {
         "ra_deg": 134.558691511,
         "dec_deg": 19.762578882,

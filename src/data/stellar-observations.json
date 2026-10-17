@@ -24,7 +24,10 @@
           "system": "Vega",
           "magnitude": 13.89,
           "error_mag": 0.05,
-          "observed_on": ["2010-05-04", "2010-11-11"],
+          "observed_on": [
+            "2010-05-04",
+            "2010-11-11"
+          ],
           "reference": "Luhman 2014, ApJL 786 L18, Table 1 and Section 2.3",
           "source_url": "https://arxiv.org/pdf/1404.6501",
           "scope": "Apparent W2 magnitude of the moving WISE 0855-0714 object after subtracting the two stationary background sources using their Spitzer [4.5] photometry. Preserves the published 0.05 mag uncertainty. Infrared snapshot photometry, not Johnson V and not the blended All-Sky W2=13.63 measurement."
@@ -34,6 +37,74 @@
           "reference": "Rowland et al. 2024, Appendix B, Figure 7",
           "source_url": "https://arxiv.org/html/2411.14541v2",
           "reason": "JWST/NIRSpec atmospheric retrievals fit radial velocity, but the authors attribute the discrepant results from the two datasets to wavelength-calibration differences. No calibrated bulk radial velocity is adopted from these fits. Proper-motion-derived tangential speed cannot substitute for radial velocity; space motion remains transverse only."
+        }
+      }
+    },
+    "10pc-0068": {
+      "expected_name": "UGPS J072227.51-054031.2",
+      "expected_designation": "WISE J072227.27-054029.9",
+      "observations": {
+        "mass_range": {
+          "min_jupiter": 10.7,
+          "max_jupiter": 25.8,
+          "assumed_age_min_gyr": 1,
+          "assumed_age_max_gyr": 5,
+          "status": "model-derived",
+          "reference": "Dupuy & Kraus 2013, Science 341, 1492, Table S5",
+          "source_url": "https://arxiv.org/pdf/1309.1422",
+          "scope": "Evolutionary scenarios at assumed ages of 1 and 5 Gyr; neither a confidence interval nor measured age. Temperature: 502 +/- 10 K at 1 Gyr and 539 +/- 12 K at 5 Gyr; mass: 10.7 +/- 0.2 and 25.8 +/- 0.9 Jupiter masses; radius: 1.0192 +/- 0.0005 and 0.886 +/- 0.005 Jupiter radii, respectively. Endpoint uncertainties are distinct from the span between the scenarios. No midpoint scalar is adopted."
+        },
+        "temperature_range": {
+          "min_k": 502,
+          "max_k": 539,
+          "status": "model-derived",
+          "reference": "Dupuy & Kraus 2013, Science 341, 1492, Table S5",
+          "source_url": "https://arxiv.org/pdf/1309.1422",
+          "scope": "Evolutionary scenarios at assumed ages of 1 and 5 Gyr; neither a confidence interval nor measured age. Temperature: 502 +/- 10 K at 1 Gyr and 539 +/- 12 K at 5 Gyr; mass: 10.7 +/- 0.2 and 25.8 +/- 0.9 Jupiter masses; radius: 1.0192 +/- 0.0005 and 0.886 +/- 0.005 Jupiter radii, respectively. Endpoint uncertainties are distinct from the span between the scenarios. No midpoint scalar is adopted.",
+          "summary": "Evolutionary scenarios at assumed ages of 1 and 5 Gyr, not a confidence interval. Endpoint errors are listed in Sources."
+        },
+        "radius_range": {
+          "min_jupiter": 0.886,
+          "max_jupiter": 1.0192,
+          "status": "model-derived",
+          "reference": "Dupuy & Kraus 2013, Science 341, 1492, Table S5",
+          "source_url": "https://arxiv.org/pdf/1309.1422",
+          "scope": "Evolutionary scenarios at assumed ages of 1 and 5 Gyr; neither a confidence interval nor measured age. Temperature: 502 +/- 10 K at 1 Gyr and 539 +/- 12 K at 5 Gyr; mass: 10.7 +/- 0.2 and 25.8 +/- 0.9 Jupiter masses; radius: 1.0192 +/- 0.0005 and 0.886 +/- 0.005 Jupiter radii, respectively. Endpoint uncertainties are distinct from the span between the scenarios. No midpoint scalar is adopted.",
+          "summary": "Evolutionary scenarios at assumed ages of 1 and 5 Gyr, not a confidence interval. Endpoint errors are listed in Sources."
+        },
+        "infrared_photometry": {
+          "band": "F480M",
+          "instrument": "JWST/NIRISS",
+          "wavelength_microns": 4.8,
+          "system": "Vega",
+          "magnitude": 12.016,
+          "error_mag": 0.011,
+          "observed_on": [
+            "2023-04-17"
+          ],
+          "reference": "Albert et al. 2025, AJ 169, 163, Table 2",
+          "source_url": "https://arxiv.org/abs/2501.14100",
+          "scope": "Measured JWST/NIRISS F480M snapshot, not Johnson V. The Table 2 F150W=17.26 +/- 0.03 entry for UGPS-0722 is synthesized from earlier spectroscopy, not measured in this JWST exposure."
+        }
+      }
+    },
+    "10pc-0084": {
+      "expected_name": "WISE J163940.83-684738.6",
+      "expected_designation": "WISEA J163940.84-684739.4",
+      "observations": {
+        "infrared_photometry": {
+          "band": "F480M",
+          "instrument": "JWST/NIRCam",
+          "wavelength_microns": 4.8,
+          "system": "Vega",
+          "magnitude": 13.487,
+          "error_mag": 0.005,
+          "observed_on": [
+            "2023-06-28"
+          ],
+          "reference": "Albert et al. 2025, AJ 169, 163, Tables 2 and 4",
+          "source_url": "https://arxiv.org/abs/2501.14100",
+          "scope": "Measured JWST/NIRCam F480M snapshot, not Johnson V. The same exposure gives F150W=21.316 +/- 0.014 Vega mag. Identity is confirmed by Table 4 coordinates RA=249.9258850, Dec=-68.8055121 deg at MJD 60123.90787, despite a contradictory full designation in Table 1. HST/WFC3 F127M=20.00 +/- 0.02 Vega mag on 2019-03-11 is independently reported by Fontanive et al. (2023), Tables 2-3 (https://arxiv.org/abs/2309.09923)."
         }
       }
     }

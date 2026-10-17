@@ -331,8 +331,11 @@ select:focus-visible, input:focus-visible { outline: 2px solid var(--accent); ou
 .panel-heading.objects-heading { gap: 12px; padding-right: 142px; }
 .objects-heading h2 { flex: 0 0 auto; white-space: nowrap; }
 .panel-heading .objects-expand { right: 87px; border-radius: 0; }
+.panel-heading #objects-maximize { right: 131px; border-radius: 0; }
+.panel-heading #objects-shrink { right: 175px; border-radius: 0; }
+.catalog.is-expanded .objects-heading { padding-right: 230px; }
 .control-dock[data-open="objects"][data-objects-expanded] { grid-template-columns: min(1760px, calc(100vw - 100px)) 44px; }
-.dock-card.catalog.is-expanded { width: min(1760px, calc(100vw - 100px)); height: var(--objects-height); }
+.dock-card.catalog.is-expanded { width: min(1760px, calc(100vw - 100px)); height: var(--objects-height); max-height: calc(100dvh - 52px); }
 .inspector:has(> .observer-direction-card:not([hidden])) .control-dock[data-open="objects"] .catalog { max-height: calc(100dvh - 40px - var(--observer-direction-height, 68px) - 10px); }
 .object-search { padding: 10px 14px 7px; }
 .objects-heading .object-search { flex: 1; min-width: 0; max-width: 360px; padding: 0; }
@@ -593,6 +596,9 @@ select:focus-visible, input:focus-visible { outline: 2px solid var(--accent); ou
 .mass-metric-help { padding: 0; border: 0; background: none; color: inherit; text-align: left; cursor: help; text-decoration: underline dotted var(--muted); text-underline-offset: 3px; }
 .mass-metric-tooltip { bottom: calc(100% + 8px); right: auto; left: 0; width: max-content; max-width: 100%; white-space: normal; line-height: 1.4; text-align: left; font-variant-numeric: normal; }
 .mass-metric-tooltip::before { content: ""; position: absolute; bottom: -5px; left: 14px; width: 8px; height: 8px; background: var(--panel); border-bottom: 1px solid var(--line); border-right: 1px solid var(--line); transform: rotate(45deg); }
+.mass-metric-tooltip[data-model-range] { top: calc(100% + 8px); bottom: auto; }
+.mass-metric-tooltip[data-model-range]::before { top: -5px; bottom: auto; border: 0; border-top: 1px solid var(--line); border-left: 1px solid var(--line); }
+.properties > :is(.temperature-row, .radius-row):has(.mass-metric-tooltip[data-model-range]):is(:hover, :focus-within) { z-index: 6; }
 .mass-scale-help:focus-within, .mass-scale-help:hover { z-index: 6; }
 .mass-scale-help .mass-metric-tooltip { top: calc(100% + 8px); bottom: auto; left: var(--mass-tooltip-offset, 0px); width: var(--mass-tooltip-width, 220px); max-width: none; }
 .mass-scale-help .mass-metric-tooltip::before { top: -5px; bottom: auto; left: var(--mass-tooltip-arrow, 14px); border: 0; border-top: 1px solid var(--line); border-left: 1px solid var(--line); }
@@ -644,7 +650,7 @@ select:focus-visible, input:focus-visible { outline: 2px solid var(--accent); ou
 .luminosity-factor-icon svg { width: 30px; height: 30px; }
 .luminosity-factor-quantity { align-self: start; }
 .luminosity-factor-quantity strong { display: block; font-size: 24px; line-height: 1.25; font-weight: 700; }
-.luminosity-equation #luminosity-calculated-solar { font-size: 28px; line-height: 1.25; font-weight: 700; color: var(--ink); }
+.luminosity-equation #luminosity-solar { font-size: 28px; line-height: 1.25; font-weight: 700; color: var(--ink); }
 .luminosity-equation .luminosity-long-value { font-size: 18px; }
 .luminosity-factor-unit:not([hidden]) { display: block; margin-top: 2px; font-size: var(--property-text-size); line-height: 1.25; font-weight: 400; color: var(--ink); }
 .luminosity-equation.planet-facts-grid > .luminosity-result { border-color: color-mix(in srgb, var(--luminosity-real-color) 50%, var(--line)); background: radial-gradient(ellipse at 50% 40%, color-mix(in srgb, var(--luminosity-real-color) 13%, transparent), transparent 85%), #18191a55; box-shadow: inset 0 0 18px color-mix(in srgb, var(--luminosity-real-color) 6%, transparent), 0 0 14px color-mix(in srgb, var(--luminosity-real-color) 8%, transparent); }
@@ -652,7 +658,7 @@ select:focus-visible, input:focus-visible { outline: 2px solid var(--accent); ou
 .luminosity-equation-symbol { align-self: center; text-align: center; line-height: 1.25; color: var(--accent-strong); font-size: 18px; }
 @container (max-width: 300px) {
   .luminosity-factor-quantity strong { font-size: 18px; }
-  .luminosity-equation #luminosity-calculated-solar { font-size: 24px; }
+  .luminosity-equation #luminosity-solar { font-size: 24px; }
   .luminosity-equation .luminosity-long-value { font-size: var(--property-text-size); }
 }
 .luminosity-flux-row { grid-template-columns: minmax(0, 1fr) fit-content(56%); gap: 8px; }
@@ -1037,7 +1043,14 @@ select:focus-visible, input:focus-visible { outline: 2px solid var(--accent); ou
   .dock-card { width: min(276px, calc(100vw - 80px)); max-height: calc(100dvh - 24px); }
   .control-dock[data-open="glossary"] { grid-template-columns: min(640px, calc(100vw - 80px)) 44px; }
   .control-dock[data-open="objects"][data-objects-expanded] { grid-template-columns: calc(100vw - 80px) 44px; }
-  .dock-card.catalog.is-expanded { width: calc(100vw - 80px); }
+  .dock-card.catalog.is-expanded { width: calc(100vw - 80px); max-height: calc(100dvh - 36px); }
+  .catalog.is-expanded .objects-heading { flex-wrap: wrap; gap: 0; padding: 0; }
+  .catalog.is-expanded .objects-heading h2 { flex: 0 0 100%; min-height: 44px; padding: 12px 98px 12px 14px; }
+  .catalog.is-expanded .objects-heading .object-search { flex: 1 1 0; max-width: none; margin-right: 132px; padding: 7px 10px; }
+  .catalog.is-expanded .objects-heading :is(.objects-height-control, .objects-expand) { top: 43px; }
+  .catalog.is-expanded .objects-heading .objects-expand { right: -1px; }
+  .catalog.is-expanded .objects-heading #objects-maximize { right: 43px; }
+  .catalog.is-expanded .objects-heading #objects-shrink { right: 87px; }
   .dock-card.glossary-card { width: min(640px, calc(100vw - 80px)); height: min(520px, calc(100dvh - 100px)); }
   .glossary-body { grid-template-columns: minmax(100px, 30%) minmax(0, 1fr); }
   .glossary-detail { padding: 12px 16px 16px; }

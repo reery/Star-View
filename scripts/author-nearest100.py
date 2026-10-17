@@ -310,6 +310,40 @@ def finalize_gaia_note(row, gaia_adopted, supplemented):
         row["notes"] += f" Gaia DR3 exact-ID model values for {labels}."
 
 
+def adopt_reviewed_astrometric_velocity(row, source, reviewed):
+    """Only a reviewed geometric RV may bypass white-dwarf spectral withholding."""
+    motion = reviewed.raw.get("astrometricVelocity") if reviewed else None
+    if motion is None:
+        return None
+    if (row["id"] != reviewed.identity.star_view_id or row["type"] != "white_dwarf"
+            or row["name"] != reviewed.raw["expectedName"]
+            or not reviewed.identity.gaia_dr3_id
+            or source["GaiaEDR3"] != reviewed.identity.gaia_dr3_id
+            or motion["method"] != "perspective-acceleration"):
+        raise ValueError(f"Reviewed astrometric velocity identity/method drifted: {row['id']}")
+    if any(row.get(field) for field in ("radial_velocity_kms", "vx_kms", "vy_kms", "vz_kms")):
+        raise ValueError(f"Reviewed astrometric velocity would replace existing motion: {row['id']}")
+    if not math.isfinite(motion["value"]) or not math.isfinite(motion["uncertainty"]) or motion["uncertainty"] <= 0:
+        raise ValueError(f"Invalid astrometric velocity: {row['id']}")
+    coordinate = SkyCoord(
+        ra=float(row["ra_deg"]) * units.deg, dec=float(row["dec_deg"]) * units.deg,
+        distance=1000 / float(row["parallax_mas"]) * units.pc,
+        pm_ra_cosdec=float(row["pm_ra_cosdec_masyr"]) * units.mas / units.yr,
+        pm_dec=float(row["pm_dec_masyr"]) * units.mas / units.yr,
+        radial_velocity=motion["value"] * units.km / units.s,
+    )
+    velocity = coordinate.galactic.velocity.d_xyz.to_value(units.km / units.s)
+    for field, value in zip(("vx_kms", "vy_kms", "vz_kms"), velocity, strict=True):
+        row[field] = f"{value:.6f}"
+    row.update(radial_velocity_kms=str(motion["value"]), radial_velocity_error_kms=str(motion["uncertainty"]),
+               radial_velocity_ref=motion["reference"])
+    row["notes"] = row["notes"].replace("transverse-only; unknown/withheld RV, no exported velocity",
+                                        "reviewed astrometric RV; frozen transverse-only J2000 position retained")
+    row["notes"] += " " + motion["scope"] + " Galactic velocity uses retained source astrometry; static linear motion."
+    return {**motion, "status": "measured-astrometric", "positionPolicy": "Frozen J2000 marker retained",
+            "velocityKms": dict(zip(("vx_kms", "vy_kms", "vz_kms"), map(float, velocity)))}
+
+
 def raw_astrometry(source, allow_rv=True):
     use_rv = allow_rv and source.get("RV") is not None and source.get("r_RV") is not None and source.get("ObjType") != "WD"
     astrometry_refs = list(dict.fromkeys(filter(None, (source.get("r_plx"), source.get("r_pmDE")))))
@@ -435,7 +469,7 @@ def adopt_object(source, frozen, system_counts, supplements, gaia_records, revie
     supplemented, supplement_audit = enrich_curated_row(row, supplements, gaia_adopted)
     finalize_gaia_note(row, gaia_adopted, supplemented)
     shared_enrichment = enrich_from_frozen(row)
-    reviewed_motion = enrich_reviewed_motion(row)
+    reviewed_motion = adopt_reviewed_astrometric_velocity(row, source, reviewed) or enrich_reviewed_motion(row)
     if reviewed_motion:
         for key in ("radial_velocity_kms", "radial_velocity_error_kms", "radial_velocity_ref"):
             fields[key] = field_source("measured", reviewed_motion["reference"], json.dumps(reviewed_motion, sort_keys=True))

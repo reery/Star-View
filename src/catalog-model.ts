@@ -206,6 +206,24 @@ export interface StellarObservations {
     source_url: string
     scope: string
   }
+  temperature_range?: {
+    min_k: number
+    max_k: number
+    summary: string
+    status: 'model-derived'
+    reference: string
+    source_url: string
+    scope: string
+  }
+  radius_range?: {
+    min_jupiter: number
+    max_jupiter: number
+    summary: string
+    status: 'model-derived'
+    reference: string
+    source_url: string
+    scope: string
+  }
   infrared_photometry?: {
     band: string
     instrument: string

@@ -1,5 +1,5 @@
 import './style.css'
-import { ArrowLeft, ArrowLeftRight, ArrowRight, BookOpen, ChevronUp, ChevronsLeftRight, ChevronsRightLeft, CircleHelp, Clock, Cloud, Crosshair, Earth, Eye, Filter, Focus, Grid2X2, List, Lock, Minus, Moon, Orbit, Pause, Play, Plus, RotateCcw, RotateCw, Save, Search, Settings2, Sun, X, createElement, type IconNode } from 'lucide'
+import { ArrowLeft, ArrowLeftRight, ArrowRight, BookOpen, ChevronUp, ChevronsDownUp, ChevronsLeftRight, ChevronsRightLeft, ChevronsUpDown, CircleHelp, Clock, Cloud, Crosshair, Earth, Eye, Filter, Focus, Grid2X2, List, Lock, Minus, Moon, Orbit, Pause, Play, Plus, RotateCcw, RotateCw, Save, Search, Settings2, Sun, X, createElement, type IconNode } from 'lucide'
 import { ObserverOriginIcon, OriginIcon } from './origin-icon'
 import { BUBBLE_OBJECT_TYPES, COMPACT_OBJECT_TYPES, describeObject, isBubbleObject, isCompactObject, isMolecularCloudObject, isNebulaObject, MOLECULAR_CLOUD_OBJECT_TYPES, NEBULA_OBJECT_TYPES, type Star } from './catalog-model'
 import { catalogSelection, mergeCatalogStars } from './catalog-runtime'
@@ -61,6 +61,7 @@ function sourceMeasurement<T extends Parameters<typeof catalogSourceFor>[1]>(id:
 function sourceCardTooltip(metric: 'luminosity' | 'radius' | 'temperature', star: Star, propertiesHidden: boolean): void {
   const visible = catalogSourceFor(star, metric === 'temperature' ? 'temperature_k' : `${metric}_solar`) !== undefined && !propertiesHidden
   const row = element(`${metric}-row`)
+  element(`${metric}-source-tooltip`).removeAttribute('data-model-range')
   element(`${metric}-source-tooltip`).hidden = !visible
   text(`${metric}-source-tooltip`, visible
     ? `Unresolved system value. ${star.name}’s individual ${metric} is unavailable, so the card is disabled.` : '')
@@ -104,6 +105,8 @@ icon('preferences-lock-icon', Lock)
 icon('objects-lock-icon', Lock)
 icon('objects-close-icon', X)
 icon('objects-expand-icon', ChevronsLeftRight)
+icon('objects-shrink-icon', ChevronsDownUp)
+icon('objects-maximize-icon', ChevronsUpDown)
 icon('motion-icon', Clock)
 icon('motion-lock-icon', Lock)
 const detailCardClosers = {
@@ -1555,6 +1558,16 @@ function renderSelection(): void {
     element('temperature-row').tabIndex = 0
     element('temperature-row').setAttribute('aria-describedby', 'temperature-source-tooltip')
   }
+  const temperatureRange = star.temperature_k === null ? star.stellar_observations?.temperature_range : undefined
+  if (temperatureRange && !stellarPropertiesHidden) {
+    text('temperature', `${quantity(temperatureRange.min_k, '', 0)}–${quantity(temperatureRange.max_k, 'K', 0)}`)
+    element('temperature-row').querySelector('dt')!.textContent = 'Temperature (model)'
+    element('temperature-source-tooltip').hidden = false
+    element('temperature-source-tooltip').setAttribute('data-model-range', '')
+    text('temperature-source-tooltip', temperatureRange.summary)
+    element('temperature-row').tabIndex = 0
+    element('temperature-row').setAttribute('aria-describedby', 'temperature-source-tooltip')
+  }
   element<HTMLButtonElement>('temperature-toggle').disabled = !temperatureCardAvailable(star) || stellarPropertiesHidden
   element('temperature-toggle').setAttribute('aria-label', `Explore temperature of ${star.name}`)
   if (element<HTMLButtonElement>('temperature-toggle').disabled) closeTemperatureCard()
@@ -1582,6 +1595,16 @@ function renderSelection(): void {
   else if (!element('mass-card').hidden) renderMassCard(star)
   sourceMeasurement('radius', star, 'radius_solar', (value: number | null) => quantity(value, 'R☉'))
   sourceCardTooltip('radius', star, stellarPropertiesHidden)
+  const radiusRange = star.radius_solar === null ? star.stellar_observations?.radius_range : undefined
+  element('radius-row').querySelector('dt')!.textContent = radiusRange ? 'Radius (model)' : 'Radius'
+  if (radiusRange && !stellarPropertiesHidden) {
+    text('radius', `${quantity(radiusRange.min_jupiter)}–${quantity(radiusRange.max_jupiter)} R♃`)
+    element('radius-source-tooltip').hidden = false
+    element('radius-source-tooltip').setAttribute('data-model-range', '')
+    text('radius-source-tooltip', radiusRange.summary)
+    element('radius-row').tabIndex = 0
+    element('radius-row').setAttribute('aria-describedby', 'radius-source-tooltip')
+  }
   element<HTMLButtonElement>('radius-toggle').disabled = star.radius_solar === null || stellarPropertiesHidden
   element('radius-toggle').setAttribute('aria-label', `Compare radius of ${star.name} with origin`)
   if (element<HTMLButtonElement>('radius-toggle').disabled) closeRadiusCard()
@@ -1715,7 +1738,7 @@ function renderSelection(): void {
   element('magnitude-toggle').setAttribute('aria-label', `Explore absolute and apparent magnitude of ${star.name}`)
   if (element<HTMLButtonElement>('magnitude-toggle').disabled) closeMagnitudeCard()
   else if (!element('magnitude-card').hidden) renderMagnitudeCard(star)
-  const designations = objectDesignations(star)
+  const designations = objectDesignations(star).sort((a, b) => a.localeCompare(b, 'en', { sensitivity: 'base' }))
   element('designations-row').hidden = designations.length === 0
   element('designations-empty-row').hidden = designations.length > 0
   text('designations-empty', MISSING_VALUE)
@@ -1730,9 +1753,9 @@ function renderSelection(): void {
     catalogSourceFor(star, field as Parameters<typeof catalogSourceFor>[1])).filter((source) => source !== undefined))
   if (sourceRv) sourceNotes.add(sourceRv)
   const observations = star.stellar_observations
-  const observationNotes = [observations?.mass_range, observations?.infrared_photometry, observations?.radial_velocity_review, observations?.atmosphere_temperature]
+  const observationNotes = new Set([observations?.mass_range, observations?.temperature_range, observations?.radius_range, observations?.infrared_photometry, observations?.radial_velocity_review, observations?.atmosphere_temperature]
     .filter((observation) => observation !== undefined)
-    .map((observation) => `${'scope' in observation ? observation.scope : observation.reason} ${observation.reference}: ${observation.source_url}`)
+    .map((observation) => `${'scope' in observation ? observation.scope : observation.reason} ${observation.reference}: ${observation.source_url}`))
   text('star-notes', [star.notes, ...observationNotes, ...[...sourceNotes].map((source) => `${source.scope} ${source.record.notes}`)]
     .filter(Boolean).join('\n\n') || 'No source notes available.')
   const referenceName = reference.id === 'sun' ? 'the Sun' : reference.name
@@ -2334,12 +2357,14 @@ element('objects-expand').addEventListener('click', () => {
   const search = panel.querySelector<HTMLElement>('.object-search')!
   if (expanded) {
     panel.style.setProperty('--objects-height', `${panel.getBoundingClientRect().height}px`)
-    panel.querySelector('.objects-heading')!.insertBefore(search, element('objects-expand'))
+    panel.querySelector('.objects-heading')!.insertBefore(search, element('objects-shrink'))
   } else {
     panel.insertBefore(search, element('star-list'))
     panel.style.removeProperty('--objects-height')
   }
   panel.classList.toggle('is-expanded', expanded)
+  element('objects-shrink').hidden = !expanded
+  element('objects-maximize').hidden = !expanded
   element('control-dock').toggleAttribute('data-objects-expanded', expanded)
   const button = element('objects-expand')
   const label = expanded ? 'Collapse objects list' : 'Expand objects list'
@@ -2348,6 +2373,18 @@ element('objects-expand').addEventListener('click', () => {
   button.title = label
   icon('objects-expand-icon', expanded ? ChevronsRightLeft : ChevronsLeftRight)
   objectList.setExpanded(expanded)
+  syncPanelLayout()
+}, { signal: events.signal })
+element('objects-shrink').addEventListener('click', () => {
+  const panel = element('objects-panel')
+  // Keep the heading, table header, one data row, and scrollbar accessible.
+  const minimumHeight = panel.querySelector('.objects-heading')!.getBoundingClientRect().height + 50 + 36 + 18
+  const currentHeight = panel.getBoundingClientRect().height
+  panel.style.setProperty('--objects-height', `${Math.min(currentHeight, Math.max(minimumHeight, currentHeight / 2))}px`)
+  syncPanelLayout()
+}, { signal: events.signal })
+element('objects-maximize').addEventListener('click', () => {
+  element('objects-panel').style.setProperty('--objects-height', '100dvh')
   syncPanelLayout()
 }, { signal: events.signal })
 catalogRange.addEventListener('input', () => previewCatalogRange(catalogRange.valueAsNumber), { signal: events.signal })

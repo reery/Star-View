@@ -10,7 +10,7 @@ async function select(page: Page, name: string) {
   if (await page.locator('#object-card-details').getAttribute('open') === null) await page.locator('#object-specs-toggle').click()
 }
 
-test('shows the surface-power calculation and equal-flux distances, and follows card lifecycle', { tag: '@mobile' }, async ({ page, isMobile }, testInfo) => {
+test('shows adopted luminosity with derived surface flux and equal-flux distances, and follows card lifecycle', { tag: '@mobile' }, async ({ page, isMobile }, testInfo) => {
   const errors: string[] = []
   page.on('pageerror', (error) => errors.push(error.message))
   await page.goto('/')
@@ -33,14 +33,15 @@ test('shows the surface-power calculation and equal-flux distances, and follows 
   await expect(toggle).toHaveAttribute('aria-expanded', 'true')
   await expect(page.locator('#luminosity-heading')).toHaveText('Bolometric luminosity')
   await expect(page.locator('#luminosity-area')).toHaveText('2.94')
-  await expect(page.locator('#luminosity-surface-flux')).toHaveText('8.46')
-  await expect(page.locator('#luminosity-calculated-solar')).toHaveText('24.9 L☉')
+  await expect(page.locator('#luminosity-surface-flux')).toHaveText('8.42')
+  await expect(page.locator('#luminosity-solar')).toHaveText('24.7 L☉')
   await expect(card.locator('.luminosity-equation > .planet-fact-tile')).toHaveCount(3)
   const tilePadding = await card.locator('.luminosity-equation > .planet-fact-tile').evaluateAll((tiles) => tiles.map((tile) => getComputedStyle(tile).padding))
   expect(tilePadding).toEqual(['8px 10px', '8px 10px', '8px 10px'])
   const tileTops = await card.locator('.luminosity-equation > .planet-fact-tile').evaluateAll((tiles) => tiles.map((tile) => tile.getBoundingClientRect().top))
   expect(Math.max(...tileTops) - Math.min(...tileTops)).toBeLessThan(1)
-  await expect(card.locator('.luminosity-factor-title')).toHaveText(['Surface area', 'Flux per area', 'Bolometric luminosity'])
+  await expect(card.locator('.luminosity-factor-title')).toHaveText(['Surface area', 'Surface flux', 'Bolometric luminosity'])
+  await expect(page.locator('#luminosity-calculation-note')).toHaveText('Surface flux is derived from catalog luminosity ÷ surface area.')
   await expect(page.locator('#luminosity-area-icon svg')).toBeVisible()
   await expect(page.locator('#luminosity-surface-flux-icon svg')).toBeVisible()
   await expect(page.locator('#luminosity-result-star')).toBeVisible()
@@ -132,6 +133,25 @@ test('shows the surface-power calculation and equal-flux distances, and follows 
   expect(errors).toEqual([])
 })
 
+test('matches the 61 Cyg B specs instead of recomputing luminosity from temperature', { tag: '@mobile' }, async ({ page }, testInfo) => {
+  await page.goto('/')
+  await expect(page.locator('#scene')).toHaveAttribute('data-ready', 'true')
+  await selectCatalog(page, 'nearest-100')
+  await expect(page.locator('#scene-status')).toBeHidden()
+  await page.getByRole('button', { name: 'Filter', exact: true }).click()
+  await select(page, '61 Cyg B')
+  await page.locator('#luminosity-toggle').click()
+  await expect(page.locator('#luminosity-area')).toHaveText('0.458')
+  await expect(page.locator('#luminosity-surface-flux')).toHaveText('0.206')
+  await expect(page.locator('#luminosity-solar')).toHaveText('0.0945 L☉')
+  await expect(page.locator('#luminosity')).toContainText('0.0945')
+  await expect(page.locator('#luminosity-scale-value')).toHaveText('0.0945 L☉')
+  await expect(page.locator('#luminosity-flux-selected-distance')).toHaveText('0.307 AU')
+  await expect(page.locator('#luminosity-calculation-note')).toHaveText('Surface flux is derived from catalog luminosity ÷ surface area.')
+  await expect(page.locator('#luminosity-calculation-note')).toBeVisible()
+  await page.screenshot({ path: testInfo.outputPath('luminosity-61-cyg-b.png') })
+})
+
 test('handles missing luminosity and expands the scale for an ultracool object', { tag: '@mobile' }, async ({ page }, testInfo) => {
   await page.goto('/')
   await expect(page.locator('#scene')).toHaveAttribute('data-ready', 'true')
@@ -170,7 +190,7 @@ test('handles missing luminosity and expands the scale for an ultracool object',
   await expect(page.locator('#luminosity-flux-note')).toHaveText('EZ Aquarii A has no catalog bolometric luminosity. Using the Sun’s flux at 1 AU (1,360 W/m²) as the reference.')
   await expect(page.locator('#luminosity-flux-selected-bar')).toHaveAttribute('aria-label', /receives 1,360 watts per square meter/)
   await expect(page.locator('#luminosity-distance-axis')).toBeVisible()
-  const valueFits = await page.locator('#luminosity-calculated-solar').evaluate((value) => value.scrollWidth <= value.clientWidth)
+  const valueFits = await page.locator('#luminosity-solar').evaluate((value) => value.scrollWidth <= value.clientWidth)
   expect(valueFits).toBe(true)
   await page.screenshot({ path: testInfo.outputPath('luminosity-missing-origin.png') })
 })

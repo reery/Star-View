@@ -265,6 +265,38 @@
     {
       "name": "Rains et al. 2020, Delta Pav VLTI/PIONIER radius and bolometric temperature/luminosity, Table 4 HD 190248",
       "url": "https://arxiv.org/abs/2004.02343"
+    },
+    {
+      "name": "Giammichele et al. 2012, Table 2, van Maanen 2 atmospheric and physical parameters",
+      "url": "https://arxiv.org/abs/1202.5581"
+    },
+    {
+      "name": "Burleigh et al. 2008, van Maanen 2 progenitor and total evolutionary age",
+      "url": "https://arxiv.org/abs/0801.2917"
+    },
+    {
+      "name": "Lindegren & Dravins 2021, Table 1, van Maanen 2 astrometric radial velocity",
+      "url": "https://arxiv.org/abs/2105.09014"
+    },
+    {
+      "name": "Hood et al. 2023, UGPS J0722 preferred FIRE radial velocity; unphysical retrieval radius withheld",
+      "url": "https://arxiv.org/abs/2303.04885"
+    },
+    {
+      "name": "Bochanski et al. 2011, UGPS J0722 earlier radial velocity retained as non-adopted source",
+      "url": "https://arxiv.org/abs/1109.2897"
+    },
+    {
+      "name": "Dupuy & Kraus 2013, UGPS J0722 bolometric luminosity and age-conditioned evolutionary scenarios, Table S5",
+      "url": "https://arxiv.org/abs/1309.1422"
+    },
+    {
+      "name": "Fontanive et al. 2023, WISE J1639 HST photometry and ATMO 2020 estimates, Table 3 and section 3.2",
+      "url": "https://arxiv.org/abs/2309.09923"
+    },
+    {
+      "name": "Albert et al. 2025, exact-coordinate-identified JWST infrared photometry, Tables 2 and 4",
+      "url": "https://arxiv.org/abs/2501.14100"
     }
   ],
   "cutoffPolicy": "Exclude Planet rows, aggregate system rows and source ObjType endings '?'. The only approved exceptions are Seq 27/28 (EZ Aquarii B/C): preserve vetted default membership and every default field, while retaining raw LM? classifications explicitly; this is not a new classification measurement. Keep all tentative buffer records for audit. Rank eligible individual non-Sun objects by unrounded adopted J2000 distance, then ASCII stable ID for exact ties; retain exactly 100 plus Sun. Rank 100 is GJ 229 A; nearby one-sigma distance intervals overlap, so membership is not statistically secure. Frozen 2023 source releases with preserved neighbor overrides; no 2026 completeness claim.",

@@ -1,10 +1,9 @@
 import { STELLAR_OBJECT_TYPES, type Star } from './catalog-model.ts'
 import { massComparisonClass } from './mass-classification.ts'
 
-// IAU 2015 B3 nominal luminosity/radius, IAU 2012 B2 AU, CODATA sigma.
+// IAU 2015 B3 nominal luminosity/radius and IAU 2012 B2 AU.
 export const SOLAR_LUMINOSITY_W = 3.828e26
 export const AU_METERS = 149_597_870_700
-export const STEFAN_BOLTZMANN = 5.670374419e-8
 const SOLAR_RADIUS_METERS = 695_700_000
 const SOLAR_SURFACE_AREA_M2 = 4 * Math.PI * SOLAR_RADIUS_METERS ** 2
 const SOLAR_SURFACE_FLUX = SOLAR_LUMINOSITY_W / SOLAR_SURFACE_AREA_M2
@@ -20,14 +19,14 @@ export function luminosityCardAvailable(star: LuminosityStar): boolean {
 export function luminosityProperties(star: LuminosityStar) {
   const stellar = STELLAR_OBJECT_TYPES.some((type) => type === star.type)
   const areaM2 = stellar && positiveMeasurement(star.radius_solar) ? 4 * Math.PI * (star.radius_solar * SOLAR_RADIUS_METERS) ** 2 : null
-  const surfaceFlux = stellar && positiveMeasurement(star.temperature_k) ? STEFAN_BOLTZMANN * star.temperature_k ** 4 : null
-  const calculatedWatts = areaM2 !== null && surfaceFlux !== null ? areaM2 * surfaceFlux : null
+  const catalogSolar = luminosityCardAvailable(star) ? star.luminosity_solar! : null
+  const catalogWatts = catalogSolar === null ? null : catalogSolar * SOLAR_LUMINOSITY_W
+  // Decompose the adopted luminosity; a separately sourced temperature may disagree.
+  const surfaceFlux = areaM2 !== null && catalogWatts !== null ? catalogWatts / areaM2 : null
   return {
-    areaM2, surfaceFlux, calculatedWatts,
+    areaM2, surfaceFlux, catalogSolar, catalogWatts,
     areaSolar: areaM2 === null ? null : areaM2 / SOLAR_SURFACE_AREA_M2,
     surfaceFluxSolar: surfaceFlux === null ? null : surfaceFlux / SOLAR_SURFACE_FLUX,
-    calculatedSolar: calculatedWatts === null ? null : calculatedWatts / SOLAR_LUMINOSITY_W,
-    catalogWatts: luminosityCardAvailable(star) ? star.luminosity_solar! * SOLAR_LUMINOSITY_W : null,
   }
 }
 

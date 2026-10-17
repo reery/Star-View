@@ -115,7 +115,7 @@ Examples of category-3 gaps:
 | Ross 52 A / GJ 568 A | Calibrated mass and radius | Confirm source/component applicability |
 | G 39-29 A / GJ 3304 A | Calibrated mass and radius | Confirm source/component applicability |
 | VB 24 A / GJ 1194 A | Mass, radius and luminosity | Confirm source/component applicability and uncertainties |
-| EI Cnc A / GJ 1116 A | Calibrated mass and radius | Resolve M7 versus published M5.5V classification |
+| EI Cnc A / GJ 1116 A | Reviewed mass and radius now adopted | [Dedicated A/B review](ei-cnc-enrichment.md); retain M7; use Winters masses and Pineda-based radii tabulated by Silverstein et al. |
 | HD 32450 A | Calibrated mass and radius | Resolve K7 versus published M0V classification |
 | G 250-31 A | Calibrated mass and radius | Resolve M6V versus published M4.5V classification |
 

@@ -324,9 +324,9 @@
                 <div class="planet-facts-grid luminosity-equation" role="group" aria-label="Surface area relative to the Sun times radiated power per square meter relative to the Sun equals bolometric luminosity in solar units">
                   <div class="planet-fact-tile luminosity-factor" role="group" aria-label="Surface area in solar surface areas"><h3 class="luminosity-factor-title">Surface area</h3><span id="luminosity-area-icon" class="luminosity-factor-icon" aria-hidden="true"></span><div class="luminosity-factor-quantity"><strong id="luminosity-area"></strong><span class="luminosity-factor-unit" title="Solar surface area, 4πR☉²">A☉</span></div></div>
                   <span class="luminosity-equation-symbol" aria-hidden="true">×</span>
-                  <div class="planet-fact-tile luminosity-factor" role="group" aria-label="Flux per area in solar surface fluxes"><h3 class="luminosity-factor-title">Flux per area</h3><span id="luminosity-surface-flux-icon" class="luminosity-factor-icon" aria-hidden="true"></span><div class="luminosity-factor-quantity"><strong id="luminosity-surface-flux"></strong><span class="luminosity-factor-unit" title="Solar surface flux, L☉/(4πR☉²)">F☉</span></div></div>
+                  <div class="planet-fact-tile luminosity-factor" role="group" aria-label="Derived surface flux in solar surface fluxes"><h3 class="luminosity-factor-title">Surface flux</h3><span id="luminosity-surface-flux-icon" class="luminosity-factor-icon" aria-hidden="true"></span><div class="luminosity-factor-quantity"><strong id="luminosity-surface-flux"></strong><span class="luminosity-factor-unit" title="Solar surface flux, L☉/(4πR☉²)">F☉</span></div></div>
                   <span class="luminosity-equation-symbol" aria-hidden="true">=</span>
-                  <div class="planet-fact-tile luminosity-factor luminosity-result"><h3 class="luminosity-factor-title">Bolometric luminosity</h3><span class="luminosity-factor-icon" aria-hidden="true"><span id="luminosity-result-star"></span></span><strong id="luminosity-calculated-solar" class="luminosity-factor-quantity"><span id="luminosity-calculated-value"></span><span id="luminosity-calculated-unit" class="luminosity-factor-unit"> L☉</span></strong></div>
+                  <div class="planet-fact-tile luminosity-factor luminosity-result" title="Adopted catalog luminosity, as shown in the object specifications"><h3 class="luminosity-factor-title">Bolometric luminosity</h3><span class="luminosity-factor-icon" aria-hidden="true"><span id="luminosity-result-star"></span></span><strong id="luminosity-solar" class="luminosity-factor-quantity"><span id="luminosity-value"></span><span id="luminosity-unit" class="luminosity-factor-unit"> L☉</span></strong></div>
                 </div>
                 <p id="luminosity-calculation-note" class="mass-note" hidden></p>
                 <section class="mass-section" aria-labelledby="luminosity-flux-heading">
@@ -363,11 +363,11 @@
                   </div>
                 </section>
                 <details class="mass-method"><summary>Calculations &amp; sources</summary>
-                  <p>Surface area × power per m² = 4πR² × σT<sub>eff</sub>⁴. Both factors are shown relative to the Sun: solar surface area A☉ = 4πR☉² and solar power per m² F☉ = L☉/A☉. Their product gives luminosity in L☉. T is the catalog effective temperature. This is a spherical photosphere calculation; the spectrum need not be an exact blackbody. Radius, temperature and luminosity can come from different measured or model-derived sources and need not agree exactly. The catalog luminosity is retained for both comparisons and scales; missing radius or temperature is not inferred.</p>
+                  <p>The result is the adopted catalog bolometric luminosity, matching the object specifications, comparisons and scales. It may be measured, estimated or model-derived; it is not an exact known value. Surface area A = 4πR² uses the catalog radius, assuming a spherical photosphere. Mean surface flux F = L/A is derived from that luminosity and area, not measured independently. The factors are shown relative to solar surface area A☉ = 4πR☉² and solar surface flux F☉ = L☉/A☉, so (A/A☉) × (F/F☉) = L/L☉. This illustrates how the catalog luminosity is distributed across the surface; it does not independently determine luminosity. A separately sourced temperature is not used to recompute L. Missing radius leaves both factors unavailable while retaining the catalog luminosity.</p>
                   <p>Incident flux F = L/(4πd²). To match the origin’s flux at 1 AU, d = √(L/L<sub>origin</sub>) AU. When the origin’s flux is unavailable, the Sun’s flux at 1 AU is used instead. Distances share a linear scale from the star’s center. Flux is measured above an atmosphere on a surface facing the star, not averaged over Earth. Equal bolometric flux does not imply the same spectrum, climate or habitability. These comparisons omit extinction, variability and companion illumination; distances inside a known photosphere are unavailable. Orbit comparisons use the closest Solar System planet’s semi-major axis, Mercury through Neptune, only within 20%; these are orbital sizes, not current planet positions.</p>
                   <p>Both luminosity scales are logarithmic. The broad scale spans 10⁻⁶–10⁶ L☉ and expands for outliers; these endpoints are display limits. Marker color follows the app’s stellar color setting, not luminosity.</p>
                   <p id="luminosity-class-method"></p><a id="luminosity-class-source" target="_blank" rel="noreferrer" hidden></a>
-                  <p>1 L☉ = 3.828 × 10²⁶ W; R☉ = 695,700 km; 1 AU = 149,597,870,700 m; σ = 5.670374419 × 10⁻⁸ W m⁻² K⁻⁴. The nominal solar luminosity gives approximately 1,361 W/m² at 1 AU. Displayed values use three significant digits.</p>
+                  <p>1 L☉ = 3.828 × 10²⁶ W; R☉ = 695,700 km; 1 AU = 149,597,870,700 m. The nominal solar luminosity gives approximately 1,361 W/m² at 1 AU. Displayed values use three significant digits.</p>
                   <a href="https://arxiv.org/abs/1510.07674" target="_blank" rel="noreferrer">IAU nominal solar constants ↗</a> · <a href="https://lhea.gsfc.nasa.gov/archive/mwmw/mmw_bbody.html" target="_blank" rel="noreferrer">NASA: radiation laws ↗</a> · <a href="https://ssd.jpl.nasa.gov/planets/approx_pos.html" target="_blank" rel="noreferrer">JPL: planetary orbits ↗</a>
                 </details>
               </div>
@@ -711,6 +711,8 @@
               <section id="objects-panel" class="dock-card catalog" aria-labelledby="catalog-heading" hidden>
                 <div class="panel-heading objects-heading">
                   <h2 id="catalog-heading">Objects <span id="catalog-count"></span></h2>
+                  <button id="objects-shrink" class="panel-lock objects-height-control" type="button" aria-label="Halve objects card height" aria-controls="objects-panel" title="Halve objects card height" hidden><span id="objects-shrink-icon"></span></button>
+                  <button id="objects-maximize" class="panel-lock objects-height-control" type="button" aria-label="Maximize objects card height" aria-controls="objects-panel" title="Maximize objects card height" hidden><span id="objects-maximize-icon"></span></button>
                   <button id="objects-expand" class="panel-lock objects-expand" type="button" aria-label="Expand objects list" aria-expanded="false" aria-controls="object-database" title="Expand objects list"><span id="objects-expand-icon"></span></button>
                   <button id="objects-lock" class="panel-lock" type="button" aria-label="Keep Objects open" aria-pressed="false"><span id="objects-lock-icon"></span></button>
                   <button id="objects-close" class="panel-lock" type="button" aria-label="Close objects card"><span id="objects-close-icon"></span></button>
@@ -798,7 +800,7 @@
                   <div><dt>License</dt><dd>MIT</dd></div>
                   <div><dt>Sky image</dt><dd><a href="https://www.eso.org/public/images/eso0932a/" target="_blank" rel="noreferrer">ESO/S. Brunier</a><br><span class="attribution-note">resized and dimmed · <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noreferrer">CC BY 4.0</a></span></dd></div>
                   <div><dt>Catalog updated</dt><dd><time datetime="2026-10-16">16 October 2026</time></dd></div>
-                  <div><dt>Version</dt><dd>v0.5</dd></div>
+                  <div><dt>Version</dt><dd>v0.6</dd></div>
                 </dl>
               </section>
             </div>

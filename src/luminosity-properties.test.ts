@@ -11,29 +11,46 @@ const sun: Star = {
 }
 
 describe('bolometric luminosity physics and class references', () => {
-  it('recovers the solar power from the nominal radius and effective temperature', () => {
+  it('decomposes adopted luminosity into area and mean surface flux in solar units', () => {
     const properties = luminosityProperties(sun)
     expect(properties.areaM2! / 1e18).toBeCloseTo(6.0821, 3)
-    expect(properties.surfaceFlux! / 1e6).toBeCloseTo(62.9386, 3)
+    expect(properties.surfaceFlux! / 1e6).toBeCloseTo(62.9387, 3)
     expect(properties.areaSolar).toBe(1)
     expect(properties.surfaceFluxSolar).toBeCloseTo(1, 4)
-    expect(properties.areaSolar! * properties.surfaceFluxSolar!).toBeCloseTo(properties.calculatedSolar!, 12)
-    expect(properties.calculatedSolar).toBeCloseTo(1, 4)
+    expect(properties.areaSolar! * properties.surfaceFluxSolar!).toBeCloseTo(properties.catalogSolar!, 12)
+    expect(properties.catalogSolar).toBe(1)
     expect(properties.catalogWatts).toBe(3.828e26)
     expect(SOLAR_FLUX_AT_AU).toBeCloseTo(1361.166, 3)
-    const largerHotterStar = luminosityProperties({ ...sun, radius_solar: 2, temperature_k: sun.temperature_k! * 2 })
-    expect(largerHotterStar.areaSolar).toBe(4)
-    expect(largerHotterStar.surfaceFluxSolar).toBeCloseTo(16, 3)
-    expect(largerHotterStar.areaSolar! * largerHotterStar.surfaceFluxSolar!).toBeCloseTo(largerHotterStar.calculatedSolar!, 12)
+    const largerStar = luminosityProperties({ ...sun, radius_solar: 2, luminosity_solar: 64 })
+    expect(largerStar.areaSolar).toBe(4)
+    expect(largerStar.surfaceFluxSolar).toBeCloseTo(16, 12)
+    expect(largerStar.areaSolar! * largerStar.surfaceFluxSolar!).toBeCloseTo(largerStar.catalogSolar!, 12)
   })
 
-  it('keeps catalog luminosity separate from a disagreeing R/T calculation and preserves missing inputs', () => {
-    const properties = luminosityProperties({ ...sun, luminosity_solar: 4 })
-    expect(properties.calculatedSolar).toBeCloseTo(1, 4)
-    expect(properties.catalogWatts).toBe(4 * 3.828e26)
-    expect(luminosityProperties({ ...sun, radius_solar: null }).calculatedWatts).toBeNull()
-    expect(luminosityProperties({ ...sun, temperature_k: null }).surfaceFlux).toBeNull()
-    expect(luminosityProperties({ ...sun, temperature_k: null }).catalogWatts).toBe(3.828e26)
+  it('uses 61 Cyg B catalog luminosity despite an independently estimated temperature', () => {
+    const star = { ...sun, luminosity_solar: 0.09445296, radius_solar: 0.6768412, temperature_k: 4100 }
+    const properties = luminosityProperties(star)
+    expect(properties.catalogSolar).toBe(0.09445296)
+    expect(properties.areaSolar).toBeCloseTo(0.458114, 6)
+    expect(properties.surfaceFluxSolar).toBeCloseTo(0.206178, 6)
+    expect(properties.areaSolar! * properties.surfaceFluxSolar!).toBeCloseTo(star.luminosity_solar, 12)
+    expect(luminosityProperties({ ...star, temperature_k: null })).toEqual(properties)
+    expect(luminosityProperties({ ...star, temperature_k: 3889.6328 })).toEqual(properties)
+  })
+
+  it('retains luminosity without radius and never invents missing luminosity', () => {
+    const missingRadius = luminosityProperties({ ...sun, radius_solar: null })
+    expect(missingRadius.areaSolar).toBeNull()
+    expect(missingRadius.surfaceFlux).toBeNull()
+    expect(missingRadius.catalogSolar).toBe(1)
+    expect(missingRadius.catalogWatts).toBe(3.828e26)
+    for (const luminosity_solar of [null, 0, -1, Infinity, NaN]) {
+      const missingLuminosity = luminosityProperties({ ...sun, luminosity_solar })
+      expect(missingLuminosity.catalogSolar).toBeNull()
+      expect(missingLuminosity.catalogWatts).toBeNull()
+      expect(missingLuminosity.surfaceFlux).toBeNull()
+      expect(missingLuminosity.surfaceFluxSolar).toBeNull()
+    }
   })
 
   it('puts brighter stars farther away and dimmer stars closer to match a given flux', () => {

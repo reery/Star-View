@@ -85,16 +85,15 @@ export function renderLuminosityCard(card: HTMLElement, star: Star, origin: Star
   const properties = luminosityProperties(star)
   set('luminosity-area', factor(properties.areaSolar))
   set('luminosity-surface-flux', factor(properties.surfaceFluxSolar))
-  set('luminosity-calculated-value', factor(properties.calculatedSolar))
-  for (const id of ['luminosity-area', 'luminosity-surface-flux', 'luminosity-calculated-value']) {
+  set('luminosity-value', factor(properties.catalogSolar))
+  for (const id of ['luminosity-area', 'luminosity-surface-flux', 'luminosity-value']) {
     get(id).classList.toggle('luminosity-long-value', get(id).textContent!.length > 5)
   }
-  get('luminosity-calculated-unit').hidden = properties.calculatedSolar === null
-  const missing = [properties.areaM2 === null ? 'radius' : '', properties.surfaceFlux === null ? 'effective temperature' : ''].filter(Boolean)
-  const difference = properties.calculatedSolar === null ? 0 : Math.abs(properties.calculatedSolar / luminosity - 1)
-  set('luminosity-calculation-note', missing.length ? `Catalog ${missing.join(' and ')} unavailable; the surface calculation cannot be completed.`
-    : difference > 0.05 ? `Catalog R, T and L differ by ${number(difference * 100)}%; comparisons use catalog L.` : '')
-  get('luminosity-calculation-note').hidden = !get('luminosity-calculation-note').textContent
+  get('luminosity-unit').hidden = properties.catalogSolar === null
+  set('luminosity-calculation-note', properties.areaM2 === null
+    ? 'Radius unavailable; surface area and surface flux cannot be derived. Catalog luminosity is shown.'
+    : 'Surface flux is derived from catalog luminosity ÷ surface area.')
+  get('luminosity-calculation-note').hidden = false
 
   const originFlux = originFluxAtAu(origin)
   const reference = originFlux === null ? sun : origin

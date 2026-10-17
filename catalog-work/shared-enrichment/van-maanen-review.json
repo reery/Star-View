@@ -1,0 +1,400 @@
+{
+  "schemaVersion": 1,
+  "reviewed": "2026-10-17",
+  "starViewId": "10pc-0073",
+  "gaiaDr3Id": "2552928187080872832",
+  "before": {
+    "src/data/catalogs/nearest-100/stars.csv": {
+      "type": "white_dwarf",
+      "id": "10pc-0073",
+      "name": "van Maanen's Star",
+      "spectral_type": "DZ",
+      "x_pc": "-1.225017169",
+      "y_pc": "1.969635077",
+      "z_pc": "-3.637888310",
+      "vx_kms": "",
+      "vy_kms": "",
+      "vz_kms": "",
+      "temperature_k": "",
+      "mass_solar": "",
+      "luminosity_solar": "",
+      "radius_solar": "",
+      "metallicity_dex": "",
+      "age_gyr": "",
+      "metallicity_kind": "",
+      "absolute_mag": "14.199380",
+      "epoch": "2000.0",
+      "notes": "10pc census (2023-08-25), object 73, system 34; Wolf 28. J2000 Sun-relative Galactic position via Astropy; transverse-only; unknown/withheld RV, no exported velocity. No appropriate object-specific temperature adopted; dwarf sequence not applied. Absolute Johnson V derived from 10pc Vmag=12.374 and adopted distance; negligible extinction assumed. Photometric epoch, uncertainty and individual V bibliography not supplied by compilation. No orbital model.",
+      "constellation": "Pisces",
+      "ra_deg": "12.29674025",
+      "dec_deg": "5.376556608",
+      "astrometry_epoch": "2016.0",
+      "parallax_mas": "231.78",
+      "parallax_error_mas": "0.0183",
+      "pm_ra_cosdec_masyr": "1231.399465379",
+      "pm_ra_error_masyr": "0.022946512",
+      "pm_dec_masyr": "-2711.882504485",
+      "pm_dec_error_masyr": "0.019384578",
+      "radial_velocity_kms": "",
+      "radial_velocity_error_kms": "",
+      "astrometry_ref": "2020yCat.1350....0G",
+      "radial_velocity_ref": ""
+    },
+    "src/data/catalogs/nearest-1000/stars.csv": {
+      "type": "white_dwarf",
+      "id": "10pc-0073",
+      "name": "van Maanen's Star",
+      "designations": "",
+      "spectral_type": "DZ",
+      "x_pc": "-1.225017169",
+      "y_pc": "1.969635077",
+      "z_pc": "-3.637888310",
+      "vx_kms": "",
+      "vy_kms": "",
+      "vz_kms": "",
+      "temperature_k": "",
+      "mass_solar": "",
+      "luminosity_solar": "",
+      "radius_solar": "",
+      "metallicity_dex": "",
+      "metallicity_kind": "",
+      "age_gyr": "",
+      "absolute_mag": "14.199380",
+      "epoch": "2000.0",
+      "notes": "10pc census (2023-08-25), object 73, system 34; Wolf 28. J2000 Sun-relative Galactic position via Astropy; transverse-only; unknown/withheld RV, no exported velocity. No appropriate object-specific temperature adopted; dwarf sequence not applied. Absolute Johnson V derived from 10pc Vmag=12.374 and adopted distance; negligible extinction assumed. Photometric epoch, uncertainty and individual V bibliography not supplied by compilation. No orbital model.",
+      "constellation": "Pisces",
+      "ra_deg": "12.29674025",
+      "dec_deg": "5.376556608",
+      "astrometry_epoch": "2016.0",
+      "parallax_mas": "231.78",
+      "parallax_error_mas": "0.0183",
+      "pm_ra_cosdec_masyr": "1231.399465379",
+      "pm_ra_error_masyr": "0.022946512",
+      "pm_dec_masyr": "-2711.882504485",
+      "pm_dec_error_masyr": "0.019384578",
+      "radial_velocity_kms": "",
+      "radial_velocity_error_kms": "",
+      "astrometry_ref": "2020yCat.1350....0G",
+      "radial_velocity_ref": ""
+    }
+  },
+  "beforeProvenance": {
+    "id": "10pc-0073",
+    "sourceRow": "73",
+    "systemId": "34",
+    "sourceObjectName": "Wolf 28",
+    "sourceObjectType": "WD",
+    "identifiers": {
+      "GaiaEDR3": "2552928187080872832",
+      "GaiaDR2": "2552928187080872832",
+      "SIMBAD": "Wolf 28",
+      "GJ": "GJ 35",
+      "HIP": "HIP 3829"
+    },
+    "sourceMeasurements": {
+      "RAdeg": "12.29674025",
+      "DEdeg": "5.376556608",
+      "Epoch": "2016.0",
+      "plx": "231.78",
+      "e_plx": "0.0183",
+      "r_plx": "2020yCat.1350....0G",
+      "pmRA": "1231.399465379",
+      "e_pmRA": "0.022946512",
+      "pmDE": "-2711.882504485",
+      "e_pmDE": "0.019384578",
+      "r_pmDE": "2020yCat.1350....0G",
+      "RV": "15.0",
+      "e_RV": "20.0",
+      "r_RV": "1993AJ....105.1033A",
+      "SpType": "DZ",
+      "r_SpType": "2017AJ....154...32S",
+      "SpMethod": "Opt Spec",
+      "Vmag": "12.374",
+      "r_Sys": null,
+      "Com": "..."
+    },
+    "adoptedJ2000": {
+      "frame": "ICRS",
+      "raDeg": 12.291243069683015,
+      "decDeg": 5.388609394297553,
+      "distancePc": 4.314436319612061,
+      "method": "transverse-only; unknown/withheld RV, no exported velocity"
+    },
+    "fields": {
+      "type": {
+        "status": "compiled",
+        "sourceRefs": [
+          "10pc:tablea1:Seq=73:ObjType"
+        ]
+      },
+      "id": {
+        "status": "assigned",
+        "sourceRefs": [
+          "10pc:tablea1:Seq=73"
+        ],
+        "detail": "Stable component identity; existing shared IDs take precedence."
+      },
+      "name": {
+        "status": "compiled",
+        "sourceRefs": [
+          "10pc:tablea1:Seq=73"
+        ]
+      },
+      "spectral_type": {
+        "status": "compiled",
+        "sourceRefs": [
+          "10pc:tablea1:Seq=73:SpType"
+        ],
+        "detail": "2017AJ....154...32S"
+      },
+      "x_pc": {
+        "status": "derived",
+        "sourceRefs": [
+          "10pc:tablea1:Seq=73:RAdeg,DEdeg,Epoch,plx,pmRA,pmDE,RV"
+        ],
+        "detail": "transverse-only; unknown/withheld RV, no exported velocity"
+      },
+      "y_pc": {
+        "status": "derived",
+        "sourceRefs": [
+          "10pc:tablea1:Seq=73:RAdeg,DEdeg,Epoch,plx,pmRA,pmDE,RV"
+        ],
+        "detail": "transverse-only; unknown/withheld RV, no exported velocity"
+      },
+      "z_pc": {
+        "status": "derived",
+        "sourceRefs": [
+          "10pc:tablea1:Seq=73:RAdeg,DEdeg,Epoch,plx,pmRA,pmDE,RV"
+        ],
+        "detail": "transverse-only; unknown/withheld RV, no exported velocity"
+      },
+      "vx_kms": {
+        "status": "unknown",
+        "sourceRefs": [
+          "10pc:tablea1:Seq=73:pmRA,pmDE,RV"
+        ],
+        "detail": "Incomplete/withheld space-motion inputs; placeholders are not exported."
+      },
+      "vy_kms": {
+        "status": "unknown",
+        "sourceRefs": [
+          "10pc:tablea1:Seq=73:pmRA,pmDE,RV"
+        ],
+        "detail": "Incomplete/withheld space-motion inputs; placeholders are not exported."
+      },
+      "vz_kms": {
+        "status": "unknown",
+        "sourceRefs": [
+          "10pc:tablea1:Seq=73:pmRA,pmDE,RV"
+        ],
+        "detail": "Incomplete/withheld space-motion inputs; placeholders are not exported."
+      },
+      "temperature_k": {
+        "status": "unknown",
+        "sourceRefs": [],
+        "detail": "No appropriate object-specific temperature adopted; dwarf sequence not applied."
+      },
+      "mass_solar": {
+        "status": "unknown",
+        "sourceRefs": [],
+        "detail": "No vetted component measurement adopted; mean-sequence values are not substituted."
+      },
+      "luminosity_solar": {
+        "status": "unknown",
+        "sourceRefs": [],
+        "detail": "No vetted component measurement adopted; mean-sequence values are not substituted."
+      },
+      "absolute_mag": {
+        "status": "derived",
+        "sourceRefs": [
+          "10pc:tablea1:Seq=73:Vmag"
+        ],
+        "detail": "Absolute Johnson V derived from 10pc Vmag=12.374 and adopted distance; negligible extinction assumed. Photometric epoch, uncertainty and individual V bibliography not supplied by compilation."
+      },
+      "epoch": {
+        "status": "adopted",
+        "sourceRefs": [],
+        "detail": "Static J2000.0 snapshot; source decimal years treated as Julian years TT."
+      },
+      "notes": {
+        "status": "compiled",
+        "sourceRefs": [
+          "10pc:tablea1:Seq=73"
+        ]
+      },
+      "constellation": {
+        "status": "derived",
+        "sourceRefs": [
+          "astropy:7.1.1:Roman1987"
+        ],
+        "detail": "ICRS snapshot direction transformed to B1875 boundary coordinates; no physical motion to 1875. Canonical spelling normalization applied."
+      },
+      "ra_deg": {
+        "status": "compiled",
+        "sourceRefs": [
+          "10pc:tablea1:Seq=73:RAdeg"
+        ]
+      },
+      "dec_deg": {
+        "status": "compiled",
+        "sourceRefs": [
+          "10pc:tablea1:Seq=73:DEdeg"
+        ]
+      },
+      "astrometry_epoch": {
+        "status": "compiled",
+        "sourceRefs": [
+          "10pc:tablea1:Seq=73:Epoch"
+        ]
+      },
+      "parallax_mas": {
+        "status": "compiled",
+        "sourceRefs": [
+          "10pc:tablea1:Seq=73:plx"
+        ]
+      },
+      "parallax_error_mas": {
+        "status": "compiled",
+        "sourceRefs": [
+          "10pc:tablea1:Seq=73:e_plx"
+        ]
+      },
+      "pm_ra_cosdec_masyr": {
+        "status": "compiled",
+        "sourceRefs": [
+          "10pc:tablea1:Seq=73:pmRA"
+        ]
+      },
+      "pm_ra_error_masyr": {
+        "status": "compiled",
+        "sourceRefs": [
+          "10pc:tablea1:Seq=73:e_pmRA"
+        ]
+      },
+      "pm_dec_masyr": {
+        "status": "compiled",
+        "sourceRefs": [
+          "10pc:tablea1:Seq=73:pmDE"
+        ]
+      },
+      "pm_dec_error_masyr": {
+        "status": "compiled",
+        "sourceRefs": [
+          "10pc:tablea1:Seq=73:e_pmDE"
+        ]
+      },
+      "radial_velocity_kms": {
+        "status": "unknown",
+        "sourceRefs": [
+          "10pc:tablea1:Seq=73:RV"
+        ]
+      },
+      "radial_velocity_error_kms": {
+        "status": "unknown",
+        "sourceRefs": [
+          "10pc:tablea1:Seq=73:e_RV"
+        ]
+      },
+      "astrometry_ref": {
+        "status": "compiled",
+        "sourceRefs": [
+          "10pc:tablea1:Seq=73:r_plx,r_pmDE"
+        ]
+      },
+      "radial_velocity_ref": {
+        "status": "unknown",
+        "sourceRefs": [
+          "10pc:tablea1:Seq=73:r_RV"
+        ]
+      },
+      "radius_solar": {
+        "status": "unknown",
+        "sourceRefs": []
+      },
+      "metallicity_dex": {
+        "status": "unknown",
+        "sourceRefs": []
+      },
+      "age_gyr": {
+        "status": "unknown",
+        "sourceRefs": []
+      },
+      "metallicity_kind": {
+        "status": "unknown",
+        "sourceRefs": []
+      }
+    },
+    "overrides": [],
+    "physicalSupplements": {
+      "identity": {
+        "cns5_id": "240",
+        "simbad_id": "Wolf   28",
+        "twomass": "00490996+0523173",
+        "gaia_dr2": "2552928187080872832",
+        "identity_method": "nearest-100 source row; frozen CNS5 match; exact SIMBAD CNS5 identity"
+      },
+      "eligibility": "Not a parsed K5-M9.5 dwarf spectral type (no subdwarf, giant, composite or peculiar class); supplements not applied."
+    }
+  },
+  "effectiveComponentRecord": null,
+  "effectiveComponentScope": "Solitary object; no separate stellar-companions entry before this review. Both nearby catalogs supply the effective selected record.",
+  "physicalSource": {
+    "reference": "2012ApJS..199...29G:Table 2",
+    "url": "https://arxiv.org/pdf/1202.5581",
+    "row": {
+      "WD": "0046+051",
+      "TeffK": 6215,
+      "TeffErrorK": 183,
+      "loggCgs": 8.16,
+      "loggError": 0.03,
+      "massSolar": 0.68,
+      "massErrorSolar": 0.02,
+      "atmosphere": "He",
+      "absoluteV": 14.17,
+      "logLuminositySolar": -3.77,
+      "distancePc": 4.41,
+      "distanceErrorPc": 0.1,
+      "coolingAgeGyr": 3.3
+    },
+    "adoption": "Only physical T, M and L, plus radius from L/T; original parallax retained for that published physical fit. Catalog astrometry and V are unchanged; cooling age is not total age."
+  },
+  "progenitorSource": {
+    "reference": "2008MNRAS.386L...5B:Table 1;Sections 4.1,5",
+    "url": "https://arxiv.org/pdf/0801.2917",
+    "row": {
+      "temperatureK": 6030,
+      "temperatureErrorK": 240,
+      "massSolar": 0.633,
+      "massErrorSolar": 0.022,
+      "coolingAgeGyr": 3.17,
+      "coolingAgeErrorGyr": 0.29,
+      "progenitorMassSolar": 2.6,
+      "mainSequenceLifetimeGyr": 0.9,
+      "totalAgeGyr": 4.1,
+      "conservativeTotalAgeErrorGyr": 1.0,
+      "maximumGiantRadiusAu": 4.6
+    },
+    "scope": "Separate older evolutionary model; not recomputed from adopted 2012 remnant mass."
+  },
+  "radialVelocitySource": {
+    "reference": "2021A&A...652A..45L:Table 1;Section 5.1",
+    "url": "https://arxiv.org/pdf/2105.09014",
+    "row": {
+      "HIP": 3829,
+      "name": "Wolf 28",
+      "astrometricRadialVelocityKms": -11.74,
+      "formalErrorKms": 7.11,
+      "epoch": 2016.0,
+      "chiSquared": 1.7,
+      "degreesOfFreedom": 4,
+      "legacySpectroscopicVelocityKms": 263
+    },
+    "adoption": "Astrometric perspective-acceleration value only; no spectral redshift correction required. Formal errors retained; uniform rectilinear motion assumption."
+  },
+  "withheld": {
+    "metallicity_dex": "Accreted atmospheric metals do not represent ordinary stellar [Fe/H].",
+    "luminosityUncertainty": "Not reported in adopted Table 2.",
+    "radiusUncertainty": "Cannot derive an independent uncertainty from correlated atmosphere-fit parameters.",
+    "legacyRadialVelocity": "The +263 km/s value traces to one unreliable 1920s spectrum; no encounter claim is adopted."
+  }
+}

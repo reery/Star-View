@@ -26585,28 +26585,7 @@
     "cns5-1900": {},
     "cns5-2182": {},
     "cns5-2183": {},
-    "10pc-0114": {
-      "mass_solar": {
-        "source": "2025A&A...693A.228C:Table A.1",
-        "recordId": "1037",
-        "method": "published component measurement/calibration estimate"
-      },
-      "radius_solar": {
-        "source": "2025A&A...693A.228C:Table A.1",
-        "recordId": "1037",
-        "method": "published component measurement/calibration estimate"
-      },
-      "luminosity_solar": {
-        "field": "luminosity_solar",
-        "value": 0.0006570487534,
-        "status": "derived",
-        "reference": "Stefan-Boltzmann scaling",
-        "inputs": {
-          "temperature_k": 2680.0,
-          "radius_solar": 0.1189
-        }
-      }
-    },
+    "10pc-0114": {},
     "cns5-2293": {},
     "cns5-2295": {},
     "cns5-0021": {
@@ -48856,9 +48835,9 @@
     "available": {
       "spectral_type": 595,
       "temperature_k": 469,
-      "mass_solar": 321,
-      "luminosity_solar": 295,
-      "radius_solar": 301,
+      "mass_solar": 322,
+      "luminosity_solar": 296,
+      "radius_solar": 302,
       "metallicity_dex": 290,
       "age_gyr": 93,
       "absolute_mag": 530
@@ -50231,9 +50210,6 @@
         "age_gyr"
       ],
       "10pc-0113": [
-        "mass_solar",
-        "luminosity_solar",
-        "radius_solar",
         "age_gyr",
         "absolute_mag"
       ],
@@ -54418,9 +54394,9 @@
   },
   "coverage": {
     "temperature_k": 469,
-    "mass_solar": 321,
-    "luminosity_solar": 295,
-    "radius_solar": 301,
+    "mass_solar": 322,
+    "luminosity_solar": 296,
+    "radius_solar": 302,
     "metallicity_dex": 290,
     "age_gyr": 93
   },
@@ -54430,8 +54406,8 @@
     "src/data/object-stats.json": "642d5bf070e7ab685ceac280896a934163b47cb39a977823e69e9854bd9f4d00",
     "src/data/catalogs/bright-stars/stars.csv": "b643a244ca07093ba1e84b1b4cd945a189309d7a16de49f35554826050b6e053",
     "src/data/catalogs/famous-cluster-stars/stars.csv": "b1bc0a3a492b3d4c9ee3330b5e80a4572d4bf95d1119f8062849d59cb430fa0f",
-    "src/data/catalogs/nearest-100/stars.csv": "cff17df64b2d9eda930ff45e2c62740a733923c42ca97bede8448cb416259cdd",
-    "src/data/catalogs/nearest-1000/stars.csv": "387864edee873bbba52b7778139895d4793298493e7a317f495c15af5ccc0c35",
+    "src/data/catalogs/nearest-100/stars.csv": "c68a33aac13d9da8f2e0b4b1ae0a7bf2257b1c414f3c86159230672bd384ff0a",
+    "src/data/catalogs/nearest-1000/stars.csv": "59e1f71f9469fdaf7de145d442ac658be2d2a2c7ad069e34d576cc7c92629e87",
     "src/data/catalogs/western-constellation-stars/stars.csv": "288d7062e17637bcbbb3a03d02de594558742b9ae7e7bcdf9d205a76af4dcbc4",
     "src/data/stars.csv": "a2d6b4e7ab8c67779a470dadbd8170e4eb4e8c9bbf46f73f30ce2e522d33436e",
     "catalog-work/star-systems/catalog-companions-msc.json": "b81210724ff9914c3c286c5971155df5bf20613252baaa9472eee085f0cd0f41",
@@ -54461,8 +54437,8 @@
     "catalog-work/star-systems/literature-components/piccotti-2020-table7.dat": "ce64da40f7d8aea35ffdba9ee16541323622430ee9d671880b81c467c0b0e1d2",
     "catalog-work/star-systems/component-gap-adoptions.json": "1a85f8171211ecfbe16809bf8c400341ddeced623994b958b2d38d4fc09d4537",
     "catalog-work/star-systems/component-gap-literature-review.json": "cf48db55ac96e9b22e4b212b02f49f1af08b407c10bf38ee5e88e71aec03b8eb",
-    "catalog-work/nearest-100/physical-overrides.json": "21125920c7039be1394dda156d0b8c6db962f98b03c86b7a3f602e893e3f5872",
-    "catalog-work/shared-enrichment/source-manifest.json": "d621cff54d4fb040a005fc88eaa7296f43055e77e0b26852d7591bde5824fee3",
+    "catalog-work/nearest-100/physical-overrides.json": "9bbfe6982d5fad43b205a5cbf36fc9bb3ac967d285959292cc544abd3f1bd297",
+    "catalog-work/shared-enrichment/source-manifest.json": "4ecadb31d72afc48f1deb32f3f501def9e2b043dfc62222f50709eaad961926f",
     "catalog-work/star-systems/reviewed-unresolved-photometry.json": "291165120291df05fe0c334b4623e6aaa6f75fc0a729786ae0f7f0a7d2100209"
   }
 }

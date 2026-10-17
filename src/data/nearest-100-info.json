@@ -300,20 +300,50 @@
     },
     "10pc-0068": {
       "name": "UGPS J0722−0540",
-      "introduction": "is an exceptionally cool T-type brown dwarf in Monoceros, about 13 light-years away. Its full catalog designation is UGPS J072227.51−054031.2.",
+      "introduction": "is a cold T-type brown dwarf in Monoceros, discovered through UKIDSS in 2010, about 13 light-years away.",
       "wikipedia": "https://en.wikipedia.org/wiki/UGPS_J072227.51%E2%88%92054031.2",
       "sections": [
         {
-          "id": "1",
-          "title": "An infrared discovery",
-          "text": "Announced in 2010 from the UKIRT Infrared Deep Sky Survey, it was initially thought even closer. Subsequent parallax measurements placed it farther away while retaining its status as a very nearby cold brown dwarf."
+          "id": "3",
+          "title": "Conditional physical estimates",
+          "text": "Its bolometric luminosity is about 0.00000063 times the Sun’s. At assumed ages of 1 and 5 billion years, evolutionary models give 502/539 K, 10.7/25.8 Jupiter masses and 1.0192/0.886 Jupiter radii, respectively. The displayed ranges connect these scenarios; age is unmeasured.",
+          "source": {
+            "title": "Dupuy & Kraus 2013, Science 341, 1492, Table S5",
+            "url": "https://arxiv.org/pdf/1309.1422"
+          }
         },
         {
-          "id": "2",
-          "title": "A giant-planet-like atmosphere",
-          "text": "It radiates mainly in infrared light and has a temperature of only a few hundred degrees Celsius. Its cool, molecule-rich spectrum makes it a useful bridge between warmer brown dwarfs and the colder Y-dwarf population."
+          "id": "4",
+          "title": "Sources: adopted radial velocity",
+          "text": "Hood et al. (2023) obtain 35.80 −0.15/+0.16 km/s from FIRE spectroscopy. Star View adopts this velocity with a conservative ±0.16 km/s uncertainty. Their unphysically small fitted radius and dependent mass and temperature are withheld.",
+          "source": {
+            "title": "Hood et al. (2023): preferred FIRE retrieval and section 4.2",
+            "url": "https://arxiv.org/abs/2303.04885"
+          }
+        },
+        {
+          "id": "5",
+          "title": "Sources: earlier velocity analysis",
+          "text": "Bochanski et al. (2011) reported 46.9 ± 2.5 km/s from the same spectrum. This alternative is retained, not adopted; the disagreement does not establish changing velocity.",
+          "source": {
+            "title": "Bochanski et al. (2011): FIRE spectroscopy",
+            "url": "https://arxiv.org/abs/1109.2897"
+          }
+        },
+        {
+          "id": "6",
+          "title": "Infrared photometry",
+          "text": "JWST measured F480M = 12.016 ± 0.011 Vega mag on April 17, 2023; visual V remains unavailable.",
+          "source": {
+            "title": "Albert et al. (2025), Table 2",
+            "url": "https://arxiv.org/abs/2501.14100"
+          }
         }
-      ]
+      ],
+      "source": {
+        "title": "Dupuy & Kraus (2013): luminosity and evolutionary scenarios",
+        "url": "https://arxiv.org/pdf/1309.1422"
+      }
     },
     "10pc-0069": {
       "name": "Wolf 1061",
@@ -334,7 +364,7 @@
     },
     "10pc-0073": {
       "name": "van Maanen’s Star",
-      "introduction": "is a nearby white dwarf: the compact remnant of a star that has finished its main nuclear-burning life. Adriaan van Maanen discovered it in 1917.",
+      "introduction": "is the nearest solitary white dwarf, about 14 light-years away in Pisces. Adriaan van Maanen discovered it in 1917.",
       "source": {
         "title": "Carnegie Science: A 1917 spectrum records evidence of an exoplanetary system",
         "url": "https://carnegiescience.edu/news/1917-astronomical-plate-has-first-ever-evidence-exoplanetary-system"
@@ -343,12 +373,16 @@
         {
           "id": "1",
           "title": "A century-old clue to planetary debris",
-          "text": "A spectrum recorded at Mount Wilson in 1917 shows calcium and other heavy elements. These should sink out of a white dwarf’s atmosphere, so their presence points to replenishment by material from outside the star."
+          "text": "A Mount Wilson spectrum from 1917 recorded calcium and other heavy elements in its atmosphere. These should sink below the surface, so their presence points to replenishment by rocky debris: evidence of extrasolar planetary material recorded decades before exoplanets were recognized. It did not identify an individual planet."
         },
         {
           "id": "2",
-          "title": "A planetary system inferred indirectly",
-          "text": "Modern work interprets this atmospheric pollution as accreted rocky debris. The old photographic plate therefore recorded evidence of extrasolar planetary material long before exoplanets were recognized; it was not a direct detection of an individual planet."
+          "title": "Before it became a white dwarf",
+          "text": "A 2008 evolutionary study estimated a progenitor about 2.6 times the Sun’s mass, with a main-sequence lifetime of roughly 900 million years. Its giant phase may have expanded to a radius of roughly 4.6 AU. The model gives about 3.2 billion years of subsequent cooling and a total age near 4.1 billion years. These are model estimates, not direct measurements.",
+          "source": {
+            "title": "Burleigh et al. (2008): the DODO survey of van Maanen’s star",
+            "url": "https://arxiv.org/abs/0801.2917"
+          }
         }
       ]
     },
@@ -449,14 +483,36 @@
         {
           "id": "1",
           "title": "What “peculiar” means here",
-          "text": "Its classification Y0 pec flags an unusual infrared spectrum. Some wavelength regions resemble a normal Y0 dwarf, while its colors and other spectral peaks do not fit the standard pattern."
+          "text": "Its Y0 pec classification flags unusual infrared colors and spectral peaks. Temperature estimates depend on the atmosphere and evolutionary models used."
         },
         {
           "id": "2",
           "title": "A test for atmosphere models",
-          "text": "Models have difficulty reproducing all of its observed light with one consistent temperature and gravity. The peculiarity is therefore a useful atmospheric clue, rather than evidence for a visible oddity on a resolved surface."
+          "text": "Models struggle to reproduce its entire spectrum consistently. Peculiarity describes these spectral differences, not a visible feature on a resolved surface."
+        },
+        {
+          "id": "3",
+          "title": "Model estimates from infrared light",
+          "text": "Fontanive et al. (2023) infer 361 ± 14 K, 13 ± 4 Jupiter masses and log₁₀(L/L☉) = −6.82 ± 0.05. Their ATMO 2020 estimates assume a population age distribution of 5 ± 3 billion years; that is not a measured age. Radius is derived from the same temperature and luminosity.",
+          "source": {
+            "title": "Fontanive et al. (2023): HST photometry and evolutionary estimates",
+            "url": "https://arxiv.org/abs/2309.09923"
+          }
+        },
+        {
+          "id": "4",
+          "title": "Infrared measurements",
+          "text": "Hubble measured F127M = 20.00 ± 0.02 Vega mag in 2019. JWST measured F480M = 13.487 ± 0.005 in 2023. Infrared magnitudes cannot supply visual V.",
+          "source": {
+            "title": "Albert et al. (2025), Tables 2 and 4; Fontanive et al. (2023), Tables 2–3",
+            "url": "https://arxiv.org/abs/2501.14100"
+          }
         }
-      ]
+      ],
+      "source": {
+        "title": "Fontanive et al. (2023): HST photometry and evolutionary estimates",
+        "url": "https://arxiv.org/abs/2309.09923"
+      }
     },
     "10pc-0085": {
       "name": "LP 731−58",
@@ -472,13 +528,13 @@
     },
     "10pc-0086": {
       "name": "LAWD 37",
-      "introduction": "is an isolated white dwarf in Musca, also called LP 145−141. It is a cooling stellar remnant rather than a faint hydrogen-burning red dwarf.",
+      "introduction": "is an isolated white dwarf in Musca, also called LP 145−141, about 15 light-years away. It became the first solitary white dwarf whose mass was measured directly through gravitational microlensing.",
       "wikipedia": "https://en.wikipedia.org/wiki/LP_145-141",
       "sections": [
         {
           "id": "1",
           "title": "Weighed by bending starlight",
-          "text": "A close alignment with a background star in 2019 allowed Hubble to measure the tiny deflection of that star’s light. The result, published in 2023, gave LAWD 37 a mass of about 56% of the Sun’s without requiring a binary companion.",
+          "text": "In 2019 it passed close to a distant star on the sky. Hubble measured the shift in that star’s apparent position as LAWD 37’s gravity bent its light. The 2023 analysis found a mass of 0.56 ± 0.08 times the Sun’s, without a binary companion.",
           "source": {
             "title": "NASA: Hubble directly measures the mass of a lone white dwarf",
             "url": "https://science.nasa.gov/missions/hubble/for-the-first-time-hubble-directly-measures-mass-of-a-lone-white-dwarf/"
@@ -487,9 +543,17 @@
         {
           "id": "2",
           "title": "A test of dense matter",
-          "text": "Combining that gravitational mass with the white dwarf’s radius tests the predicted mass–radius relation. In a white dwarf, adding mass generally makes the remnant smaller: its internal support comes from electron degeneracy."
+          "text": "Combining that gravitational mass with the white dwarf’s radius tests the predicted mass–radius relation. In a white dwarf, adding mass generally makes the remnant smaller: its internal support comes from electron degeneracy.",
+          "source": {
+            "title": "McGill et al. (2023): testing the white dwarf mass–radius relation",
+            "url": "https://arxiv.org/abs/2206.01814"
+          }
         }
-      ]
+      ],
+      "source": {
+        "title": "McGill et al. (2023): weighing LAWD 37 through astrometric microlensing",
+        "url": "https://arxiv.org/abs/2206.01814"
+      }
     },
     "gj-1245": {
       "name": "GJ 1245",

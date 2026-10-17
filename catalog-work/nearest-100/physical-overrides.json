@@ -1146,6 +1146,204 @@
           "epoch": null
         }
       }
+    },
+    {
+      "starViewId": "10pc-0073",
+      "expectedName": "van Maanen's Star",
+      "gaiaDr3Id": "2552928187080872832",
+      "note": "Van Maanen 2 (WD 0046+051): Giammichele et al. (2012), Table 2, helium-atmosphere fit gives Teff=6215 +/-183 K, mass=0.68 +/-0.02 solar masses and log(L/Lsun)=-3.77. Radius is derived from that published luminosity and temperature, not a direct diameter; no independent radius error is inferred from correlated fit parameters. These published physical fits retain their original pre-Gaia parallax. Total age=4.1 +/-1.0 Gyr is the separate, older Burleigh et al. (2008) evolutionary estimate, including a roughly 0.9 Gyr progenitor lifetime, not the white dwarf cooling age. Its inferred 2.6-solar-mass progenitor belongs to that study's 0.633-solar-mass remnant model; it is not recalculated from the adopted 2012 mass. Atmospheric metal pollution is accreted material, not an ordinary stellar [Fe/H].",
+      "physical": [
+        {
+          "field": "temperature_k",
+          "value": 6215,
+          "uncertainty": 183,
+          "status": "model-derived",
+          "reference": "2012ApJS..199...29G:Table 2",
+          "qualityFlags": [
+            "helium-atmosphere photometric/spectroscopic fit; source parallax retained"
+          ]
+        },
+        {
+          "field": "mass_solar",
+          "value": 0.68,
+          "uncertainty": 0.02,
+          "status": "model-derived",
+          "reference": "2012ApJS..199...29G:Table 2",
+          "qualityFlags": [
+            "white dwarf atmospheric/evolutionary model; not a dynamical mass"
+          ]
+        },
+        {
+          "field": "luminosity_solar",
+          "value": 0.00016982436524617443,
+          "status": "model-derived",
+          "reference": "2012ApJS..199...29G:Table 2",
+          "qualityFlags": [
+            "converted from published log(L/Lsun)=-3.77; no uncertainty supplied"
+          ]
+        },
+        {
+          "field": "radius_solar",
+          "value": 0.011240105275689858,
+          "status": "derived",
+          "reference": "2012ApJS..199...29G:Table 2",
+          "qualityFlags": [
+            "R/Rsun = sqrt(L/Lsun) * (5772 K / Teff)^2",
+            "derived from correlated atmospheric-fit quantities; no independent error invented"
+          ]
+        },
+        {
+          "field": "age_gyr",
+          "value": 4.1,
+          "uncertainty": 1.0,
+          "status": "model-derived",
+          "reference": "2008MNRAS.386L...5B:Section 4.1;Table 1",
+          "qualityFlags": [
+            "total age including main-sequence progenitor; not cooling age",
+            "separate older evolutionary model; conservative 25 percent uncertainty"
+          ]
+        }
+      ],
+      "astrometricVelocity": {
+        "value": -11.74,
+        "uncertainty": 7.11,
+        "reference": "2021A&A...652A..45L:Table 1;Section 5.1",
+        "sourceRecordId": "HIP 3829 / Wolf 28",
+        "method": "perspective-acceleration",
+        "epoch": 2016.0,
+        "scope": "Astrometric radial component of space motion from Hipparcos and Gaia EDR3; unaffected by gravitational redshift or atmospheric pressure shifts. Formal 1-sigma uncertainty; uniform rectilinear motion assumed. The legacy +263 km/s spectroscopic value is unreliable and is not adopted."
+      }
+    },
+    {
+      "starViewId": "10pc-0068",
+      "expectedName": "UGPS J072227.51-054031.2",
+      "gaiaDr3Id": null,
+      "note": "UGPS J0722: bolometric SED luminosity from Dupuy & Kraus (2013), Table S5, log10(L/Lsun)=-6.20 +/- 0.03; modeled missing flux and the published distance are retained. Their 1 and 5 Gyr evolutionary scenarios give 502/539 K, 10.7/25.8 Jupiter masses and 1.0192/0.886 Jupiter radii, displayed as model ranges, not averaged scalar properties or measured ages. Radial velocity adopts Hood et al. (2023), preferred FIRE retrieval: 35.80 -0.15/+0.16 km/s, with conservative symmetric export +/-0.16. Sources: Hood 2023 https://arxiv.org/abs/2303.04885 ; earlier Bochanski et al. (2011) 46.9 +/- 2.5 km/s https://arxiv.org/abs/1109.2897 is retained as an alternative, not adopted. Both analyze the same spectrum; the disagreement is not evidence of changing velocity. The 2023 fit radius of 0.50 Jupiter radii is explicitly unphysical; its dependent physical parameters are not adopted.",
+      "physical": [
+        {
+          "field": "luminosity_solar",
+          "value": 6.30957344480193e-07,
+          "uncertainty": null,
+          "status": "derived",
+          "reference": "2013Sci...341.1492D:Table S5",
+          "qualityFlags": [
+            "bolometric SED luminosity includes modeled missing flux",
+            "published log10 uncertainty +/-0.03 dex; asymmetric linear errors retained in cold-brown-dwarfs-review.json",
+            "https://arxiv.org/pdf/1309.1422"
+          ]
+        }
+      ]
+    },
+    {
+      "starViewId": "10pc-0084",
+      "expectedName": "WISE J163940.83-684738.6",
+      "gaiaDr3Id": null,
+      "note": "WISE J1639: Fontanive et al. (2023), Table 3 and section 3.2, infer Teff=361 +/- 14 K, mass=13 +/- 4 Jupiter masses and log10(L/Lsun)=-6.82 +/- 0.05 using ATMO 2020 evolutionary tracks and an assumed population age distribution of 5 +/- 3 Gyr. These are conditional model estimates; 5 Gyr is not an object age measurement. The source parallax is 211.1 +/- 0.6 mas; existing catalog astrometry is retained, not silently rescaled or replaced. Radius is derived by Stefan-Boltzmann scaling from the same model temperature and luminosity; no independent radius error is supplied. Scalar age, metallicity, Johnson V and radial velocity remain unavailable. Source: https://arxiv.org/abs/2309.09923",
+      "physical": [
+        {
+          "field": "temperature_k",
+          "value": 361,
+          "uncertainty": 14,
+          "status": "model-derived",
+          "reference": "2023MNRAS.526.1783F:Table 3",
+          "qualityFlags": [
+            "ATMO 2020 evolutionary estimate",
+            "population age prior 5 +/- 3 Gyr; not measured age",
+            "source parallax 211.1 +/- 0.6 mas retained in model"
+          ]
+        },
+        {
+          "field": "mass_solar",
+          "value": 0.012409725041601224,
+          "uncertainty": 0.0038183769358772998,
+          "status": "model-derived",
+          "reference": "2023MNRAS.526.1783F:Table 3",
+          "qualityFlags": [
+            "13 +/- 4 Jupiter masses; not a dynamical measurement",
+            "ATMO 2020; age prior 5 +/- 3 Gyr"
+          ]
+        },
+        {
+          "field": "luminosity_solar",
+          "value": 1.5135612484362072e-07,
+          "uncertainty": null,
+          "status": "model-derived",
+          "reference": "2023MNRAS.526.1783F:Table 3",
+          "qualityFlags": [
+            "published log10(L/Lsun)=-6.82 +/- 0.05 dex",
+            "evolutionary-model inference from photometry and assumed age, not directly integrated SED",
+            "asymmetric linear errors retained in cold-brown-dwarfs-review.json"
+          ]
+        }
+      ]
+    },
+    {
+      "starViewId": "10pc-0113",
+      "expectedName": "EI Cnc A",
+      "componentDesignation": "WDS J08582+1945A",
+      "gaiaDr3Id": "660597997696173440",
+      "note": "EI Cnc A: individual empirical mass-luminosity mass from Winters et al. (2021), and radius from the Pineda et al. (2021) empirical mass-radius relation, as tabulated with uncertainties by Silverstein et al. (2025) Table 1 (arXiv preprint). These are estimates, not dynamical masses or directly measured radii. The retained 2680 K is a generic M7 class temperature; any Stefan-Boltzmann luminosity inherits that assumption.",
+      "physical": [
+        {
+          "field": "mass_solar",
+          "value": 0.12,
+          "uncertainty": 0.014,
+          "status": "estimated",
+          "reference": "2025arXiv251211120S:Table 1; 2021AJ....161...63W",
+          "qualityFlags": [
+            "individual GJ 1116 A component",
+            "empirical mass-luminosity estimate; not a dynamical mass",
+            "tabulated in Silverstein et al. 2025 arXiv preprint"
+          ]
+        },
+        {
+          "field": "radius_solar",
+          "value": 0.148,
+          "uncertainty": 0.013,
+          "status": "estimated",
+          "reference": "2025arXiv251211120S:Table 1; 2021ApJ...918...40P",
+          "qualityFlags": [
+            "individual GJ 1116 A component",
+            "empirical mass-radius relation; not a measured diameter",
+            "radius depends on adopted mass; errors are not independent",
+            "tabulated in Silverstein et al. 2025 arXiv preprint"
+          ]
+        }
+      ]
+    },
+    {
+      "starViewId": "10pc-0114",
+      "expectedName": "EI Cnc B",
+      "componentDesignation": "WDS J08582+1945B",
+      "gaiaDr3Id": "660597997697274752",
+      "note": "EI Cnc B: individual empirical mass-luminosity mass from Winters et al. (2021), and radius from the Pineda et al. (2021) empirical mass-radius relation, as tabulated with uncertainties by Silverstein et al. (2025) Table 1 (arXiv preprint). These are estimates, not dynamical masses or directly measured radii. The retained 2680 K is a generic M7 class temperature; any Stefan-Boltzmann luminosity inherits that assumption.",
+      "physical": [
+        {
+          "field": "mass_solar",
+          "value": 0.103,
+          "uncertainty": 0.014,
+          "status": "estimated",
+          "reference": "2025arXiv251211120S:Table 1; 2021AJ....161...63W",
+          "qualityFlags": [
+            "individual GJ 1116 B component",
+            "empirical mass-luminosity estimate; not a dynamical mass",
+            "tabulated in Silverstein et al. 2025 arXiv preprint"
+          ]
+        },
+        {
+          "field": "radius_solar",
+          "value": 0.132,
+          "uncertainty": 0.013,
+          "status": "estimated",
+          "reference": "2025arXiv251211120S:Table 1; 2021ApJ...918...40P",
+          "qualityFlags": [
+            "individual GJ 1116 B component",
+            "empirical mass-radius relation; not a measured diameter",
+            "radius depends on adopted mass; errors are not independent",
+            "tabulated in Silverstein et al. 2025 arXiv preprint"
+          ]
+        }
+      ]
     }
   ]
 }
