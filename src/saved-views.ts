@@ -2,6 +2,7 @@ import { isEarthOrbitMode, type EarthOrbitMode } from './earth-orbit'
 import { isFilterCategoryId, isFilterKey, type FilterCategoryId, type FilterKey } from './object-filter'
 import { MOTION_YEAR_OPTIONS, SIMULATION_YEAR_LIMIT, type MotionYears, type ViewerViewState } from './viewer'
 import type { MotionFrame } from './astronomy'
+import type { SkyGridMode } from './sky-grid'
 
 export const SAVED_VIEWS_STORAGE_KEY = 'star-view-saved-views'
 export const OBJECT_DISTANCE_STEPS_LY = [5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 60, 70, 80, 90, 100, 150, 200, 300, 500, 1000, 1500, 2000, 3000, 5000, 10000] as const
@@ -21,6 +22,7 @@ export interface SavedViewSettings {
   motionYears: MotionYears
   motionFrame: MotionFrame
   gridVisible: boolean
+  skyGridMode?: SkyGridMode
   simulationYears: number
   simulationPlaying: boolean
   simulationDirection: 1 | -1
@@ -72,6 +74,7 @@ function isSavedView(value: unknown): value is SavedView {
     && typeof settings.motionYears === 'number' && MOTION_YEAR_OPTIONS.includes(settings.motionYears as MotionYears)
     && (settings.motionFrame === 'galactic' || settings.motionFrame === 'solar')
     && typeof settings.gridVisible === 'boolean'
+    && (settings.skyGridMode === undefined || settings.skyGridMode === 'off' || settings.skyGridMode === 'equatorial' || settings.skyGridMode === 'galactic')
     && typeof settings.simulationYears === 'number' && Math.abs(settings.simulationYears) <= SIMULATION_YEAR_LIMIT
     && typeof settings.simulationPlaying === 'boolean'
     && (settings.simulationDirection === 1 || settings.simulationDirection === -1)
@@ -85,6 +88,7 @@ function isSavedView(value: unknown): value is SavedView {
     && typeof settings.objectSearch === 'string'
     && isRecord(viewState) && isFiniteTuple3(viewState.position) && isFiniteTuple3(viewState.target)
     && typeof viewState.home === 'boolean' && typeof viewState.observerRollRadians === 'number' && Number.isFinite(viewState.observerRollRadians)
+    && (viewState.observerTelescope === undefined || typeof viewState.observerTelescope === 'boolean')
 }
 
 export function readSavedViews(): SavedView[] {

@@ -1,5 +1,5 @@
 import './style.css'
-import { ArrowLeft, ArrowLeftRight, ArrowRight, BookOpen, ChevronUp, ChevronsDownUp, ChevronsLeftRight, ChevronsRightLeft, ChevronsUpDown, CircleHelp, Clock, Cloud, Crosshair, Earth, Eye, Filter, Focus, Grid2X2, List, Lock, Minus, Moon, Orbit, Pause, Play, Plus, RotateCcw, RotateCw, Save, Search, Settings2, Sun, X, createElement, type IconNode } from 'lucide'
+import { ArrowLeft, ArrowLeftRight, ArrowRight, BookOpen, ChevronUp, ChevronsDownUp, ChevronsLeftRight, ChevronsRightLeft, ChevronsUpDown, CircleHelp, Clock, Cloud, Crosshair, Earth, Eye, Filter, Focus, Galaxy, Globe, Grid2X2, List, Lock, Minus, Moon, Orbit, Pause, Play, Plus, RotateCcw, RotateCw, Save, Search, Settings2, Sun, Telescope, X, createElement, type IconNode } from 'lucide'
 import { ObserverOriginIcon, OriginIcon } from './origin-icon'
 import { BUBBLE_OBJECT_TYPES, COMPACT_OBJECT_TYPES, describeObject, isBubbleObject, isCompactObject, isMolecularCloudObject, isNebulaObject, MOLECULAR_CLOUD_OBJECT_TYPES, NEBULA_OBJECT_TYPES, type Star } from './catalog-model'
 import { catalogSelection, mergeCatalogStars } from './catalog-runtime'
@@ -40,6 +40,7 @@ import { objectTypeIntroduction } from './object-type-info'
 import { objectSubtypeDescription } from './object-subtype-info'
 import { MISSING_VALUE, measurement, preciseMeasurement, quantity, scientificQuantity } from './format'
 import { OBJECT_DISTANCE_STEPS_LY, readSavedViews, SAVED_VIEWS_STORAGE_KEY, type SavedView, type SavedViewSettings } from './saved-views'
+import type { SkyGridMode } from './sky-grid'
 
 function element<ElementType extends HTMLElement = HTMLElement>(id: string): ElementType {
   const found = document.getElementById(id)
@@ -78,6 +79,8 @@ function icon(id: string, shape: IconNode): void {
 
 icon('reset-icon', Focus)
 icon('grid-icon', Grid2X2)
+icon('equatorial-grid-icon', Globe)
+icon('galactic-grid-icon', Galaxy)
 icon('views-icon', Save)
 icon('save-view-icon', Save)
 icon('selection-back-icon', ArrowLeft)
@@ -87,6 +90,7 @@ icon('set-sun-origin-icon', Sun)
 icon('go-to-origin-icon', Crosshair)
 icon('observer-view-icon', Eye)
 icon('observer-view-origin-icon', ObserverOriginIcon)
+icon('observer-telescope-icon', Telescope)
 icon('observer-roll-counterclockwise-icon', RotateCcw)
 icon('observer-roll-reset-icon', Crosshair)
 icon('observer-roll-clockwise-icon', RotateCw)
@@ -169,6 +173,7 @@ let showAlwaysBright = false
 let showWesternConstellationStars = false
 let showFamousClusterStars = false
 let gridVisible = true
+let skyGridMode: SkyGridMode = 'off'
 let observerView = false
 let observerViewAnchorId: string | null = null
 let powerSavingMode = false
@@ -229,7 +234,7 @@ labelLimitInput.setAttribute('aria-valuetext', labelLimit === 0 ? 'Off' : `${lab
 text('label-limit-value', labelLimit === 0 ? 'Off' : String(labelLimit))
 const cameraViews = ['top', 'side', 'front'] as const
 const cameraViewButtonIds = ['reset-view', ...cameraViews.map((view) => `${view}-view`)]
-const viewButtons = [...cameraViewButtonIds, 'toggle-grid', 'views-toggle'].map((id) => element<HTMLButtonElement>(id))
+const viewButtons = [...cameraViewButtonIds, 'toggle-grid', 'toggle-equatorial-grid', 'toggle-galactic-grid', 'views-toggle'].map((id) => element<HTMLButtonElement>(id))
 const timelineButtons = ['time-play', 'time-now', 'time-follow'].map((id) => element<HTMLButtonElement>(id))
 const timeSlider = element<HTMLInputElement>('time-slider')
 // Evenly spaced timeline ticks; set via CSSOM because the CSP forbids inline style attributes.
@@ -313,7 +318,8 @@ function updateObserverControl(): void {
     element('observer-object-swatch').style.background = color
     element('observer-direction-card').style.setProperty('--observer-star-color', color)
   }
-  for (const id of ['observer-roll-counterclockwise', 'observer-roll-reset', 'observer-roll-clockwise']) {
+  element('observer-telescope').setAttribute('aria-pressed', String(observerView && Boolean(viewer?.getViewState().observerTelescope)))
+  for (const id of ['observer-telescope', 'observer-roll-counterclockwise', 'observer-roll-reset', 'observer-roll-clockwise']) {
     element<HTMLButtonElement>(id).disabled = sceneBusy || !observerView
   }
   for (const id of cameraViewButtonIds) {
@@ -1774,7 +1780,7 @@ function updateObjectListFilter(): void {
 function selectStar(id: string | null, recordHistory = true): void {
   if (id !== null && !stars.some((star) => star.id === id)) return
   constellationSelectionRequest++
-  if (id !== null && recordHistory) selectionHistory.record(id)
+  if (recordHistory) selectionHistory.record(id)
   selectedDistancePc = null
   selectedId = id
   if (id !== null && !observerView) observerId = id
@@ -1933,11 +1939,13 @@ async function switchCatalog(id: string, refresh = false): Promise<void> {
   viewer.setSimulationPlaying(simulationPlaying)
   viewer.setPowerSavingMode(powerSavingMode)
   viewer.setGridVisible(gridVisible)
+  viewer.setSkyGrid(skyGridMode)
   // A home view refits to the new visible set; manual views keep their camera.
   if (retainedView && !retainedView.home && (!retainedObserverView || observerView)) {
     viewer.setViewState({ ...retainedView, home: false })
   }
   observerView = viewer.setObserverView(observerView, observerViewAnchorId ?? undefined, retainedView?.observerRollRadians)
+  viewer.setObserverTelescope(Boolean(retainedView?.observerTelescope), false)
   if (!observerView) observerViewAnchorId = null
   sceneStatus(null)
 }
@@ -2165,6 +2173,7 @@ function currentSavedViewSettings(): SavedViewSettings | null {
     motionYears,
     motionFrame,
     gridVisible,
+    skyGridMode,
     simulationYears,
     simulationPlaying,
     simulationDirection,
@@ -2251,13 +2260,22 @@ function resetAllFilters(): void {
   void switchCatalog('nearest-neighbors', true)
 }
 
-function syncSavedSettingsInputs(): void {
-  syncFilterInputs()
-  syncSceneAndMotionInputs()
+function syncGridInputs(): void {
   const gridButton = element<HTMLButtonElement>('toggle-grid')
   gridButton.setAttribute('aria-pressed', String(gridVisible))
   text('grid-tooltip', gridVisible ? 'Hide grid' : 'Show grid')
   element('grid-legend').hidden = !gridVisible
+  for (const frame of ['equatorial', 'galactic'] as const) {
+    const active = skyGridMode === frame
+    element(`toggle-${frame}-grid`).setAttribute('aria-pressed', String(active))
+    text(`${frame}-grid-tooltip`, `${active ? 'Hide' : 'Show'} ${frame} grid`)
+  }
+}
+
+function syncSavedSettingsInputs(): void {
+  syncFilterInputs()
+  syncSceneAndMotionInputs()
+  syncGridInputs()
   renderSimulationTime()
   renderPlaybackState()
   renderPlaybackSpeed()
@@ -2291,6 +2309,7 @@ async function loadSavedView(savedView: SavedView): Promise<void> {
   motionYears = settings.motionYears
   motionFrame = settings.motionFrame
   gridVisible = settings.gridVisible
+  skyGridMode = settings.skyGridMode ?? 'off'
   simulationYears = settings.simulationYears
   simulationDirection = settings.simulationDirection
   playbackSecondsPerThousandYears = settings.playbackSecondsPerThousandYears
@@ -2315,9 +2334,10 @@ async function loadSavedView(savedView: SavedView): Promise<void> {
     observerId = savedObserverAnchorId
     viewer.setVisibility(observerId, magnitudeLimit)
     observerView = viewer.setObserverView(true, savedObserverAnchorId, settings.viewState.observerRollRadians)
+    viewer.setObserverTelescope(Boolean(settings.viewState.observerTelescope), false)
     if (!observerView) observerViewAnchorId = null
   }
-  if (selectedId !== null) selectionHistory.record(selectedId)
+  selectionHistory.record(selectedId)
   updateObjectListFilter()
   objectList.setReference(referenceId)
   renderDistances()
@@ -2755,13 +2775,18 @@ for (const view of cameraViews) {
 }
 element('toggle-grid').addEventListener('click', () => {
   if (!viewer) return
-  const button = element('toggle-grid')
   gridVisible = !gridVisible
   viewer.setGridVisible(gridVisible)
-  button.setAttribute('aria-pressed', String(gridVisible))
-  text('grid-tooltip', gridVisible ? 'Hide grid' : 'Show grid')
-  element('grid-legend').hidden = !gridVisible
+  syncGridInputs()
 }, { signal: events.signal })
+for (const frame of ['equatorial', 'galactic'] as const) {
+  element(`toggle-${frame}-grid`).addEventListener('click', () => {
+    if (!viewer) return
+    skyGridMode = skyGridMode === frame ? 'off' : frame
+    viewer.setSkyGrid(skyGridMode)
+    syncGridInputs()
+  }, { signal: events.signal })
+}
 element('selection-back').addEventListener('click', () => navigateSelectionHistory('back'), { signal: events.signal })
 element('selection-forward').addEventListener('click', () => navigateSelectionHistory('forward'), { signal: events.signal })
 element('set-origin').addEventListener('click', setSelectedAsOrigin, { signal: events.signal })
@@ -2777,6 +2802,11 @@ element('observer-object').addEventListener('click', () => {
   if (observerViewAnchorId !== null) selectStar(observerViewAnchorId)
 }, { signal: events.signal })
 element('observer-roll-counterclockwise').addEventListener('click', () => rollObserverView('counterclockwise'), { signal: events.signal })
+element('observer-telescope').addEventListener('click', () => {
+  if (!viewer || sceneBusy || !observerView) return
+  viewer.setObserverTelescope(!viewer.getViewState().observerTelescope)
+  updateObserverControl()
+}, { signal: events.signal })
 element('observer-roll-reset').addEventListener('click', () => rollObserverView('center'), { signal: events.signal })
 element('observer-roll-clockwise').addEventListener('click', () => rollObserverView('clockwise'), { signal: events.signal })
 

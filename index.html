@@ -583,7 +583,13 @@
                   <button id="front-view" class="icon-button camera-view-button" type="button" aria-label="Back view" aria-controls="scene" disabled>Back</button>
                 </div>
               </div>
-              <button id="toggle-grid" class="icon-button" type="button" aria-label="Grid" aria-pressed="true" aria-controls="scene" disabled><span id="grid-icon"></span><span id="grid-tooltip" class="tooltip">Hide grid</span></button>
+              <div class="grid-controls" role="group" aria-label="Grid controls">
+                <button id="toggle-grid" class="icon-button" type="button" aria-label="Grid" aria-pressed="true" aria-controls="scene" disabled><span id="grid-icon"></span><span id="grid-tooltip" class="tooltip">Hide grid</span></button>
+                <div class="grid-options">
+                  <button id="toggle-equatorial-grid" class="icon-button" type="button" aria-label="Equatorial grid" aria-pressed="false" aria-controls="scene" disabled><span id="equatorial-grid-icon"></span><span id="equatorial-grid-tooltip" class="tooltip">Show equatorial grid</span></button>
+                  <button id="toggle-galactic-grid" class="icon-button" type="button" aria-label="Galactic grid" aria-pressed="false" aria-controls="scene" disabled><span id="galactic-grid-icon"></span><span id="galactic-grid-tooltip" class="tooltip">Show galactic grid</span></button>
+                </div>
+              </div>
               <span class="toolbar-divider"></span>
               <button id="views-toggle" class="icon-button panel-button" type="button" aria-label="Saved views" aria-controls="views-panel" aria-expanded="false" disabled><span id="views-icon"></span><span class="tooltip">Saved views</span></button>
               <span class="toolbar-divider"></span>
@@ -806,7 +812,8 @@
             </div>
             <section id="observer-direction-card" class="observer-direction-card" aria-labelledby="observer-direction-title" data-scene-obstacle hidden>
               <h2 id="observer-direction-title" class="observer-direction-title"><span>Observing from</span><button id="observer-object" class="observer-direction-object" type="button"><span id="observer-object-swatch" class="star-swatch" aria-hidden="true"></span><span id="observer-object-name"></span></button></h2>
-              <div class="observer-direction-buttons" role="group" aria-label="Roll observer camera">
+              <div class="observer-direction-buttons" role="group" aria-label="Observer camera controls">
+                <button id="observer-telescope" class="observer-direction-button" type="button" aria-label="Telescope zoom" aria-pressed="false" aria-controls="scene" title="Telescope zoom (1.6×)" disabled><span id="observer-telescope-icon"></span></button>
                 <button id="observer-roll-counterclockwise" class="observer-direction-button" type="button" aria-label="Roll view counterclockwise" title="Roll counterclockwise" disabled><span id="observer-roll-counterclockwise-icon"></span></button>
                 <button id="observer-roll-reset" class="observer-direction-button" type="button" aria-label="Reset view roll" title="Reset view roll" disabled><span id="observer-roll-reset-icon"></span></button>
                 <button id="observer-roll-clockwise" class="observer-direction-button" type="button" aria-label="Roll view clockwise" title="Roll clockwise" disabled><span id="observer-roll-clockwise-icon"></span></button>

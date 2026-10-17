@@ -102,6 +102,7 @@ button, p, h2, dd { overflow-wrap: anywhere; }
 .observer-direction-buttons { display: flex; justify-content: center; gap: 4px; }
 .observer-direction-button { display: grid; place-items: center; width: 34px; height: 34px; padding: 0; color: var(--ink); background: var(--surface-control); border: 1px solid var(--line); border-radius: 6px; }
 .observer-direction-button:focus-visible { outline-color: var(--accent-strong); }
+.observer-direction-button[aria-pressed="true"] { background: var(--panel-selected); color: var(--accent-strong); border-color: var(--border-active); }
 @media (hover: hover) and (pointer: fine) {
   .saved-views-table tbody tr:hover { background: var(--panel-hover); }
   .saved-view-context-delete:hover { background: var(--panel-hover); }
@@ -212,21 +213,23 @@ button, p, h2, dd { overflow-wrap: anywhere; }
 .panel-button { transition: background 120ms ease, border-color 120ms ease; }
 .panel-button[aria-expanded="true"] .tooltip { display: none !important; }
 .icon-button:focus-visible { outline-color: var(--accent-strong); }
-.camera-view-controls, .origin-controls, .observer-view-controls { position: relative; width: 44px; height: 44px; }
-.camera-view-options, .origin-options, .observer-view-options { position: absolute; top: 0; right: 100%; display: flex; gap: 4px; padding-right: 4px; opacity: 0; visibility: hidden; pointer-events: none; transform: translateX(12px); transition: opacity 160ms ease, transform 160ms ease, visibility 160ms; }
+.camera-view-controls, .origin-controls, .observer-view-controls, .grid-controls { position: relative; width: 44px; height: 44px; }
+.camera-view-options, .origin-options, .observer-view-options, .grid-options { position: absolute; top: 0; right: 100%; display: flex; gap: 4px; padding-right: 4px; opacity: 0; visibility: hidden; pointer-events: none; transform: translateX(12px); transition: opacity 160ms ease, transform 160ms ease, visibility 160ms; }
 .camera-view-button { width: 60px; flex: 0 0 60px; font: inherit; font-size: 12px; font-weight: 500; }
 .origin-controls:focus-visible, .observer-view-controls:focus-visible { outline: 2px solid var(--accent-strong); outline-offset: 2px; border-radius: 7px; }
 .camera-view-controls:focus-within:has(#reset-view:not(:disabled)) .camera-view-options,
 .origin-controls:focus-within:has(#go-to-origin:not(:disabled)) .origin-options,
+.grid-controls:focus-within:has(#toggle-grid:not(:disabled)) .grid-options,
 .observer-view-controls:focus-within:has(.observer-view-button:not(:disabled)) .observer-view-options { opacity: 1; visibility: visible; pointer-events: auto; transform: translateX(0); }
-.camera-view-controls #reset-view .tooltip, .origin-controls #set-origin .tooltip, .observer-view-controls #observer-view .tooltip { top: calc(100% + 8px); right: 0; }
+.camera-view-controls #reset-view .tooltip, .origin-controls #set-origin .tooltip, .observer-view-controls #observer-view .tooltip, .grid-controls .tooltip { top: calc(100% + 8px); right: 0; }
 @media (hover: hover) and (pointer: fine) {
   .camera-view-controls:hover:has(#reset-view:not(:disabled)) .camera-view-options,
   .origin-controls:hover:has(#go-to-origin:not(:disabled)) .origin-options,
+  .grid-controls:hover:has(#toggle-grid:not(:disabled)) .grid-options,
   .observer-view-controls:hover:has(.observer-view-button:not(:disabled)) .observer-view-options { opacity: 1; visibility: visible; pointer-events: auto; transform: translateX(0); }
 }
 @media (prefers-reduced-motion: reduce) {
-  .camera-view-options, .origin-options, .observer-view-options { transition: none; transform: none; }
+  .camera-view-options, .origin-options, .observer-view-options, .grid-options { transition: none; transform: none; }
 }
 .toolbar-divider { width: 20px; height: 1px; background: var(--line); margin: 4px 12px; }
 .tooltip { display: none; position: absolute; right: calc(100% + 10px); white-space: nowrap; font-size: 12px; font-weight: 400; background: var(--panel); border: 1px solid var(--line); color: var(--ink); padding: 7px 10px; border-radius: 5px; pointer-events: none; z-index: 5; box-shadow: 0 6px 18px #00000070; }
@@ -272,7 +275,8 @@ button, p, h2, dd { overflow-wrap: anywhere; }
   to { transform: scale(1); opacity: 1; }
 }
 .dimension-label { background: #000000; padding: 3px 5px; color: var(--accent-strong); font-size: 11px; font-variant-numeric: tabular-nums; white-space: nowrap; }
-.axis-label { color: var(--muted); font-size: 10px; text-shadow: 0 0 3px #000000; }
+.axis-label, .sky-grid-label { color: var(--muted); font-size: 10px; text-shadow: 0 0 3px #000000; }
+.sky-grid-label { transform: translate(7px, 5px); font-variant-numeric: tabular-nums; }
 .is-moving .star-label, .is-moving .axis-label { text-shadow: none; }
 
 .display-settings, .filter-controls { font-size: 14px; line-height: 1.35; color: var(--ink); }

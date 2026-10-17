@@ -1291,7 +1291,7 @@ test('toggles the grid without moving stars and preserves its state across reset
   await expect(grid).toBeEnabled()
   await expect(grid).toHaveAttribute('aria-pressed', 'true')
   await expect(grid.locator('svg')).toBeVisible()
-  expect(await page.locator('#reset-view').evaluate((element) => element.closest('.camera-view-controls')?.nextElementSibling?.id)).toBe('toggle-grid')
+  expect(await page.locator('#reset-view').evaluate((element) => element.closest('.camera-view-controls')?.nextElementSibling?.querySelector('button')?.id)).toBe('toggle-grid')
   await sceneFits(page)
   const sunBefore = await starPoint(page, 'sun')
   await expect(page.locator('.axis-label:visible')).toHaveCount(3)

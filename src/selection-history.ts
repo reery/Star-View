@@ -1,6 +1,7 @@
 export class SelectionHistory {
   private entries: string[]
   private index: number
+  private deselected = false
   private readonly limit: number
 
   constructor(initialId: string, limit = 20) {
@@ -9,7 +10,9 @@ export class SelectionHistory {
     this.limit = limit
   }
 
-  record(id: string): void {
+  record(id: string | null): void {
+    this.deselected = id === null
+    if (id === null) return
     if (this.entries[this.index] === id) return
     this.entries.splice(this.index + 1)
     this.entries.push(id)
@@ -44,7 +47,9 @@ export class SelectionHistory {
   }
 
   private find(direction: -1 | 1, available: (id: string) => boolean): number {
-    for (let candidate = this.index + direction; candidate >= 0 && candidate < this.entries.length; candidate += direction) {
+    // After deselection, Back first restores the object at the current history position.
+    const start = direction === -1 && this.deselected ? this.index : this.index + direction
+    for (let candidate = start; candidate >= 0 && candidate < this.entries.length; candidate += direction) {
       if (available(this.entries[candidate]!)) return candidate
     }
     return -1
@@ -54,6 +59,7 @@ export class SelectionHistory {
     const destination = this.find(direction, available)
     if (destination === -1) return null
     this.index = destination
+    this.deselected = false
     return this.entries[destination]!
   }
 }

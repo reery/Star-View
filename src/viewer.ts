@@ -11,6 +11,7 @@ import { createMilkyWayLayer } from './milky-way-layer'
 import { createEarthOrbitLayer } from './earth-orbit-layer'
 import { createMotionArrowMesh } from './motion-arrow-layer'
 import { createMapGrid, gridOpacityForDisplay, makeGridGeometry } from './map-grid'
+import { createSkyGridLayer, type SkyGridMode } from './sky-grid'
 import { apparentVisualMagnitude, displayMotionForStar, formatDistance, galacticToWorld, gridScaleForViewDistance, isMapVisibilityBase, LIGHT_YEARS_PER_PARSEC, starDisplayColor, type DistanceUnit, type GridScale, type MotionFrame, type MotionMode, type StarColorMode } from './astronomy'
 import { EARTH_ORBIT_DISPLAY_RADIUS_PC, EARTH_ORBIT_MAX_VIEW_DISTANCE_PC } from './earth-orbit'
 import { advanceFrameDeadline, effectiveDampingFactor, estimateRefreshRate, renderPixelRatio, targetRenderFps } from './render-scheduling'
@@ -37,9 +38,11 @@ export interface StarViewer {
   setReference(referenceId: string): void
   setObserverView(enabled: boolean, anchorId?: string, rollRadians?: number): boolean
   rollObserverView(direction: 'counterclockwise' | 'center' | 'clockwise'): void
+  setObserverTelescope(enabled: boolean, animate?: boolean): void
   reset(): void
   setCameraView(view: 'top' | 'side' | 'front'): void
   setGridVisible(visible: boolean): void
+  setSkyGrid(mode: SkyGridMode): void
   setViewState(state: ViewerViewState): void
   setObjectDistanceLimit(distanceLy: number): void
   setObjectFilter(keys: readonly FilterKey[]): void
@@ -68,6 +71,7 @@ export interface ViewerViewState {
   target: readonly [number, number, number]
   home: boolean
   observerRollRadians: number
+  observerTelescope?: boolean
 }
 
 interface ViewerOptions {
@@ -381,6 +385,8 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
   let gridSpacing = gridScale.spacingPc
   let gridHalfSize = gridScale.halfSizePc
   const gridOpacity = { value: gridOpacityForDisplay(window.devicePixelRatio) }
+  const skyGrid = createSkyGridLayer(container, gridOpacity)
+  scene.add(skyGrid.lines)
   const gridRadius = { value: gridHalfSize }
   const grid = createMapGrid(gridSpacing, gridHalfSize, { radius: gridRadius, opacity: gridOpacity })
   const origin = basePositions[referenceIndex]!.clone()
@@ -504,6 +510,10 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
   const OBSERVER_ROLL_STEP = Math.PI / 12
   const OBSERVER_POLE_MARGIN = 0.05
   let observerRollRadians = 0
+  const OBSERVER_TELESCOPE_ZOOM = 1.6
+  const OBSERVER_ZOOM_DURATION_MS = 360
+  let observerTelescope = false
+  let observerZoomTransition: { from: number; to: number; started: number } | null = null
   let savedOrbitSettings: {
     enablePan: boolean
     enableZoom: boolean
@@ -1233,7 +1243,7 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
     const selectedIndex = selectedId ? starsById.get(selectedId)!.index : -1
     const selectedLabelVisible = selectedIndex >= 0 && (!observerViewEnabled || selectedIndex !== observerViewAnchorIndex)
     const ordinaryBudget = Math.max(0, labelLimit - (selectedLabelVisible && labelLimit > 0 ? 1 : 0))
-    const motionActive = controlsInteracting || controlsSettling || focusTransition !== null || simulationPlaying
+    const motionActive = controlsInteracting || controlsSettling || focusTransition !== null || observerZoomTransition !== null || simulationPlaying
     // Membership follows the same 30 Hz cadence as ordinary placement while moving.
     const budgetStale = ordinaryGroupSource !== rankedNameGroups || budgetSelectedIndex !== selectedIndex ||
       budgetLimit !== ordinaryBudget || ordinaryLayoutDirty || labelSizesDirty || obstacleBoundsDirty
@@ -1599,6 +1609,11 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
     const modeChanged = enabled !== observerViewEnabled
     observerRollRadians = 0
     observerViewEnabled = enabled
+    if (!enabled) {
+      observerTelescope = false
+      observerZoomTransition = null
+      applyObserverZoom(1)
+    }
     observerViewAnchorIndex = anchor?.index ?? null
     setOrbitUp(worldUp)
     if (modeChanged) configureObserverControls(enabled)
@@ -1638,6 +1653,25 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
     invalidateProjection()
     obstacleBoundsDirty = true
     ordinaryLayoutDirty = true
+    requestRender()
+  }
+
+  function applyObserverZoom(zoom: number): void {
+    camera.zoom = zoom
+    camera.updateProjectionMatrix()
+    setData(container, 'observerZoom', String(zoom))
+    invalidateProjection()
+    ordinaryLayoutDirty = true
+  }
+
+  function setObserverTelescope(enabled: boolean, animate = true): void {
+    enabled = observerViewEnabled && enabled
+    observerTelescope = enabled
+    const to = enabled ? OBSERVER_TELESCOPE_ZOOM : 1
+    observerZoomTransition = null
+    if (animate && !reducedMotion.matches && camera.zoom !== to) {
+      observerZoomTransition = { from: camera.zoom, to, started: performance.now() }
+    } else applyObserverZoom(to)
     requestRender()
   }
 
@@ -1783,6 +1817,10 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
   }
   controls.addEventListener('change', onControlsChange)
   reducedMotion.addEventListener('change', () => {
+    if (reducedMotion.matches && observerZoomTransition) {
+      applyObserverZoom(observerZoomTransition.to)
+      observerZoomTransition = null
+    }
     if (reducedMotion.matches && focusTransition) {
       applyFocusTarget(focusTransition.to, focusTransition.position)
       focusTransition = null
@@ -1809,7 +1847,7 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
       measuredRefreshRate = estimate
     }
     previousRafTime = time
-    const sceneNeedsFrame = sceneDirty || focusTransition !== null || controlsInteracting || controlsSettling
+    const sceneNeedsFrame = sceneDirty || focusTransition !== null || observerZoomTransition !== null || controlsInteracting || controlsSettling
     if (!sceneNeedsFrame) {
       if (refreshSamplesRemaining > 0) requestRender(false)
       else {
@@ -1861,6 +1899,13 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
         resize()
       }
     }
+    if (observerZoomTransition) {
+      const progress = Math.min(1, Math.max(0, (time - observerZoomTransition.started) / OBSERVER_ZOOM_DURATION_MS))
+      const eased = progress * progress * (3 - 2 * progress)
+      applyObserverZoom(observerZoomTransition.from + (observerZoomTransition.to - observerZoomTransition.from) * eased)
+      if (progress === 1) observerZoomTransition = null
+      else continueRendering = true
+    }
     camera.updateMatrixWorld()
     if (earthOrbitEnabled) updateEarthOrbitVisibility()
     // Looking at a distant object from the origin is still a close sky view.
@@ -1883,6 +1928,7 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
     setData(labelLayer, 'drawCalls', String(renderer.info.render.calls))
     setLabelsMoving(continueRendering || simulationPlaying)
     updateLabels(time)
+    skyGrid.updateLabels(camera, projectionViewport!, (bounds) => blocked.queryAny(bounds, (other) => overlaps(bounds, other)))
     if (continueRendering || refreshSamplesRemaining > 0) requestRender(false)
     else {
       previousRafTime = 0
@@ -1969,6 +2015,7 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
         target: controls.target.toArray() as [number, number, number],
         home,
         observerRollRadians,
+        observerTelescope,
       }
     },
     select,
@@ -1985,6 +2032,7 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
     },
     setObserverView,
     rollObserverView,
+    setObserverTelescope,
     reset,
     setCameraView,
     setObjectDistanceLimit(distanceLy) {
@@ -2130,6 +2178,10 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
       axisLines.visible = visible
       requestRender()
     },
+    setSkyGrid(mode) {
+      skyGrid.setMode(mode)
+      requestRender()
+    },
     setViewState(state) {
       if (observerViewEnabled) return
       const values = [...state.position, ...state.target]
@@ -2162,6 +2214,8 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
       controls.removeEventListener('end', onControlsEnd)
       controls.removeEventListener('change', onControlsChange)
       controls.dispose()
+      scene.remove(skyGrid.lines)
+      skyGrid.dispose()
       disposeGeometry(scene)
       arrowGeometry.dispose()
       arrowMaterial.dispose()
@@ -2185,6 +2239,7 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
       delete container.dataset.earthOrbitRadiusPc
       delete container.dataset.referenceId
       delete container.dataset.observerView
+      delete container.dataset.observerZoom
       delete container.dataset.milkyWayReady
       delete container.dataset.milkyWayVisible
       delete container.dataset.simulationYears
