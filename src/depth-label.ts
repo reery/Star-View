@@ -25,8 +25,13 @@ export function createDepthLabel() {
     updateTexture(element: HTMLElement, width: number, height: number): void {
       const style = getComputedStyle(element)
       const ratio = Math.max(2, window.devicePixelRatio || 1)
-      canvas.width = Math.ceil(width * ratio)
-      canvas.height = Math.ceil(height * ratio)
+      const pixelWidth = Math.ceil(width * ratio)
+      const pixelHeight = Math.ceil(height * ratio)
+      // WebGL texture storage has fixed dimensions. Release it before resizing
+      // so a longer distance can upload instead of leaving the previous text.
+      if (canvas.width !== pixelWidth || canvas.height !== pixelHeight) texture.dispose()
+      canvas.width = pixelWidth
+      canvas.height = pixelHeight
       context.setTransform(canvas.width / width, 0, 0, canvas.height / height, 0, 0)
       context.fillStyle = style.backgroundColor
       context.fillRect(0, 0, width, height)

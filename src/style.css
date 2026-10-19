@@ -262,7 +262,6 @@ button, p, h2, dd { overflow-wrap: anywhere; }
 .visibility-observer.is-avoiding-motion { bottom: var(--motion-panel-clearance, 150px); }
 .scene-legend { left: calc(28px + var(--safe-left)); font-variant-numeric: tabular-nums; }
 .grid-legend { display: inline-flex; align-items: center; gap: 9px; }
-.legend-divider { width: 1px; height: 10px; background: var(--line); margin: 0 3px; }
 .grid-symbol { width: 12px; height: 12px; background: repeating-linear-gradient(0deg, transparent 0 5px, #9c8976 5px 6px), repeating-linear-gradient(90deg, transparent 0 5px, #9c8976 5px 6px); border: 1px solid #9c8976; }
 .visibility-observer { right: calc(74px + var(--safe-right)); max-width: calc(50% - 74px); justify-content: flex-end; text-align: right; line-height: 1.4; }
 .scene-wrap:has(.visibility-observer.is-avoiding-motion) .observer-direction-card { bottom: calc(var(--motion-panel-clearance, 150px) + 26px); }
@@ -1131,4 +1130,54 @@ select:focus-visible, input:focus-visible { outline: 2px solid var(--accent); ou
   .selected-object { max-height: calc(var(--ui-height) - 24px); }
   .dock-card { max-height: calc(var(--ui-height) - 24px); }
   .star-list { grid-template-columns: minmax(0, 1fr); }
+}
+
+@media (max-height: 500px) and (orientation: landscape) and (pointer: coarse) {
+  /* Each stack gets half the available height, leaving a gap between them. */
+  .scene-toolbar { top: 12px; right: 12px; }
+  .control-dock { right: 12px; bottom: 12px; }
+  .scene-toolbar, .dock-rail {
+    max-height: calc((var(--ui-height) - 36px) / 2);
+    overflow-y: auto;
+    overscroll-behavior-y: contain;
+    scrollbar-width: none;
+    touch-action: pan-y;
+  }
+  .scene-toolbar > *, .dock-rail > * { flex-shrink: 0; }
+  .scene-toolbar:focus-visible, .dock-rail:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+  /* Fixed flyouts escape the scroll viewport while staying beside their trigger. */
+  .scene-toolbar [data-toolbar-options] {
+    position: fixed;
+    top: var(--toolbar-options-top, 12px);
+    right: calc(56px + var(--safe-right));
+    transform: none;
+    transition: none;
+  }
+  .selected-object { top: 12px; left: 12px; width: min(244px, calc(var(--ui-width) - 78px)); }
+  .dock-card { max-height: calc(var(--ui-height) - 24px); }
+  .dock-card.object-type-card {
+    top: 12px;
+    left: 268px;
+    width: min(420px, calc(var(--ui-width) - 346px));
+    max-height: calc(var(--ui-height) - 24px);
+  }
+  .dock-card.object-type-card:is(.distance-card, .planet-card, .constellation-card) { width: min(420px, calc(var(--ui-width) - 346px)); }
+  .object-type-card > .panel-heading:has(> [role="group"]) { flex-wrap: nowrap; padding: 0 98px 0 14px; }
+  .object-type-card > .panel-heading:has(> [role="group"]) > h2 { flex: 0 0 auto; max-width: 45%; margin: 0; padding: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  #planet-name { white-space: nowrap; text-overflow: ellipsis; }
+  .object-type-card > .panel-heading > [role="group"] { flex: 1 1 auto; min-width: 0; margin: 0 0 0 8px; overflow-x: auto; border-top: 0; scrollbar-width: thin; }
+  .object-type-card > .panel-heading > [role="group"] > * { flex-shrink: 0; }
+  .catalog > .object-search { padding-block: 6px; }
+  .catalog.is-expanded .objects-heading { flex-wrap: nowrap; gap: 8px; padding: 0 230px 0 14px; }
+  .catalog.is-expanded .objects-heading h2 { flex: 0 0 auto; min-height: 44px; padding: 0; }
+  .catalog.is-expanded .objects-heading .object-search { margin-right: 0; padding: 0; }
+  .catalog.is-expanded .objects-heading :is(.objects-height-control, .objects-expand) { top: -1px; }
+  .catalog.is-expanded .objects-heading .objects-expand { right: 87px; }
+  .catalog.is-expanded .objects-heading #objects-maximize { right: 131px; }
+  .catalog.is-expanded .objects-heading #objects-shrink { right: 175px; }
+}
+
+@media (pointer: coarse) {
+  /* Use the existing base text size so focusing a field does not zoom the page on iOS. */
+  .object-search input, .glossary-search input, .save-view-name-field input { font-size: 1rem; }
 }

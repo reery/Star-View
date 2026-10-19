@@ -18,9 +18,8 @@
       <main class="workspace">
         <section class="scene-wrap" aria-label="3D nearby-object viewer">
           <div id="scene" class="scene"></div>
-          <div class="scene-legend" data-scene-obstacle>
-            <span id="grid-legend" class="grid-legend"><span class="grid-symbol" aria-hidden="true"></span><span id="grid-spacing">0.5 pc grid</span><span class="legend-divider"></span></span>
-            <span id="scene-epoch">J2000.0</span>
+          <div id="grid-legend" class="scene-legend grid-legend" data-scene-obstacle>
+            <span class="grid-symbol" aria-hidden="true"></span><span id="grid-spacing">0.5 pc grid</span>
           </div>
           <p class="visibility-observer" data-scene-obstacle><span>Origin: <strong id="reference-base">Sun</strong> <span aria-hidden="true">|</span> Visibility from: <strong id="visibility-base">Sirius A</strong> <span aria-hidden="true">|</span> Distance from viewer: <strong id="viewer-distance">—</strong></span></p>
           <div id="scene-status" class="scene-status" role="status">Loading nearby-object map...</div>
@@ -819,6 +818,7 @@
                   <div><dt>License</dt><dd>MIT</dd></div>
                   <div><dt>Sky image</dt><dd><a href="https://www.eso.org/public/images/eso0932a/" target="_blank" rel="noreferrer">ESO/S. Brunier</a><br><span class="attribution-note">resized and dimmed · <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noreferrer">CC BY 4.0</a></span></dd></div>
                   <div><dt>Catalog updated</dt><dd><time datetime="2026-10-16">16 October 2026</time></dd></div>
+                  <div><dt class="mass-metric-copy"><button type="button" class="mass-metric-help" aria-describedby="catalog-epoch-tooltip">Position reference epoch</button><span id="catalog-epoch-tooltip" class="tooltip mass-metric-tooltip" role="tooltip">Catalog positions use the year 2000 as their reference time.</span></dt><dd id="catalog-epoch">J2000.0</dd></div>
                   <div><dt>Version</dt><dd>v0.6</dd></div>
                 </dl>
               </section>

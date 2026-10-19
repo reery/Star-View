@@ -1,0 +1,830 @@
+{
+  "schemaVersion": 1,
+  "reviewedOn": "2026-10-19",
+  "systemId": "msc-12349+2238",
+  "expectedName": "Phyllon Kissinou",
+  "expectedComponents": {
+    "hip-61394": "A",
+    "msc-12349+2238-b": "B",
+    "msc-12349+2238-c": "C"
+  },
+  "inputSha256": {
+    "catalog-work/famous-cluster-stars/literature/phyllon-c-gaia-dr3.json": "8e56e7cf1f0a6456530b7bc0ad41c67079336769d6c7f7e06277cd08b7f58446",
+    "catalog-work/famous-cluster-stars/literature/phyllon-c-gaia-dr3.adql": "240154c5f64d8e489c26c5280bb2fb830659e4b454f83434f4d53795f3a6ee05",
+    "catalog-work/star-systems/catalog-companions-msc.json": "b81210724ff9914c3c286c5971155df5bf20613252baaa9472eee085f0cd0f41",
+    "catalog-work/famous-cluster-stars/literature/system-astrometry-selected.json": "2ccc6ff96c5fc56cefaca76545344d93735069b2a8370cd903b07b88d7a8c02f",
+    "catalog-work/famous-cluster-stars/literature/cluster-gaia-dr3.json": "ebeb11e8040966b4b63d6a30d01f92e765e7b6aab69dcd3f5c622ada9e1a0cd0"
+  },
+  "distanceSourceStarId": "msc-12349+2238-c",
+  "sourceDesignations": [
+    "2MASS J12350326+2237254",
+    "Gaia DR3 3958707782341673216"
+  ],
+  "parallaxMas": 10.531158793728094,
+  "parallaxErrorMas": 0.018495932,
+  "sourceAstrometry": {
+    "ra_deg": 188.76329950712517,
+    "dec_deg": 22.62385165777992,
+    "epoch": 2016.0,
+    "parallax_mas": 10.531158793728094,
+    "parallax_error_mas": 0.018495932,
+    "pm_ra_cosdec_masyr": -62.80471680457957,
+    "pm_ra_error_masyr": 0.019742882,
+    "pm_dec_masyr": 20.599297271532258,
+    "pm_dec_error_masyr": 0.017755691,
+    "radial_velocity_kms": -16.114805,
+    "radial_velocity_error_kms": 0.5842682,
+    "astrometry_ref": "Gaia DR3 3958707782341673216; official exact 2MASS best-neighbour identity; ref_epoch=2016.0; RUWE=1.523",
+    "radial_velocity_ref": "Gaia DR3 3958707782341673216; individual wide C measurement"
+  },
+  "expectedInputs": {
+    "hip-61394": {
+      "name": "Phyllon Kissinou A",
+      "rawAstrometry": {
+        "ra_deg": 188.71280340925497,
+        "dec_deg": 22.62920599761361,
+        "parallax_mas": 9.1148,
+        "parallax_error_mas": 0.3293,
+        "pm_ra_cosdec_masyr": -58.83,
+        "pm_ra_error_masyr": null,
+        "pm_dec_masyr": 22.771,
+        "pm_dec_error_masyr": null,
+        "radial_velocity_kms": -16,
+        "radial_velocity_error_kms": null,
+        "epoch": 2000,
+        "astrometry_ref": "SIMBAD TAP snapshot 2026-10-01",
+        "radial_velocity_ref": "SIMBAD TAP snapshot 2026-10-01"
+      }
+    },
+    "msc-12349+2238-b": {
+      "name": "Phyllon Kissinou B",
+      "rawAstrometry": {
+        "ra_deg": 188.712803,
+        "dec_deg": 22.629206,
+        "epoch": 2000,
+        "parallax_mas": 10.53,
+        "parallax_error_mas": null,
+        "pm_ra_cosdec_masyr": -58.8,
+        "pm_ra_error_masyr": null,
+        "pm_dec_masyr": 22.8,
+        "pm_dec_error_masyr": null,
+        "radial_velocity_kms": null,
+        "radial_velocity_error_kms": null,
+        "astrometry_ref": "MSC 2026-06-19; shared parent astrometry for unresolved members (approximate)",
+        "radial_velocity_ref": null
+      }
+    },
+    "msc-12349+2238-c": {
+      "name": "Phyllon Kissinou C",
+      "rawAstrometry": {
+        "ra_deg": 188.763602,
+        "dec_deg": 22.62376,
+        "epoch": 2000,
+        "parallax_mas": 10.53,
+        "parallax_error_mas": null,
+        "pm_ra_cosdec_masyr": -62.8,
+        "pm_ra_error_masyr": null,
+        "pm_dec_masyr": 20.6,
+        "pm_dec_error_masyr": null,
+        "radial_velocity_kms": null,
+        "radial_velocity_error_kms": null,
+        "astrometry_ref": "MSC 2026-06-19; shared parent astrometry for unresolved members (approximate)",
+        "radial_velocity_ref": null
+      }
+    }
+  },
+  "distanceDependentFields": {},
+  "componentPhotometry": {
+    "hip-61394": {
+      "expectedPrevious": 4.773,
+      "magnitudeV": 4.96,
+      "reference": "MSC exact A,B subsystem magnitudes; individual A V, not the SIMBAD AB total"
+    }
+  },
+  "scope": "Preferred C-based shared distance for AB, retaining native sky directions and motion observations. B had inherited MSC parallax, not an independent distance. C has high parallax S/N but elevated RUWE; unknown line-of-sight depth is unresolved. Individual A Johnson V=4.96 replaces the AB total V=4.773, which remains retained. The unresolved AB physical fit is kept separately with its original source scope. No claim of uncertainty-free astrometry.",
+  "relatedSystems": [
+    {
+      "systemId": "msc-03492+2403",
+      "expectedName": "Atlas",
+      "expectedComponents": {
+        "hip-17847": "Aa1",
+        "msc-03492+2403-aa2": "Aa2"
+      },
+      "kind": "published-orbital-distance",
+      "expectedInputs": {
+        "hip-17847": {
+          "name": "Atlas Aa1",
+          "rawAstrometry": {
+            "ra_deg": 57.290601,
+            "dec_deg": 24.053408,
+            "epoch": 2000,
+            "parallax_mas": 8.43,
+            "parallax_error_mas": null,
+            "pm_ra_cosdec_masyr": 21.8,
+            "pm_ra_error_masyr": null,
+            "pm_dec_masyr": -46.2,
+            "pm_dec_error_masyr": null,
+            "radial_velocity_kms": 8.5,
+            "radial_velocity_error_kms": null,
+            "astrometry_ref": "MSC 2026-06-19; shared parent astrometry for unresolved members (approximate)",
+            "radial_velocity_ref": "SIMBAD TAP snapshot 2026-10-01; compiled-primary-proxy; shared systemic velocity approximation"
+          },
+          "positionPc": {
+            "x_pc": -106.215466999,
+            "y_pc": 24.495067074,
+            "z_pc": -46.796480929
+          }
+        },
+        "msc-03492+2403-aa2": {
+          "name": "Atlas Aa2",
+          "rawAstrometry": {
+            "ra_deg": 57.290601,
+            "dec_deg": 24.053408,
+            "epoch": 2000,
+            "parallax_mas": 8.43,
+            "parallax_error_mas": null,
+            "pm_ra_cosdec_masyr": 21.8,
+            "pm_ra_error_masyr": null,
+            "pm_dec_masyr": -46.2,
+            "pm_dec_error_masyr": null,
+            "radial_velocity_kms": 8.5,
+            "radial_velocity_error_kms": null,
+            "astrometry_ref": "MSC 2026-06-19; shared parent astrometry for unresolved members (approximate)",
+            "radial_velocity_ref": "SIMBAD TAP snapshot 2026-10-01; compiled-primary-proxy; shared systemic velocity approximation"
+          },
+          "positionPc": {
+            "x_pc": -106.215466999,
+            "y_pc": 24.495067074,
+            "z_pc": -46.796480929
+          }
+        }
+      },
+      "source": {
+        "sourceUrl": "https://arxiv.org/abs/2507.15933",
+        "section": "Table 6; joint interferometric/spectroscopic/Hipparcos orbital solution",
+        "componentMap": {
+          "primary": "hip-17847",
+          "secondary": "msc-03492+2403-aa2"
+        },
+        "distancePc": 136.2,
+        "distanceErrorPc": 1.4,
+        "parallaxMas": 7.34,
+        "parallaxErrorMas": 0.076,
+        "properMotionRaMasYr": 18.21,
+        "properMotionRaErrorMasYr": 0.44,
+        "properMotionDecMasYr": -44.63,
+        "properMotionDecErrorMasYr": 0.35,
+        "systemicRadialVelocityKms": 8.41,
+        "systemicRadialVelocityErrorKms": 0.32
+      },
+      "previousEffectiveAdoptions": {
+        "hip-17847": {
+          "temperature_k": null,
+          "mass_solar": null,
+          "luminosity_solar": null,
+          "radius_solar": null,
+          "metallicity_dex": null,
+          "age_gyr": null,
+          "metallicity_kind": null,
+          "absolute_mag": -1.530862127,
+          "apparent_mag": 3.84,
+          "vx_kms": -9.448626,
+          "vy_kms": -25.145566,
+          "vz_kms": -13.262872,
+          "raw_astrometry": {
+            "ra_deg": 57.290601,
+            "dec_deg": 24.053408,
+            "epoch": 2000,
+            "parallax_mas": 8.43,
+            "parallax_error_mas": null,
+            "pm_ra_cosdec_masyr": 21.8,
+            "pm_ra_error_masyr": null,
+            "pm_dec_masyr": -46.2,
+            "pm_dec_error_masyr": null,
+            "radial_velocity_kms": 8.5,
+            "radial_velocity_error_kms": null,
+            "astrometry_ref": "MSC 2026-06-19; shared parent astrometry for unresolved members (approximate)",
+            "radial_velocity_ref": "SIMBAD TAP snapshot 2026-10-01; compiled-primary-proxy; shared systemic velocity approximation"
+          },
+          "spectral_type": "B8III",
+          "known_planets": null,
+          "x_pc": -106.215466999,
+          "y_pc": 24.495067074,
+          "z_pc": -46.796480929,
+          "epoch": 2000.0,
+          "constellation": "Taurus",
+          "id": "hip-17847",
+          "name": "Atlas Aa1",
+          "type": "star",
+          "designations": [
+            "HD 23850",
+            "HIP 17847",
+            "27 Tau",
+            "2MASS J03490974+2403121",
+            "[B10] 877",
+            "[KSP2003] G167.0133-23.2345",
+            "[KSP2003] J034909.65+240312.6",
+            "[SCG94] O 197",
+            "ADS 2786 A",
+            "AG+23 331",
+            "AKARI-IRC-V1 J0349097+240312",
+            "ALS 15095",
+            "BD+23 557",
+            "BD+23 557A",
+            "CCDM J03492+2403A",
+            "CEL 354",
+            "Cl Melotte 22 2168",
+            "Cl* Melotte 22 HII 2168",
+            "Cl* Melotte 22 K 83",
+            "Cl* Melotte 22 MSH 239",
+            "Cl* Melotte 22 MSK 190",
+            "Cl* Melotte 22 TRU 594",
+            "Cl* Melotte 22 VM 52",
+            "Cl* Melotte 22 WCZ 367",
+            "CSV 100333",
+            "DANCe J03490974+2403123",
+            "EPIC 200007768",
+            "FK5 142",
+            "Gaia DR2 66526127136550784",
+            "Gaia DR3 66526127137440128",
+            "GC 4586",
+            "GCRV 2171",
+            "GEN# +5.20222168",
+            "HGAM 286",
+            "HIC 17847",
+            "HR 1178",
+            "IDS 03432+2345",
+            "IRAS 03461+2354",
+            "JP11 4701",
+            "N30 786",
+            "NSV 1345",
+            "PLX 834",
+            "PLX 834.00",
+            "PMC 90-93 102",
+            "PPM 92934",
+            "Renson 6100",
+            "ROT 3797",
+            "SAO 76228",
+            "SBC7 143",
+            "SBC9 196",
+            "SKY# 5825",
+            "SRS 30142",
+            "STF 453A",
+            "SV* ZI 236",
+            "TD1 2548",
+            "TIC 346626216",
+            "TYC 1800-2203-1",
+            "UBV 3678",
+            "uvby98 520222168",
+            "WDS J03492+2403Aa",
+            "WEB 3427",
+            "Atlas",
+            "WDS J03492+2403Aa1",
+            "hip-17847"
+          ],
+          "subtypes": [
+            "Giant"
+          ],
+          "notes": " MSC physical hierarchy 03492+2403, component Aa1. Shared system distance for close components is approximate. Catalog magnitude/spectral-type masses and minimum companion masses are withheld. Component-scoped catalog measurements/estimates; details in catalog-work/star-systems/catalog-companions-audit.json. Adopted common system motion from Atlas Aa1: RV 8.5 km/s (SIMBAD TAP snapshot 2026-10-01; compiled-primary-proxy). All adopted members use the same Galactic velocity vector for linear propagation; component orbital velocities are not modeled. Native positions, proper motions, parallaxes and their uncertainties are retained. Previous RVs, errors and vectors are retained as source observations. This adoption supersedes earlier motion assumptions in the source notes. Shared primary astrometric basis and a single Galactic Cartesian velocity for all listed targets. This is a common linear-propagation approximation; individual measured positions, distances and proper motions are not overwritten. No orbital phase integration or binding-energy inference."
+        },
+        "msc-03492+2403-aa2": {
+          "temperature_k": null,
+          "mass_solar": null,
+          "luminosity_solar": null,
+          "radius_solar": null,
+          "metallicity_dex": null,
+          "age_gyr": null,
+          "metallicity_kind": null,
+          "absolute_mag": 0.089137873,
+          "apparent_mag": 5.46,
+          "vx_kms": -9.448626,
+          "vy_kms": -25.145566,
+          "vz_kms": -13.262872,
+          "raw_astrometry": {
+            "ra_deg": 57.290601,
+            "dec_deg": 24.053408,
+            "epoch": 2000,
+            "parallax_mas": 8.43,
+            "parallax_error_mas": null,
+            "pm_ra_cosdec_masyr": 21.8,
+            "pm_ra_error_masyr": null,
+            "pm_dec_masyr": -46.2,
+            "pm_dec_error_masyr": null,
+            "radial_velocity_kms": 8.5,
+            "radial_velocity_error_kms": null,
+            "astrometry_ref": "MSC 2026-06-19; shared parent astrometry for unresolved members (approximate)",
+            "radial_velocity_ref": "SIMBAD TAP snapshot 2026-10-01; compiled-primary-proxy; shared systemic velocity approximation"
+          },
+          "spectral_type": null,
+          "known_planets": null,
+          "x_pc": -106.215466999,
+          "y_pc": 24.495067074,
+          "z_pc": -46.796480929,
+          "epoch": 2000.0,
+          "constellation": "Taurus",
+          "id": "msc-03492+2403-aa2",
+          "name": "Atlas Aa2",
+          "type": "star",
+          "designations": [
+            "WDS J03492+2403Aa2"
+          ],
+          "subtypes": [],
+          "notes": " MSC physical hierarchy 03492+2403, component Aa2. Shared system distance for close components is approximate. Catalog magnitude/spectral-type masses and minimum companion masses are withheld. Component-scoped catalog measurements/estimates; details in catalog-work/star-systems/catalog-companions-audit.json. Adopted common system motion from Atlas Aa1: RV 8.5 km/s (SIMBAD TAP snapshot 2026-10-01; compiled-primary-proxy). All adopted members use the same Galactic velocity vector for linear propagation; component orbital velocities are not modeled. Native positions, proper motions, parallaxes and their uncertainties are retained. Previous RVs, errors and vectors are retained as source observations. This adoption supersedes earlier motion assumptions in the source notes. Shared primary astrometric basis and a single Galactic Cartesian velocity for all listed targets. This is a common linear-propagation approximation; individual measured positions, distances and proper motions are not overwritten. No orbital phase integration or binding-energy inference."
+        }
+      },
+      "previousComponentEvidence": {
+        "hip-17847": {
+          "membership": {
+            "source": "MSC 2026-06-19",
+            "wds": "03492+2403",
+            "component": "Aa1",
+            "subsystem": [
+              "03492+2403",
+              "Aa1",
+              "Aa2",
+              "Aa",
+              "S1,V",
+              "0.7670",
+              "y",
+              "13.100",
+              "m",
+              "167.0",
+              "3.84",
+              "B8III",
+              "5.46",
+              "",
+              "6.63",
+              "v",
+              "3.21",
+              "v",
+              "MKT_12 Aa1,2"
+            ]
+          },
+          "astrometryScope": "Individual source direction when available; shared system distance/motion for unresolved close members; no orbital phase or individual radial velocity inferred.",
+          "withheldIntegratedFields": {
+            "temperature_k": 9608.0,
+            "mass_solar": 4.5091114,
+            "luminosity_solar": 504.04787024876924,
+            "radius_solar": 7.318154,
+            "metallicity_dex": 0.5428,
+            "absolute_mag": -1.862002
+          },
+          "unresolvedPhotometry": {
+            "magnitude_v": 3.63,
+            "error_mag": null,
+            "scope": "Atlas catalog source; unresolved component contributions",
+            "source": "Reviewed parent catalog Johnson V; inverse of its adopted distance modulus",
+            "source_url": "https://simbad.cds.unistra.fr/simbad/sim-id?Ident=%2A++27+Tau",
+            "sourceStarId": "hip-17847",
+            "sourceAbsoluteMagnitude": -1.862002,
+            "sourceDistancePc": 125.429679991,
+            "sourceNotes": "Western constellation line-figure star (HIP 17847; Stellarium Tau). SIMBAD identity *  27 Tau; SIMBAD compiled Johnson V=3.63; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, luminosity_solar; Gaia DR3 model values for metallicity_dex, mass_solar, radius_solar.",
+            "policy": "Observed catalog-source photometry only; no individual component flux inferred."
+          },
+          "photometry": {
+            "source": "MSC individual subsystem magnitude",
+            "V": 3.84,
+            "distancePc": 118.623962032,
+            "method": "Individual V and adopted component distance; no extinction correction"
+          },
+          "constellationSystemMotion": {
+            "systemId": "msc-03492+2403",
+            "primaryStarId": "hip-17847",
+            "radialVelocity": {
+              "valueKms": 8.5,
+              "uncertaintyKms": null,
+              "uncertaintyKind": "unreported",
+              "reference": "SIMBAD TAP snapshot 2026-10-01",
+              "sourceUrl": "https://simbad.cds.unistra.fr/simbad/",
+              "section": "Existing frozen primary/source RV adoption",
+              "status": "compiled-primary-proxy",
+              "scope": "Compiled primary/source radial velocity used as a system bulk-motion proxy. It may contain orbital, pulsation, wind, gravitational or instrumental shifts; a measurement error does not bound those systematics."
+            },
+            "motionInputs": {
+              "ra_deg": 57.290601,
+              "dec_deg": 24.053408,
+              "epoch": 2000,
+              "parallax_mas": 8.43,
+              "parallax_error_mas": null,
+              "pm_ra_cosdec_masyr": 21.8,
+              "pm_ra_error_masyr": null,
+              "pm_dec_masyr": -46.2,
+              "pm_dec_error_masyr": null,
+              "radial_velocity_kms": null,
+              "radial_velocity_error_kms": null,
+              "astrometry_ref": "MSC 2026-06-19; shared parent astrometry for unresolved members (approximate)",
+              "radial_velocity_ref": null
+            },
+            "adoptedVectorKms": [
+              -9.448626,
+              -25.145566,
+              -13.262872
+            ],
+            "retainedOriginal": {
+              "raw_astrometry": {
+                "ra_deg": 57.290601,
+                "dec_deg": 24.053408,
+                "epoch": 2000,
+                "parallax_mas": 8.43,
+                "parallax_error_mas": null,
+                "pm_ra_cosdec_masyr": 21.8,
+                "pm_ra_error_masyr": null,
+                "pm_dec_masyr": -46.2,
+                "pm_dec_error_masyr": null,
+                "radial_velocity_kms": null,
+                "radial_velocity_error_kms": null,
+                "astrometry_ref": "MSC 2026-06-19; shared parent astrometry for unresolved members (approximate)",
+                "radial_velocity_ref": null
+              },
+              "vx_kms": null,
+              "vy_kms": null,
+              "vz_kms": null
+            },
+            "scope": "Shared primary astrometric basis and a single Galactic Cartesian velocity for all listed targets. This is a common linear-propagation approximation; individual measured positions, distances and proper motions are not overwritten. No orbital phase integration or binding-energy inference."
+          },
+          "spectralSubtypes": {
+            "spectralType": "B8III",
+            "labels": [
+              "Giant"
+            ],
+            "method": "Physical subtype from this component's own adopted spectrum; no aggregate-label inheritance"
+          }
+        },
+        "msc-03492+2403-aa2": {
+          "membership": {
+            "source": "MSC 2026-06-19",
+            "wds": "03492+2403",
+            "component": "Aa2",
+            "subsystem": [
+              "03492+2403",
+              "Aa1",
+              "Aa2",
+              "Aa",
+              "S1,V",
+              "0.7670",
+              "y",
+              "13.100",
+              "m",
+              "167.0",
+              "3.84",
+              "B8III",
+              "5.46",
+              "",
+              "6.63",
+              "v",
+              "3.21",
+              "v",
+              "MKT_12 Aa1,2"
+            ]
+          },
+          "astrometryScope": "Individual source direction when available; shared system distance/motion for unresolved close members; no orbital phase or individual radial velocity inferred.",
+          "withheldIntegratedFields": {},
+          "photometry": {
+            "source": "MSC individual subsystem magnitude",
+            "V": 5.46,
+            "distancePc": 118.623962032,
+            "method": "Individual V and adopted component distance; no extinction correction"
+          },
+          "constellationSystemMotion": {
+            "systemId": "msc-03492+2403",
+            "primaryStarId": "hip-17847",
+            "radialVelocity": {
+              "valueKms": 8.5,
+              "uncertaintyKms": null,
+              "uncertaintyKind": "unreported",
+              "reference": "SIMBAD TAP snapshot 2026-10-01",
+              "sourceUrl": "https://simbad.cds.unistra.fr/simbad/",
+              "section": "Existing frozen primary/source RV adoption",
+              "status": "compiled-primary-proxy",
+              "scope": "Compiled primary/source radial velocity used as a system bulk-motion proxy. It may contain orbital, pulsation, wind, gravitational or instrumental shifts; a measurement error does not bound those systematics."
+            },
+            "motionInputs": {
+              "ra_deg": 57.290601,
+              "dec_deg": 24.053408,
+              "epoch": 2000,
+              "parallax_mas": 8.43,
+              "parallax_error_mas": null,
+              "pm_ra_cosdec_masyr": 21.8,
+              "pm_ra_error_masyr": null,
+              "pm_dec_masyr": -46.2,
+              "pm_dec_error_masyr": null,
+              "radial_velocity_kms": null,
+              "radial_velocity_error_kms": null,
+              "astrometry_ref": "MSC 2026-06-19; shared parent astrometry for unresolved members (approximate)",
+              "radial_velocity_ref": null
+            },
+            "adoptedVectorKms": [
+              -9.448626,
+              -25.145566,
+              -13.262872
+            ],
+            "retainedOriginal": {
+              "raw_astrometry": {
+                "ra_deg": 57.290601,
+                "dec_deg": 24.053408,
+                "epoch": 2000,
+                "parallax_mas": 8.43,
+                "parallax_error_mas": null,
+                "pm_ra_cosdec_masyr": 21.8,
+                "pm_ra_error_masyr": null,
+                "pm_dec_masyr": -46.2,
+                "pm_dec_error_masyr": null,
+                "radial_velocity_kms": null,
+                "radial_velocity_error_kms": null,
+                "astrometry_ref": "MSC 2026-06-19; shared parent astrometry for unresolved members (approximate)",
+                "radial_velocity_ref": null
+              },
+              "vx_kms": null,
+              "vy_kms": null,
+              "vz_kms": null
+            },
+            "scope": "Shared primary astrometric basis and a single Galactic Cartesian velocity for all listed targets. This is a common linear-propagation approximation; individual measured positions, distances and proper motions are not overwritten. No orbital phase integration or binding-energy inference."
+          }
+        }
+      }
+    },
+    {
+      "systemId": "msc-08400-5303",
+      "expectedName": "HD 74146",
+      "expectedComponents": {
+        "hip-42504": "Aa",
+        "msc-08400-5303-ab": "Ab",
+        "msc-08400-5303-b": "B"
+      },
+      "kind": "preferred-member-distance",
+      "sourceStarId": "msc-08400-5303-b",
+      "sharedReferenceIds": [],
+      "source": {
+        "gaiaDr3Id": "5318541982138813824",
+        "sourceUrl": "https://gea.esac.esa.int/archive/",
+        "quality": {
+          "ruwe": 0.86342937,
+          "duplicatedSource": true
+        },
+        "nativeAstrometry": {
+          "ra_deg": 129.99374140605363,
+          "dec_deg": -53.050609835945686,
+          "epoch": 2016.0,
+          "parallax_mas": 6.624450200570225,
+          "parallax_error_mas": 0.014490329,
+          "pm_ra_cosdec_masyr": -25.278319575136386,
+          "pm_ra_error_masyr": 0.016747417,
+          "pm_dec_masyr": 24.810609653236114,
+          "pm_dec_error_masyr": 0.016076986,
+          "radial_velocity_kms": 15.824231,
+          "radial_velocity_error_kms": 0.3874679,
+          "astrometry_ref": "Gaia DR3 5318541982138813824; measured source astrometry; shared only with the explicitly identified physical members, not independent component astrometry",
+          "radial_velocity_ref": "Gaia DR3 5318541982138813824; individual wide B measurement"
+        },
+        "scope": "HD 74146 uses the precise wide B parallax (RUWE=0.863, error 0.0145 mas) for its physical hierarchy; the unresolved Aa,Ab primary solution has error 0.0993 mas. Native component directions/proper motions remain source-scoped. B retains its own complete Gaia astrometry and newly recovered measured RV. Unknown physical depth is not separately resolved."
+      },
+      "expectedInputs": {
+        "hip-42504": {
+          "name": "HD 74146 Aa",
+          "rawAstrometry": {
+            "ra_deg": 129.989994,
+            "dec_deg": -53.054727,
+            "epoch": 2000,
+            "parallax_mas": 6.56,
+            "parallax_error_mas": null,
+            "pm_ra_cosdec_masyr": -24.8,
+            "pm_ra_error_masyr": null,
+            "pm_dec_masyr": 23.4,
+            "pm_dec_error_masyr": null,
+            "radial_velocity_kms": 14.5,
+            "radial_velocity_error_kms": null,
+            "astrometry_ref": "MSC 2026-06-19; shared parent astrometry for unresolved members (approximate)",
+            "radial_velocity_ref": "1988Ap&SS.146..361L; MSC SB9_1782; published-subsystem-proxy; shared systemic velocity approximation"
+          },
+          "positionPc": {
+            "x_pc": 0.86352581,
+            "y_pc": -151.325990748,
+            "z_pc": -18.367226408
+          }
+        },
+        "msc-08400-5303-ab": {
+          "name": "HD 74146 Ab",
+          "rawAstrometry": {
+            "ra_deg": 129.989994,
+            "dec_deg": -53.054727,
+            "epoch": 2000,
+            "parallax_mas": 6.56,
+            "parallax_error_mas": null,
+            "pm_ra_cosdec_masyr": -24.8,
+            "pm_ra_error_masyr": null,
+            "pm_dec_masyr": 23.4,
+            "pm_dec_error_masyr": null,
+            "radial_velocity_kms": 14.5,
+            "radial_velocity_error_kms": null,
+            "astrometry_ref": "MSC 2026-06-19; shared parent astrometry for unresolved members (approximate)",
+            "radial_velocity_ref": "1988Ap&SS.146..361L; MSC SB9_1782; published-subsystem-proxy; shared systemic velocity approximation"
+          },
+          "positionPc": {
+            "x_pc": 0.86352581,
+            "y_pc": -151.325990748,
+            "z_pc": -18.367226408
+          }
+        },
+        "msc-08400-5303-b": {
+          "name": "HD 74146 B",
+          "rawAstrometry": {
+            "ra_deg": 129.993928,
+            "dec_deg": -53.05072,
+            "epoch": 2000,
+            "parallax_mas": 6.62,
+            "parallax_error_mas": null,
+            "pm_ra_cosdec_masyr": -25.3,
+            "pm_ra_error_masyr": null,
+            "pm_dec_masyr": 24.8,
+            "pm_dec_error_masyr": null,
+            "radial_velocity_kms": null,
+            "radial_velocity_error_kms": null,
+            "astrometry_ref": "MSC 2026-06-19; shared parent astrometry for unresolved members (approximate)",
+            "radial_velocity_ref": null
+          },
+          "positionPc": {
+            "x_pc": 0.851036677,
+            "y_pc": -149.95584889,
+            "z_pc": -18.189495985
+          }
+        }
+      }
+    },
+    {
+      "systemId": "msc-08424-5307",
+      "expectedName": "HD 74560",
+      "expectedComponents": {
+        "hip-42726": "Aa",
+        "msc-08424-5307-ab": "Ab",
+        "hip-42715": "B",
+        "msc-08424-5307-c": "C"
+      },
+      "kind": "preferred-member-distance",
+      "sourceStarId": "hip-42726",
+      "sharedReferenceIds": [
+        "msc-08424-5307-ab"
+      ],
+      "source": {
+        "gaiaDr3Id": "5318486456810851072",
+        "sourceUrl": "https://gea.esac.esa.int/archive/",
+        "quality": {
+          "ruwe": 0.9254262,
+          "duplicatedSource": false
+        },
+        "nativeAstrometry": {
+          "ra_deg": 130.60559576604757,
+          "dec_deg": -53.11387968643011,
+          "epoch": 2016.0,
+          "parallax_mas": 6.650692081253478,
+          "parallax_error_mas": 0.09298161,
+          "pm_ra_cosdec_masyr": -24.545205373426008,
+          "pm_ra_error_masyr": 0.093562946,
+          "pm_dec_masyr": 23.53169053039796,
+          "pm_dec_error_masyr": 0.11944047,
+          "radial_velocity_kms": null,
+          "radial_velocity_error_kms": null,
+          "astrometry_ref": "Gaia DR3 5318486456810851072; measured source astrometry; shared only with the explicitly identified physical members, not independent component astrometry",
+          "radial_velocity_ref": null
+        },
+        "scope": "HD 74560 uses the A-source parallax (RUWE=0.925, error 0.0930 mas) as a preferred shared-distance approximation; the BC source has RUWE=1.725 and error 0.1453 mas. BC keeps its separate sky direction. Aa,Ab share the unresolved A astrometric basis and published inner systemic RV; B retains its independent RV. Unknown physical depth is not separately resolved."
+      },
+      "expectedInputs": {
+        "hip-42726": {
+          "name": "HD 74560 Aa",
+          "rawAstrometry": {
+            "ra_deg": 130.605778,
+            "dec_deg": -53.113984,
+            "epoch": 2000,
+            "parallax_mas": 6.65,
+            "parallax_error_mas": null,
+            "pm_ra_cosdec_masyr": -24.5,
+            "pm_ra_error_masyr": null,
+            "pm_dec_masyr": 23.5,
+            "pm_dec_error_masyr": null,
+            "radial_velocity_kms": 15.6,
+            "radial_velocity_error_kms": null,
+            "astrometry_ref": "MSC 2026-06-19; shared parent astrometry for unresolved members (approximate)",
+            "radial_velocity_ref": "2000A&A...355.1015D; MSC SB9_2017; published-subsystem-proxy; shared systemic velocity approximation"
+          },
+          "positionPc": {
+            "x_pc": 1.564449326,
+            "y_pc": -149.352370776,
+            "z_pc": -17.445490221
+          }
+        },
+        "msc-08424-5307-ab": {
+          "name": "HD 74560 Ab",
+          "rawAstrometry": {
+            "ra_deg": 130.605778,
+            "dec_deg": -53.113984,
+            "epoch": 2000,
+            "parallax_mas": 6.65,
+            "parallax_error_mas": null,
+            "pm_ra_cosdec_masyr": -24.5,
+            "pm_ra_error_masyr": null,
+            "pm_dec_masyr": 23.5,
+            "pm_dec_error_masyr": null,
+            "radial_velocity_kms": 15.6,
+            "radial_velocity_error_kms": null,
+            "astrometry_ref": "MSC 2026-06-19; shared parent astrometry for unresolved members (approximate)",
+            "radial_velocity_ref": "2000A&A...355.1015D; MSC SB9_2017; published-subsystem-proxy; shared systemic velocity approximation"
+          },
+          "positionPc": {
+            "x_pc": 1.564449326,
+            "y_pc": -149.352370776,
+            "z_pc": -17.445490221
+          }
+        },
+        "hip-42715": {
+          "name": "HD 74560 B",
+          "rawAstrometry": {
+            "ra_deg": 130.57913185620794,
+            "dec_deg": -53.10005688063944,
+            "parallax_mas": 6.5561,
+            "parallax_error_mas": 0.1453,
+            "pm_ra_cosdec_masyr": -21.8,
+            "pm_ra_error_masyr": null,
+            "pm_dec_masyr": 24.248,
+            "pm_dec_error_masyr": null,
+            "radial_velocity_kms": 14.365,
+            "radial_velocity_error_kms": null,
+            "epoch": 2000.0,
+            "astrometry_ref": "SIMBAD TAP snapshot 2026-10-01",
+            "radial_velocity_ref": "SIMBAD TAP snapshot 2026-10-01"
+          },
+          "positionPc": {
+            "x_pc": 1.531572305,
+            "y_pc": -151.497584746,
+            "z_pc": -17.707269485
+          }
+        }
+      }
+    },
+    {
+      "systemId": "msc-08424-5307",
+      "expectedName": "HD 74560",
+      "expectedComponents": {
+        "hip-42726": "Aa",
+        "msc-08424-5307-ab": "Ab",
+        "hip-42715": "B",
+        "msc-08424-5307-c": "C"
+      },
+      "kind": "unresolved-pair-reference-position",
+      "expectedInputs": {
+        "msc-08424-5307-c": {
+          "name": "HD 74560 C",
+          "rawAstrometry": {
+            "ra_deg": 130.605778,
+            "dec_deg": -53.113984,
+            "epoch": 2000,
+            "parallax_mas": 6.65,
+            "parallax_error_mas": null,
+            "pm_ra_cosdec_masyr": -24.5,
+            "pm_ra_error_masyr": null,
+            "pm_dec_masyr": 23.5,
+            "pm_dec_error_masyr": null,
+            "radial_velocity_kms": null,
+            "radial_velocity_error_kms": null,
+            "astrometry_ref": "MSC 2026-06-19; shared parent astrometry for unresolved members (approximate)",
+            "radial_velocity_ref": null
+          },
+          "positionPc": {
+            "x_pc": 1.564449326,
+            "y_pc": -149.352370776,
+            "z_pc": -17.445490221
+          }
+        }
+      },
+      "source": {
+        "source": "catalog-work/star-systems/catalog-companions-msc.json",
+        "exactBranch": [
+          "08424-5307",
+          "B",
+          "C",
+          "BC",
+          "v",
+          "366.0000",
+          "y",
+          "0.600"
+        ],
+        "finding": "C belongs to the 0.6-arcsecond B,C visual pair, not the Aa,Ab spectroscopic pair 76 arcseconds away. No independent C direction/parallax is available; use the measured B reference position as an explicitly approximate unresolved BC position."
+      },
+      "referenceStarId": "hip-42715",
+      "expectedReferenceAstrometry": {
+        "ra_deg": 130.57913185620794,
+        "dec_deg": -53.10005688063944,
+        "parallax_mas": 6.5561,
+        "parallax_error_mas": 0.1453,
+        "pm_ra_cosdec_masyr": -21.8,
+        "pm_ra_error_masyr": null,
+        "pm_dec_masyr": 24.248,
+        "pm_dec_error_masyr": null,
+        "radial_velocity_kms": 14.365,
+        "radial_velocity_error_kms": null,
+        "epoch": 2000.0,
+        "astrometry_ref": "SIMBAD TAP snapshot 2026-10-01",
+        "radial_velocity_ref": "SIMBAD TAP snapshot 2026-10-01"
+      }
+    }
+  ]
+}

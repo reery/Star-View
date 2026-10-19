@@ -8,7 +8,7 @@
   "gaiaSourceManifestSha256": "5744f1665fe2700b5acaf88fd2cc46a4f2a0e2a75d75c03290b769b64c3cb315",
   "physicalOverridesSha256": "9bbfe6982d5fad43b205a5cbf36fc9bb3ac967d285959292cc544abd3f1bd297",
   "physicalPolicyRevision": "nearest100-reviewed-gaia-shared-v2",
-  "sharedEnrichmentManifestSha256": "df3eee34adaeab5132430ad64d378f09a3c02c2b62e80cae99483cf98bebf07e",
+  "sharedEnrichmentManifestSha256": "8305e4aada953aa56376cb9c809b9efc89f0e824ffe300e52a982ca8f8329eff",
   "sources": [
     {
       "name": "10pc census, Reyle et al., tablea1 update 2023-08-25",
@@ -489,6 +489,11 @@
     {
       "name": "Arroyo-Torres et al. 2014; arXiv:1404.7384",
       "url": "https://arxiv.org/html/1404.7384"
+    },
+    {
+      "name": "Reviewed exact-object Famous cluster star parameters, component identities, preferred Phyllon Kissinou C astrometry and scoped orbital systemic velocities (2026-10-19)",
+      "url": "https://gea.esac.esa.int/archive/",
+      "review": "catalog-work/famous-cluster-stars/physical-review.json"
     }
   ],
   "sourceChecksumsSha256": {

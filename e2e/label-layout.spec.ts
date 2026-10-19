@@ -6,6 +6,39 @@ import { galacticToWorld } from '../src/astronomy'
 import { parseStarCatalog } from '../src/catalog'
 import { arrowIntersectsRect, motionArrows, openFilter, openPreferences, openViewer, selectCatalog, zoomViewer } from './support'
 
+test('refreshes the rendered distance texture when selecting a distant cluster star', { tag: '@mobile' }, async ({ page }) => {
+  const textureErrors: string[] = []
+  page.on('console', (message) => {
+    if (/texSubImage2D|texStorage2D|GL_INVALID_VALUE/.test(message.text())) textureErrors.push(message.text())
+  })
+  await openViewer(page)
+  await openFilter(page)
+  await page.getByRole('switch', { name: 'Famous cluster stars', exact: true }).check()
+  await expect(page.locator('#scene-status')).toBeHidden()
+  await page.getByLabel('Object visibility distance', { exact: true }).fill('22')
+  await expect(page.locator('.distance-label')).toHaveText('8.61 ly')
+  // Let the initial Sirius texture reach the GPU before changing its dimensions.
+  await page.evaluate(() => new Promise(requestAnimationFrame))
+  await page.getByRole('button', { name: 'Objects', exact: true }).click()
+  await page.getByLabel('Search objects').fill('HD 93194')
+  await page.getByRole('button', { name: 'Select HD 93194', exact: true }).click()
+  await page.getByRole('button', { name: 'Objects', exact: true }).click()
+  await page.getByRole('button', { name: 'Reset view', exact: true }).click()
+  await expect(page.locator('.distance-label')).toHaveText('478.84 ly')
+  await expect(page.locator('#star-distance')).toHaveText('478.84 ly')
+  await openPreferences(page)
+  await page.getByLabel('pc', { exact: true }).check()
+  await expect(page.locator('.distance-label')).toHaveText('146.81 pc')
+  await page.getByLabel('ly', { exact: true }).check()
+  await page.getByRole('button', { name: 'Preferences', exact: true }).click()
+  await page.getByRole('button', { name: 'Objects', exact: true }).click()
+  await page.getByLabel('Search objects').fill('Sirius')
+  await page.getByRole('button', { name: 'Select Sirius A', exact: true }).click()
+  await expect(page.locator('.distance-label')).toHaveText('8.61 ly')
+  await page.evaluate(() => new Promise(requestAnimationFrame))
+  expect(textureErrors).toEqual([])
+})
+
 test('shows selected Dschubba component names from the Sun without individual visual magnitudes', async ({ page }, testInfo) => {
   await openViewer(page)
   await openFilter(page)

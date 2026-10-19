@@ -2,6 +2,21 @@
 export function initializeToolbarTouch(toolbar: HTMLElement, signal: AbortSignal): void {
   let openGroup: HTMLElement | null = null
   let openingTouch: HTMLElement | null = null
+  const shortScreen = window.matchMedia('(max-height: 500px) and (orientation: landscape) and (pointer: coarse)')
+
+  const positionOptions = () => {
+    if (!shortScreen.matches) return
+    for (const group of toolbar.querySelectorAll<HTMLElement>('[data-toolbar-flyout]')) {
+      group.style.setProperty('--toolbar-options-top', `${group.getBoundingClientRect().top}px`)
+    }
+  }
+  const syncScrolling = () => {
+    for (const rail of [toolbar, document.querySelector<HTMLElement>('.dock-rail')!]) {
+      if (shortScreen.matches) rail.tabIndex = 0
+      else rail.removeAttribute('tabindex')
+    }
+    positionOptions()
+  }
 
   const close = (blurFocus = true) => {
     if (!openGroup) return
@@ -13,6 +28,25 @@ export function initializeToolbarTouch(toolbar: HTMLElement, signal: AbortSignal
     }
     openGroup = null
   }
+
+  toolbar.addEventListener('pointerdown', positionOptions, { capture: true, passive: true, signal })
+  toolbar.addEventListener('focusin', positionOptions, { signal })
+  toolbar.addEventListener('scroll', () => {
+    if (!shortScreen.matches) return
+    close()
+    // Keep keyboard focus when scrolling brings its button into view.
+    const focused = document.activeElement
+    const group = focused instanceof HTMLElement ? focused.closest('[data-toolbar-flyout]') : null
+    if (group && focused instanceof HTMLElement) {
+      const anchor = group.getBoundingClientRect()
+      const viewport = toolbar.getBoundingClientRect()
+      if (anchor.bottom <= viewport.top || anchor.top >= viewport.bottom) focused.blur()
+    }
+    positionOptions()
+  }, { passive: true, signal })
+  window.addEventListener('resize', syncScrolling, { signal })
+  shortScreen.addEventListener('change', syncScrolling, { signal })
+  syncScrolling()
 
   document.addEventListener('pointerdown', (event) => {
     openingTouch = null

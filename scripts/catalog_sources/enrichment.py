@@ -161,9 +161,16 @@ def reviewed_physical():
     for path, digest in bright_review["inputSha256"].items():
         verify_sha256(ROOT / path, digest)
     bright = bright_review["catalogObjects"]
-    if existing.keys() & ultracool.keys() or (existing.keys() | ultracool.keys()) & bright.keys():
+    cluster_review = json.loads((ROOT / "catalog-work/famous-cluster-stars/physical-review.json").read_text())
+    for path, digest in cluster_review["inputSha256"].items():
+        verify_sha256(ROOT / path, digest)
+    cluster = {normalized_id(key): value for key, value in cluster_review["catalogObjects"].items()}
+    if len(cluster) != len(cluster_review["catalogObjects"]):
+        raise ValueError("Duplicate normalized cluster review identity")
+    if (existing.keys() & ultracool.keys() or (existing.keys() | ultracool.keys()) & bright.keys()
+            or (existing.keys() | ultracool.keys() | bright.keys()) & cluster.keys()):
         raise ValueError("Reviewed physical identities must be unique")
-    return existing | ultracool | bright
+    return existing | ultracool | bright | cluster
 
 
 def derive_physical(row):

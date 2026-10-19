@@ -19,8 +19,8 @@ def motion_input(star):
     return {field: copy.deepcopy(star.get(field)) for field in ("raw_astrometry", *VELOCITY)}
 
 
-def apply_constellation_motion(root, systems, pool, audit):
-    path = root / PLAN
+def apply_constellation_motion(root, systems, pool, audit, plan_path=PLAN, audit_key="constellationMotion"):
+    path = root / plan_path
     plan = json.loads(path.read_text())
     inputs = [path]
     for relative, digest in plan["inputSha256"].items():
@@ -38,6 +38,9 @@ def apply_constellation_motion(root, systems, pool, audit):
         primary = review["primaryStarId"]
         if primary != system["components"][0]["starId"]:
             raise ValueError(f"Constellation motion primary drifted: {review['systemId']}")
+        donor = review.get("motionSourceStarId", primary)
+        if donor not in members:
+            raise ValueError(f"System motion donor identity drifted: {review['systemId']}")
         excluded = review.get("excludedComponents", {})
         if set(review["expectedInputs"]) | set(excluded) != set(members) or not all(excluded.values()):
             raise ValueError(f"Unreviewed constellation motion target: {review['systemId']}")
@@ -45,7 +48,7 @@ def apply_constellation_motion(root, systems, pool, audit):
             raise ValueError(f"Excluded constellation motion target: {review['systemId']}")
         rv = review["radialVelocity"]
         if not math.isfinite(rv["valueKms"]) or rv["status"] not in {
-                "published-systemic", "compiled-primary-proxy", "published-subsystem-proxy"}:
+                "published-systemic", "compiled-primary-proxy", "published-subsystem-proxy", "measured-wide-companion-proxy"}:
             raise ValueError(f"Invalid constellation RV: {review['systemId']}")
         if rv["uncertaintyKms"] is not None and (
                 rv.get("uncertaintyKind") != "1-sigma" or rv["uncertaintyKms"] <= 0):
@@ -72,7 +75,7 @@ def apply_constellation_motion(root, systems, pool, audit):
                        radial_velocity_error_kms=rv["uncertaintyKms"], radial_velocity_ref=reference)
             star.update(zip(VELOCITY, vector))
             star.setdefault("catalog_sources", []).append({
-                "catalog_id": "constellation-motion-before-20261019",
+                "catalog_id": plan.get("retainedCatalogId", "constellation-motion-before-20261019"),
                 "scope": "Original component observations and adopted velocity before shared system propagation. Individual/source RVs include their original scope and may contain orbital motion; not the adopted common bulk velocity.",
                 "record": original,
             })
@@ -83,15 +86,16 @@ def apply_constellation_motion(root, systems, pool, audit):
                 "systemId": system["id"], "primaryStarId": primary, "radialVelocity": rv,
                 "motionInputs": review["motionInputs"], "adoptedVectorKms": vector,
                 "retainedOriginal": motion_input(original), "scope": review["scope"],
+                **({"motionSourceStarId": donor} if donor != primary else {}),
             }
-            star["notes"] += (f" Adopted common system motion from {pool[primary]['name']}: "
+            star["notes"] += (f" Adopted common system motion from {pool[donor]['name']}: "
                 f"RV {rv['valueKms']} km/s ({rv['reference']}; {rv['status']}). "
                 "All adopted members use the same Galactic velocity vector for linear propagation; "
                 "component orbital velocities are not modeled. Native positions, proper motions, "
                 "parallaxes and their uncertainties are retained. Previous RVs, errors and vectors "
                 "are retained as source observations. This adoption supersedes earlier motion "
                 "assumptions in the source notes. " + review["scope"])
-    audit["constellationMotion"] = {"systems": len(plan["systems"]), "components": len(seen),
+    audit[audit_key] = {"systems": len(plan["systems"]), "components": len(seen),
         "excludedComponents": {identifier: reason for review in plan["systems"]
             for identifier, reason in review.get("excludedComponents", {}).items()},
         "policy": plan["policy"]}

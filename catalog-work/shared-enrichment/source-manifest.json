@@ -43,7 +43,10 @@
     "catalog-work/shared-enrichment/ez-aquarii-review.json": "4172cc74ae09294905167e1835f644ac99b68030742ec6c7eb2c23e9e016eba0",
     "catalog-work/shared-enrichment/nearby-gaps-review.json": "68ceac86656629eb07de06853b1d7dff0ce6399188fc7b44414f15b99003a8f3",
     "catalog-work/bright-stars/gap-physical-review.json": "aefb6c8ecc9b324d0f68abe664ae32e5179fbc06d78e4273ec6c19d41b0e2d13",
-    "catalog-work/bright-stars/gap-motion-review.json": "30b852b317927f0a2ed13cb82d28f3de17ea67569d44f26637bb2f9b128b1685"
+    "catalog-work/bright-stars/gap-motion-review.json": "30b852b317927f0a2ed13cb82d28f3de17ea67569d44f26637bb2f9b128b1685",
+    "catalog-work/famous-cluster-stars/physical-review.json": "f00056a5081fc59a3393ff62626cace1d4e5f049177efe057f89a7e372eb48aa",
+    "catalog-work/famous-cluster-stars/astrometry-review.json": "4e6009a83a86c8cf7993381c50ac20887f448f30471b26f01e12b9d09176f117",
+    "catalog-work/famous-cluster-stars/motion-review.json": "64548a4c015a186b47c8e269352fe8efa7a375537726e23f0f2527095edd0334"
   },
   "sources": [
     {
@@ -429,6 +432,11 @@
     {
       "name": "Arroyo-Torres et al. 2014; arXiv:1404.7384",
       "url": "https://arxiv.org/html/1404.7384"
+    },
+    {
+      "name": "Reviewed exact-object Famous cluster star parameters, component identities, preferred Phyllon Kissinou C astrometry and scoped orbital systemic velocities (2026-10-19)",
+      "url": "https://gea.esac.esa.int/archive/",
+      "review": "catalog-work/famous-cluster-stars/physical-review.json"
     }
   ]
 }

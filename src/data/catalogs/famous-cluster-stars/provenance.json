@@ -194,13 +194,13 @@
   ],
   "physicalCoverage": {
     "temperature_k": 42,
-    "mass_solar": 26,
+    "mass_solar": 33,
     "luminosity_solar": 42,
     "radius_solar": 42,
     "metallicity_dex": 34,
-    "age_gyr": 7
+    "age_gyr": 13
   },
-  "sharedEnrichmentManifestSha256": "df3eee34adaeab5132430ad64d378f09a3c02c2b62e80cae99483cf98bebf07e",
+  "sharedEnrichmentManifestSha256": "8305e4aada953aa56376cb9c809b9efc89f0e824ffe300e52a982ca8f8329eff",
   "objects": {
     "sun": {
       "id": "sun",
@@ -379,7 +379,8 @@
       "adoptedPhysicalFields": {
         "temperature_k": "published:2012MNRAS.427..343M:HIP-17499",
         "luminosity_solar": "published:2012MNRAS.427..343M:HIP-17499",
-        "radius_solar": "derived:stefan-boltzmann"
+        "radius_solar": "derived:stefan-boltzmann",
+        "mass_solar": "shared:2017MNRAS.471.2882W"
       },
       "physicalObservations": [
         {
@@ -405,6 +406,20 @@
           "value": 7.358061461520922,
           "status": "derived",
           "source": "Stefan-Boltzmann scaling"
+        },
+        {
+          "field": "mass_solar",
+          "value": 4.7,
+          "status": "model-derived",
+          "reference": "2017MNRAS.471.2882W",
+          "uncertainty": null,
+          "identity": "* 17 Tau",
+          "component": "catalogued individual star",
+          "scope": "Exact *  17 Tau / HIP 17499; no companion or subsystem-total transfer.",
+          "section": "Table 1; original mass references b, g, h",
+          "caveat": null,
+          "quantity": null,
+          "sourceUrl": "https://doi.org/10.1093/mnras/stx1050"
         }
       ]
     },
@@ -509,6 +524,7 @@
         "temperature_k": "published:2012MNRAS.427..343M:HIP-17579",
         "luminosity_solar": "published:2012MNRAS.427..343M:HIP-17579",
         "radius_solar": "derived:stefan-boltzmann",
+        "mass_solar": "shared:2012A&A...537A.120Z",
         "metallicity_dex": "shared:2018AJ....155..149B"
       },
       "physicalObservations": [
@@ -535,6 +551,20 @@
           "value": 3.337314598319567,
           "status": "derived",
           "source": "Stefan-Boltzmann scaling"
+        },
+        {
+          "field": "mass_solar",
+          "value": 2.93,
+          "status": "model-derived",
+          "reference": "2012A&A...537A.120Z",
+          "uncertainty": 0.07,
+          "identity": "* 21 Tau",
+          "component": "catalogued individual star",
+          "scope": "Exact *  21 Tau / HIP 17579; no companion or subsystem-total transfer.",
+          "section": "Table 1, HD 23432",
+          "caveat": null,
+          "quantity": null,
+          "sourceUrl": "https://cdsarc.cds.unistra.fr/viz-bin/cat/J/A+A/537/A120"
         },
         {
           "field": "metallicity_dex",
@@ -575,6 +605,7 @@
         "temperature_k": "published:2012MNRAS.427..343M:HIP-17573",
         "luminosity_solar": "published:2012MNRAS.427..343M:HIP-17573",
         "radius_solar": "derived:stefan-boltzmann",
+        "mass_solar": "shared:2017MNRAS.471.2882W",
         "metallicity_dex": "shared:1979ApJS...41..675H"
       },
       "physicalObservations": [
@@ -601,6 +632,20 @@
           "value": 7.630408528087764,
           "status": "derived",
           "source": "Stefan-Boltzmann scaling"
+        },
+        {
+          "field": "mass_solar",
+          "value": 4.22,
+          "status": "model-derived",
+          "reference": "2017MNRAS.471.2882W",
+          "uncertainty": 0.18,
+          "identity": "* 20 Tau",
+          "component": "catalogued individual star",
+          "scope": "Exact *  20 Tau / HIP 17573; no companion or subsystem-total transfer.",
+          "section": "Table 1; original mass references b, g, h",
+          "caveat": null,
+          "quantity": null,
+          "sourceUrl": "https://doi.org/10.1093/mnras/stx1050"
         },
         {
           "field": "metallicity_dex",
@@ -640,7 +685,8 @@
       "adoptedPhysicalFields": {
         "temperature_k": "published:2012MNRAS.427..343M:HIP-17608",
         "luminosity_solar": "published:2012MNRAS.427..343M:HIP-17608",
-        "radius_solar": "derived:stefan-boltzmann"
+        "radius_solar": "derived:stefan-boltzmann",
+        "mass_solar": "shared:2017MNRAS.471.2882W"
       },
       "physicalObservations": [
         {
@@ -666,6 +712,20 @@
           "value": 7.567894187091117,
           "status": "derived",
           "source": "Stefan-Boltzmann scaling"
+        },
+        {
+          "field": "mass_solar",
+          "value": 4.25,
+          "status": "model-derived",
+          "reference": "2017MNRAS.471.2882W",
+          "uncertainty": 0.08,
+          "identity": "* 23 Tau",
+          "component": "catalogued individual star",
+          "scope": "Exact *  23 Tau / HIP 17608; no companion or subsystem-total transfer.",
+          "section": "Table 1; original mass references b, g, h",
+          "caveat": null,
+          "quantity": null,
+          "sourceUrl": "https://doi.org/10.1093/mnras/stx1050"
         }
       ]
     },
@@ -692,7 +752,8 @@
       "adoptedPhysicalFields": {
         "temperature_k": "published:2012MNRAS.427..343M:HIP-17702",
         "luminosity_solar": "published:2012MNRAS.427..343M:HIP-17702",
-        "radius_solar": "derived:stefan-boltzmann"
+        "radius_solar": "derived:stefan-boltzmann",
+        "mass_solar": "shared:2017MNRAS.471.2882W"
       },
       "physicalObservations": [
         {
@@ -718,6 +779,20 @@
           "value": 10.983988758133966,
           "status": "derived",
           "source": "Stefan-Boltzmann scaling"
+        },
+        {
+          "field": "mass_solar",
+          "value": 5.9,
+          "status": "model-derived",
+          "reference": "2017MNRAS.471.2882W",
+          "uncertainty": null,
+          "identity": "* eta Tau",
+          "component": "catalogued individual star",
+          "scope": "Exact * eta Tau / HIP 17702; no companion or subsystem-total transfer.",
+          "section": "Table 1; original mass references b, g, h",
+          "caveat": null,
+          "quantity": null,
+          "sourceUrl": "https://doi.org/10.1093/mnras/stx1050"
         }
       ]
     },
@@ -1231,7 +1306,9 @@
         "temperature_k": "published:1999A&A...352..555A:HIP-20889",
         "luminosity_solar": "published:2012MNRAS.427..343M:HIP-20889",
         "metallicity_dex": "gaia-dr3:48026706558487040",
-        "radius_solar": "gaia-dr3:48026706558487040"
+        "radius_solar": "gaia-dr3:48026706558487040",
+        "age_gyr": "shared:2018A&A...616A..33S",
+        "mass_solar": "shared:2019A&A...622A.190A"
       },
       "physicalObservations": [
         {
@@ -1269,6 +1346,38 @@
           "source": "Gaia DR3 astrophysical_parameters",
           "sourceId": "48026706558487040",
           "qualityFlags": "10"
+        },
+        {
+          "field": "age_gyr",
+          "value": 0.7943282347,
+          "status": "model-derived",
+          "reference": "2018A&A...616A..33S",
+          "uncertainty": {
+            "lower": 0.5623413251903491,
+            "upper": 0.9120108393559115,
+            "kind": "1-sigma-credible-interval"
+          },
+          "identity": "* eps Tau",
+          "component": "catalogued individual star",
+          "scope": "Exact * eps Tau / HIP 20889; no companion or subsystem-total transfer.",
+          "section": "giants table; exact HIP; preferred HB solution",
+          "caveat": null,
+          "quantity": null,
+          "sourceUrl": "https://cdsarc.cds.unistra.fr/viz-bin/cat/J/A+A/616/A33"
+        },
+        {
+          "field": "mass_solar",
+          "value": 2.458,
+          "status": "asteroseismic",
+          "reference": "2019A&A...622A.190A",
+          "uncertainty": 0.073,
+          "identity": "* eps Tau",
+          "component": "catalogued individual star",
+          "scope": "Exact * eps Tau / HIP 20889; no companion or subsystem-total transfer.",
+          "section": "Section 4, seismic mass constrained by interferometric radius",
+          "caveat": null,
+          "quantity": null,
+          "sourceUrl": "https://cdsarc.cds.unistra.fr/viz-bin/cat/J/A+A/616/A33"
         }
       ]
     },
@@ -1363,6 +1472,8 @@
         "temperature_k": "published:1999A&A...352..555A:HIP-20455",
         "luminosity_solar": "published:2012MNRAS.427..343M:HIP-20455",
         "radius_solar": "derived:stefan-boltzmann",
+        "age_gyr": "shared:2018A&A...616A..33S",
+        "mass_solar": "shared:2018A&A...616A..33S",
         "metallicity_dex": "shared:2024A&A...692A.189R"
       },
       "physicalObservations": [
@@ -1389,6 +1500,42 @@
           "value": 12.40641916961638,
           "status": "derived",
           "source": "Stefan-Boltzmann scaling"
+        },
+        {
+          "field": "age_gyr",
+          "value": 0.758577575,
+          "status": "model-derived",
+          "reference": "2018A&A...616A..33S",
+          "uncertainty": {
+            "lower": 0.616595001861481,
+            "upper": 0.9332543007969925,
+            "kind": "1-sigma-credible-interval"
+          },
+          "identity": "* del Tau",
+          "component": "catalogued individual star",
+          "scope": "Exact * del Tau / HIP 20455; no companion or subsystem-total transfer.",
+          "section": "giants table; exact HIP; preferred HB solution",
+          "caveat": null,
+          "quantity": null,
+          "sourceUrl": "https://cdsarc.cds.unistra.fr/viz-bin/cat/J/A+A/616/A33"
+        },
+        {
+          "field": "mass_solar",
+          "value": 2.57,
+          "status": "model-derived",
+          "reference": "2018A&A...616A..33S",
+          "uncertainty": {
+            "lower": 2.4,
+            "upper": 2.62,
+            "kind": "1-sigma-credible-interval"
+          },
+          "identity": "* del Tau",
+          "component": "catalogued individual star",
+          "scope": "Exact * del Tau / HIP 20455; no companion or subsystem-total transfer.",
+          "section": "giants table; exact HIP; preferred HB solution",
+          "caveat": null,
+          "quantity": null,
+          "sourceUrl": "https://cdsarc.cds.unistra.fr/viz-bin/cat/J/A+A/616/A33"
         },
         {
           "field": "metallicity_dex",
@@ -1496,6 +1643,7 @@
         "mass_solar": "published:1999A&A...352..555A:HIP-20635",
         "radius_solar": "published:1999A&A...352..555A:HIP-20635",
         "luminosity_solar": "published:2012MNRAS.427..343M:HIP-20635",
+        "age_gyr": "shared:2015ApJ...804..146D",
         "metallicity_dex": "shared:2016A&A...589A..83G"
       },
       "physicalObservations": [
@@ -1534,6 +1682,24 @@
           "source": "McDonald et al. 2012 SED rescaled to adopted distance",
           "sourceId": "HIP 20635",
           "bibcode": "2012MNRAS.427..343M"
+        },
+        {
+          "field": "age_gyr",
+          "value": 0.481,
+          "status": "model-derived",
+          "reference": "2015ApJ...804..146D",
+          "uncertainty": {
+            "lower": 0.335,
+            "upper": 0.793,
+            "kind": "68-percent-credible-interval"
+          },
+          "identity": "* kap01 Tau",
+          "component": "catalogued individual star",
+          "scope": "Exact * kap01 Tau / HIP 20635; no companion or subsystem-total transfer.",
+          "section": "Table 5, exact HIP; median and 68% interval",
+          "caveat": null,
+          "quantity": null,
+          "sourceUrl": "https://cdsarc.cds.unistra.fr/viz-bin/cat/J/ApJ/804/146"
         },
         {
           "field": "metallicity_dex",
@@ -1575,6 +1741,7 @@
         "mass_solar": "published:1999A&A...352..555A:HIP-21589",
         "radius_solar": "published:1999A&A...352..555A:HIP-21589",
         "luminosity_solar": "published:2012MNRAS.427..343M:HIP-21589",
+        "age_gyr": "shared:2015ApJ...804..146D",
         "metallicity_dex": "shared:2024A&A...683A.125P"
       },
       "physicalObservations": [
@@ -1613,6 +1780,24 @@
           "source": "McDonald et al. 2012 SED rescaled to adopted distance",
           "sourceId": "HIP 21589",
           "bibcode": "2012MNRAS.427..343M"
+        },
+        {
+          "field": "age_gyr",
+          "value": 0.299,
+          "status": "model-derived",
+          "reference": "2015ApJ...804..146D",
+          "uncertainty": {
+            "lower": 0.177,
+            "upper": 0.682,
+            "kind": "68-percent-credible-interval"
+          },
+          "identity": "* c Tau",
+          "component": "catalogued individual star",
+          "scope": "Exact * c Tau / HIP 21589; no companion or subsystem-total transfer.",
+          "section": "Table 5, exact HIP; median and 68% interval",
+          "caveat": null,
+          "quantity": null,
+          "sourceUrl": "https://cdsarc.cds.unistra.fr/viz-bin/cat/J/ApJ/804/146"
         },
         {
           "field": "metallicity_dex",
@@ -1654,6 +1839,7 @@
         "mass_solar": "published:1999A&A...352..555A:HIP-20711",
         "radius_solar": "published:1999A&A...352..555A:HIP-20711",
         "luminosity_solar": "published:2012MNRAS.427..343M:HIP-20711",
+        "age_gyr": "shared:2015ApJ...804..146D",
         "metallicity_dex": "shared:2016A&A...589A..83G"
       },
       "physicalObservations": [
@@ -1692,6 +1878,24 @@
           "source": "McDonald et al. 2012 SED rescaled to adopted distance",
           "sourceId": "HIP 20711",
           "bibcode": "2012MNRAS.427..343M"
+        },
+        {
+          "field": "age_gyr",
+          "value": 1.021,
+          "status": "model-derived",
+          "reference": "2015ApJ...804..146D",
+          "uncertainty": {
+            "lower": 0.725,
+            "upper": 1.569,
+            "kind": "68-percent-credible-interval"
+          },
+          "identity": "* ups Tau",
+          "component": "catalogued individual star",
+          "scope": "Exact * ups Tau / HIP 20711; no companion or subsystem-total transfer.",
+          "section": "Table 5, exact HIP; median and 68% interval",
+          "caveat": null,
+          "quantity": null,
+          "sourceUrl": "https://cdsarc.cds.unistra.fr/viz-bin/cat/J/ApJ/804/146"
         },
         {
           "field": "metallicity_dex",
@@ -1905,6 +2109,7 @@
         "mass_solar": "published:1999A&A...352..555A:HIP-59847",
         "radius_solar": "published:1999A&A...352..555A:HIP-59847",
         "luminosity_solar": "derived:stefan-boltzmann",
+        "age_gyr": "shared:2018A&A...616A..33S",
         "metallicity_dex": "shared:2022A&A...663A...4S"
       },
       "physicalObservations": [
@@ -1940,6 +2145,24 @@
           "value": 62.3404357308073,
           "status": "derived",
           "source": "Stefan-Boltzmann scaling"
+        },
+        {
+          "field": "age_gyr",
+          "value": 2.344228815,
+          "status": "model-derived",
+          "reference": "2018A&A...616A..33S",
+          "uncertainty": {
+            "lower": 1.8620871366628655,
+            "upper": 2.95120922666639,
+            "kind": "1-sigma-credible-interval"
+          },
+          "identity": "* 7 Com",
+          "component": "catalogued individual star",
+          "scope": "Exact *   7 Com / HIP 59847; no companion or subsystem-total transfer.",
+          "section": "giants table; exact HIP; preferred HB solution",
+          "caveat": null,
+          "quantity": null,
+          "sourceUrl": "https://cdsarc.cds.unistra.fr/viz-bin/cat/J/A+A/616/A33"
         },
         {
           "field": "metallicity_dex",

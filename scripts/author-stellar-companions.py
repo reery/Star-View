@@ -28,6 +28,7 @@ from catalog_sources.shared_objects import REVIEW as SHARED_OBJECT_REVIEW, revie
 from catalog_sources.bright_system_motion import apply_bright_system_motion
 from catalog_sources.constellation_motion import apply_constellation_motion
 from catalog_sources.hierarchy_splits import apply_hierarchy_splits
+from catalog_sources.cluster_astrometry import apply_cluster_astrometry, apply_related_astrometry
 from catalog_sources.precision import calculated_float
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -565,9 +566,14 @@ def build():
     inputs += apply_literature(ROOT, WORK / "reviewed-companion-literature.json", definitions, pool, audit)
     inputs += apply_literature(ROOT, WORK / "reviewed-constellation-literature.json", definitions, pool, audit)
     inputs += apply_literature(ROOT, WORK / "reviewed-constellation-data.json", definitions, pool, audit)
+    inputs += apply_cluster_astrometry(ROOT, definitions, pool, audit)
+    inputs += apply_literature(ROOT, ROOT / "catalog-work/famous-cluster-stars/physical-review.json", definitions, pool, audit)
     inputs += apply_bright_system_motion(ROOT, definitions, pool, audit,
         read_json(WORK / "reviewed-constellation-hierarchies.json")["systems"])
     inputs += apply_constellation_motion(ROOT, definitions, pool, audit)
+    inputs += apply_constellation_motion(ROOT, definitions, pool, audit,
+        "catalog-work/famous-cluster-stars/motion-review.json", "clusterMotion")
+    apply_related_astrometry(read_json(ROOT / "catalog-work/famous-cluster-stars/astrometry-review.json"), definitions, pool, audit)
 
     # Resolved observations retain their own epoch and uncertainty semantics.
     # A spectroscopic component RV must not complete a different-epoch bulk

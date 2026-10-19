@@ -25,6 +25,13 @@
       "retrievedOn": "2026-10-19"
     }
   ],
+  "refreshedSystems": [
+    "msc-03492+2403",
+    "msc-08400-5303",
+    "msc-08424-5307",
+    "msc-12349+2238"
+  ],
+  "scope": "Only these systems refreshed; every other existing orbital solution retained verbatim.",
   "policy": "Exact reviewed WDS/HIP identities only; explicit pair scopes; no positional matches, estimated wide periods or photocenter axes. Angular relative axes converted to AU with the identified catalog parallax. Reviewed published physical axes retain their source distance; component conventions are checked against measured offsets. Unknown MSC zeros stay null.",
   "identityInputs": [
     {
@@ -33,7 +40,7 @@
     },
     {
       "frozenInput": "src/data/stellar-companions.json",
-      "sha256": "72cbb310886dc82c56cfb43cc033fefe78fc263edd98d0121add199190455306"
+      "sha256": "ce83b5a1f3bc541404db2ad1fb06453cf721d24451dd7697a827163ecb751eb8"
     },
     {
       "frozenInput": "src/data/object-designations.json",

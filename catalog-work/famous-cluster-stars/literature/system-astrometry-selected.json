@@ -1,0 +1,35 @@
+{
+  "reviewedOn": "2026-10-19",
+  "Atlas": {
+    "sourceUrl": "https://arxiv.org/abs/2507.15933",
+    "section": "Table 6; joint interferometric/spectroscopic/Hipparcos orbital solution",
+    "componentMap": {
+      "primary": "hip-17847",
+      "secondary": "msc-03492+2403-aa2"
+    },
+    "distancePc": 136.2,
+    "distanceErrorPc": 1.4,
+    "parallaxMas": 7.34,
+    "parallaxErrorMas": 0.076,
+    "properMotionRaMasYr": 18.21,
+    "properMotionRaErrorMasYr": 0.44,
+    "properMotionDecMasYr": -44.63,
+    "properMotionDecErrorMasYr": 0.35,
+    "systemicRadialVelocityKms": 8.41,
+    "systemicRadialVelocityErrorKms": 0.32
+  },
+  "HD74560C": {
+    "source": "catalog-work/star-systems/catalog-companions-msc.json",
+    "exactBranch": [
+      "08424-5307",
+      "B",
+      "C",
+      "BC",
+      "v",
+      "366.0000",
+      "y",
+      "0.600"
+    ],
+    "finding": "C belongs to the 0.6-arcsecond B,C visual pair, not the Aa,Ab spectroscopic pair 76 arcseconds away. No independent C direction/parallax is available; use the measured B reference position as an explicitly approximate unresolved BC position."
+  }
+}

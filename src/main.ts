@@ -199,7 +199,8 @@ let skyGridMode: SkyGridMode = 'off'
 let observerView = false
 let observerViewAnchorId: string | null = null
 let powerSavingMode = false
-let labelLimit = 40
+// Touch-first devices start with fewer labels; a stored preference overrides this below.
+let labelLimit = window.matchMedia('(hover: none) and (pointer: coarse)').matches ? 20 : 40
 let motionArrowsVisible = true
 let earthOrbitMode: EarthOrbitMode = 'now'
 let milkyWayVisible = true
@@ -2035,7 +2036,7 @@ async function switchCatalog(id: string, refresh = false): Promise<void> {
     observerViewAnchorId = null
   }
   referenceId = nextStars.some((star) => star.id === referenceId) ? referenceId : 'sun'
-  text('scene-epoch', `J${definition.manifest.epoch.toFixed(1)}`)
+  text('catalog-epoch', `J${definition.manifest.epoch.toFixed(1)}`)
   renderCatalogRange(id)
   element('catalog-range').title = `${definition.manifest.description} ${definition.manifest.snapshot}`
   element<HTMLInputElement>('object-search').value = ''

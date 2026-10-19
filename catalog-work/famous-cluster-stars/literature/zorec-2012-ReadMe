@@ -1,0 +1,94 @@
+J/A+A/537/A120      Rotational velocities of A-type stars. IV. (Zorec+, 2012)
+================================================================================
+Rotational velocities of A-type stars.
+IV. Evolution of rotational velocities.
+    Zorec J., Royer F.
+   <Astron. Astrophys. 537, A120 (2012)>
+   =2012A&A...537A.120Z
+================================================================================
+ADC_Keywords: Stars, A-type ; Stars, B-type ; Rotational velocities ;
+              Stars, masses ; Stars, ages
+Keywords: stars: early-type - stars: rotation - stars: evolution
+
+Abstract:
+    In previous works of this series, we have shown that late B- and early
+    A-type stars have genuine bimodal distributions of rotational
+    velocities and that late A-type stars lack slow rotators. The
+    distributions of the surface angular velocity ratio Omega/Omega_crit_
+    (Omega_crit_ is the critical angular velocity) have peculiar shapes
+    according to spectral type groups, which can be caused by evolutionary
+    properties.
+
+    We aim to review the properties of these rotational velocity
+    distributions in some detail as a function of stellar mass and age.
+
+    We have gathered vsini for a sample of 2014 B6- to F2-type stars. We
+    have determined the masses and ages for these objects with stellar
+    evolution models. The (Teff,logL/L_{sun}_)-parameters were determined
+    from the uvby-beta photometry and the HIPPARCOS parallaxes.
+
+Description:
+    Fundamental parameters for 2014 B6- to F2-type stars are presented.
+    For each star, spectral type, effective temperature, luminosity, mass,
+    age and projected rotational velocity are given, as well as remarks
+    about their multiplicity and chemical peculiarity. The projected
+    rotational velocities are taken from different sources and homogenized
+    to the same scale.
+
+File Summary:
+--------------------------------------------------------------------------------
+ FileName  Lrecl  Records  Explanations
+--------------------------------------------------------------------------------
+ReadMe        80        .  This file
+table1.dat    84     2014  Fundamental parameters for 2014 B6 to F2-type stars
+--------------------------------------------------------------------------------
+
+See also:
+        III/22  : Rotation of Evolving A and F Stars (Danziger+ 1972)
+        III/226 : Rotational Velocities of Stars (Glebocki+ 2000)
+ J/A+AS/118/545 : Rotational velocities of F dwarfs (Groot+, 1996)
+ J/ApJ/573/359  : Rotational velocities of B stars from BSC (Abt+, 2002)
+ J/A+A/398/647  : Rotational velocities of F and G stars (Reiners+, 2003)
+ J/A+A/381/105  : Rotational velocities of A-type stars. I. (Royer+, 2002)
+ J/A+A/393/897  : Rotational velocities of A-type stars II. (Royer+, 2002)
+ J/A+A/463/671  : Rotational velocities of A-type stars. III.   (Royer+, 2007)
+
+Byte-by-byte Description of file: table1.dat
+--------------------------------------------------------------------------------
+   Bytes Format Units   Label     Explanations
+--------------------------------------------------------------------------------
+   1-  6  I6    ---     HD        Star HD number
+   8- 22  A15   ---     SpType    MK spectral type
+  24- 28  F5.3  [K]     logT      Logarithmic effective temperature
+  30- 34  F5.3  [K]   e_logT      Error on logT
+  36- 42  F7.4 [Lsun]   logL      Logarithmic luminosity
+  44- 49  F6.4 [Lsun] e_logL      Error on logL
+  51- 54  F4.2  Msun    Mass      Stellar mass
+  56- 59  F4.2  Msun  e_Mass      Error on the stellar mass
+  61- 65  F5.3  ---     Age       Fractional age on the main sequence
+  67- 71  F5.3  ---   e_Age       Error on the fractional age
+  73- 75  I3    km/s    vsini     Projected rotational velocity
+  77- 78  I2    ---   r_vsini     Source of vsini (1)
+  80- 84  A5    ---     Class     Classification of the star: blank=normal,
+                                  CB=Close binary, CP=chemically peculiar
+--------------------------------------------------------------------------------
+Note (1): Source of vsini as follows:
+   1 = Royer et al. (2007, Cat. J/A+A/463/671)
+   2 = Royer et al. (2007, Cat. J/A+A/463/671)
+   3 = Royer et al. (2007, Cat. J/A+A/463/671)
+   4 = Royer et al. (2007, Cat. J/A+A/463/671)
+   8 = Abt et al. (2002, Cat. J/ApJ/573/359)
+  16 = Levato & Grosso (2004IAUS..215...51L)
+  32 = Huang et al. (2010ApJ...722..605H)
+--------------------------------------------------------------------------------
+
+Acknowledgements:
+    Frederic Royer, frederic.royer(at)obspm.fr
+
+References:
+   Royer et al., Paper I      2002A&A...381..105R, Cat. J/A+A/381/105
+   Royer et al., Paper II     2002A&A...393..897R, Cat. J/A+A/393/897
+   Royer et al., Paper III    2007A&A...463..671R, Cat. J/A+A/463/671
+
+================================================================================
+(End)       Frederic Royer [Obs. Paris], Patricia Vannier [CDS]    08-Dec-2011

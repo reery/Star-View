@@ -149,7 +149,7 @@ def apply_literature(root, path, systems, pool, audit):
         if adopted or withheld:
             if review.get("retainPreviousRecord"):
                 star.setdefault("catalog_sources", []).append({
-                    "catalog_id": "constellation-literature-before-20261019",
+                    "catalog_id": plan.get("retainedCatalogId", "constellation-literature-before-20261019"),
                     "scope": "Previous component adoption before the exact-component literature review. Retained original values, photometry, astrometry, uncertainties and provenance; superseded values are not the current adoption.",
                     "record": original_record,
                 })

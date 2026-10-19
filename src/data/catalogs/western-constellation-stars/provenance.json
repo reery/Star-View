@@ -162,7 +162,7 @@
       "catalog-work/star-systems/overlay-companions.json": "0155d05f01e61ef80496c0d515b35946c8e6dcdd06342bb7fa8eda653e39485b",
       "src/data/star-systems.json": "0e7e0b8097766381629c4d28e57f62948ecde0c10ac18992c09cef17cb6dfe05",
       "src/data/catalogs/nearest-1000/stars.csv": "6f715e63c0cae9e3ab3bb4dfc6b4cf0ba9e49915d894de3323f85d91624fe234",
-      "src/data/catalogs/nearest-1000/provenance.json": "761f82796e799c09c593b21ab9f3a32754b2bfb9ebb08a2056c0d6150c167f80",
+      "src/data/catalogs/nearest-1000/provenance.json": "a59b693fc9d4abee2cfb54e33ec3509ad0014c2a99d136ca58ac3d5630fcad27",
       "catalog-work/star-systems/overlay-individual-components.json": "b4fbcf92e682c639a11c5e488a378d43a0b43aaa10e0e8b16b2db70dc9a10741",
       "catalog-work/star-systems/msc-20260619-rigel.json": "0bc6740e8537705363c915a78b203822b46a9a31330f325f6b4a783091e40e97",
       "catalog-work/star-systems/msc-20260619.Readme": "d0906632b078a3b97b4e7247ad76830e2cc13bae6300ae145d69ce30a8e859b8"
@@ -170,13 +170,13 @@
   },
   "physicalCoverage": {
     "temperature_k": 695,
-    "mass_solar": 392,
+    "mass_solar": 394,
     "luminosity_solar": 636,
     "radius_solar": 637,
     "metallicity_dex": 532,
-    "age_gyr": 102
+    "age_gyr": 104
   },
-  "sharedEnrichmentManifestSha256": "df3eee34adaeab5132430ad64d378f09a3c02c2b62e80cae99483cf98bebf07e",
+  "sharedEnrichmentManifestSha256": "8305e4aada953aa56376cb9c809b9efc89f0e824ffe300e52a982ca8f8329eff",
   "objects": {
     "sun": {
       "id": "sun",
@@ -9744,6 +9744,8 @@
         "temperature_k": "published:1999A&A...352..555A:HIP-20455",
         "luminosity_solar": "published:2012MNRAS.427..343M:HIP-20455",
         "radius_solar": "derived:stefan-boltzmann",
+        "age_gyr": "shared:2018A&A...616A..33S",
+        "mass_solar": "shared:2018A&A...616A..33S",
         "metallicity_dex": "shared:2024A&A...692A.189R"
       },
       "physicalObservations": [
@@ -9770,6 +9772,42 @@
           "value": 12.40641916961638,
           "status": "derived",
           "source": "Stefan-Boltzmann scaling"
+        },
+        {
+          "field": "age_gyr",
+          "value": 0.758577575,
+          "status": "model-derived",
+          "reference": "2018A&A...616A..33S",
+          "uncertainty": {
+            "lower": 0.616595001861481,
+            "upper": 0.9332543007969925,
+            "kind": "1-sigma-credible-interval"
+          },
+          "identity": "* del Tau",
+          "component": "catalogued individual star",
+          "scope": "Exact * del Tau / HIP 20455; no companion or subsystem-total transfer.",
+          "section": "giants table; exact HIP; preferred HB solution",
+          "caveat": null,
+          "quantity": null,
+          "sourceUrl": "https://cdsarc.cds.unistra.fr/viz-bin/cat/J/A+A/616/A33"
+        },
+        {
+          "field": "mass_solar",
+          "value": 2.57,
+          "status": "model-derived",
+          "reference": "2018A&A...616A..33S",
+          "uncertainty": {
+            "lower": 2.4,
+            "upper": 2.62,
+            "kind": "1-sigma-credible-interval"
+          },
+          "identity": "* del Tau",
+          "component": "catalogued individual star",
+          "scope": "Exact * del Tau / HIP 20455; no companion or subsystem-total transfer.",
+          "section": "giants table; exact HIP; preferred HB solution",
+          "caveat": null,
+          "quantity": null,
+          "sourceUrl": "https://cdsarc.cds.unistra.fr/viz-bin/cat/J/A+A/616/A33"
         },
         {
           "field": "metallicity_dex",
@@ -9964,7 +10002,9 @@
         "temperature_k": "published:1999A&A...352..555A:HIP-20889",
         "luminosity_solar": "published:2012MNRAS.427..343M:HIP-20889",
         "metallicity_dex": "gaia-dr3:48026706558487040",
-        "radius_solar": "gaia-dr3:48026706558487040"
+        "radius_solar": "gaia-dr3:48026706558487040",
+        "age_gyr": "shared:2018A&A...616A..33S",
+        "mass_solar": "shared:2019A&A...622A.190A"
       },
       "physicalObservations": [
         {
@@ -10002,6 +10042,38 @@
           "source": "Gaia DR3 astrophysical_parameters",
           "sourceId": "48026706558487040",
           "qualityFlags": "10"
+        },
+        {
+          "field": "age_gyr",
+          "value": 0.7943282347,
+          "status": "model-derived",
+          "reference": "2018A&A...616A..33S",
+          "uncertainty": {
+            "lower": 0.5623413251903491,
+            "upper": 0.9120108393559115,
+            "kind": "1-sigma-credible-interval"
+          },
+          "identity": "* eps Tau",
+          "component": "catalogued individual star",
+          "scope": "Exact * eps Tau / HIP 20889; no companion or subsystem-total transfer.",
+          "section": "giants table; exact HIP; preferred HB solution",
+          "caveat": null,
+          "quantity": null,
+          "sourceUrl": "https://cdsarc.cds.unistra.fr/viz-bin/cat/J/A+A/616/A33"
+        },
+        {
+          "field": "mass_solar",
+          "value": 2.458,
+          "status": "asteroseismic",
+          "reference": "2019A&A...622A.190A",
+          "uncertainty": 0.073,
+          "identity": "* eps Tau",
+          "component": "catalogued individual star",
+          "scope": "Exact * eps Tau / HIP 20889; no companion or subsystem-total transfer.",
+          "section": "Section 4, seismic mass constrained by interferometric radius",
+          "caveat": null,
+          "quantity": null,
+          "sourceUrl": "https://cdsarc.cds.unistra.fr/viz-bin/cat/J/A+A/616/A33"
         }
       ]
     },
