@@ -1,4 +1,5 @@
 import './style.css'
+import { clearLoadRecovery, createLoadError, loadWithRecovery } from './load-recovery'
 import { ArrowLeft, ArrowLeftRight, ArrowRight, BookOpen, ChevronUp, ChevronsDownUp, ChevronsLeftRight, ChevronsRightLeft, ChevronsUpDown, CircleHelp, Clock, Cloud, Crosshair, Earth, Eye, Filter, Focus, Galaxy, Globe, Grid2X2, List, Lock, Minus, Moon, Orbit, Pause, Play, Plus, RotateCcw, RotateCw, Save, Search, Settings2, Sun, Telescope, X, createElement, type IconNode } from 'lucide'
 import { ObserverOriginIcon, OriginIcon } from './origin-icon'
 import { BUBBLE_OBJECT_TYPES, COMPACT_OBJECT_TYPES, describeObject, isBubbleObject, isCompactObject, isMolecularCloudObject, isNebulaObject, MOLECULAR_CLOUD_OBJECT_TYPES, NEBULA_OBJECT_TYPES, type Star } from './catalog-model'
@@ -18,13 +19,12 @@ import { isObjectMapVisible } from './viewer-primitives'
 import { renderSelectedStarPreview } from './selected-star-preview'
 import { starInfoAvailable } from './star-info-availability'
 import type { MassReference } from './mass-comparison'
-import { hrCardAvailable, hrMagnitude, renderHrDiagram, type HrMagnitudeMode } from './hr-diagram'
-import { renderMkDiagram } from './mk-diagram'
-import { spectralReference } from './spectral-chart'
+import type { HrMagnitudeMode } from './hr-diagram'
+import { hrCardAvailable, spectralReference } from './spectral-properties'
 import { positionCardHeaderTooltips } from './card-header-tooltips'
 import { massCardAvailable } from './mass-properties'
 import { luminosityCardAvailable } from './luminosity-properties'
-import { initializeMagnitudeVisibility, magnitudeCardAvailable, renderMagnitudeCard as renderMagnitudeComparison } from './magnitude-card'
+import { magnitudeCardAvailable } from './magnitude-properties'
 import { temperatureCardAvailable } from './temperature-properties'
 import { constellationCardAvailable, loadConstellationChart, type ConstellationChart } from './constellations'
 import type { RadiusReference } from './radius-comparison'
@@ -39,7 +39,7 @@ import {
 import { ObjectList } from './object-list'
 import { spaceMotionForStar } from './space-motion'
 import { SelectionHistory } from './selection-history'
-import { objectTypeIntroduction } from './object-type-info'
+import { initializeToolbarTouch } from './toolbar-touch'
 import { objectSubtypeDescription } from './object-subtype-info'
 import { MISSING_VALUE, measurement, preciseMeasurement, quantity, scientificQuantity } from './format'
 import { OBJECT_DISTANCE_STEPS_LY, readSavedViews, SAVED_VIEWS_STORAGE_KEY, type SavedView, type SavedViewSettings } from './saved-views'
@@ -50,6 +50,21 @@ function element<ElementType extends HTMLElement = HTMLElement>(id: string): Ele
   const found = document.getElementById(id)
   if (!found) throw new Error(`Missing interface element: ${id}`)
   return found as ElementType
+}
+
+function loadCardFeature<T>(id: string, label: string, load: () => Promise<T>, isCurrent?: () => boolean) {
+  const card = element(`${id}-card`)
+  const target = card.querySelector<HTMLElement>(':scope > .card-scroll-content') ?? card
+  return loadWithRecovery(target, load, {
+    label,
+    isCurrent: () => !events.signal.aborted && (isCurrent?.() ?? true),
+    retry: () => {
+      element(`${id}-close`).click()
+      element(`${id}-toggle`).click()
+    },
+    focusTarget: element(`${id}-close`),
+    onChange: syncObjectTypeLayout,
+  })
 }
 
 function text(id: string, value: string): void {
@@ -159,7 +174,8 @@ icon('object-info-icon', BookOpen)
 icon('object-system-icon', Orbit)
 
 const events = new AbortController()
-let glossaryLoad: Promise<void> | undefined
+initializeToolbarTouch(document.querySelector<HTMLElement>('.scene-toolbar')!, events.signal)
+let glossaryInitialized = false
 let viewer: StarViewer | undefined
 let stars: Star[] = []
 // Chart selections are explicit additions, independent of the overlay switches.
@@ -352,10 +368,19 @@ function setPanelOpen(name: typeof panelNames[number], open: boolean): void {
   element<HTMLButtonElement>(`${name}-toggle`).setAttribute('aria-expanded', String(open))
   element(`${name}-panel`).hidden = !open
   if (name === 'preferences' && open) updateBrowserDataSize()
-  if (name === 'glossary' && open) {
-    glossaryLoad ??= import('./glossary').then(({ initializeGlossary }) => initializeGlossary(events.signal))
-      .catch((error: unknown) => { glossaryLoad = undefined; console.error('Could not load the glossary.', error) })
-  }
+  if (name === 'glossary' && open && !glossaryInitialized) void loadGlossaryPanel()
+}
+
+async function loadGlossaryPanel(): Promise<void> {
+  const result = await loadWithRecovery(element('glossary-panel').querySelector<HTMLElement>('.glossary-body')!,
+    () => import('./glossary'), {
+      label: 'Glossary', retry: () => { void loadGlossaryPanel() },
+      isCurrent: () => !events.signal.aborted && panelIsOpen('glossary'),
+      focusTarget: element('glossary-close'), onChange: syncPanelLayout,
+    })
+  if (!result || glossaryInitialized) return
+  result.value.initializeGlossary(events.signal)
+  glossaryInitialized = true
 }
 
 function syncPanelLayout(): void {
@@ -373,6 +398,7 @@ function syncPanelLayout(): void {
 }
 
 function closeObjectTypeCard(restoreFocus = false): void {
+  objectTypeRenderRequest++
   const card = element('object-type-card')
   if (card.hidden) return
   card.hidden = true
@@ -421,6 +447,7 @@ function closeLuminosityCard(restoreFocus = false): void {
 }
 
 function closeMagnitudeCard(restoreFocus = false): void {
+  magnitudeRenderRequest++
   const card = element('magnitude-card')
   if (card.hidden) return
   card.hidden = true
@@ -446,9 +473,10 @@ function renderConstellationCard(star: Star): void {
   if (!constellationCardModule) return
   if (activeConstellationChart?.name !== star.constellation) {
     const request = ++constellationOpenRequest
-    void loadConstellationChart(star).then((chart) => {
-      if (!chart || request !== constellationOpenRequest || selectedId !== star.id || element('constellation-card').hidden) return
-      activeConstellationChart = chart
+    void loadCardFeature('constellation', 'constellation chart', () => loadConstellationChart(star),
+      () => request === constellationOpenRequest && selectedId === star.id).then((result) => {
+      if (!result?.value) return
+      activeConstellationChart = result.value
       renderConstellationCard(star)
     })
     return
@@ -479,10 +507,6 @@ async function toggleConstellationCard(): Promise<void> {
   const star = stars.find((candidate) => candidate.id === selectedId)
   if (!star || !constellationCardAvailable(star)) return
   const request = ++constellationOpenRequest
-  const [module, chart] = await Promise.all([import('./constellation-card'), loadConstellationChart(star)])
-  if (!chart || request !== constellationOpenRequest || selectedId !== star.id) return
-  constellationCardModule = module
-  activeConstellationChart = chart
   closePlanetCard()
   closeObjectTypeCard()
   closeMetallicityCard()
@@ -495,12 +519,21 @@ async function toggleConstellationCard(): Promise<void> {
   closeSpectralCard()
   element('constellation-card').hidden = false
   element('constellation-toggle').setAttribute('aria-expanded', 'true')
+  const result = await loadCardFeature('constellation', 'constellation chart',
+    () => Promise.all([import('./constellation-card'), loadConstellationChart(star)]),
+    () => request === constellationOpenRequest && selectedId === star.id)
+  if (!result) return
+  const [module, chart] = result.value
+  if (!chart) return
+  constellationCardModule = module
+  activeConstellationChart = chart
   renderConstellationCard(star)
   element('constellation-card').querySelector<HTMLElement>('.card-scroll-content')!.scrollTop = 0
   element('constellation-close').focus({ preventScroll: true })
 }
 
 function closeSpectralCard(restoreFocus = false): void {
+  spectralRenderRequest++
   const card = element('spectral-card')
   if (card.hidden) return
   card.hidden = true
@@ -511,7 +544,24 @@ function closeSpectralCard(restoreFocus = false): void {
 let spectralMagnitudeMode: HrMagnitudeMode | null = null
 let spectralDiagram: 'hr' | 'mk' = 'hr'
 
-function renderSpectralCard(star: Star): void {
+let spectralRenderRequest = 0
+const spectralModules = new Map<'hr' | 'mk', typeof import('./hr-diagram') | typeof import('./mk-diagram')>()
+
+async function renderSpectralCard(star: Star): Promise<void> {
+  const request = ++spectralRenderRequest
+  const diagram = spectralDiagram
+  let module = spectralModules.get(diagram)
+  if (!module) {
+    const result = await loadCardFeature<typeof import('./hr-diagram') | typeof import('./mk-diagram')>('spectral', 'spectral diagram',
+      () => diagram === 'hr' ? import('./hr-diagram') : import('./mk-diagram'),
+      () => request === spectralRenderRequest && selectedId === star.id)
+    if (!result) return
+    module = result.value
+    spectralModules.set(diagram, module)
+  } else {
+    clearLoadRecovery(element('spectral-card').querySelector<HTMLElement>('.card-scroll-content')!)
+  }
+  if (request !== spectralRenderRequest || element('spectral-card').hidden || selectedId !== star.id) return
   const sun = stars.find((candidate) => candidate.id === 'sun')!
   const origin = stars.find((candidate) => candidate.id === referenceId) ?? sun
   const reference = spectralReference(origin, sun)
@@ -519,10 +569,11 @@ function renderSpectralCard(star: Star): void {
     element(`spectral-${diagram}`).setAttribute('aria-pressed', String(spectralDiagram === diagram))
     element(`spectral-${diagram}-content`).hidden = spectralDiagram !== diagram
   }
-  if (spectralDiagram === 'hr') {
+  if ('renderHrDiagram' in module) {
+    const { hrMagnitude, renderHrDiagram } = module
     const mode = spectralMagnitudeMode ?? (hrMagnitude(star, 'visual') === null && hrMagnitude(star, 'bolometric') !== null ? 'bolometric' : 'visual')
     renderHrDiagram(element('spectral-card'), star, reference, mode)
-  } else renderMkDiagram(element('spectral-card'), star, reference)
+  } else module.renderMkDiagram(element('spectral-card'), star, reference)
   syncObjectTypeLayout()
   positionCardHeaderTooltips(element('spectral-card'))
 }
@@ -553,6 +604,7 @@ function toggleSpectralCard(): void {
 }
 
 let activePlanetId: string | null = null
+let planetOpenRequest = 0
 const planetSections = ['specs', 'info', 'moons'] as const
 
 // Planet details, imagery and the globe renderer load only when a planet is opened.
@@ -589,6 +641,7 @@ function showPlanetSection(section: typeof planetSections[number]): void {
 }
 
 function closePlanetCard(restoreFocus = false): void {
+  planetOpenRequest++
   const card = element('planet-card')
   if (card.hidden) return
   card.hidden = true
@@ -604,8 +657,17 @@ function closePlanetCard(restoreFocus = false): void {
 }
 
 async function selectSystemPlanet(planetId: string): Promise<void> {
+  const request = ++planetOpenRequest
   const system = element('object-system')
-  const { planetDescriptionForId, renderPlanetCard } = await loadPlanetModules()
+  const hostId = selectedId
+  const result = await loadWithRecovery(system, loadPlanetModules, {
+    label: 'planet details', keepContent: true,
+    retry: () => { void selectSystemPlanet(planetId) },
+    isCurrent: () => request === planetOpenRequest && selectedId === hostId && element<HTMLDetailsElement>('object-card-details').open,
+    onChange: syncObjectTypeLayout,
+  })
+  if (!result) return
+  const { planetDescriptionForId, renderPlanetCard } = result.value
   const description = planetDescriptionForId(planetId)
   const selected = system.querySelector<HTMLButtonElement>(`.planet-row[data-planet-id="${planetId}"] button`)?.getAttribute('aria-pressed') === 'true'
   if (!description) {
@@ -676,7 +738,11 @@ async function toggleTemperatureCard(): Promise<void> {
   closeConstellationCard()
   element('temperature-card').hidden = false
   element('temperature-toggle').setAttribute('aria-expanded', 'true')
-  temperatureCardModule ??= await import('./temperature-card')
+  if (!temperatureCardModule) {
+    const result = await loadCardFeature('temperature', 'temperature comparison', () => import('./temperature-card'))
+    if (!result) return
+    temperatureCardModule = result.value
+  }
   const current = stars.find((candidate) => candidate.id === selectedId)
   if (!current || element('temperature-card').hidden) return
   renderTemperatureCard(current)
@@ -684,7 +750,27 @@ async function toggleTemperatureCard(): Promise<void> {
   element('temperature-close').focus({ preventScroll: true })
 }
 
-function renderMagnitudeCard(star: Star): void {
+let magnitudeRenderRequest = 0
+let magnitudeVisibilityInitialized = false
+let magnitudeCardModule: typeof import('./magnitude-card') | undefined
+
+async function renderMagnitudeCard(star: Star): Promise<void> {
+  const request = ++magnitudeRenderRequest
+  if (!magnitudeCardModule) {
+    const result = await loadCardFeature('magnitude', 'magnitude comparison', () => import('./magnitude-card'),
+      () => request === magnitudeRenderRequest && selectedId === star.id)
+    if (!result) return
+    magnitudeCardModule = result.value
+  }
+  const { initializeMagnitudeVisibility, renderMagnitudeCard: renderMagnitudeComparison } = magnitudeCardModule
+  if (request !== magnitudeRenderRequest || element('magnitude-card').hidden || selectedId !== star.id) return
+  if (!magnitudeVisibilityInitialized) {
+    initializeMagnitudeVisibility(element('magnitude-card'), () => {
+      const current = stars.find((candidate) => candidate.id === selectedId)
+      if (current && !element('magnitude-card').hidden) void renderMagnitudeCard(current)
+    }, events.signal)
+    magnitudeVisibilityInitialized = true
+  }
   const sun = stars.find((candidate) => candidate.id === 'sun')!
   const origin = stars.find((candidate) => candidate.id === referenceId) ?? sun
   renderMagnitudeComparison(element('magnitude-card'), star, origin, sun, starColorMode, stars.find((candidate) => candidate.id === 'sirius-a'))
@@ -722,7 +808,6 @@ async function toggleLuminosityCard(): Promise<void> {
     closeLuminosityCard(true)
     return
   }
-  luminosityCardModule ??= await import('./luminosity-card')
   const star = stars.find((candidate) => candidate.id === selectedId)
   if (!star || !luminosityCardAvailable(star) || element<HTMLButtonElement>('luminosity-toggle').disabled) return
   closeTemperatureCard()
@@ -737,7 +822,14 @@ async function toggleLuminosityCard(): Promise<void> {
   closeConstellationCard()
   element('luminosity-card').hidden = false
   element('luminosity-toggle').setAttribute('aria-expanded', 'true')
-  renderLuminosityCard(star)
+  if (!luminosityCardModule) {
+    const result = await loadCardFeature('luminosity', 'luminosity comparison', () => import('./luminosity-card'))
+    if (!result) return
+    luminosityCardModule = result.value
+  }
+  const current = stars.find((candidate) => candidate.id === selectedId)
+  if (!current || element('luminosity-card').hidden) return
+  renderLuminosityCard(current)
   element('luminosity-card').querySelector<HTMLElement>('.card-scroll-content')!.scrollTop = 0
   element('luminosity-close').focus({ preventScroll: true })
 }
@@ -765,7 +857,6 @@ async function toggleMassCard(): Promise<void> {
     closeMassCard(true)
     return
   }
-  massCardModule ??= await import('./mass-card')
   const star = stars.find((candidate) => candidate.id === selectedId)
   if (!star || !massCardAvailable(star) || element<HTMLButtonElement>('mass-toggle').disabled) return
   closeLuminosityCard()
@@ -780,7 +871,14 @@ async function toggleMassCard(): Promise<void> {
   closeConstellationCard()
   element('mass-card').hidden = false
   element('mass-toggle').setAttribute('aria-expanded', 'true')
-  renderMassCard(star)
+  if (!massCardModule) {
+    const result = await loadCardFeature('mass', 'mass comparison', () => import('./mass-card'))
+    if (!result) return
+    massCardModule = result.value
+  }
+  const current = stars.find((candidate) => candidate.id === selectedId)
+  if (!current || element('mass-card').hidden) return
+  renderMassCard(current)
   element('mass-card').querySelector<HTMLElement>('.card-scroll-content')!.scrollTop = 0
   element('mass-close').focus({ preventScroll: true })
 }
@@ -841,7 +939,11 @@ async function toggleDistanceCard(): Promise<void> {
   closeConstellationCard()
   element('distance-card').hidden = false
   element('distance-toggle').setAttribute('aria-expanded', 'true')
-  distanceCardModule ??= await import('./distance-comparison')
+  if (!distanceCardModule) {
+    const result = await loadCardFeature('distance', 'distance comparison', () => import('./distance-comparison'))
+    if (!result) return
+    distanceCardModule = result.value
+  }
   const current = stars.find((candidate) => candidate.id === selectedId)
   if (!current || element('distance-card').hidden) return
   renderDistanceCard(current)
@@ -910,7 +1012,10 @@ async function toggleRadiusCard(): Promise<void> {
   element('radius-card').hidden = false
   element('radius-toggle').setAttribute('aria-expanded', 'true')
   if (!radiusModules) {
-    const [comparison, card] = await Promise.all([import('./radius-comparison'), import('./radius-card')])
+    const result = await loadCardFeature('radius', 'radius comparison',
+      () => Promise.all([import('./radius-comparison'), import('./radius-card')]))
+    if (!result) return
+    const [comparison, card] = result.value
     radiusModules = { comparison, card }
   }
   const current = stars.find((candidate) => candidate.id === selectedId)
@@ -1013,7 +1118,19 @@ function toggleMetallicityCard(): void {
   element('metallicity-close').focus({ preventScroll: true })
 }
 
-function renderObjectTypeCard(star: Star): void {
+let objectTypeRenderRequest = 0
+let objectTypeModule: typeof import('./object-type-info') | undefined
+
+async function renderObjectTypeCard(star: Star): Promise<void> {
+  const request = ++objectTypeRenderRequest
+  if (!objectTypeModule) {
+    const result = await loadCardFeature('object-type', 'object type', () => import('./object-type-info'),
+      () => request === objectTypeRenderRequest && selectedId === star.id)
+    if (!result) return
+    objectTypeModule = result.value
+  }
+  const { objectTypeIntroduction } = objectTypeModule
+  if (request !== objectTypeRenderRequest || element('object-type-card').hidden || selectedId !== star.id) return
   const introduction = objectTypeIntroduction(star)
   text('object-type-heading', introduction.title)
   text('object-type-description', introduction.description)
@@ -1317,15 +1434,10 @@ async function renderActiveObjectSection(): Promise<void> {
   } catch (error) {
     if (request !== objectSectionRequest || selectedId !== star.id || container.hidden || !element<HTMLDetailsElement>('object-card-details').open) return
     container.removeAttribute('aria-busy')
-    const message = document.createElement('p')
-    message.textContent = `Could not load ${section === 'specs' ? 'source notes' : section === 'info' ? 'Info' : 'System'}.`
-    const retry = document.createElement('button')
-    retry.type = 'button'
-    retry.className = 'object-type-toggle'
-    retry.textContent = 'Retry'
-    retry.addEventListener('click', () => { void renderActiveObjectSection() }, { once: true })
-    if (section === 'specs') element('star-notes').replaceChildren(message, retry)
-    else container.replaceChildren(message, retry)
+    const recovery = createLoadError(section === 'specs' ? 'source notes' : section === 'info' ? 'Info' : 'System',
+      () => { void renderActiveObjectSection() })
+    if (section === 'specs') element('star-notes').replaceChildren(recovery)
+    else container.replaceChildren(recovery)
     console.error(`Could not load object ${section}.`, error)
   }
 }
@@ -2811,10 +2923,6 @@ element('mass-row').addEventListener('click', toggleMassCard, { signal: events.s
 element('temperature-row').addEventListener('click', toggleTemperatureCard, { signal: events.signal })
 element('luminosity-row').addEventListener('click', toggleLuminosityCard, { signal: events.signal })
 element('magnitude-row').addEventListener('click', toggleMagnitudeCard, { signal: events.signal })
-initializeMagnitudeVisibility(element('magnitude-card'), () => {
-  const star = stars.find((candidate) => candidate.id === selectedId)
-  if (star && !element('magnitude-card').hidden) renderMagnitudeCard(star)
-}, events.signal)
 for (const mode of ['class', 'origin', 'sun'] as const) {
   element(`mass-reference-${mode}`).addEventListener('click', () => {
     massReference = mode

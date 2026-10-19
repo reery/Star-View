@@ -137,7 +137,7 @@
               </div>
               <div class="card-scroll-content">
                 <div class="object-type-hero">
-                  <img id="object-type-image" class="object-type-image" alt="" width="760" height="420" />
+                  <img id="object-type-image" class="object-type-image" alt="" width="760" height="420" decoding="async" />
                 </div>
                 <div class="object-type-body">
                   <p id="object-type-description"></p>
@@ -575,17 +575,17 @@
               </div>
             </section>
             <div class="scene-toolbar" role="group" aria-label="Map view controls" data-scene-obstacle>
-              <div class="camera-view-controls" role="group" aria-label="Camera views">
+              <div class="camera-view-controls" data-toolbar-flyout role="group" aria-label="Camera views">
                 <button id="reset-view" class="icon-button" type="button" aria-label="Reset view" disabled><span id="reset-icon"></span><span class="tooltip">Reset view</span></button>
-                <div class="camera-view-options">
+                <div class="camera-view-options" data-toolbar-options>
                   <button id="top-view" class="icon-button camera-view-button" type="button" aria-label="Top view" aria-controls="scene" disabled>Top</button>
                   <button id="side-view" class="icon-button camera-view-button" type="button" aria-label="Side view" aria-controls="scene" disabled>Side</button>
                   <button id="front-view" class="icon-button camera-view-button" type="button" aria-label="Back view" aria-controls="scene" disabled>Back</button>
                 </div>
               </div>
-              <div class="grid-controls" role="group" aria-label="Grid controls">
+              <div class="grid-controls" data-toolbar-flyout role="group" aria-label="Grid controls">
                 <button id="toggle-grid" class="icon-button" type="button" aria-label="Grid" aria-pressed="true" aria-controls="scene" disabled><span id="grid-icon"></span><span id="grid-tooltip" class="tooltip">Hide grid</span></button>
-                <div class="grid-options">
+                <div class="grid-options" data-toolbar-options>
                   <button id="toggle-equatorial-grid" class="icon-button" type="button" aria-label="Equatorial grid" aria-pressed="false" aria-controls="scene" disabled><span id="equatorial-grid-icon"></span><span id="equatorial-grid-tooltip" class="tooltip">Show equatorial grid</span></button>
                   <button id="toggle-galactic-grid" class="icon-button" type="button" aria-label="Galactic grid" aria-pressed="false" aria-controls="scene" disabled><span id="galactic-grid-icon"></span><span id="galactic-grid-tooltip" class="tooltip">Show galactic grid</span></button>
                 </div>
@@ -593,23 +593,23 @@
               <span class="toolbar-divider"></span>
               <button id="views-toggle" class="icon-button panel-button" type="button" aria-label="Saved views" aria-controls="views-panel" aria-expanded="false" disabled><span id="views-icon"></span><span class="tooltip">Saved views</span></button>
               <span class="toolbar-divider"></span>
-              <div id="selection-controls" class="selection-controls" role="group" aria-label="Selection history">
+              <div id="selection-controls" class="selection-controls" data-toolbar-flyout role="group" aria-label="Selection history">
                 <button id="selection-back" class="icon-button" type="button" aria-label="Previous selection" disabled><span id="selection-back-icon"></span><span class="tooltip">Previous selection<span id="selection-back-object" class="selection-tooltip-object" hidden><span id="selection-back-swatch" class="star-swatch" aria-hidden="true"></span><span id="selection-back-name"></span></span></span></button>
-                <div class="selection-options">
+                <div class="selection-options" data-toolbar-options>
                   <button id="selection-forward" class="icon-button" type="button" aria-label="Next selection" disabled><span id="selection-forward-icon"></span><span class="tooltip">Next selection<span id="selection-forward-object" class="selection-tooltip-object" hidden><span id="selection-forward-swatch" class="star-swatch" aria-hidden="true"></span><span id="selection-forward-name"></span></span></span></button>
                 </div>
               </div>
               <span class="toolbar-divider"></span>
-              <div id="origin-controls" class="origin-controls" role="group" aria-label="Origin controls">
+              <div id="origin-controls" class="origin-controls" data-toolbar-flyout role="group" aria-label="Origin controls">
                 <button id="set-origin" class="icon-button" type="button" aria-label="Set selected object as origin" disabled><span id="set-origin-icon"></span><span class="tooltip">Set <span class="origin-tooltip-object"><span id="set-origin-swatch" class="star-swatch" aria-hidden="true"></span><span id="set-origin-name">selected object</span></span> as origin</span></button>
-                <div class="origin-options">
+                <div class="origin-options" data-toolbar-options>
                   <button id="set-sun-origin" class="icon-button" type="button" aria-label="Set Sun as origin" aria-controls="scene" disabled><span id="set-sun-origin-icon"></span><span class="tooltip">Set <span class="origin-tooltip-object"><span id="set-sun-origin-swatch" class="star-swatch" aria-hidden="true"></span>Sun</span> as origin</span></button>
                   <button id="go-to-origin" class="icon-button" type="button" aria-label="Go to set origin" aria-controls="scene" disabled><span id="go-to-origin-icon"></span><span class="tooltip">Go to <span class="origin-tooltip-object"><span id="go-to-origin-swatch" class="star-swatch" aria-hidden="true"></span><span id="go-to-origin-name"></span></span></span></button>
                 </div>
               </div>
-              <div id="observer-view-controls" class="observer-view-controls" role="group" aria-label="Observer views">
+              <div id="observer-view-controls" class="observer-view-controls" data-toolbar-flyout role="group" aria-label="Observer views">
                 <button id="observer-view" class="icon-button observer-view-button" type="button" aria-label="Enter observer view" aria-pressed="false" aria-controls="scene" disabled><span id="observer-view-icon"></span><span class="tooltip"><span id="observer-view-tooltip">Observe from</span> <span id="observer-view-target" class="origin-tooltip-object" hidden><span id="observer-view-target-swatch" class="star-swatch" aria-hidden="true"></span><span id="observer-view-target-name"></span></span></span></button>
-                <div class="observer-view-options">
+                <div class="observer-view-options" data-toolbar-options>
                   <button id="observer-view-origin" class="icon-button observer-view-button" type="button" aria-label="Observe from origin" aria-pressed="false" aria-controls="scene" disabled><span id="observer-view-origin-icon"></span><span class="tooltip">Observe from origin <span class="origin-tooltip-object"><span id="observer-view-origin-swatch" class="star-swatch" aria-hidden="true"></span><span id="observer-view-origin-name"></span></span></span></button>
                 </div>
               </div>
@@ -750,7 +750,7 @@
                   <article id="glossary-detail" class="glossary-detail" aria-labelledby="glossary-term-heading">
                     <h3 id="glossary-term-heading"></h3>
                     <figure id="glossary-figure" class="glossary-figure" hidden>
-                      <img id="glossary-image" alt="" />
+                      <img id="glossary-image" alt="" decoding="async" />
                       <figcaption id="glossary-caption"></figcaption>
                     </figure>
                     <p id="glossary-description" class="glossary-description"></p>

@@ -1,7 +1,7 @@
 import { starDisplayColor } from './astronomy'
 import { MISSING_VALUE } from './format'
 import { isBubbleObject, isCompactObject, isMolecularCloudObject, isNebulaObject, type Star } from './catalog-model'
-import jupiterMapUrl from './assets/radius-comparison/jupiter-map.png?url'
+import jupiterMapUrl from './assets/radius-comparison/jupiter-map.webp?url'
 import earthMapUrl from './assets/radius-comparison/earth-map.png?url'
 import earthCloudsUrl from './assets/radius-comparison/earth-clouds.jpg?url'
 

@@ -1,0 +1,307 @@
+{
+  "schemaVersion": 1,
+  "reviewedOn": "2026-10-19",
+  "baseline": {
+    "gitRevision": "6c0f24d5a431f7bb91cc0dc30309236a9ba71596",
+    "componentPoolSha256": "cfeba490af05a0c2a73037f7b88cbf6fd6b37c49e3389a032e4c04abdf0cd510"
+  },
+  "changedExistingRecords": [
+    {
+      "starId": "bright-castor",
+      "nameBefore": "Castor Aa",
+      "nameAfter": "Castor Aa",
+      "fields": {
+        "age_gyr": {
+          "before": null,
+          "after": 0.29
+        }
+      }
+    },
+    {
+      "starId": "msc-07346+3153-ab",
+      "nameBefore": "Castor Ab",
+      "nameAfter": "Castor Ab",
+      "fields": {
+        "age_gyr": {
+          "before": null,
+          "after": 0.29
+        }
+      }
+    },
+    {
+      "starId": "msc-07346+3153-ba",
+      "nameBefore": "Castor Ba",
+      "nameAfter": "Castor Ba",
+      "fields": {
+        "age_gyr": {
+          "before": null,
+          "after": 0.29
+        }
+      }
+    },
+    {
+      "starId": "msc-07346+3153-bb",
+      "nameBefore": "Castor Bb",
+      "nameAfter": "Castor Bb",
+      "fields": {
+        "age_gyr": {
+          "before": null,
+          "after": 0.29
+        }
+      }
+    },
+    {
+      "starId": "msc-07346+3153-c",
+      "nameBefore": "Castor C",
+      "nameAfter": "Castor Ca",
+      "fields": {
+        "temperature_k": {
+          "before": 3728,
+          "after": 3800
+        },
+        "mass_solar": {
+          "before": null,
+          "after": 0.60597
+        },
+        "radius_solar": {
+          "before": 0.94515026,
+          "after": 0.614
+        },
+        "luminosity_solar": {
+          "before": 0.1477158,
+          "after": 0.07082161712
+        },
+        "metallicity_dex": {
+          "before": 0.03,
+          "after": null
+        },
+        "age_gyr": {
+          "before": null,
+          "after": 0.29
+        },
+        "absolute_mag": {
+          "before": 8.37789513960933,
+          "after": null
+        },
+        "apparent_mag": {
+          "before": 9.27,
+          "after": null
+        },
+        "spectral_type": {
+          "before": "M0.5VeFe-2",
+          "after": "M1Ve"
+        }
+      }
+    },
+    {
+      "starId": "bright-spica",
+      "nameBefore": "Spica Aab",
+      "nameAfter": "Spica Aa",
+      "fields": {
+        "temperature_k": {
+          "before": 26000.0,
+          "after": 25300
+        },
+        "mass_solar": {
+          "before": null,
+          "after": 11.43
+        },
+        "radius_solar": {
+          "before": null,
+          "after": 7.47
+        },
+        "luminosity_solar": {
+          "before": null,
+          "after": 20511.621788255667
+        },
+        "age_gyr": {
+          "before": null,
+          "after": 0.0125
+        },
+        "absolute_mag": {
+          "before": -3.4402841152256927,
+          "after": null
+        },
+        "apparent_mag": {
+          "before": 0.98,
+          "after": null
+        }
+      }
+    },
+    {
+      "starId": "bright-nunki",
+      "nameBefore": "Nunki Aa",
+      "nameAfter": "Nunki Aa",
+      "fields": {
+        "mass_solar": {
+          "before": null,
+          "after": 6.5
+        },
+        "radius_solar": {
+          "before": null,
+          "after": 4.1
+        }
+      }
+    },
+    {
+      "starId": "msc-18553-2618-ab",
+      "nameBefore": "Nunki Ab",
+      "nameAfter": "Nunki Ab",
+      "fields": {
+        "mass_solar": {
+          "before": null,
+          "after": 6.3
+        },
+        "radius_solar": {
+          "before": null,
+          "after": 3.9
+        }
+      }
+    },
+    {
+      "starId": "bright-menkalinan",
+      "nameBefore": "Menkalinan Aa",
+      "nameAfter": "Menkalinan Aa",
+      "fields": {
+        "mass_solar": {
+          "before": 2.376,
+          "after": 2.359
+        },
+        "radius_solar": {
+          "before": 2.762,
+          "after": 2.752
+        },
+        "luminosity_solar": {
+          "before": 52.60172663907063,
+          "after": 52.14804275603479
+        }
+      }
+    },
+    {
+      "starId": "orb6-05595+4457-aa-ab-ab",
+      "nameBefore": "Menkalinan Ab",
+      "nameAfter": "Menkalinan Ab",
+      "fields": {
+        "temperature_k": {
+          "before": 9200,
+          "after": 9327
+        },
+        "mass_solar": {
+          "before": 2.291,
+          "after": 2.293
+        },
+        "radius_solar": {
+          "before": 2.568,
+          "after": 2.622
+        },
+        "luminosity_solar": {
+          "before": 42.65795188015925,
+          "after": 46.87356572779555
+        }
+      }
+    }
+  ],
+  "addedRecords": [
+    {
+      "starId": "msc-07346+3153-cb",
+      "name": "Castor Cb"
+    },
+    {
+      "starId": "msc-13252-1110-ab",
+      "name": "Spica Ab"
+    }
+  ],
+  "preservation": {
+    "sourceCsvsUnchanged": 6,
+    "sourceProvenanceFilesUnchanged": 5,
+    "unplannedComponentChanges": 0,
+    "existingComponentAstrometryAndMotionUnchanged": true,
+    "componentRecordOrKnownFieldLosses": []
+  },
+  "coverageBefore": {
+    "objects": 520,
+    "fields": {
+      "temperature_k": {
+        "available": 237,
+        "missing": 283
+      },
+      "mass_solar": {
+        "available": 147,
+        "missing": 373
+      },
+      "radius_solar": {
+        "available": 134,
+        "missing": 386
+      },
+      "luminosity_solar": {
+        "available": 132,
+        "missing": 388
+      },
+      "metallicity_dex": {
+        "available": 127,
+        "missing": 393
+      },
+      "age_gyr": {
+        "available": 54,
+        "missing": 466
+      },
+      "absolute_mag": {
+        "available": 349,
+        "missing": 171
+      },
+      "spectral_type": {
+        "available": 327,
+        "missing": 193
+      }
+    },
+    "infoArticles": 130,
+    "noCorePhysicalFields": 252,
+    "allCorePhysicalFields": 110,
+    "radialVelocity": 171,
+    "radialVelocityWithError": 24,
+    "properMotionWithBothErrors": 31
+  },
+  "coverageAfter": {
+    "objects": 522,
+    "fields": {
+      "temperature_k": {
+        "available": 239,
+        "missing": 283
+      },
+      "mass_solar": {
+        "available": 153,
+        "missing": 369
+      },
+      "radius_solar": {
+        "available": 139,
+        "missing": 383
+      },
+      "luminosity_solar": {
+        "available": 135,
+        "missing": 387
+      },
+      "metallicity_dex": {
+        "available": 126,
+        "missing": 396
+      },
+      "age_gyr": {
+        "available": 62,
+        "missing": 460
+      },
+      "absolute_mag": {
+        "available": 347,
+        "missing": 175
+      },
+      "spectral_type": {
+        "available": 329,
+        "missing": 193
+      }
+    },
+    "infoArticles": 132,
+    "noCorePhysicalFields": 251,
+    "allCorePhysicalFields": 114,
+    "radialVelocity": 173,
+    "radialVelocityWithError": 25,
+    "properMotionWithBothErrors": 31
+  }
+}

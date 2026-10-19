@@ -119,10 +119,10 @@
         "vx_kms": -25.886861,
         "vy_kms": -28.223299,
         "vz_kms": -13.645131,
-        "temperature_k": 8850.0,
+        "temperature_k": 22150.0,
         "mass_solar": null,
-        "luminosity_solar": 1308.99,
-        "radius_solar": 15.3898,
+        "luminosity_solar": null,
+        "radius_solar": null,
         "metallicity_dex": null,
         "age_gyr": null,
         "absolute_mag": -3.844527,
@@ -133,7 +133,7 @@
         "constellation": "Centaurus",
         "spectral_type": "B2Vne",
         "metallicity_kind": null,
-        "notes": "Western constellation line-figure star (HIP 59196; Stellarium Cen). SIMBAD identity * del Cen; SIMBAD compiled Johnson V=2.52; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: reviewed Star View values for temperature_k, luminosity_solar, radius_solar.",
+        "notes": "Western constellation line-figure star (HIP 59196; Stellarium Cen). SIMBAD identity * del Cen; SIMBAD compiled Johnson V=2.52; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Reviewed hot-star temperature: 2018MNRAS.474.5287A, HD 105435, Table B1, 22150 K. Published errors are the authors' assumed 1 percent for temperature, not an independent posterior error; Be disk variability and rotational gravity darkening add systematics. The old broadband SED luminosity and dependent radius are withheld; no component-safe replacement is adopted in this review.",
         "designations": [
           "HIP 59196"
         ],
@@ -2000,7 +2000,7 @@
       "label": "Adopted star positions and names",
       "url": "https://simbad.cds.unistra.fr/simbad/",
       "path": "src/data/catalogs/western-constellation-stars/stars.csv",
-      "sha256": "0a8b7c1dc3f7e3412c5cffb09a18cdf5b5b7424cc89ea8a0a1ffb4da57d3ad6a"
+      "sha256": "cd5d2e1def1e85bfd72925fef9a06ceefafb4c596f52e220a88e75a0fb4821fd"
     },
     {
       "label": "Hipparcos Johnson V magnitudes",

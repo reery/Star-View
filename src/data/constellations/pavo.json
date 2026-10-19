@@ -364,12 +364,12 @@
         "vx_kms": -48.480003,
         "vy_kms": -13.472607,
         "vz_kms": -15.090638,
-        "temperature_k": 5438.0,
-        "mass_solar": 0.94,
-        "luminosity_solar": 1.2535083,
-        "radius_solar": 1.2615935,
-        "metallicity_dex": 0.0321,
-        "age_gyr": null,
+        "temperature_k": 5571.0,
+        "mass_solar": 1.07,
+        "luminosity_solar": 1.24,
+        "radius_solar": 1.197,
+        "metallicity_dex": 0.371,
+        "age_gyr": 6.1,
         "absolute_mag": 4.633611,
         "epoch": 2000.0,
         "type": "star",
@@ -377,8 +377,8 @@
         "name": "Delta Pav",
         "constellation": "Pavo",
         "spectral_type": "G8IV",
-        "metallicity_kind": "[M/H]",
-        "notes": "Western constellation line-figure star (HIP 99240; Stellarium Pav). SIMBAD identity * del Pav; SIMBAD compiled Johnson V=3.56; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: reviewed Star View values for temperature_k, mass_solar, luminosity_solar, radius_solar, metallicity_dex.",
+        "metallicity_kind": "[Fe/H]",
+        "notes": "Western constellation line-figure star (HIP 99240; Stellarium Pav). SIMBAD identity * del Pav; SIMBAD compiled Johnson V=3.56; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Reviewed physical parameters: Carvalho-Silva et al. 2025 Table 1 (HIP 99240): mass 1.07 +/- 0.01 solar (isochrone-derived), [Fe/H] +0.371 +/- 0.008 dex (differential HARPS spectroscopy), isochronal age 6.10 -0.26/+0.25 Gyr. Rains et al. 2020 Table 4 (HD 190248): interferometric/bolometric Teff 5571 +/- 48 K, radius 1.197 +/- 0.016 solar, luminosity 1.24 +/- 0.03 solar. Formal internal errors do not include all method systematics; previous catalog models and the alternative 2025 spectroscopic temperature 5609 +/- 8 K are retained in the frozen Delta Pav review.",
         "designations": [
           "HIP 99240"
         ],
@@ -1316,7 +1316,7 @@
       "label": "Adopted star positions and names",
       "url": "https://simbad.cds.unistra.fr/simbad/",
       "path": "src/data/catalogs/western-constellation-stars/stars.csv",
-      "sha256": "0a8b7c1dc3f7e3412c5cffb09a18cdf5b5b7424cc89ea8a0a1ffb4da57d3ad6a"
+      "sha256": "cd5d2e1def1e85bfd72925fef9a06ceefafb4c596f52e220a88e75a0fb4821fd"
     },
     {
       "label": "Hipparcos Johnson V magnitudes",

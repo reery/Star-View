@@ -1,0 +1,7009 @@
+{
+  "reviewedOn": "2026-10-19",
+  "scope": "This pass only, compared against working-tree snapshots taken before motion/data changes. No Info article edits.",
+  "recordsComparedAcrossSixCatalogs": 2467,
+  "scientificLeavesCompared": 59168,
+  "previousSourceSnapshotsCompared": 570,
+  "unchangedSourceCsvProvenanceAndInfoFiles": 28,
+  "missingRecordsOrSourceMeasurements": 0,
+  "failures": [],
+  "concurrentUnrelatedSourceChanges": [
+    {
+      "path": "src/data/star-info.json",
+      "beforeSha256": "2d4bb20b67bc0ea593e5f8803cecb6fb703fc080b57bab4ed5cce1bcacd04635",
+      "afterSha256": "fd7510dae66d36cf5ccc198439b5bceefbdc213ba6232be0bf7e52d9437bd483",
+      "scope": "Concurrent unrelated work; no tool or generator in this pass edited this Info source."
+    }
+  ],
+  "changedEffectiveRecords": {
+    "nearest-neighbors": 4,
+    "bright-stars": 130,
+    "famous-cluster-stars": 6,
+    "nearest-100": 6,
+    "nearest-1000": 32,
+    "western-constellation-stars": 518
+  },
+  "changes": {
+    "nearest-neighbors": [
+      {
+        "id": "alpha-centauri-a",
+        "canonicalId": "alpha-centauri-a",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "alpha-centauri-b",
+        "canonicalId": "alpha-centauri-b",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "sirius-a",
+        "canonicalId": "sirius-a",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "sirius-b",
+        "canonicalId": "sirius-b",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms"
+        ]
+      }
+    ],
+    "bright-stars": [
+      {
+        "id": "alpha-centauri-b",
+        "canonicalId": "alpha-centauri-b",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "alpha-centauri-a",
+        "canonicalId": "alpha-centauri-a",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "sirius-a",
+        "canonicalId": "sirius-a",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "sirius-b",
+        "canonicalId": "sirius-b",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms"
+        ]
+      },
+      {
+        "id": "10pc-0032",
+        "canonicalId": "10pc-0032",
+        "fields": [
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "bright-procyon",
+        "canonicalId": "10pc-0031",
+        "fields": [
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "cns5-5660",
+        "canonicalId": "cns5-5660",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "cns5-5623",
+        "canonicalId": "cns5-5623",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "cns5-5665",
+        "canonicalId": "cns5-5665",
+        "fields": [
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "cns5-1318",
+        "canonicalId": "cns5-1318",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "capella-ab",
+        "canonicalId": "capella-ab",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "cns5-1323",
+        "canonicalId": "cns5-1323",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "bright-rasalhague",
+        "canonicalId": "bright-rasalhague",
+        "fields": [
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "bright-castor",
+        "canonicalId": "bright-castor",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms"
+        ]
+      },
+      {
+        "id": "bright-sheratan",
+        "canonicalId": "bright-sheratan",
+        "fields": [
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "bright-aljanah",
+        "canonicalId": "bright-aljanah",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "bright-regulus",
+        "canonicalId": "bright-regulus",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "bright-mizar-a",
+        "canonicalId": "bright-mizar-a",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "bright-menkalinan",
+        "canonicalId": "bright-menkalinan",
+        "fields": [
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "bright-ascella",
+        "canonicalId": "bright-ascella",
+        "fields": [
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "bright-sabik",
+        "canonicalId": "bright-sabik",
+        "fields": [
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "bright-algol",
+        "canonicalId": "bright-algol",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "bright-alpheratz",
+        "canonicalId": "bright-alpheratz",
+        "fields": [
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "bright-alhena",
+        "canonicalId": "bright-alhena",
+        "fields": [
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "bright-mu-velorum",
+        "canonicalId": "bright-mu-velorum",
+        "fields": [
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "bright-dubhe",
+        "canonicalId": "bright-dubhe",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "bright-gamma-centauri",
+        "canonicalId": "bright-gamma-centauri",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "bright-achernar",
+        "canonicalId": "bright-achernar",
+        "fields": [
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "bright-mahasim",
+        "canonicalId": "bright-mahasim",
+        "fields": [
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "bright-nunki",
+        "canonicalId": "bright-nunki",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "bright-izar",
+        "canonicalId": "bright-izar",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "bright-spica",
+        "canonicalId": "bright-spica",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "bright-sargas",
+        "canonicalId": "bright-sargas",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "bright-alpha-muscae",
+        "canonicalId": "bright-alpha-muscae",
+        "fields": [
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "bright-acrux",
+        "canonicalId": "bright-acrux",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "bright-beta-lupi",
+        "canonicalId": "bright-beta-lupi",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "bright-hadar",
+        "canonicalId": "bright-hadar",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "bright-almach",
+        "canonicalId": "bright-almach",
+        "fields": [
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "bright-beta-scorpii-a",
+        "canonicalId": "bright-beta-scorpii-a",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "bright-adhara",
+        "canonicalId": "bright-adhara",
+        "fields": [
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "bright-polaris",
+        "canonicalId": "bright-polaris",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms"
+        ]
+      },
+      {
+        "id": "bright-dschubba",
+        "canonicalId": "bright-dschubba",
+        "fields": [
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "bright-gamma-cassiopeiae",
+        "canonicalId": "bright-gamma-cassiopeiae",
+        "fields": [
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "bright-antares",
+        "canonicalId": "bright-antares",
+        "fields": [
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "bright-shaula",
+        "canonicalId": "bright-shaula",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "bright-avior",
+        "canonicalId": "bright-avior",
+        "fields": [
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "bright-delta-centauri",
+        "canonicalId": "bright-delta-centauri",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "bright-mintaka",
+        "canonicalId": "bright-mintaka",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "bright-alnitak",
+        "canonicalId": "bright-alnitak",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "bright-rigel",
+        "canonicalId": "bright-rigel",
+        "fields": [
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "rigel-ba",
+        "canonicalId": "rigel-ba",
+        "fields": [
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "rigel-bb",
+        "canonicalId": "rigel-bb",
+        "fields": [
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "rigel-c",
+        "canonicalId": "rigel-c",
+        "fields": [
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "bright-regor",
+        "canonicalId": "bright-regor",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "orb6-17349+1234-a-b-b",
+        "canonicalId": "orb6-17349+1234-a-b-b",
+        "fields": [
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "msc-07346+3153-ab",
+        "canonicalId": "msc-07346+3153-ab",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms"
+        ]
+      },
+      {
+        "id": "msc-07346+3153-ba",
+        "canonicalId": "msc-07346+3153-ba",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms"
+        ]
+      },
+      {
+        "id": "msc-07346+3153-bb",
+        "canonicalId": "msc-07346+3153-bb",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms"
+        ]
+      },
+      {
+        "id": "msc-07346+3153-c",
+        "canonicalId": "msc-07346+3153-c",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms"
+        ]
+      },
+      {
+        "id": "msc-07346+3153-cb",
+        "canonicalId": "msc-07346+3153-cb",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms"
+        ]
+      },
+      {
+        "id": "orb6-01546+2049-a-b-b",
+        "canonicalId": "orb6-01546+2049-a-b-b",
+        "fields": [
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "msc-20462+3358-ab",
+        "canonicalId": "msc-20462+3358-ab",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "msc-20462+3358-d",
+        "canonicalId": "msc-20462+3358-d",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "msc-10084+1158-ab",
+        "canonicalId": "msc-10084+1158-ab",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "msc-10084+1158-b",
+        "canonicalId": "msc-10084+1158-b",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "msc-10084+1158-c",
+        "canonicalId": "msc-10084+1158-c",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "msc-13239+5456-ab",
+        "canonicalId": "msc-13239+5456-ab",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "msc-13239+5456-ba",
+        "canonicalId": "msc-13239+5456-ba",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "msc-13239+5456-bb",
+        "canonicalId": "msc-13239+5456-bb",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "msc-13239+5456-ca",
+        "canonicalId": "msc-13239+5456-ca",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "msc-13239+5456-cb",
+        "canonicalId": "msc-13239+5456-cb",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "orb6-05595+4457-aa-ab-ab",
+        "canonicalId": "orb6-05595+4457-aa-ab-ab",
+        "fields": [
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "orb6-19026-2953-a-b-b",
+        "canonicalId": "orb6-19026-2953-a-b-b",
+        "fields": [
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "orb6-17104-1544-a-b-b",
+        "canonicalId": "orb6-17104-1544-a-b-b",
+        "fields": [
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "msc-03082+4057-ab",
+        "canonicalId": "msc-03082+4057-ab",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "msc-03082+4057-b",
+        "canonicalId": "msc-03082+4057-b",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "msc-00084+2905-b",
+        "canonicalId": "msc-00084+2905-b",
+        "fields": [
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "orb6-06377+1624-aa-ab-ab",
+        "canonicalId": "orb6-06377+1624-aa-ab-ab",
+        "fields": [
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "orb6-10468-4925-a-b-b",
+        "canonicalId": "orb6-10468-4925-a-b-b",
+        "fields": [
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "msc-11037+6145-b",
+        "canonicalId": "msc-11037+6145-b",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "msc-11037+6145-d",
+        "canonicalId": "msc-11037+6145-d",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "msc-11037+6145-ca",
+        "canonicalId": "msc-11037+6145-ca",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "msc-11037+6145-cb",
+        "canonicalId": "msc-11037+6145-cb",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "msc-12415-4858-b",
+        "canonicalId": "msc-12415-4858-b",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "orb6-01377-5714-a-b-b",
+        "canonicalId": "orb6-01377-5714-a-b-b",
+        "fields": [
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "orb6-05597+3713-a-b-b",
+        "canonicalId": "orb6-05597+3713-a-b-b",
+        "fields": [
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "msc-18553-2618-ab",
+        "canonicalId": "msc-18553-2618-ab",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "msc-14450+2704-b",
+        "canonicalId": "msc-14450+2704-b",
+        "fields": [
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "msc-14450+2704-d",
+        "canonicalId": "msc-14450+2704-d",
+        "fields": [
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "msc-13252-1110-ab",
+        "canonicalId": "msc-13252-1110-ab",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "msc-13252-1110-ac",
+        "canonicalId": "msc-13252-1110-ac",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "msc-17373-4300-ab",
+        "canonicalId": "msc-17373-4300-ab",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "msc-12372-6908-ab",
+        "canonicalId": "msc-12372-6908-ab",
+        "fields": [
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "msc-12372-6908-b",
+        "canonicalId": "msc-12372-6908-b",
+        "fields": [
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "msc-12266-6306-ab",
+        "canonicalId": "msc-12266-6306-ab",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "msc-12266-6306-b",
+        "canonicalId": "msc-12266-6306-b",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "msc-12266-6306-cd",
+        "canonicalId": "msc-12266-6306-cd",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "msc-14585-4308-ab",
+        "canonicalId": "msc-14585-4308-ab",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "msc-14585-4308-b",
+        "canonicalId": "msc-14585-4308-b",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "msc-14038-6022-ab",
+        "canonicalId": "msc-14038-6022-ab",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "msc-14038-6022-b",
+        "canonicalId": "msc-14038-6022-b",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "msc-02039+4220-ba",
+        "canonicalId": "msc-02039+4220-ba",
+        "fields": [
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "msc-02039+4220-bb",
+        "canonicalId": "msc-02039+4220-bb",
+        "fields": [
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "msc-02039+4220-c",
+        "canonicalId": "msc-02039+4220-c",
+        "fields": [
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "msc-16054-1948-ab",
+        "canonicalId": "msc-16054-1948-ab",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "msc-16054-1948-b",
+        "canonicalId": "msc-16054-1948-b",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "msc-16054-1948-c",
+        "canonicalId": "msc-16054-1948-c",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "msc-16054-1948-ea",
+        "canonicalId": "msc-16054-1948-ea",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "msc-16054-1948-eb",
+        "canonicalId": "msc-16054-1948-eb",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "adhara-b",
+        "canonicalId": "adhara-b",
+        "fields": [
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "msc-02318+8916-ab",
+        "canonicalId": "msc-02318+8916-ab",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms"
+        ]
+      },
+      {
+        "id": "msc-02318+8916-b",
+        "canonicalId": "msc-02318+8916-b",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms"
+        ]
+      },
+      {
+        "id": "orb6-16003-2237-a-b-b",
+        "canonicalId": "orb6-16003-2237-a-b-b",
+        "fields": [
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "msc-00567+6043-b",
+        "canonicalId": "msc-00567+6043-b",
+        "fields": [
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "bright-antares-component-b",
+        "canonicalId": "bright-antares-component-b",
+        "fields": [
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "msc-17336-3706-aa2",
+        "canonicalId": "msc-17336-3706-aa2",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "msc-17336-3706-ab",
+        "canonicalId": "msc-17336-3706-ab",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "bright-avior-component-b",
+        "canonicalId": "bright-avior-component-b",
+        "fields": [
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "msc-12084-5043-ab",
+        "canonicalId": "msc-12084-5043-ab",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "msc-12084-5043-b",
+        "canonicalId": "msc-12084-5043-b",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "msc-05320-0018-aa2",
+        "canonicalId": "msc-05320-0018-aa2",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "msc-05320-0018-ab",
+        "canonicalId": "msc-05320-0018-ab",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "msc-05320-0018-ca",
+        "canonicalId": "msc-05320-0018-ca",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "msc-05320-0018-cb",
+        "canonicalId": "msc-05320-0018-cb",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "msc-05407-0157-ab",
+        "canonicalId": "msc-05407-0157-ab",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "msc-05407-0157-b",
+        "canonicalId": "msc-05407-0157-b",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "msc-08095-4720-ab",
+        "canonicalId": "msc-08095-4720-ab",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "msc-08095-4720-ba",
+        "canonicalId": "msc-08095-4720-ba",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "msc-08095-4720-bb",
+        "canonicalId": "msc-08095-4720-bb",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "msc-08095-4720-c",
+        "canonicalId": "msc-08095-4720-c",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      }
+    ],
+    "famous-cluster-stars": [
+      {
+        "id": "hip-17847",
+        "canonicalId": "hip-17847",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "hip-20894",
+        "canonicalId": "hip-20894",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "hip-52419",
+        "canonicalId": "hip-52419",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "msc-03492+2403-aa2",
+        "canonicalId": "msc-03492+2403-aa2",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "orb6-04287+1552-aa-ab-ab",
+        "canonicalId": "orb6-04287+1552-aa-ab-ab",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "msc-10429-6423-aa2",
+        "canonicalId": "msc-10429-6423-aa2",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      }
+    ],
+    "nearest-100": [
+      {
+        "id": "alpha-centauri-b",
+        "canonicalId": "alpha-centauri-b",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "alpha-centauri-a",
+        "canonicalId": "alpha-centauri-a",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "sirius-a",
+        "canonicalId": "sirius-a",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "sirius-b",
+        "canonicalId": "sirius-b",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms"
+        ]
+      },
+      {
+        "id": "10pc-0032",
+        "canonicalId": "10pc-0032",
+        "fields": [
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "10pc-0031",
+        "canonicalId": "10pc-0031",
+        "fields": [
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      }
+    ],
+    "nearest-1000": [
+      {
+        "id": "alpha-centauri-b",
+        "canonicalId": "alpha-centauri-b",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "alpha-centauri-a",
+        "canonicalId": "alpha-centauri-a",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "sirius-a",
+        "canonicalId": "sirius-a",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "sirius-b",
+        "canonicalId": "sirius-b",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms"
+        ]
+      },
+      {
+        "id": "10pc-0032",
+        "canonicalId": "10pc-0032",
+        "fields": [
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "10pc-0031",
+        "canonicalId": "10pc-0031",
+        "fields": [
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "cns5-5660",
+        "canonicalId": "cns5-5660",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "cns5-5623",
+        "canonicalId": "cns5-5623",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "cns5-5665",
+        "canonicalId": "cns5-5665",
+        "fields": [
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "chi-draconis-b",
+        "canonicalId": "chi-draconis-b",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "cns5-4539",
+        "canonicalId": "cns5-4539",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "cns5-4399",
+        "canonicalId": "cns5-4399",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "cns5-4401",
+        "canonicalId": "cns5-4401",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "mu-her-ab",
+        "canonicalId": "mu-her-ab",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "cns5-4400",
+        "canonicalId": "cns5-4400",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "chi1-orionis-b",
+        "canonicalId": "chi1-orionis-b",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "cns5-1464",
+        "canonicalId": "cns5-1464",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "cns5-1425",
+        "canonicalId": "cns5-1425",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "cns5-1427",
+        "canonicalId": "cns5-1427",
+        "fields": [
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "cns5-4097",
+        "canonicalId": "cns5-4097",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "zeta-herculis-b",
+        "canonicalId": "zeta-herculis-b",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "cns5-5470",
+        "canonicalId": "cns5-5470",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "iota-pegasi-b",
+        "canonicalId": "iota-pegasi-b",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "cns5-3135",
+        "canonicalId": "cns5-3135",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "capella-ab",
+        "canonicalId": "capella-ab",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "cns5-1318",
+        "canonicalId": "cns5-1318",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "cns5-1323",
+        "canonicalId": "cns5-1323",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "cns5-4929",
+        "canonicalId": "cns5-4929",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "cns5-4930",
+        "canonicalId": "cns5-4930",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "cns5-5833",
+        "canonicalId": "cns5-5833",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "gamma-cephei-b",
+        "canonicalId": "gamma-cephei-b",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "orb6-12417-0127-a-b-b",
+        "canonicalId": "orb6-12417-0127-a-b-b",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      }
+    ],
+    "western-constellation-stars": [
+      {
+        "id": "alpha-centauri-b",
+        "canonicalId": "alpha-centauri-b",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "hip-71683",
+        "canonicalId": "alpha-centauri-a",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "hip-32349",
+        "canonicalId": "sirius-a",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "sirius-b",
+        "canonicalId": "sirius-b",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms"
+        ]
+      },
+      {
+        "id": "10pc-0032",
+        "canonicalId": "10pc-0032",
+        "fields": [
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "hip-37279",
+        "canonicalId": "10pc-0031",
+        "fields": [
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "cns5-5660",
+        "canonicalId": "cns5-5660",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "cns5-5623",
+        "canonicalId": "cns5-5623",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "hip-113368",
+        "canonicalId": "cns5-5665",
+        "fields": [
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "hip-89937",
+        "canonicalId": "cns5-4539",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "chi-draconis-b",
+        "canonicalId": "chi-draconis-b",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "cns5-4399",
+        "canonicalId": "cns5-4399",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "hip-86974",
+        "canonicalId": "cns5-4401",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "mu-her-ab",
+        "canonicalId": "mu-her-ab",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "cns5-4400",
+        "canonicalId": "cns5-4400",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "hip-27913",
+        "canonicalId": "cns5-1464",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "chi1-orionis-b",
+        "canonicalId": "chi1-orionis-b",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "cns5-1425",
+        "canonicalId": "cns5-1425",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "hip-27072",
+        "canonicalId": "cns5-1427",
+        "fields": [
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "hip-81693",
+        "canonicalId": "cns5-4097",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "zeta-herculis-b",
+        "canonicalId": "zeta-herculis-b",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "hip-109176",
+        "canonicalId": "cns5-5470",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "iota-pegasi-b",
+        "canonicalId": "iota-pegasi-b",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "hip-61941",
+        "canonicalId": "cns5-3135",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "hip-24608",
+        "canonicalId": "cns5-1318",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "capella-ab",
+        "canonicalId": "capella-ab",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "cns5-1323",
+        "canonicalId": "cns5-1323",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "hip-98036",
+        "canonicalId": "cns5-4929",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "cns5-4930",
+        "canonicalId": "cns5-4930",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "hip-116727",
+        "canonicalId": "cns5-5833",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "gamma-cephei-b",
+        "canonicalId": "gamma-cephei-b",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "hip-14879",
+        "canonicalId": "hip-14879",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "hip-44127",
+        "canonicalId": "hip-44127",
+        "fields": [
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "hip-86032",
+        "canonicalId": "bright-rasalhague",
+        "fields": [
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "hip-36850",
+        "canonicalId": "bright-castor",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms"
+        ]
+      },
+      {
+        "id": "hip-112447",
+        "canonicalId": "hip-112447",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "hip-93825",
+        "canonicalId": "hip-93825",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "hip-64241",
+        "canonicalId": "hip-64241",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "hip-8903",
+        "canonicalId": "bright-sheratan",
+        "fields": [
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "hip-46509",
+        "canonicalId": "hip-46509",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "hip-104858",
+        "canonicalId": "hip-104858",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "hip-35550",
+        "canonicalId": "hip-35550",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "hip-44248",
+        "canonicalId": "hip-44248",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "hip-46651",
+        "canonicalId": "hip-46651",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "hip-71957",
+        "canonicalId": "hip-71957",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "hip-21770",
+        "canonicalId": "hip-21770",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "hip-107310",
+        "canonicalId": "hip-107310",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "hip-114996",
+        "canonicalId": "hip-114996",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "hip-11783",
+        "canonicalId": "hip-11783",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "hip-102488",
+        "canonicalId": "bright-aljanah",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "hip-72622",
+        "canonicalId": "hip-72622",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "hip-84379",
+        "canonicalId": "hip-84379",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "hip-12390",
+        "canonicalId": "hip-12390",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "hip-49669",
+        "canonicalId": "bright-regulus",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "hip-12706",
+        "canonicalId": "hip-12706",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "hip-42913",
+        "canonicalId": "hip-42913",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "hip-28360",
+        "canonicalId": "bright-menkalinan",
+        "fields": [
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "hip-65378",
+        "canonicalId": "bright-mizar-a",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "hip-12828",
+        "canonicalId": "hip-12828",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "hip-51986",
+        "canonicalId": "hip-51986",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "hip-93506",
+        "canonicalId": "bright-ascella",
+        "fields": [
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "hip-84012",
+        "canonicalId": "bright-sabik",
+        "fields": [
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "hip-109427",
+        "canonicalId": "hip-109427",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "hip-14576",
+        "canonicalId": "bright-algol",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "hip-80331",
+        "canonicalId": "hip-80331",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "hip-110960",
+        "canonicalId": "hip-110960",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "hip-677",
+        "canonicalId": "bright-alpheratz",
+        "fields": [
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "hip-85829",
+        "canonicalId": "hip-85829",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "hip-105319",
+        "canonicalId": "hip-105319",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "hip-86263",
+        "canonicalId": "hip-86263",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "hip-63125",
+        "canonicalId": "hip-63125",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "hip-101769",
+        "canonicalId": "hip-101769",
+        "fields": [
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "hip-3092",
+        "canonicalId": "hip-3092",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "hip-17440",
+        "canonicalId": "hip-17440",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "hip-31681",
+        "canonicalId": "bright-alhena",
+        "fields": [
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "hip-107354",
+        "canonicalId": "hip-107354",
+        "fields": [
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "hip-52727",
+        "canonicalId": "bright-mu-velorum",
+        "fields": [
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "hip-21594",
+        "canonicalId": "hip-21594",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "hip-102532",
+        "canonicalId": "hip-102532",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "hip-75695",
+        "canonicalId": "hip-75695",
+        "fields": [
+          "temperature_k",
+          "mass_solar",
+          "radius_solar",
+          "luminosity_solar",
+          "age_gyr",
+          "absolute_mag",
+          "apparent_mag",
+          "spectral_type",
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry",
+          "unresolved_photometry"
+        ]
+      },
+      {
+        "id": "hip-74666",
+        "canonicalId": "hip-74666",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "hip-45336",
+        "canonicalId": "hip-45336",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "hip-54061",
+        "canonicalId": "bright-dubhe",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "hip-44382",
+        "canonicalId": "hip-44382",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "hip-10064",
+        "canonicalId": "hip-10064",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "hip-43109",
+        "canonicalId": "hip-43109",
+        "fields": [
+          "mass_solar",
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "hip-50583",
+        "canonicalId": "hip-50583",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "hip-61932",
+        "canonicalId": "bright-gamma-centauri",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "hip-114131",
+        "canonicalId": "hip-114131",
+        "fields": [
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "hip-45688",
+        "canonicalId": "hip-45688",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "hip-34481",
+        "canonicalId": "hip-34481",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "hip-30419",
+        "canonicalId": "hip-30419",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "hip-57363",
+        "canonicalId": "hip-57363",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "hip-98110",
+        "canonicalId": "hip-98110",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "hip-7588",
+        "canonicalId": "bright-achernar",
+        "fields": [
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "hip-2484",
+        "canonicalId": "hip-2484",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "hip-12413",
+        "canonicalId": "hip-12413",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "hip-76952",
+        "canonicalId": "hip-76952",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "hip-37740",
+        "canonicalId": "hip-37740",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "hip-114855",
+        "canonicalId": "hip-114855",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "hip-80816",
+        "canonicalId": "hip-80816",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "hip-104732",
+        "canonicalId": "hip-104732",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "hip-20894",
+        "canonicalId": "hip-20894",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "hip-9487",
+        "canonicalId": "hip-9487",
+        "fields": [
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "hip-97433",
+        "canonicalId": "hip-97433",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "hip-51233",
+        "canonicalId": "hip-51233",
+        "fields": [
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "hip-97165",
+        "canonicalId": "hip-97165",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "hip-28614",
+        "canonicalId": "hip-28614",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "hip-28734",
+        "canonicalId": "hip-28734",
+        "fields": [
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "hip-91971",
+        "canonicalId": "hip-91971",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "hip-8832",
+        "canonicalId": "hip-8832",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "hip-83207",
+        "canonicalId": "hip-83207",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "hip-17797",
+        "canonicalId": "hip-17797",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "hip-28380",
+        "canonicalId": "bright-mahasim",
+        "fields": [
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "hip-21281",
+        "canonicalId": "hip-21281",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "hip-77516",
+        "canonicalId": "hip-77516",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "hip-71795",
+        "canonicalId": "hip-71795",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "hip-20042",
+        "canonicalId": "hip-20042",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "hip-44066",
+        "canonicalId": "hip-44066",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "hip-33449",
+        "canonicalId": "hip-33449",
+        "fields": [
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "hip-5165",
+        "canonicalId": "hip-5165",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "hip-50801",
+        "canonicalId": "hip-50801",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "hip-104987",
+        "canonicalId": "hip-104987",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "hip-36377",
+        "canonicalId": "hip-36377",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "hip-112158",
+        "canonicalId": "hip-112158",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "hip-38146",
+        "canonicalId": "hip-38146",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "hip-77634",
+        "canonicalId": "hip-77634",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "hip-78970",
+        "canonicalId": "hip-78970",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "hip-102281",
+        "canonicalId": "hip-102281",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "hip-92855",
+        "canonicalId": "bright-nunki",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "hip-76276",
+        "canonicalId": "hip-76276",
+        "fields": [
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "hip-99473",
+        "canonicalId": "hip-99473",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "hip-24244",
+        "canonicalId": "hip-24244",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "hip-14328",
+        "canonicalId": "hip-14328",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "hip-72105",
+        "canonicalId": "bright-izar",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "hip-101958",
+        "canonicalId": "hip-101958",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "hip-65474",
+        "canonicalId": "bright-spica",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "hip-68756",
+        "canonicalId": "hip-68756",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "hip-98337",
+        "canonicalId": "hip-98337",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "hip-5348",
+        "canonicalId": "hip-5348",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "hip-10826",
+        "canonicalId": "hip-10826",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "hip-86228",
+        "canonicalId": "bright-sargas",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "hip-81126",
+        "canonicalId": "hip-81126",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "hip-61585",
+        "canonicalId": "bright-alpha-muscae",
+        "fields": [
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "hip-70576",
+        "canonicalId": "hip-70576",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "hip-107608",
+        "canonicalId": "hip-107608",
+        "fields": [
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "hip-60718",
+        "canonicalId": "bright-acrux",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "hip-62322",
+        "canonicalId": "hip-62322",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "hip-78265",
+        "canonicalId": "hip-78265",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "hip-30122",
+        "canonicalId": "hip-30122",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "hip-44471",
+        "canonicalId": "hip-44471",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "hip-84345",
+        "canonicalId": "hip-84345",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "hip-95947",
+        "canonicalId": "hip-95947",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "hip-76127",
+        "canonicalId": "hip-76127",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "hip-61199",
+        "canonicalId": "hip-61199",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "hip-73273",
+        "canonicalId": "bright-beta-lupi",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "hip-4889",
+        "canonicalId": "hip-4889",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "hip-73334",
+        "canonicalId": "hip-73334",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "hip-7097",
+        "canonicalId": "hip-7097",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "hip-68702",
+        "canonicalId": "bright-hadar",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "hip-9640",
+        "canonicalId": "bright-almach",
+        "fields": [
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "hip-34693",
+        "canonicalId": "hip-34693",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "hip-85112",
+        "canonicalId": "hip-85112",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "hip-100345",
+        "canonicalId": "hip-100345",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "hip-5742",
+        "canonicalId": "hip-5742",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "hip-21881",
+        "canonicalId": "hip-21881",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "hip-12093",
+        "canonicalId": "hip-12093",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "hip-78820",
+        "canonicalId": "bright-beta-scorpii-a",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "hip-18724",
+        "canonicalId": "hip-18724",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "hip-33579",
+        "canonicalId": "bright-adhara",
+        "fields": [
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "hip-45080",
+        "canonicalId": "hip-45080",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "hip-17847",
+        "canonicalId": "hip-17847",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "hip-83895",
+        "canonicalId": "hip-83895",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "hip-76297",
+        "canonicalId": "hip-76297",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "hip-78384",
+        "canonicalId": "hip-78384",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "hip-34045",
+        "canonicalId": "hip-34045",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "hip-11767",
+        "canonicalId": "bright-polaris",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms"
+        ]
+      },
+      {
+        "id": "hip-75323",
+        "canonicalId": "hip-75323",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "hip-52419",
+        "canonicalId": "hip-52419",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "hip-67472",
+        "canonicalId": "hip-67472",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "hip-61281",
+        "canonicalId": "hip-61281",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "hip-78401",
+        "canonicalId": "bright-dschubba",
+        "fields": [
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "hip-48402",
+        "canonicalId": "hip-48402",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "hip-4427",
+        "canonicalId": "bright-gamma-cassiopeiae",
+        "fields": [
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "hip-111954",
+        "canonicalId": "hip-111954",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "hip-97365",
+        "canonicalId": "hip-97365",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "hip-80763",
+        "canonicalId": "bright-antares",
+        "fields": [
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "hip-85927",
+        "canonicalId": "bright-shaula",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "hip-46776",
+        "canonicalId": "hip-46776",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "hip-41037",
+        "canonicalId": "bright-avior",
+        "fields": [
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "hip-59196",
+        "canonicalId": "bright-delta-centauri",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "hip-18532",
+        "canonicalId": "hip-18532",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "hip-80582",
+        "canonicalId": "hip-80582",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "hip-39794",
+        "canonicalId": "hip-39794",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "hip-30867",
+        "canonicalId": "hip-30867",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "hip-106032",
+        "canonicalId": "hip-106032",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "hip-29655",
+        "canonicalId": "hip-29655",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "hip-25930",
+        "canonicalId": "bright-mintaka",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "hip-30883",
+        "canonicalId": "hip-30883",
+        "fields": [
+          "temperature_k",
+          "mass_solar",
+          "radius_solar",
+          "luminosity_solar",
+          "metallicity_dex",
+          "metallicity_kind",
+          "age_gyr",
+          "absolute_mag",
+          "apparent_mag",
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "hip-26727",
+        "canonicalId": "bright-alnitak",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "hip-108661",
+        "canonicalId": "hip-108661",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "hip-22549",
+        "canonicalId": "hip-22549",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "hip-24436",
+        "canonicalId": "bright-rigel",
+        "fields": [
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "rigel-ba",
+        "canonicalId": "rigel-ba",
+        "fields": [
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "rigel-bb",
+        "canonicalId": "rigel-bb",
+        "fields": [
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "rigel-c",
+        "canonicalId": "rigel-c",
+        "fields": [
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "hip-28691",
+        "canonicalId": "hip-28691",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "hip-97804",
+        "canonicalId": "hip-97804",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "hip-90098",
+        "canonicalId": "hip-90098",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "hip-65936",
+        "canonicalId": "hip-65936",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "hip-92420",
+        "canonicalId": "hip-92420",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "hip-26207",
+        "canonicalId": "hip-26207",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "hip-17448",
+        "canonicalId": "hip-17448",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "hip-39953",
+        "canonicalId": "bright-regor",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "hip-111022",
+        "canonicalId": "hip-111022",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "hip-23453",
+        "canonicalId": "hip-23453",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "hip-82514",
+        "canonicalId": "hip-82514",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "orb6-12417-0127-a-b-b",
+        "canonicalId": "orb6-12417-0127-a-b-b",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "msc-03121-2859-ba",
+        "canonicalId": "msc-03121-2859-ba",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "msc-03121-2859-bb",
+        "canonicalId": "msc-03121-2859-bb",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "msc-08592+4803-b",
+        "canonicalId": "msc-08592+4803-b",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "msc-08592+4803-c",
+        "canonicalId": "msc-08592+4803-c",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "orb6-17349+1234-a-b-b",
+        "canonicalId": "orb6-17349+1234-a-b-b",
+        "fields": [
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "msc-07346+3153-ab",
+        "canonicalId": "msc-07346+3153-ab",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms"
+        ]
+      },
+      {
+        "id": "msc-07346+3153-ba",
+        "canonicalId": "msc-07346+3153-ba",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms"
+        ]
+      },
+      {
+        "id": "msc-07346+3153-bb",
+        "canonicalId": "msc-07346+3153-bb",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms"
+        ]
+      },
+      {
+        "id": "msc-07346+3153-c",
+        "canonicalId": "msc-07346+3153-c",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms"
+        ]
+      },
+      {
+        "id": "msc-07346+3153-cb",
+        "canonicalId": "msc-07346+3153-cb",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms"
+        ]
+      },
+      {
+        "id": "msc-22467+1210-b",
+        "canonicalId": "msc-22467+1210-b",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "hip-93825-component-b",
+        "canonicalId": "hip-93825-component-b",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "hip-64241-component-b",
+        "canonicalId": "hip-64241-component-b",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "orb6-01546+2049-a-b-b",
+        "canonicalId": "orb6-01546+2049-a-b-b",
+        "fields": [
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "msc-09291-0246-ab",
+        "canonicalId": "msc-09291-0246-ab",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "msc-09291-0246-b",
+        "canonicalId": "msc-09291-0246-b",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "hip-104858-component-b",
+        "canonicalId": "hip-104858-component-b",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "msc-07201+2159-ab",
+        "canonicalId": "msc-07201+2159-ab",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "msc-07201+2159-b",
+        "canonicalId": "msc-07201+2159-b",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "hip-44248-component-b",
+        "canonicalId": "hip-44248-component-b",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "orb6-09307-4028-a-b-b",
+        "canonicalId": "orb6-09307-4028-a-b-b",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "msc-14431-0540-b",
+        "canonicalId": "msc-14431-0540-b",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "msc-04406-4152-ba",
+        "canonicalId": "msc-04406-4152-ba",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "msc-04406-4152-bb",
+        "canonicalId": "msc-04406-4152-bb",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "hip-107310-component-b",
+        "canonicalId": "hip-107310-component-b",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "msc-23174-5814-b",
+        "canonicalId": "msc-23174-5814-b",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "msc-02321-1515-ab",
+        "canonicalId": "msc-02321-1515-ab",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "msc-02321-1515-b",
+        "canonicalId": "msc-02321-1515-b",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "msc-20462+3358-ab",
+        "canonicalId": "msc-20462+3358-ab",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "msc-20462+3358-d",
+        "canonicalId": "msc-20462+3358-d",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "msc-14509-1603-ab",
+        "canonicalId": "msc-14509-1603-ab",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "msc-14509-1603-ba",
+        "canonicalId": "msc-14509-1603-ba",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "msc-14509-1603-bb",
+        "canonicalId": "msc-14509-1603-bb",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "msc-17150+2450-ab",
+        "canonicalId": "msc-17150+2450-ab",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "orb6-02396-1152-a-b-b",
+        "canonicalId": "orb6-02396-1152-a-b-b",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "msc-10084+1158-ab",
+        "canonicalId": "msc-10084+1158-ab",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "msc-10084+1158-b",
+        "canonicalId": "msc-10084+1158-b",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "msc-10084+1158-c",
+        "canonicalId": "msc-10084+1158-c",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "msc-02433+0314-b",
+        "canonicalId": "msc-02433+0314-b",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "msc-02433+0314-c",
+        "canonicalId": "msc-02433+0314-c",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "msc-08447-5443-ab",
+        "canonicalId": "msc-08447-5443-ab",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "msc-08447-5443-b",
+        "canonicalId": "msc-08447-5443-b",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "orb6-05595+4457-aa-ab-ab",
+        "canonicalId": "orb6-05595+4457-aa-ab-ab",
+        "fields": [
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "msc-13239+5456-ab",
+        "canonicalId": "msc-13239+5456-ab",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "msc-13239+5456-ba",
+        "canonicalId": "msc-13239+5456-ba",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "msc-13239+5456-bb",
+        "canonicalId": "msc-13239+5456-bb",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "msc-13239+5456-ca",
+        "canonicalId": "msc-13239+5456-ca",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "msc-13239+5456-cb",
+        "canonicalId": "msc-13239+5456-cb",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "msc-02449+1007-b",
+        "canonicalId": "msc-02449+1007-b",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "msc-10373-4814-ab",
+        "canonicalId": "msc-10373-4814-ab",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "msc-10373-4814-b",
+        "canonicalId": "msc-10373-4814-b",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "orb6-19026-2953-a-b-b",
+        "canonicalId": "orb6-19026-2953-a-b-b",
+        "fields": [
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "orb6-17104-1544-a-b-b",
+        "canonicalId": "orb6-17104-1544-a-b-b",
+        "fields": [
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "orb6-22102+0612-a-b-b",
+        "canonicalId": "orb6-22102+0612-a-b-b",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "msc-03082+4057-ab",
+        "canonicalId": "msc-03082+4057-ab",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "msc-03082+4057-b",
+        "canonicalId": "msc-03082+4057-b",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "msc-16240+6131-b",
+        "canonicalId": "msc-16240+6131-b",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "msc-22288-0001-ab",
+        "canonicalId": "msc-22288-0001-ab",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "msc-22288-0001-b",
+        "canonicalId": "msc-22288-0001-b",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "msc-00084+2905-b",
+        "canonicalId": "msc-00084+2905-b",
+        "fields": [
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "msc-17323+5510-ab",
+        "canonicalId": "msc-17323+5510-ab",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "msc-17323+5510-b",
+        "canonicalId": "msc-17323+5510-b",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "msc-21199-5327-ba",
+        "canonicalId": "msc-21199-5327-ba",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "msc-21199-5327-bb",
+        "canonicalId": "msc-21199-5327-bb",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "msc-17376-1524-ab",
+        "canonicalId": "msc-17376-1524-ab",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "msc-17376-1524-b",
+        "canonicalId": "msc-17376-1524-b",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "msc-12560+3819-b",
+        "canonicalId": "msc-12560+3819-b",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "msc-20375+1436-b",
+        "canonicalId": "msc-20375+1436-b",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "msc-00393+3052-ab",
+        "canonicalId": "msc-00393+3052-ab",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "msc-00393+3052-b",
+        "canonicalId": "msc-00393+3052-b",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "msc-03442-6448-ab",
+        "canonicalId": "msc-03442-6448-ab",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "orb6-06377+1624-aa-ab-ab",
+        "canonicalId": "orb6-06377+1624-aa-ab-ab",
+        "fields": [
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "msc-21446+2539-ba",
+        "canonicalId": "msc-21446+2539-ba",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "msc-21446+2539-bb",
+        "canonicalId": "msc-21446+2539-bb",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "orb6-10468-4925-a-b-b",
+        "canonicalId": "orb6-10468-4925-a-b-b",
+        "fields": [
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "msc-04382-1418-b",
+        "canonicalId": "msc-04382-1418-b",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "msc-04382-1418-c",
+        "canonicalId": "msc-04382-1418-c",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "orb6-20467+1607-a-b-b",
+        "canonicalId": "orb6-20467+1607-a-b-b",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "orb6-15278+2906-a-b-b",
+        "canonicalId": "orb6-15278+2906-a-b-b",
+        "fields": [
+          "temperature_k",
+          "mass_solar",
+          "radius_solar",
+          "luminosity_solar",
+          "age_gyr",
+          "absolute_mag",
+          "apparent_mag",
+          "spectral_type",
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "orb6-15155+3319-a-b-b",
+        "canonicalId": "orb6-15155+3319-a-b-b",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "hip-45336-component-b",
+        "canonicalId": "hip-45336-component-b",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "msc-11037+6145-b",
+        "canonicalId": "msc-11037+6145-b",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "msc-11037+6145-d",
+        "canonicalId": "msc-11037+6145-d",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "msc-11037+6145-ca",
+        "canonicalId": "msc-11037+6145-ca",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "msc-11037+6145-cb",
+        "canonicalId": "msc-11037+6145-cb",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "orb6-09024-6624-a-b-b",
+        "canonicalId": "orb6-09024-6624-a-b-b",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "orb6-02095+3459-a-b-b",
+        "canonicalId": "orb6-02095+3459-a-b-b",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "msc-08468+0625-b",
+        "canonicalId": "msc-08468+0625-b",
+        "fields": [
+          "mass_solar",
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "msc-08468+0625-ca",
+        "canonicalId": "msc-08468+0625-ca",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "msc-08468+0625-cb",
+        "canonicalId": "msc-08468+0625-cb",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "msc-08468+0625-d",
+        "canonicalId": "msc-08468+0625-d",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "hip-50583-component-b",
+        "canonicalId": "hip-50583-component-b",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "msc-12415-4858-b",
+        "canonicalId": "msc-12415-4858-b",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "msc-23069-4331-b",
+        "canonicalId": "msc-23069-4331-b",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "msc-23069-4331-c",
+        "canonicalId": "msc-23069-4331-c",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "msc-09188+3648-ba",
+        "canonicalId": "msc-09188+3648-ba",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "msc-09188+3648-bb",
+        "canonicalId": "msc-09188+3648-bb",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "msc-09188+3648-e",
+        "canonicalId": "msc-09188+3648-e",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "msc-07087-7030-b",
+        "canonicalId": "msc-07087-7030-b",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "msc-06238+0436-b",
+        "canonicalId": "msc-06238+0436-b",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "msc-11456-6644-ab",
+        "canonicalId": "msc-11456-6644-ab",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "msc-11456-6644-b",
+        "canonicalId": "msc-11456-6644-b",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "msc-19563+3505-b",
+        "canonicalId": "msc-19563+3505-b",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "msc-19563+3505-c",
+        "canonicalId": "msc-19563+3505-c",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "orb6-01377-5714-a-b-b",
+        "canonicalId": "orb6-01377-5714-a-b-b",
+        "fields": [
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "msc-00315-6257-b",
+        "canonicalId": "msc-00315-6257-b",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "msc-00315-6257-c",
+        "canonicalId": "msc-00315-6257-c",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "msc-00315-6257-d",
+        "canonicalId": "msc-00315-6257-d",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "msc-00315-6257-p",
+        "canonicalId": "msc-00315-6257-p",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "msc-02398-4254-ba",
+        "canonicalId": "msc-02398-4254-ba",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "msc-02398-4254-bb",
+        "canonicalId": "msc-02398-4254-bb",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "msc-02398-4254-d",
+        "canonicalId": "msc-02398-4254-d",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "orb6-15427+2618-a-b-b",
+        "canonicalId": "orb6-15427+2618-a-b-b",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "msc-07444+2424-b",
+        "canonicalId": "msc-07444+2424-b",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "msc-23159-0905-b",
+        "canonicalId": "msc-23159-0905-b",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "msc-23159-0905-c",
+        "canonicalId": "msc-23159-0905-c",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "orb6-16302+2129-aa-ab-ab",
+        "canonicalId": "orb6-16302+2129-aa-ab-ab",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "msc-21129+3014-ab",
+        "canonicalId": "msc-21129+3014-ab",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "orb6-04287+1552-aa-ab-ab",
+        "canonicalId": "orb6-04287+1552-aa-ab-ab",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "msc-02020+0246-ba",
+        "canonicalId": "msc-02020+0246-ba",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "msc-02020+0246-bb",
+        "canonicalId": "msc-02020+0246-bb",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "orb6-19482+7016-a-b-b",
+        "canonicalId": "orb6-19482+7016-a-b-b",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "msc-10279+3642-b",
+        "canonicalId": "msc-10279+3642-b",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "orb6-19450+4508-a-b-b",
+        "canonicalId": "orb6-19450+4508-a-b-b",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "msc-06024+0939-ab",
+        "canonicalId": "msc-06024+0939-ab",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "msc-06024+0939-ba",
+        "canonicalId": "msc-06024+0939-ba",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "msc-06024+0939-bb",
+        "canonicalId": "msc-06024+0939-bb",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "msc-06041+2316-ba",
+        "canonicalId": "msc-06041+2316-ba",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "msc-06041+2316-bb",
+        "canonicalId": "msc-06041+2316-bb",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "msc-18448+3736-d",
+        "canonicalId": "msc-18448+3736-d",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "hip-8832-component-b",
+        "canonicalId": "hip-8832-component-b",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "msc-17003+3056-ab",
+        "canonicalId": "msc-17003+3056-ab",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "msc-03486-3737-ab",
+        "canonicalId": "msc-03486-3737-ab",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "msc-03486-3737-b",
+        "canonicalId": "msc-03486-3737-b",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "msc-03486-3737-c",
+        "canonicalId": "msc-03486-3737-c",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "orb6-05597+3713-a-b-b",
+        "canonicalId": "orb6-05597+3713-a-b-b",
+        "fields": [
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "orb6-04340-5503-a-b-b",
+        "canonicalId": "orb6-04340-5503-a-b-b",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "orb6-15496-0326-a-b-b",
+        "canonicalId": "orb6-15496-0326-a-b-b",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "orb6-14411+1344-a-b-b",
+        "canonicalId": "orb6-14411+1344-a-b-b",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "msc-04179-3348-aa2",
+        "canonicalId": "msc-04179-3348-aa2",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "msc-04179-3348-b",
+        "canonicalId": "msc-04179-3348-b",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "msc-08585+1151-ab",
+        "canonicalId": "msc-08585+1151-ab",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "msc-08585+1151-b",
+        "canonicalId": "msc-08585+1151-b",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "msc-06573+5825-b",
+        "canonicalId": "msc-06573+5825-b",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "orb6-01061-4643-a-b-b",
+        "canonicalId": "orb6-01061-4643-a-b-b",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "msc-10223+4130-ab",
+        "canonicalId": "msc-10223+4130-ab",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "msc-10223+4130-b",
+        "canonicalId": "msc-10223+4130-b",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "hip-104987-component-b",
+        "canonicalId": "hip-104987-component-b",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "msc-07292-4318-ab",
+        "canonicalId": "msc-07292-4318-ab",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "msc-07292-4318-b",
+        "canonicalId": "msc-07292-4318-b",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "hip-112158-component-b",
+        "canonicalId": "hip-112158-component-b",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "orb6-07490-2455-a-b-b",
+        "canonicalId": "orb6-07490-2455-a-b-b",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "msc-15509-3338-ab",
+        "canonicalId": "msc-15509-3338-ab",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "msc-16073-3645-b",
+        "canonicalId": "msc-16073-3645-b",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "orb6-20435+1504-a-b-b",
+        "canonicalId": "orb6-20435+1504-a-b-b",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "msc-18553-2618-ab",
+        "canonicalId": "msc-18553-2618-ab",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "msc-15348+1032-b",
+        "canonicalId": "msc-15348+1032-b",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "msc-20113-0049-ab",
+        "canonicalId": "msc-20113-0049-ab",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "msc-05123-1152-ab",
+        "canonicalId": "msc-05123-1152-ab",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "msc-05123-1152-b",
+        "canonicalId": "msc-05123-1152-b",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "hip-14328-component-b",
+        "canonicalId": "hip-14328-component-b",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "msc-14450+2704-b",
+        "canonicalId": "msc-14450+2704-b",
+        "fields": [
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "msc-14450+2704-d",
+        "canonicalId": "msc-14450+2704-d",
+        "fields": [
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "msc-20396+1555-ba",
+        "canonicalId": "msc-20396+1555-ba",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "msc-20396+1555-bb",
+        "canonicalId": "msc-20396+1555-bb",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "msc-13252-1110-ab",
+        "canonicalId": "msc-13252-1110-ab",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "msc-13252-1110-ac",
+        "canonicalId": "msc-13252-1110-ac",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "orb6-14044+6423-a-b-b",
+        "canonicalId": "orb6-14044+6423-a-b-b",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "msc-19588+1930-b",
+        "canonicalId": "msc-19588+1930-b",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "msc-19588+1930-c",
+        "canonicalId": "msc-19588+1930-c",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "msc-01084-5515-ab",
+        "canonicalId": "msc-01084-5515-ab",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "msc-01084-5515-b",
+        "canonicalId": "msc-01084-5515-b",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "msc-01084-5515-c",
+        "canonicalId": "msc-01084-5515-c",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "msc-01084-5515-d",
+        "canonicalId": "msc-01084-5515-d",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "orb6-02193-0259-aa-ab-ab",
+        "canonicalId": "orb6-02193-0259-aa-ab-ab",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "msc-17373-4300-ab",
+        "canonicalId": "msc-17373-4300-ab",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "orb6-16341+4226-a-b-b",
+        "canonicalId": "orb6-16341+4226-a-b-b",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "msc-12372-6908-ab",
+        "canonicalId": "msc-12372-6908-ab",
+        "fields": [
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "msc-12372-6908-b",
+        "canonicalId": "msc-12372-6908-b",
+        "fields": [
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "orb6-14262-4523-a-b-b",
+        "canonicalId": "orb6-14262-4523-a-b-b",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "msc-21477-3054-b",
+        "canonicalId": "msc-21477-3054-b",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "msc-21477-3054-c",
+        "canonicalId": "msc-21477-3054-c",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "msc-12266-6306-ab",
+        "canonicalId": "msc-12266-6306-ab",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "msc-12266-6306-b",
+        "canonicalId": "msc-12266-6306-b",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "msc-12266-6306-cd",
+        "canonicalId": "msc-12266-6306-cd",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "msc-12463-6806-ab",
+        "canonicalId": "msc-12463-6806-ab",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "msc-12463-6806-b",
+        "canonicalId": "msc-12463-6806-b",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "msc-12463-6806-d",
+        "canonicalId": "msc-12463-6806-d",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "msc-15589-2607-aa2",
+        "canonicalId": "msc-15589-2607-aa2",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "msc-06203-3004-ab",
+        "canonicalId": "msc-06203-3004-ab",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "orb6-09036+4709-a-b-b",
+        "canonicalId": "orb6-09036+4709-a-b-b",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "msc-17146+1423-ba",
+        "canonicalId": "msc-17146+1423-ba",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "msc-17146+1423-bb",
+        "canonicalId": "msc-17146+1423-bb",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "msc-19307+2758-ab",
+        "canonicalId": "msc-19307+2758-ab",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "msc-19307+2758-b",
+        "canonicalId": "msc-19307+2758-b",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "orb6-15329+3122-a-b-b",
+        "canonicalId": "orb6-15329+3122-a-b-b",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "hip-61199-component-b",
+        "canonicalId": "hip-61199-component-b",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "msc-14585-4308-ab",
+        "canonicalId": "msc-14585-4308-ab",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "msc-14585-4308-b",
+        "canonicalId": "msc-14585-4308-b",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "msc-01028+3148-ab",
+        "canonicalId": "msc-01028+3148-ab",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "msc-01028+3148-b",
+        "canonicalId": "msc-01028+3148-b",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "msc-14592-4206-ab",
+        "canonicalId": "msc-14592-4206-ab",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "msc-14592-4206-b",
+        "canonicalId": "msc-14592-4206-b",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "orb6-01315+1521-a-b-b",
+        "canonicalId": "orb6-01315+1521-a-b-b",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "msc-14038-6022-ab",
+        "canonicalId": "msc-14038-6022-ab",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "msc-14038-6022-b",
+        "canonicalId": "msc-14038-6022-b",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "msc-02039+4220-ba",
+        "canonicalId": "msc-02039+4220-ba",
+        "fields": [
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "msc-02039+4220-bb",
+        "canonicalId": "msc-02039+4220-bb",
+        "fields": [
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "msc-02039+4220-c",
+        "canonicalId": "msc-02039+4220-c",
+        "fields": [
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "msc-07111+3015-b",
+        "canonicalId": "msc-07111+3015-b",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "msc-17237+3709-ab",
+        "canonicalId": "msc-17237+3709-ab",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "msc-17237+3709-b",
+        "canonicalId": "msc-17237+3709-b",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "msc-20210-1447-ab",
+        "canonicalId": "msc-20210-1447-ab",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "msc-20210-1447-ba",
+        "canonicalId": "msc-20210-1447-ba",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "msc-20210-1447-bb",
+        "canonicalId": "msc-20210-1447-bb",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "msc-01137+2435-ab",
+        "canonicalId": "msc-01137+2435-ab",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "msc-01137+2435-ba",
+        "canonicalId": "msc-01137+2435-ba",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "msc-01137+2435-bb",
+        "canonicalId": "msc-01137+2435-bb",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "msc-04422+2257-ab",
+        "canonicalId": "msc-04422+2257-ab",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "msc-04422+2257-ac",
+        "canonicalId": "msc-04422+2257-ac",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "msc-04422+2257-b",
+        "canonicalId": "msc-04422+2257-b",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "msc-02359+0536-ab",
+        "canonicalId": "msc-02359+0536-ab",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "msc-02359+0536-b",
+        "canonicalId": "msc-02359+0536-b",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "msc-16054-1948-ab",
+        "canonicalId": "msc-16054-1948-ab",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "msc-16054-1948-b",
+        "canonicalId": "msc-16054-1948-b",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "msc-16054-1948-c",
+        "canonicalId": "msc-16054-1948-c",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "msc-16054-1948-ea",
+        "canonicalId": "msc-16054-1948-ea",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "msc-16054-1948-eb",
+        "canonicalId": "msc-16054-1948-eb",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "msc-04007+1229-ab",
+        "canonicalId": "msc-04007+1229-ab",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "msc-04007+1229-ac",
+        "canonicalId": "msc-04007+1229-ac",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "adhara-b",
+        "canonicalId": "adhara-b",
+        "fields": [
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "msc-09110-5858-aa2",
+        "canonicalId": "msc-09110-5858-aa2",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "msc-03492+2403-aa2",
+        "canonicalId": "msc-03492+2403-aa2",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "orb6-17088+6543-a-b-b",
+        "canonicalId": "orb6-17088+6543-a-b-b",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "msc-15351-4110-ab",
+        "canonicalId": "msc-15351-4110-ab",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "msc-15351-4110-b",
+        "canonicalId": "msc-15351-4110-b",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "msc-16001-3824-b",
+        "canonicalId": "msc-16001-3824-b",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "msc-07038-1538-b",
+        "canonicalId": "msc-07038-1538-b",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "msc-02318+8916-ab",
+        "canonicalId": "msc-02318+8916-ab",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms"
+        ]
+      },
+      {
+        "id": "msc-02318+8916-b",
+        "canonicalId": "msc-02318+8916-b",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms"
+        ]
+      },
+      {
+        "id": "msc-15234-5919-b",
+        "canonicalId": "msc-15234-5919-b",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "msc-10429-6423-aa2",
+        "canonicalId": "msc-10429-6423-aa2",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "msc-13496-4228-ab",
+        "canonicalId": "msc-13496-4228-ab",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "orb6-12335+6947-a-b-b",
+        "canonicalId": "orb6-12335+6947-a-b-b",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "orb6-16003-2237-a-b-b",
+        "canonicalId": "orb6-16003-2237-a-b-b",
+        "fields": [
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "orb6-09521+5404-a-b-b",
+        "canonicalId": "orb6-09521+5404-a-b-b",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "msc-00567+6043-b",
+        "canonicalId": "msc-00567+6043-b",
+        "fields": [
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "msc-22407-2703-b",
+        "canonicalId": "msc-22407-2703-b",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "hip-97365-component-b",
+        "canonicalId": "hip-97365-component-b",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "bright-antares-component-b",
+        "canonicalId": "bright-antares-component-b",
+        "fields": [
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "msc-17336-3706-aa2",
+        "canonicalId": "msc-17336-3706-aa2",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "msc-17336-3706-ab",
+        "canonicalId": "msc-17336-3706-ab",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "orb6-09320-0111-a-b-b",
+        "canonicalId": "orb6-09320-0111-a-b-b",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "bright-avior-component-b",
+        "canonicalId": "bright-avior-component-b",
+        "fields": [
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "msc-12084-5043-ab",
+        "canonicalId": "msc-12084-5043-ab",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "msc-12084-5043-b",
+        "canonicalId": "msc-12084-5043-b",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "msc-03579+4001-ab",
+        "canonicalId": "msc-03579+4001-ab",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "msc-03579+4001-ac",
+        "canonicalId": "msc-03579+4001-ac",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "msc-03579+4001-b",
+        "canonicalId": "msc-03579+4001-b",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "msc-16272-4733-ab",
+        "canonicalId": "msc-16272-4733-ab",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "msc-16272-4733-b",
+        "canonicalId": "msc-16272-4733-b",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "msc-08079-6837-ab",
+        "canonicalId": "msc-08079-6837-ab",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "msc-08079-6837-b",
+        "canonicalId": "msc-08079-6837-b",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "hip-30867-component-b",
+        "canonicalId": "hip-30867-component-b",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "hip-30867-component-c",
+        "canonicalId": "hip-30867-component-c",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "msc-21287+7034-aa2",
+        "canonicalId": "msc-21287+7034-aa2",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "msc-21287+7034-ab",
+        "canonicalId": "msc-21287+7034-ab",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "msc-21287+7034-b",
+        "canonicalId": "msc-21287+7034-b",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "msc-06149+2230-ab",
+        "canonicalId": "msc-06149+2230-ab",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "msc-06149+2230-b",
+        "canonicalId": "msc-06149+2230-b",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "msc-05320-0018-aa2",
+        "canonicalId": "msc-05320-0018-aa2",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "msc-05320-0018-ab",
+        "canonicalId": "msc-05320-0018-ab",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "msc-05320-0018-ca",
+        "canonicalId": "msc-05320-0018-ca",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "msc-05320-0018-cb",
+        "canonicalId": "msc-05320-0018-cb",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "msc-06290+2013-aa2",
+        "canonicalId": "msc-06290+2013-aa2",
+        "fields": [
+          "temperature_k",
+          "mass_solar",
+          "radius_solar",
+          "luminosity_solar",
+          "age_gyr",
+          "absolute_mag",
+          "apparent_mag",
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "msc-06290+2013-ab",
+        "canonicalId": "msc-06290+2013-ab",
+        "fields": [
+          "temperature_k",
+          "mass_solar",
+          "age_gyr",
+          "absolute_mag",
+          "apparent_mag",
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "msc-05407-0157-ab",
+        "canonicalId": "msc-05407-0157-ab",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "msc-05407-0157-b",
+        "canonicalId": "msc-05407-0157-b",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "hip-108661-component-b",
+        "canonicalId": "hip-108661-component-b",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "msc-04512+0536-ab",
+        "canonicalId": "msc-04512+0536-ab",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "msc-04512+0536-b",
+        "canonicalId": "msc-04512+0536-b",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "msc-06035+1941-ab",
+        "canonicalId": "msc-06035+1941-ab",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "msc-06035+1941-b",
+        "canonicalId": "msc-06035+1941-b",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "hip-97804-component-b",
+        "canonicalId": "hip-97804-component-b",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "msc-18232-6130-ab",
+        "canonicalId": "msc-18232-6130-ab",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "msc-18232-6130-b",
+        "canonicalId": "msc-18232-6130-b",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "orb6-13310-3924-a-b-b",
+        "canonicalId": "orb6-13310-3924-a-b-b",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "msc-18501+3322-aa2",
+        "canonicalId": "msc-18501+3322-aa2",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "msc-18501+3322-ab",
+        "canonicalId": "msc-18501+3322-ab",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "msc-18501+3322-b",
+        "canonicalId": "msc-18501+3322-b",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "hip-26207-component-b",
+        "canonicalId": "hip-26207-component-b",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "msc-03443+3217-ab",
+        "canonicalId": "msc-03443+3217-ab",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "msc-03443+3217-b",
+        "canonicalId": "msc-03443+3217-b",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "msc-08095-4720-ab",
+        "canonicalId": "msc-08095-4720-ab",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "msc-08095-4720-ba",
+        "canonicalId": "msc-08095-4720-ba",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "msc-08095-4720-bb",
+        "canonicalId": "msc-08095-4720-bb",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "msc-08095-4720-c",
+        "canonicalId": "msc-08095-4720-c",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "hip-111022-component-b",
+        "canonicalId": "hip-111022-component-b",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "hip-23453-component-b",
+        "canonicalId": "hip-23453-component-b",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      },
+      {
+        "id": "msc-16519-3803-ab",
+        "canonicalId": "msc-16519-3803-ab",
+        "fields": [
+          "vx_kms",
+          "vy_kms",
+          "vz_kms",
+          "raw_astrometry"
+        ]
+      }
+    ]
+  },
+  "radialVelocityPolicy": {
+    "systems": 197,
+    "adoptedCommonMotionRecords": 519,
+    "publishedSystemicSolutions": 8,
+    "publishedSubsystemProxies": 2,
+    "compiledPrimaryProxies": 187
+  },
+  "beforeConstellationCoverage": {
+    "charts": 88,
+    "figureHipparcosStars": 691,
+    "rawOverlayNonSunRows": 713,
+    "effectiveOverlayNonSunRows": 1016,
+    "additionalRecordsFromCompletion": 303,
+    "representedMultipleSystems": 197,
+    "overall": {
+      "objects": 1016,
+      "fields": {
+        "temperature_k": {
+          "available": 730,
+          "missing": 286
+        },
+        "mass_solar": {
+          "available": 451,
+          "missing": 565
+        },
+        "radius_solar": {
+          "available": 600,
+          "missing": 416
+        },
+        "luminosity_solar": {
+          "available": 596,
+          "missing": 420
+        },
+        "metallicity_dex": {
+          "available": 524,
+          "missing": 492
+        },
+        "age_gyr": {
+          "available": 130,
+          "missing": 886
+        },
+        "absolute_mag": {
+          "available": 841,
+          "missing": 175
+        },
+        "spectral_type": {
+          "available": 823,
+          "missing": 193
+        }
+      },
+      "infoArticles": 132,
+      "noCorePhysicalFields": 254,
+      "allCorePhysicalFields": 412,
+      "radialVelocity": 666,
+      "radialVelocityWithError": 36,
+      "properMotionWithBothErrors": 43
+    },
+    "representedComponents": {
+      "objects": 522,
+      "fields": {
+        "temperature_k": {
+          "available": 239,
+          "missing": 283
+        },
+        "mass_solar": {
+          "available": 153,
+          "missing": 369
+        },
+        "radius_solar": {
+          "available": 139,
+          "missing": 383
+        },
+        "luminosity_solar": {
+          "available": 135,
+          "missing": 387
+        },
+        "metallicity_dex": {
+          "available": 126,
+          "missing": 396
+        },
+        "age_gyr": {
+          "available": 62,
+          "missing": 460
+        },
+        "absolute_mag": {
+          "available": 347,
+          "missing": 175
+        },
+        "spectral_type": {
+          "available": 329,
+          "missing": 193
+        }
+      },
+      "infoArticles": 132,
+      "noCorePhysicalFields": 251,
+      "allCorePhysicalFields": 114,
+      "radialVelocity": 173,
+      "radialVelocityWithError": 25,
+      "properMotionWithBothErrors": 31
+    },
+    "withoutReviewedSystemIdentity": {
+      "objects": 494,
+      "fields": {
+        "temperature_k": {
+          "available": 491,
+          "missing": 3
+        },
+        "mass_solar": {
+          "available": 298,
+          "missing": 196
+        },
+        "radius_solar": {
+          "available": 461,
+          "missing": 33
+        },
+        "luminosity_solar": {
+          "available": 461,
+          "missing": 33
+        },
+        "metallicity_dex": {
+          "available": 398,
+          "missing": 96
+        },
+        "age_gyr": {
+          "available": 68,
+          "missing": 426
+        },
+        "absolute_mag": {
+          "available": 494,
+          "missing": 0
+        },
+        "spectral_type": {
+          "available": 494,
+          "missing": 0
+        }
+      },
+      "infoArticles": 0,
+      "noCorePhysicalFields": 3,
+      "allCorePhysicalFields": 298,
+      "radialVelocity": 493,
+      "radialVelocityWithError": 11,
+      "properMotionWithBothErrors": 12
+    },
+    "rawRowsWithFieldsSuppliedByCompletion": 37,
+    "fieldsSuppliedByCompletion": 63,
+    "crossCatalogSharedObjects": 338,
+    "crossCatalogConflicts": 0,
+    "chartFallbackDifferences": 0
+  },
+  "afterConstellationCoverage": {
+    "charts": 88,
+    "figureHipparcosStars": 691,
+    "rawOverlayNonSunRows": 713,
+    "effectiveOverlayNonSunRows": 1016,
+    "additionalRecordsFromCompletion": 303,
+    "representedMultipleSystems": 197,
+    "overall": {
+      "objects": 1016,
+      "fields": {
+        "temperature_k": {
+          "available": 734,
+          "missing": 282
+        },
+        "mass_solar": {
+          "available": 457,
+          "missing": 559
+        },
+        "radius_solar": {
+          "available": 603,
+          "missing": 413
+        },
+        "luminosity_solar": {
+          "available": 599,
+          "missing": 417
+        },
+        "metallicity_dex": {
+          "available": 523,
+          "missing": 493
+        },
+        "age_gyr": {
+          "available": 135,
+          "missing": 881
+        },
+        "absolute_mag": {
+          "available": 844,
+          "missing": 172
+        },
+        "spectral_type": {
+          "available": 825,
+          "missing": 191
+        }
+      },
+      "infoArticles": 132,
+      "noCorePhysicalFields": 248,
+      "allCorePhysicalFields": 415,
+      "radialVelocity": 1013,
+      "radialVelocityWithError": 46,
+      "properMotionWithBothErrors": 43
+    },
+    "representedComponents": {
+      "objects": 522,
+      "fields": {
+        "temperature_k": {
+          "available": 243,
+          "missing": 279
+        },
+        "mass_solar": {
+          "available": 159,
+          "missing": 363
+        },
+        "radius_solar": {
+          "available": 142,
+          "missing": 380
+        },
+        "luminosity_solar": {
+          "available": 138,
+          "missing": 384
+        },
+        "metallicity_dex": {
+          "available": 125,
+          "missing": 397
+        },
+        "age_gyr": {
+          "available": 67,
+          "missing": 455
+        },
+        "absolute_mag": {
+          "available": 350,
+          "missing": 172
+        },
+        "spectral_type": {
+          "available": 331,
+          "missing": 191
+        }
+      },
+      "infoArticles": 132,
+      "noCorePhysicalFields": 245,
+      "allCorePhysicalFields": 117,
+      "radialVelocity": 520,
+      "radialVelocityWithError": 35,
+      "properMotionWithBothErrors": 31
+    },
+    "withoutReviewedSystemIdentity": {
+      "objects": 494,
+      "fields": {
+        "temperature_k": {
+          "available": 491,
+          "missing": 3
+        },
+        "mass_solar": {
+          "available": 298,
+          "missing": 196
+        },
+        "radius_solar": {
+          "available": 461,
+          "missing": 33
+        },
+        "luminosity_solar": {
+          "available": 461,
+          "missing": 33
+        },
+        "metallicity_dex": {
+          "available": 398,
+          "missing": 96
+        },
+        "age_gyr": {
+          "available": 68,
+          "missing": 426
+        },
+        "absolute_mag": {
+          "available": 494,
+          "missing": 0
+        },
+        "spectral_type": {
+          "available": 494,
+          "missing": 0
+        }
+      },
+      "infoArticles": 0,
+      "noCorePhysicalFields": 3,
+      "allCorePhysicalFields": 298,
+      "radialVelocity": 493,
+      "radialVelocityWithError": 11,
+      "properMotionWithBothErrors": 12
+    },
+    "rawRowsWithFieldsSuppliedByCompletion": 39,
+    "fieldsSuppliedByCompletion": 65,
+    "crossCatalogSharedObjects": 338,
+    "crossCatalogConflicts": 0,
+    "chartFallbackDifferences": 0
+  },
+  "sourceFileSha256": {
+    "src/data/stars.csv": "cbe5afe70dfcd4f789ebdf61464a35ce59652dc7ad6eccfd389c5599128d2f11",
+    "src/data/bright-star-info.json": "5f4f1016e47a1c5f931e53d0bbc43bc1384597ac890f76fc1b6353505213a153",
+    "src/data/nearest-100-info.json": "ea3cb510b48dd79949fe871109424a6ea69a06cb431d943dcaa267b8f2d61e9d",
+    "src/data/catalogs/bright-stars/stars.csv": "682dd4cefa7ffc8b76c75553a75fc0b50b07f3c9b6b48296f3b30b08971a26f8",
+    "src/data/catalogs/bright-stars/provenance.json": "4c38484fb700a2990a748b4c51493231b2c437ac609377790a9154614803996a",
+    "src/data/catalogs/nearest-100/stars.csv": "a283dc0a9319d331ac01c8d6e526fbb23f5eb2cdc6ca243f160d5a381fe24a88",
+    "src/data/catalogs/nearest-100/stars 8.csv": "0008b05ad44decae3682c3bfe810c6855823c0bba9ef36f6e68bf61332c50eab",
+    "src/data/catalogs/nearest-100/provenance.json": "9141c93d8d81bc0df3a809e11f8616ea42131abbd68acd8fee36febe8a97717c",
+    "src/data/catalogs/nearest-100/stars 3.csv": "52518c473f2b2fc5103e8cf7099af0a3772e0ab054eca72600bf7cae4670eb8b",
+    "src/data/catalogs/nearest-100/stars 2.csv": "cff17df64b2d9eda930ff45e2c62740a733923c42ca97bede8448cb416259cdd",
+    "src/data/catalogs/nearest-100/stars 6.csv": "c68a33aac13d9da8f2e0b4b1ae0a7bf2257b1c414f3c86159230672bd384ff0a",
+    "src/data/catalogs/nearest-100/stars 7.csv": "0008b05ad44decae3682c3bfe810c6855823c0bba9ef36f6e68bf61332c50eab",
+    "src/data/catalogs/nearest-100/stars 5.csv": "627e3861682f1197da881a9de9bb28631453eba53d7d48f5cb5b108e11821021",
+    "src/data/catalogs/nearest-100/stars 4.csv": "627e3861682f1197da881a9de9bb28631453eba53d7d48f5cb5b108e11821021",
+    "src/data/catalogs/nearest-1000/stars.csv": "6f715e63c0cae9e3ab3bb4dfc6b4cf0ba9e49915d894de3323f85d91624fe234",
+    "src/data/catalogs/nearest-1000/stars 8.csv": "3593a64292717c5186d749889448c7c86d8b22499180df68989c6e68683c6d72",
+    "src/data/catalogs/nearest-1000/provenance.json": "761f82796e799c09c593b21ab9f3a32754b2bfb9ebb08a2056c0d6150c167f80",
+    "src/data/catalogs/nearest-1000/stars 3.csv": "534948e1012126489330e3e4193eb541b5e6541b01264eeb8667c5a395d107a5",
+    "src/data/catalogs/nearest-1000/stars 2.csv": "7219d545385c332cc6e8f246155b52bdac4bc821e876290c965a67552127e8ae",
+    "src/data/catalogs/nearest-1000/stars 6.csv": "59e1f71f9469fdaf7de145d442ac658be2d2a2c7ad069e34d576cc7c92629e87",
+    "src/data/catalogs/nearest-1000/stars 7.csv": "3593a64292717c5186d749889448c7c86d8b22499180df68989c6e68683c6d72",
+    "src/data/catalogs/nearest-1000/stars 5.csv": "a9691d09f4bb300c82feef4f0d812e3d86cf1b8625436cf0ab589dcef6f60ee4",
+    "src/data/catalogs/nearest-1000/stars 4.csv": "a9691d09f4bb300c82feef4f0d812e3d86cf1b8625436cf0ab589dcef6f60ee4",
+    "src/data/catalogs/famous-cluster-stars/stars.csv": "b1bc0a3a492b3d4c9ee3330b5e80a4572d4bf95d1119f8062849d59cb430fa0f",
+    "src/data/catalogs/famous-cluster-stars/provenance.json": "450bb65246e63b51e3f15c7c2cabfef2f213ddeca1a5dc90c2f0e6623b35b43f",
+    "src/data/catalogs/western-constellation-stars/stars.csv": "cd5d2e1def1e85bfd72925fef9a06ceefafb4c596f52e220a88e75a0fb4821fd",
+    "src/data/catalogs/western-constellation-stars/provenance.json": "c3977e96db9ed24e6c8571315f01e81f3dcb0bf671e82766ba237169823dc5a1",
+    "src/data/overlays/compact-remnants/provenance.json": "13d27e7f927547e7375efc6f2a9b69c0303477e1eab7c2a6a88e60a541ef3842"
+  }
+}

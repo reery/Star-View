@@ -179,9 +179,17 @@
         {
           "id": "2",
           "title": "Eclipses and flares",
-          "text": "Castor C is also called YY Geminorum. Its two red dwarfs eclipse one another and show magnetic activity, giving astronomers a way to measure small stars’ masses and sizes in the same system as much brighter stars."
+          "text": "Castor Ca and Cb are the red-dwarf pair YY Geminorum. They eclipse one another every 0.814 days. Spectroscopy combined with the eclipsing inclination gives each a mass close to 0.606 Suns; their measured sizes also help test models of magnetically active small stars.",
+          "source": {
+            "title": "Kochukhov & Shulyak 2019: the YY Gem eclipsing pair",
+            "url": "https://arxiv.org/html/1902.04157"
+          }
         }
-      ]
+      ],
+      "source": {
+        "title": "Torres et al. 2022: Castor orbits and dynamical masses",
+        "url": "https://arxiv.org/html/2210.16322"
+      }
     },
     "bright-caph": {
       "name": "Caph",
@@ -399,14 +407,18 @@
         {
           "id": "1",
           "title": "Nearly matching stars, grazing eclipses",
-          "text": "The pair circles in about four days and undergoes shallow eclipses. Their similar brightness and measurable orbits make them useful for comparing stellar sizes and masses directly."
+          "text": "The pair circles in about 3.96 days and undergoes shallow eclipses. A 2026 analysis combined resolved CHARA observations with spectra and light curves, measuring masses of about 2.36 and 2.29 Suns and radii of about 2.75 and 2.62 Suns."
         },
         {
           "id": "2",
           "title": "Unusual metal lines",
           "text": "Both stars show metallic-line spectra, with some chemical elements unusually prominent. Such abundance patterns form in stellar atmospheres; they do not mean the entire stars have the same exaggerated composition."
         }
-      ]
+      ],
+      "source": {
+        "title": "Jonak et al. 2026: the joint beta Aurigae solution",
+        "url": "https://arxiv.org/html/2609.03886v1"
+      }
     },
     "bright-ankaa": {
       "name": "Ankaa",
@@ -985,14 +997,18 @@
         {
           "id": "1",
           "title": "Two stars hidden in the light",
-          "text": "Interferometric observations resolve a very close pair whose members are similar in brightness. The familiar naked-eye point therefore combines the light of more than one hot star."
+          "text": "Interferometry resolves two similarly bright stars in a 134.779-day orbit. Published evolutionary models estimate masses of about 6.5 and 6.3 Suns and radii of about 4.1 and 3.9 Suns. These are individual model estimates; the mass inferred dynamically from the orbit applies to the pair together."
         },
         {
           "id": "2",
           "title": "An orbit tilted away from us",
-          "text": "The pair’s orbit is viewed much closer to face-on than edge-on, so ordinary eclipses are not expected. Spectroscopy and interferometry reveal a binary that its steady-looking naked-eye appearance conceals."
+          "text": "The orbit is inclined by only about 20 degrees to the sky plane, so eclipses are not expected. Both stars rotate rapidly: broad spectral lines can hide a close pair even when it is resolved by interferometry."
         }
-      ]
+      ],
+      "source": {
+        "title": "Waisberg & Katz 2026: the resolved orbit of Nunki",
+        "url": "https://arxiv.org/html/2603.17011"
+      }
     },
     "bright-schedar": {
       "name": "Schedar",
@@ -1047,7 +1063,7 @@
     },
     "msc-13252-1110": {
       "name": "Spica",
-      "introduction": "is the blue-white beacon in Virgo, actually two hot stars in a close orbit. Its traditional name refers to an ear of grain held by the maiden.",
+      "introduction": "is the blue-white beacon in Virgo. Its brilliant point is dominated by a close pair of hot stars, with a further companion detected by interferometry.",
       "wikipedia": "https://en.wikipedia.org/wiki/Spica",
       "sections": [
         {
@@ -1057,10 +1073,18 @@
         },
         {
           "id": "2",
-          "title": "A landmark in the discovery of precession",
-          "text": "Comparing Spica’s position with earlier observations helped Hipparchus recognize the precession of the equinoxes. The slow drift reflects the changing direction of Earth’s axis, not a matching rapid motion of the star."
+          "title": "Separating the stars",
+          "text": "The close pair has published individual masses of about 11.4 and 7.2 Suns. An interferometric study also detected a third source. Its light must be treated separately when interpreting combined observations; brightness measured for the whole system does not belong to either close-binary star.",
+          "source": {
+            "title": "Frost et al.: interferometric B-star multiplicity",
+            "url": "https://arxiv.org/html/2505.02300"
+          }
         }
-      ]
+      ],
+      "source": {
+        "title": "Tkachenko et al. 2016: resolved Spica binary parameters",
+        "url": "https://arxiv.org/html/1601.08069"
+      }
     },
     "bright-bellatrix": {
       "name": "Bellatrix",

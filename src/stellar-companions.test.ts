@@ -17,13 +17,50 @@ const dubhe = bright.find((star) => star.id === 'bright-dubhe')!
 const sun = bright.find((star) => star.id === 'sun')!
 
 describe('component coverage shared by every catalog', () => {
+  it.each([['bright stars', bright], ['constellation stars', western]])('exposes the reviewed Castor and Spica individuals in %s', (_label, input) => {
+    const completed = completeCatalogCompanions(input)
+    const byId = new Map(completed.map((star) => [starComponentIdentity(star.id)?.canonicalStarId ?? star.id, star]))
+    const ca = byId.get('msc-07346+3153-c')!, cb = byId.get('msc-07346+3153-cb')!
+    expect(ca).toMatchObject({ name: 'Castor Ca', mass_solar: .60597, radius_solar: .614, apparent_mag: null })
+    expect(cb).toMatchObject({ name: 'Castor Cb', mass_solar: .60633, radius_solar: .612, apparent_mag: null })
+    expect(indexStarSystems(completed).get(ca.id)?.components.map((component) => component.label))
+      .toEqual(['Aa', 'Ab', 'Ba', 'Bb', 'Ca', 'Cb'])
+    for (const star of [ca, cb]) {
+      expect(star.unresolved_photometry?.scope).toContain('Ca+Cb')
+      expect(star.catalog_sources?.some((source) => source.record.name === 'Castor C')).toBe(true)
+      expect(star.notes).toContain('adopted common atmosphere parameter')
+    }
+    const a = byId.get('bright-spica')!, b = byId.get('msc-13252-1110-ab')!
+    expect(a).toMatchObject({ name: 'Spica Aa', mass_solar: 11.43, radius_solar: 7.47, temperature_k: 25300, apparent_mag: null })
+    expect(b).toMatchObject({ name: 'Spica Ab', mass_solar: 7.21, radius_solar: 3.74, temperature_k: 20900, apparent_mag: null })
+    expect(byId.has('msc-13252-1110-ac')).toBe(true)
+    expect(a.catalog_sources?.some((source) => source.record.name === 'Spica Aab')).toBe(true)
+    for (const source of input.filter((star) => ['bright-spica', 'hip-65474'].includes(star.id))) {
+      expect(missingCatalogMeasurements(source, byId.get('bright-spica')!)).toEqual([])
+    }
+  })
+
+  it('keeps Nunki model masses distinct from total dynamical mass and updates the beta Aur solution', () => {
+    const stars = new Map(completeCatalogCompanions(bright).map((star) => [star.id, star]))
+    for (const [id, mass, radius] of [['bright-nunki', 6.5, 4.1], ['msc-18553-2618-ab', 6.3, 3.9]] as const) {
+      const star = stars.get(id)!
+      expect(star.mass_solar).toBe(mass)
+      expect(star.radius_solar).toBe(radius)
+      expect(star.luminosity_solar).toBeNull()
+      expect(star.notes).toContain('total binary mass')
+    }
+    expect(stars.get('bright-menkalinan')).toMatchObject({ mass_solar: 2.359, radius_solar: 2.752 })
+    expect(stars.get('orb6-05595+4457-aa-ab-ab')).toMatchObject({ mass_solar: 2.293, radius_solar: 2.622 })
+    expect(stars.get('orb6-05595+4457-aa-ab-ab')?.temperature_k).toBe(Math.round(9350 * .997543))
+  })
+
   it.each(['nearest-100', 'nearest-1000'])('applies reviewed component gap repairs and preserves pair flux in %s', (catalog) => {
     const input = parseStarCatalog(readFileSync(new URL(`./data/catalogs/${catalog}/stars.csv`, import.meta.url), 'utf8'))
     const stars = new Map(completeCatalogCompanions(input).map((star) => [star.id, star]))
     for (const [aId, bId, aMass, bMass, pairV, deltaV] of [
       ['10pc-0066', '10pc-0067', .223, .109, 11.14, 3.08],
-      ['10pc-0074', '10pc-0075', .124, .113, 12.47, -.01],
-      ['10pc-0087', '10pc-0088', .111, .076, 13.41, 3.29],
+      ['10pc-0074', '10pc-0075', .1379, .1258, 12.47, -.01],
+      ['10pc-0087', '10pc-0088', .120, .081, 13.41, 3.29],
     ] as const) {
       const a = stars.get(aId)!, b = stars.get(bId)!
       expect(a.mass_solar).toBe(aMass)
@@ -118,7 +155,7 @@ describe('component coverage shared by every catalog', () => {
     expect(missingCatalogMeasurements(furud, a)).toEqual([])
     expect(b).toMatchObject({ apparent_mag: null, absolute_mag: null, spectral_type: null, subtypes: [] })
     expect(b.unresolved_photometry).toBeUndefined()
-    expect(b.catalog_sources).toBeUndefined()
+    expect(b.catalog_sources?.every((source) => source.catalog_id === 'constellation-motion-before-20261019')).toBe(true)
     expect(completeCatalogCompanions([b]).find((star) => star.id === furud.id)).toEqual(a)
   })
 
@@ -154,7 +191,7 @@ describe('component coverage shared by every catalog', () => {
     expect(catalogMeasurement(a, 'mass_solar')).toBe(7.7)
     expect(missingCatalogMeasurements(input, a)).toEqual([])
     expect(completeCatalogCompanions(expanded)).toEqual(expanded)
-    expect(expanded.find((star) => star.name === 'Furud Ab')?.catalog_sources).toBeUndefined()
+    expect(expanded.find((star) => star.name === 'Furud Ab')?.catalog_sources?.some((source) => source.record.mass_solar === 7.7)).toBe(false)
   })
 
   it('classifies new components from their own spectra while keeping ambiguous stages unavailable', () => {
@@ -184,11 +221,7 @@ describe('component coverage shared by every catalog', () => {
     expect(completeCatalogCompanions(expanded)).toEqual(expanded)
     const secondary = expanded.find((star) => star.id !== parent.id)!
     expect(completeCatalogCompanions([secondary])[0]!.id).toBe(secondary.id)
-    if (['hip-61941', 'hip-20894'].includes(id)) {
-      expect(expanded[0]).toMatchObject({ vx_kms: null, vy_kms: null, vz_kms: null })
-    } else {
-      expect(spaceMotionForStar(expanded[0]!)).toMatchObject({ systemicMotion: true, label: 'System bulk motion' })
-    }
+    expect(spaceMotionForStar(expanded[0]!)).toMatchObject({ systemicMotion: true, label: 'System bulk motion' })
   })
 
   it('loads reviewed Dschubba properties from either catalog while retaining direct B selection', () => {
@@ -211,9 +244,10 @@ describe('component coverage shared by every catalog', () => {
 
   it('uses individual eclipsing-binary values and preserves unresolved source gaps', () => {
     const expanded = completeCatalogCompanions([bright.find((star) => star.id === 'bright-menkalinan')!])
-    expect(expanded.map((star) => star.mass_solar)).toEqual([2.376, 2.291])
-    expect(expanded.map((star) => star.radius_solar)).toEqual([2.762, 2.568])
-    expect(expanded.map((star) => star.temperature_k)).toEqual([9350, 9200])
+    expect(expanded.map((star) => star.mass_solar)).toEqual([2.359, 2.293])
+    expect(expanded.map((star) => star.radius_solar)).toEqual([2.752, 2.622])
+    expect(expanded[0]?.temperature_k).toBe(9350)
+    expect(expanded[1]?.temperature_k).toBe(Math.round(9350 * .997543))
     expect(expanded.map((star) => star.apparent_mag)).toEqual([2.602, 2.705])
     const unreviewed = completeCatalogCompanions([western.find((star) => star.id === 'hip-61941')!])
     expect(unreviewed[0]).toMatchObject({ mass_solar: null, luminosity_solar: null, radius_solar: null })

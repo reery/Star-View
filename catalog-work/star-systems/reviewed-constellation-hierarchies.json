@@ -1,0 +1,80 @@
+{
+  "schemaVersion": 1,
+  "reviewedOn": "2026-10-19",
+  "inputSha256": {
+    "catalog-work/star-systems/literature-components/constellation-20261019-selected.json": "afc8cdc55981eabcf43557bb77aa94355c79c9ecd10ce84201bcd39b75344e2d"
+  },
+  "systems": [
+    {
+      "systemId": "msc-07346+3153",
+      "expectedComponents": {
+        "bright-castor": "Aa",
+        "msc-07346+3153-ab": "Ab",
+        "msc-07346+3153-ba": "Ba",
+        "msc-07346+3153-bb": "Bb",
+        "msc-07346+3153-c": "C"
+      },
+      "parentStarId": "msc-07346+3153-c",
+      "expectedParentName": "Castor C",
+      "sourceUrl": "https://arxiv.org/html/1902.04157",
+      "sourceScope": "Castor C = YY Gem Ca+Cb unresolved source; not an individual Ca/Cb measurement",
+      "note": "Confirmed YY Gem double-lined eclipsing pair, MSC Ca/Cb under Cab. The tentative Cab-Cc timing companion is not admitted. The uncertain intermediate C branch does not invalidate the independently confirmed 0.814-day Ca/Cb pair. Published individual properties use the exact YY Gem A/B convention.",
+      "components": [
+        {
+          "starId": "msc-07346+3153-c",
+          "label": "Ca",
+          "name": "Castor Ca",
+          "designations": [
+            "WDS J07346+3153Ca",
+            "YY Gem A"
+          ],
+          "note": "YY Gem A is the star eclipsed at phase zero in Kochukhov & Shulyak 2019; map it to MSC Ca, retaining the former C selection ID."
+        },
+        {
+          "starId": "msc-07346+3153-cb",
+          "label": "Cb",
+          "name": "Castor Cb",
+          "designations": [
+            "WDS J07346+3153Cb",
+            "YY Gem B"
+          ],
+          "note": "YY Gem B is the other eclipsing component; map it to MSC Cb."
+        }
+      ]
+    },
+    {
+      "systemId": "msc-13252-1110",
+      "expectedComponents": {
+        "bright-spica": "Aab",
+        "msc-13252-1110-ac": "Ac"
+      },
+      "parentStarId": "bright-spica",
+      "expectedParentName": "Spica Aab",
+      "sourceUrl": "https://arxiv.org/html/1601.08069",
+      "sourceScope": "Spica former Aab source; unresolved close-binary contributions and possible tertiary light; not an individual Aa/Ab measurement",
+      "note": "Explicit mapping of the confirmed 4.014-day SB2 to the primary/secondary of Tkachenko et al. 2016. Keep the already represented Ac record separate. Frost et al. 2025 (updated preprint) independently detects three sources; its photometric mass ratios do not supersede the resolved binary dynamical masses. No uncertain intermediate occultation companion is added.",
+      "components": [
+        {
+          "starId": "bright-spica",
+          "label": "Aa",
+          "name": "Spica Aa",
+          "designations": [
+            "Spica primary",
+            "WDS J13252-1110Aa1"
+          ],
+          "note": "Normalize the confirmed MSC Aa1 (4.014-day spectroscopic primary) to literature Aa, retaining bright-spica and its existing catalog aliases."
+        },
+        {
+          "starId": "msc-13252-1110-ab",
+          "label": "Ab",
+          "name": "Spica Ab",
+          "designations": [
+            "Spica secondary",
+            "WDS J13252-1110Aa2"
+          ],
+          "note": "Normalize the confirmed MSC Aa2 spectroscopic secondary to literature Ab. This is not the uncertain 1.73-year occultation object called Ab in the older intermediate hierarchy."
+        }
+      ]
+    }
+  ]
+}

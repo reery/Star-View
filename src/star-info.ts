@@ -3,9 +3,8 @@ import { starInfoArticleId } from './star-info-availability'
 import { loadJsonData } from './json-data'
 import sun from './assets/stars/sun.jpg'
 import alphaCentauri from './assets/stars/alpha-centauri.jpg'
-import barnard from './assets/stars/barnards-star.jpg'
 import luhman from './assets/stars/luhman-16.jpg'
-import wise from './assets/stars/wise-0855.gif'
+import wise from './assets/stars/wise-0855.jpg'
 import wolf from './assets/stars/wolf-359.jpg'
 import sirius from './assets/object-types/white_star.jpg'
 import epsilonEridani from './assets/stars/epsilon-eridani.jpg'
@@ -15,10 +14,10 @@ const ccBy = { title: 'CC BY 4.0', url: 'https://creativecommons.org/licenses/by
 const ccBySa = { title: 'CC BY-SA 4.0', url: 'https://creativecommons.org/licenses/by-sa/4.0/' }
 const images: Readonly<Record<string, InfoImage>> = {
   sun: {
-    src: sun, width: 6272, height: 6272,
+    src: sun, width: 760, height: 760,
     alt: 'A golden-colored ultraviolet mosaic of the Sun’s corona, with bright magnetic loops and dark filaments.',
     caption: 'ESA & NASA/Solar Orbiter/EUI Team, E. Kraaikamp (ROB) · ultraviolet mosaic · March 9, 2025',
-    credit: 'ESA & NASA/Solar Orbiter/EUI Team, E. Kraaikamp (ROB). Mosaic of 200 images at 17.4 nm, March 9, 2025. False color; not a visible-light photograph. ESA’s low-resolution download, unmodified.',
+    credit: 'ESA & NASA/Solar Orbiter/EUI Team, E. Kraaikamp (ROB). Mosaic of 200 images at 17.4 nm, March 9, 2025. False color; not a visible-light photograph. Resized to 760 × 760 for this card; full frame and colors retained.',
     source: { title: 'ESA: Solar Orbiter’s widest high-resolution view of the Sun', url: 'https://www.esa.int/ESA_Multimedia/Images/2025/04/Solar_Orbiter_s_widest_high-res_view_of_the_Sun' },
     license: { title: 'CC BY-SA 3.0 IGO', url: 'https://creativecommons.org/licenses/by-sa/3.0/igo/' },
   },
@@ -29,13 +28,6 @@ const images: Readonly<Record<string, InfoImage>> = {
     credit: 'Digitized Sky Survey 2. Acknowledgement: Davide De Martin/ Mahdi Zamani. Archival survey composite, released August 24, 2016. Alpha Centauri A and B are blended; Proxima is circled. ESO screensize download, unmodified.',
     source: { title: 'ESO: The sky around Alpha Centauri and Proxima Centauri', url: 'https://www.eso.org/public/images/eso1629i/' }, license: ccBy,
   },
-  'barnards-star': {
-    src: barnard, width: 1280, height: 1150,
-    alt: 'A wide star field with Barnard’s Star at three colored positions near the center, showing its motion between survey exposures.',
-    caption: 'ESO/Digitized Sky Survey 2 · Acknowledgement: Davide De Martin · released 2018',
-    credit: 'ESO/Digitized Sky Survey 2. Acknowledgement: Davide De Martin. Archival exposures encode successive positions in red, yellow and blue; these are not three companion stars. Released November 14, 2018. ESO screensize download, unmodified.',
-    source: { title: 'ESO: Barnard’s Star showing its motion', url: 'https://www.eso.org/public/images/eso1837d/' }, license: ccBy,
-  },
   'luhman-16': {
     src: luhman, width: 956, height: 956,
     alt: 'Two orange-red points of light resolve the brown dwarfs Luhman 16 A and B in a VLT/MUSE image.',
@@ -44,10 +36,10 @@ const images: Readonly<Record<string, InfoImage>> = {
     source: { title: 'Wikimedia Commons: Luhman 16 in visible light, ESO VLT MUSE', url: 'https://commons.wikimedia.org/wiki/File:Luhman_16_in_visible_light_ESO_VLT_MUSE.jpg' }, license: ccBySa,
   },
   'wise-0855-0714': {
-    src: wise, width: 1315, height: 858,
-    alt: 'Two alternating Webb infrared frames show WISE 0855 moving against a background of distant stars and galaxies.',
-    caption: 'NASA/ESA/CSA JWST NIRCam; Alves de Oliveira et al. · Melina Thévenot; animation: 文爻林夕 · 2022–2023',
-    credit: 'NASA/ESA/CSA JWST NIRCam; Alves de Oliveira et al. Image processing: Melina Thévenot; GIF animation: 文爻林夕. F200W and F444W infrared observations, November 19, 2022 and April 27, 2023. Published June 9, 2024; false color, unmodified.',
+    src: wise, width: 760, height: 496,
+    alt: 'WISE 0855 is the orange point with diffraction spikes near the center of a Webb infrared image, observed April 27, 2023.',
+    caption: 'NASA/ESA/CSA JWST NIRCam; Alves de Oliveira et al. · Melina Thévenot · April 27, 2023',
+    credit: 'NASA/ESA/CSA JWST NIRCam; Alves de Oliveira et al. Image processing: Melina Thévenot; GIF animation: 文爻林夕. Single April 27, 2023 frame extracted from the animation and resized to 760 × 496. F200W and F444W infrared observations, false color; no local recoloring. Animation published June 9, 2024.',
     source: { title: 'Wikimedia Commons: WISE 0855 NIRCam motion', url: 'https://commons.wikimedia.org/wiki/File:WISE_0855-0714_NIRCam_gif.gif' }, license: ccBySa,
   },
   'wolf-359': {

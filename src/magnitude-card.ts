@@ -1,3 +1,4 @@
+export { magnitudeCardAvailable } from './magnitude-properties'
 import { Binoculars, Eye, Telescope, createElement, type IconNode } from 'lucide'
 import { starDisplayColor, type StarColorMode } from './astronomy'
 import type { Star } from './catalog-model'
@@ -49,10 +50,6 @@ export function initializeMagnitudeVisibility(card: HTMLElement, onChange: () =>
 const finiteMagnitude = (value: number | null | undefined): value is number => typeof value === 'number' && Number.isFinite(value)
 export const magnitudeNumber = (value: number | null | undefined): string => !finiteMagnitude(value) ? MISSING_VALUE
   : `${value < 0 ? '−' : value > 0 ? '+' : ''}${Math.abs(value).toLocaleString('en-US', { maximumFractionDigits: 2 })}`
-
-export function magnitudeCardAvailable(star: Star): boolean {
-  return finiteMagnitude(star.absolute_mag) || finiteMagnitude(star.apparent_mag)
-}
 
 /** Equal-distance visible brightness, using adopted V magnitudes rather than bolometric L. */
 export function magnitudeBrightnessRatio(selected: number | null | undefined, reference: number | null | undefined): number | null {

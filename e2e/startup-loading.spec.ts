@@ -24,7 +24,7 @@ test('startup defers closed features and fetches catalog JSON directly', async (
   const requests = trackRequests(page)
   await openWithoutBackground(page)
   expect(requests.filter((url) => /\.(jpg|png|gif|glb)$/.test(url))).toEqual([])
-  expect(requests.filter((url) => /\/(nearby-planets|stellar-orbit|planetary-system|catalog-detail|star-article|glossary|star-info|system-card|planet-card|planet-globe|moon-card|distance-comparison|radius-comparison|temperature-card)[\w-]*-/.test(url))).toEqual([])
+  expect(requests.filter((url) => /\/(nearby-planets|stellar-orbit|planetary-system|catalog-detail|star-article|glossary|star-info|system-card|planet-card|planet-globe|moon-card|distance-comparison|radius-comparison|temperature-card|hr-diagram|mk-diagram|magnitude-card|object-type-info)[\w-]*-/.test(url))).toEqual([])
   await expect(page.locator('#glossary-terms > *')).toHaveCount(0)
   await expect(page.locator('#object-info > *')).toHaveCount(0)
   await expect(page.locator('#object-system > *')).toHaveCount(0)
@@ -217,7 +217,7 @@ test('source-note loading can be retried after a temporary network failure', asy
   await page.locator('#object-specs-toggle').click()
   await expect(page.locator('#star-notes')).toContainText('Could not load source notes.')
   await page.locator('#object-specs .source-details summary').click()
-  await page.locator('#star-notes button').click()
+  await page.locator('#star-notes').getByRole('button', { name: 'Retry', exact: true }).click()
   await expect(page.locator('#object-specs')).not.toHaveAttribute('aria-busy', 'true')
   await expect(page.locator('#star-notes')).not.toHaveText('Loading source notes…')
   await expect(page.locator('#star-notes button')).toHaveCount(0)
@@ -259,7 +259,9 @@ test('closing System during its first load leaves the closed section unrendered'
 
 test('Milky Way keeps its full-resolution background and reuses it after catalog changes', async ({ page }, testInfo) => {
   const requests = trackRequests(page)
+  const backgroundResponse = page.waitForResponse(/\/milky-way-[^/]+\.jpg$/)
   await page.goto('/')
+  expect((await backgroundResponse).headers()['cache-control']).toBe('public, max-age=31536000, immutable')
   await expect(page.locator('#scene')).toHaveAttribute('data-ready', 'true')
   await expect(page.locator('#scene')).toHaveAttribute('data-milky-way-ready', 'true')
   await page.waitForLoadState('networkidle')
@@ -275,4 +277,61 @@ test('Milky Way keeps its full-resolution background and reuses it after catalog
   await expect(page.locator('#scene-status')).toBeHidden()
   await expect(page.locator('#scene')).toHaveAttribute('data-milky-way-ready', 'true')
   expect(requests.filter((url) => /milky-way.*\.jpg$/.test(url))).toHaveLength(1)
+})
+
+test('closed diagram and magnitude cards ignore their delayed first module load', async ({ page }) => {
+  const errors: string[] = []
+  page.on('pageerror', (error) => errors.push(error.message))
+  await openWithoutBackground(page)
+  await page.locator('#object-specs-toggle').click()
+
+  for (const [chunk, card, toggle, content] of [
+    ['hr-diagram', 'spectral', 'spectral', '#hr-diagram > svg'],
+    ['magnitude-card', 'magnitude', 'magnitude', '#magnitude-visibility-controls > button'],
+  ]) {
+    let release!: () => void
+    let requested!: () => void
+    const gate = new Promise<void>((resolve) => { release = resolve })
+    const started = new Promise<void>((resolve) => { requested = resolve })
+    const pattern = new RegExp(`/${chunk}-[^/]+\\.js$`)
+    await page.route(pattern, async (route) => { requested(); await gate; await route.continue() })
+    await page.locator(`#${toggle}-toggle`).click()
+    await started
+    await page.locator(`#${card}-close`).click()
+    release()
+    await page.waitForLoadState('networkidle')
+    await expect(page.locator(`#${card}-card`)).toBeHidden()
+    await expect(page.locator(content!)).toHaveCount(0)
+    await expect(page.locator(`#${toggle}-toggle`)).toBeFocused()
+    await page.unroute(pattern)
+    await page.locator(`#${toggle}-toggle`).click()
+    await expect(page.locator(content!).first()).toBeVisible()
+    await page.locator(`#${card}-close`).click()
+  }
+  expect(errors).toEqual([])
+})
+
+test('switching diagrams during first load keeps the latest choice and reuses both modules', async ({ page }) => {
+  const requests = trackRequests(page)
+  await openWithoutBackground(page)
+  await page.locator('#object-specs-toggle').click()
+  let release!: () => void
+  let requested!: () => void
+  const gate = new Promise<void>((resolve) => { release = resolve })
+  const started = new Promise<void>((resolve) => { requested = resolve })
+  await page.route(/\/hr-diagram-[^/]+\.js$/, async (route) => { requested(); await gate; await route.continue() })
+  await page.locator('#spectral-toggle').click()
+  await started
+  await page.locator('#spectral-mk').click()
+  await expect(page.locator('#mk-diagram > svg')).toBeVisible()
+  release()
+  await page.waitForLoadState('networkidle')
+  await expect(page.locator('#spectral-mk')).toHaveAttribute('aria-pressed', 'true')
+  await expect(page.locator('#spectral-hr-content')).toBeHidden()
+  await page.locator('#spectral-hr').click()
+  await expect(page.locator('#hr-diagram > svg')).toBeVisible()
+  await page.locator('#spectral-mk').click()
+  await expect(page.locator('#mk-diagram > svg')).toBeVisible()
+  expect(requests.filter((url) => /\/hr-diagram-[^/]+\.js$/.test(url))).toHaveLength(1)
+  expect(requests.filter((url) => /\/mk-diagram-[^/]+\.js$/.test(url))).toHaveLength(1)
 })

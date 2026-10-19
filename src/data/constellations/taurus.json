@@ -414,9 +414,9 @@
         "vy_kms": -19.025883,
         "vz_kms": -24.866653,
         "temperature_k": 3671.0,
-        "mass_solar": null,
-        "luminosity_solar": null,
-        "radius_solar": null,
+        "mass_solar": 1.03,
+        "luminosity_solar": 407.1905375,
+        "radius_solar": 44.2,
         "metallicity_dex": -0.93,
         "age_gyr": null,
         "absolute_mag": -0.69168,
@@ -560,10 +560,10 @@
         "vx_kms": -18.077827,
         "vy_kms": -13.478359,
         "vz_kms": -7.830959,
-        "temperature_k": 9124.0,
+        "temperature_k": 21478.0,
         "mass_solar": null,
-        "luminosity_solar": 1084.4608102967445,
-        "radius_solar": 13.179199,
+        "luminosity_solar": null,
+        "radius_solar": null,
         "metallicity_dex": 0.05,
         "age_gyr": null,
         "absolute_mag": -2.64448,
@@ -574,7 +574,7 @@
         "constellation": "Taurus",
         "spectral_type": "B1IVe_shell",
         "metallicity_kind": "[Fe/H]",
-        "notes": "Western constellation line-figure star (HIP 26451; Stellarium Tau). SIMBAD identity * zet Tau; SIMBAD compiled Johnson V=3.03; inverse SIMBAD compiled parallax distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, luminosity_solar; Stefan-Boltzmann scaling for radius_solar. Shared exact-identity physical supplements (metallicity_dex: 2023ApJS..266...41P).",
+        "notes": "Western constellation line-figure star (HIP 26451; Stellarium Tau). SIMBAD identity * zet Tau; SIMBAD compiled Johnson V=3.03; inverse SIMBAD compiled parallax distance; absolute V uses no extinction correction. Shared exact-identity physical supplements (metallicity_dex: 2023ApJS..266...41P). Reviewed hot-star temperature: 2001A&A...378..861C, HD 37202, J/A+A/378/861/table6, 21478 K. Rapidly rotating Be star: apparent adopted photospheric temperature, not polar or equatorial temperature. The table gives no individual temperature error. Does not describe the cool circumstellar disk. The old broadband SED luminosity and dependent radius are withheld; no component-safe replacement is adopted in this review.",
         "designations": [
           "HIP 26451"
         ],
@@ -1577,7 +1577,7 @@
       "label": "Adopted star positions and names",
       "url": "https://simbad.cds.unistra.fr/simbad/",
       "path": "src/data/catalogs/western-constellation-stars/stars.csv",
-      "sha256": "0a8b7c1dc3f7e3412c5cffb09a18cdf5b5b7424cc89ea8a0a1ffb4da57d3ad6a"
+      "sha256": "cd5d2e1def1e85bfd72925fef9a06ceefafb4c596f52e220a88e75a0fb4821fd"
     },
     {
       "label": "Hipparcos Johnson V magnitudes",

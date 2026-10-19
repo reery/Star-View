@@ -71,7 +71,7 @@
         "vy_kms": -22.794417,
         "vz_kms": -10.571105,
         "temperature_k": 24072.0,
-        "mass_solar": null,
+        "mass_solar": 13.0,
         "luminosity_solar": 24234.2,
         "radius_solar": 8.9504,
         "metallicity_dex": -0.41,
@@ -364,10 +364,10 @@
         "vx_kms": -24.223741,
         "vy_kms": 8.600647,
         "vz_kms": -10.659313,
-        "temperature_k": 9800.0,
+        "temperature_k": 16800.0,
         "mass_solar": null,
-        "luminosity_solar": 21321.14768142988,
-        "radius_solar": 50.653071,
+        "luminosity_solar": null,
+        "radius_solar": null,
         "metallicity_dex": -0.17,
         "age_gyr": null,
         "absolute_mag": -5.891772,
@@ -378,7 +378,7 @@
         "constellation": "Canis Major",
         "spectral_type": "B3Ib",
         "metallicity_kind": "[Fe/H]",
-        "notes": "Western constellation line-figure star (HIP 33347; Stellarium CMa). SIMBAD identity * iot CMa; SIMBAD compiled Johnson V=4.385; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, luminosity_solar; Stefan-Boltzmann scaling for radius_solar. Shared exact-identity physical supplements (metallicity_dex: 1992ApJ...387..673G).",
+        "notes": "Western constellation line-figure star (HIP 33347; Stellarium CMa). SIMBAD identity * iot CMa; SIMBAD compiled Johnson V=4.385; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Shared exact-identity physical supplements (metallicity_dex: 1992ApJ...387..673G). Reviewed hot-star temperature: 2024A&A...687A.228D, HD 51309, J/A+A/687/A228/tabled1, 16800 K. Formal asymmetric temperature uncertainties from the published fit. No temperature is inferred from the spectral label. The old broadband SED luminosity and dependent radius are withheld; no component-safe replacement is adopted in this review.",
         "designations": [
           "HIP 33347"
         ],
@@ -658,10 +658,10 @@
         "vx_kms": -25.523245,
         "vy_kms": -10.35383,
         "vz_kms": -11.791942,
-        "temperature_k": 9061.0,
+        "temperature_k": 17170.0,
         "mass_solar": null,
-        "luminosity_solar": 1655.1673543539757,
-        "radius_solar": 16.509022,
+        "luminosity_solar": 8632.855848,
+        "radius_solar": 10.5,
         "metallicity_dex": null,
         "age_gyr": null,
         "absolute_mag": -3.433557,
@@ -672,7 +672,7 @@
         "constellation": "Canis Major",
         "spectral_type": "B2.5Ve",
         "metallicity_kind": null,
-        "notes": "Western constellation line-figure star (HIP 35037; Stellarium CMa). SIMBAD identity * ome CMa; SIMBAD compiled Johnson V=3.82; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, luminosity_solar; Stefan-Boltzmann scaling for radius_solar.",
+        "notes": "Western constellation line-figure star (HIP 35037; Stellarium CMa). SIMBAD identity * ome CMa; SIMBAD compiled Johnson V=3.82; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Reviewed hot-star temperature: 2018MNRAS.474.5287A, HD 56139, Table B1, 17170 K. Published errors are the authors' assumed 1 percent for temperature, not an independent posterior error; Be disk variability and rotational gravity darkening add systematics. Photospheric radius 10.5 solar radii is retained from the same BeSOS model at 279 pc; luminosity is derived from its own temperature/radius by Stefan-Boltzmann scaling.",
         "designations": [
           "HIP 35037"
         ],
@@ -1214,7 +1214,7 @@
       "label": "Adopted star positions and names",
       "url": "https://simbad.cds.unistra.fr/simbad/",
       "path": "src/data/catalogs/western-constellation-stars/stars.csv",
-      "sha256": "0a8b7c1dc3f7e3412c5cffb09a18cdf5b5b7424cc89ea8a0a1ffb4da57d3ad6a"
+      "sha256": "cd5d2e1def1e85bfd72925fef9a06ceefafb4c596f52e220a88e75a0fb4821fd"
     },
     {
       "label": "Hipparcos Johnson V magnitudes",

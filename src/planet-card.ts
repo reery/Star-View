@@ -1,3 +1,4 @@
+import { createLoadError } from './load-recovery'
 import { isExtrasolarPlanet, isSmallBody, planetApparentMagnitudeRange, planetAtmosphereSpecs, planetPhysicalSpecs, type PlanetDescription, type PlanetSpec } from './planet-properties'
 import { smallBodyMedia } from './small-body-media'
 import { magnitudeNumber, NAKED_EYE_MAGNITUDE } from './magnitude-card'
@@ -26,17 +27,10 @@ export async function renderPlanetSection(card: HTMLElement, section: 'specs' | 
       renderPlanetInfo(container, state.planet.id)
     }
     state[section] = true
-  } catch (error) {
-    if (sections.get(card) !== state || container.hidden) return
-    const message = document.createElement('p')
-    message.textContent = `Could not load ${section === 'moons' ? 'Moons' : 'Info'}.`
-    const retry = document.createElement('button')
-    retry.type = 'button'
-    retry.className = 'object-type-toggle'
-    retry.textContent = 'Retry'
-    retry.addEventListener('click', () => { void renderPlanetSection(card, section) }, { once: true })
-    container.replaceChildren(message, retry)
-    console.error(`Could not load planet ${section}.`, error)
+  } catch {
+    if (sections.get(card) !== state || card.hidden || container.hidden) return
+    container.replaceChildren(createLoadError(section === 'info' ? 'planet Info' : 'moons',
+      () => { void renderPlanetSection(card, section) }))
   }
 }
 const specIcons: Readonly<Record<string, IconNode>> = {

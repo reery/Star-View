@@ -9,7 +9,11 @@ const brightStars = parseStarCatalog(readFileSync(new URL('../src/data/catalogs/
 
 test('nearest-neighbor Info covers every component and loads credited local images', async ({ page }, testInfo) => {
   const errors: string[] = []
+  const imageRequests: string[] = []
   page.on('pageerror', (error) => errors.push(error.message))
+  page.on('request', (request) => {
+    if (request.resourceType() === 'image') imageRequests.push(new URL(request.url()).pathname)
+  })
   await page.goto('/')
   await expect(page.locator('#scene-status')).toBeHidden()
   const objects = page.getByRole('button', { name: 'Objects', exact: true })
@@ -39,8 +43,17 @@ test('nearest-neighbor Info covers every component and loads credited local imag
         await expect(image).toHaveJSProperty('complete', true)
         await expect.poll(() => image.evaluate((element: HTMLImageElement) => element.naturalWidth)).toBeGreaterThan(0)
         expect(await image.evaluate((element: HTMLImageElement) => new URL(element.src).origin)).toBe(new URL(page.url()).origin)
+        if (star.id === 'sun') {
+          await expect(image).toHaveJSProperty('naturalWidth', 760)
+          await expect(image).toHaveJSProperty('naturalHeight', 760)
+        } else if (star.id === 'wise-0855-0714') {
+          await expect(image).toHaveAttribute('src', /\/wise-0855-[^/]+\.jpg$/)
+          await expect(image).toHaveJSProperty('naturalWidth', 760)
+          await expect(image).toHaveAttribute('alt', /April 27, 2023/)
+        }
         images++
       }
+      if (star.id === 'barnards-star') await expect(image).toHaveCount(0)
       if (['sun', 'proxima-centauri', 'wise-0855-0714', 'sirius-a'].includes(star.id)) {
         if (await objects.getAttribute('aria-expanded') === 'true') await objects.click()
         await page.locator('.selected-object').evaluate((element) => { element.scrollTop = 0 })
@@ -50,7 +63,8 @@ test('nearest-neighbor Info covers every component and loads credited local imag
     }
   }
   expect(systemArticles.size).toBe(15)
-  expect(images).toBe(9)
+  expect(images).toBe(8)
+  expect(imageRequests.filter((url) => /\.gif$|\/barnards-star-/.test(url))).toEqual([])
   // A text-only article still has the same layout and an enabled Info control.
   if (await objects.getAttribute('aria-expanded') === 'false') await objects.click()
   await page.locator('button[data-star="ez-aquarii-c"]').click()

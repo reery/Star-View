@@ -4,26 +4,31 @@ import type { Star } from './catalog-model'
 import { spaceMotionForStar } from './space-motion'
 import baseline from '../catalog-work/bright-stars/gap-baseline.json'
 import motionReview from '../catalog-work/bright-stars/gap-motion-review.json'
+import constellationMotion from '../catalog-work/star-systems/reviewed-constellation-motion.json'
 import audit from '../catalog-work/bright-stars/gap-coverage-audit.json'
 
 const payload = JSON.parse(readFileSync(new URL('./data/generated/catalogs/bright-stars.json', import.meta.url), 'utf8')) as { stars: Star[] }
 const pool = JSON.parse(readFileSync(new URL('./data/stellar-companions.json', import.meta.url), 'utf8')) as {
-  systems: { components: { starId: string, alternateStarIds?: string[] }[] }[]
+  systems: { components: { starId: string, alternateStarIds?: string[] }[] }[], stars: Star[]
 }
 const aliases = new Map(pool.systems.flatMap((s) => s.components.flatMap((c) =>
   [c.starId, ...c.alternateStarIds ?? []].map((id) => [id, c.starId] as const))))
 const stars = new Map(payload.stars.filter((s) => s.id !== 'sun').map((s) => [aliases.get(s.id) ?? s.id, s]))
+const componentAudit = JSON.parse(readFileSync(new URL('../catalog-work/star-systems/catalog-companions-audit.json', import.meta.url),'utf8')).componentRecords
 
 describe('bright catalog gap review', () => {
   it('preserves every previously adopted physical value and RV through runtime expansion', () => {
-    expect(stars.size).toBe(199)
-    expect([...stars.keys()].sort()).toEqual(Object.keys(baseline.records).sort())
+    expect(stars.size).toBe(201)
+    expect([...stars.keys()].sort()).toEqual([...Object.keys(baseline.records), 'msc-07346+3153-cb', 'msc-13252-1110-ab'].sort())
     for (const [id, previous] of Object.entries(baseline.records)) {
       const star = stars.get(id)!
       for (const [field, value] of Object.entries(previous.values)) {
         if (value === null) continue
         const current = field === 'radial_velocity_kms' ? star.raw_astrometry?.radial_velocity_kms : star[field as keyof Star]
-        expect(current, `${id}:${field}`).toBe(value)
+        const original = pool.stars.find((star) => star.id === id)?.catalog_sources?.some(({ record }) =>
+          (field === 'radial_velocity_kms' ? record.raw_astrometry?.radial_velocity_kms : record[field as keyof typeof record]) === value)
+        const replaced = componentAudit[id]?.reviewedLiterature?.replaced?.[field]
+        expect(current === value || original || (replaced?.value === value && !!replaced.sourceEvidence), `${id}:${field} must remain adopted or retained with source scope`).toBe(true)
       }
     }
   })
@@ -35,9 +40,10 @@ describe('bright catalog gap review', () => {
     for (const [i, id] of ids.entries()) {
       expect(stars.get(id)!.mass_solar).toBe(parseFloat(massRow[i + 3]!))
     }
-    // The Spica Aab record represents an unresolved inner pair, so the
-    // published individual Aa/Ab masses must not be attached to Aab or Ac.
-    expect(stars.get('bright-spica')!.mass_solar).toBeNull()
+    // The reviewed split now identifies individual Aa/Ab; Ac remains separate.
+    expect(stars.get('bright-spica')!.mass_solar).toBe(11.43)
+    expect(stars.get('msc-13252-1110-ab')!.mass_solar).toBe(7.21)
+    expect(stars.get('msc-13252-1110-ac')!.mass_solar).toBeNull()
     expect(stars.get('bright-antares')!.mass_solar).toBeNull()
   })
 
@@ -45,9 +51,10 @@ describe('bright catalog gap review', () => {
     for (const review of motionReview.systems) {
       for (const id of review.targetIds) {
         const star = stars.get(id)!
-        expect(star.raw_astrometry!.radial_velocity_kms).toBe(review.valueKms)
+        const newer = constellationMotion.systems.find((system) => id in system.expectedInputs)?.radialVelocity
+        expect(star.raw_astrometry!.radial_velocity_kms).toBe(newer?.valueKms ?? review.valueKms)
         expect(spaceMotionForStar(star).label).toBe('System bulk motion')
-        expect(spaceMotionForStar(star).title).toContain(review.status === 'compiled-system-proxy' ? 'as a proxy' : 'center-of-mass')
+        expect(spaceMotionForStar(star).title).toContain((newer?.status.includes('proxy') ?? review.status === 'compiled-system-proxy') ? 'as a proxy' : 'center-of-mass')
       }
     }
     expect(spaceMotionForStar(stars.get('cns5-3442')!).title).toContain('as a proxy')

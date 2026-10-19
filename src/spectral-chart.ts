@@ -1,9 +1,6 @@
-import { STELLAR_OBJECT_TYPES, type Star } from './catalog-model'
+import type { Star } from './catalog-model'
+export { spectralReference } from './spectral-properties'
 import { renderSelectedStarPreview } from './selected-star-preview'
-
-export function spectralReference(origin: Star, sun: Star): Star {
-  return STELLAR_OBJECT_TYPES.some((type) => type === origin.type) ? origin : sun
-}
 
 const SVG_NS = 'http://www.w3.org/2000/svg'
 export function svgNode<K extends keyof SVGElementTagNameMap>(tag: K, attributes: Record<string, string | number> = {}, content?: string): SVGElementTagNameMap[K] {

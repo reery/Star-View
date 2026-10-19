@@ -1,6 +1,7 @@
 # Frozen literature tables
 
-Retrieved on 2026-10-11; regeneration uses these local files without network access.
+Initial tables retrieved on 2026-10-11; later snapshots carry their own dates.
+Regeneration uses these local files without network access.
 
 - `piccotti-2020-*`: [CDS J/MNRAS/492/2709](https://cdsarc.cds.unistra.fr/ftp/J/MNRAS/492/2709/),
   Piccotti et al. (2020), `2020MNRAS.492.2709P`.
@@ -12,6 +13,13 @@ Retrieved on 2026-10-11; regeneration uses these local files without network acc
   maintained by John Southworth. This is a review aid, with the original papers
   taking precedence; it contains unresolved-system magnitudes and named variables
   that must not be joined by case-insensitive names.
+- `constellation-20261019-selected.json`: selected Spica, YY Gem, Nunki,
+  B-star multiplicity and beta Aurigae source tables, with per-source retrieval
+  dates, URLs and full-document hashes. Also preserves adopted-model assumptions,
+  uncertainty conventions and the signed astrometric offsets used to validate
+  orbital orientation. The new `reviewed-constellation-*.json` plans approve only
+  the explicitly mapped components and fields; the frozen snapshot alone does
+  not authorize a new adoption.
 
 `../reviewed-companion-literature.json` maps the reviewed records to exact Star
 View system/component IDs, preserves primary-paper values and uncertainty/model

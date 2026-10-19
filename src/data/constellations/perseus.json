@@ -364,10 +364,10 @@
         "vx_kms": -15.207707,
         "vy_kms": -13.292499,
         "vz_kms": -9.22988,
-        "temperature_k": 8200.0,
+        "temperature_k": 22840.0,
         "mass_solar": null,
-        "luminosity_solar": 2533.4309098833482,
-        "radius_solar": 24.939025,
+        "luminosity_solar": null,
+        "radius_solar": null,
         "metallicity_dex": null,
         "age_gyr": null,
         "absolute_mag": -3.753396,
@@ -378,7 +378,7 @@
         "constellation": "Perseus",
         "spectral_type": "B1III",
         "metallicity_kind": null,
-        "notes": "Western constellation line-figure star (HIP 17448; Stellarium Per). SIMBAD identity * omi Per; SIMBAD compiled Johnson V=3.91; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, luminosity_solar; Stefan-Boltzmann scaling for radius_solar.",
+        "notes": "Western constellation line-figure star (HIP 17448; Stellarium Per). SIMBAD identity * omi Per; SIMBAD compiled Johnson V=3.91; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Reviewed hot-star temperature: 2009A&A...501..297Z, HD 23180, J/A+A/501/297/catalog, 22840 K. Unresolved named multiple: this is the apparent, primary-dominated temperature of the catalogued light, not a resolved measurement of every member. Blended angular diameter is not assigned to an individual component. The old broadband SED luminosity and dependent radius are withheld; no component-safe replacement is adopted in this review.",
         "designations": [
           "HIP 17448"
         ],
@@ -413,10 +413,10 @@
         "vx_kms": -22.500352,
         "vy_kms": -7.953456,
         "vz_kms": -8.310215,
-        "temperature_k": 7725.0,
+        "temperature_k": 23500.0,
         "mass_solar": null,
-        "luminosity_solar": 3471.4632529180344,
-        "radius_solar": 32.893642,
+        "luminosity_solar": null,
+        "radius_solar": null,
         "metallicity_dex": 0.0358,
         "age_gyr": null,
         "absolute_mag": -4.260473,
@@ -427,7 +427,7 @@
         "constellation": "Perseus",
         "spectral_type": "B1Ib",
         "metallicity_kind": "[M/H]",
-        "notes": "Western constellation line-figure star (HIP 18246; Stellarium Per). SIMBAD identity * zet Per; SIMBAD compiled Johnson V=2.85; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, luminosity_solar; Gaia DR3 model values for metallicity_dex; Stefan-Boltzmann scaling for radius_solar.",
+        "notes": "Western constellation line-figure star (HIP 18246; Stellarium Per). SIMBAD identity * zet Per; SIMBAD compiled Johnson V=2.85; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Reviewed hot-star temperature: 2024A&A...687A.228D, HD 24398, J/A+A/687/A228/tabled1, 23500 K. Formal asymmetric temperature uncertainties from the published fit. No temperature is inferred from the spectral label. The old broadband SED luminosity and dependent radius are withheld; no component-safe replacement is adopted in this review.",
         "designations": [
           "HIP 18246"
         ],
@@ -511,10 +511,10 @@
         "vx_kms": -60.26332,
         "vy_kms": 23.948316,
         "vz_kms": -10.063644,
-        "temperature_k": 8648.0,
+        "temperature_k": 35900.0,
         "mass_solar": null,
-        "luminosity_solar": 3410.781522651553,
-        "radius_solar": 26.016462,
+        "luminosity_solar": null,
+        "radius_solar": null,
         "metallicity_dex": 0.0039,
         "age_gyr": null,
         "absolute_mag": -4.044286,
@@ -525,7 +525,7 @@
         "constellation": "Perseus",
         "spectral_type": "O7.5III(n)((f))",
         "metallicity_kind": "[M/H]",
-        "notes": "Western constellation line-figure star (HIP 18614; Stellarium Per). SIMBAD identity * ksi Per; SIMBAD compiled Johnson V=4.06; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, luminosity_solar; Gaia DR3 model values for metallicity_dex; Stefan-Boltzmann scaling for radius_solar.",
+        "notes": "Western constellation line-figure star (HIP 18614; Stellarium Per). SIMBAD identity * ksi Per; SIMBAD compiled Johnson V=4.06; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Reviewed hot-star temperature: 2022A&A...665A.150H, HD 24912, J/A+A/665/A150/tablef1, 35900 K. Published Teff is in kK and is not a limit; no per-object uncertainty is listed in this table. logLsp is spectroscopic luminosity T^4/g, not bolometric luminosity, and is not copied into luminosity_solar. The old broadband SED luminosity and dependent radius are withheld; no component-safe replacement is adopted in this review.",
         "designations": [
           "HIP 18614"
         ],
@@ -1570,7 +1570,7 @@
       "label": "Adopted star positions and names",
       "url": "https://simbad.cds.unistra.fr/simbad/",
       "path": "src/data/catalogs/western-constellation-stars/stars.csv",
-      "sha256": "0a8b7c1dc3f7e3412c5cffb09a18cdf5b5b7424cc89ea8a0a1ffb4da57d3ad6a"
+      "sha256": "cd5d2e1def1e85bfd72925fef9a06ceefafb4c596f52e220a88e75a0fb4821fd"
     },
     {
       "label": "Hipparcos Johnson V magnitudes",

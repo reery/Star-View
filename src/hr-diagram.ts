@@ -1,4 +1,6 @@
-import { STELLAR_OBJECT_TYPES, type Star } from './catalog-model'
+import type { Star } from './catalog-model'
+import { hrCardAvailable } from './spectral-properties'
+export { hrCardAvailable } from './spectral-properties'
 import { placeSpectralMarkerLabels, spectralMarker, svgNode } from './spectral-chart'
 
 export type HrMagnitudeMode = 'visual' | 'bolometric'
@@ -10,10 +12,6 @@ export interface HrAxes { hot: number; cool: number; bright: number; faint: numb
 // Johnson V: a bolometric magnitude must never fill a missing catalog M_V.
 export const HR_SUN = { temperature: 5772, visual: 4.83, bolometric: 4.74 } as const
 const positive = (value: number | null): value is number => value !== null && Number.isFinite(value) && value > 0
-
-export function hrCardAvailable(star: Pick<Star, 'type'>): boolean {
-  return STELLAR_OBJECT_TYPES.some((type) => type === star.type)
-}
 
 export function hrMagnitude(star: HrStar, mode: HrMagnitudeMode): number | null {
   if (!hrCardAvailable(star)) return null

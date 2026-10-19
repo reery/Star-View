@@ -218,7 +218,8 @@ button, p, h2, dd { overflow-wrap: anywhere; }
 .camera-view-options, .origin-options, .observer-view-options, .grid-options, .selection-options { position: absolute; top: 0; right: 100%; display: flex; gap: 4px; padding-right: 4px; opacity: 0; visibility: hidden; pointer-events: none; transform: translateX(12px); transition: opacity 160ms ease, transform 160ms ease, visibility 160ms; }
 .camera-view-button { width: 60px; flex: 0 0 60px; font: inherit; font-size: 12px; font-weight: 500; }
 .origin-controls:focus-visible, .observer-view-controls:focus-visible, .selection-controls:focus-visible { outline: 2px solid var(--accent-strong); outline-offset: 2px; border-radius: 7px; }
-.selection-controls:has(#selection-forward:not(:disabled)) > #selection-back:disabled { pointer-events: none; }
+[data-toolbar-flyout]:has([data-toolbar-options] button:not(:disabled)) > button:disabled { pointer-events: none; }
+[data-toolbar-flyout][data-touch-open]:has(button:not(:disabled)) > [data-toolbar-options],
 .camera-view-controls:focus-within:has(#reset-view:not(:disabled)) .camera-view-options,
 .origin-controls:focus-within:has(#go-to-origin:not(:disabled)) .origin-options,
 .grid-controls:focus-within:has(#toggle-grid:not(:disabled)) .grid-options,
@@ -513,6 +514,9 @@ select:focus-visible, input:focus-visible { outline: 2px solid var(--accent); ou
 .object-type-card > .panel-heading { padding-right: 98px; }
 .object-type-card > .panel-heading > .panel-lock[aria-pressed] { right: 43px; border-radius: 0; }
 .card-scroll-content { min-height: 0; overflow: auto; overscroll-behavior: contain; scrollbar-width: thin; scrollbar-color: #776a5c transparent; }
+.load-state > :not(.load-recovery) { display: none !important; }
+.load-recovery { display: grid; grid-column: 1 / -1; gap: 8px; margin: 0; padding: 12px; color: var(--muted); font-size: var(--property-text-size); line-height: 1.5; }
+.load-recovery-actions { display: flex; flex-wrap: wrap; gap: 8px; color: var(--ink); }
 .catalog > .star-list { min-height: 0; }
 .object-type-hero { position: relative; height: 210px; overflow: hidden; background: #090b10; }
 .object-type-image { display: block; width: 100%; height: 100%; object-fit: cover; }

@@ -26,6 +26,8 @@ from catalog_sources.classification import spectral_labels
 from catalog_sources.preservation import pool_losses
 from catalog_sources.shared_objects import REVIEW as SHARED_OBJECT_REVIEW, reviewed_objects
 from catalog_sources.bright_system_motion import apply_bright_system_motion
+from catalog_sources.constellation_motion import apply_constellation_motion
+from catalog_sources.hierarchy_splits import apply_hierarchy_splits
 
 ROOT = Path(__file__).resolve().parents[1]
 WORK = ROOT / "catalog-work/star-systems"
@@ -546,6 +548,8 @@ def build():
         if len(candidates) == 1:
             enrich(star, next(iter(candidates.values())), audit["componentRecords"].get(identifier, {}))
 
+    inputs += apply_hierarchy_splits(ROOT, definitions, pool, audit)
+
     overrides = read_json(files[5])["objects"]
     if overrides.keys() & hierarchy_review["physicalOverrides"].keys():
         raise ValueError("Duplicate reviewed Regor physical override")
@@ -558,7 +562,11 @@ def build():
         audit["componentRecords"].setdefault(identifier, {})["reviewedPhysicalOverride"] = override
 
     inputs += apply_literature(ROOT, WORK / "reviewed-companion-literature.json", definitions, pool, audit)
-    inputs += apply_bright_system_motion(ROOT, definitions, pool, audit)
+    inputs += apply_literature(ROOT, WORK / "reviewed-constellation-literature.json", definitions, pool, audit)
+    inputs += apply_literature(ROOT, WORK / "reviewed-constellation-data.json", definitions, pool, audit)
+    inputs += apply_bright_system_motion(ROOT, definitions, pool, audit,
+        read_json(WORK / "reviewed-constellation-hierarchies.json")["systems"])
+    inputs += apply_constellation_motion(ROOT, definitions, pool, audit)
 
     # Resolved observations retain their own epoch and uncertainty semantics.
     # A spectroscopic component RV must not complete a different-epoch bulk

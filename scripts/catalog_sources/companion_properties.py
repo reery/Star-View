@@ -81,7 +81,23 @@ def apply_literature(root, path, systems, pool, audit):
             matches = {sid for sid, candidate in pool.items() if designation in candidate.get("designations", [])}
             if matches != {identifier}:
                 raise ValueError(f"Reviewed literature Gaia identity is not a unique component: {identifier}")
+        evidence = audit["componentRecords"].setdefault(identifier, {})
+        original_record = {key: copy.deepcopy(value) for key, value in star.items()
+                           if key not in {"catalog_sources", "unresolved_photometry"}}
+        previous_review = copy.deepcopy(evidence.get("reviewedLiterature"))
         adopted, retained, replaced = {}, {}, {}
+        withheld = {}
+        for field, observation in review.get("withheldFields", {}).items():
+            if field not in PROPERTY_FIELDS or star.get(field) != observation.get("expectedPrevious") or not observation.get("reason"):
+                raise ValueError(f"Reviewed component withholding drifted: {identifier}:{field}")
+            withheld[field] = {**observation, "sourceEvidence": copy.deepcopy(evidence.get(field))}
+            star[field] = None
+            if field == "metallicity_dex":
+                star["metallicity_kind"] = None
+        if withheld:
+            if not review.get("retainPreviousRecord"):
+                raise ValueError(f"Component withholding requires retained source: {identifier}")
+            star["notes"] += " Withheld individual fields: " + ", ".join(withheld) + "."
         for field, observation in review["fields"].items():
             if any(not observation.get(key) for key in ("status", "reference", "sourceUrl", "section")):
                 raise ValueError(f"Missing component literature provenance: {identifier}:{field}")
@@ -101,12 +117,12 @@ def apply_literature(root, path, systems, pool, audit):
                 if star.get(field) != replacement["value"]:
                     raise ValueError(f"Reviewed literature replacement input drifted: {identifier}:{field}")
                 replaced[field] = {"value": star[field], "sourceEvidence": copy.deepcopy(
-                    audit["componentRecords"].get(identifier, {}).get(field))}
+                    (previous_review or {}).get("adopted", {}).get(field) or evidence.get(field))}
             elif star.get(field) is not None:
                 retained[field] = {"value": star[field], "unusedLiterature": observation}
                 continue
             # Keep the apparent/absolute pair consistent with existing photometry.
-            if field == "apparent_mag" and star.get("absolute_mag") is not None:
+            if field == "apparent_mag" and star.get("absolute_mag") is not None and "absolute_mag" not in adopted:
                 continue
             star[field] = value
             if field == "metallicity_dex":
@@ -120,10 +136,17 @@ def apply_literature(root, path, systems, pool, audit):
             adopted["absolute_mag"] = {"value": star["absolute_mag"], "status": "derived",
                 "method": "Component Johnson V and adopted catalog distance; no extinction correction",
                 "inputs": {"apparent_mag": star["apparent_mag"], "distance_pc": distance}}
-        evidence = audit["componentRecords"].setdefault(identifier, {})
         evidence["reviewedLiterature"] = {**review, "adopted": adopted, "retained": retained,
-            **({"replaced": replaced} if replaced else {})}
-        if adopted:
+            **({"replaced": replaced} if replaced else {}),
+            **({"withheld": withheld} if withheld else {}),
+            **({"previousReview": previous_review} if previous_review else {})}
+        if adopted or withheld:
+            if review.get("retainPreviousRecord"):
+                star.setdefault("catalog_sources", []).append({
+                    "catalog_id": "constellation-literature-before-20261019",
+                    "scope": "Previous component adoption before the exact-component literature review. Retained original values, photometry, astrometry, uncertainties and provenance; superseded values are not the current adoption.",
+                    "record": original_record,
+                })
             star["notes"] += " Reviewed individual literature: " + review["note"]
     for identifier, star in pool.items():
         evidence = audit["componentRecords"].setdefault(identifier, {})

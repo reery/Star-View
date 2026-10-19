@@ -1,0 +1,457 @@
+{
+  "schemaVersion": 1,
+  "reviewedOn": "2026-10-19",
+  "policy": "Exact component literature adoptions after legacy reviewed supplements. Preserve replaced values and complete previous evidence. Shared model ages and adopted temperatures are explicitly scoped; never copy unresolved spectra or total masses into individual measurements.",
+  "inputSha256": {
+    "catalog-work/star-systems/literature-components/constellation-20261019-selected.json": "afc8cdc55981eabcf43557bb77aa94355c79c9ecd10ce84201bcd39b75344e2d"
+  },
+  "objects": {
+    "bright-spica": {
+      "expectedName": "Spica Aa",
+      "systemId": "msc-13252-1110",
+      "component": "Aa",
+      "note": "Resolved Spica primary/secondary solution from Table 7. Spectroscopic temperatures and binary-model radii/luminosities retain formal errors and model assumptions. The shared 12.5 +/- 1 Myr evolutionary age is not an independent component age; no Ac properties are inferred.",
+      "fields": {
+        "mass_solar": {
+          "value": 11.43,
+          "reference": "Tkachenko et al. 2016; 2016MNRAS.458.1964T",
+          "sourceUrl": "https://arxiv.org/html/1601.08069",
+          "section": "Table 7",
+          "status": "dynamical",
+          "uncertainty": 1.15
+        },
+        "radius_solar": {
+          "value": 7.47,
+          "reference": "Tkachenko et al. 2016; 2016MNRAS.458.1964T",
+          "sourceUrl": "https://arxiv.org/html/1601.08069",
+          "section": "Table 7",
+          "status": "binary-model",
+          "uncertainty": 0.54
+        },
+        "temperature_k": {
+          "value": 25300,
+          "reference": "Tkachenko et al. 2016; 2016MNRAS.458.1964T",
+          "sourceUrl": "https://arxiv.org/html/1601.08069",
+          "section": "Tables 4 and 7",
+          "status": "spectroscopic",
+          "uncertainty": 500
+        },
+        "luminosity_solar": {
+          "value": 20511.621788255667,
+          "reference": "Tkachenko et al. 2016; 2016MNRAS.458.1964T",
+          "sourceUrl": "https://arxiv.org/html/1601.08069",
+          "section": "Table 7",
+          "status": "derived",
+          "uncertaintyMinus": 4029.997873000564,
+          "uncertaintyPlus": 5015.391238356806,
+          "inputs": {
+            "log10_luminosity_solar": 4.312,
+            "log10_uncertainty": 0.095
+          }
+        },
+        "age_gyr": {
+          "value": 0.0125,
+          "reference": "Tkachenko et al. 2016; 2016MNRAS.458.1964T",
+          "sourceUrl": "https://arxiv.org/html/1601.08069",
+          "section": "Abstract and Section 7",
+          "status": "model-derived",
+          "uncertainty": 0.001,
+          "scope": "Shared coeval close-binary model age; not an independent age measurement for each star."
+        },
+        "spectral_type": {
+          "value": "B1V",
+          "status": "compiled",
+          "reference": "MSC 2026-06-19 confirmed 4.014-day SB2 branch; SB9_766",
+          "sourceUrl": "https://www.ctio.noirlab.edu/~atokovin/stars/",
+          "section": "sys.tsv 13252-1110 Aa1/Aa2, parent Aa",
+          "scope": "Component classification from the confirmed inner binary branch, explicitly normalized to literature Aa/Ab; not the uncertain intermediate occultation branch."
+        }
+      }
+    },
+    "msc-13252-1110-ab": {
+      "expectedName": "Spica Ab",
+      "systemId": "msc-13252-1110",
+      "component": "Ab",
+      "note": "Resolved Spica primary/secondary solution from Table 7. Spectroscopic temperatures and binary-model radii/luminosities retain formal errors and model assumptions. The shared 12.5 +/- 1 Myr evolutionary age is not an independent component age; no Ac properties are inferred.",
+      "fields": {
+        "mass_solar": {
+          "value": 7.21,
+          "reference": "Tkachenko et al. 2016; 2016MNRAS.458.1964T",
+          "sourceUrl": "https://arxiv.org/html/1601.08069",
+          "section": "Table 7",
+          "status": "dynamical",
+          "uncertainty": 0.75
+        },
+        "radius_solar": {
+          "value": 3.74,
+          "reference": "Tkachenko et al. 2016; 2016MNRAS.458.1964T",
+          "sourceUrl": "https://arxiv.org/html/1601.08069",
+          "section": "Table 7",
+          "status": "binary-model",
+          "uncertainty": 0.53
+        },
+        "temperature_k": {
+          "value": 20900,
+          "reference": "Tkachenko et al. 2016; 2016MNRAS.458.1964T",
+          "sourceUrl": "https://arxiv.org/html/1601.08069",
+          "section": "Tables 4 and 7",
+          "status": "spectroscopic",
+          "uncertainty": 800
+        },
+        "luminosity_solar": {
+          "value": 2254.2392121524304,
+          "reference": "Tkachenko et al. 2016; 2016MNRAS.458.1964T",
+          "sourceUrl": "https://arxiv.org/html/1601.08069",
+          "section": "Table 7",
+          "status": "derived",
+          "uncertaintyMinus": 768.3035698654228,
+          "uncertaintyPlus": 1165.55521298466,
+          "inputs": {
+            "log10_luminosity_solar": 3.353,
+            "log10_uncertainty": 0.181
+          }
+        },
+        "age_gyr": {
+          "value": 0.0125,
+          "reference": "Tkachenko et al. 2016; 2016MNRAS.458.1964T",
+          "sourceUrl": "https://arxiv.org/html/1601.08069",
+          "section": "Abstract and Section 7",
+          "status": "model-derived",
+          "uncertainty": 0.001,
+          "scope": "Shared coeval close-binary model age; not an independent age measurement for each star."
+        },
+        "spectral_type": {
+          "value": "B3V",
+          "status": "compiled",
+          "reference": "MSC 2026-06-19 confirmed 4.014-day SB2 branch; SB9_766",
+          "sourceUrl": "https://www.ctio.noirlab.edu/~atokovin/stars/",
+          "section": "sys.tsv 13252-1110 Aa1/Aa2, parent Aa",
+          "scope": "Component classification from the confirmed inner binary branch, explicitly normalized to literature Aa/Ab; not the uncertain intermediate occultation branch."
+        }
+      }
+    },
+    "msc-07346+3153-c": {
+      "expectedName": "Castor Ca",
+      "systemId": "msc-07346+3153",
+      "component": "Ca",
+      "note": "YY Gem A/B follow the publication phase-zero primary convention, mapped to MSC Ca/Cb. New dynamical masses use the adopted eclipsing inclination; radii are volume-equivalent tomographic model results. The 3800 K value is the explicitly adopted common atmosphere parameter, not two independent measured temperatures. Luminosity is Stefan-Boltzmann scaling using those adopted model inputs; unresolved C flux and Gaia single-source radius/luminosity remain separate source observations.",
+      "fields": {
+        "mass_solar": {
+          "value": 0.60597,
+          "reference": "Kochukhov & Shulyak 2019; 2019ApJ...873...69K",
+          "sourceUrl": "https://arxiv.org/html/1902.04157",
+          "section": "Table 2, true masses after inclination correction",
+          "status": "dynamical",
+          "uncertainty": 0.00058,
+          "inputs": {
+            "inclination_deg": 86.29,
+            "inclination_error_deg": 0.1
+          }
+        },
+        "radius_solar": {
+          "value": 0.614,
+          "reference": "Kochukhov & Shulyak 2019; 2019ApJ...873...69K",
+          "sourceUrl": "https://arxiv.org/html/1902.04157",
+          "section": "Section V.1",
+          "status": "spectral-tomography-model",
+          "uncertainty": 0.01
+        },
+        "spectral_type": {
+          "value": "M1Ve",
+          "reference": "Kochukhov & Shulyak 2019; 2019ApJ...873...69K",
+          "sourceUrl": "https://arxiv.org/html/1902.04157",
+          "section": "Introduction: two active dM1e stars",
+          "status": "compiled"
+        },
+        "temperature_k": {
+          "value": 3800,
+          "reference": "Kochukhov & Shulyak 2019; 2019ApJ...873...69K",
+          "sourceUrl": "https://arxiv.org/html/1902.04157",
+          "section": "Sections III and VI",
+          "status": "adopted-model",
+          "scope": "Common assumed atmosphere temperature for YY Gem A/B; literature alternatives 3820 +/- 100 K and approximately 3770 +/- 100 K are retained in the frozen source. No formal independent component temperature error is claimed."
+        },
+        "age_gyr": {
+          "value": 0.29,
+          "reference": "Torres et al. 2022; 2022ApJ...941....8T",
+          "sourceUrl": "https://arxiv.org/html/2210.16322",
+          "section": "Sections IV.1-IV.2",
+          "status": "model-derived",
+          "scope": "Castor coeval-system age inferred from Aa, shared with the physically associated YY Gem pair; not a separate YY Gem age measurement."
+        }
+      }
+    },
+    "msc-07346+3153-cb": {
+      "expectedName": "Castor Cb",
+      "systemId": "msc-07346+3153",
+      "component": "Cb",
+      "note": "YY Gem A/B follow the publication phase-zero primary convention, mapped to MSC Ca/Cb. New dynamical masses use the adopted eclipsing inclination; radii are volume-equivalent tomographic model results. The 3800 K value is the explicitly adopted common atmosphere parameter, not two independent measured temperatures. Luminosity is Stefan-Boltzmann scaling using those adopted model inputs; unresolved C flux and Gaia single-source radius/luminosity remain separate source observations.",
+      "fields": {
+        "mass_solar": {
+          "value": 0.60633,
+          "reference": "Kochukhov & Shulyak 2019; 2019ApJ...873...69K",
+          "sourceUrl": "https://arxiv.org/html/1902.04157",
+          "section": "Table 2, true masses after inclination correction",
+          "status": "dynamical",
+          "uncertainty": 0.00061,
+          "inputs": {
+            "inclination_deg": 86.29,
+            "inclination_error_deg": 0.1
+          }
+        },
+        "radius_solar": {
+          "value": 0.612,
+          "reference": "Kochukhov & Shulyak 2019; 2019ApJ...873...69K",
+          "sourceUrl": "https://arxiv.org/html/1902.04157",
+          "section": "Section V.1",
+          "status": "spectral-tomography-model",
+          "uncertainty": 0.01
+        },
+        "spectral_type": {
+          "value": "M1Ve",
+          "reference": "Kochukhov & Shulyak 2019; 2019ApJ...873...69K",
+          "sourceUrl": "https://arxiv.org/html/1902.04157",
+          "section": "Introduction: two active dM1e stars",
+          "status": "compiled"
+        },
+        "temperature_k": {
+          "value": 3800,
+          "reference": "Kochukhov & Shulyak 2019; 2019ApJ...873...69K",
+          "sourceUrl": "https://arxiv.org/html/1902.04157",
+          "section": "Sections III and VI",
+          "status": "adopted-model",
+          "scope": "Common assumed atmosphere temperature for YY Gem A/B; literature alternatives 3820 +/- 100 K and approximately 3770 +/- 100 K are retained in the frozen source. No formal independent component temperature error is claimed."
+        },
+        "age_gyr": {
+          "value": 0.29,
+          "reference": "Torres et al. 2022; 2022ApJ...941....8T",
+          "sourceUrl": "https://arxiv.org/html/2210.16322",
+          "section": "Sections IV.1-IV.2",
+          "status": "model-derived",
+          "scope": "Castor coeval-system age inferred from Aa, shared with the physically associated YY Gem pair; not a separate YY Gem age measurement."
+        }
+      }
+    },
+    "bright-castor": {
+      "expectedName": "Castor Aa",
+      "systemId": "msc-07346+3153",
+      "component": "Aa",
+      "note": "Shared Castor formation age from the Aa mass/radius isochrone fit. Not an independent age measurement. The Ba-radius inconsistency and anomalous surface abundances limit the model inference.",
+      "fields": {
+        "age_gyr": {
+          "value": 0.29,
+          "reference": "Torres et al. 2022; 2022ApJ...941....8T",
+          "sourceUrl": "https://arxiv.org/html/2210.16322",
+          "section": "Section IV.1",
+          "status": "model-derived",
+          "scope": "Shared system age inferred from Aa; Ba radius alone would imply approximately 430 Myr. No formal confidence interval published."
+        }
+      }
+    },
+    "msc-07346+3153-ab": {
+      "expectedName": "Castor Ab",
+      "systemId": "msc-07346+3153",
+      "component": "Ab",
+      "note": "Shared Castor formation age from the Aa mass/radius isochrone fit. Not an independent age measurement. The Ba-radius inconsistency and anomalous surface abundances limit the model inference.",
+      "fields": {
+        "age_gyr": {
+          "value": 0.29,
+          "reference": "Torres et al. 2022; 2022ApJ...941....8T",
+          "sourceUrl": "https://arxiv.org/html/2210.16322",
+          "section": "Section IV.1",
+          "status": "model-derived",
+          "scope": "Shared system age inferred from Aa; Ba radius alone would imply approximately 430 Myr. No formal confidence interval published."
+        }
+      }
+    },
+    "msc-07346+3153-ba": {
+      "expectedName": "Castor Ba",
+      "systemId": "msc-07346+3153",
+      "component": "Ba",
+      "note": "Shared Castor formation age from the Aa mass/radius isochrone fit. Not an independent age measurement. The Ba-radius inconsistency and anomalous surface abundances limit the model inference.",
+      "fields": {
+        "age_gyr": {
+          "value": 0.29,
+          "reference": "Torres et al. 2022; 2022ApJ...941....8T",
+          "sourceUrl": "https://arxiv.org/html/2210.16322",
+          "section": "Section IV.1",
+          "status": "model-derived",
+          "scope": "Shared system age inferred from Aa; Ba radius alone would imply approximately 430 Myr. No formal confidence interval published."
+        }
+      }
+    },
+    "msc-07346+3153-bb": {
+      "expectedName": "Castor Bb",
+      "systemId": "msc-07346+3153",
+      "component": "Bb",
+      "note": "Shared Castor formation age from the Aa mass/radius isochrone fit. Not an independent age measurement. The Ba-radius inconsistency and anomalous surface abundances limit the model inference.",
+      "fields": {
+        "age_gyr": {
+          "value": 0.29,
+          "reference": "Torres et al. 2022; 2022ApJ...941....8T",
+          "sourceUrl": "https://arxiv.org/html/2210.16322",
+          "section": "Section IV.1",
+          "status": "model-derived",
+          "scope": "Shared system age inferred from Aa; Ba radius alone would imply approximately 430 Myr. No formal confidence interval published."
+        }
+      }
+    },
+    "bright-nunki": {
+      "expectedName": "Nunki Aa",
+      "systemId": "msc-18553-2618",
+      "component": "Aa",
+      "note": "Approximate individual isochrone mass and radius from Waisberg et al. 2025, explicitly retained by Waisberg & Katz 2026 sections 3.1 and 4.1. No formal individual errors supplied. The 14.6 +/- 1.8 solar-mass dynamical result is the total binary mass with two-sigma bounds; it is not assigned to either star. The approximately 18500 K line-ratio result is combined-spectrum evidence, not an independent component temperature. Withheld individual fields: luminosity_solar.",
+      "fields": {
+        "mass_solar": {
+          "value": 6.5,
+          "reference": "Waisberg & Katz 2026; arXiv:2603.17011v1",
+          "sourceUrl": "https://arxiv.org/html/2603.17011",
+          "section": "Section 4.1",
+          "status": "model-derived",
+          "approximate": true
+        },
+        "radius_solar": {
+          "value": 4.1,
+          "reference": "Waisberg & Katz 2026; arXiv:2603.17011v1",
+          "sourceUrl": "https://arxiv.org/html/2603.17011",
+          "section": "Section 3.1",
+          "status": "model-derived",
+          "approximate": true
+        }
+      }
+    },
+    "msc-18553-2618-ab": {
+      "expectedName": "Nunki Ab",
+      "systemId": "msc-18553-2618",
+      "component": "Ab",
+      "note": "Approximate individual isochrone mass and radius from Waisberg et al. 2025, explicitly retained by Waisberg & Katz 2026 sections 3.1 and 4.1. No formal individual errors supplied. The 14.6 +/- 1.8 solar-mass dynamical result is the total binary mass with two-sigma bounds; it is not assigned to either star. The approximately 18500 K line-ratio result is combined-spectrum evidence, not an independent component temperature. Withheld individual fields: luminosity_solar.",
+      "fields": {
+        "mass_solar": {
+          "value": 6.3,
+          "reference": "Waisberg & Katz 2026; arXiv:2603.17011v1",
+          "sourceUrl": "https://arxiv.org/html/2603.17011",
+          "section": "Section 4.1",
+          "status": "model-derived",
+          "approximate": true
+        },
+        "radius_solar": {
+          "value": 3.9,
+          "reference": "Waisberg & Katz 2026; arXiv:2603.17011v1",
+          "sourceUrl": "https://arxiv.org/html/2603.17011",
+          "section": "Section 3.1",
+          "status": "model-derived",
+          "approximate": true
+        }
+      }
+    },
+    "bright-menkalinan": {
+      "expectedName": "Menkalinan Aa",
+      "systemId": "orb6-05595+4457-aa-ab",
+      "component": "Aa",
+      "note": "Updated beta Aur primary/secondary solution from Jonak et al. 2026. Adopt rounded Table 8 values and profile-likelihood errors, rather than the smaller formal MCMC errors in Table 6. Primary temperature is fixed to the earlier 9350 K calibration; secondary temperature follows the new fitted ratio and retains that calibration uncertainty. Original Southworth 2007 measurements and provenance are retained. Catalog astrometric distance remains unchanged pending a separate motion/distance review.",
+      "fields": {
+        "mass_solar": {
+          "value": 2.359,
+          "reference": "Jonak et al. 2026; arXiv:2609.03886v1",
+          "sourceUrl": "https://arxiv.org/html/2609.03886v1",
+          "section": "Abstract and Table 8, profile-likelihood uncertainties",
+          "status": "dynamical",
+          "uncertainty": 0.005,
+          "replaces": {
+            "value": 2.376
+          }
+        },
+        "radius_solar": {
+          "value": 2.752,
+          "reference": "Jonak et al. 2026; arXiv:2609.03886v1",
+          "sourceUrl": "https://arxiv.org/html/2609.03886v1",
+          "section": "Abstract and Table 8, profile-likelihood uncertainties",
+          "status": "binary-model",
+          "uncertainty": 0.002,
+          "replaces": {
+            "value": 2.762
+          }
+        },
+        "luminosity_solar": {
+          "value": 52.14804275603479,
+          "reference": "Jonak et al. 2026; arXiv:2609.03886v1",
+          "sourceUrl": "https://arxiv.org/html/2609.03886v1",
+          "section": "Stefan-Boltzmann scaling from updated radius and adopted temperature",
+          "status": "derived",
+          "replaces": {
+            "value": 52.60172663907063
+          },
+          "inputs": {
+            "radius_solar": 2.752,
+            "temperature_k": 9350,
+            "solar_temperature_k": 5772
+          },
+          "scope": "Derived equivalent bolometric luminosity; no new direct flux measurement. Temperature calibration dominates the error."
+        }
+      }
+    },
+    "orb6-05595+4457-aa-ab-ab": {
+      "expectedName": "Menkalinan Ab",
+      "systemId": "orb6-05595+4457-aa-ab",
+      "component": "Ab",
+      "note": "Updated beta Aur primary/secondary solution from Jonak et al. 2026. Adopt rounded Table 8 values and profile-likelihood errors, rather than the smaller formal MCMC errors in Table 6. Primary temperature is fixed to the earlier 9350 K calibration; secondary temperature follows the new fitted ratio and retains that calibration uncertainty. Original Southworth 2007 measurements and provenance are retained. Catalog astrometric distance remains unchanged pending a separate motion/distance review.",
+      "fields": {
+        "mass_solar": {
+          "value": 2.293,
+          "reference": "Jonak et al. 2026; arXiv:2609.03886v1",
+          "sourceUrl": "https://arxiv.org/html/2609.03886v1",
+          "section": "Abstract and Table 8, profile-likelihood uncertainties",
+          "status": "dynamical",
+          "uncertainty": 0.004,
+          "replaces": {
+            "value": 2.291
+          }
+        },
+        "radius_solar": {
+          "value": 2.622,
+          "reference": "Jonak et al. 2026; arXiv:2609.03886v1",
+          "sourceUrl": "https://arxiv.org/html/2609.03886v1",
+          "section": "Abstract and Table 8, profile-likelihood uncertainties",
+          "status": "binary-model",
+          "uncertainty": 0.002,
+          "replaces": {
+            "value": 2.568
+          }
+        },
+        "temperature_k": {
+          "value": 9327,
+          "reference": "Jonak et al. 2026; arXiv:2609.03886v1",
+          "sourceUrl": "https://arxiv.org/html/2609.03886v1",
+          "section": "Section 5.1 and Table 6",
+          "status": "model-derived",
+          "uncertainty": 200,
+          "replaces": {
+            "value": 9200
+          },
+          "inputs": {
+            "fixed_primary_temperature_k": 9350,
+            "secondary_primary_ratio": 0.997543,
+            "primary_temperature_calibration_error_k": 200
+          },
+          "scope": "Conditional secondary temperature; retains the inherited primary calibration uncertainty, not just the sub-kelvin formal ratio error."
+        },
+        "luminosity_solar": {
+          "value": 46.87356572779555,
+          "reference": "Jonak et al. 2026; arXiv:2609.03886v1",
+          "sourceUrl": "https://arxiv.org/html/2609.03886v1",
+          "section": "Stefan-Boltzmann scaling from updated radius and adopted temperature",
+          "status": "derived",
+          "replaces": {
+            "value": 42.65795188015925
+          },
+          "inputs": {
+            "radius_solar": 2.622,
+            "temperature_k": 9327,
+            "solar_temperature_k": 5772
+          },
+          "scope": "Derived equivalent bolometric luminosity; no new direct flux measurement. Temperature calibration dominates the error."
+        }
+      }
+    }
+  }
+}

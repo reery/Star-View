@@ -37,14 +37,14 @@ class BrightSystemMotionTests(unittest.TestCase):
                            scope='No individual orbital velocity.', motionInputs=self.raw)
         self.audit = {'componentRecords':{}}
 
-    def apply(self):
+    def apply(self, hierarchy_reviews=()):
         path = self.root / PLAN
         path.parent.mkdir(parents=True, exist_ok=True)
         path.write_text(json.dumps({'systems':[self.review]}))
         manifest = self.root / 'catalog-work/shared-enrichment/source-manifest.json'
         manifest.parent.mkdir(parents=True, exist_ok=True)
         manifest.write_text(json.dumps({'checksumsSha256':{PLAN:hashlib.sha256(path.read_bytes()).hexdigest()}}))
-        apply_bright_system_motion(self.root, self.systems, self.pool, self.audit)
+        apply_bright_system_motion(self.root, self.systems, self.pool, self.audit, hierarchy_reviews)
 
     def test_vector_agrees_with_independent_astropy_coordinate_transform(self):
         for rv in (-16.1024, 0, 2.057):
@@ -86,6 +86,20 @@ class BrightSystemMotionTests(unittest.TestCase):
             self.apply()
         with self.assertRaisesRegex(ValueError,'Incomplete'):
             bulk_vector({**self.raw,'pm_dec_masyr':None},2)
+
+    def test_explicit_split_extends_bulk_motion_without_rewriting_frozen_membership(self):
+        before = copy.deepcopy(self.review)
+        self.systems[0]['components'] = [dict(starId='a', label='A'),
+            dict(starId='b', label='Ba'), dict(starId='bb', label='Bb')]
+        self.pool['bb'] = {**copy.deepcopy(self.pool['b']), 'id': 'bb'}
+        split = dict(systemId='pair', expectedComponents={'a': 'A', 'b': 'B'}, parentStarId='b',
+                     components=[dict(starId='b', label='Ba'), dict(starId='bb', label='Bb')])
+        self.apply([split])
+        self.assertEqual(self.review, before)
+        for identifier in ('b', 'bb'):
+            self.assertEqual(self.pool[identifier]['raw_astrometry']['radial_velocity_kms'], 2.057)
+            self.assertEqual(self.audit['componentRecords'][identifier]['brightSystemMotion']
+                             ['review']['hierarchyMapping'], split)
 
 
 if __name__ == '__main__':

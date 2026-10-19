@@ -70,10 +70,10 @@
         "vx_kms": -11.665372,
         "vy_kms": 16.010207,
         "vz_kms": 0.053054,
-        "temperature_k": 9199.0,
+        "temperature_k": 30700.0,
         "mass_solar": null,
-        "luminosity_solar": 1004.87,
-        "radius_solar": 12.4803,
+        "luminosity_solar": null,
+        "radius_solar": null,
         "metallicity_dex": null,
         "age_gyr": null,
         "absolute_mag": -3.14836,
@@ -84,7 +84,7 @@
         "constellation": "Ophiuchus",
         "spectral_type": "O9.2IVnn",
         "metallicity_kind": null,
-        "notes": "Western constellation line-figure star (HIP 81377; Stellarium Oph). SIMBAD identity * zet Oph; SIMBAD compiled Johnson V=2.56; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: reviewed Star View values for temperature_k, luminosity_solar, radius_solar.",
+        "notes": "Western constellation line-figure star (HIP 81377; Stellarium Oph). SIMBAD identity * zet Oph; SIMBAD compiled Johnson V=2.56; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Reviewed hot-star temperature: 2024A&A...687A.228D, HD 149757, J/A+A/687/A228/tabled1, 30700 K. Formal asymmetric temperature uncertainties from the published fit. No temperature is inferred from the spectral label. The old broadband SED luminosity and dependent radius are withheld; no component-safe replacement is adopted in this review.",
         "designations": [
           "HIP 81377"
         ],
@@ -1648,7 +1648,7 @@
       "label": "Adopted star positions and names",
       "url": "https://simbad.cds.unistra.fr/simbad/",
       "path": "src/data/catalogs/western-constellation-stars/stars.csv",
-      "sha256": "0a8b7c1dc3f7e3412c5cffb09a18cdf5b5b7424cc89ea8a0a1ffb4da57d3ad6a"
+      "sha256": "cd5d2e1def1e85bfd72925fef9a06ceefafb4c596f52e220a88e75a0fb4821fd"
     },
     {
       "label": "Hipparcos Johnson V magnitudes",

@@ -1,0 +1,466 @@
+{
+  "schemaVersion": 1,
+  "reviewedOn": "2026-10-19",
+  "policy": "Exact-component primary-source data only; retains previous adoptions and distinguishes estimates, model-dependent results, uncertainty conventions and equivalent radius definitions. No Info article changes.",
+  "inputSha256": {
+    "catalog-work/star-systems/literature-components/constellation-20261019-motion-selected.json": "a1a95aba0ce31aef48807a80a068a31f06b1e46e782557b002d232c83b1d0d2b"
+  },
+  "objects": {
+    "hip-75695": {
+      "expectedName": "Nusakan A",
+      "systemId": "orb6-15278+2906-a-b",
+      "component": "A",
+      "retainPreviousRecord": true,
+      "note": "A radius from interferometry; B radius from surface-brightness/color relation, not its noisier direct interferometric diameter. A temperature from flux/diameter; B temperature and luminosity depend on atmospheric/BC models. Masses and age are evolutionary estimates; age assumes coeval formation. Component V is a flux decomposition with an adopted 503-nm contrast. Uses original Hipparcos parallax 28.60 +/- 0.69 mas, not the current catalog distance.",
+      "fields": {
+        "temperature_k": {
+          "value": 7980,
+          "reference": "Bruntt et al. 2010; 2010A&A...512A..55B",
+          "sourceUrl": "https://www.chara.gsu.edu/files/papers/2010_Bruntt_AA_512_A55.pdf",
+          "section": "Table 3",
+          "status": "flux-diameter",
+          "uncertainty": 180
+        },
+        "radius_solar": {
+          "value": 2.63,
+          "reference": "Bruntt et al. 2010; 2010A&A...512A..55B",
+          "sourceUrl": "https://www.chara.gsu.edu/files/papers/2010_Bruntt_AA_512_A55.pdf",
+          "section": "Table 3",
+          "status": "interferometric",
+          "uncertainty": 0.09
+        },
+        "luminosity_solar": {
+          "value": 25.3,
+          "reference": "Bruntt et al. 2010; 2010A&A...512A..55B",
+          "sourceUrl": "https://www.chara.gsu.edu/files/papers/2010_Bruntt_AA_512_A55.pdf",
+          "section": "Table 3",
+          "status": "flux-derived",
+          "uncertainty": 2.9
+        },
+        "mass_solar": {
+          "value": 1.982,
+          "reference": "Anguita-Aguero et al. 2023; 2023AJ....166..172A",
+          "sourceUrl": "https://arxiv.org/html/2309.06394",
+          "section": "Table 5, both-prior Bayesian solution",
+          "status": "bayesian-model",
+          "uncertaintyMinus": 0.124,
+          "uncertaintyPlus": 0.101,
+          "uncertaintyKind": "95-percent-HDPI",
+          "scope": "MAP estimates and 95 percent highest-density posterior intervals, not Gaussian one-sigma errors. SB1 masses are conditional on both priors; secondary bounds use products of marginal bounds, not independent credible intervals. Dubhe mass solution is not adopted because of conflicting current primary mass; RV solution remains useful.",
+          "alternativeMeasurements": [
+            {
+              "value": 2.09,
+              "reference": "Bruntt et al. 2010; 2010A&A...512A..55B",
+              "sourceUrl": "https://www.chara.gsu.edu/files/papers/2010_Bruntt_AA_512_A55.pdf",
+              "section": "Table 3",
+              "status": "evolutionary-model",
+              "uncertainty": 0.15
+            }
+          ]
+        },
+        "age_gyr": {
+          "value": 0.53,
+          "reference": "Bruntt et al. 2010; 2010A&A...512A..55B",
+          "sourceUrl": "https://www.chara.gsu.edu/files/papers/2010_Bruntt_AA_512_A55.pdf",
+          "section": "Table 3 and section 3.3",
+          "status": "model-derived",
+          "uncertainty": 0.1,
+          "scope": "Shared coeval binary isochrone age, not independently measured for each component."
+        },
+        "spectral_type": {
+          "value": "A5",
+          "reference": "Bruntt et al. 2010; 2010A&A...512A..55B",
+          "sourceUrl": "https://www.chara.gsu.edu/files/papers/2010_Bruntt_AA_512_A55.pdf",
+          "section": "Table 3",
+          "status": "compiled",
+          "scope": "Broad spectral class from this component solution; no luminosity class inferred."
+        },
+        "apparent_mag": {
+          "value": 3.83,
+          "reference": "Bruntt et al. 2010; 2010A&A...512A..55B",
+          "sourceUrl": "https://www.chara.gsu.edu/files/papers/2010_Bruntt_AA_512_A55.pdf",
+          "section": "Section 2.3, equation 15",
+          "status": "flux-decomposed",
+          "uncertainty": 0.05,
+          "scope": "Johnson V inferred using the observed 503-nm contrast and integrated V; errors adopted by the authors."
+        }
+      }
+    },
+    "orb6-15278+2906-a-b-b": {
+      "expectedName": "Nusakan B",
+      "systemId": "orb6-15278+2906-a-b",
+      "component": "B",
+      "retainPreviousRecord": true,
+      "note": "A radius from interferometry; B radius from surface-brightness/color relation, not its noisier direct interferometric diameter. A temperature from flux/diameter; B temperature and luminosity depend on atmospheric/BC models. Masses and age are evolutionary estimates; age assumes coeval formation. Component V is a flux decomposition with an adopted 503-nm contrast. Uses original Hipparcos parallax 28.60 +/- 0.69 mas, not the current catalog distance.",
+      "fields": {
+        "temperature_k": {
+          "value": 6750,
+          "reference": "Bruntt et al. 2010; 2010A&A...512A..55B",
+          "sourceUrl": "https://www.chara.gsu.edu/files/papers/2010_Bruntt_AA_512_A55.pdf",
+          "section": "Table 3",
+          "status": "model-derived",
+          "uncertainty": 230
+        },
+        "radius_solar": {
+          "value": 1.56,
+          "reference": "Bruntt et al. 2010; 2010A&A...512A..55B",
+          "sourceUrl": "https://www.chara.gsu.edu/files/papers/2010_Bruntt_AA_512_A55.pdf",
+          "section": "Table 3",
+          "status": "surface-brightness-model",
+          "uncertainty": 0.07
+        },
+        "luminosity_solar": {
+          "value": 4.5,
+          "reference": "Bruntt et al. 2010; 2010A&A...512A..55B",
+          "sourceUrl": "https://www.chara.gsu.edu/files/papers/2010_Bruntt_AA_512_A55.pdf",
+          "section": "Table 3",
+          "status": "model-derived",
+          "uncertainty": 0.5
+        },
+        "mass_solar": {
+          "value": 1.635,
+          "reference": "Anguita-Aguero et al. 2023; 2023AJ....166..172A",
+          "sourceUrl": "https://arxiv.org/html/2309.06394",
+          "section": "Table 5, both-prior Bayesian solution",
+          "status": "bayesian-model",
+          "uncertaintyMinus": 0.149,
+          "uncertaintyPlus": 0.15,
+          "uncertaintyKind": "products-of-95-percent-marginal-bounds",
+          "scope": "MAP estimates and 95 percent highest-density posterior intervals, not Gaussian one-sigma errors. SB1 masses are conditional on both priors; secondary bounds use products of marginal bounds, not independent credible intervals. Dubhe mass solution is not adopted because of conflicting current primary mass; RV solution remains useful.",
+          "alternativeMeasurements": [
+            {
+              "value": 1.4,
+              "reference": "Bruntt et al. 2010; 2010A&A...512A..55B",
+              "sourceUrl": "https://www.chara.gsu.edu/files/papers/2010_Bruntt_AA_512_A55.pdf",
+              "section": "Table 3",
+              "status": "evolutionary-model",
+              "uncertainty": 0.1
+            }
+          ]
+        },
+        "age_gyr": {
+          "value": 0.53,
+          "reference": "Bruntt et al. 2010; 2010A&A...512A..55B",
+          "sourceUrl": "https://www.chara.gsu.edu/files/papers/2010_Bruntt_AA_512_A55.pdf",
+          "section": "Table 3 and section 3.3",
+          "status": "model-derived",
+          "uncertainty": 0.1,
+          "scope": "Shared coeval binary isochrone age, not independently measured for each component."
+        },
+        "spectral_type": {
+          "value": "F2",
+          "reference": "Bruntt et al. 2010; 2010A&A...512A..55B",
+          "sourceUrl": "https://www.chara.gsu.edu/files/papers/2010_Bruntt_AA_512_A55.pdf",
+          "section": "Table 3",
+          "status": "compiled",
+          "scope": "Broad spectral class from this component solution; no luminosity class inferred."
+        },
+        "apparent_mag": {
+          "value": 5.82,
+          "reference": "Bruntt et al. 2010; 2010A&A...512A..55B",
+          "sourceUrl": "https://www.chara.gsu.edu/files/papers/2010_Bruntt_AA_512_A55.pdf",
+          "section": "Section 2.3, equation 15",
+          "status": "flux-decomposed",
+          "uncertainty": 0.1,
+          "scope": "Johnson V inferred using the observed 503-nm contrast and integrated V; errors adopted by the authors."
+        }
+      }
+    },
+    "hip-43109": {
+      "expectedName": "Ashlesha A",
+      "systemId": "msc-08468+0625",
+      "component": "A",
+      "retainPreviousRecord": true,
+      "note": "MAP estimates and 95 percent highest-density posterior intervals, not Gaussian one-sigma errors. SB1 masses are conditional on both priors; secondary bounds use products of marginal bounds, not independent credible intervals. Dubhe mass solution is not adopted because of conflicting current primary mass; RV solution remains useful.",
+      "fields": {
+        "mass_solar": {
+          "value": 2.094,
+          "reference": "Anguita-Aguero et al. 2023; 2023AJ....166..172A",
+          "sourceUrl": "https://arxiv.org/html/2309.06394",
+          "section": "Table 5; joint-prior solution",
+          "status": "bayesian-model",
+          "uncertaintyMinus": 0.129,
+          "uncertaintyPlus": 0.094,
+          "uncertaintyKind": "95-percent-HDPI",
+          "scope": "MAP estimates and 95 percent highest-density posterior intervals, not Gaussian one-sigma errors. SB1 masses are conditional on both priors; secondary bounds use products of marginal bounds, not independent credible intervals. Dubhe mass solution is not adopted because of conflicting current primary mass; RV solution remains useful."
+        }
+      }
+    },
+    "msc-08468+0625-b": {
+      "expectedName": "Ashlesha B",
+      "systemId": "msc-08468+0625",
+      "component": "B",
+      "retainPreviousRecord": true,
+      "note": "MAP estimates and 95 percent highest-density posterior intervals, not Gaussian one-sigma errors. SB1 masses are conditional on both priors; secondary bounds use products of marginal bounds, not independent credible intervals. Dubhe mass solution is not adopted because of conflicting current primary mass; RV solution remains useful.",
+      "fields": {
+        "mass_solar": {
+          "value": 1.661,
+          "reference": "Anguita-Aguero et al. 2023; 2023AJ....166..172A",
+          "sourceUrl": "https://arxiv.org/html/2309.06394",
+          "section": "Table 5; joint-prior solution",
+          "status": "bayesian-model",
+          "uncertaintyMinus": 0.177,
+          "uncertaintyPlus": 0.188,
+          "uncertaintyKind": "products-of-95-percent-marginal-bounds",
+          "scope": "MAP estimates and 95 percent highest-density posterior intervals, not Gaussian one-sigma errors. SB1 masses are conditional on both priors; secondary bounds use products of marginal bounds, not independent credible intervals. Dubhe mass solution is not adopted because of conflicting current primary mass; RV solution remains useful."
+        }
+      }
+    },
+    "hip-30883": {
+      "expectedName": "Nu Gem Aa1",
+      "systemId": "msc-06290+2013",
+      "component": "Aa1",
+      "retainPreviousRecord": true,
+      "note": "Preferred C4 identification Aa=narrow-lined A2, Ab=broad-lined A1; alternatives exist. Temperatures are conservative adopted estimates, particularly the Be star temperature from classification. Inner luminosities and polar radii are rough rotating-star models with no formal errors. Polar radii are preserved here and are not adopted as spherical catalog radii. Model age is approximate and conditional. The catalog wide Ba/Bb pair is outside this three-star solution; no systemic velocity or physical measurements are copied to that pair. This adoption supersedes the older single-source atmosphere/mass/radius/luminosity estimates; earlier measurements and their scope remain in retained source records.",
+      "fields": {
+        "mass_solar": {
+          "value": 3.34,
+          "reference": "Klement et al. 2021; 2021ApJ...916...24K",
+          "sourceUrl": "https://arxiv.org/html/2105.13437",
+          "section": "Table 7, preferred solution C4",
+          "status": "dynamical",
+          "uncertainty": 0.15,
+          "replaces": {
+            "value": 5.6251197
+          }
+        },
+        "temperature_k": {
+          "value": 15000,
+          "reference": "Klement et al. 2021; 2021ApJ...916...24K",
+          "sourceUrl": "https://arxiv.org/html/2105.13437",
+          "section": "Section V.4, conservative adopted temperature",
+          "status": "adopted-estimate",
+          "uncertainty": 3000,
+          "scope": "Conservative temperature estimate from disentangled spectra with continuum and third-light systematics.",
+          "replaces": {
+            "value": 12484.597
+          }
+        },
+        "age_gyr": {
+          "value": 0.1,
+          "reference": "Klement et al. 2021; 2021ApJ...916...24K",
+          "sourceUrl": "https://arxiv.org/html/2105.13437",
+          "section": "Section VI.1 and Figure 11",
+          "status": "model-derived",
+          "approximate": true,
+          "scope": "Approximate common 100 Myr age from rotating-star tracks; no formal confidence interval. Applies to the confirmed close triple only."
+        },
+        "luminosity_solar": {
+          "value": 600,
+          "reference": "Klement et al. 2021; 2021ApJ...916...24K",
+          "sourceUrl": "https://arxiv.org/html/2105.13437",
+          "section": "Section V.4, rough rotating-star fit",
+          "status": "model-derived",
+          "approximate": true,
+          "scope": "Rough individual bolometric luminosity; no formal uncertainty published.",
+          "replaces": {
+            "value": 2030.6426
+          }
+        },
+        "radius_solar": {
+          "value": 3.6269849368323763,
+          "reference": "Klement et al. 2021; 2021ApJ...916...24K",
+          "sourceUrl": "https://arxiv.org/html/2105.13437",
+          "section": "Equivalent spherical radius from adopted luminosity and uniform temperature",
+          "status": "derived",
+          "approximate": true,
+          "inputs": {
+            "luminosity_solar": 600,
+            "temperature_k": 15000,
+            "solar_temperature_k": 5772
+          },
+          "scope": "Stefan-Boltzmann equivalent spherical radius, not a measured radius or the published polar radius of the rotating-star fit. Large temperature/model uncertainty applies; no independent error claimed.",
+          "replaces": {
+            "value": 9.641543
+          }
+        },
+        "absolute_mag": {
+          "value": -1.069243748003184,
+          "status": "derived",
+          "reference": "Klement et al. 2021; 2021ApJ...916...24K",
+          "sourceUrl": "https://arxiv.org/html/2105.13437",
+          "section": "Section V.4",
+          "approximate": true,
+          "scope": "Approximate individual Johnson V from H-band flux ratio transferred to V; no formal error reported. Absolute V uses the current adopted catalog distance without extinction correction; the paper used a different orbital distance.",
+          "inputs": {
+            "apparent_mag": 5.04,
+            "distance_pc": 166.66666666063406
+          },
+          "replaces": {
+            "value": -1.9692437480031844
+          }
+        },
+        "apparent_mag": {
+          "value": 5.04,
+          "status": "flux-decomposed",
+          "reference": "Klement et al. 2021; 2021ApJ...916...24K",
+          "sourceUrl": "https://arxiv.org/html/2105.13437",
+          "section": "Section V.4",
+          "approximate": true,
+          "scope": "Approximate individual Johnson V from H-band flux ratio transferred to V; no formal error reported. Absolute V uses the current adopted catalog distance without extinction correction; the paper used a different orbital distance.",
+          "inputs": {
+            "integrated_magnitude_v": 4.14
+          },
+          "replaces": {
+            "value": 4.14
+          }
+        }
+      },
+      "withheldFields": {
+        "metallicity_dex": {
+          "expectedPrevious": -1.4197,
+          "reason": "Gaia DR3 3372552842178783616 is the unresolved source already identified in the component audit. Its single-star atmosphere metallicity is not a resolved Aa1 abundance; retained with its original error and provenance as source evidence."
+        }
+      }
+    },
+    "msc-06290+2013-aa2": {
+      "expectedName": "Nu Gem Aa2",
+      "systemId": "msc-06290+2013",
+      "component": "Aa2",
+      "retainPreviousRecord": true,
+      "note": "Preferred C4 identification Aa=narrow-lined A2, Ab=broad-lined A1; alternatives exist. Temperatures are conservative adopted estimates, particularly the Be star temperature from classification. Inner luminosities and polar radii are rough rotating-star models with no formal errors. Polar radii are preserved here and are not adopted as spherical catalog radii. Model age is approximate and conditional. The catalog wide Ba/Bb pair is outside this three-star solution; no systemic velocity or physical measurements are copied to that pair. This adoption supersedes the older single-source atmosphere/mass/radius/luminosity estimates; earlier measurements and their scope remain in retained source records.",
+      "fields": {
+        "mass_solar": {
+          "value": 3.28,
+          "reference": "Klement et al. 2021; 2021ApJ...916...24K",
+          "sourceUrl": "https://arxiv.org/html/2105.13437",
+          "section": "Table 7, preferred solution C4",
+          "status": "dynamical",
+          "uncertainty": 0.1
+        },
+        "temperature_k": {
+          "value": 15000,
+          "reference": "Klement et al. 2021; 2021ApJ...916...24K",
+          "sourceUrl": "https://arxiv.org/html/2105.13437",
+          "section": "Section V.4, conservative adopted temperature",
+          "status": "adopted-estimate",
+          "uncertainty": 3000,
+          "scope": "Conservative temperature estimate from disentangled spectra with continuum and third-light systematics."
+        },
+        "age_gyr": {
+          "value": 0.1,
+          "reference": "Klement et al. 2021; 2021ApJ...916...24K",
+          "sourceUrl": "https://arxiv.org/html/2105.13437",
+          "section": "Section VI.1 and Figure 11",
+          "status": "model-derived",
+          "approximate": true,
+          "scope": "Approximate common 100 Myr age from rotating-star tracks; no formal confidence interval. Applies to the confirmed close triple only."
+        },
+        "luminosity_solar": {
+          "value": 400,
+          "reference": "Klement et al. 2021; 2021ApJ...916...24K",
+          "sourceUrl": "https://arxiv.org/html/2105.13437",
+          "section": "Section V.4, rough rotating-star fit",
+          "status": "model-derived",
+          "approximate": true,
+          "scope": "Rough individual bolometric luminosity; no formal uncertainty published."
+        },
+        "radius_solar": {
+          "value": 2.9614208,
+          "reference": "Klement et al. 2021; 2021ApJ...916...24K",
+          "sourceUrl": "https://arxiv.org/html/2105.13437",
+          "section": "Equivalent spherical radius from adopted luminosity and uniform temperature",
+          "status": "derived",
+          "approximate": true,
+          "inputs": {
+            "luminosity_solar": 400,
+            "temperature_k": 15000,
+            "solar_temperature_k": 5772
+          },
+          "scope": "Stefan-Boltzmann equivalent spherical radius, not a measured radius or the published polar radius of the rotating-star fit. Large temperature/model uncertainty applies; no independent error claimed."
+        },
+        "absolute_mag": {
+          "value": -0.34924374800318425,
+          "status": "derived",
+          "reference": "Klement et al. 2021; 2021ApJ...916...24K",
+          "sourceUrl": "https://arxiv.org/html/2105.13437",
+          "section": "Section V.4",
+          "approximate": true,
+          "scope": "Approximate individual Johnson V from H-band flux ratio transferred to V; no formal error reported. Absolute V uses the current adopted catalog distance without extinction correction; the paper used a different orbital distance.",
+          "inputs": {
+            "apparent_mag": 5.76,
+            "distance_pc": 166.66666666063406
+          }
+        },
+        "apparent_mag": {
+          "value": 5.76,
+          "status": "flux-decomposed",
+          "reference": "Klement et al. 2021; 2021ApJ...916...24K",
+          "sourceUrl": "https://arxiv.org/html/2105.13437",
+          "section": "Section V.4",
+          "approximate": true,
+          "scope": "Approximate individual Johnson V from H-band flux ratio transferred to V; no formal error reported. Absolute V uses the current adopted catalog distance without extinction correction; the paper used a different orbital distance.",
+          "inputs": {
+            "integrated_magnitude_v": 4.14
+          }
+        }
+      }
+    },
+    "msc-06290+2013-ab": {
+      "expectedName": "Nu Gem Ab",
+      "systemId": "msc-06290+2013",
+      "component": "Ab",
+      "retainPreviousRecord": true,
+      "note": "Preferred C4 identification Aa=narrow-lined A2, Ab=broad-lined A1; alternatives exist. Temperatures are conservative adopted estimates, particularly the Be star temperature from classification. Inner luminosities and polar radii are rough rotating-star models with no formal errors. Polar radii are preserved here and are not adopted as spherical catalog radii. Model age is approximate and conditional. The catalog wide Ba/Bb pair is outside this three-star solution; no systemic velocity or physical measurements are copied to that pair. This adoption supersedes the older single-source atmosphere/mass/radius/luminosity estimates; earlier measurements and their scope remain in retained source records.",
+      "fields": {
+        "mass_solar": {
+          "value": 3.33,
+          "reference": "Klement et al. 2021; 2021ApJ...916...24K",
+          "sourceUrl": "https://arxiv.org/html/2105.13437",
+          "section": "Table 7, preferred solution C4",
+          "status": "dynamical",
+          "uncertainty": 0.1
+        },
+        "temperature_k": {
+          "value": 12000,
+          "reference": "Klement et al. 2021; 2021ApJ...916...24K",
+          "sourceUrl": "https://arxiv.org/html/2105.13437",
+          "section": "Section V.4, conservative adopted temperature",
+          "status": "adopted-estimate",
+          "uncertainty": 3000,
+          "scope": "Conservative adopted estimate; the Be component has no directly detected photospheric spectrum."
+        },
+        "age_gyr": {
+          "value": 0.1,
+          "reference": "Klement et al. 2021; 2021ApJ...916...24K",
+          "sourceUrl": "https://arxiv.org/html/2105.13437",
+          "section": "Section VI.1 and Figure 11",
+          "status": "model-derived",
+          "approximate": true,
+          "scope": "Approximate common 100 Myr age from rotating-star tracks; no formal confidence interval. Applies to the confirmed close triple only."
+        },
+        "absolute_mag": {
+          "value": -0.7992437480031844,
+          "status": "derived",
+          "reference": "Klement et al. 2021; 2021ApJ...916...24K",
+          "sourceUrl": "https://arxiv.org/html/2105.13437",
+          "section": "Section V.4",
+          "approximate": true,
+          "scope": "Approximate individual Johnson V from H-band flux ratio transferred to V; no formal error reported. Absolute V uses the current adopted catalog distance without extinction correction; the paper used a different orbital distance.",
+          "inputs": {
+            "apparent_mag": 5.31,
+            "distance_pc": 166.66666666063406
+          },
+          "replaces": {
+            "value": -0.609243748003184
+          }
+        },
+        "apparent_mag": {
+          "value": 5.31,
+          "status": "flux-decomposed",
+          "reference": "Klement et al. 2021; 2021ApJ...916...24K",
+          "sourceUrl": "https://arxiv.org/html/2105.13437",
+          "section": "Section V.4",
+          "approximate": true,
+          "scope": "Approximate individual Johnson V from H-band flux ratio transferred to V; no formal error reported. Absolute V uses the current adopted catalog distance without extinction correction; the paper used a different orbital distance.",
+          "inputs": {
+            "integrated_magnitude_v": 4.14
+          },
+          "replaces": {
+            "value": 5.5
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,34 +1,34 @@
 {
   "schemaVersion": 1,
-  "reviewedOn": "2026-10-18",
-  "nonSolarObjects": 199,
+  "reviewedOn": "2026-10-19",
+  "nonSolarObjects": 201,
   "scope": "Effective generated bright catalog, including all confirmed companions loaded at runtime; Sun excluded because its heliocentric radial velocity is not applicable.",
   "researchBoundary": "Audit of every missing field against frozen exact-identity sources, plus the cited 2025/2026 surveys and dedicated component papers. Remaining gaps mean no adoption justified in this review, not proof that no publication exists.",
   "coverage": {
     "temperature_k": {
       "before": 138,
-      "after": 140,
-      "filled": 2
+      "after": 142,
+      "filled": 4
     },
     "mass_solar": {
       "before": 71,
-      "after": 98,
-      "filled": 27
+      "after": 104,
+      "filled": 33
     },
     "luminosity_solar": {
       "before": 95,
-      "after": 107,
-      "filled": 12
+      "after": 110,
+      "filled": 15
     },
     "radius_solar": {
       "before": 96,
-      "after": 109,
-      "filled": 13
+      "after": 114,
+      "filled": 18
     },
     "radial_velocity_kms": {
       "before": 85,
-      "after": 199,
-      "filled": 114
+      "after": 201,
+      "filled": 116
     }
   },
   "records": [
@@ -37,7 +37,7 @@
       "name": "Procyon A",
       "filled": {},
       "missing": [],
-      "radialVelocityReference": "1953GCRV..C......0W"
+      "radialVelocityReference": "1953GCRV..C......0W; compiled-primary-proxy; shared systemic velocity approximation"
     },
     {
       "id": "10pc-0032",
@@ -46,7 +46,7 @@
         "radial_velocity_kms": -3.2
       },
       "missing": [],
-      "radialVelocityReference": "1953GCRV..C......0W; compiled-system-proxy; shared systemic velocity approximation"
+      "radialVelocityReference": "1953GCRV..C......0W; compiled-primary-proxy; shared systemic velocity approximation"
     },
     {
       "id": "10pc-0117",
@@ -68,21 +68,21 @@
         "radius_solar"
       ],
       "remainingGapReason": "No additional adopted value justified by the exact-object frozen sources and literature reviewed here. No spectral-type mass or generic mass-luminosity calibration substituted.",
-      "radialVelocityReference": "SIMBAD TAP snapshot 2026-10-01; compiled-system-proxy; shared systemic velocity approximation"
+      "radialVelocityReference": "SIMBAD TAP snapshot 2026-10-01; compiled-primary-proxy; shared systemic velocity approximation"
     },
     {
       "id": "alpha-centauri-a",
       "name": "Alpha Centauri A",
       "filled": {},
       "missing": [],
-      "radialVelocityReference": "2021AJ....162...14A"
+      "radialVelocityReference": "2021AJ....162...14A; compiled-primary-proxy; shared systemic velocity approximation"
     },
     {
       "id": "alpha-centauri-b",
       "name": "Alpha Centauri B",
       "filled": {},
       "missing": [],
-      "radialVelocityReference": "2021AJ....162...14A"
+      "radialVelocityReference": "2021AJ....162...14A; compiled-primary-proxy; shared systemic velocity approximation"
     },
     {
       "id": "bright-achernar",
@@ -91,7 +91,7 @@
         "radial_velocity_kms": 8.47
       },
       "missing": [],
-      "radialVelocityReference": "SIMBAD TAP snapshot 2026-10-01; compiled-system-proxy; shared systemic velocity approximation"
+      "radialVelocityReference": "SIMBAD TAP snapshot 2026-10-01; compiled-system-proxy; shared systemic velocity approximation; compiled-primary-proxy; shared systemic velocity approximation"
     },
     {
       "id": "bright-acrux",
@@ -105,8 +105,8 @@
         "luminosity_solar",
         "radius_solar"
       ],
-      "remainingGapReason": "Retained catalog/system measurements are not a unique resolved-component observation. No additional exact-component value justified by the reviewed source set; blended flux, subsystem sums and MSC estimated masses remain source evidence.",
-      "radialVelocityReference": "SIMBAD TAP snapshot 2026-10-01; compiled-system-proxy; shared systemic velocity approximation"
+      "remainingGapReason": "No additional adopted value justified by the exact-object frozen sources and literature reviewed here. No spectral-type mass or generic mass-luminosity calibration substituted.",
+      "radialVelocityReference": "SIMBAD TAP snapshot 2026-10-01; compiled-system-proxy; shared systemic velocity approximation; compiled-primary-proxy; shared systemic velocity approximation"
     },
     {
       "id": "bright-adhara",
@@ -115,7 +115,7 @@
         "mass_solar": 13.1
       },
       "missing": [],
-      "radialVelocityReference": "SIMBAD TAP snapshot 2026-10-01"
+      "radialVelocityReference": "SIMBAD TAP snapshot 2026-10-01; compiled-primary-proxy; shared systemic velocity approximation"
     },
     {
       "id": "bright-aldebaran",
@@ -149,7 +149,7 @@
         "radial_velocity_kms": 4
       },
       "missing": [],
-      "radialVelocityReference": "SIMBAD TAP snapshot 2026-10-01; compiled-system-proxy; shared systemic velocity approximation"
+      "radialVelocityReference": "SIMBAD TAP snapshot 2026-10-01; compiled-system-proxy; shared systemic velocity approximation; compiled-primary-proxy; shared systemic velocity approximation"
     },
     {
       "id": "bright-alhena",
@@ -158,7 +158,7 @@
         "radial_velocity_kms": -12.63
       },
       "missing": [],
-      "radialVelocityReference": "SIMBAD TAP snapshot 2026-10-01; compiled-system-proxy; shared systemic velocity approximation"
+      "radialVelocityReference": "SIMBAD TAP snapshot 2026-10-01; compiled-system-proxy; shared systemic velocity approximation; compiled-primary-proxy; shared systemic velocity approximation"
     },
     {
       "id": "bright-alioth",
@@ -177,7 +177,7 @@
         "radial_velocity_kms": -12.599
       },
       "missing": [],
-      "radialVelocityReference": "SIMBAD TAP snapshot 2026-10-01; compiled-system-proxy; shared systemic velocity approximation"
+      "radialVelocityReference": "SIMBAD TAP snapshot 2026-10-01; compiled-system-proxy; shared systemic velocity approximation; compiled-primary-proxy; shared systemic velocity approximation"
     },
     {
       "id": "bright-alkaid",
@@ -193,8 +193,8 @@
       "missing": [
         "mass_solar"
       ],
-      "remainingGapReason": "Retained catalog/system measurements are not a unique resolved-component observation. No additional exact-component value justified by the reviewed source set; blended flux, subsystem sums and MSC estimated masses remain source evidence.",
-      "radialVelocityReference": "SIMBAD TAP snapshot 2026-10-01"
+      "remainingGapReason": "No additional adopted value justified by the exact-object frozen sources and literature reviewed here. No spectral-type mass or generic mass-luminosity calibration substituted.",
+      "radialVelocityReference": "SIMBAD TAP snapshot 2026-10-01; compiled-primary-proxy; shared systemic velocity approximation"
     },
     {
       "id": "bright-alnair",
@@ -222,8 +222,8 @@
         "luminosity_solar",
         "radius_solar"
       ],
-      "remainingGapReason": "Retained catalog/system measurements are not a unique resolved-component observation. No additional exact-component value justified by the reviewed source set; blended flux, subsystem sums and MSC estimated masses remain source evidence.",
-      "radialVelocityReference": "SIMBAD TAP snapshot 2026-10-01; compiled-system-proxy; shared systemic velocity approximation"
+      "remainingGapReason": "No additional adopted value justified by the exact-object frozen sources and literature reviewed here. No spectral-type mass or generic mass-luminosity calibration substituted.",
+      "radialVelocityReference": "SIMBAD TAP snapshot 2026-10-01; compiled-system-proxy; shared systemic velocity approximation; compiled-primary-proxy; shared systemic velocity approximation"
     },
     {
       "id": "bright-alpha-lupi",
@@ -246,8 +246,8 @@
         "luminosity_solar",
         "radius_solar"
       ],
-      "remainingGapReason": "Retained catalog/system measurements are not a unique resolved-component observation. No additional exact-component value justified by the reviewed source set; blended flux, subsystem sums and MSC estimated masses remain source evidence.",
-      "radialVelocityReference": "SIMBAD TAP snapshot 2026-10-01; compiled-system-proxy; shared systemic velocity approximation"
+      "remainingGapReason": "No additional adopted value justified by the exact-object frozen sources and literature reviewed here. No spectral-type mass or generic mass-luminosity calibration substituted.",
+      "radialVelocityReference": "SIMBAD TAP snapshot 2026-10-01; compiled-system-proxy; shared systemic velocity approximation; compiled-primary-proxy; shared systemic velocity approximation"
     },
     {
       "id": "bright-alphard",
@@ -273,7 +273,7 @@
       "name": "Alpheratz A",
       "filled": {},
       "missing": [],
-      "radialVelocityReference": "SIMBAD TAP snapshot 2026-10-01"
+      "radialVelocityReference": "SIMBAD TAP snapshot 2026-10-01; compiled-primary-proxy; shared systemic velocity approximation"
     },
     {
       "id": "bright-aludra",
@@ -306,7 +306,7 @@
         "mass_solar"
       ],
       "remainingGapReason": "Photospheric parameters adopted. Published 15 +/-5 solar track mass is INITIAL; current mass is a model-dependent range, so no point mass is fabricated.",
-      "radialVelocityReference": "SIMBAD TAP snapshot 2026-10-01; compiled-system-proxy; shared systemic velocity approximation"
+      "radialVelocityReference": "SIMBAD TAP snapshot 2026-10-01; compiled-system-proxy; shared systemic velocity approximation; compiled-primary-proxy; shared systemic velocity approximation"
     },
     {
       "id": "bright-antares-component-b",
@@ -320,7 +320,7 @@
         "radius_solar"
       ],
       "remainingGapReason": "No additional adopted value justified by the exact-object frozen sources and literature reviewed here. No spectral-type mass or generic mass-luminosity calibration substituted.",
-      "radialVelocityReference": "SIMBAD TAP snapshot 2026-10-01; compiled-system-proxy; shared systemic velocity approximation"
+      "radialVelocityReference": "SIMBAD TAP snapshot 2026-10-01; compiled-system-proxy; shared systemic velocity approximation; compiled-primary-proxy; shared systemic velocity approximation"
     },
     {
       "id": "bright-arneb",
@@ -344,8 +344,8 @@
         "luminosity_solar",
         "radius_solar"
       ],
-      "remainingGapReason": "Retained catalog/system measurements are not a unique resolved-component observation. No additional exact-component value justified by the reviewed source set; blended flux, subsystem sums and MSC estimated masses remain source evidence.",
-      "radialVelocityReference": "SIMBAD TAP snapshot 2026-10-01; compiled-system-proxy; shared systemic velocity approximation"
+      "remainingGapReason": "No additional adopted value justified by the exact-object frozen sources and literature reviewed here. No spectral-type mass or generic mass-luminosity calibration substituted.",
+      "radialVelocityReference": "SIMBAD TAP snapshot 2026-10-01; compiled-system-proxy; shared systemic velocity approximation; compiled-primary-proxy; shared systemic velocity approximation"
     },
     {
       "id": "bright-aspidiske",
@@ -378,8 +378,8 @@
         "luminosity_solar",
         "radius_solar"
       ],
-      "remainingGapReason": "Retained catalog/system measurements are not a unique resolved-component observation. No additional exact-component value justified by the reviewed source set; blended flux, subsystem sums and MSC estimated masses remain source evidence.",
-      "radialVelocityReference": "SIMBAD TAP snapshot 2026-10-01; compiled-system-proxy; shared systemic velocity approximation"
+      "remainingGapReason": "No additional adopted value justified by the exact-object frozen sources and literature reviewed here. No spectral-type mass or generic mass-luminosity calibration substituted.",
+      "radialVelocityReference": "SIMBAD TAP snapshot 2026-10-01; compiled-system-proxy; shared systemic velocity approximation; compiled-primary-proxy; shared systemic velocity approximation"
     },
     {
       "id": "bright-avior-component-b",
@@ -394,7 +394,7 @@
         "radius_solar"
       ],
       "remainingGapReason": "No additional adopted value justified by the exact-object frozen sources and literature reviewed here. No spectral-type mass or generic mass-luminosity calibration substituted.",
-      "radialVelocityReference": "SIMBAD TAP snapshot 2026-10-01; compiled-system-proxy; shared systemic velocity approximation"
+      "radialVelocityReference": "SIMBAD TAP snapshot 2026-10-01; compiled-system-proxy; shared systemic velocity approximation; compiled-primary-proxy; shared systemic velocity approximation"
     },
     {
       "id": "bright-bellatrix",
@@ -424,8 +424,8 @@
         "luminosity_solar",
         "radius_solar"
       ],
-      "remainingGapReason": "Retained catalog/system measurements are not a unique resolved-component observation. No additional exact-component value justified by the reviewed source set; blended flux, subsystem sums and MSC estimated masses remain source evidence.",
-      "radialVelocityReference": "SIMBAD TAP snapshot 2026-10-01; compiled-system-proxy; shared systemic velocity approximation"
+      "remainingGapReason": "No additional adopted value justified by the exact-object frozen sources and literature reviewed here. No spectral-type mass or generic mass-luminosity calibration substituted.",
+      "radialVelocityReference": "SIMBAD TAP snapshot 2026-10-01; compiled-system-proxy; shared systemic velocity approximation; compiled-primary-proxy; shared systemic velocity approximation"
     },
     {
       "id": "bright-beta-scorpii-a",
@@ -438,8 +438,8 @@
         "luminosity_solar",
         "radius_solar"
       ],
-      "remainingGapReason": "Retained catalog/system measurements are not a unique resolved-component observation. No additional exact-component value justified by the reviewed source set; blended flux, subsystem sums and MSC estimated masses remain source evidence.",
-      "radialVelocityReference": "SIMBAD TAP snapshot 2026-10-01; compiled-system-proxy; shared systemic velocity approximation"
+      "remainingGapReason": "No additional adopted value justified by the exact-object frozen sources and literature reviewed here. No spectral-type mass or generic mass-luminosity calibration substituted.",
+      "radialVelocityReference": "SIMBAD TAP snapshot 2026-10-01; compiled-system-proxy; shared systemic velocity approximation; compiled-primary-proxy; shared systemic velocity approximation"
     },
     {
       "id": "bright-betelgeuse",
@@ -489,8 +489,8 @@
         "luminosity_solar",
         "radius_solar"
       ],
-      "remainingGapReason": "Retained catalog/system measurements are not a unique resolved-component observation. No additional exact-component value justified by the reviewed source set; blended flux, subsystem sums and MSC estimated masses remain source evidence.",
-      "radialVelocityReference": "SIMBAD TAP snapshot 2026-10-01; compiled-system-proxy; shared systemic velocity approximation"
+      "remainingGapReason": "No additional adopted value justified by the exact-object frozen sources and literature reviewed here. No spectral-type mass or generic mass-luminosity calibration substituted.",
+      "radialVelocityReference": "SIMBAD TAP snapshot 2026-10-01; compiled-system-proxy; shared systemic velocity approximation; compiled-primary-proxy; shared systemic velocity approximation"
     },
     {
       "id": "bright-deneb",
@@ -522,16 +522,16 @@
         "radial_velocity_kms": -6
       },
       "missing": [],
-      "radialVelocityReference": "SIMBAD TAP snapshot 2026-10-01; compiled-system-proxy; shared systemic velocity approximation"
+      "radialVelocityReference": "SIMBAD TAP snapshot 2026-10-01; compiled-system-proxy; shared systemic velocity approximation; compiled-primary-proxy; shared systemic velocity approximation"
     },
     {
       "id": "bright-dubhe",
       "name": "Dubhe A",
       "filled": {
-        "radial_velocity_kms": -9.4
+        "radial_velocity_kms": -9.681
       },
       "missing": [],
-      "radialVelocityReference": "SIMBAD TAP snapshot 2026-10-01; compiled-system-proxy; shared systemic velocity approximation"
+      "radialVelocityReference": "Anguita-Aguero et al. 2023; 2023AJ....166..172A; published-subsystem-proxy; shared systemic velocity approximation"
     },
     {
       "id": "bright-elnath",
@@ -598,8 +598,8 @@
         "luminosity_solar",
         "radius_solar"
       ],
-      "remainingGapReason": "Retained catalog/system measurements are not a unique resolved-component observation. No additional exact-component value justified by the reviewed source set; blended flux, subsystem sums and MSC estimated masses remain source evidence.",
-      "radialVelocityReference": "SIMBAD TAP snapshot 2026-10-01"
+      "remainingGapReason": "No additional adopted value justified by the exact-object frozen sources and literature reviewed here. No spectral-type mass or generic mass-luminosity calibration substituted.",
+      "radialVelocityReference": "SIMBAD TAP snapshot 2026-10-01; compiled-primary-proxy; shared systemic velocity approximation"
     },
     {
       "id": "bright-gamma-centauri",
@@ -613,8 +613,8 @@
         "luminosity_solar",
         "radius_solar"
       ],
-      "remainingGapReason": "Retained catalog/system measurements are not a unique resolved-component observation. No additional exact-component value justified by the reviewed source set; blended flux, subsystem sums and MSC estimated masses remain source evidence.",
-      "radialVelocityReference": "SIMBAD TAP snapshot 2026-10-01; compiled-system-proxy; shared systemic velocity approximation"
+      "remainingGapReason": "No additional adopted value justified by the exact-object frozen sources and literature reviewed here. No spectral-type mass or generic mass-luminosity calibration substituted.",
+      "radialVelocityReference": "SIMBAD TAP snapshot 2026-10-01; compiled-system-proxy; shared systemic velocity approximation; compiled-primary-proxy; shared systemic velocity approximation"
     },
     {
       "id": "bright-gienah",
@@ -634,8 +634,8 @@
         "luminosity_solar",
         "radius_solar"
       ],
-      "remainingGapReason": "Retained catalog/system measurements are not a unique resolved-component observation. No additional exact-component value justified by the reviewed source set; blended flux, subsystem sums and MSC estimated masses remain source evidence.",
-      "radialVelocityReference": "SIMBAD TAP snapshot 2026-10-01; compiled-system-proxy; shared systemic velocity approximation"
+      "remainingGapReason": "No additional adopted value justified by the exact-object frozen sources and literature reviewed here. No spectral-type mass or generic mass-luminosity calibration substituted.",
+      "radialVelocityReference": "SIMBAD TAP snapshot 2026-10-01; compiled-system-proxy; shared systemic velocity approximation; compiled-primary-proxy; shared systemic velocity approximation"
     },
     {
       "id": "bright-hamal",
@@ -660,7 +660,7 @@
         "mass_solar": 5.36
       },
       "missing": [],
-      "radialVelocityReference": "SIMBAD TAP snapshot 2026-10-01"
+      "radialVelocityReference": "SIMBAD TAP snapshot 2026-10-01; compiled-primary-proxy; shared systemic velocity approximation"
     },
     {
       "id": "bright-kappa-scorpii",
@@ -737,8 +737,8 @@
         "luminosity_solar",
         "radius_solar"
       ],
-      "remainingGapReason": "Retained catalog/system measurements are not a unique resolved-component observation. No additional exact-component value justified by the reviewed source set; blended flux, subsystem sums and MSC estimated masses remain source evidence.",
-      "radialVelocityReference": "SIMBAD TAP snapshot 2026-10-01; compiled-system-proxy; shared systemic velocity approximation"
+      "remainingGapReason": "No additional adopted value justified by the exact-object frozen sources and literature reviewed here. No spectral-type mass or generic mass-luminosity calibration substituted.",
+      "radialVelocityReference": "SIMBAD TAP snapshot 2026-10-01; compiled-system-proxy; shared systemic velocity approximation; compiled-primary-proxy; shared systemic velocity approximation"
     },
     {
       "id": "bright-markab",
@@ -760,11 +760,28 @@
     {
       "id": "bright-menkalinan",
       "name": "Menkalinan Aa",
+      "supersededAdoptions": {
+        "mass_solar": {
+          "previous": 2.376,
+          "adopted": 2.359,
+          "scope": "Previous adoption retained in component catalog_sources or the reviewed-literature replacement audit, including source evidence; current literature/system-motion adoption has separate provenance."
+        },
+        "luminosity_solar": {
+          "previous": 52.60172663907063,
+          "adopted": 52.14804275603479,
+          "scope": "Previous adoption retained in component catalog_sources or the reviewed-literature replacement audit, including source evidence; current literature/system-motion adoption has separate provenance."
+        },
+        "radius_solar": {
+          "previous": 2.762,
+          "adopted": 2.752,
+          "scope": "Previous adoption retained in component catalog_sources or the reviewed-literature replacement audit, including source evidence; current literature/system-motion adoption has separate provenance."
+        }
+      },
       "filled": {
         "radial_velocity_kms": -15.75
       },
       "missing": [],
-      "radialVelocityReference": "SIMBAD TAP snapshot 2026-10-01; compiled-system-proxy; shared systemic velocity approximation"
+      "radialVelocityReference": "SIMBAD TAP snapshot 2026-10-01; compiled-system-proxy; shared systemic velocity approximation; compiled-primary-proxy; shared systemic velocity approximation"
     },
     {
       "id": "bright-menkar",
@@ -814,8 +831,8 @@
         "luminosity_solar",
         "radius_solar"
       ],
-      "remainingGapReason": "Retained catalog/system measurements are not a unique resolved-component observation. No additional exact-component value justified by the reviewed source set; blended flux, subsystem sums and MSC estimated masses remain source evidence.",
-      "radialVelocityReference": "SIMBAD TAP snapshot 2026-10-01; compiled-system-proxy; shared systemic velocity approximation"
+      "remainingGapReason": "No additional adopted value justified by the exact-object frozen sources and literature reviewed here. No spectral-type mass or generic mass-luminosity calibration substituted.",
+      "radialVelocityReference": "SIMBAD TAP snapshot 2026-10-01; compiled-system-proxy; shared systemic velocity approximation; compiled-primary-proxy; shared systemic velocity approximation"
     },
     {
       "id": "bright-mirach",
@@ -852,14 +869,14 @@
       "id": "bright-mizar-a",
       "name": "Mizar Aa",
       "filled": {
-        "radial_velocity_kms": -5.6
+        "radial_velocity_kms": -7.309
       },
       "missing": [
         "luminosity_solar",
         "radius_solar"
       ],
-      "remainingGapReason": "Retained catalog/system measurements are not a unique resolved-component observation. No additional exact-component value justified by the reviewed source set; blended flux, subsystem sums and MSC estimated masses remain source evidence.",
-      "radialVelocityReference": "SIMBAD TAP snapshot 2026-09-25; compiled-system-proxy; shared systemic velocity approximation"
+      "remainingGapReason": "No additional adopted value justified by the exact-object frozen sources and literature reviewed here. No spectral-type mass or generic mass-luminosity calibration substituted.",
+      "radialVelocityReference": "Behr et al. 2011; 2011AJ....142....6B; published-subsystem-proxy; shared systemic velocity approximation"
     },
     {
       "id": "bright-mu-velorum",
@@ -873,8 +890,8 @@
         "luminosity_solar",
         "radius_solar"
       ],
-      "remainingGapReason": "Retained catalog/system measurements are not a unique resolved-component observation. No additional exact-component value justified by the reviewed source set; blended flux, subsystem sums and MSC estimated masses remain source evidence.",
-      "radialVelocityReference": "SIMBAD TAP snapshot 2026-10-01; compiled-system-proxy; shared systemic velocity approximation"
+      "remainingGapReason": "No additional adopted value justified by the exact-object frozen sources and literature reviewed here. No spectral-type mass or generic mass-luminosity calibration substituted.",
+      "radialVelocityReference": "SIMBAD TAP snapshot 2026-10-01; compiled-system-proxy; shared systemic velocity approximation; compiled-primary-proxy; shared systemic velocity approximation"
     },
     {
       "id": "bright-naos",
@@ -890,15 +907,15 @@
       "id": "bright-nunki",
       "name": "Nunki Aa",
       "filled": {
+        "mass_solar": 6.5,
+        "radius_solar": 4.1,
         "radial_velocity_kms": -11.2
       },
       "missing": [
-        "mass_solar",
-        "luminosity_solar",
-        "radius_solar"
+        "luminosity_solar"
       ],
-      "remainingGapReason": "Retained catalog/system measurements are not a unique resolved-component observation. No additional exact-component value justified by the reviewed source set; blended flux, subsystem sums and MSC estimated masses remain source evidence.",
-      "radialVelocityReference": "SIMBAD TAP snapshot 2026-10-01; compiled-system-proxy; shared systemic velocity approximation"
+      "remainingGapReason": "No additional adopted value justified by the exact-object frozen sources and literature reviewed here. No spectral-type mass or generic mass-luminosity calibration substituted.",
+      "radialVelocityReference": "SIMBAD TAP snapshot 2026-10-01; compiled-system-proxy; shared systemic velocity approximation; compiled-primary-proxy; shared systemic velocity approximation"
     },
     {
       "id": "bright-peacock",
@@ -946,7 +963,7 @@
         "radial_velocity_kms": 11.7
       },
       "missing": [],
-      "radialVelocityReference": "SIMBAD TAP snapshot 2026-10-01; compiled-system-proxy; shared systemic velocity approximation"
+      "radialVelocityReference": "SIMBAD TAP snapshot 2026-10-01; compiled-system-proxy; shared systemic velocity approximation; compiled-primary-proxy; shared systemic velocity approximation"
     },
     {
       "id": "bright-regor",
@@ -957,8 +974,8 @@
       "missing": [
         "temperature_k"
       ],
-      "remainingGapReason": "Retained catalog/system measurements are not a unique resolved-component observation. No additional exact-component value justified by the reviewed source set; blended flux, subsystem sums and MSC estimated masses remain source evidence.",
-      "radialVelocityReference": "SIMBAD TAP snapshot 2026-10-01; compiled-system-proxy; shared systemic velocity approximation"
+      "remainingGapReason": "No additional adopted value justified by the exact-object frozen sources and literature reviewed here. No spectral-type mass or generic mass-luminosity calibration substituted.",
+      "radialVelocityReference": "SIMBAD TAP snapshot 2026-10-01; compiled-system-proxy; shared systemic velocity approximation; compiled-primary-proxy; shared systemic velocity approximation"
     },
     {
       "id": "bright-regulus",
@@ -971,15 +988,15 @@
         "luminosity_solar",
         "radius_solar"
       ],
-      "remainingGapReason": "Retained catalog/system measurements are not a unique resolved-component observation. No additional exact-component value justified by the reviewed source set; blended flux, subsystem sums and MSC estimated masses remain source evidence.",
-      "radialVelocityReference": "SIMBAD TAP snapshot 2026-10-01; compiled-system-proxy; shared systemic velocity approximation"
+      "remainingGapReason": "No additional adopted value justified by the exact-object frozen sources and literature reviewed here. No spectral-type mass or generic mass-luminosity calibration substituted.",
+      "radialVelocityReference": "SIMBAD TAP snapshot 2026-10-01; compiled-system-proxy; shared systemic velocity approximation; compiled-primary-proxy; shared systemic velocity approximation"
     },
     {
       "id": "bright-rigel",
       "name": "Rigel",
       "filled": {},
       "missing": [],
-      "radialVelocityReference": "SIMBAD TAP snapshot 2026-10-01"
+      "radialVelocityReference": "SIMBAD TAP snapshot 2026-10-01; compiled-primary-proxy; shared systemic velocity approximation"
     },
     {
       "id": "bright-ruchbah",
@@ -1005,8 +1022,8 @@
         "luminosity_solar",
         "radius_solar"
       ],
-      "remainingGapReason": "Retained catalog/system measurements are not a unique resolved-component observation. No additional exact-component value justified by the reviewed source set; blended flux, subsystem sums and MSC estimated masses remain source evidence.",
-      "radialVelocityReference": "SIMBAD TAP snapshot 2026-10-01; compiled-system-proxy; shared systemic velocity approximation"
+      "remainingGapReason": "No additional adopted value justified by the exact-object frozen sources and literature reviewed here. No spectral-type mass or generic mass-luminosity calibration substituted.",
+      "radialVelocityReference": "SIMBAD TAP snapshot 2026-10-01; compiled-system-proxy; shared systemic velocity approximation; compiled-primary-proxy; shared systemic velocity approximation"
     },
     {
       "id": "bright-sadr",
@@ -1034,8 +1051,8 @@
         "luminosity_solar",
         "radius_solar"
       ],
-      "remainingGapReason": "Retained catalog/system measurements are not a unique resolved-component observation. No additional exact-component value justified by the reviewed source set; blended flux, subsystem sums and MSC estimated masses remain source evidence.",
-      "radialVelocityReference": "SIMBAD TAP snapshot 2026-10-01; compiled-system-proxy; shared systemic velocity approximation"
+      "remainingGapReason": "No additional adopted value justified by the exact-object frozen sources and literature reviewed here. No spectral-type mass or generic mass-luminosity calibration substituted.",
+      "radialVelocityReference": "SIMBAD TAP snapshot 2026-10-01; compiled-system-proxy; shared systemic velocity approximation; compiled-primary-proxy; shared systemic velocity approximation"
     },
     {
       "id": "bright-scheat",
@@ -1071,8 +1088,8 @@
         "luminosity_solar",
         "radius_solar"
       ],
-      "remainingGapReason": "Retained catalog/system measurements are not a unique resolved-component observation. No additional exact-component value justified by the reviewed source set; blended flux, subsystem sums and MSC estimated masses remain source evidence.",
-      "radialVelocityReference": "SIMBAD TAP snapshot 2026-10-01; compiled-system-proxy; shared systemic velocity approximation"
+      "remainingGapReason": "No additional adopted value justified by the exact-object frozen sources and literature reviewed here. No spectral-type mass or generic mass-luminosity calibration substituted.",
+      "radialVelocityReference": "SIMBAD TAP snapshot 2026-10-01; compiled-system-proxy; shared systemic velocity approximation; compiled-primary-proxy; shared systemic velocity approximation"
     },
     {
       "id": "bright-sheratan",
@@ -1084,22 +1101,27 @@
         "luminosity_solar",
         "radius_solar"
       ],
-      "remainingGapReason": "Retained catalog/system measurements are not a unique resolved-component observation. No additional exact-component value justified by the reviewed source set; blended flux, subsystem sums and MSC estimated masses remain source evidence.",
-      "radialVelocityReference": "SIMBAD TAP snapshot 2026-10-01; compiled-system-proxy; shared systemic velocity approximation"
+      "remainingGapReason": "No additional adopted value justified by the exact-object frozen sources and literature reviewed here. No spectral-type mass or generic mass-luminosity calibration substituted.",
+      "radialVelocityReference": "SIMBAD TAP snapshot 2026-10-01; compiled-system-proxy; shared systemic velocity approximation; compiled-primary-proxy; shared systemic velocity approximation"
     },
     {
       "id": "bright-spica",
-      "name": "Spica Aab",
+      "name": "Spica Aa",
+      "supersededAdoptions": {
+        "temperature_k": {
+          "previous": 26000.0,
+          "adopted": 25300,
+          "scope": "Previous adoption retained in component catalog_sources or the reviewed-literature replacement audit, including source evidence; current literature/system-motion adoption has separate provenance."
+        }
+      },
       "filled": {
+        "mass_solar": 11.43,
+        "luminosity_solar": 20511.621788255667,
+        "radius_solar": 7.47,
         "radial_velocity_kms": -3.31
       },
-      "missing": [
-        "mass_solar",
-        "luminosity_solar",
-        "radius_solar"
-      ],
-      "remainingGapReason": "Aab is itself a retained unresolved pair. Published Aa/Ab quantities or sums are not individual Aab-star measurements; Ac stays separate.",
-      "radialVelocityReference": "SIMBAD TAP snapshot 2026-10-01; compiled-system-proxy; shared systemic velocity approximation"
+      "missing": [],
+      "radialVelocityReference": "SIMBAD TAP snapshot 2026-10-01; compiled-system-proxy; shared systemic velocity approximation; compiled-primary-proxy; shared systemic velocity approximation"
     },
     {
       "id": "bright-suhail",
@@ -1156,21 +1178,28 @@
       "name": "Capella Ab",
       "filled": {},
       "missing": [],
-      "radialVelocityReference": "2015ApJ...807...26T:Table 2; shared systemic velocity approximation"
+      "radialVelocityReference": "2015ApJ...807...26T:Table 2; shared systemic velocity approximation; published-systemic; shared systemic velocity approximation"
     },
     {
       "id": "cns5-1318",
       "name": "Capella Aa",
       "filled": {},
       "missing": [],
-      "radialVelocityReference": "2015ApJ...807...26T:Table 2; shared systemic velocity approximation"
+      "radialVelocityReference": "2015ApJ...807...26T:Table 2; shared systemic velocity approximation; published-systemic; shared systemic velocity approximation"
     },
     {
       "id": "cns5-1323",
       "name": "Capella H",
+      "supersededAdoptions": {
+        "radial_velocity_kms": {
+          "previous": 30.15380859375,
+          "adopted": 29.9387,
+          "scope": "Previous adoption retained in component catalog_sources or the reviewed-literature replacement audit, including source evidence; current literature/system-motion adoption has separate provenance."
+        }
+      },
       "filled": {},
       "missing": [],
-      "radialVelocityReference": "2020yCat.1350....0G"
+      "radialVelocityReference": "2015ApJ...807...26T:Table 2; shared systemic velocity approximation; published-systemic; shared systemic velocity approximation"
     },
     {
       "id": "cns5-1324",
@@ -1182,7 +1211,7 @@
         "temperature_k",
         "luminosity_solar"
       ],
-      "remainingGapReason": "Retained catalog/system measurements are not a unique resolved-component observation. No additional exact-component value justified by the reviewed source set; blended flux, subsystem sums and MSC estimated masses remain source evidence.",
+      "remainingGapReason": "No additional adopted value justified by the exact-object frozen sources and literature reviewed here. No spectral-type mass or generic mass-luminosity calibration substituted.",
       "radialVelocityReference": "2015ApJ...807...26T:Table 2; shared systemic velocity approximation; published-systemic; shared systemic velocity approximation"
     },
     {
@@ -1224,23 +1253,37 @@
     {
       "id": "cns5-5623",
       "name": "Fomalhaut C",
+      "supersededAdoptions": {
+        "radial_velocity_kms": {
+          "previous": 5.773293,
+          "adopted": 6.5,
+          "scope": "Previous adoption retained in component catalog_sources or the reviewed-literature replacement audit, including source evidence; current literature/system-motion adoption has separate provenance."
+        }
+      },
       "filled": {},
       "missing": [],
-      "radialVelocityReference": "Gaia DR3"
+      "radialVelocityReference": "SIMBAD TAP snapshot 2026-10-01; compiled-primary-proxy; shared systemic velocity approximation"
     },
     {
       "id": "cns5-5660",
       "name": "Fomalhaut B",
+      "supersededAdoptions": {
+        "radial_velocity_kms": {
+          "previous": 6.996584892272949,
+          "adopted": 6.5,
+          "scope": "Previous adoption retained in component catalog_sources or the reviewed-literature replacement audit, including source evidence; current literature/system-motion adoption has separate provenance."
+        }
+      },
       "filled": {},
       "missing": [],
-      "radialVelocityReference": "2020yCat.1350....0G"
+      "radialVelocityReference": "SIMBAD TAP snapshot 2026-10-01; compiled-primary-proxy; shared systemic velocity approximation"
     },
     {
       "id": "cns5-5665",
       "name": "Fomalhaut",
       "filled": {},
       "missing": [],
-      "radialVelocityReference": "SIMBAD TAP snapshot 2026-10-01"
+      "radialVelocityReference": "SIMBAD TAP snapshot 2026-10-01; compiled-primary-proxy; shared systemic velocity approximation"
     },
     {
       "id": "msc-00084+2905-b",
@@ -1254,7 +1297,7 @@
         "radius_solar"
       ],
       "remainingGapReason": "No additional adopted value justified by the exact-object frozen sources and literature reviewed here. No spectral-type mass or generic mass-luminosity calibration substituted.",
-      "radialVelocityReference": "SIMBAD TAP snapshot 2026-10-01; compiled-system-proxy; shared systemic velocity approximation"
+      "radialVelocityReference": "SIMBAD TAP snapshot 2026-10-01; compiled-primary-proxy; shared systemic velocity approximation"
     },
     {
       "id": "msc-00567+6043-b",
@@ -1269,7 +1312,7 @@
         "radius_solar"
       ],
       "remainingGapReason": "No additional adopted value justified by the exact-object frozen sources and literature reviewed here. No spectral-type mass or generic mass-luminosity calibration substituted.",
-      "radialVelocityReference": "SIMBAD TAP snapshot 2026-10-01; compiled-system-proxy; shared systemic velocity approximation"
+      "radialVelocityReference": "SIMBAD TAP snapshot 2026-10-01; compiled-primary-proxy; shared systemic velocity approximation"
     },
     {
       "id": "msc-02039+4220-ba",
@@ -1283,7 +1326,7 @@
         "radius_solar"
       ],
       "remainingGapReason": "No additional adopted value justified by the exact-object frozen sources and literature reviewed here. No spectral-type mass or generic mass-luminosity calibration substituted.",
-      "radialVelocityReference": "SIMBAD TAP snapshot 2026-10-01; compiled-system-proxy; shared systemic velocity approximation"
+      "radialVelocityReference": "SIMBAD TAP snapshot 2026-10-01; compiled-primary-proxy; shared systemic velocity approximation"
     },
     {
       "id": "msc-02039+4220-bb",
@@ -1297,7 +1340,7 @@
         "radius_solar"
       ],
       "remainingGapReason": "No additional adopted value justified by the exact-object frozen sources and literature reviewed here. No spectral-type mass or generic mass-luminosity calibration substituted.",
-      "radialVelocityReference": "SIMBAD TAP snapshot 2026-10-01; compiled-system-proxy; shared systemic velocity approximation"
+      "radialVelocityReference": "SIMBAD TAP snapshot 2026-10-01; compiled-primary-proxy; shared systemic velocity approximation"
     },
     {
       "id": "msc-02039+4220-c",
@@ -1311,7 +1354,7 @@
         "radius_solar"
       ],
       "remainingGapReason": "No additional adopted value justified by the exact-object frozen sources and literature reviewed here. No spectral-type mass or generic mass-luminosity calibration substituted.",
-      "radialVelocityReference": "SIMBAD TAP snapshot 2026-10-01; compiled-system-proxy; shared systemic velocity approximation"
+      "radialVelocityReference": "SIMBAD TAP snapshot 2026-10-01; compiled-primary-proxy; shared systemic velocity approximation"
     },
     {
       "id": "msc-02318+8916-ab",
@@ -1348,7 +1391,7 @@
         "radial_velocity_kms": 4
       },
       "missing": [],
-      "radialVelocityReference": "SIMBAD TAP snapshot 2026-10-01; compiled-system-proxy; shared systemic velocity approximation"
+      "radialVelocityReference": "SIMBAD TAP snapshot 2026-10-01; compiled-system-proxy; shared systemic velocity approximation; compiled-primary-proxy; shared systemic velocity approximation"
     },
     {
       "id": "msc-03082+4057-b",
@@ -1360,7 +1403,7 @@
         "radial_velocity_kms": 4
       },
       "missing": [],
-      "radialVelocityReference": "SIMBAD TAP snapshot 2026-10-01; compiled-system-proxy; shared systemic velocity approximation"
+      "radialVelocityReference": "SIMBAD TAP snapshot 2026-10-01; compiled-system-proxy; shared systemic velocity approximation; compiled-primary-proxy; shared systemic velocity approximation"
     },
     {
       "id": "msc-05320-0018-aa2",
@@ -1375,7 +1418,7 @@
         "radius_solar"
       ],
       "remainingGapReason": "No additional adopted value justified by the exact-object frozen sources and literature reviewed here. No spectral-type mass or generic mass-luminosity calibration substituted.",
-      "radialVelocityReference": "SIMBAD TAP snapshot 2026-10-01; compiled-system-proxy; shared systemic velocity approximation"
+      "radialVelocityReference": "SIMBAD TAP snapshot 2026-10-01; compiled-system-proxy; shared systemic velocity approximation; compiled-primary-proxy; shared systemic velocity approximation"
     },
     {
       "id": "msc-05320-0018-ab",
@@ -1389,7 +1432,7 @@
         "radius_solar"
       ],
       "remainingGapReason": "No additional adopted value justified by the exact-object frozen sources and literature reviewed here. No spectral-type mass or generic mass-luminosity calibration substituted.",
-      "radialVelocityReference": "SIMBAD TAP snapshot 2026-10-01; compiled-system-proxy; shared systemic velocity approximation"
+      "radialVelocityReference": "SIMBAD TAP snapshot 2026-10-01; compiled-system-proxy; shared systemic velocity approximation; compiled-primary-proxy; shared systemic velocity approximation"
     },
     {
       "id": "msc-05320-0018-ca",
@@ -1403,7 +1446,7 @@
         "radius_solar"
       ],
       "remainingGapReason": "No additional adopted value justified by the exact-object frozen sources and literature reviewed here. No spectral-type mass or generic mass-luminosity calibration substituted.",
-      "radialVelocityReference": "SIMBAD TAP snapshot 2026-10-01; compiled-system-proxy; shared systemic velocity approximation"
+      "radialVelocityReference": "SIMBAD TAP snapshot 2026-10-01; compiled-system-proxy; shared systemic velocity approximation; compiled-primary-proxy; shared systemic velocity approximation"
     },
     {
       "id": "msc-05320-0018-cb",
@@ -1417,7 +1460,7 @@
         "radius_solar"
       ],
       "remainingGapReason": "No additional adopted value justified by the exact-object frozen sources and literature reviewed here. No spectral-type mass or generic mass-luminosity calibration substituted.",
-      "radialVelocityReference": "SIMBAD TAP snapshot 2026-10-01; compiled-system-proxy; shared systemic velocity approximation"
+      "radialVelocityReference": "SIMBAD TAP snapshot 2026-10-01; compiled-system-proxy; shared systemic velocity approximation; compiled-primary-proxy; shared systemic velocity approximation"
     },
     {
       "id": "msc-05407-0157-ab",
@@ -1432,7 +1475,7 @@
         "radius_solar"
       ],
       "remainingGapReason": "No additional adopted value justified by the exact-object frozen sources and literature reviewed here. No spectral-type mass or generic mass-luminosity calibration substituted.",
-      "radialVelocityReference": "SIMBAD TAP snapshot 2026-10-01; compiled-system-proxy; shared systemic velocity approximation"
+      "radialVelocityReference": "SIMBAD TAP snapshot 2026-10-01; compiled-system-proxy; shared systemic velocity approximation; compiled-primary-proxy; shared systemic velocity approximation"
     },
     {
       "id": "msc-05407-0157-b",
@@ -1446,7 +1489,7 @@
         "radius_solar"
       ],
       "remainingGapReason": "No additional adopted value justified by the exact-object frozen sources and literature reviewed here. No spectral-type mass or generic mass-luminosity calibration substituted.",
-      "radialVelocityReference": "SIMBAD TAP snapshot 2026-10-01; compiled-system-proxy; shared systemic velocity approximation"
+      "radialVelocityReference": "SIMBAD TAP snapshot 2026-10-01; compiled-system-proxy; shared systemic velocity approximation; compiled-primary-proxy; shared systemic velocity approximation"
     },
     {
       "id": "msc-07346+3153-ab",
@@ -1495,14 +1538,43 @@
     },
     {
       "id": "msc-07346+3153-c",
-      "name": "Castor C",
+      "name": "Castor Ca",
+      "supersededAdoptions": {
+        "temperature_k": {
+          "previous": 3728.0,
+          "adopted": 3800,
+          "scope": "Previous adoption retained in component catalog_sources or the reviewed-literature replacement audit, including source evidence; current literature/system-motion adoption has separate provenance."
+        },
+        "luminosity_solar": {
+          "previous": 0.1477158,
+          "adopted": 0.07082161712,
+          "scope": "Previous adoption retained in component catalog_sources or the reviewed-literature replacement audit, including source evidence; current literature/system-motion adoption has separate provenance."
+        },
+        "radius_solar": {
+          "previous": 0.94515026,
+          "adopted": 0.614,
+          "scope": "Previous adoption retained in component catalog_sources or the reviewed-literature replacement audit, including source evidence; current literature/system-motion adoption has separate provenance."
+        }
+      },
       "filled": {
+        "mass_solar": 0.60597,
         "radial_velocity_kms": 2.057
       },
-      "missing": [
-        "mass_solar"
-      ],
-      "remainingGapReason": "No additional adopted value justified by the exact-object frozen sources and literature reviewed here. No spectral-type mass or generic mass-luminosity calibration substituted.",
+      "missing": [],
+      "radialVelocityReference": "Torres et al. 2022 Table 5; arXiv:2210.16322; published-systemic; shared systemic velocity approximation"
+    },
+    {
+      "id": "msc-07346+3153-cb",
+      "name": "Castor Cb",
+      "addedReviewedComponent": true,
+      "filled": {
+        "temperature_k": 3800,
+        "mass_solar": 0.60633,
+        "luminosity_solar": 0.07036098993,
+        "radius_solar": 0.612,
+        "radial_velocity_kms": 2.057
+      },
+      "missing": [],
       "radialVelocityReference": "Torres et al. 2022 Table 5; arXiv:2210.16322; published-systemic; shared systemic velocity approximation"
     },
     {
@@ -1512,7 +1584,7 @@
         "radial_velocity_kms": 15
       },
       "missing": [],
-      "radialVelocityReference": "SIMBAD TAP snapshot 2026-10-01; compiled-system-proxy; shared systemic velocity approximation"
+      "radialVelocityReference": "SIMBAD TAP snapshot 2026-10-01; compiled-system-proxy; shared systemic velocity approximation; compiled-primary-proxy; shared systemic velocity approximation"
     },
     {
       "id": "msc-08095-4720-ba",
@@ -1527,7 +1599,7 @@
         "radius_solar"
       ],
       "remainingGapReason": "No additional adopted value justified by the exact-object frozen sources and literature reviewed here. No spectral-type mass or generic mass-luminosity calibration substituted.",
-      "radialVelocityReference": "SIMBAD TAP snapshot 2026-10-01; compiled-system-proxy; shared systemic velocity approximation"
+      "radialVelocityReference": "SIMBAD TAP snapshot 2026-10-01; compiled-system-proxy; shared systemic velocity approximation; compiled-primary-proxy; shared systemic velocity approximation"
     },
     {
       "id": "msc-08095-4720-bb",
@@ -1542,7 +1614,7 @@
         "radius_solar"
       ],
       "remainingGapReason": "No additional adopted value justified by the exact-object frozen sources and literature reviewed here. No spectral-type mass or generic mass-luminosity calibration substituted.",
-      "radialVelocityReference": "SIMBAD TAP snapshot 2026-10-01; compiled-system-proxy; shared systemic velocity approximation"
+      "radialVelocityReference": "SIMBAD TAP snapshot 2026-10-01; compiled-system-proxy; shared systemic velocity approximation; compiled-primary-proxy; shared systemic velocity approximation"
     },
     {
       "id": "msc-08095-4720-c",
@@ -1551,7 +1623,7 @@
         "radial_velocity_kms": 15
       },
       "missing": [],
-      "radialVelocityReference": "SIMBAD TAP snapshot 2026-10-01; compiled-system-proxy; shared systemic velocity approximation"
+      "radialVelocityReference": "SIMBAD TAP snapshot 2026-10-01; compiled-system-proxy; shared systemic velocity approximation; compiled-primary-proxy; shared systemic velocity approximation"
     },
     {
       "id": "msc-10084+1158-ab",
@@ -1566,7 +1638,7 @@
         "radius_solar"
       ],
       "remainingGapReason": "No additional adopted value justified by the exact-object frozen sources and literature reviewed here. No spectral-type mass or generic mass-luminosity calibration substituted.",
-      "radialVelocityReference": "SIMBAD TAP snapshot 2026-10-01; compiled-system-proxy; shared systemic velocity approximation"
+      "radialVelocityReference": "SIMBAD TAP snapshot 2026-10-01; compiled-system-proxy; shared systemic velocity approximation; compiled-primary-proxy; shared systemic velocity approximation"
     },
     {
       "id": "msc-10084+1158-b",
@@ -1575,7 +1647,7 @@
         "radial_velocity_kms": 0.719522
       },
       "missing": [],
-      "radialVelocityReference": "SIMBAD TAP snapshot 2026-10-01; compiled-system-proxy; shared systemic velocity approximation"
+      "radialVelocityReference": "SIMBAD TAP snapshot 2026-10-01; compiled-system-proxy; shared systemic velocity approximation; compiled-primary-proxy; shared systemic velocity approximation"
     },
     {
       "id": "msc-10084+1158-c",
@@ -1590,13 +1662,13 @@
         "radius_solar"
       ],
       "remainingGapReason": "No additional adopted value justified by the exact-object frozen sources and literature reviewed here. No spectral-type mass or generic mass-luminosity calibration substituted.",
-      "radialVelocityReference": "SIMBAD TAP snapshot 2026-10-01; compiled-system-proxy; shared systemic velocity approximation"
+      "radialVelocityReference": "SIMBAD TAP snapshot 2026-10-01; compiled-system-proxy; shared systemic velocity approximation; compiled-primary-proxy; shared systemic velocity approximation"
     },
     {
       "id": "msc-11037+6145-b",
       "name": "Dubhe B",
       "filled": {
-        "radial_velocity_kms": -9.4
+        "radial_velocity_kms": -9.681
       },
       "missing": [
         "temperature_k",
@@ -1605,13 +1677,13 @@
         "radius_solar"
       ],
       "remainingGapReason": "No additional adopted value justified by the exact-object frozen sources and literature reviewed here. No spectral-type mass or generic mass-luminosity calibration substituted.",
-      "radialVelocityReference": "SIMBAD TAP snapshot 2026-10-01; compiled-system-proxy; shared systemic velocity approximation"
+      "radialVelocityReference": "Anguita-Aguero et al. 2023; 2023AJ....166..172A; published-subsystem-proxy; shared systemic velocity approximation"
     },
     {
       "id": "msc-11037+6145-ca",
       "name": "Dubhe Ca",
       "filled": {
-        "radial_velocity_kms": -9.4
+        "radial_velocity_kms": -9.681
       },
       "missing": [
         "temperature_k",
@@ -1620,13 +1692,13 @@
         "radius_solar"
       ],
       "remainingGapReason": "No additional adopted value justified by the exact-object frozen sources and literature reviewed here. No spectral-type mass or generic mass-luminosity calibration substituted.",
-      "radialVelocityReference": "SIMBAD TAP snapshot 2026-10-01; compiled-system-proxy; shared systemic velocity approximation"
+      "radialVelocityReference": "Anguita-Aguero et al. 2023; 2023AJ....166..172A; published-subsystem-proxy; shared systemic velocity approximation"
     },
     {
       "id": "msc-11037+6145-cb",
       "name": "Dubhe Cb",
       "filled": {
-        "radial_velocity_kms": -9.4
+        "radial_velocity_kms": -9.681
       },
       "missing": [
         "temperature_k",
@@ -1635,13 +1707,13 @@
         "radius_solar"
       ],
       "remainingGapReason": "No additional adopted value justified by the exact-object frozen sources and literature reviewed here. No spectral-type mass or generic mass-luminosity calibration substituted.",
-      "radialVelocityReference": "SIMBAD TAP snapshot 2026-10-01; compiled-system-proxy; shared systemic velocity approximation"
+      "radialVelocityReference": "Anguita-Aguero et al. 2023; 2023AJ....166..172A; published-subsystem-proxy; shared systemic velocity approximation"
     },
     {
       "id": "msc-11037+6145-d",
       "name": "Dubhe D",
       "filled": {
-        "radial_velocity_kms": -9.4
+        "radial_velocity_kms": -9.681
       },
       "missing": [
         "temperature_k",
@@ -1650,7 +1722,7 @@
         "radius_solar"
       ],
       "remainingGapReason": "No additional adopted value justified by the exact-object frozen sources and literature reviewed here. No spectral-type mass or generic mass-luminosity calibration substituted.",
-      "radialVelocityReference": "SIMBAD TAP snapshot 2026-10-01; compiled-system-proxy; shared systemic velocity approximation"
+      "radialVelocityReference": "Anguita-Aguero et al. 2023; 2023AJ....166..172A; published-subsystem-proxy; shared systemic velocity approximation"
     },
     {
       "id": "msc-12084-5043-ab",
@@ -1665,7 +1737,7 @@
         "radius_solar"
       ],
       "remainingGapReason": "No additional adopted value justified by the exact-object frozen sources and literature reviewed here. No spectral-type mass or generic mass-luminosity calibration substituted.",
-      "radialVelocityReference": "SIMBAD TAP snapshot 2026-10-01; compiled-system-proxy; shared systemic velocity approximation"
+      "radialVelocityReference": "SIMBAD TAP snapshot 2026-10-01; compiled-system-proxy; shared systemic velocity approximation; compiled-primary-proxy; shared systemic velocity approximation"
     },
     {
       "id": "msc-12084-5043-b",
@@ -1674,7 +1746,7 @@
         "radial_velocity_kms": 11
       },
       "missing": [],
-      "radialVelocityReference": "SIMBAD TAP snapshot 2026-10-01; compiled-system-proxy; shared systemic velocity approximation"
+      "radialVelocityReference": "SIMBAD TAP snapshot 2026-10-01; compiled-system-proxy; shared systemic velocity approximation; compiled-primary-proxy; shared systemic velocity approximation"
     },
     {
       "id": "msc-12266-6306-ab",
@@ -1689,7 +1761,7 @@
         "radius_solar"
       ],
       "remainingGapReason": "No additional adopted value justified by the exact-object frozen sources and literature reviewed here. No spectral-type mass or generic mass-luminosity calibration substituted.",
-      "radialVelocityReference": "SIMBAD TAP snapshot 2026-10-01; compiled-system-proxy; shared systemic velocity approximation"
+      "radialVelocityReference": "SIMBAD TAP snapshot 2026-10-01; compiled-system-proxy; shared systemic velocity approximation; compiled-primary-proxy; shared systemic velocity approximation"
     },
     {
       "id": "msc-12266-6306-b",
@@ -1703,7 +1775,7 @@
         "radius_solar"
       ],
       "remainingGapReason": "No additional adopted value justified by the exact-object frozen sources and literature reviewed here. No spectral-type mass or generic mass-luminosity calibration substituted.",
-      "radialVelocityReference": "SIMBAD TAP snapshot 2026-10-01; compiled-system-proxy; shared systemic velocity approximation"
+      "radialVelocityReference": "SIMBAD TAP snapshot 2026-10-01; compiled-system-proxy; shared systemic velocity approximation; compiled-primary-proxy; shared systemic velocity approximation"
     },
     {
       "id": "msc-12266-6306-cd",
@@ -1717,7 +1789,7 @@
         "radius_solar"
       ],
       "remainingGapReason": "No additional adopted value justified by the exact-object frozen sources and literature reviewed here. No spectral-type mass or generic mass-luminosity calibration substituted.",
-      "radialVelocityReference": "SIMBAD TAP snapshot 2026-10-01; compiled-system-proxy; shared systemic velocity approximation"
+      "radialVelocityReference": "SIMBAD TAP snapshot 2026-10-01; compiled-system-proxy; shared systemic velocity approximation; compiled-primary-proxy; shared systemic velocity approximation"
     },
     {
       "id": "msc-12372-6908-ab",
@@ -1732,7 +1804,7 @@
         "radius_solar"
       ],
       "remainingGapReason": "No additional adopted value justified by the exact-object frozen sources and literature reviewed here. No spectral-type mass or generic mass-luminosity calibration substituted.",
-      "radialVelocityReference": "SIMBAD TAP snapshot 2026-10-01; compiled-system-proxy; shared systemic velocity approximation"
+      "radialVelocityReference": "SIMBAD TAP snapshot 2026-10-01; compiled-system-proxy; shared systemic velocity approximation; compiled-primary-proxy; shared systemic velocity approximation"
     },
     {
       "id": "msc-12372-6908-b",
@@ -1747,7 +1819,7 @@
         "radius_solar"
       ],
       "remainingGapReason": "No additional adopted value justified by the exact-object frozen sources and literature reviewed here. No spectral-type mass or generic mass-luminosity calibration substituted.",
-      "radialVelocityReference": "SIMBAD TAP snapshot 2026-10-01; compiled-system-proxy; shared systemic velocity approximation"
+      "radialVelocityReference": "SIMBAD TAP snapshot 2026-10-01; compiled-system-proxy; shared systemic velocity approximation; compiled-primary-proxy; shared systemic velocity approximation"
     },
     {
       "id": "msc-12415-4858-b",
@@ -1761,26 +1833,26 @@
         "radius_solar"
       ],
       "remainingGapReason": "No additional adopted value justified by the exact-object frozen sources and literature reviewed here. No spectral-type mass or generic mass-luminosity calibration substituted.",
-      "radialVelocityReference": "SIMBAD TAP snapshot 2026-10-01; compiled-system-proxy; shared systemic velocity approximation"
+      "radialVelocityReference": "SIMBAD TAP snapshot 2026-10-01; compiled-system-proxy; shared systemic velocity approximation; compiled-primary-proxy; shared systemic velocity approximation"
     },
     {
       "id": "msc-13239+5456-ab",
       "name": "Mizar Ab",
       "filled": {
-        "radial_velocity_kms": -5.6
+        "radial_velocity_kms": -7.309
       },
       "missing": [
         "luminosity_solar",
         "radius_solar"
       ],
       "remainingGapReason": "No additional adopted value justified by the exact-object frozen sources and literature reviewed here. No spectral-type mass or generic mass-luminosity calibration substituted.",
-      "radialVelocityReference": "SIMBAD TAP snapshot 2026-09-25; compiled-system-proxy; shared systemic velocity approximation"
+      "radialVelocityReference": "Behr et al. 2011; 2011AJ....142....6B; published-subsystem-proxy; shared systemic velocity approximation"
     },
     {
       "id": "msc-13239+5456-ba",
       "name": "Mizar Ba",
       "filled": {
-        "radial_velocity_kms": -5.6
+        "radial_velocity_kms": -7.309
       },
       "missing": [
         "temperature_k",
@@ -1789,13 +1861,13 @@
         "radius_solar"
       ],
       "remainingGapReason": "No additional adopted value justified by the exact-object frozen sources and literature reviewed here. No spectral-type mass or generic mass-luminosity calibration substituted.",
-      "radialVelocityReference": "SIMBAD TAP snapshot 2026-09-25; compiled-system-proxy; shared systemic velocity approximation"
+      "radialVelocityReference": "Behr et al. 2011; 2011AJ....142....6B; published-subsystem-proxy; shared systemic velocity approximation"
     },
     {
       "id": "msc-13239+5456-bb",
       "name": "Mizar Bb",
       "filled": {
-        "radial_velocity_kms": -5.6
+        "radial_velocity_kms": -7.309
       },
       "missing": [
         "temperature_k",
@@ -1804,13 +1876,13 @@
         "radius_solar"
       ],
       "remainingGapReason": "No additional adopted value justified by the exact-object frozen sources and literature reviewed here. No spectral-type mass or generic mass-luminosity calibration substituted.",
-      "radialVelocityReference": "SIMBAD TAP snapshot 2026-09-25; compiled-system-proxy; shared systemic velocity approximation"
+      "radialVelocityReference": "Behr et al. 2011; 2011AJ....142....6B; published-subsystem-proxy; shared systemic velocity approximation"
     },
     {
       "id": "msc-13239+5456-ca",
       "name": "Mizar Ca",
       "filled": {
-        "radial_velocity_kms": -5.6
+        "radial_velocity_kms": -7.309
       },
       "missing": [
         "mass_solar",
@@ -1818,13 +1890,13 @@
         "radius_solar"
       ],
       "remainingGapReason": "No additional adopted value justified by the exact-object frozen sources and literature reviewed here. No spectral-type mass or generic mass-luminosity calibration substituted.",
-      "radialVelocityReference": "SIMBAD TAP snapshot 2026-09-25; compiled-system-proxy; shared systemic velocity approximation"
+      "radialVelocityReference": "Behr et al. 2011; 2011AJ....142....6B; published-subsystem-proxy; shared systemic velocity approximation"
     },
     {
       "id": "msc-13239+5456-cb",
       "name": "Mizar Cb",
       "filled": {
-        "radial_velocity_kms": -5.6
+        "radial_velocity_kms": -7.309
       },
       "missing": [
         "temperature_k",
@@ -1833,7 +1905,21 @@
         "radius_solar"
       ],
       "remainingGapReason": "No additional adopted value justified by the exact-object frozen sources and literature reviewed here. No spectral-type mass or generic mass-luminosity calibration substituted.",
-      "radialVelocityReference": "SIMBAD TAP snapshot 2026-09-25; compiled-system-proxy; shared systemic velocity approximation"
+      "radialVelocityReference": "Behr et al. 2011; 2011AJ....142....6B; published-subsystem-proxy; shared systemic velocity approximation"
+    },
+    {
+      "id": "msc-13252-1110-ab",
+      "name": "Spica Ab",
+      "addedReviewedComponent": true,
+      "filled": {
+        "temperature_k": 20900,
+        "mass_solar": 7.21,
+        "luminosity_solar": 2254.2392121524304,
+        "radius_solar": 3.74,
+        "radial_velocity_kms": -3.31
+      },
+      "missing": [],
+      "radialVelocityReference": "SIMBAD TAP snapshot 2026-10-01; compiled-system-proxy; shared systemic velocity approximation; compiled-primary-proxy; shared systemic velocity approximation"
     },
     {
       "id": "msc-13252-1110-ac",
@@ -1848,7 +1934,7 @@
         "radius_solar"
       ],
       "remainingGapReason": "No additional adopted value justified by the exact-object frozen sources and literature reviewed here. No spectral-type mass or generic mass-luminosity calibration substituted.",
-      "radialVelocityReference": "SIMBAD TAP snapshot 2026-10-01; compiled-system-proxy; shared systemic velocity approximation"
+      "radialVelocityReference": "SIMBAD TAP snapshot 2026-10-01; compiled-system-proxy; shared systemic velocity approximation; compiled-primary-proxy; shared systemic velocity approximation"
     },
     {
       "id": "msc-14038-6022-ab",
@@ -1863,7 +1949,7 @@
         "radius_solar"
       ],
       "remainingGapReason": "No additional adopted value justified by the exact-object frozen sources and literature reviewed here. No spectral-type mass or generic mass-luminosity calibration substituted.",
-      "radialVelocityReference": "SIMBAD TAP snapshot 2026-10-01; compiled-system-proxy; shared systemic velocity approximation"
+      "radialVelocityReference": "SIMBAD TAP snapshot 2026-10-01; compiled-system-proxy; shared systemic velocity approximation; compiled-primary-proxy; shared systemic velocity approximation"
     },
     {
       "id": "msc-14038-6022-b",
@@ -1878,7 +1964,7 @@
         "radius_solar"
       ],
       "remainingGapReason": "No additional adopted value justified by the exact-object frozen sources and literature reviewed here. No spectral-type mass or generic mass-luminosity calibration substituted.",
-      "radialVelocityReference": "SIMBAD TAP snapshot 2026-10-01; compiled-system-proxy; shared systemic velocity approximation"
+      "radialVelocityReference": "SIMBAD TAP snapshot 2026-10-01; compiled-system-proxy; shared systemic velocity approximation; compiled-primary-proxy; shared systemic velocity approximation"
     },
     {
       "id": "msc-14450+2704-b",
@@ -1892,7 +1978,7 @@
         "radius_solar"
       ],
       "remainingGapReason": "No additional adopted value justified by the exact-object frozen sources and literature reviewed here. No spectral-type mass or generic mass-luminosity calibration substituted.",
-      "radialVelocityReference": "SIMBAD TAP snapshot 2026-10-01; compiled-system-proxy; shared systemic velocity approximation"
+      "radialVelocityReference": "SIMBAD TAP snapshot 2026-10-01; compiled-primary-proxy; shared systemic velocity approximation"
     },
     {
       "id": "msc-14450+2704-d",
@@ -1907,7 +1993,7 @@
         "radius_solar"
       ],
       "remainingGapReason": "No additional adopted value justified by the exact-object frozen sources and literature reviewed here. No spectral-type mass or generic mass-luminosity calibration substituted.",
-      "radialVelocityReference": "SIMBAD TAP snapshot 2026-10-01; compiled-system-proxy; shared systemic velocity approximation"
+      "radialVelocityReference": "SIMBAD TAP snapshot 2026-10-01; compiled-primary-proxy; shared systemic velocity approximation"
     },
     {
       "id": "msc-14585-4308-ab",
@@ -1922,7 +2008,7 @@
         "radius_solar"
       ],
       "remainingGapReason": "No additional adopted value justified by the exact-object frozen sources and literature reviewed here. No spectral-type mass or generic mass-luminosity calibration substituted.",
-      "radialVelocityReference": "SIMBAD TAP snapshot 2026-10-01; compiled-system-proxy; shared systemic velocity approximation"
+      "radialVelocityReference": "SIMBAD TAP snapshot 2026-10-01; compiled-system-proxy; shared systemic velocity approximation; compiled-primary-proxy; shared systemic velocity approximation"
     },
     {
       "id": "msc-14585-4308-b",
@@ -1937,7 +2023,7 @@
         "radius_solar"
       ],
       "remainingGapReason": "No additional adopted value justified by the exact-object frozen sources and literature reviewed here. No spectral-type mass or generic mass-luminosity calibration substituted.",
-      "radialVelocityReference": "SIMBAD TAP snapshot 2026-10-01; compiled-system-proxy; shared systemic velocity approximation"
+      "radialVelocityReference": "SIMBAD TAP snapshot 2026-10-01; compiled-system-proxy; shared systemic velocity approximation; compiled-primary-proxy; shared systemic velocity approximation"
     },
     {
       "id": "msc-16054-1948-ab",
@@ -1951,7 +2037,7 @@
         "radius_solar"
       ],
       "remainingGapReason": "No additional adopted value justified by the exact-object frozen sources and literature reviewed here. No spectral-type mass or generic mass-luminosity calibration substituted.",
-      "radialVelocityReference": "SIMBAD TAP snapshot 2026-10-01; compiled-system-proxy; shared systemic velocity approximation"
+      "radialVelocityReference": "SIMBAD TAP snapshot 2026-10-01; compiled-system-proxy; shared systemic velocity approximation; compiled-primary-proxy; shared systemic velocity approximation"
     },
     {
       "id": "msc-16054-1948-b",
@@ -1966,7 +2052,7 @@
         "radius_solar"
       ],
       "remainingGapReason": "No additional adopted value justified by the exact-object frozen sources and literature reviewed here. No spectral-type mass or generic mass-luminosity calibration substituted.",
-      "radialVelocityReference": "SIMBAD TAP snapshot 2026-10-01; compiled-system-proxy; shared systemic velocity approximation"
+      "radialVelocityReference": "SIMBAD TAP snapshot 2026-10-01; compiled-system-proxy; shared systemic velocity approximation; compiled-primary-proxy; shared systemic velocity approximation"
     },
     {
       "id": "msc-16054-1948-c",
@@ -1975,7 +2061,7 @@
         "radial_velocity_kms": -1
       },
       "missing": [],
-      "radialVelocityReference": "SIMBAD TAP snapshot 2026-10-01; compiled-system-proxy; shared systemic velocity approximation"
+      "radialVelocityReference": "SIMBAD TAP snapshot 2026-10-01; compiled-system-proxy; shared systemic velocity approximation; compiled-primary-proxy; shared systemic velocity approximation"
     },
     {
       "id": "msc-16054-1948-ea",
@@ -1990,7 +2076,7 @@
         "radius_solar"
       ],
       "remainingGapReason": "No additional adopted value justified by the exact-object frozen sources and literature reviewed here. No spectral-type mass or generic mass-luminosity calibration substituted.",
-      "radialVelocityReference": "SIMBAD TAP snapshot 2026-10-01; compiled-system-proxy; shared systemic velocity approximation"
+      "radialVelocityReference": "SIMBAD TAP snapshot 2026-10-01; compiled-system-proxy; shared systemic velocity approximation; compiled-primary-proxy; shared systemic velocity approximation"
     },
     {
       "id": "msc-16054-1948-eb",
@@ -2005,7 +2091,7 @@
         "radius_solar"
       ],
       "remainingGapReason": "No additional adopted value justified by the exact-object frozen sources and literature reviewed here. No spectral-type mass or generic mass-luminosity calibration substituted.",
-      "radialVelocityReference": "SIMBAD TAP snapshot 2026-10-01; compiled-system-proxy; shared systemic velocity approximation"
+      "radialVelocityReference": "SIMBAD TAP snapshot 2026-10-01; compiled-system-proxy; shared systemic velocity approximation; compiled-primary-proxy; shared systemic velocity approximation"
     },
     {
       "id": "msc-17336-3706-aa2",
@@ -2020,7 +2106,7 @@
         "radius_solar"
       ],
       "remainingGapReason": "No additional adopted value justified by the exact-object frozen sources and literature reviewed here. No spectral-type mass or generic mass-luminosity calibration substituted.",
-      "radialVelocityReference": "SIMBAD TAP snapshot 2026-10-01; compiled-system-proxy; shared systemic velocity approximation"
+      "radialVelocityReference": "SIMBAD TAP snapshot 2026-10-01; compiled-system-proxy; shared systemic velocity approximation; compiled-primary-proxy; shared systemic velocity approximation"
     },
     {
       "id": "msc-17336-3706-ab",
@@ -2035,7 +2121,7 @@
         "radius_solar"
       ],
       "remainingGapReason": "No additional adopted value justified by the exact-object frozen sources and literature reviewed here. No spectral-type mass or generic mass-luminosity calibration substituted.",
-      "radialVelocityReference": "SIMBAD TAP snapshot 2026-10-01; compiled-system-proxy; shared systemic velocity approximation"
+      "radialVelocityReference": "SIMBAD TAP snapshot 2026-10-01; compiled-system-proxy; shared systemic velocity approximation; compiled-primary-proxy; shared systemic velocity approximation"
     },
     {
       "id": "msc-17373-4300-ab",
@@ -2050,22 +2136,22 @@
         "radius_solar"
       ],
       "remainingGapReason": "No additional adopted value justified by the exact-object frozen sources and literature reviewed here. No spectral-type mass or generic mass-luminosity calibration substituted.",
-      "radialVelocityReference": "SIMBAD TAP snapshot 2026-10-01; compiled-system-proxy; shared systemic velocity approximation"
+      "radialVelocityReference": "SIMBAD TAP snapshot 2026-10-01; compiled-system-proxy; shared systemic velocity approximation; compiled-primary-proxy; shared systemic velocity approximation"
     },
     {
       "id": "msc-18553-2618-ab",
       "name": "Nunki Ab",
       "filled": {
+        "mass_solar": 6.3,
+        "radius_solar": 3.9,
         "radial_velocity_kms": -11.2
       },
       "missing": [
         "temperature_k",
-        "mass_solar",
-        "luminosity_solar",
-        "radius_solar"
+        "luminosity_solar"
       ],
       "remainingGapReason": "No additional adopted value justified by the exact-object frozen sources and literature reviewed here. No spectral-type mass or generic mass-luminosity calibration substituted.",
-      "radialVelocityReference": "SIMBAD TAP snapshot 2026-10-01; compiled-system-proxy; shared systemic velocity approximation"
+      "radialVelocityReference": "SIMBAD TAP snapshot 2026-10-01; compiled-system-proxy; shared systemic velocity approximation; compiled-primary-proxy; shared systemic velocity approximation"
     },
     {
       "id": "msc-20462+3358-ab",
@@ -2080,7 +2166,7 @@
         "radius_solar"
       ],
       "remainingGapReason": "No additional adopted value justified by the exact-object frozen sources and literature reviewed here. No spectral-type mass or generic mass-luminosity calibration substituted.",
-      "radialVelocityReference": "SIMBAD TAP snapshot 2026-10-01; compiled-system-proxy; shared systemic velocity approximation"
+      "radialVelocityReference": "SIMBAD TAP snapshot 2026-10-01; compiled-system-proxy; shared systemic velocity approximation; compiled-primary-proxy; shared systemic velocity approximation"
     },
     {
       "id": "msc-20462+3358-d",
@@ -2095,7 +2181,7 @@
         "radius_solar"
       ],
       "remainingGapReason": "No additional adopted value justified by the exact-object frozen sources and literature reviewed here. No spectral-type mass or generic mass-luminosity calibration substituted.",
-      "radialVelocityReference": "SIMBAD TAP snapshot 2026-10-01; compiled-system-proxy; shared systemic velocity approximation"
+      "radialVelocityReference": "SIMBAD TAP snapshot 2026-10-01; compiled-system-proxy; shared systemic velocity approximation; compiled-primary-proxy; shared systemic velocity approximation"
     },
     {
       "id": "orb6-01377-5714-a-b-b",
@@ -2104,7 +2190,7 @@
         "radial_velocity_kms": 8.47
       },
       "missing": [],
-      "radialVelocityReference": "SIMBAD TAP snapshot 2026-10-01; compiled-system-proxy; shared systemic velocity approximation"
+      "radialVelocityReference": "SIMBAD TAP snapshot 2026-10-01; compiled-system-proxy; shared systemic velocity approximation; compiled-primary-proxy; shared systemic velocity approximation"
     },
     {
       "id": "orb6-01546+2049-a-b-b",
@@ -2117,16 +2203,38 @@
         "radius_solar"
       ],
       "remainingGapReason": "No additional adopted value justified by the exact-object frozen sources and literature reviewed here. No spectral-type mass or generic mass-luminosity calibration substituted.",
-      "radialVelocityReference": "SIMBAD TAP snapshot 2026-10-01; compiled-system-proxy; shared systemic velocity approximation"
+      "radialVelocityReference": "SIMBAD TAP snapshot 2026-10-01; compiled-system-proxy; shared systemic velocity approximation; compiled-primary-proxy; shared systemic velocity approximation"
     },
     {
       "id": "orb6-05595+4457-aa-ab-ab",
       "name": "Menkalinan Ab",
+      "supersededAdoptions": {
+        "temperature_k": {
+          "previous": 9200.0,
+          "adopted": 9327,
+          "scope": "Previous adoption retained in component catalog_sources or the reviewed-literature replacement audit, including source evidence; current literature/system-motion adoption has separate provenance."
+        },
+        "mass_solar": {
+          "previous": 2.291,
+          "adopted": 2.293,
+          "scope": "Previous adoption retained in component catalog_sources or the reviewed-literature replacement audit, including source evidence; current literature/system-motion adoption has separate provenance."
+        },
+        "luminosity_solar": {
+          "previous": 42.65795188015925,
+          "adopted": 46.87356572779555,
+          "scope": "Previous adoption retained in component catalog_sources or the reviewed-literature replacement audit, including source evidence; current literature/system-motion adoption has separate provenance."
+        },
+        "radius_solar": {
+          "previous": 2.568,
+          "adopted": 2.622,
+          "scope": "Previous adoption retained in component catalog_sources or the reviewed-literature replacement audit, including source evidence; current literature/system-motion adoption has separate provenance."
+        }
+      },
       "filled": {
         "radial_velocity_kms": -15.75
       },
       "missing": [],
-      "radialVelocityReference": "SIMBAD TAP snapshot 2026-10-01; compiled-system-proxy; shared systemic velocity approximation"
+      "radialVelocityReference": "SIMBAD TAP snapshot 2026-10-01; compiled-system-proxy; shared systemic velocity approximation; compiled-primary-proxy; shared systemic velocity approximation"
     },
     {
       "id": "orb6-05597+3713-a-b-b",
@@ -2141,7 +2249,7 @@
         "radius_solar"
       ],
       "remainingGapReason": "No additional adopted value justified by the exact-object frozen sources and literature reviewed here. No spectral-type mass or generic mass-luminosity calibration substituted.",
-      "radialVelocityReference": "SIMBAD TAP snapshot 2026-10-01; compiled-system-proxy; shared systemic velocity approximation"
+      "radialVelocityReference": "SIMBAD TAP snapshot 2026-10-01; compiled-system-proxy; shared systemic velocity approximation; compiled-primary-proxy; shared systemic velocity approximation"
     },
     {
       "id": "orb6-06377+1624-aa-ab-ab",
@@ -2155,7 +2263,7 @@
         "radius_solar"
       ],
       "remainingGapReason": "No additional adopted value justified by the exact-object frozen sources and literature reviewed here. No spectral-type mass or generic mass-luminosity calibration substituted.",
-      "radialVelocityReference": "SIMBAD TAP snapshot 2026-10-01; compiled-system-proxy; shared systemic velocity approximation"
+      "radialVelocityReference": "SIMBAD TAP snapshot 2026-10-01; compiled-system-proxy; shared systemic velocity approximation; compiled-primary-proxy; shared systemic velocity approximation"
     },
     {
       "id": "orb6-10468-4925-a-b-b",
@@ -2170,7 +2278,7 @@
         "radius_solar"
       ],
       "remainingGapReason": "No additional adopted value justified by the exact-object frozen sources and literature reviewed here. No spectral-type mass or generic mass-luminosity calibration substituted.",
-      "radialVelocityReference": "SIMBAD TAP snapshot 2026-10-01; compiled-system-proxy; shared systemic velocity approximation"
+      "radialVelocityReference": "SIMBAD TAP snapshot 2026-10-01; compiled-system-proxy; shared systemic velocity approximation; compiled-primary-proxy; shared systemic velocity approximation"
     },
     {
       "id": "orb6-16003-2237-a-b-b",
@@ -2184,7 +2292,7 @@
         "radius_solar"
       ],
       "remainingGapReason": "No additional adopted value justified by the exact-object frozen sources and literature reviewed here. No spectral-type mass or generic mass-luminosity calibration substituted.",
-      "radialVelocityReference": "SIMBAD TAP snapshot 2026-10-01; compiled-system-proxy; shared systemic velocity approximation"
+      "radialVelocityReference": "SIMBAD TAP snapshot 2026-10-01; compiled-system-proxy; shared systemic velocity approximation; compiled-primary-proxy; shared systemic velocity approximation"
     },
     {
       "id": "orb6-17104-1544-a-b-b",
@@ -2199,7 +2307,7 @@
         "radius_solar"
       ],
       "remainingGapReason": "No additional adopted value justified by the exact-object frozen sources and literature reviewed here. No spectral-type mass or generic mass-luminosity calibration substituted.",
-      "radialVelocityReference": "SIMBAD TAP snapshot 2026-10-01; compiled-system-proxy; shared systemic velocity approximation"
+      "radialVelocityReference": "SIMBAD TAP snapshot 2026-10-01; compiled-system-proxy; shared systemic velocity approximation; compiled-primary-proxy; shared systemic velocity approximation"
     },
     {
       "id": "orb6-17349+1234-a-b-b",
@@ -2213,7 +2321,7 @@
         "radius_solar"
       ],
       "remainingGapReason": "No additional adopted value justified by the exact-object frozen sources and literature reviewed here. No spectral-type mass or generic mass-luminosity calibration substituted.",
-      "radialVelocityReference": "SIMBAD TAP snapshot 2026-10-01; compiled-system-proxy; shared systemic velocity approximation"
+      "radialVelocityReference": "SIMBAD TAP snapshot 2026-10-01; compiled-system-proxy; shared systemic velocity approximation; compiled-primary-proxy; shared systemic velocity approximation"
     },
     {
       "id": "orb6-19026-2953-a-b-b",
@@ -2228,7 +2336,7 @@
         "radius_solar"
       ],
       "remainingGapReason": "No additional adopted value justified by the exact-object frozen sources and literature reviewed here. No spectral-type mass or generic mass-luminosity calibration substituted.",
-      "radialVelocityReference": "SIMBAD TAP snapshot 2026-10-01; compiled-system-proxy; shared systemic velocity approximation"
+      "radialVelocityReference": "SIMBAD TAP snapshot 2026-10-01; compiled-system-proxy; shared systemic velocity approximation; compiled-primary-proxy; shared systemic velocity approximation"
     },
     {
       "id": "proxima-centauri",
@@ -2248,8 +2356,8 @@
         "luminosity_solar",
         "radius_solar"
       ],
-      "remainingGapReason": "Retained catalog/system measurements are not a unique resolved-component observation. No additional exact-component value justified by the reviewed source set; blended flux, subsystem sums and MSC estimated masses remain source evidence.",
-      "radialVelocityReference": "SIMBAD TAP snapshot 2026-10-01; compiled-system-proxy; shared systemic velocity approximation"
+      "remainingGapReason": "No additional adopted value justified by the exact-object frozen sources and literature reviewed here. No spectral-type mass or generic mass-luminosity calibration substituted.",
+      "radialVelocityReference": "SIMBAD TAP snapshot 2026-10-01; compiled-primary-proxy; shared systemic velocity approximation"
     },
     {
       "id": "rigel-bb",
@@ -2263,8 +2371,8 @@
         "luminosity_solar",
         "radius_solar"
       ],
-      "remainingGapReason": "Retained catalog/system measurements are not a unique resolved-component observation. No additional exact-component value justified by the reviewed source set; blended flux, subsystem sums and MSC estimated masses remain source evidence.",
-      "radialVelocityReference": "SIMBAD TAP snapshot 2026-10-01; compiled-system-proxy; shared systemic velocity approximation"
+      "remainingGapReason": "No additional adopted value justified by the exact-object frozen sources and literature reviewed here. No spectral-type mass or generic mass-luminosity calibration substituted.",
+      "radialVelocityReference": "SIMBAD TAP snapshot 2026-10-01; compiled-primary-proxy; shared systemic velocity approximation"
     },
     {
       "id": "rigel-c",
@@ -2277,15 +2385,22 @@
         "luminosity_solar",
         "radius_solar"
       ],
-      "remainingGapReason": "Retained catalog/system measurements are not a unique resolved-component observation. No additional exact-component value justified by the reviewed source set; blended flux, subsystem sums and MSC estimated masses remain source evidence.",
-      "radialVelocityReference": "SIMBAD TAP snapshot 2026-10-01; compiled-system-proxy; shared systemic velocity approximation"
+      "remainingGapReason": "No additional adopted value justified by the exact-object frozen sources and literature reviewed here. No spectral-type mass or generic mass-luminosity calibration substituted.",
+      "radialVelocityReference": "SIMBAD TAP snapshot 2026-10-01; compiled-primary-proxy; shared systemic velocity approximation"
     },
     {
       "id": "sirius-a",
       "name": "Sirius A",
+      "supersededAdoptions": {
+        "radial_velocity_kms": {
+          "previous": -5.5,
+          "adopted": -8.47,
+          "scope": "Previous adoption retained in component catalog_sources or the reviewed-literature replacement audit, including source evidence; current literature/system-motion adoption has separate provenance."
+        }
+      },
       "filled": {},
       "missing": [],
-      "radialVelocityReference": "2006AstL...32..759G"
+      "radialVelocityReference": "Bond et al. 2017 Section V.1; arXiv:1703.10625; published-systemic; shared systemic velocity approximation"
     },
     {
       "id": "sirius-b",

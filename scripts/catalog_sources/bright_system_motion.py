@@ -29,13 +29,25 @@ def bulk_vector(raw, radial_velocity):
     return [round(sum(a * b for a, b in zip(axis, velocity)), 6) for axis in ROTATION]
 
 
-def apply_bright_system_motion(root, systems, pool, audit):
+def apply_bright_system_motion(root, systems, pool, audit, hierarchy_reviews=()):
     path = root / PLAN
     manifest = json.loads((root / "catalog-work/shared-enrichment/source-manifest.json").read_text())
     verify_sha256(path, manifest["checksumsSha256"][PLAN])
     plan = json.loads(path.read_text())
     definitions = {system["id"]: system for system in systems}
     for review in plan["systems"]:
+        review = copy.deepcopy(review)
+        for split in hierarchy_reviews:
+            if split["systemId"] != review["systemId"]:
+                continue
+            if review["expectedComponents"] != split["expectedComponents"]:
+                raise ValueError(f"Motion hierarchy mapping drifted: {review['systemId']}")
+            parent = split["parentStarId"]
+            for member in split["components"]:
+                review["expectedComponents"][member["starId"]] = member["label"]
+                if parent in review["targetIds"] and member["starId"] not in review["targetIds"]:
+                    review["targetIds"].append(member["starId"])
+            review["hierarchyMapping"] = split
         system = definitions[review["systemId"]]
         members = {c["starId"]: c["label"] for c in system["components"]}
         if system["name"] != review["expectedName"] or members != review["expectedComponents"]:
