@@ -11,6 +11,7 @@ from collections import defaultdict
 from functools import cache
 from pathlib import Path
 
+from catalog_sources.precision import calculated_float
 
 ROOT = Path(__file__).resolve().parents[1]
 SOURCE = ROOT / "catalog-work/western-constellation-stars"
@@ -194,6 +195,7 @@ def author(abbreviation):
     center = {"ra_deg": math.degrees(math.atan2(y, x)) % 360,
               "dec_deg": math.degrees(math.atan2(z, math.hypot(x, y)))}
     boundaries, boundary_source = chart_boundaries(abbreviation, center, culture)
+    center = {key: calculated_float(value) for key, value in center.items()}
     data = {
         "schemaVersion": 1, "abbreviation": abbreviation, "name": name,
         "center": center,

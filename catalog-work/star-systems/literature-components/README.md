@@ -27,3 +27,13 @@ qualifications, and hashes each raw input. Its `sourceReviews` records rejected
 hierarchical totals, conflicting classifications and parallax/photometry issues.
 The author rejects hash or member-identity drift. Updating a source requires a
 new review of its component scope, not just replacing its checksum.
+# Additional constellation data and motion review, 2026-10-19
+
+`constellation-20261019-motion-selected.json` freezes selected component data and
+RV solutions for Nusakan, Ashlesha, Nu Gem, Dubhe, Mizar A and Iota Pegasi, plus
+the reason Porrima's total mass is not adopted for each component. It preserves
+primary-paper document hashes, component mappings, estimates, model assumptions
+and uncertainty conventions. `constellation-20261019-intermediate-adoptions.json`
+retains earlier generated source adoptions during reconciliation; it is history,
+not a set of independent new measurements. See
+`docs/constellation-motion-enrichment.md` for the adoption and validation limits.

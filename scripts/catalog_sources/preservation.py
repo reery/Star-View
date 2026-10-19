@@ -1,5 +1,26 @@
 """Additive-data guards shared by authoring and baseline review."""
 
+import copy
+
+from .precision import calculated_float
+
+
+def retain_frozen_source(sources, frozen):
+    """Keep a frozen snapshot verbatim without duplicating rounded magnitudes."""
+    def comparable(source):
+        record = source["record"].copy()
+        for field in ("absolute_mag", "apparent_mag"):
+            if record.get(field) is not None:
+                record[field] = calculated_float(record[field])
+        return {**source, "record": record}
+
+    for index, previous in enumerate(sources):
+        if comparable(previous) == comparable(frozen):
+            sources[index] = copy.deepcopy(frozen)
+            break
+    else:
+        sources.append(copy.deepcopy(frozen))
+
 
 def known(value):
     return value is not None and value != "" and value != [] and value != {}

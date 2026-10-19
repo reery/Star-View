@@ -11,6 +11,7 @@ import re
 import copy
 
 from .enrichment import FIELDS, derive_physical, estimate_temperature
+from .precision import calculated_float
 
 PROPERTY_FIELDS = ("spectral_type", *FIELDS, "absolute_mag")
 
@@ -114,7 +115,12 @@ def apply_literature(root, path, systems, pool, audit):
                 raise ValueError(f"Missing component abundance quantity: {identifier}")
             replacement = observation.get("replaces")
             if replacement is not None:
-                if star.get(field) != replacement["value"]:
+                previous, expected = star.get(field), replacement["value"]
+                # Older reviews froze unrounded distance-modulus results.
+                # Compare those guards at the same precision as new outputs.
+                if field == "absolute_mag" and previous is not None:
+                    previous, expected = calculated_float(previous), calculated_float(expected)
+                if previous != expected:
                     raise ValueError(f"Reviewed literature replacement input drifted: {identifier}:{field}")
                 replaced[field] = {"value": star[field], "sourceEvidence": copy.deepcopy(
                     (previous_review or {}).get("adopted", {}).get(field) or evidence.get(field))}
@@ -132,10 +138,10 @@ def apply_literature(root, path, systems, pool, audit):
             distance = math.hypot(star["x_pc"], star["y_pc"], star["z_pc"])
             if not math.isfinite(distance) or distance <= 0:
                 raise ValueError(f"Invalid component photometry distance: {identifier}")
-            star["absolute_mag"] = star["apparent_mag"] - 5 * math.log10(distance / 10)
+            star["absolute_mag"] = calculated_float(star["apparent_mag"] - 5 * math.log10(distance / 10))
             adopted["absolute_mag"] = {"value": star["absolute_mag"], "status": "derived",
                 "method": "Component Johnson V and adopted catalog distance; no extinction correction",
-                "inputs": {"apparent_mag": star["apparent_mag"], "distance_pc": distance}}
+                "inputs": {"apparent_mag": star["apparent_mag"], "distance_pc": calculated_float(distance)}}
         evidence["reviewedLiterature"] = {**review, "adopted": adopted, "retained": retained,
             **({"replaced": replaced} if replaced else {}),
             **({"withheld": withheld} if withheld else {}),

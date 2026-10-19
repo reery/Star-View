@@ -7005,5 +7005,20 @@
     "src/data/catalogs/western-constellation-stars/stars.csv": "cd5d2e1def1e85bfd72925fef9a06ceefafb4c596f52e220a88e75a0fb4821fd",
     "src/data/catalogs/western-constellation-stars/provenance.json": "c3977e96db9ed24e6c8571315f01e81f3dcb0bf671e82766ba237169823dc5a1",
     "src/data/overlays/compact-remnants/provenance.json": "13d27e7f927547e7375efc6f2a9b69c0303477e1eab7c2a6a88e60a541ef3842"
+  },
+  "validation": {
+    "catalogPreservation": "passed",
+    "effectiveSnapshotPreservation": "passed",
+    "crossCatalogSharedObjects": 338,
+    "crossCatalogConflicts": 0,
+    "chartFallbackDifferences": 0,
+    "pythonFocusedTestsPassed": 17,
+    "vitestFocusedTestsPassed": 67,
+    "desktopBrowserChecksPassed": 1,
+    "typecheck": "passed",
+    "productionBuild": "passed",
+    "fullSuiteRun": false,
+    "unrelatedFailuresReproducedBeforePass": 6,
+    "legacyAstropyTest": "Unavailable: Astropy not installed in available environment"
   }
 }

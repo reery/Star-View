@@ -9,6 +9,7 @@ import json
 import math
 
 from .bright_system_motion import bulk_vector
+from .preservation import retain_frozen_source
 
 PLAN = "catalog-work/star-systems/reviewed-constellation-motion.json"
 VELOCITY = ("vx_kms", "vy_kms", "vz_kms")
@@ -76,8 +77,7 @@ def apply_constellation_motion(root, systems, pool, audit):
                 "record": original,
             })
             for source in plan.get("retainedPreviousAdoptions", {}).get(identifier, []):
-                if source not in star["catalog_sources"]:
-                    star["catalog_sources"].append(copy.deepcopy(source))
+                retain_frozen_source(star["catalog_sources"], source)
             evidence = audit["componentRecords"].setdefault(identifier, {})
             evidence["constellationSystemMotion"] = {
                 "systemId": system["id"], "primaryStarId": primary, "radialVelocity": rv,

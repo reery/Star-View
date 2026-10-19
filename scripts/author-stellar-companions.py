@@ -23,11 +23,12 @@ from catalog_sources.enrichment import estimate_temperature, derive_physical
 from catalog_sources.ordinary_binaries import orbit_pairs, matching_members
 from catalog_sources.companion_properties import apply_literature, property_coverage
 from catalog_sources.classification import spectral_labels
-from catalog_sources.preservation import pool_losses
+from catalog_sources.preservation import pool_losses, retain_frozen_source
 from catalog_sources.shared_objects import REVIEW as SHARED_OBJECT_REVIEW, reviewed_objects
 from catalog_sources.bright_system_motion import apply_bright_system_motion
 from catalog_sources.constellation_motion import apply_constellation_motion
 from catalog_sources.hierarchy_splits import apply_hierarchy_splits
+from catalog_sources.precision import calculated_float
 
 ROOT = Path(__file__).resolve().parents[1]
 WORK = ROOT / "catalog-work/star-systems"
@@ -87,7 +88,7 @@ def csv_star(row, identities, stats):
                 known_planets=number(row.get("known_planets")) if row.get("known_planets") else adopted_stats.get("known_planets"))
     star["apparent_mag"] = number(row.get("apparent_mag"))
     if star["apparent_mag"] is None:
-        star["apparent_mag"] = -26.74 if star["id"] == "sun" else star["absolute_mag"] + 5 * math.log10(math.hypot(star["x_pc"], star["y_pc"], star["z_pc"]) / 10) if star["absolute_mag"] is not None else None
+        star["apparent_mag"] = -26.74 if star["id"] == "sun" else calculated_float(star["absolute_mag"] + 5 * math.log10(math.hypot(star["x_pc"], star["y_pc"], star["z_pc"]) / 10)) if star["absolute_mag"] is not None else None
     return star
 
 
@@ -135,7 +136,7 @@ def retain_unresolved_photometry(star, parent, identities, evidence):
     star["unresolved_photometry"] = photometry
     evidence["unresolvedPhotometry"] = {**photometry, "sourceStarId": parent["id"],
         "sourceAbsoluteMagnitude": parent["absolute_mag"],
-        "sourceDistancePc": math.hypot(parent["x_pc"], parent["y_pc"], parent["z_pc"]),
+        "sourceDistancePc": calculated_float(math.hypot(parent["x_pc"], parent["y_pc"], parent["z_pc"])),
         "sourceNotes": parent["notes"],
         "policy": "Observed catalog-source photometry only; no individual component flux inferred."}
 
@@ -216,7 +217,7 @@ def build():
             if star["absolute_mag"] is None and "absolute_mag" not in withheld and number(source["V"]) is not None:
                 star["apparent_mag"] = number(source["V"])
                 distance = math.hypot(star["x_pc"], star["y_pc"], star["z_pc"])
-                star["absolute_mag"] = star["apparent_mag"] - 5 * math.log10(distance / 10)
+                star["absolute_mag"] = calculated_float(star["apparent_mag"] - 5 * math.log10(distance / 10))
                 evidence["absolute_mag"] = {"method": "individual SIMBAD Johnson V and adopted component distance; no extinction correction", "V": star["apparent_mag"]}
         row = {"id": star["id"], "type": star["type"], "notes": star["notes"], "spectral_type": star["spectral_type"] or "", **{field: star[field] for field in FIELDS}}
         for method in (estimate_temperature, derive_physical):
@@ -360,9 +361,9 @@ def build():
                 if visual and not photometry_blended:
                     star["apparent_mag"] = visual
                     distance = math.hypot(star["x_pc"], star["y_pc"], star["z_pc"])
-                    star["absolute_mag"] = visual - 5 * math.log10(distance / 10)
+                    star["absolute_mag"] = calculated_float(visual - 5 * math.log10(distance / 10))
                     evidence["photometry"] = {"source": "MSC individual subsystem magnitude", "V": visual,
-                        "distancePc": distance, "method": "Individual V and adopted component distance; no extinction correction"}
+                        "distancePc": calculated_float(distance), "method": "Individual V and adopted component distance; no extinction correction"}
                 elif visual:
                     evidence["withheldPhotometry"] = {"V": visual, "reason": "Unresolved parent flux; secondary brightness unavailable"}
             star["spectral_type"] = spectrum(inherited_spectrum)
@@ -665,8 +666,7 @@ def build():
         match = shared_reviews.get(identifier)
         if match:
             for source in match[1].get("retainedCatalogSources", []):
-                if source not in star.get("catalog_sources", []):
-                    star.setdefault("catalog_sources", []).append(copy.deepcopy(source))
+                retain_frozen_source(star.setdefault("catalog_sources", []), source)
     for identifier, star in pool.items():
         if star.get("catalog_sources"):
             star["catalog_sources"].sort(key=lambda source: (source["record"]["id"] != identifier, source["catalog_id"]))
