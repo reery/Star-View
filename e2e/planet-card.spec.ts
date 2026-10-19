@@ -14,6 +14,81 @@ async function openPlanet(page: Page, id = 'mars') {
   await expect(page.locator('#planet-globe')).toHaveAttribute('data-texture-ready', 'true')
 }
 
+test('planet and moon tooltips respond to touch and dismiss on movement @mobile', async ({ page, isMobile }) => {
+  test.skip(!isMobile, 'Real touch input')
+  await openPlanet(page, 'jupiter')
+  const diameter = page.locator('[data-planet-spec="mean-diameter"] dt button')
+  const tooltip = page.locator('#planet-mean-diameter-detail-tooltip')
+  // Safari does not focus buttons on tap: explicitly remove focus in this check.
+  await diameter.tap()
+  await diameter.blur()
+  await expect(tooltip).toBeVisible()
+  await page.locator('.planet-heading h2').tap()
+  await expect(tooltip).toBeHidden()
+  await diameter.tap()
+  await expect(tooltip).toBeVisible()
+  const bounds = (await diameter.boundingBox())!
+  const session = await page.context().newCDPSession(page)
+  await session.send('Input.dispatchTouchEvent', { type: 'touchStart', touchPoints: [{ x: bounds.x + 5, y: bounds.y + 5 }] })
+  await session.send('Input.dispatchTouchEvent', { type: 'touchMove', touchPoints: [{ x: bounds.x + 5, y: bounds.y + 30 }] })
+  await session.send('Input.dispatchTouchEvent', { type: 'touchEnd', touchPoints: [] })
+  await expect(tooltip).toBeHidden()
+  await diameter.tap()
+  await expect(tooltip).toBeVisible()
+  await page.locator('#planet-card > .card-scroll-content').evaluate((element) => { element.scrollTop += 50 })
+  await expect(tooltip).toBeHidden()
+  await page.locator('#planet-moons-toggle').tap()
+  const moonHelp = page.locator('.moon-properties dt button').first()
+  await moonHelp.tap()
+  const moonTooltip = page.locator(`#${await moonHelp.getAttribute('aria-describedby')}`)
+  await expect(moonTooltip).toBeVisible()
+  await page.locator('.planet-heading h2').tap()
+  await expect(moonTooltip).toBeHidden()
+})
+
+test('planet tooltip desktop hover and keyboard behavior stays unchanged', async ({ page, isMobile }) => {
+  test.skip(isMobile, 'Desktop behavior')
+  await openPlanet(page)
+  const diameter = page.locator('[data-planet-spec="mean-diameter"] dt button')
+  const tooltip = page.locator('#planet-mean-diameter-detail-tooltip')
+  await diameter.hover()
+  await expect(tooltip).toBeVisible()
+  await page.mouse.move(5, 5)
+  await expect(tooltip).toBeHidden()
+  await diameter.focus()
+  await expect(tooltip).toBeVisible()
+  await diameter.blur()
+  await expect(tooltip).toBeHidden()
+})
+
+test('map fills the viewport while controls respect portrait and landscape safe areas @mobile', async ({ page, isMobile }) => {
+  test.skip(!isMobile, 'Mobile safe areas')
+  await openPlanet(page)
+  for (const layout of [
+    { width: 390, height: 844, top: 59, right: 0, bottom: 34, left: 0 },
+    { width: 844, height: 390, top: 0, right: 59, bottom: 21, left: 59 },
+  ]) {
+    await page.setViewportSize(layout)
+    // Browser emulation reports zero env() insets; inject realistic device values.
+    await page.evaluate((insets) => {
+      for (const side of ['top', 'right', 'bottom', 'left'] as const) {
+        document.documentElement.style.setProperty(`--safe-${side}`, `${insets[side]}px`)
+      }
+    }, layout)
+    await expect.poll(async () => Math.round((await page.locator('#inspector').boundingBox())!.width))
+      .toBe(layout.width - layout.left - layout.right)
+    const scene = (await page.locator('#scene').boundingBox())!
+    expect(scene).toEqual({ x: 0, y: 0, width: layout.width, height: layout.height })
+    for (const selector of ['#selected-object-card', '.scene-toolbar', '.control-dock', '#planet-card']) {
+      const bounds = (await page.locator(selector).boundingBox())!
+      expect(bounds.x).toBeGreaterThanOrEqual(layout.left)
+      expect(bounds.y).toBeGreaterThanOrEqual(layout.top)
+      expect(bounds.x + bounds.width).toBeLessThanOrEqual(layout.width - layout.right + 1)
+      expect(bounds.y + bounds.height).toBeLessThanOrEqual(layout.height - layout.bottom + 1)
+    }
+  }
+})
+
 test('Mars has sourced Info sections and its existing moons', async ({ page }, testInfo) => {
   await openPlanet(page)
   await page.locator('#planet-info-toggle').click()

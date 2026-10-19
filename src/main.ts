@@ -40,6 +40,7 @@ import { ObjectList } from './object-list'
 import { spaceMotionForStar } from './space-motion'
 import { SelectionHistory } from './selection-history'
 import { initializeToolbarTouch } from './toolbar-touch'
+import { initializeTouchTooltips } from './touch-tooltips'
 import { objectSubtypeDescription } from './object-subtype-info'
 import { MISSING_VALUE, measurement, preciseMeasurement, quantity, scientificQuantity } from './format'
 import { OBJECT_DISTANCE_STEPS_LY, readSavedViews, SAVED_VIEWS_STORAGE_KEY, type SavedView, type SavedViewSettings } from './saved-views'
@@ -174,6 +175,7 @@ icon('object-info-icon', BookOpen)
 icon('object-system-icon', Orbit)
 
 const events = new AbortController()
+initializeTouchTooltips(events.signal)
 initializeToolbarTouch(document.querySelector<HTMLElement>('.scene-toolbar')!, events.signal)
 let glossaryInitialized = false
 let viewer: StarViewer | undefined

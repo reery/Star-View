@@ -1,4 +1,5 @@
 import { createLoadError } from './load-recovery'
+import { registerTouchTooltip, usingTouchTooltips } from './touch-tooltips'
 import { isExtrasolarPlanet, isSmallBody, planetApparentMagnitudeRange, planetAtmosphereSpecs, planetPhysicalSpecs, type PlanetDescription, type PlanetSpec } from './planet-properties'
 import { smallBodyMedia } from './small-body-media'
 import { magnitudeNumber, NAKED_EYE_MAGNITUDE } from './magnitude-card'
@@ -123,12 +124,14 @@ function attachTooltip(button: HTMLButtonElement, tooltip: HTMLElement): void {
     hovered = true
     show()
   })
-  button.addEventListener('pointerleave', () => {
+  button.addEventListener('pointerleave', (event) => {
+    if (event.pointerType === 'touch') return
     hovered = false
     if (document.activeElement !== button) hide()
   })
-  button.addEventListener('focus', show)
-  button.addEventListener('blur', () => { if (!hovered) hide() })
+  button.addEventListener('focus', () => { if (!usingTouchTooltips()) show() })
+  button.addEventListener('blur', () => { if (!hovered && !usingTouchTooltips()) hide() })
+  registerTouchTooltip(button, { show, hide })
 }
 
 function specTooltipLines(spec: PlanetSpec): string[] | undefined {
