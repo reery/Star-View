@@ -1,7 +1,7 @@
-import { existsSync, readFileSync, realpathSync, writeFileSync } from 'node:fs'
+import { existsSync, readFileSync, realpathSync } from 'node:fs'
 import { extname, resolve, sep } from 'node:path'
-import { brotliCompressSync, constants } from 'node:zlib'
 import { defineConfig, type Plugin } from 'vite'
+import { writeBrotliSidecars } from './scripts/brotli.ts'
 
 const COMPRESSIBLE = new Set(['.css', '.html', '.js', '.json', '.svg', '.txt', '.xml'])
 const CONTENT_TYPES: Record<string, string> = {
@@ -55,26 +55,20 @@ function acceptsBrotli(header: string | undefined): boolean {
 
 function brotliAssets(): Plugin {
   let buildRoot = ''
+  let cacheRoot = ''
   return {
     name: 'star-view-brotli-assets',
     enforce: 'post',
     configResolved(config) {
       buildRoot = resolve(config.root, config.build.outDir)
+      cacheRoot = resolve(config.cacheDir, 'star-view-brotli')
     },
-    writeBundle(_, bundle) {
-      for (const output of Object.values(bundle)) {
-        const extension = extname(output.fileName)
-        if (!COMPRESSIBLE.has(extension)) continue
-        const target = resolve(buildRoot, output.fileName)
-        const input = readFileSync(target)
-        if (input.byteLength < 1024) continue
-        writeFileSync(`${target}.br`, brotliCompressSync(input, {
-            params: {
-              [constants.BROTLI_PARAM_MODE]: constants.BROTLI_MODE_TEXT,
-              [constants.BROTLI_PARAM_QUALITY]: 11,
-            },
-          }))
-      }
+    async writeBundle(_, bundle) {
+      const files = Object.values(bundle)
+        .filter((output) => COMPRESSIBLE.has(extname(output.fileName)))
+        .map((output) => resolve(buildRoot, output.fileName))
+      const { reused, compressed } = await writeBrotliSidecars(files, cacheRoot)
+      this.info(`Brotli: ${reused} cached, ${compressed} compressed`)
     },
     configurePreviewServer(server) {
       const outputRoot = realpathSync(resolve(server.config.root, server.config.build.outDir))
@@ -123,6 +117,13 @@ function brotliAssets(): Plugin {
   }
 }
 
-export default defineConfig({
+export default defineConfig(({ mode }) => ({
   plugins: [contentSecurityPolicy(), brotliAssets()],
-})
+  // Keep a manual-refresh option for long inspection sessions in Safari.
+  server: {
+    ...(mode === 'manual' ? { hmr: false } : {}),
+    watch: {
+      ignored: [/[/\\]src[/\\]data[/\\]generated[/\\].* \d+\.json$/],
+    },
+  },
+}))

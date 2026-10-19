@@ -1,0 +1,2061 @@
+{
+  "schemaVersion": 1,
+  "reviewedOn": "2026-10-18",
+  "policy": "Individual identities are A=Aa, C=Ab (inner pair), and outer B. Adopt dynamical masses and component Johnson V; preserve uncertain bolometric estimates as estimates. Never convert blended system temperatures or atmospheric fits into individual measurements. Preserve all earlier catalog/effective records and their provenance.",
+  "sources": [
+    {
+      "name": "Segransan et al. 2000, EZ Aquarii individual dynamical masses, Table 3",
+      "url": "https://arxiv.org/abs/astro-ph/0010585"
+    },
+    {
+      "name": "Delfosse et al. 2000, EZ Aquarii component V photometry and B infrared magnitudes, Tables 1-3",
+      "url": "https://arxiv.org/abs/astro-ph/0010586"
+    },
+    {
+      "name": "Torres et al. 2010, EZ Aquarii approximate component luminosities and indirect B estimates, Table 5",
+      "url": "https://arxiv.org/abs/0908.2624"
+    },
+    {
+      "name": "Gonzalez-Payo et al. 2026, EZ Aquarii A/Aa, C/Ab and B spectral classifications, Table 4",
+      "url": "https://arxiv.org/html/2605.04094v1"
+    },
+    {
+      "name": "Casagrande et al. 2008, unresolved LHS 68 temperature and explicit triple-system caveat, section 7.2",
+      "url": "https://arxiv.org/abs/0806.2471"
+    },
+    {
+      "name": "Taylor et al. 2024, unresolved EZ Aqr photometric atmospheric/model estimates, Table 3",
+      "url": "https://arxiv.org/html/2402.00934v1"
+    }
+  ],
+  "objects": {
+    "ez-aquarii-a": {
+      "expectedName": "EZ Aquarii A",
+      "component": "A",
+      "adoptedFields": {
+        "mass_solar": {
+          "value": 0.1187,
+          "uncertainty": 0.0011,
+          "status": "measured",
+          "reference": "2000A&A...364..665S:Table 3",
+          "sourceUrl": "https://arxiv.org/abs/astro-ph/0010585",
+          "method": "Individual dynamical mass from the simultaneous inner/outer orbital fit; published orbital parallax 293.6 +/-0.9 mas."
+        },
+        "absolute_mag": {
+          "value": 15.39,
+          "uncertainty": 0.07,
+          "status": "derived",
+          "passband": "Johnson V",
+          "reference": "2000A&A...364..217D:Table 3",
+          "sourceUrl": "https://arxiv.org/abs/astro-ph/0010586",
+          "method": "Published individual absolute V from system photometry, flux ratios and parallax; baseline photometry, not a dated flare snapshot.",
+          "caveat": "A/C flux separation uses the approximate spectroscopic light ratio; C retains its large published error. These values are V-band magnitudes, not bolometric luminosities."
+        },
+        "spectral_type": {
+          "value": "M5.5V",
+          "status": "compiled",
+          "reference": "Gonzalez-Payo et al. 2026:Table 4; doi:10.1093/mnras/stag838",
+          "sourceUrl": "https://arxiv.org/html/2605.04094v1",
+          "scope": "Individual EZ Aqr A; A=Aa, C=Ab, outer B. A colon denotes an estimated subtype, not a measured temperature."
+        },
+        "temperature_k": {
+          "value": null,
+          "status": "withheld",
+          "reference": "2008MNRAS.389..585C:section 7.2; 2024ApJ...964...80T:Table 3",
+          "sourceUrl": "https://arxiv.org/abs/0806.2471",
+          "decision": "The previous 3060 K unresolved M5V class estimate is not an individual temperature. Do not infer component temperatures from tentative spectral subtypes or blended SED fits."
+        },
+        "radius_solar": {
+          "value": null,
+          "status": "withheld",
+          "decision": "No secure individual radius adopted. Do not derive a radius from an uncertain luminosity and a spectral-class temperature."
+        },
+        "luminosity_solar": {
+          "value": 0.0007762471166286919,
+          "status": "estimated",
+          "reference": "2010A&ARv..18...67T:Table 5",
+          "sourceUrl": "https://arxiv.org/abs/0908.2624",
+          "sourceComponent": "Aa",
+          "inputs": {
+            "log_luminosity_solar": -3.11,
+            "sourceUncertaintyFlag": ":"
+          },
+          "uncertainty": null,
+          "caveat": "Published approximate bolometric luminosity marked with a colon; no numerical uncertainty supplied. Converted from log10 L/Lsun; not a new precision measurement or a value derived from V magnitude."
+        }
+      }
+    },
+    "ez-aquarii-b": {
+      "expectedName": "EZ Aquarii B",
+      "component": "B",
+      "adoptedFields": {
+        "mass_solar": {
+          "value": 0.1145,
+          "uncertainty": 0.0012,
+          "status": "measured",
+          "reference": "2000A&A...364..665S:Table 3",
+          "sourceUrl": "https://arxiv.org/abs/astro-ph/0010585",
+          "method": "Individual dynamical mass from the simultaneous inner/outer orbital fit; published orbital parallax 293.6 +/-0.9 mas."
+        },
+        "absolute_mag": {
+          "value": 15.64,
+          "uncertainty": 0.08,
+          "status": "derived",
+          "passband": "Johnson V",
+          "reference": "2000A&A...364..217D:Table 3",
+          "sourceUrl": "https://arxiv.org/abs/astro-ph/0010586",
+          "method": "Published individual absolute V from system photometry, flux ratios and parallax; baseline photometry, not a dated flare snapshot.",
+          "caveat": "A/C flux separation uses the approximate spectroscopic light ratio; C retains its large published error. These values are V-band magnitudes, not bolometric luminosities."
+        },
+        "spectral_type": {
+          "value": "M5.5:V",
+          "status": "estimated",
+          "reference": "Gonzalez-Payo et al. 2026:Table 4; doi:10.1093/mnras/stag838",
+          "sourceUrl": "https://arxiv.org/html/2605.04094v1",
+          "scope": "Individual EZ Aqr B; A=Aa, C=Ab, outer B. A colon denotes an estimated subtype, not a measured temperature."
+        },
+        "temperature_k": {
+          "value": null,
+          "status": "withheld",
+          "reference": "2008MNRAS.389..585C:section 7.2; 2024ApJ...964...80T:Table 3",
+          "sourceUrl": "https://arxiv.org/abs/0806.2471",
+          "decision": "The previous 3060 K unresolved M5V class estimate is not an individual temperature. Do not infer component temperatures from tentative spectral subtypes or blended SED fits."
+        },
+        "radius_solar": {
+          "value": null,
+          "status": "withheld",
+          "decision": "No secure individual radius adopted. Do not derive a radius from an uncertain luminosity and a spectral-class temperature."
+        },
+        "luminosity_solar": {
+          "value": null,
+          "status": "withheld",
+          "decision": "Retain the published B row, but do not adopt these physical quantities. The 2650 K value is also reported for unresolved LHS 68 by Casagrande 2008, section 7.2, with an explicit triple-system photometry caveat. Torres section 9 states these radii are indirect and temperature-scale dependent. A sufficiently secure B-only flux/temperature lineage has not been established; the row is not evidence for a direct radius measurement."
+        },
+        "infrared_absolute_magnitudes": {
+          "status": "derived",
+          "reference": "2000A&A...364..217D:Table 3",
+          "sourceUrl": "https://arxiv.org/abs/astro-ph/0010586",
+          "values": {
+            "H": {
+              "value": 9.29,
+              "uncertainty": 0.04
+            },
+            "K": {
+              "value": 8.96,
+              "uncertainty": 0.04
+            }
+          },
+          "decision": "Retained in the review with their actual passbands; never substituted for Johnson V or bolometric luminosity."
+        }
+      }
+    },
+    "ez-aquarii-c": {
+      "expectedName": "EZ Aquarii C",
+      "component": "C",
+      "adoptedFields": {
+        "mass_solar": {
+          "value": 0.093,
+          "uncertainty": 0.0008,
+          "status": "measured",
+          "reference": "2000A&A...364..665S:Table 3",
+          "sourceUrl": "https://arxiv.org/abs/astro-ph/0010585",
+          "method": "Individual dynamical mass from the simultaneous inner/outer orbital fit; published orbital parallax 293.6 +/-0.9 mas."
+        },
+        "absolute_mag": {
+          "value": 17.43,
+          "uncertainty": 0.4,
+          "status": "derived",
+          "passband": "Johnson V",
+          "reference": "2000A&A...364..217D:Table 3",
+          "sourceUrl": "https://arxiv.org/abs/astro-ph/0010586",
+          "method": "Published individual absolute V from system photometry, flux ratios and parallax; baseline photometry, not a dated flare snapshot.",
+          "caveat": "A/C flux separation uses the approximate spectroscopic light ratio; C retains its large published error. These values are V-band magnitudes, not bolometric luminosities."
+        },
+        "spectral_type": {
+          "value": "M7:V",
+          "status": "estimated",
+          "reference": "Gonzalez-Payo et al. 2026:Table 4; doi:10.1093/mnras/stag838",
+          "sourceUrl": "https://arxiv.org/html/2605.04094v1",
+          "scope": "Individual EZ Aqr C; A=Aa, C=Ab, outer B. A colon denotes an estimated subtype, not a measured temperature."
+        },
+        "temperature_k": {
+          "value": null,
+          "status": "withheld",
+          "reference": "2008MNRAS.389..585C:section 7.2; 2024ApJ...964...80T:Table 3",
+          "sourceUrl": "https://arxiv.org/abs/0806.2471",
+          "decision": "The previous 3060 K unresolved M5V class estimate is not an individual temperature. Do not infer component temperatures from tentative spectral subtypes or blended SED fits."
+        },
+        "radius_solar": {
+          "value": null,
+          "status": "withheld",
+          "decision": "No secure individual radius adopted. Do not derive a radius from an uncertain luminosity and a spectral-class temperature."
+        },
+        "luminosity_solar": {
+          "value": 0.00012022644346174131,
+          "status": "estimated",
+          "reference": "2010A&ARv..18...67T:Table 5",
+          "sourceUrl": "https://arxiv.org/abs/0908.2624",
+          "sourceComponent": "Ab",
+          "inputs": {
+            "log_luminosity_solar": -3.92,
+            "sourceUncertaintyFlag": ":"
+          },
+          "uncertainty": null,
+          "caveat": "Published approximate bolometric luminosity marked with a colon; no numerical uncertainty supplied. Converted from log10 L/Lsun; not a new precision measurement or a value derived from V magnitude."
+        }
+      }
+    }
+  },
+  "previousCatalogRecords": {
+    "src/data/stars.csv:ez-aquarii-a": {
+      "path": "src/data/stars.csv",
+      "row": {
+        "type": "star",
+        "id": "ez-aquarii-a",
+        "name": "EZ Aquarii A",
+        "spectral_type": "M5.0Ve",
+        "x_pc": "1.264192",
+        "y_pc": "1.359020",
+        "z_pc": "-2.855815",
+        "vx_kms": "-64.727748",
+        "vy_kms": "3.589095",
+        "vz_kms": "32.798766",
+        "temperature_k": "3060",
+        "mass_solar": "0.11",
+        "luminosity_solar": "",
+        "radius_solar": "",
+        "metallicity_dex": "",
+        "age_gyr": "",
+        "metallicity_kind": "",
+        "absolute_mag": "15.64",
+        "epoch": "2000.0",
+        "notes": "System position from J2000 direction and 293.60 mas parallax compiled by Torres et al. (2010). Temperature is the unresolved M5V system class estimate. Motion: Segransan et al. (2000), Table 2, gives the shared EZ Aquarii ABC systemic radial velocity V0 = -50.08 +/- 0.01 km/s. The uncertainty is the published orbital-fit uncertainty on V0. Combined with the retained system position, parallax and proper motion, this supplies approximate system bulk motion for A, B and C; individual orbital velocities and orbital phase are not modeled. Frozen J2000 positions are retained.",
+        "constellation": "Aquarius",
+        "ra_deg": "339.650693945",
+        "dec_deg": "-15.289647052",
+        "astrometry_epoch": "2016.0",
+        "parallax_mas": "293.6",
+        "parallax_error_mas": "0.9",
+        "pm_ra_cosdec_masyr": "2314.8",
+        "pm_ra_error_masyr": "8.0",
+        "pm_dec_masyr": "2295.3",
+        "pm_dec_error_masyr": "8.0",
+        "radial_velocity_kms": "-50.08",
+        "radial_velocity_error_kms": "0.01",
+        "astrometry_ref": "2010A&ARv..18...67T; 2012yCat.1322....0Z",
+        "radial_velocity_ref": "2000A&A...364..665S:Table 2; shared systemic velocity approximation; EZ Aquarii ABC"
+      }
+    },
+    "src/data/stars.csv:ez-aquarii-b": {
+      "path": "src/data/stars.csv",
+      "row": {
+        "type": "star",
+        "id": "ez-aquarii-b",
+        "name": "EZ Aquarii B",
+        "spectral_type": "M?",
+        "x_pc": "1.264192",
+        "y_pc": "1.359020",
+        "z_pc": "-2.855815",
+        "vx_kms": "-64.727748",
+        "vy_kms": "3.589095",
+        "vz_kms": "32.798766",
+        "temperature_k": "3060",
+        "mass_solar": "0.11",
+        "luminosity_solar": "",
+        "radius_solar": "",
+        "metallicity_dex": "",
+        "age_gyr": "",
+        "metallicity_kind": "",
+        "absolute_mag": "15.58",
+        "epoch": "2000.0",
+        "notes": "System position from J2000 direction and 293.60 mas parallax compiled by Torres et al. (2010). Individual subtype is uncertain; temperature uses the unresolved M5V system estimate. Motion: Segransan et al. (2000), Table 2, gives the shared EZ Aquarii ABC systemic radial velocity V0 = -50.08 +/- 0.01 km/s. The uncertainty is the published orbital-fit uncertainty on V0. Combined with the retained system position, parallax and proper motion, this supplies approximate system bulk motion for A, B and C; individual orbital velocities and orbital phase are not modeled. Frozen J2000 positions are retained.",
+        "constellation": "Aquarius",
+        "ra_deg": "339.650693945",
+        "dec_deg": "-15.289647052",
+        "astrometry_epoch": "2016.0",
+        "parallax_mas": "293.6",
+        "parallax_error_mas": "0.9",
+        "pm_ra_cosdec_masyr": "2314.8",
+        "pm_ra_error_masyr": "8.0",
+        "pm_dec_masyr": "2295.3",
+        "pm_dec_error_masyr": "8.0",
+        "radial_velocity_kms": "-50.08",
+        "radial_velocity_error_kms": "0.01",
+        "astrometry_ref": "FROM:GJ866A",
+        "radial_velocity_ref": "2000A&A...364..665S:Table 2; shared systemic velocity approximation; EZ Aquarii ABC"
+      }
+    },
+    "src/data/stars.csv:ez-aquarii-c": {
+      "path": "src/data/stars.csv",
+      "row": {
+        "type": "star",
+        "id": "ez-aquarii-c",
+        "name": "EZ Aquarii C",
+        "spectral_type": "M?",
+        "x_pc": "1.264192",
+        "y_pc": "1.359020",
+        "z_pc": "-2.855815",
+        "vx_kms": "-64.727748",
+        "vy_kms": "3.589095",
+        "vz_kms": "32.798766",
+        "temperature_k": "3060",
+        "mass_solar": "0.10",
+        "luminosity_solar": "",
+        "radius_solar": "",
+        "metallicity_dex": "",
+        "age_gyr": "",
+        "metallicity_kind": "",
+        "absolute_mag": "16.34",
+        "epoch": "2000.0",
+        "notes": "System position from J2000 direction and 293.60 mas parallax compiled by Torres et al. (2010). Included with A and B because all three components tie across the cutoff. Motion: Segransan et al. (2000), Table 2, gives the shared EZ Aquarii ABC systemic radial velocity V0 = -50.08 +/- 0.01 km/s. The uncertainty is the published orbital-fit uncertainty on V0. Combined with the retained system position, parallax and proper motion, this supplies approximate system bulk motion for A, B and C; individual orbital velocities and orbital phase are not modeled. Frozen J2000 positions are retained.",
+        "constellation": "Aquarius",
+        "ra_deg": "339.650693945",
+        "dec_deg": "-15.289647052",
+        "astrometry_epoch": "2016.0",
+        "parallax_mas": "293.6",
+        "parallax_error_mas": "0.9",
+        "pm_ra_cosdec_masyr": "2314.8",
+        "pm_ra_error_masyr": "8.0",
+        "pm_dec_masyr": "2295.3",
+        "pm_dec_error_masyr": "8.0",
+        "radial_velocity_kms": "-50.08",
+        "radial_velocity_error_kms": "0.01",
+        "astrometry_ref": "FROM:GJ866A",
+        "radial_velocity_ref": "2000A&A...364..665S:Table 2; shared systemic velocity approximation; EZ Aquarii ABC"
+      }
+    },
+    "src/data/catalogs/nearest-100/stars.csv:ez-aquarii-a": {
+      "path": "src/data/catalogs/nearest-100/stars.csv",
+      "row": {
+        "type": "star",
+        "id": "ez-aquarii-a",
+        "name": "EZ Aquarii A",
+        "spectral_type": "M5.0Ve",
+        "x_pc": "1.264192",
+        "y_pc": "1.359020",
+        "z_pc": "-2.855815",
+        "vx_kms": "-64.727748",
+        "vy_kms": "3.589095",
+        "vz_kms": "32.798766",
+        "temperature_k": "3060",
+        "mass_solar": "0.11",
+        "luminosity_solar": "",
+        "radius_solar": "",
+        "metallicity_dex": "",
+        "age_gyr": "",
+        "metallicity_kind": "",
+        "absolute_mag": "15.64",
+        "epoch": "2000.0",
+        "notes": "System position from J2000 direction and 293.60 mas parallax compiled by Torres et al. (2010). Temperature is the unresolved M5V system class estimate. Motion: Segransan et al. (2000), Table 2, gives the shared EZ Aquarii ABC systemic radial velocity V0 = -50.08 +/- 0.01 km/s. The uncertainty is the published orbital-fit uncertainty on V0. Combined with the retained system position, parallax and proper motion, this supplies approximate system bulk motion for A, B and C; individual orbital velocities and orbital phase are not modeled. Frozen J2000 positions are retained.",
+        "constellation": "Aquarius",
+        "ra_deg": "339.650693945",
+        "dec_deg": "-15.289647052",
+        "astrometry_epoch": "2016.0",
+        "parallax_mas": "293.6",
+        "parallax_error_mas": "0.9",
+        "pm_ra_cosdec_masyr": "2314.8",
+        "pm_ra_error_masyr": "8.0",
+        "pm_dec_masyr": "2295.3",
+        "pm_dec_error_masyr": "8.0",
+        "radial_velocity_kms": "-50.08",
+        "radial_velocity_error_kms": "0.01",
+        "astrometry_ref": "2010A&ARv..18...67T; 2012yCat.1322....0Z",
+        "radial_velocity_ref": "2000A&A...364..665S:Table 2; shared systemic velocity approximation; EZ Aquarii ABC"
+      },
+      "provenance": {
+        "id": "ez-aquarii-a",
+        "sourceRow": "26",
+        "systemId": "14",
+        "sourceObjectName": "GJ 866 A",
+        "sourceObjectType": "LM",
+        "identifiers": {
+          "GaiaEDR3": "2596740426913080576",
+          "GaiaDR2": "2596740426912781696",
+          "SIMBAD": "GJ 866 A",
+          "GJ": "GJ 866 A",
+          "HIP": null
+        },
+        "sourceMeasurements": {
+          "RAdeg": "339.650693945",
+          "DEdeg": "-15.289647052",
+          "Epoch": "2016.0",
+          "plx": "293.6",
+          "e_plx": "0.9",
+          "r_plx": "2010A&ARv..18...67T",
+          "pmRA": "2314.8",
+          "e_pmRA": "8.0",
+          "pmDE": "2295.3",
+          "e_pmDE": "8.0",
+          "r_pmDE": "2012yCat.1322....0Z",
+          "RV": "-60.0",
+          "e_RV": "2.0",
+          "r_RV": "1953GCRV..C......0W",
+          "SpType": "M5",
+          "r_SpType": "2002AJ....123.2002H",
+          "SpMethod": "Opt Spec",
+          "Vmag": "12.38",
+          "r_Sys": "2000A&A...353..253W",
+          "Com": "..."
+        },
+        "adoptedJ2000": {
+          "frame": "ICRS",
+          "raDeg": 339.63916345484876,
+          "decDeg": -15.299163823769133,
+          "distancePc": 3.405994140847716,
+          "method": "Preserved existing J2000 Galactic Cartesian snapshot; inverse transform for constellation only."
+        },
+        "fields": {
+          "type": {
+            "status": "adopted-existing",
+            "sourceRefs": [
+              "legacy-neighbors:ez-aquarii-a"
+            ]
+          },
+          "id": {
+            "status": "adopted-existing",
+            "sourceRefs": [
+              "legacy-neighbors:ez-aquarii-a"
+            ]
+          },
+          "name": {
+            "status": "adopted-existing",
+            "sourceRefs": [
+              "legacy-neighbors:ez-aquarii-a"
+            ]
+          },
+          "spectral_type": {
+            "status": "adopted-existing",
+            "sourceRefs": [
+              "legacy-neighbors:ez-aquarii-a"
+            ]
+          },
+          "x_pc": {
+            "status": "adopted-existing",
+            "sourceRefs": [
+              "legacy-neighbors:ez-aquarii-a"
+            ]
+          },
+          "y_pc": {
+            "status": "adopted-existing",
+            "sourceRefs": [
+              "legacy-neighbors:ez-aquarii-a"
+            ]
+          },
+          "z_pc": {
+            "status": "adopted-existing",
+            "sourceRefs": [
+              "legacy-neighbors:ez-aquarii-a"
+            ]
+          },
+          "vx_kms": {
+            "status": "adopted",
+            "sourceRefs": [
+              "shared-object:GJ 866 A:vx_kms"
+            ]
+          },
+          "vy_kms": {
+            "status": "adopted",
+            "sourceRefs": [
+              "shared-object:GJ 866 A:vy_kms"
+            ]
+          },
+          "vz_kms": {
+            "status": "adopted",
+            "sourceRefs": [
+              "shared-object:GJ 866 A:vz_kms"
+            ]
+          },
+          "temperature_k": {
+            "status": "adopted-existing",
+            "sourceRefs": [
+              "legacy-neighbors:ez-aquarii-a"
+            ]
+          },
+          "mass_solar": {
+            "status": "adopted-existing",
+            "sourceRefs": [
+              "legacy-neighbors:ez-aquarii-a"
+            ]
+          },
+          "luminosity_solar": {
+            "status": "unknown",
+            "sourceRefs": [
+              "legacy-neighbors:ez-aquarii-a"
+            ]
+          },
+          "absolute_mag": {
+            "status": "adopted-existing",
+            "sourceRefs": [
+              "legacy-neighbors:ez-aquarii-a"
+            ]
+          },
+          "epoch": {
+            "status": "adopted",
+            "sourceRefs": [],
+            "detail": "Static J2000.0 snapshot; source decimal years treated as Julian years TT."
+          },
+          "notes": {
+            "status": "adopted-existing",
+            "sourceRefs": [
+              "legacy-neighbors:ez-aquarii-a"
+            ],
+            "detail": "System position from J2000 direction and 293.60 mas parallax compiled by Torres et al. (2010). Temperature is the unresolved M5V system class estimate."
+          },
+          "constellation": {
+            "status": "derived",
+            "sourceRefs": [
+              "astropy:7.1.1:Roman1987"
+            ],
+            "detail": "ICRS snapshot direction transformed to B1875 boundary coordinates; no physical motion to 1875. Canonical spelling normalization applied."
+          },
+          "ra_deg": {
+            "status": "compiled",
+            "sourceRefs": [
+              "10pc:tablea1:Seq=26:RAdeg"
+            ]
+          },
+          "dec_deg": {
+            "status": "compiled",
+            "sourceRefs": [
+              "10pc:tablea1:Seq=26:DEdeg"
+            ]
+          },
+          "astrometry_epoch": {
+            "status": "compiled",
+            "sourceRefs": [
+              "10pc:tablea1:Seq=26:Epoch"
+            ]
+          },
+          "parallax_mas": {
+            "status": "compiled",
+            "sourceRefs": [
+              "10pc:tablea1:Seq=26:plx"
+            ]
+          },
+          "parallax_error_mas": {
+            "status": "compiled",
+            "sourceRefs": [
+              "10pc:tablea1:Seq=26:e_plx"
+            ]
+          },
+          "pm_ra_cosdec_masyr": {
+            "status": "compiled",
+            "sourceRefs": [
+              "10pc:tablea1:Seq=26:pmRA"
+            ]
+          },
+          "pm_ra_error_masyr": {
+            "status": "compiled",
+            "sourceRefs": [
+              "10pc:tablea1:Seq=26:e_pmRA"
+            ]
+          },
+          "pm_dec_masyr": {
+            "status": "compiled",
+            "sourceRefs": [
+              "10pc:tablea1:Seq=26:pmDE"
+            ]
+          },
+          "pm_dec_error_masyr": {
+            "status": "compiled",
+            "sourceRefs": [
+              "10pc:tablea1:Seq=26:e_pmDE"
+            ]
+          },
+          "radial_velocity_kms": {
+            "status": "adopted",
+            "sourceRefs": [
+              "shared-object:GJ 866 A:radial_velocity_kms"
+            ]
+          },
+          "radial_velocity_error_kms": {
+            "status": "adopted",
+            "sourceRefs": [
+              "shared-object:GJ 866 A:radial_velocity_error_kms"
+            ]
+          },
+          "astrometry_ref": {
+            "status": "compiled",
+            "sourceRefs": [
+              "10pc:tablea1:Seq=26:r_plx,r_pmDE"
+            ]
+          },
+          "radial_velocity_ref": {
+            "status": "adopted",
+            "sourceRefs": [
+              "shared-object:GJ 866 A:radial_velocity_ref"
+            ]
+          },
+          "radius_solar": {
+            "status": "unknown",
+            "sourceRefs": []
+          },
+          "metallicity_dex": {
+            "status": "unknown",
+            "sourceRefs": []
+          },
+          "age_gyr": {
+            "status": "unknown",
+            "sourceRefs": []
+          },
+          "metallicity_kind": {
+            "status": "unknown",
+            "sourceRefs": []
+          }
+        },
+        "overrides": [
+          "All existing neighbor values preserved; blank physical fields may be filled by the documented supplements; new source measurements are audit-only."
+        ],
+        "physicalSupplements": {
+          "identity": {
+            "gaia_dr2": "2596740426912781696",
+            "identity_method": "10pc Gaia DR2 identifier only; CNS5 identity shared by several components or absent"
+          },
+          "cifuentes2020": {
+            "status": "no exact identifier match"
+          },
+          "mann": {
+            "twomass": null,
+            "status": "withheld",
+            "reasons": [
+              "No unique 2MASS identifier"
+            ]
+          }
+        },
+        "sharedObjectAdoption": {
+          "recordId": "GJ 866 A",
+          "reviewSha256": "0a59c68cae8a2af8373395cd6d5a56c331651ce0e272f7623776be35c8faa9df",
+          "scope": "EZ Aquarii A retains its exact component identity. Motion uses the shared EZ Aquarii ABC center-of-mass radial velocity; individual orbital velocities are not modeled.",
+          "fields": [
+            "vx_kms",
+            "vy_kms",
+            "vz_kms",
+            "radial_velocity_kms",
+            "radial_velocity_error_kms",
+            "radial_velocity_ref"
+          ],
+          "sourceSelections": {
+            "astrometryAndMotion": {
+              "source": "literature-system:gl866-abc",
+              "fields": [
+                "vx_kms",
+                "vy_kms",
+                "vz_kms",
+                "radial_velocity_kms",
+                "radial_velocity_error_kms",
+                "radial_velocity_ref"
+              ],
+              "status": "systemic-approximation",
+              "reference": "2000A&A...364..665S:Table 2",
+              "sourceUrl": "https://arxiv.org/abs/astro-ph/0010585",
+              "valueKms": -50.08,
+              "uncertaintyKms": 0.01,
+              "scope": "Shared EZ Aquarii ABC systemic velocity V0, not an individual component observation",
+              "astrometryInputs": {
+                "ra_deg": "339.650693945",
+                "dec_deg": "-15.289647052",
+                "parallax_mas": "293.6",
+                "parallax_error_mas": "0.9",
+                "pm_ra_cosdec_masyr": "2314.8",
+                "pm_ra_error_masyr": "8.0",
+                "pm_dec_masyr": "2295.3",
+                "pm_dec_error_masyr": "8.0",
+                "astrometry_epoch": "2016.0",
+                "astrometry_ref": "2010A&ARv..18...67T; 2012yCat.1322....0Z"
+              },
+              "decision": "Motion: Segransan et al. (2000), Table 2, gives the shared EZ Aquarii ABC systemic radial velocity V0 = -50.08 +/- 0.01 km/s. The uncertainty is the published orbital-fit uncertainty on V0. Combined with the retained system position, parallax and proper motion, this supplies approximate system bulk motion for A, B and C; individual orbital velocities and orbital phase are not modeled. Frozen J2000 positions are retained."
+            }
+          },
+          "sourceEvidence": "Original measurements and catalog-specific provenance are retained; the shared adopted record supersedes them for these fields."
+        },
+        "sourceFieldProvenance": {
+          "vx_kms": {
+            "status": "unknown",
+            "sourceRefs": [
+              "legacy-neighbors:ez-aquarii-a"
+            ]
+          },
+          "vy_kms": {
+            "status": "unknown",
+            "sourceRefs": [
+              "legacy-neighbors:ez-aquarii-a"
+            ]
+          },
+          "vz_kms": {
+            "status": "unknown",
+            "sourceRefs": [
+              "legacy-neighbors:ez-aquarii-a"
+            ]
+          },
+          "radial_velocity_kms": {
+            "status": "unknown",
+            "sourceRefs": [
+              "10pc:tablea1:Seq=26:RV"
+            ]
+          },
+          "radial_velocity_error_kms": {
+            "status": "unknown",
+            "sourceRefs": [
+              "10pc:tablea1:Seq=26:e_RV"
+            ]
+          },
+          "radial_velocity_ref": {
+            "status": "unknown",
+            "sourceRefs": [
+              "10pc:tablea1:Seq=26:r_RV"
+            ]
+          }
+        }
+      }
+    },
+    "src/data/catalogs/nearest-100/stars.csv:ez-aquarii-b": {
+      "path": "src/data/catalogs/nearest-100/stars.csv",
+      "row": {
+        "type": "star",
+        "id": "ez-aquarii-b",
+        "name": "EZ Aquarii B",
+        "spectral_type": "M?",
+        "x_pc": "1.264192",
+        "y_pc": "1.359020",
+        "z_pc": "-2.855815",
+        "vx_kms": "-64.727748",
+        "vy_kms": "3.589095",
+        "vz_kms": "32.798766",
+        "temperature_k": "3060",
+        "mass_solar": "0.11",
+        "luminosity_solar": "",
+        "radius_solar": "",
+        "metallicity_dex": "",
+        "age_gyr": "",
+        "metallicity_kind": "",
+        "absolute_mag": "15.58",
+        "epoch": "2000.0",
+        "notes": "System position from J2000 direction and 293.60 mas parallax compiled by Torres et al. (2010). Individual subtype is uncertain; temperature uses the unresolved M5V system estimate. Motion: Segransan et al. (2000), Table 2, gives the shared EZ Aquarii ABC systemic radial velocity V0 = -50.08 +/- 0.01 km/s. The uncertainty is the published orbital-fit uncertainty on V0. Combined with the retained system position, parallax and proper motion, this supplies approximate system bulk motion for A, B and C; individual orbital velocities and orbital phase are not modeled. Frozen J2000 positions are retained.",
+        "constellation": "Aquarius",
+        "ra_deg": "339.650693945",
+        "dec_deg": "-15.289647052",
+        "astrometry_epoch": "2016.0",
+        "parallax_mas": "293.6",
+        "parallax_error_mas": "0.9",
+        "pm_ra_cosdec_masyr": "2314.8",
+        "pm_ra_error_masyr": "8.0",
+        "pm_dec_masyr": "2295.3",
+        "pm_dec_error_masyr": "8.0",
+        "radial_velocity_kms": "-50.08",
+        "radial_velocity_error_kms": "0.01",
+        "astrometry_ref": "FROM:GJ866A",
+        "radial_velocity_ref": "2000A&A...364..665S:Table 2; shared systemic velocity approximation; EZ Aquarii ABC"
+      },
+      "provenance": {
+        "id": "ez-aquarii-b",
+        "sourceRow": "27",
+        "systemId": "14",
+        "sourceObjectName": "GJ 866 B",
+        "sourceObjectType": "LM?",
+        "identifiers": {
+          "GaiaEDR3": null,
+          "GaiaDR2": null,
+          "SIMBAD": "GJ 866 B",
+          "GJ": "GJ 866 B",
+          "HIP": null
+        },
+        "sourceMeasurements": {
+          "RAdeg": "339.650693945",
+          "DEdeg": "-15.289647052",
+          "Epoch": "2016.0",
+          "plx": "293.6",
+          "e_plx": "0.9",
+          "r_plx": "FROM:GJ866A",
+          "pmRA": "2314.8",
+          "e_pmRA": "8.0",
+          "pmDE": "2295.3",
+          "e_pmDE": "8.0",
+          "r_pmDE": "FROM:GJ866A",
+          "RV": null,
+          "e_RV": null,
+          "r_RV": null,
+          "SpType": null,
+          "r_SpType": null,
+          "SpMethod": null,
+          "Vmag": null,
+          "r_Sys": "2000A&A...353..253W",
+          "Com": "Possible M dwarf"
+        },
+        "adoptedJ2000": {
+          "frame": "ICRS",
+          "raDeg": 339.63916345484876,
+          "decDeg": -15.299163823769133,
+          "distancePc": 3.405994140847716,
+          "method": "Preserved existing J2000 Galactic Cartesian snapshot; inverse transform for constellation only."
+        },
+        "fields": {
+          "type": {
+            "status": "adopted-existing",
+            "sourceRefs": [
+              "legacy-neighbors:ez-aquarii-b"
+            ]
+          },
+          "id": {
+            "status": "adopted-existing",
+            "sourceRefs": [
+              "legacy-neighbors:ez-aquarii-b"
+            ]
+          },
+          "name": {
+            "status": "adopted-existing",
+            "sourceRefs": [
+              "legacy-neighbors:ez-aquarii-b"
+            ]
+          },
+          "spectral_type": {
+            "status": "adopted-existing",
+            "sourceRefs": [
+              "legacy-neighbors:ez-aquarii-b"
+            ]
+          },
+          "x_pc": {
+            "status": "adopted-existing",
+            "sourceRefs": [
+              "legacy-neighbors:ez-aquarii-b"
+            ]
+          },
+          "y_pc": {
+            "status": "adopted-existing",
+            "sourceRefs": [
+              "legacy-neighbors:ez-aquarii-b"
+            ]
+          },
+          "z_pc": {
+            "status": "adopted-existing",
+            "sourceRefs": [
+              "legacy-neighbors:ez-aquarii-b"
+            ]
+          },
+          "vx_kms": {
+            "status": "adopted",
+            "sourceRefs": [
+              "shared-object:GJ 866 B:vx_kms"
+            ]
+          },
+          "vy_kms": {
+            "status": "adopted",
+            "sourceRefs": [
+              "shared-object:GJ 866 B:vy_kms"
+            ]
+          },
+          "vz_kms": {
+            "status": "adopted",
+            "sourceRefs": [
+              "shared-object:GJ 866 B:vz_kms"
+            ]
+          },
+          "temperature_k": {
+            "status": "adopted-existing",
+            "sourceRefs": [
+              "legacy-neighbors:ez-aquarii-b"
+            ]
+          },
+          "mass_solar": {
+            "status": "adopted-existing",
+            "sourceRefs": [
+              "legacy-neighbors:ez-aquarii-b"
+            ]
+          },
+          "luminosity_solar": {
+            "status": "unknown",
+            "sourceRefs": [
+              "legacy-neighbors:ez-aquarii-b"
+            ]
+          },
+          "absolute_mag": {
+            "status": "adopted-existing",
+            "sourceRefs": [
+              "legacy-neighbors:ez-aquarii-b"
+            ]
+          },
+          "epoch": {
+            "status": "adopted",
+            "sourceRefs": [],
+            "detail": "Static J2000.0 snapshot; source decimal years treated as Julian years TT."
+          },
+          "notes": {
+            "status": "adopted-existing",
+            "sourceRefs": [
+              "legacy-neighbors:ez-aquarii-b"
+            ],
+            "detail": "System position from J2000 direction and 293.60 mas parallax compiled by Torres et al. (2010). Individual subtype is uncertain; temperature uses the unresolved M5V system estimate."
+          },
+          "constellation": {
+            "status": "derived",
+            "sourceRefs": [
+              "astropy:7.1.1:Roman1987"
+            ],
+            "detail": "ICRS snapshot direction transformed to B1875 boundary coordinates; no physical motion to 1875. Canonical spelling normalization applied."
+          },
+          "ra_deg": {
+            "status": "compiled",
+            "sourceRefs": [
+              "10pc:tablea1:Seq=27:RAdeg"
+            ]
+          },
+          "dec_deg": {
+            "status": "compiled",
+            "sourceRefs": [
+              "10pc:tablea1:Seq=27:DEdeg"
+            ]
+          },
+          "astrometry_epoch": {
+            "status": "compiled",
+            "sourceRefs": [
+              "10pc:tablea1:Seq=27:Epoch"
+            ]
+          },
+          "parallax_mas": {
+            "status": "compiled",
+            "sourceRefs": [
+              "10pc:tablea1:Seq=27:plx"
+            ]
+          },
+          "parallax_error_mas": {
+            "status": "compiled",
+            "sourceRefs": [
+              "10pc:tablea1:Seq=27:e_plx"
+            ]
+          },
+          "pm_ra_cosdec_masyr": {
+            "status": "compiled",
+            "sourceRefs": [
+              "10pc:tablea1:Seq=27:pmRA"
+            ]
+          },
+          "pm_ra_error_masyr": {
+            "status": "compiled",
+            "sourceRefs": [
+              "10pc:tablea1:Seq=27:e_pmRA"
+            ]
+          },
+          "pm_dec_masyr": {
+            "status": "compiled",
+            "sourceRefs": [
+              "10pc:tablea1:Seq=27:pmDE"
+            ]
+          },
+          "pm_dec_error_masyr": {
+            "status": "compiled",
+            "sourceRefs": [
+              "10pc:tablea1:Seq=27:e_pmDE"
+            ]
+          },
+          "radial_velocity_kms": {
+            "status": "adopted",
+            "sourceRefs": [
+              "shared-object:GJ 866 B:radial_velocity_kms"
+            ]
+          },
+          "radial_velocity_error_kms": {
+            "status": "adopted",
+            "sourceRefs": [
+              "shared-object:GJ 866 B:radial_velocity_error_kms"
+            ]
+          },
+          "astrometry_ref": {
+            "status": "compiled",
+            "sourceRefs": [
+              "10pc:tablea1:Seq=27:r_plx,r_pmDE"
+            ]
+          },
+          "radial_velocity_ref": {
+            "status": "adopted",
+            "sourceRefs": [
+              "shared-object:GJ 866 B:radial_velocity_ref"
+            ]
+          },
+          "radius_solar": {
+            "status": "unknown",
+            "sourceRefs": []
+          },
+          "metallicity_dex": {
+            "status": "unknown",
+            "sourceRefs": []
+          },
+          "age_gyr": {
+            "status": "unknown",
+            "sourceRefs": []
+          },
+          "metallicity_kind": {
+            "status": "unknown",
+            "sourceRefs": []
+          }
+        },
+        "overrides": [
+          "All existing neighbor values preserved; blank physical fields may be filled by the documented supplements; new source measurements are audit-only.",
+          "Explicit approved membership exception: preserve vetted EZ Aquarii B/C default row despite raw 10pc LM?; source classification unchanged, not newly measured or reclassified."
+        ],
+        "physicalSupplements": {
+          "identity": {
+            "identity_method": "10pc Gaia DR2 identifier only; CNS5 identity shared by several components or absent"
+          },
+          "eligibility": "Not a parsed K5-M9.5 dwarf spectral type (no subdwarf, giant, composite or peculiar class); supplements not applied."
+        },
+        "sharedObjectAdoption": {
+          "recordId": "GJ 866 B",
+          "reviewSha256": "0a59c68cae8a2af8373395cd6d5a56c331651ce0e272f7623776be35c8faa9df",
+          "scope": "EZ Aquarii B retains its exact component identity. Motion uses the shared EZ Aquarii ABC center-of-mass radial velocity; individual orbital velocities are not modeled.",
+          "fields": [
+            "vx_kms",
+            "vy_kms",
+            "vz_kms",
+            "radial_velocity_kms",
+            "radial_velocity_error_kms",
+            "radial_velocity_ref"
+          ],
+          "sourceSelections": {
+            "astrometryAndMotion": {
+              "source": "literature-system:gl866-abc",
+              "fields": [
+                "vx_kms",
+                "vy_kms",
+                "vz_kms",
+                "radial_velocity_kms",
+                "radial_velocity_error_kms",
+                "radial_velocity_ref"
+              ],
+              "status": "systemic-approximation",
+              "reference": "2000A&A...364..665S:Table 2",
+              "sourceUrl": "https://arxiv.org/abs/astro-ph/0010585",
+              "valueKms": -50.08,
+              "uncertaintyKms": 0.01,
+              "scope": "Shared EZ Aquarii ABC systemic velocity V0, not an individual component observation",
+              "astrometryInputs": {
+                "ra_deg": "339.650693945",
+                "dec_deg": "-15.289647052",
+                "parallax_mas": "293.6",
+                "parallax_error_mas": "0.9",
+                "pm_ra_cosdec_masyr": "2314.8",
+                "pm_ra_error_masyr": "8.0",
+                "pm_dec_masyr": "2295.3",
+                "pm_dec_error_masyr": "8.0",
+                "astrometry_epoch": "2016.0",
+                "astrometry_ref": "FROM:GJ866A"
+              },
+              "decision": "Motion: Segransan et al. (2000), Table 2, gives the shared EZ Aquarii ABC systemic radial velocity V0 = -50.08 +/- 0.01 km/s. The uncertainty is the published orbital-fit uncertainty on V0. Combined with the retained system position, parallax and proper motion, this supplies approximate system bulk motion for A, B and C; individual orbital velocities and orbital phase are not modeled. Frozen J2000 positions are retained."
+            }
+          },
+          "sourceEvidence": "Original measurements and catalog-specific provenance are retained; the shared adopted record supersedes them for these fields."
+        },
+        "sourceFieldProvenance": {
+          "vx_kms": {
+            "status": "unknown",
+            "sourceRefs": [
+              "legacy-neighbors:ez-aquarii-b"
+            ]
+          },
+          "vy_kms": {
+            "status": "unknown",
+            "sourceRefs": [
+              "legacy-neighbors:ez-aquarii-b"
+            ]
+          },
+          "vz_kms": {
+            "status": "unknown",
+            "sourceRefs": [
+              "legacy-neighbors:ez-aquarii-b"
+            ]
+          },
+          "radial_velocity_kms": {
+            "status": "unknown",
+            "sourceRefs": [
+              "10pc:tablea1:Seq=27:RV"
+            ]
+          },
+          "radial_velocity_error_kms": {
+            "status": "unknown",
+            "sourceRefs": [
+              "10pc:tablea1:Seq=27:e_RV"
+            ]
+          },
+          "radial_velocity_ref": {
+            "status": "unknown",
+            "sourceRefs": [
+              "10pc:tablea1:Seq=27:r_RV"
+            ]
+          }
+        }
+      }
+    },
+    "src/data/catalogs/nearest-100/stars.csv:ez-aquarii-c": {
+      "path": "src/data/catalogs/nearest-100/stars.csv",
+      "row": {
+        "type": "star",
+        "id": "ez-aquarii-c",
+        "name": "EZ Aquarii C",
+        "spectral_type": "M?",
+        "x_pc": "1.264192",
+        "y_pc": "1.359020",
+        "z_pc": "-2.855815",
+        "vx_kms": "-64.727748",
+        "vy_kms": "3.589095",
+        "vz_kms": "32.798766",
+        "temperature_k": "3060",
+        "mass_solar": "0.10",
+        "luminosity_solar": "",
+        "radius_solar": "",
+        "metallicity_dex": "",
+        "age_gyr": "",
+        "metallicity_kind": "",
+        "absolute_mag": "16.34",
+        "epoch": "2000.0",
+        "notes": "System position from J2000 direction and 293.60 mas parallax compiled by Torres et al. (2010). Included with A and B because all three components tie across the cutoff. Motion: Segransan et al. (2000), Table 2, gives the shared EZ Aquarii ABC systemic radial velocity V0 = -50.08 +/- 0.01 km/s. The uncertainty is the published orbital-fit uncertainty on V0. Combined with the retained system position, parallax and proper motion, this supplies approximate system bulk motion for A, B and C; individual orbital velocities and orbital phase are not modeled. Frozen J2000 positions are retained.",
+        "constellation": "Aquarius",
+        "ra_deg": "339.650693945",
+        "dec_deg": "-15.289647052",
+        "astrometry_epoch": "2016.0",
+        "parallax_mas": "293.6",
+        "parallax_error_mas": "0.9",
+        "pm_ra_cosdec_masyr": "2314.8",
+        "pm_ra_error_masyr": "8.0",
+        "pm_dec_masyr": "2295.3",
+        "pm_dec_error_masyr": "8.0",
+        "radial_velocity_kms": "-50.08",
+        "radial_velocity_error_kms": "0.01",
+        "astrometry_ref": "FROM:GJ866A",
+        "radial_velocity_ref": "2000A&A...364..665S:Table 2; shared systemic velocity approximation; EZ Aquarii ABC"
+      },
+      "provenance": {
+        "id": "ez-aquarii-c",
+        "sourceRow": "28",
+        "systemId": "14",
+        "sourceObjectName": "GJ 866 C",
+        "sourceObjectType": "LM?",
+        "identifiers": {
+          "GaiaEDR3": null,
+          "GaiaDR2": null,
+          "SIMBAD": "GJ 866 C",
+          "GJ": "GJ 866 C",
+          "HIP": null
+        },
+        "sourceMeasurements": {
+          "RAdeg": "339.650693945",
+          "DEdeg": "-15.289647052",
+          "Epoch": "2016.0",
+          "plx": "293.6",
+          "e_plx": "0.9",
+          "r_plx": "FROM:GJ866A",
+          "pmRA": "2314.8",
+          "e_pmRA": "8.0",
+          "pmDE": "2295.3",
+          "e_pmDE": "8.0",
+          "r_pmDE": "FROM:GJ866A",
+          "RV": null,
+          "e_RV": null,
+          "r_RV": null,
+          "SpType": null,
+          "r_SpType": null,
+          "SpMethod": null,
+          "Vmag": null,
+          "r_Sys": "2000A&A...353..253W",
+          "Com": "Possible M dwarf"
+        },
+        "adoptedJ2000": {
+          "frame": "ICRS",
+          "raDeg": 339.63916345484876,
+          "decDeg": -15.299163823769133,
+          "distancePc": 3.405994140847716,
+          "method": "Preserved existing J2000 Galactic Cartesian snapshot; inverse transform for constellation only."
+        },
+        "fields": {
+          "type": {
+            "status": "adopted-existing",
+            "sourceRefs": [
+              "legacy-neighbors:ez-aquarii-c"
+            ]
+          },
+          "id": {
+            "status": "adopted-existing",
+            "sourceRefs": [
+              "legacy-neighbors:ez-aquarii-c"
+            ]
+          },
+          "name": {
+            "status": "adopted-existing",
+            "sourceRefs": [
+              "legacy-neighbors:ez-aquarii-c"
+            ]
+          },
+          "spectral_type": {
+            "status": "adopted-existing",
+            "sourceRefs": [
+              "legacy-neighbors:ez-aquarii-c"
+            ]
+          },
+          "x_pc": {
+            "status": "adopted-existing",
+            "sourceRefs": [
+              "legacy-neighbors:ez-aquarii-c"
+            ]
+          },
+          "y_pc": {
+            "status": "adopted-existing",
+            "sourceRefs": [
+              "legacy-neighbors:ez-aquarii-c"
+            ]
+          },
+          "z_pc": {
+            "status": "adopted-existing",
+            "sourceRefs": [
+              "legacy-neighbors:ez-aquarii-c"
+            ]
+          },
+          "vx_kms": {
+            "status": "adopted",
+            "sourceRefs": [
+              "shared-object:GJ 866 C:vx_kms"
+            ]
+          },
+          "vy_kms": {
+            "status": "adopted",
+            "sourceRefs": [
+              "shared-object:GJ 866 C:vy_kms"
+            ]
+          },
+          "vz_kms": {
+            "status": "adopted",
+            "sourceRefs": [
+              "shared-object:GJ 866 C:vz_kms"
+            ]
+          },
+          "temperature_k": {
+            "status": "adopted-existing",
+            "sourceRefs": [
+              "legacy-neighbors:ez-aquarii-c"
+            ]
+          },
+          "mass_solar": {
+            "status": "adopted-existing",
+            "sourceRefs": [
+              "legacy-neighbors:ez-aquarii-c"
+            ]
+          },
+          "luminosity_solar": {
+            "status": "unknown",
+            "sourceRefs": [
+              "legacy-neighbors:ez-aquarii-c"
+            ]
+          },
+          "absolute_mag": {
+            "status": "adopted-existing",
+            "sourceRefs": [
+              "legacy-neighbors:ez-aquarii-c"
+            ]
+          },
+          "epoch": {
+            "status": "adopted",
+            "sourceRefs": [],
+            "detail": "Static J2000.0 snapshot; source decimal years treated as Julian years TT."
+          },
+          "notes": {
+            "status": "adopted-existing",
+            "sourceRefs": [
+              "legacy-neighbors:ez-aquarii-c"
+            ],
+            "detail": "System position from J2000 direction and 293.60 mas parallax compiled by Torres et al. (2010). Included with A and B because all three components tie across the cutoff."
+          },
+          "constellation": {
+            "status": "derived",
+            "sourceRefs": [
+              "astropy:7.1.1:Roman1987"
+            ],
+            "detail": "ICRS snapshot direction transformed to B1875 boundary coordinates; no physical motion to 1875. Canonical spelling normalization applied."
+          },
+          "ra_deg": {
+            "status": "compiled",
+            "sourceRefs": [
+              "10pc:tablea1:Seq=28:RAdeg"
+            ]
+          },
+          "dec_deg": {
+            "status": "compiled",
+            "sourceRefs": [
+              "10pc:tablea1:Seq=28:DEdeg"
+            ]
+          },
+          "astrometry_epoch": {
+            "status": "compiled",
+            "sourceRefs": [
+              "10pc:tablea1:Seq=28:Epoch"
+            ]
+          },
+          "parallax_mas": {
+            "status": "compiled",
+            "sourceRefs": [
+              "10pc:tablea1:Seq=28:plx"
+            ]
+          },
+          "parallax_error_mas": {
+            "status": "compiled",
+            "sourceRefs": [
+              "10pc:tablea1:Seq=28:e_plx"
+            ]
+          },
+          "pm_ra_cosdec_masyr": {
+            "status": "compiled",
+            "sourceRefs": [
+              "10pc:tablea1:Seq=28:pmRA"
+            ]
+          },
+          "pm_ra_error_masyr": {
+            "status": "compiled",
+            "sourceRefs": [
+              "10pc:tablea1:Seq=28:e_pmRA"
+            ]
+          },
+          "pm_dec_masyr": {
+            "status": "compiled",
+            "sourceRefs": [
+              "10pc:tablea1:Seq=28:pmDE"
+            ]
+          },
+          "pm_dec_error_masyr": {
+            "status": "compiled",
+            "sourceRefs": [
+              "10pc:tablea1:Seq=28:e_pmDE"
+            ]
+          },
+          "radial_velocity_kms": {
+            "status": "adopted",
+            "sourceRefs": [
+              "shared-object:GJ 866 C:radial_velocity_kms"
+            ]
+          },
+          "radial_velocity_error_kms": {
+            "status": "adopted",
+            "sourceRefs": [
+              "shared-object:GJ 866 C:radial_velocity_error_kms"
+            ]
+          },
+          "astrometry_ref": {
+            "status": "compiled",
+            "sourceRefs": [
+              "10pc:tablea1:Seq=28:r_plx,r_pmDE"
+            ]
+          },
+          "radial_velocity_ref": {
+            "status": "adopted",
+            "sourceRefs": [
+              "shared-object:GJ 866 C:radial_velocity_ref"
+            ]
+          },
+          "radius_solar": {
+            "status": "unknown",
+            "sourceRefs": []
+          },
+          "metallicity_dex": {
+            "status": "unknown",
+            "sourceRefs": []
+          },
+          "age_gyr": {
+            "status": "unknown",
+            "sourceRefs": []
+          },
+          "metallicity_kind": {
+            "status": "unknown",
+            "sourceRefs": []
+          }
+        },
+        "overrides": [
+          "All existing neighbor values preserved; blank physical fields may be filled by the documented supplements; new source measurements are audit-only.",
+          "Explicit approved membership exception: preserve vetted EZ Aquarii B/C default row despite raw 10pc LM?; source classification unchanged, not newly measured or reclassified."
+        ],
+        "physicalSupplements": {
+          "identity": {
+            "identity_method": "10pc Gaia DR2 identifier only; CNS5 identity shared by several components or absent"
+          },
+          "eligibility": "Not a parsed K5-M9.5 dwarf spectral type (no subdwarf, giant, composite or peculiar class); supplements not applied."
+        },
+        "sharedObjectAdoption": {
+          "recordId": "GJ 866 C",
+          "reviewSha256": "0a59c68cae8a2af8373395cd6d5a56c331651ce0e272f7623776be35c8faa9df",
+          "scope": "EZ Aquarii C retains its exact component identity. Motion uses the shared EZ Aquarii ABC center-of-mass radial velocity; individual orbital velocities are not modeled.",
+          "fields": [
+            "vx_kms",
+            "vy_kms",
+            "vz_kms",
+            "radial_velocity_kms",
+            "radial_velocity_error_kms",
+            "radial_velocity_ref"
+          ],
+          "sourceSelections": {
+            "astrometryAndMotion": {
+              "source": "literature-system:gl866-abc",
+              "fields": [
+                "vx_kms",
+                "vy_kms",
+                "vz_kms",
+                "radial_velocity_kms",
+                "radial_velocity_error_kms",
+                "radial_velocity_ref"
+              ],
+              "status": "systemic-approximation",
+              "reference": "2000A&A...364..665S:Table 2",
+              "sourceUrl": "https://arxiv.org/abs/astro-ph/0010585",
+              "valueKms": -50.08,
+              "uncertaintyKms": 0.01,
+              "scope": "Shared EZ Aquarii ABC systemic velocity V0, not an individual component observation",
+              "astrometryInputs": {
+                "ra_deg": "339.650693945",
+                "dec_deg": "-15.289647052",
+                "parallax_mas": "293.6",
+                "parallax_error_mas": "0.9",
+                "pm_ra_cosdec_masyr": "2314.8",
+                "pm_ra_error_masyr": "8.0",
+                "pm_dec_masyr": "2295.3",
+                "pm_dec_error_masyr": "8.0",
+                "astrometry_epoch": "2016.0",
+                "astrometry_ref": "FROM:GJ866A"
+              },
+              "decision": "Motion: Segransan et al. (2000), Table 2, gives the shared EZ Aquarii ABC systemic radial velocity V0 = -50.08 +/- 0.01 km/s. The uncertainty is the published orbital-fit uncertainty on V0. Combined with the retained system position, parallax and proper motion, this supplies approximate system bulk motion for A, B and C; individual orbital velocities and orbital phase are not modeled. Frozen J2000 positions are retained."
+            }
+          },
+          "sourceEvidence": "Original measurements and catalog-specific provenance are retained; the shared adopted record supersedes them for these fields."
+        },
+        "sourceFieldProvenance": {
+          "vx_kms": {
+            "status": "unknown",
+            "sourceRefs": [
+              "legacy-neighbors:ez-aquarii-c"
+            ]
+          },
+          "vy_kms": {
+            "status": "unknown",
+            "sourceRefs": [
+              "legacy-neighbors:ez-aquarii-c"
+            ]
+          },
+          "vz_kms": {
+            "status": "unknown",
+            "sourceRefs": [
+              "legacy-neighbors:ez-aquarii-c"
+            ]
+          },
+          "radial_velocity_kms": {
+            "status": "unknown",
+            "sourceRefs": [
+              "10pc:tablea1:Seq=28:RV"
+            ]
+          },
+          "radial_velocity_error_kms": {
+            "status": "unknown",
+            "sourceRefs": [
+              "10pc:tablea1:Seq=28:e_RV"
+            ]
+          },
+          "radial_velocity_ref": {
+            "status": "unknown",
+            "sourceRefs": [
+              "10pc:tablea1:Seq=28:r_RV"
+            ]
+          }
+        }
+      }
+    },
+    "src/data/catalogs/nearest-1000/stars.csv:ez-aquarii-a": {
+      "path": "src/data/catalogs/nearest-1000/stars.csv",
+      "row": {
+        "type": "star",
+        "id": "ez-aquarii-a",
+        "name": "EZ Aquarii A",
+        "designations": "",
+        "spectral_type": "M5.0Ve",
+        "x_pc": "1.264192",
+        "y_pc": "1.359020",
+        "z_pc": "-2.855815",
+        "vx_kms": "-64.727748",
+        "vy_kms": "3.589095",
+        "vz_kms": "32.798766",
+        "temperature_k": "3060",
+        "mass_solar": "0.11",
+        "luminosity_solar": "",
+        "radius_solar": "",
+        "metallicity_dex": "",
+        "metallicity_kind": "",
+        "age_gyr": "",
+        "absolute_mag": "15.64",
+        "epoch": "2000.0",
+        "notes": "System position from J2000 direction and 293.60 mas parallax compiled by Torres et al. (2010). Temperature is the unresolved M5V system class estimate. Motion: Segransan et al. (2000), Table 2, gives the shared EZ Aquarii ABC systemic radial velocity V0 = -50.08 +/- 0.01 km/s. The uncertainty is the published orbital-fit uncertainty on V0. Combined with the retained system position, parallax and proper motion, this supplies approximate system bulk motion for A, B and C; individual orbital velocities and orbital phase are not modeled. Frozen J2000 positions are retained.",
+        "constellation": "Aquarius",
+        "ra_deg": "339.650693945",
+        "dec_deg": "-15.289647052",
+        "astrometry_epoch": "2016.0",
+        "parallax_mas": "293.6",
+        "parallax_error_mas": "0.9",
+        "pm_ra_cosdec_masyr": "2314.8",
+        "pm_ra_error_masyr": "8.0",
+        "pm_dec_masyr": "2295.3",
+        "pm_dec_error_masyr": "8.0",
+        "radial_velocity_kms": "-50.08",
+        "radial_velocity_error_kms": "0.01",
+        "astrometry_ref": "2010A&ARv..18...67T; 2012yCat.1322....0Z",
+        "radial_velocity_ref": "2000A&A...364..665S:Table 2; shared systemic velocity approximation; EZ Aquarii ABC"
+      },
+      "provenance": {
+        "id": "ez-aquarii-a",
+        "sharedObjectAdoption": {
+          "fields": [
+            "vx_kms",
+            "vy_kms",
+            "vz_kms",
+            "radial_velocity_kms",
+            "radial_velocity_error_kms",
+            "radial_velocity_ref"
+          ],
+          "recordId": "GJ 866 A",
+          "reviewSha256": "0a59c68cae8a2af8373395cd6d5a56c331651ce0e272f7623776be35c8faa9df",
+          "scope": "EZ Aquarii A retains its exact component identity. Motion uses the shared EZ Aquarii ABC center-of-mass radial velocity; individual orbital velocities are not modeled.",
+          "sourceEvidence": "Original measurements and catalog-specific provenance are retained; the shared adopted record supersedes them for these fields.",
+          "sourceSelections": {
+            "astrometryAndMotion": {
+              "astrometryInputs": {
+                "astrometry_epoch": "2016.0",
+                "astrometry_ref": "2010A&ARv..18...67T; 2012yCat.1322....0Z",
+                "dec_deg": "-15.289647052",
+                "parallax_error_mas": "0.9",
+                "parallax_mas": "293.6",
+                "pm_dec_error_masyr": "8.0",
+                "pm_dec_masyr": "2295.3",
+                "pm_ra_cosdec_masyr": "2314.8",
+                "pm_ra_error_masyr": "8.0",
+                "ra_deg": "339.650693945"
+              },
+              "decision": "Motion: Segransan et al. (2000), Table 2, gives the shared EZ Aquarii ABC systemic radial velocity V0 = -50.08 +/- 0.01 km/s. The uncertainty is the published orbital-fit uncertainty on V0. Combined with the retained system position, parallax and proper motion, this supplies approximate system bulk motion for A, B and C; individual orbital velocities and orbital phase are not modeled. Frozen J2000 positions are retained.",
+              "fields": [
+                "vx_kms",
+                "vy_kms",
+                "vz_kms",
+                "radial_velocity_kms",
+                "radial_velocity_error_kms",
+                "radial_velocity_ref"
+              ],
+              "reference": "2000A&A...364..665S:Table 2",
+              "scope": "Shared EZ Aquarii ABC systemic velocity V0, not an individual component observation",
+              "source": "literature-system:gl866-abc",
+              "sourceUrl": "https://arxiv.org/abs/astro-ph/0010585",
+              "status": "systemic-approximation",
+              "uncertaintyKms": 0.01,
+              "valueKms": -50.08
+            }
+          }
+        },
+        "status": "higher-curation nearest-100 override"
+      }
+    },
+    "src/data/catalogs/nearest-1000/stars.csv:ez-aquarii-b": {
+      "path": "src/data/catalogs/nearest-1000/stars.csv",
+      "row": {
+        "type": "star",
+        "id": "ez-aquarii-b",
+        "name": "EZ Aquarii B",
+        "designations": "",
+        "spectral_type": "M?",
+        "x_pc": "1.264192",
+        "y_pc": "1.359020",
+        "z_pc": "-2.855815",
+        "vx_kms": "-64.727748",
+        "vy_kms": "3.589095",
+        "vz_kms": "32.798766",
+        "temperature_k": "3060",
+        "mass_solar": "0.11",
+        "luminosity_solar": "",
+        "radius_solar": "",
+        "metallicity_dex": "",
+        "metallicity_kind": "",
+        "age_gyr": "",
+        "absolute_mag": "15.58",
+        "epoch": "2000.0",
+        "notes": "System position from J2000 direction and 293.60 mas parallax compiled by Torres et al. (2010). Individual subtype is uncertain; temperature uses the unresolved M5V system estimate. Motion: Segransan et al. (2000), Table 2, gives the shared EZ Aquarii ABC systemic radial velocity V0 = -50.08 +/- 0.01 km/s. The uncertainty is the published orbital-fit uncertainty on V0. Combined with the retained system position, parallax and proper motion, this supplies approximate system bulk motion for A, B and C; individual orbital velocities and orbital phase are not modeled. Frozen J2000 positions are retained.",
+        "constellation": "Aquarius",
+        "ra_deg": "339.650693945",
+        "dec_deg": "-15.289647052",
+        "astrometry_epoch": "2016.0",
+        "parallax_mas": "293.6",
+        "parallax_error_mas": "0.9",
+        "pm_ra_cosdec_masyr": "2314.8",
+        "pm_ra_error_masyr": "8.0",
+        "pm_dec_masyr": "2295.3",
+        "pm_dec_error_masyr": "8.0",
+        "radial_velocity_kms": "-50.08",
+        "radial_velocity_error_kms": "0.01",
+        "astrometry_ref": "FROM:GJ866A",
+        "radial_velocity_ref": "2000A&A...364..665S:Table 2; shared systemic velocity approximation; EZ Aquarii ABC"
+      },
+      "provenance": {
+        "id": "ez-aquarii-b",
+        "sharedObjectAdoption": {
+          "fields": [
+            "vx_kms",
+            "vy_kms",
+            "vz_kms",
+            "radial_velocity_kms",
+            "radial_velocity_error_kms",
+            "radial_velocity_ref"
+          ],
+          "recordId": "GJ 866 B",
+          "reviewSha256": "0a59c68cae8a2af8373395cd6d5a56c331651ce0e272f7623776be35c8faa9df",
+          "scope": "EZ Aquarii B retains its exact component identity. Motion uses the shared EZ Aquarii ABC center-of-mass radial velocity; individual orbital velocities are not modeled.",
+          "sourceEvidence": "Original measurements and catalog-specific provenance are retained; the shared adopted record supersedes them for these fields.",
+          "sourceSelections": {
+            "astrometryAndMotion": {
+              "astrometryInputs": {
+                "astrometry_epoch": "2016.0",
+                "astrometry_ref": "FROM:GJ866A",
+                "dec_deg": "-15.289647052",
+                "parallax_error_mas": "0.9",
+                "parallax_mas": "293.6",
+                "pm_dec_error_masyr": "8.0",
+                "pm_dec_masyr": "2295.3",
+                "pm_ra_cosdec_masyr": "2314.8",
+                "pm_ra_error_masyr": "8.0",
+                "ra_deg": "339.650693945"
+              },
+              "decision": "Motion: Segransan et al. (2000), Table 2, gives the shared EZ Aquarii ABC systemic radial velocity V0 = -50.08 +/- 0.01 km/s. The uncertainty is the published orbital-fit uncertainty on V0. Combined with the retained system position, parallax and proper motion, this supplies approximate system bulk motion for A, B and C; individual orbital velocities and orbital phase are not modeled. Frozen J2000 positions are retained.",
+              "fields": [
+                "vx_kms",
+                "vy_kms",
+                "vz_kms",
+                "radial_velocity_kms",
+                "radial_velocity_error_kms",
+                "radial_velocity_ref"
+              ],
+              "reference": "2000A&A...364..665S:Table 2",
+              "scope": "Shared EZ Aquarii ABC systemic velocity V0, not an individual component observation",
+              "source": "literature-system:gl866-abc",
+              "sourceUrl": "https://arxiv.org/abs/astro-ph/0010585",
+              "status": "systemic-approximation",
+              "uncertaintyKms": 0.01,
+              "valueKms": -50.08
+            }
+          }
+        },
+        "status": "higher-curation nearest-100 override"
+      }
+    },
+    "src/data/catalogs/nearest-1000/stars.csv:ez-aquarii-c": {
+      "path": "src/data/catalogs/nearest-1000/stars.csv",
+      "row": {
+        "type": "star",
+        "id": "ez-aquarii-c",
+        "name": "EZ Aquarii C",
+        "designations": "",
+        "spectral_type": "M?",
+        "x_pc": "1.264192",
+        "y_pc": "1.359020",
+        "z_pc": "-2.855815",
+        "vx_kms": "-64.727748",
+        "vy_kms": "3.589095",
+        "vz_kms": "32.798766",
+        "temperature_k": "3060",
+        "mass_solar": "0.10",
+        "luminosity_solar": "",
+        "radius_solar": "",
+        "metallicity_dex": "",
+        "metallicity_kind": "",
+        "age_gyr": "",
+        "absolute_mag": "16.34",
+        "epoch": "2000.0",
+        "notes": "System position from J2000 direction and 293.60 mas parallax compiled by Torres et al. (2010). Included with A and B because all three components tie across the cutoff. Motion: Segransan et al. (2000), Table 2, gives the shared EZ Aquarii ABC systemic radial velocity V0 = -50.08 +/- 0.01 km/s. The uncertainty is the published orbital-fit uncertainty on V0. Combined with the retained system position, parallax and proper motion, this supplies approximate system bulk motion for A, B and C; individual orbital velocities and orbital phase are not modeled. Frozen J2000 positions are retained.",
+        "constellation": "Aquarius",
+        "ra_deg": "339.650693945",
+        "dec_deg": "-15.289647052",
+        "astrometry_epoch": "2016.0",
+        "parallax_mas": "293.6",
+        "parallax_error_mas": "0.9",
+        "pm_ra_cosdec_masyr": "2314.8",
+        "pm_ra_error_masyr": "8.0",
+        "pm_dec_masyr": "2295.3",
+        "pm_dec_error_masyr": "8.0",
+        "radial_velocity_kms": "-50.08",
+        "radial_velocity_error_kms": "0.01",
+        "astrometry_ref": "FROM:GJ866A",
+        "radial_velocity_ref": "2000A&A...364..665S:Table 2; shared systemic velocity approximation; EZ Aquarii ABC"
+      },
+      "provenance": {
+        "id": "ez-aquarii-c",
+        "sharedObjectAdoption": {
+          "fields": [
+            "vx_kms",
+            "vy_kms",
+            "vz_kms",
+            "radial_velocity_kms",
+            "radial_velocity_error_kms",
+            "radial_velocity_ref"
+          ],
+          "recordId": "GJ 866 C",
+          "reviewSha256": "0a59c68cae8a2af8373395cd6d5a56c331651ce0e272f7623776be35c8faa9df",
+          "scope": "EZ Aquarii C retains its exact component identity. Motion uses the shared EZ Aquarii ABC center-of-mass radial velocity; individual orbital velocities are not modeled.",
+          "sourceEvidence": "Original measurements and catalog-specific provenance are retained; the shared adopted record supersedes them for these fields.",
+          "sourceSelections": {
+            "astrometryAndMotion": {
+              "astrometryInputs": {
+                "astrometry_epoch": "2016.0",
+                "astrometry_ref": "FROM:GJ866A",
+                "dec_deg": "-15.289647052",
+                "parallax_error_mas": "0.9",
+                "parallax_mas": "293.6",
+                "pm_dec_error_masyr": "8.0",
+                "pm_dec_masyr": "2295.3",
+                "pm_ra_cosdec_masyr": "2314.8",
+                "pm_ra_error_masyr": "8.0",
+                "ra_deg": "339.650693945"
+              },
+              "decision": "Motion: Segransan et al. (2000), Table 2, gives the shared EZ Aquarii ABC systemic radial velocity V0 = -50.08 +/- 0.01 km/s. The uncertainty is the published orbital-fit uncertainty on V0. Combined with the retained system position, parallax and proper motion, this supplies approximate system bulk motion for A, B and C; individual orbital velocities and orbital phase are not modeled. Frozen J2000 positions are retained.",
+              "fields": [
+                "vx_kms",
+                "vy_kms",
+                "vz_kms",
+                "radial_velocity_kms",
+                "radial_velocity_error_kms",
+                "radial_velocity_ref"
+              ],
+              "reference": "2000A&A...364..665S:Table 2",
+              "scope": "Shared EZ Aquarii ABC systemic velocity V0, not an individual component observation",
+              "source": "literature-system:gl866-abc",
+              "sourceUrl": "https://arxiv.org/abs/astro-ph/0010585",
+              "status": "systemic-approximation",
+              "uncertaintyKms": 0.01,
+              "valueKms": -50.08
+            }
+          }
+        },
+        "status": "higher-curation nearest-100 override"
+      }
+    }
+  },
+  "previousEffectiveComponents": {
+    "ez-aquarii-a": {
+      "temperature_k": 3060.0,
+      "mass_solar": 0.11,
+      "luminosity_solar": null,
+      "radius_solar": null,
+      "metallicity_dex": null,
+      "age_gyr": null,
+      "absolute_mag": 15.64,
+      "epoch": 2000.0,
+      "x_pc": 1.264192,
+      "y_pc": 1.35902,
+      "z_pc": -2.855815,
+      "vx_kms": -64.727748,
+      "vy_kms": 3.589095,
+      "vz_kms": 32.798766,
+      "type": "star",
+      "id": "ez-aquarii-a",
+      "name": "EZ Aquarii A",
+      "spectral_type": "M5.0Ve",
+      "constellation": "Aquarius",
+      "metallicity_kind": null,
+      "designations": [
+        "GJ 866",
+        "GJ 866 A",
+        "GJ 866 B",
+        "GJ 866 C",
+        "1E 2235.8-1534",
+        "1RXS J223832.0-151809",
+        "2E 2235.8-1534",
+        "2E 4631",
+        "2MASS J22383372-1517573",
+        "8pc 289.50",
+        "[GKL99] 430",
+        "[RHG95] 3561",
+        "BLA 10",
+        "CNS5 5586",
+        "CSI-15-22358",
+        "EZ Aqr",
+        "G 156-31",
+        "Gaia DR2 2596740426912781696",
+        "Gaia DR3 2596740426913080576",
+        "Gaia EDR3 2596740426913080576",
+        "GCRV 14217",
+        "GCRV 26202",
+        "GEN# +6.10010866",
+        "GSC 06386-00505",
+        "JP11 5180",
+        "JP11 5181",
+        "JP11 5195",
+        "L 789-6",
+        "LFT 1729",
+        "LHS 68",
+        "LP 820-64",
+        "LPM 837",
+        "LTT 9122",
+        "NLTT 54407",
+        "PLX 5475",
+        "PLX 5475.00",
+        "PM 22358-1535",
+        "PMSC 22329-1552",
+        "TIC 402313808",
+        "UBV 19358",
+        "UCAC2 26361351",
+        "UCAC4 374-178693",
+        "WDS J22385-1519AB",
+        "WEB 19966",
+        "WISEA J223835.27-151735.3",
+        "Zkh 333",
+        "EZ Aquarii A"
+      ],
+      "notes": "System position from J2000 direction and 293.60 mas parallax compiled by Torres et al. (2010). Temperature is the unresolved M5V system class estimate. Motion: Segransan et al. (2000), Table 2, gives the shared EZ Aquarii ABC systemic radial velocity V0 = -50.08 +/- 0.01 km/s. The uncertainty is the published orbital-fit uncertainty on V0. Combined with the retained system position, parallax and proper motion, this supplies approximate system bulk motion for A, B and C; individual orbital velocities and orbital phase are not modeled. Frozen J2000 positions are retained.",
+      "raw_astrometry": {
+        "ra_deg": 339.650693945,
+        "dec_deg": -15.289647052,
+        "parallax_mas": 293.6,
+        "parallax_error_mas": 0.9,
+        "pm_ra_cosdec_masyr": 2314.8,
+        "pm_ra_error_masyr": 8.0,
+        "pm_dec_masyr": 2295.3,
+        "pm_dec_error_masyr": 8.0,
+        "radial_velocity_kms": -50.08,
+        "radial_velocity_error_kms": 0.01,
+        "epoch": 2016.0,
+        "astrometry_ref": "2010A&ARv..18...67T; 2012yCat.1322....0Z",
+        "radial_velocity_ref": "2000A&A...364..665S:Table 2; shared systemic velocity approximation; EZ Aquarii ABC"
+      },
+      "subtypes": [
+        "Eruptive variable",
+        "Main-sequence"
+      ],
+      "known_planets": 0,
+      "apparent_mag": 13.30121948266654
+    },
+    "ez-aquarii-b": {
+      "temperature_k": 3060.0,
+      "mass_solar": 0.11,
+      "luminosity_solar": null,
+      "radius_solar": null,
+      "metallicity_dex": null,
+      "age_gyr": null,
+      "absolute_mag": 15.58,
+      "epoch": 2000.0,
+      "x_pc": 1.264192,
+      "y_pc": 1.35902,
+      "z_pc": -2.855815,
+      "vx_kms": -64.727748,
+      "vy_kms": 3.589095,
+      "vz_kms": 32.798766,
+      "type": "star",
+      "id": "ez-aquarii-b",
+      "name": "EZ Aquarii B",
+      "spectral_type": "M?",
+      "constellation": "Aquarius",
+      "metallicity_kind": null,
+      "designations": [
+        "GJ 866",
+        "GJ 866 A",
+        "GJ 866 B",
+        "GJ 866 C",
+        "1E 2235.8-1534",
+        "1RXS J223832.0-151809",
+        "2E 2235.8-1534",
+        "2E 4631",
+        "2MASS J22383372-1517573",
+        "8pc 289.50",
+        "[GKL99] 430",
+        "[RHG95] 3561",
+        "BLA 10",
+        "CNS5 5586",
+        "CSI-15-22358",
+        "EZ Aqr",
+        "G 156-31",
+        "Gaia DR2 2596740426912781696",
+        "Gaia DR3 2596740426913080576",
+        "GCRV 14217",
+        "GCRV 26202",
+        "GEN# +6.10010866",
+        "GSC 06386-00505",
+        "JP11 5180",
+        "JP11 5181",
+        "JP11 5195",
+        "L 789-6",
+        "LFT 1729",
+        "LHS 68",
+        "LP 820-64",
+        "LPM 837",
+        "LTT 9122",
+        "NLTT 54407",
+        "PLX 5475",
+        "PLX 5475.00",
+        "PM 22358-1535",
+        "PMSC 22329-1552",
+        "TIC 402313808",
+        "UBV 19358",
+        "UCAC2 26361351",
+        "UCAC4 374-178693",
+        "WDS J22385-1519AB",
+        "WEB 19966",
+        "WISEA J223835.27-151735.3",
+        "Zkh 333",
+        "EZ Aquarii B"
+      ],
+      "notes": "System position from J2000 direction and 293.60 mas parallax compiled by Torres et al. (2010). Individual subtype is uncertain; temperature uses the unresolved M5V system estimate. Motion: Segransan et al. (2000), Table 2, gives the shared EZ Aquarii ABC systemic radial velocity V0 = -50.08 +/- 0.01 km/s. The uncertainty is the published orbital-fit uncertainty on V0. Combined with the retained system position, parallax and proper motion, this supplies approximate system bulk motion for A, B and C; individual orbital velocities and orbital phase are not modeled. Frozen J2000 positions are retained.",
+      "raw_astrometry": {
+        "ra_deg": 339.650693945,
+        "dec_deg": -15.289647052,
+        "parallax_mas": 293.6,
+        "parallax_error_mas": 0.9,
+        "pm_ra_cosdec_masyr": 2314.8,
+        "pm_ra_error_masyr": 8.0,
+        "pm_dec_masyr": 2295.3,
+        "pm_dec_error_masyr": 8.0,
+        "radial_velocity_kms": -50.08,
+        "radial_velocity_error_kms": 0.01,
+        "epoch": 2016.0,
+        "astrometry_ref": "FROM:GJ866A",
+        "radial_velocity_ref": "2000A&A...364..665S:Table 2; shared systemic velocity approximation; EZ Aquarii ABC"
+      },
+      "subtypes": [
+        "Eruptive variable"
+      ],
+      "known_planets": 0,
+      "apparent_mag": 13.24121948266654
+    },
+    "ez-aquarii-c": {
+      "temperature_k": 3060.0,
+      "mass_solar": 0.1,
+      "luminosity_solar": null,
+      "radius_solar": null,
+      "metallicity_dex": null,
+      "age_gyr": null,
+      "absolute_mag": 16.34,
+      "epoch": 2000.0,
+      "x_pc": 1.264192,
+      "y_pc": 1.35902,
+      "z_pc": -2.855815,
+      "vx_kms": -64.727748,
+      "vy_kms": 3.589095,
+      "vz_kms": 32.798766,
+      "type": "star",
+      "id": "ez-aquarii-c",
+      "name": "EZ Aquarii C",
+      "spectral_type": "M?",
+      "constellation": "Aquarius",
+      "metallicity_kind": null,
+      "designations": [
+        "GJ 866",
+        "GJ 866 A",
+        "GJ 866 B",
+        "GJ 866 C",
+        "1E 2235.8-1534",
+        "1RXS J223832.0-151809",
+        "2E 2235.8-1534",
+        "2E 4631",
+        "2MASS J22383372-1517573",
+        "8pc 289.50",
+        "[GKL99] 430",
+        "[RHG95] 3561",
+        "BLA 10",
+        "CNS5 5586",
+        "CSI-15-22358",
+        "EZ Aqr",
+        "G 156-31",
+        "Gaia DR2 2596740426912781696",
+        "Gaia DR3 2596740426913080576",
+        "GCRV 14217",
+        "GCRV 26202",
+        "GEN# +6.10010866",
+        "GSC 06386-00505",
+        "JP11 5180",
+        "JP11 5181",
+        "JP11 5195",
+        "L 789-6",
+        "LFT 1729",
+        "LHS 68",
+        "LP 820-64",
+        "LPM 837",
+        "LTT 9122",
+        "NLTT 54407",
+        "PLX 5475",
+        "PLX 5475.00",
+        "PM 22358-1535",
+        "PMSC 22329-1552",
+        "TIC 402313808",
+        "UBV 19358",
+        "UCAC2 26361351",
+        "UCAC4 374-178693",
+        "WDS J22385-1519AB",
+        "WEB 19966",
+        "WISEA J223835.27-151735.3",
+        "Zkh 333",
+        "EZ Aquarii C"
+      ],
+      "notes": "System position from J2000 direction and 293.60 mas parallax compiled by Torres et al. (2010). Included with A and B because all three components tie across the cutoff. Motion: Segransan et al. (2000), Table 2, gives the shared EZ Aquarii ABC systemic radial velocity V0 = -50.08 +/- 0.01 km/s. The uncertainty is the published orbital-fit uncertainty on V0. Combined with the retained system position, parallax and proper motion, this supplies approximate system bulk motion for A, B and C; individual orbital velocities and orbital phase are not modeled. Frozen J2000 positions are retained.",
+      "raw_astrometry": {
+        "ra_deg": 339.650693945,
+        "dec_deg": -15.289647052,
+        "parallax_mas": 293.6,
+        "parallax_error_mas": 0.9,
+        "pm_ra_cosdec_masyr": 2314.8,
+        "pm_ra_error_masyr": 8.0,
+        "pm_dec_masyr": 2295.3,
+        "pm_dec_error_masyr": 8.0,
+        "radial_velocity_kms": -50.08,
+        "radial_velocity_error_kms": 0.01,
+        "epoch": 2016.0,
+        "astrometry_ref": "FROM:GJ866A",
+        "radial_velocity_ref": "2000A&A...364..665S:Table 2; shared systemic velocity approximation; EZ Aquarii ABC"
+      },
+      "subtypes": [
+        "Eruptive variable"
+      ],
+      "known_planets": 0,
+      "apparent_mag": 14.001219482666539
+    }
+  },
+  "literatureReview": {
+    "torres2010B": {
+      "status": "withheld",
+      "reference": "2010A&ARv..18...67T:Table 5; section 9",
+      "sourceUrl": "https://arxiv.org/abs/0908.2624",
+      "publishedScope": "GJ 866 B row",
+      "log_luminosity_solar": -2.72,
+      "log_luminosity_uncertainty_dex": 0.054,
+      "temperature_k": 2650,
+      "temperature_uncertainty_k": 200,
+      "radius_solar": 0.21,
+      "radius_uncertainty_solar": 0.04,
+      "decision": "Retain the published B row, but do not adopt these physical quantities. The 2650 K value is also reported for unresolved LHS 68 by Casagrande 2008, section 7.2, with an explicit triple-system photometry caveat. Torres section 9 states these radii are indirect and temperature-scale dependent. A sufficiently secure B-only flux/temperature lineage has not been established; the row is not evidence for a direct radius measurement."
+    },
+    "casagrande2008": {
+      "status": "unresolved-system",
+      "reference": "2008MNRAS.389..585C:section 7.2",
+      "sourceUrl": "https://arxiv.org/abs/0806.2471",
+      "sourceRecordId": "LHS68 (GJ 866)",
+      "temperature_k": 2650,
+      "decision": "Unresolved photometric temperature, explicitly cautioned for triple-system photometry. Not A, B or C separately."
+    },
+    "taylor2024": {
+      "status": "unresolved-system-model",
+      "reference": "2024ApJ...964...80T:Table 3",
+      "sourceUrl": "https://arxiv.org/html/2402.00934v1",
+      "sourceRecordId": "EZ Aqr",
+      "temperature_k": 3200,
+      "temperature_uncertainty_k": 100,
+      "metallicity_dex": 0.05,
+      "metallicity_uncertainty_dex": {
+        "lower": 0.09,
+        "upper": 0.05
+      },
+      "age_gyr": 0.7,
+      "age_uncertainty_gyr": {
+        "lower": 0.0,
+        "upper": 1.01
+      },
+      "mass_solar": 0.05,
+      "mass_uncertainty_solar": {
+        "lower": 0.01,
+        "upper": 0.06
+      },
+      "radius_solar": 0.1,
+      "radius_uncertainty_solar": {
+        "lower": 0.0,
+        "upper": 0.03
+      },
+      "decision": "Photometric single-atmosphere fit to EZ Aqr, without an A/B/C decomposition. Retain as an alternative model, not a component mass, radius, abundance, temperature or shared age."
+    }
+  }
+}

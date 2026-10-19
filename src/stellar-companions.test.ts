@@ -9,6 +9,7 @@ import { catalogMeasurement, missingCatalogMeasurements } from './catalog-source
 import { parseObjectStats, supplementObjectStats } from './object-stats'
 import { parseObjectIdentities, supplementObjectIdentities } from './designations'
 import { apparentVisualMagnitude } from './astronomy'
+import { spaceMotionForStar } from './space-motion'
 
 const bright = parseStarCatalog(readFileSync(new URL('./data/catalogs/bright-stars/stars.csv', import.meta.url), 'utf8'))
 const western = parseStarCatalog(readFileSync(new URL('./data/catalogs/western-constellation-stars/stars.csv', import.meta.url), 'utf8'))
@@ -183,7 +184,11 @@ describe('component coverage shared by every catalog', () => {
     expect(completeCatalogCompanions(expanded)).toEqual(expanded)
     const secondary = expanded.find((star) => star.id !== parent.id)!
     expect(completeCatalogCompanions([secondary])[0]!.id).toBe(secondary.id)
-    expect(expanded[0]).toMatchObject({ vx_kms: null, vy_kms: null, vz_kms: null })
+    if (['hip-61941', 'hip-20894'].includes(id)) {
+      expect(expanded[0]).toMatchObject({ vx_kms: null, vy_kms: null, vz_kms: null })
+    } else {
+      expect(spaceMotionForStar(expanded[0]!)).toMatchObject({ systemicMotion: true, label: 'System bulk motion' })
+    }
   })
 
   it('loads reviewed Dschubba properties from either catalog while retaining direct B selection', () => {
@@ -197,7 +202,8 @@ describe('component coverage shared by every catalog', () => {
       expect(a.radius_solar).toBeCloseTo(Math.sqrt(28000) / (29700 / 5772) ** 2, 7)
       expect(b).toMatchObject({ spectral_type: 'B1-3V', mass_solar: 8.2,
         temperature_k: null, luminosity_solar: null, radius_solar: null, age_gyr: null,
-        apparent_mag: null, absolute_mag: null, vx_kms: null, vy_kms: null, vz_kms: null })
+        apparent_mag: null, absolute_mag: null })
+      expect(spaceMotionForStar(b).label).toBe('System bulk motion')
       expect(completeCatalogCompanions([b])[0]).toMatchObject({ id: b.id, mass_solar: 8.2 })
     }
     expect(mergeCatalogStars(fromBright, fromWestern)).toHaveLength(2)
@@ -259,8 +265,9 @@ describe('component coverage shared by every catalog', () => {
       expect(b).toMatchObject({ name: 'Adhara B', spectral_type: null,
         temperature_k: null, mass_solar: null, radius_solar: null,
         luminosity_solar: null, metallicity_dex: null, age_gyr: null,
-        apparent_mag: null, absolute_mag: null, vx_kms: null, vy_kms: null, vz_kms: null })
-      expect(b.raw_astrometry).toMatchObject({ parallax_mas: 7.6159, radial_velocity_kms: null })
+        apparent_mag: null, absolute_mag: null })
+      expect(b.raw_astrometry).toMatchObject({ parallax_mas: 7.6159, radial_velocity_kms: 27.3 })
+      expect(spaceMotionForStar(b).label).toBe('System bulk motion')
       expect(b.designations).toContain('Gaia DR3 5608832155887268480')
       expect(b.x_pc).not.toBe(expanded[0]!.x_pc)
       expect(completeCatalogCompanions(expanded)).toEqual(expanded)

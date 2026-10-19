@@ -1,0 +1,332 @@
+{
+  "schemaVersion": 1,
+  "id": "nearest-100",
+  "label": "Nearest 100 objects",
+  "description": "100 individual stellar/substellar objects from the frozen 2023 10pc census, audited against corrected CNS5, plus Sun. Tentative candidates excluded except explicitly preserved EZ Aquarii B/C default membership; exact-ID Gaia and reviewed physical enrichment remains nullable.",
+  "epoch": 2000,
+  "objectCount": 101,
+  "sources": [
+    {
+      "name": "10pc census, Reyle et al., tablea1 update 2023-08-25",
+      "url": "https://cdsarc.cds.unistra.fr/ftp/J/A+A/650/A201/ReadMe"
+    },
+    {
+      "name": "CNS5, Golovin et al., corrected 2023-12-13; membership audit",
+      "url": "https://cdsarc.cds.unistra.fr/ftp/J/A+A/670/A19/ReadMe"
+    },
+    {
+      "name": "Pecaut & Mamajek 2013, dwarf sequence version 2022.04.16; estimated temperatures",
+      "url": "https://www.pas.rochester.edu/~emamajek/EEM_dwarf_UBVIJHK_colors_Teff.txt"
+    },
+    {
+      "name": "NASA Sun Fact Sheet, 2024-05-09",
+      "url": "https://nssdc.gsfc.nasa.gov/planetary/factsheet/sunfact.html"
+    },
+    {
+      "name": "Akeson et al. 2021, Alpha Centauri AB barycentric astrometry, systemic radial velocity, dynamical masses and revised-parallax physical parameters",
+      "url": "https://doi.org/10.3847/1538-3881/abfaff"
+    },
+    {
+      "name": "Guinan et al. 2016, Kapteyn's Star properties; Table 1 mass attributed to Segransan et al. 2003",
+      "url": "https://ui.adsabs.harvard.edu/abs/2016ApJ...821...81G/abstract"
+    },
+    {
+      "name": "Astropy 7.1.1, IAU constellations using Roman 1987 boundaries",
+      "url": "https://docs.astropy.org/en/stable/api/astropy.coordinates.get_constellation.html"
+    },
+    {
+      "name": "Gaia DR3 TAP snapshot; exact-ID GSP-Phot/FLAME physical estimates, quality-filtered and used only for blank fields",
+      "url": "https://gea.esac.esa.int/tap-server/tap/sync"
+    },
+    {
+      "name": "Boffin et al. 2014, Table 2, resolved Luhman 16 A/B Johnson V photometry",
+      "url": "https://arxiv.org/pdf/1312.1303"
+    },
+    {
+      "name": "Ishikawa et al. 2025, Table 2, resolved Luhman 16 A/B spectroscopic radial velocities from April-June 2018; separate from systemic motion",
+      "url": "https://doi.org/10.1093/mnras/staf487"
+    },
+    {
+      "name": "Kervella et al. 2017, Alpha Centauri AB interferometric radii and effective temperatures",
+      "url": "https://doi.org/10.1051/0004-6361/201629505"
+    },
+    {
+      "name": "Morel 2018, Alpha Centauri AB differential spectroscopic abundances",
+      "url": "https://doi.org/10.1051/0004-6361/201833125"
+    },
+    {
+      "name": "Joyce & Chaboyer 2018, Alpha Centauri AB asteroseismic stellar-model age",
+      "url": "https://doi.org/10.3847/1538-4357/aad464"
+    },
+    {
+      "name": "Lodieu et al. 2015, resolved Luhman 16 AB temperatures and bolometric luminosities",
+      "url": "https://doi.org/10.1051/0004-6361/201524933"
+    },
+    {
+      "name": "Bedin et al. 2024, Luhman 16 AB dynamical masses and Oceanus membership assessment",
+      "url": "https://doi.org/10.1002/asna.20230158"
+    },
+    {
+      "name": "Zapatero Osorio et al. 2016, WISE 0855-0714 spectral-energy-distribution modelling",
+      "url": "https://doi.org/10.1051/0004-6361/201628662"
+    },
+    {
+      "name": "Bond et al. 2017, Sirius A/B dynamical and physical parameters",
+      "url": "https://doi.org/10.3847/1538-4357/aa6af8"
+    },
+    {
+      "name": "Korolik et al. 2023, Tau Ceti interferometric and spectroscopic parameters",
+      "url": "https://doi.org/10.3847/1538-3881/ace906"
+    },
+    {
+      "name": "Di Folco et al. 2004, Tau Ceti stellar-evolution age",
+      "url": "https://doi.org/10.1051/0004-6361:20047189"
+    },
+    {
+      "name": "Pagano et al. 2015, Tau Ceti spectroscopic chemical composition",
+      "url": "https://doi.org/10.1088/0004-637X/803/2/90"
+    },
+    {
+      "name": "Cifuentes et al. 2020, CARMENES M-dwarf luminosities, temperatures, radii and masses (J/A+A/642/A115); fills blank fields only",
+      "url": "https://cdsarc.cds.unistra.fr/ftp/J/A+A/642/A115/ReadMe"
+    },
+    {
+      "name": "Mann et al. 2019, absolute-Ks mass relation (2019ApJ...871...63M); fills blank masses only",
+      "url": "https://ui.adsabs.harvard.edu/abs/2019ApJ...871...63M/abstract"
+    },
+    {
+      "name": "Mann et al. 2015, absolute-Ks radius relation (2015ApJ...804...64M); fills blank radii only",
+      "url": "https://ui.adsabs.harvard.edu/abs/2015ApJ...804...64M/abstract"
+    },
+    {
+      "name": "2MASS All-Sky Point Source Catalog Ks photometry (VizieR II/246)",
+      "url": "https://cdsarc.cds.unistra.fr/viz-bin/cat/II/246"
+    },
+    {
+      "name": "Bond et al. 2015, Procyon A/B component mass, age, and white dwarf radius",
+      "url": "https://arxiv.org/abs/1510.00485"
+    },
+    {
+      "name": "Chiavassa et al. 2012, Procyon A interferometry and effective temperature",
+      "url": "https://arxiv.org/abs/1201.3264"
+    },
+    {
+      "name": "Allende Prieto et al. 2002, Procyon A differential iron abundance",
+      "url": "https://arxiv.org/abs/astro-ph/0111055"
+    },
+    {
+      "name": "Pecaut & Mamajek 2013, dwarf temperature sequence frozen 2022.04.16",
+      "url": "https://www.pas.rochester.edu/~emamajek/EEM_dwarf_UBVIJHK_colors_Teff.txt"
+    },
+    {
+      "name": "McGill et al. 2023, LAWD 37 microlensing mass and atmospheric parameters",
+      "url": "https://arxiv.org/abs/2206.01814"
+    },
+    {
+      "name": "Sahu et al. 2017, Stein 2051 B microlensing mass and atmosphere fit",
+      "url": "https://arxiv.org/abs/1706.02037"
+    },
+    {
+      "name": "Chen et al. 2022, Epsilon Indi Ba/Bb dynamical masses and shared age",
+      "url": "https://arxiv.org/abs/2205.08077"
+    },
+    {
+      "name": "King et al. 2010, Epsilon Indi Ba/Bb resolved bolometric SEDs",
+      "url": "https://arxiv.org/abs/0911.3143"
+    },
+    {
+      "name": "Allende Prieto & Lambert 1999, exact-Hipparcos stellar models",
+      "url": "https://cdsarc.cds.unistra.fr/viz-bin/cat/J/A+A/352/555"
+    },
+    {
+      "name": "McDonald et al. 2012, exact-Hipparcos SED luminosities",
+      "url": "https://cdsarc.cds.unistra.fr/viz-bin/cat/J/MNRAS/427/343"
+    },
+    {
+      "name": "Gaia DR3, exact-ID quality-filtered astrophysical parameters",
+      "url": "https://gea.esac.esa.int/archive/"
+    },
+    {
+      "name": "SIMBAD mesFe_h: exact-object published spectroscopic temperatures and photospheric iron abundances, full measurement pool frozen 2026-10-05",
+      "url": "https://simbad.cds.unistra.fr/simbad/sim-tap"
+    },
+    {
+      "name": "Bond et al. 2020, Mu Cas A dynamical mass, preferred physical parameters and uncertain model age",
+      "url": "https://arxiv.org/abs/2010.06609"
+    },
+    {
+      "name": "Kallinger et al. 2019, Rho Persei granulation-scaling mass and published SED luminosity/radius",
+      "url": "https://arxiv.org/html/1902.07531"
+    },
+    {
+      "name": "Kervella et al. 2016, GJ 65 A/B resolved interferometric radii and photospheric iron abundances",
+      "url": "https://arxiv.org/abs/1607.04351"
+    },
+    {
+      "name": "MacDonald et al. 2018, GJ 65 A/B resolved bolometric luminosities and radius-based effective temperatures",
+      "url": "https://arxiv.org/abs/1711.09434"
+    },
+    {
+      "name": "GRAVITY Collaboration 2024, GJ 65 A/B individual dynamical masses",
+      "url": "https://arxiv.org/html/2404.08746v1"
+    },
+    {
+      "name": "Neuh\u00e4user et al. 2022, alternative Betelgeuse initial MIST track and model age (context, not adopted)",
+      "url": "https://arxiv.org/abs/2207.04702"
+    },
+    {
+      "name": "Joyce et al. 2020, Betelgeuse present-day seismic/evolutionary mass range",
+      "url": "https://arxiv.org/abs/2006.09837"
+    },
+    {
+      "name": "Montarg\u00e8s et al. 2026, Betelgeuse A current mass and model age ranges adopted in companion analysis",
+      "url": "https://www.eso.org/public/archives/releases/sciencepapers/eso2611/eso2611a.pdf"
+    },
+    {
+      "name": "Gray et al. 2003, full optical classifications of Altair and Sirius A",
+      "url": "https://doi.org/10.1086/378365"
+    },
+    {
+      "name": "Gray et al. 2006, Tau Ceti optical subtype and luminosity class",
+      "url": "https://doi.org/10.1086/504637"
+    },
+    {
+      "name": "Kervella et al. 2004, component A spectral classification of Procyon",
+      "url": "https://arxiv.org/abs/astro-ph/0309148"
+    },
+    {
+      "name": "Sanghi et al. 2023, ultracool-object SED luminosities and conditional evolutionary-model estimates, UltracoolSheet v2.1.0 frozen release",
+      "url": "https://zenodo.org/records/15802304"
+    },
+    {
+      "name": "Filippazzo et al. 2015, individual ultracool-object SED and model parameters, Table 9 fallback",
+      "url": "https://cdsarc.cds.unistra.fr/viz-bin/cat/J/ApJ/810/158"
+    },
+    {
+      "name": "Clark et al. 2012, Zeta1 Scorpii non-LTE temperature and extinction-corrected model luminosity/radius",
+      "url": "https://arxiv.org/abs/1202.3991"
+    },
+    {
+      "name": "2024A&A...687A.228D, reviewed hot-star temperature evidence (J/A+A/687/A228/tabled1)",
+      "url": "https://arxiv.org/abs/2312.00241"
+    },
+    {
+      "name": "2009A&A...501..297Z, reviewed hot-star temperature evidence (J/A+A/501/297/catalog)",
+      "url": "https://arxiv.org/abs/0903.5134"
+    },
+    {
+      "name": "2001A&A...378..861C, reviewed hot-star temperature evidence (J/A+A/378/861/table6)",
+      "url": "https://cdsarc.cds.unistra.fr/viz-bin/cat/J/A+A/378/861"
+    },
+    {
+      "name": "2018MNRAS.474.5287A, reviewed hot-star temperature evidence (Table B1)",
+      "url": "https://arxiv.org/abs/1711.08675"
+    },
+    {
+      "name": "2022A&A...665A.150H, reviewed hot-star temperature evidence (J/A+A/665/A150/tablef1)",
+      "url": "https://cdsarc.cds.unistra.fr/viz-bin/cat/J/A+A/665/A150"
+    },
+    {
+      "name": "2008ApJ...683.1045H, reviewed hot-star temperature evidence (Table 1)",
+      "url": "https://arxiv.org/abs/0805.2133"
+    },
+    {
+      "name": "Segransan et al. 2000, Table 2, Gl 866 (EZ Aquarii ABC) systemic radial velocity; shared bulk-motion approximation",
+      "url": "https://arxiv.org/abs/astro-ph/0010585"
+    },
+    {
+      "name": "Li et al. 2026, revised manuscript v2, Tables 1 and 2; sections 2.2 and 2.4",
+      "url": "https://arxiv.org/html/2603.20044v2"
+    },
+    {
+      "name": "Eggenberger et al. 2008, Table 2 and section 2.3, component bolometric luminosities",
+      "url": "https://arxiv.org/pdf/0802.3576"
+    },
+    {
+      "name": "Benedict et al. 2016, Table 11, GJ 860 A/B dynamical masses; original references Tamazian et al. 2006 / Henry et al. 1999",
+      "url": "https://www.astro.gsu.edu/RECONS/published37.pdf"
+    },
+    {
+      "name": "Cifuentes et al. 2025, Table A.1 rows 2457/2458; section 4.2 Gaia absolute-G radius calibration",
+      "url": "https://arxiv.org/html/2412.12264v1#S4.SS2"
+    },
+    {
+      "name": "Hardegree-Ullman et al. 2023, Table 1 exact Gaia rows 2007876324466455040 / 2007876324472098432; sections 2.4-2.5",
+      "url": "https://arxiv.org/html/2304.12490v1"
+    },
+    {
+      "name": "Henry et al. 1999, Table 3 and footnote h; section 3.1 resolved spectra",
+      "url": "https://www.as.utexas.edu/~fritz/astrometry/Papers_in_pdf/%7BHen99%7DMLR.pdf"
+    },
+    {
+      "name": "Carvalho-Silva et al. 2025, Delta Pav differential HARPS iron abundance and isochrone mass/age, Table 1 HIP 99240",
+      "url": "https://arxiv.org/abs/2504.17482"
+    },
+    {
+      "name": "Rains et al. 2020, Delta Pav VLTI/PIONIER radius and bolometric temperature/luminosity, Table 4 HD 190248",
+      "url": "https://arxiv.org/abs/2004.02343"
+    },
+    {
+      "name": "Giammichele et al. 2012, Table 2, van Maanen 2 atmospheric and physical parameters",
+      "url": "https://arxiv.org/abs/1202.5581"
+    },
+    {
+      "name": "Burleigh et al. 2008, van Maanen 2 progenitor and total evolutionary age",
+      "url": "https://arxiv.org/abs/0801.2917"
+    },
+    {
+      "name": "Lindegren & Dravins 2021, Table 1, van Maanen 2 astrometric radial velocity",
+      "url": "https://arxiv.org/abs/2105.09014"
+    },
+    {
+      "name": "Hood et al. 2023, UGPS J0722 preferred FIRE radial velocity; unphysical retrieval radius withheld",
+      "url": "https://arxiv.org/abs/2303.04885"
+    },
+    {
+      "name": "Bochanski et al. 2011, UGPS J0722 earlier radial velocity retained as non-adopted source",
+      "url": "https://arxiv.org/abs/1109.2897"
+    },
+    {
+      "name": "Dupuy & Kraus 2013, UGPS J0722 bolometric luminosity and age-conditioned evolutionary scenarios, Table S5",
+      "url": "https://arxiv.org/abs/1309.1422"
+    },
+    {
+      "name": "Fontanive et al. 2023, WISE J1639 HST photometry and ATMO 2020 estimates, Table 3 and section 3.2",
+      "url": "https://arxiv.org/abs/2309.09923"
+    },
+    {
+      "name": "Albert et al. 2025, exact-coordinate-identified JWST infrared photometry, Tables 2 and 4",
+      "url": "https://arxiv.org/abs/2501.14100"
+    },
+    {
+      "name": "Kervella et al. 2016, GJ 65 systemic radial velocity and system proper motion",
+      "url": "https://arxiv.org/html/1607.04351"
+    },
+    {
+      "name": "Chevalier et al. 2023, resolved Wolf 424 dynamical masses, Table 3",
+      "url": "https://arxiv.org/html/2307.16719"
+    },
+    {
+      "name": "Benedict et al. 2016, resolved Ross 614 masses, photometry and fitted systemic RV",
+      "url": "https://www.astro.gsu.edu/RECONS/published37.pdf"
+    },
+    {
+      "name": "Dieterich et al. 2021, resolved GJ 1245 A/C dynamical masses and atmospheric fits",
+      "url": "https://www.astro.gsu.edu/RECONS/published47.pdf"
+    },
+    {
+      "name": "Cifuentes et al. 2025, exact resolved GJ 1245 B estimates, Table A.1",
+      "url": "https://arxiv.org/html/2412.12264"
+    },
+    {
+      "name": "Morin et al. 2010, GJ 1245 B radial velocity",
+      "url": "https://academic.oup.com/mnras/article/407/4/2269/999815"
+    },
+    {
+      "name": "Torres et al. 1999, resolved Wolf 424 Johnson V photometry, Table 4",
+      "url": "https://www.as.utexas.edu/~fritz/astrometry/Papers_in_pdf/%7BTor99%7DWolf424.pdf"
+    }
+  ],
+  "cutoffPolicy": "Exclude Planet rows, aggregate system rows and source ObjType endings '?'. The only approved exceptions are Seq 27/28 (EZ Aquarii B/C): preserve vetted default membership and every default field, while retaining raw LM? classifications explicitly; this is not a new classification measurement. Keep all tentative buffer records for audit. Rank eligible individual non-Sun objects by unrounded adopted J2000 distance, then ASCII stable ID for exact ties; retain exactly 100 plus Sun. Rank 100 is GJ 229 A; nearby one-sigma distance intervals overlap, so membership is not statistically secure. Frozen 2023 source releases with preserved neighbor overrides; no 2026 completeness claim.",
+  "snapshot": "J2000.0; 10pc 2023-08-25 / CNS5 corrected 2023-12-13; Gaia DR3 frozen 2026-09-25; reviewed physical overrides frozen 2026-10-03; confirmed-membership-v2"
+}

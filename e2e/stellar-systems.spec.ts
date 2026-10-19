@@ -1,5 +1,5 @@
 import { expect, test, type Page } from '@playwright/test'
-import { openViewer, selectCatalog } from './support'
+import { motionArrows, openViewer, selectCatalog } from './support'
 
 async function selectObject(page: Page, name: string) {
   const objects = page.getByRole('button', { name: 'Objects', exact: true })
@@ -143,4 +143,49 @@ test('empty System tabs are disabled and the Sun planet view remains available',
   await expect(page.locator('#object-system-toggle')).toBeEnabled()
   await page.locator('#object-system-toggle').click()
   await expect(page.locator('#object-system .planet-row')).toHaveCount(8)
+})
+
+
+test('close systems draw the brightest star plus explicitly selected companions', { tag: '@mobile' }, async ({ page }, testInfo) => {
+  await openViewer(page)
+  await selectCatalog(page, 'nearest-100')
+  await page.getByRole('button', { name: 'Filter', exact: true }).click()
+  const label = (id: string) => page.locator(`.projected-labels [data-star-id="${id}"]`)
+  for (const [name, id] of [
+    ['Sirius A', 'sirius-a'], ['Sirius B', 'sirius-b'],
+    ['Alpha Centauri A', 'alpha-centauri-a'], ['Alpha Centauri B', 'alpha-centauri-b'],
+    ['Proxima Centauri', 'proxima-centauri'], ['GJ 1245 B', '10pc-0089'],
+    ['GJ 1245 C', '10pc-0088'], ['GJ 1245 A', '10pc-0087'],
+  ] as const) {
+    await selectObject(page, name)
+    await expect(page.locator('#inspector')).toHaveAttribute('data-selected-star', id)
+    await expect(label(id)).toHaveAttribute('data-core-visible', 'true')
+    await expect(label(id)).toHaveAttribute('data-halo-visible', 'true')
+  }
+  // Component buttons also reveal the chosen companion alongside the main star.
+  await page.locator('#star-components [data-component-id="10pc-0088"]').click()
+  await expect(label('10pc-0088')).toHaveAttribute('data-core-visible', 'true')
+  await expect(label('10pc-0087')).toHaveAttribute('data-core-visible', 'true')
+  await expect(label('10pc-0089')).toHaveCount(0)
+  await page.screenshot({ path: testInfo.outputPath('gj1245-selected-companion.png'), fullPage: true })
+  // Linear simulation retains the explicitly selected companion.
+  await page.getByRole('button', { name: 'Stellar motion', exact: true }).click()
+  await page.locator('#time-slider').fill('50000')
+  await expect(label('10pc-0088')).toHaveAttribute('data-core-visible', 'true')
+  await page.locator('#time-slider').fill('0')
+  await selectObject(page, 'Sun')
+  await expect(label('10pc-0088')).toHaveCount(0)
+  expect((await motionArrows(page)).some((arrow) => arrow.id === '10pc-0088')).toBe(false)
+  await page.getByRole('button', { name: 'Observe from Sun', exact: true }).click()
+  const points = page.locator('.projected-labels')
+  const defaultCoreCount = Number(await points.getAttribute('data-core-count'))
+  await selectObject(page, 'Sirius B')
+  await expect(label('sirius-b')).toHaveAttribute('data-core-visible', 'true')
+  await expect(label('sirius-b')).toHaveAttribute('data-halo-visible', 'true')
+  // Count drawable points: the primary may be outside the observer's name budget.
+  await expect(points).toHaveAttribute('data-core-count', String(defaultCoreCount + 1))
+  await selectObject(page, 'Proxima Centauri')
+  await expect(label('proxima-centauri')).toHaveAttribute('data-core-visible', 'true')
+  await expect(label('sirius-b')).toHaveCount(0)
+  await expect(points).toHaveAttribute('data-core-count', String(defaultCoreCount))
 })

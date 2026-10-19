@@ -35,9 +35,11 @@ Open the local URL printed by Vite.
 | Command | Purpose |
 | --- | --- |
 | `npm run dev` | Start the development server |
+| `npm run dev:manual` | Start development with manual browser refreshes |
 | `npm run build` | Validate catalogs, type-check and build into `dist/` |
 | `npm run preview` | Serve the production build |
 | `npm run typecheck` | Type-check without building |
+| `npm run typecheck:watch` | Continuously type-check while developing |
 | `npm run test` | Run unit tests (Vitest) |
 | `npm run test:e2e` | Build, then run desktop and mobile browser tests (Playwright) |
 | `npm run catalog:validate` | Validate all bundled catalogs |

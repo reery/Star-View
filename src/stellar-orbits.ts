@@ -27,12 +27,17 @@ export interface StellarOrbit {
 }
 
 const solutions = new Map<string, readonly StellarOrbit[]>()
-let pending: Promise<void> | undefined
+const pending = new Map<string, Promise<void>>()
 
-export function loadStellarOrbits(): Promise<void> {
-  return pending ??= import('./data/stellar-orbits.json').then(({ default: data }) => {
-    for (const system of data.systems) solutions.set(system.systemId, system.orbits)
-  }).catch((error: unknown) => { pending = undefined; throw error })
+export function loadStellarOrbits(systemId: string): Promise<void> {
+  let result = pending.get(systemId)
+  if (!result) {
+    result = import('./stellar-orbit-data').then(({ loadStellarOrbitData }) => loadStellarOrbitData(systemId))
+      .then((orbits) => { solutions.set(systemId, orbits) })
+      .catch((error: unknown) => { pending.delete(systemId); throw error })
+    pending.set(systemId, result)
+  }
+  return result
 }
 
 export function stellarOrbitsForSystem(system: StarSystem): readonly StellarOrbit[] {

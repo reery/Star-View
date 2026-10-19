@@ -1,5 +1,6 @@
 import definitions from './data/generated/planet-details.json'
-import { extrasolarPhysicalSpecs, extrasolarPlanets, type ExtrasolarPlanet } from './exoplanet-properties'
+import { extrasolarPhysicalSpecs, type ExtrasolarPlanet } from './exoplanet-properties'
+import { extrasolarPlanetForId } from './planetary-systems'
 import { scientificPlanetValue } from './planet-value'
 import { isSmallBody, smallBodies, smallBodyPhysicalSpecs, type SmallBodyDescription } from './small-body-properties'
 export { isSmallBody } from './small-body-properties'
@@ -46,7 +47,7 @@ export interface PlanetSpec {
 }
 
 const earth = definitions.earth
-const descriptions = new Map<string, PlanetDescription>([...definitions.planets, ...extrasolarPlanets, ...smallBodies].map((planet) => [planet.id, planet]))
+const descriptions = new Map<string, PlanetDescription>([...definitions.planets, ...smallBodies].map((planet) => [planet.id, planet]))
 
 export function planetApparentMagnitudeRange() {
   const planets = definitions.planets.flatMap((planet) => planet.brightestApparentMagnitudeV === null ? []
@@ -56,7 +57,7 @@ export function planetApparentMagnitudeRange() {
 }
 
 export function planetDescriptionForId(id: string): PlanetDescription | undefined {
-  return descriptions.get(id)
+  return descriptions.get(id) ?? extrasolarPlanetForId(id)
 }
 
 export function solarPlanetDescriptionForId(id: string): SolarPlanetDescription | undefined {

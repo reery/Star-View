@@ -24,6 +24,8 @@ from catalog_sources.ordinary_binaries import orbit_pairs, matching_members
 from catalog_sources.companion_properties import apply_literature, property_coverage
 from catalog_sources.classification import spectral_labels
 from catalog_sources.preservation import pool_losses
+from catalog_sources.shared_objects import REVIEW as SHARED_OBJECT_REVIEW, reviewed_objects
+from catalog_sources.bright_system_motion import apply_bright_system_motion
 
 ROOT = Path(__file__).resolve().parents[1]
 WORK = ROOT / "catalog-work/star-systems"
@@ -556,6 +558,7 @@ def build():
         audit["componentRecords"].setdefault(identifier, {})["reviewedPhysicalOverride"] = override
 
     inputs += apply_literature(ROOT, WORK / "reviewed-companion-literature.json", definitions, pool, audit)
+    inputs += apply_bright_system_motion(ROOT, definitions, pool, audit)
 
     # Resolved observations retain their own epoch and uncertainty semantics.
     # A spectroscopic component RV must not complete a different-epoch bulk
@@ -645,6 +648,17 @@ def build():
                            "component contributions are not separated here. "
                            "Retained source measurements, not individual component measurements.")
         pool[identifier].setdefault("catalog_sources", []).append(source)
+    # A shared adoption can make a current catalog snapshot identical to its
+    # effective component. Keep explicitly frozen earlier measurements too;
+    # equality with the new snapshot must not discard their errors or scope.
+    inputs.append(SHARED_OBJECT_REVIEW)
+    shared_reviews = reviewed_objects()
+    for identifier, star in pool.items():
+        match = shared_reviews.get(identifier)
+        if match:
+            for source in match[1].get("retainedCatalogSources", []):
+                if source not in star.get("catalog_sources", []):
+                    star.setdefault("catalog_sources", []).append(copy.deepcopy(source))
     for identifier, star in pool.items():
         if star.get("catalog_sources"):
             star["catalog_sources"].sort(key=lambda source: (source["record"]["id"] != identifier, source["catalog_id"]))

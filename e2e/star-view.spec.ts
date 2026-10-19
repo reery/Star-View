@@ -1597,11 +1597,11 @@ test('targets ordinary selections, zooms around them, and resets around the sele
   await expect(page.locator('#luminosity')).toHaveText('0.00000000269 L☉')
 })
 
-test('navigates backward and forward through selection history', { tag: '@mobile' }, async ({ page }) => {
+test('navigates backward and forward through selection history', { tag: '@mobile' }, async ({ page, isMobile }) => {
   await openViewer(page)
   // Enabled history buttons append their target to the accessible name.
-  const back = page.getByRole('button', { name: /^Previous selection/ })
-  const forward = page.getByRole('button', { name: /^Next selection/ })
+  const back = page.locator('#selection-back')
+  const forward = page.locator('#selection-forward')
   await expect(back).toBeDisabled()
   await expect(forward).toBeDisabled()
 
@@ -1618,10 +1618,27 @@ test('navigates backward and forward through selection history', { tag: '@mobile
   await expect(page.locator('#star-name')).toHaveText('Sirius')
   await expect(back).toBeDisabled()
 
+  // The flyout must remain available at the start of history, including on touch screens.
+  await page.locator('#views-toggle').focus()
+  await page.mouse.move(5, 5)
+  await expect(forward).toBeHidden()
+  if (isMobile) await page.locator('#selection-controls').tap()
+  else await page.locator('#selection-controls').hover()
+  await expect(forward).toBeVisible()
+  const backBounds = (await back.boundingBox())!
+  const forwardBounds = (await forward.boundingBox())!
+  expect(forwardBounds.x + forwardBounds.width).toBeLessThanOrEqual(backBounds.x)
+  expect(forwardBounds.y).toBe(backBounds.y)
+  await page.locator('#selection-controls').focus()
+  await page.keyboard.press('Tab')
+  await expect(forward).toBeFocused()
   await forward.click()
   await expect(page.locator('#star-name')).toHaveText('Sun')
   await page.getByRole('button', { name: "Select Barnard's Star", exact: true }).click()
   await expect(forward).toBeDisabled()
+  await expect(forward).toBeHidden()
+  await back.focus()
+  await expect(forward).toBeVisible()
   await back.click()
   await expect(page.locator('#star-name')).toHaveText('Sun')
   await forward.click()

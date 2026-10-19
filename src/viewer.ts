@@ -7,6 +7,7 @@ import {
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js'
 import type { Star } from './catalog-model'
 import { createStarAppearance } from './star-appearance'
+import { createDepthLabel } from './depth-label'
 import { createMilkyWayLayer } from './milky-way-layer'
 import { createEarthOrbitLayer } from './earth-orbit-layer'
 import { createMotionArrowMesh } from './motion-arrow-layer'
@@ -20,7 +21,7 @@ import { createNebulaLayer } from './nebula-layer'
 import { createMolecularCloudLayer } from './molecular-cloud-layer'
 import { createBubbleLayer } from './bubble-layer'
 import { FILTER_KEYS, isFilterKey, type FilterKey } from './object-filter'
-import { coincidentComponentGroups } from './star-systems'
+import { mapComponentVisibility } from './star-systems'
 import {
   GUIDE_DASH_PX, GUIDE_GAP_PX,
   MOTION_ARROW_TAIL_OFFSET_PX,
@@ -28,7 +29,7 @@ import {
   compareMapLabelCandidates, focusProgress,
   guideDashScale, isObjectMapVisible, motionArrowGeometryInto, motionTravelDistancePc, pickProjectedStarAtScreenPoint,
   projectMotionDirectionInto, projectSelectedAnchor, projectWorldPointInto,
-  retainBrightestCoincidentComponents, shouldRunOrdinaryLabelLayout, starApparentDiameter, starBlocksLabels, starCoreWhiteStrength, starHaloDiameter, starHaloEmphasis, starHaloOpacity,
+  shouldRunOrdinaryLabelLayout, starApparentDiameter, starBlocksLabels, starCoreWhiteStrength, starHaloDiameter, starHaloEmphasis, starHaloOpacity,
   type MotionArrowGeometry, type ProjectedPickable,
 } from './viewer-primitives'
 
@@ -330,12 +331,11 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
   // the rasterizer. The visible subset only changes with selection/settings.
   haloGeometry.setIndex(stars.map((_, index) => index))
   const haloIndices = haloGeometry.getIndex()!
-  const coincidentGroups = coincidentComponentGroups(stars)
+  let componentVisible = mapComponentVisibility(stars)
   const coreEnabled = new Uint8Array(stars.length)
   const nextCoreEnabled = new Uint8Array(stars.length)
   const haloEnabled = new Uint8Array(stars.length)
   const nextHaloEnabled = new Uint8Array(stars.length)
-  const pointPositions = pickable.map(({ position }) => position)
   let pointVisibilityInitialized = false
   const haloOpacities = new Float32BufferAttribute(stars.map(() => 0), 1)
   const haloDiameters = new Float32BufferAttribute(stars.map(() => 30), 1)
@@ -446,6 +446,8 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
   axisLabels.forEach((label) => axisLayer.append(label.anchor))
   const guides = new Group()
   scene.add(guides)
+  const distanceLabel = createDepthLabel()
+  scene.add(distanceLabel.mesh)
   const guideDashStart = new Vector3()
   const guideDashEnd = new Vector3()
 
@@ -964,6 +966,7 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
   }
 
   function updatePresentation(): void {
+    componentVisible = mapComponentVisibility(stars, selectedId)
     ordinaryLayoutDirty = true
     const baseChanged = rankedBaseId !== visibilityBase.id
     const rankingChanged = baseChanged || rankedSelection !== selectedId
@@ -1036,7 +1039,7 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
     guides.visible = !observerViewEnabled && selectedId !== null && mapVisible[starsById.get(selectedId)!.index] === 1
     rankedNameGroups = []
     for (const candidate of rankedCandidates) {
-      if (candidate.index === observerIndex || !mapVisible[candidate.index] || tiers[candidate.index] === 'background') continue
+      if (candidate.index === observerIndex || !componentVisible[candidate.index] || !mapVisible[candidate.index] || tiers[candidate.index] === 'background') continue
       const group = rankedNameGroups.at(-1)
       if (!group || candidate.priority !== group.priority || candidate.magnitude !== group.magnitude) {
         rankedNameGroups.push({ priority: candidate.priority, magnitude: candidate.magnitude, indices: [candidate.index] })
@@ -1048,10 +1051,9 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
   function updatePointVisibility(): void {
     const observerIndex = observerViewEnabled ? observerViewAnchorIndex ?? -1 : -1
     for (let index = 0; index < stars.length; index++) {
-      nextCoreEnabled[index] = mapVisible[index] && index !== observerIndex
+      nextCoreEnabled[index] = componentVisible[index] && mapVisible[index] && index !== observerIndex
         && !isNebula[index] && !isMolecularCloud[index] && !isBubble[index] ? 1 : 0
     }
-    retainBrightestCoincidentComponents(coincidentGroups, pointPositions, nextCoreEnabled)
     for (let index = 0; index < stars.length; index++) {
       nextHaloEnabled[index] = nextCoreEnabled[index] && tiers[index] !== 'background' ? 1 : 0
     }
@@ -1083,6 +1085,8 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
     const label = makeLabel(position, `${formatDistance(distancePc, distanceUnit)}${suffix}`, className)
     label.measurement = { distancePc, suffix }
     label.anchor.style.zIndex = '0'
+    // Keep DOM sizing/collision bounds; the visible text uses the scene's depth buffer.
+    label.text.style.opacity = '0'
     return label
   }
 
@@ -1121,12 +1125,11 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
       projected.motionScale = 0
       projected.motionDepthScale = 0
       const index = projected.index
-      if (index === observerIndex || !mapVisible[index]) continue
+      if (index === observerIndex || !mapVisible[index] || !componentVisible[index]) continue
       const position = pickable[index]!.position
       if (!projectWorldPointInto(position, viewProjection, viewport, clipPoint, projected)) continue
       projected.visible = true
-      // Unresolved companions remain available through their card and list,
-      // while the shared scene point belongs to the brightest component.
+      // Draw the default representative and any explicitly selected companion.
       if (coreEnabled[index] || isNebula[index] || isMolecularCloud[index] || isBubble[index]) projectedPickables.push(projected)
       if (!motionArrowsVisible) continue
       const motion = motions[index]
@@ -1295,6 +1298,7 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
       for (const label of labelsToMeasure) {
         label.width = label.text.offsetWidth
         label.height = label.text.offsetHeight
+        if (label.measurement) distanceLabel.updateTexture(label.text, label.width, label.height)
         if (label.index === undefined) continue
         starLabelWidths[label.index] = label.width
         starLabelHeights[label.index] = label.height
@@ -1327,6 +1331,10 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
     const measurementVisible = measurementStart.visible && measurementEnd?.visible === true
     const measurementCenterX = measurementVisible ? (measurementStart.x + measurementEnd!.x) / 2 : 0
     const measurementCenterY = measurementVisible ? (measurementStart.y + measurementEnd!.y) / 2 : 0
+    // Perspective-correct depth at the screen midpoint of the projected segment.
+    const measurementDepth = measurementVisible
+      ? 2 / (1 / measurementStart.depth + 1 / measurementEnd!.depth) : 0
+    distanceLabel.mesh.visible = false
     for (const label of measurementLabels) {
       measurementPlacements.set(label, measurementVisible ? centeredForegroundLabelBounds(
         { x: measurementCenterX, y: measurementCenterY }, label.width, label.height, viewport,
@@ -1394,6 +1402,7 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
         setTransform(label.anchor, `translate(${measurementCenterX - viewport.left}px, ${measurementCenterY - viewport.top}px)`)
         setTransform(label.text, `translate(${placement.left - measurementCenterX}px, ${placement.top - measurementCenterY}px)`)
         setHidden(label.text, false)
+        distanceLabel.place(placement, measurementDepth, camera, viewport, renderer.getPixelRatio())
         blocked.insert(placement, placement)
         continue
       }
@@ -1496,6 +1505,7 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
     guides.clear()
     measurementLabels.forEach((label) => label.anchor.remove())
     measurementLabels = []
+    distanceLabel.mesh.visible = false
     selectionDistanceLine = null
     selectionPlaneLine = null
     selectionHeightLine = null
@@ -1923,12 +1933,12 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
     }
     updateGuideDashScales()
     updateMotionArrows()
-    if (molecularCloudLayer) molecularCloudLayer.render(renderer, scene, camera)
-    else renderer.render(scene, camera)
-    setData(labelLayer, 'drawCalls', String(renderer.info.render.calls))
     setLabelsMoving(continueRendering || simulationPlaying)
     updateLabels(time)
     skyGrid.updateLabels(camera, projectionViewport!, (bounds) => blocked.queryAny(bounds, (other) => overlaps(bounds, other)))
+    if (molecularCloudLayer) molecularCloudLayer.render(renderer, scene, camera)
+    else renderer.render(scene, camera)
+    setData(labelLayer, 'drawCalls', String(renderer.info.render.calls))
     if (continueRendering || refreshSamplesRemaining > 0) requestRender(false)
     else {
       previousRafTime = 0
@@ -2216,6 +2226,7 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
       controls.dispose()
       scene.remove(skyGrid.lines)
       skyGrid.dispose()
+      distanceLabel.dispose()
       disposeGeometry(scene)
       arrowGeometry.dispose()
       arrowMaterial.dispose()

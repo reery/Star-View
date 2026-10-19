@@ -5,8 +5,11 @@
   "type": "module",
   "scripts": {
     "dev": "npm run catalog:generate && vite",
+    "dev:manual": "npm run catalog:generate && vite --mode manual",
     "pretypecheck": "npm run catalog:generate",
     "typecheck": "tsc --noEmit",
+    "pretypecheck:watch": "npm run catalog:generate",
+    "typecheck:watch": "tsc --noEmit --watch",
     "pretest": "npm run catalog:generate",
     "test": "vitest run src",
     "test:e2e": "npm run build && playwright test",

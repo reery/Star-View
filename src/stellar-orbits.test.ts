@@ -1,4 +1,5 @@
-import { describe, expect, it, beforeAll } from 'vitest'
+import { describe, expect, it, beforeAll, afterAll, vi } from 'vitest'
+import { generatedJsonFetch } from './test-support/generated-json'
 import { readFileSync } from 'node:fs'
 import { parseStarCatalog } from './catalog'
 import { completeCatalogCompanions } from './stellar-companions'
@@ -9,7 +10,11 @@ import audit from '../catalog-work/star-systems/stellar-orbits-audit.json'
 
 const stars = completeCatalogCompanions(parseStarCatalog(readFileSync(new URL('./data/stars.csv', import.meta.url), 'utf8')))
 const systems = indexStarSystems(stars)
-beforeAll(loadStellarOrbits)
+beforeAll(async () => {
+  vi.stubGlobal('fetch', generatedJsonFetch)
+  await Promise.all(data.systems.map((system) => loadStellarOrbits(system.systemId)))
+})
+afterAll(() => vi.unstubAllGlobals())
 
 describe('reviewed stellar orbits', () => {
   it('audits every reviewed system and retains exact disjoint component scopes', () => {

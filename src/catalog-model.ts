@@ -245,6 +245,10 @@ export interface StellarObservations {
 }
 
 export interface Star {
+  // Transport metadata for deferred source notes; never scientific measurements.
+  catalog_detail_key?: string
+  catalog_note_supplements?: { key?: string; notes?: string; fields: string[] }[]
+  catalog_flags?: { withheld?: string[]; barycenter?: boolean; source_rv?: boolean }
   type: ObjectType
   id: string
   name: string

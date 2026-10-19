@@ -1,7 +1,6 @@
-import definitions from './data/star-info.json'
-import nearest100Definitions from './data/nearest-100-info.json'
 import { renderObjectInfoContent, type InfoImage, type InfoSource, type ObjectInfo } from './object-info-content'
-import { starComponentIdentity } from './star-systems'
+import { starInfoArticleId } from './star-info-availability'
+import { loadJsonData } from './json-data'
 import sun from './assets/stars/sun.jpg'
 import alphaCentauri from './assets/stars/alpha-centauri.jpg'
 import barnard from './assets/stars/barnards-star.jpg'
@@ -81,46 +80,60 @@ const images: Readonly<Record<string, InfoImage>> = {
   },
 }
 
-interface ArticleDefinitions {
+interface ArticlePayload {
   reviewedAt: string
-  articles: Record<string, {
+  article: {
     name: string
     introduction: string
     wikipedia?: string
     source?: InfoSource
     sections: { id: string; title: string; text: string; source?: InfoSource }[]
-  }>
+  }
 }
 
-function articleEntries(dataset: ArticleDefinitions): [string, ObjectInfo][] {
-  return Object.entries(dataset.articles).map(([id, article]) => {
-    const source = article.source
-      ? { ...article.source, title: `${article.source.title} · reviewed ${dataset.reviewedAt}` }
-      : article.wikipedia
-        ? { title: `Wikipedia: ${article.name} · reviewed ${dataset.reviewedAt}`, url: article.wikipedia }
-        : undefined
-    return [id, {
-      image: images[id],
-      introduction: { label: article.name, text: article.introduction, source },
-      sections: article.sections.map((section) => ({
-        id: section.id, title: section.title,
-        source: section.source ?? source,
-        paragraphs: [{ text: section.text }],
-      })),
-    }]
-  })
+function articleContent(id: string, dataset: ArticlePayload): ObjectInfo {
+  const { article } = dataset
+  const source = article.source
+    ? { ...article.source, title: `${article.source.title} · reviewed ${dataset.reviewedAt}` }
+    : article.wikipedia
+      ? { title: `Wikipedia: ${article.name} · reviewed ${dataset.reviewedAt}`, url: article.wikipedia }
+      : undefined
+  return {
+    image: images[id],
+    introduction: { label: article.name, text: article.introduction, source },
+    sections: article.sections.map((section) => ({
+      id: section.id, title: section.title,
+      source: section.source ?? source,
+      paragraphs: [{ text: section.text }],
+    })),
+  }
 }
 
-const articles: ReadonlyMap<string, ObjectInfo> = new Map([
-  ...articleEntries(definitions),
-  ...articleEntries(nearest100Definitions),
-])
+const payloads = import.meta.glob<string>([
+  './data/generated/star-articles/*.json',
+  '!./data/generated/star-articles/* [0-9]*.json',
+], { query: '?url&no-inline', import: 'default', eager: true })
+const articles = new Map<string, ObjectInfo>()
+const pending = new Map<string, Promise<void>>()
+
+export function loadStarInfo(starId: string): Promise<void> {
+  const id = starInfoArticleId(starId)
+  if (!id) return Promise.resolve()
+  let result = pending.get(id)
+  if (!result) {
+    const url = payloads[`./data/generated/star-articles/star-article-${id}.json`]
+    if (!url) return Promise.reject(new Error(`Missing star article: ${id}`))
+    result = loadJsonData<ArticlePayload>(url).then((payload) => { articles.set(id, articleContent(id, payload)) })
+      .catch((error: unknown) => { pending.delete(id); throw error })
+    pending.set(id, result)
+  }
+  return result
+}
 
 /** Resolve explicit catalog identities so every component shares its system article. */
 export function starInfoForId(starId: string): ObjectInfo | undefined {
-  const identity = starComponentIdentity(starId)
-  return articles.get(identity?.systemId ?? starId)
-    ?? articles.get(identity?.canonicalStarId ?? starId)
+  const id = starInfoArticleId(starId)
+  return id ? articles.get(id) : undefined
 }
 
 export function renderStarInfo(container: HTMLElement, starId: string | null): boolean {

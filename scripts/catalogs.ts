@@ -1,6 +1,8 @@
 import { readdirSync, readFileSync, rmSync } from 'node:fs'
 import { join, resolve } from 'node:path'
 import { fileURLToPath } from 'node:url'
+import { createHash } from 'node:crypto'
+import { isDeepStrictEqual } from 'node:util'
 import { buildCatalog, catalogCoverage, DEFAULT_CATALOG_MANIFEST, loadCatalog, parseCatalogManifest } from '../src/catalogs.ts'
 import { parseCompactOverlayManifest, parseCompactOverlayPayload } from '../src/compact-overlay-model.ts'
 import { parseNebulaOverlayManifest, parseNebulaOverlayPayload } from '../src/nebula-overlay-model.ts'
@@ -22,8 +24,11 @@ import planetDetails from '../src/data/planet-details.json' with { type: 'json' 
 import smallBodies from '../src/data/solar-small-bodies.json' with { type: 'json' }
 import starInfo from '../src/data/star-info.json' with { type: 'json' }
 import nearest100Info from '../src/data/nearest-100-info.json' with { type: 'json' }
+import brightStarInfo from '../src/data/bright-star-info.json' with { type: 'json' }
 import { starComponentIdentity } from '../src/star-systems.ts'
 import type { ConstellationChart } from '../src/constellations.ts'
+import { splitCatalogDetails } from '../src/catalog-detail-model.ts'
+import stellarOrbits from '../src/data/stellar-orbits.json' with { type: 'json' }
 
 const root = fileURLToPath(new URL('../', import.meta.url))
 const identities = parseObjectIdentities(JSON.parse(readFileSync(join(root, 'src/data/object-designations.json'), 'utf8')))
@@ -115,6 +120,15 @@ function requireConsistentCatalogs(catalogs: Parameters<typeof auditCatalogConsi
   console.log(`Shared details: ${audit.sharedObjects} objects checked across ${catalogs.length} catalogs; no inconsistencies.`)
 }
 
+/** These directories contain only derived payloads; discard obsolete versions. */
+function writeGeneratedData(directory: string, files: Record<string, string>): void {
+  const output = safeOutputDirectory(join(root, 'src/data/generated', directory))
+  writeManagedFiles(output, files, true)
+  for (const entry of readdirSync(output, { withFileTypes: true })) {
+    if (entry.isFile() && entry.name.endsWith('.json') && !Object.hasOwn(files, entry.name)) rmSync(join(output, entry.name))
+  }
+}
+
 function generate(): void {
   const packages = [
     { manifest: DEFAULT_CATALOG_MANIFEST, csv: readFileSync(join(root, 'src/data/stars.csv'), 'utf8') },
@@ -131,8 +145,21 @@ function generate(): void {
     stars: supplement(loadCatalog(definition)),
   }))
   requireConsistentCatalogs(catalogs)
+  const detailFiles: Record<string, string> = {}
+  const mapRecords = (stars: Parameters<typeof splitCatalogDetails>[0][]) => stars.map((star) => {
+    const content = JSON.stringify({ notes: star.notes, ...(star.catalog_sources ? { catalog_sources: star.catalog_sources } : {}) })
+    const key = `${star.id}-${createHash('sha256').update(content).digest('hex').slice(0, 16)}`
+    const { mapStar, details } = splitCatalogDetails(star, key)
+    const { catalog_detail_key: _key, catalog_flags: _flags, ...record } = mapStar
+    if (!isDeepStrictEqual({ ...record, ...details }, star)) throw new Error(`Catalog detail split lost data: ${star.id}`)
+    const file = `catalog-detail-${key}.json`
+    if (detailFiles[file] && detailFiles[file] !== content + '\n') throw new Error(`Catalog detail key collision: ${key}`)
+    detailFiles[file] = content + '\n'
+    return mapStar
+  })
   const files = Object.fromEntries(catalogs.map(({ id, stars }) =>
-    [`${id}.json`, JSON.stringify({ schemaVersion: 2, catalogId: id, sourceObjectCount: stars.length, stars: completeCatalogCompanions(stars) }) + '\n']))
+    [`${id}.json`, JSON.stringify({ schemaVersion: 3, catalogId: id, sourceObjectCount: stars.length, stars: mapRecords(completeCatalogCompanions(stars)) }) + '\n']))
+  writeGeneratedData('catalog-details', detailFiles)
   const references = buildCatalogClassReferences(catalogs.map((catalog) => ({ ...catalog, stars: completeCatalogCompanions(catalog.stars) })), (id) => components.get(id))
   writeManagedFiles(safeOutputDirectory(join(root, 'src/data')), {
     'catalog-class-references.json': JSON.stringify(references, null, 2) + '\n',
@@ -152,12 +179,22 @@ function generate(): void {
     chartCompanions[`${chart.name}.json`] = JSON.stringify(companionData.stars.filter((star) => needed.has(star.id))) + '\n'
   }
   writeManagedFiles(safeOutputDirectory(join(root, 'src/data/generated/constellation-companions')), chartCompanions, true)
+  const articleFiles = Object.fromEntries([starInfo, nearest100Info, brightStarInfo].flatMap((dataset) =>
+    Object.entries(dataset.articles).map(([id, article]) => [`star-article-${id}.json`, JSON.stringify({ reviewedAt: dataset.reviewedAt, article }) + '\n'])))
+  writeGeneratedData('star-articles', articleFiles)
+  const orbitFiles = Object.fromEntries(stellarOrbits.systems.map((system) =>
+    [`stellar-orbit-${system.systemId}.json`, JSON.stringify(system.orbits) + '\n']))
+  writeGeneratedData('stellar-orbits', orbitFiles)
+  const systemFiles = Object.fromEntries([...planetarySystems.systems, ...nearbyPlanets.systems].map((system) =>
+    [`planetary-system-${system.hostStarId}.json`, JSON.stringify({ system, planets: nearbyPlanets.planets.filter((planet) => planet.hostStarId === system.hostStarId) }) + '\n']))
+  writeGeneratedData('planetary-systems', systemFiles)
   const planetCounts = Object.fromEntries([...planetarySystems.systems, ...nearbyPlanets.systems].map((system) => [system.hostStarId, system.planets.length]))
   writeManagedFiles(safeOutputDirectory(join(root, 'src/data/generated')), {
-    'startup-index.json': JSON.stringify({ planetCounts, starInfoIds: [...new Set([...Object.keys(starInfo.articles), ...Object.keys(nearest100Info.articles)])], planetInfoIds: [...planetDetails.planets, ...smallBodies.objects].map((planet) => planet.id) }) + '\n',
+    'startup-index.json': JSON.stringify({ planetCounts, starInfoIds: [...new Set([...Object.keys(starInfo.articles), ...Object.keys(nearest100Info.articles), ...Object.keys(brightStarInfo.articles)])], planetInfoIds: [...planetDetails.planets, ...smallBodies.objects].map((planet) => planet.id) }) + '\n',
     'planet-details.json': JSON.stringify({ earth: planetDetails.earth, planets: planetDetails.planets }) + '\n',
     'planet-moons.json': JSON.stringify({ ...planetDetails.moons, ...smallBodies.moons }) + '\n',
     'small-body-details.json': JSON.stringify({ objects: smallBodies.objects }) + '\n',
+    'exoplanet-source.json': JSON.stringify({ retrieved: nearbyPlanets.retrieved }) + '\n',
   }, true)
   const { manifest: overlayManifest, objects } = loadCompactOverlay()
   const nebulae = loadNebulaOverlay()

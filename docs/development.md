@@ -4,9 +4,19 @@
 
 The development server port advances automatically if its default port is already occupied.
 
+For everyday edits, run `npm run dev` once and leave it running. Open the URL it prints; Vite updates the page when source files change. Run `npm run typecheck:watch` in a second terminal for continuous TypeScript checks. Neither command needs a production build after each edit. Both generate derived catalog inputs at startup; after changing catalog source data or its authoring/generation code, run `npm run catalog:generate` again. Catalog data changes also require `npm run catalog:preservation` and the relevant catalog checks.
+
+If automatic reloads interrupt an inspection session, use `npm run dev:manual` instead. It serves source files with hot reload disabled; refresh the browser yourself to see edits. File watching still invalidates Vite's transformed-module cache, so a manual refresh picks up changed source. It does not need a production build. Catalog generation leaves identical output files untouched, so running checks alongside the normal dev server does not trigger reloads solely by rewriting unchanged generated inputs.
+
+Numbered duplicate files in generated data, such as `Andromeda 2.json`, are excluded from generated-payload wildcard imports and development file watching. They are not authored catalog inputs and are not removed by this exclusion.
+
+Use `npm run build` when preparing a deployment or checking production behavior, then `npm run preview` to inspect it. Preview serves the existing `dist/` output, so source edits require another build to appear there. Browser regression tests continue to use a production build.
+
 The production output is in `dist`. Builds validate every project catalog, generate deterministic browser-ready JSON from the authored CSV, and emit each catalog as a separate hashed asset. Version 2 payloads already contain the reviewed companion completion and original source measurements; `sourceObjectCount` records the authored catalog size before companion expansion. Catalogs load only when selected, directly from their hashed JSON URL, and each payload is fetched and parsed at most once per page session. Startup carries a compact component identity index rather than the full physical companion pool. Each constellation chart loads only its relevant companion records. Papa Parse remains an authoring/test dependency and is not shipped in the browser bundle. Normal builds never download astronomy data; validation uses Python.
 
 Vite also emits Brotli sidecars for compressible production assets. The local preview server negotiates those files and gives hashed `/assets/` responses a one-year immutable cache policy while keeping HTML revalidated. Production hosting must provide the equivalent `Content-Encoding: br`, `Vary: Accept-Encoding`, `Content-Type`, and `Cache-Control` behavior; copying `.br` files alone is not sufficient.
+
+Brotli compression uses up to four asynchronous encoders and caches the results in `node_modules/.vite/star-view-brotli/`. The cache is keyed by exact asset contents, encoder version and compression settings, so unchanged assets reuse their maximum-quality compressed bytes even if their filenames change. A first build or a cleared cache needs to populate this cache; later builds compress only changed contents. The cache is disposable and is never deployed. Every production build still runs catalog validation, catalog generation and TypeScript checks.
 
 Production builds embed a strict Content Security Policy meta tag: same-origin scripts, styles, images, data and fonts only, no inline styles or scripts, no plugins, no base URL or form targets, and Trusted Types enforcement. Dynamic styles are applied through the CSSOM, never through `style` attributes. Glossary, Info, System, Distance, Radius, Temperature, Mass, Luminosity, constellation and planet content load on first use. Lightweight counts keep System controls available before exoplanet and stellar-orbit data load. Planet Info and Moons have their own loading boundaries; moon data, textures and shape models are not initialized by opening the planet's Specs. Scene brightness and color helpers remain shared and immediately available.
 
@@ -74,6 +84,7 @@ Visual-polish regressions additionally sample the gap-free core-to-halo falloff,
 - [src/catalog.ts](../src/catalog.ts): typed CSV contract and validation.
 - [src/catalogs.ts](../src/catalogs.ts): package validation, selection retention, coverage and native builder.
 - [src/registry.ts](../src/registry.ts): build-time project catalog discovery, isolated package errors.
+- [Deferred star data](deferred-star-data.md): individual article/system loads and separate map/source payloads.
 - [scripts/catalogs.ts](../scripts/catalogs.ts): offline native build/validation CLI.
 - [src/astronomy.ts](../src/astronomy.ts): frame mapping, distances, and temperature colors.
 - [src/viewer.ts](../src/viewer.ts): Three.js scene, camera, measurement guides, budgeted label placement, picking, and teardown.

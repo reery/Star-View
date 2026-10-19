@@ -3,7 +3,11 @@ import { starComponentIdentity } from './star-systems'
 
 const ids = new Set(index.starInfoIds)
 
-export function starInfoAvailable(starId: string): boolean {
+export function starInfoArticleId(starId: string): string | undefined {
   const identity = starComponentIdentity(starId)
-  return ids.has(identity?.systemId ?? starId) || ids.has(identity?.canonicalStarId ?? starId)
+  return [identity?.systemId ?? starId, identity?.canonicalStarId ?? starId].find((id) => ids.has(id))
+}
+
+export function starInfoAvailable(starId: string): boolean {
+  return starInfoArticleId(starId) !== undefined
 }

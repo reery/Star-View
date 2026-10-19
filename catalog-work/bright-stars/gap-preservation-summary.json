@@ -1,0 +1,123 @@
+{
+  "reviewedOn": "2026-10-18",
+  "catalogs": [
+    {
+      "path": "src/data/catalogs/bright-stars/stars.csv",
+      "beforeSha256": "b643a244ca07093ba1e84b1b4cd945a189309d7a16de49f35554826050b6e053",
+      "afterSha256": "682dd4cefa7ffc8b76c75553a75fc0b50b07f3c9b6b48296f3b30b08971a26f8",
+      "recordsBefore": 126,
+      "recordsAfter": 126,
+      "filledFields": {
+        "vx_kms": 1,
+        "vy_kms": 1,
+        "vz_kms": 1,
+        "mass_solar": 15,
+        "luminosity_solar": 5,
+        "radius_solar": 5,
+        "radial_velocity_kms": 1,
+        "radial_velocity_ref": 1
+      },
+      "changedExistingValues": []
+    },
+    {
+      "path": "src/data/catalogs/famous-cluster-stars/stars.csv",
+      "beforeSha256": "b1bc0a3a492b3d4c9ee3330b5e80a4572d4bf95d1119f8062849d59cb430fa0f",
+      "afterSha256": "b1bc0a3a492b3d4c9ee3330b5e80a4572d4bf95d1119f8062849d59cb430fa0f",
+      "recordsBefore": 43,
+      "recordsAfter": 43,
+      "filledFields": {},
+      "changedExistingValues": []
+    },
+    {
+      "path": "src/data/catalogs/nearest-100/stars.csv",
+      "beforeSha256": "a283dc0a9319d331ac01c8d6e526fbb23f5eb2cdc6ca243f160d5a381fe24a88",
+      "afterSha256": "a283dc0a9319d331ac01c8d6e526fbb23f5eb2cdc6ca243f160d5a381fe24a88",
+      "recordsBefore": 101,
+      "recordsAfter": 101,
+      "filledFields": {},
+      "changedExistingValues": []
+    },
+    {
+      "path": "src/data/catalogs/nearest-1000/stars.csv",
+      "beforeSha256": "4d00c4145fca287cb35cacbd908d70327276b3df51c57a06905d34a2df3e93fb",
+      "afterSha256": "6f715e63c0cae9e3ab3bb4dfc6b4cf0ba9e49915d894de3323f85d91624fe234",
+      "recordsBefore": 1037,
+      "recordsAfter": 1037,
+      "filledFields": {
+        "vx_kms": 1,
+        "vy_kms": 1,
+        "vz_kms": 1,
+        "mass_solar": 1,
+        "luminosity_solar": 1,
+        "radius_solar": 1,
+        "radial_velocity_kms": 1,
+        "radial_velocity_ref": 1
+      },
+      "changedExistingValues": []
+    },
+    {
+      "path": "src/data/catalogs/western-constellation-stars/stars.csv",
+      "beforeSha256": "288d7062e17637bcbbb3a03d02de594558742b9ae7e7bcdf9d205a76af4dcbc4",
+      "afterSha256": "cd5d2e1def1e85bfd72925fef9a06ceefafb4c596f52e220a88e75a0fb4821fd",
+      "recordsBefore": 714,
+      "recordsAfter": 714,
+      "filledFields": {
+        "vx_kms": 1,
+        "vy_kms": 1,
+        "vz_kms": 1,
+        "mass_solar": 15,
+        "luminosity_solar": 5,
+        "radius_solar": 5,
+        "radial_velocity_kms": 1,
+        "radial_velocity_ref": 1
+      },
+      "changedExistingValues": []
+    },
+    {
+      "path": "src/data/stars.csv",
+      "beforeSha256": "cbe5afe70dfcd4f789ebdf61464a35ce59652dc7ad6eccfd389c5599128d2f11",
+      "afterSha256": "cbe5afe70dfcd4f789ebdf61464a35ce59652dc7ad6eccfd389c5599128d2f11",
+      "recordsBefore": 22,
+      "recordsAfter": 22,
+      "filledFields": {},
+      "changedExistingValues": []
+    }
+  ],
+  "effectiveComponents": {
+    "recordsBefore": 844,
+    "recordsAfter": 844,
+    "preservationFailures": []
+  },
+  "provenance": [
+    {
+      "path": "src/data/catalogs/bright-stars/provenance.json",
+      "beforeSha256": "13151e54948c7386b5df20ae433e94e2e3d6d5ee92bd47517de042837643701c",
+      "afterSha256": "4c38484fb700a2990a748b4c51493231b2c437ac609377790a9154614803996a",
+      "missingKnownProvenancePaths": []
+    },
+    {
+      "path": "src/data/catalogs/famous-cluster-stars/provenance.json",
+      "beforeSha256": "41830d4caa48c2ce1a4d917dd8a2b0f3aa843925e579b80994ec3f37adb92762",
+      "afterSha256": "450bb65246e63b51e3f15c7c2cabfef2f213ddeca1a5dc90c2f0e6623b35b43f",
+      "missingKnownProvenancePaths": []
+    },
+    {
+      "path": "src/data/catalogs/nearest-100/provenance.json",
+      "beforeSha256": "600610c9152b6fb57a251310ae0db7dab9eedfe3c67fd2dee935d97923b45a34",
+      "afterSha256": "9141c93d8d81bc0df3a809e11f8616ea42131abbd68acd8fee36febe8a97717c",
+      "missingKnownProvenancePaths": []
+    },
+    {
+      "path": "src/data/catalogs/nearest-1000/provenance.json",
+      "beforeSha256": "68be6dad91dfaf374735008343478350c62099927f7800dcea61da961341f8ea",
+      "afterSha256": "761f82796e799c09c593b21ab9f3a32754b2bfb9ebb08a2056c0d6150c167f80",
+      "missingKnownProvenancePaths": []
+    },
+    {
+      "path": "src/data/catalogs/western-constellation-stars/provenance.json",
+      "beforeSha256": "1854ae49e78ae430a2f66792d3cf978a7b74ebb6aae4ca974053034dd975c6fa",
+      "afterSha256": "c3977e96db9ed24e6c8571315f01e81f3dcb0bf671e82766ba237169823dc5a1",
+      "missingKnownProvenancePaths": []
+    }
+  ]
+}

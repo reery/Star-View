@@ -2,11 +2,12 @@ import { ArrowDown, ArrowLeftRight, ArrowUp, ArrowUpDown, Filter, createElement,
 import { OBJECT_TYPES, objectTypeLabel, type Star } from './catalog-model'
 import { formatDistance, type DistanceUnit } from './astronomy'
 import { companionIcon } from './companion-icon'
+import { spaceMotionForStar } from './space-motion'
 
 export const OBJECT_DATABASE_COLUMNS = [
   { key: 'name', label: 'Name', width: 190 },
   { key: 'type', label: 'Object type', width: 128, filter: 'type' },
-  { key: 'distance', label: 'Distance from Sun', width: 155 },
+  { key: 'distance', label: 'Distance from Sun', width: 125 },
   { key: 'subtype', label: 'Sub-type', width: 190, filter: 'subtype' },
   { key: 'planets', label: 'Planets', width: 75 },
   { key: 'spectral', label: 'Spectral type', width: 110, filter: 'spectral' },
@@ -14,14 +15,15 @@ export const OBJECT_DATABASE_COLUMNS = [
   { key: 'luminosity', label: 'Bol. luminosity', unit: 'L☉', width: 120 },
   { key: 'mass', label: 'Mass', unit: 'M☉', width: 85 },
   { key: 'radius', label: 'Radius', unit: 'R☉', width: 85 },
-  { key: 'metallicity', label: 'Metallicity', unit: 'dex', width: 130 },
+  { key: 'metallicity', label: 'Metallicity', unit: 'dex', width: 110 },
   { key: 'age', label: 'Age', unit: 'Gyr', width: 80 },
   { key: 'absolute', label: 'Abs. mag', unit: 'V', width: 85 },
   { key: 'apparent', label: 'App. mag', unit: 'V', width: 85 },
+  { key: 'motion', label: 'Space motion', width: 290, filter: 'motion' },
 ] as const
 
 export type ObjectDatabaseColumn = typeof OBJECT_DATABASE_COLUMNS[number]['key']
-export type ObjectDatabaseFilter = 'type' | 'subtype' | 'spectral'
+export type ObjectDatabaseFilter = 'type' | 'subtype' | 'spectral' | 'motion'
 export interface ObjectDatabaseItem {
   star: Star
   distancePc: number
@@ -63,6 +65,7 @@ export function objectDatabaseValue(item: ObjectDatabaseItem, column: ObjectData
     case 'age': return star.age_gyr
     case 'absolute': return star.absolute_mag
     case 'apparent': return star.apparent_mag ?? null
+    case 'motion': return spaceMotionForStar(star).label
   }
 }
 
@@ -71,11 +74,12 @@ function missing(value: string | number | null): boolean {
 }
 
 export function filterAndSortObjectDatabaseItems<T extends ObjectDatabaseItem>(items: readonly T[], state: ObjectDatabaseState): T[] {
-  const { type, subtype, spectral } = state.filters
+  const { type, subtype, spectral, motion } = state.filters
   return items.filter(({ star }) =>
     (!type || type.has(star.type)) &&
     (!subtype || (star.subtypes?.length ? star.subtypes : ['unavailable']).some((label) => subtype.has(label))) &&
-    (!spectral || spectral.has(objectSpectralClass(star))),
+    (!spectral || spectral.has(objectSpectralClass(star))) &&
+    (!motion || motion.has(spaceMotionForStar(star).label ?? 'unavailable')),
   ).sort((first, second) => {
     const a = objectDatabaseValue(first, state.sort, state.distance)
     const b = objectDatabaseValue(second, state.sort, state.distance)
@@ -118,7 +122,7 @@ export class ObjectDatabase {
   private filterButton: HTMLButtonElement | null = null
   readonly state: ObjectDatabaseState = {
     sort: 'distance', direction: 'ascending', distance: 'sun',
-    filters: { type: null, subtype: null, spectral: null },
+    filters: { type: null, subtype: null, spectral: null, motion: null },
   }
 
   constructor(container: HTMLElement, onChange: () => void, onSelect: (id: string) => void) {
@@ -316,7 +320,7 @@ export class ObjectDatabase {
       { value: 'other', label: 'Other spectral types' },
       { value: 'unavailable', label: 'Not available' },
     ]
-    const values = [...new Set(this.stars.flatMap((star) => star.subtypes ?? []))].sort(nameOrder.compare)
+    const values = [...new Set(this.stars.flatMap((star) => filter === 'motion' ? spaceMotionForStar(star).label ?? [] : star.subtypes ?? []))].sort(nameOrder.compare)
     return [...values.map((value) => ({ value, label: value })), { value: 'unavailable', label: 'Not available' }]
   }
 

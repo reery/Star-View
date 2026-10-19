@@ -1,6 +1,45 @@
 import { expect, test } from '@playwright/test'
 import { selectCatalog } from './support'
 
+test('shows shared space-motion labels and compact measurement columns @mobile', async ({ page }) => {
+  await page.goto('/')
+  await expect(page.locator('#scene')).toHaveAttribute('data-ready', 'true')
+  await page.getByRole('button', { name: 'Objects', exact: true }).click()
+  await page.getByRole('button', { name: 'Expand objects list', exact: true }).click()
+  await expect(page.locator('.object-column-label').last()).toHaveText('Space motion')
+  const widths = await page.locator('#object-database').evaluate((node) => {
+    const width = (key: string) => node.querySelector(`th[data-column="${key}"]`)!.getBoundingClientRect().width
+    return { distance: width('distance'), metallicity: width('metallicity') }
+  })
+  expect(widths.distance).toBe(125)
+  expect(widths.metallicity).toBe(110)
+  for (const [id, name] of [['sun', 'Sun'], ['proxima-centauri', 'Proxima Centauri'], ['sirius-b', 'Sirius B']]) {
+    await page.locator('#object-search').fill(name!)
+    await page.getByRole('button', { name: `Select ${name}`, exact: true }).click()
+    const label = (await page.locator('#motion-data').textContent())!
+    await expect(page.locator(`tr[data-star="${id}"] td[data-column="motion"]`)).toHaveText(label)
+  }
+  await page.locator('#object-search').fill('')
+  const rows = page.locator('#object-database tbody tr[data-star]')
+  const total = await rows.count()
+  const filter = page.getByRole('button', { name: 'Filter space motion', exact: true })
+  await filter.click()
+  const popup = page.locator('#object-column-filter')
+  await popup.getByRole('button', { name: 'Clear', exact: true }).click()
+  await expect(page.locator('.object-database-empty')).toHaveText('No matching objects')
+  await expect(filter).toHaveAttribute('aria-pressed', 'true')
+  await popup.getByRole('checkbox', { name: 'Full space motion', exact: true }).check()
+  await expect(rows).not.toHaveCount(0)
+  await expect(rows.locator('td[data-column="motion"]')).toHaveText(Array(await rows.count()).fill('Full space motion'))
+  await popup.getByRole('checkbox', { name: 'Not available', exact: true }).check()
+  await expect(popup.getByRole('checkbox', { checked: true })).toHaveCount(2)
+  await popup.getByRole('button', { name: 'All', exact: true }).click()
+  await expect(rows).toHaveCount(total)
+  await expect(filter).toHaveAttribute('aria-pressed', 'false')
+  await popup.getByRole('checkbox', { name: 'Full space motion', exact: true }).press('Escape')
+  await expect(filter).toBeFocused()
+})
+
 test('expands Objects horizontally and combines database filters and origin distances @mobile', async ({ page }, testInfo) => {
   await page.goto('/')
   await expect(page.locator('#scene')).toHaveAttribute('data-ready', 'true')
@@ -23,7 +62,7 @@ test('expands Objects horizontally and combines database filters and origin dist
   await expect(page.locator('#star-list')).toBeHidden()
   await expect(page.locator('.object-column-label')).toHaveText([
     'Name', 'Object type', 'Distance from Sun', 'Sub-type', 'Planets', 'Spectral type',
-    'Temperature', 'Bol. luminosity', 'Mass', 'Radius', 'Metallicity', 'Age', 'Abs. mag', 'App. mag',
+    'Temperature', 'Bol. luminosity', 'Mass', 'Radius', 'Metallicity', 'Age', 'Abs. mag', 'App. mag', 'Space motion',
   ])
 
   await page.locator('#object-search').fill('Centauri')

@@ -409,8 +409,8 @@
               <div class="panel-heading spectral-heading">
                 <h2 id="spectral-heading">Spectral type</h2>
                 <div class="distance-reference-buttons" role="group" aria-label="Spectral type diagram">
-                  <button id="spectral-hr" class="object-section-button distance-reference-button" type="button" aria-pressed="true" aria-controls="spectral-hr-content">H-R</button>
-                  <button id="spectral-mk" class="object-section-button distance-reference-button" type="button" aria-pressed="false" aria-controls="spectral-mk-content">M-K</button>
+                  <span class="mass-reference-option" data-tooltip-always><button id="spectral-hr" class="object-section-button distance-reference-button" type="button" aria-pressed="true" aria-controls="spectral-hr-content" aria-describedby="spectral-hr-tooltip">H-R</button><span id="spectral-hr-tooltip" class="tooltip mass-metric-tooltip" role="tooltip">Hertzsprung–Russell diagram. Shows how a star’s temperature relates to its intrinsic brightness.</span></span>
+                  <span class="mass-reference-option" data-tooltip-always><button id="spectral-mk" class="object-section-button distance-reference-button" type="button" aria-pressed="false" aria-controls="spectral-mk-content" aria-describedby="spectral-mk-tooltip">M-K</button><span id="spectral-mk-tooltip" class="tooltip mass-metric-tooltip" role="tooltip">Morgan–Keenan classification. Groups stars by the patterns in their spectra: spectral type indicates temperature, and luminosity class distinguishes dwarfs, giants, and supergiants.</span></span>
                 </div>
                 <button id="spectral-lock" class="panel-lock" type="button" aria-label="Keep Spectral type open" aria-pressed="false"><span id="spectral-lock-icon"></span></button>
                 <button id="spectral-close" class="panel-lock" type="button" aria-label="Close spectral type card"><span id="spectral-close-icon"></span></button>
@@ -593,8 +593,12 @@
               <span class="toolbar-divider"></span>
               <button id="views-toggle" class="icon-button panel-button" type="button" aria-label="Saved views" aria-controls="views-panel" aria-expanded="false" disabled><span id="views-icon"></span><span class="tooltip">Saved views</span></button>
               <span class="toolbar-divider"></span>
-              <button id="selection-back" class="icon-button" type="button" aria-label="Previous selection" disabled><span id="selection-back-icon"></span><span class="tooltip">Previous selection<span id="selection-back-object" class="selection-tooltip-object" hidden><span id="selection-back-swatch" class="star-swatch" aria-hidden="true"></span><span id="selection-back-name"></span></span></span></button>
-              <button id="selection-forward" class="icon-button" type="button" aria-label="Next selection" disabled><span id="selection-forward-icon"></span><span class="tooltip">Next selection<span id="selection-forward-object" class="selection-tooltip-object" hidden><span id="selection-forward-swatch" class="star-swatch" aria-hidden="true"></span><span id="selection-forward-name"></span></span></span></button>
+              <div id="selection-controls" class="selection-controls" role="group" aria-label="Selection history">
+                <button id="selection-back" class="icon-button" type="button" aria-label="Previous selection" disabled><span id="selection-back-icon"></span><span class="tooltip">Previous selection<span id="selection-back-object" class="selection-tooltip-object" hidden><span id="selection-back-swatch" class="star-swatch" aria-hidden="true"></span><span id="selection-back-name"></span></span></span></button>
+                <div class="selection-options">
+                  <button id="selection-forward" class="icon-button" type="button" aria-label="Next selection" disabled><span id="selection-forward-icon"></span><span class="tooltip">Next selection<span id="selection-forward-object" class="selection-tooltip-object" hidden><span id="selection-forward-swatch" class="star-swatch" aria-hidden="true"></span><span id="selection-forward-name"></span></span></span></button>
+                </div>
+              </div>
               <span class="toolbar-divider"></span>
               <div id="origin-controls" class="origin-controls" role="group" aria-label="Origin controls">
                 <button id="set-origin" class="icon-button" type="button" aria-label="Set selected object as origin" disabled><span id="set-origin-icon"></span><span class="tooltip">Set <span class="origin-tooltip-object"><span id="set-origin-swatch" class="star-swatch" aria-hidden="true"></span><span id="set-origin-name">selected object</span></span> as origin</span></button>
@@ -771,6 +775,10 @@
                     <span>Power saving mode</span>
                     <span class="switch-control"><input id="power-saving-mode" type="checkbox" role="switch"><span class="switch-track" aria-hidden="true"></span></span>
                   </label>
+                  <div class="browser-data-control">
+                    <button id="delete-browser-data" class="browser-data-delete" type="button" aria-haspopup="dialog" aria-controls="browser-data-dialog" aria-describedby="browser-data-size">Delete all Star View browser data</button>
+                    <output id="browser-data-size" title="Estimated size of saved views and preferences, including storage keys">0.00 KB</output>
+                  </div>
                   <section class="preferences-group" aria-labelledby="scene-preferences-heading">
                     <h3 id="scene-preferences-heading" class="card-subgroup-heading">Scene</h3>
                     <div class="range-filter">
@@ -828,6 +836,14 @@
     <div id="saved-view-context-menu" class="saved-view-context-menu" role="menu" aria-label="Saved view actions" hidden>
       <button id="saved-view-context-delete" class="saved-view-context-delete" type="button" role="menuitem" tabindex="-1"></button>
     </div>
+    <dialog id="browser-data-dialog" class="browser-data-dialog" aria-labelledby="browser-data-question">
+      <p id="browser-data-question"></p>
+      <p id="browser-data-error" role="alert" hidden></p>
+      <div class="browser-data-actions">
+        <button id="browser-data-yes" class="browser-data-delete" type="button">Yes</button>
+        <button id="browser-data-no" type="button" autofocus>No</button>
+      </div>
+    </dialog>
     <noscript>This nearby-object viewer requires JavaScript.</noscript>
     <script type="module" src="/src/main.ts"></script>
   </body>

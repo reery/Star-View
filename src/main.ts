@@ -21,6 +21,7 @@ import type { MassReference } from './mass-comparison'
 import { hrCardAvailable, hrMagnitude, renderHrDiagram, type HrMagnitudeMode } from './hr-diagram'
 import { renderMkDiagram } from './mk-diagram'
 import { spectralReference } from './spectral-chart'
+import { positionCardHeaderTooltips } from './card-header-tooltips'
 import { massCardAvailable } from './mass-properties'
 import { luminosityCardAvailable } from './luminosity-properties'
 import { initializeMagnitudeVisibility, magnitudeCardAvailable, renderMagnitudeCard as renderMagnitudeComparison } from './magnitude-card'
@@ -29,18 +30,21 @@ import { constellationCardAvailable, loadConstellationChart, type ConstellationC
 import type { RadiusReference } from './radius-comparison'
 import { indexStarSystems, type StarSystem } from './star-systems'
 import { loadStellarOrbits } from './stellar-orbits'
-import { loadPlanetarySystems, planetCountForStar, planetarySystemForStar } from './planetary-systems'
+import { loadPlanetarySystem, planetCountForStar, planetarySystemForStar } from './planetary-systems'
+import { loadStarDetails, starDetailsLoaded } from './selected-star-details'
 import {
   availableFilterKeys, categoryAvailable, DEFAULT_FILTER_CATEGORIES, DEFAULT_FILTER_SUBTYPES, effectiveFilterKeys, FILTER_CATEGORIES,
   filterCategoryForKey, filterSummary, isFilterCategoryId, isFilterKey, type FilterCategoryId, type FilterKey,
 } from './object-filter'
 import { ObjectList } from './object-list'
+import { spaceMotionForStar } from './space-motion'
 import { SelectionHistory } from './selection-history'
 import { objectTypeIntroduction } from './object-type-info'
 import { objectSubtypeDescription } from './object-subtype-info'
 import { MISSING_VALUE, measurement, preciseMeasurement, quantity, scientificQuantity } from './format'
 import { OBJECT_DISTANCE_STEPS_LY, readSavedViews, SAVED_VIEWS_STORAGE_KEY, type SavedView, type SavedViewSettings } from './saved-views'
 import type { SkyGridMode } from './sky-grid'
+import { browserDataSize, deleteBrowserData } from './browser-data'
 
 function element<ElementType extends HTMLElement = HTMLElement>(id: string): ElementType {
   const found = document.getElementById(id)
@@ -262,6 +266,8 @@ function updateSelectionHistoryControls(): void {
     text(`${prefix}-name`, star?.name ?? '')
     element(`${prefix}-swatch`).style.background = star ? starDisplayColor(star, starColorMode).getStyle() : ''
   }
+  // Keep forward navigation reachable when history is already at its first entry.
+  element('selection-controls').tabIndex = element<HTMLButtonElement>('selection-back').disabled && !element<HTMLButtonElement>('selection-forward').disabled ? 0 : -1
 }
 
 function updateReferenceControl(): void {
@@ -345,6 +351,7 @@ function setPanelOpen(name: typeof panelNames[number], open: boolean): void {
   if (name === 'objects' && !open) objectList.closeColumnFilter()
   element<HTMLButtonElement>(`${name}-toggle`).setAttribute('aria-expanded', String(open))
   element(`${name}-panel`).hidden = !open
+  if (name === 'preferences' && open) updateBrowserDataSize()
   if (name === 'glossary' && open) {
     glossaryLoad ??= import('./glossary').then(({ initializeGlossary }) => initializeGlossary(events.signal))
       .catch((error: unknown) => { glossaryLoad = undefined; console.error('Could not load the glossary.', error) })
@@ -517,6 +524,7 @@ function renderSpectralCard(star: Star): void {
     renderHrDiagram(element('spectral-card'), star, reference, mode)
   } else renderMkDiagram(element('spectral-card'), star, reference)
   syncObjectTypeLayout()
+  positionCardHeaderTooltips(element('spectral-card'))
 }
 
 function toggleSpectralCard(): void {
@@ -1260,6 +1268,7 @@ let systemCardModule: typeof import('./system-card') | undefined
 let systemLoad: Promise<void> | undefined
 let starInfoModule: typeof import('./star-info') | undefined
 let infoContentStarId: string | null = null
+let specsContentStar: Star | undefined
 
 function highlightSystemPlanet(...args: Parameters<typeof import('./system-card').highlightSystemPlanet>): void {
   systemCardModule?.highlightSystemPlanet(...args)
@@ -1269,20 +1278,34 @@ async function renderActiveObjectSection(): Promise<void> {
   const request = ++objectSectionRequest
   const section = activeObjectSection
   const star = stars.find((candidate) => candidate.id === selectedId)
-  if (!star || !element<HTMLDetailsElement>('object-card-details').open || section === 'specs') return
+  if (!star || !element<HTMLDetailsElement>('object-card-details').open) return
   const container = element(`object-${section}`)
   try {
-    if (section === 'info') {
+    if (section === 'specs') {
+      if (starDetailsLoaded(star)) {
+        container.removeAttribute('aria-busy')
+        if (specsContentStar !== star) renderSelection()
+        return
+      }
+      container.setAttribute('aria-busy', 'true')
+      text('star-notes', 'Loading source notes…')
+      await loadStarDetails(star)
+    } else if (section === 'info') {
       if (infoContentStarId === star.id) return
       starInfoModule ??= await import('./star-info')
+      await starInfoModule.loadStarInfo(star.id)
     } else {
-      systemLoad ??= Promise.all([import('./system-card'), loadPlanetarySystems(), loadStellarOrbits()])
-        .then(([module]) => { systemCardModule = module })
+      systemLoad ??= import('./system-card')
+        .then((module) => { systemCardModule = module })
         .catch((error: unknown) => { systemLoad = undefined; throw error })
-      await systemLoad
+      const system = starSystems.get(star.id)
+      await Promise.all([systemLoad, loadPlanetarySystem(star.id), system ? loadStellarOrbits(system.id) : Promise.resolve()])
     }
     if (request !== objectSectionRequest || selectedId !== star.id || container.hidden || !element<HTMLDetailsElement>('object-card-details').open) return
-    if (section === 'info') {
+    container.removeAttribute('aria-busy')
+    if (section === 'specs') {
+      renderSelection()
+    } else if (section === 'info') {
       starInfoModule!.renderStarInfo(container, star.id)
       infoContentStarId = star.id
     } else {
@@ -1292,15 +1315,17 @@ async function renderActiveObjectSection(): Promise<void> {
     syncSelectedObjectLayout()
     syncObjectTypeLayout()
   } catch (error) {
-    if (request !== objectSectionRequest) return
+    if (request !== objectSectionRequest || selectedId !== star.id || container.hidden || !element<HTMLDetailsElement>('object-card-details').open) return
+    container.removeAttribute('aria-busy')
     const message = document.createElement('p')
-    message.textContent = `Could not load ${section === 'info' ? 'Info' : 'System'}.`
+    message.textContent = `Could not load ${section === 'specs' ? 'source notes' : section === 'info' ? 'Info' : 'System'}.`
     const retry = document.createElement('button')
     retry.type = 'button'
     retry.className = 'object-type-toggle'
     retry.textContent = 'Retry'
     retry.addEventListener('click', () => { void renderActiveObjectSection() }, { once: true })
-    container.replaceChildren(message, retry)
+    if (section === 'specs') element('star-notes').replaceChildren(message, retry)
+    else container.replaceChildren(message, retry)
     console.error(`Could not load object ${section}.`, error)
   }
 }
@@ -1492,7 +1517,6 @@ function renderSelection(): void {
     syncObjectSections()
   }
   syncObjectInfoAvailability()
-  void renderActiveObjectSection()
   if (knownPlanetCount > 0) element<HTMLCanvasElement>('selected-swatch').title = `${knownPlanetCount} known planets · illustrative orbit`
   text('distance-value', formatDistance(metrics.distancePc, distanceUnit).split(' ')[0]!)
   text('distance-unit', ` ${distanceUnit}`)
@@ -1684,10 +1708,9 @@ function renderSelection(): void {
   sourceMeasurement('velocity-y', star, 'vy_kms', (value: number | null) => quantity(value, 'km/s'))
   sourceMeasurement('velocity-z', star, 'vz_kms', (value: number | null) => quantity(value, 'km/s'))
   const raw = star.raw_astrometry
-  const fullVelocity = [star.vx_kms, star.vy_kms, star.vz_kms].every((value) => value !== null) || (raw !== null && raw.radial_velocity_kms !== null)
-  const systemicMotion = raw?.radial_velocity_ref?.includes('; shared systemic velocity approximation') ?? false
-  text('motion-data', fullVelocity ? systemicMotion ? 'System bulk motion' : 'Full space motion' : raw ? 'Transverse only; radial velocity unavailable' : MISSING_VALUE)
-  element('motion-data').title = systemicMotion ? 'Approximate system bulk motion using a shared center-of-mass radial velocity; individual orbital velocities are not modeled.' : ''
+  const { fullVelocity, title: motionTitle, label: motionLabel } = spaceMotionForStar(star)
+  text('motion-data', motionLabel ?? MISSING_VALUE)
+  element('motion-data').title = motionTitle
   const sky = raw ?? compact ?? nebula ?? null
   text('right-ascension', sky ? `${sky.ra_deg.toLocaleString('en-US', { maximumFractionDigits: 9 })} deg` : MISSING_VALUE)
   text('declination', sky ? `${sky.dec_deg.toLocaleString('en-US', { maximumFractionDigits: 9 })} deg` : MISSING_VALUE)
@@ -1700,7 +1723,6 @@ function renderSelection(): void {
   if (sourceRv) {
     const sourceRaw = sourceRv.record.raw_astrometry!
     text('radial-velocity', measurement(sourceRaw.radial_velocity_kms, sourceRaw.radial_velocity_error_kms, 'km/s', 6))
-    if (!fullVelocity && raw) text('motion-data', 'Transverse component motion')
   }
   element('radial-velocity').title = sourceRv?.scope ?? raw?.radial_velocity_ref ?? ''
   const rvReview = star.stellar_observations?.radial_velocity_review
@@ -1713,7 +1735,6 @@ function renderSelection(): void {
     text('radial-velocity', measurement(observedRv.value_kms, observedRv.error_kms, 'km/s', 6))
     element('radial-velocity').title = `${observedRv.reference}; ${observedRv.observed_from} to ${observedRv.observed_to}. ${observedRv.uncertainty_kind} ${observedRv.scope}`
     if (!fullVelocity && raw) {
-      text('motion-data', 'Transverse only')
       element('motion-data').title = 'The measured component radial velocity includes orbital motion and belongs to a different epoch from the catalog proper motion; a constant bulk space-motion vector is not inferred.'
     }
   }
@@ -1762,10 +1783,12 @@ function renderSelection(): void {
   const observationNotes = new Set([observations?.mass_range, observations?.temperature_range, observations?.radius_range, observations?.infrared_photometry, observations?.radial_velocity_review, observations?.atmosphere_temperature]
     .filter((observation) => observation !== undefined)
     .map((observation) => `${'scope' in observation ? observation.scope : observation.reason} ${observation.reference}: ${observation.source_url}`))
-  text('star-notes', [star.notes, ...observationNotes, ...[...sourceNotes].map((source) => `${source.scope} ${source.record.notes}`)]
-    .filter(Boolean).join('\n\n') || 'No source notes available.')
+  text('star-notes', starDetailsLoaded(star) ? [star.notes, ...observationNotes, ...[...sourceNotes].map((source) => `${source.scope} ${source.record.notes}`)]
+    .filter(Boolean).join('\n\n') || 'No source notes available.' : 'Loading source notes…')
+  specsContentStar = starDetailsLoaded(star) ? star : undefined
   const referenceName = reference.id === 'sun' ? 'the Sun' : reference.name
   text('selection-announcement', `${star.name}, ${formatDistance(displayedDistancePc, distanceUnit)} from ${referenceName}.`)
+  void renderActiveObjectSection()
 }
 
 function updateObjectListFilter(): void {
@@ -1885,7 +1908,8 @@ async function switchCatalog(id: string, refresh = false): Promise<void> {
   const retained = catalogSelection(nextStars, selectedId, observerId)
   viewer?.dispose()
   viewer = undefined
-  stars = nextStars
+  // Source details hydrate only the current scene, never the memoized map payload.
+  stars = nextStars.map((star) => ({ ...star }))
   starSystems = indexStarSystems(stars)
   activeCatalogId = id
   selectedDistancePc = null
@@ -2090,6 +2114,7 @@ function writeSavedViews(next: SavedView[]): boolean {
   try {
     localStorage.setItem(SAVED_VIEWS_STORAGE_KEY, JSON.stringify(next))
     savedViews = next
+    updateBrowserDataSize()
     return true
   } catch {
     setSavedViewsStatus('Could not write saved views to browser storage')
@@ -2366,6 +2391,62 @@ function deleteSavedView(id: string): void {
 }
 
 renderSavedViews()
+
+function updateBrowserDataSize(): void {
+  const button = element<HTMLButtonElement>('delete-browser-data')
+  try {
+    const size = browserDataSize()
+    text('browser-data-size', size)
+    text('browser-data-question', `Do you really want to delete ${size} of Star View data stored on this browser?`)
+    button.disabled = false
+  } catch {
+    text('browser-data-size', 'Unavailable')
+    button.disabled = true
+  }
+}
+
+function positionBrowserDataDialog(): void {
+  const dialog = element<HTMLDialogElement>('browser-data-dialog')
+  if (!dialog.open) return
+  const panel = element('preferences-panel').getBoundingClientRect()
+  const bounds = dialog.getBoundingClientRect()
+  dialog.style.left = `${Math.max(16, Math.min(panel.left + (panel.width - bounds.width) / 2, window.innerWidth - bounds.width - 16))}px`
+  dialog.style.top = `${Math.max(16, Math.min(panel.top + (panel.height - bounds.height) / 2, window.innerHeight - bounds.height - 16))}px`
+}
+
+updateBrowserDataSize()
+element('delete-browser-data').addEventListener('click', () => {
+  updateBrowserDataSize()
+  if (element<HTMLButtonElement>('delete-browser-data').disabled) return
+  element('browser-data-error').hidden = true
+  element('preferences-panel').setAttribute('data-delete-confirmation', '')
+  element<HTMLDialogElement>('browser-data-dialog').showModal()
+  positionBrowserDataDialog()
+}, { signal: events.signal })
+element('browser-data-no').addEventListener('click', () => {
+  element<HTMLDialogElement>('browser-data-dialog').close()
+}, { signal: events.signal })
+element('browser-data-dialog').addEventListener('close', () => {
+  element('preferences-panel').removeAttribute('data-delete-confirmation')
+  updateBrowserDataSize()
+  element('delete-browser-data').focus({ preventScroll: true })
+}, { signal: events.signal })
+element('browser-data-yes').addEventListener('click', () => {
+  try {
+    deleteBrowserData()
+    window.location.reload()
+  } catch {
+    text('browser-data-error', 'Could not delete all browser data. Please try again.')
+    element('browser-data-error').hidden = false
+    updateBrowserDataSize()
+    positionBrowserDataDialog()
+  }
+}, { signal: events.signal })
+for (const type of ['input', 'change']) {
+  element('preferences-panel').addEventListener(type, updateBrowserDataSize, { signal: events.signal })
+}
+window.addEventListener('storage', updateBrowserDataSize, { signal: events.signal })
+window.addEventListener('resize', positionBrowserDataDialog, { signal: events.signal })
 renderCatalogRange('nearest-neighbors')
 void switchCatalog('nearest-neighbors')
 if (catalogErrors.length) catalogError(catalogErrors.join('\n'))
@@ -2539,6 +2620,7 @@ element('time-faster').addEventListener('click', () => {
 window.addEventListener('resize', () => {
   syncSelectedObjectLayout()
   syncObjectTypeLayout()
+  if (!element('spectral-card').hidden) positionCardHeaderTooltips(element('spectral-card'))
   syncVisibilityObserverLayout()
   const star = stars.find((candidate) => candidate.id === selectedId)
   if (star && !element('radius-card').hidden) renderRadiusCard(star)
@@ -2637,6 +2719,7 @@ element('saved-view-context-menu').addEventListener('keydown', (event) => {
 }, { signal: events.signal })
 window.addEventListener('resize', () => closeSavedViewContextMenu(), { signal: events.signal })
 document.addEventListener('keydown', (event) => {
+  if (element<HTMLDialogElement>('browser-data-dialog').open) return
   if (!element('saved-view-context-menu').hidden) {
     if (event.key === 'Escape' || event.key === 'Tab') {
       closeSavedViewContextMenu(true)

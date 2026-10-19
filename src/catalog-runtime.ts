@@ -20,7 +20,7 @@ export function mergeCatalogStars(primary: readonly Star[], additional: readonly
 export function parseCatalogPayload(value: unknown, manifest: CatalogManifest): Star[] {
   if (!value || typeof value !== 'object') throw new Error('Catalog payload must be an object.')
   const payload = value as Record<string, unknown>
-  if (payload.schemaVersion !== 2 || payload.catalogId !== manifest.id || !Array.isArray(payload.stars)) {
+  if (![2, 3].includes(payload.schemaVersion as number) || payload.catalogId !== manifest.id || !Array.isArray(payload.stars)) {
     throw new Error(`Invalid catalog payload: ${manifest.id}`)
   }
   const stars = payload.stars as Record<string, unknown>[]
@@ -35,6 +35,10 @@ export function parseCatalogPayload(value: unknown, manifest: CatalogManifest): 
       throw new Error(`Invalid catalog payload row: ${manifest.id}`)
     }
     ids.add(star.id)
+    if (payload.schemaVersion === 3 && (typeof star.catalog_detail_key !== 'string' || !star.catalog_detail_key
+      || Object.hasOwn(star, 'notes') || Object.hasOwn(star, 'catalog_sources'))) {
+      throw new Error(`Invalid deferred catalog details: ${manifest.id}:${star.id}`)
+    }
     if (star.metallicity_dex !== null && (
       typeof star.metallicity_dex !== 'number' || !Number.isFinite(star.metallicity_dex) ||
       (star.metallicity_kind !== '[M/H]' && star.metallicity_kind !== '[Fe/H]')
@@ -46,7 +50,7 @@ export function parseCatalogPayload(value: unknown, manifest: CatalogManifest): 
   if (!ids.has('sun')) throw new Error('Catalog payload requires the Sun reference.')
   // Companion completion happens during generation, preserving the effective records
   // without downloading the complete physical-data pool in the browser.
-  return stars as unknown as Star[]
+  return stars.map((star) => ({ ...star, notes: star.notes ?? '' })) as unknown as Star[]
 }
 
 /** Fetch and parse a JSON payload once; a failed load is forgotten so it can be retried. */

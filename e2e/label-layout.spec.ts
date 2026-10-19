@@ -1,4 +1,9 @@
 import { expect, test } from '@playwright/test'
+import { readFileSync } from 'node:fs'
+import { PNG } from 'pngjs'
+import { Vector3 } from 'three'
+import { galacticToWorld } from '../src/astronomy'
+import { parseStarCatalog } from '../src/catalog'
 import { arrowIntersectsRect, motionArrows, openFilter, openPreferences, openViewer, selectCatalog, zoomViewer } from './support'
 
 test('shows selected Dschubba component names from the Sun without individual visual magnitudes', async ({ page }, testInfo) => {
@@ -268,4 +273,70 @@ test('centers the distance label on the midpoint of the Sun line', async ({ page
     return Math.hypot(label.left + label.width / 2 - (sun.left + sirius.left) / 2, label.top + label.height / 2 - (sun.top + sirius.top) / 2)
   })
   expect(await labelOffset(), 'distance label center to line midpoint').toBeLessThan(1)
+})
+
+test('depth-tests the midpoint distance label against either endpoint star', { tag: '@mobile' }, async ({ page }, testInfo) => {
+  await openViewer(page)
+  await page.getByRole('button', { name: 'Saved views', exact: true }).click()
+  await page.getByRole('textbox', { name: 'View name' }).fill('Depth test')
+  await page.getByRole('button', { name: 'Save current view', exact: true }).click()
+  const stars = parseStarCatalog(readFileSync('src/data/stars.csv', 'utf8'))
+  const sun = galacticToWorld(stars.find((star) => star.id === 'sun')!)
+  const sirius = galacticToWorld(stars.find((star) => star.id === 'sirius-a')!)
+  const midpoint = sun.clone().lerp(sirius, 0.5)
+  const direction = sirius.clone().sub(sun).normalize()
+  const side = new Vector3().crossVectors(new Vector3(0, 1, 0), direction).normalize()
+  const viewport = (await page.locator('#scene canvas').boundingBox())!
+  const focalLength = viewport.height / (2 * Math.tan(22 * Math.PI / 180))
+  // Keep both cores inside the label, but separated enough to sample independently.
+  const sideOffset = 24 * 36 / (focalLength * sun.distanceTo(sirius))
+  const views = [-1, 1].map((sign) => ({
+    name: sign < 0 ? 'Sun foreground' : 'Sirius foreground',
+    position: midpoint.clone().addScaledVector(direction, sign * 6).addScaledVector(side, sideOffset).toArray(),
+    target: midpoint.toArray(),
+  }))
+  await page.evaluate((views) => {
+    const template = JSON.parse(localStorage.getItem('star-view-saved-views')!)[0]
+    localStorage.setItem('star-view-saved-views', JSON.stringify(views.map((view, index) => ({
+      ...template, id: `depth-${index}`, name: view.name,
+      settings: {
+        ...template.settings, earthOrbitMode: 'off', milkyWayVisible: false,
+        motionArrowsVisible: false, gridVisible: false,
+        viewState: { position: view.position, target: view.target, home: false, observerRollRadians: 0 },
+      },
+    }))))
+  }, views)
+  await openViewer(page)
+  await page.addStyleTag({ content: '.star-label { visibility: hidden; } .selection-ring { display: none !important; }' })
+  for (const view of views) {
+    const toggle = page.getByRole('button', { name: 'Saved views', exact: true })
+    if (await toggle.getAttribute('aria-expanded') === 'false') await toggle.click()
+    await page.getByRole('row', { name: `Load saved view ${view.name}`, exact: true }).click()
+    await expect(page.locator('#saved-views-status')).toHaveText(`Loaded “${view.name}”`)
+    if (await toggle.getAttribute('aria-expanded') === 'true') await toggle.click()
+    await page.evaluate(() => new Promise(requestAnimationFrame))
+    const positions = await page.evaluate(() => Object.fromEntries(['sun', 'sirius-a'].map((id) => {
+      const point = document.querySelector<HTMLElement>(`[data-star-id="${id}"]`)!.getBoundingClientRect()
+      return [id, { x: point.left, y: point.top }]
+    })))
+    const label = (await page.locator('.distance-label').boundingBox())!
+    const png = PNG.sync.read(await page.screenshot({ scale: 'css', path: testInfo.outputPath(`${view.name}.png`) }))
+    const blueAtCore = (id: string) => {
+      const point = positions[id]!
+      expect(point.x).toBeGreaterThan(label.x)
+      expect(point.x).toBeLessThan(label.x + label.width)
+      expect(point.y).toBeGreaterThan(label.y)
+      expect(point.y).toBeLessThan(label.y + label.height)
+      let blue = 0
+      for (let dy = -1; dy <= 1; dy++) for (let dx = -1; dx <= 1; dx++) {
+        const offset = ((Math.round(point.y) + dy) * png.width + Math.round(point.x) + dx) * 4
+        blue = Math.max(blue, png.data[offset + 2]!)
+      }
+      return blue
+    }
+    const near = view.name === 'Sun foreground' ? 'sun' : 'sirius-a'
+    const far = near === 'sun' ? 'sirius-a' : 'sun'
+    expect(blueAtCore(near), `${near} shines in front of the label`).toBeGreaterThan(230)
+    expect(blueAtCore(far), `${far} is covered by the label`).toBeLessThan(210)
+  }
 })

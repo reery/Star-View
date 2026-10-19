@@ -6,7 +6,9 @@
       "path": "src/data/stellar-companions.json",
       "id": "cns5-2182",
       "field": "subtypes",
-      "expectedPrevious": ["Subgiant"],
+      "expectedPrevious": [
+        "Subgiant"
+      ],
       "expectedCurrent": [],
       "reason": "The retained spectrum K0IV-V spans subgiant and main-sequence classes. The previous parser incorrectly selected Subgiant from this mixed class. Keep the original spectrum; do not assert a single stage."
     },
@@ -14,25 +16,134 @@
       "path": "src/data/stellar-companions.json",
       "id": "cns5-5833",
       "field": "subtypes",
-      "expectedPrevious": ["Spectroscopic binary", "Variable star", "Giant"],
-      "expectedCurrent": ["Spectroscopic binary", "Variable star"],
+      "expectedPrevious": [
+        "Spectroscopic binary",
+        "Variable star",
+        "Giant"
+      ],
+      "expectedCurrent": [
+        "Spectroscopic binary",
+        "Variable star"
+      ],
       "reason": "K1III-IV spans giant and subgiant classes. Retain the spectrum and supported binary/variability labels without selecting one evolutionary stage."
     },
     {
       "path": "src/data/stellar-companions.json",
       "id": "10pc-0031",
       "field": "subtypes",
-      "expectedPrevious": ["Rotating variable", "Spectroscopic binary", "Subgiant"],
-      "expectedCurrent": ["Rotating variable", "Spectroscopic binary"],
+      "expectedPrevious": [
+        "Rotating variable",
+        "Spectroscopic binary",
+        "Subgiant"
+      ],
+      "expectedCurrent": [
+        "Rotating variable",
+        "Spectroscopic binary"
+      ],
       "reason": "F5IV-V spans subgiant and main-sequence classes. Retain the spectrum and supported binary/variability labels without selecting one evolutionary stage."
     },
     {
       "path": "src/data/stellar-companions.json",
       "id": "hip-105319",
       "field": "subtypes",
-      "expectedPrevious": ["Pulsating variable", "Rotating variable", "Subgiant"],
-      "expectedCurrent": ["Pulsating variable", "Rotating variable"],
+      "expectedPrevious": [
+        "Pulsating variable",
+        "Rotating variable",
+        "Subgiant"
+      ],
+      "expectedCurrent": [
+        "Pulsating variable",
+        "Rotating variable"
+      ],
       "reason": "A5IV-V spans subgiant and main-sequence classes. Retain the spectrum and supported variability labels without selecting one evolutionary stage."
+    },
+    {
+      "path": "src/data/catalogs/nearest-100/stars.csv",
+      "id": "10pc-0066",
+      "field": "radial_velocity_error_kms",
+      "expectedPrevious": "0.2",
+      "expectedCurrent": "",
+      "reason": "The +/-0.2 km/s belongs to the retained older 16.7 km/s component measurement, not the adopted Benedict 2016 fitted system gamma=16.18 km/s. No formal gamma uncertainty is published; Table 4 gives residual scatter, not a gamma error. Original measurement/error/provenance retained in catalog-work/shared-enrichment/compact-system-review.json previousCatalogRecords and effective catalog_sources."
+    },
+    {
+      "path": "src/data/catalogs/nearest-1000/stars.csv",
+      "id": "10pc-0066",
+      "field": "radial_velocity_error_kms",
+      "expectedPrevious": "0.2",
+      "expectedCurrent": "",
+      "reason": "The +/-0.2 km/s belongs to the retained older 16.7 km/s component measurement, not the adopted Benedict 2016 fitted system gamma=16.18 km/s. No formal gamma uncertainty is published; Table 4 gives residual scatter, not a gamma error. Original measurement/error/provenance retained in catalog-work/shared-enrichment/compact-system-review.json previousCatalogRecords and effective catalog_sources."
+    },
+    {
+      "path": "src/data/stars.csv",
+      "id": "ez-aquarii-a",
+      "field": "temperature_k",
+      "expectedPrevious": "3060",
+      "expectedCurrent": "",
+      "reason": "The previous 3060 K is an unresolved M5V system class estimate, not an individual temperature. Retained in catalog-work/shared-enrichment/ez-aquarii-review.json previousCatalogRecords and previousEffectiveComponents, and effective catalog_sources. Individual spectral types are retained separately; no component temperature inferred."
+    },
+    {
+      "path": "src/data/stars.csv",
+      "id": "ez-aquarii-b",
+      "field": "temperature_k",
+      "expectedPrevious": "3060",
+      "expectedCurrent": "",
+      "reason": "The previous 3060 K is an unresolved M5V system class estimate, not an individual temperature. Retained in catalog-work/shared-enrichment/ez-aquarii-review.json previousCatalogRecords and previousEffectiveComponents, and effective catalog_sources. Individual spectral types are retained separately; no component temperature inferred."
+    },
+    {
+      "path": "src/data/stars.csv",
+      "id": "ez-aquarii-c",
+      "field": "temperature_k",
+      "expectedPrevious": "3060",
+      "expectedCurrent": "",
+      "reason": "The previous 3060 K is an unresolved M5V system class estimate, not an individual temperature. Retained in catalog-work/shared-enrichment/ez-aquarii-review.json previousCatalogRecords and previousEffectiveComponents, and effective catalog_sources. Individual spectral types are retained separately; no component temperature inferred."
+    },
+    {
+      "path": "src/data/catalogs/nearest-100/stars.csv",
+      "id": "ez-aquarii-a",
+      "field": "temperature_k",
+      "expectedPrevious": "3060",
+      "expectedCurrent": "",
+      "reason": "The previous 3060 K is an unresolved M5V system class estimate, not an individual temperature. Retained in catalog-work/shared-enrichment/ez-aquarii-review.json previousCatalogRecords and previousEffectiveComponents, and effective catalog_sources. Individual spectral types are retained separately; no component temperature inferred."
+    },
+    {
+      "path": "src/data/catalogs/nearest-100/stars.csv",
+      "id": "ez-aquarii-b",
+      "field": "temperature_k",
+      "expectedPrevious": "3060",
+      "expectedCurrent": "",
+      "reason": "The previous 3060 K is an unresolved M5V system class estimate, not an individual temperature. Retained in catalog-work/shared-enrichment/ez-aquarii-review.json previousCatalogRecords and previousEffectiveComponents, and effective catalog_sources. Individual spectral types are retained separately; no component temperature inferred."
+    },
+    {
+      "path": "src/data/catalogs/nearest-100/stars.csv",
+      "id": "ez-aquarii-c",
+      "field": "temperature_k",
+      "expectedPrevious": "3060",
+      "expectedCurrent": "",
+      "reason": "The previous 3060 K is an unresolved M5V system class estimate, not an individual temperature. Retained in catalog-work/shared-enrichment/ez-aquarii-review.json previousCatalogRecords and previousEffectiveComponents, and effective catalog_sources. Individual spectral types are retained separately; no component temperature inferred."
+    },
+    {
+      "path": "src/data/catalogs/nearest-1000/stars.csv",
+      "id": "ez-aquarii-a",
+      "field": "temperature_k",
+      "expectedPrevious": "3060",
+      "expectedCurrent": "",
+      "reason": "The previous 3060 K is an unresolved M5V system class estimate, not an individual temperature. Retained in catalog-work/shared-enrichment/ez-aquarii-review.json previousCatalogRecords and previousEffectiveComponents, and effective catalog_sources. Individual spectral types are retained separately; no component temperature inferred."
+    },
+    {
+      "path": "src/data/catalogs/nearest-1000/stars.csv",
+      "id": "ez-aquarii-b",
+      "field": "temperature_k",
+      "expectedPrevious": "3060",
+      "expectedCurrent": "",
+      "reason": "The previous 3060 K is an unresolved M5V system class estimate, not an individual temperature. Retained in catalog-work/shared-enrichment/ez-aquarii-review.json previousCatalogRecords and previousEffectiveComponents, and effective catalog_sources. Individual spectral types are retained separately; no component temperature inferred."
+    },
+    {
+      "path": "src/data/catalogs/nearest-1000/stars.csv",
+      "id": "ez-aquarii-c",
+      "field": "temperature_k",
+      "expectedPrevious": "3060",
+      "expectedCurrent": "",
+      "reason": "The previous 3060 K is an unresolved M5V system class estimate, not an individual temperature. Retained in catalog-work/shared-enrichment/ez-aquarii-review.json previousCatalogRecords and previousEffectiveComponents, and effective catalog_sources. Individual spectral types are retained separately; no component temperature inferred."
     }
   ]
 }

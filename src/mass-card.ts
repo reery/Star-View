@@ -1,4 +1,5 @@
 import type { Star } from './catalog-model'
+import { positionCardHeaderTooltips } from './card-header-tooltips'
 import { massEvolution, massGravityContext, massProperties, solarBarScale } from './mass-properties'
 import { massComparison, typicalMassRangePosition, type MassMetric, type MassReference } from './mass-comparison'
 
@@ -9,28 +10,7 @@ const superscript = (value: string) => value.replace(/[-\d]/g, (digit) => 'â»â
 export function renderMassCardContent(card: HTMLElement, star: Star, origin: Star, mode: MassReference): void {
   const get = (id: string) => card.querySelector<HTMLElement>(`#${id}`)!
   const set = (id: string, content: string) => { get(id).textContent = content }
-  for (const option of card.querySelectorAll<HTMLElement>('.mass-reference-option')) {
-    const button = option.querySelector<HTMLButtonElement>('button')!
-    const tooltip = option.querySelector<HTMLElement>('[role="tooltip"]')!
-    const clipped = !button.hidden && button.scrollWidth > button.clientWidth
-    option.dataset.clipped = String(clipped)
-    tooltip.textContent = button.textContent
-    if (clipped) {
-      button.setAttribute('aria-describedby', tooltip.id)
-      const bounds = option.getBoundingClientRect()
-      const cardBounds = card.getBoundingClientRect()
-      option.style.setProperty('--mass-tooltip-width', `${Math.min(240, cardBounds.width - 32)}px`)
-      // Short labels use less than the maximum width; anchor their triangle to the actual popup.
-      tooltip.style.display = 'block'
-      const width = tooltip.getBoundingClientRect().width
-      const border = tooltip.clientLeft
-      tooltip.style.removeProperty('display')
-      const left = Math.max(cardBounds.left + 16, Math.min(bounds.left, cardBounds.right - width - 16))
-      option.style.setProperty('--mass-tooltip-offset', `${left - bounds.left}px`)
-      option.style.setProperty('--mass-tooltip-arrow', `${Math.max(10, Math.min(bounds.left + bounds.width / 2 - left - border - 4, width - 18))}px`)
-    } else button.removeAttribute('aria-describedby')
-    button.removeAttribute('title')
-  }
+  positionCardHeaderTooltips(card)
   const properties = massProperties(star)
   const comparison = massComparison(star, origin, mode)
   const referenceLabel = mode === 'class' ? 'class' : mode === 'origin' ? origin.name : 'Sun'

@@ -63,3 +63,18 @@ HIP landmarks with the reviewed component identity. Merge logic uses that identi
 to collapse repeated records of the same star while preserving distinct companions
 even when their approximate positions coincide. Capella and other reviewed split
 primaries use individual records and keep their original landmark names as aliases.
+
+The 3D map draws one component for each connected group with catalog projected
+separations of at most 500 AU. It chooses the lowest absolute visual magnitude,
+then luminosity when visual magnitudes are unavailable or tied, and finally the
+alphabetical component label (A before B). This display grouping uses the shared
+system identities; proximity alone never establishes membership. Projected
+separation avoids mistaking component parallax differences for a wide orbit.
+Wide members such as Proxima Centauri and Fomalhaut B/C remain separate points.
+Explicitly selecting a close companion from Objects or the component controls
+temporarily draws that component in addition to the default brightest member.
+Selecting elsewhere or clearing selection hides the extra companion again. Filtering,
+Observer view and linear motion simulation do not resolve internal orbits or
+restore unselected companions. Hidden companions retain their records and inspector
+controls, but have no separate core, halo, ordinary label, motion arrow or scene
+pick target until selected.

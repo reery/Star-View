@@ -1,4 +1,4 @@
-import nearby from './data/nearby-planets.json'
+import nearby from './data/generated/exoplanet-source.json'
 import earthDefinitions from './data/generated/planet-details.json'
 import type { PlanetSpec } from './planet-properties'
 import { scientificPlanetValue } from './planet-value'
@@ -28,7 +28,6 @@ export interface ExtrasolarPlanet {
   readonly metrics: Readonly<Record<string, ArchiveMeasurement | undefined>>
 }
 
-export const extrasolarPlanets: readonly ExtrasolarPlanet[] = nearby.planets as readonly ExtrasolarPlanet[]
 const earth = earthDefinitions.earth
 const format = (value: number) => value.toLocaleString('en-US', { maximumSignificantDigits: 4 })
 

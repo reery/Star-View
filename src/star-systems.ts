@@ -33,26 +33,43 @@ export interface StarSystem {
   components: StarSystemComponent[]
 }
 
-/** Cache only system components that share a catalog position, brightest first. */
-export function coincidentComponentGroups(stars: readonly Star[]): number[][] {
+// A display limit, not an inferred orbital size. Use projected separation because
+// independent component parallaxes can produce spurious line-of-sight offsets.
+export const MIN_MAP_COMPONENT_SEPARATION_AU = 500
+const AU_PER_PARSEC = 206264.80624709636
+
+function projectedSeparationAu(a: Star, b: Star): number {
+  const da = Math.hypot(a.x_pc, a.y_pc, a.z_pc)
+  const db = Math.hypot(b.x_pc, b.y_pc, b.z_pc)
+  if (da === 0 || db === 0) return Math.hypot(a.x_pc - b.x_pc, a.y_pc - b.y_pc, a.z_pc - b.z_pc) * AU_PER_PARSEC
+  return Math.hypot(a.x_pc / da - b.x_pc / db, a.y_pc / da - b.y_pc / db, a.z_pc / da - b.z_pc / db)
+    * (da + db) / 2 * AU_PER_PARSEC
+}
+
+/** Draw the brightest close component plus any explicitly selected companion. */
+export function mapComponentVisibility(stars: readonly Star[], selectedId: string | null = null): Uint8Array {
   const indices = new Map(stars.map((star, index) => [star.id, index]))
-  const groups: number[][] = []
+  const visible = new Uint8Array(stars.length).fill(1)
   for (const system of new Set(indexStarSystems(stars).values())) {
-    const positions = new Map<string, number[]>()
-    for (const { star } of system.components) {
-      const key = `${star.x_pc},${star.y_pc},${star.z_pc}`
-      let members = positions.get(key)
-      if (!members) positions.set(key, members = [])
-      members.push(indices.get(star.id)!)
-    }
-    for (const members of positions.values()) {
-      if (members.length < 2) continue
-      members.sort((a, b) => (stars[a]!.absolute_mag ?? Infinity) - (stars[b]!.absolute_mag ?? Infinity)
-        || (stars[b]!.luminosity_solar ?? 0) - (stars[a]!.luminosity_solar ?? 0) || a - b)
-      groups.push(members)
+    const remaining = new Set(system.components)
+    while (remaining.size > 0) {
+      const group = [remaining.values().next().value!]
+      remaining.delete(group[0]!)
+      // Connected close pairs also collapse hierarchical triples (A-C, A-B).
+      for (const member of group) {
+        for (const candidate of remaining) {
+          if (projectedSeparationAu(member.star, candidate.star) > MIN_MAP_COMPONENT_SEPARATION_AU) continue
+          group.push(candidate)
+          remaining.delete(candidate)
+        }
+      }
+      group.sort((a, b) => (a.star.absolute_mag ?? Infinity) - (b.star.absolute_mag ?? Infinity)
+        || (b.star.luminosity_solar ?? 0) - (a.star.luminosity_solar ?? 0)
+        || a.label.localeCompare(b.label, 'en'))
+      for (const { star } of group.slice(1)) visible[indices.get(star.id)!] = star.id === selectedId ? 1 : 0
     }
   }
-  return groups
+  return visible
 }
 
 /** Group resolved, named catalog components; never infer companions from proximity. */

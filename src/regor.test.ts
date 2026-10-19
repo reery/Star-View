@@ -1,5 +1,6 @@
 import { readFileSync } from 'node:fs'
-import { beforeAll, describe, expect, it } from 'vitest'
+import { afterAll, beforeAll, describe, expect, it, vi } from 'vitest'
+import { generatedJsonFetch } from './test-support/generated-json'
 import { parseStarCatalog } from './catalog'
 import type { Star } from './catalog-model'
 import { missingCatalogMeasurements } from './catalog-source'
@@ -13,7 +14,11 @@ import vela from './data/constellations/vela.json'
 const source = (catalog: string, id: string) => parseStarCatalog(readFileSync(new URL(`./data/catalogs/${catalog}/stars.csv`, import.meta.url), 'utf8')).find((star) => star.id === id)!
 const bright = source('bright-stars', 'bright-regor')
 const western = source('western-constellation-stars', 'hip-39953')
-beforeAll(loadStellarOrbits)
+beforeAll(async () => {
+  vi.stubGlobal('fetch', generatedJsonFetch)
+  await loadStellarOrbits('msc-08095-4720')
+})
+afterAll(() => vi.unstubAllGlobals())
 
 describe('reviewed Regor component and orbital coverage', () => {
   it.each([bright, western, vela.stars.find((star) => star.hip === 39953)!.object as Star])('retains source measurements and exact components through $id selection', (parent) => {

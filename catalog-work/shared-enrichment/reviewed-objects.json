@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "reviewed": "2026-10-15",
+  "reviewed": "2026-10-18",
   "policy": "One adopted scientific record per exact shared object/component across catalogs. Keep source coordinate/motion/photometry bundles intact, preserve stronger component reviews, prefer object-specific measured temperatures over class/old-model estimates, retain derived inputs and uncertainties, and never merge distinct components merely because SIMBAD supplies a system identifier. Catalog membership, stable IDs, display names, aliases and selection evidence remain catalog-specific. This reconciles existing frozen sources; it is not a new live survey.",
   "objects": {
     "* alf Cen A": {
@@ -850,13 +850,13 @@
       ],
       "scope": "Reviewed catalog object/component cns5-3442; aliases only, distinct companions remain separate.",
       "values": {
-        "vx_kms": "",
+        "vx_kms": "10.915536",
         "pm_dec_error_masyr": "0.7300000190734863",
-        "vz_kms": "",
+        "vz_kms": "3.192477",
         "pm_ra_error_masyr": "1.1399999856948853",
         "astrometry_epoch": "1991.25",
-        "radial_velocity_ref": "",
-        "vy_kms": "",
+        "radial_velocity_ref": "Frozen SIMBAD HIP 67927; compiled primary/system RV proxy; not fitted gamma; shared systemic velocity approximation",
+        "vy_kms": "-16.890201",
         "x_pc": "3.311944829",
         "z_pc": "10.899821633",
         "ra_deg": "208.67131828784778",
@@ -864,7 +864,7 @@
         "temperature_k": "6220",
         "y_pc": "0.306570476",
         "astrometry_ref": "2007A&A...474..653V",
-        "radial_velocity_kms": "",
+        "radial_velocity_kms": "5.77111",
         "epoch": "2000.0",
         "constellation": "Bootes",
         "parallax_mas": "87.75",
@@ -872,14 +872,14 @@
         "pm_ra_cosdec_masyr": "-60.95",
         "pm_dec_masyr": "-356.29",
         "radial_velocity_error_kms": "",
-        "mass_solar": "",
-        "luminosity_solar": "",
-        "radius_solar": "",
+        "mass_solar": "1.4",
+        "luminosity_solar": "8.50365388813",
+        "radius_solar": "2.79",
         "metallicity_dex": "0.34",
         "metallicity_kind": "[Fe/H]",
         "age_gyr": ""
       },
-      "notes": "Corrected CNS5 3442; J2000 Sun-relative Galactic position. SIMBAD exact CNS5 identity. Transverse-only source motion; radial velocity unavailable or withheld. Shared exact-identity physical supplements (temperature_k: 2025A&A...703A.128B; metallicity_dex: 2025A&A...703A.128B). Prefer the frozen 2025 spectroscopic temperature over the 1999 model temperature; retain primary-dominated spectral scope and withhold individual mass, radius, luminosity and age as in the existing reviewed catalogs.",
+      "notes": "Muphrid (Eta Boo): published subgiant-primary mass 1.40 +/-0.41 solar from Bale et al. (2025), Table A.1. NPOI interferometric radius 2.79 +/-0.04 solar from Baines et al. (2025), Table 7; luminosity derived from that source radius and source Teff=5901 +/-24 K. Existing adopted spectroscopic Teff=6220 K and [Fe/H]=+0.34 remain independent measurements and do not define that luminosity. Primary-dominated quantities, not unseen companion or binary-total properties. Frozen SIMBAD radial velocity 5.77111 km/s adopted as a compiled primary/system bulk-motion proxy, not a fitted gamma; uncertainty and individual orbital phase are unknown. Previous withholding and source data retained in catalog-work/bright-stars/gap-physical-review.json.",
       "sourceSelections": {
         "astrometryAndMotion": {
           "source": "nearest-1000:cns5-3442",
@@ -906,7 +906,7 @@
             "astrometry_ref",
             "radial_velocity_ref"
           ],
-          "decision": "Retain the curated nearest-catalog coordinate/motion bundle where available; otherwise use the later Western snapshot. For the eleven reviewed stellar objects with missing CNS5 RV but an existing adopted SIMBAD RV, use the complete Western position/motion bundle to retain full-space motion. Spectroscopic binaries and composite Porrima retain the nearest-catalog RV withholding. Keep positions, velocities, reference epoch, raw measurements, uncertainties and bibliographies together. Withheld individual/system velocities remain withheld."
+          "decision": "Existing position/proper-motion bundle with frozen exact-object SIMBAD RV as a compiled primary/system proxy; approximate bulk vector, no orbital velocity model."
         },
         "physical": {
           "source": "nearest-1000:cns5-3442",
@@ -919,7 +919,61 @@
             "metallicity_kind",
             "age_gyr"
           ],
-          "decision": "Prefer the frozen 2025 spectroscopic temperature over the 1999 model temperature; retain primary-dominated spectral scope and withhold individual mass, radius, luminosity and age as in the existing reviewed catalogs."
+          "decision": "Published primary/subgiant mass from Bale et al. 2025; NPOI 2025 radius and source-input Stefan-Boltzmann luminosity. Spectroscopic temperature and abundance retain their separate sources."
+        },
+        "brightGapReview": {
+          "sourceReview": "catalog-work/bright-stars/gap-physical-review.json",
+          "physicalFields": {
+            "radius_solar": {
+              "value": 2.79,
+              "uncertainty": 0.04,
+              "status": "interferometric",
+              "reference": "2025AJ....169..293B",
+              "sourceUrl": "https://arxiv.org/html/2506.02912",
+              "section": "Table 7"
+            },
+            "luminosity_solar": {
+              "value": 8.503653888125186,
+              "uncertainty": null,
+              "status": "derived",
+              "reference": "2025AJ....169..293B",
+              "sourceUrl": "https://arxiv.org/html/2506.02912",
+              "section": "Derived here from Table 7 radius and Teff",
+              "inputs": {
+                "radius_solar": 2.79,
+                "radius_uncertainty_solar": 0.04,
+                "temperature_k": 5901.0,
+                "temperature_uncertainty_k": 24.0,
+                "solar_temperature_k": 5772
+              },
+              "method": "Stefan-Boltzmann from the same publication; Table 7 compiled catalog luminosity is not adopted"
+            },
+            "mass_solar": {
+              "value": 1.4,
+              "uncertainty": 0.41,
+              "status": "model-derived",
+              "reference": "2025A&A...703A.128B",
+              "sourceUrl": "https://cdsarc.cds.unistra.fr/viz-bin/cat/J/A+A/703/A128",
+              "section": "Table A.1; TYC 1470-1157-1, both resolving powers",
+              "method": "Published evolutionary mass of the spectroscopically dominant subgiant; not the unseen companion or binary total",
+              "caveat": "Primary-dominated spectroscopy and model assumptions; both source spectra independently list 1.40 +/-0.41 solar masses."
+            }
+          },
+          "motion": {
+            "valueKms": 5.77111,
+            "uncertaintyKms": null,
+            "status": "compiled-system-proxy",
+            "sourceUrl": "https://simbad.cds.unistra.fr/simbad/sim-id?Ident=eta+Boo",
+            "scope": "Spectroscopic binary primary/system proxy, not a fitted systemic or instantaneous component prediction. Unknown orbital contribution is not represented by a formal uncertainty.",
+            "motionInputs": {
+              "ra_deg": 208.67131828784778,
+              "dec_deg": 18.39858670408873,
+              "parallax_mas": 87.75,
+              "pm_ra_cosdec_masyr": -60.95,
+              "pm_dec_masyr": -356.29
+            }
+          },
+          "decision": "Supersedes blanket binary withholding for the published primary parameters and explicit compiled bulk RV proxy; no properties assigned to the unseen companion. Previous shared review and complete RV donor row retained in source review."
         }
       }
     },
@@ -9026,9 +9080,15 @@
         "vz_kms": "32.798766",
         "radial_velocity_kms": "-50.08",
         "radial_velocity_error_kms": "0.01",
-        "radial_velocity_ref": "2000A&A...364..665S:Table 2; shared systemic velocity approximation; EZ Aquarii ABC"
+        "radial_velocity_ref": "2000A&A...364..665S:Table 2; shared systemic velocity approximation; EZ Aquarii ABC",
+        "mass_solar": "0.1187",
+        "absolute_mag": "15.39",
+        "spectral_type": "M5.5V",
+        "temperature_k": "",
+        "radius_solar": "",
+        "luminosity_solar": "0.000776247116628692"
       },
-      "notes": "System position from J2000 direction and 293.60 mas parallax compiled by Torres et al. (2010). Temperature is the unresolved M5V system class estimate. Motion: Segransan et al. (2000), Table 2, gives the shared EZ Aquarii ABC systemic radial velocity V0 = -50.08 +/- 0.01 km/s. The uncertainty is the published orbital-fit uncertainty on V0. Combined with the retained system position, parallax and proper motion, this supplies approximate system bulk motion for A, B and C; individual orbital velocities and orbital phase are not modeled. Frozen J2000 positions are retained.",
+      "notes": "EZ Aquarii A (GJ 866 A); A=Aa and C=Ab form the inner pair, with outer B. Segransan et al. (2000), Table 3: individual dynamical mass 0.1187 +/- 0.0011 solar masses. Delfosse et al. (2000), Table 3: absolute Johnson V 15.39 +/- 0.07; A/C light separation is approximate. Gonzalez-Payo et al. (2026), Table 4: M5.5V; colons mark estimated subtypes. Torres et al. (2010), Table 5: approximate bolometric log10(L/Lsun)=-3.11, marked uncertain (:); no numerical error published. No secure individual temperature, radius, age or metallicity adopted. Earlier 3060 K is an unresolved system class estimate, retained only as source evidence. Withheld individual fields: temperature_k, radius_solar, age_gyr, metallicity_dex. Motion: Segransan et al. (2000), Table 2, gives the shared EZ Aquarii ABC systemic radial velocity V0 = -50.08 +/- 0.01 km/s. The uncertainty is the published orbital-fit uncertainty on V0. Combined with the retained system position, parallax and proper motion, this supplies approximate system bulk motion for A, B and C; individual orbital velocities and orbital phase are not modeled. Frozen J2000 positions are retained.",
       "sourceSelections": {
         "astrometryAndMotion": {
           "source": "literature-system:gl866-abc",
@@ -9059,8 +9119,177 @@
             "astrometry_ref": "2010A&ARv..18...67T; 2012yCat.1322....0Z"
           },
           "decision": "Motion: Segransan et al. (2000), Table 2, gives the shared EZ Aquarii ABC systemic radial velocity V0 = -50.08 +/- 0.01 km/s. The uncertainty is the published orbital-fit uncertainty on V0. Combined with the retained system position, parallax and proper motion, this supplies approximate system bulk motion for A, B and C; individual orbital velocities and orbital phase are not modeled. Frozen J2000 positions are retained."
+        },
+        "resolvedPhysical": {
+          "source": "ez-aquarii-review:ez-aquarii-a",
+          "fields": [
+            "vx_kms",
+            "vy_kms",
+            "vz_kms",
+            "radial_velocity_kms",
+            "radial_velocity_error_kms",
+            "radial_velocity_ref",
+            "mass_solar",
+            "absolute_mag",
+            "spectral_type",
+            "temperature_k",
+            "radius_solar",
+            "luminosity_solar"
+          ],
+          "adoptedFields": {
+            "mass_solar": {
+              "value": 0.1187,
+              "uncertainty": 0.0011,
+              "status": "measured",
+              "reference": "2000A&A...364..665S:Table 3",
+              "sourceUrl": "https://arxiv.org/abs/astro-ph/0010585",
+              "method": "Individual dynamical mass from the simultaneous inner/outer orbital fit; published orbital parallax 293.6 +/-0.9 mas."
+            },
+            "absolute_mag": {
+              "value": 15.39,
+              "uncertainty": 0.07,
+              "status": "derived",
+              "passband": "Johnson V",
+              "reference": "2000A&A...364..217D:Table 3",
+              "sourceUrl": "https://arxiv.org/abs/astro-ph/0010586",
+              "method": "Published individual absolute V from system photometry, flux ratios and parallax; baseline photometry, not a dated flare snapshot.",
+              "caveat": "A/C flux separation uses the approximate spectroscopic light ratio; C retains its large published error. These values are V-band magnitudes, not bolometric luminosities."
+            },
+            "spectral_type": {
+              "value": "M5.5V",
+              "status": "compiled",
+              "reference": "Gonzalez-Payo et al. 2026:Table 4; doi:10.1093/mnras/stag838",
+              "sourceUrl": "https://arxiv.org/html/2605.04094v1",
+              "scope": "Individual EZ Aqr A; A=Aa, C=Ab, outer B. A colon denotes an estimated subtype, not a measured temperature."
+            },
+            "temperature_k": {
+              "value": null,
+              "status": "withheld",
+              "reference": "2008MNRAS.389..585C:section 7.2; 2024ApJ...964...80T:Table 3",
+              "sourceUrl": "https://arxiv.org/abs/0806.2471",
+              "decision": "The previous 3060 K unresolved M5V class estimate is not an individual temperature. Do not infer component temperatures from tentative spectral subtypes or blended SED fits."
+            },
+            "radius_solar": {
+              "value": null,
+              "status": "withheld",
+              "decision": "No secure individual radius adopted. Do not derive a radius from an uncertain luminosity and a spectral-class temperature."
+            },
+            "luminosity_solar": {
+              "value": 0.0007762471166286919,
+              "status": "estimated",
+              "reference": "2010A&ARv..18...67T:Table 5",
+              "sourceUrl": "https://arxiv.org/abs/0908.2624",
+              "sourceComponent": "Aa",
+              "inputs": {
+                "log_luminosity_solar": -3.11,
+                "sourceUncertaintyFlag": ":"
+              },
+              "uncertainty": null,
+              "caveat": "Published approximate bolometric luminosity marked with a colon; no numerical uncertainty supplied. Converted from log10 L/Lsun; not a new precision measurement or a value derived from V magnitude."
+            }
+          },
+          "reviewFile": "catalog-work/shared-enrichment/ez-aquarii-review.json"
         }
-      }
+      },
+      "retainedCatalogSources": [
+        {
+          "catalog_id": "ez-aquarii-before-20261018",
+          "scope": "Previous effective component record. The 3060 K value is an unresolved system spectral-class estimate, not an individual temperature; earlier photometry and rounded masses are superseded. Original astrometry, uncertainties and bibliographies are retained.",
+          "record": {
+            "temperature_k": 3060.0,
+            "mass_solar": 0.11,
+            "luminosity_solar": null,
+            "radius_solar": null,
+            "metallicity_dex": null,
+            "age_gyr": null,
+            "absolute_mag": 15.64,
+            "epoch": 2000.0,
+            "x_pc": 1.264192,
+            "y_pc": 1.35902,
+            "z_pc": -2.855815,
+            "vx_kms": -64.727748,
+            "vy_kms": 3.589095,
+            "vz_kms": 32.798766,
+            "type": "star",
+            "id": "ez-aquarii-a",
+            "name": "EZ Aquarii A",
+            "spectral_type": "M5.0Ve",
+            "constellation": "Aquarius",
+            "metallicity_kind": null,
+            "designations": [
+              "GJ 866",
+              "GJ 866 A",
+              "GJ 866 B",
+              "GJ 866 C",
+              "1E 2235.8-1534",
+              "1RXS J223832.0-151809",
+              "2E 2235.8-1534",
+              "2E 4631",
+              "2MASS J22383372-1517573",
+              "8pc 289.50",
+              "[GKL99] 430",
+              "[RHG95] 3561",
+              "BLA 10",
+              "CNS5 5586",
+              "CSI-15-22358",
+              "EZ Aqr",
+              "G 156-31",
+              "Gaia DR2 2596740426912781696",
+              "Gaia DR3 2596740426913080576",
+              "Gaia EDR3 2596740426913080576",
+              "GCRV 14217",
+              "GCRV 26202",
+              "GEN# +6.10010866",
+              "GSC 06386-00505",
+              "JP11 5180",
+              "JP11 5181",
+              "JP11 5195",
+              "L 789-6",
+              "LFT 1729",
+              "LHS 68",
+              "LP 820-64",
+              "LPM 837",
+              "LTT 9122",
+              "NLTT 54407",
+              "PLX 5475",
+              "PLX 5475.00",
+              "PM 22358-1535",
+              "PMSC 22329-1552",
+              "TIC 402313808",
+              "UBV 19358",
+              "UCAC2 26361351",
+              "UCAC4 374-178693",
+              "WDS J22385-1519AB",
+              "WEB 19966",
+              "WISEA J223835.27-151735.3",
+              "Zkh 333",
+              "EZ Aquarii A"
+            ],
+            "notes": "System position from J2000 direction and 293.60 mas parallax compiled by Torres et al. (2010). Temperature is the unresolved M5V system class estimate. Motion: Segransan et al. (2000), Table 2, gives the shared EZ Aquarii ABC systemic radial velocity V0 = -50.08 +/- 0.01 km/s. The uncertainty is the published orbital-fit uncertainty on V0. Combined with the retained system position, parallax and proper motion, this supplies approximate system bulk motion for A, B and C; individual orbital velocities and orbital phase are not modeled. Frozen J2000 positions are retained.",
+            "raw_astrometry": {
+              "ra_deg": 339.650693945,
+              "dec_deg": -15.289647052,
+              "parallax_mas": 293.6,
+              "parallax_error_mas": 0.9,
+              "pm_ra_cosdec_masyr": 2314.8,
+              "pm_ra_error_masyr": 8.0,
+              "pm_dec_masyr": 2295.3,
+              "pm_dec_error_masyr": 8.0,
+              "radial_velocity_kms": -50.08,
+              "radial_velocity_error_kms": 0.01,
+              "epoch": 2016.0,
+              "astrometry_ref": "2010A&ARv..18...67T; 2012yCat.1322....0Z",
+              "radial_velocity_ref": "2000A&A...364..665S:Table 2; shared systemic velocity approximation; EZ Aquarii ABC"
+            },
+            "subtypes": [
+              "Eruptive variable",
+              "Main-sequence"
+            ],
+            "known_planets": 0,
+            "apparent_mag": 13.30121948266654
+          }
+        }
+      ]
     },
     "GJ 866 B": {
       "label": "EZ Aquarii B",
@@ -9074,9 +9303,15 @@
         "vz_kms": "32.798766",
         "radial_velocity_kms": "-50.08",
         "radial_velocity_error_kms": "0.01",
-        "radial_velocity_ref": "2000A&A...364..665S:Table 2; shared systemic velocity approximation; EZ Aquarii ABC"
+        "radial_velocity_ref": "2000A&A...364..665S:Table 2; shared systemic velocity approximation; EZ Aquarii ABC",
+        "mass_solar": "0.1145",
+        "absolute_mag": "15.64",
+        "spectral_type": "M5.5:V",
+        "temperature_k": "",
+        "radius_solar": "",
+        "luminosity_solar": ""
       },
-      "notes": "System position from J2000 direction and 293.60 mas parallax compiled by Torres et al. (2010). Individual subtype is uncertain; temperature uses the unresolved M5V system estimate. Motion: Segransan et al. (2000), Table 2, gives the shared EZ Aquarii ABC systemic radial velocity V0 = -50.08 +/- 0.01 km/s. The uncertainty is the published orbital-fit uncertainty on V0. Combined with the retained system position, parallax and proper motion, this supplies approximate system bulk motion for A, B and C; individual orbital velocities and orbital phase are not modeled. Frozen J2000 positions are retained.",
+      "notes": "EZ Aquarii B (GJ 866 B); A=Aa and C=Ab form the inner pair, with outer B. Segransan et al. (2000), Table 3: individual dynamical mass 0.1145 +/- 0.0012 solar masses. Delfosse et al. (2000), Table 3: absolute Johnson V 15.64 +/- 0.08; A/C light separation is approximate. Gonzalez-Payo et al. (2026), Table 4: M5.5:V; colons mark estimated subtypes. Torres et al. (2010) B luminosity/radius/temperature retained as non-adopted evidence because the B-only flux/temperature lineage is not secure. No secure individual temperature, radius, age or metallicity adopted. Earlier 3060 K is an unresolved system class estimate, retained only as source evidence. Withheld individual fields: temperature_k, radius_solar, age_gyr, metallicity_dex, luminosity_solar. Motion: Segransan et al. (2000), Table 2, gives the shared EZ Aquarii ABC systemic radial velocity V0 = -50.08 +/- 0.01 km/s. The uncertainty is the published orbital-fit uncertainty on V0. Combined with the retained system position, parallax and proper motion, this supplies approximate system bulk motion for A, B and C; individual orbital velocities and orbital phase are not modeled. Frozen J2000 positions are retained.",
       "sourceSelections": {
         "astrometryAndMotion": {
           "source": "literature-system:gl866-abc",
@@ -9107,8 +9342,183 @@
             "astrometry_ref": "FROM:GJ866A"
           },
           "decision": "Motion: Segransan et al. (2000), Table 2, gives the shared EZ Aquarii ABC systemic radial velocity V0 = -50.08 +/- 0.01 km/s. The uncertainty is the published orbital-fit uncertainty on V0. Combined with the retained system position, parallax and proper motion, this supplies approximate system bulk motion for A, B and C; individual orbital velocities and orbital phase are not modeled. Frozen J2000 positions are retained."
+        },
+        "resolvedPhysical": {
+          "source": "ez-aquarii-review:ez-aquarii-b",
+          "fields": [
+            "vx_kms",
+            "vy_kms",
+            "vz_kms",
+            "radial_velocity_kms",
+            "radial_velocity_error_kms",
+            "radial_velocity_ref",
+            "mass_solar",
+            "absolute_mag",
+            "spectral_type",
+            "temperature_k",
+            "radius_solar",
+            "luminosity_solar"
+          ],
+          "adoptedFields": {
+            "mass_solar": {
+              "value": 0.1145,
+              "uncertainty": 0.0012,
+              "status": "measured",
+              "reference": "2000A&A...364..665S:Table 3",
+              "sourceUrl": "https://arxiv.org/abs/astro-ph/0010585",
+              "method": "Individual dynamical mass from the simultaneous inner/outer orbital fit; published orbital parallax 293.6 +/-0.9 mas."
+            },
+            "absolute_mag": {
+              "value": 15.64,
+              "uncertainty": 0.08,
+              "status": "derived",
+              "passband": "Johnson V",
+              "reference": "2000A&A...364..217D:Table 3",
+              "sourceUrl": "https://arxiv.org/abs/astro-ph/0010586",
+              "method": "Published individual absolute V from system photometry, flux ratios and parallax; baseline photometry, not a dated flare snapshot.",
+              "caveat": "A/C flux separation uses the approximate spectroscopic light ratio; C retains its large published error. These values are V-band magnitudes, not bolometric luminosities."
+            },
+            "spectral_type": {
+              "value": "M5.5:V",
+              "status": "estimated",
+              "reference": "Gonzalez-Payo et al. 2026:Table 4; doi:10.1093/mnras/stag838",
+              "sourceUrl": "https://arxiv.org/html/2605.04094v1",
+              "scope": "Individual EZ Aqr B; A=Aa, C=Ab, outer B. A colon denotes an estimated subtype, not a measured temperature."
+            },
+            "temperature_k": {
+              "value": null,
+              "status": "withheld",
+              "reference": "2008MNRAS.389..585C:section 7.2; 2024ApJ...964...80T:Table 3",
+              "sourceUrl": "https://arxiv.org/abs/0806.2471",
+              "decision": "The previous 3060 K unresolved M5V class estimate is not an individual temperature. Do not infer component temperatures from tentative spectral subtypes or blended SED fits."
+            },
+            "radius_solar": {
+              "value": null,
+              "status": "withheld",
+              "decision": "No secure individual radius adopted. Do not derive a radius from an uncertain luminosity and a spectral-class temperature."
+            },
+            "luminosity_solar": {
+              "value": null,
+              "status": "withheld",
+              "decision": "Retain the published B row, but do not adopt these physical quantities. The 2650 K value is also reported for unresolved LHS 68 by Casagrande 2008, section 7.2, with an explicit triple-system photometry caveat. Torres section 9 states these radii are indirect and temperature-scale dependent. A sufficiently secure B-only flux/temperature lineage has not been established; the row is not evidence for a direct radius measurement."
+            },
+            "infrared_absolute_magnitudes": {
+              "status": "derived",
+              "reference": "2000A&A...364..217D:Table 3",
+              "sourceUrl": "https://arxiv.org/abs/astro-ph/0010586",
+              "values": {
+                "H": {
+                  "value": 9.29,
+                  "uncertainty": 0.04
+                },
+                "K": {
+                  "value": 8.96,
+                  "uncertainty": 0.04
+                }
+              },
+              "decision": "Retained in the review with their actual passbands; never substituted for Johnson V or bolometric luminosity."
+            }
+          },
+          "reviewFile": "catalog-work/shared-enrichment/ez-aquarii-review.json"
         }
-      }
+      },
+      "retainedCatalogSources": [
+        {
+          "catalog_id": "ez-aquarii-before-20261018",
+          "scope": "Previous effective component record. The 3060 K value is an unresolved system spectral-class estimate, not an individual temperature; earlier photometry and rounded masses are superseded. Original astrometry, uncertainties and bibliographies are retained.",
+          "record": {
+            "temperature_k": 3060.0,
+            "mass_solar": 0.11,
+            "luminosity_solar": null,
+            "radius_solar": null,
+            "metallicity_dex": null,
+            "age_gyr": null,
+            "absolute_mag": 15.58,
+            "epoch": 2000.0,
+            "x_pc": 1.264192,
+            "y_pc": 1.35902,
+            "z_pc": -2.855815,
+            "vx_kms": -64.727748,
+            "vy_kms": 3.589095,
+            "vz_kms": 32.798766,
+            "type": "star",
+            "id": "ez-aquarii-b",
+            "name": "EZ Aquarii B",
+            "spectral_type": "M?",
+            "constellation": "Aquarius",
+            "metallicity_kind": null,
+            "designations": [
+              "GJ 866",
+              "GJ 866 A",
+              "GJ 866 B",
+              "GJ 866 C",
+              "1E 2235.8-1534",
+              "1RXS J223832.0-151809",
+              "2E 2235.8-1534",
+              "2E 4631",
+              "2MASS J22383372-1517573",
+              "8pc 289.50",
+              "[GKL99] 430",
+              "[RHG95] 3561",
+              "BLA 10",
+              "CNS5 5586",
+              "CSI-15-22358",
+              "EZ Aqr",
+              "G 156-31",
+              "Gaia DR2 2596740426912781696",
+              "Gaia DR3 2596740426913080576",
+              "GCRV 14217",
+              "GCRV 26202",
+              "GEN# +6.10010866",
+              "GSC 06386-00505",
+              "JP11 5180",
+              "JP11 5181",
+              "JP11 5195",
+              "L 789-6",
+              "LFT 1729",
+              "LHS 68",
+              "LP 820-64",
+              "LPM 837",
+              "LTT 9122",
+              "NLTT 54407",
+              "PLX 5475",
+              "PLX 5475.00",
+              "PM 22358-1535",
+              "PMSC 22329-1552",
+              "TIC 402313808",
+              "UBV 19358",
+              "UCAC2 26361351",
+              "UCAC4 374-178693",
+              "WDS J22385-1519AB",
+              "WEB 19966",
+              "WISEA J223835.27-151735.3",
+              "Zkh 333",
+              "EZ Aquarii B"
+            ],
+            "notes": "System position from J2000 direction and 293.60 mas parallax compiled by Torres et al. (2010). Individual subtype is uncertain; temperature uses the unresolved M5V system estimate. Motion: Segransan et al. (2000), Table 2, gives the shared EZ Aquarii ABC systemic radial velocity V0 = -50.08 +/- 0.01 km/s. The uncertainty is the published orbital-fit uncertainty on V0. Combined with the retained system position, parallax and proper motion, this supplies approximate system bulk motion for A, B and C; individual orbital velocities and orbital phase are not modeled. Frozen J2000 positions are retained.",
+            "raw_astrometry": {
+              "ra_deg": 339.650693945,
+              "dec_deg": -15.289647052,
+              "parallax_mas": 293.6,
+              "parallax_error_mas": 0.9,
+              "pm_ra_cosdec_masyr": 2314.8,
+              "pm_ra_error_masyr": 8.0,
+              "pm_dec_masyr": 2295.3,
+              "pm_dec_error_masyr": 8.0,
+              "radial_velocity_kms": -50.08,
+              "radial_velocity_error_kms": 0.01,
+              "epoch": 2016.0,
+              "astrometry_ref": "FROM:GJ866A",
+              "radial_velocity_ref": "2000A&A...364..665S:Table 2; shared systemic velocity approximation; EZ Aquarii ABC"
+            },
+            "subtypes": [
+              "Eruptive variable"
+            ],
+            "known_planets": 0,
+            "apparent_mag": 13.24121948266654
+          }
+        }
+      ]
     },
     "GJ 866 C": {
       "label": "EZ Aquarii C",
@@ -9122,9 +9532,15 @@
         "vz_kms": "32.798766",
         "radial_velocity_kms": "-50.08",
         "radial_velocity_error_kms": "0.01",
-        "radial_velocity_ref": "2000A&A...364..665S:Table 2; shared systemic velocity approximation; EZ Aquarii ABC"
+        "radial_velocity_ref": "2000A&A...364..665S:Table 2; shared systemic velocity approximation; EZ Aquarii ABC",
+        "mass_solar": "0.093",
+        "absolute_mag": "17.43",
+        "spectral_type": "M7:V",
+        "temperature_k": "",
+        "radius_solar": "",
+        "luminosity_solar": "0.000120226443461741"
       },
-      "notes": "System position from J2000 direction and 293.60 mas parallax compiled by Torres et al. (2010). Included with A and B because all three components tie across the cutoff. Motion: Segransan et al. (2000), Table 2, gives the shared EZ Aquarii ABC systemic radial velocity V0 = -50.08 +/- 0.01 km/s. The uncertainty is the published orbital-fit uncertainty on V0. Combined with the retained system position, parallax and proper motion, this supplies approximate system bulk motion for A, B and C; individual orbital velocities and orbital phase are not modeled. Frozen J2000 positions are retained.",
+      "notes": "EZ Aquarii C (GJ 866 C); A=Aa and C=Ab form the inner pair, with outer B. Segransan et al. (2000), Table 3: individual dynamical mass 0.093 +/- 0.0008 solar masses. Delfosse et al. (2000), Table 3: absolute Johnson V 17.43 +/- 0.4; A/C light separation is approximate. Gonzalez-Payo et al. (2026), Table 4: M7:V; colons mark estimated subtypes. Torres et al. (2010), Table 5: approximate bolometric log10(L/Lsun)=-3.92, marked uncertain (:); no numerical error published. No secure individual temperature, radius, age or metallicity adopted. Earlier 3060 K is an unresolved system class estimate, retained only as source evidence. Withheld individual fields: temperature_k, radius_solar, age_gyr, metallicity_dex. Motion: Segransan et al. (2000), Table 2, gives the shared EZ Aquarii ABC systemic radial velocity V0 = -50.08 +/- 0.01 km/s. The uncertainty is the published orbital-fit uncertainty on V0. Combined with the retained system position, parallax and proper motion, this supplies approximate system bulk motion for A, B and C; individual orbital velocities and orbital phase are not modeled. Frozen J2000 positions are retained.",
       "sourceSelections": {
         "astrometryAndMotion": {
           "source": "literature-system:gl866-abc",
@@ -9155,6 +9571,3216 @@
             "astrometry_ref": "FROM:GJ866A"
           },
           "decision": "Motion: Segransan et al. (2000), Table 2, gives the shared EZ Aquarii ABC systemic radial velocity V0 = -50.08 +/- 0.01 km/s. The uncertainty is the published orbital-fit uncertainty on V0. Combined with the retained system position, parallax and proper motion, this supplies approximate system bulk motion for A, B and C; individual orbital velocities and orbital phase are not modeled. Frozen J2000 positions are retained."
+        },
+        "resolvedPhysical": {
+          "source": "ez-aquarii-review:ez-aquarii-c",
+          "fields": [
+            "vx_kms",
+            "vy_kms",
+            "vz_kms",
+            "radial_velocity_kms",
+            "radial_velocity_error_kms",
+            "radial_velocity_ref",
+            "mass_solar",
+            "absolute_mag",
+            "spectral_type",
+            "temperature_k",
+            "radius_solar",
+            "luminosity_solar"
+          ],
+          "adoptedFields": {
+            "mass_solar": {
+              "value": 0.093,
+              "uncertainty": 0.0008,
+              "status": "measured",
+              "reference": "2000A&A...364..665S:Table 3",
+              "sourceUrl": "https://arxiv.org/abs/astro-ph/0010585",
+              "method": "Individual dynamical mass from the simultaneous inner/outer orbital fit; published orbital parallax 293.6 +/-0.9 mas."
+            },
+            "absolute_mag": {
+              "value": 17.43,
+              "uncertainty": 0.4,
+              "status": "derived",
+              "passband": "Johnson V",
+              "reference": "2000A&A...364..217D:Table 3",
+              "sourceUrl": "https://arxiv.org/abs/astro-ph/0010586",
+              "method": "Published individual absolute V from system photometry, flux ratios and parallax; baseline photometry, not a dated flare snapshot.",
+              "caveat": "A/C flux separation uses the approximate spectroscopic light ratio; C retains its large published error. These values are V-band magnitudes, not bolometric luminosities."
+            },
+            "spectral_type": {
+              "value": "M7:V",
+              "status": "estimated",
+              "reference": "Gonzalez-Payo et al. 2026:Table 4; doi:10.1093/mnras/stag838",
+              "sourceUrl": "https://arxiv.org/html/2605.04094v1",
+              "scope": "Individual EZ Aqr C; A=Aa, C=Ab, outer B. A colon denotes an estimated subtype, not a measured temperature."
+            },
+            "temperature_k": {
+              "value": null,
+              "status": "withheld",
+              "reference": "2008MNRAS.389..585C:section 7.2; 2024ApJ...964...80T:Table 3",
+              "sourceUrl": "https://arxiv.org/abs/0806.2471",
+              "decision": "The previous 3060 K unresolved M5V class estimate is not an individual temperature. Do not infer component temperatures from tentative spectral subtypes or blended SED fits."
+            },
+            "radius_solar": {
+              "value": null,
+              "status": "withheld",
+              "decision": "No secure individual radius adopted. Do not derive a radius from an uncertain luminosity and a spectral-class temperature."
+            },
+            "luminosity_solar": {
+              "value": 0.00012022644346174131,
+              "status": "estimated",
+              "reference": "2010A&ARv..18...67T:Table 5",
+              "sourceUrl": "https://arxiv.org/abs/0908.2624",
+              "sourceComponent": "Ab",
+              "inputs": {
+                "log_luminosity_solar": -3.92,
+                "sourceUncertaintyFlag": ":"
+              },
+              "uncertainty": null,
+              "caveat": "Published approximate bolometric luminosity marked with a colon; no numerical uncertainty supplied. Converted from log10 L/Lsun; not a new precision measurement or a value derived from V magnitude."
+            }
+          },
+          "reviewFile": "catalog-work/shared-enrichment/ez-aquarii-review.json"
+        }
+      },
+      "retainedCatalogSources": [
+        {
+          "catalog_id": "ez-aquarii-before-20261018",
+          "scope": "Previous effective component record. The 3060 K value is an unresolved system spectral-class estimate, not an individual temperature; earlier photometry and rounded masses are superseded. Original astrometry, uncertainties and bibliographies are retained.",
+          "record": {
+            "temperature_k": 3060.0,
+            "mass_solar": 0.1,
+            "luminosity_solar": null,
+            "radius_solar": null,
+            "metallicity_dex": null,
+            "age_gyr": null,
+            "absolute_mag": 16.34,
+            "epoch": 2000.0,
+            "x_pc": 1.264192,
+            "y_pc": 1.35902,
+            "z_pc": -2.855815,
+            "vx_kms": -64.727748,
+            "vy_kms": 3.589095,
+            "vz_kms": 32.798766,
+            "type": "star",
+            "id": "ez-aquarii-c",
+            "name": "EZ Aquarii C",
+            "spectral_type": "M?",
+            "constellation": "Aquarius",
+            "metallicity_kind": null,
+            "designations": [
+              "GJ 866",
+              "GJ 866 A",
+              "GJ 866 B",
+              "GJ 866 C",
+              "1E 2235.8-1534",
+              "1RXS J223832.0-151809",
+              "2E 2235.8-1534",
+              "2E 4631",
+              "2MASS J22383372-1517573",
+              "8pc 289.50",
+              "[GKL99] 430",
+              "[RHG95] 3561",
+              "BLA 10",
+              "CNS5 5586",
+              "CSI-15-22358",
+              "EZ Aqr",
+              "G 156-31",
+              "Gaia DR2 2596740426912781696",
+              "Gaia DR3 2596740426913080576",
+              "GCRV 14217",
+              "GCRV 26202",
+              "GEN# +6.10010866",
+              "GSC 06386-00505",
+              "JP11 5180",
+              "JP11 5181",
+              "JP11 5195",
+              "L 789-6",
+              "LFT 1729",
+              "LHS 68",
+              "LP 820-64",
+              "LPM 837",
+              "LTT 9122",
+              "NLTT 54407",
+              "PLX 5475",
+              "PLX 5475.00",
+              "PM 22358-1535",
+              "PMSC 22329-1552",
+              "TIC 402313808",
+              "UBV 19358",
+              "UCAC2 26361351",
+              "UCAC4 374-178693",
+              "WDS J22385-1519AB",
+              "WEB 19966",
+              "WISEA J223835.27-151735.3",
+              "Zkh 333",
+              "EZ Aquarii C"
+            ],
+            "notes": "System position from J2000 direction and 293.60 mas parallax compiled by Torres et al. (2010). Included with A and B because all three components tie across the cutoff. Motion: Segransan et al. (2000), Table 2, gives the shared EZ Aquarii ABC systemic radial velocity V0 = -50.08 +/- 0.01 km/s. The uncertainty is the published orbital-fit uncertainty on V0. Combined with the retained system position, parallax and proper motion, this supplies approximate system bulk motion for A, B and C; individual orbital velocities and orbital phase are not modeled. Frozen J2000 positions are retained.",
+            "raw_astrometry": {
+              "ra_deg": 339.650693945,
+              "dec_deg": -15.289647052,
+              "parallax_mas": 293.6,
+              "parallax_error_mas": 0.9,
+              "pm_ra_cosdec_masyr": 2314.8,
+              "pm_ra_error_masyr": 8.0,
+              "pm_dec_masyr": 2295.3,
+              "pm_dec_error_masyr": 8.0,
+              "radial_velocity_kms": -50.08,
+              "radial_velocity_error_kms": 0.01,
+              "epoch": 2016.0,
+              "astrometry_ref": "FROM:GJ866A",
+              "radial_velocity_ref": "2000A&A...364..665S:Table 2; shared systemic velocity approximation; EZ Aquarii ABC"
+            },
+            "subtypes": [
+              "Eruptive variable"
+            ],
+            "known_planets": 0,
+            "apparent_mag": 14.001219482666539
+          }
+        }
+      ]
+    },
+    "compact-system:luyten-726-8-a": {
+      "label": "Luyten 726-8 A",
+      "starIds": [
+        "luyten-726-8-a"
+      ],
+      "scope": "Exact Luyten 726-8 A component. Shared gj65 bulk vector is an approximation; original positions and component proper-motion measurements are retained.",
+      "values": {
+        "vx_kms": "-46.030281",
+        "vy_kms": "-19.129739",
+        "vz_kms": "-28.963560",
+        "radial_velocity_kms": "39.04",
+        "radial_velocity_error_kms": "0.2",
+        "radial_velocity_ref": "2016A&A...593A.127K:Table 4;Section 4.1; shared systemic velocity approximation; gj65"
+      },
+      "notes": "System position from J2000 direction and 371.92 mas parallax reported by the GRAVITY Collaboration (2024). Luyten 726-8 A: temperature 2784 +/- 58 K from MacDonald et al. (2018), section 2, using Kervella et al. (2016) interferometric radius and corrected component bolometric luminosity; replaces the spectral-class estimate. Individual dynamical mass 0.122 +/- 0.002 solar masses from GRAVITY Collaboration (2024), Table 1, supersedes the older legacy mass. Reviewed physical values describe Luyten 726-8 A (GJ 65 A). Individual A component, not the unresolved GJ 65 binary. Kervella et al. 2016 interferometric radius; MacDonald et al. 2018 resolved bolometric luminosity and temperature using that radius; GRAVITY Collaboration 2024 dynamical mass. Radii/luminosities are retained at their published parallax of 373.70 mas, while the mass uses 371.92 mas. No scalar age is adopted: the magnetic-model ages are assumptions, not age determinations. Shared exact-identity physical supplements (luminosity_solar: 2018ApJ...860...15M; radius_solar: 2016A&A...593A.127K; metallicity_dex: 2016A&A...593A.127K). Reviewed compact-system bulk motion: Kervella 2016 system proper motion (+3296.2,+563.9) +/-5.5 mas/yr and parallax 373.7 +/-2.7 mas with fitted barycentric RV. Original component raw astrometry retained. Shared radial velocity 39.04 km/s; individual orbital velocities and orbital phase are not modeled. Original component measurements remain in the compact-system review and catalog provenance.",
+      "sourceSelections": {
+        "astrometryAndMotion": {
+          "source": "reviewed-compact-system:gj65",
+          "status": "systemic-approximation",
+          "reference": "2016A&A...593A.127K:Table 4;Section 4.1",
+          "sourceUrl": "https://arxiv.org/html/1607.04351",
+          "valueKms": 39.04,
+          "uncertaintyKms": 0.2,
+          "fields": [
+            "vx_kms",
+            "vy_kms",
+            "vz_kms",
+            "radial_velocity_kms",
+            "radial_velocity_error_kms",
+            "radial_velocity_ref"
+          ],
+          "scope": "Shared gj65 bulk-motion approximation; individual orbital velocities and orbital phase are not modeled.",
+          "method": "Kervella 2016 system proper motion (+3296.2,+563.9) +/-5.5 mas/yr and parallax 373.7 +/-2.7 mas with fitted barycentric RV. Original component raw astrometry retained.",
+          "inputs": {
+            "ra_deg": "24.771554293",
+            "dec_deg": "-17.948299887",
+            "parallax_mas": "373.7",
+            "pm_ra_cosdec_masyr": "3296.2",
+            "pm_dec_masyr": "563.9"
+          }
+        },
+        "resolvedPhysical": {
+          "source": "compact-system-review:luyten-726-8-a",
+          "fields": [],
+          "adoptedFields": {},
+          "reviewFile": "catalog-work/shared-enrichment/compact-system-review.json"
+        }
+      },
+      "retainedCatalogSources": [
+        {
+          "catalog_id": "compact-system-previous",
+          "scope": "Previous effective individual component record before the 2026-10-18 reviewed adoption; retained measurements are alternatives, not the current bulk-motion approximation.",
+          "record": {
+            "temperature_k": 2784.0,
+            "mass_solar": 0.122,
+            "luminosity_solar": 0.00147,
+            "radius_solar": 0.165,
+            "metallicity_dex": -0.03,
+            "age_gyr": null,
+            "absolute_mag": 15.4,
+            "epoch": 2000.0,
+            "x_pc": -0.662073,
+            "y_pc": 0.052281,
+            "z_pc": -2.605437,
+            "vx_kms": null,
+            "vy_kms": null,
+            "vz_kms": null,
+            "type": "star",
+            "id": "luyten-726-8-a",
+            "name": "Luyten 726-8 A",
+            "spectral_type": "M5.5Ve",
+            "constellation": "Cetus",
+            "metallicity_kind": "[Fe/H]",
+            "designations": [
+              "GJ 65 A",
+              "8pc 373.70A",
+              "[GKL99] 44",
+              "[RHG95] 301",
+              "BL Cet",
+              "CCDM J01390-1756A",
+              "CNS5 424",
+              "G 272-61 A",
+              "G 272-61A",
+              "Gaia DR2 5140693571158739840",
+              "Gaia DR3 5140693571158739840",
+              "Gaia EDR3 5140693571158739840",
+              "Gliese 65 A",
+              "IDS 01340-1828 A",
+              "L 726-8 A",
+              "LDS 838A",
+              "LFT 144",
+              "LHS 9",
+              "LP 768-27",
+              "LTT 892",
+              "NLTT 5505",
+              "TIC 632499596",
+              "WDS J01388-1758A",
+              "Zkh 27",
+              "Luyten 726-8 A"
+            ],
+            "notes": "System position from J2000 direction and 371.92 mas parallax reported by the GRAVITY Collaboration (2024). Luyten 726-8 A: temperature 2784 +/- 58 K from MacDonald et al. (2018), section 2, using Kervella et al. (2016) interferometric radius and corrected component bolometric luminosity; replaces the spectral-class estimate. Individual dynamical mass 0.122 +/- 0.002 solar masses from GRAVITY Collaboration (2024), Table 1, supersedes the older legacy mass. Reviewed physical values describe Luyten 726-8 A (GJ 65 A). Individual A component, not the unresolved GJ 65 binary. Kervella et al. 2016 interferometric radius; MacDonald et al. 2018 resolved bolometric luminosity and temperature using that radius; GRAVITY Collaboration 2024 dynamical mass. Radii/luminosities are retained at their published parallax of 373.70 mas, while the mass uses 371.92 mas. No scalar age is adopted: the magnetic-model ages are assumptions, not age determinations. Shared exact-identity physical supplements (luminosity_solar: 2018ApJ...860...15M; radius_solar: 2016A&A...593A.127K; metallicity_dex: 2016A&A...593A.127K).",
+            "raw_astrometry": {
+              "ra_deg": 24.771554293,
+              "dec_deg": -17.948299887,
+              "parallax_mas": 367.7119,
+              "parallax_error_mas": 0.7418,
+              "pm_ra_cosdec_masyr": 3385.315810465,
+              "pm_ra_error_masyr": 0.67216444,
+              "pm_dec_masyr": 544.386384562,
+              "pm_dec_error_masyr": 0.3787539,
+              "radial_velocity_kms": null,
+              "radial_velocity_error_kms": null,
+              "epoch": 2016.0,
+              "astrometry_ref": "2020yCat.1350....0G",
+              "radial_velocity_ref": null
+            },
+            "subtypes": [
+              "Eruptive variable",
+              "Main-sequence"
+            ],
+            "known_planets": 0,
+            "apparent_mag": 12.547752020673496
+          }
+        }
+      ]
+    },
+    "compact-system:luyten-726-8-b": {
+      "label": "Luyten 726-8 B",
+      "starIds": [
+        "luyten-726-8-b"
+      ],
+      "scope": "Exact Luyten 726-8 B component. Shared gj65 bulk vector is an approximation; original positions and component proper-motion measurements are retained.",
+      "values": {
+        "vx_kms": "-46.030281",
+        "vy_kms": "-19.129739",
+        "vz_kms": "-28.963560",
+        "radial_velocity_kms": "39.04",
+        "radial_velocity_error_kms": "0.2",
+        "radial_velocity_ref": "2016A&A...593A.127K:Table 4;Section 4.1; shared systemic velocity approximation; gj65"
+      },
+      "notes": "System position from J2000 direction and 371.92 mas parallax reported by the GRAVITY Collaboration (2024). Luyten 726-8 B: temperature 2728 +/- 60 K from MacDonald et al. (2018), section 2, using Kervella et al. (2016) interferometric radius and corrected component bolometric luminosity; replaces the spectral-class estimate. Individual dynamical mass 0.116 +/- 0.002 solar masses from GRAVITY Collaboration (2024), Table 1, supersedes the older legacy mass. Component [Fe/H]=-0.12 +/-0.20 dex from Kervella et al. (2016), section 2.3 and Table 4, adopted on the same scale as A. Supersedes catalog [Fe/H]=-0.42 dex from 2023ApJS..266...41P, also reported by 2012A&A...538A.143K. Kervella et al. (2016), section 2.3, identify the older -0.42 +/-0.10 dex result as a low-resolution combined A+B spectrum, potentially biased low by rapid rotation; it is retained as historical system-level evidence, not an adopted B-component abundance. Reviewed physical values describe Luyten 726-8 B (GJ 65 B). Individual B component, not the unresolved GJ 65 binary. Kervella et al. 2016 interferometric radius; MacDonald et al. 2018 resolved bolometric luminosity and temperature using that radius; GRAVITY Collaboration 2024 dynamical mass. Radii/luminosities are retained at their published parallax of 373.70 mas, while the mass uses 371.92 mas. No scalar age is adopted: the magnetic-model ages are assumptions, not age determinations. Supersedes catalog [Fe/H]=-0.42 dex from 2023ApJS..266...41P, also reported by 2012A&A...538A.143K. Kervella et al. (2016), section 2.3, identify the older -0.42 +/-0.10 dex result as a low-resolution combined A+B spectrum, potentially biased low by rapid rotation; it is retained as historical system-level evidence, not an adopted B-component abundance. Shared exact-identity physical supplements (luminosity_solar: 2018ApJ...860...15M; radius_solar: 2016A&A...593A.127K). Reviewed compact-system bulk motion: Kervella 2016 system proper motion (+3296.2,+563.9) +/-5.5 mas/yr and parallax 373.7 +/-2.7 mas with fitted barycentric RV. Original component raw astrometry retained. Shared radial velocity 39.04 km/s; individual orbital velocities and orbital phase are not modeled. Original component measurements remain in the compact-system review and catalog provenance.",
+      "sourceSelections": {
+        "astrometryAndMotion": {
+          "source": "reviewed-compact-system:gj65",
+          "status": "systemic-approximation",
+          "reference": "2016A&A...593A.127K:Table 4;Section 4.1",
+          "sourceUrl": "https://arxiv.org/html/1607.04351",
+          "valueKms": 39.04,
+          "uncertaintyKms": 0.2,
+          "fields": [
+            "vx_kms",
+            "vy_kms",
+            "vz_kms",
+            "radial_velocity_kms",
+            "radial_velocity_error_kms",
+            "radial_velocity_ref"
+          ],
+          "scope": "Shared gj65 bulk-motion approximation; individual orbital velocities and orbital phase are not modeled.",
+          "method": "Kervella 2016 system proper motion (+3296.2,+563.9) +/-5.5 mas/yr and parallax 373.7 +/-2.7 mas with fitted barycentric RV. Original component raw astrometry retained.",
+          "inputs": {
+            "ra_deg": "24.771554293",
+            "dec_deg": "-17.948299887",
+            "parallax_mas": "373.7",
+            "pm_ra_cosdec_masyr": "3296.2",
+            "pm_dec_masyr": "563.9"
+          }
+        },
+        "resolvedPhysical": {
+          "source": "compact-system-review:luyten-726-8-b",
+          "fields": [],
+          "adoptedFields": {},
+          "reviewFile": "catalog-work/shared-enrichment/compact-system-review.json"
+        }
+      },
+      "retainedCatalogSources": [
+        {
+          "catalog_id": "compact-system-previous",
+          "scope": "Previous effective individual component record before the 2026-10-18 reviewed adoption; retained measurements are alternatives, not the current bulk-motion approximation.",
+          "record": {
+            "temperature_k": 2728.0,
+            "mass_solar": 0.116,
+            "luminosity_solar": 0.00125,
+            "radius_solar": 0.159,
+            "metallicity_dex": -0.12,
+            "age_gyr": null,
+            "absolute_mag": 15.85,
+            "epoch": 2000.0,
+            "x_pc": -0.662073,
+            "y_pc": 0.052281,
+            "z_pc": -2.605437,
+            "vx_kms": null,
+            "vy_kms": null,
+            "vz_kms": null,
+            "type": "star",
+            "id": "luyten-726-8-b",
+            "name": "Luyten 726-8 B",
+            "spectral_type": "M6.0Ve",
+            "constellation": "Cetus",
+            "metallicity_kind": "[Fe/H]",
+            "designations": [
+              "GJ 65 B",
+              "8pc 373.70B",
+              "[GKL99] 45",
+              "[RHG95] 302",
+              "CCDM J01390-1756B",
+              "Cl* Melotte 25 EGG 8",
+              "CNS5 425",
+              "CSI-18-01364 1",
+              "CSI-18-01364 2",
+              "G 272-61 B",
+              "G 272-61B",
+              "Gaia DR2 5140693571158739712",
+              "Gaia DR3 5140693571158946048",
+              "Gaia EDR3 5140693571158946048",
+              "Gliese 65 B",
+              "IDS 01340-1828 B",
+              "L 726-8 B",
+              "LDS 838B",
+              "LFT 145",
+              "LHS 10",
+              "LP 768-26",
+              "LTT 893",
+              "NLTT 5504",
+              "TIC 632499595",
+              "UV Cet",
+              "WDS J01388-1758B",
+              "WEB 1642",
+              "Zkh 28",
+              "Luyten 726-8 B"
+            ],
+            "notes": "System position from J2000 direction and 371.92 mas parallax reported by the GRAVITY Collaboration (2024). Luyten 726-8 B: temperature 2728 +/- 60 K from MacDonald et al. (2018), section 2, using Kervella et al. (2016) interferometric radius and corrected component bolometric luminosity; replaces the spectral-class estimate. Individual dynamical mass 0.116 +/- 0.002 solar masses from GRAVITY Collaboration (2024), Table 1, supersedes the older legacy mass. Component [Fe/H]=-0.12 +/-0.20 dex from Kervella et al. (2016), section 2.3 and Table 4, adopted on the same scale as A. Supersedes catalog [Fe/H]=-0.42 dex from 2023ApJS..266...41P, also reported by 2012A&A...538A.143K. Kervella et al. (2016), section 2.3, identify the older -0.42 +/-0.10 dex result as a low-resolution combined A+B spectrum, potentially biased low by rapid rotation; it is retained as historical system-level evidence, not an adopted B-component abundance. Reviewed physical values describe Luyten 726-8 B (GJ 65 B). Individual B component, not the unresolved GJ 65 binary. Kervella et al. 2016 interferometric radius; MacDonald et al. 2018 resolved bolometric luminosity and temperature using that radius; GRAVITY Collaboration 2024 dynamical mass. Radii/luminosities are retained at their published parallax of 373.70 mas, while the mass uses 371.92 mas. No scalar age is adopted: the magnetic-model ages are assumptions, not age determinations. Supersedes catalog [Fe/H]=-0.42 dex from 2023ApJS..266...41P, also reported by 2012A&A...538A.143K. Kervella et al. (2016), section 2.3, identify the older -0.42 +/-0.10 dex result as a low-resolution combined A+B spectrum, potentially biased low by rapid rotation; it is retained as historical system-level evidence, not an adopted B-component abundance. Shared exact-identity physical supplements (luminosity_solar: 2018ApJ...860...15M; radius_solar: 2016A&A...593A.127K). Component-scoped catalog measurements/estimates; details in catalog-work/star-systems/catalog-companions-audit.json.",
+            "raw_astrometry": {
+              "ra_deg": 24.771674208,
+              "dec_deg": -17.94768286,
+              "parallax_mas": 373.8443,
+              "parallax_error_mas": 0.5009,
+              "pm_ra_cosdec_masyr": 3178.694257575,
+              "pm_ra_error_masyr": 0.42692018,
+              "pm_dec_masyr": 584.061335039,
+              "pm_dec_error_masyr": 0.30229247,
+              "radial_velocity_kms": null,
+              "radial_velocity_error_kms": null,
+              "epoch": 2016.0,
+              "astrometry_ref": "2020yCat.1350....0G",
+              "radial_velocity_ref": null
+            },
+            "subtypes": [
+              "Emission-line star",
+              "Eruptive variable",
+              "Main-sequence"
+            ],
+            "known_planets": 0,
+            "apparent_mag": 12.997752020673495
+          }
+        }
+      ]
+    },
+    "compact-system:10pc-0066": {
+      "label": "V577 Mon A",
+      "starIds": [
+        "10pc-0066"
+      ],
+      "scope": "Exact V577 Mon A component. Shared ross614 bulk vector is an approximation; original positions and component proper-motion measurements are retained.",
+      "values": {
+        "vx_kms": "-4.235899",
+        "vy_kms": "-24.285799",
+        "vz_kms": "4.463220",
+        "radial_velocity_kms": "16.18",
+        "radial_velocity_error_kms": "",
+        "radial_velocity_ref": "2016AJ....152..141B:Table 4; shared systemic velocity approximation; ross614",
+        "absolute_mag": "13.1297146815173",
+        "mass_solar": "0.223"
+      },
+      "notes": "10pc census (2023-08-25), object 66, system 31; Ross 614 A. J2000 Sun-relative Galactic position via Astropy; full-space-motion. Estimated: Pecaut-Mamajek 2022.04.16 M4.5V mean dwarf class, not a measured temperature.  No orbital model. Shared exact-identity physical supplements (metallicity_dex: 2021MNRAS.508.5148C). Reviewed compact-system bulk motion: Benedict 2016 Table 7 system parallax 241.0 +/-0.4 mas and proper motion (+700.0 +/-0.4,-675.0 +/-0.3) mas/yr with fitted Table 4 gamma=16.18 km/s. Table 4 residual scatter 0.23 km/s is not a formal gamma uncertainty; no RV error invented. Shared radial velocity 16.18 km/s; individual orbital velocities and orbital phase are not modeled. Original component measurements remain in the compact-system review and catalog provenance. Resolved physical/photometric review: absolute_mag: existing resolved Johnson V review (derived); mass_solar: 2016AJ....152..141B:Table 10 (measured). No high-quality resolved radius or bolometric luminosity adopted; age remains unavailable.",
+      "sourceSelections": {
+        "astrometryAndMotion": {
+          "source": "reviewed-compact-system:ross614",
+          "status": "systemic-approximation",
+          "reference": "2016AJ....152..141B:Table 4",
+          "sourceUrl": "https://www.astro.gsu.edu/RECONS/published37.pdf",
+          "valueKms": 16.18,
+          "uncertaintyKms": null,
+          "fields": [
+            "vx_kms",
+            "vy_kms",
+            "vz_kms",
+            "radial_velocity_kms",
+            "radial_velocity_error_kms",
+            "radial_velocity_ref"
+          ],
+          "scope": "Shared ross614 bulk-motion approximation; individual orbital velocities and orbital phase are not modeled.",
+          "method": "Benedict 2016 Table 7 system parallax 241.0 +/-0.4 mas and proper motion (+700.0 +/-0.4,-675.0 +/-0.3) mas/yr with fitted Table 4 gamma=16.18 km/s. Table 4 residual scatter 0.23 km/s is not a formal gamma uncertainty; no RV error invented.",
+          "inputs": {
+            "ra_deg": "97.350794774",
+            "dec_deg": "-2.817130718",
+            "parallax_mas": "241.0",
+            "pm_ra_cosdec_masyr": "700.0",
+            "pm_dec_masyr": "-675.0"
+          }
+        },
+        "resolvedPhysical": {
+          "source": "compact-system-review:10pc-0066",
+          "fields": [
+            "absolute_mag",
+            "mass_solar"
+          ],
+          "adoptedFields": {
+            "absolute_mag": {
+              "value": 13.129714681517347,
+              "status": "derived",
+              "method": "Existing reviewed resolved Johnson V and retained catalog distance; no passband substitution.",
+              "sourceEvidence": {
+                "value": 11.20184389466865,
+                "uncertainty": 0.03012746530706514,
+                "status": "derived",
+                "passband": "Johnson V",
+                "reference": "2016AJ....152..141B",
+                "sourceUrl": "https://www.astro.gsu.edu/RECONS/published37.pdf",
+                "section": "Table 10 and section 6",
+                "inputs": {
+                  "publishedPair": "GJ 234 AB",
+                  "starIds": [
+                    "10pc-0066",
+                    "10pc-0067"
+                  ],
+                  "systemJohnsonV": 11.14,
+                  "systemJohnsonVUncertainty": 0.03,
+                  "deltaVSecondaryMinusPrimary": 3.08,
+                  "deltaVUncertainty": 0.05,
+                  "epoch": null,
+                  "reference": "2016AJ....152..141B:Table 10; section 6",
+                  "scope": "Flux of the named pair only. GJ 1245 AC excludes wide B; GJ 22 AC excludes wide B.",
+                  "method": "V_primary = V_pair + 2.5 log10(1 + 10^(-0.4 deltaV)); V_secondary = V_primary + deltaV. First-order error propagation assumes independent pair V and deltaV; component magnitudes are correlated.",
+                  "caveat": "Published compiled baseline photometry, including transformed HST F583W contrasts; not a dated flare observation. Preserve A/B/C identities when the secondary is slightly brighter."
+                },
+                "scope": "Individual V577 Mon A; deblended from the named pair, not assigned its total flux."
+              }
+            },
+            "mass_solar": {
+              "value": 0.223,
+              "uncertainty": 0.002,
+              "status": "measured",
+              "reference": "2016AJ....152..141B:Table 10",
+              "sourceUrl": "https://www.astro.gsu.edu/RECONS/published37.pdf",
+              "method": "Resolved HST astrometric/RV dynamical mass; not total system mass."
+            }
+          },
+          "reviewFile": "catalog-work/shared-enrichment/compact-system-review.json"
+        }
+      },
+      "retainedCatalogSources": [
+        {
+          "catalog_id": "nearest-100",
+          "record": {
+            "temperature_k": 3110.0,
+            "mass_solar": null,
+            "luminosity_solar": null,
+            "radius_solar": null,
+            "metallicity_dex": -0.34,
+            "age_gyr": null,
+            "absolute_mag": null,
+            "epoch": 2000.0,
+            "x_pc": -3.434253548,
+            "y_pc": -2.224137378,
+            "z_pc": -0.443517978,
+            "vx_kms": -3.270412,
+            "vy_kms": -26.665433,
+            "vz_kms": 4.097167,
+            "type": "star",
+            "id": "10pc-0066",
+            "name": "V577 Mon A",
+            "spectral_type": "M4.5",
+            "constellation": "Monoceros",
+            "metallicity_kind": "[Fe/H]",
+            "designations": [
+              "GJ 234",
+              "GJ 234 A",
+              "HIP 30920",
+              "0ES 0626-02.7",
+              "1RXS J062923.1-024845",
+              "2E 0626.8-0246",
+              "2E 1663",
+              "2EUVE J0629-02.8",
+              "2MASS J06292339-0248499",
+              "2RE J0629-024",
+              "2RE J062923-024802",
+              "8pc 242.89A",
+              "[FS2003] 0369",
+              "[GKL99] 158",
+              "[GKL99] 159",
+              "[KW97] 29-9",
+              "[RHG95] 1048",
+              "B 2601A",
+              "CCDM J06294-0249A",
+              "Ci 20 390",
+              "CNS5 1610",
+              "CSI-02-06268 1",
+              "EUVE J0629-02.7",
+              "EUVE J0629-02.8",
+              "G 106-49",
+              "G 108-3",
+              "Gaia DR2 3117120863523946368",
+              "GAT 1306",
+              "GCRV 4143",
+              "GEN# +6.10010234D",
+              "HIC 30920",
+              "IDS 06243-0244 A",
+              "JP11 5118",
+              "JP11 5119",
+              "LFT 473",
+              "LHS 1849",
+              "LPM 239",
+              "LTT 2564",
+              "NLTT 16580",
+              "PLX 1509",
+              "PM J06293-0248",
+              "RE J0629-024",
+              "RE J062922-024830",
+              "Ross 614",
+              "Ross 614 A",
+              "Ross 614A",
+              "TIC 43085522",
+              "TIC 711366839",
+              "TYC 4789-3303-1",
+              "UCAC4 436-017625",
+              "V577 Mon",
+              "WDS J06293-0248A",
+              "WEB 6159",
+              "WISEA J062923.89-024858.0",
+              "Zkh 88",
+              "V577 Mon A"
+            ],
+            "notes": "10pc census (2023-08-25), object 66, system 31; Ross 614 A. J2000 Sun-relative Galactic position via Astropy; full-space-motion. Estimated: Pecaut-Mamajek 2022.04.16 M4.5V mean dwarf class, not a measured temperature. Component-resolved Johnson V not independently established; multi-star system V withheld. No orbital model. Shared exact-identity physical supplements (metallicity_dex: 2021MNRAS.508.5148C).",
+            "raw_astrometry": {
+              "ra_deg": 97.350794774,
+              "dec_deg": -2.817130718,
+              "parallax_mas": 242.9659,
+              "parallax_error_mas": 0.8833,
+              "pm_ra_cosdec_masyr": 750.14,
+              "pm_ra_error_masyr": 1.648,
+              "pm_dec_masyr": -802.947,
+              "pm_dec_error_masyr": 1.475,
+              "radial_velocity_kms": 16.7,
+              "radial_velocity_error_kms": 0.2,
+              "epoch": 2016.0,
+              "astrometry_ref": "2018yCat.1345....0G",
+              "radial_velocity_ref": "2006AstL...32..759G"
+            },
+            "subtypes": [
+              "Emission-line star",
+              "Eruptive variable"
+            ],
+            "known_planets": 0,
+            "apparent_mag": null
+          },
+          "scope": "Original V577 Mon A catalog source; component contributions are not separated here. Retained source measurements, not individual component measurements."
+        },
+        {
+          "catalog_id": "nearest-1000",
+          "record": {
+            "temperature_k": 3110.0,
+            "mass_solar": null,
+            "luminosity_solar": null,
+            "radius_solar": null,
+            "metallicity_dex": -0.34,
+            "age_gyr": null,
+            "absolute_mag": null,
+            "epoch": 2000.0,
+            "x_pc": -3.434253548,
+            "y_pc": -2.224137378,
+            "z_pc": -0.443517978,
+            "vx_kms": -3.270412,
+            "vy_kms": -26.665433,
+            "vz_kms": 4.097167,
+            "type": "star",
+            "id": "10pc-0066",
+            "name": "V577 Mon A",
+            "spectral_type": "M4.5",
+            "constellation": "Monoceros",
+            "metallicity_kind": "[Fe/H]",
+            "designations": [
+              "GJ 234",
+              "GJ 234 A",
+              "HIP 30920",
+              "0ES 0626-02.7",
+              "1RXS J062923.1-024845",
+              "2E 0626.8-0246",
+              "2E 1663",
+              "2EUVE J0629-02.8",
+              "2MASS J06292339-0248499",
+              "2RE J0629-024",
+              "2RE J062923-024802",
+              "8pc 242.89A",
+              "[FS2003] 0369",
+              "[GKL99] 158",
+              "[GKL99] 159",
+              "[KW97] 29-9",
+              "[RHG95] 1048",
+              "B 2601A",
+              "CCDM J06294-0249A",
+              "Ci 20 390",
+              "CNS5 1610",
+              "CSI-02-06268 1",
+              "EUVE J0629-02.7",
+              "EUVE J0629-02.8",
+              "G 106-49",
+              "G 108-3",
+              "Gaia DR2 3117120863523946368",
+              "GAT 1306",
+              "GCRV 4143",
+              "GEN# +6.10010234D",
+              "HIC 30920",
+              "IDS 06243-0244 A",
+              "JP11 5118",
+              "JP11 5119",
+              "LFT 473",
+              "LHS 1849",
+              "LPM 239",
+              "LTT 2564",
+              "NLTT 16580",
+              "PLX 1509",
+              "PM J06293-0248",
+              "RE J0629-024",
+              "RE J062922-024830",
+              "Ross 614",
+              "Ross 614 A",
+              "Ross 614A",
+              "TIC 43085522",
+              "TIC 711366839",
+              "TYC 4789-3303-1",
+              "UCAC4 436-017625",
+              "V577 Mon",
+              "WDS J06293-0248A",
+              "WEB 6159",
+              "WISEA J062923.89-024858.0",
+              "Zkh 88",
+              "V577 Mon A"
+            ],
+            "notes": "10pc census (2023-08-25), object 66, system 31; Ross 614 A. J2000 Sun-relative Galactic position via Astropy; full-space-motion. Estimated: Pecaut-Mamajek 2022.04.16 M4.5V mean dwarf class, not a measured temperature. Component-resolved Johnson V not independently established; multi-star system V withheld. No orbital model. Shared exact-identity physical supplements (metallicity_dex: 2021MNRAS.508.5148C).",
+            "raw_astrometry": {
+              "ra_deg": 97.350794774,
+              "dec_deg": -2.817130718,
+              "parallax_mas": 242.9659,
+              "parallax_error_mas": 0.8833,
+              "pm_ra_cosdec_masyr": 750.14,
+              "pm_ra_error_masyr": 1.648,
+              "pm_dec_masyr": -802.947,
+              "pm_dec_error_masyr": 1.475,
+              "radial_velocity_kms": 16.7,
+              "radial_velocity_error_kms": 0.2,
+              "epoch": 2016.0,
+              "astrometry_ref": "2018yCat.1345....0G",
+              "radial_velocity_ref": "2006AstL...32..759G"
+            },
+            "subtypes": [
+              "Emission-line star",
+              "Eruptive variable"
+            ],
+            "known_planets": 0,
+            "apparent_mag": null
+          },
+          "scope": "Original V577 Mon A catalog source; component contributions are not separated here. Retained source measurements, not individual component measurements."
+        },
+        {
+          "catalog_id": "compact-system-previous",
+          "scope": "Previous effective individual component record before the 2026-10-18 reviewed adoption; retained measurements are alternatives, not the current bulk-motion approximation.",
+          "record": {
+            "temperature_k": 3110.0,
+            "mass_solar": 0.223,
+            "luminosity_solar": null,
+            "radius_solar": null,
+            "metallicity_dex": -0.34,
+            "age_gyr": null,
+            "absolute_mag": 13.129714681517347,
+            "epoch": 2000.0,
+            "x_pc": -3.434253548,
+            "y_pc": -2.224137378,
+            "z_pc": -0.443517978,
+            "vx_kms": -3.270412,
+            "vy_kms": -26.665433,
+            "vz_kms": 4.097167,
+            "type": "star",
+            "id": "10pc-0066",
+            "name": "V577 Mon A",
+            "spectral_type": "M4.5",
+            "constellation": "Monoceros",
+            "metallicity_kind": "[Fe/H]",
+            "designations": [
+              "GJ 234",
+              "GJ 234 A",
+              "HIP 30920",
+              "0ES 0626-02.7",
+              "1RXS J062923.1-024845",
+              "2E 0626.8-0246",
+              "2E 1663",
+              "2EUVE J0629-02.8",
+              "2MASS J06292339-0248499",
+              "2RE J0629-024",
+              "2RE J062923-024802",
+              "8pc 242.89A",
+              "[FS2003] 0369",
+              "[GKL99] 158",
+              "[GKL99] 159",
+              "[KW97] 29-9",
+              "[RHG95] 1048",
+              "B 2601A",
+              "CCDM J06294-0249A",
+              "Ci 20 390",
+              "CNS5 1610",
+              "CSI-02-06268 1",
+              "EUVE J0629-02.7",
+              "EUVE J0629-02.8",
+              "G 106-49",
+              "G 108-3",
+              "Gaia DR2 3117120863523946368",
+              "GAT 1306",
+              "GCRV 4143",
+              "GEN# +6.10010234D",
+              "HIC 30920",
+              "IDS 06243-0244 A",
+              "JP11 5118",
+              "JP11 5119",
+              "LFT 473",
+              "LHS 1849",
+              "LPM 239",
+              "LTT 2564",
+              "NLTT 16580",
+              "PLX 1509",
+              "PM J06293-0248",
+              "RE J0629-024",
+              "RE J062922-024830",
+              "Ross 614",
+              "Ross 614 A",
+              "Ross 614A",
+              "TIC 43085522",
+              "TIC 711366839",
+              "TYC 4789-3303-1",
+              "UCAC4 436-017625",
+              "V577 Mon",
+              "WDS J06293-0248A",
+              "WEB 6159",
+              "WISEA J062923.89-024858.0",
+              "Zkh 88",
+              "V577 Mon A"
+            ],
+            "notes": "10pc census (2023-08-25), object 66, system 31; Ross 614 A. J2000 Sun-relative Galactic position via Astropy; full-space-motion. Estimated: Pecaut-Mamajek 2022.04.16 M4.5V mean dwarf class, not a measured temperature. No orbital model. Shared exact-identity physical supplements (metallicity_dex: 2021MNRAS.508.5148C). Reviewed individual literature: GJ 234 A / Ross 614 A: reviewed individual literature. Dynamical masses retain their formal uncertainties. Johnson V, where absent, is deblended using Benedict et al. (2016) Table 10 and the retained component distance; existing photometry is preserved. No individual orbital velocity or age is inferred.",
+            "raw_astrometry": {
+              "ra_deg": 97.350794774,
+              "dec_deg": -2.817130718,
+              "parallax_mas": 242.9659,
+              "parallax_error_mas": 0.8833,
+              "pm_ra_cosdec_masyr": 750.14,
+              "pm_ra_error_masyr": 1.648,
+              "pm_dec_masyr": -802.947,
+              "pm_dec_error_masyr": 1.475,
+              "radial_velocity_kms": 16.7,
+              "radial_velocity_error_kms": 0.2,
+              "epoch": 2016.0,
+              "astrometry_ref": "2018yCat.1345....0G",
+              "radial_velocity_ref": "2006AstL...32..759G"
+            },
+            "subtypes": [
+              "Emission-line star",
+              "Eruptive variable"
+            ],
+            "known_planets": 0,
+            "apparent_mag": 11.20184389466865
+          }
+        }
+      ]
+    },
+    "compact-system:10pc-0067": {
+      "label": "V577 Mon B",
+      "starIds": [
+        "10pc-0067"
+      ],
+      "scope": "Exact V577 Mon B component. Shared ross614 bulk vector is an approximation; original positions and component proper-motion measurements are retained.",
+      "values": {
+        "vx_kms": "-4.235899",
+        "vy_kms": "-24.285799",
+        "vz_kms": "4.463220",
+        "radial_velocity_kms": "16.18",
+        "radial_velocity_error_kms": "",
+        "radial_velocity_ref": "2016AJ....152..141B:Table 4; shared systemic velocity approximation; ross614",
+        "absolute_mag": "16.2095705058937",
+        "mass_solar": "0.109"
+      },
+      "notes": "10pc census (2023-08-25), object 67, system 31; Ross 614 B. J2000 Sun-relative Galactic position via Astropy; reviewed system bulk motion; frozen J2000 position retained. Estimated: Pecaut-Mamajek 2022.04.16 M5.5V mean dwarf class, not a measured temperature.  No orbital model. Source caution: Could be EDR3 3117120863519565568 but doubtful because similar magnitudes Reviewed compact-system bulk motion: Benedict 2016 Table 7 system parallax 241.0 +/-0.4 mas and proper motion (+700.0 +/-0.4,-675.0 +/-0.3) mas/yr with fitted Table 4 gamma=16.18 km/s. Table 4 residual scatter 0.23 km/s is not a formal gamma uncertainty; no RV error invented. Shared radial velocity 16.18 km/s; individual orbital velocities and orbital phase are not modeled. Original component measurements remain in the compact-system review and catalog provenance. Resolved physical/photometric review: absolute_mag: existing resolved Johnson V review (derived); mass_solar: 2016AJ....152..141B:Table 10 (measured). No high-quality resolved radius or bolometric luminosity adopted; age remains unavailable.",
+      "sourceSelections": {
+        "astrometryAndMotion": {
+          "source": "reviewed-compact-system:ross614",
+          "status": "systemic-approximation",
+          "reference": "2016AJ....152..141B:Table 4",
+          "sourceUrl": "https://www.astro.gsu.edu/RECONS/published37.pdf",
+          "valueKms": 16.18,
+          "uncertaintyKms": null,
+          "fields": [
+            "vx_kms",
+            "vy_kms",
+            "vz_kms",
+            "radial_velocity_kms",
+            "radial_velocity_error_kms",
+            "radial_velocity_ref"
+          ],
+          "scope": "Shared ross614 bulk-motion approximation; individual orbital velocities and orbital phase are not modeled.",
+          "method": "Benedict 2016 Table 7 system parallax 241.0 +/-0.4 mas and proper motion (+700.0 +/-0.4,-675.0 +/-0.3) mas/yr with fitted Table 4 gamma=16.18 km/s. Table 4 residual scatter 0.23 km/s is not a formal gamma uncertainty; no RV error invented.",
+          "inputs": {
+            "ra_deg": "97.350794774",
+            "dec_deg": "-2.817130718",
+            "parallax_mas": "241.0",
+            "pm_ra_cosdec_masyr": "700.0",
+            "pm_dec_masyr": "-675.0"
+          }
+        },
+        "resolvedPhysical": {
+          "source": "compact-system-review:10pc-0067",
+          "fields": [
+            "absolute_mag",
+            "mass_solar"
+          ],
+          "adoptedFields": {
+            "absolute_mag": {
+              "value": 16.209570505893733,
+              "status": "derived",
+              "method": "Existing reviewed resolved Johnson V and retained catalog distance; no passband substitution.",
+              "sourceEvidence": {
+                "value": 14.28184389466865,
+                "uncertainty": 0.055953747571065034,
+                "status": "derived",
+                "passband": "Johnson V",
+                "reference": "2016AJ....152..141B",
+                "sourceUrl": "https://www.astro.gsu.edu/RECONS/published37.pdf",
+                "section": "Table 10 and section 6",
+                "inputs": {
+                  "publishedPair": "GJ 234 AB",
+                  "starIds": [
+                    "10pc-0066",
+                    "10pc-0067"
+                  ],
+                  "systemJohnsonV": 11.14,
+                  "systemJohnsonVUncertainty": 0.03,
+                  "deltaVSecondaryMinusPrimary": 3.08,
+                  "deltaVUncertainty": 0.05,
+                  "epoch": null,
+                  "reference": "2016AJ....152..141B:Table 10; section 6",
+                  "scope": "Flux of the named pair only. GJ 1245 AC excludes wide B; GJ 22 AC excludes wide B.",
+                  "method": "V_primary = V_pair + 2.5 log10(1 + 10^(-0.4 deltaV)); V_secondary = V_primary + deltaV. First-order error propagation assumes independent pair V and deltaV; component magnitudes are correlated.",
+                  "caveat": "Published compiled baseline photometry, including transformed HST F583W contrasts; not a dated flare observation. Preserve A/B/C identities when the secondary is slightly brighter."
+                },
+                "scope": "Individual V577 Mon B; deblended from the named pair, not assigned its total flux."
+              }
+            },
+            "mass_solar": {
+              "value": 0.109,
+              "uncertainty": 0.001,
+              "status": "measured",
+              "reference": "2016AJ....152..141B:Table 10",
+              "sourceUrl": "https://www.astro.gsu.edu/RECONS/published37.pdf",
+              "method": "Resolved HST astrometric/RV dynamical mass; not total system mass."
+            }
+          },
+          "reviewFile": "catalog-work/shared-enrichment/compact-system-review.json"
+        }
+      },
+      "retainedCatalogSources": [
+        {
+          "catalog_id": "nearest-100",
+          "record": {
+            "temperature_k": 2930.0,
+            "mass_solar": null,
+            "luminosity_solar": null,
+            "radius_solar": null,
+            "metallicity_dex": null,
+            "age_gyr": null,
+            "absolute_mag": null,
+            "epoch": 2000.0,
+            "x_pc": -3.434481562,
+            "y_pc": -2.224285075,
+            "z_pc": -0.44354742,
+            "vx_kms": null,
+            "vy_kms": null,
+            "vz_kms": null,
+            "type": "star",
+            "id": "10pc-0067",
+            "name": "V577 Mon B",
+            "spectral_type": "M5.5",
+            "constellation": "Monoceros",
+            "metallicity_kind": null,
+            "designations": [
+              "GJ 234 B",
+              "8pc 242.89B",
+              "[RHG95] 1049",
+              "B 2601B",
+              "CCDM J06294-0249B",
+              "CSI-02-06268 2",
+              "IDS 06243-0244 B",
+              "LHS 1850",
+              "NLTT 16581",
+              "Ross 614 B",
+              "Ross 614B",
+              "WDS J06293-0248B",
+              "Zkh 89",
+              "V577 Mon B"
+            ],
+            "notes": "10pc census (2023-08-25), object 67, system 31; Ross 614 B. J2000 Sun-relative Galactic position via Astropy; transverse-only; unknown/withheld RV, no exported velocity. Estimated: Pecaut-Mamajek 2022.04.16 M5.5V mean dwarf class, not a measured temperature. Component-resolved Johnson V not independently established; multi-star system V withheld. No orbital model. Source caution: Could be EDR3 3117120863519565568 but doubtful because similar magnitudes",
+            "raw_astrometry": {
+              "ra_deg": 97.350794774,
+              "dec_deg": -2.817130718,
+              "parallax_mas": 242.9659,
+              "parallax_error_mas": 0.8833,
+              "pm_ra_cosdec_masyr": 750.14,
+              "pm_ra_error_masyr": 1.648,
+              "pm_dec_masyr": -802.947,
+              "pm_dec_error_masyr": 1.475,
+              "radial_velocity_kms": null,
+              "radial_velocity_error_kms": null,
+              "epoch": 2016.0,
+              "astrometry_ref": "FROM:Ross614A",
+              "radial_velocity_ref": null
+            },
+            "subtypes": [],
+            "known_planets": 0,
+            "apparent_mag": null
+          },
+          "scope": "Original V577 Mon B catalog source; component contributions are not separated here. Retained source measurements, not individual component measurements."
+        },
+        {
+          "catalog_id": "nearest-1000",
+          "record": {
+            "temperature_k": 2930.0,
+            "mass_solar": null,
+            "luminosity_solar": null,
+            "radius_solar": null,
+            "metallicity_dex": null,
+            "age_gyr": null,
+            "absolute_mag": null,
+            "epoch": 2000.0,
+            "x_pc": -3.434481562,
+            "y_pc": -2.224285075,
+            "z_pc": -0.44354742,
+            "vx_kms": null,
+            "vy_kms": null,
+            "vz_kms": null,
+            "type": "star",
+            "id": "10pc-0067",
+            "name": "V577 Mon B",
+            "spectral_type": "M5.5",
+            "constellation": "Monoceros",
+            "metallicity_kind": null,
+            "designations": [
+              "GJ 234 B",
+              "8pc 242.89B",
+              "[RHG95] 1049",
+              "B 2601B",
+              "CCDM J06294-0249B",
+              "CSI-02-06268 2",
+              "IDS 06243-0244 B",
+              "LHS 1850",
+              "NLTT 16581",
+              "Ross 614 B",
+              "Ross 614B",
+              "WDS J06293-0248B",
+              "Zkh 89",
+              "V577 Mon B"
+            ],
+            "notes": "10pc census (2023-08-25), object 67, system 31; Ross 614 B. J2000 Sun-relative Galactic position via Astropy; transverse-only; unknown/withheld RV, no exported velocity. Estimated: Pecaut-Mamajek 2022.04.16 M5.5V mean dwarf class, not a measured temperature. Component-resolved Johnson V not independently established; multi-star system V withheld. No orbital model. Source caution: Could be EDR3 3117120863519565568 but doubtful because similar magnitudes",
+            "raw_astrometry": {
+              "ra_deg": 97.350794774,
+              "dec_deg": -2.817130718,
+              "parallax_mas": 242.9659,
+              "parallax_error_mas": 0.8833,
+              "pm_ra_cosdec_masyr": 750.14,
+              "pm_ra_error_masyr": 1.648,
+              "pm_dec_masyr": -802.947,
+              "pm_dec_error_masyr": 1.475,
+              "radial_velocity_kms": null,
+              "radial_velocity_error_kms": null,
+              "epoch": 2016.0,
+              "astrometry_ref": "FROM:Ross614A",
+              "radial_velocity_ref": null
+            },
+            "subtypes": [],
+            "known_planets": 0,
+            "apparent_mag": null
+          },
+          "scope": "Original V577 Mon B catalog source; component contributions are not separated here. Retained source measurements, not individual component measurements."
+        },
+        {
+          "catalog_id": "compact-system-previous",
+          "scope": "Previous effective individual component record before the 2026-10-18 reviewed adoption; retained measurements are alternatives, not the current bulk-motion approximation.",
+          "record": {
+            "temperature_k": 2930.0,
+            "mass_solar": 0.109,
+            "luminosity_solar": null,
+            "radius_solar": null,
+            "metallicity_dex": null,
+            "age_gyr": null,
+            "absolute_mag": 16.209570505893733,
+            "epoch": 2000.0,
+            "x_pc": -3.434481562,
+            "y_pc": -2.224285075,
+            "z_pc": -0.44354742,
+            "vx_kms": null,
+            "vy_kms": null,
+            "vz_kms": null,
+            "type": "star",
+            "id": "10pc-0067",
+            "name": "V577 Mon B",
+            "spectral_type": "M5.5",
+            "constellation": "Monoceros",
+            "metallicity_kind": null,
+            "designations": [
+              "GJ 234 B",
+              "8pc 242.89B",
+              "[RHG95] 1049",
+              "B 2601B",
+              "CCDM J06294-0249B",
+              "CSI-02-06268 2",
+              "IDS 06243-0244 B",
+              "LHS 1850",
+              "NLTT 16581",
+              "Ross 614 B",
+              "Ross 614B",
+              "WDS J06293-0248B",
+              "Zkh 89",
+              "V577 Mon B"
+            ],
+            "notes": "10pc census (2023-08-25), object 67, system 31; Ross 614 B. J2000 Sun-relative Galactic position via Astropy; transverse-only; unknown/withheld RV, no exported velocity. Estimated: Pecaut-Mamajek 2022.04.16 M5.5V mean dwarf class, not a measured temperature. No orbital model. Source caution: Could be EDR3 3117120863519565568 but doubtful because similar magnitudes Reviewed individual literature: GJ 234 B / Ross 614 B: reviewed individual literature. Dynamical masses retain their formal uncertainties. Johnson V, where absent, is deblended using Benedict et al. (2016) Table 10 and the retained component distance; existing photometry is preserved. No individual orbital velocity or age is inferred.",
+            "raw_astrometry": {
+              "ra_deg": 97.350794774,
+              "dec_deg": -2.817130718,
+              "parallax_mas": 242.9659,
+              "parallax_error_mas": 0.8833,
+              "pm_ra_cosdec_masyr": 750.14,
+              "pm_ra_error_masyr": 1.648,
+              "pm_dec_masyr": -802.947,
+              "pm_dec_error_masyr": 1.475,
+              "radial_velocity_kms": null,
+              "radial_velocity_error_kms": null,
+              "epoch": 2016.0,
+              "astrometry_ref": "FROM:Ross614A",
+              "radial_velocity_ref": null
+            },
+            "subtypes": [],
+            "known_planets": 0,
+            "apparent_mag": 14.28184389466865
+          }
+        }
+      ]
+    },
+    "compact-system:10pc-0074": {
+      "label": "FL Vir A",
+      "starIds": [
+        "10pc-0074"
+      ],
+      "scope": "Exact FL Vir A component. Shared wolf424 bulk vector is an approximation; original positions and component proper-motion measurements are retained.",
+      "values": {
+        "vx_kms": "-33.435401",
+        "vy_kms": "-15.479367",
+        "vz_kms": "-0.264619",
+        "radial_velocity_kms": "1.0",
+        "radial_velocity_error_kms": "4.0",
+        "radial_velocity_ref": "2015ApJ...802L..10T; shared systemic velocity approximation; wolf424",
+        "absolute_mag": "15.0467682250962",
+        "mass_solar": "0.1379"
+      },
+      "notes": "10pc census (2023-08-25), object 74, system 35; Wolf 424 A. J2000 Sun-relative Galactic position via Astropy; full-space-motion. Estimated: Pecaut-Mamajek 2022.04.16 M5.5V mean dwarf class, not a measured temperature.  No orbital model. Reviewed compact-system bulk motion: Mass-weighted mean of the two retained component space-motion snapshots using Chevalier 2023 dynamical masses 0.1379/0.1258 solar and the existing unresolved 1 +/-4 km/s RV. Approximate barycenter; Gaia orbit/blending systematics and RV orbital contamination are not removed by a full orbital fit. Shared radial velocity 1.0 km/s; individual orbital velocities and orbital phase are not modeled. Original component measurements remain in the compact-system review and catalog provenance. Resolved physical/photometric review: absolute_mag: existing resolved Johnson V review (derived); mass_solar: 2023A&A...678A..19C:Table 3 (measured). No high-quality resolved radius or bolometric luminosity adopted; age remains unavailable.",
+      "sourceSelections": {
+        "astrometryAndMotion": {
+          "source": "reviewed-compact-system:wolf424",
+          "status": "systemic-approximation",
+          "reference": "2015ApJ...802L..10T",
+          "sourceUrl": "https://simbad.cds.unistra.fr/simbad/sim-id?Ident=Wolf+424",
+          "valueKms": 1.0,
+          "uncertaintyKms": 4.0,
+          "fields": [
+            "vx_kms",
+            "vy_kms",
+            "vz_kms",
+            "radial_velocity_kms",
+            "radial_velocity_error_kms",
+            "radial_velocity_ref"
+          ],
+          "scope": "Shared wolf424 bulk-motion approximation; individual orbital velocities and orbital phase are not modeled.",
+          "method": "Mass-weighted mean of the two retained component space-motion snapshots using Chevalier 2023 dynamical masses 0.1379/0.1258 solar and the existing unresolved 1 +/-4 km/s RV. Approximate barycenter; Gaia orbit/blending systematics and RV orbital contamination are not removed by a full orbital fit.",
+          "inputs": {
+            "10pc-0074": {
+              "ra_deg": "188.314492802",
+              "dec_deg": "9.022091625",
+              "parallax_mas": "231.1185",
+              "pm_ra_cosdec_masyr": "-1795.66090246",
+              "pm_dec_masyr": "217.788566562"
+            },
+            "10pc-0075": {
+              "ra_deg": "188.314676776",
+              "dec_deg": "9.021829208",
+              "parallax_mas": "223.4775",
+              "pm_ra_cosdec_masyr": "-1710.467654065",
+              "pm_dec_masyr": "203.09780864"
+            }
+          }
+        },
+        "resolvedPhysical": {
+          "source": "compact-system-review:10pc-0074",
+          "fields": [
+            "absolute_mag",
+            "mass_solar"
+          ],
+          "adoptedFields": {
+            "absolute_mag": {
+              "value": 15.046768225096228,
+              "status": "derived",
+              "method": "Existing reviewed resolved Johnson V and retained catalog distance; no passband substitution.",
+              "sourceEvidence": {
+                "value": 13.227586502044725,
+                "uncertainty": 0.04723102451352433,
+                "status": "derived",
+                "passband": "Johnson V",
+                "reference": "2016AJ....152..141B",
+                "sourceUrl": "https://www.astro.gsu.edu/RECONS/published37.pdf",
+                "section": "Table 10 and section 6",
+                "inputs": {
+                  "publishedPair": "GJ 473 AB",
+                  "starIds": [
+                    "10pc-0074",
+                    "10pc-0075"
+                  ],
+                  "systemJohnsonV": 12.47,
+                  "systemJohnsonVUncertainty": 0.04,
+                  "deltaVSecondaryMinusPrimary": -0.01,
+                  "deltaVUncertainty": 0.05,
+                  "epoch": null,
+                  "reference": "2016AJ....152..141B:Table 10; section 6",
+                  "scope": "Flux of the named pair only. GJ 1245 AC excludes wide B; GJ 22 AC excludes wide B.",
+                  "method": "V_primary = V_pair + 2.5 log10(1 + 10^(-0.4 deltaV)); V_secondary = V_primary + deltaV. First-order error propagation assumes independent pair V and deltaV; component magnitudes are correlated.",
+                  "caveat": "Published compiled baseline photometry, including transformed HST F583W contrasts; not a dated flare observation. Preserve A/B/C identities when the secondary is slightly brighter."
+                },
+                "scope": "Individual FL Vir A; deblended from the named pair, not assigned its total flux."
+              }
+            },
+            "mass_solar": {
+              "value": 0.1379,
+              "uncertainty": 0.0023,
+              "status": "measured",
+              "reference": "2023A&A...678A..19C:Table 3",
+              "sourceUrl": "https://arxiv.org/html/2307.16719",
+              "method": "Joint Gaia/direct-imaging orbital solution with literature mass fraction; component masses correlated."
+            }
+          },
+          "reviewFile": "catalog-work/shared-enrichment/compact-system-review.json"
+        }
+      },
+      "retainedCatalogSources": [
+        {
+          "catalog_id": "nearest-100",
+          "record": {
+            "temperature_k": 2930.0,
+            "mass_solar": null,
+            "luminosity_solar": null,
+            "radius_solar": null,
+            "metallicity_dex": null,
+            "age_gyr": null,
+            "absolute_mag": null,
+            "epoch": 2000.0,
+            "x_pc": 0.444031164,
+            "y_pc": -1.307297412,
+            "z_pc": 4.100577413,
+            "vx_kms": -33.697585,
+            "vy_kms": -15.552083,
+            "vz_kms": -0.259518,
+            "type": "star",
+            "id": "10pc-0074",
+            "name": "FL Vir A",
+            "spectral_type": "M5.5",
+            "constellation": "Virgo",
+            "metallicity_kind": null,
+            "designations": [
+              "GJ 473",
+              "1RXS J123319.0+090110",
+              "2E 1230.7+0918",
+              "2E 2769",
+              "2MASS J12331738+0901157",
+              "[FS2003] 0637",
+              "[GKL99] 264",
+              "[GKL99] 265",
+              "[RHG95] 1972",
+              "[RHG95] 1973",
+              "Ci 20 716",
+              "Cl* Melotte 25 EGG 43",
+              "CSI+09-12309 1",
+              "CSI+09-12309 2",
+              "FL Vir",
+              "G 12-43",
+              "G 60-14",
+              "GCRV 7553",
+              "GSC 00874-00306",
+              "IDS 12309+0918 AB",
+              "IRAS F12307+0917",
+              "JP11 5148",
+              "JP11 5149",
+              "Karmn J12332+090",
+              "LFT 923",
+              "LHS 333",
+              "LSPM J1233+0901",
+              "LTT 13546",
+              "NLTT 31083",
+              "PLX 2890",
+              "PLX 2890.00",
+              "PM 12308+0918",
+              "PM J12332+0901",
+              "RBS 1128",
+              "REU 1",
+              "RX J1233.3+0901",
+              "StKM 2-849",
+              "TIC 399087412",
+              "UBV 11279",
+              "UCAC4 496-058936",
+              "USNO-B1.0 0990-00217846",
+              "VVO 74",
+              "WDS J12335+0901AB",
+              "WEB 10904",
+              "WISEA J123316.13+090118.0",
+              "Wolf 424",
+              "Wolf 424 A",
+              "Zkh 179",
+              "Zkh 180",
+              "FL Vir A"
+            ],
+            "notes": "10pc census (2023-08-25), object 74, system 35; Wolf 424 A. J2000 Sun-relative Galactic position via Astropy; full-space-motion. Estimated: Pecaut-Mamajek 2022.04.16 M5.5V mean dwarf class, not a measured temperature. Component-resolved Johnson V not independently established; multi-star system V withheld. No orbital model.",
+            "raw_astrometry": {
+              "ra_deg": 188.314492802,
+              "dec_deg": 9.022091625,
+              "parallax_mas": 231.1185,
+              "parallax_error_mas": 0.5119,
+              "pm_ra_cosdec_masyr": -1795.66090246,
+              "pm_ra_error_masyr": 0.5651156,
+              "pm_dec_masyr": 217.788566562,
+              "pm_dec_error_masyr": 0.5500163,
+              "radial_velocity_kms": 1.0,
+              "radial_velocity_error_kms": 4.0,
+              "epoch": 2016.0,
+              "astrometry_ref": "2020yCat.1350....0G",
+              "radial_velocity_ref": "2015ApJ...802L..10T"
+            },
+            "subtypes": [
+              "Eruptive variable"
+            ],
+            "known_planets": 0,
+            "apparent_mag": null
+          },
+          "scope": "Original FL Vir A catalog source; component contributions are not separated here. Retained source measurements, not individual component measurements."
+        },
+        {
+          "catalog_id": "nearest-1000",
+          "record": {
+            "temperature_k": 2930.0,
+            "mass_solar": null,
+            "luminosity_solar": null,
+            "radius_solar": null,
+            "metallicity_dex": null,
+            "age_gyr": null,
+            "absolute_mag": null,
+            "epoch": 2000.0,
+            "x_pc": 0.444031164,
+            "y_pc": -1.307297412,
+            "z_pc": 4.100577413,
+            "vx_kms": -33.697585,
+            "vy_kms": -15.552083,
+            "vz_kms": -0.259518,
+            "type": "star",
+            "id": "10pc-0074",
+            "name": "FL Vir A",
+            "spectral_type": "M5.5",
+            "constellation": "Virgo",
+            "metallicity_kind": null,
+            "designations": [
+              "GJ 473",
+              "1RXS J123319.0+090110",
+              "2E 1230.7+0918",
+              "2E 2769",
+              "2MASS J12331738+0901157",
+              "[FS2003] 0637",
+              "[GKL99] 264",
+              "[GKL99] 265",
+              "[RHG95] 1972",
+              "[RHG95] 1973",
+              "Ci 20 716",
+              "Cl* Melotte 25 EGG 43",
+              "CSI+09-12309 1",
+              "CSI+09-12309 2",
+              "FL Vir",
+              "G 12-43",
+              "G 60-14",
+              "GCRV 7553",
+              "GSC 00874-00306",
+              "IDS 12309+0918 AB",
+              "IRAS F12307+0917",
+              "JP11 5148",
+              "JP11 5149",
+              "Karmn J12332+090",
+              "LFT 923",
+              "LHS 333",
+              "LSPM J1233+0901",
+              "LTT 13546",
+              "NLTT 31083",
+              "PLX 2890",
+              "PLX 2890.00",
+              "PM 12308+0918",
+              "PM J12332+0901",
+              "RBS 1128",
+              "REU 1",
+              "RX J1233.3+0901",
+              "StKM 2-849",
+              "TIC 399087412",
+              "UBV 11279",
+              "UCAC4 496-058936",
+              "USNO-B1.0 0990-00217846",
+              "VVO 74",
+              "WDS J12335+0901AB",
+              "WEB 10904",
+              "WISEA J123316.13+090118.0",
+              "Wolf 424",
+              "Wolf 424 A",
+              "Zkh 179",
+              "Zkh 180",
+              "FL Vir A"
+            ],
+            "notes": "10pc census (2023-08-25), object 74, system 35; Wolf 424 A. J2000 Sun-relative Galactic position via Astropy; full-space-motion. Estimated: Pecaut-Mamajek 2022.04.16 M5.5V mean dwarf class, not a measured temperature. Component-resolved Johnson V not independently established; multi-star system V withheld. No orbital model.",
+            "raw_astrometry": {
+              "ra_deg": 188.314492802,
+              "dec_deg": 9.022091625,
+              "parallax_mas": 231.1185,
+              "parallax_error_mas": 0.5119,
+              "pm_ra_cosdec_masyr": -1795.66090246,
+              "pm_ra_error_masyr": 0.5651156,
+              "pm_dec_masyr": 217.788566562,
+              "pm_dec_error_masyr": 0.5500163,
+              "radial_velocity_kms": 1.0,
+              "radial_velocity_error_kms": 4.0,
+              "epoch": 2016.0,
+              "astrometry_ref": "2020yCat.1350....0G",
+              "radial_velocity_ref": "2015ApJ...802L..10T"
+            },
+            "subtypes": [
+              "Eruptive variable"
+            ],
+            "known_planets": 0,
+            "apparent_mag": null
+          },
+          "scope": "Original FL Vir A catalog source; component contributions are not separated here. Retained source measurements, not individual component measurements."
+        },
+        {
+          "catalog_id": "compact-system-previous",
+          "scope": "Previous effective individual component record before the 2026-10-18 reviewed adoption; retained measurements are alternatives, not the current bulk-motion approximation.",
+          "record": {
+            "temperature_k": 2930.0,
+            "mass_solar": 0.124,
+            "luminosity_solar": null,
+            "radius_solar": null,
+            "metallicity_dex": null,
+            "age_gyr": null,
+            "absolute_mag": 15.046768225096228,
+            "epoch": 2000.0,
+            "x_pc": 0.444031164,
+            "y_pc": -1.307297412,
+            "z_pc": 4.100577413,
+            "vx_kms": -33.697585,
+            "vy_kms": -15.552083,
+            "vz_kms": -0.259518,
+            "type": "star",
+            "id": "10pc-0074",
+            "name": "FL Vir A",
+            "spectral_type": "M5.5",
+            "constellation": "Virgo",
+            "metallicity_kind": null,
+            "designations": [
+              "GJ 473",
+              "1RXS J123319.0+090110",
+              "2E 1230.7+0918",
+              "2E 2769",
+              "2MASS J12331738+0901157",
+              "[FS2003] 0637",
+              "[GKL99] 264",
+              "[GKL99] 265",
+              "[RHG95] 1972",
+              "[RHG95] 1973",
+              "Ci 20 716",
+              "Cl* Melotte 25 EGG 43",
+              "CSI+09-12309 1",
+              "CSI+09-12309 2",
+              "FL Vir",
+              "G 12-43",
+              "G 60-14",
+              "GCRV 7553",
+              "GSC 00874-00306",
+              "IDS 12309+0918 AB",
+              "IRAS F12307+0917",
+              "JP11 5148",
+              "JP11 5149",
+              "Karmn J12332+090",
+              "LFT 923",
+              "LHS 333",
+              "LSPM J1233+0901",
+              "LTT 13546",
+              "NLTT 31083",
+              "PLX 2890",
+              "PLX 2890.00",
+              "PM 12308+0918",
+              "PM J12332+0901",
+              "RBS 1128",
+              "REU 1",
+              "RX J1233.3+0901",
+              "StKM 2-849",
+              "TIC 399087412",
+              "UBV 11279",
+              "UCAC4 496-058936",
+              "USNO-B1.0 0990-00217846",
+              "VVO 74",
+              "WDS J12335+0901AB",
+              "WEB 10904",
+              "WISEA J123316.13+090118.0",
+              "Wolf 424",
+              "Wolf 424 A",
+              "Zkh 179",
+              "Zkh 180",
+              "FL Vir A"
+            ],
+            "notes": "10pc census (2023-08-25), object 74, system 35; Wolf 424 A. J2000 Sun-relative Galactic position via Astropy; full-space-motion. Estimated: Pecaut-Mamajek 2022.04.16 M5.5V mean dwarf class, not a measured temperature. No orbital model. Reviewed individual literature: GJ 473 A / Wolf 424 A: reviewed individual literature. Dynamical masses retain their formal uncertainties. Johnson V, where absent, is deblended using Benedict et al. (2016) Table 10 and the retained component distance; existing photometry is preserved. No individual orbital velocity or age is inferred.",
+            "raw_astrometry": {
+              "ra_deg": 188.314492802,
+              "dec_deg": 9.022091625,
+              "parallax_mas": 231.1185,
+              "parallax_error_mas": 0.5119,
+              "pm_ra_cosdec_masyr": -1795.66090246,
+              "pm_ra_error_masyr": 0.5651156,
+              "pm_dec_masyr": 217.788566562,
+              "pm_dec_error_masyr": 0.5500163,
+              "radial_velocity_kms": 1.0,
+              "radial_velocity_error_kms": 4.0,
+              "epoch": 2016.0,
+              "astrometry_ref": "2020yCat.1350....0G",
+              "radial_velocity_ref": "2015ApJ...802L..10T"
+            },
+            "subtypes": [
+              "Eruptive variable"
+            ],
+            "known_planets": 0,
+            "apparent_mag": 13.227586502044725
+          }
+        }
+      ]
+    },
+    "compact-system:10pc-0075": {
+      "label": "FL Vir B",
+      "starIds": [
+        "10pc-0075"
+      ],
+      "scope": "Exact FL Vir B component. Shared wolf424 bulk vector is an approximation; original positions and component proper-motion measurements are retained.",
+      "values": {
+        "vx_kms": "-33.435401",
+        "vy_kms": "-15.479367",
+        "vz_kms": "-0.264619",
+        "radial_velocity_kms": "1.0",
+        "radial_velocity_error_kms": "4.0",
+        "radial_velocity_ref": "2015ApJ...802L..10T; shared systemic velocity approximation; wolf424",
+        "absolute_mag": "14.9637554866416",
+        "mass_solar": "0.1258"
+      },
+      "notes": "10pc census (2023-08-25), object 75, system 35; Wolf 424 B. J2000 Sun-relative Galactic position via Astropy; reviewed system bulk motion; frozen J2000 position retained. Estimated: Pecaut-Mamajek 2022.04.16 M7V mean dwarf class, not a measured temperature.  No orbital model. Reviewed compact-system bulk motion: Mass-weighted mean of the two retained component space-motion snapshots using Chevalier 2023 dynamical masses 0.1379/0.1258 solar and the existing unresolved 1 +/-4 km/s RV. Approximate barycenter; Gaia orbit/blending systematics and RV orbital contamination are not removed by a full orbital fit. Shared radial velocity 1.0 km/s; individual orbital velocities and orbital phase are not modeled. Original component measurements remain in the compact-system review and catalog provenance. Resolved physical/photometric review: absolute_mag: existing resolved Johnson V review (derived); mass_solar: 2023A&A...678A..19C:Table 3 (measured). No high-quality resolved radius or bolometric luminosity adopted; age remains unavailable.",
+      "sourceSelections": {
+        "astrometryAndMotion": {
+          "source": "reviewed-compact-system:wolf424",
+          "status": "systemic-approximation",
+          "reference": "2015ApJ...802L..10T",
+          "sourceUrl": "https://simbad.cds.unistra.fr/simbad/sim-id?Ident=Wolf+424",
+          "valueKms": 1.0,
+          "uncertaintyKms": 4.0,
+          "fields": [
+            "vx_kms",
+            "vy_kms",
+            "vz_kms",
+            "radial_velocity_kms",
+            "radial_velocity_error_kms",
+            "radial_velocity_ref"
+          ],
+          "scope": "Shared wolf424 bulk-motion approximation; individual orbital velocities and orbital phase are not modeled.",
+          "method": "Mass-weighted mean of the two retained component space-motion snapshots using Chevalier 2023 dynamical masses 0.1379/0.1258 solar and the existing unresolved 1 +/-4 km/s RV. Approximate barycenter; Gaia orbit/blending systematics and RV orbital contamination are not removed by a full orbital fit.",
+          "inputs": {
+            "10pc-0074": {
+              "ra_deg": "188.314492802",
+              "dec_deg": "9.022091625",
+              "parallax_mas": "231.1185",
+              "pm_ra_cosdec_masyr": "-1795.66090246",
+              "pm_dec_masyr": "217.788566562"
+            },
+            "10pc-0075": {
+              "ra_deg": "188.314676776",
+              "dec_deg": "9.021829208",
+              "parallax_mas": "223.4775",
+              "pm_ra_cosdec_masyr": "-1710.467654065",
+              "pm_dec_masyr": "203.09780864"
+            }
+          }
+        },
+        "resolvedPhysical": {
+          "source": "compact-system-review:10pc-0075",
+          "fields": [
+            "absolute_mag",
+            "mass_solar"
+          ],
+          "adoptedFields": {
+            "absolute_mag": {
+              "value": 14.963755486641562,
+              "status": "derived",
+              "method": "Existing reviewed resolved Johnson V and retained catalog distance; no passband substitution.",
+              "sourceEvidence": {
+                "value": 13.217586502044725,
+                "uncertainty": 0.04710898887174951,
+                "status": "derived",
+                "passband": "Johnson V",
+                "reference": "2016AJ....152..141B",
+                "sourceUrl": "https://www.astro.gsu.edu/RECONS/published37.pdf",
+                "section": "Table 10 and section 6",
+                "inputs": {
+                  "publishedPair": "GJ 473 AB",
+                  "starIds": [
+                    "10pc-0074",
+                    "10pc-0075"
+                  ],
+                  "systemJohnsonV": 12.47,
+                  "systemJohnsonVUncertainty": 0.04,
+                  "deltaVSecondaryMinusPrimary": -0.01,
+                  "deltaVUncertainty": 0.05,
+                  "epoch": null,
+                  "reference": "2016AJ....152..141B:Table 10; section 6",
+                  "scope": "Flux of the named pair only. GJ 1245 AC excludes wide B; GJ 22 AC excludes wide B.",
+                  "method": "V_primary = V_pair + 2.5 log10(1 + 10^(-0.4 deltaV)); V_secondary = V_primary + deltaV. First-order error propagation assumes independent pair V and deltaV; component magnitudes are correlated.",
+                  "caveat": "Published compiled baseline photometry, including transformed HST F583W contrasts; not a dated flare observation. Preserve A/B/C identities when the secondary is slightly brighter."
+                },
+                "scope": "Individual FL Vir B; deblended from the named pair, not assigned its total flux."
+              }
+            },
+            "mass_solar": {
+              "value": 0.1258,
+              "uncertainty": 0.0022,
+              "status": "measured",
+              "reference": "2023A&A...678A..19C:Table 3",
+              "sourceUrl": "https://arxiv.org/html/2307.16719",
+              "method": "Joint Gaia/direct-imaging orbital solution with literature mass fraction; component masses correlated."
+            }
+          },
+          "reviewFile": "catalog-work/shared-enrichment/compact-system-review.json"
+        }
+      },
+      "retainedCatalogSources": [
+        {
+          "catalog_id": "nearest-100",
+          "record": {
+            "temperature_k": 2680.0,
+            "mass_solar": null,
+            "luminosity_solar": null,
+            "radius_solar": null,
+            "metallicity_dex": null,
+            "age_gyr": null,
+            "absolute_mag": null,
+            "epoch": 2000.0,
+            "x_pc": 0.45920955,
+            "y_pc": -1.352021054,
+            "z_pc": 4.240791896,
+            "vx_kms": null,
+            "vy_kms": null,
+            "vz_kms": null,
+            "type": "star",
+            "id": "10pc-0075",
+            "name": "FL Vir B",
+            "spectral_type": "M7",
+            "constellation": "Virgo",
+            "metallicity_kind": null,
+            "designations": [
+              "GJ 473",
+              "1RXS J123319.0+090110",
+              "2E 1230.7+0918",
+              "2E 2769",
+              "2MASS J12331738+0901157",
+              "[FS2003] 0637",
+              "[GKL99] 264",
+              "[GKL99] 265",
+              "[RHG95] 1972",
+              "[RHG95] 1973",
+              "Ci 20 716",
+              "Cl* Melotte 25 EGG 43",
+              "CSI+09-12309 1",
+              "CSI+09-12309 2",
+              "FL Vir",
+              "G 12-43",
+              "G 60-14",
+              "GCRV 7553",
+              "GSC 00874-00306",
+              "IDS 12309+0918 AB",
+              "IRAS F12307+0917",
+              "JP11 5148",
+              "JP11 5149",
+              "Karmn J12332+090",
+              "LFT 923",
+              "LHS 333",
+              "LSPM J1233+0901",
+              "LTT 13546",
+              "NLTT 31083",
+              "PLX 2890",
+              "PLX 2890.00",
+              "PM 12308+0918",
+              "PM J12332+0901",
+              "RBS 1128",
+              "REU 1",
+              "RX J1233.3+0901",
+              "StKM 2-849",
+              "TIC 399087412",
+              "UBV 11279",
+              "UCAC4 496-058936",
+              "USNO-B1.0 0990-00217846",
+              "VVO 74",
+              "WDS J12335+0901AB",
+              "WEB 10904",
+              "WISEA J123316.13+090118.0",
+              "Wolf 424",
+              "Wolf 424 B",
+              "Zkh 179",
+              "Zkh 180",
+              "FL Vir B"
+            ],
+            "notes": "10pc census (2023-08-25), object 75, system 35; Wolf 424 B. J2000 Sun-relative Galactic position via Astropy; transverse-only; unknown/withheld RV, no exported velocity. Estimated: Pecaut-Mamajek 2022.04.16 M7V mean dwarf class, not a measured temperature. Component-resolved Johnson V not independently established; multi-star system V withheld. No orbital model.",
+            "raw_astrometry": {
+              "ra_deg": 188.314676776,
+              "dec_deg": 9.021829208,
+              "parallax_mas": 223.4775,
+              "parallax_error_mas": 0.4665,
+              "pm_ra_cosdec_masyr": -1710.467654065,
+              "pm_ra_error_masyr": 0.5541853,
+              "pm_dec_masyr": 203.09780864,
+              "pm_dec_error_masyr": 0.45071223,
+              "radial_velocity_kms": null,
+              "radial_velocity_error_kms": null,
+              "epoch": 2016.0,
+              "astrometry_ref": "2020yCat.1350....0G",
+              "radial_velocity_ref": null
+            },
+            "subtypes": [
+              "Eruptive variable"
+            ],
+            "known_planets": 0,
+            "apparent_mag": null
+          },
+          "scope": "Original FL Vir B catalog source; component contributions are not separated here. Retained source measurements, not individual component measurements."
+        },
+        {
+          "catalog_id": "nearest-1000",
+          "record": {
+            "temperature_k": 2680.0,
+            "mass_solar": null,
+            "luminosity_solar": null,
+            "radius_solar": null,
+            "metallicity_dex": null,
+            "age_gyr": null,
+            "absolute_mag": null,
+            "epoch": 2000.0,
+            "x_pc": 0.45920955,
+            "y_pc": -1.352021054,
+            "z_pc": 4.240791896,
+            "vx_kms": null,
+            "vy_kms": null,
+            "vz_kms": null,
+            "type": "star",
+            "id": "10pc-0075",
+            "name": "FL Vir B",
+            "spectral_type": "M7",
+            "constellation": "Virgo",
+            "metallicity_kind": null,
+            "designations": [
+              "GJ 473",
+              "1RXS J123319.0+090110",
+              "2E 1230.7+0918",
+              "2E 2769",
+              "2MASS J12331738+0901157",
+              "[FS2003] 0637",
+              "[GKL99] 264",
+              "[GKL99] 265",
+              "[RHG95] 1972",
+              "[RHG95] 1973",
+              "Ci 20 716",
+              "Cl* Melotte 25 EGG 43",
+              "CSI+09-12309 1",
+              "CSI+09-12309 2",
+              "FL Vir",
+              "G 12-43",
+              "G 60-14",
+              "GCRV 7553",
+              "GSC 00874-00306",
+              "IDS 12309+0918 AB",
+              "IRAS F12307+0917",
+              "JP11 5148",
+              "JP11 5149",
+              "Karmn J12332+090",
+              "LFT 923",
+              "LHS 333",
+              "LSPM J1233+0901",
+              "LTT 13546",
+              "NLTT 31083",
+              "PLX 2890",
+              "PLX 2890.00",
+              "PM 12308+0918",
+              "PM J12332+0901",
+              "RBS 1128",
+              "REU 1",
+              "RX J1233.3+0901",
+              "StKM 2-849",
+              "TIC 399087412",
+              "UBV 11279",
+              "UCAC4 496-058936",
+              "USNO-B1.0 0990-00217846",
+              "VVO 74",
+              "WDS J12335+0901AB",
+              "WEB 10904",
+              "WISEA J123316.13+090118.0",
+              "Wolf 424",
+              "Wolf 424 B",
+              "Zkh 179",
+              "Zkh 180",
+              "FL Vir B"
+            ],
+            "notes": "10pc census (2023-08-25), object 75, system 35; Wolf 424 B. J2000 Sun-relative Galactic position via Astropy; transverse-only; unknown/withheld RV, no exported velocity. Estimated: Pecaut-Mamajek 2022.04.16 M7V mean dwarf class, not a measured temperature. Component-resolved Johnson V not independently established; multi-star system V withheld. No orbital model.",
+            "raw_astrometry": {
+              "ra_deg": 188.314676776,
+              "dec_deg": 9.021829208,
+              "parallax_mas": 223.4775,
+              "parallax_error_mas": 0.4665,
+              "pm_ra_cosdec_masyr": -1710.467654065,
+              "pm_ra_error_masyr": 0.5541853,
+              "pm_dec_masyr": 203.09780864,
+              "pm_dec_error_masyr": 0.45071223,
+              "radial_velocity_kms": null,
+              "radial_velocity_error_kms": null,
+              "epoch": 2016.0,
+              "astrometry_ref": "2020yCat.1350....0G",
+              "radial_velocity_ref": null
+            },
+            "subtypes": [
+              "Eruptive variable"
+            ],
+            "known_planets": 0,
+            "apparent_mag": null
+          },
+          "scope": "Original FL Vir B catalog source; component contributions are not separated here. Retained source measurements, not individual component measurements."
+        },
+        {
+          "catalog_id": "compact-system-previous",
+          "scope": "Previous effective individual component record before the 2026-10-18 reviewed adoption; retained measurements are alternatives, not the current bulk-motion approximation.",
+          "record": {
+            "temperature_k": 2680.0,
+            "mass_solar": 0.113,
+            "luminosity_solar": null,
+            "radius_solar": null,
+            "metallicity_dex": null,
+            "age_gyr": null,
+            "absolute_mag": 14.963755486641562,
+            "epoch": 2000.0,
+            "x_pc": 0.45920955,
+            "y_pc": -1.352021054,
+            "z_pc": 4.240791896,
+            "vx_kms": null,
+            "vy_kms": null,
+            "vz_kms": null,
+            "type": "star",
+            "id": "10pc-0075",
+            "name": "FL Vir B",
+            "spectral_type": "M7",
+            "constellation": "Virgo",
+            "metallicity_kind": null,
+            "designations": [
+              "GJ 473",
+              "1RXS J123319.0+090110",
+              "2E 1230.7+0918",
+              "2E 2769",
+              "2MASS J12331738+0901157",
+              "[FS2003] 0637",
+              "[GKL99] 264",
+              "[GKL99] 265",
+              "[RHG95] 1972",
+              "[RHG95] 1973",
+              "Ci 20 716",
+              "Cl* Melotte 25 EGG 43",
+              "CSI+09-12309 1",
+              "CSI+09-12309 2",
+              "FL Vir",
+              "G 12-43",
+              "G 60-14",
+              "GCRV 7553",
+              "GSC 00874-00306",
+              "IDS 12309+0918 AB",
+              "IRAS F12307+0917",
+              "JP11 5148",
+              "JP11 5149",
+              "Karmn J12332+090",
+              "LFT 923",
+              "LHS 333",
+              "LSPM J1233+0901",
+              "LTT 13546",
+              "NLTT 31083",
+              "PLX 2890",
+              "PLX 2890.00",
+              "PM 12308+0918",
+              "PM J12332+0901",
+              "RBS 1128",
+              "REU 1",
+              "RX J1233.3+0901",
+              "StKM 2-849",
+              "TIC 399087412",
+              "UBV 11279",
+              "UCAC4 496-058936",
+              "USNO-B1.0 0990-00217846",
+              "VVO 74",
+              "WDS J12335+0901AB",
+              "WEB 10904",
+              "WISEA J123316.13+090118.0",
+              "Wolf 424",
+              "Wolf 424 B",
+              "Zkh 179",
+              "Zkh 180",
+              "FL Vir B"
+            ],
+            "notes": "10pc census (2023-08-25), object 75, system 35; Wolf 424 B. J2000 Sun-relative Galactic position via Astropy; transverse-only; unknown/withheld RV, no exported velocity. Estimated: Pecaut-Mamajek 2022.04.16 M7V mean dwarf class, not a measured temperature. No orbital model. Reviewed individual literature: GJ 473 B / Wolf 424 B: reviewed individual literature. Dynamical masses retain their formal uncertainties. Johnson V, where absent, is deblended using Benedict et al. (2016) Table 10 and the retained component distance; existing photometry is preserved. No individual orbital velocity or age is inferred.",
+            "raw_astrometry": {
+              "ra_deg": 188.314676776,
+              "dec_deg": 9.021829208,
+              "parallax_mas": 223.4775,
+              "parallax_error_mas": 0.4665,
+              "pm_ra_cosdec_masyr": -1710.467654065,
+              "pm_ra_error_masyr": 0.5541853,
+              "pm_dec_masyr": 203.09780864,
+              "pm_dec_error_masyr": 0.45071223,
+              "radial_velocity_kms": null,
+              "radial_velocity_error_kms": null,
+              "epoch": 2016.0,
+              "astrometry_ref": "2020yCat.1350....0G",
+              "radial_velocity_ref": null
+            },
+            "subtypes": [
+              "Eruptive variable"
+            ],
+            "known_planets": 0,
+            "apparent_mag": 13.217586502044725
+          }
+        }
+      ]
+    },
+    "compact-system:10pc-0087": {
+      "label": "GJ 1245 A",
+      "starIds": [
+        "10pc-0087"
+      ],
+      "scope": "Exact GJ 1245 A component. Shared gj1245 bulk vector is an approximation; original positions and component proper-motion measurements are retained.",
+      "values": {
+        "vx_kms": "6.624895",
+        "vy_kms": "5.975201",
+        "vz_kms": "-11.048438",
+        "radial_velocity_kms": "5.43",
+        "radial_velocity_error_kms": "0.1",
+        "radial_velocity_ref": "2010MNRAS.407.2269M; shared systemic velocity approximation; gj1245",
+        "absolute_mag": "15.1044952405486",
+        "mass_solar": "0.12",
+        "temperature_k": "2927",
+        "radius_solar": "0.146",
+        "luminosity_solar": "0.00141253754462275"
+      },
+      "notes": "10pc census (2023-08-25), object 87, system 43; GJ 1245 A. J2000 Sun-relative Galactic position via Astropy; full-space-motion.   No orbital model. Reviewed compact-system bulk motion: Use the well-separated B component Gaia EDR3 astrometry and existing Morin 2010 RV as the ABC bulk-motion proxy. Includes unmodeled wide-orbit motion of B; its 0.10 km/s measurement error is not the uncertainty of the ABC approximation. A/C orbital velocities are not modeled. Shared radial velocity 5.43 km/s; individual orbital velocities and orbital phase are not modeled. Original component measurements remain in the compact-system review and catalog provenance. Resolved physical/photometric review: absolute_mag: existing resolved Johnson V review (derived); mass_solar: 2021AJ....161..172D:Table 2 (measured); temperature_k: 2021AJ....161..172D:Table 2 (model-derived); radius_solar: 2021AJ....161..172D:Table 2 (model-derived); luminosity_solar: 2021AJ....161..172D:Table 2 (model-derived).",
+      "sourceSelections": {
+        "astrometryAndMotion": {
+          "source": "reviewed-compact-system:gj1245",
+          "status": "systemic-approximation",
+          "reference": "2010MNRAS.407.2269M",
+          "sourceUrl": "https://academic.oup.com/mnras/article/407/4/2269/999815",
+          "valueKms": 5.43,
+          "uncertaintyKms": 0.1,
+          "fields": [
+            "vx_kms",
+            "vy_kms",
+            "vz_kms",
+            "radial_velocity_kms",
+            "radial_velocity_error_kms",
+            "radial_velocity_ref"
+          ],
+          "scope": "Shared gj1245 bulk-motion approximation; individual orbital velocities and orbital phase are not modeled.",
+          "method": "Use the well-separated B component Gaia EDR3 astrometry and existing Morin 2010 RV as the ABC bulk-motion proxy. Includes unmodeled wide-orbit motion of B; its 0.10 km/s measurement error is not the uncertainty of the ABC approximation. A/C orbital velocities are not modeled.",
+          "inputs": {
+            "ra_deg": "298.481925902",
+            "dec_deg": "44.412906159",
+            "parallax_mas": "214.5745",
+            "pm_ra_cosdec_masyr": "349.363004776",
+            "pm_dec_masyr": "-480.322315107"
+          }
+        },
+        "resolvedPhysical": {
+          "source": "compact-system-review:10pc-0087",
+          "fields": [
+            "absolute_mag",
+            "mass_solar",
+            "temperature_k",
+            "radius_solar",
+            "luminosity_solar"
+          ],
+          "adoptedFields": {
+            "absolute_mag": {
+              "value": 15.104495240548594,
+              "status": "derived",
+              "method": "Existing reviewed resolved Johnson V and retained catalog distance; no passband substitution.",
+              "sourceEvidence": {
+                "value": 13.461220054668278,
+                "uncertainty": 0.030088343323712557,
+                "status": "derived",
+                "passband": "Johnson V",
+                "reference": "2016AJ....152..141B",
+                "sourceUrl": "https://www.astro.gsu.edu/RECONS/published37.pdf",
+                "section": "Table 10 and section 6",
+                "inputs": {
+                  "publishedPair": "GJ 1245 AC",
+                  "starIds": [
+                    "10pc-0087",
+                    "10pc-0088"
+                  ],
+                  "systemJohnsonV": 13.41,
+                  "systemJohnsonVUncertainty": 0.03,
+                  "deltaVSecondaryMinusPrimary": 3.29,
+                  "deltaVUncertainty": 0.05,
+                  "epoch": null,
+                  "reference": "2016AJ....152..141B:Table 10; section 6",
+                  "scope": "Flux of the named pair only. GJ 1245 AC excludes wide B; GJ 22 AC excludes wide B.",
+                  "method": "V_primary = V_pair + 2.5 log10(1 + 10^(-0.4 deltaV)); V_secondary = V_primary + deltaV. First-order error propagation assumes independent pair V and deltaV; component magnitudes are correlated.",
+                  "caveat": "Published compiled baseline photometry, including transformed HST F583W contrasts; not a dated flare observation. Preserve A/B/C identities when the secondary is slightly brighter."
+                },
+                "scope": "Individual GJ 1245 A; deblended from the named pair, not assigned its total flux."
+              }
+            },
+            "mass_solar": {
+              "value": 0.12,
+              "uncertainty": 0.001,
+              "status": "measured",
+              "reference": "2021AJ....161..172D:Table 2",
+              "sourceUrl": "https://www.astro.gsu.edu/RECONS/published47.pdf",
+              "method": "Dynamical mass corrected for Gaia distance."
+            },
+            "temperature_k": {
+              "value": 2927,
+              "uncertainty": 109,
+              "status": "model-derived",
+              "reference": "2021AJ....161..172D:Table 2",
+              "sourceUrl": "https://www.astro.gsu.edu/RECONS/published47.pdf",
+              "method": "Resolved HST/STIS atmospheric fit; model systematics, especially C."
+            },
+            "radius_solar": {
+              "value": 0.146,
+              "uncertainty": 0.007,
+              "status": "model-derived",
+              "reference": "2021AJ....161..172D:Table 2",
+              "sourceUrl": "https://www.astro.gsu.edu/RECONS/published47.pdf",
+              "method": "Resolved atmosphere flux scaling; 5 percent systematic scatter."
+            },
+            "luminosity_solar": {
+              "value": 0.001412537544622754,
+              "uncertainty": {
+                "minus": 0.00031605934847956925,
+                "plus": 0.00040716331398722917
+              },
+              "status": "model-derived",
+              "reference": "2021AJ....161..172D:Table 2",
+              "sourceUrl": "https://www.astro.gsu.edu/RECONS/published47.pdf",
+              "method": "Published log10 L/Lsun=-2.85 +/-0.11 (A), -3.50 +/-0.12 (C); converted to linear units."
+            }
+          },
+          "reviewFile": "catalog-work/shared-enrichment/compact-system-review.json"
+        }
+      },
+      "retainedCatalogSources": [
+        {
+          "catalog_id": "nearest-100",
+          "record": {
+            "temperature_k": 2930.0,
+            "mass_solar": null,
+            "luminosity_solar": null,
+            "radius_solar": null,
+            "metallicity_dex": null,
+            "age_gyr": null,
+            "absolute_mag": null,
+            "epoch": 2000.0,
+            "x_pc": 0.896668115,
+            "y_pc": 4.552749343,
+            "z_pc": 0.694263397,
+            "vx_kms": 4.359547,
+            "vy_kms": 4.175092,
+            "vz_kms": -12.739753,
+            "type": "star",
+            "id": "10pc-0087",
+            "name": "GJ 1245 A",
+            "spectral_type": "M5.5",
+            "constellation": "Cygnus",
+            "metallicity_kind": null,
+            "designations": [
+              "GJ 1245 C",
+              "1RXS J195354.7+442454",
+              "2E 1952.2+4416",
+              "2E 4298",
+              "2MASS J19535443+4424541",
+              "8pc 220.20A",
+              "8pc 220.20C",
+              "[GKL99] 378",
+              "[GKL99] 379",
+              "[RHG95] 3120",
+              "AP J19535443+4424541",
+              "G 208-44",
+              "Gaia DR2 2079073928612819840",
+              "Gaia DR3 2079074130463898624",
+              "Gaia EDR3 2079074130463898624",
+              "GEN# +9.80208044",
+              "GIC 159A",
+              "HAT 155-00965",
+              "Karmn J19539+444W",
+              "Karmn J19539+444WAB",
+              "KIC 8451868",
+              "LHS 3494",
+              "LSPM J1953+4424W",
+              "MCY 3",
+              "NLTT 48414",
+              "PM J19539+4424W",
+              "PMSC 19506+4410AC",
+              "TIC 274127410",
+              "UCAC4 673-080522",
+              "USNO 353",
+              "USNO 892",
+              "V1581 Cyg",
+              "WDS J19539+4425A",
+              "WDS J19539+4425Aa,Ab",
+              "Zkh 298",
+              "GJ 1245 A"
+            ],
+            "notes": "10pc census (2023-08-25), object 87, system 43; GJ 1245 A. J2000 Sun-relative Galactic position via Astropy; full-space-motion. Estimated: Pecaut-Mamajek 2022.04.16 M5.5V mean dwarf class, not a measured temperature. Component-resolved Johnson V not independently established; multi-star system V withheld. No orbital model.",
+            "raw_astrometry": {
+              "ra_deg": 298.479759093,
+              "dec_deg": 44.412330143,
+              "parallax_mas": 213.1329,
+              "parallax_error_mas": 0.5737,
+              "pm_ra_cosdec_masyr": 441.562,
+              "pm_ra_error_masyr": 1.144,
+              "pm_dec_masyr": -434.241,
+              "pm_dec_error_masyr": 1.031,
+              "radial_velocity_kms": 3.0,
+              "radial_velocity_error_kms": 5.0,
+              "epoch": 2016.0,
+              "astrometry_ref": "2018yCat.1345....0G",
+              "radial_velocity_ref": "2014AJ....147...20N"
+            },
+            "subtypes": [
+              "Eruptive variable",
+              "Rotating variable"
+            ],
+            "known_planets": 0,
+            "apparent_mag": null
+          },
+          "scope": "Original GJ 1245 A catalog source; component contributions are not separated here. Retained source measurements, not individual component measurements."
+        },
+        {
+          "catalog_id": "nearest-1000",
+          "record": {
+            "temperature_k": 2930.0,
+            "mass_solar": null,
+            "luminosity_solar": null,
+            "radius_solar": null,
+            "metallicity_dex": null,
+            "age_gyr": null,
+            "absolute_mag": null,
+            "epoch": 2000.0,
+            "x_pc": 0.896668115,
+            "y_pc": 4.552749343,
+            "z_pc": 0.694263397,
+            "vx_kms": 4.359547,
+            "vy_kms": 4.175092,
+            "vz_kms": -12.739753,
+            "type": "star",
+            "id": "10pc-0087",
+            "name": "GJ 1245 A",
+            "spectral_type": "M5.5",
+            "constellation": "Cygnus",
+            "metallicity_kind": null,
+            "designations": [
+              "GJ 1245 C",
+              "1RXS J195354.7+442454",
+              "2E 1952.2+4416",
+              "2E 4298",
+              "2MASS J19535443+4424541",
+              "8pc 220.20A",
+              "8pc 220.20C",
+              "[GKL99] 378",
+              "[GKL99] 379",
+              "[RHG95] 3120",
+              "AP J19535443+4424541",
+              "G 208-44",
+              "Gaia DR2 2079073928612819840",
+              "Gaia DR3 2079074130463898624",
+              "Gaia EDR3 2079074130463898624",
+              "GEN# +9.80208044",
+              "GIC 159A",
+              "HAT 155-00965",
+              "Karmn J19539+444W",
+              "Karmn J19539+444WAB",
+              "KIC 8451868",
+              "LHS 3494",
+              "LSPM J1953+4424W",
+              "MCY 3",
+              "NLTT 48414",
+              "PM J19539+4424W",
+              "PMSC 19506+4410AC",
+              "TIC 274127410",
+              "UCAC4 673-080522",
+              "USNO 353",
+              "USNO 892",
+              "V1581 Cyg",
+              "WDS J19539+4425A",
+              "WDS J19539+4425Aa,Ab",
+              "Zkh 298",
+              "GJ 1245 A"
+            ],
+            "notes": "10pc census (2023-08-25), object 87, system 43; GJ 1245 A. J2000 Sun-relative Galactic position via Astropy; full-space-motion. Estimated: Pecaut-Mamajek 2022.04.16 M5.5V mean dwarf class, not a measured temperature. Component-resolved Johnson V not independently established; multi-star system V withheld. No orbital model.",
+            "raw_astrometry": {
+              "ra_deg": 298.479759093,
+              "dec_deg": 44.412330143,
+              "parallax_mas": 213.1329,
+              "parallax_error_mas": 0.5737,
+              "pm_ra_cosdec_masyr": 441.562,
+              "pm_ra_error_masyr": 1.144,
+              "pm_dec_masyr": -434.241,
+              "pm_dec_error_masyr": 1.031,
+              "radial_velocity_kms": 3.0,
+              "radial_velocity_error_kms": 5.0,
+              "epoch": 2016.0,
+              "astrometry_ref": "2018yCat.1345....0G",
+              "radial_velocity_ref": "2014AJ....147...20N"
+            },
+            "subtypes": [
+              "Eruptive variable",
+              "Rotating variable"
+            ],
+            "known_planets": 0,
+            "apparent_mag": null
+          },
+          "scope": "Original GJ 1245 A catalog source; component contributions are not separated here. Retained source measurements, not individual component measurements."
+        },
+        {
+          "catalog_id": "compact-system-previous",
+          "scope": "Previous effective individual component record before the 2026-10-18 reviewed adoption; retained measurements are alternatives, not the current bulk-motion approximation.",
+          "record": {
+            "temperature_k": 2930.0,
+            "mass_solar": 0.111,
+            "luminosity_solar": null,
+            "radius_solar": null,
+            "metallicity_dex": null,
+            "age_gyr": null,
+            "absolute_mag": 15.104495240548594,
+            "epoch": 2000.0,
+            "x_pc": 0.896668115,
+            "y_pc": 4.552749343,
+            "z_pc": 0.694263397,
+            "vx_kms": 4.359547,
+            "vy_kms": 4.175092,
+            "vz_kms": -12.739753,
+            "type": "star",
+            "id": "10pc-0087",
+            "name": "GJ 1245 A",
+            "spectral_type": "M5.5",
+            "constellation": "Cygnus",
+            "metallicity_kind": null,
+            "designations": [
+              "GJ 1245 C",
+              "1RXS J195354.7+442454",
+              "2E 1952.2+4416",
+              "2E 4298",
+              "2MASS J19535443+4424541",
+              "8pc 220.20A",
+              "8pc 220.20C",
+              "[GKL99] 378",
+              "[GKL99] 379",
+              "[RHG95] 3120",
+              "AP J19535443+4424541",
+              "G 208-44",
+              "Gaia DR2 2079073928612819840",
+              "Gaia DR3 2079074130463898624",
+              "Gaia EDR3 2079074130463898624",
+              "GEN# +9.80208044",
+              "GIC 159A",
+              "HAT 155-00965",
+              "Karmn J19539+444W",
+              "Karmn J19539+444WAB",
+              "KIC 8451868",
+              "LHS 3494",
+              "LSPM J1953+4424W",
+              "MCY 3",
+              "NLTT 48414",
+              "PM J19539+4424W",
+              "PMSC 19506+4410AC",
+              "TIC 274127410",
+              "UCAC4 673-080522",
+              "USNO 353",
+              "USNO 892",
+              "V1581 Cyg",
+              "WDS J19539+4425A",
+              "WDS J19539+4425Aa,Ab",
+              "Zkh 298",
+              "GJ 1245 A"
+            ],
+            "notes": "10pc census (2023-08-25), object 87, system 43; GJ 1245 A. J2000 Sun-relative Galactic position via Astropy; full-space-motion. Estimated: Pecaut-Mamajek 2022.04.16 M5.5V mean dwarf class, not a measured temperature. No orbital model. Reviewed individual literature: GJ 1245 A: reviewed individual literature. Dynamical masses retain their formal uncertainties. Johnson V, where absent, is deblended using Benedict et al. (2016) Table 10 and the retained component distance; existing photometry is preserved. No individual orbital velocity or age is inferred.",
+            "raw_astrometry": {
+              "ra_deg": 298.479759093,
+              "dec_deg": 44.412330143,
+              "parallax_mas": 213.1329,
+              "parallax_error_mas": 0.5737,
+              "pm_ra_cosdec_masyr": 441.562,
+              "pm_ra_error_masyr": 1.144,
+              "pm_dec_masyr": -434.241,
+              "pm_dec_error_masyr": 1.031,
+              "radial_velocity_kms": 3.0,
+              "radial_velocity_error_kms": 5.0,
+              "epoch": 2016.0,
+              "astrometry_ref": "2018yCat.1345....0G",
+              "radial_velocity_ref": "2014AJ....147...20N"
+            },
+            "subtypes": [
+              "Eruptive variable",
+              "Rotating variable"
+            ],
+            "known_planets": 0,
+            "apparent_mag": 13.461220054668278
+          }
+        }
+      ]
+    },
+    "compact-system:10pc-0088": {
+      "label": "GJ 1245 C",
+      "starIds": [
+        "10pc-0088"
+      ],
+      "scope": "Exact GJ 1245 C component. Shared gj1245 bulk vector is an approximation; original positions and component proper-motion measurements are retained.",
+      "values": {
+        "vx_kms": "6.624895",
+        "vy_kms": "5.975201",
+        "vz_kms": "-11.048438",
+        "radial_velocity_kms": "5.43",
+        "radial_velocity_error_kms": "0.1",
+        "radial_velocity_ref": "2010MNRAS.407.2269M; shared systemic velocity approximation; gj1245",
+        "absolute_mag": "18.3944725208467",
+        "mass_solar": "0.081",
+        "temperature_k": "2611",
+        "radius_solar": "0.087",
+        "luminosity_solar": "0.000316227766016838"
+      },
+      "notes": "10pc census (2023-08-25), object 88, system 43; GJ 1245 C. J2000 Sun-relative Galactic position via Astropy; reviewed system bulk motion; frozen J2000 position retained.   No orbital model. Reviewed compact-system bulk motion: Use the well-separated B component Gaia EDR3 astrometry and existing Morin 2010 RV as the ABC bulk-motion proxy. Includes unmodeled wide-orbit motion of B; its 0.10 km/s measurement error is not the uncertainty of the ABC approximation. A/C orbital velocities are not modeled. Shared radial velocity 5.43 km/s; individual orbital velocities and orbital phase are not modeled. Original component measurements remain in the compact-system review and catalog provenance. Resolved physical/photometric review: absolute_mag: existing resolved Johnson V review (derived); mass_solar: 2021AJ....161..172D:Table 2 (measured); temperature_k: 2021AJ....161..172D:Table 2 (model-derived); radius_solar: 2021AJ....161..172D:Table 2 (model-derived); luminosity_solar: 2021AJ....161..172D:Table 2 (model-derived).",
+      "sourceSelections": {
+        "astrometryAndMotion": {
+          "source": "reviewed-compact-system:gj1245",
+          "status": "systemic-approximation",
+          "reference": "2010MNRAS.407.2269M",
+          "sourceUrl": "https://academic.oup.com/mnras/article/407/4/2269/999815",
+          "valueKms": 5.43,
+          "uncertaintyKms": 0.1,
+          "fields": [
+            "vx_kms",
+            "vy_kms",
+            "vz_kms",
+            "radial_velocity_kms",
+            "radial_velocity_error_kms",
+            "radial_velocity_ref"
+          ],
+          "scope": "Shared gj1245 bulk-motion approximation; individual orbital velocities and orbital phase are not modeled.",
+          "method": "Use the well-separated B component Gaia EDR3 astrometry and existing Morin 2010 RV as the ABC bulk-motion proxy. Includes unmodeled wide-orbit motion of B; its 0.10 km/s measurement error is not the uncertainty of the ABC approximation. A/C orbital velocities are not modeled.",
+          "inputs": {
+            "ra_deg": "298.481925902",
+            "dec_deg": "44.412906159",
+            "parallax_mas": "214.5745",
+            "pm_ra_cosdec_masyr": "349.363004776",
+            "pm_dec_masyr": "-480.322315107"
+          }
+        },
+        "resolvedPhysical": {
+          "source": "compact-system-review:10pc-0088",
+          "fields": [
+            "absolute_mag",
+            "mass_solar",
+            "temperature_k",
+            "radius_solar",
+            "luminosity_solar"
+          ],
+          "adoptedFields": {
+            "absolute_mag": {
+              "value": 18.394472520846676,
+              "status": "derived",
+              "method": "Existing reviewed resolved Johnson V and retained catalog distance; no passband substitution.",
+              "sourceEvidence": {
+                "value": 16.751220054668277,
+                "uncertainty": 0.056346327876171144,
+                "status": "derived",
+                "passband": "Johnson V",
+                "reference": "2016AJ....152..141B",
+                "sourceUrl": "https://www.astro.gsu.edu/RECONS/published37.pdf",
+                "section": "Table 10 and section 6",
+                "inputs": {
+                  "publishedPair": "GJ 1245 AC",
+                  "starIds": [
+                    "10pc-0087",
+                    "10pc-0088"
+                  ],
+                  "systemJohnsonV": 13.41,
+                  "systemJohnsonVUncertainty": 0.03,
+                  "deltaVSecondaryMinusPrimary": 3.29,
+                  "deltaVUncertainty": 0.05,
+                  "epoch": null,
+                  "reference": "2016AJ....152..141B:Table 10; section 6",
+                  "scope": "Flux of the named pair only. GJ 1245 AC excludes wide B; GJ 22 AC excludes wide B.",
+                  "method": "V_primary = V_pair + 2.5 log10(1 + 10^(-0.4 deltaV)); V_secondary = V_primary + deltaV. First-order error propagation assumes independent pair V and deltaV; component magnitudes are correlated.",
+                  "caveat": "Published compiled baseline photometry, including transformed HST F583W contrasts; not a dated flare observation. Preserve A/B/C identities when the secondary is slightly brighter."
+                },
+                "scope": "Individual GJ 1245 C; deblended from the named pair, not assigned its total flux."
+              }
+            },
+            "mass_solar": {
+              "value": 0.081,
+              "uncertainty": 0.001,
+              "status": "measured",
+              "reference": "2021AJ....161..172D:Table 2",
+              "sourceUrl": "https://www.astro.gsu.edu/RECONS/published47.pdf",
+              "method": "Dynamical mass corrected for Gaia distance."
+            },
+            "temperature_k": {
+              "value": 2611,
+              "uncertainty": 109,
+              "status": "model-derived",
+              "reference": "2021AJ....161..172D:Table 2",
+              "sourceUrl": "https://www.astro.gsu.edu/RECONS/published47.pdf",
+              "method": "Resolved HST/STIS atmospheric fit; model systematics, especially C."
+            },
+            "radius_solar": {
+              "value": 0.087,
+              "uncertainty": 0.004,
+              "status": "model-derived",
+              "reference": "2021AJ....161..172D:Table 2",
+              "sourceUrl": "https://www.astro.gsu.edu/RECONS/published47.pdf",
+              "method": "Resolved atmosphere flux scaling; 5 percent systematic scatter."
+            },
+            "luminosity_solar": {
+              "value": 0.00031622776601683794,
+              "uncertainty": {
+                "minus": 7.634447411488888e-05,
+                "plus": 0.00010064161745349744
+              },
+              "status": "model-derived",
+              "reference": "2021AJ....161..172D:Table 2",
+              "sourceUrl": "https://www.astro.gsu.edu/RECONS/published47.pdf",
+              "method": "Published log10 L/Lsun=-2.85 +/-0.11 (A), -3.50 +/-0.12 (C); converted to linear units."
+            }
+          },
+          "reviewFile": "catalog-work/shared-enrichment/compact-system-review.json"
+        }
+      },
+      "retainedCatalogSources": [
+        {
+          "catalog_id": "nearest-100",
+          "record": {
+            "temperature_k": 2570.0,
+            "mass_solar": null,
+            "luminosity_solar": null,
+            "radius_solar": null,
+            "metallicity_dex": null,
+            "age_gyr": null,
+            "absolute_mag": null,
+            "epoch": 2000.0,
+            "x_pc": 0.896677498,
+            "y_pc": 4.552796978,
+            "z_pc": 0.694270658,
+            "vx_kms": null,
+            "vy_kms": null,
+            "vz_kms": null,
+            "type": "star",
+            "id": "10pc-0088",
+            "name": "GJ 1245 C",
+            "spectral_type": "M8",
+            "constellation": "Cygnus",
+            "metallicity_kind": null,
+            "designations": [
+              "GJ 1245 A",
+              "1RXS J195354.7+442454",
+              "2E 1952.2+4416",
+              "2E 4298",
+              "2MASS J19535443+4424541",
+              "8pc 220.20A",
+              "8pc 220.20C",
+              "[GKL99] 378",
+              "[GKL99] 379",
+              "[RHG95] 3120",
+              "AP J19535443+4424541",
+              "G 208-44",
+              "Gaia DR2 2079073928612819840",
+              "Gaia DR3 2079074130463898624",
+              "GEN# +9.80208044",
+              "GIC 159A",
+              "HAT 155-00965",
+              "Karmn J19539+444W",
+              "Karmn J19539+444WAB",
+              "KIC 8451868",
+              "LHS 3494",
+              "LSPM J1953+4424W",
+              "MCY 3",
+              "NLTT 48414",
+              "PM J19539+4424W",
+              "PMSC 19506+4410AC",
+              "TIC 274127410",
+              "UCAC4 673-080522",
+              "USNO 353",
+              "USNO 892",
+              "V1581 Cyg",
+              "WDS J19539+4425A",
+              "WDS J19539+4425Aa,Ab",
+              "Zkh 298",
+              "GJ 1245 C"
+            ],
+            "notes": "10pc census (2023-08-25), object 88, system 43; GJ 1245 C. J2000 Sun-relative Galactic position via Astropy; transverse-only; unknown/withheld RV, no exported velocity. Estimated: Pecaut-Mamajek 2022.04.16 M8V mean dwarf class, not a measured temperature. Component-resolved Johnson V not independently established; multi-star system V withheld. No orbital model.",
+            "raw_astrometry": {
+              "ra_deg": 298.479759093,
+              "dec_deg": 44.412330143,
+              "parallax_mas": 213.1329,
+              "parallax_error_mas": 0.5737,
+              "pm_ra_cosdec_masyr": 441.562,
+              "pm_ra_error_masyr": 1.144,
+              "pm_dec_masyr": -434.241,
+              "pm_dec_error_masyr": 1.031,
+              "radial_velocity_kms": null,
+              "radial_velocity_error_kms": null,
+              "epoch": 2016.0,
+              "astrometry_ref": "FROM:GJ1245A",
+              "radial_velocity_ref": null
+            },
+            "subtypes": [
+              "Eruptive variable",
+              "Rotating variable"
+            ],
+            "known_planets": 0,
+            "apparent_mag": null
+          },
+          "scope": "Original GJ 1245 C catalog source; component contributions are not separated here. Retained source measurements, not individual component measurements."
+        },
+        {
+          "catalog_id": "nearest-1000",
+          "record": {
+            "temperature_k": 2570.0,
+            "mass_solar": null,
+            "luminosity_solar": null,
+            "radius_solar": null,
+            "metallicity_dex": null,
+            "age_gyr": null,
+            "absolute_mag": null,
+            "epoch": 2000.0,
+            "x_pc": 0.896677498,
+            "y_pc": 4.552796978,
+            "z_pc": 0.694270658,
+            "vx_kms": null,
+            "vy_kms": null,
+            "vz_kms": null,
+            "type": "star",
+            "id": "10pc-0088",
+            "name": "GJ 1245 C",
+            "spectral_type": "M8",
+            "constellation": "Cygnus",
+            "metallicity_kind": null,
+            "designations": [
+              "GJ 1245 A",
+              "1RXS J195354.7+442454",
+              "2E 1952.2+4416",
+              "2E 4298",
+              "2MASS J19535443+4424541",
+              "8pc 220.20A",
+              "8pc 220.20C",
+              "[GKL99] 378",
+              "[GKL99] 379",
+              "[RHG95] 3120",
+              "AP J19535443+4424541",
+              "G 208-44",
+              "Gaia DR2 2079073928612819840",
+              "Gaia DR3 2079074130463898624",
+              "GEN# +9.80208044",
+              "GIC 159A",
+              "HAT 155-00965",
+              "Karmn J19539+444W",
+              "Karmn J19539+444WAB",
+              "KIC 8451868",
+              "LHS 3494",
+              "LSPM J1953+4424W",
+              "MCY 3",
+              "NLTT 48414",
+              "PM J19539+4424W",
+              "PMSC 19506+4410AC",
+              "TIC 274127410",
+              "UCAC4 673-080522",
+              "USNO 353",
+              "USNO 892",
+              "V1581 Cyg",
+              "WDS J19539+4425A",
+              "WDS J19539+4425Aa,Ab",
+              "Zkh 298",
+              "GJ 1245 C"
+            ],
+            "notes": "10pc census (2023-08-25), object 88, system 43; GJ 1245 C. J2000 Sun-relative Galactic position via Astropy; transverse-only; unknown/withheld RV, no exported velocity. Estimated: Pecaut-Mamajek 2022.04.16 M8V mean dwarf class, not a measured temperature. Component-resolved Johnson V not independently established; multi-star system V withheld. No orbital model.",
+            "raw_astrometry": {
+              "ra_deg": 298.479759093,
+              "dec_deg": 44.412330143,
+              "parallax_mas": 213.1329,
+              "parallax_error_mas": 0.5737,
+              "pm_ra_cosdec_masyr": 441.562,
+              "pm_ra_error_masyr": 1.144,
+              "pm_dec_masyr": -434.241,
+              "pm_dec_error_masyr": 1.031,
+              "radial_velocity_kms": null,
+              "radial_velocity_error_kms": null,
+              "epoch": 2016.0,
+              "astrometry_ref": "FROM:GJ1245A",
+              "radial_velocity_ref": null
+            },
+            "subtypes": [
+              "Eruptive variable",
+              "Rotating variable"
+            ],
+            "known_planets": 0,
+            "apparent_mag": null
+          },
+          "scope": "Original GJ 1245 C catalog source; component contributions are not separated here. Retained source measurements, not individual component measurements."
+        },
+        {
+          "catalog_id": "compact-system-previous",
+          "scope": "Previous effective individual component record before the 2026-10-18 reviewed adoption; retained measurements are alternatives, not the current bulk-motion approximation.",
+          "record": {
+            "temperature_k": 2570.0,
+            "mass_solar": 0.076,
+            "luminosity_solar": null,
+            "radius_solar": null,
+            "metallicity_dex": null,
+            "age_gyr": null,
+            "absolute_mag": 18.394472520846676,
+            "epoch": 2000.0,
+            "x_pc": 0.896677498,
+            "y_pc": 4.552796978,
+            "z_pc": 0.694270658,
+            "vx_kms": null,
+            "vy_kms": null,
+            "vz_kms": null,
+            "type": "star",
+            "id": "10pc-0088",
+            "name": "GJ 1245 C",
+            "spectral_type": "M8",
+            "constellation": "Cygnus",
+            "metallicity_kind": null,
+            "designations": [
+              "GJ 1245 A",
+              "1RXS J195354.7+442454",
+              "2E 1952.2+4416",
+              "2E 4298",
+              "2MASS J19535443+4424541",
+              "8pc 220.20A",
+              "8pc 220.20C",
+              "[GKL99] 378",
+              "[GKL99] 379",
+              "[RHG95] 3120",
+              "AP J19535443+4424541",
+              "G 208-44",
+              "Gaia DR2 2079073928612819840",
+              "Gaia DR3 2079074130463898624",
+              "GEN# +9.80208044",
+              "GIC 159A",
+              "HAT 155-00965",
+              "Karmn J19539+444W",
+              "Karmn J19539+444WAB",
+              "KIC 8451868",
+              "LHS 3494",
+              "LSPM J1953+4424W",
+              "MCY 3",
+              "NLTT 48414",
+              "PM J19539+4424W",
+              "PMSC 19506+4410AC",
+              "TIC 274127410",
+              "UCAC4 673-080522",
+              "USNO 353",
+              "USNO 892",
+              "V1581 Cyg",
+              "WDS J19539+4425A",
+              "WDS J19539+4425Aa,Ab",
+              "Zkh 298",
+              "GJ 1245 C"
+            ],
+            "notes": "10pc census (2023-08-25), object 88, system 43; GJ 1245 C. J2000 Sun-relative Galactic position via Astropy; transverse-only; unknown/withheld RV, no exported velocity. Estimated: Pecaut-Mamajek 2022.04.16 M8V mean dwarf class, not a measured temperature. No orbital model. Reviewed individual literature: GJ 1245 C: reviewed individual literature. Dynamical masses retain their formal uncertainties. Johnson V, where absent, is deblended using Benedict et al. (2016) Table 10 and the retained component distance; existing photometry is preserved. No individual orbital velocity or age is inferred.",
+            "raw_astrometry": {
+              "ra_deg": 298.479759093,
+              "dec_deg": 44.412330143,
+              "parallax_mas": 213.1329,
+              "parallax_error_mas": 0.5737,
+              "pm_ra_cosdec_masyr": 441.562,
+              "pm_ra_error_masyr": 1.144,
+              "pm_dec_masyr": -434.241,
+              "pm_dec_error_masyr": 1.031,
+              "radial_velocity_kms": null,
+              "radial_velocity_error_kms": null,
+              "epoch": 2016.0,
+              "astrometry_ref": "FROM:GJ1245A",
+              "radial_velocity_ref": null
+            },
+            "subtypes": [
+              "Eruptive variable",
+              "Rotating variable"
+            ],
+            "known_planets": 0,
+            "apparent_mag": 16.751220054668277
+          }
+        }
+      ]
+    },
+    "compact-system:10pc-0089": {
+      "label": "GJ 1245 B",
+      "starIds": [
+        "10pc-0089"
+      ],
+      "scope": "Exact GJ 1245 B component. Shared gj1245 bulk vector is an approximation; original positions and component proper-motion measurements are retained.",
+      "values": {
+        "vx_kms": "6.624895",
+        "vy_kms": "5.975201",
+        "vz_kms": "-11.048438",
+        "radial_velocity_kms": "5.43",
+        "radial_velocity_error_kms": "0.1",
+        "radial_velocity_ref": "2010MNRAS.407.2269M; shared systemic velocity approximation; gj1245",
+        "mass_solar": "0.1266",
+        "radius_solar": "0.1428",
+        "luminosity_solar": "0.00129883",
+        "temperature_k": "2900",
+        "absolute_mag": "15.6479319419868"
+      },
+      "notes": "10pc census (2023-08-25), object 89, system 43; GJ 1245 B. J2000 Sun-relative Galactic position via Astropy; full-space-motion.  Component-resolved Johnson V not independently established; multi-star system V withheld. No orbital model. Shared exact-identity physical supplements (metallicity_dex: 2015ApJ...804...64M). Reviewed compact-system bulk motion: Use the well-separated B component Gaia EDR3 astrometry and existing Morin 2010 RV as the ABC bulk-motion proxy. Includes unmodeled wide-orbit motion of B; its 0.10 km/s measurement error is not the uncertainty of the ABC approximation. A/C orbital velocities are not modeled. Shared radial velocity 5.43 km/s; individual orbital velocities and orbital phase are not modeled. Original component measurements remain in the compact-system review and catalog provenance. Resolved physical/photometric review: mass_solar: 2025A&A...693A.228C:Table A.1, IDstar 2196 (estimated); radius_solar: 2025A&A...693A.228C:Table A.1, IDstar 2196 (estimated); luminosity_solar: 2025A&A...693A.228C:Table A.1, IDstar 2196 (model-derived); temperature_k: 2025A&A...693A.228C:Table A.1, IDstar 2196 (model-derived). Resolved GJ 1245 B Johnson V=13.99 (2009ApJ...704..975J, exact SIMBAD B record); absolute V uses retained catalog distance.",
+      "sourceSelections": {
+        "astrometryAndMotion": {
+          "source": "reviewed-compact-system:gj1245",
+          "status": "systemic-approximation",
+          "reference": "2010MNRAS.407.2269M",
+          "sourceUrl": "https://academic.oup.com/mnras/article/407/4/2269/999815",
+          "valueKms": 5.43,
+          "uncertaintyKms": 0.1,
+          "fields": [
+            "vx_kms",
+            "vy_kms",
+            "vz_kms",
+            "radial_velocity_kms",
+            "radial_velocity_error_kms",
+            "radial_velocity_ref"
+          ],
+          "scope": "Shared gj1245 bulk-motion approximation; individual orbital velocities and orbital phase are not modeled.",
+          "method": "Use the well-separated B component Gaia EDR3 astrometry and existing Morin 2010 RV as the ABC bulk-motion proxy. Includes unmodeled wide-orbit motion of B; its 0.10 km/s measurement error is not the uncertainty of the ABC approximation. A/C orbital velocities are not modeled.",
+          "inputs": {
+            "ra_deg": "298.481925902",
+            "dec_deg": "44.412906159",
+            "parallax_mas": "214.5745",
+            "pm_ra_cosdec_masyr": "349.363004776",
+            "pm_dec_masyr": "-480.322315107"
+          }
+        },
+        "resolvedPhysical": {
+          "source": "compact-system-review:10pc-0089",
+          "fields": [
+            "mass_solar",
+            "radius_solar",
+            "luminosity_solar",
+            "temperature_k",
+            "absolute_mag"
+          ],
+          "adoptedFields": {
+            "mass_solar": {
+              "value": 0.1266,
+              "uncertainty": 0.0095,
+              "status": "estimated",
+              "reference": "2025A&A...693A.228C:Table A.1, IDstar 2196",
+              "sourceUrl": "https://arxiv.org/html/2412.12264",
+              "method": "Resolved B photometric MG calibration; not dynamical."
+            },
+            "radius_solar": {
+              "value": 0.1428,
+              "uncertainty": 0.005,
+              "status": "estimated",
+              "reference": "2025A&A...693A.228C:Table A.1, IDstar 2196",
+              "sourceUrl": "https://arxiv.org/html/2412.12264",
+              "method": "Resolved B SED/calibration radius; not measured diameter."
+            },
+            "luminosity_solar": {
+              "value": 0.00129883,
+              "uncertainty": 9.8276e-06,
+              "status": "model-derived",
+              "reference": "2025A&A...693A.228C:Table A.1, IDstar 2196",
+              "sourceUrl": "https://arxiv.org/html/2412.12264",
+              "method": "Resolved B SED bolometric luminosity; formal uncertainty excludes full model systematics."
+            },
+            "temperature_k": {
+              "value": 2900,
+              "uncertainty": 50,
+              "status": "model-derived",
+              "reference": "2025A&A...693A.228C:Table A.1, IDstar 2196",
+              "sourceUrl": "https://arxiv.org/html/2412.12264",
+              "method": "Resolved B SED effective temperature; not dwarf-class mean."
+            },
+            "absolute_mag": {
+              "value": 15.647931941986823,
+              "status": "derived",
+              "uncertainty": null,
+              "reference": "2009ApJ...704..975J; SIMBAD exact GJ 1245 B",
+              "sourceUrl": "https://simbad.cds.unistra.fr/simbad/sim-id?Ident=GJ+1245B",
+              "method": "Resolved B Johnson V=13.99; MV=V-5log10(d/10 pc), retained catalog distance. No photometric error supplied; no extinction correction.",
+              "apparentMagnitudeV": 13.99
+            }
+          },
+          "reviewFile": "catalog-work/shared-enrichment/compact-system-review.json"
+        }
+      },
+      "retainedCatalogSources": [
+        {
+          "catalog_id": "nearest-100",
+          "record": {
+            "temperature_k": 2930.0,
+            "mass_solar": null,
+            "luminosity_solar": null,
+            "radius_solar": null,
+            "metallicity_dex": -0.05,
+            "age_gyr": null,
+            "absolute_mag": null,
+            "epoch": 2000.0,
+            "x_pc": 0.890507364,
+            "y_pc": 4.522164607,
+            "z_pc": 0.689487985,
+            "vx_kms": 6.624895,
+            "vy_kms": 5.975201,
+            "vz_kms": -11.048438,
+            "type": "star",
+            "id": "10pc-0089",
+            "name": "GJ 1245 B",
+            "spectral_type": "M5.5",
+            "constellation": "Cygnus",
+            "metallicity_kind": "[Fe/H]",
+            "designations": [
+              "2MASS J19535508+4424550",
+              "8pc 220.20B",
+              "[RHG95] 3121",
+              "CNS5 4921",
+              "G 208-45",
+              "Gaia DR2 2079073928612821760",
+              "Gaia DR3 2079073928612821760",
+              "Gaia EDR3 2079073928612821760",
+              "GEN# +9.80208045",
+              "GIC 159B",
+              "Karmn J19539+444E",
+              "KIC 8451881",
+              "LAMOST J195355.01+442453.6",
+              "LHS 3495",
+              "LSPM J1953+4424E",
+              "NLTT 48415",
+              "PM J19539+4424E",
+              "PMSC 19506+4410B",
+              "TIC 274127413",
+              "UCAC4 673-080524",
+              "USNO 354",
+              "USNO 893",
+              "WDS J19539+4425B",
+              "Zkh 299",
+              "GJ 1245 B"
+            ],
+            "notes": "10pc census (2023-08-25), object 89, system 43; GJ 1245 B. J2000 Sun-relative Galactic position via Astropy; full-space-motion. Estimated: Pecaut-Mamajek 2022.04.16 M5.5V mean dwarf class, not a measured temperature. Component-resolved Johnson V not independently established; multi-star system V withheld. No orbital model. Shared exact-identity physical supplements (metallicity_dex: 2015ApJ...804...64M).",
+            "raw_astrometry": {
+              "ra_deg": 298.481925902,
+              "dec_deg": 44.412906159,
+              "parallax_mas": 214.5745,
+              "parallax_error_mas": 0.0476,
+              "pm_ra_cosdec_masyr": 349.363004776,
+              "pm_ra_error_masyr": 0.056223083,
+              "pm_dec_masyr": -480.322315107,
+              "pm_dec_error_masyr": 0.054057945,
+              "radial_velocity_kms": 5.43,
+              "radial_velocity_error_kms": 0.1,
+              "epoch": 2016.0,
+              "astrometry_ref": "2020yCat.1350....0G",
+              "radial_velocity_ref": "2010MNRAS.407.2269M"
+            },
+            "subtypes": [
+              "Eruptive variable",
+              "Low-mass star",
+              "Rotating variable"
+            ],
+            "known_planets": 0,
+            "apparent_mag": null
+          },
+          "scope": "Original GJ 1245 B catalog source; component contributions are not separated here. Retained source measurements, not individual component measurements."
+        },
+        {
+          "catalog_id": "nearest-1000",
+          "record": {
+            "temperature_k": 2930.0,
+            "mass_solar": null,
+            "luminosity_solar": null,
+            "radius_solar": null,
+            "metallicity_dex": -0.05,
+            "age_gyr": null,
+            "absolute_mag": null,
+            "epoch": 2000.0,
+            "x_pc": 0.890507364,
+            "y_pc": 4.522164607,
+            "z_pc": 0.689487985,
+            "vx_kms": 6.624895,
+            "vy_kms": 5.975201,
+            "vz_kms": -11.048438,
+            "type": "star",
+            "id": "10pc-0089",
+            "name": "GJ 1245 B",
+            "spectral_type": "M5.5",
+            "constellation": "Cygnus",
+            "metallicity_kind": "[Fe/H]",
+            "designations": [
+              "2MASS J19535508+4424550",
+              "8pc 220.20B",
+              "[RHG95] 3121",
+              "CNS5 4921",
+              "G 208-45",
+              "Gaia DR2 2079073928612821760",
+              "Gaia DR3 2079073928612821760",
+              "Gaia EDR3 2079073928612821760",
+              "GEN# +9.80208045",
+              "GIC 159B",
+              "Karmn J19539+444E",
+              "KIC 8451881",
+              "LAMOST J195355.01+442453.6",
+              "LHS 3495",
+              "LSPM J1953+4424E",
+              "NLTT 48415",
+              "PM J19539+4424E",
+              "PMSC 19506+4410B",
+              "TIC 274127413",
+              "UCAC4 673-080524",
+              "USNO 354",
+              "USNO 893",
+              "WDS J19539+4425B",
+              "Zkh 299",
+              "GJ 1245 B"
+            ],
+            "notes": "10pc census (2023-08-25), object 89, system 43; GJ 1245 B. J2000 Sun-relative Galactic position via Astropy; full-space-motion. Estimated: Pecaut-Mamajek 2022.04.16 M5.5V mean dwarf class, not a measured temperature. Component-resolved Johnson V not independently established; multi-star system V withheld. No orbital model. Shared exact-identity physical supplements (metallicity_dex: 2015ApJ...804...64M).",
+            "raw_astrometry": {
+              "ra_deg": 298.481925902,
+              "dec_deg": 44.412906159,
+              "parallax_mas": 214.5745,
+              "parallax_error_mas": 0.0476,
+              "pm_ra_cosdec_masyr": 349.363004776,
+              "pm_ra_error_masyr": 0.056223083,
+              "pm_dec_masyr": -480.322315107,
+              "pm_dec_error_masyr": 0.054057945,
+              "radial_velocity_kms": 5.43,
+              "radial_velocity_error_kms": 0.1,
+              "epoch": 2016.0,
+              "astrometry_ref": "2020yCat.1350....0G",
+              "radial_velocity_ref": "2010MNRAS.407.2269M"
+            },
+            "subtypes": [
+              "Eruptive variable",
+              "Low-mass star",
+              "Rotating variable"
+            ],
+            "known_planets": 0,
+            "apparent_mag": null
+          },
+          "scope": "Original GJ 1245 B catalog source; component contributions are not separated here. Retained source measurements, not individual component measurements."
+        },
+        {
+          "catalog_id": "compact-system-previous",
+          "scope": "Previous effective individual component record before the 2026-10-18 reviewed adoption; retained measurements are alternatives, not the current bulk-motion approximation.",
+          "record": {
+            "temperature_k": 2930.0,
+            "mass_solar": 0.1266,
+            "luminosity_solar": 0.00129883,
+            "radius_solar": 0.1428,
+            "metallicity_dex": -0.05,
+            "age_gyr": null,
+            "absolute_mag": null,
+            "epoch": 2000.0,
+            "x_pc": 0.890507364,
+            "y_pc": 4.522164607,
+            "z_pc": 0.689487985,
+            "vx_kms": 6.624895,
+            "vy_kms": 5.975201,
+            "vz_kms": -11.048438,
+            "type": "star",
+            "id": "10pc-0089",
+            "name": "GJ 1245 B",
+            "spectral_type": "M5.5V",
+            "constellation": "Cygnus",
+            "metallicity_kind": "[Fe/H]",
+            "designations": [
+              "2MASS J19535508+4424550",
+              "8pc 220.20B",
+              "[RHG95] 3121",
+              "CNS5 4921",
+              "G 208-45",
+              "Gaia DR2 2079073928612821760",
+              "Gaia DR3 2079073928612821760",
+              "Gaia EDR3 2079073928612821760",
+              "GEN# +9.80208045",
+              "GIC 159B",
+              "Karmn J19539+444E",
+              "KIC 8451881",
+              "LAMOST J195355.01+442453.6",
+              "LHS 3495",
+              "LSPM J1953+4424E",
+              "NLTT 48415",
+              "PM J19539+4424E",
+              "PMSC 19506+4410B",
+              "TIC 274127413",
+              "UCAC4 673-080524",
+              "USNO 354",
+              "USNO 893",
+              "WDS J19539+4425B",
+              "Zkh 299",
+              "GJ 1245 B"
+            ],
+            "notes": "10pc census (2023-08-25), object 89, system 43; GJ 1245 B. J2000 Sun-relative Galactic position via Astropy; full-space-motion. Estimated: Pecaut-Mamajek 2022.04.16 M5.5V mean dwarf class, not a measured temperature. Component-resolved Johnson V not independently established; multi-star system V withheld. No orbital model. Shared exact-identity physical supplements (metallicity_dex: 2015ApJ...804...64M). Component-scoped catalog measurements/estimates; details in catalog-work/star-systems/catalog-companions-audit.json. Reviewed individual literature: Resolved individual main-sequence luminosity class restored from Cifuentes et al. (2025) Table A.1, attributed there to Alonso-Floriano et al. (2015). Existing numeric physical values and motion are preserved.",
+            "raw_astrometry": {
+              "ra_deg": 298.481925902,
+              "dec_deg": 44.412906159,
+              "parallax_mas": 214.5745,
+              "parallax_error_mas": 0.0476,
+              "pm_ra_cosdec_masyr": 349.363004776,
+              "pm_ra_error_masyr": 0.056223083,
+              "pm_dec_masyr": -480.322315107,
+              "pm_dec_error_masyr": 0.054057945,
+              "radial_velocity_kms": 5.43,
+              "radial_velocity_error_kms": 0.1,
+              "epoch": 2016.0,
+              "astrometry_ref": "2020yCat.1350....0G",
+              "radial_velocity_ref": "2010MNRAS.407.2269M"
+            },
+            "subtypes": [
+              "Eruptive variable",
+              "Low-mass star",
+              "Rotating variable",
+              "Main-sequence"
+            ],
+            "known_planets": 0,
+            "apparent_mag": null
+          }
+        }
+      ]
+    },
+    "GJ 412 A / BD+44 2051 A": {
+      "label": "BD+44 2051 A",
+      "starIds": [
+        "10pc-0100"
+      ],
+      "scope": "Exact individual GJ 412 A / BD+44 2051 A, Gaia DR3 778947814402602752; no companion or integrated-system quantities.",
+      "values": {
+        "absolute_mag": "10.3174506284"
+      },
+      "notes": "10pc census (2023-08-25), object 100, system 50; BD+44 2051 A. J2000 Sun-relative Galactic position via Astropy; full-space-motion. Estimated: Pecaut-Mamajek 2022.04.16 M1V mean dwarf class, not a measured temperature. No orbital model. Supplementary mass from Mann et al. 2019 absolute-Ks mass relation with 2MASS Ks (2019ApJ...871...63M); luminosity, radius from Cifuentes et al. 2020 CARMENES SED analysis (2020A&A...642A.115C). Gaia DR3 exact-ID model values for metallicity. RECONS individual GJ 412 A / BD+44 2051 A Johnson V=8.77; absolute V derived at the adopted component distance. Compiled V epoch/error unspecified; no integrated-system flux assigned.",
+      "sourceSelections": {
+        "nearbyGapReview": {
+          "reviewFile": "catalog-work/shared-enrichment/nearby-gaps-review.json",
+          "identity": "GJ 412 A / BD+44 2051 A",
+          "gaiaDr3Id": "778947814402602752",
+          "adoptedFields": {
+            "absolute_mag": {
+              "value": 10.317450628447567,
+              "status": "derived",
+              "sourceUrl": "https://chara.gsu.edu/~thenry/RECONS/TOP100.posted.htm",
+              "section": "GJ 412 A individual row",
+              "passband": "Johnson V",
+              "uncertainty": null,
+              "method": "MV = V - 5 log10(d/10 pc); local extinction neglected",
+              "inputs": {
+                "johnson_v": 8.77,
+                "apparentMagnitudeUncertainty": null,
+                "photometricEpoch": null,
+                "distance_pc": 4.903541715734175
+              }
+            }
+          },
+          "decision": "Fill reviewed gaps; supersede Lacaille 8760 class temperature with an object-specific fit. Preserve all original measurements, errors and provenance in the review and catalog provenance."
+        }
+      }
+    },
+    "GJ 412 B / WX UMa": {
+      "label": "WX UMa",
+      "starIds": [
+        "10pc-0101"
+      ],
+      "scope": "Exact individual GJ 412 B / WX UMa, Gaia DR3 778947608243864320; no companion or integrated-system quantities.",
+      "values": {
+        "absolute_mag": "15.9868656939"
+      },
+      "notes": "10pc census (2023-08-25), object 101, system 50; BD+44 2051 B. J2000 Sun-relative Galactic position via Astropy; full-space-motion. Estimated: Pecaut-Mamajek 2022.04.16 M5.5V mean dwarf class, not a measured temperature. No orbital model. Supplementary mass from Mann et al. 2019 absolute-Ks mass relation with 2MASS Ks (2019ApJ...871...63M); luminosity, radius from Cifuentes et al. 2020 CARMENES SED analysis (2020A&A...642A.115C). Shared exact-identity physical supplements (metallicity_dex: 2022AJ....163..152S). RECONS individual GJ 412 B / WX UMa Johnson V=14.44; absolute V derived at the adopted component distance. Compiled V epoch/error unspecified; no integrated-system flux assigned.",
+      "sourceSelections": {
+        "nearbyGapReview": {
+          "reviewFile": "catalog-work/shared-enrichment/nearby-gaps-review.json",
+          "identity": "GJ 412 B / WX UMa",
+          "gaiaDr3Id": "778947608243864320",
+          "adoptedFields": {
+            "absolute_mag": {
+              "value": 15.986865693862999,
+              "status": "derived",
+              "sourceUrl": "https://chara.gsu.edu/~thenry/RECONS/TOP100.posted.htm",
+              "section": "GJ 412 B individual row",
+              "passband": "Johnson V",
+              "uncertainty": null,
+              "method": "MV = V - 5 log10(d/10 pc); local extinction neglected",
+              "inputs": {
+                "johnson_v": 14.44,
+                "apparentMagnitudeUncertainty": null,
+                "photometricEpoch": null,
+                "distance_pc": 4.904862772116134
+              }
+            }
+          },
+          "decision": "Fill reviewed gaps; supersede Lacaille 8760 class temperature with an object-specific fit. Preserve all original measurements, errors and provenance in the review and catalog provenance."
+        }
+      }
+    },
+    "GJ 687 / HIP 86162": {
+      "label": "GJ 687",
+      "starIds": [
+        "10pc-0080"
+      ],
+      "scope": "Exact individual GJ 687 / HIP 86162, Gaia DR3 1637645127018395776; no companion or integrated-system quantities.",
+      "values": {
+        "absolute_mag": "10.8598130486",
+        "mass_solar": "0.413"
+      },
+      "notes": "10pc census (2023-08-25), object 80, system 38; GJ 687. J2000 Sun-relative Galactic position via Astropy; full-space-motion. Estimated: Pecaut-Mamajek 2022.04.16 M3V mean dwarf class, not a measured temperature. No orbital model. Source caution: GJ 687 c: candidate planet 2020ApJS..250...29F Gaia DR3 exact-ID model values for metallicity, luminosity, radius. Burt et al. (2014) Table 1: individual Johnson V=9.15 and empirical stellar mass 0.413 +/- 0.041 solar (attributed to Boyajian et al. 2012). Absolute V derived at the adopted catalog distance; V epoch/error unspecified. Existing independent physical estimates retained.",
+      "sourceSelections": {
+        "nearbyGapReview": {
+          "reviewFile": "catalog-work/shared-enrichment/nearby-gaps-review.json",
+          "identity": "GJ 687 / HIP 86162",
+          "gaiaDr3Id": "1637645127018395776",
+          "adoptedFields": {
+            "absolute_mag": {
+              "value": 10.859813048590006,
+              "status": "derived",
+              "sourceUrl": "https://arxiv.org/pdf/1405.2929",
+              "section": "Table 1",
+              "passband": "Johnson V",
+              "uncertainty": null,
+              "method": "MV = V - 5 log10(d/10 pc); local extinction neglected",
+              "inputs": {
+                "johnson_v": 9.15,
+                "apparentMagnitudeUncertainty": null,
+                "photometricEpoch": null,
+                "distance_pc": 4.550272337175909
+              }
+            },
+            "mass_solar": {
+              "value": 0.413,
+              "status": "empirical-relation",
+              "sourceUrl": "https://arxiv.org/pdf/1405.2929",
+              "section": "Table 1 and section 2",
+              "uncertainty": 0.041,
+              "reference": "2014ApJ...789..114B; 2012ApJ...757..112B",
+              "quantity": "individual stellar mass",
+              "method": "Published empirical mass estimate; not a dynamical mass"
+            }
+          },
+          "decision": "Fill reviewed gaps; supersede Lacaille 8760 class temperature with an object-specific fit. Preserve all original measurements, errors and provenance in the review and catalog provenance."
+        }
+      }
+    },
+    "GJ 825 / AX Mic / HIP 105090 / Lacaille 8760": {
+      "label": "Lacaille 8760",
+      "starIds": [
+        "10pc-0060"
+      ],
+      "scope": "Exact individual GJ 825 / AX Mic / HIP 105090 / Lacaille 8760, Gaia DR3 6583272171336048640; no companion or integrated-system quantities.",
+      "values": {
+        "mass_solar": "0.627",
+        "radius_solar": "0.593",
+        "temperature_k": "3795",
+        "luminosity_solar": "0.0657129884173"
+      },
+      "notes": "10pc census (2023-08-25), object 60, system 27; AX Mic. J2000 Sun-relative Galactic position via Astropy; full-space-motion. Absolute Johnson V derived from 10pc Vmag=6.68 and adopted distance; negligible extinction assumed. Photometric epoch, uncertainty and individual V bibliography not supplied by compilation. No orbital model. Shared exact-identity physical supplements (metallicity_dex: 2024A&A...683A.125P). Lindgren & Heiter (2017), GJ 825: mass 0.627 solar and radius 0.593 solar are empirical Ks-calibration estimates with no individual errors tabulated; Ks error is 0.230 mag. Temperature 3795 K is an object-specific SME spectral fit. Luminosity is derived from this radius and temperature by Stefan-Boltzmann scaling (solar Teff 5772 K), not a measured bolometric flux. No object age adopted.",
+      "sourceSelections": {
+        "nearbyGapReview": {
+          "reviewFile": "catalog-work/shared-enrichment/nearby-gaps-review.json",
+          "identity": "GJ 825 / AX Mic / HIP 105090 / Lacaille 8760",
+          "gaiaDr3Id": "6583272171336048640",
+          "adoptedFields": {
+            "mass_solar": {
+              "value": 0.627,
+              "status": "empirical-relation",
+              "sourceUrl": "https://arxiv.org/pdf/1705.08785",
+              "section": "Table 3; section 3.2.2",
+              "uncertainty": null,
+              "reference": "2017A&A...604A..97L",
+              "method": "Benedict et al. 2016 absolute-Ks calibration"
+            },
+            "radius_solar": {
+              "value": 0.593,
+              "status": "empirical-relation",
+              "sourceUrl": "https://arxiv.org/pdf/1705.08785",
+              "section": "Table 3; section 3.2.2",
+              "uncertainty": null,
+              "reference": "2017A&A...604A..97L",
+              "method": "Mann et al. 2015 Eq. 4, absolute-Ks calibration"
+            },
+            "temperature_k": {
+              "value": 3795,
+              "status": "model-derived",
+              "sourceUrl": "https://arxiv.org/pdf/1705.08785",
+              "section": "Table 5; section 4.2",
+              "uncertainty": null,
+              "reference": "2017A&A...604A..97L",
+              "method": "SME simultaneous spectral fit; object-specific, not a spectral-class mean"
+            },
+            "luminosity_solar": {
+              "value": 0.06571298841730637,
+              "status": "derived",
+              "sourceUrl": "https://arxiv.org/pdf/1705.08785",
+              "section": "Derived here from Tables 3 and 5",
+              "uncertainty": null,
+              "reference": "Stefan-Boltzmann scaling; 2017A&A...604A..97L",
+              "method": "L/Lsun = (R/Rsun)^2 (Teff/5772 K)^4",
+              "inputs": {
+                "radius_solar": 0.593,
+                "temperature_k": 3795,
+                "solar_temperature_k": 5772
+              },
+              "caveat": "Derived estimate, not a published bolometric-flux measurement; inherits empirical radius and atmosphere assumptions. No complete uncertainty available."
+            }
+          },
+          "decision": "Fill reviewed gaps; supersede Lacaille 8760 class temperature with an object-specific fit. Preserve all original measurements, errors and provenance in the review and catalog provenance."
         }
       }
     }
@@ -25207,6 +28833,51 @@
       "valueKms": -50.08,
       "uncertaintyKms": 0.01,
       "uncertaintyScope": "Published fit uncertainty on V0, not a component velocity uncertainty or the uncertainty of the derived bulk space-motion vector"
+    },
+    "compact-system:luyten-726-8-a": {
+      "reviewFile": "catalog-work/shared-enrichment/compact-system-review.json",
+      "starId": "luyten-726-8-a",
+      "scope": "Original catalog rows, provenance and effective components retained in previousCatalogRecords and previousEffectiveComponents of the review file."
+    },
+    "compact-system:luyten-726-8-b": {
+      "reviewFile": "catalog-work/shared-enrichment/compact-system-review.json",
+      "starId": "luyten-726-8-b",
+      "scope": "Original catalog rows, provenance and effective components retained in previousCatalogRecords and previousEffectiveComponents of the review file."
+    },
+    "compact-system:10pc-0066": {
+      "reviewFile": "catalog-work/shared-enrichment/compact-system-review.json",
+      "starId": "10pc-0066",
+      "scope": "Original catalog rows, provenance and effective components retained in previousCatalogRecords and previousEffectiveComponents of the review file."
+    },
+    "compact-system:10pc-0067": {
+      "reviewFile": "catalog-work/shared-enrichment/compact-system-review.json",
+      "starId": "10pc-0067",
+      "scope": "Original catalog rows, provenance and effective components retained in previousCatalogRecords and previousEffectiveComponents of the review file."
+    },
+    "compact-system:10pc-0074": {
+      "reviewFile": "catalog-work/shared-enrichment/compact-system-review.json",
+      "starId": "10pc-0074",
+      "scope": "Original catalog rows, provenance and effective components retained in previousCatalogRecords and previousEffectiveComponents of the review file."
+    },
+    "compact-system:10pc-0075": {
+      "reviewFile": "catalog-work/shared-enrichment/compact-system-review.json",
+      "starId": "10pc-0075",
+      "scope": "Original catalog rows, provenance and effective components retained in previousCatalogRecords and previousEffectiveComponents of the review file."
+    },
+    "compact-system:10pc-0087": {
+      "reviewFile": "catalog-work/shared-enrichment/compact-system-review.json",
+      "starId": "10pc-0087",
+      "scope": "Original catalog rows, provenance and effective components retained in previousCatalogRecords and previousEffectiveComponents of the review file."
+    },
+    "compact-system:10pc-0088": {
+      "reviewFile": "catalog-work/shared-enrichment/compact-system-review.json",
+      "starId": "10pc-0088",
+      "scope": "Original catalog rows, provenance and effective components retained in previousCatalogRecords and previousEffectiveComponents of the review file."
+    },
+    "compact-system:10pc-0089": {
+      "reviewFile": "catalog-work/shared-enrichment/compact-system-review.json",
+      "starId": "10pc-0089",
+      "scope": "Original catalog rows, provenance and effective components retained in previousCatalogRecords and previousEffectiveComponents of the review file."
     }
   }
 }

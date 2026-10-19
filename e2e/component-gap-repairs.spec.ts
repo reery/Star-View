@@ -11,8 +11,8 @@ test('reviewed binary data remain component-specific across nearby catalogs', as
     await expect(page.locator('#scene-status')).toBeHidden()
     for (const [query, selectedName, components] of [
       ['V577 Mon', 'V577 Mon B', [['10pc-0067', '0.109 M☉'], ['10pc-0066', '0.223 M☉']]],
-      ['FL Vir', 'FL Vir B', [['10pc-0075', '0.113 M☉'], ['10pc-0074', '0.124 M☉']]],
-      ['GJ 1245', 'GJ 1245 C', [['10pc-0088', '0.076 M☉'], ['10pc-0087', '0.111 M☉']]],
+      ['FL Vir', 'FL Vir B', [['10pc-0075', '0.126 M☉'], ['10pc-0074', '0.138 M☉']]],
+      ['GJ 1245', 'GJ 1245 C', [['10pc-0088', '0.081 M☉'], ['10pc-0087', '0.12 M☉'], ['10pc-0089', '0.127 M☉']]],
     ] as const) {
       await page.getByRole('button', { name: 'Objects', exact: true }).click()
       await page.getByLabel('Search objects').fill(query)

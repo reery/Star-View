@@ -1,5 +1,6 @@
 import type { Star } from './catalog-model.ts'
 import { objectDesignations, uniqueDesignations } from './designations.ts'
+import { catalogFlags } from './catalog-detail-model.ts'
 
 const OVERLAY_PHYSICAL_FIELDS = [
   'temperature_k', 'mass_solar', 'luminosity_solar', 'radius_solar', 'metallicity_dex', 'age_gyr',
@@ -13,7 +14,7 @@ function supplementPhysicalFields(primary: Star, additional: Star): Star {
   supplemented.designations = uniqueDesignations([...objectDesignations(primary), additional.name, ...objectDesignations(additional)], primary.name)
   // A reviewed component may deliberately withhold blended system estimates.
   // An overlapping legacy overlay must not restore those rejected values.
-  const withheld = new Set(primary.notes.match(/Withheld individual fields: ([a-z_, ]+)\./)?.[1]?.split(', ') ?? [])
+  const withheld = new Set(catalogFlags(primary).withheld ?? [])
   supplemented.apparent_mag = primary.apparent_mag ?? (withheld.has('absolute_mag') ? null : additional.apparent_mag ?? null)
   const fields = OVERLAY_PHYSICAL_FIELDS.filter((field) => !withheld.has(field) && primary[field] === null && additional[field] !== null)
   for (const field of fields) {
@@ -21,7 +22,13 @@ function supplementPhysicalFields(primary: Star, additional: Star): Star {
     if (field === 'metallicity_dex') supplemented.metallicity_kind = additional.metallicity_kind
   }
   if (fields.length) {
-    supplemented.notes = `${primary.notes} Additional catalog supplements ${fields.join(', ')}. ${additional.notes}`.trim()
+    if (primary.catalog_detail_key || additional.catalog_detail_key || primary.catalog_note_supplements || additional.catalog_note_supplements) {
+      supplemented.catalog_note_supplements = [...primary.catalog_note_supplements ?? [],
+        { ...(additional.catalog_detail_key ? { key: additional.catalog_detail_key } : { notes: additional.notes }), fields },
+        ...additional.catalog_note_supplements ?? []]
+    } else {
+      supplemented.notes = `${primary.notes} Additional catalog supplements ${fields.join(', ')}. ${additional.notes}`.trim()
+    }
   }
   return supplemented
 }
@@ -43,7 +50,7 @@ function sameSkyPosition(first: Star, second: Star): boolean {
   // rendered J2000 position remains component-specific. Only use the rendered
   // direction fallback when a row explicitly documents that distinction; close
   // components such as Sirius A/B must remain separate objects.
-  if (!first.notes.includes('barycenter solution') && !second.notes.includes('barycenter solution')) return false
+  if (!catalogFlags(first).barycenter && !catalogFlags(second).barycenter) return false
   const firstLength = Math.hypot(first.x_pc, first.y_pc, first.z_pc)
   const secondLength = Math.hypot(second.x_pc, second.y_pc, second.z_pc)
   if (firstLength === 0 || secondLength === 0) return false

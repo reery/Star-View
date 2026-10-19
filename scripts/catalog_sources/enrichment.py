@@ -157,9 +157,13 @@ def select_spectroscopy(observations, column):
 def reviewed_physical():
     existing = json.loads((ROOT / "catalog-work/shared-enrichment/reviewed-physical.json").read_text())["objects"]
     ultracool = json.loads((ROOT / "catalog-work/shared-enrichment/reviewed-ultracool.json").read_text())["objects"]
-    if existing.keys() & ultracool.keys():
+    bright_review = json.loads((ROOT / "catalog-work/bright-stars/gap-physical-review.json").read_text())
+    for path, digest in bright_review["inputSha256"].items():
+        verify_sha256(ROOT / path, digest)
+    bright = bright_review["catalogObjects"]
+    if existing.keys() & ultracool.keys() or (existing.keys() | ultracool.keys()) & bright.keys():
         raise ValueError("Reviewed physical identities must be unique")
-    return existing | ultracool
+    return existing | ultracool | bright
 
 
 def derive_physical(row):

@@ -34,25 +34,32 @@ export function writeManagedFiles(outputPath: string, files: Readonly<Record<str
     if (lstatSync(target, { throwIfNoEntry: false })?.isSymbolicLink()) throw new Error(`Managed output must not be a symbolic link: ${name}`)
     if (existsSync(target) && !force) throw new Error('Output already exists; choose a new directory or explicitly pass --force.')
   }
+  // Builds and focused checks regenerate these inputs while Vite may be open.
+  // Leave identical files in place so regeneration does not trigger reloads.
+  const changed = Object.fromEntries(Object.entries(files).filter(([name, content]) => {
+    const target = join(output, name)
+    return !existsSync(target) || readFileSync(target, 'utf8') !== content
+  }))
+  if (Object.keys(changed).length === 0) return
   const staging = mkdtempSync(join(output, '.catalog-staging-'))
   const backup = mkdtempSync(join(output, '.catalog-backup-'))
   const installed: string[] = []
   const backedUp: string[] = []
   let preserveBackup = false
   try {
-    for (const [name, content] of Object.entries(files)) writeFileSync(join(staging, name), content, { flag: 'wx' })
-    for (const [name, content] of Object.entries(files)) {
+    for (const [name, content] of Object.entries(changed)) writeFileSync(join(staging, name), content, { flag: 'wx' })
+    for (const [name, content] of Object.entries(changed)) {
       if (readFileSync(join(staging, name), 'utf8') !== content) throw new Error(`Failed to verify staged output: ${name}`)
     }
     try {
-      for (const name of Object.keys(files)) {
+      for (const name of Object.keys(changed)) {
         const target = join(output, name)
         if (existsSync(target)) {
           renameSync(target, join(backup, name))
           backedUp.push(name)
         }
       }
-      for (const name of Object.keys(files)) {
+      for (const name of Object.keys(changed)) {
         renameSync(join(staging, name), join(output, name))
         installed.push(name)
       }
