@@ -33,7 +33,7 @@ test('startup defers closed features and fetches catalog JSON directly', async (
 
   await page.locator('#glossary-toggle').click()
   await expect(page.locator('[data-glossary-id]')).toHaveCount(115)
-  await expect(page.locator('#glossary-image')).toHaveJSProperty('naturalWidth', 1200)
+  await expect(page.locator('#glossary-image')).toHaveJSProperty('naturalWidth', 1080)
   await page.locator('#glossary-toggle').click()
 
   await page.locator('#object-specs-toggle').click()
@@ -81,7 +81,7 @@ test('Info and constellation data wait for activation after a catalog change and
 
   await page.locator('#object-info-toggle').click()
   await expect(page.locator('#object-info > section')).toHaveCount(3)
-  await expect(page.locator('#object-info img')).toHaveJSProperty('naturalWidth', 1280)
+  await expect(page.locator('#object-info img')).toHaveJSProperty('naturalWidth', 1080)
   expect(requests.filter((url) => /\/star-info-/.test(url))).toHaveLength(1)
   expect(requests.filter((url) => /\/star-article-/.test(url))).toHaveLength(1)
   expect(requests.some((url) => /\/star-article-sirius-/.test(url))).toBe(true)
@@ -121,7 +121,7 @@ test('System, planet Info, and moon assets follow their own activation', async (
 
   await page.locator('#planet-info-toggle').click()
   await expect(page.locator('#planet-info > section')).toHaveCount(6)
-  await expect(page.locator('#planet-info img').first()).toHaveJSProperty('naturalWidth', 1920)
+  await expect(page.locator('#planet-info img').first()).toHaveJSProperty('naturalWidth', 1080)
   expect(requests.some((url) => url.includes('phobos'))).toBe(false)
   await page.locator('#planet-moons-toggle').click()
   await expect(page.locator('#planet-moons')).toHaveAttribute('data-selected-moon-id', 'phobos')

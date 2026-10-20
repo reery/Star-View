@@ -15,3 +15,12 @@ Retrieved and reviewed on 2026-10-11. Files are local so the production same-ori
 Sirius reuses `../object-types/white_star.jpg`: NASA, ESA, H. Bond (STScI), and M. Barstow (University of Leicester), Hubble observation 2003-10-15, release 2005-12-13. [ESA/Hubble heic0516a](https://esahubble.org/images/heic0516a/).
 
 Full credits are visible in captions, with observing/processing details in tooltips. Epsilon Eridani's image is explicitly labeled an artist's concept. Articles without an informative photograph have no hero image: a generic star illustration is not substituted for an observed portrait.
+
+## Delivery sizes
+
+Display photos are delivered at most 1080 px wide (2026-10-20). Measured photo slots are at most 350 CSS px wide on a 430 px phone, which is 1050 device pixels at 3x density, and 418 CSS px on desktop. The copies use a Lanczos-3 resize, conversion to sRGB and JPEG quality 88 (mozjpeg). Crop, aspect ratio and colors are unchanged. Files that would shrink by less than 10% keep their original encoding.
+
+| File | Source pixels | Delivered pixels | Source bytes | Delivered bytes |
+| --- | ---: | ---: | ---: | ---: |
+| `ross-128.jpg` | 1280 × 1217 | 1080 × 1027 | 287,611 | 166,173 |
+| `alpha-centauri.jpg` | 1280 × 1299 | 1080 × 1096 | 801,783 | 466,638 |

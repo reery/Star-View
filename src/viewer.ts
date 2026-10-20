@@ -923,6 +923,7 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
   function invalidateLabelSizes(): void {
     labelSizesDirty = true
     ordinaryLayoutDirty = true
+    skyGrid.invalidateLabelSizes()
     requestRender()
   }
 

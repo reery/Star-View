@@ -45,6 +45,9 @@ export function sortObjectListItemsByDistance<T extends { distancePc: number }>(
   return [...items].sort((first, second) => first.distancePc - second.distancePc)
 }
 
+/** Receives the row's distance from the current reference, already computed for sorting. */
+export type ObjectListFilter = (star: Star, distancePc: number) => boolean
+
 export class ObjectList {
   private readonly container: HTMLElement
   private readonly onCountChange: (shown: number, total: number) => void
@@ -52,7 +55,7 @@ export class ObjectList {
   private filtered: ObjectListItem[] = []
   private query = ''
   private compactQuery = ''
-  private filter: (star: Star) => boolean = () => true
+  private filter: ObjectListFilter = () => true
   private countedShown = -1
   private countedTotal = -1
   private selectedId: string | null = null
@@ -77,7 +80,7 @@ export class ObjectList {
     })
   }
 
-  setStars(stars: readonly Star[], unit: DistanceUnit, selectedId: string | null, referenceId = 'sun'): void {
+  setStars(stars: readonly Star[], unit: DistanceUnit, selectedId: string | null, referenceId = 'sun', filter?: ObjectListFilter): void {
     const sun = stars.find((star) => star.id === 'sun')!
     const reference = stars.find((star) => star.id === referenceId) ?? sun
     this.items = sortObjectListItemsByDistance(stars.map((star) => {
@@ -98,19 +101,24 @@ export class ObjectList {
     this.referenceId = reference.id
     this.database?.setStars(stars)
     this.database?.setReference(reference.id, reference.name)
+    if (filter) this.filter = filter
     this.refresh()
   }
 
-  setReference(id: string): void {
-    if (id === this.referenceId) return
-    const reference = this.items.find((item) => item.star.id === id)?.star
-    if (!reference) return
+  /** A filter that depends on the reference distance is applied in the same refresh. */
+  setReference(id: string, filter?: ObjectListFilter): void {
+    const reference = id === this.referenceId ? undefined : this.items.find((item) => item.star.id === id)?.star
+    if (!reference) {
+      if (filter) this.setFilter(filter)
+      return
+    }
     this.referenceId = id
     this.database?.setReference(id, reference.name)
     this.items = sortObjectListItemsByDistance(this.items.map((item) => ({
       ...item,
       distancePc: sunRelativeMetrics(item.star, reference).distancePc,
     })))
+    if (filter) this.filter = filter
     this.refresh()
   }
 
@@ -120,7 +128,7 @@ export class ObjectList {
     this.refresh()
   }
 
-  setFilter(filter: (star: Star) => boolean): void {
+  setFilter(filter: ObjectListFilter): void {
     this.filter = filter
     this.refresh()
   }
@@ -137,7 +145,7 @@ export class ObjectList {
   }
 
   private refresh(force = false): void {
-    const matching = this.items.filter((item) => this.filter(item.star) && (!this.query || item.search.includes(this.query) || item.compactSearch.includes(this.compactQuery)))
+    const matching = this.items.filter((item) => this.filter(item.star, item.distancePc) && (!this.query || item.search.includes(this.query) || item.compactSearch.includes(this.compactQuery)))
     const filtered = this.expanded ? this.database!.filterAndSort(matching) : matching
     if (filtered.length !== this.countedShown || this.items.length !== this.countedTotal) {
       this.countedShown = filtered.length

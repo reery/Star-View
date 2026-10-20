@@ -72,3 +72,75 @@ and focused browser checks passed for Info imagery, texture loading and
 rotation, and unchanged Milky Way delivery. Regeneration hashes confirmed
 that only `star-article-wise-0855-0714.json` changed among the 2,956 canonical
 generated JSON and class-reference files audited. The full suite was not run.
+
+## Follow-up — 2026-10-20
+
+| Item | Before | After |
+| --- | ---: | ---: |
+| Milky Way panorama, AVIF-capable browsers | 3,845,379 B JPEG | 2,649,608 B AVIF (−31%) |
+| Source-note URL lookup, first selection | 335,680 B chunk + `json-data` chunk | none; URL derived from the record's key |
+| Source-note files | 2,216 | 2,077 (identical snapshots share one file) |
+| First white dwarf class comparison | 360,190 B cooling-grid chunk | none; 9 precomputed references inside the 20.9 kB Mass card chunk |
+
+Startup JavaScript grew by about 1.4 kB: the source-note loader is now part of
+the entry chunk, removing two serial requests from the first selection.
+
+**Milky Way.** The AVIF is a fresh Lanczos-3 resize of ESO's 6000 × 3000
+download, encoded at AVIF quality 70 (8-bit 4:2:0). Resolution is unchanged at
+5120 × 2560. Against that resized source, the AVIF measures 38.42 dB PSNR and
+0.99536 mean SSIM. The previous JPEG measures 35.05 dB and 0.99515. WebP needed
+quality 86 (3,189,484 B) to match the JPEG; a lossless progressive repack of the
+JPEG saved only 6.6%. Close crops of the galactic plane and of brightened dark
+sky retain the faint stars, with less block noise than the JPEG. A 1 × 1 AVIF
+probe selects the format before download. Browsers without AVIF receive the
+unchanged JPEG, and a failed AVIF download falls back to it. The image is
+decoded before the WebGL upload, so decoding no longer blocks the main thread
+at upload time. Decoding in desktop Chrome measured about 130 ms for the AVIF
+and 50 ms for the JPEG.
+
+**White dwarfs.** The 46 bundled white dwarfs needed only 9 distinct grid
+evaluations at the time. Six had catalog temperatures; the other 40 used one of
+three temperature-independent atmosphere envelopes. The 407 KB grid
+(`src/data/white-dwarf-references.json`) was then removed from the repository.
+The small precomputed table is committed instead and regenerated from the
+checksummed original archive only when white dwarf inputs change; see
+[Development](development.md#build-and-hosting). Card values are identical to
+browser-side evaluation. A missing reference states that only the mass
+benchmark is available, instead of extrapolating. The later
+[white dwarf enrichment](white-dwarf-enrichment.md) gave most of them
+individual temperatures.
+
+Verified with Wrangler's local static-assets runtime: header rules, immutable
+caching for `assets/catalog-details/`, AVIF selection, both JPEG fallbacks,
+source notes, and Sirius B's white dwarf Mass card. There were no console
+errors. Six pre-existing `src/catalogs.test.ts` count assertions fail
+identically on the unmodified commit and are unrelated.
+
+## Oversized assets — 2026-10-20
+
+| Asset | Before | After | Loaded |
+| --- | ---: | ---: | --- |
+| Saturn mesh | 282,612 B JSON inside the planet-globe chunk (every globe) | 164,256 B JSON (≈39 KB compressed), Saturn only | planet-globe chunk 307 → 41 kB |
+| Phobos / Deimos shape | 719,580 / 728,808 B, 32,040 / 32,512 triangles | 86,064 / 53,824 B, 3,740 / 2,266 triangles | moon globe |
+| Earth map (radius comparison) | 1,511,379 B PNG | 368,096 B WebP q94 | Earth reference |
+| Venus Info photo | 888,186 B PNG | 65,120 B WebP q100 | planet Info |
+| Mercury globe map | 550,976 B PNG | 323,804 B WebP q94 | Mercury globe |
+| 14 Info / object-type photos | 3,895,111 B, up to 3545 px wide | 1,802,302 B, at most 1080 px wide | Info, object-type cards |
+| Class references chunk | 127 kB (29.8 kB gzip) | 104 kB (19.0 kB gzip) | Mass, Luminosity cards |
+
+- **Saturn.** Saturn's mesh values are written as the shortest decimals that round-trip
+  to the identical float32. Its globe rendered bit-identically before and after.
+  Raw binary was rejected: Cloudflare edge-compresses JSON but not `.bin`.
+- **Globes.** The shared globe sphere uses 48 × 32 instead of 64 × 48 segments. On
+  the 172 px globe at 3× density, silhouette faceting stays below one device pixel.
+- **Moon shapes.** The Phobos and Deimos meshes use meshoptimizer simplification at 0.002 of
+  the mesh extent, which preserves UV seams.
+- **Fidelity.** Rendered globes at 3× matched the previous build at 46–50 dB. Phobos and
+  Deimos matched at 38–40 dB, with differences along shaded silhouettes.
+- **Photo widths.** Display photos are sized for the measured maximum of 1050 device pixels:
+  350 CSS px on a 3× phone. Files that would shrink by less than 10% keep their
+  original encoding.
+- **Not changed.** Constellation companion chunks still embed notes and source records.
+  The runtime companion merge reads those records, so deferring them would change
+  which source measurements Specs displays. The chunks are 5–10 KB compressed
+  each and load only for the opened constellation.

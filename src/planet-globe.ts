@@ -8,14 +8,15 @@ import { RenderPass } from 'three/addons/postprocessing/RenderPass.js'
 import { UnrealBloomPass } from 'three/addons/postprocessing/UnrealBloomPass.js'
 import { OutputPass } from 'three/addons/postprocessing/OutputPass.js'
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js'
-import mercuryMap from './assets/planets/mercury-surface-map.png'
+import mercuryMap from './assets/planets/mercury-surface-map.webp'
 import venusMap from './assets/planets/venus-cloud-map.jpg'
 import earthMap from './assets/planets/earth-global-map.jpg'
 import marsMap from './assets/planets/mars-surface-map.jpg'
 import jupiterMap from './assets/radius-comparison/jupiter-map.webp'
 import saturnMap from './assets/planets/saturn-cloud-atlas.webp'
 import saturnRingMap from './assets/planets/saturn-rings.png'
-import saturnMesh from './assets/planets/saturn-mesh.json'
+import saturnMeshUrl from './assets/planets/saturn-mesh.json?url'
+import { loadJsonData } from './json-data'
 import uranusMap from './assets/planets/uranus-cloud-map.jpg'
 import neptuneMap from './assets/planets/neptune-cloud-map.jpg'
 import plutoMap from './assets/small-bodies/pluto-map.jpg'
@@ -160,7 +161,8 @@ function createPlanetGlobe(canvas: HTMLCanvasElement) {
   controls.minZoom = 1
   controls.maxZoom = 2.5
   controls.cursorStyle = 'grab'
-  const geometry = new SphereGeometry(1, 64, 48)
+  // 48 × 32 segments keep silhouette faceting below one device pixel at the 172 px globe on 3× displays.
+  const geometry = new SphereGeometry(1, 48, 32)
   const jupiter = planetDescriptionForId('jupiter')!
   const jupiterGeometry = geometry.clone()
   jupiterGeometry.scale(jupiter.equatorialRadiusKm! / jupiter.meanRadiusKm, jupiter.polarRadiusKm! / jupiter.meanRadiusKm, jupiter.equatorialRadiusKm! / jupiter.meanRadiusKm)
@@ -176,13 +178,36 @@ function createPlanetGlobe(canvas: HTMLCanvasElement) {
   }))
   const saturn = planetDescriptionForId('saturn')!
   // Keep NASA's cube-atlas UVs while matching the reviewed 1-bar ellipsoid.
-  const saturnGeometry = new BufferGeometry()
+  // The mesh loads only when Saturn is shown; its values are float32-exact.
   const saturnScale = [saturn.equatorialRadiusKm! / (500 * saturn.meanRadiusKm), saturn.polarRadiusKm! / (451.0190124511719 * saturn.meanRadiusKm), saturn.equatorialRadiusKm! / (500 * saturn.meanRadiusKm)]
-  saturnGeometry.setAttribute('position', new Float32BufferAttribute(saturnMesh.positions.map((v, i) => v * saturnScale[i % 3]!), 3))
-  saturnGeometry.setAttribute('normal', new Float32BufferAttribute(saturnMesh.normals.map((v, i) => v / saturnScale[i % 3]!), 3))
-  saturnGeometry.normalizeNormals()
-  saturnGeometry.setAttribute('uv', new Float32BufferAttribute(saturnMesh.uvs.map((v, i) => i % 2 ? 1 - v : v), 2))
-  saturnGeometry.setIndex(saturnMesh.indices)
+  let saturnGeometry: BufferGeometry | undefined
+  let saturnLoading = false
+  function loadSaturnGeometry(): void {
+    if (saturnGeometry || saturnLoading) return
+    saturnLoading = true
+    loadJsonData<{ positions: number[]; normals: number[]; uvs: number[]; indices: number[] }>(saturnMeshUrl).then((saturnMesh) => {
+      saturnLoading = false
+      if (disposed) return
+      const saturnShape = new BufferGeometry()
+      saturnShape.setAttribute('position', new Float32BufferAttribute(saturnMesh.positions.map((v, i) => Math.fround(v) * saturnScale[i % 3]!), 3))
+      saturnShape.setAttribute('normal', new Float32BufferAttribute(saturnMesh.normals.map((v, i) => Math.fround(v) / saturnScale[i % 3]!), 3))
+      saturnShape.normalizeNormals()
+      saturnShape.setAttribute('uv', new Float32BufferAttribute(saturnMesh.uvs.map((v, i) => i % 2 ? 1 - Math.fround(v) : Math.fround(v)), 2))
+      saturnShape.setIndex(saturnMesh.indices)
+      saturnGeometry = saturnShape
+      if (planetId === 'saturn') {
+        sphere.geometry = saturnShape
+        sphere.visible = true
+        rings.visible = ringMaterial.map !== null
+        canvas.dataset.modelReady = 'true'
+        canvas.dataset.ringsVisible = String(rings.visible)
+        requestRender()
+      }
+    }, () => {
+      saturnLoading = false
+      if (!disposed && planetId === 'saturn') canvas.setAttribute('aria-label', 'Saturn globe. Shape model unavailable.')
+    })
+  }
   const material = new MeshStandardMaterial({ color: 0xffffff, roughness: 0.62, metalness: 0 })
   const cloudTint = { value: new Color('#ffffff') }
   const mapBlend = { value: 1 }
@@ -442,11 +467,13 @@ function createPlanetGlobe(canvas: HTMLCanvasElement) {
     texture?.dispose()
     material.map = null
     material.roughness = appearance.roughness
-    sphere.geometry = id === 'jupiter' ? jupiterGeometry : id === 'saturn' ? saturnGeometry : moonGeometries.get(id) ?? iceGiantGeometries.get(id) ?? geometry
-    sphere.visible = !appearance.model || moonGeometries.has(id)
+    const shape = id === 'saturn' ? saturnGeometry : moonGeometries.get(id)
+    sphere.geometry = id === 'jupiter' ? jupiterGeometry : shape ?? iceGiantGeometries.get(id) ?? geometry
+    sphere.visible = !appearance.model && id !== 'saturn' || shape !== undefined
     canvas.dataset.modelReady = String(sphere.visible)
     loadMoonGeometry(id, appearance)
-    rings.visible = id === 'saturn' && ringMaterial.map !== null
+    if (id === 'saturn') loadSaturnGeometry()
+    rings.visible = id === 'saturn' && ringMaterial.map !== null && saturnGeometry !== undefined
     sphere.castShadow = sphere.receiveShadow = light.castShadow = id === 'saturn'
     canvas.dataset.ringsVisible = String(rings.visible)
     cloudTint.value.set(appearance.tint)
@@ -486,7 +513,7 @@ function createPlanetGlobe(canvas: HTMLCanvasElement) {
         map.colorSpace = SRGBColorSpace
         ringMaterial.map = map
         ringMaterial.needsUpdate = true
-        rings.visible = planetId === 'saturn'
+        rings.visible = planetId === 'saturn' && saturnGeometry !== undefined
         canvas.dataset.ringsReady = 'true'
         canvas.dataset.ringsVisible = String(rings.visible)
         requestRender()
@@ -668,7 +695,7 @@ function createPlanetGlobe(canvas: HTMLCanvasElement) {
       jupiterGeometry.dispose()
       for (const ellipsoid of iceGiantGeometries.values()) ellipsoid.dispose()
       for (const moonGeometry of moonGeometries.values()) moonGeometry.dispose()
-      saturnGeometry.dispose()
+      saturnGeometry?.dispose()
       ringGeometry.dispose()
       ringMaterial.dispose()
       ringTexture?.dispose()

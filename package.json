@@ -19,7 +19,8 @@
     "catalog:generate": "python3 scripts/author-stellar-companions.py --check && node scripts/catalogs.ts generate",
     "catalog:companions": "python3 scripts/author-stellar-companions.py --write",
     "catalog:build": "node scripts/catalogs.ts build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "catalog:white-dwarf-references": "python3 scripts/extract-white-dwarf-references.py && node scripts/catalogs.ts white-dwarf-references"
   },
   "devDependencies": {
     "@playwright/test": "^1.63.0",

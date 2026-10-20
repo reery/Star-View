@@ -1,0 +1,45 @@
+{
+  "schemaVersion": 1,
+  "retrieved": "2026-10-20",
+  "sources": [
+    {
+      "name": "O'Brien et al. 2024, The 40 pc sample of white dwarfs from Gaia, MNRAS 527, 8687 (2024MNRAS.527.8687O)",
+      "paper": "https://arxiv.org/abs/2312.02735",
+      "files": {
+        "obrien2024-tablea1.dat": "https://cdsarc.cds.unistra.fr/ftp/J/MNRAS/527/8687/tablea1.dat",
+        "obrien2024-ReadMe.txt": "https://cdsarc.cds.unistra.fr/ftp/J/MNRAS/527/8687/ReadMe"
+      },
+      "version": "CDS J/MNRAS/527/8687, Table A1 updated 14-Nov-2024"
+    },
+    {
+      "name": "Farihi et al. 2013, Gliese 86B (DQ white dwarf), MNRAS 430, 652 (2013MNRAS.430..652F)",
+      "paper": "https://arxiv.org/abs/1212.5601"
+    },
+    {
+      "name": "Brandt, Dupuy & Bowler 2019, dynamical masses of directly imaged companions, AJ 158, 140",
+      "paper": "https://arxiv.org/abs/1811.07285"
+    },
+    {
+      "name": "Zeng et al. 2022, The Gliese 86 binary system, AJ 164, 188",
+      "paper": "https://arxiv.org/abs/2112.06394"
+    },
+    {
+      "name": "Burleigh & Barstow 1999, the hot white dwarf companion of theta Hya, A&A 341, 795",
+      "paper": "https://arxiv.org/abs/astro-ph/9810113"
+    },
+    {
+      "name": "Vennes, Christian & Thorstensen 1998, ApJ 502, 763",
+      "paper": "https://doi.org/10.1086/305926"
+    },
+    {
+      "name": "Holberg et al. 2013, Where are all the Sirius-like binary systems?, MNRAS 435, 2077",
+      "paper": "https://arxiv.org/abs/1307.8047"
+    }
+  ],
+  "checksumsSha256": {
+    "obrien2024-tablea1.dat": "833c681d0e463e58592789ee13172de4e1a186faa194c9242002c0d009e0901f",
+    "obrien2024-ReadMe.txt": "51f8a0a2fcd9b8b396e5d3b973619ccb2c710132b91786826597832b62e99d0a",
+    "targets.json": "0eed50a273cea9daea17159ed310d9edddfab3a9a346d219e55457dbe0102f77",
+    "literature.json": "926b7af5fbc6d4c8dc64a5d07d5969daced3f539e1f86cacb16a0dd66df93712"
+  }
+}

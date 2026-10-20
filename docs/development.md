@@ -16,27 +16,30 @@ The production output is in `dist`. Builds validate every project catalog, gener
 
 The Python checks used by builds normalize calculated companion magnitudes, audit distances and constellation centers to nine decimal places with `catalog_sources.precision.calculated_float`. This avoids treating final-bit differences in platform math libraries as stale data. Original source measurements, uncertainties and frozen review values retain their precision; historical absolute-magnitude replacement guards compare at the calculation's storage precision. Existing coordinate, velocity and derived physical-property precision rules remain in their authoring code. After changing these calculations, regenerate with `npm run catalog:companions` and `python3 scripts/author-constellations.py --write`. The focused portability regression is `python3 -m unittest discover -s scripts/tests -p 'test_calculated_precision.py'`; it varies math results by one representable floating-point step in both directions and checks the companion pool, audit and all 88 chart files.
 
-Vite also emits Brotli sidecars for compressible production assets. The local preview server negotiates those files and gives hashed `/assets/` responses a one-year immutable cache policy while keeping HTML revalidated. Production hosting must provide the equivalent `Content-Encoding: br`, `Vary: Accept-Encoding`, `Content-Type`, and `Cache-Control` behavior; copying `.br` files alone is not sufficient.
+Vite also emits Brotli sidecars for compressible production assets. The local preview server negotiates those files and gives hashed `/assets/` responses a one-year immutable cache policy while keeping HTML revalidated. Hosts other than Cloudflare must provide the equivalent `Content-Encoding: br`, `Vary: Accept-Encoding`, `Content-Type`, and `Cache-Control` behavior; copying `.br` files alone is not sufficient.
+
+Production is hosted as Cloudflare Workers static assets, deployed from `dist` by the dashboard Git integration (Workers Builds). Cloudflare compresses responses at the edge and does not negotiate `.br` sidecars, so each build also writes `dist/.assetsignore`, which keeps the sidecars out of the upload. Each build also writes `dist/_headers`, generated in `vite.config.ts` from the same header table the preview server uses; neither file is served. It applies the security headers below to every response, the one-year immutable policy to `/assets/*` (every file there is content-hashed), and `X-Robots-Tag: noindex` on `*.workers.dev` hosts. HTML keeps Cloudflare's default `max-age=0, must-revalidate`, so deployments take effect on the next load.
 
 Brotli compression uses up to four asynchronous encoders and caches the results in `node_modules/.vite/star-view-brotli/`. The cache is keyed by exact asset contents, encoder version and compression settings, so unchanged assets reuse their maximum-quality compressed bytes even if their filenames change. A first build or a cleared cache needs to populate this cache; later builds compress only changed contents. The cache is disposable and is never deployed. Every production build still runs catalog validation, catalog generation and TypeScript checks.
 
-Production builds embed a strict Content Security Policy meta tag: same-origin scripts, styles, images, data and fonts only, no inline styles or scripts, no plugins, no base URL or form targets, and Trusted Types enforcement. Dynamic styles are applied through the CSSOM, never through `style` attributes. Glossary, Info, System, Distance, Radius, Temperature, Mass, Luminosity, constellation and planet content load on first use. Lightweight counts keep System controls available before exoplanet and stellar-orbit data load. Planet Info and Moons have their own loading boundaries; moon data, textures and shape models are not initialized by opening the planet's Specs. Scene brightness and color helpers remain shared and immediately available.
+Production builds embed a strict Content Security Policy meta tag: same-origin scripts, styles, images, data and fonts only, no inline styles or scripts, no plugins, no base URL or form targets, and Trusted Types enforcement. Dynamic styles are applied through the CSSOM, never through `style` attributes. Glossary, Info, System, Distance, Radius, Temperature, Mass, Luminosity, constellation and planet content load on first use. White dwarf Mass card references are precomputed from the full Bédard et al. (2020) cooling grid, once for each atmosphere envelope and catalog temperature in the bundled catalogs. They are committed in `src/data/white-dwarf-class-references.json`. Neither the app nor the repository contains the grid. `npm run catalog:white-dwarf-references` downloads the original archive, verifies its recorded SHA-256, caches the grid under `node_modules/.cache/star-view/` and rewrites the table. Every `npm run catalog:generate` checks that the table holds exactly the references the bundled white dwarfs request. When white dwarf types or temperatures change, it fails with that instruction. Unit tests that evaluate the grid run only while it is cached. Lightweight counts keep System controls available before exoplanet and stellar-orbit data load. Planet Info and Moons have their own loading boundaries; moon data, textures and shape models are not initialized by opening the planet's Specs. Scene brightness and color helpers remain shared and immediately available.
 
 Lazy cards and Glossary show a shared recovery panel when a download fails. Retry repeats the requested load; Reload app is an explicit user action for failed module downloads or files removed by a deployment. Failures never trigger automatic reloads. Closed or superseded loads cannot replace current content. Already-loaded diagram and magnitude renderers update synchronously, without loading placeholders.
 
-A meta tag cannot set every protection, so production hosting must also send these response headers:
+A meta tag cannot set every protection, so production responses also carry these headers (generated into `dist/_headers`):
 
 | Header | Value |
 |---|---|
-| `Content-Security-Policy` | `frame-ancestors 'none'` (the meta policy covers the rest) |
+| `Content-Security-Policy` | The meta policy plus `frame-ancestors 'none'` |
 | `X-Frame-Options` | `DENY` |
 | `X-Content-Type-Options` | `nosniff` |
 | `Referrer-Policy` | `no-referrer` |
 | `Strict-Transport-Security` | `max-age=31536000; includeSubDomains` (HTTPS only) |
 | `Cross-Origin-Opener-Policy` | `same-origin` |
+| `Cross-Origin-Resource-Policy` | `same-origin` |
 | `Permissions-Policy` | `camera=(), microphone=(), geolocation=(), payment=(), usb=()` |
 
-`vite preview` sends all of these except `Strict-Transport-Security` for local testing.
+`vite preview` sends all of these except `Strict-Transport-Security` for local testing. The policy allows no third-party scripts, so Cloudflare features that inject scripts or rewrite HTML (Rocket Loader, Email Address Obfuscation, automatic Web Analytics, Zaraz) must stay disabled for the app's hostnames.
 
 ## Rendering Efficiency
 

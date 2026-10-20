@@ -1,4 +1,5 @@
 import type { Star } from './catalog-model'
+import { hydrateStarDetails } from './catalog-details'
 
 const loaded = new WeakSet<Star>()
 const pending = new WeakMap<Star, Promise<void>>()
@@ -11,7 +12,7 @@ export function loadStarDetails(star: Star): Promise<void> {
   if (starDetailsLoaded(star)) return Promise.resolve()
   let result = pending.get(star)
   if (!result) {
-    result = import('./catalog-details').then(({ hydrateStarDetails }) => hydrateStarDetails(star))
+    result = hydrateStarDetails(star)
       .then(() => { loaded.add(star) })
       .catch((error: unknown) => { pending.delete(star); throw error })
     pending.set(star, result)

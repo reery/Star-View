@@ -1,8 +1,15 @@
+import { readdirSync, readFileSync } from 'node:fs'
 import { describe, expect, it } from 'vitest'
 import type { Star } from './catalog-model'
 import { MASS_METRICS, massComparison, massComparisonClass, typicalMassClass, typicalMassRangePosition } from './mass-comparison'
 import dwarfSequence from './data/stellar-class-references.json'
-import whiteDwarfModels from './data/white-dwarf-references.json'
+import precomputedWhiteDwarfReferences from './data/white-dwarf-class-references.json'
+import { buildWhiteDwarfClassReferences, COOLING_GRID_CACHE, coolingGridAvailable, whiteDwarfModelReference } from './white-dwarf-models'
+
+// The Bédard et al. (2020) grid is cached only by `npm run catalog:white-dwarf-references`; the app never ships it.
+const withGrid = it.skipIf(!coolingGridAvailable())
+
+const modelClass = (selected: Parameters<typeof typicalMassClass>[0]) => typicalMassClass(selected, undefined, whiteDwarfModelReference)
 
 const star = (overrides: Partial<Star> = {}): Star => ({
   id: 'selected', name: 'Selected', type: 'star', spectral_type: 'A1V',
@@ -98,11 +105,11 @@ describe('published typical class references', () => {
     for (const type of ['black_hole', 'sub_brown_dwarf'] as const) expect(typicalMassClass(star({ type }))).toBeNull()
   })
 
-  it('derives white dwarf benchmarks from the published 0.6 solar-mass hydrogen model at the catalog temperature', () => {
+  withGrid('derives white dwarf benchmarks from the published 0.6 solar-mass hydrogen model at the catalog temperature', () => {
     // Original seq_060_thick point: Teff 10051.7695, R 8.928257e8 cm,
     // L 5.798764e30 erg/s, log g (cgs) 7.99952949.
     const selected = star({ type: 'white_dwarf', spectral_type: 'DA2', temperature_k: 10051.7695 })
-    const typical = typicalMassClass(selected)!
+    const typical = modelClass(selected)!
     expect(typical.referenceLabel).toBe('DA')
     expect(typical.source).toContain('bergeron/CoolingModels')
     expect(typical.metrics.mass).toEqual({ value: 0.6, range: [0.2, 1.3] })
@@ -116,35 +123,35 @@ describe('published typical class references', () => {
       expect(typical.metrics[metric].range![0]).toBeLessThan(typical.metrics[metric].value!)
       expect(typical.metrics[metric].range![1]).toBeGreaterThan(typical.metrics[metric].value!)
     }
-    const comparison = massComparison(selected, star(), 'class')
+    const comparison = massComparison(selected, star(), 'class', undefined, whiteDwarfModelReference)
     for (const metric of ['gravity', 'escapeKms', 'density', 'luminosityPerMass'] as const) expect(comparison.metrics[metric].ratio).not.toBeNull()
   })
 
-  it('matches white dwarf temperature and envelope without using the selected mass or radius as its own benchmark', () => {
+  withGrid('matches white dwarf temperature and envelope without using the selected mass or radius as its own benchmark', () => {
     const selected = star({ type: 'white_dwarf', spectral_type: 'DA2', temperature_k: 10000 })
-    const hydrogen = typicalMassClass(selected)!
-    const hot = typicalMassClass({ ...selected, temperature_k: 25000 })!
-    const helium = typicalMassClass({ ...selected, spectral_type: 'DB4' })!
+    const hydrogen = modelClass(selected)!
+    const hot = modelClass({ ...selected, temperature_k: 25000 })!
+    const helium = modelClass({ ...selected, spectral_type: 'DB4' })!
     expect(hot.metrics.gravity.value).toBeLessThan(hydrogen.metrics.gravity.value!)
     expect(hot.metrics.luminosityPerMass.value).toBeGreaterThan(hydrogen.metrics.luminosityPerMass.value!)
     expect(helium.metrics.gravity.value).not.toBe(hydrogen.metrics.gravity.value)
-    expect(typicalMassClass({ ...selected, spectral_type: 'DQZ' })!.metrics).toEqual(helium.metrics)
-    expect(typicalMassClass(star({ ...selected, mass_solar: 1.018, radius_solar: 0.008098, luminosity_solar: 0.02448 }))!.metrics).toEqual(hydrogen.metrics)
-    expect(massComparison(selected, star({ mass_solar: 8 }), 'class').metrics).toEqual(massComparison(selected, selected, 'class').metrics)
+    expect(modelClass({ ...selected, spectral_type: 'DQZ' })!.metrics).toEqual(helium.metrics)
+    expect(modelClass(star({ ...selected, mass_solar: 1.018, radius_solar: 0.008098, luminosity_solar: 0.02448 }))!.metrics).toEqual(hydrogen.metrics)
+    expect(massComparison(selected, star({ mass_solar: 8 }), 'class', undefined, whiteDwarfModelReference).metrics).toEqual(massComparison(selected, selected, 'class', undefined, whiteDwarfModelReference).metrics)
   })
 
-  it('interpolates white dwarf radius linearly and luminosity logarithmically between published temperatures', () => {
+  withGrid('interpolates white dwarf radius linearly and luminosity logarithmically between published temperatures', () => {
     const temperature = (10051.7695 + 9965.7662) / 2
-    const typical = typicalMassClass(star({ type: 'white_dwarf', spectral_type: 'DA', temperature_k: temperature }))!
+    const typical = modelClass(star({ type: 'white_dwarf', spectral_type: 'DA', temperature_k: temperature }))!
     const radiusM = (8.928257e8 + 8.924197e8) / 2 / 100
     expect(typical.metrics.gravity.value).toBeCloseTo(0.6 * 1.3271244e20 / radiusM ** 2)
     expect(typical.metrics.luminosityPerMass.value).toBeCloseTo(Math.sqrt(5.798764e30 * 5.597745e30) / 3.828e33 / 0.6)
   })
 
-  it('does not invent a surface average for white dwarfs with missing temperature or unknown/mixed atmospheres', () => {
+  withGrid('does not invent a surface average for white dwarfs with missing temperature or unknown/mixed atmospheres', () => {
     const selected = star({ type: 'white_dwarf', spectral_type: 'DA', temperature_k: 10000 })
     for (const overrides of [{ temperature_k: null }, { temperature_k: NaN }, { spectral_type: null }, { spectral_type: 'DC' }, { spectral_type: 'DAB' }, { spectral_type: 'DBA' }, { spectral_type: 'DA+DB' }]) {
-      const typical = typicalMassClass({ ...selected, ...overrides })!
+      const typical = modelClass({ ...selected, ...overrides })!
       expect(typical.metrics.mass.value).toBe(0.6)
       for (const metric of ['gravity', 'escapeKms', 'density', 'luminosityPerMass'] as const) {
         expect(typical.metrics[metric].value).toBeNull()
@@ -154,19 +161,21 @@ describe('published typical class references', () => {
     }
   })
 
-  it('never extrapolates white dwarf cooling tracks outside their published temperatures', () => {
+  withGrid('never extrapolates white dwarf cooling tracks outside their published temperatures', () => {
     for (const temperature_k of [100, 200000]) {
-      const typical = typicalMassClass(star({ type: 'white_dwarf', spectral_type: 'DA', temperature_k }))!
+      const typical = modelClass(star({ type: 'white_dwarf', spectral_type: 'DA', temperature_k }))!
       expect(typical.metrics.mass.value).toBe(0.6)
       for (const metric of ['gravity', 'escapeKms', 'density', 'luminosityPerMass'] as const) expect(typical.metrics[metric]).toEqual({ value: null, range: null })
     }
     // At 100,000 K the 0.6 hydrogen track has ended; hotter high-mass tracks still cover it.
-    const hot = typicalMassClass(star({ type: 'white_dwarf', spectral_type: 'DA', temperature_k: 100000 }))!
+    const hot = modelClass(star({ type: 'white_dwarf', spectral_type: 'DA', temperature_k: 100000 }))!
     expect(hot.metrics.gravity.value).toBeNull()
     expect(hot.metrics.gravity.range).not.toBeNull()
   })
 
-  it('preserves the complete, ordered published cooling grid', () => {
+  withGrid('preserves the complete, ordered published cooling grid', () => {
+    const whiteDwarfModels = JSON.parse(readFileSync(COOLING_GRID_CACHE, 'utf8')) as { archive_sha256: string; tracks: { mass_solar: number; envelope: string; rows: number[][] }[] }
+    expect(whiteDwarfModels.archive_sha256).toBe(precomputedWhiteDwarfReferences.archive_sha256)
     expect(whiteDwarfModels.tracks).toHaveLength(46)
     for (const envelope of ['thick', 'thin']) {
       const tracks = whiteDwarfModels.tracks.filter((track) => track.envelope === envelope)
@@ -258,5 +267,49 @@ describe('published typical class references', () => {
     expect(outlier.position).toBe(100)
     expect(outlier.typicalPosition).toBeGreaterThan(0)
     expect(outlier.typicalPosition).toBeLessThan(100)
+  })
+})
+
+describe('precomputed white dwarf references', () => {
+  const generated = new URL('./data/generated/', import.meta.url)
+  const records = (value: unknown): Star[] => Array.isArray(value) ? value.flatMap(records)
+    : value && typeof value === 'object' ? [...((value as Star).type === 'white_dwarf' ? [value as Star] : []), ...Object.values(value).flatMap(records)] : []
+  const shipped = ['catalogs', 'constellation-companions', 'overlays'].flatMap((directory) => readdirSync(new URL(`${directory}/`, generated))
+    .filter((file) => file.endsWith('.json'))
+    .flatMap((file) => records(JSON.parse(readFileSync(new URL(`${directory}/${file}`, generated), 'utf8')))))
+
+  withGrid('matches a fresh evaluation of the full cooling grid', () => {
+    expect(shipped.length).toBeGreaterThan(40)
+    expect(precomputedWhiteDwarfReferences).toEqual(buildWhiteDwarfClassReferences(shipped))
+  })
+
+  withGrid('gives every shipped white dwarf the full-grid class reference to six significant digits', () => {
+    const close = (stored: number | null, exact: number | null) =>
+      stored === exact || (stored !== null && exact !== null && Math.abs(stored - exact) <= 5e-6 * Math.abs(exact))
+    for (const selected of shipped) {
+      const { metrics, ...labels } = typicalMassClass(selected)!
+      const { metrics: exactMetrics, ...exactLabels } = modelClass(selected)!
+      expect(labels).toEqual(exactLabels)
+      for (const metric of MASS_METRICS) {
+        const [value, exact] = [metrics[metric], exactMetrics[metric]]
+        expect(close(value.value, exact.value)).toBe(true)
+        expect(value.range === null ? exact.range : value.range.every((bound, index) => close(bound, exact.range![index]!))).toBeTruthy()
+      }
+    }
+  })
+
+  it('covers every shipped white dwarf without the grid', () => {
+    for (const selected of shipped) {
+      const typical = typicalMassClass(selected)!
+      expect(typical.note).not.toContain('surface references are unavailable')
+      expect(typical.metrics.gravity.range).not.toBeNull()
+    }
+  })
+
+  it('states when an object has no precomputed cooling-model reference', () => {
+    const typical = typicalMassClass(star({ type: 'white_dwarf', spectral_type: 'DA', temperature_k: 12345.678 }))!
+    expect(typical.metrics.mass).toEqual({ value: 0.6, range: [0.2, 1.3] })
+    expect(typical.metrics.gravity).toEqual({ value: null, range: null })
+    expect(typical.note).toContain('surface references are unavailable')
   })
 })

@@ -36,7 +36,7 @@ import {
   availableFilterKeys, categoryAvailable, DEFAULT_FILTER_CATEGORIES, DEFAULT_FILTER_SUBTYPES, effectiveFilterKeys, FILTER_CATEGORIES,
   filterCategoryForKey, filterSummary, isFilterCategoryId, isFilterKey, type FilterCategoryId, type FilterKey,
 } from './object-filter'
-import { ObjectList } from './object-list'
+import { ObjectList, type ObjectListFilter } from './object-list'
 import { spaceMotionForStar } from './space-motion'
 import { SelectionHistory } from './selection-history'
 import { initializeToolbarTouch } from './toolbar-touch'
@@ -1906,13 +1906,12 @@ function renderSelection(): void {
   void renderActiveObjectSection()
 }
 
+function objectListFilter(): ObjectListFilter {
+  return (star, distancePc) => isObjectMapVisible(star, visibleKeys, selectedId, observerId, distancePc * LIGHT_YEARS_PER_PARSEC, objectDistanceLimitLy)
+}
+
 function updateObjectListFilter(): void {
-  const reference = stars.find((star) => star.id === referenceId) ?? stars.find((star) => star.id === 'sun')
-  if (!reference) return
-  objectList.setFilter((star) => {
-    const distanceLy = sunRelativeMetrics(star, reference).distanceLy
-    return isObjectMapVisible(star, visibleKeys, selectedId, observerId, distanceLy, objectDistanceLimitLy)
-  })
+  objectList.setFilter(objectListFilter())
 }
 
 function selectStar(id: string | null, recordHistory = true): void {
@@ -1942,8 +1941,7 @@ function setOrigin(id: string): void {
   if (sceneBusy || id === referenceId || !stars.some((star) => star.id === id)) return
   referenceId = id
   selectedDistancePc = null
-  objectList.setReference(referenceId)
-  updateObjectListFilter()
+  objectList.setReference(referenceId, objectListFilter())
   viewer?.setReference(referenceId)
   renderSelection()
 }
@@ -2040,8 +2038,7 @@ async function switchCatalog(id: string, refresh = false): Promise<void> {
   renderCatalogRange(id)
   element('catalog-range').title = `${definition.manifest.description} ${definition.manifest.snapshot}`
   element<HTMLInputElement>('object-search').value = ''
-  objectList.setStars(stars, distanceUnit, selectedId, referenceId)
-  updateObjectListFilter()
+  objectList.setStars(stars, distanceUnit, selectedId, referenceId, objectListFilter())
   renderDistances()
   try {
     viewer = createStarViewer(element('scene'), stars, {
@@ -2478,8 +2475,7 @@ async function loadSavedView(savedView: SavedView): Promise<void> {
     if (!observerView) observerViewAnchorId = null
   }
   selectionHistory.record(selectedId)
-  updateObjectListFilter()
-  objectList.setReference(referenceId)
+  objectList.setReference(referenceId, objectListFilter())
   renderDistances()
   renderSelection()
   syncSavedSettingsInputs()

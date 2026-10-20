@@ -1,5 +1,6 @@
-import { BackSide, BoxGeometry, LinearFilter, Mesh, RepeatWrapping, ShaderMaterial, SRGBColorSpace, TextureLoader, Vector2, type Texture } from 'three'
-import milkyWayImageUrl from './assets/milky-way.jpg'
+import { BackSide, BoxGeometry, ImageLoader, LinearFilter, Mesh, RepeatWrapping, ShaderMaterial, SRGBColorSpace, Texture, Vector2 } from 'three'
+import milkyWayAvifUrl from './assets/milky-way.avif'
+import milkyWayJpegUrl from './assets/milky-way.jpg'
 
 export interface MilkyWayLayer {
   mesh: Mesh
@@ -8,15 +9,35 @@ export interface MilkyWayLayer {
   dispose(): void
 }
 
+// A 1×1 AVIF: browsers that cannot decode it receive the JPEG instead of downloading both.
+const AVIF_PROBE = 'data:image/avif;base64,AAAAHGZ0eXBhdmlmAAAAAG1pZjFhdmlmbWlhZgAAANZtZXRhAAAAAAAAACFoZGxyAAAAAAAAAABwaWN0AAAAAAAAAAAAAAAAAAAAACJpbG9jAAAAAERAAAEAAQAAAAAA+gABAAAAAAAAAB4AAAAjaWluZgAAAAAAAQAAABVpbmZlAgAAAAABAABhdjAxAAAAAA5waXRtAAAAAAABAAAAVmlwcnAAAAA4aXBjbwAAAAxhdjFDgSACAAAAABRpc3BlAAAAAAAAAAEAAAABAAAAEHBpeGkAAAAAAwgICAAAABZpcG1hAAAAAAAAAAEAAQOBAgMAAAAmbWRhdBIACgc4AAbQENBpMhEZQmMEwAA0AAAAkEDJHGFCvg=='
+
+function supportsAvif(): Promise<boolean> {
+  const image = new Image()
+  image.src = AVIF_PROBE
+  return image.decode().then(() => image.naturalWidth === 1, () => false)
+}
+
+async function loadPanorama(url: string): Promise<HTMLImageElement> {
+  const image = await new ImageLoader().loadAsync(url)
+  // Decode off the main thread now, rather than synchronously during the WebGL upload.
+  await image.decode().catch(() => undefined)
+  return image
+}
+
 // The panorama is large: decode and upload it once for the shared renderer, across viewer rebuilds.
 let texturePromise: Promise<Texture<HTMLImageElement>> | undefined
 function loadMilkyWayTexture(): Promise<Texture<HTMLImageElement>> {
-  texturePromise ??= new TextureLoader().loadAsync(milkyWayImageUrl).then((texture) => {
+  texturePromise ??= supportsAvif().then((avif) => avif
+    ? loadPanorama(milkyWayAvifUrl).catch(() => loadPanorama(milkyWayJpegUrl))
+    : loadPanorama(milkyWayJpegUrl)).then((image) => {
+    const texture = new Texture(image)
     texture.colorSpace = SRGBColorSpace
     texture.wrapS = RepeatWrapping
     texture.generateMipmaps = false
     texture.minFilter = LinearFilter
     texture.magFilter = LinearFilter
+    texture.needsUpdate = true
     return texture
   }).catch((error: unknown) => {
     texturePromise = undefined

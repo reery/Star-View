@@ -88551,23 +88551,697 @@
         "scope": "Shared primary astrometric basis and a single Galactic Cartesian velocity for all listed targets. This is a common linear-propagation approximation; individual measured positions, distances and proper motions are not overwritten. No orbital phase integration or binding-energy inference."
       }
     },
-    "cns5-1901": {},
+    "cns5-1901": {
+      "reviewedLiterature": {
+        "component": "A",
+        "expectedName": "LAWD 25",
+        "expectedType": "white_dwarf",
+        "fields": {
+          "luminosity_solar": {
+            "caveat": "Derived from the adopted radius and temperature. Mass, gravity and temperature are correlated fit parameters, so no uncertainty is propagated. Uniform photometric fit to Gaia DR3 photometry and parallax with pure-He model atmospheres and the Bedard et al. (2020) mass-radius relation; not an individual spectroscopic fit. Carbon or metals in this helium-rich atmosphere are not modeled; tailored atmosphere fits can differ in Teff and log g (section 2).",
+            "inputs": {
+              "radius_solar": 0.011511569593889241,
+              "temperature_k": 7650.0
+            },
+            "method": "Stefan-Boltzmann scaling, L = R^2 (Teff / 5772 K)^4",
+            "reference": "2024MNRAS.527.8687O",
+            "section": "Table A1 (CDS J/MNRAS/527/8687, updated 2024-11-14); method section 2",
+            "sourceUrl": "https://cdsarc.cds.unistra.fr/viz-bin/cat/J/MNRAS/527/8687",
+            "status": "derived",
+            "uncertainty": null,
+            "url": "https://arxiv.org/abs/2312.02735",
+            "value": 0.0004088928700314014
+          },
+          "mass_solar": {
+            "caveat": "Uniform photometric fit to Gaia DR3 photometry and parallax with pure-He model atmospheres and the Bedard et al. (2020) mass-radius relation; not an individual spectroscopic fit. Carbon or metals in this helium-rich atmosphere are not modeled; tailored atmosphere fits can differ in Teff and log g (section 2).",
+            "inputs": {
+              "composition": "He",
+              "coolingAgeGyr": 1.58,
+              "correctedMassSolar": 0.661,
+              "correctedTeffK": 7650.0,
+              "gaiaDr3Id": "5717278911884258176",
+              "logGCgs": 8.136,
+              "logGErrorCgs": 0.018,
+              "sourceSpectralType": "DZA",
+              "spectralTypeReference": "2018MNRAS.480.3942H",
+              "wdjName": "WDJ074020.79-172449.16"
+            },
+            "method": "Gaia DR3 photometric fit with the Bedard et al. (2020) mass-radius relation (gaia_mass)",
+            "reference": "2024MNRAS.527.8687O",
+            "section": "Table A1 (CDS J/MNRAS/527/8687, updated 2024-11-14); method section 2",
+            "sourceUrl": "https://cdsarc.cds.unistra.fr/viz-bin/cat/J/MNRAS/527/8687",
+            "status": "model-derived",
+            "uncertainty": 0.011,
+            "url": "https://arxiv.org/abs/2312.02735",
+            "value": 0.661
+          },
+          "radius_solar": {
+            "caveat": "Derived from the same fit's mass and surface gravity. Mass, gravity and temperature are correlated fit parameters, so no uncertainty is propagated. Uniform photometric fit to Gaia DR3 photometry and parallax with pure-He model atmospheres and the Bedard et al. (2020) mass-radius relation; not an individual spectroscopic fit. Carbon or metals in this helium-rich atmosphere are not modeled; tailored atmosphere fits can differ in Teff and log g (section 2).",
+            "inputs": {
+              "log_g_cgs": 8.136,
+              "mass_solar": 0.661
+            },
+            "method": "R = sqrt(G M / g) with IAU 2015 nominal GM_sun and R_sun",
+            "reference": "2024MNRAS.527.8687O",
+            "section": "Table A1 (CDS J/MNRAS/527/8687, updated 2024-11-14); method section 2",
+            "sourceUrl": "https://cdsarc.cds.unistra.fr/viz-bin/cat/J/MNRAS/527/8687",
+            "status": "derived",
+            "uncertainty": null,
+            "url": "https://arxiv.org/abs/2312.02735",
+            "value": 0.011511569593889241
+          },
+          "temperature_k": {
+            "caveat": "Uniform photometric fit to Gaia DR3 photometry and parallax with pure-He model atmospheres and the Bedard et al. (2020) mass-radius relation; not an individual spectroscopic fit. Carbon or metals in this helium-rich atmosphere are not modeled; tailored atmosphere fits can differ in Teff and log g (section 2).",
+            "inputs": {
+              "composition": "He",
+              "coolingAgeGyr": 1.58,
+              "correctedMassSolar": 0.661,
+              "correctedTeffK": 7650.0,
+              "gaiaDr3Id": "5717278911884258176",
+              "logGCgs": 8.136,
+              "logGErrorCgs": 0.018,
+              "sourceSpectralType": "DZA",
+              "spectralTypeReference": "2018MNRAS.480.3942H",
+              "wdjName": "WDJ074020.79-172449.16"
+            },
+            "method": "Gaia DR3 photometric fit (gaia_teff)",
+            "reference": "2024MNRAS.527.8687O",
+            "section": "Table A1 (CDS J/MNRAS/527/8687, updated 2024-11-14); method section 2",
+            "sourceUrl": "https://cdsarc.cds.unistra.fr/viz-bin/cat/J/MNRAS/527/8687",
+            "status": "model-derived",
+            "uncertainty": 62.0,
+            "url": "https://arxiv.org/abs/2312.02735",
+            "value": 7650.0
+          }
+        },
+        "gaiaDr3Id": "5717278911884258176",
+        "note": "O'Brien et al. (2024) 40 pc Gaia DR3 fit (He-rich atmosphere): Teff 7650 +/- 62 K, log g 8.136 +/- 0.018, mass 0.661 +/- 0.011 solar masses. Radius from that mass and gravity; luminosity from radius and Teff. Its 1.58 Gyr cooling age excludes the progenitor lifetime and is not adopted as total age. Carbon or metals in this helium-rich atmosphere are not modeled; tailored atmosphere fits can differ in Teff and log g (section 2).",
+        "systemId": "gj-283",
+        "adopted": {},
+        "retained": {
+          "luminosity_solar": {
+            "value": 0.00040889287,
+            "unusedLiterature": {
+              "caveat": "Derived from the adopted radius and temperature. Mass, gravity and temperature are correlated fit parameters, so no uncertainty is propagated. Uniform photometric fit to Gaia DR3 photometry and parallax with pure-He model atmospheres and the Bedard et al. (2020) mass-radius relation; not an individual spectroscopic fit. Carbon or metals in this helium-rich atmosphere are not modeled; tailored atmosphere fits can differ in Teff and log g (section 2).",
+              "inputs": {
+                "radius_solar": 0.011511569593889241,
+                "temperature_k": 7650.0
+              },
+              "method": "Stefan-Boltzmann scaling, L = R^2 (Teff / 5772 K)^4",
+              "reference": "2024MNRAS.527.8687O",
+              "section": "Table A1 (CDS J/MNRAS/527/8687, updated 2024-11-14); method section 2",
+              "sourceUrl": "https://cdsarc.cds.unistra.fr/viz-bin/cat/J/MNRAS/527/8687",
+              "status": "derived",
+              "uncertainty": null,
+              "url": "https://arxiv.org/abs/2312.02735",
+              "value": 0.0004088928700314014
+            }
+          },
+          "mass_solar": {
+            "value": 0.661,
+            "unusedLiterature": {
+              "caveat": "Uniform photometric fit to Gaia DR3 photometry and parallax with pure-He model atmospheres and the Bedard et al. (2020) mass-radius relation; not an individual spectroscopic fit. Carbon or metals in this helium-rich atmosphere are not modeled; tailored atmosphere fits can differ in Teff and log g (section 2).",
+              "inputs": {
+                "composition": "He",
+                "coolingAgeGyr": 1.58,
+                "correctedMassSolar": 0.661,
+                "correctedTeffK": 7650.0,
+                "gaiaDr3Id": "5717278911884258176",
+                "logGCgs": 8.136,
+                "logGErrorCgs": 0.018,
+                "sourceSpectralType": "DZA",
+                "spectralTypeReference": "2018MNRAS.480.3942H",
+                "wdjName": "WDJ074020.79-172449.16"
+              },
+              "method": "Gaia DR3 photometric fit with the Bedard et al. (2020) mass-radius relation (gaia_mass)",
+              "reference": "2024MNRAS.527.8687O",
+              "section": "Table A1 (CDS J/MNRAS/527/8687, updated 2024-11-14); method section 2",
+              "sourceUrl": "https://cdsarc.cds.unistra.fr/viz-bin/cat/J/MNRAS/527/8687",
+              "status": "model-derived",
+              "uncertainty": 0.011,
+              "url": "https://arxiv.org/abs/2312.02735",
+              "value": 0.661
+            }
+          },
+          "radius_solar": {
+            "value": 0.01151156959,
+            "unusedLiterature": {
+              "caveat": "Derived from the same fit's mass and surface gravity. Mass, gravity and temperature are correlated fit parameters, so no uncertainty is propagated. Uniform photometric fit to Gaia DR3 photometry and parallax with pure-He model atmospheres and the Bedard et al. (2020) mass-radius relation; not an individual spectroscopic fit. Carbon or metals in this helium-rich atmosphere are not modeled; tailored atmosphere fits can differ in Teff and log g (section 2).",
+              "inputs": {
+                "log_g_cgs": 8.136,
+                "mass_solar": 0.661
+              },
+              "method": "R = sqrt(G M / g) with IAU 2015 nominal GM_sun and R_sun",
+              "reference": "2024MNRAS.527.8687O",
+              "section": "Table A1 (CDS J/MNRAS/527/8687, updated 2024-11-14); method section 2",
+              "sourceUrl": "https://cdsarc.cds.unistra.fr/viz-bin/cat/J/MNRAS/527/8687",
+              "status": "derived",
+              "uncertainty": null,
+              "url": "https://arxiv.org/abs/2312.02735",
+              "value": 0.011511569593889241
+            }
+          },
+          "temperature_k": {
+            "value": 7650.0,
+            "unusedLiterature": {
+              "caveat": "Uniform photometric fit to Gaia DR3 photometry and parallax with pure-He model atmospheres and the Bedard et al. (2020) mass-radius relation; not an individual spectroscopic fit. Carbon or metals in this helium-rich atmosphere are not modeled; tailored atmosphere fits can differ in Teff and log g (section 2).",
+              "inputs": {
+                "composition": "He",
+                "coolingAgeGyr": 1.58,
+                "correctedMassSolar": 0.661,
+                "correctedTeffK": 7650.0,
+                "gaiaDr3Id": "5717278911884258176",
+                "logGCgs": 8.136,
+                "logGErrorCgs": 0.018,
+                "sourceSpectralType": "DZA",
+                "spectralTypeReference": "2018MNRAS.480.3942H",
+                "wdjName": "WDJ074020.79-172449.16"
+              },
+              "method": "Gaia DR3 photometric fit (gaia_teff)",
+              "reference": "2024MNRAS.527.8687O",
+              "section": "Table A1 (CDS J/MNRAS/527/8687, updated 2024-11-14); method section 2",
+              "sourceUrl": "https://cdsarc.cds.unistra.fr/viz-bin/cat/J/MNRAS/527/8687",
+              "status": "model-derived",
+              "uncertainty": 62.0,
+              "url": "https://arxiv.org/abs/2312.02735",
+              "value": 7650.0
+            }
+          }
+        }
+      }
+    },
     "cns5-3522": {},
     "cns5-3521": {},
     "cns5-2879": {},
     "cns5-2880": {},
     "cns5-2835": {},
-    "cns5-2836": {},
+    "cns5-2836": {
+      "reviewedLiterature": {
+        "component": "B",
+        "expectedName": "20 Crt B",
+        "expectedType": "white_dwarf",
+        "fields": {
+          "luminosity_solar": {
+            "caveat": "Derived from the adopted radius and temperature. Mass, gravity and temperature are correlated fit parameters, so no uncertainty is propagated. Uniform photometric fit to Gaia DR3 photometry and parallax with pure-He model atmospheres and the Bedard et al. (2020) mass-radius relation; not an individual spectroscopic fit. Below 6000 K the paper finds photometric masses systematically low because of model opacities (section 2.1). Its ad-hoc population correction (5367 K, 0.646 solar masses) is retained here but not adopted as an individual measurement.",
+            "inputs": {
+              "radius_solar": 0.012126828195945467,
+              "temperature_k": 5300.0
+            },
+            "method": "Stefan-Boltzmann scaling, L = R^2 (Teff / 5772 K)^4",
+            "reference": "2024MNRAS.527.8687O",
+            "section": "Table A1 (CDS J/MNRAS/527/8687, updated 2024-11-14); method section 2",
+            "sourceUrl": "https://cdsarc.cds.unistra.fr/viz-bin/cat/J/MNRAS/527/8687",
+            "status": "derived",
+            "uncertainty": null,
+            "url": "https://arxiv.org/abs/2312.02735",
+            "value": 0.00010454244148809644
+          },
+          "mass_solar": {
+            "caveat": "Uniform photometric fit to Gaia DR3 photometry and parallax with pure-He model atmospheres and the Bedard et al. (2020) mass-radius relation; not an individual spectroscopic fit. Below 6000 K the paper finds photometric masses systematically low because of model opacities (section 2.1). Its ad-hoc population correction (5367 K, 0.646 solar masses) is retained here but not adopted as an individual measurement.",
+            "inputs": {
+              "composition": "He",
+              "coolingAgeGyr": 5.6,
+              "correctedMassSolar": 0.646,
+              "correctedTeffK": 5367.0,
+              "gaiaDr3Id": "3478127467639543296",
+              "logGCgs": 8.048,
+              "logGErrorCgs": 0.015,
+              "sourceSpectralType": "DC",
+              "spectralTypeReference": "2018MNRAS.480.3942H",
+              "wdjName": "WDJ113430.48-325002.40"
+            },
+            "method": "Gaia DR3 photometric fit with the Bedard et al. (2020) mass-radius relation (gaia_mass)",
+            "reference": "2024MNRAS.527.8687O",
+            "section": "Table A1 (CDS J/MNRAS/527/8687, updated 2024-11-14); method section 2",
+            "sourceUrl": "https://cdsarc.cds.unistra.fr/viz-bin/cat/J/MNRAS/527/8687",
+            "status": "model-derived",
+            "uncertainty": 0.01,
+            "url": "https://arxiv.org/abs/2312.02735",
+            "value": 0.599
+          },
+          "radius_solar": {
+            "caveat": "Derived from the same fit's mass and surface gravity. Mass, gravity and temperature are correlated fit parameters, so no uncertainty is propagated. Uniform photometric fit to Gaia DR3 photometry and parallax with pure-He model atmospheres and the Bedard et al. (2020) mass-radius relation; not an individual spectroscopic fit. Below 6000 K the paper finds photometric masses systematically low because of model opacities (section 2.1). Its ad-hoc population correction (5367 K, 0.646 solar masses) is retained here but not adopted as an individual measurement.",
+            "inputs": {
+              "log_g_cgs": 8.048,
+              "mass_solar": 0.599
+            },
+            "method": "R = sqrt(G M / g) with IAU 2015 nominal GM_sun and R_sun",
+            "reference": "2024MNRAS.527.8687O",
+            "section": "Table A1 (CDS J/MNRAS/527/8687, updated 2024-11-14); method section 2",
+            "sourceUrl": "https://cdsarc.cds.unistra.fr/viz-bin/cat/J/MNRAS/527/8687",
+            "status": "derived",
+            "uncertainty": null,
+            "url": "https://arxiv.org/abs/2312.02735",
+            "value": 0.012126828195945467
+          },
+          "temperature_k": {
+            "caveat": "Uniform photometric fit to Gaia DR3 photometry and parallax with pure-He model atmospheres and the Bedard et al. (2020) mass-radius relation; not an individual spectroscopic fit. Below 6000 K the paper finds photometric masses systematically low because of model opacities (section 2.1). Its ad-hoc population correction (5367 K, 0.646 solar masses) is retained here but not adopted as an individual measurement.",
+            "inputs": {
+              "composition": "He",
+              "coolingAgeGyr": 5.6,
+              "correctedMassSolar": 0.646,
+              "correctedTeffK": 5367.0,
+              "gaiaDr3Id": "3478127467639543296",
+              "logGCgs": 8.048,
+              "logGErrorCgs": 0.015,
+              "sourceSpectralType": "DC",
+              "spectralTypeReference": "2018MNRAS.480.3942H",
+              "wdjName": "WDJ113430.48-325002.40"
+            },
+            "method": "Gaia DR3 photometric fit (gaia_teff)",
+            "reference": "2024MNRAS.527.8687O",
+            "section": "Table A1 (CDS J/MNRAS/527/8687, updated 2024-11-14); method section 2",
+            "sourceUrl": "https://cdsarc.cds.unistra.fr/viz-bin/cat/J/MNRAS/527/8687",
+            "status": "model-derived",
+            "uncertainty": 23.0,
+            "url": "https://arxiv.org/abs/2312.02735",
+            "value": 5300.0
+          }
+        },
+        "gaiaDr3Id": "3478127467639543296",
+        "note": "O'Brien et al. (2024) 40 pc Gaia DR3 fit (He-rich atmosphere): Teff 5300 +/- 23 K, log g 8.048 +/- 0.015, mass 0.599 +/- 0.01 solar masses. Radius from that mass and gravity; luminosity from radius and Teff. Its 5.6 Gyr cooling age excludes the progenitor lifetime and is not adopted as total age. Below 6000 K the paper finds photometric masses systematically low because of model opacities (section 2.1). Its ad-hoc population correction (5367 K, 0.646 solar masses) is retained here but not adopted as an individual measurement.",
+        "systemId": "gj-432",
+        "adopted": {},
+        "retained": {
+          "luminosity_solar": {
+            "value": 0.0001045424415,
+            "unusedLiterature": {
+              "caveat": "Derived from the adopted radius and temperature. Mass, gravity and temperature are correlated fit parameters, so no uncertainty is propagated. Uniform photometric fit to Gaia DR3 photometry and parallax with pure-He model atmospheres and the Bedard et al. (2020) mass-radius relation; not an individual spectroscopic fit. Below 6000 K the paper finds photometric masses systematically low because of model opacities (section 2.1). Its ad-hoc population correction (5367 K, 0.646 solar masses) is retained here but not adopted as an individual measurement.",
+              "inputs": {
+                "radius_solar": 0.012126828195945467,
+                "temperature_k": 5300.0
+              },
+              "method": "Stefan-Boltzmann scaling, L = R^2 (Teff / 5772 K)^4",
+              "reference": "2024MNRAS.527.8687O",
+              "section": "Table A1 (CDS J/MNRAS/527/8687, updated 2024-11-14); method section 2",
+              "sourceUrl": "https://cdsarc.cds.unistra.fr/viz-bin/cat/J/MNRAS/527/8687",
+              "status": "derived",
+              "uncertainty": null,
+              "url": "https://arxiv.org/abs/2312.02735",
+              "value": 0.00010454244148809644
+            }
+          },
+          "mass_solar": {
+            "value": 0.599,
+            "unusedLiterature": {
+              "caveat": "Uniform photometric fit to Gaia DR3 photometry and parallax with pure-He model atmospheres and the Bedard et al. (2020) mass-radius relation; not an individual spectroscopic fit. Below 6000 K the paper finds photometric masses systematically low because of model opacities (section 2.1). Its ad-hoc population correction (5367 K, 0.646 solar masses) is retained here but not adopted as an individual measurement.",
+              "inputs": {
+                "composition": "He",
+                "coolingAgeGyr": 5.6,
+                "correctedMassSolar": 0.646,
+                "correctedTeffK": 5367.0,
+                "gaiaDr3Id": "3478127467639543296",
+                "logGCgs": 8.048,
+                "logGErrorCgs": 0.015,
+                "sourceSpectralType": "DC",
+                "spectralTypeReference": "2018MNRAS.480.3942H",
+                "wdjName": "WDJ113430.48-325002.40"
+              },
+              "method": "Gaia DR3 photometric fit with the Bedard et al. (2020) mass-radius relation (gaia_mass)",
+              "reference": "2024MNRAS.527.8687O",
+              "section": "Table A1 (CDS J/MNRAS/527/8687, updated 2024-11-14); method section 2",
+              "sourceUrl": "https://cdsarc.cds.unistra.fr/viz-bin/cat/J/MNRAS/527/8687",
+              "status": "model-derived",
+              "uncertainty": 0.01,
+              "url": "https://arxiv.org/abs/2312.02735",
+              "value": 0.599
+            }
+          },
+          "radius_solar": {
+            "value": 0.0121268282,
+            "unusedLiterature": {
+              "caveat": "Derived from the same fit's mass and surface gravity. Mass, gravity and temperature are correlated fit parameters, so no uncertainty is propagated. Uniform photometric fit to Gaia DR3 photometry and parallax with pure-He model atmospheres and the Bedard et al. (2020) mass-radius relation; not an individual spectroscopic fit. Below 6000 K the paper finds photometric masses systematically low because of model opacities (section 2.1). Its ad-hoc population correction (5367 K, 0.646 solar masses) is retained here but not adopted as an individual measurement.",
+              "inputs": {
+                "log_g_cgs": 8.048,
+                "mass_solar": 0.599
+              },
+              "method": "R = sqrt(G M / g) with IAU 2015 nominal GM_sun and R_sun",
+              "reference": "2024MNRAS.527.8687O",
+              "section": "Table A1 (CDS J/MNRAS/527/8687, updated 2024-11-14); method section 2",
+              "sourceUrl": "https://cdsarc.cds.unistra.fr/viz-bin/cat/J/MNRAS/527/8687",
+              "status": "derived",
+              "uncertainty": null,
+              "url": "https://arxiv.org/abs/2312.02735",
+              "value": 0.012126828195945467
+            }
+          },
+          "temperature_k": {
+            "value": 5300.0,
+            "unusedLiterature": {
+              "caveat": "Uniform photometric fit to Gaia DR3 photometry and parallax with pure-He model atmospheres and the Bedard et al. (2020) mass-radius relation; not an individual spectroscopic fit. Below 6000 K the paper finds photometric masses systematically low because of model opacities (section 2.1). Its ad-hoc population correction (5367 K, 0.646 solar masses) is retained here but not adopted as an individual measurement.",
+              "inputs": {
+                "composition": "He",
+                "coolingAgeGyr": 5.6,
+                "correctedMassSolar": 0.646,
+                "correctedTeffK": 5367.0,
+                "gaiaDr3Id": "3478127467639543296",
+                "logGCgs": 8.048,
+                "logGErrorCgs": 0.015,
+                "sourceSpectralType": "DC",
+                "spectralTypeReference": "2018MNRAS.480.3942H",
+                "wdjName": "WDJ113430.48-325002.40"
+              },
+              "method": "Gaia DR3 photometric fit (gaia_teff)",
+              "reference": "2024MNRAS.527.8687O",
+              "section": "Table A1 (CDS J/MNRAS/527/8687, updated 2024-11-14); method section 2",
+              "sourceUrl": "https://cdsarc.cds.unistra.fr/viz-bin/cat/J/MNRAS/527/8687",
+              "status": "model-derived",
+              "uncertainty": 23.0,
+              "url": "https://arxiv.org/abs/2312.02735",
+              "value": 5300.0
+            }
+          }
+        }
+      }
+    },
     "cns5-4336": {},
     "cns5-4335": {},
     "cns5-1526": {},
     "cns5-1525": {},
     "cns5-4183": {},
-    "cns5-4799": {},
+    "cns5-4799": {
+      "reviewedLiterature": {
+        "component": "A",
+        "expectedName": "LAWD 74",
+        "expectedType": "white_dwarf",
+        "fields": {
+          "luminosity_solar": {
+            "caveat": "Derived from the adopted radius and temperature. Mass, gravity and temperature are correlated fit parameters, so no uncertainty is propagated. Uniform photometric fit to Gaia DR3 photometry and parallax with pure-He model atmospheres and the Bedard et al. (2020) mass-radius relation; not an individual spectroscopic fit. Carbon or metals in this helium-rich atmosphere are not modeled; tailored atmosphere fits can differ in Teff and log g (section 2).",
+            "inputs": {
+              "radius_solar": 0.012215451527927093,
+              "temperature_k": 10805.0
+            },
+            "method": "Stefan-Boltzmann scaling, L = R^2 (Teff / 5772 K)^4",
+            "reference": "2024MNRAS.527.8687O",
+            "section": "Table A1 (CDS J/MNRAS/527/8687, updated 2024-11-14); method section 2",
+            "sourceUrl": "https://cdsarc.cds.unistra.fr/viz-bin/cat/J/MNRAS/527/8687",
+            "status": "derived",
+            "uncertainty": null,
+            "url": "https://arxiv.org/abs/2312.02735",
+            "value": 0.001832368615477454
+          },
+          "mass_solar": {
+            "caveat": "Uniform photometric fit to Gaia DR3 photometry and parallax with pure-He model atmospheres and the Bedard et al. (2020) mass-radius relation; not an individual spectroscopic fit. Carbon or metals in this helium-rich atmosphere are not modeled; tailored atmosphere fits can differ in Teff and log g (section 2).",
+            "inputs": {
+              "composition": "He",
+              "coolingAgeGyr": 0.57,
+              "correctedMassSolar": 0.612,
+              "correctedTeffK": 10805.0,
+              "gaiaDr3Id": "4201781696994073472",
+              "logGCgs": 8.051,
+              "logGErrorCgs": 0.023,
+              "sourceSpectralType": "DBQA",
+              "spectralTypeReference": "1993PASP..105..761W",
+              "wdjName": "WDJ192034.92-074000.07"
+            },
+            "method": "Gaia DR3 photometric fit with the Bedard et al. (2020) mass-radius relation (gaia_mass)",
+            "reference": "2024MNRAS.527.8687O",
+            "section": "Table A1 (CDS J/MNRAS/527/8687, updated 2024-11-14); method section 2",
+            "sourceUrl": "https://cdsarc.cds.unistra.fr/viz-bin/cat/J/MNRAS/527/8687",
+            "status": "model-derived",
+            "uncertainty": 0.014,
+            "url": "https://arxiv.org/abs/2312.02735",
+            "value": 0.612
+          },
+          "radius_solar": {
+            "caveat": "Derived from the same fit's mass and surface gravity. Mass, gravity and temperature are correlated fit parameters, so no uncertainty is propagated. Uniform photometric fit to Gaia DR3 photometry and parallax with pure-He model atmospheres and the Bedard et al. (2020) mass-radius relation; not an individual spectroscopic fit. Carbon or metals in this helium-rich atmosphere are not modeled; tailored atmosphere fits can differ in Teff and log g (section 2).",
+            "inputs": {
+              "log_g_cgs": 8.051,
+              "mass_solar": 0.612
+            },
+            "method": "R = sqrt(G M / g) with IAU 2015 nominal GM_sun and R_sun",
+            "reference": "2024MNRAS.527.8687O",
+            "section": "Table A1 (CDS J/MNRAS/527/8687, updated 2024-11-14); method section 2",
+            "sourceUrl": "https://cdsarc.cds.unistra.fr/viz-bin/cat/J/MNRAS/527/8687",
+            "status": "derived",
+            "uncertainty": null,
+            "url": "https://arxiv.org/abs/2312.02735",
+            "value": 0.012215451527927093
+          },
+          "temperature_k": {
+            "caveat": "Uniform photometric fit to Gaia DR3 photometry and parallax with pure-He model atmospheres and the Bedard et al. (2020) mass-radius relation; not an individual spectroscopic fit. Carbon or metals in this helium-rich atmosphere are not modeled; tailored atmosphere fits can differ in Teff and log g (section 2).",
+            "inputs": {
+              "composition": "He",
+              "coolingAgeGyr": 0.57,
+              "correctedMassSolar": 0.612,
+              "correctedTeffK": 10805.0,
+              "gaiaDr3Id": "4201781696994073472",
+              "logGCgs": 8.051,
+              "logGErrorCgs": 0.023,
+              "sourceSpectralType": "DBQA",
+              "spectralTypeReference": "1993PASP..105..761W",
+              "wdjName": "WDJ192034.92-074000.07"
+            },
+            "method": "Gaia DR3 photometric fit (gaia_teff)",
+            "reference": "2024MNRAS.527.8687O",
+            "section": "Table A1 (CDS J/MNRAS/527/8687, updated 2024-11-14); method section 2",
+            "sourceUrl": "https://cdsarc.cds.unistra.fr/viz-bin/cat/J/MNRAS/527/8687",
+            "status": "model-derived",
+            "uncertainty": 117.0,
+            "url": "https://arxiv.org/abs/2312.02735",
+            "value": 10805.0
+          }
+        },
+        "gaiaDr3Id": "4201781696994073472",
+        "note": "O'Brien et al. (2024) 40 pc Gaia DR3 fit (He-rich atmosphere): Teff 10805 +/- 117 K, log g 8.051 +/- 0.023, mass 0.612 +/- 0.014 solar masses. Radius from that mass and gravity; luminosity from radius and Teff. Its 0.57 Gyr cooling age excludes the progenitor lifetime and is not adopted as total age. Carbon or metals in this helium-rich atmosphere are not modeled; tailored atmosphere fits can differ in Teff and log g (section 2).",
+        "systemId": "gj-754-1",
+        "adopted": {},
+        "retained": {
+          "luminosity_solar": {
+            "value": 0.001832368615,
+            "unusedLiterature": {
+              "caveat": "Derived from the adopted radius and temperature. Mass, gravity and temperature are correlated fit parameters, so no uncertainty is propagated. Uniform photometric fit to Gaia DR3 photometry and parallax with pure-He model atmospheres and the Bedard et al. (2020) mass-radius relation; not an individual spectroscopic fit. Carbon or metals in this helium-rich atmosphere are not modeled; tailored atmosphere fits can differ in Teff and log g (section 2).",
+              "inputs": {
+                "radius_solar": 0.012215451527927093,
+                "temperature_k": 10805.0
+              },
+              "method": "Stefan-Boltzmann scaling, L = R^2 (Teff / 5772 K)^4",
+              "reference": "2024MNRAS.527.8687O",
+              "section": "Table A1 (CDS J/MNRAS/527/8687, updated 2024-11-14); method section 2",
+              "sourceUrl": "https://cdsarc.cds.unistra.fr/viz-bin/cat/J/MNRAS/527/8687",
+              "status": "derived",
+              "uncertainty": null,
+              "url": "https://arxiv.org/abs/2312.02735",
+              "value": 0.001832368615477454
+            }
+          },
+          "mass_solar": {
+            "value": 0.612,
+            "unusedLiterature": {
+              "caveat": "Uniform photometric fit to Gaia DR3 photometry and parallax with pure-He model atmospheres and the Bedard et al. (2020) mass-radius relation; not an individual spectroscopic fit. Carbon or metals in this helium-rich atmosphere are not modeled; tailored atmosphere fits can differ in Teff and log g (section 2).",
+              "inputs": {
+                "composition": "He",
+                "coolingAgeGyr": 0.57,
+                "correctedMassSolar": 0.612,
+                "correctedTeffK": 10805.0,
+                "gaiaDr3Id": "4201781696994073472",
+                "logGCgs": 8.051,
+                "logGErrorCgs": 0.023,
+                "sourceSpectralType": "DBQA",
+                "spectralTypeReference": "1993PASP..105..761W",
+                "wdjName": "WDJ192034.92-074000.07"
+              },
+              "method": "Gaia DR3 photometric fit with the Bedard et al. (2020) mass-radius relation (gaia_mass)",
+              "reference": "2024MNRAS.527.8687O",
+              "section": "Table A1 (CDS J/MNRAS/527/8687, updated 2024-11-14); method section 2",
+              "sourceUrl": "https://cdsarc.cds.unistra.fr/viz-bin/cat/J/MNRAS/527/8687",
+              "status": "model-derived",
+              "uncertainty": 0.014,
+              "url": "https://arxiv.org/abs/2312.02735",
+              "value": 0.612
+            }
+          },
+          "radius_solar": {
+            "value": 0.01221545153,
+            "unusedLiterature": {
+              "caveat": "Derived from the same fit's mass and surface gravity. Mass, gravity and temperature are correlated fit parameters, so no uncertainty is propagated. Uniform photometric fit to Gaia DR3 photometry and parallax with pure-He model atmospheres and the Bedard et al. (2020) mass-radius relation; not an individual spectroscopic fit. Carbon or metals in this helium-rich atmosphere are not modeled; tailored atmosphere fits can differ in Teff and log g (section 2).",
+              "inputs": {
+                "log_g_cgs": 8.051,
+                "mass_solar": 0.612
+              },
+              "method": "R = sqrt(G M / g) with IAU 2015 nominal GM_sun and R_sun",
+              "reference": "2024MNRAS.527.8687O",
+              "section": "Table A1 (CDS J/MNRAS/527/8687, updated 2024-11-14); method section 2",
+              "sourceUrl": "https://cdsarc.cds.unistra.fr/viz-bin/cat/J/MNRAS/527/8687",
+              "status": "derived",
+              "uncertainty": null,
+              "url": "https://arxiv.org/abs/2312.02735",
+              "value": 0.012215451527927093
+            }
+          },
+          "temperature_k": {
+            "value": 10805.0,
+            "unusedLiterature": {
+              "caveat": "Uniform photometric fit to Gaia DR3 photometry and parallax with pure-He model atmospheres and the Bedard et al. (2020) mass-radius relation; not an individual spectroscopic fit. Carbon or metals in this helium-rich atmosphere are not modeled; tailored atmosphere fits can differ in Teff and log g (section 2).",
+              "inputs": {
+                "composition": "He",
+                "coolingAgeGyr": 0.57,
+                "correctedMassSolar": 0.612,
+                "correctedTeffK": 10805.0,
+                "gaiaDr3Id": "4201781696994073472",
+                "logGCgs": 8.051,
+                "logGErrorCgs": 0.023,
+                "sourceSpectralType": "DBQA",
+                "spectralTypeReference": "1993PASP..105..761W",
+                "wdjName": "WDJ192034.92-074000.07"
+              },
+              "method": "Gaia DR3 photometric fit (gaia_teff)",
+              "reference": "2024MNRAS.527.8687O",
+              "section": "Table A1 (CDS J/MNRAS/527/8687, updated 2024-11-14); method section 2",
+              "sourceUrl": "https://cdsarc.cds.unistra.fr/viz-bin/cat/J/MNRAS/527/8687",
+              "status": "model-derived",
+              "uncertainty": 117.0,
+              "url": "https://arxiv.org/abs/2312.02735",
+              "value": 10805.0
+            }
+          }
+        }
+      }
+    },
     "cns5-4898": {},
     "cns5-4261": {},
     "cns5-0543": {},
-    "cns5-0544": {},
+    "cns5-0544": {
+      "reviewedLiterature": {
+        "component": "B",
+        "expectedName": "HD 13445B",
+        "expectedType": "white_dwarf",
+        "fields": {
+          "luminosity_solar": {
+            "caveat": "Derived from the published radius and temperature of the same fit; no uncertainty is propagated from correlated parameters.",
+            "inputs": {
+              "radius_solar": 0.01245,
+              "temperature_k": 8180
+            },
+            "method": "Stefan-Boltzmann scaling, L = R^2 (Teff / 5772 K)^4",
+            "reference": "2013MNRAS.430..652F",
+            "section": "Farihi et al. (2013) Table 3 and section 3.1",
+            "sourceUrl": "https://arxiv.org/pdf/1212.5601",
+            "status": "derived",
+            "uncertainty": null,
+            "url": "https://arxiv.org/abs/1212.5601",
+            "value": 0.000625239817809022
+          },
+          "mass_solar": {
+            "caveat": "Independent dynamical masses: 0.595 +/- 0.010 (Brandt, Dupuy & Bowler 2019, AJ 158, 140, Table 6) agrees; 0.5425 +/- 0.0042 (Zeng et al. 2022, AJ 164, 188, Table 3) differs by about 5 sigma. Neither replaces the atmospheric value here.",
+            "method": "Radius from the fitted solid angle and the Hipparcos parallax, converted with the Fontaine et al. (2001) mass-radius relation",
+            "reference": "2013MNRAS.430..652F",
+            "section": "Farihi et al. (2013) Table 3 and section 3.1",
+            "sourceUrl": "https://arxiv.org/pdf/1212.5601",
+            "status": "model-derived",
+            "uncertainty": 0.01,
+            "url": "https://arxiv.org/abs/1212.5601",
+            "value": 0.59
+          },
+          "radius_solar": {
+            "caveat": "The uncertainty is retained as printed; it is about ten times wider than the quoted mass and log g errors imply.",
+            "method": "Fitted solid angle and Hipparcos parallax (92.74 mas)",
+            "reference": "2013MNRAS.430..652F",
+            "section": "Farihi et al. (2013) Table 3 and section 3.1",
+            "sourceUrl": "https://arxiv.org/pdf/1212.5601",
+            "status": "model-derived",
+            "uncertainty": 0.0015,
+            "url": "https://arxiv.org/abs/1212.5601",
+            "value": 0.01245
+          },
+          "temperature_k": {
+            "caveat": "F225W and F275W are excluded because the models over-predict C I absorption there; including them gives 8420 +/- 90 K (section 3.1).",
+            "inputs": {
+              "coolingAgeErrorGyr": 0.05,
+              "coolingAgeGyr": 1.25,
+              "logCarbonToHelium": -4.8,
+              "logCarbonToHeliumError": 0.2,
+              "logGCgs": 8.02,
+              "logGErrorCgs": 0.02,
+              "parallaxMas": 92.74
+            },
+            "method": "Weighted mean of DQ model-atmosphere fits to HST/WFC3 photometry (8210 +/- 180 K) and the HST/STIS G430L spectrum (8145 +/- 180 K)",
+            "reference": "2013MNRAS.430..652F",
+            "section": "Farihi et al. (2013) Table 3 and section 3.1",
+            "sourceUrl": "https://arxiv.org/pdf/1212.5601",
+            "status": "measured",
+            "uncertainty": 120,
+            "url": "https://arxiv.org/abs/1212.5601",
+            "value": 8180
+          }
+        },
+        "gaiaDr3Id": "4937000898856154624",
+        "note": "Farihi et al. (2013) DQ6 fit of HST photometry and STIS spectroscopy: Teff 8180 +/- 120 K, log g 8.02 +/- 0.02, mass 0.59 +/- 0.01 solar masses, radius 0.01245 solar radii; luminosity from radius and Teff. Brandt et al. (2019) find a consistent dynamical mass of 0.595 +/- 0.010; Zeng et al. (2022) find 0.5425 +/- 0.0042. The 1.25 Gyr cooling age is not adopted as total age.",
+        "systemId": "gj-86",
+        "adopted": {},
+        "retained": {
+          "luminosity_solar": {
+            "value": 0.0006252398178,
+            "unusedLiterature": {
+              "caveat": "Derived from the published radius and temperature of the same fit; no uncertainty is propagated from correlated parameters.",
+              "inputs": {
+                "radius_solar": 0.01245,
+                "temperature_k": 8180
+              },
+              "method": "Stefan-Boltzmann scaling, L = R^2 (Teff / 5772 K)^4",
+              "reference": "2013MNRAS.430..652F",
+              "section": "Farihi et al. (2013) Table 3 and section 3.1",
+              "sourceUrl": "https://arxiv.org/pdf/1212.5601",
+              "status": "derived",
+              "uncertainty": null,
+              "url": "https://arxiv.org/abs/1212.5601",
+              "value": 0.000625239817809022
+            }
+          },
+          "mass_solar": {
+            "value": 0.59,
+            "unusedLiterature": {
+              "caveat": "Independent dynamical masses: 0.595 +/- 0.010 (Brandt, Dupuy & Bowler 2019, AJ 158, 140, Table 6) agrees; 0.5425 +/- 0.0042 (Zeng et al. 2022, AJ 164, 188, Table 3) differs by about 5 sigma. Neither replaces the atmospheric value here.",
+              "method": "Radius from the fitted solid angle and the Hipparcos parallax, converted with the Fontaine et al. (2001) mass-radius relation",
+              "reference": "2013MNRAS.430..652F",
+              "section": "Farihi et al. (2013) Table 3 and section 3.1",
+              "sourceUrl": "https://arxiv.org/pdf/1212.5601",
+              "status": "model-derived",
+              "uncertainty": 0.01,
+              "url": "https://arxiv.org/abs/1212.5601",
+              "value": 0.59
+            }
+          },
+          "radius_solar": {
+            "value": 0.01245,
+            "unusedLiterature": {
+              "caveat": "The uncertainty is retained as printed; it is about ten times wider than the quoted mass and log g errors imply.",
+              "method": "Fitted solid angle and Hipparcos parallax (92.74 mas)",
+              "reference": "2013MNRAS.430..652F",
+              "section": "Farihi et al. (2013) Table 3 and section 3.1",
+              "sourceUrl": "https://arxiv.org/pdf/1212.5601",
+              "status": "model-derived",
+              "uncertainty": 0.0015,
+              "url": "https://arxiv.org/abs/1212.5601",
+              "value": 0.01245
+            }
+          },
+          "temperature_k": {
+            "value": 8180.0,
+            "unusedLiterature": {
+              "caveat": "F225W and F275W are excluded because the models over-predict C I absorption there; including them gives 8420 +/- 90 K (section 3.1).",
+              "inputs": {
+                "coolingAgeErrorGyr": 0.05,
+                "coolingAgeGyr": 1.25,
+                "logCarbonToHelium": -4.8,
+                "logCarbonToHeliumError": 0.2,
+                "logGCgs": 8.02,
+                "logGErrorCgs": 0.02,
+                "parallaxMas": 92.74
+              },
+              "method": "Weighted mean of DQ model-atmosphere fits to HST/WFC3 photometry (8210 +/- 180 K) and the HST/STIS G430L spectrum (8145 +/- 180 K)",
+              "reference": "2013MNRAS.430..652F",
+              "section": "Farihi et al. (2013) Table 3 and section 3.1",
+              "sourceUrl": "https://arxiv.org/pdf/1212.5601",
+              "status": "measured",
+              "uncertainty": 120,
+              "url": "https://arxiv.org/abs/1212.5601",
+              "value": 8180
+            }
+          }
+        }
+      }
+    },
     "cns5-3636": {},
     "cns5-1223": {},
     "cns5-1222": {},
@@ -88586,7 +89260,185 @@
     "cns5-3710": {},
     "cns5-5583": {},
     "cns5-5584": {},
-    "cns5-3412": {},
+    "cns5-3412": {
+      "reviewedLiterature": {
+        "component": "B",
+        "expectedName": "EGGR 438",
+        "expectedType": "white_dwarf",
+        "fields": {
+          "luminosity_solar": {
+            "caveat": "Derived from the adopted radius and temperature. Mass, gravity and temperature are correlated fit parameters, so no uncertainty is propagated. Uniform photometric fit to Gaia DR3 photometry and parallax with pure-H model atmospheres and the Bedard et al. (2020) mass-radius relation; not an individual spectroscopic fit. Below 6000 K the paper finds photometric masses systematically low because of model opacities (section 2.1). Its ad-hoc population correction (4769 K, 0.586 solar masses) is retained here but not adopted as an individual measurement.",
+            "inputs": {
+              "radius_solar": 0.014638342815443408,
+              "temperature_k": 4576.0
+            },
+            "method": "Stefan-Boltzmann scaling, L = R^2 (Teff / 5772 K)^4",
+            "reference": "2024MNRAS.527.8687O",
+            "section": "Table A1 (CDS J/MNRAS/527/8687, updated 2024-11-14); method section 2",
+            "sourceUrl": "https://cdsarc.cds.unistra.fr/viz-bin/cat/J/MNRAS/527/8687",
+            "status": "derived",
+            "uncertainty": null,
+            "url": "https://arxiv.org/abs/2312.02735",
+            "value": 8.464914986462221e-05
+          },
+          "mass_solar": {
+            "caveat": "Uniform photometric fit to Gaia DR3 photometry and parallax with pure-H model atmospheres and the Bedard et al. (2020) mass-radius relation; not an individual spectroscopic fit. Below 6000 K the paper finds photometric masses systematically low because of model opacities (section 2.1). Its ad-hoc population correction (4769 K, 0.586 solar masses) is retained here but not adopted as an individual measurement.",
+            "inputs": {
+              "composition": "H",
+              "coolingAgeGyr": 7.21,
+              "correctedMassSolar": 0.586,
+              "correctedTeffK": 4769.0,
+              "gaiaDr3Id": "1251824057289839744",
+              "logGCgs": 7.767,
+              "logGErrorCgs": 0.016,
+              "sourceSpectralType": "DC",
+              "spectralTypeReference": "2018MNRAS.480.3942H",
+              "wdjName": "WDJ134803.01+233446.44"
+            },
+            "method": "Gaia DR3 photometric fit with the Bedard et al. (2020) mass-radius relation (gaia_mass)",
+            "reference": "2024MNRAS.527.8687O",
+            "section": "Table A1 (CDS J/MNRAS/527/8687, updated 2024-11-14); method section 2",
+            "sourceUrl": "https://cdsarc.cds.unistra.fr/viz-bin/cat/J/MNRAS/527/8687",
+            "status": "model-derived",
+            "uncertainty": 0.007,
+            "url": "https://arxiv.org/abs/2312.02735",
+            "value": 0.457
+          },
+          "radius_solar": {
+            "caveat": "Derived from the same fit's mass and surface gravity. Mass, gravity and temperature are correlated fit parameters, so no uncertainty is propagated. Uniform photometric fit to Gaia DR3 photometry and parallax with pure-H model atmospheres and the Bedard et al. (2020) mass-radius relation; not an individual spectroscopic fit. Below 6000 K the paper finds photometric masses systematically low because of model opacities (section 2.1). Its ad-hoc population correction (4769 K, 0.586 solar masses) is retained here but not adopted as an individual measurement.",
+            "inputs": {
+              "log_g_cgs": 7.767,
+              "mass_solar": 0.457
+            },
+            "method": "R = sqrt(G M / g) with IAU 2015 nominal GM_sun and R_sun",
+            "reference": "2024MNRAS.527.8687O",
+            "section": "Table A1 (CDS J/MNRAS/527/8687, updated 2024-11-14); method section 2",
+            "sourceUrl": "https://cdsarc.cds.unistra.fr/viz-bin/cat/J/MNRAS/527/8687",
+            "status": "derived",
+            "uncertainty": null,
+            "url": "https://arxiv.org/abs/2312.02735",
+            "value": 0.014638342815443408
+          },
+          "temperature_k": {
+            "caveat": "Uniform photometric fit to Gaia DR3 photometry and parallax with pure-H model atmospheres and the Bedard et al. (2020) mass-radius relation; not an individual spectroscopic fit. Below 6000 K the paper finds photometric masses systematically low because of model opacities (section 2.1). Its ad-hoc population correction (4769 K, 0.586 solar masses) is retained here but not adopted as an individual measurement.",
+            "inputs": {
+              "composition": "H",
+              "coolingAgeGyr": 7.21,
+              "correctedMassSolar": 0.586,
+              "correctedTeffK": 4769.0,
+              "gaiaDr3Id": "1251824057289839744",
+              "logGCgs": 7.767,
+              "logGErrorCgs": 0.016,
+              "sourceSpectralType": "DC",
+              "spectralTypeReference": "2018MNRAS.480.3942H",
+              "wdjName": "WDJ134803.01+233446.44"
+            },
+            "method": "Gaia DR3 photometric fit (gaia_teff)",
+            "reference": "2024MNRAS.527.8687O",
+            "section": "Table A1 (CDS J/MNRAS/527/8687, updated 2024-11-14); method section 2",
+            "sourceUrl": "https://cdsarc.cds.unistra.fr/viz-bin/cat/J/MNRAS/527/8687",
+            "status": "model-derived",
+            "uncertainty": 20.0,
+            "url": "https://arxiv.org/abs/2312.02735",
+            "value": 4576.0
+          }
+        },
+        "gaiaDr3Id": "1251824057289839744",
+        "note": "O'Brien et al. (2024) 40 pc Gaia DR3 fit (H-rich atmosphere): Teff 4576 +/- 20 K, log g 7.767 +/- 0.016, mass 0.457 +/- 0.007 solar masses. Radius from that mass and gravity; luminosity from radius and Teff. Its 7.21 Gyr cooling age excludes the progenitor lifetime and is not adopted as total age. Below 6000 K the paper finds photometric masses systematically low because of model opacities (section 2.1). Its ad-hoc population correction (4769 K, 0.586 solar masses) is retained here but not adopted as an individual measurement.",
+        "systemId": "gj-1179",
+        "adopted": {},
+        "retained": {
+          "luminosity_solar": {
+            "value": 8.464914986e-05,
+            "unusedLiterature": {
+              "caveat": "Derived from the adopted radius and temperature. Mass, gravity and temperature are correlated fit parameters, so no uncertainty is propagated. Uniform photometric fit to Gaia DR3 photometry and parallax with pure-H model atmospheres and the Bedard et al. (2020) mass-radius relation; not an individual spectroscopic fit. Below 6000 K the paper finds photometric masses systematically low because of model opacities (section 2.1). Its ad-hoc population correction (4769 K, 0.586 solar masses) is retained here but not adopted as an individual measurement.",
+              "inputs": {
+                "radius_solar": 0.014638342815443408,
+                "temperature_k": 4576.0
+              },
+              "method": "Stefan-Boltzmann scaling, L = R^2 (Teff / 5772 K)^4",
+              "reference": "2024MNRAS.527.8687O",
+              "section": "Table A1 (CDS J/MNRAS/527/8687, updated 2024-11-14); method section 2",
+              "sourceUrl": "https://cdsarc.cds.unistra.fr/viz-bin/cat/J/MNRAS/527/8687",
+              "status": "derived",
+              "uncertainty": null,
+              "url": "https://arxiv.org/abs/2312.02735",
+              "value": 8.464914986462221e-05
+            }
+          },
+          "mass_solar": {
+            "value": 0.457,
+            "unusedLiterature": {
+              "caveat": "Uniform photometric fit to Gaia DR3 photometry and parallax with pure-H model atmospheres and the Bedard et al. (2020) mass-radius relation; not an individual spectroscopic fit. Below 6000 K the paper finds photometric masses systematically low because of model opacities (section 2.1). Its ad-hoc population correction (4769 K, 0.586 solar masses) is retained here but not adopted as an individual measurement.",
+              "inputs": {
+                "composition": "H",
+                "coolingAgeGyr": 7.21,
+                "correctedMassSolar": 0.586,
+                "correctedTeffK": 4769.0,
+                "gaiaDr3Id": "1251824057289839744",
+                "logGCgs": 7.767,
+                "logGErrorCgs": 0.016,
+                "sourceSpectralType": "DC",
+                "spectralTypeReference": "2018MNRAS.480.3942H",
+                "wdjName": "WDJ134803.01+233446.44"
+              },
+              "method": "Gaia DR3 photometric fit with the Bedard et al. (2020) mass-radius relation (gaia_mass)",
+              "reference": "2024MNRAS.527.8687O",
+              "section": "Table A1 (CDS J/MNRAS/527/8687, updated 2024-11-14); method section 2",
+              "sourceUrl": "https://cdsarc.cds.unistra.fr/viz-bin/cat/J/MNRAS/527/8687",
+              "status": "model-derived",
+              "uncertainty": 0.007,
+              "url": "https://arxiv.org/abs/2312.02735",
+              "value": 0.457
+            }
+          },
+          "radius_solar": {
+            "value": 0.01463834282,
+            "unusedLiterature": {
+              "caveat": "Derived from the same fit's mass and surface gravity. Mass, gravity and temperature are correlated fit parameters, so no uncertainty is propagated. Uniform photometric fit to Gaia DR3 photometry and parallax with pure-H model atmospheres and the Bedard et al. (2020) mass-radius relation; not an individual spectroscopic fit. Below 6000 K the paper finds photometric masses systematically low because of model opacities (section 2.1). Its ad-hoc population correction (4769 K, 0.586 solar masses) is retained here but not adopted as an individual measurement.",
+              "inputs": {
+                "log_g_cgs": 7.767,
+                "mass_solar": 0.457
+              },
+              "method": "R = sqrt(G M / g) with IAU 2015 nominal GM_sun and R_sun",
+              "reference": "2024MNRAS.527.8687O",
+              "section": "Table A1 (CDS J/MNRAS/527/8687, updated 2024-11-14); method section 2",
+              "sourceUrl": "https://cdsarc.cds.unistra.fr/viz-bin/cat/J/MNRAS/527/8687",
+              "status": "derived",
+              "uncertainty": null,
+              "url": "https://arxiv.org/abs/2312.02735",
+              "value": 0.014638342815443408
+            }
+          },
+          "temperature_k": {
+            "value": 4576.0,
+            "unusedLiterature": {
+              "caveat": "Uniform photometric fit to Gaia DR3 photometry and parallax with pure-H model atmospheres and the Bedard et al. (2020) mass-radius relation; not an individual spectroscopic fit. Below 6000 K the paper finds photometric masses systematically low because of model opacities (section 2.1). Its ad-hoc population correction (4769 K, 0.586 solar masses) is retained here but not adopted as an individual measurement.",
+              "inputs": {
+                "composition": "H",
+                "coolingAgeGyr": 7.21,
+                "correctedMassSolar": 0.586,
+                "correctedTeffK": 4769.0,
+                "gaiaDr3Id": "1251824057289839744",
+                "logGCgs": 7.767,
+                "logGErrorCgs": 0.016,
+                "sourceSpectralType": "DC",
+                "spectralTypeReference": "2018MNRAS.480.3942H",
+                "wdjName": "WDJ134803.01+233446.44"
+              },
+              "method": "Gaia DR3 photometric fit (gaia_teff)",
+              "reference": "2024MNRAS.527.8687O",
+              "section": "Table A1 (CDS J/MNRAS/527/8687, updated 2024-11-14); method section 2",
+              "sourceUrl": "https://cdsarc.cds.unistra.fr/viz-bin/cat/J/MNRAS/527/8687",
+              "status": "model-derived",
+              "uncertainty": 20.0,
+              "url": "https://arxiv.org/abs/2312.02735",
+              "value": 4576.0
+            }
+          }
+        }
+      }
+    },
     "cns5-5592": {},
     "cns5-5593": {},
     "cns5-3032": {},
@@ -88599,7 +89451,185 @@
     "cns5-2074": {},
     "cns5-2075": {},
     "cns5-4013": {},
-    "cns5-4011": {},
+    "cns5-4011": {
+      "reviewedLiterature": {
+        "component": "B",
+        "expectedName": "CD-38 10980",
+        "expectedType": "white_dwarf",
+        "fields": {
+          "luminosity_solar": {
+            "caveat": "Derived from the adopted radius and temperature. Mass, gravity and temperature are correlated fit parameters, so no uncertainty is propagated. Uniform photometric fit to Gaia DR3 photometry and parallax with pure-H model atmospheres and the Bedard et al. (2020) mass-radius relation; not an individual spectroscopic fit.",
+            "inputs": {
+              "radius_solar": 0.013114821122468616,
+              "temperature_k": 24073.0
+            },
+            "method": "Stefan-Boltzmann scaling, L = R^2 (Teff / 5772 K)^4",
+            "reference": "2024MNRAS.527.8687O",
+            "section": "Table A1 (CDS J/MNRAS/527/8687, updated 2024-11-14); method section 2",
+            "sourceUrl": "https://cdsarc.cds.unistra.fr/viz-bin/cat/J/MNRAS/527/8687",
+            "status": "derived",
+            "uncertainty": null,
+            "url": "https://arxiv.org/abs/2312.02735",
+            "value": 0.05204036292241827
+          },
+          "mass_solar": {
+            "caveat": "Uniform photometric fit to Gaia DR3 photometry and parallax with pure-H model atmospheres and the Bedard et al. (2020) mass-radius relation; not an individual spectroscopic fit.",
+            "inputs": {
+              "composition": "H",
+              "coolingAgeGyr": 0.03,
+              "correctedMassSolar": 0.636,
+              "correctedTeffK": 24073.0,
+              "gaiaDr3Id": "6018034958869558912",
+              "logGCgs": 8.006,
+              "logGErrorCgs": 0.026,
+              "sourceSpectralType": "DA",
+              "spectralTypeReference": "2018MNRAS.480.3942H",
+              "wdjName": "WDJ162333.84-391346.16"
+            },
+            "method": "Gaia DR3 photometric fit with the Bedard et al. (2020) mass-radius relation (gaia_mass)",
+            "reference": "2024MNRAS.527.8687O",
+            "section": "Table A1 (CDS J/MNRAS/527/8687, updated 2024-11-14); method section 2",
+            "sourceUrl": "https://cdsarc.cds.unistra.fr/viz-bin/cat/J/MNRAS/527/8687",
+            "status": "model-derived",
+            "uncertainty": 0.014,
+            "url": "https://arxiv.org/abs/2312.02735",
+            "value": 0.636
+          },
+          "radius_solar": {
+            "caveat": "Derived from the same fit's mass and surface gravity. Mass, gravity and temperature are correlated fit parameters, so no uncertainty is propagated. Uniform photometric fit to Gaia DR3 photometry and parallax with pure-H model atmospheres and the Bedard et al. (2020) mass-radius relation; not an individual spectroscopic fit.",
+            "inputs": {
+              "log_g_cgs": 8.006,
+              "mass_solar": 0.636
+            },
+            "method": "R = sqrt(G M / g) with IAU 2015 nominal GM_sun and R_sun",
+            "reference": "2024MNRAS.527.8687O",
+            "section": "Table A1 (CDS J/MNRAS/527/8687, updated 2024-11-14); method section 2",
+            "sourceUrl": "https://cdsarc.cds.unistra.fr/viz-bin/cat/J/MNRAS/527/8687",
+            "status": "derived",
+            "uncertainty": null,
+            "url": "https://arxiv.org/abs/2312.02735",
+            "value": 0.013114821122468616
+          },
+          "temperature_k": {
+            "caveat": "Uniform photometric fit to Gaia DR3 photometry and parallax with pure-H model atmospheres and the Bedard et al. (2020) mass-radius relation; not an individual spectroscopic fit.",
+            "inputs": {
+              "composition": "H",
+              "coolingAgeGyr": 0.03,
+              "correctedMassSolar": 0.636,
+              "correctedTeffK": 24073.0,
+              "gaiaDr3Id": "6018034958869558912",
+              "logGCgs": 8.006,
+              "logGErrorCgs": 0.026,
+              "sourceSpectralType": "DA",
+              "spectralTypeReference": "2018MNRAS.480.3942H",
+              "wdjName": "WDJ162333.84-391346.16"
+            },
+            "method": "Gaia DR3 photometric fit (gaia_teff)",
+            "reference": "2024MNRAS.527.8687O",
+            "section": "Table A1 (CDS J/MNRAS/527/8687, updated 2024-11-14); method section 2",
+            "sourceUrl": "https://cdsarc.cds.unistra.fr/viz-bin/cat/J/MNRAS/527/8687",
+            "status": "model-derived",
+            "uncertainty": 488.0,
+            "url": "https://arxiv.org/abs/2312.02735",
+            "value": 24073.0
+          }
+        },
+        "gaiaDr3Id": "6018034958869558912",
+        "note": "O'Brien et al. (2024) 40 pc Gaia DR3 fit (H-rich atmosphere): Teff 24073 +/- 488 K, log g 8.006 +/- 0.026, mass 0.636 +/- 0.014 solar masses. Radius from that mass and gravity; luminosity from radius and Teff. Its 0.03 Gyr cooling age excludes the progenitor lifetime and is not adopted as total age.",
+        "systemId": "gj-620-1",
+        "adopted": {},
+        "retained": {
+          "luminosity_solar": {
+            "value": 0.05204036292,
+            "unusedLiterature": {
+              "caveat": "Derived from the adopted radius and temperature. Mass, gravity and temperature are correlated fit parameters, so no uncertainty is propagated. Uniform photometric fit to Gaia DR3 photometry and parallax with pure-H model atmospheres and the Bedard et al. (2020) mass-radius relation; not an individual spectroscopic fit.",
+              "inputs": {
+                "radius_solar": 0.013114821122468616,
+                "temperature_k": 24073.0
+              },
+              "method": "Stefan-Boltzmann scaling, L = R^2 (Teff / 5772 K)^4",
+              "reference": "2024MNRAS.527.8687O",
+              "section": "Table A1 (CDS J/MNRAS/527/8687, updated 2024-11-14); method section 2",
+              "sourceUrl": "https://cdsarc.cds.unistra.fr/viz-bin/cat/J/MNRAS/527/8687",
+              "status": "derived",
+              "uncertainty": null,
+              "url": "https://arxiv.org/abs/2312.02735",
+              "value": 0.05204036292241827
+            }
+          },
+          "mass_solar": {
+            "value": 0.636,
+            "unusedLiterature": {
+              "caveat": "Uniform photometric fit to Gaia DR3 photometry and parallax with pure-H model atmospheres and the Bedard et al. (2020) mass-radius relation; not an individual spectroscopic fit.",
+              "inputs": {
+                "composition": "H",
+                "coolingAgeGyr": 0.03,
+                "correctedMassSolar": 0.636,
+                "correctedTeffK": 24073.0,
+                "gaiaDr3Id": "6018034958869558912",
+                "logGCgs": 8.006,
+                "logGErrorCgs": 0.026,
+                "sourceSpectralType": "DA",
+                "spectralTypeReference": "2018MNRAS.480.3942H",
+                "wdjName": "WDJ162333.84-391346.16"
+              },
+              "method": "Gaia DR3 photometric fit with the Bedard et al. (2020) mass-radius relation (gaia_mass)",
+              "reference": "2024MNRAS.527.8687O",
+              "section": "Table A1 (CDS J/MNRAS/527/8687, updated 2024-11-14); method section 2",
+              "sourceUrl": "https://cdsarc.cds.unistra.fr/viz-bin/cat/J/MNRAS/527/8687",
+              "status": "model-derived",
+              "uncertainty": 0.014,
+              "url": "https://arxiv.org/abs/2312.02735",
+              "value": 0.636
+            }
+          },
+          "radius_solar": {
+            "value": 0.01311482112,
+            "unusedLiterature": {
+              "caveat": "Derived from the same fit's mass and surface gravity. Mass, gravity and temperature are correlated fit parameters, so no uncertainty is propagated. Uniform photometric fit to Gaia DR3 photometry and parallax with pure-H model atmospheres and the Bedard et al. (2020) mass-radius relation; not an individual spectroscopic fit.",
+              "inputs": {
+                "log_g_cgs": 8.006,
+                "mass_solar": 0.636
+              },
+              "method": "R = sqrt(G M / g) with IAU 2015 nominal GM_sun and R_sun",
+              "reference": "2024MNRAS.527.8687O",
+              "section": "Table A1 (CDS J/MNRAS/527/8687, updated 2024-11-14); method section 2",
+              "sourceUrl": "https://cdsarc.cds.unistra.fr/viz-bin/cat/J/MNRAS/527/8687",
+              "status": "derived",
+              "uncertainty": null,
+              "url": "https://arxiv.org/abs/2312.02735",
+              "value": 0.013114821122468616
+            }
+          },
+          "temperature_k": {
+            "value": 24073.0,
+            "unusedLiterature": {
+              "caveat": "Uniform photometric fit to Gaia DR3 photometry and parallax with pure-H model atmospheres and the Bedard et al. (2020) mass-radius relation; not an individual spectroscopic fit.",
+              "inputs": {
+                "composition": "H",
+                "coolingAgeGyr": 0.03,
+                "correctedMassSolar": 0.636,
+                "correctedTeffK": 24073.0,
+                "gaiaDr3Id": "6018034958869558912",
+                "logGCgs": 8.006,
+                "logGErrorCgs": 0.026,
+                "sourceSpectralType": "DA",
+                "spectralTypeReference": "2018MNRAS.480.3942H",
+                "wdjName": "WDJ162333.84-391346.16"
+              },
+              "method": "Gaia DR3 photometric fit (gaia_teff)",
+              "reference": "2024MNRAS.527.8687O",
+              "section": "Table A1 (CDS J/MNRAS/527/8687, updated 2024-11-14); method section 2",
+              "sourceUrl": "https://cdsarc.cds.unistra.fr/viz-bin/cat/J/MNRAS/527/8687",
+              "status": "model-derived",
+              "uncertainty": 488.0,
+              "url": "https://arxiv.org/abs/2312.02735",
+              "value": 24073.0
+            }
+          }
+        }
+      }
+    },
     "cns5-2572": {},
     "cns5-2571": {},
     "cns5-1155": {},
@@ -88735,7 +89765,185 @@
     "cns5-0829": {},
     "cns5-5192": {},
     "wt-766-close-companion": {},
-    "cns5-5190": {},
+    "cns5-5190": {
+      "reviewedLiterature": {
+        "component": "B",
+        "expectedName": "WT 765",
+        "expectedType": "white_dwarf",
+        "fields": {
+          "luminosity_solar": {
+            "caveat": "Derived from the adopted radius and temperature. Mass, gravity and temperature are correlated fit parameters, so no uncertainty is propagated. Uniform photometric fit to Gaia DR3 photometry and parallax with pure-H model atmospheres and the Bedard et al. (2020) mass-radius relation; not an individual spectroscopic fit. Below 6000 K the paper finds photometric masses systematically low because of model opacities (section 2.1). Its ad-hoc population correction (5219 K, 0.601 solar masses) is retained here but not adopted as an individual measurement.",
+            "inputs": {
+              "radius_solar": 0.013237453336015701,
+              "temperature_k": 5118.0
+            },
+            "method": "Stefan-Boltzmann scaling, L = R^2 (Teff / 5772 K)^4",
+            "reference": "2024MNRAS.527.8687O",
+            "section": "Table A1 (CDS J/MNRAS/527/8687, updated 2024-11-14); method section 2",
+            "sourceUrl": "https://cdsarc.cds.unistra.fr/viz-bin/cat/J/MNRAS/527/8687",
+            "status": "derived",
+            "uncertainty": null,
+            "url": "https://arxiv.org/abs/2312.02735",
+            "value": 0.00010831901967714006
+          },
+          "mass_solar": {
+            "caveat": "Uniform photometric fit to Gaia DR3 photometry and parallax with pure-H model atmospheres and the Bedard et al. (2020) mass-radius relation; not an individual spectroscopic fit. Below 6000 K the paper finds photometric masses systematically low because of model opacities (section 2.1). Its ad-hoc population correction (5219 K, 0.601 solar masses) is retained here but not adopted as an individual measurement.",
+            "inputs": {
+              "composition": "H",
+              "coolingAgeGyr": 4.92,
+              "correctedMassSolar": 0.601,
+              "correctedTeffK": 5219.0,
+              "gaiaDr3Id": "6478328218869704192",
+              "logGCgs": 7.922,
+              "logGErrorCgs": 0.017,
+              "sourceSpectralType": "DA",
+              "spectralTypeReference": "2018MNRAS.480.3942H",
+              "wdjName": "WDJ210105.20-490624.27"
+            },
+            "method": "Gaia DR3 photometric fit with the Bedard et al. (2020) mass-radius relation (gaia_mass)",
+            "reference": "2024MNRAS.527.8687O",
+            "section": "Table A1 (CDS J/MNRAS/527/8687, updated 2024-11-14); method section 2",
+            "sourceUrl": "https://cdsarc.cds.unistra.fr/viz-bin/cat/J/MNRAS/527/8687",
+            "status": "model-derived",
+            "uncertainty": 0.01,
+            "url": "https://arxiv.org/abs/2312.02735",
+            "value": 0.534
+          },
+          "radius_solar": {
+            "caveat": "Derived from the same fit's mass and surface gravity. Mass, gravity and temperature are correlated fit parameters, so no uncertainty is propagated. Uniform photometric fit to Gaia DR3 photometry and parallax with pure-H model atmospheres and the Bedard et al. (2020) mass-radius relation; not an individual spectroscopic fit. Below 6000 K the paper finds photometric masses systematically low because of model opacities (section 2.1). Its ad-hoc population correction (5219 K, 0.601 solar masses) is retained here but not adopted as an individual measurement.",
+            "inputs": {
+              "log_g_cgs": 7.922,
+              "mass_solar": 0.534
+            },
+            "method": "R = sqrt(G M / g) with IAU 2015 nominal GM_sun and R_sun",
+            "reference": "2024MNRAS.527.8687O",
+            "section": "Table A1 (CDS J/MNRAS/527/8687, updated 2024-11-14); method section 2",
+            "sourceUrl": "https://cdsarc.cds.unistra.fr/viz-bin/cat/J/MNRAS/527/8687",
+            "status": "derived",
+            "uncertainty": null,
+            "url": "https://arxiv.org/abs/2312.02735",
+            "value": 0.013237453336015701
+          },
+          "temperature_k": {
+            "caveat": "Uniform photometric fit to Gaia DR3 photometry and parallax with pure-H model atmospheres and the Bedard et al. (2020) mass-radius relation; not an individual spectroscopic fit. Below 6000 K the paper finds photometric masses systematically low because of model opacities (section 2.1). Its ad-hoc population correction (5219 K, 0.601 solar masses) is retained here but not adopted as an individual measurement.",
+            "inputs": {
+              "composition": "H",
+              "coolingAgeGyr": 4.92,
+              "correctedMassSolar": 0.601,
+              "correctedTeffK": 5219.0,
+              "gaiaDr3Id": "6478328218869704192",
+              "logGCgs": 7.922,
+              "logGErrorCgs": 0.017,
+              "sourceSpectralType": "DA",
+              "spectralTypeReference": "2018MNRAS.480.3942H",
+              "wdjName": "WDJ210105.20-490624.27"
+            },
+            "method": "Gaia DR3 photometric fit (gaia_teff)",
+            "reference": "2024MNRAS.527.8687O",
+            "section": "Table A1 (CDS J/MNRAS/527/8687, updated 2024-11-14); method section 2",
+            "sourceUrl": "https://cdsarc.cds.unistra.fr/viz-bin/cat/J/MNRAS/527/8687",
+            "status": "model-derived",
+            "uncertainty": 23.0,
+            "url": "https://arxiv.org/abs/2312.02735",
+            "value": 5118.0
+          }
+        },
+        "gaiaDr3Id": "6478328218869704192",
+        "note": "O'Brien et al. (2024) 40 pc Gaia DR3 fit (H-rich atmosphere): Teff 5118 +/- 23 K, log g 7.922 +/- 0.017, mass 0.534 +/- 0.01 solar masses. Radius from that mass and gravity; luminosity from radius and Teff. Its 4.92 Gyr cooling age excludes the progenitor lifetime and is not adopted as total age. Below 6000 K the paper finds photometric masses systematically low because of model opacities (section 2.1). Its ad-hoc population correction (5219 K, 0.601 solar masses) is retained here but not adopted as an individual measurement.",
+        "systemId": "wt-766",
+        "adopted": {},
+        "retained": {
+          "luminosity_solar": {
+            "value": 0.0001083190197,
+            "unusedLiterature": {
+              "caveat": "Derived from the adopted radius and temperature. Mass, gravity and temperature are correlated fit parameters, so no uncertainty is propagated. Uniform photometric fit to Gaia DR3 photometry and parallax with pure-H model atmospheres and the Bedard et al. (2020) mass-radius relation; not an individual spectroscopic fit. Below 6000 K the paper finds photometric masses systematically low because of model opacities (section 2.1). Its ad-hoc population correction (5219 K, 0.601 solar masses) is retained here but not adopted as an individual measurement.",
+              "inputs": {
+                "radius_solar": 0.013237453336015701,
+                "temperature_k": 5118.0
+              },
+              "method": "Stefan-Boltzmann scaling, L = R^2 (Teff / 5772 K)^4",
+              "reference": "2024MNRAS.527.8687O",
+              "section": "Table A1 (CDS J/MNRAS/527/8687, updated 2024-11-14); method section 2",
+              "sourceUrl": "https://cdsarc.cds.unistra.fr/viz-bin/cat/J/MNRAS/527/8687",
+              "status": "derived",
+              "uncertainty": null,
+              "url": "https://arxiv.org/abs/2312.02735",
+              "value": 0.00010831901967714006
+            }
+          },
+          "mass_solar": {
+            "value": 0.534,
+            "unusedLiterature": {
+              "caveat": "Uniform photometric fit to Gaia DR3 photometry and parallax with pure-H model atmospheres and the Bedard et al. (2020) mass-radius relation; not an individual spectroscopic fit. Below 6000 K the paper finds photometric masses systematically low because of model opacities (section 2.1). Its ad-hoc population correction (5219 K, 0.601 solar masses) is retained here but not adopted as an individual measurement.",
+              "inputs": {
+                "composition": "H",
+                "coolingAgeGyr": 4.92,
+                "correctedMassSolar": 0.601,
+                "correctedTeffK": 5219.0,
+                "gaiaDr3Id": "6478328218869704192",
+                "logGCgs": 7.922,
+                "logGErrorCgs": 0.017,
+                "sourceSpectralType": "DA",
+                "spectralTypeReference": "2018MNRAS.480.3942H",
+                "wdjName": "WDJ210105.20-490624.27"
+              },
+              "method": "Gaia DR3 photometric fit with the Bedard et al. (2020) mass-radius relation (gaia_mass)",
+              "reference": "2024MNRAS.527.8687O",
+              "section": "Table A1 (CDS J/MNRAS/527/8687, updated 2024-11-14); method section 2",
+              "sourceUrl": "https://cdsarc.cds.unistra.fr/viz-bin/cat/J/MNRAS/527/8687",
+              "status": "model-derived",
+              "uncertainty": 0.01,
+              "url": "https://arxiv.org/abs/2312.02735",
+              "value": 0.534
+            }
+          },
+          "radius_solar": {
+            "value": 0.01323745334,
+            "unusedLiterature": {
+              "caveat": "Derived from the same fit's mass and surface gravity. Mass, gravity and temperature are correlated fit parameters, so no uncertainty is propagated. Uniform photometric fit to Gaia DR3 photometry and parallax with pure-H model atmospheres and the Bedard et al. (2020) mass-radius relation; not an individual spectroscopic fit. Below 6000 K the paper finds photometric masses systematically low because of model opacities (section 2.1). Its ad-hoc population correction (5219 K, 0.601 solar masses) is retained here but not adopted as an individual measurement.",
+              "inputs": {
+                "log_g_cgs": 7.922,
+                "mass_solar": 0.534
+              },
+              "method": "R = sqrt(G M / g) with IAU 2015 nominal GM_sun and R_sun",
+              "reference": "2024MNRAS.527.8687O",
+              "section": "Table A1 (CDS J/MNRAS/527/8687, updated 2024-11-14); method section 2",
+              "sourceUrl": "https://cdsarc.cds.unistra.fr/viz-bin/cat/J/MNRAS/527/8687",
+              "status": "derived",
+              "uncertainty": null,
+              "url": "https://arxiv.org/abs/2312.02735",
+              "value": 0.013237453336015701
+            }
+          },
+          "temperature_k": {
+            "value": 5118.0,
+            "unusedLiterature": {
+              "caveat": "Uniform photometric fit to Gaia DR3 photometry and parallax with pure-H model atmospheres and the Bedard et al. (2020) mass-radius relation; not an individual spectroscopic fit. Below 6000 K the paper finds photometric masses systematically low because of model opacities (section 2.1). Its ad-hoc population correction (5219 K, 0.601 solar masses) is retained here but not adopted as an individual measurement.",
+              "inputs": {
+                "composition": "H",
+                "coolingAgeGyr": 4.92,
+                "correctedMassSolar": 0.601,
+                "correctedTeffK": 5219.0,
+                "gaiaDr3Id": "6478328218869704192",
+                "logGCgs": 7.922,
+                "logGErrorCgs": 0.017,
+                "sourceSpectralType": "DA",
+                "spectralTypeReference": "2018MNRAS.480.3942H",
+                "wdjName": "WDJ210105.20-490624.27"
+              },
+              "method": "Gaia DR3 photometric fit (gaia_teff)",
+              "reference": "2024MNRAS.527.8687O",
+              "section": "Table A1 (CDS J/MNRAS/527/8687, updated 2024-11-14); method section 2",
+              "sourceUrl": "https://cdsarc.cds.unistra.fr/viz-bin/cat/J/MNRAS/527/8687",
+              "status": "model-derived",
+              "uncertainty": 23.0,
+              "url": "https://arxiv.org/abs/2312.02735",
+              "value": 5118.0
+            }
+          }
+        }
+      }
+    },
     "gj-867-c": {},
     "cns5-4625": {},
     "gj-569-bb": {},
@@ -101271,10 +102479,10 @@
     ],
     "available": {
       "spectral_type": 602,
-      "temperature_k": 482,
-      "mass_solar": 360,
-      "luminosity_solar": 321,
-      "radius_solar": 329,
+      "temperature_k": 489,
+      "mass_solar": 367,
+      "luminosity_solar": 328,
+      "radius_solar": 336,
       "metallicity_dex": 289,
       "age_gyr": 111,
       "absolute_mag": 534
@@ -101572,10 +102780,6 @@
         "absolute_mag"
       ],
       "cns5-1901": [
-        "temperature_k",
-        "mass_solar",
-        "luminosity_solar",
-        "radius_solar",
         "metallicity_dex",
         "age_gyr"
       ],
@@ -101606,10 +102810,6 @@
         "age_gyr"
       ],
       "cns5-2836": [
-        "temperature_k",
-        "mass_solar",
-        "luminosity_solar",
-        "radius_solar",
         "metallicity_dex",
         "age_gyr"
       ],
@@ -101645,10 +102845,6 @@
         "age_gyr"
       ],
       "cns5-4799": [
-        "temperature_k",
-        "mass_solar",
-        "luminosity_solar",
-        "radius_solar",
         "metallicity_dex",
         "age_gyr"
       ],
@@ -101671,10 +102867,6 @@
         "absolute_mag"
       ],
       "cns5-0544": [
-        "temperature_k",
-        "mass_solar",
-        "luminosity_solar",
-        "radius_solar",
         "metallicity_dex",
         "age_gyr",
         "absolute_mag"
@@ -101827,10 +103019,6 @@
         "absolute_mag"
       ],
       "cns5-3412": [
-        "temperature_k",
-        "mass_solar",
-        "luminosity_solar",
-        "radius_solar",
         "metallicity_dex",
         "age_gyr",
         "absolute_mag"
@@ -101939,10 +103127,6 @@
         "absolute_mag"
       ],
       "cns5-4011": [
-        "temperature_k",
-        "mass_solar",
-        "luminosity_solar",
-        "radius_solar",
         "metallicity_dex",
         "age_gyr"
       ],
@@ -102091,10 +103275,6 @@
         "absolute_mag"
       ],
       "cns5-5190": [
-        "temperature_k",
-        "mass_solar",
-        "luminosity_solar",
-        "radius_solar",
         "metallicity_dex",
         "age_gyr"
       ],
@@ -106709,10 +107889,10 @@
     }
   },
   "coverage": {
-    "temperature_k": 482,
-    "mass_solar": 360,
-    "luminosity_solar": 321,
-    "radius_solar": 329,
+    "temperature_k": 489,
+    "mass_solar": 367,
+    "luminosity_solar": 328,
+    "radius_solar": 336,
     "metallicity_dex": 289,
     "age_gyr": 111
   },
@@ -106723,7 +107903,7 @@
     "src/data/catalogs/bright-stars/stars.csv": "682dd4cefa7ffc8b76c75553a75fc0b50b07f3c9b6b48296f3b30b08971a26f8",
     "src/data/catalogs/famous-cluster-stars/stars.csv": "a3891d03306b702329de98dafff62ca2b0906f8dd6089f64bd8005a252d5b33f",
     "src/data/catalogs/nearest-100/stars.csv": "a283dc0a9319d331ac01c8d6e526fbb23f5eb2cdc6ca243f160d5a381fe24a88",
-    "src/data/catalogs/nearest-1000/stars.csv": "6f715e63c0cae9e3ab3bb4dfc6b4cf0ba9e49915d894de3323f85d91624fe234",
+    "src/data/catalogs/nearest-1000/stars.csv": "fefc6aa546c29ea50140bf45ba1146b0bc7737383c525b595517260df291903c",
     "src/data/catalogs/western-constellation-stars/stars.csv": "b8ec3563c77a3377b24ccd45627c613546b404b139666ceddb52dc20543fa456",
     "src/data/stars.csv": "cbe5afe70dfcd4f789ebdf61464a35ce59652dc7ad6eccfd389c5599128d2f11",
     "catalog-work/star-systems/catalog-companions-msc.json": "b81210724ff9914c3c286c5971155df5bf20613252baaa9472eee085f0cd0f41",
@@ -106769,6 +107949,11 @@
     "catalog-work/star-systems/reviewed-constellation-literature.json": "d93fefcabbb347ba5eafdff2f48c5ca973b53965e8eebcea2125eda59c791848",
     "catalog-work/star-systems/reviewed-constellation-data.json": "3a37cfde2607a0d583eed0ba6c2721b956c49177e94304c40fceac27d6673b63",
     "catalog-work/star-systems/literature-components/constellation-20261019-motion-selected.json": "a1a95aba0ce31aef48807a80a068a31f06b1e46e782557b002d232c83b1d0d2b",
+    "catalog-work/star-systems/reviewed-white-dwarf-components.json": "3d6adbe4120a1a438b99c5229bc75713a5da5946cf3302357f4d36a9457a4066",
+    "catalog-work/shared-enrichment/white-dwarfs/literature.json": "926b7af5fbc6d4c8dc64a5d07d5969daced3f539e1f86cacb16a0dd66df93712",
+    "catalog-work/shared-enrichment/white-dwarfs/obrien2024-ReadMe.txt": "51f8a0a2fcd9b8b396e5d3b973619ccb2c710132b91786826597832b62e99d0a",
+    "catalog-work/shared-enrichment/white-dwarfs/obrien2024-tablea1.dat": "833c681d0e463e58592789ee13172de4e1a186faa194c9242002c0d009e0901f",
+    "catalog-work/shared-enrichment/white-dwarfs/targets.json": "0eed50a273cea9daea17159ed310d9edddfab3a9a346d219e55457dbe0102f77",
     "catalog-work/famous-cluster-stars/astrometry-review.json": "4e6009a83a86c8cf7993381c50ac20887f448f30471b26f01e12b9d09176f117",
     "catalog-work/famous-cluster-stars/literature/phyllon-c-gaia-dr3.json": "8e56e7cf1f0a6456530b7bc0ad41c67079336769d6c7f7e06277cd08b7f58446",
     "catalog-work/famous-cluster-stars/literature/phyllon-c-gaia-dr3.adql": "240154c5f64d8e489c26c5280bb2fb830659e4b454f83434f4d53795f3a6ee05",
@@ -106794,7 +107979,7 @@
     "catalog-work/star-systems/literature-components/constellation-20261019-intermediate-adoptions.json": "c5adccca31712f1e7fcbf19a3093109bbf814383529eb2f4dccae4b5b871bbbb",
     "catalog-work/famous-cluster-stars/motion-review.json": "64548a4c015a186b47c8e269352fe8efa7a375537726e23f0f2527095edd0334",
     "catalog-work/nearest-100/physical-overrides.json": "9bbfe6982d5fad43b205a5cbf36fc9bb3ac967d285959292cc544abd3f1bd297",
-    "catalog-work/shared-enrichment/source-manifest.json": "8305e4aada953aa56376cb9c809b9efc89f0e824ffe300e52a982ca8f8329eff",
+    "catalog-work/shared-enrichment/source-manifest.json": "94f632adf135caa1b7c9afd27b6981daf5b2d63b92764be5ce9885d6044dd446",
     "catalog-work/star-systems/reviewed-unresolved-photometry.json": "291165120291df05fe0c334b4623e6aaa6f75fc0a729786ae0f7f0a7d2100209",
     "catalog-work/shared-enrichment/reviewed-objects.json": "399957baaf14f57ea1622846cdf879e5767a340df1efce527b4998a235047e8a"
   }

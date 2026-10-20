@@ -22,7 +22,7 @@ const images: Readonly<Record<string, InfoImage>> = {
     license: { title: 'CC BY-SA 3.0 IGO', url: 'https://creativecommons.org/licenses/by-sa/3.0/igo/' },
   },
   'alpha-centauri': {
-    src: alphaCentauri, width: 1280, height: 1299,
+    src: alphaCentauri, width: 1080, height: 1096,
     alt: 'A wide star field with brilliant Alpha Centauri and faint Proxima circled below it; Beta Centauri is at right.',
     caption: 'Digitized Sky Survey 2 · Acknowledgement: Davide De Martin/ Mahdi Zamani · released 2016',
     credit: 'Digitized Sky Survey 2. Acknowledgement: Davide De Martin/ Mahdi Zamani. Archival survey composite, released August 24, 2016. Alpha Centauri A and B are blended; Proxima is circled. ESO screensize download, unmodified.',
@@ -50,7 +50,7 @@ const images: Readonly<Record<string, InfoImage>> = {
     source: { title: 'Wikimedia Commons: Wolf359.jpg by Klaus Hohmann', url: 'https://commons.wikimedia.org/wiki/File:Wolf359.jpg' },
   },
   sirius: {
-    src: sirius, width: 1280, height: 1398,
+    src: sirius, width: 1080, height: 1180,
     alt: 'Bright Sirius A with long diffraction spikes and its much fainter white dwarf companion Sirius B near the lower left.',
     caption: 'NASA, ESA, H. Bond (STScI), and M. Barstow (University of Leicester) · Hubble · 2003',
     credit: 'NASA, ESA, H. Bond (STScI), and M. Barstow (University of Leicester). Hubble image, October 15, 2003; released December 2005. Sirius B is the faint point at lower left. Diffraction spikes are telescope artifacts. Reuses the existing local Hubble image.',
@@ -64,7 +64,7 @@ const images: Readonly<Record<string, InfoImage>> = {
     source: { title: 'NASA: Epsilon Eridani’s Tilt', url: 'https://science.nasa.gov/asset/hubble/epsilon-eridanis-tilt/' },
   },
   'ross-128': {
-    src: ross128, width: 1280, height: 1217,
+    src: ross128, width: 1080, height: 1027,
     alt: 'A wide telescope survey field centered on the red dwarf Ross 128 in Virgo.',
     caption: 'Digitized Sky Survey 2 · Acknowledgement: Davide De Martin · released 2017',
     credit: 'Digitized Sky Survey 2. Acknowledgement: Davide De Martin. Archival survey composite centered on Ross 128, released November 15, 2017. The planet is not resolved. ESO screensize download, unmodified.',

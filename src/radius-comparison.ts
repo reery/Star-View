@@ -2,7 +2,7 @@ import { starDisplayColor } from './astronomy'
 import { MISSING_VALUE } from './format'
 import { isBubbleObject, isCompactObject, isMolecularCloudObject, isNebulaObject, type Star } from './catalog-model'
 import jupiterMapUrl from './assets/radius-comparison/jupiter-map.webp?url'
-import earthMapUrl from './assets/radius-comparison/earth-map.png?url'
+import earthMapUrl from './assets/radius-comparison/earth-map.webp?url'
 import earthCloudsUrl from './assets/radius-comparison/earth-clouds.jpg?url'
 
 // IAU 2015 Resolution B3: https://arxiv.org/abs/1510.07674

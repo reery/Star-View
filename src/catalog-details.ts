@@ -2,19 +2,18 @@ import type { Star } from './catalog-model'
 import type { CatalogDetails } from './catalog-detail-model'
 import { loadJsonData } from './json-data'
 
-const payloads = import.meta.glob<string>([
-  './data/generated/catalog-details/*.json',
-  '!./data/generated/catalog-details/* [0-9]*.json',
-], { query: '?url&no-inline', import: 'default', eager: true })
+// Keys end in a content hash; vite.config.ts emits each payload under that hash.
+const DETAIL_KEY = /-([0-9a-f]{16})$/
 const pending = new Map<string, Promise<CatalogDetails>>()
 
 function loadDetails(key: string): Promise<CatalogDetails> {
-  let result = pending.get(key)
+  const hash = DETAIL_KEY.exec(key)?.[1]
+  if (!hash) return Promise.reject(new Error(`Invalid catalog source-note key: ${key}`))
+  let result = pending.get(hash)
   if (!result) {
-    const url = payloads[`./data/generated/catalog-details/catalog-detail-${key}.json`]
-    if (!url) return Promise.reject(new Error(`Missing catalog source notes: ${key}`))
-    result = loadJsonData<CatalogDetails>(url).catch((error: unknown) => { pending.delete(key); throw error })
-    pending.set(key, result)
+    result = loadJsonData<CatalogDetails>(`${import.meta.env.BASE_URL}assets/catalog-details/${hash}.json`)
+      .catch((error: unknown) => { pending.delete(hash); throw error })
+    pending.set(hash, result)
   }
   return result
 }

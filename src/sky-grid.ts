@@ -85,7 +85,7 @@ export function createSkyGridLayer(container: HTMLElement, opacity: { value: num
   lines.visible = false
   lines.renderOrder = -0.5
   let mode: SkyGridMode = 'off'
-  let labels: Array<{ direction: Vector3; anchor: HTMLDivElement; text: HTMLDivElement; x: number; y: number }> = []
+  let labels: Array<{ direction: Vector3; anchor: HTMLDivElement; text: HTMLDivElement; x: number; y: number; width: number; height: number }> = []
   const clip = new Vector4()
   const placed: LabelRect[] = []
   container.dataset.skyGrid = mode
@@ -113,7 +113,7 @@ export function createSkyGridLayer(container: HTMLElement, opacity: { value: num
         text.textContent = content
         anchor.append(text)
         layer.append(anchor)
-        return { direction, anchor, text, x: 0, y: 0 }
+        return { direction, anchor, text, x: 0, y: 0, width: 0, height: 0 }
       })
     },
     updateLabels(camera: PerspectiveCamera, viewport: LayoutViewport, isBlocked: (bounds: LabelRect) => boolean) {
@@ -129,13 +129,17 @@ export function createSkyGridLayer(container: HTMLElement, opacity: { value: num
         label.x = (clip.x / clip.w + 1) * viewport.width / 2
         label.y = (1 - clip.y / clip.w) * viewport.height / 2
       }
+      // Label text is fixed, so sizes are read once in a single layout pass until fonts change.
+      for (const label of labels) {
+        if (label.anchor.hidden || label.width > 0) continue
+        label.width = label.text.offsetWidth
+        label.height = label.text.offsetHeight
+      }
       for (const label of labels) {
         if (label.anchor.hidden) continue
-        const width = label.text.offsetWidth
-        const height = label.text.offsetHeight
         const left = viewport.left + label.x + 7
         const top = viewport.top + label.y + 5
-        const bounds = { left, top, right: left + width, bottom: top + height }
+        const bounds = { left, top, right: left + label.width, bottom: top + label.height }
         if (left < viewport.left + 12 || bounds.right > viewport.left + viewport.width - 12 ||
           top < viewport.top + 12 || bounds.bottom > viewport.top + viewport.height - 12 ||
           isBlocked(bounds) || placed.some((other) => overlaps(bounds, other))) {
@@ -144,6 +148,12 @@ export function createSkyGridLayer(container: HTMLElement, opacity: { value: num
         }
         label.anchor.style.transform = `translate(${label.x}px, ${label.y}px)`
         placed.push(bounds)
+      }
+    },
+    invalidateLabelSizes() {
+      for (const label of labels) {
+        label.width = 0
+        label.height = 0
       }
     },
     dispose() {

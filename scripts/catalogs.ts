@@ -11,6 +11,8 @@ import { hydrateBubbleSurfaceGridFiles, parseBubbleOverlayManifest, parseBubbleO
 import { containedInput, safeOutputDirectory, writeManagedFiles } from './filesystem.ts'
 import { parseObjectIdentities, supplementObjectIdentities } from '../src/designations.ts'
 import { buildCatalogClassReferences } from '../src/catalog-class-references.ts'
+import { buildWhiteDwarfClassReferences } from '../src/white-dwarf-models.ts'
+import { requiredWhiteDwarfReferences } from '../src/white-dwarf-class.ts'
 import { parseObjectStats, supplementObjectStats } from '../src/object-stats.ts'
 import { auditCatalogConsistency } from '../src/catalog-consistency.ts'
 import { completeCatalogCompanions } from '../src/stellar-companions.ts'
@@ -129,7 +131,32 @@ function writeGeneratedData(directory: string, files: Record<string, string>): v
   }
 }
 
-function generate(): void {
+const WHITE_DWARF_REFERENCES = join(root, 'src/data/white-dwarf-class-references.json')
+
+function shippedStars(catalogs: { stars: Parameters<typeof completeCatalogCompanions>[0] }[]) {
+  return catalogs.flatMap((catalog) => completeCatalogCompanions(catalog.stars))
+}
+
+/** The committed table must hold exactly the references bundled white dwarfs request; the grid is not needed here. */
+function requireWhiteDwarfReferences(catalogs: { stars: Parameters<typeof completeCatalogCompanions>[0] }[]): void {
+  const required = [...requiredWhiteDwarfReferences(shippedStars(catalogs)).keys()]
+  const committed = Object.keys((JSON.parse(readFileSync(WHITE_DWARF_REFERENCES, 'utf8')) as { references: Record<string, unknown> }).references)
+  if (JSON.stringify(required) !== JSON.stringify(committed)) {
+    const missing = required.filter((key) => !committed.includes(key))
+    const unused = committed.filter((key) => !required.includes(key))
+    throw new Error(`White dwarf class references are stale (missing: ${missing.join(', ') || 'none'}; unused: ${unused.join(', ') || 'none'}). Run \`npm run catalog:white-dwarf-references\`.`)
+  }
+}
+
+function writeWhiteDwarfReferences(): void {
+  const catalogs = loadCatalogPackages()
+  writeManagedFiles(safeOutputDirectory(join(root, 'src/data')), {
+    'white-dwarf-class-references.json': JSON.stringify(buildWhiteDwarfClassReferences(shippedStars(catalogs)), null, 2) + '\n',
+  }, true)
+  console.log(`Wrote ${requiredWhiteDwarfReferences(shippedStars(catalogs)).size} white dwarf class references.`)
+}
+
+function loadCatalogPackages() {
   const packages = [
     { manifest: DEFAULT_CATALOG_MANIFEST, csv: readFileSync(join(root, 'src/data/stars.csv'), 'utf8') },
     ...readdirSync(join(root, 'src/data/catalogs'), { withFileTypes: true }).filter((entry) => entry.isDirectory()).map((entry) => {
@@ -140,10 +167,14 @@ function generate(): void {
       }
     }),
   ]
-  const catalogs = packages.map((definition) => ({
+  return packages.map((definition) => ({
     id: definition.manifest.id,
     stars: supplement(loadCatalog(definition)),
   }))
+}
+
+function generate(): void {
+  const catalogs = loadCatalogPackages()
   requireConsistentCatalogs(catalogs)
   const detailFiles: Record<string, string> = {}
   const mapRecords = (stars: Parameters<typeof splitCatalogDetails>[0][]) => stars.map((star) => {
@@ -161,8 +192,11 @@ function generate(): void {
     [`${id}.json`, JSON.stringify({ schemaVersion: 3, catalogId: id, sourceObjectCount: stars.length, stars: mapRecords(completeCatalogCompanions(stars)) }) + '\n']))
   writeGeneratedData('catalog-details', detailFiles)
   const references = buildCatalogClassReferences(catalogs.map((catalog) => ({ ...catalog, stars: completeCatalogCompanions(catalog.stars) })), (id) => components.get(id))
+  requireWhiteDwarfReferences(catalogs)
   writeManagedFiles(safeOutputDirectory(join(root, 'src/data')), {
-    'catalog-class-references.json': JSON.stringify(references, null, 2) + '\n',
+    // Display summaries: six significant digits exceed the cards' precision and halve the bundled file.
+    'catalog-class-references.json': JSON.stringify(references, (_key, value: unknown) =>
+      typeof value === 'number' && !Number.isInteger(value) ? Number(value.toPrecision(6)) : value, 2) + '\n',
   }, true)
   console.log(`Generated ${references.classes.length} class samples from ${references.uniqueObjects} distinct objects across ${catalogs.length} catalogs.`)
   const output = safeOutputDirectory(join(root, 'src/data/generated/catalogs'))
@@ -213,6 +247,7 @@ function generate(): void {
 try {
   if (command === 'validate' && args.length <= 1) validate(args[0])
   else if (command === 'generate' && args.length === 0) generate()
+  else if (command === 'white-dwarf-references' && args.length === 0) writeWhiteDwarfReferences()
   else if (command === 'build' && (args.length === 2 || (args.length === 3 && args[2] === '--force'))) {
     const inputPath = resolve(args[0]!)
     const output = resolve(args[1]!)
@@ -227,7 +262,7 @@ try {
     const files = { 'catalog.json': JSON.stringify(built.manifest, null, 2) + '\n', 'stars.csv': built.csv, 'provenance.json': JSON.stringify(built.provenance, null, 2) + '\n' }
     writeManagedFiles(output, files, force)
     validate(output)
-  } else throw new Error('Usage: catalogs.ts validate [catalog-directory] | generate | build <adopted-input.json> <output-directory> [--force]')
+  } else throw new Error('Usage: catalogs.ts validate [catalog-directory] | generate | white-dwarf-references | build <adopted-input.json> <output-directory> [--force]')
 } catch (error) {
   console.error(error instanceof Error ? error.message : String(error))
   process.exitCode = 1

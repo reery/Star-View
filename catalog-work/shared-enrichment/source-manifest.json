@@ -46,7 +46,9 @@
     "catalog-work/bright-stars/gap-motion-review.json": "30b852b317927f0a2ed13cb82d28f3de17ea67569d44f26637bb2f9b128b1685",
     "catalog-work/famous-cluster-stars/physical-review.json": "f00056a5081fc59a3393ff62626cace1d4e5f049177efe057f89a7e372eb48aa",
     "catalog-work/famous-cluster-stars/astrometry-review.json": "4e6009a83a86c8cf7993381c50ac20887f448f30471b26f01e12b9d09176f117",
-    "catalog-work/famous-cluster-stars/motion-review.json": "64548a4c015a186b47c8e269352fe8efa7a375537726e23f0f2527095edd0334"
+    "catalog-work/famous-cluster-stars/motion-review.json": "64548a4c015a186b47c8e269352fe8efa7a375537726e23f0f2527095edd0334",
+    "catalog-work/shared-enrichment/reviewed-white-dwarfs.json": "a5949a4d5e9641b09e9e0e00d549b5db4be83c186240c0ea8ac1ebb6c36c7128",
+    "catalog-work/shared-enrichment/white-dwarfs/source-manifest.json": "d453134bb9ddb9dbf3401d3f6eaf651ce09a4fd7fdac0b92a7de078180d1870f"
   },
   "sources": [
     {
@@ -437,6 +439,14 @@
       "name": "Reviewed exact-object Famous cluster star parameters, component identities, preferred Phyllon Kissinou C astrometry and scoped orbital systemic velocities (2026-10-19)",
       "url": "https://gea.esac.esa.int/archive/",
       "review": "catalog-work/famous-cluster-stars/physical-review.json"
+    },
+    {
+      "name": "O'Brien et al. 2024, The 40 pc sample of white dwarfs from Gaia (Table A1), MNRAS 527, 8687",
+      "url": "https://arxiv.org/abs/2312.02735"
+    },
+    {
+      "name": "Farihi et al. 2013, Gliese 86B DQ white dwarf parameters, MNRAS 430, 652",
+      "url": "https://arxiv.org/abs/1212.5601"
     }
   ]
 }

@@ -1,0 +1,335 @@
+{
+  "schemaVersion": 1,
+  "selected": "2026-10-20",
+  "policy": "Every bundled white dwarf without an adopted temperature on 2026-10-20; exact Star View, SIMBAD and Gaia DR3 identities from the frozen catalog provenance and reviewed component pool.",
+  "targets": [
+    {
+      "starViewId": "cns5-0007",
+      "name": "LAWD 96",
+      "simbadId": "LAWD 96",
+      "gaiaDr3Id": "4994877094997259264",
+      "spectralType": "DAP5.8"
+    },
+    {
+      "starViewId": "cns5-0056",
+      "name": "EGGR 381",
+      "simbadId": "EGGR 381",
+      "gaiaDr3Id": "395234439752169344",
+      "spectralType": "DA7.6"
+    },
+    {
+      "starViewId": "cns5-0201",
+      "name": "EGGR 246",
+      "simbadId": "EGGR 246",
+      "gaiaDr3Id": "2349916559152267008",
+      "spectralType": "DQ9"
+    },
+    {
+      "starViewId": "cns5-0414",
+      "name": "LAWD 10",
+      "simbadId": "LAWD 10",
+      "gaiaDr3Id": "2480523216087975040",
+      "spectralType": "DA+D1"
+    },
+    {
+      "starViewId": "cns5-0440",
+      "name": "L 88-59",
+      "simbadId": "L   88-59",
+      "gaiaDr3Id": "4698424845771339520",
+      "spectralType": "DA8.1"
+    },
+    {
+      "starViewId": "cns5-0544",
+      "name": "HD 13445B",
+      "simbadId": "HD  13445B",
+      "gaiaDr3Id": "4937000898856154624",
+      "spectralType": "DQ6",
+      "component": {
+        "systemId": "gj-86",
+        "label": "B",
+        "expectedName": "HD 13445B",
+        "gaiaDesignation": true
+      }
+    },
+    {
+      "starViewId": "cns5-0704",
+      "name": "EGGR 473",
+      "simbadId": "EGGR 473",
+      "gaiaDr3Id": "453562088496088320",
+      "spectralType": "DAZ9"
+    },
+    {
+      "starViewId": "cns5-0795",
+      "name": "CPD-69 177",
+      "simbadId": "CPD-69   177",
+      "gaiaDr3Id": "4646535078125821568",
+      "spectralType": "DA3.0"
+    },
+    {
+      "starViewId": "cns5-1153",
+      "name": "EGGR 41",
+      "simbadId": "EGGR  41",
+      "gaiaDr3Id": "3186021141200137472",
+      "spectralType": "DQ8"
+    },
+    {
+      "starViewId": "cns5-1446",
+      "name": "EGGR 248",
+      "simbadId": "EGGR 248",
+      "gaiaDr3Id": "3218697767783768320",
+      "spectralType": "DQ8P"
+    },
+    {
+      "starViewId": "cns5-1470",
+      "name": "HL 4",
+      "simbadId": "EGGR  45",
+      "gaiaDr3Id": "3022956969731332096",
+      "spectralType": "DZ11"
+    },
+    {
+      "starViewId": "cns5-1475",
+      "name": "EGGR 290",
+      "simbadId": "EGGR 290",
+      "gaiaDr3Id": "3320184202856435840",
+      "spectralType": "DA8P"
+    },
+    {
+      "starViewId": "cns5-1901",
+      "name": "LAWD 25",
+      "simbadId": "LAWD 25",
+      "gaiaDr3Id": "5717278911884258176",
+      "spectralType": "DZQA6",
+      "component": {
+        "systemId": "gj-283",
+        "label": "A",
+        "expectedName": "LAWD 25",
+        "gaiaDesignation": true
+      }
+    },
+    {
+      "starViewId": "cns5-1938",
+      "name": "LAWD 26",
+      "simbadId": "LAWD 26",
+      "gaiaDr3Id": "5273943488410008832",
+      "spectralType": "DA9.0"
+    },
+    {
+      "starViewId": "cns5-2037",
+      "name": "UPM J0812-3529",
+      "simbadId": "UPM J0812-3529",
+      "gaiaDr3Id": "5544743925212648320",
+      "spectralType": "DAH"
+    },
+    {
+      "starViewId": "cns5-2071",
+      "name": "SCR J0821-6703",
+      "simbadId": "SCR J0821-6703",
+      "gaiaDr3Id": "5272690766709543680",
+      "spectralType": "DA10.0"
+    },
+    {
+      "starViewId": "cns5-2148",
+      "name": "CD-32 5613",
+      "simbadId": "CD-32  5613",
+      "gaiaDr3Id": "5639391810273308416",
+      "spectralType": "DA5.5"
+    },
+    {
+      "starViewId": "cns5-2300",
+      "name": "EGGR 250",
+      "simbadId": "EGGR 250",
+      "gaiaDr3Id": "1022780838739029120",
+      "spectralType": "DCP7"
+    },
+    {
+      "starViewId": "cns5-2677",
+      "name": "LAWD 34",
+      "simbadId": "LAWD 34",
+      "gaiaDr3Id": "3763445409285757824",
+      "spectralType": "DC"
+    },
+    {
+      "starViewId": "cns5-2836",
+      "name": "20 Crt B",
+      "simbadId": "*  20 Crt B",
+      "gaiaDr3Id": "3478127467639543296",
+      "spectralType": "DC",
+      "component": {
+        "systemId": "gj-432",
+        "label": "B",
+        "expectedName": "20 Crt B",
+        "gaiaDesignation": true
+      }
+    },
+    {
+      "starViewId": "cns5-2960",
+      "name": "LP 852-7",
+      "simbadId": "LP  852-7",
+      "gaiaDr3Id": "3489719481290397696",
+      "spectralType": "DA5.7"
+    },
+    {
+      "starViewId": "cns5-3356",
+      "name": "Wolf 489",
+      "simbadId": "Wolf  489",
+      "gaiaDr3Id": "3713594960831605760",
+      "spectralType": "DC9"
+    },
+    {
+      "starViewId": "cns5-3412",
+      "name": "EGGR 438",
+      "simbadId": "EGGR 438",
+      "gaiaDr3Id": "1251824057289839744",
+      "spectralType": "DC9",
+      "component": {
+        "systemId": "gj-1179",
+        "label": "B",
+        "expectedName": "EGGR 438",
+        "gaiaDesignation": true
+      }
+    },
+    {
+      "starViewId": "cns5-3657",
+      "name": "LP 801-9",
+      "simbadId": "LP  801-9",
+      "gaiaDr3Id": "6282457918962299776",
+      "spectralType": "DC10"
+    },
+    {
+      "starViewId": "cns5-4011",
+      "name": "CD-38 10980",
+      "simbadId": "CD-38 10980",
+      "gaiaDr3Id": "6018034958869558912",
+      "spectralType": "DA2",
+      "component": {
+        "systemId": "gj-620-1",
+        "label": "B",
+        "expectedName": "CD-38 10980",
+        "gaiaDesignation": true
+      }
+    },
+    {
+      "starViewId": "cns5-4055",
+      "name": "G 138-38",
+      "simbadId": "G 138-38",
+      "gaiaDr3Id": "4440264291578812928",
+      "spectralType": "DA8"
+    },
+    {
+      "starViewId": "cns5-4118",
+      "name": "DN Dra",
+      "simbadId": "V* DN Dra",
+      "gaiaDr3Id": "1431783457574556672",
+      "spectralType": "DA4.0"
+    },
+    {
+      "starViewId": "cns5-4187",
+      "name": "WD 1703-267",
+      "simbadId": "WD 1703-267",
+      "gaiaDr3Id": "4108828945319007744",
+      "spectralType": "DAH"
+    },
+    {
+      "starViewId": "cns5-4407",
+      "name": "PM J17476-5436",
+      "simbadId": "PM J17476-5436",
+      "gaiaDr3Id": "5920900901901635968",
+      "spectralType": "DC"
+    },
+    {
+      "starViewId": "cns5-4408",
+      "name": "EGGR 372",
+      "simbadId": "EGGR 372",
+      "gaiaDr3Id": "1638979384378696704",
+      "spectralType": "DQ9P"
+    },
+    {
+      "starViewId": "cns5-4541",
+      "name": "G 227-28",
+      "simbadId": "G 227-28",
+      "gaiaDr3Id": "2158285185808357504",
+      "spectralType": "DA10"
+    },
+    {
+      "starViewId": "cns5-4728",
+      "name": "LAWD 73",
+      "simbadId": "LAWD 73",
+      "gaiaDr3Id": "2262849634963004416",
+      "spectralType": "DAP4.5"
+    },
+    {
+      "starViewId": "cns5-4788",
+      "name": "EGGR 375",
+      "simbadId": "EGGR 375",
+      "gaiaDr3Id": "2052891361294411520",
+      "spectralType": "DC7"
+    },
+    {
+      "starViewId": "cns5-4799",
+      "name": "LAWD 74",
+      "simbadId": "LAWD 74",
+      "gaiaDr3Id": "4201781696994073472",
+      "spectralType": "DBQA5",
+      "component": {
+        "systemId": "gj-754-1",
+        "label": "A",
+        "expectedName": "LAWD 74",
+        "gaiaDesignation": true
+      }
+    },
+    {
+      "starViewId": "cns5-4935",
+      "name": "LAWD 79",
+      "simbadId": "LAWD 79",
+      "gaiaDr3Id": "4235280071072332672",
+      "spectralType": "DA6.4"
+    },
+    {
+      "starViewId": "cns5-5190",
+      "name": "WT 765",
+      "simbadId": "WT 765",
+      "gaiaDr3Id": "6478328218869704192",
+      "spectralType": "DA",
+      "component": {
+        "systemId": "wt-766",
+        "label": "B",
+        "expectedName": "WT 765",
+        "gaiaDesignation": true
+      }
+    },
+    {
+      "starViewId": "cns5-5346",
+      "name": "EGGR 148",
+      "simbadId": "EGGR 148",
+      "gaiaDr3Id": "1792830060723673472",
+      "spectralType": "DQ6"
+    },
+    {
+      "starViewId": "cns5-5397",
+      "name": "UCAC4 747-070768",
+      "simbadId": "UCAC4 747-070768",
+      "gaiaDr3Id": "2202703050401536000",
+      "spectralType": "DAH"
+    },
+    {
+      "starViewId": "cns5-5646",
+      "name": "EGGR 453",
+      "simbadId": "EGGR 453",
+      "gaiaDr3Id": "2611561706216413696",
+      "spectralType": "DZ13"
+    },
+    {
+      "starViewId": "hip-45336-component-b",
+      "name": "Theta Hya B",
+      "simbadId": null,
+      "gaiaDr3Id": null,
+      "spectralType": "DA1.6",
+      "component": {
+        "systemId": "spectroscopic-hip-45336",
+        "label": "B",
+        "expectedName": "Theta Hya B",
+        "gaiaDesignation": false
+      }
+    }
+  ]
+}

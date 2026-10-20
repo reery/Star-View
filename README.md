@@ -46,7 +46,7 @@ Open the local URL printed by Vite.
 
 Before the first browser test run, install Chromium with `npx playwright install chromium`, or use installed Chrome via `PLAYWRIGHT_CHANNEL=chrome npm run test:e2e`.
 
-`dist/` is a static site. When hosting it, configure the compression and caching headers described in [Development](docs/development.md#build-and-hosting).
+`dist/` is a static site, deployed as Cloudflare Workers static assets. Builds generate its Cloudflare `_headers` and `.assetsignore`; other hosts need the compression and caching headers described in [Development](docs/development.md#build-and-hosting).
 
 ## Controls
 

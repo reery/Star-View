@@ -167,10 +167,17 @@ def reviewed_physical():
     cluster = {normalized_id(key): value for key, value in cluster_review["catalogObjects"].items()}
     if len(cluster) != len(cluster_review["catalogObjects"]):
         raise ValueError("Duplicate normalized cluster review identity")
+    white_dwarf_review = json.loads((ROOT / "catalog-work/shared-enrichment/reviewed-white-dwarfs.json").read_text())
+    for path, digest in white_dwarf_review["inputSha256"].items():
+        verify_sha256(ROOT / path, digest)
+    white_dwarfs = white_dwarf_review["objects"]
+    if any(review["objectType"] != "white_dwarf" for review in white_dwarfs.values()):
+        raise ValueError("White dwarf reviews must declare their object type")
     if (existing.keys() & ultracool.keys() or (existing.keys() | ultracool.keys()) & bright.keys()
-            or (existing.keys() | ultracool.keys() | bright.keys()) & cluster.keys()):
+            or (existing.keys() | ultracool.keys() | bright.keys()) & cluster.keys()
+            or (existing.keys() | ultracool.keys() | bright.keys() | cluster.keys()) & white_dwarfs.keys()):
         raise ValueError("Reviewed physical identities must be unique")
-    return existing | ultracool | bright | cluster
+    return existing | ultracool | bright | cluster | white_dwarfs
 
 
 def derive_physical(row):
@@ -209,8 +216,11 @@ def enrich_from_frozen(row, main_id=None, aliases=(), derive=True, reviewed_only
         adopted[field] = {"field": field, "value": float(row[field]), "status": status,
                           "reference": reference, "uncertainty": uncertainty, "identity": key, **detail}
 
-    if row["type"] in {"star", "brown_dwarf", "sub_brown_dwarf"} and key:
+    if row["type"] in {"star", "brown_dwarf", "sub_brown_dwarf", "white_dwarf"} and key:
         review = reviewed_physical().get(key)
+        # Stellar reviews never describe white dwarfs; only explicitly typed white dwarf reviews apply to them.
+        if review and row["type"] == "white_dwarf" and review.get("objectType") != "white_dwarf":
+            review = None
         if review:
             if review.get("objectType", row["type"]) != row["type"] or row["id"] not in review.get("starViewIds", [row["id"]]):
                 raise ValueError(f"Reviewed ultracool identity/type drifted: {key}")

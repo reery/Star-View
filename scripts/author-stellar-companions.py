@@ -566,6 +566,7 @@ def build():
     inputs += apply_literature(ROOT, WORK / "reviewed-companion-literature.json", definitions, pool, audit)
     inputs += apply_literature(ROOT, WORK / "reviewed-constellation-literature.json", definitions, pool, audit)
     inputs += apply_literature(ROOT, WORK / "reviewed-constellation-data.json", definitions, pool, audit)
+    inputs += apply_literature(ROOT, WORK / "reviewed-white-dwarf-components.json", definitions, pool, audit)
     inputs += apply_cluster_astrometry(ROOT, definitions, pool, audit)
     inputs += apply_literature(ROOT, ROOT / "catalog-work/famous-cluster-stars/physical-review.json", definitions, pool, audit)
     inputs += apply_bright_system_motion(ROOT, definitions, pool, audit,

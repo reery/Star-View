@@ -3,12 +3,12 @@
 `npm run catalog:generate` keeps the reviewed source files intact and writes separate browser payloads:
 
 - `generated/catalogs/`: schema 3 map records, without `notes` or `catalog_sources`.
-- `generated/catalog-details/`: one content-keyed notes/source snapshot per distinct effective record. Shared IDs with different catalog source records retain separate snapshots.
+- `generated/catalog-details/`: one content-keyed notes/source snapshot per distinct effective record. Shared IDs with different catalog source records retain separate snapshots. Each key ends in the first 16 hex digits of the snapshot's SHA-256, and builds emit the snapshot as `assets/catalog-details/<hash>.json`. The browser derives that URL from the map record's key, with no lookup table. Objects with identical snapshots share one file, and the build rejects any file whose content does not match its key.
 - `generated/star-articles/`: one article per reviewed article identity, including its review date and section sources.
 - `generated/stellar-orbits/`: one orbit array per reviewed stellar system, including systems with no adopted orbit.
 - `generated/planetary-systems/`: one exact planet host and its planet measurements. Opening a planet card does not import the full exoplanet archive.
 
-The map loads only the selected catalog and enabled overlays. Small system-identity, planet-count and article-availability indexes remain available at startup. Article/system/detail URL lookups live in optional modules; their JSON bodies load only when needed.
+The map loads only the selected catalog and enabled overlays. Small system-identity, planet-count and article-availability indexes remain available at startup. Article and system URL lookups live in optional modules; source-note URLs are derived from content hashes. Their JSON bodies load only when needed.
 
 Info loads the selected article, sharing its cached content across reviewed component aliases. System loads the selected stellar system and the exact selected planet host. Specs loads the selected star's notes and retained source measurements, including scoped fallback values and tooltips. Constellation charts continue loading one chart and its companions at a time.
 
