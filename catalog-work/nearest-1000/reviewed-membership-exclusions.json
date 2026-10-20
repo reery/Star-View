@@ -1,0 +1,223 @@
+{
+  "schemaVersion": 1,
+  "reviewed": "2026-10-20",
+  "policy": "Exact reviewed identities override generic SIMBAD classifications for confirmed nearby membership. Retain rejected measurements as historical source observations; do not adopt their parallax as a physical distance.",
+  "objects": [
+    {
+      "id": "cns5-3707",
+      "cns5Id": "3707",
+      "gaiaDr3Id": "6305165514134625024",
+      "simbadId": "Gaia DR3 6305165514134625024",
+      "status": "excluded-background-object",
+      "reason": "Kirkpatrick et al. (2024) identify this exact Gaia source as a background object, supported by Palomar/DBSP spectroscopy on 2022-05-24. Reyle et al. (2023) had already identified a likely red background object blended with a blue source. The Gaia/CNS5 parallax is not adopted as a reliable nearby distance; no physical properties are inferred from it.",
+      "references": [
+        {
+          "bibcode": "2024ApJS..271...55K",
+          "url": "https://doi.org/10.3847/1538-4365/ad24e2",
+          "fullTextUrl": "https://arxiv.org/pdf/2312.03639",
+          "scope": "Table 3 rejects nearby membership as background object; Table A2 records Palomar/DBSP observation on 2022-05-24 and classification bkg."
+        },
+        {
+          "url": "https://arxiv.org/abs/2302.02810",
+          "scope": "Section 2.3 discusses Gaia EDR3 6305165514134625024 as a likely red background source blended with a blue object; G and W1 are inconsistent with a nearby mid-T dwarf."
+        }
+      ],
+      "previousCatalogRecords": [
+        {
+          "path": "src/data/catalogs/nearest-1000/stars.csv",
+          "record": {
+            "type": "star",
+            "id": "cns5-3707",
+            "name": "Gaia DR3 6305165514134625024",
+            "designations": "",
+            "spectral_type": "",
+            "x_pc": "4.458600651",
+            "y_pc": "-1.555893569",
+            "z_pc": "3.273487738",
+            "vx_kms": "",
+            "vy_kms": "",
+            "vz_kms": "",
+            "temperature_k": "",
+            "mass_solar": "",
+            "luminosity_solar": "",
+            "radius_solar": "",
+            "metallicity_dex": "",
+            "metallicity_kind": "",
+            "age_gyr": "",
+            "absolute_mag": "",
+            "epoch": "2000.0",
+            "notes": "Corrected CNS5 3707; J2000 Sun-relative Galactic position. SIMBAD exact CNS5 identity. Transverse-only source motion; radial velocity unavailable or withheld.",
+            "constellation": "Libra",
+            "ra_deg": "224.97665286074593",
+            "dec_deg": "-18.53775641089888",
+            "astrometry_epoch": "2016.0",
+            "parallax_mas": "174.03640225187837",
+            "parallax_error_mas": "1.8315082",
+            "pm_ra_cosdec_masyr": "8.935928343633153",
+            "pm_ra_error_masyr": "1.8164712190628052",
+            "pm_dec_masyr": "-9.867716145115926",
+            "pm_dec_error_masyr": "1.9178162813186646",
+            "radial_velocity_kms": "",
+            "radial_velocity_error_kms": "",
+            "astrometry_ref": "2020yCat.1350....0G",
+            "radial_velocity_ref": ""
+          }
+        }
+      ],
+      "previousProvenance": {
+        "astrometry": {
+          "astrometry_ref": "2020yCat.1350....0G",
+          "dec_deg": -18.53775641089888,
+          "epoch": 2016.0,
+          "parallax_error_mas": 1.8315082,
+          "parallax_mas": 174.03640225187837,
+          "pm_dec_error_masyr": 1.9178162813186646,
+          "pm_dec_masyr": -9.867716145115926,
+          "pm_ra_cosdec_masyr": 8.935928343633153,
+          "pm_ra_error_masyr": 1.8164712190628052,
+          "quality_flags": [],
+          "ra_deg": 224.97665286074593,
+          "radial_velocity_error_kms": null,
+          "radial_velocity_kms": null,
+          "radial_velocity_ref": null,
+          "source_id": "cns5",
+          "source_record_id": "3707"
+        },
+        "cns5Id": "3707",
+        "fieldStatus": {
+          "absolute_mag": "unknown",
+          "age_gyr": "unknown",
+          "luminosity_solar": "unknown",
+          "mass_solar": "unknown",
+          "metallicity_dex": "unknown",
+          "radial_velocity_kms": "unknown",
+          "radius_solar": "unknown",
+          "temperature_k": "unknown"
+        },
+        "gaiaDr3Id": "6305165514134625024",
+        "id": "cns5-3707",
+        "identityMethod": "exact CNS5 identifier; exact Gaia DR3 identifier when present",
+        "physicalObservations": [],
+        "physicalSupplements": {
+          "adopted": {},
+          "eligibility": "Not a parsed K5-M9.5 dwarf spectral type (no subdwarf, giant, composite or peculiar class); supplements not applied.",
+          "identity": {
+            "cns5_id": "3707",
+            "identity_method": "exact SIMBAD CNS5 identity",
+            "simbad_id": "Gaia DR3 6305165514134625024"
+          }
+        },
+        "radialVelocity": {
+          "status": "unknown"
+        },
+        "simbadId": "Gaia DR3 6305165514134625024",
+        "sourceType": "*"
+      },
+      "previousEffectiveComponents": [],
+      "sourceSnapshots": {
+        "scope": "Historical source observations only. These photometry/astrometry values, errors and nulls are preserved without asserting nearby membership or an individual uncontaminated stellar measurement.",
+        "cns5": {
+          "path": "catalog-work/nearest-1000/cns5.dat",
+          "rawLine": "3707 12151       - 0       6305165514134625024      - 224.97665286074593   -18.53775641089888      2016.0    2020yCat.1350....0G 174.03640225187837   1.8315082    2020yCat.1350....0G     8.935928343633153    1.8164712190628052      -9.867716145115926     1.9178162813186646   2020yCat.1350....0G                                                                  20.435349   0.021726722148218483 20.785662     0.3002475112307189 18.809788    0.07138148561705993                                                                                     20.435349    0.021726722148218483  1.6339588165283203     0.07461479038504645 1                                                                16.878 0.118  16.968        12.515         8.456       2014yCat.2328....0C"
+        },
+        "gaia": {
+          "path": "catalog-work/nearest-1000/gaia.csv",
+          "record": {
+            "source_id": "6305165514134625024",
+            "ra": "224.97665286074593",
+            "dec": "-18.53775641089888",
+            "ref_epoch": "2016.0",
+            "parallax": "174.02530425165742",
+            "parallax_error": "1.9005988",
+            "pmra": "8.935928343633153",
+            "pmra_error": "1.8164712",
+            "pmdec": "-9.867716145115926",
+            "pmdec_error": "1.9178163",
+            "radial_velocity": "",
+            "radial_velocity_error": "",
+            "duplicated_source": "false",
+            "teff_gspphot": "",
+            "teff_gspphot_lower": "",
+            "teff_gspphot_upper": "",
+            "mh_gspphot": "",
+            "mh_gspphot_lower": "",
+            "mh_gspphot_upper": "",
+            "mass_flame": "",
+            "mass_flame_lower": "",
+            "mass_flame_upper": "",
+            "lum_flame": "",
+            "lum_flame_lower": "",
+            "lum_flame_upper": "",
+            "radius_flame": "",
+            "radius_flame_lower": "",
+            "radius_flame_upper": "",
+            "age_flame": "",
+            "age_flame_lower": "",
+            "age_flame_upper": "",
+            "flags_flame": ""
+          }
+        },
+        "simbad": {
+          "path": "catalog-work/nearest-1000/simbad.csv",
+          "record": {
+            "query_id": "CNS5 3707",
+            "main_id": "Gaia DR3 6305165514134625024",
+            "ra": "224.9766109720996",
+            "dec": "-18.53771255437806",
+            "otype": "*",
+            "sp_type": "",
+            "ids": "Gaia DR3 6305165514134625024|CNS5 3707",
+            "V": ""
+          }
+        },
+        "nearest100Candidate": {
+          "Seq": "1001",
+          "Sys": "1001",
+          "Name": "Gaia EDR3 6305165514134625024",
+          "ObjType": "BD?",
+          "ObjName": "Gaia EDR3 6305165514134625024",
+          "RAdeg": "224.976652861",
+          "DEdeg": "-18.537756411",
+          "Epoch": "2016.0",
+          "plx": "174.0253",
+          "e_plx": "1.9006",
+          "r_plx": "2020yCat.1350....0G",
+          "pmRA": "8.936",
+          "e_pmRA": "1.816",
+          "pmDE": "-9.868",
+          "e_pmDE": "1.775",
+          "r_pmDE": "2020yCat.1350....0G",
+          "RV": null,
+          "e_RV": null,
+          "r_RV": null,
+          "SpType": null,
+          "r_SpType": null,
+          "SpMethod": null,
+          "GCode": "3",
+          "Gmag": "20.435377",
+          "Gest": null,
+          "GBPmag": "20.785662",
+          "GRPmag": "18.809788",
+          "Umag": null,
+          "Bmag": null,
+          "Vmag": null,
+          "Rmag": null,
+          "Imag": null,
+          "Jmag": null,
+          "Hmag": null,
+          "Ksmag": null,
+          "r_Sys": null,
+          "Nexopl": null,
+          "GaiaDR2": null,
+          "GaiaEDR3": null,
+          "SIMBAD": null,
+          "Common": null,
+          "GJ": null,
+          "HD": null,
+          "HIP": null,
+          "Com": "Listed in CNS5 2022arXiv221101449G"
+        }
+      }
+    }
+  ]
+}

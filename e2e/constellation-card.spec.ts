@@ -112,7 +112,7 @@ test('keeps Furud components and scoped cards identical from a clean chart and t
   await page.reload()
   await expect(page.locator('#scene')).toHaveAttribute('data-ready', 'true')
   await openFilter(page)
-  for (const name of ['Always show bright stars', 'Western constellation stars', 'Famous cluster stars']) {
+  for (const name of ['Always show bright stars', 'Western constellation stars']) {
     await page.getByRole('switch', { name, exact: true }).check()
   }
   for (const category of await page.locator('#object-categories input:enabled').all()) await category.check()

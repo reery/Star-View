@@ -11973,7 +11973,7 @@
         "sourceStarId": "hip-17847",
         "sourceAbsoluteMagnitude": -1.862002,
         "sourceDistancePc": 125.429679991,
-        "sourceNotes": "Western constellation line-figure star (HIP 17847; Stellarium Tau). SIMBAD identity *  27 Tau; SIMBAD compiled Johnson V=3.63; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, luminosity_solar; Gaia DR3 model values for metallicity_dex, mass_solar, radius_solar.",
+        "sourceNotes": "Western constellation line-figure star (HIP 17847; Stellarium Tau). SIMBAD identity *  27 Tau; SIMBAD compiled Johnson V=3.63; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, luminosity_solar; Gaia DR3 model values for metallicity_dex, mass_solar, radius_solar. Pleiades landmark star; The Seven Sisters plus Atlas and Pleione; exact Hipparcos identifiers with SIMBAD Melotte 22 membership aliases. SIMBAD identity *  27 Tau; SIMBAD compiled Johnson V=3.63; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, luminosity_solar; Gaia DR3 model values for metallicity_dex, mass_solar, radius_solar.",
         "policy": "Observed catalog-source photometry only; no individual component flux inferred."
       },
       "photometry": {
@@ -33916,7 +33916,7 @@
         "sourceStarId": "hip-52419",
         "sourceAbsoluteMagnitude": -2.957471,
         "sourceDistancePc": 139.153520001,
-        "sourceNotes": "Western constellation line-figure star (HIP 52419; Stellarium Car). SIMBAD identity * tet Car; SIMBAD compiled Johnson V=2.76; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Motion RV: 20.18 +/- 0.04 km/s from Hubrig et al. 2008; reviewed literature override. Physical parameters: published Hipparcos-source models for temperature_k, luminosity_solar; Stefan-Boltzmann scaling for radius_solar. Shared exact-identity physical supplements (metallicity_dex: 2023A&A...676A.129H).",
+        "sourceNotes": "Western constellation line-figure star (HIP 52419; Stellarium Car). SIMBAD identity * tet Car; SIMBAD compiled Johnson V=2.76; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Motion RV: 20.18 +/- 0.04 km/s from Hubrig et al. 2008; reviewed literature override. Physical parameters: published Hipparcos-source models for temperature_k, luminosity_solar; Stefan-Boltzmann scaling for radius_solar. Shared exact-identity physical supplements (metallicity_dex: 2023A&A...676A.129H). Southern Pleiades landmark star; Five brightest SIMBAD IC 2602 members with cluster-consistent parallaxes. SIMBAD identity * tet Car; SIMBAD compiled Johnson V=2.76; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Motion RV: 20.18 +/- 0.04 km/s from Hubrig et al. 2008; reviewed literature override. Physical parameters: published Hipparcos-source models for temperature_k, luminosity_solar; Stefan-Boltzmann scaling for radius_solar. Shared exact-identity physical supplements (metallicity_dex: 2023A&A...676A.129H).",
         "policy": "Observed catalog-source photometry only; no individual component flux inferred."
       },
       "withheldPhotometry": {
@@ -46534,6 +46534,40 @@
           "vz_kms": -7.278591
         },
         "scope": "Shared primary astrometric basis and a single Galactic Cartesian velocity for all listed targets. This is a common linear-propagation approximation; individual measured positions, distances and proper motions are not overwritten. No orbital phase integration or binding-energy inference."
+      },
+      "izarReview": {
+        "reviewPath": "catalog-work/star-systems/izar-review.json",
+        "physicalScope": "Baines et al. 2025 Tables 6-7 supersedes the heterogeneous older temperature/radius/luminosity. Radius scales as distance and luminosity as distance squared from source parallax 13.83 mas to the shared Hipparcos distance. Temperature 4341 +/-39 K is distance independent; source radius +1.30/-1.39 Rsun and luminosity 459 Lsun are retained verbatim. Shared parallax uncertainty is correlated across distance-scaled quantities; the printed 0.1 Lsun source error is not a complete luminosity error. Published seismic mass 5.36 +/-0.48 Msun (Rudrasingam 2026) retains its original 4755 K /37.61 Rsun assumptions and scaling systematics; it is not a dynamical mass or recalculated here.",
+        "sharedDistance": {
+          "parallaxMas": 16.1,
+          "parallaxErrorMas": 0.66,
+          "reference": "Hipparcos parallax for HIP 72105; retained in MSC 2026-06-19 and TIC 219827143",
+          "sourceUrl": "https://vizier.cds.unistra.fr/viz-bin/VizieR?-source=I/311/hip2&HIP=72105",
+          "scope": "Preferred approximate common system distance. A is saturated in Gaia DR3 (RUWE 3.529), B has no DR3 parallax, D is faint (parallax 15.7305 +/-0.6077 mas). Hipparcos 16.10 +/-0.66 mas is compatible with D. Common-distance geometry preserves measured sky directions; unknown relative depths are set to zero, not measured to be zero. This is not an orbital solution."
+        },
+        "nativeGaia": {
+          "source_id": "1279798794197267072",
+          "ra": "221.24648617076684",
+          "dec": "27.074315757773466",
+          "parallax": "13.82667260913517",
+          "parallax_error": "0.48957205",
+          "pmra": "-50.81825554241812",
+          "pmra_error": "0.42025015",
+          "pmdec": "21.02352084436887",
+          "pmdec_error": "0.44615656",
+          "ruwe": "3.5287786",
+          "phot_g_mean_mag": "2.1833525",
+          "phot_bp_mean_mag": "3.2867486",
+          "phot_rp_mean_mag": "2.1027422",
+          "radial_velocity": "",
+          "radial_velocity_error": "",
+          "teff_gspphot": ""
+        },
+        "outerCandidateDecision": {
+          "gaiaDr3Id": "1267607615425592448",
+          "designation": "2MASS J14454000+2615167",
+          "status": "Published much wider CPM candidate; documented separately, not added as a confirmed physical member or used as a distance donor. DR3 RUWE=3.089 flags its very precise formal parallax; no invented WDS label or orbit."
+        }
       }
     },
     "msc-14450+2704-b": {
@@ -47007,6 +47041,23 @@
         },
         "scope": "Shared primary astrometric basis and a single Galactic Cartesian velocity for all listed targets. This is a common linear-propagation approximation; individual measured positions, distances and proper motions are not overwritten. No orbital phase integration or binding-energy inference."
       },
+      "izarReview": {
+        "reviewPath": "catalog-work/star-systems/izar-review.json",
+        "physicalScope": "Exact TIC 1101424611 / Gaia DR2 1279798789901591168: temperature 9009 K (+381/-368.3), empirical/catalog mass 2.270 Msun (+0.401/-0.263), source radius 2.747 Rsun (+0.185/-0.156), luminosity 44.77494 Lsun (+4.49719/-3.49781), source distance 67.1558 pc. Radius/luminosity rescaled to the shared adopted distance; mass retains the original empirical-model scope. The SIMBAD-linked 4826 K and [Fe/H]=+0.05 from 2020A&A...633A..34C are incompatible with the resolved A0V companion and retained as ambiguous/misattributed source measurements, not adopted as its atmosphere. No independent component metallicity or age is established.",
+        "sharedDistance": {
+          "parallaxMas": 16.1,
+          "parallaxErrorMas": 0.66,
+          "reference": "Hipparcos parallax for HIP 72105; retained in MSC 2026-06-19 and TIC 219827143",
+          "sourceUrl": "https://vizier.cds.unistra.fr/viz-bin/VizieR?-source=I/311/hip2&HIP=72105",
+          "scope": "Preferred approximate common system distance. A is saturated in Gaia DR3 (RUWE 3.529), B has no DR3 parallax, D is faint (parallax 15.7305 +/-0.6077 mas). Hipparcos 16.10 +/-0.66 mas is compatible with D. Common-distance geometry preserves measured sky directions; unknown relative depths are set to zero, not measured to be zero. This is not an orbital solution."
+        },
+        "nativeGaia": null,
+        "outerCandidateDecision": {
+          "gaiaDr3Id": "1267607615425592448",
+          "designation": "2MASS J14454000+2615167",
+          "status": "Published much wider CPM candidate; documented separately, not added as a confirmed physical member or used as a distance donor. DR3 RUWE=3.089 flags its very precise formal parallax; no invented WDS label or orbit."
+        }
+      },
       "spectralSubtypes": {
         "spectralType": "A0V",
         "labels": [
@@ -47448,6 +47499,40 @@
           "vz_kms": -7.288211
         },
         "scope": "Shared primary astrometric basis and a single Galactic Cartesian velocity for all listed targets. This is a common linear-propagation approximation; individual measured positions, distances and proper motions are not overwritten. No orbital phase integration or binding-energy inference."
+      },
+      "izarReview": {
+        "reviewPath": "catalog-work/star-systems/izar-review.json",
+        "physicalScope": "MSC D is Gaia DR3 1279752168030730496, the candidate brown dwarf in Kervella et al. 2022 section 5.1.5. No measured spectrum, temperature, mass, radius, bolometric luminosity, metallicity or age is established here. MSC V=21.05 is an estimated visual magnitude, not independently established Johnson V; Gaia G=19.509863 is retained with its native band. No primary radial velocity is treated as a measured candidate RV.",
+        "sharedDistance": {
+          "parallaxMas": 16.1,
+          "parallaxErrorMas": 0.66,
+          "reference": "Hipparcos parallax for HIP 72105; retained in MSC 2026-06-19 and TIC 219827143",
+          "sourceUrl": "https://vizier.cds.unistra.fr/viz-bin/VizieR?-source=I/311/hip2&HIP=72105",
+          "scope": "Preferred approximate common system distance. A is saturated in Gaia DR3 (RUWE 3.529), B has no DR3 parallax, D is faint (parallax 15.7305 +/-0.6077 mas). Hipparcos 16.10 +/-0.66 mas is compatible with D. Common-distance geometry preserves measured sky directions; unknown relative depths are set to zero, not measured to be zero. This is not an orbital solution."
+        },
+        "nativeGaia": {
+          "source_id": "1279752168030730496",
+          "ra": "221.2709438659988",
+          "dec": "27.074398546839927",
+          "parallax": "15.730490417546267",
+          "parallax_error": "0.60769314",
+          "pmra": "-49.67104061945227",
+          "pmra_error": "0.5138431",
+          "pmdec": "15.446937602638341",
+          "pmdec_error": "0.4638165",
+          "ruwe": "1.3302675",
+          "phot_g_mean_mag": "19.509863",
+          "phot_bp_mean_mag": "20.751143",
+          "phot_rp_mean_mag": "17.83436",
+          "radial_velocity": "",
+          "radial_velocity_error": "",
+          "teff_gspphot": ""
+        },
+        "outerCandidateDecision": {
+          "gaiaDr3Id": "1267607615425592448",
+          "designation": "2MASS J14454000+2615167",
+          "status": "Published much wider CPM candidate; documented separately, not added as a confirmed physical member or used as a distance donor. DR3 RUWE=3.089 flags its very precise formal parallax; no invented WDS label or orbit."
+        }
       }
     },
     "hip-72622": {
@@ -74476,7 +74561,7 @@
         "sourceStarId": "hip-20894",
         "sourceAbsoluteMagnitude": 0.10219,
         "sourceDistancePc": 45.873509997,
-        "sourceNotes": "Western constellation line-figure star (HIP 20894; Stellarium Tau). SIMBAD identity * tet02 Tau; SIMBAD compiled Johnson V=3.41; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, mass_solar, radius_solar, luminosity_solar. Shared exact-identity physical supplements (metallicity_dex: 2016A&A...589A..83G).",
+        "sourceNotes": "Western constellation line-figure star (HIP 20894; Stellarium Tau). SIMBAD identity * tet02 Tau; SIMBAD compiled Johnson V=3.41; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, mass_solar, radius_solar, luminosity_solar. Shared exact-identity physical supplements (metallicity_dex: 2016A&A...589A..83G). Hyades landmark star; Eight brightest SIMBAD Melotte 25 members with cluster-consistent parallaxes; foreground Aldebaran is deliberately excluded. SIMBAD identity * tet02 Tau; SIMBAD compiled Johnson V=3.41; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, mass_solar, radius_solar, luminosity_solar. Shared exact-identity physical supplements (metallicity_dex: 2016A&A...589A..83G).",
         "policy": "Observed catalog-source photometry only; no individual component flux inferred."
       },
       "reviewedLiterature": {
@@ -101884,7 +101969,7 @@
   "systems": 341,
   "components": 846,
   "selectedFieldCoverage": {
-    "individualApparentMagnitude": 534,
+    "individualApparentMagnitude": 533,
     "unresolvedSourcePhotometry": 65,
     "subtypes": 519,
     "missingSubtypes": [
@@ -102384,6 +102469,7 @@
       "msc-12266-6306-ab",
       "msc-13239+5456-ba",
       "msc-13239+5456-bb",
+      "msc-14450+2704-d",
       "msc-14509-1603-ba",
       "msc-14509-1603-bb",
       "msc-15351-4110-ab",
@@ -102480,12 +102566,12 @@
     "available": {
       "spectral_type": 602,
       "temperature_k": 489,
-      "mass_solar": 367,
-      "luminosity_solar": 328,
-      "radius_solar": 336,
-      "metallicity_dex": 289,
+      "mass_solar": 368,
+      "luminosity_solar": 329,
+      "radius_solar": 337,
+      "metallicity_dex": 288,
       "age_gyr": 111,
-      "absolute_mag": 534
+      "absolute_mag": 533
     },
     "withoutProperties": [
       "cns5-1615",
@@ -102528,6 +102614,7 @@
       "msc-11456-6644-ab",
       "msc-12266-6306-ab",
       "msc-13239+5456-bb",
+      "msc-14450+2704-d",
       "msc-14509-1603-bb",
       "msc-15351-4110-ab",
       "msc-16054-1948-eb",
@@ -105683,9 +105770,7 @@
         "age_gyr"
       ],
       "msc-14450+2704-b": [
-        "mass_solar",
-        "luminosity_solar",
-        "radius_solar",
+        "metallicity_dex",
         "age_gyr"
       ],
       "msc-14450+2704-d": [
@@ -105695,7 +105780,8 @@
         "luminosity_solar",
         "radius_solar",
         "metallicity_dex",
-        "age_gyr"
+        "age_gyr",
+        "absolute_mag"
       ],
       "hip-72622": [
         "mass_solar",
@@ -107872,39 +107958,39 @@
   },
   "sourcePreservation": {
     "componentRecordsWithSources": 598,
-    "sourceRecords": 962,
+    "sourceRecords": 979,
     "missingIndividualFieldsWithSourceValues": {
       "temperature_k": 68,
       "mass_solar": 27,
       "luminosity_solar": 92,
       "radius_solar": 92,
-      "metallicity_dex": 60,
+      "metallicity_dex": 61,
       "age_gyr": 8,
-      "absolute_mag": 65,
-      "apparent_mag": 65,
+      "absolute_mag": 66,
+      "apparent_mag": 66,
       "spectral_type": 38,
-      "vx_kms": 8,
-      "vy_kms": 8,
-      "vz_kms": 8
+      "vx_kms": 9,
+      "vy_kms": 9,
+      "vz_kms": 9
     }
   },
   "coverage": {
     "temperature_k": 489,
-    "mass_solar": 367,
-    "luminosity_solar": 328,
-    "radius_solar": 336,
-    "metallicity_dex": 289,
+    "mass_solar": 368,
+    "luminosity_solar": 329,
+    "radius_solar": 337,
+    "metallicity_dex": 288,
     "age_gyr": 111
   },
   "inputSha256": {
     "src/data/star-systems.json": "0e7e0b8097766381629c4d28e57f62948ecde0c10ac18992c09cef17cb6dfe05",
-    "src/data/object-designations.json": "23582139f394f90ce36cd31ebbe675697992d3d356307a2a795bd6067d3f6c00",
+    "src/data/object-designations.json": "8d641d6e4d29e62b343722f3746c074adc11c198522f8a9148c7f62dcb664fb0",
     "src/data/object-stats.json": "642d5bf070e7ab685ceac280896a934163b47cb39a977823e69e9854bd9f4d00",
     "src/data/catalogs/bright-stars/stars.csv": "682dd4cefa7ffc8b76c75553a75fc0b50b07f3c9b6b48296f3b30b08971a26f8",
-    "src/data/catalogs/famous-cluster-stars/stars.csv": "a3891d03306b702329de98dafff62ca2b0906f8dd6089f64bd8005a252d5b33f",
+    "catalog-work/famous-cluster-stars/retired-catalog/stars.csv": "a3891d03306b702329de98dafff62ca2b0906f8dd6089f64bd8005a252d5b33f",
     "src/data/catalogs/nearest-100/stars.csv": "a283dc0a9319d331ac01c8d6e526fbb23f5eb2cdc6ca243f160d5a381fe24a88",
-    "src/data/catalogs/nearest-1000/stars.csv": "fefc6aa546c29ea50140bf45ba1146b0bc7737383c525b595517260df291903c",
-    "src/data/catalogs/western-constellation-stars/stars.csv": "b8ec3563c77a3377b24ccd45627c613546b404b139666ceddb52dc20543fa456",
+    "src/data/catalogs/nearest-1000/stars.csv": "4f851fa5f27325e045f1cef19d18e8ef4b8334761c207eea0f50f5cc3dbeea31",
+    "src/data/catalogs/western-constellation-stars/stars.csv": "28689abf630ec0b3322df1dbbe21e8fb1090dc3a1a03b670b2e6572292aeea6c",
     "src/data/stars.csv": "cbe5afe70dfcd4f789ebdf61464a35ce59652dc7ad6eccfd389c5599128d2f11",
     "catalog-work/star-systems/catalog-companions-msc.json": "b81210724ff9914c3c286c5971155df5bf20613252baaa9472eee085f0cd0f41",
     "catalog-work/star-systems/catalog-companions-cifuentes.json": "bdd35ae8d422a55660f6055417684ec7dbe7bf8df6ec1657129b448bc73346b8",
@@ -107978,6 +108064,8 @@
     "catalog-work/star-systems/reviewed-constellation-motion.json": "d377b1cec74ecf96a29194d1117c276dc2e59f3eefdd00ccc0eef58fb331de14",
     "catalog-work/star-systems/literature-components/constellation-20261019-intermediate-adoptions.json": "c5adccca31712f1e7fcbf19a3093109bbf814383529eb2f4dccae4b5b871bbbb",
     "catalog-work/famous-cluster-stars/motion-review.json": "64548a4c015a186b47c8e269352fe8efa7a375537726e23f0f2527095edd0334",
+    "catalog-work/star-systems/izar-review.json": "025ca21ae85254801d9bdf4c61f6039f57053826af98240c2fe26b3b934f4459",
+    "catalog-work/star-systems/literature-components/izar-20261020-sources.json": "5d86e1ebe01a430f9b31fc84e085f3914e61bc8b84fbb6f2d1380f51fd1c60f6",
     "catalog-work/nearest-100/physical-overrides.json": "9bbfe6982d5fad43b205a5cbf36fc9bb3ac967d285959292cc544abd3f1bd297",
     "catalog-work/shared-enrichment/source-manifest.json": "94f632adf135caa1b7c9afd27b6981daf5b2d63b92764be5ce9885d6044dd446",
     "catalog-work/star-systems/reviewed-unresolved-photometry.json": "291165120291df05fe0c334b4623e6aaa6f75fc0a729786ae0f7f0a7d2100209",

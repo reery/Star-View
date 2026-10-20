@@ -8,6 +8,7 @@ import { OrbitControls } from 'three/addons/controls/OrbitControls.js'
 import type { Star } from './catalog-model'
 import { createStarAppearance } from './star-appearance'
 import { createDepthLabel } from './depth-label'
+import { updateCameraNearPlane } from './camera-depth'
 import { createMilkyWayLayer } from './milky-way-layer'
 import { createEarthOrbitLayer } from './earth-orbit-layer'
 import { createMotionArrowMesh } from './motion-arrow-layer'
@@ -267,6 +268,14 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
     expandBoxByBubbleBounds(starBounds, star)
   })
   const catalogSphere = starBounds.getBoundingSphere(new Sphere())
+  const depthPositions = pickable.map(({ position }) => position)
+  const extendedDepthBounds = stars.flatMap((star) => {
+    if (!star.molecular_cloud && !star.bubble) return []
+    const bounds = new Box3()
+    expandBoxByMolecularCloudBounds(bounds, star)
+    expandBoxByBubbleBounds(bounds, star)
+    return [bounds]
+  })
   catalogSphere.radius = Math.max(catalogSphere.radius, 0.75)
   const homeDirection = new Vector3(-4.8, 3.8, -6.2).normalize()
   controls.minDistance = 0.08
@@ -1920,6 +1929,7 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
       else continueRendering = true
     }
     camera.updateMatrixWorld()
+    if (updateCameraNearPlane(camera, depthPositions, extendedDepthBounds)) invalidateProjection()
     if (earthOrbitEnabled) updateEarthOrbitVisibility()
     // Looking at a distant object from the origin is still a close sky view.
     // Fade the overview only after retreating from both origin and orbit target.

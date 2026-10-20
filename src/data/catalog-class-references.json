@@ -5,8 +5,7 @@
     "nearest-100",
     "nearest-neighbors",
     "bright-stars",
-    "western-constellation-stars",
-    "famous-cluster-stars"
+    "western-constellation-stars"
   ],
   "uniqueObjects": 2074,
   "classes": [
@@ -199,44 +198,44 @@
       "count": 20,
       "metrics": {
         "mass": {
-          "value": 2.57781,
+          "value": 2.54983,
           "range": [
             2.04168,
             3.36
           ],
-          "count": 10
+          "count": 11
         },
         "gravity": {
-          "value": 116.605,
+          "value": 114.587,
           "range": [
             42.6265,
             196.858
           ],
-          "count": 9
+          "count": 10
         },
         "escapeKms": {
-          "value": 621.801,
+          "value": 618.005,
           "range": [
             517.448,
             739.485
           ],
-          "count": 9
+          "count": 10
         },
         "density": {
-          "value": 0.262151,
+          "value": 0.255449,
           "range": [
             0.048547,
             0.600188
           ],
-          "count": 9
+          "count": 10
         },
         "luminosityPerMass": {
-          "value": 24.0713,
+          "value": 23.3514,
           "range": [
             9.28785,
             52.7748
           ],
-          "count": 9
+          "count": 10
         }
       }
     },
@@ -8539,34 +8538,34 @@
           "count": 2
         },
         "gravity": {
-          "value": 1.87704,
+          "value": 1.72405,
           "range": [
-            1.69627,
+            1.3903,
             2.0578
           ],
           "count": 2
         },
         "escapeKms": {
-          "value": 231.191,
+          "value": 224.798,
           "range": [
             198.805,
-            263.577
+            250.791
           ],
           "count": 2
         },
         "density": {
-          "value": 0.000531371,
+          "value": 0.000493154,
           "range": [
-            0.000296286,
+            0.000219852,
             0.000766456
           ],
           "count": 2
         },
         "luminosityPerMass": {
-          "value": 86.624,
+          "value": 72.2688,
           "range": [
-            81.3488,
-            91.8993
+            63.1889,
+            81.3488
           ],
           "count": 2
         }
@@ -13014,10 +13013,10 @@
       "label": "A-type main-sequence star",
       "low": 8.76973,
       "high": 267.509,
-      "count": 75,
-      "median": 30.0428,
-      "p10": 11.9903,
-      "p90": 96.1931
+      "count": 76,
+      "median": 30.4125,
+      "p10": 12.0088,
+      "p90": 95.3918
     },
     {
       "key": "BI",
@@ -13266,7 +13265,7 @@
       "high": 5140.99,
       "count": 14,
       "median": 1400.97,
-      "p10": 322.848,
+      "p10": 276.682,
       "p90": 4350.64
     },
     {

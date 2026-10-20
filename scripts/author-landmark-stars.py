@@ -1,4 +1,4 @@
-"""Rebuild the Western constellation-figure and famous-cluster star overlays."""
+"""Rebuild the combined constellation and cluster landmark overlay."""
 
 import argparse
 import csv
@@ -19,7 +19,7 @@ WESTERN_SOURCE = ROOT / "catalog-work/western-constellation-stars"
 CLUSTER_SOURCE = ROOT / "catalog-work/famous-cluster-stars"
 PHYSICAL_SOURCE = ROOT / "catalog-work/landmark-stars"
 WESTERN_OUTPUT = ROOT / "src/data/catalogs/western-constellation-stars"
-CLUSTER_OUTPUT = ROOT / "src/data/catalogs/famous-cluster-stars"
+CLUSTER_OUTPUT = CLUSTER_SOURCE / "retired-catalog"
 DEFAULT_CATALOG = ROOT / "src/data/stars.csv"
 PHYSICAL_FIELDS = ("temperature_k", "mass_solar", "luminosity_solar", "radius_solar", "metallicity_dex", "age_gyr")
 SYSTEM_TYPES = {"**", "EB*", "SB*", "bC*", "s*b"}
@@ -595,12 +595,35 @@ def western_catalog():
         raise ValueError("Western figure output IDs are not unique")
     rows, expansion, companion_sources = expand_overlay("western-constellation-stars", rows, provenance)
     adopt_shared_objects(rows, provenance)
+    # Keep all reviewed cluster landmarks in the single selectable overlay.
+    # Their original source package remains an offline preservation baseline.
+    cluster = cluster_catalog()
+    cluster_manifest = json.loads(cluster["catalog.json"])
+    cluster_provenance = json.loads(cluster["provenance.json"])
+    by_id = {row["id"]: row for row in rows}
+    added_ids = []
+    for source in csv.DictReader(io.StringIO(cluster["stars.csv"])):
+        identifier = source["id"]
+        if identifier == "sun":
+            continue
+        if identifier in by_id:
+            row = by_id[identifier]
+            differences = [field for field in HEADERS if field != "notes" and row.get(field, "") != source.get(field, "")]
+            if differences:
+                raise ValueError(f"Conflicting cluster adoption: {identifier}: {differences}")
+            row["notes"] += " " + source["notes"]
+            provenance[identifier]["clusterLandmark"] = cluster_provenance["objects"][identifier]
+        else:
+            rows.append(source)
+            by_id[identifier] = source
+            added_ids.append(identifier)
+            provenance[identifier] = cluster_provenance["objects"][identifier]
     rows.sort(key=lambda row: math.hypot(float(row["x_pc"]), float(row["y_pc"]), float(row["z_pc"])))
     manifest = {
         "schemaVersion": 1,
         "id": "western-constellation-stars",
         "label": "Western constellation stars",
-        "description": "All unique Hipparcos vertices in Stellarium's Western constellation figures with reviewed individual companions, plus the Sun.",
+        "description": "All Western constellation figure stars, curated landmarks in seven famous stellar groups, and their reviewed individual companions, plus the Sun.",
         "epoch": 2000,
         "objectCount": len(rows) + 1,
         "sources": [
@@ -617,12 +640,12 @@ def western_catalog():
             {"name": "McDonald et al. 2012 Hipparcos-star SED models; exact HIP identifiers", "url": "https://cdsarc.cds.unistra.fr/viz-bin/cat/J/MNRAS/427/343"},
             {"name": "Gaia DR3 GSP-Phot and FLAME model parameters; exact Gaia DR3 identifiers", "url": "https://gea.esac.esa.int/tap-server/tap/sync"},
         ],
-        "cutoffPolicy": "Every unique numeric Hipparcos vertex in all 88 Stellarium Western constellation line figures, plus reviewed companions of explicitly matched landmarks. Non-numeric drawing-style tokens are ignored. No apparent-magnitude cutoff is applied; Sun is included only as the map origin. Component-resolved records replace reviewed blended primaries.",
-        "snapshot": "Stellarium commit 014fbb5e59233d133c22f9811af96b67d05a95c9; SIMBAD, Hipparcos, VizieR and Gaia snapshots frozen 2026-10-01; 691 original figure landmarks plus reviewed companions (2026-10-06) and Sun.",
+        "cutoffPolicy": "Every unique numeric Hipparcos vertex in all 88 Stellarium Western constellation line figures, all 42 curated landmarks formerly in Famous cluster stars, and reviewed companions of explicitly matched landmarks. Non-numeric drawing-style tokens are ignored. No apparent-magnitude cutoff is applied; Sun is included only as the map origin. Component-resolved records replace reviewed blended primaries. Cluster landmarks retain their original selection and measurement provenance; this is not a complete cluster membership census.",
+        "snapshot": "Stellarium commit 014fbb5e59233d133c22f9811af96b67d05a95c9; SIMBAD, Hipparcos, VizieR and Gaia snapshots frozen 2026-10-01; 691 original figure landmarks, 42 curated cluster landmarks, reviewed companions and Sun. Catalogs consolidated 2026-10-20.",
     }
     manifest["sources"] += enrichment_sources()
     sources_by_url = {source["url"]: source for source in manifest["sources"]}
-    for source in companion_sources:
+    for source in [*companion_sources, *cluster_manifest["sources"]]:
         sources_by_url.setdefault(source["url"], source)
     manifest["sources"] = list(sources_by_url.values())
     provenance_payload = {
@@ -632,6 +655,7 @@ def western_catalog():
         "figureConstellations": len(index["constellations"]),
         "uniqueHipparcosStars": len(hips),
         "companionExpansion": expansion,
+        "clusterLandmarks": {"sourceCatalogId": "famous-cluster-stars", "landmarkIds": sorted(cluster_provenance["objects"].keys() - {"sun"}), "addedSourceIds": sorted(added_ids), "groups": cluster_provenance["groups"], "policy": cluster_provenance["policy"]},
         "physicalCoverage": {field: sum(bool(row[field]) for row in rows) for field in PHYSICAL_FIELDS},
         "sharedEnrichmentManifestSha256": manifest_sha256(),
         "objects": provenance,

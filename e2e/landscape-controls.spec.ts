@@ -13,19 +13,25 @@ test('short landscape controls scroll without overlap and keep flyouts usable @m
   const toolbar = page.locator('.scene-toolbar')
   const rail = page.locator('.dock-rail')
   const top = (await toolbar.boundingBox())!
-  const bottom = (await rail.boundingBox())!
-  expect(top.y + top.height + 8).toBeLessThanOrEqual(bottom.y)
-  for (const scroller of [toolbar, rail]) {
-    expect(await scroller.evaluate((element) => element.scrollHeight > element.clientHeight)).toBe(true)
-    await expect(scroller).toHaveAttribute('tabindex', '0')
-  }
+  await expect(toolbar.locator('> .dock-rail')).toHaveCount(1)
+  expect(top.height).toBe(255)
+  expect(await toolbar.evaluate((element) => element.scrollHeight > element.clientHeight)).toBe(true)
+  await expect(toolbar).toHaveAttribute('tabindex', '0')
+  await expect(rail).not.toHaveAttribute('tabindex')
+  await expect(rail).toHaveCSS('overflow-y', 'visible')
   // Buttons retain their full touch targets rather than shrinking to fit.
   await expect(page.locator('#reset-view')).toHaveCSS('height', '44px')
   await expect(page.locator('#info-toggle')).toHaveCSS('height', '44px')
   await page.locator('#info-toggle').tap()
   await expect(page.locator('#info-panel')).toBeVisible()
   await page.locator('#info-toggle').tap()
-  expect(await rail.evaluate((element) => element.scrollTop)).toBeGreaterThan(0)
+  expect(await toolbar.evaluate((element) => element.scrollTop)).toBeGreaterThan(0)
+  // Discover's flyout also escapes the shared scrolling viewport.
+  await page.locator('#discover-toggle').tap()
+  await expect(page.locator('#constellations-toggle')).toBeVisible()
+  const discover = (await page.locator('#constellations-toggle').boundingBox())!
+  expect(discover.x + discover.width).toBeLessThanOrEqual(top.x)
+  await page.keyboard.press('Escape')
   await page.locator('#reset-view').tap()
   await expect(page.locator('#top-view')).toBeVisible()
   // The flyout lies outside the toolbar's scroll clipping rectangle.
@@ -44,6 +50,12 @@ test('short landscape controls scroll without overlap and keep flyouts usable @m
   await page.setViewportSize({ width: 390, height: 844 })
   await expect(toolbar).not.toHaveAttribute('tabindex')
   await expect(toolbar).toHaveCSS('overflow-y', 'visible')
+  await expect(page.locator('#control-dock > .dock-rail')).toHaveCount(1)
+  await expect(rail).toHaveCSS('overflow-y', 'visible')
+  // Rotating again reunites the controls without duplicating or losing buttons.
+  await page.setViewportSize({ width: 844, height: 300 })
+  await expect(toolbar.locator('> .dock-rail')).toHaveCount(1)
+  await expect(page.locator('#info-toggle')).toHaveCount(1)
 })
 
 test('landscape search and detail cards leave room for scrollable content @mobile', async ({ page, isMobile }, testInfo) => {

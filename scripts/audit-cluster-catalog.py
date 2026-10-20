@@ -66,7 +66,7 @@ def retained(before, after):
 
 def render(before_dir=None):
     baseline = read(WORK / "gap-baseline.json")["records"]
-    current = {s["id"]: hydrate(s) for s in read(ROOT / "src/data/generated/catalogs/famous-cluster-stars.json")["stars"] if s["id"] != "sun"}
+    current = {s["id"]: hydrate(s) for s in read(ROOT / "src/data/generated/catalogs/western-constellation-stars.json")["stars"] if s["id"] in baseline}
     if current.keys() != baseline.keys() or len(current) != 62:
         raise ValueError("Effective cluster membership changed")
     physical = read(WORK / "physical-review.json")

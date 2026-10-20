@@ -52,6 +52,20 @@ def reviewed_fields(path, identifier, old, new, missing, retirements):
         and entry["expectedCurrent"] == new.get(field) and entry.get("reason") for entry in retirements)]
 
 
+def reviewed_record_removal(path, previous, retirements, load_review):
+    """Permit a membership correction only while its complete old row survives."""
+    for entry in retirements:
+        if entry["path"] != path or entry["id"] != previous["id"] or not entry.get("reason"):
+            continue
+        review = load_review(entry["reviewPath"])
+        for item in review["objects"]:
+            if (item["id"] == previous["id"] and item.get("status") == "excluded-background-object"
+                and item.get("reason") and item.get("references")
+                and {"path": path, "record": previous} in item.get("previousCatalogRecords", [])):
+                return True
+    return False
+
+
 def pool_losses(previous, proposed, retirements):
     path = "src/data/stellar-companions.json"
     current = {star["id"]: star for star in proposed["stars"]}

@@ -11,6 +11,7 @@ export interface SavedViewSettings {
   catalogId: string
   showAlwaysBright: boolean
   showWesternConstellationStars: boolean
+  /** Legacy saved views use this flag to enable the combined constellation catalog. */
   showFamousClusterStars: boolean
   filterCategories: FilterCategoryId[]
   filterSubtypes: FilterKey[]

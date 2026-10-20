@@ -13,7 +13,7 @@ test('refreshes the rendered distance texture when selecting a distant cluster s
   })
   await openViewer(page)
   await openFilter(page)
-  await page.getByRole('switch', { name: 'Famous cluster stars', exact: true }).check()
+  await page.getByRole('switch', { name: 'Western constellation stars', exact: true }).check()
   await expect(page.locator('#scene-status')).toBeHidden()
   await page.getByLabel('Object visibility distance', { exact: true }).fill('22')
   await expect(page.locator('.distance-label')).toHaveText('8.61 ly')

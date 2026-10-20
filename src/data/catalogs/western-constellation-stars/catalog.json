@@ -2,9 +2,9 @@
   "schemaVersion": 1,
   "id": "western-constellation-stars",
   "label": "Western constellation stars",
-  "description": "All unique Hipparcos vertices in Stellarium's Western constellation figures with reviewed individual companions, plus the Sun.",
+  "description": "All Western constellation figure stars, curated landmarks in seven famous stellar groups, and their reviewed individual companions, plus the Sun.",
   "epoch": 2000,
-  "objectCount": 714,
+  "objectCount": 749,
   "sources": [
     {
       "name": "Stellarium Western sky culture line figures, commit 014fbb5",
@@ -424,6 +424,14 @@
       "url": "https://arxiv.org/html/1404.7384"
     },
     {
+      "name": "O'Brien et al. 2024, The 40 pc sample of white dwarfs from Gaia (Table A1), MNRAS 527, 8687",
+      "url": "https://arxiv.org/abs/2312.02735"
+    },
+    {
+      "name": "Farihi et al. 2013, Gliese 86B DQ white dwarf parameters, MNRAS 430, 652",
+      "url": "https://arxiv.org/abs/1212.5601"
+    },
+    {
       "name": "10pc census, Reyle et al., tablea1 update 2023-08-25",
       "url": "https://vizier.cds.unistra.fr/viz-bin/VizieR?-source=J%2FA%2BA%2F650%2FA201"
     },
@@ -466,8 +474,12 @@
     {
       "name": "Tokovinin Multiple Star Catalog, June 19 2026 snapshot; Rigel hierarchy and component labels",
       "url": "https://www.ctio.noirlab.edu/~atokovin/stars/"
+    },
+    {
+      "name": "Component-resolved literature parameters for the four classical Trapezium systems",
+      "url": "https://doi.org/10.1093/mnras/stab1119"
     }
   ],
-  "cutoffPolicy": "Every unique numeric Hipparcos vertex in all 88 Stellarium Western constellation line figures, plus reviewed companions of explicitly matched landmarks. Non-numeric drawing-style tokens are ignored. No apparent-magnitude cutoff is applied; Sun is included only as the map origin. Component-resolved records replace reviewed blended primaries.",
-  "snapshot": "Stellarium commit 014fbb5e59233d133c22f9811af96b67d05a95c9; SIMBAD, Hipparcos, VizieR and Gaia snapshots frozen 2026-10-01; 691 original figure landmarks plus reviewed companions (2026-10-06) and Sun."
+  "cutoffPolicy": "Every unique numeric Hipparcos vertex in all 88 Stellarium Western constellation line figures, all 42 curated landmarks formerly in Famous cluster stars, and reviewed companions of explicitly matched landmarks. Non-numeric drawing-style tokens are ignored. No apparent-magnitude cutoff is applied; Sun is included only as the map origin. Component-resolved records replace reviewed blended primaries. Cluster landmarks retain their original selection and measurement provenance; this is not a complete cluster membership census.",
+  "snapshot": "Stellarium commit 014fbb5e59233d133c22f9811af96b67d05a95c9; SIMBAD, Hipparcos, VizieR and Gaia snapshots frozen 2026-10-01; 691 original figure landmarks, 42 curated cluster landmarks, reviewed companions and Sun. Catalogs consolidated 2026-10-20."
 }

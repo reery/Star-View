@@ -52,7 +52,7 @@ describe('close system map representatives', () => {
     expect(visibleIds([component('A', 0), component('B', 0, { name: 'Unrelated B' })])).toHaveLength(2)
   })
 
-  it.each(['nearest-100', 'nearest-1000', 'bright-stars', 'western-constellation-stars', 'famous-cluster-stars'])(
+  it.each(['nearest-100', 'nearest-1000', 'bright-stars', 'western-constellation-stars'])(
     'preserves one representative for close companions in %s', (catalog) => {
       const stars = completeCatalogCompanions(parseStarCatalog(readFileSync(
         new URL(`./data/catalogs/${catalog}/stars.csv`, import.meta.url), 'utf8')))

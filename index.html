@@ -168,42 +168,45 @@
                 <p id="metallicity-description"></p>
               </div>
             </section>
-            <section id="constellation-card" class="dock-card object-type-card constellation-card" aria-labelledby="constellation-heading" data-scene-obstacle hidden>
-              <div class="panel-heading constellation-heading">
-                <h2 id="constellation-heading">Canis Major</h2>
-                <button id="constellation-magnify" class="panel-lock" type="button" aria-label="Magnify selected star" aria-pressed="false" aria-controls="constellation-chart" title="Magnify selected star"><span id="constellation-magnify-icon"></span></button>
-                <button id="constellation-lock" class="panel-lock" type="button" aria-label="Keep Constellation open" aria-pressed="false"><span id="constellation-lock-icon"></span></button>
-                <button id="constellation-close" class="panel-lock" type="button" aria-label="Close constellation card"><span id="constellation-close-icon"></span></button>
-              </div>
+            <template id="constellation-content-template">
               <div class="card-scroll-content">
-                <figure id="constellation-chart" class="constellation-chart"></figure>
-                <p id="constellation-missing" class="constellation-missing" hidden></p>
-                <section id="constellation-visibility" class="constellation-visibility" aria-label="Visibility from Earth">
+                <figure id="constellation-chart" data-constellation-part="constellation-chart" class="constellation-chart"></figure>
+                <p id="constellation-missing" data-constellation-part="constellation-missing" class="constellation-missing" hidden></p>
+                <section id="constellation-visibility" data-constellation-part="constellation-visibility" class="constellation-visibility" aria-label="Visibility from Earth">
                   <div class="constellation-visibility-charts">
-                    <div id="constellation-visibility-map" class="constellation-visibility-map"></div>
+                    <div id="constellation-visibility-map" data-constellation-part="constellation-visibility-map" class="constellation-visibility-map"></div>
                     <div class="constellation-visibility-season">
                       <div class="constellation-latitude-control">
                         <label for="constellation-latitude">Latitude</label>
-                        <select id="constellation-latitude">
+                        <select id="constellation-latitude" data-constellation-part="constellation-latitude">
                           <option value="80">80° N</option><option value="70">70° N</option><option value="60">60° N</option><option value="50">50° N</option><option value="40" selected>40° N</option><option value="30">30° N</option><option value="20">20° N</option><option value="10">10° N</option><option value="0">0°</option><option value="-10">10° S</option><option value="-20">20° S</option><option value="-30">30° S</option><option value="-40">40° S</option><option value="-50">50° S</option><option value="-60">60° S</option><option value="-70">70° S</option><option value="-80">80° S</option>
                         </select>
                       </div>
-                      <p id="constellation-visibility-time" class="constellation-visibility-time">Around 10 pm <span>· solar time</span></p>
-                      <div id="constellation-visibility-months" class="constellation-visibility-months" role="img"></div>
+                      <p id="constellation-visibility-time" data-constellation-part="constellation-visibility-time" class="constellation-visibility-time">Around 10 pm <span>· solar time</span></p>
+                      <div id="constellation-visibility-months" data-constellation-part="constellation-visibility-months" class="constellation-visibility-months" role="img"></div>
                     </div>
                   </div>
                   <dl class="properties constellation-visibility-stats">
-                    <div><dt>Visible from latitudes</dt><dd id="constellation-visible-latitudes-value"></dd></div>
-                    <div><dt>Visible during months</dt><dd id="constellation-visible-months-value"></dd></div>
+                    <div><dt>Visible from latitudes</dt><dd id="constellation-visible-latitudes-value" data-constellation-part="constellation-visible-latitudes-value"></dd></div>
+                    <div><dt>Visible during months</dt><dd id="constellation-visible-months-value" data-constellation-part="constellation-visible-months-value"></dd></div>
                   </dl>
                 </section>
                 <details class="constellation-sources">
                   <summary>Sources</summary>
                   <p>Catalogue sky positions as seen from Earth, north up and east left. Solid figure lines follow the Stellarium Western sky culture. Spaced dashed borders use CDS J2000 IAU boundary data.</p>
-                  <div id="constellation-source-links"></div>
+                  <div class="constellation-source-links" id="constellation-source-links" data-constellation-part="constellation-source-links"></div>
                   <p>Visibility is geometric; black land can see the selected object above the horizon. Evening months use the selected latitude, a level horizon, and astronomical darkness at 10 pm local solar time on each month's 15th. Weather, terrain, and brightness limits are not modeled.</p>
                   <div class="constellation-visibility-sources"><a href="https://aa.usno.navy.mil/faq/alt_az" target="_blank" rel="noreferrer">USNO horizon geometry</a><a href="https://aa.usno.navy.mil/faq/sun_approx" target="_blank" rel="noreferrer">USNO solar coordinates</a><a href="https://aa.usno.navy.mil/faq/RST_defs" target="_blank" rel="noreferrer">USNO twilight definitions</a><a href="https://www.naturalearthdata.com/" target="_blank" rel="noreferrer">Natural Earth land outlines</a></div>
                 </details>
+              </div>
+            </template>
+            <section id="constellation-card" class="dock-card object-type-card constellation-card" aria-labelledby="constellation-heading" data-scene-obstacle hidden>
+              <div class="panel-heading constellation-heading">
+                <h2 id="constellation-heading" data-constellation-part="constellation-heading">Canis Major</h2>
+                <button id="constellation-grid" data-constellation-part="constellation-grid" class="panel-lock" type="button" aria-label="Show equatorial grid" aria-pressed="false" aria-controls="constellation-chart" title="Show equatorial grid"><span id="constellation-grid-icon"></span></button>
+                <button id="constellation-magnify" data-constellation-part="constellation-magnify" class="panel-lock" type="button" aria-label="Magnify selected star" aria-pressed="false" aria-controls="constellation-chart" title="Magnify selected star"><span id="constellation-magnify-icon"></span></button>
+                <button id="constellation-lock" class="panel-lock" type="button" aria-label="Keep Constellation open" aria-pressed="false"><span id="constellation-lock-icon"></span></button>
+                <button id="constellation-close" class="panel-lock" type="button" aria-label="Close constellation card"><span id="constellation-close-icon"></span></button>
               </div>
             </section>
             <section id="mass-card" class="dock-card object-type-card mass-card" aria-labelledby="mass-heading" data-scene-obstacle hidden>
@@ -639,6 +642,12 @@
             </section>
             <div id="control-dock" class="control-dock" data-scene-obstacle>
               <div class="dock-rail" role="group" aria-label="Map and information controls">
+                <div class="discover-controls" data-toolbar-flyout role="group" aria-label="Discover">
+                  <button id="discover-toggle" class="icon-button" type="button" aria-label="Discover" aria-controls="discover-options"><span id="discover-icon"></span><span class="tooltip">Discover</span></button>
+                  <div id="discover-options" class="discover-options" data-toolbar-options>
+                    <button id="constellations-toggle" class="icon-button panel-button" type="button" aria-label="Constellations" aria-controls="constellations-panel" aria-expanded="false"><span id="constellations-icon"></span><span class="tooltip">Constellations</span></button>
+                  </div>
+                </div>
                 <button id="motion-toggle" class="icon-button panel-button" type="button" aria-label="Stellar motion" aria-controls="motion-panel" aria-expanded="false"><span id="motion-icon"></span><span class="tooltip">Stellar motion</span></button>
                 <button id="filter-toggle" class="icon-button panel-button" type="button" aria-label="Filter" aria-controls="filter-panel" aria-expanded="false"><span id="filter-icon"></span><span class="tooltip">Filter</span></button>
                 <button id="objects-toggle" class="icon-button panel-button" type="button" aria-label="Objects" aria-controls="objects-panel" aria-expanded="false"><span id="objects-icon"></span><span class="tooltip">Objects</span></button>
@@ -696,10 +705,6 @@
                   <label class="filter-toggle" for="show-western-constellation-stars">
                     <span>Western constellation stars</span>
                     <span class="switch-control"><input id="show-western-constellation-stars" type="checkbox" role="switch"><span class="switch-track" aria-hidden="true"></span></span>
-                  </label>
-                  <label class="filter-toggle" for="show-famous-cluster-stars">
-                    <span>Famous cluster stars</span>
-                    <span class="switch-control"><input id="show-famous-cluster-stars" type="checkbox" role="switch"><span class="switch-track" aria-hidden="true"></span></span>
                   </label>
                   <div id="object-categories" class="category-toggles" role="group" aria-label="Object categories"></div>
                   <div class="range-filter">
@@ -763,6 +768,30 @@
                     <p id="glossary-image-credit" class="glossary-image-credit" hidden></p>
                   </article>
                   <p id="glossary-empty" class="glossary-empty" role="status" hidden>No matching terms. Try another search.</p>
+                </div>
+              </section>
+              <section id="constellations-panel" class="dock-card glossary-card constellations-card" aria-labelledby="constellations-heading" data-scene-obstacle hidden>
+                <div class="panel-heading glossary-heading">
+                  <h2 id="constellations-heading">Constellations</h2>
+                  <div class="glossary-search">
+                    <span id="constellations-search-icon"></span>
+                    <label class="sr-only" for="constellations-search">Search constellations</label>
+                    <input id="constellations-search" type="search" placeholder="Search constellations" autocomplete="off" spellcheck="false" />
+                  </div>
+                  <button id="constellations-maximize" class="panel-lock" type="button" aria-label="Maximize constellations card height" aria-pressed="false" aria-controls="constellations-panel" title="Maximize constellations card height"><span id="constellations-maximize-icon"></span></button>
+                  <button id="constellations-lock" class="panel-lock" type="button" aria-label="Keep Constellations open" aria-pressed="false"><span id="constellations-lock-icon"></span></button>
+                  <button id="constellations-close" class="panel-lock" type="button" aria-label="Close constellations card"><span id="constellations-close-icon"></span></button>
+                </div>
+                <div class="glossary-body">
+                  <nav id="constellations-terms" class="glossary-terms" aria-label="Constellations"></nav>
+                  <article id="constellations-detail" class="constellations-detail" aria-labelledby="discover-constellation-heading">
+                    <div class="panel-heading constellations-detail-heading">
+                      <h3 id="discover-constellation-heading" data-constellation-part="constellation-heading"></h3>
+                      <button id="discover-constellation-grid" data-constellation-part="constellation-grid" class="panel-lock" type="button" aria-label="Show equatorial grid" aria-pressed="false" aria-controls="discover-constellation-chart" title="Show equatorial grid"><span id="discover-constellation-grid-icon"></span></button>
+                      <button id="discover-constellation-magnify" data-constellation-part="constellation-magnify" class="panel-lock" type="button" aria-label="Magnify constellation" aria-pressed="false" aria-controls="discover-constellation-chart" title="Magnify constellation"><span id="discover-constellation-magnify-icon"></span></button>
+                    </div>
+                  </article>
+                  <p id="constellations-empty" class="glossary-empty" role="status" hidden>No matching constellations. Try another search.</p>
                 </div>
               </section>
               <section id="preferences-panel" class="dock-card preferences" aria-labelledby="preferences-heading" hidden>

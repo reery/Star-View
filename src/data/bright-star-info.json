@@ -1029,7 +1029,7 @@
     },
     "msc-14450+2704": {
       "name": "Izar",
-      "introduction": "is a striking double in Boötes, combining an orange giant with a hotter white companion. The pair is challenging but rewarding to separate through a small telescope.",
+      "introduction": "is a contrasting pair in Boötes: an orange giant and a hotter white main-sequence star about 180 AU apart in projection. A much fainter candidate brown dwarf lies roughly 4,900 AU away.",
       "wikipedia": "https://en.wikipedia.org/wiki/Epsilon_Boötis",
       "sections": [
         {
@@ -1039,8 +1039,30 @@
         },
         {
           "id": "2",
-          "title": "Two clocks in one family",
-          "text": "The more massive star has already become a giant while the companion remains on the main sequence. Their shared origin illustrates how strongly mass controls the pace of stellar evolution."
+          "title": "Why A, B and D?",
+          "text": "The catalog retains the Multiple Star Catalog labels A, B and D. D identifies Gaia DR3 1279752168030730496, a candidate brown dwarf found through its similar proper motion and parallax. Its membership and substellar nature remain provisional; the missing letter is not evidence for a missing confirmed star.",
+          "source": {
+            "title": "Kervella et al. (2022), section 5.1.5",
+            "url": "https://arxiv.org/html/2109.10912#S5.SS1.SSS5"
+          }
+        },
+        {
+          "id": "3",
+          "title": "A shared distance, with limits",
+          "text": "The map uses an approximate common distance of 62 parsecs (about 203 light-years), based on Hipparcos. Gaia’s bright-primary solution is affected by saturation, and B has no Gaia DR3 parallax. Their uncertain individual parallaxes cannot resolve the true depth within the system. The displayed separations preserve their measured sky directions; they are projected separations, not a measured three-dimensional orbit.",
+          "source": {
+            "title": "Hipparcos, HIP 72105; approximate shared system distance",
+            "url": "https://vizier.cds.unistra.fr/viz-bin/VizieR?-source=I/311/hip2&HIP=72105"
+          }
+        },
+        {
+          "id": "4",
+          "title": "Another possible companion",
+          "text": "Kervella and colleagues also identify 2MASS J14454000+2615167 as a common-proper-motion candidate about 186,000 AU away in projection, nearly three light-years. That much wider candidate is distinct from MSC component D. Its physical association remains uncertain, so it is described here without assigning a new component letter or a bound orbit.",
+          "source": {
+            "title": "Kervella et al. (2022), section 5.1.5",
+            "url": "https://arxiv.org/html/2109.10912#S5.SS1.SSS5"
+          }
         }
       ]
     },

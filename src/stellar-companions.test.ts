@@ -159,7 +159,7 @@ describe('component coverage shared by every catalog', () => {
     expect(completeCatalogCompanions([b]).find((star) => star.id === furud.id)).toEqual(a)
   })
 
-  it('preserves every known source measurement and uncertainty across all six catalogs', () => {
+  it('preserves every known source measurement and uncertainty across all bundled catalogs', () => {
     const identities = parseObjectIdentities(JSON.parse(readFileSync(new URL('./data/object-designations.json', import.meta.url), 'utf8')))
     const stats = parseObjectStats(JSON.parse(readFileSync(new URL('./data/object-stats.json', import.meta.url), 'utf8')))
     const paths = [new URL('./data/stars.csv', import.meta.url),
@@ -394,7 +394,7 @@ describe('component coverage shared by every catalog', () => {
   })
 
   it('keeps distinct Trapezium subsystems separate even when their common names match', () => {
-    const cluster = parseStarCatalog(readFileSync(new URL('./data/catalogs/famous-cluster-stars/stars.csv', import.meta.url), 'utf8'))
+    const cluster = parseStarCatalog(readFileSync(new URL('./data/catalogs/western-constellation-stars/stars.csv', import.meta.url), 'utf8'))
     const expanded = completeCatalogCompanions(cluster)
     const systems = indexStarSystems(expanded)
     const a = systems.get('trapezium-theta1-orionis-a')!

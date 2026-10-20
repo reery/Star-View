@@ -1,5 +1,7 @@
 # Famous cluster stars review — 19 October 2026
 
+All reviewed records now ship in the constellation catalog. The separate catalog and filter were removed on 20 October 2026; see the [consolidation audit](cluster-catalog-consolidation.md). This document records the preceding scientific review.
+
 Reviewed all 42 source landmarks and their 20 runtime companions: 62 non-solar objects. The review fills 67 previously unavailable physical/classification fields and 17 radial-velocity fields. Forty objects change. Availability includes model estimates, derived values and explicitly shared quantities; it does not mean every value is independently measured.
 
 | Field | Before | After | Newly filled |

@@ -61,8 +61,36 @@ def unique(values):
 
 
 def generic(name):
-    return bool(re.match(r"^(?:CNS5 |HIP |HD |GJ |Gl |Gaia |2MASS |WISE|SDSS |PSR |IC |NGC |vdB |Sh |\*)", name)) or bool(re.match(
+    return bool(re.match(r"^(?:CNS5 |HIP |HD |GJ |Gl |Gaia |2MASS|WISE|SDSS |PSR |IC |NGC |vdB |Sh |BD[+-]|CD[+-]|CPD[+-]|G |L |LP |LHS |LTT |\*)", name)) or bool(re.match(
         r"^(?:" + "|".join(re.escape(value) for value in [*GREEK.values(), *GREEK]) + r")\d* ", name))
+
+
+def preferred_stellar_designation(name, aliases):
+    """Readable Bayer names, then an unambiguous, component-scoped GJ alias.
+
+    Familiar authored names remain preferred. Never turn Ba/Bb into B, or
+    select between different GJ numbers from an unresolved source record.
+    """
+    readable = expanded(name)
+    if readable:
+        return readable
+    if not re.match(r"^(?:CNS5 |HIP |HD |BD[+-]|CD[+-]|CPD[+-]|G |L |LP |LHS |LTT )", name):
+        return name
+    component = re.search(r"(?:\s|\d)([A-Z]+[a-z]?\d?)$", name)
+    label = component[1] if component else None
+    candidates = {}
+    for alias in aliases:
+        match = re.fullmatch(r"GJ (\d+(?:\.\d+)?)(?: ([A-Z]+[a-z]?\d?))?", alias)
+        if not match or label and match[2] != label:
+            continue
+        number = match[1].removesuffix(".0")
+        candidates[(number, match[2])] = f"GJ {number}" + (f" {match[2]}" if match[2] else "")
+    if not label:
+        # An unqualified alias can label the catalogued object, but choosing
+        # between multiple component aliases would invent an identity.
+        unqualified = {key: value for key, value in candidates.items() if key[1] is None}
+        candidates = unqualified or candidates
+    return next(iter(candidates.values())) if len(candidates) == 1 else name
 
 
 def build():
@@ -131,9 +159,7 @@ def build():
     # Never assign one unresolved system's identifiers to its separate components.
     cns5.update({row["starViewIds"][0]: row["cns5Id"] for row in distant["audit"] if len(row.get("starViewIds", [])) == 1})
     bright = read_json(ROOT / "src/data/catalogs/bright-stars/provenance.json")["objects"]
-    landmarks = {}
-    for catalog in ("western-constellation-stars", "famous-cluster-stars"):
-        landmarks.update(read_json(ROOT / f"src/data/catalogs/{catalog}/provenance.json")["objects"])
+    landmarks = read_json(ROOT / "src/data/catalogs/western-constellation-stars/provenance.json")["objects"]
     default_names = {row["id"]: row["name"] for row in inventory_rows(inventory, "src/data/stars.csv")}
     bright_names = {row["id"]: row["name"] for row in inventory_rows(inventory, "src/data/catalogs/bright-stars/stars.csv")}
     reviewed = read_json(WORK / "preferred-names.json")
@@ -233,9 +259,18 @@ def build():
             # Keep that familiar name searchable without renaming Aa back to AB.
             aliases.append(name)
             name = component_name
+        source_name = name
+        if row["type"] in ("star", "white_dwarf", "brown_dwarf"):
+            aliases.append(name)
+            name = preferred_stellar_designation(name, aliases)
+        aliases = unique(aliases)
         aliases = [value for value in aliases if key(value) != key(name)]
         aliases.sort(key=lambda value: (0 if value in named else 1 if re.match(r"^(?:PSR |HD |HIP |GJ |Alpha|Beta|Gamma|Delta|Epsilon)", value) else 2, key(value)))
         objects[identifier] = {"name": name, "designations": aliases, "sources": sorted(set(sources))}
+        if name != source_name:
+            # Scientific authoring retains its reviewed labels and name guards;
+            # the preferred display name is applied after component completion.
+            objects[identifier]["sourceName"] = source_name
         if main:
             objects[identifier]["simbadId"] = records[main]["mainId"]
     return {"schemaVersion": 1, "policy": "Exact source identifiers only; preserve familiar authored names, prefer published common names to catalog numbers; keep individual components distinct. No positional alias matching. Associated nebula names are withheld from pulsars.",

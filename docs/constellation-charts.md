@@ -61,6 +61,12 @@ selected object, keeping star symbols and label sizes unchanged. It follows
 selection while active; switching it off restores the full constellation framing.
 Stars outside the close view are omitted from its controls, and neighboring
 region labels appear only in the full view.
+The globe button beside the magnifier toggles an equatorial grid in both the
+selected-object card and Discover's constellation browser. Right ascension is
+labeled in hours and minutes; declination is labeled in degrees. The grid uses
+the same J2000 projection as the stars, with finer coordinate intervals when
+magnified and spacing adapted to the chart size and declination. Each card
+keeps its own grid toggle state.
 Clicks and Enter/Space select exact star components. Stars absent from the active
 catalog are retained as explicit selections across refreshes, independently of
 overlay switches, so selection history and origin controls keep working.

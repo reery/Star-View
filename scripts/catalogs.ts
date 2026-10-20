@@ -29,6 +29,7 @@ import nearest100Info from '../src/data/nearest-100-info.json' with { type: 'jso
 import brightStarInfo from '../src/data/bright-star-info.json' with { type: 'json' }
 import { starComponentIdentity } from '../src/star-systems.ts'
 import type { ConstellationChart } from '../src/constellations.ts'
+import type { Star } from '../src/catalog-model.ts'
 import { splitCatalogDetails } from '../src/catalog-detail-model.ts'
 import stellarOrbits from '../src/data/stellar-orbits.json' with { type: 'json' }
 
@@ -189,7 +190,7 @@ function generate(): void {
     return mapStar
   })
   const files = Object.fromEntries(catalogs.map(({ id, stars }) =>
-    [`${id}.json`, JSON.stringify({ schemaVersion: 3, catalogId: id, sourceObjectCount: stars.length, stars: mapRecords(completeCatalogCompanions(stars)) }) + '\n']))
+    [`${id}.json`, JSON.stringify({ schemaVersion: 3, catalogId: id, sourceObjectCount: stars.length, stars: mapRecords(supplementObjectIdentities(completeCatalogCompanions(stars), identities, { preserveAuthoredNames: true })) }) + '\n']))
   writeGeneratedData('catalog-details', detailFiles)
   const references = buildCatalogClassReferences(catalogs.map((catalog) => ({ ...catalog, stars: completeCatalogCompanions(catalog.stars) })), (id) => components.get(id))
   requireWhiteDwarfReferences(catalogs)
@@ -210,7 +211,7 @@ function generate(): void {
     const chart = JSON.parse(readFileSync(join(root, 'src/data/constellations', file), 'utf8')) as ConstellationChart
     const needed = new Set(completeCatalogCompanions(chart.stars.map((figure) => figure.object))
       .map((star) => starComponentIdentity(star.id)?.canonicalStarId ?? star.id))
-    chartCompanions[`${chart.name}.json`] = JSON.stringify(companionData.stars.filter((star) => needed.has(star.id))) + '\n'
+    chartCompanions[`${chart.name}.json`] = JSON.stringify(supplementObjectIdentities((companionData.stars as Star[]).filter((star) => needed.has(star.id)), identities, { preserveAuthoredNames: true })) + '\n'
   }
   writeManagedFiles(safeOutputDirectory(join(root, 'src/data/generated/constellation-companions')), chartCompanions, true)
   const articleFiles = Object.fromEntries([starInfo, nearest100Info, brightStarInfo].flatMap((dataset) =>

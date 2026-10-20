@@ -16,9 +16,9 @@ import brightProvenance from './data/catalogs/bright-stars/provenance.json?raw'
 import westernCsv from './data/catalogs/western-constellation-stars/stars.csv?raw'
 import westernManifest from './data/catalogs/western-constellation-stars/catalog.json?raw'
 import westernProvenance from './data/catalogs/western-constellation-stars/provenance.json?raw'
-import clusterCsv from './data/catalogs/famous-cluster-stars/stars.csv?raw'
-import clusterManifest from './data/catalogs/famous-cluster-stars/catalog.json?raw'
-import clusterProvenance from './data/catalogs/famous-cluster-stars/provenance.json?raw'
+import clusterCsv from '../catalog-work/famous-cluster-stars/retired-catalog/stars.csv?raw'
+import clusterManifest from '../catalog-work/famous-cluster-stars/retired-catalog/catalog.json?raw'
+import clusterProvenance from '../catalog-work/famous-cluster-stars/retired-catalog/provenance.json?raw'
 import compactManifestRaw from './data/overlays/compact-remnants/manifest.json?raw'
 import compactPayloadRaw from './data/overlays/compact-remnants/objects.json?raw'
 import { buildCatalog, catalogCoverage, catalogSelection, DEFAULT_CATALOG_MANIFEST, loadCatalog, parseCatalogManifest } from './catalogs'
@@ -56,6 +56,29 @@ describe('catalog packages and display settings', () => {
     expect(catalogCoverage(large)).toMatchObject({ rawAstrometry: 100, radialVelocities: 73, transverseOnly: 27 })
   })
 
+  it('excludes the reviewed background source while retaining its rejected measurements', () => {
+    const provenance = JSON.parse(nearest1000Provenance)
+    for (const stars of [small, large, nearest1000, bright, western]) {
+      expect(completeCatalogCompanions(stars).some((star) => star.id === 'cns5-3707')).toBe(false)
+    }
+    expect(nearest1000).toHaveLength(1037)
+    expect(nearest1000.find((star) => star.id === 'cns5-2673')?.name).toBe('WISE J105553.59-165216.3')
+    const exclusion = provenance.audit.find((entry: { id?: string }) => entry.id === 'cns5-3707')
+    expect(exclusion).toMatchObject({ status: 'excluded', membershipReview: {
+      cns5Id: '3707', gaiaDr3Id: '6305165514134625024', status: 'excluded-background-object',
+      previousProvenance: { astrometry: { parallax_mas: 174.03640225187837, parallax_error_mas: 1.8315082 } },
+      sourceSnapshots: { gaia: { record: { source_id: '6305165514134625024', parallax: '174.02530425165742', parallax_error: '1.9005988' } } },
+    } })
+    expect(exclusion.membershipReview.previousCatalogRecords[0].record).toMatchObject({
+      id: 'cns5-3707', name: 'Gaia DR3 6305165514134625024', parallax_error_mas: '1.8315082',
+    })
+    expect(exclusion.membershipReview.references).toEqual(expect.arrayContaining([
+      expect.objectContaining({ bibcode: '2024ApJS..271...55K' }),
+    ]))
+    expect(provenance.objects.some((entry: { id: string }) => entry.id === 'cns5-3707')).toBe(false)
+    expect(provenance.cutoff).toMatchObject({ baselineRank: 1000, id: 'cns5-2673', nextId: 'cns5-0851' })
+  })
+
   it('validates the nearest-1000 release and preserves every curated shared row', () => {
     expect(nearest1000).toHaveLength(1037)
     expect(catalogCoverage(nearest1000)).toMatchObject({
@@ -67,7 +90,7 @@ describe('catalog packages and display settings', () => {
     })
     for (const star of large) expect(nearest1000.find((candidate) => candidate.id === star.id)).toEqual(star)
     const provenance = JSON.parse(nearest1000Provenance)
-    expect(provenance.cutoff).toMatchObject({ baselineRank: 1000, id: 'cns5-0864', nextId: 'cns5-2673', oneSigmaIntervalsOverlap: true })
+    expect(provenance.cutoff).toMatchObject({ baselineRank: 1000, id: 'cns5-2673', nextId: 'cns5-0851', oneSigmaIntervalsOverlap: true })
     expect(provenance.reviewedAdditionIds).toHaveLength(36)
     expect(nearest1000.find((star) => star.id === 'cns5-3517')?.name).toBe('Arcturus')
     expect(nearest1000.find((star) => star.id === 'cns5-1415')).toMatchObject({
@@ -485,15 +508,15 @@ describe('catalog packages and display settings', () => {
 
   it('includes every source-defined Western constellation figure star as an independent overlay', () => {
     const provenance = JSON.parse(westernProvenance)
-    expect(western).toHaveLength(714)
+    expect(western).toHaveLength(749)
     expect(catalogCoverage(western)).toMatchObject({
-      objects: 713, constellations: 713, magnitudes: 697, rawAstrometry: 713,
-      temperatures: 695, masses: 377, luminosities: 631, radii: 632, metallicities: 532, ages: 101,
+      objects: 748, constellations: 748, magnitudes: 732, rawAstrometry: 748,
+      temperatures: 730, masses: 422, luminosities: 671, radii: 672, metallicities: 559, ages: 115,
     })
     expect(provenance).toMatchObject({ figureConstellations: 88, uniqueHipparcosStars: 691 })
     expect(new Set(Object.values(provenance.objects).flatMap((entry: any) => entry.figureConstellations ?? [])).size).toBe(88)
     expect(Math.max(...western.map((star) => Math.hypot(star.x_pc, star.y_pc, star.z_pc) * 3.261563777))).toBeLessThan(10000)
-    expect(Math.max(...western.filter((star) => star.id.startsWith('hip-') && star.absolute_mag !== null).map((star) => apparentVisualMagnitude(
+    expect(Math.max(...western.filter((star) => provenance.objects[star.id]?.figureConstellations?.length && star.absolute_mag !== null).map((star) => apparentVisualMagnitude(
       star.absolute_mag, Math.hypot(star.x_pc, star.y_pc, star.z_pc),
     )!))).toBeLessThan(6.54)
     expect(Math.hypot(...(['x_pc', 'y_pc', 'z_pc'] as const).map((field) => western.find((star) => star.name === 'x Car')![field]))).toBeCloseTo(2623, 5)
@@ -521,7 +544,7 @@ describe('catalog packages and display settings', () => {
       status: 'reviewed-literature-override', frozenSimbadValueKms: 459.7, adoptedValueKms: 20.18,
     })
     const withBrightStars = mergeCatalogStars(bright, western)
-    expect(withBrightStars).toHaveLength(715)
+    expect(withBrightStars).toHaveLength(750)
     expect(withBrightStars.filter((star) => star.name === 'Rigel')).toHaveLength(1)
   })
 
@@ -530,7 +553,7 @@ describe('catalog packages and display settings', () => {
     expect(cluster).toHaveLength(43)
     expect(catalogCoverage(cluster)).toMatchObject({
       objects: 42, constellations: 42, magnitudes: 42, rawAstrometry: 42,
-      temperatures: 42, masses: 26, luminosities: 42, radii: 42, metallicities: 34, ages: 7,
+      temperatures: 42, masses: 33, luminosities: 42, radii: 42, metallicities: 34, ages: 13,
     })
     expect(provenance.groups.map((group: { name: string }) => group.name)).toEqual([
       'Pleiades', 'Trapezium Cluster', 'Hyades', 'Coma Star Cluster', 'Southern Pleiades', 'Omicron Velorum Cluster', 'Beehive Cluster',
@@ -559,8 +582,8 @@ describe('catalog packages and display settings', () => {
 
   it('offers reviewed overlay components and preserves shared-position companions in either merge order', () => {
     expect(mergeCatalogStars(small, bright)).toHaveLength(142)
-    expect(mergeCatalogStars(small, western)).toHaveLength(729)
-    expect(mergeCatalogStars(mergeCatalogStars(small, bright), western)).toHaveLength(730)
+    expect(mergeCatalogStars(small, western)).toHaveLength(764)
+    expect(mergeCatalogStars(mergeCatalogStars(small, bright), western)).toHaveLength(765)
     expect(mergeCatalogStars(mergeCatalogStars(small, western), cluster)).toHaveLength(764)
     expect(mergeCatalogStars(mergeCatalogStars(mergeCatalogStars(small, bright), western), cluster)).toHaveLength(765)
     const expected = { 'Alpha Centauri': ['A', 'B', 'C'], Sirius: ['A', 'B'], Procyon: ['A', 'B'],
@@ -623,7 +646,7 @@ describe('catalog packages and display settings', () => {
   })
 
   it('validates the completed browser records for every catalog without further enrichment', () => {
-    const manifests = [DEFAULT_CATALOG_MANIFEST, ...[manifest, nearest1000Manifest, brightManifest, westernManifest, clusterManifest].map(parseCatalogManifest)]
+    const manifests = [DEFAULT_CATALOG_MANIFEST, ...[manifest, nearest1000Manifest, brightManifest, westernManifest].map(parseCatalogManifest)]
     for (const metadata of manifests) {
       const payload = JSON.parse(readFileSync(new URL(`./data/generated/catalogs/${metadata.id}.json`, import.meta.url), 'utf8'))
       const loaded = parseCatalogPayload(payload, metadata).map((star) => {

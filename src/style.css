@@ -167,7 +167,7 @@ button, p, h2, dd { overflow-wrap: anywhere; }
 .panel-lock:focus-visible, .save-view-button:focus-visible { outline-color: var(--accent-vibrant); }
 .panel-heading.filter-heading { padding-right: 98px; }
 .panel-heading #filter-reset { right: 43px; border-radius: 0; }
-.control-dock[data-open="glossary"] { grid-template-columns: min(640px, calc(var(--ui-width) - 100px)) 44px; }
+.control-dock:is([data-open="glossary"], [data-open="constellations"]) { grid-template-columns: min(640px, calc(var(--ui-width) - 100px)) 44px; }
 .dock-card.glossary-card { display: flex; flex-direction: column; width: min(640px, calc(var(--ui-width) - 100px)); height: min(520px, calc(var(--ui-height) - 100px)); overflow: hidden; }
 .panel-heading.glossary-heading { flex: 0 0 45px; gap: 18px; padding-right: 98px; }
 .panel-heading:is(.objects-heading, .glossary-heading) > .panel-lock[aria-pressed] { right: 43px; border-radius: 0; }
@@ -203,7 +203,7 @@ button, p, h2, dd { overflow-wrap: anywhere; }
 .glossary-image-credit { margin-top: 8px; }
 .glossary-attribution a, .glossary-image-credit a { color: inherit; }
 .glossary-empty { align-self: center; padding: 22px; color: var(--muted); font-size: 13px; line-height: 1.6; }
-.control-dock[data-motion-open][data-open="glossary"] .glossary-card { height: min(520px, calc(var(--ui-height) - var(--motion-panel-clearance, 150px) - 40px)); margin-bottom: var(--motion-panel-clearance, 150px); }
+.control-dock[data-motion-open]:is([data-open="glossary"], [data-open="constellations"]) .glossary-card { height: min(520px, calc(var(--ui-height) - var(--motion-panel-clearance, 150px) - 40px)); margin-bottom: var(--motion-panel-clearance, 150px); }
 @media (hover: hover) and (pointer: fine) {
   .glossary-term:hover { color: var(--accent-strong); background: var(--panel-hover); }
   .glossary-term[aria-current="true"]:hover { background: var(--panel-selected); }
@@ -220,19 +220,21 @@ button, p, h2, dd { overflow-wrap: anywhere; }
 .panel-button { transition: background 120ms ease, border-color 120ms ease; }
 .panel-button[aria-expanded="true"] .tooltip { display: none !important; }
 .icon-button:focus-visible { outline-color: var(--accent-strong); }
-.camera-view-controls, .origin-controls, .observer-view-controls, .grid-controls, .selection-controls { position: relative; width: 44px; height: 44px; }
-.camera-view-options, .origin-options, .observer-view-options, .grid-options, .selection-options { position: absolute; top: 0; right: 100%; display: flex; gap: 4px; padding-right: 4px; opacity: 0; visibility: hidden; pointer-events: none; transform: translateX(12px); transition: opacity 160ms ease, transform 160ms ease, visibility 160ms; }
+.camera-view-controls, .origin-controls, .observer-view-controls, .grid-controls, .selection-controls, .discover-controls { position: relative; width: 44px; height: 44px; }
+.camera-view-options, .origin-options, .observer-view-options, .grid-options, .selection-options, .discover-options { position: absolute; top: 0; right: 100%; display: flex; gap: 4px; padding-right: 4px; opacity: 0; visibility: hidden; pointer-events: none; transform: translateX(12px); transition: opacity 160ms ease, transform 160ms ease, visibility 160ms; }
 .camera-view-button { width: 60px; flex: 0 0 60px; font: inherit; font-size: 12px; font-weight: 500; }
 .origin-controls:focus-visible, .observer-view-controls:focus-visible, .selection-controls:focus-visible { outline: 2px solid var(--accent-strong); outline-offset: 2px; border-radius: 7px; }
 [data-toolbar-flyout]:has([data-toolbar-options] button:not(:disabled)) > button:disabled { pointer-events: none; }
+.discover-controls:focus-within .discover-options,
 [data-toolbar-flyout][data-touch-open]:has(button:not(:disabled)) > [data-toolbar-options],
 .camera-view-controls:focus-within:has(#reset-view:not(:disabled)) .camera-view-options,
 .origin-controls:focus-within:has(#go-to-origin:not(:disabled)) .origin-options,
 .grid-controls:focus-within:has(#toggle-grid:not(:disabled)) .grid-options,
 .selection-controls:focus-within:has(.icon-button:not(:disabled)) .selection-options,
 .observer-view-controls:focus-within:has(.observer-view-button:not(:disabled)) .observer-view-options { opacity: 1; visibility: visible; pointer-events: auto; transform: translateX(0); }
-.camera-view-controls #reset-view .tooltip, .origin-controls #set-origin .tooltip, .observer-view-controls #observer-view .tooltip, .grid-controls .tooltip, .selection-controls .tooltip { top: calc(100% + 8px); right: 0; }
+.camera-view-controls #reset-view .tooltip, .origin-controls #set-origin .tooltip, .observer-view-controls #observer-view .tooltip, .grid-controls .tooltip, .selection-controls .tooltip, .discover-controls .tooltip { top: calc(100% + 8px); right: 0; }
 @media (hover: hover) and (pointer: fine) {
+  .discover-controls:hover .discover-options,
   .camera-view-controls:hover:has(#reset-view:not(:disabled)) .camera-view-options,
   .origin-controls:hover:has(#go-to-origin:not(:disabled)) .origin-options,
   .grid-controls:hover:has(#toggle-grid:not(:disabled)) .grid-options,
@@ -240,7 +242,7 @@ button, p, h2, dd { overflow-wrap: anywhere; }
   .observer-view-controls:hover:has(.observer-view-button:not(:disabled)) .observer-view-options { opacity: 1; visibility: visible; pointer-events: auto; transform: translateX(0); }
 }
 @media (prefers-reduced-motion: reduce) {
-  .camera-view-options, .origin-options, .observer-view-options, .grid-options, .selection-options { transition: none; transform: none; }
+  .camera-view-options, .origin-options, .observer-view-options, .grid-options, .selection-options, .discover-options { transition: none; transform: none; }
 }
 .toolbar-divider { width: 20px; height: 1px; background: var(--line); margin: 4px 12px; }
 /* Touch visibility is explicit so emulated hover/focus cannot leave a tooltip stuck open. */
@@ -541,13 +543,17 @@ select:focus-visible, input:focus-visible { outline: 2px solid var(--accent); ou
 .metallicity-body { padding: 0 20px 20px; }
 .object-type-toggle:disabled { cursor: default; opacity: 1; }
 .dock-card.object-type-card.constellation-card { width: min(380px, calc(var(--ui-width) - 402px)); }
-.panel-heading.constellation-heading { padding-right: 142px; }
+.panel-heading.constellation-heading { padding-right: 186px; }
+.panel-heading #constellation-grid { right: 131px; border-radius: 0; }
 .panel-heading #constellation-magnify { right: 87px; border-radius: 0; }
 .constellation-chart { position: relative; margin: 0; background: #090b10; }
 .constellation-chart > svg { position: relative; width: 100%; height: auto; }
 .constellation-star-canvas { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; mix-blend-mode: screen; }
 .constellation-line { stroke: var(--muted); stroke-width: 1; stroke-opacity: 0.55; }
 .constellation-boundary { fill: none; stroke: var(--muted); stroke-width: 0.8; stroke-dasharray: 5 7; stroke-opacity: 0.6; }
+.constellation-grid { pointer-events: none; }
+.constellation-grid-line { fill: none; stroke: var(--muted); stroke-width: 0.7; stroke-opacity: 0.28; }
+.constellation-grid-label { fill: var(--muted); font-size: 11px; paint-order: stroke; stroke: #090b10; stroke-width: 3px; }
 .constellation-neighbor { fill: var(--muted); font-size: 11px; opacity: 0.8; paint-order: stroke; stroke: #090b10; stroke-width: 3px; }
 .constellation-star[role="button"] { cursor: pointer; }
 .constellation-star-hit { fill: transparent; stroke: transparent; }
@@ -568,8 +574,8 @@ select:focus-visible, input:focus-visible { outline: 2px solid var(--accent); ou
 .constellation-tooltip strong { font-weight: 500; font-variant-numeric: tabular-nums; }
 .constellation-sources summary { cursor: pointer; }
 .constellation-sources p { margin-top: 8px; }
-#constellation-source-links { display: grid; gap: 5px; margin-top: 8px; }
-#constellation-source-links a { color: var(--accent-strong); text-underline-offset: 3px; }
+.constellation-source-links { display: grid; gap: 5px; margin-top: 8px; }
+.constellation-source-links a { color: var(--accent-strong); text-underline-offset: 3px; }
 .constellation-missing { padding: 10px 16px; color: var(--muted); font-size: var(--property-text-size); }
 .constellation-visibility { padding: 14px 16px 12px; border-top: 1px solid var(--line); }
 .constellation-visibility-charts { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); align-items: center; gap: 12px; }
@@ -1078,7 +1084,7 @@ select:focus-visible, input:focus-visible { outline: 2px solid var(--accent); ou
   .control-dock[data-open] { grid-template-columns: min(276px, calc(var(--ui-width) - 80px)) 44px; }
   .control-dock[data-open="motion"] { grid-template-columns: 44px; }
   .dock-card { width: min(276px, calc(var(--ui-width) - 80px)); max-height: calc(var(--ui-height) - 24px); }
-  .control-dock[data-open="glossary"] { grid-template-columns: min(640px, calc(var(--ui-width) - 80px)) 44px; }
+  .control-dock:is([data-open="glossary"], [data-open="constellations"]) { grid-template-columns: min(640px, calc(var(--ui-width) - 80px)) 44px; }
   .control-dock[data-open="objects"][data-objects-expanded] { grid-template-columns: calc(var(--ui-width) - 80px) 44px; }
   .dock-card.catalog.is-expanded { width: calc(var(--ui-width) - 80px); max-height: calc(var(--ui-height) - 36px); }
   .catalog.is-expanded .objects-heading { flex-wrap: wrap; gap: 0; padding: 0; }
@@ -1113,6 +1119,10 @@ select:focus-visible, input:focus-visible { outline: 2px solid var(--accent); ou
   .object-type-hero { height: 180px; }
 }
 
+@media (max-width: 720px) and (orientation: portrait) {
+  #distance-comparison { aspect-ratio: 280 / 464; }
+}
+
 @media (max-width: 400px) {
   .properties > div { gap: 8px; }
   .panel-heading.glossary-heading { gap: 8px; padding-left: 10px; }
@@ -1133,20 +1143,21 @@ select:focus-visible, input:focus-visible { outline: 2px solid var(--accent); ou
 }
 
 @media (max-height: 500px) and (orientation: landscape) and (pointer: coarse) {
-  /* Each stack gets half the available height, leaving a gap between them. */
+  /* Both button stacks share the toolbar's single scroll viewport. */
   .scene-toolbar { top: 12px; right: 12px; }
   .control-dock { right: 12px; bottom: 12px; }
-  .scene-toolbar, .dock-rail {
-    max-height: calc((var(--ui-height) - 36px) / 2);
+  .scene-toolbar {
+    max-height: calc(var(--ui-height) - 24px);
     overflow-y: auto;
     overscroll-behavior-y: contain;
     scrollbar-width: none;
     touch-action: pan-y;
   }
+  .scene-toolbar > .dock-rail { padding-top: 8px; }
   .scene-toolbar > *, .dock-rail > * { flex-shrink: 0; }
-  .scene-toolbar:focus-visible, .dock-rail:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+  .scene-toolbar:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
   /* Fixed flyouts escape the scroll viewport while staying beside their trigger. */
-  .scene-toolbar [data-toolbar-options] {
+  :is(.scene-toolbar, .dock-rail) [data-toolbar-options] {
     position: fixed;
     top: var(--toolbar-options-top, 12px);
     right: calc(56px + var(--safe-right));
@@ -1180,4 +1191,32 @@ select:focus-visible, input:focus-visible { outline: 2px solid var(--accent); ou
 @media (pointer: coarse) {
   /* Use the existing base text size so focusing a field does not zoom the page on iOS. */
   .object-search input, .glossary-search input, .save-view-name-field input { font-size: 1rem; }
+}
+
+/* Discover uses the glossary shell and the shared constellation card content. */
+.control-dock[data-open="constellations"] { grid-template-columns: min(560px, calc(var(--ui-width) - 100px)) 44px; }
+.dock-card.constellations-card { width: min(560px, calc(var(--ui-width) - 100px)); }
+.constellations-card .glossary-body { grid-template-columns: min(148px, 30%) minmax(0, 1fr); }
+.constellations-card .glossary-heading { padding-right: 142px; }
+.constellations-card .glossary-heading #constellations-maximize { right: 87px; border-radius: 0; }
+.dock-card.constellations-card.is-maximized { height: calc(var(--ui-height) - 52px); }
+.control-dock[data-motion-open][data-open="constellations"] .constellations-card.is-maximized { height: calc(var(--ui-height) - var(--motion-panel-clearance, 150px) - 40px); }
+.constellations-detail { min-width: 0; overflow-y: auto; overscroll-behavior: contain; scrollbar-width: thin; scrollbar-color: #776a5c transparent; }
+.constellations-detail > .card-scroll-content { overflow: visible; }
+.constellations-detail-heading { padding: 12px 98px 12px 16px; }
+.constellations-detail-heading #discover-constellation-grid { right: 43px; }
+.constellations-detail-heading h3 { font: inherit; }
+.constellations-detail-heading > .panel-lock { border-radius: 0; }
+@media (max-width: 720px) {
+  .control-dock[data-open="constellations"] { grid-template-columns: min(560px, calc(var(--ui-width) - 80px)) 44px; }
+  .dock-card.constellations-card { width: min(560px, calc(var(--ui-width) - 80px)); }
+  .dock-card.constellations-card.is-maximized { height: calc(var(--ui-height) - 36px); }
+}
+@media (max-width: 480px) {
+  .constellations-card .glossary-heading { flex: 0 0 auto; min-height: 84px; flex-wrap: wrap; gap: 8px; padding: 8px 10px; }
+  .constellations-card .glossary-heading h2 { flex-basis: 100%; padding-right: 132px; }
+  .constellations-card .glossary-search { flex-basis: 100%; }
+  .constellations-card .glossary-body { grid-template-columns: minmax(84px, 30%) minmax(0, 1fr); }
+  .constellations-card .constellation-visibility-charts { grid-template-columns: minmax(0, 1fr); }
+  .constellations-card .constellation-visibility-stats > div { grid-template-columns: minmax(0, 1fr); gap: 4px; }
 }

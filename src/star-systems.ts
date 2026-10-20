@@ -99,7 +99,12 @@ export function indexStarSystems(stars: readonly Star[]): ReadonlyMap<string, St
     if (members.size < 2) continue
     const components = [...members].sort(([a], [b]) => a.localeCompare(b, 'en'))
       .map(([label, star]) => ({ label, star }))
-    const system = { id: key, name: names.get(key)!, components }
+    // Use a shared preferred spelling (for example Epsilon Indi) when every
+    // explicitly identified member carries it. Membership still comes from IDs.
+    const stems = components.map(({ label, star }) => star.name.endsWith(` ${label}`)
+      ? star.name.slice(0, -label.length - 1) : null)
+    const name = stems.every((stem) => stem && stem === stems[0]) ? stems[0]! : names.get(key)!
+    const system = { id: key, name, components }
     for (const { star } of components) systems.set(star.id, system)
   }
   return systems

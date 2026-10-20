@@ -1,5 +1,7 @@
 # Constellation catalog audit — 2026-10-19
 
+The constellation catalog now also includes every former Famous cluster stars record. See the [20 October consolidation audit](cluster-catalog-consolidation.md) for current membership and preservation checks. The scientific review below describes its earlier baseline.
+
 Follow-up literature updates have now been adopted for Castor, Spica, Nunki and
 Menkalinan. See [the enrichment record](constellation-enrichment.md) for the
 changes and remaining limits. The counts and issue descriptions below document

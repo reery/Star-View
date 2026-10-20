@@ -27,6 +27,8 @@ export function objectDesignations(star: Star): string[] {
 
 export interface ObjectIdentity {
   name: string
+  /** Original reviewed authoring label, independent of the preferred UI name. */
+  sourceName?: string
   simbadId?: string
   designations: string[]
   sources: string[]
@@ -41,6 +43,7 @@ export function parseObjectIdentities(value: unknown): Record<string, ObjectIden
   for (const [id, value] of Object.entries(payload.objects)) {
     const identity = value as ObjectIdentity | null
     if (!id || !identity || typeof identity.name !== 'string' || !identity.name.trim()
+      || identity.sourceName !== undefined && (typeof identity.sourceName !== 'string' || !identity.sourceName.trim())
       || identity.simbadId !== undefined && (typeof identity.simbadId !== 'string' || !identity.simbadId.trim())
       || !Array.isArray(identity.designations) || !validDesignations(identity.designations)
       || !Array.isArray(identity.sources) || !identity.sources.length || !identity.sources.every((source) => typeof source === 'string' && source.trim())) {
@@ -51,14 +54,20 @@ export function parseObjectIdentities(value: unknown): Record<string, ObjectIden
 }
 
 /** Apply an offline identity supplement without altering scientific catalog rows. */
-export function supplementObjectIdentities(stars: readonly Star[], identities: Readonly<Record<string, ObjectIdentity>>): Star[] {
+export function supplementObjectIdentities(
+  stars: readonly Star[],
+  identities: Readonly<Record<string, ObjectIdentity>>,
+  options: { preserveAuthoredNames?: boolean } = {},
+): Star[] {
   return stars.map((star) => {
     const identity = Object.hasOwn(identities, star.id) ? identities[star.id] : undefined
-    const name = identity?.name ?? star.name
+    // Component completion may refine an older system label (A -> Aa, AB -> A).
+    // Only an exact reviewed source label authorizes a display-name replacement.
+    const name = options.preserveAuthoredNames && identity?.sourceName !== star.name ? star.name : identity?.name ?? star.name
     return {
       ...star,
       name,
-      designations: uniqueDesignations([...(identity?.designations ?? []), star.name, ...objectDesignations(star)], name),
+      designations: uniqueDesignations([...(identity?.designations ?? []), ...(identity ? [identity.name] : []), star.name, ...objectDesignations(star)], name),
     }
   })
 }

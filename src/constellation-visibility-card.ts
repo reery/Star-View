@@ -10,16 +10,17 @@ const explanation = 'Approximate season at 10 pm local solar time on the 15th of
 
 function drawVisibility(root: HTMLElement): void {
   const { position, name } = states.get(root)!
-  const latitude = Number(root.querySelector<HTMLSelectElement>('#constellation-latitude')!.value)
+  const latitude = Number(root.querySelector<HTMLSelectElement>('[data-constellation-part="constellation-latitude"]')!.value)
   const range = position && visibleLatitudeRange(position.dec_deg)
-  const map = root.querySelector<HTMLElement>('#constellation-visibility-map')!
+  const map = root.querySelector<HTMLElement>('[data-constellation-part="constellation-visibility-map"]')!
   const width = Math.max(100, map.clientWidth), left = 2, top = 5, mapWidth = width - left - 2
   const mapHeight = mapWidth * 0.6, height = mapHeight + top * 2
   const y = (lat: number) => top + (90 - lat) / 180 * mapHeight
   const latitudeRange = range ? `${latitudeLabel(range.south, range.south === -90 ? 0 : 1)}–${latitudeLabel(range.north, range.north === 90 ? 0 : 1)}` : MISSING_VALUE
   const diagram = svg('svg', { viewBox: `0 0 ${width} ${height}`, role: 'img',
     'aria-label': `${name}: ${range ? `visible above the horizon from ${latitudeRange}. Black land marks these latitudes; the orange line marks ${latitudeLabel(latitude)}.` : 'Sky position unavailable.'}` })
-  const definitions = svg('defs'), clip = svg('clipPath', { id: 'constellation-visible-latitudes' })
+  const clipId = `${map.id}-visible-latitudes`
+  const definitions = svg('defs'), clip = svg('clipPath', { id: clipId })
   if (range) clip.append(svg('rect', { x: left, y: y(range.north), width: mapWidth, height: y(range.south) - y(range.north) }))
   definitions.append(clip)
   diagram.append(definitions, svg('rect', { x: left, y: top, width: mapWidth, height: mapHeight, class: 'constellation-map-ocean' }))
@@ -28,7 +29,7 @@ function drawVisibility(root: HTMLElement): void {
   const continents = svg('g', { transform, class: 'constellation-map-land' })
   for (const path of land.paths) continents.append(svg('path', { d: path }))
   diagram.append(continents)
-  const visibleLand = svg('g', { 'clip-path': 'url(#constellation-visible-latitudes)', class: 'constellation-map-visible-land' })
+  const visibleLand = svg('g', { 'clip-path': `url(#${clipId})`, class: 'constellation-map-visible-land' })
   const shapes = continents.cloneNode(true) as SVGGElement
   shapes.removeAttribute('class')
   visibleLand.append(shapes)
@@ -40,10 +41,10 @@ function drawVisibility(root: HTMLElement): void {
   }
   diagram.append(svg('line', { x1: left, x2: left + mapWidth, y1: y(latitude), y2: y(latitude), class: 'constellation-map-observer' }))
   map.replaceChildren(diagram)
-  root.querySelector<HTMLElement>('#constellation-visible-latitudes-value')!.textContent = latitudeRange
+  root.querySelector<HTMLElement>('[data-constellation-part="constellation-visible-latitudes-value"]')!.textContent = latitudeRange
   const months = position ? eveningVisibilityMonths(position, latitude) : VISIBILITY_MONTHS.map(() => false)
   const monthLabel = position ? visibilityMonthLabel(months) : MISSING_VALUE
-  const bar = root.querySelector<HTMLElement>('#constellation-visibility-months')!
+  const bar = root.querySelector<HTMLElement>('[data-constellation-part="constellation-visibility-months"]')!
   bar.setAttribute('aria-label', `${name} at ${latitudeLabel(latitude)}, around 10 pm: ${monthLabel}. ${explanation}`)
   bar.replaceChildren(...VISIBILITY_MONTHS.map((month, index) => {
     const segment = document.createElement('span')
@@ -56,12 +57,12 @@ function drawVisibility(root: HTMLElement): void {
     segment.append(track, label)
     return segment
   }))
-  root.querySelector<HTMLElement>('#constellation-visible-months-value')!.textContent = monthLabel
+  root.querySelector<HTMLElement>('[data-constellation-part="constellation-visible-months-value"]')!.textContent = monthLabel
 }
 
 export function renderConstellationVisibility(root: HTMLElement, position: SkyPosition | null, name: string): void {
   if (!states.has(root)) {
-    const latitude = root.querySelector<HTMLSelectElement>('#constellation-latitude')!
+    const latitude = root.querySelector<HTMLSelectElement>('[data-constellation-part="constellation-latitude"]')!
     try {
       const stored = localStorage.getItem(LATITUDE_STORAGE_KEY)
       if (stored !== null && [...latitude.options].some((option) => option.value === stored)) latitude.value = stored
@@ -70,9 +71,9 @@ export function renderConstellationVisibility(root: HTMLElement, position: SkyPo
       try { localStorage.setItem(LATITUDE_STORAGE_KEY, latitude.value) } catch {}
       drawVisibility(root)
     })
-    root.querySelector<HTMLElement>('#constellation-visibility-time')!.title = explanation
+    root.querySelector<HTMLElement>('[data-constellation-part="constellation-visibility-time"]')!.title = explanation
   }
   states.set(root, { position, name })
-  root.querySelector<HTMLSelectElement>('#constellation-latitude')!.disabled = !position
+  root.querySelector<HTMLSelectElement>('[data-constellation-part="constellation-latitude"]')!.disabled = !position
   drawVisibility(root)
 }

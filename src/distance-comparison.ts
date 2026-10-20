@@ -64,6 +64,7 @@ function createPointRenderer() {
   return { renderer, scene, camera, geometry, appearance }
 }
 let pointRenderer: ReturnType<typeof createPointRenderer> | undefined
+let portraitSource: HTMLCanvasElement | undefined
 const renderSize = new Vector2()
 
 export function disposeDistanceComparison(): void {
@@ -77,6 +78,7 @@ export function disposeDistanceComparison(): void {
   renderer.dispose()
   renderer.forceContextLoss()
   pointRenderer = undefined
+  portraitSource = undefined
 }
 
 export function renderDistanceComparison(
@@ -90,14 +92,18 @@ export function renderDistanceComparison(
   const right = { x: WIDTH * 3 / 4, y: CENTER_Y }
   const topStar = { x: left.x + geometry.topX * scale, y: left.y + geometry.topY * scale }
   const sideStar = { x: right.x + geometry.sideX * scale, y: right.y + geometry.sideY * scale }
-  const context = canvas.getContext('2d')
+  const portrait = window.matchMedia('(max-width: 720px) and (orientation: portrait)').matches
+  // Draw both projections at their usual scale, then stack the panes for phones.
+  const source = portrait ? portraitSource ??= document.createElement('canvas') : canvas
+  const context = source.getContext('2d')
   if (!context) return
   const ratio = Math.min(3, window.devicePixelRatio || 1)
   // Keep text and point sizes consistent at every card width.
-  const displayScale = (canvas.getBoundingClientRect().width || WIDTH) / WIDTH
-  canvas.width = Math.round(WIDTH * displayScale * ratio)
-  canvas.height = Math.round(HEIGHT * displayScale * ratio)
-  context.scale(canvas.width / WIDTH, canvas.height / HEIGHT)
+  const displayWidth = portrait ? WIDTH / 2 : WIDTH
+  const displayScale = (canvas.getBoundingClientRect().width || displayWidth) / displayWidth
+  source.width = portrait ? 2 * Math.round(WIDTH / 2 * displayScale * ratio) : Math.round(WIDTH * displayScale * ratio)
+  source.height = Math.round(HEIGHT * displayScale * ratio)
+  context.scale(source.width / WIDTH, source.height / HEIGHT)
   context.fillStyle = '#090b10'
   context.fillRect(0, 0, WIDTH, HEIGHT)
   const fontFamily = getComputedStyle(canvas).fontFamily
@@ -117,7 +123,7 @@ export function renderDistanceComparison(
     context.textAlign = 'center'
     context.fillText(value, x, y)
   }
-  line(WIDTH / 2, 0, WIDTH / 2, HEIGHT, '#262c36')
+  if (!portrait) line(WIDTH / 2, 0, WIDTH / 2, HEIGHT, '#262c36')
   // The horizontal arrow points toward Galactic +X, on the right of this view.
   label('Galactic center →', WIDTH / 2 - 77, 24, '#8a98ac', 10)
   for (const radius of [RADIUS / 3, RADIUS * 2 / 3, RADIUS]) {
@@ -254,5 +260,17 @@ export function renderDistanceComparison(
     ], index < 2 ? 0 : WIDTH / 2, starDisplayColor(star, colorMode).getStyle())
   }
   const heightSign = heightPc < 0 ? '−' : heightPc > 0 ? '+' : ''
+  if (portrait) {
+    const output = canvas.getContext('2d')
+    if (!output) return
+    const paneWidth = source.width / 2
+    const paneHeight = source.height
+    canvas.width = paneWidth
+    canvas.height = paneHeight * 2
+    output.drawImage(source, 0, 0, paneWidth, paneHeight, 0, 0, paneWidth, paneHeight)
+    output.drawImage(source, paneWidth, 0, paneWidth, paneHeight, 0, paneHeight, paneWidth, paneHeight)
+    output.fillStyle = '#262c36'
+    output.fillRect(0, paneHeight, paneWidth, displayScale * ratio)
+  }
   canvas.setAttribute('aria-label', `${selected.name} from ${reference.name}: ${ly}, ${pc}. Top view: Galactic center right. Side view: ${heightSign}${heightLy}, ${heightSign}${heightPcLabel} vertical separation. Measurements use ${unit}.`)
 }

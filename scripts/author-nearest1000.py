@@ -34,6 +34,7 @@ ROOT = Path(__file__).resolve().parents[1]
 FROZEN = ROOT / "catalog-work/nearest-1000"
 INDIVIDUAL_OVERRIDES = FROZEN / "individual-object-overrides.json"
 REVIEWED_COMPANIONS = FROZEN / "reviewed-companions.json"
+MEMBERSHIP_EXCLUSIONS = FROZEN / "reviewed-membership-exclusions.json"
 SUPPLEMENTS = ROOT / "catalog-work/physical-supplements"
 LANDMARK_SOURCES = ROOT / "catalog-work/landmark-stars"
 NEAREST100_INPUT = ROOT / "catalog-work/nearest-100/source-input.json"
@@ -63,6 +64,7 @@ RAW_HEADERS = [
 ]
 HEADERS = BASE_HEADERS + RAW_HEADERS
 SOURCES = [
+    {"name": "Kirkpatrick et al. 2024, Tables 3 and A2; exact-identity background-object rejection", "url": "https://doi.org/10.3847/1538-4365/ad24e2"},
     {"name": "CNS5, Golovin et al., corrected 2023-12-13; membership and adopted astrometry", "url": "https://cdsarc.cds.unistra.fr/ftp/J/A+A/670/A19/ReadMe"},
     {"name": "SIMBAD TAP snapshot; exact CNS5 identity, classification, spectrum and compiled Johnson V", "url": "https://simbad.cds.unistra.fr/simbad/sim-tap/sync"},
     {"name": "Gaia DR3 TAP snapshot; exact-ID radial velocities and GSP-Phot/FLAME physical estimates", "url": "https://gea.esac.esa.int/tap-server/tap/sync"},
@@ -435,6 +437,8 @@ def additional_component_candidates(review, candidates):
 
 def build_package():
     manifest_input = source_manifest()
+    exclusions = {item["cns5Id"]: item for item in json.loads(MEMBERSHIP_EXCLUSIONS.read_text())["objects"]}
+    excluded_ids = set()
     individual_overrides = {item["cns5Id"]: item for item in json.loads(INDIVIDUAL_OVERRIDES.read_text())["objects"]}
     companion_review = json.loads(REVIEWED_COMPANIONS.read_text())
     shared, shared_mapping = shared_rows_and_cns5_map()
@@ -462,6 +466,17 @@ def build_package():
         if source is None:
             raise ValueError(f"Missing exact SIMBAD enrichment for CNS5 {cns5_id}")
         source_object_type = (source.raw or {}).get("otype")
+        exclusion = exclusions.get(cns5_id)
+        if exclusion is not None:
+            if (record.identity.gaia_dr3_id != exclusion["gaiaDr3Id"]
+                or source.identity.gaia_dr3_id != exclusion["gaiaDr3Id"]
+                or source.identity.simbad_id != exclusion["simbadId"]
+                or exclusion["id"] != f"cns5-{cns5_id}"):
+                raise ValueError(f"Reviewed membership exclusion identity drifted for CNS5 {cns5_id}")
+            excluded_ids.add(cns5_id)
+            audit.append({"id": exclusion["id"], "cns5Id": cns5_id, "status": "excluded",
+                          "reason": exclusion["reason"], "membershipReview": exclusion})
+            continue
         individual_review = individual_overrides.get(cns5_id)
         if individual_review is not None and (
             source.identity.simbad_id != individual_review["simbadId"]
@@ -509,6 +524,8 @@ def build_package():
                 if withheld:
                     row["notes"] += " Withheld individual fields: " + ", ".join(withheld) + "."
         candidates.append((distance, row["id"], row, provenance))
+    if excluded_ids != set(exclusions):
+        raise ValueError("Reviewed membership exclusions were not all applied")
     extra_candidates = additional_component_candidates(companion_review, candidates)
     candidates.extend(extra_candidates)
     for _, _, row, provenance in candidates:
@@ -560,16 +577,17 @@ def build_package():
         "epoch": 2000,
         "objectCount": len(rows),
         "sources": SOURCES + enrichment_sources() + component_sources(),
-        "cutoffPolicy": f"Exclude SIMBAD multiple-star records (**) unless explicitly reviewed as individual components, and tentative brown-dwarf candidates (BD?); replace mapped CNS5 records with curated nearest-100 components; rank nominal adopted J2000 distance then stable ID. Keep the nearest-1000 baseline plus {len(reviewed_ids)} reviewed individual companion additions without removing baseline members. Baseline rank 1000 is {cutoff[2]['name']} ({cutoff[1]}) at {cutoff[0]:.12f} pc; next baseline candidate is {next_candidate[2]['name']} at {next_candidate[0]:.12f} pc. Linearized parallax intervals {'overlap' if uncertainty_overlap else 'do not overlap'}; nominal baseline ranking is retained.",
+        "cutoffPolicy": f"Exclude SIMBAD multiple-star records (**) unless explicitly reviewed as individual components, tentative brown-dwarf candidates (BD?), and exact-identity reviewed background objects with unreliable nearby parallaxes; replace mapped CNS5 records with curated nearest-100 components; rank nominal adopted J2000 distance then stable ID. Keep the nearest-1000 eligible baseline plus {len(reviewed_ids)} reviewed individual companion additions; refill reviewed membership exclusions from the ranked eligible buffer. Baseline rank 1000 is {cutoff[2]['name']} ({cutoff[1]}) at {cutoff[0]:.12f} pc; next baseline candidate is {next_candidate[2]['name']} at {next_candidate[0]:.12f} pc. Linearized parallax intervals {'overlap' if uncertainty_overlap else 'do not overlap'}; nominal baseline ranking is retained.",
         "snapshot": f"J2000.0; CNS5 corrected 2023-12-13; SIMBAD and Gaia DR3 TAP frozen {manifest_input['retrieved']}; source-defined snapshot, not a 2026 completeness claim.",
     }
     provenance = {
         "schemaVersion": 1,
         "catalogId": "nearest-1000",
-        "policyRevision": "cns5-individuals-v5-reviewed-component-exceptions",
+        "policyRevision": "cns5-individuals-v6-reviewed-membership-exclusions",
         "sourceManifestSha256": sha256(FROZEN / "source-manifest.json"),
         "individualComponentReviewSha256": sha256(INDIVIDUAL_OVERRIDES),
         "reviewedCompanionsSha256": sha256(REVIEWED_COMPANIONS),
+        "reviewedMembershipExclusionsSha256": sha256(MEMBERSHIP_EXCLUSIONS),
         "reviewedComponentPropertiesSha256": component_plan_sha256(),
         "reviewedCompanionVicinityPc": companion_review["maximumDistancePc"],
         "reviewedAdditionIds": sorted(reviewed_ids),

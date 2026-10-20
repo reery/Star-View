@@ -1,6 +1,6 @@
 import './style.css'
 import { clearLoadRecovery, createLoadError, loadWithRecovery } from './load-recovery'
-import { ArrowLeft, ArrowLeftRight, ArrowRight, BookOpen, ChevronUp, ChevronsDownUp, ChevronsLeftRight, ChevronsRightLeft, ChevronsUpDown, CircleHelp, Clock, Cloud, Crosshair, Earth, Eye, Filter, Focus, Galaxy, Globe, Grid2X2, List, Lock, Minus, Moon, Orbit, Pause, Play, Plus, RotateCcw, RotateCw, Save, Search, Settings2, Sun, Telescope, X, createElement, type IconNode } from 'lucide'
+import { ArrowLeft, ArrowLeftRight, ArrowRight, BookOpen, ChevronUp, ChevronsDownUp, ChevronsLeftRight, ChevronsRightLeft, ChevronsUpDown, CircleHelp, Clock, Cloud, Compass, Crosshair, Earth, Eye, Filter, Focus, Galaxy, Globe, Grid2X2, List, Lock, Minus, Moon, Orbit, Pause, Play, Plus, RotateCcw, RotateCw, Save, Search, Settings2, Sparkles, Sun, Telescope, X, createElement, type IconNode } from 'lucide'
 import { ObserverOriginIcon, OriginIcon } from './origin-icon'
 import { BUBBLE_OBJECT_TYPES, COMPACT_OBJECT_TYPES, describeObject, isBubbleObject, isCompactObject, isMolecularCloudObject, isNebulaObject, MOLECULAR_CLOUD_OBJECT_TYPES, NEBULA_OBJECT_TYPES, type Star } from './catalog-model'
 import { catalogSelection, mergeCatalogStars } from './catalog-runtime'
@@ -39,6 +39,7 @@ import {
 import { ObjectList, type ObjectListFilter } from './object-list'
 import { spaceMotionForStar } from './space-motion'
 import { SelectionHistory } from './selection-history'
+import { appendConstellationContent } from './constellation-card-content'
 import { initializeToolbarTouch } from './toolbar-touch'
 import { initializeTouchTooltips } from './touch-tooltips'
 import { objectSubtypeDescription } from './object-subtype-info'
@@ -97,6 +98,16 @@ function icon(id: string, shape: IconNode): void {
   element(id).replaceChildren(createElement(shape, { width: 20, height: 20, 'stroke-width': 1.7, 'aria-hidden': 'true' }))
 }
 
+appendConstellationContent(element('constellation-card'))
+
+icon('discover-icon', Compass)
+icon('constellations-icon', Sparkles)
+icon('constellations-search-icon', Search)
+icon('constellations-maximize-icon', ChevronsUpDown)
+icon('constellations-lock-icon', Lock)
+icon('constellations-close-icon', X)
+icon('discover-constellation-magnify-icon', Search)
+icon('discover-constellation-grid-icon', Globe)
 icon('reset-icon', Focus)
 icon('grid-icon', Grid2X2)
 icon('equatorial-grid-icon', Globe)
@@ -156,6 +167,7 @@ for (const name of detailCardNames) {
 icon('magnitude-absolute-icon', Sun)
 icon('magnitude-apparent-icon', Eye)
 icon('constellation-magnify-icon', Search)
+icon('constellation-grid-icon', Globe)
 icon('planet-specs-icon', List)
 icon('planet-info-icon', BookOpen)
 icon('planet-moons-icon', Moon)
@@ -177,6 +189,7 @@ icon('object-system-icon', Orbit)
 const events = new AbortController()
 initializeTouchTooltips(events.signal)
 initializeToolbarTouch(document.querySelector<HTMLElement>('.scene-toolbar')!, events.signal)
+let constellationBrowser: ReturnType<typeof import('./constellation-browser').initializeConstellationBrowser> | undefined
 let glossaryInitialized = false
 let viewer: StarViewer | undefined
 let stars: Star[] = []
@@ -193,14 +206,14 @@ let magnitudeLimit = 7
 let objectDistanceLimitLy = 100
 let showAlwaysBright = false
 let showWesternConstellationStars = false
-let showFamousClusterStars = false
 let gridVisible = true
 let skyGridMode: SkyGridMode = 'off'
 let observerView = false
 let observerViewAnchorId: string | null = null
 let powerSavingMode = false
 // Touch-first devices start with fewer labels; a stored preference overrides this below.
-let labelLimit = window.matchMedia('(hover: none) and (pointer: coarse)').matches ? 20 : 40
+const touchFirstInput = window.matchMedia('(hover: none) and (pointer: coarse)')
+let labelLimit = touchFirstInput.matches ? 20 : 40
 let motionArrowsVisible = true
 let earthOrbitMode: EarthOrbitMode = 'now'
 let milkyWayVisible = true
@@ -226,8 +239,7 @@ let distanceUnit: DistanceUnit = 'ly'
 let starColorMode: StarColorMode = 'exaggerated'
 const BRIGHT_CATALOG_ID = 'bright-stars'
 const WESTERN_CONSTELLATION_CATALOG_ID = 'western-constellation-stars'
-const FAMOUS_CLUSTER_CATALOG_ID = 'famous-cluster-stars'
-const ADDITIVE_CATALOG_IDS = new Set([BRIGHT_CATALOG_ID, WESTERN_CONSTELLATION_CATALOG_ID, FAMOUS_CLUSTER_CATALOG_ID])
+const ADDITIVE_CATALOG_IDS = new Set([BRIGHT_CATALOG_ID, WESTERN_CONSTELLATION_CATALOG_ID])
 
 // Nearest-N catalogs form an ordered size progression; landmark catalogs are independent additive toggles.
 const sliderCatalogs = catalogs.filter((catalog) => !ADDITIVE_CATALOG_IDS.has(catalog.manifest.id))
@@ -264,8 +276,8 @@ const timeSlider = element<HTMLInputElement>('time-slider')
 const timeMarkers = document.querySelectorAll<HTMLElement>('.time-markers i')
 timeMarkers.forEach((marker, index) => marker.style.setProperty('--marker-position', `${index / (timeMarkers.length - 1) * 100}%`))
 const selectionHistory = new SelectionHistory(selectedId)
-const panelNames = ['views', 'motion', 'filter', 'objects', 'glossary', 'preferences', 'info'] as const
-const lockablePanelNames = ['motion', 'filter', 'objects', 'glossary', 'preferences'] as const
+const panelNames = ['views', 'motion', 'filter', 'objects', 'glossary', 'constellations', 'preferences', 'info'] as const
+const lockablePanelNames = ['motion', 'filter', 'objects', 'glossary', 'constellations', 'preferences'] as const
 const lockedPanels = new Set<typeof lockablePanelNames[number]>()
 
 function selectedStarAvailable(id: string): boolean {
@@ -372,6 +384,11 @@ function setPanelOpen(name: typeof panelNames[number], open: boolean): void {
   element(`${name}-panel`).hidden = !open
   if (name === 'preferences' && open) updateBrowserDataSize()
   if (name === 'glossary' && open && !glossaryInitialized) void loadGlossaryPanel()
+  if (name === 'constellations') {
+    if (!open) constellationBrowser?.close()
+    else if (constellationBrowser) constellationBrowser.open()
+    else void loadConstellationsPanel()
+  }
 }
 
 async function loadGlossaryPanel(): Promise<void> {
@@ -384,6 +401,20 @@ async function loadGlossaryPanel(): Promise<void> {
   if (!result || glossaryInitialized) return
   result.value.initializeGlossary(events.signal)
   glossaryInitialized = true
+}
+
+async function loadConstellationsPanel(): Promise<void> {
+  const result = await loadWithRecovery(element('constellations-panel').querySelector<HTMLElement>('.glossary-body')!,
+    () => import('./constellation-browser'), {
+      label: 'Constellations', retry: () => { void loadConstellationsPanel() },
+      isCurrent: () => !events.signal.aborted && panelIsOpen('constellations'),
+      focusTarget: element('constellations-close'), onChange: syncPanelLayout,
+    })
+  if (!result || constellationBrowser) return
+  constellationBrowser = result.value.initializeConstellationBrowser(events.signal,
+    () => ({ objects: stars, colorMode: starColorMode, distanceUnit, onSelect: (object) => { void selectConstellationStar(object) } }),
+    stars.find((star) => star.id === selectedId)?.constellation ?? undefined)
+  constellationBrowser.open()
 }
 
 function syncPanelLayout(): void {
@@ -459,6 +490,7 @@ function closeMagnitudeCard(restoreFocus = false): void {
 }
 
 let constellationMagnified = false
+let constellationEquatorialGrid = false
 let constellationOpenRequest = 0
 let constellationCardModule: typeof import('./constellation-card') | undefined
 let activeConstellationChart: ConstellationChart | null = null
@@ -485,7 +517,7 @@ function renderConstellationCard(star: Star): void {
     return
   }
   constellationCardModule.renderConstellationCard(element('constellation-card'), star, activeConstellationChart, {
-    objects: stars, colorMode: starColorMode, distanceUnit, magnified: constellationMagnified,
+    objects: stars, colorMode: starColorMode, distanceUnit, magnified: constellationMagnified, equatorialGrid: constellationEquatorialGrid,
     onSelect: (object) => { void selectConstellationStar(object) },
   })
   syncObjectTypeLayout()
@@ -1245,6 +1277,11 @@ function togglePanel(name: typeof panelNames[number]): void {
   if (name !== 'motion' && !selectedCard.hidden && objectDetails.open && !cardsHaveClearance(selectedCard, element(`${name}-panel`))) objectDetails.open = false
 }
 
+function onSceneInteraction(): void {
+  dismissOpenPanel()
+  if (touchFirstInput.matches) element<HTMLDetailsElement>('object-card-details').open = false
+}
+
 function dismissOpenPanel(): void {
   for (const name of detailCardNames) {
     if (!lockedDetailCards.has(name)) detailCardClosers[name]()
@@ -1996,10 +2033,9 @@ async function switchCatalog(id: string, refresh = false): Promise<void> {
       : Promise.resolve([])
     const loadOverlay = (types: readonly FilterKey[], load: () => Promise<Star[]>) =>
       types.some((type) => visibleKeys.has(type)) ? load() : Promise.resolve([])
-    const [brightCatalog, westernConstellationCatalog, famousClusterCatalog, compactObjects, nebulae, molecularClouds, bubbles] = await Promise.all([
+    const [brightCatalog, westernConstellationCatalog, compactObjects, nebulae, molecularClouds, bubbles] = await Promise.all([
       loadAdditiveCatalog(showAlwaysBright, BRIGHT_CATALOG_ID),
       loadAdditiveCatalog(showWesternConstellationStars, WESTERN_CONSTELLATION_CATALOG_ID),
-      loadAdditiveCatalog(showFamousClusterStars, FAMOUS_CLUSTER_CATALOG_ID),
       loadOverlay(COMPACT_OBJECT_TYPES, loadCompactRemnants),
       loadOverlay(NEBULA_OBJECT_TYPES, loadNebulae),
       loadOverlay(MOLECULAR_CLOUD_OBJECT_TYPES, loadMolecularClouds),
@@ -2007,7 +2043,7 @@ async function switchCatalog(id: string, refresh = false): Promise<void> {
     ])
     const withBrightStars = mergeCatalogStars(selectedCatalog, brightCatalog)
     const withConstellationStars = mergeCatalogStars(withBrightStars, westernConstellationCatalog)
-    nextStars = [...mergeCatalogStars(withConstellationStars, famousClusterCatalog), ...compactObjects, ...nebulae, ...molecularClouds, ...bubbles]
+    nextStars = [...withConstellationStars, ...compactObjects, ...nebulae, ...molecularClouds, ...bubbles]
     nextStars = mergeCatalogStars(nextStars, [...constellationSelectedStars.values()])
   } catch (error) {
     if (request !== catalogRequest) return
@@ -2023,6 +2059,7 @@ async function switchCatalog(id: string, refresh = false): Promise<void> {
   viewer = undefined
   // Source details hydrate only the current scene, never the memoized map payload.
   stars = nextStars.map((star) => ({ ...star }))
+  constellationBrowser?.refresh()
   starSystems = indexStarSystems(stars)
   activeCatalogId = id
   selectedDistancePc = null
@@ -2042,7 +2079,7 @@ async function switchCatalog(id: string, refresh = false): Promise<void> {
   renderDistances()
   try {
     viewer = createStarViewer(element('scene'), stars, {
-      onInteraction: dismissOpenPanel,
+      onInteraction: onSceneInteraction,
       onSelect: selectStar,
       onSelectedDistance(distancePc) {
         selectedDistancePc = distancePc
@@ -2299,7 +2336,7 @@ function currentSavedViewSettings(): SavedViewSettings | null {
     catalogId: activeCatalogId,
     showAlwaysBright,
     showWesternConstellationStars,
-    showFamousClusterStars,
+    showFamousClusterStars: false,
     filterCategories: [...filterCategories],
     filterSubtypes: [...filterSubtypes],
     magnitudeLimit,
@@ -2359,7 +2396,6 @@ function syncFilterInputs(): void {
   renderCatalogRange(activeCatalogId)
   element<HTMLInputElement>('show-always-bright').checked = showAlwaysBright
   element<HTMLInputElement>('show-western-constellation-stars').checked = showWesternConstellationStars
-  element<HTMLInputElement>('show-famous-cluster-stars').checked = showFamousClusterStars
   const distanceIndex = OBJECT_DISTANCE_STEPS_LY.indexOf(objectDistanceLimitLy as typeof OBJECT_DISTANCE_STEPS_LY[number])
   const distanceInput = element<HTMLInputElement>('object-distance-limit')
   distanceInput.value = String(Math.max(0, distanceIndex))
@@ -2384,7 +2420,6 @@ function syncSceneAndMotionInputs(): void {
 function resetAllFilters(): void {
   showAlwaysBright = false
   showWesternConstellationStars = false
-  showFamousClusterStars = false
   filterCategories.clear()
   DEFAULT_FILTER_CATEGORIES.forEach((category) => filterCategories.add(category))
   filterSubtypes.clear()
@@ -2431,8 +2466,7 @@ async function loadSavedView(savedView: SavedView): Promise<void> {
   observerView = false
   observerViewAnchorId = null
   showAlwaysBright = settings.showAlwaysBright
-  showWesternConstellationStars = settings.showWesternConstellationStars
-  showFamousClusterStars = settings.showFamousClusterStars
+  showWesternConstellationStars = settings.showWesternConstellationStars || settings.showFamousClusterStars
   filterCategories.clear()
   settings.filterCategories.forEach((category) => filterCategories.add(category))
   filterSubtypes.clear()
@@ -2599,6 +2633,16 @@ element('objects-maximize').addEventListener('click', () => {
   element('objects-panel').style.setProperty('--objects-height', '100dvh')
   syncPanelLayout()
 }, { signal: events.signal })
+element('constellations-maximize').addEventListener('click', () => {
+  const maximized = element('constellations-panel').classList.toggle('is-maximized')
+  const button = element('constellations-maximize')
+  const label = `${maximized ? 'Minimize' : 'Maximize'} constellations card height`
+  button.setAttribute('aria-pressed', String(maximized))
+  button.setAttribute('aria-label', label)
+  button.title = label
+  icon('constellations-maximize-icon', maximized ? ChevronsDownUp : ChevronsUpDown)
+  syncPanelLayout()
+}, { signal: events.signal })
 catalogRange.addEventListener('input', () => previewCatalogRange(catalogRange.valueAsNumber), { signal: events.signal })
 element('filter-reset').addEventListener('click', resetAllFilters, { signal: events.signal })
 catalogRange.addEventListener('change', () => {
@@ -2611,10 +2655,6 @@ element('show-always-bright').addEventListener('change', () => {
 }, { signal: events.signal })
 element('show-western-constellation-stars').addEventListener('change', () => {
   showWesternConstellationStars = element<HTMLInputElement>('show-western-constellation-stars').checked
-  void switchCatalog(activeCatalogId, true)
-}, { signal: events.signal })
-element('show-famous-cluster-stars').addEventListener('change', () => {
-  showFamousClusterStars = element<HTMLInputElement>('show-famous-cluster-stars').checked
   void switchCatalog(activeCatalogId, true)
 }, { signal: events.signal })
 element('distance-units').addEventListener('change', () => {
@@ -2765,11 +2805,11 @@ for (const name of panelNames) {
 for (const name of lockablePanelNames) {
   element(`${name}-lock`).addEventListener('click', () => togglePanelLock(name), { signal: events.signal })
 }
-for (const name of ['objects', 'glossary'] as const) {
+for (const name of ['objects', 'glossary', 'constellations'] as const) {
   element(`${name}-close`).addEventListener('click', () => {
     setPanelOpen(name, false)
     syncPanelLayout()
-    element(`${name}-toggle`).focus()
+    element(name === 'constellations' ? 'discover-toggle' : `${name}-toggle`).focus()
   }, { signal: events.signal })
 }
 element<HTMLFormElement>('save-view-form').addEventListener('submit', (event) => {
@@ -2887,7 +2927,7 @@ document.addEventListener('keydown', (event) => {
     ?? (panelIsOpen('motion') ? 'motion' : undefined)
   if (!open) return
   togglePanel(open)
-  element(`${open}-toggle`).focus()
+  element(open === 'constellations' ? 'discover-toggle' : `${open}-toggle`).focus()
 }, { signal: events.signal })
 for (const name of detailCardNames) {
   element(`${name}-close`).addEventListener('click', () => detailCardClosers[name](true), { signal: events.signal })
@@ -2907,6 +2947,12 @@ element('constellation-magnify').addEventListener('click', () => {
   const star = stars.find((candidate) => candidate.id === selectedId)
   if (!star) return
   constellationMagnified = !constellationMagnified
+  renderConstellationCard(star)
+}, { signal: events.signal })
+element('constellation-grid').addEventListener('click', () => {
+  const star = stars.find((candidate) => candidate.id === selectedId)
+  if (!star) return
+  constellationEquatorialGrid = !constellationEquatorialGrid
   renderConstellationCard(star)
 }, { signal: events.signal })
 for (const section of planetSections) {

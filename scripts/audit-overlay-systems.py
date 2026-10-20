@@ -30,10 +30,11 @@ def main():
     paths = [WORK / "msc-20260619-overlay-matches.json", WORK / "overlay-companions.json"]
     for catalog in ("bright-stars", "western-constellation-stars", "famous-cluster-stars"):
         source_path = ROOT / f"catalog-work/{catalog}/simbad.csv"
-        csv_path = ROOT / f"src/data/catalogs/{catalog}/stars.csv"
+        package = ROOT / ("catalog-work/famous-cluster-stars/retired-catalog" if catalog == "famous-cluster-stars" else f"src/data/catalogs/{catalog}")
+        csv_path = package / "stars.csv"
         paths += [source_path, csv_path]
         catalog_rows = rows(csv_path)
-        provenance_path = ROOT / f"src/data/catalogs/{catalog}/provenance.json"
+        provenance_path = package / "provenance.json"
         paths.append(provenance_path)
         provenance = json.loads(provenance_path.read_text())["objects"]
         id_by_query = {entry["queryId"]: identifier for identifier, entry in provenance.items() if "queryId" in entry}

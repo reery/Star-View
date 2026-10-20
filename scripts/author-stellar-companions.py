@@ -30,6 +30,7 @@ from catalog_sources.constellation_motion import apply_constellation_motion
 from catalog_sources.hierarchy_splits import apply_hierarchy_splits
 from catalog_sources.cluster_astrometry import apply_cluster_astrometry, apply_related_astrometry
 from catalog_sources.precision import calculated_float
+from catalog_sources.izar_review import apply_izar_review
 
 ROOT = Path(__file__).resolve().parents[1]
 WORK = ROOT / "catalog-work/star-systems"
@@ -77,8 +78,9 @@ def csv_star(row, identities, stats):
     identity = identities.get(row["id"], {})
     star = {field: number(row.get(field)) for field in (*FIELDS, "absolute_mag", "epoch", "x_pc", "y_pc", "z_pc", "vx_kms", "vy_kms", "vz_kms")}
     star.update({field: row.get(field) or None for field in ("type", "id", "name", "spectral_type", "constellation", "metallicity_kind")})
-    star["name"] = identity.get("name", star["name"])
-    star["designations"] = unique([*identity.get("designations", []), row["name"], *row.get("designations", "").split("|")])
+    star["name"] = identity.get("sourceName", identity.get("name", star["name"]))
+    preferred_alias = [identity["name"]] if identity.get("sourceName") else []
+    star["designations"] = unique([*identity.get("designations", []), *preferred_alias, row["name"], *row.get("designations", "").split("|")])
     star["notes"] = row.get("notes", "")
     star["raw_astrometry"] = None
     if row.get("ra_deg"):
@@ -150,7 +152,9 @@ def build():
     aliases = {identifier: c["starId"] for s in definitions for c in s["components"] for identifier in [c["starId"], *c.get("alternateStarIds", [])]}
     stars = {}
     catalog_sources = []
-    for path in [*sorted((ROOT / "src/data/catalogs").glob("*/stars.csv")), ROOT / "src/data/stars.csv"]:
+    sources = [*sorted((ROOT / "src/data/catalogs").glob("*/stars.csv")),
+               ROOT / "catalog-work/famous-cluster-stars/retired-catalog/stars.csv"]
+    for path in [*sorted(sources, key=lambda p: read_json(p.parent / "catalog.json")["id"]), ROOT / "src/data/stars.csv"]:
         inputs.append(path)
         catalog_id = read_json(path.parent / "catalog.json")["id"] if path.parent != ROOT / "src/data" else "nearest-neighbors"
         for row in read_csv(path):
@@ -575,6 +579,7 @@ def build():
     inputs += apply_constellation_motion(ROOT, definitions, pool, audit,
         "catalog-work/famous-cluster-stars/motion-review.json", "clusterMotion")
     apply_related_astrometry(read_json(ROOT / "catalog-work/famous-cluster-stars/astrometry-review.json"), definitions, pool, audit)
+    inputs += apply_izar_review(ROOT, definitions, pool, audit)
 
     # Resolved observations retain their own epoch and uncertainty semantics.
     # A spectroscopic component RV must not complete a different-epoch bulk

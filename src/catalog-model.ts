@@ -292,6 +292,8 @@ export interface Star {
   // Original catalog records survive component replacement with their scope.
   // Source quantities never become individual physical/rendering inputs.
   catalog_sources?: CatalogSource[]
+  // Retained but scientifically rejected fields must not reappear as UI fallbacks.
+  withheld_source_fields?: string[]
   spectral_type: string | null
   constellation: string | null
   x_pc: number

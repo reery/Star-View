@@ -2,6 +2,10 @@
 export function initializeToolbarTouch(toolbar: HTMLElement, signal: AbortSignal): void {
   let openGroup: HTMLElement | null = null
   let openingTouch: HTMLElement | null = null
+  const dockRail = document.querySelector<HTMLElement>('.dock-rail')!
+  const dockPosition = document.createComment('Dock rail position outside short landscape')
+  dockRail.before(dockPosition)
+  const rails = [toolbar, dockRail]
   const shortScreen = window.matchMedia('(max-height: 500px) and (orientation: landscape) and (pointer: coarse)')
 
   const positionOptions = () => {
@@ -11,9 +15,19 @@ export function initializeToolbarTouch(toolbar: HTMLElement, signal: AbortSignal
     }
   }
   const syncScrolling = () => {
-    for (const rail of [toolbar, document.querySelector<HTMLElement>('.dock-rail')!]) {
-      if (shortScreen.matches) rail.tabIndex = 0
-      else rail.removeAttribute('tabindex')
+    if (shortScreen.matches) {
+      if (dockRail.parentElement !== toolbar) {
+        close()
+        toolbar.append(dockRail)
+      }
+      toolbar.tabIndex = 0
+    } else {
+      if (dockRail.parentElement === toolbar) {
+        close()
+        dockPosition.after(dockRail)
+        toolbar.scrollTop = 0
+      }
+      toolbar.removeAttribute('tabindex')
     }
     positionOptions()
   }
@@ -53,7 +67,7 @@ export function initializeToolbarTouch(toolbar: HTMLElement, signal: AbortSignal
     const target = event.target instanceof Element ? event.target : null
     const group = target?.closest<HTMLElement>('[data-toolbar-flyout]') ?? null
     if (group !== openGroup) close()
-    if (event.pointerType !== 'touch' || !group || !toolbar.contains(group)) return
+    if (event.pointerType !== 'touch' || !group || !rails.some((rail) => rail.contains(group))) return
     if (group === openGroup || !group.querySelector('button:not(:disabled)')) return
 
     openGroup = group
