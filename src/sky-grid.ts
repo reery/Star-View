@@ -51,6 +51,43 @@ export function skyGridMarkers(frame: SkyGridFrame): Array<{ direction: Vector3;
   return markers
 }
 
+export interface SkyGridLabelSlot {
+  visible: boolean
+  x: number
+  y: number
+  width: number
+  height: number
+  placed: boolean
+}
+
+/**
+ * Collision checks run only on `relayout` passes, which follow the throttled
+ * star-name layout. Between passes, star names are not re-inserted as
+ * obstacles, so re-checking would toggle grid labels on every other frame.
+ * Placed labels instead keep tracking their anchors until the next pass.
+ */
+export function placeSkyGridLabels(
+  labels: SkyGridLabelSlot[],
+  viewport: LayoutViewport,
+  isBlocked: (bounds: LabelRect) => boolean,
+  relayout: boolean,
+): void {
+  const placed: LabelRect[] = []
+  for (const label of labels) {
+    if (!label.visible || (!relayout && !label.placed)) {
+      label.placed = false
+      continue
+    }
+    const left = viewport.left + label.x + 7
+    const top = viewport.top + label.y + 5
+    const bounds = { left, top, right: left + label.width, bottom: top + label.height }
+    const insideMargins = left >= viewport.left + 12 && bounds.right <= viewport.left + viewport.width - 12 &&
+      top >= viewport.top + 12 && bounds.bottom <= viewport.top + viewport.height - 12
+    label.placed = insideMargins && (!relayout || (!isBlocked(bounds) && !placed.some((other) => overlaps(bounds, other))))
+    if (label.placed && relayout) placed.push(bounds)
+  }
+}
+
 export function createSkyGridLayer(container: HTMLElement, opacity: { value: number }) {
   const layer = document.createElement('div')
   layer.className = 'projected-axes sky-grid-labels'
@@ -85,9 +122,9 @@ export function createSkyGridLayer(container: HTMLElement, opacity: { value: num
   lines.visible = false
   lines.renderOrder = -0.5
   let mode: SkyGridMode = 'off'
-  let labels: Array<{ direction: Vector3; anchor: HTMLDivElement; text: HTMLDivElement; x: number; y: number; width: number; height: number }> = []
+  let labels: Array<SkyGridLabelSlot & { direction: Vector3; anchor: HTMLDivElement; text: HTMLDivElement }> = []
+  let layoutDirty = true
   const clip = new Vector4()
-  const placed: LabelRect[] = []
   container.dataset.skyGrid = mode
 
   return {
@@ -113,41 +150,38 @@ export function createSkyGridLayer(container: HTMLElement, opacity: { value: num
         text.textContent = content
         anchor.append(text)
         layer.append(anchor)
-        return { direction, anchor, text, x: 0, y: 0, width: 0, height: 0 }
+        return { direction, anchor, text, visible: false, x: 0, y: 0, width: 0, height: 0, placed: false }
       })
+      layoutDirty = true
     },
-    updateLabels(camera: PerspectiveCamera, viewport: LayoutViewport, isBlocked: (bounds: LabelRect) => boolean) {
+    /** `relayout` should be true on frames where ordinary star names were laid out. */
+    updateLabels(camera: PerspectiveCamera, viewport: LayoutViewport, isBlocked: (bounds: LabelRect) => boolean, relayout = true) {
       if (mode === 'off') return
-      placed.length = 0
+      relayout ||= layoutDirty
+      layoutDirty = false
       // Project directions with w=0, matching the translation-free shader.
       for (const label of labels) {
+        if (!relayout && !label.placed) continue
         clip.set(label.direction.x, label.direction.y, label.direction.z, 0)
           .applyMatrix4(camera.matrixWorldInverse).applyMatrix4(camera.projectionMatrix)
-        const visible = clip.w > 0 && Math.abs(clip.x) < clip.w && Math.abs(clip.y) < clip.w
-        label.anchor.hidden = !visible
-        if (!visible) continue
+        label.visible = clip.w > 0 && Math.abs(clip.x) < clip.w && Math.abs(clip.y) < clip.w
+        if (!label.visible) continue
         label.x = (clip.x / clip.w + 1) * viewport.width / 2
         label.y = (1 - clip.y / clip.w) * viewport.height / 2
       }
       // Label text is fixed, so sizes are read once in a single layout pass until fonts change.
-      for (const label of labels) {
-        if (label.anchor.hidden || label.width > 0) continue
-        label.width = label.text.offsetWidth
-        label.height = label.text.offsetHeight
-      }
-      for (const label of labels) {
-        if (label.anchor.hidden) continue
-        const left = viewport.left + label.x + 7
-        const top = viewport.top + label.y + 5
-        const bounds = { left, top, right: left + label.width, bottom: top + label.height }
-        if (left < viewport.left + 12 || bounds.right > viewport.left + viewport.width - 12 ||
-          top < viewport.top + 12 || bounds.bottom > viewport.top + viewport.height - 12 ||
-          isBlocked(bounds) || placed.some((other) => overlaps(bounds, other))) {
-          label.anchor.hidden = true
-          continue
+      if (relayout) {
+        for (const label of labels) if (label.visible && label.width === 0) label.anchor.hidden = false
+        for (const label of labels) {
+          if (!label.visible || label.width > 0) continue
+          label.width = label.text.offsetWidth
+          label.height = label.text.offsetHeight
         }
-        label.anchor.style.transform = `translate(${label.x}px, ${label.y}px)`
-        placed.push(bounds)
+      }
+      placeSkyGridLabels(labels, viewport, isBlocked, relayout)
+      for (const label of labels) {
+        if (label.anchor.hidden !== !label.placed) label.anchor.hidden = !label.placed
+        if (label.placed) label.anchor.style.transform = `translate(${label.x}px, ${label.y}px)`
       }
     },
     invalidateLabelSizes() {
@@ -155,6 +189,7 @@ export function createSkyGridLayer(container: HTMLElement, opacity: { value: num
         label.width = 0
         label.height = 0
       }
+      layoutDirty = true
     },
     dispose() {
       lines.geometry.dispose()

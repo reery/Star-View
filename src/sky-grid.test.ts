@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 import { Vector3 } from 'three'
-import { makeSkyGridGeometry, skyGridDirection, skyGridMarkers } from './sky-grid'
+import { makeSkyGridGeometry, placeSkyGridLabels, skyGridDirection, skyGridMarkers, type SkyGridLabelSlot } from './sky-grid'
 
 describe('sky coordinate frames', () => {
   it('places Galactic center, increasing longitude and north on the established world axes', () => {
@@ -37,5 +37,41 @@ describe('sky coordinate frames', () => {
     expect(galactic).not.toContain('b +30°')
     expect(equatorial).not.toContain('24h')
     expect(galactic).not.toContain('l 360°')
+  })
+})
+
+describe('sky grid label placement', () => {
+  const viewport = { left: 0, top: 0, width: 800, height: 600 }
+  const slot = (x: number, y: number): SkyGridLabelSlot => ({ visible: true, x, y, width: 30, height: 12, placed: false })
+
+  it('checks collisions only on layout passes so labels do not toggle between throttled star layouts', () => {
+    const labels = [slot(100, 100), slot(300, 100)]
+    let blockedCalls = 0
+    // The first label overlaps a star name reserved during the layout pass.
+    placeSkyGridLabels(labels, viewport, (bounds) => { blockedCalls++; return bounds.left < 200 }, true)
+    expect(labels.map((label) => label.placed)).toEqual([false, true])
+    expect(blockedCalls).toBe(2)
+
+    // Between passes the star names are absent from the obstacle index.
+    labels[0]!.x += 2
+    labels[1]!.x += 2
+    placeSkyGridLabels(labels, viewport, () => { blockedCalls++; return false }, false)
+    expect(labels.map((label) => label.placed)).toEqual([false, true])
+    expect(blockedCalls).toBe(2)
+  })
+
+  it('still hides placed labels that leave the view between layout passes', () => {
+    const labels = [slot(100, 100), slot(300, 100)]
+    placeSkyGridLabels(labels, viewport, () => false, true)
+    labels[0]!.visible = false
+    labels[1]!.x = 790
+    placeSkyGridLabels(labels, viewport, () => false, false)
+    expect(labels.map((label) => label.placed)).toEqual([false, false])
+  })
+
+  it('keeps grid labels from overlapping each other on layout passes', () => {
+    const labels = [slot(100, 100), slot(105, 102), slot(300, 100)]
+    placeSkyGridLabels(labels, viewport, () => false, true)
+    expect(labels.map((label) => label.placed)).toEqual([true, false, true])
   })
 })

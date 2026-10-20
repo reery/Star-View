@@ -1241,7 +1241,8 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
     },
   })
 
-  function updateLabels(time: number): void {
+  /** Returns whether ordinary names were laid out (and reserved in `blocked`) this frame. */
+  function updateLabels(time: number): boolean {
     if (projectionDirty) refreshProjectionCache()
     const viewport = projectionViewport!
     const selectedIndex = selectedId ? starsById.get(selectedId)!.index : -1
@@ -1487,6 +1488,7 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
       ordinaryLayoutPasses++
       labelLayer.dataset.ordinaryLayoutPasses = String(ordinaryLayoutPasses)
     }
+    return layoutOrdinaryLabels
   }
 
   function select(id: string | null, focus = true): void {
@@ -1935,8 +1937,8 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
     updateGuideDashScales()
     updateMotionArrows()
     setLabelsMoving(continueRendering || simulationPlaying)
-    updateLabels(time)
-    skyGrid.updateLabels(camera, projectionViewport!, (bounds) => blocked.queryAny(bounds, (other) => overlaps(bounds, other)))
+    const ordinaryLabelsLaidOut = updateLabels(time)
+    skyGrid.updateLabels(camera, projectionViewport!, (bounds) => blocked.queryAny(bounds, (other) => overlaps(bounds, other)), ordinaryLabelsLaidOut)
     if (molecularCloudLayer) molecularCloudLayer.render(renderer, scene, camera)
     else renderer.render(scene, camera)
     setData(labelLayer, 'drawCalls', String(renderer.info.render.calls))
