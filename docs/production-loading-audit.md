@@ -144,3 +144,39 @@ identically on the unmodified commit and are unrelated.
   The runtime companion merge reads those records, so deferring them would change
   which source measurements Specs displays. The chunks are 5–10 KB compressed
   each and load only for the opened constellation.
+
+## Browser memory — 2026-10-21
+
+Measured with Google Chrome (headless, Metal GPU) at 1440 × 900, 1× scale,
+on an M1 Pro, after forced garbage collection. Figures are macOS physical
+footprints summed over all Chrome processes; an empty tab measures ~335 MB.
+
+| Step | Before | After |
+| --- | ---: | ---: |
+| Startup, Milky Way on | 536 MB | 516 MB |
+| Milky Way switched off | 516 MB | 446 MB |
+| Radius card closed after Jupiter and Earth references | +228 MB retained | +44 MB retained |
+| Saturn, then Jupiter globe, card closed | 5 MB freed | 81 MB freed |
+
+- **Milky Way.** The panorama decodes into an `ImageBitmap` that is closed
+  once the GPU holds the texture (~21 MB of page memory). The texture is
+  released while the layer is hidden and reloaded from the HTTP cache when
+  shown; catalog changes still reuse it. After a restored WebGL context the
+  panorama is loaded again.
+- **Radius comparison.** Planet maps are read through a CPU-backed canvas
+  (`willReadFrequently`); a GPU canvas kept a second, accelerated copy. The
+  decoded pixels (~42 MB) are released when the card closes. Image handlers
+  are detached after loading, because Blink can keep the element, and with it
+  the pixels, alive.
+- **Planet globe.** Closing the planet card disposes its WebGL globes; the
+  canvas is replaced, because a force-lost context cannot be recreated.
+- **Molecular clouds.** The absorption target stores one half-float channel
+  instead of four, and both capture targets are freed when no cloud is
+  visible. Toggling the interstellar medium already rebuilt the viewer; the
+  ~28 MB that remains afterwards is a browser-side cache that does not grow
+  over repeated cycles.
+
+Milky Way and cloud renders matched the previous build pixel for pixel,
+including after a WebGL context restoration. Antialiasing was left unchanged:
+disabling it would save 38 MB at startup and ~46 MB more with clouds, but
+changes line and sprite edges.

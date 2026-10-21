@@ -105,7 +105,7 @@ export function radiusSummary(comparison: RadiusComparison): string {
   return `${selected.name} is ${dimensionNumber(ratio)}× the diameter of ${reference.name}, with ${dimensionNumber(volumeRatio)}× its volume.`
 }
 
-const renderedComparisons = new WeakMap<HTMLCanvasElement, string>()
+let renderedComparisons = new WeakMap<HTMLCanvasElement, string>()
 const WIDTH = 340
 const HEIGHT = 172
 const MIDLINE = HEIGHT / 2
@@ -120,21 +120,38 @@ function planetTexture(kind: PlanetTexture): TextureEntry {
   const entry: TextureEntry = { settled: false, promise: Promise.resolve() }
   entry.promise = new Promise<void>((resolve) => {
     const image = new Image()
-    image.onload = () => {
-      const surface = document.createElement('canvas')
-      surface.width = image.naturalWidth
-      surface.height = image.naturalHeight
-      const context = surface.getContext('2d')!
-      context.drawImage(image, 0, 0)
-      entry.pixels = context.getImageData(0, 0, surface.width, surface.height)
+    const settle = () => {
+      // Blink can keep the element alive; detached handlers no longer retain this entry's pixels.
+      image.onload = image.onerror = null
+      image.removeAttribute('src')
       entry.settled = true
       resolve()
     }
-    image.onerror = () => { entry.settled = true; resolve() }
+    image.onload = () => {
+      // A released entry is no longer drawn; skip decoding its pixels.
+      if (planetTextures.get(kind) === entry) {
+        const surface = document.createElement('canvas')
+        surface.width = image.naturalWidth
+        surface.height = image.naturalHeight
+        // A CPU-backed canvas: a GPU canvas would keep a second, accelerated copy for this one-time readback.
+        const context = surface.getContext('2d', { willReadFrequently: true })!
+        context.drawImage(image, 0, 0)
+        entry.pixels = context.getImageData(0, 0, surface.width, surface.height)
+        surface.width = surface.height = 0
+      }
+      settle()
+    }
+    image.onerror = settle
     image.src = kind === 'jupiter' ? jupiterMapUrl : kind === 'earth' ? earthMapUrl : earthCloudsUrl
   })
   planetTextures.set(kind, entry)
   return entry
+}
+
+/** Free the decoded planet maps (tens of MB) once the radius card closes; they reload on next use. */
+export function releaseRadiusComparisonTextures(): void {
+  planetTextures.clear()
+  renderedComparisons = new WeakMap()
 }
 
 export function renderRadiusComparison(canvas: HTMLCanvasElement, comparison: RadiusComparison): string {

@@ -470,6 +470,7 @@ function closeRadiusCard(restoreFocus = false): void {
   const card = element('radius-card')
   if (card.hidden) return
   card.hidden = true
+  radiusModules?.comparison.releaseRadiusComparisonTextures()
   element('radius-toggle').setAttribute('aria-expanded', 'false')
   if (restoreFocus) element('radius-toggle').focus()
 }
@@ -667,6 +668,7 @@ type PlanetModules = {
   disposePlanetGlobe: typeof import('./planet-globe').disposePlanetGlobe
   resetPlanetGlobe: typeof import('./planet-globe').resetPlanetGlobe
   renderPlanetSection: typeof import('./planet-card').renderPlanetSection
+  releasePlanetCardGlobes: typeof import('./planet-card').releasePlanetCardGlobes
 }
 let planetModules: PlanetModules | undefined
 async function loadPlanetModules(): Promise<PlanetModules> {
@@ -678,6 +680,7 @@ async function loadPlanetModules(): Promise<PlanetModules> {
     disposePlanetGlobe: globe.disposePlanetGlobe,
     resetPlanetGlobe: globe.resetPlanetGlobe,
     renderPlanetSection: card.renderPlanetSection,
+    releasePlanetCardGlobes: card.releasePlanetCardGlobes,
   }
 }
 
@@ -698,6 +701,7 @@ function closePlanetCard(restoreFocus = false): void {
   const card = element('planet-card')
   if (card.hidden) return
   card.hidden = true
+  planetModules?.releasePlanetCardGlobes(card)
   const system = element('object-system')
   const selectedRow = system.querySelector<HTMLElement>('.planet-row:has([aria-pressed="true"])')
   const selectedPlanet = selectedRow?.dataset.planetId ?? null

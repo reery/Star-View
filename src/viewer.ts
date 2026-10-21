@@ -284,7 +284,8 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
 
   let milkyWayVisible = options.milkyWayVisible ?? true
   const milkyWay = createMilkyWayLayer(starColorMode === 'exaggerated' ? 1.3 : 1, renderer.capabilities.maxTextureSize, (ready) => {
-    container.dataset.milkyWayReady = ready ? 'true' : 'error'
+    if (ready === null) delete container.dataset.milkyWayReady
+    else container.dataset.milkyWayReady = ready ? 'true' : 'error'
     if (ready) requestRender()
   })
   scene.add(milkyWay.mesh)
@@ -1969,6 +1970,7 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
   canvas.addEventListener('webglcontextrestored', () => {
     contextLost = false
     options.onStatus(null)
+    milkyWay.reload()
     resetCadenceSamples()
     resize()
     requestRender()

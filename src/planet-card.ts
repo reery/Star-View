@@ -333,6 +333,18 @@ function factTile(spec: PlanetSpec, showDetailTooltip = true): HTMLDivElement {
   return row
 }
 
+/** Free the card's WebGL globes on close; renderPlanetCard recreates them when it next opens. */
+export function releasePlanetCardGlobes(card: HTMLElement): void {
+  for (const canvas of card.querySelectorAll('canvas')) disposePlanetGlobe(canvas)
+  const globe = card.querySelector<HTMLCanvasElement>('#planet-globe')
+  if (!globe) return
+  // A canvas cannot obtain a new WebGL context after its context was forcibly lost.
+  const fresh = globe.cloneNode(false) as HTMLCanvasElement
+  for (const key of Object.keys(fresh.dataset)) delete fresh.dataset[key]
+  fresh.classList.remove('is-dragging')
+  globe.replaceWith(fresh)
+}
+
 export function renderPlanetCard(card: HTMLElement, planet: PlanetDescription): void {
   sections.set(card, { planet, info: false, moons: false })
   const extrasolar = isExtrasolarPlanet(planet)

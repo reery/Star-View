@@ -1,7 +1,7 @@
 import {
   AdditiveBlending, Camera, CanvasTexture, Color, DepthTexture, Float32BufferAttribute, Group, HalfFloatType,
   InstancedBufferAttribute, InstancedBufferGeometry, LinearFilter, Mesh, NormalBlending, OrthographicCamera,
-  Material, PlaneGeometry, Scene, ShaderMaterial, Vector2, WebGLRenderer, WebGLRenderTarget,
+  Material, PlaneGeometry, RedFormat, Scene, ShaderMaterial, Vector2, WebGLRenderer, WebGLRenderTarget,
 } from 'three'
 import type { Star } from './catalog-model'
 import type { StarColorMode } from './astronomy'
@@ -360,6 +360,11 @@ export function createMolecularCloudLayer(clouds: readonly Star[], mode: StarCol
   compositeScene.add(composite)
   let sceneTarget: WebGLRenderTarget | undefined
   let absorptionTarget: WebGLRenderTarget | undefined
+  function releaseTargets(): void {
+    sceneTarget?.dispose()
+    absorptionTarget?.dispose()
+    sceneTarget = absorptionTarget = undefined
+  }
   const viewportSize = new Vector2()
   const clearColor = new Color()
   const displayCapture = { value: false }
@@ -439,7 +444,11 @@ export function createMolecularCloudLayer(clouds: readonly Star[], mode: StarCol
     geometry.instanceCount = count
     root.visible = count > 0
     uniforms.alphaScale.value = 1 / fraction
-    if (count === 0) return
+    if (count === 0) {
+      // The full-screen capture targets are tens of MB; recreate them when clouds return.
+      releaseTargets()
+      return
+    }
     for (const [, attribute] of attributes) {
       attribute.clearUpdateRanges()
       attribute.addUpdateRange(0, count * attribute.itemSize)
@@ -482,7 +491,8 @@ export function createMolecularCloudLayer(clouds: readonly Star[], mode: StarCol
           samples: renderer.getContext().getContextAttributes()?.antialias ? 4 : 0,
         })
         sceneTarget.depthTexture = new DepthTexture(viewportSize.x, viewportSize.y)
-        absorptionTarget = new WebGLRenderTarget(viewportSize.x, viewportSize.y, { type: HalfFloatType, depthBuffer: false })
+        // Only optical depth (red) is read back, so a single half-float channel suffices.
+        absorptionTarget = new WebGLRenderTarget(viewportSize.x, viewportSize.y, { type: HalfFloatType, format: RedFormat, depthBuffer: false })
         sourceAbsorptionMaterial.uniforms.sceneDepth!.value = sceneTarget.depthTexture
         compositeMaterial.uniforms.sceneColor!.value = sceneTarget.texture
         compositeMaterial.uniforms.opticalDepth!.value = absorptionTarget.texture
@@ -524,8 +534,7 @@ export function createMolecularCloudLayer(clouds: readonly Star[], mode: StarCol
       geometry.dispose()
       bodyMaterial.dispose()
       sourceAbsorptionMaterial.dispose()
-      sceneTarget?.dispose()
-      absorptionTarget?.dispose()
+      releaseTargets()
       compositeGeometry.dispose()
       compositeMaterial.dispose()
       rimMaterial.dispose()
