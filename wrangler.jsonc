@@ -1,0 +1,10 @@
+{
+  "name": "star-view",
+  "compatibility_date": "2026-10-21",
+  "assets": {
+    "directory": "./dist",
+    // The app uses one document, with no client-side path routes.
+    // Missing chunks must return 404 instead of index.html under an asset URL.
+    "not_found_handling": "none"
+  }
+}

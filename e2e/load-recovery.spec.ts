@@ -13,6 +13,41 @@ const cards = [
   ['glossary', 'glossary'],
 ] as const
 
+test('entry HTML revalidates and missing assets return an uncached 404', async ({ request }) => {
+  const document = await request.get('/')
+  expect(document.headers()['cache-control']).toBe('no-cache')
+  const missing = await request.get('/assets/retired-deployment-chunk.js', { headers: { Accept: 'text/html' } })
+  expect(missing.status()).toBe(404)
+  expect(missing.headers()['cache-control']).toBe('no-store')
+  expect(missing.headers()['content-type']).toContain('text/plain')
+})
+
+test('an HTML response for a startup module shows recovery without a reload loop', { tag: '@mobile' }, async ({ page }) => {
+  let blocked = true
+  let navigations = 0
+  const errors: string[] = []
+  page.on('pageerror', (error) => errors.push(error.message))
+  page.on('framenavigated', (frame) => { if (frame === page.mainFrame()) navigations++ })
+  await page.route(/\/three\.core-[^/]+\.js$/, (route) => blocked
+    ? route.fulfill({ status: 200, contentType: 'text/html', body: '<!doctype html><title>Old deployment fallback</title>' })
+    : route.continue())
+  await page.goto('/')
+  const recovery = page.locator('#scene-status .load-recovery[role="alert"]')
+  await expect(recovery).toContainText('Could not load Star View.')
+  await recovery.getByRole('button', { name: 'Retry', exact: true }).click()
+  await expect(recovery).toBeVisible()
+  expect(navigations).toBe(1)
+  blocked = false
+  await Promise.all([
+    page.waitForEvent('load'),
+    recovery.getByRole('button', { name: 'Reload app', exact: true }).click(),
+  ])
+  await expect(page.locator('#scene')).toHaveAttribute('data-ready', 'true')
+  await expect(recovery).toHaveCount(0)
+  expect(navigations).toBe(2)
+  expect(errors).toEqual([])
+})
+
 for (const [name, chunk] of cards) {
   test(`${name} offers recovery after a failed first download without reloading`, async ({ page }, testInfo) => {
     const errors: string[] = []
