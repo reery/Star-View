@@ -211,6 +211,7 @@ function createPlanetGlobe(canvas: HTMLCanvasElement) {
   const material = new MeshStandardMaterial({ color: 0xffffff, roughness: 0.62, metalness: 0 })
   const cloudTint = { value: new Color('#ffffff') }
   const mapBlend = { value: 1 }
+  const planetExposure = { value: 1 }
   const earthOceanAdjustment = { value: 0 }
   const plutoUnobservedCap = { value: 0 }
   const jupiterLimbHaze = { value: 0 }
@@ -221,6 +222,7 @@ function createPlanetGlobe(canvas: HTMLCanvasElement) {
   material.onBeforeCompile = (shader) => {
     shader.uniforms.planetCloudTint = cloudTint
     shader.uniforms.planetMapBlend = mapBlend
+    shader.uniforms.planetExposure = planetExposure
     shader.uniforms.earthOceanLift = { value: earthOceanLift }
     shader.uniforms.earthOceanAdjustment = earthOceanAdjustment
     shader.uniforms.plutoUnobservedCap = plutoUnobservedCap
@@ -228,7 +230,7 @@ function createPlanetGlobe(canvas: HTMLCanvasElement) {
     shader.uniforms.jupiterHazeColor = { value: new Color('#eef0f4') }
     shader.uniforms.titanHaze = titanHaze
     shader.uniforms.titanHazeColor = titanHazeColor
-    shader.fragmentShader = `${oceanUniforms}uniform float plutoUnobservedCap;\nuniform float jupiterLimbHaze;\nuniform vec3 jupiterHazeColor;\nuniform float titanHaze;\nuniform vec3 titanHazeColor;\nuniform vec3 planetCloudTint;\nuniform float planetMapBlend;\n${shader.fragmentShader}`
+    shader.fragmentShader = `${oceanUniforms}uniform float planetExposure;\nuniform float plutoUnobservedCap;\nuniform float jupiterLimbHaze;\nuniform vec3 jupiterHazeColor;\nuniform float titanHaze;\nuniform vec3 titanHazeColor;\nuniform vec3 planetCloudTint;\nuniform float planetMapBlend;\n${shader.fragmentShader}`
       .replace('#include <map_pars_fragment>', `#include <map_pars_fragment>
         #ifdef USE_MAP
           vec3 jupiterCloudSample(vec2 uv) {
@@ -239,7 +241,7 @@ function createPlanetGlobe(canvas: HTMLCanvasElement) {
         #ifdef USE_MAP
           if (plutoUnobservedCap > 0.0 && vMapUv.y < plutoUnobservedCap) diffuseColor.rgb = vec3(0.12);
         #endif`)
-      .replace('#include <opaque_fragment>', `${jupiterLimbFragment}\n${titanLimbFragment}\n#include <opaque_fragment>`)
+      .replace('#include <opaque_fragment>', `${jupiterLimbFragment}\n${titanLimbFragment}\noutgoingLight *= planetExposure;\n#include <opaque_fragment>`)
   }
   const sphere = new Mesh<BufferGeometry, MeshStandardMaterial>(geometry, material)
   const titanAtmosphereMaterial = new ShaderMaterial({
@@ -478,13 +480,16 @@ function createPlanetGlobe(canvas: HTMLCanvasElement) {
     canvas.dataset.ringsVisible = String(rings.visible)
     cloudTint.value.set(appearance.tint)
     mapBlend.value = appearance.mapBlend
+    // Keep Venus's near-white diffuse clouds below display clipping. Apply this
+    // before output conversion, without dimming the Earth comparison or sunlight.
+    planetExposure.value = id === 'venus' ? 0.68 : 1
     earthOceanAdjustment.value = id === 'earth' ? 1 : 0
     plutoUnobservedCap.value = id === 'pluto' ? 1 / 3 : 0
     jupiterLimbHaze.value = id === 'jupiter' ? 1 : 0
     titanHaze.value = id === 'titan' ? 1 : 0
     titanAtmosphere.visible = id === 'titan'
     material.needsUpdate = true
-    bloomPass.strength = id === 'mercury' ? 0.08 : ['jupiter', 'saturn', 'uranus', 'neptune'].includes(id) || moonAppearanceIds.has(id) ? 0 : 0.03
+    bloomPass.strength = id === 'mercury' ? 0.08 : ['venus', 'jupiter', 'saturn', 'uranus', 'neptune'].includes(id) || moonAppearanceIds.has(id) ? 0 : 0.03
     bloomPass.enabled = bloomPass.strength > 0
     resetRotation()
     canvas.dataset.planetId = id

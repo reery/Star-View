@@ -66,6 +66,13 @@ test('dense clouds darken the sky and gently dim overlapping catalog sources', a
 
     const foreground = await render({ samples: 0, mode, source: 'foreground' })
     expect(await render({ samples: 64, mode, source: 'foreground' })).toEqual(foreground)
+    for (const source of ['halo', 'nebula'] as const) {
+      for (const sourceBrightness of [1, 0.02]) {
+        const options = { mode, source, sourceBrightness, sourceDepth: 'foreground' as const, blackSky: true }
+        const clear = await render({ ...options, samples: 0 })
+        expect(await render({ ...options, samples: 64 })).toEqual(clear)
+      }
+    }
 
     for (const source of ['background', 'halo', 'nebula'] as const) {
       for (const sourceBrightness of [1, 0.02]) {
@@ -76,7 +83,8 @@ test('dense clouds darken the sky and gently dim overlapping catalog sources', a
         for (let channel = 0; channel < 3; channel++) {
           expect(obscured[channel]).toBeLessThan(clear[channel]! * 0.95)
           expect(dense[channel]).toBeLessThan(obscured[channel]!)
-          expect(dense[channel]).toBeGreaterThan(clear[channel]! * 0.7)
+          // The 30% cap can round down to the adjacent framebuffer byte.
+          expect(dense[channel]).toBeGreaterThanOrEqual(Math.floor(clear[channel]! * 0.7))
         }
         expect(await render({ ...options, samples: 16, selected: true })).toEqual(obscured)
         const reduced = await render({ ...options, samples: 16, fraction: 0.4 })
@@ -102,7 +110,7 @@ function regionLight(image: PNG, point: { x: number; y: number }, radius: number
   return light
 }
 
-test('visibly dims a distant star through the actual dense Taurus cloud samples', async ({ page }, testInfo) => {
+test('respects foreground and background star depth through the actual dense Taurus cloud samples', { tag: '@mobile' }, async ({ page }, testInfo) => {
   const puffs = generateMolecularCloudPuffs(cloud, 0)
   // Choose the densest source-backed sightline, rather than stacking artificial
   // samples at one position or assuming a catalog star lies behind the cloud.
@@ -147,6 +155,39 @@ test('visibly dims a distant star through the actual dense Taurus cloud samples'
       const ratio = regionLight(dusty, points[source.id]!, 12) / regionLight(clear, points[source.id]!, 12)
       expect(ratio).toBeLessThan(0.9)
       expect(ratio).toBeGreaterThan(0.7)
+    }
+  }
+
+  const foreground: Star = {
+    ...source, id: 'taurus-foreground-star',
+    x_pc: source.x_pc / 4, y_pc: source.y_pc / 4, z_pc: source.z_pc / 4,
+  }
+  for (const mode of ['real', 'exaggerated'] as const) {
+    for (const observerView of [false, true]) {
+      const render = (showClouds: boolean) => page.evaluate((input) =>
+        (window as unknown as { renderViewer(options: ViewerRenderOptions): Promise<Record<string, { x: number; y: number }>> }).renderViewer(input),
+      { stars: [sun, foreground, cloud], targetId: foreground.id, observerView, mode, showClouds } satisfies ViewerRenderOptions)
+      const points = await render(false)
+      const capture = async (dust: string) => PNG.sync.read(await page.locator('div canvas').screenshot({
+        scale: 'css', path: testInfo.outputPath(`taurus-foreground-${mode}-${observerView ? 'sky' : 'map'}-${dust}.png`),
+      }))
+      const clear = await capture('clear')
+      await render(true)
+      const dusty = await capture('dusty')
+      // Include the complete stellar halo, beyond the depth-writing core. The
+      // intermediate color capture may round up; no channel may become dimmer.
+      const point = points[foreground.id]!
+      let maxDimming = 0
+      for (let y = Math.floor(point.y - 40); y < point.y + 40; y++) {
+        for (let x = Math.floor(point.x - 40); x < point.x + 40; x++) {
+          if (Math.hypot(x - point.x, y - point.y) > 40) continue
+          const offset = (y * clear.width + x) * 4
+          for (let channel = 0; channel < 3; channel++) {
+            maxDimming = Math.max(maxDimming, clear.data[offset + channel]! - dusty.data[offset + channel]!)
+          }
+        }
+      }
+      expect(maxDimming).toBe(0)
     }
   }
 })

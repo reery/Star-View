@@ -1,7 +1,9 @@
 import './style.css'
+import { SaveCheck } from 'lucide'
 import { clearLoadRecovery, createLoadError, loadWithRecovery } from './load-recovery'
-import { ArrowLeft, ArrowLeftRight, ArrowRight, BookOpen, ChevronUp, ChevronsDownUp, ChevronsLeftRight, ChevronsRightLeft, ChevronsUpDown, CircleHelp, Clock, Cloud, Compass, Crosshair, Earth, Eye, Filter, Focus, Galaxy, Globe, Grid2X2, List, Lock, Minus, Moon, Orbit, Pause, Play, Plus, RotateCcw, RotateCw, Save, Search, Settings2, Sparkles, Sun, Telescope, X, createElement, type IconNode } from 'lucide'
+import { ArrowLeft, ArrowLeftRight, ArrowRight, BookOpen, ChevronUp, ChevronsDownUp, ChevronsLeftRight, ChevronsRightLeft, ChevronsUpDown, CircleHelp, Clock, Cloud, Compass, Crosshair, Earth, Eye, Filter, Focus, Galaxy, Globe, Grid2X2, List, Lock, Minus, Moon, Orbit, Pause, Play, Plus, RotateCcw, RotateCw, Save, Search, Settings2, Sun, Telescope, X, createElement, type IconNode } from 'lucide'
 import { ObserverOriginIcon, OriginIcon } from './origin-icon'
+import { ConstellationIcon } from './constellation-icon'
 import { BUBBLE_OBJECT_TYPES, COMPACT_OBJECT_TYPES, describeObject, isBubbleObject, isCompactObject, isMolecularCloudObject, isNebulaObject, MOLECULAR_CLOUD_OBJECT_TYPES, NEBULA_OBJECT_TYPES, type Star } from './catalog-model'
 import { catalogSelection, mergeCatalogStars } from './catalog-runtime'
 import { catalogMeasurement, catalogSourceFor } from './catalog-source'
@@ -47,6 +49,7 @@ import { MISSING_VALUE, measurement, preciseMeasurement, quantity, scientificQua
 import { OBJECT_DISTANCE_STEPS_LY, readSavedViews, SAVED_VIEWS_STORAGE_KEY, type SavedView, type SavedViewSettings } from './saved-views'
 import type { SkyGridMode } from './sky-grid'
 import { browserDataSize, deleteBrowserData } from './browser-data'
+import { readSavedFilter, SAVED_FILTER_STORAGE_KEY, type SavedFilter } from './saved-filter'
 
 function element<ElementType extends HTMLElement = HTMLElement>(id: string): ElementType {
   const found = document.getElementById(id)
@@ -101,7 +104,7 @@ function icon(id: string, shape: IconNode): void {
 appendConstellationContent(element('constellation-card'))
 
 icon('discover-icon', Compass)
-icon('constellations-icon', Sparkles)
+icon('constellations-icon', ConstellationIcon)
 icon('constellations-search-icon', Search)
 icon('constellations-maximize-icon', ChevronsUpDown)
 icon('constellations-lock-icon', Lock)
@@ -136,6 +139,7 @@ icon('info-icon', CircleHelp)
 icon('info-brand-icon', Orbit)
 icon('filter-lock-icon', Lock)
 icon('filter-reset-icon', RotateCcw)
+icon('filter-save-icon', Save)
 icon('preferences-lock-icon', Lock)
 icon('objects-lock-icon', Lock)
 icon('objects-close-icon', X)
@@ -244,6 +248,19 @@ const ADDITIVE_CATALOG_IDS = new Set([BRIGHT_CATALOG_ID, WESTERN_CONSTELLATION_C
 // Nearest-N catalogs form an ordered size progression; landmark catalogs are independent additive toggles.
 const sliderCatalogs = catalogs.filter((catalog) => !ADDITIVE_CATALOG_IDS.has(catalog.manifest.id))
   .sort((first, second) => first.manifest.objectCount - second.manifest.objectCount)
+const savedFilter = readSavedFilter(sliderCatalogs.map((catalog) => catalog.manifest.id))
+const initialCatalogId = savedFilter?.catalogId ?? 'nearest-neighbors'
+if (savedFilter) {
+  showAlwaysBright = savedFilter.showAlwaysBright
+  showWesternConstellationStars = savedFilter.showWesternConstellationStars
+  filterCategories.clear()
+  savedFilter.filterCategories.forEach((category) => filterCategories.add(category))
+  filterSubtypes.clear()
+  savedFilter.filterSubtypes.forEach((subtype) => filterSubtypes.add(subtype))
+  magnitudeLimit = savedFilter.magnitudeLimit
+  objectDistanceLimitLy = savedFilter.objectDistanceLimitLy
+  visibleKeys = effectiveFilterKeys(filterCategories, filterSubtypes, availableKeys)
+}
 let savedViews = readSavedViews()
 let savedViewMenuRow: HTMLTableRowElement | null = null
 try {
@@ -378,6 +395,7 @@ function panelIsOpen(name: typeof panelNames[number]): boolean {
 }
 
 function setPanelOpen(name: typeof panelNames[number], open: boolean): void {
+  if (name === 'filter' && !open) setFilterSaveIndicator(false)
   if (name === 'views' && !open) closeSavedViewContextMenu()
   if (name === 'objects' && !open) objectList.closeColumnFilter()
   element<HTMLButtonElement>(`${name}-toggle`).setAttribute('aria-expanded', String(open))
@@ -1310,6 +1328,7 @@ function sceneStatus(message: string | null): void {
   status.textContent = message
   status.hidden = message === null
   sceneBusy = message !== null
+  element<HTMLButtonElement>('filter-save').disabled = sceneBusy || !viewer
   if (sceneBusy) setSimulationPlaying(false)
   viewButtons.forEach((button) => { button.disabled = sceneBusy })
   timelineButtons.forEach((button) => { button.disabled = sceneBusy })
@@ -2065,7 +2084,6 @@ async function switchCatalog(id: string, refresh = false): Promise<void> {
   selectedDistancePc = null
   selectedId = retained.selectedId
   observerId = retained.observerId
-  const retainedObserverView = observerView
   if (observerViewAnchorId && !nextStars.some((star) => star.id === observerViewAnchorId)) {
     observerView = false
     observerViewAnchorId = null
@@ -2113,8 +2131,8 @@ async function switchCatalog(id: string, refresh = false): Promise<void> {
   viewer.setPowerSavingMode(powerSavingMode)
   viewer.setGridVisible(gridVisible)
   viewer.setSkyGrid(skyGridMode)
-  // A home view refits to the new visible set; manual views keep their camera.
-  if (retainedView && !retainedView.home && (!retainedObserverView || observerView)) {
+  // Filtering changes the visible objects, not the camera, including the initial overview.
+  if (retainedView) {
     viewer.setViewState({ ...retainedView, home: false })
   }
   observerView = viewer.setObserverView(observerView, observerViewAnchorId ?? undefined, retainedView?.observerRollRadians)
@@ -2227,16 +2245,16 @@ renderObjectFilter()
 
 const catalogRange = element<HTMLInputElement>('catalog-range')
 catalogRange.max = String(Math.max(0, sliderCatalogs.length - 1))
-element('catalog-range-bounds').replaceChildren(...[sliderCatalogs[0], sliderCatalogs.at(-1)].map((catalog) => {
-  const bound = document.createElement('span')
-  bound.textContent = `${catalog?.manifest.objectCount ?? 0} objects`
-  return bound
+element('catalog-range-markers').replaceChildren(...sliderCatalogs.map((catalog, index) => {
+  const marker = document.createElement('span')
+  marker.textContent = String(catalog.manifest.objectCount)
+  marker.style.left = `${index / Math.max(1, sliderCatalogs.length - 1) * 100}%`
+  return marker
 }))
 
 function previewCatalogRange(index: number): void {
   const manifest = sliderCatalogs[index]?.manifest
   if (!manifest) return
-  text('catalog-range-value', manifest.label)
   catalogRange.setAttribute('aria-valuetext', manifest.label)
 }
 
@@ -2432,6 +2450,33 @@ function resetAllFilters(): void {
   void switchCatalog('nearest-neighbors', true)
 }
 
+function setFilterSaveIndicator(saved: boolean): void {
+  icon('filter-save-icon', saved ? SaveCheck : Save)
+  element('filter-save').title = saved ? 'Current filter saved as default' : 'Save filter as default'
+}
+
+function saveCurrentFilter(): void {
+  if (!viewer || sceneBusy) return
+  const filter: SavedFilter = {
+    version: 1,
+    catalogId: activeCatalogId,
+    showAlwaysBright,
+    showWesternConstellationStars,
+    filterCategories: [...filterCategories],
+    filterSubtypes: [...filterSubtypes],
+    magnitudeLimit,
+    objectDistanceLimitLy,
+  }
+  try {
+    localStorage.setItem(SAVED_FILTER_STORAGE_KEY, JSON.stringify(filter))
+    setFilterSaveIndicator(true)
+    updateBrowserDataSize()
+  } catch {
+    setFilterSaveIndicator(false)
+    element('filter-save').title = 'Could not save filter. Please try again.'
+  }
+}
+
 function syncGridInputs(): void {
   const gridButton = element<HTMLButtonElement>('toggle-grid')
   gridButton.setAttribute('aria-pressed', String(gridVisible))
@@ -2592,8 +2637,9 @@ for (const type of ['input', 'change']) {
 }
 window.addEventListener('storage', updateBrowserDataSize, { signal: events.signal })
 window.addEventListener('resize', positionBrowserDataDialog, { signal: events.signal })
-renderCatalogRange('nearest-neighbors')
-void switchCatalog('nearest-neighbors')
+syncFilterInputs()
+renderCatalogRange(initialCatalogId)
+void switchCatalog(initialCatalogId)
 if (catalogErrors.length) catalogError(catalogErrors.join('\n'))
 
 element('object-search').addEventListener('input', () => objectList.setQuery(element<HTMLInputElement>('object-search').value), { signal: events.signal })
@@ -2645,6 +2691,7 @@ element('constellations-maximize').addEventListener('click', () => {
 }, { signal: events.signal })
 catalogRange.addEventListener('input', () => previewCatalogRange(catalogRange.valueAsNumber), { signal: events.signal })
 element('filter-reset').addEventListener('click', resetAllFilters, { signal: events.signal })
+element('filter-save').addEventListener('click', saveCurrentFilter, { signal: events.signal })
 catalogRange.addEventListener('change', () => {
   const catalog = sliderCatalogs[catalogRange.valueAsNumber]
   if (catalog) void switchCatalog(catalog.manifest.id)

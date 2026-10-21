@@ -126,7 +126,7 @@ test('virtualizes database rows while preserving a sticky header and horizontal 
   await expect(page.locator('#scene')).toHaveAttribute('data-ready', 'true')
   await selectCatalog(page, 'nearest-1000')
   await expect.poll(async () => Number((await page.locator('#catalog-count').textContent())!.split('/')[1])).toBeGreaterThan(1000)
-  await expect(page.locator('#catalog-range-value')).toHaveText(/Nearest 1000/)
+  await expect(page.locator('#catalog-range')).toHaveAttribute('aria-valuetext', /Nearest 1000/)
   await expect(page.locator('#scene')).toHaveAttribute('data-ready', 'true')
   await page.locator('#object-distance-limit').fill('24')
   await page.getByRole('button', { name: 'Objects', exact: true }).click()

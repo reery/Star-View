@@ -2063,7 +2063,6 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
       if (distanceLy === objectDistanceLimitLy) return
       objectDistanceLimitLy = distanceLy
       updatePresentation()
-      if (home) fitHome()
       requestRender()
     },
     setObjectFilter(keys) {
@@ -2071,7 +2070,6 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
       if (nextKeys.size === visibleKeys.size && [...nextKeys].every((key) => visibleKeys.has(key))) return
       visibleKeys = nextKeys
       updatePresentation()
-      if (home) fitHome()
       requestRender()
     },
     setLabelLimit(limit) {

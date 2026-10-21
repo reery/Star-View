@@ -688,14 +688,15 @@
               <section id="filter-panel" class="dock-card filter-section" aria-labelledby="filter-heading" hidden>
                 <div class="panel-heading filter-heading">
                   <h2 id="filter-heading">Filter</h2>
+                  <button id="filter-save" class="panel-lock" type="button" aria-label="Save filter as default" title="Save filter as default" disabled><span id="filter-save-icon"></span></button>
                   <button id="filter-reset" class="panel-lock" type="button" aria-label="Reset all filters" title="Reset all"><span id="filter-reset-icon"></span></button>
                   <button id="filter-lock" class="panel-lock" type="button" aria-label="Keep Filter open" aria-pressed="false"><span id="filter-lock-icon"></span></button>
                 </div>
                 <div class="filter-controls card-scroll-content">
                   <div class="range-filter">
-                    <div class="range-heading"><label for="catalog-range">Catalog</label><output id="catalog-range-value" for="catalog-range"></output></div>
+                    <div class="range-heading"><label for="catalog-range">Nearest objects</label></div>
                     <input id="catalog-range" type="range" min="0" max="0" step="1" value="0">
-                    <div id="catalog-range-bounds" class="range-bounds" aria-hidden="true"></div>
+                    <div id="catalog-range-markers" class="range-markers" aria-hidden="true"></div>
                   </div>
                   <p id="catalog-error" class="catalog-error" role="alert" hidden></p>
                   <label class="filter-toggle" for="show-always-bright">

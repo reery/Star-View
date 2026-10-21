@@ -211,7 +211,7 @@ export async function selectCatalog(page: Page, id: CatalogStop | string) {
   const index = CATALOG_STOPS.indexOf(id as CatalogStop)
   if (index < 0) throw new Error(`Not a catalog slider stop: ${id}`)
   await openFilter(page)
-  await page.getByLabel('Catalog', { exact: true }).fill(String(index))
+  await page.getByLabel('Nearest objects', { exact: true }).fill(String(index))
 }
 
 export async function hideMilkyWay(page: Page) {

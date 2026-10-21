@@ -34,6 +34,7 @@ export interface CloudRenderOptions {
   cloudOffsetPc?: number
   sourceBrightness?: number
   source?: 'foreground' | 'background' | 'halo' | 'nebula'
+  sourceDepth?: 'foreground' | 'background'
 }
 
 const renderer = new WebGLRenderer({ alpha: true, preserveDrawingBuffer: true })
@@ -120,7 +121,8 @@ Object.assign(window, {
     layer.setSelected(options.selected ? cloud.id : null)
     scene.add(layer.root)
     const sourceGeometry = new BufferGeometry()
-    sourceGeometry.setAttribute('position', new Float32BufferAttribute([0, 0, options.source === 'foreground' ? 10 : -10], 3))
+    const foreground = options.sourceDepth === 'foreground' || options.source === 'foreground'
+    sourceGeometry.setAttribute('position', new Float32BufferAttribute([0, 0, foreground ? 10 : -10], 3))
     const sourceMaterial = new PointsMaterial({
       color: new Color().setScalar(options.sourceBrightness ?? 1), size: 12, sizeAttenuation: false,
       transparent: true, blending: options.source === 'halo' || options.source === 'nebula' ? AdditiveBlending : NoBlending,
