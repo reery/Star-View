@@ -1205,7 +1205,7 @@ select:focus-visible, input:focus-visible { outline: 2px solid var(--accent); ou
 .constellations-card .glossary-heading #constellations-maximize { right: 87px; border-radius: 0; }
 .dock-card.constellations-card.is-maximized { height: calc(var(--ui-height) - 52px); }
 .control-dock[data-motion-open][data-open="constellations"] .constellations-card.is-maximized { height: calc(var(--ui-height) - var(--motion-panel-clearance, 150px) - 40px); }
-.constellations-detail { min-width: 0; overflow-y: auto; overscroll-behavior: contain; scrollbar-width: thin; scrollbar-color: #776a5c transparent; }
+.constellations-detail { min-width: 0; overflow-x: hidden; overflow-y: auto; overscroll-behavior: contain; scrollbar-width: thin; scrollbar-color: #776a5c transparent; }
 .constellations-detail > .card-scroll-content { overflow: visible; }
 .constellations-detail-heading { padding: 12px 98px 12px 16px; }
 .constellations-detail-heading #discover-constellation-grid { right: 43px; }
