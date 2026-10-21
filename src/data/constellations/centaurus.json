@@ -561,11 +561,11 @@
         "vy_kms": -19.35997,
         "vz_kms": -7.122282,
         "temperature_k": 21001.0,
-        "mass_solar": null,
+        "mass_solar": 7.9,
         "luminosity_solar": 2404.0786591614606,
         "radius_solar": 3.703796,
         "metallicity_dex": null,
-        "age_gyr": null,
+        "age_gyr": 0.013,
         "absolute_mag": -1.717377,
         "epoch": 2000.0,
         "type": "star",
@@ -574,7 +574,7 @@
         "constellation": "Centaurus",
         "spectral_type": "B2IV-V",
         "metallicity_kind": null,
-        "notes": "Western constellation line-figure star (HIP 68282; Stellarium Cen). SIMBAD identity * ups01 Cen; SIMBAD compiled Johnson V=3.87; inverse SIMBAD compiled parallax distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, luminosity_solar; Stefan-Boltzmann scaling for radius_solar.",
+        "notes": "Western constellation line-figure star (HIP 68282; Stellarium Cen). SIMBAD identity * ups01 Cen; SIMBAD compiled Johnson V=3.87; inverse SIMBAD compiled parallax distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, luminosity_solar; Stefan-Boltzmann scaling for radius_solar. Reviewed physical values describe Upsilon1 Cen. Exact * ups01 Cen / HD 121790, HIP 68282. Source values describe this primary/individual; no companion, subsystem sum, or system-metallicity inference. Reviewed 151-target enrichment (2026-10-21). 2011MNRAS.410..190T. Existing non-null values retain their independent sources. Published photometry/spectral-type evolutionary-model age; errors are cross-model deviations, not all systematics. The sample is age-selected and solar metallicity is assumed, not measured. Published object-specific median of evolutionary models; not a dynamical mass. Model-to-model deviation does not include all source photometry, rotation or metallicity systematics. Shared exact-identity physical supplements (age_gyr: 2011MNRAS.410..190T; mass_solar: 2011MNRAS.410..190T).",
         "designations": [
           "HIP 68282"
         ],
@@ -2000,7 +2000,7 @@
       "label": "Adopted star positions and names",
       "url": "https://simbad.cds.unistra.fr/simbad/",
       "path": "src/data/catalogs/western-constellation-stars/stars.csv",
-      "sha256": "28689abf630ec0b3322df1dbbe21e8fb1090dc3a1a03b670b2e6572292aeea6c"
+      "sha256": "e8cdc61e33e9ea33a76ff78cd1fd1115821cfe94641aeac65f29ded0263b9e54"
     },
     {
       "label": "Hipparcos Johnson V magnitudes",

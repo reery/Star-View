@@ -1,0 +1,223 @@
+J/ApJ/804/146     Atmospheric parameters for nearby B-F stars     (David+, 2015)
+================================================================================
+The ages of early-type stars: Stromgren photometric methods calibrated,
+validated, tested, and applied to hosts and prospective hosts of directly
+imaged exoplanets.
+    David T.J., Hillenbrand L.A.
+   <Astrophys. J., 804, 146 (2015)>
+   =2015ApJ...804..146D
+================================================================================
+ADC_Keywords: Photometry, uvby, beta ; Stars, ages ; Stars, masses ;
+              Rotational velocities ; Effective temperatures ; Models
+Keywords: catalogs; Hertzsprung-Russell and C-M diagrams; planetary systems;
+          stars: early-type; stars: evolution; stars: fundamental parameters
+
+Abstract:
+    Age determination is undertaken for nearby early type (BAF) stars,
+    which constitute attractive targets for high-contrast debris disk and
+    planet imaging surveys. Our analysis sequence consists of acquisition
+    of ubvy{beta} photometry from catalogs, correction for the effects of
+    extinction, interpolation of the photometry onto model atmosphere
+    grids from which atmospheric parameters are determined, and finally,
+    comparison to the theoretical isochrones from pre-main sequence
+    through post-main sequence stellar evolution models, accounting for
+    the effects of stellar rotation. We calibrate and validate our methods
+    at the atmospheric parameter stage by comparing our results to
+    fundamentally determined T_eff_ and log g values. We validate and test
+    our methods at the evolutionary model stage by comparing our results
+    on ages to the accepted ages of several benchmark open clusters
+    (IC2602, {alpha} Persei, Pleiades, Hyades). Finally, we apply our
+    methods to estimate stellar ages for 3493 field stars, including
+    several with directly imaged exoplanet candidates.
+
+File Summary:
+--------------------------------------------------------------------------------
+ FileName   Lrecl  Records   Explanations
+--------------------------------------------------------------------------------
+ReadMe         80        .   This file
+table4.dat     85        8   Open cluster ages
+table5.dat    125     3493   Ages, masses, and atmospheric parameters of
+                              nearby B0-F5 field stars
+table8.dat     87       31   IC 2602 members dereddened uvbyH{beta} photometry
+                              and atmospheric parameters
+table9.dat     87       51   {alpha} Persei members dereddened uvbyH{beta}
+                              photometry and atmospheric parameters
+table10.dat    87       47   Pleiades members dereddened uvbyH{beta} photometry
+                              and atmospheric parameters
+table11.dat    87       47   Hyades members dereddened uvbyH{beta} photometry
+                              and atmospheric parameters
+--------------------------------------------------------------------------------
+
+See also:
+ V/137   : Extended Hipparcos Compilation (XHIP) (Anderson+, 2012)
+ V/136   : Teff and metallicities for Tycho-2 stars (Ammons+, 2006)
+ III/244 : Catalog of Stellar Rotational Velocities (Glebocki+ 2005)
+ II/215  : uvby-beta Catalogue (Hauck+ 1997)
+ J/A+A/568/A119   : Stellar physical parameters for young stars (Monguio+, 2014)
+ J/MNRAS/437/1216 : VAST Survey. A-type stars multiplicity (De Rosa+, 2014)
+ J/MNRAS/426/3403 : UKIDSS-GCS {alpha} Per members (Lodieu+, 2012)
+ J/MNRAS/422/1495 : UKIDSS Galactic Cl. Survey Pleiades members (Lodieu+ 2012)
+ J/A+A/544/A9     : The International Deep Planet Survey. I. (Vigan+, 2012)
+ J/ApJ/752/58     : {alpha} Per cluster members (Zuckerman+, 2012)
+ J/AJ/143/135     : Ages of A-K type stars in DEBRIS survey (Vican, 2012)
+ J/ApJ/746/101    : Diameters and temperatures of AFG stars (Boyajian+, 2012)
+ J/A+A/537/A146   : Stellar models with rotation (Z=0.014) (Ekstrom+, 2012)
+ J/A+A/537/A120   : Rotational velocities of A-type stars. IV. (Zorec+, 2012)
+ J/A+A/530/A138   : Geneva-Copenhagen survey re-analysis (Casagrande+, 2011)
+ J/MNRAS/410/190  : Young runaway stars within 3kpc (Tetzlaff+, 2011)
+ J/A+A/525/A71    : Atmospheric parameters for 1273 stars (Wu+, 2011)
+ J/A+A/523/A71    : A and F stars abundances in the Hyades (Gebran+, 2010)
+ J/other/A+ARV/18.67 : Accurate masses and radii of normal stars (Torres+, 2010)
+ J/ApJ/694/1085   : Radii of exoplanet host stars (van Belle+, 2009)
+ J/A+A/493/1099   : CaII HK emission in rotating stars (Schroeder+, 2009)
+ J/ApJ/687/1264   : Age estimation for solar-type dwarfs (Mamajek+, 2008)
+ J/MNRAS/387/105  : Isochrone database for single & binary star SSPs (Li+, 2008)
+ J/ApJ/680/728    : Diameters of exoplanet host stars (Baines+, 2008)
+ J/ApJS/172/663   : Infrared observations of the Pleiades (Stauffer+, 2007)
+ J/ApJ/660/1556   : Characterization of dusty debris disks (Rhee+, 2007)
+ J/ApJS/168/297   : Stellar parameters of nearby cool stars (Takeda+, 2007)
+ J/ApJ/653/675    : Spitzer 24{mu}m photometry of A dwarfs (Su+, 2006)
+ J/AJ/132/161     : NStars project: The southern sample. I. (Gray+, 2006)
+ J/A+A/454/333    : Computed Hbeta indices from ATLAS9 model (Castelli+, 2006)
+ J/A+A/436/853    : IR photometry of Alpha Per low-mass members (Lodieu+, 2005)
+ J/ApJS/159/141   : Spectroscopic properties of cool stars. I. (Valenti+, 2005)
+ J/ApJ/622/1102   : The planet-metallicity correlation. (Fischer+, 2005)
+ J/ApJ/620/1010   : Spitzer 24{mu}m photometry of A dwarfs (Rieke+, 2005)
+ J/AJ/127/1227    : Synthetic Stroemgren photometry (Clem+, 2004)
+ J/A+A/354/881    : RVs of Praesepe + Hyades Am stars (Debernardi+ 2000)
+ J/A+A/352/555    : Fundamental parameters of stars (Allende Prieto+, 1999)
+ J/A+A/331/81     : Hyades membership (Perryman+ 1998)
+ J/A+AS/96/269    : Stellar Models from 0.8 to 120 Msolar (Schaller+, 1992)
+
+Byte-by-byte Description of file: table4.dat
+--------------------------------------------------------------------------------
+   Bytes Format Units   Label     Explanations
+--------------------------------------------------------------------------------
+   1-  9  A9    ---     Cl        Cluster name
+      11  A1    ---   f_Cl        [*] Note on Cl (1)
+  13- 15  I3    Myr     Age       [46/625] Age from literature (2)
+  17- 18  I2    Myr   E_Age       [6/50] Positive error on Age
+  20- 21  I2    Myr   e_Age       [5/50] Negative error on Age
+  23- 56  A34   ---     Ref       Evolutionary model reference
+  58- 60  I3    Myr     Agemed    [79/872] Median Age from summed PDF
+  62- 64  I3    Myr     Age68lo   [27/518] 68% min age from summed PDF
+  66- 69  I4    Myr     Age68up   [284/1940] 68% max age from summed PDF
+  71- 73  I3    Myr     AgemedM   [42/827] Median Age from multiplied PDF
+  75- 77  I3    Myr     Age68loM  [41/812] 68% min age from multiplied PDF
+  79- 81  I3    Myr     Age68upM  [46/837] 68% max age from multiplied PDF
+  83- 85  I3    Myr     Chi2      [37/631] {Chi}^2^_min_ (3)
+--------------------------------------------------------------------------------
+Note (1):
+  * = Note, the Hyades analysis includes the blue straggler HD 27962 and the
+      spectroscopic binary HD 27268. Excluding these outliers results in a
+      median and 68% confidence interval of 871Myr [517-1839Myr] of the summed
+      probability distribution function (PDF) or 832Myr [812-871Myr] of the
+      multiplied PDF, using the B12 (Bressan et al. 2012MNRAS.427..127B) models.
+Note (2): Literature ages come from the sources referenced in Section 6.
+Note (3): The best-fit isochrone found through {Chi}^2^-minimization of all
+          cluster members in log(Teff)-log(g) space.
+--------------------------------------------------------------------------------
+
+Byte-by-byte Description of file: table5.dat
+--------------------------------------------------------------------------------
+   Bytes Format Units     Label   Explanations
+--------------------------------------------------------------------------------
+   1-  6 I6     ---       HIP     [23/120082] Hipparcos Input Catalogue
+                                   running number
+   8- 12 I5     K         Teff    [5476/24718] Photometric effective
+                                   temperature (G1)
+  14- 16 I3     K       e_Teff    [186/840] Uncertainty in Teff
+  18- 21 F4.2   [cm/s2]   log(g)  [1.5/5.2] Log photometric surface
+                                   gravity (G1)
+  23- 26 F4.2   [cm/s2] e_log(g)  [0.14] Uncertainty in log(g)
+  28- 30 I3     km/s      vsini   [4/360]? Projected rotational
+                                   velocity (2)
+      34 I1     ---     r_vsini   [0/1]? References for vsini (3)
+  36- 39 I4     Myr       Ageavg  [6/5392]? Mean age from 1D posterior PDF
+                                   (agePDFavg) (4)
+  41- 44 I4     Myr       Agemed  [7/5722]? Median age from 1D posterior PDF
+                                   (agePDFmed) (4)
+  46- 49 I4     Myr       Agemod  [9/8785]? Mode age from 1D posterior PDF
+                                   (agePDFmod) (4)
+  51- 54 I4     Myr       Age68lo [4/5709]? 68% min age from 1D posterior PDF
+                                   (agePDF68min)
+  56- 59 I4     Myr       Age68up [12/9034]? 68% max age from 1D posterior PDF
+                                   (agePDF68max)
+  61- 62 I2     %         Age68t  [1/68]?=0 True age interval for agePDF68
+                                   (agePDF68t) (5)
+  64- 67 I4     Myr       Age95lo [1/5692]? 95% min age from 1D posterior PDF
+                                   (agePDF95min)
+  69- 72 I4     Myr       Age95up [14/9146]? 95% max age from 1D posterior PDF
+                                   (agePDF95max)
+  74- 75 I2     %         Age95t  [1/95]?=0 True age interval for agePDF95
+                                   (agePDF95t) (5)
+  77- 80 I4     Myr       Age2D   [0/7671]? Age from 2D linear interpolation (4)
+  82- 85 F4.2   Msun      Mavg    [1/9.6]? Mean mass from 1D posterior PDF
+                                   (massPDFavg) (4)
+  87- 90 F4.2   Msun      Mmed    [1/10]? Median mass from 1D posterior PDF
+                                   (massPDFmed) (4)
+  92- 95 F4.2   Msun      Mmod    [1/10]? Mode mass from 1D posterior PDF
+                                   (massPDFmod) (4)
+  97- 99 F3.1   Msun      M68lo   [1/10]? 68% min mass from 1D posterior PDF
+                                   (massPDF68min)
+ 101-104 F4.1   Msun      M68up   [1/10]? 68% max mass from 1D posterior PDF
+                                   (massPDF68max)
+ 106-107 I2     %         M68t    [2/68]?=0 True mass interval for massPDF68
+                                   (massPDF68t) (5)
+ 109-111 F3.1   Msun      M95lo   [1/10]? 95% min mass from 1D posterior PDF
+                                   (massPDF95min)
+ 113-116 F4.1   Msun      M95up   [1/10]? 95% max mass from 1D posterior PDF
+                                   (massPDF95max)
+ 118-119 I2     %         M95t    [3/95]?=0 True mass interval for massPDF95
+                                   (massPDF95t) (5)
+ 121-125 F5.2   Msun      M2D     [1/11]? Mass from 2D linear interpolation
+                                   (mass2D) (4)
+--------------------------------------------------------------------------------
+Note (2): If no vsin(i) is listed then the star belongs to the late group
+     (roughly spectral types A3-F5) and no rotation correction was performed.
+Note (3): Reference as follows:
+    0 = Glebocki & Gnacinski 2005yCat.3244....0G
+    1 = Assumed vsin(i) calculated from Teff-vsin(i) relation
+        in Appendix B of Gray 2005oasp.book.....G
+Note (4): All ages and masses are computed from the evolutionary models from
+      Bressan et al. (2012MNRAS.427..127B) with solar metallicity (Z=0.01524)
+Note (5): True 68% and 95% confidence intervals as obtained due to
+          numerical precision, the star's location near the edge of the
+          computational grid, or some combination of the two effects.
+--------------------------------------------------------------------------------
+
+Byte-by-byte Description of file: table[89].dat table1[01].dat
+--------------------------------------------------------------------------------
+   Bytes Format Units    Label  Explanations
+--------------------------------------------------------------------------------
+   1-  9 A9     ---      Cl     Cluster Name
+  11- 25 A15    ---      Star   Star name
+  27- 35 A9     ---      SpT    MK spectral type (1)
+  37- 42 F6.3   mag      b-y0   [-0.1/0.4] Dereddened (b-y) color index (2)
+  44- 48 F5.3   mag      m0     [0.09/0.3] Dereddeend m_1_, metal line index (2)
+  50- 54 F5.3   mag      c0     [0.2/1.1] Dereddeend c_1_, Balmer discontinuity
+                                   index (2)
+  56- 60 F5.3   mag      beta   [2.6/3] Dereddened {beta} index (2)
+  62- 66 I5     K        Teff   [6274/18927] Photometric effective
+                                    temperature (G1)
+  68- 70 I3     K      e_Teff   [100/840] Uncertainty in Teff (G1)
+  72- 76 F5.3  [cm/s2]   log(g) [3.4/4.8] Photometric surface gravity (G1)
+  78- 82 F5.3  [cm/s2] e_log(g) [0.09/0.15] Uncertainty in log(g) (G1)
+  84- 87 I4     km/s     vsini  [0/380] Projected rotational velocity (1)
+--------------------------------------------------------------------------------
+Note (1): Selected from the WEBDA open cluster database:
+          http://www.univie.ac.at/webda/
+Note (2): Dereddened indices calculated in this article.
+--------------------------------------------------------------------------------
+
+Global notes:
+Note (G1): The atmospheric parameters presented here were derived
+           from photometry, then corrected for the effects of rotation using
+           the formulae of Figueras & Blasi (1998A&A...329..957F).
+--------------------------------------------------------------------------------
+
+History:
+    From electronic version of the journal
+
+================================================================================
+(End)                 Greg Schwarz [AAS], Emmanuelle Perret [CDS]    02-Sep-2015

@@ -906,7 +906,7 @@
         "vy_kms": -20.738839,
         "vz_kms": -9.533252,
         "temperature_k": 8601.0,
-        "mass_solar": null,
+        "mass_solar": 3.49,
         "luminosity_solar": 256.8231014956117,
         "radius_solar": 7.217251,
         "metallicity_dex": null,
@@ -919,7 +919,7 @@
         "constellation": "Hercules",
         "spectral_type": "B9.5III",
         "metallicity_kind": null,
-        "notes": "Western constellation line-figure star (HIP 88794; Stellarium Her). SIMBAD identity * omi Her; SIMBAD compiled Johnson V=3.827; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, luminosity_solar; Stefan-Boltzmann scaling for radius_solar.",
+        "notes": "Western constellation line-figure star (HIP 88794; Stellarium Her). SIMBAD identity * omi Her; SIMBAD compiled Johnson V=3.827; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, luminosity_solar; Stefan-Boltzmann scaling for radius_solar. Reviewed physical values describe Omicron Her. Exact * omi Her / HD 166014, HIP 88794. Source values describe this primary/individual; no companion, subsystem sum, or system-metallicity inference. Reviewed 151-target enrichment (2026-10-21). 2012A&A...537A.120Z. Existing non-null values retain their independent sources. Published HR-diagram model mass. Its age column is fractional main-sequence age and is deliberately not put into age_gyr. Shared exact-identity physical supplements (mass_solar: 2012A&A...537A.120Z).",
         "designations": [
           "HIP 88794"
         ],
@@ -2234,7 +2234,7 @@
       "label": "Adopted star positions and names",
       "url": "https://simbad.cds.unistra.fr/simbad/",
       "path": "src/data/catalogs/western-constellation-stars/stars.csv",
-      "sha256": "28689abf630ec0b3322df1dbbe21e8fb1090dc3a1a03b670b2e6572292aeea6c"
+      "sha256": "e8cdc61e33e9ea33a76ff78cd1fd1115821cfe94641aeac65f29ded0263b9e54"
     },
     {
       "label": "Hipparcos Johnson V magnitudes",

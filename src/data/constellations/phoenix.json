@@ -365,9 +365,9 @@
         "vy_kms": -2.499703,
         "vz_kms": -2.197234,
         "temperature_k": 4108.0,
-        "mass_solar": null,
-        "luminosity_solar": null,
-        "radius_solar": null,
+        "mass_solar": 1.3,
+        "luminosity_solar": 1047.128548,
+        "radius_solar": 86.0,
         "metallicity_dex": -0.66,
         "age_gyr": null,
         "absolute_mag": -0.650208,
@@ -378,7 +378,7 @@
         "constellation": "Phoenix",
         "spectral_type": "M4III",
         "metallicity_kind": "[Fe/H]",
-        "notes": "Western constellation line-figure star (HIP 8837; Stellarium Phe). SIMBAD identity * psi Phe; SIMBAD compiled Johnson V=4.41; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Shared exact-identity physical supplements (temperature_k: 2023A&A...671A..61N; metallicity_dex: 2023A&A...676A.129H).",
+        "notes": "Western constellation line-figure star (HIP 8837; Stellarium Phe). SIMBAD identity * psi Phe; SIMBAD compiled Johnson V=4.41; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Reviewed physical values describe Psi Phe. Exact * psi Phe / HD 11695, HIP 8837. Source values describe this primary/individual; no companion, subsystem sum, or system-metallicity inference. Reviewed 151-target enrichment (2026-10-21). 2004A&A...413..711W. Existing non-null values retain their independent sources. Shared exact-identity physical supplements (mass_solar: 2004A&A...413..711W; radius_solar: 2004A&A...413..711W; luminosity_solar: 2004A&A...413..711W; temperature_k: 2023A&A...671A..61N; metallicity_dex: 2023A&A...676A.129H).",
         "designations": [
           "HIP 8837"
         ],
@@ -1099,7 +1099,7 @@
       "label": "Adopted star positions and names",
       "url": "https://simbad.cds.unistra.fr/simbad/",
       "path": "src/data/catalogs/western-constellation-stars/stars.csv",
-      "sha256": "28689abf630ec0b3322df1dbbe21e8fb1090dc3a1a03b670b2e6572292aeea6c"
+      "sha256": "e8cdc61e33e9ea33a76ff78cd1fd1115821cfe94641aeac65f29ded0263b9e54"
     },
     {
       "label": "Hipparcos Johnson V magnitudes",

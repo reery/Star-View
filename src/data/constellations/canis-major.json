@@ -659,11 +659,11 @@
         "vy_kms": -10.35383,
         "vz_kms": -11.791942,
         "temperature_k": 17170.0,
-        "mass_solar": null,
+        "mass_solar": 10.1,
         "luminosity_solar": 8632.855848,
         "radius_solar": 10.5,
         "metallicity_dex": null,
-        "age_gyr": null,
+        "age_gyr": 0.0225,
         "absolute_mag": -3.433557,
         "epoch": 2000.0,
         "type": "star",
@@ -1214,7 +1214,7 @@
       "label": "Adopted star positions and names",
       "url": "https://simbad.cds.unistra.fr/simbad/",
       "path": "src/data/catalogs/western-constellation-stars/stars.csv",
-      "sha256": "28689abf630ec0b3322df1dbbe21e8fb1090dc3a1a03b670b2e6572292aeea6c"
+      "sha256": "e8cdc61e33e9ea33a76ff78cd1fd1115821cfe94641aeac65f29ded0263b9e54"
     },
     {
       "label": "Hipparcos Johnson V magnitudes",

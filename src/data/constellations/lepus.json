@@ -267,7 +267,7 @@
         "vy_kms": -1.872017,
         "vz_kms": -10.847834,
         "temperature_k": 11906.0,
-        "mass_solar": null,
+        "mass_solar": 3.28,
         "luminosity_solar": 124.54811731997674,
         "radius_solar": 2.622947,
         "metallicity_dex": null,
@@ -280,7 +280,7 @@
         "constellation": "Lepus",
         "spectral_type": "B7/8V",
         "metallicity_kind": null,
-        "notes": "Western constellation line-figure star (HIP 24873; Stellarium Lep). SIMBAD identity * nu. Lep; SIMBAD compiled Johnson V=5.284; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, luminosity_solar; Stefan-Boltzmann scaling for radius_solar.",
+        "notes": "Western constellation line-figure star (HIP 24873; Stellarium Lep). SIMBAD identity * nu. Lep; SIMBAD compiled Johnson V=5.284; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, luminosity_solar; Stefan-Boltzmann scaling for radius_solar. Reviewed physical values describe Nu Lep. Exact * nu. Lep / HD 34863, HIP 24873. Source values describe this primary/individual; no companion, subsystem sum, or system-metallicity inference. Reviewed 151-target enrichment (2026-10-21). 2012A&A...537A.120Z. Existing non-null values retain their independent sources. Published HR-diagram model mass. Its age column is fractional main-sequence age and is deliberately not put into age_gyr. Shared exact-identity physical supplements (mass_solar: 2012A&A...537A.120Z).",
         "designations": [
           "HIP 24873"
         ],
@@ -1110,7 +1110,7 @@
       "label": "Adopted star positions and names",
       "url": "https://simbad.cds.unistra.fr/simbad/",
       "path": "src/data/catalogs/western-constellation-stars/stars.csv",
-      "sha256": "28689abf630ec0b3322df1dbbe21e8fb1090dc3a1a03b670b2e6572292aeea6c"
+      "sha256": "e8cdc61e33e9ea33a76ff78cd1fd1115821cfe94641aeac65f29ded0263b9e54"
     },
     {
       "label": "Hipparcos Johnson V magnitudes",

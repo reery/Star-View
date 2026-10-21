@@ -169,9 +169,9 @@
         "vy_kms": -41.31929,
         "vz_kms": 8.362949,
         "temperature_k": 3600.0,
-        "mass_solar": null,
-        "luminosity_solar": null,
-        "radius_solar": null,
+        "mass_solar": 2.1,
+        "luminosity_solar": 524.8074602,
+        "radius_solar": 66.0,
         "metallicity_dex": 0.0,
         "age_gyr": null,
         "absolute_mag": -0.001989,
@@ -182,7 +182,7 @@
         "constellation": "Sagittarius",
         "spectral_type": "M2III",
         "metallicity_kind": "[Fe/H]",
-        "notes": "Western constellation line-figure star (HIP 89642; Stellarium Sgr). SIMBAD identity * eta Sgr; SIMBAD compiled Johnson V=3.11; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Shared exact-identity physical supplements (temperature_k: 2020A&A...633A..34C; metallicity_dex: 2020A&A...633A..34C).",
+        "notes": "Western constellation line-figure star (HIP 89642; Stellarium Sgr). SIMBAD identity * eta Sgr; SIMBAD compiled Johnson V=3.11; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Reviewed physical values describe Eta Sgr. Exact * eta Sgr / HD 167618, HIP 89642. Source values describe this primary/individual; no companion, subsystem sum, or system-metallicity inference. Reviewed 151-target enrichment (2026-10-21). 2019A&A...624A..35K. Existing non-null values retain their independent sources. Calibrated granulation gravity and a literature radius; not a dynamical mass. Includes the source radius/distance assumptions. Published literature angular-diameter radius at its source parallax; not rescaled to the independent map distance. Published luminosity and radius are independent source estimates; their disagreement with a Stefan-Boltzmann combination is not silently erased. Shared exact-identity physical supplements (mass_solar: 2019A&A...624A..35K; radius_solar: 2019A&A...624A..35K; luminosity_solar: 2019A&A...624A..35K; temperature_k: 2020A&A...633A..34C; metallicity_dex: 2020A&A...633A..34C).",
         "designations": [
           "HIP 89642"
         ],
@@ -1886,7 +1886,7 @@
       "label": "Adopted star positions and names",
       "url": "https://simbad.cds.unistra.fr/simbad/",
       "path": "src/data/catalogs/western-constellation-stars/stars.csv",
-      "sha256": "28689abf630ec0b3322df1dbbe21e8fb1090dc3a1a03b670b2e6572292aeea6c"
+      "sha256": "e8cdc61e33e9ea33a76ff78cd1fd1115821cfe94641aeac65f29ded0263b9e54"
     },
     {
       "label": "Hipparcos Johnson V magnitudes",

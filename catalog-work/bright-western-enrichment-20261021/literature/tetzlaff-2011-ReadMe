@@ -1,0 +1,174 @@
+J/MNRAS/410/190    Young runaway stars within 3kpc          (Tetzlaff+, 2011)
+================================================================================
+A catalogue of young runaway stars within 3 kpc from Hipparcos
+    Tetzlaff N., Neuhaeuser R., Hohle M.M.
+   <Mon. Not. R. Astron. Soc. 410, 190 (2011)>
+   =2011MNRAS.410..190T
+================================================================================
+ADC_Keywords: Stars, early-type ; Stars, pre-main sequence ; Space velocities
+Keywords: catalogues - stars: early-type - stars: kinematics
+
+Abstract:
+    Traditionally runaway stars are O and B type stars with large peculiar
+    velocities. We want to extend this definition to young stars (up to
+    ~50Myr) of any spectral type and identify those present in the
+    Hipparcos catalogue applying different selection criteria such as
+    peculiar space velocities or peculiar one-dimensional velocities.
+    Runaway stars are important to study the evolution of multiple star
+    systems or star clusters as well as to identify origins of neutron
+    stars. We compile distances, proper motions, spectral types,
+    luminosity classes, V magnitudes and B-V colours and utilise
+    evolutionary models from different authors to obtain star ages and
+    study a sample of 7663 young Hipparcos stars within 3kpc from the
+    Sun. Radial velocities are obtained from the literature. We
+    investigate the distributions of the peculiar spatial velocity, the
+    peculiar radial velocity as well as the peculiar tangential velocity
+    and its one-dimensional components and obtain runaway star
+    probabilities for each star in the sample. In addition, we look for
+    stars that are situated outside any OB association or OB cluster and
+    the Galactic plane as well as stars of which the velocity vector
+    points away from the median velocity vector of neighbouring stars or
+    the surrounding local OB association/cluster although the absolute
+    velocity might be small. We find a total of 2547 runaway star
+    candidates (with a contamination of normal Population I stars of 20
+    per cent at most). Thus, after subtraction of those 20 per cent, the
+    runaway frequency among young stars is about 27 per cent. We compile 
+    a catalogue of runaway stars which will be available via VizieR.
+
+Description:
+    We give Tables 1, 4, 5 (two parts) and 6 of the Paper as well as one
+    additional table summarising all runaway star candidates found.
+
+File Summary:
+--------------------------------------------------------------------------------
+ FileName   Lrecl  Records  Explanations
+--------------------------------------------------------------------------------
+ReadMe         80        .  This file
+table1.dat     74     7663  Ages, masses and spectral types for 7663 young stars
+table4.dat    104     2353  Runaway probabilities for 2353 runaway star
+                             candidates as found from their space velocities
+table5a.dat    81      326  Runaway probabilities from 3D velocities
+table5b.dat    81      321  Runaway probabilities from 2D velocity vectors
+table6.dat     74        6  Additional young stars situated well outside
+                             OB associations/clusters and the Galactic plane
+all.dat        42     2547  Runaway star candidates identified in the paper
+--------------------------------------------------------------------------------
+
+See also:
+        III/84 : Galactic O Stars (Cruz-Gonzalez+ 1974)
+        I/239  : The Hipparcos and Tycho Catalogues (ESA 1997)
+        I/311  : Hipparcos, the New Reduction (van Leeuwen, 2007)
+ J/A+A/331/949 : Wolf-Rayet and O-star runaways kinematics (Moffat+ 1998)
+
+Byte-by-byte Description of file: table1.dat
+--------------------------------------------------------------------------------
+   Bytes Format  Units     Label   Explanations
+--------------------------------------------------------------------------------
+   2-  7  I6     ---       HIP     Hipparcos number
+   9- 27  A19    ---       OName   other designation
+  30- 33  F4.1   solMass   Mass    ? Mass (median from different evolutionary
+                                     models) (1)
+  36- 39  F4.1   solMass e_Mass    ? Median mass deviation (1)
+  48- 51  F4.1   Myr       Age     ? Age (median from different evolutionary
+                                     models) (1)
+  56- 59  F4.1   Myr     e_Age     ? Median age deviation (1)
+  62- 74  A13    ---       SpType  MK spectral type
+--------------------------------------------------------------------------------
+Note (1): if no value is given, the star entered the list due to its
+     spectral type.
+--------------------------------------------------------------------------------
+
+Byte-by-byte Description of file: table4.dat
+--------------------------------------------------------------------------------
+   Bytes Format Units   Label     Explanations
+--------------------------------------------------------------------------------
+   1-  6  I6    ---     HIP       Hipparcos number
+   8- 24  A17   ---     OName     Other designation
+  26- 29  F4.2  ---     PVpec     ? Runaway probability
+                                    (peculiar 3D spatial velocity vpec)
+  31- 34  F4.2  ---     PU        ? Runaway probability (peculiar 1D U)
+  36- 39  F4.2  ---     PV        ? Runaway probability (peculiar 1D V)
+  41- 44  F4.2  ---     PW        ? Runaway probability (peculiar 1D W)
+  46- 49  F4.2  ---     PRVpec    ? Runaway probability
+                                    (peculiar 1D radial velocity vrpec)
+  51- 54  F4.2  ---     PVtpec    ? Runaway probability
+                                    (peculiar 2D tangential velocity vtpec)
+  56- 61  F6.2  ---     PVlpec    ? Runaway probability (peculiar 1D vlpec)
+  63- 68  F6.2  ---     PVbpec    ? Runaway probability (peculiar 1D vbpec)
+  70- 74  F5.1  km/s    Vpec      ? Peculiar spatial velocity
+  76- 80  F5.1  km/s  E_Vpec      ? Error on Vpec (upper value)
+  82- 86  F5.1  km/s  e_Vpec      ? Error on vpec (lower value)
+  88- 92  F5.1  km/s    Vtpec     ? Peculiar tangential velocity
+  94- 98  F5.1  km/s  E_Vtpec     ? Error on vtpec (upper value)
+ 100-104  F5.1  km/s  e_Vtpec     ? Error on vtpec (lower value)
+--------------------------------------------------------------------------------
+
+Byte-by-byte Description of file: table5[ab].dat
+--------------------------------------------------------------------------------
+   Bytes Format  Units   Label     Explanations
+--------------------------------------------------------------------------------
+   1-  6  I6    ---     HIP       Hipparcos number (Cat. I/311)
+   8- 22  A15   ---     OName     Other designation
+  26- 29  F4.2  ---     Prun      Runaway probability (comparison of 3D spatial
+                                   velocity vectors of star and association) (1)
+  31- 40  A10   ---     Clust     Association or cluster name
+  42- 46  F5.1  km/s    Vpec      ? Peculiar spatial velocity
+  48- 52  F5.1  km/s  E_Vpec      ? Error on vpec (upper value)
+  54- 58  F5.1  km/s  e_Vpec      ? Error on vpec (lower value)
+  60- 64  F5.1  km/s    Vtpec     ? Peculiar tangential velocity
+  66- 70  F5.1  km/s  E_Vtpec     ? Error on vtpec (upper value)
+  72- 76  F5.1  km/s  e_Vtpec     ? Error on vtpec (lower value)
+  78- 81  A4    ---     New       "prev" if star present in table4,
+                                  "new" otherwise
+--------------------------------------------------------------------------------
+Note (1): Runaway probability is computed from the comparison of the
+          velocities of the star and association:
+      * comparison of 3D spatial velocity vectors in table5a
+      * comparison of 2D tangential velocity vectors in table5b
+--------------------------------------------------------------------------------
+
+Byte-by-byte Description of file: table6.dat
+--------------------------------------------------------------------------------
+   Bytes Format  Units   Label    Explanations
+--------------------------------------------------------------------------------
+   1-  6  I6    ---      HIP      Hipparcos number (Cat. I/311)
+   8- 16  A9    ---      OName    Other designation
+  18- 21  I4     pc      z        Distance to the Galactic plane (pc)
+  23- 25  I3     pc    E_z        Error on z (pc)
+  27- 29  I3     pc    e_z        Error on z (pc)
+  31- 35  F5.1   km/s    Wpec     ?=- W velocity component in z direction (1)
+  37- 40  F4.1   km/s  E_Wpec     ?=- Error on Wpec (upper value) (1)
+  42- 45  F4.1   km/s  e_Wpec     ?=- Error on Wpec (lower value) (1)
+  47- 50  F4.1   km/s    Vpec     ?=- Peculiar spatial velocity  (1)
+  52- 54  F3.1   km/s  E_Vpec     ?=- Error on Vpec (upper value) (1)
+  56- 59  F4.1   km/s  e_Vpec     ?=- Error on Vpec (lower value) (1)
+  61- 64  F4.1   km/s    Vtpec    ?=- Peculiar tangential velocity
+  66- 69  F4.1   km/s  E_Vtpec    ?=- Error on Vtpec (upper value)
+  71- 74  F4.1   km/s  e_Vtpec    ?=- Error on Vtpec (lower value)
+--------------------------------------------------------------------------------
+Note (1): If no value is given ("-") the star has no radial velocity measured.
+--------------------------------------------------------------------------------
+
+Byte-by-byte Description of file: all.dat
+--------------------------------------------------------------------------------
+   Bytes Format  Units   Label     Explanations
+--------------------------------------------------------------------------------
+   1-  6  I6    ---      HIP       Hipparcos number (Cat. I/311)
+   8- 12  F5.1   km/s    Vpec      ?=- Peculiar spatial velocity  (1)
+  14- 18  F5.1   km/s  E_Vpec      ?=- Error on Vpec (upper value) (1)
+  20- 24  F5.1   km/s  e_Vpec      ?=- Error on Vpec (lower value) (1)
+  26- 30  F5.1   km/s    Vtpec     Peculiar tangential velocity
+  32- 36  F5.1   km/s  E_Vtpec     Error on Vtpec (upper value)
+  38- 42  F5.1   km/s  e_Vtpec     Error on Vtpec (lower value)
+--------------------------------------------------------------------------------
+Note (1): If no value is given ("-") the star has no radial velocity measured.
+--------------------------------------------------------------------------------
+
+Author's address:
+    Nina Tetzlaff, nina(at)astro.uni-jena.de
+
+References:
+    Stone, 1979ApJ...232..520S,
+        Kinematics, close binary evolution, and ages of the O stars
+================================================================================
+(End)            Nina Tetzlaff [AIU Jena]                            16-Aug-2010

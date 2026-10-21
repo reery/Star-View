@@ -10,6 +10,9 @@ Main focus of this app is:
 - Investigation
 - Gaining understanding
 
+Every added feature should answer this question:
+Does this feature help the user notice something, formulate a question, investigate it, or understand what they've discovered?
+
 This project is still in active development and there are a lot of features to come.
 
 ## Features

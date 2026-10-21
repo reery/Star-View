@@ -171,13 +171,22 @@ def reviewed_physical():
     for path, digest in white_dwarf_review["inputSha256"].items():
         verify_sha256(ROOT / path, digest)
     white_dwarfs = white_dwarf_review["objects"]
+    target_review = json.loads((ROOT / "catalog-work/bright-western-enrichment-20261021/physical-review.json").read_text())
+    for path, digest in target_review["inputSha256"].items():
+        verify_sha256(ROOT / path, digest)
+    targets = {normalized_id(key): value for key, value in target_review["catalogObjects"].items()}
+    if len(targets) != len(target_review["catalogObjects"]):
+        raise ValueError("Duplicate normalized 151-target review identity")
     if any(review["objectType"] != "white_dwarf" for review in white_dwarfs.values()):
         raise ValueError("White dwarf reviews must declare their object type")
     if (existing.keys() & ultracool.keys() or (existing.keys() | ultracool.keys()) & bright.keys()
             or (existing.keys() | ultracool.keys() | bright.keys()) & cluster.keys()
             or (existing.keys() | ultracool.keys() | bright.keys() | cluster.keys()) & white_dwarfs.keys()):
         raise ValueError("Reviewed physical identities must be unique")
-    return existing | ultracool | bright | cluster | white_dwarfs
+    combined = existing | ultracool | bright | cluster | white_dwarfs
+    if combined.keys() & targets.keys():
+        raise ValueError("151-target reviews must not replace an earlier object review")
+    return combined | targets
 
 
 def derive_physical(row):

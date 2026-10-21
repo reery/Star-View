@@ -1,0 +1,332 @@
+J/MNRAS/492/2709  Double-lined spectroscopic binaries catalog  (Piccotti+, 2020)
+================================================================================
+A study of the physical properties of SB2s with both the visual and
+spectroscopic orbit.
+    Piccotti L., Docobo J.A., Carini R., Tamazian V.S., Brocato E., Andrade M.,
+    Campo P.P.
+    <Mon. Not. R. Astron. Soc. 492, 2709 (2020)>
+    =2020MNRAS.492.2709P        (SIMBAD/NED BibCode)
+================================================================================
+ADC_Keywords: Stars, double and multiple ; Binaries, spectroscopic
+Keywords: binaries: spectroscopic - binaries: visual -
+          stars: fundamental parameters
+
+Abstract:
+    The study of a selected set of 69 double-lined spectroscopic binaries
+    (SB2) with well defined visual and spectroscopic orbits was carried
+    out. The orbital parallax, the mass, the colour, and the luminosity of
+    each component were derived from observational data for almost all of
+    these systems. We have also obtained an independent estimation of the
+    component masses by comparing the colour-luminosity diagram (CMD) to
+    the stellar evolution tracks reported by Pietrinferni. Nearly all of
+    the observational points on the CMD are located between two tracks of
+    slightly different mass or which fall very close to the one
+    corresponding to a unique mass value. The masses obtained from the
+    stellar model are in good agreement with their empirical values
+    determined by parallax techniques (orbital, dynamical, and Gaia).
+    This means that our adopted model is rather reliable and can therefore
+    be used to infer further information, such as the age of each
+    component in the studied systems.
+
+    Our results indicate a fair correspondence between the age of
+    primaries and secondary stars within 3{sigma}. Nevertheless, we
+    caution that these age indications suffer of uncertainties due to both
+    inhomogeneities/low precision of the adopted photometric data and
+    possible systematics. Finally, it is statistically shown that along
+    with the orbital and trigonometric parallaxes, the dynamical parallax
+    can serve as a reliable tool for distance estimates.
+
+Description:
+    To compile the orbit list, we combined data from both ORB6 and SB9.
+    Table 1 lists the orbital elements common to the two catalogs:
+    hereafter, for each star, the first two upper rows represent ORB6
+    catalog orbital elements and the two lower lines represent SB9 catalog
+    orbital elements. Column 1 specifies the catalog: ORB6 or SB9. The
+    second column gives the Washington Double Stars (WDS) code (coord.
+    2000) of the binary and below, its HD (Henry Draper) catalog number,
+    if any. The system identifier adopted in the WDS ("discoverer
+    designation" as a visual binary) is given in the third column. Columns
+    4, 5, 6 and 7 contain, for each catalog, the orbital elements in the
+    first line and their formal uncertainties in the following one: the
+    orbital period, P, in days, the epoch of periastron passage, T, in
+    Modified Julian Date (MJD, JD-2400000.5 days), the eccentricity, e,
+    and the argument of periastron, omega, in degrees. The orbit grades
+    are given in the ORB6 system, where 1 and 2 grades mean definitive and
+    good orbits, respectively. The SB9 catalogue contains 2694 orbits of
+    2386 systems (SB1 and SB2) and 55 spectroscopic triple systems
+    (http://sb9.astro.ulb.ac.be/). It provides easy access in order to
+    search for the object using catalogues identifiers (HD, HIP, BD),
+    coordinates, publication's bibcode, etc. It lists the parameters of
+    components, magnitudes, the spectral type, the orbital elements with
+    their standard uncertainties, the orbit grades and radial velocity
+    curve. Grades of old orbits are taken from The Eighth catalog of the
+    orbital elements of spectroscopic binary stars (SB8) (Batten, Fletcher
+    & MacCarthy, 1989PDAO...17....1B) (5-best, 1-worst), for new orbits
+    they are not entered, pending a development of new automatic grading
+    system. Column 13 contains the original references of the orbits.
+
+    The semi-major axes, expressed in au, are listed in Table 2, where we
+    have combined the visual and spectroscopic orbits, as we explained
+    before using the equations 1, 2 and 3. In Columns 2, 3, and 4, list
+    the values of asini and their uncertainties, with Column 4 indicating
+    the power of 10 that affects the values of both columns 2 and 3, the
+    values of asinine, in au, and a, in au, appear with their
+    uncertainties in columns 5 to 8.
+
+    In Table 3 we compared the parallaxes: both the orbital and the
+    dynamical one, calculated by us, with those provided by Hipparcos
+    space mission and/or Gaia when available. We have for 16 systems the
+    orbital parallax that falls within 3{sigma} of the dynamic parallax,
+    for 35 that falls within 3{sigma} of the parallax of Hipparcos and for
+    23 that falls within 3{sigma} of the parallax of Gaia. But, on the
+    other hand, we have 45 systems whose orbital parallax falls within
+    3{sigma} of at least one of the three parallax values (dynamical,
+    Hipparcos and Gaia). This discrepancy is probably due to the oldness
+    of several spectroscopic orbits because the common orbital elements do
+    not coincide perfectly with those of the visual orbit (see table 1),
+    and it is therefore desirable to recalculate a number of spectroscopic
+    orbits. The orbital, the dynamical, Hipparcos and Gaia parallaxes are
+    given in columns 2, 3, 4, and 5, respectively, with their
+    corresponding uncertainties. In Table 3 we represent in bold the stars
+    whose orbital parallax differs from the Gaia parallax by 3 sigma,
+    while in italics the stars whose orbital parallax differs from the
+    Hipparcos parallax by 3 sigma, when the Gaia parallax is not
+    published.
+
+    In Table 5 we compared the individual masses of the two components
+    of each system using the four parallaxes when available. The masses of
+    the primary, using the orbital, the dynamical, Hipparcos, and Gaia
+    parallaxes, are presented in columns 2, 3, 4, and 5, respectively,
+    with their uncertainties; the masses of the secondary, using the
+    orbital, the dynamical, Hipparcos, and Gaia parallaxes, are found in
+    columns 6, 7, 8, and 9, respectively, with their uncertainties.
+
+    Table 6 collects the magnitudes in the visual band (V), calculated as
+    described in the equations 8, 9 and 10. The description by columns is:
+    (1) Henry Draper (HD) catalog number; (2) Composite apparent
+    magnitude in the visual band (V), taken from the SIMBAD database; (3)
+    Apparent magnitude of the primary in the visual band; (4) Apparent
+    magnitude of the secondary in the visual band; (5) Magnitude
+    difference between the two components. This value was obtained
+    averaging the corresponding data from speckle measurements collected
+    in INT4 catalog and discarding the extreme values; (6) Composite
+    absolute magnitude in the visual band without interstellar
+    extinction; (7) Absolute magnitude of the primary in the visual band
+    without interstellar extinction; (8) Absolute magnitude of the
+    secondary in the visual band without interstellar extinction; (9)
+    Galactic latitude, in degrees; (10) Interstellar extinction, in
+    magnitudes; (11) Composite absolute magnitude in the visual band with
+    interstellar extinction; (12) primary absolute magnitude in the visual
+    band with interstellar extinction; (13) secondary absolute magnitude
+    in the visual band with interstellar extinction.
+
+    In Table 7 we collected the spectral types, temperatures, colour in-
+    dices, and bolometric corrections (Gray, 2005). The description by
+    columns is: (1) Henry Draper (HD) catalog number; (2) Spectral Type of
+    the primary; (3) Class of the Luminosity of the primary; (4) Spectral
+    Type of the secondary; (5) Class of the Luminosity of the secondary;
+    (6) Effective Temperature of the primary; (7) Effective Temperature
+    of the secondary; (8) colour index (B-V) of the primary; (9) colour
+    index (B-V) of the secondary; (10) colour index (V-R) of the primary;
+    (11) colour index (V-R) of the secondary; (12) Bolometric Correction
+    of the primary; (13) Bolometric Correction of the secondary.
+
+    Once the evolutionary track is chosen to be representative of a given
+    primary (or secondary) star from the CMD, it is straightforward to
+    obtain the estimation of the age, the luminosity, and the effective
+    temperature from the same theoretical model. The results for the
+    primaries are represented in Table 11, and Table 12 provides the
+    results for the secondary. The format of both Tables is the same.
+    Column 2 lists the mass in solar masses; in Column 3, the logarithm of
+    luminosity in solar luminosity is shown; in Column 4, the logarithm of
+    effective temperature appears, and finally, in Column 5, the logarithm
+    of age is given.
+
+File Summary:
+--------------------------------------------------------------------------------
+ FileName      Lrecl  Records   Explanations
+--------------------------------------------------------------------------------
+ReadMe            80        .   This file
+table1.dat       127      138   ORB6 & SB9 common orbital elements
+refs.dat          96       75   References
+table2.dat        62       69   Calculated quantities
+table3.dat        79       69   Parallaxes
+table5.dat       104       69   Individual masses of the two components
+table6.dat       110       69   V Magnitudes
+table7.dat        74       69   Spectral types, temperatures, colour indices,
+                                 and bolometric corrections
+table11.dat       50       69   Estimation of masses and other physical
+                                 quantities for the primaries
+table12.dat       50       69   Estimation of masses and other physical
+                                 quantities for the secondaries
+--------------------------------------------------------------------------------
+
+See also:
+ B/wds : The Washington Visual Double Star Catalog (Mason+ 2001-2014)
+ B/sb9 : SB9: 9th Catalogue of Spectroscopic Binary Orbits (Pourbaix+ 2004-2014)
+
+Byte-by-byte Description of file: table1.dat
+--------------------------------------------------------------------------------
+   Bytes Format Units   Label     Explanations
+--------------------------------------------------------------------------------
+   1-  4  A4    ---     Cat       [ORB6 SB9] catalog: ORB6 & SB9
+   6- 15  A10   ---     WDS       WDS code (coord. 2000) (1)
+  17- 29  A13   ---     DD        Discover designation
+  30- 35  I6    ---     HD        HD catalog number
+  37- 46  F10.4 d       P         Orbital period, P, in days
+  48- 55  F8.4  d     e_P         ? Error on P, in days
+      56  A1    ---   n_P         [f] f for fixed
+  57- 66  F10.4 d       T         Epoch of periastron passage, T, in MJD
+  68- 75  F8.4  d     e_T         ? Error on T, in MJD
+  77- 83  F7.5  ---     e         ? Eccentricity, e
+  85- 91  F7.5  ---   e_e         ? Error on e
+      92  A1    ---   n_e         [f] f for Fixed
+  93-100  F8.4  deg     omega     Argument of periastron, omega, in degrees
+ 102-109  F8.4  deg   e_omega     ? Error on omega, in degrees
+     110  A1    ---   n_omega     [f] f for Fixed
+     111  I1    ---     grade     ? Orbit grade
+ 113-127  A15   ---     Ref       References, in refs.dat file
+--------------------------------------------------------------------------------
+Note (1): For each stars we have two lines: in the upper line represents ORB6
+  catalog orbital elements and the lower one represents SB9 catalog orbital
+  elements.
+--------------------------------------------------------------------------------
+
+Byte-by-byte Description of file: refs.dat
+--------------------------------------------------------------------------------
+   Bytes Format Units   Label     Explanations
+--------------------------------------------------------------------------------
+   1- 15  A15   ---     Ref       Reference code
+  17- 35  A19   ---     BibCode   BibCode
+  37- 56  A20   ---     Aut       Author's name
+  60- 96  A37   ---     Com       Comments
+--------------------------------------------------------------------------------
+
+Byte-by-byte Description of file: table2.dat
+--------------------------------------------------------------------------------
+   Bytes Format Units   Label    Explanations
+--------------------------------------------------------------------------------
+   1-  6  I6    ---     HD       HD catalog number
+   8- 17  E10.6 km      asinikm  Inclination of visual orbit, a*sin(i) in km
+  19- 28  E10.6 km    e_asinikm  ? Uncertainty of a*sini in km
+  30- 37  F8.5  AU      asini    ? Inclination of visual orbit, a*sin(i) in a.u.
+  39- 45  F7.5  AU    e_asini    ? Uncertainty of a*sini in a.u.
+  47- 54  F8.5  AU      a        Semi-major axis, in a.u.
+  56- 62  F7.5  AU    e_a        ? Uncertainty of semi-major axes, in a.u.
+--------------------------------------------------------------------------------
+
+Byte-by-byte Description of file: table3.dat
+--------------------------------------------------------------------------------
+   Bytes Format Units   Label    Explanations
+--------------------------------------------------------------------------------
+   1-  6  A6    ---     HD       HD catalog number
+   8- 15  F8.4  mas     plxorb   Orbital parallax in milliarcsecond
+  17- 23  F7.4  mas   e_plxorb   ? Error on orbital parallax in milliarcsecond
+      25  A1    ---   n_plxorb   [gh] Note on plxorb (1)
+  27- 34  F8.4  mas     plxHIP   Hipparcos parallax in milliarcsecond
+  36- 41  F6.4  mas   e_plxHIP   Error on Hipparcos parallax in milliarcsecond
+      43  A1    ---   n_plxHIP   [gh] Note on plxHIP (1)
+  45- 52  F8.4  mas     plxGaia  ? Gaia parallax in milliarcsecond
+  54- 59  F6.4  mas   e_plxGaia  ? Error on Gaia parallax in milliarcsecond
+      61  A1    ---   n_plxGaia  [gh] Note on plxGaia (1)
+  63- 70  F8.4  mas     plxDyn   ? Dynamical parallax in milliarcsecond
+  72- 77  F6.4  mas   e_plxDyn   ? Error on Dynamical parallax in milliarcsecond
+      79  A1    ---   n_plxDyn   [gh] Note on plxDyn (1)
+--------------------------------------------------------------------------------
+Note (1): Note as follows:
+     g = orbital parallax differs from the Gaia parallax by 3 sigma
+     h = orbital parallax differs from the Hipparcos parallax by 3 sigma
+--------------------------------------------------------------------------------
+
+Byte-by-byte Description of file: table5.dat
+--------------------------------------------------------------------------------
+   Bytes Format Units  Label  Explanations
+--------------------------------------------------------------------------------
+   1-  6  I6    ---    HD     HD catalog number
+   8- 13  F6.3  Msun   M1Orb  Mass of the primary M1, using orbital parallax
+  15- 19  F5.3  Msun e_M1Orb  Error on M1, using the orbital parallax
+  21- 25  F5.3  Msun   M1HIP  Mass of the primary M1, using Hipparcos parallax
+  27- 31  F5.3  Msun e_M1HIP  Error on M1, using the Hipparcos parallax
+  33- 37  F5.3  Msun   M1Gaia ? Mass of the primary M1, using Gaia parallax
+  39- 43  F5.3  Msun e_M1Gaia ? Error on M1, using Gaia parallax
+  45- 49  F5.3  Msun   M1Dyn  ? Mass of the primary M1, using Dynamical parallax
+  51- 55  F5.3  Msun e_M1Dyn  ? Error on M1, using Dynamical parallax
+  57- 62  F6.3  Msun   M2Orb  Mass of the secondary M2, using orbital parallax
+  64- 68  F5.3  Msun e_M2Orb  Error on M2, using the orbital parallax
+  70- 74  F5.3  Msun   M2HIP  Mass of the secondary M2, using Hipparcos parallax
+  76- 80  F5.3  Msun e_M2HIP  Error on M2, using the Hipparcos parallax
+  82- 86  F5.3  Msun   M2Gaia ? Mass of the secondary M2, using Gaia parallax
+  88- 92  F5.3  Msun e_M2Gaia ? Error on M2, using Gaia parallax
+  94- 98  F5.3  Msun   M2Dyn  ? Mass of the secondary, M2 using
+                               Dynamical parallax
+ 100-104  F5.3  Msun e_M2Dyn  ? Error on M2, using Dynamical parallax
+--------------------------------------------------------------------------------
+
+Byte-by-byte Description of file: table6.dat
+--------------------------------------------------------------------------------
+   Bytes Format Units   Label    Explanations
+--------------------------------------------------------------------------------
+   1-  6  A6    ---     HD       HD catalog number
+   8- 12  F5.3  mag     Vmag     Composite apparent magnitude in the V band
+  14- 18  F5.3  mag     Vmag1    Apparent magnitude of the primary in V band
+  20- 25  F6.3  mag     Vmag2    Apparent magnitude of the secondary in V band
+  27- 32  F6.3  mag     DeltaV   Magnitude difference between the two components
+  34- 39  F6.3  mag     VMAG     Composite absolute magnitude in V band
+                                  without interstellar extinction
+  41- 46  F6.3  mag     VMAG1    Absolute magnitude of the primary in V band
+                                  without interstellar extinction
+  48- 53  F6.3  mag     VMAG2    Absolute magnitude of the secondary in V band
+                                  without interstellar extinction
+  55- 65  F11.7 deg     GLAT     Galactic latitude in degrees
+  67- 77  F11.9 mag     AV       Interstellar extinction in magnitudes
+  79- 89  F11.9 mag     E(B-V)   Interstellar reddening
+  91- 96  F6.3  mag     VMAGc    Composite absolute magnitude in V band
+                                  with interstellar extinction
+  98-103  F6.3  mag     VMAGc1   Primary absolute magnitude in V band
+                                  with interstellar extinction
+ 105-110  F6.3  mag     VMAGc2   Secondary absolute magnitude in V band
+                                  with interstellar extinction
+--------------------------------------------------------------------------------
+
+Byte-by-byte Description of file: table7.dat
+--------------------------------------------------------------------------------
+   Bytes Format Units   Label     Explanations
+--------------------------------------------------------------------------------
+   1-  6  A6    ---     HD        HD catalog number
+   8-  9  A2    ---     SpType1   Spectral Type of the primary
+  11- 13  A3    ---     Lum1      Class of the luminosity of the primary
+  15- 16  A2    ---     SpType2   Spectral Type of the secondary
+  18- 20  A3    ---     Lum2      Class of the luminosity of the secondary
+  22- 29  F8.2  K       Teff1     Effective Temperature of the primary
+  31- 38  F8.2  K       Teff2     Effective Temperature of the secondary
+  40- 44  F5.2  ---     B-V1      Colour index (B-V) of the primary
+  46- 50  F5.2  ---     B-V2      Colour index (B-V) of the secondary
+  52- 56  F5.2  ---     V-R1      ?=- Colour index (V-R) of the primary
+  58- 62  F5.2  ---     V-R2      ?=- Colour index (V-R) of the secondary
+  64- 68  F5.2  ---     BC1       Bolometric Correction of the primary
+  70- 74  F5.2  ---     BC2       Bolometric Correction of the secondary
+--------------------------------------------------------------------------------
+
+Byte-by-byte Description of file: table1?.dat table1?.txt
+--------------------------------------------------------------------------------
+   Bytes Format Units    Label   Explanations
+--------------------------------------------------------------------------------
+   1-  6  A6    ---      HD      HD catalog number
+       8  A1    ---    l_M       Limit flag on Mass
+   9- 13  F5.2  Msun     M       Mass
+  15- 18  F4.2  Msun   e_M       ? Error on mass
+  20- 24  F5.2  [Lsun]   logL    ? The logarithm of luminosity
+  26- 29  F4.2  [Lsun] e_logL    ? Error on the logarithm of luminosity
+  31- 34  F4.2  [K]      logTeff ? The logarithm of effective temperature
+  36- 39  F4.2  [K]    e_logTeff ? Error on the logarithm of effective
+                                  temperature
+  41- 45  F5.2  [yr]     logage  ? The logarithm of age
+  47- 50  F4.2  [yr]   e_logage  ? Error on the logarithm of effective
+                                  temperature
+--------------------------------------------------------------------------------
+
+Acknowledgements:
+     Luca Piccotti, l.piccotti(at)usc.es
+
+================================================================================
+(End)                                        Patricia Vannier [CDS]  21-Dec-2019

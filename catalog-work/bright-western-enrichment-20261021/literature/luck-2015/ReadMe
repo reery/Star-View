@@ -1,0 +1,321 @@
+J/AJ/150/88    Abundances in the local region. I. G and K giants    (Luck, 2015)
+================================================================================
+Abundances in the local region. I. G and K giants.
+    Luck R.E.
+   <Astron. J., 150, 88 (2015)>
+   =2015AJ....150...88L    (SIMBAD/NED BibCode)
+================================================================================
+ADC_Keywords: Stars, nearby ; Stars, giant ; Stars, G-type ; Stars, K-type ;
+              Abundances ; Reddening ; Effective temperatures ; Stars, masses ;
+              Stars, ages ; Cross identifications
+Keywords: Galaxy: abundances - stars: abundances - stars: evolution -
+          stars: fundamental parameters
+
+Abstract:
+    Parameters and abundances for 1133 stars of spectral types F, G, and K
+    of luminosity class III have been derived. In terms of stellar
+    parameters, the primary point of interest is the disagreement between
+    gravities derived with masses determined from isochrones, and
+    gravities determined from an ionization balance. This is not a new
+    result per se, but the size of this sample emphasizes the severity of
+    the problem. A variety of arguments led to the selection of the
+    ionization-balance gravity as the working value. The derived
+    abundances indicate that the giants in the solar region have Sun-like
+    total abundances and abundance ratios. Stellar evolution indicators
+    have also been investigated with the Li abundances and the [C/Fe] and
+    C/O ratios, indicating that standard processing has been operating in
+    these stars. The more salient result for stellar evolution is that the
+    [C/Fe] data across the red-giant clump indicates the presence of
+    mass-dependent mixing in accord with standard stellar evolution
+    predictions.
+
+Description:
+    At the start of this program, the observation list for giants was set
+    to sample the G/K giants of the local region out to about 100pc from
+    the Sun in all directions. The region was subdivided into cubes that
+    were 25pc on a side; from each sub-volume, appropriate stars were
+    selected north of declination -30{deg}. This sample yielded the 286
+    G/K giants found in Luck et al. 2007 (cat. J/AJ/133/2464). This data
+    set was also augmented by the addition of numerous G/K giants,
+    increasing the number in the 100pc volume to 594 stars. Because the
+    volume selection criteria used in Luck et al. 2007 (cat.
+    J/AJ/133/2464) formally extended out to 115pc, a more precise
+    comparison is that the current sample has 740 stars out to the older
+    limit. Additional stars from the Bright Star Catalog (Hoffleit &
+    Jaschek, 1991bsc..book.....H) were added, driving the sample out to
+    about 200pc. The spectral database was supplemented using the ELODIE
+    and ESO Archives. The ESO addition adds the southern sky. The bulk of
+    the northern stars were observed using the McDonald Observatory Struve
+    Telescope and Sandiford Cassegrain Echelle Spectrograph. For the
+    ELODIE and ESO data archives, a list of all stars available was
+    obtained and spectral type for each from SIMBAD was retrieved. Stars
+    having a spectral type of F, G, or K III were then processed. The ESO
+    data derives from the HARPS and UVES spectrographs. Basic
+    observational data for the program stars can be found in Table1, along
+    with some derived quantities, such as distance.
+
+    The primary source of observational data for this study is a set of
+    high signal-to-noise ratio (S/N) spectra obtained during numerous
+    observing runs between 1997 and 2010 at McDonald Observatory using the
+    2.1m Struve Telescope and the Sandiford Cassegrain Echelle
+    Spectrograph. The spectra continuously cover a wavelength range from
+    about 484 to 700nm, with a resolving power of about 60000. Typical S/N
+    values for the spectra are in excess of 150. To enable cancellation of
+    telluric lines, broad-lined B stars were regularly observed with S/N
+    exceeding that of the program stars. The 726 stars observed with the
+    Sandiford spectrograph are marked with an "S" in column "Sce" of
+    Table1.
+
+    A further 120 spectra were obtained from the ELODIE Archive. These
+    echelle spectra are fully processed through order co-addition with a
+    continuous wavelength span from about 400 to 680 nm and a resolution
+    of 42000. Only spectra with S/N>50 were utilized in this analysis. An
+    "E" in Table1, column "Sce", marks these stars.
+
+    The ESO Archive was used to obtain spectra from the ESO 3.6m telescope
+    and HARPS spectrograph. The HARPS spectra cover a continuous
+    wavelength range from about 400 to 680nm with a native resolving power
+    of 120000. To match the resolution of the Sandiford data and to
+    increase the S/N of the data, these spectra were co-added to a
+    resolution of 60000. Typical maximum S/N values (per pixel) for the
+    spectra are in excess of 150. In Table1, column "Sce", these stars are
+    marked with an "H."
+
+    Spectra from the UVES spectrograph and VLT/UT2 were also utilized.
+    These spectra are rather heterogeneous, having resolutions of
+    40000-80000 and non-continuous spectral coverages in the range
+    400-700nm. A number of the spectra from UVES stop at about 625nm,
+    meaning that [O I] 630nm and Li I 670nm were not observed. In Table 1,
+    "U" denotes the stars observed with UVES spectrograph.
+
+File Summary:
+--------------------------------------------------------------------------------
+ FileName    Lrecl    Records    Explanations
+--------------------------------------------------------------------------------
+ReadMe          80          .    This file
+table1.dat     171       1133    Program stars
+table2.dat      91       1146    Reddening, temperature, mass, and age for the
+                                 program stars
+table3.dat     168       1152    Stellar parameters, Fe, C, O, Li abundance data
+table4.dat     186       2296    Average element abundances [x/H]
+table5.dat      97         26    Gradients with respect to [Fe/H] for ionization
+                                 balance abundances
+--------------------------------------------------------------------------------
+
+See also:
+ B/pastel : The PASTEL catalogue (Soubiran+, 2010-)
+    I/274 : Catalog of Components of Double & Multiple stars (Dommanget+ 2002)
+    I/259 : The Tycho-2 Catalogue (Hog+ 2000)
+    I/239 : The Hipparcos and Tycho Catalogues (ESA 1997)
+ J/AJ/148/54     : The Hypatia Catalog ((Hinkel+, 2014)
+ J/PASJ/63/1035  : Stellar parameters and abundances of 99 giants (Wang+, 2011)
+ J/AJ/142/136    : Spectroscopy of Cepheids. l=30-250{deg} (Luck+, 2011)
+ J/A+A/526/A71   : C abundances in G and K nearby stars (da Silva+, 2011)
+ J/A+A/503/541   : Neutral Li in late-type stars NLTE calculations (Lind+, 2009)
+ J/A+A/475/1003  : Stellar parameters of G and K giant stars (Hekker+, 2007)
+ J/AJ/133/2464   : Parameters and abundances of nearby giants (Luck+, 2007)
+ J/AJ/129/1063   : Abundances of stars within 15pc of the Sun (Luck+, 2005)
+ J/MNRAS/349/757 : Masses, ages and metallicities of F-G dwarfs (Lambert+, 2004)
+ http://bifrost.astr.cwru.edu/FGKasp/index2.php : The FGK Stars Spectral Library
+
+Byte-by-byte Description of file: table1.dat
+--------------------------------------------------------------------------------
+   Bytes Format Units   Label   Explanations
+--------------------------------------------------------------------------------
+   1- 23  A23   ---     Name    Identifier from SIMBAD database
+  25- 31  A7    ---     HD      HD number
+  33- 38  I6    ---     HIP     [343/118209]? HIP number (cat. I/239)
+  40- 43  I4    ---     HR      [2/9104]? HR number
+  45- 55  A11   ---     CCDM    Identifier in the Catalog of Components of
+                                 Double & Multiple stars identifier (cat. I/274)
+  56- 58  A3    ---   m_CCDM    CCDM component (A, AB, ABC, AC, AP, B, or D)
+  60- 78  A19   ---     OName   Other name (cluster designation from SIMBAD)
+  80- 82  A3    ---     Sce     Source of spectroscopic material (S=Sandiford,
+                                 E=ELODIE, H=HARPS, U=UVES) (G1)
+  84-106  A23   ---     Key     Key name(s) (1)
+ 108-121  A14   ---     SpT     Simbad spectral type
+ 123-136  A14   ---     Type    Simbad object type
+ 138-143  F6.3  mag     Vmag    [-0.05/12.2]? Simbad V-band magnitude
+ 145-149  F5.3  mag     B-V     [0/2.1]? Simbad (B-V) color index
+ 151-156  F6.2  arcsec  plx     [-0.4/111]? Simbad parallax
+ 158-163  F6.1  pc      Dist    [9/3125]? Simbad distance
+ 165-171  F7.2  km/s    RV      [-184.4/183.4]? Simbad radial velocity
+--------------------------------------------------------------------------------
+Note (1): Identifier used in subsequent tables to identify stars. The tag in
+     some cases provides an alternate identification for the object. If a star
+     has multiple sources, there will be a matching keyname for each.
+--------------------------------------------------------------------------------
+
+Byte-by-byte Description of file: table2.dat
+--------------------------------------------------------------------------------
+   Bytes Format Units   Label   Explanations
+--------------------------------------------------------------------------------
+   1- 23  A23   ---     Name    Simbad identifier
+      25  A1    ---     Sce     [ESHU] Spectroscopic material source
+                                 (S=Sandiford, E=ELODIE, H=HARPS, U=UVES) (G1)
+  27- 31  F5.3  mag     E(B-V)  [0/0.5]? The (B-V) color excess (1)
+  33- 36  I4    K       Teff    [3764/7728]? Adopted effective temperature (2)
+  38- 41  I4    K     e_Teff    [0/1011]? The standard deviation in Teff
+  43- 44  I2    ---   o_Teff    [0/16] Number of colors used to determine Teff
+  46- 50  F5.2 [Lsun]   logL    [-0.5/4.1]? Log luminosity (Log(L/L_{Sun}_) (3)
+  52- 55  F4.2  Msun    BMass   [0.8/4.2]? Mass derived from Bertelli et al.
+                                 1994 (cat. J/A+AS/106/275) isochrone
+  57- 60  F4.2  Msun    DMass   [0.6/3.3]? Mass derived from Dotter et al.
+                                 (2008ApJS..178...89D) isochrone
+  62- 65  F4.2  Msun    YMass   [0.7/3.9]? Mass derived from Demarque et al.
+                                 (2004ApJS..155..667D) isochrone
+  67- 70  F4.2  Msun   <Mass>   [0.7/3.6]? Mean mass from all determinations
+  72- 76  F5.2  Gyr     BAge    [0.1/11.7]? Age derived from Bertelli et al.
+                                 1994 (cat. J/A+AS/106/275) isochrone
+  78- 81  F4.2  Gyr     DAge    [0.3/9.4]? Age derived from Dotter et al.
+                                 (2008ApJS..178...89D) isochrone
+  83- 86  F4.2  Gyr     YAge    [0.2/9]? Age derived from Demarque et al.
+                                 (2004ApJS..155..667D) isochrone
+  88- 91  F4.2  Gyr    <Age>    [0.2/9.4]? Mean age from all determinations
+--------------------------------------------------------------------------------
+Note (1): Computed using the reddening maps of Hakkila et al.
+     (1997AJ....114.2043H), the parallax distance, and a correction for the lack
+     of reddening within 75pc.
+Note (2): Derived using the calibration of Ramirez & Melendez
+     (2005ApJ...626..465R).
+Note (3): Derived from the distance, apparent V magnitude, and the bolometric
+     corrections of Bessell, Castelli, & Plez (1998A&A...333..231B).
+--------------------------------------------------------------------------------
+
+Byte-by-byte Description of file: table3.dat
+--------------------------------------------------------------------------------
+   Bytes Format Units   Label   Explanations
+--------------------------------------------------------------------------------
+   1- 15  A15   ---     Key     Key name (see Table1 for cross identification)
+      17  A1    ---     Sce     [ESHU] Source of spectra (S=Sandiford, E=ELODIE,
+                                 H=HARPS, U=UVES) (G1)
+  19- 22  I4    K       Teff1   [3764/7728]? Group 1 effective temperature (1)
+  24- 27  F4.2  [cm/s2] logg1   [0.06/4.9]? Log group 1 surface gravity
+  29- 32  F4.2  km/s    Vt1     [0/6.5]? Group 1 microturbulent velocity
+  34- 38  F5.2  [Sun]   FeI1    [-2.3/1.2]? Group 1 [Fe/H] from Fe I lines (2)
+  40- 43  F4.2  [Sun] e_FeI1    [0.05/0.7]? Standard deviation in FeI1
+  45- 47  I3    ---   o_FeI1    [7/676]? Number of Fe I lines used in FeI1
+  49- 53  F5.2  [Sun]   FeII1   [-2.2/1.7]? Group 1 [Fe/H] from Fe II lines (2)
+  55- 58  F4.2  [Sun] e_FeII1   [0/1.3]? Standard deviation in FeII1
+  60- 61  I2    ---   o_FeII1   [1/95]? Number of Fe II lines used in FeII1
+  63- 66  F4.2  [-]     C1      [6.4/10]? Group 1 carbon abundance (3)
+  68- 72  F5.2  [-]     O1      [7.8/10.3]? Group 1 oxygen abundance (3)
+  74- 78  F5.2  [-]     Li1     [-1.6/3.6]? Groupt 1 lithium abundance (3)
+  80- 84  F5.2  pm      EW1     [0.04/50.8]? Group 1 Li I 6707{AA} equivalent
+                                 width (4)
+  86- 90  F5.2  ---     Li1c    [-0.15/3.3]? Group 1 non-LTE lithium abundance
+                                 correction (5)
+  92- 95  I4    K       Teff2   [3764/7728]? Group 2 effective temperature (6)
+  97-101  F5.2  [cm/s2] logg2   [-1/5]? Log group 2 surface gravity
+ 103-106  F4.2  km/s    Vt2     [0.2/7.75]? Group 2 microturbulent velocity
+ 108-112  F5.2  [Sun]   FeI2    [-2.3/1.2]? Group 2 [Fe/H] from Fe I lines (2)
+ 114-117  F4.2  [Sun] e_FeI2    [0.04/0.7]? Standard deviation in FeI1
+ 119-121  I3    ---   o_FeI2    [7/676]? Number of Fe I lines used in FeI1
+ 123-127  F5.2  [Sun]   FeII2   [-2.3/1.2]? Group 2 [Fe/H] from Fe II lines (2)
+ 129-132  F4.2  [Sun] e_FeII2   [0.02/1.4]? Standard deviation in FeII1
+ 134-135  I2    ---   o_FeII2   [1/95]? Number of Fe II lines used in FeII1
+ 137-140  F4.2  [-]     C2      [6.6/8.8]? Group 2 carbon abundance (3)
+ 142-146  F5.2  [-]     O2      [7.4/10.1]? Group 2 oxygen abundance (3)
+ 148-152  F5.2  [-]     Li2     [-1.7/3.6]? Group 2 lithium abundance (3)
+ 154-158  F5.2  ---     Li2c    [-0.9/1.6]? Group 2 non-LTE lithium abundance
+                                 correction (5)
+ 160-164  F5.1  km/s    Vbroad  [1.7/150] Broadening velocity
+     166  A1    ---     Broad   [GR] Type of broadening (G=Gaussian
+                                 macroturbulence, R=Rotational)
+     168  I1    ---     Clump   [1/2] Clump star flag (1=True, 2=False)
+--------------------------------------------------------------------------------
+Note (1): All group 1 for the mass determined gravity.
+Note (2): With respect to the solar value =7.47.
+Note (3): With respect to log({epsilon}_H_)=12.
+Note (4): EW1<1.00pm corresponds to an upper limit.
+Note (5): From the data of Lind et al. 2009 (cat. J/A+A/503/541).
+Note (6): All group 2 is the ionization balance determined gravity.
+--------------------------------------------------------------------------------
+
+Byte-by-byte Description of file: table4.dat
+--------------------------------------------------------------------------------
+   Bytes Format Units   Label   Explanations
+--------------------------------------------------------------------------------
+   1-  2  A2    ---     Type    Data type (M=Mass determined gravity data,
+                                 IB=Ionization balance determined gravity data)
+   4- 18  A15   ---     Key     Key name (see Table1 for cross identification)
+      20  A1    ---     Sce     Source of spectra (S=Sandiford, E=ELODIE,
+                                 H=HARPS, U=UVES) (G1)
+  22- 25  I4    K       Teff    Effective temperature
+  27- 31  F5.2  [cm/s2] logg    Log surface gravity
+  33- 36  F4.2  km/s    Vt      Microturbulent velocity
+  38- 42  F5.2  [Sun]   Na      ? Log sodium abundance
+  44- 48  F5.2  [Sun]   Mg      ? Log magnesium abundance
+  50- 54  F5.2  [Sun]   Al      ? Log aluminum abundance
+  56- 60  F5.2  [Sun]   Si      Log silicon abundance
+  62- 66  F5.2  [Sun]   S       ? Log sulfur abundance
+  68- 72  F5.2  [Sun]   Ca      ? Log calcium abundance
+  74- 78  F5.2  [Sun]   Sc      ? Log scandium abundance
+  80- 84  F5.2  [Sun]   Ti      Log titanium abundance
+  86- 90  F5.2  [Sun]   V       ? Log vanadium abundance
+  92- 96  F5.2  [Sun]   Cr      ? Log chromium abundance
+  98-102  F5.2  [Sun]   Mn      ? Log manganese abundance
+ 104-108  F5.2  [Sun]   Fe      Log iron abundance
+ 110-114  F5.2  [Sun]   Co      ? Log cobalt abundance
+ 116-120  F5.2  [Sun]   Ni      Log nickel abundance
+ 122-126  F5.2  [Sun]   Cu      ? Log copper abundance
+ 128-132  F5.2  [Sun]   Zn      ? Log zinc abundance
+ 134-138  F5.2  [Sun]   Sr      ? Log strontium abundance
+ 140-144  F5.2  [Sun]   Y       ? Log yttrium abundance
+ 146-150  F5.2  [Sun]   Zr      ? Log zirconium abundance
+ 152-156  F5.2  [Sun]   Ba      ? Log barium abundance
+ 158-162  F5.2  [Sun]   La      ? Log lanthanum abundance
+ 164-168  F5.2  [Sun]   Ce      ? Log cerium abundance
+ 170-174  F5.2  [Sun]   Nd      ? Log neodymium abundance
+ 176-180  F5.2  [Sun]   Sm      ? Log samarium abundance
+ 182-186  F5.2  [Sun]   Eu      ? Log europium abundance
+--------------------------------------------------------------------------------
+
+Byte-by-byte Description of file: table5.dat
+--------------------------------------------------------------------------------
+   Bytes Format Units   Label     Explanations
+--------------------------------------------------------------------------------
+   1-  3  A3    ---     El        Element identifier
+   5-  9  F5.3  ---     Slope1    Gradient group 1 slope (1)
+  11- 16  F6.3  ---     Int1      Gradient group 1 intercept (1)
+  18- 22  F5.3  ---   e_Slope1    Standard error of Slope1
+  24- 28  F5.3  ---   e_Int1      Standard error of Int1
+  30- 34  F5.3  ---     Sigma1    Standard deviation of gradient group 1 fit
+                                   ({Sigma})
+  36- 41  F6.3  ---     Mean1     Mean of gradient group 1 ratios
+  43- 47  F5.3  ---     sigma1    Standard deviation of gradient group 1 mean
+  49- 54  F6.3  ---     Slope2    ? Gradient group 2 slope (2)
+  56- 61  F6.3  ---     Int2      ? Gradient group 2 intercept (2)
+  63- 67  F5.3  ---   e_Slope2    ? Standard error of Slope2
+  69- 73  F5.3  ---   e_Int2      ? Standard error of Int2
+  75- 79  F5.3  ---     Sigma2    ? Standard deviation of gradient group 2 fit
+                                   ({Sigma})
+  81- 86  F6.3  ---     Mean2     ? Mean of gradient group 2 ratios (3)
+  88- 92  F5.3  ---     sigma2    ? Standard deviation of gradient group 2 mean
+  94- 97  I4    ---     Nstar     Number of stars
+--------------------------------------------------------------------------------
+Note (1): Gradient of the form: [Element/H] = Slope1*[Fe/H]+Int1.
+     The slopes all tend to be near 1 and the intercept (Int1) is about mean
+     value (Mean1) in the local region.
+Note (2): Gradient of the form: [Element/Fe] = Slope2*[Fe/H]+Int2. The slope
+     should be about 0, with the intercept having the local region [Element/Fe]
+     value.
+Note (3): The mean of the [Element/Fe] values and is close to Int2 in value.
+--------------------------------------------------------------------------------
+
+Global notes:
+Note (G1): The codes for the spectroscopic material are defined as below:
+   S = McDonald Observatory Struve Reflector and Sandiford echelle spectrograph;
+   E = Observatoire d'Haute Provence ELODIE spectrograph;
+   H = European Southern Observatory HARPS spectrograph;
+   U = European Southern Observatory UVES spectrograph.
+
+History:
+    From electronic version of the journal
+
+References:
+    Luck et al.,     Paper II      2017AJ....153...21L,   Cat. J/AJ/153/21
+    Luck et al.,     Paper III     2018AJ....155..111L
+
+================================================================================
+(End)                 Prepared by [AAS]; Sylvain Guehenneux [CDS]    16-Oct-2015

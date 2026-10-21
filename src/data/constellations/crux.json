@@ -22,11 +22,11 @@
         "vy_kms": -31.358493,
         "vz_kms": -9.588212,
         "temperature_k": 14078.0,
-        "mass_solar": null,
+        "mass_solar": 8.9,
         "luminosity_solar": 3112.7252822689647,
         "radius_solar": 9.378667,
         "metallicity_dex": null,
-        "age_gyr": null,
+        "age_gyr": 0.0181,
         "absolute_mag": -3.019938,
         "epoch": 2000.0,
         "type": "star",
@@ -35,7 +35,7 @@
         "constellation": "Crux",
         "spectral_type": "B2IV",
         "metallicity_kind": null,
-        "notes": "Western constellation line-figure star (HIP 59747; Stellarium Cru). SIMBAD identity * del Cru; SIMBAD compiled Johnson V=2.752; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, luminosity_solar; Stefan-Boltzmann scaling for radius_solar.",
+        "notes": "Western constellation line-figure star (HIP 59747; Stellarium Cru). SIMBAD identity * del Cru; SIMBAD compiled Johnson V=2.752; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, luminosity_solar; Stefan-Boltzmann scaling for radius_solar. Reviewed physical values describe Imai. Exact * del Cru / HD 106490, HIP 59747. Source values describe this primary/individual; no companion, subsystem sum, or system-metallicity inference. Reviewed 151-target enrichment (2026-10-21). 2011MNRAS.410..190T. Existing non-null values retain their independent sources. Published photometry/spectral-type evolutionary-model age; errors are cross-model deviations, not all systematics. The sample is age-selected and solar metallicity is assumed, not measured. Published object-specific median of evolutionary models; not a dynamical mass. Model-to-model deviation does not include all source photometry, rotation or metallicity systematics. Shared exact-identity physical supplements (age_gyr: 2011MNRAS.410..190T; mass_solar: 2011MNRAS.410..190T).",
         "designations": [
           "HIP 59747"
         ],
@@ -120,7 +120,7 @@
         "vy_kms": -17.762685,
         "vz_kms": -31.494105,
         "temperature_k": 3689.0,
-        "mass_solar": null,
+        "mass_solar": 1.5,
         "luminosity_solar": 861.411,
         "radius_solar": 71.952,
         "metallicity_dex": null,
@@ -459,7 +459,7 @@
       "label": "Adopted star positions and names",
       "url": "https://simbad.cds.unistra.fr/simbad/",
       "path": "src/data/catalogs/western-constellation-stars/stars.csv",
-      "sha256": "28689abf630ec0b3322df1dbbe21e8fb1090dc3a1a03b670b2e6572292aeea6c"
+      "sha256": "e8cdc61e33e9ea33a76ff78cd1fd1115821cfe94641aeac65f29ded0263b9e54"
     },
     {
       "label": "Hipparcos Johnson V magnitudes",

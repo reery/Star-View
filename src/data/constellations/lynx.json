@@ -170,8 +170,8 @@
         "vz_kms": -0.559621,
         "temperature_k": 3910.0,
         "mass_solar": null,
-        "luminosity_solar": null,
-        "radius_solar": null,
+        "luminosity_solar": 782.4,
+        "radius_solar": 53.27,
         "metallicity_dex": -0.421,
         "age_gyr": null,
         "absolute_mag": -1.009312,
@@ -182,7 +182,7 @@
         "constellation": "Lynx",
         "spectral_type": "K4+III",
         "metallicity_kind": "[Fe/H]",
-        "notes": "Western constellation line-figure star (HIP 41075; Stellarium Lyn). SIMBAD identity *  31 Lyn; SIMBAD compiled Johnson V=4.25; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Shared exact-identity physical supplements (temperature_k: 2024MNRAS.531.4823P; metallicity_dex: 2022AJ....163..152S).",
+        "notes": "Western constellation line-figure star (HIP 41075; Stellarium Lyn). SIMBAD identity *  31 Lyn; SIMBAD compiled Johnson V=4.25; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Reviewed physical values describe Alsciaukat. Exact *  31 Lyn / HD 70272, HIP 41075. Source values describe this primary/individual; no companion, subsystem sum, or system-metallicity inference. Reviewed 151-target enrichment (2026-10-21). 2018AJ....155...30B. Existing non-null values retain their independent sources. Shared exact-identity physical supplements (radius_solar: 2018AJ....155...30B; luminosity_solar: 2018AJ....155...30B; temperature_k: 2024MNRAS.531.4823P; metallicity_dex: 2022AJ....163..152S).",
         "designations": [
           "HIP 41075"
         ],
@@ -366,8 +366,8 @@
         "vz_kms": -22.429447,
         "temperature_k": 3881.0,
         "mass_solar": null,
-        "luminosity_solar": null,
-        "radius_solar": null,
+        "luminosity_solar": 500.7260488,
+        "radius_solar": 55.26,
         "metallicity_dex": -0.26,
         "age_gyr": null,
         "absolute_mag": -1.023945,
@@ -378,7 +378,7 @@
         "constellation": "Lynx",
         "spectral_type": "K6III",
         "metallicity_kind": "[Fe/H]",
-        "notes": "Western constellation line-figure star (HIP 45860; Stellarium Lyn). SIMBAD identity * alf Lyn; SIMBAD compiled Johnson V=3.14; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Shared exact-identity physical supplements (temperature_k: 2024A&A...682A.145S; metallicity_dex: 2024A&A...682A.145S).",
+        "notes": "Western constellation line-figure star (HIP 45860; Stellarium Lyn). SIMBAD identity * alf Lyn; SIMBAD compiled Johnson V=3.14; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Reviewed physical values describe Alpha Lyn. Exact * alf Lyn / HD 80493, HIP 45860. Source values describe this primary/individual; no companion, subsystem sum, or system-metallicity inference. Reviewed 151-target enrichment (2026-10-21). 2025AJ....169..293B. Existing non-null values retain their independent sources. Shared exact-identity physical supplements (radius_solar: 2025AJ....169..293B; luminosity_solar: 2025AJ....169..293B; temperature_k: 2024A&A...682A.145S; metallicity_dex: 2024A&A...682A.145S).",
         "designations": [
           "HIP 45860"
         ],
@@ -1345,7 +1345,7 @@
       "label": "Adopted star positions and names",
       "url": "https://simbad.cds.unistra.fr/simbad/",
       "path": "src/data/catalogs/western-constellation-stars/stars.csv",
-      "sha256": "28689abf630ec0b3322df1dbbe21e8fb1090dc3a1a03b670b2e6572292aeea6c"
+      "sha256": "e8cdc61e33e9ea33a76ff78cd1fd1115821cfe94641aeac65f29ded0263b9e54"
     },
     {
       "label": "Hipparcos Johnson V magnitudes",

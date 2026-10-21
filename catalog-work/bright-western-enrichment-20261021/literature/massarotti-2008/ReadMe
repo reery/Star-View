@@ -1,0 +1,416 @@
+J/AJ/135/209 Rotational and radial velocities 761 HIP giants (Massarotti+, 2008)
+================================================================================
+Rotational and radial velocities for a sample of 761 Hipparcos giants and the
+role of binarity.
+    Massarotti A., Latham D.W., Stefanik R.P., Fogel J.
+   <Astron. J., 135, 209-231 (2008)>
+   =2008AJ....135..209M
+================================================================================
+ADC_Keywords: Stars, nearby ; Stars, giant ; Radial velocities ;
+              Rotational velocities
+Keywords: stars: AGB and post-AGB - stars: evolution - stars: rotation -
+          binaries: spectroscopic - planetary systems -
+          techniques: spectroscopic
+
+Abstract:
+    We present rotational and radial velocities for a sample of 761 giants
+    selected from the Hipparcos Catalogue to lie within 100pc of the Sun.
+    Our original goal was to examine stellar rotation in field giants
+    using spectroscopic line broadening to look for evidence of excess
+    rotation that could be attributed to planets that were engulfed as the
+    parent stars expanded.
+
+Description:
+    We measured new rotational and radial velocities for all the stars in
+    our sample using the CfA Digital Speedometers, primarily with the 1.5m
+    Wyeth Reflector at the Oak Ridge Observatory, but also with nearly
+    identical instruments on the 1.5m Tillinghast Reflector and on the
+    MMT, both located at the Whipple Observatory atop Mount Hopkins, AZ.
+
+File Summary:
+--------------------------------------------------------------------------------
+ FileName      Lrecl  Records   Explanations
+--------------------------------------------------------------------------------
+ReadMe            80        .   This file
+table1.dat        57      761   Program stars, their aliases and positions
+table2.dat        54      761   Color indices
+table3.dat        51      761   Physical parameters of program stars
+table4.dat        52       49   Line broadening comparison with measurements of
+                                 Gray and coworkers
+table5.dat        54       29   Line-broadening comparison with measurements of
+                                 Fekel (1997PASP..109..514F)
+table6.dat        88      741   Mean radial velocities and error estimates
+table7.dat        57     6892   Single-lined radial velocities for 748 stars
+table8.dat        74      653   Double-lined radial velocities for 12 stars
+table9.dat        91       25   Triple-lined radial velocities for HIP109281
+table10.dat      163       35   CfA Single-lined orbital solutions
+table11.dat      219       12   CfA double-lined orbital solutions
+table12.dat       85       78   Single-lined orbits using published velocities
+ref12.dat         93       75   References
+table13.dat       74       18   Published double-lined orbits
+table14.dat       41       67   Single-lined primaries with giants:
+                                 physical parameters
+table15.dat       73        8   Double-lined systems with giants:
+                                 physical parameters
+--------------------------------------------------------------------------------
+
+See also:
+       I/239 : The Hipparcos and Tycho Catalogues (ESA 1997)
+      II/246 : 2MASS All-Sky Catalog of Point Sources (Cutri+ 2003)
+
+Byte-by-byte Description of file: table1.dat
+--------------------------------------------------------------------------------
+   Bytes Format Units   Label     Explanations
+--------------------------------------------------------------------------------
+   1-  3  A3    ---     ---       [HIP]
+   4-  9  I06   ---     HIP       Hipparcos number
+      10  A1    ---   m_HIP       [ABNS] Multiplicity index on HIP
+  12- 17  I6    ---     HD        ? HD number (Cat. III/135)
+  19- 22  I4    ---     HR        ? HR number (Cat. V/50)
+  24- 33  A10   ---     Name      Star name
+  35- 36  I2    h       RAh       2MASS Hour of Right Ascension (J2000)
+  38- 39  I2    min     RAm       2MASS Minute of Right Ascension (J2000)
+  41- 45  F5.2  s       RAs       2MASS Second of Right Ascension (J2000)
+      47  A1    ---     DE-       Sign of the Declination (J2000)
+  48- 49  I2    deg     DEd       2MASS Degree of Declination (J2000)
+  51- 52  I2    arcmin  DEm       2MASS Arcminute of Declination (J2000)
+  54- 57  F4.1  arcsec  DEs       2MASS Arcsecond of Declination (J2000)
+--------------------------------------------------------------------------------
+
+Byte-by-byte Description of file: table2.dat
+--------------------------------------------------------------------------------
+   Bytes Format Units   Label     Explanations
+--------------------------------------------------------------------------------
+   1-  3  A3    ---     ---       [HIP]
+   4-  9  I06   ---     HIP       Hipparcos number
+      10  A1    ---   m_HIP       [ABNS] Multiplicity index on HIP
+  12- 17  F6.3  mag     B-V       ? The (B-V) color index (1)
+  19- 24  F6.3  mag     BT-VT     ? Hipparcos (B_T_-V_T_) color index (1)
+  26- 30  F5.3  mag     V-J       ? (V-J) color index (1)
+  32- 36  F5.3  mag     V-H       ? (V-H) color index (1)
+  38- 42  F5.3  mag     V-K       ? (V-K) color index (1)
+  44- 48  F5.3  mag     C(45-48)  ? DDO narrow band C(45-48) index (1)
+  50- 54  F5.3  mag     C(42-45)  ? DDO narrow band C(42-45) index (1)
+--------------------------------------------------------------------------------
+Note (1): The JHK colors are from the 2MASS catalog, B, B_T_, V, V_T_
+          are from the Hipparcos catalog, the DDO colors are from
+          Mermilliod & Nitschelm (1989, Cat. II/164).
+--------------------------------------------------------------------------------
+
+Byte-by-byte Description of file: table3.dat
+--------------------------------------------------------------------------------
+   Bytes Format Units   Label   Explanations
+--------------------------------------------------------------------------------
+   1-  3  A3    ---     ---     [HIP]
+   4-  9  I06   ---     HIP     Hipparcos number
+      10  A1    ---   m_HIP     [ABNS] Multiplicity index on HIP
+  12- 14  I3    pc      Dist    Distance
+  16- 18  I3    pc    e_Dist    The 1{sigma} error in Dist
+  20- 23  I4    K       Teff    ? Effective temperature (2)
+  25- 27  I3    K     e_Teff    ? Spread in Teff using available color
+                                   indices (2)
+  29- 33  F5.2 [Lsun]   logL    ? Log of the luminosity (2)
+  35- 37  I3   [Rsun]   Rad     ? Radius (2)
+  39- 41  F3.1 [cm/s2]  logg    ? Log of the surface gravity
+      43  I1    ---   r_logg    ? Reference for Log(g) (3)
+  45- 49  F5.2  ---     [Fe/H]  ? Metallicity
+      51  I1    ---   r_[Fe/H]  ? Reference for [Fe/H] (3)
+--------------------------------------------------------------------------------
+Note (2): Entries for Teff, e_Teff, logL, and Rad were left blank for 
+     all double-lined binaries and for single-lined binaries with a 
+     known composite spectrum.
+Note (3): References as follows:
+   1 = Allende Prieto & Lambert (1999, cat. J/A+A/352/555)
+   2 = McWilliam  (1990ApJS...74.1075M)
+   3 = Our values
+   4 = Valdez et al (2004, Cat. J/ApJS/152/251)
+   5 = McWilliam (1990ApJS...74.1075M)
+--------------------------------------------------------------------------------
+
+Byte-by-byte Description of file: table4.dat
+--------------------------------------------------------------------------------
+   Bytes Format Units   Label     Explanations
+--------------------------------------------------------------------------------
+   1-  3  A3    ---     ---       [HIP]
+   4-  9  I06   ---     HIP       Hipparcos number
+      10  A1    ---   m_HIP       [ABNS] Multiplicity index on HIP
+  12- 15  I4    ---     HR        HR number
+  17- 20  F4.2  [Lsun]  logL      Bolometric luminosity of the primary
+  22- 26  F5.3  [K]     logTeff   Effective temperature
+  28- 31  F4.1  km/s    Vbr       CfA broadening velocity (1)
+  33- 35  F3.1  km/s    zetaRT    CfA zeta_{RT}_ velocity (1)
+  37- 40  F4.1  km/s    Vrot      CfA rotational velocity (1)
+  42- 44  F3.1  km/s    VrotG     Gray rotational velocity (1)
+  46- 48  F3.1  km/s    zetaRTG   Gray zeta_{RT}_ velocity (1)
+  50- 52  F3.1  km/s    VbrG      Gray broadening velocity (1)
+--------------------------------------------------------------------------------
+Note (1): To compare the total line broadening determined from the CfA
+     spectra with the results obtained by Gray and coworkers for the 
+     same stars, we reconstructed the total line broadening for Gray's
+     observations by adding their published values of V_rot_ and zeta_RT_
+     in quadratures with the coefficient C_{zeta}_ in Equation (2) set to
+     0.63. The values for zeta_RT_ used to correct the CfA observations
+     for macroturbulence were derived using Equation (1), and thus match
+     the typical value determined by Gray and coworkers at the same stellar
+     parameters. The CfA values for V_rot_ were then calculated using
+     C_{zeta}_=0.63 in Equation (2).
+--------------------------------------------------------------------------------
+
+Byte-by-byte Description of file: table5.dat
+--------------------------------------------------------------------------------
+   Bytes Format Units   Label     Explanations
+--------------------------------------------------------------------------------
+   1-  3  A3    ---     ---       [HIP]
+   4-  9  I06   ---     HIP       Hipparcos number
+      10  A1    ---   m_HIP       [ABNS] Multiplicity index on HIP
+  12- 15  I4    ---     HR        HR number
+  17- 20  F4.2  [Lsun]  logL      Bolometric luminosity of the primary
+  22- 26  F5.3  [K]     logTeff   Effective temperature
+  28- 31  F4.1  km/s    Vbr       CfA broadening velocity (1)
+  33- 35  F3.1  km/s    zetaRT    CfA zeta_{RT}_ velocity (1)
+  37- 40  F4.1  km/s    Vrot      CfA rotational velocity (1)
+  42- 45  F4.1  km/s    VrotG     Fekel rotational velocity (1)
+  47- 49  F3.1  km/s    zetaRTG   Fekel zeta_{RT}_ velocity (1)
+  51- 54  F4.1  km/s    VbrG      Fekel broadening velocity (1)
+--------------------------------------------------------------------------------
+Note (1): The total line broadening for Fekel (1997PASP..109..514F) 
+     was reconstructed using C_{zeta}_ = 0.5 in Equation (2)
+--------------------------------------------------------------------------------
+
+Byte-by-byte Description of file: table6.dat
+--------------------------------------------------------------------------------
+   Bytes Format Units   Label     Explanations
+--------------------------------------------------------------------------------
+   1-  3  A3    ---     ---       [HIP]
+   4-  9  I06   ---     HIP       Hipparcos number
+      10  A1    ---   m_HIP       [ABNS] Multiplicity index on HIP
+  12- 14  I3    ---     NObs      Number of observations
+  16- 19  I4    d       Span      Days observations spanned
+  21- 25  F5.1  km/s    Vbr       Observed spectral line broadening
+  27- 31  F5.1  km/s    Vrot      Derived projected rotational velocity
+  33- 39  F7.2  km/s    RV        Mean radial velocity for single-lined spectra
+  41- 45  F5.2  km/s  e_RV        Error in RV
+  47- 51  F5.2  km/s    ext       External rms residuals in observed velocities
+  53- 56  F4.2  km/s    int       Internal rms residuals in observed velocities
+  58- 63  F6.2  ---     e/i       Ratio of external to internal errors
+  65- 73  F9.2  ---     chi2      The {chi}^2^ value
+  75- 82  F8.6  ---     Prob      The {chi}^2^ probability
+  84- 88  F5.3  ---     ht        Mean of the peak correlation height
+--------------------------------------------------------------------------------
+
+Byte-by-byte Description of file: table7.dat
+--------------------------------------------------------------------------------
+   Bytes Format Units   Label     Explanations
+--------------------------------------------------------------------------------
+   1-  3  A3    ---     ---       [HIP]
+   4-  9  I06   ---     HIP       Hipparcos number
+      10  A1    ---   m_HIP       [ABNS] Multiplicity index on HIP
+      12  A1    ---     Tel       [WTM] Telescope: Wyeth, Tillinghast or MMT
+  14- 29  A16   ---     Temp      Template (see text for code)
+  31- 43  F13.5 d       HJD       Heliocentric Julian date
+  45- 51  F7.2  km/s    HRV       Heliocentric radial velocity
+  53- 57  F5.2  km/s  e_HRV       The 1{sigma} error in HRV
+--------------------------------------------------------------------------------
+
+Byte-by-byte Description of file: table8.dat
+--------------------------------------------------------------------------------
+   Bytes Format Units   Label     Explanations
+--------------------------------------------------------------------------------
+   1-  3  A3    ---     ---       [HIP]
+   4-  9  I06   ---     HIP       Hipparcos number
+      10  A1    ---   m_HIP       [ABNS] Multiplicity index on HIP
+  12- 27  A16   ---     TempA     Primary template
+  29- 44  A16   ---     TempB     Secondary template
+  46- 58  F13.4 d       HJD       Heliocentric Julian date
+  60- 66  F7.2  km/s    HRVA      Primary heliocentric radial velocity
+  68- 74  F7.2  km/s    HRVB      Secondary heliocentric radial velocity
+--------------------------------------------------------------------------------
+
+Byte-by-byte Description of file: table9.dat
+--------------------------------------------------------------------------------
+   Bytes Format Units   Label     Explanations
+--------------------------------------------------------------------------------
+   1-  3  A3    ---     ---       [HIP]
+   4-  9  I06   ---     HIP       Hipparcos number
+      10  A1    ---   m_HIP       [ABNS] Multiplicity index on HIP
+  11- 26  A16   ---     TempA     Template for primary
+  28- 43  A16   ---     TempB     Template for secondary
+  45- 60  A16   ---     TempC     Template for tertiary
+  62- 73  F12.4 d       HJD       Heliocentric Julian date
+  75- 79  F5.2  km/s    HRVA      Primary heliocentric radial velocity
+  81- 85  F5.2  km/s    HRVB      Secondary heliocentric radial velocity
+  87- 91  F5.2  km/s    HRVC      Tertiary heliocentric radial velocity
+--------------------------------------------------------------------------------
+
+Byte-by-byte Description of file: table10.dat
+--------------------------------------------------------------------------------
+   Bytes Format Units   Label     Explanations
+--------------------------------------------------------------------------------
+   1-  3  A3    ---     ---       [HIP]
+   4-  9  I06   ---     HIP       Hipparcos number
+      10  A1    ---   m_HIP       [ABNS] Multiplicity index on HIP
+  12- 21  F10.5 d       Per       Period
+  23- 29  F7.3  km/s    gamma     Center-of-mass velocity
+  32- 37  F6.3  km/s    K         Projected orbital semiamplitude of the primary
+  39- 44  F6.4  ---     ecc       Eccentricity
+  47- 52  F6.2  deg     omega     Angle of periastron {omega}
+  54- 61  F8.2  d       T         HJD-2400000 for periastron passage
+  63- 70  F8.4  ---     asini     Projected semimajor axes of the primary in GM
+  72- 80  F9.7  Msun    f(m)      Mass function
+  81- 83  I3    ---     Nobs      Number of velocities
+  86- 91  F6.1  s       Span      Time spanned by the observations
+  93-101  F9.5  d     e_Per       rms uncertainty on Per
+ 103-107  F5.3  km/s  e_gamma     rms uncertainty on gamma
+ 109-113  F5.3  km/s  e_K         rms uncertainty on K
+ 115-120  F6.4  ---   e_ecc       rms uncertainty on ecc
+ 122-127  F6.2  deg   e_omega     rms uncertainty on omega
+ 129-134  F6.2  d     e_T         rms uncertainty on T
+ 136-142  F7.4  ---   e_asini     rms uncertainty on asini
+ 144-152  F9.7  Msun  e_f(m)      rms uncertainty on f(m)
+ 154-157  F4.2  km/s    sigma     rms velocity residual
+ 159-163  F5.1  ---     Cycles    Number of orbital cycles covered
+--------------------------------------------------------------------------------
+
+Byte-by-byte Description of file: table11.dat
+--------------------------------------------------------------------------------
+   Bytes Format Units   Label   Explanations
+--------------------------------------------------------------------------------
+   1-  3  A3    ---     ---     [HIP]
+   4-  9  I06   ---     HIP     Hipparcos number
+      10  A1    ---   m_HIP     [ABNS] Multiplicity index on HIP
+  12- 21  F10.6 d       Per     Period
+  23- 29  F7.3  km/s    gamma   Center-of-mass velocity
+  30- 35  F6.2  km/s    KA      Projected orbital velocities of the primary
+  37- 42  F6.4  ---     ecc     Eccentricity
+  44- 49  F6.2  deg     omega   ? Angle of the periastron {omega}
+  51- 60  F10.4 d       T       HJD-2400000 for periastron passage
+  61- 68  F8.4  ---     aAsini  Projected semimajor axes of the primary in GM
+  70- 75  F6.4  Msun    MAsin3i Projected mass of the primary M_B_sin^3^i
+  77- 79  I3    ---     NA      Number of velocities for the primary
+  81- 86  F6.1  d       Span    Time spanned by the observation
+  88- 95  F8.6  d     e_Per     rms uncertainty on Per
+  97-101  F5.3  km/s  e_gamma   rms uncertainty on gamma
+ 103-106  F4.2  km/s  e_KA      rms uncertainty on KA
+ 108-113  F6.4  ---   e_ecc     ? rms uncertainty on ecc
+     114  A1    ---   n_ecc     [F] F for fixed
+ 115-120  F6.2  deg   e_omega   ? rms uncertainty on omega
+ 122-128  F7.4  d     e_T       rms uncertainty on T
+ 130-135  F6.4  ---   e_aAsini  rms uncertainty on aAsini
+ 137-142  F6.4  Msun  e_MAsin3i rms uncertainty on MAsin3i
+ 144-148  F5.2  km/s    sigmaA  rms velocity residual for the primary
+ 150-154  F5.1  ---     Cycles  Number of orbital cycles covered
+ 156-161  F6.4  ---     q       Mass ratio, MB/MA
+ 163-168  F6.2  km/s    KB      Projected orbital velocities of the secondary
+ 170-176  F7.3  ---     aBsini  Projected semimajor axes of the secondary in GM
+ 178-183  F6.4  Msun    MBsin3i Projected mass of the secondary M_B_sin^3^i
+ 185-187  I3    ---     NB      Number of velocities for the secondary
+ 189-195  F7.5  ---   e_q       rms uncertainty on q
+ 197-200  F4.2  km/s  e_KB      rms uncertainty on KB
+ 202-206  F5.3  ---   e_aBsini  rms uncertainty on aBsini
+ 208-213  F6.4  Msun  e_MBsin3i rms uncertainty on MBsin3i
+ 215-219  F5.2  km/s    sigmaB  rms velocity residual for the secondary
+--------------------------------------------------------------------------------
+
+Byte-by-byte Description of file: table12.dat
+--------------------------------------------------------------------------------
+   Bytes Format Units   Label     Explanations
+--------------------------------------------------------------------------------
+   1-  3  A3    ---     ---       [HIP]
+   4-  9  I06   ---     HIP       Hipparcos number
+      10  A1    ---   m_HIP       [ABNS] Multiplicity index on HIP
+  12- 23  F12.6 d       Per       Period
+  24- 33  F10.6 d     e_Per       ? rms uncertainty on Per
+      34  A1    ---   n_Per       [F] F for fixed
+  36- 41  F6.4  ---     ecc       Eccentricity
+      43  A1    ---   n_ecc       [F] F for fixed
+  44- 49  F6.4  ---   e_ecc       ? rms uncertainty on ecc
+  51- 56  F6.3  km/s    K         Projected orbital velocity of the primary
+  58- 62  F5.3  km/s  e_K         ? rms uncertainty on K
+  65- 85  A21   ---     Ref       References, in ref12.dat file
+--------------------------------------------------------------------------------
+
+Byte-by-byte Description of file: ref12.dat
+--------------------------------------------------------------------------------
+   Bytes Format Units   Label     Explanations
+--------------------------------------------------------------------------------
+   1-  3  A3    ---     Ref       Reference code
+   5- 23  A19   ---     BibCode   BibCode
+  25- 44  A20   ---     Aut       Author's name
+  49- 93  A45   ---     Com       Comments
+--------------------------------------------------------------------------------
+
+Byte-by-byte Description of file: table13.dat
+--------------------------------------------------------------------------------
+   Bytes Format Units   Label     Explanations
+--------------------------------------------------------------------------------
+   1-  3  A3    ---     ---       [HIP]
+   4-  9  I06   ---     HIP       Hipparcos number
+      10  A1    ---   m_HIP       [ABNS] Multiplicity index on HIP
+  12- 23  F12.7 d       Per       Period
+  25- 33  F9.7  d     e_Per       ? rms uncertainty on Per
+  35- 40  F6.4  ---     ecc       Eccentricity
+      42  A1    ---   n_ecc       [F] F for fixed
+  43- 48  F6.4  ---   e_ecc       ? rms uncertainty on ecc
+  50- 55  F6.2  km/s    KA        Projected orbital velocity of the primary
+  57- 60  F4.2  km/s  e_KA        ? rms uncertainty on KA
+  62- 67  F6.2  km/s    KB        Projected orbital velocity of the secondary
+  69- 72  F4.2  km/s  e_KB        ? rms uncertainty on KB
+      74  I1    ---     Ref       References (1)
+--------------------------------------------------------------------------------
+Note (1): References as follows:
+   1 = Pourbaix et al. (2004, Cat. V/122)
+   2 = De Medeiros & Udry (1999A&A...346..532D)
+   3 = Marsden et al. (2005ApJ...634L.173M)
+--------------------------------------------------------------------------------
+
+Byte-by-byte Description of file: table14.dat
+--------------------------------------------------------------------------------
+   Bytes Format Units   Label     Explanations
+--------------------------------------------------------------------------------
+   1-  3  A3    ---     ---       [HIP]
+   4-  9  I06   ---     HIP       Hipparcos number
+      10  A1    ---   m_HIP       [ABNS] Multiplicity index on HIP
+  11- 15  F5.1  km/s    Vrot      Projected rotational velocity for the primary
+  17- 20  F4.2  [Lsun]  logL      Bolometric luminosity of the primary
+  22- 26  F5.3  [K]     logTeff   Effective temperature
+  28- 31  F4.1  Rsun    Rad       Radius of the primary
+  33- 35  F3.1  Msun    MFA       ?=- Mass of the primary on its "first ascent"
+  37- 39  F3.1  Msun    MPT       ?=- Mass of the primary if "post-giant tip"
+      41  I1    ---     Note      ? Note (1)
+--------------------------------------------------------------------------------
+Note (1): 1 stands for star with a composite spectrum due to a hot
+     companion. Teff is calculated using the primary's spectral type. 
+     The spectral type is from Parsons & Ake (1998, Cat. J/ApJS/119/83).
+--------------------------------------------------------------------------------
+
+Byte-by-byte Description of file: table15.dat
+--------------------------------------------------------------------------------
+   Bytes Format Units   Label     Explanations
+--------------------------------------------------------------------------------
+   1-  3  A3    ---     ---       [HIP]
+   4-  9  I06   ---     HIP       Hipparcos number
+      10  A1    ---   m_HIP       [ABNS] Multiplicity index on HIP
+      11  A1    ---   n_HIP       [*] Note on HIP057565 (1)
+  12- 16  F5.3  [K]     logTeffA  Effective temperature on the primary
+  18- 21  F4.2  ---     LR        Ratio of the luminosity of the two components
+                                   within the wavelength range used by our study
+  23- 27  F5.2  [Lsun]  logLA     Bolometric luminosity of the primary
+  29- 31  F3.1  Msun    MAFA      ?=- Mass of the primary, if on "first ascent"
+  33- 35  F3.1  Msun    MAPT      ?=- Mass of the primary, if "post-giant tip"
+  37- 40  F4.1  km/s    VrotA     Projected rotational velocity of the primary
+  42- 44  F3.1  Rsun    RadA      Radius of the primary
+  46- 50  F5.3  [K]     logTeffB  Affective temperature on the secondary
+  52- 56  F5.2  [Lsun]  logLB     Bolometric luminosity of the secondary
+  58- 60  F3.1  Msun    MBFA      Mass of the secondary, if on "first ascent"
+  62- 64  F3.1  Msun    MBPT      ?=- Mass of the secondary, if "post-giant tip"
+  66- 69  F4.1  km/s    VrotB     Projected rotational velocity of the secondary
+  71- 73  F3.1  Rsun    RadB      Radius of the secondary
+--------------------------------------------------------------------------------
+Note (1): Mass ratio used for HIP057565 is from Pourbaix, 2000A&AS..145..215P.
+--------------------------------------------------------------------------------
+
+History:
+  * 17-Feb-2011: From electronic version of the journal
+  * 04-May-2011: in table12, "HIP020855" corrected into "HIP020885"
+================================================================================
+(End)                  Greg Schwarz [AAS], Patricia Vannier [CDS]    17-Feb-2011

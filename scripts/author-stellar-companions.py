@@ -639,6 +639,10 @@ def build():
                 "spectralType": star["spectral_type"], "labels": added_labels,
                 "method": "Physical subtype from this component's own adopted spectrum; no aggregate-label inheritance"}
 
+    # Enrich after the motion/observation reviews so their retained historical
+    # source records remain verbatim, rather than acquiring today's new values.
+    inputs += apply_literature(ROOT, ROOT / "catalog-work/bright-western-enrichment-20261021/physical-review.json", definitions, pool, audit)
+
     definitions = [s for s in definitions if len(s["components"]) > 1]
     required_ids = {c["starId"] for s in definitions for c in s["components"]}
     pool = {identifier: star for identifier, star in pool.items() if identifier in required_ids}

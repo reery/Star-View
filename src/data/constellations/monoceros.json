@@ -22,7 +22,7 @@
         "vy_kms": -18.833218,
         "vz_kms": -9.882363,
         "temperature_k": 8001.0,
-        "mass_solar": null,
+        "mass_solar": 3.24,
         "luminosity_solar": 123.61873767080515,
         "radius_solar": 5.786371,
         "metallicity_dex": null,
@@ -35,7 +35,7 @@
         "constellation": "Monoceros",
         "spectral_type": "B9V",
         "metallicity_kind": null,
-        "notes": "Western constellation line-figure star (HIP 29151; Stellarium Mon). SIMBAD identity HD  42111; SIMBAD compiled Johnson V=5.73; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, luminosity_solar; Stefan-Boltzmann scaling for radius_solar.",
+        "notes": "Western constellation line-figure star (HIP 29151; Stellarium Mon). SIMBAD identity HD  42111; SIMBAD compiled Johnson V=5.73; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, luminosity_solar; Stefan-Boltzmann scaling for radius_solar. Reviewed physical values describe HD 42111. Exact HD  42111 / HIP 29151. Source values describe this primary/individual; no companion, subsystem sum, or system-metallicity inference. Reviewed 151-target enrichment (2026-10-21). 2012A&A...537A.120Z. Existing non-null values retain their independent sources. Published HR-diagram model mass. Its age column is fractional main-sequence age and is deliberately not put into age_gyr. Shared exact-identity physical supplements (mass_solar: 2012A&A...537A.120Z).",
         "designations": [
           "HIP 29151"
         ],
@@ -218,7 +218,7 @@
         "vy_kms": -6.1044,
         "vz_kms": 2.06304,
         "temperature_k": 8153.0,
-        "mass_solar": null,
+        "mass_solar": 3.48,
         "luminosity_solar": 270.12010171315126,
         "radius_solar": 8.237515,
         "metallicity_dex": null,
@@ -231,7 +231,7 @@
         "constellation": "Monoceros",
         "spectral_type": "A0IV",
         "metallicity_kind": null,
-        "notes": "Western constellation line-figure star (HIP 34769; Stellarium Mon). SIMBAD identity * del Mon; SIMBAD compiled Johnson V=4.15; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, luminosity_solar; Stefan-Boltzmann scaling for radius_solar.",
+        "notes": "Western constellation line-figure star (HIP 34769; Stellarium Mon). SIMBAD identity * del Mon; SIMBAD compiled Johnson V=4.15; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, luminosity_solar; Stefan-Boltzmann scaling for radius_solar. Reviewed physical values describe Delta Mon. Exact * del Mon / HD 55185, HIP 34769. Source values describe this primary/individual; no companion, subsystem sum, or system-metallicity inference. Reviewed 151-target enrichment (2026-10-21). 2012A&A...537A.120Z. Existing non-null values retain their independent sources. Published HR-diagram model mass. Its age column is fractional main-sequence age and is deliberately not put into age_gyr. Shared exact-identity physical supplements (mass_solar: 2012A&A...537A.120Z).",
         "designations": [
           "HIP 34769"
         ],
@@ -1056,7 +1056,7 @@
       "label": "Adopted star positions and names",
       "url": "https://simbad.cds.unistra.fr/simbad/",
       "path": "src/data/catalogs/western-constellation-stars/stars.csv",
-      "sha256": "28689abf630ec0b3322df1dbbe21e8fb1090dc3a1a03b670b2e6572292aeea6c"
+      "sha256": "e8cdc61e33e9ea33a76ff78cd1fd1115821cfe94641aeac65f29ded0263b9e54"
     },
     {
       "label": "Hipparcos Johnson V magnitudes",

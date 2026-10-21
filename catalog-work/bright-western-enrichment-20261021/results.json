@@ -1,0 +1,4064 @@
+{
+  "summary": {
+    "reviewedOn": "2026-10-21",
+    "targetsReviewed": 151,
+    "targetsEnriched": 56,
+    "targetsWithoutAdoptableAdditions": 95,
+    "newIndividualFields": 125,
+    "newIndividualFieldsByKind": {
+      "luminosity_solar": 27,
+      "radius_solar": 28,
+      "mass_solar": 35,
+      "age_gyr": 25,
+      "metallicity_dex": 4,
+      "temperature_k": 6
+    },
+    "newlyDisplayedFields": 116,
+    "newlyDisplayedFieldsByKind": {
+      "luminosity_solar": 24,
+      "radius_solar": 24,
+      "mass_solar": 35,
+      "age_gyr": 25,
+      "metallicity_dex": 4,
+      "temperature_k": 4
+    },
+    "displayedGapsBefore": {
+      "age_gyr": 151,
+      "luminosity_solar": 62,
+      "mass_solar": 142,
+      "radius_solar": 62,
+      "metallicity_dex": 110,
+      "temperature_k": 8
+    },
+    "displayedGapsAfter": {
+      "mass_solar": 107,
+      "luminosity_solar": 38,
+      "radius_solar": 38,
+      "age_gyr": 126,
+      "metallicity_dex": 106,
+      "temperature_k": 4
+    },
+    "targetsStillMissingMoreThanTwoFields": 98,
+    "sourcePreservation": {
+      "baselineCommit": "b23fad878af9907cf350e91531c2bc238987884b",
+      "rawCatalogRecordsCompared": 2035,
+      "componentRecordsCompared": 846,
+      "historicalComponentSourcesPreserved": 979,
+      "objectProvenanceRecordsCompared": 2013,
+      "existingValuesChanged": 0,
+      "recordsLost": 0,
+      "unrelatedRecordsChanged": 0
+    },
+    "preservation": {
+      "effectiveRecordsCompared": 2456,
+      "fieldAdditionsAcrossCatalogOccurrences": 156,
+      "existingValuesChanged": 0,
+      "recordsLost": 0,
+      "retainedSourcesLost": 0,
+      "unrelatedRecordsChanged": 0
+    }
+  },
+  "targets": [
+    {
+      "name": "10 UMa A",
+      "ids": [
+        "hip-44248"
+      ],
+      "catalogs": [
+        "western-constellation-stars"
+      ],
+      "newIndividualFields": [],
+      "newlyDisplayedFields": [],
+      "remainingDisplayedGaps": [
+        "mass_solar",
+        "luminosity_solar",
+        "radius_solar",
+        "age_gyr"
+      ],
+      "stillMissingMoreThanTwo": true,
+      "sourceTablesChecked": [
+        "david-2015/table5.dat",
+        "piccotti-2020/table1.dat",
+        "piccotti-2020/table11.dat",
+        "piccotti-2020/table12.dat",
+        "piccotti-2020/table2.dat",
+        "piccotti-2020/table3.dat",
+        "piccotti-2020/table5.dat",
+        "piccotti-2020/table6.dat",
+        "piccotti-2020/table7.dat"
+      ],
+      "disposition": [
+        "Survey rows are unresolved or system-level matches; do not assign their mass, age, abundance or integrated flux to this individual component. Only separately reviewed primary/component evidence is eligible.",
+        "Piccotti 2020 orbital/trigonometric parallaxes or tabulated primary spectral types disagree. No mass, age, or HR-diagram luminosity adopted from these inconsistent alternatives."
+      ]
+    },
+    {
+      "name": "5 Lac A",
+      "ids": [
+        "hip-111022"
+      ],
+      "catalogs": [
+        "western-constellation-stars"
+      ],
+      "newIndividualFields": [],
+      "newlyDisplayedFields": [],
+      "remainingDisplayedGaps": [
+        "mass_solar",
+        "metallicity_dex",
+        "age_gyr"
+      ],
+      "stillMissingMoreThanTwo": true,
+      "sourceTablesChecked": [
+        "baines-2018/table1.dat",
+        "baines-2018/table5.dat",
+        "baines-2018/table6.dat",
+        "baines-2025/table7.dat",
+        "hohle-2010/table1fp.dat",
+        "hohle-2010/table3fp.dat",
+        "tetzlaff-2011/table1.dat"
+      ],
+      "disposition": [
+        "Survey rows are unresolved or system-level matches; do not assign their mass, age, abundance or integrated flux to this individual component. Only separately reviewed primary/component evidence is eligible."
+      ]
+    },
+    {
+      "name": "5 Ori",
+      "ids": [
+        "hip-22730"
+      ],
+      "catalogs": [
+        "western-constellation-stars"
+      ],
+      "newIndividualFields": [],
+      "newlyDisplayedFields": [],
+      "remainingDisplayedGaps": [
+        "mass_solar",
+        "metallicity_dex",
+        "age_gyr"
+      ],
+      "stillMissingMoreThanTwo": true,
+      "sourceTablesChecked": [],
+      "disposition": [
+        "No further exact-primary value supported by the frozen source set. This is not proof that no dedicated publication exists; source-matched absence and scope rejections are retained."
+      ]
+    },
+    {
+      "name": "Acamar",
+      "ids": [
+        "hip-13847"
+      ],
+      "catalogs": [
+        "western-constellation-stars"
+      ],
+      "newIndividualFields": [],
+      "newlyDisplayedFields": [],
+      "remainingDisplayedGaps": [
+        "mass_solar",
+        "luminosity_solar",
+        "radius_solar",
+        "metallicity_dex",
+        "age_gyr"
+      ],
+      "stillMissingMoreThanTwo": true,
+      "sourceTablesChecked": [],
+      "disposition": [
+        "Recent literature reports a hidden companion to Theta Eri A; no isolated-primary mass or integrated SED value adopted without resolving that inner hierarchy."
+      ]
+    },
+    {
+      "name": "Acrab Aa",
+      "ids": [
+        "bright-beta-scorpii-a",
+        "hip-78820"
+      ],
+      "catalogs": [
+        "bright-stars",
+        "western-constellation-stars"
+      ],
+      "newIndividualFields": [],
+      "newlyDisplayedFields": [],
+      "remainingDisplayedGaps": [
+        "mass_solar",
+        "luminosity_solar",
+        "radius_solar",
+        "metallicity_dex",
+        "age_gyr"
+      ],
+      "stillMissingMoreThanTwo": true,
+      "sourceTablesChecked": [
+        "hohle-2010/table1fp.dat",
+        "hohle-2010/table3fp.dat",
+        "tetzlaff-2011/table1.dat"
+      ],
+      "disposition": [
+        "Survey rows are unresolved or system-level matches; do not assign their mass, age, abundance or integrated flux to this individual component. Only separately reviewed primary/component evidence is eligible."
+      ]
+    },
+    {
+      "name": "Acrux Aa",
+      "ids": [
+        "bright-acrux",
+        "hip-60718"
+      ],
+      "catalogs": [
+        "bright-stars",
+        "western-constellation-stars"
+      ],
+      "newIndividualFields": [],
+      "newlyDisplayedFields": [],
+      "remainingDisplayedGaps": [
+        "mass_solar",
+        "metallicity_dex",
+        "age_gyr"
+      ],
+      "stillMissingMoreThanTwo": true,
+      "sourceTablesChecked": [
+        "david-2015/table5.dat",
+        "hohle-2010/table1fp.dat",
+        "hohle-2010/table3fp.dat",
+        "tetzlaff-2011/table1.dat"
+      ],
+      "disposition": [
+        "Survey rows are unresolved or system-level matches; do not assign their mass, age, abundance or integrated flux to this individual component. Only separately reviewed primary/component evidence is eligible."
+      ]
+    },
+    {
+      "name": "Ahadi",
+      "ids": [
+        "hip-35264"
+      ],
+      "catalogs": [
+        "western-constellation-stars"
+      ],
+      "newIndividualFields": [],
+      "newlyDisplayedFields": [],
+      "remainingDisplayedGaps": [
+        "mass_solar",
+        "metallicity_dex",
+        "age_gyr"
+      ],
+      "stillMissingMoreThanTwo": true,
+      "sourceTablesChecked": [
+        "tetzlaff-2011/table1.dat"
+      ],
+      "disposition": [
+        "Tetzlaff young high-mass source classification conflicts with the catalogued K giant. No mass or age adopted from that match."
+      ]
+    },
+    {
+      "name": "Alaybasan A",
+      "ids": [
+        "hip-10064"
+      ],
+      "catalogs": [
+        "western-constellation-stars"
+      ],
+      "newIndividualFields": [],
+      "newlyDisplayedFields": [],
+      "remainingDisplayedGaps": [
+        "luminosity_solar",
+        "radius_solar",
+        "age_gyr"
+      ],
+      "stillMissingMoreThanTwo": true,
+      "sourceTablesChecked": [
+        "piccotti-2020/table1.dat",
+        "piccotti-2020/table11.dat",
+        "piccotti-2020/table12.dat",
+        "piccotti-2020/table2.dat",
+        "piccotti-2020/table3.dat",
+        "piccotti-2020/table5.dat",
+        "piccotti-2020/table6.dat",
+        "piccotti-2020/table7.dat"
+      ],
+      "disposition": [
+        "Survey rows are unresolved or system-level matches; do not assign their mass, age, abundance or integrated flux to this individual component. Only separately reviewed primary/component evidence is eligible.",
+        "Piccotti Tables 7/11 identify the primary as A3 but source/system ordering identifies the bright A8 star as A. Primary/secondary model values cannot be assigned safely from these labels; withheld."
+      ]
+    },
+    {
+      "name": "Aldhibah A",
+      "ids": [
+        "hip-83895"
+      ],
+      "catalogs": [
+        "western-constellation-stars"
+      ],
+      "newIndividualFields": [],
+      "newlyDisplayedFields": [],
+      "remainingDisplayedGaps": [
+        "mass_solar",
+        "metallicity_dex",
+        "age_gyr"
+      ],
+      "stillMissingMoreThanTwo": true,
+      "sourceTablesChecked": [
+        "tetzlaff-2011/table1.dat"
+      ],
+      "disposition": [
+        "Survey rows are unresolved or system-level matches; do not assign their mass, age, abundance or integrated flux to this individual component. Only separately reviewed primary/component evidence is eligible."
+      ]
+    },
+    {
+      "name": "Algieba A",
+      "ids": [
+        "hip-50583"
+      ],
+      "catalogs": [
+        "western-constellation-stars"
+      ],
+      "newIndividualFields": [
+        "luminosity_solar",
+        "radius_solar"
+      ],
+      "newlyDisplayedFields": [
+        "luminosity_solar",
+        "radius_solar"
+      ],
+      "remainingDisplayedGaps": [
+        "mass_solar",
+        "age_gyr"
+      ],
+      "stillMissingMoreThanTwo": false,
+      "sourceTablesChecked": [
+        "charbonnel-2020/table1.dat",
+        "luck-2015/table1.dat",
+        "luck-2015/table2.dat",
+        "luck-2015/table3.dat",
+        "massarotti-2008/table3.dat"
+      ],
+      "disposition": [
+        "Survey rows are unresolved or system-level matches; do not assign their mass, age, abundance or integrated flux to this individual component. Only separately reviewed primary/component evidence is eligible."
+      ]
+    },
+    {
+      "name": "Alkaphrah A",
+      "ids": [
+        "hip-44471"
+      ],
+      "catalogs": [
+        "western-constellation-stars"
+      ],
+      "newIndividualFields": [],
+      "newlyDisplayedFields": [],
+      "remainingDisplayedGaps": [
+        "mass_solar",
+        "metallicity_dex",
+        "age_gyr"
+      ],
+      "stillMissingMoreThanTwo": true,
+      "sourceTablesChecked": [
+        "zorec-2012/table1.dat"
+      ],
+      "disposition": [
+        "Survey rows are unresolved or system-level matches; do not assign their mass, age, abundance or integrated flux to this individual component. Only separately reviewed primary/component evidence is eligible."
+      ]
+    },
+    {
+      "name": "Alnitak Aa",
+      "ids": [
+        "bright-alnitak",
+        "hip-26727"
+      ],
+      "catalogs": [
+        "bright-stars",
+        "western-constellation-stars"
+      ],
+      "newIndividualFields": [
+        "mass_solar",
+        "radius_solar"
+      ],
+      "newlyDisplayedFields": [
+        "mass_solar"
+      ],
+      "remainingDisplayedGaps": [
+        "metallicity_dex",
+        "age_gyr"
+      ],
+      "stillMissingMoreThanTwo": false,
+      "sourceTablesChecked": [
+        "tetzlaff-2011/table1.dat"
+      ],
+      "disposition": [
+        "Survey rows are unresolved or system-level matches; do not assign their mass, age, abundance or integrated flux to this individual component. Only separately reviewed primary/component evidence is eligible."
+      ]
+    },
+    {
+      "name": "Alpha Cam",
+      "ids": [
+        "hip-22783"
+      ],
+      "catalogs": [
+        "western-constellation-stars"
+      ],
+      "newIndividualFields": [],
+      "newlyDisplayedFields": [],
+      "remainingDisplayedGaps": [
+        "mass_solar",
+        "luminosity_solar",
+        "radius_solar",
+        "age_gyr"
+      ],
+      "stillMissingMoreThanTwo": true,
+      "sourceTablesChecked": [
+        "hohle-2010/table1.dat",
+        "hohle-2010/table1fp.dat",
+        "hohle-2010/table3.dat",
+        "hohle-2010/table3fp.dat"
+      ],
+      "disposition": [
+        "Survey rows are unresolved or system-level matches; do not assign their mass, age, abundance or integrated flux to this individual component. Only separately reviewed primary/component evidence is eligible."
+      ]
+    },
+    {
+      "name": "Alpha Lupi",
+      "ids": [
+        "bright-alpha-lupi",
+        "hip-71860"
+      ],
+      "catalogs": [
+        "bright-stars",
+        "western-constellation-stars"
+      ],
+      "newIndividualFields": [
+        "age_gyr"
+      ],
+      "newlyDisplayedFields": [
+        "age_gyr"
+      ],
+      "remainingDisplayedGaps": [
+        "mass_solar",
+        "metallicity_dex"
+      ],
+      "stillMissingMoreThanTwo": false,
+      "sourceTablesChecked": [
+        "tetzlaff-2011/table1.dat"
+      ],
+      "disposition": [
+        "No further exact-primary value supported by the frozen source set. This is not proof that no dedicated publication exists; source-matched absence and scope rejections are retained."
+      ]
+    },
+    {
+      "name": "Alpha Lyn",
+      "ids": [
+        "hip-45860"
+      ],
+      "catalogs": [
+        "western-constellation-stars"
+      ],
+      "newIndividualFields": [
+        "luminosity_solar",
+        "radius_solar"
+      ],
+      "newlyDisplayedFields": [
+        "luminosity_solar",
+        "radius_solar"
+      ],
+      "remainingDisplayedGaps": [
+        "mass_solar",
+        "age_gyr"
+      ],
+      "stillMissingMoreThanTwo": false,
+      "sourceTablesChecked": [
+        "baines-2021/table5.dat",
+        "baines-2025/table7.dat",
+        "massarotti-2008/table3.dat"
+      ],
+      "disposition": [
+        "Mass/age alternatives conflict between source fits or sit on a model-grid boundary; no small formal error is treated as proof of a unique evolutionary solution."
+      ]
+    },
+    {
+      "name": "Alpha Muscae Aa",
+      "ids": [
+        "bright-alpha-muscae",
+        "hip-61585"
+      ],
+      "catalogs": [
+        "bright-stars",
+        "western-constellation-stars"
+      ],
+      "newIndividualFields": [],
+      "newlyDisplayedFields": [],
+      "remainingDisplayedGaps": [
+        "mass_solar",
+        "metallicity_dex",
+        "age_gyr"
+      ],
+      "stillMissingMoreThanTwo": true,
+      "sourceTablesChecked": [
+        "david-2015/table5.dat",
+        "tetzlaff-2011/table1.dat"
+      ],
+      "disposition": [
+        "Survey rows are unresolved or system-level matches; do not assign their mass, age, abundance or integrated flux to this individual component. Only separately reviewed primary/component evidence is eligible."
+      ]
+    },
+    {
+      "name": "Alsciaukat",
+      "ids": [
+        "hip-41075"
+      ],
+      "catalogs": [
+        "western-constellation-stars"
+      ],
+      "newIndividualFields": [
+        "luminosity_solar",
+        "radius_solar"
+      ],
+      "newlyDisplayedFields": [
+        "luminosity_solar",
+        "radius_solar"
+      ],
+      "remainingDisplayedGaps": [
+        "mass_solar",
+        "age_gyr"
+      ],
+      "stillMissingMoreThanTwo": false,
+      "sourceTablesChecked": [
+        "baines-2018/table1.dat",
+        "baines-2018/table5.dat",
+        "baines-2018/table6.dat",
+        "stock-2018/giants.dat"
+      ],
+      "disposition": [
+        "Mass/age alternatives conflict between source fits or sit on a model-grid boundary; no small formal error is treated as proof of a unique evolutionary solution.",
+        "Stock stage probabilities are only 59/41 or 68/32 and/or competing source masses disagree; retain alternatives rather than turn one conditional mode into a unique age."
+      ]
+    },
+    {
+      "name": "Alsephina Aa",
+      "ids": [
+        "hip-42913"
+      ],
+      "catalogs": [
+        "western-constellation-stars"
+      ],
+      "newIndividualFields": [
+        "luminosity_solar",
+        "mass_solar",
+        "radius_solar"
+      ],
+      "newlyDisplayedFields": [
+        "mass_solar"
+      ],
+      "remainingDisplayedGaps": [
+        "metallicity_dex",
+        "age_gyr"
+      ],
+      "stillMissingMoreThanTwo": false,
+      "sourceTablesChecked": [
+        "david-2015/table5.dat",
+        "zorec-2012/table1.dat"
+      ],
+      "disposition": [
+        "Table 3 shared -0.33 [M/H] is a compiled system abundance, not an independently resolved Aa abundance; withheld.",
+        "Survey rows are unresolved or system-level matches; do not assign their mass, age, abundance or integrated flux to this individual component. Only separately reviewed primary/component evidence is eligible."
+      ]
+    },
+    {
+      "name": "Ascella A",
+      "ids": [
+        "bright-ascella",
+        "hip-93506"
+      ],
+      "catalogs": [
+        "bright-stars",
+        "western-constellation-stars"
+      ],
+      "newIndividualFields": [],
+      "newlyDisplayedFields": [],
+      "remainingDisplayedGaps": [
+        "mass_solar",
+        "metallicity_dex",
+        "age_gyr"
+      ],
+      "stillMissingMoreThanTwo": true,
+      "sourceTablesChecked": [
+        "david-2015/table5.dat",
+        "zorec-2012/table1.dat"
+      ],
+      "disposition": [
+        "Survey rows are unresolved or system-level matches; do not assign their mass, age, abundance or integrated flux to this individual component. Only separately reviewed primary/component evidence is eligible."
+      ]
+    },
+    {
+      "name": "Asellus Australis",
+      "ids": [
+        "hip-42911"
+      ],
+      "catalogs": [
+        "western-constellation-stars"
+      ],
+      "newIndividualFields": [],
+      "newlyDisplayedFields": [],
+      "remainingDisplayedGaps": [
+        "mass_solar",
+        "luminosity_solar",
+        "radius_solar",
+        "age_gyr"
+      ],
+      "stillMissingMoreThanTwo": true,
+      "sourceTablesChecked": [
+        "baines-2021/table5.dat",
+        "baines-2025/table7.dat",
+        "charbonnel-2020/table1.dat",
+        "luck-2015/table1.dat",
+        "luck-2015/table2.dat",
+        "luck-2015/table3.dat",
+        "massarotti-2008/table3.dat",
+        "stock-2018/giants.dat"
+      ],
+      "disposition": [
+        "Survey rows are unresolved or system-level matches; do not assign their mass, age, abundance or integrated flux to this individual component. Only separately reviewed primary/component evidence is eligible."
+      ]
+    },
+    {
+      "name": "Ashlesha A",
+      "ids": [
+        "hip-43109"
+      ],
+      "catalogs": [
+        "western-constellation-stars"
+      ],
+      "newIndividualFields": [],
+      "newlyDisplayedFields": [],
+      "remainingDisplayedGaps": [
+        "luminosity_solar",
+        "radius_solar",
+        "age_gyr"
+      ],
+      "stillMissingMoreThanTwo": true,
+      "sourceTablesChecked": [
+        "luck-2015/table1.dat",
+        "luck-2015/table2.dat",
+        "luck-2015/table3.dat",
+        "massarotti-2008/table14.dat",
+        "massarotti-2008/table3.dat"
+      ],
+      "disposition": [
+        "Survey rows are unresolved or system-level matches; do not assign their mass, age, abundance or integrated flux to this individual component. Only separately reviewed primary/component evidence is eligible."
+      ]
+    },
+    {
+      "name": "Atik Aa",
+      "ids": [
+        "hip-17448"
+      ],
+      "catalogs": [
+        "western-constellation-stars"
+      ],
+      "newIndividualFields": [],
+      "newlyDisplayedFields": [],
+      "remainingDisplayedGaps": [
+        "mass_solar",
+        "luminosity_solar",
+        "radius_solar",
+        "metallicity_dex",
+        "age_gyr"
+      ],
+      "stillMissingMoreThanTwo": true,
+      "sourceTablesChecked": [
+        "hohle-2010/table1.dat",
+        "hohle-2010/table1fp.dat",
+        "hohle-2010/table3.dat",
+        "hohle-2010/table3fp.dat",
+        "tetzlaff-2011/table1.dat"
+      ],
+      "disposition": [
+        "Survey rows are unresolved or system-level matches; do not assign their mass, age, abundance or integrated flux to this individual component. Only separately reviewed primary/component evidence is eligible."
+      ]
+    },
+    {
+      "name": "Beta CrA",
+      "ids": [
+        "hip-94160"
+      ],
+      "catalogs": [
+        "western-constellation-stars"
+      ],
+      "newIndividualFields": [],
+      "newlyDisplayedFields": [],
+      "remainingDisplayedGaps": [
+        "mass_solar",
+        "metallicity_dex",
+        "age_gyr"
+      ],
+      "stillMissingMoreThanTwo": true,
+      "sourceTablesChecked": [
+        "tetzlaff-2011/table1.dat"
+      ],
+      "disposition": [
+        "No further exact-primary value supported by the frozen source set. This is not proof that no dedicated publication exists; source-matched absence and scope rejections are retained."
+      ]
+    },
+    {
+      "name": "Beta Crt",
+      "ids": [
+        "hip-54682"
+      ],
+      "catalogs": [
+        "western-constellation-stars"
+      ],
+      "newIndividualFields": [],
+      "newlyDisplayedFields": [],
+      "remainingDisplayedGaps": [
+        "mass_solar",
+        "metallicity_dex",
+        "age_gyr"
+      ],
+      "stillMissingMoreThanTwo": true,
+      "sourceTablesChecked": [
+        "zorec-2012/table1.dat"
+      ],
+      "disposition": [
+        "Survey rows are unresolved or system-level matches; do not assign their mass, age, abundance or integrated flux to this individual component. Only separately reviewed primary/component evidence is eligible."
+      ]
+    },
+    {
+      "name": "Beta Hya",
+      "ids": [
+        "hip-57936"
+      ],
+      "catalogs": [
+        "western-constellation-stars"
+      ],
+      "newIndividualFields": [],
+      "newlyDisplayedFields": [],
+      "remainingDisplayedGaps": [
+        "mass_solar",
+        "metallicity_dex",
+        "age_gyr"
+      ],
+      "stillMissingMoreThanTwo": true,
+      "sourceTablesChecked": [],
+      "disposition": [
+        "No further exact-primary value supported by the frozen source set. This is not proof that no dedicated publication exists; source-matched absence and scope rejections are retained."
+      ]
+    },
+    {
+      "name": "Beta LMi A",
+      "ids": [
+        "hip-51233"
+      ],
+      "catalogs": [
+        "western-constellation-stars"
+      ],
+      "newIndividualFields": [
+        "luminosity_solar",
+        "mass_solar",
+        "radius_solar"
+      ],
+      "newlyDisplayedFields": [
+        "luminosity_solar",
+        "mass_solar",
+        "radius_solar"
+      ],
+      "remainingDisplayedGaps": [
+        "age_gyr"
+      ],
+      "stillMissingMoreThanTwo": false,
+      "sourceTablesChecked": [
+        "luck-2015/table1.dat",
+        "luck-2015/table2.dat",
+        "luck-2015/table3.dat",
+        "massarotti-2008/table14.dat",
+        "massarotti-2008/table3.dat",
+        "piccotti-2020/table1.dat",
+        "piccotti-2020/table11.dat",
+        "piccotti-2020/table12.dat",
+        "piccotti-2020/table2.dat",
+        "piccotti-2020/table3.dat",
+        "piccotti-2020/table5.dat",
+        "piccotti-2020/table6.dat",
+        "piccotti-2020/table7.dat"
+      ],
+      "disposition": [
+        "Survey rows are unresolved or system-level matches; do not assign their mass, age, abundance or integrated flux to this individual component. Only separately reviewed primary/component evidence is eligible.",
+        "Piccotti 2020 orbital/trigonometric parallaxes or tabulated primary spectral types disagree. No mass, age, or HR-diagram luminosity adopted from these inconsistent alternatives."
+      ]
+    },
+    {
+      "name": "Beta Lupi Aa",
+      "ids": [
+        "bright-beta-lupi",
+        "hip-73273"
+      ],
+      "catalogs": [
+        "bright-stars",
+        "western-constellation-stars"
+      ],
+      "newIndividualFields": [],
+      "newlyDisplayedFields": [],
+      "remainingDisplayedGaps": [
+        "mass_solar",
+        "metallicity_dex",
+        "age_gyr"
+      ],
+      "stillMissingMoreThanTwo": true,
+      "sourceTablesChecked": [
+        "tetzlaff-2011/table1.dat"
+      ],
+      "disposition": [
+        "Survey rows are unresolved or system-level matches; do not assign their mass, age, abundance or integrated flux to this individual component. Only separately reviewed primary/component evidence is eligible."
+      ]
+    },
+    {
+      "name": "Beta Mon A",
+      "ids": [
+        "hip-30867"
+      ],
+      "catalogs": [
+        "western-constellation-stars"
+      ],
+      "newIndividualFields": [],
+      "newlyDisplayedFields": [],
+      "remainingDisplayedGaps": [
+        "mass_solar",
+        "luminosity_solar",
+        "radius_solar",
+        "metallicity_dex",
+        "age_gyr"
+      ],
+      "stillMissingMoreThanTwo": true,
+      "sourceTablesChecked": [
+        "tetzlaff-2011/table1.dat"
+      ],
+      "disposition": [
+        "Survey rows are unresolved or system-level matches; do not assign their mass, age, abundance or integrated flux to this individual component. Only separately reviewed primary/component evidence is eligible."
+      ]
+    },
+    {
+      "name": "Beta Mus Aa",
+      "ids": [
+        "hip-62322"
+      ],
+      "catalogs": [
+        "western-constellation-stars"
+      ],
+      "newIndividualFields": [],
+      "newlyDisplayedFields": [],
+      "remainingDisplayedGaps": [
+        "mass_solar",
+        "metallicity_dex",
+        "age_gyr"
+      ],
+      "stillMissingMoreThanTwo": true,
+      "sourceTablesChecked": [
+        "tetzlaff-2011/table1.dat"
+      ],
+      "disposition": [
+        "Survey rows are unresolved or system-level matches; do not assign their mass, age, abundance or integrated flux to this individual component. Only separately reviewed primary/component evidence is eligible."
+      ]
+    },
+    {
+      "name": "Beta Phe A",
+      "ids": [
+        "hip-5165"
+      ],
+      "catalogs": [
+        "western-constellation-stars"
+      ],
+      "newIndividualFields": [],
+      "newlyDisplayedFields": [],
+      "remainingDisplayedGaps": [
+        "mass_solar",
+        "metallicity_dex",
+        "age_gyr"
+      ],
+      "stillMissingMoreThanTwo": true,
+      "sourceTablesChecked": [],
+      "disposition": [
+        "No further exact-primary value supported by the frozen source set. This is not proof that no dedicated publication exists; source-matched absence and scope rejections are retained."
+      ]
+    },
+    {
+      "name": "Beta Ret Aa",
+      "ids": [
+        "hip-17440"
+      ],
+      "catalogs": [
+        "western-constellation-stars"
+      ],
+      "newIndividualFields": [],
+      "newlyDisplayedFields": [],
+      "remainingDisplayedGaps": [
+        "mass_solar",
+        "luminosity_solar",
+        "radius_solar",
+        "age_gyr"
+      ],
+      "stillMissingMoreThanTwo": true,
+      "sourceTablesChecked": [
+        "charbonnel-2020/table1.dat"
+      ],
+      "disposition": [
+        "Survey rows are unresolved or system-level matches; do not assign their mass, age, abundance or integrated flux to this individual component. Only separately reviewed primary/component evidence is eligible."
+      ]
+    },
+    {
+      "name": "Beta Sex",
+      "ids": [
+        "hip-51437"
+      ],
+      "catalogs": [
+        "western-constellation-stars"
+      ],
+      "newIndividualFields": [],
+      "newlyDisplayedFields": [],
+      "remainingDisplayedGaps": [
+        "mass_solar",
+        "metallicity_dex",
+        "age_gyr"
+      ],
+      "stillMissingMoreThanTwo": true,
+      "sourceTablesChecked": [
+        "zorec-2012/table1.dat"
+      ],
+      "disposition": [
+        "No further exact-primary value supported by the frozen source set. This is not proof that no dedicated publication exists; source-matched absence and scope rejections are retained."
+      ]
+    },
+    {
+      "name": "Bharani",
+      "ids": [
+        "hip-13209"
+      ],
+      "catalogs": [
+        "western-constellation-stars"
+      ],
+      "newIndividualFields": [],
+      "newlyDisplayedFields": [],
+      "remainingDisplayedGaps": [
+        "mass_solar",
+        "metallicity_dex",
+        "age_gyr"
+      ],
+      "stillMissingMoreThanTwo": true,
+      "sourceTablesChecked": [
+        "david-2015/table5.dat",
+        "zorec-2012/table1.dat"
+      ],
+      "disposition": [
+        "Survey rows are unresolved or system-level matches; do not assign their mass, age, abundance or integrated flux to this individual component. Only separately reviewed primary/component evidence is eligible."
+      ]
+    },
+    {
+      "name": "c Oph",
+      "ids": [
+        "hip-85755"
+      ],
+      "catalogs": [
+        "western-constellation-stars"
+      ],
+      "newIndividualFields": [
+        "mass_solar"
+      ],
+      "newlyDisplayedFields": [
+        "mass_solar"
+      ],
+      "remainingDisplayedGaps": [
+        "metallicity_dex",
+        "age_gyr"
+      ],
+      "stillMissingMoreThanTwo": false,
+      "sourceTablesChecked": [
+        "tetzlaff-2011/table1.dat",
+        "zorec-2012/table1.dat"
+      ],
+      "disposition": [
+        "No further exact-primary value supported by the frozen source set. This is not proof that no dedicated publication exists; source-matched absence and scope rejections are retained."
+      ]
+    },
+    {
+      "name": "Chi Draconis A",
+      "ids": [
+        "hip-89937"
+      ],
+      "catalogs": [
+        "western-constellation-stars"
+      ],
+      "newIndividualFields": [
+        "luminosity_solar",
+        "metallicity_dex",
+        "radius_solar",
+        "temperature_k"
+      ],
+      "newlyDisplayedFields": [
+        "luminosity_solar",
+        "metallicity_dex",
+        "radius_solar",
+        "temperature_k"
+      ],
+      "remainingDisplayedGaps": [
+        "age_gyr"
+      ],
+      "stillMissingMoreThanTwo": false,
+      "sourceTablesChecked": [
+        "piccotti-2020/table1.dat",
+        "piccotti-2020/table11.dat",
+        "piccotti-2020/table12.dat",
+        "piccotti-2020/table2.dat",
+        "piccotti-2020/table3.dat",
+        "piccotti-2020/table5.dat",
+        "piccotti-2020/table6.dat",
+        "piccotti-2020/table7.dat"
+      ],
+      "disposition": [
+        "Retain existing dynamical mass. Nine seismic pipelines yield different ages (4.5\u20135.6 Gyr); no arbitrary preferred pipeline age adopted. Old Piccotti temperatures/classifications disagree with the resolved 2026 spectra.",
+        "Survey rows are unresolved or system-level matches; do not assign their mass, age, abundance or integrated flux to this individual component. Only separately reviewed primary/component evidence is eligible."
+      ]
+    },
+    {
+      "name": "Chi Eri",
+      "ids": [
+        "hip-9007"
+      ],
+      "catalogs": [
+        "western-constellation-stars"
+      ],
+      "newIndividualFields": [],
+      "newlyDisplayedFields": [],
+      "remainingDisplayedGaps": [
+        "mass_solar",
+        "luminosity_solar",
+        "radius_solar",
+        "age_gyr"
+      ],
+      "stillMissingMoreThanTwo": true,
+      "sourceTablesChecked": [],
+      "disposition": [
+        "No further exact-primary value supported by the frozen source set. This is not proof that no dedicated publication exists; source-matched absence and scope rejections are retained."
+      ]
+    },
+    {
+      "name": "d Car",
+      "ids": [
+        "hip-42568"
+      ],
+      "catalogs": [
+        "western-constellation-stars"
+      ],
+      "newIndividualFields": [
+        "age_gyr"
+      ],
+      "newlyDisplayedFields": [
+        "age_gyr"
+      ],
+      "remainingDisplayedGaps": [
+        "mass_solar",
+        "metallicity_dex"
+      ],
+      "stillMissingMoreThanTwo": false,
+      "sourceTablesChecked": [
+        "tetzlaff-2011/table1.dat"
+      ],
+      "disposition": [
+        "No further exact-primary value supported by the frozen source set. This is not proof that no dedicated publication exists; source-matched absence and scope rejections are retained."
+      ]
+    },
+    {
+      "name": "Delta And Aa",
+      "ids": [
+        "hip-3092"
+      ],
+      "catalogs": [
+        "western-constellation-stars"
+      ],
+      "newIndividualFields": [
+        "luminosity_solar",
+        "radius_solar"
+      ],
+      "newlyDisplayedFields": [
+        "luminosity_solar",
+        "radius_solar"
+      ],
+      "remainingDisplayedGaps": [
+        "mass_solar",
+        "age_gyr"
+      ],
+      "stillMissingMoreThanTwo": false,
+      "sourceTablesChecked": [
+        "baines-2021/table5.dat",
+        "luck-2015/table1.dat",
+        "luck-2015/table2.dat",
+        "luck-2015/table3.dat",
+        "massarotti-2008/table14.dat",
+        "massarotti-2008/table3.dat"
+      ],
+      "disposition": [
+        "Survey rows are unresolved or system-level matches; do not assign their mass, age, abundance or integrated flux to this individual component. Only separately reviewed primary/component evidence is eligible."
+      ]
+    },
+    {
+      "name": "Delta Aql",
+      "ids": [
+        "hip-95501"
+      ],
+      "catalogs": [
+        "western-constellation-stars"
+      ],
+      "newIndividualFields": [],
+      "newlyDisplayedFields": [],
+      "remainingDisplayedGaps": [
+        "mass_solar",
+        "luminosity_solar",
+        "radius_solar",
+        "age_gyr"
+      ],
+      "stillMissingMoreThanTwo": true,
+      "sourceTablesChecked": [
+        "david-2015/table5.dat",
+        "zorec-2012/table1.dat"
+      ],
+      "disposition": [
+        "Survey rows are unresolved or system-level matches; do not assign their mass, age, abundance or integrated flux to this individual component. Only separately reviewed primary/component evidence is eligible."
+      ]
+    },
+    {
+      "name": "Delta Centauri Aa",
+      "ids": [
+        "bright-delta-centauri",
+        "hip-59196"
+      ],
+      "catalogs": [
+        "bright-stars",
+        "western-constellation-stars"
+      ],
+      "newIndividualFields": [],
+      "newlyDisplayedFields": [],
+      "remainingDisplayedGaps": [
+        "mass_solar",
+        "luminosity_solar",
+        "radius_solar",
+        "metallicity_dex",
+        "age_gyr"
+      ],
+      "stillMissingMoreThanTwo": true,
+      "sourceTablesChecked": [
+        "tetzlaff-2011/table1.dat"
+      ],
+      "disposition": [
+        "Survey rows are unresolved or system-level matches; do not assign their mass, age, abundance or integrated flux to this individual component. Only separately reviewed primary/component evidence is eligible."
+      ]
+    },
+    {
+      "name": "Delta Equ A",
+      "ids": [
+        "hip-104858"
+      ],
+      "catalogs": [
+        "western-constellation-stars"
+      ],
+      "newIndividualFields": [
+        "age_gyr",
+        "luminosity_solar",
+        "radius_solar"
+      ],
+      "newlyDisplayedFields": [
+        "age_gyr",
+        "luminosity_solar",
+        "radius_solar"
+      ],
+      "remainingDisplayedGaps": [
+        "metallicity_dex"
+      ],
+      "stillMissingMoreThanTwo": false,
+      "sourceTablesChecked": [
+        "piccotti-2020/table1.dat",
+        "piccotti-2020/table11.dat",
+        "piccotti-2020/table12.dat",
+        "piccotti-2020/table2.dat",
+        "piccotti-2020/table3.dat",
+        "piccotti-2020/table5.dat",
+        "piccotti-2020/table6.dat",
+        "piccotti-2020/table7.dat"
+      ],
+      "disposition": [
+        "Survey rows are unresolved or system-level matches; do not assign their mass, age, abundance or integrated flux to this individual component. Only separately reviewed primary/component evidence is eligible."
+      ]
+    },
+    {
+      "name": "Delta Lup",
+      "ids": [
+        "hip-75141"
+      ],
+      "catalogs": [
+        "western-constellation-stars"
+      ],
+      "newIndividualFields": [
+        "age_gyr",
+        "mass_solar"
+      ],
+      "newlyDisplayedFields": [
+        "age_gyr",
+        "mass_solar"
+      ],
+      "remainingDisplayedGaps": [
+        "metallicity_dex"
+      ],
+      "stillMissingMoreThanTwo": false,
+      "sourceTablesChecked": [
+        "tetzlaff-2011/table1.dat"
+      ],
+      "disposition": [
+        "No further exact-primary value supported by the frozen source set. This is not proof that no dedicated publication exists; source-matched absence and scope rejections are retained."
+      ]
+    },
+    {
+      "name": "Delta Mon",
+      "ids": [
+        "hip-34769"
+      ],
+      "catalogs": [
+        "western-constellation-stars"
+      ],
+      "newIndividualFields": [
+        "mass_solar"
+      ],
+      "newlyDisplayedFields": [
+        "mass_solar"
+      ],
+      "remainingDisplayedGaps": [
+        "metallicity_dex",
+        "age_gyr"
+      ],
+      "stillMissingMoreThanTwo": false,
+      "sourceTablesChecked": [
+        "zorec-2012/table1.dat"
+      ],
+      "disposition": [
+        "No further exact-primary value supported by the frozen source set. This is not proof that no dedicated publication exists; source-matched absence and scope rejections are retained."
+      ]
+    },
+    {
+      "name": "Delta Per",
+      "ids": [
+        "hip-17358"
+      ],
+      "catalogs": [
+        "western-constellation-stars"
+      ],
+      "newIndividualFields": [
+        "age_gyr"
+      ],
+      "newlyDisplayedFields": [
+        "age_gyr"
+      ],
+      "remainingDisplayedGaps": [
+        "mass_solar",
+        "metallicity_dex"
+      ],
+      "stillMissingMoreThanTwo": false,
+      "sourceTablesChecked": [
+        "tetzlaff-2011/table1.dat"
+      ],
+      "disposition": [
+        "No further exact-primary value supported by the frozen source set. This is not proof that no dedicated publication exists; source-matched absence and scope rejections are retained."
+      ]
+    },
+    {
+      "name": "Delta Ret",
+      "ids": [
+        "hip-18597"
+      ],
+      "catalogs": [
+        "western-constellation-stars"
+      ],
+      "newIndividualFields": [],
+      "newlyDisplayedFields": [],
+      "remainingDisplayedGaps": [
+        "mass_solar",
+        "metallicity_dex",
+        "age_gyr"
+      ],
+      "stillMissingMoreThanTwo": true,
+      "sourceTablesChecked": [],
+      "disposition": [
+        "No further exact-primary value supported by the frozen source set. This is not proof that no dedicated publication exists; source-matched absence and scope rejections are retained."
+      ]
+    },
+    {
+      "name": "Delta Ser A",
+      "ids": [
+        "hip-76276"
+      ],
+      "catalogs": [
+        "western-constellation-stars"
+      ],
+      "newIndividualFields": [],
+      "newlyDisplayedFields": [],
+      "remainingDisplayedGaps": [
+        "mass_solar",
+        "metallicity_dex",
+        "age_gyr"
+      ],
+      "stillMissingMoreThanTwo": true,
+      "sourceTablesChecked": [
+        "david-2015/table5.dat",
+        "massarotti-2008/table3.dat"
+      ],
+      "disposition": [
+        "Survey rows are unresolved or system-level matches; do not assign their mass, age, abundance or integrated flux to this individual component. Only separately reviewed primary/component evidence is eligible."
+      ]
+    },
+    {
+      "name": "Delta Sge A",
+      "ids": [
+        "hip-97365"
+      ],
+      "catalogs": [
+        "western-constellation-stars"
+      ],
+      "newIndividualFields": [
+        "luminosity_solar",
+        "mass_solar",
+        "radius_solar",
+        "temperature_k"
+      ],
+      "newlyDisplayedFields": [
+        "mass_solar"
+      ],
+      "remainingDisplayedGaps": [
+        "metallicity_dex",
+        "age_gyr"
+      ],
+      "stillMissingMoreThanTwo": false,
+      "sourceTablesChecked": [
+        "hohle-2010/table1fp.dat",
+        "hohle-2010/table3fp.dat",
+        "tetzlaff-2011/table1.dat"
+      ],
+      "disposition": [
+        "No adopted age from the fitted evolutionary solution: do not combine a tuned model age/mass with the separate observational mass without a coherent model adoption.",
+        "Survey rows are unresolved or system-level matches; do not assign their mass, age, abundance or integrated flux to this individual component. Only separately reviewed primary/component evidence is eligible."
+      ]
+    },
+    {
+      "name": "Deneb Algedi",
+      "ids": [
+        "hip-107556"
+      ],
+      "catalogs": [
+        "western-constellation-stars"
+      ],
+      "newIndividualFields": [],
+      "newlyDisplayedFields": [],
+      "remainingDisplayedGaps": [
+        "mass_solar",
+        "luminosity_solar",
+        "radius_solar",
+        "age_gyr"
+      ],
+      "stillMissingMoreThanTwo": true,
+      "sourceTablesChecked": [
+        "david-2015/table5.dat"
+      ],
+      "disposition": [
+        "Survey rows are unresolved or system-level matches; do not assign their mass, age, abundance or integrated flux to this individual component. Only separately reviewed primary/component evidence is eligible."
+      ]
+    },
+    {
+      "name": "Diadem A",
+      "ids": [
+        "hip-64241"
+      ],
+      "catalogs": [
+        "western-constellation-stars"
+      ],
+      "newIndividualFields": [],
+      "newlyDisplayedFields": [],
+      "remainingDisplayedGaps": [
+        "mass_solar",
+        "luminosity_solar",
+        "radius_solar",
+        "age_gyr"
+      ],
+      "stillMissingMoreThanTwo": true,
+      "sourceTablesChecked": [
+        "david-2015/table5.dat"
+      ],
+      "disposition": [
+        "Survey rows are unresolved or system-level matches; do not assign their mass, age, abundance or integrated flux to this individual component. Only separately reviewed primary/component evidence is eligible."
+      ]
+    },
+    {
+      "name": "Epsilon Cet A",
+      "ids": [
+        "hip-12390"
+      ],
+      "catalogs": [
+        "western-constellation-stars"
+      ],
+      "newIndividualFields": [],
+      "newlyDisplayedFields": [],
+      "remainingDisplayedGaps": [
+        "luminosity_solar",
+        "radius_solar",
+        "age_gyr"
+      ],
+      "stillMissingMoreThanTwo": true,
+      "sourceTablesChecked": [
+        "david-2015/table5.dat",
+        "piccotti-2020/table1.dat",
+        "piccotti-2020/table11.dat",
+        "piccotti-2020/table12.dat",
+        "piccotti-2020/table2.dat",
+        "piccotti-2020/table3.dat",
+        "piccotti-2020/table5.dat",
+        "piccotti-2020/table6.dat",
+        "piccotti-2020/table7.dat"
+      ],
+      "disposition": [
+        "Survey rows are unresolved or system-level matches; do not assign their mass, age, abundance or integrated flux to this individual component. Only separately reviewed primary/component evidence is eligible.",
+        "Piccotti 2020 orbital/trigonometric parallaxes or tabulated primary spectral types disagree. No mass, age, or HR-diagram luminosity adopted from these inconsistent alternatives."
+      ]
+    },
+    {
+      "name": "Epsilon Gru",
+      "ids": [
+        "hip-112623"
+      ],
+      "catalogs": [
+        "western-constellation-stars"
+      ],
+      "newIndividualFields": [],
+      "newlyDisplayedFields": [],
+      "remainingDisplayedGaps": [
+        "mass_solar",
+        "luminosity_solar",
+        "radius_solar",
+        "metallicity_dex",
+        "age_gyr"
+      ],
+      "stillMissingMoreThanTwo": true,
+      "sourceTablesChecked": [
+        "david-2015/table5.dat"
+      ],
+      "disposition": [
+        "Survey rows are unresolved or system-level matches; do not assign their mass, age, abundance or integrated flux to this individual component. Only separately reviewed primary/component evidence is eligible."
+      ]
+    },
+    {
+      "name": "Epsilon Nor Aa",
+      "ids": [
+        "hip-80582"
+      ],
+      "catalogs": [
+        "western-constellation-stars"
+      ],
+      "newIndividualFields": [],
+      "newlyDisplayedFields": [],
+      "remainingDisplayedGaps": [
+        "mass_solar",
+        "metallicity_dex",
+        "age_gyr"
+      ],
+      "stillMissingMoreThanTwo": true,
+      "sourceTablesChecked": [
+        "hohle-2010/table1fp.dat",
+        "hohle-2010/table3fp.dat",
+        "tetzlaff-2011/table1.dat"
+      ],
+      "disposition": [
+        "Survey rows are unresolved or system-level matches; do not assign their mass, age, abundance or integrated flux to this individual component. Only separately reviewed primary/component evidence is eligible."
+      ]
+    },
+    {
+      "name": "Eta PsA A",
+      "ids": [
+        "hip-108661"
+      ],
+      "catalogs": [
+        "western-constellation-stars"
+      ],
+      "newIndividualFields": [],
+      "newlyDisplayedFields": [],
+      "remainingDisplayedGaps": [
+        "mass_solar",
+        "metallicity_dex",
+        "age_gyr"
+      ],
+      "stillMissingMoreThanTwo": true,
+      "sourceTablesChecked": [
+        "zorec-2012/table1.dat"
+      ],
+      "disposition": [
+        "Survey rows are unresolved or system-level matches; do not assign their mass, age, abundance or integrated flux to this individual component. Only separately reviewed primary/component evidence is eligible."
+      ]
+    },
+    {
+      "name": "Eta Sgr",
+      "ids": [
+        "hip-89642"
+      ],
+      "catalogs": [
+        "western-constellation-stars"
+      ],
+      "newIndividualFields": [
+        "luminosity_solar",
+        "mass_solar",
+        "radius_solar"
+      ],
+      "newlyDisplayedFields": [
+        "luminosity_solar",
+        "mass_solar",
+        "radius_solar"
+      ],
+      "remainingDisplayedGaps": [
+        "age_gyr"
+      ],
+      "stillMissingMoreThanTwo": false,
+      "sourceTablesChecked": [
+        "charbonnel-2020/table1.dat"
+      ],
+      "disposition": [
+        "No further exact-primary value supported by the frozen source set. This is not proof that no dedicated publication exists; source-matched absence and scope rejections are retained."
+      ]
+    },
+    {
+      "name": "f Eri Aa",
+      "ids": [
+        "hip-17797"
+      ],
+      "catalogs": [
+        "western-constellation-stars"
+      ],
+      "newIndividualFields": [],
+      "newlyDisplayedFields": [],
+      "remainingDisplayedGaps": [
+        "mass_solar",
+        "metallicity_dex",
+        "age_gyr"
+      ],
+      "stillMissingMoreThanTwo": true,
+      "sourceTablesChecked": [
+        "david-2015/table5.dat"
+      ],
+      "disposition": [
+        "Survey rows are unresolved or system-level matches; do not assign their mass, age, abundance or integrated flux to this individual component. Only separately reviewed primary/component evidence is eligible."
+      ]
+    },
+    {
+      "name": "Fang Aa1",
+      "ids": [
+        "hip-78265"
+      ],
+      "catalogs": [
+        "western-constellation-stars"
+      ],
+      "newIndividualFields": [],
+      "newlyDisplayedFields": [],
+      "remainingDisplayedGaps": [
+        "mass_solar",
+        "metallicity_dex",
+        "age_gyr"
+      ],
+      "stillMissingMoreThanTwo": true,
+      "sourceTablesChecked": [
+        "hohle-2010/table1fp.dat",
+        "hohle-2010/table3fp.dat",
+        "tetzlaff-2011/table1.dat"
+      ],
+      "disposition": [
+        "Survey rows are unresolved or system-level matches; do not assign their mass, age, abundance or integrated flux to this individual component. Only separately reviewed primary/component evidence is eligible."
+      ]
+    },
+    {
+      "name": "Furud Aa",
+      "ids": [
+        "hip-30122"
+      ],
+      "catalogs": [
+        "western-constellation-stars"
+      ],
+      "newIndividualFields": [],
+      "newlyDisplayedFields": [],
+      "remainingDisplayedGaps": [
+        "mass_solar",
+        "metallicity_dex",
+        "age_gyr"
+      ],
+      "stillMissingMoreThanTwo": true,
+      "sourceTablesChecked": [
+        "hohle-2010/table1fp.dat",
+        "hohle-2010/table3fp.dat",
+        "tetzlaff-2011/table1.dat"
+      ],
+      "disposition": [
+        "Survey rows are unresolved or system-level matches; do not assign their mass, age, abundance or integrated flux to this individual component. Only separately reviewed primary/component evidence is eligible."
+      ]
+    },
+    {
+      "name": "Gacrux",
+      "ids": [
+        "bright-gacrux",
+        "hip-61084"
+      ],
+      "catalogs": [
+        "bright-stars",
+        "western-constellation-stars"
+      ],
+      "newIndividualFields": [
+        "mass_solar"
+      ],
+      "newlyDisplayedFields": [
+        "mass_solar"
+      ],
+      "remainingDisplayedGaps": [
+        "metallicity_dex",
+        "age_gyr"
+      ],
+      "stillMissingMoreThanTwo": false,
+      "sourceTablesChecked": [],
+      "disposition": [
+        "No further exact-primary value supported by the frozen source set. This is not proof that no dedicated publication exists; source-matched absence and scope rejections are retained."
+      ]
+    },
+    {
+      "name": "Gamma Ara",
+      "ids": [
+        "hip-85267"
+      ],
+      "catalogs": [
+        "western-constellation-stars"
+      ],
+      "newIndividualFields": [
+        "age_gyr"
+      ],
+      "newlyDisplayedFields": [
+        "age_gyr"
+      ],
+      "remainingDisplayedGaps": [
+        "mass_solar",
+        "metallicity_dex"
+      ],
+      "stillMissingMoreThanTwo": false,
+      "sourceTablesChecked": [
+        "tetzlaff-2011/table1.dat"
+      ],
+      "disposition": [
+        "No further exact-primary value supported by the frozen source set. This is not proof that no dedicated publication exists; source-matched absence and scope rejections are retained."
+      ]
+    },
+    {
+      "name": "Gamma Cam",
+      "ids": [
+        "hip-17959"
+      ],
+      "catalogs": [
+        "western-constellation-stars"
+      ],
+      "newIndividualFields": [
+        "mass_solar"
+      ],
+      "newlyDisplayedFields": [
+        "mass_solar"
+      ],
+      "remainingDisplayedGaps": [
+        "metallicity_dex",
+        "age_gyr"
+      ],
+      "stillMissingMoreThanTwo": false,
+      "sourceTablesChecked": [
+        "zorec-2012/table1.dat"
+      ],
+      "disposition": [
+        "No further exact-primary value supported by the frozen source set. This is not proof that no dedicated publication exists; source-matched absence and scope rejections are retained."
+      ]
+    },
+    {
+      "name": "Gamma Cassiopeiae A",
+      "ids": [
+        "bright-gamma-cassiopeiae",
+        "hip-4427"
+      ],
+      "catalogs": [
+        "bright-stars",
+        "western-constellation-stars"
+      ],
+      "newIndividualFields": [],
+      "newlyDisplayedFields": [],
+      "remainingDisplayedGaps": [
+        "mass_solar",
+        "luminosity_solar",
+        "radius_solar",
+        "metallicity_dex",
+        "age_gyr"
+      ],
+      "stillMissingMoreThanTwo": true,
+      "sourceTablesChecked": [
+        "baines-2025/table7.dat",
+        "baines-2025/table8.dat",
+        "tetzlaff-2011/table1.dat"
+      ],
+      "disposition": [
+        "Survey rows are unresolved or system-level matches; do not assign their mass, age, abundance or integrated flux to this individual component. Only separately reviewed primary/component evidence is eligible.",
+        "Baines 2025 section V discusses the Be envelope and multiple system. The 22.45-solar uniform-disk result and 9998 K fit are not adopted as an individual photospheric radius/temperature of the B0.5 star."
+      ]
+    },
+    {
+      "name": "Gamma Centauri A",
+      "ids": [
+        "bright-gamma-centauri",
+        "hip-61932"
+      ],
+      "catalogs": [
+        "bright-stars",
+        "western-constellation-stars"
+      ],
+      "newIndividualFields": [],
+      "newlyDisplayedFields": [],
+      "remainingDisplayedGaps": [
+        "mass_solar",
+        "luminosity_solar",
+        "radius_solar",
+        "metallicity_dex",
+        "age_gyr"
+      ],
+      "stillMissingMoreThanTwo": true,
+      "sourceTablesChecked": [
+        "david-2015/table5.dat"
+      ],
+      "disposition": [
+        "Survey rows are unresolved or system-level matches; do not assign their mass, age, abundance or integrated flux to this individual component. Only separately reviewed primary/component evidence is eligible."
+      ]
+    },
+    {
+      "name": "Gamma Cephei A",
+      "ids": [
+        "hip-116727"
+      ],
+      "catalogs": [
+        "western-constellation-stars"
+      ],
+      "newIndividualFields": [
+        "age_gyr",
+        "luminosity_solar",
+        "metallicity_dex",
+        "radius_solar",
+        "temperature_k"
+      ],
+      "newlyDisplayedFields": [
+        "age_gyr",
+        "luminosity_solar",
+        "metallicity_dex",
+        "radius_solar",
+        "temperature_k"
+      ],
+      "remainingDisplayedGaps": [],
+      "stillMissingMoreThanTwo": false,
+      "sourceTablesChecked": [
+        "baines-2018/table1.dat",
+        "baines-2018/table5.dat",
+        "baines-2018/table6.dat",
+        "baines-2025/table7.dat",
+        "dasilva-2015/table4.dat",
+        "dasilva-2015/table7.dat"
+      ],
+      "disposition": [
+        "Survey rows are unresolved or system-level matches; do not assign their mass, age, abundance or integrated flux to this individual component. Only separately reviewed primary/component evidence is eligible."
+      ]
+    },
+    {
+      "name": "Gamma Cir A",
+      "ids": [
+        "hip-75323"
+      ],
+      "catalogs": [
+        "western-constellation-stars"
+      ],
+      "newIndividualFields": [],
+      "newlyDisplayedFields": [],
+      "remainingDisplayedGaps": [
+        "mass_solar",
+        "metallicity_dex",
+        "age_gyr"
+      ],
+      "stillMissingMoreThanTwo": true,
+      "sourceTablesChecked": [
+        "tetzlaff-2011/table1.dat"
+      ],
+      "disposition": [
+        "Survey rows are unresolved or system-level matches; do not assign their mass, age, abundance or integrated flux to this individual component. Only separately reviewed primary/component evidence is eligible."
+      ]
+    },
+    {
+      "name": "Gamma CrA A",
+      "ids": [
+        "hip-93825"
+      ],
+      "catalogs": [
+        "western-constellation-stars"
+      ],
+      "newIndividualFields": [],
+      "newlyDisplayedFields": [],
+      "remainingDisplayedGaps": [
+        "mass_solar",
+        "luminosity_solar",
+        "radius_solar",
+        "age_gyr"
+      ],
+      "stillMissingMoreThanTwo": true,
+      "sourceTablesChecked": [],
+      "disposition": [
+        "No further exact-primary value supported by the frozen source set. This is not proof that no dedicated publication exists; source-matched absence and scope rejections are retained."
+      ]
+    },
+    {
+      "name": "Gamma CrB A",
+      "ids": [
+        "hip-76952"
+      ],
+      "catalogs": [
+        "western-constellation-stars"
+      ],
+      "newIndividualFields": [],
+      "newlyDisplayedFields": [],
+      "remainingDisplayedGaps": [
+        "mass_solar",
+        "metallicity_dex",
+        "age_gyr"
+      ],
+      "stillMissingMoreThanTwo": true,
+      "sourceTablesChecked": [
+        "zorec-2012/table1.dat"
+      ],
+      "disposition": [
+        "Survey rows are unresolved or system-level matches; do not assign their mass, age, abundance or integrated flux to this individual component. Only separately reviewed primary/component evidence is eligible."
+      ]
+    },
+    {
+      "name": "Gamma Hyi",
+      "ids": [
+        "hip-17678"
+      ],
+      "catalogs": [
+        "western-constellation-stars"
+      ],
+      "newIndividualFields": [],
+      "newlyDisplayedFields": [],
+      "remainingDisplayedGaps": [
+        "mass_solar",
+        "metallicity_dex",
+        "age_gyr"
+      ],
+      "stillMissingMoreThanTwo": true,
+      "sourceTablesChecked": [],
+      "disposition": [
+        "No further exact-primary value supported by the frozen source set. This is not proof that no dedicated publication exists; source-matched absence and scope rejections are retained."
+      ]
+    },
+    {
+      "name": "Gamma Lup Aa",
+      "ids": [
+        "hip-76297"
+      ],
+      "catalogs": [
+        "western-constellation-stars"
+      ],
+      "newIndividualFields": [],
+      "newlyDisplayedFields": [],
+      "remainingDisplayedGaps": [
+        "mass_solar",
+        "metallicity_dex",
+        "age_gyr"
+      ],
+      "stillMissingMoreThanTwo": true,
+      "sourceTablesChecked": [
+        "tetzlaff-2011/table1.dat"
+      ],
+      "disposition": [
+        "Survey rows are unresolved or system-level matches; do not assign their mass, age, abundance or integrated flux to this individual component. Only separately reviewed primary/component evidence is eligible."
+      ]
+    },
+    {
+      "name": "Gamma Phe",
+      "ids": [
+        "hip-6867"
+      ],
+      "catalogs": [
+        "western-constellation-stars"
+      ],
+      "newIndividualFields": [],
+      "newlyDisplayedFields": [],
+      "remainingDisplayedGaps": [
+        "temperature_k",
+        "mass_solar",
+        "luminosity_solar",
+        "radius_solar",
+        "metallicity_dex",
+        "age_gyr"
+      ],
+      "stillMissingMoreThanTwo": true,
+      "sourceTablesChecked": [
+        "tetzlaff-2011/table1.dat"
+      ],
+      "disposition": [
+        "Survey rows are unresolved or system-level matches; do not assign their mass, age, abundance or integrated flux to this individual component. Only separately reviewed primary/component evidence is eligible."
+      ]
+    },
+    {
+      "name": "Gamma Sge A",
+      "ids": [
+        "hip-98337"
+      ],
+      "catalogs": [
+        "western-constellation-stars"
+      ],
+      "newIndividualFields": [],
+      "newlyDisplayedFields": [],
+      "remainingDisplayedGaps": [
+        "mass_solar",
+        "luminosity_solar",
+        "radius_solar",
+        "age_gyr"
+      ],
+      "stillMissingMoreThanTwo": true,
+      "sourceTablesChecked": [
+        "baines-2021/table5.dat",
+        "baines-2025/table7.dat",
+        "charbonnel-2020/table1.dat",
+        "luck-2015/table1.dat",
+        "luck-2015/table2.dat",
+        "luck-2015/table3.dat",
+        "massarotti-2008/table3.dat",
+        "stock-2018/giants.dat"
+      ],
+      "disposition": [
+        "Survey rows are unresolved or system-level matches; do not assign their mass, age, abundance or integrated flux to this individual component. Only separately reviewed primary/component evidence is eligible."
+      ]
+    },
+    {
+      "name": "Gudja",
+      "ids": [
+        "hip-77450"
+      ],
+      "catalogs": [
+        "western-constellation-stars"
+      ],
+      "newIndividualFields": [
+        "luminosity_solar",
+        "mass_solar",
+        "radius_solar"
+      ],
+      "newlyDisplayedFields": [
+        "luminosity_solar",
+        "mass_solar",
+        "radius_solar"
+      ],
+      "remainingDisplayedGaps": [
+        "age_gyr"
+      ],
+      "stillMissingMoreThanTwo": false,
+      "sourceTablesChecked": [
+        "baines-2021/table5.dat",
+        "charbonnel-2020/table1.dat"
+      ],
+      "disposition": [
+        "No further exact-primary value supported by the frozen source set. This is not proof that no dedicated publication exists; source-matched absence and scope rejections are retained."
+      ]
+    },
+    {
+      "name": "Hadir Aa",
+      "ids": [
+        "hip-36377"
+      ],
+      "catalogs": [
+        "western-constellation-stars"
+      ],
+      "newIndividualFields": [],
+      "newlyDisplayedFields": [],
+      "remainingDisplayedGaps": [
+        "temperature_k",
+        "mass_solar",
+        "luminosity_solar",
+        "radius_solar",
+        "metallicity_dex",
+        "age_gyr"
+      ],
+      "stillMissingMoreThanTwo": true,
+      "sourceTablesChecked": [
+        "luck-2015/table1.dat",
+        "luck-2015/table2.dat",
+        "luck-2015/table3.dat"
+      ],
+      "disposition": [
+        "Survey rows are unresolved or system-level matches; do not assign their mass, age, abundance or integrated flux to this individual component. Only separately reviewed primary/component evidence is eligible."
+      ]
+    },
+    {
+      "name": "HD 175156",
+      "ids": [
+        "hip-92814"
+      ],
+      "catalogs": [
+        "western-constellation-stars"
+      ],
+      "newIndividualFields": [
+        "age_gyr"
+      ],
+      "newlyDisplayedFields": [
+        "age_gyr"
+      ],
+      "remainingDisplayedGaps": [
+        "mass_solar",
+        "luminosity_solar",
+        "radius_solar"
+      ],
+      "stillMissingMoreThanTwo": true,
+      "sourceTablesChecked": [
+        "hohle-2010/table1.dat",
+        "hohle-2010/table3.dat",
+        "tetzlaff-2011/table1.dat"
+      ],
+      "disposition": [
+        "No further exact-primary value supported by the frozen source set. This is not proof that no dedicated publication exists; source-matched absence and scope rejections are retained."
+      ]
+    },
+    {
+      "name": "HD 21291",
+      "ids": [
+        "hip-16228"
+      ],
+      "catalogs": [
+        "western-constellation-stars"
+      ],
+      "newIndividualFields": [],
+      "newlyDisplayedFields": [],
+      "remainingDisplayedGaps": [
+        "mass_solar",
+        "metallicity_dex",
+        "age_gyr"
+      ],
+      "stillMissingMoreThanTwo": true,
+      "sourceTablesChecked": [
+        "tetzlaff-2011/table1.dat"
+      ],
+      "disposition": [
+        "Survey rows are unresolved or system-level matches; do not assign their mass, age, abundance or integrated flux to this individual component. Only separately reviewed primary/component evidence is eligible."
+      ]
+    },
+    {
+      "name": "HD 24479",
+      "ids": [
+        "hip-18505"
+      ],
+      "catalogs": [
+        "western-constellation-stars"
+      ],
+      "newIndividualFields": [
+        "mass_solar"
+      ],
+      "newlyDisplayedFields": [
+        "mass_solar"
+      ],
+      "remainingDisplayedGaps": [
+        "metallicity_dex",
+        "age_gyr"
+      ],
+      "stillMissingMoreThanTwo": false,
+      "sourceTablesChecked": [
+        "zorec-2012/table1.dat"
+      ],
+      "disposition": [
+        "No further exact-primary value supported by the frozen source set. This is not proof that no dedicated publication exists; source-matched absence and scope rejections are retained."
+      ]
+    },
+    {
+      "name": "HD 42111",
+      "ids": [
+        "hip-29151"
+      ],
+      "catalogs": [
+        "western-constellation-stars"
+      ],
+      "newIndividualFields": [
+        "mass_solar"
+      ],
+      "newlyDisplayedFields": [
+        "mass_solar"
+      ],
+      "remainingDisplayedGaps": [
+        "metallicity_dex",
+        "age_gyr"
+      ],
+      "stillMissingMoreThanTwo": false,
+      "sourceTablesChecked": [
+        "zorec-2012/table1.dat"
+      ],
+      "disposition": [
+        "No further exact-primary value supported by the frozen source set. This is not proof that no dedicated publication exists; source-matched absence and scope rejections are retained."
+      ]
+    },
+    {
+      "name": "HD 93194",
+      "ids": [
+        "hip-52502"
+      ],
+      "catalogs": [
+        "western-constellation-stars"
+      ],
+      "newIndividualFields": [],
+      "newlyDisplayedFields": [],
+      "remainingDisplayedGaps": [
+        "mass_solar",
+        "metallicity_dex",
+        "age_gyr"
+      ],
+      "stillMissingMoreThanTwo": true,
+      "sourceTablesChecked": [
+        "tetzlaff-2011/table1.dat"
+      ],
+      "disposition": [
+        "No further exact-primary value supported by the frozen source set. This is not proof that no dedicated publication exists; source-matched absence and scope rejections are retained."
+      ]
+    },
+    {
+      "name": "Imai",
+      "ids": [
+        "hip-59747"
+      ],
+      "catalogs": [
+        "western-constellation-stars"
+      ],
+      "newIndividualFields": [
+        "age_gyr",
+        "mass_solar"
+      ],
+      "newlyDisplayedFields": [
+        "age_gyr",
+        "mass_solar"
+      ],
+      "remainingDisplayedGaps": [
+        "metallicity_dex"
+      ],
+      "stillMissingMoreThanTwo": false,
+      "sourceTablesChecked": [
+        "tetzlaff-2011/table1.dat"
+      ],
+      "disposition": [
+        "No further exact-primary value supported by the frozen source set. This is not proof that no dedicated publication exists; source-matched absence and scope rejections are retained."
+      ]
+    },
+    {
+      "name": "Iota Aqr",
+      "ids": [
+        "hip-109139"
+      ],
+      "catalogs": [
+        "western-constellation-stars"
+      ],
+      "newIndividualFields": [],
+      "newlyDisplayedFields": [],
+      "remainingDisplayedGaps": [
+        "mass_solar",
+        "metallicity_dex",
+        "age_gyr"
+      ],
+      "stillMissingMoreThanTwo": true,
+      "sourceTablesChecked": [
+        "david-2015/table5.dat",
+        "zorec-2012/table1.dat"
+      ],
+      "disposition": [
+        "Survey rows are unresolved or system-level matches; do not assign their mass, age, abundance or integrated flux to this individual component. Only separately reviewed primary/component evidence is eligible."
+      ]
+    },
+    {
+      "name": "Iota CMa",
+      "ids": [
+        "hip-33347"
+      ],
+      "catalogs": [
+        "western-constellation-stars"
+      ],
+      "newIndividualFields": [],
+      "newlyDisplayedFields": [],
+      "remainingDisplayedGaps": [
+        "mass_solar",
+        "luminosity_solar",
+        "radius_solar",
+        "age_gyr"
+      ],
+      "stillMissingMoreThanTwo": true,
+      "sourceTablesChecked": [
+        "tetzlaff-2011/table1.dat"
+      ],
+      "disposition": [
+        "Survey rows are unresolved or system-level matches; do not assign their mass, age, abundance or integrated flux to this individual component. Only separately reviewed primary/component evidence is eligible."
+      ]
+    },
+    {
+      "name": "Iota Gru",
+      "ids": [
+        "hip-114421"
+      ],
+      "catalogs": [
+        "western-constellation-stars"
+      ],
+      "newIndividualFields": [],
+      "newlyDisplayedFields": [],
+      "remainingDisplayedGaps": [
+        "mass_solar",
+        "luminosity_solar",
+        "radius_solar",
+        "age_gyr"
+      ],
+      "stillMissingMoreThanTwo": true,
+      "sourceTablesChecked": [],
+      "disposition": [
+        "No further exact-primary value supported by the frozen source set. This is not proof that no dedicated publication exists; source-matched absence and scope rejections are retained."
+      ]
+    },
+    {
+      "name": "Kaffaljidhma A",
+      "ids": [
+        "hip-12706"
+      ],
+      "catalogs": [
+        "western-constellation-stars"
+      ],
+      "newIndividualFields": [],
+      "newlyDisplayedFields": [],
+      "remainingDisplayedGaps": [
+        "mass_solar",
+        "luminosity_solar",
+        "radius_solar",
+        "metallicity_dex",
+        "age_gyr"
+      ],
+      "stillMissingMoreThanTwo": true,
+      "sourceTablesChecked": [
+        "david-2015/table5.dat",
+        "zorec-2012/table1.dat"
+      ],
+      "disposition": [
+        "Survey rows are unresolved or system-level matches; do not assign their mass, age, abundance or integrated flux to this individual component. Only separately reviewed primary/component evidence is eligible."
+      ]
+    },
+    {
+      "name": "Kappa Cen Aa",
+      "ids": [
+        "hip-73334"
+      ],
+      "catalogs": [
+        "western-constellation-stars"
+      ],
+      "newIndividualFields": [],
+      "newlyDisplayedFields": [],
+      "remainingDisplayedGaps": [
+        "mass_solar",
+        "metallicity_dex",
+        "age_gyr"
+      ],
+      "stillMissingMoreThanTwo": true,
+      "sourceTablesChecked": [
+        "tetzlaff-2011/table1.dat"
+      ],
+      "disposition": [
+        "Survey rows are unresolved or system-level matches; do not assign their mass, age, abundance or integrated flux to this individual component. Only separately reviewed primary/component evidence is eligible."
+      ]
+    },
+    {
+      "name": "Kappa Lep",
+      "ids": [
+        "hip-24327"
+      ],
+      "catalogs": [
+        "western-constellation-stars"
+      ],
+      "newIndividualFields": [],
+      "newlyDisplayedFields": [],
+      "remainingDisplayedGaps": [
+        "mass_solar",
+        "metallicity_dex",
+        "age_gyr"
+      ],
+      "stillMissingMoreThanTwo": true,
+      "sourceTablesChecked": [
+        "zorec-2012/table1.dat"
+      ],
+      "disposition": [
+        "No further exact-primary value supported by the frozen source set. This is not proof that no dedicated publication exists; source-matched absence and scope rejections are retained."
+      ]
+    },
+    {
+      "name": "Kappa Scorpii",
+      "ids": [
+        "bright-kappa-scorpii",
+        "hip-86670"
+      ],
+      "catalogs": [
+        "bright-stars",
+        "western-constellation-stars"
+      ],
+      "newIndividualFields": [
+        "age_gyr"
+      ],
+      "newlyDisplayedFields": [
+        "age_gyr"
+      ],
+      "remainingDisplayedGaps": [
+        "mass_solar",
+        "metallicity_dex"
+      ],
+      "stillMissingMoreThanTwo": false,
+      "sourceTablesChecked": [
+        "tetzlaff-2011/table1.dat"
+      ],
+      "disposition": [
+        "No further exact-primary value supported by the frozen source set. This is not proof that no dedicated publication exists; source-matched absence and scope rejections are retained."
+      ]
+    },
+    {
+      "name": "Kitalpha A",
+      "ids": [
+        "hip-104987"
+      ],
+      "catalogs": [
+        "western-constellation-stars"
+      ],
+      "newIndividualFields": [
+        "luminosity_solar",
+        "radius_solar",
+        "temperature_k"
+      ],
+      "newlyDisplayedFields": [
+        "luminosity_solar",
+        "radius_solar"
+      ],
+      "remainingDisplayedGaps": [
+        "age_gyr"
+      ],
+      "stillMissingMoreThanTwo": false,
+      "sourceTablesChecked": [
+        "massarotti-2008/table3.dat",
+        "piccotti-2020/table1.dat",
+        "piccotti-2020/table11.dat",
+        "piccotti-2020/table12.dat",
+        "piccotti-2020/table2.dat",
+        "piccotti-2020/table3.dat",
+        "piccotti-2020/table5.dat",
+        "piccotti-2020/table6.dat",
+        "piccotti-2020/table7.dat"
+      ],
+      "disposition": [
+        "No adopted age from the fitted evolutionary solution: do not combine a tuned model age/mass with the separate observational mass without a coherent model adoption.",
+        "Survey rows are unresolved or system-level matches; do not assign their mass, age, abundance or integrated flux to this individual component. Only separately reviewed primary/component evidence is eligible.",
+        "Piccotti 2020 orbital/trigonometric parallaxes or tabulated primary spectral types disagree. No mass, age, or HR-diagram luminosity adopted from these inconsistent alternatives."
+      ]
+    },
+    {
+      "name": "Lambda Cet",
+      "ids": [
+        "hip-13954"
+      ],
+      "catalogs": [
+        "western-constellation-stars"
+      ],
+      "newIndividualFields": [
+        "mass_solar"
+      ],
+      "newlyDisplayedFields": [
+        "mass_solar"
+      ],
+      "remainingDisplayedGaps": [
+        "metallicity_dex",
+        "age_gyr"
+      ],
+      "stillMissingMoreThanTwo": false,
+      "sourceTablesChecked": [
+        "hohle-2010/table1.dat",
+        "hohle-2010/table3.dat",
+        "tetzlaff-2011/table1.dat"
+      ],
+      "disposition": [
+        "No further exact-primary value supported by the frozen source set. This is not proof that no dedicated publication exists; source-matched absence and scope rejections are retained."
+      ]
+    },
+    {
+      "name": "Lambda Eri",
+      "ids": [
+        "hip-23972"
+      ],
+      "catalogs": [
+        "western-constellation-stars"
+      ],
+      "newIndividualFields": [
+        "age_gyr"
+      ],
+      "newlyDisplayedFields": [
+        "age_gyr"
+      ],
+      "remainingDisplayedGaps": [
+        "mass_solar",
+        "metallicity_dex"
+      ],
+      "stillMissingMoreThanTwo": false,
+      "sourceTablesChecked": [
+        "hohle-2010/table1.dat",
+        "hohle-2010/table3.dat",
+        "tetzlaff-2011/table1.dat"
+      ],
+      "disposition": [
+        "No further exact-primary value supported by the frozen source set. This is not proof that no dedicated publication exists; source-matched absence and scope rejections are retained."
+      ]
+    },
+    {
+      "name": "Lambda Gru",
+      "ids": [
+        "hip-109111"
+      ],
+      "catalogs": [
+        "western-constellation-stars"
+      ],
+      "newIndividualFields": [],
+      "newlyDisplayedFields": [],
+      "remainingDisplayedGaps": [
+        "temperature_k",
+        "mass_solar",
+        "luminosity_solar",
+        "radius_solar",
+        "metallicity_dex",
+        "age_gyr"
+      ],
+      "stillMissingMoreThanTwo": true,
+      "sourceTablesChecked": [],
+      "disposition": [
+        "No further exact-primary value supported by the frozen source set. This is not proof that no dedicated publication exists; source-matched absence and scope rejections are retained."
+      ]
+    },
+    {
+      "name": "Lambda Pav",
+      "ids": [
+        "hip-92609"
+      ],
+      "catalogs": [
+        "western-constellation-stars"
+      ],
+      "newIndividualFields": [
+        "age_gyr",
+        "mass_solar"
+      ],
+      "newlyDisplayedFields": [
+        "age_gyr",
+        "mass_solar"
+      ],
+      "remainingDisplayedGaps": [
+        "metallicity_dex"
+      ],
+      "stillMissingMoreThanTwo": false,
+      "sourceTablesChecked": [
+        "hohle-2010/table1.dat",
+        "hohle-2010/table3.dat",
+        "tetzlaff-2011/table1.dat"
+      ],
+      "disposition": [
+        "No further exact-primary value supported by the frozen source set. This is not proof that no dedicated publication exists; source-matched absence and scope rejections are retained."
+      ]
+    },
+    {
+      "name": "Leepwal",
+      "ids": [
+        "bright-leepwal",
+        "hip-68002"
+      ],
+      "catalogs": [
+        "bright-stars",
+        "western-constellation-stars"
+      ],
+      "newIndividualFields": [],
+      "newlyDisplayedFields": [],
+      "remainingDisplayedGaps": [
+        "mass_solar",
+        "metallicity_dex",
+        "age_gyr"
+      ],
+      "stillMissingMoreThanTwo": true,
+      "sourceTablesChecked": [
+        "tetzlaff-2011/table1.dat"
+      ],
+      "disposition": [
+        "Survey rows are unresolved or system-level matches; do not assign their mass, age, abundance or integrated flux to this individual component. Only separately reviewed primary/component evidence is eligible."
+      ]
+    },
+    {
+      "name": "Lesath",
+      "ids": [
+        "bright-lesath"
+      ],
+      "catalogs": [
+        "bright-stars"
+      ],
+      "newIndividualFields": [
+        "age_gyr",
+        "mass_solar"
+      ],
+      "newlyDisplayedFields": [
+        "age_gyr",
+        "mass_solar"
+      ],
+      "remainingDisplayedGaps": [
+        "metallicity_dex"
+      ],
+      "stillMissingMoreThanTwo": false,
+      "sourceTablesChecked": [
+        "tetzlaff-2011/table1.dat"
+      ],
+      "disposition": [
+        "No further exact-primary value supported by the frozen source set. This is not proof that no dedicated publication exists; source-matched absence and scope rejections are retained."
+      ]
+    },
+    {
+      "name": "Markeb",
+      "ids": [
+        "bright-markeb",
+        "hip-45941"
+      ],
+      "catalogs": [
+        "bright-stars",
+        "western-constellation-stars"
+      ],
+      "newIndividualFields": [],
+      "newlyDisplayedFields": [],
+      "remainingDisplayedGaps": [
+        "mass_solar",
+        "metallicity_dex",
+        "age_gyr"
+      ],
+      "stillMissingMoreThanTwo": true,
+      "sourceTablesChecked": [
+        "tetzlaff-2011/table1.dat"
+      ],
+      "disposition": [
+        "Survey rows are unresolved or system-level matches; do not assign their mass, age, abundance or integrated flux to this individual component. Only separately reviewed primary/component evidence is eligible."
+      ]
+    },
+    {
+      "name": "Menkib",
+      "ids": [
+        "hip-18614"
+      ],
+      "catalogs": [
+        "western-constellation-stars"
+      ],
+      "newIndividualFields": [],
+      "newlyDisplayedFields": [],
+      "remainingDisplayedGaps": [
+        "mass_solar",
+        "luminosity_solar",
+        "radius_solar",
+        "age_gyr"
+      ],
+      "stillMissingMoreThanTwo": true,
+      "sourceTablesChecked": [
+        "hohle-2010/table1.dat",
+        "hohle-2010/table3.dat",
+        "tetzlaff-2011/table1.dat"
+      ],
+      "disposition": [
+        "Survey rows are unresolved or system-level matches; do not assign their mass, age, abundance or integrated flux to this individual component. Only separately reviewed primary/component evidence is eligible."
+      ]
+    },
+    {
+      "name": "Minelauva",
+      "ids": [
+        "hip-63090"
+      ],
+      "catalogs": [
+        "western-constellation-stars"
+      ],
+      "newIndividualFields": [
+        "luminosity_solar",
+        "mass_solar",
+        "radius_solar"
+      ],
+      "newlyDisplayedFields": [
+        "luminosity_solar",
+        "mass_solar",
+        "radius_solar"
+      ],
+      "remainingDisplayedGaps": [
+        "age_gyr"
+      ],
+      "stillMissingMoreThanTwo": false,
+      "sourceTablesChecked": [
+        "baines-2021/table5.dat",
+        "charbonnel-2020/table1.dat",
+        "massarotti-2008/table3.dat"
+      ],
+      "disposition": [
+        "No further exact-primary value supported by the frozen source set. This is not proof that no dedicated publication exists; source-matched absence and scope rejections are retained."
+      ]
+    },
+    {
+      "name": "Minkar",
+      "ids": [
+        "hip-59316"
+      ],
+      "catalogs": [
+        "western-constellation-stars"
+      ],
+      "newIndividualFields": [
+        "age_gyr",
+        "luminosity_solar",
+        "mass_solar",
+        "radius_solar"
+      ],
+      "newlyDisplayedFields": [
+        "age_gyr",
+        "luminosity_solar",
+        "mass_solar",
+        "radius_solar"
+      ],
+      "remainingDisplayedGaps": [],
+      "stillMissingMoreThanTwo": false,
+      "sourceTablesChecked": [
+        "charbonnel-2020/table1.dat",
+        "luck-2015/table1.dat",
+        "luck-2015/table2.dat",
+        "luck-2015/table3.dat",
+        "stock-2018/giants.dat"
+      ],
+      "disposition": [
+        "No further exact-primary value supported by the frozen source set. This is not proof that no dedicated publication exists; source-matched absence and scope rejections are retained."
+      ]
+    },
+    {
+      "name": "Mintaka Aa1",
+      "ids": [
+        "bright-mintaka",
+        "hip-25930"
+      ],
+      "catalogs": [
+        "bright-stars",
+        "western-constellation-stars"
+      ],
+      "newIndividualFields": [
+        "luminosity_solar",
+        "mass_solar",
+        "radius_solar"
+      ],
+      "newlyDisplayedFields": [
+        "mass_solar"
+      ],
+      "remainingDisplayedGaps": [
+        "metallicity_dex",
+        "age_gyr"
+      ],
+      "stillMissingMoreThanTwo": false,
+      "sourceTablesChecked": [
+        "hohle-2010/table1.dat",
+        "hohle-2010/table1fp.dat",
+        "hohle-2010/table3.dat",
+        "hohle-2010/table3fp.dat",
+        "tetzlaff-2011/table1.dat"
+      ],
+      "disposition": [
+        "Survey rows are unresolved or system-level matches; do not assign their mass, age, abundance or integrated flux to this individual component. Only separately reviewed primary/component evidence is eligible."
+      ]
+    },
+    {
+      "name": "Mira Aa",
+      "ids": [
+        "hip-10826"
+      ],
+      "catalogs": [
+        "western-constellation-stars"
+      ],
+      "newIndividualFields": [
+        "luminosity_solar",
+        "radius_solar",
+        "temperature_k"
+      ],
+      "newlyDisplayedFields": [
+        "luminosity_solar",
+        "radius_solar",
+        "temperature_k"
+      ],
+      "remainingDisplayedGaps": [
+        "mass_solar",
+        "metallicity_dex",
+        "age_gyr"
+      ],
+      "stillMissingMoreThanTwo": true,
+      "sourceTablesChecked": [],
+      "disposition": [
+        "No mass or age from the assumed 1.0/1.2-solar model-grid input; those are not measured Mira masses. No mixed-phase luminosity derived."
+      ]
+    },
+    {
+      "name": "Mirach",
+      "ids": [
+        "bright-mirach",
+        "hip-5447"
+      ],
+      "catalogs": [
+        "bright-stars",
+        "western-constellation-stars"
+      ],
+      "newIndividualFields": [
+        "luminosity_solar",
+        "mass_solar",
+        "radius_solar"
+      ],
+      "newlyDisplayedFields": [
+        "luminosity_solar",
+        "mass_solar",
+        "radius_solar"
+      ],
+      "remainingDisplayedGaps": [
+        "age_gyr"
+      ],
+      "stillMissingMoreThanTwo": false,
+      "sourceTablesChecked": [
+        "charbonnel-2020/table1.dat",
+        "massarotti-2008/table3.dat"
+      ],
+      "disposition": [
+        "No further exact-primary value supported by the frozen source set. This is not proof that no dedicated publication exists; source-matched absence and scope rejections are retained."
+      ]
+    },
+    {
+      "name": "Mizar Aa",
+      "ids": [
+        "bright-mizar-a",
+        "hip-65378"
+      ],
+      "catalogs": [
+        "bright-stars",
+        "western-constellation-stars"
+      ],
+      "newIndividualFields": [
+        "luminosity_solar",
+        "radius_solar"
+      ],
+      "newlyDisplayedFields": [
+        "luminosity_solar",
+        "radius_solar"
+      ],
+      "remainingDisplayedGaps": [
+        "age_gyr"
+      ],
+      "stillMissingMoreThanTwo": false,
+      "sourceTablesChecked": [
+        "david-2015/table5.dat",
+        "piccotti-2020/table1.dat",
+        "piccotti-2020/table11.dat",
+        "piccotti-2020/table12.dat",
+        "piccotti-2020/table2.dat",
+        "piccotti-2020/table3.dat",
+        "piccotti-2020/table5.dat",
+        "piccotti-2020/table6.dat",
+        "piccotti-2020/table7.dat"
+      ],
+      "disposition": [
+        "Survey rows are unresolved or system-level matches; do not assign their mass, age, abundance or integrated flux to this individual component. Only separately reviewed primary/component evidence is eligible.",
+        "Piccotti model age is not selected over an independent coeval/dynamical review. Torres Table 5 inner-binary primary maps to Aa; only missing luminosity/radius filled."
+      ]
+    },
+    {
+      "name": "Mothallah",
+      "ids": [
+        "hip-8796"
+      ],
+      "catalogs": [
+        "western-constellation-stars"
+      ],
+      "newIndividualFields": [],
+      "newlyDisplayedFields": [],
+      "remainingDisplayedGaps": [
+        "mass_solar",
+        "luminosity_solar",
+        "radius_solar",
+        "age_gyr"
+      ],
+      "stillMissingMoreThanTwo": true,
+      "sourceTablesChecked": [],
+      "disposition": [
+        "No further exact-primary value supported by the frozen source set. This is not proof that no dedicated publication exists; source-matched absence and scope rejections are retained."
+      ]
+    },
+    {
+      "name": "Mu Cet A",
+      "ids": [
+        "hip-12828"
+      ],
+      "catalogs": [
+        "western-constellation-stars"
+      ],
+      "newIndividualFields": [
+        "age_gyr",
+        "luminosity_solar",
+        "mass_solar",
+        "metallicity_dex",
+        "radius_solar"
+      ],
+      "newlyDisplayedFields": [
+        "age_gyr",
+        "luminosity_solar",
+        "mass_solar",
+        "metallicity_dex",
+        "radius_solar"
+      ],
+      "remainingDisplayedGaps": [],
+      "stillMissingMoreThanTwo": false,
+      "sourceTablesChecked": [],
+      "disposition": [
+        "No further exact-primary value supported by the frozen source set. This is not proof that no dedicated publication exists; source-matched absence and scope rejections are retained."
+      ]
+    },
+    {
+      "name": "Mu Her Aa",
+      "ids": [
+        "hip-86974"
+      ],
+      "catalogs": [
+        "western-constellation-stars"
+      ],
+      "newIndividualFields": [
+        "age_gyr",
+        "luminosity_solar",
+        "metallicity_dex",
+        "radius_solar",
+        "temperature_k"
+      ],
+      "newlyDisplayedFields": [
+        "age_gyr",
+        "luminosity_solar",
+        "metallicity_dex",
+        "radius_solar",
+        "temperature_k"
+      ],
+      "remainingDisplayedGaps": [],
+      "stillMissingMoreThanTwo": false,
+      "sourceTablesChecked": [
+        "baines-2018/table1.dat",
+        "baines-2018/table5.dat",
+        "baines-2018/table6.dat",
+        "baines-2025/table7.dat"
+      ],
+      "disposition": [
+        "Survey rows are unresolved or system-level matches; do not assign their mass, age, abundance or integrated flux to this individual component. Only separately reviewed primary/component evidence is eligible."
+      ]
+    },
+    {
+      "name": "Mu Hya",
+      "ids": [
+        "hip-51069"
+      ],
+      "catalogs": [
+        "western-constellation-stars"
+      ],
+      "newIndividualFields": [
+        "luminosity_solar",
+        "radius_solar"
+      ],
+      "newlyDisplayedFields": [
+        "luminosity_solar",
+        "radius_solar"
+      ],
+      "remainingDisplayedGaps": [
+        "mass_solar",
+        "age_gyr"
+      ],
+      "stillMissingMoreThanTwo": false,
+      "sourceTablesChecked": [
+        "massarotti-2008/table3.dat",
+        "stock-2018/giants.dat"
+      ],
+      "disposition": [
+        "Stock stage probabilities are only 59/41 or 68/32 and/or competing source masses disagree; retain alternatives rather than turn one conditional mode into a unique age."
+      ]
+    },
+    {
+      "name": "Mu Psc",
+      "ids": [
+        "hip-7007"
+      ],
+      "catalogs": [
+        "western-constellation-stars"
+      ],
+      "newIndividualFields": [
+        "age_gyr",
+        "luminosity_solar",
+        "mass_solar",
+        "radius_solar"
+      ],
+      "newlyDisplayedFields": [
+        "age_gyr",
+        "luminosity_solar",
+        "mass_solar",
+        "radius_solar"
+      ],
+      "remainingDisplayedGaps": [],
+      "stillMissingMoreThanTwo": false,
+      "sourceTablesChecked": [
+        "luck-2015/table1.dat",
+        "luck-2015/table2.dat",
+        "luck-2015/table3.dat"
+      ],
+      "disposition": [
+        "No further exact-primary value supported by the frozen source set. This is not proof that no dedicated publication exists; source-matched absence and scope rejections are retained."
+      ]
+    },
+    {
+      "name": "Mu Ser A",
+      "ids": [
+        "hip-77516"
+      ],
+      "catalogs": [
+        "western-constellation-stars"
+      ],
+      "newIndividualFields": [],
+      "newlyDisplayedFields": [],
+      "remainingDisplayedGaps": [
+        "mass_solar",
+        "metallicity_dex",
+        "age_gyr"
+      ],
+      "stillMissingMoreThanTwo": true,
+      "sourceTablesChecked": [
+        "zorec-2012/table1.dat"
+      ],
+      "disposition": [
+        "Survey rows are unresolved or system-level matches; do not assign their mass, age, abundance or integrated flux to this individual component. Only separately reviewed primary/component evidence is eligible."
+      ]
+    },
+    {
+      "name": "Nu Lep",
+      "ids": [
+        "hip-24873"
+      ],
+      "catalogs": [
+        "western-constellation-stars"
+      ],
+      "newIndividualFields": [
+        "mass_solar"
+      ],
+      "newlyDisplayedFields": [
+        "mass_solar"
+      ],
+      "remainingDisplayedGaps": [
+        "metallicity_dex",
+        "age_gyr"
+      ],
+      "stillMissingMoreThanTwo": false,
+      "sourceTablesChecked": [
+        "zorec-2012/table1.dat"
+      ],
+      "disposition": [
+        "No further exact-primary value supported by the frozen source set. This is not proof that no dedicated publication exists; source-matched absence and scope rejections are retained."
+      ]
+    },
+    {
+      "name": "Nu Oct",
+      "ids": [
+        "hip-107089"
+      ],
+      "catalogs": [
+        "western-constellation-stars"
+      ],
+      "newIndividualFields": [
+        "age_gyr",
+        "luminosity_solar",
+        "mass_solar",
+        "radius_solar"
+      ],
+      "newlyDisplayedFields": [
+        "age_gyr",
+        "luminosity_solar",
+        "mass_solar",
+        "radius_solar"
+      ],
+      "remainingDisplayedGaps": [],
+      "stillMissingMoreThanTwo": false,
+      "sourceTablesChecked": [],
+      "disposition": [
+        "No further exact-primary value supported by the frozen source set. This is not proof that no dedicated publication exists; source-matched absence and scope rejections are retained."
+      ]
+    },
+    {
+      "name": "Nu Vir",
+      "ids": [
+        "hip-57380"
+      ],
+      "catalogs": [
+        "western-constellation-stars"
+      ],
+      "newIndividualFields": [
+        "luminosity_solar",
+        "radius_solar"
+      ],
+      "newlyDisplayedFields": [
+        "luminosity_solar",
+        "radius_solar"
+      ],
+      "remainingDisplayedGaps": [
+        "mass_solar",
+        "age_gyr"
+      ],
+      "stillMissingMoreThanTwo": false,
+      "sourceTablesChecked": [
+        "baines-2018/table1.dat",
+        "baines-2018/table5.dat",
+        "baines-2018/table6.dat",
+        "baines-2025/table7.dat",
+        "charbonnel-2020/table1.dat",
+        "massarotti-2008/table3.dat"
+      ],
+      "disposition": [
+        "Mass/age alternatives conflict between source fits or sit on a model-grid boundary; no small formal error is treated as proof of a unique evolutionary solution."
+      ]
+    },
+    {
+      "name": "Omega CMa",
+      "ids": [
+        "hip-35037"
+      ],
+      "catalogs": [
+        "western-constellation-stars"
+      ],
+      "newIndividualFields": [
+        "age_gyr",
+        "mass_solar"
+      ],
+      "newlyDisplayedFields": [
+        "age_gyr",
+        "mass_solar"
+      ],
+      "remainingDisplayedGaps": [
+        "metallicity_dex"
+      ],
+      "stillMissingMoreThanTwo": false,
+      "sourceTablesChecked": [
+        "hohle-2010/table1.dat",
+        "hohle-2010/table3.dat",
+        "tetzlaff-2011/table1.dat"
+      ],
+      "disposition": [
+        "No further exact-primary value supported by the frozen source set. This is not proof that no dedicated publication exists; source-matched absence and scope rejections are retained."
+      ]
+    },
+    {
+      "name": "Omega Eri",
+      "ids": [
+        "hip-22701"
+      ],
+      "catalogs": [
+        "western-constellation-stars"
+      ],
+      "newIndividualFields": [],
+      "newlyDisplayedFields": [],
+      "remainingDisplayedGaps": [
+        "mass_solar",
+        "metallicity_dex",
+        "age_gyr"
+      ],
+      "stillMissingMoreThanTwo": true,
+      "sourceTablesChecked": [
+        "zorec-2012/table1.dat"
+      ],
+      "disposition": [
+        "Survey rows are unresolved or system-level matches; do not assign their mass, age, abundance or integrated flux to this individual component. Only separately reviewed primary/component evidence is eligible."
+      ]
+    },
+    {
+      "name": "Omega Lup",
+      "ids": [
+        "hip-76552"
+      ],
+      "catalogs": [
+        "western-constellation-stars"
+      ],
+      "newIndividualFields": [],
+      "newlyDisplayedFields": [],
+      "remainingDisplayedGaps": [
+        "temperature_k",
+        "mass_solar",
+        "luminosity_solar",
+        "radius_solar",
+        "metallicity_dex",
+        "age_gyr"
+      ],
+      "stillMissingMoreThanTwo": true,
+      "sourceTablesChecked": [],
+      "disposition": [
+        "No further exact-primary value supported by the frozen source set. This is not proof that no dedicated publication exists; source-matched absence and scope rejections are retained."
+      ]
+    },
+    {
+      "name": "Omicron Her",
+      "ids": [
+        "hip-88794"
+      ],
+      "catalogs": [
+        "western-constellation-stars"
+      ],
+      "newIndividualFields": [
+        "mass_solar"
+      ],
+      "newlyDisplayedFields": [
+        "mass_solar"
+      ],
+      "remainingDisplayedGaps": [
+        "metallicity_dex",
+        "age_gyr"
+      ],
+      "stillMissingMoreThanTwo": false,
+      "sourceTablesChecked": [
+        "zorec-2012/table1.dat"
+      ],
+      "disposition": [
+        "No further exact-primary value supported by the frozen source set. This is not proof that no dedicated publication exists; source-matched absence and scope rejections are retained."
+      ]
+    },
+    {
+      "name": "Omicron2 CMa",
+      "ids": [
+        "hip-33977"
+      ],
+      "catalogs": [
+        "western-constellation-stars"
+      ],
+      "newIndividualFields": [],
+      "newlyDisplayedFields": [],
+      "remainingDisplayedGaps": [
+        "mass_solar",
+        "metallicity_dex",
+        "age_gyr"
+      ],
+      "stillMissingMoreThanTwo": true,
+      "sourceTablesChecked": [
+        "hohle-2010/table1.dat",
+        "hohle-2010/table3.dat",
+        "tetzlaff-2011/table1.dat"
+      ],
+      "disposition": [
+        "Survey rows are unresolved or system-level matches; do not assign their mass, age, abundance or integrated flux to this individual component. Only separately reviewed primary/component evidence is eligible."
+      ]
+    },
+    {
+      "name": "Peacock",
+      "ids": [
+        "bright-peacock",
+        "hip-100751"
+      ],
+      "catalogs": [
+        "bright-stars",
+        "western-constellation-stars"
+      ],
+      "newIndividualFields": [],
+      "newlyDisplayedFields": [],
+      "remainingDisplayedGaps": [
+        "mass_solar",
+        "metallicity_dex",
+        "age_gyr"
+      ],
+      "stillMissingMoreThanTwo": true,
+      "sourceTablesChecked": [
+        "david-2015/table5.dat",
+        "tetzlaff-2011/table1.dat"
+      ],
+      "disposition": [
+        "Survey rows are unresolved or system-level matches; do not assign their mass, age, abundance or integrated flux to this individual component. Only separately reviewed primary/component evidence is eligible.",
+        "Tetzlaff 0.2 Myr and David 29 Myr unresolved fits disagree; neither is adopted as a resolved-primary age."
+      ]
+    },
+    {
+      "name": "Phecda",
+      "ids": [
+        "bright-phecda",
+        "hip-58001"
+      ],
+      "catalogs": [
+        "bright-stars",
+        "western-constellation-stars"
+      ],
+      "newIndividualFields": [
+        "age_gyr",
+        "mass_solar"
+      ],
+      "newlyDisplayedFields": [
+        "age_gyr",
+        "mass_solar"
+      ],
+      "remainingDisplayedGaps": [
+        "metallicity_dex"
+      ],
+      "stillMissingMoreThanTwo": false,
+      "sourceTablesChecked": [
+        "baines-2025/table7.dat",
+        "baines-2025/table8.dat",
+        "david-2015/table5.dat",
+        "zorec-2012/table1.dat"
+      ],
+      "disposition": [
+        "No further exact-primary value supported by the frozen source set. This is not proof that no dedicated publication exists; source-matched absence and scope rejections are retained."
+      ]
+    },
+    {
+      "name": "Pherkad",
+      "ids": [
+        "hip-75097"
+      ],
+      "catalogs": [
+        "western-constellation-stars"
+      ],
+      "newIndividualFields": [],
+      "newlyDisplayedFields": [],
+      "remainingDisplayedGaps": [
+        "mass_solar",
+        "metallicity_dex",
+        "age_gyr"
+      ],
+      "stillMissingMoreThanTwo": true,
+      "sourceTablesChecked": [
+        "tetzlaff-2011/table1.dat"
+      ],
+      "disposition": [
+        "No further exact-primary value supported by the frozen source set. This is not proof that no dedicated publication exists; source-matched absence and scope rejections are retained."
+      ]
+    },
+    {
+      "name": "Phi Vel",
+      "ids": [
+        "hip-48774"
+      ],
+      "catalogs": [
+        "western-constellation-stars"
+      ],
+      "newIndividualFields": [
+        "age_gyr"
+      ],
+      "newlyDisplayedFields": [
+        "age_gyr"
+      ],
+      "remainingDisplayedGaps": [
+        "mass_solar",
+        "metallicity_dex"
+      ],
+      "stillMissingMoreThanTwo": false,
+      "sourceTablesChecked": [
+        "tetzlaff-2011/table1.dat"
+      ],
+      "disposition": [
+        "No further exact-primary value supported by the frozen source set. This is not proof that no dedicated publication exists; source-matched absence and scope rejections are retained."
+      ]
+    },
+    {
+      "name": "Phi1 Lup",
+      "ids": [
+        "hip-75177"
+      ],
+      "catalogs": [
+        "western-constellation-stars"
+      ],
+      "newIndividualFields": [
+        "luminosity_solar",
+        "mass_solar",
+        "radius_solar"
+      ],
+      "newlyDisplayedFields": [
+        "luminosity_solar",
+        "mass_solar",
+        "radius_solar"
+      ],
+      "remainingDisplayedGaps": [
+        "age_gyr"
+      ],
+      "stillMissingMoreThanTwo": false,
+      "sourceTablesChecked": [
+        "charbonnel-2020/table1.dat"
+      ],
+      "disposition": [
+        "No further exact-primary value supported by the frozen source set. This is not proof that no dedicated publication exists; source-matched absence and scope rejections are retained."
+      ]
+    },
+    {
+      "name": "Pipit",
+      "ids": [
+        "hip-31685"
+      ],
+      "catalogs": [
+        "western-constellation-stars"
+      ],
+      "newIndividualFields": [],
+      "newlyDisplayedFields": [],
+      "remainingDisplayedGaps": [
+        "mass_solar",
+        "metallicity_dex",
+        "age_gyr"
+      ],
+      "stillMissingMoreThanTwo": true,
+      "sourceTablesChecked": [
+        "tetzlaff-2011/table1.dat"
+      ],
+      "disposition": [
+        "No further exact-primary value supported by the frozen source set. This is not proof that no dedicated publication exists; source-matched absence and scope rejections are retained."
+      ]
+    },
+    {
+      "name": "Polis",
+      "ids": [
+        "hip-89341"
+      ],
+      "catalogs": [
+        "western-constellation-stars"
+      ],
+      "newIndividualFields": [],
+      "newlyDisplayedFields": [],
+      "remainingDisplayedGaps": [
+        "mass_solar",
+        "metallicity_dex",
+        "age_gyr"
+      ],
+      "stillMissingMoreThanTwo": true,
+      "sourceTablesChecked": [],
+      "disposition": [
+        "No further exact-primary value supported by the frozen source set. This is not proof that no dedicated publication exists; source-matched absence and scope rejections are retained."
+      ]
+    },
+    {
+      "name": "Psi Phe",
+      "ids": [
+        "hip-8837"
+      ],
+      "catalogs": [
+        "western-constellation-stars"
+      ],
+      "newIndividualFields": [
+        "luminosity_solar",
+        "mass_solar",
+        "radius_solar"
+      ],
+      "newlyDisplayedFields": [
+        "luminosity_solar",
+        "mass_solar",
+        "radius_solar"
+      ],
+      "remainingDisplayedGaps": [
+        "age_gyr"
+      ],
+      "stillMissingMoreThanTwo": false,
+      "sourceTablesChecked": [],
+      "disposition": [
+        "No further exact-primary value supported by the frozen source set. This is not proof that no dedicated publication exists; source-matched absence and scope rejections are retained."
+      ]
+    },
+    {
+      "name": "Psi Vel A",
+      "ids": [
+        "hip-46651"
+      ],
+      "catalogs": [
+        "western-constellation-stars"
+      ],
+      "newIndividualFields": [],
+      "newlyDisplayedFields": [],
+      "remainingDisplayedGaps": [
+        "mass_solar",
+        "luminosity_solar",
+        "radius_solar",
+        "metallicity_dex",
+        "age_gyr"
+      ],
+      "stillMissingMoreThanTwo": true,
+      "sourceTablesChecked": [
+        "david-2015/table5.dat"
+      ],
+      "disposition": [
+        "Survey rows are unresolved or system-level matches; do not assign their mass, age, abundance or integrated flux to this individual component. Only separately reviewed primary/component evidence is eligible."
+      ]
+    },
+    {
+      "name": "Rasalgethi A",
+      "ids": [
+        "hip-84345"
+      ],
+      "catalogs": [
+        "western-constellation-stars"
+      ],
+      "newIndividualFields": [],
+      "newlyDisplayedFields": [],
+      "remainingDisplayedGaps": [
+        "mass_solar",
+        "metallicity_dex",
+        "age_gyr"
+      ],
+      "stillMissingMoreThanTwo": true,
+      "sourceTablesChecked": [
+        "tetzlaff-2011/table1.dat"
+      ],
+      "disposition": [
+        "Survey rows are unresolved or system-level matches; do not assign their mass, age, abundance or integrated flux to this individual component. Only separately reviewed primary/component evidence is eligible."
+      ]
+    },
+    {
+      "name": "Rho Cet",
+      "ids": [
+        "hip-11345"
+      ],
+      "catalogs": [
+        "western-constellation-stars"
+      ],
+      "newIndividualFields": [
+        "mass_solar"
+      ],
+      "newlyDisplayedFields": [
+        "mass_solar"
+      ],
+      "remainingDisplayedGaps": [
+        "metallicity_dex",
+        "age_gyr"
+      ],
+      "stillMissingMoreThanTwo": false,
+      "sourceTablesChecked": [
+        "zorec-2012/table1.dat"
+      ],
+      "disposition": [
+        "No further exact-primary value supported by the frozen source set. This is not proof that no dedicated publication exists; source-matched absence and scope rejections are retained."
+      ]
+    },
+    {
+      "name": "Rho Her Aa",
+      "ids": [
+        "hip-85112"
+      ],
+      "catalogs": [
+        "western-constellation-stars"
+      ],
+      "newIndividualFields": [],
+      "newlyDisplayedFields": [],
+      "remainingDisplayedGaps": [
+        "mass_solar",
+        "metallicity_dex",
+        "age_gyr"
+      ],
+      "stillMissingMoreThanTwo": true,
+      "sourceTablesChecked": [
+        "tetzlaff-2011/table1.dat"
+      ],
+      "disposition": [
+        "Survey rows are unresolved or system-level matches; do not assign their mass, age, abundance or integrated flux to this individual component. Only separately reviewed primary/component evidence is eligible."
+      ]
+    },
+    {
+      "name": "Ruchbah",
+      "ids": [
+        "bright-ruchbah",
+        "hip-6686"
+      ],
+      "catalogs": [
+        "bright-stars",
+        "western-constellation-stars"
+      ],
+      "newIndividualFields": [],
+      "newlyDisplayedFields": [],
+      "remainingDisplayedGaps": [
+        "mass_solar",
+        "luminosity_solar",
+        "radius_solar",
+        "age_gyr"
+      ],
+      "stillMissingMoreThanTwo": true,
+      "sourceTablesChecked": [
+        "david-2015/table5.dat",
+        "zorec-2012/table1.dat"
+      ],
+      "disposition": [
+        "Survey rows are unresolved or system-level matches; do not assign their mass, age, abundance or integrated flux to this individual component. Only separately reviewed primary/component evidence is eligible."
+      ]
+    },
+    {
+      "name": "s Eri A",
+      "ids": [
+        "hip-12413"
+      ],
+      "catalogs": [
+        "western-constellation-stars"
+      ],
+      "newIndividualFields": [],
+      "newlyDisplayedFields": [],
+      "remainingDisplayedGaps": [
+        "mass_solar",
+        "metallicity_dex",
+        "age_gyr"
+      ],
+      "stillMissingMoreThanTwo": true,
+      "sourceTablesChecked": [
+        "david-2015/table5.dat"
+      ],
+      "disposition": [
+        "Survey rows are unresolved or system-level matches; do not assign their mass, age, abundance or integrated flux to this individual component. Only separately reviewed primary/component evidence is eligible."
+      ]
+    },
+    {
+      "name": "Sabik A",
+      "ids": [
+        "bright-sabik",
+        "hip-84012"
+      ],
+      "catalogs": [
+        "bright-stars",
+        "western-constellation-stars"
+      ],
+      "newIndividualFields": [],
+      "newlyDisplayedFields": [],
+      "remainingDisplayedGaps": [
+        "mass_solar",
+        "metallicity_dex",
+        "age_gyr"
+      ],
+      "stillMissingMoreThanTwo": true,
+      "sourceTablesChecked": [
+        "david-2015/table5.dat",
+        "zorec-2012/table1.dat"
+      ],
+      "disposition": [
+        "Survey rows are unresolved or system-level matches; do not assign their mass, age, abundance or integrated flux to this individual component. Only separately reviewed primary/component evidence is eligible."
+      ]
+    },
+    {
+      "name": "Sarin Aa",
+      "ids": [
+        "hip-84379"
+      ],
+      "catalogs": [
+        "western-constellation-stars"
+      ],
+      "newIndividualFields": [],
+      "newlyDisplayedFields": [],
+      "remainingDisplayedGaps": [
+        "mass_solar",
+        "metallicity_dex",
+        "age_gyr"
+      ],
+      "stillMissingMoreThanTwo": true,
+      "sourceTablesChecked": [
+        "david-2015/table5.dat",
+        "zorec-2012/table1.dat"
+      ],
+      "disposition": [
+        "Survey rows are unresolved or system-level matches; do not assign their mass, age, abundance or integrated flux to this individual component. Only separately reviewed primary/component evidence is eligible."
+      ]
+    },
+    {
+      "name": "Shatabhisha",
+      "ids": [
+        "hip-112961"
+      ],
+      "catalogs": [
+        "western-constellation-stars"
+      ],
+      "newIndividualFields": [],
+      "newlyDisplayedFields": [],
+      "remainingDisplayedGaps": [
+        "mass_solar",
+        "metallicity_dex",
+        "age_gyr"
+      ],
+      "stillMissingMoreThanTwo": true,
+      "sourceTablesChecked": [
+        "baines-2021/table5.dat"
+      ],
+      "disposition": [
+        "No further exact-primary value supported by the frozen source set. This is not proof that no dedicated publication exists; source-matched absence and scope rejections are retained."
+      ]
+    },
+    {
+      "name": "Sualocin A",
+      "ids": [
+        "hip-101958"
+      ],
+      "catalogs": [
+        "western-constellation-stars"
+      ],
+      "newIndividualFields": [],
+      "newlyDisplayedFields": [],
+      "remainingDisplayedGaps": [
+        "mass_solar",
+        "metallicity_dex",
+        "age_gyr"
+      ],
+      "stillMissingMoreThanTwo": true,
+      "sourceTablesChecked": [
+        "david-2015/table5.dat",
+        "zorec-2012/table1.dat"
+      ],
+      "disposition": [
+        "Survey rows are unresolved or system-level matches; do not assign their mass, age, abundance or integrated flux to this individual component. Only separately reviewed primary/component evidence is eligible."
+      ]
+    },
+    {
+      "name": "Tau Aqr",
+      "ids": [
+        "hip-112716"
+      ],
+      "catalogs": [
+        "western-constellation-stars"
+      ],
+      "newIndividualFields": [],
+      "newlyDisplayedFields": [],
+      "remainingDisplayedGaps": [
+        "mass_solar",
+        "metallicity_dex",
+        "age_gyr"
+      ],
+      "stillMissingMoreThanTwo": true,
+      "sourceTablesChecked": [],
+      "disposition": [
+        "No further exact-primary value supported by the frozen source set. This is not proof that no dedicated publication exists; source-matched absence and scope rejections are retained."
+      ]
+    },
+    {
+      "name": "Tau2 Hya A",
+      "ids": [
+        "hip-46776"
+      ],
+      "catalogs": [
+        "western-constellation-stars"
+      ],
+      "newIndividualFields": [],
+      "newlyDisplayedFields": [],
+      "remainingDisplayedGaps": [
+        "mass_solar",
+        "metallicity_dex",
+        "age_gyr"
+      ],
+      "stillMissingMoreThanTwo": true,
+      "sourceTablesChecked": [
+        "zorec-2012/table1.dat"
+      ],
+      "disposition": [
+        "Survey rows are unresolved or system-level matches; do not assign their mass, age, abundance or integrated flux to this individual component. Only separately reviewed primary/component evidence is eligible."
+      ]
+    },
+    {
+      "name": "Tau2 Lup A",
+      "ids": [
+        "hip-70576"
+      ],
+      "catalogs": [
+        "western-constellation-stars"
+      ],
+      "newIndividualFields": [],
+      "newlyDisplayedFields": [],
+      "remainingDisplayedGaps": [
+        "mass_solar",
+        "metallicity_dex",
+        "age_gyr"
+      ],
+      "stillMissingMoreThanTwo": true,
+      "sourceTablesChecked": [],
+      "disposition": [
+        "No further exact-primary value supported by the frozen source set. This is not proof that no dedicated publication exists; source-matched absence and scope rejections are retained."
+      ]
+    },
+    {
+      "name": "Tau4 Eri",
+      "ids": [
+        "hip-15474"
+      ],
+      "catalogs": [
+        "western-constellation-stars"
+      ],
+      "newIndividualFields": [],
+      "newlyDisplayedFields": [],
+      "remainingDisplayedGaps": [
+        "mass_solar",
+        "metallicity_dex",
+        "age_gyr"
+      ],
+      "stillMissingMoreThanTwo": true,
+      "sourceTablesChecked": [],
+      "disposition": [
+        "No further exact-primary value supported by the frozen source set. This is not proof that no dedicated publication exists; source-matched absence and scope rejections are retained."
+      ]
+    },
+    {
+      "name": "Theta Hya A",
+      "ids": [
+        "hip-45336"
+      ],
+      "catalogs": [
+        "western-constellation-stars"
+      ],
+      "newIndividualFields": [],
+      "newlyDisplayedFields": [],
+      "remainingDisplayedGaps": [
+        "mass_solar",
+        "luminosity_solar",
+        "radius_solar",
+        "age_gyr"
+      ],
+      "stillMissingMoreThanTwo": true,
+      "sourceTablesChecked": [
+        "david-2015/table5.dat",
+        "zorec-2012/table1.dat"
+      ],
+      "disposition": [
+        "Survey rows are unresolved or system-level matches; do not assign their mass, age, abundance or integrated flux to this individual component. Only separately reviewed primary/component evidence is eligible."
+      ]
+    },
+    {
+      "name": "Theta PsA A",
+      "ids": [
+        "hip-107608"
+      ],
+      "catalogs": [
+        "western-constellation-stars"
+      ],
+      "newIndividualFields": [],
+      "newlyDisplayedFields": [],
+      "remainingDisplayedGaps": [
+        "mass_solar",
+        "metallicity_dex",
+        "age_gyr"
+      ],
+      "stillMissingMoreThanTwo": true,
+      "sourceTablesChecked": [
+        "david-2015/table5.dat"
+      ],
+      "disposition": [
+        "Survey rows are unresolved or system-level matches; do not assign their mass, age, abundance or integrated flux to this individual component. Only separately reviewed primary/component evidence is eligible."
+      ]
+    },
+    {
+      "name": "Theta1 Sgr",
+      "ids": [
+        "hip-98412"
+      ],
+      "catalogs": [
+        "western-constellation-stars"
+      ],
+      "newIndividualFields": [],
+      "newlyDisplayedFields": [],
+      "remainingDisplayedGaps": [
+        "mass_solar",
+        "metallicity_dex",
+        "age_gyr"
+      ],
+      "stillMissingMoreThanTwo": true,
+      "sourceTablesChecked": [
+        "hohle-2010/table1fp.dat",
+        "hohle-2010/table3fp.dat",
+        "tetzlaff-2011/table1.dat"
+      ],
+      "disposition": [
+        "Survey rows are unresolved or system-level matches; do not assign their mass, age, abundance or integrated flux to this individual component. Only separately reviewed primary/component evidence is eligible."
+      ]
+    },
+    {
+      "name": "Tianguan",
+      "ids": [
+        "hip-26451"
+      ],
+      "catalogs": [
+        "western-constellation-stars"
+      ],
+      "newIndividualFields": [
+        "age_gyr",
+        "mass_solar"
+      ],
+      "newlyDisplayedFields": [
+        "age_gyr",
+        "mass_solar"
+      ],
+      "remainingDisplayedGaps": [
+        "luminosity_solar",
+        "radius_solar"
+      ],
+      "stillMissingMoreThanTwo": false,
+      "sourceTablesChecked": [
+        "hohle-2010/table1.dat",
+        "hohle-2010/table1fp.dat",
+        "hohle-2010/table3.dat",
+        "hohle-2010/table3fp.dat",
+        "tetzlaff-2011/table1.dat"
+      ],
+      "disposition": [
+        "No further exact-primary value supported by the frozen source set. This is not proof that no dedicated publication exists; source-matched absence and scope rejections are retained."
+      ]
+    },
+    {
+      "name": "Upsilon Gem",
+      "ids": [
+        "hip-36962"
+      ],
+      "catalogs": [
+        "western-constellation-stars"
+      ],
+      "newIndividualFields": [
+        "age_gyr",
+        "mass_solar"
+      ],
+      "newlyDisplayedFields": [
+        "age_gyr",
+        "mass_solar"
+      ],
+      "remainingDisplayedGaps": [
+        "metallicity_dex"
+      ],
+      "stillMissingMoreThanTwo": false,
+      "sourceTablesChecked": [
+        "baines-2021/table5.dat",
+        "luck-2015/table1.dat",
+        "luck-2015/table2.dat",
+        "luck-2015/table3.dat",
+        "massarotti-2008/table3.dat",
+        "stock-2018/giants.dat"
+      ],
+      "disposition": [
+        "No further exact-primary value supported by the frozen source set. This is not proof that no dedicated publication exists; source-matched absence and scope rejections are retained."
+      ]
+    },
+    {
+      "name": "Upsilon1 Cen",
+      "ids": [
+        "hip-68282"
+      ],
+      "catalogs": [
+        "western-constellation-stars"
+      ],
+      "newIndividualFields": [
+        "age_gyr",
+        "mass_solar"
+      ],
+      "newlyDisplayedFields": [
+        "age_gyr",
+        "mass_solar"
+      ],
+      "remainingDisplayedGaps": [
+        "metallicity_dex"
+      ],
+      "stillMissingMoreThanTwo": false,
+      "sourceTablesChecked": [
+        "tetzlaff-2011/table1.dat"
+      ],
+      "disposition": [
+        "No further exact-primary value supported by the frozen source set. This is not proof that no dedicated publication exists; source-matched absence and scope rejections are retained."
+      ]
+    },
+    {
+      "name": "w Car",
+      "ids": [
+        "hip-52468"
+      ],
+      "catalogs": [
+        "western-constellation-stars"
+      ],
+      "newIndividualFields": [],
+      "newlyDisplayedFields": [],
+      "remainingDisplayedGaps": [
+        "mass_solar",
+        "metallicity_dex",
+        "age_gyr"
+      ],
+      "stillMissingMoreThanTwo": true,
+      "sourceTablesChecked": [
+        "tetzlaff-2011/table1.dat"
+      ],
+      "disposition": [
+        "Tetzlaff young high-mass source classification conflicts with the catalogued K giant. No mass or age adopted from that match."
+      ]
+    },
+    {
+      "name": "Wasat Aa",
+      "ids": [
+        "hip-35550"
+      ],
+      "catalogs": [
+        "western-constellation-stars"
+      ],
+      "newIndividualFields": [],
+      "newlyDisplayedFields": [],
+      "remainingDisplayedGaps": [
+        "mass_solar",
+        "metallicity_dex",
+        "age_gyr"
+      ],
+      "stillMissingMoreThanTwo": true,
+      "sourceTablesChecked": [
+        "baines-2025/table7.dat",
+        "baines-2025/table8.dat",
+        "david-2015/table5.dat",
+        "zorec-2012/table1.dat"
+      ],
+      "disposition": [
+        "Survey rows are unresolved or system-level matches; do not assign their mass, age, abundance or integrated flux to this individual component. Only separately reviewed primary/component evidence is eligible."
+      ]
+    },
+    {
+      "name": "Xi Hya",
+      "ids": [
+        "hip-56343"
+      ],
+      "catalogs": [
+        "western-constellation-stars"
+      ],
+      "newIndividualFields": [],
+      "newlyDisplayedFields": [],
+      "remainingDisplayedGaps": [
+        "mass_solar",
+        "luminosity_solar",
+        "radius_solar",
+        "age_gyr"
+      ],
+      "stillMissingMoreThanTwo": true,
+      "sourceTablesChecked": [
+        "charbonnel-2020/table1.dat",
+        "luck-2015/table1.dat",
+        "luck-2015/table2.dat",
+        "luck-2015/table3.dat"
+      ],
+      "disposition": [
+        "Survey rows are unresolved or system-level matches; do not assign their mass, age, abundance or integrated flux to this individual component. Only separately reviewed primary/component evidence is eligible."
+      ]
+    },
+    {
+      "name": "Xi2 CMa",
+      "ids": [
+        "hip-31416"
+      ],
+      "catalogs": [
+        "western-constellation-stars"
+      ],
+      "newIndividualFields": [],
+      "newlyDisplayedFields": [],
+      "remainingDisplayedGaps": [
+        "mass_solar",
+        "metallicity_dex",
+        "age_gyr"
+      ],
+      "stillMissingMoreThanTwo": true,
+      "sourceTablesChecked": [],
+      "disposition": [
+        "No further exact-primary value supported by the frozen source set. This is not proof that no dedicated publication exists; source-matched absence and scope rejections are retained."
+      ]
+    },
+    {
+      "name": "Zeta Aqr Aa",
+      "ids": [
+        "hip-110960"
+      ],
+      "catalogs": [
+        "western-constellation-stars"
+      ],
+      "newIndividualFields": [],
+      "newlyDisplayedFields": [],
+      "remainingDisplayedGaps": [
+        "mass_solar",
+        "metallicity_dex",
+        "age_gyr"
+      ],
+      "stillMissingMoreThanTwo": true,
+      "sourceTablesChecked": [
+        "david-2015/table5.dat"
+      ],
+      "disposition": [
+        "Survey rows are unresolved or system-level matches; do not assign their mass, age, abundance or integrated flux to this individual component. Only separately reviewed primary/component evidence is eligible."
+      ]
+    },
+    {
+      "name": "Zeta Boo A",
+      "ids": [
+        "hip-71795"
+      ],
+      "catalogs": [
+        "western-constellation-stars"
+      ],
+      "newIndividualFields": [],
+      "newlyDisplayedFields": [],
+      "remainingDisplayedGaps": [
+        "mass_solar",
+        "metallicity_dex",
+        "age_gyr"
+      ],
+      "stillMissingMoreThanTwo": true,
+      "sourceTablesChecked": [],
+      "disposition": [
+        "No further exact-primary value supported by the frozen source set. This is not proof that no dedicated publication exists; source-matched absence and scope rejections are retained."
+      ]
+    },
+    {
+      "name": "Zeta Ophiuchi",
+      "ids": [
+        "bright-zeta-ophiuchi",
+        "hip-81377"
+      ],
+      "catalogs": [
+        "bright-stars",
+        "western-constellation-stars"
+      ],
+      "newIndividualFields": [
+        "age_gyr",
+        "mass_solar"
+      ],
+      "newlyDisplayedFields": [
+        "age_gyr",
+        "mass_solar"
+      ],
+      "remainingDisplayedGaps": [
+        "luminosity_solar",
+        "radius_solar",
+        "metallicity_dex"
+      ],
+      "stillMissingMoreThanTwo": true,
+      "sourceTablesChecked": [
+        "tetzlaff-2011/table1.dat"
+      ],
+      "disposition": [
+        "No further exact-primary value supported by the frozen source set. This is not proof that no dedicated publication exists; source-matched absence and scope rejections are retained."
+      ]
+    },
+    {
+      "name": "Zeta Per",
+      "ids": [
+        "hip-18246"
+      ],
+      "catalogs": [
+        "western-constellation-stars"
+      ],
+      "newIndividualFields": [],
+      "newlyDisplayedFields": [],
+      "remainingDisplayedGaps": [
+        "mass_solar",
+        "luminosity_solar",
+        "radius_solar",
+        "age_gyr"
+      ],
+      "stillMissingMoreThanTwo": true,
+      "sourceTablesChecked": [
+        "hohle-2010/table1.dat",
+        "hohle-2010/table3.dat",
+        "tetzlaff-2011/table1.dat"
+      ],
+      "disposition": [
+        "Survey rows are unresolved or system-level matches; do not assign their mass, age, abundance or integrated flux to this individual component. Only separately reviewed primary/component evidence is eligible."
+      ]
+    },
+    {
+      "name": "Zibal",
+      "ids": [
+        "hip-15197"
+      ],
+      "catalogs": [
+        "western-constellation-stars"
+      ],
+      "newIndividualFields": [],
+      "newlyDisplayedFields": [],
+      "remainingDisplayedGaps": [
+        "mass_solar",
+        "metallicity_dex",
+        "age_gyr"
+      ],
+      "stillMissingMoreThanTwo": true,
+      "sourceTablesChecked": [],
+      "disposition": [
+        "No further exact-primary value supported by the frozen source set. This is not proof that no dedicated publication exists; source-matched absence and scope rejections are retained."
+      ]
+    }
+  ]
+}

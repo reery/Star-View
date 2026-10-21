@@ -320,7 +320,7 @@
         "luminosity_solar": 1771.7620223265396,
         "radius_solar": 12.009513,
         "metallicity_dex": null,
-        "age_gyr": null,
+        "age_gyr": 0.0501,
         "absolute_mag": -3.004376,
         "epoch": 2000.0,
         "type": "star",
@@ -329,7 +329,7 @@
         "constellation": "Perseus",
         "spectral_type": "B5III",
         "metallicity_kind": null,
-        "notes": "Western constellation line-figure star (HIP 17358; Stellarium Per). SIMBAD identity * del Per; SIMBAD compiled Johnson V=3.01; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, luminosity_solar; Stefan-Boltzmann scaling for radius_solar.",
+        "notes": "Western constellation line-figure star (HIP 17358; Stellarium Per). SIMBAD identity * del Per; SIMBAD compiled Johnson V=3.01; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, luminosity_solar; Stefan-Boltzmann scaling for radius_solar. Reviewed physical values describe Delta Per. Exact * del Per / HD 22928, HIP 17358. Source values describe this primary/individual; no companion, subsystem sum, or system-metallicity inference. Reviewed 151-target enrichment (2026-10-21). 2011MNRAS.410..190T. Existing non-null values retain their independent sources. Published photometry/spectral-type evolutionary-model age; errors are cross-model deviations, not all systematics. The sample is age-selected and solar metallicity is assumed, not measured. Shared exact-identity physical supplements (age_gyr: 2011MNRAS.410..190T).",
         "designations": [
           "HIP 17358"
         ],
@@ -1570,7 +1570,7 @@
       "label": "Adopted star positions and names",
       "url": "https://simbad.cds.unistra.fr/simbad/",
       "path": "src/data/catalogs/western-constellation-stars/stars.csv",
-      "sha256": "28689abf630ec0b3322df1dbbe21e8fb1090dc3a1a03b670b2e6572292aeea6c"
+      "sha256": "e8cdc61e33e9ea33a76ff78cd1fd1115821cfe94641aeac65f29ded0263b9e54"
     },
     {
       "label": "Hipparcos Johnson V magnitudes",

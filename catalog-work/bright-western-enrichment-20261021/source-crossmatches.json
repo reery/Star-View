@@ -1,0 +1,6934 @@
+{
+  "10 UMa A": {
+    "piccotti-2020/table1.dat": [
+      {
+        "Cat": "ORB6",
+        "WDS": "09006+4147",
+        "DD": "KUI 37AB",
+        "HD": 76943,
+        "P": 7961.0,
+        "e_P": 1.8,
+        "n_P": null,
+        "T": 57784.0309,
+        "e_T": 9.1,
+        "e": 0.1508,
+        "e_e": 0.0008,
+        "n_e": null,
+        "omega": 32.3,
+        "e_omega": 0.44,
+        "n_omega": null,
+        "grade": 1,
+        "Ref": "Muterspaugh2010"
+      },
+      {
+        "Cat": "SB9",
+        "WDS": "09006+4147",
+        "DD": "KUI 37AB",
+        "HD": 76943,
+        "P": 7955.145,
+        "e_P": 7.305,
+        "n_P": null,
+        "T": 57227.79,
+        "e_T": 36.525,
+        "e": 0.154,
+        "e_e": 0.004,
+        "n_e": null,
+        "omega": 32.7,
+        "e_omega": 1.9,
+        "n_omega": null,
+        "grade": null,
+        "Ref": "Agati2015"
+      }
+    ],
+    "piccotti-2020/table2.dat": [
+      {
+        "HD": 76943,
+        "asinikm": 1286230000.0,
+        "e_asinikm": 24600000.0,
+        "asini": 8.59788,
+        "e_asini": 0.16442,
+        "a": 11.45616,
+        "e_a": 0.21977
+      }
+    ],
+    "piccotti-2020/table3.dat": [
+      {
+        "HD": "76943",
+        "plxorb": 56.3592,
+        "e_plxorb": 1.0827,
+        "n_plxorb": "g",
+        "plxHIP": 62.23,
+        "e_plxHIP": 0.68,
+        "n_plxHIP": "g",
+        "plxGaia": 71.1893,
+        "e_plxGaia": 1.4693,
+        "n_plxGaia": null,
+        "plxDyn": 60.674,
+        "e_plxDyn": 0.088,
+        "n_plxDyn": "g"
+      }
+    ],
+    "piccotti-2020/table5.dat": [
+      {
+        "HD": 76943,
+        "M1Orb": 1.596,
+        "e_M1Orb": 0.127,
+        "M1HIP": 1.185,
+        "e_M1HIP": 0.075,
+        "M1Gaia": 0.792,
+        "e_M1Gaia": 0.065,
+        "M1Dyn": 1.279,
+        "e_M1Dyn": 0.07,
+        "M2Orb": 1.569,
+        "e_M2Orb": 0.109,
+        "M2HIP": 1.166,
+        "e_M2HIP": 0.059,
+        "M2Gaia": 0.779,
+        "e_M2Gaia": 0.057,
+        "M2Dyn": 1.258,
+        "e_M2Dyn": 0.049
+      }
+    ],
+    "piccotti-2020/table6.dat": [
+      {
+        "HD": "76943",
+        "Vmag": 3.96,
+        "Vmag1": 4.104,
+        "Vmag2": 6.222,
+        "DeltaV": 2.118,
+        "VMAG": 2.715,
+        "VMAG1": 2.859,
+        "VMAG2": 4.977,
+        "GLAT": 41.1817192,
+        "AV": 0.026983053,
+        "E(B-V)": 0.008432204,
+        "VMAGc": 2.688,
+        "VMAGc1": 2.832,
+        "VMAGc2": 4.95
+      }
+    ],
+    "piccotti-2020/table7.dat": [
+      {
+        "HD": "76943",
+        "SpType1": "A9",
+        "Lum1": "V",
+        "SpType2": "F0",
+        "Lum2": "V",
+        "Teff1": 7430.33,
+        "Teff2": 7178.0,
+        "B-V1": 0.38,
+        "B-V2": 0.71,
+        "V-R1": 0.26,
+        "V-R2": 0.3,
+        "BC1": 0.03,
+        "BC2": 0.04
+      }
+    ],
+    "piccotti-2020/table11.dat": [
+      {
+        "HD": "76943",
+        "l_M": null,
+        "M": 1.5,
+        "e_M": 0.1,
+        "logL": 0.76,
+        "e_logL": 0.15,
+        "logTeff": 3.84,
+        "e_logTeff": 0.05,
+        "logage": 9.03,
+        "e_logage": 0.2
+      }
+    ],
+    "piccotti-2020/table12.dat": [
+      {
+        "HD": "76943",
+        "l_M": null,
+        "M": 0.95,
+        "e_M": 0.05,
+        "logL": -0.05,
+        "e_logL": 0.15,
+        "logTeff": 3.75,
+        "e_logTeff": 0.05,
+        "logage": 9.8,
+        "e_logage": 1.0
+      }
+    ],
+    "david-2015/table5.dat": [
+      {
+        "HIP": 44248,
+        "Teff": 6538,
+        "e_Teff": 222,
+        "log(g)": 3.97,
+        "e_log(g)": 0.14,
+        "vsini": null,
+        "r_vsini": null,
+        "Ageavg": 1970,
+        "Agemed": 2259,
+        "Agemod": 2337,
+        "Age68lo": 1454,
+        "Age68up": 4340,
+        "Age68t": 68,
+        "Age95lo": 410,
+        "Age95up": 6494,
+        "Age95t": 95,
+        "Age2D": 2302,
+        "Mavg": 1.26,
+        "Mmed": 1.25,
+        "Mmod": 1.24,
+        "M68lo": 1.1,
+        "M68up": 1.3,
+        "M68t": 68,
+        "M95lo": 1.1,
+        "M95up": 1.4,
+        "M95t": 95,
+        "M2D": 1.45
+      }
+    ]
+  },
+  "5 Lac A": {
+    "hohle-2010/table1fp.dat": [
+      {
+        "HIP": 111022,
+        "Bmag": 5.982,
+        "Vmag": 4.36,
+        "Jmag": 1.308,
+        "e_Jmag": null,
+        "Hmag": 0.403,
+        "e_Hmag": null,
+        "Kmag": 0.256,
+        "e_Kmag": null,
+        "plx": 1.98,
+        "e_plx": 0.18,
+        "pcor": 2.0,
+        "e_pcor": 0.182,
+        "SpType": "K7 I",
+        "Teff": 3700.0
+      }
+    ],
+    "hohle-2010/table3fp.dat": [
+      {
+        "HIP": 111022,
+        "minM1": 5.34,
+        "maxM1": 8.81,
+        "minM2": 5.9,
+        "maxM2": 9.97,
+        "minM3": 6.83,
+        "maxM3": 8.97,
+        "Mmed": 7.71,
+        "e_Mmed": 0.71,
+        "Lbol": 14149.5,
+        "Teffc": 3700.0
+      }
+    ],
+    "tetzlaff-2011/table1.dat": [
+      {
+        "HIP": 111022,
+        "OName": "V412 Lac",
+        "Mass": 9.8,
+        "e_Mass": 0.4,
+        "Age": 25.1,
+        "e_Age": 1.8,
+        "SpType": "M0II"
+      }
+    ],
+    "baines-2018/table1.dat": [
+      {
+        "HD": 213311,
+        "HR": 8572,
+        "FK5": 3799,
+        "OName": "5 Lac",
+        "SpType": "K9 I",
+        "Vmag": 4.37,
+        "e_Vmag": 0.01,
+        "Plx": 1.98,
+        "e_Plx": 0.18,
+        "[Fe/H]": 0.0,
+        "r_[Fe/H]": 2
+      }
+    ],
+    "baines-2018/table5.dat": [
+      {
+        "HD": 213311,
+        "SpType": "K4 I",
+        "Rad": 319.2,
+        "e_Rad": 26.6,
+        "E_Rad": 32.0,
+        "f_Rad": null,
+        "sigRad": 10.0,
+        "Fbol": 2.19,
+        "e_Fbol": 0.13,
+        "Av": 0.1,
+        "e_Av": 0.29,
+        "Teff": 3713,
+        "e_Teff": 56,
+        "sigTeff": 1.5,
+        "Lum": 17473.0,
+        "e_Lum": 3344.0,
+        "f_Lum": null
+      }
+    ],
+    "baines-2018/table6.dat": [
+      {
+        "HD": 213311,
+        "Mass": 5.11,
+        "e_Mass": 0.18,
+        "Age": 0.11,
+        "e_Age": 0.01
+      }
+    ],
+    "baines-2025/table7.dat": [
+      {
+        "HD": 213311,
+        "Rad": 426.76,
+        "E_Rad": 36.41,
+        "e_Rad": 43.88,
+        "sigRad": 9.3,
+        "L": 14073.3,
+        "e_L": 0.1,
+        "r_L": "MZW17",
+        "Fbol": 99.1,
+        "e_Fbol": 9.2,
+        "Teff": 3042,
+        "e_Teff": 71,
+        "sigTeff": 2.3
+      }
+    ]
+  },
+  "5 Ori": {},
+  "Acamar": {},
+  "Acrab Aa": {
+    "hohle-2010/table1fp.dat": [
+      {
+        "HIP": 78820,
+        "Bmag": 2.56,
+        "Vmag": 2.63,
+        "Jmag": null,
+        "e_Jmag": null,
+        "Hmag": null,
+        "e_Hmag": null,
+        "Kmag": null,
+        "e_Kmag": null,
+        "plx": 8.07,
+        "e_plx": 0.78,
+        "pcor": 8.151,
+        "e_pcor": 0.788,
+        "SpType": "B0.5 V",
+        "Teff": 27700.0
+      }
+    ],
+    "hohle-2010/table3fp.dat": [
+      {
+        "HIP": 78820,
+        "minM1": 13.5,
+        "maxM1": 15.13,
+        "minM2": 12.53,
+        "maxM2": 15.74,
+        "minM3": 11.95,
+        "maxM3": 14.87,
+        "Mmed": 14.94,
+        "e_Mmed": 0.62,
+        "Lbol": 25514.0,
+        "Teffc": 27700.0
+      }
+    ],
+    "tetzlaff-2011/table1.dat": [
+      {
+        "HIP": 78820,
+        "OName": "8 Sco A",
+        "Mass": 12.5,
+        "e_Mass": 0.6,
+        "Age": 13.8,
+        "e_Age": 0.4,
+        "SpType": "B0.5V"
+      }
+    ]
+  },
+  "Acrux Aa": {
+    "hohle-2010/table1fp.dat": [
+      {
+        "HIP": 60718,
+        "Bmag": 1.334,
+        "Vmag": 1.58,
+        "Jmag": null,
+        "e_Jmag": null,
+        "Hmag": null,
+        "e_Hmag": null,
+        "Kmag": null,
+        "e_Kmag": null,
+        "plx": 10.13,
+        "e_plx": 0.5,
+        "pcor": 10.231,
+        "e_pcor": 0.505,
+        "SpType": "B1 IV",
+        "Teff": 24200.0
+      }
+    ],
+    "hohle-2010/table3fp.dat": [
+      {
+        "HIP": 60718,
+        "minM1": 11.25,
+        "maxM1": 11.55,
+        "minM2": 12.55,
+        "maxM2": 12.53,
+        "minM3": 11.96,
+        "maxM3": 11.94,
+        "Mmed": 11.95,
+        "e_Mmed": 0.34,
+        "Lbol": 17264.9,
+        "Teffc": 24200.0
+      }
+    ],
+    "tetzlaff-2011/table1.dat": [
+      {
+        "HIP": 60718,
+        "OName": "alf Cru",
+        "Mass": 15.5,
+        "e_Mass": 0.1,
+        "Age": 10.8,
+        "e_Age": 1.1,
+        "SpType": "B0.5IV"
+      }
+    ],
+    "david-2015/table5.dat": [
+      {
+        "HIP": 60718,
+        "Teff": 16605,
+        "e_Teff": 565,
+        "log(g)": 4.35,
+        "e_log(g)": 0.14,
+        "vsini": 92,
+        "r_vsini": 0,
+        "Ageavg": 19,
+        "Agemed": 23,
+        "Agemod": 35,
+        "Age68lo": 13,
+        "Age68up": 55,
+        "Age68t": 68,
+        "Age95lo": 3,
+        "Age95up": 61,
+        "Age95t": 95,
+        "Age2D": 1,
+        "Mavg": 4.75,
+        "Mmed": 4.74,
+        "Mmod": 4.7,
+        "M68lo": 4.6,
+        "M68up": 4.9,
+        "M68t": 68,
+        "M95lo": 4.4,
+        "M95up": 5.1,
+        "M95t": 95,
+        "M2D": 4.58
+      }
+    ]
+  },
+  "Ahadi": {
+    "tetzlaff-2011/table1.dat": [
+      {
+        "HIP": 35264,
+        "OName": "pi. Pup",
+        "Mass": 11.7,
+        "e_Mass": 0.2,
+        "Age": 20.0,
+        "e_Age": 3.9,
+        "SpType": "K3Ib"
+      }
+    ]
+  },
+  "Alaybasan A": {
+    "piccotti-2020/table1.dat": [
+      {
+        "Cat": "ORB6",
+        "WDS": "02095+3459",
+        "DD": "MKT 4",
+        "HD": 13161,
+        "P": 31.387,
+        "e_P": 0.001,
+        "n_P": null,
+        "T": 58823.3889,
+        "e_T": 2.5568,
+        "e": 0.44,
+        "e_e": 0.002,
+        "n_e": null,
+        "omega": 298.1,
+        "e_omega": 0.2,
+        "n_omega": null,
+        "grade": 1,
+        "Ref": "Hummel1995"
+      },
+      {
+        "Cat": "SB9",
+        "WDS": "02095+3459",
+        "DD": "MKT 4",
+        "HD": 13161,
+        "P": 31.3891,
+        "e_P": 0.0002,
+        "n_P": null,
+        "T": 58808.9637,
+        "e_T": 0.0322,
+        "e": 0.433,
+        "e_e": 0.0041,
+        "n_e": null,
+        "omega": 298.13,
+        "e_omega": 0.66,
+        "n_omega": null,
+        "grade": 5,
+        "Ref": "Pourbaix2000"
+      }
+    ],
+    "piccotti-2020/table2.dat": [
+      {
+        "HD": 13161,
+        "asinikm": 37921800.0,
+        "e_asinikm": 580500.0,
+        "asini": 0.25349,
+        "e_asini": 0.00388,
+        "a": 0.33043,
+        "e_a": 0.00515
+      }
+    ],
+    "piccotti-2020/table3.dat": [
+      {
+        "HD": "13161",
+        "plxorb": 24.2717,
+        "e_plxorb": 0.4074,
+        "n_plxorb": "h",
+        "plxHIP": 25.71,
+        "e_plxHIP": 0.34,
+        "n_plxHIP": null,
+        "plxGaia": null,
+        "e_plxGaia": null,
+        "n_plxGaia": null,
+        "plxDyn": null,
+        "e_plxDyn": null,
+        "n_plxDyn": null
+      }
+    ],
+    "piccotti-2020/table5.dat": [
+      {
+        "HD": 13161,
+        "M1Orb": 3.514,
+        "e_M1Orb": 0.274,
+        "M1HIP": 2.957,
+        "e_M1HIP": 0.211,
+        "M1Gaia": null,
+        "e_M1Gaia": null,
+        "M1Dyn": null,
+        "e_M1Dyn": null,
+        "M2Orb": 1.372,
+        "e_M2Orb": 0.092,
+        "M2HIP": 1.154,
+        "e_M2HIP": 0.068,
+        "M2Gaia": null,
+        "e_M2Gaia": null,
+        "M2Dyn": null,
+        "e_M2Dyn": null
+      }
+    ],
+    "piccotti-2020/table6.dat": [
+      {
+        "HD": "13161",
+        "Vmag": 3.0,
+        "Vmag1": 4.191,
+        "Vmag2": 3.441,
+        "DeltaV": -0.75,
+        "VMAG": -0.075,
+        "VMAG1": 1.117,
+        "VMAG2": 0.367,
+        "GLAT": -25.1984245,
+        "AV": 0.061099285,
+        "E(B-V)": 0.019093527,
+        "VMAGc": -0.136,
+        "VMAGc1": 1.055,
+        "VMAGc2": 0.305
+      }
+    ],
+    "piccotti-2020/table7.dat": [
+      {
+        "HD": "13161",
+        "SpType1": "A3",
+        "Lum1": "III",
+        "SpType2": "A8",
+        "Lum2": "III",
+        "Teff1": 8758.67,
+        "Teff2": 7682.67,
+        "B-V1": 0.07,
+        "B-V2": 0.21,
+        "V-R1": 0.11,
+        "V-R2": 0.23,
+        "BC1": 0.01,
+        "BC2": 0.03
+      }
+    ],
+    "piccotti-2020/table11.dat": [
+      {
+        "HD": "13161",
+        "l_M": null,
+        "M": 2.25,
+        "e_M": 0.05,
+        "logL": 1.5,
+        "e_logL": 0.05,
+        "logTeff": 3.95,
+        "e_logTeff": 0.05,
+        "logage": 8.65,
+        "e_logage": 0.1
+      }
+    ],
+    "piccotti-2020/table12.dat": [
+      {
+        "HD": "13161",
+        "l_M": null,
+        "M": 2.6,
+        "e_M": 0.3,
+        "logL": 1.78,
+        "e_logL": 0.1,
+        "logTeff": 3.94,
+        "e_logTeff": 0.1,
+        "logage": 8.6,
+        "e_logage": 0.2
+      }
+    ]
+  },
+  "Aldhibah A": {
+    "tetzlaff-2011/table1.dat": [
+      {
+        "HIP": 83895,
+        "OName": "zet Dra",
+        "Mass": null,
+        "e_Mass": null,
+        "Age": null,
+        "e_Age": null,
+        "SpType": "B6III"
+      }
+    ]
+  },
+  "Algieba A": {
+    "massarotti-2008/table3.dat": [
+      {
+        "---": "HIP",
+        "HIP": 50583,
+        "m_HIP": null,
+        "Dist": 39,
+        "e_Dist": 1,
+        "Teff": 4365,
+        "e_Teff": 4,
+        "logL": 2.42,
+        "Rad": 25,
+        "logg": 2.3,
+        "r_logg": 2,
+        "[Fe/H]": -0.49,
+        "r_[Fe/H]": 5
+      }
+    ],
+    "charbonnel-2020/table1.dat": [
+      {
+        "HD": 89484,
+        "RAdeg": 154.99315,
+        "DEdeg": 19.841488,
+        "Teff": 4274,
+        "e_Teff": 150,
+        "BCV": -0.83,
+        "[Fe/H]": -0.54,
+        "ALi": -0.58,
+        "flagLi": -1,
+        "Plxvl07": 25.07,
+        "e_Plxvl07": 0.52,
+        "logLvl07hip": 2.63,
+        "e_logLvl07hip": 0.02,
+        "PlxGaiaDR2": -9999.0,
+        "e_PlxGaiaDR2": -9999.0,
+        "logLadopt": 2.63,
+        "e_logLadopt": 0.02,
+        "f_logLadopt": 2,
+        "Mass": 1.77,
+        "e_Mass": 0.8,
+        "E_Mass": 0.72
+      }
+    ],
+    "luck-2015/table1.dat": [
+      {
+        "Name": "* gam01 Leo",
+        "HD": "89484",
+        "HIP": null,
+        "HR": 4057,
+        "CCDM": "J10199+1951",
+        "m_CCDM": "A",
+        "OName": null,
+        "Sce": "S",
+        "Key": "hr4057",
+        "SpT": "K1-III",
+        "Type": "PM*",
+        "Vmag": 1.98,
+        "B-V": 1.15,
+        "plx": 25.96,
+        "Dist": 38.5,
+        "RV": -36.7
+      }
+    ],
+    "luck-2015/table2.dat": [
+      {
+        "Name": "* gam01 Leo",
+        "Sce": "S",
+        "E(B-V)": 0.0,
+        "Teff": 4305,
+        "e_Teff": 100,
+        "o_Teff": 4,
+        "logL": 2.45,
+        "BMass": 1.18,
+        "DMass": 1.82,
+        "YMass": 1.89,
+        "<Mass>": 1.63,
+        "BAge": 4.45,
+        "DAge": 2.38,
+        "YAge": 1.53,
+        "<Age>": 2.79
+      }
+    ],
+    "luck-2015/table3.dat": [
+      {
+        "Key": "hr4057",
+        "Sce": "S",
+        "Teff1": 4304,
+        "logg1": 1.68,
+        "Vt1": 1.58,
+        "FeI1": -0.39,
+        "e_FeI1": 0.09,
+        "o_FeI1": 413,
+        "FeII1": -0.16,
+        "e_FeII1": 0.13,
+        "o_FeII1": 26,
+        "C1": 7.93,
+        "O1": 8.51,
+        "Li1": -0.6,
+        "EW1": 0.48,
+        "Li1c": 0.36,
+        "Teff2": 4304,
+        "logg2": 1.08,
+        "Vt2": 1.61,
+        "FeI2": -0.5,
+        "e_FeI2": 0.1,
+        "o_FeI2": 413,
+        "FeII2": -0.5,
+        "e_FeII2": 0.13,
+        "o_FeII2": 26,
+        "C2": 7.74,
+        "O2": 8.25,
+        "Li2": -0.62,
+        "Li2c": 0.43,
+        "Vbroad": 4.4,
+        "Broad": "G",
+        "Clump": 1
+      }
+    ]
+  },
+  "Alkaphrah A": {
+    "zorec-2012/table1.dat": [
+      {
+        "HD": 77327,
+        "SpType": "A1Vn",
+        "logT": 3.969,
+        "e_logT": 0.004,
+        "logL": 2.6909,
+        "e_logL": 0.053,
+        "Mass": 3.79,
+        "e_Mass": 0.12,
+        "Age": 1.019,
+        "e_Age": 0.0,
+        "vsini": 201,
+        "r_vsini": 4,
+        "Class": "CP CB"
+      }
+    ]
+  },
+  "Alnitak Aa": {
+    "tetzlaff-2011/table1.dat": [
+      {
+        "HIP": 26727,
+        "OName": "zet Ori",
+        "Mass": 13.7,
+        "e_Mass": 5.5,
+        "Age": 5.9,
+        "e_Age": 2.2,
+        "SpType": "O9.5Ib SB"
+      }
+    ]
+  },
+  "Alpha Cam": {
+    "hohle-2010/table1.dat": [
+      {
+        "HIP": 22783,
+        "Bmag": 4.289,
+        "Vmag": 4.301,
+        "Jmag": 4.243,
+        "e_Jmag": 0.326,
+        "Hmag": 4.38,
+        "e_Hmag": 0.036,
+        "Kmag": 4.242,
+        "e_Kmag": 0.036,
+        "plx": 0.52,
+        "e_plx": 0.19,
+        "pcor": 0.538,
+        "e_pcor": 0.197,
+        "SpType": "O9.5 I",
+        "Teff": 29300.0
+      }
+    ],
+    "hohle-2010/table3.dat": [
+      {
+        "HIP": 22783,
+        "minM1": 33.26,
+        "maxM1": 25.58,
+        "minM2": 30.0,
+        "maxM2": 55.02,
+        "minM3": 23.66,
+        "maxM3": 70.15,
+        "Mmed": 55.77,
+        "e_Mmed": 7.93,
+        "Lbol": 1816500.2,
+        "Teffc": 29300.0
+      }
+    ],
+    "hohle-2010/table1fp.dat": [
+      {
+        "HIP": 22783,
+        "Bmag": 4.278,
+        "Vmag": 4.29,
+        "Jmag": 4.232,
+        "e_Jmag": null,
+        "Hmag": 4.369,
+        "e_Hmag": null,
+        "Kmag": 4.231,
+        "e_Kmag": null,
+        "plx": 0.52,
+        "e_plx": 0.19,
+        "pcor": 0.538,
+        "e_pcor": 0.197,
+        "SpType": "O9.5 I",
+        "Teff": 29300.0
+      }
+    ],
+    "hohle-2010/table3fp.dat": [
+      {
+        "HIP": 22783,
+        "minM1": 33.26,
+        "maxM1": 25.58,
+        "minM2": 30.0,
+        "maxM2": 55.02,
+        "minM3": 23.66,
+        "maxM3": 70.15,
+        "Mmed": 58.22,
+        "e_Mmed": 2.28,
+        "Lbol": 1775151.6,
+        "Teffc": 29300.0
+      }
+    ]
+  },
+  "Alpha Lupi": {
+    "tetzlaff-2011/table1.dat": [
+      {
+        "HIP": 71860,
+        "OName": "alf Lup",
+        "Mass": 10.1,
+        "e_Mass": 1.0,
+        "Age": 22.5,
+        "e_Age": 2.6,
+        "SpType": "B1.5III"
+      }
+    ]
+  },
+  "Alpha Lyn": {
+    "baines-2021/table5.dat": [
+      {
+        "Target": 80493,
+        "SpT": "K5 III",
+        "Rad": 58.15,
+        "E_Rad": 0.73,
+        "e_Rad": 0.75,
+        "sigRad": 1.3,
+        "FBol": 4.35,
+        "e_FBol": 0.15,
+        "AVmag": 0.17,
+        "e_AVmag": 0.05,
+        "Teff": 3790,
+        "e_Teff": 33,
+        "sigTeff": 0.9,
+        "Lum": 629.7,
+        "e_Lum": 26.3
+      }
+    ],
+    "massarotti-2008/table3.dat": [
+      {
+        "---": "HIP",
+        "HIP": 45860,
+        "m_HIP": null,
+        "Dist": 68,
+        "e_Dist": 4,
+        "Teff": 3882,
+        "e_Teff": 24,
+        "logL": 2.96,
+        "Rad": 66,
+        "logg": 1.5,
+        "r_logg": 2,
+        "[Fe/H]": -0.26,
+        "r_[Fe/H]": 4
+      }
+    ],
+    "baines-2025/table7.dat": [
+      {
+        "HD": 80493,
+        "Rad": 55.26,
+        "E_Rad": 0.68,
+        "e_Rad": 0.7,
+        "sigRad": 1.2,
+        "L": 501.2,
+        "e_L": 0.1,
+        "r_L": "MZW17",
+        "Fbol": 346.5,
+        "e_Fbol": 4.3,
+        "Teff": 3673,
+        "e_Teff": 12,
+        "sigTeff": 0.3
+      }
+    ]
+  },
+  "Alpha Muscae Aa": {
+    "tetzlaff-2011/table1.dat": [
+      {
+        "HIP": 61585,
+        "OName": "alf Mus",
+        "Mass": 8.8,
+        "e_Mass": 0.1,
+        "Age": 18.3,
+        "e_Age": 3.2,
+        "SpType": "B2IV-V"
+      }
+    ],
+    "david-2015/table5.dat": [
+      {
+        "HIP": 61585,
+        "Teff": 21790,
+        "e_Teff": 741,
+        "log(g)": 4.32,
+        "e_log(g)": 0.14,
+        "vsini": 114,
+        "r_vsini": 0,
+        "Ageavg": 6,
+        "Agemed": 7,
+        "Agemod": 11,
+        "Age68lo": 4,
+        "Age68up": 18,
+        "Age68t": 68,
+        "Age95lo": 1,
+        "Age95up": 21,
+        "Age95t": 95,
+        "Age2D": 0,
+        "Mavg": 7.53,
+        "Mmed": 7.52,
+        "Mmod": 7.48,
+        "M68lo": 7.3,
+        "M68up": 7.7,
+        "M68t": 68,
+        "M95lo": 7.1,
+        "M95up": 8.0,
+        "M95t": 95,
+        "M2D": 7.34
+      }
+    ]
+  },
+  "Alsciaukat": {
+    "stock-2018/giants.dat": [
+      {
+        "HIP": 41075,
+        "Stage": "HB",
+        "P": 0.41,
+        "Mmode": 0.95,
+        "Mmean": 0.98,
+        "e_M": 0.84,
+        "E_M": 1.05,
+        "e3_M": 0.8,
+        "E3_M": 1.35,
+        "Rmode": 54.06,
+        "Rmean": 54.16,
+        "e_R": 52.9,
+        "E_R": 55.4,
+        "e3_R": 50.89,
+        "E3_R": 57.23,
+        "logGmode": 0.95,
+        "logGmean": 0.96,
+        "e_logG": 0.91,
+        "E_logG": 1.0,
+        "e3_logG": 0.86,
+        "E3_logG": 1.1,
+        "logAmode": 9.95,
+        "logAmean": 9.88,
+        "e_logA": 9.81,
+        "E_logA": 10.02,
+        "e3_logA": 9.54,
+        "E3_logA": 10.06,
+        "Tmode": 3888.0,
+        "Tmean": 3887.0,
+        "e_T": 3879.0,
+        "E_T": 3897.0,
+        "e3_T": 3868.0,
+        "E3_T": 3905.0,
+        "Lmode": 603.84,
+        "Lmean": 600.64,
+        "e_L": 574.2,
+        "E_L": 627.49,
+        "e3_L": 528.57,
+        "E3_L": 686.77,
+        "Flag": "D",
+        "PDF": "Hip41075_HB.fits"
+      },
+      {
+        "HIP": 41075,
+        "Stage": "RGB",
+        "P": 0.59,
+        "Mmode": 1.11,
+        "Mmean": 1.13,
+        "e_M": 1.0,
+        "E_M": 1.22,
+        "e3_M": 0.86,
+        "E3_M": 1.49,
+        "Rmode": 54.33,
+        "Rmean": 54.34,
+        "e_R": 53.16,
+        "E_R": 55.43,
+        "e3_R": 51.08,
+        "E3_R": 57.89,
+        "logGmode": 1.02,
+        "logGmean": 1.02,
+        "e_logG": 0.98,
+        "E_logG": 1.06,
+        "e3_logG": 0.91,
+        "E3_logG": 1.14,
+        "logAmode": 9.78,
+        "logAmean": 9.77,
+        "e_logA": 9.64,
+        "E_logA": 9.89,
+        "e3_logA": 9.44,
+        "E3_logA": 10.05,
+        "Tmode": 3882.0,
+        "Tmean": 3882.0,
+        "e_T": 3878.0,
+        "E_T": 3886.0,
+        "e3_T": 3870.0,
+        "E3_T": 3893.0,
+        "Lmode": 599.88,
+        "Lmean": 602.12,
+        "e_L": 575.66,
+        "E_L": 625.44,
+        "e3_L": 531.95,
+        "E3_L": 681.62,
+        "Flag": "D,AM",
+        "PDF": "Hip41075_RGB.fits"
+      }
+    ],
+    "baines-2018/table1.dat": [
+      {
+        "HD": 70272,
+        "HR": 3275,
+        "FK5": 314,
+        "OName": "31 Lyn",
+        "SpType": "K4 III",
+        "Vmag": 4.25,
+        "e_Vmag": 0.01,
+        "Plx": 8.53,
+        "e_Plx": 0.25,
+        "[Fe/H]": -0.06,
+        "r_[Fe/H]": 1
+      }
+    ],
+    "baines-2018/table5.dat": [
+      {
+        "HD": 70272,
+        "SpType": "K4 III",
+        "Rad": 53.27,
+        "e_Rad": 1.55,
+        "E_Rad": 1.64,
+        "f_Rad": null,
+        "sigRad": 3.1,
+        "Fbol": 1.82,
+        "e_Fbol": 0.09,
+        "Av": 0.63,
+        "e_Av": 0.02,
+        "Teff": 4181,
+        "e_Teff": 54,
+        "sigTeff": 1.3,
+        "Lum": 782.4,
+        "e_Lum": 60.3,
+        "f_Lum": null
+      }
+    ],
+    "baines-2018/table6.dat": [
+      {
+        "HD": 70272,
+        "Mass": 1.95,
+        "e_Mass": 0.18,
+        "Age": 1.32,
+        "e_Age": 0.23
+      }
+    ]
+  },
+  "Alsephina Aa": {
+    "zorec-2012/table1.dat": [
+      {
+        "HD": 74956,
+        "SpType": "A1V",
+        "logT": 3.968,
+        "e_logT": 0.008,
+        "logL": 2.0706,
+        "e_logL": 0.0162,
+        "Mass": 2.89,
+        "e_Mass": 0.02,
+        "Age": 0.927,
+        "e_Age": 0.022,
+        "vsini": 150,
+        "r_vsini": 1,
+        "Class": "CB"
+      }
+    ],
+    "david-2015/table5.dat": [
+      {
+        "HIP": 42913,
+        "Teff": 9477,
+        "e_Teff": 322,
+        "log(g)": 3.93,
+        "e_log(g)": 0.14,
+        "vsini": 139,
+        "r_vsini": 0,
+        "Ageavg": 431,
+        "Agemed": 459,
+        "Agemod": 466,
+        "Age68lo": 410,
+        "Age68up": 531,
+        "Age68t": 68,
+        "Age95lo": 266,
+        "Age95up": 596,
+        "Age95t": 95,
+        "Age2D": 483,
+        "Mavg": 2.32,
+        "Mmed": 2.3,
+        "Mmod": 2.25,
+        "M68lo": 2.1,
+        "M68up": 2.5,
+        "M68t": 68,
+        "M95lo": 2.0,
+        "M95up": 2.7,
+        "M95t": 95,
+        "M2D": 2.43
+      }
+    ]
+  },
+  "Ascella A": {
+    "zorec-2012/table1.dat": [
+      {
+        "HD": 176687,
+        "SpType": "A3IV",
+        "logT": 3.938,
+        "e_logT": 0.004,
+        "logL": 1.809,
+        "e_logL": 0.0227,
+        "Mass": 2.53,
+        "e_Mass": 0.03,
+        "Age": 0.876,
+        "e_Age": 0.017,
+        "vsini": 77,
+        "r_vsini": 5,
+        "Class": "CB"
+      }
+    ],
+    "david-2015/table5.dat": [
+      {
+        "HIP": 93506,
+        "Teff": 9158,
+        "e_Teff": 311,
+        "log(g)": 4.17,
+        "e_log(g)": 0.14,
+        "vsini": 68,
+        "r_vsini": 0,
+        "Ageavg": 483,
+        "Agemed": 518,
+        "Agemod": 523,
+        "Age68lo": 461,
+        "Age68up": 611,
+        "Age68t": 68,
+        "Age95lo": 282,
+        "Age95up": 688,
+        "Age95t": 95,
+        "Age2D": 441,
+        "Mavg": 2.2,
+        "Mmed": 2.18,
+        "Mmod": 2.14,
+        "M68lo": 2.0,
+        "M68up": 2.3,
+        "M68t": 68,
+        "M95lo": 1.9,
+        "M95up": 2.5,
+        "M95t": 95,
+        "M2D": 2.07
+      }
+    ]
+  },
+  "Asellus Australis": {
+    "baines-2021/table5.dat": [
+      {
+        "Target": 74442,
+        "SpT": "G9 III",
+        "Rad": 11.7,
+        "E_Rad": 0.13,
+        "e_Rad": 0.13,
+        "sigRad": 1.1,
+        "FBol": 1.08,
+        "e_FBol": 0.02,
+        "AVmag": 0.26,
+        "e_AVmag": 0.04,
+        "Teff": 4684,
+        "e_Teff": 27,
+        "sigTeff": 0.6,
+        "Lum": 59.5,
+        "e_Lum": 1.4
+      }
+    ],
+    "massarotti-2008/table3.dat": [
+      {
+        "---": "HIP",
+        "HIP": 42911,
+        "m_HIP": null,
+        "Dist": 42,
+        "e_Dist": 1,
+        "Teff": 4634,
+        "e_Teff": 5,
+        "logL": 1.73,
+        "Rad": 11,
+        "logg": 2.7,
+        "r_logg": 1,
+        "[Fe/H]": -0.13,
+        "r_[Fe/H]": 5
+      }
+    ],
+    "stock-2018/giants.dat": [
+      {
+        "HIP": 42911,
+        "Stage": "RGB",
+        "P": 0.02,
+        "Mmode": 1.48,
+        "Mmean": 1.71,
+        "e_M": 1.45,
+        "E_M": 1.82,
+        "e3_M": 1.35,
+        "E3_M": 2.26,
+        "Rmode": 10.47,
+        "Rmean": 10.5,
+        "e_R": 10.31,
+        "E_R": 10.71,
+        "e3_R": 9.95,
+        "E3_R": 10.98,
+        "logGmode": 2.58,
+        "logGmean": 2.62,
+        "e_logG": 2.55,
+        "E_logG": 2.72,
+        "e3_logG": 2.48,
+        "E3_logG": 2.81,
+        "logAmode": 9.39,
+        "logAmean": 9.29,
+        "e_logA": 9.11,
+        "E_logA": 9.46,
+        "e3_logA": 8.94,
+        "E3_logA": 9.53,
+        "Tmode": 4747.0,
+        "Tmean": 4733.0,
+        "e_T": 4701.0,
+        "E_T": 4758.0,
+        "e3_T": 4669.0,
+        "E3_T": 4811.0,
+        "Lmode": 49.96,
+        "Lmean": 49.66,
+        "e_L": 48.76,
+        "E_L": 50.57,
+        "e3_L": 47.05,
+        "E3_L": 52.18,
+        "Flag": "MM,L,RM,TM,AM,GM,LM",
+        "PDF": "Hip42911_RGB.fits"
+      },
+      {
+        "HIP": 42911,
+        "Stage": "HB",
+        "P": 0.98,
+        "Mmode": 1.06,
+        "Mmean": 1.26,
+        "e_M": 0.88,
+        "E_M": 1.12,
+        "e3_M": 0.84,
+        "E3_M": 1.2,
+        "Rmode": 10.59,
+        "Rmean": 10.52,
+        "e_R": 10.47,
+        "E_R": 10.71,
+        "e3_R": 9.82,
+        "E3_R": 10.88,
+        "logGmode": 2.41,
+        "logGmean": 2.45,
+        "e_logG": 2.37,
+        "E_logG": 2.44,
+        "e3_logG": 2.3,
+        "E3_logG": 2.84,
+        "logAmode": 9.86,
+        "logAmean": 9.77,
+        "e_logA": 9.8,
+        "E_logA": 9.96,
+        "e3_logA": 9.53,
+        "E3_logA": 10.05,
+        "Tmode": 4721.0,
+        "Tmean": 4731.0,
+        "e_T": 4709.0,
+        "E_T": 4728.0,
+        "e3_T": 4692.0,
+        "E3_T": 4833.0,
+        "Lmode": 49.85,
+        "Lmean": 49.68,
+        "e_L": 48.94,
+        "E_L": 50.72,
+        "e3_L": 46.7,
+        "E3_L": 52.1,
+        "Flag": "MC,MM,RM,TC,TM,AC,...",
+        "PDF": "Hip42911_HB.fits"
+      }
+    ],
+    "baines-2025/table7.dat": [
+      {
+        "HD": 74442,
+        "Rad": 11.36,
+        "E_Rad": null,
+        "e_Rad": 0.11,
+        "sigRad": 0.9,
+        "L": 46.6,
+        "e_L": 0.1,
+        "r_L": "MZW17",
+        "Fbol": 84.5,
+        "e_Fbol": 0.7,
+        "Teff": 4472,
+        "e_Teff": 15,
+        "sigTeff": 0.3
+      }
+    ],
+    "charbonnel-2020/table1.dat": [
+      {
+        "HD": 74442,
+        "RAdeg": 131.17125,
+        "DEdeg": 18.154308,
+        "Teff": 4730,
+        "e_Teff": 100,
+        "BCV": -0.39,
+        "[Fe/H]": -0.1,
+        "ALi": 0.3,
+        "flagLi": 0,
+        "Plxvl07": 24.98,
+        "e_Plxvl07": 0.24,
+        "logLvl07hip": 1.68,
+        "e_logLvl07hip": 0.01,
+        "PlxGaiaDR2": 24.6304,
+        "e_PlxGaiaDR2": 0.3105,
+        "logLadopt": 1.73,
+        "e_logLadopt": 0.03,
+        "f_logLadopt": 0,
+        "Mass": 1.59,
+        "e_Mass": 0.68,
+        "E_Mass": 1.39
+      }
+    ],
+    "luck-2015/table1.dat": [
+      {
+        "Name": "* del Cnc",
+        "HD": "74442",
+        "HIP": 42911,
+        "HR": 3461,
+        "CCDM": "J08447+1809",
+        "m_CCDM": "A",
+        "OName": null,
+        "Sce": "S",
+        "Key": "hr3461",
+        "SpT": "K0III",
+        "Type": "PM*",
+        "Vmag": 3.94,
+        "B-V": 1.08,
+        "plx": 24.98,
+        "Dist": 40.0,
+        "RV": 17.14
+      }
+    ],
+    "luck-2015/table2.dat": [
+      {
+        "Name": "* del Cnc",
+        "Sce": "S",
+        "E(B-V)": 0.0,
+        "Teff": 4637,
+        "e_Teff": 27,
+        "o_Teff": 13,
+        "logL": 1.72,
+        "BMass": 1.77,
+        "DMass": 1.62,
+        "YMass": 1.73,
+        "<Mass>": 1.71,
+        "BAge": null,
+        "DAge": null,
+        "YAge": 2.45,
+        "<Age>": 2.45
+      }
+    ],
+    "luck-2015/table3.dat": [
+      {
+        "Key": "hr3461",
+        "Sce": "S",
+        "Teff1": 4636,
+        "logg1": 2.56,
+        "Vt1": 1.34,
+        "FeI1": 0.08,
+        "e_FeI1": 0.1,
+        "o_FeI1": 384,
+        "FeII1": 0.23,
+        "e_FeII1": 0.11,
+        "o_FeII1": 24,
+        "C1": 8.36,
+        "O1": 8.83,
+        "Li1": 0.43,
+        "EW1": 1.48,
+        "Li1c": 0.24,
+        "Teff2": 4636,
+        "logg2": 2.2,
+        "Vt2": 1.47,
+        "FeI2": -0.01,
+        "e_FeI2": 0.1,
+        "o_FeI2": 384,
+        "FeII2": -0.01,
+        "e_FeII2": 0.12,
+        "o_FeII2": 24,
+        "C2": 8.24,
+        "O2": 8.66,
+        "Li2": 0.43,
+        "Li2c": 0.28,
+        "Vbroad": 4.8,
+        "Broad": "G",
+        "Clump": 1
+      }
+    ]
+  },
+  "Ashlesha A": {
+    "massarotti-2008/table3.dat": [
+      {
+        "---": "HIP",
+        "HIP": 43109,
+        "m_HIP": null,
+        "Dist": 41,
+        "e_Dist": 2,
+        "Teff": null,
+        "e_Teff": null,
+        "logL": null,
+        "Rad": null,
+        "logg": 3.0,
+        "r_logg": 1,
+        "[Fe/H]": -0.14,
+        "r_[Fe/H]": 5
+      }
+    ],
+    "massarotti-2008/table14.dat": [
+      {
+        "---": "HIP",
+        "HIP": 43109,
+        "m_HIP": null,
+        "Vrot": 7.2,
+        "logL": 1.68,
+        "logTeff": 3.683,
+        "Rad": 9.9,
+        "MFA": 2.0,
+        "MPT": 1.7,
+        "Note": 1
+      }
+    ],
+    "luck-2015/table1.dat": [
+      {
+        "Name": "* eps Hya",
+        "HD": "74874",
+        "HIP": 43109,
+        "HR": 3482,
+        "CCDM": "J08468+0625",
+        "m_CCDM": "ABC",
+        "OName": null,
+        "Sce": "H",
+        "Key": "hd074874",
+        "SpT": "G1III+A8V",
+        "Type": "BYDra",
+        "Vmag": 3.38,
+        "B-V": 0.68,
+        "plx": 25.23,
+        "Dist": 39.6,
+        "RV": 36.4
+      }
+    ],
+    "luck-2015/table2.dat": [
+      {
+        "Name": "* eps Hya",
+        "Sce": "H",
+        "E(B-V)": 0.0,
+        "Teff": 5384,
+        "e_Teff": 199,
+        "o_Teff": 11,
+        "logL": 1.81,
+        "BMass": 2.59,
+        "DMass": 2.28,
+        "YMass": null,
+        "<Mass>": 2.44,
+        "BAge": 0.5,
+        "DAge": 0.63,
+        "YAge": null,
+        "<Age>": 0.56
+      }
+    ],
+    "luck-2015/table3.dat": [
+      {
+        "Key": "hd074874",
+        "Sce": "H",
+        "Teff1": 5384,
+        "logg1": 2.89,
+        "Vt1": 0.72,
+        "FeI1": 0.08,
+        "e_FeI1": 0.1,
+        "o_FeI1": 612,
+        "FeII1": -0.21,
+        "e_FeII1": 0.14,
+        "o_FeII1": 66,
+        "C1": 7.98,
+        "O1": 8.59,
+        "Li1": 1.49,
+        "EW1": 2.01,
+        "Li1c": 0.09,
+        "Teff2": 5384,
+        "logg2": 3.45,
+        "Vt2": 0.5,
+        "FeI2": 0.12,
+        "e_FeI2": 0.11,
+        "o_FeI2": 612,
+        "FeII2": 0.13,
+        "e_FeII2": 0.12,
+        "o_FeII2": 66,
+        "C2": 8.15,
+        "O2": 8.94,
+        "Li2": 1.49,
+        "Li2c": 0.08,
+        "Vbroad": 4.8,
+        "Broad": "G",
+        "Clump": 1
+      }
+    ]
+  },
+  "Atik Aa": {
+    "hohle-2010/table1.dat": [
+      {
+        "HIP": 17448,
+        "Bmag": 3.871,
+        "Vmag": 3.855,
+        "Jmag": 3.614,
+        "e_Jmag": 0.198,
+        "Hmag": 3.755,
+        "e_Hmag": 0.166,
+        "Kmag": 3.717,
+        "e_Kmag": 0.248,
+        "plx": 2.91,
+        "e_plx": 0.73,
+        "pcor": 2.953,
+        "e_pcor": 0.744,
+        "SpType": "B1   III",
+        "Teff": 24000.0
+      }
+    ],
+    "hohle-2010/table3.dat": [
+      {
+        "HIP": 17448,
+        "minM1": 12.9,
+        "maxM1": 19.42,
+        "minM2": 12.51,
+        "maxM2": 19.19,
+        "minM3": 11.93,
+        "maxM3": 19.25,
+        "Mmed": 15.5,
+        "e_Mmed": 0.85,
+        "Lbol": 61869.0,
+        "Teffc": 24000.0
+      }
+    ],
+    "hohle-2010/table1fp.dat": [
+      {
+        "HIP": 17448,
+        "Bmag": 3.846,
+        "Vmag": 3.83,
+        "Jmag": 3.589,
+        "e_Jmag": null,
+        "Hmag": 3.73,
+        "e_Hmag": null,
+        "Kmag": 3.692,
+        "e_Kmag": null,
+        "plx": 2.91,
+        "e_plx": 0.73,
+        "pcor": 2.953,
+        "e_pcor": 0.744,
+        "SpType": "B1 III",
+        "Teff": 24000.0
+      }
+    ],
+    "hohle-2010/table3fp.dat": [
+      {
+        "HIP": 17448,
+        "minM1": 12.4,
+        "maxM1": 17.22,
+        "minM2": 12.51,
+        "maxM2": 19.2,
+        "minM3": 11.93,
+        "maxM3": 19.25,
+        "Mmed": 15.5,
+        "e_Mmed": 0.85,
+        "Lbol": 60349.4,
+        "Teffc": 24000.0
+      }
+    ],
+    "tetzlaff-2011/table1.dat": [
+      {
+        "HIP": 17448,
+        "OName": "omi Per",
+        "Mass": 15.5,
+        "e_Mass": 0.8,
+        "Age": 11.1,
+        "e_Age": 0.5,
+        "SpType": "B1III"
+      }
+    ]
+  },
+  "Beta CrA": {
+    "tetzlaff-2011/table1.dat": [
+      {
+        "HIP": 94160,
+        "OName": "bet CrA",
+        "Mass": null,
+        "e_Mass": null,
+        "Age": null,
+        "e_Age": null,
+        "SpType": "K0II/IIICN."
+      }
+    ]
+  },
+  "Beta Crt": {
+    "zorec-2012/table1.dat": [
+      {
+        "HD": 97277,
+        "SpType": "A1V",
+        "logT": 3.952,
+        "e_logT": 0.007,
+        "logL": 2.2565,
+        "e_logL": 0.0663,
+        "Mass": 3.0,
+        "e_Mass": 0.09,
+        "Age": 1.019,
+        "e_Age": 0.001,
+        "vsini": 49,
+        "r_vsini": 5,
+        "Class": null
+      }
+    ]
+  },
+  "Beta Hya": {},
+  "Beta LMi A": {
+    "piccotti-2020/table1.dat": [
+      {
+        "Cat": "ORB6",
+        "WDS": "10279+3642",
+        "DD": "HU 879",
+        "HD": 90537,
+        "P": 14106.2007,
+        "e_P": 15.587,
+        "n_P": null,
+        "T": 57015.3615,
+        "e_T": null,
+        "e": 0.668,
+        "e_e": null,
+        "n_e": null,
+        "omega": 29.8,
+        "e_omega": null,
+        "n_omega": null,
+        "grade": 2,
+        "Ref": "Mason2001a"
+      },
+      {
+        "Cat": "SB9",
+        "WDS": "10279+3642",
+        "DD": "HU 879",
+        "HD": 90537,
+        "P": 14100.0,
+        "e_P": null,
+        "n_P": "f",
+        "T": 51403.5,
+        "e_T": 6.0,
+        "e": 0.685,
+        "e_e": 0.004,
+        "n_e": null,
+        "omega": 35.6,
+        "e_omega": 0.5,
+        "n_omega": null,
+        "grade": null,
+        "Ref": "Griffin2008"
+      }
+    ],
+    "piccotti-2020/table2.dat": [
+      {
+        "HD": 90537,
+        "asinikm": 2977690000.0,
+        "e_asinikm": 57870000.0,
+        "asini": 19.90463,
+        "e_asini": 0.38684,
+        "a": 20.27033,
+        "e_a": 0.39984
+      }
+    ],
+    "piccotti-2020/table3.dat": [
+      {
+        "HD": "90537",
+        "plxorb": 17.9079,
+        "e_plxorb": 0.4318,
+        "n_plxorb": "g",
+        "plxHIP": 21.19,
+        "e_plxHIP": 0.5,
+        "n_plxHIP": null,
+        "plxGaia": 21.5404,
+        "e_plxGaia": 0.8536,
+        "n_plxGaia": null,
+        "plxDyn": 20.351,
+        "e_plxDyn": 0.353,
+        "n_plxDyn": null
+      }
+    ],
+    "piccotti-2020/table5.dat": [
+      {
+        "HD": 90537,
+        "M1Orb": 3.47,
+        "e_M1Orb": 0.33,
+        "M1HIP": 2.095,
+        "e_M1HIP": 0.197,
+        "M1Gaia": 1.994,
+        "e_M1Gaia": 0.267,
+        "M1Dyn": 2.364,
+        "e_M1Dyn": 0.191,
+        "M2Orb": 2.114,
+        "e_M2Orb": 0.189,
+        "M2HIP": 1.276,
+        "e_M2HIP": 0.113,
+        "M2Gaia": 1.215,
+        "e_M2Gaia": 0.158,
+        "M2Dyn": 1.44,
+        "e_M2Dyn": 0.107
+      }
+    ],
+    "piccotti-2020/table6.dat": [
+      {
+        "HD": "90537",
+        "Vmag": 4.21,
+        "Vmag1": 4.429,
+        "Vmag2": 6.054,
+        "DeltaV": 1.625,
+        "VMAG": 0.475,
+        "VMAG1": 0.695,
+        "VMAG2": 2.32,
+        "GLAT": 58.2774321,
+        "AV": 0.073069404,
+        "E(B-V)": 0.022834189,
+        "VMAGc": 0.402,
+        "VMAGc1": 0.621,
+        "VMAGc2": 2.246
+      }
+    ],
+    "piccotti-2020/table7.dat": [
+      {
+        "HD": "90537",
+        "SpType1": "B8",
+        "Lum1": "IV",
+        "SpType2": "A2",
+        "Lum2": "IV",
+        "Teff1": 11950.0,
+        "Teff2": 8985.0,
+        "B-V1": 0.04,
+        "B-V2": 0.21,
+        "V-R1": -0.02,
+        "V-R2": 0.08,
+        "BC1": -0.6,
+        "BC2": 0.0
+      }
+    ],
+    "piccotti-2020/table11.dat": [
+      {
+        "HD": "90537",
+        "l_M": null,
+        "M": 2.45,
+        "e_M": 0.05,
+        "logL": 1.66,
+        "e_logL": 0.05,
+        "logTeff": 3.95,
+        "e_logTeff": 0.02,
+        "logage": 8.6,
+        "e_logage": 0.05
+      }
+    ],
+    "piccotti-2020/table12.dat": [
+      {
+        "HD": "90537",
+        "l_M": null,
+        "M": 1.75,
+        "e_M": 0.05,
+        "logL": 1.0,
+        "e_logL": 0.05,
+        "logTeff": 3.9,
+        "e_logTeff": 0.05,
+        "logage": 8.55,
+        "e_logage": 0.1
+      }
+    ],
+    "massarotti-2008/table3.dat": [
+      {
+        "---": "HIP",
+        "HIP": 51233,
+        "m_HIP": null,
+        "Dist": 45,
+        "e_Dist": 2,
+        "Teff": 5012,
+        "e_Teff": 15,
+        "logL": 1.57,
+        "Rad": 8,
+        "logg": 2.7,
+        "r_logg": 1,
+        "[Fe/H]": null,
+        "r_[Fe/H]": null
+      }
+    ],
+    "massarotti-2008/table14.dat": [
+      {
+        "---": "HIP",
+        "HIP": 51233,
+        "m_HIP": null,
+        "Vrot": 7.0,
+        "logL": 1.56,
+        "logTeff": 3.699,
+        "Rad": 8.0,
+        "MFA": 2.2,
+        "MPT": 2.2,
+        "Note": null
+      }
+    ],
+    "luck-2015/table1.dat": [
+      {
+        "Name": "* bet LMi",
+        "HD": "90537",
+        "HIP": 51233,
+        "HR": 4100,
+        "CCDM": "J10279+3642",
+        "m_CCDM": "AB",
+        "OName": null,
+        "Sce": "S",
+        "Key": "hr4100",
+        "SpT": "G9IIIb",
+        "Type": "SB*",
+        "Vmag": 4.21,
+        "B-V": 0.9,
+        "plx": 21.19,
+        "Dist": 47.2,
+        "RV": 6.34
+      }
+    ],
+    "luck-2015/table2.dat": [
+      {
+        "Name": "* bet LMi",
+        "Sce": "S",
+        "E(B-V)": 0.0,
+        "Teff": 4986,
+        "e_Teff": 48,
+        "o_Teff": 11,
+        "logL": 1.68,
+        "BMass": null,
+        "DMass": 1.61,
+        "YMass": 2.05,
+        "<Mass>": 1.83,
+        "BAge": null,
+        "DAge": 4.39,
+        "YAge": null,
+        "<Age>": 4.39
+      }
+    ],
+    "luck-2015/table3.dat": [
+      {
+        "Key": "hr4100",
+        "Sce": "S",
+        "Teff1": 4986,
+        "logg1": 2.76,
+        "Vt1": 1.24,
+        "FeI1": 0.2,
+        "e_FeI1": 0.1,
+        "o_FeI1": 395,
+        "FeII1": 0.15,
+        "e_FeII1": 0.15,
+        "o_FeII1": 29,
+        "C1": 8.34,
+        "O1": 8.82,
+        "Li1": 0.58,
+        "EW1": 0.71,
+        "Li1c": 0.16,
+        "Teff2": 4986,
+        "logg2": 2.86,
+        "Vt2": 1.19,
+        "FeI2": 0.22,
+        "e_FeI2": 0.1,
+        "o_FeI2": 395,
+        "FeII2": 0.22,
+        "e_FeII2": 0.15,
+        "o_FeII2": 29,
+        "C2": 8.37,
+        "O2": 8.87,
+        "Li2": 0.58,
+        "Li2c": 0.16,
+        "Vbroad": 4.9,
+        "Broad": "G",
+        "Clump": 1
+      }
+    ]
+  },
+  "Beta Lupi Aa": {
+    "tetzlaff-2011/table1.dat": [
+      {
+        "HIP": 73273,
+        "OName": "bet Lup",
+        "Mass": 8.8,
+        "e_Mass": 0.2,
+        "Age": 24.6,
+        "e_Age": 2.7,
+        "SpType": "B2III"
+      }
+    ]
+  },
+  "Beta Mon A": {
+    "tetzlaff-2011/table1.dat": [
+      {
+        "HIP": 30867,
+        "OName": "11 Mon A",
+        "Mass": 8.7,
+        "e_Mass": 0.1,
+        "Age": 27.5,
+        "e_Age": 4.2,
+        "SpType": "B3Ve"
+      }
+    ]
+  },
+  "Beta Mus Aa": {
+    "tetzlaff-2011/table1.dat": [
+      {
+        "HIP": 62322,
+        "OName": "bet Mus",
+        "Mass": 8.9,
+        "e_Mass": 0.1,
+        "Age": 15.1,
+        "e_Age": 1.2,
+        "SpType": "B2V"
+      }
+    ]
+  },
+  "Beta Phe A": {},
+  "Beta Ret Aa": {
+    "charbonnel-2020/table1.dat": [
+      {
+        "HD": 23817,
+        "RAdeg": 56.049908,
+        "DEdeg": -64.8069,
+        "Teff": 4570,
+        "e_Teff": 110,
+        "BCV": -0.48,
+        "[Fe/H]": 0.0,
+        "ALi": 0.0,
+        "flagLi": 0,
+        "Plxvl07": 33.49,
+        "e_Plxvl07": 0.53,
+        "logLvl07hip": 1.51,
+        "e_logLvl07hip": 0.02,
+        "PlxGaiaDR2": 31.9135,
+        "e_PlxGaiaDR2": 0.2344,
+        "logLadopt": 1.6,
+        "e_logLadopt": 0.02,
+        "f_logLadopt": 0,
+        "Mass": 1.38,
+        "e_Mass": 0.43,
+        "E_Mass": 1.1
+      }
+    ]
+  },
+  "Beta Sex": {
+    "zorec-2012/table1.dat": [
+      {
+        "HD": 90994,
+        "SpType": "B6V",
+        "logT": 4.142,
+        "e_logT": 0.003,
+        "logL": 2.518,
+        "e_logL": 0.043,
+        "Mass": 4.01,
+        "e_Mass": 0.07,
+        "Age": 0.548,
+        "e_Age": 0.06,
+        "vsini": 79,
+        "r_vsini": 16,
+        "Class": "CP"
+      }
+    ]
+  },
+  "Bharani": {
+    "zorec-2012/table1.dat": [
+      {
+        "HD": 17573,
+        "SpType": "B8Vn",
+        "logT": 4.075,
+        "e_logT": 0.003,
+        "logL": 2.159,
+        "e_logL": 0.011,
+        "Mass": 3.23,
+        "e_Mass": 0.02,
+        "Age": 0.55,
+        "e_Age": 0.023,
+        "vsini": 200,
+        "r_vsini": 8,
+        "Class": null
+      }
+    ],
+    "david-2015/table5.dat": [
+      {
+        "HIP": 13209,
+        "Teff": 13316,
+        "e_Teff": 453,
+        "log(g)": 4.11,
+        "e_log(g)": 0.14,
+        "vsini": 198,
+        "r_vsini": 0,
+        "Ageavg": 38,
+        "Agemed": 45,
+        "Agemod": 70,
+        "Age68lo": 25,
+        "Age68up": 115,
+        "Age68t": 68,
+        "Age95lo": 6,
+        "Age95up": 137,
+        "Age95t": 95,
+        "Age2D": 116,
+        "Mavg": 3.35,
+        "Mmed": 3.34,
+        "Mmod": 3.32,
+        "M68lo": 3.2,
+        "M68up": 3.5,
+        "M68t": 68,
+        "M95lo": 3.1,
+        "M95up": 3.6,
+        "M95t": 95,
+        "M2D": 3.56
+      }
+    ]
+  },
+  "c Oph": {
+    "tetzlaff-2011/table1.dat": [
+      {
+        "HIP": 85755,
+        "OName": "c Oph",
+        "Mass": 3.9,
+        "e_Mass": 0.1,
+        "Age": 1.1,
+        "e_Age": 0.9,
+        "SpType": "A0V"
+      }
+    ],
+    "zorec-2012/table1.dat": [
+      {
+        "HD": 158643,
+        "SpType": "A0V",
+        "logT": 3.993,
+        "e_logT": 0.003,
+        "logL": 2.3832,
+        "e_logL": 0.029,
+        "Mass": 3.27,
+        "e_Mass": 0.04,
+        "Age": 1.012,
+        "e_Age": 0.01,
+        "vsini": 228,
+        "r_vsini": 4,
+        "Class": null
+      }
+    ]
+  },
+  "Chi Draconis A": {
+    "piccotti-2020/table1.dat": [
+      {
+        "Cat": "ORB6",
+        "WDS": "18211+7244",
+        "DD": "LAB 5Aa,Ab",
+        "HD": 170153,
+        "P": 280.528,
+        "e_P": 0.0223,
+        "n_P": null,
+        "T": 58628.44,
+        "e_T": 0.949,
+        "e": 0.428,
+        "e_e": 0.012,
+        "n_e": null,
+        "omega": 119.3,
+        "e_omega": 1.1,
+        "n_omega": null,
+        "grade": 1,
+        "Ref": "Farrington2010"
+      },
+      {
+        "Cat": "SB9",
+        "WDS": "18211+7244",
+        "DD": "LAB 5Aa,Ab",
+        "HD": 170153,
+        "P": 280.517,
+        "e_P": 0.0621,
+        "n_P": null,
+        "T": 58628.365,
+        "e_T": 0.5314,
+        "e": 0.4139,
+        "e_e": 0.0083,
+        "n_e": null,
+        "omega": 119.861,
+        "e_omega": 0.97,
+        "n_omega": null,
+        "grade": 5,
+        "Ref": "Pourbaix2000"
+      }
+    ],
+    "piccotti-2020/table2.dat": [
+      {
+        "HD": 170153,
+        "asinikm": 146275000.0,
+        "e_asinikm": 1739000.0,
+        "asini": 0.97779,
+        "e_asini": 0.01162,
+        "a": 1.01509,
+        "e_a": 0.0124
+      }
+    ],
+    "piccotti-2020/table3.dat": [
+      {
+        "HD": "170153",
+        "plxorb": 121.1718,
+        "e_plxorb": 1.8943,
+        "n_plxorb": "h",
+        "plxHIP": 124.11,
+        "e_plxHIP": 0.87,
+        "n_plxHIP": null,
+        "plxGaia": null,
+        "e_plxGaia": null,
+        "n_plxGaia": null,
+        "plxDyn": 116.119,
+        "e_plxDyn": 1.361,
+        "n_plxDyn": "h"
+      }
+    ],
+    "piccotti-2020/table5.dat": [
+      {
+        "HD": 170153,
+        "M1Orb": 1.036,
+        "e_M1Orb": 0.066,
+        "M1HIP": 0.964,
+        "e_M1HIP": 0.046,
+        "M1Gaia": null,
+        "e_M1Gaia": null,
+        "M1Dyn": 1.177,
+        "e_M1Dyn": 0.065,
+        "M2Orb": 0.737,
+        "e_M2Orb": 0.044,
+        "M2HIP": 0.686,
+        "e_M2HIP": 0.029,
+        "M2Gaia": null,
+        "e_M2Gaia": null,
+        "M2Dyn": 0.838,
+        "e_M2Dyn": 0.042
+      }
+    ],
+    "piccotti-2020/table6.dat": [
+      {
+        "HD": "170153",
+        "Vmag": 3.58,
+        "Vmag1": 3.736,
+        "Vmag2": 5.762,
+        "DeltaV": 2.026,
+        "VMAG": 3.997,
+        "VMAG1": 4.153,
+        "VMAG2": 6.179,
+        "GLAT": 28.0570601,
+        "AV": 0.012982114,
+        "E(B-V)": 0.004056911,
+        "VMAGc": 3.984,
+        "VMAGc1": 4.14,
+        "VMAGc2": 6.166
+      }
+    ],
+    "piccotti-2020/table7.dat": [
+      {
+        "HD": "170153",
+        "SpType1": "G3",
+        "Lum1": "V",
+        "SpType2": "K3",
+        "Lum2": "V",
+        "Teff1": 5759.67,
+        "Teff2": 4973.0,
+        "B-V1": 0.44,
+        "B-V2": 0.74,
+        "V-R1": 0.53,
+        "V-R2": 0.81,
+        "BC1": -0.09,
+        "BC2": -0.33
+      }
+    ],
+    "piccotti-2020/table11.dat": [
+      {
+        "HD": "170153",
+        "l_M": null,
+        "M": 1.3,
+        "e_M": 0.1,
+        "logL": 0.45,
+        "e_logL": 0.25,
+        "logTeff": 3.81,
+        "e_logTeff": 0.05,
+        "logage": 8.88,
+        "e_logage": 0.4
+      }
+    ],
+    "piccotti-2020/table12.dat": [
+      {
+        "HD": "170153",
+        "l_M": null,
+        "M": 0.8,
+        "e_M": 0.1,
+        "logL": -0.47,
+        "e_logL": 0.1,
+        "logTeff": 3.7,
+        "e_logTeff": 0.1,
+        "logage": 10.0,
+        "e_logage": 0.6
+      }
+    ]
+  },
+  "Chi Eri": {},
+  "d Car": {
+    "tetzlaff-2011/table1.dat": [
+      {
+        "HIP": 42568,
+        "OName": "V343 Car",
+        "Mass": 12.5,
+        "e_Mass": 0.6,
+        "Age": 15.7,
+        "e_Age": 0.1,
+        "SpType": "B1.5III"
+      }
+    ]
+  },
+  "Delta And Aa": {
+    "baines-2021/table5.dat": [
+      {
+        "Target": 3627,
+        "SpT": "K2 III",
+        "Rad": 14.25,
+        "E_Rad": 0.23,
+        "e_Rad": 0.24,
+        "sigRad": 1.7,
+        "FBol": 2.35,
+        "e_FBol": 0.09,
+        "AVmag": 0.2,
+        "e_AVmag": 0.05,
+        "Teff": 4480,
+        "e_Teff": 48,
+        "sigTeff": 1.1,
+        "Lum": 73.8,
+        "e_Lum": 3.6
+      }
+    ],
+    "massarotti-2008/table3.dat": [
+      {
+        "---": "HIP",
+        "HIP": 3092,
+        "m_HIP": null,
+        "Dist": 31,
+        "e_Dist": 1,
+        "Teff": 4315,
+        "e_Teff": 9,
+        "logL": 1.87,
+        "Rad": 15,
+        "logg": 2.4,
+        "r_logg": 1,
+        "[Fe/H]": 0.04,
+        "r_[Fe/H]": 5
+      }
+    ],
+    "massarotti-2008/table14.dat": [
+      {
+        "---": "HIP",
+        "HIP": 3092,
+        "m_HIP": null,
+        "Vrot": 6.5,
+        "logL": 1.87,
+        "logTeff": 3.635,
+        "Rad": 15.7,
+        "MFA": 1.2,
+        "MPT": null,
+        "Note": null
+      }
+    ],
+    "luck-2015/table1.dat": [
+      {
+        "Name": "* del And",
+        "HD": "3627",
+        "HIP": 3092,
+        "HR": 165,
+        "CCDM": "J00393+3052",
+        "m_CCDM": "A",
+        "OName": null,
+        "Sce": "S",
+        "Key": "hr0165",
+        "SpT": "K3III",
+        "Type": "SB*",
+        "Vmag": 3.28,
+        "B-V": 1.28,
+        "plx": 30.91,
+        "Dist": 32.4,
+        "RV": -9.88
+      }
+    ],
+    "luck-2015/table2.dat": [
+      {
+        "Name": "* del And",
+        "Sce": "S",
+        "E(B-V)": 0.0,
+        "Teff": 4330,
+        "e_Teff": 34,
+        "o_Teff": 12,
+        "logL": 1.89,
+        "BMass": 1.64,
+        "DMass": 1.22,
+        "YMass": 1.23,
+        "<Mass>": 1.36,
+        "BAge": 2.39,
+        "DAge": 6.75,
+        "YAge": null,
+        "<Age>": 4.57
+      }
+    ],
+    "luck-2015/table3.dat": [
+      {
+        "Key": "hr0165",
+        "Sce": "S",
+        "Teff1": 4330,
+        "logg1": 2.18,
+        "Vt1": 1.37,
+        "FeI1": 0.35,
+        "e_FeI1": 0.14,
+        "o_FeI1": 216,
+        "FeII1": 0.66,
+        "e_FeII1": 0.25,
+        "o_FeII1": 17,
+        "C1": null,
+        "O1": null,
+        "Li1": 0.2,
+        "EW1": 2.49,
+        "Li1c": 0.32,
+        "Teff2": 4330,
+        "logg2": 1.39,
+        "Vt2": 1.41,
+        "FeI2": 0.15,
+        "e_FeI2": 0.14,
+        "o_FeI2": 216,
+        "FeII2": 0.15,
+        "e_FeII2": 0.26,
+        "o_FeII2": 17,
+        "C2": null,
+        "O2": null,
+        "Li2": 0.17,
+        "Li2c": 0.39,
+        "Vbroad": 4.4,
+        "Broad": "G",
+        "Clump": 1
+      }
+    ]
+  },
+  "Delta Aql": {
+    "zorec-2012/table1.dat": [
+      {
+        "HD": 182640,
+        "SpType": "F0IV",
+        "logT": 3.851,
+        "e_logT": 0.003,
+        "logL": 0.9699,
+        "e_logL": 0.0123,
+        "Mass": 1.64,
+        "e_Mass": 0.01,
+        "Age": 0.637,
+        "e_Age": 0.019,
+        "vsini": 91,
+        "r_vsini": 6,
+        "Class": "CP"
+      }
+    ],
+    "david-2015/table5.dat": [
+      {
+        "HIP": 95501,
+        "Teff": 7216,
+        "e_Teff": 245,
+        "log(g)": 4.0,
+        "e_log(g)": 0.14,
+        "vsini": null,
+        "r_vsini": null,
+        "Ageavg": 538,
+        "Agemed": 688,
+        "Agemod": 1044,
+        "Age68lo": 355,
+        "Age68up": 1540,
+        "Age68t": 68,
+        "Age95lo": 75,
+        "Age95up": 2054,
+        "Age95t": 95,
+        "Age2D": 1385,
+        "Mavg": 1.45,
+        "Mmed": 1.46,
+        "Mmod": 1.46,
+        "M68lo": 1.4,
+        "M68up": 1.5,
+        "M68t": 68,
+        "M95lo": 1.3,
+        "M95up": 1.6,
+        "M95t": 95,
+        "M2D": 1.63
+      }
+    ]
+  },
+  "Delta Centauri Aa": {
+    "tetzlaff-2011/table1.dat": [
+      {
+        "HIP": 59196,
+        "OName": "del Cen",
+        "Mass": 10.1,
+        "e_Mass": 0.5,
+        "Age": 21.5,
+        "e_Age": 1.5,
+        "SpType": "B2IVne"
+      }
+    ]
+  },
+  "Delta Equ A": {
+    "piccotti-2020/table1.dat": [
+      {
+        "Cat": "ORB6",
+        "WDS": "21145+1000",
+        "DD": "STT 535AB",
+        "HD": 202275,
+        "P": 2084.03,
+        "e_P": 0.1,
+        "n_P": null,
+        "T": 57280.131,
+        "e_T": 0.052,
+        "e": 0.43685,
+        "e_e": 3e-05,
+        "n_e": null,
+        "omega": 7.735,
+        "e_omega": 0.013,
+        "n_omega": null,
+        "grade": 1,
+        "Ref": "Muterspaugh2008"
+      },
+      {
+        "Cat": "SB9",
+        "WDS": "21145+1000",
+        "DD": "STT 535AB",
+        "HD": 202275,
+        "P": 2083.11,
+        "e_P": 2.5567,
+        "n_P": null,
+        "T": 57276.16,
+        "e_T": 4.2509,
+        "e": 0.4402,
+        "e_e": 0.0046,
+        "n_e": null,
+        "omega": 7.565,
+        "e_omega": 1.0,
+        "n_omega": null,
+        "grade": 5,
+        "Ref": "Pourbaix2000"
+      }
+    ],
+    "piccotti-2020/table2.dat": [
+      {
+        "HD": 202275,
+        "asinikm": 623725000.0,
+        "e_asinikm": 5587000.0,
+        "asini": 4.16934,
+        "e_asini": 0.03734,
+        "a": 4.22619,
+        "e_a": 0.03785
+      }
+    ],
+    "piccotti-2020/table3.dat": [
+      {
+        "HD": "202275",
+        "plxorb": 54.8875,
+        "e_plxorb": 0.4916,
+        "n_plxorb": null,
+        "plxHIP": 54.11,
+        "e_plxHIP": 0.85,
+        "n_plxHIP": null,
+        "plxGaia": 53.5882,
+        "e_plxGaia": 0.7292,
+        "n_plxGaia": null,
+        "plxDyn": 54.214,
+        "e_plxDyn": 0.046,
+        "n_plxDyn": null
+      }
+    ],
+    "piccotti-2020/table5.dat": [
+      {
+        "HD": 202275,
+        "M1Orb": 1.197,
+        "e_M1Orb": 0.044,
+        "M1HIP": 1.25,
+        "e_M1HIP": 0.067,
+        "M1Gaia": 1.287,
+        "e_M1Gaia": 0.062,
+        "M1Dyn": 1.243,
+        "e_M1Dyn": 0.032,
+        "M2Orb": 1.121,
+        "e_M2Orb": 0.036,
+        "M2HIP": 1.17,
+        "e_M2HIP": 0.059,
+        "M2Gaia": 1.205,
+        "e_M2Gaia": 0.054,
+        "M2Dyn": 1.163,
+        "e_M2Dyn": 0.021
+      }
+    ],
+    "piccotti-2020/table6.dat": [
+      {
+        "HD": "202275",
+        "Vmag": 4.49,
+        "Vmag1": 5.136,
+        "Vmag2": 5.36,
+        "DeltaV": 0.224,
+        "VMAG": 3.187,
+        "VMAG1": 3.834,
+        "VMAG2": 4.058,
+        "GLAT": -25.6556116,
+        "AV": 0.028164892,
+        "E(B-V)": 0.008801529,
+        "VMAGc": 3.159,
+        "VMAGc1": 3.806,
+        "VMAGc2": 4.03
+      }
+    ],
+    "piccotti-2020/table7.dat": [
+      {
+        "HD": "202275",
+        "SpType1": "F8",
+        "Lum1": "V",
+        "SpType2": "F9",
+        "Lum2": "V",
+        "Teff1": 6160.0,
+        "Teff2": 6051.5,
+        "B-V1": 0.43,
+        "B-V2": 0.58,
+        "V-R1": 0.47,
+        "V-R2": 0.49,
+        "BC1": -0.01,
+        "BC2": -0.03
+      }
+    ],
+    "piccotti-2020/table11.dat": [
+      {
+        "HD": "202275",
+        "l_M": null,
+        "M": 1.2,
+        "e_M": 0.1,
+        "logL": 0.38,
+        "e_logL": 0.3,
+        "logTeff": 3.8,
+        "e_logTeff": 0.05,
+        "logage": 9.46,
+        "e_logage": 0.25
+      }
+    ],
+    "piccotti-2020/table12.dat": [
+      {
+        "HD": "202275",
+        "l_M": null,
+        "M": 1.1,
+        "e_M": 0.1,
+        "logL": 0.3,
+        "e_logL": 0.05,
+        "logTeff": 3.78,
+        "e_logTeff": 0.05,
+        "logage": 9.76,
+        "e_logage": 0.6
+      }
+    ]
+  },
+  "Delta Lup": {
+    "tetzlaff-2011/table1.dat": [
+      {
+        "HIP": 75141,
+        "OName": "del Lup",
+        "Mass": 11.9,
+        "e_Mass": 0.2,
+        "Age": 15.4,
+        "e_Age": 1.3,
+        "SpType": "B1.5IV"
+      }
+    ]
+  },
+  "Delta Mon": {
+    "zorec-2012/table1.dat": [
+      {
+        "HD": 55185,
+        "SpType": "A2V",
+        "logT": 3.976,
+        "e_logT": 0.006,
+        "logL": 2.5434,
+        "e_logL": 0.0207,
+        "Mass": 3.48,
+        "e_Mass": 0.04,
+        "Age": 1.019,
+        "e_Age": 0.0,
+        "vsini": 154,
+        "r_vsini": 4,
+        "Class": null
+      }
+    ]
+  },
+  "Delta Per": {
+    "tetzlaff-2011/table1.dat": [
+      {
+        "HIP": 17358,
+        "OName": "del Per",
+        "Mass": 7.0,
+        "e_Mass": 0.3,
+        "Age": 50.1,
+        "e_Age": 6.8,
+        "SpType": "B5III SB"
+      }
+    ]
+  },
+  "Delta Ret": {},
+  "Delta Ser A": {
+    "massarotti-2008/table3.dat": [
+      {
+        "---": "HIP",
+        "HIP": 76276,
+        "m_HIP": null,
+        "Dist": 64,
+        "e_Dist": 3,
+        "Teff": 7194,
+        "e_Teff": 7,
+        "logL": 1.39,
+        "Rad": 3,
+        "logg": 3.2,
+        "r_logg": 1,
+        "[Fe/H]": null,
+        "r_[Fe/H]": null
+      }
+    ],
+    "david-2015/table5.dat": [
+      {
+        "HIP": 76276,
+        "Teff": 7649,
+        "e_Teff": 260,
+        "log(g)": 3.87,
+        "e_log(g)": 0.14,
+        "vsini": null,
+        "r_vsini": null,
+        "Ageavg": 433,
+        "Agemed": 562,
+        "Agemod": 829,
+        "Age68lo": 307,
+        "Age68up": 1155,
+        "Age68t": 68,
+        "Age95lo": 65,
+        "Age95up": 1413,
+        "Age95t": 95,
+        "Age2D": 1048,
+        "Mavg": 1.58,
+        "Mmed": 1.58,
+        "Mmod": 1.55,
+        "M68lo": 1.5,
+        "M68up": 1.7,
+        "M68t": 68,
+        "M95lo": 1.4,
+        "M95up": 1.7,
+        "M95t": 95,
+        "M2D": 1.9
+      }
+    ]
+  },
+  "Delta Sge A": {
+    "hohle-2010/table1fp.dat": [
+      {
+        "HIP": 97365,
+        "Bmag": 5.23,
+        "Vmag": 3.82,
+        "Jmag": 0.632,
+        "e_Jmag": null,
+        "Hmag": -0.436,
+        "e_Hmag": null,
+        "Kmag": -0.561,
+        "e_Kmag": null,
+        "plx": 5.49,
+        "e_plx": 0.72,
+        "pcor": 5.545,
+        "e_pcor": 0.727,
+        "SpType": "M2 II",
+        "Teff": 3535.0
+      }
+    ],
+    "hohle-2010/table3fp.dat": [
+      {
+        "HIP": 97365,
+        "minM1": 1.78,
+        "maxM1": 3.19,
+        "minM2": 1.73,
+        "maxM2": 3.14,
+        "minM3": 1.01,
+        "maxM3": 2.93,
+        "Mmed": 2.29,
+        "e_Mmed": 0.6,
+        "Lbol": 3160.2,
+        "Teffc": 3535.0
+      }
+    ],
+    "tetzlaff-2011/table1.dat": [
+      {
+        "HIP": 97365,
+        "OName": "del Sge",
+        "Mass": null,
+        "e_Mass": null,
+        "Age": null,
+        "e_Age": null,
+        "SpType": "M2II + B6"
+      }
+    ]
+  },
+  "Deneb Algedi": {
+    "david-2015/table5.dat": [
+      {
+        "HIP": 107556,
+        "Teff": 7395,
+        "e_Teff": 251,
+        "log(g)": 4.11,
+        "e_log(g)": 0.14,
+        "vsini": null,
+        "r_vsini": null,
+        "Ageavg": 485,
+        "Agemed": 631,
+        "Agemod": 958,
+        "Age68lo": 355,
+        "Age68up": 1334,
+        "Age68t": 68,
+        "Age95lo": 73,
+        "Age95up": 1585,
+        "Age95t": 95,
+        "Age2D": 1165,
+        "Mavg": 1.52,
+        "Mmed": 1.52,
+        "Mmod": 1.49,
+        "M68lo": 1.5,
+        "M68up": 1.6,
+        "M68t": 68,
+        "M95lo": 1.4,
+        "M95up": 1.6,
+        "M95t": 95,
+        "M2D": 1.6
+      }
+    ]
+  },
+  "Diadem A": {
+    "david-2015/table5.dat": [
+      {
+        "HIP": 64241,
+        "Teff": 6433,
+        "e_Teff": 219,
+        "log(g)": 4.36,
+        "e_log(g)": 0.14,
+        "vsini": null,
+        "r_vsini": null,
+        "Ageavg": 2197,
+        "Agemed": 2562,
+        "Agemod": 2699,
+        "Age68lo": 1652,
+        "Age68up": 5058,
+        "Age68t": 68,
+        "Age95lo": 422,
+        "Age95up": 6879,
+        "Age95t": 95,
+        "Age2D": 778,
+        "Mavg": 1.21,
+        "Mmed": 1.21,
+        "Mmod": 1.18,
+        "M68lo": 1.1,
+        "M68up": 1.3,
+        "M68t": 68,
+        "M95lo": 1.0,
+        "M95up": 1.4,
+        "M95t": 95,
+        "M2D": 1.22
+      }
+    ]
+  },
+  "Epsilon Cet A": {
+    "piccotti-2020/table1.dat": [
+      {
+        "Cat": "ORB6",
+        "WDS": "02396-1152",
+        "DD": "FIN 312",
+        "HD": 16620,
+        "P": 968.3677,
+        "e_P": 0.1826,
+        "n_P": null,
+        "T": 58068.8409,
+        "e_T": 0.1826,
+        "e": 0.23,
+        "e_e": 0.001,
+        "n_e": null,
+        "omega": 40.8,
+        "e_omega": 0.2,
+        "n_omega": null,
+        "grade": 1,
+        "Ref": "Docobo2013a"
+      },
+      {
+        "Cat": "SB9",
+        "WDS": "02396-1152",
+        "DD": "FIN 312",
+        "HD": 16620,
+        "P": 968.339,
+        "e_P": 0.6574,
+        "n_P": null,
+        "T": 57978.807,
+        "e_T": 3.8967,
+        "e": 0.2295,
+        "e_e": 0.0062,
+        "n_e": null,
+        "omega": 41.243,
+        "e_omega": 3.4,
+        "n_omega": null,
+        "grade": 5,
+        "Ref": "Pourbaix2000"
+      }
+    ],
+    "piccotti-2020/table2.dat": [
+      {
+        "HD": 16620,
+        "asinikm": 185916000.0,
+        "e_asinikm": 5021000.0,
+        "asini": 1.24277,
+        "e_asini": 0.03356,
+        "a": 3.03172,
+        "e_a": 0.0852
+      }
+    ],
+    "piccotti-2020/table3.dat": [
+      {
+        "HD": "16620",
+        "plxorb": 35.0626,
+        "e_plxorb": 0.999,
+        "n_plxorb": "g",
+        "plxHIP": 36.99,
+        "e_plxHIP": 1.76,
+        "n_plxHIP": "g",
+        "plxGaia": 42.4864,
+        "e_plxGaia": 0.7591,
+        "n_plxGaia": null,
+        "plxDyn": 44.002,
+        "e_plxDyn": 0.358,
+        "n_plxDyn": null
+      }
+    ],
+    "piccotti-2020/table5.dat": [
+      {
+        "HD": 16620,
+        "M1Orb": 2.406,
+        "e_M1Orb": 0.287,
+        "M1HIP": 2.049,
+        "e_M1HIP": 0.339,
+        "M1Gaia": 1.352,
+        "e_M1Gaia": 0.134,
+        "M1Dyn": 1.217,
+        "e_M1Dyn": 0.106,
+        "M2Orb": 1.559,
+        "e_M2Orb": 0.163,
+        "M2HIP": 1.328,
+        "e_M2HIP": 0.206,
+        "M2Gaia": 0.876,
+        "e_M2Gaia": 0.07,
+        "M2Dyn": 0.789,
+        "e_M2Dyn": 0.051
+      }
+    ],
+    "piccotti-2020/table6.dat": [
+      {
+        "HD": "16620",
+        "Vmag": 4.87,
+        "Vmag1": 5.303,
+        "Vmag2": 6.078,
+        "DeltaV": 0.775,
+        "VMAG": 2.594,
+        "VMAG1": 3.027,
+        "VMAG2": 3.802,
+        "GLAT": -60.4138141,
+        "AV": 0.041009958,
+        "E(B-V)": 0.012815612,
+        "VMAGc": 2.553,
+        "VMAGc1": 2.986,
+        "VMAGc2": 3.761
+      }
+    ],
+    "piccotti-2020/table7.dat": [
+      {
+        "HD": "16620",
+        "SpType1": "A0",
+        "Lum1": "IV",
+        "SpType2": "F0",
+        "Lum2": "IV",
+        "Teff1": 9572.0,
+        "Teff2": 7178.0,
+        "B-V1": 0.37,
+        "B-V2": 0.52,
+        "V-R1": 0.02,
+        "V-R2": 0.3,
+        "BC1": -0.14,
+        "BC2": 0.04
+      }
+    ],
+    "piccotti-2020/table11.dat": [
+      {
+        "HD": "16620",
+        "l_M": null,
+        "M": 1.4,
+        "e_M": 0.1,
+        "logL": 0.7,
+        "e_logL": 0.1,
+        "logTeff": 3.8,
+        "e_logTeff": 0.05,
+        "logage": 9.4,
+        "e_logage": 0.3
+      }
+    ],
+    "piccotti-2020/table12.dat": [
+      {
+        "HD": "16620",
+        "l_M": null,
+        "M": 1.2,
+        "e_M": 0.1,
+        "logL": 0.4,
+        "e_logL": 0.1,
+        "logTeff": 3.8,
+        "e_logTeff": 0.05,
+        "logage": 9.5,
+        "e_logage": 0.15
+      }
+    ],
+    "david-2015/table5.dat": [
+      {
+        "HIP": 12390,
+        "Teff": 6537,
+        "e_Teff": 222,
+        "log(g)": 4.21,
+        "e_log(g)": 0.14,
+        "vsini": null,
+        "r_vsini": null,
+        "Ageavg": 1843,
+        "Agemed": 1810,
+        "Agemod": 2024,
+        "Age68lo": 1372,
+        "Age68up": 2304,
+        "Age68t": 68,
+        "Age95lo": 1072,
+        "Age95up": 3156,
+        "Age95t": 95,
+        "Age2D": 2208,
+        "Mavg": 1.66,
+        "Mmed": 1.66,
+        "Mmod": 1.63,
+        "M68lo": 1.5,
+        "M68up": 1.8,
+        "M68t": 68,
+        "M95lo": 1.3,
+        "M95up": 2.0,
+        "M95t": 95,
+        "M2D": 1.28
+      }
+    ]
+  },
+  "Epsilon Gru": {
+    "david-2015/table5.dat": [
+      {
+        "HIP": 112623,
+        "Teff": 8685,
+        "e_Teff": 295,
+        "log(g)": 3.47,
+        "e_log(g)": 0.14,
+        "vsini": null,
+        "r_vsini": null,
+        "Ageavg": 249,
+        "Agemed": 308,
+        "Agemod": 466,
+        "Age68lo": 188,
+        "Age68up": 668,
+        "Age68t": 68,
+        "Age95lo": 43,
+        "Age95up": 772,
+        "Age95t": 95,
+        "Age2D": 476,
+        "Mavg": 1.85,
+        "Mmed": 1.85,
+        "Mmod": 1.83,
+        "M68lo": 1.8,
+        "M68up": 1.9,
+        "M68t": 68,
+        "M95lo": 1.7,
+        "M95up": 2.0,
+        "M95t": 95,
+        "M2D": 2.76
+      }
+    ]
+  },
+  "Epsilon Nor Aa": {
+    "hohle-2010/table1fp.dat": [
+      {
+        "HIP": 80582,
+        "Bmag": 4.376,
+        "Vmag": 4.46,
+        "Jmag": 4.77,
+        "e_Jmag": null,
+        "Hmag": 4.861,
+        "e_Hmag": null,
+        "Kmag": 4.741,
+        "e_Kmag": null,
+        "plx": 6.15,
+        "e_plx": 0.28,
+        "pcor": 6.212,
+        "e_pcor": 0.283,
+        "SpType": "B3 V",
+        "Teff": 18700.0
+      }
+    ],
+    "hohle-2010/table3fp.dat": [
+      {
+        "HIP": 80582,
+        "minM1": 6.5,
+        "maxM1": 7.1,
+        "minM2": 6.31,
+        "maxM2": 6.31,
+        "minM3": 7.0,
+        "maxM3": 7.0,
+        "Mmed": 6.9,
+        "e_Mmed": 0.37,
+        "Lbol": 2384.2,
+        "Teffc": 18700.0
+      }
+    ],
+    "tetzlaff-2011/table1.dat": [
+      {
+        "HIP": 80582,
+        "OName": "eps Nor",
+        "Mass": 6.4,
+        "e_Mass": 0.2,
+        "Age": 50.1,
+        "e_Age": 14.0,
+        "SpType": "B4V"
+      }
+    ]
+  },
+  "Eta PsA A": {
+    "zorec-2012/table1.dat": [
+      {
+        "HD": 209014,
+        "SpType": "B8V",
+        "logT": 4.052,
+        "e_logT": 0.004,
+        "logL": 2.781,
+        "e_logL": 0.116,
+        "Mass": 4.01,
+        "e_Mass": 0.18,
+        "Age": 1.01,
+        "e_Age": 0.013,
+        "vsini": 265,
+        "r_vsini": 16,
+        "Class": "CB"
+      }
+    ]
+  },
+  "Eta Sgr": {
+    "charbonnel-2020/table1.dat": [
+      {
+        "HD": 167618,
+        "RAdeg": 274.4068,
+        "DEdeg": -36.761684,
+        "Teff": 3600,
+        "e_Teff": 150,
+        "BCV": -2.24,
+        "[Fe/H]": 0.0,
+        "ALi": -0.9,
+        "flagLi": -1,
+        "Plxvl07": 22.35,
+        "e_Plxvl07": 0.24,
+        "logLvl07hip": 2.86,
+        "e_logLvl07hip": 0.01,
+        "PlxGaiaDR2": 19.653799,
+        "e_PlxGaiaDR2": 0.9336,
+        "logLadopt": 3.18,
+        "e_logLadopt": 0.06,
+        "f_logLadopt": 0,
+        "Mass": 1.83,
+        "e_Mass": 0.78,
+        "E_Mass": 2.12
+      }
+    ]
+  },
+  "f Eri Aa": {
+    "david-2015/table5.dat": [
+      {
+        "HIP": 17797,
+        "Teff": 11119,
+        "e_Teff": 378,
+        "log(g)": 4.34,
+        "e_log(g)": 0.14,
+        "vsini": 207,
+        "r_vsini": 0,
+        "Ageavg": 241,
+        "Agemed": 255,
+        "Agemod": 255,
+        "Age68lo": 224,
+        "Age68up": 299,
+        "Age68t": 68,
+        "Age95lo": 150,
+        "Age95up": 345,
+        "Age95t": 95,
+        "Age2D": 27,
+        "Mavg": 2.9,
+        "Mmed": 2.88,
+        "Mmod": 2.81,
+        "M68lo": 2.6,
+        "M68up": 3.1,
+        "M68t": 68,
+        "M95lo": 2.5,
+        "M95up": 3.3,
+        "M95t": 95,
+        "M2D": 2.5
+      }
+    ]
+  },
+  "Fang Aa1": {
+    "hohle-2010/table1fp.dat": [
+      {
+        "HIP": 78265,
+        "Bmag": 2.7,
+        "Vmag": 2.89,
+        "Jmag": 3.465,
+        "e_Jmag": null,
+        "Hmag": 3.5,
+        "e_Hmag": null,
+        "Kmag": 3.686,
+        "e_Kmag": null,
+        "plx": 5.57,
+        "e_plx": 0.64,
+        "pcor": 5.626,
+        "e_pcor": 0.646,
+        "SpType": "B1 V",
+        "Teff": 25400.0
+      }
+    ],
+    "hohle-2010/table3fp.dat": [
+      {
+        "HIP": 78265,
+        "minM1": 11.6,
+        "maxM1": 13.3,
+        "minM2": 12.56,
+        "maxM2": 12.47,
+        "minM3": 11.97,
+        "maxM3": 11.9,
+        "Mmed": 12.4,
+        "e_Mmed": 0.31,
+        "Lbol": 20606.3,
+        "Teffc": 25400.0
+      }
+    ],
+    "tetzlaff-2011/table1.dat": [
+      {
+        "HIP": 78265,
+        "OName": "pi. Sco",
+        "Mass": 12.5,
+        "e_Mass": 0.6,
+        "Age": 15.4,
+        "e_Age": 0.6,
+        "SpType": "B1V + B2V"
+      }
+    ]
+  },
+  "Furud Aa": {
+    "hohle-2010/table1fp.dat": [
+      {
+        "HIP": 30122,
+        "Bmag": 2.875,
+        "Vmag": 3.02,
+        "Jmag": 3.384,
+        "e_Jmag": null,
+        "Hmag": 3.403,
+        "e_Hmag": null,
+        "Kmag": 3.56,
+        "e_Kmag": null,
+        "plx": 9.0,
+        "e_plx": 0.13,
+        "pcor": 9.09,
+        "e_pcor": 0.131,
+        "SpType": "B3 V",
+        "Teff": 18700.0
+      }
+    ],
+    "hohle-2010/table3fp.dat": [
+      {
+        "HIP": 30122,
+        "minM1": 7.35,
+        "maxM1": 7.6,
+        "minM2": 6.31,
+        "maxM2": 7.94,
+        "minM3": 7.0,
+        "maxM3": 7.0,
+        "Mmed": 7.15,
+        "e_Mmed": 0.51,
+        "Lbol": 3603.1,
+        "Teffc": 18700.0
+      }
+    ],
+    "tetzlaff-2011/table1.dat": [
+      {
+        "HIP": 30122,
+        "OName": "1 CMa",
+        "Mass": 7.7,
+        "e_Mass": 0.2,
+        "Age": 32.0,
+        "e_Age": 0.4,
+        "SpType": "B2.5V"
+      }
+    ]
+  },
+  "Gacrux": {},
+  "Gamma Ara": {
+    "tetzlaff-2011/table1.dat": [
+      {
+        "HIP": 85267,
+        "OName": "gam Ara",
+        "Mass": 12.5,
+        "e_Mass": 0.6,
+        "Age": 15.7,
+        "e_Age": 0.1,
+        "SpType": "B1Ib"
+      }
+    ]
+  },
+  "Gamma Cam": {
+    "zorec-2012/table1.dat": [
+      {
+        "HD": 23401,
+        "SpType": "A2IVn",
+        "logT": 3.949,
+        "e_logT": 0.008,
+        "logL": 2.2666,
+        "e_logL": 0.022,
+        "Mass": 2.98,
+        "e_Mass": 0.04,
+        "Age": 1.019,
+        "e_Age": 0.0,
+        "vsini": 191,
+        "r_vsini": 4,
+        "Class": null
+      }
+    ]
+  },
+  "Gamma Cassiopeiae A": {
+    "tetzlaff-2011/table1.dat": [
+      {
+        "HIP": 4427,
+        "OName": "gam Cas",
+        "Mass": 19.3,
+        "e_Mass": 0.1,
+        "Age": 8.0,
+        "e_Age": 0.4,
+        "SpType": "B0IV:evar"
+      }
+    ],
+    "baines-2025/table7.dat": [
+      {
+        "HD": 5394,
+        "Rad": 22.45,
+        "E_Rad": 0.49,
+        "e_Rad": 0.5,
+        "sigRad": 2.2,
+        "L": 4545.7,
+        "e_L": 227.0,
+        "r_L": "AF12",
+        "Fbol": 512.8,
+        "e_Fbol": 27.7,
+        "Teff": 9998,
+        "e_Teff": 142,
+        "sigTeff": 1.4
+      }
+    ],
+    "baines-2025/table8.dat": [
+      {
+        "HD": 5394,
+        "Comp": "AB",
+        "dVmag": 8.7,
+        "Sep": 2.15,
+        "Disc": "N"
+      }
+    ]
+  },
+  "Gamma Centauri A": {
+    "david-2015/table5.dat": [
+      {
+        "HIP": 61932,
+        "Teff": 9717,
+        "e_Teff": 330,
+        "log(g)": 3.66,
+        "e_log(g)": 0.14,
+        "vsini": 74,
+        "r_vsini": 0,
+        "Ageavg": 164,
+        "Agemed": 201,
+        "Agemod": 303,
+        "Age68lo": 124,
+        "Age68up": 436,
+        "Age68t": 68,
+        "Age95lo": 29,
+        "Age95up": 487,
+        "Age95t": 95,
+        "Age2D": 363,
+        "Mavg": 2.15,
+        "Mmed": 2.14,
+        "Mmod": 2.11,
+        "M68lo": 2.0,
+        "M68up": 2.2,
+        "M68t": 68,
+        "M95lo": 2.0,
+        "M95up": 2.4,
+        "M95t": 95,
+        "M2D": 2.92
+      }
+    ]
+  },
+  "Gamma Cephei A": {
+    "baines-2018/table1.dat": [
+      {
+        "HD": 222404,
+        "HR": 8974,
+        "FK5": 893,
+        "OName": "{gamma} Cep",
+        "SpType": "K1III-IV",
+        "Vmag": 3.21,
+        "e_Vmag": 0.01,
+        "Plx": 70.91,
+        "e_Plx": 0.4,
+        "[Fe/H]": 0.15,
+        "r_[Fe/H]": 1
+      }
+    ],
+    "baines-2018/table5.dat": [
+      {
+        "HD": 222404,
+        "SpType": "K1 III",
+        "Rad": 4.93,
+        "e_Rad": 0.04,
+        "E_Rad": null,
+        "f_Rad": null,
+        "sigRad": 0.8,
+        "Fbol": 1.86,
+        "e_Fbol": 0.09,
+        "Av": 0.0,
+        "e_Av": 0.02,
+        "Teff": 4792,
+        "e_Teff": 62,
+        "sigTeff": 1.3,
+        "Lum": 11.6,
+        "e_Lum": 0.6,
+        "f_Lum": null
+      }
+    ],
+    "baines-2018/table6.dat": [
+      {
+        "HD": 222404,
+        "Mass": 1.41,
+        "e_Mass": 0.08,
+        "Age": 3.25,
+        "e_Age": 0.63
+      }
+    ],
+    "baines-2025/table7.dat": [
+      {
+        "HD": 222404,
+        "Rad": 4.86,
+        "E_Rad": null,
+        "e_Rad": 0.02,
+        "sigRad": 0.4,
+        "L": 10.2,
+        "e_L": 0.1,
+        "r_L": "MZW17",
+        "Fbol": 172.1,
+        "e_Fbol": 0.9,
+        "Teff": 4684,
+        "e_Teff": 11,
+        "sigTeff": 0.2
+      }
+    ],
+    "dasilva-2015/table4.dat": [
+      {
+        "Name": "HD222404",
+        "SpType": "K1IV",
+        "Vbroad": 2.71,
+        "Teff": 4842,
+        "e_Teff": 74,
+        "logg": 3.39,
+        "e_logg": 0.27,
+        "xi": 0.94,
+        "e_xi": 0.27,
+        "[Fe/H]": 0.2,
+        "e_[Fe/H]": 0.11,
+        "[C/Fe]": -0.06,
+        "e_[C/Fe]": 0.04,
+        "[N/Fe]": 0.14,
+        "e_[N/Fe]": 0.16,
+        "[O/Fe]": -0.03,
+        "e_[O/Fe]": 0.16,
+        "[Na/Fe]": 0.01,
+        "e_[Na/Fe]": 0.1,
+        "[Mg/Fe]": 0.01,
+        "e_[Mg/Fe]": 0.1,
+        "[Si/Fe]": -0.03,
+        "e_[Si/Fe]": 0.1,
+        "[Ca/Fe]": -0.1,
+        "e_[Ca/Fe]": 0.17,
+        "[Ti/Fe]": -0.02,
+        "e_[Ti/Fe]": 0.16,
+        "[V/Fe]": 0.08,
+        "e_[V/Fe]": 0.18,
+        "[Mn/Fe]": 0.09,
+        "e_[Mn/Fe]": 0.14,
+        "[Ni/Fe]": 0.09,
+        "e_[Ni/Fe]": 0.13,
+        "[Cu/Fe]": 0.07,
+        "e_[Cu/Fe]": 0.13,
+        "e_[Ba/Fe]": 0.17,
+        "Class": "subgiant"
+      }
+    ],
+    "dasilva-2015/table7.dat": [
+      {
+        "Name": "HD222404",
+        "B-V": 1.031,
+        "VMag": 2.47,
+        "Dist": 14.1,
+        "BC": -0.374,
+        "logL": 1.06,
+        "e_logL": 0.007,
+        "Mass": 1.52,
+        "e_Mass": 0.19,
+        "Age": 3.1,
+        "e_Age": 1.5,
+        "E_Age": 0.9,
+        "Popul": "thin",
+        "Rem": "c",
+        "Ref": "1"
+      }
+    ]
+  },
+  "Gamma Cir A": {
+    "tetzlaff-2011/table1.dat": [
+      {
+        "HIP": 75323,
+        "OName": "gam Cir",
+        "Mass": 6.0,
+        "e_Mass": 0.3,
+        "Age": 63.1,
+        "e_Age": 19.6,
+        "SpType": "B5III + F8"
+      }
+    ]
+  },
+  "Gamma CrA A": {},
+  "Gamma CrB A": {
+    "zorec-2012/table1.dat": [
+      {
+        "HD": 140436,
+        "SpType": "A1Vs",
+        "logT": 3.96,
+        "e_logT": 0.011,
+        "logL": 1.7722,
+        "e_logL": 0.0285,
+        "Mass": 2.51,
+        "e_Mass": 0.04,
+        "Age": 0.778,
+        "e_Age": 0.047,
+        "vsini": 112,
+        "r_vsini": 4,
+        "Class": "CB"
+      }
+    ]
+  },
+  "Gamma Hyi": {},
+  "Gamma Lup Aa": {
+    "tetzlaff-2011/table1.dat": [
+      {
+        "HIP": 76297,
+        "OName": "gam Lup",
+        "Mass": 9.5,
+        "e_Mass": 0.2,
+        "Age": 18.6,
+        "e_Age": 2.4,
+        "SpType": "B2IV"
+      }
+    ]
+  },
+  "Gamma Phe": {
+    "tetzlaff-2011/table1.dat": [
+      {
+        "HIP": 6867,
+        "OName": "gam Phe",
+        "Mass": null,
+        "e_Mass": null,
+        "Age": null,
+        "e_Age": null,
+        "SpType": "K5II-III"
+      }
+    ]
+  },
+  "Gamma Sge A": {
+    "baines-2021/table5.dat": [
+      {
+        "Target": 189319,
+        "SpT": "K5 III",
+        "Rad": 57.71,
+        "E_Rad": 0.86,
+        "e_Rad": 0.88,
+        "sigRad": 1.5,
+        "FBol": 3.02,
+        "e_FBol": 0.12,
+        "AVmag": 0.15,
+        "e_AVmag": 0.06,
+        "Teff": 3954,
+        "e_Teff": 38,
+        "sigTeff": 1.0,
+        "Lum": 734.6,
+        "e_Lum": 35.8
+      }
+    ],
+    "massarotti-2008/table3.dat": [
+      {
+        "---": "HIP",
+        "HIP": 98337,
+        "m_HIP": null,
+        "Dist": 84,
+        "e_Dist": 5,
+        "Teff": 3890,
+        "e_Teff": 20,
+        "logL": 2.99,
+        "Rad": 70,
+        "logg": 1.0,
+        "r_logg": 3,
+        "[Fe/H]": -0.1,
+        "r_[Fe/H]": 4
+      }
+    ],
+    "stock-2018/giants.dat": [
+      {
+        "HIP": 98337,
+        "Stage": "HB",
+        "P": 0.06,
+        "Mmode": 0.83,
+        "Mmean": 0.85,
+        "e_M": 0.81,
+        "E_M": 0.86,
+        "e3_M": 0.8,
+        "E3_M": 1.0,
+        "Rmode": 54.32,
+        "Rmean": 54.15,
+        "e_R": 53.27,
+        "E_R": 55.17,
+        "e3_R": 52.02,
+        "E3_R": 56.08,
+        "logGmode": 0.9,
+        "logGmean": 0.9,
+        "e_logG": 0.88,
+        "E_logG": 0.92,
+        "e3_logG": 0.86,
+        "E3_logG": 1.0,
+        "logAmode": 10.02,
+        "logAmean": 10.0,
+        "e_logA": 9.99,
+        "E_logA": 10.05,
+        "e3_logA": 9.66,
+        "E3_logA": 10.07,
+        "Tmode": 3836.0,
+        "Tmean": 3836.0,
+        "e_T": 3830.0,
+        "E_T": 3841.0,
+        "e3_T": 3825.0,
+        "E3_T": 3846.0,
+        "Lmode": 581.11,
+        "Lmean": 576.68,
+        "e_L": 559.96,
+        "E_L": 597.12,
+        "e3_L": 533.67,
+        "E3_L": 614.27,
+        "Flag": "D,MM,AM,GM",
+        "PDF": "Hip98337_HB.fits"
+      },
+      {
+        "HIP": 98337,
+        "Stage": "RGB",
+        "P": 0.94,
+        "Mmode": 0.88,
+        "Mmean": 0.91,
+        "e_M": 0.86,
+        "E_M": 0.93,
+        "e3_M": 0.85,
+        "E3_M": 1.09,
+        "Rmode": 54.08,
+        "Rmean": 54.1,
+        "e_R": 53.57,
+        "E_R": 54.61,
+        "e3_R": 52.69,
+        "E3_R": 55.71,
+        "logGmode": 0.92,
+        "logGmean": 0.93,
+        "e_logG": 0.91,
+        "E_logG": 0.95,
+        "e3_logG": 0.89,
+        "E3_logG": 1.01,
+        "logAmode": 10.02,
+        "logAmean": 10.0,
+        "e_logA": 9.99,
+        "E_logA": 10.05,
+        "e3_logA": 9.78,
+        "E3_logA": 10.07,
+        "Tmode": 3847.0,
+        "Tmean": 3847.0,
+        "e_T": 3845.0,
+        "E_T": 3849.0,
+        "e3_T": 3841.0,
+        "E3_T": 3852.0,
+        "Lmode": 575.41,
+        "Lmean": 575.55,
+        "e_L": 563.81,
+        "E_L": 586.06,
+        "e3_L": 544.7,
+        "E3_L": 610.66,
+        "Flag": "D,TM,AM,GM",
+        "PDF": "Hip98337_RGB.fits"
+      }
+    ],
+    "baines-2025/table7.dat": [
+      {
+        "HD": 189319,
+        "Rad": 58.12,
+        "E_Rad": 0.84,
+        "e_Rad": 0.87,
+        "sigRad": 1.5,
+        "L": 559.0,
+        "e_L": 0.1,
+        "r_L": "MZW17",
+        "Fbol": 229.7,
+        "e_Fbol": 3.3,
+        "Teff": 3680,
+        "e_Teff": 14,
+        "sigTeff": 0.4
+      }
+    ],
+    "charbonnel-2020/table1.dat": [
+      {
+        "HD": 189319,
+        "RAdeg": 299.68927,
+        "DEdeg": 19.492147,
+        "Teff": 4000,
+        "e_Teff": 150,
+        "BCV": -1.16,
+        "[Fe/H]": -0.2,
+        "ALi": -0.04,
+        "flagLi": 0,
+        "Plxvl07": 12.62,
+        "e_Plxvl07": 0.18,
+        "logLvl07hip": 2.76,
+        "e_logLvl07hip": 0.02,
+        "PlxGaiaDR2": 12.4192,
+        "e_PlxGaiaDR2": 0.3583,
+        "logLadopt": 2.86,
+        "e_logLadopt": 0.04,
+        "f_logLadopt": 0,
+        "Mass": 2.04,
+        "e_Mass": 0.76,
+        "E_Mass": 0.95
+      }
+    ],
+    "luck-2015/table1.dat": [
+      {
+        "Name": "* gam Sge",
+        "HD": "189319",
+        "HIP": 98337,
+        "HR": 7635,
+        "CCDM": null,
+        "m_CCDM": null,
+        "OName": null,
+        "Sce": "E",
+        "Key": "hd189319",
+        "SpT": "M0III",
+        "Type": "V*",
+        "Vmag": 3.47,
+        "B-V": 1.57,
+        "plx": 12.62,
+        "Dist": 79.2,
+        "RV": -34.0
+      }
+    ],
+    "luck-2015/table2.dat": [
+      {
+        "Name": "* gam Sge",
+        "Sce": "E",
+        "E(B-V)": 0.0,
+        "Teff": 3862,
+        "e_Teff": 40,
+        "o_Teff": 9,
+        "logL": 2.77,
+        "BMass": 1.4,
+        "DMass": 1.99,
+        "YMass": 1.92,
+        "<Mass>": 1.77,
+        "BAge": 4.15,
+        "DAge": 1.08,
+        "YAge": 1.82,
+        "<Age>": 2.35
+      }
+    ],
+    "luck-2015/table3.dat": [
+      {
+        "Key": "hd189319",
+        "Sce": "E",
+        "Teff1": 3862,
+        "logg1": 1.21,
+        "Vt1": 2.25,
+        "FeI1": 0.19,
+        "e_FeI1": 0.33,
+        "o_FeI1": 370,
+        "FeII1": 0.69,
+        "e_FeII1": 0.33,
+        "o_FeII1": 22,
+        "C1": 8.46,
+        "O1": 8.82,
+        "Li1": -0.1,
+        "EW1": 6.56,
+        "Li1c": 0.39,
+        "Teff2": 3862,
+        "logg2": -0.3,
+        "Vt2": 2.25,
+        "FeI2": -0.21,
+        "e_FeI2": 0.36,
+        "o_FeI2": 370,
+        "FeII2": -0.19,
+        "e_FeII2": 0.36,
+        "o_FeII2": 22,
+        "C2": 7.93,
+        "O2": 8.17,
+        "Li2": -0.32,
+        "Li2c": 0.96,
+        "Vbroad": 7.7,
+        "Broad": "G",
+        "Clump": 1
+      }
+    ]
+  },
+  "Gudja": {
+    "baines-2021/table5.dat": [
+      {
+        "Target": 141477,
+        "SpT": "K6 III",
+        "Rad": 71.31,
+        "E_Rad": 1.42,
+        "e_Rad": 1.48,
+        "sigRad": 2.1,
+        "FBol": 2.37,
+        "e_FBol": 0.09,
+        "AVmag": 0.41,
+        "e_AVmag": 0.05,
+        "Teff": 3863,
+        "e_Teff": 39,
+        "sigTeff": 1.0,
+        "Lum": 1021.0,
+        "e_Lum": 57.0
+      }
+    ],
+    "charbonnel-2020/table1.dat": [
+      {
+        "HD": 141477,
+        "RAdeg": 237.1849,
+        "DEdeg": 18.141563,
+        "Teff": 3700,
+        "e_Teff": 150,
+        "BCV": -1.88,
+        "[Fe/H]": 0.0,
+        "ALi": -0.9,
+        "flagLi": -1,
+        "Plxvl07": 8.54,
+        "e_Plxvl07": 0.23,
+        "logLvl07hip": 3.15,
+        "e_logLvl07hip": 0.03,
+        "PlxGaiaDR2": 9.9009,
+        "e_PlxGaiaDR2": 0.4772,
+        "logLadopt": 3.11,
+        "e_logLadopt": 0.06,
+        "f_logLadopt": 0,
+        "Mass": 1.84,
+        "e_Mass": 0.66,
+        "E_Mass": 2.12
+      }
+    ]
+  },
+  "Hadir Aa": {
+    "luck-2015/table1.dat": [
+      {
+        "Name": "* sig Pup",
+        "HD": "59717",
+        "HIP": 36377,
+        "HR": 2878,
+        "CCDM": "J07292-4318",
+        "m_CCDM": "A",
+        "OName": null,
+        "Sce": "H",
+        "Key": "sigpup",
+        "SpT": "K5III",
+        "Type": "EllipVar",
+        "Vmag": 3.25,
+        "B-V": 1.52,
+        "plx": 16.84,
+        "Dist": 59.4,
+        "RV": 87.3
+      }
+    ],
+    "luck-2015/table2.dat": [
+      {
+        "Name": "* sig Pup",
+        "Sce": "H",
+        "E(B-V)": 0.0,
+        "Teff": 4081,
+        "e_Teff": 452,
+        "o_Teff": 11,
+        "logL": 0.3,
+        "BMass": null,
+        "DMass": null,
+        "YMass": null,
+        "<Mass>": 1.0,
+        "BAge": null,
+        "DAge": null,
+        "YAge": null,
+        "<Age>": null
+      }
+    ],
+    "luck-2015/table3.dat": [
+      {
+        "Key": "sigpup",
+        "Sce": "H",
+        "Teff1": 4081,
+        "logg1": 3.53,
+        "Vt1": 1.25,
+        "FeI1": 0.64,
+        "e_FeI1": 0.31,
+        "o_FeI1": 483,
+        "FeII1": 1.45,
+        "e_FeII1": 0.29,
+        "o_FeII1": 25,
+        "C1": 9.91,
+        "O1": 10.21,
+        "Li1": -0.51,
+        "EW1": 0.93,
+        "Li1c": 0.28,
+        "Teff2": 4081,
+        "logg2": 1.55,
+        "Vt2": 1.11,
+        "FeI2": 0.31,
+        "e_FeI2": 0.25,
+        "o_FeI2": 483,
+        "FeII2": 0.3,
+        "e_FeII2": 0.31,
+        "o_FeII2": 25,
+        "C2": 8.64,
+        "O2": 9.12,
+        "Li2": -0.65,
+        "Li2c": 0.37,
+        "Vbroad": 4.5,
+        "Broad": "G",
+        "Clump": 1
+      }
+    ]
+  },
+  "HD 175156": {
+    "hohle-2010/table1.dat": [
+      {
+        "HIP": 92814,
+        "Bmag": 5.223,
+        "Vmag": 5.098,
+        "Jmag": 4.691,
+        "e_Jmag": 0.212,
+        "Hmag": 4.687,
+        "e_Hmag": 0.016,
+        "Kmag": 4.573,
+        "e_Kmag": 0.02,
+        "plx": 2.33,
+        "e_plx": 0.24,
+        "pcor": 2.353,
+        "e_pcor": 0.242,
+        "SpType": "B3   II",
+        "Teff": 16650.0
+      }
+    ],
+    "hohle-2010/table3.dat": [
+      {
+        "HIP": 92814,
+        "minM1": 0.68,
+        "maxM1": 10.0,
+        "minM2": 7.94,
+        "maxM2": 9.97,
+        "minM3": 8.99,
+        "maxM3": 8.99,
+        "Mmed": 9.9,
+        "e_Mmed": 0.55,
+        "Lbol": 14083.36,
+        "Teffc": 16650.0
+      }
+    ],
+    "tetzlaff-2011/table1.dat": [
+      {
+        "HIP": 92814,
+        "OName": "HD 175156",
+        "Mass": 10.1,
+        "e_Mass": 0.1,
+        "Age": 25.1,
+        "e_Age": 1.3,
+        "SpType": "B3II"
+      }
+    ]
+  },
+  "HD 21291": {
+    "tetzlaff-2011/table1.dat": [
+      {
+        "HIP": 16228,
+        "OName": "CS Cam",
+        "Mass": 12.0,
+        "e_Mass": 0.3,
+        "Age": 16.5,
+        "e_Age": 1.0,
+        "SpType": "B9Ia"
+      }
+    ]
+  },
+  "HD 24479": {
+    "zorec-2012/table1.dat": [
+      {
+        "HD": 24479,
+        "SpType": "B9.5V",
+        "logT": 4.022,
+        "e_logT": 0.003,
+        "logL": 2.194,
+        "e_logL": 0.031,
+        "Mass": 3.14,
+        "e_Mass": 0.05,
+        "Age": 0.835,
+        "e_Age": 0.02,
+        "vsini": 95,
+        "r_vsini": 8,
+        "Class": null
+      }
+    ]
+  },
+  "HD 42111": {
+    "zorec-2012/table1.dat": [
+      {
+        "HD": 42111,
+        "SpType": "A3Vn",
+        "logT": 3.962,
+        "e_logT": 0.007,
+        "logL": 2.413,
+        "e_logL": 0.1426,
+        "Mass": 3.24,
+        "e_Mass": 0.23,
+        "Age": 1.018,
+        "e_Age": 0.004,
+        "vsini": 242,
+        "r_vsini": 5,
+        "Class": null
+      }
+    ]
+  },
+  "HD 93194": {
+    "tetzlaff-2011/table1.dat": [
+      {
+        "HIP": 52502,
+        "OName": "HD 93194",
+        "Mass": null,
+        "e_Mass": null,
+        "Age": null,
+        "e_Age": null,
+        "SpType": "B5Vn"
+      }
+    ]
+  },
+  "Imai": {
+    "tetzlaff-2011/table1.dat": [
+      {
+        "HIP": 59747,
+        "OName": "del Cru",
+        "Mass": 8.9,
+        "e_Mass": 0.1,
+        "Age": 18.1,
+        "e_Age": 3.2,
+        "SpType": "B2IV"
+      }
+    ]
+  },
+  "Iota Aqr": {
+    "zorec-2012/table1.dat": [
+      {
+        "HD": 209819,
+        "SpType": "B9IV-V",
+        "logT": 4.061,
+        "e_logT": 0.003,
+        "logL": 1.947,
+        "e_logL": 0.013,
+        "Mass": 2.94,
+        "e_Mass": 0.02,
+        "Age": 0.358,
+        "e_Age": 0.034,
+        "vsini": 108,
+        "r_vsini": 16,
+        "Class": "CB"
+      }
+    ],
+    "david-2015/table5.dat": [
+      {
+        "HIP": 109139,
+        "Teff": 12641,
+        "e_Teff": 430,
+        "log(g)": 4.31,
+        "e_log(g)": 0.14,
+        "vsini": 138,
+        "r_vsini": 0,
+        "Ageavg": 100,
+        "Agemed": 122,
+        "Agemod": 152,
+        "Age68lo": 91,
+        "Age68up": 182,
+        "Age68t": 68,
+        "Age95lo": 27,
+        "Age95up": 200,
+        "Age95t": 95,
+        "Age2D": 36,
+        "Mavg": 3.25,
+        "Mmed": 3.23,
+        "Mmod": 3.18,
+        "M68lo": 3.0,
+        "M68up": 3.4,
+        "M68t": 68,
+        "M95lo": 2.9,
+        "M95up": 3.6,
+        "M95t": 95,
+        "M2D": 3.06
+      }
+    ]
+  },
+  "Iota CMa": {
+    "tetzlaff-2011/table1.dat": [
+      {
+        "HIP": 33347,
+        "OName": "iot CMa",
+        "Mass": 12.5,
+        "e_Mass": 1.2,
+        "Age": 15.8,
+        "e_Age": 0.4,
+        "SpType": "B3Ib/II"
+      }
+    ]
+  },
+  "Iota Gru": {},
+  "Kaffaljidhma A": {
+    "zorec-2012/table1.dat": [
+      {
+        "HD": 16970,
+        "SpType": "A3V",
+        "logT": 3.957,
+        "e_logT": 0.009,
+        "logL": 1.448,
+        "e_logL": 0.0208,
+        "Mass": 2.18,
+        "e_Mass": 0.02,
+        "Age": 0.471,
+        "e_Age": 0.074,
+        "vsini": 186,
+        "r_vsini": 4,
+        "Class": "CB"
+      }
+    ],
+    "david-2015/table5.dat": [
+      {
+        "HIP": 12706,
+        "Teff": 8551,
+        "e_Teff": 291,
+        "log(g)": 4.27,
+        "e_log(g)": 0.14,
+        "vsini": null,
+        "r_vsini": null,
+        "Ageavg": 575,
+        "Agemed": 668,
+        "Agemod": 678,
+        "Age68lo": 555,
+        "Age68up": 811,
+        "Age68t": 68,
+        "Age95lo": 251,
+        "Age95up": 917,
+        "Age95t": 95,
+        "Age2D": 341,
+        "Mavg": 1.95,
+        "Mmed": 1.94,
+        "Mmod": 1.89,
+        "M68lo": 1.8,
+        "M68up": 2.1,
+        "M68t": 68,
+        "M95lo": 1.7,
+        "M95up": 2.2,
+        "M95t": 95,
+        "M2D": 1.81
+      }
+    ]
+  },
+  "Kappa Cen Aa": {
+    "tetzlaff-2011/table1.dat": [
+      {
+        "HIP": 73334,
+        "OName": "kap Cen",
+        "Mass": 8.6,
+        "e_Mass": 0.2,
+        "Age": 18.2,
+        "e_Age": 3.2,
+        "SpType": "B2IV"
+      }
+    ]
+  },
+  "Kappa Lep": {
+    "zorec-2012/table1.dat": [
+      {
+        "HD": 33949,
+        "SpType": "B9V",
+        "logT": 4.064,
+        "e_logT": 0.003,
+        "logL": 3.129,
+        "e_logL": 0.125,
+        "Mass": 4.86,
+        "e_Mass": 0.39,
+        "Age": 1.018,
+        "e_Age": 0.0,
+        "vsini": 135,
+        "r_vsini": 16,
+        "Class": "CB"
+      }
+    ]
+  },
+  "Kappa Scorpii": {
+    "tetzlaff-2011/table1.dat": [
+      {
+        "HIP": 86670,
+        "OName": "kap Sco",
+        "Mass": 10.1,
+        "e_Mass": 0.1,
+        "Age": 25.1,
+        "e_Age": 1.3,
+        "SpType": "B1.5III"
+      }
+    ]
+  },
+  "Kitalpha A": {
+    "piccotti-2020/table1.dat": [
+      {
+        "Cat": "ORB6",
+        "WDS": "21158+0515",
+        "DD": "WRH 35",
+        "HD": 202447,
+        "P": 98.8,
+        "e_P": 0.004,
+        "n_P": null,
+        "T": 58756.0,
+        "e_T": 6.9,
+        "e": 0.0056,
+        "e_e": 0.0034,
+        "n_e": null,
+        "omega": 270.0,
+        "e_omega": 26.0,
+        "n_omega": null,
+        "grade": 1,
+        "Ref": "Armstrong1992"
+      },
+      {
+        "Cat": "SB9",
+        "WDS": "21158+0515",
+        "DD": "WRH 35",
+        "HD": 202447,
+        "P": 98.809,
+        "e_P": 0.014,
+        "n_P": null,
+        "T": 58743.849,
+        "e_T": 11.0,
+        "e": 0.0069,
+        "e_e": 0.0053,
+        "n_e": null,
+        "omega": 222.0,
+        "e_omega": 40.0,
+        "n_omega": null,
+        "grade": null,
+        "Ref": "Massarotti2008"
+      }
+    ],
+    "piccotti-2020/table2.dat": [
+      {
+        "HD": 202447,
+        "asinikm": 47200900.0,
+        "e_asinikm": 276800.0,
+        "asini": 0.31552,
+        "e_asini": 0.00185,
+        "a": 0.66124,
+        "e_a": 0.0237
+      }
+    ],
+    "piccotti-2020/table3.dat": [
+      {
+        "HD": "202447",
+        "plxorb": 18.1279,
+        "e_plxorb": 0.6604,
+        "n_plxorb": "g",
+        "plxHIP": 17.14,
+        "e_plxHIP": 0.21,
+        "n_plxHIP": "g",
+        "plxGaia": 19.4571,
+        "e_plxGaia": 0.3999,
+        "n_plxGaia": null,
+        "plxDyn": null,
+        "e_plxDyn": null,
+        "n_plxDyn": null
+      }
+    ],
+    "piccotti-2020/table5.dat": [
+      {
+        "HD": 202447,
+        "M1Orb": 2.153,
+        "e_M1Orb": 0.241,
+        "M1HIP": 2.547,
+        "e_M1HIP": 0.113,
+        "M1Gaia": 1.741,
+        "e_M1Gaia": 0.116,
+        "M1Dyn": null,
+        "e_M1Dyn": null,
+        "M2Orb": 1.798,
+        "e_M2Orb": 0.201,
+        "M2HIP": 2.128,
+        "e_M2HIP": 0.092,
+        "M2Gaia": 1.454,
+        "e_M2Gaia": 0.095,
+        "M2Dyn": null,
+        "e_M2Dyn": null
+      }
+    ],
+    "piccotti-2020/table6.dat": [
+      {
+        "HD": "202447",
+        "Vmag": 3.933,
+        "Vmag1": 4.476,
+        "Vmag2": 4.946,
+        "DeltaV": 0.47,
+        "VMAG": 0.225,
+        "VMAG1": 0.768,
+        "VMAG2": 1.238,
+        "GLAT": -28.7134658,
+        "AV": 0.078753099,
+        "E(B-V)": 0.024610343,
+        "VMAGc": 0.146,
+        "VMAGc1": 0.689,
+        "VMAGc2": 1.159
+      }
+    ],
+    "piccotti-2020/table7.dat": [
+      {
+        "HD": "202447",
+        "SpType1": "G2",
+        "Lum1": "III",
+        "SpType2": "A5",
+        "Lum2": "V",
+        "Teff1": 5811.0,
+        "Teff2": 8306.0,
+        "B-V1": 0.74,
+        "B-V2": 0.12,
+        "V-R1": null,
+        "V-R2": 0.16,
+        "BC1": -0.17,
+        "BC2": 0.02
+      }
+    ],
+    "piccotti-2020/table11.dat": [
+      {
+        "HD": "202447",
+        "l_M": null,
+        "M": 2.7,
+        "e_M": 0.1,
+        "logL": 1.68,
+        "e_logL": 0.1,
+        "logTeff": 3.75,
+        "e_logTeff": 0.1,
+        "logage": 8.82,
+        "e_logage": 0.1
+      }
+    ],
+    "piccotti-2020/table12.dat": [
+      {
+        "HD": "202447",
+        "l_M": null,
+        "M": 2.15,
+        "e_M": 0.05,
+        "logL": 1.43,
+        "e_logL": 0.05,
+        "logTeff": 3.93,
+        "e_logTeff": 0.05,
+        "logage": 8.71,
+        "e_logage": 0.1
+      }
+    ],
+    "massarotti-2008/table3.dat": [
+      {
+        "---": "HIP",
+        "HIP": 104987,
+        "m_HIP": null,
+        "Dist": 57,
+        "e_Dist": 3,
+        "Teff": null,
+        "e_Teff": null,
+        "logL": null,
+        "Rad": null,
+        "logg": 3.0,
+        "r_logg": 1,
+        "[Fe/H]": 0.09,
+        "r_[Fe/H]": 5
+      }
+    ]
+  },
+  "Lambda Cet": {
+    "hohle-2010/table1.dat": [
+      {
+        "HIP": 13954,
+        "Bmag": 4.598,
+        "Vmag": 4.701,
+        "Jmag": 5.081,
+        "e_Jmag": 0.294,
+        "Hmag": 4.893,
+        "e_Hmag": 0.018,
+        "Kmag": 4.91,
+        "e_Kmag": 0.018,
+        "plx": 5.66,
+        "e_plx": 0.24,
+        "pcor": 5.717,
+        "e_pcor": 0.242,
+        "SpType": "B6   III",
+        "Teff": 14100.0
+      }
+    ],
+    "hohle-2010/table3.dat": [
+      {
+        "HIP": 13954,
+        "minM1": 4.65,
+        "maxM1": 5.4,
+        "minM2": 5.01,
+        "maxM2": 5.01,
+        "minM3": 4.0,
+        "maxM3": 5.0,
+        "Mmed": 5.01,
+        "e_Mmed": 0.05,
+        "Lbol": 992.35,
+        "Teffc": 14100.0
+      }
+    ],
+    "tetzlaff-2011/table1.dat": [
+      {
+        "HIP": 13954,
+        "OName": "lam Cet",
+        "Mass": null,
+        "e_Mass": null,
+        "Age": null,
+        "e_Age": null,
+        "SpType": "B6III"
+      }
+    ]
+  },
+  "Lambda Eri": {
+    "hohle-2010/table1.dat": [
+      {
+        "HIP": 23972,
+        "Bmag": 4.067,
+        "Vmag": 4.249,
+        "Jmag": 4.854,
+        "e_Jmag": 0.204,
+        "Hmag": 4.832,
+        "e_Hmag": 0.076,
+        "Kmag": 4.713,
+        "e_Kmag": 0.02,
+        "plx": 4.02,
+        "e_plx": 0.18,
+        "pcor": 4.06,
+        "e_pcor": 0.182,
+        "SpType": "B2   IV",
+        "Teff": 21150.0
+      }
+    ],
+    "hohle-2010/table3.dat": [
+      {
+        "HIP": 23972,
+        "minM1": 8.7,
+        "maxM1": 9.85,
+        "minM2": 7.94,
+        "maxM2": 9.98,
+        "minM3": 9.0,
+        "maxM3": 8.99,
+        "Mmed": 8.99,
+        "e_Mmed": 0.69,
+        "Lbol": 7510.14,
+        "Teffc": 21150.0
+      }
+    ],
+    "tetzlaff-2011/table1.dat": [
+      {
+        "HIP": 23972,
+        "OName": "lam Eri",
+        "Mass": 9.2,
+        "e_Mass": 0.3,
+        "Age": 21.0,
+        "e_Age": 2.3,
+        "SpType": "B2IVn"
+      }
+    ]
+  },
+  "Lambda Gru": {},
+  "Lambda Pav": {
+    "hohle-2010/table1.dat": [
+      {
+        "HIP": 92609,
+        "Bmag": 4.064,
+        "Vmag": 4.207,
+        "Jmag": 4.417,
+        "e_Jmag": 0.264,
+        "Hmag": 4.318,
+        "e_Hmag": 0.256,
+        "Kmag": 4.391,
+        "e_Kmag": 0.021,
+        "plx": 2.28,
+        "e_plx": 0.18,
+        "pcor": 2.303,
+        "e_pcor": 0.182,
+        "SpType": "B2   III",
+        "Teff": 20300.0
+      }
+    ],
+    "hohle-2010/table3.dat": [
+      {
+        "HIP": 92609,
+        "minM1": 11.32,
+        "maxM1": 12.98,
+        "minM2": 12.48,
+        "maxM2": 12.47,
+        "minM3": 11.91,
+        "maxM3": 11.9,
+        "Mmed": 12.47,
+        "e_Mmed": 0.37,
+        "Lbol": 31032.17,
+        "Teffc": 20300.0
+      }
+    ],
+    "tetzlaff-2011/table1.dat": [
+      {
+        "HIP": 92609,
+        "OName": "lam Pav",
+        "Mass": 12.5,
+        "e_Mass": 0.6,
+        "Age": 15.8,
+        "e_Age": 0.2,
+        "SpType": "B2II-III"
+      }
+    ]
+  },
+  "Leepwal": {
+    "tetzlaff-2011/table1.dat": [
+      {
+        "HIP": 68002,
+        "OName": "zet Cen",
+        "Mass": 7.8,
+        "e_Mass": 0.1,
+        "Age": 39.8,
+        "e_Age": 5.7,
+        "SpType": "B2.5IV"
+      }
+    ]
+  },
+  "Lesath": {
+    "tetzlaff-2011/table1.dat": [
+      {
+        "HIP": 85696,
+        "OName": "ups Sco",
+        "Mass": 11.4,
+        "e_Mass": 0.5,
+        "Age": 20.0,
+        "e_Age": 2.6,
+        "SpType": "B2IV"
+      }
+    ]
+  },
+  "Markeb": {
+    "tetzlaff-2011/table1.dat": [
+      {
+        "HIP": 45941,
+        "OName": "kap Vel",
+        "Mass": 12.5,
+        "e_Mass": 0.4,
+        "Age": 15.7,
+        "e_Age": 0.1,
+        "SpType": "B2IV"
+      }
+    ]
+  },
+  "Menkib": {
+    "hohle-2010/table1.dat": [
+      {
+        "HIP": 18614,
+        "Bmag": 4.022,
+        "Vmag": 4.042,
+        "Jmag": 3.987,
+        "e_Jmag": 0.27,
+        "Hmag": 4.07,
+        "e_Hmag": 0.224,
+        "Kmag": 3.953,
+        "e_Kmag": 0.036,
+        "plx": 2.62,
+        "e_plx": 0.51,
+        "pcor": 2.649,
+        "e_pcor": 0.517,
+        "SpType": "O7.5 III",
+        "Teff": 32700.0
+      }
+    ],
+    "hohle-2010/table3.dat": [
+      {
+        "HIP": 18614,
+        "minM1": 21.27,
+        "maxM1": 30.43,
+        "minM2": 19.74,
+        "maxM2": 30.12,
+        "minM3": 19.69,
+        "maxM3": 13.22,
+        "Mmed": 24.25,
+        "e_Mmed": 2.08,
+        "Lbol": 160633.49,
+        "Teffc": 32700.0
+      }
+    ],
+    "tetzlaff-2011/table1.dat": [
+      {
+        "HIP": 18614,
+        "OName": "ksi Per",
+        "Mass": 24.2,
+        "e_Mass": 0.1,
+        "Age": 5.5,
+        "e_Age": 0.1,
+        "SpType": "O7.5Iab:"
+      }
+    ]
+  },
+  "Minelauva": {
+    "baines-2021/table5.dat": [
+      {
+        "Target": 112300,
+        "SpT": "M3 III",
+        "Rad": 67.4,
+        "E_Rad": 0.96,
+        "e_Rad": 0.99,
+        "sigRad": 1.5,
+        "FBol": 6.3,
+        "e_FBol": 0.2,
+        "AVmag": 0.06,
+        "e_AVmag": 0.05,
+        "Teff": 3549,
+        "e_Teff": 28,
+        "sigTeff": 0.8,
+        "Lum": 650.1,
+        "e_Lum": 27.5
+      }
+    ],
+    "massarotti-2008/table3.dat": [
+      {
+        "---": "HIP",
+        "HIP": 63090,
+        "m_HIP": null,
+        "Dist": 62,
+        "e_Dist": 3,
+        "Teff": 3999,
+        "e_Teff": 28,
+        "logL": 2.67,
+        "Rad": 48,
+        "logg": 1.0,
+        "r_logg": 2,
+        "[Fe/H]": -0.16,
+        "r_[Fe/H]": 4
+      }
+    ],
+    "charbonnel-2020/table1.dat": [
+      {
+        "HD": 112300,
+        "RAdeg": 193.90086,
+        "DEdeg": 3.3974702,
+        "Teff": 3500,
+        "e_Teff": 150,
+        "BCV": -2.68,
+        "[Fe/H]": -0.2,
+        "ALi": -0.9,
+        "flagLi": 0,
+        "Plxvl07": 16.44,
+        "e_Plxvl07": 0.22,
+        "logLvl07hip": 3.18,
+        "e_logLvl07hip": 0.02,
+        "PlxGaiaDR2": 13.9958,
+        "e_PlxGaiaDR2": 0.557,
+        "logLadopt": 3.53,
+        "e_logLadopt": 0.05,
+        "f_logLadopt": 0,
+        "Mass": 2.97,
+        "e_Mass": 1.59,
+        "E_Mass": 0.99
+      }
+    ]
+  },
+  "Minkar": {
+    "stock-2018/giants.dat": [
+      {
+        "HIP": 59316,
+        "Stage": "HB",
+        "P": 0.94,
+        "Mmode": 3.4,
+        "Mmean": 3.15,
+        "e_M": 2.84,
+        "E_M": 3.53,
+        "e3_M": 2.26,
+        "E3_M": 3.97,
+        "Rmode": 53.72,
+        "Rmean": 54.47,
+        "e_R": 46.33,
+        "E_R": 61.83,
+        "e3_R": 39.68,
+        "E3_R": 69.63,
+        "logGmode": 1.5,
+        "logGmean": 1.46,
+        "e_logG": 1.41,
+        "E_logG": 1.55,
+        "e3_logG": 1.25,
+        "E3_logG": 1.64,
+        "logAmode": 8.44,
+        "logAmean": 8.56,
+        "e_logA": 8.39,
+        "E_logA": 8.69,
+        "e3_logA": 8.27,
+        "E3_logA": 8.93,
+        "Tmode": 4287.0,
+        "Tmean": 4279.0,
+        "e_T": 4240.0,
+        "E_T": 4324.0,
+        "e3_T": 4152.0,
+        "E3_T": 4391.0,
+        "Lmode": 838.53,
+        "Lmean": 838.5,
+        "e_L": 591.06,
+        "E_L": 1081.16,
+        "e3_L": 367.84,
+        "E3_L": 1304.37,
+        "Flag": "MM,AM",
+        "PDF": "Hip59316_HB.fits"
+      },
+      {
+        "HIP": 59316,
+        "Stage": "RGB",
+        "P": 0.06,
+        "Mmode": 3.38,
+        "Mmean": 3.5,
+        "e_M": 3.32,
+        "E_M": 3.57,
+        "e3_M": 3.23,
+        "E3_M": 4.15,
+        "Rmode": 53.84,
+        "Rmean": 53.72,
+        "e_R": 52.17,
+        "E_R": 55.21,
+        "e3_R": 49.29,
+        "E3_R": 58.47,
+        "logGmode": 1.51,
+        "logGmean": 1.52,
+        "e_logG": 1.48,
+        "E_logG": 1.55,
+        "e3_logG": 1.45,
+        "E3_logG": 1.65,
+        "logAmode": 8.4,
+        "logAmean": 8.41,
+        "e_logA": 8.33,
+        "E_logA": 8.48,
+        "e3_logA": 8.24,
+        "E3_logA": 8.56,
+        "Tmode": 4304.0,
+        "Tmean": 4304.0,
+        "e_T": 4273.0,
+        "E_T": 4333.0,
+        "e3_T": 4218.0,
+        "E3_T": 4396.0,
+        "Lmode": 891.67,
+        "Lmean": 888.76,
+        "e_L": 857.77,
+        "E_L": 916.22,
+        "e3_L": 804.77,
+        "E3_L": 980.39,
+        "Flag": "RM",
+        "PDF": "Hip59316_RGB.fits"
+      }
+    ],
+    "charbonnel-2020/table1.dat": [
+      {
+        "HD": 105707,
+        "RAdeg": 182.53117,
+        "DEdeg": -22.619766,
+        "Teff": 4260,
+        "e_Teff": 110,
+        "BCV": -0.73,
+        "[Fe/H]": -0.2,
+        "ALi": 0.8,
+        "flagLi": 0,
+        "Plxvl07": 10.26,
+        "e_Plxvl07": 0.16,
+        "logLvl07hip": 2.96,
+        "e_logLvl07hip": 0.02,
+        "PlxGaiaDR2": 12.5022,
+        "e_PlxGaiaDR2": 0.4361,
+        "logLadopt": 2.87,
+        "e_logLadopt": 0.05,
+        "f_logLadopt": 0,
+        "Mass": 2.98,
+        "e_Mass": 0.51,
+        "E_Mass": 2.01
+      }
+    ],
+    "luck-2015/table1.dat": [
+      {
+        "Name": "* eps Crv",
+        "HD": "105707",
+        "HIP": 59316,
+        "HR": 4630,
+        "CCDM": null,
+        "m_CCDM": null,
+        "OName": null,
+        "Sce": "S",
+        "Key": "hr4630",
+        "SpT": "K2III",
+        "Type": "V*",
+        "Vmag": 2.98,
+        "B-V": 1.34,
+        "plx": 10.26,
+        "Dist": 97.5,
+        "RV": 5.0
+      }
+    ],
+    "luck-2015/table2.dat": [
+      {
+        "Name": "* eps Crv",
+        "Sce": "S",
+        "E(B-V)": 0.004,
+        "Teff": 4285,
+        "e_Teff": 59,
+        "o_Teff": 13,
+        "logL": 2.98,
+        "BMass": 2.6,
+        "DMass": 1.25,
+        "YMass": null,
+        "<Mass>": 1.93,
+        "BAge": null,
+        "DAge": 3.13,
+        "YAge": null,
+        "<Age>": 3.13
+      }
+    ],
+    "luck-2015/table3.dat": [
+      {
+        "Key": "hr4630",
+        "Sce": "S",
+        "Teff1": 4285,
+        "logg1": 1.22,
+        "Vt1": 1.98,
+        "FeI1": -0.01,
+        "e_FeI1": 0.14,
+        "o_FeI1": 331,
+        "FeII1": 0.0,
+        "e_FeII1": 0.15,
+        "o_FeII1": 22,
+        "C1": 8.17,
+        "O1": 8.55,
+        "Li1": 0.62,
+        "EW1": 7.41,
+        "Li1c": 0.42,
+        "Teff2": 4285,
+        "logg2": 1.18,
+        "Vt2": 1.97,
+        "FeI2": -0.02,
+        "e_FeI2": 0.15,
+        "o_FeI2": 331,
+        "FeII2": -0.02,
+        "e_FeII2": 0.15,
+        "o_FeII2": 22,
+        "C2": 8.16,
+        "O2": 8.53,
+        "Li2": 0.62,
+        "Li2c": 0.42,
+        "Vbroad": 6.0,
+        "Broad": "G",
+        "Clump": 1
+      }
+    ]
+  },
+  "Mintaka Aa1": {
+    "hohle-2010/table1.dat": [
+      {
+        "HIP": 25930,
+        "Bmag": 2.01,
+        "Vmag": 2.23,
+        "Jmag": 2.744,
+        "e_Jmag": 0.268,
+        "Hmag": 2.981,
+        "e_Hmag": 0.226,
+        "Kmag": 3.023,
+        "e_Kmag": 0.26,
+        "plx": 4.71,
+        "e_plx": 0.58,
+        "pcor": 4.757,
+        "e_pcor": 0.586,
+        "SpType": "O9.5 II",
+        "Teff": 29900.0
+      }
+    ],
+    "hohle-2010/table3.dat": [
+      {
+        "HIP": 25930,
+        "minM1": 17.45,
+        "maxM1": 22.75,
+        "minM2": 19.79,
+        "maxM2": 19.19,
+        "minM3": 14.84,
+        "maxM3": 19.44,
+        "Mmed": 19.6,
+        "e_Mmed": 0.07,
+        "Lbol": 74461.83,
+        "Teffc": 29900.0
+      }
+    ],
+    "hohle-2010/table1fp.dat": [
+      {
+        "HIP": 25930,
+        "Bmag": 1.92,
+        "Vmag": 2.14,
+        "Jmag": 2.654,
+        "e_Jmag": null,
+        "Hmag": 2.891,
+        "e_Hmag": null,
+        "Kmag": 2.933,
+        "e_Kmag": null,
+        "plx": 4.71,
+        "e_plx": 0.58,
+        "pcor": 4.757,
+        "e_pcor": 0.586,
+        "SpType": "O9.5 II",
+        "Teff": 29900.0
+      },
+      {
+        "HIP": 25930,
+        "Bmag": 6.679,
+        "Vmag": 6.85,
+        "Jmag": 7.214,
+        "e_Jmag": null,
+        "Hmag": 7.441,
+        "e_Hmag": null,
+        "Kmag": 7.453,
+        "e_Kmag": null,
+        "plx": 4.71,
+        "e_plx": 0.58,
+        "pcor": 4.757,
+        "e_pcor": 0.586,
+        "SpType": "B2 V",
+        "Teff": 22000.0
+      }
+    ],
+    "hohle-2010/table3fp.dat": [
+      {
+        "HIP": 25930,
+        "minM1": 18.19,
+        "maxM1": 21.55,
+        "minM2": 19.74,
+        "maxM2": 7.48,
+        "minM3": 19.69,
+        "maxM3": 19.23,
+        "Mmed": 19.51,
+        "e_Mmed": 0.12,
+        "Lbol": 82022.6,
+        "Teffc": 29900.0
+      },
+      {
+        "HIP": 25930,
+        "minM1": 6.8,
+        "maxM1": 6.8,
+        "minM2": 7.94,
+        "maxM2": 7.94,
+        "minM3": 7.0,
+        "maxM3": 7.0,
+        "Mmed": 7.0,
+        "e_Mmed": 0.61,
+        "Lbol": 581.5,
+        "Teffc": 22000.0
+      }
+    ],
+    "tetzlaff-2011/table1.dat": [
+      {
+        "HIP": 25930,
+        "OName": "del Ori",
+        "Mass": 19.5,
+        "e_Mass": 0.1,
+        "Age": 6.3,
+        "e_Age": 0.4,
+        "SpType": "O9.5II"
+      }
+    ]
+  },
+  "Mira Aa": {},
+  "Mirach": {
+    "massarotti-2008/table3.dat": [
+      {
+        "---": "HIP",
+        "HIP": 5447,
+        "m_HIP": null,
+        "Dist": 61,
+        "e_Dist": 3,
+        "Teff": 3873,
+        "e_Teff": 35,
+        "logL": 3.3,
+        "Rad": 100,
+        "logg": 1.0,
+        "r_logg": 3,
+        "[Fe/H]": null,
+        "r_[Fe/H]": null
+      }
+    ],
+    "charbonnel-2020/table1.dat": [
+      {
+        "HD": 6860,
+        "RAdeg": 17.433016,
+        "DEdeg": 35.620556,
+        "Teff": 3700,
+        "e_Teff": 150,
+        "BCV": -1.88,
+        "[Fe/H]": 0.0,
+        "ALi": -1.0,
+        "flagLi": -1,
+        "Plxvl07": 16.52,
+        "e_Plxvl07": 0.56,
+        "logLvl07hip": 3.39,
+        "e_logLvl07hip": 0.03,
+        "PlxGaiaDR2": -9999.0,
+        "e_PlxGaiaDR2": -9999.0,
+        "logLadopt": 3.39,
+        "e_logLadopt": 0.86,
+        "f_logLadopt": 1,
+        "Mass": 3.47,
+        "e_Mass": 2.56,
+        "E_Mass": 2.45
+      }
+    ]
+  },
+  "Mizar Aa": {
+    "piccotti-2020/table1.dat": [
+      {
+        "Cat": "ORB6",
+        "WDS": "13239+5456",
+        "DD": "PEA 1Aa,Ab",
+        "HD": 116656,
+        "P": 20.5384,
+        "e_P": 0.0001,
+        "n_P": null,
+        "T": 58818.7469,
+        "e_T": 0.0939,
+        "e": 0.5354,
+        "e_e": 0.0025,
+        "n_e": null,
+        "omega": 104.3,
+        "e_omega": 0.3,
+        "n_omega": null,
+        "grade": 2,
+        "Ref": "Hummel1998"
+      },
+      {
+        "Cat": "SB9",
+        "WDS": "13239+5456",
+        "DD": "PEA 1Aa,Ab",
+        "HD": 116656,
+        "P": 20.5385,
+        "e_P": null,
+        "n_P": "f",
+        "T": 58808.4962,
+        "e_T": 0.0068,
+        "e": 0.5415,
+        "e_e": 0.001,
+        "n_e": null,
+        "omega": 105.21,
+        "e_omega": 0.14,
+        "n_omega": null,
+        "grade": null,
+        "Ref": "Behr2011"
+      }
+    ],
+    "piccotti-2020/table2.dat": [
+      {
+        "HD": 116656,
+        "asinikm": 31457900.0,
+        "e_asinikm": 39700.0,
+        "asini": 0.21028,
+        "e_asini": 0.00027,
+        "a": 0.24161,
+        "e_a": 0.00078
+      }
+    ],
+    "piccotti-2020/table3.dat": [
+      {
+        "HD": "116656",
+        "plxorb": 41.3897,
+        "e_plxorb": 1.3312,
+        "n_plxorb": null,
+        "plxHIP": 38.01,
+        "e_plxHIP": 1.71,
+        "n_plxHIP": "g",
+        "plxGaia": 41.73,
+        "e_plxGaia": 0.61,
+        "n_plxGaia": null,
+        "plxDyn": 40.867,
+        "e_plxDyn": 1.552,
+        "n_plxDyn": null
+      }
+    ],
+    "piccotti-2020/table5.dat": [
+      {
+        "HD": 116656,
+        "M1Orb": 2.222,
+        "e_M1Orb": 0.303,
+        "M1HIP": 2.87,
+        "e_M1HIP": 0.475,
+        "M1Gaia": 2.168,
+        "e_M1Gaia": 0.229,
+        "M1Dyn": 2.309,
+        "e_M1Dyn": 0.344,
+        "M2Orb": 2.238,
+        "e_M2Orb": 0.305,
+        "M2HIP": 2.89,
+        "e_M2HIP": 0.479,
+        "M2Gaia": 2.184,
+        "e_M2Gaia": 0.231,
+        "M2Dyn": 2.325,
+        "e_M2Dyn": 0.346
+      }
+    ],
+    "piccotti-2020/table6.dat": [
+      {
+        "HD": "116656",
+        "Vmag": 2.23,
+        "Vmag1": 2.999,
+        "Vmag2": 2.967,
+        "DeltaV": -0.032,
+        "VMAG": 0.314,
+        "VMAG1": 1.083,
+        "VMAG2": 1.051,
+        "GLAT": 61.5790639,
+        "AV": 0.035268064,
+        "E(B-V)": 0.01102127,
+        "VMAGc": 0.279,
+        "VMAGc1": 1.048,
+        "VMAGc2": 1.016
+      }
+    ],
+    "piccotti-2020/table7.dat": [
+      {
+        "HD": "116656",
+        "SpType1": "A1",
+        "Lum1": "V",
+        "SpType2": "A0",
+        "Lum2": "V",
+        "Teff1": 9278.5,
+        "Teff2": 9572.0,
+        "B-V1": 0.02,
+        "B-V2": 0.08,
+        "V-R1": 0.05,
+        "V-R2": 0.02,
+        "BC1": -0.07,
+        "BC2": -0.14
+      }
+    ],
+    "piccotti-2020/table11.dat": [
+      {
+        "HD": "116656",
+        "l_M": null,
+        "M": 2.3,
+        "e_M": 0.1,
+        "logL": 1.51,
+        "e_logL": 0.1,
+        "logTeff": 3.97,
+        "e_logTeff": 0.1,
+        "logage": 8.46,
+        "e_logage": 0.1
+      }
+    ],
+    "piccotti-2020/table12.dat": [
+      {
+        "HD": "116656",
+        "l_M": null,
+        "M": 2.3,
+        "e_M": 0.1,
+        "logL": 1.5,
+        "e_logL": 0.05,
+        "logTeff": 3.96,
+        "e_logTeff": 0.05,
+        "logage": 8.54,
+        "e_logage": 0.2
+      }
+    ],
+    "david-2015/table5.dat": [
+      {
+        "HIP": 65378,
+        "Teff": 9676,
+        "e_Teff": 329,
+        "log(g)": 4.15,
+        "e_log(g)": 0.14,
+        "vsini": 28,
+        "r_vsini": 0,
+        "Ageavg": 141,
+        "Agemed": 169,
+        "Agemod": 262,
+        "Age68lo": 97,
+        "Age68up": 398,
+        "Age68t": 68,
+        "Age95lo": 24,
+        "Age95up": 473,
+        "Age95t": 95,
+        "Age2D": 365,
+        "Mavg": 2.12,
+        "Mmed": 2.11,
+        "Mmod": 2.08,
+        "M68lo": 2.0,
+        "M68up": 2.2,
+        "M68t": 68,
+        "M95lo": 1.9,
+        "M95up": 2.3,
+        "M95t": 95,
+        "M2D": 2.24
+      }
+    ]
+  },
+  "Mothallah": {},
+  "Mu Cet A": {},
+  "Mu Her Aa": {
+    "baines-2018/table1.dat": [
+      {
+        "HD": 161797,
+        "HR": 6623,
+        "FK5": 667,
+        "OName": "{mu} Her",
+        "SpType": "G5 IV",
+        "Vmag": 3.42,
+        "e_Vmag": 0.01,
+        "Plx": 120.33,
+        "e_Plx": 0.16,
+        "[Fe/H]": 0.23,
+        "r_[Fe/H]": 1
+      }
+    ],
+    "baines-2018/table5.dat": [
+      {
+        "HD": 161797,
+        "SpType": "G5 IV",
+        "Rad": 1.64,
+        "e_Rad": 0.01,
+        "E_Rad": null,
+        "f_Rad": null,
+        "sigRad": 0.4,
+        "Fbol": 1.02,
+        "e_Fbol": 0.05,
+        "Av": 0.0,
+        "e_Av": 0.0,
+        "Teff": 5425,
+        "e_Teff": 69,
+        "sigTeff": 1.3,
+        "Lum": 2.1,
+        "e_Lum": 0.1,
+        "f_Lum": null
+      }
+    ],
+    "baines-2018/table6.dat": [
+      {
+        "HD": 161797,
+        "Mass": 1.09,
+        "e_Mass": 0.01,
+        "Age": 7.68,
+        "e_Age": 0.13
+      }
+    ],
+    "baines-2025/table7.dat": [
+      {
+        "HD": 161797,
+        "Rad": 1.68,
+        "E_Rad": null,
+        "e_Rad": 0.01,
+        "sigRad": 0.4,
+        "L": 2.7,
+        "e_L": 0.0,
+        "r_L": "MZW17",
+        "Fbol": 126.1,
+        "e_Fbol": 2.1,
+        "Teff": 5719,
+        "e_Teff": 27,
+        "sigTeff": 0.5
+      }
+    ]
+  },
+  "Mu Hya": {
+    "massarotti-2008/table3.dat": [
+      {
+        "---": "HIP",
+        "HIP": 51069,
+        "m_HIP": null,
+        "Dist": 76,
+        "e_Dist": 5,
+        "Teff": 3999,
+        "e_Teff": 8,
+        "logL": 2.68,
+        "Rad": 45,
+        "logg": 1.5,
+        "r_logg": 2,
+        "[Fe/H]": -0.12,
+        "r_[Fe/H]": 5
+      }
+    ],
+    "stock-2018/giants.dat": [
+      {
+        "HIP": 51069,
+        "Stage": "HB",
+        "P": 0.32,
+        "Mmode": 0.87,
+        "Mmean": 0.98,
+        "e_M": 0.84,
+        "E_M": 1.02,
+        "e3_M": 0.82,
+        "E3_M": 1.43,
+        "Rmode": 32.76,
+        "Rmean": 32.95,
+        "e_R": 31.44,
+        "E_R": 34.49,
+        "e3_R": 28.23,
+        "E3_R": 38.22,
+        "logGmode": 1.34,
+        "logGmean": 1.39,
+        "e_logG": 1.3,
+        "E_logG": 1.44,
+        "e3_logG": 1.21,
+        "E3_logG": 1.67,
+        "logAmode": 9.94,
+        "logAmean": 9.86,
+        "e_logA": 9.81,
+        "E_logA": 10.0,
+        "e3_logA": 9.46,
+        "E3_logA": 10.03,
+        "Tmode": 4080.0,
+        "Tmean": 4082.0,
+        "e_T": 4027.0,
+        "E_T": 4129.0,
+        "e3_T": 3923.0,
+        "E3_T": 4250.0,
+        "Lmode": 269.04,
+        "Lmean": 269.79,
+        "e_L": 256.83,
+        "E_L": 281.12,
+        "e3_L": 232.73,
+        "E3_L": 315.73,
+        "Flag": "D",
+        "PDF": "Hip51069_HB.fits"
+      },
+      {
+        "HIP": 51069,
+        "Stage": "RGB",
+        "P": 0.68,
+        "Mmode": 1.05,
+        "Mmean": 1.12,
+        "e_M": 0.93,
+        "E_M": 1.19,
+        "e3_M": 0.88,
+        "E3_M": 1.6,
+        "Rmode": 33.9,
+        "Rmean": 34.05,
+        "e_R": 32.02,
+        "E_R": 35.74,
+        "e3_R": 28.69,
+        "E3_R": 40.81,
+        "logGmode": 1.41,
+        "logGmean": 1.42,
+        "e_logG": 1.32,
+        "E_logG": 1.5,
+        "e3_logG": 1.19,
+        "E3_logG": 1.7,
+        "logAmode": 9.91,
+        "logAmean": 9.78,
+        "e_logA": 9.69,
+        "E_logA": 9.98,
+        "e3_logA": 9.37,
+        "E3_logA": 10.03,
+        "Tmode": 4039.0,
+        "Tmean": 4044.0,
+        "e_T": 3981.0,
+        "E_T": 4101.0,
+        "e3_T": 3869.0,
+        "E3_T": 4230.0,
+        "Lmode": 274.94,
+        "Lmean": 277.87,
+        "e_L": 261.25,
+        "E_L": 290.05,
+        "e3_L": 236.19,
+        "E3_L": 337.92,
+        "Flag": "D",
+        "PDF": "Hip51069_RGB.fits"
+      }
+    ]
+  },
+  "Mu Psc": {
+    "luck-2015/table1.dat": [
+      {
+        "Name": "* mu. Psc",
+        "HD": "9138",
+        "HIP": 7007,
+        "HR": 434,
+        "CCDM": "J01301+0609",
+        "m_CCDM": "A",
+        "OName": null,
+        "Sce": "S",
+        "Key": "hr0434",
+        "SpT": "K4III",
+        "Type": "PM*",
+        "Vmag": 4.84,
+        "B-V": 1.38,
+        "plx": 10.73,
+        "Dist": 93.2,
+        "RV": 34.19
+      }
+    ],
+    "luck-2015/table2.dat": [
+      {
+        "Name": "* mu. Psc",
+        "Sce": "S",
+        "E(B-V)": 0.004,
+        "Teff": 4126,
+        "e_Teff": 27,
+        "o_Teff": 16,
+        "logL": 2.27,
+        "BMass": 1.13,
+        "DMass": 1.24,
+        "YMass": 1.39,
+        "<Mass>": 1.25,
+        "BAge": 5.58,
+        "DAge": 5.55,
+        "YAge": null,
+        "<Age>": 5.57
+      }
+    ],
+    "luck-2015/table3.dat": [
+      {
+        "Key": "hr0434",
+        "Sce": "S",
+        "Teff1": 4126,
+        "logg1": 1.68,
+        "Vt1": 1.48,
+        "FeI1": -0.28,
+        "e_FeI1": 0.16,
+        "o_FeI1": 386,
+        "FeII1": 0.0,
+        "e_FeII1": 0.27,
+        "o_FeII1": 26,
+        "C1": 8.32,
+        "O1": 8.78,
+        "Li1": -0.07,
+        "EW1": 2.97,
+        "Li1c": 0.36,
+        "Teff2": 4126,
+        "logg2": 0.93,
+        "Vt2": 1.59,
+        "FeI2": -0.48,
+        "e_FeI2": 0.18,
+        "o_FeI2": 386,
+        "FeII2": -0.48,
+        "e_FeII2": 0.27,
+        "o_FeII2": 26,
+        "C2": 8.02,
+        "O2": 8.44,
+        "Li2": -0.11,
+        "Li2c": 0.47,
+        "Vbroad": 4.5,
+        "Broad": "G",
+        "Clump": 1
+      }
+    ]
+  },
+  "Mu Ser A": {
+    "zorec-2012/table1.dat": [
+      {
+        "HD": 141513,
+        "SpType": "A0V",
+        "logT": 4.008,
+        "e_logT": 0.003,
+        "logL": 2.0926,
+        "e_logL": 0.0197,
+        "Mass": 2.97,
+        "e_Mass": 0.03,
+        "Age": 0.819,
+        "e_Age": 0.014,
+        "vsini": 96,
+        "r_vsini": 4,
+        "Class": null
+      }
+    ]
+  },
+  "Nu Lep": {
+    "zorec-2012/table1.dat": [
+      {
+        "HD": 34863,
+        "SpType": "B7IVnn",
+        "logT": 4.094,
+        "e_logT": 0.003,
+        "logL": 2.14,
+        "e_logL": 0.036,
+        "Mass": 3.28,
+        "e_Mass": 0.05,
+        "Age": 0.373,
+        "e_Age": 0.07,
+        "vsini": 379,
+        "r_vsini": 16,
+        "Class": null
+      }
+    ]
+  },
+  "Nu Oct": {},
+  "Nu Vir": {
+    "massarotti-2008/table3.dat": [
+      {
+        "---": "HIP",
+        "HIP": 57380,
+        "m_HIP": null,
+        "Dist": 96,
+        "e_Dist": 7,
+        "Teff": 4009,
+        "e_Teff": 20,
+        "logL": 2.8,
+        "Rad": 54,
+        "logg": 1.0,
+        "r_logg": 2,
+        "[Fe/H]": 0.06,
+        "r_[Fe/H]": 4
+      }
+    ],
+    "baines-2018/table1.dat": [
+      {
+        "HD": 102212,
+        "HR": 4517,
+        "FK5": 1302,
+        "OName": "{nu} Vir",
+        "SpType": "M1 III",
+        "Vmag": 4.03,
+        "e_Vmag": 0.01,
+        "Plx": 11.1,
+        "e_Plx": 0.18,
+        "[Fe/H]": -0.41,
+        "r_[Fe/H]": 1
+      }
+    ],
+    "baines-2018/table5.dat": [
+      {
+        "HD": 102212,
+        "SpType": "M1 III",
+        "Rad": 54.77,
+        "e_Rad": 0.88,
+        "E_Rad": 0.91,
+        "f_Rad": null,
+        "sigRad": 1.7,
+        "Fbol": 2.06,
+        "e_Fbol": 0.1,
+        "Av": 0.1,
+        "e_Av": 0.01,
+        "Teff": 3728,
+        "e_Teff": 47,
+        "sigTeff": 1.3,
+        "Lum": 523.0,
+        "e_Lum": 31.2,
+        "f_Lum": null
+      }
+    ],
+    "baines-2018/table6.dat": [
+      {
+        "HD": 102212,
+        "Mass": 0.92,
+        "e_Mass": 0.0,
+        "Age": 11.69,
+        "e_Age": 0.13
+      }
+    ],
+    "baines-2025/table7.dat": [
+      {
+        "HD": 102212,
+        "Rad": 61.25,
+        "E_Rad": 1.66,
+        "e_Rad": 1.7,
+        "sigRad": 2.8,
+        "L": 494.0,
+        "e_L": 0.1,
+        "r_L": "MZW17",
+        "Fbol": 153.1,
+        "e_Fbol": 4.3,
+        "Teff": 3475,
+        "e_Teff": 24,
+        "sigTeff": 0.7
+      }
+    ],
+    "charbonnel-2020/table1.dat": [
+      {
+        "HD": 102212,
+        "RAdeg": 176.46483,
+        "DEdeg": 6.5293765,
+        "Teff": 3600,
+        "e_Teff": 150,
+        "BCV": -2.24,
+        "[Fe/H]": 0.0,
+        "ALi": -1.3,
+        "flagLi": -1,
+        "Plxvl07": 11.1,
+        "e_Plxvl07": 0.18,
+        "logLvl07hip": 3.09,
+        "e_logLvl07hip": 0.02,
+        "PlxGaiaDR2": 10.0079,
+        "e_PlxGaiaDR2": 0.6413,
+        "logLadopt": 3.26,
+        "e_logLadopt": 0.07,
+        "f_logLadopt": 0,
+        "Mass": 1.87,
+        "e_Mass": 0.65,
+        "E_Mass": 2.1
+      }
+    ]
+  },
+  "Omega CMa": {
+    "hohle-2010/table1.dat": [
+      {
+        "HIP": 35037,
+        "Bmag": 3.87,
+        "Vmag": 4.028,
+        "Jmag": 4.543,
+        "e_Jmag": 0.242,
+        "Hmag": 4.494,
+        "e_Hmag": 0.076,
+        "Kmag": 4.374,
+        "e_Kmag": 0.018,
+        "plx": 3.58,
+        "e_plx": 0.17,
+        "pcor": 3.616,
+        "e_pcor": 0.172,
+        "SpType": "B2   IV",
+        "Teff": 21150.0
+      }
+    ],
+    "hohle-2010/table3.dat": [
+      {
+        "HIP": 35037,
+        "minM1": 9.15,
+        "maxM1": 0.84,
+        "minM2": 9.99,
+        "maxM2": 9.97,
+        "minM3": 8.99,
+        "maxM3": 8.99,
+        "Mmed": 9.97,
+        "e_Mmed": 0.75,
+        "Lbol": 13081.07,
+        "Teffc": 21150.0
+      }
+    ],
+    "tetzlaff-2011/table1.dat": [
+      {
+        "HIP": 35037,
+        "OName": "ome CMa",
+        "Mass": 10.1,
+        "e_Mass": 0.7,
+        "Age": 22.5,
+        "e_Age": 2.6,
+        "SpType": "B2IV/Ve"
+      }
+    ]
+  },
+  "Omega Eri": {
+    "zorec-2012/table1.dat": [
+      {
+        "HD": 31109,
+        "SpType": "A9IV",
+        "logT": 3.862,
+        "e_logT": 0.003,
+        "logL": 1.9093,
+        "e_logL": 0.0169,
+        "Mass": 2.47,
+        "e_Mass": 0.03,
+        "Age": 1.021,
+        "e_Age": 0.0,
+        "vsini": 186,
+        "r_vsini": 4,
+        "Class": "CB"
+      }
+    ]
+  },
+  "Omega Lup": {},
+  "Omicron Her": {
+    "zorec-2012/table1.dat": [
+      {
+        "HD": 166014,
+        "SpType": "B9.5V",
+        "logT": 3.977,
+        "e_logT": 0.003,
+        "logL": 2.55,
+        "e_logL": 0.017,
+        "Mass": 3.49,
+        "e_Mass": 0.04,
+        "Age": 1.019,
+        "e_Age": 0.0,
+        "vsini": 188,
+        "r_vsini": 8,
+        "Class": null
+      }
+    ]
+  },
+  "Omicron2 CMa": {
+    "hohle-2010/table1.dat": [
+      {
+        "HIP": 33977,
+        "Bmag": 2.94,
+        "Vmag": 3.0,
+        "Jmag": 3.334,
+        "e_Jmag": 0.266,
+        "Hmag": 3.275,
+        "e_Hmag": 0.222,
+        "Kmag": 3.342,
+        "e_Kmag": 0.306,
+        "plx": 1.18,
+        "e_plx": 0.4,
+        "pcor": 1.213,
+        "e_pcor": 0.413,
+        "SpType": "B3   I",
+        "Teff": 16200.0
+      }
+    ],
+    "hohle-2010/table3.dat": [
+      {
+        "HIP": 33977,
+        "minM1": 11.33,
+        "maxM1": 24.28,
+        "minM2": 12.47,
+        "maxM2": 23.71,
+        "minM3": 5.0,
+        "maxM3": 23.65,
+        "Mmed": 20.27,
+        "e_Mmed": 2.33,
+        "Lbol": 134115.32,
+        "Teffc": 16200.0
+      }
+    ],
+    "tetzlaff-2011/table1.dat": [
+      {
+        "HIP": 33977,
+        "OName": "omi02 CMa",
+        "Mass": 21.4,
+        "e_Mass": 2.2,
+        "Age": 7.4,
+        "e_Age": 1.0,
+        "SpType": "B3Ia"
+      }
+    ]
+  },
+  "Peacock": {
+    "tetzlaff-2011/table1.dat": [
+      {
+        "HIP": 100751,
+        "OName": "alf Pav",
+        "Mass": 9.0,
+        "e_Mass": 0.1,
+        "Age": 0.2,
+        "e_Age": 0.1,
+        "SpType": "B2IV"
+      }
+    ],
+    "david-2015/table5.dat": [
+      {
+        "HIP": 100751,
+        "Teff": 17711,
+        "e_Teff": 602,
+        "log(g)": 3.94,
+        "e_log(g)": 0.14,
+        "vsini": 16,
+        "r_vsini": 0,
+        "Ageavg": 23,
+        "Agemed": 29,
+        "Agemod": 43,
+        "Age68lo": 20,
+        "Age68up": 50,
+        "Age68t": 68,
+        "Age95lo": 5,
+        "Age95up": 52,
+        "Age95t": 95,
+        "Age2D": 48,
+        "Mavg": 5.41,
+        "Mmed": 5.42,
+        "Mmod": 5.35,
+        "M68lo": 5.1,
+        "M68up": 5.6,
+        "M68t": 68,
+        "M95lo": 5.0,
+        "M95up": 5.9,
+        "M95t": 95,
+        "M2D": 5.91
+      }
+    ]
+  },
+  "Phecda": {
+    "baines-2025/table7.dat": [
+      {
+        "HD": 103287,
+        "Rad": 4.76,
+        "E_Rad": 0.16,
+        "e_Rad": 0.17,
+        "sigRad": 3.5,
+        "L": 64.4,
+        "e_L": 1.0,
+        "r_L": "MZW17",
+        "Fbol": 179.1,
+        "e_Fbol": 6.8,
+        "Teff": 7496,
+        "e_Teff": 75,
+        "sigTeff": 1.0
+      }
+    ],
+    "baines-2025/table8.dat": [
+      {
+        "HD": 103287,
+        "Comp": null,
+        "dVmag": 5.81,
+        "Sep": 999.9,
+        "Disc": "N"
+      }
+    ],
+    "zorec-2012/table1.dat": [
+      {
+        "HD": 103287,
+        "SpType": "A0V SB",
+        "logT": 3.969,
+        "e_logT": 0.005,
+        "logL": 1.8757,
+        "e_logL": 0.0133,
+        "Mass": 2.64,
+        "e_Mass": 0.02,
+        "Age": 0.816,
+        "e_Age": 0.018,
+        "vsini": 178,
+        "r_vsini": 6,
+        "Class": null
+      }
+    ],
+    "david-2015/table5.dat": [
+      {
+        "HIP": 58001,
+        "Teff": 10027,
+        "e_Teff": 341,
+        "log(g)": 3.99,
+        "e_log(g)": 0.14,
+        "vsini": 160,
+        "r_vsini": 0,
+        "Ageavg": 194,
+        "Agemed": 241,
+        "Agemod": 340,
+        "Age68lo": 164,
+        "Age68up": 421,
+        "Age68t": 68,
+        "Age95lo": 41,
+        "Age95up": 460,
+        "Age95t": 95,
+        "Age2D": 393,
+        "Mavg": 2.29,
+        "Mmed": 2.27,
+        "Mmod": 2.25,
+        "M68lo": 2.1,
+        "M68up": 2.4,
+        "M68t": 68,
+        "M95lo": 2.1,
+        "M95up": 2.5,
+        "M95t": 95,
+        "M2D": 2.54
+      }
+    ]
+  },
+  "Pherkad": {
+    "tetzlaff-2011/table1.dat": [
+      {
+        "HIP": 75097,
+        "OName": "gam UMi",
+        "Mass": null,
+        "e_Mass": null,
+        "Age": null,
+        "e_Age": null,
+        "SpType": "A3II-III"
+      }
+    ]
+  },
+  "Phi Vel": {
+    "tetzlaff-2011/table1.dat": [
+      {
+        "HIP": 48774,
+        "OName": "phi Vel",
+        "Mass": 10.1,
+        "e_Mass": 0.1,
+        "Age": 22.6,
+        "e_Age": 2.5,
+        "SpType": "B5Ib"
+      }
+    ]
+  },
+  "Phi1 Lup": {
+    "charbonnel-2020/table1.dat": [
+      {
+        "HD": 136422,
+        "RAdeg": 230.45154,
+        "DEdeg": -36.261375,
+        "Teff": 3800,
+        "e_Teff": 150,
+        "BCV": -1.59,
+        "[Fe/H]": -0.4,
+        "ALi": -0.7,
+        "flagLi": -1,
+        "Plxvl07": 11.86,
+        "e_Plxvl07": 0.16,
+        "logLvl07hip": 2.96,
+        "e_logLvl07hip": 0.02,
+        "PlxGaiaDR2": 10.6187,
+        "e_PlxGaiaDR2": 0.5828,
+        "logLadopt": 3.15,
+        "e_logLadopt": 0.07,
+        "f_logLadopt": 0,
+        "Mass": 1.78,
+        "e_Mass": 0.9,
+        "E_Mass": 1.2
+      }
+    ]
+  },
+  "Pipit": {
+    "tetzlaff-2011/table1.dat": [
+      {
+        "HIP": 31685,
+        "OName": "nu. Pup",
+        "Mass": null,
+        "e_Mass": null,
+        "Age": null,
+        "e_Age": null,
+        "SpType": "B8III SB"
+      }
+    ]
+  },
+  "Polis": {},
+  "Psi Phe": {},
+  "Psi Vel A": {
+    "david-2015/table5.dat": [
+      {
+        "HIP": 46651,
+        "Teff": 7122,
+        "e_Teff": 242,
+        "log(g)": 4.27,
+        "e_log(g)": 0.14,
+        "vsini": null,
+        "r_vsini": null,
+        "Ageavg": 889,
+        "Agemed": 1109,
+        "Agemod": 1314,
+        "Age68lo": 688,
+        "Age68up": 1995,
+        "Age68t": 68,
+        "Age95lo": 145,
+        "Age95up": 2738,
+        "Age95t": 95,
+        "Age2D": 447,
+        "Mavg": 1.44,
+        "Mmed": 1.44,
+        "Mmod": 1.44,
+        "M68lo": 1.3,
+        "M68up": 1.5,
+        "M68t": 68,
+        "M95lo": 1.2,
+        "M95up": 1.6,
+        "M95t": 95,
+        "M2D": 1.45
+      }
+    ]
+  },
+  "Rasalgethi A": {
+    "tetzlaff-2011/table1.dat": [
+      {
+        "HIP": 84345,
+        "OName": "alf Her",
+        "Mass": null,
+        "e_Mass": null,
+        "Age": null,
+        "e_Age": null,
+        "SpType": "M5IIvar"
+      }
+    ]
+  },
+  "Rho Cet": {
+    "zorec-2012/table1.dat": [
+      {
+        "HD": 15130,
+        "SpType": "A0V",
+        "logT": 3.992,
+        "e_logT": 0.003,
+        "logL": 2.4079,
+        "e_logL": 0.0352,
+        "Mass": 3.29,
+        "e_Mass": 0.05,
+        "Age": 1.017,
+        "e_Age": 0.001,
+        "vsini": 219,
+        "r_vsini": 1,
+        "Class": null
+      }
+    ]
+  },
+  "Rho Her Aa": {
+    "tetzlaff-2011/table1.dat": [
+      {
+        "HIP": 85112,
+        "OName": "75 Her A",
+        "Mass": null,
+        "e_Mass": null,
+        "Age": null,
+        "e_Age": null,
+        "SpType": "B9.5III"
+      }
+    ]
+  },
+  "Ruchbah": {
+    "zorec-2012/table1.dat": [
+      {
+        "HD": 8538,
+        "SpType": "A5Vv SB",
+        "logT": 3.902,
+        "e_logT": 0.004,
+        "logL": 1.8626,
+        "e_logL": 0.0183,
+        "Mass": 2.49,
+        "e_Mass": 0.06,
+        "Age": 1.004,
+        "e_Age": 0.016,
+        "vsini": 123,
+        "r_vsini": 4,
+        "Class": null
+      }
+    ],
+    "david-2015/table5.dat": [
+      {
+        "HIP": 6686,
+        "Teff": 8129,
+        "e_Teff": 276,
+        "log(g)": 3.75,
+        "e_log(g)": 0.14,
+        "vsini": null,
+        "r_vsini": null,
+        "Ageavg": 805,
+        "Agemed": 812,
+        "Agemod": 806,
+        "Age68lo": 694,
+        "Age68up": 964,
+        "Age68t": 68,
+        "Age95lo": 579,
+        "Age95up": 1122,
+        "Age95t": 95,
+        "Age2D": 747,
+        "Mavg": 2.08,
+        "Mmed": 2.06,
+        "Mmod": 2.03,
+        "M68lo": 1.8,
+        "M68up": 2.2,
+        "M68t": 68,
+        "M95lo": 1.7,
+        "M95up": 2.5,
+        "M95t": 95,
+        "M2D": 2.21
+      }
+    ]
+  },
+  "s Eri A": {
+    "david-2015/table5.dat": [
+      {
+        "HIP": 12413,
+        "Teff": 9099,
+        "e_Teff": 309,
+        "log(g)": 4.4,
+        "e_log(g)": 0.14,
+        "vsini": null,
+        "r_vsini": null,
+        "Ageavg": 212,
+        "Agemed": 259,
+        "Agemod": 381,
+        "Age68lo": 150,
+        "Age68up": 562,
+        "Age68t": 68,
+        "Age95lo": 35,
+        "Age95up": 688,
+        "Age95t": 95,
+        "Age2D": 13,
+        "Mavg": 1.95,
+        "Mmed": 1.95,
+        "Mmod": 1.91,
+        "M68lo": 1.8,
+        "M68up": 2.1,
+        "M68t": 68,
+        "M95lo": 1.7,
+        "M95up": 2.2,
+        "M95t": 95,
+        "M2D": 1.98
+      }
+    ]
+  },
+  "Sabik A": {
+    "zorec-2012/table1.dat": [
+      {
+        "HD": 155125,
+        "SpType": "A2.5Va",
+        "logT": 3.941,
+        "e_logT": 0.005,
+        "logL": 1.8903,
+        "e_logL": 0.0213,
+        "Mass": 2.63,
+        "e_Mass": 0.03,
+        "Age": 0.912,
+        "e_Age": 0.017,
+        "vsini": 23,
+        "r_vsini": 4,
+        "Class": "CP CB"
+      }
+    ],
+    "david-2015/table5.dat": [
+      {
+        "HIP": 84012,
+        "Teff": 9089,
+        "e_Teff": 309,
+        "log(g)": 3.95,
+        "e_log(g)": 0.14,
+        "vsini": 16,
+        "r_vsini": 0,
+        "Ageavg": 246,
+        "Agemed": 316,
+        "Agemod": 453,
+        "Age68lo": 199,
+        "Age68up": 591,
+        "Age68t": 68,
+        "Age95lo": 45,
+        "Age95up": 649,
+        "Age95t": 95,
+        "Age2D": 565,
+        "Mavg": 1.98,
+        "Mmed": 1.97,
+        "Mmod": 1.94,
+        "M68lo": 1.9,
+        "M68up": 2.1,
+        "M68t": 68,
+        "M95lo": 1.8,
+        "M95up": 2.2,
+        "M95t": 95,
+        "M2D": 2.27
+      }
+    ]
+  },
+  "Sarin Aa": {
+    "zorec-2012/table1.dat": [
+      {
+        "HD": 156164,
+        "SpType": "A3IVv SB",
+        "logT": 3.937,
+        "e_logT": 0.006,
+        "logL": 1.4639,
+        "e_logL": 0.0135,
+        "Mass": 2.16,
+        "e_Mass": 0.02,
+        "Age": 0.621,
+        "e_Age": 0.038,
+        "vsini": 249,
+        "r_vsini": 4,
+        "Class": null
+      }
+    ],
+    "david-2015/table5.dat": [
+      {
+        "HIP": 84379,
+        "Teff": 8880,
+        "e_Teff": 302,
+        "log(g)": 3.93,
+        "e_log(g)": 0.14,
+        "vsini": null,
+        "r_vsini": null,
+        "Ageavg": 580,
+        "Agemed": 588,
+        "Agemod": 587,
+        "Age68lo": 525,
+        "Age68up": 669,
+        "Age68t": 68,
+        "Age95lo": 447,
+        "Age95up": 750,
+        "Age95t": 95,
+        "Age2D": 614,
+        "Mavg": 2.29,
+        "Mmed": 2.27,
+        "Mmod": 2.22,
+        "M68lo": 2.1,
+        "M68up": 2.4,
+        "M68t": 68,
+        "M95lo": 1.9,
+        "M95up": 2.7,
+        "M95t": 95,
+        "M2D": 2.23
+      }
+    ]
+  },
+  "Shatabhisha": {
+    "baines-2021/table5.dat": [
+      {
+        "Target": 216386,
+        "SpT": "G8 III",
+        "Rad": 100.17,
+        "E_Rad": 2.67,
+        "e_Rad": 2.81,
+        "sigRad": 2.8,
+        "FBol": 10.5,
+        "e_FBol": 2.42,
+        "AVmag": 2.47,
+        "e_AVmag": 0.05,
+        "Teff": 4616,
+        "e_Teff": 266,
+        "sigTeff": 5.8,
+        "Lum": 4109.0,
+        "e_Lum": 973.0
+      }
+    ]
+  },
+  "Sualocin A": {
+    "zorec-2012/table1.dat": [
+      {
+        "HD": 196867,
+        "SpType": "B9V",
+        "logT": 4.03,
+        "e_logT": 0.002,
+        "logL": 2.3915,
+        "e_logL": 0.0331,
+        "Mass": 3.46,
+        "e_Mass": 0.06,
+        "Age": 0.92,
+        "e_Age": 0.016,
+        "vsini": 138,
+        "r_vsini": 4,
+        "Class": "CB"
+      }
+    ],
+    "david-2015/table5.dat": [
+      {
+        "HIP": 101958,
+        "Teff": 11643,
+        "e_Teff": 396,
+        "log(g)": 3.93,
+        "e_log(g)": 0.14,
+        "vsini": 144,
+        "r_vsini": 0,
+        "Ageavg": 60,
+        "Agemed": 73,
+        "Agemod": 111,
+        "Age68lo": 39,
+        "Age68up": 183,
+        "Age68t": 68,
+        "Age95lo": 11,
+        "Age95up": 224,
+        "Age95t": 95,
+        "Age2D": 227,
+        "Mavg": 2.74,
+        "Mmed": 2.73,
+        "Mmod": 2.7,
+        "M68lo": 2.6,
+        "M68up": 2.8,
+        "M68t": 68,
+        "M95lo": 2.5,
+        "M95up": 3.0,
+        "M95t": 95,
+        "M2D": 3.2
+      }
+    ]
+  },
+  "Tau Aqr": {},
+  "Tau2 Hya A": {
+    "zorec-2012/table1.dat": [
+      {
+        "HD": 82446,
+        "SpType": "A3V",
+        "logT": 3.951,
+        "e_logT": 0.008,
+        "logL": 2.6698,
+        "e_logL": 0.1093,
+        "Mass": 3.76,
+        "e_Mass": 0.26,
+        "Age": 1.02,
+        "e_Age": 0.0,
+        "vsini": 59,
+        "r_vsini": 5,
+        "Class": null
+      }
+    ]
+  },
+  "Tau2 Lup A": {},
+  "Tau4 Eri": {},
+  "Theta Hya A": {
+    "zorec-2012/table1.dat": [
+      {
+        "HD": 79469,
+        "SpType": "B9.5V",
+        "logT": 4.013,
+        "e_logT": 0.003,
+        "logL": 1.603,
+        "e_logL": 0.052,
+        "Mass": 2.45,
+        "e_Mass": 0.05,
+        "Age": 0.223,
+        "e_Age": 0.106,
+        "vsini": 95,
+        "r_vsini": 8,
+        "Class": null
+      }
+    ],
+    "david-2015/table5.dat": [
+      {
+        "HIP": 45336,
+        "Teff": 10826,
+        "e_Teff": 368,
+        "log(g)": 4.25,
+        "e_log(g)": 0.14,
+        "vsini": 86,
+        "r_vsini": 0,
+        "Ageavg": 92,
+        "Agemed": 110,
+        "Agemod": 170,
+        "Age68lo": 64,
+        "Age68up": 269,
+        "Age68t": 68,
+        "Age95lo": 16,
+        "Age95up": 307,
+        "Age95t": 95,
+        "Age2D": 155,
+        "Mavg": 2.48,
+        "Mmed": 2.47,
+        "Mmod": 2.45,
+        "M68lo": 2.4,
+        "M68up": 2.6,
+        "M68t": 68,
+        "M95lo": 2.3,
+        "M95up": 2.7,
+        "M95t": 95,
+        "M2D": 2.52
+      }
+    ]
+  },
+  "Theta PsA A": {
+    "david-2015/table5.dat": [
+      {
+        "HIP": 107608,
+        "Teff": 9716,
+        "e_Teff": 330,
+        "log(g)": 4.05,
+        "e_log(g)": 0.14,
+        "vsini": 150,
+        "r_vsini": 0,
+        "Ageavg": 281,
+        "Agemed": 342,
+        "Agemod": 404,
+        "Age68lo": 258,
+        "Age68up": 495,
+        "Age68t": 68,
+        "Age95lo": 77,
+        "Age95up": 546,
+        "Age95t": 95,
+        "Age2D": 427,
+        "Mavg": 2.24,
+        "Mmed": 2.22,
+        "Mmod": 2.2,
+        "M68lo": 2.1,
+        "M68up": 2.3,
+        "M68t": 68,
+        "M95lo": 2.0,
+        "M95up": 2.5,
+        "M95t": 95,
+        "M2D": 2.36
+      }
+    ]
+  },
+  "Theta1 Sgr": {
+    "hohle-2010/table1fp.dat": [
+      {
+        "HIP": 98412,
+        "Bmag": 4.21,
+        "Vmag": 4.35,
+        "Jmag": 4.408,
+        "e_Jmag": null,
+        "Hmag": 4.428,
+        "e_Hmag": null,
+        "Kmag": 4.749,
+        "e_Kmag": null,
+        "plx": 6.29,
+        "e_plx": 0.21,
+        "pcor": 6.353,
+        "e_pcor": 0.212,
+        "SpType": "B3 IV",
+        "Teff": 17900.0
+      }
+    ],
+    "hohle-2010/table3fp.dat": [
+      {
+        "HIP": 98412,
+        "minM1": 6.15,
+        "maxM1": 6.6,
+        "minM2": 6.31,
+        "maxM2": 6.31,
+        "minM3": 5.0,
+        "maxM3": 7.0,
+        "Mmed": 6.55,
+        "e_Mmed": 0.35,
+        "Lbol": 2270.7,
+        "Teffc": 17900.0
+      }
+    ],
+    "tetzlaff-2011/table1.dat": [
+      {
+        "HIP": 98412,
+        "OName": "tet01 Sgr",
+        "Mass": 6.6,
+        "e_Mass": 0.1,
+        "Age": 32.8,
+        "e_Age": 5.0,
+        "SpType": "B2.5IV"
+      }
+    ]
+  },
+  "Tianguan": {
+    "hohle-2010/table1.dat": [
+      {
+        "HIP": 26451,
+        "Bmag": 2.84,
+        "Vmag": 3.03,
+        "Jmag": 3.001,
+        "e_Jmag": 0.218,
+        "Hmag": 3.047,
+        "e_Hmag": 0.19,
+        "Kmag": 2.808,
+        "e_Kmag": 0.28,
+        "plx": 7.33,
+        "e_plx": 0.82,
+        "pcor": 7.403,
+        "e_pcor": 0.828,
+        "SpType": "B2   IV",
+        "Teff": 21150.0
+      }
+    ],
+    "hohle-2010/table3.dat": [
+      {
+        "HIP": 26451,
+        "minM1": 9.55,
+        "maxM1": 0.88,
+        "minM2": 9.99,
+        "maxM2": 12.5,
+        "minM3": 8.99,
+        "maxM3": 11.92,
+        "Mmed": 9.97,
+        "e_Mmed": 0.75,
+        "Lbol": 14239.16,
+        "Teffc": 21150.0
+      }
+    ],
+    "hohle-2010/table1fp.dat": [
+      {
+        "HIP": 26451,
+        "Bmag": 2.8,
+        "Vmag": 2.99,
+        "Jmag": 2.961,
+        "e_Jmag": null,
+        "Hmag": 3.007,
+        "e_Hmag": null,
+        "Kmag": 2.768,
+        "e_Kmag": null,
+        "plx": 7.33,
+        "e_plx": 0.82,
+        "pcor": 7.403,
+        "e_pcor": 0.828,
+        "SpType": "B2 IV",
+        "Teff": 21150.0
+      }
+    ],
+    "hohle-2010/table3fp.dat": [
+      {
+        "HIP": 26451,
+        "minM1": 8.45,
+        "maxM1": 0.88,
+        "minM2": 7.94,
+        "maxM2": 12.5,
+        "minM3": 9.0,
+        "maxM3": 11.92,
+        "Mmed": 8.99,
+        "e_Mmed": 0.64,
+        "Lbol": 12713.5,
+        "Teffc": 21150.0
+      }
+    ],
+    "tetzlaff-2011/table1.dat": [
+      {
+        "HIP": 26451,
+        "OName": "zet Tau",
+        "Mass": 10.1,
+        "e_Mass": 0.9,
+        "Age": 22.5,
+        "e_Age": 2.6,
+        "SpType": "B4IIIp"
+      }
+    ]
+  },
+  "Upsilon Gem": {
+    "baines-2021/table5.dat": [
+      {
+        "Target": 60522,
+        "SpT": "K5 III",
+        "Rad": 39.62,
+        "E_Rad": 0.74,
+        "e_Rad": 0.76,
+        "sigRad": 1.9,
+        "FBol": 1.96,
+        "e_FBol": 0.07,
+        "AVmag": 0.22,
+        "e_AVmag": 0.05,
+        "Teff": 4019,
+        "e_Teff": 38,
+        "sigTeff": 0.9,
+        "Lum": 369.6,
+        "e_Lum": 18.5
+      }
+    ],
+    "massarotti-2008/table3.dat": [
+      {
+        "---": "HIP",
+        "HIP": 36962,
+        "m_HIP": null,
+        "Dist": 74,
+        "e_Dist": 5,
+        "Teff": 3926,
+        "e_Teff": 16,
+        "logL": 2.62,
+        "Rad": 44,
+        "logg": 1.0,
+        "r_logg": 3,
+        "[Fe/H]": null,
+        "r_[Fe/H]": null
+      }
+    ],
+    "stock-2018/giants.dat": [
+      {
+        "HIP": 36962,
+        "Stage": "HB",
+        "P": 0.04,
+        "Mmode": 0.88,
+        "Mmean": 0.9,
+        "e_M": 0.85,
+        "E_M": 0.92,
+        "e3_M": 0.82,
+        "E3_M": 1.07,
+        "Rmode": 43.38,
+        "Rmean": 44.08,
+        "e_R": 41.19,
+        "E_R": 45.29,
+        "e3_R": 38.87,
+        "E3_R": 60.0,
+        "logGmode": 1.13,
+        "logGmean": 1.11,
+        "e_logG": 1.09,
+        "E_logG": 1.16,
+        "e3_logG": 0.91,
+        "E3_logG": 1.23,
+        "logAmode": 9.99,
+        "logAmean": 9.98,
+        "e_logA": 9.95,
+        "E_logA": 10.02,
+        "e3_logA": 9.81,
+        "E3_logA": 10.05,
+        "Tmode": 3904.0,
+        "Tmean": 3899.0,
+        "e_T": 3885.0,
+        "E_T": 3919.0,
+        "e3_T": 3836.0,
+        "E3_T": 3959.0,
+        "Lmode": 390.88,
+        "Lmean": 405.07,
+        "e_L": 358.29,
+        "E_L": 423.47,
+        "e3_L": 296.42,
+        "E3_L": 540.59,
+        "Flag": "D,RM,TM,GM,LM",
+        "PDF": "Hip36962_HB.fits"
+      },
+      {
+        "HIP": 36962,
+        "Stage": "RGB",
+        "P": 0.96,
+        "Mmode": 0.91,
+        "Mmean": 0.94,
+        "e_M": 0.89,
+        "E_M": 0.95,
+        "e3_M": 0.87,
+        "E3_M": 1.16,
+        "Rmode": 43.62,
+        "Rmean": 43.66,
+        "e_R": 41.72,
+        "E_R": 45.51,
+        "e3_R": 38.01,
+        "E3_R": 49.69,
+        "logGmode": 1.12,
+        "logGmean": 1.13,
+        "e_logG": 1.08,
+        "E_logG": 1.17,
+        "e3_logG": 1.0,
+        "E3_logG": 1.28,
+        "logAmode": 10.0,
+        "logAmean": 9.98,
+        "e_logA": 9.95,
+        "E_logA": 10.04,
+        "e3_logA": 9.72,
+        "E3_logA": 10.06,
+        "Tmode": 3903.0,
+        "Tmean": 3902.0,
+        "e_T": 3886.0,
+        "E_T": 3919.0,
+        "e3_T": 3850.0,
+        "E3_T": 3950.0,
+        "Lmode": 395.56,
+        "Lmean": 397.08,
+        "e_L": 364.39,
+        "E_L": 427.88,
+        "e3_L": 302.17,
+        "E3_L": 502.78,
+        "Flag": "D",
+        "PDF": "Hip36962_RGB.fits"
+      }
+    ],
+    "luck-2015/table1.dat": [
+      {
+        "Name": "* ups Gem",
+        "HD": "60522",
+        "HIP": 36962,
+        "HR": 2905,
+        "CCDM": "J07359+2654",
+        "m_CCDM": "A",
+        "OName": null,
+        "Sce": "E",
+        "Key": "hd060522",
+        "SpT": "M0III",
+        "Type": "V*",
+        "Vmag": 4.06,
+        "B-V": 1.54,
+        "plx": 12.04,
+        "Dist": 83.1,
+        "RV": -21.61
+      }
+    ],
+    "luck-2015/table2.dat": [
+      {
+        "Name": "* ups Gem",
+        "Sce": "E",
+        "E(B-V)": 0.0,
+        "Teff": 3884,
+        "e_Teff": 32,
+        "o_Teff": 10,
+        "logL": 2.57,
+        "BMass": 1.3,
+        "DMass": 1.47,
+        "YMass": 1.79,
+        "<Mass>": 1.52,
+        "BAge": 4.31,
+        "DAge": 4.22,
+        "YAge": 2.07,
+        "<Age>": 3.53
+      }
+    ],
+    "luck-2015/table3.dat": [
+      {
+        "Key": "hd060522",
+        "Sce": "E",
+        "Teff1": 3884,
+        "logg1": 1.35,
+        "Vt1": 2.13,
+        "FeI1": 0.17,
+        "e_FeI1": 0.37,
+        "o_FeI1": 389,
+        "FeII1": 0.59,
+        "e_FeII1": 0.34,
+        "o_FeII1": 22,
+        "C1": 8.63,
+        "O1": 8.95,
+        "Li1": -0.38,
+        "EW1": 3.48,
+        "Li1c": 0.37,
+        "Teff2": 3884,
+        "logg2": 0.1,
+        "Vt2": 2.15,
+        "FeI2": -0.19,
+        "e_FeI2": 0.39,
+        "o_FeI2": 389,
+        "FeII2": -0.19,
+        "e_FeII2": 0.37,
+        "o_FeII2": 22,
+        "C2": 8.11,
+        "O2": 8.39,
+        "Li2": -0.53,
+        "Li2c": 0.75,
+        "Vbroad": 7.9,
+        "Broad": "G",
+        "Clump": 1
+      }
+    ]
+  },
+  "Upsilon1 Cen": {
+    "tetzlaff-2011/table1.dat": [
+      {
+        "HIP": 68282,
+        "OName": "ups01 Cen",
+        "Mass": 7.9,
+        "e_Mass": 0.1,
+        "Age": 13.0,
+        "e_Age": 2.0,
+        "SpType": "B2IV-V"
+      }
+    ]
+  },
+  "w Car": {
+    "tetzlaff-2011/table1.dat": [
+      {
+        "HIP": 52468,
+        "OName": "V520 Car",
+        "Mass": 7.9,
+        "e_Mass": 0.1,
+        "Age": 33.3,
+        "e_Age": 5.1,
+        "SpType": "K3Ib"
+      }
+    ]
+  },
+  "Wasat Aa": {
+    "baines-2025/table7.dat": [
+      {
+        "HD": 56986,
+        "Rad": 2.06,
+        "E_Rad": null,
+        "e_Rad": 0.25,
+        "sigRad": 12.1,
+        "L": 38.3,
+        "e_L": 1.0,
+        "r_L": "MZW17",
+        "Fbol": 353.6,
+        "e_Fbol": 9.4,
+        "Teff": 9991,
+        "e_Teff": 609,
+        "sigTeff": 6.1
+      }
+    ],
+    "baines-2025/table8.dat": [
+      {
+        "HD": 56986,
+        "Comp": null,
+        "dVmag": 4.63,
+        "Sep": 6.3,
+        "Disc": "N"
+      }
+    ],
+    "zorec-2012/table1.dat": [
+      {
+        "HD": 56986,
+        "SpType": "F0IV...",
+        "logT": 3.843,
+        "e_logT": 0.003,
+        "logL": 1.062,
+        "e_logL": 0.0124,
+        "Mass": 1.7,
+        "e_Mass": 0.01,
+        "Age": 0.75,
+        "e_Age": 0.017,
+        "vsini": 144,
+        "r_vsini": 4,
+        "Class": "CP CB"
+      }
+    ],
+    "david-2015/table5.dat": [
+      {
+        "HIP": 35550,
+        "Teff": 7040,
+        "e_Teff": 239,
+        "log(g)": 3.9,
+        "e_log(g)": 0.14,
+        "vsini": null,
+        "r_vsini": null,
+        "Ageavg": 722,
+        "Agemed": 944,
+        "Agemod": 1314,
+        "Age68lo": 515,
+        "Age68up": 1915,
+        "Age68t": 68,
+        "Age95lo": 106,
+        "Age95up": 2512,
+        "Age95t": 95,
+        "Age2D": 1483,
+        "Mavg": 1.41,
+        "Mmed": 1.41,
+        "Mmod": 1.41,
+        "M68lo": 1.3,
+        "M68up": 1.5,
+        "M68t": 68,
+        "M95lo": 1.2,
+        "M95up": 1.6,
+        "M95t": 95,
+        "M2D": 1.67
+      }
+    ]
+  },
+  "Xi Hya": {
+    "charbonnel-2020/table1.dat": [
+      {
+        "HD": 100407,
+        "RAdeg": 173.25049,
+        "DEdeg": -31.857626,
+        "Teff": 4990,
+        "e_Teff": 80,
+        "BCV": -0.27,
+        "[Fe/H]": -0.1,
+        "ALi": 1.1,
+        "flagLi": 0,
+        "Plxvl07": 25.16,
+        "e_Plxvl07": 0.16,
+        "logLvl07hip": 1.79,
+        "e_logLvl07hip": 0.01,
+        "PlxGaiaDR2": 28.610001,
+        "e_PlxGaiaDR2": 0.4463,
+        "logLadopt": 1.72,
+        "e_logLadopt": 0.03,
+        "f_logLadopt": 0,
+        "Mass": 2.49,
+        "e_Mass": 0.76,
+        "E_Mass": 0.5
+      }
+    ],
+    "luck-2015/table1.dat": [
+      {
+        "Name": "* ksi Hya",
+        "HD": "100407",
+        "HIP": 56343,
+        "HR": 4450,
+        "CCDM": "J11330-3152",
+        "m_CCDM": "A",
+        "OName": null,
+        "Sce": "H",
+        "Key": "ksihya",
+        "SpT": "G7III",
+        "Type": "PM*",
+        "Vmag": 3.54,
+        "B-V": 0.93,
+        "plx": 25.16,
+        "Dist": 39.7,
+        "RV": -4.9
+      }
+    ],
+    "luck-2015/table2.dat": [
+      {
+        "Name": "* ksi Hya",
+        "Sce": "H",
+        "E(B-V)": 0.0,
+        "Teff": 4951,
+        "e_Teff": 18,
+        "o_Teff": 14,
+        "logL": 1.8,
+        "BMass": 2.09,
+        "DMass": 1.53,
+        "YMass": 2.22,
+        "<Mass>": 1.95,
+        "BAge": 1.11,
+        "DAge": 4.4,
+        "YAge": null,
+        "<Age>": 2.75
+      }
+    ],
+    "luck-2015/table3.dat": [
+      {
+        "Key": "ksihya",
+        "Sce": "H",
+        "Teff1": 4950,
+        "logg1": 2.65,
+        "Vt1": 1.32,
+        "FeI1": 0.09,
+        "e_FeI1": 0.08,
+        "o_FeI1": 596,
+        "FeII1": 0.17,
+        "e_FeII1": 0.14,
+        "o_FeII1": 59,
+        "C1": 8.18,
+        "O1": 8.62,
+        "Li1": 1.18,
+        "EW1": 2.93,
+        "Li1c": 0.17,
+        "Teff2": 4950,
+        "logg2": 2.46,
+        "Vt2": 1.38,
+        "FeI2": 0.07,
+        "e_FeI2": 0.09,
+        "o_FeI2": 596,
+        "FeII2": 0.07,
+        "e_FeII2": 0.14,
+        "o_FeII2": 59,
+        "C2": 8.15,
+        "O2": 8.53,
+        "Li2": 1.18,
+        "Li2c": 0.18,
+        "Vbroad": 4.5,
+        "Broad": "G",
+        "Clump": 1
+      }
+    ]
+  },
+  "Xi2 CMa": {},
+  "Zeta Aqr Aa": {
+    "david-2015/table5.dat": [
+      {
+        "HIP": 110960,
+        "Teff": 6683,
+        "e_Teff": 227,
+        "log(g)": 3.94,
+        "e_log(g)": 0.14,
+        "vsini": null,
+        "r_vsini": null,
+        "Ageavg": 1086,
+        "Agemed": 1338,
+        "Agemod": 1804,
+        "Age68lo": 668,
+        "Age68up": 2985,
+        "Age68t": 68,
+        "Age95lo": 141,
+        "Age95up": 4870,
+        "Age95t": 95,
+        "Age2D": 1970,
+        "Mavg": 1.27,
+        "Mmed": 1.28,
+        "Mmod": 1.27,
+        "M68lo": 1.2,
+        "M68up": 1.4,
+        "M68t": 68,
+        "M95lo": 1.1,
+        "M95up": 1.4,
+        "M95t": 95,
+        "M2D": 1.53
+      }
+    ]
+  },
+  "Zeta Boo A": {},
+  "Zeta Ophiuchi": {
+    "tetzlaff-2011/table1.dat": [
+      {
+        "HIP": 81377,
+        "OName": "zet Oph",
+        "Mass": 19.8,
+        "e_Mass": 0.1,
+        "Age": 3.0,
+        "e_Age": 0.3,
+        "SpType": "O9.5V"
+      }
+    ]
+  },
+  "Zeta Per": {
+    "hohle-2010/table1.dat": [
+      {
+        "HIP": 18246,
+        "Bmag": 2.966,
+        "Vmag": 2.883,
+        "Jmag": 2.602,
+        "e_Jmag": 0.212,
+        "Hmag": 2.621,
+        "e_Hmag": 0.202,
+        "Kmag": 2.603,
+        "e_Kmag": 0.256,
+        "plx": 4.34,
+        "e_plx": 0.19,
+        "pcor": 4.383,
+        "e_pcor": 0.192,
+        "SpType": "B1   I",
+        "Teff": 20800.0
+      }
+    ],
+    "hohle-2010/table3.dat": [
+      {
+        "HIP": 18246,
+        "minM1": 12.98,
+        "maxM1": 14.85,
+        "minM2": 12.47,
+        "maxM2": 15.5,
+        "minM3": 11.91,
+        "maxM3": 11.91,
+        "Mmed": 14.5,
+        "e_Mmed": 1.86,
+        "Lbol": 47038.89,
+        "Teffc": 20800.0
+      }
+    ],
+    "tetzlaff-2011/table1.dat": [
+      {
+        "HIP": 18246,
+        "OName": "zet Per",
+        "Mass": 15.5,
+        "e_Mass": 0.4,
+        "Age": 12.6,
+        "e_Age": 1.5,
+        "SpType": "B1Ib"
+      }
+    ]
+  },
+  "Zibal": {}
+}

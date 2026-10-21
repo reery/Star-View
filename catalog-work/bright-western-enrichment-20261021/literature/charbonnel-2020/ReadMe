@@ -1,0 +1,200 @@
+J/A+A/633/A34           Lithium in red giant stars           (Charbonnel+, 2020)
+================================================================================
+Lithium in red giant stars: Constraining non-standard mixing with large surveys
+in Gaia era.
+    Charbonnel C., Lagarde N., Jasniewicz G., North P.L., Shetrone M.,
+    Krugler Hollek J., Smith V.V., Smiljanic R., Palacios A., Ottoni G.
+    <Astron. Astrophys. 633, A34 (2020)>
+    =2020A&A...633A..34C        (SIMBAD/NED BibCode)
+================================================================================
+ADC_Keywords: Stars, late-type ; Stars, giant ; Abundances
+Keywords: stars: abundances - stars: evolution - surveys - stars: late-type
+
+Abstract:
+    Lithium is extensively known to be a good tracer of non-standard
+    mixing processes occurring in stellar interiors. We present the
+    results of a new large Lithium survey in red giant stars and combine
+    it with surveys from the literature to probe the impact of
+    rotation-induced mixing and thermohaline double-diffusive instability
+    along stellar evolution. We determined the surface Li abundance for a
+    sample of 829 giant stars with accurate Gaia parallaxes for a large
+    subsample (810 stars) complemented with accurate Hipparcos parallaxes
+    (19 stars). The spectra of our sample of northern and southern giant
+    stars were obtained in three ground-based observatories (Observatoire
+    de Haute-Provence, ESO-La Silla, and the Mc Donald Observatory). We
+    determined the atmospheric parameters (Teff, log(g) and [Fe/H]), and
+    the Li abundance. We used Gaia parallaxes and photometry to determine
+    the luminosity of our objects and we estimated the mass and evolution
+    status of each sample star with a maximum-likelihood technique using
+    stellar evolution models computed with the STAREVOL code. We compared
+    the observed Li behaviour with predictions from stellar models,
+    including rotation and thermohaline mixing. The same approach was used
+    for stars from selected Li surveys from the literature.
+    Rotation-induced mixing accounts nicely for the lithium behaviour in
+    stars warmer than about 4200K, independently of the mass domain. For
+    stars with masses lower than 2M_{sun}_ thermohaline mixing leads to
+    further Li depletion below the Teff of the RGB bump (about 4000K), and
+    on the early AGB, as observed. Depending on the definition we adopt,
+    we find between 0.8 and 2.2% of Li-rich giants in our new sample. Gaia
+    puts a new spin on the understanding of mixing processes in stars, and
+    our study confirms the importance of rotation-induced processes and of
+    thermohaline mixing. However asteroseismology is required to
+    definitively pinpoint the actual evolution status of Li-rich giants.
+
+Description:
+    The surface Li abundance was determined for a sample of 829 giant
+    stars with accurate Gaia parallaxes for a large subsample (810 stars)
+    complemented with accurate Hipparcos parallaxes (19 stars). Their
+    spectra were obtained in three ground-based observatories. Three
+    observing runs were performed at the Observatoire de Haute Provence,
+    from 8 September to 15 September 2003 (visitor mode), from 17 January
+    to 19 January, 2004 (service mode), and from 16 January to 16
+    February, 2004, service mode). High-resolution spectra were obtained
+    with the Aurelie spectrograph attached to the 1.52m telescope. Two
+    observing runs were performed in visitor mode at ESO- La Silla, Chile,
+    from 3 January to 6 January, 2004, and from 5 March to 8 March, 2004.
+    High resolution (R~43000) echelle spectra were obtained with the
+    FEROS spectrograph attached to the MPG/ESO 2.2m telescope. Finally,
+    a total of 92 stars were observed at the McDonald Obser vatory with
+    the Otto Struve Telescope using the Sandiford Cassegrain Echelle
+    Spectrometer (SES) from August 2003 to May 2004 over the course of
+    seven observing runs. The #9 slit (1.1"x3.5") was used to yield a two
+    pixel resolution of 60000.
+
+File Summary:
+--------------------------------------------------------------------------------
+ FileName      Lrecl  Records  Explanations
+--------------------------------------------------------------------------------
+ReadMe            80        .  This file
+table1.dat       156      829  Properties of giant field stars in our sample
+table2a.dat       60      290  Properties of giant fields stars observed by
+                                Luck & Hier (2007, Cat. J/AJ/133/2464)
+table2b.dat       60      374  Properties of giant fields stars observed by
+                                Liu et al. (2014, Cat. J/ApJ/785/94)
+table2c.dat       73     1734  Properties of giant fields stars observed by
+                                GALAH DR2 survey
+                                (Buder et al., 2018MNRAS.478.4513B)
+table3.dat        52       21  Properties of Li-rich giant fields stars in
+                                our sample
+table4a.dat       47        2  Properties of Li-rich giant fields stars observed
+                                by Luck & Hier (2007, Cat. J/AJ/133/2464)
+table4b.dat       47        6  Properties of Li-rich giant fields stars observed
+                                by Liu et al. (2014, Cat. J/ApJ/785/94)
+--------------------------------------------------------------------------------
+
+See also:
+         I/345 : Gaia DR2 (Gaia Collaboration, 2018)
+ J/AJ/133/2464 : Parameters and abundances of nearby giants (Luck+, 2007)
+ J/ApJ/785/94  : Lithium abundances of a large sample of red giants (Liu+, 2014)
+
+Byte-by-byte Description of file: table1.dat
+--------------------------------------------------------------------------------
+   Bytes Format Units   Label       Explanations
+--------------------------------------------------------------------------------
+   1-  6  I6    ---     HD          HD number
+   9- 20  F12.8 deg     RAdeg       Right Ascension (J2000)
+  22- 33  F12.8 deg     DEdeg       Declination (J2000)
+  35- 38  I4    K       Teff        Effective temperature
+  40- 42  I3    K     e_Teff        Error on effective temperature
+  44- 49  F6.3  ---     BCV         Bolometric correction
+  51- 59  F9.6  [-]     [Fe/H]      Abundance [Fe/H]
+  61- 69  F9.6  [-]     ALi         Lithium abundance A(Li)
+  71- 72  I2    ---     flagLi      [-1/0] Flag Lithium (1)
+  74- 79  F6.3  mas     Plxvl07     Parallax from van Leeuwen+2007 (Cat. I/311)
+  81- 85  F5.3  mas   e_Plxvl07     Error on Plxvl07
+  87- 92  F6.3 [Lsun]   logLvl07hip Log(L/Lsun) computed using parallaxe from
+                                     van Leeuwen+2007 (Cat. I/311) and
+                                     V magnitude from Hipparcos97 (Cat. I/239)
+  94- 98  F5.3 [Lsun] e_logLvl07hip Error of  L_vl07_hipp97
+ 100-111  F12.6 mas     PlxGaiaDR2  ?=-9999 Parallax from Gaia DR2 (Cat. I/347)
+ 113-124  F12.6 mas   e_PlxGaiaDR2  ?=-9999 Error on cf2 Plx_gaiaDR2cf2
+ 126-130  F5.3 [Lsun]   logLadopt   Adopted luminosity, Log(L/Lsun)
+ 132-136  F5.3 [Lsun] e_logLadopt   Error of logLadopt
+     138  I1    ---   f_logLadopt   [0/3] Flag on the method to compute
+                                     logLadopt (2)
+ 140-144  F5.3  Msun    Mass        Mass
+ 146-150  F5.3  Msun  e_Mass        Error on Mass at -1{sigma}
+ 152-156  F5.3  Msun  E_Mass        Error on Mass at +1{sigma}
+--------------------------------------------------------------------------------
+Note (1): Lithium flag as follows:
+            0 = Li determination
+           -1 = Li upper limit
+Note (2): Flag on the method to compute adopted luminosity as follows:
+            0 = {PI}_DR2_+V_Evans18_
+            1 = {PI}_vl07_+V_TYCHO_
+            2 = {PI}_vl07_+V_Hipp97_
+            3 = {PI}_DR2_+V_TYCHO_
+
+            with DR2     = Gaia DR2, Cat. I/345
+                 Evans18 = Evans et al., 2018A&A...616A...4E, Cat. I/345
+                 vl07    = van Leeuwen et al., 2007 (Cat. I/311)
+                 TYCHO   = Hog et al. 2000, Cat. I/259
+                 Hipp97  = ESA, 1997, Cat. I/239
+--------------------------------------------------------------------------------
+
+Byte-by-byte Description of file: table2[ab].dat
+--------------------------------------------------------------------------------
+   Bytes Format Units    Label       Explanations
+--------------------------------------------------------------------------------
+   1-  6  I6    ---      HD          HD number
+   8- 11  I4    K        Teff        Effective temperature
+  13- 21  F9.6  mas      PlxGaiaDR2  Parallax from Gaia DR2 (Cat. I/347)
+  23- 30  F8.6  mas    e_PlxGaiaDR2  Error on PlxGaiaDR2
+  32- 36  F5.3  [Lsun]   logL        Luminosity, Log(L/Lsun)
+  38- 42  F5.3  [Lsun] e_logL        Error of logL
+  44- 48  F5.3  Msun     Mass        Mass
+  50- 54  F5.3  Msun   e_Mass        Error on Mass at -1{sigma}
+  56- 60  F5.3  Msun   E_Mass        Error on Mass at +1{sigma}
+--------------------------------------------------------------------------------
+
+Byte-by-byte Description of file: table2c.dat
+--------------------------------------------------------------------------------
+   Bytes Format Units    Label       Explanations
+--------------------------------------------------------------------------------
+   1- 19  I19   ---      GaiaDR2     Gaia id in DR2 (source_id)
+  21- 24  I4    K        Teff        Effective temperature
+  26- 34  F9.6  mas      PlxGaiaDR2  Parallax from Gaia DR2 (Cat. I/347)
+  36- 43  F8.6  mas    e_PlxGaiaDR2  Error on Plx_gaiaDR2
+  45- 49  F5.3  [Lsun]   logL        Luminosity, Log(L/Lsun)
+  51- 55  F5.3  [Lsun] e_logL        Error of logL
+  57- 61  F5.3  Msun     Mass        Mass
+  63- 67  F5.3  Msun   e_Mass        Error on Mass at -1{sigma}
+  69- 73  F5.3  Msun   E_Mass        Error on Mass at +1{sigma}
+--------------------------------------------------------------------------------
+
+Byte-by-byte Description of file: table3.dat
+--------------------------------------------------------------------------------
+   Bytes Format Units    Label     Explanations
+--------------------------------------------------------------------------------
+   1-  6  I6    ---      HD        HD number
+   8- 11  I4    K        Teff      Effective temperature
+  13- 15  I3    K      e_Teff      Error on effective temperature
+  17- 22  F6.3  [Lsun]   logLadopt Adopted luminosity, Log(L/Lsun)
+  24- 28  F5.3  [Lsun] e_logLadopt Error of logLadopt
+  30- 33  F4.1  [-]      FeH       Abundance [Fe/H]
+  35- 37  F3.1  [-]      ALi       Lithium abundance A(Li)
+  39- 42  F4.2  Msun     Mass      Mass
+  44- 47  F4.2  Msun   e_Mass      Error on Mass at -1{sigma}
+  49- 52  F4.2  Msun   E_Mass      Error on Mass at +1{sigma}
+--------------------------------------------------------------------------------
+
+Byte-by-byte Description of file: table4a.dat table4b.dat
+--------------------------------------------------------------------------------
+   Bytes Format Units    Label      Explanations
+--------------------------------------------------------------------------------
+   1-  6  I6    ---      HD         HD number
+   8- 11  I4    K        Teff       Effective temperature
+  13- 16  F4.2  [Lsun]   logLadopt  Log(L/Lsun)
+  18- 21  F4.2  [Lsun] e_logLadopt  Error of Ladopt
+  23- 27  F5.2  [-]      [Fe/H]     Abundance [Fe/H]
+  29- 32  F4.2  [-]      ALi        Lithium abundance A(Li)
+  34- 37  F4.2  Msun     Mass       Mass
+  39- 42  F4.2  Msun   e_Mass       Error on Mass at -1{sigma}
+  44- 47  F4.2  Msun   E_Mass       Error on Mass at +1{sigma}
+--------------------------------------------------------------------------------
+
+Acknowledgements:
+    Corinne Charbonnel, Corinne.Charbonnel(at)unige.ch
+
+================================================================================
+(End)     Nadege Lagarde [France], Patricia Vannier [CDS]           20-Dec-2019

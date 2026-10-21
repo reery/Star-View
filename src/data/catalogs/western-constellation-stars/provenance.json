@@ -161,8 +161,8 @@
     "inputSha256": {
       "catalog-work/star-systems/overlay-companions.json": "0155d05f01e61ef80496c0d515b35946c8e6dcdd06342bb7fa8eda653e39485b",
       "src/data/star-systems.json": "0e7e0b8097766381629c4d28e57f62948ecde0c10ac18992c09cef17cb6dfe05",
-      "src/data/catalogs/nearest-1000/stars.csv": "fefc6aa546c29ea50140bf45ba1146b0bc7737383c525b595517260df291903c",
-      "src/data/catalogs/nearest-1000/provenance.json": "f898daf912bccef2e588f0662dff6892741c6bd7409f7dcb75d7f4efdf941ff7",
+      "src/data/catalogs/nearest-1000/stars.csv": "4f851fa5f27325e045f1cef19d18e8ef4b8334761c207eea0f50f5cc3dbeea31",
+      "src/data/catalogs/nearest-1000/provenance.json": "ecb019336062d33814016c9976cb8a431939decf96abc389625a3e0b87eb7eb3",
       "catalog-work/star-systems/overlay-individual-components.json": "b4fbcf92e682c639a11c5e488a378d43a0b43aaa10e0e8b16b2db70dc9a10741",
       "catalog-work/star-systems/msc-20260619-rigel.json": "0bc6740e8537705363c915a78b203822b46a9a31330f325f6b4a783091e40e97",
       "catalog-work/star-systems/msc-20260619.Readme": "d0906632b078a3b97b4e7247ad76830e2cc13bae6300ae145d69ce30a8e859b8"
@@ -445,13 +445,13 @@
   },
   "physicalCoverage": {
     "temperature_k": 730,
-    "mass_solar": 422,
-    "luminosity_solar": 671,
-    "radius_solar": 672,
+    "mass_solar": 450,
+    "luminosity_solar": 684,
+    "radius_solar": 685,
     "metallicity_dex": 559,
-    "age_gyr": 115
+    "age_gyr": 135
   },
-  "sharedEnrichmentManifestSha256": "94f632adf135caa1b7c9afd27b6981daf5b2d63b92764be5ce9885d6044dd446",
+  "sharedEnrichmentManifestSha256": "51fb538d443021382615013ef6bdaf942de51935ec914db19a77934a596fd1e0",
   "objects": {
     "sun": {
       "id": "sun",
@@ -2817,12 +2817,36 @@
       "gaiaDr3Id": null,
       "adoptedPhysicalFields": {
         "temperature_k": "bright-stars:bright-mirach",
+        "mass_solar": "bright-stars:bright-mirach",
+        "luminosity_solar": "bright-stars:bright-mirach",
+        "radius_solar": "bright-stars:bright-mirach",
         "metallicity_dex": "bright-stars:bright-mirach"
       },
       "physicalObservations": [
         {
           "field": "temperature_k",
           "value": 3802.0,
+          "status": "inherited",
+          "source": "bright-stars",
+          "sourceId": "bright-mirach"
+        },
+        {
+          "field": "mass_solar",
+          "value": 3.47,
+          "status": "inherited",
+          "source": "bright-stars",
+          "sourceId": "bright-mirach"
+        },
+        {
+          "field": "luminosity_solar",
+          "value": 2454.708916,
+          "status": "inherited",
+          "source": "bright-stars",
+          "sourceId": "bright-mirach"
+        },
+        {
+          "field": "radius_solar",
+          "value": 120.5727584,
           "status": "inherited",
           "source": "bright-stars",
           "sourceId": "bright-mirach"
@@ -3274,10 +3298,120 @@
       },
       "gaiaDr3Id": "2565225915399877760",
       "adoptedPhysicalFields": {
+        "mass_solar": "shared:2015AJ....150...88L",
+        "age_gyr": "shared:2015AJ....150...88L",
+        "luminosity_solar": "shared:2015AJ....150...88L",
+        "radius_solar": "shared:2015AJ....150...88L",
         "temperature_k": "shared:2022ApJS..259...35A",
         "metallicity_dex": "shared:2022ApJS..259...35A"
       },
       "physicalObservations": [
+        {
+          "field": "mass_solar",
+          "value": 1.25,
+          "status": "multi-grid-evolutionary-model",
+          "reference": "2015AJ....150...88L",
+          "uncertainty": null,
+          "identity": "* mu. Psc",
+          "component": "catalogued primary/individual stellar object",
+          "scope": "Exact * mu. Psc / HD 9138, HIP 7007. Source values describe this primary/individual; no companion, subsystem sum, or system-metallicity inference.",
+          "section": "Table 2, * mu. Psc",
+          "caveat": "Published mean of available evolutionary-grid determinations; source tabulates no formal error for this mean.",
+          "quantity": null,
+          "sourceUrl": "https://cdsarc.cds.unistra.fr/ftp/J/AJ/150/88/",
+          "inputs": {
+            "source_row": {
+              "Name": "* mu. Psc",
+              "Sce": "S",
+              "E(B-V)": 0.004,
+              "Teff": 4126,
+              "e_Teff": 27,
+              "o_Teff": 16,
+              "logL": 2.27,
+              "BMass": 1.13,
+              "DMass": 1.24,
+              "YMass": 1.39,
+              "<Mass>": 1.25,
+              "BAge": 5.58,
+              "DAge": 5.55,
+              "YAge": null,
+              "<Age>": 5.57
+            }
+          }
+        },
+        {
+          "field": "age_gyr",
+          "value": 5.57,
+          "status": "multi-grid-evolutionary-model",
+          "reference": "2015AJ....150...88L",
+          "uncertainty": null,
+          "identity": "* mu. Psc",
+          "component": "catalogued primary/individual stellar object",
+          "scope": "Exact * mu. Psc / HD 9138, HIP 7007. Source values describe this primary/individual; no companion, subsystem sum, or system-metallicity inference.",
+          "section": "Table 2, * mu. Psc",
+          "caveat": "Published mean of available evolutionary-grid determinations; source tabulates no formal error for this mean.",
+          "quantity": null,
+          "sourceUrl": "https://cdsarc.cds.unistra.fr/ftp/J/AJ/150/88/",
+          "inputs": {
+            "source_row": {
+              "Name": "* mu. Psc",
+              "Sce": "S",
+              "E(B-V)": 0.004,
+              "Teff": 4126,
+              "e_Teff": 27,
+              "o_Teff": 16,
+              "logL": 2.27,
+              "BMass": 1.13,
+              "DMass": 1.24,
+              "YMass": 1.39,
+              "<Mass>": 1.25,
+              "BAge": 5.58,
+              "DAge": 5.55,
+              "YAge": null,
+              "<Age>": 5.57
+            }
+          }
+        },
+        {
+          "field": "luminosity_solar",
+          "value": 186.2087137,
+          "status": "derived",
+          "reference": "2015AJ....150...88L",
+          "uncertainty": null,
+          "identity": "* mu. Psc",
+          "component": "catalogued primary/individual stellar object",
+          "scope": "Exact * mu. Psc / HD 9138, HIP 7007. Source values describe this primary/individual; no companion, subsystem sum, or system-metallicity inference.",
+          "section": "Table 2, * mu. Psc",
+          "caveat": null,
+          "quantity": null,
+          "sourceUrl": "https://cdsarc.cds.unistra.fr/ftp/J/AJ/150/88/",
+          "inputs": {
+            "source_log10_value": 2.27,
+            "source_log10_uncertainty": null
+          }
+        },
+        {
+          "field": "radius_solar",
+          "value": 26.70509932,
+          "status": "derived",
+          "reference": "2015AJ....150...88L",
+          "uncertainty": null,
+          "identity": "* mu. Psc",
+          "component": "catalogued primary/individual stellar object",
+          "scope": "Exact * mu. Psc / HD 9138, HIP 7007. Source values describe this primary/individual; no companion, subsystem sum, or system-metallicity inference.",
+          "section": "Derived from Table 2 source luminosity/temperature",
+          "caveat": null,
+          "quantity": null,
+          "sourceUrl": "https://cdsarc.cds.unistra.fr/ftp/J/AJ/150/88/",
+          "inputs": {
+            "luminosity_solar": 186.20871366628674,
+            "luminosity_error_solar": null,
+            "temperature_k": 4126,
+            "temperature_error_k": 27,
+            "solar_temperature_k": 5772
+          },
+          "method": "Stefan-Boltzmann from the same source temperature and luminosity; not mixed adopted values"
+        },
         {
           "field": "temperature_k",
           "value": 4107.0,
@@ -4158,10 +4292,62 @@
       },
       "gaiaDr3Id": "4942522955488925696",
       "adoptedPhysicalFields": {
+        "mass_solar": "shared:2004A&A...413..711W",
+        "radius_solar": "shared:2004A&A...413..711W",
+        "luminosity_solar": "shared:2004A&A...413..711W",
         "temperature_k": "shared:2023A&A...671A..61N",
         "metallicity_dex": "shared:2023A&A...676A.129H"
       },
       "physicalObservations": [
+        {
+          "field": "mass_solar",
+          "value": 1.3,
+          "status": "evolutionary-model",
+          "reference": "2004A&A...413..711W",
+          "uncertainty": 0.2,
+          "identity": "* psi Phe",
+          "component": "catalogued primary/individual stellar object",
+          "scope": "Exact * psi Phe / HD 11695, HIP 8837. Source values describe this primary/individual; no companion, subsystem sum, or system-metallicity inference.",
+          "section": "Abstract and fundamental-parameter analysis",
+          "caveat": null,
+          "quantity": null,
+          "sourceUrl": "https://arxiv.org/html/astro-ph/0310128"
+        },
+        {
+          "field": "radius_solar",
+          "value": 86.0,
+          "status": "Rosseland-interferometric",
+          "reference": "2004A&A...413..711W",
+          "uncertainty": 3,
+          "identity": "* psi Phe",
+          "component": "catalogued primary/individual stellar object",
+          "scope": "Exact * psi Phe / HD 11695, HIP 8837. Source values describe this primary/individual; no companion, subsystem sum, or system-metallicity inference.",
+          "section": "Abstract and fundamental-parameter analysis",
+          "caveat": null,
+          "quantity": null,
+          "sourceUrl": "https://arxiv.org/html/astro-ph/0310128"
+        },
+        {
+          "field": "luminosity_solar",
+          "value": 1047.128548,
+          "status": "derived",
+          "reference": "2004A&A...413..711W",
+          "uncertainty": {
+            "lower": 135.11770869498991,
+            "upper": 155.1358865665136
+          },
+          "identity": "* psi Phe",
+          "component": "catalogued primary/individual stellar object",
+          "scope": "Exact * psi Phe / HD 11695, HIP 8837. Source values describe this primary/individual; no companion, subsystem sum, or system-metallicity inference.",
+          "section": "Abstract, Rosseland atmosphere solution",
+          "caveat": null,
+          "quantity": null,
+          "sourceUrl": "https://arxiv.org/html/astro-ph/0310128",
+          "inputs": {
+            "source_log10_value": 3.02,
+            "source_log10_uncertainty": 0.06
+          }
+        },
         {
           "field": "temperature_k",
           "value": 4108.0,
@@ -5249,7 +5435,8 @@
       "adoptedPhysicalFields": {
         "temperature_k": "published:2012MNRAS.427..343M:HIP-11345",
         "luminosity_solar": "published:2012MNRAS.427..343M:HIP-11345",
-        "radius_solar": "derived:stefan-boltzmann"
+        "radius_solar": "derived:stefan-boltzmann",
+        "mass_solar": "shared:2012A&A...537A.120Z"
       },
       "physicalObservations": [
         {
@@ -5275,6 +5462,25 @@
           "value": 6.871533023484685,
           "status": "derived",
           "source": "Stefan-Boltzmann scaling"
+        },
+        {
+          "field": "mass_solar",
+          "value": 3.29,
+          "status": "evolutionary-model",
+          "reference": "2012A&A...537A.120Z",
+          "uncertainty": 0.05,
+          "identity": "* rho Cet",
+          "component": "catalogued primary/individual stellar object",
+          "scope": "Exact * rho Cet / HD 15130, HIP 11345. Source values describe this primary/individual; no companion, subsystem sum, or system-metallicity inference.",
+          "section": "Table 1, HD 15130",
+          "caveat": "Published HR-diagram model mass. Its age column is fractional main-sequence age and is deliberately not put into age_gyr.",
+          "quantity": null,
+          "sourceUrl": "https://cdsarc.cds.unistra.fr/ftp/J/A+A/537/A120/",
+          "inputs": {
+            "source_log_temperature": 3.992,
+            "source_log_luminosity": 2.4079,
+            "fractional_MS_age_not_gyr": 1.017
+          }
         }
       ]
     },
@@ -6808,7 +7014,8 @@
       "adoptedPhysicalFields": {
         "temperature_k": "published:2012MNRAS.427..343M:HIP-13954",
         "luminosity_solar": "published:2012MNRAS.427..343M:HIP-13954",
-        "radius_solar": "derived:stefan-boltzmann"
+        "radius_solar": "derived:stefan-boltzmann",
+        "mass_solar": "shared:2010AN....331..349H"
       },
       "physicalObservations": [
         {
@@ -6834,6 +7041,24 @@
           "value": 4.679874180030725,
           "status": "derived",
           "source": "Stefan-Boltzmann scaling"
+        },
+        {
+          "field": "mass_solar",
+          "value": 5.01,
+          "status": "evolutionary-model",
+          "reference": "2010AN....331..349H",
+          "uncertainty": 0.05,
+          "identity": "* lam Cet",
+          "component": "catalogued primary/individual stellar object",
+          "scope": "Exact * lam Cet / HD 18604, HIP 13954. Source values describe this primary/individual; no companion, subsystem sum, or system-metallicity inference.",
+          "section": "Table 3, exact HIP",
+          "caveat": null,
+          "quantity": null,
+          "sourceUrl": "https://cdsarc.cds.unistra.fr/ftp/J/AN/331/349/",
+          "inputs": {
+            "source_temperature_k": 14100.0,
+            "source_luminosity_solar": 992.35
+          }
         }
       ]
     },
@@ -8282,7 +8507,8 @@
       "adoptedPhysicalFields": {
         "temperature_k": "published:2012MNRAS.427..343M:HIP-17358",
         "luminosity_solar": "published:2012MNRAS.427..343M:HIP-17358",
-        "radius_solar": "derived:stefan-boltzmann"
+        "radius_solar": "derived:stefan-boltzmann",
+        "age_gyr": "shared:2011MNRAS.410..190T"
       },
       "physicalObservations": [
         {
@@ -8308,6 +8534,24 @@
           "value": 12.009513442772471,
           "status": "derived",
           "source": "Stefan-Boltzmann scaling"
+        },
+        {
+          "field": "age_gyr",
+          "value": 0.0501,
+          "status": "evolutionary-model",
+          "reference": "2011MNRAS.410..190T",
+          "uncertainty": 0.0068,
+          "identity": "* del Per",
+          "component": "catalogued primary/individual stellar object",
+          "scope": "Exact * del Per / HD 22928, HIP 17358. Source values describe this primary/individual; no companion, subsystem sum, or system-metallicity inference.",
+          "section": "Table 1, HIP 17358",
+          "caveat": "Published photometry/spectral-type evolutionary-model age; errors are cross-model deviations, not all systematics. The sample is age-selected and solar metallicity is assumed, not measured.",
+          "quantity": null,
+          "sourceUrl": "https://cdsarc.cds.unistra.fr/ftp/J/MNRAS/410/190/",
+          "inputs": {
+            "source_spectral_type": "B5III SB",
+            "solar_metallicity_assumed": true
+          }
         }
       ]
     },
@@ -9064,7 +9308,8 @@
       "adoptedPhysicalFields": {
         "temperature_k": "published:2012MNRAS.427..343M:HIP-17959",
         "luminosity_solar": "published:2012MNRAS.427..343M:HIP-17959",
-        "radius_solar": "derived:stefan-boltzmann"
+        "radius_solar": "derived:stefan-boltzmann",
+        "mass_solar": "shared:2012A&A...537A.120Z"
       },
       "physicalObservations": [
         {
@@ -9090,6 +9335,25 @@
           "value": 6.646893505004795,
           "status": "derived",
           "source": "Stefan-Boltzmann scaling"
+        },
+        {
+          "field": "mass_solar",
+          "value": 2.98,
+          "status": "evolutionary-model",
+          "reference": "2012A&A...537A.120Z",
+          "uncertainty": 0.04,
+          "identity": "* gam Cam",
+          "component": "catalogued primary/individual stellar object",
+          "scope": "Exact * gam Cam / HD 23401, HIP 17959. Source values describe this primary/individual; no companion, subsystem sum, or system-metallicity inference.",
+          "section": "Table 1, HD 23401",
+          "caveat": "Published HR-diagram model mass. Its age column is fractional main-sequence age and is deliberately not put into age_gyr.",
+          "quantity": null,
+          "sourceUrl": "https://cdsarc.cds.unistra.fr/ftp/J/A+A/537/A120/",
+          "inputs": {
+            "source_log_temperature": 3.949,
+            "source_log_luminosity": 2.2666,
+            "fractional_MS_age_not_gyr": 1.019
+          }
         }
       ]
     },
@@ -9235,7 +9499,8 @@
       "adoptedPhysicalFields": {
         "temperature_k": "published:2012MNRAS.427..343M:HIP-18505",
         "luminosity_solar": "published:2012MNRAS.427..343M:HIP-18505",
-        "radius_solar": "derived:stefan-boltzmann"
+        "radius_solar": "derived:stefan-boltzmann",
+        "mass_solar": "shared:2012A&A...537A.120Z"
       },
       "physicalObservations": [
         {
@@ -9261,6 +9526,25 @@
           "value": 4.18096239973297,
           "status": "derived",
           "source": "Stefan-Boltzmann scaling"
+        },
+        {
+          "field": "mass_solar",
+          "value": 3.14,
+          "status": "evolutionary-model",
+          "reference": "2012A&A...537A.120Z",
+          "uncertainty": 0.05,
+          "identity": "HD 24479",
+          "component": "catalogued primary/individual stellar object",
+          "scope": "Exact HD  24479 / HIP 18505. Source values describe this primary/individual; no companion, subsystem sum, or system-metallicity inference.",
+          "section": "Table 1, HD 24479",
+          "caveat": "Published HR-diagram model mass. Its age column is fractional main-sequence age and is deliberately not put into age_gyr.",
+          "quantity": null,
+          "sourceUrl": "https://cdsarc.cds.unistra.fr/ftp/J/A+A/537/A120/",
+          "inputs": {
+            "source_log_temperature": 4.022,
+            "source_log_luminosity": 2.194,
+            "fractional_MS_age_not_gyr": 0.835
+          }
         }
       ]
     },
@@ -12815,7 +13099,8 @@
       "adoptedPhysicalFields": {
         "temperature_k": "published:2012MNRAS.427..343M:HIP-23972",
         "luminosity_solar": "published:2012MNRAS.427..343M:HIP-23972",
-        "radius_solar": "derived:stefan-boltzmann"
+        "radius_solar": "derived:stefan-boltzmann",
+        "age_gyr": "shared:2011MNRAS.410..190T"
       },
       "physicalObservations": [
         {
@@ -12841,6 +13126,24 @@
           "value": 10.426544382885035,
           "status": "derived",
           "source": "Stefan-Boltzmann scaling"
+        },
+        {
+          "field": "age_gyr",
+          "value": 0.021,
+          "status": "evolutionary-model",
+          "reference": "2011MNRAS.410..190T",
+          "uncertainty": 0.0023,
+          "identity": "* lam Eri",
+          "component": "catalogued primary/individual stellar object",
+          "scope": "Exact * lam Eri / HD 33328, HIP 23972. Source values describe this primary/individual; no companion, subsystem sum, or system-metallicity inference.",
+          "section": "Table 1, HIP 23972",
+          "caveat": "Published photometry/spectral-type evolutionary-model age; errors are cross-model deviations, not all systematics. The sample is age-selected and solar metallicity is assumed, not measured.",
+          "quantity": null,
+          "sourceUrl": "https://cdsarc.cds.unistra.fr/ftp/J/MNRAS/410/190/",
+          "inputs": {
+            "source_spectral_type": "B2IVn",
+            "solar_metallicity_assumed": true
+          }
         }
       ]
     },
@@ -13627,7 +13930,8 @@
       "adoptedPhysicalFields": {
         "temperature_k": "published:2012MNRAS.427..343M:HIP-24873",
         "luminosity_solar": "published:2012MNRAS.427..343M:HIP-24873",
-        "radius_solar": "derived:stefan-boltzmann"
+        "radius_solar": "derived:stefan-boltzmann",
+        "mass_solar": "shared:2012A&A...537A.120Z"
       },
       "physicalObservations": [
         {
@@ -13653,6 +13957,25 @@
           "value": 2.6229467388062493,
           "status": "derived",
           "source": "Stefan-Boltzmann scaling"
+        },
+        {
+          "field": "mass_solar",
+          "value": 3.28,
+          "status": "evolutionary-model",
+          "reference": "2012A&A...537A.120Z",
+          "uncertainty": 0.05,
+          "identity": "* nu. Lep",
+          "component": "catalogued primary/individual stellar object",
+          "scope": "Exact * nu. Lep / HD 34863, HIP 24873. Source values describe this primary/individual; no companion, subsystem sum, or system-metallicity inference.",
+          "section": "Table 1, HD 34863",
+          "caveat": "Published HR-diagram model mass. Its age column is fractional main-sequence age and is deliberately not put into age_gyr.",
+          "quantity": null,
+          "sourceUrl": "https://cdsarc.cds.unistra.fr/ftp/J/A+A/537/A120/",
+          "inputs": {
+            "source_log_temperature": 4.094,
+            "source_log_luminosity": 2.14,
+            "fractional_MS_age_not_gyr": 0.373
+          }
         }
       ]
     },
@@ -14735,6 +15058,8 @@
         "temperature_k": "published:2012MNRAS.427..343M:HIP-26451",
         "luminosity_solar": "published:2012MNRAS.427..343M:HIP-26451",
         "radius_solar": "derived:stefan-boltzmann",
+        "age_gyr": "shared:2011MNRAS.410..190T",
+        "mass_solar": "shared:2011MNRAS.410..190T",
         "metallicity_dex": "shared:2023ApJS..266...41P"
       },
       "physicalObservations": [
@@ -14761,6 +15086,42 @@
           "value": 13.179199215623084,
           "status": "derived",
           "source": "Stefan-Boltzmann scaling"
+        },
+        {
+          "field": "age_gyr",
+          "value": 0.0225,
+          "status": "evolutionary-model",
+          "reference": "2011MNRAS.410..190T",
+          "uncertainty": 0.0026,
+          "identity": "* zet Tau",
+          "component": "catalogued primary/individual stellar object",
+          "scope": "Exact * zet Tau / HD 37202, HIP 26451. Source values describe this primary/individual; no companion, subsystem sum, or system-metallicity inference.",
+          "section": "Table 1, HIP 26451",
+          "caveat": "Published photometry/spectral-type evolutionary-model age; errors are cross-model deviations, not all systematics. The sample is age-selected and solar metallicity is assumed, not measured.",
+          "quantity": null,
+          "sourceUrl": "https://cdsarc.cds.unistra.fr/ftp/J/MNRAS/410/190/",
+          "inputs": {
+            "source_spectral_type": "B4IIIp",
+            "solar_metallicity_assumed": true
+          }
+        },
+        {
+          "field": "mass_solar",
+          "value": 10.1,
+          "status": "evolutionary-model",
+          "reference": "2011MNRAS.410..190T",
+          "uncertainty": 0.9,
+          "identity": "* zet Tau",
+          "component": "catalogued primary/individual stellar object",
+          "scope": "Exact * zet Tau / HD 37202, HIP 26451. Source values describe this primary/individual; no companion, subsystem sum, or system-metallicity inference.",
+          "section": "Table 1, HIP 26451",
+          "caveat": "Published object-specific median of evolutionary models; not a dynamical mass. Model-to-model deviation does not include all source photometry, rotation or metallicity systematics.",
+          "quantity": null,
+          "sourceUrl": "https://cdsarc.cds.unistra.fr/ftp/J/MNRAS/410/190/",
+          "inputs": {
+            "source_spectral_type": "B4IIIp",
+            "solar_metallicity_assumed": true
+          }
         },
         {
           "field": "metallicity_dex",
@@ -17320,7 +17681,8 @@
       "adoptedPhysicalFields": {
         "temperature_k": "published:2012MNRAS.427..343M:HIP-29151",
         "luminosity_solar": "published:2012MNRAS.427..343M:HIP-29151",
-        "radius_solar": "derived:stefan-boltzmann"
+        "radius_solar": "derived:stefan-boltzmann",
+        "mass_solar": "shared:2012A&A...537A.120Z"
       },
       "physicalObservations": [
         {
@@ -17346,6 +17708,25 @@
           "value": 5.786370743690177,
           "status": "derived",
           "source": "Stefan-Boltzmann scaling"
+        },
+        {
+          "field": "mass_solar",
+          "value": 3.24,
+          "status": "evolutionary-model",
+          "reference": "2012A&A...537A.120Z",
+          "uncertainty": 0.23,
+          "identity": "HD 42111",
+          "component": "catalogued primary/individual stellar object",
+          "scope": "Exact HD  42111 / HIP 29151. Source values describe this primary/individual; no companion, subsystem sum, or system-metallicity inference.",
+          "section": "Table 1, HD 42111",
+          "caveat": "Published HR-diagram model mass. Its age column is fractional main-sequence age and is deliberately not put into age_gyr.",
+          "quantity": null,
+          "sourceUrl": "https://cdsarc.cds.unistra.fr/ftp/J/A+A/537/A120/",
+          "inputs": {
+            "source_log_temperature": 3.962,
+            "source_log_luminosity": 2.413,
+            "fractional_MS_age_not_gyr": 1.018
+          }
         }
       ]
     },
@@ -20212,7 +20593,8 @@
       "adoptedPhysicalFields": {
         "temperature_k": "published:2012MNRAS.427..343M:HIP-34769",
         "luminosity_solar": "published:2012MNRAS.427..343M:HIP-34769",
-        "radius_solar": "derived:stefan-boltzmann"
+        "radius_solar": "derived:stefan-boltzmann",
+        "mass_solar": "shared:2012A&A...537A.120Z"
       },
       "physicalObservations": [
         {
@@ -20238,6 +20620,25 @@
           "value": 8.23751488732076,
           "status": "derived",
           "source": "Stefan-Boltzmann scaling"
+        },
+        {
+          "field": "mass_solar",
+          "value": 3.48,
+          "status": "evolutionary-model",
+          "reference": "2012A&A...537A.120Z",
+          "uncertainty": 0.04,
+          "identity": "* del Mon",
+          "component": "catalogued primary/individual stellar object",
+          "scope": "Exact * del Mon / HD 55185, HIP 34769. Source values describe this primary/individual; no companion, subsystem sum, or system-metallicity inference.",
+          "section": "Table 1, HD 55185",
+          "caveat": "Published HR-diagram model mass. Its age column is fractional main-sequence age and is deliberately not put into age_gyr.",
+          "quantity": null,
+          "sourceUrl": "https://cdsarc.cds.unistra.fr/ftp/J/A+A/537/A120/",
+          "inputs": {
+            "source_log_temperature": 3.976,
+            "source_log_luminosity": 2.5434,
+            "fractional_MS_age_not_gyr": 1.019
+          }
         }
       ]
     },
@@ -20268,7 +20669,9 @@
       "adoptedPhysicalFields": {
         "temperature_k": "published:2012MNRAS.427..343M:HIP-35037",
         "luminosity_solar": "published:2012MNRAS.427..343M:HIP-35037",
-        "radius_solar": "derived:stefan-boltzmann"
+        "radius_solar": "derived:stefan-boltzmann",
+        "age_gyr": "shared:2011MNRAS.410..190T",
+        "mass_solar": "shared:2011MNRAS.410..190T"
       },
       "physicalObservations": [
         {
@@ -20294,6 +20697,42 @@
           "value": 16.50902176176335,
           "status": "derived",
           "source": "Stefan-Boltzmann scaling"
+        },
+        {
+          "field": "age_gyr",
+          "value": 0.0225,
+          "status": "evolutionary-model",
+          "reference": "2011MNRAS.410..190T",
+          "uncertainty": 0.0026,
+          "identity": "* ome CMa",
+          "component": "catalogued primary/individual stellar object",
+          "scope": "Exact * ome CMa / HD 56139, HIP 35037. Source values describe this primary/individual; no companion, subsystem sum, or system-metallicity inference.",
+          "section": "Table 1, HIP 35037",
+          "caveat": "Published photometry/spectral-type evolutionary-model age; errors are cross-model deviations, not all systematics. The sample is age-selected and solar metallicity is assumed, not measured.",
+          "quantity": null,
+          "sourceUrl": "https://cdsarc.cds.unistra.fr/ftp/J/MNRAS/410/190/",
+          "inputs": {
+            "source_spectral_type": "B2IV/Ve",
+            "solar_metallicity_assumed": true
+          }
+        },
+        {
+          "field": "mass_solar",
+          "value": 10.1,
+          "status": "evolutionary-model",
+          "reference": "2011MNRAS.410..190T",
+          "uncertainty": 0.7,
+          "identity": "* ome CMa",
+          "component": "catalogued primary/individual stellar object",
+          "scope": "Exact * ome CMa / HD 56139, HIP 35037. Source values describe this primary/individual; no companion, subsystem sum, or system-metallicity inference.",
+          "section": "Table 1, HIP 35037",
+          "caveat": "Published object-specific median of evolutionary models; not a dynamical mass. Model-to-model deviation does not include all source photometry, rotation or metallicity systematics.",
+          "quantity": null,
+          "sourceUrl": "https://cdsarc.cds.unistra.fr/ftp/J/MNRAS/410/190/",
+          "inputs": {
+            "source_spectral_type": "B2IV/Ve",
+            "solar_metallicity_assumed": true
+          }
         }
       ],
       "sharedObjectAdoption": {
@@ -21126,7 +21565,9 @@
       "adoptedPhysicalFields": {
         "temperature_k": "published:2012MNRAS.427..343M:HIP-36962",
         "luminosity_solar": "published:2012MNRAS.427..343M:HIP-36962",
-        "radius_solar": "derived:stefan-boltzmann"
+        "radius_solar": "derived:stefan-boltzmann",
+        "mass_solar": "shared:2018A&A...616A..33S",
+        "age_gyr": "shared:2018A&A...616A..33S"
       },
       "physicalObservations": [
         {
@@ -21152,6 +21593,228 @@
           "value": 41.81916425559385,
           "status": "derived",
           "source": "Stefan-Boltzmann scaling"
+        },
+        {
+          "field": "mass_solar",
+          "value": 0.91,
+          "status": "evolutionary-posterior-mode",
+          "reference": "2018A&A...616A..33S",
+          "uncertainty": {
+            "lower": 0.020000000000000018,
+            "upper": 0.039999999999999925
+          },
+          "identity": "* ups Gem",
+          "component": "catalogued primary/individual stellar object",
+          "scope": "Exact * ups Gem / HD 60522, HIP 36962. Source values describe this primary/individual; no companion, subsystem sum, or system-metallicity inference.",
+          "section": "giants.dat, HIP 36962 RGB",
+          "caveat": "Conditional posterior mode, not a Gaussian measurement; confidence bounds and multimodal/degeneracy flags retained. Present mass includes the source Reimers mass-loss correction.",
+          "quantity": null,
+          "sourceUrl": "https://cdsarc.cds.unistra.fr/ftp/J/A+A/616/A33/",
+          "inputs": {
+            "stage_probability": 0.96,
+            "source_flags": "D",
+            "conditional_interval_lower": 0.89,
+            "conditional_interval_upper": 0.95,
+            "all_stage_solutions": [
+              {
+                "HIP": 36962,
+                "Stage": "HB",
+                "P": 0.04,
+                "Mmode": 0.88,
+                "Mmean": 0.9,
+                "e_M": 0.85,
+                "E_M": 0.92,
+                "e3_M": 0.82,
+                "E3_M": 1.07,
+                "Rmode": 43.38,
+                "Rmean": 44.08,
+                "e_R": 41.19,
+                "E_R": 45.29,
+                "e3_R": 38.87,
+                "E3_R": 60.0,
+                "logGmode": 1.13,
+                "logGmean": 1.11,
+                "e_logG": 1.09,
+                "E_logG": 1.16,
+                "e3_logG": 0.91,
+                "E3_logG": 1.23,
+                "logAmode": 9.99,
+                "logAmean": 9.98,
+                "e_logA": 9.95,
+                "E_logA": 10.02,
+                "e3_logA": 9.81,
+                "E3_logA": 10.05,
+                "Tmode": 3904.0,
+                "Tmean": 3899.0,
+                "e_T": 3885.0,
+                "E_T": 3919.0,
+                "e3_T": 3836.0,
+                "E3_T": 3959.0,
+                "Lmode": 390.88,
+                "Lmean": 405.07,
+                "e_L": 358.29,
+                "E_L": 423.47,
+                "e3_L": 296.42,
+                "E3_L": 540.59,
+                "Flag": "D,RM,TM,GM,LM",
+                "PDF": "Hip36962_HB.fits"
+              },
+              {
+                "HIP": 36962,
+                "Stage": "RGB",
+                "P": 0.96,
+                "Mmode": 0.91,
+                "Mmean": 0.94,
+                "e_M": 0.89,
+                "E_M": 0.95,
+                "e3_M": 0.87,
+                "E3_M": 1.16,
+                "Rmode": 43.62,
+                "Rmean": 43.66,
+                "e_R": 41.72,
+                "E_R": 45.51,
+                "e3_R": 38.01,
+                "E3_R": 49.69,
+                "logGmode": 1.12,
+                "logGmean": 1.13,
+                "e_logG": 1.08,
+                "E_logG": 1.17,
+                "e3_logG": 1.0,
+                "E3_logG": 1.28,
+                "logAmode": 10.0,
+                "logAmean": 9.98,
+                "e_logA": 9.95,
+                "E_logA": 10.04,
+                "e3_logA": 9.72,
+                "E3_logA": 10.06,
+                "Tmode": 3903.0,
+                "Tmean": 3902.0,
+                "e_T": 3886.0,
+                "E_T": 3919.0,
+                "e3_T": 3850.0,
+                "E3_T": 3950.0,
+                "Lmode": 395.56,
+                "Lmean": 397.08,
+                "e_L": 364.39,
+                "E_L": 427.88,
+                "e3_L": 302.17,
+                "E3_L": 502.78,
+                "Flag": "D",
+                "PDF": "Hip36962_RGB.fits"
+              }
+            ]
+          }
+        },
+        {
+          "field": "age_gyr",
+          "value": 10.0,
+          "status": "evolutionary-posterior-mode",
+          "reference": "2018A&A...616A..33S",
+          "uncertainty": {
+            "lower": 1.0874906186625601,
+            "upper": 0.9647819614318287
+          },
+          "identity": "* ups Gem",
+          "component": "catalogued primary/individual stellar object",
+          "scope": "Exact * ups Gem / HD 60522, HIP 36962. Source values describe this primary/individual; no companion, subsystem sum, or system-metallicity inference.",
+          "section": "giants.dat, HIP 36962 RGB",
+          "caveat": "Conditional posterior mode, not a Gaussian measurement; confidence bounds and multimodal/degeneracy flags retained. Present mass includes the source Reimers mass-loss correction.",
+          "quantity": null,
+          "sourceUrl": "https://cdsarc.cds.unistra.fr/ftp/J/A+A/616/A33/",
+          "inputs": {
+            "stage_probability": 0.96,
+            "source_flags": "D",
+            "conditional_interval_lower": 8.91250938133744,
+            "conditional_interval_upper": 10.964781961431829,
+            "all_stage_solutions": [
+              {
+                "HIP": 36962,
+                "Stage": "HB",
+                "P": 0.04,
+                "Mmode": 0.88,
+                "Mmean": 0.9,
+                "e_M": 0.85,
+                "E_M": 0.92,
+                "e3_M": 0.82,
+                "E3_M": 1.07,
+                "Rmode": 43.38,
+                "Rmean": 44.08,
+                "e_R": 41.19,
+                "E_R": 45.29,
+                "e3_R": 38.87,
+                "E3_R": 60.0,
+                "logGmode": 1.13,
+                "logGmean": 1.11,
+                "e_logG": 1.09,
+                "E_logG": 1.16,
+                "e3_logG": 0.91,
+                "E3_logG": 1.23,
+                "logAmode": 9.99,
+                "logAmean": 9.98,
+                "e_logA": 9.95,
+                "E_logA": 10.02,
+                "e3_logA": 9.81,
+                "E3_logA": 10.05,
+                "Tmode": 3904.0,
+                "Tmean": 3899.0,
+                "e_T": 3885.0,
+                "E_T": 3919.0,
+                "e3_T": 3836.0,
+                "E3_T": 3959.0,
+                "Lmode": 390.88,
+                "Lmean": 405.07,
+                "e_L": 358.29,
+                "E_L": 423.47,
+                "e3_L": 296.42,
+                "E3_L": 540.59,
+                "Flag": "D,RM,TM,GM,LM",
+                "PDF": "Hip36962_HB.fits"
+              },
+              {
+                "HIP": 36962,
+                "Stage": "RGB",
+                "P": 0.96,
+                "Mmode": 0.91,
+                "Mmean": 0.94,
+                "e_M": 0.89,
+                "E_M": 0.95,
+                "e3_M": 0.87,
+                "E3_M": 1.16,
+                "Rmode": 43.62,
+                "Rmean": 43.66,
+                "e_R": 41.72,
+                "E_R": 45.51,
+                "e3_R": 38.01,
+                "E3_R": 49.69,
+                "logGmode": 1.12,
+                "logGmean": 1.13,
+                "e_logG": 1.08,
+                "E_logG": 1.17,
+                "e3_logG": 1.0,
+                "E3_logG": 1.28,
+                "logAmode": 10.0,
+                "logAmean": 9.98,
+                "e_logA": 9.95,
+                "E_logA": 10.04,
+                "e3_logA": 9.72,
+                "E3_logA": 10.06,
+                "Tmode": 3903.0,
+                "Tmean": 3902.0,
+                "e_T": 3886.0,
+                "E_T": 3919.0,
+                "e3_T": 3850.0,
+                "E3_T": 3950.0,
+                "Lmode": 395.56,
+                "Lmean": 397.08,
+                "e_L": 364.39,
+                "E_L": 427.88,
+                "e3_L": 302.17,
+                "E3_L": 502.78,
+                "Flag": "D",
+                "PDF": "Hip36962_RGB.fits"
+              }
+            ]
+          }
         }
       ]
     },
@@ -22637,10 +23300,43 @@
       },
       "gaiaDr3Id": "916230087468692864",
       "adoptedPhysicalFields": {
+        "radius_solar": "shared:2018AJ....155...30B",
+        "luminosity_solar": "shared:2018AJ....155...30B",
         "temperature_k": "shared:2024MNRAS.531.4823P",
         "metallicity_dex": "shared:2022AJ....163..152S"
       },
       "physicalObservations": [
+        {
+          "field": "radius_solar",
+          "value": 53.27,
+          "status": "interferometric-derived",
+          "reference": "2018AJ....155...30B",
+          "uncertainty": {
+            "lower": 1.55,
+            "upper": 1.64
+          },
+          "identity": "* 31 Lyn",
+          "component": "catalogued primary/individual stellar object",
+          "scope": "Exact *  31 Lyn / HD 70272, HIP 41075. Source values describe this primary/individual; no companion, subsystem sum, or system-metallicity inference.",
+          "section": "Table 5",
+          "caveat": null,
+          "quantity": null,
+          "sourceUrl": "https://cdsarc.cds.unistra.fr/ftp/J/AJ/155/30/"
+        },
+        {
+          "field": "luminosity_solar",
+          "value": 782.4,
+          "status": "interferometric-derived",
+          "reference": "2018AJ....155...30B",
+          "uncertainty": 60.3,
+          "identity": "* 31 Lyn",
+          "component": "catalogued primary/individual stellar object",
+          "scope": "Exact *  31 Lyn / HD 70272, HIP 41075. Source values describe this primary/individual; no companion, subsystem sum, or system-metallicity inference.",
+          "section": "Table 5, HD 70272",
+          "caveat": null,
+          "quantity": null,
+          "sourceUrl": "https://cdsarc.cds.unistra.fr/ftp/J/AJ/155/30/"
+        },
         {
           "field": "temperature_k",
           "value": 3910.0,
@@ -23217,7 +23913,8 @@
       "adoptedPhysicalFields": {
         "temperature_k": "published:2012MNRAS.427..343M:HIP-42568",
         "luminosity_solar": "published:2012MNRAS.427..343M:HIP-42568",
-        "radius_solar": "derived:stefan-boltzmann"
+        "radius_solar": "derived:stefan-boltzmann",
+        "age_gyr": "shared:2011MNRAS.410..190T"
       },
       "physicalObservations": [
         {
@@ -23243,6 +23940,24 @@
           "value": 16.779281498614274,
           "status": "derived",
           "source": "Stefan-Boltzmann scaling"
+        },
+        {
+          "field": "age_gyr",
+          "value": 0.0157,
+          "status": "evolutionary-model",
+          "reference": "2011MNRAS.410..190T",
+          "uncertainty": 0.0001,
+          "identity": "* d Car",
+          "component": "catalogued primary/individual stellar object",
+          "scope": "Exact * d Car / HD 74375, HIP 42568. Source values describe this primary/individual; no companion, subsystem sum, or system-metallicity inference.",
+          "section": "Table 1, HIP 42568",
+          "caveat": "Published photometry/spectral-type evolutionary-model age; errors are cross-model deviations, not all systematics. The sample is age-selected and solar metallicity is assumed, not measured.",
+          "quantity": null,
+          "sourceUrl": "https://cdsarc.cds.unistra.fr/ftp/J/MNRAS/410/190/",
+          "inputs": {
+            "source_spectral_type": "B1.5III",
+            "solar_metallicity_assumed": true
+          }
         }
       ]
     },
@@ -24914,10 +25629,53 @@
       },
       "gaiaDr3Id": "702343774145932544",
       "adoptedPhysicalFields": {
+        "radius_solar": "shared:2025AJ....169..293B",
+        "luminosity_solar": "shared:2025AJ....169..293B",
         "temperature_k": "shared:2024A&A...682A.145S",
         "metallicity_dex": "shared:2024A&A...682A.145S"
       },
       "physicalObservations": [
+        {
+          "field": "radius_solar",
+          "value": 55.26,
+          "status": "interferometric-derived",
+          "reference": "2025AJ....169..293B",
+          "uncertainty": {
+            "lower": 0.7,
+            "upper": 0.68
+          },
+          "identity": "* alf Lyn",
+          "component": "catalogued primary/individual stellar object",
+          "scope": "Exact * alf Lyn / HD 80493, HIP 45860. Source values describe this primary/individual; no companion, subsystem sum, or system-metallicity inference.",
+          "section": "Table 7",
+          "caveat": null,
+          "quantity": null,
+          "sourceUrl": "https://cdsarc.cds.unistra.fr/ftp/J/AJ/169/293/"
+        },
+        {
+          "field": "luminosity_solar",
+          "value": 500.7260488,
+          "status": "derived",
+          "reference": "2025AJ....169..293B",
+          "uncertainty": 14.274052562206505,
+          "identity": "* alf Lyn",
+          "component": "catalogued primary/individual stellar object",
+          "scope": "Exact * alf Lyn / HD 80493, HIP 45860. Source values describe this primary/individual; no companion, subsystem sum, or system-metallicity inference.",
+          "section": "Derived from Table 7 radius and Teff",
+          "caveat": null,
+          "quantity": null,
+          "sourceUrl": "https://cdsarc.cds.unistra.fr/ftp/J/AJ/169/293/",
+          "inputs": {
+            "radius_solar": 55.26,
+            "radius_error_solar": 0.7,
+            "temperature_k": 3673,
+            "temperature_error_k": 12,
+            "solar_temperature_k": 5772,
+            "separately_compiled_source_luminosity_solar": 501.2,
+            "compiled_luminosity_reference": "MZW17"
+          },
+          "method": "Stefan-Boltzmann from one publication; approximate covariance-free uncertainty"
+        },
         {
           "field": "temperature_k",
           "value": 3881.0,
@@ -26062,7 +26820,8 @@
       "adoptedPhysicalFields": {
         "temperature_k": "published:2012MNRAS.427..343M:HIP-48774",
         "luminosity_solar": "published:2012MNRAS.427..343M:HIP-48774",
-        "radius_solar": "derived:stefan-boltzmann"
+        "radius_solar": "derived:stefan-boltzmann",
+        "age_gyr": "shared:2011MNRAS.410..190T"
       },
       "physicalObservations": [
         {
@@ -26088,6 +26847,24 @@
           "value": 30.554981174605683,
           "status": "derived",
           "source": "Stefan-Boltzmann scaling"
+        },
+        {
+          "field": "age_gyr",
+          "value": 0.0226,
+          "status": "evolutionary-model",
+          "reference": "2011MNRAS.410..190T",
+          "uncertainty": 0.0025,
+          "identity": "* phi Vel",
+          "component": "catalogued primary/individual stellar object",
+          "scope": "Exact * phi Vel / HD 86440, HIP 48774. Source values describe this primary/individual; no companion, subsystem sum, or system-metallicity inference.",
+          "section": "Table 1, HIP 48774",
+          "caveat": "Published photometry/spectral-type evolutionary-model age; errors are cross-model deviations, not all systematics. The sample is age-selected and solar metallicity is assumed, not measured.",
+          "quantity": null,
+          "sourceUrl": "https://cdsarc.cds.unistra.fr/ftp/J/MNRAS/410/190/",
+          "inputs": {
+            "source_spectral_type": "B5Ib",
+            "solar_metallicity_assumed": true
+          }
         }
       ]
     },
@@ -27117,10 +27894,44 @@
       },
       "gaiaDr3Id": "3748360796947806208",
       "adoptedPhysicalFields": {
+        "radius_solar": "shared:2008AJ....135..209M",
+        "luminosity_solar": "shared:2008AJ....135..209M",
         "temperature_k": "shared:2022A&A...663A...4S",
         "metallicity_dex": "shared:2022A&A...663A...4S"
       },
       "physicalObservations": [
+        {
+          "field": "radius_solar",
+          "value": 45.0,
+          "status": "photometric-derived",
+          "reference": "2008AJ....135..209M",
+          "uncertainty": null,
+          "identity": "* mu. Hya",
+          "component": "catalogued primary/individual stellar object",
+          "scope": "Exact * mu. Hya / HD 90432, HIP 51069. Source values describe this primary/individual; no companion, subsystem sum, or system-metallicity inference.",
+          "section": "Table 3, exact HIP 51069",
+          "caveat": "Source radius tabulated to whole solar radii, without an individual radius uncertainty; preserve that limited precision.",
+          "quantity": null,
+          "sourceUrl": "https://cdsarc.cds.unistra.fr/ftp/J/AJ/135/209/"
+        },
+        {
+          "field": "luminosity_solar",
+          "value": 478.6300923,
+          "status": "derived",
+          "reference": "2008AJ....135..209M",
+          "uncertainty": null,
+          "identity": "* mu. Hya",
+          "component": "catalogued primary/individual stellar object",
+          "scope": "Exact * mu. Hya / HD 90432, HIP 51069. Source values describe this primary/individual; no companion, subsystem sum, or system-metallicity inference.",
+          "section": "Table 3, exact HIP 51069",
+          "caveat": null,
+          "quantity": null,
+          "sourceUrl": "https://cdsarc.cds.unistra.fr/ftp/J/AJ/135/209/",
+          "inputs": {
+            "source_log10_value": 2.68,
+            "source_log10_uncertainty": null
+          }
+        },
         {
           "field": "temperature_k",
           "value": 4138.0,
@@ -29625,10 +30436,53 @@
       },
       "gaiaDr3Id": "3897724469419137664",
       "adoptedPhysicalFields": {
+        "radius_solar": "shared:2025AJ....169..293B",
+        "luminosity_solar": "shared:2025AJ....169..293B",
         "temperature_k": "shared:2023ApJS..266...41P",
         "metallicity_dex": "shared:2023ApJS..266...41P"
       },
       "physicalObservations": [
+        {
+          "field": "radius_solar",
+          "value": 61.25,
+          "status": "interferometric-derived",
+          "reference": "2025AJ....169..293B",
+          "uncertainty": {
+            "lower": 1.7,
+            "upper": 1.66
+          },
+          "identity": "* nu. Vir",
+          "component": "catalogued primary/individual stellar object",
+          "scope": "Exact * nu. Vir / HD 102212, HIP 57380. Source values describe this primary/individual; no companion, subsystem sum, or system-metallicity inference.",
+          "section": "Table 7",
+          "caveat": null,
+          "quantity": null,
+          "sourceUrl": "https://cdsarc.cds.unistra.fr/ftp/J/AJ/169/293/"
+        },
+        {
+          "field": "luminosity_solar",
+          "value": 492.8629045,
+          "status": "derived",
+          "reference": "2025AJ....169..293B",
+          "uncertainty": 30.55977777135075,
+          "identity": "* nu. Vir",
+          "component": "catalogued primary/individual stellar object",
+          "scope": "Exact * nu. Vir / HD 102212, HIP 57380. Source values describe this primary/individual; no companion, subsystem sum, or system-metallicity inference.",
+          "section": "Derived from Table 7 radius and Teff",
+          "caveat": null,
+          "quantity": null,
+          "sourceUrl": "https://cdsarc.cds.unistra.fr/ftp/J/AJ/169/293/",
+          "inputs": {
+            "radius_solar": 61.25,
+            "radius_error_solar": 1.7,
+            "temperature_k": 3475,
+            "temperature_error_k": 24,
+            "solar_temperature_k": 5772,
+            "separately_compiled_source_luminosity_solar": 494.0,
+            "compiled_luminosity_reference": "MZW17"
+          },
+          "method": "Stefan-Boltzmann from one publication; approximate covariance-free uncertainty"
+        },
         {
           "field": "temperature_k",
           "value": 3738.0,
@@ -29963,13 +30817,22 @@
       "gaiaDr3Id": "792588939773693568",
       "adoptedPhysicalFields": {
         "temperature_k": "bright-stars:bright-phecda",
+        "mass_solar": "bright-stars:bright-phecda",
         "luminosity_solar": "bright-stars:bright-phecda",
-        "radius_solar": "bright-stars:bright-phecda"
+        "radius_solar": "bright-stars:bright-phecda",
+        "age_gyr": "bright-stars:bright-phecda"
       },
       "physicalObservations": [
         {
           "field": "temperature_k",
           "value": 9503.0,
+          "status": "inherited",
+          "source": "bright-stars",
+          "sourceId": "bright-phecda"
+        },
+        {
+          "field": "mass_solar",
+          "value": 2.27,
           "status": "inherited",
           "source": "bright-stars",
           "sourceId": "bright-phecda"
@@ -29984,6 +30847,13 @@
         {
           "field": "radius_solar",
           "value": 2.9486,
+          "status": "inherited",
+          "source": "bright-stars",
+          "sourceId": "bright-phecda"
+        },
+        {
+          "field": "age_gyr",
+          "value": 0.241,
           "status": "inherited",
           "source": "bright-stars",
           "sourceId": "bright-phecda"
@@ -30387,10 +31257,278 @@
       },
       "gaiaDr3Id": "3490234568129160704",
       "adoptedPhysicalFields": {
+        "mass_solar": "shared:2018A&A...616A..33S",
+        "age_gyr": "shared:2018A&A...616A..33S",
+        "luminosity_solar": "shared:2018A&A...616A..33S",
+        "radius_solar": "shared:2018A&A...616A..33S",
         "temperature_k": "shared:2022A&A...663A...4S",
         "metallicity_dex": "shared:2022A&A...663A...4S"
       },
       "physicalObservations": [
+        {
+          "field": "mass_solar",
+          "value": 3.4,
+          "status": "evolutionary-posterior-mode",
+          "reference": "2018A&A...616A..33S",
+          "uncertainty": {
+            "lower": 0.56,
+            "upper": 0.1299999999999999
+          },
+          "identity": "* eps Crv",
+          "component": "catalogued primary/individual stellar object",
+          "scope": "Exact * eps Crv / HD 105707, HIP 59316. Source values describe this primary/individual; no companion, subsystem sum, or system-metallicity inference.",
+          "section": "giants.dat, HIP 59316 HB",
+          "caveat": "Conditional posterior mode, not a Gaussian measurement; confidence bounds and multimodal/degeneracy flags retained. Present mass includes the source Reimers mass-loss correction.",
+          "quantity": null,
+          "sourceUrl": "https://cdsarc.cds.unistra.fr/ftp/J/A+A/616/A33/",
+          "inputs": {
+            "stage_probability": 0.94,
+            "source_flags": "MM,AM",
+            "conditional_interval_lower": 2.84,
+            "conditional_interval_upper": 3.53,
+            "all_stage_solutions": [
+              {
+                "HIP": 59316,
+                "Stage": "HB",
+                "P": 0.94,
+                "Mmode": 3.4,
+                "Mmean": 3.15,
+                "e_M": 2.84,
+                "E_M": 3.53,
+                "e3_M": 2.26,
+                "E3_M": 3.97,
+                "Rmode": 53.72,
+                "Rmean": 54.47,
+                "e_R": 46.33,
+                "E_R": 61.83,
+                "e3_R": 39.68,
+                "E3_R": 69.63,
+                "logGmode": 1.5,
+                "logGmean": 1.46,
+                "e_logG": 1.41,
+                "E_logG": 1.55,
+                "e3_logG": 1.25,
+                "E3_logG": 1.64,
+                "logAmode": 8.44,
+                "logAmean": 8.56,
+                "e_logA": 8.39,
+                "E_logA": 8.69,
+                "e3_logA": 8.27,
+                "E3_logA": 8.93,
+                "Tmode": 4287.0,
+                "Tmean": 4279.0,
+                "e_T": 4240.0,
+                "E_T": 4324.0,
+                "e3_T": 4152.0,
+                "E3_T": 4391.0,
+                "Lmode": 838.53,
+                "Lmean": 838.5,
+                "e_L": 591.06,
+                "E_L": 1081.16,
+                "e3_L": 367.84,
+                "E3_L": 1304.37,
+                "Flag": "MM,AM",
+                "PDF": "Hip59316_HB.fits"
+              },
+              {
+                "HIP": 59316,
+                "Stage": "RGB",
+                "P": 0.06,
+                "Mmode": 3.38,
+                "Mmean": 3.5,
+                "e_M": 3.32,
+                "E_M": 3.57,
+                "e3_M": 3.23,
+                "E3_M": 4.15,
+                "Rmode": 53.84,
+                "Rmean": 53.72,
+                "e_R": 52.17,
+                "E_R": 55.21,
+                "e3_R": 49.29,
+                "E3_R": 58.47,
+                "logGmode": 1.51,
+                "logGmean": 1.52,
+                "e_logG": 1.48,
+                "E_logG": 1.55,
+                "e3_logG": 1.45,
+                "E3_logG": 1.65,
+                "logAmode": 8.4,
+                "logAmean": 8.41,
+                "e_logA": 8.33,
+                "E_logA": 8.48,
+                "e3_logA": 8.24,
+                "E3_logA": 8.56,
+                "Tmode": 4304.0,
+                "Tmean": 4304.0,
+                "e_T": 4273.0,
+                "E_T": 4333.0,
+                "e3_T": 4218.0,
+                "E3_T": 4396.0,
+                "Lmode": 891.67,
+                "Lmean": 888.76,
+                "e_L": 857.77,
+                "E_L": 916.22,
+                "e3_L": 804.77,
+                "E3_L": 980.39,
+                "Flag": "RM",
+                "PDF": "Hip59316_RGB.fits"
+              }
+            ]
+          }
+        },
+        {
+          "field": "age_gyr",
+          "value": 0.2754228703,
+          "status": "evolutionary-posterior-mode",
+          "reference": "2018A&A...616A..33S",
+          "uncertainty": {
+            "lower": 0.029951978765312998,
+            "upper": 0.2143559490346293
+          },
+          "identity": "* eps Crv",
+          "component": "catalogued primary/individual stellar object",
+          "scope": "Exact * eps Crv / HD 105707, HIP 59316. Source values describe this primary/individual; no companion, subsystem sum, or system-metallicity inference.",
+          "section": "giants.dat, HIP 59316 HB",
+          "caveat": "Conditional posterior mode, not a Gaussian measurement; confidence bounds and multimodal/degeneracy flags retained. Present mass includes the source Reimers mass-loss correction.",
+          "quantity": null,
+          "sourceUrl": "https://cdsarc.cds.unistra.fr/ftp/J/A+A/616/A33/",
+          "inputs": {
+            "stage_probability": 0.94,
+            "source_flags": "MM,AM",
+            "conditional_interval_lower": 0.24547089156850335,
+            "conditional_interval_upper": 0.48977881936844564,
+            "all_stage_solutions": [
+              {
+                "HIP": 59316,
+                "Stage": "HB",
+                "P": 0.94,
+                "Mmode": 3.4,
+                "Mmean": 3.15,
+                "e_M": 2.84,
+                "E_M": 3.53,
+                "e3_M": 2.26,
+                "E3_M": 3.97,
+                "Rmode": 53.72,
+                "Rmean": 54.47,
+                "e_R": 46.33,
+                "E_R": 61.83,
+                "e3_R": 39.68,
+                "E3_R": 69.63,
+                "logGmode": 1.5,
+                "logGmean": 1.46,
+                "e_logG": 1.41,
+                "E_logG": 1.55,
+                "e3_logG": 1.25,
+                "E3_logG": 1.64,
+                "logAmode": 8.44,
+                "logAmean": 8.56,
+                "e_logA": 8.39,
+                "E_logA": 8.69,
+                "e3_logA": 8.27,
+                "E3_logA": 8.93,
+                "Tmode": 4287.0,
+                "Tmean": 4279.0,
+                "e_T": 4240.0,
+                "E_T": 4324.0,
+                "e3_T": 4152.0,
+                "E3_T": 4391.0,
+                "Lmode": 838.53,
+                "Lmean": 838.5,
+                "e_L": 591.06,
+                "E_L": 1081.16,
+                "e3_L": 367.84,
+                "E3_L": 1304.37,
+                "Flag": "MM,AM",
+                "PDF": "Hip59316_HB.fits"
+              },
+              {
+                "HIP": 59316,
+                "Stage": "RGB",
+                "P": 0.06,
+                "Mmode": 3.38,
+                "Mmean": 3.5,
+                "e_M": 3.32,
+                "E_M": 3.57,
+                "e3_M": 3.23,
+                "E3_M": 4.15,
+                "Rmode": 53.84,
+                "Rmean": 53.72,
+                "e_R": 52.17,
+                "E_R": 55.21,
+                "e3_R": 49.29,
+                "E3_R": 58.47,
+                "logGmode": 1.51,
+                "logGmean": 1.52,
+                "e_logG": 1.48,
+                "E_logG": 1.55,
+                "e3_logG": 1.45,
+                "E3_logG": 1.65,
+                "logAmode": 8.4,
+                "logAmean": 8.41,
+                "e_logA": 8.33,
+                "E_logA": 8.48,
+                "e3_logA": 8.24,
+                "E3_logA": 8.56,
+                "Tmode": 4304.0,
+                "Tmean": 4304.0,
+                "e_T": 4273.0,
+                "E_T": 4333.0,
+                "e3_T": 4218.0,
+                "E3_T": 4396.0,
+                "Lmode": 891.67,
+                "Lmean": 888.76,
+                "e_L": 857.77,
+                "E_L": 916.22,
+                "e3_L": 804.77,
+                "E3_L": 980.39,
+                "Flag": "RM",
+                "PDF": "Hip59316_RGB.fits"
+              }
+            ]
+          }
+        },
+        {
+          "field": "luminosity_solar",
+          "value": 838.53,
+          "status": "evolutionary-posterior-mode",
+          "reference": "2018A&A...616A..33S",
+          "uncertainty": {
+            "lower": 247.47000000000003,
+            "upper": 242.6300000000001
+          },
+          "identity": "* eps Crv",
+          "component": "catalogued primary/individual stellar object",
+          "scope": "Exact * eps Crv / HD 105707, HIP 59316. Source values describe this primary/individual; no companion, subsystem sum, or system-metallicity inference.",
+          "section": "giants.dat, adopted stage HB",
+          "caveat": null,
+          "quantity": null,
+          "sourceUrl": "https://cdsarc.cds.unistra.fr/ftp/J/A+A/616/A33/",
+          "inputs": {
+            "stage_probability": 0.94,
+            "source_flags": "MM,AM"
+          }
+        },
+        {
+          "field": "radius_solar",
+          "value": 53.72,
+          "status": "evolutionary-posterior-mode",
+          "reference": "2018A&A...616A..33S",
+          "uncertainty": {
+            "lower": 7.390000000000001,
+            "upper": 8.11
+          },
+          "identity": "* eps Crv",
+          "component": "catalogued primary/individual stellar object",
+          "scope": "Exact * eps Crv / HD 105707, HIP 59316. Source values describe this primary/individual; no companion, subsystem sum, or system-metallicity inference.",
+          "section": "giants.dat, adopted stage HB",
+          "caveat": null,
+          "quantity": null,
+          "sourceUrl": "https://cdsarc.cds.unistra.fr/ftp/J/A+A/616/A33/",
+          "inputs": {
+            "stage_probability": 0.94,
+            "source_flags": "MM,AM"
+          }
+        },
         {
           "field": "temperature_k",
           "value": 4360.0,
@@ -30444,7 +31582,9 @@
       "adoptedPhysicalFields": {
         "temperature_k": "published:2012MNRAS.427..343M:HIP-59747",
         "luminosity_solar": "published:2012MNRAS.427..343M:HIP-59747",
-        "radius_solar": "derived:stefan-boltzmann"
+        "radius_solar": "derived:stefan-boltzmann",
+        "age_gyr": "shared:2011MNRAS.410..190T",
+        "mass_solar": "shared:2011MNRAS.410..190T"
       },
       "physicalObservations": [
         {
@@ -30470,6 +31610,42 @@
           "value": 9.378667078834287,
           "status": "derived",
           "source": "Stefan-Boltzmann scaling"
+        },
+        {
+          "field": "age_gyr",
+          "value": 0.0181,
+          "status": "evolutionary-model",
+          "reference": "2011MNRAS.410..190T",
+          "uncertainty": 0.0032,
+          "identity": "* del Cru",
+          "component": "catalogued primary/individual stellar object",
+          "scope": "Exact * del Cru / HD 106490, HIP 59747. Source values describe this primary/individual; no companion, subsystem sum, or system-metallicity inference.",
+          "section": "Table 1, HIP 59747",
+          "caveat": "Published photometry/spectral-type evolutionary-model age; errors are cross-model deviations, not all systematics. The sample is age-selected and solar metallicity is assumed, not measured.",
+          "quantity": null,
+          "sourceUrl": "https://cdsarc.cds.unistra.fr/ftp/J/MNRAS/410/190/",
+          "inputs": {
+            "source_spectral_type": "B2IV",
+            "solar_metallicity_assumed": true
+          }
+        },
+        {
+          "field": "mass_solar",
+          "value": 8.9,
+          "status": "evolutionary-model",
+          "reference": "2011MNRAS.410..190T",
+          "uncertainty": 0.1,
+          "identity": "* del Cru",
+          "component": "catalogued primary/individual stellar object",
+          "scope": "Exact * del Cru / HD 106490, HIP 59747. Source values describe this primary/individual; no companion, subsystem sum, or system-metallicity inference.",
+          "section": "Table 1, HIP 59747",
+          "caveat": "Published object-specific median of evolutionary models; not a dynamical mass. Model-to-model deviation does not include all source photometry, rotation or metallicity systematics.",
+          "quantity": null,
+          "sourceUrl": "https://cdsarc.cds.unistra.fr/ftp/J/MNRAS/410/190/",
+          "inputs": {
+            "source_spectral_type": "B2IV",
+            "solar_metallicity_assumed": true
+          }
         }
       ]
     },
@@ -31218,6 +32394,7 @@
       "gaiaDr3Id": null,
       "adoptedPhysicalFields": {
         "temperature_k": "bright-stars:bright-gacrux",
+        "mass_solar": "bright-stars:bright-gacrux",
         "luminosity_solar": "bright-stars:bright-gacrux",
         "radius_solar": "bright-stars:bright-gacrux"
       },
@@ -31225,6 +32402,13 @@
         {
           "field": "temperature_k",
           "value": 3689.0,
+          "status": "inherited",
+          "source": "bright-stars",
+          "sourceId": "bright-gacrux"
+        },
+        {
+          "field": "mass_solar",
+          "value": 1.5,
           "status": "inherited",
           "source": "bright-stars",
           "sourceId": "bright-gacrux"
@@ -32443,10 +33627,78 @@
       },
       "gaiaDr3Id": "3704342295607157120",
       "adoptedPhysicalFields": {
+        "mass_solar": "shared:2020A&A...633A..34C",
+        "luminosity_solar": "shared:2020A&A...633A..34C",
+        "radius_solar": "shared:2020A&A...633A..34C",
         "temperature_k": "shared:2024A&A...691A..53S",
         "metallicity_dex": "shared:2024A&A...691A..53S"
       },
       "physicalObservations": [
+        {
+          "field": "mass_solar",
+          "value": 2.97,
+          "status": "evolutionary-model",
+          "reference": "2020A&A...633A..34C",
+          "uncertainty": {
+            "lower": 1.59,
+            "upper": 0.99
+          },
+          "identity": "* del Vir",
+          "component": "catalogued primary/individual stellar object",
+          "scope": "Exact * del Vir / HD 112300, HIP 63090. Source values describe this primary/individual; no companion, subsystem sum, or system-metallicity inference.",
+          "section": "Table 1, HD 112300",
+          "caveat": "STAREVOL likelihood estimate, evolutionary-stage and source-parallax dependent; source asymmetric errors retained.",
+          "quantity": null,
+          "sourceUrl": "https://cdsarc.cds.unistra.fr/ftp/J/A+A/633/A34/",
+          "inputs": {
+            "source_temperature_k": 3500,
+            "source_log_luminosity": 3.53,
+            "source_luminosity_method_flag": 0
+          }
+        },
+        {
+          "field": "luminosity_solar",
+          "value": 3388.441561,
+          "status": "derived",
+          "reference": "2020A&A...633A..34C",
+          "uncertainty": {
+            "lower": 368.4898409900079,
+            "upper": 413.4524018135844
+          },
+          "identity": "* del Vir",
+          "component": "catalogued primary/individual stellar object",
+          "scope": "Exact * del Vir / HD 112300, HIP 63090. Source values describe this primary/individual; no companion, subsystem sum, or system-metallicity inference.",
+          "section": "Table 1, adopted logLadopt",
+          "caveat": "Published adopted luminosity at the source parallax and photometric method; not rescaled to map distance.",
+          "quantity": null,
+          "sourceUrl": "https://cdsarc.cds.unistra.fr/ftp/J/A+A/633/A34/",
+          "inputs": {
+            "source_log10_value": 3.53,
+            "source_log10_uncertainty": 0.05
+          }
+        },
+        {
+          "field": "radius_solar",
+          "value": 158.3129918,
+          "status": "derived",
+          "reference": "2020A&A...633A..34C",
+          "uncertainty": 16.345864386357228,
+          "identity": "* del Vir",
+          "component": "catalogued primary/individual stellar object",
+          "scope": "Exact * del Vir / HD 112300, HIP 63090. Source values describe this primary/individual; no companion, subsystem sum, or system-metallicity inference.",
+          "section": "Derived from Table 1 source logLadopt and Teff",
+          "caveat": null,
+          "quantity": null,
+          "sourceUrl": "https://cdsarc.cds.unistra.fr/ftp/J/A+A/633/A34/",
+          "inputs": {
+            "luminosity_solar": 3388.441561392024,
+            "luminosity_error_solar": 390.1087513871372,
+            "temperature_k": 3500,
+            "temperature_error_k": 150,
+            "solar_temperature_k": 5772
+          },
+          "method": "Stefan-Boltzmann from the same source temperature and luminosity; not mixed adopted values"
+        },
         {
           "field": "temperature_k",
           "value": 3657.0,
@@ -34146,7 +35398,9 @@
       "adoptedPhysicalFields": {
         "temperature_k": "published:2012MNRAS.427..343M:HIP-68282",
         "luminosity_solar": "published:2012MNRAS.427..343M:HIP-68282",
-        "radius_solar": "derived:stefan-boltzmann"
+        "radius_solar": "derived:stefan-boltzmann",
+        "age_gyr": "shared:2011MNRAS.410..190T",
+        "mass_solar": "shared:2011MNRAS.410..190T"
       },
       "physicalObservations": [
         {
@@ -34172,6 +35426,42 @@
           "value": 3.7037957721937587,
           "status": "derived",
           "source": "Stefan-Boltzmann scaling"
+        },
+        {
+          "field": "age_gyr",
+          "value": 0.013,
+          "status": "evolutionary-model",
+          "reference": "2011MNRAS.410..190T",
+          "uncertainty": 0.002,
+          "identity": "* ups01 Cen",
+          "component": "catalogued primary/individual stellar object",
+          "scope": "Exact * ups01 Cen / HD 121790, HIP 68282. Source values describe this primary/individual; no companion, subsystem sum, or system-metallicity inference.",
+          "section": "Table 1, HIP 68282",
+          "caveat": "Published photometry/spectral-type evolutionary-model age; errors are cross-model deviations, not all systematics. The sample is age-selected and solar metallicity is assumed, not measured.",
+          "quantity": null,
+          "sourceUrl": "https://cdsarc.cds.unistra.fr/ftp/J/MNRAS/410/190/",
+          "inputs": {
+            "source_spectral_type": "B2IV-V",
+            "solar_metallicity_assumed": true
+          }
+        },
+        {
+          "field": "mass_solar",
+          "value": 7.9,
+          "status": "evolutionary-model",
+          "reference": "2011MNRAS.410..190T",
+          "uncertainty": 0.1,
+          "identity": "* ups01 Cen",
+          "component": "catalogued primary/individual stellar object",
+          "scope": "Exact * ups01 Cen / HD 121790, HIP 68282. Source values describe this primary/individual; no companion, subsystem sum, or system-metallicity inference.",
+          "section": "Table 1, HIP 68282",
+          "caveat": "Published object-specific median of evolutionary models; not a dynamical mass. Model-to-model deviation does not include all source photometry, rotation or metallicity systematics.",
+          "quantity": null,
+          "sourceUrl": "https://cdsarc.cds.unistra.fr/ftp/J/MNRAS/410/190/",
+          "inputs": {
+            "source_spectral_type": "B2IV-V",
+            "solar_metallicity_assumed": true
+          }
         }
       ]
     },
@@ -35585,7 +36875,8 @@
       "adoptedPhysicalFields": {
         "temperature_k": "bright-stars:bright-alpha-lupi",
         "luminosity_solar": "bright-stars:bright-alpha-lupi",
-        "radius_solar": "bright-stars:bright-alpha-lupi"
+        "radius_solar": "bright-stars:bright-alpha-lupi",
+        "age_gyr": "bright-stars:bright-alpha-lupi"
       },
       "physicalObservations": [
         {
@@ -35605,6 +36896,13 @@
         {
           "field": "radius_solar",
           "value": 13.866,
+          "status": "inherited",
+          "source": "bright-stars",
+          "sourceId": "bright-alpha-lupi"
+        },
+        {
+          "field": "age_gyr",
+          "value": 0.0225,
           "status": "inherited",
           "source": "bright-stars",
           "sourceId": "bright-alpha-lupi"
@@ -37144,7 +38442,9 @@
       "adoptedPhysicalFields": {
         "temperature_k": "published:2012MNRAS.427..343M:HIP-75141",
         "luminosity_solar": "published:2012MNRAS.427..343M:HIP-75141",
-        "radius_solar": "derived:stefan-boltzmann"
+        "radius_solar": "derived:stefan-boltzmann",
+        "age_gyr": "shared:2011MNRAS.410..190T",
+        "mass_solar": "shared:2011MNRAS.410..190T"
       },
       "physicalObservations": [
         {
@@ -37170,6 +38470,42 @@
           "value": 5.618529626545569,
           "status": "derived",
           "source": "Stefan-Boltzmann scaling"
+        },
+        {
+          "field": "age_gyr",
+          "value": 0.0154,
+          "status": "evolutionary-model",
+          "reference": "2011MNRAS.410..190T",
+          "uncertainty": 0.0013,
+          "identity": "* del Lup",
+          "component": "catalogued primary/individual stellar object",
+          "scope": "Exact * del Lup / HD 136298, HIP 75141. Source values describe this primary/individual; no companion, subsystem sum, or system-metallicity inference.",
+          "section": "Table 1, HIP 75141",
+          "caveat": "Published photometry/spectral-type evolutionary-model age; errors are cross-model deviations, not all systematics. The sample is age-selected and solar metallicity is assumed, not measured.",
+          "quantity": null,
+          "sourceUrl": "https://cdsarc.cds.unistra.fr/ftp/J/MNRAS/410/190/",
+          "inputs": {
+            "source_spectral_type": "B1.5IV",
+            "solar_metallicity_assumed": true
+          }
+        },
+        {
+          "field": "mass_solar",
+          "value": 11.9,
+          "status": "evolutionary-model",
+          "reference": "2011MNRAS.410..190T",
+          "uncertainty": 0.2,
+          "identity": "* del Lup",
+          "component": "catalogued primary/individual stellar object",
+          "scope": "Exact * del Lup / HD 136298, HIP 75141. Source values describe this primary/individual; no companion, subsystem sum, or system-metallicity inference.",
+          "section": "Table 1, HIP 75141",
+          "caveat": "Published object-specific median of evolutionary models; not a dynamical mass. Model-to-model deviation does not include all source photometry, rotation or metallicity systematics.",
+          "quantity": null,
+          "sourceUrl": "https://cdsarc.cds.unistra.fr/ftp/J/MNRAS/410/190/",
+          "inputs": {
+            "source_spectral_type": "B1.5IV",
+            "solar_metallicity_assumed": true
+          }
         }
       ]
     },
@@ -37198,10 +38534,78 @@
       },
       "gaiaDr3Id": "6007749027577770496",
       "adoptedPhysicalFields": {
+        "mass_solar": "shared:2020A&A...633A..34C",
+        "luminosity_solar": "shared:2020A&A...633A..34C",
+        "radius_solar": "shared:2020A&A...633A..34C",
         "temperature_k": "shared:2020A&A...633A..34C",
         "metallicity_dex": "shared:2020A&A...633A..34C"
       },
       "physicalObservations": [
+        {
+          "field": "mass_solar",
+          "value": 1.78,
+          "status": "evolutionary-model",
+          "reference": "2020A&A...633A..34C",
+          "uncertainty": {
+            "lower": 0.9,
+            "upper": 1.2
+          },
+          "identity": "* phi01 Lup",
+          "component": "catalogued primary/individual stellar object",
+          "scope": "Exact * phi01 Lup / HD 136422, HIP 75177. Source values describe this primary/individual; no companion, subsystem sum, or system-metallicity inference.",
+          "section": "Table 1, HD 136422",
+          "caveat": "STAREVOL likelihood estimate, evolutionary-stage and source-parallax dependent; source asymmetric errors retained.",
+          "quantity": null,
+          "sourceUrl": "https://cdsarc.cds.unistra.fr/ftp/J/A+A/633/A34/",
+          "inputs": {
+            "source_temperature_k": 3800,
+            "source_log_luminosity": 3.15,
+            "source_luminosity_method_flag": 0
+          }
+        },
+        {
+          "field": "luminosity_solar",
+          "value": 1412.537545,
+          "status": "derived",
+          "reference": "2020A&A...633A..34C",
+          "uncertainty": {
+            "lower": 210.27311000534087,
+            "upper": 247.0493628148056
+          },
+          "identity": "* phi01 Lup",
+          "component": "catalogued primary/individual stellar object",
+          "scope": "Exact * phi01 Lup / HD 136422, HIP 75177. Source values describe this primary/individual; no companion, subsystem sum, or system-metallicity inference.",
+          "section": "Table 1, adopted logLadopt",
+          "caveat": "Published adopted luminosity at the source parallax and photometric method; not rescaled to map distance.",
+          "quantity": null,
+          "sourceUrl": "https://cdsarc.cds.unistra.fr/ftp/J/A+A/633/A34/",
+          "inputs": {
+            "source_log10_value": 3.15,
+            "source_log10_uncertainty": 0.07
+          }
+        },
+        {
+          "field": "radius_solar",
+          "value": 86.71324756,
+          "status": "derived",
+          "reference": "2020A&A...633A..34C",
+          "uncertainty": 9.782665683369364,
+          "identity": "* phi01 Lup",
+          "component": "catalogued primary/individual stellar object",
+          "scope": "Exact * phi01 Lup / HD 136422, HIP 75177. Source values describe this primary/individual; no companion, subsystem sum, or system-metallicity inference.",
+          "section": "Derived from Table 1 source logLadopt and Teff",
+          "caveat": null,
+          "quantity": null,
+          "sourceUrl": "https://cdsarc.cds.unistra.fr/ftp/J/A+A/633/A34/",
+          "inputs": {
+            "luminosity_solar": 1412.537544622754,
+            "luminosity_error_solar": 227.6741525479936,
+            "temperature_k": 3800,
+            "temperature_error_k": 150,
+            "solar_temperature_k": 5772
+          },
+          "method": "Stefan-Boltzmann from the same source temperature and luminosity; not mixed adopted values"
+        },
         {
           "field": "temperature_k",
           "value": 3800.0,
@@ -38254,10 +39658,78 @@
       },
       "gaiaDr3Id": "1197588859547184640",
       "adoptedPhysicalFields": {
+        "mass_solar": "shared:2020A&A...633A..34C",
+        "luminosity_solar": "shared:2020A&A...633A..34C",
+        "radius_solar": "shared:2020A&A...633A..34C",
         "temperature_k": "shared:2020A&A...633A..34C",
         "metallicity_dex": "shared:2020A&A...633A..34C"
       },
       "physicalObservations": [
+        {
+          "field": "mass_solar",
+          "value": 1.84,
+          "status": "evolutionary-model",
+          "reference": "2020A&A...633A..34C",
+          "uncertainty": {
+            "lower": 0.66,
+            "upper": 2.12
+          },
+          "identity": "* kap Ser",
+          "component": "catalogued primary/individual stellar object",
+          "scope": "Exact * kap Ser / HD 141477, HIP 77450. Source values describe this primary/individual; no companion, subsystem sum, or system-metallicity inference.",
+          "section": "Table 1, HD 141477",
+          "caveat": "STAREVOL likelihood estimate, evolutionary-stage and source-parallax dependent; source asymmetric errors retained.",
+          "quantity": null,
+          "sourceUrl": "https://cdsarc.cds.unistra.fr/ftp/J/A+A/633/A34/",
+          "inputs": {
+            "source_temperature_k": 3700,
+            "source_log_luminosity": 3.11,
+            "source_luminosity_method_flag": 0
+          }
+        },
+        {
+          "field": "luminosity_solar",
+          "value": 1288.249552,
+          "status": "derived",
+          "reference": "2020A&A...633A..34C",
+          "uncertainty": {
+            "lower": 166.23109739117058,
+            "upper": 190.85883647507376
+          },
+          "identity": "* kap Ser",
+          "component": "catalogued primary/individual stellar object",
+          "scope": "Exact * kap Ser / HD 141477, HIP 77450. Source values describe this primary/individual; no companion, subsystem sum, or system-metallicity inference.",
+          "section": "Table 1, adopted logLadopt",
+          "caveat": "Published adopted luminosity at the source parallax and photometric method; not rescaled to map distance.",
+          "quantity": null,
+          "sourceUrl": "https://cdsarc.cds.unistra.fr/ftp/J/A+A/633/A34/",
+          "inputs": {
+            "source_log10_value": 3.11,
+            "source_log10_uncertainty": 0.06
+          }
+        },
+        {
+          "field": "radius_solar",
+          "value": 87.34724202,
+          "status": "derived",
+          "reference": "2020A&A...633A..34C",
+          "uncertainty": 9.303957452480057,
+          "identity": "* kap Ser",
+          "component": "catalogued primary/individual stellar object",
+          "scope": "Exact * kap Ser / HD 141477, HIP 77450. Source values describe this primary/individual; no companion, subsystem sum, or system-metallicity inference.",
+          "section": "Derived from Table 1 source logLadopt and Teff",
+          "caveat": null,
+          "quantity": null,
+          "sourceUrl": "https://cdsarc.cds.unistra.fr/ftp/J/A+A/633/A34/",
+          "inputs": {
+            "luminosity_solar": 1288.2495516931335,
+            "luminosity_error_solar": 177.97825282709232,
+            "temperature_k": 3700,
+            "temperature_error_k": 150,
+            "solar_temperature_k": 5772
+          },
+          "method": "Stefan-Boltzmann from the same source temperature and luminosity; not mixed adopted values"
+        },
         {
           "field": "temperature_k",
           "value": 3700.0,
@@ -40955,6 +42427,8 @@
       "gaiaDr3Id": "4337352305320149760",
       "adoptedPhysicalFields": {
         "temperature_k": "bright-stars:bright-zeta-ophiuchi",
+        "mass_solar": "bright-stars:bright-zeta-ophiuchi",
+        "age_gyr": "bright-stars:bright-zeta-ophiuchi",
         "luminosity_solar": "published:2012MNRAS.427..343M:HIP-81377",
         "radius_solar": "derived:stefan-boltzmann"
       },
@@ -40962,6 +42436,20 @@
         {
           "field": "temperature_k",
           "value": 30700.0,
+          "status": "inherited",
+          "source": "bright-stars",
+          "sourceId": "bright-zeta-ophiuchi"
+        },
+        {
+          "field": "mass_solar",
+          "value": 19.8,
+          "status": "inherited",
+          "source": "bright-stars",
+          "sourceId": "bright-zeta-ophiuchi"
+        },
+        {
+          "field": "age_gyr",
+          "value": 0.003,
           "status": "inherited",
           "source": "bright-stars",
           "sourceId": "bright-zeta-ophiuchi"
@@ -43112,7 +44600,8 @@
       "adoptedPhysicalFields": {
         "temperature_k": "published:2012MNRAS.427..343M:HIP-85267",
         "luminosity_solar": "published:2012MNRAS.427..343M:HIP-85267",
-        "radius_solar": "derived:stefan-boltzmann"
+        "radius_solar": "derived:stefan-boltzmann",
+        "age_gyr": "shared:2011MNRAS.410..190T"
       },
       "physicalObservations": [
         {
@@ -43138,6 +44627,24 @@
           "value": 20.821834408353475,
           "status": "derived",
           "source": "Stefan-Boltzmann scaling"
+        },
+        {
+          "field": "age_gyr",
+          "value": 0.0157,
+          "status": "evolutionary-model",
+          "reference": "2011MNRAS.410..190T",
+          "uncertainty": 0.0001,
+          "identity": "* gam Ara",
+          "component": "catalogued primary/individual stellar object",
+          "scope": "Exact * gam Ara / HD 157246, HIP 85267. Source values describe this primary/individual; no companion, subsystem sum, or system-metallicity inference.",
+          "section": "Table 1, HIP 85267",
+          "caveat": "Published photometry/spectral-type evolutionary-model age; errors are cross-model deviations, not all systematics. The sample is age-selected and solar metallicity is assumed, not measured.",
+          "quantity": null,
+          "sourceUrl": "https://cdsarc.cds.unistra.fr/ftp/J/MNRAS/410/190/",
+          "inputs": {
+            "source_spectral_type": "B1Ib",
+            "solar_metallicity_assumed": true
+          }
         }
       ]
     },
@@ -43384,7 +44891,8 @@
       "adoptedPhysicalFields": {
         "temperature_k": "published:2012MNRAS.427..343M:HIP-85755",
         "luminosity_solar": "published:2012MNRAS.427..343M:HIP-85755",
-        "radius_solar": "derived:stefan-boltzmann"
+        "radius_solar": "derived:stefan-boltzmann",
+        "mass_solar": "shared:2012A&A...537A.120Z"
       },
       "physicalObservations": [
         {
@@ -43410,6 +44918,25 @@
           "value": 8.64758999434465,
           "status": "derived",
           "source": "Stefan-Boltzmann scaling"
+        },
+        {
+          "field": "mass_solar",
+          "value": 3.27,
+          "status": "evolutionary-model",
+          "reference": "2012A&A...537A.120Z",
+          "uncertainty": 0.04,
+          "identity": "* c Oph",
+          "component": "catalogued primary/individual stellar object",
+          "scope": "Exact * c Oph / HD 158643, HIP 85755. Source values describe this primary/individual; no companion, subsystem sum, or system-metallicity inference.",
+          "section": "Table 1, HD 158643",
+          "caveat": "Published HR-diagram model mass. Its age column is fractional main-sequence age and is deliberately not put into age_gyr.",
+          "quantity": null,
+          "sourceUrl": "https://cdsarc.cds.unistra.fr/ftp/J/A+A/537/A120/",
+          "inputs": {
+            "source_log_temperature": 3.993,
+            "source_log_luminosity": 2.3832,
+            "fractional_MS_age_not_gyr": 1.012
+          }
         }
       ]
     },
@@ -44261,7 +45788,8 @@
       "adoptedPhysicalFields": {
         "temperature_k": "bright-stars:bright-kappa-scorpii",
         "luminosity_solar": "bright-stars:bright-kappa-scorpii",
-        "radius_solar": "bright-stars:bright-kappa-scorpii"
+        "radius_solar": "bright-stars:bright-kappa-scorpii",
+        "age_gyr": "bright-stars:bright-kappa-scorpii"
       },
       "physicalObservations": [
         {
@@ -44281,6 +45809,13 @@
         {
           "field": "radius_solar",
           "value": 8.1218,
+          "status": "inherited",
+          "source": "bright-stars",
+          "sourceId": "bright-kappa-scorpii"
+        },
+        {
+          "field": "age_gyr",
+          "value": 0.0251,
           "status": "inherited",
           "source": "bright-stars",
           "sourceId": "bright-kappa-scorpii"
@@ -45421,7 +46956,8 @@
       "adoptedPhysicalFields": {
         "temperature_k": "published:2012MNRAS.427..343M:HIP-88794",
         "luminosity_solar": "published:2012MNRAS.427..343M:HIP-88794",
-        "radius_solar": "derived:stefan-boltzmann"
+        "radius_solar": "derived:stefan-boltzmann",
+        "mass_solar": "shared:2012A&A...537A.120Z"
       },
       "physicalObservations": [
         {
@@ -45447,6 +46983,25 @@
           "value": 7.217250723128622,
           "status": "derived",
           "source": "Stefan-Boltzmann scaling"
+        },
+        {
+          "field": "mass_solar",
+          "value": 3.49,
+          "status": "evolutionary-model",
+          "reference": "2012A&A...537A.120Z",
+          "uncertainty": 0.04,
+          "identity": "* omi Her",
+          "component": "catalogued primary/individual stellar object",
+          "scope": "Exact * omi Her / HD 166014, HIP 88794. Source values describe this primary/individual; no companion, subsystem sum, or system-metallicity inference.",
+          "section": "Table 1, HD 166014",
+          "caveat": "Published HR-diagram model mass. Its age column is fractional main-sequence age and is deliberately not put into age_gyr.",
+          "quantity": null,
+          "sourceUrl": "https://cdsarc.cds.unistra.fr/ftp/J/A+A/537/A120/",
+          "inputs": {
+            "source_log_temperature": 3.977,
+            "source_log_luminosity": 2.55,
+            "fractional_MS_age_not_gyr": 1.019
+          }
         }
       ]
     },
@@ -45611,10 +47166,66 @@
       },
       "gaiaDr3Id": "4038055447778237312",
       "adoptedPhysicalFields": {
+        "mass_solar": "shared:2019A&A...624A..35K",
+        "radius_solar": "shared:2019A&A...624A..35K",
+        "luminosity_solar": "shared:2019A&A...624A..35K",
         "temperature_k": "shared:2020A&A...633A..34C",
         "metallicity_dex": "shared:2020A&A...633A..34C"
       },
       "physicalObservations": [
+        {
+          "field": "mass_solar",
+          "value": 2.1,
+          "status": "granulation-scaling",
+          "reference": "2019A&A...624A..35K",
+          "uncertainty": 0.7,
+          "identity": "* eta Sgr",
+          "component": "catalogued primary/individual stellar object",
+          "scope": "Exact * eta Sgr / HD 167618, HIP 89642. Source values describe this primary/individual; no companion, subsystem sum, or system-metallicity inference.",
+          "section": "Table 3, M_direct (not M_grid)",
+          "caveat": "Calibrated granulation gravity and a literature radius; not a dynamical mass. Includes the source radius/distance assumptions.",
+          "quantity": null,
+          "sourceUrl": "https://arxiv.org/html/1902.07531",
+          "inputs": {
+            "source_radius_solar": 66,
+            "source_radius_error_solar": 12
+          }
+        },
+        {
+          "field": "radius_solar",
+          "value": 66.0,
+          "status": "interferometric-derived",
+          "reference": "2019A&A...624A..35K",
+          "uncertainty": 12,
+          "identity": "* eta Sgr",
+          "component": "catalogued primary/individual stellar object",
+          "scope": "Exact * eta Sgr / HD 167618, HIP 89642. Source values describe this primary/individual; no companion, subsystem sum, or system-metallicity inference.",
+          "section": "Table 3 and its radius-source footnotes",
+          "caveat": "Published literature angular-diameter radius at its source parallax; not rescaled to the independent map distance.",
+          "quantity": null,
+          "sourceUrl": "https://arxiv.org/html/1902.07531"
+        },
+        {
+          "field": "luminosity_solar",
+          "value": 524.8074602,
+          "status": "derived",
+          "reference": "2019A&A...624A..35K",
+          "uncertainty": {
+            "lower": 35.02864088132617,
+            "upper": 37.53386494057622
+          },
+          "identity": "* eta Sgr",
+          "component": "catalogued primary/individual stellar object",
+          "scope": "Exact * eta Sgr / HD 167618, HIP 89642. Source values describe this primary/individual; no companion, subsystem sum, or system-metallicity inference.",
+          "section": "Table 2, adopted McDonald et al. 2017 luminosity",
+          "caveat": "Published luminosity and radius are independent source estimates; their disagreement with a Stefan-Boltzmann combination is not silently erased.",
+          "quantity": null,
+          "sourceUrl": "https://arxiv.org/html/1902.07531",
+          "inputs": {
+            "source_log10_value": 2.72,
+            "source_log10_uncertainty": 0.03
+          }
+        },
         {
           "field": "temperature_k",
           "value": 3600.0,
@@ -47484,7 +49095,9 @@
       "adoptedPhysicalFields": {
         "temperature_k": "published:2012MNRAS.427..343M:HIP-92609",
         "luminosity_solar": "published:2012MNRAS.427..343M:HIP-92609",
-        "radius_solar": "derived:stefan-boltzmann"
+        "radius_solar": "derived:stefan-boltzmann",
+        "age_gyr": "shared:2011MNRAS.410..190T",
+        "mass_solar": "shared:2011MNRAS.410..190T"
       },
       "physicalObservations": [
         {
@@ -47510,6 +49123,42 @@
           "value": 14.148710554803767,
           "status": "derived",
           "source": "Stefan-Boltzmann scaling"
+        },
+        {
+          "field": "age_gyr",
+          "value": 0.0158,
+          "status": "evolutionary-model",
+          "reference": "2011MNRAS.410..190T",
+          "uncertainty": 0.0002,
+          "identity": "* lam Pav",
+          "component": "catalogued primary/individual stellar object",
+          "scope": "Exact * lam Pav / HD 173948, HIP 92609. Source values describe this primary/individual; no companion, subsystem sum, or system-metallicity inference.",
+          "section": "Table 1, HIP 92609",
+          "caveat": "Published photometry/spectral-type evolutionary-model age; errors are cross-model deviations, not all systematics. The sample is age-selected and solar metallicity is assumed, not measured.",
+          "quantity": null,
+          "sourceUrl": "https://cdsarc.cds.unistra.fr/ftp/J/MNRAS/410/190/",
+          "inputs": {
+            "source_spectral_type": "B2II-III",
+            "solar_metallicity_assumed": true
+          }
+        },
+        {
+          "field": "mass_solar",
+          "value": 12.5,
+          "status": "evolutionary-model",
+          "reference": "2011MNRAS.410..190T",
+          "uncertainty": 0.6,
+          "identity": "* lam Pav",
+          "component": "catalogued primary/individual stellar object",
+          "scope": "Exact * lam Pav / HD 173948, HIP 92609. Source values describe this primary/individual; no companion, subsystem sum, or system-metallicity inference.",
+          "section": "Table 1, HIP 92609",
+          "caveat": "Published object-specific median of evolutionary models; not a dynamical mass. Model-to-model deviation does not include all source photometry, rotation or metallicity systematics.",
+          "quantity": null,
+          "sourceUrl": "https://cdsarc.cds.unistra.fr/ftp/J/MNRAS/410/190/",
+          "inputs": {
+            "source_spectral_type": "B2II-III",
+            "solar_metallicity_assumed": true
+          }
         }
       ]
     },
@@ -47610,6 +49259,7 @@
         "temperature_k": "published:2012MNRAS.427..343M:HIP-92814",
         "luminosity_solar": "published:2012MNRAS.427..343M:HIP-92814",
         "radius_solar": "derived:stefan-boltzmann",
+        "age_gyr": "shared:2011MNRAS.410..190T",
         "metallicity_dex": "shared:2023ApJS..266...41P"
       },
       "physicalObservations": [
@@ -47636,6 +49286,24 @@
           "value": 29.080504421401145,
           "status": "derived",
           "source": "Stefan-Boltzmann scaling"
+        },
+        {
+          "field": "age_gyr",
+          "value": 0.0251,
+          "status": "evolutionary-model",
+          "reference": "2011MNRAS.410..190T",
+          "uncertainty": 0.0013,
+          "identity": "HD 175156",
+          "component": "catalogued primary/individual stellar object",
+          "scope": "Exact HD 175156 / HIP 92814. Source values describe this primary/individual; no companion, subsystem sum, or system-metallicity inference.",
+          "section": "Table 1, HIP 92814",
+          "caveat": "Published photometry/spectral-type evolutionary-model age; errors are cross-model deviations, not all systematics. The sample is age-selected and solar metallicity is assumed, not measured.",
+          "quantity": null,
+          "sourceUrl": "https://cdsarc.cds.unistra.fr/ftp/J/MNRAS/410/190/",
+          "inputs": {
+            "source_spectral_type": "B3II",
+            "solar_metallicity_assumed": true
+          }
         },
         {
           "field": "metallicity_dex",
@@ -54658,6 +56326,10 @@
       "gaiaDr3Id": "6356375508718385024",
       "adoptedPhysicalFields": {
         "temperature_k": "published:1999A&A...352..555A:HIP-107089",
+        "mass_solar": "shared:Cheng et al. 2025; 2025Natur.641..853C",
+        "radius_solar": "shared:Cheng et al. 2025; 2025Natur.641..853C",
+        "age_gyr": "shared:Cheng et al. 2025; 2025Natur.641..853C",
+        "luminosity_solar": "shared:Cheng et al. 2025; 2025Natur.641..853C",
         "metallicity_dex": "shared:2024A&A...691A..53S"
       },
       "physicalObservations": [
@@ -54669,6 +56341,72 @@
           "source": "Allende Prieto & Lambert 1999",
           "sourceId": "HIP 107089",
           "bibcode": "1999A&A...352..555A"
+        },
+        {
+          "field": "mass_solar",
+          "value": 1.57,
+          "status": "published-primary-model",
+          "reference": "Cheng et al. 2025; 2025Natur.641..853C",
+          "uncertainty": 0.06,
+          "identity": "* nu. Oct",
+          "component": "catalogued primary/individual stellar object",
+          "scope": "Exact * nu. Oct / HD 205478, HIP 107089. Source values describe this primary/individual; no companion, subsystem sum, or system-metallicity inference.",
+          "section": "Primary nu Oct A, NASA Exoplanet Archive ps row citing Cheng et al. 2025",
+          "caveat": null,
+          "quantity": null,
+          "sourceUrl": "https://www.nature.com/articles/s41586-025-09006-x",
+          "sourceRecordId": "nu Oct A:CHENG_ET_AL__2025"
+        },
+        {
+          "field": "radius_solar",
+          "value": 5.04,
+          "status": "published-primary-model",
+          "reference": "Cheng et al. 2025; 2025Natur.641..853C",
+          "uncertainty": 0.1,
+          "identity": "* nu. Oct",
+          "component": "catalogued primary/individual stellar object",
+          "scope": "Exact * nu. Oct / HD 205478, HIP 107089. Source values describe this primary/individual; no companion, subsystem sum, or system-metallicity inference.",
+          "section": "Primary nu Oct A, NASA Exoplanet Archive ps row citing Cheng et al. 2025",
+          "caveat": null,
+          "quantity": null,
+          "sourceUrl": "https://www.nature.com/articles/s41586-025-09006-x",
+          "sourceRecordId": "nu Oct A:CHENG_ET_AL__2025"
+        },
+        {
+          "field": "age_gyr",
+          "value": 2.7,
+          "status": "published-primary-model",
+          "reference": "Cheng et al. 2025; 2025Natur.641..853C",
+          "uncertainty": 0.35,
+          "identity": "* nu. Oct",
+          "component": "catalogued primary/individual stellar object",
+          "scope": "Exact * nu. Oct / HD 205478, HIP 107089. Source values describe this primary/individual; no companion, subsystem sum, or system-metallicity inference.",
+          "section": "Primary nu Oct A, NASA Exoplanet Archive ps row citing Cheng et al. 2025",
+          "caveat": null,
+          "quantity": null,
+          "sourceUrl": "https://www.nature.com/articles/s41586-025-09006-x",
+          "sourceRecordId": "nu Oct A:CHENG_ET_AL__2025"
+        },
+        {
+          "field": "luminosity_solar",
+          "value": 13.19988052,
+          "status": "derived",
+          "reference": "Cheng et al. 2025; 2025Natur.641..853C",
+          "uncertainty": {
+            "lower": 0.2998719099007481,
+            "upper": 0.30000234223676436
+          },
+          "identity": "* nu. Oct",
+          "component": "catalogued primary/individual stellar object",
+          "scope": "Exact * nu. Oct / HD 205478, HIP 107089. Source values describe this primary/individual; no companion, subsystem sum, or system-metallicity inference.",
+          "section": "Primary nu Oct A luminosity from the exact NASA ps solution",
+          "caveat": null,
+          "quantity": null,
+          "sourceUrl": "https://www.nature.com/articles/s41586-025-09006-x",
+          "inputs": {
+            "source_log10_luminosity_solar": 1.12057
+          },
+          "sourceRecordId": "nu Oct A:CHENG_ET_AL__2025"
         },
         {
           "field": "metallicity_dex",

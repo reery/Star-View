@@ -71,11 +71,11 @@
         "vy_kms": -39.219928,
         "vz_kms": -12.756056,
         "temperature_k": 4786.0,
-        "mass_solar": null,
-        "luminosity_solar": null,
-        "radius_solar": null,
+        "mass_solar": 1.57,
+        "luminosity_solar": 13.19988052,
+        "radius_solar": 5.04,
         "metallicity_dex": 0.124,
-        "age_gyr": null,
+        "age_gyr": 2.7,
         "absolute_mag": 2.287761,
         "epoch": 2000.0,
         "type": "star",
@@ -84,7 +84,7 @@
         "constellation": "Octans",
         "spectral_type": "K1III",
         "metallicity_kind": "[Fe/H]",
-        "notes": "Western constellation line-figure star (HIP 107089; Stellarium Oct). SIMBAD identity * nu. Oct; SIMBAD compiled Johnson V=3.728; inverse SIMBAD compiled parallax distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k. Shared exact-identity physical supplements (metallicity_dex: 2024A&A...691A..53S).",
+        "notes": "Western constellation line-figure star (HIP 107089; Stellarium Oct). SIMBAD identity * nu. Oct; SIMBAD compiled Johnson V=3.728; inverse SIMBAD compiled parallax distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k. Reviewed physical values describe Nu Oct. Exact * nu. Oct / HD 205478, HIP 107089. Source values describe this primary/individual; no companion, subsystem sum, or system-metallicity inference. Reviewed 151-target enrichment (2026-10-21). Cheng et al. 2025; 2025Natur.641..853C. Existing non-null values retain their independent sources. Shared exact-identity physical supplements (mass_solar: Cheng et al. 2025; 2025Natur.641..853C; radius_solar: Cheng et al. 2025; 2025Natur.641..853C; age_gyr: Cheng et al. 2025; 2025Natur.641..853C; luminosity_solar: Cheng et al. 2025; 2025Natur.641..853C; metallicity_dex: 2024A&A...691A..53S).",
         "designations": [
           "HIP 107089"
         ],
@@ -1796,7 +1796,7 @@
       "label": "Adopted star positions and names",
       "url": "https://simbad.cds.unistra.fr/simbad/",
       "path": "src/data/catalogs/western-constellation-stars/stars.csv",
-      "sha256": "28689abf630ec0b3322df1dbbe21e8fb1090dc3a1a03b670b2e6572292aeea6c"
+      "sha256": "e8cdc61e33e9ea33a76ff78cd1fd1115821cfe94641aeac65f29ded0263b9e54"
     },
     {
       "label": "Hipparcos Johnson V magnitudes",

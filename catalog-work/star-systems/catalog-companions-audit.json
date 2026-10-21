@@ -2651,6 +2651,62 @@
           "Giant"
         ],
         "method": "Physical subtype from this component's own adopted spectrum; no aggregate-label inheritance"
+      },
+      "reviewedLiterature": {
+        "expectedName": "Delta And Aa",
+        "systemId": "msc-00393+3052",
+        "component": "Aa",
+        "retainPreviousRecord": true,
+        "note": "Reviewed 151-target enrichment (2026-10-21). 2008AJ....135..209M. Existing non-null values retain their independent sources.",
+        "fields": {
+          "radius_solar": {
+            "value": 15.7,
+            "reference": "2008AJ....135..209M",
+            "sourceUrl": "https://cdsarc.cds.unistra.fr/ftp/J/AJ/135/209/",
+            "url": "https://cdsarc.cds.unistra.fr/ftp/J/AJ/135/209/",
+            "section": "Table 14, primary HIP 3092",
+            "status": "primary-photometric-model",
+            "uncertainty": null
+          },
+          "luminosity_solar": {
+            "value": 74.13102413,
+            "reference": "2008AJ....135..209M",
+            "sourceUrl": "https://cdsarc.cds.unistra.fr/ftp/J/AJ/135/209/",
+            "url": "https://cdsarc.cds.unistra.fr/ftp/J/AJ/135/209/",
+            "section": "Table 14, explicitly primary luminosity",
+            "status": "derived",
+            "uncertainty": null,
+            "inputs": {
+              "source_log10_value": 1.87,
+              "source_log10_uncertainty": null
+            }
+          }
+        },
+        "adopted": {
+          "radius_solar": {
+            "value": 15.7,
+            "reference": "2008AJ....135..209M",
+            "sourceUrl": "https://cdsarc.cds.unistra.fr/ftp/J/AJ/135/209/",
+            "url": "https://cdsarc.cds.unistra.fr/ftp/J/AJ/135/209/",
+            "section": "Table 14, primary HIP 3092",
+            "status": "primary-photometric-model",
+            "uncertainty": null
+          },
+          "luminosity_solar": {
+            "value": 74.13102413,
+            "reference": "2008AJ....135..209M",
+            "sourceUrl": "https://cdsarc.cds.unistra.fr/ftp/J/AJ/135/209/",
+            "url": "https://cdsarc.cds.unistra.fr/ftp/J/AJ/135/209/",
+            "section": "Table 14, explicitly primary luminosity",
+            "status": "derived",
+            "uncertainty": null,
+            "inputs": {
+              "source_log10_value": 1.87,
+              "source_log10_uncertainty": null
+            }
+          }
+        },
+        "retained": {}
       }
     },
     "msc-00393+3052-ab": {
@@ -9662,6 +9718,146 @@
           "Subgiant"
         ],
         "method": "Physical subtype from this component's own adopted spectrum; no aggregate-label inheritance"
+      },
+      "reviewedLiterature": {
+        "expectedName": "Mu Cet A",
+        "systemId": "msc-02449+1007",
+        "component": "A",
+        "retainPreviousRecord": true,
+        "note": "Reviewed 151-target enrichment (2026-10-21). 2024AstBu..79..445D. Existing non-null values retain their independent sources. Component mass from a solar-composition MIST fit, not the independently measured total dynamical system mass. Published hot-atmosphere Fe abundance; alternative 7060 K atmosphere gives -0.18 dex. The +0.06 initial photometric [M/H] is not adopted as a measured final abundance. Evolutionary age constrained by component A and a coeval binary model; solar-composition MIST assumptions retained.",
+        "fields": {
+          "mass_solar": {
+            "value": 1.66,
+            "reference": "2024AstBu..79..445D",
+            "sourceUrl": "https://arxiv.org/html/2409.15063",
+            "url": "https://arxiv.org/html/2409.15063",
+            "section": "Section 3.6, component A MIST tracks",
+            "status": "evolutionary-model",
+            "uncertainty": 0.04,
+            "caveat": "Component mass from a solar-composition MIST fit, not the independently measured total dynamical system mass."
+          },
+          "radius_solar": {
+            "value": 2.07,
+            "reference": "2024AstBu..79..445D",
+            "sourceUrl": "https://arxiv.org/html/2409.15063",
+            "url": "https://arxiv.org/html/2409.15063",
+            "section": "Section 3.3.1, secondary-subtracted IRFM solution",
+            "status": "IRFM-derived",
+            "uncertainty": 0.11
+          },
+          "metallicity_dex": {
+            "value": -0.09,
+            "reference": "2024AstBu..79..445D",
+            "sourceUrl": "https://arxiv.org/html/2409.15063",
+            "url": "https://arxiv.org/html/2409.15063",
+            "section": "Table 8, Fe abundance of component A, 7210 K atmosphere",
+            "status": "spectroscopic",
+            "uncertainty": 0.19,
+            "quantity": "[Fe/H]",
+            "caveat": "Published hot-atmosphere Fe abundance; alternative 7060 K atmosphere gives -0.18 dex. The +0.06 initial photometric [M/H] is not adopted as a measured final abundance."
+          },
+          "luminosity_solar": {
+            "value": 11.451459686,
+            "reference": "2024AstBu..79..445D",
+            "sourceUrl": "https://arxiv.org/html/2409.15063",
+            "url": "https://arxiv.org/html/2409.15063",
+            "section": "Derived from section 3.3.1 primary IRFM R and Teff",
+            "status": "derived",
+            "uncertainty": 1.6520937757516647,
+            "inputs": {
+              "source_radius_solar": 2.07,
+              "radius_error_solar": 0.11,
+              "source_temperature_k": 7380,
+              "temperature_error_k": 180,
+              "solar_temperature_k": 5772
+            },
+            "method": "Stefan-Boltzmann from the secondary-subtracted same-source IRFM solution; approximate covariance-free error"
+          },
+          "age_gyr": {
+            "value": 1.202264435,
+            "reference": "2024AstBu..79..445D",
+            "sourceUrl": "https://arxiv.org/html/2409.15063",
+            "url": "https://arxiv.org/html/2409.15063",
+            "section": "Section 3.6, log age(years)=9.08 +/-0.06; coeval primary HR-diagram fit",
+            "status": "derived",
+            "uncertainty": {
+              "lower": 0.15513588656651334,
+              "upper": 0.17811982998547182
+            },
+            "inputs": {
+              "source_log10_value": 0.08,
+              "source_log10_uncertainty": 0.06
+            },
+            "caveat": "Evolutionary age constrained by component A and a coeval binary model; solar-composition MIST assumptions retained."
+          }
+        },
+        "adopted": {
+          "mass_solar": {
+            "value": 1.66,
+            "reference": "2024AstBu..79..445D",
+            "sourceUrl": "https://arxiv.org/html/2409.15063",
+            "url": "https://arxiv.org/html/2409.15063",
+            "section": "Section 3.6, component A MIST tracks",
+            "status": "evolutionary-model",
+            "uncertainty": 0.04,
+            "caveat": "Component mass from a solar-composition MIST fit, not the independently measured total dynamical system mass."
+          },
+          "radius_solar": {
+            "value": 2.07,
+            "reference": "2024AstBu..79..445D",
+            "sourceUrl": "https://arxiv.org/html/2409.15063",
+            "url": "https://arxiv.org/html/2409.15063",
+            "section": "Section 3.3.1, secondary-subtracted IRFM solution",
+            "status": "IRFM-derived",
+            "uncertainty": 0.11
+          },
+          "metallicity_dex": {
+            "value": -0.09,
+            "reference": "2024AstBu..79..445D",
+            "sourceUrl": "https://arxiv.org/html/2409.15063",
+            "url": "https://arxiv.org/html/2409.15063",
+            "section": "Table 8, Fe abundance of component A, 7210 K atmosphere",
+            "status": "spectroscopic",
+            "uncertainty": 0.19,
+            "quantity": "[Fe/H]",
+            "caveat": "Published hot-atmosphere Fe abundance; alternative 7060 K atmosphere gives -0.18 dex. The +0.06 initial photometric [M/H] is not adopted as a measured final abundance."
+          },
+          "luminosity_solar": {
+            "value": 11.451459686,
+            "reference": "2024AstBu..79..445D",
+            "sourceUrl": "https://arxiv.org/html/2409.15063",
+            "url": "https://arxiv.org/html/2409.15063",
+            "section": "Derived from section 3.3.1 primary IRFM R and Teff",
+            "status": "derived",
+            "uncertainty": 1.6520937757516647,
+            "inputs": {
+              "source_radius_solar": 2.07,
+              "radius_error_solar": 0.11,
+              "source_temperature_k": 7380,
+              "temperature_error_k": 180,
+              "solar_temperature_k": 5772
+            },
+            "method": "Stefan-Boltzmann from the secondary-subtracted same-source IRFM solution; approximate covariance-free error"
+          },
+          "age_gyr": {
+            "value": 1.202264435,
+            "reference": "2024AstBu..79..445D",
+            "sourceUrl": "https://arxiv.org/html/2409.15063",
+            "url": "https://arxiv.org/html/2409.15063",
+            "section": "Section 3.6, log age(years)=9.08 +/-0.06; coeval primary HR-diagram fit",
+            "status": "derived",
+            "uncertainty": {
+              "lower": 0.15513588656651334,
+              "upper": 0.17811982998547182
+            },
+            "inputs": {
+              "source_log10_value": 0.08,
+              "source_log10_uncertainty": 0.06
+            },
+            "caveat": "Evolutionary age constrained by component A and a coeval binary model; solar-composition MIST assumptions retained."
+          }
+        },
+        "retained": {}
       }
     },
     "msc-02449+1007-b": {
@@ -17237,6 +17433,88 @@
           "Bright giant"
         ],
         "method": "Physical subtype from this component's own adopted spectrum; no aggregate-label inheritance"
+      },
+      "reviewedLiterature": {
+        "expectedName": "Mintaka Aa1",
+        "systemId": "msc-05320-0018",
+        "component": "Aa1",
+        "retainPreviousRecord": true,
+        "note": "Reviewed 151-target enrichment (2026-10-21). 2023A&A...672A..31O. Existing non-null values retain their independent sources.",
+        "fields": {
+          "mass_solar": {
+            "value": 17.803,
+            "reference": "2023A&A...672A..31O",
+            "sourceUrl": "https://arxiv.org/html/2301.10290",
+            "url": "https://arxiv.org/html/2301.10290",
+            "section": "Table 12, Aa1 m1",
+            "status": "three-body-dynamical-model",
+            "uncertainty": 1.0
+          },
+          "radius_solar": {
+            "value": 13.119,
+            "reference": "2023A&A...672A..31O",
+            "sourceUrl": "https://arxiv.org/html/2301.10290",
+            "url": "https://arxiv.org/html/2301.10290",
+            "section": "Table 12, Aa1 R1",
+            "status": "binary-model",
+            "uncertainty": 1.0
+          },
+          "luminosity_solar": {
+            "value": 150447.406801617,
+            "reference": "2023A&A...672A..31O",
+            "sourceUrl": "https://arxiv.org/html/2301.10290",
+            "url": "https://arxiv.org/html/2301.10290",
+            "section": "Derived from Table 11 Aa1 T1 and Table 12 Aa1 R1",
+            "status": "derived",
+            "uncertainty": 29894.983647451587,
+            "inputs": {
+              "temperature_k": 31385,
+              "temperature_error_k": 1000,
+              "radius_solar": 13.119,
+              "radius_error_solar": 1.0,
+              "solar_temperature_k": 5772
+            },
+            "method": "Stefan-Boltzmann; approximate independent-error propagation, covariance unavailable"
+          }
+        },
+        "adopted": {
+          "mass_solar": {
+            "value": 17.803,
+            "reference": "2023A&A...672A..31O",
+            "sourceUrl": "https://arxiv.org/html/2301.10290",
+            "url": "https://arxiv.org/html/2301.10290",
+            "section": "Table 12, Aa1 m1",
+            "status": "three-body-dynamical-model",
+            "uncertainty": 1.0
+          },
+          "radius_solar": {
+            "value": 13.119,
+            "reference": "2023A&A...672A..31O",
+            "sourceUrl": "https://arxiv.org/html/2301.10290",
+            "url": "https://arxiv.org/html/2301.10290",
+            "section": "Table 12, Aa1 R1",
+            "status": "binary-model",
+            "uncertainty": 1.0
+          },
+          "luminosity_solar": {
+            "value": 150447.406801617,
+            "reference": "2023A&A...672A..31O",
+            "sourceUrl": "https://arxiv.org/html/2301.10290",
+            "url": "https://arxiv.org/html/2301.10290",
+            "section": "Derived from Table 11 Aa1 T1 and Table 12 Aa1 R1",
+            "status": "derived",
+            "uncertainty": 29894.983647451587,
+            "inputs": {
+              "temperature_k": 31385,
+              "temperature_error_k": 1000,
+              "radius_solar": 13.119,
+              "radius_error_solar": 1.0,
+              "solar_temperature_k": 5772
+            },
+            "method": "Stefan-Boltzmann; approximate independent-error propagation, covariance unavailable"
+          }
+        },
+        "retained": {}
       }
     },
     "msc-05320-0018-aa2": {
@@ -18853,6 +19131,86 @@
           "Supergiant"
         ],
         "method": "Physical subtype from this component's own adopted spectrum; no aggregate-label inheritance"
+      },
+      "reviewedLiterature": {
+        "expectedName": "Alnitak Aa",
+        "systemId": "msc-05407-0157",
+        "component": "Aa",
+        "retainPreviousRecord": true,
+        "note": "Reviewed 151-target enrichment (2026-10-21). 2013A&A...554A..52H. Existing non-null values retain their independent sources. Authors preferred photometric-distance solution; RV systematics and strong distance dependence. Not a precise purely dynamical determination.",
+        "fields": {
+          "mass_solar": {
+            "value": 33,
+            "reference": "2013A&A...554A..52H",
+            "sourceUrl": "https://arxiv.org/html/1306.0330",
+            "url": "https://arxiv.org/html/1306.0330",
+            "section": "Table 4; sections 3.1\u20133.3",
+            "status": "orbit-and-distance-model",
+            "uncertainty": 10,
+            "inputs": {
+              "photometric_distance_pc": 387,
+              "photometric_distance_error_pc": 54,
+              "alternate_orbital_only_mass_solar": 14.0,
+              "alternate_mass_error_solar": 2.2,
+              "alternate_orbital_distance_pc": 294
+            },
+            "caveat": "Authors preferred photometric-distance solution; RV systematics and strong distance dependence. Not a precise purely dynamical determination."
+          },
+          "radius_solar": {
+            "value": 20,
+            "reference": "2013A&A...554A..52H",
+            "sourceUrl": "https://arxiv.org/html/1306.0330",
+            "url": "https://arxiv.org/html/1306.0330",
+            "section": "Table 4; sections 3.1\u20133.3",
+            "status": "interferometric-derived",
+            "uncertainty": 3.2,
+            "inputs": {
+              "photometric_distance_pc": 387,
+              "photometric_distance_error_pc": 54,
+              "alternate_orbital_only_mass_solar": 14.0,
+              "alternate_mass_error_solar": 2.2,
+              "alternate_orbital_distance_pc": 294
+            },
+            "caveat": "Authors preferred photometric-distance solution; RV systematics and strong distance dependence. Not a precise purely dynamical determination."
+          }
+        },
+        "adopted": {
+          "mass_solar": {
+            "value": 33,
+            "reference": "2013A&A...554A..52H",
+            "sourceUrl": "https://arxiv.org/html/1306.0330",
+            "url": "https://arxiv.org/html/1306.0330",
+            "section": "Table 4; sections 3.1\u20133.3",
+            "status": "orbit-and-distance-model",
+            "uncertainty": 10,
+            "inputs": {
+              "photometric_distance_pc": 387,
+              "photometric_distance_error_pc": 54,
+              "alternate_orbital_only_mass_solar": 14.0,
+              "alternate_mass_error_solar": 2.2,
+              "alternate_orbital_distance_pc": 294
+            },
+            "caveat": "Authors preferred photometric-distance solution; RV systematics and strong distance dependence. Not a precise purely dynamical determination."
+          },
+          "radius_solar": {
+            "value": 20,
+            "reference": "2013A&A...554A..52H",
+            "sourceUrl": "https://arxiv.org/html/1306.0330",
+            "url": "https://arxiv.org/html/1306.0330",
+            "section": "Table 4; sections 3.1\u20133.3",
+            "status": "interferometric-derived",
+            "uncertainty": 3.2,
+            "inputs": {
+              "photometric_distance_pc": 387,
+              "photometric_distance_error_pc": 54,
+              "alternate_orbital_only_mass_solar": 14.0,
+              "alternate_mass_error_solar": 2.2,
+              "alternate_orbital_distance_pc": 294
+            },
+            "caveat": "Authors preferred photometric-distance solution; RV systematics and strong distance dependence. Not a precise purely dynamical determination."
+          }
+        },
+        "retained": {}
       }
     },
     "msc-05407-0157-ab": {
@@ -29313,6 +29671,86 @@
           "Main-sequence"
         ],
         "method": "Physical subtype from this component's own adopted spectrum; no aggregate-label inheritance"
+      },
+      "reviewedLiterature": {
+        "expectedName": "Alsephina Aa",
+        "systemId": "msc-08447-5443",
+        "component": "Aa",
+        "retainPreviousRecord": true,
+        "note": "Reviewed 151-target enrichment (2026-10-21). 2011A&A...532A..50M. Existing non-null values retain their independent sources.",
+        "fields": {
+          "mass_solar": {
+            "value": 2.43,
+            "reference": "2011A&A...532A..50M",
+            "sourceUrl": "https://arxiv.org/html/1106.2383",
+            "url": "https://arxiv.org/html/1106.2383",
+            "section": "Table 3, Aa",
+            "status": "binary-dynamical-model",
+            "uncertainty": 0.02
+          },
+          "luminosity_solar": {
+            "value": 67,
+            "reference": "2011A&A...532A..50M",
+            "sourceUrl": "https://arxiv.org/html/1106.2383",
+            "url": "https://arxiv.org/html/1106.2383",
+            "section": "Table 3, Aa",
+            "status": "rotating-star-model",
+            "uncertainty": 3
+          },
+          "radius_solar": {
+            "value": 2.908745341,
+            "reference": "2011A&A...532A..50M",
+            "sourceUrl": "https://arxiv.org/html/1106.2383",
+            "url": "https://arxiv.org/html/1106.2383",
+            "section": "Derived volume-equivalent radius from Table 3 Aa pole/equator",
+            "status": "derived",
+            "uncertainty": 0.01907230681659632,
+            "inputs": {
+              "polar_radius_solar": 2.79,
+              "polar_error_solar": 0.04,
+              "equatorial_radius_solar": 2.97,
+              "equatorial_error_solar": 0.02
+            },
+            "method": "Volume-equivalent oblate spheroid radius (R_equator^2 R_pole)^(1/3); approximate covariance-free error"
+          }
+        },
+        "adopted": {
+          "mass_solar": {
+            "value": 2.43,
+            "reference": "2011A&A...532A..50M",
+            "sourceUrl": "https://arxiv.org/html/1106.2383",
+            "url": "https://arxiv.org/html/1106.2383",
+            "section": "Table 3, Aa",
+            "status": "binary-dynamical-model",
+            "uncertainty": 0.02
+          },
+          "luminosity_solar": {
+            "value": 67,
+            "reference": "2011A&A...532A..50M",
+            "sourceUrl": "https://arxiv.org/html/1106.2383",
+            "url": "https://arxiv.org/html/1106.2383",
+            "section": "Table 3, Aa",
+            "status": "rotating-star-model",
+            "uncertainty": 3
+          },
+          "radius_solar": {
+            "value": 2.908745341,
+            "reference": "2011A&A...532A..50M",
+            "sourceUrl": "https://arxiv.org/html/1106.2383",
+            "url": "https://arxiv.org/html/1106.2383",
+            "section": "Derived volume-equivalent radius from Table 3 Aa pole/equator",
+            "status": "derived",
+            "uncertainty": 0.01907230681659632,
+            "inputs": {
+              "polar_radius_solar": 2.79,
+              "polar_error_solar": 0.04,
+              "equatorial_radius_solar": 2.97,
+              "equatorial_error_solar": 0.02
+            },
+            "method": "Volume-equivalent oblate spheroid radius (R_equator^2 R_pole)^(1/3); approximate covariance-free error"
+          }
+        },
+        "retained": {}
       }
     },
     "msc-08447-5443-ab": {
@@ -33260,23 +33698,91 @@
         "expectedName": "Beta LMi A",
         "systemId": "msc-10279+3642",
         "component": "A",
+        "retainPreviousRecord": true,
+        "note": "Reviewed 151-target enrichment (2026-10-21). 2008AJ....135..209M. Existing non-null values retain their independent sources. Source tabulates an approximate mass to 0.1 solar masses without a formal error; both evolutionary-stage alternatives agree.",
         "fields": {
-          "apparent_mag": {
-            "value": 4.429,
-            "status": "decomposed-photometry",
-            "reference": "2020MNRAS.492.2709P",
-            "sourceUrl": "https://doi.org/10.1093/mnras/stz3616",
-            "section": "Table 6, Vmag1",
-            "sourceRecordId": "HD 90537",
-            "caveat": "Published decomposition of Johnson V using resolved brightness differences, not ORB6 band-ambiguous magnitudes."
+          "radius_solar": {
+            "value": 8.0,
+            "reference": "2008AJ....135..209M",
+            "sourceUrl": "https://cdsarc.cds.unistra.fr/ftp/J/AJ/135/209/",
+            "url": "https://cdsarc.cds.unistra.fr/ftp/J/AJ/135/209/",
+            "section": "Table 14, primary HIP 51233",
+            "status": "primary-photometric-model",
+            "uncertainty": null
+          },
+          "luminosity_solar": {
+            "value": 36.307805477,
+            "reference": "2008AJ....135..209M",
+            "sourceUrl": "https://cdsarc.cds.unistra.fr/ftp/J/AJ/135/209/",
+            "url": "https://cdsarc.cds.unistra.fr/ftp/J/AJ/135/209/",
+            "section": "Table 14, explicitly primary luminosity",
+            "status": "derived",
+            "uncertainty": null,
+            "inputs": {
+              "source_log10_value": 1.56,
+              "source_log10_uncertainty": null
+            }
+          },
+          "mass_solar": {
+            "value": 2.2,
+            "reference": "2008AJ....135..209M",
+            "sourceUrl": "https://cdsarc.cds.unistra.fr/ftp/J/AJ/135/209/",
+            "url": "https://cdsarc.cds.unistra.fr/ftp/J/AJ/135/209/",
+            "section": "Table 14, equal first-ascent and post-tip primary masses",
+            "status": "evolutionary-model",
+            "uncertainty": null,
+            "inputs": {
+              "first_ascent_mass_solar": 2.2,
+              "post_tip_mass_solar": 2.2
+            },
+            "caveat": "Source tabulates an approximate mass to 0.1 solar masses without a formal error; both evolutionary-stage alternatives agree."
           }
         },
-        "note": "Piccotti et al. (2020), exact HD 90537 reviewed pair. Component Johnson V comes from Table 6 resolved-flux decomposition. Eligible masses use Table 5 orbital-parallax solution, with orbital/Hipparcos parallax consistency reviewed. Earlier individual catalog values win; ambiguous hierarchical totals and conflicting atmosphere/model estimates remain unavailable.",
-        "adopted": {},
-        "retained": {
-          "apparent_mag": {
-            "value": 4.62,
-            "unusedLiterature": {
+        "adopted": {
+          "radius_solar": {
+            "value": 8.0,
+            "reference": "2008AJ....135..209M",
+            "sourceUrl": "https://cdsarc.cds.unistra.fr/ftp/J/AJ/135/209/",
+            "url": "https://cdsarc.cds.unistra.fr/ftp/J/AJ/135/209/",
+            "section": "Table 14, primary HIP 51233",
+            "status": "primary-photometric-model",
+            "uncertainty": null
+          },
+          "luminosity_solar": {
+            "value": 36.307805477,
+            "reference": "2008AJ....135..209M",
+            "sourceUrl": "https://cdsarc.cds.unistra.fr/ftp/J/AJ/135/209/",
+            "url": "https://cdsarc.cds.unistra.fr/ftp/J/AJ/135/209/",
+            "section": "Table 14, explicitly primary luminosity",
+            "status": "derived",
+            "uncertainty": null,
+            "inputs": {
+              "source_log10_value": 1.56,
+              "source_log10_uncertainty": null
+            }
+          },
+          "mass_solar": {
+            "value": 2.2,
+            "reference": "2008AJ....135..209M",
+            "sourceUrl": "https://cdsarc.cds.unistra.fr/ftp/J/AJ/135/209/",
+            "url": "https://cdsarc.cds.unistra.fr/ftp/J/AJ/135/209/",
+            "section": "Table 14, equal first-ascent and post-tip primary masses",
+            "status": "evolutionary-model",
+            "uncertainty": null,
+            "inputs": {
+              "first_ascent_mass_solar": 2.2,
+              "post_tip_mass_solar": 2.2
+            },
+            "caveat": "Source tabulates an approximate mass to 0.1 solar masses without a formal error; both evolutionary-stage alternatives agree."
+          }
+        },
+        "retained": {},
+        "previousReview": {
+          "expectedName": "Beta LMi A",
+          "systemId": "msc-10279+3642",
+          "component": "A",
+          "fields": {
+            "apparent_mag": {
               "value": 4.429,
               "status": "decomposed-photometry",
               "reference": "2020MNRAS.492.2709P",
@@ -33284,6 +33790,22 @@
               "section": "Table 6, Vmag1",
               "sourceRecordId": "HD 90537",
               "caveat": "Published decomposition of Johnson V using resolved brightness differences, not ORB6 band-ambiguous magnitudes."
+            }
+          },
+          "note": "Piccotti et al. (2020), exact HD 90537 reviewed pair. Component Johnson V comes from Table 6 resolved-flux decomposition. Eligible masses use Table 5 orbital-parallax solution, with orbital/Hipparcos parallax consistency reviewed. Earlier individual catalog values win; ambiguous hierarchical totals and conflicting atmosphere/model estimates remain unavailable.",
+          "adopted": {},
+          "retained": {
+            "apparent_mag": {
+              "value": 4.62,
+              "unusedLiterature": {
+                "value": 4.429,
+                "status": "decomposed-photometry",
+                "reference": "2020MNRAS.492.2709P",
+                "sourceUrl": "https://doi.org/10.1093/mnras/stz3616",
+                "section": "Table 6, Vmag1",
+                "sourceRecordId": "HD 90537",
+                "caveat": "Published decomposition of Johnson V using resolved brightness differences, not ORB6 band-ambiguous magnitudes."
+              }
             }
           }
         }
@@ -43140,52 +43662,81 @@
         "expectedName": "Mizar Aa",
         "systemId": "msc-13239+5456",
         "component": "Aa",
+        "retainPreviousRecord": true,
+        "note": "Reviewed 151-target enrichment (2026-10-21). 2010A&ARv..18...67T. Existing non-null values retain their independent sources. Radius from component-resolved luminosity/temperature and orbital parallax; not an eclipsing or directly angular-resolved radius. Existing adopted mass and temperature retain their own sources.",
         "fields": {
-          "mass_solar": {
-            "value": 2.222,
-            "status": "dynamical",
-            "reference": "2020MNRAS.492.2709P",
-            "sourceUrl": "https://doi.org/10.1093/mnras/stz3616",
-            "section": "Table 5, M1Orb",
-            "uncertainty": 0.303,
-            "sourceRecordId": "HD 116656",
-            "sourceParallaxMas": 41.3897
+          "radius_solar": {
+            "value": 2.38,
+            "reference": "2010A&ARv..18...67T",
+            "sourceUrl": "https://arxiv.org/html/0908.2624",
+            "url": "https://arxiv.org/html/0908.2624",
+            "section": "Table 5, zeta1 UMa inner-binary A (=Aa)",
+            "status": "component-SED-derived",
+            "uncertainty": 0.13,
+            "caveat": "Radius from component-resolved luminosity/temperature and orbital parallax; not an eclipsing or directly angular-resolved radius. Existing adopted mass and temperature retain their own sources."
           },
-          "apparent_mag": {
-            "value": 2.999,
-            "status": "decomposed-photometry",
-            "reference": "2020MNRAS.492.2709P",
-            "sourceUrl": "https://doi.org/10.1093/mnras/stz3616",
-            "section": "Table 6, Vmag1",
-            "sourceRecordId": "HD 116656",
-            "caveat": "Published decomposition of Johnson V using resolved brightness differences, not ORB6 band-ambiguous magnitudes."
-          },
-          "spectral_type": {
-            "value": "A1V",
-            "status": "compiled",
-            "reference": "2020MNRAS.492.2709P",
-            "sourceUrl": "https://doi.org/10.1093/mnras/stz3616",
-            "section": "Table 7",
-            "sourceRecordId": "HD 116656"
+          "luminosity_solar": {
+            "value": 33.265955329,
+            "reference": "2010A&ARv..18...67T",
+            "sourceUrl": "https://arxiv.org/html/0908.2624",
+            "url": "https://arxiv.org/html/0908.2624",
+            "section": "Table 5, exact inner primary",
+            "status": "derived",
+            "uncertainty": {
+              "lower": 2.0051616581608975,
+              "upper": 2.133778778943011
+            },
+            "inputs": {
+              "source_log10_value": 1.522,
+              "source_log10_uncertainty": 0.027
+            }
           }
         },
-        "note": "Piccotti et al. (2020), exact HD 116656 reviewed pair. Component Johnson V comes from Table 6 resolved-flux decomposition. Eligible masses use Table 5 orbital-parallax solution, with orbital/Hipparcos parallax consistency reviewed. Earlier individual catalog values win; ambiguous hierarchical totals and conflicting atmosphere/model estimates remain unavailable.",
         "adopted": {
-          "mass_solar": {
-            "value": 2.222,
-            "status": "dynamical",
-            "reference": "2020MNRAS.492.2709P",
-            "sourceUrl": "https://doi.org/10.1093/mnras/stz3616",
-            "section": "Table 5, M1Orb",
-            "uncertainty": 0.303,
-            "sourceRecordId": "HD 116656",
-            "sourceParallaxMas": 41.3897
+          "radius_solar": {
+            "value": 2.38,
+            "reference": "2010A&ARv..18...67T",
+            "sourceUrl": "https://arxiv.org/html/0908.2624",
+            "url": "https://arxiv.org/html/0908.2624",
+            "section": "Table 5, zeta1 UMa inner-binary A (=Aa)",
+            "status": "component-SED-derived",
+            "uncertainty": 0.13,
+            "caveat": "Radius from component-resolved luminosity/temperature and orbital parallax; not an eclipsing or directly angular-resolved radius. Existing adopted mass and temperature retain their own sources."
+          },
+          "luminosity_solar": {
+            "value": 33.265955329,
+            "reference": "2010A&ARv..18...67T",
+            "sourceUrl": "https://arxiv.org/html/0908.2624",
+            "url": "https://arxiv.org/html/0908.2624",
+            "section": "Table 5, exact inner primary",
+            "status": "derived",
+            "uncertainty": {
+              "lower": 2.0051616581608975,
+              "upper": 2.133778778943011
+            },
+            "inputs": {
+              "source_log10_value": 1.522,
+              "source_log10_uncertainty": 0.027
+            }
           }
         },
-        "retained": {
-          "apparent_mag": {
-            "value": 2.4,
-            "unusedLiterature": {
+        "retained": {},
+        "previousReview": {
+          "expectedName": "Mizar Aa",
+          "systemId": "msc-13239+5456",
+          "component": "Aa",
+          "fields": {
+            "mass_solar": {
+              "value": 2.222,
+              "status": "dynamical",
+              "reference": "2020MNRAS.492.2709P",
+              "sourceUrl": "https://doi.org/10.1093/mnras/stz3616",
+              "section": "Table 5, M1Orb",
+              "uncertainty": 0.303,
+              "sourceRecordId": "HD 116656",
+              "sourceParallaxMas": 41.3897
+            },
+            "apparent_mag": {
               "value": 2.999,
               "status": "decomposed-photometry",
               "reference": "2020MNRAS.492.2709P",
@@ -43193,17 +43744,52 @@
               "section": "Table 6, Vmag1",
               "sourceRecordId": "HD 116656",
               "caveat": "Published decomposition of Johnson V using resolved brightness differences, not ORB6 band-ambiguous magnitudes."
-            }
-          },
-          "spectral_type": {
-            "value": "A1.5Vas",
-            "unusedLiterature": {
+            },
+            "spectral_type": {
               "value": "A1V",
               "status": "compiled",
               "reference": "2020MNRAS.492.2709P",
               "sourceUrl": "https://doi.org/10.1093/mnras/stz3616",
               "section": "Table 7",
               "sourceRecordId": "HD 116656"
+            }
+          },
+          "note": "Piccotti et al. (2020), exact HD 116656 reviewed pair. Component Johnson V comes from Table 6 resolved-flux decomposition. Eligible masses use Table 5 orbital-parallax solution, with orbital/Hipparcos parallax consistency reviewed. Earlier individual catalog values win; ambiguous hierarchical totals and conflicting atmosphere/model estimates remain unavailable.",
+          "adopted": {
+            "mass_solar": {
+              "value": 2.222,
+              "status": "dynamical",
+              "reference": "2020MNRAS.492.2709P",
+              "sourceUrl": "https://doi.org/10.1093/mnras/stz3616",
+              "section": "Table 5, M1Orb",
+              "uncertainty": 0.303,
+              "sourceRecordId": "HD 116656",
+              "sourceParallaxMas": 41.3897
+            }
+          },
+          "retained": {
+            "apparent_mag": {
+              "value": 2.4,
+              "unusedLiterature": {
+                "value": 2.999,
+                "status": "decomposed-photometry",
+                "reference": "2020MNRAS.492.2709P",
+                "sourceUrl": "https://doi.org/10.1093/mnras/stz3616",
+                "section": "Table 6, Vmag1",
+                "sourceRecordId": "HD 116656",
+                "caveat": "Published decomposition of Johnson V using resolved brightness differences, not ORB6 band-ambiguous magnitudes."
+              }
+            },
+            "spectral_type": {
+              "value": "A1.5Vas",
+              "unusedLiterature": {
+                "value": "A1V",
+                "status": "compiled",
+                "reference": "2020MNRAS.492.2709P",
+                "sourceUrl": "https://doi.org/10.1093/mnras/stz3616",
+                "section": "Table 7",
+                "sourceRecordId": "HD 116656"
+              }
             }
           }
         }
@@ -68467,76 +69053,176 @@
         "expectedName": "Delta Equ A",
         "systemId": "spectroscopic-hip-104858",
         "component": "A",
+        "retainPreviousRecord": true,
+        "note": "Reviewed 151-target enrichment (2026-10-21). 2005AJ....130.2866M; 2010A&ARv..18...67T. Existing non-null values retain their independent sources. Radius from component-resolved luminosity/temperature and orbital parallax; not an eclipsing or directly angular-resolved radius. Existing adopted mass and temperature retain their own sources. Primary evolutionary age from a coeval binary fit to both component masses and separate V magnitudes; not a separately measured age. Shared metallicity is not adopted as an individual abundance.",
         "fields": {
-          "mass_solar": {
-            "value": 1.197,
-            "status": "dynamical",
-            "reference": "2020MNRAS.492.2709P",
-            "sourceUrl": "https://doi.org/10.1093/mnras/stz3616",
-            "section": "Table 5, M1Orb",
-            "uncertainty": 0.044,
-            "sourceRecordId": "HD 202275",
-            "sourceParallaxMas": 54.8875
+          "radius_solar": {
+            "value": 1.3,
+            "reference": "2010A&ARv..18...67T",
+            "sourceUrl": "https://arxiv.org/html/0908.2624",
+            "url": "https://arxiv.org/html/0908.2624",
+            "section": "Table 5, delta Equ A",
+            "status": "component-SED-derived",
+            "uncertainty": 0.08,
+            "caveat": "Radius from component-resolved luminosity/temperature and orbital parallax; not an eclipsing or directly angular-resolved radius. Existing adopted mass and temperature retain their own sources."
           },
-          "apparent_mag": {
-            "value": 5.136,
-            "status": "decomposed-photometry",
-            "reference": "2020MNRAS.492.2709P",
-            "sourceUrl": "https://doi.org/10.1093/mnras/stz3616",
-            "section": "Table 6, Vmag1",
-            "sourceRecordId": "HD 202275",
-            "caveat": "Published decomposition of Johnson V using resolved brightness differences, not ORB6 band-ambiguous magnitudes."
-          },
-          "spectral_type": {
-            "value": "F8V",
-            "status": "compiled",
-            "reference": "2020MNRAS.492.2709P",
-            "sourceUrl": "https://doi.org/10.1093/mnras/stz3616",
-            "section": "Table 7",
-            "sourceRecordId": "HD 202275"
-          }
-        },
-        "note": "Piccotti et al. (2020), exact HD 202275 reviewed pair. Component Johnson V comes from Table 6 resolved-flux decomposition. Eligible masses use Table 5 orbital-parallax solution, with orbital/Hipparcos parallax consistency reviewed. Earlier individual catalog values win; ambiguous hierarchical totals and conflicting atmosphere/model estimates remain unavailable.",
-        "adopted": {
-          "mass_solar": {
-            "value": 1.197,
-            "status": "dynamical",
-            "reference": "2020MNRAS.492.2709P",
-            "sourceUrl": "https://doi.org/10.1093/mnras/stz3616",
-            "section": "Table 5, M1Orb",
-            "uncertainty": 0.044,
-            "sourceRecordId": "HD 202275",
-            "sourceParallaxMas": 54.8875
-          },
-          "apparent_mag": {
-            "value": 5.136,
-            "status": "decomposed-photometry",
-            "reference": "2020MNRAS.492.2709P",
-            "sourceUrl": "https://doi.org/10.1093/mnras/stz3616",
-            "section": "Table 6, Vmag1",
-            "sourceRecordId": "HD 202275",
-            "caveat": "Published decomposition of Johnson V using resolved brightness differences, not ORB6 band-ambiguous magnitudes."
-          },
-          "absolute_mag": {
-            "value": 3.801584907,
+          "luminosity_solar": {
+            "value": 2.254239212,
+            "reference": "2010A&ARv..18...67T",
+            "sourceUrl": "https://arxiv.org/html/0908.2624",
+            "url": "https://arxiv.org/html/0908.2624",
+            "section": "Table 5, exact inner primary",
             "status": "derived",
-            "method": "Component Johnson V and adopted catalog distance; no extinction correction",
+            "uncertainty": {
+              "lower": 0.12119429900585299,
+              "upper": 0.12808025720626093
+            },
             "inputs": {
-              "apparent_mag": 5.136,
-              "distance_pc": 18.487705676
+              "source_log10_value": 0.353,
+              "source_log10_uncertainty": 0.024
             }
+          },
+          "age_gyr": {
+            "value": 2.2387211385683394,
+            "reference": "2005AJ....130.2866M",
+            "sourceUrl": "https://arxiv.org/html/astro-ph/0507585",
+            "url": "https://arxiv.org/html/astro-ph/0507585",
+            "section": "Section V, coeval joint component mass/absolute-V isochrone fit",
+            "status": "coeval-evolutionary-model",
+            "uncertainty": {
+              "lower": 0.6538279461072258,
+              "upper": 0.5796617926961143
+            },
+            "inputs": {
+              "log_age_years": 9.35,
+              "log_age_lower_error": 0.15,
+              "log_age_upper_error": 0.1
+            },
+            "caveat": "Primary evolutionary age from a coeval binary fit to both component masses and separate V magnitudes; not a separately measured age. Shared metallicity is not adopted as an individual abundance."
           }
         },
-        "retained": {
-          "spectral_type": {
-            "value": "F7(V)",
-            "unusedLiterature": {
+        "adopted": {
+          "radius_solar": {
+            "value": 1.3,
+            "reference": "2010A&ARv..18...67T",
+            "sourceUrl": "https://arxiv.org/html/0908.2624",
+            "url": "https://arxiv.org/html/0908.2624",
+            "section": "Table 5, delta Equ A",
+            "status": "component-SED-derived",
+            "uncertainty": 0.08,
+            "caveat": "Radius from component-resolved luminosity/temperature and orbital parallax; not an eclipsing or directly angular-resolved radius. Existing adopted mass and temperature retain their own sources."
+          },
+          "luminosity_solar": {
+            "value": 2.254239212,
+            "reference": "2010A&ARv..18...67T",
+            "sourceUrl": "https://arxiv.org/html/0908.2624",
+            "url": "https://arxiv.org/html/0908.2624",
+            "section": "Table 5, exact inner primary",
+            "status": "derived",
+            "uncertainty": {
+              "lower": 0.12119429900585299,
+              "upper": 0.12808025720626093
+            },
+            "inputs": {
+              "source_log10_value": 0.353,
+              "source_log10_uncertainty": 0.024
+            }
+          },
+          "age_gyr": {
+            "value": 2.2387211385683394,
+            "reference": "2005AJ....130.2866M",
+            "sourceUrl": "https://arxiv.org/html/astro-ph/0507585",
+            "url": "https://arxiv.org/html/astro-ph/0507585",
+            "section": "Section V, coeval joint component mass/absolute-V isochrone fit",
+            "status": "coeval-evolutionary-model",
+            "uncertainty": {
+              "lower": 0.6538279461072258,
+              "upper": 0.5796617926961143
+            },
+            "inputs": {
+              "log_age_years": 9.35,
+              "log_age_lower_error": 0.15,
+              "log_age_upper_error": 0.1
+            },
+            "caveat": "Primary evolutionary age from a coeval binary fit to both component masses and separate V magnitudes; not a separately measured age. Shared metallicity is not adopted as an individual abundance."
+          }
+        },
+        "retained": {},
+        "previousReview": {
+          "expectedName": "Delta Equ A",
+          "systemId": "spectroscopic-hip-104858",
+          "component": "A",
+          "fields": {
+            "mass_solar": {
+              "value": 1.197,
+              "status": "dynamical",
+              "reference": "2020MNRAS.492.2709P",
+              "sourceUrl": "https://doi.org/10.1093/mnras/stz3616",
+              "section": "Table 5, M1Orb",
+              "uncertainty": 0.044,
+              "sourceRecordId": "HD 202275",
+              "sourceParallaxMas": 54.8875
+            },
+            "apparent_mag": {
+              "value": 5.136,
+              "status": "decomposed-photometry",
+              "reference": "2020MNRAS.492.2709P",
+              "sourceUrl": "https://doi.org/10.1093/mnras/stz3616",
+              "section": "Table 6, Vmag1",
+              "sourceRecordId": "HD 202275",
+              "caveat": "Published decomposition of Johnson V using resolved brightness differences, not ORB6 band-ambiguous magnitudes."
+            },
+            "spectral_type": {
               "value": "F8V",
               "status": "compiled",
               "reference": "2020MNRAS.492.2709P",
               "sourceUrl": "https://doi.org/10.1093/mnras/stz3616",
               "section": "Table 7",
               "sourceRecordId": "HD 202275"
+            }
+          },
+          "note": "Piccotti et al. (2020), exact HD 202275 reviewed pair. Component Johnson V comes from Table 6 resolved-flux decomposition. Eligible masses use Table 5 orbital-parallax solution, with orbital/Hipparcos parallax consistency reviewed. Earlier individual catalog values win; ambiguous hierarchical totals and conflicting atmosphere/model estimates remain unavailable.",
+          "adopted": {
+            "mass_solar": {
+              "value": 1.197,
+              "status": "dynamical",
+              "reference": "2020MNRAS.492.2709P",
+              "sourceUrl": "https://doi.org/10.1093/mnras/stz3616",
+              "section": "Table 5, M1Orb",
+              "uncertainty": 0.044,
+              "sourceRecordId": "HD 202275",
+              "sourceParallaxMas": 54.8875
+            },
+            "apparent_mag": {
+              "value": 5.136,
+              "status": "decomposed-photometry",
+              "reference": "2020MNRAS.492.2709P",
+              "sourceUrl": "https://doi.org/10.1093/mnras/stz3616",
+              "section": "Table 6, Vmag1",
+              "sourceRecordId": "HD 202275",
+              "caveat": "Published decomposition of Johnson V using resolved brightness differences, not ORB6 band-ambiguous magnitudes."
+            },
+            "absolute_mag": {
+              "value": 3.801584907,
+              "status": "derived",
+              "method": "Component Johnson V and adopted catalog distance; no extinction correction",
+              "inputs": {
+                "apparent_mag": 5.136,
+                "distance_pc": 18.487705676
+              }
+            }
+          },
+          "retained": {
+            "spectral_type": {
+              "value": "F7(V)",
+              "unusedLiterature": {
+                "value": "F8V",
+                "status": "compiled",
+                "reference": "2020MNRAS.492.2709P",
+                "sourceUrl": "https://doi.org/10.1093/mnras/stz3616",
+                "section": "Table 7",
+                "sourceRecordId": "HD 202275"
+              }
             }
           }
         }
@@ -69872,6 +70558,62 @@
           "Giant"
         ],
         "method": "Physical subtype from this component's own adopted spectrum; no aggregate-label inheritance"
+      },
+      "reviewedLiterature": {
+        "expectedName": "Algieba A",
+        "systemId": "spectroscopic-hip-50583",
+        "component": "A",
+        "retainPreviousRecord": true,
+        "note": "Reviewed 151-target enrichment (2026-10-21). 2008AJ....135..209M. Existing non-null values retain their independent sources.",
+        "fields": {
+          "radius_solar": {
+            "value": 25,
+            "reference": "2008AJ....135..209M",
+            "sourceUrl": "https://cdsarc.cds.unistra.fr/ftp/J/AJ/135/209/",
+            "url": "https://cdsarc.cds.unistra.fr/ftp/J/AJ/135/209/",
+            "section": "Table 3, HIP 50583 (resolved HD 89484)",
+            "status": "primary-photometric-model",
+            "uncertainty": null
+          },
+          "luminosity_solar": {
+            "value": 263.02679919,
+            "reference": "2008AJ....135..209M",
+            "sourceUrl": "https://cdsarc.cds.unistra.fr/ftp/J/AJ/135/209/",
+            "url": "https://cdsarc.cds.unistra.fr/ftp/J/AJ/135/209/",
+            "section": "Table 3, resolved primary HIP 50583",
+            "status": "derived",
+            "uncertainty": null,
+            "inputs": {
+              "source_log10_value": 2.42,
+              "source_log10_uncertainty": null
+            }
+          }
+        },
+        "adopted": {
+          "radius_solar": {
+            "value": 25,
+            "reference": "2008AJ....135..209M",
+            "sourceUrl": "https://cdsarc.cds.unistra.fr/ftp/J/AJ/135/209/",
+            "url": "https://cdsarc.cds.unistra.fr/ftp/J/AJ/135/209/",
+            "section": "Table 3, HIP 50583 (resolved HD 89484)",
+            "status": "primary-photometric-model",
+            "uncertainty": null
+          },
+          "luminosity_solar": {
+            "value": 263.02679919,
+            "reference": "2008AJ....135..209M",
+            "sourceUrl": "https://cdsarc.cds.unistra.fr/ftp/J/AJ/135/209/",
+            "url": "https://cdsarc.cds.unistra.fr/ftp/J/AJ/135/209/",
+            "section": "Table 3, resolved primary HIP 50583",
+            "status": "derived",
+            "uncertainty": null,
+            "inputs": {
+              "source_log10_value": 2.42,
+              "source_log10_uncertainty": null
+            }
+          }
+        },
+        "retained": {}
       }
     },
     "hip-50583-component-b": {
@@ -70269,59 +71011,147 @@
         "expectedName": "Kitalpha A",
         "systemId": "spectroscopic-hip-104987",
         "component": "A",
+        "retainPreviousRecord": true,
+        "note": "Reviewed 151-target enrichment (2026-10-21). 2017MNRAS.468.3533E. Existing non-null values retain their independent sources.",
         "fields": {
-          "mass_solar": {
-            "value": 2.153,
-            "status": "dynamical",
-            "reference": "2020MNRAS.492.2709P",
-            "sourceUrl": "https://doi.org/10.1093/mnras/stz3616",
-            "section": "Table 5, M1Orb",
-            "uncertainty": 0.241,
-            "sourceRecordId": "HD 202447",
-            "sourceParallaxMas": 18.1279
-          },
-          "apparent_mag": {
-            "value": 4.476,
-            "status": "decomposed-photometry",
-            "reference": "2020MNRAS.492.2709P",
-            "sourceUrl": "https://doi.org/10.1093/mnras/stz3616",
-            "section": "Table 6, Vmag1",
-            "sourceRecordId": "HD 202447",
-            "caveat": "Published decomposition of Johnson V using resolved brightness differences, not ORB6 band-ambiguous magnitudes."
-          }
-        },
-        "note": "Piccotti et al. (2020), exact HD 202447 reviewed pair. Component Johnson V comes from Table 6 resolved-flux decomposition. Eligible masses use Table 5 orbital-parallax solution, with orbital/Hipparcos parallax consistency reviewed. Earlier individual catalog values win; ambiguous hierarchical totals and conflicting atmosphere/model estimates remain unavailable.",
-        "adopted": {
-          "mass_solar": {
-            "value": 2.153,
-            "status": "dynamical",
-            "reference": "2020MNRAS.492.2709P",
-            "sourceUrl": "https://doi.org/10.1093/mnras/stz3616",
-            "section": "Table 5, M1Orb",
-            "uncertainty": 0.241,
-            "sourceRecordId": "HD 202447",
-            "sourceParallaxMas": 18.1279
-          },
-          "apparent_mag": {
-            "value": 4.476,
-            "status": "decomposed-photometry",
-            "reference": "2020MNRAS.492.2709P",
-            "sourceUrl": "https://doi.org/10.1093/mnras/stz3616",
-            "section": "Table 6, Vmag1",
-            "sourceRecordId": "HD 202447",
-            "caveat": "Published decomposition of Johnson V using resolved brightness differences, not ORB6 band-ambiguous magnitudes."
-          },
-          "absolute_mag": {
-            "value": 0.655314293,
-            "status": "derived",
-            "method": "Component Johnson V and adopted catalog distance; no extinction correction",
+          "temperature_k": {
+            "value": 5105.049999754,
+            "reference": "2017MNRAS.468.3533E",
+            "sourceUrl": "https://arxiv.org/html/1611.05041",
+            "url": "https://arxiv.org/html/1611.05041",
+            "section": "Table 4, observed component 1 log T",
+            "status": "observational-binary-solution",
+            "uncertainty": null,
             "inputs": {
-              "apparent_mag": 4.476,
-              "distance_pc": 58.094784002
+              "source_log_temperature": 3.708
+            }
+          },
+          "radius_solar": {
+            "value": 9.682778563,
+            "reference": "2017MNRAS.468.3533E",
+            "sourceUrl": "https://arxiv.org/html/1611.05041",
+            "url": "https://arxiv.org/html/1611.05041",
+            "section": "Table 4, observed component 1 log R",
+            "status": "observational-binary-solution",
+            "uncertainty": null,
+            "inputs": {
+              "source_log_radius": 0.986
+            }
+          },
+          "luminosity_solar": {
+            "value": 57.371302576,
+            "reference": "2017MNRAS.468.3533E",
+            "sourceUrl": "https://arxiv.org/html/1611.05041",
+            "url": "https://arxiv.org/html/1611.05041",
+            "section": "Derived from Table 4 observed component 1 radius/temperature",
+            "status": "derived",
+            "uncertainty": null,
+            "inputs": {
+              "source_log_radius": 0.986,
+              "source_log_temperature": 3.708,
+              "solar_temperature_k": 5772
             }
           }
         },
-        "retained": {}
+        "adopted": {
+          "temperature_k": {
+            "value": 5105.049999754,
+            "reference": "2017MNRAS.468.3533E",
+            "sourceUrl": "https://arxiv.org/html/1611.05041",
+            "url": "https://arxiv.org/html/1611.05041",
+            "section": "Table 4, observed component 1 log T",
+            "status": "observational-binary-solution",
+            "uncertainty": null,
+            "inputs": {
+              "source_log_temperature": 3.708
+            }
+          },
+          "radius_solar": {
+            "value": 9.682778563,
+            "reference": "2017MNRAS.468.3533E",
+            "sourceUrl": "https://arxiv.org/html/1611.05041",
+            "url": "https://arxiv.org/html/1611.05041",
+            "section": "Table 4, observed component 1 log R",
+            "status": "observational-binary-solution",
+            "uncertainty": null,
+            "inputs": {
+              "source_log_radius": 0.986
+            }
+          },
+          "luminosity_solar": {
+            "value": 57.371302576,
+            "reference": "2017MNRAS.468.3533E",
+            "sourceUrl": "https://arxiv.org/html/1611.05041",
+            "url": "https://arxiv.org/html/1611.05041",
+            "section": "Derived from Table 4 observed component 1 radius/temperature",
+            "status": "derived",
+            "uncertainty": null,
+            "inputs": {
+              "source_log_radius": 0.986,
+              "source_log_temperature": 3.708,
+              "solar_temperature_k": 5772
+            }
+          }
+        },
+        "retained": {},
+        "previousReview": {
+          "expectedName": "Kitalpha A",
+          "systemId": "spectroscopic-hip-104987",
+          "component": "A",
+          "fields": {
+            "mass_solar": {
+              "value": 2.153,
+              "status": "dynamical",
+              "reference": "2020MNRAS.492.2709P",
+              "sourceUrl": "https://doi.org/10.1093/mnras/stz3616",
+              "section": "Table 5, M1Orb",
+              "uncertainty": 0.241,
+              "sourceRecordId": "HD 202447",
+              "sourceParallaxMas": 18.1279
+            },
+            "apparent_mag": {
+              "value": 4.476,
+              "status": "decomposed-photometry",
+              "reference": "2020MNRAS.492.2709P",
+              "sourceUrl": "https://doi.org/10.1093/mnras/stz3616",
+              "section": "Table 6, Vmag1",
+              "sourceRecordId": "HD 202447",
+              "caveat": "Published decomposition of Johnson V using resolved brightness differences, not ORB6 band-ambiguous magnitudes."
+            }
+          },
+          "note": "Piccotti et al. (2020), exact HD 202447 reviewed pair. Component Johnson V comes from Table 6 resolved-flux decomposition. Eligible masses use Table 5 orbital-parallax solution, with orbital/Hipparcos parallax consistency reviewed. Earlier individual catalog values win; ambiguous hierarchical totals and conflicting atmosphere/model estimates remain unavailable.",
+          "adopted": {
+            "mass_solar": {
+              "value": 2.153,
+              "status": "dynamical",
+              "reference": "2020MNRAS.492.2709P",
+              "sourceUrl": "https://doi.org/10.1093/mnras/stz3616",
+              "section": "Table 5, M1Orb",
+              "uncertainty": 0.241,
+              "sourceRecordId": "HD 202447",
+              "sourceParallaxMas": 18.1279
+            },
+            "apparent_mag": {
+              "value": 4.476,
+              "status": "decomposed-photometry",
+              "reference": "2020MNRAS.492.2709P",
+              "sourceUrl": "https://doi.org/10.1093/mnras/stz3616",
+              "section": "Table 6, Vmag1",
+              "sourceRecordId": "HD 202447",
+              "caveat": "Published decomposition of Johnson V using resolved brightness differences, not ORB6 band-ambiguous magnitudes."
+            },
+            "absolute_mag": {
+              "value": 0.655314293,
+              "status": "derived",
+              "method": "Component Johnson V and adopted catalog distance; no extinction correction",
+              "inputs": {
+                "apparent_mag": 4.476,
+                "distance_pc": 58.094784002
+              }
+            }
+          },
+          "retained": {}
+        }
       },
       "constellationSystemMotion": {
         "systemId": "spectroscopic-hip-104987",
@@ -71109,6 +71939,114 @@
           "Bright giant"
         ],
         "method": "Physical subtype from this component's own adopted spectrum; no aggregate-label inheritance"
+      },
+      "reviewedLiterature": {
+        "expectedName": "Delta Sge A",
+        "systemId": "spectroscopic-hip-97365",
+        "component": "A",
+        "retainPreviousRecord": true,
+        "note": "Reviewed 151-target enrichment (2026-10-21). 2017MNRAS.468.3533E. Existing non-null values retain their independent sources. Source observations depend on spectroscopic orbit, adopted parallax and inclination; no formal component-mass uncertainty tabulated here.",
+        "fields": {
+          "mass_solar": {
+            "value": 4.073,
+            "reference": "2017MNRAS.468.3533E",
+            "sourceUrl": "https://arxiv.org/html/1611.05041",
+            "url": "https://arxiv.org/html/1611.05041",
+            "section": "Table 4, observed component 1 row",
+            "status": "observational-binary-solution",
+            "uncertainty": null,
+            "caveat": "Source observations depend on spectroscopic orbit, adopted parallax and inclination; no formal component-mass uncertainty tabulated here."
+          },
+          "temperature_k": {
+            "value": 3499.451670284,
+            "reference": "2017MNRAS.468.3533E",
+            "sourceUrl": "https://arxiv.org/html/1611.05041",
+            "url": "https://arxiv.org/html/1611.05041",
+            "section": "Table 4, observed component 1 log T",
+            "status": "observational-binary-solution",
+            "uncertainty": null,
+            "inputs": {
+              "source_log_temperature": 3.544
+            }
+          },
+          "radius_solar": {
+            "value": 230.144181741,
+            "reference": "2017MNRAS.468.3533E",
+            "sourceUrl": "https://arxiv.org/html/1611.05041",
+            "url": "https://arxiv.org/html/1611.05041",
+            "section": "Table 4, observed component 1 log R",
+            "status": "observational-binary-solution",
+            "uncertainty": null,
+            "inputs": {
+              "source_log_radius": 2.362
+            }
+          },
+          "luminosity_solar": {
+            "value": 7156.401701778,
+            "reference": "2017MNRAS.468.3533E",
+            "sourceUrl": "https://arxiv.org/html/1611.05041",
+            "url": "https://arxiv.org/html/1611.05041",
+            "section": "Derived from Table 4 observed component 1 radius/temperature",
+            "status": "derived",
+            "uncertainty": null,
+            "inputs": {
+              "source_log_radius": 2.362,
+              "source_log_temperature": 3.544,
+              "solar_temperature_k": 5772
+            }
+          }
+        },
+        "adopted": {
+          "mass_solar": {
+            "value": 4.073,
+            "reference": "2017MNRAS.468.3533E",
+            "sourceUrl": "https://arxiv.org/html/1611.05041",
+            "url": "https://arxiv.org/html/1611.05041",
+            "section": "Table 4, observed component 1 row",
+            "status": "observational-binary-solution",
+            "uncertainty": null,
+            "caveat": "Source observations depend on spectroscopic orbit, adopted parallax and inclination; no formal component-mass uncertainty tabulated here."
+          },
+          "temperature_k": {
+            "value": 3499.451670284,
+            "reference": "2017MNRAS.468.3533E",
+            "sourceUrl": "https://arxiv.org/html/1611.05041",
+            "url": "https://arxiv.org/html/1611.05041",
+            "section": "Table 4, observed component 1 log T",
+            "status": "observational-binary-solution",
+            "uncertainty": null,
+            "inputs": {
+              "source_log_temperature": 3.544
+            }
+          },
+          "radius_solar": {
+            "value": 230.144181741,
+            "reference": "2017MNRAS.468.3533E",
+            "sourceUrl": "https://arxiv.org/html/1611.05041",
+            "url": "https://arxiv.org/html/1611.05041",
+            "section": "Table 4, observed component 1 log R",
+            "status": "observational-binary-solution",
+            "uncertainty": null,
+            "inputs": {
+              "source_log_radius": 2.362
+            }
+          },
+          "luminosity_solar": {
+            "value": 7156.401701778,
+            "reference": "2017MNRAS.468.3533E",
+            "sourceUrl": "https://arxiv.org/html/1611.05041",
+            "url": "https://arxiv.org/html/1611.05041",
+            "section": "Derived from Table 4 observed component 1 radius/temperature",
+            "status": "derived",
+            "uncertainty": null,
+            "inputs": {
+              "source_log_radius": 2.362,
+              "source_log_temperature": 3.544,
+              "solar_temperature_k": 5772
+            }
+          }
+        },
+        "retained": {}
       }
     },
     "hip-97365-component-b": {
@@ -74198,6 +75136,116 @@
           "vz_kms": null
         },
         "scope": "Shared primary astrometric basis and a single Galactic Cartesian velocity for all listed targets. This is a common linear-propagation approximation; individual measured positions, distances and proper motions are not overwritten. No orbital phase integration or binding-energy inference."
+      },
+      "reviewedLiterature": {
+        "expectedName": "Mira Aa",
+        "systemId": "orb6-02193-0259-aa-ab",
+        "component": "Aa",
+        "retainPreviousRecord": true,
+        "note": "Reviewed 151-target enrichment (2026-10-21). 2004A&A...421..703W. Existing non-null values retain their independent sources. Mira variable, observed phase 0.13; radius and temperature vary over the cycle. Not a mean photosphere or a prediction for the current phase. The far-fainter companion is not the observed M-giant. Phase 0.13 photospheric estimate, not cycle-averaged luminosity; no mixed-phase or current-phase prediction.",
+        "fields": {
+          "temperature_k": {
+            "value": 3192,
+            "reference": "2004A&A...421..703W",
+            "sourceUrl": "https://arxiv.org/html/astro-ph/0404248",
+            "url": "https://arxiv.org/html/astro-ph/0404248",
+            "section": "Abstract; visual pulsation phase 0.13",
+            "status": "phase-specific-Rosseland",
+            "uncertainty": 200,
+            "inputs": {
+              "visual_pulsation_phase": 0.13,
+              "source_distance_pc": 107,
+              "source_distance_error_pc": 12
+            },
+            "caveat": "Mira variable, observed phase 0.13; radius and temperature vary over the cycle. Not a mean photosphere or a prediction for the current phase. The far-fainter companion is not the observed M-giant."
+          },
+          "radius_solar": {
+            "value": 332,
+            "reference": "2004A&A...421..703W",
+            "sourceUrl": "https://arxiv.org/html/astro-ph/0404248",
+            "url": "https://arxiv.org/html/astro-ph/0404248",
+            "section": "Abstract; visual pulsation phase 0.13",
+            "status": "phase-specific-Rosseland",
+            "uncertainty": 38,
+            "inputs": {
+              "visual_pulsation_phase": 0.13,
+              "source_distance_pc": 107,
+              "source_distance_error_pc": 12
+            },
+            "caveat": "Mira variable, observed phase 0.13; radius and temperature vary over the cycle. Not a mean photosphere or a prediction for the current phase. The far-fainter companion is not the observed M-giant."
+          },
+          "luminosity_solar": {
+            "value": 10309.139310998,
+            "reference": "2004A&A...421..703W",
+            "sourceUrl": "https://arxiv.org/html/astro-ph/0404248",
+            "url": "https://arxiv.org/html/astro-ph/0404248",
+            "section": "Derived from the same phase 0.13 Rosseland radius/temperature",
+            "status": "derived",
+            "uncertainty": 3499.2817479885803,
+            "inputs": {
+              "visual_pulsation_phase": 0.13,
+              "radius_solar": 332,
+              "radius_error_solar": 38,
+              "temperature_k": 3192,
+              "temperature_error_k": 200,
+              "solar_temperature_k": 5772
+            },
+            "method": "Stefan-Boltzmann at the same observed phase; approximate covariance-free uncertainty",
+            "caveat": "Phase 0.13 photospheric estimate, not cycle-averaged luminosity; no mixed-phase or current-phase prediction."
+          }
+        },
+        "adopted": {
+          "temperature_k": {
+            "value": 3192,
+            "reference": "2004A&A...421..703W",
+            "sourceUrl": "https://arxiv.org/html/astro-ph/0404248",
+            "url": "https://arxiv.org/html/astro-ph/0404248",
+            "section": "Abstract; visual pulsation phase 0.13",
+            "status": "phase-specific-Rosseland",
+            "uncertainty": 200,
+            "inputs": {
+              "visual_pulsation_phase": 0.13,
+              "source_distance_pc": 107,
+              "source_distance_error_pc": 12
+            },
+            "caveat": "Mira variable, observed phase 0.13; radius and temperature vary over the cycle. Not a mean photosphere or a prediction for the current phase. The far-fainter companion is not the observed M-giant."
+          },
+          "radius_solar": {
+            "value": 332,
+            "reference": "2004A&A...421..703W",
+            "sourceUrl": "https://arxiv.org/html/astro-ph/0404248",
+            "url": "https://arxiv.org/html/astro-ph/0404248",
+            "section": "Abstract; visual pulsation phase 0.13",
+            "status": "phase-specific-Rosseland",
+            "uncertainty": 38,
+            "inputs": {
+              "visual_pulsation_phase": 0.13,
+              "source_distance_pc": 107,
+              "source_distance_error_pc": 12
+            },
+            "caveat": "Mira variable, observed phase 0.13; radius and temperature vary over the cycle. Not a mean photosphere or a prediction for the current phase. The far-fainter companion is not the observed M-giant."
+          },
+          "luminosity_solar": {
+            "value": 10309.139310998,
+            "reference": "2004A&A...421..703W",
+            "sourceUrl": "https://arxiv.org/html/astro-ph/0404248",
+            "url": "https://arxiv.org/html/astro-ph/0404248",
+            "section": "Derived from the same phase 0.13 Rosseland radius/temperature",
+            "status": "derived",
+            "uncertainty": 3499.2817479885803,
+            "inputs": {
+              "visual_pulsation_phase": 0.13,
+              "radius_solar": 332,
+              "radius_error_solar": 38,
+              "temperature_k": 3192,
+              "temperature_error_k": 200,
+              "solar_temperature_k": 5772
+            },
+            "method": "Stefan-Boltzmann at the same observed phase; approximate covariance-free uncertainty",
+            "caveat": "Phase 0.13 photospheric estimate, not cycle-averaged luminosity; no mixed-phase or current-phase prediction."
+          }
+        },
+        "retained": {}
       }
     },
     "orb6-02193-0259-aa-ab-ab": {
@@ -85143,7 +86191,131 @@
           "vz_kms": null
         },
         "scope": "Shared primary astrometric basis and a single Galactic Cartesian velocity for all listed targets. This is a common linear-propagation approximation; individual measured positions, distances and proper motions are not overwritten. No orbital phase integration or binding-energy inference."
-      }
+      },
+      "reviewedLiterature": {
+        "expectedName": "Mu Her Aa",
+        "systemId": "gj-695",
+        "component": "Aa",
+        "retainPreviousRecord": true,
+        "note": "Reviewed 151-target enrichment (2026-10-21). 2025 arXiv:2509.01577. Existing non-null values retain their independent sources. Evolutionary age from the helium-glitch seismic fit; source model/helium/diffusion assumptions remain.",
+        "fields": {
+          "temperature_k": {
+            "value": 5560,
+            "reference": "2025 arXiv:2509.01577",
+            "sourceUrl": "https://arxiv.org/html/2509.01577",
+            "url": "https://arxiv.org/html/2509.01577",
+            "section": "Table 1, observed values from Grundahl et al. 2017",
+            "status": "spectroscopic",
+            "uncertainty": 80
+          },
+          "metallicity_dex": {
+            "value": 0.28,
+            "reference": "2025 arXiv:2509.01577",
+            "sourceUrl": "https://arxiv.org/html/2509.01577",
+            "url": "https://arxiv.org/html/2509.01577",
+            "section": "Table 1, observed values from Grundahl et al. 2017",
+            "status": "spectroscopic",
+            "uncertainty": 0.07,
+            "quantity": "[Fe/H]"
+          },
+          "luminosity_solar": {
+            "value": 2.54,
+            "reference": "2025 arXiv:2509.01577",
+            "sourceUrl": "https://arxiv.org/html/2509.01577",
+            "url": "https://arxiv.org/html/2509.01577",
+            "section": "Table 1, observed values from Grundahl et al. 2017",
+            "status": "observed-derived",
+            "uncertainty": 0.08
+          },
+          "radius_solar": {
+            "value": 1.709,
+            "reference": "2025 arXiv:2509.01577",
+            "sourceUrl": "https://arxiv.org/html/2509.01577",
+            "url": "https://arxiv.org/html/2509.01577",
+            "section": "Table 4, Fit2",
+            "status": "asteroseismic-model",
+            "uncertainty": {
+              "lower": 0.015,
+              "upper": 0.03
+            }
+          },
+          "age_gyr": {
+            "value": 8.4,
+            "reference": "2025 arXiv:2509.01577",
+            "sourceUrl": "https://arxiv.org/html/2509.01577",
+            "url": "https://arxiv.org/html/2509.01577",
+            "section": "Table 4, Fit2",
+            "status": "asteroseismic-model",
+            "uncertainty": {
+              "lower": 0.1,
+              "upper": 0.4
+            },
+            "caveat": "Evolutionary age from the helium-glitch seismic fit; source model/helium/diffusion assumptions remain."
+          }
+        },
+        "adopted": {
+          "temperature_k": {
+            "value": 5560,
+            "reference": "2025 arXiv:2509.01577",
+            "sourceUrl": "https://arxiv.org/html/2509.01577",
+            "url": "https://arxiv.org/html/2509.01577",
+            "section": "Table 1, observed values from Grundahl et al. 2017",
+            "status": "spectroscopic",
+            "uncertainty": 80
+          },
+          "metallicity_dex": {
+            "value": 0.28,
+            "reference": "2025 arXiv:2509.01577",
+            "sourceUrl": "https://arxiv.org/html/2509.01577",
+            "url": "https://arxiv.org/html/2509.01577",
+            "section": "Table 1, observed values from Grundahl et al. 2017",
+            "status": "spectroscopic",
+            "uncertainty": 0.07,
+            "quantity": "[Fe/H]"
+          },
+          "luminosity_solar": {
+            "value": 2.54,
+            "reference": "2025 arXiv:2509.01577",
+            "sourceUrl": "https://arxiv.org/html/2509.01577",
+            "url": "https://arxiv.org/html/2509.01577",
+            "section": "Table 1, observed values from Grundahl et al. 2017",
+            "status": "observed-derived",
+            "uncertainty": 0.08
+          },
+          "radius_solar": {
+            "value": 1.709,
+            "reference": "2025 arXiv:2509.01577",
+            "sourceUrl": "https://arxiv.org/html/2509.01577",
+            "url": "https://arxiv.org/html/2509.01577",
+            "section": "Table 4, Fit2",
+            "status": "asteroseismic-model",
+            "uncertainty": {
+              "lower": 0.015,
+              "upper": 0.03
+            }
+          },
+          "age_gyr": {
+            "value": 8.4,
+            "reference": "2025 arXiv:2509.01577",
+            "sourceUrl": "https://arxiv.org/html/2509.01577",
+            "url": "https://arxiv.org/html/2509.01577",
+            "section": "Table 4, Fit2",
+            "status": "asteroseismic-model",
+            "uncertainty": {
+              "lower": 0.1,
+              "upper": 0.4
+            },
+            "caveat": "Evolutionary age from the helium-glitch seismic fit; source model/helium/diffusion assumptions remain."
+          }
+        },
+        "retained": {}
+      },
+      "supersededNotes": [
+        {
+          "text": "Withheld individual fields: temperature_k, luminosity_solar, radius_solar, metallicity_dex, age_gyr, absolute_mag.",
+          "reason": "Later reviewed individual values supersede part of this source withholding."
+        }
+      ]
     },
     "cns5-4136": {
       "simbad": {
@@ -87224,52 +88396,105 @@
         "expectedName": "Chi Draconis A",
         "systemId": "chi-draconis",
         "component": "A",
+        "retainPreviousRecord": true,
+        "note": "Reviewed 151-target enrichment (2026-10-21). Rudrasingam et al. 2026, arXiv:2609.25343. Existing non-null values retain their independent sources.",
         "fields": {
-          "mass_solar": {
-            "value": 1.036,
-            "status": "dynamical",
-            "reference": "2020MNRAS.492.2709P",
-            "sourceUrl": "https://doi.org/10.1093/mnras/stz3616",
-            "section": "Table 5, M1Orb",
-            "uncertainty": 0.066,
-            "sourceRecordId": "HD 170153",
-            "sourceParallaxMas": 121.1718
+          "temperature_k": {
+            "value": 6277,
+            "reference": "Rudrasingam et al. 2026, arXiv:2609.25343",
+            "sourceUrl": "https://arxiv.org/html/2609.25343",
+            "url": "https://arxiv.org/html/2609.25343",
+            "section": "Table 1, explicitly component A",
+            "status": "disentangled-spectroscopic",
+            "uncertainty": 30
           },
-          "apparent_mag": {
-            "value": 3.736,
-            "status": "decomposed-photometry",
-            "reference": "2020MNRAS.492.2709P",
-            "sourceUrl": "https://doi.org/10.1093/mnras/stz3616",
-            "section": "Table 6, Vmag1",
-            "sourceRecordId": "HD 170153",
-            "caveat": "Published decomposition of Johnson V using resolved brightness differences, not ORB6 band-ambiguous magnitudes."
-          }
-        },
-        "note": "Piccotti et al. (2020), exact HD 170153 reviewed pair. Component Johnson V comes from Table 6 resolved-flux decomposition. Eligible masses use Table 5 orbital-parallax solution, with orbital/Hipparcos parallax consistency reviewed. Earlier individual catalog values win; ambiguous hierarchical totals and conflicting atmosphere/model estimates remain unavailable.",
-        "adopted": {
-          "apparent_mag": {
-            "value": 3.736,
-            "status": "decomposed-photometry",
-            "reference": "2020MNRAS.492.2709P",
-            "sourceUrl": "https://doi.org/10.1093/mnras/stz3616",
-            "section": "Table 6, Vmag1",
-            "sourceRecordId": "HD 170153",
-            "caveat": "Published decomposition of Johnson V using resolved brightness differences, not ORB6 band-ambiguous magnitudes."
+          "metallicity_dex": {
+            "value": -0.51,
+            "reference": "Rudrasingam et al. 2026, arXiv:2609.25343",
+            "sourceUrl": "https://arxiv.org/html/2609.25343",
+            "url": "https://arxiv.org/html/2609.25343",
+            "section": "Table 1, explicitly component A",
+            "status": "disentangled-spectroscopic",
+            "uncertainty": 0.03,
+            "quantity": "[Fe/H]"
           },
-          "absolute_mag": {
-            "value": 4.20503389,
-            "status": "derived",
-            "method": "Component Johnson V and adopted catalog distance; no extinction correction",
-            "inputs": {
-              "apparent_mag": 3.736,
-              "distance_pc": 8.057368418
+          "radius_solar": {
+            "value": 1.159,
+            "reference": "Rudrasingam et al. 2026, arXiv:2609.25343",
+            "sourceUrl": "https://arxiv.org/html/2609.25343",
+            "url": "https://arxiv.org/html/2609.25343",
+            "section": "Table 1, explicitly component A",
+            "status": "interferometric-derived",
+            "uncertainty": {
+              "lower": 0.028,
+              "upper": 0.029
+            }
+          },
+          "luminosity_solar": {
+            "value": 1.88,
+            "reference": "Rudrasingam et al. 2026, arXiv:2609.25343",
+            "sourceUrl": "https://arxiv.org/html/2609.25343",
+            "url": "https://arxiv.org/html/2609.25343",
+            "section": "Table 1, explicitly component A",
+            "status": "source-Stefan-Boltzmann",
+            "uncertainty": {
+              "lower": 0.13,
+              "upper": 0.14
             }
           }
         },
-        "retained": {
-          "mass_solar": {
-            "value": 0.96,
-            "unusedLiterature": {
+        "adopted": {
+          "temperature_k": {
+            "value": 6277,
+            "reference": "Rudrasingam et al. 2026, arXiv:2609.25343",
+            "sourceUrl": "https://arxiv.org/html/2609.25343",
+            "url": "https://arxiv.org/html/2609.25343",
+            "section": "Table 1, explicitly component A",
+            "status": "disentangled-spectroscopic",
+            "uncertainty": 30
+          },
+          "metallicity_dex": {
+            "value": -0.51,
+            "reference": "Rudrasingam et al. 2026, arXiv:2609.25343",
+            "sourceUrl": "https://arxiv.org/html/2609.25343",
+            "url": "https://arxiv.org/html/2609.25343",
+            "section": "Table 1, explicitly component A",
+            "status": "disentangled-spectroscopic",
+            "uncertainty": 0.03,
+            "quantity": "[Fe/H]"
+          },
+          "radius_solar": {
+            "value": 1.159,
+            "reference": "Rudrasingam et al. 2026, arXiv:2609.25343",
+            "sourceUrl": "https://arxiv.org/html/2609.25343",
+            "url": "https://arxiv.org/html/2609.25343",
+            "section": "Table 1, explicitly component A",
+            "status": "interferometric-derived",
+            "uncertainty": {
+              "lower": 0.028,
+              "upper": 0.029
+            }
+          },
+          "luminosity_solar": {
+            "value": 1.88,
+            "reference": "Rudrasingam et al. 2026, arXiv:2609.25343",
+            "sourceUrl": "https://arxiv.org/html/2609.25343",
+            "url": "https://arxiv.org/html/2609.25343",
+            "section": "Table 1, explicitly component A",
+            "status": "source-Stefan-Boltzmann",
+            "uncertainty": {
+              "lower": 0.13,
+              "upper": 0.14
+            }
+          }
+        },
+        "retained": {},
+        "previousReview": {
+          "expectedName": "Chi Draconis A",
+          "systemId": "chi-draconis",
+          "component": "A",
+          "fields": {
+            "mass_solar": {
               "value": 1.036,
               "status": "dynamical",
               "reference": "2020MNRAS.492.2709P",
@@ -87278,6 +88503,51 @@
               "uncertainty": 0.066,
               "sourceRecordId": "HD 170153",
               "sourceParallaxMas": 121.1718
+            },
+            "apparent_mag": {
+              "value": 3.736,
+              "status": "decomposed-photometry",
+              "reference": "2020MNRAS.492.2709P",
+              "sourceUrl": "https://doi.org/10.1093/mnras/stz3616",
+              "section": "Table 6, Vmag1",
+              "sourceRecordId": "HD 170153",
+              "caveat": "Published decomposition of Johnson V using resolved brightness differences, not ORB6 band-ambiguous magnitudes."
+            }
+          },
+          "note": "Piccotti et al. (2020), exact HD 170153 reviewed pair. Component Johnson V comes from Table 6 resolved-flux decomposition. Eligible masses use Table 5 orbital-parallax solution, with orbital/Hipparcos parallax consistency reviewed. Earlier individual catalog values win; ambiguous hierarchical totals and conflicting atmosphere/model estimates remain unavailable.",
+          "adopted": {
+            "apparent_mag": {
+              "value": 3.736,
+              "status": "decomposed-photometry",
+              "reference": "2020MNRAS.492.2709P",
+              "sourceUrl": "https://doi.org/10.1093/mnras/stz3616",
+              "section": "Table 6, Vmag1",
+              "sourceRecordId": "HD 170153",
+              "caveat": "Published decomposition of Johnson V using resolved brightness differences, not ORB6 band-ambiguous magnitudes."
+            },
+            "absolute_mag": {
+              "value": 4.20503389,
+              "status": "derived",
+              "method": "Component Johnson V and adopted catalog distance; no extinction correction",
+              "inputs": {
+                "apparent_mag": 3.736,
+                "distance_pc": 8.057368418
+              }
+            }
+          },
+          "retained": {
+            "mass_solar": {
+              "value": 0.96,
+              "unusedLiterature": {
+                "value": 1.036,
+                "status": "dynamical",
+                "reference": "2020MNRAS.492.2709P",
+                "sourceUrl": "https://doi.org/10.1093/mnras/stz3616",
+                "section": "Table 5, M1Orb",
+                "uncertainty": 0.066,
+                "sourceRecordId": "HD 170153",
+                "sourceParallaxMas": 121.1718
+              }
             }
           }
         }
@@ -87285,6 +88555,10 @@
       "supersededNotes": [
         {
           "text": "Withheld individual fields: temperature_k, luminosity_solar, radius_solar, metallicity_dex, age_gyr, absolute_mag.",
+          "reason": "Later reviewed individual values supersede part of this source withholding."
+        },
+        {
+          "text": "Withheld individual fields: temperature_k, luminosity_solar, radius_solar, metallicity_dex, age_gyr.",
           "reason": "Later reviewed individual values supersede part of this source withholding."
         }
       ],
@@ -90513,7 +91787,119 @@
           "vz_kms": 0.166458
         },
         "scope": "Shared primary astrometric basis and a single Galactic Cartesian velocity for all listed targets. This is a common linear-propagation approximation; individual measured positions, distances and proper motions are not overwritten. No orbital phase integration or binding-energy inference."
-      }
+      },
+      "reviewedLiterature": {
+        "expectedName": "Gamma Cephei A",
+        "systemId": "gamma-cephei",
+        "component": "A",
+        "retainPreviousRecord": true,
+        "note": "Reviewed 151-target enrichment (2026-10-21). 2015A&A...580A..24D; 2018AJ....155...30B; 2025AJ....169..293B. Existing non-null values retain their independent sources. Luminosity compiled from McDonald et al. 2017; not a new NPOI bolometric-flux measurement.",
+        "fields": {
+          "temperature_k": {
+            "value": 4684,
+            "reference": "2025AJ....169..293B",
+            "sourceUrl": "https://cdsarc.cds.unistra.fr/ftp/J/AJ/169/293/",
+            "url": "https://cdsarc.cds.unistra.fr/ftp/J/AJ/169/293/",
+            "section": "Table 7, HD 222404",
+            "status": "interferometric-derived",
+            "uncertainty": 11
+          },
+          "radius_solar": {
+            "value": 4.86,
+            "reference": "2025AJ....169..293B",
+            "sourceUrl": "https://cdsarc.cds.unistra.fr/ftp/J/AJ/169/293/",
+            "url": "https://cdsarc.cds.unistra.fr/ftp/J/AJ/169/293/",
+            "section": "Table 7, HD 222404",
+            "status": "interferometric-derived",
+            "uncertainty": 0.02
+          },
+          "luminosity_solar": {
+            "value": 10.2,
+            "reference": "2025AJ....169..293B",
+            "sourceUrl": "https://cdsarc.cds.unistra.fr/ftp/J/AJ/169/293/",
+            "url": "https://cdsarc.cds.unistra.fr/ftp/J/AJ/169/293/",
+            "section": "Table 7, HD 222404, r_L=MZW17",
+            "status": "compiled-luminosity",
+            "uncertainty": 0.1,
+            "caveat": "Luminosity compiled from McDonald et al. 2017; not a new NPOI bolometric-flux measurement."
+          },
+          "metallicity_dex": {
+            "value": 0.2,
+            "reference": "2015A&A...580A..24D",
+            "sourceUrl": "https://cdsarc.cds.unistra.fr/ftp/J/A+A/580/A24/",
+            "url": "https://cdsarc.cds.unistra.fr/ftp/J/A+A/580/A24/",
+            "section": "Table 4, HD222404",
+            "status": "spectroscopic",
+            "uncertainty": 0.11,
+            "quantity": "[Fe/H]"
+          },
+          "age_gyr": {
+            "value": 3.25,
+            "reference": "2018AJ....155...30B",
+            "sourceUrl": "https://cdsarc.cds.unistra.fr/ftp/J/AJ/155/30/",
+            "url": "https://cdsarc.cds.unistra.fr/ftp/J/AJ/155/30/",
+            "section": "Table 6, HD 222404",
+            "status": "evolutionary-model",
+            "uncertainty": 0.63
+          }
+        },
+        "adopted": {
+          "temperature_k": {
+            "value": 4684,
+            "reference": "2025AJ....169..293B",
+            "sourceUrl": "https://cdsarc.cds.unistra.fr/ftp/J/AJ/169/293/",
+            "url": "https://cdsarc.cds.unistra.fr/ftp/J/AJ/169/293/",
+            "section": "Table 7, HD 222404",
+            "status": "interferometric-derived",
+            "uncertainty": 11
+          },
+          "radius_solar": {
+            "value": 4.86,
+            "reference": "2025AJ....169..293B",
+            "sourceUrl": "https://cdsarc.cds.unistra.fr/ftp/J/AJ/169/293/",
+            "url": "https://cdsarc.cds.unistra.fr/ftp/J/AJ/169/293/",
+            "section": "Table 7, HD 222404",
+            "status": "interferometric-derived",
+            "uncertainty": 0.02
+          },
+          "luminosity_solar": {
+            "value": 10.2,
+            "reference": "2025AJ....169..293B",
+            "sourceUrl": "https://cdsarc.cds.unistra.fr/ftp/J/AJ/169/293/",
+            "url": "https://cdsarc.cds.unistra.fr/ftp/J/AJ/169/293/",
+            "section": "Table 7, HD 222404, r_L=MZW17",
+            "status": "compiled-luminosity",
+            "uncertainty": 0.1,
+            "caveat": "Luminosity compiled from McDonald et al. 2017; not a new NPOI bolometric-flux measurement."
+          },
+          "metallicity_dex": {
+            "value": 0.2,
+            "reference": "2015A&A...580A..24D",
+            "sourceUrl": "https://cdsarc.cds.unistra.fr/ftp/J/A+A/580/A24/",
+            "url": "https://cdsarc.cds.unistra.fr/ftp/J/A+A/580/A24/",
+            "section": "Table 4, HD222404",
+            "status": "spectroscopic",
+            "uncertainty": 0.11,
+            "quantity": "[Fe/H]"
+          },
+          "age_gyr": {
+            "value": 3.25,
+            "reference": "2018AJ....155...30B",
+            "sourceUrl": "https://cdsarc.cds.unistra.fr/ftp/J/AJ/155/30/",
+            "url": "https://cdsarc.cds.unistra.fr/ftp/J/AJ/155/30/",
+            "section": "Table 6, HD 222404",
+            "status": "evolutionary-model",
+            "uncertainty": 0.63
+          }
+        },
+        "retained": {}
+      },
+      "supersededNotes": [
+        {
+          "text": "Withheld individual fields: temperature_k, luminosity_solar, radius_solar, metallicity_dex, age_gyr, absolute_mag.",
+          "reason": "Later reviewed individual values supersede part of this source withholding."
+        }
+      ]
     },
     "gamma-cephei-b": {
       "constellationSystemMotion": {
@@ -102565,12 +103951,12 @@
     ],
     "available": {
       "spectral_type": 602,
-      "temperature_k": 489,
-      "mass_solar": 368,
-      "luminosity_solar": 329,
-      "radius_solar": 337,
-      "metallicity_dex": 288,
-      "age_gyr": 111,
+      "temperature_k": 495,
+      "mass_solar": 374,
+      "luminosity_solar": 343,
+      "radius_solar": 352,
+      "metallicity_dex": 292,
+      "age_gyr": 115,
       "absolute_mag": 533
     },
     "withoutProperties": [
@@ -102632,7 +104018,6 @@
       "msc-22288-0001-ab",
       "hip-7097",
       "orb6-01315+1521-a-b-b",
-      "hip-10826",
       "orb6-02193-0259-aa-ab-ab",
       "hip-21281",
       "orb6-04340-5503-a-b-b",
@@ -103574,11 +104959,6 @@
         "age_gyr"
       ],
       "cns5-4401": [
-        "temperature_k",
-        "luminosity_solar",
-        "radius_solar",
-        "metallicity_dex",
-        "age_gyr",
         "absolute_mag"
       ],
       "mu-her-ab": [
@@ -103713,10 +105093,6 @@
       ],
       "cns5-4539": [
         "spectral_type",
-        "temperature_k",
-        "luminosity_solar",
-        "radius_solar",
-        "metallicity_dex",
         "age_gyr"
       ],
       "chi-draconis-b": [
@@ -103781,11 +105157,6 @@
         "absolute_mag"
       ],
       "cns5-5833": [
-        "temperature_k",
-        "luminosity_solar",
-        "radius_solar",
-        "metallicity_dex",
-        "age_gyr",
         "absolute_mag"
       ],
       "gamma-cephei-b": [
@@ -104052,8 +105423,6 @@
       ],
       "hip-3092": [
         "mass_solar",
-        "luminosity_solar",
-        "radius_solar",
         "age_gyr"
       ],
       "msc-00393+3052-ab": [
@@ -104319,13 +105688,6 @@
       ],
       "msc-02433+0314-c": [
         "temperature_k",
-        "mass_solar",
-        "luminosity_solar",
-        "radius_solar",
-        "metallicity_dex",
-        "age_gyr"
-      ],
-      "hip-12828": [
         "mass_solar",
         "luminosity_solar",
         "radius_solar",
@@ -104648,9 +106010,6 @@
         "age_gyr"
       ],
       "bright-mintaka": [
-        "mass_solar",
-        "luminosity_solar",
-        "radius_solar",
         "metallicity_dex",
         "age_gyr"
       ],
@@ -104721,9 +106080,7 @@
       ],
       "bright-alnitak": [
         "temperature_k",
-        "mass_solar",
         "luminosity_solar",
-        "radius_solar",
         "metallicity_dex",
         "age_gyr"
       ],
@@ -105097,9 +106454,6 @@
         "age_gyr"
       ],
       "hip-42913": [
-        "mass_solar",
-        "luminosity_solar",
-        "radius_solar",
         "metallicity_dex",
         "age_gyr"
       ],
@@ -105302,9 +106656,6 @@
         "age_gyr"
       ],
       "hip-51233": [
-        "mass_solar",
-        "luminosity_solar",
-        "radius_solar",
         "age_gyr"
       ],
       "msc-10279+3642-b": [
@@ -105659,8 +107010,6 @@
         "age_gyr"
       ],
       "bright-mizar-a": [
-        "luminosity_solar",
-        "radius_solar",
         "age_gyr"
       ],
       "msc-13239+5456-ab": [
@@ -106732,10 +108081,7 @@
       ],
       "hip-104858": [
         "temperature_k",
-        "luminosity_solar",
-        "radius_solar",
-        "metallicity_dex",
-        "age_gyr"
+        "metallicity_dex"
       ],
       "hip-104858-component-b": [
         "temperature_k",
@@ -106785,8 +108131,6 @@
       ],
       "hip-50583": [
         "mass_solar",
-        "luminosity_solar",
-        "radius_solar",
         "age_gyr"
       ],
       "hip-50583-component-b": [
@@ -106815,9 +108159,6 @@
         "absolute_mag"
       ],
       "hip-104987": [
-        "temperature_k",
-        "luminosity_solar",
-        "radius_solar",
         "metallicity_dex",
         "age_gyr"
       ],
@@ -106876,10 +108217,6 @@
         "absolute_mag"
       ],
       "hip-97365": [
-        "temperature_k",
-        "mass_solar",
-        "luminosity_solar",
-        "radius_solar",
         "metallicity_dex",
         "age_gyr",
         "absolute_mag"
@@ -107082,10 +108419,7 @@
       ],
       "hip-10826": [
         "spectral_type",
-        "temperature_k",
         "mass_solar",
-        "luminosity_solar",
-        "radius_solar",
         "metallicity_dex",
         "age_gyr",
         "absolute_mag"
@@ -107958,12 +109292,12 @@
   },
   "sourcePreservation": {
     "componentRecordsWithSources": 598,
-    "sourceRecords": 979,
+    "sourceRecords": 995,
     "missingIndividualFieldsWithSourceValues": {
-      "temperature_k": 68,
+      "temperature_k": 66,
       "mass_solar": 27,
-      "luminosity_solar": 92,
-      "radius_solar": 92,
+      "luminosity_solar": 89,
+      "radius_solar": 88,
       "metallicity_dex": 61,
       "age_gyr": 8,
       "absolute_mag": 66,
@@ -107975,22 +109309,22 @@
     }
   },
   "coverage": {
-    "temperature_k": 489,
-    "mass_solar": 368,
-    "luminosity_solar": 329,
-    "radius_solar": 337,
-    "metallicity_dex": 288,
-    "age_gyr": 111
+    "temperature_k": 495,
+    "mass_solar": 374,
+    "luminosity_solar": 343,
+    "radius_solar": 352,
+    "metallicity_dex": 292,
+    "age_gyr": 115
   },
   "inputSha256": {
     "src/data/star-systems.json": "0e7e0b8097766381629c4d28e57f62948ecde0c10ac18992c09cef17cb6dfe05",
     "src/data/object-designations.json": "8d641d6e4d29e62b343722f3746c074adc11c198522f8a9148c7f62dcb664fb0",
     "src/data/object-stats.json": "642d5bf070e7ab685ceac280896a934163b47cb39a977823e69e9854bd9f4d00",
-    "src/data/catalogs/bright-stars/stars.csv": "682dd4cefa7ffc8b76c75553a75fc0b50b07f3c9b6b48296f3b30b08971a26f8",
+    "src/data/catalogs/bright-stars/stars.csv": "1efcdeb2690d53b815e51be385cdf095820e485538806048863848896b661592",
     "catalog-work/famous-cluster-stars/retired-catalog/stars.csv": "a3891d03306b702329de98dafff62ca2b0906f8dd6089f64bd8005a252d5b33f",
     "src/data/catalogs/nearest-100/stars.csv": "a283dc0a9319d331ac01c8d6e526fbb23f5eb2cdc6ca243f160d5a381fe24a88",
     "src/data/catalogs/nearest-1000/stars.csv": "4f851fa5f27325e045f1cef19d18e8ef4b8334761c207eea0f50f5cc3dbeea31",
-    "src/data/catalogs/western-constellation-stars/stars.csv": "28689abf630ec0b3322df1dbbe21e8fb1090dc3a1a03b670b2e6572292aeea6c",
+    "src/data/catalogs/western-constellation-stars/stars.csv": "e8cdc61e33e9ea33a76ff78cd1fd1115821cfe94641aeac65f29ded0263b9e54",
     "src/data/stars.csv": "cbe5afe70dfcd4f789ebdf61464a35ce59652dc7ad6eccfd389c5599128d2f11",
     "catalog-work/star-systems/catalog-companions-msc.json": "b81210724ff9914c3c286c5971155df5bf20613252baaa9472eee085f0cd0f41",
     "catalog-work/star-systems/catalog-companions-cifuentes.json": "bdd35ae8d422a55660f6055417684ec7dbe7bf8df6ec1657129b448bc73346b8",
@@ -108067,8 +109401,64 @@
     "catalog-work/star-systems/izar-review.json": "025ca21ae85254801d9bdf4c61f6039f57053826af98240c2fe26b3b934f4459",
     "catalog-work/star-systems/literature-components/izar-20261020-sources.json": "5d86e1ebe01a430f9b31fc84e085f3914e61bc8b84fbb6f2d1380f51fd1c60f6",
     "catalog-work/nearest-100/physical-overrides.json": "9bbfe6982d5fad43b205a5cbf36fc9bb3ac967d285959292cc544abd3f1bd297",
-    "catalog-work/shared-enrichment/source-manifest.json": "94f632adf135caa1b7c9afd27b6981daf5b2d63b92764be5ce9885d6044dd446",
+    "catalog-work/shared-enrichment/source-manifest.json": "51fb538d443021382615013ef6bdaf942de51935ec914db19a77934a596fd1e0",
     "catalog-work/star-systems/reviewed-unresolved-photometry.json": "291165120291df05fe0c334b4623e6aaa6f75fc0a729786ae0f7f0a7d2100209",
+    "catalog-work/bright-western-enrichment-20261021/physical-review.json": "c23c2b4057e0c6e559acfb5230307719b75185ee272414026939d71aefe605cd",
+    "catalog-work/bright-western-enrichment-20261021/literature/piccotti-2020/ReadMe": "d36919462d3dc36e85f4cde8e93ce83b8c9da8b49fc92c546112bbcbaeeccd06",
+    "catalog-work/bright-western-enrichment-20261021/literature/piccotti-2020/table1.dat": "b6af5193ed79b61886e2124665f08e2efd76763b3f9281756ea22f835e2ed50b",
+    "catalog-work/bright-western-enrichment-20261021/literature/piccotti-2020/table2.dat": "e44eef0d99447d412b17feddbe19f847e3752488cad0dab2d31b8cff69db4376",
+    "catalog-work/bright-western-enrichment-20261021/literature/piccotti-2020/table3.dat": "7ed5bc72b2ebf917332f6dc60dd0973df6836e128ede5b651254d1f8757bdcca",
+    "catalog-work/bright-western-enrichment-20261021/literature/piccotti-2020/table5.dat": "21bf71810ff217cde4eb7fbad9fbf68117345a8dd4d27c31411194b77830c13e",
+    "catalog-work/bright-western-enrichment-20261021/literature/piccotti-2020/table6.dat": "40d18c3d55a9f0baa4a1a73c6038c2ea1831bdf44c7bb2f7282ef4a3c0cfffbd",
+    "catalog-work/bright-western-enrichment-20261021/literature/piccotti-2020/table7.dat": "41580e7d2a73a707b395af404380bc0cb700a8c1770aa065a6264dc99c838fa2",
+    "catalog-work/bright-western-enrichment-20261021/literature/piccotti-2020/table11.dat": "9bbfd78e66d353561f0d19e1d3f824784e4f9cc78cbc77b3ab70f5fb90fc6562",
+    "catalog-work/bright-western-enrichment-20261021/literature/piccotti-2020/table12.dat": "9e99d3e338c903994978013f37cd5b99029e1b890138b0e6ffd583ce5aad44d0",
+    "catalog-work/bright-western-enrichment-20261021/literature/baines-2021/ReadMe": "8282fe0823fa521a1919e8950c43b7cdf0ec2d954bbb2310b749e12a115b37ca",
+    "catalog-work/bright-western-enrichment-20261021/literature/baines-2021/table5.dat": "a968edc73edc71d81f593ba3d888240bc8a512e8cda25e03e78e45f43b47af2c",
+    "catalog-work/bright-western-enrichment-20261021/literature/baines-2023/ReadMe": "671baf7122a5b0ef3945418340f0545c74713aa512a20a1dd3f51c95bc12c512",
+    "catalog-work/bright-western-enrichment-20261021/literature/baines-2023/table7.dat": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "catalog-work/bright-western-enrichment-20261021/literature/massarotti-2008/ReadMe": "219cca1911ab765aa5bdd496dbfcd00a959708ec2f30133d96852842282e103f",
+    "catalog-work/bright-western-enrichment-20261021/literature/massarotti-2008/table3.dat": "053726ef6ac8b18ba1c52539a1741d3ca1255c97ab03ef693130dcc1270afad5",
+    "catalog-work/bright-western-enrichment-20261021/literature/massarotti-2008/table14.dat": "edddfb11edd4ca8450234314975af36061ed061f4f6ea92612a03c6010ab34f2",
+    "catalog-work/bright-western-enrichment-20261021/literature/massarotti-2008/table15.dat": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "catalog-work/bright-western-enrichment-20261021/literature/stock-2018/ReadMe": "4db003dc4e59f8c1cc011b26fabccd44822035e0f91fccc2bccfe196b29b8b41",
+    "catalog-work/bright-western-enrichment-20261021/literature/stock-2018/giants.dat": "3aa5427c9395e1f5040b612f0442d92e0d0441dead0f2accc14423c630494063",
+    "catalog-work/bright-western-enrichment-20261021/literature/hohle-2010/ReadMe": "600384b78cfaa5788ad005d10743b45128bed8ef42edfb4bb210f7dcc1f6100f",
+    "catalog-work/bright-western-enrichment-20261021/literature/hohle-2010/table1.dat": "4fc1c08d3f8db6cbc8f6707b53cb23d2ac5260310e4dafed960ce1a57f31280b",
+    "catalog-work/bright-western-enrichment-20261021/literature/hohle-2010/table3.dat": "393e1f943cd645e0807edbd502c64f12e61debe8be871cb1edf25b6fb4f14813",
+    "catalog-work/bright-western-enrichment-20261021/literature/hohle-2010/table1fp.dat": "9c22933a76caec9fd84b87a162c6a0ca37a6ddf959c420e8284bcbd5d90abd32",
+    "catalog-work/bright-western-enrichment-20261021/literature/hohle-2010/table3fp.dat": "ea29ee9273b602931e57874a9c009bcd257cabecaf99a710be6cfe47441bd025",
+    "catalog-work/bright-western-enrichment-20261021/literature/tetzlaff-2011/ReadMe": "f222090e982d7130c88e8f8cb6780cf8f7ff5813273f6248abe441febc18e058",
+    "catalog-work/bright-western-enrichment-20261021/literature/tetzlaff-2011/table1.dat": "c694f0860cd54819f576c45ba075de6a89b0485f97e2026838e7d10a52d18fc5",
+    "catalog-work/bright-western-enrichment-20261021/literature/baines-2018/ReadMe": "0f51f0963e6996de083ab7a870789f6cf8590723054498bf839f8f4f5143c58a",
+    "catalog-work/bright-western-enrichment-20261021/literature/baines-2018/table1.dat": "1928150acb1fce2e0e6c867c9eaddc1203c4edf557fa799a1e21d77d5db57f13",
+    "catalog-work/bright-western-enrichment-20261021/literature/baines-2018/table5.dat": "62a5eb7fa4c10691acba30dfa6b377c0023f72461c388cfaec1533913a259ee2",
+    "catalog-work/bright-western-enrichment-20261021/literature/baines-2018/table6.dat": "ac2d2362597c1ff5f42af7e62bba11c2629f89d1b74ff7357f7dcfd75490e03e",
+    "catalog-work/bright-western-enrichment-20261021/literature/baines-2025/ReadMe": "a75e5e86a028394c2d6b7c5db7caef750d4e0240edbca0bafbdcddfa8426b11f",
+    "catalog-work/bright-western-enrichment-20261021/literature/baines-2025/table7.dat": "aebbb9df3a4ab9936737a821f2767d7aa51a9f294a1e74266ff4dd2ae0d8d645",
+    "catalog-work/bright-western-enrichment-20261021/literature/baines-2025/table8.dat": "05cc88661c50813cf8a0037a0639027578ced869945da864b60a26274f8788b7",
+    "catalog-work/bright-western-enrichment-20261021/literature/baines-2025/table9.dat": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "catalog-work/bright-western-enrichment-20261021/literature/charbonnel-2020/ReadMe": "74828e83bcb3d42dac6bd231cc50654f9bd03a8f5e1bc8f2e93b2d04299eddd6",
+    "catalog-work/bright-western-enrichment-20261021/literature/charbonnel-2020/table1.dat": "c3986be01c667b6bb81c98bf174f6522a0b532bac40e8e0867bd72a6df76a241",
+    "catalog-work/bright-western-enrichment-20261021/literature/zorec-2012/ReadMe": "d4f7c86b99fcb9c13d2265a7d6ad7da8da7ae12cc135a58c53361d1244167f27",
+    "catalog-work/bright-western-enrichment-20261021/literature/zorec-2012/table1.dat": "6904291b70d85175bb46262a812085887cecf61081b5ac8bb1e9e1693406c433",
+    "catalog-work/bright-western-enrichment-20261021/literature/david-2015/ReadMe": "c0bd36e062c31e99bbdc9667f68f46c3b8accf0c89584601a890f7d5393ef3b8",
+    "catalog-work/bright-western-enrichment-20261021/literature/david-2015/table5.dat": "c51898d807828a258f19a3aa934ac8149c6cb87c15509b45e4db2dda99b770da",
+    "catalog-work/bright-western-enrichment-20261021/literature/dasilva-2015/ReadMe": "73734a8ce10190524e246c9be6569709457646d6e5643328163ea507f67440c2",
+    "catalog-work/bright-western-enrichment-20261021/literature/dasilva-2015/table4.dat": "ef0d7b40317408bf81831d90f76b9be90b6f08221e115f37a6fe5cde8bfbe7bb",
+    "catalog-work/bright-western-enrichment-20261021/literature/dasilva-2015/table7.dat": "0b724fd3a2ad1c41c1aef47086db9b78775cb1b833ec8434886cb94a1bc2209a",
+    "catalog-work/bright-western-enrichment-20261021/literature/luck-2015/ReadMe": "e7bc3611f80724bcc85fcfe81029308ffeff6b519c55c81861722b7da26205ab",
+    "catalog-work/bright-western-enrichment-20261021/literature/luck-2015/table1.dat": "4ecd76359437e63cda08b79219753028904a7e22c6e04ac90e85ba92bb1d5c48",
+    "catalog-work/bright-western-enrichment-20261021/literature/luck-2015/table2.dat": "458c33d892bd1b911877a9f736b77b52ba2bb2a63cd08262f3a105725ee184b7",
+    "catalog-work/bright-western-enrichment-20261021/literature/luck-2015/table3.dat": "a093860d45d30fd035704d50ea888ef8608c2193539deb43da12e97735f6f681",
+    "catalog-work/bright-western-enrichment-20261021/literature/bale-2025/ReadMe": "aaa43f6b638590766d286c7d16e68e3f59e11c2e720393b2c744d5429dd898a9",
+    "catalog-work/bright-western-enrichment-20261021/literature/bale-2025/tablea1.dat": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "catalog-work/bright-western-enrichment-20261021/literature/selected-paper-tables.json": "0563953de07b372e3cbce1431a2ef103ec3bfbe90ed558df1c370d9fba296828",
+    "catalog-work/bright-western-enrichment-20261021/source-manifest.json": "e4c8b0b4c42568e768167fc146e2ac45db4fa47cc781ebad2887e0da77127fdc",
+    "catalog-work/bright-western-enrichment-20261021/targets.json": "38c463dfb0e7ff1a6e9a339359f23d8d3093b3e0fb15f1b128c6dd5883db7e88",
+    "catalog-work/bright-western-enrichment-20261021/target-identities.json": "09dda103a0b7c344098464e3e979cecf5c08b97ef7ec1105860d9a55fb5d3cfd",
+    "catalog-work/bright-western-enrichment-20261021/source-crossmatches.json": "d07ff0547ad9d2f8156ce5c6ab3ae8493c0936788189f8fa3254f8a2499b8429",
+    "catalog-work/bright-western-enrichment-20261021/baseline-scope.json": "51609482ec225d696925c18c702d3b1f070b3b60615ce80e95585509f75cc36a",
     "catalog-work/shared-enrichment/reviewed-objects.json": "399957baaf14f57ea1622846cdf879e5767a340df1efce527b4998a235047e8a"
   }
 }
