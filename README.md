@@ -4,6 +4,12 @@
 
 A 3D map of nearby stars, brown dwarfs and compact remnants that runs in the browser. It starts Sun-centered and lets any object become the active origin. Built with TypeScript, Three.js and Vite. All data, fonts and icons are bundled, so it runs without a backend or network access.
 
+Main focus of this app is:
+- Exploration
+- Evoking questions
+- Investigation
+- Gaining understanding
+
 This project is still in active development and there are a lot of features to come.
 
 ## Features
