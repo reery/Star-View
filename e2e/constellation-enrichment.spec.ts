@@ -13,10 +13,10 @@ test('reviewed constellation components expose updated masses and primary-source
   await page.getByRole('button', { name: 'Filter', exact: true }).click()
   const objects = page.getByRole('button', { name: 'Objects', exact: true })
   for (const [id, mass, companionId, companionMass, source, text] of [
-    ['bright-castor', '2.371 M☉', 'msc-07346+3153-cb', '0.606 M☉', '2210.16322', '0.814 days'],
-    ['bright-spica', '11.43 M☉', 'msc-13252-1110-ab', '7.21 M☉', '1601.08069', '11.4 and 7.2'],
+    ['bright-castor', '2.4 M☉', 'msc-07346+3153-cb', '0.6 M☉', '2210.16322', '0.814 days'],
+    ['bright-spica', '11.4 M☉', 'msc-13252-1110-ab', '7.2 M☉', '1601.08069', '11.4 and 7.2'],
     ['bright-nunki', '6.5 M☉', 'msc-18553-2618-ab', '6.3 M☉', '2603.17011', '134.779'],
-    ['bright-menkalinan', '2.359 M☉', 'orb6-05595+4457-aa-ab-ab', '2.293 M☉', '2609.03886', '2026 analysis'],
+    ['bright-menkalinan', '2.4 M☉', 'orb6-05595+4457-aa-ab-ab', '2.3 M☉', '2609.03886', '2026 analysis'],
   ] as const) {
     if (await objects.getAttribute('aria-expanded') === 'false') await objects.click()
     await page.getByLabel('Search objects').fill(id)

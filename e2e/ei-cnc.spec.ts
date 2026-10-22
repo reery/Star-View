@@ -18,8 +18,8 @@ test('EI Cnc A and B show reviewed mass and radius in both nearby catalogs', asy
     await selectCatalog(page, catalog)
     await expect(page.locator('#scene-status')).toBeHidden()
     for (const [id, mass, radius] of [
-      ['10pc-0113', '0.12 M☉', '0.148 R☉'],
-      ['10pc-0114', '0.103 M☉', '0.132 R☉'],
+      ['10pc-0113', '0.1 M☉', '0.1 R☉'],
+      ['10pc-0114', '0.1 M☉', '0.1 R☉'],
     ] as const) {
       await page.locator(`#star-components [data-component-id="${id}"]`).click()
       await expect(page.locator('#inspector')).toHaveAttribute('data-selected-star', id)

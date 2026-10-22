@@ -13,9 +13,9 @@ test('constellation components expose adopted data and shared system radial velo
   await page.getByRole('button', { name: 'Filter', exact: true }).click()
   const objects = page.getByRole('button', { name: 'Objects', exact: true })
   for (const [id, companionId, companionMass, velocity] of [
-    ['hip-75695', 'orb6-15278+2906-a-b-b', '1.635 M☉', '-19.856'],
-    ['hip-43109', 'msc-08468+0625-b', '1.661 M☉', '35.526'],
-    ['hip-30883', 'msc-06290+2013-aa2', '3.28 M☉', '29.8 ± 0.1'],
+    ['hip-75695', 'orb6-15278+2906-a-b-b', '1.6 M☉', '-19.856'],
+    ['hip-43109', 'msc-08468+0625-b', '1.7 M☉', '35.526'],
+    ['hip-30883', 'msc-06290+2013-aa2', '3.3 M☉', '29.8 ± 0.1'],
     ['hip-61941', 'orb6-12417-0127-a-b-b', null, '-19.8'],
   ] as const) {
     if (await objects.getAttribute('aria-expanded') === 'false') await objects.click()

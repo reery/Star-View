@@ -76,8 +76,8 @@ test('keeps Furud components and scoped cards identical from a clean chart and t
     await expect(page.locator('#inspector')).toHaveAttribute('data-selected-star', 'hip-30122')
     await expect(page.locator('#star-components button')).toHaveText(['Aa', 'Ab'])
     await expect(page.getByRole('button', { name: 'Show Furud Aa', exact: true })).toHaveAttribute('aria-pressed', 'true')
-    await expect(page.locator('#luminosity')).toHaveText('1,609.359 L☉')
-    await expect(page.locator('#radius')).toHaveText('5.764 R☉')
+    await expect(page.locator('#luminosity')).toHaveText('1,609.4 L☉')
+    await expect(page.locator('#radius')).toHaveText('5.8 R☉')
     for (const metric of ['luminosity', 'radius']) {
       await expect(page.locator(`#${metric}-toggle`)).toBeDisabled()
       await page.locator(`#${metric}-row`).focus()

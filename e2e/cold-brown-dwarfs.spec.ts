@@ -19,7 +19,7 @@ test('cold brown dwarfs retain sourced model ranges and the adopted 2023 velocit
       if (id === '10pc-0068') {
         await expect(page.locator('#temperature')).toHaveText('502–539 K')
         await expect(page.locator('#mass')).toHaveText('10.7–25.8 M♃')
-        await expect(page.locator('#radius')).toHaveText('0.886–1.019 R♃')
+        await expect(page.locator('#radius')).toHaveText('0.9–1 R♃')
         for (const metric of ['temperature', 'mass', 'radius']) {
           await expect(page.locator(`#${metric}-toggle`)).toBeDisabled()
         }
@@ -31,15 +31,15 @@ test('cold brown dwarfs retain sourced model ranges and the adopted 2023 velocit
         expect(bounds!.y).toBeGreaterThan(rowBounds!.y + rowBounds!.height)
         expect(bounds!.y + bounds!.height).toBeLessThan(page.viewportSize()!.height)
         await page.screenshot({ path: testInfo.outputPath(`${catalog}-${id}-range-tooltip.png`) })
-        await expect(page.locator('#infrared-magnitude')).toHaveText('12.016 ± 0.011')
+        await expect(page.locator('#infrared-magnitude')).toHaveText('12.02 ± 0.01')
       } else {
         await expect(page.locator('#temperature')).toHaveText('361 K')
-        await expect(page.locator('#mass')).toHaveText('0.012 M☉')
-        await expect(page.locator('#radius')).toHaveText('0.099 R☉')
+        await expect(page.locator('#mass')).toHaveText('0.0124 M☉')
+        await expect(page.locator('#radius')).toHaveText('0.1 R☉')
         await expect(page.locator('#temperature-toggle')).toBeEnabled()
         await expect(page.locator('#temperature-source-tooltip')).toBeHidden()
         await expect(page.locator('#mass')).not.toHaveAttribute('aria-label')
-        await expect(page.locator('#infrared-magnitude')).toHaveText('13.487 ± 0.005')
+        await expect(page.locator('#infrared-magnitude')).toHaveText('13.49 ± 0.01')
       }
       await expect(page.locator('#infrared-magnitude-label')).toHaveText('Apparent mag. (F480M)')
       await expect(page.locator('#age')).toHaveText('—')

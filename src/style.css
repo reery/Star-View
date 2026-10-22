@@ -354,7 +354,7 @@ select:focus-visible, input:focus-visible { outline: 2px solid var(--accent); ou
 .range-bounds { color: var(--muted); font-size: 10px; }
 .range-markers { position: relative; height: 16px; margin: -7px 8px 0; color: var(--muted); font-size: 10px; font-variant-numeric: tabular-nums; pointer-events: none; }
 .range-markers > span { position: absolute; padding-top: 7px; transform: translateX(-50%); }
-.range-markers > span::before { content: ''; position: absolute; top: 0; left: 50%; width: 1px; height: 5px; background: var(--muted); }
+.range-markers > span::before { content: ''; position: absolute; top: 0; width: 1px; height: 5px; background: var(--muted); }
 .filter-dropdown { border-top: 1px solid var(--line); }
 .filter-dropdown > summary { min-height: 44px; padding: 10px 0; color: var(--ink); cursor: pointer; }
 .filter-dropdown > summary::marker, .source-details summary::marker, .designation-details summary::marker { color: var(--accent); }
@@ -463,7 +463,7 @@ select:focus-visible, input:focus-visible { outline: 2px solid var(--accent); ou
   .star-component:hover { color: var(--accent-vibrant); background: #ff8a2a0d; }
 }
 .properties-section { padding: 2px 16px 8px; }
-.object-card-footer { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); border-top: 1px solid var(--line); }
+.object-card-footer { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); border-top: 1px solid var(--line); }
 .object-section-button { display: grid; place-items: center; min-height: 28px; padding: 4px 8px; color: var(--ink); background: var(--surface-raised); border: 0; border-right: 1px solid var(--line); transition: color 120ms ease, background 120ms ease; }
 .object-section-button svg { width: 18px; height: 18px; }
 .object-section-button:first-child { border-bottom-left-radius: var(--card-radius); }
@@ -506,6 +506,7 @@ select:focus-visible, input:focus-visible { outline: 2px solid var(--accent); ou
 .stellar-orbit-tooltip { width: 220px; max-width: min(220px, calc(var(--ui-width) - 64px)); }
 .system-empty { padding-top: 12px; font-size: var(--property-text-size); line-height: 1.4; color: var(--muted); }
 .object-section-button[aria-expanded="true"] { color: var(--accent-vibrant); background: #ff8a2a14; box-shadow: inset 0 -2px #ff8a2a70; }
+#object-compare-toggle[aria-pressed="true"] { color: var(--danger); background: #f0808014; box-shadow: inset 0 -2px #f0808070; }
 .object-section-button:focus-visible { outline-color: var(--accent-vibrant); outline-offset: -3px; }
 @media (hover: hover) and (pointer: fine) {
   .object-section-button:hover:not(:disabled) { color: var(--accent-vibrant); background: #ff8a2a0d; }
@@ -522,7 +523,87 @@ select:focus-visible, input:focus-visible { outline: 2px solid var(--accent); ou
 .properties > div:hover .object-type-toggle:not(:disabled)::before, .object-type-toggle:not(:disabled)[aria-expanded="true"]::before { background: var(--panel-selected); }
 .object-type-toggle:focus-visible { outline: none; }
 .object-type-toggle:focus-visible::before { outline: 2px solid var(--accent); outline-offset: 1px; }
-.dock-card.object-type-card { position: absolute; top: var(--object-detail-top, 20px); left: var(--object-detail-left, 324px); width: min(380px, calc(var(--ui-width) - 402px)); max-height: calc(var(--ui-height) - var(--object-detail-top, 20px) - 20px); overflow: auto; overscroll-behavior: contain; scrollbar-width: thin; scrollbar-color: #776a5c transparent; pointer-events: auto; background: linear-gradient(145deg, #26282a, var(--panel)); }
+.selected-object.is-comparing { width: min(380px, calc(var(--ui-width) - 78px)); --comparison-columns: minmax(0, 140px) minmax(0, 90px) minmax(0, 1fr); --comparison-inset: calc(100% - 238px); }
+.star-comparison-heading, .is-comparing #object-specs .properties > div:has(> .comparison-value), .is-comparing .subtype-details > summary:has(> .comparison-value) { display: grid; grid-template-columns: var(--comparison-columns); column-gap: 8px; }
+.star-comparison-heading { align-items: start; padding: 0 0 8px; margin-bottom: 4px; border-bottom: var(--mass-metric-divider); font-size: 12px; line-height: 1.25; }
+.star-comparison-heading > :first-child { grid-column: 2; }
+.comparison-star { display: inline-flex; align-items: center; justify-content: flex-end; gap: 3px; min-width: 0; overflow-wrap: anywhere; }
+.star-comparison-heading .comparison-star { text-align: right; }
+#comparison-other-select { position: relative; isolation: isolate; padding: 0; border: 0; background: transparent; color: inherit; font: inherit; cursor: pointer; }
+#comparison-other-select::before { content: ''; position: absolute; z-index: -1; inset: -1px -8px -1px -2px; border-radius: 5px; }
+#comparison-other-select:hover::before { background: var(--panel-selected); }
+#comparison-other-select:focus-visible { outline: none; }
+#comparison-other-select:focus-visible::before { outline: 2px solid var(--accent); outline-offset: 1px; }
+.star-comparison-heading .comparison-star > span { min-width: 0; text-wrap: balance; }
+.comparison-star canvas { width: 24px; height: 24px; flex: 0 0 24px; }
+.is-comparing #object-specs .properties > div:has(> .comparison-value) { position: relative; isolation: isolate; }
+.is-comparing #object-specs .object-type-toggle::before { display: none; }
+.is-comparing #object-specs .properties > div:has(> .comparison-value)::before,
+.is-comparing #object-specs .properties > :is(.object-type-row, .constellation-row)::after { content: ''; position: absolute; z-index: -1; inset: -1px -8px; border-radius: 5px; pointer-events: none; }
+.is-comparing #object-specs .properties > div:not(.object-type-row, .constellation-row):has(.object-type-toggle:not(:disabled), .comparison-spec-toggle:not(:disabled)):is(:hover, :has(button:focus-visible), [data-comparison-active="both"])::before { background: var(--panel-selected); }
+.is-comparing #object-specs .properties > :is(.object-type-row, .constellation-row)::before { right: var(--comparison-inset); }
+.is-comparing #object-specs .properties > :is(.object-type-row, .constellation-row)::after { left: calc(100% - var(--comparison-inset) + 6px); }
+.is-comparing #object-specs .properties > :is(.object-type-row, .constellation-row)[data-comparison-same]::before { right: -8px; }
+.is-comparing #object-specs .properties > :is(.object-type-row, .constellation-row)[data-comparison-same]::after { display: none; }
+.is-comparing #object-specs .properties > :is(.object-type-row, .constellation-row):is([data-comparison-active="left"], [data-comparison-active="both"])::before,
+.is-comparing #object-specs .properties > :is(.object-type-row, .constellation-row):has(.object-type-toggle:not(:disabled)):hover:not(:has(.comparison-value:hover))::before,
+.is-comparing #object-specs .properties > :is(.object-type-row, .constellation-row):has(.object-type-toggle:focus-visible)::before,
+.is-comparing #object-specs .properties > :is(.object-type-row, .constellation-row)[data-comparison-same]:is(:hover, :has(button:focus-visible))::before { background: var(--panel-selected); }
+.is-comparing #object-specs .properties > :is(.object-type-row, .constellation-row):is([data-comparison-active="right"], [data-comparison-active="both"])::after,
+.is-comparing #object-specs .properties > :is(.object-type-row, .constellation-row):has(.comparison-value:hover .comparison-spec-toggle:not(:disabled))::after,
+.is-comparing #object-specs .properties > :is(.object-type-row, .constellation-row):has(.comparison-spec-toggle:focus-visible)::after,
+.is-comparing #object-specs .properties > :is(.object-type-row, .constellation-row)[data-comparison-same]:is(:hover, :has(button:focus-visible))::after { background: var(--panel-selected); }
+.is-comparing #object-specs .properties > div:not(.object-type-row, .constellation-row):has(button:focus-visible)::before,
+.is-comparing #object-specs .properties > [data-comparison-same]:has(button:focus-visible)::before,
+.is-comparing #object-specs .properties > :is(.object-type-row, .constellation-row):has(.object-type-toggle:focus-visible)::before,
+.is-comparing #object-specs .properties > :is(.object-type-row, .constellation-row):has(.comparison-spec-toggle:focus-visible)::after { outline: 2px solid var(--accent); outline-offset: 1px; }
+#object-specs .designation-details > summary { position: relative; isolation: isolate; }
+#object-specs .designation-details > summary::after { content: ''; position: absolute; z-index: -1; inset: -1px -8px; border-radius: 5px; pointer-events: none; }
+#object-specs .designation-details[open] > summary::after,
+#object-specs .designation-details > summary:is(:hover, :focus-visible)::after { background: var(--panel-selected); }
+#object-specs .designation-details > summary:focus-visible { outline: none; }
+#object-specs .designation-details > summary:focus-visible::after { outline: 2px solid var(--accent); outline-offset: 1px; }
+.is-comparing #object-specs .properties > div:has(> .comparison-value:hover) > dd > .mass-metric-tooltip { display: none; }
+.is-comparing #object-specs .properties dd { min-width: 0; }
+.is-comparing #object-specs .properties dt { overflow-wrap: anywhere; }
+.is-comparing #object-specs .object-type-toggle { max-width: 100%; }
+.is-comparing #constellation-row :is(#constellation, .comparison-spec-toggle > span) { display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; overflow: hidden; }
+.comparison-value { position: relative; isolation: isolate; align-self: stretch; cursor: default; }
+.comparison-value > span, .comparison-spec-toggle > span { display: block; }
+.comparison-value > span + span, .comparison-spec-toggle > span + span { margin-top: 6px; }
+.comparison-spec-toggle { display: block; width: 100%; padding: 0; border: 0; background: transparent; color: inherit; font: inherit; text-align: right; overflow-wrap: anywhere; }
+.comparison-spec-toggle:not(:disabled) { cursor: pointer; }
+.comparison-spec-toggle:focus-visible { outline: none; }
+.comparison-detail-columns { min-width: 0; }
+.is-comparing .comparison-detail-columns { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+.is-comparing .comparison-detail-columns > ul { min-width: 0; padding: 8px; border: 1px solid var(--line); border-radius: 5px; overflow-wrap: anywhere; }
+.comparison-value small { display: block; margin-top: 3px; color: var(--muted); font-size: 10px; font-weight: 400; }
+.is-comparing .subtype-details > summary { position: relative; }
+.is-comparing .subtype-details > summary::-webkit-details-marker { display: none; }
+.is-comparing .subtype-details > summary::before { content: '▶'; position: absolute; left: 0; top: 50%; transform: translateY(-50%); color: var(--accent); font-size: 10px; }
+.is-comparing .subtype-details[open] > summary::before { transform: translateY(-50%) rotate(90deg); }
+.is-comparing .subtype-details > summary > :first-child { padding-left: 12px; }
+.is-comparing .subtype-details .subtype-count { float: none; text-align: right; }
+.is-comparing .subtype-details .comparison-value { color: var(--ink); text-align: right; font-weight: 500; }
+.is-comparing #magnitude-row { grid-template-rows: auto auto; row-gap: 6px; }
+.is-comparing #magnitude-row > :is(dt, dd) { display: grid; grid-row: 1 / span 2; grid-template-rows: subgrid; align-items: baseline; }
+.is-comparing #magnitude-row > dt { grid-column: 1; }
+.is-comparing #magnitude-row > dd:nth-child(2) { grid-column: 2; }
+.is-comparing #magnitude-row > .comparison-value { grid-column: 3; }
+.is-comparing #magnitude-row .object-type-toggle { grid-row: 1 / span 2; grid-template-rows: subgrid; align-items: baseline; }
+.is-comparing #magnitude-row .comparison-spec-toggle { display: grid; grid-row: 1 / span 2; grid-template-rows: subgrid; align-items: baseline; }
+.is-comparing #magnitude-row .comparison-spec-toggle > span + span { margin-top: 0; }
+.tooltip.star-comparison-hint { display: block; position: fixed; right: auto; z-index: 10; width: max-content; max-width: min(340px, calc(100vw - 24px)); white-space: normal; line-height: 1.5; }
+.star-comparison-hint .comparison-star { display: inline; }
+.star-comparison-hint .comparison-star canvas { display: inline-block; vertical-align: middle; width: 20px; height: 20px; }
+.star-comparison-members { width: max-content; max-width: min(320px, calc(100vw - 24px)); max-height: calc(100dvh - 24px); overflow: auto; overscroll-behavior: contain; pointer-events: auto; }
+.comparison-system-name { padding: 4px 7px 7px; margin-bottom: 3px; border-bottom: var(--mass-metric-divider); color: var(--muted); font-size: 12px; }
+.comparison-system-members { display: grid; gap: 2px; }
+.comparison-member { display: flex; align-items: center; gap: 6px; width: 100%; min-height: 32px; padding: 4px 7px; border: 0; border-radius: 3px; background: transparent; color: var(--ink); font: inherit; text-align: left; overflow-wrap: anywhere; cursor: pointer; }
+.comparison-member:disabled { color: var(--muted); opacity: 0.5; cursor: default; }
+.comparison-member:not(:disabled):is(:hover, :focus-visible) { background: var(--panel-hover); }
+.comparison-member:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; }
+.dock-card.object-type-card { position: absolute; top: var(--object-detail-top, 20px); left: var(--object-detail-left, 324px); width: min(380px, calc(var(--ui-width) - 402px)); max-width: var(--object-detail-max-width, none); max-height: calc(var(--ui-height) - var(--object-detail-top, 20px) - 20px); overflow: auto; overscroll-behavior: contain; scrollbar-width: thin; scrollbar-color: #776a5c transparent; pointer-events: auto; background: linear-gradient(145deg, #26282a, var(--panel)); }
 .dock-card:has(> .card-scroll-content), .dock-card.catalog { display: flex; flex-direction: column; overflow: hidden; }
 .dock-card:has(> .card-scroll-content) > .panel-heading, .catalog > .panel-heading, .catalog > .object-search { flex-shrink: 0; }
 .object-type-card > .panel-heading { padding-right: 98px; }
@@ -665,6 +746,11 @@ select:focus-visible, input:focus-visible { outline: 2px solid var(--accent); ou
 .mass-ratio-sun { left: 50%; background: var(--stat-bar-reference); }
 .mass-typical-limit { background: var(--muted); }
 .mass-ratio-marker, .metallicity-marker { position: absolute; left: var(--mass-ratio-position, var(--metallicity-position, 50%)); top: -3px; width: 3px; height: calc(var(--stat-bar-height) + 6px); border-radius: 1px; transform: translateX(-50%); background: var(--accent-vibrant); box-shadow: 0 0 0 1px var(--panel); }
+.range-markers > span::before,
+.luminosity-plot-marker::after,
+.magnitude-marker::after,
+.temperature-marker::before,
+.has-comparison .metallicity-marker::before { left: 50%; transform: translateX(-50%); }
 :is(#mass-card, #radius-typical-bar) .mass-ratio-track { isolation: isolate; }
 :is(#mass-card, #radius-typical-bar) .mass-ratio-sun { z-index: 0; }
 :is(#mass-card, #radius-typical-bar) .mass-ratio-fill { z-index: 1; }
@@ -682,7 +768,7 @@ select:focus-visible, input:focus-visible { outline: 2px solid var(--accent); ou
 .mass-ratio-labels > :last-child { text-align: right; }
 .mass-metric-ratio { grid-column: 2; grid-row: 1 / span 2; display: grid; align-content: start; gap: 3px; text-align: right; color: var(--accent-strong); }
 .mass-metric-ratio strong { overflow-wrap: anywhere; color: var(--ink); font-size: var(--property-text-size); line-height: 1.25; font-weight: 600; }
-.mass-metric-ratio small, .luminosity-factor-title { color: var(--muted); font-size: 12px; }
+.mass-metric-ratio small, .luminosity-factor-title, .luminosity-factor-name, .magnitude-factor-name { color: var(--muted); font-size: 12px; }
 .mass-section > .mass-end-state-line { margin-top: 14px; color: var(--ink); }
 .mass-end-state-line strong { font-weight: 700; }
 .mass-method, .radius-method { margin-top: 16px; padding-top: 12px; border-top: 1px solid var(--line); color: var(--muted); }
@@ -692,47 +778,67 @@ select:focus-visible, input:focus-visible { outline: 2px solid var(--accent); ou
 .luminosity-body { container-type: inline-size; }
 .luminosity-equation.planet-facts-grid { grid-template-columns: minmax(0, 1fr) 12px minmax(0, 1fr) 12px minmax(0, 1.3fr); align-items: stretch; gap: 6px; font-variant-numeric: tabular-nums; }
 .luminosity-equation.planet-facts-grid > .planet-fact-tile { grid-template-rows: 30px 36px auto; align-content: start; align-items: center; gap: 4px; min-height: 0; padding: 8px 10px; text-align: center; }
+.luminosity-card.has-comparison .luminosity-equation { grid-template-rows: auto 30px 36px auto auto auto; }
+.luminosity-card.has-comparison .luminosity-equation > .planet-fact-tile { grid-template-rows: subgrid; padding: 0; overflow: hidden; }
+.luminosity-card.has-comparison .luminosity-factor-title { padding: 0 4px; }
+.luminosity-card.has-comparison .luminosity-factor-quantity { padding: 0 4px 8px; }
+.luminosity-card.has-comparison .luminosity-primary-tile, .luminosity-card.has-comparison .luminosity-equation-symbol { grid-row: 1 / span 4; }
+.luminosity-card.has-comparison .luminosity-comparison-tile { grid-row: 5 / span 2; }
+.luminosity-comparison-tile:nth-last-child(3) { grid-column: 1; }
+.luminosity-comparison-tile:nth-last-child(2) { grid-column: 3; }
+.luminosity-comparison-tile:last-child { grid-column: 5; }
+.luminosity-factor-name { min-width: 0; line-height: 1.25; text-align: left; flex-wrap: wrap; justify-content: center; }
+.luminosity-factor-name > span { min-width: 0; max-width: 100%; flex: 1 0 min-content; overflow-wrap: break-word; text-wrap: balance; }
 .luminosity-factor-title { margin: 0; line-height: 1.25; font-weight: 400; }
 .luminosity-factor-icon { display: flex; align-items: center; justify-content: center; height: 36px; color: var(--accent-strong); }
 .luminosity-factor-icon svg { width: 30px; height: 30px; }
 .luminosity-factor-quantity { align-self: start; }
 .luminosity-factor-quantity strong { display: block; font-size: 24px; line-height: 1.25; font-weight: 700; }
-.luminosity-equation #luminosity-solar { font-size: 28px; line-height: 1.25; font-weight: 700; color: var(--ink); }
+.luminosity-equation .luminosity-result-quantity { font-size: 28px; line-height: 1.25; font-weight: 700; color: var(--ink); }
 .luminosity-equation .luminosity-long-value { font-size: 18px; }
 .luminosity-factor-unit:not([hidden]) { display: block; margin-top: 2px; font-size: var(--property-text-size); line-height: 1.25; font-weight: 400; color: var(--ink); }
 .luminosity-equation.planet-facts-grid > .luminosity-result { border-color: color-mix(in srgb, var(--luminosity-real-color) 50%, var(--line)); background: radial-gradient(ellipse at 50% 40%, color-mix(in srgb, var(--luminosity-real-color) 13%, transparent), transparent 85%), #18191a55; box-shadow: inset 0 0 18px color-mix(in srgb, var(--luminosity-real-color) 6%, transparent), 0 0 14px color-mix(in srgb, var(--luminosity-real-color) 8%, transparent); }
 #luminosity-result-star { width: 30px; height: 30px; border-radius: 50%; background: radial-gradient(circle at 36% 30%, color-mix(in srgb, var(--luminosity-real-color) 65%, white), var(--luminosity-real-color) 75%); box-shadow: 0 0 10px color-mix(in srgb, var(--luminosity-real-color) 65%, transparent), 0 0 24px color-mix(in srgb, var(--luminosity-real-color) 35%, transparent), inset 0 0 4px #ffffff50; }
 .luminosity-equation-symbol { align-self: center; text-align: center; line-height: 1.25; color: var(--accent-strong); font-size: 18px; }
 @container (max-width: 300px) {
+  .luminosity-card.has-comparison .luminosity-equation { grid-template-columns: minmax(0, 1fr) 8px minmax(0, 1fr) 8px minmax(0, 1.3fr); gap: 4px; }
   .luminosity-factor-quantity strong { font-size: 18px; }
-  .luminosity-equation #luminosity-solar { font-size: 24px; }
+  .luminosity-equation .luminosity-result-quantity { font-size: 24px; }
   .luminosity-equation .luminosity-long-value { font-size: var(--property-text-size); }
 }
 .luminosity-flux-row { grid-template-columns: minmax(0, 1fr) fit-content(56%); gap: 8px; }
-.luminosity-flux-row:has(.luminosity-orbit-tick) { padding-bottom: 0; }
+.luminosity-flux-row { padding-bottom: 0; }
 .luminosity-flux-row .mass-metric-ratio { grid-row: 1; }
 .luminosity-flux-copy { display: flex; align-items: center; gap: 8px; }
 .luminosity-flux-copy canvas { display: block; width: 32px; height: 32px; flex: 0 0 32px; mix-blend-mode: screen; pointer-events: none; }
-.luminosity-orbit-comparison { display: inline-block; color: var(--muted); font-size: 12px; font-weight: 400; }
-.luminosity-distance-bar { grid-column: 1 / -1; margin: 0 5px 0 0; }
-.luminosity-distance-bar .mass-ratio-marker { z-index: 2; background: var(--luminosity-star-color); }
+.luminosity-distance-bar { margin: 14px 0 0; }
+.luminosity-flux-au { width: var(--luminosity-flux-au-position); opacity: 0.28; }
+.luminosity-flux-near { width: var(--luminosity-flux-near-position); }
+.luminosity-flux-far { left: var(--luminosity-flux-near-position); width: calc(var(--luminosity-flux-far-position) - var(--luminosity-flux-near-position)); top: calc(50% - 1px); bottom: auto; height: 2px; }
 .luminosity-distance-low { left: 0; }
 .luminosity-distance-high { left: 100%; }
-.luminosity-distance-axis { grid-template-columns: 1fr 1fr; margin: -8px 5px 0 0; font-size: 12px; }
-.luminosity-distance-axis > :last-child { text-align: right; }
+.luminosity-plot { position: relative; padding-bottom: var(--luminosity-label-space, 0px); }
+.luminosity-plot .luminosity-axis { display: flex; justify-content: space-between; font-size: 12px; }
+.luminosity-plot .luminosity-plot-marker { top: -3px; height: calc(var(--stat-bar-height) + 6px); z-index: 2; background: var(--luminosity-marker-color); }
+.luminosity-plot-marker::after { content: ''; position: absolute; top: 100%; width: 1px; height: calc(var(--luminosity-label-top, 35px) - var(--stat-bar-height) - 9px); background: inherit; }
+.luminosity-plot .luminosity-plot-label { position: absolute; top: var(--luminosity-label-top, 35px); left: 50%; width: max-content; max-width: var(--luminosity-label-max); margin: 0; white-space: normal; text-align: center; line-height: 1.3; font-size: 12px; color: var(--luminosity-marker-color); }
+.luminosity-marker-value { display: block; }
+.luminosity-marker-distance { font-size: inherit; white-space: nowrap; }
+.luminosity-marker-detail { display: block; color: var(--muted); font-size: inherit; }
 :is(.luminosity-scale, .magnitude-scale) .mass-ratio-track { background: linear-gradient(90deg, #ffffff14, #ffffff50 50%, #ffffffb8); }
 :is(.luminosity-scale, #magnitude-absolute-scale) .mass-ratio-track::before { content: ''; position: absolute; inset: 0 0 0 65%; border-radius: inherit; background: linear-gradient(90deg, transparent, #ffffff78); filter: blur(5px); pointer-events: none; }
 #magnitude-apparent-scale .mass-ratio-track { background: #ffffff24; }
-.luminosity-scale .mass-ratio-labels { position: relative; display: flex; justify-content: space-between; font-size: 12px; }
-.luminosity-scale .mass-ratio-labels > :nth-child(2) { position: absolute; left: var(--luminosity-sun-position); transform: translateX(-50%); }
-.luminosity-body :is(.luminosity-scale, .luminosity-class-bar) .mass-ratio-marker { z-index: 2; background: var(--luminosity-star-color); }
 .luminosity-class-range { position: absolute; top: 0; bottom: 0; left: var(--luminosity-distribution-low-position); width: calc(var(--luminosity-distribution-high-position) - var(--luminosity-distribution-low-position)); background: var(--stat-bar-fill); border-radius: inherit; }
 .luminosity-class-median { z-index: 1; }
-.luminosity-class-bar .mass-ratio-labels { font-size: 12px; }
-.luminosity-body #luminosity-class-heading { grid-column: 1 / -1; }
+.luminosity-class-heading-row { grid-column: 1 / -1; display: flex; flex-wrap: wrap; align-items: center; gap: 4px 10px; }
+.luminosity-class-heading-row h4 { min-width: 0; }
+.luminosity-median-legend { display: inline-flex; flex-shrink: 0; align-items: center; gap: 5px; color: var(--muted); font-size: 12px; line-height: 1.25; white-space: nowrap; }
+.luminosity-median-legend i { flex: 0 0 2px; height: 12px; background: var(--stat-bar-reference); border-radius: 1px; }
 .luminosity-class-context { grid-column: 1 / -1; margin-top: 0; }
+.luminosity-body .mass-metric:has(> #luminosity-scale) { padding-bottom: 4px; }
+.luminosity-body .mass-metric:has(> #luminosity-class-bar) { margin-top: 8px; padding-top: 10px; }
 .magnitude-card { --magnitude-visible-color: var(--accent-strong); }
-.magnitude-body { padding-bottom: 14px; }
+.magnitude-body { container-type: inline-size; padding-bottom: 14px; }
 .magnitude-section + .magnitude-section { margin-top: 12px; padding-top: 12px; border-top: var(--mass-metric-divider); }
 .magnitude-value-heading { display: grid; grid-template-columns: 20px minmax(0, 1fr) auto; align-items: start; gap: 10px; font-variant-numeric: tabular-nums; }
 .magnitude-value-heading h3 { font-size: 18px; font-weight: 700; color: var(--ink); }
@@ -740,6 +846,16 @@ select:focus-visible, input:focus-visible { outline: 2px solid var(--accent); ou
 .magnitude-heading-icon svg { width: 20px; height: 20px; }
 .magnitude-value-heading h3 small { font-size: inherit; font-weight: 400; color: var(--muted); white-space: nowrap; }
 .magnitude-value-heading > strong { color: var(--ink); font-size: 28px; line-height: 1.1; font-weight: 700; white-space: nowrap; text-align: right; }
+.magnitude-card.has-comparison .magnitude-value-heading { grid-template-columns: minmax(0, 1fr); }
+.magnitude-comparison-grid.planet-facts-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); margin-top: 10px; font-variant-numeric: tabular-nums; }
+.magnitude-comparison-grid.planet-facts-grid > .planet-fact-tile { grid-template-rows: subgrid; grid-row: span 2; align-content: start; gap: 0; min-height: 0; padding: 0; overflow: hidden; }
+.magnitude-factor-name > span { min-width: 0; overflow-wrap: break-word; text-wrap: balance; }
+.magnitude-tile-quantity { display: flex; align-items: center; justify-content: center; gap: 8px; padding: 8px; }
+.magnitude-tile-quantity svg { flex-shrink: 0; color: var(--accent-strong); }
+.magnitude-tile-quantity strong { color: var(--ink); font-size: clamp(20px, 7cqi, 24px); line-height: 1.25; font-weight: 700; white-space: nowrap; }
+@container (max-width: 260px) {
+  .magnitude-comparison-grid .magnitude-tile-quantity svg { display: none; }
+}
 .magnitude-visible-comparison { margin-top: 6px; margin-inline-start: 30px; font-size: 13px; color: var(--ink); }
 .magnitude-visible-comparison strong { color: var(--accent-strong); font-weight: 600; }
 .magnitude-scale { margin-top: 10px; padding-top: 5px; }
@@ -748,7 +864,7 @@ select:focus-visible, input:focus-visible { outline: 2px solid var(--accent); ou
 .magnitude-visibility-limit, .magnitude-eye-limit { position: absolute; top: -3px; width: 1px; height: calc(var(--stat-bar-height) + 6px); background: var(--magnitude-visible-color); opacity: 0.35; }
 .magnitude-marker { top: -3px; height: calc(var(--stat-bar-height) + 6px); width: 2px; transform: translateX(-50%); background: var(--magnitude-marker-color); box-shadow: 0 0 0 1px var(--panel); z-index: 1; }
 .magnitude-selected { width: 3px; z-index: 2; }
-.magnitude-marker::after { content: ''; position: absolute; left: 50%; top: calc(var(--stat-bar-height) + 6px); width: 1px; height: calc(4px + var(--magnitude-label-lane, 0) * 20px); background: var(--magnitude-marker-color); opacity: 0.3; }
+.magnitude-marker::after { content: ''; position: absolute; top: calc(var(--stat-bar-height) + 6px); width: 1px; height: calc(4px + var(--magnitude-label-lane, 0) * 20px); background: var(--magnitude-marker-color); opacity: 0.3; }
 .magnitude-marker > span { width: max-content; top: calc(16px + var(--magnitude-label-lane, 0) * 20px); max-width: var(--magnitude-label-max, 240px); overflow: hidden; text-overflow: ellipsis; line-height: 1.35; text-align: center; }
 .magnitude-marker > span small { font-size: inherit; }
 .magnitude-selected > span { color: var(--ink); font-weight: 600; }
@@ -761,6 +877,26 @@ select:focus-visible, input:focus-visible { outline: 2px solid var(--accent); ou
 .magnitude-visibility-button:focus .tooltip { display: block; }
 .magnitude-body .mass-method { margin-top: 12px; padding-top: 10px; font-size: 12px; }
 .temperature-body { container-type: inline-size; }
+.temperature-pair-grid.planet-facts-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+#temperature-comparison-facts { margin-top: 14px; }
+.temperature-pair-grid.planet-facts-grid > .planet-fact-tile { grid-template-columns: minmax(0, 1fr); grid-template-rows: subgrid; grid-row: span 2; align-content: start; align-items: start; gap: 0; min-height: 0; padding: 0; overflow: hidden; }
+.temperature-pair-grid .planet-fact-tile :is(dt, dd) { grid-column: 1; margin: 0; }
+.temperature-pair-grid .planet-fact-tile dt, .luminosity-factor-name, .magnitude-factor-name { display: flex; align-items: center; align-self: stretch; gap: 4px; padding: 2px 8px; color: var(--ink); background: var(--surface-heading); font-weight: 600; }
+.luminosity-factor-name { row-gap: 0; padding-inline: 4px; }
+.temperature-pair-grid dt > span:not(.sr-only) { min-width: 0; text-wrap: balance; }
+.temperature-pair-grid .planet-fact-tile dd { display: grid; grid-template-columns: 20px minmax(0, 1fr); align-items: center; gap: 8px; padding: 8px; }
+.temperature-tile-metric-icon { display: flex; align-items: center; justify-content: center; width: 20px; height: 20px; color: var(--accent-strong); }
+.temperature-tile-value { min-width: 0; }
+.temperature-appearance-star { border-radius: 50%; background: radial-gradient(circle, #fff 0%, var(--temperature-swatch-color) 65%, transparent 100%); box-shadow: 0 0 10px var(--temperature-swatch-color); }
+.temperature-comparison-tile .planet-fact-value { font-size: var(--property-text-size); line-height: 1.4; }
+.temperature-comparison-tile[data-metric="temperature"] .planet-fact-value { display: block; font-size: clamp(20px, 8cqi, 28px); font-weight: 700; line-height: 1.3; }
+@container (max-width: 340px) {
+  .temperature-pair-grid .planet-fact-tile[data-metric="ratio"] dd { grid-template-columns: minmax(0, 1fr); justify-items: start; }
+}
+@container (max-width: 260px) {
+  .temperature-pair-grid .planet-fact-tile dd { grid-template-columns: minmax(0, 1fr); justify-items: start; }
+  .temperature-comparison-tile:not([data-metric="temperature"]) .planet-fact-value { font-size: 12px; }
+}
 .temperature-overview { display: flex; align-items: center; gap: 10px; font-variant-numeric: tabular-nums; }
 #temperature-value-icon { display: flex; color: var(--ink); }
 #temperature-value-icon svg { width: 28px; height: 28px; }
@@ -773,7 +909,7 @@ select:focus-visible, input:focus-visible { outline: 2px solid var(--accent); ou
 .temperature-track { box-shadow: inset 0 0 0 1px #ffffff20; }
 .temperature-marker { position: absolute; top: -3px; width: 2px; height: calc(var(--stat-bar-height) + 6px); border-radius: 1px; transform: translateX(-50%); background: var(--temperature-marker-color); box-shadow: 0 0 0 1px var(--panel); z-index: 1; }
 .temperature-marker.is-selected { width: 3px; z-index: 2; }
-.temperature-marker::before { content: ''; position: absolute; bottom: 100%; left: 50%; height: calc(5px + var(--temperature-label-lane) * 20px); width: 1px; background: var(--temperature-marker-color); opacity: 0.5; }
+.temperature-marker::before { content: ''; position: absolute; bottom: 100%; height: calc(5px + var(--temperature-label-lane) * 20px); width: 1px; background: var(--temperature-marker-color); opacity: 0.5; }
 .temperature-marker > span { position: absolute; bottom: calc(100% + 5px + var(--temperature-label-lane) * 20px); width: max-content; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 12px; color: var(--muted); line-height: 1.3; }
 .temperature-marker.is-selected > span { color: var(--ink); font-weight: 600; }
 .temperature-classes { position: relative; height: 23px; margin-top: 5px; font-size: 12px; font-weight: 600; }
@@ -1044,6 +1180,14 @@ select:focus-visible, input:focus-visible { outline: 2px solid var(--accent); ou
 .metallicity-tick-sun { top: -3px; width: 2px; height: calc(var(--stat-bar-height) + 6px); transform: translateX(-50%); background: var(--stat-bar-reference); box-shadow: 0 0 0 1px var(--panel); }
 .metallicity-tick-sun > span { color: var(--ink); font-weight: 600; }
 .metallicity-marker-value { position: absolute; bottom: 44px; left: 50%; transform: translateX(var(--metallicity-label-offset, -50%)); color: var(--ink); white-space: nowrap; font-weight: 500; }
+.metallicity-scale.has-comparison { margin-top: 134px; }
+.has-comparison .metallicity-marker-value { bottom: 45px; width: max-content; white-space: normal; line-height: 1.4; }
+.has-comparison .metallicity-marker::before { content: ''; position: absolute; bottom: 0; width: 1px; height: 44px; background: var(--accent-vibrant); }
+.has-comparison .metallicity-comparison-marker { background: var(--stat-bar-reference); }
+.has-comparison .metallicity-comparison-marker::before { height: 96px; background: var(--stat-bar-reference); }
+.has-comparison .metallicity-comparison-marker .metallicity-marker-value { bottom: 97px; }
+.has-comparison .metallicity-comparison-marker.is-missing { background: transparent; box-shadow: none; }
+.has-comparison .metallicity-comparison-marker.is-missing::before { display: none; }
 .metallicity-sun-name { position: absolute; top: 23px; left: 50%; transform: translateX(-50%); color: var(--ink); }
 #metallicity-description { margin-top: 16px; font-size: 14px; line-height: 1.65; color: var(--muted); }
 .compact-property dd, .nebula-property dd, .molecular-cloud-property dd { max-width: 170px; overflow-wrap: anywhere; }
@@ -1077,6 +1221,7 @@ select:focus-visible, input:focus-visible { outline: 2px solid var(--accent); ou
 
 @media (max-width: 720px) {
   .selected-object { top: 12px; left: 12px; width: min(292px, calc(var(--ui-width) - 78px)); max-height: calc(var(--ui-height) - 24px); }
+  .selected-object.is-comparing { --comparison-columns: minmax(0, 1.3fr) repeat(2, minmax(0, 1fr)); --comparison-inset: calc((100% - 16px) / 3.3 + 8px); }
   .scene-toolbar { top: 12px; right: 12px; }
   .dock-card.saved-views-card { top: 12px; right: 66px; width: min(400px, calc(var(--ui-width) - 78px)); max-height: calc(var(--ui-height) - 24px); }
   .time-controls { left: calc(12px + var(--safe-left)); bottom: calc(12px + var(--safe-bottom)); }
@@ -1140,6 +1285,12 @@ select:focus-visible, input:focus-visible { outline: 2px solid var(--accent); ou
   .glossary-figure img { height: 110px; }
 }
 
+@media (max-width: 360px) {
+  .selected-object.is-comparing { --comparison-columns: minmax(0, 1.4fr) repeat(2, minmax(0, 1fr)); --comparison-inset: calc((100% - 16px) / 3.4 + 8px); }
+  .is-comparing #object-specs .properties > div, .is-comparing .subtype-details > summary { font-size: 12px; }
+  .star-comparison-heading .comparison-star { flex-direction: column; align-items: flex-end; }
+}
+
 @media (max-height: 500px) and (orientation: landscape) {
   .selected-object { max-height: calc(var(--ui-height) - 24px); }
   .dock-card { max-height: calc(var(--ui-height) - 24px); }
@@ -1171,10 +1322,10 @@ select:focus-visible, input:focus-visible { outline: 2px solid var(--accent); ou
   .selected-object { top: 12px; left: 12px; width: min(244px, calc(var(--ui-width) - 78px)); }
   .dock-card { max-height: calc(var(--ui-height) - 24px); }
   .dock-card.object-type-card {
-    top: 12px;
-    left: 268px;
+    top: var(--object-detail-top, 12px);
+    left: var(--object-detail-left, 268px);
     width: min(420px, calc(var(--ui-width) - 346px));
-    max-height: calc(var(--ui-height) - 24px);
+    max-height: calc(var(--ui-height) - var(--object-detail-top, 12px) - 12px);
   }
   .dock-card.object-type-card:is(.distance-card, .planet-card, .constellation-card) { width: min(420px, calc(var(--ui-width) - 346px)); }
   .object-type-card > .panel-heading:has(> [role="group"]) { flex-wrap: nowrap; padding: 0 98px 0 14px; }

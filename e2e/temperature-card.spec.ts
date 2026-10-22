@@ -49,7 +49,11 @@ test('shows the selected temperature, spectrum and compact context with normal c
       valueSize: parseFloat(getComputedStyle(root.querySelector('#temperature-value')!).fontSize),
       iconMatchesValue: getComputedStyle(root.querySelector('#temperature-value-icon')!).color === getComputedStyle(root.querySelector('#temperature-value')!).color,
       tileSpacing: [...root.querySelectorAll('.temperature-facts .planet-fact-tile')].map((tile) => tile.querySelector('dd')!.getBoundingClientRect().left - tile.querySelector('.planet-fact-icon')!.getBoundingClientRect().right),
-      tileAlignment: [...root.querySelectorAll('.temperature-facts .planet-fact-tile')].every((tile) => Math.abs(tile.querySelector('dd')!.getBoundingClientRect().top - tile.querySelector('.planet-fact-icon')!.getBoundingClientRect().top) < 1),
+      tileAlignment: [...root.querySelectorAll('.temperature-facts .planet-fact-tile')].every((tile) => {
+        const value = tile.querySelector('dd')!.getBoundingClientRect()
+        const icon = tile.querySelector('.planet-fact-icon')!.getBoundingClientRect()
+        return Math.abs(value.top + value.height / 2 - icon.top - icon.height / 2) < 1
+      }),
       legendLabelsFit: [...root.querySelectorAll('.temperature-spectrum-key > span')].every((label) => label.getBoundingClientRect().height < 20),
       legendClearance: legendEntries.every(({ key, text }, index) => text.right <= key.right + 1 && legendEntries.slice(index + 1).every((other) => Math.abs(other.key.top - key.top) > 1 || other.key.left - text.right >= 12)),
       selectedPosition: parseFloat((root.querySelector('[data-selected="true"]') as HTMLElement).style.left),
@@ -90,6 +94,7 @@ test('shows the selected temperature, spectrum and compact context with normal c
   await expect(lock).toHaveAttribute('aria-pressed', 'false')
   await dragScene()
   await expect(card).toBeHidden()
+  await openSpecs(page)
   await page.locator('#temperature-toggle').click()
   await card.locator('.card-scroll-content').evaluate((node) => { node.scrollTop = node.scrollHeight })
   await page.locator('#temperature-close').click()

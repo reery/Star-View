@@ -41,9 +41,9 @@ test('shows EZ Aquarii systemic radial velocity and system bulk motion for each 
   await openSpecs(page)
   await page.getByText('Coordinates & source', { exact: true }).click()
   for (const [id, magnitude, mass] of [
-    ['ez-aquarii-a', '15.39', '0.119'],
-    ['ez-aquarii-b', '15.64', '0.115'],
-    ['ez-aquarii-c', '17.43', '0.093'],
+    ['ez-aquarii-a', '15.39', '0.1'],
+    ['ez-aquarii-b', '15.64', '0.1'],
+    ['ez-aquarii-c', '17.43', '0.1'],
   ] as const) {
     await page.locator(`[data-component-id="${id}"]`).click()
     await expect(page.locator('#absolute-mag')).toHaveText(magnitude)

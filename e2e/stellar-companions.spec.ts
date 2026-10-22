@@ -63,7 +63,7 @@ test('selects Dubhe components with separate spectra and companion marks in both
   await page.screenshot({ path: testInfo.outputPath('dubhe-b.png') })
   await page.locator('#star-components [data-component-id="bright-dubhe"]').click()
   await expect(page.locator('#spectral-type')).toHaveText('G9III')
-  await expect(page.locator('#mass')).toHaveText('4.25 M☉')
+  await expect(page.locator('#mass')).toHaveText('4.3 M☉')
   if (await page.locator('#spectral-card').isHidden()) await page.locator('#spectral-toggle').click()
   await expect(page.locator('#mk-selected-class')).toHaveText('III')
   await expect(page.locator('.mk-selected-marker')).toHaveCount(1)

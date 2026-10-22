@@ -79,6 +79,7 @@ export interface ViewerViewState {
 interface ViewerOptions {
   onInteraction(): void
   onSelect(id: string | null): void
+  onHover?(id: string | null): void
   onSelectedDistance?(distancePc: number | null): void
   onViewerDistance?(distancePc: number): void
   onGridScale?(scale: GridScale): void
@@ -1803,9 +1804,17 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
     if (hoverFrame !== null) return
     hoverFrame = requestAnimationFrame(() => {
       hoverFrame = null
-      if (hoverEvent) canvas.style.cursor = pick(hoverEvent, false) ? 'pointer' : 'grab'
+      if (hoverEvent) {
+        const id = pick(hoverEvent, false)
+        canvas.style.cursor = id ? 'pointer' : 'grab'
+        options.onHover?.(id)
+      }
       hoverEvent = null
     })
+  }, { signal: events.signal })
+  canvas.addEventListener('pointerleave', () => {
+    hoverEvent = null
+    options.onHover?.(null)
   }, { signal: events.signal })
   canvas.addEventListener('pointerup', (event) => {
     if (!gesture.end(event)) return

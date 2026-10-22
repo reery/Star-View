@@ -43,11 +43,16 @@
                         <button id="object-specs-toggle" class="object-section-button" type="button" aria-label="Specs" title="Specs" aria-controls="object-specs" aria-expanded="false"><span id="object-specs-icon"></span></button>
                         <button id="object-info-toggle" class="object-section-button" type="button" aria-label="Info · No data yet" title="Info · No data yet" aria-controls="object-info" aria-expanded="false" disabled><span id="object-info-icon"></span></button>
                         <button id="object-system-toggle" class="object-section-button" type="button" aria-label="System" title="System" aria-controls="object-system" aria-expanded="false"><span id="object-system-icon"></span></button>
+                        <button id="object-compare-toggle" class="object-section-button" type="button" aria-label="Compare with another star" title="Compare with another star" aria-pressed="false" disabled><span id="object-compare-icon"></span></button>
                       </span>
                     </summary>
                     <div class="object-card-body">
                       <div id="object-specs">
                         <section class="properties-section" aria-label="Object properties">
+                          <div id="star-comparison-heading" class="star-comparison-heading" aria-label="Compared stars" hidden>
+                            <span class="comparison-star"><canvas id="comparison-main-icon" width="60" height="60" aria-hidden="true"></canvas><span id="comparison-main-name"></span></span>
+                            <button id="comparison-other-select" class="comparison-star" type="button"><canvas id="comparison-other-icon" width="60" height="60" aria-hidden="true"></canvas><span id="comparison-other-name"></span></button>
+                          </div>
                           <dl class="properties">
                             <div class="distance-row"><dt>Distance from Sun</dt><dd><button id="distance-toggle" class="object-type-toggle" type="button" aria-controls="distance-card" aria-expanded="false" aria-describedby="distance-value distance-unit"><span id="distance-value"></span><span id="distance-unit"> ly</span></button></dd></div>
                             <div class="object-type-row"><dt>Object type</dt><dd><button id="object-type-toggle" class="object-type-toggle" type="button" aria-controls="object-type-card" aria-expanded="false"><span id="object-type"></span></button></dd></div>
@@ -55,10 +60,10 @@
                           </dl>
                           <details id="object-subtypes-row" class="designation-details subtype-details" hidden>
                             <summary><span>Sub-type</span><span id="object-subtypes-count" class="subtype-count"></span></summary>
-                            <ul id="object-subtypes" class="subtype-list"></ul>
+                            <div class="comparison-detail-columns"><ul id="object-subtypes" class="subtype-list"></ul></div>
                           </details>
                           <dl class="properties">
-                            <div id="object-subtypes-empty-row"><dt>Sub-type</dt><dd>—</dd></div>
+                            <div id="object-subtypes-empty-row"><dt>Sub-type</dt><dd id="object-subtypes-empty">—</dd></div>
                             <div id="constellation-row" class="constellation-row"><dt>Constellation</dt><dd><button id="constellation-toggle" class="object-type-toggle" type="button" aria-controls="constellation-card" aria-expanded="false" aria-describedby="constellation" disabled><span id="constellation"></span></button></dd></div>
                             <div class="stellar-property spectral-row"><dt>Spectral type</dt><dd><button id="spectral-toggle" class="object-type-toggle" type="button" aria-controls="spectral-card" aria-expanded="false" aria-describedby="spectral-type"><span id="spectral-type"></span></button></dd></div>
                             <div id="temperature-row" class="stellar-property temperature-row"><dt>Temperature</dt><dd><button id="temperature-toggle" class="object-type-toggle" type="button" aria-controls="temperature-card" aria-expanded="false" aria-describedby="temperature"><span id="temperature"></span></button><span id="temperature-source-tooltip" class="tooltip mass-metric-tooltip" role="tooltip" hidden></span></dd></div>
@@ -99,7 +104,7 @@
                           </dl>
                           <details id="designations-row" class="designation-details" hidden>
                             <summary>Designations</summary>
-                            <ul id="object-designations" class="designation-list"></ul>
+                            <div class="comparison-detail-columns"><ul id="object-designations" class="designation-list"></ul></div>
                           </details>
                         </section>
                         <details class="source-details">
@@ -133,6 +138,11 @@
                 </div>
               </div>
             </section>
+            <div id="star-comparison-hint" class="tooltip star-comparison-hint" role="status" aria-live="polite" aria-atomic="true" hidden>Compare <span id="comparison-hint-candidate" class="comparison-star"><canvas id="comparison-candidate-icon" width="60" height="60" aria-hidden="true" hidden></canvas><span id="comparison-candidate-name">a star</span></span> against <span class="comparison-star"><canvas id="comparison-hint-icon" width="60" height="60" aria-hidden="true"></canvas><span id="comparison-hint-name"></span></span>.<span id="comparison-escape"> ESC to abort.</span></div>
+            <div id="star-comparison-members" class="saved-view-context-menu star-comparison-members" role="group" aria-labelledby="comparison-system-name" hidden>
+              <div id="comparison-system-name" class="comparison-system-name"></div>
+              <div id="comparison-system-members" class="comparison-system-members"></div>
+            </div>
             <section id="object-type-card" class="dock-card object-type-card" aria-labelledby="object-type-heading" data-scene-obstacle hidden>
               <div class="panel-heading">
                 <h2 id="object-type-heading"></h2>
@@ -298,6 +308,7 @@
                   <div><strong id="temperature-value"></strong><span class="mass-benchmark">Effective temperature</span></div>
                   <div class="temperature-conversions"><span id="temperature-celsius"></span><span id="temperature-fahrenheit"></span></div>
                 </div>
+                <dl id="temperature-comparison-values" class="planet-facts-grid temperature-pair-grid" aria-label="Effective temperatures" hidden></dl>
                 <section class="temperature-scale-section" aria-label="Temperature and spectral classes">
                   <div id="temperature-scale" class="temperature-scale" role="img"><div class="temperature-track"></div><div class="temperature-classes" aria-hidden="true"></div><div class="temperature-scale-limits" aria-hidden="true"><span>2,400 K</span><span>30,000 K</span></div></div>
                   <p id="temperature-scale-note" class="mass-benchmark" hidden></p><p id="temperature-origin-note" class="mass-benchmark" hidden></p>
@@ -312,9 +323,10 @@
                   <div class="planet-fact-tile"><span id="temperature-color-star" class="planet-fact-icon" aria-hidden="true"></span><dt class="sr-only">Perceived color</dt><dd><strong id="temperature-appearance" class="planet-fact-value"></strong><small id="temperature-appearance-note" class="planet-fact-note"></small></dd></div>
                   <div class="planet-fact-tile"><span id="temperature-ratio-icon" class="planet-fact-icon" aria-hidden="true"></span><dt class="sr-only">Kelvin comparison</dt><dd><strong id="temperature-solar-ratio" class="planet-fact-value"></strong></dd></div>
                 </dl>
+                <dl id="temperature-comparison-facts" class="planet-facts-grid temperature-pair-grid" aria-label="Appearance and temperature ratios" hidden></dl>
                 <details class="mass-method"><summary>About temperature &amp; the spectrum</summary>
                   <p>Effective temperature describes the temperature of a blackbody emitting the same total power per unit surface area as the object. It is not the core temperature. Catalog values may be measured, estimated or model-derived; missing individual temperatures are not inferred.</p>
-                  <p>The curves use Planck’s law for emission per unit wavelength, each scaled to its own peak of 1 to compare spectral shape rather than brightness. The dashed curve represents the origin when it has a known individual temperature and differs from the selected object; otherwise it represents the Sun, when distinct. Wien’s law gives λ<sub>peak</sub> = 2,897,772 nm K / T. This is a continuum estimate, not an observed spectrum; absorption lines, atmospheres, dust and companion light are omitted. The wavelength axis is logarithmic. A peak in visible light does not mean the star looks that single color: its appearance combines many wavelengths.</p>
+                  <p>The curves use Planck’s law for emission per unit wavelength, each scaled to its own peak of 1 to compare spectral shape rather than brightness. During object comparison, the dashed curve represents the comparison star when its individual temperature is available. Outside comparison mode, it represents the origin when known and distinct, or the Sun when distinct. Wien’s law gives λ<sub>peak</sub> = 2,897,772 nm K / T. This is a continuum estimate, not an observed spectrum; absorption lines, atmospheres, dust and companion light are omitted. The wavelength axis is logarithmic. A peak in visible light does not mean the star looks that single color: its appearance combines many wavelengths.</p>
                   <p>The temperature bar is logarithmic, with approximate M–O temperature guides for main-sequence stars. O stars extend beyond 30,000 K. Giants, white dwarfs and brown dwarfs have different spectral calibrations. Out-of-range temperatures are marked at the nearest endpoint with an arrow. Marker colors follow the scene setting; the perceived-color glow uses the app’s approximate real colors, brightened for visibility. The Sun’s nominal effective temperature is 5,772 K.</p>
                   <p>Temperature ratios use kelvin: 2× means twice the absolute temperature.</p>
                   <a href="https://asd.gsfc.nasa.gov/archive/mwmw/mmw_bbody.html" target="_blank" rel="noreferrer">NASA: radiation laws ↗</a> · <a href="https://arxiv.org/abs/1510.07674" target="_blank" rel="noreferrer">IAU: nominal solar constants ↗</a>
@@ -329,31 +341,52 @@
               </div>
               <div class="mass-body luminosity-body card-scroll-content">
                 <div class="planet-facts-grid luminosity-equation" role="group" aria-label="Surface area relative to the Sun times radiated power per square meter relative to the Sun equals bolometric luminosity in solar units">
-                  <div class="planet-fact-tile luminosity-factor" role="group" aria-label="Surface area in solar surface areas"><h3 class="luminosity-factor-title">Surface area</h3><span id="luminosity-area-icon" class="luminosity-factor-icon" aria-hidden="true"></span><div class="luminosity-factor-quantity"><strong id="luminosity-area"></strong><span class="luminosity-factor-unit" title="Solar surface area, 4πR☉²">A☉</span></div></div>
+                  <div class="planet-fact-tile luminosity-factor luminosity-primary-tile" role="group" aria-label="Surface area in solar surface areas">
+                    <span class="luminosity-factor-name" data-luminosity-star="selected" hidden><i class="star-swatch" aria-hidden="true"></i><span></span></span>
+                    <h3 class="luminosity-factor-title">Surface area</h3><span id="luminosity-area-icon" class="luminosity-factor-icon" aria-hidden="true"></span>
+                    <div class="luminosity-factor-quantity"><strong id="luminosity-area"></strong><span class="luminosity-factor-unit" title="Solar surface area, 4πR☉²">A☉</span></div>
+                  </div>
                   <span class="luminosity-equation-symbol" aria-hidden="true">×</span>
-                  <div class="planet-fact-tile luminosity-factor" role="group" aria-label="Derived surface flux in solar surface fluxes"><h3 class="luminosity-factor-title">Surface flux</h3><span id="luminosity-surface-flux-icon" class="luminosity-factor-icon" aria-hidden="true"></span><div class="luminosity-factor-quantity"><strong id="luminosity-surface-flux"></strong><span class="luminosity-factor-unit" title="Solar surface flux, L☉/(4πR☉²)">F☉</span></div></div>
+                  <div class="planet-fact-tile luminosity-factor luminosity-primary-tile" role="group" aria-label="Derived surface flux in solar surface fluxes">
+                    <span class="luminosity-factor-name" data-luminosity-star="selected" hidden><i class="star-swatch" aria-hidden="true"></i><span></span></span>
+                    <h3 class="luminosity-factor-title">Surface flux</h3><span id="luminosity-surface-flux-icon" class="luminosity-factor-icon" aria-hidden="true"></span>
+                    <div class="luminosity-factor-quantity"><strong id="luminosity-surface-flux"></strong><span class="luminosity-factor-unit" title="Solar surface flux, L☉/(4πR☉²)">F☉</span></div>
+                  </div>
                   <span class="luminosity-equation-symbol" aria-hidden="true">=</span>
-                  <div class="planet-fact-tile luminosity-factor luminosity-result" title="Adopted catalog luminosity, as shown in the object specifications"><h3 class="luminosity-factor-title">Bolometric luminosity</h3><span class="luminosity-factor-icon" aria-hidden="true"><span id="luminosity-result-star"></span></span><strong id="luminosity-solar" class="luminosity-factor-quantity"><span id="luminosity-value"></span><span id="luminosity-unit" class="luminosity-factor-unit"> L☉</span></strong></div>
+                  <div class="planet-fact-tile luminosity-factor luminosity-primary-tile luminosity-result" title="Adopted catalog luminosity, as shown in the object specifications">
+                    <span class="luminosity-factor-name" data-luminosity-star="selected" hidden><i class="star-swatch" aria-hidden="true"></i><span></span></span>
+                    <h3 class="luminosity-factor-title">Bolometric luminosity</h3><span class="luminosity-factor-icon" aria-hidden="true"><span id="luminosity-result-star"></span></span>
+                    <strong id="luminosity-solar" class="luminosity-factor-quantity luminosity-result-quantity"><span id="luminosity-value"></span><span id="luminosity-unit" class="luminosity-factor-unit"> L☉</span></strong>
+                  </div>
+                  <div class="planet-fact-tile luminosity-factor luminosity-comparison-tile" role="group" aria-label="Comparison star surface area in solar surface areas" hidden>
+                    <span class="luminosity-factor-name" data-luminosity-star="comparison"><i class="star-swatch" aria-hidden="true"></i><span></span></span>
+                    <div class="luminosity-factor-quantity luminosity-comparison-quantity"><strong id="luminosity-comparison-area"></strong></div>
+                  </div>
+                  <div class="planet-fact-tile luminosity-factor luminosity-comparison-tile" role="group" aria-label="Comparison star surface flux in solar surface fluxes" hidden>
+                    <span class="luminosity-factor-name" data-luminosity-star="comparison"><i class="star-swatch" aria-hidden="true"></i><span></span></span>
+                    <div class="luminosity-factor-quantity luminosity-comparison-quantity"><strong id="luminosity-comparison-surface-flux"></strong></div>
+                  </div>
+                  <div class="planet-fact-tile luminosity-factor luminosity-comparison-tile luminosity-result" role="group" aria-label="Comparison star bolometric luminosity in solar units" hidden>
+                    <span class="luminosity-factor-name" data-luminosity-star="comparison"><i class="star-swatch" aria-hidden="true"></i><span></span></span>
+                    <strong class="luminosity-factor-quantity luminosity-result-quantity luminosity-comparison-quantity"><span id="luminosity-comparison-value"></span></strong>
+                  </div>
                 </div>
                 <p id="luminosity-calculation-note" class="mass-note" hidden></p>
                 <section class="mass-section" aria-labelledby="luminosity-flux-heading">
-                  <h3 id="luminosity-flux-heading" class="card-subgroup-heading">Earth at the same flux</h3>
+                  <h3 id="luminosity-flux-heading" class="card-subgroup-heading mass-metric-copy"><button type="button" class="mass-metric-help" aria-describedby="luminosity-flux-tooltip">Earth at the same flux</button><span id="luminosity-flux-tooltip" class="tooltip mass-metric-tooltip" role="tooltip">How far from each star Earth would need to orbit to receive the same flux as it receives from the Sun at 1 AU.</span></h3>
                   <div id="luminosity-flux-origin" class="mass-metric luminosity-flux-row">
                     <div class="mass-metric-copy luminosity-flux-copy"><canvas id="luminosity-flux-origin-star" width="32" height="32" aria-hidden="true"></canvas><div><h4 id="luminosity-flux-origin-name" class="mass-metric-heading"></h4><small class="mass-benchmark">Origin</small></div></div>
-                    <div class="mass-metric-ratio"><div><strong id="luminosity-flux-origin-distance"></strong> <span id="luminosity-flux-origin-orbit" class="luminosity-orbit-comparison" hidden></span></div><small id="luminosity-flux-origin-value"></small></div>
-                    <div id="luminosity-flux-origin-bar" class="mass-ratio-bar luminosity-distance-bar" role="img"><div class="mass-ratio-track"><span class="mass-ratio-fill"></span><span class="mass-typical-limit luminosity-distance-low"></span><span class="mass-typical-limit luminosity-distance-high"></span><span class="mass-ratio-marker"></span></div></div>
+                    <div class="mass-metric-ratio"><strong id="luminosity-flux-origin-distance"></strong><small id="luminosity-flux-origin-value"></small></div>
                   </div>
                   <div id="luminosity-flux-selected" class="mass-metric luminosity-flux-row">
                     <div class="mass-metric-copy luminosity-flux-copy"><canvas id="luminosity-flux-selected-star" width="32" height="32" aria-hidden="true"></canvas><h4 id="luminosity-flux-selected-name" class="mass-metric-heading"></h4></div>
-                    <div class="mass-metric-ratio"><div><strong id="luminosity-flux-selected-distance"></strong> <span id="luminosity-flux-selected-orbit" class="luminosity-orbit-comparison" hidden></span></div></div>
-                    <div id="luminosity-flux-selected-bar" class="mass-ratio-bar luminosity-distance-bar" role="img"><div class="mass-ratio-track"><span class="mass-ratio-fill"></span><span class="mass-typical-limit luminosity-distance-low"></span><span class="mass-typical-limit luminosity-distance-high"></span><span class="mass-ratio-marker"></span></div></div>
+                    <div class="mass-metric-ratio"><strong id="luminosity-flux-selected-distance"></strong><small id="luminosity-flux-selected-value"></small></div>
                   </div>
                   <div id="luminosity-flux-sun" class="mass-metric luminosity-flux-row">
                     <div class="mass-metric-copy luminosity-flux-copy"><canvas id="luminosity-flux-sun-star" width="32" height="32" aria-hidden="true"></canvas><h4 id="luminosity-flux-sun-name" class="mass-metric-heading"></h4></div>
-                    <div class="mass-metric-ratio"><div><strong id="luminosity-flux-sun-distance"></strong> <span id="luminosity-flux-sun-orbit" class="luminosity-orbit-comparison" hidden></span></div></div>
-                    <div id="luminosity-flux-sun-bar" class="mass-ratio-bar luminosity-distance-bar" role="img"><div class="mass-ratio-track"><span class="mass-ratio-fill"></span><span class="mass-typical-limit luminosity-distance-low"></span><span class="mass-typical-limit luminosity-distance-high"></span><span class="mass-ratio-marker"></span></div></div>
+                    <div class="mass-metric-ratio"><strong id="luminosity-flux-sun-distance"></strong><small id="luminosity-flux-sun-value"></small></div>
                   </div>
-                  <div id="luminosity-distance-axis" class="mass-ratio-labels luminosity-distance-axis" aria-hidden="true"><span>0 AU</span><span id="luminosity-distance-axis-high"></span></div>
+                  <div id="luminosity-flux-bar" class="mass-ratio-bar luminosity-distance-bar luminosity-plot" role="img"><div class="mass-ratio-track"><span class="mass-ratio-fill luminosity-flux-au" aria-hidden="true"></span><span class="mass-ratio-fill luminosity-flux-near" aria-hidden="true"></span><span class="mass-ratio-fill luminosity-flux-far" aria-hidden="true"></span><span class="mass-typical-limit luminosity-distance-low"></span><span class="mass-typical-limit luminosity-distance-high"></span></div><div id="luminosity-distance-axis" class="mass-ratio-labels luminosity-axis" aria-hidden="true"><span>0 AU</span><span id="luminosity-distance-axis-high"></span></div></div>
                   <p id="luminosity-flux-note" class="mass-note" hidden></p>
                 </section>
                 <section class="mass-section" aria-labelledby="luminosity-scales-heading">
@@ -361,18 +394,18 @@
                   <div class="mass-metric radius-metric">
                     <h4 class="mass-metric-heading">Very dim → very bright</h4>
                     <div class="mass-metric-ratio"><strong id="luminosity-scale-value"></strong></div>
-                    <div id="luminosity-scale" class="mass-ratio-bar radius-ratio-bar luminosity-scale" role="img"><div class="mass-ratio-track"><span class="mass-ratio-sun"></span><span class="mass-ratio-marker"></span></div><div class="mass-ratio-labels" aria-hidden="true"><span id="luminosity-scale-low"></span><span>Sun · 1 L☉</span><span id="luminosity-scale-high"></span></div></div>
+                    <div id="luminosity-scale" class="mass-ratio-bar radius-ratio-bar luminosity-scale luminosity-plot" role="img"><div class="mass-ratio-track"></div><div class="mass-ratio-labels luminosity-axis" aria-hidden="true"><span id="luminosity-scale-low"></span><span id="luminosity-scale-high"></span></div></div>
                   </div>
                   <div class="mass-metric radius-metric">
-                    <h4 id="luminosity-class-heading" class="mass-metric-heading">Spectral class</h4>
-                    <div id="luminosity-class-bar" class="mass-ratio-bar radius-ratio-bar luminosity-class-bar" role="img"><div class="mass-ratio-track"><span class="luminosity-class-range"></span><span class="mass-typical-limit mass-typical-low"></span><span class="mass-typical-limit mass-typical-high"></span><span class="mass-ratio-sun luminosity-class-median"></span><span class="mass-ratio-marker"></span></div><div class="mass-ratio-labels" aria-hidden="true"><span id="luminosity-class-low"></span><span id="luminosity-class-median-value"></span><span id="luminosity-class-high"></span></div></div>
+                    <div class="luminosity-class-heading-row"><h4 id="luminosity-class-heading" class="mass-metric-heading">Spectral class</h4><span id="luminosity-class-median-value" class="luminosity-median-legend" hidden><i aria-hidden="true"></i><span></span></span></div>
+                    <div id="luminosity-class-bar" class="mass-ratio-bar radius-ratio-bar luminosity-class-bar luminosity-plot" role="img"><div class="mass-ratio-track"><span class="luminosity-class-range"></span><span class="mass-typical-limit mass-typical-low"></span><span class="mass-typical-limit mass-typical-high"></span><span class="mass-ratio-sun luminosity-class-median"></span></div><div class="mass-ratio-labels luminosity-axis" aria-hidden="true"><span id="luminosity-class-low"></span><span id="luminosity-class-high"></span></div></div>
                     <small id="luminosity-class-context" class="mass-benchmark luminosity-class-context"></small>
                   </div>
                 </section>
                 <details class="mass-method"><summary>Calculations &amp; sources</summary>
                   <p>The result is the adopted catalog bolometric luminosity, matching the object specifications, comparisons and scales. It may be measured, estimated or model-derived; it is not an exact known value. Surface area A = 4πR² uses the catalog radius, assuming a spherical photosphere. Mean surface flux F = L/A is derived from that luminosity and area, not measured independently. The factors are shown relative to solar surface area A☉ = 4πR☉² and solar surface flux F☉ = L☉/A☉, so (A/A☉) × (F/F☉) = L/L☉. This illustrates how the catalog luminosity is distributed across the surface; it does not independently determine luminosity. A separately sourced temperature is not used to recompute L. Missing radius leaves both factors unavailable while retaining the catalog luminosity.</p>
-                  <p>Incident flux F = L/(4πd²). To match the origin’s flux at 1 AU, d = √(L/L<sub>origin</sub>) AU. When the origin’s flux is unavailable, the Sun’s flux at 1 AU is used instead. Distances share a linear scale from the star’s center. Flux is measured above an atmosphere on a surface facing the star, not averaged over Earth. Equal bolometric flux does not imply the same spectrum, climate or habitability. These comparisons omit extinction, variability and companion illumination; distances inside a known photosphere are unavailable. Orbit comparisons use the closest Solar System planet’s semi-major axis, Mercury through Neptune, only within 20%; these are orbital sizes, not current planet positions.</p>
-                  <p>Both luminosity scales are logarithmic. The broad scale spans 10⁻⁶–10⁶ L☉ and expands for outliers; these endpoints are display limits. Marker color follows the app’s stellar color setting, not luminosity.</p>
+                  <p>Incident flux F = L/(4πd²). To match the Sun’s flux at Earth (1 AU), d = √(L/L☉) AU. The solar reference stays the same when the origin or comparison star changes. Distances share a linear scale from each star’s center. Flux is measured above an atmosphere on a surface facing the star, not averaged over Earth. Equal bolometric flux does not imply the same spectrum, climate or habitability. These comparisons omit extinction, variability and companion illumination; distances inside a known photosphere are unavailable. Orbit comparisons use the closest Solar System planet’s semi-major axis, Mercury through Neptune, only within 20%; these are orbital sizes, not current planet positions.</p>
+                  <p>Both luminosity scales are logarithmic. The broad scale spans 10⁻⁶–10⁶ L☉ and expands for outliers; these endpoints are display limits. The spectral-class distribution and median describe the main star’s class. In comparison mode, both stars and the Sun share that axis, which expands to include all three. Marker color follows the app’s stellar color setting, not luminosity.</p>
                   <p id="luminosity-class-method"></p><a id="luminosity-class-source" target="_blank" rel="noreferrer" hidden></a>
                   <p>1 L☉ = 3.828 × 10²⁶ W; R☉ = 695,700 km; 1 AU = 149,597,870,700 m. The nominal solar luminosity gives approximately 1,361 W/m² at 1 AU. Displayed values use three significant digits.</p>
                   <a href="https://arxiv.org/abs/1510.07674" target="_blank" rel="noreferrer">IAU nominal solar constants ↗</a> · <a href="https://lhea.gsfc.nasa.gov/archive/mwmw/mmw_bbody.html" target="_blank" rel="noreferrer">NASA: radiation laws ↗</a> · <a href="https://ssd.jpl.nasa.gov/planets/approx_pos.html" target="_blank" rel="noreferrer">JPL: planetary orbits ↗</a>
@@ -388,6 +421,7 @@
                     <div class="magnitude-heading-copy"><h3 id="magnitude-absolute-heading" class="mass-metric-heading">Absolute magnitude <small>(V)</small></h3><p class="mass-benchmark">Intrinsic brightness at a distance of 10 pc (32.6 ly).</p></div>
                     <strong id="magnitude-absolute-value"></strong>
                   </div>
+                  <div id="magnitude-absolute-comparison" class="planet-facts-grid magnitude-comparison-grid" hidden></div>
                   <p id="magnitude-visible-comparison" class="magnitude-visible-comparison" hidden><strong id="magnitude-visible-ratio"></strong><span id="magnitude-visible-reference"></span></p>
                   <div id="magnitude-absolute-scale" class="mass-ratio-bar magnitude-scale" role="img"><div class="mass-ratio-labels magnitude-axis" aria-hidden="true"><span id="magnitude-absolute-faint"></span><span id="magnitude-absolute-bright"></span></div><div class="magnitude-plot"></div></div>
                   <p id="magnitude-absolute-note" class="mass-benchmark" hidden></p>
@@ -398,6 +432,7 @@
                     <div class="magnitude-heading-copy"><h3 id="magnitude-apparent-heading" class="mass-metric-heading">Apparent magnitude <small>(V)</small></h3><p class="mass-benchmark">How bright it looks from Earth.</p></div>
                     <strong id="magnitude-apparent-value"></strong>
                   </div>
+                  <div id="magnitude-apparent-comparison" class="planet-facts-grid magnitude-comparison-grid" hidden></div>
                   <div id="magnitude-apparent-scale" class="mass-ratio-bar magnitude-scale" role="img"><div class="mass-ratio-labels magnitude-axis" aria-hidden="true"><span id="magnitude-apparent-faint"></span><span id="magnitude-apparent-bright"></span></div><div class="magnitude-plot"></div></div>
                   <div id="magnitude-visibility-controls" class="magnitude-visibility-controls" role="group" aria-label="Visibility guide"></div>
                   <p id="magnitude-apparent-note" class="mass-benchmark" hidden></p>
@@ -406,9 +441,9 @@
                   <p>Lower magnitudes mean brighter light. A difference of 5 magnitudes means 100 times the visible brightness. The equal-distance visible brightness ratio is 10<sup>0.4(M<sub>Sun</sub> − M<sub>selected</sub>)</sup>, using the adopted absolute V magnitudes. V measures visible light in the Johnson V band, rather than total bolometric luminosity.</p>
                   <p>Each bar uses equal steps in magnitude, with fainter objects on the left and brighter ones on the right. The apparent bar focuses on nighttime objects, normally +16 to −6, and expands for outliers or the selected visibility guide. The Sun is omitted from that bar.</p>
                   <p>Absolute magnitude compares stars at the same distance. Apparent values remain Earth-view catalog snapshots when the origin changes; they do not predict current variable-star brightness. Missing individual measurements are left unavailable. Unresolved system photometry is not plotted as an individual component.</p>
-                  <p>Venus is shown near its brightest (−4.9); Sirius at −1.46. The icon buttons select approximate stellar visibility limits: naked eye +6, typical 40–50 mm binoculars +10, a 100–150 mm amateur telescope +13, or a large professional observatory near +27 with long-exposure imaging. These are representative guides, not universal averages. Each band fades over the two magnitudes approaching its limit; actual detection depends on sky brightness, equipment, exposure, eyesight and an object's extent. Observatory imaging is a camera detection limit, rather than an eyepiece view. Marker colors follow the app's stellar color setting.</p>
+                  <p>Venus is shown near its brightest (−4.9); Sirius at −1.46. The icon buttons select approximate stellar visibility limits: city naked eye +4.5, dark-sky naked eye +6, typical 40–50 mm binoculars +10, a 100–150 mm amateur telescope +13, or a large professional observatory near +27 with long-exposure imaging. These are representative guides, not universal averages. The city band is solid through +4 (Bortle 9, inner-city skies: +4 or less) and fades to the +4.5 marker (Bortle 8, city skies: +4.5 at best). Other bands fade over the two magnitudes approaching their limit. Actual detection depends on sky brightness, equipment, exposure, eyesight and an object's extent. Observatory imaging is a camera detection limit, rather than an eyepiece view. Marker colors follow the app's stellar color setting.</p>
                   <a href="https://promenade.imcce.fr/en/pages1/101.html" target="_blank" rel="noreferrer">IMCCE: magnitude scales ↗</a> · <a href="https://nssdc.gsfc.nasa.gov/planetary/factsheet/sunfact.html" target="_blank" rel="noreferrer">NASA: Sun ↗</a> · <a href="https://www.jpl.nasa.gov/videos/whats-up-for-december-2013/" target="_blank" rel="noreferrer">NASA/JPL: Venus ↗</a> · <a href="https://www.eso.org/~hboffin/Teaching/CMD_notebook.pdf" target="_blank" rel="noreferrer">ESO: Sirius ↗</a>
-                  <br /><a href="https://www.celestron.com/blogs/knowledgebase/what-is-stellar-magnitude-how-can-understanding-magnitude-help-me-as-an-amateur-astronomer" target="_blank" rel="noreferrer">Celestron: visual instrument limits ↗</a> · <a href="https://www.eso.org/sci/libraries/historicaldocuments/VLT_White_Book/VLT_Whitebook.pdf" target="_blank" rel="noreferrer">ESO: FORS imaging limits ↗</a>
+                  <br /><a href="https://skyandtelescope.org/astronomy-resources/light-pollution-and-astronomy-the-bortle-dark-sky-scale/" target="_blank" rel="noreferrer">Bortle: city sky limits ↗</a> · <a href="https://www.celestron.com/blogs/knowledgebase/what-is-stellar-magnitude-how-can-understanding-magnitude-help-me-as-an-amateur-astronomer" target="_blank" rel="noreferrer">Celestron: visual instrument limits ↗</a> · <a href="https://www.eso.org/sci/libraries/historicaldocuments/VLT_White_Book/VLT_Whitebook.pdf" target="_blank" rel="noreferrer">ESO: FORS imaging limits ↗</a>
                 </details>
               </div>
             </section>
