@@ -179,8 +179,8 @@ test('compares once, keeps the main selection and opens details from either colu
   }
   await page.locator('[data-comparison-value="mass"]').click()
   await expect(page.locator('#mass-card')).toBeVisible()
-  await expect(page.locator('#mass-reference-origin')).toHaveText('vs Proxima Centauri')
-  await expect(page.locator('#mass-reference-origin')).toHaveAttribute('aria-pressed', 'true')
+  await expect(page.locator('#mass-facts > [role="group"]')).toHaveCount(3)
+  await expect(page.locator('#mass-facts .mass-fact-cell')).toHaveCount(6)
   await page.locator(isMobile ? '#mass-close' : '#mass-toggle').click()
   await expect(page.locator('#mass-card')).toBeHidden()
   await page.locator('#mass-toggle').click()
@@ -329,8 +329,8 @@ test('uses both stars throughout the detail cards @mobile', async ({ page }, tes
   await page.locator('#luminosity-card').screenshot({ path: testInfo.outputPath('luminosity-pair.png') })
   await page.locator('#luminosity-close').click()
   await other('mass').click()
-  await expect(page.locator('#mass-reference-origin')).toHaveText('vs Proxima Centauri')
-  await expect(page.locator('#mass-reference-origin')).toHaveAttribute('aria-pressed', 'true')
+  await expect(page.locator('#mass-facts .comparison-tile-name')).toHaveText(['Sirius A', 'Proxima Centauri', 'Sirius A', 'Proxima Centauri', 'Sirius A', 'Proxima Centauri'])
+  await expect(page.locator('#mass-spectrum')).toHaveAttribute('aria-label', /Sirius A:.*Proxima Centauri:.*Sun:/)
   await page.locator('#mass-close').click()
   await other('radius').click()
   await expect(page.locator('#radius-selected-column')).toHaveText('Sirius A')
@@ -370,49 +370,24 @@ test('uses both stars throughout the detail cards @mobile', async ({ page }, tes
   expect(errors).toEqual([])
 })
 
-test('pairs six luminosity tiles with compact shared flux and luminosity bars @mobile', async ({ page, isMobile }, testInfo) => {
+test('pairs luminosity factors in rows with compact shared flux and luminosity bars @mobile', async ({ page, isMobile }, testInfo) => {
   await openSpecs(page)
   await page.locator('#object-compare-toggle').click()
   await selectObject(page, 'Proxima Centauri')
   await page.locator('[data-comparison-value="luminosity"] button').click()
   const card = page.locator('#luminosity-card')
-  await expect(card.locator('.planet-fact-tile:visible')).toHaveCount(6)
-  await expect(card.locator('[data-luminosity-star="selected"]')).toHaveText(['Sirius A', 'Sirius A', 'Sirius A'])
-  await expect(card.locator('[data-luminosity-star="comparison"]')).toHaveText(['Proxima Centauri', 'Proxima Centauri', 'Proxima Centauri'])
-  await expect(page.locator('#luminosity-comparison-value')).toHaveText('0.00144')
-  const tiles = await card.locator('.luminosity-factor').evaluateAll((tiles) => tiles.map((tile) => {
-    const name = tile.querySelector('.luminosity-factor-name')!
-    const quantity = tile.querySelector<HTMLElement>('.luminosity-factor-quantity')!
-    const value = quantity.querySelector('strong, #luminosity-value, #luminosity-comparison-value') ?? quantity
-    const text = name.querySelector('span')!.firstChild!
-    const wholeWords = [...text.textContent!.matchAll(/\S+/g)].every((word) => {
-      const range = document.createRange()
-      range.setStart(text, word.index)
-      range.setEnd(text, word.index + word[0].length)
-      return range.getClientRects().length === 1
-    })
-    return { top: tile.getBoundingClientRect().top, height: tile.getBoundingClientRect().height,
-      nameTop: name.getBoundingClientRect().top, nameBottom: name.getBoundingClientRect().bottom, quantityTop: quantity.getBoundingClientRect().top,
-      headerFirst: tile.firstElementChild === name, headerColor: getComputedStyle(name).backgroundColor, wholeWords,
-      headingColor: getComputedStyle(document.querySelector('#luminosity-scales-heading')!).backgroundColor,
-      font: getComputedStyle(value).fontSize, fits: tile.scrollWidth <= tile.clientWidth }
+  const rows = card.locator('#luminosity-facts > .mass-fact')
+  await expect(card.locator('.luminosity-equation')).toBeHidden()
+  await expect(rows).toHaveCount(3)
+  await expect(rows.locator('.mass-fact-title')).toHaveText(['Surface area', 'Surface flux', 'Bolometric luminosity'])
+  await expect(rows.locator('.luminosity-factor-name')).toHaveText(Array(3).fill(['Sirius A', 'Proxima Centauri']).flat())
+  await expect(rows.nth(2).locator('strong')).toHaveText(['24.7', '0.00144'])
+  await expect(rows.nth(2).locator('.luminosity-factor-unit')).toHaveText(['L☉', 'L☉'])
+  const cells = await rows.evaluateAll((rows) => rows.map((row) => {
+    const [first, second] = [...row.querySelectorAll('.mass-fact-cell')].map((cell) => cell.getBoundingClientRect())
+    return { sideBySide: Math.abs(first!.top - second!.top) <= 1 && first!.right <= second!.left, fits: row.scrollWidth <= row.clientWidth }
   }))
-  for (let index = 0; index < 3; index++) {
-    const primary = tiles[index]!, other = tiles[index + 3]!
-    expect(other.top).toBeGreaterThanOrEqual(primary.top + primary.height)
-    expect(other.height).toBeLessThan(primary.height * 0.7)
-    expect(other.font).toBe(primary.font)
-    expect(other.quantityTop - other.nameBottom).toBeLessThanOrEqual(5)
-    expect(primary.fits && other.fits).toBe(true)
-    for (const tile of [primary, other]) {
-      expect(tile.headerFirst).toBe(true)
-      expect(tile.nameTop - tile.top).toBeLessThanOrEqual(1)
-      expect(tile.headerColor).toBe(tile.headingColor)
-      expect(tile.wholeWords).toBe(true)
-    }
-  }
-  await expect(card.locator('.luminosity-comparison-tile .star-swatch')).toHaveCount(3)
-  await expect(card.locator('.luminosity-comparison-tile :is(svg, h3, .luminosity-factor-unit)')).toHaveCount(0)
+  expect(cells).toEqual(Array(3).fill({ sideBySide: true, fits: true }))
   await expect(card.locator('.luminosity-flux-row:visible')).toHaveCount(0)
   await expect(card.locator('.luminosity-distance-bar')).toHaveCount(1)
   await expect(card.locator('#luminosity-flux-bar [data-planet="Earth"]')).toHaveCount(1)

@@ -220,84 +220,20 @@
               </div>
             </section>
             <section id="mass-card" class="dock-card object-type-card mass-card" aria-labelledby="mass-heading" data-scene-obstacle hidden>
-              <div class="panel-heading mass-heading">
+              <div class="panel-heading">
                 <h2 id="mass-heading">Mass</h2>
-                <div class="distance-reference-buttons" role="group" aria-label="Mass comparison reference">
-                  <span class="mass-reference-option"><button id="mass-reference-class" class="object-section-button distance-reference-button" type="button" aria-pressed="true">vs spectral type</button><span id="mass-reference-class-tooltip" class="tooltip mass-metric-tooltip" role="tooltip"></span></span>
-                  <span class="mass-reference-option"><button id="mass-reference-origin" class="object-section-button distance-reference-button" type="button" aria-pressed="false" hidden>vs Sun</button><span id="mass-reference-origin-tooltip" class="tooltip mass-metric-tooltip" role="tooltip"></span></span>
-                  <span class="mass-reference-option"><button id="mass-reference-sun" class="object-section-button distance-reference-button" type="button" aria-pressed="false">vs Sun</button><span id="mass-reference-sun-tooltip" class="tooltip mass-metric-tooltip" role="tooltip"></span></span>
-                </div>
                 <button id="mass-lock" class="panel-lock" type="button" aria-label="Keep Mass open" aria-pressed="false"><span id="mass-lock-icon"></span></button>
                 <button id="mass-close" class="panel-lock" type="button" aria-label="Close mass card"><span id="mass-close-icon"></span></button>
               </div>
               <div class="mass-body card-scroll-content">
-                <p id="mass-reference-context" class="mass-reference-context"></p>
-                <div class="mass-metric mass-overview">
-                  <div class="mass-metric-copy"><h4 id="mass-scale-selected" class="mass-metric-heading"></h4></div>
-                  <div class="mass-metric-ratio"><strong id="mass-card-value"></strong><small id="mass-card-uncertainty" hidden></small><span id="mass-conversions"></span><small id="mass-earth-masses"></small></div>
-                  <div id="mass-scale" class="mass-ratio-bar mass-scale" role="group">
-                    <div class="mass-ratio-track">
-                      <span class="mass-ratio-fill"></span>
-                      <span id="mass-scale-ticks"></span>
-                      <span id="mass-scale-marker" class="mass-ratio-marker"></span>
-                    </div>
-                  </div>
-                </div>
-                <div id="mass-reference-metric" class="mass-metric mass-reference-metric">
-                  <div class="mass-metric-copy"><h4 id="mass-reference-heading" class="mass-metric-heading"></h4><small id="mass-reference-benchmark" class="mass-benchmark"></small></div>
-                  <div class="mass-metric-ratio" hidden><strong id="mass-reference-value" hidden></strong><span id="mass-reference-ratio" hidden></span><small id="mass-reference-extra" hidden></small></div>
-                  <div id="mass-reference-bar" class="mass-ratio-bar" role="img"><div class="mass-ratio-track"><span class="mass-ratio-fill"></span><span class="mass-typical-limit mass-typical-low" hidden></span><span class="mass-typical-limit mass-typical-high" hidden></span><span class="mass-ratio-sun"></span><span class="mass-ratio-marker"></span></div><div class="mass-ratio-labels" aria-hidden="true"><span id="mass-reference-low"></span><span id="mass-reference-mid"></span><span id="mass-reference-high"></span></div></div>
-                </div>
-                <section class="mass-section" aria-labelledby="mass-gravity-heading">
-                  <h3 id="mass-gravity-heading" class="card-subgroup-heading">Gravity</h3>
-                  <p id="mass-gravity-context"></p>
-                  <div class="mass-metric">
-                    <div class="mass-metric-copy">
-                      <h4 class="mass-metric-heading"><button type="button" class="mass-metric-help" aria-describedby="mass-gravity-tooltip">Photosphere gravity</button></h4>
-                      <small id="mass-gravity-benchmark" class="mass-benchmark"></small>
-                      <span id="mass-gravity-tooltip" class="tooltip mass-metric-tooltip" role="tooltip">Acceleration due to gravity at the light-emitting surface.</span>
-                    </div>
-                    <div class="mass-metric-ratio"><strong id="mass-gravity-value"></strong><span id="mass-gravity-ratio"></span><small id="mass-gravity-extra"></small></div>
-                    <div id="mass-gravity-bar" class="mass-ratio-bar" role="img"><div class="mass-ratio-track"><span class="mass-ratio-fill"></span><span class="mass-typical-limit mass-typical-low" hidden></span><span class="mass-typical-limit mass-typical-high" hidden></span><span class="mass-ratio-sun"></span><span class="mass-ratio-marker"></span></div><div class="mass-ratio-labels" aria-hidden="true"><span id="mass-gravity-low"></span><span id="mass-gravity-mid"></span><span id="mass-gravity-high"></span></div></div>
-                  </div>
-                  <div class="mass-metric">
-                    <div class="mass-metric-copy">
-                      <h4 class="mass-metric-heading"><button type="button" class="mass-metric-help" aria-describedby="mass-escape-tooltip">Escape velocity</button></h4>
-                      <small id="mass-escape-benchmark" class="mass-benchmark"></small>
-                      <span id="mass-escape-tooltip" class="tooltip mass-metric-tooltip" role="tooltip">Minimum speed to escape from the surface without further propulsion.</span>
-                    </div>
-                    <div class="mass-metric-ratio"><strong id="mass-escape-value"></strong><span id="mass-escape-ratio"></span><small id="mass-escape-extra"></small></div>
-                    <div id="mass-escape-bar" class="mass-ratio-bar" role="img"><div class="mass-ratio-track"><span class="mass-ratio-fill"></span><span class="mass-typical-limit mass-typical-low" hidden></span><span class="mass-typical-limit mass-typical-high" hidden></span><span class="mass-ratio-sun"></span><span class="mass-ratio-marker"></span></div><div class="mass-ratio-labels" aria-hidden="true"><span id="mass-escape-low"></span><span id="mass-escape-mid"></span><span id="mass-escape-high"></span></div></div>
-                  </div>
-                  <div class="mass-metric">
-                    <div class="mass-metric-copy">
-                      <h4 class="mass-metric-heading"><button type="button" class="mass-metric-help" aria-describedby="mass-density-tooltip">Mean density</button></h4>
-                      <small id="mass-density-benchmark" class="mass-benchmark"></small>
-                      <span id="mass-density-tooltip" class="tooltip mass-metric-tooltip" role="tooltip">Average mass per unit volume, including the dense core and outer layers.</span>
-                    </div>
-                    <div class="mass-metric-ratio"><strong id="mass-density-value"></strong><span id="mass-density-ratio"></span><small id="mass-density-extra"></small></div>
-                    <div id="mass-density-bar" class="mass-ratio-bar" role="img"><div class="mass-ratio-track"><span class="mass-ratio-fill"></span><span class="mass-typical-limit mass-typical-low" hidden></span><span class="mass-typical-limit mass-typical-high" hidden></span><span class="mass-ratio-sun"></span><span class="mass-ratio-marker"></span></div><div class="mass-ratio-labels" aria-hidden="true"><span id="mass-density-low"></span><span id="mass-density-mid"></span><span id="mass-density-high"></span></div></div>
+                <div id="mass-facts" class="planet-facts-grid mass-facts"></div>
+                <section class="mass-section" aria-labelledby="mass-spectrum-heading">
+                  <h3 id="mass-spectrum-heading" class="card-subgroup-heading">Fate by birth mass</h3>
+                  <div class="mass-metric radius-metric">
+                    <div id="mass-spectrum" class="mass-ratio-bar luminosity-plot mass-spectrum" role="img"><div id="mass-zone-labels" class="mass-zone-labels" aria-hidden="true"></div><div class="mass-ratio-track"><span id="mass-zones"></span></div><div id="mass-spectrum-axis" class="mass-ratio-labels luminosity-axis mass-spectrum-axis"><span id="mass-spectrum-low"></span><span id="mass-spectrum-high"></span></div></div>
                   </div>
                 </section>
-                <section class="mass-section" aria-labelledby="mass-luminosity-heading">
-                  <h3 id="mass-luminosity-heading" class="card-subgroup-heading">Luminosity</h3>
-                  <div class="mass-metric">
-                    <div class="mass-metric-copy">
-                      <h4 class="mass-metric-heading"><button type="button" class="mass-metric-help" aria-describedby="mass-efficiency-tooltip">Luminosity per unit mass</button></h4>
-                      <small id="mass-efficiency-benchmark" class="mass-benchmark"></small>
-                      <span id="mass-efficiency-tooltip" class="tooltip mass-metric-tooltip" role="tooltip">Radiated power per solar mass, compared with the selected reference.</span>
-                    </div>
-                    <div class="mass-metric-ratio"><strong id="mass-efficiency-value"></strong><span id="mass-efficiency-ratio"></span><small id="mass-efficiency-extra"></small></div>
-                    <div id="mass-efficiency-bar" class="mass-ratio-bar" role="img"><div class="mass-ratio-track"><span class="mass-ratio-fill"></span><span class="mass-typical-limit mass-typical-low" hidden></span><span class="mass-typical-limit mass-typical-high" hidden></span><span class="mass-ratio-sun"></span><span class="mass-ratio-marker"></span></div><div class="mass-ratio-labels" aria-hidden="true"><span id="mass-efficiency-low"></span><span id="mass-efficiency-mid"></span><span id="mass-efficiency-high"></span></div></div>
-                  </div>
-                  <p id="mass-efficiency-detail" class="mass-note"></p>
-                </section>
-                <section class="mass-section" aria-labelledby="mass-end-heading">
-                  <h3 id="mass-end-heading" class="card-subgroup-heading">Likely end state</h3>
-                  <p class="mass-end-state-line"><strong id="mass-end-state"></strong></p>
-                  <p id="mass-end-state-comment" class="mass-note"></p>
-                </section>
-                <details class="mass-method"><summary>Calculations &amp; sources</summary><p id="mass-class-method"></p><a id="mass-class-source" target="_blank" rel="noreferrer" hidden></a><p>Derived from catalog values, which may be measured or model-derived. Gravity = GM/r²; escape speed = √(2GM/r); mean density = 3M/(4πr³). These spherical Newtonian estimates omit rotation, radiation pressure, and relativity. Extra digits do not imply extra accuracy.</p><p>Solar reference: GM☉ = 1.3271244 × 10²⁰ m³/s²; R☉ = 695,700 km. Mass in kg uses G = 6.67430 × 10⁻¹¹ m³/(kg s²). Earth gravity reference = 9.80665 m/s²; Earth surface escape speed = 11.186 km/s. Water density is approximately 1 g/cm³. Evolution describes broad single-star trends, not an individual prediction.</p><a href="https://arxiv.org/abs/1510.07674" target="_blank" rel="noreferrer">IAU conversion constants ↗</a> · <a href="https://physics.nist.gov/cuu/Constants/Table/allascii.txt" target="_blank" rel="noreferrer">Gravitational constant ↗</a> · <a href="https://science.nasa.gov/universe/stars/types/" target="_blank" rel="noreferrer">NASA: stellar evolution ↗</a> · <a href="https://nssdc.gsfc.nasa.gov/planetary/factsheet/earthfact.html" target="_blank" rel="noreferrer">NASA: Earth references ↗</a></details>
+                <details class="mass-method"><summary>Calculations &amp; sources</summary><p>Mass is the catalog value, which may be measured (for example from a binary orbit) or model-derived. Extra digits do not imply extra accuracy.</p><p>Main-sequence fuel lifetime ≈ 10 Gyr × (M/M☉) ÷ (L/L☉): the fuel supply scales with mass and the burn rate with luminosity, calibrated to the Sun’s roughly 10-billion-year main-sequence life. It assumes the Sun’s burned fraction of about 10%. Fully convective red dwarfs below about 0.35 M☉ mix nearly all their hydrogen into the core, so their estimate is a lower bound. It is shown only for stars with an explicit main-sequence or subdwarf luminosity class. Evolved stars show their burn rate instead: luminosity per mass relative to the Sun’s. Age progress uses the catalog age.</p><p>Surface gravity = GM/r²; escape speed = √(2GM/r); mean density = 3M/(4πr³). These spherical Newtonian estimates omit rotation, radiation pressure and relativity. A teaspoon is 5 mL. Event horizon radius = 2GM/c² for a non-rotating black hole; a spinning one has a smaller horizon.</p><p>The fate axis shows broad single-star trends: below about 0.08 M☉ hydrogen never ignites, and above about 8 M☉ initial mass the core collapses. The boundaries shift with composition, mass loss and binary interactions; the shaded transition marks 6–10 M☉. A catalog mass is the present mass, which can be well below an evolved star’s birth mass. Each axis shows only objects of its kind. Remnants use their own axis: the Chandrasekhar limit (about 1.4 M☉) is the heaviest white dwarf electron pressure can support, and above roughly 2.2–2.5 M☉ no known pressure supports a neutron star.</p><p id="mass-class-method"></p><a id="mass-class-source" target="_blank" rel="noreferrer" hidden></a><p>Solar reference: GM☉ = 1.3271244 × 10²⁰ m³/s²; R☉ = 695,700 km. Mass in kg uses G = 6.67430 × 10⁻¹¹ m³/(kg s²). Earth gravity reference = 9.80665 m/s²; Earth surface escape speed = 11.186 km/s. Water density is approximately 1 g/cm³. Jupiter mass uses the IAU nominal GM.</p><a href="https://arxiv.org/abs/1510.07674" target="_blank" rel="noreferrer">IAU conversion constants ↗</a> · <a href="https://physics.nist.gov/cuu/Constants/Table/allascii.txt" target="_blank" rel="noreferrer">Gravitational constant ↗</a> · <a href="https://science.nasa.gov/universe/stars/types/" target="_blank" rel="noreferrer">NASA: stellar evolution ↗</a> · <a href="https://arxiv.org/abs/1008.5150" target="_blank" rel="noreferrer">Deuterium-burning limit ↗</a> · <a href="https://arxiv.org/abs/2104.00880" target="_blank" rel="noreferrer">Heaviest neutron star ↗</a> · <a href="https://nssdc.gsfc.nasa.gov/planetary/factsheet/earthfact.html" target="_blank" rel="noreferrer">NASA: Earth references ↗</a></details>
               </div>
             </section>
             <section id="temperature-card" class="dock-card object-type-card temperature-card" aria-labelledby="temperature-heading" data-scene-obstacle hidden>
@@ -342,35 +278,21 @@
               <div class="mass-body luminosity-body card-scroll-content">
                 <div class="planet-facts-grid luminosity-equation" role="group" aria-label="Surface area relative to the Sun times radiated power per square meter relative to the Sun equals bolometric luminosity in solar units">
                   <div class="planet-fact-tile luminosity-factor luminosity-primary-tile" role="group" aria-label="Surface area in solar surface areas">
-                    <span class="luminosity-factor-name" data-luminosity-star="selected" hidden></span>
                     <h3 class="luminosity-factor-title">Surface area</h3><span id="luminosity-area-icon" class="luminosity-factor-icon" aria-hidden="true"></span>
                     <div class="luminosity-factor-quantity"><strong id="luminosity-area"></strong><span class="luminosity-factor-unit" title="Solar surface area, 4πR☉²">A☉</span></div>
                   </div>
                   <span class="luminosity-equation-symbol" aria-hidden="true">×</span>
                   <div class="planet-fact-tile luminosity-factor luminosity-primary-tile" role="group" aria-label="Derived surface flux in solar surface fluxes">
-                    <span class="luminosity-factor-name" data-luminosity-star="selected" hidden></span>
                     <h3 class="luminosity-factor-title">Surface flux</h3><span id="luminosity-surface-flux-icon" class="luminosity-factor-icon" aria-hidden="true"></span>
                     <div class="luminosity-factor-quantity"><strong id="luminosity-surface-flux"></strong><span class="luminosity-factor-unit" title="Solar surface flux, L☉/(4πR☉²)">F☉</span></div>
                   </div>
                   <span class="luminosity-equation-symbol" aria-hidden="true">=</span>
                   <div class="planet-fact-tile luminosity-factor luminosity-primary-tile luminosity-result" title="Adopted catalog luminosity, as shown in the object specifications">
-                    <span class="luminosity-factor-name" data-luminosity-star="selected" hidden></span>
                     <h3 class="luminosity-factor-title">Bolometric luminosity</h3><span class="luminosity-factor-icon" aria-hidden="true"><span id="luminosity-result-star"></span></span>
                     <strong id="luminosity-solar" class="luminosity-factor-quantity luminosity-result-quantity"><span id="luminosity-value"></span><span id="luminosity-unit" class="luminosity-factor-unit"> L☉</span></strong>
                   </div>
-                  <div class="planet-fact-tile luminosity-factor luminosity-comparison-tile" role="group" aria-label="Comparison star surface area in solar surface areas" hidden>
-                    <span class="luminosity-factor-name" data-luminosity-star="comparison"></span>
-                    <div class="luminosity-factor-quantity luminosity-comparison-quantity"><strong id="luminosity-comparison-area"></strong></div>
-                  </div>
-                  <div class="planet-fact-tile luminosity-factor luminosity-comparison-tile" role="group" aria-label="Comparison star surface flux in solar surface fluxes" hidden>
-                    <span class="luminosity-factor-name" data-luminosity-star="comparison"></span>
-                    <div class="luminosity-factor-quantity luminosity-comparison-quantity"><strong id="luminosity-comparison-surface-flux"></strong></div>
-                  </div>
-                  <div class="planet-fact-tile luminosity-factor luminosity-comparison-tile luminosity-result" role="group" aria-label="Comparison star bolometric luminosity in solar units" hidden>
-                    <span class="luminosity-factor-name" data-luminosity-star="comparison"></span>
-                    <strong class="luminosity-factor-quantity luminosity-result-quantity luminosity-comparison-quantity"><span id="luminosity-comparison-value"></span></strong>
-                  </div>
                 </div>
+                <div id="luminosity-facts" class="planet-facts-grid mass-facts" hidden></div>
                 <p id="luminosity-calculation-note" class="mass-note" hidden></p>
                 <section class="mass-section" aria-labelledby="luminosity-flux-heading">
                   <h3 id="luminosity-flux-heading" class="card-subgroup-heading mass-metric-copy"><button type="button" class="mass-metric-help" aria-describedby="luminosity-flux-tooltip">Earth at the same flux</button><span id="luminosity-flux-tooltip" class="tooltip mass-metric-tooltip" role="tooltip">How far from each star Earth would need to orbit to receive the same flux as it receives from the Sun at 1 AU.</span></h3>

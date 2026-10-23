@@ -17,8 +17,8 @@ test('keeps preferred nearby star names across Objects, Specs and Mass @mobile',
     await expect(page.locator('#star-name')).toHaveText('GJ 412')
     await expect(page.locator('#mass-toggle')).toHaveAttribute('aria-label', 'Explore mass of GJ 412 A')
     await page.locator('#mass-toggle').click()
-    await expect(page.locator('#mass-scale-selected')).toHaveText('GJ 412 A')
-    await expect(page.locator('#mass-scale')).toHaveAttribute('aria-label', /GJ 412 A/)
+    await expect(page.locator('#mass-facts > [role="group"]').first()).toHaveAttribute('aria-label', /^GJ 412 A: Mass/)
+    await expect(page.locator('#mass-spectrum')).toHaveAttribute('aria-label', /GJ 412 A/)
     await page.locator('#mass-close').click()
   }
 })

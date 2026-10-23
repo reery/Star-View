@@ -155,10 +155,10 @@ describe('bolometric luminosity physics and class references', () => {
     expect(names(6)).toEqual(['Earth', 'Mars', 'Jupiter'])
     expect(names(6.001)).toEqual(['Earth', 'Mars', 'Jupiter'])
     expect(names(8)).toEqual(['Earth', 'Mars', 'Jupiter'])
-    expect(names(10)).toEqual(['Earth', 'Jupiter'])
-    expect(names(19.2)).toEqual(['Earth', 'Jupiter'])
-    expect(names(26.3)).toEqual(['Earth', 'Jupiter'])
-    expect(names(30)).toEqual(['Earth', 'Jupiter'])
+    expect(names(10)).toEqual(['Earth', 'Jupiter', 'Saturn'])
+    expect(names(19.2)).toEqual(['Earth', 'Jupiter', 'Uranus'])
+    expect(names(26.3)).toEqual(['Earth', 'Jupiter', 'Uranus'])
+    expect(names(30)).toEqual(['Earth', 'Jupiter', 'Uranus'])
     expect(names(31)).toEqual(['Earth', 'Neptune'])
     expect(names(1000)).toEqual(['Earth', 'Neptune'])
     const jupiter = solarOrbitMarkers(5.37).find((marker) => marker.name === 'Jupiter')!
@@ -166,7 +166,7 @@ describe('bolometric luminosity physics and class references', () => {
     expect(names(jupiter.distanceAu - 0.001)).toEqual(['Earth', 'Mars'])
     const neptune = solarOrbitMarkers(31).find((marker) => marker.name === 'Neptune')!
     expect(solarOrbitMarkers(neptune.distanceAu).at(-1)).toEqual(neptune)
-    expect(names(neptune.distanceAu - 0.001)).toEqual(['Earth', 'Jupiter'])
+    expect(names(neptune.distanceAu - 0.001)).toEqual(['Earth', 'Jupiter', 'Uranus'])
     for (const maximum of [0.2, 0.5, 1.08, 2, 4, 5.37, 10, 19.2, 31, 1000]) {
       expect(solarOrbitMarkers(maximum).every((marker) => marker.distanceAu <= maximum)).toBe(true)
     }

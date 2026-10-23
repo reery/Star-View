@@ -23,7 +23,6 @@ import { renderSelectedStarPreview } from './selected-star-preview'
 import { COMPARISON_DETAIL_TOGGLES, initializeStarComparison } from './star-comparison'
 import { radialVelocitySource, specValues, type SpecValue } from './spec-values'
 import { starInfoAvailable } from './star-info-availability'
-import type { MassReference } from './mass-comparison'
 import type { HrMagnitudeMode } from './hr-diagram'
 import { hrCardAvailable, spectralReference } from './spectral-properties'
 import { positionCardHeaderTooltips } from './card-header-tooltips'
@@ -812,7 +811,6 @@ async function selectSystemPlanet(planetId: string): Promise<void> {
   element('planet-specs-toggle').focus({ preventScroll: true })
 }
 
-let massReference: MassReference = 'class'
 let luminosityCardModule: typeof import('./luminosity-card') | undefined
 
 function renderLuminosityCard(star: Star): void {
@@ -950,16 +948,8 @@ let massCardModule: typeof import('./mass-card') | undefined
 
 function renderMassCard(star: Star): void {
   if (!massCardModule) return
-  const { reference: origin, other } = cardReferences()
-  const referenceMode = !other && origin.id === 'sun' && massReference === 'origin' ? 'sun' : massReference
-  text('mass-reference-origin', `vs ${origin.name}`)
-  element('mass-reference-origin').hidden = !other && origin.id === 'sun'
-  element('mass-reference-origin').title = `Compare mass properties with ${origin.name}`
-  element('mass-reference-origin').setAttribute('aria-label', `Compare mass properties with ${origin.name}`)
-  for (const mode of ['class', 'origin', 'sun'] as const) {
-    element(`mass-reference-${mode}`).setAttribute('aria-pressed', String(referenceMode === mode))
-  }
-  massCardModule.renderMassCardContent(element('mass-card'), star, origin, referenceMode)
+  const { sun, origin, other } = cardReferences()
+  massCardModule.renderMassCardContent(element('mass-card'), star, origin, sun, starColorMode, other)
   syncObjectTypeLayout()
 }
 
@@ -1755,7 +1745,6 @@ function renderSelection(): void {
   const comparisonId = starComparison.other?.id
   if (comparisonId !== detailComparisonId) {
     // A comparison shows both stars directly; leaving it restores the default references.
-    massReference = comparisonId ? 'origin' : 'class'
     radiusReference = comparisonId ? 'origin' : 'auto'
     detailComparisonId = comparisonId
   }
@@ -3084,13 +3073,6 @@ element('mass-row').addEventListener('click', toggleMassCard, { signal: events.s
 element('temperature-row').addEventListener('click', toggleTemperatureCard, { signal: events.signal })
 element('luminosity-row').addEventListener('click', toggleLuminosityCard, { signal: events.signal })
 element('magnitude-row').addEventListener('click', toggleMagnitudeCard, { signal: events.signal })
-for (const mode of ['class', 'origin', 'sun'] as const) {
-  element(`mass-reference-${mode}`).addEventListener('click', () => {
-    massReference = mode
-    const star = stars.find((candidate) => candidate.id === selectedId)
-    if (star && !element('mass-card').hidden) renderMassCard(star)
-  }, { signal: events.signal })
-}
 document.querySelector('.radius-row')!.addEventListener('click', toggleRadiusCard, { signal: events.signal })
 document.querySelector('.spectral-row')!.addEventListener('click', toggleSpectralCard, { signal: events.signal })
 for (const diagram of ['hr', 'mk'] as const) {

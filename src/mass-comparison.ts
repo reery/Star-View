@@ -1,5 +1,5 @@
 import type { Star } from './catalog-model'
-import { massProperties } from './mass-properties'
+import { JUPITER_MASS_SOLAR, massProperties } from './mass-properties'
 import dwarfSequence from './data/stellar-class-references.json'
 import whiteDwarfReferences from './data/white-dwarf-class-references.json'
 import { whiteDwarfEnvelope, whiteDwarfReferenceKey, whiteDwarfTemperature, type WhiteDwarfReference, type WhiteDwarfReferenceResolver } from './white-dwarf-class'
@@ -115,9 +115,7 @@ export function typicalMassClass(
     'https://www.nasa.gov/universe/nasas-nicer-probes-the-squeezability-of-neutron-stars/', 'NASA NICER: standard neutron star mass',
     'The 1.4 M☉ value is a standard neutron star reference, not a mass limit or a median of all pulsars. Surface properties need a relativistic model; luminosity depends on cooling, rotation and accretion.')
   if (star.type === 'brown_dwarf') {
-    // IAU 2015 B3 nominal Jupiter GM divided by nominal solar GM.
-    const jupiterMassSolar = 1.2668653e17 / 1.3271244e20
-    return massOnlyGuide('Brown dwarf', null, [13 * jupiterMassSolar, 80 * jupiterMassSolar],
+    return massOnlyGuide('Brown dwarf', null, [13 * JUPITER_MASS_SOLAR, 80 * JUPITER_MASS_SOLAR],
       'https://www.jpl.nasa.gov/images/pia23685-what-is-a-brown-dwarf/', 'NASA/JPL: brown dwarf mass guide',
       'Approximate 13–80 Jupiter-mass guide, not a statistical typical interval; fusion boundaries depend on composition. No midpoint is treated as a typical mass. Surface properties and luminosity also depend on age, so no universal values are assigned.')
   }

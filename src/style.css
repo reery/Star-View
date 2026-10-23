@@ -688,9 +688,9 @@ select:focus-visible, input:focus-visible { outline: 2px solid var(--accent); ou
 .constellation-visibility-sources { display: grid; gap: 5px; margin-top: 8px; }
 .constellation-visibility-sources a { color: var(--accent-strong); text-underline-offset: 3px; }
 .mass-body { padding: 14px 16px 18px; font-size: var(--property-text-size); line-height: 1.55; }
-.panel-heading.mass-heading, .panel-heading.spectral-heading { gap: 10px; }
-.mass-heading h2, .spectral-heading h2 { flex-shrink: 0; }
-.mass-heading .distance-reference-button, .spectral-heading .distance-reference-button { padding: 0 8px; }
+.panel-heading.spectral-heading { gap: 10px; }
+.spectral-heading h2 { flex-shrink: 0; }
+.spectral-heading .distance-reference-button { padding: 0 8px; }
 .mass-reference-option { position: relative; display: flex; min-width: 0; }
 .mass-reference-option:has(> button[hidden]) { display: none; }
 .mass-reference-option > .distance-reference-button { width: 100%; }
@@ -701,23 +701,16 @@ select:focus-visible, input:focus-visible { outline: 2px solid var(--accent); ou
 @media (hover: hover) and (pointer: fine) {
   .mass-reference-option:is([data-clipped="true"], [data-tooltip-always]):hover .tooltip { display: block; }
 }
-.mass-reference-context { margin-bottom: 14px; color: var(--muted); }
 .mass-benchmark { display: block; margin-top: 4px; color: var(--muted); font-size: 12px; line-height: 1.4; }
 #mass-card-uncertainty { color: var(--muted); }
-.mass-scale { padding-bottom: calc(var(--mass-tick-rows, 1) * 28px); font-variant-numeric: tabular-nums; }
 .mass-scale-tick { position: absolute; top: -2px; width: 1px; height: calc(var(--stat-bar-height) + 4px); border-radius: 1px; background: var(--muted); }
 .mass-scale-tick > span { position: absolute; top: calc(14px + var(--mass-tick-row, 0) * 28px); left: 50%; transform: translateX(var(--mass-tick-offset, -50%)); white-space: nowrap; font-size: 12px; color: var(--muted); }
-.mass-sun-tick { top: -3px; width: 2px; height: calc(var(--stat-bar-height) + 6px); background: var(--stat-bar-reference); box-shadow: 0 0 0 1px var(--panel); }
-.mass-sun-tick > span { color: var(--ink); font-weight: 500; }
 .mass-note { margin-top: 8px; color: var(--muted); }
 .mass-section { margin-top: 16px; }
 .card-subgroup-heading { margin: 0 -16px 12px; padding: 9px 16px; border-top: 1px solid var(--line); text-align: left; }
 .mass-section > p { color: var(--muted); }
 .mass-metric { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 116px); gap: 8px 12px; margin-top: 12px; padding-bottom: 10px; font-variant-numeric: tabular-nums; }
-.mass-overview { margin-top: 0; }
 .mass-metric + .mass-metric { padding-top: 12px; border-top: var(--mass-metric-divider); }
-.mass-section[aria-labelledby="mass-gravity-heading"] > .mass-metric { padding-top: 0; border-top: 0; }
-.mass-metric:has(> #mass-gravity-bar), .mass-metric:has(> #mass-escape-bar) { border-bottom: var(--mass-metric-divider); }
 .mass-metric:last-child { padding-bottom: 0; }
 .mass-metric-heading { margin: 0; font-size: var(--property-text-size); line-height: 1.25; font-weight: 600; color: var(--ink); }
 .mass-metric-copy { position: relative; }
@@ -756,10 +749,10 @@ select:focus-visible, input:focus-visible { outline: 2px solid var(--accent); ou
 :is(#mass-card, #radius-typical-bar) .mass-ratio-marker { z-index: 2; }
 :is(#mass-card, #radius-typical-bar) .mass-typical-limit { z-index: 3; background: var(--ink); }
 /* Keep the full bar thickness within the class range, with 1px tails outside its limits. */
-:is(#mass-card .has-class-range, #radius-typical-bar.has-class-range) .mass-ratio-track { background: none; }
-:is(#mass-card .has-class-range, #radius-typical-bar.has-class-range) .mass-ratio-track::before { content: ''; position: absolute; inset: 0; border-radius: inherit; background: #ffffff24; --mass-line-range-low: var(--mass-range-low-position); --mass-line-range-high: var(--mass-range-high-position); }
-:is(#mass-card .has-class-range, #radius-typical-bar.has-class-range) .mass-ratio-fill { --mass-line-range-low: var(--mass-fill-range-low-position); --mass-line-range-high: var(--mass-fill-range-high-position); }
-:is(#mass-card .has-class-range, #radius-typical-bar.has-class-range) .mass-ratio-track::before, :is(#mass-card .has-class-range, #radius-typical-bar.has-class-range) .mass-ratio-fill {
+#radius-typical-bar.has-class-range .mass-ratio-track { background: none; }
+#radius-typical-bar.has-class-range .mass-ratio-track::before { content: ''; position: absolute; inset: 0; border-radius: inherit; background: #ffffff24; --mass-line-range-low: var(--mass-range-low-position); --mass-line-range-high: var(--mass-range-high-position); }
+#radius-typical-bar.has-class-range .mass-ratio-fill { --mass-line-range-low: var(--mass-fill-range-low-position); --mass-line-range-high: var(--mass-fill-range-high-position); }
+#radius-typical-bar.has-class-range .mass-ratio-track::before, #radius-typical-bar.has-class-range .mass-ratio-fill {
   clip-path: polygon(0 calc(50% - 0.5px), var(--mass-line-range-low) calc(50% - 0.5px), var(--mass-line-range-low) 0, var(--mass-line-range-high) 0, var(--mass-line-range-high) calc(50% - 0.5px), 100% calc(50% - 0.5px), 100% calc(50% + 0.5px), var(--mass-line-range-high) calc(50% + 0.5px), var(--mass-line-range-high) 100%, var(--mass-line-range-low) 100%, var(--mass-line-range-low) calc(50% + 0.5px), 0 calc(50% + 0.5px));
 }
 .mass-ratio-labels { display: grid; grid-template-columns: repeat(3, 1fr); margin-top: 5px; font-size: var(--property-text-size); line-height: 1.4; color: var(--muted); }
@@ -771,8 +764,6 @@ select:focus-visible, input:focus-visible { outline: 2px solid var(--accent); ou
 /* Star name header shared by the paired temperature, luminosity and magnitude tiles. */
 .comparison-tile-name { display: flex; align-items: center; align-self: stretch; gap: 4px; padding: 2px 8px; color: var(--ink); background: var(--surface-heading); font-size: 12px; font-weight: 600; }
 .comparison-tile-name > span:not(.sr-only) { min-width: 0; overflow-wrap: break-word; text-wrap: balance; }
-.mass-section > .mass-end-state-line { margin-top: 14px; color: var(--ink); }
-.mass-end-state-line strong { font-weight: 700; }
 .mass-method, .radius-method { margin-top: 16px; padding-top: 12px; border-top: 1px solid var(--line); color: var(--muted); }
 .mass-method summary, .radius-method summary { cursor: pointer; }
 .mass-method p, .radius-method p { margin-top: 8px; }
@@ -780,15 +771,6 @@ select:focus-visible, input:focus-visible { outline: 2px solid var(--accent); ou
 .luminosity-body { container-type: inline-size; }
 .luminosity-equation.planet-facts-grid { grid-template-columns: minmax(0, 1fr) 12px minmax(0, 1fr) 12px minmax(0, 1.3fr); align-items: stretch; gap: 6px; font-variant-numeric: tabular-nums; }
 .luminosity-equation.planet-facts-grid > .planet-fact-tile { grid-template-rows: 30px 36px auto; align-content: start; align-items: center; gap: 4px; min-height: 0; padding: 8px 10px; text-align: center; }
-.luminosity-card.has-comparison .luminosity-equation { grid-template-rows: auto 30px 36px auto auto auto; }
-.luminosity-card.has-comparison .luminosity-equation > .planet-fact-tile { grid-template-rows: subgrid; padding: 0; overflow: hidden; }
-.luminosity-card.has-comparison .luminosity-factor-title { padding: 0 4px; }
-.luminosity-card.has-comparison .luminosity-factor-quantity { padding: 0 4px 8px; }
-.luminosity-card.has-comparison .luminosity-primary-tile, .luminosity-card.has-comparison .luminosity-equation-symbol { grid-row: 1 / span 4; }
-.luminosity-card.has-comparison .luminosity-comparison-tile { grid-row: 5 / span 2; }
-.luminosity-comparison-tile:nth-last-child(3) { grid-column: 1; }
-.luminosity-comparison-tile:nth-last-child(2) { grid-column: 3; }
-.luminosity-comparison-tile:last-child { grid-column: 5; }
 .luminosity-factor-name { min-width: 0; row-gap: 0; padding-inline: 4px; line-height: 1.25; text-align: left; flex-wrap: wrap; justify-content: center; }
 .luminosity-factor-name > span { min-width: 0; max-width: 100%; flex: 1 0 min-content; overflow-wrap: break-word; text-wrap: balance; }
 .luminosity-factor-title { margin: 0; line-height: 1.25; font-weight: 400; }
@@ -799,15 +781,60 @@ select:focus-visible, input:focus-visible { outline: 2px solid var(--accent); ou
 .luminosity-equation .luminosity-result-quantity { font-size: 28px; line-height: 1.25; font-weight: 700; color: var(--ink); }
 .luminosity-equation .luminosity-long-value { font-size: 18px; }
 .luminosity-factor-unit:not([hidden]) { display: block; margin-top: 2px; font-size: var(--property-text-size); line-height: 1.25; font-weight: 400; color: var(--ink); }
-.luminosity-equation.planet-facts-grid > .luminosity-result { border-color: color-mix(in srgb, var(--luminosity-real-color) 50%, var(--line)); background: radial-gradient(ellipse at 50% 40%, color-mix(in srgb, var(--luminosity-real-color) 13%, transparent), transparent 85%), #18191a55; box-shadow: inset 0 0 18px color-mix(in srgb, var(--luminosity-real-color) 6%, transparent), 0 0 14px color-mix(in srgb, var(--luminosity-real-color) 8%, transparent); }
+:is(.luminosity-equation, .mass-facts).planet-facts-grid > .luminosity-result { border-color: color-mix(in srgb, var(--luminosity-real-color) 50%, var(--line)); background: radial-gradient(ellipse at 50% 40%, color-mix(in srgb, var(--luminosity-real-color) 13%, transparent), transparent 85%), #18191a55; box-shadow: inset 0 0 18px color-mix(in srgb, var(--luminosity-real-color) 6%, transparent), 0 0 14px color-mix(in srgb, var(--luminosity-real-color) 8%, transparent); }
 #luminosity-result-star { width: 30px; height: 30px; border-radius: 50%; background: radial-gradient(circle at 36% 30%, color-mix(in srgb, var(--luminosity-real-color) 65%, white), var(--luminosity-real-color) 75%); box-shadow: 0 0 10px color-mix(in srgb, var(--luminosity-real-color) 65%, transparent), 0 0 24px color-mix(in srgb, var(--luminosity-real-color) 35%, transparent), inset 0 0 4px #ffffff50; }
 .luminosity-equation-symbol { align-self: center; text-align: center; line-height: 1.25; color: var(--accent-strong); font-size: 18px; }
 @container (max-width: 300px) {
-  .luminosity-card.has-comparison .luminosity-equation { grid-template-columns: minmax(0, 1fr) 8px minmax(0, 1fr) 8px minmax(0, 1.3fr); gap: 4px; }
   .luminosity-factor-quantity strong { font-size: 18px; }
   .luminosity-equation .luminosity-result-quantity { font-size: 24px; }
   .luminosity-equation .luminosity-long-value { font-size: var(--property-text-size); }
 }
+.mass-body:has(> .mass-facts) { container-type: inline-size; }
+.mass-facts.planet-facts-grid { grid-template-columns: minmax(0, 1fr); gap: 6px; font-variant-numeric: tabular-nums; }
+.mass-facts.planet-facts-grid > .mass-fact { grid-template-columns: 28px minmax(0, 1fr); align-items: center; gap: 0 12px; min-height: 0; padding: 10px 12px; }
+.mass-fact-header { display: contents; }
+.mass-fact-icon { grid-row: 1 / span 2; }
+.mass-fact-title { grid-column: 2 / -1; }
+.mass-fact-icon.luminosity-factor-icon { height: auto; }
+.mass-fact-icon svg { width: 28px; height: 28px; }
+.mass-fact-cell { display: grid; grid-template-columns: minmax(0, auto) minmax(0, 1fr); align-items: end; gap: 0 12px; min-width: 0; }
+.mass-fact-cell > .luminosity-factor-name { grid-column: 1 / -1; }
+.mass-fact-cell > .luminosity-factor-quantity { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0 5px; }
+.mass-fact .luminosity-factor-quantity strong { display: inline; }
+.mass-fact .luminosity-factor-unit:not([hidden]) { display: inline; margin: 0; }
+.mass-fact-notes { display: grid; gap: 1px; min-width: 0; text-align: right; }
+.mass-fact-notes .mass-benchmark { margin-top: 0; }
+.mass-fact-progress { width: 100%; margin-bottom: 4px; }
+.mass-fact-bar { display: flex; align-items: center; gap: 6px; }
+.mass-fact-bar > .mass-fact-progress { flex: 1; min-width: 40px; margin: 0; }
+.mass-fact-bar > .mass-benchmark { flex: none; white-space: nowrap; }
+.mass-fact-bar + .mass-benchmark { margin-top: 3px; }
+.mass-fact-progress .mass-ratio-marker { background: var(--ink); }
+/* The selected object's label sits above other markers' leader lines. */
+#mass-card .luminosity-plot-marker[data-role="selected"] { z-index: 3; }
+/* Match the card gradient's midpoint so the backing hides crossing lines without showing as a box. */
+#mass-card [data-role="selected"] .luminosity-plot-label { padding: 0 3px; border-radius: 3px; background: color-mix(in srgb, #26282a 50%, var(--panel)); }
+.mass-facts .luminosity-factor-name { display: flex; gap: 5px; align-items: center; margin-bottom: 2px; color: var(--ink); font-size: 12px; }
+.mass-facts .luminosity-long-value { font-size: 18px; }
+/* Paired cells stack their notes under the value to fit two columns. */
+:is(.mass-card, .luminosity-card).has-comparison .mass-fact-cell { grid-template-columns: minmax(0, 1fr); align-items: start; }
+:is(.mass-card, .luminosity-card).has-comparison .mass-fact-notes { margin-top: 2px; text-align: left; }
+:is(.mass-card, .luminosity-card).has-comparison .mass-facts > .mass-fact { grid-template-columns: repeat(2, minmax(0, 1fr)); align-items: start; gap: 6px 12px; }
+:is(.mass-card, .luminosity-card).has-comparison .mass-fact-header { display: flex; grid-column: 1 / -1; align-items: center; justify-content: center; gap: 6px; }
+:is(.mass-card, .luminosity-card).has-comparison .mass-fact-icon svg { width: 20px; height: 20px; }
+:is(.mass-card, .luminosity-card).has-comparison .mass-fact-title { font-size: var(--property-text-size); color: var(--ink); }
+.mass-spectrum { margin-bottom: 6px; padding-top: 0; }
+.mass-zone-labels { position: relative; height: 22px; font-size: 12px; line-height: 1.4; color: var(--muted); }
+.mass-zone-labels > span { position: absolute; top: 0; white-space: nowrap; }
+.mass-zone { position: absolute; top: 0; bottom: 0; }
+.mass-zone:first-child { border-radius: var(--stat-bar-radius) 0 0 var(--stat-bar-radius); }
+.mass-zone:nth-child(3) { border-radius: 0 var(--stat-bar-radius) var(--stat-bar-radius) 0; }
+.mass-zone-substellar { background: color-mix(in srgb, #b07a52 40%, transparent); }
+.mass-zone-white-dwarf { background: #ffffff38; }
+.mass-zone-neutron-star { background: color-mix(in srgb, var(--stat-bar-reference) 35%, transparent); }
+.mass-zone-collapse { background: linear-gradient(90deg, transparent, color-mix(in srgb, var(--accent-vibrant) 45%, transparent) var(--mass-zone-fade, 0%)); }
+.mass-spectrum-axis { position: relative; }
+.mass-spectrum-axis > .mass-scale-help { position: absolute; top: 0; transform: translateX(calc(-50% + var(--mass-limit-shift, 0px))); white-space: nowrap; }
 .luminosity-flux-row { grid-template-columns: minmax(0, 1fr) fit-content(56%); gap: 8px; padding-bottom: 0; }
 .luminosity-flux-row .mass-metric-ratio { grid-row: 1; }
 .luminosity-flux-copy { display: flex; align-items: center; gap: 8px; }
@@ -821,11 +848,14 @@ select:focus-visible, input:focus-visible { outline: 2px solid var(--accent); ou
 .luminosity-plot { position: relative; padding-bottom: var(--luminosity-label-space, 0px); }
 .luminosity-plot .luminosity-axis { display: flex; justify-content: space-between; font-size: 12px; }
 .luminosity-plot .luminosity-plot-marker { top: -3px; height: calc(var(--stat-bar-height) + 6px); z-index: 2; background: var(--luminosity-marker-color); }
-.luminosity-plot-marker::after { content: ''; position: absolute; top: 100%; width: 1px; height: calc(var(--luminosity-label-top, 35px) - var(--stat-bar-height) - 9px); background: inherit; }
+.luminosity-plot-marker::after { content: ''; position: absolute; top: 100%; width: 1px; height: calc(var(--luminosity-leader-top, var(--luminosity-label-top, 35px)) - var(--stat-bar-height) - 9px); background: inherit; }
+.luminosity-plot-leader { position: absolute; border-top: 1px solid var(--luminosity-marker-color); }
+.luminosity-plot-leader.is-right { border-right: 1px solid var(--luminosity-marker-color); }
+.luminosity-plot-leader.is-left { border-left: 1px solid var(--luminosity-marker-color); }
 .luminosity-plot .luminosity-plot-label { position: absolute; top: var(--luminosity-label-top, 35px); left: 50%; width: max-content; max-width: var(--luminosity-label-max); margin: 0; white-space: normal; text-align: center; line-height: 1.3; font-size: 12px; color: var(--luminosity-marker-color); }
 .luminosity-marker-value { display: block; }
 .luminosity-marker-distance { font-size: inherit; white-space: nowrap; }
-.luminosity-marker-detail { display: block; color: var(--muted); font-size: inherit; }
+.luminosity-marker-detail { display: block; font-size: inherit; }
 :is(.luminosity-scale, .magnitude-scale) .mass-ratio-track { background: linear-gradient(90deg, #ffffff14, #ffffff50 50%, #ffffffb8); }
 :is(.luminosity-scale, #magnitude-absolute-scale) .mass-ratio-track::before { content: ''; position: absolute; inset: 0 0 0 65%; border-radius: inherit; background: linear-gradient(90deg, transparent, #ffffff78); filter: blur(5px); pointer-events: none; }
 #magnitude-apparent-scale .mass-ratio-track { background: #ffffff24; }
@@ -1260,8 +1290,8 @@ select:focus-visible, input:focus-visible { outline: 2px solid var(--accent); ou
   .object-type-card > .panel-heading > [role="group"] { flex: 0 0 100%; margin: 0; border-top: 1px solid var(--line); }
   .object-type-card > .panel-heading > [role="group"] > button { height: 44px; margin: 0; border-top: 0; border-bottom: 0; }
   .object-type-card > .panel-heading > [role="group"] > button:first-child { border-left: 0; }
-  :is(.mass-heading, .spectral-heading) > [role="group"] > .mass-reference-option > button { height: 44px; margin: 0; border-top: 0; border-bottom: 0; }
-  :is(.mass-heading, .spectral-heading) > [role="group"] > .mass-reference-option:first-child > button { border-left: 0; }
+  .spectral-heading > [role="group"] > .mass-reference-option > button { height: 44px; margin: 0; border-top: 0; border-bottom: 0; }
+  .spectral-heading > [role="group"] > .mass-reference-option:first-child > button { border-left: 0; }
   .moon-browser { --moon-media-height: 156px; }
   .planet-heading h2 { gap: 5px; }
   .object-type-hero { height: 180px; }
