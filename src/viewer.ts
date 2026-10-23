@@ -23,6 +23,7 @@ import { createMolecularCloudLayer } from './molecular-cloud-layer'
 import { createBubbleLayer } from './bubble-layer'
 import { FILTER_KEYS, isFilterKey, type FilterKey } from './object-filter'
 import { mapComponentVisibility } from './star-systems'
+import type { StarPaint, StarPainter } from './star-paint'
 import {
   GUIDE_DASH_PX, GUIDE_GAP_PX,
   MOTION_ARROW_TAIL_OFFSET_PX,
@@ -59,6 +60,7 @@ export interface StarViewer {
   setSimulationYears(years: number): void
   setPowerSavingMode(enabled: boolean): void
   setStarColorMode(mode: StarColorMode): void
+  setStarPaint(painter: StarPainter | null): void
   setVisibility(observerId: string, limit: number): void
   setDistanceUnit(unit: DistanceUnit): void
   dispose(): void
@@ -261,6 +263,7 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
     referenceDistancesLy[index] = basePositions[index]!.distanceTo(basePositions[referenceIndex]!) * LIGHT_YEARS_PER_PARSEC
   }
   let starColorMode = options.colorMode
+  let starPaints: StarPaint[] | null = null
   const starColors = stars.map((star) => starDisplayColor(star, starColorMode))
   const starColorStyles = starColors.map((color) => color.getStyle())
   const starBounds = new Box3().setFromPoints(pickable.map((star) => star.position))
@@ -327,7 +330,8 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
   starGeometry.setAttribute('selectionEmphasis', selectionEmphases)
   starGeometry.setAttribute('coreDiameter', coreDiameters)
   starGeometry.setAttribute('coreEmphasis', coreEmphases)
-  starGeometry.setAttribute('coreWhiteStrength', new Float32BufferAttribute(stars.map(starCoreWhiteStrength), 1))
+  const coreWhiteStrengths = new Float32BufferAttribute(stars.map(starCoreWhiteStrength), 1)
+  starGeometry.setAttribute('coreWhiteStrength', coreWhiteStrengths)
   const starPoints = new Points(starGeometry, starMaterial)
   starPoints.frustumCulled = false
   starPoints.renderOrder = 2
@@ -1020,13 +1024,16 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
       )
       tiers[index] = tier
       mapVisible[index] = visible ? 1 : 0
-      const haloMagnitude = tier === 'base' ? star.absolute_mag : magnitude
+      // Painted magnitudes size every object, independent of distance.
+      const paintedMagnitude = starPaints?.[index]!.magnitude
+      const haloMagnitude = paintedMagnitude !== undefined ? paintedMagnitude : tier === 'base' ? star.absolute_mag : magnitude
+      const background = tier === 'background' && paintedMagnitude === undefined
       const haloEmphasis = starHaloEmphasis(haloMagnitude)
       const diameter = starApparentDiameter(haloMagnitude)
-      coreDiameters.setX(index, tier === 'background' ? 3 : diameter)
+      coreDiameters.setX(index, background ? 3 : diameter)
       coreEmphases.setX(index, haloEmphasis)
       selectionEmphases.setX(index, star.id === selectedId ? 1 : 0)
-      haloOpacities.setX(index, tier === 'background' ? 0 : starHaloOpacity(haloMagnitude, star.id === selectedId))
+      haloOpacities.setX(index, background ? 0 : starHaloOpacity(haloMagnitude, star.id === selectedId))
       haloDiameters.setX(index, starHaloDiameter(haloMagnitude) * Math.sqrt(diameter / STAR_DIAMETER_PX))
     })
     if (nebulaLayer) {
@@ -1060,6 +1067,21 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
     invalidateProjection()
   }
 
+  function updateStarColors(): void {
+    stars.forEach((star, index) => {
+      const painted = starPaints?.[index]!.color
+      const color = painted ?? starDisplayColor(star, starColorMode)
+      starColors[index] = color
+      starColorStyles[index] = color.getStyle()
+      starColorAttribute.setXYZ(index, color.r, color.g, color.b)
+      // Painted colors are exact; the temperature-based white core would tint them.
+      coreWhiteStrengths.setX(index, painted ? 0 : starCoreWhiteStrength(star))
+    })
+    starColorAttribute.needsUpdate = true
+    coreWhiteStrengths.needsUpdate = true
+    for (const [index, label] of activeStarLabels) label.anchor.style.setProperty('--star-color', starColorStyles[index]!)
+  }
+
   function updatePointVisibility(): void {
     const observerIndex = observerViewEnabled ? observerViewAnchorIndex ?? -1 : -1
     for (let index = 0; index < stars.length; index++) {
@@ -1067,7 +1089,7 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
         && !isNebula[index] && !isMolecularCloud[index] && !isBubble[index] ? 1 : 0
     }
     for (let index = 0; index < stars.length; index++) {
-      nextHaloEnabled[index] = nextCoreEnabled[index] && tiers[index] !== 'background' ? 1 : 0
+      nextHaloEnabled[index] = nextCoreEnabled[index] && (tiers[index] !== 'background' || starPaints?.[index]!.magnitude !== undefined) ? 1 : 0
     }
     // Keep the index buffers on the GPU until drawable membership changes.
     if (!pointVisibilityInitialized || nextCoreEnabled.some((enabled, index) => enabled !== coreEnabled[index])) {
@@ -2167,17 +2189,17 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
       if ((mode !== 'real' && mode !== 'exaggerated') || mode === starColorMode) return
       starColorMode = mode
       milkyWay.setSaturation(mode === 'exaggerated' ? 1.3 : 1)
-      stars.forEach((star, index) => {
-        const color = starDisplayColor(star, mode)
-        starColors[index] = color
-        starColorStyles[index] = color.getStyle()
-        starColorAttribute.setXYZ(index, color.r, color.g, color.b)
-      })
-      starColorAttribute.needsUpdate = true
+      updateStarColors()
       nebulaLayer?.setColorMode(mode)
       molecularCloudLayer?.setColorMode(mode)
       bubbleLayer?.setColorMode(mode)
-      for (const [index, label] of activeStarLabels) label.anchor.style.setProperty('--star-color', starColorStyles[index]!)
+      requestRender()
+    },
+    setStarPaint(painter) {
+      if (!painter && !starPaints) return
+      starPaints = painter ? stars.map(painter) : null
+      updateStarColors()
+      updatePresentation()
       requestRender()
     },
     setVisibility(observerId, limit) {

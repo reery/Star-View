@@ -1,6 +1,6 @@
 import { SaveCheck } from 'lucide'
 import { clearLoadRecovery, createLoadError, loadWithRecovery } from './load-recovery'
-import { ArrowLeft, ArrowLeftRight, ArrowRight, BookOpen, ChevronUp, ChevronsDownUp, ChevronsLeftRight, ChevronsRightLeft, ChevronsUpDown, CircleHelp, Clock, Cloud, Compass, Crosshair, Earth, Ellipsis, Eye, Filter, Focus, Galaxy, Globe, Grid2X2, List, Lock, Minus, Moon, Orbit, Pause, Play, Plus, RotateCcw, RotateCw, Save, Search, Settings2, Sun, Telescope, Trophy, X, createElement, type IconNode } from 'lucide'
+import { ArrowLeft, ArrowLeftRight, ArrowRight, BookOpen, ChevronUp, ChevronsDownUp, ChevronsLeftRight, ChevronsRightLeft, ChevronsUpDown, CircleHelp, Clock, Cloud, Compass, Crosshair, Earth, Ellipsis, Eye, Filter, Focus, Galaxy, Globe, Grid2X2, List, Lock, Minus, Moon, Orbit, Paintbrush, Pause, Play, Plus, RotateCcw, RotateCw, Save, Search, Settings2, Sun, Telescope, Trophy, X, createElement, type IconNode } from 'lucide'
 import { ObserverOriginIcon, OriginIcon } from './origin-icon'
 import { ConstellationIcon } from './constellation-icon'
 import { BUBBLE_OBJECT_TYPES, COMPACT_OBJECT_TYPES, describeObject, isBubbleObject, isCompactObject, isMolecularCloudObject, isNebulaObject, MOLECULAR_CLOUD_OBJECT_TYPES, NEBULA_OBJECT_TYPES, type Star } from './catalog-model'
@@ -51,6 +51,7 @@ import { OBJECT_DISTANCE_STEPS_LY, readSavedViews, SAVED_VIEWS_STORAGE_KEY, type
 import type { SkyGridMode } from './sky-grid'
 import { browserDataSize, deleteBrowserData } from './browser-data'
 import { readSavedFilter, SAVED_FILTER_STORAGE_KEY, type SavedFilter } from './saved-filter'
+import { DEFAULT_PAINT_LEVEL, isPaintSettingId, PAINT_LEVEL_RANGE, PAINT_SETTINGS, starPainter, type PaintSettingId } from './star-paint'
 
 function element<ElementType extends HTMLElement = HTMLElement>(id: string): ElementType {
   const found = document.getElementById(id)
@@ -117,6 +118,10 @@ icon('constellations-icon', ConstellationIcon)
 icon('top-lists-icon', Trophy)
 icon('top-lists-lock-icon', Lock)
 icon('top-lists-close-icon', X)
+icon('paint-icon', Paintbrush)
+icon('paint-reset-icon', RotateCcw)
+icon('paint-lock-icon', Lock)
+icon('paint-close-icon', X)
 icon('constellations-search-icon', Search)
 icon('constellations-maximize-icon', ChevronsUpDown)
 icon('constellations-lock-icon', Lock)
@@ -211,6 +216,7 @@ initializeToolbarTouch(document.querySelector<HTMLElement>('.scene-toolbar')!, e
 let constellationBrowser: ReturnType<typeof import('./constellation-browser').initializeConstellationBrowser> | undefined
 let topLists: ReturnType<typeof import('./top-lists').initializeTopLists> | undefined
 let glossaryInitialized = false
+const paintSettings = new Map<PaintSettingId, number>()
 let viewer: StarViewer | undefined
 let stars: Star[] = []
 let starIndex = new Map<string, Star>()
@@ -310,10 +316,10 @@ const timeSlider = element<HTMLInputElement>('time-slider')
 const timeMarkers = document.querySelectorAll<HTMLElement>('.time-markers i')
 timeMarkers.forEach((marker, index) => marker.style.setProperty('--marker-position', `${index / (timeMarkers.length - 1) * 100}%`))
 const selectionHistory = new SelectionHistory(selectedId)
-const panelNames = ['views', 'motion', 'filter', 'objects', 'glossary', 'constellations', 'top-lists', 'preferences', 'info'] as const
-const lockablePanelNames = ['motion', 'filter', 'objects', 'glossary', 'constellations', 'top-lists', 'preferences'] as const
+const panelNames = ['views', 'motion', 'filter', 'objects', 'glossary', 'constellations', 'top-lists', 'paint', 'preferences', 'info'] as const
+const lockablePanelNames = ['motion', 'filter', 'objects', 'glossary', 'constellations', 'top-lists', 'paint', 'preferences'] as const
 // Discover panels open from the flyout, so focus returns to its toggle.
-const panelToggleId = (name: typeof panelNames[number]) => name === 'constellations' || name === 'top-lists' ? 'discover-toggle' : `${name}-toggle`
+const panelToggleId = (name: typeof panelNames[number]) => name === 'constellations' || name === 'top-lists' || name === 'paint' ? 'discover-toggle' : `${name}-toggle`
 const lockedPanels = new Set<typeof lockablePanelNames[number]>()
 
 function selectedStarAvailable(id: string): boolean {
@@ -2193,6 +2199,7 @@ async function switchCatalog(id: string, refresh = false): Promise<void> {
   viewer.setPowerSavingMode(powerSavingMode)
   viewer.setGridVisible(gridVisible)
   viewer.setSkyGrid(skyGridMode)
+  viewer.setStarPaint(starPainter(paintSettings))
   // Filtering changes the visible objects, not the camera, including the initial overview.
   if (retainedView) {
     viewer.setViewState({ ...retainedView, home: false })
@@ -2755,6 +2762,85 @@ element('constellations-maximize').addEventListener('click', () => {
 }, { signal: events.signal })
 catalogRange.addEventListener('input', () => previewCatalogRange(catalogRange.valueAsNumber), { signal: events.signal })
 element('filter-reset').addEventListener('click', resetAllFilters, { signal: events.signal })
+const paintIcon = (shape: IconNode) => createElement(shape, { width: 20, height: 20, 'stroke-width': 1.7, 'aria-hidden': 'true' })
+element('paint-settings').append(...PAINT_SETTINGS.map(({ id, label, legend, gradient }) => {
+  const setting = document.createElement('section')
+  setting.className = 'planet-atmosphere paint-setting'
+  setting.dataset.paintSetting = id
+  const heading = document.createElement('div')
+  heading.className = 'card-subgroup-heading paint-setting-heading'
+  const toggle = document.createElement('button')
+  Object.assign(toggle, { type: 'button', className: 'paint-setting-toggle', title: `Paint by ${label.toLowerCase()}` })
+  toggle.setAttribute('aria-label', toggle.title)
+  toggle.setAttribute('aria-pressed', 'false')
+  toggle.append(paintIcon(Sun))
+  const body = document.createElement('div')
+  Object.assign(body, { id: `paint-${id}-body`, className: 'paint-setting-body' })
+  const expand = document.createElement('button')
+  Object.assign(expand, { type: 'button', className: 'paint-setting-expand' })
+  expand.setAttribute('aria-expanded', 'true')
+  expand.setAttribute('aria-controls', body.id)
+  expand.append(Object.assign(document.createElement('span'), { textContent: label }), paintIcon(ChevronUp))
+  heading.append(toggle, expand)
+  const bar = document.createElement('div')
+  bar.className = 'paint-legend'
+  const level = document.createElement('input')
+  Object.assign(level, { type: 'range', min: String(PAINT_LEVEL_RANGE[0]), max: String(PAINT_LEVEL_RANGE[1]), step: '0.01', value: String(DEFAULT_PAINT_LEVEL) })
+  level.setAttribute('aria-label', `${label} midpoint`)
+  bar.style.setProperty('--paint-legend', gradient(DEFAULT_PAINT_LEVEL))
+  bar.append(level)
+  const bounds = document.createElement('div')
+  bounds.className = 'range-bounds'
+  bounds.setAttribute('aria-hidden', 'true')
+  bounds.append(...legend.bounds.map((bound) => Object.assign(document.createElement('span'), { textContent: bound })))
+  body.append(bar, bounds)
+  if (legend.note) body.append(Object.assign(document.createElement('p'), { className: 'filter-hint', textContent: legend.note }))
+  setting.append(heading, body)
+  return setting
+}))
+function paintSettingParts(setting: HTMLElement) {
+  const id = setting.dataset.paintSetting
+  if (!isPaintSettingId(id)) return null
+  return {
+    id, gradient: PAINT_SETTINGS.find((candidate) => candidate.id === id)!.gradient,
+    toggle: setting.querySelector<HTMLButtonElement>('.paint-setting-toggle')!,
+    level: setting.querySelector<HTMLInputElement>('input[type="range"]')!,
+  }
+}
+element('paint-settings').addEventListener('click', (event) => {
+  const button = event.target instanceof Element ? event.target.closest('button') : null
+  const parts = button ? paintSettingParts(button.closest<HTMLElement>('[data-paint-setting]')!) : null
+  if (!button || !parts) return
+  if (button.classList.contains('paint-setting-expand')) {
+    const expanded = button.getAttribute('aria-expanded') !== 'true'
+    button.setAttribute('aria-expanded', String(expanded))
+    element(button.getAttribute('aria-controls')!).hidden = !expanded
+    return
+  }
+  if (paintSettings.has(parts.id)) paintSettings.delete(parts.id)
+  else paintSettings.set(parts.id, parts.level.valueAsNumber)
+  button.setAttribute('aria-pressed', String(paintSettings.has(parts.id)))
+  viewer?.setStarPaint(starPainter(paintSettings))
+}, { signal: events.signal })
+element('paint-settings').addEventListener('input', (event) => {
+  const input = event.target
+  const parts = input instanceof HTMLInputElement ? paintSettingParts(input.closest<HTMLElement>('[data-paint-setting]')!) : null
+  if (!parts || !Number.isFinite(parts.level.valueAsNumber)) return
+  parts.level.parentElement!.style.setProperty('--paint-legend', parts.gradient(parts.level.valueAsNumber))
+  if (!paintSettings.has(parts.id)) return
+  paintSettings.set(parts.id, parts.level.valueAsNumber)
+  viewer?.setStarPaint(starPainter(paintSettings))
+}, { signal: events.signal })
+element('paint-reset').addEventListener('click', () => {
+  paintSettings.clear()
+  element('paint-settings').querySelectorAll<HTMLElement>('[data-paint-setting]').forEach((setting) => {
+    const parts = paintSettingParts(setting)!
+    parts.toggle.setAttribute('aria-pressed', 'false')
+    parts.level.value = String(DEFAULT_PAINT_LEVEL)
+    parts.level.parentElement!.style.setProperty('--paint-legend', parts.gradient(DEFAULT_PAINT_LEVEL))
+  })
+  viewer?.setStarPaint(null)
+}, { signal: events.signal })
 element('filter-save').addEventListener('click', saveCurrentFilter, { signal: events.signal })
 catalogRange.addEventListener('change', () => {
   const catalog = sliderCatalogs[catalogRange.valueAsNumber]
@@ -2912,7 +2998,7 @@ for (const name of panelNames) {
 for (const name of lockablePanelNames) {
   element(`${name}-lock`).addEventListener('click', () => togglePanelLock(name), { signal: events.signal })
 }
-for (const name of ['objects', 'glossary', 'constellations', 'top-lists'] as const) {
+for (const name of ['objects', 'glossary', 'constellations', 'top-lists', 'paint'] as const) {
   element(`${name}-close`).addEventListener('click', () => {
     setPanelOpen(name, false)
     syncPanelLayout()
