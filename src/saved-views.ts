@@ -9,6 +9,7 @@ export const OBJECT_DISTANCE_STEPS_LY = [5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 
 
 export interface SavedViewSettings {
   catalogId: string
+  /** Legacy saved views use this flag to enable the constellation catalog that now holds the bright stars. */
   showAlwaysBright: boolean
   showWesternConstellationStars: boolean
   /** Legacy saved views use this flag to enable the combined constellation catalog. */

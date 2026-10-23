@@ -9,6 +9,7 @@ import { DEFAULT_CATALOG_MANIFEST } from './catalog-manifest'
 import { objectDesignations, parseObjectIdentities, supplementObjectIdentities } from './designations'
 import { normalizeObjectSearch, objectSearchText } from './object-list'
 import { indexStarSystems } from './star-systems'
+import { catalogSourceUrl } from './test-support/catalog-source'
 
 const identities = parseObjectIdentities(identitiesPayload)
 const stars = parseStarCatalog(csv)
@@ -16,7 +17,7 @@ const stars = parseStarCatalog(csv)
 describe('object designations', () => {
   it('ships the same preferred names and searchable source labels after companion completion', () => {
     const names = new Map<string, string>()
-    for (const catalog of ['nearest-neighbors', 'nearest-100', 'nearest-1000', 'bright-stars', 'western-constellation-stars']) {
+    for (const catalog of ['nearest-neighbors', 'nearest-100', 'nearest-1000', 'western-constellation-stars']) {
       const { stars } = JSON.parse(readFileSync(new URL(`./data/generated/catalogs/${catalog}.json`, import.meta.url), 'utf8'))
       for (const star of stars) {
         if (names.has(star.id)) expect(star.name, star.id).toBe(names.get(star.id))
@@ -33,9 +34,9 @@ describe('object designations', () => {
       expect(stars.find((star: { id: string }) => star.id === '10pc-0042')?.name).toBe('Epsilon Indi Ba')
       expect(indexStarSystems(stars).get('10pc-0042')?.name).toBe('Epsilon Indi')
     }
-    expect(names.get('bright-spica')).toBe('Spica Aa')
-    expect(names.get('bright-mizar-a')).toBe('Mizar Aa')
-    expect(names.get('bright-alnitak')).toBe('Alnitak Aa')
+    expect(names.get('hip-65474')).toBe('Spica Aa')
+    expect(names.get('hip-65378')).toBe('Mizar Aa')
+    expect(names.get('hip-26727')).toBe('Alnitak Aa')
   })
 
   it('never replaces a refined component label with an older system or aggregate label', () => {
@@ -107,14 +108,14 @@ describe('object designations', () => {
     expect(objectSearchText(proxima)).toContain(normalizeObjectSearch('α Centauri C'))
     expect(normalizeObjectSearch('PSR J0633+1746')).not.toBe(normalizeObjectSearch('PSR J0633-1746'))
     expect(normalizeObjectSearch('PSR J0835−4510')).toBe(normalizeObjectSearch('PSR J0835-4510'))
-    expect(identities['bright-beta-gruis']!.name).toBe('Tiaki')
-    expect(identities['bright-epsilon-scorpii']!.name).toBe('Larawag')
+    expect(identities['hip-112122']!.name).toBe('Tiaki')
+    expect(identities['hip-82396']!.name).toBe('Larawag')
     expect(identities['10pc-0073']!.name).toBe("van Maanen's Star")
   })
 
   it('keeps reviewed individual component names and their old landmark aliases', () => {
-    for (const path of ['catalogs/bright-stars/stars.csv', 'catalogs/western-constellation-stars/stars.csv']) {
-      const stars = supplementObjectIdentities(parseStarCatalog(readFileSync(new URL(`./data/${path}`, import.meta.url), 'utf8')), identities)
+    for (const catalog of ['bright-stars', 'western-constellation-stars']) {
+      const stars = supplementObjectIdentities(parseStarCatalog(readFileSync(catalogSourceUrl(catalog), 'utf8')), identities)
       const primary = stars.find((star) => star.id === 'cns5-1318' || star.id === 'hip-24608')!
       expect(primary.name).toBe('Capella Aa')
       expect(primary.designations).toContain('Capella')
@@ -126,7 +127,7 @@ describe('object designations', () => {
   })
 
   it('covers every bundled catalog and overlay while preserving the science data', () => {
-    const paths = ['stars.csv', ...['nearest-100', 'nearest-1000', 'bright-stars', 'western-constellation-stars'].map((id) => `catalogs/${id}/stars.csv`)]
+    const paths = ['stars.csv', ...['nearest-100', 'nearest-1000', 'western-constellation-stars'].map((id) => `catalogs/${id}/stars.csv`)]
     for (const path of paths) {
       const original = parseStarCatalog(readFileSync(new URL(`./data/${path}`, import.meta.url), 'utf8'))
       const enriched = supplementObjectIdentities(original, identities)

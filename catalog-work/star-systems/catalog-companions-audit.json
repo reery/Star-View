@@ -89595,24 +89595,8 @@
       }
     },
     "ez-aquarii-a": {},
-    "ez-aquarii-b": {
-      "spectralSubtypes": {
-        "spectralType": "M5.5:V",
-        "labels": [
-          "Main-sequence"
-        ],
-        "method": "Physical subtype from this component's own adopted spectrum; no aggregate-label inheritance"
-      }
-    },
-    "ez-aquarii-c": {
-      "spectralSubtypes": {
-        "spectralType": "M7:V",
-        "labels": [
-          "Main-sequence"
-        ],
-        "method": "Physical subtype from this component's own adopted spectrum; no aggregate-label inheritance"
-      }
-    },
+    "ez-aquarii-b": {},
+    "ez-aquarii-c": {},
     "cns5-5665": {
       "constellationSystemMotion": {
         "systemId": "fomalhaut",
@@ -93352,13 +93336,11 @@
       ],
       "implicitPair": true,
       "catalogIds": [
-        "bright-ankaa",
         "hip-2081"
       ],
       "reference": "Jnc2005",
       "decision": "withheld-astrometric-or-nonvisual",
       "relevantCatalogIds": [
-        "bright-ankaa",
         "hip-2081"
       ]
     },
@@ -96439,13 +96421,11 @@
       ],
       "implicitPair": true,
       "catalogIds": [
-        "bright-phecda",
         "hip-58001"
       ],
       "reference": "Gon2010",
       "decision": "withheld-astrometric-or-nonvisual",
       "relevantCatalogIds": [
-        "bright-phecda",
         "hip-58001"
       ]
     },
@@ -97218,13 +97198,11 @@
       ],
       "implicitPair": true,
       "catalogIds": [
-        "bright-alphecca",
         "hip-76267"
       ],
       "reference": "HIP1997d",
       "decision": "withheld-astrometric-or-nonvisual",
       "relevantCatalogIds": [
-        "bright-alphecca",
         "hip-76267"
       ]
     },
@@ -99452,16 +99430,6 @@
       "status": "Needs source review; a WDS identifier or spectral/astrometric flag alone does not establish physical component membership."
     },
     {
-      "id": "bright-denebola",
-      "name": "Denebola",
-      "simbadType": "dS*",
-      "spectralType": "A3Va",
-      "wdsIds": [
-        "WDS J11491+1434A"
-      ],
-      "status": "Needs source review; a WDS identifier or spectral/astrometric flag alone does not establish physical component membership."
-    },
-    {
       "id": "cns5-3517",
       "name": "Arcturus",
       "simbadType": "RG*",
@@ -99477,400 +99445,6 @@
       "simbadType": "SB*",
       "spectralType": "G0IV",
       "wdsIds": [],
-      "status": "Needs source review; a WDS identifier or spectral/astrometric flag alone does not establish physical component membership."
-    },
-    {
-      "id": "bright-alderamin",
-      "name": "Alderamin",
-      "simbadType": "PM*",
-      "spectralType": "A8Vn",
-      "wdsIds": [
-        "WDS J21186+6235A"
-      ],
-      "status": "Needs source review; a WDS identifier or spectral/astrometric flag alone does not establish physical component membership."
-    },
-    {
-      "id": "bright-caph",
-      "name": "Caph",
-      "simbadType": "dS*",
-      "spectralType": "F2III",
-      "wdsIds": [
-        "WDS J00092+5909A"
-      ],
-      "status": "Needs source review; a WDS identifier or spectral/astrometric flag alone does not establish physical component membership."
-    },
-    {
-      "id": "bright-menkent",
-      "name": "Menkent",
-      "simbadType": "PM*",
-      "spectralType": "K0-IIIb",
-      "wdsIds": [
-        "WDS J14067-3622A"
-      ],
-      "status": "Needs source review; a WDS identifier or spectral/astrometric flag alone does not establish physical component membership."
-    },
-    {
-      "id": "bright-aldebaran",
-      "name": "Aldebaran",
-      "simbadType": "LP?",
-      "spectralType": "K5+III",
-      "wdsIds": [
-        "WDS J04359+1631A"
-      ],
-      "status": "Needs source review; a WDS identifier or spectral/astrometric flag alone does not establish physical component membership."
-    },
-    {
-      "id": "bright-unukalhai",
-      "name": "Unukalhai",
-      "simbadType": "PM*",
-      "spectralType": "K2IIIbCN1",
-      "wdsIds": [
-        "WDS J15443+0626A"
-      ],
-      "status": "Needs source review; a WDS identifier or spectral/astrometric flag alone does not establish physical component membership."
-    },
-    {
-      "id": "bright-alphecca",
-      "name": "Alphecca",
-      "simbadType": "SB*",
-      "spectralType": "A1IV",
-      "wdsIds": [],
-      "status": "Needs source review; a WDS identifier or spectral/astrometric flag alone does not establish physical component membership."
-    },
-    {
-      "id": "bright-ankaa",
-      "name": "Ankaa",
-      "simbadType": "SB*",
-      "spectralType": "K0.5IIIb",
-      "wdsIds": [],
-      "status": "Needs source review; a WDS identifier or spectral/astrometric flag alone does not establish physical component membership."
-    },
-    {
-      "id": "bright-alioth",
-      "name": "Alioth",
-      "simbadType": "a2*",
-      "spectralType": "A1III-IVpkB9",
-      "wdsIds": [
-        "WDS J12540+5558AB"
-      ],
-      "status": "Needs source review; a WDS identifier or spectral/astrometric flag alone does not establish physical component membership."
-    },
-    {
-      "id": "bright-phecda",
-      "name": "Phecda",
-      "simbadType": "Em*",
-      "spectralType": "A0V",
-      "wdsIds": [
-        "WDS J11538+5342A"
-      ],
-      "status": "Needs source review; a WDS identifier or spectral/astrometric flag alone does not establish physical component membership."
-    },
-    {
-      "id": "bright-gacrux",
-      "name": "Gacrux",
-      "simbadType": "PM*",
-      "spectralType": "M3.5III",
-      "wdsIds": [
-        "WDS J12312-5707A"
-      ],
-      "status": "Needs source review; a WDS identifier or spectral/astrometric flag alone does not establish physical component membership."
-    },
-    {
-      "id": "bright-alnair",
-      "name": "Alnair",
-      "simbadType": "PM*",
-      "spectralType": "B6V",
-      "wdsIds": [
-        "WDS J22082-4658A"
-      ],
-      "status": "Needs source review; a WDS identifier or spectral/astrometric flag alone does not establish physical component membership."
-    },
-    {
-      "id": "bright-ruchbah",
-      "name": "Ruchbah",
-      "simbadType": "EB*",
-      "spectralType": "A5IV",
-      "wdsIds": [
-        "WDS J01258+6014A"
-      ],
-      "status": "Needs source review; a WDS identifier or spectral/astrometric flag alone does not establish physical component membership."
-    },
-    {
-      "id": "bright-kochab",
-      "name": "Kochab",
-      "simbadType": "*",
-      "spectralType": "K4-III",
-      "wdsIds": [
-        "WDS J14507+7409A"
-      ],
-      "status": "Needs source review; a WDS identifier or spectral/astrometric flag alone does not establish physical component membership."
-    },
-    {
-      "id": "bright-elnath",
-      "name": "Elnath",
-      "simbadType": "PM*",
-      "spectralType": "B7III",
-      "wdsIds": [
-        "WDS J05263+2836A"
-      ],
-      "status": "Needs source review; a WDS identifier or spectral/astrometric flag alone does not establish physical component membership."
-    },
-    {
-      "id": "bright-kaus-australis",
-      "name": "Kaus Australis",
-      "simbadType": "PM*",
-      "spectralType": "B9IVp_lB?",
-      "wdsIds": [
-        "WDS J18242-3423A"
-      ],
-      "status": "Needs source review; a WDS identifier or spectral/astrometric flag alone does not establish physical component membership."
-    },
-    {
-      "id": "bright-eltanin",
-      "name": "Eltanin",
-      "simbadType": "*",
-      "spectralType": "K5III",
-      "wdsIds": [
-        "WDS J17566+5129A"
-      ],
-      "status": "Needs source review; a WDS identifier or spectral/astrometric flag alone does not establish physical component membership."
-    },
-    {
-      "id": "bright-peacock",
-      "name": "Peacock",
-      "simbadType": "SB*",
-      "spectralType": "B2IV",
-      "wdsIds": [
-        "WDS J20256-5644A"
-      ],
-      "status": "Needs source review; a WDS identifier or spectral/astrometric flag alone does not establish physical component membership."
-    },
-    {
-      "id": "bright-alphard",
-      "name": "Alphard",
-      "simbadType": "*",
-      "spectralType": "K3IIIa",
-      "wdsIds": [
-        "WDS J09276-0840A"
-      ],
-      "status": "Needs source review; a WDS identifier or spectral/astrometric flag alone does not establish physical component membership."
-    },
-    {
-      "id": "bright-scheat",
-      "name": "Scheat",
-      "simbadType": "LP*",
-      "spectralType": "M2.5II-III",
-      "wdsIds": [
-        "WDS J23038+2805A"
-      ],
-      "status": "Needs source review; a WDS identifier or spectral/astrometric flag alone does not establish physical component membership."
-    },
-    {
-      "id": "bright-mirach",
-      "name": "Mirach",
-      "simbadType": "PM*",
-      "spectralType": "M0+IIIa",
-      "wdsIds": [
-        "WDS J01097+3537A"
-      ],
-      "status": "Needs source review; a WDS identifier or spectral/astrometric flag alone does not establish physical component membership."
-    },
-    {
-      "id": "bright-schedar",
-      "name": "Schedar",
-      "simbadType": "PM*",
-      "spectralType": "K0-IIIa",
-      "wdsIds": [
-        "WDS J00405+5632A"
-      ],
-      "status": "Needs source review; a WDS identifier or spectral/astrometric flag alone does not establish physical component membership."
-    },
-    {
-      "id": "bright-bellatrix",
-      "name": "Bellatrix",
-      "simbadType": "*",
-      "spectralType": "B2III",
-      "wdsIds": [
-        "WDS J05251+0621A"
-      ],
-      "status": "Needs source review; a WDS identifier or spectral/astrometric flag alone does not establish physical component membership."
-    },
-    {
-      "id": "bright-mimosa",
-      "name": "Mimosa",
-      "simbadType": "bC*",
-      "spectralType": "B1IV",
-      "wdsIds": [
-        "WDS J12477-5941A"
-      ],
-      "status": "Needs source review; a WDS identifier or spectral/astrometric flag alone does not establish physical component membership."
-    },
-    {
-      "id": "bright-phact",
-      "name": "Phact",
-      "simbadType": "Be*",
-      "spectralType": "B9Ve",
-      "wdsIds": [
-        "WDS J05396-3404A"
-      ],
-      "status": "Needs source review; a WDS identifier or spectral/astrometric flag alone does not establish physical component membership."
-    },
-    {
-      "id": "bright-leepwal",
-      "name": "Leepwal",
-      "simbadType": "SB*",
-      "spectralType": "B2.5IV",
-      "wdsIds": [],
-      "status": "Needs source review; a WDS identifier or spectral/astrometric flag alone does not establish physical component membership."
-    },
-    {
-      "id": "bright-atria",
-      "name": "Atria",
-      "simbadType": "*",
-      "spectralType": "K2III_Ba1",
-      "wdsIds": [
-        "WDS J16487-6902A"
-      ],
-      "status": "Needs source review; a WDS identifier or spectral/astrometric flag alone does not establish physical component membership."
-    },
-    {
-      "id": "bright-kaus-media",
-      "name": "Kaus Media",
-      "simbadType": "*",
-      "spectralType": "K2.5IIIaCN0.5",
-      "wdsIds": [
-        "WDS J18210-2950A"
-      ],
-      "status": "Needs source review; a WDS identifier or spectral/astrometric flag alone does not establish physical component membership."
-    },
-    {
-      "id": "bright-epsilon-centauri",
-      "name": "Epsilon Centauri",
-      "simbadType": "bC*",
-      "spectralType": "B1III",
-      "wdsIds": [
-        "WDS J13399-5328A"
-      ],
-      "status": "Needs source review; a WDS identifier or spectral/astrometric flag alone does not establish physical component membership."
-    },
-    {
-      "id": "bright-alpha-lupi",
-      "name": "Alpha Lupi",
-      "simbadType": "bC*",
-      "spectralType": "B1.5III",
-      "wdsIds": [
-        "WDS J14419-4723A"
-      ],
-      "status": "Needs source review; a WDS identifier or spectral/astrometric flag alone does not establish physical component membership."
-    },
-    {
-      "id": "bright-mirzam",
-      "name": "Mirzam",
-      "simbadType": "bC*",
-      "spectralType": "B1II-III",
-      "wdsIds": [
-        "WDS J06227-1757A"
-      ],
-      "status": "Needs source review; a WDS identifier or spectral/astrometric flag alone does not establish physical component membership."
-    },
-    {
-      "id": "bright-betelgeuse",
-      "name": "Betelgeuse",
-      "simbadType": "s*r",
-      "spectralType": "M1-M2Ia-Iab",
-      "wdsIds": [
-        "WDS J05552+0724A",
-        "WDS J05552+0724Aa,Ab",
-        "WDS J05552+0724Aa,Ac"
-      ],
-      "status": "Needs source review; a WDS identifier or spectral/astrometric flag alone does not establish physical component membership."
-    },
-    {
-      "id": "bright-mirfak",
-      "name": "Mirfak",
-      "simbadType": "V*",
-      "spectralType": "F5Ib",
-      "wdsIds": [
-        "WDS J03243+4952A"
-      ],
-      "status": "Needs source review; a WDS identifier or spectral/astrometric flag alone does not establish physical component membership."
-    },
-    {
-      "id": "bright-suhail",
-      "name": "Suhail",
-      "simbadType": "s*r",
-      "spectralType": "K4Ib",
-      "wdsIds": [
-        "WDS J09080-4326A"
-      ],
-      "status": "Needs source review; a WDS identifier or spectral/astrometric flag alone does not establish physical component membership."
-    },
-    {
-      "id": "bright-markeb",
-      "name": "Markeb",
-      "simbadType": "SB*",
-      "spectralType": "B2IV",
-      "wdsIds": [],
-      "status": "Needs source review; a WDS identifier or spectral/astrometric flag alone does not establish physical component membership."
-    },
-    {
-      "id": "bright-enif",
-      "name": "Enif",
-      "simbadType": "LP*",
-      "spectralType": "K2Ib-II",
-      "wdsIds": [
-        "WDS J21442+0953A"
-      ],
-      "status": "Needs source review; a WDS identifier or spectral/astrometric flag alone does not establish physical component membership."
-    },
-    {
-      "id": "bright-deneb",
-      "name": "Deneb",
-      "simbadType": "sg*",
-      "spectralType": "A2Ia",
-      "wdsIds": [
-        "WDS J20414+4517A"
-      ],
-      "status": "Needs source review; a WDS identifier or spectral/astrometric flag alone does not establish physical component membership."
-    },
-    {
-      "id": "bright-sadr",
-      "name": "Sadr",
-      "simbadType": "*",
-      "spectralType": "F8Ib",
-      "wdsIds": [
-        "WDS J20222+4015A"
-      ],
-      "status": "Needs source review; a WDS identifier or spectral/astrometric flag alone does not establish physical component membership."
-    },
-    {
-      "id": "bright-alnilam",
-      "name": "Alnilam",
-      "simbadType": "s*b",
-      "spectralType": "B0Ia",
-      "wdsIds": [
-        "WDS J05362-0112A"
-      ],
-      "status": "Needs source review; a WDS identifier or spectral/astrometric flag alone does not establish physical component membership."
-    },
-    {
-      "id": "bright-aludra",
-      "name": "Aludra",
-      "simbadType": "s*b",
-      "spectralType": "B5Ia",
-      "wdsIds": [
-        "WDS J07241-2918A"
-      ],
-      "status": "Needs source review; a WDS identifier or spectral/astrometric flag alone does not establish physical component membership."
-    },
-    {
-      "id": "bright-arneb",
-      "name": "Arneb",
-      "simbadType": "*",
-      "spectralType": "F0Ib",
-      "wdsIds": [
-        "WDS J05327-1749A"
-      ],
       "status": "Needs source review; a WDS identifier or spectral/astrometric flag alone does not establish physical component membership."
     },
     {
@@ -109318,13 +108892,13 @@
   },
   "inputSha256": {
     "src/data/star-systems.json": "0e7e0b8097766381629c4d28e57f62948ecde0c10ac18992c09cef17cb6dfe05",
-    "src/data/object-designations.json": "8d641d6e4d29e62b343722f3746c074adc11c198522f8a9148c7f62dcb664fb0",
-    "src/data/object-stats.json": "642d5bf070e7ab685ceac280896a934163b47cb39a977823e69e9854bd9f4d00",
-    "src/data/catalogs/bright-stars/stars.csv": "1efcdeb2690d53b815e51be385cdf095820e485538806048863848896b661592",
+    "src/data/object-designations.json": "fd0265d04c4acedc5748ff57d510740a80ce5f39939cc4a8f327ba951e0f1232",
+    "src/data/object-stats.json": "6715cc50596edab704f96d0bea364d5920b703fa704c66a07b21251f86a7fcbc",
+    "catalog-work/bright-stars/retired-catalog/stars.csv": "1efcdeb2690d53b815e51be385cdf095820e485538806048863848896b661592",
     "catalog-work/famous-cluster-stars/retired-catalog/stars.csv": "a3891d03306b702329de98dafff62ca2b0906f8dd6089f64bd8005a252d5b33f",
     "src/data/catalogs/nearest-100/stars.csv": "a283dc0a9319d331ac01c8d6e526fbb23f5eb2cdc6ca243f160d5a381fe24a88",
     "src/data/catalogs/nearest-1000/stars.csv": "4f851fa5f27325e045f1cef19d18e8ef4b8334761c207eea0f50f5cc3dbeea31",
-    "src/data/catalogs/western-constellation-stars/stars.csv": "e8cdc61e33e9ea33a76ff78cd1fd1115821cfe94641aeac65f29ded0263b9e54",
+    "src/data/catalogs/western-constellation-stars/stars.csv": "960a33396b9225f8fa6f296a8c029d143d5ebe84c41c24fba60eb1e28b555688",
     "src/data/stars.csv": "cbe5afe70dfcd4f789ebdf61464a35ce59652dc7ad6eccfd389c5599128d2f11",
     "catalog-work/star-systems/catalog-companions-msc.json": "b81210724ff9914c3c286c5971155df5bf20613252baaa9472eee085f0cd0f41",
     "catalog-work/star-systems/catalog-companions-cifuentes.json": "bdd35ae8d422a55660f6055417684ec7dbe7bf8df6ec1657129b448bc73346b8",

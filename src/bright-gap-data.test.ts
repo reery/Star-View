@@ -6,20 +6,26 @@ import baseline from '../catalog-work/bright-stars/gap-baseline.json'
 import motionReview from '../catalog-work/bright-stars/gap-motion-review.json'
 import constellationMotion from '../catalog-work/star-systems/reviewed-constellation-motion.json'
 import audit from '../catalog-work/bright-stars/gap-coverage-audit.json'
+import legacyStarIds from './data/legacy-star-ids.json'
 
-const payload = JSON.parse(readFileSync(new URL('./data/generated/catalogs/bright-stars.json', import.meta.url), 'utf8')) as { stars: Star[] }
+// Bright landmarks now ship in the constellation catalog, some under the surviving ID of the same object.
+const payload = JSON.parse(readFileSync(new URL('./data/generated/catalogs/western-constellation-stars.json', import.meta.url), 'utf8')) as { stars: Star[] }
 const pool = JSON.parse(readFileSync(new URL('./data/stellar-companions.json', import.meta.url), 'utf8')) as {
   systems: { components: { starId: string, alternateStarIds?: string[] }[] }[], stars: Star[]
 }
 const aliases = new Map(pool.systems.flatMap((s) => s.components.flatMap((c) =>
   [c.starId, ...c.alternateStarIds ?? []].map((id) => [id, c.starId] as const))))
-const stars = new Map(payload.stars.filter((s) => s.id !== 'sun').map((s) => [aliases.get(s.id) ?? s.id, s]))
+const shipped = new Map(payload.stars.map((s) => [s.id, s]))
+const canonical = new Map(payload.stars.map((s) => [aliases.get(s.id) ?? s.id, s]))
+const legacy: Record<string, string> = { ...legacyStarIds.ids, ...legacyStarIds.sharedIds }
+const brightIds = [...Object.keys(baseline.records), 'msc-07346+3153-cb', 'msc-13252-1110-ab']
+const stars = { get: (id: string) => canonical.get(id) ?? shipped.get(legacy[id] ?? id) }
 const componentAudit = JSON.parse(readFileSync(new URL('../catalog-work/star-systems/catalog-companions-audit.json', import.meta.url),'utf8')).componentRecords
 
 describe('bright catalog gap review', () => {
   it('preserves every previously adopted physical value and RV through runtime expansion', () => {
-    expect(stars.size).toBe(201)
-    expect([...stars.keys()].sort()).toEqual([...Object.keys(baseline.records), 'msc-07346+3153-cb', 'msc-13252-1110-ab'].sort())
+    expect(brightIds).toHaveLength(201)
+    for (const id of brightIds) expect(stars.get(id), id).toBeDefined()
     for (const [id, previous] of Object.entries(baseline.records)) {
       const star = stars.get(id)!
       for (const [field, value] of Object.entries(previous.values)) {
@@ -61,7 +67,7 @@ describe('bright catalog gap review', () => {
   })
 
   it('keeps the complete gap list and counts aligned with the data shipped to the browser', () => {
-    expect(audit.records).toHaveLength(stars.size)
+    expect(audit.records).toHaveLength(brightIds.length)
     for (const record of audit.records) {
       const star = stars.get(record.id)!
       for (const field of ['temperature_k', 'mass_solar', 'luminosity_solar', 'radius_solar'] as const) {
@@ -70,6 +76,6 @@ describe('bright catalog gap review', () => {
       expect(star.raw_astrometry?.radial_velocity_kms).not.toBeNull()
       if (record.missing.length) expect(record.remainingGapReason).toBeTruthy()
     }
-    expect(audit.coverage.radial_velocity_kms.after).toBe(stars.size)
+    expect(audit.coverage.radial_velocity_kms.after).toBe(brightIds.length)
   })
 })

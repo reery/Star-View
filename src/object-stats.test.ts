@@ -22,7 +22,7 @@ describe('shared selected-object statistics', () => {
 
   it('retains physical and variability classifications and makes them searchable', () => {
     expect(stats['bright-regor']?.subtypes).toContain('Wolf–Rayet')
-    expect(stats['bright-betelgeuse']?.subtypes).toContain('Red supergiant')
+    expect(stats['hip-27989']?.subtypes).toContain('Red supergiant')
     expect(stats['barnards-star']?.subtypes).toContain('BY Draconis variable')
     expect(objectSearchText({ ...stars[0]!, subtypes: stats['bright-regor']!.subtypes })).toContain('wolf rayet')
   })

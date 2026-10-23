@@ -21,7 +21,8 @@ SED = ROOT / "catalog-work/bright-stars/sed.csv"
 MASSIVE = ROOT / "catalog-work/bright-stars/massive.csv"
 PRIMARY = ROOT / "catalog-work/bright-stars/primary.csv"
 DEFAULT_CATALOG = ROOT / "src/data/stars.csv"
-OUTPUT = ROOT / "src/data/catalogs/bright-stars"
+# Retired from the app; the package remains the offline source and preservation baseline.
+OUTPUT = ROOT / "catalog-work/bright-stars/retired-catalog"
 HEADERS = [
     "type", "id", "name", "designations", "spectral_type", "x_pc", "y_pc", "z_pc",
     "vx_kms", "vy_kms", "vz_kms", "temperature_k", "mass_solar",

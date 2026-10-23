@@ -14,6 +14,7 @@ import { loadNebulae, nebulaOverlayManifest } from './nebula-overlay'
 import { loadMolecularClouds, molecularCloudOverlayManifest } from './molecular-cloud-overlay'
 import { bubbleOverlayManifest, loadBubbles } from './bubble-overlay'
 import { catalogs, catalogErrors } from './registry'
+import legacyStarIds from './data/legacy-star-ids.json'
 import { formatDistance, LIGHT_YEARS_PER_PARSEC, starDisplayColor, sunRelativeMetrics, type DistanceUnit, type GridScale, type MotionFrame, type StarColorMode } from './astronomy'
 import { EARTH_ORBIT_MODES, earthOrbitDateForMode, earthOrbitModeLabel, isEarthOrbitMode, type EarthOrbitMode } from './earth-orbit'
 import { MOTION_YEAR_OPTIONS, SIMULATION_YEAR_LIMIT, createStarViewer, type MotionYears, type StarViewer, type ViewerViewState } from './viewer'
@@ -221,7 +222,6 @@ let observerId = 'sirius-a'
 let referenceId = 'sun'
 let magnitudeLimit = 7
 let objectDistanceLimitLy = 100
-let showAlwaysBright = false
 let showWesternConstellationStars = false
 let gridVisible = true
 let skyGridMode: SkyGridMode = 'off'
@@ -254,18 +254,18 @@ const availableKeys = availableFilterKeys(compactOverlayManifest.counts, nebulaO
 let visibleKeys = effectiveFilterKeys(filterCategories, filterSubtypes, availableKeys)
 let distanceUnit: DistanceUnit = 'ly'
 let starColorMode: StarColorMode = 'exaggerated'
-const BRIGHT_CATALOG_ID = 'bright-stars'
 const WESTERN_CONSTELLATION_CATALOG_ID = 'western-constellation-stars'
-const ADDITIVE_CATALOG_IDS = new Set([BRIGHT_CATALOG_ID, WESTERN_CONSTELLATION_CATALOG_ID])
+// Retired catalog IDs (bright-stars) restore saved selections on their surviving records.
+const legacyStarId = (id: string) => (legacyStarIds.ids as Record<string, string>)[id] ?? id
 
-// Nearest-N catalogs form an ordered size progression; landmark catalogs are independent additive toggles.
-const sliderCatalogs = catalogs.filter((catalog) => !ADDITIVE_CATALOG_IDS.has(catalog.manifest.id))
+// Nearest-N catalogs form an ordered size progression; the landmark catalog is an additive toggle.
+const sliderCatalogs = catalogs.filter((catalog) => catalog.manifest.id !== WESTERN_CONSTELLATION_CATALOG_ID)
   .sort((first, second) => first.manifest.objectCount - second.manifest.objectCount)
 const savedFilter = readSavedFilter(sliderCatalogs.map((catalog) => catalog.manifest.id))
 const initialCatalogId = savedFilter?.catalogId ?? 'nearest-neighbors'
 if (savedFilter) {
-  showAlwaysBright = savedFilter.showAlwaysBright
-  showWesternConstellationStars = savedFilter.showWesternConstellationStars
+  // The retired bright-star switch now maps to the constellation catalog that contains its stars.
+  showWesternConstellationStars = savedFilter.showWesternConstellationStars || savedFilter.showAlwaysBright
   filterCategories.clear()
   savedFilter.filterCategories.forEach((category) => filterCategories.add(category))
   filterSubtypes.clear()
@@ -313,13 +313,13 @@ const panelToggleId = (name: typeof panelNames[number]) => name === 'constellati
 const lockedPanels = new Set<typeof lockablePanelNames[number]>()
 
 function selectedStarAvailable(id: string): boolean {
-  return stars.some((star) => star.id === id)
+  return starIndex.has(id)
 }
 
 function updateSelectionHistoryControls(): void {
   for (const direction of ['back', 'forward'] as const) {
     const id = direction === 'back' ? selectionHistory.peekBack(selectedStarAvailable) : selectionHistory.peekForward(selectedStarAvailable)
-    const star = stars.find((star) => star.id === id)
+    const star = starById(id)
     const prefix = `selection-${direction}`
     const label = direction === 'back' ? 'Previous selection' : 'Next selection'
     const button = element<HTMLButtonElement>(prefix)
@@ -334,18 +334,18 @@ function updateSelectionHistoryControls(): void {
 }
 
 function updateReferenceControl(): void {
-  const sun = stars.find((star) => star.id === 'sun')
+  const sun = starById('sun')
   element<HTMLButtonElement>('set-sun-origin').disabled = sceneBusy || !sun || referenceId === 'sun'
   element('set-sun-origin-swatch').style.background = sun ? starDisplayColor(sun, starColorMode).getStyle() : ''
   const setOrigin = element<HTMLButtonElement>('set-origin')
-  const selected = stars.find((star) => star.id === selectedId)
+  const selected = starById(selectedId)
   setOrigin.disabled = sceneBusy || selectedId === null || selectedId === referenceId
   setOrigin.setAttribute('aria-label', `Set ${selected?.name ?? 'selected object'} as origin`)
   text('set-origin-name', selected?.name ?? 'selected object')
   element('set-origin-swatch').hidden = !selected
   element('set-origin-swatch').style.background = selected ? starDisplayColor(selected, starColorMode).getStyle() : ''
   const goToOrigin = element<HTMLButtonElement>('go-to-origin')
-  const origin = stars.find((star) => star.id === referenceId)
+  const origin = starById(referenceId)
   goToOrigin.disabled = sceneBusy || !origin
   goToOrigin.setAttribute('aria-label', origin ? `Go to ${origin.name}` : 'Go to set origin')
   text('go-to-origin-name', origin?.name ?? 'set origin')
@@ -357,9 +357,9 @@ function updateReferenceControl(): void {
 
 function updateObserverControl(): void {
   const button = element<HTMLButtonElement>('observer-view')
-  const selected = stars.find((star) => star.id === selectedId)
-  const origin = stars.find((star) => star.id === referenceId)
-  const observer = observerViewAnchorId === null ? undefined : stars.find((star) => star.id === observerViewAnchorId)
+  const selected = starById(selectedId)
+  const origin = starById(referenceId)
+  const observer = starById(observerViewAnchorId)
   button.disabled = sceneBusy || (!observerView && !selected)
   button.setAttribute('aria-pressed', String(observerView))
   button.setAttribute('aria-label', observerView ? 'Exit observer view' : selected ? `Observe from ${selected.name}` : 'Enter observer view')
@@ -450,7 +450,7 @@ async function loadConstellationsPanel(): Promise<void> {
   if (!result || constellationBrowser) return
   constellationBrowser = result.value.initializeConstellationBrowser(events.signal,
     () => ({ objects: stars, colorMode: starColorMode, distanceUnit, onSelect: (object) => { void selectConstellationStar(object) } }),
-    stars.find((star) => star.id === selectedId)?.constellation ?? undefined)
+    starById(selectedId)?.constellation ?? undefined)
   constellationBrowser.open()
 }
 
@@ -468,7 +468,7 @@ async function loadTopListsPanel(): Promise<void> {
 
 /** Prefer the loaded record of a merged identity; otherwise add the listed catalog record. */
 async function selectTopListObject(object: import('./top-lists').TopListObject): Promise<void> {
-  const loaded = stars.find((star) => star.id === object.id || (object.designation !== null && objectDesignations(star).includes(object.designation)))
+  const loaded = starById(object.id) ?? (object.designation === null ? undefined : stars.find((star) => objectDesignations(star).includes(object.designation!)))
   if (loaded) return selectConstellationStar(loaded)
   const payload = await catalogs.find((catalog) => catalog.manifest.id === object.catalog)!.load()
   const record = payload.find((star) => star.id === object.id)
@@ -601,7 +601,7 @@ function renderConstellationCard(star: Star): void {
 /** Companions complete from the loaded chart records unless the caller supplies its source payload. */
 async function selectConstellationStar(object: Star, records?: ReadonlyMap<string, Star>): Promise<void> {
   const request = ++constellationSelectionRequest
-  const existing = stars.find((star) => star.id === object.id)
+  const existing = starById(object.id)
   if (!existing) {
     const components = records ? completeCompanionRecords([object], records) : completeCatalogCompanions([object])
     for (const component of components) constellationSelectedStars.set(component.id, component)
@@ -1760,8 +1760,8 @@ function renderSelection(): void {
     detailComparisonId = comparisonId
   }
   starComparison.clearColumns()
-  const sun = stars.find((star) => star.id === 'sun')!
-  const reference = stars.find((star) => star.id === referenceId) ?? sun
+  const sun = starById('sun')!
+  const reference = starById(referenceId) ?? sun
   const star = stars.find((candidate) => candidate.id === selectedId)
   const magnitudeCard = element('magnitude-card')
   if (magnitudeCard.dataset.objectId !== (star?.id ?? '')) {
@@ -2034,7 +2034,7 @@ function updateObjectListFilter(): void {
 }
 
 function selectStar(id: string | null, recordHistory = true): void {
-  if (id !== null && !stars.some((star) => star.id === id)) return
+  if (id !== null && !starIndex.has(id)) return
   if (starComparison.consumeSelection(id)) return
   constellationSelectionRequest++
   if (recordHistory) selectionHistory.record(id)
@@ -2063,7 +2063,7 @@ function setSelectedAsOrigin(): void {
 }
 
 function setOrigin(id: string): void {
-  if (sceneBusy || id === referenceId || !stars.some((star) => star.id === id)) return
+  if (sceneBusy || id === referenceId || !starIndex.has(id)) return
   referenceId = id
   selectedDistancePc = null
   objectList.setReference(referenceId, objectListFilter())
@@ -2079,7 +2079,7 @@ function toggleObserverView(): void {
 function setObserverViewAnchor(anchorId: string | null): void {
   if (!viewer || sceneBusy) return
   if (anchorId !== null) {
-    if (!stars.some((star) => star.id === anchorId)) return
+    if (!starIndex.has(anchorId)) return
     observerView = viewer.setObserverView(true, anchorId)
     observerViewAnchorId = observerView ? anchorId : null
     if (observerView) observerId = anchorId
@@ -2116,21 +2116,17 @@ async function switchCatalog(id: string, refresh = false): Promise<void> {
   let nextStars: Star[]
   try {
     const selectedCatalog = await definition.load()
-    const loadAdditiveCatalog = (enabled: boolean, catalogId: string) => enabled && id !== catalogId
-      ? catalogs.find((catalog) => catalog.manifest.id === catalogId)!.load()
-      : Promise.resolve([])
     const loadOverlay = (types: readonly FilterKey[], load: () => Promise<Star[]>) =>
       types.some((type) => visibleKeys.has(type)) ? load() : Promise.resolve([])
-    const [brightCatalog, westernConstellationCatalog, compactObjects, nebulae, molecularClouds, bubbles] = await Promise.all([
-      loadAdditiveCatalog(showAlwaysBright, BRIGHT_CATALOG_ID),
-      loadAdditiveCatalog(showWesternConstellationStars, WESTERN_CONSTELLATION_CATALOG_ID),
+    const [westernConstellationCatalog, compactObjects, nebulae, molecularClouds, bubbles] = await Promise.all([
+      showWesternConstellationStars && id !== WESTERN_CONSTELLATION_CATALOG_ID
+        ? catalogs.find((catalog) => catalog.manifest.id === WESTERN_CONSTELLATION_CATALOG_ID)!.load() : Promise.resolve([]),
       loadOverlay(COMPACT_OBJECT_TYPES, loadCompactRemnants),
       loadOverlay(NEBULA_OBJECT_TYPES, loadNebulae),
       loadOverlay(MOLECULAR_CLOUD_OBJECT_TYPES, loadMolecularClouds),
       loadOverlay(BUBBLE_OBJECT_TYPES, loadBubbles),
     ])
-    const withBrightStars = mergeCatalogStars(selectedCatalog, brightCatalog)
-    const withConstellationStars = mergeCatalogStars(withBrightStars, westernConstellationCatalog)
+    const withConstellationStars = mergeCatalogStars(selectedCatalog, westernConstellationCatalog)
     nextStars = [...withConstellationStars, ...compactObjects, ...nebulae, ...molecularClouds, ...bubbles]
     nextStars = mergeCatalogStars(nextStars, [...constellationSelectedStars.values()])
   } catch (error) {
@@ -2154,11 +2150,11 @@ async function switchCatalog(id: string, refresh = false): Promise<void> {
   selectedDistancePc = null
   selectedId = retained.selectedId
   observerId = retained.observerId
-  if (observerViewAnchorId && !nextStars.some((star) => star.id === observerViewAnchorId)) {
+  if (observerViewAnchorId && !starIndex.has(observerViewAnchorId)) {
     observerView = false
     observerViewAnchorId = null
   }
-  referenceId = nextStars.some((star) => star.id === referenceId) ? referenceId : 'sun'
+  referenceId = starIndex.has(referenceId) ? referenceId : 'sun'
   text('catalog-epoch', `J${definition.manifest.epoch.toFixed(1)}`)
   renderCatalogRange(id)
   element('catalog-range').title = `${definition.manifest.description} ${definition.manifest.snapshot}`
@@ -2423,7 +2419,7 @@ function currentSavedViewSettings(): SavedViewSettings | null {
   if (!viewer || sceneBusy) return null
   return {
     catalogId: activeCatalogId,
-    showAlwaysBright,
+    showAlwaysBright: false,
     showWesternConstellationStars,
     showFamousClusterStars: false,
     filterCategories: [...filterCategories],
@@ -2470,7 +2466,7 @@ function saveCurrentView(): void {
     version: 1,
     id: globalThis.crypto?.randomUUID?.() ?? `${Date.now().toString(36)}-${Math.random().toString(36).slice(2)}`,
     name,
-    originName: stars.find((star) => star.id === referenceId)?.name ?? referenceId,
+    originName: starById(referenceId)?.name ?? referenceId,
     savedAt,
     settings,
   }
@@ -2483,7 +2479,6 @@ function saveCurrentView(): void {
 
 function syncFilterInputs(): void {
   renderCatalogRange(activeCatalogId)
-  element<HTMLInputElement>('show-always-bright').checked = showAlwaysBright
   element<HTMLInputElement>('show-western-constellation-stars').checked = showWesternConstellationStars
   const distanceIndex = OBJECT_DISTANCE_STEPS_LY.indexOf(objectDistanceLimitLy as typeof OBJECT_DISTANCE_STEPS_LY[number])
   const distanceInput = element<HTMLInputElement>('object-distance-limit')
@@ -2507,7 +2502,6 @@ function syncSceneAndMotionInputs(): void {
 }
 
 function resetAllFilters(): void {
-  showAlwaysBright = false
   showWesternConstellationStars = false
   filterCategories.clear()
   DEFAULT_FILTER_CATEGORIES.forEach((category) => filterCategories.add(category))
@@ -2531,7 +2525,7 @@ function saveCurrentFilter(): void {
   const filter: SavedFilter = {
     version: 1,
     catalogId: activeCatalogId,
-    showAlwaysBright,
+    showAlwaysBright: false,
     showWesternConstellationStars,
     filterCategories: [...filterCategories],
     filterSubtypes: [...filterSubtypes],
@@ -2581,8 +2575,7 @@ async function loadSavedView(savedView: SavedView): Promise<void> {
   if (observerView) viewer?.setObserverView(false)
   observerView = false
   observerViewAnchorId = null
-  showAlwaysBright = settings.showAlwaysBright
-  showWesternConstellationStars = settings.showWesternConstellationStars || settings.showFamousClusterStars
+  showWesternConstellationStars = settings.showWesternConstellationStars || settings.showFamousClusterStars || settings.showAlwaysBright
   filterCategories.clear()
   settings.filterCategories.forEach((category) => filterCategories.add(category))
   filterSubtypes.clear()
@@ -2601,9 +2594,9 @@ async function loadSavedView(savedView: SavedView): Promise<void> {
   simulationDirection = settings.simulationDirection
   playbackSecondsPerThousandYears = settings.playbackSecondsPerThousandYears
   followSelection = settings.followSelection
-  selectedId = settings.selectedId
-  observerId = settings.observerId
-  referenceId = settings.referenceId
+  selectedId = settings.selectedId === null ? null : legacyStarId(settings.selectedId)
+  observerId = legacyStarId(settings.observerId)
+  referenceId = legacyStarId(settings.referenceId)
   objectList.setColorMode(starColorMode)
   syncSavedSettingsInputs()
   await switchCatalog(settings.catalogId, true)
@@ -2614,8 +2607,8 @@ async function loadSavedView(savedView: SavedView): Promise<void> {
   element<HTMLInputElement>('object-search').value = settings.objectSearch
   objectList.setQuery(settings.objectSearch)
   viewer.setViewState(settings.viewState)
-  const savedObserverAnchorId = settings.observerViewAnchorId
-  const anchorAvailable = savedObserverAnchorId !== null && stars.some((star) => star.id === savedObserverAnchorId)
+  const savedObserverAnchorId = settings.observerViewAnchorId === null ? null : legacyStarId(settings.observerViewAnchorId)
+  const anchorAvailable = savedObserverAnchorId !== null && starIndex.has(savedObserverAnchorId)
   if (settings.observerView && anchorAvailable) {
     observerViewAnchorId = savedObserverAnchorId
     observerId = savedObserverAnchorId
@@ -2771,10 +2764,6 @@ element('filter-save').addEventListener('click', saveCurrentFilter, { signal: ev
 catalogRange.addEventListener('change', () => {
   const catalog = sliderCatalogs[catalogRange.valueAsNumber]
   if (catalog) void switchCatalog(catalog.manifest.id)
-}, { signal: events.signal })
-element('show-always-bright').addEventListener('change', () => {
-  showAlwaysBright = element<HTMLInputElement>('show-always-bright').checked
-  void switchCatalog(activeCatalogId, true)
 }, { signal: events.signal })
 element('show-western-constellation-stars').addEventListener('change', () => {
   showWesternConstellationStars = element<HTMLInputElement>('show-western-constellation-stars').checked

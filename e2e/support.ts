@@ -2,6 +2,14 @@ import { expect, type Page } from '@playwright/test'
 import type { PNG } from 'pngjs'
 import type { MotionArrowSnapshot } from '../src/viewer'
 import { MOTION_ARROW_HEAD_PX, MOTION_ARROW_STROKE_PX, MOTION_ARROW_TAIL_OFFSET_PX } from '../src/viewer-primitives'
+import { readFileSync } from 'node:fs'
+import legacyStarIds from '../src/data/legacy-star-ids.json' with { type: 'json' }
+
+const defaultCatalogIds = new Set(readFileSync(new URL('../src/data/stars.csv', import.meta.url), 'utf8').split('\n').slice(1).map((line) => line.split(',')[1]))
+/** Runtime ID of a retired bright-stars record with the default catalog and the constellation overlay loaded. */
+export function landmarkStarId(id: string): string {
+  return defaultCatalogIds.has(id) ? id : ({ ...legacyStarIds.ids, ...legacyStarIds.sharedIds } as Record<string, string>)[id] ?? id
+}
 
 export type { MotionArrowSnapshot }
 

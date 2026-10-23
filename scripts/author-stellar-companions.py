@@ -153,7 +153,8 @@ def build():
     stars = {}
     catalog_sources = []
     sources = [*sorted((ROOT / "src/data/catalogs").glob("*/stars.csv")),
-               ROOT / "catalog-work/famous-cluster-stars/retired-catalog/stars.csv"]
+               ROOT / "catalog-work/famous-cluster-stars/retired-catalog/stars.csv",
+               ROOT / "catalog-work/bright-stars/retired-catalog/stars.csv"]
     for path in [*sorted(sources, key=lambda p: read_json(p.parent / "catalog.json")["id"]), ROOT / "src/data/stars.csv"]:
         inputs.append(path)
         catalog_id = read_json(path.parent / "catalog.json")["id"] if path.parent != ROOT / "src/data" else "nearest-neighbors"

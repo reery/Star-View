@@ -30,7 +30,8 @@ def main():
     paths = [WORK / "msc-20260619-overlay-matches.json", WORK / "overlay-companions.json"]
     for catalog in ("bright-stars", "western-constellation-stars", "famous-cluster-stars"):
         source_path = ROOT / f"catalog-work/{catalog}/simbad.csv"
-        package = ROOT / ("catalog-work/famous-cluster-stars/retired-catalog" if catalog == "famous-cluster-stars" else f"src/data/catalogs/{catalog}")
+        retired = catalog in ("famous-cluster-stars", "bright-stars")
+        package = ROOT / (f"catalog-work/{catalog}/retired-catalog" if retired else f"src/data/catalogs/{catalog}")
         csv_path = package / "stars.csv"
         paths += [source_path, csv_path]
         catalog_rows = rows(csv_path)

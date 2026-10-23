@@ -12,6 +12,7 @@ from catalog_sources.enrichment import enrich_from_frozen, enrichment_sources, m
 from catalog_sources.shared_objects import adopt_shared_objects
 from catalog_sources.overlay_companions import expand_overlay
 from catalog_sources.solar import adopt_solar_reference, solar_provenance
+from catalog_sources.preservation import lost_fields
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -20,6 +21,8 @@ CLUSTER_SOURCE = ROOT / "catalog-work/famous-cluster-stars"
 PHYSICAL_SOURCE = ROOT / "catalog-work/landmark-stars"
 WESTERN_OUTPUT = ROOT / "src/data/catalogs/western-constellation-stars"
 CLUSTER_OUTPUT = CLUSTER_SOURCE / "retired-catalog"
+BRIGHT_ARCHIVE = ROOT / "catalog-work/bright-stars/retired-catalog"
+LEGACY_IDS = ROOT / "src/data/legacy-star-ids.json"
 DEFAULT_CATALOG = ROOT / "src/data/stars.csv"
 PHYSICAL_FIELDS = ("temperature_k", "mass_solar", "luminosity_solar", "radius_solar", "metallicity_dex", "age_gyr")
 SYSTEM_TYPES = {"**", "EB*", "SB*", "bC*", "s*b"}
@@ -243,8 +246,7 @@ def angular_separation_arcsec(first_ra, first_dec, second_ra, second_dec):
 @cache
 def curated_physical_rows():
     result = []
-    for catalog_id in ("bright-stars", "nearest-1000"):
-        path = ROOT / f"src/data/catalogs/{catalog_id}/stars.csv"
+    for catalog_id, path in (("bright-stars", BRIGHT_ARCHIVE / "stars.csv"), ("nearest-1000", ROOT / "src/data/catalogs/nearest-1000/stars.csv")):
         with path.open(newline="") as handle:
             result.extend((catalog_id, row) for row in csv.DictReader(handle) if row["id"] != "sun")
     return result
@@ -618,12 +620,44 @@ def western_catalog():
             by_id[identifier] = source
             added_ids.append(identifier)
             provenance[identifier] = cluster_provenance["objects"][identifier]
+    # Retired bright landmarks keep their data on the surviving record of the same object.
+    # Only missing known source values are filled; adopted western values are never replaced.
+    bright_manifest = json.loads((BRIGHT_ARCHIVE / "catalog.json").read_text())
+    bright_provenance = json.loads((BRIGHT_ARCHIVE / "provenance.json").read_text())
+    legacy = json.loads(LEGACY_IDS.read_text())
+    legacy_ids = {**legacy["ids"], **legacy["sharedIds"]}
+    # Reviewed components keep their complete bright source record in the companion pool.
+    components = {identifier for system in json.loads((ROOT / "src/data/stellar-companions.json").read_text())["systems"]
+                  for component in system["components"] for identifier in [component["starId"], *component.get("alternateStarIds", [])]}
+    bright_added, bright_filled = [], {}
+    with (BRIGHT_ARCHIVE / "stars.csv").open(newline="") as handle:
+        bright_rows = list(csv.DictReader(handle))
+    provenance["sun"]["brightStar"] = bright_provenance["objects"]["sun"]
+    for source in bright_rows:
+        if source["id"] == "sun":
+            continue
+        identifier = legacy_ids.get(source["id"], source["id"])
+        if identifier in by_id:
+            row = by_id[identifier]
+            filled = lost_fields(source, row)
+            for field in filled:
+                row[field] = source[field]
+            if filled:
+                bright_filled[identifier] = filled
+            if source["notes"] and source["notes"] not in row["notes"] and source["id"] not in components:
+                row["notes"] += " " + source["notes"]
+            provenance[identifier]["brightStar"] = bright_provenance["objects"][source["id"]]
+        else:
+            rows.append(source)
+            by_id[identifier] = source
+            bright_added.append(identifier)
+            provenance[identifier] = bright_provenance["objects"][source["id"]]
     rows.sort(key=lambda row: math.hypot(float(row["x_pc"]), float(row["y_pc"]), float(row["z_pc"])))
     manifest = {
         "schemaVersion": 1,
         "id": "western-constellation-stars",
         "label": "Western constellation stars",
-        "description": "All Western constellation figure stars, curated landmarks in seven famous stellar groups, and their reviewed individual companions, plus the Sun.",
+        "description": "All Western constellation figure stars, curated landmarks in seven famous stellar groups, all former bright stellar landmarks, and their reviewed individual companions, plus the Sun.",
         "epoch": 2000,
         "objectCount": len(rows) + 1,
         "sources": [
@@ -640,12 +674,12 @@ def western_catalog():
             {"name": "McDonald et al. 2012 Hipparcos-star SED models; exact HIP identifiers", "url": "https://cdsarc.cds.unistra.fr/viz-bin/cat/J/MNRAS/427/343"},
             {"name": "Gaia DR3 GSP-Phot and FLAME model parameters; exact Gaia DR3 identifiers", "url": "https://gea.esac.esa.int/tap-server/tap/sync"},
         ],
-        "cutoffPolicy": "Every unique numeric Hipparcos vertex in all 88 Stellarium Western constellation line figures, all 42 curated landmarks formerly in Famous cluster stars, and reviewed companions of explicitly matched landmarks. Non-numeric drawing-style tokens are ignored. No apparent-magnitude cutoff is applied; Sun is included only as the map origin. Component-resolved records replace reviewed blended primaries. Cluster landmarks retain their original selection and measurement provenance; this is not a complete cluster membership census.",
-        "snapshot": "Stellarium commit 014fbb5e59233d133c22f9811af96b67d05a95c9; SIMBAD, Hipparcos, VizieR and Gaia snapshots frozen 2026-10-01; 691 original figure landmarks, 42 curated cluster landmarks, reviewed companions and Sun. Catalogs consolidated 2026-10-20.",
+        "cutoffPolicy": "Every unique numeric Hipparcos vertex in all 88 Stellarium Western constellation line figures, all 42 curated landmarks formerly in Famous cluster stars, all landmarks formerly in Bright stars, and reviewed companions of explicitly matched landmarks. Non-numeric drawing-style tokens are ignored. No apparent-magnitude cutoff is applied; Sun is included only as the map origin. Component-resolved records replace reviewed blended primaries. Cluster landmarks retain their original selection and measurement provenance; this is not a complete cluster membership census.",
+        "snapshot": "Stellarium commit 014fbb5e59233d133c22f9811af96b67d05a95c9; SIMBAD, Hipparcos, VizieR and Gaia snapshots frozen 2026-10-01; 691 original figure landmarks, 42 curated cluster landmarks, reviewed companions and Sun. Catalogs consolidated 2026-10-20; bright landmarks consolidated 2026-10-23.",
     }
     manifest["sources"] += enrichment_sources()
     sources_by_url = {source["url"]: source for source in manifest["sources"]}
-    for source in [*companion_sources, *cluster_manifest["sources"]]:
+    for source in [*companion_sources, *cluster_manifest["sources"], *bright_manifest["sources"]]:
         sources_by_url.setdefault(source["url"], source)
     manifest["sources"] = list(sources_by_url.values())
     provenance_payload = {
@@ -656,6 +690,8 @@ def western_catalog():
         "uniqueHipparcosStars": len(hips),
         "companionExpansion": expansion,
         "clusterLandmarks": {"sourceCatalogId": "famous-cluster-stars", "landmarkIds": sorted(cluster_provenance["objects"].keys() - {"sun"}), "addedSourceIds": sorted(added_ids), "groups": cluster_provenance["groups"], "policy": cluster_provenance["policy"]},
+        "brightLandmarks": {"sourceCatalogId": "bright-stars", "legacyIds": str(LEGACY_IDS.relative_to(ROOT)), "addedSourceIds": sorted(bright_added), "filledSourceFields": bright_filled,
+                            **{key: bright_provenance[key] for key in ("policy", "selectionReview", "coverage", "originalLandmarkIds", "companionExpansion")}},
         "physicalCoverage": {field: sum(bool(row[field]) for row in rows) for field in PHYSICAL_FIELDS},
         "sharedEnrichmentManifestSha256": manifest_sha256(),
         "objects": provenance,

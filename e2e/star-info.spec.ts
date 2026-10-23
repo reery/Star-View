@@ -1,11 +1,11 @@
 import { expect, test } from '@playwright/test'
 import { readFileSync } from 'node:fs'
 import { parseStarCatalog } from '../src/catalog'
-import { openFilter, selectCatalog } from './support'
+import { landmarkStarId, openFilter, selectCatalog } from './support'
 
 const stars = parseStarCatalog(readFileSync(new URL('../src/data/stars.csv', import.meta.url), 'utf8'))
 const nearest100 = parseStarCatalog(readFileSync(new URL('../src/data/catalogs/nearest-100/stars.csv', import.meta.url), 'utf8'))
-const brightStars = parseStarCatalog(readFileSync(new URL('../src/data/catalogs/bright-stars/stars.csv', import.meta.url), 'utf8'))
+const brightStars = parseStarCatalog(readFileSync(new URL('../catalog-work/bright-stars/retired-catalog/stars.csv', import.meta.url), 'utf8'))
 
 test('nearest-neighbor Info covers every component and loads credited local images', async ({ page }, testInfo) => {
   const errors: string[] = []
@@ -151,30 +151,30 @@ test('bright-star Info covers every entry and shares articles with faint compani
   await page.goto('/')
   await expect(page.locator('#scene-status')).toBeHidden()
   await openFilter(page)
-  await page.getByRole('switch', { name: 'Always show bright stars', exact: true }).check()
+  await page.getByRole('switch', { name: 'Western constellation stars', exact: true }).check()
   await expect(page.locator('#scene-status')).toBeHidden()
   await page.getByLabel('Object visibility distance', { exact: true }).fill('22')
   await page.getByRole('button', { name: 'Filter', exact: true }).click()
   const objects = page.getByRole('button', { name: 'Objects', exact: true })
   const info = page.locator('#object-info')
   const articles = new Set<string>()
-  for (const star of brightStars) {
+  for (const id of brightStars.map((star) => landmarkStarId(star.id))) {
     if (await objects.getAttribute('aria-expanded') === 'false') await objects.click()
-    await page.getByLabel('Search objects').fill(star.id)
-    await page.locator(`button[data-star="${star.id}"]`).click()
-    await expect(page.locator('#inspector')).toHaveAttribute('data-selected-star', star.id)
+    await page.getByLabel('Search objects').fill(id)
+    await page.locator(`button[data-star="${id}"]`).click()
+    await expect(page.locator('#inspector')).toHaveAttribute('data-selected-star', id)
     const toggle = page.locator('#object-info-toggle')
     await expect(toggle).toBeEnabled()
     if (await toggle.getAttribute('aria-expanded') === 'false') await toggle.click()
     await expect(info).toBeVisible()
-    await expect.poll(() => info.locator(':scope > section').count(), { message: star.id }).toBeGreaterThanOrEqual(2)
+    await expect.poll(() => info.locator(':scope > section').count(), { message: id }).toBeGreaterThanOrEqual(2)
     expect(await info.locator(':scope > p strong a').getAttribute('href')).toMatch(/^https:\/\//)
     articles.add(await info.innerText())
   }
   expect(articles.size).toBe(114)
 
-  await page.getByLabel('Search objects').fill('bright-castor')
-  await page.locator('button[data-star="bright-castor"]').click()
+  await page.getByLabel('Search objects').fill('hip-36850')
+  await page.locator('button[data-star="hip-36850"]').click()
   const content = await info.innerText()
   await expect(info).toContainText('six-star system')
   for (const id of ['msc-07346+3153-ab', 'msc-07346+3153-ba', 'msc-07346+3153-bb', 'msc-07346+3153-c']) {
@@ -190,13 +190,13 @@ test('bright-star articles fit the existing Info card and update between systems
   await page.goto('/')
   await expect(page.locator('#scene-status')).toBeHidden()
   await openFilter(page)
-  await page.getByRole('switch', { name: 'Always show bright stars', exact: true }).check()
+  await page.getByRole('switch', { name: 'Western constellation stars', exact: true }).check()
   await expect(page.locator('#scene-status')).toBeHidden()
   await page.getByLabel('Object visibility distance', { exact: true }).fill('22')
   await page.getByRole('button', { name: 'Filter', exact: true }).click()
   const objects = page.getByRole('button', { name: 'Objects', exact: true })
   const info = page.locator('#object-info')
-  for (const [id, text] of [['cns5-5665', 'collision debris'], ['bright-betelgeuse', 'July 2026'], ['rigel-bb', 'hierarchical four-star family']]) {
+  for (const [id, text] of [['cns5-5665', 'collision debris'], ['hip-27989', 'July 2026'], ['rigel-bb', 'hierarchical four-star family']]) {
     if (await objects.getAttribute('aria-expanded') === 'false') await objects.click()
     await page.getByLabel('Search objects').fill(id!)
     await page.locator(`button[data-star="${id}"]`).click()

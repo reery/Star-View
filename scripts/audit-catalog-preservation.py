@@ -42,10 +42,12 @@ def audit(base):
             if old != archived or not migration.get("reason"):
                 errors.append(f"{path}: migrated source archive differs from baseline or lacks a reason")
             new_path = ROOT / migration["targetPath"]
+        # A migration may name the surviving ID of the same object in its target.
+        id_map = {**(maps := json.loads((ROOT / migration["idMapPath"]).read_text()))["ids"], **maps["sharedIds"]} if migration and migration.get("idMapPath") else {}
         new = {row["id"]: row for row in csv.DictReader(io.StringIO(new_path.read_text()))} if new_path.exists() else {}
         for record in old:
             rows += 1
-            identifier = record["id"]
+            identifier = id_map.get(record["id"], record["id"])
             if identifier not in new:
                 if reviewed_record_removal(path, record, retirement_review.get("recordRetirements", []),
                                            lambda review_path: json.loads((ROOT / review_path).read_text())):

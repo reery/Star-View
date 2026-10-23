@@ -21,8 +21,7 @@ test('saved filter survives reset, restores on reload, and is cleared with brows
   expect(saveBox!.x + saveBox!.width).toBeLessThanOrEqual(resetBox!.x)
   await page.locator('#catalog-range').fill('1')
   await ready(page)
-  await page.locator('#show-always-bright').check()
-  await ready(page)
+  await expect(page.locator('#show-always-bright')).toHaveCount(0)
   await page.locator('#show-western-constellation-stars').check()
   await ready(page)
   await page.locator('#category-interstellar_medium').check()
@@ -41,7 +40,7 @@ test('saved filter survives reset, restores on reload, and is cleared with brows
   expect(filter).toEqual({
     version: 1,
     catalogId: 'nearest-100',
-    showAlwaysBright: true,
+    showAlwaysBright: false,
     showWesternConstellationStars: true,
     filterCategories: ['compact_objects', 'interstellar_medium'],
     filterSubtypes: ['star', 'brown_dwarf', 'white_dwarf', 'molecular_cloud', 'reflection_nebula', 'hii_region', 'planetary_nebula', 'bubble'],
@@ -58,7 +57,6 @@ test('saved filter survives reset, restores on reload, and is cleared with brows
   await expect(page.locator('#catalog-range')).toHaveValue('0')
   await expect(page.locator('#magnitude-limit')).toHaveValue('7')
   await expect(page.locator('#object-distance-limit')).toHaveValue('14')
-  await expect(page.locator('#show-always-bright')).not.toBeChecked()
   await expect(page.locator('#show-western-constellation-stars')).not.toBeChecked()
   await expect(page.locator('#category-interstellar_medium')).not.toBeChecked()
   await expect(page.locator('input[data-filter-key="sun"]')).toBeChecked()
@@ -75,7 +73,6 @@ test('saved filter survives reset, restores on reload, and is cleared with brows
   await expect(page.locator('#catalog-range')).toHaveValue('1')
   await expect(page.locator('#magnitude-limit')).toHaveValue('4.5')
   await expect(page.locator('#object-distance-limit')).toHaveValue('16')
-  await expect(page.locator('#show-always-bright')).toBeChecked()
   await expect(page.locator('#show-western-constellation-stars')).toBeChecked()
   await expect(page.locator('#category-interstellar_medium')).toBeChecked()
   await page.locator('.filter-dropdown summary').click()

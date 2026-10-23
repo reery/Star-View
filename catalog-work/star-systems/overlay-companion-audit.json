@@ -6,14 +6,14 @@
     "catalog-work/star-systems/msc-20260619-overlay-matches.json": "e71adfcd0834684a16cd83cbc36972da1680378e60ed68f72ab0b3de896a69ce",
     "catalog-work/star-systems/overlay-companions.json": "0155d05f01e61ef80496c0d515b35946c8e6dcdd06342bb7fa8eda653e39485b",
     "catalog-work/bright-stars/simbad.csv": "8d1e328df0d1601b94f9d1cc6e051f6e78ebea3cd65b4ce5a1cfd8dad2f0eede",
-    "src/data/catalogs/bright-stars/stars.csv": "cd46b8586054cacc99d8e2935f289a7d4857af0715d4f15f4a923dc420f01a88",
-    "src/data/catalogs/bright-stars/provenance.json": "5242c58137dbab7b18a258d2a3a08461c24cf839d65ee4d23de21eb7936720a0",
+    "catalog-work/bright-stars/retired-catalog/stars.csv": "1efcdeb2690d53b815e51be385cdf095820e485538806048863848896b661592",
+    "catalog-work/bright-stars/retired-catalog/provenance.json": "9906922df797415cb6e06246df132a777ccad9d48185f063d655491d2f4929ea",
     "catalog-work/western-constellation-stars/simbad.csv": "c45f9d1adb165751c0cf8f77a28efc18dfef5427760de6be0dad20f4aff92ede",
-    "src/data/catalogs/western-constellation-stars/stars.csv": "b3a68980c3bbfcbb59531fbd898a24f92fe1128c08c5b16fd6eb5503ad0f1482",
-    "src/data/catalogs/western-constellation-stars/provenance.json": "fa5ed1c2c0a107f4391a8760586a992c6c43b29c63fcaa95acf0d358a23464a5",
+    "src/data/catalogs/western-constellation-stars/stars.csv": "960a33396b9225f8fa6f296a8c029d143d5ebe84c41c24fba60eb1e28b555688",
+    "src/data/catalogs/western-constellation-stars/provenance.json": "bc218c754d30687c61ee9014569d306cd007f04ba3252789b7609ba37137a52e",
     "catalog-work/famous-cluster-stars/simbad.csv": "31f7d87d2f684fca025388ed409856ab5fbe0038de62d9a214c77b1f5a3c1c01",
-    "src/data/catalogs/famous-cluster-stars/stars.csv": "132a4028b4671393e879eed43c848ec52591be6d5370f604c788492fef350db0",
-    "src/data/catalogs/famous-cluster-stars/provenance.json": "40e79b1d6ce5a0534451e7618d3543a913107908ccb03e6d2318c6942ce05eb8"
+    "catalog-work/famous-cluster-stars/retired-catalog/stars.csv": "a3891d03306b702329de98dafff62ca2b0906f8dd6089f64bd8005a252d5b33f",
+    "catalog-work/famous-cluster-stars/retired-catalog/provenance.json": "e8077678424058fafeb085298af9c6a39b8321e6f052a0f10328e4128f73b581"
   },
   "catalogs": {
     "bright-stars": {
@@ -885,7 +885,7 @@
       ]
     },
     "western-constellation-stars": {
-      "nonSunObjects": 713,
+      "nonSunObjects": 749,
       "expandedSystems": 14,
       "remainingSourceCandidates": 213,
       "candidates": [

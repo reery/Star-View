@@ -21,8 +21,8 @@ ROOT = Path(__file__).resolve().parents[1]
 OUTPUT = ROOT / "src/data/top-lists.json"
 FROZEN = ROOT / "catalog-work/top-lists/simbad.json"
 CATALOGS = ROOT / "src/data/generated/catalogs"
-# Earlier catalogs win, so links prefer the curated bright-star records.
-CATALOG_ORDER = ["bright-stars", "western-constellation-stars", "nearest-1000", "nearest-100"]
+# Earlier catalogs win, so links prefer the landmark records.
+CATALOG_ORDER = ["western-constellation-stars", "nearest-1000", "nearest-100"]
 LY_PER_PC = 3.261563777
 
 LARGEST = "https://en.wikipedia.org/w/index.php?oldid=1381460615"
@@ -66,6 +66,9 @@ LARGEST_STARS = [
     ("IRC −30303", "IRC -30303", 1147, 4208, GAIA),
     ("RSGC1-F03", "[FMR2006] 3", 1140, 6600, RSGC1),
 ]
+
+# Ranked values follow the cited list even where Star View adopts a different reviewed value.
+NOTES = {"Gamma Velorum (WR)": "Star View’s reviewed source gives the WR star T* = 57,100 K (Schmutz et al. 2026), an inner-boundary wind temperature."}
 
 # name, SIMBAD identifier, temperature (K), distance (ly) from the source table.
 # Milky Way entries only; the table lists 29 above its 60,000 K threshold.
@@ -131,6 +134,7 @@ def entry(index, frozen, name, identifier, value, distance_pc, distance_source=N
     match = next((index[key(i)] for i in simbad["ids"] if key(i) in index), None)
     return {"name": name, "value": value, "distance_pc": round(distance_pc),
             **({"distance_source": distance_source} if distance_source else {}),
+            **({"note": NOTES[name]} if name in NOTES else {}),
             "constellation": simbad["constellation"].strip(), "object": match}
 
 

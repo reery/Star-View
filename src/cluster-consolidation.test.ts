@@ -26,7 +26,9 @@ describe('cluster catalog consolidation', () => {
     expect(current.clusterLandmarks.landmarkIds).toHaveLength(42)
     expect(current.clusterLandmarks.addedSourceIds).toHaveLength(35)
     for (const [id, source] of Object.entries(previous)) {
-      expect(current.objects[id].clusterLandmark ?? current.objects[id], id).toEqual(source)
+      // The retired bright package adds its own provenance to the shared Sun record.
+      const { brightStar: _bright, ...record } = current.objects[id]
+      expect(record.clusterLandmark ?? record, id).toEqual(source)
     }
   })
 

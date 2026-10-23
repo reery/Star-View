@@ -53,8 +53,6 @@ for (const mode of ['overview', 'manual', 'observer'] as const) {
       }],
       ['category', () => page.locator('#category-compact_objects').uncheck()],
       ['catalog', () => page.locator('#catalog-range').fill('1')],
-      ['bright stars on', () => page.locator('#show-always-bright').check()],
-      ['bright stars off', () => page.locator('#show-always-bright').uncheck()],
       ['constellation stars on', () => page.locator('#show-western-constellation-stars').check()],
       ['constellation stars off', () => page.locator('#show-western-constellation-stars').uncheck()],
       ['overlay on', () => page.locator('#category-interstellar_medium').check()],

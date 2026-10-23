@@ -6,18 +6,27 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 OUTPUT = ROOT / 'catalog-work/bright-stars/gap-coverage-audit.json'
 FIELDS = ('temperature_k', 'mass_solar', 'luminosity_solar', 'radius_solar', 'radial_velocity_kms')
+# Reviewed companions shipped with the former bright catalog beyond the baseline members.
+EXTRA_COMPONENTS = ('msc-07346+3153-cb', 'msc-13252-1110-ab')
 
 
 def render():
     baseline = json.loads((ROOT / 'catalog-work/bright-stars/gap-baseline.json').read_text())['records']
-    stars = json.loads((ROOT / 'src/data/generated/catalogs/bright-stars.json').read_text())['stars']
+    # Bright landmarks now ship in the constellation catalog, some under the surviving ID of the same object.
+    stars = json.loads((ROOT / 'src/data/generated/catalogs/western-constellation-stars.json').read_text())['stars']
+    legacy = json.loads((ROOT / 'src/data/legacy-star-ids.json').read_text())
+    legacy = {**legacy['ids'], **legacy['sharedIds']}
     pool = json.loads((ROOT / 'src/data/stellar-companions.json').read_text())
     systems = pool['systems']
     components = {star['id']:star for star in pool['stars']}
     component_audit = json.loads((ROOT / 'catalog-work/star-systems/catalog-companions-audit.json').read_text())['componentRecords']
     aliases = {identifier:member['starId'] for system in systems for member in system['components']
                for identifier in [member['starId'],*member.get('alternateStarIds',[])]}
-    records = {aliases.get(star['id'],star['id']):star for star in stars if star['id'] != 'sun'}
+    canonical = {aliases.get(star['id'],star['id']):star for star in stars}
+    shipped = {star['id']:star for star in stars}
+    records = {identifier: canonical.get(identifier) or shipped.get(legacy.get(identifier, identifier))
+               for identifier in [*baseline, *EXTRA_COMPONENTS]}
+    records = {identifier: star for identifier, star in records.items() if star}
     if baseline.keys() - records.keys() or any(identifier not in components for identifier in records.keys() - baseline.keys()):
         raise ValueError('Bright review lost baseline members or added an unreviewed component')
     audit = []

@@ -171,7 +171,7 @@ test('keeps the Orion Nebula visible with bright and constellation stars enabled
   await openPreferences(page)
   await page.getByRole('switch', { name: 'Motion arrows', exact: true }).uncheck()
   await openFilter(page)
-  await page.getByRole('switch', { name: 'Always show bright stars', exact: true }).check()
+  await page.getByRole('switch', { name: 'Western constellation stars', exact: true }).check()
   await page.getByRole('switch', { name: 'Western constellation stars', exact: true }).check()
   await enableNebulae(page)
   await focusOrionNebula(page)

@@ -2,9 +2,9 @@
   "schemaVersion": 1,
   "id": "western-constellation-stars",
   "label": "Western constellation stars",
-  "description": "All Western constellation figure stars, curated landmarks in seven famous stellar groups, and their reviewed individual companions, plus the Sun.",
+  "description": "All Western constellation figure stars, curated landmarks in seven famous stellar groups, all former bright stellar landmarks, and their reviewed individual companions, plus the Sun.",
   "epoch": 2000,
-  "objectCount": 749,
+  "objectCount": 750,
   "sources": [
     {
       "name": "Stellarium Western sky culture line figures, commit 014fbb5",
@@ -566,8 +566,32 @@
     {
       "name": "Component-resolved literature parameters for the four classical Trapezium systems",
       "url": "https://doi.org/10.1093/mnras/stab1119"
+    },
+    {
+      "name": "Hohle et al. (2010); evolutionary-model masses for O/B stars and supergiants",
+      "url": "https://cdsarc.cds.unistra.fr/viz-bin/cat/J/AN/331/349"
+    },
+    {
+      "name": "McDonald et al. (2017); reviewed exact-Hipparcos SED parameters for Beta Gruis and Gacrux",
+      "url": "https://cdsarc.cds.unistra.fr/viz-bin/cat/J/MNRAS/471/770"
+    },
+    {
+      "name": "Wittkowski et al. (2006); interferometric and spectroscopic parameters for Menkar",
+      "url": "https://doi.org/10.1051/0004-6361:20066032"
+    },
+    {
+      "name": "Ohnaka et al. (2013); Antares A mass and age range",
+      "url": "https://doi.org/10.1051/0004-6361/201321063"
+    },
+    {
+      "name": "Tango et al. (2006); Shaula A component mass",
+      "url": "https://academic.oup.com/mnras/article/370/2/884/968867"
+    },
+    {
+      "name": "Bright Star Catalogue, 5th Revised Ed.; combined visual magnitude for Acrux",
+      "url": "https://cdsarc.cds.unistra.fr/viz-bin/cat/V/50"
     }
   ],
-  "cutoffPolicy": "Every unique numeric Hipparcos vertex in all 88 Stellarium Western constellation line figures, all 42 curated landmarks formerly in Famous cluster stars, and reviewed companions of explicitly matched landmarks. Non-numeric drawing-style tokens are ignored. No apparent-magnitude cutoff is applied; Sun is included only as the map origin. Component-resolved records replace reviewed blended primaries. Cluster landmarks retain their original selection and measurement provenance; this is not a complete cluster membership census.",
-  "snapshot": "Stellarium commit 014fbb5e59233d133c22f9811af96b67d05a95c9; SIMBAD, Hipparcos, VizieR and Gaia snapshots frozen 2026-10-01; 691 original figure landmarks, 42 curated cluster landmarks, reviewed companions and Sun. Catalogs consolidated 2026-10-20."
+  "cutoffPolicy": "Every unique numeric Hipparcos vertex in all 88 Stellarium Western constellation line figures, all 42 curated landmarks formerly in Famous cluster stars, all landmarks formerly in Bright stars, and reviewed companions of explicitly matched landmarks. Non-numeric drawing-style tokens are ignored. No apparent-magnitude cutoff is applied; Sun is included only as the map origin. Component-resolved records replace reviewed blended primaries. Cluster landmarks retain their original selection and measurement provenance; this is not a complete cluster membership census.",
+  "snapshot": "Stellarium commit 014fbb5e59233d133c22f9811af96b67d05a95c9; SIMBAD, Hipparcos, VizieR and Gaia snapshots frozen 2026-10-01; 691 original figure landmarks, 42 curated cluster landmarks, reviewed companions and Sun. Catalogs consolidated 2026-10-20; bright landmarks consolidated 2026-10-23."
 }

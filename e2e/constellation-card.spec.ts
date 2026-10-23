@@ -97,16 +97,14 @@ test('keeps Furud components and scoped cards identical from a clean chart and t
   // A catalog refresh must retain the explicitly added companion too.
   await openFilter(page)
   await page.getByLabel('Object visibility distance', { exact: true }).fill('24')
-  await page.getByRole('switch', { name: 'Always show bright stars', exact: true }).check()
+  await page.getByRole('switch', { name: 'Western constellation stars', exact: true }).check()
   await page.getByRole('button', { name: 'Filter', exact: true }).click()
   await checkFurud()
 
   await page.reload()
   await expect(page.locator('#scene')).toHaveAttribute('data-ready', 'true')
   await openFilter(page)
-  for (const name of ['Always show bright stars', 'Western constellation stars']) {
-    await page.getByRole('switch', { name, exact: true }).check()
-  }
+  await page.getByRole('switch', { name: 'Western constellation stars', exact: true }).check()
   for (const category of await page.locator('#object-categories input:enabled').all()) await category.check()
   await page.locator('details.filter-dropdown > summary').click()
   for (const subtype of await page.locator('input[data-filter-key]:enabled').all()) await subtype.check()
@@ -211,7 +209,7 @@ test('loads Centaurus on demand and follows exact components across locked chart
   const betaName = (await beta.getAttribute('aria-label'))!.replace(/^Select /, '')
   await beta.click()
   await expect(card.locator('.is-selected .constellation-star-name')).toHaveText(betaName)
-  await expect(page.locator('#inspector')).toHaveAttribute('data-selected-star', 'bright-hadar')
+  await expect(page.locator('#inspector')).toHaveAttribute('data-selected-star', 'hip-68702')
   await expect(card.locator('#constellation-visibility')).toBeVisible()
   await selectObject(page, 'Sirius A')
   await expect(card.locator('#constellation-heading')).toHaveText('Canis Major')

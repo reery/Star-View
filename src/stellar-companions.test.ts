@@ -11,7 +11,7 @@ import { parseObjectIdentities, supplementObjectIdentities } from './designation
 import { apparentVisualMagnitude } from './astronomy'
 import { spaceMotionForStar } from './space-motion'
 
-const bright = parseStarCatalog(readFileSync(new URL('./data/catalogs/bright-stars/stars.csv', import.meta.url), 'utf8'))
+const bright = parseStarCatalog(readFileSync(new URL('../catalog-work/bright-stars/retired-catalog/stars.csv', import.meta.url), 'utf8'))
 const western = parseStarCatalog(readFileSync(new URL('./data/catalogs/western-constellation-stars/stars.csv', import.meta.url), 'utf8'))
 const dubhe = bright.find((star) => star.id === 'bright-dubhe')!
 const sun = bright.find((star) => star.id === 'sun')!

@@ -1,0 +1,69 @@
+{
+  "reviewedOn": "2026-10-23",
+  "retiredCatalogId": "bright-stars",
+  "retiredNonSolarRecords": 201,
+  "mappedToSurvivingIds": 112,
+  "previouslyMissingIds": [
+    "bright-lesath"
+  ],
+  "constellationNonSolarRecordsBefore": 1068,
+  "constellationNonSolarRecordsAfter": 1069,
+  "recordOrMeasurementLoss": 0,
+  "comparisons": [
+    {
+      "source": "src/data/catalogs/bright-stars/stars.csv",
+      "target": "src/data/catalogs/western-constellation-stars/stars.csv",
+      "recordsCompared": 126
+    },
+    {
+      "source": "src/data/catalogs/nearest-100/stars.csv",
+      "target": "src/data/catalogs/nearest-100/stars.csv",
+      "recordsCompared": 101
+    },
+    {
+      "source": "src/data/catalogs/nearest-1000/stars.csv",
+      "target": "src/data/catalogs/nearest-1000/stars.csv",
+      "recordsCompared": 1037
+    },
+    {
+      "source": "src/data/catalogs/western-constellation-stars/stars.csv",
+      "target": "src/data/catalogs/western-constellation-stars/stars.csv",
+      "recordsCompared": 749
+    },
+    {
+      "source": "src/data/stars.csv",
+      "target": "src/data/stars.csv",
+      "recordsCompared": 22
+    },
+    {
+      "source": "src/data/generated/catalogs/bright-stars.json",
+      "target": "src/data/generated/catalogs/western-constellation-stars.json",
+      "recordsCompared": 202
+    },
+    {
+      "source": "src/data/generated/catalogs/nearest-100.json",
+      "target": "src/data/generated/catalogs/nearest-100.json",
+      "recordsCompared": 103
+    },
+    {
+      "source": "src/data/generated/catalogs/nearest-1000.json",
+      "target": "src/data/generated/catalogs/nearest-1000.json",
+      "recordsCompared": 1060
+    },
+    {
+      "source": "src/data/generated/catalogs/nearest-neighbors.json",
+      "target": "src/data/generated/catalogs/nearest-neighbors.json",
+      "recordsCompared": 22
+    },
+    {
+      "source": "src/data/generated/catalogs/western-constellation-stars.json",
+      "target": "src/data/generated/catalogs/western-constellation-stars.json",
+      "recordsCompared": 1069
+    },
+    {
+      "source": "src/data/stellar-companions.json",
+      "target": "src/data/stellar-companions.json",
+      "recordsCompared": 846
+    }
+  ]
+}

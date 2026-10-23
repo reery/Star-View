@@ -100,62 +100,36 @@ test('loads compact remnants on demand and shows type-specific sourced fields', 
   expect(compactRequests).toHaveLength(1)
 })
 
-test('adds the bright-star catalog as a deduplicated optional overlay', async ({ page }) => {
+test('includes the former bright stars in the constellation overlay without a separate filter', async ({ page }) => {
   await openViewer(page)
   await openFilter(page)
-  const toggle = page.getByRole('switch', { name: 'Always show bright stars' })
-  await expect(toggle).not.toBeChecked()
-  await zoomViewer(page, 'in')
-  const sunBeforeToggle = await starPoint(page, 'sun')
-  const gridBeforeToggle = await page.locator('#scene').getAttribute('data-grid-half-size-pc')
-  expect(gridBeforeToggle).not.toBeNull()
-  await openFilter(page)
+  await expect(page.getByRole('switch', { name: 'Always show bright stars' })).toHaveCount(0)
+  const toggle = page.getByRole('switch', { name: 'Western constellation stars' })
   await toggle.check()
-  await expect(page.locator('#catalog-count')).toHaveText(/\/142$/)
-  await expect(page.locator('[data-star="bright-canopus"]')).toHaveCount(0)
+  await expect(page.locator('#scene-status')).toBeHidden()
   expect(await page.locator('.catalog-entry').evaluateAll((entries) => {
     const ids = entries.map((entry) => (entry as HTMLElement).dataset.star)
     return new Set(ids).size === ids.length
   })).toBe(true)
-  expect(Number(await page.locator('.projected-labels').getAttribute('data-core-count'))).toBeLessThan(142)
-  expect(await starPoint(page, 'sun')).toEqual(sunBeforeToggle)
-  await expect(page.locator('#scene')).toHaveAttribute('data-grid-half-size-pc', gridBeforeToggle!)
-
-  const distance = page.getByLabel('Object visibility distance', { exact: true })
-  await distance.fill('22')
-  await expect(page.locator('#object-distance-limit-value')).toHaveText('3000 ly')
-  await expect(distance).toHaveAttribute('aria-valuetext', '3000 light-years')
-  await expect(page.locator('#grid-spacing')).toHaveText('5 ly grid')
-  await expect(page.locator('#scene')).toHaveAttribute('data-grid-half-size-pc', gridBeforeToggle!)
-  // Unresolved companions share their primary's scene point and core.
-  await expect(page.locator('.projected-labels')).toHaveAttribute('data-core-count', '134')
-  await expect(page.locator('[data-star="bright-canopus"]')).toHaveCount(1)
-
+  await page.getByLabel('Object visibility distance', { exact: true }).fill('22')
+  // Canopus keeps its constellation ID; Lesath was only in the retired bright catalog.
+  for (const id of ['hip-30438', 'bright-lesath']) await expect(page.locator(`[data-star="${id}"]`)).toHaveCount(1)
   await toggle.uncheck()
   await expect(page.locator('#catalog-count')).toHaveText(/\/22$/)
-  await expect(page.locator('[data-star="bright-canopus"]')).toHaveCount(0)
+  await expect(page.locator('[data-star="hip-30438"]')).toHaveCount(0)
 })
 
 test('includes cluster landmarks in the constellation overlay without a separate filter @mobile', async ({ page }, testInfo) => {
   await openViewer(page)
   await openFilter(page)
-  const bright = page.getByRole('switch', { name: 'Always show bright stars' })
   const western = page.getByRole('switch', { name: 'Western constellation stars' })
-  await expect(bright).not.toBeChecked()
   await expect(western).not.toBeChecked()
   await expect(page.getByRole('switch', { name: 'Famous cluster stars' })).toHaveCount(0)
-  await expect(western.locator('xpath=ancestor::label/preceding-sibling::label[1]')).toContainText('Always show bright stars')
   await western.check()
   await expect(page.locator('#scene-status')).toBeHidden()
   const distance = page.getByLabel('Object visibility distance', { exact: true })
   await distance.fill('24')
   await expect(page.locator('#object-distance-limit-value')).toHaveText('10000 ly')
-  const count = await page.locator('#catalog-count').textContent()
-  await bright.check()
-  await expect(page.locator('#scene-status')).toBeHidden()
-  await bright.uncheck()
-  await expect(page.locator('#scene-status')).toBeHidden()
-  await expect(page.locator('#catalog-count')).toHaveText(count!)
 
   await page.getByRole('button', { name: 'Objects', exact: true }).click()
   for (const name of ['Alcyone', 'Maia', 'HD 93194', 'Phyllon Kissinou C', 'Theta1 Orionis Ca']) {
@@ -1046,7 +1020,7 @@ test('shrinks distant star cores while retaining bright glare around a 1,000-lig
   await openViewer(page)
   await hideMilkyWay(page)
   await openFilter(page)
-  await page.getByRole('switch', { name: 'Always show bright stars' }).check()
+  await page.getByRole('switch', { name: 'Western constellation stars' }).check()
   await expect.poll(() => page.locator('#catalog-count').textContent()).not.toBe('22/22')
   await openPreferences(page)
   await page.getByRole('switch', { name: 'Motion arrows' }).uncheck()
@@ -1102,9 +1076,7 @@ test('keeps the magnitude-7 all-catalog overview from washing out at roughly 1,0
   await openFilter(page)
   await selectCatalog(page, 'nearest-1000')
   await expect(page.locator('#catalog-count')).toHaveText(/\/1037$/)
-  for (const name of ['Always show bright stars', 'Western constellation stars']) {
-    await page.getByRole('switch', { name }).check()
-  }
+  await page.getByRole('switch', { name: 'Western constellation stars' }).check()
   await expect.poll(async () => Number(await page.locator('.projected-labels').getAttribute('data-core-count'))).toBeGreaterThan(1000)
   await page.getByLabel('Object visibility distance', { exact: true }).fill('19')
   await page.getByLabel('V magnitude limit', { exact: true }).fill('7')

@@ -84,7 +84,7 @@ describe('constellation data and common system motion', () => {
   })
 
   it('ships the same adopted motion through raw catalog completion and generated browser data', () => {
-    for (const catalog of ['bright-stars','western-constellation-stars','nearest-1000']) {
+    for (const catalog of ['western-constellation-stars','nearest-1000']) {
       const raw = parseStarCatalog(readFileSync(new URL(`./data/catalogs/${catalog}/stars.csv`, import.meta.url),'utf8'))
       const completed = completeCatalogCompanions(raw)
       const browser = JSON.parse(readFileSync(new URL(`./data/generated/catalogs/${catalog}.json`,import.meta.url),'utf8')).stars as Star[]

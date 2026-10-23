@@ -7,7 +7,7 @@ test('Izar retains resolved hot B and provisional D across component selection @
   await page.goto('/')
   await expect(page.locator('#scene-status')).toBeHidden()
   await openFilter(page)
-  await page.getByRole('switch', { name: 'Always show bright stars', exact: true }).check()
+  await page.getByRole('switch', { name: 'Western constellation stars', exact: true }).check()
   await expect(page.locator('#scene-status')).toBeHidden()
   await page.getByLabel('Object visibility distance', { exact: true }).fill('22')
   await page.getByRole('button', { name: 'Filter', exact: true }).click()

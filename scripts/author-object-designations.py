@@ -15,6 +15,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 OUTPUT = ROOT / "src/data/object-designations.json"
 WORK = ROOT / "catalog-work/object-designations"
+BRIGHT_ARCHIVE = ROOT / "catalog-work/bright-stars/retired-catalog"
 GREEK = dict(zip(
     "alf bet gam del eps zet eta tet iot kap lam mu. nu. ksi omi pi. rho sig tau ups phi chi psi ome".split(),
     "Alpha Beta Gamma Delta Epsilon Zeta Eta Theta Iota Kappa Lambda Mu Nu Xi Omicron Pi Rho Sigma Tau Upsilon Phi Chi Psi Omega".split(),
@@ -152,16 +153,25 @@ def build():
     for path in sorted((ROOT / "src/data/overlays").glob("*/objects.json")):
         for row in read_json(path)["objects"]:
             inventory[row["id"]].append((row, str(path.relative_to(ROOT))))
+    # Retired bright rows contribute aliases to the surviving record of the same object.
+    # Reviewed component IDs remain identities of their systems and keep their own entries.
+    components = {identifier for system in read_json(ROOT / "src/data/stellar-companions.json")["systems"] for component in system["components"]
+                  for identifier in [component["starId"], *component.get("alternateStarIds", [])]}
+    legacy_ids = {old: new for old, new in read_json(ROOT / "src/data/legacy-star-ids.json")["ids"].items() if old not in components}
+    for row in read_csv(BRIGHT_ARCHIVE / "stars.csv"):
+        inventory[legacy_ids.get(row["id"], row["id"])].append((row, str((BRIGHT_ARCHIVE / "stars.csv").relative_to(ROOT))))
 
     nearby = {row["id"]: row for row in read_json(ROOT / "src/data/catalogs/nearest-100/provenance.json")["objects"]}
     distant = read_json(ROOT / "src/data/catalogs/nearest-1000/provenance.json")
     cns5 = {row["id"]: row["cns5Id"] for row in distant["objects"] if row.get("cns5Id")}
     # Never assign one unresolved system's identifiers to its separate components.
     cns5.update({row["starViewIds"][0]: row["cns5Id"] for row in distant["audit"] if len(row.get("starViewIds", [])) == 1})
-    bright = read_json(ROOT / "src/data/catalogs/bright-stars/provenance.json")["objects"]
+    # A surviving record keeps its own SIMBAD identity; retired query IDs apply only to unchanged IDs.
+    bright = {identifier: row for identifier, row in read_json(BRIGHT_ARCHIVE / "provenance.json")["objects"].items() if identifier not in legacy_ids}
     landmarks = read_json(ROOT / "src/data/catalogs/western-constellation-stars/provenance.json")["objects"]
     default_names = {row["id"]: row["name"] for row in inventory_rows(inventory, "src/data/stars.csv")}
-    bright_names = {row["id"]: row["name"] for row in inventory_rows(inventory, "src/data/catalogs/bright-stars/stars.csv")}
+    # Surviving records keep their own preferred names.
+    bright_names = {row["id"]: row["name"] for row in inventory_rows(inventory, str((BRIGHT_ARCHIVE / "stars.csv").relative_to(ROOT))) if row["id"] not in legacy_ids}
     reviewed = read_json(WORK / "preferred-names.json")
     pulsars = {}
     atnf_path = ROOT / "catalog-work/compact-remnants/atnf-long.csv"

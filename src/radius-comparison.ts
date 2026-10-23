@@ -1,12 +1,13 @@
 import { starDisplayColor } from './astronomy'
 import { MISSING_VALUE } from './format'
 import { isBubbleObject, isCompactObject, isMolecularCloudObject, isNebulaObject, type Star } from './catalog-model'
+import { SOLAR_RADIUS_METERS } from './luminosity-properties'
 import jupiterMapUrl from './assets/radius-comparison/jupiter-map.webp?url'
 import earthMapUrl from './assets/radius-comparison/earth-map.webp?url'
 import earthCloudsUrl from './assets/radius-comparison/earth-clouds.jpg?url'
 
 // IAU 2015 Resolution B3: https://arxiv.org/abs/1510.07674
-export const SOLAR_RADIUS_KM = 695_700
+export const SOLAR_RADIUS_KM = SOLAR_RADIUS_METERS / 1000
 export const JUPITER_RADIUS_KM = 71_492
 const JUPITER_POLAR_RADIUS_KM = 66_854
 export const EARTH_RADIUS_KM = 6_378.1

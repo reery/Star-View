@@ -6,6 +6,7 @@ export const SAVED_FILTER_STORAGE_KEY = 'star-view-saved-filter'
 export interface SavedFilter {
   version: 1
   catalogId: string
+  /** Legacy filters use this flag to enable the constellation catalog that now holds the bright stars. */
   showAlwaysBright: boolean
   showWesternConstellationStars: boolean
   filterCategories: FilterCategoryId[]

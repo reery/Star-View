@@ -2,20 +2,23 @@ import { afterAll, beforeAll, describe, expect, it, vi } from 'vitest'
 import { generatedJsonFetch } from './test-support/generated-json'
 import csv from './data/stars.csv?raw'
 import nearest100Csv from './data/catalogs/nearest-100/stars.csv?raw'
-import brightStarsCsv from './data/catalogs/bright-stars/stars.csv?raw'
+import brightStarsCsv from '../catalog-work/bright-stars/retired-catalog/stars.csv?raw'
 import definitions from './data/star-info.json'
 import nearest100Definitions from './data/nearest-100-info.json'
 import brightStarDefinitions from './data/bright-star-info.json'
+import legacyStarIds from './data/legacy-star-ids.json'
 import { parseStarCatalog } from './catalog'
 import { loadStarInfo, starInfoForId } from './star-info'
 import { starInfoAvailable } from './star-info-availability'
 import { reviewedStarSystems } from './star-systems'
 
 const stars = parseStarCatalog(csv)
+// Retired bright IDs serve their articles from the surviving record.
+const surviving = (id: string) => (legacyStarIds.ids as Record<string, string>)[id] ?? id
 beforeAll(async () => {
   vi.stubGlobal('fetch', generatedJsonFetch)
   await Promise.all([...Object.keys(definitions.articles), ...Object.keys(nearest100Definitions.articles),
-    ...Object.keys(brightStarDefinitions.articles)].map(loadStarInfo))
+    ...Object.keys(brightStarDefinitions.articles).map(surviving)].map(loadStarInfo))
 })
 afterAll(() => vi.unstubAllGlobals())
 
@@ -55,8 +58,8 @@ describe('bright-star articles', () => {
 
   it('makes Info available for every bright catalog entry, with 114 distinct system articles', () => {
     expect(brightStars).toHaveLength(126)
-    expect(brightStars.filter(({ id }) => !starInfoAvailable(id) || !starInfoForId(id)).map(({ id }) => id)).toEqual([])
-    expect(new Set(brightStars.map(({ id }) => starInfoForId(id))).size).toBe(114)
+    expect(brightStars.filter(({ id }) => !starInfoAvailable(surviving(id)) || !starInfoForId(surviving(id))).map(({ id }) => id)).toEqual([])
+    expect(new Set(brightStars.map(({ id }) => starInfoForId(surviving(id)))).size).toBe(114)
   })
 
   it('shares each article with all reviewed components and aliases, including companions outside the bright cutoff', () => {
@@ -79,7 +82,7 @@ describe('bright-star articles', () => {
     expect(Object.keys(brightStarDefinitions.articles)).toHaveLength(109)
     for (const [id, definition] of Object.entries(brightStarDefinitions.articles)) {
       expect(existingKeys.has(id), id).toBe(false)
-      const article = starInfoForId(id)!
+      const article = starInfoForId(surviving(id))!
       expect(article.introduction.label, id).toBe(definition.name)
       expect(article.introduction.source?.title, id).toMatch(/reviewed 2026-10-18$/)
       expect(article.introduction.source?.url, id).toMatch(/^https:\/\//)

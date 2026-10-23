@@ -3,6 +3,7 @@ import { describe, expect, it } from 'vitest'
 import { parseStarCatalog, type Star } from './catalog'
 import { completeCatalogCompanions } from './stellar-companions'
 import { mapComponentVisibility, MIN_MAP_COMPONENT_SEPARATION_AU } from './star-systems'
+import { catalogSourceUrl } from './test-support/catalog-source'
 
 const base = parseStarCatalog(readFileSync(new URL('./data/stars.csv', import.meta.url), 'utf8'))[0]!
 const auPerPc = 206264.80624709636
@@ -54,8 +55,7 @@ describe('close system map representatives', () => {
 
   it.each(['nearest-100', 'nearest-1000', 'bright-stars', 'western-constellation-stars'])(
     'preserves one representative for close companions in %s', (catalog) => {
-      const stars = completeCatalogCompanions(parseStarCatalog(readFileSync(
-        new URL(`./data/catalogs/${catalog}/stars.csv`, import.meta.url), 'utf8')))
+      const stars = completeCatalogCompanions(parseStarCatalog(readFileSync(catalogSourceUrl(catalog), 'utf8')))
       const shown = new Set(visibleIds(stars))
       for (const [id, expected] of [
         ['sirius-a', true], ['sirius-b', false], ['alpha-centauri-a', true], ['alpha-centauri-b', false],

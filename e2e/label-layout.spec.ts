@@ -42,7 +42,7 @@ test('refreshes the rendered distance texture when selecting a distant cluster s
 test('shows selected Dschubba component names from the Sun without individual visual magnitudes', async ({ page }, testInfo) => {
   await openViewer(page)
   await openFilter(page)
-  await page.getByRole('switch', { name: 'Always show bright stars', exact: true }).check()
+  await page.getByRole('switch', { name: 'Western constellation stars', exact: true }).check()
   await expect(page.locator('#scene-status')).toBeHidden()
   await page.getByLabel('Object visibility distance', { exact: true }).fill('22')
   await page.getByRole('button', { name: 'Filter', exact: true }).click()
@@ -59,7 +59,7 @@ test('shows selected Dschubba component names from the Sun without individual vi
   await page.getByRole('button', { name: 'Select Dschubba A', exact: true }).click()
   await page.getByRole('button', { name: 'Objects', exact: true }).click()
 
-  for (const [id, name] of [['bright-dschubba', 'Dschubba A'], ['orb6-16003-2237-a-b-b', 'Dschubba B']] as const) {
+  for (const [id, name] of [['hip-78401', 'Dschubba A'], ['orb6-16003-2237-a-b-b', 'Dschubba B']] as const) {
     await page.locator(`#star-components [data-component-id="${id}"]`).click()
     await expect(page.locator('#inspector')).toHaveAttribute('data-selected-star', id)
     await page.evaluate(() => new Promise(requestAnimationFrame))

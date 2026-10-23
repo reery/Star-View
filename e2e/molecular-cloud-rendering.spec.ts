@@ -12,7 +12,7 @@ const cloud = JSON.parse(readFileSync(new URL('../src/data/overlays/molecular-cl
   .find((row: { id: string }) => row.id === 'cahlon-cloud-22')
 let fixtureScript: string
 const sun = parseStarCatalog(readFileSync(new URL('../src/data/stars.csv', import.meta.url), 'utf8')).find((star) => star.id === 'sun')!
-const landmarks = parseStarCatalog(readFileSync(new URL('../src/data/catalogs/bright-stars/stars.csv', import.meta.url), 'utf8'))
+const landmarks = parseStarCatalog(readFileSync(new URL('../catalog-work/bright-stars/retired-catalog/stars.csv', import.meta.url), 'utf8'))
 const nebulae: Star[] = JSON.parse(readFileSync(new URL('../src/data/overlays/nebulae/objects.json', import.meta.url), 'utf8')).objects
 const clouds: Star[] = JSON.parse(readFileSync(new URL('../src/data/overlays/molecular-clouds/objects.json', import.meta.url), 'utf8')).objects
 

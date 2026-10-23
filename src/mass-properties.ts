@@ -1,8 +1,8 @@
 import { isCompactObject, type Star } from './catalog-model.ts'
+import { SOLAR_RADIUS_METERS as SOLAR_RADIUS_M } from './luminosity-properties.ts'
 
-// IAU 2015 B3 nominal GM and radius: https://arxiv.org/abs/1510.07674
+// IAU 2015 B3 nominal GM: https://arxiv.org/abs/1510.07674
 const SOLAR_GM = 1.3271244e20
-const SOLAR_RADIUS_M = 695_700_000
 const EARTH_GM = 3.986004e14
 const G = 6.67430e-11 // CODATA 2022, m³ kg⁻¹ s⁻²
 const SOLAR_GRAVITY = SOLAR_GM / SOLAR_RADIUS_M ** 2
