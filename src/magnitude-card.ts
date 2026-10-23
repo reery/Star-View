@@ -3,6 +3,7 @@ import { Binoculars, Building2, Eye, Sun, Telescope, createElement, type IconNod
 import { starDisplayColor, type StarColorMode } from './astronomy'
 import type { Star } from './catalog-model'
 import { catalogSourceFor } from './catalog-source'
+import { renderComparisonName } from './comparison-tiles'
 import { MISSING_VALUE } from './format'
 
 type MagnitudeKind = 'absolute' | 'apparent'
@@ -80,7 +81,10 @@ export interface MagnitudePoint {
 }
 
 /** Only adopted individual magnitudes can enter a comparison scale. */
-export function magnitudePoints(kind: MagnitudeKind, star: Star, origin: Star, sun: Star, sirius?: Star, comparing = false): MagnitudePoint[] {
+/** With a comparison star, it replaces the origin and is never labeled as the origin. */
+export function magnitudePoints(kind: MagnitudeKind, star: Star, mapOrigin: Star, sun: Star, sirius?: Star, other?: Star): MagnitudePoint[] {
+  const comparing = other !== undefined
+  const origin = other ?? mapOrigin
   const field = kind === 'absolute' ? 'absolute_mag' : 'apparent_mag'
   const objects = [sun, ...(origin.id !== sun.id ? [origin] : []), star]
   const points = new Map<string, MagnitudePoint>()
@@ -183,13 +187,13 @@ function renderScale(card: HTMLElement, kind: MagnitudeKind, points: MagnitudePo
   scale.setAttribute('aria-label', `${kind === 'absolute' ? 'Absolute V magnitude at 10 parsecs' : 'Apparent V magnitude from Earth'}. ${kind === 'apparent' ? 'Nighttime scale: ' : ''}fainter ${magnitudeNumber(axis.faint)} to brighter ${magnitudeNumber(axis.bright)}. ${points.map((point) => `${point.name}${point.selected ? ', selected' : ''}${point.origin ? ', origin' : ''}: ${magnitudeNumber(point.value)}`).join('; ')}.${kind === 'apparent' ? ` ${visibility.name} brightness band: approximately +${visibility.limit} or brighter, fading between +${visibility.fadeStart} and +${visibility.limit}. ${visibility.detail}` : ''}`)
 }
 
-function renderComparisonValues(card: HTMLElement, kind: MagnitudeKind, star: Star, other: Star, colorMode: StarColorMode, comparing: boolean): void {
+function renderComparisonValues(card: HTMLElement, kind: MagnitudeKind, star: Star, other: Star | undefined, colorMode: StarColorMode): void {
   const grid = card.querySelector<HTMLElement>(`#magnitude-${kind}-comparison`)!
-  grid.hidden = !comparing
+  grid.hidden = !other
   grid.replaceChildren()
-  card.querySelector<HTMLElement>(`#magnitude-${kind}-value`)!.hidden = comparing
-  card.querySelector<HTMLElement>(`#magnitude-${kind}-icon`)!.hidden = comparing
-  if (!comparing) return
+  card.querySelector<HTMLElement>(`#magnitude-${kind}-value`)!.hidden = Boolean(other)
+  card.querySelector<HTMLElement>(`#magnitude-${kind}-icon`)!.hidden = Boolean(other)
+  if (!other) return
 
   for (const object of [star, other]) {
     const tile = document.createElement('div')
@@ -199,13 +203,7 @@ function renderComparisonValues(card: HTMLElement, kind: MagnitudeKind, star: St
     tile.setAttribute('aria-label', `${object.name} · ${kind} V magnitude`)
     const heading = document.createElement('span')
     heading.className = 'magnitude-factor-name'
-    const swatch = document.createElement('i')
-    swatch.className = 'star-swatch'
-    swatch.style.background = starDisplayColor(object, colorMode).getStyle()
-    swatch.setAttribute('aria-hidden', 'true')
-    const name = document.createElement('span')
-    name.textContent = object.name
-    heading.append(swatch, name)
+    renderComparisonName(heading, object, colorMode)
     const quantity = document.createElement('div')
     quantity.className = 'magnitude-tile-quantity'
     const value = document.createElement('strong')
@@ -216,7 +214,9 @@ function renderComparisonValues(card: HTMLElement, kind: MagnitudeKind, star: St
   }
 }
 
-export function renderMagnitudeCard(card: HTMLElement, star: Star, origin: Star, sun: Star, colorMode: StarColorMode, sirius?: Star, comparing = false): void {
+export function renderMagnitudeCard(card: HTMLElement, star: Star, mapOrigin: Star, sun: Star, colorMode: StarColorMode, sirius?: Star, other?: Star): void {
+  const comparing = other !== undefined
+  const origin = other ?? mapOrigin
   card.classList.toggle('has-comparison', comparing)
   const visibility = MAGNITUDE_VISIBILITY_GUIDES.find((guide) => guide.id === card.dataset.visibilityGuide) ?? DEFAULT_VISIBILITY_GUIDE
   for (const button of card.querySelectorAll<HTMLButtonElement>('[data-visibility]')) {
@@ -234,8 +234,8 @@ export function renderMagnitudeCard(card: HTMLElement, star: Star, origin: Star,
   }
   for (const kind of ['absolute', 'apparent'] as const) {
     const field = kind === 'absolute' ? 'absolute_mag' : 'apparent_mag'
-    card.querySelector<HTMLElement>(`#magnitude-${kind}-value`)!.textContent = magnitudeNumber(star[field])
-    renderComparisonValues(card, kind, star, origin, colorMode, comparing)
+    if (!other) card.querySelector<HTMLElement>(`#magnitude-${kind}-value`)!.textContent = magnitudeNumber(star[field])
+    renderComparisonValues(card, kind, star, other, colorMode)
     const notes: string[] = []
     if (!finiteMagnitude(star[field])) {
       notes.push(`Individual ${kind} V magnitude unavailable.`)
@@ -248,6 +248,6 @@ export function renderMagnitudeCard(card: HTMLElement, star: Star, origin: Star,
     const note = card.querySelector<HTMLElement>(`#magnitude-${kind}-note`)!
     note.textContent = notes.join(' ')
     note.hidden = notes.length === 0
-    renderScale(card, kind, magnitudePoints(kind, star, origin, sun, sirius, comparing), sun, colorMode, visibility)
+    renderScale(card, kind, magnitudePoints(kind, star, mapOrigin, sun, sirius, other), sun, colorMode, visibility)
   }
 }

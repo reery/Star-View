@@ -1,15 +1,7 @@
-import { expect, test, type Page } from '@playwright/test'
+import { expect, test } from '@playwright/test'
 import { readFileSync, readdirSync } from 'node:fs'
 import type { ConstellationChart } from '../src/constellations'
-import { openFilter, openSpecs, openViewer } from './support'
-
-async function selectObject(page: Page, name: string, showSpecs = true): Promise<void> {
-  await page.getByRole('button', { name: 'Objects', exact: true }).click()
-  await page.getByLabel('Search objects').fill(name)
-  await page.getByRole('button', { name: `Select ${name}`, exact: true }).click()
-  await page.getByRole('button', { name: 'Objects', exact: true }).click()
-  if (showSpecs) await openSpecs(page)
-}
+import { openFilter, openSpecs, openViewer, selectObject } from './support'
 
 test('magnifies the selected star and restores the constellation overview', { tag: '@mobile' }, async ({ page }, testInfo) => {
   const errors: string[] = []
@@ -122,7 +114,7 @@ test('keeps Furud components and scoped cards identical from a clean chart and t
   await page.getByLabel('Object visibility distance', { exact: true }).fill('24')
   await expect(page.locator('#object-distance-limit-value')).toHaveText('10000 ly')
   await page.getByRole('button', { name: 'Filter', exact: true }).click()
-  await selectObject(page, 'Furud Aa')
+  await selectObject(page, 'Furud Aa', { showSpecs: true })
   await checkFurud()
   expect(errors).toEqual([])
 })
@@ -184,7 +176,7 @@ test('loads Centaurus on demand and follows exact components across locked chart
   })
   await openViewer(page)
   expect(chartRequests).toHaveLength(0)
-  await selectObject(page, 'Alpha Centauri A')
+  await selectObject(page, 'Alpha Centauri A', { showSpecs: true })
   await page.locator('#constellation-toggle').click()
   const card = page.locator('#constellation-card')
   await expect(card.locator('#constellation-heading')).toHaveText('Centaurus')
@@ -221,10 +213,10 @@ test('loads Centaurus on demand and follows exact components across locked chart
   await expect(card.locator('.is-selected .constellation-star-name')).toHaveText(betaName)
   await expect(page.locator('#inspector')).toHaveAttribute('data-selected-star', 'bright-hadar')
   await expect(card.locator('#constellation-visibility')).toBeVisible()
-  await selectObject(page, 'Sirius A', false)
+  await selectObject(page, 'Sirius A')
   await expect(card.locator('#constellation-heading')).toHaveText('Canis Major')
   await expect(card.locator('.is-selected .constellation-star-name')).toHaveText('Sirius A')
-  await selectObject(page, 'Alpha Centauri A', false)
+  await selectObject(page, 'Alpha Centauri A')
   await expect(card.locator('#constellation-heading')).toHaveText('Centaurus')
   await expect(card.locator('.is-selected .constellation-star-name')).toHaveText('Alpha Centauri A')
   expect(chartRequests.filter((url) => url.includes('/centaurus-'))).toHaveLength(1)
@@ -353,7 +345,7 @@ test('keeps Sirius B separate from the figure star and follows newly available c
   await card.screenshot({ path: testInfo.outputPath('canis-major-sirius-b.png') })
   await card.getByText('Sources', { exact: true }).click()
   await expect(page.locator('#constellation-source-links a')).toHaveCount(4)
-  await selectObject(page, 'Ross 154')
+  await selectObject(page, 'Ross 154', { showSpecs: true })
   await expect(card).toBeVisible()
   await expect(card.locator('#constellation-heading')).toHaveText('Sagittarius')
   await expect(card.locator('.is-selected .constellation-star-name')).toHaveText('Ross 154')
@@ -401,7 +393,7 @@ test('plots a non-star at its own sky coordinates in Canis Major', async ({ page
   await page.locator('details.filter-dropdown > summary').click()
   await page.getByLabel('Pulsars', { exact: true }).check()
   await page.locator('#object-distance-limit').fill('24')
-  await selectObject(page, 'PSR J0630-2834')
+  await selectObject(page, 'PSR J0630-2834', { showSpecs: true })
   await page.locator('#constellation-toggle').click()
   const card = page.locator('#constellation-card')
   await expect(card.locator('.is-selected')).toHaveAttribute('data-object-type', 'pulsar')

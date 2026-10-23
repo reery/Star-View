@@ -749,8 +749,7 @@ select:focus-visible, input:focus-visible { outline: 2px solid var(--accent); ou
 .range-markers > span::before,
 .luminosity-plot-marker::after,
 .magnitude-marker::after,
-.temperature-marker::before,
-.has-comparison .metallicity-marker::before { left: 50%; transform: translateX(-50%); }
+.temperature-marker::before { left: 50%; transform: translateX(-50%); }
 :is(#mass-card, #radius-typical-bar) .mass-ratio-track { isolation: isolate; }
 :is(#mass-card, #radius-typical-bar) .mass-ratio-sun { z-index: 0; }
 :is(#mass-card, #radius-typical-bar) .mass-ratio-fill { z-index: 1; }
@@ -768,7 +767,10 @@ select:focus-visible, input:focus-visible { outline: 2px solid var(--accent); ou
 .mass-ratio-labels > :last-child { text-align: right; }
 .mass-metric-ratio { grid-column: 2; grid-row: 1 / span 2; display: grid; align-content: start; gap: 3px; text-align: right; color: var(--accent-strong); }
 .mass-metric-ratio strong { overflow-wrap: anywhere; color: var(--ink); font-size: var(--property-text-size); line-height: 1.25; font-weight: 600; }
-.mass-metric-ratio small, .luminosity-factor-title, .luminosity-factor-name, .magnitude-factor-name { color: var(--muted); font-size: 12px; }
+.mass-metric-ratio small, .luminosity-factor-title { color: var(--muted); font-size: 12px; }
+/* Star name header shared by the paired temperature, luminosity and magnitude tiles. */
+.comparison-tile-name { display: flex; align-items: center; align-self: stretch; gap: 4px; padding: 2px 8px; color: var(--ink); background: var(--surface-heading); font-size: 12px; font-weight: 600; }
+.comparison-tile-name > span:not(.sr-only) { min-width: 0; overflow-wrap: break-word; text-wrap: balance; }
 .mass-section > .mass-end-state-line { margin-top: 14px; color: var(--ink); }
 .mass-end-state-line strong { font-weight: 700; }
 .mass-method, .radius-method { margin-top: 16px; padding-top: 12px; border-top: 1px solid var(--line); color: var(--muted); }
@@ -787,7 +789,7 @@ select:focus-visible, input:focus-visible { outline: 2px solid var(--accent); ou
 .luminosity-comparison-tile:nth-last-child(3) { grid-column: 1; }
 .luminosity-comparison-tile:nth-last-child(2) { grid-column: 3; }
 .luminosity-comparison-tile:last-child { grid-column: 5; }
-.luminosity-factor-name { min-width: 0; line-height: 1.25; text-align: left; flex-wrap: wrap; justify-content: center; }
+.luminosity-factor-name { min-width: 0; row-gap: 0; padding-inline: 4px; line-height: 1.25; text-align: left; flex-wrap: wrap; justify-content: center; }
 .luminosity-factor-name > span { min-width: 0; max-width: 100%; flex: 1 0 min-content; overflow-wrap: break-word; text-wrap: balance; }
 .luminosity-factor-title { margin: 0; line-height: 1.25; font-weight: 400; }
 .luminosity-factor-icon { display: flex; align-items: center; justify-content: center; height: 36px; color: var(--accent-strong); }
@@ -806,8 +808,7 @@ select:focus-visible, input:focus-visible { outline: 2px solid var(--accent); ou
   .luminosity-equation .luminosity-result-quantity { font-size: 24px; }
   .luminosity-equation .luminosity-long-value { font-size: var(--property-text-size); }
 }
-.luminosity-flux-row { grid-template-columns: minmax(0, 1fr) fit-content(56%); gap: 8px; }
-.luminosity-flux-row { padding-bottom: 0; }
+.luminosity-flux-row { grid-template-columns: minmax(0, 1fr) fit-content(56%); gap: 8px; padding-bottom: 0; }
 .luminosity-flux-row .mass-metric-ratio { grid-row: 1; }
 .luminosity-flux-copy { display: flex; align-items: center; gap: 8px; }
 .luminosity-flux-copy canvas { display: block; width: 32px; height: 32px; flex: 0 0 32px; mix-blend-mode: screen; pointer-events: none; }
@@ -849,7 +850,6 @@ select:focus-visible, input:focus-visible { outline: 2px solid var(--accent); ou
 .magnitude-card.has-comparison .magnitude-value-heading { grid-template-columns: minmax(0, 1fr); }
 .magnitude-comparison-grid.planet-facts-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); margin-top: 10px; font-variant-numeric: tabular-nums; }
 .magnitude-comparison-grid.planet-facts-grid > .planet-fact-tile { grid-template-rows: subgrid; grid-row: span 2; align-content: start; gap: 0; min-height: 0; padding: 0; overflow: hidden; }
-.magnitude-factor-name > span { min-width: 0; overflow-wrap: break-word; text-wrap: balance; }
 .magnitude-tile-quantity { display: flex; align-items: center; justify-content: center; gap: 8px; padding: 8px; }
 .magnitude-tile-quantity svg { flex-shrink: 0; color: var(--accent-strong); }
 .magnitude-tile-quantity strong { color: var(--ink); font-size: clamp(20px, 7cqi, 24px); line-height: 1.25; font-weight: 700; white-space: nowrap; }
@@ -881,9 +881,6 @@ select:focus-visible, input:focus-visible { outline: 2px solid var(--accent); ou
 #temperature-comparison-facts { margin-top: 14px; }
 .temperature-pair-grid.planet-facts-grid > .planet-fact-tile { grid-template-columns: minmax(0, 1fr); grid-template-rows: subgrid; grid-row: span 2; align-content: start; align-items: start; gap: 0; min-height: 0; padding: 0; overflow: hidden; }
 .temperature-pair-grid .planet-fact-tile :is(dt, dd) { grid-column: 1; margin: 0; }
-.temperature-pair-grid .planet-fact-tile dt, .luminosity-factor-name, .magnitude-factor-name { display: flex; align-items: center; align-self: stretch; gap: 4px; padding: 2px 8px; color: var(--ink); background: var(--surface-heading); font-weight: 600; }
-.luminosity-factor-name { row-gap: 0; padding-inline: 4px; }
-.temperature-pair-grid dt > span:not(.sr-only) { min-width: 0; text-wrap: balance; }
 .temperature-pair-grid .planet-fact-tile dd { display: grid; grid-template-columns: 20px minmax(0, 1fr); align-items: center; gap: 8px; padding: 8px; }
 .temperature-tile-metric-icon { display: flex; align-items: center; justify-content: center; width: 20px; height: 20px; color: var(--accent-strong); }
 .temperature-tile-value { min-width: 0; }
@@ -1182,7 +1179,7 @@ select:focus-visible, input:focus-visible { outline: 2px solid var(--accent); ou
 .metallicity-marker-value { position: absolute; bottom: 44px; left: 50%; transform: translateX(var(--metallicity-label-offset, -50%)); color: var(--ink); white-space: nowrap; font-weight: 500; }
 .metallicity-scale.has-comparison { margin-top: 134px; }
 .has-comparison .metallicity-marker-value { bottom: 45px; width: max-content; white-space: normal; line-height: 1.4; }
-.has-comparison .metallicity-marker::before { content: ''; position: absolute; bottom: 0; width: 1px; height: 44px; background: var(--accent-vibrant); }
+.has-comparison .metallicity-marker::before { content: ''; position: absolute; bottom: 0; left: 50%; width: 1px; height: 44px; transform: translateX(-50%); background: var(--accent-vibrant); }
 .has-comparison .metallicity-comparison-marker { background: var(--stat-bar-reference); }
 .has-comparison .metallicity-comparison-marker::before { height: 96px; background: var(--stat-bar-reference); }
 .has-comparison .metallicity-comparison-marker .metallicity-marker-value { bottom: 97px; }

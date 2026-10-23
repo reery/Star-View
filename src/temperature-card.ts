@@ -1,6 +1,7 @@
 import { Sun, Thermometer, createElement } from 'lucide'
 import { starDisplayColor, type StarColorMode } from './astronomy'
 import type { Star } from './catalog-model'
+import { renderComparisonName } from './comparison-tiles'
 import { MISSING_VALUE } from './format'
 import { svgNode } from './spectral-chart'
 import {
@@ -150,16 +151,18 @@ function renderSpectrum(root: HTMLElement, star: Star, origin: Star, sun: Star, 
   host.replaceChildren(svg)
 }
 
-function renderComparisonTiles(root: HTMLElement, main: Star, other: Star, mode: StarColorMode, comparing: boolean): void {
-  root.querySelector<HTMLElement>('.temperature-overview')!.hidden = comparing
-  root.querySelector<HTMLElement>('.temperature-facts')!.hidden = comparing
+const TILE_LABELS = { temperature: 'Effective temperature', appearance: 'Perceived color', ratio: 'Kelvin comparison' } as const
+
+function renderComparisonTiles(root: HTMLElement, main: Star, other: Star | undefined, mode: StarColorMode): void {
+  root.querySelector<HTMLElement>('.temperature-overview')!.hidden = Boolean(other)
+  root.querySelector<HTMLElement>('.temperature-facts')!.hidden = Boolean(other)
   const values = root.querySelector<HTMLElement>('#temperature-comparison-values')!
   const facts = root.querySelector<HTMLElement>('#temperature-comparison-facts')!
   for (const grid of [values, facts]) {
-    grid.hidden = !comparing
+    grid.hidden = !other
     grid.replaceChildren()
   }
-  if (!comparing) return
+  if (!other) return
 
   for (const metric of ['temperature', 'appearance', 'ratio'] as const) {
     for (const [star, reference] of [[main, other], [other, main]] as const) {
@@ -169,16 +172,11 @@ function renderComparisonTiles(root: HTMLElement, main: Star, other: Star, mode:
       tile.dataset.objectId = star.id
       tile.dataset.metric = metric
       const heading = document.createElement('dt')
-      const swatch = document.createElement('i')
-      swatch.className = 'star-swatch'
-      swatch.style.background = starDisplayColor(star, mode).getStyle()
-      swatch.setAttribute('aria-hidden', 'true')
-      const name = document.createElement('span')
-      name.textContent = star.name
+      renderComparisonName(heading, star, mode)
       const label = document.createElement('span')
       label.className = 'sr-only'
-      label.textContent = ` · ${metric === 'temperature' ? 'Effective temperature' : metric === 'appearance' ? 'Perceived color' : 'Kelvin comparison'}`
-      heading.append(swatch, name, label)
+      label.textContent = ` · ${TILE_LABELS[metric]}`
+      heading.append(label)
       const value = document.createElement('dd')
       const metricIcon = document.createElement('span')
       metricIcon.className = 'temperature-tile-metric-icon'
@@ -209,27 +207,32 @@ function renderComparisonTiles(root: HTMLElement, main: Star, other: Star, mode:
   }
 }
 
-export function renderTemperatureCard(root: HTMLElement, star: Star, origin: Star, sun: Star, mode: StarColorMode, comparing = false): void {
-  if (!temperatureCardAvailable(star)) return
+function renderOverview(root: HTMLElement, star: Star): void {
   const temperature = star.temperature_k!
   const set = (id: string, value: string) => { root.querySelector<HTMLElement>(`#${id}`)!.textContent = value }
-  root.style.setProperty('--temperature-color', starDisplayColor(star, mode).getStyle())
   set('temperature-value', `${format(temperature)} K`)
   set('temperature-celsius', `${format(temperature - 273.15)} °C`)
   set('temperature-fahrenheit', `${format((temperature - 273.15) * 9 / 5 + 32)} °F`)
   set('temperature-appearance', temperatureAppearance(temperature))
-  const referenceTemperature = comparing ? temperatureCardAvailable(origin) ? origin.temperature_k! : null : SOLAR_TEMPERATURE_K
-  set('temperature-solar-ratio', referenceTemperature === null ? `${origin.name}: unavailable` : `${compact(temperature / referenceTemperature)}× ${comparing ? `${origin.name}’s` : 'Sun’s'} temperature`)
+  set('temperature-solar-ratio', `${compact(temperature / SOLAR_TEMPERATURE_K)}× Sun’s temperature`)
   set('temperature-appearance-note', 'Faint glow; most emission is infrared.')
   root.querySelector<HTMLElement>('#temperature-appearance-note')!.hidden = temperature >= 2400
-  const swatch = root.querySelector<HTMLElement>('#temperature-color-star')!
   // Use the app’s real-color mode for perceived color, independently of the
   // exaggerated scene setting used by the selected marker and spectrum curve.
-  swatch.style.setProperty('--temperature-swatch-color', starDisplayColor(star, 'real').getStyle())
-  for (const [id, shape] of [['temperature-value-icon', Thermometer], ['temperature-ratio-icon', comparing ? Thermometer : Sun]] as const) {
+  root.querySelector<HTMLElement>('#temperature-color-star')!.style.setProperty('--temperature-swatch-color', starDisplayColor(star, 'real').getStyle())
+  for (const [id, shape] of [['temperature-value-icon', Thermometer], ['temperature-ratio-icon', Sun]] as const) {
     root.querySelector(`#${id}`)!.replaceChildren(createElement(shape, { width: 20, height: 20, 'stroke-width': 1.7, 'aria-hidden': 'true' }))
   }
-  renderComparisonTiles(root, star, origin, mode, comparing)
-  renderScale(root, star, origin, sun, mode, comparing)
-  renderSpectrum(root, star, origin, sun, mode, comparing)
+}
+
+export function renderTemperatureCard(root: HTMLElement, star: Star, origin: Star, sun: Star, mode: StarColorMode, other?: Star): void {
+  if (!temperatureCardAvailable(star)) return
+  const comparing = other !== undefined
+  const reference = other ?? origin
+  root.style.setProperty('--temperature-color', starDisplayColor(star, mode).getStyle())
+  // A comparison replaces the single-star overview with paired tiles.
+  if (!other) renderOverview(root, star)
+  renderComparisonTiles(root, star, other, mode)
+  renderScale(root, star, reference, sun, mode, comparing)
+  renderSpectrum(root, star, reference, sun, mode, comparing)
 }

@@ -1,12 +1,5 @@
-import { expect, test, type Locator, type Page } from '@playwright/test'
-import { openFilter, openPreferences, openSpecs, openViewer, zoomViewer } from './support'
-
-async function selectObject(page: Page, name: string): Promise<void> {
-  await page.getByRole('button', { name: 'Objects', exact: true }).click()
-  await page.getByLabel('Search objects').fill(name)
-  await page.getByRole('button', { name: `Select ${name}`, exact: true }).click()
-  await page.getByRole('button', { name: 'Objects', exact: true }).click()
-}
+import { expect, test, type Locator } from '@playwright/test'
+import { openFilter, openPreferences, openSpecs, openViewer, selectObject, zoomViewer } from './support'
 
 test('persists constellation latitude across reloads and ignores unsupported stored values', async ({ page }) => {
   await openViewer(page)

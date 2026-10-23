@@ -1,16 +1,9 @@
-import { expect, test, type Page } from '@playwright/test'
-import { motionArrows, openViewer, selectCatalog } from './support'
-
-async function selectObject(page: Page, name: string) {
-  const objects = page.getByRole('button', { name: 'Objects', exact: true })
-  if (await objects.getAttribute('aria-expanded') === 'false') await objects.click()
-  await page.getByLabel('Search objects').fill(name)
-  await page.getByRole('button', { name: `Select ${name}`, exact: true }).click()
-}
+import { expect, test } from '@playwright/test'
+import { motionArrows, openViewer, selectCatalog, selectObject } from './support'
 
 test('star selections retain the exact system component through controls and history', { tag: '@mobile' }, async ({ page }) => {
   await openViewer(page)
-  await selectObject(page, 'Sirius B')
+  await selectObject(page, 'Sirius B', { keepListOpen: true })
   await expect(page.locator('#inspector')).toHaveAttribute('data-selected-star', 'sirius-b')
   await expect(page.locator('#star-components [aria-pressed="true"]')).toHaveText('B')
   await expect(page.getByRole('button', { name: 'Select Sirius B', exact: true })).toHaveAttribute('aria-pressed', 'true')
@@ -18,10 +11,10 @@ test('star selections retain the exact system component through controls and his
   await expect(page.locator('#star-components [aria-pressed="true"]')).toHaveText('A')
   await page.locator('#star-components [data-component-id="sirius-b"]').click()
   await expect(page.locator('#star-components [aria-pressed="true"]')).toHaveText('B')
-  await selectObject(page, 'Alpha Centauri B')
+  await selectObject(page, 'Alpha Centauri B', { keepListOpen: true })
   await expect(page.locator('#inspector')).toHaveAttribute('data-selected-star', 'alpha-centauri-b')
   await expect(page.locator('#star-components [aria-pressed="true"]')).toHaveText('B')
-  await selectObject(page, 'Proxima Centauri')
+  await selectObject(page, 'Proxima Centauri', { keepListOpen: true })
   await expect(page.locator('#inspector')).toHaveAttribute('data-selected-star', 'proxima-centauri')
   await expect(page.locator('#star-components [aria-pressed="true"]')).toHaveText('C')
   await page.locator('#selection-back').click()
@@ -30,7 +23,7 @@ test('star selections retain the exact system component through controls and his
   await page.locator('#selection-forward').click()
   await expect(page.locator('#inspector')).toHaveAttribute('data-selected-star', 'proxima-centauri')
   await expect(page.locator('#star-components [aria-pressed="true"]')).toHaveText('C')
-  await selectObject(page, 'Sirius A')
+  await selectObject(page, 'Sirius A', { keepListOpen: true })
   await expect(page.locator('#star-components [aria-pressed="true"]')).toHaveText('A')
 })
 
@@ -38,7 +31,7 @@ test('stellar orbit pairs, barycenters and term tooltips fit the selected card',
   const errors: string[] = []
   page.on('pageerror', (error) => errors.push(error.message))
   await openViewer(page)
-  await selectObject(page, 'Alpha Centauri A')
+  await selectObject(page, 'Alpha Centauri A', { keepListOpen: true })
   await page.locator('#object-system-toggle').click()
   const system = page.locator('#object-system')
   await expect(system).toContainText('3 stars system')
@@ -87,7 +80,7 @@ test('stellar orbit pairs, barycenters and term tooltips fit the selected card',
 
 test('EZ Aquarii shows its A–C and AC–B orbits with exact component selection', async ({ page }, testInfo) => {
   await openViewer(page)
-  await selectObject(page, 'EZ Aquarii A')
+  await selectObject(page, 'EZ Aquarii A', { keepListOpen: true })
   await expect(page.locator('#object-system-toggle')).toBeEnabled()
   await page.locator('#object-system-toggle').click()
   const system = page.locator('#object-system')
@@ -114,7 +107,7 @@ test('EZ Aquarii shows its A–C and AC–B orbits with exact component selectio
 
 test('orbit coverage audit restores nearby systems and nested pair controls', async ({ page }, testInfo) => {
   await openViewer(page)
-  await selectObject(page, 'Luhman 16 A')
+  await selectObject(page, 'Luhman 16 A', { keepListOpen: true })
   await expect(page.locator('#object-system-toggle')).toBeEnabled()
   await page.locator('#object-system-toggle').click()
   const system = page.locator('#object-system')
@@ -122,12 +115,12 @@ test('orbit coverage audit restores nearby systems and nested pair controls', as
   await expect(system.locator('[data-orbit-spec="epoch"] dd')).toHaveText('J2018.06')
   await expect(system.locator('[data-stellar-orbit]')).toHaveCount(2)
   await selectCatalog(page, 'nearest-100')
-  await selectObject(page, 'GJ 1245 A')
+  await selectObject(page, 'GJ 1245 A', { keepListOpen: true })
   await expect(system.getByRole('button', { name: 'Show A–C orbit', exact: true })).toBeVisible()
   await system.getByRole('button', { name: 'Show AC–B orbit', exact: true }).click()
   await expect(system.locator('[data-stellar-component]')).toHaveCount(3)
   await page.locator('#selected-object-card').screenshot({ path: testInfo.outputPath('gj-1245-outer-orbit.png') })
-  await selectObject(page, 'eps Ind A')
+  await selectObject(page, 'eps Ind A', { keepListOpen: true })
   await expect(page.locator('#star-components button')).toHaveCount(3)
   await expect(system.getByRole('button', { name: 'Show Ba–Bb orbit', exact: true })).toBeVisible()
   await page.locator('#star-components [data-component-id="10pc-0043"]').click()
@@ -136,10 +129,10 @@ test('orbit coverage audit restores nearby systems and nested pair controls', as
 
 test('empty System tabs are disabled and the Sun planet view remains available', { tag: '@mobile' }, async ({ page }) => {
   await openViewer(page)
-  await selectObject(page, 'Ross 154')
+  await selectObject(page, 'Ross 154', { keepListOpen: true })
   await expect(page.locator('#object-system-toggle')).toBeDisabled()
   await expect(page.locator('#object-system')).not.toContainText('Planet data not added')
-  await selectObject(page, 'Sun')
+  await selectObject(page, 'Sun', { keepListOpen: true })
   await expect(page.locator('#object-system-toggle')).toBeEnabled()
   await page.locator('#object-system-toggle').click()
   await expect(page.locator('#object-system .planet-row')).toHaveCount(8)
@@ -157,7 +150,7 @@ test('close systems draw the brightest star plus explicitly selected companions'
     ['Proxima Centauri', 'proxima-centauri'], ['GJ 1245 B', '10pc-0089'],
     ['GJ 1245 C', '10pc-0088'], ['GJ 1245 A', '10pc-0087'],
   ] as const) {
-    await selectObject(page, name)
+    await selectObject(page, name, { keepListOpen: true })
     await expect(page.locator('#inspector')).toHaveAttribute('data-selected-star', id)
     await expect(label(id)).toHaveAttribute('data-core-visible', 'true')
     await expect(label(id)).toHaveAttribute('data-halo-visible', 'true')
@@ -173,18 +166,18 @@ test('close systems draw the brightest star plus explicitly selected companions'
   await page.locator('#time-slider').fill('50000')
   await expect(label('10pc-0088')).toHaveAttribute('data-core-visible', 'true')
   await page.locator('#time-slider').fill('0')
-  await selectObject(page, 'Sun')
+  await selectObject(page, 'Sun', { keepListOpen: true })
   await expect(label('10pc-0088')).toHaveCount(0)
   expect((await motionArrows(page)).some((arrow) => arrow.id === '10pc-0088')).toBe(false)
   await page.getByRole('button', { name: 'Observe from Sun', exact: true }).click()
   const points = page.locator('.projected-labels')
   const defaultCoreCount = Number(await points.getAttribute('data-core-count'))
-  await selectObject(page, 'Sirius B')
+  await selectObject(page, 'Sirius B', { keepListOpen: true })
   await expect(label('sirius-b')).toHaveAttribute('data-core-visible', 'true')
   await expect(label('sirius-b')).toHaveAttribute('data-halo-visible', 'true')
   // Count drawable points: the primary may be outside the observer's name budget.
   await expect(points).toHaveAttribute('data-core-count', String(defaultCoreCount + 1))
-  await selectObject(page, 'Proxima Centauri')
+  await selectObject(page, 'Proxima Centauri', { keepListOpen: true })
   await expect(label('proxima-centauri')).toHaveAttribute('data-core-visible', 'true')
   await expect(label('sirius-b')).toHaveCount(0)
   await expect(points).toHaveAttribute('data-core-count', String(defaultCoreCount))

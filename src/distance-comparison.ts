@@ -85,9 +85,8 @@ export function renderDistanceComparison(
   canvas: HTMLCanvasElement, selected: Star, reference: Star, colorMode: StarColorMode, unit: DistanceUnit = 'ly',
   years = 0, frame: MotionFrame = 'galactic', other?: Star,
 ): void {
-  const geometry = distanceGeometry(selected, reference, years, frame)
-  const { distancePc, heightPc } = geometry
   const comparisons = [selected, ...(other ? [other] : [])].map((star) => ({ star, geometry: distanceGeometry(star, reference, years, frame) }))
+  const { distancePc, heightPc } = comparisons[0]!.geometry
   const maximumDistance = Math.max(...comparisons.map(({ geometry }) => geometry.distancePc))
   const scale = maximumDistance > 0 ? RADIUS / maximumDistance : 0
   const left = { x: WIDTH / 4, y: CENTER_Y }

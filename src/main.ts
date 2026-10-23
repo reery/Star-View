@@ -18,7 +18,8 @@ import { EARTH_ORBIT_MODES, earthOrbitDateForMode, earthOrbitModeLabel, isEarthO
 import { MOTION_YEAR_OPTIONS, SIMULATION_YEAR_LIMIT, createStarViewer, type MotionYears, type StarViewer, type ViewerViewState } from './viewer'
 import { isObjectMapVisible } from './viewer-primitives'
 import { renderSelectedStarPreview } from './selected-star-preview'
-import { initializeStarComparison } from './star-comparison'
+import { COMPARISON_DETAIL_TOGGLES, initializeStarComparison } from './star-comparison'
+import { radialVelocitySource, specValues, type SpecValue } from './spec-values'
 import { starInfoAvailable } from './star-info-availability'
 import type { MassReference } from './mass-comparison'
 import type { HrMagnitudeMode } from './hr-diagram'
@@ -39,13 +40,12 @@ import {
   filterCategoryForKey, filterSummary, isFilterCategoryId, isFilterKey, type FilterCategoryId, type FilterKey,
 } from './object-filter'
 import { ObjectList, type ObjectListFilter } from './object-list'
-import { spaceMotionForStar } from './space-motion'
 import { SelectionHistory } from './selection-history'
 import { appendConstellationContent } from './constellation-card-content'
 import { initializeToolbarTouch } from './toolbar-touch'
 import { initializeTouchTooltips } from './touch-tooltips'
 import { objectSubtypeDescription } from './object-subtype-info'
-import { MISSING_VALUE, measurement, preciseMeasurement, quantity, scientificQuantity } from './format'
+import { MISSING_VALUE, preciseMeasurement, quantity, scientificQuantity } from './format'
 import { OBJECT_DISTANCE_STEPS_LY, readSavedViews, SAVED_VIEWS_STORAGE_KEY, type SavedView, type SavedViewSettings } from './saved-views'
 import type { SkyGridMode } from './sky-grid'
 import { browserDataSize, deleteBrowserData } from './browser-data'
@@ -76,11 +76,16 @@ function text(id: string, value: string): void {
   element(id).textContent = value
 }
 
-function sourceMeasurement<T extends Parameters<typeof catalogSourceFor>[1]>(id: string, star: Star, field: T, format: (value: Exclude<Star[T], undefined> | null) => string): void {
-  const source = catalogSourceFor(star, field)
-  text(id, format(catalogMeasurement(star, field)))
-  element(id).title = source?.scope ?? ''
-  element(id).classList.toggle('unresolved-measurement', Boolean(source))
+// Values with selection-specific markup stay in renderSelection; Specs owns the rest.
+const SPECS_OWNED_BY_SELECTION = new Set(['distance-toggle', 'known-planets', 'object-subtypes-empty'])
+
+function showSpec(id: string, value: SpecValue): void {
+  const target = element(id)
+  target.textContent = value.text
+  if (value.title) target.title = value.title
+  else target.removeAttribute('title')
+  target.classList.toggle('unresolved-measurement', Boolean(value.unresolved))
+  if (value.label !== undefined) target.closest('.properties > div')!.querySelector('dt')!.textContent = value.label
 }
 
 function sourceCardTooltip(metric: 'luminosity' | 'radius' | 'temperature', star: Star, propertiesHidden: boolean): void {
@@ -198,6 +203,8 @@ let constellationBrowser: ReturnType<typeof import('./constellation-browser').in
 let glossaryInitialized = false
 let viewer: StarViewer | undefined
 let stars: Star[] = []
+let starIndex = new Map<string, Star>()
+const starById = (id: string | null | undefined): Star | undefined => id ? starIndex.get(id) : undefined
 // Chart selections are explicit additions, independent of the overlay switches.
 // Retain them across catalog refreshes so origin and selection history stay valid.
 const constellationSelectedStars = new Map<string, Star>()
@@ -518,7 +525,16 @@ let constellationStarId: string | undefined
 let objectTypeStarId: string | undefined
 
 function sideDetailStar(id: string | undefined): Star | undefined {
-  return starComparison.other?.id === id ? starComparison.other : stars.find((star) => star.id === selectedId)
+  const other = starComparison.other
+  return other && other.id === id ? other : starById(selectedId)
+}
+
+/** Detail cards compare with the comparison star when one is active, otherwise with the map origin. */
+function cardReferences(): { sun: Star; origin: Star; other: Star | undefined; reference: Star } {
+  const sun = starById('sun')!
+  const origin = starById(referenceId) ?? sun
+  const other = starComparison.other
+  return { sun, origin, other, reference: other ?? origin }
 }
 
 function closeConstellationCard(restoreFocus = false): void {
@@ -562,7 +578,7 @@ async function selectConstellationStar(object: Star): Promise<void> {
 }
 
 async function toggleConstellationCard(other = false): Promise<void> {
-  const star = other ? starComparison.other : stars.find((candidate) => candidate.id === selectedId)
+  const star = other ? starComparison.other : starById(selectedId)
   if (!star || !constellationCardAvailable(star)) return
   if (!element('constellation-card').hidden && constellationStarId === star.id) {
     closeConstellationCard(true)
@@ -625,9 +641,8 @@ async function renderSpectralCard(star: Star): Promise<void> {
     clearLoadRecovery(element('spectral-card').querySelector<HTMLElement>('.card-scroll-content')!)
   }
   if (request !== spectralRenderRequest || element('spectral-card').hidden || selectedId !== star.id) return
-  const sun = stars.find((candidate) => candidate.id === 'sun')!
-  const origin = stars.find((candidate) => candidate.id === referenceId) ?? sun
-  const reference = starComparison.other ?? spectralReference(origin, sun)
+  const { sun, origin, other } = cardReferences()
+  const reference = other ?? spectralReference(origin, sun)
   for (const diagram of ['hr', 'mk'] as const) {
     element(`spectral-${diagram}`).setAttribute('aria-pressed', String(spectralDiagram === diagram))
     element(`spectral-${diagram}-content`).hidden = spectralDiagram !== diagram
@@ -768,19 +783,15 @@ let luminosityCardModule: typeof import('./luminosity-card') | undefined
 
 function renderLuminosityCard(star: Star): void {
   if (!luminosityCardModule) return
-  const sun = stars.find((candidate) => candidate.id === 'sun')!
-  const other = starComparison.other
-  const origin = other ?? stars.find((candidate) => candidate.id === referenceId) ?? sun
-  luminosityCardModule.renderLuminosityCard(element('luminosity-card'), star, origin, sun, starColorMode, Boolean(other))
+  const { sun, origin, other } = cardReferences()
+  luminosityCardModule.renderLuminosityCard(element('luminosity-card'), star, origin, sun, starColorMode, other)
   syncObjectTypeLayout()
 }
 
 function renderTemperatureCard(star: Star): void {
   if (!temperatureCardModule) return
-  const sun = stars.find((candidate) => candidate.id === 'sun')!
-  const other = starComparison.other
-  const origin = other ?? stars.find((candidate) => candidate.id === referenceId) ?? sun
-  temperatureCardModule.renderTemperatureCard(element('temperature-card'), star, origin, sun, starColorMode, Boolean(other))
+  const { sun, origin, other } = cardReferences()
+  temperatureCardModule.renderTemperatureCard(element('temperature-card'), star, origin, sun, starColorMode, other)
   syncObjectTypeLayout()
 }
 
@@ -839,10 +850,8 @@ async function renderMagnitudeCard(star: Star): Promise<void> {
     }, events.signal)
     magnitudeVisibilityInitialized = true
   }
-  const sun = stars.find((candidate) => candidate.id === 'sun')!
-  const other = starComparison.other
-  const origin = other ?? stars.find((candidate) => candidate.id === referenceId) ?? sun
-  renderMagnitudeComparison(element('magnitude-card'), star, origin, sun, starColorMode, stars.find((candidate) => candidate.id === 'sirius-a'), Boolean(other))
+  const { sun, origin, other } = cardReferences()
+  renderMagnitudeComparison(element('magnitude-card'), star, origin, sun, starColorMode, starById('sirius-a'), other)
   syncObjectTypeLayout()
 }
 
@@ -907,8 +916,7 @@ let massCardModule: typeof import('./mass-card') | undefined
 
 function renderMassCard(star: Star): void {
   if (!massCardModule) return
-  const other = starComparison.other
-  const origin = other ?? stars.find((candidate) => candidate.id === referenceId) ?? stars.find((candidate) => candidate.id === 'sun')!
+  const { reference: origin, other } = cardReferences()
   const referenceMode = !other && origin.id === 'sun' && massReference === 'origin' ? 'sun' : massReference
   text('mass-reference-origin', `vs ${origin.name}`)
   element('mass-reference-origin').hidden = !other && origin.id === 'sun'
@@ -967,9 +975,7 @@ function closeDistanceCard(restoreFocus = false): void {
 
 function renderDistanceCard(star: Star): void {
   if (!distanceCardModule) return
-  const sun = stars.find((candidate) => candidate.id === 'sun')!
-  const origin = stars.find((candidate) => candidate.id === referenceId) ?? sun
-  const other = starComparison.other
+  const { sun, origin, other } = cardReferences()
   const referenceMode = other || origin.id === 'sun' ? 'sun' : distanceReference
   const originLabel = `from ${origin.name}`
   text('distance-reference-origin', originLabel)
@@ -1027,8 +1033,8 @@ let radiusModules: { comparison: typeof import('./radius-comparison'); card: typ
 function renderRadiusCard(star: Star): void {
   if (!radiusModules) return
   const { radiusComparison, radiusStats, radiusSummary, renderRadiusComparison } = radiusModules.comparison
-  const sun = stars.find((candidate) => candidate.id === 'sun')!
-  const origin = starComparison.other ?? (star.id === referenceId ? sun : stars.find((candidate) => candidate.id === referenceId) ?? sun)
+  const references = cardReferences()
+  const origin = references.other ?? (star.id === referenceId ? references.sun : references.origin)
   const comparison = radiusComparison(star, origin, radiusReference)
   text('radius-selected-name', comparison.selected.name)
   text('radius-selected-column', comparison.selected.name)
@@ -1102,16 +1108,20 @@ function renderMetallicityCard(star: Star): void {
   const kind = source?.record.metallicity_kind ?? star.metallicity_kind
   const iron = kind === '[Fe/H]'
   const ratioName = iron ? 'iron-to-hydrogen' : 'metal-to-hydrogen'
-  const otherKind = other ? catalogSourceFor(other, 'metallicity_dex')?.record.metallicity_kind ?? other.metallicity_kind : undefined
+  const otherSource = other ? catalogSourceFor(other, 'metallicity_dex') : undefined
+  const otherValue = other ? catalogMeasurement(other, 'metallicity_dex') : null
+  const otherKind = other ? otherSource?.record.metallicity_kind ?? other.metallicity_kind : undefined
   text('metallicity-heading', `Metallicity ${other && kind !== otherKind ? '' : kind ?? ''}${source ? ' · system' : ''}`.trim())
   const limit = 2
   const outsideScale = value !== null && Math.abs(value) > limit
-  const position = value === null ? 50 : Math.max(0, Math.min(100, (value + limit) / (2 * limit) * 100))
+  const scalePosition = (dex: number | null) => dex === null ? 50 : Math.max(0, Math.min(100, (dex + limit) / (2 * limit) * 100))
+  const labelOffset = (percent: number) => percent < 35 ? '0%' : percent > 65 ? '-100%' : '-50%'
+  const position = scalePosition(value)
   const scale = element('metallicity-scale')
   scale.classList.toggle('has-comparison', Boolean(other))
   scale.querySelector('[data-comparison-metallicity]')?.remove()
   scale.style.setProperty('--metallicity-position', `${position}%`)
-  scale.style.setProperty('--metallicity-label-offset', position < 35 ? '0%' : position > 65 ? '-100%' : '-50%')
+  scale.style.setProperty('--metallicity-label-offset', labelOffset(position))
   const formatPercent = (percent: number): string => `${percent.toLocaleString('en-US', {
     notation: percent > 1000 ? 'compact' : 'standard',
     ...(percent > 1000 ? { maximumSignificantDigits: 3 } : { maximumFractionDigits: percent < 1 ? 2 : 0 }),
@@ -1141,21 +1151,20 @@ function renderMetallicityCard(star: Star): void {
   element('metallicity-marker').hidden = value === null
   element('metallicity-fill').hidden = value === null
   text('metallicity-marker-value', value === null ? '' : `${value > 0 ? '+' : ''}${quantity(value, 'dex', 2)} (${percentageLabel})`)
+  let comparisonNote = ''
   if (other) {
     const label = element('metallicity-marker-value')
     label.prepend(document.createTextNode(`${star.name} ${kind ?? ''} · `))
     label.style.maxWidth = `${scale.clientWidth - 16}px`
-    const otherValue = catalogMeasurement(other, 'metallicity_dex')
-    const otherSource = catalogSourceFor(other, 'metallicity_dex')
     const otherLabel = `${other.name} ${otherKind ?? ''}${otherSource ? ' · system' : ''}: ${otherValue === null ? 'unavailable' : `${otherValue > 0 ? '+' : ''}${quantity(otherValue, 'dex', 2)} (${formatPercent(10 ** otherValue * 100)} of Sun)`}`
     scale.setAttribute('aria-label', `${scale.getAttribute('aria-label')} ${otherLabel}.${otherSource ? ` ${otherSource.scope}` : ''}`)
     const marker = document.createElement('span')
     marker.className = 'metallicity-marker metallicity-comparison-marker'
     marker.dataset.comparisonMetallicity = ''
     marker.dataset.objectId = other.id
-    const otherPosition = otherValue === null ? 50 : Math.max(0, Math.min(100, (otherValue + limit) / (2 * limit) * 100))
+    const otherPosition = scalePosition(otherValue)
     marker.style.left = `${otherPosition}%`
-    marker.style.setProperty('--metallicity-label-offset', otherPosition < 35 ? '0%' : otherPosition > 65 ? '-100%' : '-50%')
+    marker.style.setProperty('--metallicity-label-offset', labelOffset(otherPosition))
     const caption = document.createElement('span')
     caption.className = 'metallicity-marker-value'
     caption.style.maxWidth = `${scale.clientWidth - 16}px`
@@ -1163,6 +1172,10 @@ function renderMetallicityCard(star: Star): void {
     marker.append(caption)
     marker.classList.toggle('is-missing', otherValue === null)
     element('metallicity-marker').parentElement!.append(marker)
+    if (otherValue === null) comparisonNote += ` ${other.name}: individual metallicity unavailable.`
+    else if (otherSource) comparisonNote += ` ${other.name}: unresolved system measurement. ${otherSource.scope}`
+    if (otherValue !== null && Math.abs(otherValue) > limit) comparisonNote += ` ${other.name} is outside the displayed range; its marker sits at the nearest edge.`
+    if (kind !== otherKind) comparisonNote += ' [Fe/H] and [M/H] describe different abundances; each star’s measurement is labeled on the scale.'
   } else element('metallicity-marker-value').style.removeProperty('max-width')
   let description = `No metallicity measurement is available for ${star.name}. [Fe/H] measures iron relative to hydrogen; [M/H] describes overall metallicity. They are distinct quantities.`
   if (value !== null) {
@@ -1172,15 +1185,7 @@ function renderMetallicityCard(star: Star): void {
     description += source ? ` Unresolved system value; ${star.name}’s individual metallicity is unavailable. ${source.scope}` : ` ${metallicityContext(star)}`
     if (outsideScale) description += ' Its value is beyond the displayed −2 to +2 dex range; the marker sits at the nearest edge.'
   }
-  if (other) {
-    const otherValue = catalogMeasurement(other, 'metallicity_dex')
-    const otherSource = catalogSourceFor(other, 'metallicity_dex')
-    if (otherValue === null) description += ` ${other.name}: individual metallicity unavailable.`
-    else if (otherSource) description += ` ${other.name}: unresolved system measurement. ${otherSource.scope}`
-    if (otherValue !== null && Math.abs(otherValue) > limit) description += ` ${other.name} is outside the displayed range; its marker sits at the nearest edge.`
-    if (kind !== otherKind) description += ' [Fe/H] and [M/H] describe different abundances; each star’s measurement is labeled on the scale.'
-  }
-  text('metallicity-description', description)
+  text('metallicity-description', `${description}${comparisonNote}`)
   syncObjectTypeLayout()
 }
 
@@ -1256,7 +1261,7 @@ async function renderObjectTypeCard(star: Star): Promise<void> {
 }
 
 function toggleObjectTypeCard(other = false): void {
-  const star = other ? starComparison.other : stars.find((candidate) => candidate.id === selectedId)
+  const star = other ? starComparison.other : starById(selectedId)
   if (!star) return
   if (!element('object-type-card').hidden && objectTypeStarId === star.id) {
     closeObjectTypeCard(true)
@@ -1642,46 +1647,28 @@ syncObjectSections()
 
 let detailComparisonId: string | undefined
 const starComparison = initializeStarComparison({
-  context: () => ({ selected: stars.find((star) => star.id === selectedId), stars, unit: distanceUnit, colorMode: starColorMode }),
+  context: () => ({ selectedId, unit: distanceUnit, colorMode: starColorMode }),
+  star: starById,
   system: (id) => starSystems.get(id),
   select: selectStar,
   detailTarget: (metric) => sideDetailStar(metric === 'object-type' ? objectTypeStarId : constellationStarId)?.id,
-  changed: () => {
-    const id = starComparison.other?.id
-    if (id !== detailComparisonId) {
-      if (id) {
-        massReference = 'origin'
-        radiusReference = 'origin'
-      } else {
-        massReference = 'class'
-        radiusReference = 'auto'
-      }
-      detailComparisonId = id
-    }
+  update: (showSpecs) => {
     renderSelection()
-  },
-  detailAvailable: (metric) => {
-    if (metric === 'object-type' || metric === 'distance-toggle') return true
-    if (metric === 'constellation') return Boolean(starComparison.other && constellationCardAvailable(starComparison.other))
-    const toggle = metric === 'absolute-mag' ? 'magnitude' : metric === 'spectral-type' ? 'spectral' : metric
-    return !element<HTMLButtonElement>(`${toggle}-toggle`).disabled
-  },
-  openDetail: (metric, other) => {
-    if (metric === 'object-type') toggleObjectTypeCard(other)
-    else if (metric === 'constellation') void toggleConstellationCard(other)
-    else {
-      const toggle = metric === 'absolute-mag' ? 'magnitude' : metric === 'spectral-type' ? 'spectral' : metric === 'distance-toggle' ? 'distance' : metric
-      element(`${toggle}-toggle`).click()
+    if (!showSpecs) {
+      syncObjectTypeLayout()
+      return
     }
-  },
-  showSpecs: () => {
     activeObjectSection = 'specs'
     element<HTMLDetailsElement>('object-card-details').open = true
     syncObjectSections()
   },
-  layout: () => {
-    syncSelectedObjectLayout()
-    syncObjectTypeLayout()
+  detailAvailable: (metric) => metric === 'constellation'
+    ? Boolean(starComparison.other && constellationCardAvailable(starComparison.other))
+    : !element<HTMLButtonElement>(COMPARISON_DETAIL_TOGGLES[metric]!).disabled,
+  openDetail: (metric) => {
+    if (metric === 'object-type') toggleObjectTypeCard(true)
+    else if (metric === 'constellation') void toggleConstellationCard(true)
+    else element(COMPARISON_DETAIL_TOGGLES[metric]!).click()
   },
 }, events.signal)
 
@@ -1731,10 +1718,12 @@ element('star-components').addEventListener('click', (event) => {
 }, { signal: events.signal })
 
 function renderSelection(): void {
-  if (detailComparisonId && !starComparison.other) {
-    massReference = 'class'
-    radiusReference = 'auto'
-    detailComparisonId = undefined
+  const comparisonId = starComparison.other?.id
+  if (comparisonId !== detailComparisonId) {
+    // A comparison shows both stars directly; leaving it restores the default references.
+    massReference = comparisonId ? 'origin' : 'class'
+    radiusReference = comparisonId ? 'origin' : 'auto'
+    detailComparisonId = comparisonId
   }
   starComparison.clearColumns()
   const sun = stars.find((star) => star.id === 'sun')!
@@ -1775,7 +1764,7 @@ function renderSelection(): void {
     text('selection-announcement', 'No object selected.')
     return
   }
-  const metrics = sunRelativeMetrics(star, sun)
+  const specs = specValues(star, sun, distanceUnit)
   const displayedDistancePc = selectedDistancePc ?? sunRelativeMetrics(star, reference).distancePc
   const color = starDisplayColor(star, starColorMode).getStyle()
   element('inspector').dataset.selectedStar = star.id
@@ -1811,15 +1800,14 @@ function renderSelection(): void {
   }
   syncObjectInfoAvailability()
   if (knownPlanetCount > 0) element<HTMLCanvasElement>('selected-swatch').title = `${knownPlanetCount} known planets · illustrative orbit`
-  text('distance-value', formatDistance(metrics.distancePc, distanceUnit).split(' ')[0]!)
+  for (const [id, value] of Object.entries(specs)) if (!SPECS_OWNED_BY_SELECTION.has(id)) showSpec(id, value)
+  text('distance-value', specs['distance-toggle']!.text.split(' ')[0]!)
   text('distance-unit', ` ${distanceUnit}`)
   element('distance-toggle').setAttribute('aria-label', `Visualize distance and direction of ${star.name}`)
   refreshDistanceCard()
-  text('object-type', describeObject(star))
   element('object-type-toggle').setAttribute('aria-label', `Learn about ${describeObject(star).toLowerCase()}`)
   if (!element('object-type-card').hidden) renderObjectTypeCard(sideDetailStar(objectTypeStarId) ?? star)
   element('constellation-row').hidden = star.id === 'sun'
-  text('constellation', star.constellation ?? MISSING_VALUE)
   const constellationAvailable = constellationCardAvailable(star)
   element<HTMLButtonElement>('constellation-toggle').disabled = !constellationAvailable
   element('constellation-toggle').title = constellationAvailable ? `Show ${star.constellation}` : 'Constellation chart not available yet'
@@ -1833,7 +1821,8 @@ function renderSelection(): void {
   const subtypes = star.subtypes ?? []
   const subtypeDetails = element<HTMLDetailsElement>('object-subtypes-row')
   subtypeDetails.hidden = subtypes.length === 0
-  if (!subtypes.length && !starComparison.other?.subtypes?.length) subtypeDetails.open = false
+  // During a comparison, the comparison column closes these details only when both lists are empty.
+  if (!subtypes.length && !starComparison.other) subtypeDetails.open = false
   text('object-subtypes-count', String(subtypes.length))
   element('object-subtypes').replaceChildren(...subtypes.map((subtype) => {
     const item = document.createElement('li')
@@ -1864,31 +1853,19 @@ function renderSelection(): void {
   for (const row of document.querySelectorAll<HTMLElement>('.pulsar-property')) row.hidden = star.type !== 'pulsar'
   for (const row of document.querySelectorAll<HTMLElement>('.rotation-property')) row.hidden = star.type === 'black_hole' || !compactObject
   for (const row of document.querySelectorAll<HTMLElement>('.orbit-property')) row.hidden = !compact || (compact.orbital_period_days === null && compact.companion === null)
-  sourceMeasurement('spectral-type', star, 'spectral_type', (value: string | null) => value ?? MISSING_VALUE)
   element<HTMLButtonElement>('spectral-toggle').disabled = star.spectral_type === null || !hrCardAvailable(star)
   element('spectral-toggle').setAttribute('aria-label', `Explore spectral type of ${star.name}`)
   if (element<HTMLButtonElement>('spectral-toggle').disabled) closeSpectralCard()
   else if (!element('spectral-card').hidden) renderSpectralCard(star)
-  sourceMeasurement('temperature', star, 'temperature_k', (value: number | null) => quantity(value, 'K', 0))
   sourceCardTooltip('temperature', star, stellarPropertiesHidden)
+  const temperatureRange = star.temperature_k === null ? star.stellar_observations?.temperature_range : undefined
   const atmosphereTemperature = star.temperature_k === null ? star.stellar_observations?.atmosphere_temperature : undefined
-  element('temperature-row').querySelector('dt')!.textContent = atmosphereTemperature ? 'Temperature T*' : 'Temperature'
-  if (atmosphereTemperature && !stellarPropertiesHidden) {
-    text('temperature', `${atmosphereTemperature.value_k.toLocaleString('en-US')} ± ${quantity(atmosphereTemperature.error_k, 'K', 0)}`)
-    element('temperature').classList.remove('unresolved-measurement')
+  if ((temperatureRange || atmosphereTemperature) && !stellarPropertiesHidden) {
+    // The row tooltip carries the model or atmosphere scope instead of a native title.
     element('temperature').removeAttribute('title')
     element('temperature-source-tooltip').hidden = false
-    text('temperature-source-tooltip', atmosphereTemperature.scope)
-    element('temperature-row').tabIndex = 0
-    element('temperature-row').setAttribute('aria-describedby', 'temperature-source-tooltip')
-  }
-  const temperatureRange = star.temperature_k === null ? star.stellar_observations?.temperature_range : undefined
-  if (temperatureRange && !stellarPropertiesHidden) {
-    text('temperature', `${quantity(temperatureRange.min_k, '', 0)}–${quantity(temperatureRange.max_k, 'K', 0)}`)
-    element('temperature-row').querySelector('dt')!.textContent = 'Temperature (model)'
-    element('temperature-source-tooltip').hidden = false
-    element('temperature-source-tooltip').setAttribute('data-model-range', '')
-    text('temperature-source-tooltip', temperatureRange.summary)
+    element('temperature-source-tooltip').toggleAttribute('data-model-range', Boolean(temperatureRange))
+    text('temperature-source-tooltip', temperatureRange?.summary ?? atmosphereTemperature!.scope)
     element('temperature-row').tabIndex = 0
     element('temperature-row').setAttribute('aria-describedby', 'temperature-source-tooltip')
   }
@@ -1896,32 +1873,22 @@ function renderSelection(): void {
   element('temperature-toggle').setAttribute('aria-label', `Explore temperature of ${star.name}`)
   if (element<HTMLButtonElement>('temperature-toggle').disabled) closeTemperatureCard()
   else if (!element('temperature-card').hidden) renderTemperatureCard(star)
-  sourceMeasurement('luminosity', star, 'luminosity_solar', (value: number | null) => quantity(value, 'L☉', 1))
   sourceCardTooltip('luminosity', star, stellarPropertiesHidden)
   element<HTMLButtonElement>('luminosity-toggle').disabled = !luminosityCardAvailable(star) || stellarPropertiesHidden
   element('luminosity-toggle').setAttribute('aria-label', `Explore bolometric luminosity of ${star.name}`)
   if (element<HTMLButtonElement>('luminosity-toggle').disabled) closeLuminosityCard()
   else if (!element('luminosity-card').hidden) renderLuminosityCard(star)
-  sourceMeasurement('mass', star, 'mass_solar', (value: number | null) => compact
-    ? measurement(value, compact.mass_error_solar, 'M☉', 1) : quantity(value, 'M☉', 1))
   const massRange = star.mass_solar === null ? star.stellar_observations?.mass_range : undefined
-  text('mass-label', massRange ? 'Mass (model)' : 'Mass')
-  if (massRange) {
-    text('mass', `${quantity(massRange.min_jupiter, '', 1)}–${quantity(massRange.max_jupiter, '', 1)} M♃`)
-    element('mass').classList.remove('unresolved-measurement')
-    element('mass').title = `${massRange.reference}. ${massRange.scope}`
-    element('mass').setAttribute('aria-label', `Model mass: ${massRange.min_jupiter} to ${massRange.max_jupiter} Jupiter masses, assuming an age of ${massRange.assumed_age_min_gyr} to ${massRange.assumed_age_max_gyr} billion years.`)
-  } else element('mass').removeAttribute('aria-label')
+  if (massRange) element('mass').setAttribute('aria-label', `Model mass: ${massRange.min_jupiter} to ${massRange.max_jupiter} Jupiter masses, assuming an age of ${massRange.assumed_age_min_gyr} to ${massRange.assumed_age_max_gyr} billion years.`)
+  else element('mass').removeAttribute('aria-label')
   element<HTMLButtonElement>('mass-toggle').disabled = star.mass_solar === null || !massCardAvailable(star)
   element('mass-toggle').setAttribute('aria-label', `Explore mass of ${star.name}`)
   if (element<HTMLButtonElement>('mass-toggle').disabled) closeMassCard()
   else if (!element('mass-card').hidden) renderMassCard(star)
-  sourceMeasurement('radius', star, 'radius_solar', (value: number | null) => quantity(value, 'R☉', 1))
   sourceCardTooltip('radius', star, stellarPropertiesHidden)
   const radiusRange = star.radius_solar === null ? star.stellar_observations?.radius_range : undefined
-  element('radius-row').querySelector('dt')!.textContent = radiusRange ? 'Radius (model)' : 'Radius'
   if (radiusRange && !stellarPropertiesHidden) {
-    text('radius', `${quantity(radiusRange.min_jupiter, '', 1)}–${quantity(radiusRange.max_jupiter, '', 1)} R♃`)
+    element('radius').removeAttribute('title')
     element('radius-source-tooltip').hidden = false
     element('radius-source-tooltip').setAttribute('data-model-range', '')
     text('radius-source-tooltip', radiusRange.summary)
@@ -1932,14 +1899,10 @@ function renderSelection(): void {
   element('radius-toggle').setAttribute('aria-label', `Compare radius of ${star.name} with origin`)
   if (element<HTMLButtonElement>('radius-toggle').disabled) closeRadiusCard()
   else if (!element('radius-card').hidden) renderRadiusCard(star)
-  sourceMeasurement('metallicity', star, 'metallicity_dex', (value: number | null) => quantity(value, 'dex'))
   element<HTMLButtonElement>('metallicity-toggle').disabled = catalogMeasurement(star, 'metallicity_dex') === null || stellarPropertiesHidden
-  const metallicitySource = catalogSourceFor(star, 'metallicity_dex')
-  text('metallicity-label', `Metallicity ${(metallicitySource ? metallicitySource.record.metallicity_kind : star.metallicity_kind) ?? ''}`.trim())
   element('metallicity-toggle').setAttribute('aria-label', `Explain metallicity of ${star.name}`)
   if (element<HTMLButtonElement>('metallicity-toggle').disabled) closeMetallicityCard()
   else if (!element('metallicity-card').hidden) renderMetallicityCard(star)
-  sourceMeasurement('age', star, 'age_gyr', (value: number | null) => quantity(value, 'Gyr'))
   if (compact) {
     text('compact-status', compact.confidence === 'confirmed' ? 'Confirmed' : 'Candidate')
     const rotation = preciseMeasurement(compact.rotation_period_s, compact.rotation_period_error_s, 's')
@@ -1992,68 +1955,10 @@ function renderSelection(): void {
     source.textContent = bubble.source_label
     source.href = bubble.source_url
   }
-  text('coordinate-x', formatDistance(star.x_pc, distanceUnit, 3))
-  text('coordinate-y', formatDistance(star.y_pc, distanceUnit, 3))
-  text('coordinate-z', formatDistance(star.z_pc, distanceUnit, 3))
-  text('plane-distance', formatDistance(metrics.planeDistancePc, distanceUnit, 3))
-  text('epoch', `J${star.epoch.toFixed(1)}`)
-  sourceMeasurement('velocity-x', star, 'vx_kms', (value: number | null) => quantity(value, 'km/s'))
-  sourceMeasurement('velocity-y', star, 'vy_kms', (value: number | null) => quantity(value, 'km/s'))
-  sourceMeasurement('velocity-z', star, 'vz_kms', (value: number | null) => quantity(value, 'km/s'))
-  const raw = star.raw_astrometry
-  const { fullVelocity, title: motionTitle, label: motionLabel } = spaceMotionForStar(star)
-  text('motion-data', motionLabel ?? MISSING_VALUE)
-  element('motion-data').title = motionTitle
-  const sky = raw ?? compact ?? nebula ?? null
-  text('right-ascension', sky ? `${sky.ra_deg.toLocaleString('en-US', { maximumFractionDigits: 9 })} deg` : MISSING_VALUE)
-  text('declination', sky ? `${sky.dec_deg.toLocaleString('en-US', { maximumFractionDigits: 9 })} deg` : MISSING_VALUE)
-  text('astrometry-epoch', raw ? `J${raw.epoch.toFixed(1)}` : MISSING_VALUE)
-  text('parallax', raw ? measurement(raw.parallax_mas, raw.parallax_error_mas, 'mas', 6) : MISSING_VALUE)
-  text('proper-motion-ra', raw ? measurement(raw.pm_ra_cosdec_masyr, raw.pm_ra_error_masyr, 'mas/yr', 6) : MISSING_VALUE)
-  text('proper-motion-dec', raw ? measurement(raw.pm_dec_masyr, raw.pm_dec_error_masyr, 'mas/yr', 6) : MISSING_VALUE)
-  text('radial-velocity', raw ? measurement(raw.radial_velocity_kms, raw.radial_velocity_error_kms, 'km/s', 6) : MISSING_VALUE)
-  const sourceRv = raw?.radial_velocity_kms == null ? star.catalog_sources?.find((source) => source.record.raw_astrometry?.radial_velocity_kms != null) : undefined
-  if (sourceRv) {
-    const sourceRaw = sourceRv.record.raw_astrometry!
-    text('radial-velocity', measurement(sourceRaw.radial_velocity_kms, sourceRaw.radial_velocity_error_kms, 'km/s', 6))
-  }
-  element('radial-velocity').title = sourceRv?.scope ?? raw?.radial_velocity_ref ?? ''
-  const rvReview = star.stellar_observations?.radial_velocity_review
-  if (rvReview && raw?.radial_velocity_kms == null && !sourceRv) {
-    element('radial-velocity').title = `${rvReview.reference}. ${rvReview.reason}`
-    element('motion-data').title = rvReview.reason
-  }
-  const observedRv = star.radial_velocity_observation
-  if (observedRv) {
-    text('radial-velocity', measurement(observedRv.value_kms, observedRv.error_kms, 'km/s', 6))
-    element('radial-velocity').title = `${observedRv.reference}; ${observedRv.observed_from} to ${observedRv.observed_to}. ${observedRv.uncertainty_kind} ${observedRv.scope}`
-    if (!fullVelocity && raw) {
-      element('motion-data').title = 'The measured component radial velocity includes orbital motion and belongs to a different epoch from the catalog proper motion; a constant bulk space-motion vector is not inferred.'
-    }
-  }
-  text('astrometry-source', raw?.astrometry_ref || compact?.position_source || nebula?.position_source || molecularCloud?.position_source || bubble?.position_source || MISSING_VALUE)
-  sourceMeasurement('absolute-mag', star, 'absolute_mag', (value: number | null) => quantity(value, '', 2))
-  const unresolvedPhotometry = star.apparent_mag == null ? star.unresolved_photometry : undefined
-  const resolvedPhotometry = star.resolved_photometry
-  text('apparent-mag-label', 'Apparent mag. (V)')
-  text('apparent-mag', resolvedPhotometry
-    ? measurement(resolvedPhotometry.magnitude_v, resolvedPhotometry.error_mag, '', 2).trim()
-    : unresolvedPhotometry
-    ? measurement(unresolvedPhotometry.magnitude_v, unresolvedPhotometry.error_mag, '', 2).trim()
-    : quantity(star.apparent_mag ?? null, '', 2))
-  element('apparent-mag').classList.toggle('unresolved-measurement', Boolean(unresolvedPhotometry))
-  element('apparent-mag').title = resolvedPhotometry
-    ? `${resolvedPhotometry.reference}; ${resolvedPhotometry.observed_on}. ${resolvedPhotometry.scope}`
-    : unresolvedPhotometry
-    ? `${unresolvedPhotometry.scope}. ${unresolvedPhotometry.source}. Earth-view snapshot; component fluxes are not separated.`
-    : 'Earth-view catalog V magnitude; a snapshot, not current variable-star photometry.'
-  if (star.apparent_mag == null && !unresolvedPhotometry) sourceMeasurement('apparent-mag', star, 'apparent_mag', (value: number | null) => quantity(value, '', 2))
   const infrared = star.stellar_observations?.infrared_photometry
   element('infrared-magnitude-row').hidden = !infrared || stellarPropertiesHidden
-  text('infrared-magnitude-label', infrared ? `Apparent mag. (${infrared.band})` : '')
-  text('infrared-magnitude', infrared ? measurement(infrared.magnitude, infrared.error_mag, '', 2).trim() : '')
-  element('infrared-magnitude').title = infrared
-    ? `${infrared.instrument} ${infrared.band}, ${infrared.wavelength_microns} μm, ${infrared.system} system; ${infrared.observed_on.join(', ')}. ${infrared.reference}. ${infrared.scope}` : ''
+  // Leave the hidden row empty, so a comparison column can mark the missing value explicitly.
+  if (!infrared) text('infrared-magnitude', '')
   element<HTMLButtonElement>('magnitude-toggle').disabled = !magnitudeCardAvailable(star) || stellarPropertiesHidden
   element('magnitude-toggle').setAttribute('aria-label', `Explore absolute and apparent magnitude of ${star.name}`)
   if (element<HTMLButtonElement>('magnitude-toggle').disabled) closeMagnitudeCard()
@@ -2062,7 +1967,7 @@ function renderSelection(): void {
   element('designations-row').hidden = designations.length === 0
   element('designations-empty-row').hidden = designations.length > 0
   text('designations-empty', MISSING_VALUE)
-  if (designations.length === 0 && (!starComparison.other || !objectDesignations(starComparison.other).length)) element<HTMLDetailsElement>('designations-row').open = false
+  if (designations.length === 0 && !starComparison.other) element<HTMLDetailsElement>('designations-row').open = false
   element('object-designations').replaceChildren(...designations.map((name) => {
     const item = document.createElement('li')
     item.textContent = name
@@ -2071,7 +1976,8 @@ function renderSelection(): void {
   const sourceNotes = new Set(['spectral_type', 'temperature_k', 'luminosity_solar', 'mass_solar', 'radius_solar',
     'metallicity_dex', 'age_gyr', 'absolute_mag', 'vx_kms', 'vy_kms', 'vz_kms'].map((field) =>
     catalogSourceFor(star, field as Parameters<typeof catalogSourceFor>[1])).filter((source) => source !== undefined))
-  if (sourceRv) sourceNotes.add(sourceRv)
+  const rvSource = radialVelocitySource(star)
+  if (rvSource) sourceNotes.add(rvSource)
   const observations = star.stellar_observations
   const observationNotes = new Set([observations?.mass_range, observations?.temperature_range, observations?.radius_range, observations?.infrared_photometry, observations?.radial_velocity_review, observations?.atmosphere_temperature]
     .filter((observation) => observation !== undefined)
@@ -2207,6 +2113,7 @@ async function switchCatalog(id: string, refresh = false): Promise<void> {
   viewer = undefined
   // Source details hydrate only the current scene, never the memoized map payload.
   stars = nextStars.map((star) => ({ ...star }))
+  starIndex = new Map(stars.map((star) => [star.id, star]))
   constellationBrowser?.refresh()
   starSystems = indexStarSystems(stars)
   activeCatalogId = id

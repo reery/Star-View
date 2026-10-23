@@ -1,13 +1,5 @@
-import { expect, test, type Page } from '@playwright/test'
-import { openFilter, openPreferences, openSpecs, selectCatalog } from './support'
-
-async function selectObject(page: Page, name: string) {
-  const objects = page.getByRole('button', { name: 'Objects', exact: true })
-  await objects.click()
-  await page.getByLabel('Search objects').fill(name)
-  await page.getByRole('button', { name: `Select ${name}`, exact: true }).click()
-  await objects.click()
-}
+import { expect, test } from '@playwright/test'
+import { openFilter, openPreferences, openSpecs, selectCatalog, selectObject } from './support'
 
 test.beforeEach(async ({ page }) => {
   await page.goto('/')
@@ -29,14 +21,6 @@ test('Escape clears pointer focus without removing keyboard focus cues', async (
   await expect(page.locator('#object-compare-toggle')).not.toBeFocused()
   await expect(page.locator('#star-comparison-heading')).toBeVisible()
   await page.locator('#selected-object-card').screenshot({ path: testInfo.outputPath('escape-active.png') })
-  await page.locator('#object-compare-toggle').click()
-  await page.locator('#object-compare-toggle').focus()
-  await page.keyboard.press('Enter')
-  await expect(page.locator('#object-compare-toggle')).toHaveAttribute('aria-pressed', 'true')
-  await page.keyboard.press('Escape')
-  await expect(page.locator('#object-compare-toggle')).toBeFocused()
-  await expect(page.locator('#object-compare-toggle')).toHaveAttribute('aria-pressed', 'false')
-  expect(await page.locator('#object-compare-toggle').evaluate((button) => button.matches(':focus-visible'))).toBe(true)
 })
 
 test('arms a comparison without changing the card and cancels it @mobile', async ({ page, isMobile }) => {
@@ -337,7 +321,7 @@ test('uses both stars throughout the detail cards @mobile', async ({ page }, tes
   await expect(page.locator('#temperature-spectrum-legend')).not.toContainText('origin')
   await page.locator('#temperature-close').click()
   await other('luminosity').click()
-  await expect(page.locator('#luminosity-flux-origin-name')).toHaveText('Proxima Centauri')
+  await expect(page.locator('#luminosity-flux-bar [data-object-id="proxima-centauri"]')).toHaveCount(1)
   await expect(page.locator('#luminosity-flux-sun')).toBeHidden()
   await expect(page.locator('#luminosity-scale')).toHaveAttribute('aria-label', /Sirius A:.*Proxima Centauri:/)
   await expect(page.locator('#luminosity-scale .luminosity-object-marker')).toHaveCount(3)
@@ -787,8 +771,10 @@ test('clears a retained header focus when cancelling pointer comparison with Esc
   await page.locator('#selected-object-card').screenshot({ path: testInfo.outputPath('escape-no-header-line.png') })
   await page.locator('#object-compare-toggle').focus()
   await page.keyboard.press('Enter')
+  await expect(page.locator('#object-compare-toggle')).toHaveAttribute('aria-pressed', 'true')
   await page.keyboard.press('Escape')
   await expect(page.locator('#object-compare-toggle')).toBeFocused()
+  await expect(page.locator('#object-compare-toggle')).toHaveAttribute('aria-pressed', 'false')
   expect(await page.locator('#object-compare-toggle').evaluate((node) => node.matches(':focus-visible'))).toBe(true)
 })
 

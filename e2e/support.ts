@@ -207,6 +207,16 @@ const CATALOG_STOPS = ['nearest-neighbors', 'nearest-100', 'nearest-1000'] as co
 export type CatalogStop = typeof CATALOG_STOPS[number]
 
 // The catalog slider switches on `change`; Playwright's range fill dispatches input and change.
+/** Selects an object through the Objects search, closing the list unless asked to keep it open. */
+export async function selectObject(page: Page, name: string, { keepListOpen = false, showSpecs = false } = {}) {
+  const objects = page.getByRole('button', { name: 'Objects', exact: true })
+  if (await objects.getAttribute('aria-expanded') !== 'true') await objects.click()
+  await page.getByLabel('Search objects').fill(name)
+  await page.getByRole('button', { name: `Select ${name}`, exact: true }).click()
+  if (!keepListOpen) await objects.click()
+  if (showSpecs) await openSpecs(page)
+}
+
 export async function selectCatalog(page: Page, id: CatalogStop | string) {
   const index = CATALOG_STOPS.indexOf(id as CatalogStop)
   if (index < 0) throw new Error(`Not a catalog slider stop: ${id}`)
