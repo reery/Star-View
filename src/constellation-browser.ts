@@ -51,7 +51,7 @@ export function initializeConstellationBrowser(signal: AbortSignal, options: () 
     if (!result?.value) return
     chart = result.value
     refresh()
-    detail.scrollTop = 0
+    detail.querySelector<HTMLElement>('.card-scroll-content')!.scrollTop = 0
   }
   const renderTerms = () => {
     const query = normalize(search.value)

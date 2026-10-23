@@ -586,20 +586,20 @@
                 <button id="planet-lock" class="panel-lock" type="button" aria-label="Keep planet card open" aria-pressed="false"><span id="planet-lock-icon"></span></button>
                 <button id="planet-close" class="panel-lock" type="button" aria-label="Close planet card"><span id="planet-close-icon"></span></button>
               </div>
+              <div class="planet-specs-pinned">
+                <div class="planet-globe-frame">
+                  <canvas id="planet-globe" role="img" tabindex="0" aria-label="Planet globe. Drag or use arrow keys to rotate."></canvas>
+                </div>
+                <div class="planet-physical-header">
+                  <h3 id="planet-physical-heading" class="card-subgroup-heading">Key facts</h3>
+                  <button id="planet-add-earth" class="panel-lock planet-earth-button" type="button" aria-label="Add Earth" title="Add Earth for size comparison" aria-pressed="false" aria-controls="planet-globe">
+                    <span class="planet-earth-symbol" aria-hidden="true"><span id="planet-earth-icon"></span><span id="planet-earth-plus-icon" class="planet-earth-mark"></span><span id="planet-earth-minus-icon" class="planet-earth-mark"></span></span>
+                  </button>
+                  <button id="planet-stats-toggle" class="panel-lock planet-stats-button" type="button" aria-label="Show more stats" title="Show more stats (page 2 of 2)" aria-pressed="false" aria-controls="planet-physical-specs"><span id="planet-stats-icon"></span></button>
+                </div>
+              </div>
               <div class="card-scroll-content planet-card-body">
                 <div id="planet-specs">
-                  <div class="planet-specs-sticky">
-                    <div class="planet-globe-frame">
-                      <canvas id="planet-globe" role="img" tabindex="0" aria-label="Planet globe. Drag or use arrow keys to rotate."></canvas>
-                    </div>
-                    <div class="planet-physical-header">
-                      <h3 id="planet-physical-heading" class="card-subgroup-heading">Key facts</h3>
-                      <button id="planet-add-earth" class="panel-lock planet-earth-button" type="button" aria-label="Add Earth" title="Add Earth for size comparison" aria-pressed="false" aria-controls="planet-globe">
-                        <span class="planet-earth-symbol" aria-hidden="true"><span id="planet-earth-icon"></span><span id="planet-earth-plus-icon" class="planet-earth-mark"></span><span id="planet-earth-minus-icon" class="planet-earth-mark"></span></span>
-                      </button>
-                      <button id="planet-stats-toggle" class="panel-lock planet-stats-button" type="button" aria-label="Show more stats" title="Show more stats (page 2 of 2)" aria-pressed="false" aria-controls="planet-physical-specs"><span id="planet-stats-icon"></span></button>
-                    </div>
-                  </div>
                   <section aria-labelledby="planet-physical-heading">
                     <dl id="planet-physical-specs" class="properties planet-properties"></dl>
                   </section>
@@ -680,6 +680,7 @@
                 <div class="discover-controls" data-toolbar-flyout role="group" aria-label="Discover">
                   <button id="discover-toggle" class="icon-button" type="button" aria-label="Discover" aria-controls="discover-options"><span id="discover-icon"></span><span class="tooltip">Discover</span></button>
                   <div id="discover-options" class="discover-options" data-toolbar-options>
+                    <button id="top-lists-toggle" class="icon-button panel-button" type="button" aria-label="Top lists" aria-controls="top-lists-panel" aria-expanded="false"><span id="top-lists-icon"></span><span class="tooltip">Top lists</span></button>
                     <button id="constellations-toggle" class="icon-button panel-button" type="button" aria-label="Constellations" aria-controls="constellations-panel" aria-expanded="false"><span id="constellations-icon"></span><span class="tooltip">Constellations</span></button>
                   </div>
                 </div>
@@ -828,6 +829,27 @@
                     </div>
                   </article>
                   <p id="constellations-empty" class="glossary-empty" role="status" hidden>No matching constellations. Try another search.</p>
+                </div>
+              </section>
+              <section id="top-lists-panel" class="dock-card glossary-card top-lists-card" aria-labelledby="top-lists-heading" data-scene-obstacle hidden>
+                <div class="panel-heading glossary-heading">
+                  <h2 id="top-lists-heading">Top lists</h2>
+                  <button id="top-lists-lock" class="panel-lock" type="button" aria-label="Keep Top lists open" aria-pressed="false"><span id="top-lists-lock-icon"></span></button>
+                  <button id="top-lists-close" class="panel-lock" type="button" aria-label="Close top lists card"><span id="top-lists-close-icon"></span></button>
+                </div>
+                <div class="glossary-body">
+                  <nav id="top-lists-terms" class="glossary-terms" aria-label="Top lists"></nav>
+                  <article id="top-lists-detail" class="constellations-detail" aria-labelledby="top-lists-title">
+                    <div class="panel-heading constellations-detail-heading top-lists-detail-heading"><h3 id="top-lists-title"></h3></div>
+                    <div class="card-scroll-content">
+                      <table class="top-list">
+                        <colgroup><col class="top-list-rank"><col><col class="top-list-number"><col class="top-list-number"><col class="top-list-constellation"></colgroup>
+                        <thead><tr id="top-lists-head"></tr></thead>
+                        <tbody id="top-lists-rows"></tbody>
+                      </table>
+                      <p class="glossary-attribution top-list-source">Dimmed stars are not in Star View’s catalogs. Source: <a id="top-lists-source" target="_blank" rel="noreferrer"></a></p>
+                    </div>
+                  </article>
                 </div>
               </section>
               <section id="preferences-panel" class="dock-card preferences" aria-labelledby="preferences-heading" hidden>

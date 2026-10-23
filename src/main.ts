@@ -1,6 +1,6 @@
 import { SaveCheck } from 'lucide'
 import { clearLoadRecovery, createLoadError, loadWithRecovery } from './load-recovery'
-import { ArrowLeft, ArrowLeftRight, ArrowRight, BookOpen, ChevronUp, ChevronsDownUp, ChevronsLeftRight, ChevronsRightLeft, ChevronsUpDown, CircleHelp, Clock, Cloud, Compass, Crosshair, Earth, Eye, Filter, Focus, Galaxy, Globe, Grid2X2, List, Lock, Minus, Moon, Orbit, Pause, Play, Plus, RotateCcw, RotateCw, Save, Search, Settings2, Sun, Telescope, X, createElement, type IconNode } from 'lucide'
+import { ArrowLeft, ArrowLeftRight, ArrowRight, BookOpen, ChevronUp, ChevronsDownUp, ChevronsLeftRight, ChevronsRightLeft, ChevronsUpDown, CircleHelp, Clock, Cloud, Compass, Crosshair, Earth, Eye, Filter, Focus, Galaxy, Globe, Grid2X2, List, Lock, Minus, Moon, Orbit, Pause, Play, Plus, RotateCcw, RotateCw, Save, Search, Settings2, Sun, Telescope, Trophy, X, createElement, type IconNode } from 'lucide'
 import { ObserverOriginIcon, OriginIcon } from './origin-icon'
 import { ConstellationIcon } from './constellation-icon'
 import { BUBBLE_OBJECT_TYPES, COMPACT_OBJECT_TYPES, describeObject, isBubbleObject, isCompactObject, isMolecularCloudObject, isNebulaObject, MOLECULAR_CLOUD_OBJECT_TYPES, NEBULA_OBJECT_TYPES, type Star } from './catalog-model'
@@ -8,6 +8,7 @@ import { catalogSelection, mergeCatalogStars } from './catalog-runtime'
 import { catalogMeasurement, catalogSourceFor } from './catalog-source'
 import { completeLoadedCompanions as completeCatalogCompanions } from './constellation-companions'
 import { objectDesignations } from './designations'
+import { completeCompanionRecords } from './companion-records'
 import { compactOverlayManifest, loadCompactRemnants } from './compact-overlay'
 import { loadNebulae, nebulaOverlayManifest } from './nebula-overlay'
 import { loadMolecularClouds, molecularCloudOverlayManifest } from './molecular-cloud-overlay'
@@ -110,6 +111,9 @@ appendConstellationContent(element('constellation-card'))
 
 icon('discover-icon', Compass)
 icon('constellations-icon', ConstellationIcon)
+icon('top-lists-icon', Trophy)
+icon('top-lists-lock-icon', Lock)
+icon('top-lists-close-icon', X)
 icon('constellations-search-icon', Search)
 icon('constellations-maximize-icon', ChevronsUpDown)
 icon('constellations-lock-icon', Lock)
@@ -200,6 +204,7 @@ const events = new AbortController()
 initializeTouchTooltips(events.signal)
 initializeToolbarTouch(document.querySelector<HTMLElement>('.scene-toolbar')!, events.signal)
 let constellationBrowser: ReturnType<typeof import('./constellation-browser').initializeConstellationBrowser> | undefined
+let topLists: ReturnType<typeof import('./top-lists').initializeTopLists> | undefined
 let glossaryInitialized = false
 let viewer: StarViewer | undefined
 let stars: Star[] = []
@@ -301,8 +306,10 @@ const timeSlider = element<HTMLInputElement>('time-slider')
 const timeMarkers = document.querySelectorAll<HTMLElement>('.time-markers i')
 timeMarkers.forEach((marker, index) => marker.style.setProperty('--marker-position', `${index / (timeMarkers.length - 1) * 100}%`))
 const selectionHistory = new SelectionHistory(selectedId)
-const panelNames = ['views', 'motion', 'filter', 'objects', 'glossary', 'constellations', 'preferences', 'info'] as const
-const lockablePanelNames = ['motion', 'filter', 'objects', 'glossary', 'constellations', 'preferences'] as const
+const panelNames = ['views', 'motion', 'filter', 'objects', 'glossary', 'constellations', 'top-lists', 'preferences', 'info'] as const
+const lockablePanelNames = ['motion', 'filter', 'objects', 'glossary', 'constellations', 'top-lists', 'preferences'] as const
+// Discover panels open from the flyout, so focus returns to its toggle.
+const panelToggleId = (name: typeof panelNames[number]) => name === 'constellations' || name === 'top-lists' ? 'discover-toggle' : `${name}-toggle`
 const lockedPanels = new Set<typeof lockablePanelNames[number]>()
 
 function selectedStarAvailable(id: string): boolean {
@@ -415,6 +422,10 @@ function setPanelOpen(name: typeof panelNames[number], open: boolean): void {
     else if (constellationBrowser) constellationBrowser.open()
     else void loadConstellationsPanel()
   }
+  if (name === 'top-lists' && open) {
+    if (topLists) topLists.open()
+    else void loadTopListsPanel()
+  }
 }
 
 async function loadGlossaryPanel(): Promise<void> {
@@ -441,6 +452,27 @@ async function loadConstellationsPanel(): Promise<void> {
     () => ({ objects: stars, colorMode: starColorMode, distanceUnit, onSelect: (object) => { void selectConstellationStar(object) } }),
     stars.find((star) => star.id === selectedId)?.constellation ?? undefined)
   constellationBrowser.open()
+}
+
+async function loadTopListsPanel(): Promise<void> {
+  const result = await loadWithRecovery(element('top-lists-panel').querySelector<HTMLElement>('.glossary-body')!,
+    () => import('./top-lists'), {
+      label: 'Top lists', retry: () => { void loadTopListsPanel() },
+      isCurrent: () => !events.signal.aborted && panelIsOpen('top-lists'),
+      focusTarget: element('top-lists-close'), onChange: syncPanelLayout,
+    })
+  if (!result || topLists) return
+  topLists = result.value.initializeTopLists(events.signal, () => ({ distanceUnit, onSelect: (object) => { void selectTopListObject(object) } }))
+  topLists.open()
+}
+
+/** Prefer the loaded record of a merged identity; otherwise add the listed catalog record. */
+async function selectTopListObject(object: import('./top-lists').TopListObject): Promise<void> {
+  const loaded = stars.find((star) => star.id === object.id || (object.designation !== null && objectDesignations(star).includes(object.designation)))
+  if (loaded) return selectConstellationStar(loaded)
+  const payload = await catalogs.find((catalog) => catalog.manifest.id === object.catalog)!.load()
+  const record = payload.find((star) => star.id === object.id)
+  if (record) await selectConstellationStar(record, new Map(payload.map((star) => [star.id, star])))
 }
 
 function syncPanelLayout(): void {
@@ -566,11 +598,13 @@ function renderConstellationCard(star: Star): void {
   syncObjectTypeLayout()
 }
 
-async function selectConstellationStar(object: Star): Promise<void> {
+/** Companions complete from the loaded chart records unless the caller supplies its source payload. */
+async function selectConstellationStar(object: Star, records?: ReadonlyMap<string, Star>): Promise<void> {
   const request = ++constellationSelectionRequest
   const existing = stars.find((star) => star.id === object.id)
   if (!existing) {
-    for (const component of completeCatalogCompanions([object])) constellationSelectedStars.set(component.id, component)
+    const components = records ? completeCompanionRecords([object], records) : completeCatalogCompanions([object])
+    for (const component of components) constellationSelectedStars.set(component.id, component)
     await switchCatalog(activeCatalogId, true)
     if (request !== constellationSelectionRequest) return
   }
@@ -714,7 +748,7 @@ function showPlanetSection(section: typeof planetSections[number]): void {
     element(`planet-${candidate}-toggle`).setAttribute('aria-expanded', String(candidate === section))
   }
   void planetModules?.renderPlanetSection(element('planet-card'), section).then(syncObjectTypeLayout)
-  const globe = element(`planet-${section}`).querySelector<HTMLCanvasElement>('canvas')
+  const globe = element('planet-card').querySelector<HTMLCanvasElement>(section === 'specs' ? '#planet-globe' : `#planet-${section} canvas`)
   if (globe) planetModules?.resetPlanetGlobe(globe)
   element('planet-card').querySelector<HTMLElement>('.card-scroll-content')!.scrollTop = 0
   syncObjectTypeLayout()
@@ -2716,14 +2750,19 @@ element('objects-maximize').addEventListener('click', () => {
   element('objects-panel').style.setProperty('--objects-height', '100dvh')
   syncPanelLayout()
 }, { signal: events.signal })
-element('constellations-maximize').addEventListener('click', () => {
-  const maximized = element('constellations-panel').classList.toggle('is-maximized')
+function setConstellationsMaximized(maximized: boolean): void {
+  element('constellations-panel').classList.toggle('is-maximized', maximized)
   const button = element('constellations-maximize')
   const label = `${maximized ? 'Minimize' : 'Maximize'} constellations card height`
   button.setAttribute('aria-pressed', String(maximized))
   button.setAttribute('aria-label', label)
   button.title = label
   icon('constellations-maximize-icon', maximized ? ChevronsDownUp : ChevronsUpDown)
+}
+// Desktop opens the constellations card at full height; smaller and touch-first screens keep the compact card.
+if (window.matchMedia('(min-width: 721px)').matches && !touchFirstInput.matches) setConstellationsMaximized(true)
+element('constellations-maximize').addEventListener('click', () => {
+  setConstellationsMaximized(!element('constellations-panel').classList.contains('is-maximized'))
   syncPanelLayout()
 }, { signal: events.signal })
 catalogRange.addEventListener('input', () => previewCatalogRange(catalogRange.valueAsNumber), { signal: events.signal })
@@ -2889,11 +2928,11 @@ for (const name of panelNames) {
 for (const name of lockablePanelNames) {
   element(`${name}-lock`).addEventListener('click', () => togglePanelLock(name), { signal: events.signal })
 }
-for (const name of ['objects', 'glossary', 'constellations'] as const) {
+for (const name of ['objects', 'glossary', 'constellations', 'top-lists'] as const) {
   element(`${name}-close`).addEventListener('click', () => {
     setPanelOpen(name, false)
     syncPanelLayout()
-    element(name === 'constellations' ? 'discover-toggle' : `${name}-toggle`).focus()
+    element(panelToggleId(name)).focus()
   }, { signal: events.signal })
 }
 element<HTMLFormElement>('save-view-form').addEventListener('submit', (event) => {
@@ -3015,7 +3054,7 @@ document.addEventListener('keydown', (event) => {
     ?? (panelIsOpen('motion') ? 'motion' : undefined)
   if (!open) return
   togglePanel(open)
-  element(open === 'constellations' ? 'discover-toggle' : `${open}-toggle`).focus()
+  element(panelToggleId(open)).focus()
 }, { signal: events.signal })
 for (const name of detailCardNames) {
   element(`${name}-close`).addEventListener('click', () => detailCardClosers[name](true), { signal: events.signal })

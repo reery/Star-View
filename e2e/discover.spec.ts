@@ -15,6 +15,14 @@ test('Discover maximizes only height and magnifies the constellation overview @m
   await openViewer(page)
   await openConstellations(page, isMobile)
   const panel = page.locator('#constellations-panel')
+  // Desktop opens maximized; restore the compact card before measuring it.
+  if (!isMobile) {
+    const restore = page.getByRole('button', { name: 'Minimize constellations card height', exact: true })
+    await expect(restore).toHaveAttribute('aria-pressed', 'true')
+    await restore.click()
+  } else {
+    await expect(page.getByRole('button', { name: 'Maximize constellations card height', exact: true })).toHaveAttribute('aria-pressed', 'false')
+  }
   const initial = (await panel.boundingBox())!
   const chartFits = () => page.locator('#discover-constellation-chart').evaluate((chart) => {
     const detail = document.getElementById('constellations-detail')!.getBoundingClientRect()

@@ -4,7 +4,7 @@ import { massComparisonClass } from './mass-classification.ts'
 // IAU 2015 B3 nominal luminosity/radius and IAU 2012 B2 AU.
 export const SOLAR_LUMINOSITY_W = 3.828e26
 export const AU_METERS = 149_597_870_700
-const SOLAR_RADIUS_METERS = 695_700_000
+export const SOLAR_RADIUS_METERS = 695_700_000
 const SOLAR_SURFACE_AREA_M2 = 4 * Math.PI * SOLAR_RADIUS_METERS ** 2
 const SOLAR_SURFACE_FLUX = SOLAR_LUMINOSITY_W / SOLAR_SURFACE_AREA_M2
 export const SOLAR_FLUX_AT_AU = SOLAR_LUMINOSITY_W / (4 * Math.PI * AU_METERS ** 2)
