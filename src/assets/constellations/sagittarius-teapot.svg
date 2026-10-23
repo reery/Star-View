@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 840 480" role="img" aria-labelledby="title desc">
+  <title id="title">The Teapot and the Galactic Centre</title>
+  <desc id="desc">The brightest stars of Sagittarius form a teapot whose spout points toward the centre of the Milky Way and its black hole Sagittarius A*, about 26,000 light-years away. Positions are projected from catalogue coordinates, north up and east left.</desc>
+  <defs><marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#ffba68"/></marker></defs>
+  <rect width="840" height="480" fill="#101112"/>
+  <g font-family="system-ui, sans-serif">
+    <path d="M469.6 236.8L407.0 58.6" stroke="#ffba68" stroke-width="2.2" fill="none"/>
+    <path d="M441.8 421.4L602.0 264.0" stroke="#ffba68" stroke-width="2.2" fill="none"/>
+    <path d="M602.0 264.0L469.6 236.8" stroke="#ffba68" stroke-width="2.2" fill="none"/>
+    <path d="M469.6 236.8L441.8 421.4" stroke="#ffba68" stroke-width="2.2" fill="none"/>
+    <path d="M441.8 421.4L103.0 253.1" stroke="#ffba68" stroke-width="2.2" fill="none"/>
+    <path d="M103.0 253.1L247.8 126.2" stroke="#ffba68" stroke-width="2.2" fill="none"/>
+    <path d="M247.8 126.2L469.6 236.8" stroke="#ffba68" stroke-width="2.2" fill="none"/>
+    <path d="M247.8 126.2L407.0 58.6" stroke="#ffba68" stroke-width="2.2" fill="none"/>
+    <path d="M103.0 253.1L56.0 166.4" stroke="#ffba68" stroke-width="2.2" fill="none"/>
+    <path d="M56.0 166.4L158.6 102.5" stroke="#ffba68" stroke-width="2.2" fill="none"/>
+    <path d="M158.6 102.5L247.8 126.2" stroke="#ffba68" stroke-width="2.2" fill="none"/>
+    <circle cx="602.0" cy="264.0" r="4.4" fill="#ded8ce"/>
+    <circle cx="469.6" cy="236.8" r="4.9" fill="#ded8ce"/>
+    <circle cx="441.8" cy="421.4" r="6.5" fill="#ded8ce"/>
+    <circle cx="407.0" cy="58.6" r="4.7" fill="#ded8ce"/>
+    <circle cx="247.8" cy="126.2" r="4.1" fill="#ded8ce"/>
+    <circle cx="158.6" cy="102.5" r="6.0" fill="#ded8ce"/>
+    <circle cx="103.0" cy="253.1" r="5.1" fill="#ded8ce"/>
+    <circle cx="56.0" cy="166.4" r="3.9" fill="#ded8ce"/>
+    <path d="M602.0 264.0L765.8 222.1" stroke="#a5a29e" stroke-width="2" stroke-dasharray="7 7" marker-end="url(#arrow)" fill="none"/>
+    <circle cx="784.0" cy="217.4" r="34" fill="#ffd9a0" fill-opacity="0.08"/>
+    <circle cx="784.0" cy="217.4" r="20" fill="#ffd9a0" fill-opacity="0.14"/>
+    <circle cx="784.0" cy="217.4" r="9" fill="#ffd9a0" fill-opacity="0.4"/>
+    <circle cx="784.0" cy="217.4" r="3.5" fill="#fff"/>
+    <text x="824.0" y="173.4" text-anchor="end" fill="#ded8ce" font-size="24">Galactic Centre · Sgr A*</text>
+    <text x="784.0" y="271.4" text-anchor="middle" fill="#a5a29e" font-size="20">~26,000 ly</text>
+    <text x="407.0" y="40.6" text-anchor="middle" fill="#a5a29e" font-size="20">Lid</text>
+    <text x="602.0" y="298.0" text-anchor="middle" fill="#a5a29e" font-size="20">Spout</text>
+    <text x="172.6" y="92.5" text-anchor="start" fill="#a5a29e" font-size="20">Handle</text>
+    <text x="441.8" y="453.4" text-anchor="middle" fill="#ded8ce" font-size="24">Kaus Australis</text>
+  </g>
+</svg>

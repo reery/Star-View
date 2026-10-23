@@ -124,7 +124,7 @@ test('shows sourced orbit inclinations and axial tilts for all eight planets', a
     await expect(page.locator('[data-planet-spec="axial-inclination"] .planet-fact-value')).toHaveText(axial!)
     await expect(page.locator('[data-planet-spec="axial-inclination"] dt button')).toHaveText('Axial tilt')
     await page.locator('[data-planet-spec="orbit-inclination"] button').focus()
-    await expect(page.locator('#planet-orbit-inclination-detail-tooltip')).toContainText('ecliptic')
+    await expect(page.locator('#planet-orbit-inclination-detail-tooltip')).toContainText('tilted compared with Earth’s orbit')
     await expect(page.locator('#planet-orbit-inclination-detail-tooltip')).toBeVisible()
     if (id === 'uranus') await page.locator('#planet-card').screenshot({ path: testInfo.outputPath('planet-inclinations.png') })
     await page.locator('#planet-close').click()

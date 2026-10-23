@@ -169,7 +169,10 @@ button, p, h2, dd { overflow-wrap: anywhere; }
 .panel-heading #filter-save { right: 87px; border-radius: 0; }
 .panel-heading #filter-reset { right: 43px; border-radius: 0; }
 .control-dock:is([data-open="glossary"], [data-open="constellations"], [data-open="top-lists"]) { grid-template-columns: min(640px, calc(var(--ui-width) - 100px)) 44px; }
+/* Wide enough for the supernova candidates table without horizontal scrolling. */
+.control-dock[data-open="top-lists"] { grid-template-columns: min(900px, calc(var(--ui-width) - 100px)) 44px; }
 .dock-card.glossary-card { display: flex; flex-direction: column; width: min(640px, calc(var(--ui-width) - 100px)); height: min(520px, calc(var(--ui-height) - 100px)); overflow: hidden; }
+.dock-card.top-lists-card { width: min(900px, calc(var(--ui-width) - 100px)); }
 .panel-heading.glossary-heading { flex: 0 0 45px; gap: 18px; padding-right: 98px; }
 .panel-heading:is(.objects-heading, .glossary-heading) > .panel-lock[aria-pressed] { right: 43px; border-radius: 0; }
 .glossary-heading h2 { flex: 0 0 auto; }
@@ -471,8 +474,8 @@ select:focus-visible, input:focus-visible { outline: 2px solid var(--accent); ou
 #object-card-details[open] .object-card-footer { border-bottom: 1px solid var(--line); }
 #object-card-details[open] .object-section-button { border-radius: 0; }
 #object-specs { padding-top: 8px; }
-#object-system, #object-info { padding: 0 16px 12px; }
-#object-info > p:first-child { padding-top: 10px; }
+#object-system, #object-info, .constellation-info { padding: 0 16px 12px; }
+:is(#object-info, .constellation-info) > p:first-child { padding-top: 10px; }
 #object-system .card-subgroup-heading { margin-bottom: 0; }
 .planet-system-figure { margin: 0 -16px 9px; background: #000; }
 .planet-orbit-diagram { display: block; width: 100%; height: auto; overflow: hidden; }
@@ -514,7 +517,7 @@ select:focus-visible, input:focus-visible { outline: 2px solid var(--accent); ou
 .properties > div { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 10px; align-items: baseline; padding: 3px 0; font-size: var(--property-text-size); line-height: 1.2; }
 .properties dt { color: var(--muted); }
 .properties dd { text-align: right; font-weight: 500; font-variant-numeric: tabular-nums; }
-.properties .unresolved-measurement { color: var(--muted); }
+.properties .unresolved-measurement, .selected-object .missing-value { color: var(--muted); }
 .properties > :is(.object-type-row, .metallicity-row, .radius-row, .spectral-row, .temperature-row, .distance-row, .mass-row, .luminosity-row, .magnitude-row, .constellation-row, #known-planets-row) { position: relative; isolation: isolate; }
 .magnitude-row dt, .magnitude-row .object-type-toggle { display: grid; gap: 6px; }
 .properties > div:has(.object-type-toggle:not(:disabled)) { cursor: pointer; }
@@ -628,7 +631,8 @@ select:focus-visible, input:focus-visible { outline: 2px solid var(--accent); ou
 .metallicity-body { padding: 0 20px 20px; }
 .object-type-toggle:disabled { cursor: default; opacity: 1; }
 .dock-card.object-type-card.constellation-card { width: min(380px, calc(var(--ui-width) - 402px)); }
-.panel-heading.constellation-heading { padding-right: 186px; }
+.panel-heading.constellation-heading { padding-right: 230px; }
+.panel-heading #constellation-info-toggle { right: 175px; border-radius: 0; }
 .panel-heading #constellation-grid { right: 131px; border-radius: 0; }
 .panel-heading #constellation-magnify { right: 87px; border-radius: 0; }
 .constellation-chart { position: relative; margin: 0; background: #090b10; }
@@ -1069,20 +1073,21 @@ select:focus-visible, input:focus-visible { outline: 2px solid var(--accent); ou
 .planet-earth-comparison { color: var(--muted); font-weight: 400; }
 .planet-composition { margin: 0; padding: 0; list-style: none; }
 .planet-composition li { padding: 1px 0; }
-:is(#planet-info, #object-info) { font-size: var(--property-text-size); line-height: 1.5; }
-:is(#planet-info, #object-info) p { margin: 0 0 10px; }
-:is(#planet-info, #object-info) > section { margin-top: 12px; }
-:is(#planet-info, #object-info) > section > :last-child { margin-bottom: 0; }
-.planet-properties a, :is(#planet-info, #object-info) a, #planet-moons a { color: var(--accent-strong); text-underline-offset: 3px; }
-.planet-properties a:hover, :is(#planet-info, #object-info) a:hover, #planet-moons a:hover { color: #fff0dc; }
-.planet-properties a:focus-visible, :is(#planet-info, #object-info) a:focus-visible, #planet-moons a:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+:is(#planet-info, #object-info, .constellation-info) { font-size: var(--property-text-size); line-height: 1.5; }
+:is(#planet-info, #object-info, .constellation-info) p { margin: 0 0 10px; }
+:is(#planet-info, #object-info, .constellation-info) > section { margin-top: 12px; }
+:is(#planet-info, #object-info, .constellation-info) > section > :last-child { margin-bottom: 0; }
+.planet-properties a, :is(#planet-info, #object-info, .constellation-info) a, #planet-moons a, .constellation-info-link { color: var(--accent-strong); text-underline-offset: 3px; }
+.constellation-info-link { padding: 0; text-decoration: underline; background: none; border: 0; }
+.planet-properties a:hover, :is(#planet-info, #object-info, .constellation-info) a:hover, #planet-moons a:hover, .constellation-info-link:hover { color: #fff0dc; }
+.planet-properties a:focus-visible, :is(#planet-info, #object-info, .constellation-info) a:focus-visible, #planet-moons a:focus-visible, .constellation-info-link:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
 .planet-info-figure { margin: 10px 0 0; }
 .planet-info-figure > a { display: block; background: #000; }
 .planet-info-figure img { display: block; width: 100%; height: auto; object-fit: contain; }
 .planet-info-figure figcaption { padding: 5px 0; color: var(--muted); font-size: 11px; line-height: 1.4; }
 .planet-info-hero { margin: 0 -16px 10px; }
 .planet-info-hero figcaption { padding-right: 16px; padding-left: 16px; }
-:is(#planet-info, #object-info) .card-subgroup-heading { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+:is(#planet-info, #object-info, .constellation-info) .card-subgroup-heading { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
 .planet-info-source { flex-shrink: 0; padding: 0 4px; font-size: var(--property-text-size); }
 .panel-heading.distance-heading { gap: 10px; }
 .distance-heading h2 { flex-shrink: 0; }
@@ -1290,6 +1295,14 @@ select:focus-visible, input:focus-visible { outline: 2px solid var(--accent); ou
   .object-type-card > .panel-heading > [role="group"] { flex: 0 0 100%; margin: 0; border-top: 1px solid var(--line); }
   .object-type-card > .panel-heading > [role="group"] > button { height: 44px; margin: 0; border-top: 0; border-bottom: 0; }
   .object-type-card > .panel-heading > [role="group"] > button:first-child { border-left: 0; }
+  /* Like the planet sections, the constellation Info and chart controls take a second row. */
+  .panel-heading.constellation-heading { min-height: 89px; padding: 0 98px 44px 14px; }
+  #constellations-detail > .constellations-detail-heading { min-height: 89px; padding: 12px 16px 56px; }
+  :is(.panel-heading.constellation-heading, #constellations-detail > .constellations-detail-heading)::after { content: ""; position: absolute; top: 43px; right: 0; left: 0; border-top: 1px solid var(--line); }
+  :is(.panel-heading.constellation-heading, #constellations-detail > .constellations-detail-heading) > [data-constellation-part]:is(button) { top: 44px; right: auto; border-bottom-color: transparent; }
+  .panel-heading :is(#constellation-info-toggle, #discover-constellation-info-toggle) { left: -1px; border-left-color: transparent; }
+  .panel-heading :is(#constellation-grid, #discover-constellation-grid) { left: 43px; }
+  .panel-heading :is(#constellation-magnify, #discover-constellation-magnify) { left: 87px; }
   .spectral-heading > [role="group"] > .mass-reference-option > button { height: 44px; margin: 0; border-top: 0; border-bottom: 0; }
   .spectral-heading > [role="group"] > .mass-reference-option:first-child > button { border-left: 0; }
   .moon-browser { --moon-media-height: 156px; }
@@ -1387,8 +1400,9 @@ select:focus-visible, input:focus-visible { outline: 2px solid var(--accent); ou
 .control-dock[data-motion-open][data-open="constellations"] .constellations-card.is-maximized { height: calc(var(--ui-height) - var(--motion-panel-clearance, 150px) - 40px); }
 .constellations-detail { display: flex; flex-direction: column; min-width: 0; overflow: hidden; }
 .constellations-detail > .card-scroll-content { overflow-x: hidden; }
-.constellations-detail-heading { flex-shrink: 0; padding: 12px 98px 12px 16px; }
+.constellations-detail-heading { flex-shrink: 0; padding: 12px 142px 12px 16px; }
 .constellations-detail-heading #discover-constellation-grid { right: 43px; }
+.constellations-detail-heading #discover-constellation-info-toggle { right: 87px; }
 .constellations-detail-heading h3 { font: inherit; }
 /* Top lists reuse the Discover shell; rows share the selected-object hover. */
 .top-lists-card .glossary-body { grid-template-columns: min(148px, 30%) minmax(0, 1fr); }
@@ -1403,6 +1417,11 @@ select:focus-visible, input:focus-visible { outline: 2px solid var(--accent); ou
 .top-list .top-list-number { width: 104px; }
 .top-list .top-list-constellation { width: 112px; }
 .top-list :is(th, td):is(:nth-child(3), :nth-child(4)) { text-align: right; }
+.top-list.top-list-fields { min-width: 740px; }
+.top-list.top-list-fields :is(th, td):nth-child(4) { text-align: left; }
+.top-list .top-list-field-0 { width: 104px; }
+.top-list .top-list-field-1 { width: 144px; }
+.top-list .top-list-field-2 { width: 112px; }
 .top-list tbody td:first-child { color: var(--muted); }
 .top-list tbody tr:not(.top-list-marker):hover td { background: var(--panel-selected); }
 .top-list tbody tr:not(.top-list-marker):hover td:first-child { border-radius: 5px 0 0 5px; }
@@ -1413,7 +1432,7 @@ select:focus-visible, input:focus-visible { outline: 2px solid var(--accent); ou
 .top-list-select:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 .top-list-marker td { padding: 4px 12px; color: var(--accent-vibrant); font-size: 10px; letter-spacing: 0.04em; border-top: var(--mass-metric-divider); border-bottom: var(--mass-metric-divider); }
 .top-list-source { margin: 14px 12px 16px; }
-.top-list-notes:not([hidden]) { display: block; margin-bottom: 6px; }
+.top-list-notes:not([hidden]) { display: block; margin-bottom: 6px; white-space: pre-line; }
 .constellations-detail-heading > .panel-lock { border-radius: 0; }
 @media (max-width: 720px) {
   .control-dock[data-open="constellations"] { grid-template-columns: min(560px, calc(var(--ui-width) - 80px)) 44px; }

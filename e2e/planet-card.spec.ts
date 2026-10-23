@@ -214,7 +214,7 @@ test('Saturn has rotating rings, gas-giant specs and eight selected moons', { ta
   await expect(moonImage).toHaveCSS('object-fit', 'contain')
   await expect(moons.locator('[data-planet-spec="moon-hyperion-mean-radius"]')).toContainText('135.1 km')
   await expect(moons.locator('[data-planet-spec="moon-hyperion-semi-major-axis"]')).toContainText('1,500,930 km')
-  await expect(moons.locator('#planet-moon-hyperion-surface-gravity-detail-tooltip')).toContainText('local surface gravity varies with position')
+  await expect(moons.locator('[data-planet-spec="moon-hyperion-surface-gravity"] dd')).toHaveAttribute('title', /local surface gravity varies with position/)
   await expect(moons.locator('.moon-globe-unavailable')).toBeHidden()
   await card.screenshot({ path: testInfo.outputPath('hyperion-photo.png') })
 
@@ -285,7 +285,7 @@ test('Neptune inner moons select photographs and preserve unavailable measuremen
       await expect(moons.locator(`[data-planet-spec="moon-${id}-surface-gravity"] dd`)).toHaveText('—')
     } else if (id === 'naiad' || id === 'thalassa') {
       await expect(moons.locator(`[data-planet-spec="moon-${id}-mass"] dd`)).toContainText('≈')
-      await expect(moons.locator(`#planet-moon-${id}-mass-detail-tooltip`)).toContainText('quoted GM uncertainty')
+      await expect(moons.locator(`[data-planet-spec="moon-${id}-mass"] dd`)).toHaveAttribute('title', /quoted GM uncertainty/)
     }
     if (id === 'thalassa') await expect(image).toHaveAttribute('alt', /1989 N5/)
     if (id === 'hippocamp') {
@@ -340,7 +340,7 @@ test('moon tab keeps orbit selection, globe and specs together', { tag: '@mobile
     if (id === 'adrastea') {
       await expect(moons.locator('[data-planet-spec="moon-adrastea-mass"] dd')).toHaveText('—')
       await expect(moons.locator('[data-planet-spec="moon-adrastea-surface-gravity"] dd')).toHaveText('—')
-      await expect(moons.locator('#planet-moon-adrastea-mass-detail-tooltip')).toContainText('uncertainty larger than the value')
+      await expect(moons.locator('[data-planet-spec="moon-adrastea-mass"] dd')).toHaveAttribute('title', /uncertainty larger than the value/)
     }
     await card.screenshot({ path: testInfo.outputPath(`${id}-moon-browser.png`) })
   }

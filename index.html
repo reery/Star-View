@@ -63,7 +63,7 @@
                             <div class="comparison-detail-columns"><ul id="object-subtypes" class="subtype-list"></ul></div>
                           </details>
                           <dl class="properties">
-                            <div id="object-subtypes-empty-row"><dt>Sub-type</dt><dd id="object-subtypes-empty">—</dd></div>
+                            <div id="object-subtypes-empty-row"><dt>Sub-type</dt><dd id="object-subtypes-empty" class="missing-value">—</dd></div>
                             <div id="constellation-row" class="constellation-row"><dt>Constellation</dt><dd><button id="constellation-toggle" class="object-type-toggle" type="button" aria-controls="constellation-card" aria-expanded="false" aria-describedby="constellation" disabled><span id="constellation"></span></button></dd></div>
                             <div class="stellar-property spectral-row"><dt>Spectral type</dt><dd><button id="spectral-toggle" class="object-type-toggle" type="button" aria-controls="spectral-card" aria-expanded="false" aria-describedby="spectral-type"><span id="spectral-type"></span></button></dd></div>
                             <div id="temperature-row" class="stellar-property temperature-row"><dt>Temperature</dt><dd><button id="temperature-toggle" class="object-type-toggle" type="button" aria-controls="temperature-card" aria-expanded="false" aria-describedby="temperature"><span id="temperature"></span></button><span id="temperature-source-tooltip" class="tooltip mass-metric-tooltip" role="tooltip" hidden></span></dd></div>
@@ -180,6 +180,7 @@
             </section>
             <template id="constellation-content-template">
               <div class="card-scroll-content">
+                <div data-constellation-part="constellation-sky">
                 <figure id="constellation-chart" data-constellation-part="constellation-chart" class="constellation-chart"></figure>
                 <p id="constellation-missing" data-constellation-part="constellation-missing" class="constellation-missing" hidden></p>
                 <section id="constellation-visibility" data-constellation-part="constellation-visibility" class="constellation-visibility" aria-label="Visibility from Earth">
@@ -208,11 +209,14 @@
                   <p>Visibility is geometric; black land can see the selected object above the horizon. Evening months use the selected latitude, a level horizon, and astronomical darkness at 10 pm local solar time on each month's 15th. Weather, terrain, and brightness limits are not modeled.</p>
                   <div class="constellation-visibility-sources"><a href="https://aa.usno.navy.mil/faq/alt_az" target="_blank" rel="noreferrer">USNO horizon geometry</a><a href="https://aa.usno.navy.mil/faq/sun_approx" target="_blank" rel="noreferrer">USNO solar coordinates</a><a href="https://aa.usno.navy.mil/faq/RST_defs" target="_blank" rel="noreferrer">USNO twilight definitions</a><a href="https://www.naturalearthdata.com/" target="_blank" rel="noreferrer">Natural Earth land outlines</a></div>
                 </details>
+                </div>
+                <section id="constellation-info" data-constellation-part="constellation-info" class="constellation-info" aria-label="About this constellation" hidden></section>
               </div>
             </template>
             <section id="constellation-card" class="dock-card object-type-card constellation-card" aria-labelledby="constellation-heading" data-scene-obstacle hidden>
               <div class="panel-heading constellation-heading">
                 <h2 id="constellation-heading" data-constellation-part="constellation-heading">Canis Major</h2>
+                <button id="constellation-info-toggle" data-constellation-part="constellation-info-toggle" class="panel-lock" type="button" aria-label="Info" aria-pressed="false" aria-controls="constellation-info" title="Info"><span id="constellation-info-icon"></span></button>
                 <button id="constellation-grid" data-constellation-part="constellation-grid" class="panel-lock" type="button" aria-label="Show equatorial grid" aria-pressed="false" aria-controls="constellation-chart" title="Show equatorial grid"><span id="constellation-grid-icon"></span></button>
                 <button id="constellation-magnify" data-constellation-part="constellation-magnify" class="panel-lock" type="button" aria-label="Magnify selected star" aria-pressed="false" aria-controls="constellation-chart" title="Magnify selected star"><span id="constellation-magnify-icon"></span></button>
                 <button id="constellation-lock" class="panel-lock" type="button" aria-label="Keep Constellation open" aria-pressed="false"><span id="constellation-lock-icon"></span></button>
@@ -742,6 +746,7 @@
                   <article id="constellations-detail" class="constellations-detail" aria-labelledby="discover-constellation-heading">
                     <div class="panel-heading constellations-detail-heading">
                       <h3 id="discover-constellation-heading" data-constellation-part="constellation-heading"></h3>
+                      <button id="discover-constellation-info-toggle" data-constellation-part="constellation-info-toggle" class="panel-lock" type="button" aria-label="Info" aria-pressed="false" aria-controls="discover-constellation-info" title="Info"><span id="discover-constellation-info-icon"></span></button>
                       <button id="discover-constellation-grid" data-constellation-part="constellation-grid" class="panel-lock" type="button" aria-label="Show equatorial grid" aria-pressed="false" aria-controls="discover-constellation-chart" title="Show equatorial grid"><span id="discover-constellation-grid-icon"></span></button>
                       <button id="discover-constellation-magnify" data-constellation-part="constellation-magnify" class="panel-lock" type="button" aria-label="Magnify constellation" aria-pressed="false" aria-controls="discover-constellation-chart" title="Magnify constellation"><span id="discover-constellation-magnify-icon"></span></button>
                     </div>
@@ -761,7 +766,7 @@
                     <div class="panel-heading constellations-detail-heading top-lists-detail-heading"><h3 id="top-lists-title"></h3></div>
                     <div class="card-scroll-content">
                       <table class="top-list">
-                        <colgroup><col class="top-list-rank"><col><col class="top-list-number"><col class="top-list-number"><col class="top-list-constellation"></colgroup>
+                        <colgroup id="top-lists-cols"></colgroup>
                         <thead><tr id="top-lists-head"></tr></thead>
                         <tbody id="top-lists-rows"></tbody>
                       </table>

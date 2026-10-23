@@ -1,7 +1,7 @@
 import type { DistanceUnit, StarColorMode } from './astronomy'
 import type { Star } from './catalog-model'
 import { appendConstellationContent } from './constellation-card-content'
-import { disposeConstellationCard, renderConstellationCard } from './constellation-card'
+import { disposeConstellationCard, renderConstellationCard, resetConstellationInfo } from './constellation-card'
 import { loadConstellationByName, type ConstellationChart } from './constellations'
 import { constellationCharts } from './data/constellations'
 import { clearLoadRecovery, loadWithRecovery } from './load-recovery'
@@ -86,7 +86,7 @@ export function initializeConstellationBrowser(signal: AbortSignal, options: () 
   signal.addEventListener('abort', () => disposeConstellationCard(detail), { once: true })
   return {
     open: renderTerms,
-    close: () => { request++; clearLoadRecovery(detail) },
+    close: () => { request++; clearLoadRecovery(detail); resetConstellationInfo(detail) },
     refresh,
   }
 }

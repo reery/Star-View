@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 840 480" role="img" aria-labelledby="title desc">
+  <title id="title">Antares in place of the Sun</title>
+  <desc id="desc">A quarter of Antares, drawn at the Sun’s position with its catalogue radius of about 3.2 astronomical units, would extend past the orbit of Mars. Planet orbits are drawn as circles to the same scale.</desc>
+  <defs><marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#ffba68"/></marker></defs>
+  <rect width="840" height="480" fill="#101112"/>
+  <g font-family="system-ui, sans-serif">
+    <defs><radialGradient id="antares" cx="0" cy="1" r="1"><stop stop-color="#ff9a62"/><stop offset="0.75" stop-color="#c8462c"/><stop offset="1" stop-color="#7a2418"/></radialGradient></defs>
+    <path d="M60 420V191.6A228.4 228.4 0 0 1 288.4 420Z" fill="url(#antares)"/>
+    <path d="M60 420H800" stroke="#77736e" stroke-width="1.5"/>
+    <path d="M60 392.1A27.9 27.9 0 0 1 87.9 420" fill="none" stroke="#ded8ce" stroke-width="1.6" stroke-dasharray="6 6" stroke-opacity="0.8"/>
+    <path d="M60 367.9A52.1 52.1 0 0 1 112.1 420" fill="none" stroke="#ded8ce" stroke-width="1.6" stroke-dasharray="6 6" stroke-opacity="0.8"/>
+    <path d="M60 348.0A72.0 72.0 0 0 1 132.0 420" fill="none" stroke="#ded8ce" stroke-width="1.6" stroke-dasharray="6 6" stroke-opacity="0.8"/>
+    <path d="M60 310.3A109.7 109.7 0 0 1 169.7 420" fill="none" stroke="#ded8ce" stroke-width="1.6" stroke-dasharray="6 6" stroke-opacity="0.8"/>
+    <text x="169.7" y="450" text-anchor="middle" fill="#ded8ce" font-size="20">Mars</text>
+    <path d="M60 45.4A374.6 374.6 0 0 1 434.6 420" fill="none" stroke="#ded8ce" stroke-width="1.6" stroke-dasharray="6 6" stroke-opacity="0.8"/>
+    <text x="434.6" y="450" text-anchor="middle" fill="#ded8ce" font-size="20">Jupiter</text>
+    <circle cx="60" cy="420" r="4" fill="#fff3c4"/>
+    <text x="60" y="450" text-anchor="middle" fill="#fff3c4" font-size="20">Sun</text>
+    <text x="70" y="175.6" text-anchor="start" fill="#ded8ce" font-size="22">Antares · 3.2 AU radius</text>
+    <text x="800" y="400" text-anchor="end" fill="#a5a29e" font-size="18">1 AU = Earth–Sun distance</text>
+  </g>
+</svg>

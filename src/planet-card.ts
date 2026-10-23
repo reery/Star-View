@@ -1,6 +1,6 @@
 import { createLoadError } from './load-recovery'
 import { registerTouchTooltip, usingTouchTooltips } from './touch-tooltips'
-import { isExtrasolarPlanet, isSmallBody, planetApparentMagnitudeRange, planetAtmosphereSpecs, planetPhysicalSpecs, type PlanetDescription, type PlanetSpec } from './planet-properties'
+import { isExtrasolarPlanet, isSmallBody, planetApparentMagnitudeRange, planetAtmosphereSpecs, planetPhysicalSpecs, specDefinitions, type PlanetDescription, type PlanetSpec } from './planet-properties'
 import { smallBodyMedia } from './small-body-media'
 import { magnitudeNumber, NAKED_EYE_MAGNITUDE } from './magnitude-card'
 import { extrasolarOrbitalSpecs } from './exoplanet-properties'
@@ -207,9 +207,11 @@ function specRow(spec: PlanetSpec, showDetailTooltip = true, showComparison = tr
     tooltip.id = `planet-${spec.id}-detail-tooltip`
     tooltip.className = 'tooltip mass-metric-tooltip planet-metric-tooltip'
     tooltip.setAttribute('role', 'tooltip')
-    tooltip.textContent = spec.detail
+    tooltip.textContent = spec.definition ?? specDefinitions[spec.id] ?? spec.detail
     attachTooltip(help, tooltip)
     label.replaceChildren(help, tooltip)
+    // Provenance and caveats stay available on the value.
+    if (!lines) value.title = spec.detail
   }
   row.append(label, value)
   return row

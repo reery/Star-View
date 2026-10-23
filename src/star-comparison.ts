@@ -250,10 +250,13 @@ export function initializeStarComparison(options: {
     if (selected.subtypes?.length || subtypes.length) {
       subtypesRow.hidden = false
       get('object-subtypes-empty-row').hidden = true
-      if (!selected.subtypes?.length) get('object-subtypes-count').textContent = MISSING_VALUE
+      if (!selected.subtypes?.length) {
+        get('object-subtypes-count').textContent = MISSING_VALUE
+        get('object-subtypes-count').classList.add('missing-value')
+      }
       const subtypeCount = document.createElement('span')
       subtypeCount.dataset.comparisonValue = 'subtypes'
-      subtypeCount.className = 'comparison-value'
+      subtypeCount.className = subtypes.length ? 'comparison-value' : 'comparison-value missing-value'
       subtypeCount.textContent = subtypes.length ? String(subtypes.length) : MISSING_VALUE
       subtypeCount.title = subtypes.join(', ')
       subtypesRow.querySelector('summary')!.append(subtypeCount)
@@ -271,7 +274,10 @@ export function initializeStarComparison(options: {
           const description = document.createElement('p')
           description.textContent = objectSubtypeDescription(value)
           item.append(label, description)
-        } else item.textContent = value
+        } else {
+          item.textContent = value
+          item.classList.toggle('missing-value', value === MISSING_VALUE)
+        }
         list.append(item)
       }
       const mainList = get(id)
@@ -281,6 +287,7 @@ export function initializeStarComparison(options: {
       if (!mainList.children.length) {
         const missing = document.createElement('li')
         missing.dataset.comparisonContent = ''
+        missing.className = 'missing-value'
         missing.textContent = MISSING_VALUE
         mainList.append(missing)
       }
@@ -304,6 +311,7 @@ export function initializeStarComparison(options: {
         if (!main.textContent?.trim()) {
           const missing = document.createElement('span')
           missing.dataset.comparisonPlaceholder = ''
+          missing.className = 'missing-value'
           missing.textContent = MISSING_VALUE
           main.append(missing)
         }
@@ -334,6 +342,7 @@ export function initializeStarComparison(options: {
         value.textContent = entry.text
         value.title = entry.title ?? ''
         value.classList.toggle('unresolved-measurement', Boolean(entry.unresolved))
+        value.classList.toggle('missing-value', entry.text === MISSING_VALUE)
         content.append(value)
         if (entry.label && entry.label !== labelText) {
           const context = document.createElement('small')

@@ -4,6 +4,9 @@ import { constellationStarObjects, objectSkyPosition, projectConstellationPositi
 import { constellationStarDiameter, disposeConstellationStars, renderConstellationStars, type ConstellationMarker } from './constellation-star-appearance'
 import { renderConstellationVisibility } from './constellation-visibility-card'
 import { constellationGrid } from './constellation-grid'
+import { constellationInfoAvailable, constellationInfoLinks, loadConstellationInfo } from './constellation-info'
+import { createLoadError } from './load-recovery'
+import { renderObjectInfoContent } from './object-info-content'
 import { MISSING_VALUE, quantity } from './format'
 import { starComponentIdentity } from './star-systems'
 import { svgNode as svg } from './spectral-chart'
@@ -13,7 +16,11 @@ type Box = { left: number; top: number; right: number; bottom: number }
 const intersects = (a: Box, b: Box) => a.left < b.right && a.right > b.left && a.top < b.bottom && a.bottom > b.top
 interface CardOptions { objects: readonly Star[]; colorMode: StarColorMode; distanceUnit: DistanceUnit; magnified: boolean; equatorialGrid: boolean; onSelect: (object: Star) => void }
 const MAGNIFICATION = 3
-const cards = new Map<HTMLElement, { object: Star | null; chart: ConstellationChart; options: CardOptions; observer: ResizeObserver; width: number; height: number }>()
+interface CardState {
+  object: Star | null; chart: ConstellationChart; options: CardOptions; observer: ResizeObserver; width: number; height: number
+  info: boolean; infoFor?: readonly [ConstellationChart, readonly Star[]]
+}
+const cards = new Map<HTMLElement, CardState>()
 
 function part<T extends HTMLElement = HTMLElement>(root: HTMLElement, name: string): T {
   return root.querySelector<T>(`[data-constellation-part="constellation-${name}"]`)!
@@ -285,16 +292,18 @@ export function renderConstellationCard(root: HTMLElement, object: Star | null, 
   if (!state) {
     const observer = new ResizeObserver(() => {
       const current = cards.get(root)
-      if (!current || root.closest('[hidden]')) return
+      if (!current || part(root, 'chart').closest('[hidden]')) return
       if (part(root, 'chart').clientWidth !== current.width || (!current.object && root.clientHeight !== current.height)) {
         drawChart(root, current.object, current.chart, current.options)
       }
     })
-    state = { object, chart, options, observer, width: 0, height: 0 }
+    state = { object, chart, options, observer, width: 0, height: 0, info: false }
     cards.set(root, state)
     observer.observe(part(root, 'chart'))
     if (!object) observer.observe(root)
   }
+  // Info is not remembered: another constellation opens on its chart.
+  if (state.chart !== chart) state.info = false
   Object.assign(state, { object, chart, options })
   part(root, 'heading').textContent = chart.name
   root.dataset.constellation = chart.abbreviation
@@ -307,7 +316,59 @@ export function renderConstellationCard(root: HTMLElement, object: Star | null, 
     link.textContent = source.label
     return link
   }))
-  drawChart(root, object, chart, options)
+  syncInfo(root)
+}
+
+/** The Info toggle swaps the sky chart for the article while the card stays on this constellation. */
+function syncInfo(root: HTMLElement): void {
+  const state = cards.get(root)!
+  const available = constellationInfoAvailable(state.chart.name)
+  const showing = state.info && available
+  const toggle = part<HTMLButtonElement>(root, 'info-toggle')
+  toggle.disabled = !available
+  toggle.title = available ? 'Info' : 'Info · No data yet'
+  toggle.setAttribute('aria-label', toggle.title)
+  toggle.setAttribute('aria-pressed', String(showing))
+  toggle.onclick = () => {
+    state.info = !showing
+    syncInfo(root)
+    root.querySelector<HTMLElement>('.card-scroll-content')!.scrollTop = 0
+  }
+  part(root, 'sky').hidden = showing
+  part(root, 'info').hidden = !showing
+  // The chart controls do not apply to the article; drawChart restores the magnifier's own state.
+  part<HTMLButtonElement>(root, 'grid').disabled = showing
+  part<HTMLButtonElement>(root, 'magnify').disabled = showing
+  if (showing) void renderInfo(root, state)
+  else drawChart(root, state.object, state.chart, state.options)
+}
+
+async function renderInfo(root: HTMLElement, state: CardState): Promise<void> {
+  const { chart, options } = state
+  if (state.infoFor?.[0] === chart && state.infoFor[1] === options.objects) return
+  const container = part(root, 'info')
+  // Links resolve against the loaded objects, so a catalog or layer change re-renders the article.
+  if (state.infoFor?.[0] !== chart) container.replaceChildren()
+  const request = state.infoFor = [chart, options.objects] as const
+  const current = () => cards.get(root) === state && state.infoFor === request
+  container.setAttribute('aria-busy', 'true')
+  try {
+    const info = await loadConstellationInfo(chart.name)
+    if (!current()) return
+    renderObjectInfoContent(container, info, constellationInfoLinks(chart, options.objects, options.onSelect))
+  } catch (error) {
+    if (!current()) return
+    state.infoFor = undefined
+    container.replaceChildren(createLoadError(`${chart.name} Info`, () => syncInfo(root)))
+    console.error('Could not load constellation Info.', error)
+  }
+  container.removeAttribute('aria-busy')
+}
+
+/** Closing a card forgets Info, so it reopens on the chart. */
+export function resetConstellationInfo(root: HTMLElement): void {
+  const state = cards.get(root)
+  if (state) state.info = false
 }
 
 export function disposeConstellationCard(root?: HTMLElement): void {

@@ -1,6 +1,6 @@
 import { SaveCheck } from 'lucide'
 import { clearLoadRecovery, createLoadError, loadWithRecovery } from './load-recovery'
-import { ArrowLeft, ArrowLeftRight, ArrowRight, BookOpen, ChevronUp, ChevronsDownUp, ChevronsLeftRight, ChevronsRightLeft, ChevronsUpDown, CircleHelp, Clock, Cloud, Compass, Crosshair, Earth, Eye, Filter, Focus, Galaxy, Globe, Grid2X2, List, Lock, Minus, Moon, Orbit, Pause, Play, Plus, RotateCcw, RotateCw, Save, Search, Settings2, Sun, Telescope, Trophy, X, createElement, type IconNode } from 'lucide'
+import { ArrowLeft, ArrowLeftRight, ArrowRight, BookOpen, ChevronUp, ChevronsDownUp, ChevronsLeftRight, ChevronsRightLeft, ChevronsUpDown, CircleHelp, Clock, Cloud, Compass, Crosshair, Earth, Ellipsis, Eye, Filter, Focus, Galaxy, Globe, Grid2X2, List, Lock, Minus, Moon, Orbit, Pause, Play, Plus, RotateCcw, RotateCw, Save, Search, Settings2, Sun, Telescope, Trophy, X, createElement, type IconNode } from 'lucide'
 import { ObserverOriginIcon, OriginIcon } from './origin-icon'
 import { ConstellationIcon } from './constellation-icon'
 import { BUBBLE_OBJECT_TYPES, COMPACT_OBJECT_TYPES, describeObject, isBubbleObject, isCompactObject, isMolecularCloudObject, isNebulaObject, MOLECULAR_CLOUD_OBJECT_TYPES, NEBULA_OBJECT_TYPES, type Star } from './catalog-model'
@@ -74,7 +74,9 @@ function loadCardFeature<T>(id: string, label: string, load: () => Promise<T>, i
 }
 
 function text(id: string, value: string): void {
-  element(id).textContent = value
+  const target = element(id)
+  target.textContent = value
+  target.classList.toggle('missing-value', value === MISSING_VALUE)
 }
 
 // Values with selection-specific markup stay in renderSelection; Specs owns the rest.
@@ -86,6 +88,7 @@ function showSpec(id: string, value: SpecValue): void {
   if (value.title) target.title = value.title
   else target.removeAttribute('title')
   target.classList.toggle('unresolved-measurement', Boolean(value.unresolved))
+  target.classList.toggle('missing-value', value.text === MISSING_VALUE)
   if (value.label !== undefined) target.closest('.properties > div')!.querySelector('dt')!.textContent = value.label
 }
 
@@ -120,6 +123,7 @@ icon('constellations-lock-icon', Lock)
 icon('constellations-close-icon', X)
 icon('discover-constellation-magnify-icon', Search)
 icon('discover-constellation-grid-icon', Globe)
+icon('discover-constellation-info-icon', BookOpen)
 icon('reset-icon', Focus)
 icon('grid-icon', Grid2X2)
 icon('equatorial-grid-icon', Globe)
@@ -181,13 +185,14 @@ icon('magnitude-absolute-icon', Sun)
 icon('magnitude-apparent-icon', Eye)
 icon('constellation-magnify-icon', Search)
 icon('constellation-grid-icon', Globe)
+icon('constellation-info-icon', BookOpen)
 icon('planet-specs-icon', List)
 icon('planet-info-icon', BookOpen)
 icon('planet-moons-icon', Moon)
 icon('planet-earth-icon', Earth)
 icon('planet-earth-plus-icon', Plus)
 icon('planet-earth-minus-icon', Minus)
-icon('planet-stats-icon', ArrowLeftRight)
+icon('planet-stats-icon', Ellipsis)
 icon('planet-atmosphere-icon', Cloud)
 icon('planet-atmosphere-chevron', ChevronUp)
 icon('time-play-icon', Play)
@@ -573,6 +578,7 @@ function closeConstellationCard(restoreFocus = false): void {
   const card = element('constellation-card')
   if (card.hidden) return
   card.hidden = true
+  constellationCardModule?.resetConstellationInfo(card)
   element('constellation-toggle').setAttribute('aria-expanded', 'false')
   if (restoreFocus) element('constellation-toggle').focus()
 }

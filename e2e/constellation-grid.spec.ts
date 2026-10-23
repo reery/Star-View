@@ -16,7 +16,7 @@ test('equatorial grids adapt to zoom independently in both constellation cards @
   expect(gridBox.width).toBe(44)
   expect(gridBox.x + gridBox.width).toBeCloseTo(magnifyBox.x)
   const headingBox = (await card.locator('h2').boundingBox())!
-  expect(headingBox.x + headingBox.width).toBeLessThanOrEqual(gridBox.x)
+  expect(headingBox.x + headingBox.width <= gridBox.x || headingBox.y + headingBox.height <= gridBox.y).toBe(true)
   await grid.click()
   await expect(grid).toHaveAttribute('aria-pressed', 'true')
   await expect(card.locator('.constellation-grid-label').first()).toBeVisible()

@@ -3,7 +3,7 @@ import { readFileSync, readdirSync } from 'node:fs'
 import type { ConstellationChart } from '../src/constellations'
 import { openFilter, openSpecs, openViewer, selectObject } from './support'
 
-test('magnifies the selected star and restores the constellation overview', { tag: '@mobile' }, async ({ page }, testInfo) => {
+test('magnifies the selected star and restores the constellation overview', { tag: '@mobile' }, async ({ page, isMobile }, testInfo) => {
   const errors: string[] = []
   page.on('pageerror', (error) => errors.push(error.message))
   await openViewer(page)
@@ -30,8 +30,10 @@ test('magnifies the selected star and restores the constellation overview', { ta
   const lockBox = (await card.locator('#constellation-lock').boundingBox())!
   const headingBox = (await card.locator('h2').boundingBox())!
   expect(magnifierBox.width).toBe(44)
-  expect(magnifierBox.x + magnifierBox.width).toBeCloseTo(lockBox.x)
-  expect(headingBox.x + headingBox.width).toBeLessThanOrEqual(magnifierBox.x)
+  // Narrow cards move the Info and chart controls to a second header row below the name.
+  if (isMobile) expect(magnifierBox.y).toBeGreaterThanOrEqual(lockBox.y + lockBox.height - 1)
+  else expect(magnifierBox.x + magnifierBox.width).toBeCloseTo(lockBox.x)
+  expect(headingBox.x + headingBox.width <= magnifierBox.x || headingBox.y + headingBox.height <= magnifierBox.y).toBe(true)
   const overview = await snapshot()
   await magnifier.click()
   await expect(magnifier).toHaveAttribute('aria-pressed', 'true')
@@ -399,4 +401,33 @@ test('plots a non-star at its own sky coordinates in Canis Major', async ({ page
   await expect(card.locator('.constellation-selected-ring')).toHaveCount(1)
   await expect(card.locator('.constellation-star-name')).toHaveCount(1)
   await card.screenshot({ path: testInfo.outputPath('canis-major-pulsar.png') })
+})
+
+test('reads the constellation Info and selects its linked stars', { tag: '@mobile' }, async ({ page }) => {
+  const errors: string[] = []
+  page.on('pageerror', (error) => errors.push(error.message))
+  await openViewer(page)
+  await openSpecs(page)
+  await page.locator('#constellation-toggle').click()
+  const card = page.locator('#constellation-card')
+  const info = card.getByRole('button', { name: 'Info', exact: true })
+  await expect(card.locator('#constellation-chart > svg')).toBeVisible()
+  await info.click()
+  await expect(info).toHaveAttribute('aria-pressed', 'true')
+  await expect(card.locator('#constellation-chart')).toBeHidden()
+  await expect(page.locator('#constellation-grid')).toBeDisabled()
+  await expect(card.locator('#constellation-info strong').first()).toHaveText('Canis Major')
+  await card.locator('#constellation-info').getByRole('button', { name: 'Adhara', exact: true }).click()
+  await expect(page.locator('#star-name')).toHaveText('Adhara')
+  await expect(card.locator('#constellation-info')).toBeVisible()
+  await info.click()
+  await expect(card.locator('#constellation-chart > svg')).toBeVisible()
+  await expect(page.locator('#constellation-grid')).toBeEnabled()
+  // Info is not remembered once the card closes.
+  await info.click()
+  await card.locator('#constellation-close').click()
+  await page.locator('#constellation-toggle').click()
+  await expect(card.locator('#constellation-chart > svg')).toBeVisible()
+  await expect(info).toHaveAttribute('aria-pressed', 'false')
+  expect(errors).toEqual([])
 })
