@@ -1,12 +1,41 @@
 import {
   AdditiveBlending, BufferGeometry, Color, DoubleSide, DynamicDrawUsage, Float32BufferAttribute, Mesh, ShaderMaterial,
-  SphereGeometry, Uint32BufferAttribute, Vector3,
+  IcosahedronGeometry, SphereGeometry, Uint32BufferAttribute, Vector3,
 } from 'three'
+import { mergeVertices } from 'three/addons/utils/BufferGeometryUtils.js'
 import type { BubbleDetails, Star } from './catalog-model'
 import type { StarColorMode } from './astronomy'
 
 const LONGITUDE_SEGMENTS = 48
 const LATITUDE_SEGMENTS = 24
+// The published grid is far denser and noisier than the shell needs to read well.
+// An evenly tessellated icosphere avoids pole slivers, and neighbor smoothing turns
+// single-cell radius jumps into continuous lobes. Smoothing a high power of the
+// radius favors the outer wall, so narrow extensions such as the chimney survive.
+const GRID_SURFACE_DETAIL = 15
+const GRID_SMOOTHING_PASSES = 4
+const GRID_SMOOTHING_POWER = 8
+
+function smoothGridRadii(radii: Float32Array, indices: ArrayLike<number>): void {
+  const neighbors = Array.from({ length: radii.length }, () => new Set<number>())
+  for (let index = 0; index < indices.length; index += 3) {
+    const a = indices[index]!, b = indices[index + 1]!, c = indices[index + 2]!
+    neighbors[a]!.add(b).add(c)
+    neighbors[b]!.add(a).add(c)
+    neighbors[c]!.add(a).add(b)
+  }
+  for (let vertex = 0; vertex < radii.length; vertex++) radii[vertex] = radii[vertex]! ** GRID_SMOOTHING_POWER
+  const next = new Float32Array(radii.length)
+  for (let pass = 0; pass < GRID_SMOOTHING_PASSES; pass++) {
+    for (let vertex = 0; vertex < radii.length; vertex++) {
+      let total = radii[vertex]!
+      for (const neighbor of neighbors[vertex]!) total += radii[neighbor]!
+      next[vertex] = total / (neighbors[vertex]!.size + 1)
+    }
+    radii.set(next)
+  }
+  for (let vertex = 0; vertex < radii.length; vertex++) radii[vertex] = radii[vertex]! ** (1 / GRID_SMOOTHING_POWER)
+}
 
 function galacticDirection(longitudeDeg: number, latitudeDeg: number): Vector3 {
   const longitude = longitudeDeg * Math.PI / 180
@@ -74,10 +103,18 @@ export interface BubbleSurface {
 export function generateBubbleSurface(bubble: Star): BubbleSurface {
   if (!bubble.bubble) throw new Error(`Not a bubble: ${bubble.id}`)
   const shape = bubble.bubble.shape
-  const longitudeSegments = shape.kind === 'directional_grid' ? shape.surface_grid.longitude_segments : LONGITUDE_SEGMENTS
-  const latitudeSegments = shape.kind === 'directional_grid' ? shape.surface_grid.latitude_segments : LATITUDE_SEGMENTS
-  const source = new SphereGeometry(1, longitudeSegments, latitudeSegments)
+  const grid = shape.kind === 'directional_grid'
+  let source: BufferGeometry
+  if (!grid) source = new SphereGeometry(1, LONGITUDE_SEGMENTS, LATITUDE_SEGMENTS)
+  else {
+    const icosphere = new IcosahedronGeometry(1, GRID_SURFACE_DETAIL)
+    icosphere.deleteAttribute('normal')
+    icosphere.deleteAttribute('uv')
+    source = mergeVertices(icosphere)
+    icosphere.dispose()
+  }
   const positions = source.getAttribute('position')
+  const radii = new Float32Array(positions.count)
   const origin = new Vector3(
     shape.origin_pc[0],
     shape.origin_pc[2],
@@ -92,8 +129,11 @@ export function generateBubbleSurface(bubble: Star): BubbleSurface {
   for (let index = 0; index < positions.count; index++) {
     worldDirection.fromBufferAttribute(positions, index).normalize()
     galacticDirectionScratch.set(worldDirection.x, -worldDirection.z, worldDirection.y)
-    const radius = bubbleRadiusPc(bubble.bubble, galacticDirectionScratch)
-    worldDirection.multiplyScalar(radius).add(origin)
+    radii[index] = bubbleRadiusPc(bubble.bubble, galacticDirectionScratch)
+  }
+  if (grid) smoothGridRadii(radii, source.getIndex()!.array)
+  for (let index = 0; index < positions.count; index++) {
+    worldDirection.fromBufferAttribute(positions, index).normalize().multiplyScalar(radii[index]!).add(origin)
     positions.setXYZ(index, worldDirection.x, worldDirection.y, worldDirection.z)
     bounds.min.min(worldDirection)
     bounds.max.max(worldDirection)
@@ -210,7 +250,7 @@ export function createBubbleLayer(bubbles: readonly Star[], mode: StarColorMode)
         float broadStructure = 0.78 + 0.22 * sin(
           vWorldPosition.x * 0.031 + sin(vWorldPosition.y * 0.023) + vWorldPosition.z * 0.019
         );
-        float alpha = vOpacity * (0.58 + 1.55 * grazing) * broadStructure;
+        float alpha = vOpacity * (0.82 + 2.15 * grazing) * broadStructure;
         gl_FragColor = vec4(vColor, alpha);
         #include <colorspace_fragment>
       }

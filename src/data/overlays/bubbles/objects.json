@@ -48,7 +48,7 @@
         "position_source": "Peak-extinction surface and geometric center from O'Neill et al. (2024), ApJ 973, 136",
         "source_label": "O'Neill et al. (2024)",
         "source_url": "https://doi.org/10.3847/1538-4357/ad61de",
-        "model_note": "The shell is a 128 by 64 Galactic longitude-latitude sampling of the 786,392-sightline peak-extinction surface in the authors' published interactive Figure 3. Each angular cell uses its 95th-percentile published radius; duplicated pole vertices share a mean. This retains narrow chimney and tunnel extrema without turning individual parsec-scale source pixels into spikes, while reducing the point cloud to one efficient indexed mesh."
+        "model_note": "The shell is a 128 by 64 Galactic longitude-latitude sampling of the 786,392-sightline peak-extinction surface in the authors' published interactive Figure 3. Each angular cell uses its 95th-percentile published radius; duplicated pole vertices share a mean. This retains narrow chimney and tunnel extrema without turning individual parsec-scale source pixels into spikes, while reducing the point cloud to one efficient indexed mesh. The rendered shell smooths this grid on a 5,120-triangle mesh, so the narrowest extrema, including the top of the chimney, appear rounded and somewhat shorter."
       }
     }
   ]
