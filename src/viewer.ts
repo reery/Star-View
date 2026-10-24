@@ -289,7 +289,7 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
   camera.far = controls.maxDistance * 5
 
   let milkyWayVisible = options.milkyWayVisible ?? true
-  const milkyWay = createMilkyWayLayer(starColorMode === 'exaggerated' ? 1.3 : 1, renderer.capabilities.maxTextureSize, (ready) => {
+  const milkyWay = createMilkyWayLayer(starColorMode === 'exaggerated' ? 1.3 : 1, renderer.capabilities.maxTextureSize, reducedMotion, (ready) => {
     if (ready === null) delete container.dataset.milkyWayReady
     else container.dataset.milkyWayReady = ready ? 'true' : 'error'
     if (ready) requestRender()
@@ -1984,10 +1984,12 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
     setLabelsMoving(continueRendering || simulationPlaying)
     const ordinaryLabelsLaidOut = updateLabels(time)
     skyGrid.updateLabels(camera, projectionViewport!, (bounds) => blocked.queryAny(bounds, (other) => overlaps(bounds, other)), ordinaryLabelsLaidOut)
+    // The fade alone does not move labels, so it keeps frames coming without setLabelsMoving().
+    const milkyWayFading = milkyWay.updateFade(time)
     if (molecularCloudLayer) molecularCloudLayer.render(renderer, scene, camera)
     else renderer.render(scene, camera)
     setData(labelLayer, 'drawCalls', String(renderer.info.render.calls))
-    if (continueRendering || refreshSamplesRemaining > 0) requestRender(false)
+    if (continueRendering || milkyWayFading || refreshSamplesRemaining > 0) requestRender(milkyWayFading)
     else {
       previousRafTime = 0
       lastRenderTime = 0

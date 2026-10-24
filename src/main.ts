@@ -2176,10 +2176,10 @@ async function switchCatalog(id: string, refresh = false): Promise<void> {
   sceneStatus(`Loading ${definition.manifest.label}...`)
   let nextStars: Star[]
   try {
-    const selectedCatalog = await definition.load()
     const loadOverlay = (types: readonly FilterKey[], load: () => Promise<Star[]>) =>
       types.some((type) => visibleKeys.has(type)) ? load() : Promise.resolve([])
-    const [westernConstellationCatalog, compactObjects, nebulae, molecularClouds, bubbles] = await Promise.all([
+    const [selectedCatalog, westernConstellationCatalog, compactObjects, nebulae, molecularClouds, bubbles] = await Promise.all([
+      definition.load(),
       showWesternConstellationStars && id !== WESTERN_CONSTELLATION_CATALOG_ID
         ? catalogs.find((catalog) => catalog.manifest.id === WESTERN_CONSTELLATION_CATALOG_ID)!.load() : Promise.resolve([]),
       loadOverlay(COMPACT_OBJECT_TYPES, loadCompactRemnants),

@@ -60,6 +60,41 @@ function contentSecurityPolicy(): Plugin {
   }
 }
 
+// bootstrap.ts imports main.ts dynamically for load recovery, so Vite only requests
+// the app's chunks after the entry runs. Preload them from the document instead.
+function preloadMainChunks(): Plugin {
+  let base = '/'
+  return {
+    name: 'star-view-preload-main',
+    apply: 'build',
+    configResolved(config) {
+      base = config.base
+    },
+    transformIndexHtml: {
+      order: 'post',
+      handler(_, context) {
+        const { bundle, chunk: entry } = context
+        if (!bundle || !entry) return
+        const main = Object.values(bundle).find((output) => output.type === 'chunk' && output.facadeModuleId?.endsWith('/src/main.ts'))
+        if (!main || main.type !== 'chunk') return
+        const files = new Set<string>()
+        const visit = (fileName: string) => {
+          const output = bundle[fileName]
+          if (files.has(fileName) || fileName === entry.fileName || entry.imports.includes(fileName) || output?.type !== 'chunk') return
+          files.add(fileName)
+          output.imports.forEach(visit)
+        }
+        visit(main.fileName)
+        return [...files].map((fileName) => ({
+          tag: 'link',
+          attrs: { rel: 'modulepreload', crossorigin: true, href: `${base}${fileName}` },
+          injectTo: 'head' as const,
+        }))
+      },
+    },
+  }
+}
+
 // Source-note payloads are already named by content hash, so the browser derives each URL
 // from the catalog record instead of downloading a lookup table of bundler-hashed URLs.
 function catalogDetailFiles(): Plugin {
@@ -198,7 +233,7 @@ function brotliAssets(): Plugin {
 }
 
 export default defineConfig(({ mode }) => ({
-  plugins: [contentSecurityPolicy(), catalogDetailFiles(), cloudflareAssetConfig(), brotliAssets()],
+  plugins: [contentSecurityPolicy(), preloadMainChunks(), catalogDetailFiles(), cloudflareAssetConfig(), brotliAssets()],
   // Keep a manual-refresh option for long inspection sessions in Safari.
   server: {
     ...(mode === 'manual' ? { hmr: false } : {}),

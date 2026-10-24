@@ -8,8 +8,12 @@ export interface MilkyWayLayer {
   setSaturation(saturation: number): void
   /** Reload after a restored WebGL context: the decoded panorama is not retained after upload. */
   reload(): void
+  /** Advances the fade-in; returns true while another frame is needed. */
+  updateFade(time: number): boolean
   dispose(): void
 }
+
+const FADE_MS = 800
 
 // A 1×1 AVIF: browsers that cannot decode it receive the JPEG instead of downloading both.
 const AVIF_PROBE = 'data:image/avif;base64,AAAAHGZ0eXBhdmlmAAAAAG1pZjFhdmlmbWlhZgAAANZtZXRhAAAAAAAAACFoZGxyAAAAAAAAAABwaWN0AAAAAAAAAAAAAAAAAAAAACJpbG9jAAAAAERAAAEAAQAAAAAA+gABAAAAAAAAAB4AAAAjaWluZgAAAAAAAQAAABVpbmZlAgAAAAABAABhdjAxAAAAAA5waXRtAAAAAAABAAAAVmlwcnAAAAA4aXBjbwAAAAxhdjFDgSACAAAAABRpc3BlAAAAAAAAAAEAAAABAAAAEHBpeGkAAAAAAwgICAAAABZpcG1hAAAAAAAAAAEAAQOBAgMAAAAmbWRhdBIACgc4AAbQENBpMhEZQmMEwAA0AAAAkEDJHGFCvg=='
@@ -28,7 +32,8 @@ async function loadPanorama(url: string): Promise<ImageBitmap> {
   return createImageBitmap(await response.blob(), { imageOrientation: 'flipY', premultiplyAlpha: 'none' })
 }
 
-interface Panorama { texture: Texture<ImageBitmap>; width: number; height: number }
+// `shown` lets a rebuilt viewer reuse the shared texture without fading in again.
+interface Panorama { texture: Texture<ImageBitmap>; width: number; height: number; shown: boolean }
 
 // The panorama is large: upload it once for the shared renderer, across viewer
 // rebuilds. Its ~50 MB decoded copy is closed once the GPU holds the texture.
@@ -46,7 +51,7 @@ function loadMilkyWayTexture(): Promise<Panorama> {
     texture.magFilter = LinearFilter
     texture.onUpdate = () => image.close()
     texture.needsUpdate = true
-    return { texture, width: image.width, height: image.height }
+    return { texture, width: image.width, height: image.height, shown: false }
   })
   const pending = texturePromise
   pending.catch(() => {
@@ -70,12 +75,13 @@ function releaseMilkyWayTexture(contextLost = false): void {
 // this preserves its exact Galactic orientation: the centre points toward
 // Galactic x, north is +world y, and increasing longitude points toward
 // -world z, matching galacticToWorld().
-export function createMilkyWayLayer(saturation: number, maxTextureSize: number, onLoad: (ready: boolean | null) => void): MilkyWayLayer {
+export function createMilkyWayLayer(saturation: number, maxTextureSize: number, reducedMotion: MediaQueryList, onLoad: (ready: boolean | null) => void): MilkyWayLayer {
   const uniforms = {
     map: { value: null as Texture | null },
     texelSize: { value: new Vector2() },
     intensity: { value: 0.12 },
     saturation: { value: saturation },
+    opacity: { value: 1 },
   }
   const geometry = new BoxGeometry(1, 1, 1)
   const material = new ShaderMaterial({
@@ -99,6 +105,7 @@ export function createMilkyWayLayer(saturation: number, maxTextureSize: number, 
       uniform vec2 texelSize;
       uniform float intensity;
       uniform float saturation;
+      uniform float opacity;
       varying vec3 worldDirection;
       #include <common>
       void main() {
@@ -119,6 +126,7 @@ export function createMilkyWayLayer(saturation: number, maxTextureSize: number, 
         float skyAlpha = max(max(skyColor.r, skyColor.g), skyColor.b);
         gl_FragColor = vec4(skyColor, skyAlpha);
         #include <colorspace_fragment>
+        gl_FragColor *= opacity;
       }
     `,
   })
@@ -132,15 +140,22 @@ export function createMilkyWayLayer(saturation: number, maxTextureSize: number, 
   let visible = false
   let requested: Promise<Panorama> | undefined
   let disposed = false
+  let fadeStarted: number | null = null
+  let fading = false
 
   function load(): void {
     if (uniforms.map.value) return
     const pending = loadMilkyWayTexture()
     if (pending === requested) return
     requested = pending
-    pending.then(({ texture, width, height }) => {
+    pending.then((panorama) => {
+      const { texture, width, height } = panorama
       // Ignore a load that was released, superseded, or outlived this viewer.
       if (disposed || pending !== requested || pending !== texturePromise) return
+      fading = !panorama.shown && !reducedMotion.matches
+      fadeStarted = null
+      uniforms.opacity.value = fading ? 0 : 1
+      panorama.shown = true
       uniforms.map.value = texture
       const textureWidth = Math.min(width, maxTextureSize)
       const textureHeight = height * textureWidth / width
@@ -179,6 +194,14 @@ export function createMilkyWayLayer(saturation: number, maxTextureSize: number, 
     reload() {
       release(true)
       if (visible) load()
+    },
+    updateFade(time) {
+      if (!fading || !mesh.visible) return false
+      fadeStarted ??= time
+      const progress = Math.min(1, (time - fadeStarted) / FADE_MS)
+      uniforms.opacity.value = progress * progress * (3 - 2 * progress)
+      fading = progress < 1
+      return fading
     },
     dispose() {
       disposed = true
